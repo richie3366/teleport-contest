@@ -3,6 +3,7 @@
 
 import { game } from './gstate.js';
 import { pline } from './display.js';
+import { stagger, permonstHuman } from './mondata.js';
 
 /** C: reset_justpicked(olist) — clear pickup_prev on each object in the chain. */
 export function resetJustPicked(olist) {
@@ -11,9 +12,12 @@ export function resetJustPicked(olist) {
     for (let o = list; o; o = o.nobj) o.pickup_prev = 0;
 }
 
-/** C: mondata.c stagger(ptr, def) — humanoid hero uses def ("stagger"). */
-function staggerVerb() {
-    return 'stagger';
+/**
+ * C: raceptr(&youmonst) / youmonst.data for encumber phrasing.
+ * @returns {import('./mondata.js').Permonst}
+ */
+function encumberStaggerPtr() {
+    return game.youmonst?.data ?? permonstHuman;
 }
 
 /**
@@ -34,7 +38,7 @@ export async function encumberMsg() {
             await pline('You rebalance your load.  Movement is difficult.');
             break;
         case 3:
-            await pline(`You ${staggerVerb()} under your heavy load.  Movement is very hard.`);
+            await pline(`You ${stagger(encumberStaggerPtr(), 'stagger')} under your heavy load.  Movement is very hard.`);
             break;
         default:
             await pline(
@@ -58,7 +62,7 @@ export async function encumberMsg() {
             await pline('You rebalance your load.  Movement is still difficult.');
             break;
         case 3:
-            await pline(`You ${staggerVerb()} under your load.  Movement is still very hard.`);
+            await pline(`You ${stagger(encumberStaggerPtr(), 'stagger')} under your load.  Movement is still very hard.`);
             break;
         default:
             break;
