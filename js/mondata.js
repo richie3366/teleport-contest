@@ -1,9 +1,10 @@
 // mondata.js — Monster type predicates and locomotion phrasing.
-// C ref: mondata.h (is_floater, is_flyer, …), mondata.c stagger(), monflag.h M1_*, MZ_*.
+// C ref: mondata.h (is_floater, is_flyer, …), mondata.c locomotion(), stagger(),
+// monflag.h M1_*, MZ_*.
 
 /** @typedef {{ mlet: number, mflags1: number, msize: number, mmove: number }} Permonst */
 
-// C: monflag.h (subset used by stagger)
+// C: monflag.h (subset used by locomotion / stagger)
 const M1_FLY = 0x00000001;
 const M1_AMORPHOUS = 0x00000004;
 const M1_NOLIMBS = 0x00006000;
@@ -55,7 +56,7 @@ function nolimbs(/** @type {Permonst} */ ptr) {
     return (ptr.mflags1 & M1_NOLIMBS) === M1_NOLIMBS;
 }
 
-/** C: mondata.c static locoverbs (stagger uses indices 2 and 3). */
+/** C: mondata.c static locoverbs */
 const LEVITATE = ['float', 'Float', 'wobble', 'Wobble'];
 const FLYS = ['fly', 'Fly', 'flutter', 'Flutter'];
 const FLYL = ['fly', 'Fly', 'stagger', 'Stagger'];
@@ -63,6 +64,35 @@ const SLITHER = ['slither', 'Slither', 'falter', 'Falter'];
 const OOZE = ['ooze', 'Ooze', 'tremble', 'Tremble'];
 const IMMOBILE = ['wiggle', 'Wiggle', 'pulsate', 'Pulsate'];
 const CRAWL = ['crawl', 'Crawl', 'falter', 'Falter'];
+
+/**
+ * Shared branch table: returns table string or null to use caller `def`.
+ * @param {Permonst} ptr
+ * @param {0|1|2|3} locoindx
+ * @returns {string|null}
+ */
+function locomotionBranch(ptr, locoindx) {
+    if (isFloater(ptr)) return LEVITATE[locoindx];
+    if (isFlyer(ptr) && ptr.msize <= MZ_SMALL) return FLYS[locoindx];
+    if (isFlyer(ptr) && ptr.msize > MZ_SMALL) return FLYL[locoindx];
+    if (slithy(ptr)) return SLITHER[locoindx];
+    if (amorphous(ptr)) return OOZE[locoindx];
+    if (!ptr.mmove) return IMMOBILE[locoindx];
+    if (nolimbs(ptr)) return CRAWL[locoindx];
+    return null;
+}
+
+/**
+ * C: locomotion(const struct permonst *ptr, const char *def)
+ * @param {Permonst|null|undefined} ptr
+ * @param {string} def
+ * @returns {string}
+ */
+export function locomotion(ptr, def) {
+    if (!ptr || typeof def !== 'string' || !def.length) return def || 'move';
+    const locoindx = def[0] !== highc(def[0]) ? 0 : 1;
+    return locomotionBranch(ptr, locoindx) ?? def;
+}
 
 /**
  * C: stagger(const struct permonst *ptr, const char *def)
@@ -73,13 +103,5 @@ const CRAWL = ['crawl', 'Crawl', 'falter', 'Falter'];
 export function stagger(ptr, def) {
     if (!ptr || typeof def !== 'string' || !def.length) return def || 'stagger';
     const locoindx = def[0] !== highc(def[0]) ? 2 : 3;
-
-    if (isFloater(ptr)) return LEVITATE[locoindx];
-    if (isFlyer(ptr) && ptr.msize <= MZ_SMALL) return FLYS[locoindx];
-    if (isFlyer(ptr) && ptr.msize > MZ_SMALL) return FLYL[locoindx];
-    if (slithy(ptr)) return SLITHER[locoindx];
-    if (amorphous(ptr)) return OOZE[locoindx];
-    if (!ptr.mmove) return IMMOBILE[locoindx];
-    if (nolimbs(ptr)) return CRAWL[locoindx];
-    return def;
+    return locomotionBranch(ptr, locoindx) ?? def;
 }
