@@ -52,12 +52,34 @@ Optional C recorder: [nethack-c/build-recorder.sh](../../nethack-c/build-recorde
 
 ### Scorer output (captured)
 
-*(pending)*
+Command (repo root):
+
+`node frozen/ps_test_runner.mjs sessions/seed8000-tourist-starter.session.json`
+
+Example result line:
+
+`FAIL: seed8000-tourist-starter.session.json (RNG 3126/3130, Screen 0/23 (cursors 19/23))`
+
+Example `__RESULTS_JSON__` metrics (commit `0be08d5` at capture time):
+
+```json
+{
+  "rngCalls": { "matched": 3126, "total": 3130 },
+  "screens": { "matched": 0, "total": 23 },
+  "cellsOnly": { "matched": 0, "total": 23 },
+  "cursors": { "matched": 19, "total": 23 },
+  "animFrames": { "matched": 0, "total": 0 }
+}
+```
 
 ### First RNG divergence
 
-*(pending — index and expected vs actual line)*
+Harness compares flattened PRNG lines positionally ([`frozen/ps_test_runner.mjs`](../../frozen/ps_test_runner.mjs)). With **3126 / 3130** matches, the first mismatch is at **0-based index 3126** (the **3127th** call): calls `0 … 3125` agree with C; call at index **3126** differs (and any later calls are not counted as matches).
+
+Re-run after porting changes; update this section when the failing line is identified from a diff tool.
 
 ### First screen divergence
 
-*(pending — step index and brief description)*
+With **Screen 0/23** and **cellsOnly 0/23**, every recorded boundary fails the **cell grid** comparator (not only cursor). **Cursors 19/23** still disagree on four boundaries — cursor-only fixes are insufficient until cells match.
+
+Treat **step index 0** (initial frame before first key) as the first place to bring `docrt` / map / botl output in line with C for this session.

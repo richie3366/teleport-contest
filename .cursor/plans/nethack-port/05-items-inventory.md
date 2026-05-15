@@ -24,7 +24,7 @@ Parent: global plan **NetHack JS port roadmap** (Workstream H + overlaps with D/
 ### Inventory and commands
 
 - [ ] `addinv`, `freeinv`, reordering, `#adjust`
-- [ ] Pickup (``,``), drop (`d`), throw (`t`), quaff (`q`), read (`r`), wear (`W`/`T`), wield (`w`), remove (`T`/`R`/`P` per C)
+- [ ] Pickup (`,`), drop (`d`), throw (`t`), quaff (`q`), read (`r`), wear (`W`/`T`), wield (`w`), remove (`T`/`R`/`P` per C)
 
 ### Shops
 
