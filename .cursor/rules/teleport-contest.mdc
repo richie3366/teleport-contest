@@ -1,0 +1,36 @@
+---
+description: Teleport contest contract, ethics, and frozen harness files
+alwaysApply: true
+---
+
+# Teleport contest (fork)
+
+## Goal
+
+Port **NetHack 5.0** behavior to plain JavaScript so the judge matches **C reference** PRNG ordering and **24×80** screens. Read the contract in [docs/API.md](docs/API.md) and the overview in [README.md](README.md).
+
+## Integrity (this fork)
+
+- Port from **C source semantics** and game logic. Do **not** derive behavior by transpiling or lifting from **binaries** or opaque bytecode.
+- Do **not** tune the implementation to **memorize** the 44 public sessions: no hardcoded session traces, no copying `sessions/*.session.json` outputs into code as a substitute for real logic. Ground truth is not passed into `runSegment`; do not treat public JSON as a spec to paste in.
+- Declare participant **category** honestly (e.g. agentic vs transpiled) per [README.md](README.md).
+
+## Frozen files (judge overwrites)
+
+Do **not** modify:
+
+- `js/isaac64.js` — PRNG
+- `js/terminal.js` — grid + serialize
+- `js/storage.js` — VFS for save/bones/record
+
+Everything else under `js/` is fair game.
+
+## Runtime constraints
+
+- **Plain ES modules**, no build step, no WASM, no network in contest code. Persistent state goes through `storage` per API.
+- Scoring runs in a **sandboxed** Node process with tight permissions; avoid patterns that assume full filesystem or `child_process`.
+
+## Pointers
+
+- [docs/PHASES.md](docs/PHASES.md) — Phase 2 rewards maintainable `js/`; prefer clear structure.
+- [nethack-c/README.md](nethack-c/README.md) — patched **clang** recorder vs vanilla upstream.
