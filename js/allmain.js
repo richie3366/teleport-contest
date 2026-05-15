@@ -61,12 +61,15 @@ export async function newgame() {
     g.u.ualign = { type: 0, record: 0 };
     g.u.uhs = UHS.NOT_HUNGRY; /* port eat.c / moveloop when hunger advances */
     g.u.near_capacity = 0; /* C: near_capacity(); port invent weight when ready */
+    g.u.uwep = null;
+    g.u.twoweap = false;
+    g.u.uarmg = null; /* gloves — port invent wear when ready */
     g.u.acurr = { a: [9, 14, 12, 11, 16, 16] };
     g.u.amax = { a: [9, 14, 12, 11, 16, 16] };
     g.moves = 1;
     // When non-zero, moveloop_core runs movemon + end-of-turn tail (harness).
-    // Seed 1 so the first post-newgame moveloop still runs the step-0 template
-    // (a no-op) before the first real key, matching upstream pacing.
+    // moves starts at 1 so the first post-newgame moveloop still runs the step-0
+    // template (a no-op) before the first real key, matching upstream pacing.
     g._prevMoveTick = 1;
     g.urole = { name: { m: 'Tourist', f: 'Tourist' }, rank: { m: 'Rambler', f: 'Rambler' } };
     g.urace = { adj: 'human' };

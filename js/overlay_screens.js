@@ -9,6 +9,7 @@ import { enlightMissionLines } from './enlght_patrons.js';
 import { newuexp, MAXULEV } from './explevel.js';
 import { enlightHungerLine } from './hunger.js';
 import { enlightEncumbranceLine } from './encumbr.js';
+import { enlightWieldLine, enlightWieldSkillLine } from './enlight_wield.js';
 
 /** @param {import('./game_display.js').GameDisplay} display */
 export function paintDiscoveriesIntoDisplay(display) {
@@ -128,8 +129,8 @@ export function paintAttributesIntoDisplay(display, page) {
     display.putstr(0, row++, ' Status:', NO_COLOR, 0);
     display.putstr(0, row++, enlightHungerLine(u.uhs), NO_COLOR, 0);
     display.putstr(0, row++, enlightEncumbranceLine(u.near_capacity, !!g._enlightenmentFinal), NO_COLOR, 0);
-    display.putstr(0, row++, '  You are bare handed.', NO_COLOR, 0);
-    display.putstr(0, row++, '  You are unskilled in bare handed combat.', NO_COLOR, 0);
+    display.putstr(0, row++, enlightWieldLine(u, g), NO_COLOR, 0);
+    display.putstr(0, row++, enlightWieldSkillLine(u), NO_COLOR, 0);
     row++;
     display.putstr(0, row++, ' Miscellaneous:', NO_COLOR, 0);
     display.putstr(0, row++, '  Total elapsed playing time is none.', NO_COLOR, 0);
