@@ -7,6 +7,7 @@ import { game } from './gstate.js';
 import { NO_COLOR, ATR_INVERSE } from './terminal.js';
 import { enlightMissionLines } from './enlght_patrons.js';
 import { newuexp, MAXULEV } from './explevel.js';
+import { enlightHungerLine } from './hunger.js';
 
 /** @param {import('./game_display.js').GameDisplay} display */
 export function paintDiscoveriesIntoDisplay(display) {
@@ -124,7 +125,7 @@ export function paintAttributesIntoDisplay(display, page) {
     display.putstr(0, row++, `  Your charisma is ${A[5]}.`, NO_COLOR, 0);
     row++;
     display.putstr(0, row++, ' Status:', NO_COLOR, 0);
-    display.putstr(0, row++, "  You aren't hungry.", NO_COLOR, 0);
+    display.putstr(0, row++, enlightHungerLine(u.uhs), NO_COLOR, 0);
     display.putstr(0, row++, '  You are unencumbered.', NO_COLOR, 0);
     display.putstr(0, row++, '  You are bare handed.', NO_COLOR, 0);
     display.putstr(0, row++, '  You are unskilled in bare handed combat.', NO_COLOR, 0);

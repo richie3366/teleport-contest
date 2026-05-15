@@ -15,6 +15,7 @@ import { fastforward_pre_mklev, fastforward_post_mklev, fastforward_fill_mineral
 import { movemon, MOVE_MON_HARNESS_MAX_STEP } from './monmove.js';
 import { end_of_turn_rng } from './moveloop_aux.js';
 import { initIniInvStub } from './ini_inv_stub.js';
+import { UHS } from './hunger.js';
 
 // C ref: allmain.c newgame()
 export async function newgame() {
@@ -58,6 +59,7 @@ export async function newgame() {
     g.u.uen = 2; g.u.uenmax = 2;
     g.u.uac = 10; g.u.uexp = 0;
     g.u.ualign = { type: 0, record: 0 };
+    g.u.uhs = UHS.NOT_HUNGRY; /* port eat.c / moveloop when hunger advances */
     g.u.acurr = { a: [9, 14, 12, 11, 16, 16] };
     g.u.amax = { a: [9, 14, 12, 11, 16, 16] };
     g.moves = 1;
