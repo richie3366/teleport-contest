@@ -8,7 +8,7 @@
 import { game } from './gstate.js';
 import { rn2, rnl } from './rng.js';
 import { pline, newsym } from './display.js';
-import { vision_recalc } from './vision.js';
+import { vision_recalc, cansee } from './vision.js';
 import {
     isok,
     u_at,
@@ -65,16 +65,88 @@ function visibleRegionAt(x, y) {
     return false;
 }
 
+function mApType(mtmp) {
+    // C: M_AP_TYPE(mtmp) — mimic / furniture disguise
+    return (mtmp.m_ap_type ?? 0) !== 0;
+}
+
+/** C: mimic.c seemimic — clear disguise and refresh map. */
+async function seemimic(mtmp) {
+    mtmp.m_ap_type = 0;
+    mtmp.mappearance = 0;
+    newsym(mtmp.mx, mtmp.my);
+}
+
+function warningOf(mtmp) {
+    // C: warning_of — prop.c / you.h; stub until warning port
+    return !!(mtmp?.warn_of_mon || mtmp?.data?.warn_of_mon);
+}
+
+function canSpotMon(mtmp) {
+    if (!mtmp) return false;
+    if (mtmp.minvis) return false;
+    return cansee(mtmp.mx, mtmp.my);
+}
+
+function senseMon(mtmp) {
+    void mtmp;
+    // TODO: telepathy / warn-of / sensemon
+    return false;
+}
+
+function monsterCanHide(mtmp) {
+    const d = mtmp?.data;
+    if (d?.is_hider || d?.hides_under) return true;
+    const mlet = mtmp.mlet ?? d?.mlet;
+    if (mlet === 'e') return true; // S_EEL class letter in many permonst tables
+    return !!(mtmp.is_hider || mtmp.hides_under);
+}
+
+function glyphIsInvisibleSquare(x, y) {
+    const loc = game.level?.at(x, y);
+    return loc?.disp_ch === 'I';
+}
+
 function mAt(x, y) {
     return game.level?.monsters?.find((m) => m.mx === x && m.my === y) ?? null;
 }
 
-/** C: mfind0 — reveal hidden monster; returns -1 (continue loop), 0, or >0 (early exit). */
+/** C: detect.c mfind0 — reveal mimic or mundetected hider; returns -1, 0, or 1. */
 async function mfind0(mtmp, viaWarning) {
-    void mtmp;
-    void viaWarning;
-    // TODO: detect.c mfind0 (seemimic, mundetected, newsym, You find …)
-    return 0;
+    if (viaWarning && !warningOf(mtmp)) return -1;
+
+    const x = mtmp.mx, y = mtmp.my;
+    let found_something = false;
+
+    if (mApType(mtmp)) {
+        await seemimic(mtmp);
+        found_something = true;
+    } else {
+        found_something = !canSpotMon(mtmp);
+        if (mtmp.mundetected && monsterCanHide(mtmp)) {
+            if (viaWarning && found_something) {
+                await pline(
+                    blindHero()
+                        ? 'Your danger sense causes you to take a second to check nearby.'
+                        : 'Your danger sense causes you to take a second look close by.',
+                );
+            }
+            mtmp.mundetected = 0;
+            found_something = true;
+        }
+        newsym(x, y);
+    }
+
+    if (!found_something) return 0;
+
+    if (!canSpotMon(mtmp) && glyphIsInvisibleSquare(x, y)) return -1;
+
+    if (!canSpotMon(mtmp)) await pline('You feel an unseen monster!');
+    else if (!senseMon(mtmp)) {
+        const who = mtmp.monnam || mtmp.data?.mname || 'monster';
+        await pline(mtmp.mtame ? `You find ${who}.` : `You find a ${who}.`);
+    }
+    return 1;
 }
 
 function tAt(x, y) {

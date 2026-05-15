@@ -4,12 +4,14 @@
 import { game } from './gstate.js';
 import { cansee } from './vision.js';
 import {
-    COLNO, ROWNO, STONE, ROOM, CORR, DOOR, STAIRS,
+    COLNO, ROWNO, STONE, ROOM, CORR, DOOR, STAIRS, LADDER,
     HWALL, VWALL, TLCORNER, TRCORNER, BLCORNER, BRCORNER,
     CROSSWALL, TUWALL, TDWALL, TLWALL, TRWALL,
     D_NODOOR, D_ISOPEN, D_CLOSED, D_LOCKED,
+    SDOOR, SCORR, IRONBARS, TREE, POOL, MOAT, WATER, ICE,
+    FOUNTAIN, SINK, ALTAR, GRAVE, THRONE, LAVAPOOL, LAVAWALL,
 } from './const.js';
-import { NO_COLOR, CLR_GRAY, CLR_BROWN, CLR_WHITE, CLR_YELLOW, DEC_TO_UNICODE } from './terminal.js';
+import { NO_COLOR, CLR_GRAY, CLR_BROWN, CLR_WHITE, CLR_YELLOW, CLR_GREEN, CLR_BLUE, CLR_CYAN, CLR_RED, CLR_BRIGHT_BLUE, CLR_BRIGHT_MAGENTA, DEC_TO_UNICODE } from './terminal.js';
 
 // ── ANSI color codes ──
 // Maps CLR_* constants (0-15) to ANSI SGR color codes.
@@ -62,6 +64,38 @@ function terrain_glyph(loc, x, y) {
     case TDWALL:    return { ch: 'w', color: NO_COLOR, dec: true };  // ┬
     case TLWALL:    return { ch: 'u', color: NO_COLOR, dec: true };  // ┤
     case TRWALL:    return { ch: 't', color: NO_COLOR, dec: true };  // ├
+    case SDOOR:
+        // C: looks like a wall until found — use same DEC glyphs as HWALL/VWALL
+        return loc.horizontal
+            ? { ch: 'q', color: NO_COLOR, dec: true }
+            : { ch: 'x', color: NO_COLOR, dec: true };
+    case SCORR:
+        return { ch: '#', color: NO_COLOR, dec: false };
+    case IRONBARS:
+        return { ch: '#', color: CLR_GRAY, dec: false };
+    case TREE:
+        return { ch: '#', color: CLR_GREEN, dec: false };
+    case POOL:
+    case MOAT:
+    case WATER:
+        return { ch: '~', color: CLR_BRIGHT_BLUE, dec: false };
+    case ICE:
+        return { ch: '.', color: CLR_CYAN, dec: false };
+    case FOUNTAIN:
+        return { ch: '}', color: CLR_BLUE, dec: false };
+    case SINK:
+        return { ch: '{', color: CLR_BRIGHT_BLUE, dec: false };
+    case ALTAR:
+        return { ch: '_', color: CLR_BRIGHT_MAGENTA, dec: false };
+    case THRONE:
+        return { ch: '^', color: CLR_YELLOW, dec: false };
+    case GRAVE:
+        return { ch: '|', color: CLR_GRAY, dec: false };
+    case LAVAPOOL:
+    case LAVAWALL:
+        return { ch: '}', color: CLR_RED, dec: false };
+    case LADDER:
+        return { ch: '>', color: CLR_YELLOW, dec: false };
     default:        return { ch: '?', color: NO_COLOR, dec: false };
     }
 }
