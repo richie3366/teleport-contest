@@ -17,7 +17,7 @@ import { moveloopPreamble } from './moveloop_preamble.js';
 import { parseNethackrc } from './options.js';
 import { flush_screen } from './display.js';
 import { GameDisplay } from './game_display.js';
-import { permonstHuman } from './mondata.js';
+import { applyIdentityFromNethackrc } from './chargen.js';
 
 // ── NethackGame ──
 // Wraps a single game session with replay infrastructure.
@@ -104,11 +104,8 @@ export class NethackGame {
         g.program_state = {};
         g.moves = 1;
 
-        // TODO: Map role/race/gender/align from opts to role data
-        g.urole = { name: { m: 'Rambler', f: 'Rambler' } };
-        g.urace = { adj: 'human', permonst: permonstHuman };
-        /* C: gy.youmonst.data — innate form for stagger(), Upolyd later */
-        g.youmonst = { data: permonstHuman };
+        /* C: u_init / role.c — identity from OPTIONS=role,race,gender,align */
+        applyIdentityFromNethackrc(g, opts);
 
         // Fixed play clock (moon, shop lines, Friday 13th, …) — C uses NETHACK_FIXED_DATETIME
         g.fixed_datetime = this._datetime || null;

@@ -1,0 +1,263 @@
+# NetHack 5.0 C → JavaScript port — progress report
+
+**Generated:** 2026-05-16  
+**Repository:** Teleport contest fork (`teleport-contest`)  
+**C reference:** `nethack-c/upstream/src` (NetHack 5.0.0 release tree; **~130 `.c` files** in `src/` at time of analysis)  
+**Contestant code:** `js/` (plain ES modules; frozen harness files per contest rules)
+
+### Rolling changelog (high level)
+
+| When | What changed |
+|------|----------------|
+| **2026-05-16 (follow-up)** | **Chargen from `nethackrc`:** new `js/chargen.js` (`applyIdentityFromNethackrc`) wires `OPTIONS=role`, `race`, `gender`, `align` into `g.urole`, `g.urace`, `g.u.ualign`, `g.flags.female`, and `youmonst.data` (still `permonstHuman` for all races until PM tables port). `js/roles.js` now carries **role abbreviations** and **XL1 rank titles** from upstream `role.c`. `allmain.js` no longer overwrites identity; welcome `pline` uses align + `urace.adj` + female role name. **Defaults** (no OPTIONS) stay aligned with the former stub: Tourist / human / female / neutral. **Likely next step:** derive **numeric hero stats**, gold, and `ini_inv` from real `u_init.c` + PRNG (shrink `fastforward_post_mklev` and the hardcoded block in `newgame`), or extend **`ini_inv_stub`** / role packs when sessions hit non-Tourist roles. |
+
+---
+
+## 1. Executive summary
+
+The fork has evolved from a **minimal harness** (RNG replay, skeletal `newgame` / `mklev`, movement-only `cmd`) into a **substantial partial port** of early-game subsystems: **dungeon layout**, **vision / glyph display**, **search / trap discovery**, **engravings and rumors**, **hero trap effects** (`dotrap` / `trapeffect` subsets), **pickup / look-here messaging**, **moveloop preamble** pieces aligned with `allmain.c`, and **UI overlays** (#attributes, discoveries, tourist inventory stub).
+
+The implementation is still **nowhere near full-game parity**. Two large **technical debts** dominate the path to judge parity:
+
+1. **`js/fastforward.js`** — replays hundreds of leaf PRNG draws from a reference extraction so the ISAAC stream stays aligned while `o_init`, dungeon graph setup, post-`mklev` init, and related paths are incomplete.
+2. **Per-turn harnesses** — `js/monmove.js` replays fixed `rn2` sequences for steps 1–12; `js/moveloop_aux.js` replays end-of-turn draws (`maybe_generate_rnd_mon`, `dosounds`, `gethungry`, `rn2(82)`, conditional exercise hooks) instead of real `allmain.c` / `monmove.c` / `eat.c` / `sounds.c` logic.
+
+**Git:** `main` is **92 commits ahead of `origin/main`** (all local-only at analysis time). Those commits are overwhelmingly `feat(js):` / `fix(js):` / `refactor(js):` / `docs(plans):` work: moveloop wiring, search/detect, trap progression, engraving stack, inventory overlays, and satellite planning under `.cursor/plans/nethack-port/`. They represent the **current best** view of port direction; nothing in this report substitutes reading the diff.
+
+---
+
+## 2. Scale: C surface vs JS modules
+
+| Layer | C (upstream `src/`) | JS (`js/`) |
+|--------|---------------------|------------|
+| **Volume** | ~130 compilation units, many **10k–200k** LOC (e.g. `cmd.c`, `do.c`, `artifact.c`, `display.c`) | **~13.5k lines** across contestant modules (excluding generated-size `rumor_data.js` / `epitaph_lines.js` data blobs) |
+| **Contest frozen** | N/A | `isaac64.js`, `terminal.js`, `storage.js` — **do not modify** |
+| **Global state** | `decl.c`, `you.h`, `rm.h`, … | `gstate.js` exports a mutable `game` bag; `game.js` defines `GameMap` / `makeLocation` |
+
+**Conclusion:** Less than **~5%** of upstream C by line count is mirrored in JS, and even that percentage overstates **behavioral** coverage because large JS files are **constants** (`const.js` ~2.9k lines) and **mklev** (partial algorithm, not full branch/special-level stack).
+
+---
+
+## 3. What is ported (concrete, with C anchors)
+
+The following areas have **real logic** traced to specific C files (comments in code cross-reference upstream). Quality ranges from “faithful subset” to “shape only.”
+
+### 3.1 Harness and contest API
+
+| Concern | C / docs | JS |
+|---------|----------|-----|
+| Segment runner, RNG logging, screen capture | `unixmain.c` / harness contract | `jsmain.js` — `runSegment`, `NethackGame`, `captureJudgeSnapshot`, `animationFrame` |
+| ISAAC64, terminal serialize | Recorder | `isaac64.js`, `terminal.js` (frozen) |
+| RNG wrappers, clang-order sensitivity | `rnd.c` / README | `rng.js` |
+
+### 3.2 Options and fixed clock
+
+| Concern | C | JS |
+|---------|---|-----|
+| `nethackrc` parsing subset | `cfgfiles.c`, `options` | `options.js` (partial); `iflags` / `perm_invent` mapping noted in recent commits |
+| Role / race / gender / align from OPTIONS | `u_init.c`, `role.c` | `chargen.js` + expanded `roles.js` (abbrev + XL1 ranks from `role.c`); called from `jsmain.js` `start()` |
+| Fixed datetime, moon, Friday 13th | `calendar.c`, flags | `moonphase.js`, `moveloop_preamble.js`, `attrib.js` (`changeLuck`) |
+
+### 3.3 Startup and main loop shell
+
+| Concern | C | JS |
+|---------|---|-----|
+| `newgame`, `moveloop_core`, `moveloop` | `allmain.c` | `allmain.js` — calls real `mklev`, then **fastforward** fills, **hardcoded `u` stats** (HP, AC, attrs, gold — still not `u_init`), `initIniInvStub`, vision init, welcome `pline` (identity from chargen) |
+| `moveloop_preamble` | `allmain.c` | `moveloop_preamble.js` — moon/friday messages, `rndencode`, `seer_turn`, `initrack`, `set_wear` / `reset_justpicked`, `pickup(1)`, encumber message hook, `see_monsters` deferral, `update_inventory`, `read_engr_at` on resume, `fix_shop_damage` noop |
+
+### 3.4 Dungeon generation (structural)
+
+| Concern | C | JS |
+|---------|---|-----|
+| Rooms, corridors, doors, stairs, niches, fill, many terrains | `mklev.c`, parts of `sp_lev.c`, `mkmap.c` | `mklev.js` (~1.9k lines) — **largest ported subsystem**; uses game PRNG; places traps, engravings, graves, floor objects in places |
+| Rect helpers | Various | `rect.js`, `hacklib.js` (`distmin`, depth) |
+
+**Caveats in `mklev.js`:** comments mark **oinit**, **level_difficulty**, **maketrap** (in some paths), **dealloc_obj**, **containers**, **corpsenm**, **in_rooms** as stubs or simplified.
+
+### 3.5 Map, vision, display
+
+| Concern | C | JS |
+|---------|---|-----|
+| `struct rm`, level container | `rm.h`, `decl.h` | `game.js` — `GameMap`, `floorObjHeads`, `engravings`, `traps` |
+| Vision / newsym / glyphs | `vision.c`, `display.c` | `vision.js`, `display.js` — partial; trap glyphs on map; `feel_location` minimal path |
+| Status / bot | `botl.c` | `display.js` / `game_display.js` — **partial**; TODO for full status line |
+| Overlays (#attributes, discoveries, tourist invent) | `cmd.c`, invent windows | `overlay_screens.js`, `invent.js`, enlightenment modules |
+
+### 3.6 Commands (narrow)
+
+| Concern | C | JS |
+|---------|---|-----|
+| `rhack`, movement, `domove` | `cmd.c`, `hack.c` | `cmd.js` — **hjklyubn**, `s` search, `:` pickup/look, ESC overlay dismiss, Ctrl-X #attributes flow |
+| `#` extended commands | `cmd.c` `doextcmd` | `extcmd.js` — **#v** version only; rest unknown |
+| Hash-prefixed extcmds from replay | `extcmdlist` | `extcmd.js` + `cmd.js` wiring |
+
+### 3.7 Search and traps (hero-centric)
+
+| Concern | C | JS |
+|---------|---|-----|
+| `dosearch` / `dosearch0`, `rnl`, `mfind0` subset | `detect.c` | `search.js` — growing; luck/fund bonuses stubbed; telepathy / warning stubbed |
+| Trap placement constants | `trap.h` | `const.js` — aligned with upstream trap types (recent fix commits) |
+| `dotrap`, `trapeffect_*`, `domagictrap` subset, `thitu` for missiles | `trap.c`, `mthrowu.c` | `trap.js`, `mthrowu.js` — **large** but many branches still TODO (steed, ball&chain, full `tele`, polyself, statue animate, destroy_items, etc.) |
+| `seetrap`, `feeltrap`, `nomul` on trap | `trap.c`, `hack.c` | Wired through movement path (recent commits) |
+
+### 3.8 Engravings, rumors, floor objects
+
+| Concern | C | JS |
+|---------|---|-----|
+| `engr_at`, `make_engr_at`, `read_engr_at`, wipe/smudge, headstones, graffiti | `engrave.c`, `rumors.c` | `engrave.js`, `engrave_lines.js`, `epitaph_lines.js`, `rumor_data.js`, `pickup.js` / `moveloop_preamble.js` hooks |
+| `getrumor`, `random_engraving` | `rumors.c` | Ported paths per commit messages |
+| Floor stacks `level.objects` | `mkobj.c` | `floorobj.js`, `mklev.js` / `game.js` — **mkgold**-style placement; not full `mkobj` |
+
+### 3.9 Monsters, combat, items (minimal)
+
+| Concern | C | JS |
+|---------|---|-----|
+| Permonst bits for locomotion / stagger | `mondata.h`, `mondata.c` | `mondata.js` — **subset**; `youmonst.data` / `urace.permonst` still **human-shaped stub** for every race until PM indices port |
+| `makemon` for domagictrap etc. | `makemon.c` | `makemon.js` — **explicit stub** (weighted `rndmonst` not ported) |
+| Stagger / encumbrance messaging | `mondata.c`, `hack.c` | `mondata.js`, `encumbr.js` — `near_capacity` reads stub `u` fields |
+
+### 3.10 Auxiliary
+
+| Concern | C | JS |
+|---------|---|-----|
+| `nomul`, travel stop on engraving | `hack.c`, `engrave.c` | `timeout.js` (subset) + travel/read integration per commits |
+| Track | `track.c` | `track.js` |
+| Shop damage | `shk.c` | `shop.js` — empty `fix_shop_damage` |
+| Version string | — | `nethack_version.js`, `version.js` |
+
+---
+
+## 4. What is deliberately *not* ported yet (major C areas)
+
+These upstream files (representative) have **no dedicated JS module** or only **distant stubs**:
+
+- **Combat pipeline:** `uhitm.c`, `mhitu.c`, `mhitm.c`, `weapon.c`, `u_init.c` (real **stats** / inventory rolls — chargen only maps **identity** strings today), `dokick.c`, `throw.c`, `zap.c`, …
+- **Full object model:** `mkobj.c`, `obj.c`, `invent.c` (beyond look/pickup stubs), `dothrow.c`, `pickup.c` (full), `shk.c` shops, `lock.c`, …
+- **Monsters:** `mon.c`, `monmove.c` (real), `muse.c`, `mfndpos.c`, corpse handling, …
+- **Full command set:** bulk of `cmd.c`, `do.c`, `apply.c`, `pray.c`, …
+- **Special levels / Lua:** `sp_lev.c`, Lua level scripts, branch graph beyond a **Mines stub** branch entry in `allmain.js`
+- **Save / bones / record:** `save.c`, `bones.c`, `topten.c` — `storage.js` exists but game serialization is not described as complete in code
+- **Endgame / quest / Vlad / …** — not started in any meaningful way
+
+---
+
+## 5. Technical debt and refinement priorities
+
+### 5.1 `fastforward.js` (highest risk for false progress)
+
+- **Purpose:** keep PRNG index aligned for a **specific** early initialization trace while `o_init`, full dungeon initialization, mineralize/fill RNG, and post-`mklev` player init are incomplete.
+- **Contest integrity:** contest rules forbid tuning to **memorize** the 44 public sessions; using a **static** extracted trace for *startup* is an acknowledged bridge, but it **must shrink** as real `o_init.c`, `dungeon.c`, `u_init.c`, `mklev.c` post-structural phases land.
+- **Refinement:** each deleted block should be replaced by **the same call graph and order** as C, verified with `score.sh` / session runners — expect **temporary** RNG drift until the next gap is closed.
+
+### 5.2 `monmove.js` + `moveloop_aux.js`
+
+- **Current:** `MOVE_MON_HARNESS_MAX_STEP = 12` with fixed lambdas; `end_of_turn_rng` uses **session-shaped** step conditionals (`stepNum === 9`, etc.) for exercise extras.
+- **Refinement:** replace with `movemon` from `monmove.c` + ordered tail from `allmain.c`; remove harness rows **incrementally** with regression checks (see `.cursor/plans/nethack-port/10-moveloop-detect-c-map.md`).
+
+### 5.3 `allmain.js` hardcoded hero (partially relieved)
+
+- **Done:** `OPTIONS=role,race,gender,align` → `g.urole` / `g.urace` / `g.flags.female` / `g.u.ualign` via `chargen.js`; `roles.js` carries upstream **abbrev** + **XL1 rank** strings; welcome message uses that identity.
+- **Still hardcoded:** HP/energy/AC/attrs/gold, `left_handed`, and all **gameplay** numbers — must come from `u_init.c` + real `ini_inv` when `fastforward_post_mklev` shrinks.
+- **Non-Tourist roles:** `ini_inv_stub.js` still clears inventory UI unless role name is `Tourist`; non-tourist sessions need real `ini_inv` or per-role stubs.
+
+### 5.4 `ini_inv_stub.js` + `o_init.js`
+
+- Starting inventory and discoveries are **stubbed** for overlay parity, not full `u_init.c` / `invent.c`.
+
+### 5.5 Traps and search “partial” correctness
+
+- Many **stubs** inside `trap.js`: `steedintrap`, resist properties, full `tele()`, level teleport, polyself, magic portal domination, statue animation (`search.js` / `trap.js` cross-stubs), destroy_items on fire trap, etc.
+- **Refinement:** each TODO is a future **RNG + screen** divergence once sessions exercise that branch.
+
+### 5.6 Display and pline ordering
+
+- Satellite plan `10-moveloop-detect-c-map.md` documents a **subtle** issue: clearing `_pending_message` at end of `moveloop_core` vs last captured frame — “naive” fixes can regress `seed8000`. Refinements must preserve **input-boundary** screen contract from `docs/API.md`.
+
+### 5.7 `const.js` / `game_display.js`
+
+- Large macro port in `const.js`; some helpers return `false` with TODO (e.g. `Is_juiblex_level`).
+- Full **botl** / cursor / SGR parity is still open (`07-display-terminal.md` checklist).
+
+---
+
+## 6. Unpushed commit trajectory (summary)
+
+**92 commits** on `main` not on `origin/main`, roughly from **docs/rules/plan scaffolding** through:
+
+- Harness fixes (terminal, replay, datetime sync)
+- **#search** aligned with `detect.c`; `rnl`; `mfind0` / `feel_location` minimal
+- **movemon** harness extension; split **moveloop_aux**; **blocked moves** no longer consume turns
+- **Post-replay judge snapshot** for screen parity
+- **Inventory / overlay** screens (tourist stub, discoveries, #attributes)
+- **Enlightenment** data (patrons, wield, encumbrance, hunger, XP, playtime)
+- **#version** extended command
+- **moveloop_preamble** expansion (moon, luck, `rndencode`, `seer_turn`, `initrack`, wear/pickup hooks, `update_inventory`, `near_capacity` / `urace` wiring)
+- **Engraving** pipeline end-to-end for many paths (smudge on walk, wipe, rumors, headstones, Elbereth rules, `nomul` / read at travel)
+- **Pickup** moveloop early exits, `can_reach_floor`, `look_here`, `dfeature_at` / `describe_decor`
+- **Floor objects** (`mkgold`-style), **track.c** port
+- **Traps:** `dotrap` after moves; arrow/dart via `thitu`; rock; fire/bear; pit/mine/hole/boulder/level-tele; tele trap; web/poly/anti-magic/statue/portal/vibrating; `domagictrap` + **makemon stub**; trap type constant alignment
+
+**Interpretation:** the branch is **actively converging** on an early fixed-seed tourist path (documented as `seed8000` in plans) while **widening** surface area (traps, engravings). It is **not** a sign that the whole game is near completion — it is **depth-first on early moveloop + D:1 features**.
+
+---
+
+## 7. Recommended “rest to do” (ordered for contest parity)
+
+Aligned with `.cursor/plans/nethack_js_port_roadmap_19a4defd.plan.md` and satellites under `.cursor/plans/nethack-port/`:
+
+1. **Kill `fastforward.js`** — port `o_init`, dungeon init graph, post-`mklev` mineralize/fill, `u_init`, `ini_inv` in **C order**; delete matching replay lines.
+2. **~~Real chargen~~ → extend chargen / `u_init`** — identity from `nethackrc` is wired; next is **numeric** starting state (HP, stats, gold, invent) from `u_init.c` and removal of the hardcoded `g.u` block in `newgame()`.
+3. **Real `movemon` + end-of-turn tail** — delete `monmove.js` / `moveloop_aux.js` harnesses.
+4. **Full `cmd.c` surface** — every key in session corpus; menus, `--More--`, `do` functions.
+5. **Objects and inventory** — `mkobj`, invent stack, pickup/drop, containers, shops (`shk.c`).
+6. **Combat and monsters** — `mhitu`, death, corpses, pets (`dog.c`), full trap interactions with monsters.
+7. **Branches and special levels** — Lua RNG channel, `sp_lev`, mines/soko/quest/…
+8. **Save / bones / multi-segment** — honor `input.storage` per `docs/API.md`.
+9. **Display parity** — `botl`, pline vs map message line, symset, full cursor policy.
+10. **Continuous QA** — run full public session set; track first divergence per session (`09-qa-sessions.md`).
+
+---
+
+## 8. Appendix: `js/` module sizes (lines)
+
+Approximate **physical LOC** (2026-05-16 `wc -l`):
+
+| Lines | File |
+|------:|------|
+| 2926 | `const.js` |
+| 1859 | `mklev.js` |
+| 1129 | `trap.js` |
+| 800 | `rumor_data.js` |
+| 713 | `terminal.js` (frozen) |
+| 558 | `vision.js` |
+| 545 | `engrave.js` |
+| 420 | `display.js` |
+| 402 | `epitaph_lines.js` |
+| 332 | `search.js` |
+| 319 | `fastforward.js` |
+| 251 | `pickup.js` |
+| 245 | `jsmain.js` |
+| 78 | `roles.js` |
+| 61 | `chargen.js` |
+| 199 | `isaac64.js` (frozen) |
+| 165 | `allmain.js`, `rect.js` |
+| 163 | `mondata.js` |
+| 161 | `cmd.js` |
+| ≤160 | remaining modules (see `wc -l js/*.js`) |
+
+**Total listed in `wc`:** ~13.5k lines under `js/*.js` (run `wc -l js/*.js` for current).
+
+---
+
+## 9. References inside this repo
+
+- Contract: `docs/API.md`
+- Phases / diff penalty: `docs/PHASES.md`
+- Roadmap index: `.cursor/plans/nethack_js_port_roadmap_19a4defd.plan.md`
+- Workstream checklists: `.cursor/plans/nethack-port/*.md` (especially `01`–`09` and `10-moveloop-detect-c-map.md`)
+- Port conventions: `.cursor/rules/teleport-js-port.mdc`
+- Upstream C submodule: `nethack-c/upstream/` (initialize with `git submodule update --init nethack-c/upstream` if missing)
+
+---
+
+*This document is an engineering snapshot for planning and onboarding; it is not a score prediction.*

@@ -61,7 +61,8 @@ export async function newgame() {
     g.u.uhp = 10; g.u.uhpmax = 10;
     g.u.uen = 2; g.u.uenmax = 2;
     g.u.uac = 10; g.u.uexp = 0;
-    g.u.ualign = { type: 0, record: 0 };
+    g.u.ualign = g.u.ualign || { type: 0, record: 0 };
+    if (g.u.ualign.record === undefined) g.u.ualign.record = 0;
     g.u.uhs = UHS.NOT_HUNGRY; /* port eat.c / moveloop when hunger advances */
     g.u.near_capacity = 0; /* C: near_capacity(); port invent weight when ready */
     g.u.Levitation = 0;
@@ -88,12 +89,8 @@ export async function newgame() {
     // moves starts at 1 so the first post-newgame moveloop still runs the step-0
     // template (a no-op) before the first real key, matching upstream pacing.
     g._prevMoveTick = 1;
-    g.urole = { name: { m: 'Tourist', f: 'Tourist' }, rank: { m: 'Rambler', f: 'Rambler' } };
-    g.urace = { ...g.urace, adj: 'human' };
-    g.flags.female = true;
     g.plname = g.plname || 'Contestant';
     g.u.left_handed = true;
-    g.flags.pickup = false;
     initIniInvStub(g);
 
     // C ref: allmain.c newgame() → u_on_upstairs()
@@ -109,10 +106,13 @@ export async function newgame() {
     await flush_screen(1);
     await bot();
 
-    // Welcome message
-    const alignName = 'neutral';
+    // Welcome message (C: u_init.c / pline welcome)
+    const t = g.u?.ualign?.type ?? 0;
+    const alignName = t === 0 ? 'neutral' : t > 0 ? 'lawful' : 'chaotic';
     const genderAdj = g.flags?.female ? 'female' : 'male';
-    await pline(`Aloha ${g.plname}, welcome to NetHack!  You are a ${alignName} ${genderAdj} human ${g.urole.name.m}.`);
+    const raceAdj = g.urace?.adj || 'human';
+    const roleNm = g.flags?.female ? g.urole.name.f : g.urole.name.m;
+    await pline(`Aloha ${g.plname}, welcome to NetHack!  You are a ${alignName} ${genderAdj} ${raceAdj} ${roleNm}.`);
 }
 
 // C ref: allmain.c moveloop_core()
