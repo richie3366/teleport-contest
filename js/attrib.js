@@ -1,8 +1,22 @@
 // attrib.js — Hero attributes and luck.
-// C ref: attrib.c change_luck(), exercise(); you.h LUCKMIN / LUCKMAX.
+// C ref: attrib.c acurr, adjattrib, change_luck(), exercise(); you.h ATTRMIN/ATTRMAX.
 
 import { game } from './gstate.js';
-import { LUCKMIN, LUCKMAX } from './const.js';
+import { LUCKMIN, LUCKMAX, STR18 } from './const.js';
+import { rn2 } from './rng.js';
+
+const DEF_ATTRMIN = Object.freeze([3, 3, 3, 3, 3, 3]);
+const DEF_ATTRMAX = Object.freeze([STR18(100), 18, 18, 18, 18, 18]);
+
+/** @param {number} ndx A_STR…A_CHA */
+function attrMin(ndx) {
+    return game.urace?.attrmin?.[ndx] ?? DEF_ATTRMIN[ndx] ?? 3;
+}
+
+/** @param {number} ndx A_STR…A_CHA */
+function attrMax(ndx) {
+    return game.urace?.attrmax?.[ndx] ?? DEF_ATTRMAX[ndx] ?? 18;
+}
 
 /**
  * C: attrib.c acurr(x) — effective attribute (minimal: ABASE only until poly/bonus port).
@@ -22,21 +36,45 @@ export function changeLuck(n) {
 }
 
 /**
- * C: attrib.c adjattrib(int attr, int change, boolean tell) — adjust base attribute.
+ * C: attrib.c adjattrib(int ndx, int incr, int msgflg)
+ * JS maps ABASE/AMAX onto u.acurr.a / u.amax.a (no separate ABASE until invent/poly port).
  * @param {number} attr — A_STR … A_CHA
- * @param {number} change — usually +1 or -1
- * @param {boolean} tell — whether to pline (not ported)
- * @returns {boolean} true if value changed
+ * @param {number} change — delta (positive or negative)
+ * @param {boolean|number} tell — C msgflg: positive => no message (hero init uses truthy skip)
+ * @returns {boolean} true if ACURR changed
  */
 export function adjattrib(attr, change, tell) {
     void tell;
     const u = game.u;
-    if (!u?.acurr?.a || !u?.amax?.a) return false;
-    if (change !== 1) return false;
-    const cur = u.acurr.a[attr] ?? 10;
-    const mx = u.amax.a[attr] ?? 18;
-    if (cur >= mx) return false;
-    u.acurr.a[attr] = cur + 1;
+    if (!change || !u?.acurr?.a || !u?.amax?.a) return false;
+    if (u.Fixed_abil) return false;
+
+    const old_acurr = acurr(attr);
+    const old_abase = u.acurr.a[attr] ?? 10;
+    const AMN = attrMin(attr);
+    const AMX = attrMax(attr);
+
+    u.acurr.a[attr] = old_abase + change;
+
+    if (change > 0) {
+        if (u.acurr.a[attr] > u.amax.a[attr]) {
+            u.amax.a[attr] = u.acurr.a[attr];
+            if (u.amax.a[attr] > AMX) u.acurr.a[attr] = u.amax.a[attr] = AMX;
+        }
+    } else {
+        if (u.acurr.a[attr] < AMN) {
+            const decr = rn2(AMN - u.acurr.a[attr] + 1);
+            u.acurr.a[attr] = AMN;
+            u.amax.a[attr] -= decr;
+            if (u.amax.a[attr] < AMN) u.amax.a[attr] = AMN;
+        }
+    }
+
+    if (acurr(attr) === old_acurr) return false;
+
+    if (u.atemp?.a) u.atemp.a[attr] = 0;
+    if (u.atime?.a) u.atime.a[attr] = 0;
+
     game.disp = game.disp || {};
     game.disp.botl = true;
     return true;

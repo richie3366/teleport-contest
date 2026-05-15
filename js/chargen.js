@@ -3,6 +3,7 @@
 
 import { findRole, findRoleByAbbr, findRace, findAlign, coerceChargenIdentity } from './roles.js';
 import { permonstHuman } from './mondata.js';
+import { A_CURRENT, A_ORIGINAL } from './const.js';
 
 /**
  * Apply role, race, gender, and alignment from `parseNethackrc` output.
@@ -44,6 +45,10 @@ export function applyIdentityFromNethackrc(g, opts) {
     g.u.ualign = g.u.ualign || { type: 0, record: 0 };
     g.u.ualign.type = alignType;
     if (g.u.ualign.record === undefined) g.u.ualign.record = 0;
+    /* C: u_init.c u_init_role — u.ualignbase[A_CURRENT] = u.ualignbase[A_ORIGINAL] = u.ualign.type */
+    g.u.ualignbase = g.u.ualignbase || [];
+    g.u.ualignbase[A_CURRENT] = alignType;
+    g.u.ualignbase[A_ORIGINAL] = alignType;
 
     g.urole = {
         abbr: role.abbr,
@@ -56,6 +61,8 @@ export function applyIdentityFromNethackrc(g, opts) {
         name: race.name,
         adj: race.adj,
         mnum: race.mnum,
+        attrmin: [...race.attrmin],
+        attrmax: [...race.attrmax],
         permonst: race.permonst ?? permonstHuman,
     };
 

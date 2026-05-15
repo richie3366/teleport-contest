@@ -6,6 +6,7 @@
 // races, gender): see `roles[]` entries in role.c.
 
 import { permonstHuman } from './mondata.js';
+import { STR18 } from './const.js';
 
 /** Alignment as u.ualign.type: A_LAWFUL=1, A_NEUTRAL=0, A_CHAOTIC=-1 */
 
@@ -49,13 +50,18 @@ export const roles = [
       allows: { align: [0, -1], races: ['human', 'elf', 'gnome', 'orc'], gender: 'any' } },
 ];
 
-/** @type {{ name: string, adj: string, mnum: number, filecode?: string, permonst?: import('./mondata.js').Permonst }[]} */
+/** @type {{ name: string, adj: string, mnum: number, filecode?: string, permonst?: import('./mondata.js').Permonst, attrmin: number[], attrmax: number[] }[]} */
 export const races = [
-    { name: 'human', adj: 'human', mnum: 0, filecode: 'Hum', permonst: permonstHuman },
-    { name: 'elf', adj: 'elven', mnum: 1, filecode: 'Elf', permonst: permonstHuman },
-    { name: 'dwarf', adj: 'dwarven', mnum: 2, filecode: 'Dwa', permonst: permonstHuman },
-    { name: 'gnome', adj: 'gnomish', mnum: 3, filecode: 'Gno', permonst: permonstHuman },
-    { name: 'orc', adj: 'orcish', mnum: 4, filecode: 'Orc', permonst: permonstHuman },
+    { name: 'human', adj: 'human', mnum: 0, filecode: 'Hum', permonst: permonstHuman,
+      attrmin: [3, 3, 3, 3, 3, 3], attrmax: [STR18(100), 18, 18, 18, 18, 18] },
+    { name: 'elf', adj: 'elven', mnum: 1, filecode: 'Elf', permonst: permonstHuman,
+      attrmin: [3, 3, 3, 3, 3, 3], attrmax: [18, 20, 20, 18, 16, 18] },
+    { name: 'dwarf', adj: 'dwarven', mnum: 2, filecode: 'Dwa', permonst: permonstHuman,
+      attrmin: [3, 3, 3, 3, 3, 3], attrmax: [STR18(100), 16, 16, 20, 20, 16] },
+    { name: 'gnome', adj: 'gnomish', mnum: 3, filecode: 'Gno', permonst: permonstHuman,
+      attrmin: [3, 3, 3, 3, 3, 3], attrmax: [STR18(50), 19, 18, 18, 18, 18] },
+    { name: 'orc', adj: 'orcish', mnum: 4, filecode: 'Orc', permonst: permonstHuman,
+      attrmin: [3, 3, 3, 3, 3, 3], attrmax: [STR18(50), 16, 16, 18, 18, 16] },
 ];
 
 export const aligns = [
@@ -105,7 +111,7 @@ export function findAlign(name) {
 /**
  * C: rigid_role_checks() / role_init() — clamp OPTIONS to a legal triple for this role.
  * @param {RoleRow} role
- * @param {{ name: string, adj: string, mnum: number, filecode?: string, permonst?: import('./mondata.js').Permonst }} race
+ * @param {{ name: string, adj: string, mnum: number, filecode?: string, permonst?: import('./mondata.js').Permonst, attrmin: number[], attrmax: number[] }} race
  * @param {number} alignType
  * @param {boolean} female
  */

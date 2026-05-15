@@ -63,6 +63,9 @@ export async function newgame() {
     g.u.uac = 10; g.u.uexp = 0;
     g.u.ualign = g.u.ualign || { type: 0, record: 0 };
     if (g.u.ualign.record === undefined) g.u.ualign.record = 0;
+    /* C: u_init.c u_init_role — u.ulevel after adjabil; XL 1 for new hero */
+    g.u.ulevel = 1;
+    g.u.ulevelmax = 1;
     g.u.uhs = UHS.NOT_HUNGRY; /* port eat.c / moveloop when hunger advances */
     g.u.near_capacity = 0; /* C: near_capacity(); port invent weight when ready */
     g.u.Levitation = 0;

@@ -41,6 +41,69 @@ const TOURIST_INI_INV = [
     { type: 'item', text: '(end)' },
 ];
 
+/** C: u_init.c Wizard[] — static labels for overlay until mkobj/ini_inv port. */
+const WIZARD_INI_INV = [
+    { type: 'cat', name: 'Weapons' },
+    { type: 'item', text: 'a - a blessed +1 quarterstaff (weapon in hands)' },
+    { type: 'cat', name: 'Armor' },
+    { type: 'item', text: 'b - an uncursed +0 cloak of magic resistance (being worn)' },
+    { type: 'cat', name: 'Wands' },
+    {
+        type: 'item',
+        text: 'c - a wand of fire (0:5)',
+        oclass: 'Wands',
+        discoveryLine: '  wand of fire',
+    },
+    { type: 'cat', name: 'Rings' },
+    {
+        type: 'item',
+        text: 'd - an uncursed ring of see invisible',
+        oclass: 'Rings',
+        discoveryLine: '  ring of see invisible',
+    },
+    {
+        type: 'item',
+        text: 'e - an uncursed ring of adornment',
+        oclass: 'Rings',
+        discoveryLine: '  ring of adornment',
+    },
+    { type: 'cat', name: 'Potions' },
+    {
+        type: 'item',
+        text: 'f - 3 uncursed potions of booze',
+        oclass: 'Potions',
+        discoveryLine: '  potion of booze',
+    },
+    { type: 'cat', name: 'Scrolls' },
+    {
+        type: 'item',
+        text: 'g - 3 uncursed scrolls of identify',
+        oclass: 'Scrolls',
+        discoveryLine: '  scroll of identify',
+    },
+    { type: 'cat', name: 'Spellbooks' },
+    {
+        type: 'item',
+        text: 'h - a blessed spellbook of force bolt',
+        oclass: 'Spellbooks',
+        discoveryLine: '  spellbook of force bolt',
+    },
+    {
+        type: 'item',
+        text: 'i - an uncursed spellbook of detect monsters',
+        oclass: 'Spellbooks',
+        discoveryLine: '  spellbook of detect monsters',
+    },
+    { type: 'cat', name: 'Tools' },
+    {
+        type: 'item',
+        text: 'j - a magic marker (19:0)',
+        oclass: 'Tools',
+        discoveryLine: '  magic marker',
+    },
+    { type: 'item', text: '(end)' },
+];
+
 /** @param {Array<{ type: 'cat', name: string } | { type: 'item', text: string | ((g: object) => string), oclass?: string, discoveryLine?: string }>} rows */
 function discoveryGroupsFromIniInv(rows) {
     const groups = [];
@@ -58,16 +121,19 @@ function discoveryGroupsFromIniInv(rows) {
     return groups;
 }
 
-/** C ref: u_init.c — apply role starting pack (Tourist only for now). */
-export function initIniInvStub(game) {
-    const role = game.urole?.name?.m || game.urole?.name?.f || '';
-    if (role !== 'Tourist') {
-        game._iniInvRows = [];
-        game.discoveryGroups = [];
-        return;
+/** C ref: u_init.c — apply role starting pack (subset: Tourist, Wizard). */
+export function initIniInvStub(/** @type {import('./gstate.js').game} */ g) {
+    const role = g.urole?.name?.m || g.urole?.name?.f || '';
+    if (role === 'Tourist') {
+        g._iniInvRows = TOURIST_INI_INV;
+        g.discoveryGroups = discoveryGroupsFromIniInv(TOURIST_INI_INV);
+    } else if (role === 'Wizard') {
+        g._iniInvRows = WIZARD_INI_INV;
+        g.discoveryGroups = discoveryGroupsFromIniInv(WIZARD_INI_INV);
+    } else {
+        g._iniInvRows = [];
+        g.discoveryGroups = [];
     }
-    game._iniInvRows = TOURIST_INI_INV;
-    game.discoveryGroups = discoveryGroupsFromIniInv(TOURIST_INI_INV);
 }
 
 /** @param {import('./game_display.js').GameDisplay} display */
