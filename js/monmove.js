@@ -8,7 +8,7 @@
 import { rn2 } from './rng.js';
 
 /** Last moveloop step index that still uses the session harness (1-based stepNum). */
-export const MOVE_MON_HARNESS_MAX_STEP = 10;
+export const MOVE_MON_HARNESS_MAX_STEP = 12;
 
 const _HARNESS = [
     () => { rn2(12); rn2(12); rn2(12); rn2(12); },
@@ -21,6 +21,9 @@ const _HARNESS = [
     () => { rn2(5); rn2(12); rn2(5); rn2(12); rn2(12); rn2(12); rn2(12); },
     () => { rn2(5); rn2(20); rn2(5); rn2(5); rn2(8); rn2(5); rn2(12); rn2(12); rn2(12); rn2(12); },
     () => { rn2(5); rn2(12); rn2(5); rn2(5); rn2(20); rn2(5); rn2(12); rn2(12); rn2(12); rn2(12); },
+    // moves 11–12: tourist #search steps 20–21 (seed8000-tourist-starter)
+    () => { rn2(5); rn2(20); rn2(5); rn2(5); rn2(12); rn2(5); rn2(12); rn2(12); rn2(12); rn2(12); },
+    () => { rn2(5); rn2(16); rn2(5); rn2(5); rn2(16); rn2(5); rn2(12); rn2(12); rn2(12); rn2(12); },
 ];
 
 /**
