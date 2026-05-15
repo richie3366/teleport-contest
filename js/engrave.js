@@ -1,6 +1,6 @@
 // engrave.js — Floor engravings and reachability at the hero’s square.
 // C ref: engrave.c read_engr_at(), engr_at(), make_engr_at(), can_reach_floor();
-//        dungeon.c surface(); hack.c maybe_smudge_engr (via maybeSmudgeEngr).
+//        dungeon.c surface(); hack.c maybe_smudge_engr; rumors.c getrumor
 
 import { game } from './gstate.js';
 import { pline } from './display.js';
@@ -23,9 +23,12 @@ import {
     ICE,
     BUFSZ,
     MD_PAD_RUMORS,
+    A_WIS,
 } from './const.js';
 import { ENGRAVE_FILE_BODY } from './engrave_lines.js';
 import { EPITAPH_FILE_BODY } from './epitaph_lines.js';
+import { RUMORS_TRUE_BODY, RUMORS_FALSE_BODY } from './rumor_data.js';
+import { exercise } from './attrib.js';
 import { raceptr } from './mondata.js';
 import { tAt } from './search.js';
 import { levlTypAt, stairwayAt } from './decor.js';
@@ -411,18 +414,64 @@ export function wipeoutText(engr, cnt, seed = 0) {
     return out;
 }
 
+const COOKIE_MARKER = '[cookie] ';
+
+/**
+ * C: rumors.c getrumor(truth, rumor_buf, exclude_cookie) — returns one line (plaintext DLB).
+ * @param {number} truth 1 true, -1 false, 0 either
+ * @param {boolean} excludeCookie
+ */
+export function getRumor(truth, excludeCookie) {
+    if (!RUMORS_TRUE_BODY.length && !RUMORS_FALSE_BODY.length) return '';
+
+    let rumor_buf = '';
+    let adjtruth = 0;
+    let count = 0;
+
+    do {
+        rumor_buf = '';
+        adjtruth = truth + rn2(2);
+        /** @type {string} */
+        let body;
+        switch (adjtruth) {
+        case 2:
+        case 1:
+            body = RUMORS_TRUE_BODY;
+            break;
+        case 0:
+        case -1:
+            body = RUMORS_FALSE_BODY;
+            break;
+        default:
+            return 'Oops...';
+        }
+        if (!body.length) break;
+        rumor_buf = getRndLineFromBody(body, MD_PAD_RUMORS);
+    } while (
+        count++ < 50
+        && excludeCookie
+        && rumor_buf.startsWith(COOKIE_MARKER)
+    );
+
+    if (!excludeCookie && rumor_buf.startsWith(COOKIE_MARKER))
+        rumor_buf = rumor_buf.slice(COOKIE_MARKER.length);
+
+    if (!game.in_mklev) exercise(A_WIS, adjtruth > 0);
+    return rumor_buf;
+}
+
 /**
  * C: engrave.c random_engraving(outbuf, pristine_copy)
- * getrumor() is not ported yet; the rn2(4) branch still runs, then ENGRAVEFILE.
  * @returns {{ text: string, pristine: string }}
  */
 export function randomEngraving() {
     let pristine = '';
-    if (rn2(4) !== 0) {
-        /* getrumor(0, buf, TRUE) would fill buf when rumors are available */
-        pristine = '';
+    if (!rn2(4)) {
+        pristine = getRndEngraveText();
+    } else {
+        pristine = getRumor(0, true);
+        if (!pristine) pristine = getRndEngraveText();
     }
-    if (!pristine) pristine = getRndEngraveText();
     const wcnt = Math.floor(pristine.length / 4) | 0;
     const text = wipeoutText(pristine, wcnt, 0);
     return { text, pristine };
