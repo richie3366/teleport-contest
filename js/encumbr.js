@@ -1,5 +1,8 @@
 // encumbr.js — Carry capacity tier for botl / enlightenment.
-// C ref: hack.h encumbrance_types, botl.c enc_stat[], cmd.c (encumbrance enlight).
+// C ref: hack.h encumbrance_types, hack.c near_capacity(), botl.c enc_stat[],
+// cmd.c (encumbrance enlight).
+
+import { game } from './gstate.js';
 
 export const ENC = {
     UNENCUMBERED: 0,
@@ -12,6 +15,14 @@ export const ENC = {
 
 /** C: botl.c enc_stat[] — index matches ENC (0 unused). */
 const ENC_WORD = ['', 'burdened', 'stressed', 'strained', 'overtaxed', 'overloaded'];
+
+/**
+ * C: hack.c near_capacity(void) — full weight/invent port TODO; reads stub u field.
+ * @returns {number}
+ */
+export function nearCapacity() {
+    return game.u?.near_capacity ?? 0;
+}
 
 /**
  * @param {number} [cap] — u.near_capacity result (0 = unencumbered)

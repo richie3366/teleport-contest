@@ -1,9 +1,10 @@
 // pickup.js — Autopickup, encumbrance messages, pickup_prev flags.
-// C ref: pickup.c reset_justpicked(), encumber_msg(), near_capacity via u.near_capacity
+// C ref: pickup.c reset_justpicked(), encumber_msg(); hack.c near_capacity via encumbr.js
 
 import { game } from './gstate.js';
 import { pline } from './display.js';
 import { stagger, permonstHuman } from './mondata.js';
+import { nearCapacity } from './encumbr.js';
 
 /** C: reset_justpicked(olist) — clear pickup_prev on each object in the chain. */
 export function resetJustPicked(olist) {
@@ -22,11 +23,10 @@ function encumberStaggerPtr() {
 
 /**
  * C: encumber_msg() — pline when near_capacity() crosses go.oldcap.
- * Uses game.u.near_capacity until invent weight / near_capacity() is ported.
  */
 export async function encumberMsg() {
     const g = game;
-    const newcap = g.u?.near_capacity ?? 0;
+    const newcap = nearCapacity();
     const old = g._encumberOldCap ?? 0;
 
     if (old < newcap) {
