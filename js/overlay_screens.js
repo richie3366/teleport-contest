@@ -8,7 +8,7 @@ import { NO_COLOR, ATR_INVERSE } from './terminal.js';
 import { enlightMissionLines } from './enlght_patrons.js';
 import { newuexp, MAXULEV } from './explevel.js';
 import { enlightHungerLine } from './hunger.js';
-import { enlightEncumbranceLine } from './encumbr.js';
+import { enlightEncumbranceLine, nearCapacity } from './encumbr.js';
 import { enlightWieldLine, enlightWieldSkillLine } from './enlight_wield.js';
 import { enlightPlaytimeLine } from './enlight_misc.js';
 
@@ -129,7 +129,7 @@ export function paintAttributesIntoDisplay(display, page) {
     row++;
     display.putstr(0, row++, ' Status:', NO_COLOR, 0);
     display.putstr(0, row++, enlightHungerLine(u.uhs), NO_COLOR, 0);
-    display.putstr(0, row++, enlightEncumbranceLine(u.near_capacity, !!g._enlightenmentFinal), NO_COLOR, 0);
+        display.putstr(0, row++, enlightEncumbranceLine(nearCapacity(), !!g._enlightenmentFinal), NO_COLOR, 0);
     display.putstr(0, row++, enlightWieldLine(u, g), NO_COLOR, 0);
     display.putstr(0, row++, enlightWieldSkillLine(u), NO_COLOR, 0);
     row++;

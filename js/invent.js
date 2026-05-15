@@ -8,7 +8,7 @@ import { paintIniInvStubIntoDisplay } from './ini_inv_stub.js';
 function suppressMapOutput() {
     const g = game;
     const ps = g.program_state || {};
-    if (g._inMklev || ps.saving || ps.restoring) return true;
+    if (g.in_mklev || ps.saving || ps.restoring) return true;
     return false;
 }
 
