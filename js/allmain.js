@@ -73,6 +73,8 @@ export async function newgame() {
     g.u.Fire_resistance = 0;
     g.u.HInvis = 0;
     g.u.EInvis = 0;
+    g.u.Antimagic = 0;
+    g.u.noteleport = 0;
     g.u.Hallucination = 0;
     g.u.uwep = null;
     g.u.twoweap = false;

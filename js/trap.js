@@ -41,9 +41,15 @@ import {
     is_pit,
     is_hole,
     In_sokoban,
+    In_endgame,
     isok,
     NO_MM_FLAGS,
     A_CHA,
+    STONE,
+    DOOR,
+    D_CLOSED,
+    D_LOCKED,
+    IS_WALL,
 } from './const.js';
 
 const M1_CLING = 0x00000010;
@@ -383,6 +389,58 @@ async function trapeffectRustHero() {
     }
 }
 
+/** C: monster.c next_to_u — stub true until ball&chain / engulfer checks exist. */
+function nextToU() {
+    return true;
+}
+
+/** C: hack.c blocks_move-style check for hero standing on (x,y). */
+function cellBlocksHero(x, y) {
+    const loc = game.level?.at(x, y);
+    if (!loc) return true;
+    if (loc.typ === STONE) return true;
+    if (IS_WALL(loc.typ)) return true;
+    if (loc.typ === DOOR && (loc.doormask & (D_CLOSED | D_LOCKED))) return true;
+    return false;
+}
+
+/**
+ * C: teleport.c tele_trap(struct trap *trap) — subset (fixed dest move; tele() TODO).
+ */
+async function trapeffectTelepHero(trap) {
+    const u = game.u;
+    if (!u) return;
+    seetrap(trap);
+    if (In_endgame(u.uz) || u.Antimagic || u.noteleport) {
+        await pline('You feel a wrenching sensation.');
+        return;
+    }
+    if (!nextToU()) {
+        await pline('You shudder for a moment.');
+        return;
+    }
+    if (trap.once) {
+        delTrap(trap);
+        newsym(u.ux, u.uy);
+        return;
+    }
+    const dx = trap.launch?.x;
+    const dy = trap.launch?.y;
+    if (fixedTeleTrap(trap) && isok(dx, dy) && !cellBlocksHero(dx, dy) && !mAt(dx, dy)) {
+        const ox = u.ux, oy = u.uy;
+        u.ux0 = ox;
+        u.uy0 = oy;
+        u.ux = dx;
+        u.uy = dy;
+        newsym(ox, oy);
+        vision_recalc(1);
+        newsym(dx, dy);
+        return;
+    }
+    /* C: tele() — random level teleport; not ported */
+    await pline('You feel disoriented for a moment.');
+}
+
 /**
  * C: trap.c trapeffect_selector — hero-only subset.
  * @param {{ ttyp: number, tseen?: boolean, madeby_u?: boolean, tnote?: number, tx: number, ty: number, launch?: { x: number, y: number } }} trap
@@ -402,6 +460,9 @@ async function trapeffectHero(trap, trflags) {
         break;
     case MAGIC_TRAP:
         await trapeffectMagicHero(trap);
+        break;
+    case TELEP_TRAP:
+        await trapeffectTelepHero(trap);
         break;
     default:
         seetrap(trap);
