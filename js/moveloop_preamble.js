@@ -1,8 +1,8 @@
 // moveloop_preamble.js — Once per moveloop() before the core loop.
 // C ref: allmain.c moveloop_preamble().
 //
-// Ported: calendar side-effects, rndencode/seer_turn, disp.botlx, program_state,
-// umovement, initrack, uz0/context.move sync. Not yet: set_wear, pickup(1), …
+// Ported: calendar, rndencode/seer_turn, set_wear/reset_justpicked stubs, …
+// Not yet: pickup(1) autopickup (RNG + invent chain; still in fastforward gap).
 
 import { game } from './gstate.js';
 import { pline } from './display.js';
@@ -11,6 +11,8 @@ import { NEW_MOON, FULL_MOON, NORMAL_SPEED } from './const.js';
 import { parseFixedDatetime, phaseOfTheMoonFromDate, isFriday13thFromDate } from './moonphase.js';
 import { changeLuck } from './attrib.js';
 import { initrack } from './track.js';
+import { setWear } from './wear.js';
+import { resetJustPicked } from './pickup.js';
 
 /**
  * @param {boolean} resuming — C `moveloop_preamble(resuming)` (restore vs new).
@@ -49,7 +51,10 @@ export async function moveloopPreamble(resuming) {
         g.program_state.beyond_savefile_load = 1;
         /* C: svc.context.rndencode = rnd(9000); */
         g.context.rndencode = rnd(9000);
-        /* C: set_wear(0); reset_justpicked(invent); (void) pickup(1); — not ported */
+        /* C: set_wear((struct obj *) 0); reset_justpicked(gi.invent); */
+        setWear(null);
+        resetJustPicked(g.invent);
+        /* C: (void) pickup(1); — autopickup; port pickup.c when invent + floor objs exist */
         /* C: svc.context.seer_turn = (long) rnd(30); */
         g.context.seer_turn = rnd(30);
         /* C: u.umovement = NORMAL_SPEED; initrack(); */
