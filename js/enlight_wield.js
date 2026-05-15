@@ -1,16 +1,20 @@
 // enlight_wield.js — Weapon / hands lines for #attributes (enlightenment).
 // C ref: cmd.c (weaponless / uwep / twoweapon branch before skill titles).
 
-/** Until youmonst is ported, assume hero polyform is humanoid for wield text. */
-function humanoidHero() {
-    return true;
+/** C: humanoid() on hero — vanilla `urace` forms with normal hands (poly later). */
+const HUMANOID_RACE_ADJ = new Set(['human', 'elven', 'dwarven', 'gnomish', 'orcish']);
+
+function humanoidHero(g) {
+    const adj = g?.urace?.adj;
+    if (!adj) return true;
+    return HUMANOID_RACE_ADJ.has(adj);
 }
 
 /**
  * @param {object} u — game.u
- * @param {object} _g — game (reserved for youmonst / poly)
+ * @param {object} g — game
  */
-export function enlightWieldLine(u, _g) {
+export function enlightWieldLine(u, g) {
     if (u.twoweap)
         return '  You are wielding two weapons at once.';
     if (u.uwep) {
@@ -21,7 +25,7 @@ export function enlightWieldLine(u, _g) {
     }
     if (u.uarmg)
         return '  You are empty handed.';
-    if (humanoidHero())
+    if (humanoidHero(g))
         return '  You are bare handed.';
     return '  You are not wielding anything.';
 }
