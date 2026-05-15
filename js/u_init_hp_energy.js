@@ -40,6 +40,13 @@ export function newpwInitial() {
 export function applyBirthHpEnergy() {
     const u = game.u;
     if (!u) return;
+    /* C: attrib.c newhp — svm.moves == 0 && u.ulevel == 0: u.ualign.record = gu.urole.initrecord */
+    const moves = game.moves ?? 0;
+    const ulevel = u.ulevel ?? 0;
+    if (moves === 0 && ulevel === 0) {
+        u.ualign = u.ualign || { type: 0, record: 0 };
+        u.ualign.record = game.urole?.initrecord ?? 0;
+    }
     const hp = newhpInitial();
     const en = newpwInitial();
     u.uhp = hp;

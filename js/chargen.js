@@ -44,7 +44,8 @@ export function applyIdentityFromNethackrc(g, opts) {
     g.u = g.u || {};
     g.u.ualign = g.u.ualign || { type: 0, record: 0 };
     g.u.ualign.type = alignType;
-    if (g.u.ualign.record === undefined) g.u.ualign.record = 0;
+    /* C: attrib.c newhp — u.ualign.record = gu.urole.initrecord (after u cleared; chargen sets early) */
+    g.u.ualign.record = role.initrecord ?? 0;
     /* C: u_init.c u_init_role — u.ualignbase[A_CURRENT] = u.ualignbase[A_ORIGINAL] = u.ualign.type */
     g.u.ualignbase = g.u.ualignbase || [];
     g.u.ualignbase[A_CURRENT] = alignType;
@@ -59,6 +60,7 @@ export function applyIdentityFromNethackrc(g, opts) {
         attrdist: [...role.attrdist],
         hpadv: { ...role.hpadv },
         enadv: { ...role.enadv },
+        initrecord: role.initrecord ?? 0,
     };
 
     g.urace = {
