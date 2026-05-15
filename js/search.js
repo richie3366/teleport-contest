@@ -149,7 +149,8 @@ async function mfind0(mtmp, viaWarning) {
     return 1;
 }
 
-function tAt(x, y) {
+/** C: trap.c t_at(x, y) — trap at map cell. */
+export function tAt(x, y) {
     const traps = game.level?.traps;
     if (!traps?.length) return null;
     return traps.find((t) => t.tx === x && t.ty === y) ?? null;
