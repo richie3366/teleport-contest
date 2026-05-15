@@ -18,6 +18,7 @@ import { readEngrAt } from './engrave.js';
 import { fixShopDamage } from './shop.js';
 import { seeMonsters } from './vision.js';
 import { updateInventory } from './invent.js';
+import { takePendingGiveMayAdvancePline } from './u_init_skills.js';
 
 /**
  * @param {boolean} resuming — C `moveloop_preamble(resuming)` (restore vs new).
@@ -81,6 +82,9 @@ export async function moveloopPreamble(resuming) {
     }
 
     await encumberMsg();
+
+    const mayAdv = takePendingGiveMayAdvancePline(g);
+    if (mayAdv) await pline(mayAdv);
 
     if (g.gd.defer_see_monsters) {
         g.gd.defer_see_monsters = false;

@@ -5,6 +5,7 @@ import { game } from './gstate.js';
 import { nhgetch } from './input.js';
 import { flush_screen, pline, docrt } from './display.js';
 import { versionPlineText } from './nethack_version.js';
+import { enhanceWeaponSkillOneStep } from './u_init_skills.js';
 
 /** C: doextcmd — echo '#' on the top line, then read the next key (tty). */
 export async function runExtcmdFromHashPrefix() {
@@ -25,6 +26,18 @@ export async function runExtcmdFromHashPrefix() {
     const ch2 = String.fromCharCode(k);
     if (ch2 === 'v' || ch2 === 'V') {
         await pline(versionPlineText());
+        game._retainMessageAfterCommand = true;
+        await flush_screen(1);
+        return;
+    }
+    if (ch2 === 'e' || ch2 === 'E') {
+        /* C: cmd.c doextcmd → enhance_weapon_skill — menu not ported; one auto-pick per #e */
+        const r = enhanceWeaponSkillOneStep();
+        if (!r.ok) await pline('You cannot enhance any skills at the moment.');
+        else {
+            await pline(r.advancePline);
+            if (r.moreDangerousPline) await pline(r.moreDangerousPline);
+        }
         game._retainMessageAfterCommand = true;
         await flush_screen(1);
         return;

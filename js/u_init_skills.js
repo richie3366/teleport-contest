@@ -1,6 +1,8 @@
-// u_init_skills.js — weapon / spell skills at birth (skill_init) + add_weapon_skill + lose_weapon_skill.
-// C ref: weapon.c skill_init(), add_weapon_skill(), lose_weapon_skill(), can_advance(), slots_required();
-//        skills.h practice_needed_to_advance; u_init.c skills_for_role().
+// u_init_skills.js — weapon / spell skills at birth (skill_init) + add_weapon_skill + lose_weapon_skill,
+// skill_advance / #enhance auto-pick (first menu-order advanceable skill).
+// C ref: weapon.c skill_init(), add_weapon_skill(), lose_weapon_skill(), can_advance(), slots_required(),
+//        skill_advance(), enhance_weapon_skill() menu order; skills.h practice_needed_to_advance;
+//        u_init.c skills_for_role().
 
 import { game } from './gstate.js';
 import {
@@ -12,6 +14,9 @@ import {
     P_SKILLED,
     P_EXPERT,
     P_LAST_WEAPON,
+    P_FIRST_SPELL,
+    P_LAST_SPELL,
+    P_FIRST_WEAPON,
     P_TWO_WEAPON_COMBAT,
     P_BARE_HANDED_COMBAT,
     P_HEALING_SPELL,
@@ -20,10 +25,13 @@ import {
     P_ENCHANTMENT_SPELL,
     P_RIDING,
     P_SKILL_LIMIT,
+    P_FIRST_H_TO_H,
+    P_LAST_H_TO_H,
 } from './const.js';
 import { DEF_SKILLS_BY_ABBR, ROLE_SPESPEC_SCHOOL } from './u_init_skill_defs.js';
 import { weaponType, isAmmo } from './weapon_kind.js';
 import { applySkillBasedSpellbookId } from './skill_based_spellbook.js';
+import { pSkillDisplayName } from './skill_display_name.js';
 
 /** C: skills.h #define practice_needed_to_advance(level) ((level) * (level) * 20) */
 export function practiceNeededToAdvance(level) {
@@ -81,6 +89,101 @@ function countCanAdvance(u) {
     return n;
 }
 
+/** C: weapon.c add_skills_to_menu — iteration order (fighting, weapons, spells). */
+const ENHANCE_MENU_RANGES = [
+    [P_FIRST_H_TO_H, P_LAST_H_TO_H],
+    [P_FIRST_WEAPON, P_LAST_WEAPON],
+    [P_FIRST_SPELL, P_LAST_SPELL],
+];
+
+/** C: weapon.c give_may_advance_msg(skill) — You_feel text (no handle_tip). */
+export function giveMayAdvancePlineText(skill) {
+    const s =
+        skill === P_NONE
+            ? ''
+            : skill <= P_LAST_WEAPON
+              ? 'weapon '
+              : skill <= P_LAST_SPELL
+                ? 'spell casting '
+                : 'fighting ';
+    return `You feel more confident in your ${s}skills.`;
+}
+
+/**
+ * C: weapon.c enhance_weapon_skill — first advanceable skill in menu order.
+ * @param {object} u
+ * @returns {number|null}
+ */
+export function enhancePickFirstAdvanceable(u) {
+    if (!u) return null;
+    for (const [lo, hi] of ENHANCE_MENU_RANGES) {
+        for (let i = lo; i <= hi; i++) {
+            if (canAdvance(u, i, false)) return i;
+        }
+    }
+    return null;
+}
+
+/**
+ * C: weapon.c skill_advance(skill) — deduct slots, P_SKILL++, skill_record, spellbooks.
+ * Does not reset P_ADVANCE (C leaves practice counter unchanged).
+ * @param {object} u
+ * @param {number} skill
+ * @param {object} [g]
+ * @returns {boolean}
+ */
+export function skillAdvance(u, skill, g = game) {
+    if (!u || skill <= 0 || skill >= P_NUM_SKILLS) return false;
+    if (!canAdvance(u, skill, false)) return false;
+    weaponSkills(u);
+    u.weapon_slots = (u.weapon_slots | 0) - slotsRequired(skill, u);
+    const ws = u.weapon_skills[skill];
+    ws.skill += 1;
+    if (ws.max_skill < ws.skill) ws.max_skill = ws.skill;
+    const idx = u.skills_advanced | 0;
+    if (!u.skill_record) u.skill_record = [];
+    u.skill_record[idx] = skill;
+    u.skills_advanced = idx + 1;
+    if (skill >= P_FIRST_SPELL && skill <= P_LAST_SPELL) applySkillBasedSpellbookId(g);
+    return true;
+}
+
+/**
+ * One `#enhance` step: auto-pick first menu-order skill (TTY menu not ported).
+ * @param {object} [g]
+ * @returns {{ ok: false } | { ok: true, advancePline: string, moreDangerousPline: string|null }}
+ */
+export function enhanceWeaponSkillOneStep(g = game) {
+    const u = g.u;
+    if (!u) return { ok: false };
+    const sk = enhancePickFirstAdvanceable(u);
+    if (sk == null) return { ok: false };
+    if (!skillAdvance(u, sk, g)) return { ok: false };
+    const ws = u.weapon_skills[sk];
+    const atMax = ws.skill >= ws.max_skill;
+    const name = pSkillDisplayName(sk, g);
+    const advancePline = `You are now ${atMax ? 'most' : 'more'} skilled in ${name}.`;
+    let more = false;
+    for (let i = 0; i < P_NUM_SKILLS; i++) {
+        if (canAdvance(u, i, false)) {
+            more = true;
+            break;
+        }
+    }
+    return {
+        ok: true,
+        advancePline,
+        moreDangerousPline: more ? 'You feel you could be more dangerous!' : null,
+    };
+}
+
+/** Pending pline from add_weapon_skill → give_may_advance_msg (flush in moveloop_preamble). */
+export function takePendingGiveMayAdvancePline(g = game) {
+    const s = g._giveMayAdvancePline;
+    if (s) delete g._giveMayAdvancePline;
+    return s || '';
+}
+
 /** C: weapon.c unrestrict_weapon_skill() */
 export function unrestrictWeaponSkill(u, skill) {
     if (skill <= 0 || skill >= P_NUM_SKILLS) return;
@@ -103,7 +206,7 @@ export function addWeaponSkill(u, n) {
     u.weapon_slots = (u.weapon_slots | 0) + n;
     const after = countCanAdvance(u);
     if (before < after) {
-        /* C: give_may_advance_msg(P_NONE) — pline deferred until #enhance port */
+        game._giveMayAdvancePline = giveMayAdvancePlineText(P_NONE);
     }
 }
 
