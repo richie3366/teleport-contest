@@ -55,6 +55,8 @@ export function applyIdentityFromNethackrc(g, opts) {
         name: { m: role.name.m, f: role.name.f },
         rank: { m: role.rank.m, f: role.rank.f },
         mnum: role.mnum,
+        attrbase: [...role.attrbase],
+        attrdist: [...role.attrdist],
     };
 
     g.urace = {

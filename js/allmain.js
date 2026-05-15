@@ -15,6 +15,7 @@ import { fastforward_pre_mklev, fastforward_post_mklev, fastforward_fill_mineral
 import { movemon, MOVE_MON_HARNESS_MAX_STEP } from './monmove.js';
 import { end_of_turn_rng } from './moveloop_aux.js';
 import { initIniInvStub } from './ini_inv_stub.js';
+import { applyInitAttrPipeline } from './u_init_attr.js';
 import { UHS } from './hunger.js';
 import { moveloopPreamble } from './moveloop_preamble.js';
 import { settrack } from './track.js';
@@ -53,6 +54,9 @@ export async function newgame() {
     // Covers: u_init_role, ini_inv, attributes, moveloop_preamble.
     fastforward_post_mklev();
 
+    /* C: u_init.c u_init_inventory_attrs — init_attr(75); vary_init_attr(); */
+    applyInitAttrPipeline(75);
+
     // Hardcoded player state for early Tourist stub.
     // Contestants: port u_init to compute these from game PRNG.
     g._goldCount = 757;
@@ -84,8 +88,6 @@ export async function newgame() {
     g.u.uwep = null;
     g.u.twoweap = false;
     g.u.uarmg = null; /* gloves — port invent wear when ready */
-    g.u.acurr = { a: [9, 11, 16, 14, 12, 16] }; /* A_STR,A_INT,A_WIS,A_DEX,A_CON,A_CHA — attrib.h order */
-    g.u.amax = { a: [9, 11, 16, 14, 12, 16] };
     g.multi = 0; /* C: gm.multi — multi-turn actions / occupation */
     g.moves = 1;
     // When non-zero, moveloop_core runs movemon + end-of-turn tail (harness).

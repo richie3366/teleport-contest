@@ -8,14 +8,24 @@ import { rn2 } from './rng.js';
 const DEF_ATTRMIN = Object.freeze([3, 3, 3, 3, 3, 3]);
 const DEF_ATTRMAX = Object.freeze([STR18(100), 18, 18, 18, 18, 18]);
 
+/** @param {number} ndx A_STR…A_CHA — C ATTRMIN(ndx) */
+export function getRaceAttrMin(ndx) {
+    return game.urace?.attrmin?.[ndx] ?? DEF_ATTRMIN[ndx] ?? 3;
+}
+
+/** @param {number} ndx A_STR…A_CHA — C ATTRMAX(ndx) */
+export function getRaceAttrMax(ndx) {
+    return game.urace?.attrmax?.[ndx] ?? DEF_ATTRMAX[ndx] ?? 18;
+}
+
 /** @param {number} ndx A_STR…A_CHA */
 function attrMin(ndx) {
-    return game.urace?.attrmin?.[ndx] ?? DEF_ATTRMIN[ndx] ?? 3;
+    return getRaceAttrMin(ndx);
 }
 
 /** @param {number} ndx A_STR…A_CHA */
 function attrMax(ndx) {
-    return game.urace?.attrmax?.[ndx] ?? DEF_ATTRMAX[ndx] ?? 18;
+    return getRaceAttrMax(ndx);
 }
 
 /**
