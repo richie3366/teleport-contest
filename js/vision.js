@@ -519,6 +519,16 @@ export function vision_recalc(control = 0) {
     game._viz_rmax = next_rmax;
 }
 
+/** C: rm.c set_seenv — hero-relative seenv bits (used by feel_location). */
+export function setSeenvTowardHero(ux, uy, x, y) {
+    const loc = game.level?.at(x, y);
+    if (!loc) return;
+    const dy = y - uy + 1;
+    if (dy < 0 || dy > 2) return;
+    const sv = seenv_matrix[dy][(x < ux) ? 0 : (x > ux ? 2 : 1)];
+    loc.seenv = (loc.seenv || 0) | sv;
+}
+
 // C ref: cansee(x, y)
 export function cansee(x, y) {
     if (y < 0 || y >= ROWNO || x < 0 || x >= COLNO) return false;

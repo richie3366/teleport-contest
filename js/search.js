@@ -7,8 +7,8 @@
 
 import { game } from './gstate.js';
 import { rn2, rnl } from './rng.js';
-import { pline, newsym } from './display.js';
-import { vision_recalc, cansee } from './vision.js';
+import { pline, newsym, mapTerrainGlyph, show_glyph_cell } from './display.js';
+import { vision_recalc, cansee, setSeenvTowardHero } from './vision.js';
 import {
     isok,
     u_at,
@@ -219,11 +219,19 @@ async function activateStatueTrap(trap, x, y) {
     return null;
 }
 
+/** C: display.c feel_location — blind/adjacent sensing; minimal seenv + glyph refresh. */
 function feelLocation(x, y) {
-    void x;
-    void y;
-    // TODO: detect.c feel_location (memory, out_of_sight, …)
-    newsym(x, y);
+    const u = game.u;
+    const lvl = game.level;
+    if (!u || !lvl) return;
+    setSeenvTowardHero(u.ux, u.uy, x, y);
+    const loc = lvl.at(x, y);
+    if (!loc) return;
+    const tg = mapTerrainGlyph(loc, x, y);
+    if (lvl.flags?.hero_memory !== false) {
+        loc.remembered_glyph = { ch: tg.ch, color: tg.color, decgfx: tg.dec };
+    }
+    show_glyph_cell(x, y, tg.ch, tg.color, tg.dec);
 }
 
 /**

@@ -37,7 +37,8 @@ const ANSI_COLOR = [
 ];
 
 // ── Terrain to display character + color + DEC flag ──
-function terrain_glyph(loc, x, y) {
+// C ref: display.c mapglyph / levl typ → cmap (simplified).
+export function mapTerrainGlyph(loc, x, y) {
     const typ = loc.typ;
     switch (typ) {
     case STONE:     return { ch: ' ', color: NO_COLOR, dec: false };
@@ -119,14 +120,14 @@ export function newsym(x, y) {
     if (game.u?.ux === x && game.u?.uy === y) {
         // Hero
         show_glyph_cell(x, y, '@', CLR_WHITE, false);
-        const tg = terrain_glyph(loc, x, y);
+        const tg = mapTerrainGlyph(loc, x, y);
         loc.remembered_glyph = { ch: tg.ch, color: tg.color, decgfx: tg.dec };
         return;
     }
 
     // Contestants: add monster, object, and trap display here.
 
-    const tg = terrain_glyph(loc, x, y);
+    const tg = mapTerrainGlyph(loc, x, y);
     // Only update display/memory if cell is IN_SIGHT (lit and visible)
     if (cansee(x, y)) {
         show_glyph_cell(x, y, tg.ch, tg.color, tg.dec);
