@@ -32,13 +32,22 @@ function missionPatronLines() {
 function hpLine(u) {
     const cur = u.uhp ?? 0, max = u.uhpmax ?? 1;
     if (cur >= max) return `  You have all ${max} hit points.`;
-    return `  You have ${cur} of ${max} hit points.`;
+    return `  You have ${cur} out of ${max} hit points.`;
 }
 
 function enLine(u) {
     const cur = u.uen ?? 0, max = u.uenmax ?? 0;
-    if (max === 2 && cur === max) return '  You have both energy points (spell power).';
-    return `  You have ${cur} of ${max} energy points (spell power).`;
+    if (max <= 0) return '  You have no energy points (spell power).';
+    if (cur >= max) {
+        if (max === 2) return '  You have both energy points (spell power).';
+        return `  You have all ${max} energy points (spell power).`;
+    }
+    return `  You have ${cur} out of ${max} energy points (spell power).`;
+}
+
+function walletLine(gold) {
+    if (!gold) return '  Your wallet is empty.';
+    return `  Your wallet contains ${gold} zorkmids.`;
 }
 
 /** @param {import('./game_display.js').GameDisplay} display @param {1|2} page */
@@ -80,7 +89,7 @@ export function paintAttributesIntoDisplay(display, page) {
         display.putstr(0, row++, hpLine(u), NO_COLOR, 0);
         display.putstr(0, row++, enLine(u), NO_COLOR, 0);
         display.putstr(0, row++, `  Your armor class is ${ac}.`, NO_COLOR, 0);
-        display.putstr(0, row++, `  Your wallet contains ${gold} zorkmids.`, NO_COLOR, 0);
+        display.putstr(0, row++, walletLine(gold), NO_COLOR, 0);
         display.putstr(0, row++, pickup ? '  Autopickup is on.' : '  Autopickup is off.', NO_COLOR, 0);
         row++;
         display.putstr(0, row++, ' Characteristics:', NO_COLOR, 0);
