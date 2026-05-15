@@ -17,6 +17,7 @@ import { end_of_turn_rng } from './moveloop_aux.js';
 import { initIniInvStub } from './ini_inv_stub.js';
 import { UHS } from './hunger.js';
 import { moveloopPreamble } from './moveloop_preamble.js';
+import { settrack } from './track.js';
 
 // C ref: allmain.c newgame()
 export async function newgame() {
@@ -130,8 +131,9 @@ export async function moveloop_core() {
     if (!g._retainMessageAfterCommand) g._pending_message = '';
     g._retainMessageAfterCommand = false;
 
-    // Advance turn
+    // Advance turn (C: allmain.c — settrack() before svm.moves++)
     if (g.context?.move) {
+        settrack();
         g.moves = (g.moves || 1) + 1;
     }
 
