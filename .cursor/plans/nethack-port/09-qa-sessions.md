@@ -56,17 +56,21 @@ Command (repo root):
 
 `node frozen/ps_test_runner.mjs sessions/seed8000-tourist-starter.session.json`
 
-Example result line (after syncing `js/terminal.js` from `frozen/` and routing replay keys through `input.js`):
+Example result line (after syncing `js/terminal.js` from `frozen/`, routing replay keys through `input.js`, and fixing `fastforward_step` alignment — **before** removing session-shaped `#search` RNG):
 
 `FAIL: seed8000-tourist-starter.session.json (RNG 3126/3130, Screen 15/23 (cursors 18/23))`
 
-Example `__RESULTS_JSON__` metrics (post-harness fix):
+Current line after **`#search` follows `detect.c` stubs** (no session PRNG replay in [js/search.js](../../js/search.js); full P-match needs a real `dosearch0` port per plan 10):
+
+`FAIL: seed8000-tourist-starter.session.json (RNG 3102/3130, Screen 17/23 (cursors 18/23))`
+
+Example `__RESULTS_JSON__` metrics (current stub + harness):
 
 ```json
 {
-  "rngCalls": { "matched": 3126, "total": 3130 },
-  "screens": { "matched": 15, "total": 23 },
-  "cellsOnly": { "matched": 15, "total": 23 },
+  "rngCalls": { "matched": 3102, "total": 3130 },
+  "screens": { "matched": 17, "total": 23 },
+  "cellsOnly": { "matched": 17, "total": 23 },
   "cursors": { "matched": 18, "total": 23 },
   "animFrames": { "matched": 0, "total": 0 }
 }
@@ -74,7 +78,7 @@ Example `__RESULTS_JSON__` metrics (post-harness fix):
 
 ### First RNG divergence
 
-Harness compares flattened PRNG lines positionally ([`frozen/ps_test_runner.mjs`](../../frozen/ps_test_runner.mjs)). With **3126 / 3130** matches, the first mismatch is at **0-based index 3126** (the **3127th** call): calls `0 … 3125` agree with C; call at index **3126** differs (and any later calls are not counted as matches).
+Harness compares flattened PRNG lines positionally ([`frozen/ps_test_runner.mjs`](../../frozen/ps_test_runner.mjs)). With **3102 / 3130** matches, expect the first mismatch in the **`#search`** region (flat indices around **3102–3116** in the public session): C records `dosearch0` / moveloop tail draws there; the JS stub does not replay those calls until `detect.c` is ported.
 
 Re-run after porting changes; update this section when the failing line is identified from a diff tool.
 
