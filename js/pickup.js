@@ -1,5 +1,6 @@
 // pickup.js — Autopickup, encumbrance messages, pickup_prev flags.
-// C ref: pickup.c reset_justpicked(), encumber_msg(), pickup(), check_here(); hack.c near_capacity via encumbr.js
+// C ref: pickup.c reset_justpicked(), encumber_msg(), pickup(), check_here(); invent.c look_here();
+//        hack.c near_capacity via encumbr.js
 
 import { game } from './gstate.js';
 import { pline, flush_screen } from './display.js';
@@ -172,7 +173,7 @@ async function lookHere(objCnt, lhflags) {
 /**
  * C: pickup.c check_here(boolean picked_some)
  */
-async function checkHere(pickedSome) {
+export async function checkHere(pickedSome) {
     const g = game;
     const u = g.u;
     if (!u) return;

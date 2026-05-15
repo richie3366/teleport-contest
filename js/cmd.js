@@ -12,6 +12,7 @@ import { vision_recalc } from './vision.js';
 import { dosearch, tAt } from './search.js';
 import { maybeSmudgeEngr } from './engrave.js';
 import { nomul } from './timeout.js';
+import { checkHere } from './pickup.js';
 import { runExtcmdFromHashPrefix } from './extcmd.js';
 import { COLNO, ROWNO, STONE, DOOR, D_CLOSED, D_LOCKED,
          IS_WALL, IS_OBSTRUCTED } from './const.js';
@@ -112,11 +113,9 @@ export async function rhack(key) {
         game._retainMessageAfterCommand = true;
         await flush_screen(1);
     } else if (ch === ':') {
-        // C: look at floor / dolook — empty cell
+        // C: invent.c dolook → pickup.c check_here (look_here / engravings)
         game.context.move = 0;
-        await pline('You see no objects here.');
-        game._retainMessageAfterCommand = true;
-        await flush_screen(1);
+        await checkHere(false);
     } else if (ch === '\\') {
         // C: #discoveries (\\)
         game.context.move = 0;
