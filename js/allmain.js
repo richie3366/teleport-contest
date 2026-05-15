@@ -16,6 +16,7 @@ import { movemon, MOVE_MON_HARNESS_MAX_STEP } from './monmove.js';
 import { end_of_turn_rng } from './moveloop_aux.js';
 import { initIniInvStub } from './ini_inv_stub.js';
 import { UHS } from './hunger.js';
+import { moveloopPreamble } from './moveloop_preamble.js';
 
 // C ref: allmain.c newgame()
 export async function newgame() {
@@ -139,10 +140,7 @@ export async function moveloop_core() {
 
 // C ref: allmain.c moveloop()
 export async function moveloop(resuming) {
-    vision_recalc(0);
-    await docrt();
-    await flush_screen(1);
-
+    await moveloopPreamble(resuming);
     for (;;) {
         await moveloop_core();
         if (game.program_state?.gameover) break;

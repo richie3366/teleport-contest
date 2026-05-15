@@ -120,10 +120,8 @@ export class NethackGame {
         // Install capture hook
         this._installCaptureHook();
 
-        // Run game startup
+        // Run game startup (C: newgame())
         await newgame();
-        // C: allmain.c moveloop() — preamble runs once before the command loop
-        await moveloopPreamble(false);
     }
 
     /**
@@ -212,6 +210,9 @@ export async function runSegment(input) {
     for (const ch of moves) pushKey(ch.charCodeAt(0));
 
     await nhGame.start();
+
+    // C: allmain.c moveloop() — moveloop_preamble() before first moveloop_core()
+    await moveloopPreamble(false);
 
     // Drive the game loop until input is exhausted. The judge looks
     // at game.getScreens() afterwards; whatever the contestant
