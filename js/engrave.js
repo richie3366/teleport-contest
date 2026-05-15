@@ -1,10 +1,10 @@
 // engrave.js — Floor engravings and reachability at the hero’s square.
 // C ref: engrave.c read_engr_at(), engr_at(), make_engr_at(), can_reach_floor();
-//        dungeon.c surface()
+//        dungeon.c surface(); hack.c maybe_smudge_engr (via maybeSmudgeEngr).
 
 import { game } from './gstate.js';
 import { pline } from './display.js';
-import { rn2 } from './rng.js';
+import { rn2, rnd } from './rng.js';
 import {
     Is_airlevel,
     Is_waterlevel,
@@ -462,4 +462,18 @@ export function uWipeEngr(cnt) {
     const u = game.u;
     if (!u || u.ux === undefined || u.uy === undefined) return;
     if (canReachFloor(true)) wipeEngrAt(u.ux, u.uy, cnt, false);
+}
+
+/**
+ * C: hack.c maybe_smudge_engr(x1, y1, x2, y2) — after DOMOVE_WALK / RUSH.
+ * Smudges engravings on the old and new hero cells when feet can reach floor.
+ */
+export function maybeSmudgeEngr(x1, y1, x2, y2) {
+    if (!canReachFloor(true)) return;
+    let ep = engrAt(x1, y1);
+    if (ep && ep.engr_type !== ENGR_HEADSTONE) wipeEngrAt(x1, y1, rnd(5), false);
+    if (x2 !== x1 || y2 !== y1) {
+        ep = engrAt(x2, y2);
+        if (ep && ep.engr_type !== ENGR_HEADSTONE) wipeEngrAt(x2, y2, rnd(5), false);
+    }
 }

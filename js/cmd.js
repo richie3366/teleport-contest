@@ -10,6 +10,7 @@ import { nhgetch } from './input.js';
 import { newsym, flush_screen, pline, docrt } from './display.js';
 import { vision_recalc } from './vision.js';
 import { dosearch } from './search.js';
+import { maybeSmudgeEngr } from './engrave.js';
 import { runExtcmdFromHashPrefix } from './extcmd.js';
 import { COLNO, ROWNO, STONE, DOOR, D_CLOSED, D_LOCKED,
          IS_WALL, IS_OBSTRUCTED } from './const.js';
@@ -144,6 +145,8 @@ async function domove(dx, dy) {
     u.uy0 = oldy;
     u.ux = newx;
     u.uy = newy;
+    // C: hack.c domove — after domove_core walk/rush
+    maybeSmudgeEngr(oldx, oldy, newx, newy);
     game._pending_message = '';
     game._overlayScreen = null;
     game._inventoryMode = false;
