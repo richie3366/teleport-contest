@@ -39,7 +39,8 @@ The harness currently runs `fastforward_step` **before** `nhgetch` so it approxi
 
 ## Checklist
 
+- [x] Add `rnl` to [js/rng.js](../../js/rng.js) (matches `rnd.c`; first draw unlogged, inner `rn2` + final `rnl` logged).
 - [ ] Implement `movemon` (or minimal subset for tourist start) and delete the first `fastforward_step` slice it replaces.
 - [ ] Wire `dosounds` / `gethungry` / `maybe_generate_rnd_mon` in the same order as `allmain.c`.
-- [ ] Port `dosearch0` from `detect.c` until `#search` matches sessions **because** logic matches, not because of replay tables.
+- [x] Partial: [js/search.js](../../js/search.js) `dosearch0` — neighbor loop, SDOOR/SCORR `rnl`, trap `rnl(8)` + `find_trap`; fund / `mfind0` / `feel_location` / statue animate still TODO.
 - [ ] Re-run `node frozen/ps_test_runner.mjs …` after each deletion of harness code; expect temporary RNG drift until the stack is complete.

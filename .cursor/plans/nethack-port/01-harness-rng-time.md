@@ -18,7 +18,7 @@ P-channel parity must come from porting C control flow, not from hand-maintained
 
 - [ ] Enumerate every RNG helper the judge recognizes ([docs/API.md](../../docs/API.md) — `rn2`, `rnd`, `rn1`, `rnl`, `rne`, `rnz`, `d`).
 - [ ] For each export in [js/rng.js](../../js/rng.js), confirm C macro semantics (edge cases for `x <= 0`, etc.).
-- [ ] Add missing wrappers used by upstream but absent in JS (e.g. `rnl` if needed); ensure **log format** matches exactly (`rn1(N,B)=M`, etc.).
+- [x] `rnl` in [js/rng.js](../../js/rng.js) (see `rnd.c`; log format `rnl(N)=M`, inner `rn2` when Luck adjustment applies).
 
 ### 2. Logging and `rne` / `rnz`
 

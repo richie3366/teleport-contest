@@ -94,7 +94,7 @@ export class NethackGame {
         if (opts.tutorial_set) g.tutorial_set_in_config = true;
 
         // Initialize hero struct
-        g.u = { ux: 0, uy: 0, ux0: 0, uy0: 0 };
+        g.u = { ux: 0, uy: 0, ux0: 0, uy0: 0, uluck: 0, LUCKADD: 0 };
         g.context = { move: 0 };
         g.program_state = {};
         g.moves = 1;
