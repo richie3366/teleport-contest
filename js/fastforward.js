@@ -5,8 +5,9 @@
 // They must be deleted or narrowed as real ports land:
 //   • fastforward_pre_mklev / post_mklev / fill_mineralize → o_init, dungeon.c,
 //     u_init.c, mklev.c object/mineralize paths matching this repo’s mklev.js.
-//   • fastforward_step(stepNum) → allmain.c:moveloop_core end-of-turn work:
-//     movemon (monmove.c), regen, dosounds (sounds.c), gethungry (eat.c), etc.
+//   • fastforward_step(stepNum) → delegates to monmove.js + moveloop_aux.js
+//     (movemon, maybe_generate_rnd_mon, dosounds, gethungry, …) until real
+//     monmove.c / eat.c / sounds.c ports replace the stubs.
 //
 // Session JSON was only the extraction source; behavior must converge by
 // matching C, not by tuning to fixtures.
@@ -14,6 +15,8 @@
 // Generated from: seed8000-tourist-starter.session.json (historical)
 
 import { rn2, rnd, d, rne, rnz } from "./rng.js";
+import { movemon, MOVE_MON_HARNESS_MAX_STEP } from "./monmove.js";
+import { end_of_turn_rng } from "./moveloop_aux.js";
 
 // Pre-mklev startup: o_init shuffles, dungeon init, u_init_misc
 // 303 leaf RNG calls (session indices 0-308)
@@ -144,26 +147,13 @@ export function fastforward_post_mklev() {
     rnd(9000); rnd(30);
 }
 
-// Per-turn harness: replays post-command PRNG until movemon + moveloop tail
-// exist in JS (see plan 10-moveloop-detect-c-map.md). Index stepNum−1 runs at
-// moveloop start when moves===stepNum (i.e. before the next nhgetch), so it
-// corresponds to the *previous* command’s end-of-turn slice in the recorder.
+// Per-turn harness: movemon (monmove.js) + moveloop_core tail (moveloop_aux.js).
+// Runs at moveloop start when moves===stepNum (before the next nhgetch); see
+// plan 10-moveloop-detect-c-map.md. Replace internals as C ports land.
 export function fastforward_step(stepNum) {
-    const steps = [
-        () => { rn2(12); rn2(12); rn2(12); rn2(12); rn2(70); rn2(300); rn2(20); rn2(82); }, // step 1
-        () => { rn2(5); rn2(5); rn2(5); rn2(5); rn2(12); rn2(12); rn2(12); rn2(12); rn2(70); rn2(300); rn2(20); rn2(82); }, // step 2
-        () => { rn2(5); rn2(32); rn2(5); rn2(5); rn2(32); rn2(5); rn2(12); rn2(12); rn2(12); rn2(12); rn2(70); rn2(300); rn2(20); rn2(82); }, // step 3
-        () => { rn2(5); rn2(24); rn2(5); rn2(5); rn2(24); rn2(5); rn2(12); rn2(12); rn2(12); rn2(12); rn2(70); rn2(300); rn2(20); rn2(82); }, // step 4
-        () => { rn2(5); rn2(16); rn2(5); rn2(12); rn2(12); rn2(12); rn2(12); rn2(70); rn2(300); rn2(20); rn2(82); }, // step 5
-        () => { rn2(5); rn2(12); rn2(5); rn2(5); rn2(5); rn2(12); rn2(12); rn2(12); rn2(12); rn2(70); rn2(300); rn2(20); rn2(82); rn2(31); }, // step 6
-        () => { rn2(5); rn2(16); rn2(5); rn2(5); rn2(16); rn2(5); rn2(12); rn2(12); rn2(12); rn2(12); rn2(70); rn2(300); rn2(20); rn2(82); }, // step 7
-        () => { rn2(5); rn2(12); rn2(5); rn2(12); rn2(12); rn2(12); rn2(12); rn2(70); rn2(300); rn2(20); rn2(82); }, // step 8
-        // harness: post–move-9 tail (monmove / hunger / …)
-        () => { rn2(5); rn2(20); rn2(5); rn2(5); rn2(8); rn2(5); rn2(12); rn2(12); rn2(12); rn2(12); rn2(70); rn2(300); rn2(20); rn2(19); rn2(82); },
-        // harness: post–move-10 tail
-        () => { rn2(5); rn2(12); rn2(5); rn2(5); rn2(20); rn2(5); rn2(12); rn2(12); rn2(12); rn2(12); rn2(70); rn2(300); rn2(20); rn2(82); },
-    ];
-    if (stepNum > 0 && stepNum <= steps.length) steps[stepNum - 1]();
+    if (stepNum <= 0 || stepNum > MOVE_MON_HARNESS_MAX_STEP) return;
+    movemon(stepNum);
+    end_of_turn_rng(stepNum);
 }
 // Fill + mineralize: 1448 calls
 export function fastforward_fill_mineralize() {
