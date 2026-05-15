@@ -24,7 +24,7 @@ import {
     OBJ_ROCK,
 } from './mthrowu.js';
 import { placeFloorObject } from './floorobj.js';
-import { raceptr, breathless, passesRocks } from './mondata.js';
+import { raceptr, breathless, passesRocks, amorphous, isWhirly, unsolid, MZ_SMALL } from './mondata.js';
 import {
     NO_TRAP_FLAGS,
     FORCETRAP,
@@ -52,6 +52,7 @@ import {
     SPIKED_PIT,
     HOLE,
     TRAPDOOR,
+    TT_BEARTRAP,
     is_pit,
     is_hole,
     In_sokoban,
@@ -61,6 +62,7 @@ import {
     A_CHA,
     A_CON,
     A_STR,
+    A_DEX,
     STONE,
     DOOR,
     D_CLOSED,
@@ -520,6 +522,14 @@ async function trapeffectDartHero(trap) {
     }
 }
 
+/** C: do_wear.c wearing_iron_shoes — objects[otyp].oc_material == IRON */
+const OC_IRON = 11;
+
+function wearingIronShoes(u) {
+    const f = u?.uarmf;
+    return !!(f && f.oc_material === OC_IRON);
+}
+
 /** C: do_wear.c hard_helmet — is_helmet && (is_metallic || is_crackable); materials from objclass.h */
 function hardHelmet(obj) {
     if (!obj) return false;
@@ -571,6 +581,54 @@ async function trapeffectRockHero(trap) {
     }
 }
 
+/** C: trap.c trapeffect_fire_trap — hero. */
+async function trapeffectFireHero(trap) {
+    void trap;
+    const u = game.u;
+    if (!u) return;
+    seetrap(trap);
+    await dofiretrapHeroNoBox();
+}
+
+/** C: trap.c trapeffect_bear_trap — hero. */
+async function trapeffectBearHero(trap, trflags) {
+    const u = game.u;
+    if (!u) return;
+    const forcetrap = (trflags & FORCETRAP) !== 0
+        || (trflags & FAILEDUNTRAP) !== 0
+        || ((trflags & VIASITTING) !== 0);
+    if ((u.Levitation || u.Flying) && !forcetrap) return;
+
+    const ptr = raceptr(game.youmonst);
+    const a = trap.madeby_u ? 'Your' : 'The';
+    feeltrap(trap);
+    if (amorphous(ptr) || isWhirly(ptr) || unsolid(ptr)) {
+        await pline(`${a} bear trap closes harmlessly through you.`);
+        return;
+    }
+    if (!u.usteed && ptr.msize <= MZ_SMALL) {
+        await pline(`${a} bear trap closes harmlessly over you.`);
+        return;
+    }
+    u.utrap = rn1(4, 4);
+    u.utraptype = TT_BEARTRAP;
+    const dmg = d(2, 4);
+    if (u.usteed) {
+        await pline(`${a} bear trap closes on your steed's limbs!`);
+        /* C: thitm(0, u.usteed, …); reset_utrap if steed dies — not ported */
+    } else {
+        await pline(`${a} bear trap closes on your foot!`);
+        if (wearingIronShoes(u)) {
+            await pline('Your iron shoes protect your leg.');
+        } else {
+            u.wounded_legs = rn1(10, 10);
+            u.wounded_leg_side = rn2(2);
+            losehp(maybeHalfPhys(dmg), 'bear trap', 0);
+        }
+    }
+    exercise(A_DEX, false);
+}
+
 /**
  * C: trap.c trapeffect_selector — hero-only subset.
  * @param {{ ttyp: number, tseen?: boolean, madeby_u?: boolean, tnote?: number, tx: number, ty: number, launch?: { x: number, y: number } }} trap
@@ -589,6 +647,12 @@ async function trapeffectHero(trap, trflags) {
         break;
     case ROCKTRAP:
         await trapeffectRockHero(trap);
+        break;
+    case FIRE_TRAP:
+        await trapeffectFireHero(trap);
+        break;
+    case BEAR_TRAP:
+        await trapeffectBearHero(trap, trflags);
         break;
     case SLP_GAS_TRAP:
         await trapeffectSlpGasHero(trap);

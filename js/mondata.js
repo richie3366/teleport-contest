@@ -14,13 +14,19 @@ const M1_UNSOLID = 0x00100000;
 const M1_BREATHLESS = 0x00000400;
 const M1_NOLIMBS = 0x00006000;
 const M1_SLITHY = 0x00080000;
+const M1_NOTAKE = 0x00000080;
 
 const MZ_SMALL = 1;
 
-// C: sym.h / defsym.h — S_EYE, S_LIGHT, S_HUMAN enum indices
+// C: sym.h / defsym.h — S_EYE, S_LIGHT, S_VORTEX, S_ELEMENTAL, S_HUMAN enum indices
 const S_EYE = 5;
 const S_LIGHT = 25;
+const S_VORTEX = 22;
+const S_ELEMENTAL = 31;
 const S_HUMAN = 53;
+
+/** C: monflag.h MZ_SMALL — used by bear trap and encumber paths. */
+export { MZ_SMALL };
 
 /** Innate human (PM_HUMAN–style) for encumber / stagger when not polymorphed. */
 export const permonstHuman = Object.freeze({
@@ -83,8 +89,16 @@ function slithy(/** @type {Permonst} */ ptr) {
 }
 
 /** C: mondata.h amorphous */
-function amorphous(/** @type {Permonst} */ ptr) {
+export function amorphous(/** @type {Permonst} */ ptr) {
     return (ptr.mflags1 & M1_AMORPHOUS) !== 0;
+}
+
+/** C: mondata.h is_whirly — vortex or air elemental (C: &mons[PM_AIR_ELEMENTAL]). */
+export function isWhirly(/** @type {Permonst} */ ptr) {
+    if (ptr.mlet === S_VORTEX) return true;
+    /* Air: elemental, unsolid, flies; fire elemental also flies but has M1_NOTAKE. */
+    return ptr.mlet === S_ELEMENTAL && unsolid(ptr) && isFlyer(ptr)
+        && (ptr.mflags1 & M1_NOTAKE) === 0;
 }
 
 /** C: mondata.h nolimbs */
