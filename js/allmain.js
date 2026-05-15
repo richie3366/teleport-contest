@@ -16,8 +16,6 @@ import { movemon, MOVE_MON_HARNESS_MAX_STEP } from './monmove.js';
 import { end_of_turn_rng } from './moveloop_aux.js';
 import { initIniInvStub } from './ini_inv_stub.js';
 import { UHS } from './hunger.js';
-import { NEW_MOON } from './const.js';
-import { parseFixedDatetime, phaseOfTheMoonFromDate, isFriday13thFromDate } from './moonphase.js';
 
 // C ref: allmain.c newgame()
 export async function newgame() {
@@ -36,16 +34,6 @@ export async function newgame() {
     g.u = g.u || {};
     g.u.uz = { dnum: 0, dlevel: 1 };
     g.flags = g.flags || {};
-    {
-        const clock = g.fixed_datetime ? parseFixedDatetime(g.fixed_datetime) : null;
-        if (clock) {
-            g.flags.moonphase = phaseOfTheMoonFromDate(clock);
-            g.flags.friday13 = isFriday13thFromDate(clock);
-        } else {
-            g.flags.moonphase = NEW_MOON;
-            g.flags.friday13 = false;
-        }
-    }
     // Gnomish Mines branch stub (end1 on D:1)
     g.branches = [
         { end1: { dnum: 0, dlevel: 1 }, end2: { dnum: 2, dlevel: 1 }, end1_up: true },

@@ -13,6 +13,7 @@ import { game, resetGame } from './gstate.js';
 import { initRng, enableRngLog, getRngLog } from './rng.js';
 import { pushKey, hasQueuedInput } from './input.js';
 import { newgame, moveloop_core } from './allmain.js';
+import { moveloopPreamble } from './moveloop_preamble.js';
 import { parseNethackrc } from './options.js';
 import { flush_screen } from './display.js';
 import { GameDisplay } from './game_display.js';
@@ -121,6 +122,8 @@ export class NethackGame {
 
         // Run game startup
         await newgame();
+        // C: allmain.c moveloop() — preamble runs once before the command loop
+        await moveloopPreamble(false);
     }
 
     /**
