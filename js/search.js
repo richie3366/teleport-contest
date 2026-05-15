@@ -1,6 +1,6 @@
 // search.js — Trap / secret-door search (#search).
 // C ref: detect.c dosearch(), dosearch0(int), find_trap(), mfind0(), cvt_sdoor_to_door();
-//       trap.c activate_statue_trap() (stubbed until animate_statue exists).
+//       trap.c activate_statue_trap(), seetrap(), feeltrap()
 //
 // Neighbor iteration and rnl/rn2 usage follow upstream; fund (artifact search,
 // lenses) is stubbed until inventory and objects are wired.
@@ -9,6 +9,7 @@ import { game } from './gstate.js';
 import { rn2, rnl } from './rng.js';
 import { pline, newsym, mapTerrainGlyph, show_glyph_cell } from './display.js';
 import { vision_recalc, cansee, setSeenvTowardHero } from './vision.js';
+import { exercise } from './attrib.js';
 import {
     isok,
     u_at,
@@ -43,6 +44,7 @@ import {
     VIBRATING_SQUARE,
     TRAPPED_DOOR,
     TRAPPED_CHEST,
+    A_WIS,
 } from './const.js';
 
 /** C: Luck-derived search bonus (artifact SPFX_SEARCH, lenses) — stub 0 for now. */
@@ -202,13 +204,29 @@ function trapTypName(ttyp) {
     return names[ttyp] || 'trap';
 }
 
+/** C: trap.c seetrap(trap) */
+export function seetrap(trap) {
+    if (!trap || trap.tseen) return;
+    trap.tseen = 1;
+    newsym(trap.tx, trap.ty);
+}
+
+/**
+ * C: trap.c feeltrap(trap) — map_trap omitted until trap glyphs are full.
+ */
+export function feeltrap(trap) {
+    if (!trap) return;
+    trap.tseen = 1;
+    newsym(trap.tx, trap.ty);
+}
+
 /** C: detect.c find_trap — mark seen, message. */
 async function findTrap(trap) {
-    trap.tseen = true;
+    seetrap(trap);
+    exercise(A_WIS, true);
     const name = trapTypName(trap.ttyp);
     const article = /^[aeiou]/i.test(name) ? 'an' : 'a';
     await pline(`You find ${article} ${name}.`);
-    newsym(trap.tx, trap.ty);
 }
 
 /** C: trap.c activate_statue_trap — deltrap + animate; stub returns null (no monster). */

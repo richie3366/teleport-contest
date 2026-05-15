@@ -1,5 +1,5 @@
 // cmd.js — Command dispatch and movement.
-// C ref: cmd.c rhack(), hack.c domove().
+// C ref: cmd.c rhack(), hack.c domove(); trap.c dotrap (nomul prefix when trap present).
 //
 // Minimal skeleton: only hjklyubn movement is implemented.
 // Contestants should add: search, kick, eat, drink, read, zap,
@@ -9,8 +9,9 @@ import { game } from './gstate.js';
 import { nhgetch } from './input.js';
 import { newsym, flush_screen, pline, docrt } from './display.js';
 import { vision_recalc } from './vision.js';
-import { dosearch } from './search.js';
+import { dosearch, tAt } from './search.js';
 import { maybeSmudgeEngr } from './engrave.js';
+import { nomul } from './timeout.js';
 import { runExtcmdFromHashPrefix } from './extcmd.js';
 import { COLNO, ROWNO, STONE, DOOR, D_CLOSED, D_LOCKED,
          IS_WALL, IS_OBSTRUCTED } from './const.js';
@@ -147,6 +148,7 @@ async function domove(dx, dy) {
     u.uy = newy;
     // C: hack.c domove — after domove_core walk/rush
     maybeSmudgeEngr(oldx, oldy, newx, newy);
+    if (tAt(newx, newy)) nomul(0); /* C: trap.c dotrap — opens with nomul(0) */
     game._pending_message = '';
     game._overlayScreen = null;
     game._inventoryMode = false;
