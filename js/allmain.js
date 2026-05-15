@@ -113,7 +113,7 @@ export async function newgame() {
     initIniInvStub(g);
     /* C: u_init.c u_init_inventory_attrs — u.umoney0 += hidden_gold(TRUE) after invent */
     applyHiddenGoldToUmoney0(g);
-    /* C: u_init.c u_init_skills_discoveries — skill_init() before find_ac (invent weapons skipped) */
+    /* C: u_init.c u_init_skills_discoveries — skill_init() before find_ac (weapon_type on g.invent when linked) */
     applySkillInit(g);
     /* C: u_init.c u_init_skills_discoveries — find_ac() after invent (worn gear stubbed) */
     findAc();

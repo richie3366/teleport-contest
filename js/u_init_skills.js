@@ -22,6 +22,7 @@ import {
     P_SKILL_LIMIT,
 } from './const.js';
 import { DEF_SKILLS_BY_ABBR, ROLE_SPESPEC_SCHOOL } from './u_init_skill_defs.js';
+import { weaponType, isAmmo } from './weapon_kind.js';
 
 /** C: skills.h #define practice_needed_to_advance(level) ((level) * (level) * 20) */
 export function practiceNeededToAdvance(level) {
@@ -106,7 +107,7 @@ export function addWeaponSkill(u, n) {
 }
 
 /**
- * C: weapon.c skill_init() — no gi.invent weapon pass; no skill_based_spellbook_id;
+ * C: weapon.c skill_init() — gi.invent weapon_type pass (skip is_ammo); no skill_based_spellbook_id;
  * no pauper_reinit (u.uroleplay.pauper not modeled).
  * @param {object} [g]
  */
@@ -123,6 +124,13 @@ export function applySkillInit(g = game) {
         ws.skill = P_ISRESTRICTED;
         ws.max_skill = P_ISRESTRICTED;
         ws.advance = 0;
+    }
+
+    /* C: skill_init — carried weapons (not launcher ammo) start at Basic */
+    for (let obj = g.invent; obj; obj = obj.nobj) {
+        if (isAmmo(obj)) continue;
+        const sk = weaponType(obj);
+        if (sk !== P_NONE) u.weapon_skills[sk].skill = P_BASIC;
     }
 
     /* C: skill_init — magic roles start with a spell school at Basic */
