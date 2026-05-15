@@ -8,6 +8,10 @@ Parent: global plan **NetHack JS port roadmap** (Workstream A — harness, RNG, 
 - **Three RNG contexts:** Core gameplay, Lua special levels, display (hallucination) — align with [README.md](../../README.md) and [nethack-c/patches/README.md](../../nethack-c/patches/README.md). Today [js/rng.js](../../js/rng.js) documents “only core”; extend with separate ISAAC instances or upstream-equivalent split when porting Lua/display code paths.
 - **Wall clock:** Moon phase, shop greetings, Friday 13th luck, hire dates — all derive from `NETHACK_FIXED_DATETIME` on C side; JS must consume `input.datetime` consistently once ported.
 
+## C-first moveloop / search
+
+P-channel parity must come from porting C control flow, not from hand-maintained session call lists. Replace `fastforward_step` and any ad-hoc RNG with real `allmain.c` / `monmove.c` / `detect.c` work. See **10-moveloop-detect-c-map.md**.
+
 ## Checklist
 
 ### 1. Map wrappers to C macros
