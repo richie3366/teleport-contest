@@ -1,14 +1,15 @@
 // moveloop_preamble.js — Once per moveloop() before the core loop.
 // C ref: allmain.c moveloop_preamble().
 //
-// Ported: calendar side-effects (moon / Friday 13th messages + luck).
-// Not yet: deferred explore restore, rnd(9000) / pickup / initrack / …
+// Ported: calendar side-effects, disp.botlx, program_state bits, umovement,
+// initrack, uz0/context.move sync. Not yet: rnd(9000), set_wear, pickup, …
 
 import { game } from './gstate.js';
 import { pline } from './display.js';
-import { NEW_MOON, FULL_MOON } from './const.js';
+import { NEW_MOON, FULL_MOON, NORMAL_SPEED } from './const.js';
 import { parseFixedDatetime, phaseOfTheMoonFromDate, isFriday13thFromDate } from './moonphase.js';
 import { changeLuck } from './attrib.js';
+import { initrack } from './track.js';
 
 /**
  * @param {boolean} resuming — C `moveloop_preamble(resuming)` (restore vs new).
@@ -16,6 +17,7 @@ import { changeLuck } from './attrib.js';
 export async function moveloopPreamble(resuming) {
     const g = game;
     g.flags = g.flags || {};
+    g.program_state = g.program_state || {};
     if (resuming && g.iflags?.deferred_X) {
         /* C: enter_explore_mode() — not ported */
     }
@@ -40,6 +42,26 @@ export async function moveloopPreamble(resuming) {
         changeLuck(-1);
     }
 
-    /* C: !resuming → rnd(9000), set_wear, pickup(1), seer_turn, umovement, … */
+    if (!resuming) {
+        /* C: program_state.beyond_savefile_load = 1 */
+        g.program_state.beyond_savefile_load = 1;
+        /* C: u.umovement = NORMAL_SPEED; initrack(); (runs after rndencode/pickup in C) */
+        g.u.umovement = NORMAL_SPEED;
+        initrack();
+    }
+
+    /* C: disp.botlx = TRUE — status-line highlight refresh flag */
+    g.disp = g.disp || {};
+    g.disp.botlx = true;
+
+    /* C: u.uz0.dlevel = u.uz.dlevel; svc.context.move = 0; */
+    if (g.u?.uz) g.u.uz0 = { ...g.u.uz };
+    g.context = g.context || {};
+    g.context.move = 0;
+
+    /* C: program_state.in_moveloop = 1 */
+    g.program_state.in_moveloop = 1;
+
+    /* C: !resuming → rnd(9000), set_wear, pickup(1), seer_turn, … */
     void resuming;
 }
