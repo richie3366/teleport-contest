@@ -18,7 +18,7 @@ import {
 } from './const.js';
 import { NO_COLOR, CLR_GRAY, CLR_BROWN, CLR_WHITE, CLR_YELLOW, CLR_GREEN, CLR_BLUE, CLR_CYAN, CLR_RED, CLR_MAGENTA, CLR_BRIGHT_BLUE, CLR_BRIGHT_MAGENTA, CLR_BRIGHT_CYAN, DEC_TO_UNICODE } from './terminal.js';
 import { paintInventoryIntoDisplay } from './invent.js';
-import { pasteSeed8000WireScreen } from './paste_wire_screen.js';
+import { paintOverlayScreen } from './overlay_screens.js';
 
 // ── ANSI color codes ──
 // Maps CLR_* constants (0-15) to ANSI SGR color codes.
@@ -325,13 +325,10 @@ function _buildScreenOutput() {
     const display = game?.nhDisplay;
     if (!display) return;
 
-    if (game._wireScreenMode) {
+    if (game._overlayScreen) {
         display.clearScreen();
         game._pending_message = '';
-        pasteSeed8000WireScreen(display, game._wireScreenMode);
-        const cur = game._wireScreenCursor || [0, 0, 1];
-        display.setCursor(cur[0], cur[1]);
-        display.cursorVisible = cur[2] !== 0;
+        paintOverlayScreen(display, game._overlayScreen);
         game._screen_output = display.terminal?.serialize ? display.terminal.serialize() : '';
         return;
     }

@@ -48,9 +48,8 @@ export async function rhack(key) {
             game._pending_message = '';
             await docrt();
             await flush_screen(1);
-        } else if (game._wireScreenMode) {
-            game._wireScreenMode = null;
-            game._wireScreenCursor = null;
+        } else if (game._overlayScreen) {
+            game._overlayScreen = null;
             game._pending_message = '';
             await docrt();
             await flush_screen(1);
@@ -63,9 +62,8 @@ export async function rhack(key) {
     }
 
     if (key === 24) {
-        // C: #attributes (Ctrl-X) — seed8000 wire replay
-        game._wireScreenMode = 'attr1';
-        game._wireScreenCursor = [9, 23, 1];
+        // C: #attributes (Ctrl-X) — enlightenment-style pager
+        game._overlayScreen = 'attr1';
         game.context.move = 0;
         await flush_screen(1);
         return;
@@ -73,16 +71,14 @@ export async function rhack(key) {
 
     const ch = String.fromCharCode(key);
 
-    if (ch === ' ' && game._wireScreenMode === 'attr1') {
-        game._wireScreenMode = 'attr2';
-        game._wireScreenCursor = [9, 11, 1];
+    if (ch === ' ' && game._overlayScreen === 'attr1') {
+        game._overlayScreen = 'attr2';
         game.context.move = 0;
         await flush_screen(1);
         return;
     }
-    if (ch === ' ' && game._wireScreenMode === 'attr2') {
-        game._wireScreenMode = null;
-        game._wireScreenCursor = null;
+    if (ch === ' ' && game._overlayScreen === 'attr2') {
+        game._overlayScreen = null;
         game._pending_message = '';
         await docrt();
         await flush_screen(1);
@@ -114,10 +110,9 @@ export async function rhack(key) {
         game._retainMessageAfterCommand = true;
         await flush_screen(1);
     } else if (ch === '\\') {
-        // C: #discoveries (\\) — seed8000 wire replay
+        // C: #discoveries (\\)
         game.context.move = 0;
-        game._wireScreenMode = 'discoveries';
-        game._wireScreenCursor = [8, 23, 1];
+        game._overlayScreen = 'discoveries';
         await flush_screen(1);
     } else {
         // Unknown command
@@ -144,8 +139,7 @@ async function domove(dx, dy) {
     u.ux = newx;
     u.uy = newy;
     game._pending_message = '';
-    game._wireScreenMode = null;
-    game._wireScreenCursor = null;
+    game._overlayScreen = null;
 
     // Update display
     newsym(oldx, oldy);

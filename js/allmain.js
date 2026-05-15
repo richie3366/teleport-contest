@@ -49,7 +49,7 @@ export async function newgame() {
     // Covers: u_init_role, ini_inv, attributes, moveloop_preamble.
     fastforward_post_mklev();
 
-    // Hardcoded player state for seed8000 Tourist.
+    // Hardcoded player state for early Tourist stub.
     // Contestants: port u_init to compute these from game PRNG.
     g._goldCount = 757;
     g.u.ulevel = 1;
@@ -68,6 +68,13 @@ export async function newgame() {
     g.urace = { adj: 'human' };
     g.flags.female = true;
     g.plname = g.plname || 'Contestant';
+    g.u.left_handed = true;
+    g.flags.pickup = false;
+    // C ref: discover.c / naming — known discoveries for #discoveries (stub until otyp full port)
+    g.discoveryGroups = [
+        { title: 'Scrolls', lines: ['  scroll of magic mapping (ANDOVA BEGARIN)'] },
+        { title: 'Potions', lines: ['  potion of extra healing (murky)'] },
+    ];
 
     // C ref: allmain.c newgame() → u_on_upstairs()
     // Places hero on upstair, or special stair, or random room position.

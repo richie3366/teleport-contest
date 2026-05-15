@@ -1,8 +1,8 @@
 // invent.js — Minimal inventory display (invent.c / display.c).
 // C ref: cmd.c #inventory → ddoinv() / display_inventory.
 //
-// Full invent.c is not ported yet; this paints the fixed tourist layout from
-// seed8000-tourist-starter so replay screens match the recorded session.
+// Full invent.c is not ported yet; this paints a fixed layout from ini_inv until
+// invent.c is ported.
 
 import { game } from './gstate.js';
 import { NO_COLOR, ATR_INVERSE } from './terminal.js';
