@@ -10,6 +10,7 @@ import { nhgetch } from './input.js';
 import { newsym, flush_screen, pline, docrt } from './display.js';
 import { vision_recalc } from './vision.js';
 import { dosearch } from './search.js';
+import { versionPlineText } from './nethack_version.js';
 import { COLNO, ROWNO, STONE, DOOR, D_CLOSED, D_LOCKED,
          IS_WALL, IS_OBSTRUCTED } from './const.js';
 
@@ -99,7 +100,7 @@ export async function rhack(key) {
         }
         const ch2 = String.fromCharCode(k);
         if (ch2 === 'v' || ch2 === 'V') {
-            await pline('NetHack JS port (development build).');
+            await pline(versionPlineText());
             game._retainMessageAfterCommand = true;
             await flush_screen(1);
             return;
