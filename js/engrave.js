@@ -25,6 +25,7 @@ import {
     MD_PAD_RUMORS,
 } from './const.js';
 import { ENGRAVE_FILE_BODY } from './engrave_lines.js';
+import { EPITAPH_FILE_BODY } from './epitaph_lines.js';
 import { raceptr } from './mondata.js';
 import { tAt } from './search.js';
 import { levlTypAt, stairwayAt } from './decor.js';
@@ -99,6 +100,7 @@ export function makeEngrAt(x, y, text, engrType = ENGR_ENGRAVE) {
         eread: 0,
         erevealed: 0,
         engr_time: 0,
+        nowipeout: false,
     };
     engravingsList()?.push(ep);
     return ep;
@@ -292,6 +294,11 @@ function getRndEngraveText() {
     return getRndLineFromBody(ENGRAVE_FILE_BODY, MD_PAD_RUMORS);
 }
 
+/** C: get_rnd_text(EPITAPHFILE, …) via virtual plaintext body. */
+export function getRndEpitaphText() {
+    return getRndLineFromBody(EPITAPH_FILE_BODY, MD_PAD_RUMORS);
+}
+
 /** C: engrave.c rubouts[] */
 const RUBOUTS = /** @type {readonly { wipefrom: string, wipeto: string }[]} */ (Object.freeze([
     { wipefrom: 'A', wipeto: '^' },
@@ -419,4 +426,33 @@ export function randomEngraving() {
     const wcnt = Math.floor(pristine.length / 4) | 0;
     const text = wipeoutText(pristine, wcnt, 0);
     return { text, pristine };
+}
+
+/**
+ * C: engrave.c wipe_engr_at(x, y, cnt, magical)
+ * @param {number} cnt
+ * @param {boolean} [magical]
+ */
+export function wipeEngrAt(x, y, cnt, magical = false) {
+    const ep = engrAt(x, y);
+    if (!ep || ep.engr_type === ENGR_HEADSTONE || ep.nowipeout) return;
+
+    const typ = ep.engr_type;
+    const iceHere = levlTypAt(x, y) === ICE;
+    if (typ === ENGR_BURN && !iceHere && !(magical && !rn2(2))) return;
+
+    let eff = cnt;
+    if (typ !== ENGR_DUST && typ !== ENGR_BLOOD) {
+        eff = rn2(1 + Math.floor(50 / (eff + 1))) ? 0 : 1;
+    }
+
+    let actual = ep.engr_txt[ENGR_TXT_ACTUAL] || '';
+    actual = wipeoutText(actual, eff, 0);
+    while (actual.length > 0 && actual[0] === ' ') actual = actual.slice(1);
+
+    if (!actual) {
+        delEngrAt(x, y);
+        return;
+    }
+    ep.engr_txt[ENGR_TXT_ACTUAL] = actual;
 }

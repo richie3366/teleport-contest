@@ -24,7 +24,7 @@ import {
     A_LAWFUL, Align2amask,
     LR_UPTELE,
 } from './const.js';
-import { makeEngrAt, ENGR_HEADSTONE, ENGR_MARK, randomEngraving } from './engrave.js';
+import { makeEngrAt, ENGR_HEADSTONE, ENGR_MARK, randomEngraving, getRndEpitaphText } from './engrave.js';
 import { tAt } from './search.js';
 
 // Object/class constants (normally from objects.js, not in contest template)
@@ -391,7 +391,7 @@ function make_grave(x, y, str) {
     const t = loc.typ;
     if ((t !== ROOM && t !== GRAVE) || tAt(x, y)) return;
     loc.typ = GRAVE;
-    const text = str ?? 'Rest in peace.';
+    const text = str ?? getRndEpitaphText();
     makeEngrAt(x, y, text, ENGR_HEADSTONE);
 }
 
