@@ -2,17 +2,9 @@
 // C ref: track.c initrack(), settrack(), gettrack(), hastrack(), UTSZ.
 
 import { game } from './gstate.js';
+import { distmin } from './hacklib.js';
 
 export const UTSZ = 100;
-
-/** C: distmin() — Chebyshev distance on the map grid. */
-function distmin(x0, y0, x1, y1) {
-    const dx = x0 - x1;
-    const dy = y0 - y1;
-    const ax = dx < 0 ? -dx : dx;
-    const ay = dy < 0 ? -dy : dy;
-    return ax > ay ? ax : ay;
-}
 
 /** C: initrack() — clear ring buffer of recent hero coordinates. */
 export function initrack() {
