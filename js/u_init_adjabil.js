@@ -1,11 +1,13 @@
 // u_init_adjabil.js — XL intrinsic grants from role/race (subset of adjabil).
 // C ref: attrib.c adjabil(); u_init.c u_init_misc calls adjabil(0, 1) with u.ulevel==0.
 //
-// Ported: role_abil / elf_abil / orc_abil tables for **ulevel == 1** entries only.
-// Not ported: add_weapon_skill (oldlevel>0 branch), FROMEXPER/FROMRACE bit layout,
+// Ported: role_abil / elf_abil / orc_abil tables for **ulevel == 1** entries only;
+// **add_weapon_skill** when **oldlevel > 0** and **newlevel > oldlevel** (weapon.c).
+// Not ported: full intrinsic **adjabil** for XL>1, FROMEXPER/FROMRACE bit layout,
 // postadjabil / see_monsters, dwarf/gnome/elf infravision (no u field yet).
 
 import { game } from './gstate.js';
+import { addWeaponSkill } from './u_init_skills.js';
 
 /** Role abbrev → u.* keys granted at XL 1 (attrib.c arc_abil … wiz_abil). */
 const XL1_BY_ROLE_ABBR = {
@@ -35,17 +37,21 @@ function clearManaged() {
  * @param {number} newlevel
  */
 export function applyAdjabil(oldlevel, newlevel) {
-    if (oldlevel !== 0 || newlevel !== 1) return;
-    clearManaged();
-    const u = game.u;
-    if (!u) return;
-    const abbr = game.urole?.abbr;
-    const keys = abbr && Object.prototype.hasOwnProperty.call(XL1_BY_ROLE_ABBR, abbr)
-        ? XL1_BY_ROLE_ABBR[abbr]
-        : undefined;
-    if (keys) {
-        for (const k of keys) u[k] = 1;
+    if (oldlevel === 0 && newlevel === 1) {
+        clearManaged();
+        const u = game.u;
+        if (!u) return;
+        const abbr = game.urole?.abbr;
+        const keys = abbr && Object.prototype.hasOwnProperty.call(XL1_BY_ROLE_ABBR, abbr)
+            ? XL1_BY_ROLE_ABBR[abbr]
+            : undefined;
+        if (keys) {
+            for (const k of keys) u[k] = 1;
+        }
+        /* C: attrib.c orc_abil — XL 1 poison + infravision (infravision not in JS u yet) */
+        if (game.urace?.name === 'orc') u.Poison_resistance = 1;
+        return;
     }
-    /* C: attrib.c orc_abil — XL 1 poison + infravision (infravision not in JS u yet) */
-    if (game.urace?.name === 'orc') u.Poison_resistance = 1;
+    /* C: attrib.c adjabil — add_weapon_skill when gaining XL with oldlevel > 0 */
+    if (oldlevel > 0 && newlevel > oldlevel) addWeaponSkill(game.u, newlevel - oldlevel);
 }

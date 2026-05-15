@@ -21,6 +21,7 @@ import { applyRoleStartingUmoney0 } from './u_init_money.js';
 import { applyAdjabil } from './u_init_adjabil.js';
 import { findAc } from './u_init_find_ac.js';
 import { applyHiddenGoldToUmoney0 } from './u_init_hidden_gold.js';
+import { applySkillInit } from './u_init_skills.js';
 import { UHS } from './hunger.js';
 import { moveloopPreamble } from './moveloop_preamble.js';
 import { settrack } from './track.js';
@@ -112,6 +113,8 @@ export async function newgame() {
     initIniInvStub(g);
     /* C: u_init.c u_init_inventory_attrs — u.umoney0 += hidden_gold(TRUE) after invent */
     applyHiddenGoldToUmoney0(g);
+    /* C: u_init.c u_init_skills_discoveries — skill_init() before find_ac (invent weapons skipped) */
+    applySkillInit(g);
     /* C: u_init.c u_init_skills_discoveries — find_ac() after invent (worn gear stubbed) */
     findAc();
 

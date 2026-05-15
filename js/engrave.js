@@ -159,7 +159,7 @@ export function canReachFloor(checkPit = false) {
 
     if (u.ulevitation && !Is_airlevel(u.uz) && !Is_waterlevel(u.uz)) return false;
 
-    if (u.usteed && (u.skills?.[P_RIDING] ?? 0) < P_BASIC) return false;
+    if (u.usteed && (u.weapon_skills?.[P_RIDING]?.skill ?? 0) < P_BASIC) return false;
 
     if (u.uundetected && ceilingHider(ptr)) return false;
 
