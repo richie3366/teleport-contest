@@ -24,7 +24,7 @@ The implementation is still **nowhere near full-game parity**. Two large **techn
 1. **`js/fastforward.js`** — replays hundreds of leaf PRNG draws from a reference extraction so the ISAAC stream stays aligned while `o_init`, dungeon graph setup, post-`mklev` init, and related paths are incomplete.
 2. **Per-turn harnesses** — `js/monmove.js` replays fixed `rn2` sequences for steps 1–12; `js/moveloop_aux.js` replays end-of-turn draws (`maybe_generate_rnd_mon`, `dosounds`, `gethungry`, `rn2(82)`, conditional exercise hooks) instead of real `allmain.c` / `monmove.c` / `eat.c` / `sounds.c` logic.
 
-**Git:** `main` is **95 commits ahead of `origin/main`** after the latest local commits (not pushed at report edit time). Earlier history is overwhelmingly `feat(js):` / `fix(js):` / `refactor(js):` / `docs(plans):` work: moveloop wiring, search/detect, trap progression, engraving stack, inventory overlays, and satellite planning under `.cursor/plans/nethack-port/`. Nothing in this report substitutes reading the diff.
+**Git:** `main` is **96 commits ahead of `origin/main`** after the latest local commits (not pushed at report edit time). Earlier history is overwhelmingly `feat(js):` / `fix(js):` / `refactor(js):` / `docs(plans):` work: moveloop wiring, search/detect, trap progression, engraving stack, inventory overlays, and satellite planning under `.cursor/plans/nethack-port/`. Nothing in this report substitutes reading the diff.
 
 ---
 
