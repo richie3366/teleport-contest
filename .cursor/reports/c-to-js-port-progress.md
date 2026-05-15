@@ -9,6 +9,7 @@
 
 | When | What changed |
 |------|----------------|
+| **2026-05-16 (ini_inv stub: all roles)** | **`ini_inv_stub.js`:** static packs for **Healer**, **Knight**, **Monk**, **Priest** / **Priestess**, **Ranger**, **Rogue**, **Samurai**, **Caveman** / **Cavewoman** from **`u_init.c`** `trobj[]`, plus existing roles. **`initIniInvStub`** uses **`INI_INV_BY_ROLE_NAME`** and picks **`urole.name.f`** when **`flags.female`** so **Priestess** / **Cavewoman** match C titles. **Likely next step:** port **`ini_inv()`** / **`mkobj`** so items, **UNDEF_TYP** scrolls/books, **Barbarian** random pack, and bless/curse match PRNG; then shrink **`fastforward_post_mklev`**. |
 | **2026-05-16 (ini_inv stub: Val / Bar / Arc)** | **`ini_inv_stub.js`:** static **`#inventory` / #discoveries** rows from **`u_init.c`** for **Valkyrie** (`Valkyrie[]`), **Barbarian** (`Barbarian_0[]` only — C picks 0 vs 1 at random), and **Archeologist** (`Archeologist[]`, with discovery lines for whip, armor, tools, touchstone). **`initIniInvStub`** selects by `g.urole.name`. **Likely next step:** extend the same pattern to remaining **`trobj[]`** roles (Healer, Knight, …) or begin **`ini_inv()`** / **`mkobj`** so inventory matches PRNG and bless/curse rolls. |
 | **2026-05-16 (`init_attr` / `vary_init_attr`)** | **`js/u_init_attr.js`:** `initAttr(np)`, `varyInitAttr()` from **`attrib.c`** (`rnd_attr` / `init_attr_role_redist` / `init_attr` / `vary_init_attr`). **`roles.js`:** per-role **`attrbase`** / **`attrdist`** from **`role.c`**. **`chargen.js`:** copies those arrays onto **`g.urole`**. **`allmain.js`:** after **`fastforward_post_mklev()`**, **`applyInitAttrPipeline(75)`**; removed hardcoded **`u.acurr` / `u.amax`**. **`fastforward_post_mklev`:** dropped the old fixed **`rn2(100)`…`rn2(20)`** replay tail (the **35-call** block was session-shaped; real C uses a **variable** draw count per seed). Kept the three draws before that block (**`rn2(20); rn2(1); rnd(2);`**) still in fastforward so pre-attr RNG matches the prior harness. **`attrib.js`:** exports **`getRaceAttrMin` / `getRaceAttrMax`** for **`ATTRMIN` / `ATTRMAX`**. **Likely next step:** port more of **`u_init_inventory_attrs`** / **`ini_inv`** (real **`mkobj`** / invent) and shrink **`fastforward_post_mklev`** further; align **`moveloop_preamble`** / **`monmove`** harnesses once startup stream is fully C-driven. |
 | **2026-05-16 (attrib + u fields + wizard invent stub)** | **`attrib.c` `adjattrib`:** positive/negative deltas, race **ATTRMIN/ATTRMAX** from `role.c` (`roles.js` `races[].attrmin` / `attrmax`, `STR18` caps). **`chargen.js`:** `u.ualignbase[A_CURRENT]` / `[A_ORIGINAL]` like `u_init.c`. **`allmain.js`:** `u.ulevel` / `u.ulevelmax` = 1. **`ini_inv_stub.js`:** second role pack for **Wizard** (#inventory / discoveries overlay). **Likely next step:** port **`init_attr(75)`** + **`vary_init_attr()`** from `attrib.c` in correct order after **`ini_inv`** (inside `u_init_inventory_attrs` sequence), then delete the matching slice from **`fastforward_post_mklev`** session replay. |
@@ -19,14 +20,14 @@
 
 ## 1. Executive summary
 
-The fork has evolved from a **minimal harness** (RNG replay, skeletal `newgame` / `mklev`, movement-only `cmd`) into a **substantial partial port** of early-game subsystems: **dungeon layout**, **vision / glyph display**, **search / trap discovery**, **engravings and rumors**, **hero trap effects** (`dotrap` / `trapeffect` subsets), **pickup / look-here messaging**, **moveloop preamble** pieces aligned with `allmain.c`, and **UI overlays** (#attributes, discoveries, **Tourist + Wizard** inventory stubs).
+The fork has evolved from a **minimal harness** (RNG replay, skeletal `newgame` / `mklev`, movement-only `cmd`) into a **substantial partial port** of early-game subsystems: **dungeon layout**, **vision / glyph display**, **search / trap discovery**, **engravings and rumors**, **hero trap effects** (`dotrap` / `trapeffect` subsets), **pickup / look-here messaging**, **moveloop preamble** pieces aligned with `allmain.c`, and **UI overlays** (#attributes, discoveries, **`ini_inv_stub.js`** covering **all thirteen roles** from `u_init.c` `trobj[]` for `#inventory` / #discoveries until real `ini_inv` / `mkobj`).
 
 The implementation is still **nowhere near full-game parity**. Two large **technical debts** dominate the path to judge parity:
 
 1. **`js/fastforward.js`** — replays hundreds of leaf PRNG draws from a reference extraction so the ISAAC stream stays aligned while `o_init`, dungeon graph setup, post-`mklev` init, and related paths are incomplete. **`fastforward_post_mklev`** is smaller now that **`init_attr` / `vary_init_attr`** run as real code (`u_init_attr.js`), but most of the block is still replay.
 2. **Per-turn harnesses** — `js/monmove.js` replays fixed `rn2` sequences for steps 1–12; `js/moveloop_aux.js` replays end-of-turn draws (`maybe_generate_rnd_mon`, `dosounds`, `gethungry`, `rn2(82)`, conditional exercise hooks) instead of real `allmain.c` / `monmove.c` / `eat.c` / `sounds.c` logic.
 
-**Git:** `main` is **99 commits ahead of `origin/main`** after the latest local commits (not pushed at report edit time). Earlier history is overwhelmingly `feat(js):` / `fix(js):` / `refactor(js):` / `docs(plans):` work: moveloop wiring, search/detect, trap progression, engraving stack, inventory overlays, and satellite planning under `.cursor/plans/nethack-port/`. Nothing in this report substitutes reading the diff.
+**Git:** `main` is **100 commits ahead of `origin/main`** after the latest local commits (not pushed at report edit time). Earlier history is overwhelmingly `feat(js):` / `fix(js):` / `refactor(js):` / `docs(plans):` work: moveloop wiring, search/detect, trap progression, engraving stack, inventory overlays, and satellite planning under `.cursor/plans/nethack-port/`. Nothing in this report substitutes reading the diff.
 
 ---
 
@@ -85,7 +86,7 @@ The following areas have **real logic** traced to specific C files (comments in 
 | `struct rm`, level container | `rm.h`, `decl.h` | `game.js` — `GameMap`, `floorObjHeads`, `engravings`, `traps` |
 | Vision / newsym / glyphs | `vision.c`, `display.c` | `vision.js`, `display.js` — partial; trap glyphs on map; `feel_location` minimal path |
 | Status / bot | `botl.c` | `display.js` / `game_display.js` — **partial**; TODO for full status line |
-| Overlays (#attributes, discoveries, per-role invent stub) | `cmd.c`, invent windows | `overlay_screens.js`, `invent.js`, enlightenment modules; `ini_inv_stub.js` (**Tourist**, **Wizard**, **Valkyrie**, **Barbarian**, **Archeologist** static rows from `u_init.c` `trobj[]`) |
+| Overlays (#attributes, discoveries, per-role invent stub) | `cmd.c`, invent windows | `overlay_screens.js`, `invent.js`, enlightenment modules; `ini_inv_stub.js` — **all 13 roles** static rows from `u_init.c` `trobj[]` (Barbarian **Barbarian_0** only; Monk/Priest **UNDEF** items labeled as random stubs) |
 
 ### 3.6 Commands (narrow)
 
@@ -163,11 +164,11 @@ These upstream files (representative) have **no dedicated JS module** or only **
 
 - **Done:** `OPTIONS=role,race,gender,align` → `g.urole` / `g.urace` (incl. **ATTRMIN/ATTRMAX** tables) / `g.flags.female` / `g.u.ualign` / **`g.u.ualignbase`** via `chargen.js`; `roles.js` carries upstream **abbrev** + **XL1 rank** strings + **`attrbase` / `attrdist`**; welcome message uses that identity. **`allmain.js`** sets **`u.ulevel` / `u.ulevelmax`** to 1 and runs **`applyInitAttrPipeline(75)`** (`attrib.c` **`init_attr`** + **`vary_init_attr`**) so **`u.acurr` / `u.amax`** are no longer hardcoded literals.
 - **Still hardcoded:** HP/energy/AC/gold, `left_handed`, and other **gameplay** numbers — must come from `u_init.c` + real `ini_inv` when `fastforward_post_mklev` shrinks further.
-- **Non-Tourist roles:** `ini_inv_stub.js` covers **Wizard**, **Valkyrie**, **Barbarian** (Barbarian_0 pack only), and **Archeologist**; other roles still get an empty #inventory stub until more `trobj[]` tables port from `u_init.c`.
+- **Non-Tourist roles:** `ini_inv_stub.js` lists **all** `u_init.c` **`trobj[]`** role packs for overlays; gameplay still has no real **`invent`** / **`mkobj`**.
 
 ### 5.4 `ini_inv_stub.js` + `o_init.js`
 
-- Starting inventory and discoveries are **stubbed** for overlay parity (**Tourist**, **Wizard**, **Valkyrie**, **Barbarian**, **Archeologist**); not full `u_init.c` / `invent.c` / RNG from `ini_inv()`.
+- Starting inventory and discoveries are **stubbed** for **all thirteen roles** (`trobj[]` shapes from `u_init.c`); **not** real `ini_inv()` / `invent.c` / PRNG. Female heroes use **`name.f`** as the lookup key (**Priestess**, **Cavewoman**, …).
 
 ### 5.5 Traps and search “partial” correctness
 
@@ -239,10 +240,10 @@ Approximate **physical LOC** (2026-05-16 `wc -l`):
 | 420 | `display.js` |
 | 402 | `epitaph_lines.js` |
 | 332 | `search.js` |
+| 582 | `ini_inv_stub.js` |
 | 318 | `fastforward.js` |
 | 251 | `pickup.js` |
 | 245 | `jsmain.js` |
-| 240 | `ini_inv_stub.js` |
 | 170 | `allmain.js` |
 | 146 | `roles.js` |
 | 101 | `u_init_attr.js` |

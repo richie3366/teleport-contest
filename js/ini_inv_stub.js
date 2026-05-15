@@ -182,6 +182,357 @@ const ARCHEOLOGIST_INI_INV = [
     { type: 'item', text: '(end)' },
 ];
 
+/** C: u_init.c Healer[] */
+const HEALER_INI_INV = [
+    { type: 'cat', name: 'Coins' },
+    { type: 'item', text: (g) => `$ - ${g._goldCount ?? 0} gold pieces` },
+    { type: 'cat', name: 'Weapons' },
+    {
+        type: 'item',
+        text: 'a - an uncursed +0 scalpel (weapon in hand)',
+        oclass: 'Weapons',
+        discoveryLine: '  scalpel',
+    },
+    { type: 'cat', name: 'Armor' },
+    {
+        type: 'item',
+        text: 'b - an uncursed +1 pair of leather gloves (being worn)',
+        oclass: 'Armor',
+        discoveryLine: '  leather gloves',
+    },
+    { type: 'cat', name: 'Tools' },
+    {
+        type: 'item',
+        text: 'c - a stethoscope',
+        oclass: 'Tools',
+        discoveryLine: '  stethoscope',
+    },
+    { type: 'cat', name: 'Potions' },
+    {
+        type: 'item',
+        text: 'd - 4 uncursed potions of healing',
+        oclass: 'Potions',
+        discoveryLine: '  potion of healing',
+    },
+    {
+        type: 'item',
+        text: 'e - 4 uncursed potions of extra healing',
+        oclass: 'Potions',
+        discoveryLine: '  potion of extra healing',
+    },
+    { type: 'cat', name: 'Wands' },
+    {
+        type: 'item',
+        text: 'f - an uncursed wand of sleep (0:5)',
+        oclass: 'Wands',
+        discoveryLine: '  wand of sleep',
+    },
+    { type: 'cat', name: 'Spellbooks' },
+    {
+        type: 'item',
+        text: 'g - a blessed spellbook of healing',
+        oclass: 'Spellbooks',
+        discoveryLine: '  spellbook of healing',
+    },
+    {
+        type: 'item',
+        text: 'h - a blessed spellbook of extra healing',
+        oclass: 'Spellbooks',
+        discoveryLine: '  spellbook of extra healing',
+    },
+    {
+        type: 'item',
+        text: 'i - a blessed spellbook of stone to flesh',
+        oclass: 'Spellbooks',
+        discoveryLine: '  spellbook of stone to flesh',
+    },
+    { type: 'cat', name: 'Comestibles' },
+    { type: 'item', text: 'j - 5 uncursed apples' },
+    { type: 'item', text: '(end)' },
+];
+
+/** C: u_init.c Knight[] */
+const KNIGHT_INI_INV = [
+    { type: 'cat', name: 'Coins' },
+    { type: 'item', text: (g) => `$ - ${g._goldCount ?? 0} gold pieces` },
+    { type: 'cat', name: 'Weapons' },
+    {
+        type: 'item',
+        text: 'a - an uncursed +1 long sword (weapon in hands)',
+        oclass: 'Weapons',
+        discoveryLine: '  long sword',
+    },
+    { type: 'item', text: 'b - an uncursed +1 lance' },
+    { type: 'cat', name: 'Armor' },
+    {
+        type: 'item',
+        text: 'c - an uncursed +1 ring mail (being worn)',
+        oclass: 'Armor',
+        discoveryLine: '  ring mail',
+    },
+    {
+        type: 'item',
+        text: 'd - an uncursed +0 helmet',
+        oclass: 'Armor',
+        discoveryLine: '  helmet',
+    },
+    {
+        type: 'item',
+        text: 'e - an uncursed +0 small shield',
+        oclass: 'Armor',
+        discoveryLine: '  small shield',
+    },
+    {
+        type: 'item',
+        text: 'f - an uncursed +0 pair of leather gloves',
+        oclass: 'Armor',
+        discoveryLine: '  leather gloves',
+    },
+    { type: 'cat', name: 'Comestibles' },
+    { type: 'item', text: 'g - 10 uncursed apples' },
+    { type: 'item', text: 'h - 10 uncursed carrots' },
+    { type: 'item', text: '(end)' },
+];
+
+/** C: u_init.c Monk[] (UNDEF_TYP scroll → stub as random scroll). */
+const MONK_INI_INV = [
+    { type: 'cat', name: 'Coins' },
+    { type: 'item', text: (g) => `$ - ${g._goldCount ?? 0} gold pieces` },
+    { type: 'cat', name: 'Armor' },
+    {
+        type: 'item',
+        text: 'a - an uncursed +2 pair of leather gloves (being worn)',
+        oclass: 'Armor',
+        discoveryLine: '  leather gloves',
+    },
+    {
+        type: 'item',
+        text: 'b - an uncursed +1 robe',
+        oclass: 'Armor',
+        discoveryLine: '  robe',
+    },
+    { type: 'cat', name: 'Scrolls' },
+    {
+        type: 'item',
+        text: 'c - an uncursed scroll (random appearance)',
+        oclass: 'Scrolls',
+        discoveryLine: '  scroll (type from game start)',
+    },
+    { type: 'cat', name: 'Potions' },
+    {
+        type: 'item',
+        text: 'd - 3 uncursed potions of healing',
+        oclass: 'Potions',
+        discoveryLine: '  potion of healing',
+    },
+    { type: 'cat', name: 'Comestibles' },
+    { type: 'item', text: 'e - 3 uncursed food rations' },
+    { type: 'item', text: 'f - 5 uncursed apples' },
+    { type: 'item', text: 'g - 5 uncursed oranges' },
+    { type: 'item', text: 'h - 3 uncursed fortune cookies' },
+    { type: 'item', text: '(end)' },
+];
+
+/** C: u_init.c Priest[] (holy water blessed; two random spellbooks). */
+const PRIEST_INI_INV = [
+    { type: 'cat', name: 'Coins' },
+    { type: 'item', text: (g) => `$ - ${g._goldCount ?? 0} gold pieces` },
+    { type: 'cat', name: 'Weapons' },
+    {
+        type: 'item',
+        text: 'a - a blessed +1 mace (weapon in hand)',
+        oclass: 'Weapons',
+        discoveryLine: '  mace',
+    },
+    { type: 'cat', name: 'Armor' },
+    {
+        type: 'item',
+        text: 'b - an uncursed +0 robe (being worn)',
+        oclass: 'Armor',
+        discoveryLine: '  robe',
+    },
+    {
+        type: 'item',
+        text: 'c - an uncursed +0 small shield',
+        oclass: 'Armor',
+        discoveryLine: '  small shield',
+    },
+    { type: 'cat', name: 'Potions' },
+    {
+        type: 'item',
+        text: 'd - 4 potions of holy water (blessed clear)',
+        oclass: 'Potions',
+        discoveryLine: '  potion of water (blessed)',
+    },
+    { type: 'cat', name: 'Comestibles' },
+    { type: 'item', text: 'e - an uncursed clove of garlic' },
+    { type: 'item', text: 'f - an uncursed sprig of wolfsbane' },
+    { type: 'cat', name: 'Spellbooks' },
+    {
+        type: 'item',
+        text: 'g - 2 uncursed spellbooks (random types)',
+        oclass: 'Spellbooks',
+        discoveryLine: '  spellbooks (types from game start)',
+    },
+    { type: 'item', text: '(end)' },
+];
+
+/** C: u_init.c Ranger[] */
+const RANGER_INI_INV = [
+    { type: 'cat', name: 'Coins' },
+    { type: 'item', text: (g) => `$ - ${g._goldCount ?? 0} gold pieces` },
+    { type: 'cat', name: 'Weapons' },
+    {
+        type: 'item',
+        text: 'a - an uncursed +1 dagger (weapon in hand)',
+        oclass: 'Weapons',
+        discoveryLine: '  dagger',
+    },
+    {
+        type: 'item',
+        text: 'b - an uncursed +1 bow',
+        oclass: 'Weapons',
+        discoveryLine: '  bow',
+    },
+    { type: 'item', text: 'c - 54 uncursed +2 arrows' },
+    { type: 'item', text: 'd - 34 uncursed +0 arrows' },
+    { type: 'cat', name: 'Armor' },
+    {
+        type: 'item',
+        text: 'e - an uncursed +2 cloak of displacement (being worn)',
+        oclass: 'Armor',
+        discoveryLine: '  cloak of displacement',
+    },
+    { type: 'cat', name: 'Comestibles' },
+    { type: 'item', text: 'f - 4 uncursed cram rations' },
+    { type: 'item', text: '(end)' },
+];
+
+/** C: u_init.c Rogue[] */
+const ROGUE_INI_INV = [
+    { type: 'cat', name: 'Coins' },
+    { type: 'item', text: (g) => `$ - ${g._goldCount ?? 0} gold pieces` },
+    { type: 'cat', name: 'Weapons' },
+    {
+        type: 'item',
+        text: 'a - an uncursed +0 short sword (weapon in hand)',
+        oclass: 'Weapons',
+        discoveryLine: '  short sword',
+    },
+    { type: 'item', text: 'b - 10 uncursed +0 daggers' },
+    { type: 'cat', name: 'Armor' },
+    {
+        type: 'item',
+        text: 'c - an uncursed +1 leather armor (being worn)',
+        oclass: 'Armor',
+        discoveryLine: '  leather armor',
+    },
+    { type: 'cat', name: 'Potions' },
+    {
+        type: 'item',
+        text: 'd - an uncursed potion of sickness',
+        oclass: 'Potions',
+        discoveryLine: '  potion of sickness',
+    },
+    { type: 'cat', name: 'Tools' },
+    {
+        type: 'item',
+        text: 'e - an uncursed lock pick',
+        oclass: 'Tools',
+        discoveryLine: '  lock pick',
+    },
+    { type: 'item', text: 'f - an empty uncursed sack' },
+    { type: 'item', text: '(end)' },
+];
+
+/** C: u_init.c Samurai[] */
+const SAMURAI_INI_INV = [
+    { type: 'cat', name: 'Coins' },
+    { type: 'item', text: (g) => `$ - ${g._goldCount ?? 0} gold pieces` },
+    { type: 'cat', name: 'Weapons' },
+    {
+        type: 'item',
+        text: 'a - an uncursed +0 katana (weapon in hands)',
+        oclass: 'Weapons',
+        discoveryLine: '  katana',
+    },
+    {
+        type: 'item',
+        text: 'b - an uncursed +0 short sword (wakizashi)',
+        oclass: 'Weapons',
+        discoveryLine: '  short sword',
+    },
+    {
+        type: 'item',
+        text: 'c - an uncursed +0 yumi',
+        oclass: 'Weapons',
+        discoveryLine: '  yumi',
+    },
+    { type: 'item', text: 'd - 35 uncursed +0 ya (in quiver)' },
+    { type: 'cat', name: 'Armor' },
+    {
+        type: 'item',
+        text: 'e - an uncursed +0 splint mail (being worn)',
+        oclass: 'Armor',
+        discoveryLine: '  splint mail',
+    },
+    { type: 'item', text: '(end)' },
+];
+
+/** C: u_init.c Cave_man[] (flint/rn2 ranges shown as mid stub). */
+const CAVE_MAN_INI_INV = [
+    { type: 'cat', name: 'Coins' },
+    { type: 'item', text: (g) => `$ - ${g._goldCount ?? 0} gold pieces` },
+    { type: 'cat', name: 'Weapons' },
+    {
+        type: 'item',
+        text: 'a - an uncursed +1 club (weapon in hands)',
+        oclass: 'Weapons',
+        discoveryLine: '  club',
+    },
+    {
+        type: 'item',
+        text: 'b - an uncursed +2 sling',
+        oclass: 'Weapons',
+        discoveryLine: '  sling',
+    },
+    { type: 'cat', name: 'Gems' },
+    {
+        type: 'item',
+        text: 'c - 15 uncursed flint stones',
+        oclass: 'Gems',
+        discoveryLine: '  flint',
+    },
+    { type: 'item', text: 'd - 3 uncursed rocks' },
+    { type: 'cat', name: 'Armor' },
+    {
+        type: 'item',
+        text: 'e - an uncursed +0 leather armor (being worn)',
+        oclass: 'Armor',
+        discoveryLine: '  leather armor',
+    },
+    { type: 'item', text: '(end)' },
+];
+
+/** Role name (male or female title) → inventory table. C: u_init.c trobj[] packs. */
+const INI_INV_BY_ROLE_NAME = {
+    Tourist: TOURIST_INI_INV,
+    Wizard: WIZARD_INI_INV,
+    Valkyrie: VALKYRIE_INI_INV,
+    Barbarian: BARBARIAN_INI_INV,
+    Archeologist: ARCHEOLOGIST_INI_INV,
+    Healer: HEALER_INI_INV,
+    Knight: KNIGHT_INI_INV,
+    Monk: MONK_INI_INV,
+    Priest: PRIEST_INI_INV,
+    Priestess: PRIEST_INI_INV,
+    Ranger: RANGER_INI_INV,
+    Rogue: ROGUE_INI_INV,
+    Samurai: SAMURAI_INI_INV,
+    Caveman: CAVE_MAN_INI_INV,
+    Cavewoman: CAVE_MAN_INI_INV,
+};
+
 /** @param {Array<{ type: 'cat', name: string } | { type: 'item', text: string | ((g: object) => string), oclass?: string, discoveryLine?: string }>} rows */
 function discoveryGroupsFromIniInv(rows) {
     const groups = [];
@@ -201,22 +552,13 @@ function discoveryGroupsFromIniInv(rows) {
 
 /** C ref: u_init.c — apply role starting pack (static labels until mkobj/ini_inv). */
 export function initIniInvStub(/** @type {import('./gstate.js').game} */ g) {
-    const role = g.urole?.name?.m || g.urole?.name?.f || '';
-    if (role === 'Tourist') {
-        g._iniInvRows = TOURIST_INI_INV;
-        g.discoveryGroups = discoveryGroupsFromIniInv(TOURIST_INI_INV);
-    } else if (role === 'Wizard') {
-        g._iniInvRows = WIZARD_INI_INV;
-        g.discoveryGroups = discoveryGroupsFromIniInv(WIZARD_INI_INV);
-    } else if (role === 'Valkyrie') {
-        g._iniInvRows = VALKYRIE_INI_INV;
-        g.discoveryGroups = discoveryGroupsFromIniInv(VALKYRIE_INI_INV);
-    } else if (role === 'Barbarian') {
-        g._iniInvRows = BARBARIAN_INI_INV;
-        g.discoveryGroups = discoveryGroupsFromIniInv(BARBARIAN_INI_INV);
-    } else if (role === 'Archeologist') {
-        g._iniInvRows = ARCHEOLOGIST_INI_INV;
-        g.discoveryGroups = discoveryGroupsFromIniInv(ARCHEOLOGIST_INI_INV);
+    const female = g.flags?.female;
+    const role = female ? (g.urole?.name?.f || g.urole?.name?.m || '')
+        : (g.urole?.name?.m || g.urole?.name?.f || '');
+    const rows = INI_INV_BY_ROLE_NAME[role];
+    if (rows) {
+        g._iniInvRows = rows;
+        g.discoveryGroups = discoveryGroupsFromIniInv(rows);
     } else {
         g._iniInvRows = [];
         g.discoveryGroups = [];
