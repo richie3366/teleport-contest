@@ -24,7 +24,7 @@ import {
     A_LAWFUL, Align2amask,
     LR_UPTELE,
 } from './const.js';
-import { makeEngrAt, ENGR_HEADSTONE, ENGR_MARK, randomEngraving, getRndEpitaphText } from './engrave.js';
+import { makeEngrAt, ENGR_HEADSTONE, ENGR_MARK, ENGR_DUST, randomEngraving, getRndEpitaphText, wipeEngrAt } from './engrave.js';
 import { tAt } from './search.js';
 
 // Object/class constants (normally from objects.js, not in contest template)
@@ -99,6 +99,12 @@ const VIBRATING_SQUARE = 22;
 const TRAPPED_DOOR = 23;
 const TRAPPED_CHEST = 24;
 const MAGIC_PORTAL = 25;
+
+/** C: mklev.c trap_engravings[] — indices match trap_types in trap.h */
+const TRAP_ENGRAVINGS = /** @type {(string|undefined)[]} */ (Array.from({ length: TRAPNUM }, () => undefined));
+TRAP_ENGRAVINGS[TRAPDOOR] = 'Vlad was here';
+TRAP_ENGRAVINGS[TELEP_TRAP] = 'ad aerarium';
+TRAP_ENGRAVINGS[LEVEL_TELEP] = 'ad aerarium';
 
 function is_hole(t) { return t === HOLE || t === TRAPDOOR; }
 function is_pit(t) { return t === PIT || t === SPIKED_PIT; }
@@ -1387,7 +1393,15 @@ async function makeniche(trap_type) {
             if (trap_type) {
                 let actualTrap = trap_type;
                 if (is_hole(actualTrap)) actualTrap = ROCKTRAP;
-                await maketrap(xx, yy + dy, actualTrap);
+                const ttmp = await maketrap(xx, yy + dy, actualTrap);
+                if (ttmp) {
+                    if (actualTrap !== ROCKTRAP) ttmp.once = 1;
+                    const engr = TRAP_ENGRAVINGS[actualTrap];
+                    if (engr) {
+                        makeEngrAt(xx, yy - dy, engr, ENGR_DUST);
+                        wipeEngrAt(xx, yy - dy, 5, false);
+                    }
+                }
             }
             dosdoor(xx, yy, aroom, SDOOR);
         } else {

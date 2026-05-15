@@ -456,3 +456,10 @@ export function wipeEngrAt(x, y, cnt, magical = false) {
     }
     ep.engr_txt[ENGR_TXT_ACTUAL] = actual;
 }
+
+/** C: engrave.c u_wipe_engr(cnt) */
+export function uWipeEngr(cnt) {
+    const u = game.u;
+    if (!u || u.ux === undefined || u.uy === undefined) return;
+    if (canReachFloor(true)) wipeEngrAt(u.ux, u.uy, cnt, false);
+}
