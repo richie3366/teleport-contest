@@ -114,8 +114,10 @@ export async function moveloop_core() {
     // Read and execute one command
     await rhack(0);
 
-    // Clear message after command is processed
-    g._pending_message = '';
+    // Clear top line unless rhack asked to keep it for the next nhgetch
+    // capture (zero-time plines such as # / spell hint).
+    if (!g._retainMessageAfterCommand) g._pending_message = '';
+    g._retainMessageAfterCommand = false;
 
     // Advance turn
     if (g.context?.move) {

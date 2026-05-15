@@ -7,7 +7,7 @@
 
 import { game } from './gstate.js';
 import { nhgetch } from './input.js';
-import { newsym, flush_screen, pline } from './display.js';
+import { newsym, flush_screen, pline, docrt } from './display.js';
 import { vision_recalc } from './vision.js';
 import { dosearch } from './search.js';
 import { COLNO, ROWNO, STONE, DOOR, D_CLOSED, D_LOCKED,
@@ -41,6 +41,21 @@ export async function rhack(key) {
         key = await nhgetch();
     }
 
+    if (key === 27) {
+        // C: ESC — dismiss inventory; clear top line (tty dismiss echo)
+        if (game._inventoryMode) {
+            game._inventoryMode = false;
+            game._pending_message = '';
+            await docrt();
+            await flush_screen(1);
+        } else {
+            game._pending_message = '';
+            await flush_screen(1);
+        }
+        game.context.move = 0;
+        return;
+    }
+
     const ch = String.fromCharCode(key);
 
     if (isMovementKey(ch)) {
@@ -49,6 +64,23 @@ export async function rhack(key) {
         // C: cmd.c rhack — #search → dosearch() → dosearch0 (detect.c)
         game.context.move = 1;
         await dosearch();
+    } else if (ch === 'i') {
+        // C: cmd.c #inventory — minimal full-screen list (invent.c)
+        game.context.move = 0;
+        game._inventoryMode = true;
+        await flush_screen(1);
+    } else if (ch === '+') {
+        // C: spell menu — no spells known yet
+        game.context.move = 0;
+        await pline("You don't know any spells right now.");
+        game._retainMessageAfterCommand = true;
+        await flush_screen(1);
+    } else if (ch === ':') {
+        // C: look at floor / dolook — empty cell
+        game.context.move = 0;
+        await pline('You see no objects here.');
+        game._retainMessageAfterCommand = true;
+        await flush_screen(1);
     } else {
         // Unknown command
         game.context.move = 0;
@@ -73,6 +105,7 @@ async function domove(dx, dy) {
     u.uy0 = oldy;
     u.ux = newx;
     u.uy = newy;
+    game._pending_message = '';
 
     // Update display
     newsym(oldx, oldy);

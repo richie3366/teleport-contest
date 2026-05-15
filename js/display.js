@@ -17,6 +17,7 @@ import {
     VIBRATING_SQUARE, TRAPPED_DOOR, TRAPPED_CHEST,
 } from './const.js';
 import { NO_COLOR, CLR_GRAY, CLR_BROWN, CLR_WHITE, CLR_YELLOW, CLR_GREEN, CLR_BLUE, CLR_CYAN, CLR_RED, CLR_MAGENTA, CLR_BRIGHT_BLUE, CLR_BRIGHT_MAGENTA, CLR_BRIGHT_CYAN, DEC_TO_UNICODE } from './terminal.js';
+import { paintInventoryIntoDisplay } from './invent.js';
 
 // ── ANSI color codes ──
 // Maps CLR_* constants (0-15) to ANSI SGR color codes.
@@ -322,6 +323,23 @@ export function serialize_terminal_grid(display) {
 function _buildScreenOutput() {
     const display = game?.nhDisplay;
     if (!display) return;
+
+    if (game._inventoryMode) {
+        display.clearScreen();
+        game._pending_message = '';
+        paintInventoryIntoDisplay(display);
+        const s1 = _statusLine1().replace(/\x1b\[[0-9;]*[A-Za-z]/g, (m) =>
+            (m.match(/\x1b\[\d+C/) ? ' '.repeat(parseInt(m.slice(2), 10)) : ''));
+        for (let c = 0; c < Math.min(s1.length, display.cols); c++)
+            display.setCell(c, 22, s1[c], NO_COLOR, 0);
+        const s2 = _statusLine2();
+        for (let c = 0; c < Math.min(s2.length, display.cols); c++)
+            display.setCell(c, 23, s2[c], NO_COLOR, 0);
+        display.setCursor(38, 20);
+        display.cursorVisible = true;
+        game._screen_output = display.terminal?.serialize ? display.terminal.serialize() : '';
+        return;
+    }
 
     let output = '';
     // Row 0: message
