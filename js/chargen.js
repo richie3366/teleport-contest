@@ -57,6 +57,8 @@ export function applyIdentityFromNethackrc(g, opts) {
         mnum: role.mnum,
         attrbase: [...role.attrbase],
         attrdist: [...role.attrdist],
+        hpadv: { ...role.hpadv },
+        enadv: { ...role.enadv },
     };
 
     g.urace = {
@@ -65,6 +67,8 @@ export function applyIdentityFromNethackrc(g, opts) {
         mnum: race.mnum,
         attrmin: [...race.attrmin],
         attrmax: [...race.attrmax],
+        hpadv: { ...race.hpadv },
+        enadv: { ...race.enadv },
         permonst: race.permonst ?? permonstHuman,
     };
 

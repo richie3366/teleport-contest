@@ -9,6 +9,7 @@
 
 | When | What changed |
 |------|----------------|
+| **2026-05-16 (birth HP / energy)** | **`js/u_init_hp_energy.js`:** `newhpInitial()` / `newpwInitial()` from **`attrib.c`** `newhp` and **`exper.c`** `newpw` ( **`u.ulevel == 0`** branch: role **`hpadv` / `enadv`** + race, **`rnd`** on **`inrnd`** only). **`applyBirthHpEnergy()`** sets **`u.uhp` / `u.uhpmax` / `u.uhppeak`** and **`u.uen` / `u.uenmax` / `u.uenpeak`** like **`u_init.c`** `u_init_misc`. **`roles.js`:** per-role and per-race **`hpadv` / `enadv`** tables from **`role.c`**. **`chargen.js`:** copies them onto **`g.urole`** / **`g.urace`**. **`allmain.js`:** calls **`applyBirthHpEnergy()`** after **`applyInitAttrPipeline(75)`**; removes hardcoded HP/energy literals (Tourist human still **10** / **2** with zero **`inrnd`** rolls). **Likely next step:** port **`umoney0`** / starting gold, **`adjabil`** / **`u.ualign.record`**, or begin real **`ini_inv`** / **`mkobj`** and trim **`fastforward_post_mklev`** where C order allows. |
 | **2026-05-16 (ini_inv stub: all roles)** | **`ini_inv_stub.js`:** static packs for **Healer**, **Knight**, **Monk**, **Priest** / **Priestess**, **Ranger**, **Rogue**, **Samurai**, **Caveman** / **Cavewoman** from **`u_init.c`** `trobj[]`, plus existing roles. **`initIniInvStub`** uses **`INI_INV_BY_ROLE_NAME`** and picks **`urole.name.f`** when **`flags.female`** so **Priestess** / **Cavewoman** match C titles. **Likely next step:** port **`ini_inv()`** / **`mkobj`** so items, **UNDEF_TYP** scrolls/books, **Barbarian** random pack, and bless/curse match PRNG; then shrink **`fastforward_post_mklev`**. |
 | **2026-05-16 (ini_inv stub: Val / Bar / Arc)** | **`ini_inv_stub.js`:** static **`#inventory` / #discoveries** rows from **`u_init.c`** for **Valkyrie** (`Valkyrie[]`), **Barbarian** (`Barbarian_0[]` only — C picks 0 vs 1 at random), and **Archeologist** (`Archeologist[]`, with discovery lines for whip, armor, tools, touchstone). **`initIniInvStub`** selects by `g.urole.name`. **Likely next step:** extend the same pattern to remaining **`trobj[]`** roles (Healer, Knight, …) or begin **`ini_inv()`** / **`mkobj`** so inventory matches PRNG and bless/curse rolls. |
 | **2026-05-16 (`init_attr` / `vary_init_attr`)** | **`js/u_init_attr.js`:** `initAttr(np)`, `varyInitAttr()` from **`attrib.c`** (`rnd_attr` / `init_attr_role_redist` / `init_attr` / `vary_init_attr`). **`roles.js`:** per-role **`attrbase`** / **`attrdist`** from **`role.c`**. **`chargen.js`:** copies those arrays onto **`g.urole`**. **`allmain.js`:** after **`fastforward_post_mklev()`**, **`applyInitAttrPipeline(75)`**; removed hardcoded **`u.acurr` / `u.amax`**. **`fastforward_post_mklev`:** dropped the old fixed **`rn2(100)`…`rn2(20)`** replay tail (the **35-call** block was session-shaped; real C uses a **variable** draw count per seed). Kept the three draws before that block (**`rn2(20); rn2(1); rnd(2);`**) still in fastforward so pre-attr RNG matches the prior harness. **`attrib.js`:** exports **`getRaceAttrMin` / `getRaceAttrMax`** for **`ATTRMIN` / `ATTRMAX`**. **Likely next step:** port more of **`u_init_inventory_attrs`** / **`ini_inv`** (real **`mkobj`** / invent) and shrink **`fastforward_post_mklev`** further; align **`moveloop_preamble`** / **`monmove`** harnesses once startup stream is fully C-driven. |
@@ -20,14 +21,14 @@
 
 ## 1. Executive summary
 
-The fork has evolved from a **minimal harness** (RNG replay, skeletal `newgame` / `mklev`, movement-only `cmd`) into a **substantial partial port** of early-game subsystems: **dungeon layout**, **vision / glyph display**, **search / trap discovery**, **engravings and rumors**, **hero trap effects** (`dotrap` / `trapeffect` subsets), **pickup / look-here messaging**, **moveloop preamble** pieces aligned with `allmain.c`, and **UI overlays** (#attributes, discoveries, **`ini_inv_stub.js`** covering **all thirteen roles** from `u_init.c` `trobj[]` for `#inventory` / #discoveries until real `ini_inv` / `mkobj`).
+The fork has evolved from a **minimal harness** (RNG replay, skeletal `newgame` / `mklev`, movement-only `cmd`) into a **substantial partial port** of early-game subsystems: **dungeon layout**, **vision / glyph display**, **search / trap discovery**, **engravings and rumors**, **hero trap effects** (`dotrap` / `trapeffect` subsets), **pickup / look-here messaging**, **moveloop preamble** pieces aligned with `allmain.c`, **starting HP and spell energy** from `role.c` `hpadv`/`enadv` (`u_init_hp_energy.js`), and **UI overlays** (#attributes, discoveries, **`ini_inv_stub.js`** covering **all thirteen roles** from `u_init.c` `trobj[]` for `#inventory` / #discoveries until real `ini_inv` / `mkobj`).
 
 The implementation is still **nowhere near full-game parity**. Two large **technical debts** dominate the path to judge parity:
 
 1. **`js/fastforward.js`** — replays hundreds of leaf PRNG draws from a reference extraction so the ISAAC stream stays aligned while `o_init`, dungeon graph setup, post-`mklev` init, and related paths are incomplete. **`fastforward_post_mklev`** is smaller now that **`init_attr` / `vary_init_attr`** run as real code (`u_init_attr.js`), but most of the block is still replay.
 2. **Per-turn harnesses** — `js/monmove.js` replays fixed `rn2` sequences for steps 1–12; `js/moveloop_aux.js` replays end-of-turn draws (`maybe_generate_rnd_mon`, `dosounds`, `gethungry`, `rn2(82)`, conditional exercise hooks) instead of real `allmain.c` / `monmove.c` / `eat.c` / `sounds.c` logic.
 
-**Git:** `main` is **100 commits ahead of `origin/main`** after the latest local commits (not pushed at report edit time). Earlier history is overwhelmingly `feat(js):` / `fix(js):` / `refactor(js):` / `docs(plans):` work: moveloop wiring, search/detect, trap progression, engraving stack, inventory overlays, and satellite planning under `.cursor/plans/nethack-port/`. Nothing in this report substitutes reading the diff.
+**Git:** `main` is **101 commits ahead of `origin/main`** after the latest local commits (not pushed at report edit time). Earlier history is overwhelmingly `feat(js):` / `fix(js):` / `refactor(js):` / `docs(plans):` work: moveloop wiring, search/detect, trap progression, engraving stack, inventory overlays, and satellite planning under `.cursor/plans/nethack-port/`. Nothing in this report substitutes reading the diff.
 
 ---
 
@@ -35,7 +36,7 @@ The implementation is still **nowhere near full-game parity**. Two large **techn
 
 | Layer | C (upstream `src/`) | JS (`js/`) |
 |--------|---------------------|------------|
-| **Volume** | ~130 compilation units, many **10k–200k** LOC (e.g. `cmd.c`, `do.c`, `artifact.c`, `display.c`) | **~13.5k lines** across contestant modules (excluding generated-size `rumor_data.js` / `epitaph_lines.js` data blobs) |
+| **Volume** | ~130 compilation units, many **10k–200k** LOC (e.g. `cmd.c`, `do.c`, `artifact.c`, `display.c`) | **~14.8k lines** across contestant modules (excluding generated-size `rumor_data.js` / `epitaph_lines.js` data blobs) |
 | **Contest frozen** | N/A | `isaac64.js`, `terminal.js`, `storage.js` — **do not modify** |
 | **Global state** | `decl.c`, `you.h`, `rm.h`, … | `gstate.js` exports a mutable `game` bag; `game.js` defines `GameMap` / `makeLocation` |
 
@@ -60,14 +61,14 @@ The following areas have **real logic** traced to specific C files (comments in 
 | Concern | C | JS |
 |---------|---|-----|
 | `nethackrc` parsing subset | `cfgfiles.c`, `options` | `options.js` (partial); `iflags` / `perm_invent` mapping noted in recent commits |
-| Role / race / gender / align from OPTIONS | `u_init.c`, `role.c` | `chargen.js` + `roles.js` (abbrev, XL1 ranks, **`allows`** + `coerceChargenIdentity`, race **attrmin/max** on `g.urace`, **`u.ualignbase`**); called from `jsmain.js` `start()` |
+| Role / race / gender / align from OPTIONS | `u_init.c`, `role.c` | `chargen.js` + `roles.js` (abbrev, XL1 ranks, **`allows`** + `coerceChargenIdentity`, race **attrmin/max**, **`hpadv` / `enadv`** on role and race, **`u.ualignbase`**); called from `jsmain.js` `start()` |
 | Fixed datetime, moon, Friday 13th | `calendar.c`, flags | `moonphase.js`, `moveloop_preamble.js`, `attrib.js` (`changeLuck`) |
 
 ### 3.3 Startup and main loop shell
 
 | Concern | C | JS |
 |---------|---|-----|
-| `newgame`, `moveloop_core`, `moveloop` | `allmain.c` | `allmain.js` — calls real `mklev`, then **fastforward** fills, **hardcoded `u` stats** (HP, AC, gold, etc. — still not full `u_init`), **`applyInitAttrPipeline(75)`** for **`u.acurr` / `u.amax`** (`attrib.c`), `initIniInvStub`, vision init, welcome `pline` (identity from chargen) |
+| `newgame`, `moveloop_core`, `moveloop` | `allmain.c` | `allmain.js` — calls real `mklev`, then **fastforward** fills, **partial `u` stats** (**`applyBirthHpEnergy()`** from `attrib.c`/`exper.c` + `role.c`; AC, gold, etc. still stubbed), **`applyInitAttrPipeline(75)`** for **`u.acurr` / `u.amax`** (`attrib.c`), `initIniInvStub`, vision init, welcome `pline` (identity from chargen) |
 | `moveloop_preamble` | `allmain.c` | `moveloop_preamble.js` — moon/friday messages, `rndencode`, `seer_turn`, `initrack`, `set_wear` / `reset_justpicked`, `pickup(1)`, encumber message hook, `see_monsters` deferral, `update_inventory`, `read_engr_at` on resume, `fix_shop_damage` noop |
 
 ### 3.4 Dungeon generation (structural)
@@ -137,7 +138,7 @@ The following areas have **real logic** traced to specific C files (comments in 
 
 These upstream files (representative) have **no dedicated JS module** or only **distant stubs**:
 
-- **Combat pipeline:** `uhitm.c`, `mhitu.c`, `mhitm.c`, `weapon.c`, `u_init.c` (real **stats** / inventory rolls — chargen only maps **identity** strings today), `dokick.c`, `throw.c`, `zap.c`, …
+- **Combat pipeline:** `uhitm.c`, `mhitu.c`, `mhitm.c`, `weapon.c`, `u_init.c` (real **inventory** / gold / `adjabil` / alignment **record** — chargen maps **identity**; birth **HP/energy** now follow `newhp`/`newpw` level-0 branch), `dokick.c`, `throw.c`, `zap.c`, …
 - **Full object model:** `mkobj.c`, `obj.c`, `invent.c` (beyond look/pickup stubs), `dothrow.c`, `pickup.c` (full), `shk.c` shops, `lock.c`, …
 - **Monsters:** `mon.c`, `monmove.c` (real), `muse.c`, `mfndpos.c`, corpse handling, …
 - **Full command set:** bulk of `cmd.c`, `do.c`, `apply.c`, `pray.c`, …
@@ -162,8 +163,8 @@ These upstream files (representative) have **no dedicated JS module** or only **
 
 ### 5.3 `allmain.js` hardcoded hero (partially relieved)
 
-- **Done:** `OPTIONS=role,race,gender,align` → `g.urole` / `g.urace` (incl. **ATTRMIN/ATTRMAX** tables) / `g.flags.female` / `g.u.ualign` / **`g.u.ualignbase`** via `chargen.js`; `roles.js` carries upstream **abbrev** + **XL1 rank** strings + **`attrbase` / `attrdist`**; welcome message uses that identity. **`allmain.js`** sets **`u.ulevel` / `u.ulevelmax`** to 1 and runs **`applyInitAttrPipeline(75)`** (`attrib.c` **`init_attr`** + **`vary_init_attr`**) so **`u.acurr` / `u.amax`** are no longer hardcoded literals.
-- **Still hardcoded:** HP/energy/AC/gold, `left_handed`, and other **gameplay** numbers — must come from `u_init.c` + real `ini_inv` when `fastforward_post_mklev` shrinks further.
+- **Done:** `OPTIONS=role,race,gender,align` → `g.urole` / `g.urace` (incl. **ATTRMIN/ATTRMAX** tables, **`hpadv` / `enadv`**) / `g.flags.female` / `g.u.ualign` / **`g.u.ualignbase`** via `chargen.js`; `roles.js` carries upstream **abbrev** + **XL1 rank** strings + **`attrbase` / `attrdist`**. **`allmain.js`** sets **`u.ulevel` / `u.ulevelmax`** to 1 and runs **`applyInitAttrPipeline(75)`** (`attrib.c` **`init_attr`** + **`vary_init_attr`**) so **`u.acurr` / `u.amax`** are no longer hardcoded literals; **`applyBirthHpEnergy()`** (`u_init_hp_energy.js`) sets **`u.uhp`** / **`u.uen`** and peaks from **`newhp`/`newpw`** level-0 semantics ( **`rnd`** on **`inrnd`** when non-zero).
+- **Still hardcoded:** AC, gold, `left_handed`, **`u.ualign.record`**, and other **gameplay** numbers — must come from `u_init.c` + real `ini_inv` when `fastforward_post_mklev` shrinks further.
 - **Non-Tourist roles:** `ini_inv_stub.js` lists **all** `u_init.c` **`trobj[]`** role packs for overlays; gameplay still has no real **`invent`** / **`mkobj`**.
 
 ### 5.4 `ini_inv_stub.js` + `o_init.js`
@@ -188,7 +189,7 @@ These upstream files (representative) have **no dedicated JS module** or only **
 
 ## 6. Unpushed commit trajectory (summary)
 
-**92 commits** on `main` not on `origin/main`, roughly from **docs/rules/plan scaffolding** through:
+**100 commits** on `main` not on `origin/main`, roughly from **docs/rules/plan scaffolding** through:
 
 - Harness fixes (terminal, replay, datetime sync)
 - **#search** aligned with `detect.c`; `rnl`; `mfind0` / `feel_location` minimal
@@ -212,7 +213,7 @@ These upstream files (representative) have **no dedicated JS module** or only **
 Aligned with `.cursor/plans/nethack_js_port_roadmap_19a4defd.plan.md` and satellites under `.cursor/plans/nethack-port/`:
 
 1. **Kill `fastforward.js`** — port `o_init`, dungeon init graph, post-`mklev` mineralize/fill, `u_init`, `ini_inv` in **C order**; delete matching replay lines.
-2. **~~Real chargen~~ → extend chargen / `u_init`** — identity from `nethackrc` is wired; next is **numeric** starting state (HP, stats, gold, invent) from `u_init.c` and removal of the hardcoded `g.u` block in `newgame()`.
+2. **~~Real chargen~~ → extend chargen / `u_init`** — identity from `nethackrc` is wired; **starting HP/energy** and **attributes** follow C tables; next is **gold**, **`adjabil` / alignment record**, and **inventory** from `u_init.c` / `ini_inv`, trimming the remaining hardcoded `g.u` block in `newgame()`.
 3. **Real `movemon` + end-of-turn tail** — delete `monmove.js` / `moveloop_aux.js` harnesses.
 4. **Full `cmd.c` surface** — every key in session corpus; menus, `--More--`, `do` functions.
 5. **Objects and inventory** — `mkobj`, invent stack, pickup/drop, containers, shops (`shk.c`).
@@ -244,18 +245,19 @@ Approximate **physical LOC** (2026-05-16 `wc -l`):
 | 318 | `fastforward.js` |
 | 251 | `pickup.js` |
 | 245 | `jsmain.js` |
-| 170 | `allmain.js` |
-| 146 | `roles.js` |
+| 171 | `allmain.js` |
+| 188 | `roles.js` |
 | 101 | `u_init_attr.js` |
+| 51 | `u_init_hp_energy.js` |
 | 95 | `attrib.js` |
-| 71 | `chargen.js` |
+| 77 | `chargen.js` |
 | 199 | `isaac64.js` (frozen) |
 | 165 | `rect.js` |
 | 163 | `mondata.js` |
 | 161 | `cmd.js` |
 | ≤160 | remaining modules (see `wc -l js/*.js`) |
 
-**Total listed in `wc`:** ~13.5k lines under `js/*.js` (run `wc -l js/*.js` for current).
+**Total listed in `wc`:** ~14.8k lines under `js/*.js` (run `wc -l js/*.js` for current).
 
 ---
 

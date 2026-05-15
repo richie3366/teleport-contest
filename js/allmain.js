@@ -16,6 +16,7 @@ import { movemon, MOVE_MON_HARNESS_MAX_STEP } from './monmove.js';
 import { end_of_turn_rng } from './moveloop_aux.js';
 import { initIniInvStub } from './ini_inv_stub.js';
 import { applyInitAttrPipeline } from './u_init_attr.js';
+import { applyBirthHpEnergy } from './u_init_hp_energy.js';
 import { UHS } from './hunger.js';
 import { moveloopPreamble } from './moveloop_preamble.js';
 import { settrack } from './track.js';
@@ -56,14 +57,14 @@ export async function newgame() {
 
     /* C: u_init.c u_init_inventory_attrs — init_attr(75); vary_init_attr(); */
     applyInitAttrPipeline(75);
+    /* C: u_init.c u_init_misc — newhp()/newpw() before adjabil; peaks same as max at birth */
+    applyBirthHpEnergy();
 
     // Hardcoded player state for early Tourist stub.
     // Contestants: port u_init to compute these from game PRNG.
     g._goldCount = 757;
     g.u.umortality = 0;
     g.u.Half_physical_damage = 0;
-    g.u.uhp = 10; g.u.uhpmax = 10;
-    g.u.uen = 2; g.u.uenmax = 2;
     g.u.uac = 10; g.u.uexp = 0;
     g.u.ualign = g.u.ualign || { type: 0, record: 0 };
     if (g.u.ualign.record === undefined) g.u.ualign.record = 0;
