@@ -158,7 +158,7 @@ export function tAt(x, y) {
     return traps.find((t) => t.tx === x && t.ty === y) ?? null;
 }
 
-function delTrap(trap) {
+export function delTrap(trap) {
     const traps = game.level?.traps;
     if (!traps) return;
     const i = traps.indexOf(trap);
@@ -173,7 +173,7 @@ function cvtSdoorToDoor(lev) {
     lev.doormask = newmask;
 }
 
-function trapTypName(ttyp) {
+export function trapTypName(ttyp) {
     const names = {
         [ARROW_TRAP]: 'arrow trap',
         [DART_TRAP]: 'dart trap',

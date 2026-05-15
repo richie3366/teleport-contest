@@ -63,6 +63,12 @@ export async function newgame() {
     g.u.ualign = { type: 0, record: 0 };
     g.u.uhs = UHS.NOT_HUNGRY; /* port eat.c / moveloop when hunger advances */
     g.u.near_capacity = 0; /* C: near_capacity(); port invent weight when ready */
+    g.u.Levitation = 0;
+    g.u.Flying = 0;
+    g.u.Fumbling = 0;
+    g.u.Sleep_resistance = 0;
+    g.u.Deaf = 0;
+    g.u.Hallucination = 0;
     g.u.uwep = null;
     g.u.twoweap = false;
     g.u.uarmg = null; /* gloves — port invent wear when ready */

@@ -9,6 +9,7 @@ import { game } from './gstate.js';
 // C: monflag.h (subset used by locomotion / stagger)
 const M1_FLY = 0x00000001;
 const M1_AMORPHOUS = 0x00000004;
+const M1_BREATHLESS = 0x00000400;
 const M1_NOLIMBS = 0x00006000;
 const M1_SLITHY = 0x00080000;
 
@@ -26,6 +27,11 @@ export const permonstHuman = Object.freeze({
     msize: 2, /* MZ_MEDIUM */
     mmove: 12,
 });
+
+/** C: mondata.h breathless */
+export function breathless(/** @type {Permonst} */ ptr) {
+    return (ptr.mflags1 & M1_BREATHLESS) !== 0;
+}
 
 /**
  * C: raceptr(mtmp) — innate race permonst; hero uses mons[urace.mnum] when !Upolyd.

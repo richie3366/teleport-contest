@@ -11,11 +11,11 @@ import { newsym, flush_screen, pline, docrt } from './display.js';
 import { vision_recalc } from './vision.js';
 import { dosearch, tAt } from './search.js';
 import { maybeSmudgeEngr } from './engrave.js';
-import { nomul } from './timeout.js';
 import { checkHere } from './pickup.js';
+import { dotrap } from './trap.js';
 import { runExtcmdFromHashPrefix } from './extcmd.js';
 import { COLNO, ROWNO, STONE, DOOR, D_CLOSED, D_LOCKED,
-         IS_WALL, IS_OBSTRUCTED } from './const.js';
+         IS_WALL, IS_OBSTRUCTED, NO_TRAP_FLAGS } from './const.js';
 
 // Direction deltas: y u k
 //                   h . l
@@ -147,7 +147,8 @@ async function domove(dx, dy) {
     u.uy = newy;
     // C: hack.c domove — after domove_core walk/rush
     maybeSmudgeEngr(oldx, oldy, newx, newy);
-    if (tAt(newx, newy)) nomul(0); /* C: trap.c dotrap — opens with nomul(0) */
+    const tr = tAt(newx, newy);
+    if (tr) await dotrap(tr, NO_TRAP_FLAGS);
     game._pending_message = '';
     game._overlayScreen = null;
     game._inventoryMode = false;
