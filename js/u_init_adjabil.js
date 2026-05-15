@@ -2,12 +2,13 @@
 // C ref: attrib.c adjabil(); u_init.c u_init_misc calls adjabil(0, 1) with u.ulevel==0.
 //
 // Ported: role_abil / elf_abil / orc_abil tables for **ulevel == 1** entries only;
-// **add_weapon_skill** when **oldlevel > 0** and **newlevel > oldlevel** (weapon.c).
+// **add_weapon_skill** / **lose_weapon_skill** when **oldlevel > 0** and level changes
+// (weapon.c via attrib.c adjabil).
 // Not ported: full intrinsic **adjabil** for XL>1, FROMEXPER/FROMRACE bit layout,
 // postadjabil / see_monsters, dwarf/gnome/elf infravision (no u field yet).
 
 import { game } from './gstate.js';
-import { addWeaponSkill } from './u_init_skills.js';
+import { addWeaponSkill, loseWeaponSkill } from './u_init_skills.js';
 
 /** Role abbrev → u.* keys granted at XL 1 (attrib.c arc_abil … wiz_abil). */
 const XL1_BY_ROLE_ABBR = {
@@ -52,6 +53,9 @@ export function applyAdjabil(oldlevel, newlevel) {
         if (game.urace?.name === 'orc') u.Poison_resistance = 1;
         return;
     }
-    /* C: attrib.c adjabil — add_weapon_skill when gaining XL with oldlevel > 0 */
-    if (oldlevel > 0 && newlevel > oldlevel) addWeaponSkill(game.u, newlevel - oldlevel);
+    /* C: attrib.c adjabil — weapon slots on XL change when oldlevel > 0 */
+    if (oldlevel > 0) {
+        if (newlevel > oldlevel) addWeaponSkill(game.u, newlevel - oldlevel);
+        else if (newlevel < oldlevel) loseWeaponSkill(game.u, oldlevel - newlevel);
+    }
 }

@@ -1,5 +1,5 @@
-// u_init_skills.js — weapon / spell skills at birth (skill_init) + add_weapon_skill.
-// C ref: weapon.c skill_init(), add_weapon_skill(), can_advance(), slots_required();
+// u_init_skills.js — weapon / spell skills at birth (skill_init) + add_weapon_skill + lose_weapon_skill.
+// C ref: weapon.c skill_init(), add_weapon_skill(), lose_weapon_skill(), can_advance(), slots_required();
 //        skills.h practice_needed_to_advance; u_init.c skills_for_role().
 
 import { game } from './gstate.js';
@@ -104,6 +104,36 @@ export function addWeaponSkill(u, n) {
     const after = countCanAdvance(u);
     if (before < after) {
         /* C: give_may_advance_msg(P_NONE) — pline deferred until #enhance port */
+    }
+}
+
+/**
+ * C: weapon.c lose_weapon_skill(n)
+ * @param {object} u
+ * @param {number} n
+ */
+export function loseWeaponSkill(u, n) {
+    if (!u || n <= 0) return;
+    weaponSkills(u);
+    if (!u.skill_record) u.skill_record = [];
+    for (let iter = 0; iter < n; iter++) {
+        if ((u.weapon_slots | 0) > 0) {
+            u.weapon_slots = (u.weapon_slots | 0) - 1;
+        } else if ((u.skills_advanced | 0) > 0) {
+            u.skills_advanced = (u.skills_advanced | 0) - 1;
+            const skill = u.skill_record[u.skills_advanced];
+            if (skill == null || skill <= 0 || skill >= P_NUM_SKILLS) continue;
+            if (pSkill(u, skill) <= P_UNSKILLED) {
+                /* C: impossible / panic — leave state consistent */
+                u.skills_advanced = (u.skills_advanced | 0) + 1;
+                continue;
+            }
+            const ws = weaponSkills(u)[skill];
+            ws.skill -= 1;
+            if (ws.max_skill < ws.skill) ws.max_skill = ws.skill;
+            ws.advance = practiceNeededToAdvance(ws.skill - 1);
+            u.weapon_slots = slotsRequired(skill, u) - 1;
+        }
     }
 }
 
