@@ -90,6 +90,11 @@ export async function rhack(key) {
     if (ch === '#') {
         // C: doextcmd — echo '#' on the top line, then read the next key (tty).
         game.context.move = 0;
+        if (game._overlayScreen || game._inventoryMode) {
+            game._overlayScreen = null;
+            game._inventoryMode = false;
+            await docrt();
+        }
         game._pending_message = '#';
         await flush_screen(1);
         const k = await nhgetch();
