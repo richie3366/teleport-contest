@@ -23,6 +23,7 @@ import {
 } from './const.js';
 import { DEF_SKILLS_BY_ABBR, ROLE_SPESPEC_SCHOOL } from './u_init_skill_defs.js';
 import { weaponType, isAmmo } from './weapon_kind.js';
+import { applySkillBasedSpellbookId } from './skill_based_spellbook.js';
 
 /** C: skills.h #define practice_needed_to_advance(level) ((level) * (level) * 20) */
 export function practiceNeededToAdvance(level) {
@@ -107,7 +108,7 @@ export function addWeaponSkill(u, n) {
 }
 
 /**
- * C: weapon.c skill_init() — gi.invent weapon_type pass (skip is_ammo); no skill_based_spellbook_id;
+ * C: weapon.c skill_init() — gi.invent weapon_type pass (skip is_ammo); skill_based_spellbook_id (Wiz);
  * no pauper_reinit (u.uroleplay.pauper not modeled).
  * @param {object} [g]
  */
@@ -167,5 +168,6 @@ export function applySkillInit(g = game) {
     const school = abbr && ROLE_SPESPEC_SCHOOL[abbr];
     if (school != null) unrestrictWeaponSkill(u, school);
 
-    /* C: skill_based_spellbook_id() — wizard / discoveries; not ported */
+    /* C: weapon.c skill_init — if (!u.uroleplay.pauper) skill_based_spellbook_id(); */
+    applySkillBasedSpellbookId(g);
 }
