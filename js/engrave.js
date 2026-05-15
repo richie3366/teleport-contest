@@ -4,6 +4,7 @@
 
 import { game } from './gstate.js';
 import { pline } from './display.js';
+import { rn2 } from './rng.js';
 import {
     Is_airlevel,
     Is_waterlevel,
@@ -20,7 +21,10 @@ import {
     IS_WALL,
     DRAWBRIDGE_DOWN,
     ICE,
+    BUFSZ,
+    MD_PAD_RUMORS,
 } from './const.js';
+import { ENGRAVE_FILE_BODY } from './engrave_lines.js';
 import { raceptr } from './mondata.js';
 import { tAt } from './search.js';
 import { levlTypAt, stairwayAt } from './decor.js';
@@ -221,4 +225,198 @@ export async function readEngrAt(x, y) {
     ep.erevealed = 1;
 
     if ((game.context?.run ?? 0) > 0) game.context.run = 0;
+}
+
+// --- random_engraving / wipeout_text (C: engrave.c) + get_rnd_line (rumors.c)
+
+/** C: hacklib.c xcrypt — used when reading encrypted DLB text (not plaintext engrave_lines). */
+export function xcryptStr(str) {
+    let bitmask = 1;
+    let out = '';
+    for (let p = 0; p < str.length; p++) {
+        let c = str.charCodeAt(p);
+        if (c & (32 | 64)) c ^= bitmask;
+        out += String.fromCharCode(c);
+        bitmask <<= 1;
+        if (bitmask >= 32) bitmask = 1;
+    }
+    return out;
+}
+
+/** C: rumors.c unpadline — strip trailing makedefs underscore padding. */
+function unpadline(s) {
+    let e = s.length;
+    while (e > 0 && s[e - 1] === '_') e--;
+    return s.slice(0, e);
+}
+
+/**
+ * C: rumors.c get_rnd_line on a contiguous string (no DLB).
+ * @param {string} body file bytes after header
+ * @param {number} padlength MD_PAD_RUMORS for ENGRAVEFILE
+ */
+export function getRndLineFromBody(body, padlength) {
+    const startpos = 0;
+    const endpos = body.length;
+    const filechunksize = endpos - startpos;
+    if (filechunksize < 1) return '';
+
+    let buf = '';
+    for (let trylimit = 10; trylimit > 0; trylimit--) {
+        const chunkoffset = rn2(filechunksize);
+        const pos = startpos + chunkoffset;
+        const nl0 = body.indexOf('\n', pos);
+        const lineEnd = nl0 === -1 ? body.length : nl0;
+        const fragLen = lineEnd - pos;
+        if (!padlength || fragLen <= padlength) {
+            const nextStart = lineEnd < body.length ? lineEnd + 1 : body.length;
+            if (nextStart >= endpos || nextStart >= body.length) {
+                const firstNl = body.indexOf('\n', startpos);
+                buf = firstNl === -1 ? body.slice(startpos) : body.slice(startpos, firstNl);
+            } else {
+                const nl1 = body.indexOf('\n', nextStart);
+                buf = nl1 === -1 ? body.slice(nextStart) : body.slice(nextStart, nl1);
+            }
+            break;
+        }
+    }
+    if (!buf) {
+        const firstNl = body.indexOf('\n', startpos);
+        buf = firstNl === -1 ? body.slice(startpos) : body.slice(startpos, firstNl);
+    }
+    /* C: Strcpy(buf, xcrypt(buf, …)) — DLB lines are encrypted; our bundle is plaintext. */
+    return unpadline(buf);
+}
+
+function getRndEngraveText() {
+    return getRndLineFromBody(ENGRAVE_FILE_BODY, MD_PAD_RUMORS);
+}
+
+/** C: engrave.c rubouts[] */
+const RUBOUTS = /** @type {readonly { wipefrom: string, wipeto: string }[]} */ (Object.freeze([
+    { wipefrom: 'A', wipeto: '^' },
+    { wipefrom: 'B', wipeto: 'Pb[' },
+    { wipefrom: 'C', wipeto: '(' },
+    { wipefrom: 'D', wipeto: '|)[' },
+    { wipefrom: 'E', wipeto: '|FL[_' },
+    { wipefrom: 'F', wipeto: '|-' },
+    { wipefrom: 'G', wipeto: 'C(' },
+    { wipefrom: 'H', wipeto: '|-' },
+    { wipefrom: 'I', wipeto: '|' },
+    { wipefrom: 'K', wipeto: '|<' },
+    { wipefrom: 'L', wipeto: '|_' },
+    { wipefrom: 'M', wipeto: '|' },
+    { wipefrom: 'N', wipeto: '|\\' },
+    { wipefrom: 'O', wipeto: 'C(' },
+    { wipefrom: 'P', wipeto: 'F' },
+    { wipefrom: 'Q', wipeto: 'C(' },
+    { wipefrom: 'R', wipeto: 'PF' },
+    { wipefrom: 'T', wipeto: '|' },
+    { wipefrom: 'U', wipeto: 'J' },
+    { wipefrom: 'V', wipeto: '/\\' },
+    { wipefrom: 'W', wipeto: 'V/\\' },
+    { wipefrom: 'Z', wipeto: '/' },
+    { wipefrom: 'b', wipeto: '|' },
+    { wipefrom: 'd', wipeto: 'c|' },
+    { wipefrom: 'e', wipeto: 'c' },
+    { wipefrom: 'g', wipeto: 'c' },
+    { wipefrom: 'h', wipeto: 'n' },
+    { wipefrom: 'j', wipeto: 'i' },
+    { wipefrom: 'k', wipeto: '|' },
+    { wipefrom: 'l', wipeto: '|' },
+    { wipefrom: 'm', wipeto: 'nr' },
+    { wipefrom: 'n', wipeto: 'r' },
+    { wipefrom: 'o', wipeto: 'c' },
+    { wipefrom: 'q', wipeto: 'c' },
+    { wipefrom: 'w', wipeto: 'v' },
+    { wipefrom: 'y', wipeto: 'v' },
+    { wipefrom: ':', wipeto: '.' },
+    { wipefrom: ';', wipeto: ',:' },
+    { wipefrom: ',', wipeto: '.' },
+    { wipefrom: '=', wipeto: '-' },
+    { wipefrom: '+', wipeto: '-|' },
+    { wipefrom: '*', wipeto: '+' },
+    { wipefrom: '@', wipeto: '0' },
+    { wipefrom: '0', wipeto: 'C(' },
+    { wipefrom: '1', wipeto: '|' },
+    { wipefrom: '6', wipeto: 'o' },
+    { wipefrom: '7', wipeto: '/' },
+    { wipefrom: '8', wipeto: '3o' },
+]));
+
+/**
+ * C: engrave.c wipeout_text
+ * @param {string} engr
+ * @param {number} cnt
+ * @param {number} [seed] 0 = random (rn2); else deterministic like C
+ */
+export function wipeoutText(engr, cnt, seed = 0) {
+    const chars = engr.split('');
+    const pickLen = chars.length;
+    if (!pickLen || cnt <= 0) return engr;
+
+    let sSeed = seed >>> 0;
+    let n = cnt;
+    while (n-- > 0) {
+        let nxt;
+        let useRubout;
+        if (!seed) {
+            nxt = rn2(pickLen);
+            useRubout = rn2(4);
+        } else {
+            nxt = sSeed % pickLen;
+            sSeed = (sSeed * 31) % (BUFSZ - 1);
+            useRubout = sSeed & 3;
+        }
+
+        const ch = chars[nxt];
+        if (ch === ' ') continue;
+        if ('?.,\'`-|_'.includes(ch)) {
+            chars[nxt] = ' ';
+            continue;
+        }
+
+        let i;
+        if (!useRubout) {
+            i = RUBOUTS.length;
+        } else {
+            for (i = 0; i < RUBOUTS.length; i++) {
+                if (ch === RUBOUTS[i].wipefrom) {
+                    const wipeto = RUBOUTS[i].wipeto;
+                    const ln = wipeto.length;
+                    let j;
+                    if (!seed) {
+                        j = rn2(ln);
+                    } else {
+                        sSeed = (sSeed * 31) % (BUFSZ - 1);
+                        j = sSeed % ln;
+                    }
+                    chars[nxt] = wipeto[j];
+                    break;
+                }
+            }
+        }
+        if (i === RUBOUTS.length) chars[nxt] = '?';
+    }
+
+    let out = chars.join('');
+    while (out.length > 0 && out[out.length - 1] === ' ') out = out.slice(0, -1);
+    return out;
+}
+
+/**
+ * C: engrave.c random_engraving(outbuf, pristine_copy)
+ * getrumor() is not ported yet; the rn2(4) branch still runs, then ENGRAVEFILE.
+ * @returns {{ text: string, pristine: string }}
+ */
+export function randomEngraving() {
+    let pristine = '';
+    if (rn2(4) !== 0) {
+        /* getrumor(0, buf, TRUE) would fill buf when rumors are available */
+        pristine = '';
+    }
+    if (!pristine) pristine = getRndEngraveText();
+    const wcnt = Math.floor(pristine.length / 4) | 0;
+    const text = wipeoutText(pristine, wcnt, 0);
+    return { text, pristine };
 }

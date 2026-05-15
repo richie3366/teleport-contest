@@ -24,7 +24,7 @@ import {
     A_LAWFUL, Align2amask,
     LR_UPTELE,
 } from './const.js';
-import { makeEngrAt, ENGR_HEADSTONE, ENGR_MARK } from './engrave.js';
+import { makeEngrAt, ENGR_HEADSTONE, ENGR_MARK, randomEngraving } from './engrave.js';
 import { tAt } from './search.js';
 
 // Object/class constants (normally from objects.js, not in contest template)
@@ -393,23 +393,6 @@ function make_grave(x, y, str) {
     loc.typ = GRAVE;
     const text = str ?? 'Rest in peace.';
     makeEngrAt(x, y, text, ENGR_HEADSTONE);
-}
-
-// random_engraving stub — consumes rn2 for text selection
-function random_engraving() {
-    // C: reads from engrave data file, consumes rn2 for selection
-    const idx = rn2(48); // approximate: rn2(num_engravings)
-    return { text: 'placeholder', pristine: 'placeholder' };
-}
-
-// wipeout_text stub — consumes rn2 for character corruption
-function wipeout_text(text) {
-    for (let i = 0; i < text.length; i++) {
-        if (text[i] !== ' ') {
-            rn2(1 + 27 / (text.length - i));
-        }
-    }
-    return text;
 }
 
 // in_rooms stub
@@ -1802,7 +1785,7 @@ async function fill_ordinary_room(croom, bonus_items) {
     }
     // Graffiti (C: mklev.c fill_ordinary_room — random_engraving + make_engr_at MARK)
     if (!rn2(27 + 3 * Math.abs(u_depth))) {
-        const { text: mesg } = random_engraving();
+        const { text: mesg } = randomEngraving();
         if (mesg) {
             do {
                 somexyspace(croom, pos);
