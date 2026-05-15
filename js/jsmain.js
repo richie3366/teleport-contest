@@ -11,7 +11,7 @@
 
 import { game, resetGame } from './gstate.js';
 import { initRng, enableRngLog, getRngLog } from './rng.js';
-import { pushKey, nhgetch } from './input.js';
+import { pushKey, hasQueuedInput } from './input.js';
 import { newgame, moveloop_core } from './allmain.js';
 import { parseNethackrc } from './options.js';
 import { flush_screen } from './display.js';
@@ -103,6 +103,9 @@ export class NethackGame {
         g.urole = { name: { m: 'Rambler', f: 'Rambler' } };
         g.urace = { adj: 'human' };
 
+        // Fixed play clock (moon, shop lines, Friday 13th, …) — C uses NETHACK_FIXED_DATETIME
+        g.fixed_datetime = this._datetime || null;
+
         // Initialize PRNG
         initRng(this._seed);
         enableRngLog();
@@ -191,15 +194,16 @@ export class NethackGame {
 // C-side state (bones, record file, save) lives in `input.storage`.
 export async function runSegment(input) {
     const { seed, nethackrc, storage } = input;
+    const datetime = input.datetime ?? null;
     const moves = input.moves || '';
 
-    const nhGame = new NethackGame({ seed, nethackrc, storage });
+    const nhGame = new NethackGame({ seed, datetime, nethackrc, storage });
 
     const display = new GameDisplay(null);
     display.onEmptyQueue = () => { throw new Error('Input queue empty - test may be missing keystrokes'); };
     nhGame._pendingDisplay = display;
 
-    for (const ch of moves) display.pushKey(ch.charCodeAt(0));
+    for (const ch of moves) pushKey(ch.charCodeAt(0));
 
     await nhGame.start();
 
@@ -208,6 +212,7 @@ export async function runSegment(input) {
     // captured is what gets compared.
     const maxIter = Math.max(moves.length * 8, 1024);
     for (let iter = 0; iter < maxIter; iter++) {
+        if (!hasQueuedInput()) break;
         try {
             await moveloop_core();
         } catch (e) {

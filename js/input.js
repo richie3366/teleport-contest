@@ -14,6 +14,11 @@ export function pushKeys(keys) {
     for (const k of keys) pushKey(k);
 }
 
+/** True if replay (or tests) still have keys queued before the next nhgetch. */
+export function hasQueuedInput() {
+    return _inputQueue.length > 0;
+}
+
 // C ref: tty_nhgetch — read one key.
 // In replay mode, reads from the input queue.
 // In browser mode, waits for a real keypress.
