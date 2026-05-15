@@ -86,6 +86,30 @@ export async function rhack(key) {
         return;
     }
 
+    if (ch === '#') {
+        // C: doextcmd — echo '#' on the top line, then read the next key (tty).
+        game.context.move = 0;
+        game._pending_message = '#';
+        await flush_screen(1);
+        const k = await nhgetch();
+        game._pending_message = '';
+        if (k === 27) {
+            await flush_screen(1);
+            return;
+        }
+        const ch2 = String.fromCharCode(k);
+        if (ch2 === 'v' || ch2 === 'V') {
+            await pline('NetHack JS port (development build).');
+            game._retainMessageAfterCommand = true;
+            await flush_screen(1);
+            return;
+        }
+        await pline(`Unknown extended command '#${ch2}'.`);
+        game._retainMessageAfterCommand = true;
+        await flush_screen(1);
+        return;
+    }
+
     if (isMovementKey(ch)) {
         game.context.move = (await domove(DIR_DX[ch], DIR_DY[ch])) ? 1 : 0;
     } else if (ch === 's') {
