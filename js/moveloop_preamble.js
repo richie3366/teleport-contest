@@ -3,7 +3,7 @@
 //
 // Ported: calendar, rndencode/seer_turn, set_wear/reset_justpicked stubs,
 // disp.botlx, restore hooks, encumber_msg, defer see_monsters, uz0/move,
-// fuzzerpending, in_moveloop, perm_invent update_inventory. Not yet: pickup(1).
+// fuzzerpending, in_moveloop, perm_invent update_inventory, pickup(1).
 
 import { game } from './gstate.js';
 import { pline } from './display.js';
@@ -13,7 +13,7 @@ import { parseFixedDatetime, phaseOfTheMoonFromDate, isFriday13thFromDate } from
 import { changeLuck } from './attrib.js';
 import { initrack } from './track.js';
 import { setWear } from './wear.js';
-import { resetJustPicked, encumberMsg } from './pickup.js';
+import { resetJustPicked, encumberMsg, pickup } from './pickup.js';
 import { readEngrAt } from './engrave.js';
 import { fixShopDamage } from './shop.js';
 import { seeMonsters } from './vision.js';
@@ -60,7 +60,8 @@ export async function moveloopPreamble(resuming) {
         /* C: set_wear((struct obj *) 0); reset_justpicked(gi.invent); */
         setWear(null);
         resetJustPicked(g.invent);
-        /* C: (void) pickup(1); — autopickup; port pickup.c when invent + floor objs exist */
+        /* C: (void) pickup(1); — autopickup at initial location (pickup.c) */
+        await pickup(1);
         /* C: svc.context.seer_turn = (long) rnd(30); */
         g.context.seer_turn = rnd(30);
         /* C: u.umovement = NORMAL_SPEED; initrack(); */

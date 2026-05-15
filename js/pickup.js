@@ -1,10 +1,12 @@
 // pickup.js — Autopickup, encumbrance messages, pickup_prev flags.
-// C ref: pickup.c reset_justpicked(), encumber_msg(); hack.c near_capacity via encumbr.js
+// C ref: pickup.c reset_justpicked(), encumber_msg(), pickup(), check_here(); hack.c near_capacity via encumbr.js
 
 import { game } from './gstate.js';
-import { pline } from './display.js';
+import { pline, flush_screen } from './display.js';
 import { stagger, raceptr } from './mondata.js';
 import { nearCapacity } from './encumbr.js';
+import { OBJ_AT, IS_POOL, IS_LAVA } from './const.js';
+import { readEngrAt } from './engrave.js';
 
 /** C: reset_justpicked(olist) — clear pickup_prev on each object in the chain. */
 export function resetJustPicked(olist) {
@@ -71,4 +73,102 @@ export async function encumberMsg() {
         g.disp.botl = true;
     }
     g._encumberOldCap = newcap;
+}
+
+/** C: pickup.c LOOKHERE_PICKED_SOME */
+const LOOKHERE_PICKED_SOME = 1;
+
+function heroSurfaceTyp() {
+    const u = game.u;
+    return game.level?.at(u?.ux, u?.uy)?.typ;
+}
+
+/** C: can_reach_floor() — stub TRUE until levitation / pit helpers exist. */
+function canReachFloor() {
+    return true;
+}
+
+/**
+ * C: invent.c look_here() — minimal stub; extend when floor piles need messages.
+ * @param {number} _objCnt
+ * @param {number} _lhflags
+ */
+async function lookHere(_objCnt, _lhflags) {
+    /* RNG + doname chains deferred until OBJ_AT paths are exercised in sessions */
+}
+
+/**
+ * C: pickup.c check_here(boolean picked_some)
+ */
+async function checkHere(pickedSome) {
+    const g = game;
+    const u = g.u;
+    if (!u) return;
+    /* C: if (flags.mention_decor) describe_decor(); */
+    let ct = 0;
+    let o = g.level?.floorObjHeads?.get(`${u.ux},${u.uy}`) ?? null;
+    while (o) {
+        if (o !== g.uchain) ct++;
+        o = o.nexthere;
+    }
+
+    if (ct) {
+        if (g.context?.run) g.context.run = 0;
+        await flush_screen(1);
+        const lhflags = pickedSome ? LOOKHERE_PICKED_SOME : 0;
+        await lookHere(ct, lhflags);
+    } else {
+        await readEngrAt(u.ux, u.uy);
+    }
+}
+
+/** C: notake(ptr) — hero cannot pick up (e.g. worm belly). Stub: false. */
+function notake() {
+    return false;
+}
+
+/**
+ * C: pickup.c pickup(int what) — partial port: swallow, levitation/pool/lava,
+ * autopickup + !flags.pickup, and early returns that match moveloop_preamble(1).
+ * @param {number} what — >0 autopickup, 0 interactive, <0 count (not ported)
+ * @returns {Promise<number>} 1 if pickup attempted, else 0 (C uses mixed semantics)
+ */
+export async function pickup(what) {
+    const g = game;
+    const u = g.u;
+    if (!u) return 0;
+
+    const autopickup = what > 0;
+    if (what < 0) return 0;
+
+    if (u.uswallow) return 0;
+
+    const typ = heroSurfaceTyp() ?? 0;
+    const underwater = !!u.underwater;
+    const inPool = IS_POOL(typ) && !underwater;
+    const inLava = IS_LAVA(typ);
+
+    if (autopickup && (g.context?.nopick || !OBJ_AT(u.ux, u.uy) || inPool || inLava)) {
+        /* C: if (flags.mention_decor) describe_decor(); */
+        await readEngrAt(u.ux, u.uy);
+        return 0;
+    }
+
+    if (!canReachFloor()) {
+        /* C: (void) describe_decor(); — always, even when !mention_decor */
+        const multi = g.multi ?? 0;
+        const run = g.context?.run;
+        if ((multi && !run) || (autopickup && !g.flags?.pickup)) await readEngrAt(u.ux, u.uy);
+        return 0;
+    }
+
+    const multi = g.multi ?? 0;
+    const run = g.context?.run;
+    if ((multi && !run) || (autopickup && !g.flags?.pickup) || notake()) {
+        await checkHere(false);
+        return 0;
+    }
+
+    /* Full interactive / autopick menu pickup deferred (pickup.c remainder). */
+    return 0;
 }
