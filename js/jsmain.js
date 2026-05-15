@@ -123,34 +123,37 @@ export class NethackGame {
         await newgame();
     }
 
+    /**
+     * One judge-facing snapshot: RNG slice since last snapshot, terminal
+     * serialize, cursor, animation-frame bucket. Called before each nhgetch
+     * and once at segment end (replay) so the last screen matches sessions
+     * that record a final frame after the last key.
+     * @param {{ bumpNhgetchCounter?: boolean }} [opts]
+     */
+    async captureJudgeSnapshot(opts = {}) {
+        const bump = opts.bumpNhgetchCounter !== false;
+        if (bump) this._nhgetchCount++;
+
+        const fullLog = getRngLog() || [];
+        const slice = fullLog.slice(this._lastRngIdx);
+        this._lastRngIdx = fullLog.length;
+
+        const disp = game?.nhDisplay;
+        const term = disp?.terminal || disp;
+        this._screens.push(term?.serialize ? term.serialize() : '');
+        this._rngSlices.push(slice);
+
+        const cursor = disp ? [disp.cursorCol ?? 0, disp.cursorRow ?? 0, 1] : null;
+        this._cursors.push(cursor);
+
+        this._animFramesByStep.push(this._pendingAnimFrames);
+        this._pendingAnimFrames = [];
+    }
+
     _installCaptureHook() {
         const nhGame = this;
         game._preNhgetchHook = async () => {
-            const keyIdx = nhGame._nhgetchCount++;
-
-            // Capture RNG slice since last capture
-            const fullLog = getRngLog() || [];
-            const slice = fullLog.slice(nhGame._lastRngIdx);
-            nhGame._lastRngIdx = fullLog.length;
-
-            // Capture screen from the terminal grid. The fixture for
-            // screen scoring is the Terminal: contestants drive it
-            // however they like, judge reads back terminal.serialize()
-            // and compares to the C session's recorded screen.
-            const disp = game?.nhDisplay;
-            const term = disp?.terminal || disp;
-            nhGame._screens.push(term?.serialize ? term.serialize() : '');
-            nhGame._rngSlices.push(slice);
-
-            const cursor = disp ? [disp.cursorCol ?? 0, disp.cursorRow ?? 0, 1] : null;
-            nhGame._cursors.push(cursor);
-
-            // Commit animation frames accumulated since the previous
-            // input boundary as belonging to this step.  Frames are
-            // captured by animationFrame() into _pendingAnimFrames; we
-            // snapshot and reset here so the next step starts empty.
-            nhGame._animFramesByStep.push(nhGame._pendingAnimFrames);
-            nhGame._pendingAnimFrames = [];
+            await nhGame.captureJudgeSnapshot();
         };
     }
 
@@ -220,6 +223,12 @@ export async function runSegment(input) {
             throw e;
         }
     }
+
+    // Sessions record one more screen than nhgetch calls: the terminal
+    // state after the last key is processed (next boundary would be the
+    // following nhgetch, which never happens when the replay queue ends).
+    await flush_screen(1);
+    await nhGame.captureJudgeSnapshot({ bumpNhgetchCounter: false });
 
     return nhGame;
 }

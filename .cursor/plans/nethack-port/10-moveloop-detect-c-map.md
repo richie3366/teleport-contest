@@ -12,8 +12,8 @@ Parent: NetHack JS port roadmap — **structure tracks the C tree**, not session
 
 | C (typical) | Role | JS direction |
 |-------------|------|----------------|
-| `allmain.c` | `moveloop`, `moveloop_core`, move clock, `maybe_generate_rnd_mon`, end-of-turn ordering | Extend [js/allmain.js](../../js/allmain.js); drive RNG from here instead of `fastforward_step`. |
-| `monmove.c` | `movemon`, `m_move`, fleeing / distfleeck | New `js/monmove.js` (or split), called from `moveloop_core` after hero command when time advances. |
+| `allmain.c` | `moveloop`, `moveloop_core`, move clock, `maybe_generate_rnd_mon`, end-of-turn ordering | Extend [js/allmain.js](../../js/allmain.js); tail draws live in [js/moveloop_aux.js](../../js/moveloop_aux.js) (stubs) until ported. [js/fastforward.js](../../js/fastforward.js) `fastforward_step` composes `movemon` + that tail for steps 1–10. |
+| `monmove.c` | `movemon`, `m_move`, fleeing / distfleeck | [js/monmove.js](../../js/monmove.js) — **harness** replays session monster slice; replace with real `movemon` when `fmon` exists. |
 | `mon.c` | `mcalcmove`, monster AI state | Same area as monmove or `js/mon.js` if you split data vs movement. |
 | `sounds.c` | `dosounds` | Port when dungeon state and turn hooks exist. |
 | `eat.c` | `gethungry` | Port with `u` hunger fields and move consumption. |
@@ -40,11 +40,12 @@ The harness currently runs `fastforward_step` **before** `nhgetch` so it approxi
 ## Checklist
 
 - [x] Add `rnl` to [js/rng.js](../../js/rng.js) (matches `rnd.c`; first draw unlogged, inner `rn2` + final `rnl` logged).
-- [ ] Implement `movemon` (or minimal subset for tourist start) and delete the first `fastforward_step` slice it replaces.
+- [x] Split per-turn harness: [js/monmove.js](../../js/monmove.js) (`movemon`, session replay) + [js/moveloop_aux.js](../../js/moveloop_aux.js) (`maybe_generate_rnd_mon`, `dosounds`, `gethungry`, exercise hooks, `moveloop_core_rng82`).
+- [ ] Replace `monmove.js` harness with real `movemon` / `m_move` / `distfleeck` and delete matching `_HARNESS` rows.
 - [ ] Wire `dosounds` / `gethungry` / `maybe_generate_rnd_mon` in the same order as `allmain.c`.
 - [x] Partial: [js/search.js](../../js/search.js) `dosearch0` — neighbor loop, SDOOR/SCORR `rnl`, trap `rnl(8)` + `find_trap`; **`mfind0`** structure (mimic / mundetected / `cansee`); **`feel_location`** minimal (`setSeenvTowardHero` + `mapTerrainGlyph` + `show_glyph_cell`). fund, full `sensemon`, `warning_of`, levitation branch, statue animate still TODO.
 - [ ] Re-run `node frozen/ps_test_runner.mjs …` after each deletion of harness code; expect temporary RNG drift until the stack is complete.
 
 ## Display / harness note
 
-The judge captures the terminal **before** each `nhgetch` ([`js/jsmain.js`](../../js/jsmain.js) hook), after `moveloop_core`’s opening `flush_screen`. Clearing `game._pending_message` at the end of `moveloop_core` ([`js/allmain.js`](../../js/allmain.js)) means the **last `pline` is not in that serialized frame** unless we change ordering (e.g. flush after `rhack` and adjust the hook contract) or persist the message into the grid without clearing. Do not “fix” pline visibility by only clearing later without re-checking session diffs — a naive persist regressed public `seed8000` screens in testing.
+The judge captures the terminal **before** each `nhgetch` ([`js/jsmain.js`](../../js/jsmain.js) hook), after `moveloop_core`’s opening `flush_screen`. Sessions also include **one final screen** after the last replayed key (no following `nhgetch`); `runSegment` calls `flush_screen` + `captureJudgeSnapshot({ bumpNhgetchCounter: false })` so `getScreens().length` matches `steps.length`. Clearing `game._pending_message` at the end of `moveloop_core` ([`js/allmain.js`](../../js/allmain.js)) means the **last `pline` is not in that serialized frame** unless we change ordering (e.g. flush after `rhack` and adjust the hook contract) or persist the message into the grid without clearing. Do not “fix” pline visibility by only clearing later without re-checking session diffs — a naive persist regressed public `seed8000` screens in testing.
