@@ -14,6 +14,7 @@ import { vision_recalc, vision_reset, init_vision_globals } from './vision.js';
 import { fastforward_pre_mklev, fastforward_post_mklev, fastforward_fill_mineralize } from './fastforward.js';
 import { movemon, MOVE_MON_HARNESS_MAX_STEP } from './monmove.js';
 import { end_of_turn_rng } from './moveloop_aux.js';
+import { initIniInvStub } from './ini_inv_stub.js';
 
 // C ref: allmain.c newgame()
 export async function newgame() {
@@ -32,7 +33,7 @@ export async function newgame() {
     g.u = g.u || {};
     g.u.uz = { dnum: 0, dlevel: 1 };
     g.flags = g.flags || {};
-    // Branch: Mines entrance on level 1 (for seed 8000)
+    // Gnomish Mines branch stub (end1 on D:1)
     g.branches = [
         { end1: { dnum: 0, dlevel: 1 }, end2: { dnum: 2, dlevel: 1 }, end1_up: true },
     ];
@@ -70,11 +71,7 @@ export async function newgame() {
     g.plname = g.plname || 'Contestant';
     g.u.left_handed = true;
     g.flags.pickup = false;
-    // C ref: discover.c / naming — known discoveries for #discoveries (stub until otyp full port)
-    g.discoveryGroups = [
-        { title: 'Scrolls', lines: ['  scroll of magic mapping (ANDOVA BEGARIN)'] },
-        { title: 'Potions', lines: ['  potion of extra healing (murky)'] },
-    ];
+    initIniInvStub(g);
 
     // C ref: allmain.c newgame() → u_on_upstairs()
     // Places hero on upstair, or special stair, or random room position.

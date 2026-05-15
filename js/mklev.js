@@ -587,7 +587,7 @@ function is_themeroom_eligible(room, difficulty) {
 }
 
 // C ref: themerms.lua themerooms_generate()
-// Reservoir sampling picks one themed room. For seed8000 level 1,
+// Reservoir sampling picks one themed room. For D:1 in the frozen harness,
 // 'ordinary' always wins (frequency 1000 vs others ~1-10).
 async function themerooms_generate(difficulty) {
     let pick = null;
@@ -605,7 +605,7 @@ async function themerooms_generate(difficulty) {
     // For themed rooms with dynamic dimensions, consume those rn2 calls first
     const chance = 100;
     if (pick.name !== 'ordinary') {
-        // Themed room — not expected for seed8000, but handle RNG correctly
+        // Themed room — rare on D:1; still consume RNG like mklev.c.
         rn2(100); // chance check (build_room)
     }
     // All themed rooms go through create_room for placement
@@ -731,7 +731,7 @@ function create_room(x, y, w, h, xal, yal, rtype, rlit) {
             htmp = ddy.v + 1;
             r2 = { lx: xabs - 1, ly: yabs - 1, hx: xabs + wtmp, hy: yabs + htmp };
         } else {
-            // positioned room (not used for seed8000)
+            // positioned room (not used on current D:1 harness path)
             return false;
         }
     } while (++trycnt <= 100 && !r1);

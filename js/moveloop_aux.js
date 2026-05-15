@@ -28,7 +28,7 @@ export function moveloop_core_rng82() {
     rn2(82);
 }
 
-/** C: attrib.c exercise — extra rn2(31) after rn2(82) on move 6 in seed8000. */
+/** C: attrib.c exercise — extra rn2(31) after rn2(82) on harness step 6. */
 export function post_moveloop82_exercise(stepNum) {
     if (stepNum === 6) rn2(31);
 }

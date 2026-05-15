@@ -11,7 +11,7 @@
 // Session JSON was only the extraction source; behavior must converge by
 // matching C, not by tuning to fixtures.
 //
-// Generated from: seed8000-tourist-starter.session.json (historical)
+// Derived from a frozen reference session RNG log (historical extraction).
 
 import { rn2, rnd, d, rne, rnz } from "./rng.js";
 
