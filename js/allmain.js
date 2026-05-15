@@ -68,6 +68,7 @@ export async function newgame() {
     g.u.uarmg = null; /* gloves — port invent wear when ready */
     g.u.acurr = { a: [9, 11, 16, 14, 12, 16] }; /* A_STR,A_INT,A_WIS,A_DEX,A_CON,A_CHA — attrib.h order */
     g.u.amax = { a: [9, 11, 16, 14, 12, 16] };
+    g.multi = 0; /* C: gm.multi — multi-turn actions / occupation */
     g.moves = 1;
     // When non-zero, moveloop_core runs movemon + end-of-turn tail (harness).
     // moves starts at 1 so the first post-newgame moveloop still runs the step-0

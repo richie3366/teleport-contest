@@ -1,9 +1,11 @@
 // engrave.js — Floor engravings and reachability at the hero’s square.
 // C ref: engrave.c read_engr_at(), engr_at(), make_engr_at(), can_reach_floor();
-//        dungeon.c surface(); hack.c maybe_smudge_engr; rumors.c getrumor
+//        dungeon.c surface(); hack.c maybe_smudge_engr; rumors.c getrumor;
+//        hack.c nomul (via timeout.js).
 
 import { game } from './gstate.js';
-import { pline } from './display.js';
+import { pline, newsym } from './display.js';
+import { nomul } from './timeout.js';
 import { rn2, rnd } from './rng.js';
 import {
     Is_airlevel,
@@ -79,6 +81,12 @@ export function engrAt(x, y) {
     const list = engravingsList();
     if (!list) return null;
     return list.find((e) => e.engr_x === x && e.engr_y === y) ?? null;
+}
+
+/** C: engrave.c see_engraving(ep) */
+export function seeEngraving(ep) {
+    if (!ep) return;
+    newsym(ep.engr_x, ep.engr_y);
 }
 
 /** C: del_engr — remove engraving at (x,y) if present. */
@@ -229,7 +237,7 @@ export async function readEngrAt(x, y) {
     ep.eread = 1;
     ep.erevealed = 1;
 
-    if ((game.context?.run ?? 0) > 0) game.context.run = 0;
+    if ((game.context?.run ?? 0) > 0) nomul(0);
 }
 
 // --- random_engraving / wipeout_text (C: engrave.c) + get_rnd_line (rumors.c)
