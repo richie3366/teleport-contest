@@ -551,3 +551,8 @@ export function init_vision_globals() {
     game.cs_left = null;
     game.cs_right = null;
 }
+
+/** C: display.c see_monsters() — refresh monster visibility on the map. */
+export function seeMonsters() {
+    /* Port display.c / mon.c when fmon and glyph refresh exist */
+}

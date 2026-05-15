@@ -1,8 +1,9 @@
 // moveloop_preamble.js — Once per moveloop() before the core loop.
 // C ref: allmain.c moveloop_preamble().
 //
-// Ported: calendar, rndencode/seer_turn, set_wear/reset_justpicked stubs, …
-// Not yet: pickup(1) autopickup (RNG + invent chain; still in fastforward gap).
+// Ported: calendar, rndencode/seer_turn, set_wear/reset_justpicked stubs,
+// disp.botlx, restore hooks, encumber_msg, defer see_monsters, uz0/move,
+// fuzzerpending, in_moveloop. Not yet: pickup(1), perm_invent update_inventory.
 
 import { game } from './gstate.js';
 import { pline } from './display.js';
@@ -12,7 +13,10 @@ import { parseFixedDatetime, phaseOfTheMoonFromDate, isFriday13thFromDate } from
 import { changeLuck } from './attrib.js';
 import { initrack } from './track.js';
 import { setWear } from './wear.js';
-import { resetJustPicked } from './pickup.js';
+import { resetJustPicked, encumberMsg } from './pickup.js';
+import { readEngrAt } from './engrave.js';
+import { fixShopDamage } from './shop.js';
+import { seeMonsters } from './vision.js';
 
 /**
  * @param {boolean} resuming — C `moveloop_preamble(resuming)` (restore vs new).
@@ -22,6 +26,7 @@ export async function moveloopPreamble(resuming) {
     g.flags = g.flags || {};
     g.program_state = g.program_state || {};
     g.context = g.context || {};
+    g.gd = g.gd || {};
     if (resuming && g.iflags?.deferred_X) {
         /* C: enter_explore_mode() — not ported */
     }
@@ -62,13 +67,31 @@ export async function moveloopPreamble(resuming) {
         initrack();
     }
 
-    /* C: disp.botlx = TRUE — status-line highlight refresh flag */
+    /* C: disp.botlx = TRUE */
     g.disp = g.disp || {};
     g.disp.botlx = true;
+
+    if (resuming) {
+        readEngrAt(g.u.ux, g.u.uy);
+        fixShopDamage();
+    }
+
+    await encumberMsg();
+
+    if (g.gd.defer_see_monsters) {
+        g.gd.defer_see_monsters = false;
+        seeMonsters();
+    }
 
     /* C: u.uz0.dlevel = u.uz.dlevel; svc.context.move = 0; */
     if (g.u?.uz) g.u.uz0 = { ...g.u.uz };
     g.context.move = 0;
+
+    /* C: iflags.fuzzerpending — debug fuzzer */
+    if (g.iflags?.fuzzerpending) {
+        g.iflags.debug_fuzzer = 1;
+        g.iflags.fuzzerpending = false;
+    }
 
     /* C: program_state.in_moveloop = 1 */
     g.program_state.in_moveloop = 1;
