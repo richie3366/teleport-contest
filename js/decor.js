@@ -6,12 +6,23 @@ import { pline } from './display.js';
 import {
     STONE,
     ICE,
+    D_NODOOR,
+    D_ISOPEN,
+    D_BROKEN,
+    TREE,
+    IRONBARS,
+    DRAWBRIDGE_DOWN,
+    DBWALL,
+    LADDER,
+    IS_DOOR,
     IS_FOUNTAIN,
     IS_SINK,
     IS_ALTAR,
     IS_POOL,
     IS_LAVA,
     IS_FURNITURE,
+    IS_THRONE,
+    IS_GRAVE,
 } from './const.js';
 
 /** C: levl[x][y].typ as rm.h terrain. */
@@ -40,6 +51,18 @@ export function an(phrase) {
     return `${article} ${phrase}`;
 }
 
+/**
+ * C: invent.c look_here() article rules for "There is …" / describe_decor an().
+ * @param {string|null|undefined} dfeature
+ * @returns {string|null}
+ */
+export function formatDfeatureForThereIs(dfeature) {
+    if (!dfeature) return null;
+    if (dfeature === 'molten lava' || dfeature === 'ice' || dfeature === 'set of iron bars') return dfeature;
+    if (String(dfeature).startsWith('frozen ')) return dfeature;
+    return an(dfeature);
+}
+
 function upstart(s) {
     if (!s || typeof s !== 'string') return s;
     return s[0].toUpperCase() + s.slice(1);
@@ -50,17 +73,40 @@ function upstart(s) {
  * @returns {string|null}
  */
 export function dfeatureAt(x, y) {
-    const t = levlTypAt(x, y);
+    const loc = game.level?.at(x, y);
+    if (!loc) return null;
+    const t = loc.typ;
+
+    if (IS_DOOR(t)) {
+        const m = loc.doormask ?? 0;
+        if (m === D_NODOOR) return 'doorway';
+        if (m === D_ISOPEN) return 'open door';
+        if (m === D_BROKEN) return 'broken door';
+        return 'closed door';
+    }
     if (IS_FOUNTAIN(t)) return 'fountain';
+    if (IS_THRONE(t)) return 'opulent throne';
+    if (IS_LAVA(t)) return 'molten lava';
+    if (t === ICE) {
+        /* C: ice_descr(x,y) — stub until ice_descr.c */
+        return 'ice';
+    }
+    if (IS_POOL(t)) return 'pool of water';
     if (IS_SINK(t)) return 'sink';
     if (IS_ALTAR(t)) return 'altar';
-    if (IS_POOL(t)) return 'pool of water';
-    if (IS_LAVA(t)) return 'molten lava';
+
     const st = stairwayAt(x, y);
     if (st) {
         const kind = st.isladder ? 'ladder' : 'staircase';
         return `${kind} ${st.up ? 'up' : 'down'}`;
     }
+    if (t === DRAWBRIDGE_DOWN) return 'lowered drawbridge';
+    if (t === DBWALL) return 'raised drawbridge';
+    if (IS_GRAVE(t)) return 'grave';
+    if (t === TREE) return 'tree';
+    if (t === IRONBARS) return 'set of iron bars';
+    if (t === LADDER) return 'ladder';
+
     return null;
 }
 
@@ -86,7 +132,7 @@ export async function describeDecor() {
         if (waterhere) {
             /* C: waterbody_name(u.ux, u.uy) — pool vs moat; stub keeps "pool of water" */
         }
-        if (d !== 'swamp' && ltyp !== ICE) d = an(d);
+        if (d !== 'swamp' && ltyp !== ICE) d = formatDfeatureForThereIs(d) ?? d;
 
         const verbose = !!g.flags?.verbose;
         const out = verbose ? `There is ${d} here.` : `${upstart(d)}.`;

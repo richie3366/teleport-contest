@@ -7,7 +7,7 @@ import { stagger, raceptr } from './mondata.js';
 import { nearCapacity } from './encumbr.js';
 import { OBJ_AT, IS_POOL, IS_LAVA, is_pit } from './const.js';
 import { readEngrAt, canReachFloor } from './engrave.js';
-import { describeDecor, levlTypAt, dfeatureAt, an } from './decor.js';
+import { describeDecor, levlTypAt, dfeatureAt, formatDfeatureForThereIs } from './decor.js';
 import { doname } from './objnam.js';
 import { tAt } from './search.js';
 
@@ -119,8 +119,8 @@ async function lookHere(objCnt, lhflags) {
 
     async function plineThereIsDfeature() {
         if (!dfeature || skipDfeature) return;
-        let art = dfeature;
-        if (art !== 'molten lava' && art !== 'ice' && !String(art).startsWith('frozen ')) art = an(art);
+        const art = formatDfeatureForThereIs(dfeature);
+        if (!art) return;
         await pline(`There is ${art} here.`);
     }
 
