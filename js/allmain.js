@@ -11,7 +11,9 @@ import { mklev, l_nhcore_init, u_on_upstairs } from './mklev.js';
 import { rhack } from './cmd.js';
 import { docrt, cls, bot, flush_screen, pline } from './display.js';
 import { vision_recalc, vision_reset, init_vision_globals } from './vision.js';
-import { fastforward_pre_mklev, fastforward_post_mklev, fastforward_step, fastforward_fill_mineralize } from './fastforward.js';
+import { fastforward_pre_mklev, fastforward_post_mklev, fastforward_fill_mineralize } from './fastforward.js';
+import { movemon, MOVE_MON_HARNESS_MAX_STEP } from './monmove.js';
+import { end_of_turn_rng } from './moveloop_aux.js';
 
 // C ref: allmain.c newgame()
 export async function newgame() {
@@ -58,7 +60,7 @@ export async function newgame() {
     g.u.acurr = { a: [9, 14, 12, 11, 16, 16] };
     g.u.amax = { a: [9, 14, 12, 11, 16, 16] };
     g.moves = 1;
-    // When non-zero, moveloop_core runs fastforward_step for end-of-turn RNG.
+    // When non-zero, moveloop_core runs movemon + end-of-turn tail (harness).
     // Seed 1 so the first post-newgame moveloop still runs the step-0 template
     // (a no-op) before the first real key, matching upstream pacing.
     g._prevMoveTick = 1;
@@ -95,7 +97,10 @@ export async function moveloop_core() {
     // so repeated nhgetch on the same move clock does not replay the template.
     if (g._prevMoveTick) {
         const stepNum = (g.moves || 1) - 1;
-        fastforward_step(stepNum);
+        if (stepNum > 0 && stepNum <= MOVE_MON_HARNESS_MAX_STEP) {
+            movemon(stepNum);
+            end_of_turn_rng(stepNum);
+        }
     }
 
     // Vision + display

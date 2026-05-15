@@ -5,9 +5,8 @@
 // They must be deleted or narrowed as real ports land:
 //   • fastforward_pre_mklev / post_mklev / fill_mineralize → o_init, dungeon.c,
 //     u_init.c, mklev.c object/mineralize paths matching this repo’s mklev.js.
-//   • fastforward_step(stepNum) → delegates to monmove.js + moveloop_aux.js
-//     (movemon, maybe_generate_rnd_mon, dosounds, gethungry, …) until real
-//     monmove.c / eat.c / sounds.c ports replace the stubs.
+//   • Per-turn tail: allmain.js moveloop_core → monmove.js + moveloop_aux.js
+//     (replacing fastforward_step); this file keeps startup fill/replay only.
 //
 // Session JSON was only the extraction source; behavior must converge by
 // matching C, not by tuning to fixtures.
@@ -15,8 +14,6 @@
 // Generated from: seed8000-tourist-starter.session.json (historical)
 
 import { rn2, rnd, d, rne, rnz } from "./rng.js";
-import { movemon, MOVE_MON_HARNESS_MAX_STEP } from "./monmove.js";
-import { end_of_turn_rng } from "./moveloop_aux.js";
 
 // Pre-mklev startup: o_init shuffles, dungeon init, u_init_misc
 // 303 leaf RNG calls (session indices 0-308)
@@ -147,14 +144,6 @@ export function fastforward_post_mklev() {
     rnd(9000); rnd(30);
 }
 
-// Per-turn harness: movemon (monmove.js) + moveloop_core tail (moveloop_aux.js).
-// Runs at moveloop start when moves===stepNum (before the next nhgetch); see
-// plan 10-moveloop-detect-c-map.md. Replace internals as C ports land.
-export function fastforward_step(stepNum) {
-    if (stepNum <= 0 || stepNum > MOVE_MON_HARNESS_MAX_STEP) return;
-    movemon(stepNum);
-    end_of_turn_rng(stepNum);
-}
 // Fill + mineralize: 1448 calls
 export function fastforward_fill_mineralize() {
     rn2(8); rn2(3); rn2(8); rn2(3); rn2(8); rn2(6); rnd(2); rnd(3); rnd(2); rn2(10); rn2(60); 
