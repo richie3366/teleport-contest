@@ -5,6 +5,7 @@
 
 import { game } from './gstate.js';
 import { NO_COLOR, ATR_INVERSE } from './terminal.js';
+import { enlightMissionLines } from './enlght_patrons.js';
 
 /** @param {import('./game_display.js').GameDisplay} display */
 export function paintDiscoveriesIntoDisplay(display) {
@@ -23,15 +24,9 @@ export function paintDiscoveriesIntoDisplay(display) {
 }
 
 function missionPatronLines() {
-    const a = game.u?.ualign?.type ?? 0;
-    const role = game.urole?.name?.f || game.urole?.name?.m || 'Tourist';
-    if (a === 0 && role === 'Tourist') {
-        return [
-            '  You are neutral, on a mission for The Lady',
-            '  who is opposed by Blind Io (lawful) and Offler (chaotic).',
-        ];
-    }
-    return ['  You are neutral.'];
+    const roleKey = game.urole?.name?.m || game.urole?.name?.f || 'Tourist';
+    const align = game.u?.ualign?.type ?? 0;
+    return enlightMissionLines(roleKey, align);
 }
 
 function hpLine(u) {
