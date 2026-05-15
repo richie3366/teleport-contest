@@ -3,6 +3,7 @@
 
 import {
     P_NONE,
+    P_UNSKILLED,
     P_BASIC,
     P_SKILLED,
     P_EXPERT,

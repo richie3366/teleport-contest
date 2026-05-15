@@ -12,10 +12,11 @@ import { enlightEncumbranceLine, nearCapacity } from './encumbr.js';
 import { enlightWieldLine, enlightWieldSkillLine } from './enlight_wield.js';
 import { enlightPlaytimeLine } from './enlight_misc.js';
 import { A_STR, A_INT, A_WIS, A_DEX, A_CON, A_CHA } from './const.js';
+import { mergeSpellbookObjectDiscoveryIntoGroups } from './spellbook_discovery_lines.js';
 
 /** @param {import('./game_display.js').GameDisplay} display */
 export function paintDiscoveriesIntoDisplay(display) {
-    const groups = game.discoveryGroups || [];
+    const groups = mergeSpellbookObjectDiscoveryIntoGroups(game.discoveryGroups || [], game);
     let row = 0;
     display.putstr(0, row++, 'Discoveries, by order of discovery within each class', NO_COLOR, 0);
     row++;
