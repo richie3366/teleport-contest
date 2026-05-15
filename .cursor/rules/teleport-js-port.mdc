@@ -1,0 +1,25 @@
+---
+description: JavaScript port conventions for js/ (ES modules, RNG, scaffolding)
+globs: js/**/*.js
+alwaysApply: false
+---
+
+# `js/` port conventions
+
+## Modules and delivery
+
+- Use **ES modules** (`import` / `export`). No bundler; code must run in **Node 22+** and modern browsers as-is.
+- Do not modify **frozen** files: `js/isaac64.js`, `js/terminal.js`, `js/storage.js` (see always-on contest rule).
+
+## RNG and C parity
+
+- The C recorder is built with **clang**; argument evaluation is effectively **left-to-right**. When one expression makes multiple RNG calls (e.g. `d(rn2(a), rn2(b))`), match that order in JS — see [README.md](README.md) gcc vs clang note.
+- Route gameplay RNG through the wrappers in [js/rng.js](js/rng.js) so logging and semantics stay aligned with the harness.
+
+## Skeleton vs real port
+
+- [js/fastforward.js](js/fastforward.js) is **temporary** replay scaffolding for early seeds. Replace entries with real ported logic over time; do not grow it into a second answer key for sessions.
+
+## API surface
+
+- Contest entry: `runSegment` and `NethackGame` in [js/jsmain.js](js/jsmain.js). Full contract: [docs/API.md](docs/API.md).
