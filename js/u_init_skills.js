@@ -1,10 +1,11 @@
 // u_init_skills.js — weapon / spell skills at birth (skill_init) + add_weapon_skill + lose_weapon_skill,
-// skill_advance / #enhance auto-pick (first menu-order advanceable skill).
+// skill_advance / #enhance auto-pick, use_skill (practice), drain_weapon_skill (energy drain).
 // C ref: weapon.c skill_init(), add_weapon_skill(), lose_weapon_skill(), can_advance(), slots_required(),
-//        skill_advance(), enhance_weapon_skill() menu order; skills.h practice_needed_to_advance;
-//        u_init.c skills_for_role().
+//        skill_advance(), enhance_weapon_skill() menu order, use_skill(), drain_weapon_skill();
+//        skills.h practice_needed_to_advance; u_init.c skills_for_role().
 
 import { game } from './gstate.js';
+import { rn2 } from './rng.js';
 import {
     P_NONE,
     P_NUM_SKILLS,
@@ -182,6 +183,84 @@ export function takePendingGiveMayAdvancePline(g = game) {
     const s = g._giveMayAdvancePline;
     if (s) delete g._giveMayAdvancePline;
     return s || '';
+}
+
+/** Pending You() lines from drain_weapon_skill (flush in moveloop_preamble). */
+export function takePendingDrainForgetPlines(g = game) {
+    const q = g._drainForgetPlines;
+    if (!q?.length) return [];
+    delete g._drainForgetPlines;
+    return q.slice();
+}
+
+/**
+ * C: weapon.c use_skill(skill, degree) — P_ADVANCE += degree; give_may_advance_msg on threshold cross.
+ * @param {object} u
+ * @param {number} skill
+ * @param {number} degree
+ * @param {object} [g]
+ */
+export function useSkill(u, skill, degree, g = game) {
+    if (!u || !degree) return;
+    if (skill === P_NONE || pRestricted(u, skill)) return;
+    weaponSkills(u);
+    const advanceBefore = canAdvance(u, skill, false);
+    const ws = u.weapon_skills[skill];
+    ws.advance = (ws.advance | 0) + degree;
+    if (!advanceBefore && canAdvance(u, skill, false)) {
+        g._giveMayAdvancePline = giveMayAdvancePlineText(skill);
+    }
+}
+
+/**
+ * C: weapon.c drain_weapon_skill(n) — random popped skill_record entries, P_SKILL--, slot refund, P_ADVANCE trim, You() per skill.
+ * @param {object} u
+ * @param {number} n
+ * @param {object} [g]
+ */
+export function drainWeaponSkill(u, n, g = game) {
+    if (!u || n <= 0) return;
+    weaponSkills(u);
+    if (!u.skill_record) u.skill_record = [];
+    const tmpskills = new Uint8Array(P_NUM_SKILLS);
+
+    for (let iter = 0; iter < n; iter++) {
+        const adv = u.skills_advanced | 0;
+        if (adv <= 0) break;
+        const i = rn2(adv);
+        const skill = u.skill_record[i];
+        if (skill == null || skill <= 0 || skill >= P_NUM_SKILLS) break;
+        if (pSkill(u, skill) <= P_UNSKILLED) break; /* C: panic — corrupt state */
+
+        tmpskills[skill] = 1;
+        for (let j = i; j < adv - 1; j++) u.skill_record[j] = u.skill_record[j + 1];
+        u.skill_record[adv - 1] = undefined;
+        u.skills_advanced = adv - 1;
+
+        const ws = weaponSkills(u)[skill];
+        ws.skill -= 1;
+        if (ws.max_skill < ws.skill) ws.max_skill = ws.skill;
+        u.weapon_slots = (u.weapon_slots | 0) + slotsRequired(skill, u);
+
+        const lvl = ws.skill;
+        const curradv = practiceNeededToAdvance(lvl);
+        const prevadv = practiceNeededToAdvance(lvl - 1);
+        if (ws.advance >= curradv) {
+            ws.advance = prevadv + rn2(curradv - prevadv);
+        }
+    }
+
+    const lines = [];
+    for (let skill = 0; skill < P_NUM_SKILLS; skill++) {
+        if (!tmpskills[skill]) continue;
+        const some = pSkill(u, skill) >= P_BASIC ? 'some of ' : '';
+        const name = pSkillDisplayName(skill, g);
+        lines.push(`You forget ${some}your training in ${name}.`);
+    }
+    if (lines.length) {
+        if (!g._drainForgetPlines) g._drainForgetPlines = [];
+        g._drainForgetPlines.push(...lines);
+    }
 }
 
 /** C: weapon.c unrestrict_weapon_skill() */
