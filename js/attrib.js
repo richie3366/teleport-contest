@@ -4,6 +4,15 @@
 import { game } from './gstate.js';
 import { LUCKMIN, LUCKMAX } from './const.js';
 
+/**
+ * C: attrib.c acurr(x) — effective attribute (minimal: ABASE only until poly/bonus port).
+ * @param {number} x attrib_types A_STR…A_CHA
+ */
+export function acurr(x) {
+    const u = game.u;
+    return u?.acurr?.a?.[x] ?? 10;
+}
+
 /** C: change_luck(schar n) — adjust u.uluck with bounds; no RNG. */
 export function changeLuck(n) {
     const u = game.u;

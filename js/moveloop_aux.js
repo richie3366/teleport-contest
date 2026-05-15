@@ -6,6 +6,8 @@
 
 import { game } from './gstate.js';
 import { rn2, rnd } from './rng.js';
+import { A_DEX } from './const.js';
+import { acurr } from './attrib.js';
 import { uWipeEngr } from './engrave.js';
 
 export function maybe_generate_rnd_mon() {
@@ -24,7 +26,7 @@ export function gethungry() {
 export function maybe_u_wipe_engr() {
     const u = game.u;
     if (!u) return;
-    const dex = u.acurr?.a?.[1] ?? 10;
+    const dex = acurr(A_DEX);
     const denom = 40 + Math.trunc(dex * 3);
     if (!rn2(denom)) uWipeEngr(rnd(3));
 }

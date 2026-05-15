@@ -11,6 +11,7 @@ import { enlightHungerLine } from './hunger.js';
 import { enlightEncumbranceLine, nearCapacity } from './encumbr.js';
 import { enlightWieldLine, enlightWieldSkillLine } from './enlight_wield.js';
 import { enlightPlaytimeLine } from './enlight_misc.js';
+import { A_STR, A_INT, A_WIS, A_DEX, A_CON, A_CHA } from './const.js';
 
 /** @param {import('./game_display.js').GameDisplay} display */
 export function paintDiscoveriesIntoDisplay(display) {
@@ -112,10 +113,10 @@ export function paintAttributesIntoDisplay(display, page) {
         display.putstr(0, row++, pickup ? '  Autopickup is on.' : '  Autopickup is off.', NO_COLOR, 0);
         row++;
         display.putstr(0, row++, ' Characteristics:', NO_COLOR, 0);
-        display.putstr(0, row++, `  Your strength is ${A[0]}.`, NO_COLOR, 0);
-        display.putstr(0, row++, `  Your dexterity is ${A[1]}.`, NO_COLOR, 0);
-        display.putstr(0, row++, `  Your constitution is ${A[2]}.`, NO_COLOR, 0);
-        display.putstr(0, row++, `  Your intelligence is ${A[3]}.`, NO_COLOR, 0);
+        display.putstr(0, row++, `  Your strength is ${A[A_STR]}.`, NO_COLOR, 0);
+        display.putstr(0, row++, `  Your dexterity is ${A[A_DEX]}.`, NO_COLOR, 0);
+        display.putstr(0, row++, `  Your constitution is ${A[A_CON]}.`, NO_COLOR, 0);
+        display.putstr(0, row++, `  Your intelligence is ${A[A_INT]}.`, NO_COLOR, 0);
         display.putstr(0, row++, ' (1 of 2)', NO_COLOR, 0);
         while (row < 24) display.clearRow(row++);
         display.setCursor(9, 23);
@@ -124,8 +125,8 @@ export function paintAttributesIntoDisplay(display, page) {
     }
 
     let row = 0;
-    display.putstr(0, row++, `  Your wisdom is ${A[4]}.`, NO_COLOR, 0);
-    display.putstr(0, row++, `  Your charisma is ${A[5]}.`, NO_COLOR, 0);
+    display.putstr(0, row++, `  Your wisdom is ${A[A_WIS]}.`, NO_COLOR, 0);
+    display.putstr(0, row++, `  Your charisma is ${A[A_CHA]}.`, NO_COLOR, 0);
     row++;
     display.putstr(0, row++, ' Status:', NO_COLOR, 0);
     display.putstr(0, row++, enlightHungerLine(u.uhs), NO_COLOR, 0);
