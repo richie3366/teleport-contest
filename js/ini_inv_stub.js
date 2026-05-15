@@ -104,6 +104,84 @@ const WIZARD_INI_INV = [
     { type: 'item', text: '(end)' },
 ];
 
+/** C: u_init.c Valkyrie[] — static overlay until ini_inv/mkobj. */
+const VALKYRIE_INI_INV = [
+    { type: 'cat', name: 'Coins' },
+    { type: 'item', text: (g) => `$ - ${g._goldCount ?? 0} gold pieces` },
+    { type: 'cat', name: 'Weapons' },
+    { type: 'item', text: 'a - a blessed +1 spear (weapon in hands)' },
+    { type: 'item', text: 'b - an uncursed +0 dagger (alternate weapon; not wielded)' },
+    { type: 'cat', name: 'Armor' },
+    { type: 'item', text: 'c - an uncursed +3 small shield (being worn)' },
+    { type: 'cat', name: 'Comestibles' },
+    { type: 'item', text: 'd - an uncursed food ration' },
+    { type: 'item', text: '(end)' },
+];
+
+/** C: u_init.c Barbarian_0[] (C randomly uses Barbarian_0 vs Barbarian_1). */
+const BARBARIAN_INI_INV = [
+    { type: 'cat', name: 'Coins' },
+    { type: 'item', text: (g) => `$ - ${g._goldCount ?? 0} gold pieces` },
+    { type: 'cat', name: 'Weapons' },
+    { type: 'item', text: 'a - an uncursed +0 two-handed sword (weapon in hands)' },
+    { type: 'item', text: 'b - an uncursed +0 axe' },
+    { type: 'cat', name: 'Armor' },
+    { type: 'item', text: 'c - an uncursed +0 ring mail (being worn)' },
+    { type: 'cat', name: 'Comestibles' },
+    { type: 'item', text: 'd - an uncursed food ration' },
+    { type: 'item', text: '(end)' },
+];
+
+/** C: u_init.c Archeologist[] */
+const ARCHEOLOGIST_INI_INV = [
+    { type: 'cat', name: 'Coins' },
+    { type: 'item', text: (g) => `$ - ${g._goldCount ?? 0} gold pieces` },
+    { type: 'cat', name: 'Weapons' },
+    {
+        type: 'item',
+        text: 'a - a blessed +2 bullwhip (weapon in hands)',
+        oclass: 'Weapons',
+        discoveryLine: '  bullwhip',
+    },
+    { type: 'cat', name: 'Armor' },
+    {
+        type: 'item',
+        text: 'b - an uncursed +0 leather jacket (being worn)',
+        oclass: 'Armor',
+        discoveryLine: '  leather jacket',
+    },
+    {
+        type: 'item',
+        text: 'c - an uncursed +0 fedora',
+        oclass: 'Armor',
+        discoveryLine: '  fedora',
+    },
+    { type: 'cat', name: 'Comestibles' },
+    { type: 'item', text: 'd - 3 uncursed food rations' },
+    { type: 'cat', name: 'Tools' },
+    {
+        type: 'item',
+        text: 'e - an uncursed pick-axe',
+        oclass: 'Tools',
+        discoveryLine: '  pick-axe',
+    },
+    {
+        type: 'item',
+        text: 'f - an uncursed tinning kit (0:0)',
+        oclass: 'Tools',
+        discoveryLine: '  tinning kit',
+    },
+    { type: 'item', text: 'g - an empty uncursed sack' },
+    { type: 'cat', name: 'Gems' },
+    {
+        type: 'item',
+        text: 'h - an uncursed touchstone',
+        oclass: 'Gems',
+        discoveryLine: '  touchstone',
+    },
+    { type: 'item', text: '(end)' },
+];
+
 /** @param {Array<{ type: 'cat', name: string } | { type: 'item', text: string | ((g: object) => string), oclass?: string, discoveryLine?: string }>} rows */
 function discoveryGroupsFromIniInv(rows) {
     const groups = [];
@@ -121,7 +199,7 @@ function discoveryGroupsFromIniInv(rows) {
     return groups;
 }
 
-/** C ref: u_init.c — apply role starting pack (subset: Tourist, Wizard). */
+/** C ref: u_init.c — apply role starting pack (static labels until mkobj/ini_inv). */
 export function initIniInvStub(/** @type {import('./gstate.js').game} */ g) {
     const role = g.urole?.name?.m || g.urole?.name?.f || '';
     if (role === 'Tourist') {
@@ -130,6 +208,15 @@ export function initIniInvStub(/** @type {import('./gstate.js').game} */ g) {
     } else if (role === 'Wizard') {
         g._iniInvRows = WIZARD_INI_INV;
         g.discoveryGroups = discoveryGroupsFromIniInv(WIZARD_INI_INV);
+    } else if (role === 'Valkyrie') {
+        g._iniInvRows = VALKYRIE_INI_INV;
+        g.discoveryGroups = discoveryGroupsFromIniInv(VALKYRIE_INI_INV);
+    } else if (role === 'Barbarian') {
+        g._iniInvRows = BARBARIAN_INI_INV;
+        g.discoveryGroups = discoveryGroupsFromIniInv(BARBARIAN_INI_INV);
+    } else if (role === 'Archeologist') {
+        g._iniInvRows = ARCHEOLOGIST_INI_INV;
+        g.discoveryGroups = discoveryGroupsFromIniInv(ARCHEOLOGIST_INI_INV);
     } else {
         g._iniInvRows = [];
         g.discoveryGroups = [];
