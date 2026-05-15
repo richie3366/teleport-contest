@@ -24,6 +24,8 @@ import {
     A_LAWFUL, Align2amask,
     LR_UPTELE,
 } from './const.js';
+import { makeEngrAt, ENGR_HEADSTONE, ENGR_MARK } from './engrave.js';
+import { tAt } from './search.js';
 
 // Object/class constants (normally from objects.js, not in contest template)
 const RANDOM_CLASS = 0;
@@ -382,12 +384,15 @@ async function maketrap(x, y, typ) {
     return trap;
 }
 
-// engrave stubs
-function make_engr_at(x, y, text, pristine, epoch, engr_type) { /* stub */ }
-function wipe_engr_at(x, y, cnt, perm) { /* stub */ }
-function make_grave(x, y, text) {
+// C ref: engrave.c make_grave(), mklev.c graffiti make_engr_at(..., MARK)
+function make_grave(x, y, str) {
     const loc = game.level?.at(x, y);
-    if (loc) loc.typ = GRAVE;
+    if (!loc) return;
+    const t = loc.typ;
+    if ((t !== ROOM && t !== GRAVE) || tAt(x, y)) return;
+    loc.typ = GRAVE;
+    const text = str ?? 'Rest in peace.';
+    makeEngrAt(x, y, text, ENGR_HEADSTONE);
 }
 
 // random_engraving stub — consumes rn2 for text selection
@@ -1795,15 +1800,14 @@ async function fill_ordinary_room(croom, bonus_items) {
     if (!skip_chests && !rn2(Math.trunc(g.level.nroom * 5 / 2)) && somexyspace(croom, pos)) {
         mksobj_at(rn2(3) ? LARGE_BOX : CHEST, pos.x, pos.y, true, false);
     }
-    // Graffiti
-    const depth = g.u?.uz?.dlevel ?? 1;
-    if (!rn2(27 + 3 * Math.abs(depth))) {
-        const { text: engrText } = random_engraving();
-        if (engrText) {
+    // Graffiti (C: mklev.c fill_ordinary_room — random_engraving + make_engr_at MARK)
+    if (!rn2(27 + 3 * Math.abs(u_depth))) {
+        const { text: mesg } = random_engraving();
+        if (mesg) {
             do {
                 somexyspace(croom, pos);
-                if (g.level?.at(pos.x, pos.y)?.typ === ROOM) break;
-            } while (!rn2(40));
+            } while (g.level?.at(pos.x, pos.y)?.typ !== ROOM && !rn2(40));
+            if (g.level?.at(pos.x, pos.y)?.typ === ROOM) makeEngrAt(pos.x, pos.y, mesg, ENGR_MARK);
         }
     }
     // Random objects
