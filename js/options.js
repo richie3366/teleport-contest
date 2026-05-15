@@ -55,6 +55,7 @@ export function parseNethackrc(rc) {
                 else if (lname === 'legacy') result.flags.legacy = value;
                 else if (lname === 'tutorial') { result.flags.tutorial = value; result.tutorial_set = true; }
                 else if (lname === 'splash_screen') result.iflags.wc_splash_screen = value;
+                else if (lname === 'perm_invent') result.iflags.perm_invent = value;
                 else if (lname === 'pushweapon') result.flags.pushweapon = value;
                 else if (lname === 'showexp') result.flags.showexp = value;
                 else if (lname === 'time') result.flags.time = value;
