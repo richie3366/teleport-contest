@@ -17,6 +17,7 @@ import { end_of_turn_rng } from './moveloop_aux.js';
 import { initIniInvStub } from './ini_inv_stub.js';
 import { applyInitAttrPipeline } from './u_init_attr.js';
 import { applyBirthHpEnergy } from './u_init_hp_energy.js';
+import { applyRoleStartingUmoney0 } from './u_init_money.js';
 import { UHS } from './hunger.js';
 import { moveloopPreamble } from './moveloop_preamble.js';
 import { settrack } from './track.js';
@@ -55,14 +56,16 @@ export async function newgame() {
     // Covers: u_init_role, ini_inv, attributes, moveloop_preamble.
     fastforward_post_mklev();
 
+    /* C: u_init.c u_init_inventory_attrs — u.umoney0 from u_init_role before ini_inv / init_attr */
+    applyRoleStartingUmoney0();
+
     /* C: u_init.c u_init_inventory_attrs — init_attr(75); vary_init_attr(); */
     applyInitAttrPipeline(75);
     /* C: u_init.c u_init_misc — newhp()/newpw() before adjabil; peaks same as max at birth */
     applyBirthHpEnergy();
 
-    // Hardcoded player state for early Tourist stub.
-    // Contestants: port u_init to compute these from game PRNG.
-    g._goldCount = 757;
+    // Hardcoded player state for early stub.
+    // Contestants: port u_init / invent (g._goldCount follows u.umoney0 from applyRoleStartingUmoney0).
     g.u.umortality = 0;
     g.u.Half_physical_damage = 0;
     g.u.uac = 10; g.u.uexp = 0;

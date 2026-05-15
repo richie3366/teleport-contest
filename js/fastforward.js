@@ -129,9 +129,10 @@ export function fastforward_pre_mklev() {
 // Post-mklev startup: u_init_role, ini_inv, and most of moveloop_preamble RNG
 // except rnd(9000)/rnd(30) (see moveloop_preamble.js).
 // init_attr(75)+vary_init_attr() PRNG is replayed by u_init_attr.js (allmain.js).
-// ~85 leaf RNG calls here (was ~124 before attr port).
+// Leading rnd(1000) for tourist starting gold is real code: u_init_money.js (allmain.js).
+// ~84 leaf RNG calls here (was ~85).
 export function fastforward_post_mklev() {
-    rnd(1000); rn2(20); rnd(2); rn2(6); rn2(11); rn2(10); rn2(10); rn2(100); rn2(20); rn2(1);
+    rn2(20); rnd(2); rn2(6); rn2(11); rn2(10); rn2(10); rn2(100); rn2(20); rn2(1);
     rnd(1000); rnd(2); rn2(6); rnd(1000); rnd(2); rn2(6); rnd(1000); rnd(2); rn2(6); rnd(1000);
     rnd(2); rn2(6); rnd(1000); rnd(2); rn2(6); rnd(1000); rnd(2); rn2(6); rnd(1000); rnd(2);
     rn2(6); rnd(1000); rnd(2); rn2(6); rnd(1000); rnd(2); rn2(6); rnd(1000); rnd(2); rn2(6);
