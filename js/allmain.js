@@ -60,6 +60,7 @@ export async function newgame() {
     g.u.uac = 10; g.u.uexp = 0;
     g.u.ualign = { type: 0, record: 0 };
     g.u.uhs = UHS.NOT_HUNGRY; /* port eat.c / moveloop when hunger advances */
+    g.u.near_capacity = 0; /* C: near_capacity(); port invent weight when ready */
     g.u.acurr = { a: [9, 14, 12, 11, 16, 16] };
     g.u.amax = { a: [9, 14, 12, 11, 16, 16] };
     g.moves = 1;
