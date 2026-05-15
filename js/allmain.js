@@ -1,8 +1,9 @@
 // allmain.js — Main game loop.
 // C ref: allmain.c — newgame, moveloop, moveloop_core.
 //
-// Uses fastforward.js for pre/post-mklev RNG parity on seed8000.
-// Real mklev.js handles level generation for screen parity.
+// Uses fastforward.js for startup RNG gaps not yet covered by ported init
+// (see .cursor/plans/nethack-port/10-moveloop-detect-c-map.md). mklev.js
+// owns structural dungeon generation.
 
 import { game } from './gstate.js';
 import { rn2 } from './rng.js';
@@ -57,6 +58,10 @@ export async function newgame() {
     g.u.acurr = { a: [9, 14, 12, 11, 16, 16] };
     g.u.amax = { a: [9, 14, 12, 11, 16, 16] };
     g.moves = 1;
+    // When non-zero, moveloop_core runs fastforward_step for end-of-turn RNG.
+    // Seed 1 so the first post-newgame moveloop still runs the step-0 template
+    // (a no-op) before the first real key, matching upstream pacing.
+    g._prevMoveTick = 1;
     g.urole = { name: { m: 'Tourist', f: 'Tourist' }, rank: { m: 'Rambler', f: 'Rambler' } };
     g.urace = { adj: 'human' };
     g.flags.female = true;
@@ -85,9 +90,13 @@ export async function newgame() {
 export async function moveloop_core() {
     const g = game;
 
-    // Fast-forward per-step RNG (monster movement, regen, sounds, hunger)
-    const stepNum = (g.moves || 1) - 1;
-    fastforward_step(stepNum);
+    // Fast-forward per-step RNG (monster movement, regen, sounds, hunger).
+    // Skip when the previous command took no game time (unknown key, etc.),
+    // so repeated nhgetch on the same move clock does not replay the template.
+    if (g._prevMoveTick) {
+        const stepNum = (g.moves || 1) - 1;
+        fastforward_step(stepNum);
+    }
 
     // Vision + display
     if (g.vision_full_recalc) {
@@ -107,6 +116,8 @@ export async function moveloop_core() {
     if (g.context?.move) {
         g.moves = (g.moves || 1) + 1;
     }
+
+    g._prevMoveTick = g.context?.move ? 1 : 0;
 }
 
 // C ref: allmain.c moveloop()

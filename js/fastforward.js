@@ -1,8 +1,17 @@
-// fastforward.js — Auto-generated RNG replay for seed8000 starter session.
-// Split into pre-mklev and post-mklev phases.
-// The mklev RNG calls are now consumed by the real mklev.js implementation.
+// fastforward.js — Transitional RNG harness (NOT a design target).
 //
-// Generated from: seed8000-tourist-starter.session.json
+// Blocks below replay leaf PRNG calls captured from a reference session so the
+// ISAAC stream stays aligned while init/mklev/moveloop pieces are still stubs.
+// They must be deleted or narrowed as real ports land:
+//   • fastforward_pre_mklev / post_mklev / fill_mineralize → o_init, dungeon.c,
+//     u_init.c, mklev.c object/mineralize paths matching this repo’s mklev.js.
+//   • fastforward_step(stepNum) → allmain.c:moveloop_core end-of-turn work:
+//     movemon (monmove.c), regen, dosounds (sounds.c), gethungry (eat.c), etc.
+//
+// Session JSON was only the extraction source; behavior must converge by
+// matching C, not by tuning to fixtures.
+//
+// Generated from: seed8000-tourist-starter.session.json (historical)
 
 import { rn2, rnd, d, rne, rnz } from "./rng.js";
 
@@ -135,7 +144,10 @@ export function fastforward_post_mklev() {
     rnd(9000); rnd(30);
 }
 
-// Per-step leaf RNG calls
+// Per-turn harness: replays post-command PRNG until movemon + moveloop tail
+// exist in JS (see plan 10-moveloop-detect-c-map.md). Index stepNum−1 runs at
+// moveloop start when moves===stepNum (i.e. before the next nhgetch), so it
+// corresponds to the *previous* command’s end-of-turn slice in the recorder.
 export function fastforward_step(stepNum) {
     const steps = [
         () => { rn2(12); rn2(12); rn2(12); rn2(12); rn2(70); rn2(300); rn2(20); rn2(82); }, // step 1
@@ -146,8 +158,10 @@ export function fastforward_step(stepNum) {
         () => { rn2(5); rn2(12); rn2(5); rn2(5); rn2(5); rn2(12); rn2(12); rn2(12); rn2(12); rn2(70); rn2(300); rn2(20); rn2(82); rn2(31); }, // step 6
         () => { rn2(5); rn2(16); rn2(5); rn2(5); rn2(16); rn2(5); rn2(12); rn2(12); rn2(12); rn2(12); rn2(70); rn2(300); rn2(20); rn2(82); }, // step 7
         () => { rn2(5); rn2(12); rn2(5); rn2(12); rn2(12); rn2(12); rn2(12); rn2(70); rn2(300); rn2(20); rn2(82); }, // step 8
-        () => { rn2(5); rn2(20); rn2(5); rn2(5); rn2(8); rn2(5); rn2(12); rn2(12); rn2(12); rn2(12); rn2(70); rn2(300); rn2(20); rn2(19); rn2(82); }, // step 9
-        () => { rn2(5); rn2(12); rn2(5); rn2(5); rn2(20); rn2(5); rn2(12); rn2(12); rn2(12); rn2(12); rn2(70); rn2(300); rn2(20); rn2(82); }, // step 10
+        // harness: post–move-9 tail (monmove / hunger / …)
+        () => { rn2(5); rn2(20); rn2(5); rn2(5); rn2(8); rn2(5); rn2(12); rn2(12); rn2(12); rn2(12); rn2(70); rn2(300); rn2(20); rn2(19); rn2(82); },
+        // harness: post–move-10 tail
+        () => { rn2(5); rn2(12); rn2(5); rn2(5); rn2(20); rn2(5); rn2(12); rn2(12); rn2(12); rn2(12); rn2(70); rn2(300); rn2(20); rn2(82); },
     ];
     if (stepNum > 0 && stepNum <= steps.length) steps[stepNum - 1]();
 }

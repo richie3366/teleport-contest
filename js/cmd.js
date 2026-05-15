@@ -9,6 +9,7 @@ import { game } from './gstate.js';
 import { nhgetch } from './input.js';
 import { newsym, flush_screen, pline } from './display.js';
 import { vision_recalc } from './vision.js';
+import { dosearch } from './search.js';
 import { COLNO, ROWNO, STONE, DOOR, D_CLOSED, D_LOCKED,
          IS_WALL, IS_OBSTRUCTED } from './const.js';
 
@@ -45,6 +46,10 @@ export async function rhack(key) {
     if (isMovementKey(ch)) {
         await domove(DIR_DX[ch], DIR_DY[ch]);
         game.context.move = 1;
+    } else if (ch === 's') {
+        // C: cmd.c rhack — #search → dosearch() → dosearch0 (detect.c)
+        game.context.move = 1;
+        await dosearch();
     } else {
         // Unknown command
         game.context.move = 0;
