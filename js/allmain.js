@@ -17,7 +17,7 @@ import { end_of_turn_rng } from './moveloop_aux.js';
 import { initIniInvStub } from './ini_inv_stub.js';
 import { UHS } from './hunger.js';
 import { NEW_MOON } from './const.js';
-import { parseFixedDatetime, phaseOfTheMoonFromDate } from './moonphase.js';
+import { parseFixedDatetime, phaseOfTheMoonFromDate, isFriday13thFromDate } from './moonphase.js';
 
 // C ref: allmain.c newgame()
 export async function newgame() {
@@ -38,7 +38,13 @@ export async function newgame() {
     g.flags = g.flags || {};
     {
         const clock = g.fixed_datetime ? parseFixedDatetime(g.fixed_datetime) : null;
-        g.flags.moonphase = clock ? phaseOfTheMoonFromDate(clock) : NEW_MOON;
+        if (clock) {
+            g.flags.moonphase = phaseOfTheMoonFromDate(clock);
+            g.flags.friday13 = isFriday13thFromDate(clock);
+        } else {
+            g.flags.moonphase = NEW_MOON;
+            g.flags.friday13 = false;
+        }
     }
     // Gnomish Mines branch stub (end1 on D:1)
     g.branches = [

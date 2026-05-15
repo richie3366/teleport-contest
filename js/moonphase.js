@@ -1,5 +1,5 @@
-// moonphase.js — Lunar phase for flags.moonphase (0–7).
-// C ref: hacklib.c phase_of_the_moon(), getlt(); const.h NEW_MOON / FULL_MOON.
+// moonphase.js — Calendar bits for flags (moon phase, Friday 13th).
+// C ref: hacklib.c phase_of_the_moon(), friday_13th(), getlt().
 
 /**
  * Parse NETHACK_FIXED_DATETIME style string (YYYYMMDDHHMMSS, optional tail).
@@ -40,4 +40,13 @@ export function phaseOfTheMoonFromDate(d) {
     let epact = (11 * goldn + 18) % 30;
     if ((epact === 25 && goldn > 11) || epact === 24) epact++;
     return Math.floor(((((diy + epact) * 6) + 11) % 177) / 22) & 7;
+}
+
+/**
+ * C: friday_13th() — local calendar is Friday the 13th.
+ * @param {Date} d
+ * @returns {boolean}
+ */
+export function isFriday13thFromDate(d) {
+    return d.getDay() === 5 && d.getDate() === 13;
 }
