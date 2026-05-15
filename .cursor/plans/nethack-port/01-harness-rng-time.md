@@ -1,6 +1,6 @@
 # Satellite plan: Harness, RNG, and time
 
-Parent: [NetHack JS port roadmap](../nethack_js_port_roadmap_19a4defd.plan.md) — Workstream A.
+Parent: global plan **NetHack JS port roadmap** (Workstream A — harness, RNG, time).
 
 ## Goals
 
