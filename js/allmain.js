@@ -20,6 +20,7 @@ import { applyBirthHpEnergy } from './u_init_hp_energy.js';
 import { applyRoleStartingUmoney0 } from './u_init_money.js';
 import { applyAdjabil } from './u_init_adjabil.js';
 import { findAc } from './u_init_find_ac.js';
+import { applyHiddenGoldToUmoney0 } from './u_init_hidden_gold.js';
 import { UHS } from './hunger.js';
 import { moveloopPreamble } from './moveloop_preamble.js';
 import { settrack } from './track.js';
@@ -67,7 +68,7 @@ export async function newgame() {
     applyBirthHpEnergy();
 
     // Hardcoded player state for early stub.
-    // Contestants: port u_init / invent (g._goldCount follows u.umoney0 from applyRoleStartingUmoney0).
+    // Contestants: port u_init / invent (g._goldCount follows u.umoney0; applyHiddenGoldToUmoney0 adds sack gold when g.invent exists).
     g.u.umortality = 0;
     g.u.Half_physical_damage = 0;
     g.u.uexp = 0;
@@ -109,6 +110,8 @@ export async function newgame() {
     g.plname = g.plname || 'Contestant';
     g.u.left_handed = true;
     initIniInvStub(g);
+    /* C: u_init.c u_init_inventory_attrs — u.umoney0 += hidden_gold(TRUE) after invent */
+    applyHiddenGoldToUmoney0(g);
     /* C: u_init.c u_init_skills_discoveries — find_ac() after invent (worn gear stubbed) */
     findAc();
 
