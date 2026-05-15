@@ -32,7 +32,7 @@ export function stairwayAt(x, y) {
     return null;
 }
 
-function an(phrase) {
+export function an(phrase) {
     if (!phrase) return phrase;
     const t = phrase.trim();
     if (!t) return phrase;

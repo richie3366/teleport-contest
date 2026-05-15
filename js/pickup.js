@@ -7,7 +7,8 @@ import { stagger, raceptr } from './mondata.js';
 import { nearCapacity } from './encumbr.js';
 import { OBJ_AT, IS_POOL, IS_LAVA, is_pit } from './const.js';
 import { readEngrAt, canReachFloor } from './engrave.js';
-import { describeDecor, levlTypAt } from './decor.js';
+import { describeDecor, levlTypAt, dfeatureAt, an } from './decor.js';
+import { doname } from './objnam.js';
 import { tAt } from './search.js';
 
 /** C: reset_justpicked(olist) — clear pickup_prev on each object in the chain. */
@@ -77,6 +78,9 @@ export async function encumberMsg() {
     g._encumberOldCap = newcap;
 }
 
+/** C: hack.h LOOKHERE_SKIP_DFEATURE */
+const LOOKHERE_SKIP_DFEATURE = 2;
+
 /** C: pickup.c LOOKHERE_PICKED_SOME */
 const LOOKHERE_PICKED_SOME = 1;
 
@@ -86,12 +90,83 @@ function heroSurfaceTyp() {
 }
 
 /**
- * C: invent.c look_here() — minimal stub; extend when floor piles need messages.
- * @param {number} _objCnt
- * @param {number} _lhflags
+ * C: invent.c look_here() — non-blind subset: dfeature line, pile summary, doname list.
+ * @param {number} objCnt — object count (excluding uchain), from check_here
+ * @param {number} lhflags — LOOKHERE_*
  */
-async function lookHere(_objCnt, _lhflags) {
-    /* RNG + doname chains deferred until OBJ_AT paths are exercised in sessions */
+async function lookHere(objCnt, lhflags) {
+    const g = game;
+    const u = g.u;
+    if (!u) return;
+
+    const pickedSome = (lhflags & LOOKHERE_PICKED_SOME) !== 0;
+    const skipDfeature = (lhflags & LOOKHERE_SKIP_DFEATURE) !== 0;
+    const pileLimit = g.flags?.pile_limit ?? 0;
+    const skipObjects = pileLimit > 0 && objCnt >= pileLimit;
+
+    const ohead = g.level?.floorObjHeads?.get(`${u.ux},${u.uy}`) ?? null;
+    const objs = [];
+    for (let o = ohead; o; o = o.nexthere) {
+        if (o !== g.uchain) objs.push(o);
+    }
+    if (objs.length === 0) {
+        await readEngrAt(u.ux, u.uy);
+        return;
+    }
+
+    let dfeature = dfeatureAt(u.ux, u.uy);
+    if (dfeature === 'pool of water' && u.underwater) dfeature = null;
+
+    async function plineThereIsDfeature() {
+        if (!dfeature || skipDfeature) return;
+        let art = dfeature;
+        if (art !== 'molten lava' && art !== 'ice' && !String(art).startsWith('frozen ')) art = an(art);
+        await pline(`There is ${art} here.`);
+    }
+
+    if (u.ublind) {
+        /* C: invent.c look_here() blind branch — port feel_location / You() when Blind */
+        await readEngrAt(u.ux, u.uy);
+        return;
+    }
+
+    const ltyp = levlTypAt(u.ux, u.uy);
+    const inLavaFeet = IS_LAVA(ltyp);
+    const inPoolFeet = IS_POOL(ltyp) && !u.underwater;
+
+    if (inLavaFeet || inPoolFeet) {
+        await plineThereIsDfeature();
+        await readEngrAt(u.ux, u.uy);
+        if (!skipObjects) await pline('You see no objects here.');
+        return;
+    }
+
+    if (skipObjects) {
+        await plineThereIsDfeature();
+        await readEngrAt(u.ux, u.uy);
+        if (objCnt === 1 && objs[0] && (objs[0].quan ?? 1) === 1) {
+            await pline(pickedSome ? 'There is another object here.' : 'There is an object here.');
+        } else {
+            const w = objCnt === 2 ? 'two'
+                : objCnt < 5 ? 'a few'
+                    : objCnt < 10 ? 'several'
+                        : 'many';
+            await pline(`There are ${w}${pickedSome ? ' more' : ''} objects here.`);
+        }
+        return;
+    }
+
+    if (objs.length === 1) {
+        await plineThereIsDfeature();
+        await readEngrAt(u.ux, u.uy);
+        await pline(`You see here ${doname(objs[0])}.`);
+        return;
+    }
+
+    await plineThereIsDfeature();
+    await pline('Things that are here:');
+    for (const ob of objs) await pline(`  ${doname(ob)}`);
+    await readEngrAt(u.ux, u.uy);
 }
 
 /**
