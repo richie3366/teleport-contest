@@ -10,7 +10,7 @@ import { nhgetch } from './input.js';
 import { newsym, flush_screen, pline, docrt } from './display.js';
 import { vision_recalc } from './vision.js';
 import { dosearch } from './search.js';
-import { versionPlineText } from './nethack_version.js';
+import { runExtcmdFromHashPrefix } from './extcmd.js';
 import { COLNO, ROWNO, STONE, DOOR, D_CLOSED, D_LOCKED,
          IS_WALL, IS_OBSTRUCTED } from './const.js';
 
@@ -88,31 +88,7 @@ export async function rhack(key) {
     }
 
     if (ch === '#') {
-        // C: doextcmd — echo '#' on the top line, then read the next key (tty).
-        game.context.move = 0;
-        if (game._overlayScreen || game._inventoryMode) {
-            game._overlayScreen = null;
-            game._inventoryMode = false;
-            await docrt();
-        }
-        game._pending_message = '#';
-        await flush_screen(1);
-        const k = await nhgetch();
-        game._pending_message = '';
-        if (k === 27) {
-            await flush_screen(1);
-            return;
-        }
-        const ch2 = String.fromCharCode(k);
-        if (ch2 === 'v' || ch2 === 'V') {
-            await pline(versionPlineText());
-            game._retainMessageAfterCommand = true;
-            await flush_screen(1);
-            return;
-        }
-        await pline(`Unknown extended command '#${ch2}'.`);
-        game._retainMessageAfterCommand = true;
-        await flush_screen(1);
+        await runExtcmdFromHashPrefix();
         return;
     }
 
