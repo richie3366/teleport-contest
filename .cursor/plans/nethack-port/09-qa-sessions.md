@@ -56,18 +56,18 @@ Command (repo root):
 
 `node frozen/ps_test_runner.mjs sessions/seed8000-tourist-starter.session.json`
 
-Example result line:
+Example result line (after syncing `js/terminal.js` from `frozen/` and routing replay keys through `input.js`):
 
-`FAIL: seed8000-tourist-starter.session.json (RNG 3126/3130, Screen 0/23 (cursors 19/23))`
+`FAIL: seed8000-tourist-starter.session.json (RNG 3126/3130, Screen 15/23 (cursors 18/23))`
 
-Example `__RESULTS_JSON__` metrics (commit `0be08d5` at capture time):
+Example `__RESULTS_JSON__` metrics (post-harness fix):
 
 ```json
 {
   "rngCalls": { "matched": 3126, "total": 3130 },
-  "screens": { "matched": 0, "total": 23 },
-  "cellsOnly": { "matched": 0, "total": 23 },
-  "cursors": { "matched": 19, "total": 23 },
+  "screens": { "matched": 15, "total": 23 },
+  "cellsOnly": { "matched": 15, "total": 23 },
+  "cursors": { "matched": 18, "total": 23 },
   "animFrames": { "matched": 0, "total": 0 }
 }
 ```
