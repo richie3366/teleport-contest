@@ -18,6 +18,8 @@ import { initIniInvStub } from './ini_inv_stub.js';
 import { applyInitAttrPipeline } from './u_init_attr.js';
 import { applyBirthHpEnergy } from './u_init_hp_energy.js';
 import { applyRoleStartingUmoney0 } from './u_init_money.js';
+import { applyAdjabil } from './u_init_adjabil.js';
+import { findAc } from './u_init_find_ac.js';
 import { UHS } from './hunger.js';
 import { moveloopPreamble } from './moveloop_preamble.js';
 import { settrack } from './track.js';
@@ -68,11 +70,8 @@ export async function newgame() {
     // Contestants: port u_init / invent (g._goldCount follows u.umoney0 from applyRoleStartingUmoney0).
     g.u.umortality = 0;
     g.u.Half_physical_damage = 0;
-    g.u.uac = 10; g.u.uexp = 0;
+    g.u.uexp = 0;
     g.u.ualign = g.u.ualign || { type: 0, record: 0 };
-    /* C: u_init.c u_init_role — u.ulevel after adjabil; XL 1 for new hero */
-    g.u.ulevel = 1;
-    g.u.ulevelmax = 1;
     g.u.uhs = UHS.NOT_HUNGRY; /* port eat.c / moveloop when hunger advances */
     g.u.near_capacity = 0; /* C: near_capacity(); port invent weight when ready */
     g.u.Levitation = 0;
@@ -83,14 +82,24 @@ export async function newgame() {
     g.u.resists_blind = 0;
     g.u.See_invisible = 0;
     g.u.Fire_resistance = 0;
+    g.u.Cold_resistance = 0;
     g.u.HInvis = 0;
     g.u.EInvis = 0;
     g.u.Antimagic = 0;
     g.u.noteleport = 0;
     g.u.Hallucination = 0;
+    g.u.Poison_resistance = 0;
+    g.u.Stealth = 0;
+    g.u.Fast = 0;
+    g.u.Searching = 0;
     g.u.uwep = null;
     g.u.twoweap = false;
     g.u.uarmg = null; /* gloves — port invent wear when ready */
+    /* C: u_init.c u_init_misc — adjabil(0, 1) while u.ulevel == 0 */
+    applyAdjabil(0, 1);
+    /* C: u_init.c u_init_role — u.ulevel after adjabil; XL 1 for new hero */
+    g.u.ulevel = 1;
+    g.u.ulevelmax = 1;
     g.multi = 0; /* C: gm.multi — multi-turn actions / occupation */
     g.moves = 1;
     // When non-zero, moveloop_core runs movemon + end-of-turn tail (harness).
@@ -100,6 +109,8 @@ export async function newgame() {
     g.plname = g.plname || 'Contestant';
     g.u.left_handed = true;
     initIniInvStub(g);
+    /* C: u_init.c u_init_skills_discoveries — find_ac() after invent (worn gear stubbed) */
+    findAc();
 
     // C ref: allmain.c newgame() → u_on_upstairs()
     // Places hero on upstair, or special stair, or random room position.

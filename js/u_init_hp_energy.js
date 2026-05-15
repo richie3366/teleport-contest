@@ -35,7 +35,7 @@ export function newpwInitial() {
 
 /**
  * C: u_init.c u_init_misc — u.uhp = u.uhpmax = u.uhppeak = newhp();
- * then adjabil(0,1); u.ulevel = 1 (adjabil not ported; caller sets ulevel).
+ * then adjabil(0,1); u.ulevel = 1 (adjabil partially in u_init_adjabil.js; caller sets ulevel).
  */
 export function applyBirthHpEnergy() {
     const u = game.u;

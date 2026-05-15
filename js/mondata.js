@@ -4,7 +4,7 @@
 
 import { game } from './gstate.js';
 
-/** @typedef {{ mlet: number, mflags1: number, msize: number, mmove: number }} Permonst */
+/** @typedef {{ mlet: number, mflags1: number, msize: number, mmove: number, ac?: number }} Permonst */
 
 // C: monflag.h (subset used by locomotion / stagger)
 const M1_FLY = 0x00000001;
@@ -34,6 +34,7 @@ export const permonstHuman = Object.freeze({
     mflags1: 0x00020000, /* M1_HUMANOID */
     msize: 2, /* MZ_MEDIUM */
     mmove: 12,
+    ac: 10, /* C: mons[].ac — find_ac() base for naked humanoid hero */
 });
 
 /** C: mondata.h breathless */
