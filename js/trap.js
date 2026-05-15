@@ -1,17 +1,16 @@
 // trap.js — Hero stepping on floor traps (dotrap + trapeffect subset).
 // C ref: trap.c dotrap(), floor_trigger(), check_in_air(), trapeffect_selector()
 //        hero cases; trap.h fixed_tele_trap(); mondata.h is_clinger (M1_CLING).
-//
-// domagictrap() after magic_trap (non-explosion) is not ported yet; RNG will
-// diverge there until makemon / timed props match upstream.
+// domagictrap() shares makemon.js stub; seffects (fate 20) / full destroy_items TODO.
 
 import { game } from './gstate.js';
 import { pline, newsym } from './display.js';
 import { vision_recalc } from './vision.js';
-import { rn2, rnd } from './rng.js';
+import { rn2, rnd, rn1, d } from './rng.js';
 import { nomul, fallAsleep } from './timeout.js';
 import { seetrap, trapTypName, delTrap } from './search.js';
-import { raceptr, breathless } from './mondata.js';
+import { adjattrib } from './attrib.js';
+import { makemon } from './makemon.js';
 import {
     NO_TRAP_FLAGS,
     FORCETRAP,
@@ -43,6 +42,8 @@ import {
     is_hole,
     In_sokoban,
     isok,
+    NO_MM_FLAGS,
+    A_CHA,
 } from './const.js';
 
 const M1_CLING = 0x00000010;
@@ -124,13 +125,183 @@ function monsSeeTrap() {
     void 0;
 }
 
+/** C: mon.c wake_nearto — wake sleeping monsters in range; stub until fmon. */
+function wakeNearto(_x, _y, _dist) {
+    void _x;
+    void _y;
+    void _dist;
+}
+
+function heroDeaf(u) {
+    return (u.timed?.deaf ?? 0) > 0;
+}
+
+/** C: youprop.h resists_blnd(&youmonst) — stub false until props port. */
+function resistsBlnd() {
+    return !!(game.u?.resists_blind);
+}
+
+function heroBlind() {
+    const u = game.u;
+    return !!(u?.ublind || (u?.timed?.blind ?? 0) > 0);
+}
+
+function mAt(x, y) {
+    return game.level?.monsters?.find((m) => m.mx === x && m.my === y) ?? null;
+}
+
+/** C: mondata.h pm_invisible — stub false until polymorph data is wired. */
+function pmInvisible(_ptr) {
+    void _ptr;
+    return false;
+}
+
 function trapArticle(trap, ttyp) {
     if (ttyp === ARROW_TRAP && !trap.madeby_u) return 'an';
     return trap.madeby_u ? 'your' : 'a';
 }
 
+/** C: dog.c tamedog — stub until pet code exists. */
+function tamedogStub() {
+    return false;
+}
+
 /**
- * C: trap.c trapeffect_magic_trap — hero; explosion branch only for now.
+ * C: trap.c dofiretrap(struct obj *box) with box null — floor magic fire; destroy_items deferred.
+ */
+async function dofiretrapHeroNoBox() {
+    const u = game.u;
+    if (!u) return;
+    const origDmg = d(2, 4);
+    let num = origDmg;
+    await pline('A tower of flame erupts from the floor!');
+    if (u.Fire_resistance) {
+        num = rn2(2);
+    } else {
+        num = d(2, 4);
+        if ((u.uhpmax ?? 1) > 1) {
+            const cap = Math.min(u.uhpmax ?? 1, num + 1);
+            u.uhpmax -= rn2(cap);
+        }
+        if ((u.uhp ?? 0) > (u.uhpmax ?? 1)) u.uhp = u.uhpmax;
+    }
+    if (!num) await pline('You are uninjured.');
+    else u.uhp = Math.max(0, (u.uhp ?? 0) - num);
+    if (rn2(3)) {
+        void origDmg;
+        /* C: destroy_items(&gy.youmonst, AD_FIRE, orig_dmg); ignite_items — not ported */
+    }
+    game.disp = game.disp || {};
+    game.disp.botl = true;
+}
+
+/**
+ * C: trap.c domagictrap(void) — magic trap secondary effects (makemon uses makemon.js stub).
+ */
+async function domagictrap() {
+    const u = game.u;
+    if (!u) return;
+
+    const fate = rnd(20);
+
+    if (fate < 10) {
+        const cnt = rnd(4);
+        u.timed = u.timed || { blind: 0, deaf: 0 };
+
+        if (!resistsBlnd()) {
+            await pline('You are momentarily blinded by a flash of light!');
+            u.timed.blind = (u.timed.blind ?? 0) + rn1(5, 10);
+        } else if (!heroBlind()) {
+            await pline('You see a flash of light!');
+        }
+
+        if (!heroDeaf(u)) {
+            await pline('You hear a deafening roar!');
+            u.timed.deaf = (u.timed.deaf ?? 0) + rn1(20, 30);
+        } else {
+            await pline('You feel rankled.');
+            u.timed.deaf = (u.timed.deaf ?? 0) + rn1(5, 15);
+        }
+        game.disp = game.disp || {};
+        game.disp.botl = true;
+
+        for (let i = cnt; i > 0; i--) {
+            makemon(null, u.ux, u.uy, NO_MM_FLAGS);
+        }
+        wakeNearto(u.ux, u.uy, 7 * 7);
+    } else {
+        switch (fate) {
+        case 10:
+            break;
+        case 11: {
+            await pline('You hear a low hum.');
+            const ptr = raceptr(game.youmonst);
+            if (!u.HInvis) {
+                if (!heroBlind()) {
+                    const seeInv = !!u.See_invisible;
+                    await pline(
+                        seeInv
+                            ? 'Gee!  All of a sudden, you can see right through yourself.'
+                            : "Gee!  All of a sudden, you can't see yourself.",
+                    );
+                }
+            } else if (!u.EInvis && !pmInvisible(ptr)) {
+                if (!heroBlind()) {
+                    if (!u.See_invisible) await pline('You can see yourself again!');
+                    else await pline("You can't see through yourself anymore.");
+                }
+            } else {
+                await pline(`You feel a little more ${u.HInvis ? 'obvious' : 'hidden'} now.`);
+            }
+            u.HInvis = u.HInvis ? 0 : 1;
+            newsym(u.ux, u.uy);
+            break;
+        }
+        case 12:
+            await dofiretrapHeroNoBox();
+            break;
+        case 13:
+            await pline('A shiver runs up and down your spine!');
+            break;
+        case 14:
+            await pline(u.Hallucination ? 'You hear the moon howling at you.' : 'You hear distant howling.');
+            break;
+        case 15:
+            await pline(
+                u.Hallucination ? 'You suddenly yearn for Cleveland.' : 'You suddenly yearn for your distant homeland.',
+            );
+            break;
+        case 16:
+            await pline('Your pack shakes violently!');
+            break;
+        case 17:
+            await pline(u.Hallucination ? 'You smell hamburgers.' : 'You smell charred flesh.');
+            break;
+        case 18:
+            await pline('You feel tired.');
+            break;
+        case 19: {
+            adjattrib(A_CHA, 1, false);
+            for (let i = -1; i <= 1; i++) {
+                for (let j = -1; j <= 1; j++) {
+                    if (!isok(u.ux + i, u.uy + j)) continue;
+                    const mtmp = mAt(u.ux + i, u.uy + j);
+                    if (mtmp) tamedogStub();
+                }
+            }
+            break;
+        }
+        case 20:
+            /* C: seffects(SPE_REMOVE_CURSE) — not ported */
+            break;
+        default:
+            break;
+        }
+    }
+}
+
+/**
+ * C: trap.c trapeffect_magic_trap — hero.
  * @param {{ ttyp: number, tseen?: boolean, madeby_u?: boolean, tnote?: number, tx: number, ty: number, launch?: { x: number, y: number } }} trap
  */
 async function trapeffectMagicHero(trap) {
@@ -149,8 +320,9 @@ async function trapeffectMagicHero(trap) {
         u.uen = u.uenmax;
         game.disp = game.disp || {};
         game.disp.botl = true;
+    } else {
+        await domagictrap();
     }
-    /* else: C calls domagictrap() — not ported (makemon / timed intrinsics). */
 }
 
 /**
@@ -173,7 +345,7 @@ async function trapeffectSqkyBoardHero(trap, trflags) {
         }
     } else {
         seetrap(trap);
-        if (u.Deaf) await pline('A board beneath you vibrates.');
+        if (heroDeaf(u)) await pline('A board beneath you vibrates.');
         else await pline(`A board beneath you squeaks ${trapNote(trap)} loudly.`);
     }
 }

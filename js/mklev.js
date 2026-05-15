@@ -23,6 +23,7 @@ import {
     ICE, MOAT, POOL, WATER, LAVAPOOL, LAVAWALL, DBWALL,
     A_LAWFUL, Align2amask,
     LR_UPTELE,
+    MM_NOGRP,
     NO_TRAP, TRAPNUM,
     ARROW_TRAP, DART_TRAP, ROCKTRAP, SQKY_BOARD, BEAR_TRAP, LANDMINE, ROLLING_BOULDER_TRAP,
     SLP_GAS_TRAP, RUST_TRAP, FIRE_TRAP, PIT, SPIKED_PIT, HOLE, TRAPDOOR, TELEP_TRAP, LEVEL_TELEP,
@@ -31,6 +32,7 @@ import {
 } from './const.js';
 import { makeEngrAt, ENGR_HEADSTONE, ENGR_MARK, ENGR_DUST, randomEngraving, getRndEpitaphText, wipeEngrAt } from './engrave.js';
 import { tAt } from './search.js';
+import { makemon, rndmonnum } from './makemon.js';
 
 // Object/class constants (normally from objects.js, not in contest template)
 const RANDOM_CLASS = 0;
@@ -327,33 +329,6 @@ function mkcorpstat(objtyp, mtmp, pm, x, y, flags) {
         rndmonnum();
     }
     return otmp;
-}
-
-// rndmonnum stub — consumes rn2 for random monster selection
-function rndmonnum() {
-    // C: picks a random monster class then random within class
-    // For contest, this is called from mkcorpstat when pm=null.
-    // The actual RNG depends on monster database, but for statues
-    // created by fill_ordinary_room, it consumes at least rn2 calls.
-    rn2(398); // approximate: rn2(NUMMONS)
-    return 0;
-}
-
-// makemon stub
-async function makemon(mdat, x, y, mmflags) {
-    // C: makemon consumes RNG for monster HP, inventory, etc.
-    // For fill_ordinary_room: makemon(null, ...) = random monster
-    if (mdat === null) {
-        // rndmonst_adj + selection
-        rn2(398);
-    }
-    // newmonhp
-    const hp = rnd(8);
-    // m_initinv — monster inventory
-    // For random monsters this varies widely. Since fill_ordinary_room
-    // and mineralize calls are in fastforward, this stub won't be called
-    // for those. It's only needed if mklev structural code calls makemon.
-    return { mx: x, my: y, mhp: hp, msleeping: 0, mpeaceful: 0 };
 }
 
 // maketrap stub
@@ -1687,7 +1662,7 @@ async function fill_ordinary_room(croom, bonus_items) {
     const pos = { x: 0, y: 0 };
     // Sleeping monster (33%)
     if (!rn2(3) && somexyspace(croom, pos)) {
-        await makemon(null, pos.x, pos.y, 2); // MM_NOGRP
+        makemon(null, pos.x, pos.y, MM_NOGRP);
     }
     // Traps
     const u_depth = g.u?.uz?.dlevel ?? 1;

@@ -67,7 +67,12 @@ export async function newgame() {
     g.u.Flying = 0;
     g.u.Fumbling = 0;
     g.u.Sleep_resistance = 0;
-    g.u.Deaf = 0;
+    g.u.timed = { blind: 0, deaf: 0 };
+    g.u.resists_blind = 0;
+    g.u.See_invisible = 0;
+    g.u.Fire_resistance = 0;
+    g.u.HInvis = 0;
+    g.u.EInvis = 0;
     g.u.Hallucination = 0;
     g.u.uwep = null;
     g.u.twoweap = false;

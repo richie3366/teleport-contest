@@ -57,7 +57,7 @@ function fundSearchBonus() {
 }
 
 function blindHero() {
-    return !!(game.u?.ublind);
+    return !!(game.u?.ublind || (game.u?.timed?.blind ?? 0) > 0);
 }
 
 function visibleRegionAt(x, y) {
