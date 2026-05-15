@@ -10,6 +10,7 @@ import { newuexp, MAXULEV } from './explevel.js';
 import { enlightHungerLine } from './hunger.js';
 import { enlightEncumbranceLine } from './encumbr.js';
 import { enlightWieldLine, enlightWieldSkillLine } from './enlight_wield.js';
+import { enlightPlaytimeLine } from './enlight_misc.js';
 
 /** @param {import('./game_display.js').GameDisplay} display */
 export function paintDiscoveriesIntoDisplay(display) {
@@ -133,7 +134,7 @@ export function paintAttributesIntoDisplay(display, page) {
     display.putstr(0, row++, enlightWieldSkillLine(u), NO_COLOR, 0);
     row++;
     display.putstr(0, row++, ' Miscellaneous:', NO_COLOR, 0);
-    display.putstr(0, row++, '  Total elapsed playing time is none.', NO_COLOR, 0);
+    display.putstr(0, row++, enlightPlaytimeLine(g), NO_COLOR, 0);
     display.putstr(0, row++, ' (2 of 2)', NO_COLOR, 0);
     while (row < 24) display.clearRow(row++);
     display.setCursor(9, 11);
