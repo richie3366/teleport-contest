@@ -1,0 +1,26 @@
+---
+description: NetHack 5.0 C upstream reference (submodule, tag, patches, clang)
+globs: nethack-c/upstream/**/*
+alwaysApply: false
+---
+
+# `nethack-c/upstream/` — C reference
+
+## What this tree is
+
+- Git submodule: **NetHack/NetHack** at tag **`NetHack-5.0.0_Release`** (see [.gitmodules](.gitmodules)). This is the **authoritative C** you port from (read source; contest scoring uses a **patched clang** build, not arbitrary local compilers).
+
+## Layout (typical)
+
+- `src/` — core C gameplay, display, dungeon, …
+- `dat/`, `include/`, Lua under `dat/` / `src/` as upstream organizes — use upstream `FILES` / Makefiles when lost.
+
+## Patches vs vanilla
+
+- Contest **recorder** behavior = upstream 5.0.0 **plus** patches under [nethack-c/patches/](nethack-c/patches/) (deterministic seed/datetime, stable `qsort`, RNG logging, tty capture). See [nethack-c/patches/README.md](nethack-c/patches/README.md) and [nethack-c/README.md](nethack-c/README.md).
+- When JS must match traces, reason about **that** instrumented build (three RNG contexts: core, Lua, display), not an unpatched local binary.
+
+## Porting discipline
+
+- Prefer mapping C functions / call order to JS rather than re-deriving behavior from unrelated builds.
+- Remember **clang left-to-right** evaluation for expressions that touch RNG in C; JS should mirror the recorder the judge uses.
