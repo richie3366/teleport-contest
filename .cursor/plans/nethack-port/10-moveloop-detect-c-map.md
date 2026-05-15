@@ -44,3 +44,7 @@ The harness currently runs `fastforward_step` **before** `nhgetch` so it approxi
 - [ ] Wire `dosounds` / `gethungry` / `maybe_generate_rnd_mon` in the same order as `allmain.c`.
 - [x] Partial: [js/search.js](../../js/search.js) `dosearch0` — neighbor loop, SDOOR/SCORR `rnl`, trap `rnl(8)` + `find_trap`; **`mfind0`** structure (mimic / mundetected / `cansee`); **`feel_location`** minimal (`setSeenvTowardHero` + `mapTerrainGlyph` + `show_glyph_cell`). fund, full `sensemon`, `warning_of`, levitation branch, statue animate still TODO.
 - [ ] Re-run `node frozen/ps_test_runner.mjs …` after each deletion of harness code; expect temporary RNG drift until the stack is complete.
+
+## Display / harness note
+
+The judge captures the terminal **before** each `nhgetch` ([`js/jsmain.js`](../../js/jsmain.js) hook), after `moveloop_core`’s opening `flush_screen`. Clearing `game._pending_message` at the end of `moveloop_core` ([`js/allmain.js`](../../js/allmain.js)) means the **last `pline` is not in that serialized frame** unless we change ordering (e.g. flush after `rhack` and adjust the hook contract) or persist the message into the grid without clearing. Do not “fix” pline visibility by only clearing later without re-checking session diffs — a naive persist regressed public `seed8000` screens in testing.

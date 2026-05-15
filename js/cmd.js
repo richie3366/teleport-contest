@@ -44,8 +44,7 @@ export async function rhack(key) {
     const ch = String.fromCharCode(key);
 
     if (isMovementKey(ch)) {
-        await domove(DIR_DX[ch], DIR_DY[ch]);
-        game.context.move = 1;
+        game.context.move = (await domove(DIR_DX[ch], DIR_DY[ch])) ? 1 : 0;
     } else if (ch === 's') {
         // C: cmd.c rhack — #search → dosearch() → dosearch0 (detect.c)
         game.context.move = 1;
@@ -57,16 +56,15 @@ export async function rhack(key) {
     }
 }
 
-// C ref: hack.c domove — execute a movement
+// C ref: hack.c domove — execute a movement; returns true if hero moved.
 async function domove(dx, dy) {
     const u = game.u;
     const newx = u.ux + dx;
     const newy = u.uy + dy;
 
     if (blocksMove(newx, newy)) {
-        // Can't move there
-        game.context.move = 0;
-        return;
+        // Can't move there — no game time (C: domove returns without moving)
+        return false;
     }
 
     // Move the hero
@@ -80,4 +78,5 @@ async function domove(dx, dy) {
     newsym(oldx, oldy);
     vision_recalc(1);
     newsym(newx, newy);
+    return true;
 }
