@@ -10,8 +10,13 @@ import {
     D_NODOOR, D_ISOPEN, D_CLOSED, D_LOCKED,
     SDOOR, SCORR, IRONBARS, TREE, POOL, MOAT, WATER, ICE,
     FOUNTAIN, SINK, ALTAR, GRAVE, THRONE, LAVAPOOL, LAVAWALL,
+    ARROW_TRAP, DART_TRAP, ROCKTRAP, SQKY_BOARD, BEAR_TRAP, LANDMINE,
+    ROLLING_BOULDER_TRAP, SLP_GAS_TRAP, RUST_TRAP, FIRE_TRAP,
+    PIT, SPIKED_PIT, HOLE, TRAPDOOR, TELEP_TRAP, LEVEL_TELEP,
+    MAGIC_PORTAL, WEB, STATUE_TRAP, MAGIC_TRAP, ANTI_MAGIC, POLY_TRAP,
+    VIBRATING_SQUARE, TRAPPED_DOOR, TRAPPED_CHEST,
 } from './const.js';
-import { NO_COLOR, CLR_GRAY, CLR_BROWN, CLR_WHITE, CLR_YELLOW, CLR_GREEN, CLR_BLUE, CLR_CYAN, CLR_RED, CLR_BRIGHT_BLUE, CLR_BRIGHT_MAGENTA, DEC_TO_UNICODE } from './terminal.js';
+import { NO_COLOR, CLR_GRAY, CLR_BROWN, CLR_WHITE, CLR_YELLOW, CLR_GREEN, CLR_BLUE, CLR_CYAN, CLR_RED, CLR_MAGENTA, CLR_BRIGHT_BLUE, CLR_BRIGHT_MAGENTA, CLR_BRIGHT_CYAN, DEC_TO_UNICODE } from './terminal.js';
 
 // ── ANSI color codes ──
 // Maps CLR_* constants (0-15) to ANSI SGR color codes.
@@ -101,6 +106,41 @@ export function mapTerrainGlyph(loc, x, y) {
     }
 }
 
+function trapAtCell(x, y) {
+    const traps = game.level?.traps;
+    if (!traps?.length) return null;
+    return traps.find((t) => t.tx === x && t.ty === y) ?? null;
+}
+
+/** Seen trap → glyph (C mapglyph / defsym; simplified until symbols.js). */
+function seenTrapGlyphColor(trap) {
+    const t = trap.ttyp;
+    switch (t) {
+    case WEB: return { ch: '"', color: NO_COLOR, dec: false };
+    case SQKY_BOARD: return { ch: '^', color: CLR_BROWN, dec: false };
+    case BEAR_TRAP: return { ch: '^', color: CLR_BROWN, dec: false };
+    case LANDMINE: return { ch: '^', color: CLR_RED, dec: false };
+    case FIRE_TRAP: return { ch: '^', color: CLR_RED, dec: false };
+    case POLY_TRAP:
+    case MAGIC_TRAP: return { ch: '^', color: CLR_BRIGHT_MAGENTA, dec: false };
+    case ANTI_MAGIC: return { ch: '^', color: CLR_GRAY, dec: false };
+    case TELEP_TRAP:
+    case LEVEL_TELEP: return { ch: '^', color: CLR_BRIGHT_CYAN, dec: false };
+    case MAGIC_PORTAL: return { ch: '^', color: CLR_MAGENTA, dec: false };
+    case PIT:
+    case SPIKED_PIT:
+    case HOLE:
+    case TRAPDOOR: return { ch: '^', color: CLR_BROWN, dec: false };
+    case ARROW_TRAP:
+    case DART_TRAP:
+    case ROCKTRAP:
+    case RUST_TRAP:
+    case SLP_GAS_TRAP:
+    case ROLLING_BOULDER_TRAP:
+    default: return { ch: '^', color: CLR_RED, dec: false };
+    }
+}
+
 // ── show_glyph_cell ──
 export function show_glyph_cell(x, y, ch, color = NO_COLOR, decgfx = false, attr = 0) {
     const loc = game.level?.at(x, y);
@@ -126,6 +166,21 @@ export function newsym(x, y) {
     }
 
     // Contestants: add monster, object, and trap display here.
+    const trap = trapAtCell(x, y);
+    if (trap?.tseen) {
+        const vis = cansee(x, y);
+        const tg = seenTrapGlyphColor(trap);
+        if (vis) {
+            show_glyph_cell(x, y, tg.ch, tg.color, tg.dec);
+            if (game.level?.flags?.hero_memory) {
+                loc.remembered_glyph = { ch: tg.ch, color: tg.color, decgfx: tg.dec };
+            }
+        } else if (loc.remembered_glyph) {
+            show_glyph_cell(x, y, loc.remembered_glyph.ch,
+                loc.remembered_glyph.color, loc.remembered_glyph.decgfx);
+        }
+        return;
+    }
 
     const tg = mapTerrainGlyph(loc, x, y);
     // Only update display/memory if cell is IN_SIGHT (lit and visible)
