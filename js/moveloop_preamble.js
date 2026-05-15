@@ -8,7 +8,7 @@
 import { game } from './gstate.js';
 import { pline } from './display.js';
 import { rnd } from './rng.js';
-import { NEW_MOON, FULL_MOON, NORMAL_SPEED } from './const.js';
+import { NEW_MOON, FULL_MOON, NORMAL_SPEED, STONE } from './const.js';
 import { parseFixedDatetime, phaseOfTheMoonFromDate, isFriday13thFromDate } from './moonphase.js';
 import { changeLuck } from './attrib.js';
 import { initrack } from './track.js';
@@ -28,6 +28,8 @@ export async function moveloopPreamble(resuming) {
     g.program_state = g.program_state || {};
     g.context = g.context || {};
     g.gd = g.gd || {};
+    g.iflags = g.iflags || {};
+    if (g.iflags.prev_decor === undefined) g.iflags.prev_decor = STONE;
     if (resuming && g.iflags?.deferred_X) {
         /* C: enter_explore_mode() — not ported */
     }

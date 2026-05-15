@@ -5,8 +5,10 @@ import { game } from './gstate.js';
 import { pline, flush_screen } from './display.js';
 import { stagger, raceptr } from './mondata.js';
 import { nearCapacity } from './encumbr.js';
-import { OBJ_AT, IS_POOL, IS_LAVA } from './const.js';
-import { readEngrAt } from './engrave.js';
+import { OBJ_AT, IS_POOL, IS_LAVA, is_pit } from './const.js';
+import { readEngrAt, canReachFloor } from './engrave.js';
+import { describeDecor, levlTypAt } from './decor.js';
+import { tAt } from './search.js';
 
 /** C: reset_justpicked(olist) — clear pickup_prev on each object in the chain. */
 export function resetJustPicked(olist) {
@@ -80,12 +82,7 @@ const LOOKHERE_PICKED_SOME = 1;
 
 function heroSurfaceTyp() {
     const u = game.u;
-    return game.level?.at(u?.ux, u?.uy)?.typ;
-}
-
-/** C: can_reach_floor() — stub TRUE until levitation / pit helpers exist. */
-function canReachFloor() {
-    return true;
+    return levlTypAt(u?.ux, u?.uy);
 }
 
 /**
@@ -104,7 +101,10 @@ async function checkHere(pickedSome) {
     const g = game;
     const u = g.u;
     if (!u) return;
-    /* C: if (flags.mention_decor) describe_decor(); */
+    if (g.flags?.mention_decor) {
+        await describeDecor();
+    }
+
     let ct = 0;
     let o = g.level?.floorObjHeads?.get(`${u.ux},${u.uy}`) ?? null;
     while (o) {
@@ -149,13 +149,14 @@ export async function pickup(what) {
     const inLava = IS_LAVA(typ);
 
     if (autopickup && (g.context?.nopick || !OBJ_AT(u.ux, u.uy) || inPool || inLava)) {
-        /* C: if (flags.mention_decor) describe_decor(); */
+        if (g.flags?.mention_decor) await describeDecor();
         await readEngrAt(u.ux, u.uy);
         return 0;
     }
 
-    if (!canReachFloor()) {
-        /* C: (void) describe_decor(); — always, even when !mention_decor */
+    const tr = tAt(u.ux, u.uy);
+    if (!canReachFloor(!!(tr && is_pit(tr.ttyp)))) {
+        await describeDecor();
         const multi = g.multi ?? 0;
         const run = g.context?.run;
         if ((multi && !run) || (autopickup && !g.flags?.pickup)) await readEngrAt(u.ux, u.uy);
