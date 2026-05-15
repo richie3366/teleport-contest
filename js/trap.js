@@ -8,8 +8,8 @@ import { pline, newsym } from './display.js';
 import { vision_recalc } from './vision.js';
 import { rn2, rnd, rn1, d } from './rng.js';
 import { nomul, fallAsleep } from './timeout.js';
-import { seetrap, trapTypName, delTrap } from './search.js';
-import { adjattrib } from './attrib.js';
+import { seetrap, trapTypName, delTrap, feeltrap } from './search.js';
+import { adjattrib, exercise } from './attrib.js';
 import { makemon } from './makemon.js';
 import {
     tMissile,
@@ -18,10 +18,13 @@ import {
     thitu,
     obfree,
     poisoned,
+    losehp,
     OBJ_ARROW,
     OBJ_DART,
+    OBJ_ROCK,
 } from './mthrowu.js';
 import { placeFloorObject } from './floorobj.js';
+import { raceptr, breathless, passesRocks } from './mondata.js';
 import {
     NO_TRAP_FLAGS,
     FORCETRAP,
@@ -57,6 +60,7 @@ import {
     NO_MM_FLAGS,
     A_CHA,
     A_CON,
+    A_STR,
     STONE,
     DOOR,
     D_CLOSED,
@@ -516,6 +520,57 @@ async function trapeffectDartHero(trap) {
     }
 }
 
+/** C: do_wear.c hard_helmet — is_helmet && (is_metallic || is_crackable); materials from objclass.h */
+function hardHelmet(obj) {
+    if (!obj) return false;
+    const m = obj.oc_material;
+    if (m === 11 || m === 12 || m === 13) return true; /* IRON, METAL, COPPER */
+    if (m === 19) return true; /* GLASS — crackable helms */
+    return !!(obj.oc_crackable);
+}
+
+/** C: trap.c trapeffect_rocktrap — hero. */
+async function trapeffectRockHero(trap) {
+    const u = game.u;
+    if (!u) return;
+    const ptr = raceptr(game.youmonst);
+    if (trap.once && trap.tseen && !rn2(15)) {
+        await pline('A trap door in the ceiling opens, but nothing falls out!');
+        delTrap(trap);
+        newsym(u.ux, u.uy);
+        vision_recalc(1);
+        return;
+    }
+    const dmg0 = d(2, 6);
+    trap.once = 1;
+    feeltrap(trap);
+    const otmp = tMissile(OBJ_ROCK, trap);
+    placeFloorObject(otmp, u.ux, u.uy);
+    let dmg = dmg0;
+    let harmless = false;
+    await pline('A trap door in the ceiling opens and a rock falls on your head!');
+    const helm = u.uarmh;
+    if (helm) {
+        if (passesRocks(ptr)) {
+            await pline('Unfortunately, you are wearing a helmet.');
+            dmg = 2;
+        } else if (hardHelmet(helm)) {
+            await pline('Fortunately, you are wearing a hard helmet.');
+            dmg = 2;
+        } else if (game.flags?.verbose) {
+            await pline('Your headgear does not protect you.');
+        }
+    } else if (passesRocks(ptr)) {
+        await pline('It passes harmlessly through you.');
+        harmless = true;
+    }
+    newsym(u.ux, u.uy);
+    if (!harmless) {
+        losehp(maybeHalfPhys(dmg), 'falling rock', 0);
+        exercise(A_STR, false);
+    }
+}
+
 /**
  * C: trap.c trapeffect_selector — hero-only subset.
  * @param {{ ttyp: number, tseen?: boolean, madeby_u?: boolean, tnote?: number, tx: number, ty: number, launch?: { x: number, y: number } }} trap
@@ -531,6 +586,9 @@ async function trapeffectHero(trap, trflags) {
         break;
     case DART_TRAP:
         await trapeffectDartHero(trap);
+        break;
+    case ROCKTRAP:
+        await trapeffectRockHero(trap);
         break;
     case SLP_GAS_TRAP:
         await trapeffectSlpGasHero(trap);

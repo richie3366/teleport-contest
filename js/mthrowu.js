@@ -7,8 +7,10 @@ import { rnd } from './rng.js';
 import { pline } from './display.js';
 import { placeFloorObject, unlinkFloorObject } from './floorobj.js';
 
-/**
+export const OBJ_ARROW = 349;
 export const OBJ_DART = 353;
+/** C: objects.c ROCK */
+export const OBJ_ROCK = 467;
 
 function nextIdent() {
     rnd(2);
@@ -18,13 +20,14 @@ function nextIdent() {
 export function tMissile(otyp, _trap) {
     void _trap;
     nextIdent();
+    const isRock = otyp === OBJ_ROCK;
     return {
         otyp,
-        oclass: 6, /* WEAPON_CLASS */
+        oclass: isRock ? 14 : 6, /* GEM_CLASS vs WEAPON_CLASS — NH object classes */
         ox: -1,
         oy: -1,
         quan: 1,
-        owt: 1,
+        owt: isRock ? 10 : 1,
         spe: 0,
         opoisoned: 0,
     };
@@ -40,6 +43,7 @@ export function dmgval(otmp, mon) {
     const t = otmp?.otyp ?? 0;
     if (t === OBJ_ARROW) return rnd(6);
     if (t === OBJ_DART) return rnd(3);
+    if (t === OBJ_ROCK) return rnd(6);
     return rnd(4);
 }
 
@@ -111,5 +115,5 @@ export function obfree(otmp) {
 /** C: trap.c poisoned — stub until full poison/exercise port. */
 export async function poisoned(_x, _attr, _knm, _dmg, _fatal) {
     void _x; void _attr; void _knm; void _dmg; void _fatal;
-    await pline('The poison doesn't seem to affect you.');
+    await pline("The poison doesn't seem to affect you.");
 }

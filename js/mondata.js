@@ -9,6 +9,8 @@ import { game } from './gstate.js';
 // C: monflag.h (subset used by locomotion / stagger)
 const M1_FLY = 0x00000001;
 const M1_AMORPHOUS = 0x00000004;
+const M1_WALLWALK = 0x00000008;
+const M1_UNSOLID = 0x00100000;
 const M1_BREATHLESS = 0x00000400;
 const M1_NOLIMBS = 0x00006000;
 const M1_SLITHY = 0x00080000;
@@ -31,6 +33,21 @@ export const permonstHuman = Object.freeze({
 /** C: mondata.h breathless */
 export function breathless(/** @type {Permonst} */ ptr) {
     return (ptr.mflags1 & M1_BREATHLESS) !== 0;
+}
+
+/** C: mondata.h passes_walls */
+export function passesWalls(/** @type {Permonst} */ ptr) {
+    return (ptr.mflags1 & M1_WALLWALK) !== 0;
+}
+
+/** C: mondata.h unsolid */
+export function unsolid(/** @type {Permonst} */ ptr) {
+    return (ptr.mflags1 & M1_UNSOLID) !== 0;
+}
+
+/** C: mondata.h passes_rocks */
+export function passesRocks(/** @type {Permonst} */ ptr) {
+    return passesWalls(ptr) && !unsolid(ptr);
 }
 
 /**
