@@ -76,7 +76,7 @@ export async function moveloopPreamble(resuming) {
     g.disp.botlx = true;
 
     if (resuming) {
-        readEngrAt(g.u.ux, g.u.uy);
+        await readEngrAt(g.u.ux, g.u.uy);
         fixShopDamage();
     }
 

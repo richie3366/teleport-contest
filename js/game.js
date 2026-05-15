@@ -46,6 +46,8 @@ export class GameMap {
         this.floorObjHeads = new Map();
         this.monsters = [];
         this.traps = [];
+        /** C: decl.h head_engr — flat list until save/restore chains port */
+        this.engravings = [];
         this.flags = {
             nfountains: 0,
             nsinks: 0,
