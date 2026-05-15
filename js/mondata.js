@@ -56,6 +56,12 @@ export function passesRocks(/** @type {Permonst} */ ptr) {
     return passesWalls(ptr) && !unsolid(ptr);
 }
 
+/** C: mondata.h webmaker — PM_CAVE_SPIDER / PM_GIANT_SPIDER; false until pmidx wired. */
+export function webmaker(/** @type {Permonst} */ ptr) {
+    void ptr;
+    return false;
+}
+
 /**
  * C: raceptr(mtmp) — innate race permonst; hero uses mons[urace.mnum] when !Upolyd.
  * @param {{ data?: Permonst }|null|undefined} mtmp

@@ -9,7 +9,7 @@ import { vision_recalc } from './vision.js';
 import { rn2, rnd, rn1, d } from './rng.js';
 import { nomul, fallAsleep } from './timeout.js';
 import { seetrap, trapTypName, delTrap, feeltrap, tAt } from './search.js';
-import { adjattrib, exercise } from './attrib.js';
+import { adjattrib, exercise, acurr } from './attrib.js';
 import { makemon } from './makemon.js';
 import {
     tMissile,
@@ -24,7 +24,17 @@ import {
     OBJ_ROCK,
 } from './mthrowu.js';
 import { placeFloorObject } from './floorobj.js';
-import { raceptr, breathless, passesRocks, amorphous, isWhirly, unsolid, MZ_SMALL } from './mondata.js';
+import {
+    raceptr,
+    breathless,
+    passesRocks,
+    amorphous,
+    isWhirly,
+    unsolid,
+    MZ_SMALL,
+    locomotion,
+    webmaker,
+} from './mondata.js';
 import {
     NO_TRAP_FLAGS,
     FORCETRAP,
@@ -54,8 +64,13 @@ import {
     TRAPDOOR,
     TT_BEARTRAP,
     TT_PIT,
+    TT_WEB,
     RECURSIVETRAP,
+    NOWEBMSG,
     LEVEL_TELEP,
+    WEB,
+    STATUE_TRAP,
+    POLY_TRAP,
     is_pit,
     is_hole,
     In_sokoban,
@@ -822,6 +837,164 @@ async function trapeffectLevelTeleHero(trap, trflags) {
     newsym(u.ux, u.uy);
 }
 
+/** C: trap.c mu_maybe_destroy_web — hero amorphous / whirly / unsolid (burn branch deferred). */
+async function muMaybeDestroyWebHero(trap, webmsgok) {
+    const ptr = raceptr(game.youmonst);
+    if (!(amorphous(ptr) || isWhirly(ptr) || unsolid(ptr))) return false;
+    if (webmsgok) {
+        const a = trap.madeby_u ? 'your' : 'the';
+        await pline(`You flow through ${a} spider web.`);
+    }
+    return true;
+}
+
+/** C: trap.c trapeffect_web — hero (steed / mintrap / tear-web deferred). */
+async function trapeffectWebHero(trap, trflags) {
+    const u = game.u;
+    if (!u) return;
+    const webmsgok = (trflags & NOWEBMSG) === 0;
+    const forcetrap = (trflags & FORCETRAP) !== 0 || (trflags & FAILEDUNTRAP) !== 0;
+    const viasitting = (trflags & VIASITTING) !== 0;
+
+    feeltrap(trap);
+    if (await muMaybeDestroyWebHero(trap, webmsgok)) return;
+
+    const ptr = raceptr(game.youmonst);
+    if (webmaker(ptr)) {
+        if (webmsgok) {
+            await pline(trap.madeby_u ? 'You take a walk on your web.' : 'There is a spider web here.');
+        }
+        return;
+    }
+    if (webmsgok) {
+        let verb;
+        if (forcetrap || viasitting) verb = 'are caught by';
+        else if (u.usteed) verb = 'lead your steed into';
+        else verb = `${locomotion(ptr, 'stumble')} into`;
+        const a = trap.madeby_u ? 'your' : 'a';
+        await pline(`You ${verb} ${a} spider web!`);
+    }
+
+    const str = acurr(A_STR);
+    let tim;
+    if (str <= 3) tim = rn1(6, 6);
+    else if (str < 6) tim = rn1(6, 4);
+    else if (str < 9) tim = rn1(4, 4);
+    else if (str < 12) tim = rn1(4, 2);
+    else if (str < 15) tim = rn1(2, 2);
+    else if (str < 18) tim = rnd(2);
+    else if (str < 69) tim = 1;
+    else {
+        if (webmsgok) {
+            const a = trap.madeby_u ? 'your' : 'the';
+            await pline(`You tear through ${a} spider web!`);
+        }
+        delTrap(trap);
+        newsym(u.ux, u.uy);
+        return;
+    }
+    u.utrap = tim;
+    u.utraptype = TT_WEB;
+    newsym(u.ux, u.uy);
+}
+
+/** C: trap.c activate_statue_trap — animate_statue not ported. */
+async function trapeffectStatueTrapHero(trap) {
+    const u = game.u;
+    if (!u) return;
+    delTrap(trap);
+    newsym(u.ux, u.uy);
+    await pline('You trigger a statue trap, but nothing stirs.');
+    vision_recalc(1);
+}
+
+/** C: trap.c trapeffect_anti_magic — hero subset (no costly_alteration / invent artifacts). */
+async function trapeffectAntiMagicHero(trap) {
+    const u = game.u;
+    if (!u) return;
+
+    const boots = u.uarmf;
+    if (wearingIronShoes(u) && boots && (boots.spe ?? 0) > 0) {
+        seetrap(trap);
+        await pline(`A lethargic aura surrounds your ${boots.otypname ?? 'footwear'}.`);
+        boots.spe = (boots.spe ?? 0) - 1;
+        game.disp = game.disp || {};
+        game.disp.botl = true;
+        return;
+    }
+
+    seetrap(trap);
+    if (u.Antimagic) {
+        let dmg = rnd(4);
+        if (u.Half_physical_damage || u.Half_spell_damage) dmg += rnd(4);
+        if (u.Passes_walls) dmg = Math.trunc((dmg + 3) / 4);
+        const hp = u.Upolyd ? (u.mh ?? 0) : (u.uhp ?? 0);
+        if (dmg >= hp) await pline('You feel unbearably torpid!');
+        else if (dmg >= Math.trunc(hp / 4)) await pline('You feel very lethargic.');
+        else await pline('You feel sluggish.');
+        losehp(dmg, 'anti-magic implosion', 0);
+    }
+
+    let drain = d(2, 6);
+    const halfCap = Math.max(1, Math.trunc(drain / 2));
+    const halfd = rnd(halfCap);
+    if ((u.uenmax ?? 0) > drain) {
+        u.uenmax = Math.max(0, (u.uenmax ?? 0) - halfd);
+        drain -= halfd;
+    }
+    u.uen = Math.max(0, (u.uen ?? 0) - drain);
+    game.disp = game.disp || {};
+    game.disp.botl = true;
+    newsym(u.ux, u.uy);
+}
+
+/** C: trap.c trapeffect_poly_trap — hero (polyself / poly_obj not ported). */
+async function trapeffectPolyTrapHero(trap, trflags) {
+    const u = game.u;
+    if (!u) return;
+    const viasitting = (trflags & VIASITTING) !== 0;
+    const ptr = raceptr(game.youmonst);
+
+    seetrap(trap);
+    const verb = viasitting ? 'trigger' : u.usteed ? 'lead your steed onto' : `${locomotion(ptr, 'step')} onto`;
+    await pline(`You ${verb} a polymorph trap!`);
+
+    if (wearingIronShoes(u)) {
+        delTrap(trap);
+        await pline('Your iron shoes warp strangely.');
+        newsym(u.ux, u.uy);
+        vision_recalc(1);
+        return;
+    }
+    if (u.Antimagic || u.Unchanging) {
+        await pline('You feel momentarily different.');
+        return;
+    }
+    steedintrapStub();
+    delTrap(trap);
+    newsym(u.ux, u.uy);
+    await pline('You feel a change coming over you.');
+    vision_recalc(1);
+}
+
+/** C: trap.c trapeffect_magic_portal — hero (domagicportal not ported). */
+async function trapeffectMagicPortalHero(trap) {
+    const u = game.u;
+    if (!u) return;
+    feeltrap(trap);
+    await pline('You are engulfed in a swirling vortex of colors…');
+    vision_recalc(1);
+    newsym(u.ux, u.uy);
+}
+
+/** C: trap.c trapeffect_vibrating_square — hero (messages handled elsewhere in C). */
+async function trapeffectVibratingSquareHero(trap) {
+    const u = game.u;
+    if (!u) return;
+    feeltrap(trap);
+    newsym(u.ux, u.uy);
+}
+
 /**
  * C: trap.c trapeffect_selector — hero-only subset.
  * @param {{ ttyp: number, tseen?: boolean, madeby_u?: boolean, tnote?: number, tx: number, ty: number, launch?: { x: number, y: number } }} trap
@@ -876,6 +1049,24 @@ async function trapeffectHero(trap, trflags) {
         break;
     case TELEP_TRAP:
         await trapeffectTelepHero(trap);
+        break;
+    case ANTI_MAGIC:
+        await trapeffectAntiMagicHero(trap);
+        break;
+    case POLY_TRAP:
+        await trapeffectPolyTrapHero(trap, trflags);
+        break;
+    case WEB:
+        await trapeffectWebHero(trap, trflags);
+        break;
+    case STATUE_TRAP:
+        await trapeffectStatueTrapHero(trap);
+        break;
+    case MAGIC_PORTAL:
+        await trapeffectMagicPortalHero(trap);
+        break;
+    case VIBRATING_SQUARE:
+        await trapeffectVibratingSquareHero(trap);
         break;
     default:
         seetrap(trap);
