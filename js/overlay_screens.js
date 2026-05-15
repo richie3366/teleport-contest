@@ -6,6 +6,7 @@
 import { game } from './gstate.js';
 import { NO_COLOR, ATR_INVERSE } from './terminal.js';
 import { enlightMissionLines } from './enlght_patrons.js';
+import { newuexp, MAXULEV } from './explevel.js';
 
 /** @param {import('./game_display.js').GameDisplay} display */
 export function paintDiscoveriesIntoDisplay(display) {
@@ -50,6 +51,21 @@ function walletLine(gold) {
     return `  Your wallet contains ${gold} zorkmids.`;
 }
 
+/** C: cmd.c enlightenment — XP delta only for final dump or wizard mode. */
+function experienceLine(u, g) {
+    const xp = u.uexp ?? 0;
+    const lev = u.ulevel ?? 1;
+    const pts = xp === 1 ? 'point' : 'points';
+    let s = `  You have ${xp} experience ${pts}.`;
+    const showDelta = lev < MAXULEV && (g.flags?.wizard || g._enlightenmentFinal);
+    if (!showDelta) return s;
+    const nxt = newuexp(lev);
+    const delta = nxt - xp;
+    const more = xp > 0 ? 'more ' : '';
+    const attain = lev < 18 ? 'to attain' : 'for';
+    return `  You have ${xp} experience ${pts}, ${delta} ${more}needed ${attain} level ${lev + 1}.`;
+}
+
 /** @param {import('./game_display.js').GameDisplay} display @param {1|2} page */
 export function paintAttributesIntoDisplay(display, page) {
     const u = game.u || {};
@@ -69,7 +85,6 @@ export function paintAttributesIntoDisplay(display, page) {
     const turns = g.moves ?? 0;
     const pickup = !!g.flags?.pickup;
     const ac = u.uac ?? 10;
-    const xp = u.uexp ?? 0;
     const A = u.acurr?.a || [9, 9, 9, 9, 9, 9];
     const left = u.left_handed ? '  You are left-handed.' : '  You are right-handed.';
 
@@ -83,7 +98,7 @@ export function paintAttributesIntoDisplay(display, page) {
         display.putstr(0, row++, left, NO_COLOR, 0);
         display.putstr(0, row++, `  You are in ${dnameInSentence}, on level ${dlev}.`, NO_COLOR, 0);
         display.putstr(0, row++, `  You entered the dungeon ${turns} turns ago.`, NO_COLOR, 0);
-        display.putstr(0, row++, `  You have ${xp} experience points.`, NO_COLOR, 0);
+        display.putstr(0, row++, experienceLine(u, g), NO_COLOR, 0);
         row++;
         display.putstr(0, row++, ' Basics:', NO_COLOR, 0);
         display.putstr(0, row++, hpLine(u), NO_COLOR, 0);
