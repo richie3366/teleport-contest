@@ -211,7 +211,9 @@ function blessorcurse(otmp) {
 // C ref: mkobj.c mksobj — create a specific object
 // Minimal stub: consumes RNG for next_ident + type-specific init
 function mksobj(otyp, init, artif) {
-    const otmp = { otyp, ox: 0, oy: 0, quan: 1, owt: 1, cursed: false, blessed: false, olocked: false, spe: 0 };
+    const otmp = {
+        otyp, ox: -1, oy: -1, quan: 1, owt: 1, cursed: false, blessed: false, olocked: false, spe: 0,
+    };
     next_ident();
     if (init) {
         mksobj_init(otmp, otyp);
@@ -235,8 +237,63 @@ function mksobj_init(otmp, otyp) {
     }
 }
 
+function floorObjKey(x, y) {
+    return `${x},${y}`;
+}
+
+/** C: mkobj.c / gold detection — first gold stack in floor chain at (x,y). */
+function g_at(x, y) {
+    const heads = game.level?.floorObjHeads;
+    if (!heads) return null;
+    let o = heads.get(floorObjKey(x, y)) ?? null;
+    while (o) {
+        if (o.otyp === GOLD_PIECE) return o;
+        o = o.nexthere;
+    }
+    return null;
+}
+
+/** Remove otmp from its floor cell chain (C: take off chain before move). */
+function unlink_floor_object(otmp) {
+    const lvl = game.level;
+    if (!lvl?.floorObjHeads || !otmp || otmp.ox < 0 || otmp.oy < 0) return;
+    const k = floorObjKey(otmp.ox, otmp.oy);
+    const head = lvl.floorObjHeads.get(k) ?? null;
+    if (head === otmp) {
+        if (otmp.nexthere) lvl.floorObjHeads.set(k, otmp.nexthere);
+        else lvl.floorObjHeads.delete(k);
+    } else if (head) {
+        let cur = head;
+        while (cur?.nexthere) {
+            if (cur.nexthere === otmp) {
+                cur.nexthere = otmp.nexthere;
+                break;
+            }
+            cur = cur.nexthere;
+        }
+    }
+    otmp.nexthere = null;
+}
+
+// C ref: mkobj.c / rm.c floor placement — prepend to level.objects[x][y] stack
+function place_object(otmp, x, y) {
+    const lvl = game.level;
+    if (!lvl || !otmp) return;
+    if (otmp.ox >= 0 && otmp.oy >= 0 && (otmp.ox !== x || otmp.oy !== y)) unlink_floor_object(otmp);
+    if (!lvl.floorObjHeads) lvl.floorObjHeads = new Map();
+    const k = floorObjKey(x, y);
+    otmp.ox = x;
+    otmp.oy = y;
+    const prev = lvl.floorObjHeads.get(k) ?? null;
+    otmp.nexthere = prev;
+    lvl.floorObjHeads.set(k, otmp);
+    if (!lvl.objects.includes(otmp)) lvl.objects.push(otmp);
+}
+
 function mksobj_at(otyp, x, y, init, artif) {
-    return mksobj(otyp, init, artif);
+    const otmp = mksobj(otyp, init, artif);
+    place_object(otmp, x, y);
+    return otmp;
 }
 
 function mkobj(oclass, artif) {
@@ -251,17 +308,22 @@ function mkobj_at(oclass, x, y, artif) {
 
 function mkgold(amount, x, y) {
     // C ref: mkobj.c mkgold()
+    let gold = g_at(x, y);
     if (amount <= 0) {
-        // C ref: mkobj.c:2008-2010
         const depthVal = depth_of_level(game.u?.uz);
         const mul = rnd(Math.trunc(30 / Math.max(12 - depthVal, 2)));
         amount = 1 + rnd(level_difficulty() + 2) * mul;
     }
-    // mksobj_at(GOLD_PIECE) calls next_ident
-    next_ident();
+    if (gold) {
+        gold.quan += amount;
+    } else {
+        gold = mksobj_at(GOLD_PIECE, x, y, true, false);
+        gold.quan = amount;
+    }
+    gold.owt = Math.max(1, gold.quan | 0);
+    return gold;
 }
 
-function place_object(otmp, x, y) { /* stub */ }
 function dealloc_obj(otmp) { /* stub */ }
 function curse(otmp) { if (otmp) otmp.cursed = true; }
 function weight(otmp) { return otmp?.owt || 1; }
@@ -1630,11 +1692,8 @@ function mkgrave_room(croom) {
     if (!find_okay_roompos(croom, pos)) return;
     make_grave(pos.x, pos.y, dobell ? 'Saved by the bell!' : null);
     if (!rn2(3)) {
-        const gold = mksobj(GOLD_PIECE, true, false);
-        if (gold) {
-            const depth = game.u?.uz?.dlevel ?? 1;
-            gold.quan = rnd(20) + depth * rnd(5);
-        }
+        const depth = game.u?.uz?.dlevel ?? 1;
+        mkgold(rnd(20) + depth * rnd(5), pos.x, pos.y);
     }
     for (let tryct = rn2(5); tryct > 0; tryct--) {
         const otmp = mkobj(RANDOM_CLASS, true);
@@ -1799,8 +1858,9 @@ function mineralize(kelp_pool, kelp_moat, goldprob, gemprob, skip_lvl_checks) {
                 && n([1,0]) && n([-1,0])
                 && n([1,1]) && n([-1,1])) {
                 if (rn2(1000) < goldprob) {
-                    const otmp = mksobj(GOLD_PIECE, false, false);
+                    const otmp = mksobj_at(GOLD_PIECE, x, y, false, false);
                     otmp.quan = 1 + rnd(goldprob * 3);
+                    otmp.owt = Math.max(1, otmp.quan | 0);
                 }
                 if (rn2(1000) < gemprob) {
                     const cnt = rnd(2 + Math.trunc(dunLevel / 3));

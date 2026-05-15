@@ -2884,7 +2884,13 @@ export function Upolyd(player) {
 
 // Canonical macros — previously duplicated as local stubs in 15+ files
 export function u_at(x, y) { return game?.u?.ux === x && game?.u?.uy === y; }
-export function OBJ_AT(x, y) { return game?.level?.objects?.some(o => o.ox === x && o.oy === y) ?? false; }
+// C ref: rm.h OBJ_AT — head of floor object stack at (x,y)
+export function OBJ_AT(x, y) {
+    const heads = game?.level?.floorObjHeads;
+    if (!heads) return false;
+    const h = heads.get(`${x},${y}`);
+    return h != null;
+}
 export function Has_contents(obj) { return obj?.cobj != null; }
 export function M_AP_TYPE(mon) { return mon?.m_ap_type ?? 0; }
 export function engulfing_u(mon) { const g = (typeof game !== 'undefined' ? game : null); return g?.u?.uswallow && g?.u?.ustuck === mon; }

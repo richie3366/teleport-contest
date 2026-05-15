@@ -42,6 +42,8 @@ export class GameMap {
         this.doors = [];
         this.doorindex = 0;
         this.objects = [];
+        /** C: svl.level.objects[x][y] — head of floor stack at each cell; key "x,y". */
+        this.floorObjHeads = new Map();
         this.monsters = [];
         this.traps = [];
         this.flags = {
