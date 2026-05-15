@@ -8,7 +8,7 @@ import { pline, newsym } from './display.js';
 import { vision_recalc } from './vision.js';
 import { rn2, rnd, rn1, d } from './rng.js';
 import { nomul, fallAsleep } from './timeout.js';
-import { seetrap, trapTypName, delTrap, feeltrap } from './search.js';
+import { seetrap, trapTypName, delTrap, feeltrap, tAt } from './search.js';
 import { adjattrib, exercise } from './attrib.js';
 import { makemon } from './makemon.js';
 import {
@@ -53,6 +53,9 @@ import {
     HOLE,
     TRAPDOOR,
     TT_BEARTRAP,
+    TT_PIT,
+    RECURSIVETRAP,
+    LEVEL_TELEP,
     is_pit,
     is_hole,
     In_sokoban,
@@ -71,6 +74,9 @@ import {
 } from './const.js';
 
 const M1_CLING = 0x00000010;
+
+/** C: trap.c trapeffect_landmine — static recursive_mine guard. */
+let landmineRecursion = false;
 
 const TRAP_NOTES = [
     'C', 'D flat', 'D', 'E flat', 'E', 'F', 'F sharp', 'G', 'G sharp', 'A', 'B flat', 'B',
@@ -629,6 +635,193 @@ async function trapeffectBearHero(trap, trflags) {
     exercise(A_DEX, false);
 }
 
+/** C: trap.c blow_up_landmine — scatter / terrain / drawbridge deferred. */
+function blowUpLandmine(/** @type {{ tx: number, ty: number }} */ trap) {
+    wakeNearto(trap.tx, trap.ty, 400);
+    vision_recalc(1);
+}
+
+/** C: trap.c fill_pit — boulder fill / engraving cleanup deferred. */
+function fillPit(_x, _y) {
+    void _x;
+    void _y;
+}
+
+/** C: trap.c steedintrap — returns non-zero if steed absorbed trap; not ported. */
+function steedintrapStub() {
+    return 0;
+}
+
+/** C: trap.c trapeffect_pit — hero (subset: no ball&chain, Punished, selftouch). */
+async function trapeffectPitHero(trap, trflags) {
+    const u = game.u;
+    if (!u) return;
+    const ttype = trap.ttyp;
+    const plunged = (trflags & TOOKPLUNGE) !== 0;
+    const viasitting = (trflags & VIASITTING) !== 0;
+    const conjPit = conjNonconjoinedPit(trap);
+    const adjPit = adjNonconjoinedPit(trap);
+    const already_known = !!trap.tseen;
+    let deliberate = false;
+
+    if (!In_sokoban(u.uz) && (u.Levitation || (u.Flying && !plunged && !viasitting))) return;
+
+    const ptr = raceptr(game.youmonst);
+    feeltrap(trap);
+    if (!In_sokoban(u.uz) && isClinger(ptr) && !plunged) {
+        const sp = ttype === SPIKED_PIT ? 'spiked ' : '';
+        const art = trap.madeby_u ? 'your' : 'a';
+        if (already_known) {
+            await pline(`You see ${art} ${sp}pit below you.`);
+        } else {
+            await pline(`${trap.madeby_u ? 'Your' : 'A'} ${ttype === SPIKED_PIT ? 'pit full of spikes ' : 'pit '}opens up under you!`);
+            await pline("You don't fall in!");
+        }
+        return;
+    }
+    if (!In_sokoban(u.uz)) {
+        const art = trap.madeby_u ? 'your' : 'a';
+        if (u.usteed && (trflags & RECURSIVETRAP) !== 0) {
+            await pline(`You and your steed fall into ${art} pit!`);
+        } else if (conjPit) {
+            await pline('You move into an adjacent pit.');
+        } else if (adjPit) {
+            await pline(`You stumble over debris${!rn2(5) ? ' between the pits' : ''}.`);
+        } else if (game.iflags?.menu_requested && already_known) {
+            await pline('You carefully lower yourself into the pit.');
+            deliberate = true;
+        } else {
+            const v = !plunged ? 'fall' : (u.Flying ? 'dive' : 'plunge');
+            await pline(`You ${v} into ${art} pit!`);
+        }
+    }
+    let relevant_spikes = ttype === SPIKED_PIT;
+    if (relevant_spikes && wearingIronShoes(u)) {
+        await pline('Your iron shoes protect you from the sharp iron spikes.');
+        relevant_spikes = false;
+    } else if (relevant_spikes) {
+        const pred = 'on a set of sharp iron spikes';
+        if (u.usteed) {
+            await pline(`Your steed ${conjPit ? 'steps' : 'lands'} ${pred}!`);
+        } else {
+            await pline(`You ${conjPit ? 'step' : 'land'} ${pred}!`);
+        }
+    }
+    u.utrap = rn1(6, 2);
+    u.utraptype = TT_PIT;
+    if (!steedintrapStub()) {
+        if (relevant_spikes) {
+            const oldumort = u.umortality ?? 0;
+            const spikeDam = rnd(conjPit ? 4 : adjPit ? 6 : 10);
+            const killer = plunged
+                ? 'deliberately plunged into a pit of iron spikes'
+                : (conjPit || deliberate)
+                    ? 'stepped into a pit of iron spikes'
+                    : adjPit
+                        ? 'stumbled into a pit of iron spikes'
+                        : 'fell into a pit of iron spikes';
+            losehp(maybeHalfPhys(spikeDam), killer, 0);
+            if (!rn2(6)) {
+                await poisoned(
+                    'spikes',
+                    A_STR,
+                    (conjPit || adjPit || deliberate) ? 'stepping on poison spikes' : 'fall onto poison spikes',
+                    (u.umortality ?? 0) > oldumort ? 0 : 8,
+                    false,
+                );
+            }
+        } else if (!conjPit && !deliberate && !(plunged && (u.Flying || isClinger(ptr)))) {
+            const pitDam = rnd(adjPit ? 3 : 6);
+            const killer = plunged ? 'deliberately plunged into a pit' : 'fell into a pit';
+            losehp(maybeHalfPhys(pitDam), killer, 0);
+        }
+        vision_recalc(1);
+        exercise(A_STR, false);
+        exercise(A_DEX, false);
+    }
+    newsym(u.ux, u.uy);
+}
+
+/** C: trap.c trapeffect_landmine — hero. */
+async function trapeffectLandmineHero(trap, trflags) {
+    const u = game.u;
+    if (!u) return;
+    if (landmineRecursion) return;
+
+    let damage = rnd(16);
+    if (wearingIronShoes(u)) damage = Math.trunc((damage + 3) / 4);
+
+    const already_seen = !!trap.tseen;
+    const forcetrap = (trflags & FORCETRAP) !== 0 || (trflags & FAILEDUNTRAP) !== 0;
+    const forcebungle = (trflags & FORCEBUNGLE) !== 0;
+
+    if ((u.Levitation || u.Flying) && !forcetrap) {
+        if (!already_seen && rn2(3)) return;
+        feeltrap(trap);
+        const there = already_seen ? 'There is' : 'You discover';
+        const trig = trap.madeby_u ? 'the trigger of your mine' : 'a trigger';
+        await pline(`${there} ${trig} in a pile of soil below you.`);
+        if (already_seen && rn2(3)) return;
+        const setter = forcebungle ? 'Your inept attempt sets' : 'The air currents set';
+        const obj = already_seen ? (trap.madeby_u ? 'your land mine' : 'a land mine') : 'it';
+        await pline(`KAABLAMM!!! ${setter} ${obj} off!`);
+    } else {
+        feeltrap(trap);
+        await pline(`KAABLAMM!!! You triggered ${trap.madeby_u ? 'your' : 'a'} land mine!`);
+        landmineRecursion = true;
+        steedintrapStub();
+        landmineRecursion = false;
+        const wl = rn1(35, 41);
+        const wr = rn1(35, 41);
+        u.wounded_legs = Math.max(wl, wr);
+        exercise(A_DEX, false);
+    }
+    trap.ttyp = PIT;
+    trap.madeby_u = false;
+    losehp(maybeHalfPhys(damage), 'land mine', 0);
+    blowUpLandmine(trap);
+    newsym(u.ux, u.uy);
+    const t2 = tAt(u.ux, u.uy);
+    if (t2) await dotrap(t2, RECURSIVETRAP);
+    fillPit(u.ux, u.uy);
+}
+
+/** C: trap.c trapeffect_rolling_boulder_trap — hero (launch_obj not ported). */
+async function trapeffectRollingBoulderHero(trap) {
+    const u = game.u;
+    if (!u) return;
+    if (In_sokoban(u.uz)) return;
+    feeltrap(trap);
+    const click = heroDeaf(u) ? '' : 'Click! ';
+    await pline(`${click}You trigger a rolling boulder trap!`);
+    if (trap.tseen) await pline('No boulder was released.');
+    else await pline('Fortunately for you, no boulder was released.');
+    newsym(u.ux, u.uy);
+}
+
+/** C: trap.c trapeffect_hole — hero (fall_through / Can_fall_thru not ported). */
+async function trapeffectHoleHero(trap, trflags) {
+    void trflags;
+    const u = game.u;
+    if (!u) return;
+    seetrap(trap);
+    /* C: fall_through(); level transition, branches, … */
+    await pline(trap.ttyp === TRAPDOOR ? 'The trap door opens, and you fall through…' : 'The hole opens beneath you, and you fall through…');
+    vision_recalc(1);
+    newsym(u.ux, u.uy);
+}
+
+/** C: trap.c trapeffect_level_telep — hero (level_tele_trap not ported). */
+async function trapeffectLevelTeleHero(trap, trflags) {
+    void trflags;
+    const u = game.u;
+    if (!u) return;
+    seetrap(trap);
+    await pline('You are caught in a blast of kaleidoscopic light!');
+    vision_recalc(1);
+    newsym(u.ux, u.uy);
+}
+
 /**
  * C: trap.c trapeffect_selector — hero-only subset.
  * @param {{ ttyp: number, tseen?: boolean, madeby_u?: boolean, tnote?: number, tx: number, ty: number, launch?: { x: number, y: number } }} trap
@@ -653,6 +846,23 @@ async function trapeffectHero(trap, trflags) {
         break;
     case BEAR_TRAP:
         await trapeffectBearHero(trap, trflags);
+        break;
+    case PIT:
+    case SPIKED_PIT:
+        await trapeffectPitHero(trap, trflags);
+        break;
+    case HOLE:
+    case TRAPDOOR:
+        await trapeffectHoleHero(trap, trflags);
+        break;
+    case LANDMINE:
+        await trapeffectLandmineHero(trap, trflags);
+        break;
+    case ROLLING_BOULDER_TRAP:
+        await trapeffectRollingBoulderHero(trap);
+        break;
+    case LEVEL_TELEP:
+        await trapeffectLevelTeleHero(trap, trflags);
         break;
     case SLP_GAS_TRAP:
         await trapeffectSlpGasHero(trap);
