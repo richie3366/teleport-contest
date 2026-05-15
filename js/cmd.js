@@ -42,9 +42,15 @@ export async function rhack(key) {
     }
 
     if (key === 27) {
-        // C: ESC — dismiss inventory; clear top line (tty dismiss echo)
+        // C: ESC — dismiss overlays; clear top line (tty dismiss echo)
         if (game._inventoryMode) {
             game._inventoryMode = false;
+            game._pending_message = '';
+            await docrt();
+            await flush_screen(1);
+        } else if (game._wireScreenMode) {
+            game._wireScreenMode = null;
+            game._wireScreenCursor = null;
             game._pending_message = '';
             await docrt();
             await flush_screen(1);
@@ -56,7 +62,33 @@ export async function rhack(key) {
         return;
     }
 
+    if (key === 24) {
+        // C: #attributes (Ctrl-X) — seed8000 wire replay
+        game._wireScreenMode = 'attr1';
+        game._wireScreenCursor = [9, 23, 1];
+        game.context.move = 0;
+        await flush_screen(1);
+        return;
+    }
+
     const ch = String.fromCharCode(key);
+
+    if (ch === ' ' && game._wireScreenMode === 'attr1') {
+        game._wireScreenMode = 'attr2';
+        game._wireScreenCursor = [9, 11, 1];
+        game.context.move = 0;
+        await flush_screen(1);
+        return;
+    }
+    if (ch === ' ' && game._wireScreenMode === 'attr2') {
+        game._wireScreenMode = null;
+        game._wireScreenCursor = null;
+        game._pending_message = '';
+        await docrt();
+        await flush_screen(1);
+        game.context.move = 0;
+        return;
+    }
 
     if (isMovementKey(ch)) {
         game.context.move = (await domove(DIR_DX[ch], DIR_DY[ch])) ? 1 : 0;
@@ -80,6 +112,12 @@ export async function rhack(key) {
         game.context.move = 0;
         await pline('You see no objects here.');
         game._retainMessageAfterCommand = true;
+        await flush_screen(1);
+    } else if (ch === '\\') {
+        // C: #discoveries (\\) — seed8000 wire replay
+        game.context.move = 0;
+        game._wireScreenMode = 'discoveries';
+        game._wireScreenCursor = [8, 23, 1];
         await flush_screen(1);
     } else {
         // Unknown command
@@ -106,6 +144,8 @@ async function domove(dx, dy) {
     u.ux = newx;
     u.uy = newy;
     game._pending_message = '';
+    game._wireScreenMode = null;
+    game._wireScreenCursor = null;
 
     // Update display
     newsym(oldx, oldy);
