@@ -1,11 +1,12 @@
 // moveloop_preamble.js — Once per moveloop() before the core loop.
 // C ref: allmain.c moveloop_preamble().
 //
-// Ported: calendar side-effects, disp.botlx, program_state bits, umovement,
-// initrack, uz0/context.move sync. Not yet: rnd(9000), set_wear, pickup, …
+// Ported: calendar side-effects, rndencode/seer_turn, disp.botlx, program_state,
+// umovement, initrack, uz0/context.move sync. Not yet: set_wear, pickup(1), …
 
 import { game } from './gstate.js';
 import { pline } from './display.js';
+import { rnd } from './rng.js';
 import { NEW_MOON, FULL_MOON, NORMAL_SPEED } from './const.js';
 import { parseFixedDatetime, phaseOfTheMoonFromDate, isFriday13thFromDate } from './moonphase.js';
 import { changeLuck } from './attrib.js';
@@ -18,6 +19,7 @@ export async function moveloopPreamble(resuming) {
     const g = game;
     g.flags = g.flags || {};
     g.program_state = g.program_state || {};
+    g.context = g.context || {};
     if (resuming && g.iflags?.deferred_X) {
         /* C: enter_explore_mode() — not ported */
     }
@@ -45,7 +47,12 @@ export async function moveloopPreamble(resuming) {
     if (!resuming) {
         /* C: program_state.beyond_savefile_load = 1 */
         g.program_state.beyond_savefile_load = 1;
-        /* C: u.umovement = NORMAL_SPEED; initrack(); (runs after rndencode/pickup in C) */
+        /* C: svc.context.rndencode = rnd(9000); */
+        g.context.rndencode = rnd(9000);
+        /* C: set_wear(0); reset_justpicked(invent); (void) pickup(1); — not ported */
+        /* C: svc.context.seer_turn = (long) rnd(30); */
+        g.context.seer_turn = rnd(30);
+        /* C: u.umovement = NORMAL_SPEED; initrack(); */
         g.u.umovement = NORMAL_SPEED;
         initrack();
     }
@@ -56,12 +63,8 @@ export async function moveloopPreamble(resuming) {
 
     /* C: u.uz0.dlevel = u.uz.dlevel; svc.context.move = 0; */
     if (g.u?.uz) g.u.uz0 = { ...g.u.uz };
-    g.context = g.context || {};
     g.context.move = 0;
 
     /* C: program_state.in_moveloop = 1 */
     g.program_state.in_moveloop = 1;
-
-    /* C: !resuming → rnd(9000), set_wear, pickup(1), seer_turn, … */
-    void resuming;
 }

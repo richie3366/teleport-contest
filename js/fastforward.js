@@ -126,8 +126,9 @@ export function fastforward_pre_mklev() {
     rn2(10);
 }
 
-// Post-mklev startup: u_init_role, ini_inv, attributes, moveloop_preamble
-// 124 leaf RNG calls (regenerated from session data)
+// Post-mklev startup: u_init_role, ini_inv, attributes, and most of
+// moveloop_preamble RNG except rnd(9000)/rnd(30) (see moveloop_preamble.js).
+// 122 leaf RNG calls at last count (rndencode + seer_turn live in preamble).
 export function fastforward_post_mklev() {
     rnd(1000); rn2(20); rnd(2); rn2(6); rn2(11); rn2(10); rn2(10); rn2(100); rn2(20); rn2(1);
     rnd(1000); rnd(2); rn2(6); rnd(1000); rnd(2); rn2(6); rnd(1000); rnd(2); rn2(6); rnd(1000);
@@ -141,7 +142,7 @@ export function fastforward_post_mklev() {
     rn2(100); rn2(100); rn2(100); rn2(100); rn2(100); rn2(100); rn2(100); rn2(100); rn2(100);
     rn2(100); rn2(100); rn2(100); rn2(100); rn2(100); rn2(100); rn2(100); rn2(100); rn2(100);
     rn2(100); rn2(100); rn2(100); rn2(20); rn2(20); rn2(20); rn2(7); rn2(20); rn2(20); rn2(20);
-    rnd(9000); rnd(30);
+    /* rnd(9000); rnd(30) — moveloop_preamble.js (!resuming), C: allmain.c moveloop_preamble */
 }
 
 // Fill + mineralize: 1448 calls
