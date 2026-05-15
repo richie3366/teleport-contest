@@ -23,6 +23,11 @@ import {
     ICE, MOAT, POOL, WATER, LAVAPOOL, LAVAWALL, DBWALL,
     A_LAWFUL, Align2amask,
     LR_UPTELE,
+    NO_TRAP, TRAPNUM,
+    ARROW_TRAP, DART_TRAP, ROCKTRAP, SQKY_BOARD, BEAR_TRAP, LANDMINE, ROLLING_BOULDER_TRAP,
+    SLP_GAS_TRAP, RUST_TRAP, FIRE_TRAP, PIT, SPIKED_PIT, HOLE, TRAPDOOR, TELEP_TRAP, LEVEL_TELEP,
+    MAGIC_PORTAL, WEB, STATUE_TRAP, MAGIC_TRAP, POLY_TRAP, VIBRATING_SQUARE, TRAPPED_DOOR, TRAPPED_CHEST,
+    is_pit, is_hole,
 } from './const.js';
 import { makeEngrAt, ENGR_HEADSTONE, ENGR_MARK, ENGR_DUST, randomEngraving, getRndEpitaphText, wipeEngrAt } from './engrave.js';
 import { tAt } from './search.js';
@@ -73,43 +78,13 @@ const YLIM = 3;
 const xdir = [-1, -1, 0, 1, 1, 1, 0, -1];
 const ydir = [0, -1, -1, -1, 0, 1, 1, 1];
 
-// Trap constants
-const NO_TRAP = 0;
-const TRAPNUM = 26;
-const ARROW_TRAP = 1;
-const DART_TRAP = 2;
-const ROCKTRAP = 3;
-const SLP_GAS_TRAP = 6;
-const ROLLING_BOULDER_TRAP = 7;
-const RUST_TRAP = 4;
-const SQKY_BOARD = 5;
-const FIRE_TRAP = 8;
-const PIT = 9;
-const SPIKED_PIT = 10;
-const HOLE = 11;
-const TRAPDOOR = 14;
-const TELEP_TRAP = 15;
-const LEVEL_TELEP = 16;
-const WEB = 17;
-const STATUE_TRAP = 18;
-const MAGIC_TRAP = 19;
-const LANDMINE = 20;
-const POLY_TRAP = 21;
-const VIBRATING_SQUARE = 22;
-const TRAPPED_DOOR = 23;
-const TRAPPED_CHEST = 24;
-const MAGIC_PORTAL = 25;
-
 /** C: mklev.c trap_engravings[] — indices match trap_types in trap.h */
 const TRAP_ENGRAVINGS = /** @type {(string|undefined)[]} */ (Array.from({ length: TRAPNUM }, () => undefined));
 TRAP_ENGRAVINGS[TRAPDOOR] = 'Vlad was here';
 TRAP_ENGRAVINGS[TELEP_TRAP] = 'ad aerarium';
 TRAP_ENGRAVINGS[LEVEL_TELEP] = 'ad aerarium';
 
-function is_hole(t) { return t === HOLE || t === TRAPDOOR; }
-function is_pit(t) { return t === PIT || t === SPIKED_PIT; }
-
-// Stairway list management
+// is_pit / is_hole from const.js (trap.h)
 function stairway_add(x, y, up, isladder, dest) {
     const node = { sx: x, sy: y, up, isladder, tolev: { ...dest }, next: game.stairs };
     game.stairs = node;
