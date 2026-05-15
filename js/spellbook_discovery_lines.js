@@ -4,7 +4,28 @@
 import { SPELLBOOK_SKILL_LEVEL_ROWS } from './spellbook_skill_level_data.js';
 
 /** @type {Map<number, string>} */
-const OTYP_TO_SN = new Map(SPELLBOOK_SKILL_LEVEL_ROWS.map((r) => [r.otyp, r.sn]));
+export const SPELLBOOK_OTYP_TO_SN = new Map(SPELLBOOK_SKILL_LEVEL_ROWS.map((r) => [r.otyp, r.sn]));
+
+/** @param {number} otyp */
+export function isSpellbookOtyp(otyp) {
+    return SPELLBOOK_OTYP_TO_SN.has(otyp | 0);
+}
+
+/**
+ * Noun phrase for a spellbook appearance (no leading article).
+ * @param {number} otyp
+ * @returns {string|null}
+ */
+export function spellbookAppearanceNounPhrase(otyp) {
+    const sn = SPELLBOOK_OTYP_TO_SN.get(otyp | 0);
+    if (!sn) return null;
+    if (sn === 'SPE_BLANK_PAPER') return 'plain spellbook';
+    const base = sn
+        .replace(/^SPE_/, '')
+        .toLowerCase()
+        .replace(/_/g, ' ');
+    return `spellbook of ${base}`;
+}
 
 /**
  * @param {string} sn — enum name e.g. SPE_FORCE_BOLT
@@ -29,7 +50,7 @@ export function spellbookDiscoveryLinesFromObjectDiscovery(g) {
     if (!disc || disc.size === 0) return [];
     const pairs = [];
     for (const otyp of disc) {
-        const sn = OTYP_TO_SN.get(otyp | 0);
+        const sn = SPELLBOOK_OTYP_TO_SN.get(otyp | 0);
         const ln = sn && formatSpellbookDiscoveryLine(sn);
         if (ln) pairs.push({ otyp: otyp | 0, ln });
     }
