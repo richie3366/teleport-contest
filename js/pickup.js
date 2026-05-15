@@ -3,7 +3,7 @@
 
 import { game } from './gstate.js';
 import { pline } from './display.js';
-import { stagger, permonstHuman } from './mondata.js';
+import { stagger, raceptr } from './mondata.js';
 import { nearCapacity } from './encumbr.js';
 
 /** C: reset_justpicked(olist) — clear pickup_prev on each object in the chain. */
@@ -14,11 +14,11 @@ export function resetJustPicked(olist) {
 }
 
 /**
- * C: raceptr(&youmonst) / youmonst.data for encumber phrasing.
+ * C: raceptr(&youmonst) for encumber_msg stagger(..., 'stagger').
  * @returns {import('./mondata.js').Permonst}
  */
 function encumberStaggerPtr() {
-    return game.youmonst?.data ?? permonstHuman;
+    return raceptr(game.youmonst);
 }
 
 /**

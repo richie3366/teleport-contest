@@ -1,6 +1,8 @@
 // mondata.js — Monster type predicates and locomotion phrasing.
-// C ref: mondata.h (is_floater, is_flyer, …), mondata.c locomotion(), stagger(),
-// monflag.h M1_*, MZ_*.
+// C ref: mondata.h (is_floater, is_flyer, …), mondata.c raceptr(), locomotion(),
+// stagger(), monflag.h M1_*, MZ_*.
+
+import { game } from './gstate.js';
 
 /** @typedef {{ mlet: number, mflags1: number, msize: number, mmove: number }} Permonst */
 
@@ -24,6 +26,17 @@ export const permonstHuman = Object.freeze({
     msize: 2, /* MZ_MEDIUM */
     mmove: 12,
 });
+
+/**
+ * C: raceptr(mtmp) — innate race permonst; hero uses mons[urace.mnum] when !Upolyd.
+ * @param {{ data?: Permonst }|null|undefined} mtmp
+ * @returns {Permonst}
+ */
+export function raceptr(mtmp) {
+    const g = game;
+    if (mtmp === g.youmonst && !g.u?.Upolyd) return g.urace?.permonst ?? permonstHuman;
+    return mtmp?.data ?? permonstHuman;
+}
 
 function highc(ch) {
     if (!ch || typeof ch !== 'string') return ch;

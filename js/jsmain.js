@@ -96,14 +96,14 @@ export class NethackGame {
         if (opts.tutorial_set) g.tutorial_set_in_config = true;
 
         // Initialize hero struct
-        g.u = { ux: 0, uy: 0, ux0: 0, uy0: 0, uluck: 0, LUCKADD: 0 };
+        g.u = { ux: 0, uy: 0, ux0: 0, uy0: 0, uluck: 0, LUCKADD: 0, Upolyd: 0 };
         g.context = { move: 0 };
         g.program_state = {};
         g.moves = 1;
 
         // TODO: Map role/race/gender/align from opts to role data
         g.urole = { name: { m: 'Rambler', f: 'Rambler' } };
-        g.urace = { adj: 'human' };
+        g.urace = { adj: 'human', permonst: permonstHuman };
         /* C: gy.youmonst.data — innate form for stagger(), Upolyd later */
         g.youmonst = { data: permonstHuman };
 

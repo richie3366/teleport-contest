@@ -73,7 +73,7 @@ export async function newgame() {
     // template (a no-op) before the first real key, matching upstream pacing.
     g._prevMoveTick = 1;
     g.urole = { name: { m: 'Tourist', f: 'Tourist' }, rank: { m: 'Rambler', f: 'Rambler' } };
-    g.urace = { adj: 'human' };
+    g.urace = { ...g.urace, adj: 'human' };
     g.flags.female = true;
     g.plname = g.plname || 'Contestant';
     g.u.left_handed = true;
