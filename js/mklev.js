@@ -33,6 +33,7 @@ import {
 import { makeEngrAt, ENGR_HEADSTONE, ENGR_MARK, ENGR_DUST, randomEngraving, getRndEpitaphText, wipeEngrAt } from './engrave.js';
 import { tAt } from './search.js';
 import { makemon, rndmonnum } from './makemon.js';
+import { floorObjKey, placeFloorObject } from './floorobj.js';
 
 // Object/class constants (normally from objects.js, not in contest template)
 const RANDOM_CLASS = 0;
@@ -222,10 +223,6 @@ function mksobj_init(otmp, otyp) {
     }
 }
 
-function floorObjKey(x, y) {
-    return `${x},${y}`;
-}
-
 /** C: mkobj.c / gold detection — first gold stack in floor chain at (x,y). */
 function g_at(x, y) {
     const heads = game.level?.floorObjHeads;
@@ -238,46 +235,9 @@ function g_at(x, y) {
     return null;
 }
 
-/** Remove otmp from its floor cell chain (C: take off chain before move). */
-function unlink_floor_object(otmp) {
-    const lvl = game.level;
-    if (!lvl?.floorObjHeads || !otmp || otmp.ox < 0 || otmp.oy < 0) return;
-    const k = floorObjKey(otmp.ox, otmp.oy);
-    const head = lvl.floorObjHeads.get(k) ?? null;
-    if (head === otmp) {
-        if (otmp.nexthere) lvl.floorObjHeads.set(k, otmp.nexthere);
-        else lvl.floorObjHeads.delete(k);
-    } else if (head) {
-        let cur = head;
-        while (cur?.nexthere) {
-            if (cur.nexthere === otmp) {
-                cur.nexthere = otmp.nexthere;
-                break;
-            }
-            cur = cur.nexthere;
-        }
-    }
-    otmp.nexthere = null;
-}
-
-// C ref: mkobj.c / rm.c floor placement — prepend to level.objects[x][y] stack
-function place_object(otmp, x, y) {
-    const lvl = game.level;
-    if (!lvl || !otmp) return;
-    if (otmp.ox >= 0 && otmp.oy >= 0 && (otmp.ox !== x || otmp.oy !== y)) unlink_floor_object(otmp);
-    if (!lvl.floorObjHeads) lvl.floorObjHeads = new Map();
-    const k = floorObjKey(x, y);
-    otmp.ox = x;
-    otmp.oy = y;
-    const prev = lvl.floorObjHeads.get(k) ?? null;
-    otmp.nexthere = prev;
-    lvl.floorObjHeads.set(k, otmp);
-    if (!lvl.objects.includes(otmp)) lvl.objects.push(otmp);
-}
-
 function mksobj_at(otyp, x, y, init, artif) {
     const otmp = mksobj(otyp, init, artif);
-    place_object(otmp, x, y);
+    placeFloorObject(otmp, x, y);
     return otmp;
 }
 

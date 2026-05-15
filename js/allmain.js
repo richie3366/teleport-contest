@@ -56,7 +56,8 @@ export async function newgame() {
     // Hardcoded player state for early Tourist stub.
     // Contestants: port u_init to compute these from game PRNG.
     g._goldCount = 757;
-    g.u.ulevel = 1;
+    g.u.umortality = 0;
+    g.u.Half_physical_damage = 0;
     g.u.uhp = 10; g.u.uhpmax = 10;
     g.u.uen = 2; g.u.uenmax = 2;
     g.u.uac = 10; g.u.uexp = 0;

@@ -12,6 +12,17 @@ import { seetrap, trapTypName, delTrap } from './search.js';
 import { adjattrib } from './attrib.js';
 import { makemon } from './makemon.js';
 import {
+    tMissile,
+    dmgval,
+    maybeHalfPhys,
+    thitu,
+    obfree,
+    poisoned,
+    OBJ_ARROW,
+    OBJ_DART,
+} from './mthrowu.js';
+import { placeFloorObject } from './floorobj.js';
+import {
     NO_TRAP_FLAGS,
     FORCETRAP,
     FORCEBUNGLE,
@@ -45,6 +56,7 @@ import {
     isok,
     NO_MM_FLAGS,
     A_CHA,
+    A_CON,
     STONE,
     DOOR,
     D_CLOSED,
@@ -441,6 +453,69 @@ async function trapeffectTelepHero(trap) {
     await pline('You feel disoriented for a moment.');
 }
 
+/** C: trap.c trapeffect_arrow_trap — hero. */
+async function trapeffectArrowHero(trap) {
+    const u = game.u;
+    if (!u) return;
+    if (trap.once && trap.tseen && !rn2(15)) {
+        await pline('You hear a loud click!');
+        delTrap(trap);
+        newsym(u.ux, u.uy);
+        vision_recalc(1);
+        return;
+    }
+    trap.once = 1;
+    seetrap(trap);
+    await pline('An arrow shoots out at you!');
+    const otmp = tMissile(OBJ_ARROW, trap);
+    const ref = { o: otmp };
+    const dam = maybeHalfPhys(dmgval(otmp, game.youmonst));
+    if (u.usteed && !rn2(2) && false) {
+        /* C: steedintrap — not ported */
+    } else if (await thitu(8, dam, ref, 'arrow')) {
+        obfree(ref.o);
+        ref.o = null;
+    } else if (ref.o) {
+        placeFloorObject(ref.o, u.ux, u.uy);
+        newsym(u.ux, u.uy);
+    }
+}
+
+/** C: trap.c trapeffect_dart_trap — hero. */
+async function trapeffectDartHero(trap) {
+    const u = game.u;
+    if (!u) return;
+    const oldumort = u.umortality ?? 0;
+    if (trap.once && trap.tseen && !rn2(15)) {
+        await pline('You hear a soft click.');
+        delTrap(trap);
+        newsym(u.ux, u.uy);
+        vision_recalc(1);
+        return;
+    }
+    trap.once = 1;
+    seetrap(trap);
+    await pline('A little dart shoots out at you!');
+    const otmp = tMissile(OBJ_DART, trap);
+    if (!rn2(6)) otmp.opoisoned = 1;
+    const ref = { o: otmp };
+    const dam = maybeHalfPhys(dmgval(otmp, game.youmonst));
+    if (u.usteed && !rn2(2) && false) {
+        /* C: steedintrap — not ported */
+    } else if (await thitu(7, dam, ref, 'little dart')) {
+        if (ref.o) {
+            if (ref.o.opoisoned) {
+                await poisoned('dart', A_CON, 'little dart', (u.umortality ?? 0) > oldumort ? 0 : 10, true);
+            }
+            obfree(ref.o);
+            ref.o = null;
+        }
+    } else if (ref.o) {
+        placeFloorObject(ref.o, u.ux, u.uy);
+        newsym(u.ux, u.uy);
+    }
+}
+
 /**
  * C: trap.c trapeffect_selector — hero-only subset.
  * @param {{ ttyp: number, tseen?: boolean, madeby_u?: boolean, tnote?: number, tx: number, ty: number, launch?: { x: number, y: number } }} trap
@@ -450,6 +525,12 @@ async function trapeffectHero(trap, trflags) {
     switch (trap.ttyp) {
     case SQKY_BOARD:
         await trapeffectSqkyBoardHero(trap, trflags);
+        break;
+    case ARROW_TRAP:
+        await trapeffectArrowHero(trap);
+        break;
+    case DART_TRAP:
+        await trapeffectDartHero(trap);
         break;
     case SLP_GAS_TRAP:
         await trapeffectSlpGasHero(trap);
