@@ -75,7 +75,7 @@ function engravingsList() {
 
 /**
  * C: engrave.c engr_at(x, y)
- * @returns {{ engr_x: number, engr_y: number, engr_type: number, engr_txt: string[], eread: number, erevealed: number, engr_time?: number }|null}
+ * @returns {{ engr_x: number, engr_y: number, engr_type: number, engr_txt: string[], eread: number, erevealed: number, engr_time?: number, nowipeout?: boolean, guardobjects?: number }|null}
  */
 export function engrAt(x, y) {
     const list = engravingsList();
@@ -93,7 +93,9 @@ export function seeEngraving(ep) {
 export function delEngrAt(x, y) {
     const L = game.level;
     if (!L?.engravings?.length) return;
+    const n = L.engravings.length;
     L.engravings = L.engravings.filter((e) => !(e.engr_x === x && e.engr_y === y));
+    if (L.engravings.length < n) newsym(x, y);
 }
 
 /**
@@ -112,8 +114,14 @@ export function makeEngrAt(x, y, text, engrType = ENGR_ENGRAVE) {
         erevealed: 0,
         engr_time: 0,
         nowipeout: false,
+        guardobjects: 0,
     };
+    if (s === 'Elbereth') {
+        if (game.in_mklev) ep.guardobjects = 1;
+        else exercise(A_WIS, true);
+    }
     engravingsList()?.push(ep);
+    seeEngraving(ep);
     return ep;
 }
 
@@ -512,6 +520,7 @@ export function wipeEngrAt(x, y, cnt, magical = false) {
         return;
     }
     ep.engr_txt[ENGR_TXT_ACTUAL] = actual;
+    newsym(x, y);
 }
 
 /** C: engrave.c u_wipe_engr(cnt) */
