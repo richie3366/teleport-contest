@@ -1,7 +1,7 @@
 // chargen.js — Map parsed nethackrc identity into live game fields.
 // C ref: u_init.c, role.c (roles[], races[], aligns), options.c role/race parsing.
 
-import { findRole, findRoleByAbbr, findRace, findAlign } from './roles.js';
+import { findRole, findRoleByAbbr, findRace, findAlign, coerceChargenIdentity } from './roles.js';
 import { permonstHuman } from './mondata.js';
 
 /**
@@ -35,6 +35,8 @@ export function applyIdentityFromNethackrc(g, opts) {
         if (a) alignType = a.value;
     }
 
+    ({ race, alignType, female } = coerceChargenIdentity(role, race, alignType, female));
+
     g.flags = g.flags || {};
     g.flags.female = female;
 
@@ -44,6 +46,7 @@ export function applyIdentityFromNethackrc(g, opts) {
     if (g.u.ualign.record === undefined) g.u.ualign.record = 0;
 
     g.urole = {
+        abbr: role.abbr,
         name: { m: role.name.m, f: role.name.f },
         rank: { m: role.rank.m, f: role.rank.f },
         mnum: role.mnum,

@@ -9,6 +9,7 @@
 
 | When | What changed |
 |------|----------------|
+| **2026-05-16 (chargen constraints)** | **`role.c` selfmasks in JS:** each role in `roles.js` carries `allows` (legal alignments as `u.ualign.type`, race names, gender). `coerceChargenIdentity()` clamps invalid `OPTIONS` (e.g. Valkyrie + male → female, wrong race → first legal race, wrong align → first legal). Wired from `chargen.js` after parsing rc. **Likely next step:** port **`u_init_inventory_attrs`** / `init_attr` / `ini_inv` RNG and state so `fastforward_post_mklev` can shrink without drift; extend **`ini_inv_stub`** per role for UI until real invent exists. |
 | **2026-05-16 (follow-up)** | **Chargen from `nethackrc`:** new `js/chargen.js` (`applyIdentityFromNethackrc`) wires `OPTIONS=role`, `race`, `gender`, `align` into `g.urole`, `g.urace`, `g.u.ualign`, `g.flags.female`, and `youmonst.data` (still `permonstHuman` for all races until PM tables port). `js/roles.js` now carries **role abbreviations** and **XL1 rank titles** from upstream `role.c`. `allmain.js` no longer overwrites identity; welcome `pline` uses align + `urace.adj` + female role name. **Defaults** (no OPTIONS) stay aligned with the former stub: Tourist / human / female / neutral. **Likely next step:** derive **numeric hero stats**, gold, and `ini_inv` from real `u_init.c` + PRNG (shrink `fastforward_post_mklev` and the hardcoded block in `newgame`), or extend **`ini_inv_stub`** / role packs when sessions hit non-Tourist roles. |
 
 ---
@@ -22,7 +23,7 @@ The implementation is still **nowhere near full-game parity**. Two large **techn
 1. **`js/fastforward.js`** — replays hundreds of leaf PRNG draws from a reference extraction so the ISAAC stream stays aligned while `o_init`, dungeon graph setup, post-`mklev` init, and related paths are incomplete.
 2. **Per-turn harnesses** — `js/monmove.js` replays fixed `rn2` sequences for steps 1–12; `js/moveloop_aux.js` replays end-of-turn draws (`maybe_generate_rnd_mon`, `dosounds`, `gethungry`, `rn2(82)`, conditional exercise hooks) instead of real `allmain.c` / `monmove.c` / `eat.c` / `sounds.c` logic.
 
-**Git:** `main` is **93 commits ahead of `origin/main`** after the latest local commit (not pushed at report edit time). Earlier history is overwhelmingly `feat(js):` / `fix(js):` / `refactor(js):` / `docs(plans):` work: moveloop wiring, search/detect, trap progression, engraving stack, inventory overlays, and satellite planning under `.cursor/plans/nethack-port/`. Nothing in this report substitutes reading the diff.
+**Git:** `main` is **94 commits ahead of `origin/main`** after the latest local commits (not pushed at report edit time). Earlier history is overwhelmingly `feat(js):` / `fix(js):` / `refactor(js):` / `docs(plans):` work: moveloop wiring, search/detect, trap progression, engraving stack, inventory overlays, and satellite planning under `.cursor/plans/nethack-port/`. Nothing in this report substitutes reading the diff.
 
 ---
 
@@ -55,7 +56,7 @@ The following areas have **real logic** traced to specific C files (comments in 
 | Concern | C | JS |
 |---------|---|-----|
 | `nethackrc` parsing subset | `cfgfiles.c`, `options` | `options.js` (partial); `iflags` / `perm_invent` mapping noted in recent commits |
-| Role / race / gender / align from OPTIONS | `u_init.c`, `role.c` | `chargen.js` + expanded `roles.js` (abbrev + XL1 ranks from `role.c`); called from `jsmain.js` `start()` |
+| Role / race / gender / align from OPTIONS | `u_init.c`, `role.c` | `chargen.js` + `roles.js` (abbrev, XL1 ranks, **`allows` selfmasks** + `coerceChargenIdentity` for invalid rc triples); called from `jsmain.js` `start()` |
 | Fixed datetime, moon, Friday 13th | `calendar.c`, flags | `moonphase.js`, `moveloop_preamble.js`, `attrib.js` (`changeLuck`) |
 
 ### 3.3 Startup and main loop shell
@@ -237,8 +238,8 @@ Approximate **physical LOC** (2026-05-16 `wc -l`):
 | 319 | `fastforward.js` |
 | 251 | `pickup.js` |
 | 245 | `jsmain.js` |
-| 78 | `roles.js` |
-| 61 | `chargen.js` |
+| 125 | `roles.js` |
+| 64 | `chargen.js` |
 | 199 | `isaac64.js` (frozen) |
 | 165 | `allmain.js`, `rect.js` |
 | 163 | `mondata.js` |
