@@ -140,6 +140,7 @@ async function domove(dx, dy) {
     u.uy = newy;
     game._pending_message = '';
     game._overlayScreen = null;
+    game._inventoryMode = false;
 
     // Update display
     newsym(oldx, oldy);
