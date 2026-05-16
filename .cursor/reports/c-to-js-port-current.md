@@ -9,13 +9,15 @@ Thin handoff for the next coding session. Deep parity tables and history: [`c-to
 - **Plain ES modules**, no build/WASM/network in contest code; RNG via `js/rng.js`; match **clang** evaluation order for multi-call expressions.
 - API: [`docs/API.md`](../../docs/API.md); overview: [`README.md`](../../README.md).
 
+**Last slice:** **`melt_ice`** after **`dofiretrap`** — [`js/melt_ice.js`](../../js/melt_ice.js) (**`zap.c`** / **`trap.c`** subset); **`u.dx`/`u.dy`** in **`cmd.js`** / **`jsmain`** / **`allmain`** for **`maybeHeroPoolEnter`** after ice→pool.
+
 ## Next steps (highest impact from latest fire/lava work)
 
-1. **`melt_ice`** in fire-trap / floor burn path (`trap.c` / related) — called from `dofiretrap` after floor burn; still **TODO** in `trap.js`.
-2. **Monster `dofiretrap`** — smoke / **`distu`≤9** branch when not hero.
-3. **`dofiretrap`** poly branch — **`u.mhmax`** handling vs C.
-4. **`useupf`** / shop / **`distant_name`/`An`** on floor burn (`burn_floor_objects.js` gaps).
-5. **`obj_resists`** / **`xname`** — replace stubs where fire paths depend on them.
+1. **Monster `dofiretrap`** — smoke / **`distu`≤9** branch when not hero; **`meltIceAt(tx,ty)`** on trap square (same order as C).
+2. **`dofiretrap`** poly branch — **`u.mhmax`** handling vs C.
+3. **`useupf`** / shop / **`distant_name`/`An`** on floor burn (`burn_floor_objects.js` gaps).
+4. **`obj_resists`** / **`xname`** — replace stubs where fire paths depend on them.
+5. **Full `melt_ice`** — **`obj_ice_effects`**, **`unearth_objs`**, **`boulder_hits_pool`**, **`cnv_trap_obj`** for mine/bear on ice, **`minliquid`**, **`MELT_ICE_AWAY`** timers.
 
 ## After you ship a slice
 

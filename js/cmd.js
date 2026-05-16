@@ -155,6 +155,8 @@ async function domove(dx, dy) {
             if (swapped) {
                 u.ux0 = ox;
                 u.uy0 = oy;
+                u.dx = dx;
+                u.dy = dy;
                 maybeSmudgeEngr(ox, oy, newx, newy);
                 const trSwap = tAt(newx, newy);
                 if (trSwap) await dotrap(trSwap, NO_TRAP_FLAGS);
@@ -182,6 +184,8 @@ async function domove(dx, dy) {
     const oldx = u.ux, oldy = u.uy;
     u.ux0 = oldx;
     u.uy0 = oldy;
+    u.dx = dx;
+    u.dy = dy;
     u.ux = newx;
     u.uy = newy;
     // C: hack.c domove — after domove_core walk/rush

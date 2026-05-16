@@ -97,7 +97,8 @@ export class NethackGame {
 
         // Initialize hero struct
         g.u = {
-            ux: 0, uy: 0, ux0: 0, uy0: 0, uluck: 0, LUCKADD: 0, Upolyd: 0,
+            ux: 0, uy: 0, ux0: 0, uy0: 0, dx: 0, dy: 0, /* C: you.h last move — drown/melt_ice */
+            uluck: 0, LUCKADD: 0, Upolyd: 0,
             umonnum: 0, /* C: you.h — poly form index; `NODIAG` / corpse `monsndx` */
             inv_weight: 0, weight_cap: 0, /* C: invent.c — `cant_squeeze_thru` diagonal load */
             underwater: 0, /* C: you.h u.uinwater-style — pool / describe_decor / vision */

@@ -42,6 +42,8 @@ export async function newgame() {
     // Set up game state needed by mklev
     g.dungeons = [{ dname: 'The Dungeons of Doom', depth_start: 1, num_dunlevs: 30 }];
     g.u = g.u || {};
+    g.u.dx |= 0;
+    g.u.dy |= 0;
     g.u.uz = { dnum: 0, dlevel: 1 };
     g.context = g.context || {};
     if (g.context.next_attrib_check == null) g.context.next_attrib_check = 600;
