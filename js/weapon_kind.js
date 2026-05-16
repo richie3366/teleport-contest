@@ -1,5 +1,5 @@
-// weapon_kind.js — weapon_type() / is_ammo() object helpers.
-// C ref: weapon.c weapon_type(); include/obj.h is_ammo.
+// weapon_kind.js — weapon_type() / is_ammo() / ammo_and_launcher() helpers.
+// C ref: weapon.c weapon_type(); include/obj.h is_ammo, matching_launcher, ammo_and_launcher.
 
 import {
     P_NONE,
@@ -13,6 +13,25 @@ import { NH5_WEAPON_CLASS, NH5_TOOL_CLASS, NH5_GEM_CLASS } from './nh5_objclass.
 /** @param {number} otyp */
 function objectOcSkill(otyp) {
     return OC_SKILL_ROW_BY_OTYP.get(otyp | 0)?.oc_skill ?? 0;
+}
+
+/**
+ * C: obj.h **`matching_launcher(a,l)`** — **`objects[a].oc_skill == -objects[l].oc_skill`**.
+ * @param {{ otyp?: number, oclass?: number }|null|undefined} ammo
+ * @param {{ otyp?: number, oclass?: number }|null|undefined} launcher
+ */
+export function matchingLauncherLikeC(ammo, launcher) {
+    if (!ammo || !launcher) return false;
+    const ask = objectOcSkill(ammo.otyp | 0);
+    const lsk = objectOcSkill(launcher.otyp | 0);
+    return ask === -lsk;
+}
+
+/**
+ * C: obj.h **`ammo_and_launcher(a,l)`** — **`is_ammo(a) && matching_launcher(a,l)`**.
+ */
+export function ammoAndLauncherLikeC(ammo, launcher) {
+    return isAmmo(ammo) && matchingLauncherLikeC(ammo, launcher);
 }
 
 /**

@@ -18,7 +18,7 @@ import { raceptr, monsterLeavesCorpse } from './mondata.js';
 import { placeCorpseForMonster } from './mkobj_corpse.js';
 import { adisturb } from './shop.js';
 import { throwingWeaponHeroThrowitLikeC } from './bhit_throw_hero.js';
-import { isAmmo } from './weapon_kind.js';
+import { isAmmo, ammoAndLauncherLikeC } from './weapon_kind.js';
 import { useSkill } from './u_init_skills.js';
 import { weaponType } from './weapon_kind.js';
 import { cansee } from './vision.js';
@@ -31,14 +31,10 @@ function monNameLikeC(mtmp) {
     return mtmp?.monnam || mtmp?.data?.mname || 'monster';
 }
 
-/** C: ammo_and_launcher — not ported; thrown ammo treated as unlaunched (-4 tmp). */
-function ammoAndLauncherHeroStubLikeC(_g, _obj) {
-    return false;
-}
-
 function thrownWeaponTmpAdjLikeC(g, obj) {
+    const uwep = g.u?.uwep ?? null;
     if (isAmmo(obj)) {
-        return ammoAndLauncherHeroStubLikeC(g, obj) ? 0 : -4;
+        return ammoAndLauncherLikeC(obj, uwep) ? 0 : -4;
     }
     if (throwingWeaponHeroThrowitLikeC(obj)) return 2;
     return -2;

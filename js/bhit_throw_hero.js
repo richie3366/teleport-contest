@@ -12,7 +12,15 @@ import {
     OTYP_HEAVY_IRON_BALL,
     TT_WEB,
     A_STR,
+    BOLT_LIM,
+    P_CROSSBOW,
+    Is_airlevel,
 } from './const.js';
+import { isAmmo, ammoAndLauncherLikeC, weaponType } from './weapon_kind.js';
+import { pSkillDisplayName } from './skill_display_name.js';
+import { an } from './decor.js';
+import { nh5HeroObjectClass } from './water_damage.js';
+import { NH5_GEM_CLASS } from './nh5_objclass.js';
 import { rn2 } from './rng.js';
 import { pline, newsym } from './display.js';
 import { cansee } from './vision.js';
@@ -34,19 +42,44 @@ export function throwingWeaponHeroThrowitLikeC(obj) {
 }
 
 /**
- * C: dothrow.c throwit urange/range before bhit (crossbow, is_ammo, uball, boulder, air, Levitation, Mjollnir, aklys omitted).
+ * C: dothrow.c throwit urange/range before bhit (uball cap, boulder, Mjollnir, aklys, tether omitted; rock skip in bhit still TODO).
  * @param {import('./gstate.js').game} g
  */
-export function thrownWeaponRangeHeroLikeC(g, obj) {
+export async function thrownWeaponRangeHeroLikeC(g, obj) {
     const u = g.u;
-    const str = (u?.acurr?.a?.[A_STR] ?? 10) | 0;
-    let urange = Math.trunc(str / 2);
-    let range = urange - Math.trunc((obj?.owt | 0) / 40);
-    if ((obj?.otyp | 0) === OTYP_HEAVY_IRON_BALL) {
-        range = urange - Math.trunc((obj?.owt | 0) / 100);
+    if (!u || !obj) return 1;
+    const uwep = u.uwep ?? null;
+    const str = (u.acurr?.a?.[A_STR] ?? 10) | 0;
+    const crossbowing =
+        ammoAndLauncherLikeC(obj, uwep) && weaponType(uwep) === P_CROSSBOW;
+    let urange = crossbowing ? 9 : Math.trunc(str / 2);
+    let range = urange - Math.trunc((obj.owt | 0) / 40);
+    if ((obj.otyp | 0) === OTYP_HEAVY_IRON_BALL) {
+        range = urange - Math.trunc((obj.owt | 0) / 100);
     }
     if (range < 1) range = 1;
-    if ((u?.underwater | 0) !== 0) range = 1;
+
+    if (isAmmo(obj)) {
+        if (ammoAndLauncherLikeC(obj, uwep)) {
+            if (crossbowing) range = BOLT_LIM;
+            else range++;
+        } else if ((nh5HeroObjectClass(obj) | 0) !== NH5_GEM_CLASS) {
+            range = Math.trunc(range / 2);
+            const sk = weaponType(obj);
+            await pline(
+                `You aren't wielding ${an(pSkillDisplayName(sk, g))}, so you throw ${doname(obj, g)} by hand.`,
+            );
+        }
+    }
+
+    if (Is_airlevel(u.uz) || (u.Levitation | 0)) {
+        urange -= range;
+        if (urange < 1) urange = 1;
+        range -= urange;
+        if (range < 1) range = 1;
+    }
+
+    if ((u.underwater | 0) !== 0) range = 1;
     return range;
 }
 

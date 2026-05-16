@@ -20,8 +20,9 @@ import {
 import { throwitMonHitThrownHeroLikeC } from './throwit_mon_hit_hero.js';
 
 /**
- * C: **`dothrow.c`** **`throwit`** opening slip (**`rn2(7)`**, greased / **`throwing_weapon`**) — mutates **`u.dx`/`u.dy`**.
- * Omits **`ammo_and_launcher`** misfire pline, **`u.dz`** toss-up (**`<`**).
+ * C: dothrow.c throwit opening slip (rn2(7), greased / throwing_weapon) — mutates u.dx/u.dy.
+ * Omits slip ammo_and_launcher misfire pline, uswallow, toss-up u.dz<0, steed holy-water rn2(6),
+ * full thitmonst/hmon/potionhit/should_mulch_missile, ship_object.
  */
 async function applyThrowSlipRngLikeC(g, obj) {
     const u = g.u;
@@ -41,7 +42,7 @@ async function applyThrowSlipRngLikeC(g, obj) {
 /**
  * C: dothrow.c throwit subset — zap.c bhit ray + landing (breakobj/flooreffects/place_object),
  * throwit_mon_hit / thitmonst weapon/gem/rock/potion subset; u.dz>0 → hitfloor(obj, TRUE), top g.invent.
- * Omits ammo_and_launcher, crossbow/is_ammo range, uswallow, toss-up u.dz<0, steed holy-water rn2(6), full thitmonst/hmon/potionhit/ship_object.
+ * Omits slip misfire pline, uswapwep launcher check, uslinging, uball cap, boulder/Mjollnir, tether, rock skiprange in bhit, hits_bars, shkcatch, tmp_at.
  * @param {import('./gstate.js').game} [g]
  */
 export async function throwOneInventAdjacentLikeC(g = game) {
@@ -97,7 +98,7 @@ export async function throwOneInventAdjacentLikeC(g = game) {
         return;
     }
 
-    const range = thrownWeaponRangeHeroLikeC(g, obj);
+    const range = await thrownWeaponRangeHeroLikeC(g, obj);
     removeObjFromHeroInvent(g, obj);
     const land = await walkThrownWeaponBhitRayHeroLikeC(g, dx, dy, range, obj);
 
