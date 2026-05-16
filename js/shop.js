@@ -439,6 +439,7 @@ async function mneartoThrownPickForShkcatchLikeC(g, mtmp, tx, ty) {
 export async function shkcatchThrownPickHeroLikeC(g, obj, x, y) {
     const u = g.u;
     if (!u || !obj) return null;
+    if (contextLeavingTutorialActiveLikeC(g)) return null;
     const xi = x | 0;
     const yi = y | 0;
     const rmno = insideShopLevlRoomno(g, xi, yi);
@@ -839,6 +840,7 @@ export function heroInShopOccupancyLikeUshops(g) {
  * @param {number} objOy — C **`otmp->oy`**
  */
 export function peacefulStolenValueShipObjectShopFloorLikeC(g, objOx, objOy) {
+    if (contextLeavingTutorialActiveLikeC(g)) return false;
     const u = g.u;
     if (!u) return false;
     if (!costlySpot(g, u.ux | 0, u.uy | 0)) return false;
@@ -927,6 +929,7 @@ async function mnextoShkForShopdigLikeC(g, shkp) {
  * @param {number} fall
  */
 export async function shopdigLikeC(g, fall) {
+    if (contextLeavingTutorialActiveLikeC(g)) return;
     const shkp = shopdigPickShkpLikeC(g);
     if (!shkp) return;
 
@@ -1040,6 +1043,7 @@ function rileShkMinimal(shkp) {
  * @param {import('./gstate.js').game} g
  */
 export async function hotPursuitShk(g, shkp) {
+    if (contextLeavingTutorialActiveLikeC(g)) return;
     if (!(shkp?.isshk | 0)) return;
     rileShkMinimal(shkp);
     const e = ESHK(shkp);
@@ -1302,6 +1306,7 @@ export async function angryGuardsSilentLikeC(g, silent) {
  * @param {import('./gstate.js').game} g
  */
 export async function makeAngryShkLikeC(g, shkp, ox, oy) {
+    if (contextLeavingTutorialActiveLikeC(g)) return;
     void ox;
     void oy;
     const e = ESHK(shkp);
@@ -1553,6 +1558,7 @@ export async function checkShopObjBrokenTrueLikeC(g, obj, x, y) {
 export async function breakobjHeroShopFloorTailLikeC(g, obj, x, y, fromInvent) {
     const u = g.u;
     if (!u) return;
+    if (contextLeavingTutorialActiveLikeC(g)) return;
 
     if ((fromInvent || (obj.unpaid | 0)) && (heroInShopOccupancyLikeUshops(g) || (obj.unpaid | 0))) {
         await checkShopObjBrokenTrueLikeC(g, obj, x | 0, y | 0);
@@ -2815,6 +2821,7 @@ export function useupfFloor(g = game, obj, numused) {
  * @param {{ mpeaceful?: number, isshk?: number, ispriest?: number, isgd?: number, mAngry?: number }} mtmp
  */
 export async function adisturb(mtmp) {
+    if (contextLeavingTutorialActiveLikeC(game)) return;
     if (!mtmp) return;
     const m = /** @type {Record<string, unknown>} */ (mtmp);
     if (!(m.isshk || m.ispriest || m.isgd)) return;
