@@ -12,6 +12,7 @@ import { vision_recalc, cansee } from './vision.js';
 import { d, rn1 } from './rng.js';
 import { stairwayAt } from './decor.js';
 import { digactualHoleHeroUtrapSubset } from './floorobj.js';
+import { spotChecksLikeC } from './spot_checks.js';
 import { maybeHalfPhys, losehp } from './mthrowu.js';
 import {
     STONE,
@@ -228,81 +229,87 @@ export async function digholeHeroLikeC(g, pitOnly, byMagic, cc) {
         digY = cc.y | 0;
     }
 
-    const ttmp = trapAtInLevel(g, digX, digY);
     const lev = lvl.at(digX, digY);
     if (!lev) return false;
 
-    const dc = digCheckByYouAtLikeC(g, digX, digY);
-    const nohole = dc === DIGCHECK_FAIL_CANTDIG || dc === DIGCHECK_FAIL_TOOHARD;
     const oldTyp = lev.typ | 0;
 
-    if (
-        (ttmp && (undestroyableTrapTyp(ttmp.ttyp | 0) || nohole))
-        || (IS_OBSTRUCTED(oldTyp)
-            && oldTyp !== SDOOR
-            && ((lev.wall_info | 0) & W_NONDIGGABLE) !== 0)
-    ) {
-        await pline(tooHardSurfaceHereThereLikeC(g, digX, digY));
-        return false;
-    }
+    try {
+        const ttmp = trapAtInLevel(g, digX, digY);
 
-    if (ttmp && is_magical_trap(ttmp.ttyp | 0)) {
-        const dam = 20 + d(3, 6);
-        losehp(maybeHalfPhys(dam), 'explosion', 0);
-        delTrapInLevel(g, ttmp);
-        newsym(digX, digY);
-        vision_recalc(1);
-        return true;
-    }
+        const dc = digCheckByYouAtLikeC(g, digX, digY);
+        const nohole = dc === DIGCHECK_FAIL_CANTDIG || dc === DIGCHECK_FAIL_TOOHARD;
 
-    if (IS_POOL(oldTyp) || IS_LAVA(oldTyp)) {
-        const liq = IS_LAVA(oldTyp) ? 'lava' : 'water';
-        await pline(`The ${liq} sloshes furiously for a moment, then subsides.`);
-        wakeNeartoStub(digX, digY, 400);
-        return true;
-    }
-
-    if (
-        !ttmp
-        && (oldTyp === ROOM || oldTyp === CORR)
-        && byMagic
-        && (dc === DIGCHECK_PASSED || dc === DIGCHECK_PASSED_PITONLY)
-    ) {
-        const wantPit = pitOnly || nohole || dc === DIGCHECK_PASSED_PITONLY;
-        digactualHoleHeroUtrapSubset(g, digX, digY);
-        const ttyp = wantPit ? PIT : HOLE;
-        const trap = {
-            ttyp,
-            tx: digX,
-            ty: digY,
-            tseen: false,
-            madeby_u: true,
-            once: false,
-            launch: { x: 0, y: 0 },
-        };
-        if (!lvl.traps) lvl.traps = [];
-        lvl.traps.push(trap);
-        if (cansee(digX, digY)) seetrapLikeC(trap);
-        if (wantPit) {
-            await pline('You dig a pit in the floor.');
-            const wontFall = !!(u.Levitation || u.Flying);
-            if ((digX === (u.ux | 0) && digY === (u.uy | 0)) && !wontFall) {
-                u.utrap = rn1(4, 2);
-                u.utraptype = TT_PIT;
-            }
-        } else {
-            await pline('You dig a hole through the floor.');
+        if (
+            (ttmp && (undestroyableTrapTyp(ttmp.ttyp | 0) || nohole))
+            || (IS_OBSTRUCTED(oldTyp)
+                && oldTyp !== SDOOR
+                && ((lev.wall_info | 0) & W_NONDIGGABLE) !== 0)
+        ) {
+            await pline(tooHardSurfaceHereThereLikeC(g, digX, digY));
+            return false;
         }
-        wakeNeartoStub(u.ux | 0, u.uy | 0, 7 * 7);
-        vision_recalc(1);
-        newsym(digX, digY);
-        return true;
-    }
 
-    if (dc >= DIGCHECK_FAILED) {
-        await digcheckFailMessageByYouAtLikeC(g, dc, digX, digY);
+        if (ttmp && is_magical_trap(ttmp.ttyp | 0)) {
+            const dam = 20 + d(3, 6);
+            losehp(maybeHalfPhys(dam), 'explosion', 0);
+            delTrapInLevel(g, ttmp);
+            newsym(digX, digY);
+            vision_recalc(1);
+            return true;
+        }
+
+        if (IS_POOL(oldTyp) || IS_LAVA(oldTyp)) {
+            const liq = IS_LAVA(oldTyp) ? 'lava' : 'water';
+            await pline(`The ${liq} sloshes furiously for a moment, then subsides.`);
+            wakeNeartoStub(digX, digY, 400);
+            return true;
+        }
+
+        if (
+            !ttmp
+            && (oldTyp === ROOM || oldTyp === CORR)
+            && byMagic
+            && (dc === DIGCHECK_PASSED || dc === DIGCHECK_PASSED_PITONLY)
+        ) {
+            const wantPit = pitOnly || nohole || dc === DIGCHECK_PASSED_PITONLY;
+            digactualHoleHeroUtrapSubset(g, digX, digY);
+            const ttyp = wantPit ? PIT : HOLE;
+            const trap = {
+                ttyp,
+                tx: digX,
+                ty: digY,
+                tseen: false,
+                madeby_u: true,
+                once: false,
+                launch: { x: 0, y: 0 },
+            };
+            if (!lvl.traps) lvl.traps = [];
+            lvl.traps.push(trap);
+            if (cansee(digX, digY)) seetrapLikeC(trap);
+            if (wantPit) {
+                await pline('You dig a pit in the floor.');
+                const wontFall = !!(u.Levitation || u.Flying);
+                if ((digX === (u.ux | 0) && digY === (u.uy | 0)) && !wontFall) {
+                    u.utrap = rn1(4, 2);
+                    u.utraptype = TT_PIT;
+                }
+            } else {
+                await pline('You dig a hole through the floor.');
+            }
+            wakeNeartoStub(u.ux | 0, u.uy | 0, 7 * 7);
+            vision_recalc(1);
+            newsym(digX, digY);
+            return true;
+        }
+
+        if (dc >= DIGCHECK_FAILED) {
+            await digcheckFailMessageByYouAtLikeC(g, dc, digX, digY);
+            return false;
+        }
+
         return false;
+    } finally {
+        spotChecksLikeC(g, digX, digY, oldTyp);
     }
-
-    return false;
 }

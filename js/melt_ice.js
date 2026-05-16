@@ -105,8 +105,8 @@ function objIceCorpsesOffIceChain(g, chainHead, x, y, where) {
     }
 }
 
-/** C: mkobj.c **`obj_ice_effects(x, y, FALSE)`** — **`timed`** objects: **`obj_timer_checks`**; then corpse **`on_ice`** tail. */
-function objIceEffectsAt(g, x, y) {
+/** C: mkobj.c **`obj_ice_effects(x, y, FALSE)`** — floor: **`obj_timer_checks`** + corpse **`on_ice`** tail (**`TRUE`** path: **`objIceEffectsFreezeAt`**). Exported for **`hack.c`** **`spot_checks`**. */
+export function objIceEffectsAt(g, x, y) {
     const head = g.level?.floorObjHeads?.get(floorObjKey(x, y));
     for (let o = head; o; o = o.nexthere) {
         if (o.timed) objTimerChecksMkobj(g, o, x, y, 0, 'floor', isIceAt);
