@@ -1092,8 +1092,9 @@ async function readAlignChoice(disp, f) {
 
 /**
  * C **`role.c`** **`role_selection_prolog`** display tightening — **`rigidRoleChecksJs`** on live **`f`**, then
- * **`coerceChargenIndicesForRoleSelectionPrologLikeC`** on a **copy** for recap only (mutating **`f`** here shifts
- * **`rigidRoleChecksJs`** / **`pick_*`** RNG for harness sessions that never paint this menu).
+ * **`coerceChargenIndicesForRoleSelectionPrologLikeC`** on a **copy** for recap only (role + race **`ROLE_ALIGNMASK`**
+ * tightening; mutating **`f`** here shifts **`rigidRoleChecksJs`** / **`pick_*`** RNG for harness sessions that never
+ * paint this menu).
  * @returns {number} menu column **`col`** for **`readConfirmAnswer`** **`?`** overlay
  */
 function paintConfirmMenu(disp, f, plname) {

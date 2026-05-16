@@ -119,19 +119,24 @@ export const races = [
       attrmin: [3, 3, 3, 3, 3, 3], attrmax: [STR18(100), 18, 18, 18, 18, 18],
       hpadv: { infix: 2, inrnd: 0, lofix: 0, lornd: 2, hifix: 1, hirnd: 0 },
       enadv: { infix: 1, inrnd: 0, lofix: 2, lornd: 0, hifix: 2, hirnd: 0 } },
+    /* C role.c races[].allow: MH_ELF | … | ROLE_CHAOTIC only → role_selection_prolog sets aligns[chaotic] */
     { name: 'elf', adj: 'elven', mnum: 1, filecode: 'Elf', permonst: permonstHuman,
+      prologForcedAlignValueLikeC: -1,
       attrmin: [3, 3, 3, 3, 3, 3], attrmax: [18, 20, 20, 18, 16, 18],
       hpadv: { infix: 1, inrnd: 0, lofix: 0, lornd: 1, hifix: 1, hirnd: 0 },
       enadv: { infix: 2, inrnd: 0, lofix: 3, lornd: 0, hifix: 3, hirnd: 0 } },
     { name: 'dwarf', adj: 'dwarven', mnum: 2, filecode: 'Dwa', permonst: permonstHuman,
+      prologForcedAlignValueLikeC: 1,
       attrmin: [3, 3, 3, 3, 3, 3], attrmax: [STR18(100), 16, 16, 20, 20, 16],
       hpadv: { infix: 4, inrnd: 0, lofix: 0, lornd: 3, hifix: 2, hirnd: 0 },
       enadv: { infix: 0, inrnd: 0, lofix: 0, lornd: 0, hifix: 0, hirnd: 0 } },
     { name: 'gnome', adj: 'gnomish', mnum: 3, filecode: 'Gno', permonst: permonstHuman,
+      prologForcedAlignValueLikeC: 0,
       attrmin: [3, 3, 3, 3, 3, 3], attrmax: [STR18(50), 19, 18, 18, 18, 18],
       hpadv: { infix: 1, inrnd: 0, lofix: 0, lornd: 1, hifix: 0, hirnd: 0 },
       enadv: { infix: 2, inrnd: 0, lofix: 2, lornd: 0, hifix: 2, hirnd: 0 } },
     { name: 'orc', adj: 'orcish', mnum: 4, filecode: 'Orc', permonst: permonstHuman,
+      prologForcedAlignValueLikeC: -1,
       attrmin: [3, 3, 3, 3, 3, 3], attrmax: [STR18(50), 16, 16, 18, 18, 16],
       hpadv: { infix: 1, inrnd: 0, lofix: 0, lornd: 1, hifix: 0, hirnd: 0 },
       enadv: { infix: 1, inrnd: 0, lofix: 1, lornd: 0, hifix: 1, hirnd: 0 } },
@@ -199,9 +204,10 @@ export const STR2_RANDOM = -2;
 
 /**
  * C **`role.c`** **`role_selection_prolog`** — local **`r`/`c`/`gend`/`a`** tightening for recap text:
- * human-only role → human race; invalid race for role → **`STR2_RANDOM`**; forced gender; single allowed align;
- * orc → chaotic (**`aligns[]`** index). Mutates **`f`** — call only when **`initrole`** is set **and** all four
- * facets are valid indices (confirm / **`applyChargenFlagsToGame`**), not mid-hub with **`ROLE_NONE`** races.
+ * human-only role → human race; invalid race for role → **`STR2_RANDOM`**; forced gender; single role align;
+ * then if **`c >= 0`**, **`races[c].allow & ROLE_ALIGNMASK`** when exactly one align (**elf/orc** chaotic,
+ * **dwarf** lawful, **gnome** neutral). Mutates **`f`** — use a **copy** for display-only paths so live chargen
+ * flags stay unchanged for RNG ordering.
  * @param {{ initrole: number, initrace: number, initgend: number, initalign: number }} f
  */
 export function coerceChargenIndicesForRoleSelectionPrologLikeC(f) {
@@ -222,9 +228,13 @@ export function coerceChargenIndicesForRoleSelectionPrologLikeC(f) {
         const ai = aligns.findIndex((a) => a.value === ra[0]);
         if (ai >= 0) f.initalign = ai;
     }
-    if (f.initrace >= 0 && f.initrace < races.length && races[f.initrace].name === 'orc') {
-        const ai = aligns.findIndex((a) => a.value === -1);
-        if (ai >= 0) f.initalign = ai;
+    /* C: if (c >= 0) { allowmask = races[c].allow; single-align race overrides `a` } */
+    if (f.initrace >= 0 && f.initrace < races.length) {
+        const v = races[f.initrace].prologForcedAlignValueLikeC;
+        if (v !== undefined) {
+            const ai = aligns.findIndex((a) => a.value === v);
+            if (ai >= 0) f.initalign = ai;
+        }
     }
 }
 
