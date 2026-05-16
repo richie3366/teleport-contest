@@ -63,6 +63,7 @@ import {
 import { breaktestLikeC, heroBreaksObjLikeC, BRK_FROM_INV } from './obj_break_dothrow.js';
 import { flooreffectsObjAtLikeC } from './flooreffects_hero.js';
 import { placeFloorObjectInLevel, stackObjOnFloorInLevel } from './floorobj.js';
+import { shipObjectThrownHeroLikeC } from './impact_drop.js';
 import { checkShopObjAfterHeroPlaceLikeC, insideShopLevlRoomno, inRoomsShopbaseRoomnos, shkcatchThrownPickHeroLikeC } from './shop.js';
 import { isClosedDoorLoc } from './walkable.js';
 
@@ -555,10 +556,6 @@ export async function walkThrownWeaponBhitRayHeroLikeC(g, dx, dy, range0, obj) {
     return { x: bx, y: by, mon: hitMon, stuckWeb };
 }
 
-async function shipObjectThrownStubLikeC(_g, _obj, _x, _y) {
-    return false;
-}
-
 /**
  * C: dothrow.c throwit tail — breakobj, flooreffects, ship_object, place_object, stackobj, newsym (subset: splash sound, container_impact, drop_ball omitted).
  * @returns {Promise<boolean>} true if obj consumed
@@ -582,7 +579,7 @@ export async function throwitPlaceAfterBhitHeroLikeC(g, obj, tx, ty) {
             if (await heroBreaksObjLikeC(g, obj, xi, yi, BRK_FROM_INV)) return true;
         }
         if (await flooreffectsObjAtLikeC(g, obj, xi, yi, 'fall')) return true;
-        if (await shipObjectThrownStubLikeC(g, obj, xi, yi)) return true;
+        if (await shipObjectThrownHeroLikeC(g, obj, xi, yi, false)) return true;
         placeFloorObjectInLevel(g, obj, xi, yi);
         await checkShopObjAfterHeroPlaceLikeC(g, obj, xi, yi);
         stackObjOnFloorInLevel(g, obj);

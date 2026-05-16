@@ -21,6 +21,7 @@ import { heroBreaksObjLikeC, BRK_FROM_INV } from './obj_break_dothrow.js';
 import { doname } from './objnam.js';
 import { flooreffectsObjAtLikeC } from './flooreffects_hero.js';
 import { doaltarobjLikeC } from './doaltarobj.js';
+import { shipObjectThrownHeroLikeC } from './impact_drop.js';
 
 /** C: objects_nums — **`WAN_STRIKING`** ( **`dothrow.c`** **`hitfloor`** verb ). */
 const OTYP_WAN_STRIKING = 415;
@@ -50,11 +51,10 @@ function surfaceStringHitfloorVerboseLikeC(g, x, y) {
 }
 
 /**
- * C: **`shk.c`** **`ship_object`** — not ported; must not consume RNG.
- * @returns {Promise<boolean>} always false (**`ship_object`** miss)
+ * C: **`shk.c`** **`ship_object`** — delegates to **`impact_drop.js`** **`shipObjectThrownHeroLikeC`**.
  */
-async function shipObjectHeroAtLikeC(_g, _obj, _x, _y, _shop) {
-    return false;
+async function shipObjectHeroAtLikeC(g, obj, x, y, shopFloor) {
+    return shipObjectThrownHeroLikeC(g, obj, x | 0, y | 0, !!shopFloor);
 }
 
 /**

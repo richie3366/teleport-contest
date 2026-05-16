@@ -1,5 +1,5 @@
-// impact_drop.js — dokick.c impact_drop / down_gate / drop_to / obj_delivery subset.
-// C ref: dokick.c impact_drop(), down_gate(), drop_to(), obj_delivery();
+// impact_drop.js — dokick.c impact_drop / down_gate / drop_to / obj_delivery / ship_object subset.
+// C ref: dokick.c impact_drop(), down_gate(), drop_to(), obj_delivery(), ship_object(), otransit_msg();
 //        mkobj.c add_to_migration() (queue semantics only).
 
 import { rn1, rn2, rnd } from './rng.js';
@@ -53,6 +53,14 @@ import {
     angryGuardsSilentLikeC,
 } from './shop.js';
 import { OBJ_ROCK } from './mthrowu.js';
+import { doname } from './objnam.js';
+import { changeLuck } from './attrib.js';
+
+/** C: objects.h — glass material for **`ship_object`** break hear. */
+const OC_GLASS_SHIP = 19;
+/** C: objects_nums — mirror / camera (**`ship_object`** **`You_hear`** / luck). */
+const OTYP_MIRROR_SHIP = 230;
+const OTYP_EXPENSIVE_CAMERA_SHIP = 229;
 
 /** C: `gg.gate_str` during **`down_gate`/`impact_drop`**. */
 let gateStrImpactDrop = /** @type {string|null} */ (null);
@@ -363,4 +371,111 @@ export async function impactDropLikeC(g, missile, x, y, dlev) {
             );
         }
     }
+}
+
+/**
+ * C: dokick.c **`otransit_msg`** — subset (**`doname`** replaces Tobjnam / corpse_xname).
+ * @param {string|null|undefined} gateStr
+ */
+async function otransitMsgThrownHeroLikeC(g, obj, nodrop, chainthere, num, gateStr) {
+    const gs = gateStr || 'down';
+    const raw = doname(obj, g);
+    const name = raw.charAt(0).toUpperCase() + raw.slice(1);
+    if (num || chainthere) {
+        let sfx;
+        if (num) {
+            sfx = ` hits ${num === 1 ? 'another' : 'other'} object${num > 1 ? 's' : ''}`;
+        } else {
+            sfx = ' rattles your chain';
+        }
+        if (nodrop) await pline(`${name}${sfx}.`);
+        else await pline(`${name}${sfx} and falls ${gs}.`);
+    } else if (!nodrop) {
+        await pline(`${name} falls ${gs}.`);
+    }
+}
+
+/**
+ * C: dokick.c **`ship_object(otmp, x, y, shop_floor_obj)`** — object may migrate via **`down_gate`** and **`drop_to`**.
+ * Omits **`remove_worn_item`**, full **`shop_floor_obj`** **`stolen_value(ox,oy,…)`** without **`unpaid`**, **`maybe_unhide_at`**.
+ * @param {import('./gstate.js').game} g
+ * @param {boolean} shopFloorObj
+ * @returns {Promise<boolean>} **TRUE** if object shipped or break-hear consumed it (**caller skips **`place_object`**)
+ */
+export async function shipObjectThrownHeroLikeC(g, obj, x, y, shopFloorObj) {
+    if (!obj) return false;
+    const xi = x | 0;
+    const yi = y | 0;
+    const dg = downGateAtLikeC(g, xi, yi);
+    const toloc = dg.toloc | 0;
+    if (toloc === MIGR_NOWHERE) return false;
+
+    const cc = dropToDestLikeC(g, toloc, xi, yi);
+    if (!cc || (cc.dlevel | 0) === 0) return false;
+
+    const u = g.u;
+    const nodrop =
+        obj === g.uball
+        || obj === g.uchain
+        || (toloc !== MIGR_LADDER_UP && rn2(3));
+
+    let n = 0;
+    let chainthere = false;
+    const k = floorObjKey(xi, yi);
+    const head = g.level?.floorObjHeads?.get(k);
+    for (let o = head; o; o = o.nexthere) {
+        if (o === g.uchain) chainthere = true;
+        else if (o !== obj) n += o.quan | 0;
+    }
+
+    const ttmp = tAt(xi, yi);
+    if ((obj.otyp | 0) === OTYP_BOULDER && ttmp && is_hole(ttmp.ttyp | 0)) {
+        if (n) await impactDropLikeC(g, obj, xi, yi, 0);
+        return false;
+    }
+
+    const gateStr = dg.gateStr || gateStrImpactDrop;
+    if (cansee(xi, yi)) await otransitMsgThrownHeroLikeC(g, obj, nodrop, chainthere, n, gateStr);
+
+    if (nodrop) {
+        if (n) await impactDropLikeC(g, obj, xi, yi, 0);
+        return false;
+    }
+
+    const unpaid = !!(obj.unpaid | 0);
+    if (unpaid || shopFloorObj) {
+        if (unpaid && u) {
+            await stolenValueMerchBurySilent(g, obj, u.ux | 0, u.uy | 0, null, false, true);
+        }
+        if (Has_contents(obj)) pickedContainerNoChargeClear(obj);
+        if ((obj.oclass | 0) !== NH5_COIN_CLASS) obj.no_charge = 0;
+    }
+
+    if (breaktestLikeC(g, obj)) {
+        const t = obj.otyp | 0;
+        const glass = (obj.oc_material | 0) === OC_GLASS_SHIP || t === OTYP_EXPENSIVE_CAMERA_SHIP;
+        if (t === OTYP_MIRROR_SHIP) changeLuck(-2);
+        await pline(glass ? 'You hear a muffled crash.' : 'You hear a muffled splat.');
+        obliterateObjectInLevel(g, obj);
+        return true;
+    }
+
+    if (!g.migratingObjs) g.migratingObjs = [];
+    const uzSrc = u?.uz ? { dnum: u.uz.dnum | 0, dlevel: u.uz.dlevel | 0 } : { dnum: 0, dlevel: 0 };
+    g.migratingObjs.unshift({
+        obj,
+        targetDnum: cc.dnum | 0,
+        targetDlevel: cc.dlevel | 0,
+        toloc,
+        omigrFromDnum: uzSrc.dnum,
+        omigrFromDlevel: uzSrc.dlevel,
+    });
+
+    if ((obj.otyp | 0) === OTYP_BOULDER) obj.otrapped = 0;
+
+    if (n) {
+        await impactDropLikeC(g, obj, xi, yi, 0);
+        await newsym(xi, yi);
+    }
+    return true;
 }

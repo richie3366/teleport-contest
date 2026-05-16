@@ -22,7 +22,7 @@ import { ammoAndLauncherLikeC } from './weapon_kind.js';
 
 /**
  * C: dothrow.c throwit opening slip (rn2(7), cursed/greased, ammo_and_launcher misfire vs slip) — mutates u.dx/u.dy/u.dz.
- * Omits uswallow, toss-up u.dz<0, steed holy-water rn2(6), full thitmonst/hmon/potionhit/should_mulch_missile, ship_object.
+ * Omits uswallow, toss-up u.dz<0, steed holy-water rn2(6), full thitmonst/hmon/potionhit/should_mulch_missile.
  */
 async function applyThrowSlipRngLikeC(g, obj) {
     const u = g.u;
@@ -53,7 +53,7 @@ async function applyThrowSlipRngLikeC(g, obj) {
 /**
  * C: dothrow.c throwit subset — zap.c bhit ray + landing (breakobj/flooreffects/place_object),
  * throwit_mon_hit / thitmonst weapon/gem/rock/potion subset; u.dz>0 → hitfloor(obj, TRUE), top g.invent.
- * Omits uswapwep launcher check, uslinging, uball cap, boulder/Mjollnir, tether, hits_bars, tmp_at, ship_object.
+ * Omits uswapwep launcher check, uslinging, uball cap, boulder/Mjollnir, tether, hits_bars, tmp_at.
  * @param {import('./gstate.js').game} [g]
  */
 export async function throwOneInventAdjacentLikeC(g = game) {
