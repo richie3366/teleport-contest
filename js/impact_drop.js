@@ -27,6 +27,8 @@ import {
     OTYP_BOULDER,
     ESHK,
     IS_SOFT,
+    IS_POOL,
+    ismnum,
 } from './const.js';
 import { onLevelLikeC } from './hacklib.js';
 import { stairwayAtInGame, stairwayFindFromLikeC } from './decor.js';
@@ -45,6 +47,7 @@ import {
     costlySpot,
     inRoomsShopbaseRoomnos,
     stolenValueMerchBurySilent,
+    peacefulStolenValueShipObjectShopFloorLikeC,
     shknamDisplay,
     hotPursuitShk,
     pickedContainerNoChargeClear,
@@ -55,12 +58,15 @@ import {
 import { OBJ_ROCK } from './mthrowu.js';
 import { doname } from './objnam.js';
 import { changeLuck } from './attrib.js';
+import { removeWornItemHeroShipObjectLikeC } from './remove_worn_item_hero.js';
 
 /** C: objects.h — glass material for **`ship_object`** break hear. */
 const OC_GLASS_SHIP = 19;
 /** C: objects_nums — mirror / camera (**`ship_object`** **`You_hear`** / luck). */
 const OTYP_MIRROR_SHIP = 230;
 const OTYP_EXPENSIVE_CAMERA_SHIP = 229;
+/** C: objects_nums — **`EGG`** (**`ship_object`** **`breaktest`** luck). */
+const OTYP_EGG_SHIP = 266;
 
 /** C: `gg.gate_str` during **`down_gate`/`impact_drop`**. */
 let gateStrImpactDrop = /** @type {string|null} */ (null);
@@ -374,6 +380,35 @@ export async function impactDropLikeC(g, missile, x, y, dlev) {
 }
 
 /**
+ * C: **`mon.c`** **`maybe_unhide_at(x,y)`** — subset (**`m_at`**, eel vs pool, **`hides_under`** vs floor pile).
+ * @param {import('./gstate.js').game} g
+ */
+async function maybeUnhideAtShipImpactLikeC(g, x, y) {
+    const xh = x | 0;
+    const yh = y | 0;
+    const mons = g.level?.monsters;
+    if (!mons?.length) return;
+    const k = floorObjKey(xh, yh);
+    const head = g.level?.floorObjHeads?.get(k);
+    const loc = g.level?.at(xh, yh);
+    const typ = loc ? loc.typ | 0 : STONE;
+    const pool = IS_POOL(typ);
+
+    for (const mtmp of mons) {
+        if ((mtmp.mx | 0) !== xh || (mtmp.my | 0) !== yh) continue;
+        if (!(mtmp.mundetected | 0)) continue;
+        const d = mtmp.data;
+        const mlet = mtmp.mlet ?? d?.mlet;
+        const eel = mlet === 'e';
+        const hidesUnder = !!(d?.hides_under || mtmp.hides_under);
+        if (eel && pool) continue;
+        if (!eel && hidesUnder && head) continue;
+        mtmp.mundetected = 0;
+        await newsym(xh, yh);
+    }
+}
+
+/**
  * C: dokick.c **`otransit_msg`** — subset (**`doname`** replaces Tobjnam / corpse_xname).
  * @param {string|null|undefined} gateStr
  */
@@ -397,7 +432,7 @@ async function otransitMsgThrownHeroLikeC(g, obj, nodrop, chainthere, num, gateS
 
 /**
  * C: dokick.c **`ship_object(otmp, x, y, shop_floor_obj)`** — object may migrate via **`down_gate`** and **`drop_to`**.
- * Omits **`remove_worn_item`**, full **`shop_floor_obj`** **`stolen_value(ox,oy,…)`** without **`unpaid`**, **`maybe_unhide_at`**.
+ * Omits full **`Soundeffect`**, **`unpunish`** in **`remove_worn_item`**, full **`maybe_unhide_at`** (**`mtrapped`**, **`can_hide_under_obj`**).
  * @param {import('./gstate.js').game} g
  * @param {boolean} shopFloorObj
  * @returns {Promise<boolean>} **TRUE** if object shipped or break-hear consumed it (**caller skips **`place_object`**)
@@ -439,22 +474,40 @@ export async function shipObjectThrownHeroLikeC(g, obj, x, y, shopFloorObj) {
 
     if (nodrop) {
         if (n) await impactDropLikeC(g, obj, xi, yi, 0);
+        await maybeUnhideAtShipImpactLikeC(g, xi, yi);
         return false;
     }
+
+    const onmap =
+        (obj.ox | 0) >= 1
+        && (obj.ox | 0) < COLNO
+        && (obj.oy | 0) >= 1
+        && (obj.oy | 0) < ROWNO;
+    const ox = onmap ? obj.ox | 0 : xi;
+    const oy = onmap ? obj.oy | 0 : yi;
 
     const unpaid = !!(obj.unpaid | 0);
     if (unpaid || shopFloorObj) {
         if (unpaid && u) {
             await stolenValueMerchBurySilent(g, obj, u.ux | 0, u.uy | 0, null, false, true);
+        } else if (shopFloorObj) {
+            const peacefulBill = peacefulStolenValueShipObjectShopFloorLikeC(g, ox, oy);
+            await stolenValueMerchBurySilent(g, obj, ox, oy, null, false, peacefulBill);
         }
         if (Has_contents(obj)) pickedContainerNoChargeClear(obj);
         if ((obj.oclass | 0) !== NH5_COIN_CLASS) obj.no_charge = 0;
     }
 
+    removeWornItemHeroShipObjectLikeC(g, obj, true);
+
     if (breaktestLikeC(g, obj)) {
         const t = obj.otyp | 0;
         const glass = (obj.oc_material | 0) === OC_GLASS_SHIP || t === OTYP_EXPENSIVE_CAMERA_SHIP;
         if (t === OTYP_MIRROR_SHIP) changeLuck(-2);
+        else if (t === OTYP_EGG_SHIP && (obj.spe | 0) && ismnum(obj.corpsenm | 0)) {
+            const q = obj.quan | 0;
+            changeLuck(-(q > 5 ? 5 : q));
+        }
         await pline(glass ? 'You hear a muffled crash.' : 'You hear a muffled splat.');
         obliterateObjectInLevel(g, obj);
         return true;

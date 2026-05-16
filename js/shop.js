@@ -710,6 +710,26 @@ export function heroInShopOccupancyLikeUshops(g) {
 }
 
 /**
+ * C: **`dokick.c`** **`ship_object`** — **`stolen_value(..., peaceful, FALSE)`** for **`shop_floor_obj`**
+ * without **`unpaid`**: **`costly_spot(u.ux,u.uy) && strchr(u.urooms, *in_rooms(ox,oy,SHOPBASE))`**.
+ * JS approximates **`strchr(u.urooms, …)`** by membership of the first **`SHOPBASE`** **`roomno`**
+ * at **`(ox,oy)`** in **`in_rooms`**’s list for the hero tile (**`SHARED`** expansion matches **`inRoomsShopbaseRoomnos`**).
+ * @param {import('./gstate.js').game} g
+ * @param {number} objOx — C **`otmp->ox`**
+ * @param {number} objOy — C **`otmp->oy`**
+ */
+export function peacefulStolenValueShipObjectShopFloorLikeC(g, objOx, objOy) {
+    const u = g.u;
+    if (!u) return false;
+    if (!costlySpot(g, u.ux | 0, u.uy | 0)) return false;
+    const atObj = inRoomsShopbaseRoomnos(g, objOx | 0, objOy | 0);
+    if (!atObj.length) return false;
+    const first = atObj[0] | 0;
+    const atHero = inRoomsShopbaseRoomnos(g, u.ux | 0, u.uy | 0);
+    return atHero.includes(first);
+}
+
+/**
  * C: **`hack.c`** **`move_update`** — **`Strcpy(u.ushops0, u.ushops)`** before **`u.ux`/`u.uy`** advance.
  * Call immediately **before** any hero square change so **`dothrow.c`** **`check_shop_obj`** can use **`u.ushops0`**.
  * @param {import('./gstate.js').game} g

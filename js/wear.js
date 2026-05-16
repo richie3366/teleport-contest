@@ -10,15 +10,16 @@ const _RING_PROT_MASK = W_RINGL | W_RINGR;
  * C: prop.c — ring of protection on each hand sets W_RINGL / W_RINGR in EProtection
  * (eat.c gethungry cases 4/12 use this for duplicate +0 protection ring hunger).
  * Other EProtection sources (cloak, …) are not ported; preserve their bits if ever set.
+ * @param {*} [u] — defaults to **`game.u`**
  */
-export function refreshEProtectionFromRings() {
-    const u = game.u;
-    if (!u) return;
-    const base = (u.EProtection | 0) & ~_RING_PROT_MASK;
+export function refreshEProtectionFromRings(u) {
+    const uu = u ?? game.u;
+    if (!uu) return;
+    const base = (uu.EProtection | 0) & ~_RING_PROT_MASK;
     let rings = 0;
-    if (u.uleft && (u.uleft.otyp | 0) === OTYP_RIN_PROTECTION) rings |= W_RINGL;
-    if (u.uright && (u.uright.otyp | 0) === OTYP_RIN_PROTECTION) rings |= W_RINGR;
-    u.EProtection = base | rings;
+    if (uu.uleft && (uu.uleft.otyp | 0) === OTYP_RIN_PROTECTION) rings |= W_RINGL;
+    if (uu.uright && (uu.uright.otyp | 0) === OTYP_RIN_PROTECTION) rings |= W_RINGR;
+    uu.EProtection = base | rings;
 }
 
 /**
