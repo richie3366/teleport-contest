@@ -1,6 +1,6 @@
 // roles.js — Role, race, gender, alignment data.
 // C ref: role.c — roles[], races[], aligns[] (NetHack 5.0.0); validrole/validrace,
-//       randrace/randalign/randgend, validgend; role_init() repair vs coerceChargenIdentity.
+//       validgend/validalign, randrace/randalign/randgend; role_init() vs coerceChargenIdentity.
 //
 // `rank` is the XL 1 title (first row in role.c for each role).
 // `allows` mirrors each role's final selfmask (lawful/neutral/chaotic,
@@ -245,6 +245,26 @@ export function randraceLikeC(rolenum) {
 }
 
 /**
+ * C: **`role.c`** **`validalign(int rolenum, int racenum, int alignnum)`** — **`alignnum`** is **`aligns[]`** index (**`ROLE_ALIGNS`**).
+ * Assumes valid role/race pair (**`validraceLikeC`**).
+ * @param {number} rolenum
+ * @param {number} racenum
+ * @param {number} alignnum
+ * @returns {boolean}
+ */
+export function validalignLikeC(rolenum, racenum, alignnum) {
+    if (!validraceLikeC(rolenum, racenum)) return false;
+    const ai = alignnum | 0;
+    if (ai < 0 || ai >= aligns.length) return false;
+    const race = races[racenum | 0];
+    const av = aligns[ai].value;
+    const role = roles[rolenum | 0];
+    if (!role.allows.align.includes(av)) return false;
+    if (race.name === 'orc' && av !== -1) return false;
+    return true;
+}
+
+/**
  * C: **`role.c`** **`randalign(int rolenum, int racenum)`** — bitmask intersection; JS uses **`allows.align`** + orc chaotic-only.
  * @param {number} rolenum
  * @param {number} racenum
@@ -257,17 +277,12 @@ export function randalignLikeC(rolenum, racenum) {
 
     let n = 0;
     for (let i = 0; i < aligns.length; i++) {
-        const av = aligns[i].value;
-        if (!role.allows.align.includes(av)) continue;
-        if (race.name === 'orc' && av !== -1) continue;
-        n++;
+        if (validalignLikeC(rolenum | 0, racenum | 0, i)) n++;
     }
     let pick = 0;
     if (n) pick = rn2(n);
     for (let i = 0; i < aligns.length; i++) {
-        const av = aligns[i].value;
-        if (!role.allows.align.includes(av)) continue;
-        if (race.name === 'orc' && av !== -1) continue;
+        if (!validalignLikeC(rolenum | 0, racenum | 0, i)) continue;
         if (pick) pick--;
         else return i;
     }
@@ -320,7 +335,7 @@ export function randgendLikeC(rolenum, racenum) {
 
 /**
  * C: rigid_role_checks() / role_init() — clamp OPTIONS to a legal triple for this role.
- * Invalid race → **`validrace`** / **`randrace`**; **`validgend`** flip + **`randgend`** tail; invalid alignment → **`randalign`**
+ * Invalid race → **`validrace`** / **`randrace`**; **`validgend`** flip + **`randgend`** tail; invalid alignment → **`validalign`** / **`randalign`**
  * (**`role_init`** order: race, gender, align).
  * @param {RoleRow} role
  * @param {{ name: string, adj: string, mnum: number, filecode?: string, permonst?: import('./mondata.js').Permonst, attrmin: number[], attrmax: number[] }} race
@@ -356,8 +371,8 @@ export function coerceChargenIdentity(role, race, alignType, female) {
     }
 
     let al = alignType;
-    const alignLegal =
-        a.align.includes(al) && !(r.name === 'orc' && al !== -1);
+    const aiUse = aligns.findIndex((x) => x.value === al);
+    const alignLegal = ri >= 0 && rai >= 0 && aiUse >= 0 && validalignLikeC(ri, rai, aiUse);
     if (!alignLegal) {
         al =
             ri >= 0 && rai >= 0
