@@ -1,6 +1,7 @@
 // kick.js — Hero #kick (dokick.c) + shop door billing (shk.c add_damage / pay_for_damage).
 // C ref: dokick.c dokick(), maybe_kick_monster(), kick_monster(), kickdmg(),
-//        kick_door(), kick_dumb(), kick_ouch(), kick_nondoor() tail;
+//        kick_object()/really_kick_object() subset, kick_door(), kick_dumb(),
+//        kick_ouch(), kick_nondoor() tail;
 //        uhitm.c attack_checks() subset (kick: wep null); hack.c overexertion();
 //        mon.c wake_nearby()/wake_nearto(); trap.c b_trapped(); engrave.c u_wipe_engr().
 
@@ -11,9 +12,14 @@ import { dist2 } from './hacklib.js';
 import { acurr, exercise } from './attrib.js';
 import { rnd, rn2, rnl } from './rng.js';
 import { uWipeEngr } from './engrave.js';
-import { floorObjKey } from './floorobj.js';
+import {
+    floorObjKey,
+    unlinkFloorObjectInLevel,
+    placeFloorObjectInLevel,
+    stackObjOnFloorInLevel,
+} from './floorobj.js';
 import { losehp, maybeHalfPhys } from './mthrowu.js';
-import { heroPassesWalls } from './walkable.js';
+import { heroPassesWalls, isClosedDoorLoc } from './walkable.js';
 import { permonstHuman, slithy, verysmall, monsterLeavesCorpse, isFlyer } from './mondata.js';
 import { placeCorpseForMonster } from './mkobj_corpse.js';
 import { overexertion, overexertHpIfEncumberedPlines } from './eat_hunger.js';
@@ -30,6 +36,10 @@ import {
     OTYP_BOULDER,
     LA_DOWN,
     Is_airlevel,
+    Is_waterlevel,
+    ZAP_POS,
+    is_pit,
+    STATUE_TRAP,
     RIGHT_SIDE,
     IS_STWALL,
     STAIRS,
@@ -414,6 +424,171 @@ async function kickNondoorTailLikeC(g, x, y, loc, avrgAttrib) {
     await kickDumbAt(g);
 }
 
+/** C: mklev.js **`GOLD_PIECE`** otyp. */
+const OTYP_GOLD_PIECE = 466;
+
+function trapAtKick(g, x, y) {
+    const traps = g.level?.traps;
+    if (!traps?.length) return null;
+    return traps.find((t) => (t.tx | 0) === (x | 0) && (t.ty | 0) === (y | 0)) ?? null;
+}
+
+function donameKickRelative(o, isGold) {
+    void o;
+    if (isGold) return 'the gold';
+    return 'something';
+}
+
+function floorHasBoulderAt(g, x, y) {
+    const fk = floorObjKey(x | 0, y | 0);
+    for (let o = g.level?.floorObjHeads?.get(fk); o; o = o.nexthere) {
+        if ((o.otyp | 0) === OTYP_BOULDER) return true;
+    }
+    return false;
+}
+
+/**
+ * C: dokick.c **`really_kick_object`** — subset: traps, fumble, range, **`Thump!`**, one-cell slide
+ * (**`bhit`**, **`scatter`**, shop **`costly`**, **`hero_breaks`**, **`Is_box`**, obstructed-cell free, ice/grease **`slide`** deferred).
+ * @returns {Promise<number>} C truthy int (**`1`** handled, **`0`** → **`kick_ouch`**).
+ */
+async function reallyKickObjectLikeC(g, x, y, head) {
+    const u = g.u;
+    if (!head || !u || !g.level) return 0;
+    if ((head.otyp | 0) === OTYP_BOULDER) return 0;
+    if (head === g.uball || head === g.uchain) return 0;
+
+    const trap = trapAtKick(g, x, y);
+    if (trap) {
+        const ttyp = trap.ttyp | 0;
+        if ((is_pit(ttyp) && !heroPassesWalls(g)) || ttyp === TT_WEB) {
+            if (!trap.tseen) trap.tseen = 1;
+            const webOrPit = ttyp === TT_WEB ? 'web' : 'pit';
+            const tizzy = (u.Hallucination | 0) ? 'tizzy' : webOrPit;
+            await pline(`You can't kick anything that's in a ${tizzy}!`);
+            return 1;
+        }
+        if (ttyp === STATUE_TRAP) {
+            await pline('You kick a statue trap!');
+            return 1;
+        }
+    }
+
+    if ((u.Fumbling | 0) && !rn2(3)) {
+        await pline('Your clumsy kick missed.');
+        return 1;
+    }
+
+    const isGold = (head.otyp | 0) === OTYP_GOLD_PIECE;
+    let kOwt = head.owt | 0;
+    if ((head.quan | 0) > 1 && !isGold) {
+        kOwt = Math.max(1, Math.trunc((head.owt | 0) / (head.quan | 0)));
+    }
+
+    let range = Math.trunc(acurr(A_STR) / 2) - Math.trunc(kOwt / 40);
+    if (martialLike(g)) range += rnd(3);
+
+    const locKick = g.level.at(x, y);
+    const typKick = locKick?.typ | 0;
+    if (IS_POOL(typKick)) {
+        range = Math.trunc(range / 3) + 1;
+    } else if (Is_airlevel(u.uz) || Is_waterlevel(u.uz)) {
+        range += rnd(3);
+    }
+
+    const nx = x + (u.dx | 0);
+    const ny = y + (u.dy | 0);
+    const locN = isok(nx, ny) ? g.level.at(nx, ny) : null;
+    if (!locN || !ZAP_POS(locN.typ | 0) || isClosedDoorLoc(locN)) {
+        range = 1;
+    }
+
+    await pline(`You kick ${donameKickRelative(head, isGold)}.`);
+
+    if (range < 2) {
+        await pline('Thump!');
+        return !rn2(3) || martialLike(g) ? 1 : 0;
+    }
+
+    if (isGold && (head.quan | 0) > 1) {
+        if (rn2(20)) {
+            if (!heroDeafLike(g)) await pline('Thwwpingg!');
+            const flying = [
+                'scatter the coins',
+                'knock coins all over the place',
+                'send coins flying in all directions',
+            ];
+            await pline(`You ${flying[rnd(3)]}!`);
+            /* C: **`scatter`** — not ported; pile stays (TODO). */
+            return 1;
+        }
+        if ((head.quan | 0) > 300) {
+            await pline('Thump!');
+            return !rn2(3) || martialLike(g) ? 1 : 0;
+        }
+    }
+
+    let kicked = head;
+    unlinkFloorObjectInLevel(g, kicked);
+    if ((kicked.quan | 0) > 1 && !isGold) {
+        const q = kicked.quan | 0;
+        const totw = kicked.owt | 0;
+        const w1 = Math.max(1, Math.trunc(totw / q));
+        const wRem = Math.max(1, totw - w1);
+        kicked.quan = q - 1;
+        kicked.owt = wRem;
+        placeFloorObjectInLevel(g, kicked, x, y);
+        stackObjOnFloorInLevel(g, kicked);
+        kicked = {
+            otyp: kicked.otyp,
+            oclass: kicked.oclass,
+            ox: x,
+            oy: y,
+            quan: 1,
+            owt: w1,
+            cursed: kicked.cursed,
+            blessed: kicked.blessed,
+            olocked: kicked.olocked | 0,
+            spe: kicked.spe | 0,
+            opoisoned: kicked.opoisoned | 0,
+            greased: kicked.greased | 0,
+            unpaid: kicked.unpaid | 0,
+            no_charge: kicked.no_charge | 0,
+            nexthere: null,
+        };
+        if (!g.level.objects) g.level.objects = [];
+        g.level.objects.push(kicked);
+    }
+
+    await newsym(x, y);
+
+    let destX = x;
+    let destY = y;
+    if (isok(nx, ny)) {
+        const loc2 = g.level.at(nx, ny);
+        if (loc2 && ZAP_POS(loc2.typ | 0) && !isClosedDoorLoc(loc2)) {
+            destX = nx;
+            destY = ny;
+        }
+    }
+    placeFloorObjectInLevel(g, kicked, destX, destY);
+    stackObjOnFloorInLevel(g, kicked);
+    await newsym(destX, destY);
+    return 1;
+}
+
+/**
+ * C: dokick.c **`kick_object`** (**`kickobjnam`** / **`kickstr`** deferred).
+ * @returns {Promise<boolean>}
+ */
+async function kickObjectAtLikeC(g, x, y) {
+    const fk = floorObjKey(x | 0, y | 0);
+    const head = g.level?.floorObjHeads?.get(fk) ?? null;
+    if (!head) return false;
+    const res = await reallyKickObjectLikeC(g, x | 0, y | 0, head);
+    return !!res;
+}
+
 function boulderOnHeroTile(g) {
     const u = g.u;
     const k = floorObjKey(u.ux | 0, u.uy | 0);
@@ -578,10 +753,21 @@ export async function dokickFromCmd(g) {
     }
 
     const fk = floorObjKey(x, y);
-    if (g.level.floorObjHeads?.get(fk)) {
-        await kickOuchAt(g, x, y);
-        g.context.move = 1;
-        return;
+    const floorChain = g.level.floorObjHeads?.get(fk);
+    if (floorChain) {
+        const levOk = !(u.Levitation | 0)
+            || Is_airlevel(u.uz)
+            || Is_waterlevel(u.uz)
+            || floorHasBoulderAt(g, x, y);
+        if (levOk) {
+            if (await kickObjectAtLikeC(g, x, y)) {
+                g.context.move = 1;
+                return;
+            }
+            await kickOuchAt(g, x, y);
+            g.context.move = 1;
+            return;
+        }
     }
 
     /* C: KMH kicking boots → avrg_attrib 99 — not ported (no otyp constant wired). */
