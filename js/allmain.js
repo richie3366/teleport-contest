@@ -8,7 +8,7 @@
 import { game } from './gstate.js';
 import { mklev, l_nhcore_init, u_on_upstairs } from './mklev.js';
 import { rhack } from './cmd.js';
-import { docrt, cls, bot, flush_screen, pline } from './display.js';
+import { docrt, cls, bot, flush_screen, pline, clearPendingMessageAndToplineLikeC } from './display.js';
 import { vision_recalc, vision_reset, init_vision_globals } from './vision.js';
 import { fastforward_pre_mklev, fastforward_post_mklev, fastforward_fill_mineralize } from './fastforward.js';
 import { movemon, MOVE_MON_HARNESS_MAX_STEP } from './monmove.js';
@@ -239,7 +239,7 @@ export async function moveloop_core() {
 
     // Clear top line unless rhack asked to keep it for the next nhgetch
     // capture (zero-time plines such as # / spell hint).
-    if (!g._retainMessageAfterCommand) g._pending_message = '';
+    if (!g._retainMessageAfterCommand) clearPendingMessageAndToplineLikeC();
     g._retainMessageAfterCommand = false;
 
     // Advance turn (C: allmain.c — settrack() before svm.moves++)

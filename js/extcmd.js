@@ -12,7 +12,7 @@
 import { game } from './gstate.js';
 import { nhgetch } from './input.js';
 import { readDirIntoU } from './dir_input.js';
-import { flush_screen, pline, docrt } from './display.js';
+import { flush_screen, pline, docrt, clearPendingMessageAndToplineLikeC } from './display.js';
 import { versionPlineText } from './nethack_version.js';
 import { enhanceWeaponSkillOneStep } from './u_init_skills.js';
 import { ZT_SPELL, ZT_COLD, ZT_WAND } from './zap_over_floor.js';
@@ -59,7 +59,7 @@ export async function runExtcmdFromHashPrefix() {
     game._pending_message = '#';
     await flush_screen(1);
     const k = await nhgetch();
-    game._pending_message = '';
+    clearPendingMessageAndToplineLikeC();
     if (k === 27) {
         await flush_screen(1);
         return;

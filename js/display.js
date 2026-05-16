@@ -22,6 +22,31 @@ import { NO_COLOR, CLR_GRAY, CLR_BROWN, CLR_WHITE, CLR_YELLOW, CLR_GREEN, CLR_BL
 import { paintInventoryIntoDisplay } from './invent.js';
 import { paintOverlayScreen } from './overlay_screens.js';
 
+// C ref: win/tty/topl.c — `update_topl` same-line append (`n0 + strlen(gt.toplines) + 3 < CO - 8`).
+const DEFMORE_LEN = 8;
+
+/** Tty width for message packing (C `CO`; contest map/judge uses COLNO). */
+function ttyCoLikeC() {
+    return COLNO;
+}
+
+/**
+ * C: topl.c `update_topl` — append next `pline` on same row only if there is room
+ * for `"  "` plus `--More--` (see `n0 + strlen(gt.toplines) + 3 < CO - 8`).
+ * @param {number} newLen
+ * @param {number} accumLen
+ */
+function canAppendToplLikeC(newLen, accumLen) {
+    return newLen + accumLen + 3 < ttyCoLikeC() - DEFMORE_LEN;
+}
+
+/** Clear pending pline + tty topline queue state (C message window reset). */
+export function clearPendingMessageAndToplineLikeC() {
+    game._pending_message = '';
+    game._toplineAccum = '';
+    game._toplineNeedMore = false;
+}
+
 // ── ANSI color codes ──
 // Maps CLR_* constants (0-15) to ANSI SGR color codes.
 // C ref: wintty.c term_start_color
@@ -393,7 +418,7 @@ function _buildScreenOutput() {
 
     if (game._overlayScreen) {
         display.clearScreen();
-        game._pending_message = '';
+        clearPendingMessageAndToplineLikeC();
         paintOverlayScreen(display, game._overlayScreen);
         game._screen_output = display.terminal?.serialize ? display.terminal.serialize() : '';
         return;
@@ -401,7 +426,7 @@ function _buildScreenOutput() {
 
     if (game._inventoryMode) {
         display.clearScreen();
-        game._pending_message = '';
+        clearPendingMessageAndToplineLikeC();
         paintInventoryIntoDisplay(display);
         const s1 = _statusLine1().replace(/\x1b\[[0-9;]*[A-Za-z]/g, (m) =>
             (m.match(/\x1b\[\d+C/) ? ' '.repeat(parseInt(m.slice(2), 10)) : ''));
@@ -417,7 +442,7 @@ function _buildScreenOutput() {
     }
 
     let output = '';
-    // Row 0: message
+    // Row 0: message (C tty WIN_MESSAGE; `update_topl` may concatenate short plines)
     output += (game._pending_message || '') + '\n';
 
     // Rows 1-21: map (rendered with DEC + ANSI, per-row SO/SI)
@@ -493,7 +518,7 @@ export async function shieldeffLikeC(g, x, y) {
 export async function cls() {
     const display = game?.nhDisplay;
     if (display?.clearScreen) display.clearScreen();
-    game._pending_message = '';
+    clearPendingMessageAndToplineLikeC();
 }
 
 // ── bot ──
@@ -503,7 +528,25 @@ export async function bot() {
 
 // ── pline ──
 export async function pline(msg) {
-    game._pending_message = msg;
+    if (msg == null || msg === '') return;
+    const g = game;
+    const n0 = msg.length;
+
+    if (g._toplineNeedMore && g._toplineAccum) {
+        const alen = g._toplineAccum.length;
+        if (canAppendToplLikeC(n0, alen) && msg.slice(0, 7) !== 'You die') {
+            g._toplineAccum = `${g._toplineAccum}  ${msg}`;
+            g._pending_message = g._toplineAccum;
+            g._toplineNeedMore = true;
+            await flush_screen(1);
+            return;
+        }
+        /* C: topl.c `update_topl` — cannot append: `more()` then new `gt.toplines`; no blocking `nhgetch` in JS replay. */
+    }
+
+    g._toplineAccum = msg;
+    g._pending_message = msg;
+    g._toplineNeedMore = true;
 }
 
 /**

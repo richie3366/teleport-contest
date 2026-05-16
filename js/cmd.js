@@ -8,7 +8,7 @@
 
 import { game } from './gstate.js';
 import { nhgetch } from './input.js';
-import { newsym, flush_screen, pline, docrt } from './display.js';
+import { newsym, flush_screen, pline, docrt, clearPendingMessageAndToplineLikeC } from './display.js';
 import { vision_recalc } from './vision.js';
 import { dosearch } from './search.js';
 import { maybeSmudgeEngr } from './engrave.js';
@@ -53,16 +53,16 @@ export async function rhack(key) {
         // C: ESC — dismiss overlays; clear top line (tty dismiss echo)
         if (game._inventoryMode) {
             game._inventoryMode = false;
-            game._pending_message = '';
+            clearPendingMessageAndToplineLikeC();
             await docrt();
             await flush_screen(1);
         } else if (game._overlayScreen) {
             game._overlayScreen = null;
-            game._pending_message = '';
+            clearPendingMessageAndToplineLikeC();
             await docrt();
             await flush_screen(1);
         } else {
-            game._pending_message = '';
+            clearPendingMessageAndToplineLikeC();
             await flush_screen(1);
         }
         game.context.move = 0;
@@ -87,7 +87,7 @@ export async function rhack(key) {
     }
     if (ch === ' ' && game._overlayScreen === 'attr2') {
         game._overlayScreen = null;
-        game._pending_message = '';
+        clearPendingMessageAndToplineLikeC();
         await docrt();
         await flush_screen(1);
         game.context.move = 0;
@@ -223,7 +223,7 @@ async function domove(dx, dy) {
             newsym(newx, newy);
             if (game.u) game.u.dz = 0;
         }
-        game._pending_message = '';
+        clearPendingMessageAndToplineLikeC();
         game._overlayScreen = null;
         game._inventoryMode = false;
         vision_recalc(1);
@@ -244,7 +244,7 @@ async function domove(dx, dy) {
     await spotEffects(game, true, { fromDx: dx, fromDy: dy });
     await finishDomoveDzStairsTailLikeC(game);
     const hx = u.ux, hy = u.uy;
-    game._pending_message = '';
+    clearPendingMessageAndToplineLikeC();
     game._overlayScreen = null;
     game._inventoryMode = false;
 
