@@ -61,6 +61,11 @@ function isLavaAtLikeC(g, x, y) {
     return false;
 }
 
+/** C: dbridge.c **`is_pool(x,y) || is_lava(x,y)`** — for **`dig.c`** **`liquid_flow`** / display, not **`rm.h`** **`IS_POOL`**. */
+export function isPoolOrLavaCellLikeC(g, x, y) {
+    return isPoolAtLikeC(g, x, y) || isLavaAtLikeC(g, x, y);
+}
+
 /**
  * C: dig.c **`fillholetyp(x, y, fill_if_any)`** — return schar liquid typ or **`ROOM`**.
  * Clang **`&&`/`||`** short-circuit preserves **`rn2`** call order vs C.

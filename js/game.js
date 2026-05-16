@@ -13,6 +13,7 @@ export function makeLocation() {
         waslit: false,     // was this cell lit last time we checked?
         flags: 0,          // door flags, wall flags, etc.
         doormask: 0,       // door state (D_NODOOR, D_CLOSED, etc.)
+        drawbridgemask: 0, // dbridge.c DB_* (direction + under); drawbridge span only
         seenv: 0,          // which angles the hero has seen this wall from
         horizontal: false, // is this a horizontal wall?
         edge: false,       // is this at the edge of the map?

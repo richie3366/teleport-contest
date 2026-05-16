@@ -5,6 +5,13 @@ import { pline, newsym } from './display.js';
 import { vision_recalc } from './vision.js';
 import { delTrap } from './search.js';
 import { unearthBuriedChainAt, floorObjKey } from './floorobj.js';
+import { delEngrAt } from './engrave.js';
+import { LAVAPOOL } from './const.js';
+import { fireDamageChain } from './fire_damage.js';
+import { waterDamageChain } from './water_damage.js';
+import { objIceEffectsDigLiquidFlowLikeC, minliquidMonsterAtCellLikeC } from './melt_ice.js';
+import { pooleffectsNewspotLikeC } from './spoteffects.js';
+import { isPoolOrLavaCellLikeC } from './fillholetyp.js';
 
 /** C: do_name.c **`hliquid`** when not hallucinating — return **`liquidpref`**. */
 function hliquidLikeC(liquidpref) {
@@ -12,10 +19,7 @@ function hliquidLikeC(liquidpref) {
 }
 
 function isPoolOrLavaAt(g, x, y) {
-    const loc = g.level?.at(x | 0, y | 0);
-    if (!loc) return false;
-    const t = loc.typ | 0;
-    return IS_POOL(t) || IS_LAVA(t);
+    return isPoolOrLavaCellLikeC(g, x | 0, y | 0);
 }
 
 function floorObjChainHead(g, x, y) {

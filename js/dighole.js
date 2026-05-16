@@ -8,7 +8,9 @@
 // magical **`LANDMINE`/`BEAR_TRAP`** → **`cnv_trap_obj(..., TRUE)`** (**`cnvTrapObjLikeC`**); other floor traps
 // cleared before **`digactualHole`** + new pit/hole (**`maketrap`** replaces in C);
 // **PIT** vs **HOLE** per C; **digactualHoleHeroUtrapSubset** before trap.
-// Deferred: drawbridge down/wall/up, grave, goto_level,
+// Ported: drawbridge **`DRAWBRIDGE_DOWN`**/**wall** + **`destroy_drawbridge`**; **`DRAWBRIDGE_UP`**
+// + **`fillholetyp`** + **`liquid_flow`** (**`drawbridgemask`** **`DB_UNDER`**).
+// Deferred: grave, goto_level,
 // shop billing, monsters, furniture_handled, Invocation_lev, AM_SANCTUM, **PASSED_DESTROY_TRAP** full **`maketrap`** parity.
 
 import { pline, newsym } from './display.js';
@@ -19,6 +21,11 @@ import { digactualHoleHeroUtrapSubset, obliterateObjectInLevel } from './floorob
 import { spotChecksLikeC } from './spot_checks.js';
 import { fillholetypLikeC } from './fillholetyp.js';
 import { liquidFlowHeroDigLikeC } from './liquid_flow.js';
+import {
+    findDrawbridgeCoordsLikeC,
+    destroyDrawbridgeAtLikeC,
+    isDrawbridgeWallLikeC,
+} from './drawbridge.js';
 import { cnvTrapObjLikeC } from './melt_ice.js';
 import { maybeHalfPhys, losehp } from './mthrowu.js';
 import {
@@ -63,6 +70,12 @@ import {
     TT_PIT,
     LANDMINE,
     BEAR_TRAP,
+    DRAWBRIDGE_DOWN,
+    DRAWBRIDGE_UP,
+    DB_UNDER,
+    DB_LAVA,
+    DB_MOAT,
+    LAVAPOOL,
 } from './const.js';
 
 /** C: objects.h — **`LAND_MINE`/`BEARTRAP`** for **`cnv_trap_obj`**. */
@@ -227,7 +240,7 @@ export async function digcheckFailMessageByYouAtLikeC(g, digresult, x, y) {
 }
 
 /**
- * C: dig.c dighole(FALSE, TRUE, cc) — subset (**`goto_level`**, drawbridge, grave still TODO).
+ * C: dig.c dighole(FALSE, TRUE, cc) — subset (**`goto_level`**, grave, shop still TODO).
  * @param {import('./gstate.js').game} g
  * @param {boolean} pitOnly
  * @param {boolean} byMagic
@@ -283,6 +296,17 @@ export async function digholeHeroLikeC(g, pitOnly, byMagic, cc) {
             return true;
         }
 
+        if (oldTyp === DRAWBRIDGE_DOWN || isDrawbridgeWallLikeC(g, digX, digY) >= 0) {
+            if (pitOnly) {
+                await pline('The drawbridge seems too hard to dig through.');
+                return false;
+            }
+            const c = { x: digX, y: digY };
+            if (!findDrawbridgeCoordsLikeC(g, c)) return false;
+            await destroyDrawbridgeAtLikeC(g, c.x | 0, c.y | 0);
+            return true;
+        }
+
         /* C: dig.c — boulder on cell: pit+**`rn2(2)`** crushes spikes vs KADOOM + **`delfloortrap`** + **`delobj`**. */
         const boulderHere = sobjFirstBoulderAt(g, digX, digY);
         if (boulderHere) {
@@ -298,6 +322,25 @@ export async function digholeHeroLikeC(g, pitOnly, byMagic, cc) {
             obliterateObjectInLevel(g, boulderHere);
             newsym(digX, digY);
             vision_recalc(1);
+            return true;
+        }
+
+        if (oldTyp === DRAWBRIDGE_UP) {
+            const typFill = fillholetypLikeC(g, digX, digY, false);
+            if (typFill === ROOM) {
+                await pline(tooHardSurfaceHereThereLikeC(g, digX, digY));
+                return false;
+            }
+            lev.drawbridgemask = (lev.drawbridgemask | 0) & ~DB_UNDER;
+            lev.drawbridgemask |= typFill === LAVAPOOL ? DB_LAVA : DB_MOAT;
+            await liquidFlowHeroDigLikeC(
+                g,
+                digX,
+                digY,
+                typFill,
+                ttmp,
+                'As you dig, the hole fills with %s!',
+            );
             return true;
         }
 
