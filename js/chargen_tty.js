@@ -517,14 +517,42 @@ function roleMenuEntries(f) {
     return out;
 }
 
+/** @param {{ initrole: number, initrace: number, initgend: number, initalign: number }} f */
+function roleHubRecapLineLikeC(f) {
+    const rn = f.initrole >= 0 ? roleNameForDisplay(f.initrole, f.initgend) : '<role>';
+    const raceNoun = f.initrace >= 0 ? races[f.initrace].name : '<race>';
+    const gd = f.initgend >= 0 ? (f.initgend === 1 ? 'female' : 'male') : '<gender>';
+    let alTok = '<alignment>';
+    if (f.initalign >= 0) {
+        alTok = aligns[f.initalign].name;
+    } else if (f.initrole >= 0) {
+        const sole = soleAlignNameAcrossRacesRecapLikeC(f.initrole);
+        if (sole) alTok = sole;
+    }
+    return `${rn} ${raceNoun} ${gd} ${alTok}`;
+}
+
+/** C genl_player_setup: role hub uses right column once race/gender/align facets may be partially set. */
+function roleHubRightColumnLikeC(f) {
+    return f.initrace >= 0 || f.initgend >= 0 || f.initalign >= 0;
+}
+
 export function paintRoleMenu(disp, f) {
     disp.clearScreen();
-    disp.putstr(0, 0, ' ', NO_COLOR);
-    disp.putstr(1, 0, 'Pick a role or profession', NO_COLOR, ATR_INVERSE);
-    disp.putstr(0, 2, ' <role> <race> <gender> <alignment>', NO_COLOR);
+    const rc = roleHubRightColumnLikeC(f) ? MENU_COL : 0;
+    const recap = roleHubRecapLineLikeC(f);
+    if (rc === 0) {
+        disp.putstr(0, 0, ' ', NO_COLOR);
+        disp.putstr(1, 0, 'Pick a role or profession', NO_COLOR, ATR_INVERSE);
+        disp.putstr(0, 2, ` ${recap}`, NO_COLOR);
+    } else {
+        disp.putstr(rc, 0, 'Pick a role or profession', NO_COLOR, ATR_INVERSE);
+        disp.putstr(rc, 2, recap, NO_COLOR);
+    }
     let row = 4;
     for (const e of roleMenuEntries(f)) {
-        disp.putstr(0, row, ` ${e.ch} - ${e.art} ${e.label}`, NO_COLOR);
+        if (rc === 0) disp.putstr(0, row, ` ${e.ch} - ${e.art} ${e.label}`, NO_COLOR);
+        else disp.putstr(rc, row, `${e.ch} - ${e.art} ${e.label}`, NO_COLOR);
         row++;
     }
     const extras = [
@@ -537,11 +565,13 @@ export function paintRoleMenu(disp, f) {
         '(end)',
     ];
     for (const line of extras) {
-        disp.putstr(0, row, ` ${line}`, NO_COLOR);
+        if (rc === 0) disp.putstr(0, row, ` ${line}`, NO_COLOR);
+        else disp.putstr(rc, row, line, NO_COLOR);
         row++;
     }
     disp.cursorVisible = true;
-    setChargenEndMenuCursorLikeC(disp, 0, ' (end)', row - 1);
+    const endStr = rc === 0 ? ' (end)' : '(end)';
+    setChargenEndMenuCursorLikeC(disp, rc, endStr, row - 1);
 }
 
 function roleNameForDisplay(ri, gi) {
@@ -739,11 +769,12 @@ const ALIGN_MENU_KEYS = ['l', 'n', 'c'];
 function paintAlignMenu(disp, f) {
     rigidRoleChecksJs(f);
     disp.clearScreen();
-    disp.putstr(MENU_COL, 0, 'Pick an alignment', NO_COLOR, ATR_INVERSE);
-    const rn = roleNameForDisplay(f.initrole, f.initgend);
+    disp.putstr(MENU_COL, 0, 'Pick an alignment or creed', NO_COLOR, ATR_INVERSE);
+    const rn = f.initrole >= 0 ? roleNameForDisplay(f.initrole, f.initgend) : '<role>';
     const raceNoun = f.initrace >= 0 ? races[f.initrace].name : '<race>';
-    const gd = f.initgend === 1 ? 'female' : 'male';
-    disp.putstr(MENU_COL, 2, `${rn} ${raceNoun} ${gd} <alignment>`, NO_COLOR);
+    const gd = f.initgend >= 0 ? (f.initgend === 1 ? 'female' : 'male') : '<gender>';
+    const alTok = f.initalign >= 0 ? aligns[f.initalign].name : '<alignment>';
+    disp.putstr(MENU_COL, 2, `${rn} ${raceNoun} ${gd} ${alTok}`, NO_COLOR);
     let row = 4;
     for (let ai = 0; ai < aligns.length; ai++) {
         if (!okAlignJs(f.initrole, f.initrace, f.initgend, ai)) continue;
@@ -755,11 +786,11 @@ function paintAlignMenu(disp, f) {
     row++;
     disp.putstr(MENU_COL, row, '', NO_COLOR);
     row++;
-    disp.putstr(MENU_COL, row, '? - Pick another role first', NO_COLOR);
+    disp.putstr(MENU_COL, row, '? - Pick role first', NO_COLOR);
     row++;
-    disp.putstr(MENU_COL, row, '/ - Pick another race first', NO_COLOR);
+    disp.putstr(MENU_COL, row, '/ - Pick race first', NO_COLOR);
     row++;
-    disp.putstr(MENU_COL, row, '" - Pick another gender first', NO_COLOR);
+    disp.putstr(MENU_COL, row, '" - Pick gender first', NO_COLOR);
     row++;
     disp.putstr(MENU_COL, row, filterMenuExtraLine(), NO_COLOR);
     row++;
