@@ -1,5 +1,6 @@
 // cmd.js — Command dispatch and movement.
-// C ref: cmd.c rhack(), hack.c domove(); trap.c dotrap (nomul prefix when trap present).
+// C ref: cmd.c rhack(), hack.c domove(); trap.c dotrap (nomul prefix when trap present);
+// trap.c drown() pool entry — drown.js maybeHeroPoolEnter after moves.
 //
 // Movement: hjklyubn; peaceful/tame mons → swap (hack.c displace); else bump attack stub.
 // Contestants should add: search, kick, eat, drink, read, zap,
@@ -17,6 +18,7 @@ import { runExtcmdFromHashPrefix } from './extcmd.js';
 import { doBumpMeleeAttack } from './attack.js';
 import { tryPeacefulSwap } from './peaceful_displace.js';
 import { blocksMovementAt, diagonalHeroMoveBlocked } from './walkable.js';
+import { maybeHeroPoolEnter } from './drown.js';
 import { NO_TRAP_FLAGS } from './const.js';
 
 // Direction deltas: y u k
@@ -155,8 +157,11 @@ async function domove(dx, dy) {
                 maybeSmudgeEngr(ox, oy, newx, newy);
                 const trSwap = tAt(newx, newy);
                 if (trSwap) await dotrap(trSwap, NO_TRAP_FLAGS);
+                await maybeHeroPoolEnter(game);
+                const hx = u.ux, hy = u.uy;
                 newsym(ox, oy);
-                newsym(newx, newy);
+                if (hx !== newx || hy !== newy) newsym(newx, newy);
+                newsym(hx, hy);
             } else {
                 newsym(newx, newy);
             }
@@ -181,13 +186,16 @@ async function domove(dx, dy) {
     maybeSmudgeEngr(oldx, oldy, newx, newy);
     const tr = tAt(newx, newy);
     if (tr) await dotrap(tr, NO_TRAP_FLAGS);
+    await maybeHeroPoolEnter(game);
+    const hx = u.ux, hy = u.uy;
     game._pending_message = '';
     game._overlayScreen = null;
     game._inventoryMode = false;
 
-    // Update display
+    // Update display (hero may have crawled from pool to `hx,hy` ≠ `newx,newy`)
     newsym(oldx, oldy);
     vision_recalc(1);
-    newsym(newx, newy);
+    if (hx !== newx || hy !== newy) newsym(newx, newy);
+    newsym(hx, hy);
     return true;
 }

@@ -100,6 +100,7 @@ export class NethackGame {
             ux: 0, uy: 0, ux0: 0, uy0: 0, uluck: 0, LUCKADD: 0, Upolyd: 0,
             umonnum: 0, /* C: you.h — poly form index; `NODIAG` / corpse `monsndx` */
             inv_weight: 0, weight_cap: 0, /* C: invent.c — `cant_squeeze_thru` diagonal load */
+            underwater: 0, /* C: you.h u.uinwater-style — pool / describe_decor / vision */
             utrap: 0, utraptype: 0, wounded_legs: 0, wounded_leg_side: 0,
         };
         /* C: allmain.c newgame — svc.context.next_attrib_check = 600L */
