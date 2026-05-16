@@ -156,6 +156,26 @@ export function show_glyph_cell(x, y, ch, color = NO_COLOR, decgfx = false, attr
     loc.gnew = 1;
 }
 
+/**
+ * C: display.c map_invisible — remember **`GLYPH_INVISIBLE`** at (x,y) (not on hero).
+ * @param {number} x
+ * @param {number} y
+ */
+export function mapInvisibleCellLikeC(x, y) {
+    const u = game.u;
+    const lvl = game.level;
+    if (!u || !lvl) return;
+    const xi = x | 0;
+    const yi = y | 0;
+    if (xi === (u.ux | 0) && yi === (u.uy | 0)) return;
+    const loc = lvl.at(xi, yi);
+    if (!loc) return;
+    if (lvl.flags?.hero_memory !== false) {
+        loc.remembered_glyph = { ch: 'I', color: NO_COLOR, decgfx: false };
+    }
+    show_glyph_cell(xi, yi, 'I', NO_COLOR, false);
+}
+
 // ── newsym ──
 export function newsym(x, y) {
     const loc = game.level?.at(x, y);

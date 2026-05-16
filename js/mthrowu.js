@@ -5,14 +5,33 @@
 import { game } from './gstate.js';
 import { rnd, d } from './rng.js';
 import { OTYP_BOULDER } from './const.js';
-import { raceptr, bigmonst } from './mondata.js';
+import { raceptr, bigmonst, isUndeadPtr, isDemonPtr, isWerePtr } from './mondata.js';
 import { pline } from './display.js';
 import { placeFloorObject, unlinkFloorObject } from './floorobj.js';
+import {
+    NH5_WEAPON_CLASS,
+    NH5_GEM_CLASS,
+    NH5_BALL_CLASS,
+    NH5_CHAIN_CLASS,
+} from './nh5_objclass.js';
 
 export const OBJ_ARROW = 349;
 export const OBJ_DART = 353;
 /** C: objects.c ROCK */
 export const OBJ_ROCK = 467;
+
+/** C: mondata.c hates_silver(ptr) — subset (shade/demon/were; no imp/tengu nuance). */
+function monHatesSilverPtrLikeC(ptr) {
+    if (!ptr) return false;
+    if (ptr.mname === 'shade') return true;
+    return isWerePtr(ptr) || isDemonPtr(ptr);
+}
+
+/** C: artifact.c shade_glare — silver material; anti-undead artifact stub omitted. */
+function shadeGlareLikeC(otmp) {
+    if (!otmp) return false;
+    return (otmp.oc_material | 0) === 14; /* SILVER */
+}
 
 function nextIdent() {
     rnd(2);
@@ -41,17 +60,33 @@ export function tMissile(otyp, _trap) {
  * @param {{ data?: object }|null|undefined} mon
  */
 export function dmgval(otmp, mon) {
-    const t = otmp?.otyp ?? 0;
+    if (!otmp) return 0;
+    const t = otmp.otyp | 0;
+    let tmp;
     if (t === OTYP_BOULDER) {
         if (!mon) return Math.max(1, d(2, 6));
-        const ptr = raceptr(mon);
-        const tmp = bigmonst(ptr) ? d(2, 6) + rnd(6) : d(2, 6);
-        return Math.max(1, tmp);
+        const ptr0 = raceptr(mon);
+        const roll = bigmonst(ptr0) ? d(2, 6) + rnd(6) : d(2, 6);
+        tmp = Math.max(1, roll);
+    } else if (t === OBJ_ARROW) tmp = rnd(6);
+    else if (t === OBJ_DART) tmp = rnd(3);
+    else if (t === OBJ_ROCK) tmp = rnd(6);
+    else tmp = rnd(4);
+
+    const dptr = mon ? raceptr(mon) : null;
+    /* C: weapon.c dmgval — PM_SHADE + !shade_glare → tmp=0, then blessed/silver bonus block */
+    if (dptr?.mname === 'shade' && !shadeGlareLikeC(otmp)) {
+        tmp = 0;
+        const oc = otmp.oclass | 0;
+        const isWeapLike =
+            oc === NH5_WEAPON_CLASS || oc === NH5_GEM_CLASS
+            || oc === NH5_BALL_CLASS || oc === NH5_CHAIN_CLASS;
+        if (isWeapLike) {
+            if ((otmp.blessed | 0) && (isUndeadPtr(dptr) || isDemonPtr(dptr))) tmp += rnd(4);
+            if ((otmp.oc_material | 0) === 14 && monHatesSilverPtrLikeC(dptr)) tmp += rnd(20);
+        }
     }
-    if (t === OBJ_ARROW) return rnd(6);
-    if (t === OBJ_DART) return rnd(3);
-    if (t === OBJ_ROCK) return rnd(6);
-    return rnd(4);
+    return tmp;
 }
 
 /** C: hack.h Maybe_Half_Phys */

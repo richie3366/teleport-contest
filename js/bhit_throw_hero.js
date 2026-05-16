@@ -11,6 +11,9 @@ import {
     IS_SOFT,
     OTYP_HEAVY_IRON_BALL,
     OTYP_BOULDER,
+    OTYP_IRON_CHAIN,
+    M_AP_OBJECT,
+    M_AP_TYPMASK,
     TT_WEB,
     A_STR,
     BOLT_LIM,
@@ -34,13 +37,13 @@ import { acurr } from './attrib.js';
 import { CORPSE_OTYP } from './mkobj_corpse.js';
 import { isSpecialHeroUzLikeC } from './sp_levchn.js';
 import { isPoolCellLikeC } from './fillholetyp.js';
-import { OBJ_ROCK } from './mthrowu.js';
+import { OBJ_ROCK, dmgval } from './mthrowu.js';
 import { rnd, rn2 } from './rng.js';
 import { raceptr, stubPermonstForCorpsenm, cantDrown, S_EEL } from './mondata.js';
 import { pSkillDisplayName } from './skill_display_name.js';
 import { an } from './decor.js';
 import { nh5HeroObjectClass } from './water_damage.js';
-import { pline, newsym } from './display.js';
+import { pline, newsym, mapInvisibleCellLikeC } from './display.js';
 import { cansee } from './vision.js';
 import { doname } from './objnam.js';
 import {
@@ -66,6 +69,8 @@ import { isClosedDoorLoc } from './walkable.js';
 /** C: objects_nums — venom otyps for breakobj-style landing (dothrow.c throwit). */
 const OTYP_BLINDING_VENOM = 478;
 const OTYP_ACID_VENOM = 479;
+/** C: obj_break_dothrow.js / objects — mirror for uhitm.c shade_aware. */
+const OTYP_MIRROR_SHADE = 230;
 
 /** C: dothrow.c throwing_weapon() subset — WEAPON_CLASS until is_missile / is_blade port. */
 export function throwingWeaponHeroThrowitLikeC(obj) {
@@ -120,6 +125,105 @@ function trapAtG(g, x, y) {
 
 function monAtCellG(g, x, y) {
     return g.level?.monsters?.find((m) => (m.mx | 0) === (x | 0) && (m.my | 0) === (y | 0)) ?? null;
+}
+
+/** C: you.h m_next2u — distu(mon) <= 2 (**`dist2`** vs hero). */
+function distuSqHeroToMonLikeC(g, mx, my) {
+    const u = g.u;
+    if (!u) return 999;
+    const dx = (mx | 0) - (u.ux | 0);
+    const dy = (my | 0) - (u.uy | 0);
+    return dx * dx + dy * dy;
+}
+
+/** C: mon.c canspotmon subset — steed / invis / cansee. */
+function canspotMonThrownBhitLikeC(g, mtmp) {
+    const u = g.u;
+    if (!mtmp || !u) return false;
+    if ((u.usteed | 0) && u.usteed === mtmp) return true;
+    if ((mtmp.minvis | 0) && !(u.See_invisible | 0)) return false;
+    return cansee(mtmp.mx | 0, mtmp.my | 0);
+}
+
+function senseMonThrownBhitStub(_mtmp) {
+    return false;
+}
+
+/** C: uhitm.c shade_aware (subset: no CLOVE_OF_GARLIC otyp until wired). */
+function shadeAwareThrownLikeC(obj) {
+    if (!obj) return false;
+    const t = obj.otyp | 0;
+    if (t === OTYP_BOULDER || t === OTYP_HEAVY_IRON_BALL || t === OTYP_IRON_CHAIN) return true;
+    if (t === OTYP_MIRROR_SHADE) return true;
+    if ((obj.oc_material | 0) === OC_MAT_SILVER) return true;
+    return false;
+}
+
+function glyphIsInvisibleAtThrownLikeC(g, x, y) {
+    const loc = g.level?.at(x | 0, y | 0);
+    return loc?.disp_ch === 'I';
+}
+
+/** Until mapglyph draws monsters, false (warning / telepathy monster glyph TODO). */
+function glyphIsMonsterAtThrownLikeC(_g, _x, _y) {
+    return false;
+}
+
+function glyphIsWarningAtThrownLikeC(mtmp) {
+    return !!(mtmp?.warn_of_mon || mtmp?.data?.warn_of_mon);
+}
+
+/**
+ * C: uhitm.c shade_miss — hero vs monster, thrown branch.
+ * @returns {Promise<boolean>} true = missile passes through (clear **`mtmp`** in **`bhit`**)
+ */
+async function shadeMissThrownHeroLikeC(g, mdef, obj, thrown, verbose) {
+    const ptr = raceptr(mdef);
+    if (ptr?.mname !== 'shade' || (obj && dmgval(obj, mdef))) return false;
+
+    const u = g.u;
+    const mx = mdef.mx | 0;
+    const my = mdef.my | 0;
+    const canVerb =
+        verbose
+        && (cansee(mx, my) || senseMonThrownBhitStub(mdef)
+            || (u && distuSqHeroToMonLikeC(g, mx, my) <= 2));
+
+    if (canVerb) {
+        const harmlesslyThru = ' harmlessly through ';
+        const target = mdef.monnam || mdef.data?.mname || 'monster';
+        if (thrown) {
+            if (!obj || shadeAwareThrownLikeC(obj)) {
+                await pline(`The attack passes${harmlesslyThru}the ${target}.`);
+            } else {
+                const base = doname(obj, g).replace(/^(a |an |the )/i, '');
+                const plural = (obj.quan | 0) > 1;
+                const v = plural ? 'pass' : 'passes';
+                await pline(`The ${base} ${v}${harmlesslyThru}the ${target}.`);
+            }
+        }
+        if (!canspotMonThrownBhitLikeC(g, mdef)) mapInvisibleCellLikeC(mx, my);
+    }
+    mdef.msleeping = 0;
+    return true;
+}
+
+/** C: zap.c bhit — skip monster hit when shade_miss or mimic-as-object glyph guards. */
+async function clearMtmpThrownBhitShadeMimicLikeC(g, mtmp, bx, by, obj) {
+    if (!mtmp) return null;
+    const ap = (mtmp.m_ap_type ?? 0) & M_AP_TYPMASK;
+    const xyglyph = {
+        monster: glyphIsMonsterAtThrownLikeC(g, bx, by),
+        warning: glyphIsWarningAtThrownLikeC(mtmp),
+        invisible: glyphIsInvisibleAtThrownLikeC(g, bx, by),
+    };
+    const mimicPass =
+        ap === M_AP_OBJECT
+        && !xyglyph.monster
+        && !xyglyph.warning
+        && !xyglyph.invisible;
+    if ((await shadeMissThrownHeroLikeC(g, mtmp, obj, true, true)) || mimicPass) return null;
+    return mtmp;
 }
 
 /** C: zap.c skiprange() — thrown ROCK skip band (rnd order matches C). */
@@ -303,7 +407,7 @@ async function hitBarsThrownHeroLikeC(g, obj, objx, objy, barsx, barsy) {
 }
 
 /**
- * C: zap.c bhit — THROWN_WEAPON, fhitm/fhito null (subset: shade/mimic, tmp_at omitted; shkcatch, hits_bars, hit_bars).
+ * C: zap.c bhit — THROWN_WEAPON, fhitm/fhito null (subset: shade_miss + mimic M_AP_OBJECT; tmp_at omitted; shkcatch, hits_bars, hit_bars).
  * @returns {Promise<{ x: number, y: number, mon: object|null, stuckWeb: boolean, shkCaught?: boolean, objConsumed?: boolean }>}
  */
 export async function walkThrownWeaponBhitRayHeroLikeC(g, dx, dy, range0, obj) {
@@ -430,8 +534,11 @@ export async function walkThrownWeaponBhitRayHeroLikeC(g, dx, dy, range0, obj) {
         }
 
         if (mtmp) {
-            hitMon = mtmp;
-            break;
+            mtmp = await clearMtmpThrownBhitShadeMimicLikeC(g, mtmp, bx, by, obj);
+            if (mtmp) {
+                hitMon = mtmp;
+                break;
+            }
         }
 
         if (!ZAP_POS(typ) || isClosedDoorLoc(loc)) {
