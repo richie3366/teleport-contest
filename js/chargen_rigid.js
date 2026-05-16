@@ -75,7 +75,7 @@ export function trySetrolefilterTokenLikeC(bufp) {
     }
     for (let i = 0; i < aligns.length; i++) {
         const a = aligns[i];
-        if (strncmpiPrefix(s, a.name) || strncmpiPrefix(s, a.adj)) {
+        if (strncmpiPrefix(s, a.name)) {
             rfilterExcludedAlign[i] = true;
             return true;
         }
@@ -96,9 +96,36 @@ function indexOkGend(gi) {
     return gi >= 0 && gi < genders.length;
 }
 
+/** C gotrolefilter() */
+export function gotChargenRfilterLikeC() {
+    ensureRfilterArrays();
+    for (let i = 0; i < roles.length; i++) {
+        if (rfilterExcludedRole[i]) return true;
+    }
+    for (let i = 0; i < races.length; i++) {
+        if (rfilterExcludedRace[i]) return true;
+    }
+    for (let i = 0; i < genders.length; i++) {
+        if (rfilterExcludedGend[i]) return true;
+    }
+    for (let i = 0; i < aligns.length; i++) {
+        if (rfilterExcludedAlign[i]) return true;
+    }
+    return false;
+}
+
 /** C ok_role — roles[].allows + gr.rfilter.roles[rolenum]. */
 export function okRoleJs(ri, rai, gi, ai) {
-    if (!indexOkRole(ri)) return false;
+    if (!indexOkRole(ri)) {
+        /* C IndexOkT(rolenum, roles) false — scan roles */
+        if (ri === ROLE_NONE || ri === ROLE_RANDOM) {
+            for (let j = 0; j < roles.length; j++) {
+                if (okRoleJs(j, rai, gi, ai)) return true;
+            }
+            return false;
+        }
+        return false;
+    }
     ensureRfilterArrays();
     if (rfilterExcludedRole[ri]) return false;
     const role = roles[ri];
@@ -118,87 +145,125 @@ export function okRoleJs(ri, rai, gi, ai) {
     return true;
 }
 
+/**
+ * C ok_race — IndexOkT(racenum) branch first (valid race index even when rolenum unset).
+ */
 export function okRaceJs(ri, rai, gi, ai) {
-    if (rai === ROLE_RANDOM) {
+    if (indexOkRace(rai)) {
+        ensureRfilterArrays();
+        if (rfilterExcludedRace[rai]) return false;
+        const race = races[rai];
+        if (indexOkRole(ri)) {
+            const role = roles[ri];
+            if (!role.allows.races.includes(race.name)) return false;
+        }
+        if (indexOkGend(gi)) {
+            const gv = genders[gi].value;
+            if (race.name === 'human' || race.name === 'elf' || race.name === 'dwarf' || race.name === 'gnome' || race.name === 'orc') {
+                /* C uses genders[].allow bitmasks; JS table: all playable races allow both unless role restricts */
+                if (indexOkRole(ri)) {
+                    const role = roles[ri];
+                    if (role.allows.gender === 'female' && gv !== 1) return false;
+                    if (role.allows.gender === 'male' && gv !== 0) return false;
+                }
+            }
+        }
+        if (indexOkAlign(ai)) {
+            const av = aligns[ai].value;
+            if (indexOkRole(ri)) {
+                if (!roles[ri].allows.align.includes(av)) return false;
+            }
+            /* race vs align: orc chaotic-only in C — aligns with roles.js Rogue/orc */
+            if (race.name === 'orc' && av !== -1) return false;
+        }
+        return true;
+    }
+    if (rai === ROLE_RANDOM || rai === ROLE_NONE) {
         for (let i = 0; i < races.length; i++) {
             if (okRaceJs(ri, i, gi, ai)) return true;
         }
         return false;
     }
-    if (!indexOkRace(rai)) return false;
-    ensureRfilterArrays();
-    if (rfilterExcludedRace[rai]) return false;
-    const race = races[rai];
-    if (indexOkRole(ri)) {
-        const role = roles[ri];
-        if (!role.allows.races.includes(race.name)) return false;
-    }
-    if (indexOkGend(gi)) {
-        const gv = genders[gi].value;
-        if (race.name === 'human' || race.name === 'elf' || race.name === 'dwarf' || race.name === 'gnome' || race.name === 'orc') {
-            /* C uses genders[].allow bitmasks; JS table: all playable races allow both unless role restricts */
-            if (indexOkRole(ri)) {
-                const role = roles[ri];
-                if (role.allows.gender === 'female' && gv !== 1) return false;
-                if (role.allows.gender === 'male' && gv !== 0) return false;
-            }
-        }
-    }
-    if (indexOkAlign(ai)) {
-        const av = aligns[ai].value;
-        if (indexOkRole(ri)) {
-            if (!roles[ri].allows.align.includes(av)) return false;
-        }
-        /* race vs align: orc chaotic-only in C — aligns with roles.js Rogue/orc */
-        if (race.name === 'orc' && av !== -1) return false;
-    }
-    return true;
+    return false;
 }
 
 export function okGendJs(ri, rai, gi, ai) {
-    if (gi === ROLE_RANDOM) {
+    if (indexOkGend(gi)) {
+        ensureRfilterArrays();
+        if (rfilterExcludedGend[gi]) return false;
+        const gv = genders[gi].value;
+        if (indexOkRole(ri)) {
+            const role = roles[ri];
+            if (role.allows.gender === 'female' && gv !== 1) return false;
+            if (role.allows.gender === 'male' && gv !== 0) return false;
+        }
+        if (indexOkRace(rai)) {
+            const race = races[rai];
+            if (race.name === 'orc' && indexOkAlign(ai) && aligns[ai].value !== -1) return false;
+        }
+        if (indexOkAlign(ai)) {
+            const av = aligns[ai].value;
+            if (indexOkRole(ri) && !roles[ri].allows.align.includes(av)) return false;
+        }
+        return true;
+    }
+    if (gi === ROLE_RANDOM || gi === ROLE_NONE) {
         for (let i = 0; i < genders.length; i++) {
             if (okGendJs(ri, rai, i, ai)) return true;
         }
         return false;
     }
-    if (!indexOkGend(gi)) return false;
-    ensureRfilterArrays();
-    if (rfilterExcludedGend[gi]) return false;
-    const gv = genders[gi].value;
-    if (indexOkRole(ri)) {
-        const role = roles[ri];
-        if (role.allows.gender === 'female' && gv !== 1) return false;
-        if (role.allows.gender === 'male' && gv !== 0) return false;
-    }
-    if (indexOkRace(rai)) {
-        const race = races[rai];
-        if (race.name === 'orc' && indexOkAlign(ai) && aligns[ai].value !== -1) return false;
-    }
-    if (indexOkAlign(ai)) {
-        const av = aligns[ai].value;
-        if (indexOkRole(ri) && !roles[ri].allows.align.includes(av)) return false;
-    }
-    return true;
+    return false;
 }
 
 export function okAlignJs(ri, rai, gi, ai) {
-    if (ai === ROLE_RANDOM) {
+    if (indexOkAlign(ai)) {
+        ensureRfilterArrays();
+        if (rfilterExcludedAlign[ai]) return false;
+        const av = aligns[ai].value;
+        if (indexOkRole(ri) && !roles[ri].allows.align.includes(av)) return false;
+        if (indexOkRace(rai)) {
+            const race = races[rai];
+            if (race.name === 'orc' && av !== -1) return false;
+        }
+        return true;
+    }
+    if (ai === ROLE_RANDOM || ai === ROLE_NONE) {
         for (let j = 0; j < aligns.length; j++) {
             if (okAlignJs(ri, rai, gi, j)) return true;
         }
         return false;
     }
-    if (!indexOkAlign(ai)) return false;
-    ensureRfilterArrays();
-    if (rfilterExcludedAlign[ai]) return false;
-    const av = aligns[ai].value;
-    if (indexOkRole(ri) && !roles[ri].allows.align.includes(av)) return false;
-    if (indexOkRace(rai)) {
-        const race = races[rai];
-        if (race.name === 'orc' && av !== -1) return false;
-    }
-    return true;
+    return false;
+}
+
+/** C setup_rolemenu(reset filter): row ri with race/gend/algn all ROLE_NONE. */
+export function resetFilterMenuRoleRowOkLikeC(ri) {
+    return okRoleJs(ri, ROLE_NONE, ROLE_NONE, ROLE_NONE)
+        && okRaceJs(ri, ROLE_NONE, ROLE_NONE, ROLE_NONE)
+        && okGendJs(ri, ROLE_NONE, ROLE_NONE, ROLE_NONE)
+        && okAlignJs(ri, ROLE_NONE, ROLE_NONE, ROLE_NONE);
+}
+
+/** C setup_racemenu(reset filter): role/gend/algn all ROLE_NONE. */
+export function resetFilterMenuRaceRowOkLikeC(rai) {
+    return okRaceJs(ROLE_NONE, rai, ROLE_NONE, ROLE_NONE)
+        && okRoleJs(ROLE_NONE, rai, ROLE_NONE, ROLE_NONE)
+        && okAlignJs(ROLE_NONE, rai, ROLE_NONE, ROLE_NONE);
+}
+
+/** C setup_gendmenu(reset filter). */
+export function resetFilterMenuGendRowOkLikeC(gi) {
+    return okGendJs(ROLE_NONE, ROLE_NONE, gi, ROLE_NONE)
+        && okRoleJs(ROLE_NONE, ROLE_NONE, gi, ROLE_NONE)
+        && okRaceJs(ROLE_NONE, ROLE_NONE, gi, ROLE_NONE);
+}
+
+/** C setup_algnmenu(reset filter). */
+export function resetFilterMenuAlignRowOkLikeC(ai) {
+    return okAlignJs(ROLE_NONE, ROLE_NONE, ROLE_NONE, ai)
+        && okRoleJs(ROLE_NONE, ROLE_NONE, ROLE_NONE, ai)
+        && okRaceJs(ROLE_NONE, ROLE_NONE, ROLE_NONE, ai);
 }
 
 export function pickAlignJs(ri, rai, gi, pickhow) {

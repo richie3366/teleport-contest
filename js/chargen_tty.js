@@ -1,6 +1,6 @@
 // chargen_tty.js — Tty splash + askname + role/race/gender + ynaq confirmation.
 // C ref: win/tty/wintty.c tty_askname; role.c genl_player_setup / build_plselection_prompt;
-// role.c setup_rolemenu / setup_racemenu / setup_gendmenu.
+// role.c setup_rolemenu / reset_role_filtering / role_menu_extra(RS_filter, '~').
 
 import { nhgetch } from './input.js';
 import { NO_COLOR, ATR_INVERSE } from './terminal.js';
@@ -12,6 +12,11 @@ import {
     PICK_RANDOM,
     clearChargenRfilterLikeC,
     trySetrolefilterTokenLikeC,
+    gotChargenRfilterLikeC,
+    resetFilterMenuRoleRowOkLikeC,
+    resetFilterMenuRaceRowOkLikeC,
+    resetFilterMenuGendRowOkLikeC,
+    resetFilterMenuAlignRowOkLikeC,
     okRaceJs,
     okGendJs,
     okAlignJs,
@@ -36,34 +41,95 @@ export function resetChargenRfilter() {
     clearChargenRfilterLikeC();
 }
 
+function filterMenuExtraLine() {
+    return `~ - ${gotChargenRfilterLikeC() ? 'Reset' : 'Set'} role/race/&c filtering`;
+}
+
 /**
- * C tty: after `~`, read a line; empty line clears filters; else whitespace-
- * separated tokens each call setrolefilter (role.c).
+ * C reset_role_filtering() — multi-toggle unacceptable facets; Enter applies
+ * (clearrolefilter then setrolefilter per token), ESC cancels without changing
+ * rfilter. Clears all four chargen facets like C after RS_filter.
+ * @param {import('./game_display.js').GameDisplay} disp
+ * @param {{ initrole: number, initrace: number, initgend: number, initalign: number }} f
  */
-async function readChargenFilterLine() {
-    let buf = '';
+async function runResetRoleFilteringMenuLikeC(disp, f) {
+    /** @type {{ key: string, token: string, label: string }[]} */
+    const entries = [];
+    const keys = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    let nk = 0;
+    for (let ri = 0; ri < roles.length; ri++) {
+        entries.push({ key: keys[nk++], token: roles[ri].name.m, label: roles[ri].name.m });
+    }
+    for (let rai = 0; rai < races.length; rai++) {
+        entries.push({ key: keys[nk++], token: races[rai].name, label: races[rai].name });
+    }
+    for (let gi = 0; gi < genders.length; gi++) {
+        entries.push({ key: keys[nk++], token: genders[gi].name, label: genders[gi].name });
+    }
+    for (let ai = 0; ai < aligns.length; ai++) {
+        entries.push({ key: keys[nk++], token: aligns[ai].name, label: aligns[ai].name });
+    }
+
+    const selected = new Set();
+    for (let ri = 0; ri < roles.length; ri++) {
+        if (!resetFilterMenuRoleRowOkLikeC(ri)) selected.add(roles[ri].name.m);
+    }
+    for (let rai = 0; rai < races.length; rai++) {
+        if (!resetFilterMenuRaceRowOkLikeC(rai)) selected.add(races[rai].name);
+    }
+    for (let gi = 0; gi < genders.length; gi++) {
+        if (!resetFilterMenuGendRowOkLikeC(gi)) selected.add(genders[gi].name);
+    }
+    for (let ai = 0; ai < aligns.length; ai++) {
+        if (!resetFilterMenuAlignRowOkLikeC(ai)) selected.add(aligns[ai].name);
+    }
+
+    const keyToToken = new Map(entries.map((e) => [e.key.toLowerCase(), e.token]));
+
     for (;;) {
+        disp.clearScreen();
+        disp.putstr(0, 0, 'Unacceptable roles/races/genders/aligns (C reset_role_filtering)', NO_COLOR);
+        disp.putstr(0, 1, 'Toggle key marks facet as unacceptable; Enter=apply  ESC=cancel  ?=help', NO_COLOR);
+        let row = 3;
+        for (let i = 0; i < entries.length; i += 2) {
+            const a = entries[i];
+            const b = entries[i + 1];
+            const mark = (t) => (selected.has(t) ? '[x]' : '[ ]');
+            const left = ` ${a.key} ${mark(a.token)} ${a.label}`;
+            const right = b ? `  ${b.key} ${mark(b.token)} ${b.label}` : '';
+            disp.putstr(0, row, left + right, NO_COLOR);
+            row++;
+            if (row >= 22) break;
+        }
+        disp.putstr(0, 23, 'Pick all that apply (C end_menu prompt)', NO_COLOR);
+        disp.cursorVisible = true;
+        disp.setCursor(0, 23);
+
         const c = await nhgetch();
-        if (c === 13 || c === 10) break;
-        if (c === 27) {
-            buf = '';
+        if (c === 27) break;
+        if (c === 13 || c === 10) {
+            clearChargenRfilterLikeC();
+            for (const e of entries) {
+                if (selected.has(e.token)) trySetrolefilterTokenLikeC(e.token);
+            }
             break;
         }
-        if (c === 8 || c === 127) {
-            if (buf.length) buf = buf.slice(0, -1);
+        if (c === 63) {
+            /* C genl_player_setup: TODO for ? on [ynaq]; harmless here */
             continue;
         }
-        const ch = String.fromCodePoint(c);
-        if (ch.length === 1 && c >= 32 && c < 127 && buf.length < 63) buf += ch;
+        const ch = lowc(String.fromCodePoint(c));
+        const tok = keyToToken.get(ch);
+        if (tok) {
+            if (selected.has(tok)) selected.delete(tok);
+            else selected.add(tok);
+        }
     }
-    const trimmed = buf.trim();
-    if (!trimmed) {
-        clearChargenRfilterLikeC();
-        return;
-    }
-    for (const part of trimmed.split(/\s+/)) {
-        if (part) trySetrolefilterTokenLikeC(part);
-    }
+
+    f.initrole = ROLE_NONE;
+    f.initrace = ROLE_NONE;
+    f.initgend = ROLE_NONE;
+    f.initalign = ROLE_NONE;
 }
 
 function lowc(ch) {
@@ -147,6 +213,7 @@ export async function readYnaqPick4u() {
         const c = await nhgetch();
         let k = lowc(String.fromCodePoint(c));
         if (k === '\x1b' || k === 'q') return 'q';
+        if (k === '?') continue; /* C genl_player_setup: TODO for '?' on [ynaq] */
         if (k === ' ' || k === '\n' || k === '\r') k = 'y';
         else if (k === '@' || k === '*') k = 'a';
         if (k === 'y' || k === 'n' || k === 'a') return k;
@@ -191,7 +258,7 @@ export function paintRoleMenu(disp, f) {
         '/ - Pick race first',
         '" - Pick gender first',
         '[ - Pick alignment first',
-        '~ - Set role/race/&c filtering',
+        filterMenuExtraLine(),
         'q - Quit',
         '(end)',
     ];
@@ -215,7 +282,7 @@ function paintRaceMenu(disp, f) {
     disp.clearScreen();
     disp.putstr(MENU_COL, 0, 'Pick a race or species', NO_COLOR, ATR_INVERSE);
     const rn = roleNameForDisplay(f.initrole, f.initgend);
-    const an = f.initalign >= 0 ? aligns[f.initalign].adj : '<alignment>';
+    const an = f.initalign >= 0 ? aligns[f.initalign].name : '<alignment>';
     disp.putstr(MENU_COL, 2, `${rn} <race> <gender> ${an}`, NO_COLOR);
     let row = 4;
     for (let i = 0; i < races.length; i++) {
@@ -234,7 +301,7 @@ function paintRaceMenu(disp, f) {
     row++;
     disp.putstr(45, row, 'role forces chaotic', NO_COLOR);
     row++;
-    disp.putstr(MENU_COL, row, '~ - Set role/race/&c filtering', NO_COLOR);
+    disp.putstr(MENU_COL, row, filterMenuExtraLine(), NO_COLOR);
     row++;
     disp.putstr(MENU_COL, row, 'q - Quit', NO_COLOR);
     row++;
@@ -255,7 +322,7 @@ async function readRaceChoice(disp, f) {
         const c = await nhgetch();
         const k = lowc(String.fromCodePoint(c));
         if (k === '~') {
-            await readChargenFilterLine();
+            await runResetRoleFilteringMenuLikeC(disp, f);
             continue;
         }
         if (k === '*') {
@@ -273,7 +340,7 @@ function paintGenderMenu(disp, f) {
     disp.putstr(MENU_COL, 0, 'Pick a gender or sex', NO_COLOR, ATR_INVERSE);
     const rn = roleNameForDisplay(f.initrole, f.initgend);
     const raceNoun = f.initrace >= 0 ? races[f.initrace].name : '<race>';
-    const an = f.initalign >= 0 ? aligns[f.initalign].adj : '<alignment>';
+    const an = f.initalign >= 0 ? aligns[f.initalign].name : '<alignment>';
     disp.putstr(MENU_COL, 2, `${rn} ${raceNoun} <gender> ${an}`, NO_COLOR);
     let row = 4;
     disp.putstr(MENU_COL, row, 'm - male', NO_COLOR);
@@ -290,7 +357,7 @@ function paintGenderMenu(disp, f) {
     row++;
     disp.putstr(45, row, 'role forces chaotic', NO_COLOR);
     row++;
-    disp.putstr(MENU_COL, row, '~ - Set role/race/&c filtering', NO_COLOR);
+    disp.putstr(MENU_COL, row, filterMenuExtraLine(), NO_COLOR);
     row++;
     disp.putstr(MENU_COL, row, 'q - Quit', NO_COLOR);
     row++;
@@ -314,7 +381,7 @@ async function readGenderChoice(disp, f) {
         const c = await nhgetch();
         const k = lowc(String.fromCodePoint(c));
         if (k === '~') {
-            await readChargenFilterLine();
+            await runResetRoleFilteringMenuLikeC(disp, f);
             continue;
         }
         if (k === '*') {
@@ -354,7 +421,7 @@ function paintAlignMenu(disp, f) {
     row++;
     disp.putstr(MENU_COL, row, '" - Pick another gender first', NO_COLOR);
     row++;
-    disp.putstr(MENU_COL, row, '~ - Set role/race/&c filtering', NO_COLOR);
+    disp.putstr(MENU_COL, row, filterMenuExtraLine(), NO_COLOR);
     row++;
     disp.putstr(MENU_COL, row, 'q - Quit', NO_COLOR);
     row++;
@@ -375,7 +442,7 @@ async function readAlignChoice(disp, f) {
         const c = await nhgetch();
         const k = lowc(String.fromCodePoint(c));
         if (k === '~') {
-            await readChargenFilterLine();
+            await runResetRoleFilteringMenuLikeC(disp, f);
             continue;
         }
         if (k === '*') {
@@ -394,7 +461,7 @@ function paintConfirmMenu(disp, f, plname) {
     const rn = roleNameForDisplay(f.initrole, f.initgend);
     const raceAdj = f.initrace >= 0 ? races[f.initrace].adj : '???';
     const gd = f.initgend === 1 ? 'female' : 'male';
-    const an = f.initalign >= 0 ? aligns[f.initalign].adj : '???';
+    const an = f.initalign >= 0 ? aligns[f.initalign].name : '???';
     disp.putstr(MENU_COL, 2, `${plname} the ${an} ${gd} ${raceAdj} ${rn}`, NO_COLOR);
     let row = 4;
     disp.putstr(MENU_COL, row, 'y * Yes; start game', NO_COLOR);
@@ -415,6 +482,7 @@ async function readConfirmAnswer(disp, f, plname) {
         paintConfirmMenu(disp, f, plname);
         const c = await nhgetch();
         const k = lowc(String.fromCodePoint(c));
+        if (k === '?') continue;
         if (k === 'y' || k === 'a' || k === 'n' || k === 'q' || k === '\x1b') return k;
     }
 }
@@ -441,7 +509,7 @@ async function pickManualChargenFacets(disp, f) {
             const k = lowc(kRaw);
             if (k === 'q') throw new Error('Player quit role menu');
             if (k === '~') {
-                await readChargenFilterLine();
+                await runResetRoleFilteringMenuLikeC(disp, f);
                 continue;
             }
             if (k === '*') {
