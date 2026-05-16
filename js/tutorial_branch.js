@@ -28,6 +28,16 @@ export function inTutorialAtLevelLikeC(g, lev) {
 }
 
 /**
+ * C: **`context.h`** **`leaving_tutorial`** — hero just **`goto_level`**’d off the tutorial **`dnum`** (**`do.c`** **`newdungeon`** hook).
+ * JS mirrors on **`g.gd`** until **`moveloop_core`** tail clears both (**`allmain.js`**).
+ * @param {import('./gstate.js').game} g
+ * @returns {boolean}
+ */
+export function contextLeavingTutorialActiveLikeC(g) {
+    return !!(g?.context?.leaving_tutorial || g?.gd?.leaving_tutorial);
+}
+
+/**
  * C: **`nhlua.c`** **`tutorial(boolean entering)`** — **`l_nhcore_call`** only; no JS Lua core yet.
  * **`tutorial(FALSE)`** also clears **`nhcore_call_available`** for re-entry (**`NHCORE_ENTER_TUTORIAL`**).
  * @param {import('./gstate.js').game} g

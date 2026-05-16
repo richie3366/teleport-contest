@@ -8,6 +8,7 @@
 //        **`mon.c`** **`angry_guards`** (**`angryGuardsSilentLikeC`**).
 
 import { game } from './gstate.js';
+import { contextLeavingTutorialActiveLikeC } from './tutorial_branch.js';
 import { pline, newsym, mapInvisibleCellLikeC, soundeffectStubLikeC, youHearLikeC } from './display.js';
 import { unlinkFloorObject, floorObjKey, unlinkFloorObjectInLevel, placeFloorObjectInLevel, stackObjOnFloorInLevel, obliterateObjectInLevel } from './floorobj.js';
 import { cansee, couldsee, vision_recalc } from './vision.js';
@@ -794,6 +795,8 @@ export function applyZapShopDoorDamage(g, x, y, type, shopdamage) {
 export function fixShopDamage(g = game) {
     const list = g.level?.damagelist;
     if (!list?.length) return;
+    /* C: shk.c **`fix_shop_damage`** — defer catch-up while tutorial exit housekeeping ( **`leaving_tutorial`** ). */
+    if (contextLeavingTutorialActiveLikeC(g)) return;
 
     const monsters = g.level?.monsters ?? [];
     for (const shkp of monsters) {

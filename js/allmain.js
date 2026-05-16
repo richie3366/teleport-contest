@@ -36,6 +36,7 @@ import { meltIceAt } from './melt_ice.js';
 import { runDueNhObjTimers } from './obj_timeout_dispatch.js';
 import { bootstrapSpLevchnMinesMinetnFromBranchStubLikeC } from './sp_levchn.js';
 import { maybeRecordEnteredNewLevelLivelogLikeC } from './livelog.js';
+import { contextLeavingTutorialActiveLikeC } from './tutorial_branch.js';
 
 // C ref: allmain.c newgame()
 export async function newgame() {
@@ -309,7 +310,7 @@ export async function moveloop_core() {
     g._prevMoveTick = g.context?.move ? 1 : 0;
 
     /* C: **`context.h`** **`leaving_tutorial`** — set in **`do.c`** **`goto_level`** when exiting tutorial branch; cleared each **`moveloop_core`** tail ( **`runSegment`** does not re-run **`moveloop_preamble`** per key). */
-    if (g.context?.leaving_tutorial || g.gd?.leaving_tutorial) {
+    if (contextLeavingTutorialActiveLikeC(g)) {
         if (g.context) g.context.leaving_tutorial = false;
         if (g.gd) delete g.gd.leaving_tutorial;
     }
