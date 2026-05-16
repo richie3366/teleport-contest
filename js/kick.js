@@ -32,7 +32,11 @@ import {
     D_TRAPPED,
     isok,
     IS_POOL,
+    IS_LAVA,
+    IS_WATERWALL,
     LAVAWALL,
+    IRONBARS,
+    SINK,
     OTYP_BOULDER,
     LA_DOWN,
     Is_airlevel,
@@ -447,10 +451,73 @@ function floorHasBoulderAt(g, x, y) {
     return false;
 }
 
+/** C: **`m_at`** for **`bhit`**. */
+function monsterAtKick(g, cx, cy) {
+    return g.level?.monsters?.find((m) => (m.mx | 0) === (cx | 0) && (m.my | 0) === (cy | 0)) ?? null;
+}
+
 /**
- * C: dokick.c **`really_kick_object`** — subset: traps, fumble, range, **`Thump!`**, one-cell slide
- * (**`bhit`**, **`scatter`**, shop **`costly`**, **`hero_breaks`**, **`Is_box`**, obstructed-cell free, ice/grease **`slide`** deferred).
- * @returns {Promise<number>} C truthy int (**`1`** handled, **`0`** → **`kick_ouch`**).
+ * C: zap.c bhit(ddx, ddy, range, KICKED_WEAPON, …) — slide subset (no tmp_at, thitmonst/ghitm, ship_object, hits_bars).
+ * @returns {Promise<{ x: number, y: number }>}
+ */
+async function bhitKickedObjectSlideLikeC(g, startX, startY, range, kickedForName) {
+    const u = g.u;
+    const dx = u.dx | 0;
+    const dy = u.dy | 0;
+    let stepBudget = (range | 0) - 1;
+    let bx = startX | 0;
+    let by = startY | 0;
+    while (stepBudget-- > 0) {
+        const nx = bx + dx;
+        const ny = by + dy;
+        if (!isok(nx, ny)) break;
+        const locT = g.level.at(nx, ny);
+        if (!locT) break;
+        const typ = locT.typ | 0;
+        if (IS_WATERWALL(typ) || typ === LAVAWALL) break;
+        if (typ === IRONBARS) break;
+        const mtmp = monsterAtKick(g, nx, ny);
+        if (mtmp) {
+            bx = nx;
+            by = ny;
+            break;
+        }
+        const tr = trapAtKick(g, nx, ny);
+        if (tr && (tr.ttyp | 0) === TT_WEB && !rn2(3)) {
+            bx = nx;
+            by = ny;
+            if (!tr.tseen) tr.tseen = 1;
+            if (cansee(nx, ny)) {
+                const raw = donameKickRelative(kickedForName, (kickedForName.otyp | 0) === OTYP_GOLD_PIECE);
+                const cap = raw.charAt(0).toUpperCase() + raw.slice(1);
+                await pline(`${cap} gets stuck in a web!`);
+            }
+            await newsym(nx, ny);
+            break;
+        }
+        if (!ZAP_POS(typ) || isClosedDoorLoc(locT)) break;
+        if (IS_POOL(typ) || IS_LAVA(typ)) {
+            bx = nx;
+            by = ny;
+            break;
+        }
+        if (typ === SINK) {
+            bx = nx;
+            by = ny;
+            break;
+        }
+        bx = nx;
+        by = ny;
+    }
+    g.context.bhitpos = { x: bx, y: by };
+    return { x: bx, y: by };
+}
+
+/**
+ * C: dokick.c really_kick_object — traps, fumble, range, Thump!, zap.c bhit KICKED_WEAPON slide
+ * (range-- then range-- > 0 steps: water wall, iron bars, m_at, web rn2(3), ZAP_POS and closed_door, pool/lava, sink).
+ * Still TODO: scatter, shop costly, hero_breaks, Is_box, obstructed free, ship_object, hits_bars, tmp_at.
+ * @returns {Promise<number>} C truthy int (1 handled, 0 leads to kick_ouch).
  */
 async function reallyKickObjectLikeC(g, x, y, head) {
     const u = g.u;
@@ -562,18 +629,10 @@ async function reallyKickObjectLikeC(g, x, y, head) {
 
     await newsym(x, y);
 
-    let destX = x;
-    let destY = y;
-    if (isok(nx, ny)) {
-        const loc2 = g.level.at(nx, ny);
-        if (loc2 && ZAP_POS(loc2.typ | 0) && !isClosedDoorLoc(loc2)) {
-            destX = nx;
-            destY = ny;
-        }
-    }
-    placeFloorObjectInLevel(g, kicked, destX, destY);
+    const dest = await bhitKickedObjectSlideLikeC(g, x, y, range, kicked);
+    placeFloorObjectInLevel(g, kicked, dest.x, dest.y);
     stackObjOnFloorInLevel(g, kicked);
-    await newsym(destX, destY);
+    await newsym(dest.x, dest.y);
     return 1;
 }
 
