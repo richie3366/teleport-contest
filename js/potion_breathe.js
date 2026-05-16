@@ -14,6 +14,11 @@ import {
 import { raceptr, breathless, halfGasDamageHeroLikeC } from './mondata.js';
 import { nomul } from './timeout.js';
 import { splitGremlinHeroPoly } from './split_mon.js';
+import {
+    upolydHeroLikeC,
+    youWerePotionbreatheSubsetLikeC,
+    youUnwerePotionbreatheSubsetLikeC,
+} from './were_hero.js';
 
 /** C: objects.h / objclass.h — contiguous potion `objects_nums` block (NH 5.0). */
 const POT_GAIN_ABILITY = 296;
@@ -256,7 +261,13 @@ export async function potionbreatheObjBreakLikeC(g, obj) {
             if ((u.umonnum | 0) === PM_GREMLIN) {
                 await splitGremlinHeroPoly(g);
             } else if (ismnum(u.ulycn | 0)) {
-                /* C: you_unwere / you_were — lycanthropy vapor; deferred (no poly were port). */
+                /* C: potionbreathe — blessed were-beast → you_unwere(FALSE); cursed human → you_were(). */
+                const lycn = u.ulycn | 0;
+                if ((obj.blessed | 0) && upolydHeroLikeC(u) && (u.umonnum | 0) === lycn) {
+                    await youUnwerePotionbreatheSubsetLikeC(g, false);
+                } else if ((obj.cursed | 0) && !upolydHeroLikeC(u)) {
+                    await youWerePotionbreatheSubsetLikeC(g);
+                }
             }
             break;
         case POT_ACID:

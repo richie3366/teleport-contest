@@ -205,6 +205,25 @@ export function dmgtype(ptr, dtyp) {
     return dmgtypeFromattack(ptr, dtyp, AT_ANY) != null;
 }
 
+/** C: monattk.h `AT_BOOM` — explodes when killed; not an attack for `noattacks()`. */
+const AT_BOOM = 14;
+
+/**
+ * C: mondata.c noattacks(ptr) — true if monster type has no attack slots (except `AT_BOOM`).
+ * @param {Permonst|null|undefined} ptr
+ */
+export function noattacksPtr(ptr) {
+    const mattk = ptr?.mattk;
+    if (!mattk) return true;
+    for (let i = 0; i < NATTK; i++) {
+        const a = mattk[i];
+        if (!a) continue;
+        if ((a.aatyp | 0) === AT_BOOM) continue;
+        if (a.aatyp | 0) return false;
+    }
+    return true;
+}
+
 /** Innate human (PM_HUMAN–style) for encumber / stagger when not polymorphed. */
 export const permonstHuman = Object.freeze({
     mlet: S_HUMAN,
