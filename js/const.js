@@ -2938,5 +2938,9 @@ export const PM_GRID_BUG = 118;
 export const PM_GREMLIN = 44;
 /** C: `monsters.h` — iron golem (269th `MON()`, zero-based **268**). */
 export const PM_IRON_GOLEM = 268;
+/** C: `monsters.h` — fire elemental (162nd `MON()`, zero-based **161**). */
+export const PM_FIRE_ELEMENTAL = 161;
+/** C: `monsters.h` — salamander (339th `MON()`, zero-based **338**). */
+export const PM_SALAMANDER = 338;
 /** C: objects.h RING() — BITS chrg uses `spec`; first six rings have spec 1 (NH5 objects_nums). */
 export const OC_CHARGED_RING_OTYPES = new Set([156, 157, 158, 159, 160, 161]);

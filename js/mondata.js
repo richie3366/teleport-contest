@@ -3,7 +3,7 @@
 // dmgtype/dmgtype_fromattack, passes_bars, stagger(), monflag.h M1_*, MR_*, MZ_*, G_NOCORPSE; mon.c make_corpse (corpse gate stub).
 
 import { game } from './gstate.js';
-import { XKILL_NOCORPSE } from './const.js';
+import { XKILL_NOCORPSE, PM_FIRE_ELEMENTAL, PM_SALAMANDER } from './const.js';
 
 /** C: monattk.h / permonst.h */
 export const AT_ANY = -1;
@@ -14,7 +14,7 @@ export const AD_CORR = 42;
 export const NATTK = 6;
 
 /** @typedef {{ adtyp: number, aatyp: number }} Mattack */
-/** @typedef {{ mlet: number, mflags1: number, mflags2?: number, msize: number, mmove: number, ac?: number, mvflags?: number, mresists?: number, mattk?: readonly Mattack[] }} Permonst */
+/** @typedef {{ mlet: number, mflags1: number, mflags2?: number, msize: number, mmove: number, ac?: number, mvflags?: number, mresists?: number, mnum?: number, mattk?: readonly Mattack[] }} Permonst */
 
 /** C: monflag.h `G_NOCORPSE` — no ordinary corpse (mon.c make_corpse; genocided / unique rules). */
 export const G_NOCORPSE = 0x0010;
@@ -225,6 +225,12 @@ export function amphibious(/** @type {Permonst} */ ptr) {
 /** C: mondata.h fire_resistant — `mons[].mresists & MR_FIRE` (subset). */
 export function fireResistant(/** @type {Permonst} */ ptr) {
     return ((ptr?.mresists ?? 0) & MR_FIRE) !== 0;
+}
+
+/** C: mondata.h likes_lava(ptr) — fire elemental or salamander (`mons[]` identity). */
+export function likesLava(/** @type {Permonst} */ ptr) {
+    const m = ptr?.mnum | 0;
+    return m === PM_FIRE_ELEMENTAL || m === PM_SALAMANDER;
 }
 
 /** C: mondata.h slithy */
