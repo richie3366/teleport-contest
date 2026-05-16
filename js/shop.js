@@ -1145,7 +1145,37 @@ function tpSenseMonAngryGuardsLikeC(g, mtmp) {
 }
 
 /**
- * C: **`display.h`** **`_sensemon`** — swallow / underwater pool gate + **`Detect_monsters`** (when on **`u`**) + **`tp_sensemon`**.
+ * C: **`context.h`** **`warntype_info`** — **`svc.context.warntype`** fields **`obj`**, **`polyd`**, **`species`**.
+ * @param {import('./gstate.js').game} g
+ */
+function ensureContextWarntypeLikeC(g) {
+    const c = g.context || (g.context = {});
+    if (!c.warntype) {
+        c.warntype = { obj: 0, polyd: 0, species: null, speciesidx: -1 };
+    }
+    return c.warntype;
+}
+
+/**
+ * C: **`hack.h`** **`MATCH_WARN_OF_MON(mon)`** with **`youprop.h`** **`Warn_of_mon`** (**`HWarn_of_mon || EWarn_of_mon`**).
+ * @param {import('./gstate.js').game} g
+ * @param {Record<string, unknown>} mtmp
+ */
+function matchWarnOfMonAngryGuardsLikeC(g, mtmp) {
+    const u = g.u;
+    if (!u || !mtmp) return false;
+    if (((u.HWarn_of_mon | 0) | (u.EWarn_of_mon | 0)) === 0) return false;
+    const ptr = raceptr(mtmp);
+    const wt = ensureContextWarntypeLikeC(g);
+    if (wt.species && ptr && wt.species === ptr) return true;
+    const m2 = ptr?.mflags2 | 0;
+    if ((wt.obj | 0) & m2) return true;
+    if ((wt.polyd | 0) & m2) return true;
+    return false;
+}
+
+/**
+ * C: **`display.h`** **`_sensemon`** — swallow / underwater pool gate + **`Detect_monsters`** + **`tp_sensemon`** + **`MATCH_WARN_OF_MON`**.
  * @param {import('./gstate.js').game} g
  * @param {Record<string, unknown>} mtmp
  */
@@ -1162,8 +1192,12 @@ function senseMonAngryGuardsLikeC(g, mtmp) {
     }
     const HDet = (u.HDetect_monsters | 0) !== 0;
     const EDet = (u.EDetect_monsters | 0) !== 0;
-    if (HDet || EDet) return true;
-    return tpSenseMonAngryGuardsLikeC(g, mtmp);
+    return !!(
+        HDet ||
+        EDet ||
+        tpSenseMonAngryGuardsLikeC(g, mtmp) ||
+        matchWarnOfMonAngryGuardsLikeC(g, mtmp)
+    );
 }
 
 /**
@@ -1207,7 +1241,7 @@ function mcanmoveMonsterAngryGuardsLikeC(mtmp) {
 
 /**
  * C: **`mon.c`** **`angry_guards(silent)`** — peaceful **`is_watch`** watchmen become hostile; plines unless **`silent`** (**`Deaf`**).
- * **`Soundeffect`** → **`soundeffectStubLikeC`** (**`display.js`**, no audio in fork). **`canspotmon`** (**`canseemon`**: **`mundetected`**, invis, **`cansee`** / infravision stub; **`sensemon`**: swallow, underwater pool, **`Detect_monsters`** on **`u`**, **`tp_sensemon`**); whistle line via **`youHearLikeC`** (**`You_hear`**). Wake / get / approach phrasing matches C **`plur`** + **`vtense`** on **`guard`/`guards`**.
+ * **`Soundeffect`** → **`soundeffectStubLikeC`** (**`display.js`**, no audio in fork). **`canspotmon`** (**`canseemon`**: **`mundetected`**, invis, **`cansee`** / infravision stub; **`sensemon`**: swallow, underwater pool, **`Detect_monsters`**, **`tp_sensemon`**, **`MATCH_WARN_OF_MON`** via **`g.context.warntype`**); whistle line via **`youHearLikeC`** (**`You_hear`**). Wake / get / approach phrasing matches C **`plur`** + **`vtense`** on **`guard`/`guards`**.
  * @returns {boolean} true if any watchman existed (C return after **`ct`**).
  */
 export async function angryGuardsSilentLikeC(g, silent) {

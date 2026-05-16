@@ -132,6 +132,8 @@ export async function newgame() {
     g.u.EConflict = 0; /* extrinsic conflict sources (gethungry excludes W_ARTI only) */
     g.u.HWarning = 0;
     g.u.EWarning = 0; /* youprop.h Warning — ice melt timer plines in spoteffects */
+    g.u.HWarn_of_mon = 0;
+    g.u.EWarn_of_mon = 0; /* youprop.h Warn_of_mon — display.h sensemon / shop angry_guards */
     g.u.HTelepat = 0;
     g.u.ETelepat = 0; /* Blind + sensemon subset for spoteffects surprise */
     g.u.uwep = null;
