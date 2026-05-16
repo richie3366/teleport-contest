@@ -50,6 +50,8 @@ export class GameMap {
         this.engravings = [];
         /** C: timeout.c level timer chains — **`MELT_ICE_AWAY`** etc. */
         this.timers = [];
+        /** C: shk.c **`svl.level.damagelist`** — shop / terrain repair bill (subset). */
+        this.damagelist = [];
         this.flags = {
             nfountains: 0,
             nsinks: 0,

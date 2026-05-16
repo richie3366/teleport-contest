@@ -1,9 +1,141 @@
 // shop.js — Shopkeeper and shop-adjacent hooks.
-// C ref: shk.c fix_shop_damage(), adisturb(), costly_spot(); invent.c useupf() billing.
+// C ref: shk.c fix_shop_damage(), adisturb(), costly_spot(), add_damage(); invent.c useupf() billing;
+//        hack.c in_rooms() for **`SHOPBASE`**.
 
 import { game } from './gstate.js';
 import { pline } from './display.js';
 import { unlinkFloorObject } from './floorobj.js';
+import { cansee } from './vision.js';
+import {
+    OROOM,
+    NO_ROOM,
+    SHARED,
+    SHARED_PLUS,
+    ROOMOFFSET,
+    SHOPBASE,
+    UNIQUESHOP,
+    IS_DOOR,
+    SVALL,
+    SHOP_DOOR_COST,
+    ESHK,
+} from './const.js';
+
+/**
+ * C: hack.c **`in_rooms`** **`goodtype`** for **`SHOPBASE`** (shop + specialized shops).
+ * @param {number} rt
+ */
+function rtypeIsShopClassForInRooms(rt) {
+    const t = rt | 0;
+    return t === SHOPBASE || (t > SHOPBASE && t <= UNIQUESHOP);
+}
+
+/** C: `svr.rooms[rno - ROOMOFFSET].rtype` — **JS** **`g.level.rooms`** index. */
+function roomRtypeForLevlRoomno(g, roomno) {
+    const idx = (roomno | 0) - ROOMOFFSET;
+    if (idx < 0) return OROOM;
+    const room = g.level?.rooms?.[idx];
+    if (!room || (room.hx | 0) < 0) return OROOM;
+    return room.rtype ?? OROOM;
+}
+
+/**
+ * C: hack.c in_rooms(x, y, SHOPBASE) — non-**`SHARED`** / **`SHARED_PLUS`** branch only.
+ * @param {import('./gstate.js').game} g
+ * @param {number} x
+ * @param {number} y
+ * @returns {number[]} `levl.roomno` values (C stores as **`char`** IDs).
+ */
+export function inRoomsShopbaseRoomnos(g, x, y) {
+    const loc = g.level?.at(x | 0, y | 0);
+    if (!loc) return [];
+    const rno = loc.roomno | 0;
+    if (rno === NO_ROOM || rno === 0) return [];
+    /* C: SHARED / SHARED_PLUS neighbor scan — **TODO** (shop door corners). */
+    if (rno === SHARED || rno === SHARED_PLUS) return [];
+    const rt = roomRtypeForLevlRoomno(g, rno);
+    if (!rtypeIsShopClassForInRooms(rt)) return [];
+    return [rno];
+}
+
+/** C: shk.c shop_keeper(roomno) — **`ESHK`.shoproom** matches **`roomno - ROOMOFFSET`**. */
+function shopKeeperForLevlRoomno(g, roomno) {
+    const idx = (roomno | 0) - ROOMOFFSET;
+    if (idx < 0) return null;
+    for (const m of g.level?.monsters ?? []) {
+        if (!(m.isshk | 0)) continue;
+        const e = ESHK(m);
+        if (!e) continue;
+        if ((e.shoproom | 0) === idx) return m;
+    }
+    return null;
+}
+
+/**
+ * C: shk.c add_damage(x, y, cost) — door entrance check; **`damagelist`** merge; **`seenv`** if **`cansee`**.
+ * @param {import('./gstate.js').game} g
+ * @param {number} x
+ * @param {number} y
+ * @param {number} cost
+ */
+export function addDamageAt(g, x, y, cost) {
+    const loc = g.level?.at(x | 0, y | 0);
+    if (!loc) return;
+    if (IS_DOOR(loc.typ)) {
+        const rnos = inRoomsShopbaseRoomnos(g, x, y);
+        let matched = false;
+        for (let i = 0; i < rnos.length; i++) {
+            const roomno = rnos[i];
+            const mtmp = shopKeeperForLevlRoomno(g, roomno);
+            const e = ESHK(mtmp);
+            const sx = e?.shd?.x;
+            const sy = e?.shd?.y;
+            if (mtmp && e && (sx | 0) === (x | 0) && (sy | 0) === (y | 0)) {
+                matched = true;
+                break;
+            }
+        }
+        if (!matched) return;
+    }
+    const lvl = g.level;
+    if (!lvl) return;
+    if (!lvl.damagelist) lvl.damagelist = [];
+    const list = lvl.damagelist;
+    const when = g.moves ?? 0;
+    const ex = list.find((d) => (d.x | 0) === (x | 0) && (d.y | 0) === (y | 0));
+    if (ex) {
+        ex.cost = (ex.cost | 0) + (cost | 0);
+        ex.when = when;
+    } else {
+        list.push({
+            x: x | 0,
+            y: y | 0,
+            cost: cost | 0,
+            when,
+            typ: loc.typ | 0,
+            flags: loc.flags | 0,
+        });
+    }
+    if (cansee(x | 0, y | 0)) loc.seenv = SVALL;
+}
+
+/**
+ * C: zap.c zap_over_floor — **`if (*in_rooms(…,SHOPBASE))`** **`add_damage`** before **`lev->doormask`**.
+ * @param {import('./gstate.js').game} g
+ * @param {number} x
+ * @param {number} y
+ * @param {number} type
+ * @param {{ value?: boolean }|null} shopdamage
+ */
+export function applyZapShopDoorDamage(g, x, y, type, shopdamage) {
+    const rnos = inRoomsShopbaseRoomnos(g, x, y);
+    if (rnos.length === 0) return;
+    if ((type | 0) >= 0) {
+        addDamageAt(g, x, y, SHOP_DOOR_COST);
+        if (shopdamage) shopdamage.value = true;
+    } else {
+        addDamageAt(g, x, y, 0);
+    }
+}
 
 /** C: fix_shop_damage() — repair shop walls after restore. */
 export function fixShopDamage() {

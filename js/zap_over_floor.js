@@ -12,6 +12,7 @@ import { pline, newsym } from './display.js';
 import { isClosedDoorLoc } from './walkable.js';
 import { floorObjKey } from './floorobj.js';
 import { burnFloorObjects } from './burn_floor_objects.js';
+import { applyZapShopDoorDamage } from './shop.js';
 
 /** C: objects.h — passed as **`exploding_wand_typ`** for oil/splatter fire (zap.c). */
 const OTYP_POT_OIL = 320;
@@ -170,7 +171,7 @@ async function wakeupMonFromZap(g, mtmp, viaAttack) {
  * @param {number} x
  * @param {number} y
  * @param {number} type
- * @param {{ value?: boolean }|null} [_shopdamage] — C **`*shopdamage`** (shop doors stub)
+ * @param {{ value?: boolean }|null} [_shopdamage] — C **`*shopdamage`** (shop doors via **`applyZapShopDoorDamage`**)
  * @param {boolean} [_ignoremon] — C **`ignoremon`**; false → **`wakeup`** on **`m_at`**
  * @param {number} [_explodingWandTyp]
  * @returns {Promise<number>} rangemod (negative reduces beam range in **C**)
@@ -286,7 +287,7 @@ export async function zapOverFloor(g, x, y, type, _shopdamage = null, _ignoremon
         }
 
         if (newDoormask >= 0) {
-            void _shopdamage; /* C: add_damage + *shopdamage in shop — stub */
+            applyZapShopDoorDamage(g, x, y, type, _shopdamage);
             loc.doormask = newDoormask;
             g.vision_full_recalc = 1;
             if (seeIt && seeTxt) await pline(seeTxt);
