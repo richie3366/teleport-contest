@@ -5,8 +5,9 @@
 // Ported: **`applyGotoAfterHeroHoleFallLikeC(g, dest?)`**, **`impactDropLikeC`**/**`objDeliveryLikeC`** (**`dokick.c`**), **`shopdigLikeC(1)`** / **`payForDamage('dig into')`** before **`You fall through...`** (**`dig.c`** **`digactualhole`** order); **`pickup(1)`** tail (**`do.c`** **`goto_level`**).
 // **`applyHeroDescendStairsOneLevelLikeC(g)`** — **`do.c`** **`goto_level`** down-stairs slice after **`mklev`**/**`u_on_upstairs`** (**`near_capacity`/`Punished`/`Fumbling`**, **`drag_down`**, **`losehp`**, **`placebc`** omitted).
 // **`scheduleGotoHeroLikeC` / `deferredGotoHeroLikeC`** — **`do.c`** **`schedule_goto`/`deferred_goto`** subset (**`applyGotoLevelDirectHeroLikeC`** for non-falling **`goto_level`**).
+// **`keepdogsHeroStubLikeC`** — C **`dog.c`** **`keepdogs`** gate (**`if (!iflags.nofollowers) keepdogs(FALSE)`** in **`goto_level`**) before **`u.uz`** moves.
 // Deferred: **`fill_pit`**, real **`next_to_u`**,
-// **`keepdogs`**, bones/save, full **`goto_level`** beyond **`mklev`**.
+// full **`keepdogs`/`dog.c`**, bones/save, full **`goto_level`** beyond **`mklev`**.
 
 import { mklev, u_on_upstairs } from './mklev.js';
 import { spotEffects } from './spoteffects.js';
@@ -41,6 +42,17 @@ export function nextToUForHoleFallStub() {
     return true;
 }
 
+/**
+ * C: **`dog.c`** **`keepdogs(boolean withyou)`** — pets / enforced follow when hero changes **`u.uz`** (**`goto_level`** calls **`keepdogs(FALSE)`** unless **`iflags.nofollowers`**).
+ * Stub until **`dog.c`** / tame **`fmon`** parity (**`safe_dog`**, migration **`rn2`**, …).
+ * @param {import('./gstate.js').game} g
+ * @param {boolean} _withYou — C **`FALSE`** on ordinary level leave.
+ */
+export function keepdogsHeroStubLikeC(g, _withYou) {
+    void g;
+    void _withYou;
+}
+
 /** @param {import('./gstate.js').game} g */
 function clearDeferredGotoMessagesLikeC(g) {
     const gd = g.gd;
@@ -68,6 +80,8 @@ export async function applyGotoLevelDirectHeroLikeC(g, dest) {
     }
     const newUz = { dnum: dn, dlevel: dl };
     if (onLevelLikeC(uz0, newUz)) return;
+
+    if (!g.iflags?.nofollowers) keepdogsHeroStubLikeC(g, false);
 
     u.uz = newUz;
     u.utrap = 0;
@@ -175,6 +189,8 @@ export async function applyGotoAfterHeroHoleFallLikeC(g, dest) {
     /* C: do.c **`goto_level`** **`falling`** → **`impact_drop(..., newlevel->dlevel)`** before **`u.uz`** assign. */
     await impactDropLikeC(g, null, u.ux | 0, u.uy | 0, newUz.dlevel | 0);
 
+    if (!g.iflags?.nofollowers) keepdogsHeroStubLikeC(g, false);
+
     u.uz = newUz;
     u.utrap = 0;
     u.utraptype = 0;
@@ -248,6 +264,8 @@ export async function applyHeroDescendStairsOneLevelLikeC(g) {
 
     const atLadder = !!st.isladder;
     const newUz = { dnum, dlevel: prev + 1 };
+
+    if (!g.iflags?.nofollowers) keepdogsHeroStubLikeC(g, false);
 
     u.uz = newUz;
     u.utrap = 0;
