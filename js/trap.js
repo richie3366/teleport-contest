@@ -2290,9 +2290,9 @@ async function trapeffectBearHero(trap, trflags) {
 }
 
 /**
- * C: trap.c **`blow_up_landmine`** — **`wake_nearto`**, **`scatter`** / doors / drawbridge deferred;
+ * C: trap.c **`blow_up_landmine`** — **`wake_nearto`**, **`scatter`** (deferred), doors, drawbridge deferred;
  * converts **`LANDMINE` → `PIT`** on normal levels (**`Is_waterlevel`/`Is_airlevel`** → **`deltrap`**).
- * **`hack.c`** **`spot_checks(x,y,old_typ)`** after **`recalc_block_point`** in C — here after the JS subset that may change **`levl`** (**`scatter`** etc. still TODO).
+ * **`hack.c`** **`spot_checks(x,y,old_typ)`** runs after **`recalc_block_point`** in C — JS uses **`vision_recalc(1)`** as a stand-in for **`recalc_block_point`** immediately before **`spotChecksLikeC`** (C **`scatter`**, **`fill_pit`**, **`maybe_dunk`** still TODO).
  * @param {{ tx: number, ty: number, ttyp?: number, madeby_u?: boolean, tseen?: boolean }|null|undefined} trap
  */
 function blowUpLandmine(trap) {
@@ -2303,10 +2303,10 @@ function blowUpLandmine(trap) {
     const lev = g.level?.at(x, y);
     const old_typ = lev ? (lev.typ | 0) : 0;
     wakeNearto(x, y, 400);
-    vision_recalc(1);
     const u = game.u;
     if (Is_waterlevel(u?.uz) || Is_airlevel(u?.uz)) {
         delTrap(trap);
+        vision_recalc(1);
         spotChecksLikeC(g, x, y, old_typ);
         return;
     }
@@ -2315,6 +2315,7 @@ function blowUpLandmine(trap) {
         trap.madeby_u = false;
         seetrap(trap);
     }
+    vision_recalc(1);
     spotChecksLikeC(g, x, y, old_typ);
 }
 
