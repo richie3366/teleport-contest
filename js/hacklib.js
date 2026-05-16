@@ -73,4 +73,10 @@ export function depth(uz) {
     return (dungeon.depth_start || 1) + dlevel - 1;
 }
 
+/** C: dungeon.c on_level(d_level *a, d_level *b) */
+export function onLevelLikeC(lev1, lev2) {
+    if (!lev1 || !lev2) return false;
+    return (lev1.dnum | 0) === (lev2.dnum | 0) && (lev1.dlevel | 0) === (lev2.dlevel | 0);
+}
+
 // C ref: rn2(x) already in rng.js — re-export not needed
