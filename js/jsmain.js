@@ -122,13 +122,10 @@ export class NethackGame {
         g.program_state = {};
         g.moves = 1;
 
-        /* C: u_init / role.c — identity from OPTIONS when role is fixed in rc. */
-        if (!fullInteractiveChargen && !asknameOnly) applyIdentityFromNethackrc(g, opts);
-
         // Fixed play clock (moon, shop lines, Friday 13th, …) — C uses NETHACK_FIXED_DATETIME
         g.fixed_datetime = this._datetime || null;
 
-        // Initialize PRNG
+        // Initialize PRNG (C: before role_init / plnamesuffix random tokens; coerceChargenIdentity may call rn2)
         initRng(this._seed);
         enableRngLog();
 
@@ -140,6 +137,9 @@ export class NethackGame {
 
         // Install capture hook
         this._installCaptureHook();
+
+        /* C: u_init / role.c — identity from OPTIONS when role is fixed in rc (after PRNG for plnamesuffix / rand*). */
+        if (!fullInteractiveChargen && !asknameOnly) applyIdentityFromNethackrc(g, opts);
 
         if (fullInteractiveChargen) {
             const disp = g.nhDisplay;

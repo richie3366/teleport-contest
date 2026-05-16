@@ -138,15 +138,15 @@ export const races = [
 ];
 
 export const aligns = [
-    { name: 'lawful', value: 1 },
-    { name: 'neutral', value: 0 },
-    { name: 'chaotic', value: -1 },
+    { name: 'lawful', value: 1, adj: 'lawful', filecode: 'Law', plPrefix: ['law'] },
+    { name: 'neutral', value: 0, adj: 'neutral', filecode: 'Neu', plPrefix: ['balance', 'neu'] },
+    { name: 'chaotic', value: -1, adj: 'chaotic', filecode: 'Cha', plPrefix: ['chaos', 'cha'] },
 ];
 
 /** C: hack.c genders[] — welcome() uses genders[currentgend].adj when the role has no name.f pointer in C. */
 export const genders = [
-    { name: 'male', value: 0, adj: 'male' },
-    { name: 'female', value: 1, adj: 'female' },
+    { name: 'male', value: 0, adj: 'male', filecode: 'Mal' },
+    { name: 'female', value: 1, adj: 'female', filecode: 'Fem' },
 ];
 
 /**
@@ -190,6 +190,107 @@ export function findAlign(name) {
     if (lc.startsWith('cha') || lc === 'c') return aligns.find((a) => a.name === 'chaotic');
     if (lc.startsWith('neu') || lc === 'n') return aligns.find((a) => a.name === 'neutral');
     return aligns.find((a) => a.name === lc);
+}
+
+/** C **`role.c`** **`str2*`** sentinel: no match. */
+export const STR2_NONE = -1;
+/** C **`ROLE_RANDOM`** / **`randomstr`** branch in **`str2role`** / **`str2race`** / … */
+export const STR2_RANDOM = -2;
+
+/**
+ * C **`role.c`** **`strncmpi(str, nm, len)`** with **`len == Strlen(str)`** — prefix of **`nm`** equals **`str`** (case-insensitive).
+ * @param {string} str
+ * @param {string} nm
+ */
+function strPrefixMatchNhLikeC(str, nm) {
+    const n = str.length;
+    if (!n || !nm) return false;
+    if (n > nm.length) return false;
+    return nm.slice(0, n).toLowerCase() === str.toLowerCase();
+}
+
+function str2RandomTokenLikeC(str) {
+    const t = str.trim();
+    const len = t.length;
+    if (!len) return false;
+    if (len === 1 && (t === '*' || t === '@')) return true;
+    return strPrefixMatchNhLikeC(t, 'random');
+}
+
+/**
+ * C **`role.c`** **`str2role`** — male/female name prefix, **`filecode`** (**`abbr`** in JS); **`*`/`@`/`random`**.
+ * @param {string} str
+ * @returns {number} role index **`0..roles.length-1`**, **`STR2_NONE`**, or **`STR2_RANDOM`**
+ */
+export function str2roleIndexLikeC(str) {
+    if (!str || !str.trim()) return STR2_NONE;
+    const t = str.trim();
+    if (str2RandomTokenLikeC(t)) return STR2_RANDOM;
+    for (let i = 0; i < roles.length; i++) {
+        const r = roles[i];
+        if (strPrefixMatchNhLikeC(t, r.name.m)) return i;
+        if (r.name.f && strPrefixMatchNhLikeC(t, r.name.f)) return i;
+        if (t.toLowerCase() === r.abbr.toLowerCase()) return i;
+    }
+    return STR2_NONE;
+}
+
+/**
+ * C **`role.c`** **`str2race`** — noun/adj prefix, **`filecode`** exact (case-insensitive).
+ * @param {string} str
+ * @returns {number} race index, **`STR2_NONE`**, or **`STR2_RANDOM`**
+ */
+export function str2raceIndexLikeC(str) {
+    if (!str || !str.trim()) return STR2_NONE;
+    const t = str.trim();
+    if (str2RandomTokenLikeC(t)) return STR2_RANDOM;
+    for (let i = 0; i < races.length; i++) {
+        const r = races[i];
+        if (strPrefixMatchNhLikeC(t, r.name)) return i;
+        if (strPrefixMatchNhLikeC(t, r.adj)) return i;
+        if (r.filecode && t.toLowerCase() === r.filecode.toLowerCase()) return i;
+    }
+    return STR2_NONE;
+}
+
+/**
+ * C **`role.c`** **`str2gend`** — adjective prefix, **`filecode`** exact.
+ * @param {string} str
+ * @returns {number} **`0`** male, **`1`** female, **`STR2_NONE`**, or **`STR2_RANDOM`**
+ */
+export function str2gendIndexLikeC(str) {
+    if (!str || !str.trim()) return STR2_NONE;
+    const t = str.trim();
+    if (str2RandomTokenLikeC(t)) return STR2_RANDOM;
+    for (let i = 0; i < genders.length; i++) {
+        const g = genders[i];
+        if (strPrefixMatchNhLikeC(t, g.adj)) return i;
+        if (g.filecode && t.toLowerCase() === g.filecode.toLowerCase()) return i;
+    }
+    return STR2_NONE;
+}
+
+/**
+ * C **`role.c`** **`str2align`** — **`aligns[i].adj`** prefix + **`filecode`**; skips C-only unaligned row.
+ * @param {string} str
+ * @returns {number} **`aligns`** index **`0..aligns.length-1`**, **`STR2_NONE`**, or **`STR2_RANDOM`**
+ */
+export function str2alignIndexLikeC(str) {
+    if (!str || !str.trim()) return STR2_NONE;
+    const t = str.trim();
+    if (str2RandomTokenLikeC(t)) return STR2_RANDOM;
+    for (let i = 0; i < aligns.length; i++) {
+        const a = aligns[i];
+        if (a.filecode && t.toLowerCase() === a.filecode.toLowerCase()) return i;
+        if (a.adj && strPrefixMatchNhLikeC(t, a.adj)) return i;
+        const prefs = a.plPrefix;
+        if (prefs) {
+            for (const p of prefs) {
+                if (strPrefixMatchNhLikeC(t, p)) return i;
+            }
+        }
+    }
+    return STR2_NONE;
 }
 
 /** C: **`role.c`** **`roles[rolenum].allow & races[i].allow & ROLE_RACEMASK`** — JS uses **`allows.races`**. */
