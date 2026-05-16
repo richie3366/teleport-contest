@@ -1,5 +1,5 @@
 // mthrowu.js — Hero struck by launched objects (trap missiles, &c.).
-// C ref: mthrowu.c thitu(); trap.c t_missile(); weapon.c dmgval() (arrow/dart/boulder subset);
+// C ref: mthrowu.c thitu(); m_throw() hero **u_at**; trap.c t_missile(); weapon.c dmgval() (arrow/dart/boulder subset);
 //        mthrowu.c u_catch_thrown_obj / ucatchgem (via hold_another_hero); end.c losehp() (minimal).
 
 import { game } from './gstate.js';
@@ -7,6 +7,9 @@ import { tryHeroCatchMonsterThrownObjLikeC } from './hold_another_hero.js';
 import { rnd, d } from './rng.js';
 import { OTYP_BOULDER } from './const.js';
 import { raceptr, bigmonst, isUndeadPtr, isDemonPtr, isWerePtr } from './mondata.js';
+import { distmin } from './hacklib.js';
+import { nh5HeroObjectClass } from './water_damage.js';
+import { NH5_POTION_CLASS } from './nh5_objclass.js';
 import { pline } from './display.js';
 import { placeFloorObject, unlinkFloorObject } from './floorobj.js';
 import {
@@ -20,6 +23,11 @@ export const OBJ_ARROW = 349;
 export const OBJ_DART = 353;
 /** C: objects.c ROCK */
 export const OBJ_ROCK = 467;
+
+/** C: objects.h */
+const OTYP_CREAM_PIE = 287;
+const OTYP_BLINDING_VENOM = 478;
+const OTYP_ACID_VENOM = 479;
 
 /** C: mondata.c hates_silver(ptr) — subset (shade/demon/were; no imp/tengu nuance). */
 function monHatesSilverPtrLikeC(ptr) {
@@ -115,7 +123,7 @@ function heroBlind() {
 /**
  * C: mthrowu.c thitu(int tlev, int dam, struct obj **objp, const char *name)
  * @param {{ o: object|null }} objRef
- * @param {{ monThrower?: object|null, tetheredWeapon?: boolean }} [throwCtx] — C **`m_throw`** at hero: try **`u_catch_thrown_obj`** / **`ucatchgem`** first (**trap.c** arrow/dart omits this).
+ * @param {{ monThrower?: object|null, tetheredWeapon?: boolean }} [throwCtx] — optional in-**`thitu`** catch (**`trap.c`** omits). Prefer **`mthrowAtHeroUxyThituLikeC`** for **`m_throw`** C order (catch then **`thitu`**).
  * @returns {Promise<number>} 1 if hit, 0 if miss (or caught — **`objRef.o`** cleared, no damage)
  */
 export async function thitu(tlev, dam, objRef, name, throwCtx) {
@@ -156,6 +164,50 @@ export async function thitu(tlev, dam, objRef, name, throwCtx) {
 
     losehp(dam, name, 0);
     return 1;
+}
+
+/**
+ * C: **`mthrowu.c`** **`m_throw`** — **`u_at`** branch after **`ucatchgem`** and **`u_catch_thrown_obj`** (this routine), then **`thitu`**.
+ * Omits elf bow bonuses, egg / touch_petrifies, potionhit, poison or blind tails after hit.
+ * @param {import('./gstate.js').game} g
+ * @param {*} mon
+ * @param {{ o: object|null }} objRef
+ * @param {boolean} tetheredWeapon
+ * @returns {Promise<number>} **`thitu`** return (0 if caught)
+ */
+export async function mthrowAtHeroUxyThituLikeC(g, mon, objRef, tetheredWeapon) {
+    const otmp = objRef?.o;
+    const u = g?.u;
+    if (!u || !otmp || !mon) return 0;
+
+    if (!tetheredWeapon) {
+        const caught = await tryHeroCatchMonsterThrownObjLikeC(g, mon, otmp, false);
+        if (caught) {
+            objRef.o = null;
+            return 0;
+        }
+    }
+
+    const ocl = nh5HeroObjectClass(otmp);
+    if (ocl === NH5_POTION_CLASS) {
+        /* C: potionhit(&youmonst, singleobj, POTHIT_MONST_THROW) — not ported */
+        return 0;
+    }
+
+    const t = otmp.otyp | 0;
+    if (t === OTYP_CREAM_PIE || t === OTYP_BLINDING_VENOM) {
+        return thitu(8, 0, objRef, null, undefined);
+    }
+
+    let dam = dmgval(otmp, g.youmonst);
+    let hitv = 3 - distmin(u.ux | 0, u.uy | 0, mon.mx | 0, mon.my | 0);
+    if (hitv < -4) hitv = -4;
+    const yptr = raceptr(g.youmonst);
+    if (bigmonst(yptr)) hitv++;
+    hitv += 8 + (otmp.spe | 0);
+    if (dam < 1) dam = 1;
+    if (t !== OTYP_ACID_VENOM) dam = maybeHalfPhys(dam);
+    return thitu(hitv, dam, objRef, null, undefined);
 }
 
 /** C: shk.c / invent obfree — remove object from floor list and level.objects. */

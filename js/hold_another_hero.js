@@ -6,7 +6,6 @@
 // **`u_safe_from_fatal_corpse`**, **`autoquiver`**, **`splitobj`** merge undo, **`prinv`/`xprname`**,
 // full **`canletgo`** (welded uwep, bimanual), **`setnotworn`** side effects beyond **`remove_worn_item`** subset,
 // **`cls()`**, **`Soundeffect`**, **`welded(uball)`**, **`ballrelease`**, full **`is_unicorn`/`likes_gems`**, **`makeknown`**,
-// **`goto_level`** stairs tumble wiring for **`drag_down`**.
 
 import { pline } from './display.js';
 import { doname } from './objnam.js';
@@ -343,7 +342,7 @@ function dragLosehpHeroLikeC(g, n) {
 
 /**
  * C: **`ball.c`** **`drag_down()`** — iron ball on stairs tumble (**`forward`**, **`rn2`**, **`losehp`**, **`litter`**).
- * Call only from **`do.c`** **`goto_level`** stairs-down tumble when **`Punished`** (**caller** gates **`cls`/`u.dz`**).
+ * Call from **`do.c`** **`goto_level`** stairs-down tumble when **`Punished`**, or **`goto_level_hero.js`** **`applyHeroDescendStairsOneLevelLikeC`** (**caller** gates **`cls`/`u.dz`**).
  * Omits **`cls`**, **`Soundeffect`**, **`welded`** grip skip, **`ballrelease`**.
  * @param {import('./gstate.js').game} g
  */

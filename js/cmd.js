@@ -2,7 +2,7 @@
 // C ref: cmd.c rhack(), hack.c domove(); hack.c spoteffects (pickup, dotrap, pooleffects order);
 //        trap.c drown / lava_effects via spoteffects.js.
 //
-// Movement: hjklyubn; peaceful/tame mons → swap (hack.c displace); else bump attack stub.
+// Movement: hjklyubn; `>` descend downstairs (do.c goto_level subset); peaceful/tame mons → swap (hack.c displace); else bump attack stub.
 // Contestants should add: search, kick, eat, drink, read, zap,
 // wear, wield, drop (d), throw (t), pray, cast, and all other commands.
 
@@ -23,6 +23,7 @@ import { dokickFromCmd } from './kick.js';
 import { snapshotUshops0FromHeroTileLikeC } from './shop.js';
 import { doDropOneAtHeroFeetLikeC } from './drop_hero.js';
 import { throwOneInventAdjacentLikeC } from './throw_hero.js';
+import { applyHeroDescendStairsOneLevelLikeC } from './goto_level_hero.js';
 
 // Direction deltas: y u k
 //                   h . l
@@ -117,6 +118,12 @@ export async function rhack(key) {
     if (ch === 't') {
         // C: cmd.c → dothrow.c throwit (subset: one tile, horizontal)
         await throwOneInventAdjacentLikeC(game);
+        return;
+    }
+
+    if (ch === '>') {
+        // C: cmd.c → do.c goto_level (subset: down-stairs tumble + deliveries)
+        game.context.move = (await applyHeroDescendStairsOneLevelLikeC(game)) ? 1 : 0;
         return;
     }
 
