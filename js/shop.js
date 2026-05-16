@@ -8,7 +8,7 @@
 //        **`mon.c`** **`angry_guards`** (**`angryGuardsSilentLikeC`**).
 
 import { game } from './gstate.js';
-import { pline, newsym, mapInvisibleCellLikeC } from './display.js';
+import { pline, newsym, mapInvisibleCellLikeC, soundeffectStubLikeC } from './display.js';
 import { unlinkFloorObject, floorObjKey, unlinkFloorObjectInLevel, placeFloorObjectInLevel, stackObjOnFloorInLevel, obliterateObjectInLevel } from './floorobj.js';
 import { cansee, vision_recalc } from './vision.js';
 import { delEngrAt } from './engrave.js';
@@ -1102,6 +1102,16 @@ export function currencyAmountLikeC(g, amount) {
     return n === 1 ? w : `${w}s`;
 }
 
+/** C: hack.h **`plur(n)`** — **`""`** vs **`"s"`** (whistle line in **`angry_guards`**). */
+function plurS(n) {
+    return (n | 0) === 1 ? '' : 's';
+}
+
+/** C: **`Sprintf(buf, "guard%s", plur(n))`** — **`guard`** / **`guards`**. */
+function angryGuardsGuardBufLikeC(n) {
+    return (n | 0) === 1 ? 'guard' : 'guards';
+}
+
 /**
  * C: **`mon.c`** **`canspotmon`** subset for **`angry_guards`** — hero sees/senses mon on map.
  * @param {import('./gstate.js').game} g
@@ -1124,7 +1134,7 @@ function mcanmoveMonsterAngryGuardsLikeC(mtmp) {
 
 /**
  * C: **`mon.c`** **`angry_guards(silent)`** — peaceful **`is_watch`** watchmen become hostile; plines unless **`silent`** (**`Deaf`**).
- * Omits C **`Soundeffect`**, full **`canspotmon`** / **`vtense`**.
+ * **`Soundeffect`** → **`soundeffectStubLikeC`** (**`display.js`**, no audio in fork). **`canspotmon`** subset (**`canspotMonAngryGuardsLikeC`**); wake / get / approach phrasing matches C **`plur`** + **`vtense`** on **`guard`/`guards`**.
  * @returns {boolean} true if any watchman existed (C return after **`ct`**).
  */
 export async function angryGuardsSilentLikeC(g, silent) {
@@ -1155,18 +1165,21 @@ export async function angryGuardsSilentLikeC(g, silent) {
     if (!ct) return false;
     if (!silent) {
         if (slct) {
-            if (slct === 1) await pline('The guard wakes up.');
-            else await pline('The guards wake up.');
+            const buf = angryGuardsGuardBufLikeC(slct);
+            const v = slct === 1 ? 'wakes' : 'wake';
+            await pline(`The ${buf} ${v} up.`);
         }
         if (nct) {
-            if (nct === 1) await pline('The guard gets angry!');
-            else await pline('The guards get angry!');
+            const buf = angryGuardsGuardBufLikeC(nct);
+            const v = nct === 1 ? 'gets' : 'get';
+            await pline(`The ${buf} ${v} angry!`);
         } else if (sct) {
             if (sct === 1) await pline('An angry guard is approaching!');
             else await pline('Angry guards are approaching!');
         } else {
-            const w = ct === 1 ? '' : 's';
-            await pline(`You hear the shrill sound of ${ct === 1 ? "a guard's" : "guards'"} whistle${w}.`);
+            await soundeffectStubLikeC(g, 0, 100);
+            const poss = ct === 1 ? "a guard's" : "guards'";
+            await pline(`You hear the shrill sound of ${poss} whistle${plurS(ct)}.`);
         }
     }
     return true;

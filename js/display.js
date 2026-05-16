@@ -505,3 +505,16 @@ export async function bot() {
 export async function pline(msg) {
     game._pending_message = msg;
 }
+
+/**
+ * C: soundset.c **`Soundeffect`** — **`mon.c`** **`angry_guards`** uses **`se_shrill_whistle`** before **`You_hear`**.
+ * JS: judge output is **`pline`** / screen only; no audio (**`nh_sound_play`** deferred).
+ * @param {import('./gstate.js').game} [_g]
+ * @param {number} [_seId]
+ * @param {number} [_volume]
+ */
+export async function soundeffectStubLikeC(_g, _seId, _volume) {
+    void _g;
+    void _seId;
+    void _volume;
+}
