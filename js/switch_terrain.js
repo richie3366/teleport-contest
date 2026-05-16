@@ -1,5 +1,6 @@
 // switch_terrain.js — Terrain change effects on hero (levitation / flight / status terrain).
 // C ref: hack.c switch_terrain(), classify_terrain(); polyself.c float_vs_flight(), steed_vs_stealth();
+//        steed.c mount/dismount also calls steed_vs_stealth (not wired in JS yet — import steedVsStealthLikeC there);
 //        trap.c float_up() (subset for unblock).
 
 import { pline } from './display.js';
@@ -67,8 +68,23 @@ export function flyingEffectiveLikeC(g) {
 }
 
 /**
+ * C: polyself.c **`steed_vs_stealth`** — mounted on non-flying steed blocks stealth (**`BStealth`** **`FROMOUTSIDE`**).
+ * Uses **`Flying`/`Levitation`** macros (**`flyingEffectiveLikeC`/`levitationEffectiveLikeC`**).
+ * @param {import('./gstate.js').game} g
+ */
+export function steedVsStealthLikeC(g) {
+    const u = g.u;
+    if (!u) return;
+    if (u.usteed && !flyingEffectiveLikeC(g) && !levitationEffectiveLikeC(g)) {
+        u.BStealth = (u.BStealth | 0) | FROMOUTSIDE;
+    } else {
+        u.BStealth = (u.BStealth | 0) & ~FROMOUTSIDE;
+    }
+}
+
+/**
  * C: polyself.c **`float_vs_flight`** — **`BFlying`/`BLevitation`** **`I_SPECIAL`** vs lev / floor trap;
- * **`steed_vs_stealth`** omitted (**`BStealth`** not ported).
+ * then **`steed_vs_stealth`** (riding vs **`Flying`/`Levitation`**).
  * @param {import('./gstate.js').game} g
  */
 export function floatVsFlightLikeC(g) {
@@ -87,6 +103,8 @@ export function floatVsFlightLikeC(g) {
     } else {
         u.BLevitation = (u.BLevitation | 0) & ~I_SPECIAL;
     }
+
+    steedVsStealthLikeC(g);
 
     g.disp = g.disp || {};
     g.disp.botl = true;

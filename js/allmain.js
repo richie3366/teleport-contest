@@ -100,6 +100,7 @@ export async function newgame() {
     g.u.HFlying = 0;
     g.u.EFlying = 0;
     g.u.BFlying = 0;
+    g.u.BStealth = 0; /* youprop.h BStealth — polyself.c steed_vs_stealth FROMOUTSIDE when mounted */
     g.u.Fumbling = 0;
     g.u.Sleep_resistance = 0;
     g.u.timed = { blind: 0, deaf: 0 };
