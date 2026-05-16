@@ -20,6 +20,7 @@ import {
     unlinkFloorObject,
     buryFloorChainAt,
     unearthBuriedChainAt,
+    obliterateObjectInLevel,
 } from './floorobj.js';
 import { delEngrAt } from './engrave.js';
 import {
@@ -286,13 +287,6 @@ function sobjAtBoulder(g, x, y) {
     return null;
 }
 
-function removeObjFromLevelObjects(g, otmp) {
-    const arr = g.level?.objects;
-    if (!arr) return;
-    const i = arr.indexOf(otmp);
-    if (i >= 0) arr.splice(i, 1);
-}
-
 /** C: mon.c **`m_in_air`** — omits **`has_ceiling(&u.uz)`** (stub true like **`trap.js`**). */
 function mInAir(mtmp) {
     const ptr = raceptr(mtmp);
@@ -391,7 +385,14 @@ async function rlocMinliquidEscape(g, mtmp, flags) {
  * @param {import('./gstate.js').game} g
  * @returns {Promise<boolean>} false when not pool/lava (C would impossible from melt_ice)
  */
-async function boulderHitsPool(g, otmp, rx, ry, pushing) {
+/**
+ * C: **`do.c`** **`boulder_hits_pool(otmp, rx, ry, pushing)`** — pool/lava fill vs sink;
+ * boulder always consumed (**`obfree`/`useupf`** in C). Safe when **`otmp`** is not yet **`place_object`**’d
+ * (**`flooreffects`** before **`place_object`**): **`obliterateObjectInLevel`** clears floor/invent links.
+ * @param {import('./gstate.js').game} g
+ * @returns {Promise<boolean>} true when **`is_pool_or_lava`**
+ */
+export async function boulderHitsPoolLikeC(g, otmp, rx, ry, pushing) {
     if (!otmp || (otmp.otyp | 0) !== OTYP_BOULDER) return false;
     const loc = g.level?.at(rx, ry);
     if (!loc) return false;
@@ -445,7 +446,7 @@ async function boulderHitsPool(g, otmp, rx, ry, pushing) {
         }
     }
 
-    removeObjFromLevelObjects(g, otmp);
+    obliterateObjectInLevel(g, otmp);
     return true;
 }
 
@@ -728,7 +729,7 @@ export async function meltIceAt(g, x, y, msg) {
             otmp = sobjAtBoulder(g, x, y);
             if (!otmp) break;
             unlinkFloorObject(otmp);
-            if (!(await boulderHitsPool(g, otmp, x, y, false))) break;
+            if (!(await boulderHitsPoolLikeC(g, otmp, x, y, false))) break;
         } while (poolStill() && sobjAtBoulder(g, x, y));
         newsym(x, y);
     }
