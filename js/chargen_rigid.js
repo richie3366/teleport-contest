@@ -187,6 +187,90 @@ export function okRaceJs(ri, rai, gi, ai) {
     return false;
 }
 
+/** C ok_race without `gr.rfilter` race exclusion — for `role_menu_extra` filter-forces checks. */
+export function okRaceJsIgnoreRaceRfilter(ri, rai, gi, ai) {
+    if (indexOkRace(rai)) {
+        const race = races[rai];
+        if (indexOkRole(ri)) {
+            const role = roles[ri];
+            if (!role.allows.races.includes(race.name)) return false;
+        }
+        if (indexOkGend(gi)) {
+            const gv = genders[gi].value;
+            if (race.name === 'human' || race.name === 'elf' || race.name === 'dwarf' || race.name === 'gnome' || race.name === 'orc') {
+                if (indexOkRole(ri)) {
+                    const role = roles[ri];
+                    if (role.allows.gender === 'female' && gv !== 1) return false;
+                    if (role.allows.gender === 'male' && gv !== 0) return false;
+                }
+            }
+        }
+        if (indexOkAlign(ai)) {
+            const av = aligns[ai].value;
+            if (indexOkRole(ri)) {
+                if (!roles[ri].allows.align.includes(av)) return false;
+            }
+            if (race.name === 'orc' && av !== -1) return false;
+        }
+        return true;
+    }
+    if (rai === ROLE_RANDOM || rai === ROLE_NONE) {
+        for (let i = 0; i < races.length; i++) {
+            if (okRaceJsIgnoreRaceRfilter(ri, i, gi, ai)) return true;
+        }
+        return false;
+    }
+    return false;
+}
+
+/** C ok_gend without gender `gr.rfilter` bit. */
+export function okGendJsIgnoreGenderRfilter(ri, rai, gi, ai) {
+    if (indexOkGend(gi)) {
+        const gv = genders[gi].value;
+        if (indexOkRole(ri)) {
+            const role = roles[ri];
+            if (role.allows.gender === 'female' && gv !== 1) return false;
+            if (role.allows.gender === 'male' && gv !== 0) return false;
+        }
+        if (indexOkRace(rai)) {
+            const race = races[rai];
+            if (race.name === 'orc' && indexOkAlign(ai) && aligns[ai].value !== -1) return false;
+        }
+        if (indexOkAlign(ai)) {
+            const av = aligns[ai].value;
+            if (indexOkRole(ri) && !roles[ri].allows.align.includes(av)) return false;
+        }
+        return true;
+    }
+    if (gi === ROLE_RANDOM || gi === ROLE_NONE) {
+        for (let i = 0; i < genders.length; i++) {
+            if (okGendJsIgnoreGenderRfilter(ri, rai, i, ai)) return true;
+        }
+        return false;
+    }
+    return false;
+}
+
+/** C ok_align without alignment `gr.rfilter` bit. */
+export function okAlignJsIgnoreAlignRfilter(ri, rai, gi, ai) {
+    if (indexOkAlign(ai)) {
+        const av = aligns[ai].value;
+        if (indexOkRole(ri) && !roles[ri].allows.align.includes(av)) return false;
+        if (indexOkRace(rai)) {
+            const race = races[rai];
+            if (race.name === 'orc' && av !== -1) return false;
+        }
+        return true;
+    }
+    if (ai === ROLE_RANDOM || ai === ROLE_NONE) {
+        for (let j = 0; j < aligns.length; j++) {
+            if (okAlignJsIgnoreAlignRfilter(ri, rai, gi, j)) return true;
+        }
+        return false;
+    }
+    return false;
+}
+
 export function okGendJs(ri, rai, gi, ai) {
     if (indexOkGend(gi)) {
         ensureRfilterArrays();
@@ -235,6 +319,61 @@ export function okAlignJs(ri, rai, gi, ai) {
         return false;
     }
     return false;
+}
+
+/** C `role_menu_extra(RS_ROLE)` — every role except `initrole` is rfiltered. */
+export function roleMenuExtraRsRoleGrayLineLikeC(f) {
+    const r = f.initrole;
+    if (r < 0) return null;
+    ensureRfilterArrays();
+    for (let i = 0; i < roles.length; i++) {
+        if (i !== r && !rfilterExcludedRole[i]) return null;
+    }
+    return 'filter forces role';
+}
+
+/**
+ * C `role_menu_extra(RS_RACE)` — single race left: either role table forces it,
+ * or filter narrowed to one while `initrace` is set.
+ */
+export function roleMenuExtraRsRaceGrayLineLikeC(f) {
+    const r = f.initrole;
+    if (r < 0) return null;
+    const gi = f.initgend >= 0 ? f.initgend : ROLE_RANDOM;
+    const ai = f.initalign >= 0 ? f.initalign : ROLE_RANDOM;
+    /** @type {number[]} */
+    const ok = [];
+    for (let rai = 0; rai < races.length; rai++) {
+        if (okRaceJs(r, rai, gi, ai)) ok.push(rai);
+    }
+    if (ok.length !== 1) return null;
+    const noun = races[ok[0]].name;
+    let nIgn = 0;
+    for (let rai = 0; rai < races.length; rai++) {
+        if (okRaceJsIgnoreRaceRfilter(r, rai, gi, ai)) nIgn++;
+    }
+    if (nIgn === 1) return `role forces ${noun}`;
+    if (f.initrace >= 0 && nIgn > 1) return 'filter forces race';
+    return null;
+}
+
+/** C `role_menu_extra(RS_GENDER)` — role pins gender, or filter leaves one gender. */
+export function roleMenuExtraRsGenderGrayLineLikeC(f) {
+    const r = f.initrole;
+    if (r < 0) return null;
+    const ag = roles[r].allows.gender;
+    if (ag === 'male') return 'role forces male';
+    if (ag === 'female') return 'role forces female';
+    const rai = f.initrace >= 0 ? f.initrace : ROLE_RANDOM;
+    const ai = f.initalign >= 0 ? f.initalign : ROLE_RANDOM;
+    let withF = 0;
+    let withoutF = 0;
+    for (let gi = 0; gi < genders.length; gi++) {
+        if (okGendJs(r, rai, gi, ai)) withF++;
+        if (okGendJsIgnoreGenderRfilter(r, rai, gi, ai)) withoutF++;
+    }
+    if (withF === 1 && f.initgend >= 0 && withoutF > 1) return 'filter forces gender';
+    return null;
 }
 
 /** C setup_rolemenu(reset filter): row ri with race/gend/algn all ROLE_NONE. */

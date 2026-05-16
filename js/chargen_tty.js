@@ -28,7 +28,11 @@ import {
     okRaceJs,
     okGendJs,
     okAlignJs,
+    okAlignJsIgnoreAlignRfilter,
     okRoleJs,
+    roleMenuExtraRsRoleGrayLineLikeC,
+    roleMenuExtraRsRaceGrayLineLikeC,
+    roleMenuExtraRsGenderGrayLineLikeC,
     pickRoleJs,
     pickRaceJs,
     pickGendJs,
@@ -111,15 +115,6 @@ function roleAlignForceNameLikeC(ri) {
     return ent ? ent.name : null;
 }
 
-/** C genl_player_setup / tty role hub: `role forces …` when role pins gender or alignment. */
-function raceMenuForcesLineLikeC(ri) {
-    const g = roleGenderForceTokenLikeC(ri);
-    if (g) return `role forces ${g}`;
-    const al = roleAlignForceNameLikeC(ri);
-    if (al) return `role forces ${al}`;
-    return null;
-}
-
 /**
  * C genl_player_setup gender menu: `race forces …` when race (e.g. orc) pins alignment but role alone did not.
  * @param {{ initrole: number, initrace: number }} f
@@ -136,6 +131,93 @@ function genderMenuForcesLineLikeC(f) {
     const anyR = collectAlignIndicesAcrossRacesLikeC(ri);
     const name = aligns[[...fixed][0]].name;
     return anyR.size > 1 ? `race forces ${name}` : `role forces ${name}`;
+}
+
+/** C `role_menu_extra(RS_ALGNMNT)` gray line (align hub + race/gender menus). */
+function roleMenuExtraRsAlignGrayLineLikeC(f) {
+    const ri = f.initrole;
+    if (ri >= 0 && f.initrace < 0) {
+        const al = roles[ri].allows.align;
+        if (al.length === 1) {
+            const ent = aligns.find((x) => x.value === al[0]);
+            if (ent) return `role forces ${ent.name}`;
+        }
+    }
+    const fromGr = genderMenuForcesLineLikeC(f);
+    if (fromGr) return fromGr;
+    const rai = f.initrace;
+    const gi = f.initgend >= 0 ? f.initgend : ROLE_RANDOM;
+    if (ri < 0 || f.initalign < 0) return null;
+    let withF = 0;
+    let withoutF = 0;
+    for (let ai = 0; ai < aligns.length; ai++) {
+        if (okAlignJs(ri, rai >= 0 ? rai : ROLE_RANDOM, gi, ai)) withF++;
+        if (okAlignJsIgnoreAlignRfilter(ri, rai >= 0 ? rai : ROLE_RANDOM, gi, ai)) withoutF++;
+    }
+    if (withF === 1 && withoutF > 1) return 'filter forces alignment';
+    return null;
+}
+
+/**
+ * @param {{ gray?: string, pick?: string }} x
+ */
+function putChargenMenuExtraPickOrGray(disp, menuCol, forcesCol, row, x) {
+    if (x.gray) disp.putstr(forcesCol, row, x.gray, NO_COLOR);
+    else if (x.pick) disp.putstr(menuCol, row, x.pick, NO_COLOR);
+}
+
+/** C race-picker menu: `role_menu_extra(RS_ROLE)`. */
+function raceMenuRsRoleExtraLikeC(f) {
+    const gray = roleMenuExtraRsRoleGrayLineLikeC(f);
+    if (gray) return { gray };
+    return { pick: `? - Pick${f.initrole >= 0 ? ' another' : ''} role first` };
+}
+
+/** C race-picker menu: `role_menu_extra(RS_GENDER)`. */
+function raceMenuRsGenderExtraLikeC(f) {
+    const gray = roleMenuExtraRsGenderGrayLineLikeC(f);
+    if (gray) return { gray };
+    return { pick: `" - Pick${f.initgend >= 0 ? ' another' : ''} gender first` };
+}
+
+/** C race-picker menu: `role_menu_extra(RS_ALGNMNT)`. */
+function raceMenuRsAlignExtraLikeC(f) {
+    const gray = roleMenuExtraRsAlignGrayLineLikeC(f);
+    if (gray) return { gray };
+    const ri = f.initrole;
+    if (ri >= 0 && alignChoicesStillOpenAcrossRacesLikeC(ri)) {
+        return { pick: `[ - Pick${f.initalign >= 0 ? ' another' : ''} alignment first` };
+    }
+    return {};
+}
+
+/** C gender-picker menu: `role_menu_extra(RS_ROLE)`. */
+function genderMenuRsRoleExtraLikeC(f) {
+    return raceMenuRsRoleExtraLikeC(f);
+}
+
+/** C gender-picker menu: `role_menu_extra(RS_RACE)`. */
+function genderMenuRsRaceExtraLikeC(f) {
+    const gray = roleMenuExtraRsRaceGrayLineLikeC(f);
+    if (gray) return { gray };
+    return { pick: `/ - Pick${f.initrace >= 0 ? ' another' : ''} race first` };
+}
+
+/** C gender-picker menu: `role_menu_extra(RS_ALGNMNT)`. */
+function genderMenuRsAlignExtraLikeC(f) {
+    const gray = roleMenuExtraRsAlignGrayLineLikeC(f);
+    if (gray) return { gray };
+    const ri = f.initrole;
+    if (ri >= 0 && f.initrace >= 0) {
+        const open = [];
+        for (let ai = 0; ai < aligns.length; ai++) {
+            if (okAlignJs(ri, f.initrace, f.initgend >= 0 ? f.initgend : ROLE_RANDOM, ai)) open.push(ai);
+        }
+        if (open.length > 1) {
+            return { pick: `[ - Pick${f.initalign >= 0 ? ' another' : ''} alignment first` };
+        }
+    }
+    return {};
 }
 
 /** @param {{ initrole: number, initrace: number, initgend: number, initalign: number }} f */
@@ -647,35 +729,16 @@ function paintRaceMenu(disp, f) {
     row++;
     disp.putstr(MENU_COL, row, '', NO_COLOR);
     row++;
-    disp.putstr(MENU_COL, row, '? - Pick another role first', NO_COLOR);
+    const xRole = raceMenuRsRoleExtraLikeC(f);
+    putChargenMenuExtraPickOrGray(disp, MENU_COL, FORCES_EXTRA_COL, row, xRole);
     row++;
-    const ri = f.initrole;
-    const gf = roleGenderForceTokenLikeC(ri);
-    const alignOpen = ri >= 0 && alignChoicesStillOpenAcrossRacesLikeC(ri);
-    const forces = ri >= 0 ? raceMenuForcesLineLikeC(ri) : null;
-
-    if (gf) {
-        if (forces) {
-            disp.putstr(FORCES_EXTRA_COL, row, forces, NO_COLOR);
-            row++;
-        }
-        if (alignOpen) {
-            disp.putstr(MENU_COL, row, '[ - Pick alignment first', NO_COLOR);
-            row++;
-        }
-    } else {
-        if (ri >= 0 && roles[ri].allows.gender === 'any') {
-            disp.putstr(MENU_COL, row, '" - Pick gender first', NO_COLOR);
-            row++;
-        }
-        if (alignOpen) {
-            disp.putstr(MENU_COL, row, '[ - Pick alignment first', NO_COLOR);
-            row++;
-        }
-        if (forces) {
-            disp.putstr(FORCES_EXTRA_COL, row, forces, NO_COLOR);
-            row++;
-        }
+    const xGend = raceMenuRsGenderExtraLikeC(f);
+    putChargenMenuExtraPickOrGray(disp, MENU_COL, FORCES_EXTRA_COL, row, xGend);
+    row++;
+    const xAl = raceMenuRsAlignExtraLikeC(f);
+    if (xAl.gray || xAl.pick) {
+        putChargenMenuExtraPickOrGray(disp, MENU_COL, FORCES_EXTRA_COL, row, xAl);
+        row++;
     }
     disp.putstr(MENU_COL, row, filterMenuExtraLine(), NO_COLOR);
     row++;
@@ -757,13 +820,15 @@ function paintGenderMenu(disp, f) {
     row++;
     disp.putstr(MENU_COL, row, '', NO_COLOR);
     row++;
-    disp.putstr(MENU_COL, row, '? - Pick another role first', NO_COLOR);
+    const gRole = genderMenuRsRoleExtraLikeC(f);
+    putChargenMenuExtraPickOrGray(disp, MENU_COL, FORCES_EXTRA_COL, row, gRole);
     row++;
-    disp.putstr(MENU_COL, row, '/ - Pick another race first', NO_COLOR);
+    const gRace = genderMenuRsRaceExtraLikeC(f);
+    putChargenMenuExtraPickOrGray(disp, MENU_COL, FORCES_EXTRA_COL, row, gRace);
     row++;
-    const gForces = genderMenuForcesLineLikeC(f);
-    if (gForces) {
-        disp.putstr(FORCES_EXTRA_COL, row, gForces, NO_COLOR);
+    const gAl = genderMenuRsAlignExtraLikeC(f);
+    if (gAl.gray || gAl.pick) {
+        putChargenMenuExtraPickOrGray(disp, MENU_COL, FORCES_EXTRA_COL, row, gAl);
         row++;
     }
     disp.putstr(MENU_COL, row, filterMenuExtraLine(), NO_COLOR);
