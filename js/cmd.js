@@ -157,7 +157,7 @@ async function domove(dx, dy) {
                 maybeSmudgeEngr(ox, oy, newx, newy);
                 const trSwap = tAt(newx, newy);
                 if (trSwap) await dotrap(trSwap, NO_TRAP_FLAGS);
-                await maybeHeroPoolEnter(game);
+                await maybeHeroPoolEnter(game, { fromDx: dx, fromDy: dy });
                 const hx = u.ux, hy = u.uy;
                 newsym(ox, oy);
                 if (hx !== newx || hy !== newy) newsym(newx, newy);
@@ -186,7 +186,7 @@ async function domove(dx, dy) {
     maybeSmudgeEngr(oldx, oldy, newx, newy);
     const tr = tAt(newx, newy);
     if (tr) await dotrap(tr, NO_TRAP_FLAGS);
-    await maybeHeroPoolEnter(game);
+    await maybeHeroPoolEnter(game, { fromDx: dx, fromDy: dy });
     const hx = u.ux, hy = u.uy;
     game._pending_message = '';
     game._overlayScreen = null;
