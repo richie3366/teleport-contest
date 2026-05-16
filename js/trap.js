@@ -320,7 +320,7 @@ function objectInInventChain(chain, target) {
 }
 
 /** C: obj.h the() — **`doname`** / **`xname`** indefinite phrase → definite for plines. */
-function theObjnamLikeC(phrase) {
+export function theObjnamLikeC(phrase) {
     const p = (phrase || '').trim();
     if (p.startsWith('a ')) return `the ${p.slice(2)}`;
     if (p.startsWith('an ')) return `the ${p.slice(3)}`;
@@ -466,9 +466,16 @@ export async function dofiretrapHeroLikeC(box) {
     game.disp.botl = true;
 }
 
-/** C: trap.c **`body_part`** subset — **`bodypart`** arg to **`chest_trap`**. */
+/** C: hack.h **`body_part`** — **`FINGER`** **3**, **`HAND`** **6** (`pickup.c` loot vs `lock.c` pick). */
 function bodyPartChestTrapLikeC(bodypart) {
-    return (bodypart | 0) === 3 ? 'finger' : 'limb';
+    switch (bodypart | 0) {
+        case 3:
+            return 'finger';
+        case 6:
+            return 'hand';
+        default:
+            return 'limb';
+    }
 }
 
 /** C: mon.c **`wake_nearby(FALSE)`** — **`wake_nearto_core(u.ux,u.uy, u.ulevel*20, FALSE)`**. */

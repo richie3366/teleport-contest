@@ -1,6 +1,6 @@
 // pickup.js — Autopickup, encumbrance messages, pickup_prev flags.
 // C ref: pickup.c reset_justpicked(), encumber_msg(), pickup(), check_here(); invent.c look_here();
-//        hack.c near_capacity via encumbr.js
+//        hack.c near_capacity via encumbr.js; pickup.c in_container **`otrapped`** → **`chest_trap`** (**`#l`** harness).
 
 import { game } from './gstate.js';
 import { pline, flush_screen } from './display.js';
@@ -11,6 +11,10 @@ import { readEngrAt, canReachFloor } from './engrave.js';
 import { describeDecor, levlTypAt, dfeatureAt, formatDfeatureForThereIs } from './decor.js';
 import { doname } from './objnam.js';
 import { tAt } from './search.js';
+import { floorObjKey } from './floorobj.js';
+import { nomul } from './timeout.js';
+import { isContainerOtyp } from './water_damage.js';
+import { chestTrapHeroLikeC, theObjnamLikeC } from './trap.js';
 
 /** C: reset_justpicked(olist) — clear pickup_prev on each object in the chain. */
 export function resetJustPicked(olist) {
@@ -250,4 +254,41 @@ export async function pickup(what) {
 
     /* Full interactive / autopick menu pickup deferred (pickup.c remainder). */
     return 0;
+}
+
+/**
+ * C: pickup.c **`in_container`** — first floor container at **`(u.ux,u.uy)`** ( **`uchain`** skipped).
+ * @param {import('./gstate.js').game} g
+ * @returns {object|null}
+ */
+export function floorContainerAtHeroFeetPickupLikeC(g) {
+    const u = g.u;
+    if (!u || !g.level?.floorObjHeads) return null;
+    const k = floorObjKey(u.ux | 0, u.uy | 0);
+    for (let o = g.level.floorObjHeads.get(k); o; o = o.nexthere) {
+        if (o === g.uchain) continue;
+        if (isContainerOtyp(o.otyp | 0)) return o;
+    }
+    return null;
+}
+
+/**
+ * C: pickup.c **`in_container`** — **`!olocked` && `otrapped`** → **`chest_trap(obj, HAND, FALSE)`** + **`nomul(-1)`**.
+ * @param {import('./gstate.js').game} g
+ * @param {object} obj
+ * @param {boolean} held — C **`held`** (**`You("open %s...", …)`** only when true).
+ * @returns {Promise<boolean>} true if **`chest_trap`** ran
+ */
+export async function heroOpenTrappedContainerPickupLikeC(g, obj, held) {
+    if (!obj || !isContainerOtyp(obj.otyp | 0)) return false;
+    if (obj.olocked | 0) return false;
+    if (!(obj.otrapped | 0)) return false;
+    if (held) await pline(`You open ${theObjnamLikeC(doname(obj, g))}...`);
+    await chestTrapHeroLikeC(g, obj, 6, false);
+    if ((g.multi ?? 0) >= 0) {
+        nomul(-1);
+        g.multi_reason = 'opening a container';
+        g.nomovemsg = '';
+    }
+    return true;
 }
