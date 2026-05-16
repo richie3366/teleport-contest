@@ -9,6 +9,9 @@ import { zapOverFloorAlongRay, ZT_WAND } from './zap_over_floor.js';
 import { isok } from './const.js';
 import { rn1 } from './rng.js';
 
+/** C: objects.h — wand of digging immediately before magic missile (**`mklev.js`** pins **305**). */
+export const WAN_DIGGING = 305;
+
 /** C: objects.h — first RAY wand after **`WAN_DIGGING`** ( **`mklev.js`** pins digging at **305**). */
 export const WAN_MAGIC_MISSILE = 306;
 

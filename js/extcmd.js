@@ -1,8 +1,9 @@
 // extcmd.js — Extended commands (`#` prefix, doextcmd).
 // C ref: cmd.c doextcmd, extcmdlist
 //
-// JS extras: wizard **`#F`**/**`#c`** — hero **`ubuzz`**; **`#m`**/**`#B`** — monster **`mbuzz`**
-// (**`muse.c`** **`BZ_M_WAND`/`BZ_M_BREATH`** from neighbor toward hero); wizard **`z`** — **`dozap.js`**.
+// JS extras: wizard **`#F`**/**`#c`** — hero **`ubuzz`**; **`#d`** — **`dig.c`** **`zap_dig`** horizontal;
+// **`#m`**/**`#B`** — monster **`mbuzz`** (**`muse.c`** **`BZ_M_WAND`/`BZ_M_BREATH`** from neighbor toward hero);
+// wizard **`z`** — **`dozap.js`**.
 
 import { game } from './gstate.js';
 import { nhgetch } from './input.js';
@@ -19,6 +20,7 @@ import {
     AD_COLD,
     WAN_COLD,
 } from './buzz.js';
+import { heroZapDigHorizontalLikeC } from './zap_dig.js';
 
 /** C: doextcmd — echo '#' on the top line, then read the next key (tty). */
 export async function runExtcmdFromHashPrefix() {
@@ -73,6 +75,12 @@ export async function runExtcmdFromHashPrefix() {
     if (ch2 === 'c' && game.flags?.wizard) {
         /* C: zap.c weffects — wand of cold (**`ZT_WAND(ZT_COLD)`**), same facing as **`#F`**. */
         await ubuzzOverFloor(game, ZT_WAND(ZT_COLD), 6);
+        await flush_screen(1);
+        return;
+    }
+    if (ch2 === 'd' && game.flags?.wizard) {
+        /* C: dig.c zap_dig — wand of digging horizontal beam; same facing as **`#c`** (**`WAN_DIGGING`**). */
+        await heroZapDigHorizontalLikeC(game);
         await flush_screen(1);
         return;
     }
