@@ -7,10 +7,11 @@
 // ROOM/CORR + **DIGCHECK_PASSED|PASSED_PITONLY** + Can_dig_down (**no erroneous `!ttmp` gate**);
 // magical **`LANDMINE`/`BEAR_TRAP`** → **`cnv_trap_obj(..., TRUE)`** (**`cnvTrapObjLikeC`**); other floor traps
 // cleared before **`digactualHole`** + new pit/hole (**`maketrap`** replaces in C);
-// **PIT** vs **HOLE** per C; **digactualHoleHeroUtrapSubset** before trap.
+// **PIT** vs **HOLE** per C; **digactualHoleHeroUtrapSubset** + **`unearthObjsDigInLevel`** (**`maketrap`**) before trap;
+// **`pickup(1)`** when **`oldobjs != newobjs`** (pit / HOLE **`wont_fall`**); **`goto_level`** tail **`pickup`** in **`goto_level_hero.js`**.
 // Ported: drawbridge **`DRAWBRIDGE_DOWN`**/**wall** + **`destroy_drawbridge`**; **`DRAWBRIDGE_UP`**
 // + **`fillholetyp`** + **`liquid_flow`** (**`drawbridgemask`** **`DB_UNDER`**); **`IS_GRAVE`** + **`dig_up_grave`** subset.
-// Deferred: full **`goto_level`** (bones, **`pickup`**, **`keepdogs`**, **`next_to_u`**),
+// Deferred: full **`goto_level`** (bones, **`keepdogs`**, **`next_to_u`**),
 // shop billing, monsters, furniture_handled, Invocation_lev, AM_SANCTUM, **PASSED_DESTROY_TRAP** full **`maketrap`** parity.
 
 import { pline, newsym } from './display.js';
@@ -27,6 +28,7 @@ import { digUpGraveLikeC } from './dig_grave.js';
 import { gotoLevelHeroFallThroughDigHoleLikeC, nextToUForHoleFallStub } from './goto_level_hero.js';
 import { impactDropLikeC } from './impact_drop.js';
 import { spotChecksLikeC } from './spot_checks.js';
+import { pickup } from './pickup.js';
 import { fillholetypLikeC } from './fillholetyp.js';
 import { liquidFlowHeroDigLikeC } from './liquid_flow.js';
 import {
@@ -338,6 +340,8 @@ export async function digholeHeroLikeC(g, pitOnly, byMagic, cc) {
         if (IS_GRAVE(oldTyp)) {
             const emptyGraveFlag = lev.flags | 0;
             digactualHoleHeroUtrapSubset(g, digX, digY);
+            const graveFk = floorObjKey(digX, digY);
+            const oldFloorHeadGrave = lvl.floorObjHeads?.get(graveFk) ?? null;
             unearthObjsDigInLevel(g, digX, digY);
             lev.typ = ROOM;
             lev.flags = 0;
@@ -360,6 +364,10 @@ export async function digholeHeroLikeC(g, pitOnly, byMagic, cc) {
             if (digX === (u.ux | 0) && digY === (u.uy | 0) && !wontFall) {
                 u.utrap = rn1(4, 2);
                 u.utraptype = TT_PIT;
+            }
+            const newFloorHeadGrave = lvl.floorObjHeads?.get(graveFk) ?? null;
+            if (digX === (u.ux | 0) && digY === (u.uy | 0) && oldFloorHeadGrave !== newFloorHeadGrave) {
+                await pickup(1);
             }
             wakeNeartoStub(u.ux | 0, u.uy | 0, 7 * 7);
             await digUpGraveLikeC(g, cc, emptyGraveFlag);
@@ -422,6 +430,11 @@ export async function digholeHeroLikeC(g, pitOnly, byMagic, cc) {
 
             const wantPit = pitOnly || nohole || dc === DIGCHECK_PASSED_PITONLY;
             digactualHoleHeroUtrapSubset(g, digX, digY);
+            const digFk = floorObjKey(digX, digY);
+            const oldFloorHead = lvl.floorObjHeads?.get(digFk) ?? null;
+            /* C: trap.c maketrap(PIT|HOLE) **`unearth_objs(x,y)`** before **`ftrap`** chain link. */
+            unearthObjsDigInLevel(g, digX, digY);
+            const newFloorHead = lvl.floorObjHeads?.get(digFk) ?? null;
             const ttyp = wantPit ? PIT : HOLE;
             const trap = {
                 ttyp,
@@ -435,12 +448,16 @@ export async function digholeHeroLikeC(g, pitOnly, byMagic, cc) {
             if (!lvl.traps) lvl.traps = [];
             lvl.traps.push(trap);
             if (cansee(digX, digY)) seetrapLikeC(trap);
+            const atHeroDig = digX === (u.ux | 0) && digY === (u.uy | 0);
             if (wantPit) {
                 await pline('You dig a pit in the floor.');
                 const wontFall = !!(u.Levitation || u.Flying);
-                if ((digX === (u.ux | 0) && digY === (u.uy | 0)) && !wontFall) {
+                if (atHeroDig && !wontFall) {
                     u.utrap = rn1(4, 2);
                     u.utraptype = TT_PIT;
+                }
+                if (atHeroDig && oldFloorHead !== newFloorHead) {
+                    await pickup(1);
                 }
             } else {
                 await pline('You dig a hole through the floor.');
@@ -450,8 +467,11 @@ export async function digholeHeroLikeC(g, pitOnly, byMagic, cc) {
                     wontFall = true;
                 }
                 if (wontFall) {
-                    if (lvl.floorObjHeads?.get(floorObjKey(digX, digY))) {
+                    if (newFloorHead) {
                         await impactDropLikeC(g, null, digX, digY, 0);
+                    }
+                    if (oldFloorHead !== newFloorHead) {
+                        await pickup(1);
                     }
                 } else {
                     await gotoLevelHeroFallThroughDigHoleLikeC(g, digX, digY);
