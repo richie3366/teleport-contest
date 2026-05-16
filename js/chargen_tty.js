@@ -12,7 +12,7 @@ import {
     COPYRIGHT_BANNER_D,
 } from './const.js';
 import { NO_COLOR, ATR_INVERSE } from './terminal.js';
-import { roles, races, aligns, genders, roleHasFemaleRoleNameLikeC } from './roles.js';
+import { roles, races, aligns, genders, roleHasFemaleRoleNameLikeC, coerceChargenIndicesForRoleSelectionPrologLikeC } from './roles.js';
 import {
     rigidRoleChecksJs,
     ROLE_NONE,
@@ -1091,15 +1091,25 @@ async function readAlignChoice(disp, f) {
 }
 
 /**
+ * C **`role.c`** **`role_selection_prolog`** display tightening — **`rigidRoleChecksJs`** on live **`f`**, then
+ * **`coerceChargenIndicesForRoleSelectionPrologLikeC`** on a **copy** for recap only (mutating **`f`** here shifts
+ * **`rigidRoleChecksJs`** / **`pick_*`** RNG for harness sessions that never paint this menu).
  * @returns {number} menu column **`col`** for **`readConfirmAnswer`** **`?`** overlay
  */
 function paintConfirmMenu(disp, f, plname) {
     rigidRoleChecksJs(f);
+    const d = {
+        initrole: f.initrole,
+        initrace: f.initrace,
+        initgend: f.initgend,
+        initalign: f.initalign,
+    };
+    coerceChargenIndicesForRoleSelectionPrologLikeC(d);
     disp.clearScreen();
-    const rn = roleNameForDisplay(f.initrole, f.initgend);
-    const raceAdj = f.initrace >= 0 ? races[f.initrace].adj : '???';
-    const gd = f.initgend === 1 ? 'female' : 'male';
-    const an = f.initalign >= 0 ? aligns[f.initalign].name : '???';
+    const rn = roleNameForDisplay(d.initrole, d.initgend);
+    const raceAdj = d.initrace >= 0 ? races[d.initrace].adj : '???';
+    const gd = d.initgend === 1 ? 'female' : 'male';
+    const an = d.initalign >= 0 ? aligns[d.initalign].name : '???';
     const title = 'Is this ok? [ynaq]';
     const recap = `${plname} the ${an} ${gd} ${raceAdj} ${rn}`;
     const col = confirmMenuStartColLikeC([

@@ -198,6 +198,37 @@ export const STR2_NONE = -1;
 export const STR2_RANDOM = -2;
 
 /**
+ * C **`role.c`** **`role_selection_prolog`** — local **`r`/`c`/`gend`/`a`** tightening for recap text:
+ * human-only role → human race; invalid race for role → **`STR2_RANDOM`**; forced gender; single allowed align;
+ * orc → chaotic (**`aligns[]`** index). Mutates **`f`** — call only when **`initrole`** is set **and** all four
+ * facets are valid indices (confirm / **`applyChargenFlagsToGame`**), not mid-hub with **`ROLE_NONE`** races.
+ * @param {{ initrole: number, initrace: number, initgend: number, initalign: number }} f
+ */
+export function coerceChargenIndicesForRoleSelectionPrologLikeC(f) {
+    const r = f.initrole;
+    if (r < 0 || r >= roles.length) return;
+    const role = roles[r];
+    const allowedRaces = role.allows.races;
+    if (allowedRaces.length === 1 && allowedRaces[0] === 'human') {
+        f.initrace = races.findIndex((x) => x.name === 'human');
+    } else if (f.initrace >= 0 && f.initrace < races.length
+        && !allowedRaces.includes(races[f.initrace].name)) {
+        f.initrace = STR2_RANDOM;
+    }
+    if (role.allows.gender === 'male') f.initgend = 0;
+    else if (role.allows.gender === 'female') f.initgend = 1;
+    const ra = role.allows.align;
+    if (ra.length === 1) {
+        const ai = aligns.findIndex((a) => a.value === ra[0]);
+        if (ai >= 0) f.initalign = ai;
+    }
+    if (f.initrace >= 0 && f.initrace < races.length && races[f.initrace].name === 'orc') {
+        const ai = aligns.findIndex((a) => a.value === -1);
+        if (ai >= 0) f.initalign = ai;
+    }
+}
+
+/**
  * C **`role.c`** **`strncmpi(str, nm, len)`** with **`len == Strlen(str)`** — prefix of **`nm`** equals **`str`** (case-insensitive).
  * @param {string} str
  * @param {string} nm
