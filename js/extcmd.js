@@ -5,6 +5,7 @@
 // **`#D`** — **`dig.c`** **`dig()`** wall/door completion harness (**`dig_hero.js`**);
 // **`#m`**/**`#B`** — monster **`mbuzz`** (**`muse.c`** **`BZ_M_WAND`/`BZ_M_BREATH`** from neighbor toward hero);
 // **`#l`**/**`#L`** — **`pickup.c`** **`in_container`** trapped subset → **`trap.c`** **`chest_trap`** (**`pickup.js`**);
+// **`#p`**/**`#P`** — **`lock.c`** **`picklock()`** success tail on locked floor box (**`lock_hero.js`**; instant success, no occupation);
 // wizard **`z`** — **`dozap.js`**.
 
 import { game } from './gstate.js';
@@ -20,6 +21,7 @@ import { canReachFloor } from './engrave.js';
 import { doname } from './objnam.js';
 import { theObjnamLikeC } from './trap.js';
 import { floorContainerAtHeroFeetPickupLikeC, heroOpenTrappedContainerPickupLikeC } from './pickup.js';
+import { applyPicklockSucceededOnFloorBoxHeroLikeC, heroFirstLockToolOtypLikeC } from './lock_hero.js';
 import {
     ubuzzOverFloor,
     mbuzzTowardHeroFromFacingNeighbor,
@@ -176,6 +178,41 @@ export async function runExtcmdFromHashPrefix() {
         } else {
             await heroOpenTrappedContainerPickupLikeC(g, box, false);
             game.context.move = 1;
+        }
+        game._retainMessageAfterCommand = true;
+        await flush_screen(1);
+        return;
+    }
+    if (ch2 === 'p' || ch2 === 'P') {
+        /* C: lock.c picklock() — locked floor container: toggle **`olocked`**, **`lknown`**, **`chest_trap(..., FINGER)`** (no **`rn2(100)`** loop). */
+        const g = game;
+        const u = g.u;
+        if (!u || !g.level) {
+            await pline('Nothing happens.');
+            game._retainMessageAfterCommand = true;
+            await flush_screen(1);
+            return;
+        }
+        const tr = tAt(u.ux | 0, u.uy | 0);
+        if (!canReachFloor(!!(tr && is_pit(tr.ttyp)))) {
+            await pline('You cannot reach the floor!');
+            game._retainMessageAfterCommand = true;
+            await flush_screen(1);
+            return;
+        }
+        const box = floorContainerAtHeroFeetPickupLikeC(g);
+        if (!box) {
+            await pline('There is no container here.');
+        } else if (!(box.olocked | 0)) {
+            await pline('That container is not locked.');
+        } else {
+            const pickOtyp = heroFirstLockToolOtypLikeC(g);
+            if (pickOtyp == null) {
+                await pline("You don't have anything to pick that lock with.");
+            } else {
+                await applyPicklockSucceededOnFloorBoxHeroLikeC(g, box, pickOtyp);
+                g.context.move = 1;
+            }
         }
         game._retainMessageAfterCommand = true;
         await flush_screen(1);
