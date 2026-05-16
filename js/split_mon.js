@@ -10,9 +10,11 @@ import {
     isok,
     F_WARNED,
     G_EXTINCT,
+    PM_GREMLIN,
 } from './const.js';
 import { enextoNearMon } from './walkable.js';
 import { monTrackClear } from './monflee.js';
+import { updateInventory } from './invent.js';
 
 /** @param {import('./gstate.js').game} g */
 function monAt(g, x, y) {
@@ -96,6 +98,38 @@ export function cloneMon(g, mon, px, py) {
     g.level.monsters.push(m2);
     newsym(nx, ny);
     return m2;
+}
+
+/**
+ * C: potion.c **`split_mon(&gy.youmonst, NULL)`** — hero branch (**`cloneu`** + max split only; no **`makemon`** pet yet).
+ * @param {import('./gstate.js').game} g
+ * @returns {Promise<boolean>} true if split applied
+ */
+export async function splitGremlinHeroPoly(g) {
+    const u = g.u;
+    if (!u) return false;
+    if ((u.umonnum | 0) !== PM_GREMLIN) return false;
+
+    let mh = u.mh | 0;
+    let mhmax = (u.mhmax ?? u.uhpmax ?? 0) | 0;
+    if (mh > mhmax) mh = mhmax;
+    if (mh <= 1) return false;
+
+    const mndx = u.umonnum | 0;
+    const slot = g.mvitals?.[mndx];
+    if (slot && ((slot.mvflags | 0) & G_EXTINCT) !== 0) return false;
+
+    const cloneHp = Math.trunc(mh / 2);
+    u.mh = mh - cloneHp;
+    const halfMax = Math.trunc(mhmax / 2);
+    u.mhmax = mhmax - halfMax;
+    if ((u.mh | 0) > (u.mhmax | 0)) u.mh = u.mhmax;
+
+    await pline('You multiply!');
+    g.disp = g.disp || {};
+    g.disp.botl = true;
+    if (g.iflags?.perm_invent) updateInventory();
+    return true;
 }
 
 /**

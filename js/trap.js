@@ -34,6 +34,7 @@ import { igniteHeroInventory, igniteMinvent } from './ignite_items.js';
 import { burnarmorYoumonst, burnarmorMtmp } from './erode_obj.js';
 import { burnFloorObjects } from './burn_floor_objects.js';
 import { meltIceAt } from './melt_ice.js';
+import { splitMon, splitGremlinHeroPoly } from './split_mon.js';
 import { dist2 } from './hacklib.js';
 import {
     raceptr,
@@ -797,7 +798,7 @@ async function trapeffectRustTrapMonster(g, mtmp, trap) {
         newsym(mx, my);
         trapkilled = true;
     } else if ((mtmp.mnum | 0) === PM_GREMLIN && rn2(3)) {
-        /* C: split_mon — not ported */
+        await splitMon(g, mtmp, null);
     }
 
     return trapkilled
@@ -1525,7 +1526,7 @@ async function trapeffectSlpGasHero(trap) {
     }
 }
 
-/** C: trap.c trapeffect_rust_trap — hero (water_damage, splash_lit subset; gremlin split_mon TODO). */
+/** C: trap.c trapeffect_rust_trap — hero (water_damage, splash_lit subset; gremlin **`split_mon`** via **`splitGremlinHeroPoly`**). */
 async function trapeffectRustHero() {
     const u = game.u;
     if (!u) return;
@@ -1569,7 +1570,7 @@ async function trapeffectRustHero() {
         await pline('You are covered with rust!');
         losehp(maybeHalfPhys(dam), 'rusting away', KILLED_BY);
     } else if ((u.umonnum | 0) === PM_GREMLIN && rn2(3)) {
-        /* C: split_mon(&youmonst, 0) — PRNG inside split not replayed until mon.c port */
+        await splitGremlinHeroPoly(game);
     }
     updateInventory();
 }

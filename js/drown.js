@@ -1,14 +1,16 @@
 // drown.js — Hero entering water (trap.c drown() subset).
 // C ref: trap.c drown() — feel_newsym; wading rn2(5); fall/sink plines; water_damage_chain
-// (water_damage.js); gremlin / iron golem / teleport / emergency_disrobe / done(DROWNING) mostly TODO.
+// (water_damage.js); gremlin split_mon / iron golem rust; leash/teleport/emergency_disrobe/done(DROWNING) TODO.
 
 import { game } from './gstate.js';
-import { IS_POOL } from './const.js';
+import { IS_POOL, PM_GREMLIN, PM_IRON_GOLEM, KILLED_BY } from './const.js';
 import { raceptr, breathless, swims, amphibious } from './mondata.js';
 import { rndNexttoGoodposHero } from './walkable.js';
 import { pline, feelNewsym } from './display.js';
-import { rn2 } from './rng.js';
+import { rn2, d } from './rng.js';
 import { waterDamageChainHeroInventory } from './water_damage.js';
+import { maybeHalfPhys, losehp } from './mthrowu.js';
+import { splitGremlinHeroPoly } from './split_mon.js';
 
 /**
  * C: trap.c waterbody_name() subset — hero on **`IS_POOL`**.
@@ -79,7 +81,18 @@ export async function maybeHeroPoolEnter(g = game, opts = {}) {
     }
 
     await waterDamageChainHeroInventory(g);
-    /* C: gremlin split / iron golem rust — not ported */
+
+    /* C: trap.c drown — after water_damage_chain: split_mon gremlin else iron golem rust */
+    if ((u.umonnum | 0) === PM_GREMLIN && rn2(3)) {
+        await splitGremlinHeroPoly(g);
+    } else if ((u.umonnum | 0) === PM_IRON_GOLEM) {
+        await pline('You rust!');
+        const i = maybeHalfPhys(d(2, 6));
+        const mhmax = (u.mhmax ?? u.uhpmax ?? 0) | 0;
+        if (mhmax > i) u.mhmax = mhmax - i;
+        if ((u.mh | 0) > (u.mhmax | 0)) u.mh = u.mhmax;
+        losehp(i, 'rusting away', KILLED_BY);
+    }
 
     if (inpoolOk) return false;
 
