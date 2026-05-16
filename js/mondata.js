@@ -438,6 +438,30 @@ export function raceptr(mtmp) {
     return mtmp?.data ?? permonstHuman;
 }
 
+/** C: monflag.h — **`MS_SOLDIER`** (watchmen share **`msound`** with army; **`is_watch`** in C is **`PM_*`** only). */
+const MS_SOLDIER_MONFLAG = 27;
+/** C: monflag.h `M2_MERC` / `M2_HOSTILE` / `M2_PEACEFUL` / `M2_STALK` — watch vs soldier (monsters.h). */
+const M2_MERC_WATCH = 0x00000200;
+const M2_HOSTILE_WATCH = 0x00100000;
+const M2_PEACEFUL_WATCH = 0x00200000;
+const M2_STALK_WATCH = 0x01000000;
+
+/**
+ * C: mondata.h **`is_watch(ptr)`** — Town watch **`mons[]`** entries only (peaceful **`M2_MERC`** **`MS_SOLDIER`**).
+ * Army ranks use **`M2_HOSTILE`** instead of **`M2_PEACEFUL`**.
+ * @param {{ data?: Permonst }|null|undefined} mtmp
+ * @returns {boolean}
+ */
+export function isWatchMonsterLikeC(mtmp) {
+    const ptr = raceptr(mtmp);
+    const m2 = ptr?.mflags2 | 0;
+    if ((ptr?.msound | 0) !== MS_SOLDIER_MONFLAG) return false;
+    if ((m2 & M2_MERC_WATCH) === 0 || (m2 & M2_STALK_WATCH) === 0) return false;
+    if ((m2 & M2_PEACEFUL_WATCH) === 0) return false;
+    if ((m2 & M2_HOSTILE_WATCH) !== 0) return false;
+    return true;
+}
+
 function highc(ch) {
     if (!ch || typeof ch !== 'string') return ch;
     const c = ch[0];

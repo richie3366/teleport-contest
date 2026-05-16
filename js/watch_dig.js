@@ -1,5 +1,5 @@
 // watch_dig.js — Town watch reaction to digging damage (wand/spell/chew).
-// C ref: dig.c watch_dig()
+// C ref: dig.c watch_dig(), watchman_canseeu(), get_iter_mons(watchman_canseeu)
 
 import { inTownLikeC } from './hacklib.js';
 import { isClosedDoorLoc } from './walkable.js';
@@ -9,7 +9,14 @@ import {
     STONE,
     IS_WALL,
     IS_FOUNTAIN,
+    IS_DOOR,
+    IS_TREE,
+    IS_OBSTRUCTED,
 } from './const.js';
+import { pline } from './display.js';
+import { isWatchMonsterLikeC } from './mondata.js';
+import { mCanSeeHeroMonsterLikeC } from './mon_seen_res.js';
+import { angryGuardsSilentLikeC } from './shop.js';
 
 function isTreeCellLikeC(g, typ) {
     const t = typ | 0;
@@ -33,19 +40,33 @@ function watchDigCellQualifiesLikeC(g, x, y) {
 }
 
 /**
- * C: dig.c get_iter_mons(watchman_canseeu) — stub until **`is_watch`** / **`m_canseeu`** port.
- * @returns {null}
+ * C: dig.c **`watchman_canseeu`** + **`get_iter_mons(watchman_canseeu)`** — first matching watch on **`g.level.monsters`**.
+ * @param {import('./gstate.js').game} g
  */
-function getIterMonsWatchmanCanSeeUStub(_g) {
+function findWatchmanCanSeeHeroLikeC(g) {
+    for (const m of g.level?.monsters ?? []) {
+        if ((m.mhp | 0) <= 0) continue;
+        if (!(m.mpeaceful | 0)) continue;
+        if (!(m.mcansee | 0)) continue;
+        if (!isWatchMonsterLikeC(m)) continue;
+        if (!mCanSeeHeroMonsterLikeC(m)) continue;
+        return m;
+    }
     return null;
+}
+
+/** C: **`svc.context.digging.warned`** — ensure object exists before **`watch_dig`** toggles it. */
+function ensureDiggingWarnSlotLikeC(g) {
+    if (!g.context) g.context = {};
+    if (!g.context.digging) g.context.digging = { warned: false };
+    return g.context.digging;
 }
 
 /**
  * C: dig.c watch_dig(struct monst *mtmp, coordxy x, coordxy y, boolean zap)
  *
- * When a watchman is found: **`verbalize`**, **`angry_guards`**, **`context.digging.warned`**,
- * **`stop_occupation`** ( **`dig.c`** ). Those paths are deferred; **`get_iter_mons`** stub is
- * always **`NULL`** today, so this is a **no-op** for RNG until watchmen exist.
+ * **`SetVoice`** omitted; **`verbalize`** → **`pline`**. **`angry_guards`** via **`angryGuardsSilentLikeC`** (still stub **FALSE**).
+ * **`stop_occupation`** only when hero dig occupation is ported (**`is_digging`**); no broad **`g.occupation`** clear.
  *
  * @param {import('./gstate.js').game} g
  * @param {object|null|undefined} mtmp
@@ -54,15 +75,31 @@ function getIterMonsWatchmanCanSeeUStub(_g) {
  * @param {boolean} zap
  */
 export async function watchDigHeroLikeC(g, mtmp, x, y, zap) {
-    void zap;
     const xi = x | 0;
     const yi = y | 0;
     if (!inTownLikeC(g, xi, yi)) return;
     if (!watchDigCellQualifiesLikeC(g, xi, yi)) return;
 
-    let m = mtmp ?? null;
-    if (!m) m = getIterMonsWatchmanCanSeeUStub(g);
+    const m = mtmp ?? findWatchmanCanSeeHeroLikeC(g);
     if (!m) return;
 
-    /* C: SetVoice + verbalize + angry_guards / digging.warned + stop_occupation — TODO */
+    const dig = ensureDiggingWarnSlotLikeC(g);
+    const silent = (g.u?.timed?.deaf ?? 0) > 0;
+
+    if (zap || dig.warned) {
+        if (!silent) await pline('Halt, vandal!  You\'re under arrest!');
+        await angryGuardsSilentLikeC(g, silent);
+    } else {
+        const loc = g.level?.at(xi, yi);
+        const typ = loc?.typ | 0;
+        /** C: **`IS_DOOR`** / **`IS_TREE`** / **`IS_OBSTRUCTED`** else fountain. */
+        let str = 'fountain';
+        if (IS_DOOR(typ)) str = 'door';
+        else if (IS_TREE(typ)) str = 'tree';
+        else if (IS_OBSTRUCTED(typ)) str = 'wall';
+        if (!silent) await pline(`Hey, stop damaging that ${str}!`);
+        dig.warned = true;
+    }
+
+    /* C: **`is_digging()`** && **`stop_occupation`** — occupation / **`context.digging`** dig bit not wired. */
 }

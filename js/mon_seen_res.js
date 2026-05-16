@@ -11,7 +11,7 @@ const M1_SEE_INVIS = 0x01000000;
  * C: vision.h m_canseeu(m) — !Underwater, invis vs perceives, couldsee(m->mx,m->my).
  * @param {object} mtmp
  */
-function monsterCanSeeHeroLikeC(mtmp) {
+export function mCanSeeHeroMonsterLikeC(mtmp) {
     const u = game.u;
     if (!u || !mtmp) return false;
     if ((u.underwater | 0) !== 0) return false;
@@ -36,7 +36,7 @@ export function monstseesuLikeC(seenres) {
     if (!mons) return;
     for (const mtmp of mons) {
         if ((mtmp.mhp | 0) <= 0) continue;
-        if (!monsterCanSeeHeroLikeC(mtmp)) continue;
+        if (!mCanSeeHeroMonsterLikeC(mtmp)) continue;
         mtmp.mseenres = (mtmp.mseenres | 0) | (seenres | 0);
     }
 }
@@ -56,7 +56,7 @@ export function monstunseesuLikeC(seenres) {
     const mask = ~(seenres | 0);
     for (const mtmp of mons) {
         if ((mtmp.mhp | 0) <= 0) continue;
-        if (!monsterCanSeeHeroLikeC(mtmp)) continue;
+        if (!mCanSeeHeroMonsterLikeC(mtmp)) continue;
         mtmp.mseenres = (mtmp.mseenres | 0) & mask;
     }
 }
