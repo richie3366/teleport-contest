@@ -160,6 +160,19 @@ export function applyIdentityFromNethackrc(g, opts) {
 
     ({ race, alignType, female } = coerceChargenIdentity(role, race, alignType, female));
 
+    const resolvedRoleIdx = roles.indexOf(role);
+    const resolvedRaceIdx = races.indexOf(race);
+    const resolvedGendIdx = female ? 1 : 0;
+    const resolvedAlignIdx = aligns.findIndex((x) => x.value === alignType);
+
+    /* C: role.c role_init — Strcpy(svp.pl_character, roles[flags.initrole].name.m) (male title). */
+    g.pl_character = role.name.m;
+    /* C: struct flag (role.c) — init indices after rigid_role_checks / coerce; aligns[] index for initalign. */
+    g.initrole = resolvedRoleIdx;
+    g.initrace = resolvedRaceIdx;
+    g.initgend = resolvedGendIdx;
+    g.initalign = resolvedAlignIdx;
+
     g.flags = g.flags || {};
     g.flags.female = female;
 
