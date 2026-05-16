@@ -42,6 +42,8 @@ import { igniteHeroInventory, igniteMinvent } from './ignite_items.js';
 import { burnarmorYoumonst, burnarmorMtmp } from './erode_obj.js';
 import { burnFloorObjects } from './burn_floor_objects.js';
 import { meltIceAt, maybeDunkBouldersLikeC } from './melt_ice.js';
+import { fillholetypLikeC } from './fillholetyp.js';
+import { liquidFlowHeroDigLikeC } from './liquid_flow.js';
 import { delEngrAt } from './engrave.js';
 import { spotChecksLikeC } from './spot_checks.js';
 import { doname } from './objnam.js';
@@ -153,6 +155,7 @@ import {
     PM_LEATHER_GOLEM,
     PM_WOOD_GOLEM,
     OTYP_BOULDER,
+    ROOM,
     TRAP_EFFECT_FINISHED,
     TRAP_CAUGHT_MON,
     TRAP_KILLED_MON,
@@ -2291,7 +2294,8 @@ async function trapeffectBearHero(trap, trflags) {
 
 /**
  * C: trap.c **`blow_up_landmine`** — **`scatter`** (deferred), **`engrave.c`** **`del_engr_at`**, **`wake_nearto`**, …;
- * converts **`LANDMINE` → `PIT`** on normal levels (**`Is_waterlevel`/`Is_airlevel`** → **`deltrap`**).
+ * non-water/air: **`dig.c`** **`fillholetyp`** then either **`lev->typ`** + **`liquid_flow`** ( **`deltrap`** ) or **`LANDMINE` → `PIT`**;
+ * **`Is_waterlevel`/`Is_airlevel`** → **`deltrap`** only (no pit).
  * Then **`fill_pit`**, **`apply.c`** **`maybe_dunk_boulders`**, **`recalc_block_point`** (JS **`vision_recalc(1)`**),
  * **`hack.c`** **`spot_checks`**.
  * @param {{ tx: number, ty: number, ttyp?: number, madeby_u?: boolean, tseen?: boolean }|null|undefined} trap
@@ -2314,10 +2318,18 @@ async function blowUpLandmine(trap) {
         spotChecksLikeC(g, x, y, old_typ);
         return;
     }
-    if ((trap.ttyp | 0) === LANDMINE) {
-        trap.ttyp = PIT;
-        trap.madeby_u = false;
-        seetrap(trap);
+    if (trap) {
+        const typFill = fillholetypLikeC(g, x, y, false);
+        const levCell = g.level?.at(x, y);
+        if (levCell && typFill !== ROOM) {
+            levCell.typ = typFill;
+            const fillmsg = cansee(x, y) ? 'The hole fills with %s!' : null;
+            await liquidFlowHeroDigLikeC(g, x, y, typFill, trap, fillmsg);
+        } else if ((trap.ttyp | 0) === LANDMINE) {
+            trap.ttyp = PIT;
+            trap.madeby_u = false;
+            seetrap(trap);
+        }
     }
     await fillPitInLevel(g, x, y);
     await maybeDunkBouldersLikeC(g, x, y);
