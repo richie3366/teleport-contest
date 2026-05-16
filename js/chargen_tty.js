@@ -1,6 +1,7 @@
 // chargen_tty.js — Tty splash + askname + role/race/gender + ynaq confirmation.
-// C ref: win/tty/wintty.c tty_askname; role.c genl_player_setup / build_plselection_prompt;
-// role.c setup_rolemenu / reset_role_filtering / role_menu_extra(RS_filter, '~').
+// C ref: win/tty/wintty.c tty_init_nhwindows (copyright @ y=4, blank, curs y=11), tty_askname;
+// role.c genl_player_setup / build_plselection_prompt; role.c setup_rolemenu /
+// reset_role_filtering / role_menu_extra(RS_filter, '~').
 
 import { nhgetch } from './input.js';
 import { NO_COLOR, ATR_INVERSE } from './terminal.js';
@@ -34,7 +35,15 @@ const COPYRIGHT_D = 'See license for details.';
 const COPYRIGHT_C = 'Version 5.0.0 (NetHack 5.0 port)';
 
 const MENU_COL = 41;
-const NAME_ROW = 12;
+
+/** C wintty.c tty_init_nhwindows: tty_curs(BASE_WINDOW,1,4) then 4×copyright + blank. */
+const TTY_COPYRIGHT_START_ROW = 4;
+/** One blank line after the four copyright rows (C tty_putstr empty before display). */
+const TTY_POST_COPYRIGHT_BLANK_ROW = 8;
+/** C tty_curs(BASE_WINDOW,1,11) — default row for chargen / [ynaq] (y is 0-based in tty_curs). */
+const TTY_CHARSEL_DEFAULT_ROW = 11;
+/** Line under the [ynaq] prompt for the typed-name recap (after Enter in tty_askname). */
+const WHO_ARE_YOU_RECAP_ROW = 12;
 
 /** C clearrolefilter at each chargen top (new name / restart). */
 export function resetChargenRfilter() {
@@ -225,37 +234,43 @@ export function needsAsknameOnly(opts) {
     return opts.explicitRoleInRc && !opts.explicitNameInRc;
 }
 
-function paintCopyrightAt(disp, startRow) {
+function paintCopyrightAt(disp, startRow = TTY_COPYRIGHT_START_ROW) {
     disp.putstr(0, startRow, COPYRIGHT_A, NO_COLOR);
     disp.putstr(9, startRow + 1, COPYRIGHT_B, NO_COLOR);
     disp.putstr(9, startRow + 2, COPYRIGHT_C, NO_COLOR);
     disp.putstr(9, startRow + 3, COPYRIGHT_D, NO_COLOR);
 }
 
+function paintChargenCopyrightBlockLikeC(disp) {
+    paintCopyrightAt(disp, TTY_COPYRIGHT_START_ROW);
+    disp.clearRow(TTY_POST_COPYRIGHT_BLANK_ROW);
+}
+
 /** C tty_askname initial + per-char echo. */
 export async function ttyAsknameLikeC(disp, g) {
     disp.clearScreen();
-    paintCopyrightAt(disp, 4);
-    const prompt = 'Who are you?';
-    disp.putstr(0, NAME_ROW, prompt, NO_COLOR);
+    paintChargenCopyrightBlockLikeC(disp);
+    /* C: static const char who_are_you[] = "Who are you? "; */
+    const prompt = 'Who are you? ';
+    disp.putstr(0, TTY_CHARSEL_DEFAULT_ROW, prompt, NO_COLOR);
     disp.cursorVisible = true;
-    disp.setCursor(prompt.length, NAME_ROW);
+    disp.setCursor(prompt.length, TTY_CHARSEL_DEFAULT_ROW);
     let buf = '';
     for (;;) {
         const c = await nhgetch();
         if (c === 13 || c === 10) break;
         if (c === 27) {
             buf = '';
-            disp.clearRow(NAME_ROW);
-            disp.putstr(0, NAME_ROW, prompt, NO_COLOR);
-            disp.setCursor(prompt.length, NAME_ROW);
+            disp.clearRow(TTY_CHARSEL_DEFAULT_ROW);
+            disp.putstr(0, TTY_CHARSEL_DEFAULT_ROW, prompt, NO_COLOR);
+            disp.setCursor(prompt.length, TTY_CHARSEL_DEFAULT_ROW);
             continue;
         }
         if (c === 8 || c === 127) {
             if (buf.length) {
                 buf = buf.slice(0, -1);
-                disp.putstr(prompt.length, NAME_ROW, `${buf} `, NO_COLOR);
-                disp.setCursor(prompt.length + buf.length, NAME_ROW);
+                disp.putstr(prompt.length, TTY_CHARSEL_DEFAULT_ROW, `${buf} `, NO_COLOR);
+                disp.setCursor(prompt.length + buf.length, TTY_CHARSEL_DEFAULT_ROW);
             }
             continue;
         }
@@ -264,8 +279,8 @@ export async function ttyAsknameLikeC(disp, g) {
             if (!/[a-zA-Z]/.test(ch) && !(ch >= '0' && ch <= '9' && buf.length > 0)) ch = '_';
         }
         if (buf.length < 31) buf += ch;
-        disp.putstr(prompt.length, NAME_ROW, buf, NO_COLOR);
-        disp.setCursor(prompt.length + buf.length, NAME_ROW);
+        disp.putstr(prompt.length, TTY_CHARSEL_DEFAULT_ROW, buf, NO_COLOR);
+        disp.setCursor(prompt.length + buf.length, TTY_CHARSEL_DEFAULT_ROW);
     }
     g.plname = buf || 'X';
 }
@@ -273,10 +288,11 @@ export async function ttyAsknameLikeC(disp, g) {
 export function paintPostNameYnaqScreen(disp, plname) {
     const p0 = buildShallPickPrompt();
     disp.clearScreen();
-    disp.putstr(0, 0, p0, NO_COLOR);
-    disp.setCursor(p0.length, 0);
-    paintCopyrightAt(disp, 4);
-    disp.putstr(0, NAME_ROW, `Who are you? ${plname}`, NO_COLOR);
+    /* Rows 0–3 left empty like C (room for early topline-style prompts). */
+    paintChargenCopyrightBlockLikeC(disp);
+    disp.putstr(0, TTY_CHARSEL_DEFAULT_ROW, p0, NO_COLOR);
+    disp.setCursor(p0.length, TTY_CHARSEL_DEFAULT_ROW);
+    disp.putstr(0, WHO_ARE_YOU_RECAP_ROW, `Who are you? ${plname}`, NO_COLOR);
 }
 
 /** C role.c genl_player_setup comment on [ynaq] after name (~2248–2254). */
@@ -312,8 +328,12 @@ function paintConfirmYnaqHelpOverlay(disp) {
     }
 }
 
-/** C yn_function for [ynaq] after name (role.c ~2260). */
-export async function readYnaqPick4u(disp) {
+/**
+ * C genl_player_setup [ynaq] loop (role.c ~2260); tty shows prompt at wintty default row 11.
+ * @param {import('./game_display.js').GameDisplay} disp
+ * @param {string} plname
+ */
+export async function readYnaqPick4u(disp, plname) {
     for (;;) {
         const c = await nhgetch();
         let k = lowc(String.fromCodePoint(c));
@@ -684,7 +704,7 @@ export async function runInteractiveTtyChargen(disp, g, opts) {
         resetChargenRfilter();
         await ttyAsknameLikeC(disp, g);
         paintPostNameYnaqScreen(disp, g.plname);
-        const pick4u = await readYnaqPick4u(disp);
+        const pick4u = await readYnaqPick4u(disp, g.plname);
         if (pick4u === 'q') throw new Error('Player quit during chargen');
         if (pick4u === 'y' || pick4u === 'a') {
             const f = { initrole: ROLE_NONE, initrace: ROLE_NONE, initgend: ROLE_NONE, initalign: ROLE_NONE };
