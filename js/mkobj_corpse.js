@@ -1,5 +1,6 @@
 // mkobj_corpse.js — Floor corpse drops (minimal mkobj.c parity).
-// C ref: mkobj.c mksobj (next_ident) + place_object; mon.c corpse teardown.
+// C ref: mkobj.c mksobj (next_ident) + place_object; mon.c make_corpse.
+// Caller should skip when mondata.monsterLeavesCorpse is false (G_NOCORPSE / mvitals).
 
 import { rnd } from './rng.js';
 import { placeFloorObject } from './floorobj.js';

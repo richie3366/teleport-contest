@@ -8,6 +8,7 @@ import { overexertHpIfEncumberedPlines } from './eat_hunger.js';
 import { useSkill } from './u_init_skills.js';
 import { weaponType } from './weapon_kind.js';
 import { P_NONE, P_BARE_HANDED_COMBAT, isok } from './const.js';
+import { monsterLeavesCorpse } from './mondata.js';
 import { placeCorpseForMonster } from './mkobj_corpse.js';
 
 /** @param {{ monnam?: string, data?: { mname?: string } }} mtmp */
@@ -30,7 +31,7 @@ function meleeWeaponSkill() {
  * Peaceful: no hit / no practice (subset of uhitm).
  * Damage: stub 1 + rn2(4); removes mtmp from level.monsters at 0 hp;
  * drops minimal floor corpse (`mkobj_corpse` / `placeFloorObject`).
- * @param {{ mpeaceful?: number, mhp?: number, mx?: number, my?: number, mnum?: number, monnam?: string, data?: { mname?: string, mnum?: number } }} mtmp
+ * @param {{ mpeaceful?: number, mhp?: number, mx?: number, my?: number, mnum?: number, mvflags?: number, monnam?: string, data?: { mname?: string, mnum?: number, mvflags?: number } }} mtmp
  */
 export async function doBumpMeleeAttack(mtmp) {
     if (!mtmp) return;
@@ -47,7 +48,8 @@ export async function doBumpMeleeAttack(mtmp) {
     if ((mtmp.mhp | 0) <= 0) {
         const x = mtmp.mx | 0;
         const y = mtmp.my | 0;
-        if (game.level && isok(x, y)) placeCorpseForMonster(mtmp, x, y);
+        if (game.level && isok(x, y) && monsterLeavesCorpse(mtmp, game))
+            placeCorpseForMonster(mtmp, x, y);
         const arr = game.level?.monsters;
         if (arr) {
             const i = arr.indexOf(mtmp);

@@ -1,10 +1,13 @@
 // mondata.js — Monster type predicates and locomotion phrasing.
 // C ref: mondata.h (is_floater, is_flyer, …), mondata.c raceptr(), locomotion(),
-// stagger(), monflag.h M1_*, MZ_*.
+// stagger(), monflag.h M1_*, MZ_*, G_NOCORPSE; mon.c make_corpse (corpse gate stub).
 
 import { game } from './gstate.js';
 
-/** @typedef {{ mlet: number, mflags1: number, msize: number, mmove: number, ac?: number }} Permonst */
+/** @typedef {{ mlet: number, mflags1: number, msize: number, mmove: number, ac?: number, mvflags?: number }} Permonst */
+
+/** C: monflag.h `G_NOCORPSE` — no ordinary corpse (mon.c make_corpse; genocided / unique rules). */
+export const G_NOCORPSE = 0x0010;
 
 // C: monflag.h (subset used by locomotion / stagger)
 const M1_FLY = 0x00000001;
@@ -40,7 +43,25 @@ export const permonstHuman = Object.freeze({
     msize: 2, /* MZ_MEDIUM */
     mmove: 12,
     ac: 10, /* C: mons[].ac — find_ac() base for naked humanoid hero */
+    mvflags: 0,
 });
+
+/**
+ * C: mon.c make_corpse — `svm.mvitals[mndx].mvflags & G_NOCORPSE`, plus per-monst overrides.
+ * Stub: `mtmp.mvflags`, `mtmp.data.mvflags`, or `g.mvitals[mnum].mvflags` when those exist.
+ * @param {{ mnum?: number, mvflags?: number, data?: Permonst }} mtmp
+ * @param {typeof game} [g]
+ */
+export function monsterLeavesCorpse(mtmp, g = game) {
+    if (!mtmp) return false;
+    if (((mtmp.mvflags | 0) & G_NOCORPSE) !== 0) return false;
+    const d = mtmp.data;
+    if (d && ((d.mvflags | 0) & G_NOCORPSE) !== 0) return false;
+    const mndx = mtmp.mnum | 0;
+    const slot = g?.mvitals?.[mndx];
+    if (slot && ((slot.mvflags | 0) & G_NOCORPSE) !== 0) return false;
+    return true;
+}
 
 /** C: mondata.h carnivorous(ptr) — true for carnivores and omnivores */
 export function carnivorous(/** @type {Permonst} */ ptr) {
