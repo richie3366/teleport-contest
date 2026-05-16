@@ -480,13 +480,14 @@ async function readRaceChoice(disp, f) {
         paintRaceMenu(disp, f);
         const c = await nhgetch();
         const k = lowc(String.fromCodePoint(c));
-            if (k === '~') {
-                f.initrace = ROLE_NONE;
-                await runResetRoleFilteringMenuLikeC(disp, f);
-                continue;
-            }
-            if (k === '*') {
-                const t = pickRaceJs(f.initrole, f.initgend, f.initalign, PICK_RANDOM);
+        if (k === '~') {
+            f.initrace = ROLE_NONE;
+            const repickRole = await runResetRoleFilteringMenuLikeC(disp, f);
+            if (!repickRole) f.chargenResumePick = 'race';
+            continue;
+        }
+        if (k === '*') {
+            const t = pickRaceJs(f.initrole, f.initgend, f.initalign, PICK_RANDOM);
             if (t !== ROLE_NONE) return t;
             continue;
         }
@@ -542,7 +543,8 @@ async function readGenderChoice(disp, f) {
         const k = lowc(String.fromCodePoint(c));
         if (k === '~') {
             f.initgend = ROLE_NONE;
-            await runResetRoleFilteringMenuLikeC(disp, f);
+            const repickRole = await runResetRoleFilteringMenuLikeC(disp, f);
+            if (!repickRole) f.chargenResumePick = 'gender';
             continue;
         }
         if (k === '*') {
@@ -604,7 +606,8 @@ async function readAlignChoice(disp, f) {
         const k = lowc(String.fromCodePoint(c));
         if (k === '~') {
             f.initalign = ROLE_NONE;
-            await runResetRoleFilteringMenuLikeC(disp, f);
+            const repickRole = await runResetRoleFilteringMenuLikeC(disp, f);
+            if (!repickRole) f.chargenResumePick = 'align';
             continue;
         }
         if (k === '*') {
@@ -657,7 +660,8 @@ async function readConfirmAnswer(disp, f, plname) {
  * C tty role hub: pick role, or `[` / `"` / `/` to pick alignment / gender / race first
  * (setup_rolemenu) before the role letter.
  * @param {import('./game_display.js').GameDisplay} disp
- * @param {{ initrole: number, initrace: number, initgend: number, initalign: number }} f
+ * @param {{ initrole: number, initrace: number, initgend: number, initalign: number,
+ *   chargenResumePick?: 'race' | 'gender' | 'align' }} f
  */
 async function pickManualChargenFacets(disp, f) {
     const entries = roleMenuEntries(f);
@@ -665,7 +669,32 @@ async function pickManualChargenFacets(disp, f) {
     for (;;) {
         rigidRoleChecksJs(f);
         if (f.initrole !== ROLE_NONE && f.initrace !== ROLE_NONE && f.initgend !== ROLE_NONE && f.initalign !== ROLE_NONE) {
+            delete f.chargenResumePick;
             return;
+        }
+
+        /* C genl_player_setup: after ~ on race/gender/align, reset() false → nextpick RS_RACE/RS_GENDER/RS_ALGNMNT
+         * (skip RS_ROLE block next iteration); true → RS_ROLE (normal hub order). */
+        if (f.chargenResumePick === 'race') {
+            delete f.chargenResumePick;
+            if (f.initrace === ROLE_NONE) {
+                f.initrace = await readRaceChoice(disp, f);
+                continue;
+            }
+        }
+        if (f.chargenResumePick === 'gender') {
+            delete f.chargenResumePick;
+            if (f.initgend === ROLE_NONE) {
+                f.initgend = await readGenderChoice(disp, f);
+                continue;
+            }
+        }
+        if (f.chargenResumePick === 'align') {
+            delete f.chargenResumePick;
+            if (f.initalign === ROLE_NONE) {
+                f.initalign = await readAlignChoice(disp, f);
+                continue;
+            }
         }
 
         if (f.initrole === ROLE_NONE) {
