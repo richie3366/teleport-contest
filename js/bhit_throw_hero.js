@@ -17,11 +17,14 @@ import {
     Is_airlevel,
 } from './const.js';
 import { isAmmo, ammoAndLauncherLikeC, weaponType } from './weapon_kind.js';
+import { isPoolCellLikeC } from './fillholetyp.js';
+import { OBJ_ROCK } from './mthrowu.js';
+import { rnd, rn2 } from './rng.js';
+import { raceptr, cantDrown, S_EEL } from './mondata.js';
 import { pSkillDisplayName } from './skill_display_name.js';
 import { an } from './decor.js';
 import { nh5HeroObjectClass } from './water_damage.js';
 import { NH5_GEM_CLASS } from './nh5_objclass.js';
-import { rn2 } from './rng.js';
 import { pline, newsym } from './display.js';
 import { cansee } from './vision.js';
 import { doname } from './objnam.js';
@@ -42,7 +45,7 @@ export function throwingWeaponHeroThrowitLikeC(obj) {
 }
 
 /**
- * C: dothrow.c throwit urange/range before bhit (uball cap, boulder, Mjollnir, aklys, tether omitted; rock skip in bhit still TODO).
+ * C: dothrow.c throwit urange/range before bhit (uball cap, boulder, Mjollnir, aklys, tether omitted).
  * @param {import('./gstate.js').game} g
  */
 export async function thrownWeaponRangeHeroLikeC(g, obj) {
@@ -91,8 +94,37 @@ function monAtCellG(g, x, y) {
     return g.level?.monsters?.find((m) => (m.mx | 0) === (x | 0) && (m.my | 0) === (y | 0)) ?? null;
 }
 
+/** C: zap.c skiprange() — thrown ROCK skip band (rnd order matches C). */
+function skiprangeThrownRockLikeC(range) {
+    const r = range | 0;
+    const tr = Math.trunc(r / 4);
+    const tmp = r - (tr > 0 ? rnd(tr) : 0);
+    let skipend = tmp - Math.trunc((tmp / 4) * rnd(3));
+    if (skipend >= tmp) skipend = tmp - 1;
+    return { skipstart: tmp, skipend };
+}
+
+function heroBlindThrow(g) {
+    const u = g.u;
+    return !!(u?.ublind || (u?.timed?.blind ?? 0) > 0);
+}
+
+/** C: zap.c bhit-local M_IN_WATER(ptr) — eel or cant_drown. */
+function monInWaterZapThrownRockLikeC(ptr) {
+    if (!ptr) return false;
+    return (ptr.mlet | 0) === S_EEL || cantDrown(ptr);
+}
+
+function canspotMonThrownRockSkipLikeC(g, mtmp) {
+    const u = g.u;
+    if (!mtmp || !u) return false;
+    if ((u.usteed | 0) && u.usteed === mtmp) return true;
+    if ((mtmp.minvis | 0) && !(u.See_invisible | 0)) return false;
+    return cansee(mtmp.mx | 0, mtmp.my | 0);
+}
+
 /**
- * C: zap.c bhit — THROWN_WEAPON, fhitm/fhito null (subset: shkcatch, hits_bars, rock skip, shade/mimic, tmp_at omitted).
+ * C: zap.c bhit — THROWN_WEAPON, fhitm/fhito null (subset: shkcatch, hits_bars, shade/mimic, tmp_at omitted).
  * @returns {Promise<{ x: number, y: number, mon: object|null, stuckWeb: boolean }>}
  */
 export async function walkThrownWeaponBhitRayHeroLikeC(g, dx, dy, range0, obj) {
@@ -106,6 +138,18 @@ export async function walkThrownWeaponBhitRayHeroLikeC(g, dx, dy, range0, obj) {
     let range = range0 | 0;
     let stuckWeb = false;
     let hitMon = null;
+
+    let skiprangeStart = 0;
+    let skiprangeEnd = 0;
+    let skipCount = 0;
+    let allowSkip = false;
+    let inSkip = false;
+    if (obj && (obj.otyp | 0) === OBJ_ROCK) {
+        const sr = skiprangeThrownRockLikeC(range);
+        skiprangeStart = sr.skipstart;
+        skiprangeEnd = sr.skipend;
+        allowSkip = !rn2(3);
+    }
 
     while (range > 0) {
         range--;
@@ -133,14 +177,10 @@ export async function walkThrownWeaponBhitRayHeroLikeC(g, dx, dy, range0, obj) {
             break;
         }
 
-        const mtmp = monAtCellG(g, bx, by);
-        if (mtmp) {
-            hitMon = mtmp;
-            break;
-        }
+        let mtmp = monAtCellG(g, bx, by);
 
         const ttmp = trapAtG(g, bx, by);
-        if (ttmp && (ttmp.ttyp | 0) === TT_WEB && !rn2(3)) {
+        if (!mtmp && ttmp && (ttmp.ttyp | 0) === TT_WEB && !rn2(3)) {
             stuckWeb = true;
             if (!ttmp.tseen) ttmp.tseen = 1;
             if (cansee(bx, by)) {
@@ -149,6 +189,46 @@ export async function walkThrownWeaponBhitRayHeroLikeC(g, dx, dy, range0, obj) {
                 await pline(`${cap} gets stuck in a web!`);
             }
             await newsym(bx, by);
+            break;
+        }
+
+        if (skiprangeStart && range === skiprangeStart && allowSkip) {
+            if (isPoolCellLikeC(g, bx, by) && !mtmp) {
+                inSkip = true;
+                const blind = heroBlindThrow(g);
+                if (!blind) {
+                    const raw = doname(obj, g);
+                    const cap = raw.charAt(0).toUpperCase() + raw.slice(1);
+                    await pline(`${cap} skips${skipCount ? ' again' : ''}.`);
+                } else {
+                    await pline('You hear something skip.');
+                }
+                skipCount++;
+            } else if (skiprangeStart > skiprangeEnd + 1) {
+                skiprangeStart--;
+            }
+        }
+        if (inSkip) {
+            if (range <= skiprangeEnd) {
+                inSkip = false;
+                if (range > 3) {
+                    const sr2 = skiprangeThrownRockLikeC(range);
+                    skiprangeStart = sr2.skipstart;
+                    skiprangeEnd = sr2.skipend;
+                }
+            } else if (mtmp && monInWaterZapThrownRockLikeC(raceptr(mtmp))) {
+                if (!heroBlindThrow(g) && canspotMonThrownRockSkipLikeC(g, mtmp)) {
+                    const on = mtmp.monnam || mtmp.data?.mname || 'it';
+                    const raw = doname(obj, g);
+                    const cap = raw.charAt(0).toUpperCase() + raw.slice(1);
+                    await pline(`${cap} passes over ${on}.`);
+                }
+                mtmp = null;
+            }
+        }
+
+        if (mtmp) {
+            hitMon = mtmp;
             break;
         }
 

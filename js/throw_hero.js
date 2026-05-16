@@ -18,11 +18,11 @@ import {
     throwitPlaceAfterBhitHeroLikeC,
 } from './bhit_throw_hero.js';
 import { throwitMonHitThrownHeroLikeC } from './throwit_mon_hit_hero.js';
+import { ammoAndLauncherLikeC } from './weapon_kind.js';
 
 /**
- * C: dothrow.c throwit opening slip (rn2(7), greased / throwing_weapon) — mutates u.dx/u.dy.
- * Omits slip ammo_and_launcher misfire pline, uswallow, toss-up u.dz<0, steed holy-water rn2(6),
- * full thitmonst/hmon/potionhit/should_mulch_missile, ship_object.
+ * C: dothrow.c throwit opening slip (rn2(7), cursed/greased, ammo_and_launcher misfire vs slip) — mutates u.dx/u.dy/u.dz.
+ * Omits uswallow, toss-up u.dz<0, steed holy-water rn2(6), full thitmonst/hmon/potionhit/should_mulch_missile, ship_object.
  */
 async function applyThrowSlipRngLikeC(g, obj) {
     const u = g.u;
@@ -32,17 +32,28 @@ async function applyThrowSlipRngLikeC(g, obj) {
     const dy0 = u.dy | 0;
     if (!dx0 && !dy0) return;
     if (rn2(7)) return;
-    if (!(obj.greased | 0) && !throwingWeaponHeroThrowitLikeC(obj)) return;
-    await pline(`${doname(obj, g)} slips as you throw it!`);
-    u.dx = rn2(3) - 1;
-    u.dy = rn2(3) - 1;
-    if (!(u.dx | 0) && !(u.dy | 0)) u.dy = 1;
+    const uwep = u.uwep ?? null;
+    let slipok = true;
+    if (ammoAndLauncherLikeC(obj, uwep)) {
+        await pline(`${doname(obj, g)} misfires!`);
+    } else {
+        if ((obj.greased | 0) || throwingWeaponHeroThrowitLikeC(obj)) {
+            await pline(`${doname(obj, g)} slips as you throw it!`);
+        } else {
+            slipok = false;
+        }
+    }
+    if (slipok) {
+        u.dx = rn2(3) - 1;
+        u.dy = rn2(3) - 1;
+        if (!(u.dx | 0) && !(u.dy | 0)) u.dz = 1;
+    }
 }
 
 /**
  * C: dothrow.c throwit subset — zap.c bhit ray + landing (breakobj/flooreffects/place_object),
  * throwit_mon_hit / thitmonst weapon/gem/rock/potion subset; u.dz>0 → hitfloor(obj, TRUE), top g.invent.
- * Omits slip misfire pline, uswapwep launcher check, uslinging, uball cap, boulder/Mjollnir, tether, rock skiprange in bhit, hits_bars, shkcatch, tmp_at.
+ * Omits uswapwep launcher check, uslinging, uball cap, boulder/Mjollnir, tether, hits_bars, shkcatch, tmp_at.
  * @param {import('./gstate.js').game} [g]
  */
 export async function throwOneInventAdjacentLikeC(g = game) {
