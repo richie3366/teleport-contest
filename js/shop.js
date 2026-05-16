@@ -894,25 +894,206 @@ export async function makeAngryShkLikeC(g, shkp, ox, oy) {
 }
 
 /**
- * C: **`dothrow.c`** **`check_shop_obj(obj, x, y, TRUE)`** — first **`if`** branch only (**`broken` TRUE**).
- * **`shop_keeper(*u.ushops)`** via **`shopdigPickShkpLikeC`**; unpaid → **`stolen_value(obj, u.ux, u.uy, mpeaceful, FALSE)`**;
- * then **`obj->no_charge`**. **`broken` FALSE** (**`sellobj`/`subfrombill`**) still TODO.
+ * C: **`shk.c`** **`subfrombill`** — recursive **`sub_one_frombill`** over **`cobj`** (skips **`COIN_CLASS`** children like C).
  * @param {import('./gstate.js').game} g
  */
-export async function checkShopObjBrokenTrueLikeC(g, obj, _x, _y) {
-    void _x;
-    void _y;
-    if (!g.u || !obj) return;
-    const shkp = shopdigPickShkpLikeC(g);
-    if (!shkp) return;
-    if (obj.unpaid | 0) {
-        await stolenValueMerchBurySilent(g, obj, g.u.ux | 0, g.u.uy | 0, shkp, false);
+function subfrombillLikeC(g, obj, shkp) {
+    void g;
+    subOneFromBill(obj, shkp);
+    if (!Has_contents(obj)) return;
+    for (let otmp = obj.cobj; otmp; otmp = otmp.nobj) {
+        if ((otmp.oclass | 0) === NH5_COIN_CLASS) continue;
+        if (Has_contents(otmp)) subfrombillLikeC(g, otmp, shkp);
+        else subOneFromBill(otmp, shkp);
     }
-    obj.no_charge = 1;
+}
+
+/** C: **`shk.c`** **`money_cnt(mtmp->minvent)`** — gold **`quan`** sum. */
+function moneyCntMinventShk(shkp) {
+    let n = 0;
+    for (let o = shkp?.minvent; o; o = o.nobj) {
+        if ((o.oclass | 0) === NH5_COIN_CLASS) n += o.quan | 0;
+    }
+    return n;
+}
+
+/** C: **`shk.c`** deduct gold from **`minvent`** (**`COIN_CLASS`** chain) — subset for **`sellobj`** pay. */
+function deductGoldFromShkMinventLikeC(shkp, amt) {
+    let need = amt | 0;
+    if (need <= 0 || !shkp) return;
+    while (need > 0) {
+        let prev = /** @type {object | null} */ (null);
+        let o = shkp.minvent ?? null;
+        let progressed = false;
+        while (o) {
+            if ((o.oclass | 0) === NH5_COIN_CLASS) {
+                progressed = true;
+                const q = o.quan | 0;
+                if (q <= need) {
+                    need -= q;
+                    const nx = o.nobj ?? null;
+                    if (prev) prev.nobj = nx;
+                    else shkp.minvent = nx;
+                    o.nobj = null;
+                } else {
+                    o.quan = q - need;
+                    need = 0;
+                }
+                break;
+            }
+            prev = o;
+            o = o.nobj;
+        }
+        if (!progressed) break;
+    }
 }
 
 /**
- * C: **`dothrow.c`** **`breakobj`** floor + **`hero_caused`** shop tail (**`check_shop_obj`** when invent/unpaid).
+ * C: **`shk.c`** **`donate_gold(gltmp, shkp, selling)`** — **`debit`/`loan`/`credit`** + plines.
+ * @param {boolean} selling — C **`selling`** (**`TRUE`** = dropped in shop; **`FALSE`** kicked in, unused here).
+ */
+async function donateGoldLikeC(g, gltmp, shkp, selling) {
+    const e = ESHK(shkp);
+    if (!e) return;
+    const gl = gltmp | 0;
+    if (gl <= 0) return;
+    const debit = e.debit | 0;
+    if (debit >= gl) {
+        const loan = e.loan | 0;
+        if (loan) {
+            if (loan > gl) e.loan = loan - gl;
+            else e.loan = 0;
+        }
+        e.debit = debit - gl;
+        await pline(`Your debt is ${e.debit ? 'partially ' : ''}paid off.`);
+        return;
+    }
+    const delta = gl - debit;
+    e.credit = (e.credit | 0) + delta;
+    if (debit) {
+        e.debit = 0;
+        e.loan = 0;
+        await pline('Your debt is paid off.');
+    }
+    const cred = e.credit | 0;
+    if (cred === delta) {
+        await pline(
+            `You have ${selling ? '' : 're-'}established ${delta} ${currencyAmountLikeC(g, delta)} credit.`,
+        );
+    } else {
+        await pline(
+            `${delta} ${currencyAmountLikeC(g, delta)} added${selling ? '' : ' back'} to your credit; total is now ${cred} ${currencyAmountLikeC(g, cred)}.`,
+        );
+    }
+}
+
+/**
+ * C: **`shk.c`** **`sellobj`** subset for **`dothrow.c`** **`check_shop_obj`** (**`!unpaid`**, costly same-shop floor).
+ * Omits **`ynaq`**, **`dropped_container`**, bones **`robbed`**, **`SPECIAL_STOCK`**.
+ */
+async function sellobjCheckShopMinLikeC(g, obj, _x, _y, shkp) {
+    void _x;
+    void _y;
+    if (!shkp || !obj) return;
+    shkp.msleeping = 0;
+    if (shkpAngry(shkp)) {
+        subfrombillLikeC(g, obj, shkp);
+        await pline(`${shknamDisplay(shkp)} smirks with satisfaction.`);
+        return;
+    }
+    const isgold = (obj.oclass | 0) === NH5_COIN_CLASS;
+    const container = Has_contents(obj);
+    let gltmp = container ? containedGold(obj, true) : 0;
+    const cgold = gltmp > 0;
+    let cltmp = 0;
+    if (container) cltmp = containedCostStolenBury(g, obj, shkp, 0, true, false);
+    const saleitem = saleableLikeC(g, shkp, obj);
+    let ltmp = 0;
+    if (!isgold && !(obj.unpaid | 0) && saleitem) ltmp = setCostLikeC(g, obj, shkp);
+    const offer = ltmp + cltmp;
+
+    if (isgold || cgold) {
+        if (!cgold) gltmp = Math.max(0, obj.quan | 0);
+        await donateGoldLikeC(g, gltmp, shkp, true);
+        if (!offer) {
+            subfrombillLikeC(g, obj, shkp);
+            if (!isgold && !(obj.unpaid | 0)) obj.no_charge = 1;
+            return;
+        }
+    }
+
+    if (!(isgold || cgold) && offer + gltmp === 0) {
+        obj.no_charge = 1;
+        await pline(`${shknamDisplay(shkp)} seems uninterested.`);
+        return;
+    }
+
+    if (offer > 0) {
+        const shkmoney = moneyCntMinventShk(shkp);
+        const pay = Math.min(offer, shkmoney);
+        if (pay > 0) {
+            g._goldCount = (g._goldCount | 0) + pay;
+            deductGoldFromShkMinventLikeC(shkp, pay);
+            await pline(`${shknamDisplay(shkp)} pays you ${currencyAmountLikeC(g, pay)}.`);
+        } else {
+            const e = ESHK(shkp);
+            const tmpcr = Math.trunc((offer * 9) / 10) + (offer <= 1 ? 1 : 0);
+            if (e) e.credit = (e.credit | 0) + tmpcr;
+            await pline(
+                `${shknamDisplay(shkp)} cannot pay you at present; you accept ${tmpcr} ${currencyAmountLikeC(g, tmpcr)} in credit.`,
+            );
+        }
+        subfrombillLikeC(g, obj, shkp);
+        return;
+    }
+
+    obj.no_charge = 1;
+    await pline(`${shknamDisplay(shkp)} seems uninterested.`);
+}
+
+/**
+ * C: **`dothrow.c`** **`check_shop_obj(obj, x, y, broken)`** (**`u.ushops`** keeper via **`shopdigPickShkpLikeC`**).
+ * **`u.ushops0`** not in JS — **`sameShop`** uses intersection of **`in_rooms`** shop roomnos at hero vs **`(x,y)`**.
+ * @param {import('./gstate.js').game} g
+ * @param {boolean} broken — C **`broken`**
+ */
+export async function checkShopObjLikeC(g, obj, x, y, broken) {
+    const xh = x | 0;
+    const yh = y | 0;
+    if (!g.u || !obj) return;
+    const shkp = shopdigPickShkpLikeC(g);
+    if (!shkp) return;
+
+    const costly = costlySpot(g, xh, yh);
+    const heroR = inRoomsShopbaseRoomnos(g, g.u.ux | 0, g.u.uy | 0);
+    const landR = inRoomsShopbaseRoomnos(g, xh, yh);
+    const sameShop =
+        heroR.length > 0 && landR.length > 0 && landR.some((r) => heroR.includes(r));
+
+    if (broken || !costly || !sameShop) {
+        if (obj.unpaid | 0) {
+            await stolenValueMerchBurySilent(g, obj, g.u.ux | 0, g.u.uy | 0, shkp, false);
+        }
+        if (broken) obj.no_charge = 1;
+        return;
+    }
+
+    if (obj.unpaid | 0) {
+        const gtg = Has_contents(obj) ? containedGold(obj, true) : 0;
+        subfrombillLikeC(g, obj, shkp);
+        if (gtg > 0) await donateGoldLikeC(g, gtg, shkp, true);
+    } else if (xh !== (shkp.mx | 0) || yh !== (shkp.my | 0)) {
+        await sellobjCheckShopMinLikeC(g, obj, xh, yh, shkp);
+    }
+}
+
+/** C: **`dothrow.c`** **`check_shop_obj(obj, x, y, TRUE)`** — delegates to **`checkShopObjLikeC(..., true)`**. */
+export async function checkShopObjBrokenTrueLikeC(g, obj, x, y) {
+    await checkShopObjLikeC(g, obj, x | 0, y | 0, true);
+}
+
+/**
+ * C: **`dothrow.c`** **`breakobj`** floor + **`hero_caused`** shop tail (**`check_shop_obj`** invent/unpaid / floor).
  * @param {import('./gstate.js').game} g
  * @param {boolean} fromInvent — C **`from_invent`**
  */
