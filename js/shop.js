@@ -14,7 +14,7 @@ import { dist2 } from './hacklib.js';
 import { rn2 } from './rng.js';
 import { nhgetch } from './input.js';
 import { changeLuck } from './attrib.js';
-import { NH5_COIN_CLASS } from './nh5_objclass.js';
+import { NH5_COIN_CLASS, NH5_FOOD_CLASS } from './nh5_objclass.js';
 import { containedGold } from './u_init_hidden_gold.js';
 import {
     OROOM,
@@ -708,18 +708,140 @@ function getCostStolenBuryUnit(obj) {
 }
 
 /**
+ * C: shk.c **`picked_container`** — clear **`no_charge`** on nested contents (subset, no **`dropped_container`**).
+ * @param {object} obj
+ */
+function pickedContainerNoChargeClear(obj) {
+    for (let otmp = obj?.cobj; otmp; otmp = otmp.nobj) {
+        if ((otmp.oclass | 0) === NH5_COIN_CLASS) continue;
+        if (otmp.no_charge | 0) otmp.no_charge = 0;
+        if (Has_contents(otmp)) pickedContainerNoChargeClear(otmp);
+    }
+}
+
+/** C: shk.c **`count_contents`** unpaid branch subset — recursive unpaid **`cobj`**. */
+function countUnpaidContentsCobj(obj) {
+    let n = 0;
+    for (let o = obj?.cobj; o; o = o.nobj) {
+        if ((o.oclass | 0) === NH5_COIN_CLASS) continue;
+        if (o.unpaid | 0) n++;
+        if (Has_contents(o)) n += countUnpaidContentsCobj(o);
+    }
+    return n;
+}
+
+/**
+ * C: shk.c **`contained_cost`** — not ported; **`billable`** no_charge test uses **0** ( **`globby`** / pricing TBD).
+ */
+function containedCostStolenBuryStub() {
+    return 0;
+}
+
+/**
+ * Ensure **`eshk.bill_p`** exists (C **`bill_p`** / **`billct`**; JS keeps **`billct`** in sync when present).
+ * @param {*} eshk
+ */
+function ensureEshopBillP(eshk) {
+    if (!eshk) return;
+    if (!eshk.bill_p) eshk.bill_p = [];
+}
+
+/**
+ * C: shk.c **`onbill(obj, shkp, silent)`** — match **`bo_id`** or live **`obj`** ref on **`bill_p`**.
+ * @returns {{ bp: { bquan: number, price: number, bo_id?: number, obj?: object, useup?: boolean }, idx: number } | null}
+ */
+function onBillSlot(obj, shkp) {
+    if (!shkp || !(obj.unpaid | 0)) return null;
+    const eshk = ESHK(shkp);
+    if (!eshk) return null;
+    ensureEshopBillP(eshk);
+    const arr = eshk.bill_p;
+    const oid = obj.o_id;
+    for (let i = 0; i < arr.length; i++) {
+        const bp = arr[i];
+        if (bp.obj === obj || (oid != null && bp.bo_id === oid)) return { bp, idx: i };
+    }
+    return null;
+}
+
+/**
+ * C: shk.c **`sub_one_frombill`** — remove or shrink bill line; clear **`unpaid`**.
+ * Omits C **`newobj`** phantom bill row when **`bquan > obj.quan`** (shrinks **`bquan`** only).
+ * @param {object} obj
+ * @param {object} shkp
+ */
+function subOneFromBill(obj, shkp) {
+    const eshk = ESHK(shkp);
+    const slot = onBillSlot(obj, shkp);
+    if (!slot || !eshk?.bill_p) {
+        if (obj.unpaid | 0) obj.unpaid = 0;
+        return;
+    }
+    const { bp, idx } = slot;
+    obj.unpaid = 0;
+    const oq = Math.max(1, obj.quan | 0);
+    const bq = Math.max(0, bp.bquan | 0);
+    if (bq > oq) {
+        bp.bquan = bq - oq;
+        return;
+    }
+    eshk.bill_p.splice(idx, 1);
+    if (typeof eshk.billct === 'number') eshk.billct = Math.max(0, (eshk.billct | 0) - 1);
+}
+
+/**
+ * C: shk.c **`billable`** subset for **`stolen_value`** / bury (**`roomno`** = shop **`levl.roomno`** id).
+ * @param {{ shkp: object | null }} shkRef in/out — C **`struct monst **shkpp`**
+ */
+function billableStolenValue(g, shkRef, obj, roomno, resetNocharge) {
+    let shkp = shkRef.shkp;
+    if (!shkp) {
+        if (!roomno) return false;
+        shkp = shopKeeperForLevlRoomno(g, roomno | 0);
+        if (!shkp || !inHishop(g, shkp)) return false;
+        shkRef.shkp = shkp;
+    }
+    if (onBillSlot(obj, shkp)) return false;
+    const oc = obj.oclass | 0;
+    if (oc === NH5_FOOD_CLASS && (obj.oeaten | 0)) return false;
+    if (obj.no_charge | 0) {
+        if (!Has_contents(obj)
+            || (containedGold(obj, true) === 0
+                && containedCostStolenBuryStub() === 0)) {
+            shkRef.shkp = null;
+        }
+        if (resetNocharge && !shkRef.shkp && oc !== NH5_COIN_CLASS) {
+            obj.no_charge = 0;
+            if (Has_contents(obj)) pickedContainerNoChargeClear(obj);
+        }
+    }
+    return !!shkRef.shkp;
+}
+
+/**
  * C: shk.c **`stolen_container`** — nested **`cobj`** / **`nobj`**; floor bury uses **`!no_charge`** (**`ininv` FALSE**).
- * Skips **`billable`/`onbill`/`sub_one_frombill`** ( **`gb.billobjs`** not wired).
+ * **`billable`/`onbill`/`sub_one_frombill`** when **`eshk.bill_p`** rows exist ( **`bo_id`** or **`obj`** ref).
  */
 function stolenContainerMerchBurySilent(g, obj, shkp, ininv) {
-    void g;
-    void shkp;
     if (!Has_contents(obj)) return 0;
+    const eshk = ESHK(shkp);
+    const roomno = eshk ? eshkShoproomAsLevlRno(eshk) : 0;
     let price = 0;
     for (let otmp = obj.cobj; otmp; otmp = otmp.nobj) {
         if ((otmp.oclass | 0) === NH5_COIN_CLASS) continue;
-        const chargeable = ininv ? !!(otmp.unpaid | 0) : !(otmp.no_charge | 0);
-        if (chargeable) {
+        let billamt = 0;
+        const shkRef = { shkp };
+        if (!billableStolenValue(g, shkRef, otmp, roomno, true)) {
+            const shk2 = shkRef.shkp;
+            const slot = onBillSlot(otmp, shk2);
+            if (slot) {
+                billamt = (slot.bp.bquan | 0) * (slot.bp.price | 0);
+                subOneFromBill(otmp, shk2);
+            }
+        }
+        if (billamt) {
+            price += billamt;
+        } else if (ininv ? !!(otmp.unpaid | 0) : !(otmp.no_charge | 0)) {
             price += getPricingUnitsStolenBury(otmp) * getCostStolenBuryUnit(otmp);
         }
         if (Has_contents(otmp)) price += stolenContainerMerchBurySilent(g, otmp, shkp, ininv);
@@ -729,29 +851,49 @@ function stolenContainerMerchBurySilent(g, obj, shkp, ininv) {
 
 /**
  * C: shk.c **`stolen_value`** subset for **`dig.c`** **`bury_objs`** (**`silent` TRUE**):
- * coin **`quan`**; non-coin top **`!no_charge`** → **`get_pricing_units * get_cost`**;
+ * coin **`quan`**; **`billable`/`onbill`/`sub_one_frombill`** then **`get_pricing_units * get_cost`**;
  * **`Has_contents`** → **`stolen_container`** + **`contained_gold(obj, TRUE)`** (floor **`ininv` FALSE**).
- * Still TODO: **`billable`/`onbill`/`find_objowner`**, full **`get_cost`** / **`getprice`**, angry surcharge.
+ * Still TODO: **`find_objowner`**, full **`get_cost`** / **`getprice`** / **`contained_cost`**, angry surcharge.
  * @param {boolean} silent — C **`silent`** (suppresses per-object **`You`** / thief **`Norep`**; **`check_credit`** still plines like C)
  */
 export async function stolenValueMerchBurySilent(g, obj, x, y, shkp, silent) {
     void x;
     void y;
     if (!shkp) return 0;
-    const e = ESHK(shkp);
+    const eIn = ESHK(shkp);
+    if (!eIn) return 0;
+    const roomno = eshkShoproomAsLevlRno(eIn);
+    const uCount = Has_contents(obj) ? countUnpaidContentsCobj(obj) : 0;
+    const shkRef = { shkp: /** @type {object | null} */ (null) };
+    let billamt = 0;
+    if (!billableStolenValue(g, shkRef, obj, roomno, true)) {
+        const shk2 = shkRef.shkp;
+        const slot = onBillSlot(obj, shk2);
+        if (slot) {
+            billamt = (slot.bp.bquan | 0) * (slot.bp.price | 0);
+            subOneFromBill(obj, shk2);
+        }
+        if (!slot && !uCount) return 0;
+    }
+    const shkActive = shkRef.shkp || shkp;
+    if (!shkActive) return 0;
+    const e = ESHK(shkActive);
     if (!e) return 0;
-    const peaceful = !!(shkp.mpeaceful | 0);
+
+    const peaceful = !!(shkActive.mpeaceful | 0);
     let value = 0;
     let gvalue = 0;
     const oc = obj.oclass | 0;
     if (oc === NH5_COIN_CLASS) {
         gvalue += Math.max(0, obj.quan | 0);
     } else {
-        if (!(obj.no_charge | 0)) {
+        if (billamt) {
+            value += billamt;
+        } else if (!(obj.no_charge | 0)) {
             value += getPricingUnitsStolenBury(obj) * getCostStolenBuryUnit(obj);
         }
         if (Has_contents(obj)) {
-            value += stolenContainerMerchBurySilent(g, obj, shkp, false);
+            value += stolenContainerMerchBurySilent(g, obj, shkActive, false);
             gvalue += containedGold(obj, true);
         }
     }
@@ -759,8 +901,8 @@ export async function stolenValueMerchBurySilent(g, obj, x, y, shkp, silent) {
     value += gvalue;
 
     if (peaceful) {
-        value = await checkCreditShk(g, value, shkp);
-        if (shkpAngry(shkp)) e.robbed = (e.robbed | 0) + value;
+        value = await checkCreditShk(g, value, shkActive);
+        if (shkpAngry(shkActive)) e.robbed = (e.robbed | 0) + value;
         else e.debit = (e.debit | 0) + value;
         void silent;
         return value;
@@ -769,7 +911,7 @@ export async function stolenValueMerchBurySilent(g, obj, x, y, shkp, silent) {
     if (!silent) {
         /* C: canseemon / Deaf thief **`Norep`** — not ported */
     }
-    await hotPursuitShk(g, shkp);
+    await hotPursuitShk(g, shkActive);
     return value;
 }
 

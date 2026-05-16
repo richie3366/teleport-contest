@@ -3,7 +3,7 @@
 //        do.c boulder_hits_pool(), mkobj.c obj_ice_effects(), dig.c unearth_objs(),
 //        mon.c minliquid() (subset).
 //
-// Still TODO vs C: corpse **`ROT_ORGANIC`** start on all bury paths; **`bury_objs`** **`stolen_value`** (**`billable`/`onbill`**, full **`get_cost`**/**`getprice`**);
+// Still TODO vs C: corpse **`ROT_ORGANIC`** start on all bury paths; **`bury_objs`** full **`get_cost`**/**`getprice`** / angry surcharge (**`shop.js`** bill rows need **`addtobill`**);
 // **`dig.c`/`read.c`** **`buried_ball`/`punish`** (**`floorobj.js`**) — **`placebc`** blind glyphs / **`uswallow`**; beam/breath vectors; **`boulder_hits_pool`** **`recalc_block_point`**/**`wake_nearto`**/**`u.uinwater`**; fuller **`minliquid`** / **`spoteffects`**.
 
 import { pline, newsym } from './display.js';
