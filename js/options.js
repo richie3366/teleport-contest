@@ -1,10 +1,8 @@
 // options.js — Parse .nethackrc options.
 // C ref: options.c — handles OPTIONS=, BIND=, etc.
 
-import { game } from './gstate.js';
-
 /**
- * C: options.c boolean **`opt_set`**-style **`OPTIONS=key:val`** (e.g. **`tutorial:yes`** / **`no`**).
+ * C: options.c boolean opt_set-style OPTIONS=key:val (tutorial:yes, color:no, …).
  * @param {string} val
  */
 function parseRcBooleanishLikeC(val) {
@@ -65,6 +63,19 @@ export function parseNethackrc(rc) {
                     /* C: opt_set_in_config[opt_tutorial] — ask_do_tutorial skips menu when set from rc */
                     result.flags.tutorial = parseRcBooleanishLikeC(val);
                     result.tutorial_set = true;
+                } else if (key === 'color') result.flags.color = parseRcBooleanishLikeC(val);
+                else if (key === 'verbose') result.flags.verbose = parseRcBooleanishLikeC(val);
+                else if (key === 'legacy') result.flags.legacy = parseRcBooleanishLikeC(val);
+                else if (key === 'pushweapon') result.flags.pushweapon = parseRcBooleanishLikeC(val);
+                else if (key === 'showexp') result.flags.showexp = parseRcBooleanishLikeC(val);
+                else if (key === 'time') result.flags.time = parseRcBooleanishLikeC(val);
+                else if (key === 'autopickup' || key === 'pickup') {
+                    /* C: boolean branch maps autopickup → flags.pickup */
+                    result.flags.pickup = parseRcBooleanishLikeC(val);
+                } else if (key === 'splash_screen') {
+                    result.iflags.wc_splash_screen = parseRcBooleanishLikeC(val);
+                } else if (key === 'perm_invent') {
+                    result.iflags.perm_invent = parseRcBooleanishLikeC(val);
                 } else result.flags[key] = val;
             } else {
                 // Boolean flag
