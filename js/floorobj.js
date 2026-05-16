@@ -9,7 +9,7 @@
 import { game } from './gstate.js';
 import { NH5_CHAIN_CLASS } from './nh5_objclass.js';
 import {
-    TT_BURIEDBALL, ROT_ORGANIC,
+    TT_BURIEDBALL, TT_INFLOOR, ROT_ORGANIC,
     OTYP_HEAVY_IRON_BALL, OTYP_IRON_CHAIN, WT_IRON_BALL_INCR,
 } from './const.js';
 import { dist2 } from './hacklib.js';
@@ -268,6 +268,25 @@ export function buriedBallFromCoord(g, cc) {
 export function buriedBallAtCellForUnearth(g, x, y) {
     const cc = { x: x | 0, y: y | 0 };
     return buriedBallFromCoord(g, cc);
+}
+
+/**
+ * C: dig.c **`digactualhole`** — start of routine: hero on **`(x,y)`** with **`u.utrap`** (**`TT_BURIEDBALL`** /
+ * **`TT_INFLOOR`**) before pit/hole/trap placement effects.
+ * @param {import('./gstate.js').game} g
+ */
+export function digactualHoleHeroUtrapSubset(g, x, y) {
+    const u = g.u;
+    if (!u) return;
+    if ((u.ux | 0) !== (x | 0) || (u.uy | 0) !== (y | 0)) return;
+    if (!(u.utrap | 0)) return;
+    const typ = u.utraptype | 0;
+    if (typ === TT_BURIEDBALL) {
+        buriedBallToPunishmentFull(g);
+    } else if (typ === TT_INFLOOR) {
+        u.utrap = 0;
+        u.utraptype = 0;
+    }
 }
 
 /**

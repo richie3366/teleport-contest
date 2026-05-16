@@ -1,6 +1,7 @@
 // trap.js — Hero stepping on floor traps (dotrap + trapeffect subset).
 // C ref: trap.c dotrap(), floor_trigger(), check_in_air(), trapeffect_selector()
-//        hero cases; trap.h fixed_tele_trap(); mondata.h is_clinger (M1_CLING).
+//        hero cases; dig.c digactualhole() hero u.utrap (**`TT_BURIEDBALL`/`TT_INFLOOR`**) before pit/hole;
+//        trap.h fixed_tele_trap(); mondata.h is_clinger (M1_CLING).
 // domagictrap() shares makemon.js stub; seffects (fate 20).
 
 import { game } from './gstate.js';
@@ -26,7 +27,7 @@ import {
 import { bimanual } from './weapon_kind.js';
 import { waterDamageOne, splashLitOne, ER_NOTHING } from './water_damage.js';
 import { updateInventory } from './invent.js';
-import { placeFloorObject, floorObjKey } from './floorobj.js';
+import { placeFloorObject, floorObjKey, digactualHoleHeroUtrapSubset } from './floorobj.js';
 import { goodposHero } from './walkable.js';
 import { destroyItemsYoumonstFire, destroyItemsMonFire } from './destroy_items.js';
 import { igniteHeroInventory, igniteMinvent } from './ignite_items.js';
@@ -1834,6 +1835,7 @@ function steedintrapStub() {
 async function trapeffectPitHero(trap, trflags) {
     const u = game.u;
     if (!u) return;
+    digactualHoleHeroUtrapSubset(game, trap.tx | 0, trap.ty | 0);
     const ttype = trap.ttyp;
     const plunged = (trflags & TOOKPLUNGE) !== 0;
     const viasitting = (trflags & VIASITTING) !== 0;
@@ -1980,6 +1982,7 @@ async function trapeffectHoleHero(trap, trflags) {
     void trflags;
     const u = game.u;
     if (!u) return;
+    digactualHoleHeroUtrapSubset(game, trap.tx | 0, trap.ty | 0);
     seetrap(trap);
     /* C: fall_through(); level transition, branches, … */
     await pline(trap.ttyp === TRAPDOOR ? 'The trap door opens, and you fall through…' : 'The hole opens beneath you, and you fall through…');
