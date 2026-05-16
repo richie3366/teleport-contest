@@ -2,21 +2,23 @@
 // C ref: zap.c zap_over_floor(), zaptype(); monattk.h AD_* → ZT_* in zap.c preamble;
 //        zap.c buzz()/bhit() — beam **`range += zap_over_floor(...)`** stepping (subset).
 //        detect.c cvt_sdoor_to_door — secret-door reveal before **`closed_door`**.
-// TODO: exploding misc **`WAN_STRIKING`** door branch (**`zap.c`** default **`def_case`**).
-
 import {
     PHYS_EXPL_TYPE, BOLT_LIM, isok, DOOR, SDOOR, D_NODOOR, D_BROKEN, D_CLOSED, D_LOCKED,
     WM_MASK, Is_rogue_level,
 } from './const.js';
-import { cansee } from './vision.js';
+import { cansee, couldsee } from './vision.js';
 import { coldZapHitsWaterAt } from './melt_ice.js';
 import { pline, newsym } from './display.js';
 import { isClosedDoorLoc } from './walkable.js';
+import { floorObjKey } from './floorobj.js';
+import { burnFloorObjects } from './burn_floor_objects.js';
 
 /** C: objects.h — passed as **`exploding_wand_typ`** for oil/splatter fire (zap.c). */
 const OTYP_POT_OIL = 320;
 /** C: objects.h — exploding scroll fire (zap.c). */
 const OTYP_SCR_FIRE = 338;
+/** C: objects.h — exploding wand of striking (zap.c **`def_case`**). */
+const OTYP_WAN_STRIKING = 415;
 
 export const ZT_MAGIC_MISSILE = 0;
 export const ZT_FIRE = 1;
@@ -79,6 +81,31 @@ function cvtSdoorToDoor(g, loc) {
     if ('arboreal_sdoor' in loc) loc.arboreal_sdoor = 0;
 }
 
+/** C: obj.h OBJ_AT — floor object chain at **`(x,y)`**. */
+function objAtFloor(g, x, y) {
+    const heads = g.level?.floorObjHeads;
+    if (!heads) return false;
+    return !!(heads.get(floorObjKey(x, y)));
+}
+
+function heroBlindForZap(g) {
+    const u = g.u;
+    return !!(u?.ublind | 0) || (u?.timed?.blind ?? 0) > 0;
+}
+
+/**
+ * C: mon.c wakeup(mtmp, via_attack) — minimal for **`zap_over_floor`** (no mimic / growl / temple).
+ * @param {import('./gstate.js').game} g
+ * @param {Record<string, unknown>} mtmp
+ * @param {boolean} viaAttack — C **`type >= 0`** (hero-sourced zap angers)
+ */
+function wakeupMonFromZap(g, mtmp, viaAttack) {
+    if (!mtmp) return;
+    if (mtmp.mhp != null && (mtmp.mhp | 0) <= 0) return;
+    mtmp.msleeping = 0;
+    if (viaAttack && (mtmp.mpeaceful | 0)) mtmp.mpeaceful = 0;
+}
+
 /**
  * C: zap.c zap_over_floor(x, y, type, shopdamage, ignoremon, exploding_wand_typ) — JS subset.
  * **`ZT_COLD`** → **`coldZapHitsWaterAt`**; **`SDOOR`** / **`closed_door`** tail (**`rangemod = -1000`**).
@@ -88,12 +115,11 @@ function cvtSdoorToDoor(g, loc) {
  * @param {number} y
  * @param {number} type
  * @param {{ value?: boolean }|null} [_shopdamage] — C **`*shopdamage`** (shop doors stub)
- * @param {boolean} [_ignoremon]
+ * @param {boolean} [_ignoremon] — C **`ignoremon`**; false → **`wakeup`** on **`m_at`**
  * @param {number} [_explodingWandTyp]
  * @returns {Promise<number>} rangemod (negative reduces beam range in **C**)
  */
 export async function zapOverFloor(g, x, y, type, _shopdamage = null, _ignoremon = true, _explodingWandTyp = 0) {
-    void _ignoremon;
     if ((type | 0) === PHYS_EXPL_TYPE) return -1000;
     if (!isok(x, y)) return 0;
 
@@ -121,6 +147,8 @@ export async function zapOverFloor(g, x, y, type, _shopdamage = null, _ignoremon
         /* C: POT_OIL / SCR_FIRE — not a real "exploding wand" for door absorb wording (zap.c). */
         doorExploding = 0;
     }
+
+    const loc = g.level?.at(x, y);
     if (!loc) return rangemod;
 
     /* C: SDOOR → DOOR + newsym + pline / rogue draft */
@@ -157,7 +185,13 @@ export async function zapOverFloor(g, x, y, type, _shopdamage = null, _ignoremon
             break;
         case ZT_DEATH:
             if (Math.abs(type | 0) !== ZT_BREATH(ZT_DEATH)) {
-                /* default absorb */
+                if (doorExploding === OTYP_WAN_STRIKING) {
+                    newDoormask = D_BROKEN;
+                    seeTxt = 'The door crashes open!';
+                    senseTxt = 'You feel a burst of cool air.';
+                    break;
+                }
+                /* default absorb (C **`def_case`**) */
                 if (doorExploding > 0 && seeIt) {
                     await pline('The door remains intact.');
                 } else if (seeIt) {
@@ -178,6 +212,12 @@ export async function zapOverFloor(g, x, y, type, _shopdamage = null, _ignoremon
             hearTxt = 'crackling.';
             break;
         default:
+            if (doorExploding === OTYP_WAN_STRIKING) {
+                newDoormask = D_BROKEN;
+                seeTxt = 'The door crashes open!';
+                senseTxt = 'You feel a burst of cool air.';
+                break;
+            }
             if (doorExploding > 0 && seeIt) {
                 await pline('The door remains intact.');
             } else if (seeIt) {
@@ -198,6 +238,21 @@ export async function zapOverFloor(g, x, y, type, _shopdamage = null, _ignoremon
             else if (!seeIt && hearTxt) await pline(`You hear ${hearTxt}`);
             newsym(x, y);
         }
+    }
+
+    /* C: OBJ_AT && ZT_FIRE → burn_floor_objects; smoke if **`couldsee`** */
+    if (damg === ZT_FIRE && objAtFloor(g, x, y)) {
+        const cnt = await burnFloorObjects(g, x, y, false, (type | 0) > 0);
+        if (cnt > 0 && couldsee(x, y)) {
+            newsym(x, y);
+            await pline(heroBlindForZap(g) ? 'You smell a whiff of smoke.' : 'You see a puff of smoke.');
+        }
+    }
+
+    /* C: !ignoremon → wakeup(m_at, type >= 0) */
+    if (!_ignoremon) {
+        const mtmp = g.level?.monsters?.find((m) => (m.mx | 0) === x && (m.my | 0) === y) ?? null;
+        wakeupMonFromZap(g, mtmp, (type | 0) >= 0);
     }
 
     return rangemod;
