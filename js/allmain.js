@@ -191,13 +191,24 @@ export async function newgame() {
     await flush_screen(1);
     await bot();
 
-    // Welcome message (C: u_init.c / pline welcome)
+    // Welcome message (C: u_init.c / pline welcome — role-specific interjection)
     const t = g.u?.ualign?.type ?? 0;
     const alignName = t === 0 ? 'neutral' : t > 0 ? 'lawful' : 'chaotic';
     const genderAdj = g.flags?.female ? 'female' : 'male';
     const raceAdj = g.urace?.adj || 'human';
     const roleNm = g.flags?.female ? g.urole.name.f : g.urole.name.m;
-    await pline(`Aloha ${g.plname}, welcome to NetHack!  You are a ${alignName} ${genderAdj} ${raceAdj} ${roleNm}.`);
+    const hi = welcomeInterjectionLikeC(g);
+    await pline(`${hi} ${g.plname}, welcome to NetHack!  You are a ${alignName} ${genderAdj} ${raceAdj} ${roleNm}.`);
+}
+
+/** C u_init.c — first word of welcome pline depends on role (tty sessions). */
+function welcomeInterjectionLikeC(g) {
+    const a = g.urole?.abbr;
+    if (a === 'Tou') return 'Aloha';
+    if (a === 'Sam') return 'Konnichi wa';
+    if (a === 'Val') return 'Velkommen';
+    if (a === 'Kni') return 'Salutations';
+    return 'Hello';
 }
 
 // C ref: allmain.c moveloop_core()
