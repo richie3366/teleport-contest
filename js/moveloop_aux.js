@@ -5,7 +5,7 @@
 
 import { game } from './gstate.js';
 import { rn2, rnd } from './rng.js';
-import { A_DEX } from './const.js';
+import { A_DEX, OTYP_FAKE_AMULET_OF_YENDOR, OTYP_RIN_SLOW_DIGESTION } from './const.js';
 import { acurr } from './attrib.js';
 import { uWipeEngr } from './engrave.js';
 import { nearCapacity, ENC } from './encumbr.js';
@@ -21,7 +21,8 @@ export function dosounds() {
 
 /**
  * C: eat.c gethungry(void) — ordinary uhunger--, accessorytime = rn2(20),
- * odd/even branches, switch(accessorytime): case 16 u.uhave.amulet only; cases 0/4/8/12 TODO.
+ * odd/even branches, switch(accessorytime): case 0 (slow dig vs rings), case 8 (uamul not fake),
+ * case 16 (uhave.amulet); cases 4/12 (charged rings) TODO.
  * C order vs exerchk: allmain calls this immediately after svm.moves++, then exerchk().
  */
 export function gethungry() {
@@ -42,15 +43,18 @@ export function gethungry() {
     }
     /* C: eat.c gethungry — switch (accessorytime); even cases 0,4,8,12,16 */
     switch (accessorytime) {
-        case 0:
-            /* Slow digestion from worn armor (non-ring) — port with dragon mail */
+        case 0: {
+            /* C: Slow_digestion && neither hand wears ring of slow digestion */
+            const noSdRing = (h) => !h || (h.otyp | 0) !== OTYP_RIN_SLOW_DIGESTION;
+            if ((u.Slow_digestion | 0) && noSdRing(u.uright) && noSdRing(u.uleft)) u.uhunger--;
             break;
+        }
         case 4:
         case 12:
-            /* uleft / uright ring nutrition — port with invent */
+            /* uleft / uright charged ring nutrition — port with objects[] / invent */
             break;
         case 8:
-            /* uamul — port with invent */
+            if (u.uamul && (u.uamul.otyp | 0) !== OTYP_FAKE_AMULET_OF_YENDOR) u.uhunger--;
             break;
         case 16:
             if (u.uhave?.amulet) u.uhunger--;

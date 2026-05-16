@@ -104,6 +104,9 @@ export async function newgame() {
     g.u.uarmg = null; /* gloves — port invent wear when ready */
     /* C: you.h uhave — eat.c gethungry switch case 16 (carried real Amulet) */
     g.u.uhave = { amulet: 0 };
+    g.u.uamul = null;
+    g.u.uleft = null;
+    g.u.uright = null;
     /* C: u_init.c u_init_misc — adjabil(0, 1) while u.ulevel == 0 */
     applyAdjabil(0, 1);
     /* C: u_init.c u_init_role — u.ulevel after adjabil; XL 1 for new hero */
