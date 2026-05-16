@@ -340,14 +340,16 @@ export function l_nhcore_init() {
 }
 
 // C ref: mklev.c mklev()
+/** @returns {Promise<boolean>} false if **`getbones()`** short-circuited (no new map). */
 export async function mklev() {
     const g = game;
-    if (getbones()) return;
+    if (getbones()) return false;
     g.in_mklev = true;
     await makelevel();
     recount_level_features();
     level_finalize_topology();
     g.in_mklev = false;
+    return true;
 }
 
 function recount_level_features() {

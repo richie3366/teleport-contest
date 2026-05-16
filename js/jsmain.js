@@ -20,7 +20,10 @@ import { GameDisplay } from './game_display.js';
 import { applyIdentityFromNethackrc } from './chargen.js';
 import { needsFullInteractiveChargen, needsAsknameOnly, runInteractiveTtyChargen, ttyAsknameLikeC } from './chargen_tty.js';
 
-export { enteredNewLevelLivelogMetaLikeC } from './livelog.js';
+export {
+    enteredNewLevelLivelogMetaLikeC,
+    maybeRecordEnteredNewLevelLivelogLikeC,
+} from './livelog.js';
 
 // ── NethackGame ──
 // Wraps a single game session with replay infrastructure.
