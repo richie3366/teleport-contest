@@ -8,9 +8,9 @@
 //        **`mon.c`** **`angry_guards`** (**`angryGuardsSilentLikeC`**).
 
 import { game } from './gstate.js';
-import { pline, newsym, mapInvisibleCellLikeC, soundeffectStubLikeC } from './display.js';
+import { pline, newsym, mapInvisibleCellLikeC, soundeffectStubLikeC, youHearLikeC } from './display.js';
 import { unlinkFloorObject, floorObjKey, unlinkFloorObjectInLevel, placeFloorObjectInLevel, stackObjOnFloorInLevel, obliterateObjectInLevel } from './floorobj.js';
-import { cansee, vision_recalc } from './vision.js';
+import { cansee, couldsee, vision_recalc } from './vision.js';
 import { delEngrAt } from './engrave.js';
 import { doname } from './objnam.js';
 import {
@@ -98,9 +98,11 @@ import {
     isok,
     OTYP_BOULDER,
     IS_WALL,
+    IS_POOL,
     TT_PIT,
     W_SWAPWEP,
     W_QUIVER,
+    BOLT_LIM,
 } from './const.js';
 
 /**
@@ -1112,17 +1114,88 @@ function angryGuardsGuardBufLikeC(n) {
     return (n | 0) === 1 ? 'guard' : 'guards';
 }
 
+/** C: **`monflag.h`** **`M1_MINDLESS`** — **`display.h`** **`tp_sensemon`** only (JS **`M1_HIDE`** reuses another value; do not use **`is_hider`** here). */
+const M1_MINDLESS_TELEPATHY = 0x00010000;
+
 /**
- * C: **`mon.c`** **`canspotmon`** subset for **`angry_guards`** — hero sees/senses mon on map.
+ * C: **`youprop.h`** / **`attrib.c`** — hero blind for telepathy (**`Blind`**).
+ * @param {import('./gstate.js').game['u']|null|undefined} u
+ */
+function heroBlindTelepathyGateLikeC(u) {
+    return !!(u?.ublind || (u?.timed?.blind ?? 0) > 0);
+}
+
+/**
+ * C: **`display.h`** **`_tp_sensemon`** — **`!mindless`** and blind vs unblind extrinsic telepathy range.
  * @param {import('./gstate.js').game} g
  * @param {Record<string, unknown>} mtmp
  */
-function canspotMonAngryGuardsLikeC(g, mtmp) {
+function tpSenseMonAngryGuardsLikeC(g, mtmp) {
+    const ptr = raceptr(mtmp);
+    if (((ptr?.mflags1 ?? 0) & M1_MINDLESS_TELEPATHY) !== 0) return false;
+    const u = g.u;
+    if (!u) return false;
+    const HT = (u.HTelepat | 0) !== 0;
+    const ET = (u.ETelepat | 0) !== 0;
+    const blind = heroBlindTelepathyGateLikeC(u);
+    if (blind) return HT || ET;
+    if (!ET) return false;
+    const lim = (u.unblind_telepat_range | 0) || (BOLT_LIM * BOLT_LIM);
+    return dist2(u.ux | 0, u.uy | 0, mtmp.mx | 0, mtmp.my | 0) <= lim;
+}
+
+/**
+ * C: **`display.h`** **`_sensemon`** — swallow / underwater pool gate + **`Detect_monsters`** (when on **`u`**) + **`tp_sensemon`**.
+ * @param {import('./gstate.js').game} g
+ * @param {Record<string, unknown>} mtmp
+ */
+function senseMonAngryGuardsLikeC(g, mtmp) {
+    const u = g.u;
+    if (!u || !mtmp) return false;
+    if ((u.uswallow | 0) && u.ustuck !== mtmp) return false;
+    if ((u.underwater | 0) !== 0) {
+        const mx = mtmp.mx | 0;
+        const my = mtmp.my | 0;
+        const loc = g.level?.at(mx, my);
+        const poolHere = loc ? IS_POOL(loc.typ | 0) : false;
+        if (!(dist2(u.ux | 0, u.uy | 0, mx, my) <= 2 && poolHere)) return false;
+    }
+    const HDet = (u.HDetect_monsters | 0) !== 0;
+    const EDet = (u.EDetect_monsters | 0) !== 0;
+    if (HDet || EDet) return true;
+    return tpSenseMonAngryGuardsLikeC(g, mtmp);
+}
+
+/**
+ * C: **`display.h`** **`_canseemon`** worm omitted — **`mon_visible`** (**`mundetected`**, invis vs **`See_invisible`**, **`cansee`**).
+ * @param {import('./gstate.js').game} g
+ * @param {Record<string, unknown>} mtmp
+ */
+function canseemonAngryGuardsLikeC(g, mtmp) {
     const u = g.u;
     if (!u || !mtmp) return false;
     if (u.usteed === mtmp) return true;
+    if ((mtmp.mundetected | 0) !== 0) return false;
     if ((mtmp.minvis | 0) && !(u.See_invisible | 0)) return false;
-    return cansee(mtmp.mx | 0, mtmp.my | 0);
+    const mx = mtmp.mx | 0;
+    const my = mtmp.my | 0;
+    if (cansee(mx, my)) return true;
+    const ptr = raceptr(mtmp);
+    /* C: **`monflag.h`** **`M3_INFRAVISIBLE`** (**`0x0200`**) + **`youprop.h`** **`Infravision`**. */
+    if (
+        !heroBlindTelepathyGateLikeC(u) &&
+        (u.Infravision | 0) &&
+        ((ptr?.mflags3 ?? 0) & 0x0200) !== 0 &&
+        couldsee(mx, my)
+    ) {
+        return true;
+    }
+    return false;
+}
+
+/** C: **`display.h`** **`canspotmon(mon)`** — **`canseemon(mon) || sensemon(mon)`**. */
+function canspotMonAngryGuardsLikeC(g, mtmp) {
+    return canseemonAngryGuardsLikeC(g, mtmp) || senseMonAngryGuardsLikeC(g, mtmp);
 }
 
 /** C: **`mon.c`** **`mcanmove`** gate for anger/adjacency counts — **`mcanmove`** false only when explicitly **0**. */
@@ -1134,7 +1207,7 @@ function mcanmoveMonsterAngryGuardsLikeC(mtmp) {
 
 /**
  * C: **`mon.c`** **`angry_guards(silent)`** — peaceful **`is_watch`** watchmen become hostile; plines unless **`silent`** (**`Deaf`**).
- * **`Soundeffect`** → **`soundeffectStubLikeC`** (**`display.js`**, no audio in fork). **`canspotmon`** subset (**`canspotMonAngryGuardsLikeC`**); wake / get / approach phrasing matches C **`plur`** + **`vtense`** on **`guard`/`guards`**.
+ * **`Soundeffect`** → **`soundeffectStubLikeC`** (**`display.js`**, no audio in fork). **`canspotmon`** (**`canseemon`**: **`mundetected`**, invis, **`cansee`** / infravision stub; **`sensemon`**: swallow, underwater pool, **`Detect_monsters`** on **`u`**, **`tp_sensemon`**); whistle line via **`youHearLikeC`** (**`You_hear`**). Wake / get / approach phrasing matches C **`plur`** + **`vtense`** on **`guard`/`guards`**.
  * @returns {boolean} true if any watchman existed (C return after **`ct`**).
  */
 export async function angryGuardsSilentLikeC(g, silent) {
@@ -1179,7 +1252,7 @@ export async function angryGuardsSilentLikeC(g, silent) {
         } else {
             await soundeffectStubLikeC(g, 0, 100);
             const poss = ct === 1 ? "a guard's" : "guards'";
-            await pline(`You hear the shrill sound of ${poss} whistle${plurS(ct)}.`);
+            await youHearLikeC(`You hear the shrill sound of ${poss} whistle${plurS(ct)}.`);
         }
     }
     return true;

@@ -518,3 +518,12 @@ export async function soundeffectStubLikeC(_g, _seId, _volume) {
     void _seId;
     void _volume;
 }
+
+/**
+ * C: **`display.h`** / **`hack.h`** **`You_hear`** — message already includes “You hear …” (**`angry_guards`**).
+ * Deaf / silent callers must gate before **`await`** ( **`mon.c`** passes **`!!Deaf`** as **`silent`** ).
+ * @param {string} msg
+ */
+export async function youHearLikeC(msg) {
+    await pline(msg);
+}
