@@ -78,7 +78,7 @@ export const AD_CORR = 42;
 export const NATTK = 6;
 
 /** @typedef {{ adtyp: number, aatyp: number }} Mattack */
-/** @typedef {{ mlet: number, mflags1: number, mflags2?: number, msize: number, mmove: number, mlevel?: number, ac?: number, mvflags?: number, mresists?: number, mnum?: number, mattk?: readonly Mattack[], msound?: number }} Permonst */
+/** @typedef {{ mlet: number, mflags1: number, mflags2?: number, msize: number, mmove: number, mlevel?: number, ac?: number, mvflags?: number, mresists?: number, mnum?: number, mattk?: readonly Mattack[], msound?: number, geno?: number, maligntyp?: number }} Permonst */
 
 /** C: monflag.h `G_NOCORPSE` — no ordinary corpse (mon.c make_corpse; genocided / unique rules). */
 export const G_NOCORPSE = 0x0010;

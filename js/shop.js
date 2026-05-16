@@ -2522,3 +2522,6 @@ export async function adisturb(mtmp) {
     else if (m.ispriest) await pline('The priest gets angry!');
     else await pline('The guard gets angry!');
 }
+
+/** C: shk.c **`inhishop`** — used by **`monmove.c`** **`onscary`** (shopkeeper in own shop). */
+export { inHishop };

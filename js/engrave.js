@@ -83,6 +83,31 @@ export function engrAt(x, y) {
     return list.find((e) => e.engr_x === x && e.engr_y === y) ?? null;
 }
 
+/**
+ * C: engrave.c **`sengr_at(const char *s, coordxy x, coordxy y, boolean strict)`**
+ * — substring match unless **strict** (case-insensitive full-string match).
+ * @param {import('./gstate.js').game} g
+ * @param {string} s
+ * @param {number} x
+ * @param {number} y
+ * @param {boolean} strict
+ * @returns {NonNullable<ReturnType<typeof engrAt>>|null}
+ */
+export function sengrAtLikeC(g, s, x, y, strict) {
+    const ep = engrAt(x | 0, y | 0);
+    if (!ep || ep.engr_type === ENGR_HEADSTONE) return null;
+    const moves = g?.moves ?? game.moves ?? 1;
+    if ((ep.engr_time | 0) > (moves | 0)) return null;
+    const actual = ep.engr_txt?.[ENGR_TXT_ACTUAL] ?? '';
+    const sub = s || '';
+    if (strict) {
+        if (actual.toLowerCase() === sub.toLowerCase()) return ep;
+        return null;
+    }
+    if (!sub) return ep;
+    return actual.toLowerCase().includes(sub.toLowerCase()) ? ep : null;
+}
+
 /** C: engrave.c see_engraving(ep) */
 export function seeEngraving(ep) {
     if (!ep) return;
