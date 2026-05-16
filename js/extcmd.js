@@ -1,15 +1,16 @@
 // extcmd.js — Extended commands (`#` prefix, doextcmd).
 // C ref: cmd.c doextcmd, extcmdlist
 //
-// JS extras: wizard **`#F`** — cold **`zapOverFloorAlongRay`** from hero using **`u.dx`/`u.dy`**
-// ( **`zap.c`** beam **`range += zap_over_floor`** stepping; single tile when **`dx`=`dy`=0`**).
+// JS extras: wizard **`#F`** — **`ubuzz`** spell cold; **`#c`** — wand cold (**`ZT_WAND`**);
+// wizard **`z`** — **`dozap.js`** getdir + wand fire (**`weffects`** **`WAN_FIRE`** slice).
 
 import { game } from './gstate.js';
 import { nhgetch } from './input.js';
 import { flush_screen, pline, docrt } from './display.js';
 import { versionPlineText } from './nethack_version.js';
 import { enhanceWeaponSkillOneStep } from './u_init_skills.js';
-import { zapOverFloorAlongRay, ZT_SPELL, ZT_COLD } from './zap_over_floor.js';
+import { ZT_SPELL, ZT_COLD, ZT_WAND } from './zap_over_floor.js';
+import { ubuzzOverFloor } from './buzz.js';
 
 /** C: doextcmd — echo '#' on the top line, then read the next key (tty). */
 export async function runExtcmdFromHashPrefix() {
@@ -56,18 +57,14 @@ export async function runExtcmdFromHashPrefix() {
         return;
     }
     if (ch2 === 'F' && game.flags?.wizard) {
-        /* C: zap.c buzz/bhit + zap_over_floor — cold spell beam from hero (wizard harness). */
-        const u = game.u;
-        if (u) {
-            await zapOverFloorAlongRay(
-                game,
-                u.ux | 0,
-                u.uy | 0,
-                u.dx | 0,
-                u.dy | 0,
-                ZT_SPELL(ZT_COLD),
-            );
-        }
+        /* C: zap.c ubuzz — cone of cold (**`ZT_SPELL(ZT_COLD)`**), wizard harness. */
+        await ubuzzOverFloor(game, ZT_SPELL(ZT_COLD), 0);
+        await flush_screen(1);
+        return;
+    }
+    if (ch2 === 'c' && game.flags?.wizard) {
+        /* C: zap.c weffects — wand of cold (**`ZT_WAND(ZT_COLD)`**), same facing as **`#F`**. */
+        await ubuzzOverFloor(game, ZT_WAND(ZT_COLD), 6);
         await flush_screen(1);
         return;
     }

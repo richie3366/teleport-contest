@@ -15,6 +15,7 @@ import { maybeSmudgeEngr } from './engrave.js';
 import { checkHere } from './pickup.js';
 import { dotrap } from './trap.js';
 import { runExtcmdFromHashPrefix } from './extcmd.js';
+import { doZapCmd } from './dozap.js';
 import { doBumpMeleeAttack } from './attack.js';
 import { tryPeacefulSwap } from './peaceful_displace.js';
 import { blocksMovementAt, diagonalHeroMoveBlocked } from './walkable.js';
@@ -92,6 +93,11 @@ export async function rhack(key) {
 
     if (ch === '#') {
         await runExtcmdFromHashPrefix();
+        return;
+    }
+
+    if (ch === 'z') {
+        await doZapCmd();
         return;
     }
 
