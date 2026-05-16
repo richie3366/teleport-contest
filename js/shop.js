@@ -1105,6 +1105,19 @@ export async function checkShopObjLikeC(g, obj, x, y, broken) {
     }
 }
 
+/**
+ * C: **`dothrow.c`** after **`place_object`** (missile lands / **`drop`**) —
+ * **`if ((*u.ushops || obj->unpaid) && obj != uball) check_shop_obj(obj, x, y, FALSE);`**
+ * @param {import('./gstate.js').game} g
+ */
+export async function checkShopObjAfterHeroPlaceLikeC(g, obj, x, y) {
+    const u = g.u;
+    if (!u || !obj) return;
+    if (obj === g.uball) return;
+    if (!(heroInShopOccupancyLikeUshops(g) || (obj.unpaid | 0))) return;
+    await checkShopObjLikeC(g, obj, x | 0, y | 0, false);
+}
+
 /** C: **`dothrow.c`** **`check_shop_obj(obj, x, y, TRUE)`** — delegates to **`checkShopObjLikeC(..., true)`**. */
 export async function checkShopObjBrokenTrueLikeC(g, obj, x, y) {
     await checkShopObjLikeC(g, obj, x | 0, y | 0, true);

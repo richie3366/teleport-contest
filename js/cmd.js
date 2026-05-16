@@ -21,6 +21,7 @@ import { blocksMovementAt, diagonalHeroMoveBlocked } from './walkable.js';
 import { spotEffects } from './spoteffects.js';
 import { dokickFromCmd } from './kick.js';
 import { snapshotUshops0FromHeroTileLikeC } from './shop.js';
+import { doDropOneAtHeroFeetLikeC } from './drop_hero.js';
 
 // Direction deltas: y u k
 //                   h . l
@@ -103,6 +104,12 @@ export async function rhack(key) {
 
     if (ch === 'z') {
         await doZapCmd();
+        return;
+    }
+
+    if (ch === 'd') {
+        // C: cmd.c → invent.c dodrop (subset: top invent item, no getobj menu)
+        await doDropOneAtHeroFeetLikeC(game);
         return;
     }
 
