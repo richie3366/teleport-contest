@@ -9,11 +9,11 @@ Thin handoff for the next coding session. Deep parity tables and history: [`c-to
 - **Plain ES modules**, no build/WASM/network in contest code; RNG via `js/rng.js`; match **clang** evaluation order for multi-call expressions.
 - API: [`docs/API.md`](../../docs/API.md); overview: [`README.md`](../../README.md).
 
-**Last slice:** **`objects.h`** / **`objnam.c`** — **`OTYP_GLOB_OF_GREEN_SLIME`** **276** (**`cpp` `OBJECTS_ENUM`**) in **`const.js`**; **`burn_floor_objects`** imports it; **`xnameBurnFloor`/`distantNameBurnFloor`/`doname`**: **`g.scrollDiscovery`** **`Set`** drives **`scroll of`** vs **`scroll labeled`**; **`makePluralBurn`** **`scroll of`**; **`discoverScrollOtyp`**. **`mklev.js`:** **`SCR_ENCHANT_ARMOR`** **326** (was **276**, collided with glob).
+**Last slice:** **`zap.c`** **`melt_ice`** — C call order: **`spot_stop_timers`** stub, **`trap_ice_effects`** (**`trap.c`**) with **`cnv_trap_obj`** for **`LANDMINE`/`BEAR_TRAP`** (**`mksobjLikeMelt`** + **`placeFloorObject`**; bury **`TODO`**), **`obj_ice_effects`/`unearth_objs`** stubs, **`boulder_hits_pool`** subset (**`do.c`**: **`rn2(10)`**, fill → **`ROOM`/`delTrap`**, splash plines, remove boulder from floor + **`level.objects`**), hero **`maybeHeroPoolEnter`** after boulder loop; else **`minliquid`** subset (**`water_damage_chain`** on **`minvent`** for non-flyer/floater in **`IS_POOL`**).
 
 ## Next steps (highest impact from latest fire/lava work)
 
-1. **Full `melt_ice`** — **`obj_ice_effects`**, **`unearth_objs`**, **`boulder_hits_pool`**, **`cnv_trap_obj`** for mine/bear on ice, **`minliquid`**, **`MELT_ICE_AWAY`** timers.
+1. **`melt_ice` remainder** — **`MELT_ICE_AWAY`** / **`spot_stop_timers`** when level timers exist; real **`obj_ice_effects`** (corpse **`on_ice`** / timers); **`unearth_objs`** + buried objects; full **`boulder_hits_pool`** (drawbridge / waterwall / plane / **`u.uinwater`** / lava splash damage / **`bury_objs`**); full **`minliquid`** (drown, gremlin, iron golem, teleport, …); hero **`spoteffects`** vs **`maybeHeroPoolEnter`** only.
 2. **`minuhpmax`/`setuhpmax`/`losexp`** ( **`dofiretrap`** human branch ); underwater/steam **`dofiretrap`** box branch; **`shieldeff`/`monstseesu`**.
 3. **Wire `discoverScrollOtyp`** from **`read`** / **`pickup`** / **`makeknown`** when scroll ID is learned; audit remaining **`mklev.js`** **`otyp`** literals vs **`objects_nums`**.
 
