@@ -11,7 +11,7 @@ Thin handoff for the next coding session. **Gap inventory (not yet ported):** [`
 
 **Strategic priority:** Port **tty startup + interactive chargen** toward C **`wintty.c` / `role.c`** parity. **Eleven** public sessions ship **`nethackrc` without** embedded `OPTIONS=name:` / `role:` (and similar); C runs **“Who are you?”**, **[ynaq]**, and role/race/gender/align pickers with real **RNG**. Sessions that already set identity in **OPTIONS** must keep the **C fast path** (skip full menus when rc fixes role/race/gender/align).
 
-**Last slice:** **`roles.js`** — C **`role.c`** **`validgend`** / **`randgend`** + **`role_init`** order in **`coerceChargenIdentity`**: after **`randrace`** repair, flip **`female`** when **`!validgendLikeC`** (C **`flags.pantheon == -1`** path), apply role gender pin, then **`randgendLikeC`** if still invalid; then **`randalign`**. **`npm run score`:** **0/44**; **`seed0006`** **519/6736** RNG, **23/123** screens; **`seed0012`** **405/13878** RNG, **12/308** screens; **`seed0077`** **1507/3242** RNG, **11/33** screens; **`seed8000`** **2931/3130** RNG, **2/23** screens; **`seed0014`** **170/59178** RNG, **9/714** screens.
+**Last slice:** **`roles.js`** — C **`role.c`** **`validrole`** / **`validrace`** + **`coerceChargenIdentity`** uses **`validraceLikeC(ri, races.indexOf(r))`** (not **`allows.races.includes(name)`** alone) so unknown / non-table race rows trigger **`randrace`** like C **`!validrace`**. **`npm run score`:** **0/44**; **`seed0006`** **519/6736** RNG, **23/123** screens; **`seed0012`** **405/13878** RNG, **12/308** screens; **`seed0077`** **1507/3242** RNG, **11/33** screens; **`seed8000`** **2931/3130** RNG, **2/23** screens; **`seed0014`** **170/59178** RNG, **9/714** screens.
 
 ## Next steps
 

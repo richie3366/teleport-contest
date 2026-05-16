@@ -1,6 +1,6 @@
 // roles.js — Role, race, gender, alignment data.
-// C ref: role.c — roles[], races[], aligns[] (NetHack 5.0.0); randrace(), randalign(),
-//       randgend(), validgend(); role_init() repair vs coerceChargenIdentity.
+// C ref: role.c — roles[], races[], aligns[] (NetHack 5.0.0); validrole/validrace,
+//       randrace/randalign/randgend, validgend; role_init() repair vs coerceChargenIdentity.
 //
 // `rank` is the XL 1 title (first row in role.c for each role).
 // `allows` mirrors each role's final selfmask (lawful/neutral/chaotic,
@@ -198,6 +198,29 @@ function roleRaceMaskOkLikeC(role, raceRow) {
 }
 
 /**
+ * C: **`role.c`** **`validrole(int rolenum)`** — **`IndexOkT(rolenum, roles)`**.
+ * @param {number} rolenum
+ * @returns {boolean}
+ */
+export function validroleLikeC(rolenum) {
+    const ri = rolenum | 0;
+    return ri >= 0 && ri < roles.length;
+}
+
+/**
+ * C: **`role.c`** **`validrace(int rolenum, int racenum)`** — role **`ROLE_RACEMASK`** ∩ race (**`allows.races`** in JS).
+ * @param {number} rolenum
+ * @param {number} racenum
+ * @returns {boolean}
+ */
+export function validraceLikeC(rolenum, racenum) {
+    const rai = racenum | 0;
+    if (!validroleLikeC(rolenum)) return false;
+    if (rai < 0 || rai >= races.length) return false;
+    return roleRaceMaskOkLikeC(roles[rolenum | 0], races[rai]);
+}
+
+/**
  * C: **`role.c`** **`randrace(int rolenum)`** — count permitted races in **`races[]`** order, then **`rn2(n*100)/100`**.
  * @param {number} rolenum
  * @returns {number} race index **`0..races.length-1`**
@@ -297,7 +320,7 @@ export function randgendLikeC(rolenum, racenum) {
 
 /**
  * C: rigid_role_checks() / role_init() — clamp OPTIONS to a legal triple for this role.
- * Invalid race → **`randrace`**; **`validgend`** flip + **`randgend`** tail; invalid alignment → **`randalign`**
+ * Invalid race → **`validrace`** / **`randrace`**; **`validgend`** flip + **`randgend`** tail; invalid alignment → **`randalign`**
  * (**`role_init`** order: race, gender, align).
  * @param {RoleRow} role
  * @param {{ name: string, adj: string, mnum: number, filecode?: string, permonst?: import('./mondata.js').Permonst, attrmin: number[], attrmax: number[] }} race
@@ -309,7 +332,8 @@ export function coerceChargenIdentity(role, race, alignType, female) {
     const ri = roles.indexOf(role);
 
     let r = race;
-    if (!a.races.includes(r.name)) {
+    const raiInit = races.indexOf(r);
+    if (ri < 0 || raiInit < 0 || !validraceLikeC(ri, raiInit)) {
         r =
             ri >= 0
                 ? races[randraceLikeC(ri)]
