@@ -7,6 +7,11 @@ export function parseNethackrc(rc) {
     const result = {
         name: '', role: -1, race: -1, gender: -1, align: -1,
         flags: {}, iflags: {},
+        explicitNameInRc: false,
+        explicitRoleInRc: false,
+        explicitRaceInRc: false,
+        explicitGenderInRc: false,
+        explicitAlignInRc: false,
     };
     if (!rc) return result;
 
@@ -29,11 +34,11 @@ export function parseNethackrc(rc) {
                 const key = stripped.slice(0, colonIdx).trim().toLowerCase();
                 const val = stripped.slice(colonIdx + 1).trim();
 
-                if (key === 'name') result.name = val;
-                else if (key === 'role') result.role = val;
-                else if (key === 'race') result.race = val;
-                else if (key === 'gender') result.gender = val;
-                else if (key === 'align') result.align = val;
+                if (key === 'name') { result.name = val; result.explicitNameInRc = true; }
+                else if (key === 'role') { result.role = val; result.explicitRoleInRc = true; }
+                else if (key === 'race') { result.race = val; result.explicitRaceInRc = true; }
+                else if (key === 'gender') { result.gender = val; result.explicitGenderInRc = true; }
+                else if (key === 'align') { result.align = val; result.explicitAlignInRc = true; }
                 else if (key === 'playmode' && val === 'debug') result.flags.debug = true;
                 else if (key === 'pettype' || key === 'pet') {
                     result.flags.pettype = val;

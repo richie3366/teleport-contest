@@ -18,6 +18,7 @@ import { parseNethackrc } from './options.js';
 import { flush_screen } from './display.js';
 import { GameDisplay } from './game_display.js';
 import { applyIdentityFromNethackrc } from './chargen.js';
+import { needsFullInteractiveChargen, needsAsknameOnly, runInteractiveTtyChargen, ttyAsknameLikeC } from './chargen_tty.js';
 
 // ── NethackGame ──
 // Wraps a single game session with replay infrastructure.
@@ -89,7 +90,9 @@ export class NethackGame {
 
         // Parse nethackrc
         const opts = parseNethackrc(this._nethackrc);
-        g.plname = opts.name || 'Hero';
+        const fullInteractiveChargen = needsFullInteractiveChargen(opts);
+        const asknameOnly = needsAsknameOnly(opts);
+        g.plname = (fullInteractiveChargen || asknameOnly) ? '' : (opts.name || 'Hero');
         g.flags = { verbose: true, ...opts.flags };
         g.iflags = { ...opts.iflags };
         if (opts.preferred_pet) g.preferred_pet = opts.preferred_pet;
@@ -113,8 +116,8 @@ export class NethackGame {
         g.program_state = {};
         g.moves = 1;
 
-        /* C: u_init / role.c — identity from OPTIONS=role,race,gender,align */
-        applyIdentityFromNethackrc(g, opts);
+        /* C: u_init / role.c — identity from OPTIONS when role is fixed in rc. */
+        if (!fullInteractiveChargen && !asknameOnly) applyIdentityFromNethackrc(g, opts);
 
         // Fixed play clock (moon, shop lines, Friday 13th, …) — C uses NETHACK_FIXED_DATETIME
         g.fixed_datetime = this._datetime || null;
@@ -131,6 +134,19 @@ export class NethackGame {
 
         // Install capture hook
         this._installCaptureHook();
+
+        if (fullInteractiveChargen) {
+            const disp = g.nhDisplay;
+            if (!disp) throw new Error('Interactive chargen requires nhDisplay');
+            await runInteractiveTtyChargen(disp, g, opts);
+        } else if (asknameOnly) {
+            const disp = g.nhDisplay;
+            if (!disp) throw new Error('askname requires nhDisplay');
+            await ttyAsknameLikeC(disp, g);
+            opts.name = g.plname;
+            opts.explicitNameInRc = true;
+            applyIdentityFromNethackrc(g, opts);
+        }
 
         // Run game startup (C: newgame())
         await newgame();
