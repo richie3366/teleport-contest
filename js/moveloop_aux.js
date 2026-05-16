@@ -2,7 +2,7 @@
 // C ref: allmain.c (maybe_generate_rnd_mon, dosounds, gethungry, …), attrib.c exerchk/exercise.
 //
 // `pre_moveloop82_exercise` / `post_moveloop82_exercise` still replay bare `rn2` for session harness
-// until `exerchk` / `exerper` port; real `exercise()` now consumes RNG from trap/search/engrave paths.
+// until moveloop order matches C tail (exerchk now runs after each time-consuming move in allmain.js).
 
 import { game } from './gstate.js';
 import { rn2, rnd } from './rng.js';

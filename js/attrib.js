@@ -6,12 +6,16 @@ import {
     LUCKMIN,
     LUCKMAX,
     STR18,
+    A_STR,
     A_INT,
     A_WIS,
+    A_DEX,
+    A_CON,
     A_CHA,
     A_MAX,
 } from './const.js';
-import { rn2 } from './rng.js';
+import { rn1, rn2 } from './rng.js';
+import { nearCapacity, ENC } from './encumbr.js';
 
 const DEF_ATTRMIN = Object.freeze([3, 3, 3, 3, 3, 3]);
 const DEF_ATTRMAX = Object.freeze([STR18(100), 18, 18, 18, 18, 18]);
@@ -127,4 +131,133 @@ export function exercise(i, incOrDec) {
     ax += incOrDec ? (rn2(19) > acurr(i) ? 1 : 0) : -rn2(2);
     u.aexe.a[i] = ax;
     /* C: if (svm.moves > 0 && (i == A_STR || i == A_CON)) encumber_msg(); */
+}
+
+/** C: sgn() — sign of int */
+function sgn(x) {
+    return x > 0 ? 1 : x < 0 ? -1 : 0;
+}
+
+/* C: attrib.c exertext[][] — order A_STR…A_CHA; Int/Cha unused */
+const EXERTEXT = Object.freeze([
+    ['exercising diligently', 'exercising properly'],
+    [null, null],
+    ['very observant', 'paying attention'],
+    ['working on your reflexes', 'working on reflexes lately'],
+    ['leading a healthy life-style', 'watching your health'],
+    [null, null],
+]);
+
+/**
+ * C: attrib.c exerper(void) — hunger / encumbrance / status hooks into exercise().
+ * Uses u.uhunger when set (C eat.c init_uhunger: 900); skips hunger branch otherwise.
+ */
+export function exerper() {
+    const g = game;
+    const u = g.u;
+    if (!u) return;
+    const moves = g.moves | 0;
+
+    if (!(moves % 10)) {
+        const uh = u.uhunger;
+        if (typeof uh === 'number') {
+            const band =
+                uh > 1000 ? 'sat'
+                    : uh > 150 ? 'not'
+                        : uh > 50 ? 'hungry'
+                            : uh > 0 ? 'weak'
+                                : 'faint';
+            const monk = g.urole?.abbr === 'Mon';
+            if (band === 'sat') {
+                exercise(A_DEX, false);
+                if (monk) exercise(A_WIS, false);
+            } else if (band === 'not') {
+                exercise(A_CON, true);
+            } else if (band === 'weak') {
+                exercise(A_STR, false);
+                if (monk) exercise(A_WIS, true);
+            } else if (band === 'faint') {
+                exercise(A_CON, false);
+            }
+        }
+
+        const cap = nearCapacity();
+        if (cap === ENC.MOD_ENCUMBER) exercise(A_STR, true);
+        else if (cap === ENC.HVY_ENCUMBER) {
+            exercise(A_STR, true);
+            exercise(A_DEX, false);
+        } else if (cap === ENC.EXT_ENCUMBER) {
+            exercise(A_DEX, false);
+            exercise(A_CON, false);
+        }
+    }
+
+    if (!(moves % 5)) {
+        if ((u.HClairvoyant | 0) && !(u.BClairvoyant | 0)) exercise(A_WIS, true);
+        if (u.HRegeneration) exercise(A_STR, true);
+        if (u.usick || u.Vomiting) exercise(A_CON, false);
+        if (u.Confusion || u.Hallucination) exercise(A_WIS, false);
+        if (((u.wounded_legs | 0) && !u.usteed) || u.Fumbling || u.HStun) exercise(A_DEX, false);
+    }
+}
+
+/**
+ * C: attrib.c exerchk(void) — after exerper, maybe apply AEXE and schedule next check.
+ * @returns {string[]} pline texts ("You …") for caller to await pline()
+ */
+export function collectExerchkPlines() {
+    const plines = [];
+    const g = game;
+    const u = g.u;
+    if (!u) return plines;
+
+    exerper();
+
+    g.context = g.context || {};
+    if (g.context.next_attrib_check == null) g.context.next_attrib_check = 600;
+    const nextChk = g.context.next_attrib_check;
+    const moves = g.moves | 0;
+    if (moves < nextChk || (g.multi | 0)) return plines;
+
+    ensureAexe(u);
+    for (let i = 0; i < A_MAX; i++) {
+        const ax0 = u.aexe.a[i] | 0;
+        if (!ax0) continue;
+
+        const modVal = sgn(ax0);
+        let lolim = attrMin(i);
+        let hilim = attrMax(i);
+        if (hilim > 18) hilim = 18;
+        const abase = u.acurr?.a?.[i] ?? 10;
+        if ((ax0 < 0 ? abase <= lolim : abase >= hilim)) {
+            u.aexe.a[i] = (Math.abs(ax0) / 2) * modVal;
+            continue;
+        }
+        if ((u.Upolyd | 0) && i !== A_WIS) {
+            u.aexe.a[i] = (Math.abs(ax0) / 2) * modVal;
+            continue;
+        }
+
+        const thresh = i !== A_WIS ? Math.trunc((Math.abs(ax0) * 2) / 3) : Math.abs(ax0);
+        if (rn2(AVAL) > thresh) {
+            u.aexe.a[i] = (Math.abs(ax0) / 2) * modVal;
+            continue;
+        }
+
+        let axPost = ax0;
+        if (adjattrib(i, modVal, -1)) {
+            axPost = 0;
+            const pair = EXERTEXT[i];
+            const j = modVal > 0 ? 0 : 1;
+            const phrase = pair?.[j];
+            if (phrase) {
+                const lead = modVal > 0 ? 'must have been' : "haven't been";
+                plines.push(`You ${lead} ${phrase}.`);
+            }
+        }
+        u.aexe.a[i] = (Math.abs(axPost) / 2) * modVal;
+    }
+
+    g.context.next_attrib_check += rn1(200, 800);
+    return plines;
 }

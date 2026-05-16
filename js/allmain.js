@@ -6,7 +6,6 @@
 // owns structural dungeon generation.
 
 import { game } from './gstate.js';
-import { rn2 } from './rng.js';
 import { mklev, l_nhcore_init, u_on_upstairs } from './mklev.js';
 import { rhack } from './cmd.js';
 import { docrt, cls, bot, flush_screen, pline } from './display.js';
@@ -23,6 +22,7 @@ import { findAc } from './u_init_find_ac.js';
 import { applyHiddenGoldToUmoney0 } from './u_init_hidden_gold.js';
 import { applySkillInit } from './u_init_skills.js';
 import { UHS } from './hunger.js';
+import { collectExerchkPlines } from './attrib.js';
 import { moveloopPreamble } from './moveloop_preamble.js';
 import { settrack } from './track.js';
 
@@ -42,6 +42,9 @@ export async function newgame() {
     g.dungeons = [{ dname: 'The Dungeons of Doom', depth_start: 1, num_dunlevs: 30 }];
     g.u = g.u || {};
     g.u.uz = { dnum: 0, dlevel: 1 };
+    g.context = g.context || {};
+    if (g.context.next_attrib_check == null) g.context.next_attrib_check = 600;
+
     g.flags = g.flags || {};
     // Gnomish Mines branch stub (end1 on D:1)
     g.branches = [
@@ -75,6 +78,8 @@ export async function newgame() {
     g.u.uexp = 0;
     g.u.ualign = g.u.ualign || { type: 0, record: 0 };
     g.u.uhs = UHS.NOT_HUNGRY; /* port eat.c / moveloop when hunger advances */
+    /* C: eat.c init_uhunger — u.uhunger = 900 (NOT_HUNGRY band for exerper) */
+    g.u.uhunger = 900;
     g.u.near_capacity = 0; /* C: near_capacity(); port invent weight when ready */
     g.u.Levitation = 0;
     g.u.Flying = 0;
@@ -175,6 +180,7 @@ export async function moveloop_core() {
     if (g.context?.move) {
         settrack();
         g.moves = (g.moves || 1) + 1;
+        for (const line of collectExerchkPlines()) await pline(line);
     }
 
     g._prevMoveTick = g.context?.move ? 1 : 0;

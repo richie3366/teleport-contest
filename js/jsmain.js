@@ -100,7 +100,8 @@ export class NethackGame {
             ux: 0, uy: 0, ux0: 0, uy0: 0, uluck: 0, LUCKADD: 0, Upolyd: 0,
             utrap: 0, utraptype: 0, wounded_legs: 0, wounded_leg_side: 0,
         };
-        g.context = { move: 0 };
+        /* C: allmain.c newgame — svc.context.next_attrib_check = 600L */
+        g.context = { move: 0, next_attrib_check: 600 };
         g.program_state = {};
         g.moves = 1;
 
