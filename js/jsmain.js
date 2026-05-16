@@ -22,6 +22,7 @@ import { needsFullInteractiveChargen, needsAsknameOnly, runInteractiveTtyChargen
 
 export {
     enteredNewLevelLivelogMetaLikeC,
+    livelogPrintfLikeC,
     maybeRecordEnteredNewLevelLivelogLikeC,
 } from './livelog.js';
 
