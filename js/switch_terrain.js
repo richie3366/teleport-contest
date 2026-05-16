@@ -1,12 +1,14 @@
 // switch_terrain.js — Terrain change effects on hero (levitation / flight / status terrain).
 // C ref: hack.c switch_terrain(), classify_terrain(); polyself.c float_vs_flight(), steed_vs_stealth();
 //        steed.c mount/dismount also calls steed_vs_stealth (not wired in JS yet — import steedVsStealthLikeC there);
-//        trap.c float_up() (subset for unblock).
+//        trap.c float_up() (expanded: utrap / uinwater / uswallow / encumber_msg; steed+dismount TODO).
 
 import { pline } from './display.js';
+import { encumberMsg } from './pickup.js';
 import {
     FROMOUTSIDE,
     I_SPECIAL,
+    IS_ROOM,
     STONE,
     TREE,
     CORR,
@@ -34,8 +36,20 @@ import {
     D_LOCKED,
     D_TRAPPED,
     TT_PIT,
+    TT_WEB,
+    TT_LAVA,
+    TT_INFLOOR,
+    TT_BURIEDBALL,
 } from './const.js';
 import { isClosedDoorLoc } from './walkable.js';
+import { raceptr, dmgtypeFromattack } from './mondata.js';
+
+/** C: monattk.h — **`digests`/`enfolds`** vs **`surface()`** inside animal engulfer. */
+const AT_ENGL = 11;
+const AD_DGST = 26;
+const AD_WRAP = 28;
+/** C: monflag.h **`M1_ANIMAL`**. */
+const M1_ANIMAL = 0x00040000;
 
 /** C: youprop.h raw **`HLevitation||ELevitation`** (not **`Levitation`** macro). */
 function rawLevitationSources(u) {
@@ -136,24 +150,70 @@ function blockLevOrFlyLikeC(g) {
 }
 
 /**
- * C: **`trap.c`** **`float_up`** — branches for **`utrap`**, **`uinwater`**, **`uswallow`** omitted;
- * **`Hallucination`**, air level, default float message; ends with **`float_vs_flight`** like C.
+ * C: **`trap.c`** **`float_up`** — **`utrap`**, **`uinwater`**, **`uswallow`** branches, default float plines,
+ * pre-**`float_vs_flight`** **`Flying`** pline, **`encumber_msg`**.
+ * Still TODO: **`fill_pit`**, steed + **`Lev_at_will`** / **`dismount_steed`**, **`vision_recalc`** body.
+ * **`uinwater`** uses dynamic **`import('./spoteffects.js')`** to avoid static **`spoteffects`↔`switch_terrain`** cycle.
  * @param {import('./gstate.js').game} g
  */
 async function floatUpAfterTerrainUnblockLikeC(g) {
     const u = g.u;
     if (!u) return;
-    if ((u.utrap | 0) !== 0) return;
-    if ((u.uinwater | 0) !== 0) return;
-    if ((u.uswallow | 0) !== 0) return;
-    if (u.Hallucination | 0) {
+    g.disp = g.disp || {};
+    g.disp.botl = true;
+
+    if ((u.utrap | 0) !== 0) {
+        const tt = u.utraptype | 0;
+        if (tt === TT_PIT) {
+            u.utrap = 0;
+            u.utraptype = 0;
+            await pline('You float up, out of the pit!');
+            g.vision_full_recalc = 1;
+            /* C: fill_pit(u.ux,u.uy) — trap.c boulder/flooreffects; JS stub in trap.js */
+        } else if (tt === TT_LAVA || tt === TT_INFLOOR) {
+            await pline('Your body pulls upward, but your legs are still stuck.');
+        } else if (tt === TT_BURIEDBALL) {
+            const loc = g.level?.at(u.ux | 0, u.uy | 0);
+            const floorWord = loc && IS_ROOM(loc.typ | 0) ? 'floor' : 'ground';
+            await pline(`You feel lighter, but your leg is still chained to the ${floorWord}.`);
+        } else if (tt === TT_WEB) {
+            await pline('You float up slightly, but you are still stuck in the web.');
+        } else {
+            /* C: bear trap and any other **`utrap`** */
+            await pline('You float up slightly, but your legs are still stuck.');
+        }
+    } else if ((u.uinwater | 0) !== 0) {
+        const { spotEffects } = await import('./spoteffects.js');
+        await spotEffects(g, true);
+    } else if ((u.uswallow | 0) !== 0) {
+        const stuck = u.ustuck;
+        const ptr = stuck ? raceptr(stuck) : null;
+        if (ptr && (ptr.mflags1 & M1_ANIMAL) !== 0) {
+            const inner = dmgtypeFromattack(ptr, AD_DGST, AT_ENGL)
+                ? 'maw'
+                : dmgtypeFromattack(ptr, AD_WRAP, AT_ENGL)
+                    ? 'husk'
+                    : 'maw';
+            await pline(`You float away from the ${inner}.`);
+        } else {
+            const raw = stuck?.data?.mname || 'monster';
+            await pline(`You spiral up into ${raw}.`);
+        }
+    } else if (u.Hallucination | 0) {
         await pline('Up, up, and awaaaay!  You\'re walking on air!');
     } else if (Is_airlevel(u.uz)) {
         await pline('You gain control over your movements.');
     } else {
         await pline('You start to float in the air!');
     }
+
+    /* C: **`u.usteed`** non-floater/flyer + **`Lev_at_will`** / **`dismount_steed`** — not wired */
+
+    if (flyingEffectiveLikeC(g)) {
+        await pline('You are no longer able to control your flight.');
+    }
     floatVsFlightLikeC(g);
+    await encumberMsg();
 }
 
 /**
