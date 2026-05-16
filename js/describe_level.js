@@ -94,3 +94,12 @@ export function describeLevelStringLikeC(g, uz, dflgs = 0) {
 export function describeLevelStatusSlotLikeC(g, uz) {
     return describeLevelStringLikeC(g, uz, 0);
 }
+
+/**
+ * C: **`do.c`** **`goto_level`** — **`(void) describe_level(dloc, 2);`** before **`livelog_printf(..., "entered %s", dloc)`**.
+ * @param {import('./gstate.js').game} g
+ * @returns {string}
+ */
+export function describeLevelLivelogEnteredBufLikeC(g) {
+    return describeLevelStringLikeC(g, g?.u?.uz, 2);
+}
