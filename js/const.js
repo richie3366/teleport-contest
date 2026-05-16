@@ -81,6 +81,15 @@ export const DRAWBRIDGE_DOWN = 34;
 export const AIR = 35;
 export const CLOUD = 36;
 export const MAX_TYPE = 37;
+/** C: rm.h — status-line terrain indices (not `levl[][].typ` values). */
+export const X_FLOOR = 39;
+export const X_GROUND = 40;
+export const X_OPENDOOR = 41;
+export const X_SHUTDOOR = 42;
+export const X_SWAMP = 43;
+export const X_SUBMERGED = 44;
+export const X_SEA = 45;
+export const X_WATERWALL = 46;
 
 // Door states — cf. rm.h
 export const D_NODOOR = 0x00;

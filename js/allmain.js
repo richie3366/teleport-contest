@@ -91,7 +91,13 @@ export async function newgame() {
     g.u.uhunger = 900;
     g.u.near_capacity = 0; /* C: near_capacity(); port invent weight when ready */
     g.u.Levitation = 0;
+    g.u.HLevitation = 0;
+    g.u.ELevitation = 0;
+    g.u.BLevitation = 0; /* youprop.h BLevitation — switch_terrain FROMOUTSIDE block */
     g.u.Flying = 0;
+    g.u.HFlying = 0;
+    g.u.EFlying = 0;
+    g.u.BFlying = 0;
     g.u.Fumbling = 0;
     g.u.Sleep_resistance = 0;
     g.u.timed = { blind: 0, deaf: 0 };

@@ -5,9 +5,11 @@
 // Ported: recursion guard (inspoteffects + spotloc + spotterrain + dotrap typ), in_lava_effects
 // early-out, pooleffects liquid entry (lava before pool, drown gate vs C), check_special_room stub,
 // pickup(1) before/after pit vs non-pit, dotrap with same-trap re-entry suppression,
-// youprop.h Warning + timeout.c spot_time_left MELT_ICE_AWAY on is_ice, m_at piercer/surprise + mnexto.
-// Still TODO: switch_terrain, HLevitation timeout/float_down, sink+Levitation, gi.in_steed_dismounting,
-// full pooleffects leave-water; ceiling() vault/temple/shop/in_quest nuance; sensemon / x_monnam parity.
+// youprop.h Warning + timeout.c spot_time_left MELT_ICE_AWAY on is_ice, m_at piercer/surprise + mnexto,
+// hack.c switch_terrain + classify_terrain (lev/flight block, iflags.terrain_typ).
+// Still TODO: HLevitation timeout/float_down, sink+Levitation, gi.in_steed_dismounting,
+// full pooleffects leave-water; ceiling() vault/temple/shop/in_quest nuance; sensemon / x_monnam parity;
+// float_vs_flight; trap.c float_up utrap/uinwater/uswallow; C-gated classify when !terrainstatus.
 
 import { game } from './gstate.js';
 import { pline, newsym } from './display.js';
@@ -31,6 +33,7 @@ import {
     Is_firelevel,
     Is_earthlevel,
     In_quest,
+    MAX_TYPE,
 } from './const.js';
 import { raceptr, breathless, swims, amphibious, S_PIERCER } from './mondata.js';
 import { isIceAt } from './melt_ice.js';
@@ -39,6 +42,7 @@ import { enextoNearMon } from './walkable.js';
 import { dealWithOvercrowding } from './mon_limbo.js';
 import { d, rnd } from './rng.js';
 import { losehp, maybeHalfPhys } from './mthrowu.js';
+import { switchTerrainLikeC } from './switch_terrain.js';
 
 /** C: hack.c static `inspoteffects` / `spotloc` / `spotterrain` — overwritten each nested entry. */
 let spDepth = 0;
@@ -296,6 +300,13 @@ export async function spotEffects(g = game, pick = true, opts = {}) {
 
     try {
         /* C: `if (spotterrain != levl[u.ux0][u.uy0].typ || iflags.terrain_typ == MAX_TYPE) switch_terrain();` */
+        const prevLoc = g.level?.at(u.ux0 | 0, u.uy0 | 0);
+        const prevTerr = prevLoc ? (prevLoc.typ | 0) : spTerr;
+        const tt = g.iflags.terrain_typ;
+        if (spTerr !== prevTerr || tt === undefined || tt === MAX_TYPE) {
+            await switchTerrainLikeC(g);
+        }
+
         const moved = await pooleffectsBooleanNewspot(g, true, opts);
         if (moved) return;
 
