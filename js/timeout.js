@@ -11,6 +11,13 @@ export function nomul(nval) {
     if (nval === 0 && game.context) game.context.run = 0;
 }
 
+/** C: hack.c end_running(boolean force) — stop multi-step travel (subset). */
+export function endRunning(force) {
+    const g = game;
+    g.context = g.context || {};
+    if (force) g.context.run = 0;
+}
+
 /**
  * C: timeout.c fall_asleep(int how_long, boolean wakeup_msg) — nomul + usleep + nomovemsg.
  * @param {number} howLong — negative, turns remaining asleep (C convention).

@@ -21,7 +21,7 @@ import { applyAdjabil } from './u_init_adjabil.js';
 import { findAc } from './u_init_find_ac.js';
 import { applyHiddenGoldToUmoney0 } from './u_init_hidden_gold.js';
 import { applySkillInit } from './u_init_skills.js';
-import { UHS } from './hunger.js';
+import { UHS, collectNewuhsPlines } from './hunger.js';
 import { collectExerchkPlines } from './attrib.js';
 import { moveloopPreamble } from './moveloop_preamble.js';
 import { settrack } from './track.js';
@@ -187,8 +187,9 @@ export async function moveloop_core() {
     if (g.context?.move) {
         settrack();
         g.moves = (g.moves || 1) + 1;
-        /* C: allmain.c — svm.moves++; … gethungry(); … exerchk(); */
+        /* C: allmain.c — svm.moves++; … gethungry(); newuhs(TRUE); … exerchk(); */
         gethungry();
+        for (const line of collectNewuhsPlines(true)) await pline(line);
         for (const line of collectExerchkPlines()) await pline(line);
     }
 

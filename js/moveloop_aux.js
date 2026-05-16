@@ -18,7 +18,6 @@ import {
 import { acurr } from './attrib.js';
 import { uWipeEngr } from './engrave.js';
 import { nearCapacity, ENC } from './encumbr.js';
-import { uhsFromUhunger } from './hunger.js';
 
 export function maybe_generate_rnd_mon() {
     rn2(70);
@@ -32,7 +31,7 @@ export function dosounds() {
  * C: eat.c gethungry(void) — ordinary uhunger--, accessorytime = rn2(20),
  * odd/even branches, switch(accessorytime): case 0 (slow dig vs rings), case 8 (uamul not fake),
  * case 16 (uhave.amulet); cases 4/12 match eat.c (MEAT_RING, spe, objects[].oc_charged, RIN_PROTECTION + EProtection).
- * C order vs exerchk: allmain calls this immediately after svm.moves++, then exerchk().
+ * C order vs exerchk: allmain calls gethungry(), then collectNewuhsPlines(true), then exerchk().
  */
 /** C: eat.c objects[otyp].oc_charged — RING() chrg bit; full invent may override on otmp later. */
 function ringOcCharged(ot) {
@@ -108,7 +107,7 @@ export function gethungry() {
         default:
             break;
     }
-    u.uhs = uhsFromUhunger(u.uhunger);
+    /* C: eat.c gethungry — newuhs(TRUE) after hunger math (wired from allmain.js). */
 }
 
 /** C: allmain.c — if (!rn2(40 + ACURR(A_DEX) * 3)) u_wipe_engr(rnd(3)); */
