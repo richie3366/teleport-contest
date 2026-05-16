@@ -49,7 +49,17 @@ import {
     applyGotoAfterHeroHoleFallLikeC,
     nextToUForHoleFallStub,
 } from './goto_level_hero.js';
-import { shopdigLikeC, heroInShopOccupancyLikeUshops, snapshotUshops0FromHeroTileLikeC } from './shop.js';
+import {
+    shopdigLikeC,
+    heroInShopOccupancyLikeUshops,
+    snapshotUshops0FromHeroTileLikeC,
+    costlySpot,
+    shopKeeperForLevlRoomno,
+    inRoomsShopbaseRoomnos,
+    stolenValueMerchBurySilent,
+    makeAngryShkLikeC,
+    currencyAmountLikeC,
+} from './shop.js';
 import { impactDropLikeC } from './impact_drop.js';
 import { dist2, depth } from './hacklib.js';
 import {
@@ -131,6 +141,7 @@ import {
     A_CON,
     A_STR,
     A_DEX,
+    W_BALL,
     KILLED_BY,
     PM_GREMLIN,
     PM_IRON_GOLEM,
@@ -521,18 +532,61 @@ function deleteContentsChestTrapLikeC(g, box) {
 }
 
 /**
- * C: trap.c **`chest_trap`** cases **21–25** — floor **`delobj`** loop; shop **`stolen_value`** omitted.
+ * C: trap.c **`chest_trap`** explosion — **`costly_spot`** + **`shop_keeper`**, **`stolen_value`** (**`silent` TRUE**),
+ * **`delete_contents`**, **`unpunish`** before floor **`delobj`** loop, insider vs outsider **`You owe`/`caused`** + **`make_angry_shk`**.
  * @returns {Promise<boolean>} **`chestgone`** (C return **`TRUE`**).
  */
 async function chestTrapExplosionHeroLikeC(g, box, ox, oy) {
     const u = g.u;
     if (!u || !box) return false;
+    const xi = ox | 0;
+    const yi = oy | 0;
     const named = theObjnamLikeC(doname(box, g));
     const cap = named.charAt(0).toUpperCase() + named.slice(1);
     await pline(`${cap} explodes!`);
+
+    const rnos = inRoomsShopbaseRoomnos(g, xi, yi);
+    const shkp = rnos.length ? shopKeeperForLevlRoomno(g, rnos[0] | 0) : null;
+    const costly = !!(costlySpot(g, xi, yi) && shkp);
+    const insider = (() => {
+        if (!heroInShopOccupancyLikeUshops(g)) return false;
+        const atB = inRoomsShopbaseRoomnos(g, xi, yi);
+        if (!atB.length) return false;
+        const atH = inRoomsShopbaseRoomnos(g, u.ux | 0, u.uy | 0);
+        return atH.includes(atB[0] | 0);
+    })();
+    const peaceful = !!(shkp?.mpeaceful | 0);
+
+    let loss = 0;
+    if (costly) {
+        loss += await stolenValueMerchBurySilent(g, box, xi, yi, shkp, true, peaceful);
+    }
+
     deleteContentsChestTrapLikeC(g, box);
-    const xi = ox | 0;
-    const yi = oy | 0;
+
+    /* C: trap.c **`unpunish()`** before **`delobj`** loop — ball/chain at **`(ox,oy)`**. */
+    const chain = g.uchain;
+    const ball = g.uball;
+    const chainHit = !!(chain && (chain.ox | 0) === xi && (chain.oy | 0) === yi);
+    const ballFloor = !!(
+        ball
+        && !objectCarriedByHeroLikeC(g, ball)
+        && (ball.ox | 0) === xi
+        && (ball.oy | 0) === yi
+    );
+    if (chainHit || ballFloor) {
+        if (chain) {
+            obliterateObjectInLevel(g, chain);
+            g.uchain = null;
+        }
+        if (ball) {
+            ball.owornmask = (ball.owornmask | 0) & ~W_BALL;
+            if (u.uwep === ball) u.uwep = null;
+        }
+        g.uball = null;
+        u.Punished = 0;
+    }
+
     let chestgone = false;
     const lvl = g.level;
     if (lvl?.floorObjHeads) {
@@ -543,6 +597,9 @@ async function chestTrapExplosionHeroLikeC(g, box, ox, oy) {
         for (let o = head; o; o = o.nexthere) acc.push(o);
         for (let i = 0; i < acc.length; i++) {
             const o = acc[i];
+            if (costly) {
+                loss += await stolenValueMerchBurySilent(g, o, o.ox | 0, o.oy | 0, shkp, true, peaceful);
+            }
             if (o === box) chestgone = true;
             obliterateObjectInLevel(g, o);
         }
@@ -551,6 +608,15 @@ async function chestTrapExplosionHeroLikeC(g, box, ox, oy) {
     const buf = `exploding ${doname(box, g)}`;
     losehp(maybeHalfPhys(d(6, 6)), buf, KILLED_BY_AN);
     exercise(A_STR, false);
+    if (costly && loss) {
+        const cur = currencyAmountLikeC(g, loss);
+        if (insider) {
+            await pline(`You owe ${loss} ${cur} for objects destroyed.`);
+        } else {
+            await pline(`You caused ${loss} ${cur} worth of damage!`);
+            if (shkp) await makeAngryShkLikeC(g, shkp, xi, yi);
+        }
+    }
     return chestgone;
 }
 
@@ -559,7 +625,7 @@ const CHEST_TRAP_HALL_COLORS = Object.freeze(['red', 'orange', 'yellow', 'green'
 
 /**
  * C: trap.c **`chest_trap`** — trapped container (**`Luck`**, explosion, gases, needle, fire, shock, …).
- * Shop billing / **`unpunish`** / full **`create_gas_cloud`** effects omitted; gas-cloud branch consumes **`rn1(3,4)`** like C.
+ * Shop billing (**`stolen_value`** on explosion) / **`unpunish`** ported in **`chestTrapExplosionHeroLikeC`**; full **`create_gas_cloud`** effects omitted; gas-cloud branch consumes **`rn1(3,4)`** like C.
  * @param {import('./gstate.js').game} g
  * @param {object} box
  * @param {number} [bodypart] — C **`bodypart`** (**`FINGER`** **3**).
