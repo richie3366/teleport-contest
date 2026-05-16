@@ -1,6 +1,7 @@
 // destroy_items.js — Hero + monster inventory destruction by fire / cold / electricity (zap.c subset).
 // C ref: zap.c destroy_items(), destroyable(), maybe_destroy_item() — AD_FIRE + AD_COLD + AD_ELEC;
-// inventory_resistance_check / u_adtyp_resistance_obj (hero subset); deferred stacks; hero fire potionbreathe (**`potion_breathe.js`**).
+// inventory_resistance_check / u_adtyp_resistance_obj (hero subset); wizard **`item_what`** suffix;
+// deferred stacks; hero fire potionbreathe (**`potion_breathe.js`**).
 // **`Ring_gone`** / **`setnotworn`** (**`wear.js`** **`ringGoneHeroLikeC`** / **`setnotwornHeroMinimalLikeC`**). **`ignite_items`** → **`ignite_items.js`**.
 
 import { game } from './gstate.js';
@@ -62,6 +63,95 @@ function adtypToPropDestroyItemsLikeC(dmgtyp) {
     }
 }
 
+function ringOtypMatchesDestroyAdtypPropLikeC(otyp, prop) {
+    const t = otyp | 0;
+    if (prop === FIRE_RES) return t === OTYP_RIN_FIRE_RESISTANCE;
+    if (prop === COLD_RES) return t === OTYP_RIN_COLD_RESISTANCE;
+    if (prop === SHOCK_RES) {
+        return t === OTYP_RIN_SHOCK_RESISTANCE_ENUM || t === (OTYP_RIN_SHOCK_RESISTANCE | 0);
+    }
+    return false;
+}
+
+/**
+ * C: zap.c **`destroyable`** / **`u_adtyp_resistance_obj`** — one body slot contributes inventory
+ * protection for **`dmgtyp`** ( **`oc_oprop`**, dwarvish cloak **90%**, resist **ring otyps** on finger).
+ */
+function heroBodySlotProtectsInventoryDestroyDmgtypLikeC(g, obj, dmgtyp, prop) {
+    if (!obj) return false;
+    if ((obj.oc_oprop | 0) === prop) return true;
+    if (obj === g.u?.uarmc) {
+        const typ = obj.otyp | 0;
+        const d = dmgtyp | 0;
+        if (typ === OTYP_DWARVISH_CLOAK && (d === AD_FIRE || d === AD_COLD)) return true;
+    }
+    if (obj === g.u?.uleft || obj === g.u?.uright) {
+        return ringOtypMatchesDestroyAdtypPropLikeC(obj.otyp | 0, prop);
+    }
+    return false;
+}
+
+/**
+ * C: zap.c **`item_what(dmgtyp)`** — wizard only; suffix for **`enl_msg`** (**`" by your …"`**).
+ * Omits C **`cloak_simple_name`** / **`suit_simple_name`** / …; uses **`objShortPhrase`** on the chosen object.
+ * @param {typeof game} g
+ * @param {number} dmgtyp
+ * @returns {string}
+ */
+export function itemWhatAdtypInventoryProtectWizardLikeC(g, dmgtyp) {
+    if (!(g.flags?.wizard)) return '';
+    if (!uAdtypResistanceObjPercentHeroLikeC(g, dmgtyp)) return '';
+    const u = g.u;
+    if (!u) return '';
+    const prop = adtypToPropDestroyItemsLikeC(dmgtyp);
+    if (!prop) return '';
+    const slotsInItemWhatOrder = [
+        u.uarmc,
+        u.uarm,
+        u.uarmu,
+        u.uarmh,
+        u.uarmg,
+        u.uarmf,
+        u.uarms,
+    ];
+    for (let i = 0; i < slotsInItemWhatOrder.length; i++) {
+        const o = slotsInItemWhatOrder[i];
+        if (heroBodySlotProtectsInventoryDestroyDmgtypLikeC(g, o, dmgtyp, prop)) {
+            return ` by your ${objShortPhrase(o)}`;
+        }
+    }
+    if (u.uamul && heroBodySlotProtectsInventoryDestroyDmgtypLikeC(g, u.uamul, dmgtyp, prop)) {
+        return ` by your ${objShortPhrase(u.uamul)}`;
+    }
+    if (u.ublindf && heroBodySlotProtectsInventoryDestroyDmgtypLikeC(g, u.ublindf, dmgtyp, prop)) {
+        return ` by your ${objShortPhrase(u.ublindf)}`;
+    }
+    const lr = [u.uleft, u.uright];
+    const l0 = lr[0];
+    const l1 = lr[1];
+    if (
+        l0 &&
+        l1 &&
+        ringOtypMatchesDestroyAdtypPropLikeC(l0.otyp | 0, prop) &&
+        ringOtypMatchesDestroyAdtypPropLikeC(l1.otyp | 0, prop)
+    ) {
+        return ' by your rings';
+    }
+    if (l0 && heroBodySlotProtectsInventoryDestroyDmgtypLikeC(g, l0, dmgtyp, prop)) {
+        return ` by your ${objShortPhrase(l0)}`;
+    }
+    if (l1 && heroBodySlotProtectsInventoryDestroyDmgtypLikeC(g, l1, dmgtyp, prop)) {
+        return ` by your ${objShortPhrase(l1)}`;
+    }
+    if (u.uwep && heroBodySlotProtectsInventoryDestroyDmgtypLikeC(g, u.uwep, dmgtyp, prop)) {
+        return ` by your ${objShortPhrase(u.uwep)}`;
+    }
+    if (u.uswapwep && (u.uswapwep.oc_oprop | 0) === prop) {
+        return ` by your ${objShortPhrase(u.uswapwep)}`;
+    }
+    return '';
+}
+
 /** C: zap.c u_adtyp_resistance_obj — worn oc_oprop, dwarvish cloak 90% fire/cold, ring otyps (NH5 enum). */
 export function uAdtypResistanceObjPercentHeroLikeC(g, dmgtyp) {
     const prop = adtypToPropDestroyItemsLikeC(dmgtyp);
@@ -77,6 +167,7 @@ export function uAdtypResistanceObjPercentHeroLikeC(g, dmgtyp) {
         u.uarms,
         u.uarmu,
         u.uamul,
+        u.ublindf,
         u.uleft,
         u.uright,
         u.uwep,
@@ -92,20 +183,12 @@ export function uAdtypResistanceObjPercentHeroLikeC(g, dmgtyp) {
     if (cloak && ((dmgtyp | 0) === AD_FIRE || (dmgtyp | 0) === AD_COLD)) {
         if ((cloak.otyp | 0) === OTYP_DWARVISH_CLOAK) return 90;
     }
-    const fireRing = (t) => (t | 0) === OTYP_RIN_FIRE_RESISTANCE;
-    const coldRing = (t) => (t | 0) === OTYP_RIN_COLD_RESISTANCE;
-    const shockRing = (t) => {
-        const x = t | 0;
-        return x === OTYP_RIN_SHOCK_RESISTANCE_ENUM || x === (OTYP_RIN_SHOCK_RESISTANCE | 0);
-    };
     const lr = [u.uleft, u.uright];
     for (let j = 0; j < lr.length; j++) {
         const ri = lr[j];
         if (!ri) continue;
         const t = ri.otyp | 0;
-        if (prop === FIRE_RES && fireRing(t)) return 99;
-        if (prop === COLD_RES && coldRing(t)) return 99;
-        if (prop === SHOCK_RES && shockRing(t)) return 99;
+        if (ringOtypMatchesDestroyAdtypPropLikeC(t, prop)) return 99;
     }
     return 0;
 }
