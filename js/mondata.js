@@ -137,12 +137,12 @@ function highc(ch) {
 }
 
 /** C: mondata.h is_floater */
-function isFloater(/** @type {Permonst} */ ptr) {
+export function isFloater(/** @type {Permonst} */ ptr) {
     return ptr.mlet === S_EYE || ptr.mlet === S_LIGHT;
 }
 
 /** C: mondata.h is_flyer */
-function isFlyer(/** @type {Permonst} */ ptr) {
+export function isFlyer(/** @type {Permonst} */ ptr) {
     return (ptr.mflags1 & M1_FLY) !== 0;
 }
 

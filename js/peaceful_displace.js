@@ -4,16 +4,17 @@
 import { game } from './gstate.js';
 import { pline } from './display.js';
 import { tAt } from './search.js';
-import { blocksMovementAt } from './walkable.js';
+import { terrainBlocksDisplaceForMon } from './walkable.js';
 
 function monLabel(mtmp) {
     return mtmp?.monnam || mtmp?.data?.mname || 'the peaceful creature';
 }
 
-/** C: mon.c mundisplaceable — Oracle, shop, vault guard, … (stub: never). */
+/** C: mon.c mundisplaceable — shopkeeper, priest, vault guard, Oracle, … */
 export function mundisplaceable(mtmp) {
-    void mtmp;
-    return false;
+    if (!mtmp) return false;
+    const m = /** @type {Record<string, unknown>} */ (mtmp);
+    return !!(m.isshk || m.ispriest || m.isgd || m.iswiz || m.isminion);
 }
 
 /**
@@ -27,7 +28,7 @@ export function canPeacefullyDisplace(mtmp, heroX, heroY) {
     if ((mtmp.mtrapped | 0) !== 0) return false;
     if (mundisplaceable(mtmp)) return false;
     if (tAt(heroX, heroY)) return false;
-    if (blocksMovementAt(heroX, heroY)) return false;
+    if (terrainBlocksDisplaceForMon(mtmp, heroX, heroY)) return false;
     return true;
 }
 
