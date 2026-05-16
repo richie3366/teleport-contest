@@ -3,6 +3,18 @@
 
 import { game } from './gstate.js';
 
+/**
+ * C: options.c boolean **`opt_set`**-style **`OPTIONS=key:val`** (e.g. **`tutorial:yes`** / **`no`**).
+ * @param {string} val
+ */
+function parseRcBooleanishLikeC(val) {
+    const v = String(val).trim().toLowerCase();
+    if (!v) return false;
+    if (v === 'no' || v === 'false' || v === 'off' || v === '0' || v === 'n') return false;
+    if (v === 'yes' || v === 'true' || v === 'on' || v === '1' || v === 'y') return true;
+    return false;
+}
+
 export function parseNethackrc(rc) {
     const result = {
         name: '', role: -1, race: -1, gender: -1, align: -1,
@@ -49,7 +61,11 @@ export function parseNethackrc(rc) {
                 else if (key === 'symset') result.symset = val;
                 else if (key === 'suppress_alert') result.flags.suppress_alert = val;
                 else if (key === 'msg_window') result.iflags.prevmsg_window = val;
-                else result.flags[key] = val;
+                else if (key === 'tutorial') {
+                    /* C: opt_set_in_config[opt_tutorial] — ask_do_tutorial skips menu when set from rc */
+                    result.flags.tutorial = parseRcBooleanishLikeC(val);
+                    result.tutorial_set = true;
+                } else result.flags[key] = val;
             } else {
                 // Boolean flag
                 const lname = stripped.toLowerCase();
