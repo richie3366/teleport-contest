@@ -5,7 +5,7 @@ import { rn2 } from './rng.js';
 import { pline, newsym } from './display.js';
 import { cansee } from './vision.js';
 import { objResists } from './obj_resists.js';
-import { raceptr, breathless } from './mondata.js';
+import { raceptr, breathless, haseyes, eyecountLikeC, halfGasDamageHeroLikeC } from './mondata.js';
 import { ismnum } from './const.js';
 import { NH5_POTION_CLASS, NH5_ARMOR_CLASS, NH5_GEM_CLASS } from './nh5_objclass.js';
 import { potionbreatheObjBreakLikeC } from './potion_breathe.js';
@@ -91,13 +91,16 @@ async function potionVaporsBreakobjSubsetLikeC(g, obj, x, y) {
     if ((obj.oclass | 0) !== NH5_POTION_CLASS) return;
     if (!next2uLikeC(g, x, y)) return;
     const ptr = raceptr(g.youmonst);
-    const haseyes = true; /* C: `haseyes` — not ported on `struct permonst`; assume eyes. */
-    if (breathless(ptr) && !haseyes) return;
-    const halfGas = false;
+    if (breathless(ptr) && !haseyes(ptr)) return;
+    const halfGas = halfGasDamageHeroLikeC(g);
     const otyp = obj.otyp | 0;
     if (otyp !== OTYP_POT_WATER && !halfGas) {
         if (!breathless(ptr)) await pline('You smell a peculiar odor...');
-        else await pline('Your eyes water.');
+        else {
+            const ec = eyecountLikeC(ptr);
+            if (ec === 1) await pline('Your eye waters.');
+            else await pline('Your eyes water.');
+        }
     }
     await potionbreatheObjBreakLikeC(g, obj);
 }

@@ -14,6 +14,8 @@ import {
     PM_PESTILENCE,
     PM_FAMINE,
     PM_LICHEN,
+    PM_FLOATING_EYE,
+    PM_CYCLOPS,
     PM_LIZARD,
     OTYP_AMULET_OF_YENDOR,
     Is_airlevel,
@@ -98,6 +100,8 @@ const M1_WALLWALK = 0x00000008;
 const M1_UNSOLID = 0x00100000;
 const M1_AMPHIBIOUS = 0x00000200;
 const M1_BREATHLESS = 0x00000400;
+/** C: monflag.h `M1_NOEYES` — **`mondata.h`** **`haseyes`**. */
+const M1_NOEYES = 0x00001000;
 const M1_NOLIMBS = 0x00006000;
 const M1_SLITHY = 0x00080000;
 const M1_NOTAKE = 0x00000080;
@@ -264,6 +268,29 @@ export function heroEatsOrdinaryFood() {
 /** C: mondata.h breathless */
 export function breathless(/** @type {Permonst} */ ptr) {
     return (ptr.mflags1 & M1_BREATHLESS) !== 0;
+}
+
+/** C: mondata.h `haseyes(ptr)` — true unless **`M1_NOEYES`**. */
+export function haseyes(/** @type {Permonst|null|undefined} */ ptr) {
+    return ((ptr?.mflags1 ?? 0) & M1_NOEYES) === 0;
+}
+
+/**
+ * C: mondata.h `eyecount(ptr)` — cyclops / floating eye **1**, else **2** if **`haseyes`**, else **0**.
+ * @param {Permonst|null|undefined} ptr
+ */
+export function eyecountLikeC(ptr) {
+    if (!haseyes(ptr)) return 0;
+    const m = ptr?.mnum | 0;
+    if (m === PM_FLOATING_EYE || m === PM_CYCLOPS) return 1;
+    return 2;
+}
+
+/** C: youprop.h `Half_gas_damage` — damp/wet towel on **`ublindf`**. */
+export function halfGasDamageHeroLikeC(g) {
+    const b = g?.u?.ublindf;
+    const OTYP_TOWEL = 235;
+    return !!(b && (b.otyp | 0) === OTYP_TOWEL && (b.spe | 0) > 0);
 }
 
 /** C: mondata.h passes_walls */

@@ -11,7 +11,7 @@ import {
     ismnum,
     PM_GREMLIN,
 } from './const.js';
-import { raceptr, breathless } from './mondata.js';
+import { raceptr, breathless, halfGasDamageHeroLikeC } from './mondata.js';
 import { nomul } from './timeout.js';
 import { splitGremlinHeroPoly } from './split_mon.js';
 
@@ -34,7 +34,7 @@ const POT_SICKNESS = 317;
 const POT_ACID = 319;
 const POT_WATER = 321;
 
-/** C: `Half_gas_damage ? TOWEL : obj->otyp` — `Half_gas_damage` not ported; towel typ for switch. */
+/** C: objects.h towel `otyp` — **`Half_gas_damage`** branch in **`potionbreathe`**. */
 const OTYP_TOWEL = 235;
 
 /**
@@ -128,7 +128,7 @@ export async function potionbreatheObjBreakLikeC(g, obj) {
 
     u.timed = u.timed || {};
     const ptr = raceptr(g.youmonst);
-    const halfGas = false;
+    const halfGas = halfGasDamageHeroLikeC(g);
     const switchTyp = halfGas ? OTYP_TOWEL : obj.otyp | 0;
 
     switch (switchTyp) {
