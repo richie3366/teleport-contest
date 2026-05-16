@@ -11,15 +11,7 @@ import { likesLava, permonstHuman } from './mondata.js';
 import { losehp } from './mthrowu.js';
 import { destroyItemsYoumonstFire } from './destroy_items.js';
 import { igniteHeroInventory } from './ignite_items.js';
-
-/**
- * C: timeout.c burn_away_slime() — no **`u.Slimed`** / **`make_slimed`** in JS yet.
- * @param {typeof game} _g
- */
-async function burnAwaySlimeStub(_g) {
-    void _g;
-    /* C: if (Slimed) make_slimed(0L, "The slime that covers you is burned away!"); */
-}
+import { burnAwaySlime } from './timeout.js';
 
 /**
  * C: trap.c lava_effects() — **`d(6,6)`** before **`feel_newsym`**; **`burn_away_slime`**;
@@ -43,7 +35,7 @@ export async function maybeHeroLavaEffects(g = game) {
         /* C: int dmg = d(6, 6); — rolled unconditionally before feel_newsym */
         const dmg = d(6, 6);
         feelNewsym(u.ux, u.uy);
-        await burnAwaySlimeStub(g);
+        await burnAwaySlime(g);
         const mdat = g.youmonst?.data ?? permonstHuman;
         if (likesLava(mdat)) return false;
 

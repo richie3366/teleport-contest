@@ -7,7 +7,7 @@ import { game } from './gstate.js';
 import { pline, newsym } from './display.js';
 import { vision_recalc } from './vision.js';
 import { rn2, rnd, rn1, d } from './rng.js';
-import { nomul, fallAsleep } from './timeout.js';
+import { nomul, fallAsleep, burnAwaySlime } from './timeout.js';
 import { seetrap, trapTypName, delTrap, feeltrap, tAt } from './search.js';
 import { adjattrib, exercise, acurr } from './attrib.js';
 import { makemon } from './makemon.js';
@@ -216,8 +216,8 @@ function tamedogStub() {
 }
 
 /**
- * C: trap.c dofiretrap(box null) — floor / magic fire; **`burn_away_slime`** TODO before destroy.
- * **`if (burnarmor(&youmonst) || rn2(3))`** — **`burnarmor`** not ported (treated false).
+ * C: trap.c dofiretrap(box null) — floor / magic fire; **`burn_away_slime`** (**`timeout.js`**)
+ * before destroy; **`if (burnarmor(&youmonst) || rn2(3))`** — **`burnarmor`** not ported (false).
  */
 async function dofiretrapHeroNoBox() {
     const u = game.u;
@@ -237,7 +237,7 @@ async function dofiretrapHeroNoBox() {
     }
     if (!num) await pline('You are uninjured.');
     else u.uhp = Math.max(0, (u.uhp ?? 0) - num);
-    /* C: burn_away_slime(); — timeout.c not wired here */
+    await burnAwaySlime(game);
     const burnarmorStub = false;
     if (burnarmorStub || rn2(3)) {
         await destroyItemsYoumonstFire(game, origDmg);

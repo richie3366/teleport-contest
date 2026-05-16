@@ -108,6 +108,8 @@ export async function newgame() {
     g.u.Hunger = 0;
     g.u.Breathless = 0; /* eat.c choke */
     g.u.Strangled = 0;
+    /* C: prop.h Slimed — timeout.c burn_away_slime / make_slimed; no slime timer yet */
+    g.u.Slimed = 0;
     g.u.HConflict = 0;
     g.u.EConflict = 0; /* extrinsic conflict sources (gethungry excludes W_ARTI only) */
     g.u.uwep = null;
