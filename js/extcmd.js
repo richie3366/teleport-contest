@@ -1,15 +1,15 @@
 // extcmd.js — Extended commands (`#` prefix, doextcmd).
 // C ref: cmd.c doextcmd, extcmdlist
 //
-// JS extras: wizard **`#F`** — **`zap.c`** **`zap_over_floor`** cold at hero (**`ZT_SPELL(ZT_COLD)`**);
-// for harness / parity checks (not a C command name).
+// JS extras: wizard **`#F`** — cold **`zapOverFloorAlongRay`** from hero using **`u.dx`/`u.dy`**
+// ( **`zap.c`** beam **`range += zap_over_floor`** stepping; single tile when **`dx`=`dy`=0`**).
 
 import { game } from './gstate.js';
 import { nhgetch } from './input.js';
 import { flush_screen, pline, docrt } from './display.js';
 import { versionPlineText } from './nethack_version.js';
 import { enhanceWeaponSkillOneStep } from './u_init_skills.js';
-import { zapOverFloor, ZT_SPELL, ZT_COLD } from './zap_over_floor.js';
+import { zapOverFloorAlongRay, ZT_SPELL, ZT_COLD } from './zap_over_floor.js';
 
 /** C: doextcmd — echo '#' on the top line, then read the next key (tty). */
 export async function runExtcmdFromHashPrefix() {
@@ -56,9 +56,18 @@ export async function runExtcmdFromHashPrefix() {
         return;
     }
     if (ch2 === 'F' && game.flags?.wizard) {
-        /* C: zap.c zap_over_floor — cold spell tile at hero (wizard harness). */
+        /* C: zap.c buzz/bhit + zap_over_floor — cold spell beam from hero (wizard harness). */
         const u = game.u;
-        if (u) await zapOverFloor(game, u.ux | 0, u.uy | 0, ZT_SPELL(ZT_COLD));
+        if (u) {
+            await zapOverFloorAlongRay(
+                game,
+                u.ux | 0,
+                u.uy | 0,
+                u.dx | 0,
+                u.dy | 0,
+                ZT_SPELL(ZT_COLD),
+            );
+        }
         await flush_screen(1);
         return;
     }

@@ -1,7 +1,8 @@
 // zap_over_floor.js — Floor tile effects from zaps / breath / wand explosions (subset).
-// C ref: zap.c zap_over_floor(), zaptype(); monattk.h AD_* → ZT_* in zap.c preamble.
+// C ref: zap.c zap_over_floor(), zaptype(); monattk.h AD_* → ZT_* in zap.c preamble;
+//        zap.c buzz()/bhit() — beam **`range += zap_over_floor(...)`** stepping (subset).
 
-import { PHYS_EXPL_TYPE } from './const.js';
+import { PHYS_EXPL_TYPE, BOLT_LIM, isok } from './const.js';
 import { cansee } from './vision.js';
 import { coldZapHitsWaterAt } from './melt_ice.js';
 
@@ -77,5 +78,40 @@ export async function zapOverFloor(g, x, y, type, _shopdamage = null, _ignoremon
         return await coldZapHitsWaterAt(g, x, y, seeIt);
     default:
         return 0;
+    }
+}
+
+/**
+ * C: zap.c buzz()/bhit() — walk **`(dx,dy)`** from **`(x0,y0)`**, each step **`range += zap_over_floor(...)`**.
+ * When **`dx`=`dy`=0`**, a single **`zapOverFloor`** at **`(x0,y0)`** (hero self-zap / harness).
+ *
+ * @param {import('./gstate.js').game} g
+ * @param {number} x0
+ * @param {number} y0
+ * @param {number} dx — −1, 0, or 1
+ * @param {number} dy — −1, 0, or 1
+ * @param {number} type — e.g. **`ZT_SPELL(ZT_COLD)`**
+ * @param {number} [maxRange] — C beam range cap; default **`BOLT_LIM`**
+ */
+export async function zapOverFloorAlongRay(g, x0, y0, dx, dy, type, maxRange = BOLT_LIM) {
+    const sx = x0 | 0;
+    const sy = y0 | 0;
+    const ddx = dx | 0;
+    const ddy = dy | 0;
+    if (ddx === 0 && ddy === 0) {
+        await zapOverFloor(g, sx, sy, type);
+        return;
+    }
+    let remaining = maxRange | 0;
+    if (remaining <= 0) return;
+    const cap = maxRange | 0;
+    for (let i = 1; i <= cap; i++) {
+        const x = sx + ddx * i;
+        const y = sy + ddy * i;
+        if (!isok(x, y)) break;
+        const mod = await zapOverFloor(g, x, y, type);
+        remaining += mod;
+        if (mod <= -1000) break;
+        if (remaining <= 0) break;
     }
 }

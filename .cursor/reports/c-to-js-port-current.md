@@ -9,11 +9,11 @@ Thin handoff for the next coding session. Deep parity tables and history: [`c-to
 - **Plain ES modules**, no build/WASM/network in contest code; RNG via `js/rng.js`; match **clang** evaluation order for multi-call expressions.
 - API: [`docs/API.md`](../../docs/API.md); overview: [`README.md`](../../README.md).
 
-**Last slice:** **`zap.c`** **`zap_over_floor`** lavawall solidify — **`js/wall_spine.js`** **`fixWallSpinesRect`** ( **`mkmap.c`** **`fix_wall_spines`** , shared with **`mklev.js`** **`wallification`**); **`coldZapHitsWaterAt`** sets **`VWALL`/`HWALL`** from N/S **`IS_WALL`** neighbors + C **`max(0,x-1)`**…**`min(COLNO-1,x+1)`** spine box + **`newsym`** 3×3 + **`vision_full_recalc`**; **`LAVAPOOL`** still **`ROOM`**. **`npm run score`:** **0/44**, RNG prefixes unchanged vs prior.
+**Last slice:** **`zap.c`** buzz/bhit-style **`range += zap_over_floor`** — **`js/zap_over_floor.js`** **`zapOverFloorAlongRay(g, x0, y0, dx, dy, type, maxRange)`** (default **`BOLT_LIM`** from **`const.js`**); **`dx`=`dy`=0** → single **`zapOverFloor`** at origin (same as prior wizard **`#F`**). Wizard **`extcmd.js`** **`#F`** now calls **`zapOverFloorAlongRay`** with **`u.dx`/`u.dy`**. Public sessions unchanged (no **`#F`**); **`npm run score`:** **0/44**.
 
 ## Next steps (highest impact from latest fire/lava work)
 
-1. **`melt_ice` / cold remainder** — beam/breath/wand vectors calling **`zapOverFloor`** along paths (not only wizard **`#F`**); full **`obj_ice_effects`** (**`obj_timer_checks`**, buried); real **`bury_objs`**/**`unearth_objs`**; fuller **`boulder_hits_pool`** / **`minliquid`** / **`spoteffects`**.
+1. **`melt_ice` / cold remainder** — wire **`zapOverFloorAlongRay`** from real wand/breath/monster **`buzz`** when that harness exists; full **`obj_ice_effects`** (**`obj_timer_checks`**, buried); real **`bury_objs`**/**`unearth_objs`**; fuller **`boulder_hits_pool`** / **`minliquid`** / **`spoteffects`**; walls/doors/monsters in beam path (**`zap_over_floor`** tail).
 2. **`minuhpmax`/`setuhpmax`/`losexp`** ( **`dofiretrap`** human branch ); underwater/steam **`dofiretrap`** box branch; **`shieldeff`/`monstseesu`**.
 3. **Wire `discoverScrollOtyp`** from **`read`** / **`pickup`** / **`makeknown`** when scroll ID is learned; audit remaining **`mklev.js`** **`otyp`** literals vs **`objects_nums`**.
 
