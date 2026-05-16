@@ -1,8 +1,9 @@
 // mthrowu.js — Hero struck by launched objects (trap missiles, &c.).
 // C ref: mthrowu.c thitu(); trap.c t_missile(); weapon.c dmgval() (arrow/dart/boulder subset);
-//        end.c losehp() (minimal).
+//        mthrowu.c u_catch_thrown_obj / ucatchgem (via hold_another_hero); end.c losehp() (minimal).
 
 import { game } from './gstate.js';
+import { tryHeroCatchMonsterThrownObjLikeC } from './hold_another_hero.js';
 import { rnd, d } from './rng.js';
 import { OTYP_BOULDER } from './const.js';
 import { raceptr, bigmonst, isUndeadPtr, isDemonPtr, isWerePtr } from './mondata.js';
@@ -114,11 +115,25 @@ function heroBlind() {
 /**
  * C: mthrowu.c thitu(int tlev, int dam, struct obj **objp, const char *name)
  * @param {{ o: object|null }} objRef
- * @returns {Promise<number>} 1 if hit, 0 if miss
+ * @param {{ monThrower?: object|null, tetheredWeapon?: boolean }} [throwCtx] — C **`m_throw`** at hero: try **`u_catch_thrown_obj`** / **`ucatchgem`** first (**trap.c** arrow/dart omits this).
+ * @returns {Promise<number>} 1 if hit, 0 if miss (or caught — **`objRef.o`** cleared, no damage)
  */
-export async function thitu(tlev, dam, objRef, name) {
+export async function thitu(tlev, dam, objRef, name, throwCtx) {
     const u = game.u;
     if (!u) return 0;
+
+    if (throwCtx?.monThrower && objRef?.o && !throwCtx.tetheredWeapon) {
+        const caught = await tryHeroCatchMonsterThrownObjLikeC(
+            game,
+            throwCtx.monThrower,
+            objRef.o,
+            !!throwCtx.tetheredWeapon,
+        );
+        if (caught) {
+            objRef.o = null;
+            return 0;
+        }
+    }
 
     const dieroll = rnd(20);
     const ac = u.uac ?? 10;
@@ -159,3 +174,10 @@ export async function poisoned(_x, _attr, _knm, _dmg, _fatal) {
     void _x; void _attr; void _knm; void _dmg; void _fatal;
     await pline("The poison doesn't seem to affect you.");
 }
+
+export {
+    tryHeroCatchMonsterThrownObjLikeC,
+    uCatchThrownObjHeroLikeC,
+    ucatchgemHeroLikeC,
+    dragDownHeroStairsLikeC,
+} from './hold_another_hero.js';
