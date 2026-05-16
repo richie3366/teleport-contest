@@ -18,6 +18,8 @@ import {
     SVALL,
     SHOP_DOOR_COST,
     ESHK,
+    COLNO,
+    ROWNO,
 } from './const.js';
 
 /**
@@ -38,8 +40,68 @@ function roomRtypeForLevlRoomno(g, roomno) {
     return room.rtype ?? OROOM;
 }
 
+/** C: hack.c **`in_rooms`** **`goodtype`** for **`SHOPBASE`** (matches **`rtype`** test). */
+function roomnoIsShopbaseForInRooms(g, roomno) {
+    const rt = roomRtypeForLevlRoomno(g, roomno);
+    return rtypeIsShopClassForInRooms(rt);
+}
+
 /**
- * C: hack.c in_rooms(x, y, SHOPBASE) — non-**`SHARED`** / **`SHARED_PLUS`** branch only.
+ * C: hack.c **`in_rooms`** **`SHOPBASE`** branch — append **`roomno`** if **`>= ROOMOFFSET`**,
+ * **`goodtype`**, and not already listed (C **`strchr(ptr, rno)`**).
+ * @param {import('./gstate.js').game} g
+ * @param {number[]} acc
+ * @param {number} roomno
+ */
+function pushShopbaseRoomnoUnique(g, acc, roomno) {
+    const rn = roomno | 0;
+    if (rn < ROOMOFFSET) return;
+    if (!roomnoIsShopbaseForInRooms(g, rn)) return;
+    if (acc.includes(rn)) return;
+    acc.push(rn);
+}
+
+/**
+ * C: hack.c **`in_rooms(x, y, SHOPBASE)`** — **`SHARED`** / **`SHARED_PLUS`** neighbor scan
+ * (**`step`** 2 vs 1, same **`min_x`/`max_x`/`min_y`/`max_y_offset`** edge rules).
+ * @param {import('./gstate.js').game} g
+ * @param {number} cx
+ * @param {number} cy
+ * @param {number} step
+ * @returns {number[]}
+ */
+function inRoomsShopbaseSharedNeighborScan(g, cx, cy, step) {
+    let min_x = cx - 1;
+    let max_x = cx + 1;
+    if (cx < 1) min_x += step;
+    else if (cx >= COLNO) max_x -= step;
+
+    let min_y = cy - 1;
+    let max_y_offset = 2;
+    if (min_y < 0) {
+        min_y += step;
+        max_y_offset -= step;
+    } else if (min_y + max_y_offset >= ROWNO) max_y_offset -= step;
+
+    const out = [];
+    for (let xx = min_x; xx <= max_x; xx += step) {
+        let yOff = 0;
+        let loc = g.level?.at(xx, min_y + yOff);
+        if (loc) pushShopbaseRoomnoUnique(g, out, loc.roomno | 0);
+        yOff += step;
+        if (yOff > max_y_offset) continue;
+        loc = g.level?.at(xx, min_y + yOff);
+        if (loc) pushShopbaseRoomnoUnique(g, out, loc.roomno | 0);
+        yOff += step;
+        if (yOff > max_y_offset) continue;
+        loc = g.level?.at(xx, min_y + yOff);
+        if (loc) pushShopbaseRoomnoUnique(g, out, loc.roomno | 0);
+    }
+    return out;
+}
+
+/**
+ * C: hack.c **`in_rooms(x, y, SHOPBASE)`** — full **`SHARED`** and **`SHARED_PLUS`** handling.
  * @param {import('./gstate.js').game} g
  * @param {number} x
  * @param {number} y
@@ -50,8 +112,8 @@ export function inRoomsShopbaseRoomnos(g, x, y) {
     if (!loc) return [];
     const rno = loc.roomno | 0;
     if (rno === NO_ROOM || rno === 0) return [];
-    /* C: SHARED / SHARED_PLUS neighbor scan — **TODO** (shop door corners). */
-    if (rno === SHARED || rno === SHARED_PLUS) return [];
+    if (rno === SHARED) return inRoomsShopbaseSharedNeighborScan(g, x | 0, y | 0, 2);
+    if (rno === SHARED_PLUS) return inRoomsShopbaseSharedNeighborScan(g, x | 0, y | 0, 1);
     const rt = roomRtypeForLevlRoomno(g, rno);
     if (!rtypeIsShopClassForInRooms(rt)) return [];
     return [rno];
