@@ -717,9 +717,10 @@ function roleHubRecapLineLikeC(f) {
     return `${rn} ${raceNoun} ${gd} ${alTok}`;
 }
 
-/** C genl_player_setup: role hub uses right column once race/gender/align facets may be partially set. */
+/** C genl_player_setup: role hub uses right column once race/gender/align may be set, or when role filtering is active (seed0006 after reset_role_filtering). */
 function roleHubRightColumnLikeC(f) {
-    return f.initrace >= 0 || f.initgend >= 0 || f.initalign >= 0;
+    return f.initrace >= 0 || f.initgend >= 0 || f.initalign >= 0
+        || gotChargenRfilterLikeC();
 }
 
 /**
