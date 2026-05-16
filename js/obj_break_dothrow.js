@@ -1,11 +1,13 @@
 // obj_break_dothrow.js — dothrow.c breaktest / breakmsg / breaks() subset for dokick.c obj_delivery().
-// C ref: dothrow.c breaktest(), breakmsg(), breaks(); potion.c potionbreathe() (**deferred** for vapors).
+// C ref: dothrow.c breaktest(), breakmsg(), breaks(), breakobj() potion branch; potion.c potionbreathe().
 
 import { rn2 } from './rng.js';
 import { pline, newsym } from './display.js';
 import { cansee } from './vision.js';
 import { objResists } from './obj_resists.js';
+import { raceptr, breathless } from './mondata.js';
 import { NH5_POTION_CLASS, NH5_ARMOR_CLASS, NH5_GEM_CLASS } from './nh5_objclass.js';
+import { potionbreatheObjBreakLikeC } from './potion_breathe.js';
 import { obliterateObjectInLevel } from './floorobj.js';
 import { doname } from './objnam.js';
 import { distmin } from './hacklib.js';
@@ -18,7 +20,8 @@ const OTYP_LENSES = 232;
 const OTYP_EGG = 266;
 const OTYP_MELON = 280;
 const OTYP_CREAM_PIE = 287;
-const OTYP_POT_WATER = 322;
+/** C: `POT_WATER` in `objects_nums` — `breaktest`/`breakmsg` discriminant for all potions. */
+const OTYP_POT_WATER = 321;
 const OTYP_BLINDING_VENOM = 478;
 const OTYP_ACID_VENOM = 479;
 
@@ -72,6 +75,28 @@ function next2uLikeC(g, x, y) {
 }
 
 /**
+ * C: dothrow.c `breakobj` — potion vapors when `next2u` (**`potionbreathe`**); smell when not water / half-gas.
+ * @param {import('./gstate.js').game} g
+ * @param {object} obj
+ * @param {number} x
+ * @param {number} y
+ */
+async function potionVaporsBreakobjSubsetLikeC(g, obj, x, y) {
+    if ((obj.oclass | 0) !== NH5_POTION_CLASS) return;
+    if (!next2uLikeC(g, x, y)) return;
+    const ptr = raceptr(g.youmonst);
+    const haseyes = true; /* C: `haseyes` — not ported on `struct permonst`; assume eyes. */
+    if (breathless(ptr) && !haseyes) return;
+    const halfGas = false;
+    const otyp = obj.otyp | 0;
+    if (otyp !== OTYP_POT_WATER && !halfGas) {
+        if (!breathless(ptr)) await pline('You smell a peculiar odor...');
+        else await pline('Your eyes water.');
+    }
+    await potionbreatheObjBreakLikeC(g, obj);
+}
+
+/**
  * C: dothrow.c **`breakmsg(obj, in_view)`** — subset (**`is_crackable`** early-out; **`Wand`** default impossible omitted).
  * @param {import('./gstate.js').game} g
  * @param {object} obj
@@ -118,7 +143,7 @@ function releaseCameraDemonRngLikeC() {
 }
 
 /**
- * C: dothrow.c **`breaks(obj, x, y)`** — hero sees breakage; **`breakobj`** subset (**no** full **`potionbreathe`** / shop **`stolen_value`** tail).
+ * C: dothrow.c **`breaks(obj, x, y)`** — hero sees breakage; **`breakobj`** subset (**shop `stolen_value`** tail still TODO).
  * @returns {Promise<boolean>} true if object destroyed
  */
 export async function breaksObjDeliveryLikeC(g, obj, x, y) {
@@ -127,9 +152,7 @@ export async function breaksObjDeliveryLikeC(g, obj, x, y) {
     await breakmsgObjDeliveryLikeC(g, obj, inView);
     const disc = (obj.oclass | 0) === NH5_POTION_CLASS ? OTYP_POT_WATER : obj.otyp | 0;
     if (disc === OTYP_EXPENSIVE_CAMERA) releaseCameraDemonRngLikeC();
-    if (disc === OTYP_POT_WATER && next2uLikeC(g, x, y)) {
-        /* C: potion.c **`potionbreathe`** — deferred; vapors would alter hero + **`makeknown`/`trycall`**. */
-    }
+    if (disc === OTYP_POT_WATER) await potionVaporsBreakobjSubsetLikeC(g, obj, x, y);
     obliterateObjectInLevel(g, obj);
     newsym(x | 0, y | 0);
     return true;
