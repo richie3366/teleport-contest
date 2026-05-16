@@ -5,12 +5,12 @@
 // Ported: **`applyGotoAfterHeroHoleFallLikeC(g, dest?)`**, **`impactDropLikeC`**/**`objDeliveryLikeC`** (**`dokick.c`**), **`shopdigLikeC(1)`** / **`payForDamage('dig into')`** before **`You fall through...`** (**`dig.c`** **`digactualhole`** order); **`pickup(1)`** tail (**`do.c`** **`goto_level`**).
 // **`applyHeroDescendStairsOneLevelLikeC(g)`** — **`do.c`** **`goto_level`** down-stairs slice after **`mklev`**/**`u_on_upstairs`** (**`near_capacity`/`Punished`/`Fumbling`**, **`drag_down`**, **`losehp`**, **`placebc`** omitted).
 // **`scheduleGotoHeroLikeC` / `deferredGotoHeroLikeC`** — **`do.c`** **`schedule_goto`/`deferred_goto`** subset (**`applyGotoLevelDirectHeroLikeC`** for non-falling **`goto_level`**).
-// **`keepdogsHeroStubLikeC`** — C **`dog.c`** **`keepdogs`** gate (**`if (!iflags.nofollowers) keepdogs(FALSE)`** in **`goto_level`**) before **`u.uz`** moves.
+// **`keepdogsHeroStubLikeC`** — C **`dog.c`** **`keepdogs`** gate (**`if (!iflags.nofollowers) keepdogs(FALSE)`** in **`goto_level`**) before **`u.uz`** moves; stub tallies tame **`level.monsters`**.
 // **`vision_recalc(2)`** after **`keepdogs`**, before **`u.uz`** assign — C **`goto_level`** (**`vision.c`** “no longer see old level” pass before **`savelev`**).
 // **`gotoLevelTutorialBranchHookLikeC`** — C **`do.c`** **`newdungeon`** **`In_tutorial`/`tutorial()`** before **`savelev`** / **`impact_drop`** ( **`tutorial_branch.js`** ).
 // **`maybeRecordEnteredNewLevelLivelogLikeC`** after **`mklev()`** when map built (**`livelog.js`**) — C **`new`** after **`mklev`**; **`livelogPrintfLikeC`** ring (**`gd.livelog_recent`**), no **`LIVELOGFILE`**.
 // Deferred: **`fill_pit`**, real **`next_to_u`**,
-// full **`keepdogs`/`dog.c`**, bones/save, full **`goto_level`** beyond **`mklev`**.
+// full **`keepdogs`/`dog.c`** migration (**`migrate_to_level`**, …), bones/save, full **`goto_level`** beyond **`mklev`**.
 
 import { mklev, u_on_upstairs } from './mklev.js';
 import { spotEffects } from './spoteffects.js';
@@ -48,14 +48,21 @@ export function nextToUForHoleFallStub() {
 }
 
 /**
- * C: **`dog.c`** **`keepdogs(boolean withyou)`** — pets / enforced follow when hero changes **`u.uz`** (**`goto_level`** calls **`keepdogs(FALSE)`** unless **`iflags.nofollowers`**).
- * Stub until **`dog.c`** / tame **`fmon`** parity (**`safe_dog`**, migration **`rn2`**, …).
+ * C: **`dog.c`** **`keepdogs(boolean withyou)`** — migrate tame **`fmon`** with hero across **`u.uz`** changes (**`goto_level`** passes **`FALSE`** unless **`iflags.nofollowers`** skips the call).
+ * Stub: record **`withyou`** and tame headcount on current **`g.level`** for future **`dog.c`** parity (**`mydogs`**, **`migrate_to_level`**, …).
  * @param {import('./gstate.js').game} g
- * @param {boolean} _withYou — C **`FALSE`** on ordinary level leave.
+ * @param {boolean} withyou — C second argument (**`FALSE`** in **`do.c`** **`goto_level`** paths wired here).
  */
-export function keepdogsHeroStubLikeC(g, _withYou) {
-    void g;
-    void _withYou;
+export function keepdogsHeroStubLikeC(g, withyou) {
+    g.gd = g.gd || {};
+    g.gd.keepdogs_last_withyou = !!withyou;
+    const mons = g.level?.monsters;
+    let tame = 0;
+    if (mons)
+        for (let i = 0; i < mons.length; i++) {
+            if ((mons[i]?.mtame | 0) > 0) tame++;
+        }
+    g.gd.keepdogs_last_tame_seen = tame;
 }
 
 /** @param {import('./gstate.js').game} g */

@@ -15,6 +15,8 @@ function suppressMapOutput() {
 /** C: invent.c update_inventory() — persistent invent window (stub: no WIN_PERM). */
 export function updateInventory() {
     if (!game.program_state?.in_moveloop) return;
+    /* C: invent.c — defer / no-op some perm-invent refreshes while **`leaving_tutorial`** (tutorial exit). */
+    if (game.context?.leaving_tutorial) return;
     if (suppressMapOutput()) return;
     /* C: (*windowprocs.win_update_inventory)(0) — browser port has no side window yet */
 }
