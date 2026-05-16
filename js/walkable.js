@@ -77,7 +77,7 @@ function sobjAtBoulder(x, y, g = game) {
 }
 
 /** C: youprop.h Passes_walls — intrinsic/extrinsic; else innate `passes_walls(raceptr(youmonst))`. */
-function heroPassesWalls(g) {
+export function heroPassesWalls(g = game) {
     const u = /** @type {Record<string, unknown>} */ (g.u);
     if ((u?.HPasses_walls | 0) || (u?.EPasses_walls | 0) || (u?.Passes_walls | 0)) return true;
     return passesWalls(raceptr(g.youmonst));

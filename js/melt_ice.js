@@ -5,20 +5,20 @@
 //
 // Still TODO vs C: full **`obj_timer_checks`** / buried **`obj_ice_effects`**;
 // real **`bury_objs`** (**`buriedobjlist`**); **`unearth_objs`**;
-// **`zap_over_floor`** **`ZT_COLD`** lavawall/temperature vs waterwall; hero **`u.utrap`**
-// **`TT_LAVA`** cooling; cnv_trap_obj bury_it → bury_an_obj;
+// lavawall solidify → **`VWALL`/`HWALL`** + **`fix_wall_spines`**;
 // fuller **`boulder_hits_pool`** / **`minliquid`** / **`spoteffects`**.
 
 import { pline, newsym } from './display.js';
 import { vision_recalc, cansee } from './vision.js';
 import { tAt, delTrap } from './search.js';
 import { maybeHeroPoolEnter } from './drown.js';
-import { rnd, rn2 } from './rng.js';
+import { rnd, rn1, rn2 } from './rng.js';
 import { floorObjKey, placeFloorObject, unlinkFloorObject } from './floorobj.js';
 import { waterDamageChain } from './water_damage.js';
 import { raceptr, isFlyer, isFloater, amphibious, breathless, swims, monsterLeavesCorpse } from './mondata.js';
 import { CORPSE_OTYP, placeCorpseForMonster } from './mkobj_corpse.js';
 import { dist2 } from './hacklib.js';
+import { heroPassesWalls } from './walkable.js';
 import { spotStopTimersMeltIceAway, startMeltIceAwayTimer, refirmMeltIceTimerAt } from './level_timers.js';
 import {
     ICE,
@@ -32,7 +32,10 @@ import {
     IS_POOL,
     IS_LAVA,
     IS_WATERWALL,
+    LAVAWALL,
     DRAWBRIDGE_UP,
+    TT_LAVA,
+    TT_INFLOOR,
     u_at,
     LANDMINE,
     BEAR_TRAP,
@@ -285,11 +288,23 @@ export async function coldZapHitsWaterAt(g, x, y, seeIt) {
     const loc = g.level?.at(x, y);
     if (!loc) return 0;
     const typ = loc.typ | 0;
+    const lavawall = typ === LAVAWALL;
 
     if (IS_WATERWALL(typ)) {
         if (seeIt) await pline('The water freezes for a moment.');
         else if (g.u && dist2(x, y, g.u.ux | 0, g.u.uy | 0) <= 9) await pline('You hear a soft crackling.');
         return -1000;
+    }
+
+    /* C: zap.c zap_over_floor ZT_COLD — lavawall + temperature vs full solidify */
+    if (lavawall) {
+        const temp = (g.level?.flags?.temperature ?? 0) | 0;
+        const chance = Math.max(2, 5 + temp * 10);
+        if (rn2(chance)) {
+            if (seeIt) await pline('The lava freezes for a moment.');
+            else if (g.u && dist2(x, y, g.u.ux | 0, g.u.uy | 0) <= 9) await pline('You hear a soft crackling.');
+            return -1000;
+        }
     }
 
     if (IS_LAVA(typ)) {
@@ -298,6 +313,21 @@ export async function coldZapHitsWaterAt(g, x, y, seeIt) {
         loc.flags = 0;
         if (seeIt) await pline('The lava cools and solidifies.');
         newsym(x, y);
+
+        const u = g.u;
+        if (u && u_at(x, y) && (u.utrap | 0) !== 0 && (u.utraptype | 0) === TT_LAVA) {
+            if (heroPassesWalls(g)) {
+                await pline('You pass through the now-solid rock.');
+                u.utrap = 0;
+                u.utraptype = 0;
+            } else {
+                u.utrap = rn1(50, 20);
+                u.utraptype = TT_INFLOOR;
+                await pline('You are firmly stuck in the cooling rock.');
+            }
+            g.disp = g.disp || {};
+            g.disp.botl = true;
+        }
         return -3;
     }
 

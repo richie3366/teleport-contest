@@ -9,11 +9,11 @@ Thin handoff for the next coding session. Deep parity tables and history: [`c-to
 - **Plain ES modules**, no build/WASM/network in contest code; RNG via `js/rng.js`; match **clang** evaluation order for multi-call expressions.
 - API: [`docs/API.md`](../../docs/API.md); overview: [`README.md`](../../README.md).
 
-**Last slice:** **`zap.c`** **`zap_over_floor`** entry — **`js/zap_over_floor.js`** (**`zaptype`**, **`zapDamgtype`**, **`ZT_WAND`/`ZT_SPELL`/`ZT_BREATH`**, **`ZT_*`** indices, **`PHYS_EXPL_TYPE`** early out); **`ZT_COLD`** → **`coldZapHitsWaterAt`**; **`coldZapHitsWaterAt`** now returns **`rangemod`** (**`-1000`** waterwall, **`-3`** lava/drawbridge/pool freeze, **`0`** else), calls stub **`buryObjsAt`**, floor corpse **`on_ice`** via **`objIceEffectsFreezeAt`** after **`ICE`/`DB_ICE`**. Still no beam/breath/wand harness calling **`zapOverFloor`** → default sessions unchanged.
+**Last slice:** **`zap.c`** **`zap_over_floor`** **`ZT_COLD`** — **`melt_ice.js`** **`coldZapHitsWaterAt`**: lavawall uses **`level.flags.temperature`** + **`rn2(max(2,5+temp*10)))`** for momentary “lava freezes” vs solidify (**`ROOM`**); hero on solidifying lava with **`TT_LAVA`** → **`Passes_walls`** clears utrap else **`rn1(50,20)`** + **`TT_INFLOOR`** (**`walkable.js`** **`heroPassesWalls`** export). **`game.js`** default **`level.flags.temperature`**. Wizard harness: **`extcmd.js`** **`#F`** → **`zapOverFloor(..., ZT_SPELL(ZT_COLD))`** at hero. Public sessions unchanged unless wizard + `#F` on liquid.
 
 ## Next steps (highest impact from latest fire/lava work)
 
-1. **`melt_ice` / cold remainder** — first real caller of **`zapOverFloor`** (wand cold / breath / broken wand when that harness exists); C **`zap_over_floor`** **`ZT_COLD`**: lavawall + temperature vs **`IS_WATERWALL`**; hero **`u.utrap`** **`TT_LAVA`**; full **`obj_ice_effects`** (**`obj_timer_checks`**, buried); real **`bury_objs`**/**`unearth_objs`**; fuller **`boulder_hits_pool`** / **`minliquid`** / **`spoteffects`**.
+1. **`melt_ice` / cold remainder** — beam/breath/wand vectors calling **`zapOverFloor`** along paths (not only wizard **`#F`**); lavawall freeze → **`VWALL`/`HWALL`** + **`fix_wall_spines`**; full **`obj_ice_effects`** (**`obj_timer_checks`**, buried); real **`bury_objs`**/**`unearth_objs`**; fuller **`boulder_hits_pool`** / **`minliquid`** / **`spoteffects`**.
 2. **`minuhpmax`/`setuhpmax`/`losexp`** ( **`dofiretrap`** human branch ); underwater/steam **`dofiretrap`** box branch; **`shieldeff`/`monstseesu`**.
 3. **Wire `discoverScrollOtyp`** from **`read`** / **`pickup`** / **`makeknown`** when scroll ID is learned; audit remaining **`mklev.js`** **`otyp`** literals vs **`objects_nums`**.
 

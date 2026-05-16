@@ -55,6 +55,8 @@ export class GameMap {
             nsinks: 0,
             hero_memory: true,
             is_maze_lev: false,
+            /** C: mklev.c level.flags.temperature — **`zap.c`** **`zap_over_floor`** cold lavawall **`rn2(chance)`**. */
+            temperature: 0,
         };
     }
 
