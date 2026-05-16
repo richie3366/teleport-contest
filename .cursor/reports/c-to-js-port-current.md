@@ -9,7 +9,7 @@ Thin handoff for the next coding session. Deep parity tables and history: [`c-to
 - **Plain ES modules**, no build/WASM/network in contest code; RNG via `js/rng.js`; match **clang** evaluation order for multi-call expressions.
 - API: [`docs/API.md`](../../docs/API.md); overview: [`README.md`](../../README.md).
 
-**Last slice:** **`zap.c`** **`zap_over_floor`** tail completion — **`js/zap_over_floor.js`**: fix missing **`loc`** load (**`ReferenceError`**); **`OBJ_AT`**-style **`objAtFloor`** + **`ZT_FIRE`** → **`burnFloorObjects`** (then **`couldsee`** smoke **`pline`** + **`newsym`**); **`!ignoremon`** → minimal **`wakeupMonFromZap`** (**`mon.c`** subset: **`msleeping`**, hero zap clears **`mpeaceful`**); exploding **`WAN_STRIKING`** (**`OTYP_WAN_STRIKING`** **415**, NH5 **`objects.h`** enum) on **`closed_door`** **`def_case`** (**`ZT_DEATH`** non-breath + **`default`**). **`npm run score`:** **0/44**.
+**Last slice:** **`zap.c`** **`zap_over_floor`** tail completion — **`js/zap_over_floor.js`**: fix missing **`loc`** load (**`ReferenceError`**); **`OBJ_AT`**-style **`objAtFloor`** + **`ZT_FIRE`** → **`burnFloorObjects`** (then **`couldsee`** smoke **`pline`** + **`newsym`**); **`!ignoremon`** → minimal **`wakeupMonFromZap`** (**`mon.c`** subset: **`msleeping`**, hero zap clears **`mpeaceful`**); exploding **`WAN_STRIKING`** (**`OTYP_WAN_STRIKING`** **415**, NH5 **`objects.h`** enum) on **`closed_door`** **`def_case`** (**`ZT_DEATH`** non-breath + **`default`**). Closed-door absorb paths use **`break`** (not **`return`**) so **`burn_floor_objects`** and **`wakeup`** still run, matching C order after the inner door **`switch`**. **`npm run score`:** **0/44**.
 
 ## Next steps (highest impact from latest fire/lava work)
 

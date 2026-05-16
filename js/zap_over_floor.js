@@ -200,7 +200,7 @@ export async function zapOverFloor(g, x, y, type, _shopdamage = null, _ignoremon
                 } else {
                     await pline('You feel vibrations.');
                 }
-                return rangemod;
+                break;
             }
             newDoormask = D_NODOOR;
             seeTxt = 'The door disintegrates!';
@@ -226,7 +226,7 @@ export async function zapOverFloor(g, x, y, type, _shopdamage = null, _ignoremon
             } else {
                 await pline('You feel vibrations.');
             }
-            return rangemod;
+            break;
         }
 
         if (newDoormask >= 0) {
