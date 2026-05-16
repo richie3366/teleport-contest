@@ -46,14 +46,8 @@ function filterMenuExtraLine() {
 }
 
 /**
- * C reset_role_filtering() — multi-toggle unacceptable facets; Enter applies
- * (clearrolefilter then setrolefilter per token), ESC cancels without changing
- * rfilter. Clears all four chargen facets like C after RS_filter.
- * Tty: Rl/Rc/Gn/Al tags, scroll <>/,. , ?=PICK_ANY help (not full select_menu).
- * @param {import('./game_display.js').GameDisplay} disp
- * @param {{ initrole: number, initrace: number, initgend: number, initalign: number }} f
+ * C reset_role_filtering end_menu prompt (role.c ~2754–2755).
  */
-/** C reset_role_filtering end_menu prompt (role.c ~2754–2755). */
 function paintResetRoleFilterHelpOverlay(disp) {
     for (let r = 1; r <= 8; r++) disp.clearRow(r);
     const lines = [
@@ -63,8 +57,8 @@ function paintResetRoleFilterHelpOverlay(disp) {
             ? 'C also allows unpicking entries that no longer apply.'
             : 'Empty selection after Enter clears all filters (C n==0).',
         '',
-        'Keys: letter toggles  < > scroll list  Enter apply  ESC cancel',
-        'Press any key...',
+        'Accelerators match role.c setup_*menu(FALSE): roles a/A, races H…',
+        'Keys: < > scroll  Enter apply  ESC cancel — press any key…',
     ];
     for (let i = 0; i < lines.length; i++) {
         const t = lines[i].length > 80 ? lines[i].slice(0, 80) : lines[i];
@@ -72,23 +66,61 @@ function paintResetRoleFilterHelpOverlay(disp) {
     }
 }
 
-async function runResetRoleFilteringMenuLikeC(disp, f) {
+/** @returns {{ key: string, token: string, label: string, section: string }[]} */
+function buildResetFilterMenuEntriesLikeC() {
     /** @type {{ key: string, token: string, label: string, section: string }[]} */
     const entries = [];
-    const keys = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-    let nk = 0;
+    let lastch = '\x00';
     for (let ri = 0; ri < roles.length; ri++) {
-        entries.push({ key: keys[nk++], token: roles[ri].name.m, label: roles[ri].name.m, section: 'roles' });
+        const r = roles[ri];
+        let thisch = lowc(r.name.m[0]);
+        if (thisch === lastch) thisch = highc(r.name.m[0]);
+        lastch = thisch;
+        let label = r.name.m;
+        if (r.name.f && r.name.f !== r.name.m) label = `${r.name.m}/${r.name.f}`;
+        entries.push({ key: thisch, token: r.name.m, label, section: 'roles' });
     }
     for (let rai = 0; rai < races.length; rai++) {
-        entries.push({ key: keys[nk++], token: races[rai].name, label: races[rai].name, section: 'races' });
+        const rc = races[rai];
+        const thisch = highc(rc.name[0]);
+        entries.push({ key: thisch, token: rc.name, label: rc.name, section: 'races' });
     }
     for (let gi = 0; gi < genders.length; gi++) {
-        entries.push({ key: keys[nk++], token: genders[gi].name, label: genders[gi].name, section: 'genders' });
+        const g = genders[gi];
+        const thisch = highc(g.name[0]);
+        entries.push({ key: thisch, token: g.name, label: g.name, section: 'genders' });
     }
     for (let ai = 0; ai < aligns.length; ai++) {
-        entries.push({ key: keys[nk++], token: aligns[ai].name, label: aligns[ai].name, section: 'aligns' });
+        const a = aligns[ai];
+        const thisch = highc(a.name[0]);
+        entries.push({ key: thisch, token: a.name, label: a.name, section: 'aligns' });
     }
+
+    const used = new Set();
+    const spare = '0123456789';
+    let si = 0;
+    for (const e of entries) {
+        let k = e.key;
+        while (used.has(k)) {
+            k = spare[si++] ?? '?';
+        }
+        used.add(k);
+        e.key = k;
+    }
+    return entries;
+}
+
+/**
+ * C reset_role_filtering() — multi-toggle unacceptable facets; Enter applies
+ * (clearrolefilter then setrolefilter per token), ESC cancels without changing
+ * rfilter. Clears all four chargen facets like C after RS_filter.
+ * Accelerators: role.c setup_rolemenu/setup_racemenu/setup_gendmenu/setup_algnmenu
+ * with filtering=FALSE (plus collision fallback digits).
+ * @param {import('./game_display.js').GameDisplay} disp
+ * @param {{ initrole: number, initrace: number, initgend: number, initalign: number }} f
+ */
+async function runResetRoleFilteringMenuLikeC(disp, f) {
+    const entries = buildResetFilterMenuEntriesLikeC();
 
     const selected = new Set();
     for (let ri = 0; ri < roles.length; ri++) {
@@ -104,7 +136,11 @@ async function runResetRoleFilteringMenuLikeC(disp, f) {
         if (!resetFilterMenuAlignRowOkLikeC(ai)) selected.add(aligns[ai].name);
     }
 
-    const keyToToken = new Map(entries.map((e) => [e.key.toLowerCase(), e.token]));
+    const keyToToken = new Map();
+    for (const e of entries) {
+        keyToToken.set(e.key, e.token);
+    }
+
     const VIEW_H = 16;
     const maxScroll = Math.max(0, entries.length - VIEW_H);
     let scroll = 0;
@@ -112,7 +148,7 @@ async function runResetRoleFilteringMenuLikeC(disp, f) {
     for (;;) {
         disp.clearScreen();
         disp.putstr(0, 0, 'reset_role_filtering (C role.c) — unacceptable facets', NO_COLOR);
-        disp.putstr(0, 1, 'Rl Rc Gn Al=facet  Key toggles  < > scroll  ?=help  Enter apply  ESC=cancel', NO_COLOR);
+        disp.putstr(0, 1, 'Rl…=facet  ?=help  < > | C accel setup_*menu(FALSE)', NO_COLOR);
         let row = 2;
         for (let j = 0; j < VIEW_H && scroll + j < entries.length; j++) {
             const e = entries[scroll + j];
@@ -154,8 +190,8 @@ async function runResetRoleFilteringMenuLikeC(disp, f) {
             if (scroll > 0) scroll--;
             continue;
         }
-        const ch = lowc(String.fromCodePoint(c));
-        const tok = keyToToken.get(ch);
+        const inch = String.fromCodePoint(c);
+        const tok = keyToToken.get(inch);
         if (tok) {
             if (selected.has(tok)) selected.delete(tok);
             else selected.add(tok);
