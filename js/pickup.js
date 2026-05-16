@@ -5,7 +5,7 @@
 import { game } from './gstate.js';
 import { pline, flush_screen } from './display.js';
 import { stagger, raceptr } from './mondata.js';
-import { nearCapacity } from './encumbr.js';
+import { nearCapacity, syncHeroInvWeightNetLikeC } from './encumbr.js';
 import { OBJ_AT, IS_POOL, IS_LAVA, is_pit } from './const.js';
 import { readEngrAt, canReachFloor } from './engrave.js';
 import { describeDecor, levlTypAt, dfeatureAt, formatDfeatureForThereIs } from './decor.js';
@@ -32,6 +32,8 @@ function encumberStaggerPtr() {
  */
 export async function encumberMsg() {
     const g = game;
+    const u = g.u;
+    if (u && (u.weight_cap | 0) > 1) syncHeroInvWeightNetLikeC(g);
     const newcap = nearCapacity();
     const old = g._encumberOldCap ?? 0;
 

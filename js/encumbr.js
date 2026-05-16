@@ -1,8 +1,9 @@
 // encumbr.js — Carry capacity tier for botl / enlightenment.
-// C ref: hack.h encumbrance_types, hack.c near_capacity(), botl.c enc_stat[],
+// C ref: hack.h encumbrance_types, hack.c near_capacity(), inv_weight(), botl.c enc_stat[],
 // cmd.c (encumbrance enlight).
 
 import { game } from './gstate.js';
+import { NH5_COIN_CLASS } from './nh5_objclass.js';
 
 export const ENC = {
     UNENCUMBERED: 0,
@@ -17,11 +18,48 @@ export const ENC = {
 const ENC_WORD = ['', 'burdened', 'stressed', 'strained', 'overtaxed', 'overloaded'];
 
 /**
- * C: hack.c near_capacity(void) — full weight/invent port TODO; reads stub u field.
+ * C: hack.c **`inv_weight()`** weight sum on **`gi.invent`** (coins **`(quan+50)/100`**, boulder
+ * when **`!throws_rocks`** omitted until poly **`throws_rocks`** is ported) minus **`weight_cap()`**.
+ * @param {import('./gstate.js').game} g
+ */
+export function heroInventRawWtLikeC(g) {
+    let w = 0;
+    for (let o = g?.invent; o; o = o.nobj) {
+        if ((o.oclass | 0) === NH5_COIN_CLASS) {
+            const q = Number(o.quan) || 0;
+            w += Math.trunc((q + 50) / 100);
+        } else {
+            /* C: boulder omitted when **`throws_rocks`** — count always until poly port */
+            w += o.owt | 0;
+        }
+    }
+    return w;
+}
+
+/**
+ * C: **`hack.c`** **`inv_weight()`** return value into **`u.inv_weight`** (**`raw - weight_cap`**)
+ * so **`calc_capacity(0)`** matches C when **`weight_cap > 1`**.
+ * @param {import('./gstate.js').game} g
+ */
+export function syncHeroInvWeightNetLikeC(g) {
+    const u = g?.u;
+    if (!u) return 0;
+    const raw = heroInventRawWtLikeC(g);
+    const wc = u.weight_cap | 0;
+    u.inv_weight = raw - wc;
+    return u.inv_weight;
+}
+
+/**
+ * C: hack.c near_capacity(void) — **`calc_capacity(0)`** when **`weight_cap > 1`**; else stub **`u.near_capacity`**.
+ * @param {import('./gstate.js').game} [g]
  * @returns {number}
  */
-export function nearCapacity() {
-    return game.u?.near_capacity ?? 0;
+export function nearCapacity(g = game) {
+    const u = g?.u;
+    if (!u) return 0;
+    if ((u.weight_cap | 0) > 1) return calcCapacityXtraWtLikeC(g, 0);
+    return u.near_capacity ?? 0;
 }
 
 /**
