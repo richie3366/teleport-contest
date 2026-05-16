@@ -1,10 +1,10 @@
 // melt_ice.js — Ice terrain melts to water (fire trap, zaps, etc.).
 // C ref: zap.c melt_ice(), trap.c trap_ice_effects() / cnv_trap_obj(),
 //        do.c boulder_hits_pool(), mkobj.c obj_ice_effects(), dig.c unearth_objs(),
-//        mon.c minliquid() (subset).
+//        mon.c minliquid() (subset — pool/waterwall drowning after melt; teleport/usteed/gremlin/lava/eel tails still TODO).
 //
 // Still TODO vs C: corpse **`ROT_ORGANIC`** start on all bury paths; **`bury_objs`** full **`get_cost`**/**`getprice`** / angry surcharge (**`shop.js`** bill rows need **`addtobill`**);
-// **`dig.c`/`read.c`** **`buried_ball`/`punish`** (**`floorobj.js`**) — **`placebc`** blind glyphs / **`uswallow`**; beam/breath vectors; **`boulder_hits_pool`** **`recalc_block_point`**/**`wake_nearto`**/**`u.uinwater`**; fuller **`minliquid`** / **`spoteffects`**.
+// **`dig.c`/`read.c`** **`buried_ball`/`punish`** (**`floorobj.js`**) — **`placebc`** blind glyphs / **`uswallow`**; beam/breath vectors; **`boulder_hits_pool`** **`recalc_block_point`**/**`wake_nearto`**/**`u.uinwater`**; fuller **`minliquid`** (teleport **`rloc`**, lava, eel land) / **`spoteffects`**.
 
 import { pline, newsym } from './display.js';
 import { vision_recalc, cansee } from './vision.js';
@@ -15,8 +15,7 @@ import {
     floorObjKey, placeFloorObject, unlinkFloorObject, buryFloorChainAt, unearthBuriedChainAt,
 } from './floorobj.js';
 import { delEngrAt } from './engrave.js';
-import { waterDamageChain } from './water_damage.js';
-import { raceptr, isFlyer, isFloater, amphibious, breathless, swims, monsterLeavesCorpse } from './mondata.js';
+import { raceptr, isFlyer, isFloater, isClinger, cantDrown, monsterLeavesCorpse } from './mondata.js';
 import { CORPSE_OTYP, placeCorpseForMonster } from './mkobj_corpse.js';
 import { dist2 } from './hacklib.js';
 import { heroPassesWalls } from './walkable.js';
@@ -56,9 +55,6 @@ import {
     IS_WALL,
     Is_waterlevel,
 } from './const.js';
-
-/** C: monflag.h — **`M1_CLING`** ( **`mon.c`** **`m_in_air`** clinger branch). */
-const M1_CLING = 0x00000010;
 
 /** C: objects.h — LAND_MINE / BEARTRAP (`objects_nums` / obj_oc_skill_data.js). */
 const OTYP_LAND_MINE = 244;
@@ -246,7 +242,7 @@ function removeObjFromLevelObjects(g, otmp) {
 function mInAir(mtmp) {
     const ptr = raceptr(mtmp);
     if (isFlyer(ptr) || isFloater(ptr)) return true;
-    return (ptr.mflags1 & M1_CLING) !== 0 && (mtmp.mundetected | 0) !== 0;
+    return isClinger(ptr) && (mtmp.mundetected | 0) !== 0;
 }
 
 function killMonsterOnPoolFill(g, mtmp) {
@@ -328,19 +324,32 @@ async function boulderHitsPool(g, otmp, rx, ry, pushing) {
 }
 
 /**
- * C: mon.c minliquid(mtmp) — tiny subset: pool wetting for non-airborne body + inventory chain.
+ * C: mon.c **`minliquid_core`** — **`inpool`/`waterwall`** drowning when ice becomes pool (**`melt_ice`** tail).
+ * Omits **`rloc`** teleport escape, **`u.usteed`** flying, gremlin/golem, lava, eel-on-land (**`svc.context.mon_moving`** for pline split).
  * @param {import('./gstate.js').game} g
  */
 async function minliquidMonsterAfterMelt(g, mtmp) {
     if (!mtmp) return;
-    const loc = g.level?.at(mtmp.mx, mtmp.my);
-    if (!loc || !IS_POOL(loc.typ)) return;
+    const x = mtmp.mx | 0;
+    const y = mtmp.my | 0;
+    const loc = g.level?.at(x, y);
+    if (!loc) return;
+    const typ = loc.typ | 0;
     const ptr = raceptr(mtmp);
-    const inpool = !(isFlyer(ptr) || isFloater(ptr));
-    if (!inpool) return;
-    if (amphibious(ptr) || breathless(ptr) || swims(ptr)) return;
-    const visMon = cansee(mtmp.mx, mtmp.my) && !(mtmp.minvis | 0);
-    if (mtmp.minvent) await waterDamageChain(mtmp.minvent, false, g, { mtmp, visMon });
+    const waterwall = IS_WATERWALL(typ);
+    const inpool = IS_POOL(typ)
+        && ((!isFlyer(ptr) && !isFloater(ptr)) || Is_waterlevel(g.u?.uz));
+    if (!(inpool || waterwall)) return;
+
+    if ((waterwall || !isClinger(ptr)) && !cantDrown(ptr)) {
+        const monMoving = !!(g.svc?.context?.mon_moving);
+        const name = mtmp?.monnam || mtmp?.data?.mname || 'the monster';
+        if (cansee(x, y)) {
+            if (monMoving) await pline(`${name} drowns.`);
+            else await pline(`You drown ${name}.`);
+        }
+        if ((mtmp.mhp | 0) > 0) killMonsterOnPoolFill(g, mtmp);
+    }
 }
 
 /**

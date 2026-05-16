@@ -86,6 +86,8 @@ export const MR_SLEEP = 0x04;
 
 // C: monflag.h (subset used by locomotion / stagger / goodpos)
 const M1_FLY = 0x00000001;
+/** C: monflag.h `M1_CLING` — **`mon.c`** **`minliquid_core`** / **`m_in_air`**. */
+const M1_CLING = 0x00000010;
 const M1_SWIM = 0x00000002;
 const M1_AMORPHOUS = 0x00000004;
 const M1_WALLWALK = 0x00000008;
@@ -278,6 +280,16 @@ export function isFloater(/** @type {Permonst} */ ptr) {
 /** C: mondata.h is_flyer */
 export function isFlyer(/** @type {Permonst} */ ptr) {
     return (ptr.mflags1 & M1_FLY) !== 0;
+}
+
+/** C: mondata.h **`is_clinger`** */
+export function isClinger(/** @type {Permonst} */ ptr) {
+    return ((ptr?.mflags1 ?? 0) & M1_CLING) !== 0;
+}
+
+/** C: mondata.h **`cant_drown`** (`is_swimmer` ≡ **`swims`**) */
+export function cantDrown(/** @type {Permonst} */ ptr) {
+    return swims(ptr) || amphibious(ptr) || breathless(ptr);
 }
 
 /** C: mondata.h swims */
