@@ -1,11 +1,20 @@
 // mondata.js — Monster type predicates and locomotion phrasing.
 // C ref: mondata.h (is_floater, is_flyer, swims, amphibious, fire_resistant, …), mondata.c raceptr(),
-// stagger(), monflag.h M1_*, MR_*, MZ_*, G_NOCORPSE; mon.c make_corpse (corpse gate stub).
+// dmgtype/dmgtype_fromattack, passes_bars, stagger(), monflag.h M1_*, MR_*, MZ_*, G_NOCORPSE; mon.c make_corpse (corpse gate stub).
 
 import { game } from './gstate.js';
 import { XKILL_NOCORPSE } from './const.js';
 
-/** @typedef {{ mlet: number, mflags1: number, mflags2?: number, msize: number, mmove: number, ac?: number, mvflags?: number, mresists?: number }} Permonst */
+/** C: monattk.h / permonst.h */
+export const AT_ANY = -1;
+/** C: monattk.h — damage kinds used by passes_bars (iron bars). */
+export const AD_RUST = 24;
+export const AD_CORR = 42;
+/** C: permonst.h NATTK — mattk[] slots scanned by dmgtype_fromattack. */
+export const NATTK = 6;
+
+/** @typedef {{ adtyp: number, aatyp: number }} Mattack */
+/** @typedef {{ mlet: number, mflags1: number, mflags2?: number, msize: number, mmove: number, ac?: number, mvflags?: number, mresists?: number, mattk?: readonly Mattack[] }} Permonst */
 
 /** C: monflag.h `G_NOCORPSE` — no ordinary corpse (mon.c make_corpse; genocided / unique rules). */
 export const G_NOCORPSE = 0x0010;
@@ -48,6 +57,33 @@ const S_GHOST = 54;
 
 /** C: monflag.h MZ_SMALL — used by bear trap and encumber paths. */
 export { MZ_SMALL };
+
+/**
+ * C: mondata.c dmgtype_fromattack(ptr, dtyp, atyp)
+ * @param {Permonst|null|undefined} ptr
+ * @param {number} dtyp
+ * @param {number} atyp `AT_ANY` matches any attack slot.
+ * @returns {Mattack|null}
+ */
+export function dmgtypeFromattack(ptr, dtyp, atyp) {
+    const attacks = ptr?.mattk;
+    if (!attacks) return null;
+    for (let i = 0; i < NATTK; i++) {
+        const a = attacks[i];
+        if (!a) continue;
+        if (a.adtyp === dtyp && (atyp === AT_ANY || a.aatyp === atyp)) return a;
+    }
+    return null;
+}
+
+/**
+ * C: mondata.c dmgtype(ptr, dtyp)
+ * @param {Permonst|null|undefined} ptr
+ * @param {number} dtyp
+ */
+export function dmgtype(ptr, dtyp) {
+    return dmgtypeFromattack(ptr, dtyp, AT_ANY) != null;
+}
 
 /** Innate human (PM_HUMAN–style) for encumber / stagger when not polymorphed. */
 export const permonstHuman = Object.freeze({
@@ -211,11 +247,12 @@ export function isWhirly(/** @type {Permonst} */ ptr) {
 
 /**
  * C: mondata.c passes_bars — iron bars (`hack.c` test_move).
- * Not ported: `dmgtype(..., AD_RUST|AD_CORR)` (rust monsters / corrosive puddings).
+ * Rust/corr via `dmgtype`; `still_chewing` / occupation not ported in `walkable.js`.
  */
 export function passesBars(/** @type {Permonst} */ ptr) {
     return passesWalls(ptr) || amorphous(ptr) || unsolid(ptr) || isWhirly(ptr)
-        || verysmall(ptr) || metallivorous(ptr) || (slithy(ptr) && !bigmonst(ptr));
+        || verysmall(ptr) || dmgtype(ptr, AD_RUST) || dmgtype(ptr, AD_CORR)
+        || metallivorous(ptr) || (slithy(ptr) && !bigmonst(ptr));
 }
 
 /** C: mondata.h noncorporeal */

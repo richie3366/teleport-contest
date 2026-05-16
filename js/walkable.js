@@ -108,7 +108,9 @@ function liquidTerrainBlocksRaceptr(ptr, typ) {
 }
 
 /**
- * C: hack.c test_move() — `IS_OBSTRUCTED || IRONBARS`, closed doors (no rock-eater / rust / ooze messages).
+ * C: hack.c test_move() — `IS_OBSTRUCTED || IRONBARS`, closed doors.
+ * IRONBARS: `passes_walls`/`may_passwall`, `passes_bars` (incl. `dmgtype` AD_RUST/AD_CORR, metallivorous);
+ * C also gates `still_chewing` for rust/corr/metallivorous on `DO_MOVE` — not ported (no `context.digging`).
  * @param {*} ptr `raceptr(mtmp)` or `raceptr(youmonst)`.
  * @param {{ hero?: boolean }} [opts] hero: use `heroPassesWalls` for `Passes_walls` intrinsic/extrinsic.
  */
