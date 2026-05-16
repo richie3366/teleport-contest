@@ -1,7 +1,7 @@
 // trap.js — Hero stepping on floor traps (dotrap + trapeffect subset).
 // C ref: trap.c dotrap(), floor_trigger(), check_in_air(), trapeffect_selector()
 //        hero cases; trap.h fixed_tele_trap(); mondata.h is_clinger (M1_CLING).
-// domagictrap() shares makemon.js stub; seffects (fate 20); burn_floor_objects TODO.
+// domagictrap() shares makemon.js stub; seffects (fate 20); melt_ice after fire trap TODO.
 
 import { game } from './gstate.js';
 import { pline, newsym } from './display.js';
@@ -30,7 +30,7 @@ import { placeFloorObject } from './floorobj.js';
 import { goodposHero } from './walkable.js';
 import { destroyItemsYoumonstFire } from './destroy_items.js';
 import { igniteHeroInventory } from './ignite_items.js';
-import { burnarmorYoumonst } from './erode_obj.js';
+import { burnFloorObjects } from './burn_floor_objects.js';
 import {
     raceptr,
     breathless,
@@ -218,7 +218,8 @@ function tamedogStub() {
 
 /**
  * C: trap.c dofiretrap(box null) — floor / magic fire; **`burn_away_slime`** (**`timeout.js`**)
- * before destroy; **`if (burnarmor(&youmonst) || rn2(3))`** (**`erode_obj.js`** **`burnarmorYoumonst`**).
+ * before destroy; **`burnarmor`** (**`erode_obj.js`**); floor **`burn_floor_objects`** + blind smell;
+ * **`melt_ice`** not ported.
  */
 async function dofiretrapHeroNoBox() {
     const u = game.u;
@@ -243,6 +244,9 @@ async function dofiretrapHeroNoBox() {
         await destroyItemsYoumonstFire(game, origDmg);
         await igniteHeroInventory(game);
     }
+    const seeIt = !heroBlind();
+    const floorBurned = await burnFloorObjects(game, u.ux, u.uy, seeIt, true);
+    if (floorBurned > 0 && !seeIt) await pline('You smell paper burning.');
     game.disp = game.disp || {};
     game.disp.botl = true;
 }
