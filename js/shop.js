@@ -790,7 +790,7 @@ export function useupfFloor(g = game, obj, numused) {
 
     /* C: !svc.context.mon_moving — not ported; hero burn_floor_objects is always hero. */
     if (costlySpot(g, obj.ox | 0, obj.oy | 0)) {
-        /* C: strchr(u.urooms, *in_rooms(...)) ? addtobill : stolen_value — stubs until shk/in_rooms. */
+        /* C: strchr(u.urooms, *in_rooms(...)) ? addtobill : stolen_value — **`addtobill`** still stub. */
         addtobillFloorStub(g, obj, n);
     }
 
