@@ -24,6 +24,7 @@ import {
     OBJ_ROCK,
 } from './mthrowu.js';
 import { placeFloorObject } from './floorobj.js';
+import { goodposHero } from './walkable.js';
 import {
     raceptr,
     breathless,
@@ -81,11 +82,6 @@ import {
     A_CON,
     A_STR,
     A_DEX,
-    STONE,
-    DOOR,
-    D_CLOSED,
-    D_LOCKED,
-    IS_WALL,
 } from './const.js';
 
 const M1_CLING = 0x00000010;
@@ -433,14 +429,9 @@ function nextToU() {
     return true;
 }
 
-/** C: hack.c blocks_move-style check for hero standing on (x,y). */
+/** C: teleport.c goodpos — hero may stand on (x,y) (tele trap launch, etc.). */
 function cellBlocksHero(x, y) {
-    const loc = game.level?.at(x, y);
-    if (!loc) return true;
-    if (loc.typ === STONE) return true;
-    if (IS_WALL(loc.typ)) return true;
-    if (loc.typ === DOOR && (loc.doormask & (D_CLOSED | D_LOCKED))) return true;
-    return false;
+    return !goodposHero(x, y, game);
 }
 
 /**
