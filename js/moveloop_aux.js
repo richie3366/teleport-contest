@@ -20,8 +20,8 @@ export function dosounds() {
 }
 
 /**
- * C: eat.c gethungry(void) — minimal port: ordinary uhunger--, accessorytime = rn2(20),
- * odd/even ring hunger (HRegeneration / encumbrance / Hunger / Conflict), no switch(ring) yet.
+ * C: eat.c gethungry(void) — ordinary uhunger--, accessorytime = rn2(20),
+ * odd/even branches, switch(accessorytime): case 16 u.uhave.amulet only; cases 0/4/8/12 TODO.
  * C order vs exerchk: allmain calls this immediately after svm.moves++, then exerchk().
  */
 export function gethungry() {
@@ -40,7 +40,24 @@ export function gethungry() {
         if (u.Hunger) u.uhunger--;
         if (u.HConflict) u.uhunger--;
     }
-    /* C: switch (accessorytime) ring/amulet nutrition — port when uleft/uright/uamul exist */
+    /* C: eat.c gethungry — switch (accessorytime); even cases 0,4,8,12,16 */
+    switch (accessorytime) {
+        case 0:
+            /* Slow digestion from worn armor (non-ring) — port with dragon mail */
+            break;
+        case 4:
+        case 12:
+            /* uleft / uright ring nutrition — port with invent */
+            break;
+        case 8:
+            /* uamul — port with invent */
+            break;
+        case 16:
+            if (u.uhave?.amulet) u.uhunger--;
+            break;
+        default:
+            break;
+    }
     u.uhs = uhsFromUhunger(u.uhunger);
 }
 
