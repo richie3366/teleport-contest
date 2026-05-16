@@ -2,6 +2,7 @@
 // C ref: hack.c domove → displaceum (peaceful swap when not attacking).
 
 import { game } from './gstate.js';
+import { snapshotUshops0FromHeroTileLikeC } from './shop.js';
 import { pline } from './display.js';
 import { tAt } from './search.js';
 import { terrainBlocksDisplaceForMon, terrainBlocksDisplaceForHero } from './walkable.js';
@@ -49,6 +50,7 @@ export async function tryPeacefulSwap(mtmp, heroX, heroY, monX, monY) {
         return { swapped: false };
     }
     const u = game.u;
+    snapshotUshops0FromHeroTileLikeC(game);
     mtmp.mx = heroX;
     mtmp.my = heroY;
     u.ux = monX;

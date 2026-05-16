@@ -11,6 +11,7 @@ import { rn2, d } from './rng.js';
 import { waterDamageChainHeroInventory } from './water_damage.js';
 import { maybeHalfPhys, losehp } from './mthrowu.js';
 import { splitGremlinHeroPoly } from './split_mon.js';
+import { snapshotUshops0FromHeroTileLikeC } from './shop.js';
 
 /**
  * C: trap.c waterbody_name() subset — hero on **`IS_POOL`**.
@@ -120,6 +121,7 @@ export async function maybeHeroPoolEnter(g = game, opts = {}) {
     const oy = u.uy;
     u.ux0 = ox;
     u.uy0 = oy;
+    snapshotUshops0FromHeroTileLikeC(g);
     u.ux = dest.x;
     u.uy = dest.y;
     u.underwater = 0;

@@ -49,7 +49,7 @@ import {
     applyGotoAfterHeroHoleFallLikeC,
     nextToUForHoleFallStub,
 } from './goto_level_hero.js';
-import { shopdigLikeC, heroInShopOccupancyLikeUshops } from './shop.js';
+import { shopdigLikeC, heroInShopOccupancyLikeUshops, snapshotUshops0FromHeroTileLikeC } from './shop.js';
 import { impactDropLikeC } from './impact_drop.js';
 import { dist2, depth } from './hacklib.js';
 import {
@@ -1813,6 +1813,7 @@ async function trapeffectTelepHero(trap) {
         const ox = u.ux, oy = u.uy;
         u.ux0 = ox;
         u.uy0 = oy;
+        snapshotUshops0FromHeroTileLikeC(game);
         u.ux = dx;
         u.uy = dy;
         newsym(ox, oy);

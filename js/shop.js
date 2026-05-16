@@ -608,6 +608,18 @@ export function heroInShopOccupancyLikeUshops(g) {
     return inRoomsShopbaseRoomnos(g, u.ux | 0, u.uy | 0).length > 0;
 }
 
+/**
+ * C: **`hack.c`** **`move_update`** — **`Strcpy(u.ushops0, u.ushops)`** before **`u.ux`/`u.uy`** advance.
+ * Call immediately **before** any hero square change so **`dothrow.c`** **`check_shop_obj`** can use **`u.ushops0`**.
+ * @param {import('./gstate.js').game} g
+ */
+export function snapshotUshops0FromHeroTileLikeC(g) {
+    const u = g.u;
+    if (!u) return;
+    const r = inRoomsShopbaseRoomnos(g, u.ux | 0, u.uy | 0);
+    u.ushops0 = r.length ? [...r] : [];
+}
+
 function shopdigPickShkpLikeC(g) {
     const u = g.u;
     if (!u) return null;
@@ -1053,7 +1065,7 @@ async function sellobjCheckShopMinLikeC(g, obj, _x, _y, shkp) {
 
 /**
  * C: **`dothrow.c`** **`check_shop_obj(obj, x, y, broken)`** (**`u.ushops`** keeper via **`shopdigPickShkpLikeC`**).
- * **`u.ushops0`** not in JS — **`sameShop`** uses intersection of **`in_rooms`** shop roomnos at hero vs **`(x,y)`**.
+ * Outer test uses **`*in_rooms(x,y,SHOPBASE) != *u.ushops`** (first SHOPBASE roomno vs hero’s first); inner adds **`u.ushops0`** (**`dothrow.c`** comment).
  * @param {import('./gstate.js').game} g
  * @param {boolean} broken — C **`broken`**
  */
@@ -1067,10 +1079,14 @@ export async function checkShopObjLikeC(g, obj, x, y, broken) {
     const costly = costlySpot(g, xh, yh);
     const heroR = inRoomsShopbaseRoomnos(g, g.u.ux | 0, g.u.uy | 0);
     const landR = inRoomsShopbaseRoomnos(g, xh, yh);
-    const sameShop =
-        heroR.length > 0 && landR.length > 0 && landR.some((r) => heroR.includes(r));
+    const prevR = Array.isArray(g.u.ushops0) ? g.u.ushops0 : [];
+    /** C: **`*in_rooms(...,SHOPBASE)`** / **`*u.ushops`** — first encoded shop room letter; empty ⇒ **`-1`**. */
+    const enc = (/** @type {number[]} */ a) => (a.length ? a[0] : -1);
+    const encLand = enc(landR);
+    const encHero = enc(heroR);
+    const encPrev = enc(prevR);
 
-    if (broken || !costly || !sameShop) {
+    if (broken || !costly || encLand !== encHero) {
         if (obj.unpaid | 0) {
             await stolenValueMerchBurySilent(g, obj, g.u.ux | 0, g.u.uy | 0, shkp, false);
         }
@@ -1078,12 +1094,14 @@ export async function checkShopObjLikeC(g, obj, x, y, broken) {
         return;
     }
 
-    if (obj.unpaid | 0) {
-        const gtg = Has_contents(obj) ? containedGold(obj, true) : 0;
-        subfrombillLikeC(g, obj, shkp);
-        if (gtg > 0) await donateGoldLikeC(g, gtg, shkp, true);
-    } else if (xh !== (shkp.mx | 0) || yh !== (shkp.my | 0)) {
-        await sellobjCheckShopMinLikeC(g, obj, xh, yh, shkp);
+    if (costly && (encLand === encHero || encLand === encPrev)) {
+        if (obj.unpaid | 0) {
+            const gtg = Has_contents(obj) ? containedGold(obj, true) : 0;
+            subfrombillLikeC(g, obj, shkp);
+            if (gtg > 0) await donateGoldLikeC(g, gtg, shkp, true);
+        } else if (xh !== (shkp.mx | 0) || yh !== (shkp.my | 0)) {
+            await sellobjCheckShopMinLikeC(g, obj, xh, yh, shkp);
+        }
     }
 }
 

@@ -103,6 +103,8 @@ export class NethackGame {
             inv_weight: 0, weight_cap: 0, /* C: invent.c — `cant_squeeze_thru` diagonal load */
             underwater: 0, /* C: you.h u.uinwater-style — pool / describe_decor / vision */
             utrap: 0, utraptype: 0, wounded_legs: 0, wounded_leg_side: 0,
+            /** C: you.h **`ushops0`** — SHOPBASE **`levl.roomno`** list from hero tile before last **`u.ux`/`u.uy`** change (`hack.c` **`move_update`**). */
+            ushops0: [],
         };
         g.uball = null;
         g.uchain = null;

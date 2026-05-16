@@ -20,6 +20,7 @@ import { tryPeacefulSwap } from './peaceful_displace.js';
 import { blocksMovementAt, diagonalHeroMoveBlocked } from './walkable.js';
 import { spotEffects } from './spoteffects.js';
 import { dokickFromCmd } from './kick.js';
+import { snapshotUshops0FromHeroTileLikeC } from './shop.js';
 
 // Direction deltas: y u k
 //                   h . l
@@ -189,6 +190,7 @@ async function domove(dx, dy) {
 
     // Move the hero
     const oldx = u.ux, oldy = u.uy;
+    snapshotUshops0FromHeroTileLikeC(game);
     u.ux0 = oldx;
     u.uy0 = oldy;
     u.dx = dx;
