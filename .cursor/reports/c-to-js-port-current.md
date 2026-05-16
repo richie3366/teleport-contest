@@ -1,6 +1,6 @@
 # NetHack C→JS port — **current slice** (read this first)
 
-Thin handoff for the next coding session. Deep parity tables and history: [`c-to-js-port-progress.md`](c-to-js-port-progress.md) and [`c-to-js-port-changelog-archive.md`](c-to-js-port-changelog-archive.md).
+Thin handoff for the next coding session. **Gap inventory (not yet ported):** [`c-to-js-port-remaining.md`](c-to-js-port-remaining.md). Deep parity tables and history: [`c-to-js-port-progress.md`](c-to-js-port-progress.md) and [`c-to-js-port-changelog-archive.md`](c-to-js-port-changelog-archive.md). **Repeatable user/agent prompt:** [`.cursor/prompts/continue-nethack-port.md`](../prompts/continue-nethack-port.md).
 
 ## Contract (non-negotiable)
 
@@ -9,7 +9,7 @@ Thin handoff for the next coding session. Deep parity tables and history: [`c-to
 - **Plain ES modules**, no build/WASM/network in contest code; RNG via `js/rng.js`; match **clang** evaluation order for multi-call expressions.
 - API: [`docs/API.md`](../../docs/API.md); overview: [`README.md`](../../README.md).
 
-**Last slice:** **`monst.h`** **`is_vampshifter`** → **`mondata.js`** **`isVampshifterMonsterLikeC`** (**`cham`** vs vampire **`PM_*`**); **`distfleeck_mon.js`** imports (**`onScary`**) and re-exports. **`resists_drli`** / **`defended(AD_DRLI)`** for **`exper.c`** **`losexp`** still TODO. Tried **`dochug`**-style **`distfleeck`** after **`m_throw`** on moveloop step **3** + harness trim — reverted (RNG peel vs session harness). **`npm run score`:** **0/44**; **`seed0060`** **991/3626** (unchanged).
+**Last slice:** Agent handoff — **`c-to-js-port-remaining.md`**, **`.cursor/prompts/continue-nethack-port.md`** (**git commit** each meaningful slice), cross-links (**`AGENTS.md`**, **`.cursor/README.md`**, **`nethack-port-progress.mdc`**), **`c-to-js-port-changelog-archive.md`** row. Prior code context: **`is_vampshifter`** in **`mondata`**, **`losexp`** **`defended(AD_DRLI)`** still TODO; **`dochug`**/**`distfleeck`** step **3** peel reverted. **Baseline (last `npm run score`):** **0/44**; **`seed0060`** **991/3626** (docs-only commit, score not re-run).
 
 ## Next steps (highest impact from latest fire/lava work)
 
@@ -22,17 +22,20 @@ Thin handoff for the next coding session. Deep parity tables and history: [`c-to
 1. Append **one table row** to [`c-to-js-port-changelog-archive.md`](c-to-js-port-changelog-archive.md) (same columns as existing rows).
 2. Refresh **this file** (next steps + one-line “last slice”).
 3. Run **`npm run score`** when the change touches RNG-visible behavior.
+4. **`git commit`** — one commit per meaningful slice (see [`.cursor/prompts/continue-nethack-port.md`](../prompts/continue-nethack-port.md)); conventional message (`feat(js):` / `fix(js):` / `docs(port):`, …).
 
 ---
 
 ## Copy-paste: continue the port
 
+Prefer the **canonical** text in [`.cursor/prompts/continue-nethack-port.md`](../prompts/continue-nethack-port.md) (includes `c-to-js-port-remaining.md` skim + **git commit per slice**). Legacy one-liners:
+
 ```
-Continue NetHack 5.0 C→JS: read .cursor/reports/c-to-js-port-current.md first (not the full progress doc). Do the top next step; port from nethack-c/upstream C semantics; do not tune to public sessions; do not edit js/isaac64.js, js/terminal.js, js/storage.js. When done: update c-to-js-port-current.md, append one row to c-to-js-port-changelog-archive.md, npm run score if relevant.
+Continue NetHack 5.0 C→JS: read .cursor/reports/c-to-js-port-current.md first (not the full progress doc). Do the top next step; port from nethack-c/upstream C semantics; do not tune to public sessions; do not edit js/isaac64.js, js/terminal.js, js/storage.js. When done: update c-to-js-port-current.md, append one row to c-to-js-port-changelog-archive.md, npm run score if relevant, git commit this slice.
 ```
 
 Shorter variant:
 
 ```
-Continue port: read .cursor/reports/c-to-js-port-current.md, top next step, C upstream only, frozen js/* harness untouched, then refresh current + one changelog row + score if needed.
+Continue port: read .cursor/reports/c-to-js-port-current.md, top next step, C upstream only, frozen js/* harness untouched, then refresh current + one changelog row + score if needed + git commit the slice.
 ```

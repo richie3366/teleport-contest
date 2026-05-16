@@ -4,7 +4,9 @@ This repository is a **Teleport Coding Challenge** fork: port NetHack 5.0 to Jav
 
 **Start here:** [.cursor/README.md](.cursor/README.md) lists Cursor rules under `.cursor/rules/` and links to canonical docs.
 
-**Port handoff (agents):** [.cursor/reports/c-to-js-port-current.md](.cursor/reports/c-to-js-port-current.md) — read this first for next steps; use [.cursor/reports/c-to-js-port-progress.md](.cursor/reports/c-to-js-port-progress.md) only when you need the full parity report.
+**Port handoff (agents):** [.cursor/reports/c-to-js-port-current.md](.cursor/reports/c-to-js-port-current.md) — read this first for next steps; skim [.cursor/reports/c-to-js-port-remaining.md](.cursor/reports/c-to-js-port-remaining.md) for what is still unported; use [.cursor/reports/c-to-js-port-progress.md](.cursor/reports/c-to-js-port-progress.md) only when you need the full parity report.
+
+**Repeatable “continue port” prompt (copy each session; includes commit-per-slice):** [.cursor/prompts/continue-nethack-port.md](.cursor/prompts/continue-nethack-port.md)
 
 **Do not edit** contest-frozen harness files (the judge overlays them): `js/isaac64.js`, `js/terminal.js`, `js/storage.js`.
 
