@@ -46,7 +46,7 @@ function isWaterproofContainerTyp(otyp) {
     return t === OTYP_OILSKIN_SACK || t === OTYP_ICE_BOX || t === OTYP_LARGE_BOX || t === OTYP_CHEST;
 }
 
-function isContainerOtyp(otyp) {
+export function isContainerOtyp(otyp) {
     return CONTAINER_OTYPES.has(otyp | 0);
 }
 
@@ -62,7 +62,7 @@ const CONTAINER_PHRASE = new Map([
 ]);
 
 /** Minimal stand-in for **`cxname`** / container wording (**`trap.c`** **`hliquid`/`ostr`**). */
-function waterDamageObjPhrase(obj) {
+export function waterDamageObjPhrase(obj) {
     const t = obj.otyp | 0;
     const c = CONTAINER_PHRASE.get(t);
     if (c) return c;
@@ -85,7 +85,7 @@ const OTYP_SPE_BOOK_OF_THE_DEAD = 409;
  * C: you.h Luck + LUCKADD (subset).
  * @param {typeof game} g
  */
-function heroLuck(g) {
+export function heroLuck(g) {
     const u = g.u;
     return (u?.LUCKADD ?? 0) + (u?.uluck ?? 0);
 }

@@ -16,10 +16,11 @@ const OTYP_MAGIC_LAMP = 229;
 const OTYP_POT_OIL = 320;
 
 /**
- * C: obj.h ignitable(otmp) — NH5 **`otyp`** (subset; **`CANDELABRUM_OF_INVOCATION`** when enum wired).
+ * C: obj.h **`ignitable(otmp)`** — NH5 **`otyp`** (subset; **`CANDELABRUM_OF_INVOCATION`** when wired);
+ * shared by **`catch_lit`** / **`ignite_items`** / **`fire_damage`**.
  * @param {{ otyp?: number, spe?: number }} obj
  */
-function ignitableHero(obj) {
+export function ignitableAmbientFire(obj) {
     const t = obj.otyp | 0;
     const spe = obj.spe | 0;
     if (t === OTYP_TALLOW_CANDLE || t === OTYP_WAX_CANDLE) return true;
@@ -27,6 +28,10 @@ function ignitableHero(obj) {
     if (t === OTYP_MAGIC_LAMP && spe > 0) return true;
     if (t === OTYP_POT_OIL) return true;
     return false;
+}
+
+function ignitableHero(obj) {
+    return ignitableAmbientFire(obj);
 }
 
 function phraseTyp(obj) {

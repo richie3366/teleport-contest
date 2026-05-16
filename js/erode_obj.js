@@ -5,7 +5,14 @@ import { game } from './gstate.js';
 import { pline } from './display.js';
 import { rn2, rnl } from './rng.js';
 import { MAX_ERODE, FIRE_RES } from './const.js';
-import { ER_NOTHING, ER_DAMAGED } from './water_damage.js';
+import {
+    ER_NOTHING,
+    ER_DAMAGED,
+    ER_DESTROYED,
+    removeObjFromHeroInvent,
+    removeObjFromMinvent,
+    waterDamageObjPhrase,
+} from './water_damage.js';
 import { updateInventory } from './invent.js';
 
 /** @see include/objclass.h `enum obj_material_types` (subset). */
@@ -117,6 +124,70 @@ export async function erodeObjBurnMon(mtmp, otmp, ostr, g = game, visMon) {
         return ER_DAMAGED;
     }
     return ER_NOTHING;
+}
+
+/**
+ * C: trap.c **`erode_obj(otmp, ostr, ERODE_BURN, EF_DESTROY)`** — burn only (**`fire_damage`**).
+ * @param {object} otmp
+ * @param {string} ostr
+ * @param {typeof game} [g]
+ * @param {{ mtmp: object, visMon?: boolean } | null} [monCtx] — **null** = hero invent
+ */
+export async function erodeObjBurnWithEfDestroy(otmp, ostr, g = game, monCtx = null) {
+    if (!otmp) return ER_NOTHING;
+    if (!monCtx && (await inventoryResistanceFireCheckStub(g))) return ER_NOTHING;
+
+    const vulnerable = isFlammable(otmp);
+    const erosion = otmp.oeroded | 0;
+    const ostrFinal = ostr || waterDamageObjPhrase(otmp);
+
+    if (!vulnerable || ((otmp.oerodeproof | 0) && (otmp.rknown | 0))) return ER_NOTHING;
+    if ((otmp.oerodeproof | 0) || ((otmp.blessed | 0) && !rnl(4))) {
+        if ((otmp.oerodeproof | 0)) {
+            otmp.rknown = 1;
+            if (!monCtx) updateInventory();
+        }
+        return ER_NOTHING;
+    }
+    if (erosion < MAX_ERODE) {
+        const adverb = erosion + 1 === MAX_ERODE ? ' completely' : erosion ? ' further' : '';
+        if (!monCtx) {
+            await pline(`Your ${ostrFinal} smoulders${adverb}!`);
+            otmp.oeroded = erosion + 1;
+            updateInventory();
+        } else {
+            const visMon = !!monCtx.visMon;
+            if (visMon) {
+                const poss = monPossessiveLabel(monCtx.mtmp);
+                await pline(`${poss} ${ostrFinal} smoulders${adverb}!`);
+            }
+            otmp.oeroded = erosion + 1;
+        }
+        return ER_DAMAGED;
+    }
+
+    if (!monCtx) {
+        await pline(`Your ${ostrFinal} smoulders away!`);
+        removeObjFromHeroInvent(g, otmp);
+        updateInventory();
+    } else {
+        if (monCtx.visMon) {
+            const poss = monPossessiveLabel(monCtx.mtmp);
+            await pline(`${poss} ${ostrFinal} smoulders away!`);
+        }
+        clearMonWornIf(monCtx.mtmp, otmp);
+        removeObjFromMinvent(monCtx.mtmp, otmp);
+    }
+    return ER_DESTROYED;
+}
+
+/** Clear **`mtmp.mworn`** entries pointing at **`otmp`**. */
+function clearMonWornIf(mtmp, otmp) {
+    const w = mtmp?.mworn;
+    if (!w) return;
+    for (const k of Object.keys(w)) {
+        if (w[k] === otmp) w[k] = null;
+    }
 }
 
 /** @typedef {{ armh?: object, armc?: object, arm?: object, armu?: object, arms?: object, armg?: object, armf?: object }} MonWorn */
