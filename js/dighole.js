@@ -3,10 +3,12 @@
 //
 // Ported: BY_YOU dig_check; digcheck_fail_message tail; dighole opening guards + magical explode;
 // pool/lava slosh + wake_nearto stub; **`fillholetyp`** + **`liquid_flow`** when adjacent liquid;
-// ROOM/CORR + **!ttmp** + **DIGCHECK_PASSED|PASSED_PITONLY** + Can_dig_down
-// → **PIT** vs **HOLE** (**`nohole`/`pit_only`/`PASSED_PITONLY`** vs hole) per C; **digactualHoleHeroUtrapSubset** before trap.
-// Deferred: drawbridge, boulder KADOOM, grave, cnv_trap_obj, goto_level,
-// shop billing, monsters, furniture_handled, Invocation_lev, AM_SANCTUM, **PASSED_DESTROY_TRAP** + trap on **ROOM/CORR** (**`!ttmp`** guard).
+// ROOM/CORR + **DIGCHECK_PASSED|PASSED_PITONLY** + Can_dig_down (**no erroneous `!ttmp` gate**);
+// magical **`LANDMINE`/`BEAR_TRAP`** → **`cnv_trap_obj(..., TRUE)`** (**`cnvTrapObjLikeC`**); other floor traps
+// cleared before **`digactualHole`** + new pit/hole (**`maketrap`** replaces in C);
+// **PIT** vs **HOLE** per C; **digactualHoleHeroUtrapSubset** before trap.
+// Deferred: drawbridge, boulder KADOOM, grave, goto_level,
+// shop billing, monsters, furniture_handled, Invocation_lev, AM_SANCTUM, **PASSED_DESTROY_TRAP** full **`maketrap`** parity.
 
 import { pline, newsym } from './display.js';
 import { vision_recalc, cansee } from './vision.js';
@@ -16,6 +18,7 @@ import { digactualHoleHeroUtrapSubset } from './floorobj.js';
 import { spotChecksLikeC } from './spot_checks.js';
 import { fillholetypLikeC } from './fillholetyp.js';
 import { liquidFlowHeroDigLikeC } from './liquid_flow.js';
+import { cnvTrapObjLikeC } from './melt_ice.js';
 import { maybeHalfPhys, losehp } from './mthrowu.js';
 import {
     STONE,
@@ -57,7 +60,13 @@ import {
     HOLE,
     PIT,
     TT_PIT,
+    LANDMINE,
+    BEAR_TRAP,
 } from './const.js';
+
+/** C: objects.h — **`LAND_MINE`/`BEARTRAP`** for **`cnv_trap_obj`**. */
+const OTYP_LAND_MINE = 244;
+const OTYP_BEARTRAP = 245;
 
 /** C: dungeon.c Can_dig_down(&u.uz) — Invocation_lev not ported. */
 function canDigDownLikeC(g) {
@@ -213,7 +222,7 @@ export async function digcheckFailMessageByYouAtLikeC(g, digresult, x, y) {
 }
 
 /**
- * C: dig.c dighole(FALSE, TRUE, cc) — subset (**`goto_level`** / wand+trap **`cnv_trap_obj`** still TODO).
+ * C: dig.c dighole(FALSE, TRUE, cc) — subset (**`goto_level`**, drawbridge/boulder/grave still TODO).
  * @param {import('./gstate.js').game} g
  * @param {boolean} pitOnly
  * @param {boolean} byMagic
@@ -270,8 +279,7 @@ export async function digholeHeroLikeC(g, pitOnly, byMagic, cc) {
         }
 
         if (
-            !ttmp
-            && (oldTyp === ROOM || oldTyp === CORR)
+            (oldTyp === ROOM || oldTyp === CORR)
             && byMagic
             && (dc === DIGCHECK_PASSED || dc === DIGCHECK_PASSED_PITONLY)
         ) {
@@ -290,6 +298,17 @@ export async function digholeHeroLikeC(g, pitOnly, byMagic, cc) {
                     'As you dig, the hole fills with %s!',
                 );
                 return true;
+            }
+
+            /* C: magical digging disarms settable traps before digactualhole. */
+            if (ttmp) {
+                const tt0 = ttmp.ttyp | 0;
+                if (tt0 === LANDMINE || tt0 === BEAR_TRAP) {
+                    const otyp = tt0 === LANDMINE ? OTYP_LAND_MINE : OTYP_BEARTRAP;
+                    cnvTrapObjLikeC(g, ttmp, otyp, 1, true);
+                } else {
+                    delTrapInLevel(g, ttmp);
+                }
             }
 
             const wantPit = pitOnly || nohole || dc === DIGCHECK_PASSED_PITONLY;

@@ -12,7 +12,14 @@ import { tAt, delTrap } from './search.js';
 import { maybeHeroPoolEnter } from './drown.js';
 import { rnd, rn1, rn2, d } from './rng.js';
 import {
-    floorObjKey, placeFloorObject, unlinkFloorObject, buryFloorChainAt, unearthBuriedChainAt,
+    floorObjKey,
+    placeFloorObject,
+    placeFloorObjectInLevel,
+    stackObjOnFloorInLevel,
+    prependBuriedObjectInLevel,
+    unlinkFloorObject,
+    buryFloorChainAt,
+    unearthBuriedChainAt,
 } from './floorobj.js';
 import { delEngrAt } from './engrave.js';
 import {
@@ -208,24 +215,33 @@ function mksobjLikeMelt(otyp, init) {
 }
 
 /**
- * C: trap.c cnv_trap_obj(otyp, 1, ttmp, TRUE) — bury_it uses bury_an_obj in C;
- * JS has no buried floor layer: place on floor like !bury_it minus stackobj/sellobj.
+ * C: trap.c **`cnv_trap_obj(otyp, cnt, ttmp, bury_it)`** — **`place_object`**, **`bury_an_obj`**
+ * vs **`stackobj`**, **`newsym`**, hero **`utrap`**, mon **`mtrapped`**, **`deltrap`**.
  * @param {import('./gstate.js').game} g
+ * @param {{ tx: number, ty: number, ttyp?: number }} ttmp
+ * @param {number} otyp
+ * @param {number} cnt
+ * @param {boolean} buryIt
  */
-function cnvTrapObjFromIceMelt(g, ttmp, otyp) {
+export function cnvTrapObjLikeC(g, ttmp, otyp, cnt, buryIt) {
+    if (!g || !ttmp) return;
     const otmp = mksobjLikeMelt(otyp, true);
-    otmp.quan = 1;
+    otmp.quan = Math.max(1, cnt | 0);
     otmp.owt = Math.max(1, otmp.owt | 0);
-    otmp.opoisoned = 0; /* C: cnv_trap_obj — only dart traps keep poison */
-    placeFloorObject(otmp, ttmp.tx, ttmp.ty);
-    /* C: bury_an_obj when bury_it — skipped (no buriedobjlist). */
-    newsym(ttmp.tx, ttmp.ty);
+    /* C: only dart traps keep poison */
+    otmp.opoisoned = 0;
+    const tx = ttmp.tx | 0;
+    const ty = ttmp.ty | 0;
+    placeFloorObjectInLevel(g, otmp, tx, ty);
+    if (buryIt) prependBuriedObjectInLevel(g, otmp);
+    else stackObjOnFloorInLevel(g, otmp);
+    newsym(tx, ty);
     const u = g.u;
-    if (u && (u.utrap | 0) !== 0 && u_at(ttmp.tx, ttmp.ty)) {
+    if (u && (u.utrap | 0) !== 0 && (u.ux | 0) === tx && (u.uy | 0) === ty) {
         u.utrap = 0;
         u.utraptype = 0;
     }
-    const mtmp = g.level?.monsters?.find((m) => m.mx === ttmp.tx && m.my === ttmp.ty);
+    const mtmp = g.level?.monsters?.find((m) => (m.mx | 0) === tx && (m.my | 0) === ty);
     if (mtmp && (mtmp.mtrapped | 0)) mtmp.mtrapped = 0;
     delTrap(ttmp);
 }
@@ -255,7 +271,7 @@ function trapIceEffectsOnMelt(g, x, y) {
 
     if (ttmp.ttyp === LANDMINE || ttmp.ttyp === BEAR_TRAP) {
         const otyp = ttmp.ttyp === LANDMINE ? OTYP_LAND_MINE : OTYP_BEARTRAP;
-        cnvTrapObjFromIceMelt(g, ttmp, otyp);
+        cnvTrapObjLikeC(g, ttmp, otyp, 1, false);
     } else if (!undestroyableTrapTtyp(ttmp.ttyp)) {
         delTrap(ttmp);
     }
