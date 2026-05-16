@@ -469,6 +469,27 @@ function paintRaceMenu(disp, f) {
     disp.setCursor(MENU_COL, 23);
 }
 
+/**
+ * C ref: role.c genl_player_setup — PICK_ONE n==2: first ROLE_RANDOM line + second explicit row → use selected[1].
+ * @param {string} quitMenuLabel — e.g. `'race menu'` for `Player quit …`
+ * @param {(k2: string, kRaw2: string) => number | undefined} tryExplicit
+ * @param {() => number} pickRandom
+ */
+async function chargenStarPickOneN2LikeC(quitMenuLabel, tryExplicit, pickRandom) {
+    if (hasQueuedInput()) {
+        const c2 = await nhgetch();
+        const kRaw2 = String.fromCodePoint(c2);
+        const k2 = lowc(kRaw2);
+        if (k2 === '\x1b' || k2 === 'q') throw new Error(`Player quit ${quitMenuLabel}`);
+        const ex = tryExplicit(k2, kRaw2);
+        if (ex !== undefined) return ex;
+        if (k2 !== '\r' && k2 !== '\n' && k2 !== ' ' && k2 !== '*') {
+            pushKey(c2);
+        }
+    }
+    return pickRandom();
+}
+
 async function readRaceChoice(disp, f) {
     const valid = [];
     for (let i = 0; i < races.length; i++) {
@@ -488,7 +509,11 @@ async function readRaceChoice(disp, f) {
         }
         if (k === '\x1b' || k === 'q') throw new Error('Player quit race menu');
         if (k === '*') {
-            const t = pickRaceJs(f.initrole, f.initgend, f.initalign, PICK_RANDOM);
+            const t = await chargenStarPickOneN2LikeC(
+                'race menu',
+                (k2) => (map.has(k2) ? /** @type {number} */ (map.get(k2)) : undefined),
+                () => pickRaceJs(f.initrole, f.initgend, f.initalign, PICK_RANDOM),
+            );
             if (t !== ROLE_NONE) return t;
             continue;
         }
@@ -550,7 +575,15 @@ async function readGenderChoice(disp, f) {
         }
         if (k === '\x1b' || k === 'q') throw new Error('Player quit gender menu');
         if (k === '*') {
-            const t = pickGendJs(f.initrole, f.initrace, f.initalign, PICK_RANDOM);
+            const t = await chargenStarPickOneN2LikeC(
+                'gender menu',
+                (k2) => {
+                    if (!map.has(k2)) return undefined;
+                    const gi = /** @type {number} */ (map.get(k2));
+                    return valid.includes(gi) ? gi : undefined;
+                },
+                () => pickGendJs(f.initrole, f.initrace, f.initalign, PICK_RANDOM),
+            );
             if (t !== ROLE_NONE) return t;
             continue;
         }
@@ -614,7 +647,11 @@ async function readAlignChoice(disp, f) {
         }
         if (k === '\x1b' || k === 'q') throw new Error('Player quit align menu');
         if (k === '*') {
-            const t = pickAlignJs(f.initrole, f.initrace, f.initgend, PICK_RANDOM);
+            const t = await chargenStarPickOneN2LikeC(
+                'align menu',
+                (k2) => (map.has(k2) ? /** @type {number} */ (map.get(k2)) : undefined),
+                () => pickAlignJs(f.initrole, f.initrace, f.initgend, PICK_RANDOM),
+            );
             if (t !== ROLE_NONE) return t;
             continue;
         }
