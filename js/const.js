@@ -2948,6 +2948,8 @@ export function Is_juiblex_level(uz) { return false; /* TODO */ }
 
 // eat.c gethungry switch — NH5 objects_nums (objclass.h + objects.h; first weapon DART = 25).
 export const OTYP_RIN_SLOW_DIGESTION = 176;
+/** C: objects.h RING order (NH5 `objects_nums`) — index **18** after first ring **156** (`OC_CHARGED_RING_OTYPES`). */
+export const OTYP_RIN_SHOCK_RESISTANCE = 174;
 export const OTYP_FAKE_AMULET_OF_YENDOR = 197;
 /** C: objects.h — real Amulet (after fake); NH5 `objects_nums`. */
 export const OTYP_AMULET_OF_YENDOR = 198;

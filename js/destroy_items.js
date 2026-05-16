@@ -1,5 +1,5 @@
-// destroy_items.js — Hero + monster inventory destruction by fire (zap.c subset).
-// C ref: zap.c destroy_items(), destroyable(), maybe_destroy_item() — AD_FIRE only;
+// destroy_items.js — Hero + monster inventory destruction by fire / electricity (zap.c subset).
+// C ref: zap.c destroy_items(), destroyable(), maybe_destroy_item() — AD_FIRE + AD_ELEC;
 // inventory_resistance_check / u_adtyp_resistance_obj / deferred stacks / potionbreathe /
 // Ring_gone / setnotworn / glob of slime — TODO or stubbed. **`ignite_items`** → **`ignite_items.js`**.
 
@@ -7,17 +7,33 @@ import { game } from './gstate.js';
 import { rn2, rnd } from './rng.js';
 import { pline } from './display.js';
 import { nh5HeroObjectClass, removeObjFromHeroInvent } from './water_damage.js';
-import { NH5_POTION_CLASS, NH5_SCROLL_CLASS, NH5_SPBOOK_CLASS } from './nh5_objclass.js';
+import {
+    NH5_POTION_CLASS,
+    NH5_SCROLL_CLASS,
+    NH5_SPBOOK_CLASS,
+    NH5_RING_CLASS,
+    NH5_WAND_CLASS,
+} from './nh5_objclass.js';
 import { OC_SKILL_ROW_BY_OTYP } from './obj_oc_skill_data.js';
 import { updateInventory } from './invent.js';
-import { losehp } from './mthrowu.js';
+import { losehp, maybeHalfPhys } from './mthrowu.js';
 import { exercise } from './attrib.js';
-import { A_STR, KILLED_BY, KILLED_BY_AN } from './const.js';
+import {
+    A_STR,
+    KILLED_BY,
+    KILLED_BY_AN,
+    W_RING,
+    OC_CHARGED_RING_OTYPES,
+    OTYP_RIN_SHOCK_RESISTANCE,
+} from './const.js';
 import { raceptr, fireResistant } from './mondata.js';
+import { WAN_LIGHTNING } from './buzz.js';
 import { discoverScrollOtyp } from './discover_scroll.js';
 
 /** C: monattk.h AD_FIRE */
 export const AD_FIRE = 2;
+/** C: monattk.h AD_ELEC — zap.c **`destroy_items`**, trap.c **`chest_trap`**. */
+export const AD_ELEC = 5;
 
 /** C: zap.c DMG_DESTROY_SCALE / MAX_ITEMS_DESTROYED */
 const DMG_DESTROY_SCALE = 5;
@@ -34,6 +50,8 @@ const DS_BOIL_POTION = 1;
 const DS_BOIL_OIL = 2;
 const DS_BURN_SCROLL = 3;
 const DS_BURN_SPELLBOOK = 4;
+const DS_SHOCK_RING = 5;
+const DS_EXPLODE_WAND = 6;
 
 const DESTROY_STRINGS = [
     ['freezes and shatters', 'freeze and shatter', 'shattered potion'],
@@ -41,6 +59,8 @@ const DESTROY_STRINGS = [
     ['ignites and explodes', 'ignite and explode', 'exploding potion'],
     ['catches fire and burns', 'catch fire and burn', 'burning scroll'],
     ['catches fire and burns', '', 'burning book'],
+    ['turns to dust and vanishes', 'turn to dust and vanish', ''],
+    ['breaks apart and explodes', 'break apart and explode', 'exploding wand'],
 ];
 
 /**
@@ -324,6 +344,172 @@ export async function destroyItemsYoumonstFire(g = game, dmgIn) {
         const slot = slots[i];
         const o = slot?.ref;
         if (o && !slot.deferred) dmgOut += await maybeDestroyItemHeroFire(g, o);
+    }
+    return dmgOut;
+}
+
+/** C: objclass.h **`IRON`…`MITHRIL`** — **`is_metallic`** subset for gloves vs ring shock. */
+function isMetallicMaterialElec(m) {
+    const x = m | 0;
+    return x >= 11 && x <= 17;
+}
+
+/**
+ * C: zap.c **`destroyable(obj, AD_ELEC)`** — rings except shock; wands except lightning.
+ * @param {{ otyp?: number, oclass?: number, quan?: number, in_use?: number, oartifact?: number }} obj
+ */
+function destroyableHeroElec(obj) {
+    if (!obj) return false;
+    if (obj.oartifact | 0) return false;
+    const quan = obj.quan ?? 1;
+    if ((obj.in_use | 0) && quan <= 1) return false;
+    const oc = nh5HeroObjectClass(obj);
+    const t = obj.otyp | 0;
+    if (oc === NH5_RING_CLASS) return t !== OTYP_RIN_SHOCK_RESISTANCE;
+    if (oc === NH5_WAND_CLASS) return t !== WAN_LIGHTNING;
+    return false;
+}
+
+/**
+ * C: read.c **`recharge(obj, 0)`** — **`RING_CLASS`** **`oc_charged`** branch only (**`curse_bless`** 0).
+ * @param {typeof game} g
+ */
+async function rechargeRingHeroElecLikeC(g, obj) {
+    const u = g.u;
+    if (!u || !obj) return;
+    const spe = obj.spe | 0;
+    if (spe > rn2(7) || spe <= -5) {
+        await pline(`Your ${objShortPhrase(obj)} momentarily pulsates, then explodes!`);
+        const isOn = obj === u.uleft || obj === u.uright;
+        if (isOn) {
+            if (u.uleft === obj) u.uleft = null;
+            if (u.uright === obj) u.uright = null;
+            obj.owornmask = 0;
+        }
+        const dam = rnd(3 * Math.max(1, Math.abs(spe)));
+        removeObjFromHeroInvent(g, obj);
+        losehp(maybeHalfPhys(dam), 'exploding ring', KILLED_BY_AN);
+        exercise(A_STR, false);
+        if (g.iflags?.perm_invent) updateInventory();
+    } else {
+        await pline(`Your ${objShortPhrase(obj)} spins clockwise for a moment.`);
+        obj.spe = (obj.spe | 0) + 1;
+        if (g.iflags?.perm_invent) updateInventory();
+    }
+}
+
+/**
+ * C: zap.c **`maybe_destroy_item(mon, obj, AD_ELEC)`** — hero only; **`inventory_resistance_check`** TODO.
+ * @param {typeof game} g
+ */
+async function maybeDestroyItemHeroElec(g, obj) {
+    const u = g.u;
+    if (!u || !obj) return 0;
+
+    const oc = nh5HeroObjectClass(obj);
+    let xresist = 0;
+    let skip = 0;
+    let dindx = 0;
+    let dmg = 0;
+    let chargeit = false;
+
+    xresist = oc !== NH5_RING_CLASS && !!(u.Shock_resistance | 0);
+
+    const origQuan = obj.quan ?? 1;
+    let quan = Math.max(1, origQuan);
+    if (obj.in_use | 0) quan -= 1;
+
+    if (oc === NH5_RING_CLASS) {
+        const wm = obj.owornmask | 0;
+        const gl = u.uarmg;
+        if ((wm & W_RING) && gl && !isMetallicMaterialElec(gl.oc_material | 0)) skip++;
+        else if ((obj.otyp | 0) === OTYP_RIN_SHOCK_RESISTANCE) skip++;
+        else if (OC_CHARGED_RING_OTYPES.has(obj.otyp | 0) && rn2(3)) chargeit = true;
+        else {
+            dindx = DS_SHOCK_RING;
+            dmg = 0;
+        }
+    } else if (oc === NH5_WAND_CLASS) {
+        dindx = DS_EXPLODE_WAND;
+        dmg = rnd(10);
+    } else {
+        skip++;
+    }
+
+    if (chargeit) {
+        await rechargeRingHeroElecLikeC(g, obj);
+        return 0;
+    }
+    if (skip) return 0;
+
+    let cnt = 0;
+    for (let i = 0; i < quan; i++) if (!rn2(3)) cnt++;
+    if (!cnt) return 0;
+
+    const str = DESTROY_STRINGS[dindx];
+    const verbIdx = cnt > 1 ? 1 : 0;
+    const verb = str[verbIdx] || str[0];
+    let mult = '';
+    if (cnt === 1 && quan === 1) mult = 'Your ';
+    else if (cnt === 1) mult = 'One of your ';
+    else if (cnt < quan) mult = 'Some of your ';
+    else if (quan === 2) mult = 'Both of your ';
+    else mult = 'All of your ';
+    const base = objShortPhrase(obj);
+    const noun = cnt === 1 && quan === 1 ? base : `${base}s`;
+    await pline(`${mult}${noun} ${verb}!`);
+
+    const newQuan = origQuan - cnt;
+    if (newQuan <= 0) removeObjFromHeroInvent(g, obj);
+    else obj.quan = newQuan;
+    if (g.iflags?.perm_invent) updateInventory();
+
+    if (dmg && !xresist) {
+        const how = str[2];
+        if (how) {
+            const one = cnt === 1;
+            const killer = one ? how : `${how}s`;
+            losehp(dmg, killer, one ? KILLED_BY_AN : KILLED_BY);
+            exercise(A_STR, false);
+        }
+    }
+    return dmg;
+}
+
+/**
+ * C: zap.c **`destroy_items(&gy.youmonst, AD_ELEC, dmg_in)`** — bypass/deferred omitted (**`Ring_gone`** subset).
+ * @param {typeof game} [g]
+ * @param {number} dmgIn
+ * @returns {Promise<number>}
+ */
+export async function destroyItemsYoumonstElec(g = game, dmgIn) {
+    const dmg0 = dmgIn | 0;
+    let limit = Math.trunc(dmg0 / DMG_DESTROY_SCALE);
+    if (dmg0 % DMG_DESTROY_SCALE > rn2(DMG_DESTROY_SCALE)) limit++;
+    if (limit > MAX_ITEMS_DESTROYED) limit = MAX_ITEMS_DESTROYED;
+    if (limit < 1) return 0;
+
+    const chain = g.invent;
+    if (!chain) return 0;
+
+    /** @type {Array<{ ref: object | null, deferred: boolean } | undefined>} */
+    const slots = [];
+    let eligStacks = 0;
+
+    for (let o = chain; o; o = o.nobj) {
+        if (!destroyableHeroElec(o)) continue;
+        const i = eligStacks < limit ? eligStacks : rn2(eligStacks);
+        eligStacks++;
+        if (i < 0 || i >= limit) continue;
+        slots[i] = { ref: o, deferred: false };
+    }
+    if (eligStacks > limit) eligStacks = limit;
+
+    let dmgOut = 0;
+    for (let i = 0; i < eligStacks; i++) {
+        const slot = slots[i];
+        const o = slot?.ref;
+        if (o && !slot.deferred) dmgOut += await maybeDestroyItemHeroElec(g, o);
     }
     return dmgOut;
 }

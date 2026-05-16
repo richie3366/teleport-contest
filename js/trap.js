@@ -25,7 +25,7 @@ import {
     OBJ_ROCK,
 } from './mthrowu.js';
 import { bimanual } from './weapon_kind.js';
-import { waterDamageOne, splashLitOne, ER_NOTHING } from './water_damage.js';
+import { waterDamageOne, splashLitOne, ER_NOTHING, heroLuck } from './water_damage.js';
 import { updateInventory } from './invent.js';
 import {
     placeFloorObject,
@@ -36,7 +36,7 @@ import {
     buryFloorChainAt,
 } from './floorobj.js';
 import { goodposHero } from './walkable.js';
-import { destroyItemsYoumonstFire, destroyItemsMonFire } from './destroy_items.js';
+import { destroyItemsYoumonstFire, destroyItemsYoumonstElec, destroyItemsMonFire } from './destroy_items.js';
 import { igniteHeroInventory, igniteMinvent } from './ignite_items.js';
 import { burnarmorYoumonst, burnarmorMtmp } from './erode_obj.js';
 import { burnFloorObjects } from './burn_floor_objects.js';
@@ -54,6 +54,7 @@ import { impactDropLikeC } from './impact_drop.js';
 import { dist2, depth } from './hacklib.js';
 import {
     raceptr,
+    stagger,
     fireResistant,
     isFlyer,
     isFloater,
@@ -147,6 +148,8 @@ import {
     is_xport,
     KILLED_BY_AN,
     M_SEEN_FIRE,
+    M_SEEN_ELEC,
+    Has_contents,
 } from './const.js';
 
 const M1_CLING = 0x00000010;
@@ -463,9 +466,210 @@ export async function dofiretrapHeroLikeC(box) {
     game.disp.botl = true;
 }
 
+/** C: trap.c **`body_part`** subset — **`bodypart`** arg to **`chest_trap`**. */
+function bodyPartChestTrapLikeC(bodypart) {
+    return (bodypart | 0) === 3 ? 'finger' : 'limb';
+}
+
+/** C: mon.c **`wake_nearby(FALSE)`** — **`wake_nearto_core(u.ux,u.uy, u.ulevel*20, FALSE)`**. */
+async function wakeNearbyFalseChestTrapLikeC(g) {
+    const u = g.u;
+    if (!u) return;
+    const ux = u.ux | 0;
+    const uy = u.uy | 0;
+    const lim = (u.ulevel | 0) * 20;
+    const monsters = g.level?.monsters ?? [];
+    for (let i = 0; i < monsters.length; i++) {
+        const mtmp = monsters[i];
+        if (!mtmp || (mtmp.mhp | 0) <= 0) continue;
+        if (lim !== 0 && dist2(mtmp.mx | 0, mtmp.my | 0, ux, uy) >= lim) continue;
+        if ((mtmp.msleeping | 0) && cansee(mtmp.mx | 0, mtmp.my | 0)) {
+            const s = mtmp?.monnam || mtmp?.data?.mname || 'monster';
+            const cap = s.charAt(0).toUpperCase() + s.slice(1);
+            await pline(`${cap} wakes up.`);
+        }
+        mtmp.msleeping = 0;
+    }
+}
+
+/** C: trap.c **`get_obj_location`** / carried — explosion uses chest tile or hero when carried. */
+function chestTrapObjCoordsLikeC(g, box) {
+    const u = g.u;
+    if (!box || !u) return { ox: 0, oy: 0 };
+    if (objectCarriedByHeroLikeC(g, box)) return { ox: u.ux | 0, oy: u.uy | 0 };
+    return { ox: box.ox | 0, oy: box.oy | 0 };
+}
+
+/** C: invent.c **`delete_contents`** — recursive **`obfree`** subset (**`obliterateObjectInLevel`**). */
+function deleteContentsChestTrapLikeC(g, box) {
+    if (!box) return;
+    while (Has_contents(box)) {
+        const ch = box.cobj;
+        if (!ch) break;
+        box.cobj = ch.nobj ?? null;
+        ch.nobj = null;
+        deleteContentsChestTrapLikeC(g, ch);
+        obliterateObjectInLevel(g, ch);
+    }
+}
+
+/**
+ * C: trap.c **`chest_trap`** cases **21–25** — floor **`delobj`** loop; shop **`stolen_value`** omitted.
+ * @returns {Promise<boolean>} **`chestgone`** (C return **`TRUE`**).
+ */
+async function chestTrapExplosionHeroLikeC(g, box, ox, oy) {
+    const u = g.u;
+    if (!u || !box) return false;
+    const named = theObjnamLikeC(doname(box, g));
+    const cap = named.charAt(0).toUpperCase() + named.slice(1);
+    await pline(`${cap} explodes!`);
+    deleteContentsChestTrapLikeC(g, box);
+    const xi = ox | 0;
+    const yi = oy | 0;
+    let chestgone = false;
+    const lvl = g.level;
+    if (lvl?.floorObjHeads) {
+        const k = floorObjKey(xi, yi);
+        const head = lvl.floorObjHeads.get(k);
+        lvl.floorObjHeads.delete(k);
+        const acc = [];
+        for (let o = head; o; o = o.nexthere) acc.push(o);
+        for (let i = 0; i < acc.length; i++) {
+            const o = acc[i];
+            if (o === box) chestgone = true;
+            obliterateObjectInLevel(g, o);
+        }
+    }
+    await wakeNearbyFalseChestTrapLikeC(g);
+    const buf = `exploding ${doname(box, g)}`;
+    losehp(maybeHalfPhys(d(6, 6)), buf, KILLED_BY_AN);
+    exercise(A_STR, false);
+    return chestgone;
+}
+
+const CHEST_TRAP_BLIND_GAS = Object.freeze(['fragrant', 'pungent', 'musty', 'heady']);
+const CHEST_TRAP_HALL_COLORS = Object.freeze(['red', 'orange', 'yellow', 'green', 'blue', 'indigo', 'violet']);
+
+/**
+ * C: trap.c **`chest_trap`** — trapped container (**`Luck`**, explosion, gases, needle, fire, shock, …).
+ * Shop billing / **`unpunish`** / full **`create_gas_cloud`** effects omitted; gas-cloud branch consumes **`rn1(3,4)`** like C.
+ * @param {import('./gstate.js').game} g
+ * @param {object} box
+ * @param {number} [bodypart] — C **`bodypart`** (**`FINGER`** **3**).
+ * @param {boolean} [disarm]
+ * @returns {Promise<boolean>} true if chest destroyed (C **`TRUE`**).
+ */
+export async function chestTrapHeroLikeC(g, box, bodypart = 3, disarm = false) {
+    const u = g.u;
+    if (!u || !box) return false;
+
+    const cc = chestTrapObjCoordsLikeC(g, box);
+    box.ox = cc.ox;
+    box.oy = cc.oy;
+    box.tknown = 0;
+    box.otrapped = 0;
+
+    await pline(disarm ? 'You set it off!' : 'You trigger a trap!');
+
+    const L = heroLuck(g);
+    if (L > -13 && rn2(13 + L) > 7) {
+        let msg;
+        switch (rn2(13)) {
+            case 12:
+            case 11:
+                msg = 'explosive charge is a dud';
+                break;
+            case 10:
+            case 9:
+                msg = 'electric charge is grounded';
+                break;
+            case 8:
+            case 7:
+                msg = 'flame fizzles out';
+                break;
+            case 6:
+            case 5:
+            case 4:
+                msg = 'poisoned needle misses';
+                break;
+            default:
+                msg = 'gas cloud blows away';
+                break;
+        }
+        await pline(`But luckily the ${msg}!`);
+    } else {
+        const sel = rn2(20) ? (L >= 13 ? 0 : rn2(13 - L)) : rn2(26);
+        if (sel >= 21) {
+            if (await chestTrapExplosionHeroLikeC(g, box, cc.ox, cc.oy)) {
+                return true;
+            }
+        } else if (sel >= 17) {
+            await pline(`A cloud of noxious gas billows from ${theObjnamLikeC(doname(box, g))}.`);
+            if (rn2(3)) {
+                await poisoned('gas cloud', A_STR, 'cloud of poison gas', 15, false);
+            } else {
+                rn1(3, 4);
+            }
+            exercise(A_CON, false);
+        } else if (sel >= 13) {
+            await pline(`You feel a needle prick your ${bodyPartChestTrapLikeC(bodypart)}.`);
+            await poisoned('needle', A_CON, 'poisoned needle', 10, false);
+            exercise(A_CON, false);
+        } else if (sel >= 9) {
+            await dofiretrapHeroLikeC(box);
+        } else if (sel >= 6) {
+            let dmg = d(4, 4);
+            const origDmg = dmg;
+            await pline('You are jolted by a surge of electricity!');
+            if (u.Shock_resistance | 0) {
+                await shieldeffLikeC(g, u.ux, u.uy);
+                await pline("You don't seem to be affected.");
+                monstseesuLikeC(M_SEEN_ELEC);
+                dmg = 0;
+            } else {
+                monstunseesuLikeC(M_SEEN_ELEC);
+            }
+            await destroyItemsYoumonstElec(g, origDmg);
+            if (dmg) losehp(dmg, 'electric shock', KILLED_BY_AN);
+        } else if (sel >= 3) {
+            if (!(u.Free_action | 0)) {
+                await pline('Suddenly you are frozen in place!');
+                nomul(-d(5, 6));
+                g.multi_reason = 'frozen by a trap';
+                g.nomovemsg = 'You can move again.';
+                exercise(A_DEX, false);
+            } else {
+                await pline('You momentarily stiffen.');
+            }
+        } else {
+            const blind = heroBlind();
+            const gasWord = blind
+                ? CHEST_TRAP_BLIND_GAS[rnd(CHEST_TRAP_BLIND_GAS.length)]
+                : CHEST_TRAP_HALL_COLORS[rnd(CHEST_TRAP_HALL_COLORS.length)];
+            await pline(
+                `A cloud of ${gasWord} gas billows from ${theObjnamLikeC(doname(box, g))}.`,
+            );
+            const stunned = (u.HStun | 0) !== 0;
+            if (!stunned) {
+                if (u.Hallucination | 0) await pline('What a groovy feeling!');
+                else {
+                    const suf = blind ? ' and get dizzy' : ' and your vision blurs';
+                    await pline(`You ${stagger(raceptr(g.youmonst), 'stagger')}${suf}...`);
+                }
+            }
+            u.HStun = (u.HStun | 0) + rn1(7, 16);
+            u.Hallucination = (u.Hallucination | 0) + rn1(5, 16);
+        }
+        g.disp = g.disp || {};
+        g.disp.botl = true;
+    }
+
+    box.tknown = 1;
+    return false;
+}
+
 /**
  * C: trap.c **`chest_trap`** — inner **`rn2(26)`** outcomes **9–12** → **`dofiretrap(obj)`** (tower of flame).
- * Full **`chest_trap`** (**`Luck`**, explosion, gas, needle, …) not ported; this is the **`dofiretrap`** branch only.
  * @param {object|null|undefined} box
  */
 export async function chestTrapDofireBranchHeroLikeC(box) {
