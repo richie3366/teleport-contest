@@ -18,7 +18,7 @@ export function mundisplaceable(mtmp) {
 }
 
 /**
- * C: hack.c displace — `!goodpos` for mon on hero tile and hero on mon tile / trap / `mundisplaceable` / `mtrapped`.
+ * C: hack.c displace — `!goodpos` for mon on hero tile and hero on mon tile / trap on either cell / `mundisplaceable` / `mtrapped`.
  * @param {{ mtrapped?: number }} mtmp
  * @param {number} heroX
  * @param {number} heroY
@@ -30,6 +30,7 @@ export function canPeacefullyDisplace(mtmp, heroX, heroY, monX, monY) {
     if ((mtmp.mtrapped | 0) !== 0) return false;
     if (mundisplaceable(mtmp)) return false;
     if (tAt(heroX, heroY)) return false;
+    if (tAt(monX, monY)) return false;
     if (terrainBlocksDisplaceForMon(mtmp, heroX, heroY)) return false;
     if (terrainBlocksDisplaceForHero(monX, monY)) return false;
     return true;
