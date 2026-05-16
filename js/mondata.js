@@ -17,7 +17,15 @@ import {
     PM_FLOATING_EYE,
     PM_CYCLOPS,
     PM_LIZARD,
+    PM_GRAY_DRAGON,
+    PM_YELLOW_DRAGON,
     OTYP_AMULET_OF_YENDOR,
+    OTYP_GRAY_DRAGON_SCALE_MAIL,
+    OTYP_YELLOW_DRAGON_SCALE_MAIL,
+    OTYP_GRAY_DRAGON_SCALES,
+    OTYP_YELLOW_DRAGON_SCALES,
+    OTYP_BLACK_DRAGON_SCALES,
+    OTYP_DRAGON_MAIL_TO_SCALES_DELTA,
     Is_airlevel,
     Is_firelevel,
     Is_earthlevel,
@@ -174,22 +182,79 @@ export function isVampshifterMonsterLikeC(mtmp) {
     return c === PM_VAMPIRE || c === PM_VAMPIRE_LEADER || c === PM_VLAD_THE_IMPALER;
 }
 
+/** C: monattk.h — `defended` / `defends` drain-life. */
+const AD_DRLI = 15;
+/** C: monattk.h — paired with **AD_DRLI** on black dragon scales in **`artifact.c`** **`defends`**. */
+const AD_DISN = 5;
+
+/** C: obj.h **`Is_dragon_scales`** / **`Is_dragon_mail`** (NH 5.0 **`OBJECTS_ENUM`**). */
+function isDragonArmorOtypLikeC(otyp) {
+    const t = otyp | 0;
+    return (
+        (t >= OTYP_GRAY_DRAGON_SCALE_MAIL && t <= OTYP_YELLOW_DRAGON_SCALE_MAIL)
+        || (t >= OTYP_GRAY_DRAGON_SCALES && t <= OTYP_YELLOW_DRAGON_SCALES)
+    );
+}
+
+/** C: artifact.c **`defends(adtyp, otmp)`** — artifact **`defn.adtyp`** + dragon armor subset. */
+function defendsAdtypOnObjHeroSubsetLikeC(g, adtyp, obj) {
+    if (!obj) return false;
+    const ax = obj.oartifact | 0;
+    if (ax) {
+        const row = g?.artilist?.[ax];
+        const defnAd = row?.defn?.adtyp;
+        if (Number.isFinite(defnAd) && (defnAd | 0) === (adtyp | 0)) return true;
+        /* C: artilist.h — **`Excalibur`**, **`Stormbringer`**, **`The Staff of Aesculapius`** **`defn`** **`DRLI`**. */
+        if ((adtyp | 0) === AD_DRLI && (ax === 1 || ax === 2 || ax === 25)) return true;
+    }
+    if (isDragonArmorOtypLikeC(obj.otyp | 0)) {
+        let otyp = obj.otyp | 0;
+        if (otyp >= OTYP_GRAY_DRAGON_SCALE_MAIL && otyp <= OTYP_YELLOW_DRAGON_SCALE_MAIL) {
+            otyp += OTYP_DRAGON_MAIL_TO_SCALES_DELTA;
+        }
+        if (otyp < OTYP_GRAY_DRAGON_SCALES || otyp > OTYP_YELLOW_DRAGON_SCALES) return false;
+        const ad = adtyp | 0;
+        if (ad === AD_DISN || ad === AD_DRLI) return otyp === OTYP_BLACK_DRAGON_SCALES;
+    }
+    return false;
+}
+
 /**
- * C: mondata.c resists_drli(&gy.youmonst) — intrinsic form + lycanthrope; **`is_vampshifter`** / **`defended(AD_DRLI)`** still TODO (**`exper.c`** **`losexp`** / **`mondata.c`** **`resists_drli`**).
+ * C: mondata.c **`defended(&gy.youmonst, adtyp)`** — wielded artifact, adult dragon body, worn **`uarm`** dragon suit.
+ * @param {typeof game} g
+ * @param {number} adtyp
+ */
+export function defendedHeroAdtypLikeC(g, adtyp) {
+    const u = g?.u;
+    if (!u) return false;
+    const uw = u.uwep;
+    if (uw && defendsAdtypOnObjHeroSubsetLikeC(g, adtyp, uw)) return true;
+    const mndx = (g.youmonst?.mnum ?? u.umonnum) | 0;
+    if (mndx >= PM_GRAY_DRAGON && mndx <= PM_YELLOW_DRAGON) {
+        const otyp = OTYP_GRAY_DRAGON_SCALES + (mndx - PM_GRAY_DRAGON);
+        const ad = adtyp | 0;
+        if ((ad === AD_DISN || ad === AD_DRLI) && otyp === OTYP_BLACK_DRAGON_SCALES) return true;
+    }
+    const arm = u.uarm;
+    if (arm && defendsAdtypOnObjHeroSubsetLikeC(g, adtyp, arm)) return true;
+    return false;
+}
+
+/**
+ * C: mondata.c **`resists_drli(&gy.youmonst)`** — undead/demon/were, lycanthrope hero, **`PM_DEATH`**, **`is_vampshifter`**, **`defended(AD_DRLI)`** (no separate **`Drain_resistance`** intrinsic; C **`exper.c`** **`losexp`** gates on this only).
  * @param {typeof game} g
  */
 export function resistsDrliHeroLikeC(g) {
     const u = g?.u;
     if (!u) return true;
-    if (u.Drain_resistance | 0) return true;
     const ptr = raceptr(g.youmonst);
     if (isUndeadPtr(ptr) || isDemonPtr(ptr) || isWerePtr(ptr)) return true;
     const lycn = u.ulycn;
     if (Number.isInteger(lycn) && lycn !== NON_PM && lycn >= LOW_PM) return true;
     const mnum = (g.youmonst?.mnum ?? u.umonnum) | 0;
     if (mnum === PM_DEATH) return true;
-    /* C: is_vampshifter(mon) — TODO */
-    return false;
+    if (isVampshifterMonsterLikeC(g.youmonst)) return true;
+    return defendedHeroAdtypLikeC(g, AD_DRLI);
 }
 
 /**

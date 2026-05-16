@@ -2967,9 +2967,20 @@ export const PM_GRID_BUG = 115;
 export const PM_GREMLIN = 42;
 /** C: `monsters.h` MON() order — lichen/lizard corpses skip **`start_corpse_timeout`**. */
 export const PM_LICHEN = 162;
+/** C: `monsters.h` MON() order — adult gray–yellow dragon (`mondata.c` `defended`, `Dragon_scales_to_pm`). */
+export const PM_GRAY_DRAGON = 143;
+export const PM_YELLOW_DRAGON = 153;
+/** C: objects.h `OBJECTS_ENUM` (NH 5.0) — dragon scale mail / scales contiguous blocks. */
+export const OTYP_GRAY_DRAGON_SCALE_MAIL = 102;
+export const OTYP_YELLOW_DRAGON_SCALE_MAIL = 111;
+export const OTYP_GRAY_DRAGON_SCALES = 112;
+export const OTYP_YELLOW_DRAGON_SCALES = 121;
+export const OTYP_BLACK_DRAGON_SCALES = 118;
+/** C: `artifact.c` **`defends`**: mail is tested as equivalent scales offset. */
+export const OTYP_DRAGON_MAIL_TO_SCALES_DELTA = OTYP_GRAY_DRAGON_SCALES - OTYP_GRAY_DRAGON_SCALE_MAIL;
 /** C: `monsters.h` MON() order — **`mondata.h`** **`eyecount`**. */
 export const PM_FLOATING_EYE = 29;
-/** C: `monsters.h` MON() order — **`mondata.h`** **`eyecount`**. */
+/** C: `monsters.h` MON() order — cyclops. */
 export const PM_CYCLOPS = 370;
 export const PM_LIZARD = 333;
 /** C: `monsters.h` — iron golem. */

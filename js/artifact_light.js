@@ -3,9 +3,9 @@
 
 import { W_ARM } from './const.js';
 
-/** C: objects.h — preprocessor **`OBJECTS_ENUM`** order (NH 5.0 upstream). */
-const OTYP_GOLD_DRAGON_SCALE_MAIL = 102;
-const OTYP_GOLD_DRAGON_SCALES = 112;
+/** C: objects.h `OBJECTS_ENUM` (NH 5.0 upstream). */
+const OTYP_GOLD_DRAGON_SCALE_MAIL = 103;
+const OTYP_GOLD_DRAGON_SCALES = 113;
 
 /** C: artilist.h — **`ART_SUNSWORD`** (**`oartifact`** index; dummy **#0**). */
 const ART_SUNSWORD = 20;
