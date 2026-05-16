@@ -15,6 +15,7 @@ import { floorObjKey } from './floorobj.js';
 import { nomul } from './timeout.js';
 import { isContainerOtyp } from './water_damage.js';
 import { chestTrapHeroLikeC, theObjnamLikeC } from './trap.js';
+import { uHandsyHeroLikeC } from './hero_hands.js';
 
 /** C: reset_justpicked(olist) — clear pickup_prev on each object in the chain. */
 export function resetJustPicked(olist) {
@@ -274,7 +275,7 @@ export function floorContainerAtHeroFeetPickupLikeC(g) {
 
 /**
  * C: pickup.c **`use_container`** — first **carried** (**`gi.invent`** chain) unlocked trapped container (**`#loot`** subset).
- * Omits **`u_handsy`**, nested-in-container pick, shop / bag-of-tricks branches.
+ * Omits nested-in-container pick, shop / bag-of-tricks branches. **`u_handsy`** is enforced in **`heroOpenTrappedContainerPickupLikeC`**.
  * @param {import('./gstate.js').game} g
  * @returns {object|null}
  */
@@ -294,9 +295,10 @@ export function carriedTrappedUnlockedContainerPickupLikeC(g) {
  * @param {import('./gstate.js').game} g
  * @param {object} obj
  * @param {boolean} held — C **`held`** (**`You("open %s...", …)`** only when true).
- * @returns {Promise<boolean>} true if **`chest_trap`** ran
+ * @returns {Promise<boolean>} true if **`chest_trap`** ran (**`false`** if **`u_handsy`** fails or bad **`obj`**)
  */
 export async function heroOpenTrappedContainerPickupLikeC(g, obj, held) {
+    if (!(await uHandsyHeroLikeC(g))) return false;
     if (!obj || !isContainerOtyp(obj.otyp | 0)) return false;
     if (obj.olocked | 0) return false;
     if (!(obj.otrapped | 0)) return false;

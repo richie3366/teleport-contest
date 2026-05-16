@@ -21,6 +21,7 @@ import { canReachFloor } from './engrave.js';
 import { doname } from './objnam.js';
 import { theObjnamLikeC } from './trap.js';
 import { floorContainerAtHeroFeetPickupLikeC, heroOpenTrappedContainerPickupLikeC, carriedTrappedUnlockedContainerPickupLikeC } from './pickup.js';
+import { uHandsyHeroLikeC } from './hero_hands.js';
 import { applyPicklockSucceededOnFloorBoxHeroLikeC, heroFirstLockToolOtypLikeC } from './lock_hero.js';
 import {
     ubuzzOverFloor,
@@ -161,17 +162,20 @@ export async function runExtcmdFromHashPrefix() {
             await flush_screen(1);
             return;
         }
+        if (!(await uHandsyHeroLikeC(g))) {
+            game._retainMessageAfterCommand = true;
+            await flush_screen(1);
+            return;
+        }
         const tr = tAt(u.ux | 0, u.uy | 0);
         const reach = canReachFloor(!!(tr && is_pit(tr.ttyp)));
         const boxF = reach ? floorContainerAtHeroFeetPickupLikeC(g) : null;
         const boxC = carriedTrappedUnlockedContainerPickupLikeC(g);
 
         if (boxF && !(boxF.olocked | 0) && (boxF.otrapped | 0)) {
-            await heroOpenTrappedContainerPickupLikeC(g, boxF, false);
-            game.context.move = 1;
+            if (await heroOpenTrappedContainerPickupLikeC(g, boxF, false)) game.context.move = 1;
         } else if (boxC) {
-            await heroOpenTrappedContainerPickupLikeC(g, boxC, true);
-            game.context.move = 1;
+            if (await heroOpenTrappedContainerPickupLikeC(g, boxC, true)) game.context.move = 1;
         } else if (boxF && (boxF.olocked | 0)) {
             await pline(`${theObjnamLikeC(doname(boxF, g))} is locked.`);
         } else if (boxF && !(boxF.otrapped | 0)) {

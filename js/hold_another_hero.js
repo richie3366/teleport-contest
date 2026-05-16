@@ -33,6 +33,7 @@ import { NH5_COIN_CLASS, NH5_GEM_CLASS } from './nh5_objclass.js';
 import { removeWornItemHeroShipObjectLikeC } from './remove_worn_item_hero.js';
 import { raceptr } from './mondata.js';
 import { exercise } from './attrib.js';
+import { freehandHeroLikeC, nohandsPermonstLikeC } from './hero_hands.js';
 
 /** C: hack.h **`invlet_basic`** (52). */
 const INVLET_BASIC = 52;
@@ -279,14 +280,6 @@ export async function ucatchgemHeroLikeC(g, gem, mon) {
     return true;
 }
 
-function freehandHeroStubLikeC(_g) {
-    return true;
-}
-
-function nohandsHeroDataStubLikeC(_ptr) {
-    return false;
-}
-
 /**
  * C: **`mthrowu.c`** **`u_catch_thrown_obj()`** — dex / monk+rogue / blind / conf / stun / fumble / venom /
  * hands / **`freehand`** / **`calc_capacity(owt)`** / **`rn2(catch_chance)`**.
@@ -302,7 +295,7 @@ export async function uCatchThrownObjHeroLikeC(g, otmp) {
     if ((u.Fumbling | 0) !== 0) return false;
     if ((otmp.oc_material | 0) === OC_MATERIAL_LIQUID_VENOM) return false;
     const ptr = raceptr(g.youmonst);
-    if (nohandsHeroDataStubLikeC(ptr) || !freehandHeroStubLikeC(g)) return false;
+    if (nohandsPermonstLikeC(ptr) || !freehandHeroLikeC(g)) return false;
 
     let catchChance = 100 - ((u.acurr?.a?.[A_DEX] ?? 10) | 0);
     const abbr = g.urole?.abbr;
