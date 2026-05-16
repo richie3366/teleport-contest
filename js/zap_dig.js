@@ -8,6 +8,7 @@
 import { rn1 } from './rng.js';
 import { pline, newsym } from './display.js';
 import { vision_recalc, cansee } from './vision.js';
+import { inTownLikeC } from './hacklib.js';
 import { isClosedDoorLoc } from './walkable.js';
 import { payAfterHeroDigShopHoleLikeC } from './dig_pay.js';
 import { addDamageAt, inRoomsShopbaseRoomnos } from './shop.js';
@@ -107,11 +108,6 @@ function conjoinedPitsLikeC(g, trap2, trap1, uEnteringTrap2) {
 
 function inShopbaseRooms(g, x, y) {
     return inRoomsShopbaseRoomnos(g, x | 0, y | 0).length > 0;
-}
-
-/** C: dig.c in_town — not ported; always false (no watchmen / town-wall parity yet). */
-function inTownLikeC(_g, _x, _y) {
-    return false;
 }
 
 /**

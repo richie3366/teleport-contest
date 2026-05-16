@@ -15,6 +15,7 @@ import {
     payAfterHeroHandDigShopDoorBreakLikeC,
 } from './dig_pay.js';
 import { bTrappedDoorFootLikeC } from './kick.js';
+import { inTownLikeC } from './hacklib.js';
 import {
     IS_WALL,
     IS_DOOR,
@@ -31,11 +32,6 @@ import {
     WM_MASK,
     Is_rogue_level,
 } from './const.js';
-
-/** C: dig.c **`in_town`** — not ported (**`zap_dig.js`** same stub). */
-function inTownDigStub(_g, _x, _y) {
-    return false;
-}
 
 /**
  * C: detect.c **`cvt_sdoor_to_door`**
@@ -83,7 +79,7 @@ export async function heroDigCompleteWallDoorOrSecretLikeC(g, dpx, dpy) {
         if (g.level?.flags?.is_maze_lev) {
             loc.typ = ROOM;
             loc.flags = 0;
-        } else if (g.level?.flags?.is_cavernous_lev && !inTownDigStub(g, dpx, dpy)) {
+        } else if (g.level?.flags?.is_cavernous_lev && !inTownLikeC(g, dpx, dpy)) {
             loc.typ = CORR;
             loc.flags = 0;
         } else {
