@@ -147,6 +147,11 @@ async function domove(dx, dy) {
     const mtmp = mAt(newx, newy);
     if (mtmp) {
         await doBumpMeleeAttack(mtmp);
+        game._pending_message = '';
+        game._overlayScreen = null;
+        game._inventoryMode = false;
+        newsym(newx, newy);
+        vision_recalc(1);
         return true;
     }
 
