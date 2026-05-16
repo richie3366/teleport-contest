@@ -6,6 +6,7 @@ Historical rows moved from `c-to-js-port-progress.md` so day-to-day work uses **
 
 | When | What changed |
 |------|----------------|
+| **2026-05-16 (`allmain.c` `movemon` multi-pass / `somebody_can_move`)** | **`monmove.js`**: after harness, loop monster sweeps + **`mintrapMoveloopTail`** until no living mon has **`movement >= NORMAL_SPEED`** (**`NORMAL_SPEED`** from **`const.js`**). **`npm run score`:** **0/44**; **`seed0060`** **991/3626** (unchanged). |
 | **2026-05-16 (`mon.c` `movemon_singlemon` movement spend + `m_move`)** | **`m_move_mon.js`**: skip **`distfleeck`/`m_throw`** unless **`movement >= NORMAL_SPEED`**, then **`movement -= NORMAL_SPEED`**. **`monmove.js`**: comment. **`npm run score`:** **0/44**; **`seed0060`** **991/3626** (unchanged). |
 | **2026-05-16 (`allmain.c` `mcalcmove` + `mon.c` movement batch)** | **`allmain.js`**: on **`context.move`**, **`m.movement += mcalcMoveLikeC(m, true, g)`** for each level monster before **`settrack`/`moves++`** (C end-of-round allocation). **`m_move_mon.js`**, **`monmove.js`**: comments. **`npm run score`:** **0/44**; **`seed0060`** **991/3626** (unchanged). |
 | **2026-05-16 (`monmove.c` `flees_light` + `artifact.c` `artifact_light`)** | **`artifact_light.js`**: **`artifactLightObjLikeC`** (gold dragon worn armor + **`ART_SUNSWORD`**). **`distfleeck_mon.js`**: **`fleesLightMonsterLikeC`** (**`couldsee`**, lit **`uwep`/`uarm`**); **`vision.js`** import. **`npm run score`:** **0/44**; **`seed0060`** **991/3626** (unchanged). |
