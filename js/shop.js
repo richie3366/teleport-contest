@@ -210,7 +210,7 @@ function eshkShoproomAsLevlRno(eshk) {
 }
 
 /** C: shk.c **`shop_keeper(rmno)`** — find resident shk for **`levl.roomno`** **`rmno`**. */
-function shopKeeperForLevlRoomno(g, roomno) {
+export function shopKeeperForLevlRoomno(g, roomno) {
     const target = roomno | 0;
     if (target < ROOMOFFSET) return null;
     for (const m of g.level?.monsters ?? []) {
@@ -786,7 +786,7 @@ function rileShkMinimal(shkp) {
  * omits **`clear_no_charge`** / **`clear_no_charge_pets`**.
  * @param {import('./gstate.js').game} g
  */
-async function hotPursuitShk(g, shkp) {
+export async function hotPursuitShk(g, shkp) {
     if (!(shkp?.isshk | 0)) return;
     rileShkMinimal(shkp);
     const e = ESHK(shkp);
@@ -1560,7 +1560,7 @@ function getPricingUnitsStolenBury(obj) {
  * C: shk.c **`picked_container`** — clear **`no_charge`** on nested contents (subset, no **`dropped_container`**).
  * @param {object} obj
  */
-function pickedContainerNoChargeClear(obj) {
+export function pickedContainerNoChargeClear(obj) {
     for (let otmp = obj?.cobj; otmp; otmp = otmp.nobj) {
         if ((otmp.oclass | 0) === NH5_COIN_CLASS) continue;
         if (otmp.no_charge | 0) otmp.no_charge = 0;

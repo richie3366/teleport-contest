@@ -50,6 +50,7 @@ import {
     nextToUForHoleFallStub,
 } from './goto_level_hero.js';
 import { shopdigLikeC, heroInShopOccupancyLikeUshops } from './shop.js';
+import { impactDropLikeC } from './impact_drop.js';
 import { dist2, depth } from './hacklib.js';
 import {
     raceptr,
@@ -2225,7 +2226,7 @@ async function trapeffectHoleHero(trap, trflags) {
 
     if (dontFallMsg) {
         await pline(`You ${dontFallMsg}`);
-        /* C: **`impact_drop`/`pickup`**; **`!td`** closing pline — deferred. */
+        await impactDropLikeC(g, null, u.ux | 0, u.uy | 0, 0);
         vision_recalc(1);
         newsym(u.ux, u.uy);
         return;

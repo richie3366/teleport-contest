@@ -2,8 +2,8 @@
 // C ref: dig.c digactualhole() HOLE branch; trap.c trapeffect_hole() → fall_through(TRUE,…);
 //        do.c goto_level / schedule_goto tail; spoteffects(FALSE) after arrival.
 //
-// Ported: **`applyGotoAfterHeroHoleFallLikeC(g, dest?)`**, **`shopdigLikeC(1)`** / **`payForDamage('dig into')`** before **`You fall through...`** (**`dig.c`** **`digactualhole`** order).
-// Deferred: **`impact_drop`/`pickup`**, **`fill_pit`**, real **`next_to_u`**,
+// Ported: **`applyGotoAfterHeroHoleFallLikeC(g, dest?)`**, **`impactDropLikeC`**/**`objDeliveryLikeC`** (**`dokick.c`**), **`shopdigLikeC(1)`** / **`payForDamage('dig into')`** before **`You fall through...`** (**`dig.c`** **`digactualhole`** order).
+// Deferred: **`pickup`**, **`fill_pit`**, real **`next_to_u`**,
 // **`keepdogs`**, bones/save, full **`schedule_goto`/`goto_level`** beyond **`mklev`**.
 
 import { mklev } from './mklev.js';
@@ -12,6 +12,7 @@ import { vision_recalc } from './vision.js';
 import { pline } from './display.js';
 import { onLevelLikeC } from './hacklib.js';
 import { shopdigLikeC, payForDamage, heroInShopOccupancyLikeUshops } from './shop.js';
+import { impactDropLikeC, objDeliveryLikeC } from './impact_drop.js';
 
 /** C: mon.c **`next_to_u`** — stub **TRUE** until ball&chain / leash parity. */
 export function nextToUForHoleFallStub() {
@@ -51,12 +52,17 @@ export async function applyGotoAfterHeroHoleFallLikeC(g, dest) {
         newUz = { dnum, dlevel };
     }
 
+    /* C: do.c **`goto_level`** **`falling`** → **`impact_drop(..., newlevel->dlevel)`** before **`u.uz`** assign. */
+    await impactDropLikeC(g, null, u.ux | 0, u.uy | 0, newUz.dlevel | 0);
+
     u.uz = newUz;
     u.utrap = 0;
     u.utraptype = 0;
 
     await mklev();
+    await objDeliveryLikeC(g, false);
     await spotEffects(g, false, {});
+    await objDeliveryLikeC(g, true);
     vision_recalc(1);
 }
 

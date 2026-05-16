@@ -10,7 +10,7 @@
 // **PIT** vs **HOLE** per C; **digactualHoleHeroUtrapSubset** before trap.
 // Ported: drawbridge **`DRAWBRIDGE_DOWN`**/**wall** + **`destroy_drawbridge`**; **`DRAWBRIDGE_UP`**
 // + **`fillholetyp`** + **`liquid_flow`** (**`drawbridgemask`** **`DB_UNDER`**); **`IS_GRAVE`** + **`dig_up_grave`** subset.
-// Deferred: full **`goto_level`** (bones, **`impact_drop`**, **`shopdig`**, **`keepdogs`**, **`next_to_u`**),
+// Deferred: full **`goto_level`** (bones, **`pickup`**, **`keepdogs`**, **`next_to_u`**),
 // shop billing, monsters, furniture_handled, Invocation_lev, AM_SANCTUM, **PASSED_DESTROY_TRAP** full **`maketrap`** parity.
 
 import { pline, newsym } from './display.js';
@@ -21,9 +21,11 @@ import {
     digactualHoleHeroUtrapSubset,
     obliterateObjectInLevel,
     unearthObjsDigInLevel,
+    floorObjKey,
 } from './floorobj.js';
 import { digUpGraveLikeC } from './dig_grave.js';
-import { gotoLevelHeroFallThroughDigHoleLikeC } from './goto_level_hero.js';
+import { gotoLevelHeroFallThroughDigHoleLikeC, nextToUForHoleFallStub } from './goto_level_hero.js';
+import { impactDropLikeC } from './impact_drop.js';
 import { spotChecksLikeC } from './spot_checks.js';
 import { fillholetypLikeC } from './fillholetyp.js';
 import { liquidFlowHeroDigLikeC } from './liquid_flow.js';
@@ -442,8 +444,15 @@ export async function digholeHeroLikeC(g, pitOnly, byMagic, cc) {
                 }
             } else {
                 await pline('You dig a hole through the floor.');
-                if (g.u.ustuck || g.u.Levitation || g.u.Flying) {
-                    /* C: no fall — **`impact_drop`/`pickup`** deferred. */
+                let wontFall = !!(g.u.ustuck || g.u.Levitation || g.u.Flying);
+                if (!g.u.ustuck && !wontFall && !nextToUForHoleFallStub()) {
+                    await pline('You are jerked back by your pet!');
+                    wontFall = true;
+                }
+                if (wontFall) {
+                    if (lvl.floorObjHeads?.get(floorObjKey(digX, digY))) {
+                        await impactDropLikeC(g, null, digX, digY, 0);
+                    }
                 } else {
                     await gotoLevelHeroFallThroughDigHoleLikeC(g, digX, digY);
                 }
