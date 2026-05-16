@@ -2,19 +2,20 @@
 // C ref: dig.c dig_check(), digcheck_fail_message(), dighole(), decl.c zdir (callers set u.dz).
 //
 // Ported: BY_YOU dig_check; digcheck_fail_message tail; dighole opening guards + magical explode;
-// pool/lava slosh + wake_nearto stub; **`fillholetyp`** + **`liquid_flow`** when adjacent liquid;
+// pool/lava slosh + wake_nearto stub; **boulder** + pit/**`rn2(2)`** vs **KADOOM** + **`delfloortrap`**/**`delobj`**;
+// **`fillholetyp`** + **`liquid_flow`** when adjacent liquid;
 // ROOM/CORR + **DIGCHECK_PASSED|PASSED_PITONLY** + Can_dig_down (**no erroneous `!ttmp` gate**);
 // magical **`LANDMINE`/`BEAR_TRAP`** → **`cnv_trap_obj(..., TRUE)`** (**`cnvTrapObjLikeC`**); other floor traps
 // cleared before **`digactualHole`** + new pit/hole (**`maketrap`** replaces in C);
 // **PIT** vs **HOLE** per C; **digactualHoleHeroUtrapSubset** before trap.
-// Deferred: drawbridge, boulder KADOOM, grave, goto_level,
+// Deferred: drawbridge down/wall/up, grave, goto_level,
 // shop billing, monsters, furniture_handled, Invocation_lev, AM_SANCTUM, **PASSED_DESTROY_TRAP** full **`maketrap`** parity.
 
 import { pline, newsym } from './display.js';
 import { vision_recalc, cansee } from './vision.js';
-import { d, rn1 } from './rng.js';
+import { d, rn1, rn2 } from './rng.js';
 import { stairwayAt } from './decor.js';
-import { digactualHoleHeroUtrapSubset } from './floorobj.js';
+import { digactualHoleHeroUtrapSubset, obliterateObjectInLevel } from './floorobj.js';
 import { spotChecksLikeC } from './spot_checks.js';
 import { fillholetypLikeC } from './fillholetyp.js';
 import { liquidFlowHeroDigLikeC } from './liquid_flow.js';
@@ -109,14 +110,18 @@ function undestroyableTrapTyp(tt) {
     return t === MAGIC_PORTAL || t === VIBRATING_SQUARE;
 }
 
-function sobjAtBoulder(g, x, y) {
+function sobjFirstBoulderAt(g, x, y) {
     const heads = g.level?.floorObjHeads;
-    if (!heads) return false;
+    if (!heads) return null;
     const k = `${x | 0},${y | 0}`;
     for (let o = heads.get(k) ?? null; o; o = o.nexthere) {
-        if ((o.otyp | 0) === OTYP_BOULDER) return true;
+        if ((o.otyp | 0) === OTYP_BOULDER) return o;
     }
-    return false;
+    return null;
+}
+
+function sobjAtBoulder(g, x, y) {
+    return sobjFirstBoulderAt(g, x, y) != null;
 }
 
 function surfaceHereString(g, x, y) {
@@ -222,7 +227,7 @@ export async function digcheckFailMessageByYouAtLikeC(g, digresult, x, y) {
 }
 
 /**
- * C: dig.c dighole(FALSE, TRUE, cc) — subset (**`goto_level`**, drawbridge/boulder/grave still TODO).
+ * C: dig.c dighole(FALSE, TRUE, cc) — subset (**`goto_level`**, drawbridge, grave still TODO).
  * @param {import('./gstate.js').game} g
  * @param {boolean} pitOnly
  * @param {boolean} byMagic
@@ -275,6 +280,24 @@ export async function digholeHeroLikeC(g, pitOnly, byMagic, cc) {
             const liq = IS_LAVA(oldTyp) ? 'lava' : 'water';
             await pline(`The ${liq} sloshes furiously for a moment, then subsides.`);
             wakeNeartoStub(digX, digY, 400);
+            return true;
+        }
+
+        /* C: dig.c — boulder on cell: pit+**`rn2(2)`** crushes spikes vs KADOOM + **`delfloortrap`** + **`delobj`**. */
+        const boulderHere = sobjFirstBoulderAt(g, digX, digY);
+        if (boulderHere) {
+            if (ttmp && is_pit(ttmp.ttyp | 0) && rn2(2)) {
+                const away = digX !== (u.ux | 0) || digY !== (u.uy | 0);
+                await pline(`The boulder settles into the ${away ? 'adjacent ' : ''}pit.`);
+                ttmp.ttyp = PIT;
+            } else {
+                await pline('KADOOM!  The boulder falls in!');
+                wakeNeartoStub(digX, digY, 500);
+                if (ttmp) delTrapInLevel(g, ttmp);
+            }
+            obliterateObjectInLevel(g, boulderHere);
+            newsym(digX, digY);
+            vision_recalc(1);
             return true;
         }
 
