@@ -7,13 +7,13 @@
 //        shk.c **`shopdig()`** ( **`dig.c`** **`digactualhole`** HOLE + **`trap.c`** **`fall_through`** ).
 
 import { game } from './gstate.js';
-import { pline, newsym } from './display.js';
+import { pline, newsym, mapInvisibleCellLikeC } from './display.js';
 import { unlinkFloorObject, floorObjKey, unlinkFloorObjectInLevel, placeFloorObjectInLevel, stackObjOnFloorInLevel, obliterateObjectInLevel } from './floorobj.js';
 import { cansee, vision_recalc } from './vision.js';
 import { delEngrAt } from './engrave.js';
 import { doname } from './objnam.js';
 import { raceptr, passesWalls, stubPermonstForCorpsenm, MR_FIRE, MR_SLEEP, noncorporeal, S_ELEMENTAL, locomotion, nolimbs } from './mondata.js';
-import { heroPassesWalls, enextoNearMon } from './walkable.js';
+import { heroPassesWalls, enextoNearMon, goodposNewMonster } from './walkable.js';
 import { dist2 } from './hacklib.js';
 import { rn2, rnd } from './rng.js';
 import { nhgetch } from './input.js';
@@ -257,9 +257,66 @@ function shkImpaired(g, shkp) {
     return false;
 }
 
+/** C: mondata.h **`canspotmon`** subset — steed / invis / **`cansee`**. */
+function canspotMonShkcatchLikeC(g, mtmp) {
+    const u = g.u;
+    if (!mtmp || !u) return false;
+    if ((u.usteed | 0) && u.usteed === mtmp) return true;
+    if ((mtmp.minvis | 0) && !(u.See_invisible | 0)) return false;
+    return cansee(mtmp.mx | 0, mtmp.my | 0);
+}
+
+/**
+ * C: mon.c **`mnearto(mtmp, x, y, TRUE, RLOC_NOMSG)`** — return **2** if another monster was displaced (**`move_other`**).
+ * Omits **`mon_leaving_level`** / full **`goodpos`** / **`rloc_to_flag`** parity; uses **`goodposNewMonster`** + **`enextoNearMon`** + **`dealWithOvercrowding`**.
+ * @returns {Promise<number>} **0** fail, **1** moved without displacing, **2** displaced another
+ */
+async function mneartoThrownPickForShkcatchLikeC(g, mtmp, tx, ty) {
+    const xi = tx | 0;
+    const yi = ty | 0;
+    const sx = mtmp.mx | 0;
+    const sy = mtmp.my | 0;
+    if (sx === xi && sy === yi) return 1;
+
+    const blocker = g.level?.monsters?.find(
+        (m) => m !== mtmp && (m.mx | 0) === xi && (m.my | 0) === yi,
+    );
+    let displaced = false;
+
+    if (blocker) {
+        const bdest = enextoNearMon(g, xi, yi, blocker);
+        if (!bdest) await dealWithOvercrowding(g, blocker);
+        else {
+            displaced = true;
+            const bx0 = blocker.mx | 0;
+            const by0 = blocker.my | 0;
+            blocker.mx = bdest.x | 0;
+            blocker.my = bdest.y | 0;
+            await newsym(bx0, by0);
+            await newsym(blocker.mx, blocker.my);
+        }
+    }
+
+    let nx = xi;
+    let ny = yi;
+    if (!goodposNewMonster(xi, yi, mtmp, g)) {
+        const mm = enextoNearMon(g, xi, yi, mtmp);
+        if (!mm) return 0;
+        nx = mm.x | 0;
+        ny = mm.y | 0;
+    }
+
+    await newsym(sx, sy);
+    mtmp.mx = nx;
+    mtmp.my = ny;
+    await newsym(nx, ny);
+
+    return displaced ? 2 : 1;
+}
+
 /**
  * C: shk.c **`shkcatch`** — shopkeeper catches a thrown pick-axe inside a shop.
- * Omits **`mnearto`** “Out of my way” verbalize, **`map_invisible`**, **`nh_delay_output`/`mark_synch`**.
+ * Omits **`SetVoice`**, **`nh_delay_output`/`mark_synch`** (display flush).
  * @param {import('./gstate.js').game} g
  * @returns {Promise<object|null>} shopkeeper monst if catch, else null
  */
@@ -284,10 +341,16 @@ export async function shkcatchThrownPickHeroLikeC(g, obj, x, y) {
     if (dist2(shkp.mx | 0, shkp.my | 0, xi, yi) >= 3) return null;
     if ((shkp.mx | 0) === xi && (shkp.my | 0) === yi) return null;
 
+    const mnear = await mneartoThrownPickForShkcatchLikeC(g, shkp, xi, yi);
+    if (mnear === 2 && !heroDeafShopdig(g) && !muteshkShk(shkp)) {
+        await pline(`${shknamDisplay(shkp)} says "Out of my way, scum!"`);
+    }
+
     if (cansee(xi, yi)) {
         const reach =
             xi === (shkp.mx | 0) && yi === (shkp.my | 0) ? '' : ' reaches over and';
         await pline(`${shknamDisplay(shkp)} nimbly${reach} catches ${doname(obj, g)}.`);
+        if (!canspotMonShkcatchLikeC(g, shkp)) mapInvisibleCellLikeC(shkp.mx | 0, shkp.my | 0);
     }
     subfrombillLikeC(g, obj, shkp);
     mpickobjShk(g, shkp, obj);
