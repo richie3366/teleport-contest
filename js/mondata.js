@@ -3,6 +3,7 @@
 // stagger(), monflag.h M1_*, MZ_*, G_NOCORPSE; mon.c make_corpse (corpse gate stub).
 
 import { game } from './gstate.js';
+import { XKILL_NOCORPSE } from './const.js';
 
 /** @typedef {{ mlet: number, mflags1: number, msize: number, mmove: number, ac?: number, mvflags?: number }} Permonst */
 
@@ -49,11 +50,14 @@ export const permonstHuman = Object.freeze({
 /**
  * C: mon.c make_corpse — `svm.mvitals[mndx].mvflags & G_NOCORPSE`, plus per-monst overrides.
  * Stub: `mtmp.mvflags`, `mtmp.data.mvflags`, or `g.mvitals[mnum].mvflags` when those exist.
+ * `xkillFlags`: C `mondead` / `xkilled` — `XKILL_NOCORPSE` suppresses corpse regardless of mvitals.
  * @param {{ mnum?: number, mvflags?: number, data?: Permonst }} mtmp
  * @param {typeof game} [g]
+ * @param {number} [xkillFlags]
  */
-export function monsterLeavesCorpse(mtmp, g = game) {
+export function monsterLeavesCorpse(mtmp, g = game, xkillFlags = 0) {
     if (!mtmp) return false;
+    if (((xkillFlags | 0) & XKILL_NOCORPSE) !== 0) return false;
     if (((mtmp.mvflags | 0) & G_NOCORPSE) !== 0) return false;
     const d = mtmp.data;
     if (d && ((d.mvflags | 0) & G_NOCORPSE) !== 0) return false;

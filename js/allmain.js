@@ -25,6 +25,7 @@ import { UHS, collectNewuhsPlines } from './hunger.js';
 import { collectExerchkPlines } from './attrib.js';
 import { moveloopPreamble } from './moveloop_preamble.js';
 import { settrack } from './track.js';
+import { initMvitalsStub } from './mvitals.js';
 
 // C ref: allmain.c newgame()
 export async function newgame() {
@@ -45,6 +46,8 @@ export async function newgame() {
     g.context = g.context || {};
     if (g.context.next_attrib_check == null) g.context.next_attrib_check = 600;
     g.context.victual = { eating: 0, fullwarn: 0, canchoke: 1 };
+    /* C: decl.c mvitals — stub array for mon.c make_corpse G_NOCORPSE / geno */
+    initMvitalsStub(g);
 
     g.flags = g.flags || {};
     // Gnomish Mines branch stub (end1 on D:1)

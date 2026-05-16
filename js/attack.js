@@ -32,8 +32,9 @@ function meleeWeaponSkill() {
  * Damage: stub 1 + rn2(4); removes mtmp from level.monsters at 0 hp;
  * drops minimal floor corpse (`mkobj_corpse` / `placeFloorObject`).
  * @param {{ mpeaceful?: number, mhp?: number, mx?: number, my?: number, mnum?: number, mvflags?: number, monnam?: string, data?: { mname?: string, mnum?: number, mvflags?: number } }} mtmp
+ * @param {{ xkillFlags?: number }} [opts] — C `mondead`/`xkilled` flags (e.g. `XKILL_NOCORPSE`).
  */
-export async function doBumpMeleeAttack(mtmp) {
+export async function doBumpMeleeAttack(mtmp, opts = {}) {
     if (!mtmp) return;
     if (mtmp.mpeaceful | 0) {
         await pline('You stop to avoid hitting the peaceful creature.');
@@ -48,7 +49,8 @@ export async function doBumpMeleeAttack(mtmp) {
     if ((mtmp.mhp | 0) <= 0) {
         const x = mtmp.mx | 0;
         const y = mtmp.my | 0;
-        if (game.level && isok(x, y) && monsterLeavesCorpse(mtmp, game))
+        const xkill = opts.xkillFlags | 0;
+        if (game.level && isok(x, y) && monsterLeavesCorpse(mtmp, game, xkill))
             placeCorpseForMonster(mtmp, x, y);
         const arr = game.level?.monsters;
         if (arr) {
