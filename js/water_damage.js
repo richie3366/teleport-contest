@@ -1,14 +1,66 @@
 // water_damage.js — Hero inventory wetting (trap.c water_damage / water_damage_chain subset).
-// C ref: trap.c water_damage(), water_damage_chain() — acid_ctx / grease / towel / containers /
-// splash_lit / rust erode_obj / pot_acid full text not ported; luck gate + scroll / spellbook /
-// potion dilute + acid destroy match early drown() chain.
+// C ref: trap.c water_damage(), water_damage_chain() — acid_ctx / full pot_acid / splash_lit /
+// rust erode_obj / makeknown / blank_novel still partial; order matches C before luck gate.
 
 import { game } from './gstate.js';
-import { rn2 } from './rng.js';
+import { rn2, rnd } from './rng.js';
 import { pline } from './display.js';
 import { updateInventory } from './invent.js';
 import { NH5_POTION_CLASS, NH5_SCROLL_CLASS, NH5_SPBOOK_CLASS } from './nh5_objclass.js';
 import { OC_SKILL_ROW_BY_OTYP } from './obj_oc_skill_data.js';
+
+/** @see include/objects.h — `SKELETON_KEY` **222** ⇒ seven **`CONTAINER`** lines **215–221**. */
+const OTYP_LARGE_BOX = 215;
+const OTYP_CHEST = 216;
+const OTYP_ICE_BOX = 217;
+const OTYP_SACK = 218;
+const OTYP_OILSKIN_SACK = 219;
+const OTYP_BAG_OF_HOLDING = 220;
+const OTYP_BAG_OF_TRICKS = 221;
+const OTYP_TOWEL = 235;
+const OTYP_CAN_OF_GREASE = 241;
+
+/** C: obj.h Is_container — NH5 **`CONTAINER`** macro list. */
+const CONTAINER_OTYPES = new Set([
+    OTYP_LARGE_BOX,
+    OTYP_CHEST,
+    OTYP_ICE_BOX,
+    OTYP_SACK,
+    OTYP_OILSKIN_SACK,
+    OTYP_BAG_OF_HOLDING,
+    OTYP_BAG_OF_TRICKS,
+]);
+
+/** C: obj.h Waterproof_container — oilskin, ice box, large box, chest. */
+function isWaterproofContainerTyp(otyp) {
+    const t = otyp | 0;
+    return t === OTYP_OILSKIN_SACK || t === OTYP_ICE_BOX || t === OTYP_LARGE_BOX || t === OTYP_CHEST;
+}
+
+function isContainerOtyp(otyp) {
+    return CONTAINER_OTYPES.has(otyp | 0);
+}
+
+/** Human-readable noun for **`Some water gets into your …`** ( **`cxname`** subset). */
+const CONTAINER_PHRASE = new Map([
+    [OTYP_LARGE_BOX, 'large box'],
+    [OTYP_CHEST, 'chest'],
+    [OTYP_ICE_BOX, 'ice box'],
+    [OTYP_SACK, 'sack'],
+    [OTYP_OILSKIN_SACK, 'oilskin sack'],
+    [OTYP_BAG_OF_HOLDING, 'bag of holding'],
+    [OTYP_BAG_OF_TRICKS, 'bag of tricks'],
+]);
+
+/** Minimal stand-in for **`cxname`** / container wording (**`trap.c`** **`hliquid`/`ostr`**). */
+function waterDamageObjPhrase(obj) {
+    const t = obj.otyp | 0;
+    const c = CONTAINER_PHRASE.get(t);
+    if (c) return c;
+    const row = OC_SKILL_ROW_BY_OTYP.get(t);
+    if (row) return row.name.toLowerCase().replace(/_/g, ' ');
+    return 'item';
+}
 
 /** @see include/objects.h `objects_nums` (NetHack 5.0) — potions block then scrolls then spellbooks. */
 const OTYP_POT_GAIN_ABILITY = 296;
@@ -74,19 +126,60 @@ async function potAcidDamageMinimal(g, obj) {
 }
 
 /**
- * C: trap.c water_damage() — scroll / spellbook / potion slices + luck protection.
+ * C: trap.c water_damage() — order before luck: grease / towel / containers / waterproof;
+ * then luck + scroll / spellbook / potion.
  * @param {typeof game} g
- * @param {{ otyp?: number, oclass?: number, quan?: number, dknown?: number, odiluted?: number, spestudied?: number, blessed?: number, cursed?: number, greased?: number }} obj
+ * @param {{ otyp?: number, oclass?: number, quan?: number, dknown?: number, odiluted?: number, spestudied?: number, blessed?: number, cursed?: number, greased?: number, spe?: number, cobj?: unknown }} obj
  * @param {boolean} force
  */
 export async function waterDamageOne(obj, force, g = game) {
     if (!obj) return;
 
-    const oclass = nh5ObjectClass(obj);
     const t = obj.otyp | 0;
     const inInvent = true;
 
+    /* C: splash_lit(obj) — not ported */
+    if (t === OTYP_CAN_OF_GREASE && (obj.spe | 0) > 0) return;
+
+    if (t === OTYP_TOWEL && (obj.spe | 0) < 7) {
+        /* C: wet_a_towel(obj, -rnd(7 - obj->spe), TRUE) — damp increases **`spe`** toward **7**. */
+        const spe0 = obj.spe | 0;
+        const delta = rnd(7 - spe0);
+        obj.spe = Math.min(7, spe0 + delta);
+        if (inInvent && g.iflags?.perm_invent) updateInventory();
+        return;
+    }
+
+    if (obj.greased) {
+        if (rn2(2) === 0) {
+            obj.greased = 0;
+            await pline(`The grease on your ${waterDamageObjPhrase(obj)} washes off.`);
+            if (t === OTYP_POT_ACID) await potAcidDamageMinimal(g, obj);
+            if (inInvent && g.iflags?.perm_invent) updateInventory();
+        }
+        return;
+    }
+
+    const containerLeaks =
+        isContainerOtyp(t) &&
+        (!isWaterproofContainerTyp(t) || ((obj.cursed | 0) && !rn2(3)));
+    if (containerLeaks) {
+        if (inInvent) await pline(`Some water gets into your ${waterDamageObjPhrase(obj)}!`);
+        if (obj.cobj) await waterDamageChain(obj.cobj, false, g);
+        return;
+    }
+
+    if (isContainerOtyp(t) && isWaterproofContainerTyp(t)) {
+        if (inInvent && !(g.u?.ublind | 0) && !(g.u?.underwater | 0)) {
+            await pline(`The water cannot get into your ${waterDamageObjPhrase(obj)}.`);
+            /* C: makeknown(obj->otyp) — discovery not ported */
+        }
+        return;
+    }
+
     if (!force && heroLuck(g) + 5 > rn2(20)) return;
+
+    const oclass = nh5ObjectClass(obj);
 
     if (oclass === NH5_SCROLL_CLASS) {
         if (t === OTYP_SCR_BLANK_PAPER) return;
