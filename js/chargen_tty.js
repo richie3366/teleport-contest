@@ -569,7 +569,8 @@ export function paintPostNameYnaqScreen(disp, plname) {
 
 /** C role.c genl_player_setup comment on [ynaq] after name (~2248–2254). */
 function paintYnaqHelpOverlay(disp) {
-    for (let r = 1; r <= 8; r++) disp.clearRow(r);
+    /* C tty: help replaces the top block including row 0 `[ynaq]` line, not only rows 1–8. */
+    for (let r = 0; r <= 8; r++) disp.clearRow(r);
     const lines = [
         'y (or space/enter) — game picks role, race, gender, align; then confirm',
         'n — you pick each facet from the role/race/gender/align menus',
@@ -585,8 +586,9 @@ function paintYnaqHelpOverlay(disp) {
 }
 
 /** C confirm [ynaq] one-line gloss (role.c confirmation loop ~2675–2677 PICK_ONE). */
-function paintConfirmYnaqHelpOverlay(disp) {
-    for (let r = 1; r <= 6; r++) disp.clearRow(r);
+/** @param {number} col — same **`confirmMenuStartColLikeC`** as **`paintConfirmMenu`** (not hardcoded **`MENU_COL`**). */
+function paintConfirmYnaqHelpOverlay(disp, col) {
+    for (let r = 0; r <= 8; r++) disp.clearRow(r);
     const lines = [
         'y (or space/enter) — start game (C preselected y / n==0 default)',
         'n — pick role again from the role menu',
@@ -595,8 +597,11 @@ function paintConfirmYnaqHelpOverlay(disp) {
         '',
         'Press any key...',
     ];
+    const maxW = Math.max(1, NH_TTY_COLS - col - 1);
     for (let i = 0; i < lines.length; i++) {
-        disp.putstr(MENU_COL, 1 + i, lines[i].length > 40 ? lines[i].slice(0, 40) : lines[i], NO_COLOR);
+        const t = lines[i];
+        const out = t.length > maxW ? t.slice(0, maxW) : t;
+        disp.putstr(col, 1 + i, out, NO_COLOR);
     }
 }
 
@@ -1016,6 +1021,9 @@ async function readAlignChoice(disp, f) {
     }
 }
 
+/**
+ * @returns {number} menu column **`col`** for **`readConfirmAnswer`** **`?`** overlay
+ */
 function paintConfirmMenu(disp, f, plname) {
     rigidRoleChecksJs(f);
     disp.clearScreen();
@@ -1048,15 +1056,16 @@ function paintConfirmMenu(disp, f, plname) {
     disp.putstr(col, row, '(end)', NO_COLOR);
     disp.cursorVisible = true;
     setChargenEndMenuCursorLikeC(disp, col, '(end)', row);
+    return col;
 }
 
 async function readConfirmAnswer(disp, f, plname) {
     for (;;) {
-        paintConfirmMenu(disp, f, plname);
+        const col = paintConfirmMenu(disp, f, plname);
         const c = await nhgetch();
         let k = lowc(String.fromCodePoint(c));
         if (k === '?') {
-            paintConfirmYnaqHelpOverlay(disp);
+            paintConfirmYnaqHelpOverlay(disp, col);
             await nhgetch();
             continue;
         }
