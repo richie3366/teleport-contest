@@ -7,7 +7,8 @@
 
 import { game } from './gstate.js';
 import { NH5_BALL_CLASS } from './nh5_objclass.js';
-import { TT_BURIEDBALL } from './const.js';
+import { TT_BURIEDBALL, ROT_ORGANIC } from './const.js';
+import { stopNhObjTimer } from './obj_rot_timer.js';
 
 /** C: mkobj_corpse.js **`CORPSE_OTYP`** — local literal avoids **`floorobj`↔`mkobj_corpse`** import cycle. */
 const CORPSE_OTYP = 471;
@@ -172,7 +173,7 @@ export function buriedBallToPunishmentMinimal(g, ball) {
 
 /**
  * C: dig.c **`unearth_objs(x, y)`** — per buried object: **`buried_ball`/`TT_BURIEDBALL`** vs **`place_object`+`stackobj`**;
- * **`ROT_ORGANIC`** **`stop_timer`** not ported.
+ * **`ROT_ORGANIC`** **`stop_timer`** via **`stopNhObjTimer`** (**`ROT_CORPSE`** timers unchanged).
  * @param {import('./gstate.js').game} g
  */
 export function unearthObjsDigInLevel(g, x, y) {
@@ -193,7 +194,7 @@ export function unearthObjsDigInLevel(g, x, y) {
         } else {
             unlinkBuriedObjectInLevel(g, otmp);
             if (otmp.timed) {
-                /* C: stop_timer(ROT_ORGANIC, …) — JS object timers not ported */
+                stopNhObjTimer(g, otmp, ROT_ORGANIC);
             }
             placeFloorObjectInLevel(g, otmp, xh, yh);
             stackObjOnFloorInLevel(g, otmp);

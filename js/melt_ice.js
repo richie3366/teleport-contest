@@ -3,8 +3,7 @@
 //        do.c boulder_hits_pool(), mkobj.c obj_ice_effects(), dig.c unearth_objs(),
 //        mon.c minliquid() (subset).
 //
-// Still TODO vs C: full **`obj_timer_checks`** / **`restart_timer`** on corpses;
-// **`bury_objs`** full **`stolen_value`** (**`billable`/`get_cost`/`stolen_container`**);
+// Still TODO vs C: corpse **`ROT_ORGANIC`** / full **`timeout.c`** dispatch; **`bury_objs`** full **`stolen_value`**;
 // **`unearth_objs`**: full **`buried_ball`** radius scan + **`punish()`**; beam/breath vectors along paths; fuller **`boulder_hits_pool`** / **`minliquid`** / **`spoteffects`**.
 
 import { pline, newsym } from './display.js';
@@ -24,6 +23,7 @@ import { heroPassesWalls } from './walkable.js';
 import { spotStopTimersMeltIceAway, startMeltIceAwayTimer, refirmMeltIceTimerAt } from './level_timers.js';
 import { fixWallSpinesRect } from './wall_spine.js';
 import { applyBuryObjsShopCreditAndDebt, shknamDisplay } from './shop.js';
+import { objTimerChecksMkobj, ROT_ICE_ADJUSTMENT } from './obj_rot_timer.js';
 import {
     ICE,
     POOL,
@@ -59,38 +59,40 @@ import {
 const OTYP_LAND_MINE = 244;
 const OTYP_BEARTRAP = 245;
 
-/** C: mkobj.c **`ROT_ICE_ADJUSTMENT`** */
-const ROT_ICE_ADJUSTMENT = 2;
-
 /**
- * C: mkobj.c **`obj_timer_checks`** corpse-off-ice age tail (**`on_ice`** clear) — one **`nexthere`** chain.
- * @param {import('./gstate.js').game} g
- * @param {unknown} chainHead
+ * C: mkobj.c **`obj_ice_effects`** — corpses **`on_ice`** coming off ice: **`obj_timer_checks`** when **`timed`**,
+ * else manual age tail (**`ROT_ICE_ADJUSTMENT`**) matching C off-ice branch when **`tleft==0`** path skipped.
+ * @param {'floor'|'buried'} where
  */
-function objIceCorpsesOffIceChain(g, chainHead) {
+function objIceCorpsesOffIceChain(g, chainHead, x, y, where) {
+    void x;
+    void y;
+    void where;
     const moves = g.moves ?? 0;
     for (let o = /** @type {any} */ (chainHead); o; o = o.nexthere) {
         if ((o.otyp | 0) !== CORPSE_OTYP || !o.on_ice) continue;
-        /* C: obj_timer_checks — corpse coming off ice */
         o.on_ice = 0;
         const age = moves - (o.age | 0);
         o.age = (o.age | 0) + Math.trunc((age * (ROT_ICE_ADJUSTMENT - 1)) / ROT_ICE_ADJUSTMENT);
-        if (o.timed) {
-            /* C: restart_timer after stop_timer — not ported for JS object timers */
-        }
     }
 }
 
-/** C: mkobj.c **`obj_ice_effects(x, y, FALSE)`** — floor chain only ( **`nexthere`**). */
+/** C: mkobj.c **`obj_ice_effects(x, y, FALSE)`** — **`timed`** objects: **`obj_timer_checks`**; then corpse **`on_ice`** tail. */
 function objIceEffectsAt(g, x, y) {
     const head = g.level?.floorObjHeads?.get(floorObjKey(x, y));
-    objIceCorpsesOffIceChain(g, head);
+    for (let o = head; o; o = o.nexthere) {
+        if (o.timed) objTimerChecksMkobj(g, o, x, y, 0, 'floor', isIceAt);
+    }
+    objIceCorpsesOffIceChain(g, head, x, y, 'floor');
 }
 
-/** C: mkobj.c **`obj_ice_effects`** buried pass — same off-ice corpse math before **`unearth_objs`**. */
+/** C: mkobj.c **`obj_ice_effects`** buried pass — same order before **`unearth_objs`**. */
 function objIceEffectsOffIceBuriedAt(g, x, y) {
     const head = g.level?.buriedObjHeads?.get(floorObjKey(x, y));
-    objIceCorpsesOffIceChain(g, head);
+    for (let o = head; o; o = o.nexthere) {
+        if (o.timed) objTimerChecksMkobj(g, o, x, y, 0, 'buried', isIceAt);
+    }
+    objIceCorpsesOffIceChain(g, head, x, y, 'buried');
 }
 
 /** C: dig.c **`unearth_objs(x, y)`** — **`del_engr_at`**, **`newsym`**. */
@@ -115,19 +117,19 @@ async function buryObjsAt(g, x, y) {
 }
 
 /**
- * C: mkobj.c **`obj_ice_effects(x, y, TRUE)`** — floor + buried corpses **`on_ice`**
- * after terrain is ice (**`obj_timer_checks`** rot timers still stubbed).
+ * C: mkobj.c **`obj_ice_effects(x, y, TRUE)`** — floor + buried: **`obj_timer_checks`** for **`timed`** corpses
+ * on new ice (**`on_ice`** set inside **`obj_timer_checks`** when rot timer exists).
  * @param {import('./gstate.js').game} g
  */
 function objIceEffectsFreezeAt(g, x, y) {
     const k = floorObjKey(x, y);
     const floorH = g.level?.floorObjHeads?.get(k);
     const buriedH = g.level?.buriedObjHeads?.get(k);
-    for (const head of [floorH, buriedH]) {
-        for (let o = head; o; o = o.nexthere) {
-            if ((o.otyp | 0) !== CORPSE_OTYP) continue;
-            o.on_ice = 1;
-        }
+    for (let o = floorH; o; o = o.nexthere) {
+        if (o.timed) objTimerChecksMkobj(g, o, x, y, 0, 'floor', isIceAt);
+    }
+    for (let o = buriedH; o; o = o.nexthere) {
+        if (o.timed) objTimerChecksMkobj(g, o, x, y, 0, 'buried', isIceAt);
     }
 }
 
