@@ -2946,6 +2946,9 @@ export const OTYP_BOULDER = 465;
 export const PM_GRID_BUG = 115;
 /** C: `monsters.h` — gremlin. */
 export const PM_GREMLIN = 42;
+/** C: `monsters.h` MON() order — lichen/lizard corpses skip **`start_corpse_timeout`**. */
+export const PM_LICHEN = 162;
+export const PM_LIZARD = 333;
 /** C: `monsters.h` — iron golem. */
 export const PM_IRON_GOLEM = 257;
 /** C: `monsters.h` — elementals block (after stalker). */

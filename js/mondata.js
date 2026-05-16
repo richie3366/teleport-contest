@@ -30,6 +30,15 @@ export function isRiderMnum(mnum) {
     return m === PM_DEATH || m === PM_PESTILENCE || m === PM_FAMINE;
 }
 
+/**
+ * C: **`mons[corpsenm].mlet == S_TROLL`** — NH 5.0 **`monsters.h`** TROLL through OLOG_HAI (**`PM`** **225**–**229**).
+ * @param {number} mnum
+ */
+export function isTrollCorpsenm(mnum) {
+    const m = mnum | 0;
+    return m >= 225 && m <= 229;
+}
+
 /** C: monattk.h / permonst.h */
 export const AT_ANY = -1;
 /** C: monattk.h — damage kinds used by passes_bars (iron bars). */

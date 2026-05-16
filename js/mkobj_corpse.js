@@ -7,6 +7,7 @@ import { placeFloorObject } from './floorobj.js';
 import { NH5_FOOD_CLASS } from './nh5_objclass.js';
 import { game } from './gstate.js';
 import { ICE, IS_DRAWBRIDGE, DB_ICE, DB_UNDER } from './const.js';
+import { startCorpseTimeout, objTimerChecksMkobj } from './obj_rot_timer.js';
 
 /** C: trap.c is_ice / melt_ice.js isIceAt — ice floor or drawbridge span with DB_ICE. */
 function cellIsIce(g, x, y) {
@@ -42,10 +43,12 @@ export function placeCorpseForMonster(mtmp, x, y, g = game) {
         corpsenm,
         age: g.moves ?? 0,
     };
+    /* C: mkobj.c **`set_corpsenm`** → **`start_corpse_timeout`** before **`place_object`** */
+    startCorpseTimeout(g, otmp);
     placeFloorObject(otmp, x, y);
     if (cellIsIce(g, x, y)) {
-        /* C: mkobj.c obj_timer_checks — corpse on ice (rot timer layer still stubbed). */
         otmp.on_ice = 1;
+        objTimerChecksMkobj(g, otmp, x, y, 0, 'floor', cellIsIce);
     }
     return otmp;
 }

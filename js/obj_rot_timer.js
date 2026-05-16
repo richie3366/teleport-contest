@@ -1,10 +1,21 @@
 // obj_rot_timer.js — Object-attached rot/revive timers (mkobj.c obj_timer_checks subset).
-// C ref: mkobj.c obj_timer_checks(), timeout.c stop_timer()/start_timer() return semantics;
+// C ref: mkobj.c obj_timer_checks(), start_corpse_timeout(); timeout.c stop_timer()/start_timer() return semantics;
 //        timeout.c TIMER_OBJECT **`timed`** refcount (**single timer** model here).
 
-import { ROT_CORPSE, REVIVE_MON, PM_DEATH } from './const.js';
-import { CORPSE_OTYP } from './mkobj_corpse.js';
-import { rn2 } from './rng.js';
+import {
+    ROT_CORPSE,
+    REVIVE_MON,
+    PM_DEATH,
+    PM_LICHEN,
+    PM_LIZARD,
+    ROT_AGE,
+    TAINT_AGE,
+    TROLL_REVIVE_CHANCE,
+} from './const.js';
+import { isRiderMnum, isTrollCorpsenm } from './mondata.js';
+
+/** NH5 `objects_nums` corpse **`otyp`** (same as **`mkobj_corpse.js`** **`CORPSE_OTYP`**). */
+const CORPSE_OTYP = 471;
 
 /** C: mkobj.c **`#define ROT_ICE_ADJUSTMENT 2`** */
 export const ROT_ICE_ADJUSTMENT = 2;
@@ -79,6 +90,39 @@ export function riderRevivalTime(body, retry) {
         if (!rn2(3)) break;
     }
     return when;
+}
+
+/**
+ * C: mkobj.c **`start_corpse_timeout`** — **`start_timer`** for **`ROT_CORPSE`/`REVIVE_MON`** ( **`ZOMBIFY_MON`**
+ * when **`zombie_form`** is ported).
+ * @param {import('./gstate.js').game} g
+ * @param {{ otyp?: number, corpsenm?: number, age?: number, norevive?: number }} body
+ */
+export function startCorpseTimeout(g, body) {
+    if ((body.otyp | 0) !== CORPSE_OTYP) return;
+    const cm = body.corpsenm | 0;
+    if (cm === PM_LICHEN || cm === PM_LIZARD) return;
+
+    let action = ROT_CORPSE;
+    const rot_adjust = g.in_mklev ? 25 : 10;
+    let age = Math.max(g.moves | 0, 1) - (body.age | 0);
+    let when = age > ROT_AGE ? rot_adjust : ROT_AGE - age;
+    when += rnz(rot_adjust) - rot_adjust;
+
+    if (isRiderMnum(cm)) {
+        action = REVIVE_MON;
+        when = riderRevivalTime(body, false);
+    } else if (isTrollCorpsenm(cm)) {
+        for (let a2 = 2; a2 <= TAINT_AGE; a2++) {
+            if (!rn2(TROLL_REVIVE_CHANCE)) {
+                action = REVIVE_MON;
+                when = a2;
+                break;
+            }
+        }
+    }
+
+    startNhObjTimer(g, body, when | 0, action);
 }
 
 /**
