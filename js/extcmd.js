@@ -1,7 +1,7 @@
 // extcmd.js — Extended commands (`#` prefix, doextcmd).
 // C ref: cmd.c doextcmd, extcmdlist
 //
-// JS extras: wizard **`#F`**/**`#c`** — hero **`ubuzz`**; **`#d`** — **`dig.c`** **`zap_dig`** (**`u.dz`** + horizontal);
+// JS extras: wizard **`#F`**/**`#c`** — hero **`ubuzz`** + **`zap.c`** **`destroy_items(AD_COLD, d(12,6))`** (**`zapyourself`** cold); **`#d`** — **`dig.c`** **`zap_dig`** (**`u.dz`** + horizontal);
 // **`#D`** — **`dig.c`** **`dig()`** wall/door completion harness (**`dig_hero.js`**);
 // **`#m`**/**`#B`** — monster **`mbuzz`** (**`muse.c`** **`BZ_M_WAND`/`BZ_M_BREATH`** from neighbor toward hero);
 // **`#l`**/**`#L`** — **`pickup.c`** **`use_container`** trapped (**`held`** floor vs invent) → **`trap.c`** **`chest_trap`** (**`pickup.js`**);
@@ -34,6 +34,8 @@ import {
 } from './buzz.js';
 import { heroZapDigLikeC } from './zap_dig.js';
 import { heroDigCompleteWallDoorOrSecretLikeC } from './dig_hero.js';
+import { d } from './rng.js';
+import { destroyItemsYoumonstCold } from './destroy_items.js';
 
 /** C: doextcmd — echo '#' on the top line, then read the next key (tty). */
 export async function runExtcmdFromHashPrefix() {
@@ -82,12 +84,14 @@ export async function runExtcmdFromHashPrefix() {
     if (ch2 === 'F' && game.flags?.wizard) {
         /* C: zap.c ubuzz — cone of cold (**`ZT_SPELL(ZT_COLD)`**), wizard harness. */
         await ubuzzOverFloor(game, ZT_SPELL(ZT_COLD), 0);
+        await destroyItemsYoumonstCold(game, d(12, 6));
         await flush_screen(1);
         return;
     }
     if (ch2 === 'c' && game.flags?.wizard) {
         /* C: zap.c weffects — wand of cold (**`ZT_WAND(ZT_COLD)`**), same facing as **`#F`**. */
         await ubuzzOverFloor(game, ZT_WAND(ZT_COLD), 6);
+        await destroyItemsYoumonstCold(game, d(12, 6));
         await flush_screen(1);
         return;
     }

@@ -9,6 +9,7 @@ const _RING_PROT_MASK = W_RINGL | W_RINGR;
 /**
  * C: do_wear.c **`Ring_gone`** → **`Ring_off_or_gone(obj, TRUE)`** before **`useup`** (**`zap.c`** **`maybe_destroy_item`**).
  * Omits **`svc.context.takeoff`**, full **`setnotworn`** / **`u.uprops`** / **`monstunseesu_prop`**, and **`Ring_off_or_gone`** per-otyp tail (**`adjust_attrib`**, **`float_down`**, …).
+ * Non-ring worn clears: **`setnotwornHeroMinimalLikeC`** (C **`maybe_destroy_item`** **`else`** **`setnotworn`** branch).
  * @param {import('./gstate.js').game} g
  * @param {{ owornmask?: number, otyp?: number }} obj
  */
@@ -24,6 +25,40 @@ export function ringGoneHeroLikeC(g, obj) {
 
     if ((obj.otyp | 0) === OTYP_RIN_PROTECTION) refreshEProtectionFromRings(u);
 
+    g.disp = g.disp || {};
+    g.disp.botl = true;
+}
+
+/**
+ * C: do_wear.c **`setnotworn(obj)`** — minimal **`u.*`** slot clear when **`obj`** is destroyed (**`zap.c`** **`maybe_destroy_item`**).
+ * Omits **`takeoff_mask`**, **`adj_abon`**, **`float_down`**, **`context.takeoff`**, **`monstunseesu_prop`**, blindfold **`Blindf_off`**, …
+ * @param {import('./gstate.js').game} g
+ * @param {object} obj
+ */
+export function setnotwornHeroMinimalLikeC(g, obj) {
+    const u = g?.u;
+    if (!u || !obj) return;
+    const slots = [
+        'uarm',
+        'uarmc',
+        'uarmf',
+        'uarmg',
+        'uarmh',
+        'uarms',
+        'uarmu',
+        'uamul',
+        'uleft',
+        'uright',
+        'uwep',
+        'uswapwep',
+        'uarmb',
+    ];
+    for (let i = 0; i < slots.length; i++) {
+        const k = slots[i];
+        if (u[k] === obj) u[k] = null;
+    }
+    obj.owornmask = 0;
+    if ((obj.otyp | 0) === OTYP_RIN_PROTECTION) refreshEProtectionFromRings(u);
     g.disp = g.disp || {};
     g.disp.botl = true;
 }

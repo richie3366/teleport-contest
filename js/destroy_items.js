@@ -1,7 +1,7 @@
-// destroy_items.js — Hero + monster inventory destruction by fire / electricity (zap.c subset).
-// C ref: zap.c destroy_items(), destroyable(), maybe_destroy_item() — AD_FIRE + AD_ELEC;
-// inventory_resistance_check / u_adtyp_resistance_obj (hero subset); deferred stacks / potionbreathe /
-// **`Ring_gone`** (**`wear.js`** **`ringGoneHeroLikeC`** for **`AD_ELEC`** ring dust); setnotworn / glob of slime — TODO. **`ignite_items`** → **`ignite_items.js`**.
+// destroy_items.js — Hero + monster inventory destruction by fire / cold / electricity (zap.c subset).
+// C ref: zap.c destroy_items(), destroyable(), maybe_destroy_item() — AD_FIRE + AD_COLD + AD_ELEC;
+// inventory_resistance_check / u_adtyp_resistance_obj (hero subset); deferred stacks / potionbreathe;
+// **`Ring_gone`** / **`setnotworn`** (**`wear.js`** **`ringGoneHeroLikeC`** / **`setnotwornHeroMinimalLikeC`**). **`ignite_items`** → **`ignite_items.js`**.
 
 import { game } from './gstate.js';
 import { rn2, rnd } from './rng.js';
@@ -32,7 +32,7 @@ import {
 import { raceptr, fireResistant } from './mondata.js';
 import { WAN_LIGHTNING } from './buzz.js';
 import { discoverScrollOtyp } from './discover_scroll.js';
-import { ringGoneHeroLikeC } from './wear.js';
+import { ringGoneHeroLikeC, setnotwornHeroMinimalLikeC } from './wear.js';
 
 /** C: monattk.h AD_FIRE */
 export const AD_FIRE = 2;
@@ -126,6 +126,9 @@ const OTYP_SCR_FIRE = 338; /* objects.h SCROLL order to SCR_FIRE */
 const OTYP_SPE_BOOK_OF_THE_DEAD = 409;
 const OTYP_SPE_FIREBALL = 368;
 
+/** C: zap.c destroy_strings[dindx] — AD_COLD uses row **0** (freeze / shattered potion). */
+const DS_FREEZE_POTION = 0;
+
 /** C: zap.c destroy_strings[dindx][0 singular verb, 1 plural, 2 killer] — AD_FIRE rows */
 const DS_BOIL_POTION = 1;
 const DS_BOIL_OIL = 2;
@@ -159,6 +162,20 @@ function destroyableHeroFire(obj) {
     return oc === NH5_POTION_CLASS || oc === NH5_SCROLL_CLASS || oc === NH5_SPBOOK_CLASS;
 }
 
+/**
+ * C: zap.c **`destroyable(obj, AD_COLD)`** — non-oil potions only.
+ * @param {{ otyp?: number, oclass?: number, quan?: number, in_use?: number, oartifact?: number }} obj
+ */
+function destroyableHeroCold(obj) {
+    if (!obj) return false;
+    if (obj.oartifact | 0) return false;
+    const quan = obj.quan ?? 1;
+    if ((obj.in_use | 0) && quan <= 1) return false;
+    const oc = nh5HeroObjectClass(obj);
+    if (oc !== NH5_POTION_CLASS) return false;
+    return (obj.otyp | 0) !== OTYP_POT_OIL;
+}
+
 function objShortPhrase(obj) {
     const row = OC_SKILL_ROW_BY_OTYP.get(obj.otyp | 0);
     if (row) return row.name.toLowerCase().replace(/_/g, ' ');
@@ -166,8 +183,8 @@ function objShortPhrase(obj) {
 }
 
 /**
- * C: zap.c maybe_destroy_item(carrier, obj, AD_FIRE) — hero subset (no potionbreathe,
- * no worn-ring removal; **`inventoryResistanceCheckHeroLikeC`** when extrinsic / cloak / ring).
+ * C: zap.c maybe_destroy_item(carrier, obj, AD_FIRE) — hero subset (no potionbreathe;
+ * **`Ring_gone`** + **`setnotworn`** before **`useup`**; **`inventoryResistanceCheckHeroLikeC`**).
  * @param {typeof game} g
  * @param {{ otyp?: number, oclass?: number, quan?: number, in_use?: number, dknown?: number }} obj
  * @returns {Promise<number>} extra damage (C dmg_out); hero lava ignores return value
@@ -233,6 +250,71 @@ async function maybeDestroyItemHeroFire(g, obj) {
     const base = objShortPhrase(obj);
     const noun = cnt === 1 && quan === 1 ? base : `${base}s`;
     await pline(`${mult}${noun} ${verb}!`);
+
+    if ((obj.owornmask | 0) !== 0) {
+        if ((obj.owornmask | 0) & W_RING) ringGoneHeroLikeC(g, obj);
+        else setnotwornHeroMinimalLikeC(g, obj);
+    }
+
+    const newQuan = origQuan - cnt;
+    if (newQuan <= 0) removeObjFromHeroInvent(g, obj);
+    else obj.quan = newQuan;
+    if (g.iflags?.perm_invent) updateInventory();
+
+    if (dmg && !xresist) {
+        const how = str[2];
+        const one = cnt === 1;
+        const killer = one ? how : `${how}s`;
+        losehp(dmg, killer, one ? KILLED_BY_AN : KILLED_BY);
+        exercise(A_STR, false);
+    }
+    return dmg;
+}
+
+/**
+ * C: zap.c **`maybe_destroy_item(&youmonst, obj, AD_COLD)`** — no potionbreathe (**`dmgtyp != AD_COLD`** in C).
+ * @param {typeof game} g
+ * @param {object} obj
+ * @returns {Promise<number>}
+ */
+async function maybeDestroyItemHeroCold(g, obj) {
+    const u = g.u;
+    if (!u || !obj) return 0;
+    if (inventoryResistanceCheckHeroLikeC(g, AD_COLD)) return 0;
+
+    const oc = nh5HeroObjectClass(obj);
+    if (oc !== NH5_POTION_CLASS) return 0;
+    if ((obj.otyp | 0) === OTYP_POT_OIL) return 0;
+
+    const origQuan = obj.quan ?? 1;
+    let quan = Math.max(1, origQuan);
+    if (obj.in_use | 0) quan -= 1;
+
+    const dindx = DS_FREEZE_POTION;
+    const dmg = rnd(4);
+    const xresist = 0;
+
+    let cnt = 0;
+    for (let i = 0; i < quan; i++) if (!rn2(3)) cnt++;
+    if (!cnt) return 0;
+
+    const str = DESTROY_STRINGS[dindx];
+    const verbIdx = cnt > 1 ? 1 : 0;
+    const verb = str[verbIdx] || str[0];
+    let mult = '';
+    if (cnt === 1 && quan === 1) mult = 'Your ';
+    else if (cnt === 1) mult = 'One of your ';
+    else if (cnt < quan) mult = 'Some of your ';
+    else if (quan === 2) mult = 'Both of your ';
+    else mult = 'All of your ';
+    const base = objShortPhrase(obj);
+    const noun = cnt === 1 && quan === 1 ? base : `${base}s`;
+    await pline(`${mult}${noun} ${verb}!`);
+
+    if ((obj.owornmask | 0) !== 0) {
+        if ((obj.owornmask | 0) & W_RING) ringGoneHeroLikeC(g, obj);
+        else setnotwornHeroMinimalLikeC(g, obj);
+    }
 
     const newQuan = origQuan - cnt;
     if (newQuan <= 0) removeObjFromHeroInvent(g, obj);
@@ -352,6 +434,57 @@ async function maybeDestroyItemMonFire(g, mtmp, obj, visMon) {
 }
 
 /**
+ * C: zap.c **`maybe_destroy_item(mon, obj, AD_COLD)`** — monster; potions only (**`visMon`** plines).
+ * @param {typeof game} g
+ * @param {object} mtmp
+ * @param {object} obj
+ * @param {boolean} visMon
+ * @returns {Promise<number>}
+ */
+async function maybeDestroyItemMonCold(g, mtmp, obj, visMon) {
+    if (!g.u || !obj || !mtmp) return 0;
+
+    const oc = nh5HeroObjectClass(obj);
+    if (oc !== NH5_POTION_CLASS) return 0;
+    if ((obj.otyp | 0) === OTYP_POT_OIL) return 0;
+
+    const origQuan = obj.quan ?? 1;
+    let quan = Math.max(1, origQuan);
+    if (obj.in_use | 0) quan -= 1;
+
+    const dindx = DS_FREEZE_POTION;
+    const dmg = rnd(4);
+    const xresist = 0;
+
+    let cnt = 0;
+    for (let i = 0; i < quan; i++) if (!rn2(3)) cnt++;
+    if (!cnt) return 0;
+
+    const str = DESTROY_STRINGS[dindx];
+    const verbIdx = cnt > 1 ? 1 : 0;
+    const verb = str[verbIdx] || str[0];
+    if (visMon) {
+        const n = mtmp?.monnam || mtmp?.data?.mname || 'monster';
+        let mult = '';
+        if (cnt === 1 && quan === 1) mult = `${n}'s `;
+        else if (cnt === 1) mult = `One of ${n}'s `;
+        else if (cnt < quan) mult = `Some of ${n}'s `;
+        else if (quan === 2) mult = `Both of ${n}'s `;
+        else mult = `All of ${n}'s `;
+        const base = objShortPhrase(obj);
+        const noun = cnt === 1 && quan === 1 ? base : `${base}s`;
+        await pline(`${mult}${noun} ${verb}!`);
+    }
+
+    const newQuan = origQuan - cnt;
+    if (newQuan <= 0) removeObjFromMonInvent(mtmp, obj);
+    else obj.quan = newQuan;
+
+    if (dmg && !xresist) return dmg;
+    return 0;
+}
+
+/**
  * C: zap.c destroy_items(mon, AD_FIRE, dmg_in) — no bypass / defer (**`u_carry`** false).
  * @param {typeof game} g
  * @param {object} mtmp
@@ -392,6 +525,46 @@ export async function destroyItemsMonFire(g, mtmp, dmgIn, visMon) {
 }
 
 /**
+ * C: zap.c **`destroy_items(mon, AD_COLD, dmg_in)`** — same limit/slot selection as **`AD_FIRE`**.
+ * @param {typeof game} g
+ * @param {object} mtmp
+ * @param {number} dmgIn
+ * @param {boolean} visMon
+ * @returns {Promise<number>}
+ */
+export async function destroyItemsMonCold(g, mtmp, dmgIn, visMon) {
+    const dmg0 = dmgIn | 0;
+    let limit = Math.trunc(dmg0 / DMG_DESTROY_SCALE);
+    if (dmg0 % DMG_DESTROY_SCALE > rn2(DMG_DESTROY_SCALE)) limit++;
+    if (limit > MAX_ITEMS_DESTROYED) limit = MAX_ITEMS_DESTROYED;
+    if (limit < 1) return 0;
+
+    const chain = mtmp?.minvent;
+    if (!chain) return 0;
+
+    /** @type {Array<{ ref: object | null, deferred: boolean } | undefined>} */
+    const slots = [];
+    let eligStacks = 0;
+
+    for (let o = chain; o; o = o.nobj) {
+        if (!destroyableHeroCold(o)) continue;
+        const i = eligStacks < limit ? eligStacks : rn2(eligStacks);
+        eligStacks++;
+        if (i < 0 || i >= limit) continue;
+        slots[i] = { ref: o, deferred: false };
+    }
+    if (eligStacks > limit) eligStacks = limit;
+
+    let dmgOut = 0;
+    for (let i = 0; i < eligStacks; i++) {
+        const slot = slots[i];
+        const o = slot?.ref;
+        if (o && !slot.deferred) dmgOut += await maybeDestroyItemMonCold(g, mtmp, o, visMon);
+    }
+    return dmgOut;
+}
+
+/**
  * C: zap.c destroy_items(&gy.youmonst, AD_FIRE, dmg_in) — bypass/deferred paths omitted;
  * second-pass verification uses object identity (no **`o_id`** yet).
  * @param {typeof game} [g]
@@ -426,6 +599,44 @@ export async function destroyItemsYoumonstFire(g = game, dmgIn) {
         const slot = slots[i];
         const o = slot?.ref;
         if (o && !slot.deferred) dmgOut += await maybeDestroyItemHeroFire(g, o);
+    }
+    return dmgOut;
+}
+
+/**
+ * C: zap.c **`destroy_items(&gy.youmonst, AD_COLD, dmg_in)`** — non-oil potions; bypass/deferred omitted.
+ * @param {typeof game} [g]
+ * @param {number} dmgIn
+ * @returns {Promise<number>}
+ */
+export async function destroyItemsYoumonstCold(g = game, dmgIn) {
+    const dmg0 = dmgIn | 0;
+    let limit = Math.trunc(dmg0 / DMG_DESTROY_SCALE);
+    if (dmg0 % DMG_DESTROY_SCALE > rn2(DMG_DESTROY_SCALE)) limit++;
+    if (limit > MAX_ITEMS_DESTROYED) limit = MAX_ITEMS_DESTROYED;
+    if (limit < 1) return 0;
+
+    const chain = g.invent;
+    if (!chain) return 0;
+
+    /** @type {Array<{ ref: object | null, deferred: boolean } | undefined>} */
+    const slots = [];
+    let eligStacks = 0;
+
+    for (let o = chain; o; o = o.nobj) {
+        if (!destroyableHeroCold(o)) continue;
+        const i = eligStacks < limit ? eligStacks : rn2(eligStacks);
+        eligStacks++;
+        if (i < 0 || i >= limit) continue;
+        slots[i] = { ref: o, deferred: false };
+    }
+    if (eligStacks > limit) eligStacks = limit;
+
+    let dmgOut = 0;
+    for (let i = 0; i < eligStacks; i++) {
+        const slot = slots[i];
+        const o = slot?.ref;
+        if (o && !slot.deferred) dmgOut += await maybeDestroyItemHeroCold(g, o);
     }
     return dmgOut;
 }
@@ -482,7 +693,7 @@ async function rechargeRingHeroElecLikeC(g, obj) {
 
 /**
  * C: zap.c **`maybe_destroy_item(mon, obj, AD_ELEC)`** — hero only; **`inventoryResistanceCheckHeroLikeC`**;
- * worn ring dust → **`wear.js`** **`ringGoneHeroLikeC`** (**`Ring_gone`** subset).
+ * worn ring dust → **`ringGoneHeroLikeC`**; other worn **`setnotwornHeroMinimalLikeC`** before **`useup`**.
  * @param {typeof game} g
  */
 async function maybeDestroyItemHeroElec(g, obj) {
@@ -543,7 +754,10 @@ async function maybeDestroyItemHeroElec(g, obj) {
     const noun = cnt === 1 && quan === 1 ? base : `${base}s`;
     await pline(`${mult}${noun} ${verb}!`);
 
-    if ((obj.owornmask | 0) & W_RING) ringGoneHeroLikeC(g, obj);
+    if ((obj.owornmask | 0) !== 0) {
+        if ((obj.owornmask | 0) & W_RING) ringGoneHeroLikeC(g, obj);
+        else setnotwornHeroMinimalLikeC(g, obj);
+    }
 
     const newQuan = origQuan - cnt;
     if (newQuan <= 0) removeObjFromHeroInvent(g, obj);
