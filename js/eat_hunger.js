@@ -22,7 +22,7 @@ function overexertHpPlines() {
             return [];
         }
     } else {
-        if (u.mh == null) return []; /* poly HP not wired — skip until u.mh tracks monster form */
+        if (u.mh == null) return []; /* call u_init_hp_energy.syncPolyHpFromHumanShape when Upolyd */
         const mh = u.mh | 0;
         if (mh > 1) {
             u.mh = mh - 1;
