@@ -8,7 +8,7 @@ import { monnearMonsterXYLikeC } from './mon_geom.js';
 import { dist2 } from './hacklib.js';
 import { sengrAtLikeC } from './engrave.js';
 import { levlTypAt } from './decor.js';
-import { raceptr, isRiderMnum } from './mondata.js';
+import { raceptr, isRiderMnum, isVampshifterMonsterLikeC } from './mondata.js';
 import { inHishop, inRoomsTypewantedRoomnos, templeOccupiedFromUUroomsLikeC } from './shop.js';
 import { couldsee } from './vision.js';
 import { artifactLightObjLikeC } from './artifact_light.js';
@@ -22,9 +22,6 @@ const G_UNIQ = 0x1000;
 /** C: **`mons[]`** indices from **`include/monsters.h`** MON order (NH 5.0). */
 const PM_ANGEL = 122;
 const PM_MINOTAUR = 176;
-const PM_VAMPIRE = 224;
-const PM_VAMPIRE_LEADER = 225;
-const PM_VLAD_THE_IMPALER = 226;
 
 /** C: defsym.h **`MONSYM(..., VAMPIRE, S_VAMPIRE, ...)`**. */
 const S_VAMPIRE = 48;
@@ -51,15 +48,6 @@ function perceivesDataLikeC(data) {
 
 function uniqueCorpstatLikeC(ptr) {
     return ((ptr?.geno ?? 0) & G_UNIQ) !== 0;
-}
-
-/**
- * C: monst.h **`is_vampshifter(mon)`** — **`cham`** targets (**subset**: fixed **`PM_*`** indices).
- * @param {Record<string, unknown>} mtmp
- */
-export function isVampshifterMonsterLikeC(mtmp) {
-    const c = mtmp?.cham | 0;
-    return c === PM_VAMPIRE || c === PM_VAMPIRE_LEADER || c === PM_VLAD_THE_IMPALER;
 }
 
 function monAligntypMonsterLikeC(mtmp) {
@@ -317,3 +305,5 @@ export async function distfleeckMonsterApplyLikeC(g, mtmp) {
     }
     return out;
 }
+
+export { isVampshifterMonsterLikeC };

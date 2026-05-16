@@ -160,8 +160,22 @@ export function isDemonPtr(ptr) {
     return ((ptr?.mflags2 ?? 0) & M2_DEMON) !== 0;
 }
 
+/** C: monst.h **`is_vampshifter`** — **`cham`** vs **`PM_VAMPIRE`** / **`PM_VAMPIRE_LEADER`** / **`PM_VLAD_THE_IMPALER`** (**`monsters.h`** NH 5.0). */
+const PM_VAMPIRE = 224;
+const PM_VAMPIRE_LEADER = 225;
+const PM_VLAD_THE_IMPALER = 226;
+
 /**
- * C: mondata.c resists_drli(&gy.youmonst) — intrinsic form + lycanthrope; **`defended(AD_DRLI)`** gear TODO.
+ * C: monst.h **`is_vampshifter(mon)`**.
+ * @param {Record<string, unknown>|null|undefined} mtmp
+ */
+export function isVampshifterMonsterLikeC(mtmp) {
+    const c = mtmp?.cham | 0;
+    return c === PM_VAMPIRE || c === PM_VAMPIRE_LEADER || c === PM_VLAD_THE_IMPALER;
+}
+
+/**
+ * C: mondata.c resists_drli(&gy.youmonst) — intrinsic form + lycanthrope; **`is_vampshifter`** / **`defended(AD_DRLI)`** still TODO (**`exper.c`** **`losexp`** / **`mondata.c`** **`resists_drli`**).
  * @param {typeof game} g
  */
 export function resistsDrliHeroLikeC(g) {
