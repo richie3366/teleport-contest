@@ -2,7 +2,7 @@
 // C ref: dokick.c impact_drop(), down_gate(), drop_to(), obj_delivery();
 //        mkobj.c add_to_migration() (queue semantics only).
 
-import { rn2, rnd } from './rng.js';
+import { rn1, rn2, rnd } from './rng.js';
 import { pline, newsym } from './display.js';
 import { cansee } from './vision.js';
 import { tAt } from './search.js';
@@ -23,12 +23,23 @@ import {
     Has_contents,
     COLNO,
     ROWNO,
-    isok,
+    STONE,
     OTYP_BOULDER,
     ESHK,
+    IS_SOFT,
 } from './const.js';
+import { onLevelLikeC } from './hacklib.js';
+import { stairwayAtInGame, stairwayFindFromLikeC } from './decor.js';
+import { scatterObjDeliveryScflags0LikeC } from './scatter_obj_delivery.js';
+import { breaktestLikeC, breaksObjDeliveryLikeC } from './obj_break_dothrow.js';
 import { NH5_COIN_CLASS } from './nh5_objclass.js';
-import { floorObjKey, unlinkFloorObjectInLevel, placeFloorObjectInLevel, stackObjOnFloorInLevel } from './floorobj.js';
+import {
+    floorObjKey,
+    unlinkFloorObjectInLevel,
+    placeFloorObjectInLevel,
+    stackObjOnFloorInLevel,
+    obliterateObjectInLevel,
+} from './floorobj.js';
 import { goodposHero } from './walkable.js';
 import {
     costlySpot,
@@ -44,14 +55,37 @@ import { OBJ_ROCK } from './mthrowu.js';
 /** C: `gg.gate_str` during **`down_gate`/`impact_drop`**. */
 let gateStrImpactDrop = /** @type {string|null} */ (null);
 
+/** C: **`ok_to_quest()`** — stub **TRUE** until quest gate is ported. */
+function okToQuestLikeC(_g) {
+    return true;
+}
+
 /**
- * C: dokick.c **`down_gate(x,y)`** — subset (**`stairway_at`** omitted; **`qstart_level`** omitted).
+ * C: dokick.c **`down_gate(x,y)`** — **`stairway_at`**, **`qstart_level`/`ok_to_quest`**, seen hole/trapdoor.
  * @returns {{ toloc: number, gateStr: string|null }}
  */
 export function downGateAtLikeC(g, x, y) {
     gateStrImpactDrop = null;
     const xi = x | 0;
     const yi = y | 0;
+    const u = g.u;
+    const ql = g.qstartLevel;
+    if (ql && u?.uz && onLevelLikeC(u.uz, ql) && !okToQuestLikeC(g)) {
+        return { toloc: MIGR_NOWHERE, gateStr: null };
+    }
+    const stway = stairwayAtInGame(g, xi, yi);
+    if (stway && !stway.up && !stway.isladder) {
+        gateStrImpactDrop = 'down the stairs';
+        const uz = u?.uz;
+        const tv = stway.tolev;
+        const toloc =
+            tv && uz && (tv.dnum | 0) === (uz.dnum | 0) ? MIGR_STAIRS_UP : MIGR_SSTAIRS;
+        return { toloc, gateStr: gateStrImpactDrop };
+    }
+    if (stway && !stway.up && stway.isladder) {
+        gateStrImpactDrop = 'down the ladder';
+        return { toloc: MIGR_LADDER_UP, gateStr: gateStrImpactDrop };
+    }
     const ttmp = tAt(xi, yi);
     if (ttmp && ttmp.tseen && is_hole(ttmp.ttyp | 0)) {
         gateStrImpactDrop =
@@ -94,20 +128,34 @@ function extractObjFromFloorLikeC(g, otmp) {
     }
 }
 
-function rndScatterSpotLikeC(g) {
-    const u = g.u;
-    if (!u) return { x: 1, y: 1 };
-    for (let t = 0; t < 120; t++) {
-        const x = rn2(Math.max(1, COLNO - 2)) + 1;
-        const y = rn2(Math.max(1, ROWNO - 2)) + 1;
-        if (!isok(x, y)) continue;
-        if (goodposHero(x, y, g)) return { x, y };
+/**
+ * C: teleport.c **`rloco(obj)`** tail + dokick.c **`obj_delivery`** **`breaktest`** (**`flooreffects`** omitted).
+ * @returns {Promise<void>}
+ */
+async function rlocoObjDeliverySubsetLikeC(g, obj, nobreak) {
+    obj.ox = 0;
+    obj.oy = 0;
+    let tryLimit = 4000;
+    let tx = 2;
+    let ty = 0;
+    do {
+        tx = rn1(COLNO - 3, 2);
+        ty = rn2(ROWNO);
+        if (!--tryLimit) break;
+    } while (!goodposHero(tx, ty, g));
+    placeFloorObjectInLevel(g, obj, tx, ty);
+    stackObjOnFloorInLevel(g, obj);
+    if (!nobreak && breaktestLikeC(g, obj)) {
+        obliterateObjectInLevel(g, obj);
+        newsym(tx, ty);
+        return;
     }
-    return { x: u.ux | 0, y: u.uy | 0 };
+    newsym(tx, ty);
 }
 
 /**
- * C: dokick.c **`obj_delivery(near_hero)`** — subset (**`breaktest`/`scatter`/`stairway_find_from`** omitted).
+ * C: dokick.c **`obj_delivery(near_hero)`** — **`stairway_find_from`**, **`IS_SOFT`**, **`breaktest`/`breaks`**,
+ * **`scatter`** with **`rnd(2)`**, **`rloco`** (full **`potionbreathe`**, **`angry_guards`**, **`currency`** still TODO).
  * @param {import('./gstate.js').game} g
  * @param {boolean} nearHero — C **`near_hero`**
  */
@@ -122,19 +170,20 @@ export async function objDeliveryLikeC(g, nearHero) {
     const remain = [];
 
     for (const e of [...list]) {
-        const { obj, targetDnum, targetDlevel, toloc } = e;
+        const { obj, targetDnum, targetDlevel, toloc, omigrFromDnum, omigrFromDlevel } = e;
         if (!obj) continue;
         if ((targetDnum | 0) !== dnu || (targetDlevel | 0) !== dlu) {
             remain.push(e);
             continue;
         }
-        let where = toloc | 0;
-        if ((where & MIGR_TO_SPECIES) !== 0) {
+        let whereRaw = toloc | 0;
+        if ((whereRaw & MIGR_TO_SPECIES) !== 0) {
             remain.push(e);
             continue;
         }
-        const noscatter = (where & MIGR_WITH_HERO) !== 0;
-        where &= ~(1024 | 2048); /* MIGR_NOBREAK | MIGR_NOSCATTER */
+        const nobreak = (whereRaw & 1024) !== 0;
+        const noscatter = (whereRaw & MIGR_WITH_HERO) !== 0;
+        let where = whereRaw & ~(1024 | 2048);
         if ((!!nearHero) === (where === MIGR_WITH_HERO)) {
             remain.push(e);
             continue;
@@ -142,27 +191,43 @@ export async function objDeliveryLikeC(g, nearHero) {
 
         let nx = 0;
         let ny = 0;
-        if (where === MIGR_WITH_HERO) {
+        let isladderFind = false;
+        if (where === MIGR_LADDER_UP) isladderFind = true;
+        if (where === MIGR_STAIRS_UP || where === MIGR_SSTAIRS || where === MIGR_LADDER_UP) {
+            const stw = stairwayFindFromLikeC(g, {
+                dnum: omigrFromDnum ?? dnu,
+                dlevel: omigrFromDlevel ?? dlu,
+            }, isladderFind);
+            if (stw) {
+                nx = stw.sx | 0;
+                ny = stw.sy | 0;
+            }
+        } else if (where === MIGR_WITH_HERO) {
             nx = u.ux | 0;
             ny = u.uy | 0;
-        } else if (where === MIGR_RANDOM) {
-            const p = rndScatterSpotLikeC(g);
-            nx = p.x;
-            ny = p.y;
         } else {
-            nx = u.ux | 0;
-            ny = u.uy | 0;
+            nx = 0;
+            ny = 0;
         }
 
         if (nx > 0 && ny > 0) {
+            const loc = g.level?.at(nx, ny);
+            const ltyp = loc ? loc.typ | 0 : 0;
             placeFloorObjectInLevel(g, obj, nx, ny);
             stackObjOnFloorInLevel(g, obj);
-            if (!noscatter) {
-                void rnd(2);
+            if (!nobreak && !IS_SOFT(ltyp)) {
+                if (where === MIGR_WITH_HERO) {
+                    if (await breaksObjDeliveryLikeC(g, obj, nx, ny)) continue;
+                } else if (breaktestLikeC(g, obj)) {
+                    obliterateObjectInLevel(g, obj);
+                    newsym(nx, ny);
+                    continue;
+                }
             }
-            newsym(nx, ny);
+            if (!noscatter) scatterObjDeliveryScflags0LikeC(g, nx, ny, rnd(2), obj);
+            else newsym(nx, ny);
         } else {
-            remain.push(e);
+            await rlocoObjDeliverySubsetLikeC(g, obj, nobreak);
         }
     }
     g.migratingObjs = remain;
@@ -239,11 +304,14 @@ export async function impactDropLikeC(g, missile, x, y, dlev) {
             if ((obj.oclass | 0) !== NH5_COIN_CLASS) obj.no_charge = 0;
         }
 
+        const uzSrc = u.uz ? { dnum: u.uz.dnum | 0, dlevel: u.uz.dlevel | 0 } : { dnum: 0, dlevel: 0 };
         g.migratingObjs.unshift({
             obj,
             targetDnum: destDnum,
             targetDlevel: destDlevel,
             toloc,
+            omigrFromDnum: uzSrc.dnum,
+            omigrFromDlevel: uzSrc.dlevel,
         });
         dct += obj.quan | 0;
     }

@@ -30,15 +30,57 @@ export function levlTypAt(x, y) {
     return game.level?.at(x, y)?.typ ?? STONE;
 }
 
-/** C: stairs.c stairway_at — contest map stores upstair / dnstair coordinates only. */
-export function stairwayAt(x, y) {
-    const L = game.level;
-    if (!L) return null;
-    if (L.upstair && L.upstair.x === x && L.upstair.y === y) {
-        return { up: true, isladder: false, u_traversed: !!game.u?.u_traversed_upstairs };
+/**
+ * C: stairs.c **`stairway_at(x,y)`** — **`gs.stairs`** chain then **`level.upstair`/`dnstair`**.
+ * @param {import('./gstate.js').game} g
+ * @param {number} x
+ * @param {number} y
+ * @returns {{ up: boolean, isladder: boolean, u_traversed: boolean, tolev?: { dnum: number, dlevel: number }|null } | null}
+ */
+export function stairwayAtInGame(g, x, y) {
+    const xi = x | 0;
+    const yi = y | 0;
+    for (let s = g.stairs; s; s = s.next) {
+        if ((s.sx | 0) === xi && (s.sy | 0) === yi) {
+            const tv = s.tolev;
+            return {
+                up: !!s.up,
+                isladder: !!s.isladder,
+                u_traversed: !!g.u?.u_traversed_upstairs,
+                tolev: tv && tv.dnum != null ? { dnum: tv.dnum | 0, dlevel: tv.dlevel | 0 } : null,
+            };
+        }
     }
-    if (L.dnstair && L.dnstair.x === x && L.dnstair.y === y) {
-        return { up: false, isladder: false, u_traversed: false };
+    const L = g.level;
+    if (!L) return null;
+    if (L.upstair && L.upstair.x === xi && L.upstair.y === yi) {
+        return { up: true, isladder: false, u_traversed: !!g.u?.u_traversed_upstairs, tolev: null };
+    }
+    if (L.dnstair && L.dnstair.x === xi && L.dnstair.y === yi) {
+        return { up: false, isladder: false, u_traversed: false, tolev: null };
+    }
+    return null;
+}
+
+/** C: stairs.c **`stairway_at`** — uses global **`game`**. */
+export function stairwayAt(x, y) {
+    return stairwayAtInGame(game, x, y);
+}
+
+/**
+ * C: stairs.c **`stairway_find_from(d_level *fromdlev, boolean isladder)`**.
+ * @param {import('./gstate.js').game} g
+ * @param {{ dnum: number, dlevel: number }} fromdlev
+ * @param {boolean} isladder
+ */
+export function stairwayFindFromLikeC(g, fromdlev, isladder) {
+    const dn = fromdlev.dnum | 0;
+    const dl = fromdlev.dlevel | 0;
+    const isl = !!isladder;
+    for (let s = g.stairs; s; s = s.next) {
+        const tv = s.tolev;
+        if (!tv) continue;
+        if ((tv.dnum | 0) === dn && (tv.dlevel | 0) === dl && !!s.isladder === isl) return s;
     }
     return null;
 }
