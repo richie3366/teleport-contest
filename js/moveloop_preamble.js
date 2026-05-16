@@ -9,7 +9,9 @@
 import { game } from './gstate.js';
 import { pline } from './display.js';
 import { rnd } from './rng.js';
-import { NEW_MOON, FULL_MOON, NORMAL_SPEED, STONE } from './const.js';
+import {
+    NEW_MOON, FULL_MOON, NORMAL_SPEED, STONE, FUZZER_IMPOSSIBLE_PANIC,
+} from './const.js';
 import { parseFixedDatetime, phaseOfTheMoonFromDate, isFriday13thFromDate } from './moonphase.js';
 import { changeLuck } from './attrib.js';
 import { initrack } from './track.js';
@@ -21,6 +23,7 @@ import { seeMonsters } from './vision.js';
 import { updateInventory } from './invent.js';
 import { takePendingGiveMayAdvancePline, takePendingDrainForgetPlines } from './u_init_skills.js';
 import { findLevelByProtoLikeC } from './sp_levchn.js';
+import { askDoTutorialMenuTTYLikeC } from './tutorial_prompt.js';
 
 /**
  * C: allmain.c **`maybe_do_tutorial`** → **`find_level("tut-1")`** (**`dungeon.c`**).
@@ -40,8 +43,10 @@ export function findLevelTut1LikeC() {
 export async function askDoTutorialLikeC() {
     const g = game;
     if (g.tutorial_set_in_config) return !!g.flags?.tutorial;
-    /* C: create_nhwindow NHW_MENU … — needs tty menu + replay keys when tut-1 exists */
-    return false;
+    /* C: options.c — NHW_MENU + select_menu(PICK_ONE); replay must supply y/n/ESC when tut-1 exists */
+    const disp = g.nhDisplay;
+    if (disp) return askDoTutorialMenuTTYLikeC(disp);
+    return !!g.flags?.tutorial;
 }
 
 /**
@@ -133,7 +138,7 @@ export async function moveloopPreamble(resuming) {
 
     /* C: iflags.fuzzerpending — debug fuzzer */
     if (g.iflags?.fuzzerpending) {
-        g.iflags.debug_fuzzer = 1;
+        g.iflags.debug_fuzzer = FUZZER_IMPOSSIBLE_PANIC;
         g.iflags.fuzzerpending = false;
     }
 

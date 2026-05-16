@@ -288,6 +288,10 @@ export const NHW_PERMINVENT = 6;
 export const PICK_NONE = 0;
 export const PICK_ONE = 1;
 export const PICK_ANY = 2;
+/** C: include/flag.h enum debug_fuzzer_states — iflags.debug_fuzzer */
+export const FUZZER_OFF = 0;
+export const FUZZER_IMPOSSIBLE_PANIC = 1;
+export const FUZZER_IMPOSSIBLE_CONTINUE = 2;
 export const MENU_BEHAVE_STANDARD = 0;
 export const MENU_BEHAVE_PERMINV = 1;
 export const ATR_ULINE = 1;
