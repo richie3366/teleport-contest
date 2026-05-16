@@ -1,7 +1,7 @@
 // shop.js — Shopkeeper and shop-adjacent hooks.
 // C ref: shk.c fix_shop_damage(), repair_damage(), repairable_damage(), shk_impaired(), next_shkp();
-//        adisturb(), costly_spot(), add_damage(); invent.c useupf() billing;
-//        hack.c in_rooms() for **`SHOPBASE`**.
+//        stolen_value()/stolen_container() subset for dig.c bury_objs; adisturb(), costly_spot(), add_damage();
+//        invent.c useupf() billing; hack.c in_rooms() for **`SHOPBASE`**.
 
 import { game } from './gstate.js';
 import { pline, newsym } from './display.js';
@@ -15,6 +15,7 @@ import { rn2 } from './rng.js';
 import { nhgetch } from './input.js';
 import { changeLuck } from './attrib.js';
 import { NH5_COIN_CLASS } from './nh5_objclass.js';
+import { containedGold } from './u_init_hidden_gold.js';
 import {
     OROOM,
     NO_ROOM,
@@ -33,6 +34,7 @@ import {
     REPAIR_DELAY,
     D_BROKEN,
     D_CLOSED,
+    Has_contents,
 } from './const.js';
 
 /**
@@ -691,10 +693,45 @@ function shkpAngry(shkp) {
     return !(shkp?.mpeaceful | 0);
 }
 
+/** C: shk.c **`get_pricing_units`** — **`quan`**; **`globby`** weight pricing not ported. */
+function getPricingUnitsStolenBury(obj) {
+    return Math.max(1, obj.quan | 0);
+}
+
 /**
- * C: shk.c **`stolen_value`** subset for **`dig.c`** **`bury_objs`** ( **`silent` TRUE** ):
- * coin **`quan`**, else **`!no_charge`** and **`price * quan`** when **`price`** set.
- * Omits **`billable`/`onbill`/`get_cost`/`stolen_container`/`find_objowner`**.
+ * C: shk.c **`get_cost`** floor subset — **`getprice`** not ported; use **`obj.price`** or **5** minimum (**`tmp || 5`**).
+ * @param {object} obj
+ */
+function getCostStolenBuryUnit(obj) {
+    const pr = obj.price | 0;
+    return pr > 0 ? pr : 5;
+}
+
+/**
+ * C: shk.c **`stolen_container`** — nested **`cobj`** / **`nobj`**; floor bury uses **`!no_charge`** (**`ininv` FALSE**).
+ * Skips **`billable`/`onbill`/`sub_one_frombill`** ( **`gb.billobjs`** not wired).
+ */
+function stolenContainerMerchBurySilent(g, obj, shkp, ininv) {
+    void g;
+    void shkp;
+    if (!Has_contents(obj)) return 0;
+    let price = 0;
+    for (let otmp = obj.cobj; otmp; otmp = otmp.nobj) {
+        if ((otmp.oclass | 0) === NH5_COIN_CLASS) continue;
+        const chargeable = ininv ? !!(otmp.unpaid | 0) : !(otmp.no_charge | 0);
+        if (chargeable) {
+            price += getPricingUnitsStolenBury(otmp) * getCostStolenBuryUnit(otmp);
+        }
+        if (Has_contents(otmp)) price += stolenContainerMerchBurySilent(g, otmp, shkp, ininv);
+    }
+    return price;
+}
+
+/**
+ * C: shk.c **`stolen_value`** subset for **`dig.c`** **`bury_objs`** (**`silent` TRUE**):
+ * coin **`quan`**; non-coin top **`!no_charge`** → **`get_pricing_units * get_cost`**;
+ * **`Has_contents`** → **`stolen_container`** + **`contained_gold(obj, TRUE)`** (floor **`ininv` FALSE**).
+ * Still TODO: **`billable`/`onbill`/`find_objowner`**, full **`get_cost`** / **`getprice`**, angry surcharge.
  * @param {boolean} silent — C **`silent`** (suppresses per-object **`You`** / thief **`Norep`**; **`check_credit`** still plines like C)
  */
 export async function stolenValueMerchBurySilent(g, obj, x, y, shkp, silent) {
@@ -709,10 +746,14 @@ export async function stolenValueMerchBurySilent(g, obj, x, y, shkp, silent) {
     const oc = obj.oclass | 0;
     if (oc === NH5_COIN_CLASS) {
         gvalue += Math.max(0, obj.quan | 0);
-    } else if (!(obj.no_charge | 0)) {
-        const quan = Math.max(1, obj.quan | 0);
-        const pr = obj.price | 0;
-        if (pr > 0) value += pr * quan;
+    } else {
+        if (!(obj.no_charge | 0)) {
+            value += getPricingUnitsStolenBury(obj) * getCostStolenBuryUnit(obj);
+        }
+        if (Has_contents(obj)) {
+            value += stolenContainerMerchBurySilent(g, obj, shkp, false);
+            gvalue += containedGold(obj, true);
+        }
     }
     if (gvalue + value === 0) return 0;
     value += gvalue;
