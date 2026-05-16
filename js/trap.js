@@ -2462,7 +2462,8 @@ async function trapeffectPitHero(trap, trflags) {
 
 /** C: trap.c trapeffect_landmine — hero. */
 async function trapeffectLandmineHero(trap, trflags) {
-    const u = game.u;
+    const g = game;
+    const u = g.u;
     if (!u) return;
     if (landmineRecursion) return;
 
@@ -2502,6 +2503,8 @@ async function trapeffectLandmineHero(trap, trflags) {
     newsym(u.ux, u.uy);
     const t2 = tAt(u.ux, u.uy);
     if (t2) await dotrap(t2, RECURSIVETRAP);
+    /* C: trap.c — fill_pit(u.ux, u.uy) after recursive dotrap (boulder may plug pit). */
+    await fillPitInLevel(g, u.ux | 0, u.uy | 0);
 }
 
 /** C: trap.c trapeffect_rolling_boulder_trap — hero (launch_obj not ported). */
