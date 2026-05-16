@@ -1,6 +1,6 @@
 // cmd.js — Command dispatch and movement.
-// C ref: cmd.c rhack(), hack.c domove(); trap.c dotrap (nomul prefix when trap present);
-// trap.c drown() pool entry — drown.js maybeHeroPoolEnter after moves.
+// C ref: cmd.c rhack(), hack.c domove(); hack.c spoteffects (pickup, dotrap, pooleffects order);
+//        trap.c drown / lava_effects via spoteffects.js.
 //
 // Movement: hjklyubn; peaceful/tame mons → swap (hack.c displace); else bump attack stub.
 // Contestants should add: search, kick, eat, drink, read, zap,
@@ -10,18 +10,15 @@ import { game } from './gstate.js';
 import { nhgetch } from './input.js';
 import { newsym, flush_screen, pline, docrt } from './display.js';
 import { vision_recalc } from './vision.js';
-import { dosearch, tAt } from './search.js';
+import { dosearch } from './search.js';
 import { maybeSmudgeEngr } from './engrave.js';
 import { checkHere } from './pickup.js';
-import { dotrap } from './trap.js';
 import { runExtcmdFromHashPrefix } from './extcmd.js';
 import { doZapCmd } from './dozap.js';
 import { doBumpMeleeAttack } from './attack.js';
 import { tryPeacefulSwap } from './peaceful_displace.js';
 import { blocksMovementAt, diagonalHeroMoveBlocked } from './walkable.js';
-import { maybeHeroPoolEnter } from './drown.js';
-import { maybeHeroLavaEffects } from './lava.js';
-import { NO_TRAP_FLAGS } from './const.js';
+import { spotEffects } from './spoteffects.js';
 
 // Direction deltas: y u k
 //                   h . l
@@ -164,10 +161,7 @@ async function domove(dx, dy) {
                 u.dx = dx;
                 u.dy = dy;
                 maybeSmudgeEngr(ox, oy, newx, newy);
-                const trSwap = tAt(newx, newy);
-                if (trSwap) await dotrap(trSwap, NO_TRAP_FLAGS);
-                await maybeHeroPoolEnter(game, { fromDx: dx, fromDy: dy });
-                if (!(game.iflags?.in_lava_effects | 0)) await maybeHeroLavaEffects(game);
+                await spotEffects(game, true, { fromDx: dx, fromDy: dy });
                 const hx = u.ux, hy = u.uy;
                 newsym(ox, oy);
                 if (hx !== newx || hy !== newy) newsym(newx, newy);
@@ -196,10 +190,7 @@ async function domove(dx, dy) {
     u.uy = newy;
     // C: hack.c domove — after domove_core walk/rush
     maybeSmudgeEngr(oldx, oldy, newx, newy);
-    const tr = tAt(newx, newy);
-    if (tr) await dotrap(tr, NO_TRAP_FLAGS);
-    await maybeHeroPoolEnter(game, { fromDx: dx, fromDy: dy });
-    if (!(game.iflags?.in_lava_effects | 0)) await maybeHeroLavaEffects(game);
+    await spotEffects(game, true, { fromDx: dx, fromDy: dy });
     const hx = u.ux, hy = u.uy;
     game._pending_message = '';
     game._overlayScreen = null;

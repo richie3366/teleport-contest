@@ -4,7 +4,7 @@
 //        mon.c minliquid_core() (pool/waterwall/lava/fountain/gremlin/golem/usteed/eel; **`rloc`** subset **`enextoNearMon`**; **`monflee`** land eel; **`split_mon`/`dryup`** gremlin; pool survivor **`water_damage_chain`**+**`rloc(RLOC_NOMSG)`**+**`deal_with_overcrowding`** after **`mondied`/`xkilled`**; lava **`fire_damage_chain`** + **`rloc`** + **`deal_with_overcrowding`**).
 //
 // Still TODO vs C: corpse **`ROT_ORGANIC`** start on all bury paths; **`bury_objs`** full **`get_cost`**/**`getprice`** / angry surcharge (**`shop.js`** bill rows need **`addtobill`**);
-// **`dig.c`/`read.c`** **`buried_ball`/`punish`** (**`floorobj.js`**) — **`placebc`** blind glyphs / **`uswallow`**; beam/breath vectors; **`boulder_hits_pool`** **`recalc_block_point`**/**`wake_nearto`**/**`u.uinwater`**; **`spoteffects`**.
+// **`dig.c`/`read.c`** **`buried_ball`/`punish`** (**`floorobj.js`**) — **`placebc`** blind glyphs / **`uswallow`**; beam/breath vectors; **`boulder_hits_pool`** **`recalc_block_point`**/**`wake_nearto`**/**`u.uinwater`**; hero pool on melt uses **`drown.js`** (**`hack.c`** **`spoteffects`** is **`cmd.js`**/**`spoteffects.js`** for normal moves).
 
 import { pline, newsym } from './display.js';
 import { vision_recalc, cansee } from './vision.js';
