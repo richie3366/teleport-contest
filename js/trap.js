@@ -110,6 +110,10 @@ import {
     KILLED_BY,
     PM_GREMLIN,
     PM_IRON_GOLEM,
+    PM_STRAW_GOLEM,
+    PM_PAPER_GOLEM,
+    PM_LEATHER_GOLEM,
+    PM_WOOD_GOLEM,
     OTYP_BOULDER,
     TRAP_EFFECT_FINISHED,
     TRAP_CAUGHT_MON,
@@ -118,6 +122,7 @@ import {
     MIGR_RANDOM,
     MIGR_PORTAL,
     is_xport,
+    KILLED_BY_AN,
 } from './const.js';
 
 const M1_CLING = 0x00000010;
@@ -273,29 +278,85 @@ function tamedogStub() {
     return false;
 }
 
+/** C: attrib.c **`minuhpmax`** subset — role/attr caps not ported; **`floor`** only. */
+function minuhpmaxHero(_u, floor) {
+    void _u;
+    return floor | 0;
+}
+
+/** C: **`mons[u.umonnum].mlevel`** — poly **`mhmax`** floor in **`dofiretrap`**. */
+function heroPolyFormMlevel(u) {
+    const ptr = raceptr(game.youmonst);
+    const ml = ptr?.mlevel;
+    if (ml != null && (ml | 0) > 0) return ml | 0;
+    return Math.max(1, u?.ulevel | 0);
+}
+
 /**
  * C: trap.c dofiretrap(box null) — floor / magic fire; **`burn_away_slime`** (**`timeout.js`**)
  * before destroy; **`burnarmor`** (**`erode_obj.js`**); floor **`burn_floor_objects`** + blind smell;
- * then **`melt_ice`** (**`melt_ice.js`**).
+ * then **`melt_ice`** (**`melt_ice.js`**). Polymorph: golem **`alt`**, **`mhmax`** vs **`mlevel`**, damage **`u.mh`**;
+ * human: second **`d(2,4)`** for max-HP drain + **`losehp`** (C **`minuhpmax`/`losexp`** subset).
  */
 async function dofiretrapHeroNoBox() {
     const u = game.u;
     if (!u) return;
     const origDmg = d(2, 4);
     let num = origDmg;
+
     await pline('A tower of flame erupts from the floor!');
     if (u.Fire_resistance) {
         num = rn2(2);
+    } else if (u.Upolyd) {
+        const mhmax = u.mhmax | 0;
+        const umon = u.umonnum | 0;
+        let alt = 0;
+        if (umon === PM_PAPER_GOLEM) alt = mhmax;
+        else if (umon === PM_STRAW_GOLEM) alt = Math.trunc(mhmax / 2);
+        else if (umon === PM_WOOD_GOLEM) alt = Math.trunc(mhmax / 4);
+        else if (umon === PM_LEATHER_GOLEM) alt = Math.trunc(mhmax / 8);
+        else {
+            const gfa = golemFireAltFromMname(mhmax, game.youmonst);
+            alt = gfa.alt | 0;
+        }
+        if (alt > num) num = alt;
+        const mlevel = heroPolyFormMlevel(u);
+        if (mhmax > mlevel) {
+            const cap = Math.min(mhmax, num + 1);
+            u.mhmax = mhmax - rn2(cap);
+            game.disp = game.disp || {};
+            game.disp.botl = true;
+        }
+        if ((u.mh | 0) > (u.mhmax | 0)) u.mh = u.mhmax;
     } else {
         num = d(2, 4);
-        if ((u.uhpmax ?? 1) > 1) {
+        const uhpmin = minuhpmaxHero(u, 1);
+        const olduhpmax = u.uhpmax | 0;
+        if ((u.uhpmax ?? 1) > uhpmin) {
             const cap = Math.min(u.uhpmax ?? 1, num + 1);
             u.uhpmax -= rn2(cap);
+            game.disp = game.disp || {};
+            game.disp.botl = true;
+        }
+        if ((u.uhpmax ?? 1) < uhpmin) {
+            u.uhpmax = Math.min(olduhpmax, uhpmin);
+            if (!(u.Drain_resistance | 0)) {
+                /* C: losexp(NULL) — not ported */
+            }
+            game.disp = game.disp || {};
+            game.disp.botl = true;
         }
         if ((u.uhp ?? 0) > (u.uhpmax ?? 1)) u.uhp = u.uhpmax;
     }
+
     if (!num) await pline('You are uninjured.');
-    else u.uhp = Math.max(0, (u.uhp ?? 0) - num);
+    else if (u.Upolyd) {
+        u.mh = Math.max(0, (u.mh ?? 0) - num);
+        game.disp = game.disp || {};
+        game.disp.botl = true;
+    } else {
+        losehp(num, 'tower of flame', KILLED_BY_AN);
+    }
     await burnAwaySlime(game);
     if ((await burnarmorYoumonst(game)) || rn2(3)) {
         await destroyItemsYoumonstFire(game, origDmg);

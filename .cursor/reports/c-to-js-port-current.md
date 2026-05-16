@@ -9,15 +9,13 @@ Thin handoff for the next coding session. Deep parity tables and history: [`c-to
 - **Plain ES modules**, no build/WASM/network in contest code; RNG via `js/rng.js`; match **clang** evaluation order for multi-call expressions.
 - API: [`docs/API.md`](../../docs/API.md); overview: [`README.md`](../../README.md).
 
-**Last slice:** **`teleport.c`** **`mlevel_tele_trap`** + **`dog.c`** **`migrate_to_level`** subset: **`monHasAmulet`** / **`isHomeElemental`** (**`wizard.c`** / **`makemon.c`**); magic portal endgame gate (**`rn2(7)`** only with amulet/home elemental); **`trap.dst`** for portal + hole fallback; stronghold hole → **`g.valley_level`** stub; level-tele blocks on amulet (not only endgame); **`Suddenly`** pline verbs (**hole** / **trap door** / disappear); **`control_teleport`** stub → **`mconf`**; **`migrateToLevelMon`** (**`game.migratingMons`**, **`mUnleashMon`** feedback on migrate leash). **`const.js`:** **`OTYP_AMULET_OF_YENDOR`**, **`PM_*`** indices aligned to upstream **`monsters.h`** (gremlin, grid bug, iron golem, elementals, salamander, fire). **`mondata.js`:** export **`S_ELEMENTAL`**. Still **TODO:** **`clamp_hole_destination`** / full **`relmon`** / **`mtrack`** / **`discard_migrations`**; **`onscary`** NO_TRAP; real **`valley_level`**; vision **`emits_light`** on migrate.
+**Last slice:** **`trap.c`** **`dofiretrap`** hero path — C **`Upolyd`** branch: golem **`alt`** (**`PM_PAPER`/`STRAW`/`WOOD`/`LEATHER`** + **`golemFireAltFromMname`** fallback), **`num`** from first **`d(2,4)`**; **`mhmax -= rn2(min(mhmax, num+1))`** when **`mhmax > mons[umonnum].mlevel`** (**`heroPolyFormMlevel`** from **`permonst.mlevel`**); damage **`u.mh`**. Human branch: **second** **`d(2,4)`** for **`uhpmax`** drain + **`losehp`** (**`KILLED_BY_AN`**); **`minuhpmax`** stub. **`const.js`:** golem **`PM_*`**. **`mondata.js`:** **`Permonst.mlevel`**, **`permonstHuman.mlevel`**. Still **TODO:** **`minuhpmax`/`setuhpmax`/`losexp`**; underwater/steam **`dofiretrap`** box branch; **`shieldeff`/`monstseesu`**.
 
 ## Next steps (highest impact from latest fire/lava work)
 
-1. **`dofiretrap`** poly branch — **`u.mhmax`** handling vs C.
-2. **`dofiretrap`** poly branch — **`u.mhmax`** handling vs C.
-3. **`useupf`** / shop / **`distant_name`/`An`** on floor burn (`burn_floor_objects.js` gaps).
-4. **`obj_resists`** / **`xname`** — replace stubs where fire paths depend on them.
-5. **Full `melt_ice`** — **`obj_ice_effects`**, **`unearth_objs`**, **`boulder_hits_pool`**, **`cnv_trap_obj`** for mine/bear on ice, **`minliquid`**, **`MELT_ICE_AWAY`** timers.
+1. **`useupf`** / shop / **`distant_name`/`An`** on floor burn (`burn_floor_objects.js` gaps).
+2. **`obj_resists`** / **`xname`** — replace stubs where fire paths depend on them.
+3. **Full `melt_ice`** — **`obj_ice_effects`**, **`unearth_objs`**, **`boulder_hits_pool`**, **`cnv_trap_obj`** for mine/bear on ice, **`minliquid`**, **`MELT_ICE_AWAY`** timers.
 
 ## After you ship a slice
 
