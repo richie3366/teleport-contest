@@ -10,6 +10,8 @@ import { OC_SKILL_ROW_BY_OTYP } from './obj_oc_skill_data.js';
 import { cansee } from './vision.js';
 import { OTYP_GLOB_OF_GREEN_SLIME } from './const.js';
 
+export { discoverScrollOtyp } from './discover_scroll.js';
+
 /** C: objects.h GOLD_PIECE (matches mklev.js stub constant). */
 const GOLD_PIECE = 466;
 
@@ -54,7 +56,7 @@ export function An(str) {
     return out.charAt(0).toUpperCase() + out.slice(1);
 }
 
-function scrollAppearanceFromOtyp(otyp) {
+export function scrollAppearanceFromOtyp(otyp) {
     const row = OC_SKILL_ROW_BY_OTYP.get(otyp | 0);
     if (!row?.name) return '???';
     let s = row.name;
@@ -146,17 +148,6 @@ export function makePluralBurn(s) {
         return `${base}spellbooks`;
     }
     return `${s}s`;
-}
-
-/**
- * C: invent.c discover_object / makeknown — record scroll **`otyp`** as fully named (**`nn`** / xname **`scroll of`**).
- * @param {object} g
- * @param {number} otyp
- */
-export function discoverScrollOtyp(g, otyp) {
-    if (!g) return;
-    if (!(g.scrollDiscovery instanceof Set)) g.scrollDiscovery = new Set();
-    g.scrollDiscovery.add(otyp | 0);
 }
 
 /**

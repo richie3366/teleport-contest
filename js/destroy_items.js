@@ -14,6 +14,7 @@ import { losehp } from './mthrowu.js';
 import { exercise } from './attrib.js';
 import { A_STR, KILLED_BY, KILLED_BY_AN } from './const.js';
 import { raceptr, fireResistant } from './mondata.js';
+import { discoverScrollOtyp } from './discover_scroll.js';
 
 /** C: monattk.h AD_FIRE */
 export const AD_FIRE = 2;
@@ -113,6 +114,10 @@ async function maybeDestroyItemHeroFire(g, obj) {
     let cnt = 0;
     for (let i = 0; i < quan; i++) if (!rn2(3)) cnt++;
     if (!cnt) return 0;
+
+    if (oc === NH5_SCROLL_CLASS && (obj.dknown | 0)) {
+        discoverScrollOtyp(g, t);
+    }
 
     const str = DESTROY_STRINGS[dindx];
     const verbIdx = cnt > 1 ? 1 : 0;

@@ -266,7 +266,9 @@ export async function waterDamageOne(obj, force, g = game, monCtx) {
     if (isContainerOtyp(t) && isWaterproofContainerTyp(t)) {
         if (inInvent && !(g.u?.ublind | 0) && !(g.u?.underwater | 0)) {
             await pline(`The water cannot get into your ${waterDamageObjPhrase(obj)}.`);
-            /* C: makeknown(obj->otyp) — discovery not ported */
+            /* C: trap.c water_damage — makeknown(obj->otyp) for waterproof container (oilskin, etc.). */
+            if (!(g.objectDiscovery instanceof Set)) g.objectDiscovery = new Set();
+            g.objectDiscovery.add(t);
         }
         return ER_DAMAGED;
     }
