@@ -1,9 +1,9 @@
 // walkable.js — Terrain blocking for hero/monster moves (shared stub).
-// C ref: hack.c test_move() (diagonal doorway `doorless_door`/`block_door`/`block_entry`,
-// `bad_rock`/`cant_squeeze_thru`/`NODIAG`), may_passwall(); teleport.c goodpos(); monmove.c accessible().
+// C ref: hack.c test_move(), crawl_destination(); teleport.c goodpos(); monmove.c accessible().
 
 import { game } from './gstate.js';
 import {
+    ACCESSIBLE,
     DOOR, D_BROKEN, D_CLOSED, D_LOCKED, D_NODOOR, IS_DOOR, IS_OBSTRUCTED, IS_STWALL,
     IRONBARS, W_NONPASSWALL, isok,
     POOL, MOAT, WATER, LAVAPOOL, LAVAWALL, OTYP_BOULDER,
@@ -140,6 +140,55 @@ export function physicalObstacleBlocksBody(ptr, x, y, g = game, opts = {}) {
  */
 export function blocksMovementAt(x, y, g = game) {
     return physicalObstacleBlocksBody(raceptr(g.youmonst), x, y, g, { hero: true });
+}
+
+/**
+ * C: teleport.c goodpos(x, y, &gy.youmonst, 0) — hero-only subset (no GP_* / scary / worm / steed).
+ * Another monster on `(x,y)` rejects (hero not in `level.monsters[]` in this harness).
+ * @param {number} x
+ * @param {number} y
+ * @param {Record<string, unknown>} [g]
+ */
+export function goodposHero(x, y, g = game) {
+    if (!isok(x, y)) return false;
+    const loc = g.level?.at(x, y);
+    if (!loc) return false;
+    if (g.level?.monsters?.some((m) => m.mx === x && m.my === y)) return false;
+
+    const typ = loc.typ;
+    const ptr = raceptr(g.youmonst);
+
+    if (isWaterTerrain(typ) || isLavaTerrain(typ)) return !terrainBlocksDisplaceForHero(x, y, g);
+
+    if (heroPassesWalls(g) && mayPasswall(x, y, g)) return true;
+    if (amorphous(ptr) && isClosedDoorLoc(loc)) return true;
+
+    if (!ACCESSIBLE(typ)) return false;
+    if (isClosedDoorLoc(loc)) return false;
+
+    if (sobjAtBoulder(x, y, g) && !throwsRocks(ptr)) return false;
+    return true;
+}
+
+/**
+ * C: hack.c crawl_destination(x, y) — drown escape + findtravelpath one-step diagonal.
+ * Does not include test_move’s “diagonal out of doorway” on hero’s tile (C omits it here).
+ * @param {number} x
+ * @param {number} y
+ * @param {Record<string, unknown>} [g]
+ */
+export function crawlDestinationHero(x, y, g = game) {
+    if (!goodposHero(x, y, g)) return false;
+    const u = /** @type {{ ux: number, uy: number, Upolyd?: number, umonnum?: number }} */ (g.u);
+    if (!u) return false;
+    if (x === u.ux || y === u.uy) return true;
+    if ((u.Upolyd | 0) && ((u.umonnum | 0) === PM_GRID_BUG)) return false;
+    if (heroPassesWalls(g)) return true;
+    const destLoc = g.level?.at(x, y);
+    if (destLoc && IS_DOOR(destLoc.typ) && (!doorlessDoorAt(x, y, g) || blockDoorAt(x, y, g))) return false;
+    const ptr = raceptr(g.youmonst);
+    if (badRock(ptr, u.ux, y, g) && badRock(ptr, x, u.uy, g) && cantSqueezeThruHero(g) !== 0) return false;
+    return true;
 }
 
 /**
