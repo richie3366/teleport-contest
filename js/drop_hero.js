@@ -1,11 +1,10 @@
-// drop_hero.js — invent.c dodrop / dothrow.c place_object + check_shop_obj(FALSE) subset.
-// C ref: invent.c dodrop() → dropy → flooreffects / place_object; dothrow.c throwit (place_object then check_shop_obj).
+// drop_hero.js — invent.c dodrop / do.c dropx subset (hero feet).
+// C ref: invent.c dodrop() → dropx → dropy → dropz; wired via hitfloor_hero.js.
 
 import { game } from './gstate.js';
-import { pline, newsym } from './display.js';
+import { pline } from './display.js';
 import { removeObjFromHeroInvent } from './water_damage.js';
-import { placeFloorObjectInLevel, stackObjOnFloorInLevel } from './floorobj.js';
-import { checkShopObjAfterHeroPlaceLikeC } from './shop.js';
+import { dropxHeroAfterFreeinvLikeC } from './hitfloor_hero.js';
 
 /**
  * C: **`invent.c`** **`dodrop()`** subset — drop **top-of-chain** **`g.invent`** at **`u.ux,u.uy`** (**`getobj`** / multi / gold split deferred).
@@ -22,11 +21,6 @@ export async function doDropOneAtHeroFeetLikeC(g = game) {
         return;
     }
     removeObjFromHeroInvent(g, obj);
-    const x = u.ux | 0;
-    const y = u.uy | 0;
-    placeFloorObjectInLevel(g, obj, x, y);
-    await checkShopObjAfterHeroPlaceLikeC(g, obj, x, y);
-    stackObjOnFloorInLevel(g, obj);
-    await newsym(x, y);
+    await dropxHeroAfterFreeinvLikeC(g, obj);
     g.context.move = 1;
 }

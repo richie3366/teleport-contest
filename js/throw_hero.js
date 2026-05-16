@@ -1,5 +1,5 @@
-// throw_hero.js — dothrow.c throwit landing subset (1-tile) + breakobj / check_shop_obj(FALSE).
-// C ref: dothrow.c throwit() (slip rng, bhitpos one step, !IS_SOFT+breaktest→breakobj/hero_breaks);
+// throw_hero.js — dothrow.c throwit landing subset (1-tile) + toss-down hitfloor + breakobj / check_shop_obj(FALSE).
+// C ref: dothrow.c throwit() (slip rng, bhitpos one step, u.dz>0→hitfloor; !IS_SOFT+breaktest→hero_breaks);
 //        place_object + check_shop_obj(FALSE); invent.c remove from invent.
 
 import { game } from './gstate.js';
@@ -8,6 +8,7 @@ import { readDirIntoU } from './dir_input.js';
 import { removeObjFromHeroInvent } from './water_damage.js';
 import { placeFloorObjectInLevel, stackObjOnFloorInLevel } from './floorobj.js';
 import { checkShopObjAfterHeroPlaceLikeC } from './shop.js';
+import { hitfloorHeroLikeC } from './hitfloor_hero.js';
 import { blocksMovementAt } from './walkable.js';
 import { isok } from './hacklib.js';
 import { IS_SOFT } from './const.js';
@@ -23,7 +24,7 @@ function throwingWeaponStubLikeC(obj) {
 
 /**
  * C: **`dothrow.c`** **`throwit`** opening slip (**`rn2(7)`**, greased / **`throwing_weapon`**) — mutates **`u.dx`/`u.dy`**.
- * Omits **`ammo_and_launcher`** misfire pline, **`u.dz`** toss-up.
+ * Omits **`ammo_and_launcher`** misfire pline, **`u.dz`** toss-up (**`<`**).
  */
 async function applyThrowSlipRngLikeC(g, obj) {
     const u = g.u;
@@ -41,7 +42,8 @@ async function applyThrowSlipRngLikeC(g, obj) {
 }
 
 /**
- * C: **`dothrow.c`** **`throwit`** subset — one adjacent **`gb.bhitpos`**, top **`g.invent`**, horizontal only.
+ * C: **`dothrow.c`** **`throwit`** subset — one adjacent tile, **`u.dz>0`** → **`hitfloor(obj, TRUE)`**, top **`g.invent`**.
+ * Omits **`bhit`**, **`flooreffects`**, **`ship_object`** (stub), **`uswallow`**, **`ammo_and_launcher`**, toss-up **`u.dz<0`**, steed holy-water **`rn2(6)`**.
  * @param {import('./gstate.js').game} [g]
  */
 export async function throwOneInventAdjacentLikeC(g = game) {
@@ -57,7 +59,7 @@ export async function throwOneInventAdjacentLikeC(g = game) {
         return;
     }
 
-    if (u.dz | 0) {
+    if ((u.dz | 0) < 0) {
         await pline('You cannot throw that way.');
         g.context.move = 0;
         return;
@@ -71,6 +73,15 @@ export async function throwOneInventAdjacentLikeC(g = game) {
     }
 
     await applyThrowSlipRngLikeC(g, obj);
+
+    const dz = u.dz | 0;
+    if (dz > 0) {
+        /* C: dothrow.c throwit — u.dz>0 (toss down) → hitfloor(obj, TRUE); steed holy water rn2(6) omitted */
+        removeObjFromHeroInvent(g, obj);
+        await hitfloorHeroLikeC(g, obj, true);
+        g.context.move = 1;
+        return;
+    }
 
     const dx = u.dx | 0;
     const dy = u.dy | 0;
