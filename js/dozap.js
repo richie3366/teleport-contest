@@ -15,7 +15,7 @@ import {
     WAN_MAGIC_MISSILE,
     WAN_LIGHTNING,
 } from './buzz.js';
-import { heroZapDigHorizontalLikeC } from './zap_dig.js';
+import { heroZapDigLikeC } from './zap_dig.js';
 import { NH5_WAND_CLASS } from './nh5_objclass.js';
 
 /** C: hack.h `WAND_WREST_CHANCE` */
@@ -135,7 +135,7 @@ export async function doZapCmd() {
     }
 
     if (otyp === WAN_DIGGING) {
-        await heroZapDigHorizontalLikeC(g);
+        await heroZapDigLikeC(g);
     } else {
         await ubuzzOverFloor(g, wandUbuzzTypeFromOtyp(otyp), wandUbuzzNdLikeC(otyp));
     }

@@ -1,11 +1,12 @@
-// zap_dig.js — dig.c zap_dig() hero wand/spell digging beam (horizontal slice).
+// zap_dig.js — dig.c zap_dig() hero wand/spell digging beam (horizontal + vertical slice).
 // C ref: dig.c zap_dig() (NetHack 5.0); hack.c may_dig(); trap.c conjoined_pits();
 //        cmd.c xytodir(); watch_dig.c watch_dig() (town gate + watchman TODO).
 //
 // Deferred vs C: tmp_at / nh_delay_output; full watchman **`verbalize`**/**`angry_guards`**;
-// u.uswallow and u.dz branches; pit_flow + fillholetyp; full dighole() when digging from a pit.
+// u.uswallow branch; pit_flow + fillholetyp; full **`dighole()`** / **`digactualhole`**;
+// vertical **`dighole`** path is a no-op stub (**`mksobj_at`/`xname`** order kept for rock branch only).
 
-import { rn1 } from './rng.js';
+import { rn1, rnd } from './rng.js';
 import { pline, newsym } from './display.js';
 import { vision_recalc, cansee } from './vision.js';
 import { inTownLikeC } from './hacklib.js';
@@ -13,6 +14,9 @@ import { watchDigHeroLikeC } from './watch_dig.js';
 import { isClosedDoorLoc } from './walkable.js';
 import { payAfterHeroDigShopHoleLikeC } from './dig_pay.js';
 import { addDamageAt, inRoomsShopbaseRoomnos } from './shop.js';
+import { stairwayAt } from './decor.js';
+import { placeFloorObject, stackObjOnFloorInLevel } from './floorobj.js';
+import { losehp, maybeHalfPhys, OBJ_ROCK } from './mthrowu.js';
 import {
     isok,
     xdir,
@@ -42,9 +46,17 @@ import {
     IS_OBSTRUCTED,
     IS_POOL,
     IS_LAVA,
+    IS_AIR,
+    IS_ROOM,
+    IS_DOOR,
+    IS_SDOOR,
     is_pit,
     TT_PIT,
     Is_earthlevel,
+    Is_airlevel,
+    Is_waterlevel,
+    Is_firelevel,
+    In_quest,
     SHOP_DOOR_COST,
     SHOP_WALL_COST,
 } from './const.js';
@@ -149,6 +161,104 @@ function adjPitChecksLikeC(g, cc) {
         }
     }
     return { ok: true, msg: '' };
+}
+
+/** C: do_wear.c **`hard_helmet(uarmh)`** — same material test as **`trap.js`** rock trap. */
+function hardHelmetUarmhLikeC(u) {
+    const obj = u?.uarmh;
+    if (!obj) return false;
+    const m = obj.oc_material;
+    if (m === 11 || m === 12 || m === 13) return true; /* IRON, METAL, COPPER */
+    if (m === 19) return true; /* GLASS */
+    return !!(obj.oc_crackable);
+}
+
+/** C: dungeon.c **`ceiling(x,y)`** — subset (**`spoteffects.js`** **`ceilingStringLikeC`** parallel). */
+function ceilingStringVertDigLikeC(g, x, y) {
+    const u = g.u;
+    const loc = g.level?.at(x | 0, y | 0);
+    const typ = loc ? (loc.typ | 0) : 0;
+    const uz = u?.uz;
+    if (Is_waterlevel(uz)) return 'water above';
+    if (IS_AIR(typ)) return 'sky';
+    if (Is_firelevel(uz)) return 'flames above';
+    if (In_quest(uz)) return 'expanse above';
+    if ((u?.underwater | 0) !== 0) return "water's surface";
+    if ((IS_ROOM(typ) && !Is_earthlevel(uz)) || IS_WALL(typ) || IS_DOOR(typ) || IS_SDOOR(typ)) {
+        return 'ceiling';
+    }
+    return 'rock cavern';
+}
+
+/**
+ * C: dig.c **`dighole(FALSE, TRUE, (coord *) 0)`** in **`zap_dig`** **`u.dz`** else branch.
+ * Full **`digactualhole`** / shop pit / **`pit_flow`** still TODO.
+ * @param {import('./gstate.js').game} g
+ */
+async function digHoleFromHeroWandZapDownLikeC(g) {
+    void g;
+}
+
+/**
+ * C: dig.c **`zap_dig`** — **`u.dz`** block after swallow early-out (**`Is_airlevel`/`Is_waterlevel`/`Underwater`**;
+ * **`u.dz < 0 || On_stairs`** rock-on-head + floor **`ROCK`**; else **`watch_dig`** + **`dighole`**).
+ * @param {import('./gstate.js').game} g
+ */
+export async function heroZapDigVerticalLikeC(g) {
+    const u = g.u;
+    const lvl = g.level;
+    if (!u || !lvl) return;
+    const uz = u.uz;
+    if (Is_airlevel(uz) || Is_waterlevel(uz) || (u.underwater | 0) !== 0) return;
+
+    const ux = u.ux | 0;
+    const uy = u.uy | 0;
+
+    if ((u.dz | 0) < 0 || stairwayAt(ux, uy)) {
+        const st = stairwayAt(ux, uy);
+        if (st) {
+            const kind = st.isladder ? 'ladder' : 'stairs';
+            const hitwhat = ceilingStringVertDigLikeC(g, ux, uy);
+            await pline(`The beam bounces off the ${kind} and hits the ${hitwhat}.`);
+        }
+        const ceilLoosen = ceilingStringVertDigLikeC(g, ux, uy);
+        await pline(`You loosen a rock from the ${ceilLoosen}.`);
+        await pline('It falls on your head!');
+        const dmg = rnd(hardHelmetUarmhLikeC(u) ? 2 : 6);
+        losehp(maybeHalfPhys(dmg), 'falling rock', 0);
+        const otmp = {
+            otyp: OBJ_ROCK,
+            oclass: 14,
+            ox: -1,
+            oy: -1,
+            quan: 1,
+            owt: 10,
+            spe: 0,
+            opoisoned: 0,
+        };
+        placeFloorObject(otmp, ux, uy);
+        /* C: xname(otmp) — deferred until objnam parity for this path. */
+        stackObjOnFloorInLevel(g, otmp);
+        newsym(ux, uy);
+    } else {
+        await watchDigHeroLikeC(g, null, ux, uy, true);
+        await digHoleFromHeroWandZapDownLikeC(g);
+    }
+}
+
+/**
+ * C: dig.c **`zap_dig()`** — **`u.uswallow`** (deferred), **`u.dz`**, else horizontal beam.
+ * @param {import('./gstate.js').game} g
+ */
+export async function heroZapDigLikeC(g) {
+    const u = g.u;
+    if (!u || !g.level) return;
+    if (u.uswallow) return;
+    if ((u.dz | 0) !== 0) {
+        await heroZapDigVerticalLikeC(g);
+        return;
+    }
+    await heroZapDigHorizontalLikeC(g);
 }
 
 /**
