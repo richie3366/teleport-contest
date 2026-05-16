@@ -20,9 +20,12 @@ export function rndmonnum() {
  */
 export function makemon(mdat, x, y, mmflags) {
     void mmflags;
+    let mnum = 0;
     if (mdat === null) {
         rndmonnum();
+    } else if (mdat && typeof mdat === 'object' && typeof mdat.mnum === 'number') {
+        mnum = mdat.mnum | 0;
     }
     const hp = rnd(8);
-    return { mx: x, my: y, mhp: hp, mhpmax: hp, msleeping: 0, mpeaceful: 0 };
+    return { mx: x, my: y, mhp: hp, mhpmax: hp, msleeping: 0, mpeaceful: 0, mnum };
 }
