@@ -33,6 +33,9 @@ const M1_METALLIVORE = 0x80000000;
 const M2_ROCKTHROW = 0x08000000;
 
 const MZ_SMALL = 1;
+/** C: monflag.h `MZ_MEDIUM` / `MZ_LARGE` — `verysmall` / `bigmonst` (mondata.h). */
+export const MZ_MEDIUM = 2;
+export const MZ_LARGE = 3;
 
 // C: sym.h / defsym.h — S_EYE, S_LIGHT, S_VORTEX, S_ELEMENTAL, S_HUMAN enum indices
 const S_EYE = 5;
@@ -118,6 +121,16 @@ export function throwsRocks(/** @type {Permonst} */ ptr) {
     return ((ptr?.mflags2 ?? 0) & M2_ROCKTHROW) !== 0;
 }
 
+/** C: mondata.h verysmall */
+export function verysmall(/** @type {Permonst} */ ptr) {
+    return ((ptr?.msize ?? MZ_MEDIUM) | 0) < MZ_SMALL;
+}
+
+/** C: mondata.h bigmonst */
+export function bigmonst(/** @type {Permonst} */ ptr) {
+    return ((ptr?.msize ?? 0) | 0) >= MZ_LARGE;
+}
+
 /** C: mondata.h unsolid */
 export function unsolid(/** @type {Permonst} */ ptr) {
     return (ptr.mflags1 & M1_UNSOLID) !== 0;
@@ -177,7 +190,7 @@ export function fireResistant(/** @type {Permonst} */ ptr) {
 }
 
 /** C: mondata.h slithy */
-function slithy(/** @type {Permonst} */ ptr) {
+export function slithy(/** @type {Permonst} */ ptr) {
     return (ptr.mflags1 & M1_SLITHY) !== 0;
 }
 
@@ -192,6 +205,15 @@ export function isWhirly(/** @type {Permonst} */ ptr) {
     /* Air: elemental, unsolid, flies; fire elemental also flies but has M1_NOTAKE. */
     return ptr.mlet === S_ELEMENTAL && unsolid(ptr) && isFlyer(ptr)
         && (ptr.mflags1 & M1_NOTAKE) === 0;
+}
+
+/**
+ * C: mondata.c passes_bars — iron bars (`hack.c` test_move).
+ * Not ported: `dmgtype(..., AD_RUST|AD_CORR)` (rust monsters / corrosive puddings).
+ */
+export function passesBars(/** @type {Permonst} */ ptr) {
+    return passesWalls(ptr) || amorphous(ptr) || unsolid(ptr) || isWhirly(ptr)
+        || verysmall(ptr) || metallivorous(ptr) || (slithy(ptr) && !bigmonst(ptr));
 }
 
 /** C: mondata.h nolimbs */

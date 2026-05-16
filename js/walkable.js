@@ -1,31 +1,16 @@
 // walkable.js — Terrain blocking for hero/monster moves (shared stub).
-// C ref: hack.c blocks(), may_passwall(); teleport.c goodpos(); monmove.c accessible().
+// C ref: hack.c test_move(), may_passwall(); teleport.c goodpos(); monmove.c accessible().
 
 import { game } from './gstate.js';
 import {
-    STONE, DOOR, D_CLOSED, D_LOCKED, IS_WALL, IS_STWALL, W_NONPASSWALL,
+    DOOR, D_CLOSED, D_LOCKED, IS_OBSTRUCTED, IS_STWALL, IRONBARS, W_NONPASSWALL, isok,
     POOL, MOAT, WATER, LAVAPOOL, LAVAWALL, OTYP_BOULDER,
 } from './const.js';
 import {
     isFlyer, isFloater, raceptr, swims, amphibious, fireResistant,
-    passesWalls, throwsRocks, amorphous,
+    passesWalls, throwsRocks, amorphous, passesBars,
 } from './mondata.js';
 import { floorObjKey } from './floorobj.js';
-
-/**
- * True if (x,y) cannot be walked onto (walls, closed doors, void).
- * @param {number} x
- * @param {number} y
- * @param {Record<string, unknown>} [g]
- */
-export function blocksMovementAt(x, y, g = game) {
-    const loc = g.level?.at(x, y);
-    if (!loc) return true;
-    if (loc.typ === STONE) return true;
-    if (IS_WALL(loc.typ)) return true;
-    if (loc.typ === DOOR && (loc.doormask & (D_CLOSED | D_LOCKED))) return true;
-    return false;
-}
 
 /**
  * C: hack.c may_passwall(x,y)
@@ -89,8 +74,41 @@ function liquidTerrainBlocksRaceptr(ptr, typ) {
 }
 
 /**
+ * C: hack.c test_move() — `IS_OBSTRUCTED || IRONBARS`, closed doors (no rock-eater / rust / ooze messages).
+ * @param {*} ptr `raceptr(mtmp)` or `raceptr(youmonst)`.
+ * @param {{ hero?: boolean }} [opts] hero: use `heroPassesWalls` for `Passes_walls` intrinsic/extrinsic.
+ */
+export function physicalObstacleBlocksBody(ptr, x, y, g = game, opts = {}) {
+    const hero = !!opts.hero;
+    if (!isok(x, y)) return true;
+    const loc = g.level?.at(x, y);
+    if (!loc) return true;
+    const typ = loc.typ;
+    const passW = hero ? heroPassesWalls(g) : passesWalls(ptr);
+
+    if (IS_OBSTRUCTED(typ) || typ === IRONBARS) {
+        if (passW && mayPasswall(x, y, g)) return false;
+        if (typ === IRONBARS && (passW || passesBars(ptr))) return false;
+        return true;
+    }
+    if (isClosedDoorLoc(loc)) return true;
+    return false;
+}
+
+/**
+ * True if (x,y) cannot be walked onto by the **hero** (walls, stone, iron bars, closed doors).
+ * C ref: hack.c test_move() obstructed + door slice.
+ * @param {number} x
+ * @param {number} y
+ * @param {Record<string, unknown>} [g]
+ */
+export function blocksMovementAt(x, y, g = game) {
+    return physicalObstacleBlocksBody(raceptr(g.youmonst), x, y, g, { hero: true });
+}
+
+/**
  * C: teleport.c goodpos() — order: pool/lava; passes_walls+may_passwall; amorphous+closed_door;
- * accessible slice (`blocksMovementAt`); boulder unless throws_rocks (covers boulder-in-pit).
+ * physical obstacle (`physicalObstacleBlocksBody`); boulder unless throws_rocks (covers boulder-in-pit).
  * @param {{ data?: unknown }} mtmp
  */
 export function terrainBlocksDisplaceForMon(mtmp, x, y, g = game) {
@@ -100,7 +118,7 @@ export function terrainBlocksDisplaceForMon(mtmp, x, y, g = game) {
     const ptr = raceptr(mtmp);
 
     if (isWaterTerrain(typ) || isLavaTerrain(typ)) {
-        if (blocksMovementAt(x, y, g)) return true;
+        if (physicalObstacleBlocksBody(ptr, x, y, g, { hero: false })) return true;
         return liquidTerrainBlocksRaceptr(ptr, typ);
     }
 
@@ -108,7 +126,7 @@ export function terrainBlocksDisplaceForMon(mtmp, x, y, g = game) {
 
     if (amorphous(ptr) && isClosedDoorLoc(loc)) return false;
 
-    if (blocksMovementAt(x, y, g)) return true;
+    if (physicalObstacleBlocksBody(ptr, x, y, g, { hero: false })) return true;
 
     if (sobjAtBoulder(x, y, g) && !throwsRocks(ptr)) return true;
 
@@ -129,7 +147,7 @@ export function terrainBlocksDisplaceForHero(x, y, g = game) {
     const ptr = raceptr(g.youmonst);
 
     if (isWaterTerrain(typ) || isLavaTerrain(typ)) {
-        if (blocksMovementAt(x, y, g)) return true;
+        if (physicalObstacleBlocksBody(ptr, x, y, g, { hero: true })) return true;
         const u = /** @type {{ Levitation?: number, Flying?: number, Fire_resistance?: number }} */ (g.u);
         if (u?.Levitation || u?.Flying) return false;
         if (!liquidTerrainBlocksRaceptr(ptr, typ)) return false;
@@ -141,7 +159,7 @@ export function terrainBlocksDisplaceForHero(x, y, g = game) {
 
     if (amorphous(ptr) && isClosedDoorLoc(loc)) return false;
 
-    if (blocksMovementAt(x, y, g)) return true;
+    if (physicalObstacleBlocksBody(ptr, x, y, g, { hero: true })) return true;
 
     if (sobjAtBoulder(x, y, g) && !throwsRocks(ptr)) return true;
 
