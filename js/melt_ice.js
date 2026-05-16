@@ -4,7 +4,7 @@
 //        mon.c minliquid() (subset).
 //
 // Still TODO vs C: corpse **`ROT_ORGANIC`** start on all bury paths; **`bury_objs`** full **`stolen_value`**;
-// **`unearth_objs`**: full **`buried_ball`** radius scan + **`punish()`**; beam/breath vectors along paths; fuller **`boulder_hits_pool`** / **`minliquid`** / **`spoteffects`**.
+// **`dig.c`/`read.c`** **`buried_ball`/`punish`** (**`floorobj.js`**) — **`placebc`** blind glyphs / **`uswallow`**; beam/breath vectors; fuller **`boulder_hits_pool`** / **`minliquid`** / **`spoteffects`**.
 
 import { pline, newsym } from './display.js';
 import { vision_recalc, cansee } from './vision.js';

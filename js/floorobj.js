@@ -1,13 +1,21 @@
 // floorobj.js — Floor object chains (nexthere) at (x,y).
 // C ref: mkobj.c place_object(), rm.c / invent floor lists;
-//        dig.c bury_objs() / unearth_objs() (**`buriedObjHeads`**, **`stackobj`**, **`buried_ball`** subset).
+//        dig.c bury_objs() / unearth_objs() (**`buriedObjHeads`**, **`stackobj`**, **`buried_ball`**),
+//        read.c punish() (**`buried_ball_to_punishment`** unearthed ball).
 //
 // Shared by mklev.js and trap/missile code so traps can drop projectiles
 // without importing the full level generator.
 
 import { game } from './gstate.js';
-import { NH5_BALL_CLASS } from './nh5_objclass.js';
-import { TT_BURIEDBALL, ROT_ORGANIC } from './const.js';
+import { NH5_BALL_CLASS, NH5_CHAIN_CLASS } from './nh5_objclass.js';
+import {
+    TT_BURIEDBALL, ROT_ORGANIC,
+    OTYP_HEAVY_IRON_BALL, OTYP_IRON_CHAIN, WT_IRON_BALL_INCR,
+} from './const.js';
+import { dist2 } from './hacklib.js';
+import { rnd, rn2 } from './rng.js';
+import { newsym } from './display.js';
+import { permonstHuman, amorphous, isWhirly, unsolid } from './mondata.js';
 import { stopNhObjTimer } from './obj_rot_timer.js';
 
 /** C: mkobj_corpse.js **`CORPSE_OTYP`** — local literal avoids **`floorobj`↔`mkobj_corpse`** import cycle. */
@@ -142,33 +150,143 @@ export function placeFloorObjectInLevel(g, otmp, x, y) {
     if (!lvl.objects.includes(otmp)) lvl.objects.push(otmp);
 }
 
-/**
- * C: dig.c **`buried_ball`** — at **`(x,y)`** only (**`buriedObjHeads`** cell; full C scans **`buriedobjlist`** + radius).
- * Returns first **`BALL_CLASS`** object (NH5: **`HEAVY_IRON_BALL`** is the normal floor **`BALL_CLASS`** item).
- */
-export function buriedBallAtCellForUnearth(g, x, y) {
+/** @param {import('./gstate.js').game} g */
+function heroPermonstForPunish(g) {
     const u = g.u;
-    if ((u?.utrap | 0) && (u?.utraptype | 0) !== TT_BURIEDBALL) return null;
-    const k = floorObjKey(x | 0, y | 0);
-    const head = g.level?.buriedObjHeads?.get(k);
-    for (let o = head; o; o = o.nexthere) {
-        if ((o.oclass | 0) === NH5_BALL_CLASS) return o;
-    }
-    return null;
+    if (!(u?.Upolyd | 0)) return g.urace?.permonst ?? permonstHuman;
+    return g.youmonst?.data ?? permonstHuman;
+}
+
+/** C: engrave.c del_engr_at — explicit **`g.level`** (avoid **`game`** mismatch). */
+function delEngrAtInLevel(g, x, y) {
+    const L = g.level;
+    if (!L?.engravings?.length) return;
+    const xi = x | 0;
+    const yi = y | 0;
+    const n = L.engravings.length;
+    L.engravings = L.engravings.filter((e) => e.engr_x !== xi || e.engr_y !== yi);
+    if (L.engravings.length < n) newsym(xi, yi);
 }
 
 /**
- * C: dig.c **`buried_ball_to_punishment`** subset — no **`punish()`** yet: clear **`utrap`**, place ball at hero.
+ * C: mkobj.c **`next_ident`** + minimal **`struct obj`** for read.c **`punish()`** chain (**`mkobj(CHAIN_CLASS, TRUE)`** subset).
+ */
+function mksobjIronChainForPunish() {
+    rnd(2);
+    const otmp = {
+        otyp: OTYP_IRON_CHAIN,
+        oclass: NH5_CHAIN_CLASS,
+        ox: -1,
+        oy: -1,
+        quan: 1,
+        owt: 120,
+        cursed: false,
+        blessed: false,
+        olocked: false,
+        spe: 0,
+        opoisoned: 0,
+    };
+    const r = rn2(4);
+    otmp.cursed = r === 0;
+    otmp.blessed = false;
+    return otmp;
+}
+
+/**
+ * C: read.c **`punish(sobj)`** subset when **`sobj`** is unearthed **`HEAVY_IRON_BALL`** (**`reuse_ball`** path).
+ * Skips **`setworn`/`placebc`** vision blind details; **`amorphous`** branch matches **`dropy(reuse_ball)`**.
  * @param {import('./gstate.js').game} g
  */
-export function buriedBallToPunishmentMinimal(g, ball) {
+function punishUnearthedIronBallRead(g, ball) {
     const u = g.u;
     if (!u || !ball) return;
+    const ptr = heroPermonstForPunish(g);
+    if (amorphous(ptr) || isWhirly(ptr) || unsolid(ptr)) {
+        placeFloorObjectInLevel(g, ball, u.ux | 0, u.uy | 0);
+        stackObjOnFloorInLevel(g, ball);
+        return;
+    }
+    if (g.uball) {
+        const levy = ball.cursed ? 1 : 0;
+        g.uball.owt = (g.uball.owt | 0) + WT_IRON_BALL_INCR * (1 + levy);
+        if (ball !== g.uball) {
+            const arr = g.level?.objects;
+            const i = arr ? arr.indexOf(ball) : -1;
+            if (i >= 0) arr.splice(i, 1);
+            ball.nexthere = null;
+        }
+        return;
+    }
+    const chain = mksobjIronChainForPunish();
+    g.uchain = chain;
+    g.uball = ball;
+    const ux = u.ux | 0;
+    const uy = u.uy | 0;
+    placeFloorObjectInLevel(g, ball, ux, uy);
+    stackObjOnFloorInLevel(g, ball);
+    placeFloorObjectInLevel(g, chain, ux, uy);
+    stackObjOnFloorInLevel(g, chain);
+}
+
+/**
+ * C: dig.c **`buried_ball(coord *cc)`** — walk buried objects; exact **`HEAVY_IRON_BALL`** at **`cc`** wins;
+ * else nearest within **`dist2 <= 8`** (**`bdist`** tie: first seen in map iteration order).
+ * @param {import('./gstate.js').game} g
+ * @param {{ x: number, y: number }} cc in/out (**`cc`** → ball coords when nearest is off-center)
+ * @returns {object|null}
+ */
+export function buriedBallFromCoord(g, cc) {
+    const u = g.u;
+    if (u && (u.utrap | 0) && (u.utraptype | 0) !== TT_BURIEDBALL) return null;
+    const xh = cc.x | 0;
+    const yh = cc.y | 0;
+    let ball = null;
+    let bdist = 0x7fffffff;
+    const heads = g.level?.buriedObjHeads;
+    if (!heads) return null;
+    for (const head of heads.values()) {
+        for (let otmp = head; otmp; otmp = otmp.nexthere) {
+            if ((otmp.otyp | 0) !== OTYP_HEAVY_IRON_BALL) continue;
+            if ((otmp.oclass | 0) !== NH5_BALL_CLASS) continue;
+            if ((otmp.ox | 0) === xh && (otmp.oy | 0) === yh) return otmp;
+            const odist = dist2(otmp.ox | 0, otmp.oy | 0, xh, yh);
+            if (odist <= 8 && (!ball || odist < bdist)) {
+                ball = otmp;
+                bdist = odist;
+            }
+        }
+    }
+    if (ball) {
+        cc.x = ball.ox | 0;
+        cc.y = ball.oy | 0;
+    }
+    return ball;
+}
+
+/**
+ * C: dig.c **`buried_ball`** starting at **`(x,y)`** — thin wrapper (**`cc`** scratch).
+ */
+export function buriedBallAtCellForUnearth(g, x, y) {
+    const cc = { x: x | 0, y: y | 0 };
+    return buriedBallFromCoord(g, cc);
+}
+
+/**
+ * C: dig.c **`buried_ball_to_punishment`** — **`buried_ball(&u.ux)`**, **`obj_extract_self`**, read.c **`punish`**, **`reset_utrap`**, **`del_engr_at`**, **`newsym`**.
+ * @param {import('./gstate.js').game} g
+ */
+export function buriedBallToPunishmentFull(g) {
+    const u = g.u;
+    if (!u) return;
+    const cc = { x: u.ux | 0, y: u.uy | 0 };
+    const ball = buriedBallFromCoord(g, cc);
+    if (!ball) return;
+    unlinkBuriedObjectInLevel(g, ball);
+    punishUnearthedIronBallRead(g, ball);
     u.utrap = 0;
     u.utraptype = 0;
-    g.uball = ball;
-    placeFloorObjectInLevel(g, ball, u.ux | 0, u.uy | 0);
-    stackObjOnFloorInLevel(g, ball);
+    delEngrAtInLevel(g, cc.x, cc.y);
+    newsym(cc.x, cc.y);
 }
 
 /**
@@ -182,15 +300,15 @@ export function unearthObjsDigInLevel(g, x, y) {
     const xh = x | 0;
     const yh = y | 0;
     const k = floorObjKey(xh, yh);
-    const bball = buriedBallAtCellForUnearth(g, xh, yh);
+    const ccProbe = { x: xh, y: yh };
+    const bball = buriedBallFromCoord(g, ccProbe);
     const u = g.u;
     let head = lvl.buriedObjHeads.get(k) ?? null;
     while (head) {
         const otmp = head;
         head = otmp.nexthere;
         if (bball && otmp === bball && (u?.utrap | 0) && (u?.utraptype | 0) === TT_BURIEDBALL) {
-            unlinkBuriedObjectInLevel(g, otmp);
-            buriedBallToPunishmentMinimal(g, otmp);
+            buriedBallToPunishmentFull(g);
         } else {
             unlinkBuriedObjectInLevel(g, otmp);
             if (otmp.timed) {
