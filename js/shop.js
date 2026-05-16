@@ -1256,6 +1256,8 @@ function mcanmoveMonsterAngryGuardsLikeC(mtmp) {
 export async function angryGuardsSilentLikeC(g, silent) {
     const u = g?.u;
     if (!u) return false;
+    /* C: mon.c **`angry_guards`** — defer watchmen wake while **`leaving_tutorial`**. */
+    if (contextLeavingTutorialActiveLikeC(g)) return false;
     let ct = 0;
     let nct = 0;
     let sct = 0;
@@ -1431,6 +1433,7 @@ async function donateGoldLikeC(g, gltmp, shkp, selling) {
 async function sellobjCheckShopMinLikeC(g, obj, _x, _y, shkp) {
     void _x;
     void _y;
+    if (contextLeavingTutorialActiveLikeC(g)) return;
     if (!shkp || !obj) return;
     shkp.msleeping = 0;
     if (shkpAngry(shkp)) {
