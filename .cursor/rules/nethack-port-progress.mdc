@@ -1,0 +1,15 @@
+---
+description: Where to read port status; thin current handoff vs full progress report
+globs:
+  - js/**/*.js
+  - .cursor/reports/**/*.md
+alwaysApply: false
+---
+
+# Port progress docs
+
+- **Start with** [`.cursor/reports/c-to-js-port-current.md`](../reports/c-to-js-port-current.md) — next steps, constraints, copy-paste “continue” prompt.
+- Use [`.cursor/reports/c-to-js-port-progress.md`](../reports/c-to-js-port-progress.md) for **deep** module tables and long-form analysis only when needed (token-heavy).
+- New dated changelog rows go in [`.cursor/reports/c-to-js-port-changelog-archive.md`](../reports/c-to-js-port-changelog-archive.md); keep the stub in `c-to-js-port-progress.md` short.
+
+Contest integrity: port from **C** in `nethack-c/upstream/`; no session trace memorization; do not edit frozen `js/isaac64.js`, `js/terminal.js`, `js/storage.js`.

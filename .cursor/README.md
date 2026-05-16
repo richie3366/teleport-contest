@@ -9,8 +9,11 @@ This directory holds **Cursor rules** (`.cursor/rules/*.mdc`) that steer agents 
 | `teleport-contest.mdc` | Always (`alwaysApply: true`) — contest contract, ethics, frozen files, sandbox. |
 | `teleport-js-port.mdc` | When editing files under `js/` — ES modules, RNG order, porting style. |
 | `nethack-upstream-c.mdc` | When editing files under `nethack-c/upstream/` — C reference tree, tag, patches vs vanilla. |
+| `nethack-port-progress.mdc` | When editing `js/` or `.cursor/reports/` — read `c-to-js-port-current.md` first; full progress + changelog archive when needed. |
 
 ## Read first (humans and agents)
+
+- [.cursor/reports/c-to-js-port-current.md](reports/c-to-js-port-current.md) — **default for port work:** next steps, constraints, short “continue” prompt.
 
 - [README.md](../README.md) — contest overview, skeleton layout, scoring, frozen files.
 - [docs/API.md](../docs/API.md) — `runSegment`, sessions, PRNG and screen comparison.
