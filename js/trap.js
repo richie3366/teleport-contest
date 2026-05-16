@@ -1,7 +1,8 @@
 // trap.js — Hero stepping on floor traps (dotrap + trapeffect subset).
 // C ref: trap.c dotrap(), floor_trigger(), check_in_air(), trapeffect_selector()
 //        hero cases; dig.c digactualhole() hero u.utrap (**`TT_BURIEDBALL`/`TT_INFLOOR`**) before pit/hole;
-//        trap.c trapeffect_hole → fall_through(); dungeon.c Can_fall_thru/Can_dig_down; mondata.h ceiling_hider.
+//        trap.c trapeffect_hole → fall_through(); dungeon.c Can_fall_thru/Can_dig_down; mondata.h ceiling_hider;
+//        trap.c blow_up_landmine tail → hack.c spot_checks (**`spot_checks.js`** subset).
 // domagictrap() shares makemon.js stub; seffects (fate 20).
 
 import { game } from './gstate.js';
@@ -41,6 +42,7 @@ import { igniteHeroInventory, igniteMinvent } from './ignite_items.js';
 import { burnarmorYoumonst, burnarmorMtmp } from './erode_obj.js';
 import { burnFloorObjects } from './burn_floor_objects.js';
 import { meltIceAt } from './melt_ice.js';
+import { spotChecksLikeC } from './spot_checks.js';
 import { doname } from './objnam.js';
 import { minuhpmaxLikeC, setUhpmaxHumanLikeC, losexpNullLikeC } from './losexp.js';
 import { monstseesuLikeC, monstunseesuLikeC } from './mon_seen_res.js';
@@ -2290,17 +2292,22 @@ async function trapeffectBearHero(trap, trflags) {
 /**
  * C: trap.c **`blow_up_landmine`** — **`wake_nearto`**, **`scatter`** / doors / drawbridge deferred;
  * converts **`LANDMINE` → `PIT`** on normal levels (**`Is_waterlevel`/`Is_airlevel`** → **`deltrap`**).
+ * **`hack.c`** **`spot_checks(x,y,old_typ)`** after **`recalc_block_point`** in C — here after the JS subset that may change **`levl`** (**`scatter`** etc. still TODO).
  * @param {{ tx: number, ty: number, ttyp?: number, madeby_u?: boolean, tseen?: boolean }|null|undefined} trap
  */
 function blowUpLandmine(trap) {
     if (!trap) return;
+    const g = game;
     const x = trap.tx | 0;
     const y = trap.ty | 0;
+    const lev = g.level?.at(x, y);
+    const old_typ = lev ? (lev.typ | 0) : 0;
     wakeNearto(x, y, 400);
     vision_recalc(1);
     const u = game.u;
     if (Is_waterlevel(u?.uz) || Is_airlevel(u?.uz)) {
         delTrap(trap);
+        spotChecksLikeC(g, x, y, old_typ);
         return;
     }
     if ((trap.ttyp | 0) === LANDMINE) {
@@ -2308,6 +2315,7 @@ function blowUpLandmine(trap) {
         trap.madeby_u = false;
         seetrap(trap);
     }
+    spotChecksLikeC(g, x, y, old_typ);
 }
 
 /** C: trap.c steedintrap — returns non-zero if steed absorbed trap; not ported. */
