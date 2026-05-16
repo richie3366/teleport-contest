@@ -70,6 +70,17 @@ async function rehumanizeWereVaporSubsetLikeC(g) {
     const u = g.u;
     if (!u) return;
     if (u.Unchanging | 0) return;
+    await rehumanizeHeroAfterPolyDrainLikeC(g);
+}
+
+/**
+ * C: polyself.c **`rehumanize`** — minimal return-to-race when poly HP hits **0** (**`losexp`** tail).
+ * Omits inventory (break_armor, drop_weapon, find_ac, uswallow) full rehumanize.
+ * @param {import('./gstate.js').game} g
+ */
+export async function rehumanizeHeroAfterPolyDrainLikeC(g) {
+    const u = g.u;
+    if (!u) return;
     await pline(`You return to ${g.urace?.adj || 'human'} form!`);
     u.Upolyd = 0;
     u.mtimedone = 0;
@@ -78,6 +89,9 @@ async function rehumanizeWereVaporSubsetLikeC(g) {
     g.youmonst = g.youmonst || {};
     g.youmonst.mnum = rm;
     g.youmonst.data = g.urace?.permonst ?? permonstHuman;
+    u.mhmax = 0;
+    u.mh = 0;
+    if ((u.uhp | 0) > (u.uhpmax | 0)) u.uhp = u.uhpmax | 0;
     g.disp = g.disp || {};
     g.disp.botl = true;
     g.vision_full_recalc = 1;

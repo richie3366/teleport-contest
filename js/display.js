@@ -466,12 +466,27 @@ export async function flush_screen(mode) {
     _buildScreenOutput();
 }
 
-/** C: display.c shieldeff() — sparkle shield animation at (x,y). Full shield_static loop TODO. */
+/** C: decl.c **`shield_static`**, **`display.c`** **`shieldeff`** — **21** frames (**`SHIELD_COUNT`**). */
+const SHIELD_COUNT = 21;
+/** C: PCHAR2 shield cmap chars (**`S_ss1`**…**`S_ss4`**) in **`shield_static`** row order. */
+const SHIELD_STATIC_CHARS = (() => {
+    const row = ['0', '#', '@', '#', '0', '#', '*'];
+    return [...row, ...row, ...row];
+})();
+
+/** C: display.c shieldeff() — sparkle shield at **(x,y)**; **`nh_delay_output`** ≈ **`animationFrame`**. */
 export async function shieldeffLikeC(g, x, y) {
     if (!(g.flags?.sparkle)) return;
     if (!cansee(x, y)) return;
-    await flush_screen(1);
-    newsym(x, y);
+    const xi = x | 0;
+    const yi = y | 0;
+    const clr = CLR_BRIGHT_CYAN;
+    for (let i = 0; i < SHIELD_COUNT; i++) {
+        show_glyph_cell(xi, yi, SHIELD_STATIC_CHARS[i], clr, false);
+        await flush_screen(1);
+        if (typeof g.animationFrame === 'function') await g.animationFrame();
+    }
+    newsym(xi, yi);
 }
 
 // ── cls ──

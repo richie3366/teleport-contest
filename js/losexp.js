@@ -3,7 +3,10 @@
 
 import { pline } from './display.js';
 import { newuexp } from './explevel.js';
-import { resistsDrliHeroLikeC } from './mondata.js';
+import { resistsDrliHeroLikeC, raceptr } from './mondata.js';
+import { applyAdjabil } from './u_init_adjabil.js';
+import { rnd } from './rng.js';
+import { rehumanizeHeroAfterPolyDrainLikeC } from './were_hero.js';
 
 /**
  * C: role.c Goodbye() — role-specific farewell word before " level N.".
@@ -37,6 +40,19 @@ export function minuhpmaxLikeC(u, altmin) {
 }
 
 /**
+ * C: makemon.c **`monhp_per_lvl(struct monst *)`** — hero poly (**`gy.youmonst`**) subset (**`rnd(8)`** default).
+ * Omits golem / S_DRAGON / m_lev==0 branches until mons[] wiring matches C.
+ * @param {import('./gstate.js').game} g
+ */
+export function monhpPerLvlHeroYoumonstLikeC(g) {
+    const ptr = raceptr(g?.youmonst);
+    const ml = ptr?.mlevel | 0;
+    if (ml > 49) return 4 + rnd(4);
+    if (!ml) return rnd(4);
+    return rnd(8);
+}
+
+/**
  * C: attrib.c setuhpmax(newmax, even_when_polyd) — human u.uhpmax / u.uhp / u.uhppeak when !Upolyd
  * or even_when_polyd (losexp uses TRUE for clamp calls).
  * @param {object} g
@@ -59,7 +75,7 @@ export function setUhpmaxHumanLikeC(g, newmax, evenWhenPolyd) {
 
 /**
  * C: exper.c losexp(drainer) with drainer==NULL — trap.c dofiretrap human branch;
- * not fatal at XL 1; skips poly rehumanize tail until monhp_per_lvl is ported.
+ * not fatal at XL 1; poly tail: **`monhp_per_lvl`**-style drain + minimal **`rehumanize`**.
  * @param {object} g
  */
 export async function losexpNullLikeC(g) {
@@ -72,8 +88,10 @@ export async function losexpNullLikeC(g) {
     }
 
     if ((u.ulevel | 0) > 1) {
-        u.ulevel = (u.ulevel | 0) - 1;
-        /* C: attrib.c adjabil(old, new) — intrinsic strip on XL loss; TODO */
+        const prevLv = u.ulevel | 0;
+        u.ulevel = prevLv - 1;
+        /* C: attrib.c adjabil(u.ulevel + 1, u.ulevel) immediately after decrement */
+        applyAdjabil(prevLv, u.ulevel | 0);
     } else {
         u.uexp = 0;
     }
@@ -104,7 +122,12 @@ export async function losexpNullLikeC(g) {
     }
 
     if (u.Upolyd | 0) {
-        /* C: exper.c losexp — monhp_per_lvl, rehumanize; TODO */
+        /* C: exper.c losexp — monhp_per_lvl(&youmonst); rehumanize() if mh <= 0 */
+        const numPoly = monhpPerLvlHeroYoumonstLikeC(g);
+        u.mhmax = Math.max(0, (u.mhmax | 0) - numPoly);
+        u.mh = (u.mh | 0) - numPoly;
+        if ((u.mh | 0) <= 0) await rehumanizeHeroAfterPolyDrainLikeC(g);
+        else if ((u.mh | 0) > (u.mhmax | 0)) u.mh = u.mhmax | 0;
     }
 
     g.disp = g.disp || {};

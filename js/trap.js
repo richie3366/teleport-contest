@@ -375,9 +375,9 @@ function heroPolyFormMlevel(u) {
  * C: trap.c dofiretrap(struct obj *box) — floor / magic / chest; steam first when pool-on-floor-box or **`Underwater`**;
  * **`Fire_resistance`**: **`shieldeff`**, **`monstseesu(M_SEEN_FIRE)`**; poly/human then **`monstunseesu`**;
  * **`burn_away_slime`** … **`melt_ice`**.
- * @param {object|null|undefined} box — **`NULL`** for floor fire trap / magic fate (**`b_trapped`** chest wire TODO).
+ * @param {object|null|undefined} box — **`NULL`** floor / magic fate; non-null chest (**`trap.c`** **`chest_trap`** **`dofiretrap(obj)`** cases **9–12**).
  */
-async function dofiretrapHeroLikeC(box) {
+export async function dofiretrapHeroLikeC(box) {
     const u = game.u;
     if (!u) return;
 
@@ -461,6 +461,15 @@ async function dofiretrapHeroLikeC(box) {
     await meltIceAt(game, u.ux, u.uy, null);
     game.disp = game.disp || {};
     game.disp.botl = true;
+}
+
+/**
+ * C: trap.c **`chest_trap`** — inner **`rn2(26)`** outcomes **9–12** → **`dofiretrap(obj)`** (tower of flame).
+ * Full **`chest_trap`** (**`Luck`**, explosion, gas, needle, …) not ported; this is the **`dofiretrap`** branch only.
+ * @param {object|null|undefined} box
+ */
+export async function chestTrapDofireBranchHeroLikeC(box) {
+    await dofiretrapHeroLikeC(box);
 }
 
 /** C: mondata.h canseemon(mtmp) subset — vision + invisibility vs See_invisible + steed. */
