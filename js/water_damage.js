@@ -1,7 +1,8 @@
 // water_damage.js — Hero inventory wetting (trap.c water_damage / water_damage_chain subset).
 // C ref: trap.c water_damage(), water_damage_chain(); apply.c splash_lit() — lantern/brass
-// nuance and snuff_candle not ported. acid_ctx / full pot_acid / erode_obj / makeknown / blank_novel
-// still partial; order matches C (splash_lit → grease → towel → …).
+// nuance and snuff_candle not ported. `g.acidCtx` mirrors **`ga.acid_ctx`** for **`pot_acid_damage`**
+// wording during **`water_damage_chain`**; **`gb.bhitpos`** save/restore still TODO. **`erode_obj`**
+// / **`makeknown`** / **`blank_novel`** partial.
 
 import { game } from './gstate.js';
 import { rn2, rnd } from './rng.js';
@@ -121,13 +122,40 @@ function removeObjFromHeroInvent(g, victim) {
 }
 
 /**
- * C: trap.c pot_acid_damage() — minimal: explode message + **`delobj`** (**remove** from invent).
+ * C: trap.c `struct acid_ctx` on `struct g_globals` — valid only inside **`water_damage_chain`**.
+ * @param {typeof game} g
+ */
+function acidCtx(g) {
+    if (!g.acidCtx) g.acidCtx = { ctx_valid: false, dkn_boom: 0, unk_boom: 0 };
+    return g.acidCtx;
+}
+
+/**
+ * C: trap.c pot_acid_damage() — explode plines + **`delobj`**; **`ga.acid_ctx`** drives A vs Another / Some vs More.
  * @param {typeof game} g
  * @param {{ quan?: number, dknown?: number }} obj
+ * @param {boolean} described — C: grease washed off first (**`pline_The` "potion… explode"**)
  */
-async function potAcidDamageMinimal(g, obj) {
-    const one = (obj.quan ?? 1) <= 1;
-    await pline(`${one ? 'A' : 'Some'} potion${one ? '' : 's'} explode${one ? 's' : ''}!`);
+async function potAcidDamageMinimal(g, obj, described) {
+    const ctx = acidCtx(g);
+    const quan = Math.max(1, obj.quan ?? 1);
+    const one = quan <= 1;
+    let exploded = false;
+    if (ctx.ctx_valid) {
+        exploded = (obj.dknown | 0) ? ctx.dkn_boom > 0 : ctx.unk_boom > 0;
+    }
+    if (described) {
+        await pline(one ? 'The potion explodes!' : 'The potions explode!');
+    } else {
+        const bufp = one ? 'potion' : 'potions';
+        const prefix = !exploded ? (one ? 'A ' : 'Some ') : (one ? 'Another ' : 'More ');
+        const verb = one ? 'explodes' : 'explode';
+        await pline(`${prefix}${bufp} ${verb}!`);
+    }
+    if (ctx.ctx_valid) {
+        if (obj.dknown | 0) ctx.dkn_boom++;
+        else ctx.unk_boom++;
+    }
     removeObjFromHeroInvent(g, obj);
     if (g.iflags?.perm_invent) updateInventory();
 }
@@ -178,7 +206,7 @@ export async function waterDamageOne(obj, force, g = game) {
             obj.greased = 0;
             await pline(`The grease on your ${waterDamageObjPhrase(obj)} washes off.`);
             if (t === OTYP_POT_ACID) {
-                await potAcidDamageMinimal(g, obj);
+                await potAcidDamageMinimal(g, obj, true);
                 return ER_DESTROYED;
             }
             if (inInvent && g.iflags?.perm_invent) updateInventory();
@@ -237,7 +265,7 @@ export async function waterDamageOne(obj, force, g = game) {
     if (oclass === NH5_POTION_CLASS) {
         if (t === OTYP_POT_WATER) return ER_NOTHING;
         if (t === OTYP_POT_ACID) {
-            await potAcidDamageMinimal(g, obj);
+            await potAcidDamageMinimal(g, obj, false);
             return ER_DESTROYED;
         }
         if ((obj.odiluted | 0) > 0) {
@@ -264,11 +292,23 @@ export async function waterDamageOne(obj, force, g = game) {
  * @param {typeof game} [g]
  */
 export async function waterDamageChain(obj, here, g = game) {
+    if (!obj) return;
+
+    /* C: trap.c water_damage_chain — init acid_ctx; bhitpos save/restore omitted until floor carry. */
+    const ctx = acidCtx(g);
+    ctx.dkn_boom = 0;
+    ctx.unk_boom = 0;
+    ctx.ctx_valid = true;
+
     for (let o = obj; o; ) {
         const next = here ? o.nexthere : o.nobj;
         await waterDamageOne(o, false, g);
         o = next;
     }
+
+    ctx.dkn_boom = 0;
+    ctx.unk_boom = 0;
+    ctx.ctx_valid = false;
 }
 
 /** C: `water_damage_chain(gi.invent, FALSE)` after pool / certain traps. */
