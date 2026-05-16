@@ -1,6 +1,6 @@
 // destroy_items.js — Hero + monster inventory destruction by fire / electricity (zap.c subset).
 // C ref: zap.c destroy_items(), destroyable(), maybe_destroy_item() — AD_FIRE + AD_ELEC;
-// inventory_resistance_check / u_adtyp_resistance_obj / deferred stacks / potionbreathe /
+// inventory_resistance_check / u_adtyp_resistance_obj (hero subset); deferred stacks / potionbreathe /
 // Ring_gone / setnotworn / glob of slime — TODO or stubbed. **`ignite_items`** → **`ignite_items.js`**.
 
 import { game } from './gstate.js';
@@ -25,6 +25,9 @@ import {
     W_RING,
     OC_CHARGED_RING_OTYPES,
     OTYP_RIN_SHOCK_RESISTANCE,
+    FIRE_RES,
+    COLD_RES,
+    SHOCK_RES,
 } from './const.js';
 import { raceptr, fireResistant } from './mondata.js';
 import { WAN_LIGHTNING } from './buzz.js';
@@ -32,8 +35,85 @@ import { discoverScrollOtyp } from './discover_scroll.js';
 
 /** C: monattk.h AD_FIRE */
 export const AD_FIRE = 2;
+/** C: monattk.h AD_COLD — cloak **`u_adtyp`** branch with **`AD_FIRE`**. */
+export const AD_COLD = 3;
 /** C: monattk.h AD_ELEC — zap.c **`destroy_items`**, trap.c **`chest_trap`**. */
 export const AD_ELEC = 5;
+
+/** C: objects.h OBJECTS_ENUM (NH 5.0 cpp) — dwarvish cloak; fire/cold/shock rings. */
+const OTYP_DWARVISH_CLOAK = 141;
+const OTYP_RIN_FIRE_RESISTANCE = 189;
+const OTYP_RIN_COLD_RESISTANCE = 190;
+const OTYP_RIN_SHOCK_RESISTANCE_ENUM = 191;
+
+/** C: zap.c adtyp_to_prop — subset used by destroy_items AD types. */
+function adtypToPropDestroyItemsLikeC(dmgtyp) {
+    switch (dmgtyp | 0) {
+        case AD_FIRE:
+            return FIRE_RES;
+        case AD_COLD:
+            return COLD_RES;
+        case AD_ELEC:
+            return SHOCK_RES;
+        default:
+            return 0;
+    }
+}
+
+/** C: zap.c u_adtyp_resistance_obj — worn oc_oprop, dwarvish cloak 90% fire/cold, ring otyps (NH5 enum). */
+export function uAdtypResistanceObjPercentHeroLikeC(g, dmgtyp) {
+    const prop = adtypToPropDestroyItemsLikeC(dmgtyp);
+    if (!prop) return 0;
+    const u = g.u;
+    if (!u) return 0;
+    const slots = [
+        u.uarm,
+        u.uarmc,
+        u.uarmf,
+        u.uarmg,
+        u.uarmh,
+        u.uarms,
+        u.uarmu,
+        u.uamul,
+        u.uleft,
+        u.uright,
+        u.uwep,
+        u.uswapwep,
+        u.uarmb,
+    ];
+    for (let i = 0; i < slots.length; i++) {
+        const o = slots[i];
+        if (!o) continue;
+        if ((o.oc_oprop | 0) === prop) return 99;
+    }
+    const cloak = u.uarmc;
+    if (cloak && ((dmgtyp | 0) === AD_FIRE || (dmgtyp | 0) === AD_COLD)) {
+        if ((cloak.otyp | 0) === OTYP_DWARVISH_CLOAK) return 90;
+    }
+    const fireRing = (t) => (t | 0) === OTYP_RIN_FIRE_RESISTANCE;
+    const coldRing = (t) => (t | 0) === OTYP_RIN_COLD_RESISTANCE;
+    const shockRing = (t) => {
+        const x = t | 0;
+        return x === OTYP_RIN_SHOCK_RESISTANCE_ENUM || x === (OTYP_RIN_SHOCK_RESISTANCE | 0);
+    };
+    const lr = [u.uleft, u.uright];
+    for (let j = 0; j < lr.length; j++) {
+        const ri = lr[j];
+        if (!ri) continue;
+        const t = ri.otyp | 0;
+        if (prop === FIRE_RES && fireRing(t)) return 99;
+        if (prop === COLD_RES && coldRing(t)) return 99;
+        if (prop === SHOCK_RES && shockRing(t)) return 99;
+    }
+    return 0;
+}
+
+/** C: zap.c inventory_resistance_check — hero only; rn2(100) when prob > 0. */
+export function inventoryResistanceCheckHeroLikeC(g, dmgtyp) {
+    const prob = uAdtypResistanceObjPercentHeroLikeC(g, dmgtyp);
+    if (!prob) return false;
+    return rn2(100) < prob;
+}
 
 /** C: zap.c DMG_DESTROY_SCALE / MAX_ITEMS_DESTROYED */
 const DMG_DESTROY_SCALE = 5;
@@ -86,7 +166,7 @@ function objShortPhrase(obj) {
 
 /**
  * C: zap.c maybe_destroy_item(carrier, obj, AD_FIRE) — hero subset (no potionbreathe,
- * no worn-ring removal, no inventory_resistance_check RNG when extrinsic stub is 0).
+ * no worn-ring removal; **`inventoryResistanceCheckHeroLikeC`** when extrinsic / cloak / ring).
  * @param {typeof game} g
  * @param {{ otyp?: number, oclass?: number, quan?: number, in_use?: number, dknown?: number }} obj
  * @returns {Promise<number>} extra damage (C dmg_out); hero lava ignores return value
@@ -94,6 +174,7 @@ function objShortPhrase(obj) {
 async function maybeDestroyItemHeroFire(g, obj) {
     const u = g.u;
     if (!u) return 0;
+    if (inventoryResistanceCheckHeroLikeC(g, AD_FIRE)) return 0;
 
     const t = obj.otyp | 0;
     if (t === OTYP_SPE_BOOK_OF_THE_DEAD) {
@@ -405,6 +486,7 @@ async function rechargeRingHeroElecLikeC(g, obj) {
 async function maybeDestroyItemHeroElec(g, obj) {
     const u = g.u;
     if (!u || !obj) return 0;
+    if (inventoryResistanceCheckHeroLikeC(g, AD_ELEC)) return 0;
 
     const oc = nh5HeroObjectClass(obj);
     let xresist = 0;
