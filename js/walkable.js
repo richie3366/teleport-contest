@@ -1,14 +1,16 @@
 // walkable.js — Terrain blocking for hero/monster moves (shared stub).
-// C ref: hack.c test_move(), may_passwall(); teleport.c goodpos(); monmove.c accessible().
+// C ref: hack.c test_move() (incl. diagonal `bad_rock`/`cant_squeeze_thru`/`NODIAG`), may_passwall(); teleport.c goodpos(); monmove.c accessible().
 
 import { game } from './gstate.js';
 import {
     DOOR, D_CLOSED, D_LOCKED, IS_OBSTRUCTED, IS_STWALL, IRONBARS, W_NONPASSWALL, isok,
     POOL, MOAT, WATER, LAVAPOOL, LAVAWALL, OTYP_BOULDER,
+    In_sokoban, PM_GRID_BUG, WT_TOOMUCH_DIAGONAL,
 } from './const.js';
 import {
     isFlyer, isFloater, raceptr, swims, amphibious, fireResistant,
     passesWalls, throwsRocks, amorphous, passesBars,
+    bigmonst, isWhirly, slithy, noncorporeal, canFogHero,
 } from './mondata.js';
 import { floorObjKey } from './floorobj.js';
 
@@ -164,4 +166,58 @@ export function terrainBlocksDisplaceForHero(x, y, g = game) {
     if (sobjAtBoulder(x, y, g) && !throwsRocks(ptr)) return true;
 
     return false;
+}
+
+/**
+ * C: hack.c bad_rock — used with diagonal moves; `passes_walls` on `mdat` only (not extrinsic-only stub).
+ * Subset: no `tunnels`/`may_dig` rock-eater escape.
+ * @param {*} ptr `raceptr(youmonst)` (or mon `data` when ported).
+ */
+export function badRock(ptr, x, y, g = game) {
+    if (!isok(x, y)) return true;
+    const loc = g.level?.at(x, y);
+    if (!loc) return true;
+    if (In_sokoban(g.u?.uz) && sobjAtBoulder(x, y, g)) return true;
+    if (IS_OBSTRUCTED(loc.typ)) {
+        if (passesWalls(ptr) && mayPasswall(x, y, g)) return false;
+        return true;
+    }
+    return false;
+}
+
+/**
+ * C: hack.c cant_squeeze_thru(&gy.youmonst) — return 0 = ok, 1 too big, 2 inventory, 3 sokoban.
+ * @returns {0|1|2|3}
+ */
+export function cantSqueezeThruHero(g = game) {
+    if (!g?.u) return 0;
+    const ptr = raceptr(g.youmonst);
+    if (heroPassesWalls(g)) return 0;
+    if (bigmonst(ptr)
+        && !(amorphous(ptr) || isWhirly(ptr) || noncorporeal(ptr) || slithy(ptr) || canFogHero(g))) {
+        return 1;
+    }
+    const u = /** @type {{ inv_weight?: number, weight_cap?: number }} */ (g.u);
+    const amt = (u?.inv_weight ?? 0) + (u?.weight_cap ?? 0);
+    if (amt > WT_TOOMUCH_DIAGONAL) return 2;
+    if (In_sokoban(g.u?.uz)) return 3;
+    return 0;
+}
+
+/**
+ * C: hack.c test_move — diagonal `bad_rock` + `cant_squeeze_thru` + `NODIAG` (`hack.h`).
+ * @param {number} dx
+ * @param {number} dy
+ * @param {number} newx
+ * @param {number} newy
+ * @param {Record<string, unknown>} [g]
+ */
+export function diagonalHeroMoveBlocked(dx, dy, newx, newy, g = game) {
+    if (!dx || !dy) return false;
+    if (!g?.u) return false;
+    const u = /** @type {{ ux: number, uy: number, Upolyd?: number, umonnum?: number }} */ (g.u);
+    const ptr = raceptr(g.youmonst);
+    if ((u.Upolyd | 0) && ((u.umonnum | 0) === PM_GRID_BUG)) return true;
+    if (!(badRock(ptr, u.ux, newy, g) && badRock(ptr, newx, u.uy, g))) return false;
+    return cantSqueezeThruHero(g) !== 0;
 }

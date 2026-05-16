@@ -43,6 +43,8 @@ const S_LIGHT = 25;
 const S_VORTEX = 22;
 const S_ELEMENTAL = 31;
 const S_HUMAN = 53;
+/** C: defsym.h / monsym.h — `S_GHOST` (noncorporeal). */
+const S_GHOST = 54;
 
 /** C: monflag.h MZ_SMALL — used by bear trap and encumber paths. */
 export { MZ_SMALL };
@@ -214,6 +216,20 @@ export function isWhirly(/** @type {Permonst} */ ptr) {
 export function passesBars(/** @type {Permonst} */ ptr) {
     return passesWalls(ptr) || amorphous(ptr) || unsolid(ptr) || isWhirly(ptr)
         || verysmall(ptr) || metallivorous(ptr) || (slithy(ptr) && !bigmonst(ptr));
+}
+
+/** C: mondata.h noncorporeal */
+export function noncorporeal(/** @type {Permonst} */ ptr) {
+    return ptr.mlet === S_GHOST;
+}
+
+/**
+ * C: monmove.c can_fog — vampshifter fog escape under doors.
+ * @param {Record<string, unknown>} [_g]
+ */
+export function canFogHero(_g) {
+    void _g;
+    return false;
 }
 
 /** C: mondata.h nolimbs */

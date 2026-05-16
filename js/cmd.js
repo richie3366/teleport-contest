@@ -16,7 +16,7 @@ import { dotrap } from './trap.js';
 import { runExtcmdFromHashPrefix } from './extcmd.js';
 import { doBumpMeleeAttack } from './attack.js';
 import { tryPeacefulSwap } from './peaceful_displace.js';
-import { blocksMovementAt } from './walkable.js';
+import { blocksMovementAt, diagonalHeroMoveBlocked } from './walkable.js';
 import { NO_TRAP_FLAGS } from './const.js';
 
 // Direction deltas: y u k
@@ -137,6 +137,10 @@ async function domove(dx, dy) {
 
     if (blocksMove(newx, newy)) {
         // Can't move there — no game time (C: domove returns without moving)
+        return false;
+    }
+    if (diagonalHeroMoveBlocked(dx, dy, newx, newy)) {
+        // C: hack.c test_move — `bad_rock` corners + `cant_squeeze_thru` + `NODIAG`
         return false;
     }
 
