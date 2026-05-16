@@ -1,5 +1,5 @@
 // destroy_items.js — Hero + monster inventory destruction by fire / cold / electricity (zap.c subset).
-// C ref: zap.c destroy_items(), destroyable(), maybe_destroy_item() — AD_FIRE + AD_COLD + AD_ELEC;
+// C ref: zap.c destroy_items(), destroyable(), maybe_destroy_item() — AD_FIRE + AD_COLD + AD_DISN + AD_ELEC + AD_ACID (monattk.h);
 // inventory_resistance_check / u_adtyp_resistance_obj (hero subset); wizard **`item_what`** suffix;
 // deferred stacks; hero fire potionbreathe (**`potion_breathe.js`**).
 // **`Ring_gone`** / **`setnotworn`** (**`wear.js`** **`ringGoneHeroLikeC`** / **`setnotwornHeroMinimalLikeC`**). **`ignite_items`** → **`ignite_items.js`**.
@@ -29,6 +29,8 @@ import {
     FIRE_RES,
     COLD_RES,
     SHOCK_RES,
+    DISINT_RES,
+    ACID_RES,
 } from './const.js';
 import { raceptr, fireResistant, breathless, haseyes } from './mondata.js';
 import { WAN_LIGHTNING } from './buzz.js';
@@ -40,8 +42,12 @@ import { potionbreatheObjBreakLikeC } from './potion_breathe.js';
 export const AD_FIRE = 2;
 /** C: monattk.h AD_COLD — cloak **`u_adtyp`** branch with **`AD_FIRE`**. */
 export const AD_COLD = 3;
+/** C: monattk.h AD_DISN — **`u_adtyp_resistance_obj`** / **`insight.c`** item bulk protection (no **`destroy_items`** path in this fork yet). */
+export const AD_DISN = 5;
 /** C: monattk.h AD_ELEC — zap.c **`destroy_items`**, trap.c **`chest_trap`**. */
-export const AD_ELEC = 5;
+export const AD_ELEC = 6;
+/** C: monattk.h AD_ACID — **`u_adtyp`** / **`insight.c`** only here (no **`destroy_items`** branch yet). */
+export const AD_ACID = 8;
 
 /** C: objects.h OBJECTS_ENUM (NH 5.0 cpp) — dwarvish cloak; fire/cold/shock rings. */
 const OTYP_DWARVISH_CLOAK = 141;
@@ -49,15 +55,19 @@ const OTYP_RIN_FIRE_RESISTANCE = 189;
 const OTYP_RIN_COLD_RESISTANCE = 190;
 const OTYP_RIN_SHOCK_RESISTANCE_ENUM = 191;
 
-/** C: zap.c adtyp_to_prop — subset used by destroy_items AD types. */
+/** C: zap.c adtyp_to_prop — subset used by **`u_adtyp_resistance_obj`** / **`destroy_items`** AD types. */
 function adtypToPropDestroyItemsLikeC(dmgtyp) {
     switch (dmgtyp | 0) {
         case AD_FIRE:
             return FIRE_RES;
         case AD_COLD:
             return COLD_RES;
+        case AD_DISN:
+            return DISINT_RES;
         case AD_ELEC:
             return SHOCK_RES;
+        case AD_ACID:
+            return ACID_RES;
         default:
             return 0;
     }

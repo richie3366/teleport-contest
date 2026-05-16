@@ -4,7 +4,7 @@
 // JS extras: wizard **`#F`**/**`#c`** — hero **`ubuzz`** + **`zap.c`** **`destroy_items(AD_COLD, d(12,6))`** (**`zapyourself`** cold); **`#d`** — **`dig.c`** **`zap_dig`** (**`u.dz`** + horizontal);
 // **`#D`** — **`dig.c`** **`dig()`** wall/door completion harness (**`dig_hero.js`**);
 // **`#m`**/**`#B`** — monster **`mbuzz`** (**`muse.c`** **`BZ_M_WAND`/`BZ_M_BREATH`** from neighbor toward hero);
-// **`#i`**/**`#I`** (wizard) — **`insight.c`** **`item_resistance_message`** + **`zap.c`** **`item_what`** subset (**`destroy_items.js`**);
+// **`#i`**/**`#I`** (wizard) — **`insight.c`** **`item_resistance_message`** + **`zap.c`** **`item_what`** (**`destroy_items.js`** **`u_adtyp`** AD_FIRE/COLD/DISN/ELEC/ACID);
 // **`#l`**/**`#L`** — **`pickup.c`** **`use_container`** trapped (**`held`** floor vs invent) → **`trap.c`** **`chest_trap`** (**`pickup.js`**);
 // **`#p`**/**`#P`** — **`lock.c`** **`pick_lock`** adjacent **door** (**`u.dx`/`u.dy`**) or floor locked box + **`picklock()`** (**`lock_hero.js`**); **`u_handsy`** gate.
 // wizard **`z`** — **`dozap.js`**.
@@ -39,7 +39,9 @@ import { d } from './rng.js';
 import {
     AD_FIRE as DEST_AD_FIRE,
     AD_COLD as DEST_AD_COLD,
+    AD_DISN as DEST_AD_DISN,
     AD_ELEC as DEST_AD_ELEC,
+    AD_ACID as DEST_AD_ACID,
     destroyItemsYoumonstCold,
     itemWhatAdtypInventoryProtectWizardLikeC,
     uAdtypResistanceObjPercentHeroLikeC,
@@ -90,13 +92,15 @@ export async function runExtcmdFromHashPrefix() {
         return;
     }
     if ((ch2 === 'i' || ch2 === 'I') && game.flags?.wizard) {
-        /* C: insight.c item_resistance_message + zap.c item_what — fire/cold/shock only (destroy_items AD set). */
+        /* C: insight.c item_resistance_message + zap.c item_what — monattk.h AD types with **`u_adtyp`** in zap.c. */
         const g = game;
         let any = false;
         const lines = [
             [DEST_AD_FIRE, 'fire'],
             [DEST_AD_COLD, 'cold'],
+            [DEST_AD_DISN, 'disintegration'],
             [DEST_AD_ELEC, 'electric shocks'],
+            [DEST_AD_ACID, 'acid'],
         ];
         for (let i = 0; i < lines.length; i++) {
             const ad = lines[i][0];
@@ -112,7 +116,7 @@ export async function runExtcmdFromHashPrefix() {
         }
         if (!any) {
             await pline(
-                'Your items are not specially protected from fire, cold, or electric shocks.',
+                'Your items are not specially protected from fire, cold, disintegration, electric shocks, or acid.',
             );
         }
         game._retainMessageAfterCommand = true;
