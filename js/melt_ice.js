@@ -4,7 +4,7 @@
 //        mon.c minliquid() (subset).
 //
 // Still TODO vs C: corpse **`ROT_ORGANIC`** start on all bury paths; **`bury_objs`** **`stolen_value`** (**`billable`/`onbill`**, full **`get_cost`**/**`getprice`**);
-// **`dig.c`/`read.c`** **`buried_ball`/`punish`** (**`floorobj.js`**) — **`placebc`** blind glyphs / **`uswallow`**; beam/breath vectors; fuller **`boulder_hits_pool`** / **`minliquid`** / **`spoteffects`**.
+// **`dig.c`/`read.c`** **`buried_ball`/`punish`** (**`floorobj.js`**) — **`placebc`** blind glyphs / **`uswallow`**; beam/breath vectors; **`boulder_hits_pool`** **`recalc_block_point`**/**`wake_nearto`**/**`u.uinwater`**; fuller **`minliquid`** / **`spoteffects`**.
 
 import { pline, newsym } from './display.js';
 import { vision_recalc, cansee } from './vision.js';
@@ -30,6 +30,7 @@ import {
     MOAT,
     ICED_POOL,
     ICED_MOAT,
+    DB_FLOOR,
     DB_ICE,
     DB_UNDER,
     IS_DRAWBRIDGE,
@@ -53,7 +54,11 @@ import {
     VWALL,
     HWALL,
     IS_WALL,
+    Is_waterlevel,
 } from './const.js';
+
+/** C: monflag.h — **`M1_CLING`** ( **`mon.c`** **`m_in_air`** clinger branch). */
+const M1_CLING = 0x00000010;
 
 /** C: objects.h — LAND_MINE / BEARTRAP (`objects_nums` / obj_oc_skill_data.js). */
 const OTYP_LAND_MINE = 244;
@@ -237,6 +242,13 @@ function removeObjFromLevelObjects(g, otmp) {
     if (i >= 0) arr.splice(i, 1);
 }
 
+/** C: mon.c **`m_in_air`** — omits **`has_ceiling(&u.uz)`** (stub true like **`trap.js`**). */
+function mInAir(mtmp) {
+    const ptr = raceptr(mtmp);
+    if (isFlyer(ptr) || isFloater(ptr)) return true;
+    return (ptr.mflags1 & M1_CLING) !== 0 && (mtmp.mundetected | 0) !== 0;
+}
+
 function killMonsterOnPoolFill(g, mtmp) {
     if (!mtmp || (mtmp.mhp | 0) <= 0) return;
     const x = mtmp.mx | 0;
@@ -251,8 +263,9 @@ function killMonsterOnPoolFill(g, mtmp) {
 }
 
 /**
- * C: do.c boulder_hits_pool(otmp, rx, ry, pushing) — subset: normal water/lava typ,
- * no plane/waterwall/drawbridge span, no u.uinwater / next2u lava damage / wake_nearto / bury_objs.
+ * C: do.c boulder_hits_pool — fill path: terrain, mondied (skip m_in_air), delfloortrap,
+ * bury_objs, newsym; drawbridge-up keeps typ, sets DB_FLOOR on loc.flags mask.
+ * Deferred vs C: recalc_block_point, wake_nearto, u.uinwater / next2u lava splash, waterbody_name.
  * @param {import('./gstate.js').game} g
  * @returns {Promise<boolean>} false when not pool/lava (C would impossible from melt_ice)
  */
@@ -265,20 +278,38 @@ async function boulderHitsPool(g, otmp, rx, ry, pushing) {
     const poolOrLava = IS_POOL(typ) || lava;
     if (!poolOrLava) return false;
 
-    const chance = rn2(10); /* C: before fills_up branch — water 90%, lava 10% */
-    const fillsUp = lava ? chance === 0 : chance !== 0;
+    const what = lava ? 'lava' : 'water';
+    const chance = rn2(10); /* C: before fills_up — plane 0%, waterwall 50%, lava 10%, else water 90% */
+    const fillsUp = Is_waterlevel(g.u?.uz)
+        ? false
+        : IS_WATERWALL(typ)
+            ? chance < 5
+            : lava
+                ? chance === 0
+                : chance !== 0;
 
     if (fillsUp) {
         const ttmp = tAt(rx, ry);
-        if (ttmp) delTrap(ttmp);
+        if (typ === DRAWBRIDGE_UP) {
+            loc.flags = ((loc.flags | 0) & ~DB_UNDER) | DB_FLOOR;
+        } else {
+            loc.typ = ROOM;
+            loc.flags = 0;
+            /* C: recalc_block_point(rx,ry); JS block_point not ported */
+        }
         const mtmp = g.level?.monsters?.find((m) => m.mx === rx && m.my === ry);
-        if (mtmp && (mtmp.mhp | 0) > 0) killMonsterOnPoolFill(g, mtmp);
-        loc.typ = ROOM;
-        loc.flags = 0;
+        if (mtmp && (mtmp.mhp | 0) > 0 && !mInAir(mtmp)) killMonsterOnPoolFill(g, mtmp);
+        if (ttmp) delTrap(ttmp);
+        await buryObjsAt(g, rx, ry);
         newsym(rx, ry);
+        const u = g.u;
+        const verbose = !!(g.flags?.verbose);
+        if (pushing) {
+            await pline(`You push the boulder into the ${what}.`);
+            if (verbose && !u?.ublind && !(u?.timed?.blind)) await pline('Now you can cross it!');
+        }
     }
 
-    const what = lava ? 'lava' : 'water';
     const u = g.u;
     const verbose = !!(g.flags?.verbose);
     if (!fillsUp || !pushing) {
