@@ -40,3 +40,13 @@ export function isAmmo(obj) {
     const sk = objectOcSkill(obj.otyp | 0);
     return sk >= -P_CROSSBOW && sk <= -P_BOW;
 }
+
+/**
+ * C: wield.c bimanual(obj) — two-handed wield; stub **false** until **`objects[]`** **`oc_bimanual`** port.
+ * @param {{ otyp?: number }|null|undefined} obj
+ * @returns {boolean}
+ */
+export function bimanual(obj) {
+    void obj;
+    return false;
+}

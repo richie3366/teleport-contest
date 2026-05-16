@@ -23,6 +23,9 @@ import {
     OBJ_DART,
     OBJ_ROCK,
 } from './mthrowu.js';
+import { bimanual } from './weapon_kind.js';
+import { waterDamageOne, splashLitOne, ER_NOTHING } from './water_damage.js';
+import { updateInventory } from './invent.js';
 import { placeFloorObject } from './floorobj.js';
 import { goodposHero } from './walkable.js';
 import {
@@ -82,6 +85,9 @@ import {
     A_CON,
     A_STR,
     A_DEX,
+    KILLED_BY,
+    PM_GREMLIN,
+    PM_IRON_GOLEM,
 } from './const.js';
 
 const M1_CLING = 0x00000010;
@@ -405,23 +411,53 @@ async function trapeffectSlpGasHero(trap) {
     }
 }
 
-/** C: trap.c trapeffect_rust_trap — hero; water_damage / inventory deferred. */
+/** C: trap.c trapeffect_rust_trap — hero (water_damage, splash_lit subset; gremlin split_mon TODO). */
 async function trapeffectRustHero() {
+    const u = game.u;
+    if (!u) return;
     const gush = 'A gush of water hits';
-    switch (rn2(5)) {
+    const b = rn2(5);
+    switch (b) {
     case 0:
         await pline(`${gush} you on the head!`);
+        await waterDamageOne(u.uarmh ?? null, true, game);
         break;
-    case 1:
+    case 1: {
         await pline(`${gush} your left arm!`);
+        const er = u.uarms ? await waterDamageOne(u.uarms, true, game) : ER_NOTHING;
+        if (er !== ER_NOTHING) break;
+        if (u.twoweap || (u.uwep && bimanual(u.uwep))) {
+            const w = u.twoweap ? u.uswapwep : u.uwep;
+            await waterDamageOne(w ?? null, true, game);
+        }
+        await waterDamageOne(u.uarmg ?? null, true, game);
         break;
+    }
     case 2:
         await pline(`${gush} your right arm!`);
+        await waterDamageOne(u.uwep ?? null, true, game);
+        await waterDamageOne(u.uarmg ?? null, true, game);
         break;
     default:
         await pline(`${gush} you!`);
+        for (let o = game.invent; o; o = o.nobj) {
+            if ((o.lamplit | 0) && o !== u.uwep && (o !== u.uswapwep || !u.twoweap))
+                await splashLitOne(o, game);
+        }
+        if (u.uarmc) await waterDamageOne(u.uarmc, true, game);
+        else if (u.uarm) await waterDamageOne(u.uarm, true, game);
+        else if (u.uarmu) await waterDamageOne(u.uarmu, true, game);
         break;
     }
+
+    if ((u.umonnum | 0) === PM_IRON_GOLEM) {
+        const dam = (u.mhmax ?? u.uhpmax ?? 0) | 0;
+        await pline('You are covered with rust!');
+        losehp(maybeHalfPhys(dam), 'rusting away', KILLED_BY);
+    } else if ((u.umonnum | 0) === PM_GREMLIN && rn2(3)) {
+        /* C: split_mon(&youmonst, 0) — PRNG inside split not replayed until mon.c port */
+    }
+    updateInventory();
 }
 
 /** C: monster.c next_to_u — stub true until ball&chain / engulfer checks exist. */

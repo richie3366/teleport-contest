@@ -110,7 +110,13 @@ export async function newgame() {
     g.u.HConflict = 0;
     g.u.EConflict = 0; /* extrinsic conflict sources (gethungry excludes W_ARTI only) */
     g.u.uwep = null;
+    g.u.uswapwep = null;
     g.u.twoweap = false;
+    g.u.uarmh = null;
+    g.u.uarms = null;
+    g.u.uarmc = null;
+    g.u.uarm = null;
+    g.u.uarmu = null;
     g.u.uarmg = null; /* gloves — port invent wear when ready */
     /* C: you.h uhave — eat.c gethungry switch case 16 (carried real Amulet) */
     g.u.uhave = { amulet: 0 };
