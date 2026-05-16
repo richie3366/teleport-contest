@@ -51,6 +51,9 @@ import {
     webmaker,
     metallivorous,
     resistsSleep,
+    monHasAmulet,
+    isHomeElemental,
+    S_ELEMENTAL,
 } from './mondata.js';
 import {
     NO_TRAP_FLAGS,
@@ -95,6 +98,7 @@ import {
     In_quest,
     Is_botlevel,
     Is_knox_level,
+    Is_stronghold,
     Is_waterlevel,
     Is_airlevel,
     isok,
@@ -111,6 +115,9 @@ import {
     TRAP_CAUGHT_MON,
     TRAP_KILLED_MON,
     TRAP_MOVED_MON,
+    MIGR_RANDOM,
+    MIGR_PORTAL,
+    is_xport,
 } from './const.js';
 
 const M1_CLING = 0x00000010;
@@ -893,8 +900,15 @@ function getMleashFromInvent(g, mtmp) {
     return null;
 }
 
-/** C: apply.c **`m_unleash(mtmp, FALSE)`** — clear leash object + **`mleashed`** (no feedback). */
-function mUnleashMon(g, mtmp) {
+/** C: apply.c **`m_unleash(mtmp, feedback)`** — hero invent leash + plines. */
+async function mUnleashMon(g, mtmp, feedback = false) {
+    if (feedback) {
+        if (canseemonRip(g, mtmp)) {
+            await pline(`${monNamSentence(mtmp)} pulls free of its leash!`);
+        } else {
+            await pline('Your leash falls slack.');
+        }
+    }
     const otmp = getMleashFromInvent(g, mtmp);
     if (otmp) otmp.leashmon = null;
     mtmp.mleashed = 0;
@@ -950,7 +964,7 @@ async function teleportPetAllowsMon(g, mtmp, forceIt) {
         return false;
     }
     await pline('Your leash goes slack.');
-    mUnleashMon(g, mtmp);
+    await mUnleashMon(g, mtmp, false);
     return true;
 }
 
@@ -962,8 +976,46 @@ function canFallThruLevelForHole(g) {
     return true;
 }
 
+/** C: polyself.c / eat.c **`control_teleport(mdat)`** — **`PROP_TELEPORT_CONTROL`** stub. */
+function controlTeleportMon(_ptr) {
+    void _ptr;
+    return false;
+}
+
 /**
- * C: teleport.c **`mlevel_tele_trap`** — remove mon from current map (**`migrate_to_level`** stub).
+ * C: dog.c **`migrate_to_level`** — remove from **`fmon`**, push **`migrating_mons`** (**`relmon`** subset).
+ * @param {{ dnum?: number, dlevel?: number }} toLev
+ * @param {number} migrateTyp — **`MIGR_*`**
+ */
+async function migrateToLevelMon(g, mtmp, toLev, migrateTyp) {
+    if ((mtmp.mleashed | 0)) {
+        mtmp.mtame = Math.max(0, (mtmp.mtame | 0) - 1);
+        await mUnleashMon(g, mtmp, true);
+    }
+    const mx = mtmp.mx | 0;
+    const my = mtmp.my | 0;
+    const mons = g.level?.monsters;
+    const i = mons ? mons.indexOf(mtmp) : -1;
+    if (i >= 0) mons.splice(i, 1);
+    if (!g.migratingMons) g.migratingMons = [];
+    const u = g.u;
+    g.migratingMons.push({
+        mtmp,
+        mux: toLev.dnum | 0,
+        muy: toLev.dlevel | 0,
+        migrateTyp,
+        fromDnum: u?.uz?.dnum,
+        fromDlevel: u?.uz?.dlevel,
+        xWas: mx,
+        yWas: my,
+    });
+    mtmp.mx = 0;
+    mtmp.my = 0;
+    newsym(mx, my);
+}
+
+/**
+ * C: teleport.c **`mlevel_tele_trap`** — **`migrate_to_level`** + gates (**`mon_has_amulet`**, **`is_home_elemental`**).
  * @returns {Promise<number>} **`TRAP_MOVED_MON`** or **`TRAP_EFFECT_FINISHED`**
  */
 async function mlevelTeleTrapMonster(g, mtmp, trap, forceIt, inSight) {
@@ -973,25 +1025,39 @@ async function mlevelTeleTrapMonster(g, mtmp, trap, forceIt, inSight) {
     if (mtmp === u.ustuck) return TRAP_EFFECT_FINISHED;
     if (!(await teleportPetAllowsMon(g, mtmp, !!forceIt))) return TRAP_EFFECT_FINISHED;
 
+    /** @type {{ dnum: number, dlevel: number } | null} */
+    let tolevel = null;
+    let migrateTyp = MIGR_RANDOM;
+
     if (is_hole(tt)) {
-        if (Is_botlevel(u.uz)) {
+        if (Is_stronghold(u.uz)) {
+            const vl = g.valley_level;
+            tolevel = vl ? { dnum: vl.dnum | 0, dlevel: vl.dlevel | 0 } : { dnum: u.uz.dnum | 0, dlevel: u.uz.dlevel | 0 };
+        } else if (Is_botlevel(u.uz)) {
             if (inSight && trap.tseen) {
                 const holeWord = tt === HOLE ? 'hole' : 'trap';
                 await pline(`${monNamSentence(mtmp)} avoids the ${holeWord}.`);
             }
             return TRAP_EFFECT_FINISHED;
+        } else {
+            const d = trap.dst;
+            tolevel = d
+                ? { dnum: d.dnum | 0, dlevel: d.dlevel | 0 }
+                : { dnum: u.uz.dnum | 0, dlevel: u.uz.dlevel | 0 };
         }
     } else if (tt === MAGIC_PORTAL) {
-        if (In_endgame(u.uz) && rn2(7)) {
-            if (inSight) {
+        if (In_endgame(u.uz) && (monHasAmulet(mtmp) || isHomeElemental(mtmp, u.uz) || rn2(7))) {
+            if (inSight && (raceptr(mtmp).mlet | 0) !== S_ELEMENTAL) {
                 await pline(`${monNamSentence(mtmp)} seems to shimmer for a moment.`);
                 seetrap(trap);
             }
             return TRAP_EFFECT_FINISHED;
         }
         if (!trap.dst) return TRAP_EFFECT_FINISHED;
+        tolevel = { dnum: trap.dst.dnum | 0, dlevel: trap.dst.dlevel | 0 };
+        migrateTyp = MIGR_PORTAL;
     } else if (tt === LEVEL_TELEP) {
-        if (In_endgame(u.uz)) {
+        if (monHasAmulet(mtmp) || In_endgame(u.uz)) {
             if (inSight) {
                 await pline(`${monNamSentence(mtmp)} seems very disoriented for a moment.`);
             }
@@ -1003,18 +1069,28 @@ async function mlevelTeleTrapMonster(g, mtmp, trap, forceIt, inSight) {
             if (inSight) await pline(`${monNamSentence(mtmp)} shudders for a moment.`);
             return TRAP_EFFECT_FINISHED;
         }
+        tolevel = { dnum: u.uz.dnum | 0, dlevel: nlev };
+        migrateTyp = MIGR_RANDOM;
+    } else {
+        return TRAP_EFFECT_FINISHED;
     }
 
+    if (!tolevel) return TRAP_EFFECT_FINISHED;
+
     if (inSight) {
-        await pline(`Suddenly, ${monNam(mtmp)} disappears out of sight.`);
+        const nm = monNam(mtmp);
+        const tail =
+            tt === HOLE
+                ? 'falls into a hole.'
+                : tt === TRAPDOOR
+                    ? 'falls through a trap door.'
+                    : 'disappears out of sight.';
+        await pline(`Suddenly, ${nm} ${tail}`);
         seetrap(trap);
     }
-    const mx = mtmp.mx | 0;
-    const my = mtmp.my | 0;
-    const mons = g.level?.monsters;
-    const i = mons ? mons.indexOf(mtmp) : -1;
-    if (i >= 0) mons.splice(i, 1);
-    newsym(mx, my);
+    if (is_xport(tt) && !controlTeleportMon(raceptr(mtmp))) mtmp.mconf = 1;
+
+    await migrateToLevelMon(g, mtmp, tolevel, migrateTyp);
     return TRAP_MOVED_MON;
 }
 

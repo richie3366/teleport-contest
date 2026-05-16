@@ -3,7 +3,19 @@
 // dmgtype/dmgtype_fromattack, passes_bars, stagger(), monflag.h M1_*, MR_*, MZ_*, G_NOCORPSE; mon.c make_corpse (corpse gate stub).
 
 import { game } from './gstate.js';
-import { XKILL_NOCORPSE, PM_FIRE_ELEMENTAL, PM_SALAMANDER } from './const.js';
+import {
+    XKILL_NOCORPSE,
+    PM_FIRE_ELEMENTAL,
+    PM_SALAMANDER,
+    PM_AIR_ELEMENTAL,
+    PM_EARTH_ELEMENTAL,
+    PM_WATER_ELEMENTAL,
+    OTYP_AMULET_OF_YENDOR,
+    Is_airlevel,
+    Is_firelevel,
+    Is_earthlevel,
+    Is_waterlevel,
+} from './const.js';
 
 /** C: monattk.h / permonst.h */
 export const AT_ANY = -1;
@@ -52,7 +64,8 @@ export const MZ_LARGE = 3;
 const S_EYE = 5;
 const S_LIGHT = 25;
 const S_VORTEX = 22;
-const S_ELEMENTAL = 31;
+/** C: defsym.h / monsym.h — **`S_ELEMENTAL`**. */
+export const S_ELEMENTAL = 31;
 const S_HUMAN = 53;
 /** C: defsym.h / monsym.h — `S_GHOST` (noncorporeal). */
 const S_GHOST = 54;
@@ -248,6 +261,34 @@ export function slithy(/** @type {Permonst} */ ptr) {
 /** C: mondata.h amorphous */
 export function amorphous(/** @type {Permonst} */ ptr) {
     return (ptr.mflags1 & M1_AMORPHOUS) !== 0;
+}
+
+/**
+ * C: wizard.c **`mon_has_amulet(mtmp)`** — walk **`minvent`** for **`AMULET_OF_YENDOR`**.
+ * @param {{ minvent?: { otyp?: number, nobj?: unknown } | null }} mtmp
+ */
+export function monHasAmulet(mtmp) {
+    for (let o = mtmp?.minvent; o; o = o.nobj) {
+        if ((o.otyp | 0) === OTYP_AMULET_OF_YENDOR) return true;
+    }
+    return false;
+}
+
+/**
+ * C: makemon.c **`is_home_elemental(ptr)`** — **`monsndx`** vs plane (**`u.uz`**).
+ * @param {{ mnum?: number, data?: Permonst } | null} mtmp
+ * @param {{ dnum?: number, dlevel?: number }} [uz]
+ */
+export function isHomeElemental(mtmp, uz) {
+    if (!mtmp) return false;
+    const ptr = raceptr(mtmp);
+    if ((ptr.mlet | 0) !== S_ELEMENTAL) return false;
+    const m = mtmp.mnum | 0;
+    if (m === PM_AIR_ELEMENTAL) return Is_airlevel(uz);
+    if (m === PM_FIRE_ELEMENTAL) return Is_firelevel(uz);
+    if (m === PM_EARTH_ELEMENTAL) return Is_earthlevel(uz);
+    if (m === PM_WATER_ELEMENTAL) return Is_waterlevel(uz);
+    return false;
 }
 
 /** C: mondata.h is_whirly — vortex or air elemental (C: &mons[PM_AIR_ELEMENTAL]). */
