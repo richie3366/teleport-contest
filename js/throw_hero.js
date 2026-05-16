@@ -53,7 +53,7 @@ async function applyThrowSlipRngLikeC(g, obj) {
 /**
  * C: dothrow.c throwit subset — zap.c bhit ray + landing (breakobj/flooreffects/place_object),
  * throwit_mon_hit / thitmonst weapon/gem/rock/potion subset; u.dz>0 → hitfloor(obj, TRUE), top g.invent.
- * Omits uswapwep launcher check, uslinging, uball cap, boulder/Mjollnir, tether, hits_bars, shkcatch, tmp_at.
+ * Omits uswapwep launcher check, uslinging, uball cap, boulder/Mjollnir, tether, hits_bars, tmp_at, ship_object.
  * @param {import('./gstate.js').game} [g]
  */
 export async function throwOneInventAdjacentLikeC(g = game) {
@@ -117,6 +117,11 @@ export async function throwOneInventAdjacentLikeC(g = game) {
     const ctx = g.context || (g.context = {});
     gb.bhitpos = { x: land.x, y: land.y };
     ctx.bhitpos = { x: land.x, y: land.y };
+
+    if (land.shkCaught) {
+        g.context.move = 1;
+        return;
+    }
 
     if (land.mon) {
         const gone = await throwitMonHitThrownHeroLikeC(g, obj, land.mon);

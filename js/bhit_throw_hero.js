@@ -15,8 +15,9 @@ import {
     BOLT_LIM,
     P_CROSSBOW,
     Is_airlevel,
+    NO_ROOM,
 } from './const.js';
-import { isAmmo, ammoAndLauncherLikeC, weaponType } from './weapon_kind.js';
+import { isAmmo, ammoAndLauncherLikeC, weaponType, isPickLikeC } from './weapon_kind.js';
 import { isPoolCellLikeC } from './fillholetyp.js';
 import { OBJ_ROCK } from './mthrowu.js';
 import { rnd, rn2 } from './rng.js';
@@ -32,7 +33,7 @@ import { NH5_WEAPON_CLASS } from './nh5_objclass.js';
 import { breaktestLikeC, heroBreaksObjLikeC, BRK_FROM_INV } from './obj_break_dothrow.js';
 import { flooreffectsObjAtLikeC } from './flooreffects_hero.js';
 import { placeFloorObjectInLevel, stackObjOnFloorInLevel } from './floorobj.js';
-import { checkShopObjAfterHeroPlaceLikeC } from './shop.js';
+import { checkShopObjAfterHeroPlaceLikeC, insideShopLevlRoomno, shkcatchThrownPickHeroLikeC } from './shop.js';
 import { isClosedDoorLoc } from './walkable.js';
 
 /** C: objects_nums — venom otyps for breakobj-style landing (dothrow.c throwit). */
@@ -124,8 +125,8 @@ function canspotMonThrownRockSkipLikeC(g, mtmp) {
 }
 
 /**
- * C: zap.c bhit — THROWN_WEAPON, fhitm/fhito null (subset: shkcatch, hits_bars, shade/mimic, tmp_at omitted).
- * @returns {Promise<{ x: number, y: number, mon: object|null, stuckWeb: boolean }>}
+ * C: zap.c bhit — THROWN_WEAPON, fhitm/fhito null (subset: hits_bars, shade/mimic, tmp_at omitted; **`shkcatch`** wired for thrown **`is_pick`**).
+ * @returns {Promise<{ x: number, y: number, mon: object|null, stuckWeb: boolean, shkCaught?: boolean }>}
  */
 export async function walkThrownWeaponBhitRayHeroLikeC(g, dx, dy, range0, obj) {
     const u = g.u;
@@ -165,6 +166,12 @@ export async function walkThrownWeaponBhitRayHeroLikeC(g, dx, dy, range0, obj) {
             bx -= ddx;
             by -= ddy;
             break;
+        }
+        if (obj && isPickLikeC(obj) && insideShopLevlRoomno(g, bx, by) !== NO_ROOM) {
+            const caught = await shkcatchThrownPickHeroLikeC(g, obj, bx, by);
+            if (caught) {
+                return { x: bx, y: by, mon: null, stuckWeb: false, shkCaught: true };
+            }
         }
         const typ = loc.typ | 0;
 

@@ -6,6 +6,7 @@ import {
     P_BARE_HANDED_COMBAT,
     P_BOW,
     P_CROSSBOW,
+    P_PICK_AXE,
 } from './const.js';
 import { OC_SKILL_ROW_BY_OTYP } from './obj_oc_skill_data.js';
 import { NH5_WEAPON_CLASS, NH5_TOOL_CLASS, NH5_GEM_CLASS } from './nh5_objclass.js';
@@ -45,6 +46,17 @@ export function weaponType(obj) {
     if (oc !== NH5_WEAPON_CLASS && oc !== NH5_TOOL_CLASS && oc !== NH5_GEM_CLASS) return P_NONE;
     const type = objectOcSkill(obj.otyp | 0);
     return type < 0 ? -type : type;
+}
+
+/**
+ * C: obj.h **`is_pick(otmp)`** — **`WEAPON`/`TOOL`** with **`oc_skill == P_PICK_AXE`**.
+ * @param {{ otyp?: number, oclass?: number }|null|undefined} obj
+ */
+export function isPickLikeC(obj) {
+    if (!obj) return false;
+    const oc = obj.oclass | 0;
+    if (oc !== NH5_WEAPON_CLASS && oc !== NH5_TOOL_CLASS) return false;
+    return weaponType(obj) === P_PICK_AXE;
 }
 
 /**

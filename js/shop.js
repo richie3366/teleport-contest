@@ -11,6 +11,7 @@ import { pline, newsym } from './display.js';
 import { unlinkFloorObject, floorObjKey, unlinkFloorObjectInLevel, placeFloorObjectInLevel, stackObjOnFloorInLevel, obliterateObjectInLevel } from './floorobj.js';
 import { cansee, vision_recalc } from './vision.js';
 import { delEngrAt } from './engrave.js';
+import { doname } from './objnam.js';
 import { raceptr, passesWalls, stubPermonstForCorpsenm, MR_FIRE, MR_SLEEP, noncorporeal, S_ELEMENTAL, locomotion, nolimbs } from './mondata.js';
 import { heroPassesWalls, enextoNearMon } from './walkable.js';
 import { dist2 } from './hacklib.js';
@@ -254,6 +255,43 @@ function shkImpaired(g, shkp) {
     const e = ESHK(shkp);
     if (helplessShk(shkp) || (e?.following | 0)) return true;
     return false;
+}
+
+/**
+ * C: shk.c **`shkcatch`** — shopkeeper catches a thrown pick-axe inside a shop.
+ * Omits **`mnearto`** “Out of my way” verbalize, **`map_invisible`**, **`nh_delay_output`/`mark_synch`**.
+ * @param {import('./gstate.js').game} g
+ * @returns {Promise<object|null>} shopkeeper monst if catch, else null
+ */
+export async function shkcatchThrownPickHeroLikeC(g, obj, x, y) {
+    const u = g.u;
+    if (!u || !obj) return null;
+    const xi = x | 0;
+    const yi = y | 0;
+    const rmno = insideShopLevlRoomno(g, xi, yi);
+    if (rmno === NO_ROOM) return null;
+    const shkp = shopKeeperForLevlRoomno(g, rmno);
+    if (!shkp || !inHishop(g, shkp)) return null;
+    if (helplessShk(shkp)) return null;
+
+    const heroRnos = inRoomsShopbaseRoomnos(g, u.ux | 0, u.uy | 0);
+    const heroInShop = insideShopLevlRoomno(g, u.ux | 0, u.uy | 0) !== NO_ROOM;
+    const firstHero = heroRnos.length ? heroRnos[0] | 0 : null;
+    const e = ESHK(shkp);
+    const shkRoom = e ? eshkShoproomAsLevlRno(e) : NO_ROOM;
+    if (firstHero === shkRoom && heroInShop) return null;
+
+    if (dist2(shkp.mx | 0, shkp.my | 0, xi, yi) >= 3) return null;
+    if ((shkp.mx | 0) === xi && (shkp.my | 0) === yi) return null;
+
+    if (cansee(xi, yi)) {
+        const reach =
+            xi === (shkp.mx | 0) && yi === (shkp.my | 0) ? '' : ' reaches over and';
+        await pline(`${shknamDisplay(shkp)} nimbly${reach} catches ${doname(obj, g)}.`);
+    }
+    subfrombillLikeC(g, obj, shkp);
+    mpickobjShk(g, shkp, obj);
+    return shkp;
 }
 
 /** C: trap.c **`t_at`** using **`g.level.traps`**. */
