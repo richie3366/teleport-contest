@@ -3,8 +3,8 @@
 //        cmd.c xytodir(); watch_dig.c watch_dig() (town gate + watchman TODO).
 //
 // Deferred vs C: tmp_at / nh_delay_output; full watchman **`verbalize`**/**`angry_guards`**;
-// u.uswallow branch; pit_flow + fillholetyp; full **`dighole()`** / **`digactualhole`**;
-// vertical **`dighole`** path is a no-op stub (**`mksobj_at`/`xname`** order kept for rock branch only).
+// u.uswallow branch; pit_flow + fillholetyp; full **`digactualhole`** / shop / **`spot_checks`**;
+// **`dighole.js`** covers wand-down **ROOM/CORR** + guards (**`fillholetyp`** / **`goto_level`** / trap+destroy still TODO).
 
 import { rn1, rnd } from './rng.js';
 import { pline, newsym } from './display.js';
@@ -17,6 +17,7 @@ import { addDamageAt, inRoomsShopbaseRoomnos } from './shop.js';
 import { stairwayAt } from './decor.js';
 import { placeFloorObject, stackObjOnFloorInLevel } from './floorobj.js';
 import { losehp, maybeHalfPhys, OBJ_ROCK } from './mthrowu.js';
+import { digholeHeroLikeC } from './dighole.js';
 import {
     isok,
     xdir,
@@ -192,11 +193,11 @@ function ceilingStringVertDigLikeC(g, x, y) {
 
 /**
  * C: dig.c **`dighole(FALSE, TRUE, (coord *) 0)`** in **`zap_dig`** **`u.dz`** else branch.
- * Full **`digactualhole`** / shop pit / **`pit_flow`** still TODO.
+ * **`dighole.js`** subset (**`fillholetyp`**, **`goto_level`**, shop, **`PASSED_DESTROY_TRAP`**, … TODO).
  * @param {import('./gstate.js').game} g
  */
 async function digHoleFromHeroWandZapDownLikeC(g) {
-    void g;
+    await digholeHeroLikeC(g, false, true, null);
 }
 
 /**
