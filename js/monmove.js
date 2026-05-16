@@ -5,7 +5,7 @@
 // PRNG slice from the frozen session harness. Delete _HARNESS entries when **`m_move`**
 // consumes the same draws per monster.
 //
-// C: **`monmove.c`** **`movemon`** — harness (**`distfleeck`/`mcalcmove`** stand-in) then **`fmon`** loop
+// C: **`monmove.c`** **`movemon`** — harness (**`distfleeck`** stand-in where needed) then **`fmon`** loop
 // **`m_move`** (**`m_move_mon.js`**), then **`mintrap`**. **`m_throw`** runs only inside **`m_move`**.
 // **`distfleeck`**: moveloop **`stepNum===2`** runs real **`distfleeckMonsterApplyLikeC`** per mon; harness row **2** omits the four **`rn2(5)`** it replaced.
 

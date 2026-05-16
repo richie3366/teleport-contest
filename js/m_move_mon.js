@@ -2,8 +2,8 @@
 // C ref: mon.c **`m_move(struct monst *mtmp, int after)`**; monmove.c **`movemon`** walks **`fmon`**.
 //
 // Ported: **`distfleeck`** on selected moveloop steps (see **`monmove.js`** harness pairing), then **`m_throw`**.
-// **`mcalcmove`**: **`mcalc_move.js`** (**`mcalcMoveLikeC`**) — not yet folded into moveloop timing.
-// Omits **`mcalcmove`** **`movement`** accounting, grid **`domove`**, **`attack`**, **`minliquid`**, vault guard, worm tails.
+// **`mcalcmove`**: **`allmain.js`** applies **`mcalcMoveLikeC`** to **`movement`** each **`context.move`** (**`moves++`**) like C’s end-of-round batch; **`m_move`** does not yet spend **`movement`**.
+// Omits grid **`domove`**, **`attack`**, **`minliquid`**, vault guard, worm tails.
 
 import { mThrowAtHeroAfterMmoveIfLinedUpLikeC } from './mthrow_mon.js';
 import { distfleeckMonsterApplyLikeC } from './distfleeck_mon.js';

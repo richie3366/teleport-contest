@@ -12,6 +12,7 @@ import { docrt, cls, bot, flush_screen, pline } from './display.js';
 import { vision_recalc, vision_reset, init_vision_globals } from './vision.js';
 import { fastforward_pre_mklev, fastforward_post_mklev, fastforward_fill_mineralize } from './fastforward.js';
 import { movemon, MOVE_MON_HARNESS_MAX_STEP } from './monmove.js';
+import { mcalcMoveLikeC } from './mcalc_move.js';
 import { end_of_turn_rng, gethungry } from './moveloop_aux.js';
 import { initIniInvStub } from './ini_inv_stub.js';
 import { applyInitAttrPipeline } from './u_init_attr.js';
@@ -230,6 +231,11 @@ export async function moveloop_core() {
 
     // Advance turn (C: allmain.c — settrack() before svm.moves++)
     if (g.context?.move) {
+        /* C: allmain.c moveloop_core — after mcalcdistress; before maybe_generate_rnd_mon / u_calc_moveamt:
+         *   for (mtmp = fmon; mtmp; mtmp = mtmp->nmon) mtmp->movement += mcalcmove(mtmp, TRUE); */
+        for (const m of g.level?.monsters ?? []) {
+            m.movement = (m.movement | 0) + mcalcMoveLikeC(m, true, g);
+        }
         settrack();
         g.moves = (g.moves || 1) + 1;
         /* C: timeout.c level MELT_ICE_AWAY -> zap.c melt_ice_away */
