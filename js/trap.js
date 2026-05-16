@@ -26,7 +26,7 @@ import {
 import { bimanual } from './weapon_kind.js';
 import { waterDamageOne, splashLitOne, ER_NOTHING } from './water_damage.js';
 import { updateInventory } from './invent.js';
-import { placeFloorObject } from './floorobj.js';
+import { placeFloorObject, floorObjKey } from './floorobj.js';
 import { goodposHero } from './walkable.js';
 import { destroyItemsYoumonstFire, destroyItemsMonFire } from './destroy_items.js';
 import { igniteHeroInventory, igniteMinvent } from './ignite_items.js';
@@ -47,6 +47,7 @@ import {
     MZ_SMALL,
     locomotion,
     webmaker,
+    metallivorous,
 } from './mondata.js';
 import {
     NO_TRAP_FLAGS,
@@ -97,6 +98,7 @@ import {
     KILLED_BY,
     PM_GREMLIN,
     PM_IRON_GOLEM,
+    OTYP_BOULDER,
     TRAP_EFFECT_FINISHED,
     TRAP_CAUGHT_MON,
     TRAP_KILLED_MON,
@@ -327,6 +329,228 @@ function golemFireAltFromMname(mhpmax, mtmp) {
     if (n.includes('wood golem')) return { alt: Math.trunc((mhpmax | 0) / 4), immolate: false };
     if (n.includes('leather golem')) return { alt: Math.trunc((mhpmax | 0) / 8), immolate: false };
     return { alt: 0, immolate: false };
+}
+
+/** C: monflag.h **`MZ_HUGE`** — **`m_easy_escape_pit`**. */
+const MZ_HUGE = 4;
+
+/** C: **`mklev.c`** / **`hack.c`** **`sobj_at(BOULDER, x, y)`** — floor pile head. */
+function sobjAtBoulderAt(g, x, y) {
+    const heads = g.level?.floorObjHeads;
+    if (!heads) return false;
+    for (let o = heads.get(floorObjKey(x, y)) ?? null; o; o = o.nexthere) {
+        if ((o.otyp | 0) === OTYP_BOULDER) return true;
+    }
+    return false;
+}
+
+/** C: trap.c **`m_easy_escape_pit`** — **`PM_PIT_FIEND`** stubbed via size only until **`mnum`** wired. */
+function mEasyEscapePit(mtmp) {
+    const ptr = raceptr(mtmp);
+    return ((ptr.msize ?? 0) | 0) >= MZ_HUGE;
+}
+
+/** C: trap.c **`fill_pit`** — no terrain fill in JS yet; **`newsym`** only when called from boulder branch. */
+function fillPitAt(g, x, y) {
+    void g;
+    void x;
+    void y;
+}
+
+/**
+ * C: trap.c **`mintrap`** — **`mtmp->mtrapped`** branch (escape / boulder / metallivorous).
+ * @returns {Promise<number>}
+ */
+async function mintrapMtrappedBranch(g, mtmp, trap) {
+    const mx = mtmp.mx | 0;
+    const my = mtmp.my | 0;
+    const tt = trap.ttyp | 0;
+
+    if (
+        !trap.tseen
+        && cansee(mx, my)
+        && canseemonRip(g, mtmp)
+        && (is_pit(tt) || tt === BEAR_TRAP || tt === HOLE || tt === WEB)
+    ) {
+        seetrap(trap);
+    }
+
+    if (!rn2(40) || (is_pit(tt) && mEasyEscapePit(mtmp))) {
+        if (sobjAtBoulderAt(g, mx, my) && is_pit(tt)) {
+            if (!rn2(2)) {
+                mtmp.mtrapped = 0;
+                if (canseemonRip(g, mtmp)) await pline(`${monNamSentence(mtmp)} pulls free...`);
+                fillPitAt(g, mx, my);
+                newsym(mx, my);
+            }
+        } else {
+            if (canseemonRip(g, mtmp)) {
+                if (is_pit(tt)) {
+                    await pline(
+                        `${monNamSentence(mtmp)} climbs ${mEasyEscapePit(mtmp) ? 'easily ' : ''}out of the pit.`,
+                    );
+                } else if (tt === BEAR_TRAP || tt === WEB) {
+                    const nm = trapTypName(tt);
+                    await pline(`${monNamSentence(mtmp)} pulls free of the ${nm}.`);
+                }
+            }
+            mtmp.mtrapped = 0;
+        }
+    } else if (metallivorous(raceptr(mtmp))) {
+        if (tt === BEAR_TRAP) {
+            if (canseemonRip(g, mtmp)) await pline(`${monNamSentence(mtmp)} eats a bear trap!`);
+            delTrap(trap);
+            mtmp.meating = 5;
+            mtmp.mtrapped = 0;
+            newsym(mx, my);
+        } else if (tt === SPIKED_PIT) {
+            if (canseemonRip(g, mtmp)) await pline(`${monNamSentence(mtmp)} munches on some spikes!`);
+            trap.ttyp = PIT;
+            mtmp.meating = 5;
+        }
+    }
+
+    return (mtmp.mtrapped | 0) ? TRAP_CAUGHT_MON : TRAP_EFFECT_FINISHED;
+}
+
+/** C: trap.c **`find_mac(mtmp)`** — stub uses **`mtmp.mac`** or **`permonst.ac`**. */
+function findMacMon(mtmp) {
+    return (mtmp.mac ?? raceptr(mtmp)?.ac ?? 10) | 0;
+}
+
+/** C: trap.c **`stone_missile(obj)`** — rock-class projectile vs **`passes_rocks`**. */
+function stoneMissileObj(obj) {
+    return (obj?.otyp | 0) === OBJ_ROCK;
+}
+
+/**
+ * C: trap.c **`thitm(tlev, mon, obj, d_override, nocorpse)`** (monster only).
+ * @returns {Promise<boolean>} trapkilled
+ */
+async function thitmMonster(g, mtmp, tlev, obj, dOverride, _nocorpse) {
+    void _nocorpse;
+    const dOv = dOverride | 0;
+    let strike;
+    if (dOv) strike = 1;
+    else if (obj)
+        strike = (findMacMon(mtmp) + tlev + (obj.spe | 0) <= rnd(20)) ? 1 : 0;
+    else
+        strike = (findMacMon(mtmp) + tlev <= rnd(20)) ? 1 : 0;
+
+    let trapkilled = false;
+    const mx = mtmp.mx | 0;
+    const my = mtmp.my | 0;
+    const ptr = raceptr(mtmp);
+
+    if (!strike) {
+        if (obj && cansee(mx, my))
+            await pline(`${monNamSentence(mtmp)} is almost hit by something!`);
+    } else {
+        let dam = 1;
+        const harmless = !!(obj && stoneMissileObj(obj) && passesRocks(ptr));
+        if (obj && cansee(mx, my)) {
+            await pline(
+                `${monNamSentence(mtmp)} is hit${harmless ? ' but is not harmed.' : '!'}`,
+            );
+        }
+        if (dOv) dam = dOv;
+        else if (obj) {
+            dam = dmgval(obj, mtmp);
+            if (dam < 1) dam = 1;
+        }
+        if (!harmless) {
+            mtmp.mhp = (mtmp.mhp | 0) - dam;
+            if ((mtmp.mhp | 0) <= 0) {
+                const mons = g.level?.monsters;
+                const i = mons ? mons.indexOf(mtmp) : -1;
+                if (i >= 0) mons.splice(i, 1);
+                newsym(mx, my);
+                trapkilled = true;
+            }
+        } else {
+            strike = 0;
+        }
+    }
+
+    if (obj && (!strike || dOv)) {
+        placeFloorObject(obj, mx, my);
+        newsym(mx, my);
+    }
+
+    return trapkilled;
+}
+
+/** C: trap.c **`trapeffect_arrow_trap`** — non-hero. */
+async function trapeffectArrowTrapMonster(g, mtmp, trap) {
+    const inSight = canseemonRip(g, mtmp);
+    const seeIt = cansee(mtmp.mx, mtmp.my);
+
+    if (trap.once && trap.tseen && !rn2(15)) {
+        if (inSight && seeIt) {
+            await pline(`${monNamSentence(mtmp)} triggers a trap but nothing happens.`);
+        }
+        delTrap(trap);
+        newsym(mtmp.mx, mtmp.my);
+        return TRAP_EFFECT_FINISHED;
+    }
+    trap.once = 1;
+    const otmp = tMissile(OBJ_ARROW, trap);
+    if (inSight) seetrap(trap);
+    const trapkilled = await thitmMonster(g, mtmp, 8, otmp, 0, false);
+    return trapkilled
+        ? TRAP_KILLED_MON
+        : (mtmp.mtrapped | 0)
+            ? TRAP_CAUGHT_MON
+            : TRAP_EFFECT_FINISHED;
+}
+
+/** C: trap.c **`trapeffect_dart_trap`** — non-hero. */
+async function trapeffectDartTrapMonster(g, mtmp, trap) {
+    const inSight = canseemonRip(g, mtmp);
+    const seeIt = cansee(mtmp.mx, mtmp.my);
+
+    if (trap.once && trap.tseen && !rn2(15)) {
+        if (inSight && seeIt) {
+            await pline(`${monNamSentence(mtmp)} triggers a trap but nothing happens.`);
+        }
+        delTrap(trap);
+        newsym(mtmp.mx, mtmp.my);
+        return TRAP_EFFECT_FINISHED;
+    }
+    trap.once = 1;
+    const otmp = tMissile(OBJ_DART, trap);
+    if (!rn2(6)) otmp.opoisoned = 1;
+    if (inSight) seetrap(trap);
+    const trapkilled = await thitmMonster(g, mtmp, 7, otmp, 0, false);
+    return trapkilled
+        ? TRAP_KILLED_MON
+        : (mtmp.mtrapped | 0)
+            ? TRAP_CAUGHT_MON
+            : TRAP_EFFECT_FINISHED;
+}
+
+/** C: trap.c **`trapeffect_rocktrap`** — non-hero. */
+async function trapeffectRocktrapMonster(g, mtmp, trap) {
+    const inSight = canseemonRip(g, mtmp);
+    const seeIt = cansee(mtmp.mx, mtmp.my);
+
+    if (trap.once && trap.tseen && !rn2(15)) {
+        if (inSight && seeIt) {
+            await pline(`A trap door above ${monNam(mtmp)} opens, but nothing falls out!`);
+        }
+        delTrap(trap);
+        newsym(mtmp.mx, mtmp.my);
+        return TRAP_EFFECT_FINISHED;
+    }
+    trap.once = 1;
+    const otmp = tMissile(OBJ_ROCK, trap);
+    if (inSight) seetrap(trap);
+    const trapkilled = await thitmMonster(g, mtmp, 0, otmp, d(2, 6), false);
+    return trapkilled
+        ? TRAP_KILLED_MON
+        : (mtmp.mtrapped | 0)
+            ? TRAP_CAUGHT_MON
+            : TRAP_EFFECT_FINISHED;
 }
 
 /**
@@ -1286,14 +1510,20 @@ async function trapeffectHero(trap, trflags) {
 }
 
 /**
- * C: trap.c trapeffect_selector — monster (**`mtmp != &youmonst`**); only **`FIRE_TRAP`** wired.
- * @param {number} _mintrapflags
+ * C: trap.c trapeffect_selector — monster (**`mtmp != &youmonst`**).
+ * @param {number} mintrapflags
  * @returns {Promise<number>}
  */
-async function trapeffectMonsterSelector(mtmp, trap, _mintrapflags) {
-    void _mintrapflags;
+async function trapeffectMonsterSelector(mtmp, trap, mintrapflags) {
+    void mintrapflags;
     const tt = trap.ttyp | 0;
     switch (tt) {
+    case ARROW_TRAP:
+        return trapeffectArrowTrapMonster(game, mtmp, trap);
+    case DART_TRAP:
+        return trapeffectDartTrapMonster(game, mtmp, trap);
+    case ROCKTRAP:
+        return trapeffectRocktrapMonster(game, mtmp, trap);
     case FIRE_TRAP:
         return trapeffectFireTrapForMonster(game, mtmp, trap);
     default:
@@ -1303,7 +1533,6 @@ async function trapeffectMonsterSelector(mtmp, trap, _mintrapflags) {
 
 /**
  * C: trap.c mintrap(mtmp, mintrapflags)
- * TODO: **`mtrapped`** branch (**`rn2(40)`**, boulder pit, **`metallivorous`**, …).
  * @param {{ mx: number, my: number, mtrapped?: number, mpeaceful?: number, mAngry?: number }} mtmp
  * @param {number} [mintrapflags]
  * @returns {Promise<number>} **`TRAP_*`**
@@ -1320,7 +1549,7 @@ export async function mintrap(mtmp, mintrapflags = NO_TRAP_FLAGS) {
         return TRAP_EFFECT_FINISHED;
     }
 
-    if (mtmp.mtrapped | 0) return TRAP_CAUGHT_MON;
+    if (mtmp.mtrapped | 0) return await mintrapMtrappedBranch(g, mtmp, trap);
 
     const tt = trap.ttyp | 0;
     let forcetrap = (mintrapflags & FORCETRAP) !== 0 || (mintrapflags & FAILEDUNTRAP) !== 0;
@@ -1347,7 +1576,7 @@ export async function mintrap(mtmp, mintrapflags = NO_TRAP_FLAGS) {
         mtmp.mAngry = 1;
     }
 
-    return trapeffectMonsterSelector(mtmp, trap, mintrapflags);
+    return await trapeffectMonsterSelector(mtmp, trap, mintrapflags);
 }
 
 /**
