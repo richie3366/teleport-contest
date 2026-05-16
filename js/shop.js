@@ -2645,6 +2645,7 @@ function stolenContainerMerchBurySilent(g, obj, shkp, ininv) {
  * @param {boolean} [billingPeaceful] — when set, C **`stolen_value(..., peaceful, ...)`** uses this instead of current **`mpeaceful`** (**`breakobj`** **`seq_peaceful`**).
  */
 export async function stolenValueMerchBurySilent(g, obj, x, y, shkpFallback, silent, billingPeaceful) {
+    if (contextLeavingTutorialActiveLikeC(g)) return 0;
     const xh = x | 0;
     const yh = y | 0;
     const owner = findObjowner(g, obj, xh, yh);
@@ -2754,6 +2755,8 @@ export async function stolenValueMerchBurySilent(g, obj, x, y, shkpFallback, sil
  * @returns {{ loss: number, costly: boolean, shkp: object | null }}
  */
 export async function applyBuryObjsShopCreditAndDebt(g, x, y) {
+    if (contextLeavingTutorialActiveLikeC(g))
+        return { loss: 0, costly: false, shkp: null };
     const xh = x | 0;
     const yh = y | 0;
     const monMoving = !!(g.svc?.context?.mon_moving);
@@ -2805,8 +2808,11 @@ export function useupfFloor(g = game, obj, numused) {
     const n = Math.min(Math.max(0, numused | 0), scrquan);
     if (n <= 0) return;
 
-    /* C: !svc.context.mon_moving — not ported; hero burn_floor_objects is always hero. */
-    if (costlySpot(g, obj.ox | 0, obj.oy | 0)) {
+    /* C: invent.c useupf — costly **`addtobill`** / billing defer while **`leaving_tutorial`** (still consume stack). */
+    if (
+        !contextLeavingTutorialActiveLikeC(g)
+        && costlySpot(g, obj.ox | 0, obj.oy | 0)
+    ) {
         /* C: strchr(u.urooms, *in_rooms(...)) ? addtobill : stolen_value — **`addtobill`** still stub. */
         addtobillFloorStub(g, obj, n);
     }
