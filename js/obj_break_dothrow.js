@@ -6,11 +6,14 @@ import { pline, newsym } from './display.js';
 import { cansee } from './vision.js';
 import { objResists } from './obj_resists.js';
 import { raceptr, breathless } from './mondata.js';
+import { ismnum } from './const.js';
 import { NH5_POTION_CLASS, NH5_ARMOR_CLASS, NH5_GEM_CLASS } from './nh5_objclass.js';
 import { potionbreatheObjBreakLikeC } from './potion_breathe.js';
 import { obliterateObjectInLevel } from './floorobj.js';
 import { doname } from './objnam.js';
 import { distmin } from './hacklib.js';
+import { changeLuck } from './attrib.js';
+import { breakobjHeroShopFloorTailLikeC } from './shop.js';
 
 /** C: objects.h enum via **`OBJECTS_ENUM`** preprocessor dump (NH 5.0). */
 const OTYP_EXPENSIVE_CAMERA = 229;
@@ -26,6 +29,9 @@ const OTYP_BLINDING_VENOM = 478;
 const OTYP_ACID_VENOM = 479;
 
 const OC_GLASS = 19;
+
+/** C: **`dothrow.c`** **`BRK_FROM_INV`** — hero **`break2`** / **`hero_breaks`** inventory flag. */
+export const BRK_FROM_INV = 0x01;
 
 /**
  * C: dothrow.c **`breaktest(obj)`**.
@@ -143,17 +149,54 @@ function releaseCameraDemonRngLikeC() {
 }
 
 /**
- * C: dothrow.c **`breaks(obj, x, y)`** — hero sees breakage; **`breakobj`** subset (**shop `stolen_value`** tail still TODO).
- * @returns {Promise<boolean>} true if object destroyed
+ * C: **`dothrow.c`** **`breakobj`** — mirror luck, egg luck (**subset** before shop / **`delobj`**).
+ * @param {import('./gstate.js').game} g
+ * @param {boolean} heroCaused
  */
-export async function breaksObjDeliveryLikeC(g, obj, x, y) {
+function breakobjMirrorEggLuckLikeC(g, obj, heroCaused) {
+    if (!heroCaused || !obj) return;
+    const disc = (obj.oclass | 0) === NH5_POTION_CLASS ? OTYP_POT_WATER : obj.otyp | 0;
+    if (disc === OTYP_MIRROR) changeLuck(-2);
+    if (disc === OTYP_EGG && (obj.spe | 0) && ismnum(obj.corpsenm | 0)) {
+        const mq = Math.min(obj.quan | 0, 5);
+        changeLuck(-mq);
+    }
+}
+
+/**
+ * @param {{ heroCaused: boolean, fromInvent: boolean }} ctx
+ * @returns {Promise<boolean>}
+ */
+async function breakObjectCoreLikeC(g, obj, x, y, ctx) {
+    const { heroCaused, fromInvent } = ctx;
     if (!breaktestLikeC(g, obj)) return false;
-    const inView = !heroBlindLikeC(g) && cansee(x | 0, y | 0);
+    const inView = !heroBlindLikeC(g)
+        && (heroCaused ? (fromInvent || cansee(x | 0, y | 0)) : cansee(x | 0, y | 0));
     await breakmsgObjDeliveryLikeC(g, obj, inView);
+    breakobjMirrorEggLuckLikeC(g, obj, heroCaused);
     const disc = (obj.oclass | 0) === NH5_POTION_CLASS ? OTYP_POT_WATER : obj.otyp | 0;
     if (disc === OTYP_EXPENSIVE_CAMERA) releaseCameraDemonRngLikeC();
     if (disc === OTYP_POT_WATER) await potionVaporsBreakobjSubsetLikeC(g, obj, x, y);
+    if (heroCaused) await breakobjHeroShopFloorTailLikeC(g, obj, x | 0, y | 0, !!fromInvent);
     obliterateObjectInLevel(g, obj);
     newsym(x | 0, y | 0);
     return true;
+}
+
+/**
+ * C: dothrow.c **`hero_breaks`** — **`breakobj(..., TRUE, from_invent)`** (**shop floor tail** when not invent/unpaid branch).
+ * @param {import('./gstate.js').game} g
+ * @param {number} [breakflags] — **`BRK_FROM_INV`**
+ */
+export async function heroBreaksObjLikeC(g, obj, x, y, breakflags = 0) {
+    const fromInvent = (breakflags & BRK_FROM_INV) !== 0;
+    return breakObjectCoreLikeC(g, obj, x, y, { heroCaused: true, fromInvent });
+}
+
+/**
+ * C: dothrow.c **`breaks(obj, x, y)`** — non-hero breakage; **`breakobj(..., FALSE, FALSE)`** (no shop floor tail).
+ * @returns {Promise<boolean>} true if object destroyed
+ */
+export async function breaksObjDeliveryLikeC(g, obj, x, y) {
+    return breakObjectCoreLikeC(g, obj, x, y, { heroCaused: false, fromInvent: false });
 }

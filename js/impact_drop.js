@@ -49,6 +49,8 @@ import {
     hotPursuitShk,
     pickedContainerNoChargeClear,
     shopKeeperForLevlRoomno,
+    currencyAmountLikeC,
+    angryGuardsSilentLikeC,
 } from './shop.js';
 import { OBJ_ROCK } from './mthrowu.js';
 
@@ -337,7 +339,7 @@ export async function impactDropLikeC(g, missile, x, y, dlev) {
         const e = ESHK(shkp);
         const robbed2 = e?.robbed | 0;
         if (robbed2 > robbed) {
-            await pline(`You removed ${price} zorkmids worth of goods!`);
+            await pline(`You removed ${price} ${currencyAmountLikeC(g, price)} worth of goods!`);
             if (cansee(shkp.mx | 0, shkp.my | 0)) {
                 const cust = e?.customer ? String(e.customer) : '';
                 if (!cust) {
@@ -350,13 +352,14 @@ export async function impactDropLikeC(g, missile, x, y, dlev) {
                 await pline('You hear a scream, "Thief!"');
             }
             await hotPursuitShk(g, shkp);
+            await angryGuardsSilentLikeC(g, false);
             return;
         }
         const debit2 = e?.debit | 0;
         if (debit2 > debit) {
             const amt = debit2 - debit;
             await pline(
-                `You owe ${shknamDisplay(shkp)} ${amt} zorkmids for goods lost.`,
+                `You owe ${shknamDisplay(shkp)} ${amt} ${currencyAmountLikeC(g, amt)} for goods lost.`,
             );
         }
     }
