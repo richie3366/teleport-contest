@@ -8,7 +8,7 @@ import { pline, newsym } from './display.js';
 import { unlinkFloorObject, floorObjKey } from './floorobj.js';
 import { cansee, vision_recalc } from './vision.js';
 import { delEngrAt } from './engrave.js';
-import { raceptr, passesWalls, stubPermonstForCorpsenm, MR_FIRE, MR_SLEEP } from './mondata.js';
+import { raceptr, passesWalls, stubPermonstForCorpsenm, MR_FIRE, MR_SLEEP, noncorporeal, S_ELEMENTAL } from './mondata.js';
 import { heroPassesWalls } from './walkable.js';
 import { dist2 } from './hacklib.js';
 import { rn2 } from './rng.js';
@@ -23,10 +23,17 @@ import {
     NH5_TOOL_CLASS,
     NH5_POTION_CLASS,
     NH5_WAND_CLASS,
+    NH5_SCROLL_CLASS,
+    NH5_RING_CLASS,
+    NH5_AMULET_CLASS,
+    NH5_SPBOOK_CLASS,
+    NH5_RANDOM_CLASS,
+    NH5_BALL_CLASS,
 } from './nh5_objclass.js';
 import {
     A_CHA,
     MAXULEV,
+    NON_PM,
     ismnum,
     FIRE_RES,
     SLEEP_RES,
@@ -737,18 +744,228 @@ const G_UNIQ = 0x1000;
 const M1_TPORT = 0x02000000;
 const M1_TPORT_CNTRL = 0x04000000;
 
-/** C: objects.h — NH5 **`objects_nums`** (see **`water_damage.js`** / cpp OBJECTS_INIT cross-check). */
-const OTYP_CORPSE = 270;
+/** C: objects.h — `objects_nums` / cpp OBJECTS_INIT (clang `POTION_CLASS`/`ARMOR_CLASS` walks). */
+const OTYP_CORPSE = 265;
 const OTYP_EGG = 266;
-const OTYP_TIN = 296;
+const OTYP_TIN = 295;
 const OTYP_POT_WATER = 322;
 const OTYP_DUNCE_CAP = 94;
 const OTYP_HAWAIIAN_SHIRT = 136;
 const OTYP_TALLOW_CANDLE = 225;
 const OTYP_WAX_CANDLE = 226;
-/** C: objects.h `FIRST_GLASS_GEM` — worthless glass range. */
+const OTYP_BRASS_LANTERN = 227;
+const OTYP_OIL_LAMP = 228;
+const OTYP_MAGIC_LAMP = 229;
+const OTYP_POT_OIL = 321;
+/** C: shknam.c **`#define VEGETARIAN_CLASS (MAXOCLASSES + 1)`** — NH5 **`MAXOCLASSES`** = 18 (**`VENOM_CLASS`**). */
+const NH5_VEGETARIAN_PSEUDO_CLASS = 19;
+/** C: objects.h `FIRST_REAL_GEM` / `FIRST_GLASS_GEM` — gem **`otyp`** ranges. */
+const OTYP_FIRST_REAL_GEM = 439;
+const OTYP_LAST_REAL_GEM = 460;
 const OTYP_FIRST_GLASS_GEM = 461;
 const OTYP_LAST_GLASS_GEM = 469;
+const OTYP_FLINT = 473;
+/** C: monsters.h **`PM_*`** via **`MONS_ENUM`** cpp token order (0-based **`mnum`**). */
+const PM_STALKER = 153;
+const PM_BLACK_PUDDING = 209;
+const PM_LEATHER_GOLEM = 253;
+const PM_FLESH_GOLEM = 255;
+/** C: defsym.h **`MONSYM`** indices (`S_*`). */
+const S_BLOB = 2;
+const S_JELLY = 10;
+const S_FUNGUS = 32;
+const S_VORTEX = 22;
+const S_LIGHT = 25;
+const S_GOLEM = 55;
+const S_PUDDING = 42;
+/** C: objclass.h **`VEGGY`** material. */
+const OC_MATERIAL_VEGGY = 3;
+/** C: shknam.c **`shtypes[]`** — only **`symb`/`iprobs`** used by **`saleable`** ( **`shkgeneral`** fn ptr omitted). */
+const SHK_SHTYPES_FOR_SALEABLE = [
+    { symb: NH5_RANDOM_CLASS, iprobs: [[NH5_RANDOM_CLASS, 100], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0]] },
+    { symb: NH5_ARMOR_CLASS, iprobs: [[NH5_ARMOR_CLASS, 90], [NH5_WEAPON_CLASS, 10], [0, 0], [0, 0], [0, 0], [0, 0]] },
+    { symb: NH5_SCROLL_CLASS, iprobs: [[NH5_SCROLL_CLASS, 90], [NH5_SPBOOK_CLASS, 10], [0, 0], [0, 0], [0, 0], [0, 0]] },
+    { symb: NH5_POTION_CLASS, iprobs: [[NH5_POTION_CLASS, 100], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0]] },
+    { symb: NH5_WEAPON_CLASS, iprobs: [[NH5_WEAPON_CLASS, 90], [NH5_ARMOR_CLASS, 10], [0, 0], [0, 0], [0, 0], [0, 0]] },
+    {
+        symb: NH5_FOOD_CLASS,
+        iprobs: [
+            [NH5_FOOD_CLASS, 83],
+            [-319, 5],
+            [-317, 4],
+            [-322, 5],
+            [-216, 3],
+            [0, 0],
+        ],
+    },
+    { symb: NH5_RING_CLASS, iprobs: [[NH5_RING_CLASS, 85], [NH5_GEM_CLASS, 10], [NH5_AMULET_CLASS, 5], [0, 0], [0, 0], [0, 0]] },
+    { symb: NH5_WAND_CLASS, iprobs: [[NH5_WAND_CLASS, 90], [-144, 5], [-90, 5], [0, 0], [0, 0], [0, 0]] },
+    { symb: NH5_TOOL_CLASS, iprobs: [[NH5_TOOL_CLASS, 100], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0]] },
+    { symb: NH5_SPBOOK_CLASS, iprobs: [[NH5_SPBOOK_CLASS, 90], [NH5_SCROLL_CLASS, 10], [0, 0], [0, 0], [0, 0], [0, 0]] },
+    {
+        symb: NH5_FOOD_CLASS,
+        iprobs: [
+            [NH5_VEGETARIAN_PSEUDO_CLASS, 70],
+            [-319, 20],
+            [-307, 4],
+            [-315, 3],
+            [-335, 2],
+            [-285, 1],
+        ],
+    },
+    {
+        symb: NH5_TOOL_CLASS,
+        iprobs: [
+            [-226, 30],
+            [-225, 44],
+            [-227, 5],
+            [-228, 9],
+            [-229, 3],
+            [-321, 5],
+            [-409, 2],
+            [-332, 1],
+            [-372, 1],
+            [0, 0],
+            [0, 0],
+            [0, 0],
+        ],
+    },
+];
+
+/** C: **`mextra.h`** **`eshk.shoptype`** or room **`rtype`** (**`mkroom.h`** **`SHOPBASE`**…). */
+function eshkShoptypeLikeC(g, shkp) {
+    const e = ESHK(shkp);
+    if (!e) return SHOPBASE;
+    if (e.shoptype != null) return e.shoptype | 0;
+    return roomRtypeForLevlRoomno(g, eshkShoproomAsLevlRno(e));
+}
+
+/** C: mondata.h **`vegan`** / **`vegetarian`**. */
+function veganMonsterLikeC(ptr) {
+    if (!ptr) return false;
+    const ml = ptr.mlet | 0;
+    const mn = ptr.mnum | 0;
+    if (
+        ml === S_BLOB
+        || ml === S_JELLY
+        || ml === S_FUNGUS
+        || ml === S_VORTEX
+        || ml === S_LIGHT
+        || (ml === S_ELEMENTAL && mn !== PM_STALKER)
+        || (ml === S_GOLEM && mn !== PM_FLESH_GOLEM && mn !== PM_LEATHER_GOLEM)
+        || noncorporeal(ptr)
+    ) {
+        return true;
+    }
+    return false;
+}
+
+/** C: mondata.h **`vegetarian`**. */
+function vegetarianMonsterLikeC(ptr) {
+    if (!ptr) return false;
+    if (veganMonsterLikeC(ptr)) return true;
+    const ml = ptr.mlet | 0;
+    const mn = ptr.mnum | 0;
+    return ml === S_PUDDING && mn !== PM_BLACK_PUDDING;
+}
+
+/**
+ * C: shknam.c **`veggy_item`**
+ * @param {object|null} obj
+ */
+function veggyItemLikeC(obj) {
+    if (!obj) return false;
+    const otyp = obj.otyp | 0;
+    const oclass = obj.oclass | 0;
+    const corpsenm = obj.corpsenm | 0;
+    if (oclass !== NH5_FOOD_CLASS) return false;
+    const mat = obj.oc_material != null ? obj.oc_material | 0 : 0;
+    if (mat === OC_MATERIAL_VEGGY || otyp === OTYP_EGG) return true;
+    if (otyp === OTYP_TIN && corpsenm === NON_PM) return (obj.spe | 0) === 1;
+    if (otyp === OTYP_TIN || otyp === OTYP_CORPSE) {
+        return ismnum(corpsenm) && vegetarianMonsterLikeC(stubPermonstForCorpsenm(corpsenm));
+    }
+    return false;
+}
+
+/**
+ * C: shknam.c **`saleable`**
+ * @param {import('./gstate.js').game} g
+ */
+function saleableLikeC(g, shkp, obj) {
+    const e = ESHK(shkp);
+    if (!e) return true;
+    const shpIndx = (eshkShoptypeLikeC(g, shkp) | 0) - SHOPBASE;
+    if (shpIndx < 0 || shpIndx >= SHK_SHTYPES_FOR_SALEABLE.length) return true;
+    const shp = SHK_SHTYPES_FOR_SALEABLE[shpIndx];
+    if (shp.symb === NH5_RANDOM_CLASS) return true;
+    for (let i = 0; i < shp.iprobs.length; i++) {
+        const itype = shp.iprobs[i][0] | 0;
+        const iprob = shp.iprobs[i][1] | 0;
+        if (!iprob) break;
+        if (itype === NH5_VEGETARIAN_PSEUDO_CLASS) {
+            if (veggyItemLikeC(obj)) return true;
+        } else if (itype < 0) {
+            if (itype === -(obj.otyp | 0)) return true;
+        } else if (itype === (obj.oclass | 0)) {
+            return true;
+        }
+    }
+    return false;
+}
+
+/**
+ * C: shk.c **`set_cost`**
+ * @param {import('./gstate.js').game} g
+ */
+function setCostLikeC(g, obj, shkp) {
+    let tmp = getPricingUnitsStolenBury(obj) * getpriceLikeC(g, obj, true);
+    let multiplier = 1;
+    let divisor = 1;
+    const u = g.u;
+    const uarmh = u?.uarmh;
+    if (uarmh && (uarmh.otyp | 0) === OTYP_DUNCE_CAP) divisor *= 3;
+    else if (
+        (u?.urole?.abbr === 'Tou' && (u?.ulevel | 0) < Math.trunc(MAXULEV / 2))
+        || (u?.uarmu && !u?.uarm && !u?.uarmc && (u.uarmu.otyp | 0) === OTYP_HAWAIIAN_SHIRT)
+    ) {
+        divisor *= 3;
+    } else {
+        divisor *= 2;
+    }
+
+    const otyp = obj.otyp | 0;
+    const oclass = obj.oclass | 0;
+    if (!(obj.dknown | 0) || !objectOcNameKnownForShop(otyp, oclass)) {
+        if (oclass === NH5_GEM_CLASS) {
+            if (
+                (otyp >= OTYP_FIRST_REAL_GEM && otyp <= OTYP_LAST_REAL_GEM)
+                || (otyp >= OTYP_FIRST_GLASS_GEM && otyp <= OTYP_LAST_GLASS_GEM)
+            ) {
+                const mid = (shkp?.m_id ?? shkp?.mid ?? 0) | 0;
+                tmp = ((otyp - OTYP_FIRST_REAL_GEM) % (6 - (mid % 3)));
+                tmp = (tmp + 3) * Math.max(1, obj.quan | 0);
+                divisor = 1;
+            }
+        } else if (tmp > 1 && !((shkp?.m_id ?? shkp?.mid ?? 0) % 4)) {
+            multiplier *= 3;
+            divisor *= 4;
+        }
+    }
+
+    if (tmp >= 1) {
+        tmp *= multiplier;
+        if (divisor > 1) {
+            tmp *= 10;
+            tmp = Math.trunc(tmp / divisor);
+            tmp += 5;
+            tmp = Math.trunc(tmp / 10);
+        }
+        if (tmp < 1) tmp = 1;
+    }
+
+    return tmp | 0;
+}
 
 /** C: mondata.h **`can_teleport`** / **`control_teleport`**. */
 function canTeleportMon(ptr) {
@@ -1048,8 +1265,8 @@ function containerTopForContainedCost(obj) {
 }
 
 /**
- * C: **`shk.c`** **`contained_cost`** — floor buy branch (**`usell` FALSE**) for **`billable`** / bury;
- * **`get_cost`** via **`getCostStolenBuryUnit`** (**`getprice`** + **`oid_price_adjustment`** + Cha / dunce / tourist shirt + angry surcharge); **`usell` TRUE** ( **`set_cost`/`saleable`**) not ported (no add, still recurses).
+ * C: **`shk.c`** **`contained_cost`** — floor buy (**`usell` FALSE**) uses **`getCostStolenBuryUnit`**;
+ * **`usell` TRUE** uses **`saleableLikeC`** + **`setCostLikeC`** ( **`shknam.c`** / **`set_cost`** ).
  * @param {import('./gstate.js').game} g
  * @param {boolean} usell — C **`usell`**
  * @param {boolean} unpaidOnly — C **`unpaid_only`**
@@ -1074,7 +1291,13 @@ function containedCostStolenBury(g, obj, shkp, price, usell, unpaidOnly) {
     for (let otmp = obj.cobj; otmp; otmp = otmp.nobj) {
         if ((otmp.oclass | 0) === NH5_COIN_CLASS) continue;
         if (usell) {
-            /* C: **`saleable`** / **`set_cost`** — not ported for bury path */
+            if (saleableLikeC(g, shkp, otmp) && !(otmp.unpaid | 0)
+                && (otmp.oclass | 0) !== NH5_BALL_CLASS
+                && !((otmp.oclass | 0) === NH5_FOOD_CLASS && (otmp.oeaten | 0))
+                && !(isCandleOtyp(otmp.otyp | 0)
+                    && (otmp.age | 0) < 20 * (objectOcCost(otmp.otyp | 0) | 0))) {
+                out += setCostLikeC(g, otmp, shkp);
+            }
         } else if (onFloor
             ? (!(otmp.no_charge | 0) && !freespot)
             : ((otmp.unpaid | 0) || !unpaidOnly)) {
@@ -1275,7 +1498,7 @@ function stolenContainerMerchBurySilent(g, obj, shkp, ininv) {
  * **`find_objowner`** → **`roomno`** (else first **`in_rooms`** shop room); coin **`quan`**;
  * **`billable`/`onbill`/`sub_one_frombill`** then **`get_pricing_units * get_cost`** (**`obj_oc_cost_data.js`** **`oc_cost`**, **`shk.c`** **`getprice`** + **`get_cost`** including angry **`surcharge`**);
  * **`Has_contents`** → **`stolen_container`** + **`contained_gold(obj, TRUE)`** (floor **`ininv` FALSE**).
- * Still TODO: **`usell`** **`set_cost`/`saleable`** in **`contained_cost`**, real **`mons[]`** + **`cnutrit`** for **`corpsenm_price_adj`**, C phantom bill row, **`addtobill`**.
+ * Still TODO: real **`mons[]`** + **`cnutrit`** for **`corpsenm_price_adj`**, C phantom bill row, **`addtobill`**.
  * @param {object | null} shkpFallback — C bury path has tile shk; used when **`billable`** leaves **`shkp` unset**.
  * @param {boolean} silent — C **`silent`** (suppresses per-object **`You`** / thief **`Norep`**; **`check_credit`** still plines like C)
  */
