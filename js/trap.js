@@ -1,7 +1,7 @@
 // trap.js — Hero stepping on floor traps (dotrap + trapeffect subset).
 // C ref: trap.c dotrap(), floor_trigger(), check_in_air(), trapeffect_selector()
 //        hero cases; dig.c digactualhole() hero u.utrap (**`TT_BURIEDBALL`/`TT_INFLOOR`**) before pit/hole;
-//        trap.c trapeffect_hole → fall_through(); trap.h fixed_tele_trap(); mondata.h is_clinger (M1_CLING).
+//        trap.c trapeffect_hole → fall_through(); dungeon.c Can_fall_thru/Can_dig_down; mondata.h ceiling_hider.
 // domagictrap() shares makemon.js stub; seffects (fate 20).
 
 import { game } from './gstate.js';
@@ -65,6 +65,7 @@ import {
     MZ_LARGE,
     locomotion,
     webmaker,
+    ceilingHider,
     metallivorous,
     resistsSleep,
     monHasAmulet,
@@ -1188,6 +1189,30 @@ function canFallThruLevelForHole(g) {
     return true;
 }
 
+/** C: dungeon.c **`Can_dig_down`** — **`Invocation_lev`** not ported. */
+function canDigDownForFallLikeC(g) {
+    const uz = g.u?.uz;
+    const lf = g.level?.flags;
+    if (lf?.hardfloor) return false;
+    if (uz && Is_botlevel(uz)) return false;
+    return true;
+}
+
+/** C: dungeon.c **`Can_fall_thru(lev)`** — **`Can_dig_down` || `Is_stronghold`**. */
+function canFallThruDlevelLikeC(g) {
+    const uz = g.u?.uz;
+    if (!uz) return false;
+    return canDigDownForFallLikeC(g) || Is_stronghold(uz);
+}
+
+/** C: **`levl[u.ux][u.uy].candig`** — dig.c **`dig_check`** / **`fall_through`**. */
+function heroSquareCandig(g) {
+    const u = g.u;
+    if (!u || !g.level) return 0;
+    const lev = g.level.at(u.ux | 0, u.uy | 0);
+    return lev?.candig ? 1 : 0;
+}
+
 /** C: polyself.c / eat.c **`control_teleport(mdat)`** — **`PROP_TELEPORT_CONTROL`** stub. */
 function controlTeleportMon(_ptr) {
     void _ptr;
@@ -2131,7 +2156,7 @@ async function trapeffectHoleHero(trap, trflags) {
     const ty = trap.ty | 0;
     const plunged = (trflags & TOOKPLUNGE) !== 0;
 
-    if (!canFallThruLevelForHole(g)) {
+    if (!canFallThruLevelForHole(g) || !canFallThruDlevelLikeC(g)) {
         seetrap(trap);
         return;
     }
@@ -2150,14 +2175,16 @@ async function trapeffectHoleHero(trap, trflags) {
 
     const ptr = raceptr(g.youmonst);
     const sokBypass = In_sokoban(u.uz) && canFallThruLevelForHole(g);
+    const candigHere = heroSquareCandig(g);
+    const ceilingUndet = !!(ceilingHider(ptr) && (u.uundetected | 0));
 
     let dontFallMsg = /** @type {string|null} */ (null);
     if (!sokBypass) {
         if (
             u.Levitation
             || u.ustuck
-            || (u.Flying && !plunged)
-            || (isClinger(ptr) && !plunged)
+            || (!canFallThruDlevelLikeC(g) && !candigHere)
+            || ((u.Flying || isClinger(ptr) || ceilingUndet) && !plunged)
         ) {
             dontFallMsg = "don't fall in.";
         }

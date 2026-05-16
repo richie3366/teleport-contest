@@ -1,6 +1,6 @@
 // mondata.js — Monster type predicates and locomotion phrasing.
 // C ref: mondata.h (is_floater, is_flyer, swims, amphibious, fire_resistant, …), mondata.c raceptr(),
-// dmgtype/dmgtype_fromattack, passes_bars, stagger(), monflag.h M1_*, MR_*, MZ_*, G_NOCORPSE; mon.c make_corpse (corpse gate stub).
+// dmgtype/dmgtype_fromattack, passes_bars, stagger(), monflag.h M1_*, MR_*, MZ_*, G_NOCORPSE; mon.c make_corpse (corpse gate stub); mondata.h is_hider/ceiling_hider.
 
 import { game } from './gstate.js';
 import {
@@ -332,6 +332,25 @@ export function isFlyer(/** @type {Permonst} */ ptr) {
 /** C: mondata.h **`is_clinger`** */
 export function isClinger(/** @type {Permonst} */ ptr) {
     return ((ptr?.mflags1 ?? 0) & M1_CLING) !== 0;
+}
+
+/** C: monflag.h `M1_HIDE` — mondata.h **`is_hider`**. */
+const M1_HIDE = 0x00010000;
+/** C: defsym.h **`MONSYM(13,'m',MIMIC,...)`** — **`S_MIMIC`**. */
+const S_MIMIC = 13;
+
+/** C: mondata.h **`is_hider(ptr)`** */
+export function isHider(/** @type {Permonst|null|undefined} */ ptr) {
+    return ((ptr?.mflags1 ?? 0) & M1_HIDE) !== 0;
+}
+
+/**
+ * C: mondata.h **`ceiling_hider`** — lurker / piercer ceiling forms (**`trap.c`** **`fall_through`**).
+ * @param {Permonst|null|undefined} ptr
+ */
+export function ceilingHider(ptr) {
+    if (!ptr || !isHider(ptr)) return false;
+    return (isClinger(ptr) && ptr.mlet !== S_MIMIC) || isFlyer(ptr);
 }
 
 /** C: mondata.h **`cant_drown`** (`is_swimmer` ≡ **`swims`**) */
