@@ -9,15 +9,20 @@
 // cleared before **`digactualHole`** + new pit/hole (**`maketrap`** replaces in C);
 // **PIT** vs **HOLE** per C; **digactualHoleHeroUtrapSubset** before trap.
 // Ported: drawbridge **`DRAWBRIDGE_DOWN`**/**wall** + **`destroy_drawbridge`**; **`DRAWBRIDGE_UP`**
-// + **`fillholetyp`** + **`liquid_flow`** (**`drawbridgemask`** **`DB_UNDER`**).
-// Deferred: grave, goto_level,
+// + **`fillholetyp`** + **`liquid_flow`** (**`drawbridgemask`** **`DB_UNDER`**); **`IS_GRAVE`** + **`dig_up_grave`** subset.
+// Deferred: goto_level,
 // shop billing, monsters, furniture_handled, Invocation_lev, AM_SANCTUM, **PASSED_DESTROY_TRAP** full **`maketrap`** parity.
 
 import { pline, newsym } from './display.js';
 import { vision_recalc, cansee } from './vision.js';
 import { d, rn1, rn2 } from './rng.js';
 import { stairwayAt } from './decor.js';
-import { digactualHoleHeroUtrapSubset, obliterateObjectInLevel } from './floorobj.js';
+import {
+    digactualHoleHeroUtrapSubset,
+    obliterateObjectInLevel,
+    unearthObjsDigInLevel,
+} from './floorobj.js';
+import { digUpGraveLikeC } from './dig_grave.js';
 import { spotChecksLikeC } from './spot_checks.js';
 import { fillholetypLikeC } from './fillholetyp.js';
 import { liquidFlowHeroDigLikeC } from './liquid_flow.js';
@@ -42,6 +47,7 @@ import {
     IS_DOOR,
     IS_SDOOR,
     IS_ROOM,
+    IS_GRAVE,
     W_NONDIGGABLE,
     OTYP_BOULDER,
     Is_airlevel,
@@ -144,6 +150,7 @@ function surfaceHereString(g, x, y) {
     if (IS_POOL(levtyp)) return 'water';
     if (IS_LAVA(levtyp)) return 'lava';
     if (IS_ALTAR(levtyp)) return 'altar';
+    if (IS_GRAVE(levtyp)) return 'grave';
     if (IS_THRONE(levtyp)) return 'throne';
     if (IS_WALL(levtyp)) return 'wall';
     if (IS_DOOR(levtyp) || IS_SDOOR(levtyp)) return 'doorway';
@@ -240,7 +247,7 @@ export async function digcheckFailMessageByYouAtLikeC(g, digresult, x, y) {
 }
 
 /**
- * C: dig.c dighole(FALSE, TRUE, cc) — subset (**`goto_level`**, grave, shop still TODO).
+ * C: dig.c dighole(FALSE, TRUE, cc) — subset (**`goto_level`**, shop still TODO).
  * @param {import('./gstate.js').game} g
  * @param {boolean} pitOnly
  * @param {boolean} byMagic
@@ -322,6 +329,39 @@ export async function digholeHeroLikeC(g, pitOnly, byMagic, cc) {
             obliterateObjectInLevel(g, boulderHere);
             newsym(digX, digY);
             vision_recalc(1);
+            return true;
+        }
+
+        if (IS_GRAVE(oldTyp)) {
+            const emptyGraveFlag = lev.flags | 0;
+            digactualHoleHeroUtrapSubset(g, digX, digY);
+            unearthObjsDigInLevel(g, digX, digY);
+            lev.typ = ROOM;
+            lev.flags = 0;
+            if (!trapAtInLevel(g, digX, digY)) {
+                const pitTrap = {
+                    ttyp: PIT,
+                    tx: digX,
+                    ty: digY,
+                    tseen: false,
+                    madeby_u: true,
+                    once: false,
+                    launch: { x: 0, y: 0 },
+                };
+                if (!lvl.traps) lvl.traps = [];
+                lvl.traps.push(pitTrap);
+                if (cansee(digX, digY)) seetrapLikeC(pitTrap);
+            }
+            await pline(`You dig a pit in the ${surfaceHereString(g, digX, digY)}.`);
+            const wontFall = !!(u.Levitation || u.Flying);
+            if (digX === (u.ux | 0) && digY === (u.uy | 0) && !wontFall) {
+                u.utrap = rn1(4, 2);
+                u.utraptype = TT_PIT;
+            }
+            wakeNeartoStub(u.ux | 0, u.uy | 0, 7 * 7);
+            await digUpGraveLikeC(g, cc, emptyGraveFlag);
+            vision_recalc(1);
+            newsym(digX, digY);
             return true;
         }
 

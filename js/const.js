@@ -2979,6 +2979,12 @@ export const PM_STRAW_GOLEM = 247;
 export const PM_PAPER_GOLEM = 248;
 export const PM_LEATHER_GOLEM = 251;
 export const PM_WOOD_GOLEM = 252;
+/** C: `monsters.h` — human mummy / zombie (**`dig.c`** **`dig_up_grave`** **`mkclass`** stand-in). */
+export const PM_HUMAN_MUMMY = 192;
+export const PM_HUMAN_ZOMBIE = 244;
+/** C: `monsters.h` — role corpses (**`mk_tt_object`** fallback **`rn1`** range). */
+export const PM_ARCHEOLOGIST = 330;
+export const PM_WIZARD = 342;
 /** C: `monsters.h` — Riders (`is_rider`); `mons[]` order (NH 5.0 upstream). */
 export const PM_DEATH = 305;
 export const PM_PESTILENCE = 306;
