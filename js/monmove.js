@@ -2,15 +2,16 @@
 // C ref: monmove.c movemon, distfleeck, m_move; mon.c mcalcmove.
 //
 // Until fmon is populated and AI is ported, this replays a captured monster-side
-// PRNG slice from the frozen session harness. Delete _HARNESS entries as real
-// movemon consumes the same calls.
+// PRNG slice from the frozen session harness. Delete _HARNESS entries when **`m_move`**
+// consumes the same draws per monster.
 //
-// C: **`m_throw`** at hero (**`mthrowu.c`**) — **`movemonMthrowAtHeroTailLikeC`** after harness (**`mthrow_mon.js`**).
+// C: **`monmove.c`** **`movemon`** — harness (**`distfleeck`/`mcalcmove`** stand-in) then **`fmon`** loop
+// **`m_move`** (**`m_move_mon.js`**), then **`mintrap`**. **`m_throw`** runs only inside **`m_move`**.
 
 import { rn2 } from './rng.js';
 import { mintrapMoveloopTail } from './trap.js';
 import { game } from './gstate.js';
-import { movemonMthrowAtHeroTailLikeC } from './mthrow_mon.js';
+import { mMoveOneMonsterSubsetLikeC } from './m_move_mon.js';
 
 export { mthrowAtHeroUxyThituLikeC } from './mthrowu.js';
 
@@ -35,12 +36,14 @@ const _HARNESS = [
 
 /**
  * C: movemon() — advance all monsters for one hero time step.
- * Harness: replays distfleeck / m_move / mcalcmove draws until movemon is ported.
+ * Harness: replays distfleeck / m_move / mcalcmove draws until **`m_move`** matches C order per mon.
+ * **`m_move`**: **`m_move_mon.js`** per **`g.level.monsters`** entry.
  * Tail: **`mintrap`** when a monster enters a trapped square (C: **`monmove.c`** after **`m_move`**).
  */
 export async function movemon(stepNum) {
     const i = stepNum - 1;
     if (i >= 0 && i < _HARNESS.length) _HARNESS[i]();
-    await movemonMthrowAtHeroTailLikeC(game);
+    const mons = game.level?.monsters ?? [];
+    for (const m of mons) await mMoveOneMonsterSubsetLikeC(game, m);
     await mintrapMoveloopTail();
 }

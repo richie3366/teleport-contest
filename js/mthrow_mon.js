@@ -1,6 +1,6 @@
 // mthrow_mon.js — Monster ranged throw at hero (`mthrowu.c` **`m_throw`** / **`lined_up`** subset).
 // C ref: mthrowu.c **`lined_up`**, **`m_lined_up`**, **`m_throw`** (hero **`u_at`** hit via **`mthrowAtHeroUxyThituLikeC`**);
-//        **`monmove.c`** **`movemon`** after each **`m_move`**-equivalent step.
+//        **`mon.c`** **`m_move`** (via **`m_move_mon.js`**) per monster.
 //
 // Omits **`Upolyd`** **`rn2(25)`** concealment, **`throws_rocks`** / **`WAN_STRIKING`** boulder **`ignore`**, full
 // **`boulderhandling==2`** **`rn2`** branch, **`MON_WEP`** pole **`m_throw`** path, **`obj_extract_self`**.
@@ -99,23 +99,18 @@ function shallowMissileFromMinventLikeC(src) {
 }
 
 /**
- * C: **`monmove.c`** tail — each hostile awake monster **`lined_up`** with a throwable **`minvent`** item:
- * **`m_throw`** hero branch via **`mthrowAtHeroUxyThituLikeC`** (no **`tmp_at`**, no **`drop_throw`**).
+ * C: **`mthrowu.c`** **`m_throw`** at hero — called from **`m_move`** when **`lined_up`** and **`minvent`** has a dart/arrow/rock.
  * @param {import('./gstate.js').game} g
+ * @param {*} m
  */
-export async function movemonMthrowAtHeroTailLikeC(g) {
-    const mons = g.level?.monsters;
-    if (!mons?.length) return;
+export async function mThrowAtHeroAfterMmoveIfLinedUpLikeC(g, m) {
+    if (!m) return;
+    if ((m.mpeaceful | 0) !== 0) return;
+    if ((m.msleeping | 0) !== 0) return;
+    const src = pickMonsterMinventThrowableLikeC(m);
+    if (!src) return;
+    if (!linedUpMonsterToHeroLikeC(g, m)) return;
 
-    for (const m of mons) {
-        if (!m) continue;
-        if ((m.mpeaceful | 0) !== 0) continue;
-        if ((m.msleeping | 0) !== 0) continue;
-        const src = pickMonsterMinventThrowableLikeC(m);
-        if (!src) continue;
-        if (!linedUpMonsterToHeroLikeC(g, m)) continue;
-
-        const ref = { o: shallowMissileFromMinventLikeC(src) };
-        await mthrowAtHeroUxyThituLikeC(g, m, ref, false);
-    }
+    const ref = { o: shallowMissileFromMinventLikeC(src) };
+    await mthrowAtHeroUxyThituLikeC(g, m, ref, false);
 }
