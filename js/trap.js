@@ -1,7 +1,7 @@
 // trap.js — Hero stepping on floor traps (dotrap + trapeffect subset).
 // C ref: trap.c dotrap(), floor_trigger(), check_in_air(), trapeffect_selector()
 //        hero cases; dig.c digactualhole() hero u.utrap (**`TT_BURIEDBALL`/`TT_INFLOOR`**) before pit/hole;
-//        trap.h fixed_tele_trap(); mondata.h is_clinger (M1_CLING).
+//        trap.c trapeffect_hole → fall_through(); trap.h fixed_tele_trap(); mondata.h is_clinger (M1_CLING).
 // domagictrap() shares makemon.js stub; seffects (fate 20).
 
 import { game } from './gstate.js';
@@ -45,6 +45,10 @@ import { doname } from './objnam.js';
 import { minuhpmaxLikeC, setUhpmaxHumanLikeC, losexpNullLikeC } from './losexp.js';
 import { monstseesuLikeC, monstunseesuLikeC } from './mon_seen_res.js';
 import { splitMon, splitGremlinHeroPoly } from './split_mon.js';
+import {
+    applyGotoAfterHeroHoleFallLikeC,
+    nextToUForHoleFallStub,
+} from './goto_level_hero.js';
 import { dist2 } from './hacklib.js';
 import {
     raceptr,
@@ -2117,16 +2121,64 @@ async function trapeffectRollingBoulderHero(trap) {
     newsym(u.ux, u.uy);
 }
 
-/** C: trap.c trapeffect_hole — hero (fall_through / Can_fall_thru not ported). */
+/** C: trap.c trapeffect_hole — hero → **`fall_through(TRUE, trflags & TOOKPLUNGE)`** subset. */
 async function trapeffectHoleHero(trap, trflags) {
-    void trflags;
-    const u = game.u;
+    const g = game;
+    const u = g.u;
     if (!u) return;
-    digactualHoleHeroUtrapSubset(game, trap.tx | 0, trap.ty | 0);
-    seetrap(trap);
-    /* C: fall_through(); level transition, branches, … */
-    await pline(trap.ttyp === TRAPDOOR ? 'The trap door opens, and you fall through…' : 'The hole opens beneath you, and you fall through…');
-    vision_recalc(1);
+
+    const tx = trap.tx | 0;
+    const ty = trap.ty | 0;
+    const plunged = (trflags & TOOKPLUNGE) !== 0;
+
+    if (!canFallThruLevelForHole(g)) {
+        seetrap(trap);
+        return;
+    }
+
+    /* C: fall_through() — **`Blind && Levitation && !Sokoban`** early return. */
+    if (heroBlind() && u.Levitation && !In_sokoban(u.uz)) return;
+
+    digactualHoleHeroUtrapSubset(g, tx, ty);
+
+    /* C: **`td`** path — **`feeltrap`**, opening plines when **`!Sokoban && !TOOKPLUNGE`**. */
+    feeltrap(trap);
+    if (!In_sokoban(u.uz) && !plunged) {
+        if (trap.ttyp === TRAPDOOR) await pline('A trap door opens up under you!');
+        else await pline("There's a gaping hole under you!");
+    }
+
+    const ptr = raceptr(g.youmonst);
+    const sokBypass = In_sokoban(u.uz) && canFallThruLevelForHole(g);
+
+    let dontFallMsg = /** @type {string|null} */ (null);
+    if (!sokBypass) {
+        if (
+            u.Levitation
+            || u.ustuck
+            || (u.Flying && !plunged)
+            || (isClinger(ptr) && !plunged)
+        ) {
+            dontFallMsg = "don't fall in.";
+        }
+    }
+    if (!dontFallMsg && (ptr.msize | 0) >= MZ_HUGE) {
+        dontFallMsg = "don't fit through.";
+    }
+    if (!dontFallMsg && !nextToUForHoleFallStub()) {
+        dontFallMsg = 'are jerked back by your pet!';
+    }
+
+    if (dontFallMsg) {
+        await pline(`You ${dontFallMsg}`);
+        /* C: **`impact_drop`/`pickup`**; **`!td`** closing pline — deferred. */
+        vision_recalc(1);
+        newsym(u.ux, u.uy);
+        return;
+    }
+
+    /* C: **`shopdig`/`pay`**, **`find_hell`**, deep-shaft plines, **`schedule_goto`** — subset: level only. */
+    await applyGotoAfterHeroHoleFallLikeC(g);
     newsym(u.ux, u.uy);
 }
 
