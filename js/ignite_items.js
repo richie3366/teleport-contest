@@ -99,3 +99,60 @@ export async function igniteItemsChain(g = game, objchn, opts = {}) {
 export async function igniteHeroInventory(g = game) {
     await igniteItemsChain(g, g.invent, { here: false });
 }
+
+/**
+ * C: apply.c **`catch_lit(obj)`** when **`obj`** is on **`mtmp.minvent`** — pline only if **`visMon`**.
+ * @param {typeof game} g
+ * @param {object} mtmp
+ * @param {{ otyp?: number, spe?: number, cursed?: number, lamplit?: number, in_use?: number, age?: number }} obj
+ * @param {boolean} visMon
+ */
+export async function catchLitMinventObj(g, mtmp, obj, visMon) {
+    if (!mtmp || !obj) return false;
+    if (obj.lamplit | 0) return false;
+    if (obj.in_use | 0) return false;
+    if (!ignitableHero(obj)) return false;
+
+    const t = obj.otyp | 0;
+    const spe = obj.spe | 0;
+
+    if (t === OTYP_BRASS_LANTERN) return false;
+    if (t === OTYP_MAGIC_LAMP && spe === 0) return false;
+    if ((t === OTYP_WAX_CANDLE || t === OTYP_TALLOW_CANDLE) && obj.age != null && (obj.age | 0) === 0)
+        return false;
+
+    if (
+        (t === OTYP_OIL_LAMP || t === OTYP_MAGIC_LAMP) &&
+        (obj.cursed | 0) &&
+        !rn2(2)
+    ) {
+        return false;
+    }
+
+    const u = g.u;
+    const blind = !!(u?.ublind | 0) || (u?.timed?.blind ?? 0) > 0;
+    const base = phraseTyp(obj);
+    const n = mtmp?.monnam || mtmp?.data?.mname || 'monster';
+    if (visMon) {
+        if (blind) await pline(`${n}'s ${base} feels warm.`);
+        else await pline(`${n}'s ${base} catches light!`);
+    }
+
+    obj.lamplit = 1;
+    return true;
+}
+
+/**
+ * C: trap.c **`ignite_items(mtmp->minvent)`** after **`destroy_items`** on fire trap.
+ * @param {typeof game} g
+ * @param {{ minvent?: object }} mtmp
+ * @param {boolean} visMon
+ */
+export async function igniteMinvent(g, mtmp, visMon) {
+    let o = mtmp?.minvent;
+    while (o) {
+        const next = o.nobj;
+        if (!(o.lamplit | 0) && !(o.in_use | 0)) await catchLitMinventObj(g, mtmp, o, visMon);
+        o = next;
+    }
+}

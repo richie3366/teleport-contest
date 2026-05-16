@@ -9,11 +9,11 @@ Thin handoff for the next coding session. Deep parity tables and history: [`c-to
 - **Plain ES modules**, no build/WASM/network in contest code; RNG via `js/rng.js`; match **clang** evaluation order for multi-call expressions.
 - API: [`docs/API.md`](../../docs/API.md); overview: [`README.md`](../../README.md).
 
-**Last slice:** **`mintrap` + moveloop tail** — [`js/const.js`](../../js/const.js) **`TRAP_EFFECT_FINISHED`/`TRAP_CAUGHT_MON`/`TRAP_KILLED_MON`/`TRAP_MOVED_MON`** (**`trap.h`**). [`js/trap.js`](../../js/trap.js) **`checkInAirMonster`**, **`mintrap`**, **`trapeffectMonsterSelector`** (**`FIRE_TRAP`** → **`trapeffectFireTrapForMonster`** returns **`TRAP_*`**); **`mintrapMoveloopTail`** tracks **`_trapPrevMx/_trapPrevMy`** per monster and runs **`mintrap`** when coords change onto a trap. **`mtrapped`** escape, **`mon_knows_traps`**, **`mindless`** on real **`M1_MINDLESS`**, and non-fire **`trapeffect_*`** still **TODO**. [`js/monmove.js`](../../js/monmove.js) **`movemon`** is **`async`** and **`await mintrapMoveloopTail()`** after harness; [`js/allmain.js`](../../js/allmain.js) **`await movemon`**.
+**Last slice:** **Monster fire trap inventory + armor** — C **`trap.c`** **`trapeffect_fire_trap`**: **`burnarmor(mtmp) || rn2(3)`** runs for **all** monsters (including fire-resist), after HP/golem branch; then **`destroy_items`**, **`ignite_items(minvent)`**, **`mhp -= xtradmg`** + kill like **`monkilled`**. [`js/erode_obj.js`](../../js/erode_obj.js) **`burnarmorMtmp`**, **`erodeObjBurnMon`** (**`mtmp.mworn`** **`armh`/`armc`/…**); towel **`m_carrying`** still **TODO**. [`js/destroy_items.js`](../../js/destroy_items.js) **`destroyItemsMonFire`**, **`maybeDestroyItemMonFire`** (**`zap.c`** stack pick + **`resists_fire`** **`xtradmg`**). [`js/ignite_items.js`](../../js/ignite_items.js) **`igniteMinvent`**, **`catchLitMinventObj`**. [`js/trap.js`](../../js/trap.js) wires above + fixes early **`TRAP_EFFECT_FINISHED`**; adds missing **`burnarmorYoumonst`** import for **`dofiretrap`**.
 
 ## Next steps (highest impact from latest fire/lava work)
 
-1. Mon fire **`burnarmor(mtmp)`** + **`destroy_items`** + **`ignite_items`** ( **`trapeffectFireTrapForMonster`** **`rn2(3)`** branch); expand **`trapeffectMonsterSelector`** beyond **`FIRE_TRAP`**; fuller **`mintrap`** (**`mtrapped`** escape RNG, …).
+1. Expand **`trapeffectMonsterSelector`** beyond **`FIRE_TRAP`**; fuller **`mintrap`** (**`mtrapped`** escape RNG, …); monster **`thitm`** vs **`find_mac`** when not golem-forced kill.
 2. **`dofiretrap`** poly branch — **`u.mhmax`** handling vs C.
 3. **`useupf`** / shop / **`distant_name`/`An`** on floor burn (`burn_floor_objects.js` gaps).
 4. **`obj_resists`** / **`xname`** — replace stubs where fire paths depend on them.

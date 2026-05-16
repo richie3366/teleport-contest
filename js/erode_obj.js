@@ -1,4 +1,4 @@
-// erode_obj.js — trap.c erode_obj() subset (hero, AD_FIRE / burn) + burnarmor(&youmonst).
+// erode_obj.js — trap.c erode_obj() subset (hero + monster burn) + burnarmor(&youmonst / mtmp).
 // C ref: trap.c erode_obj(), burnarmor(); mkobj.c is_flammable(); include/objclass.h materials.
 
 import { game } from './gstate.js';
@@ -76,6 +76,116 @@ export async function erodeObjBurnHero(otmp, ostr, g = game) {
 async function burnDmg(g, item, ostr) {
     const r = await erodeObjBurnHero(item, ostr, g);
     return r !== ER_NOTHING;
+}
+
+/**
+ * C: trap.c erode_obj — **`vismon`** branch wording (**`s_suffix(Monnam(victim))`** stub).
+ * @param {{ data?: { mname?: string }, monnam?: string }} mtmp
+ */
+function monPossessiveLabel(mtmp) {
+    const n = mtmp?.monnam || mtmp?.data?.mname || 'monster';
+    return `${n}'s`;
+}
+
+/**
+ * C: trap.c erode_obj **`ERODE_BURN`** when **`victim != &youmonst`** (no inv resist stub).
+ * @param {typeof game} g
+ * @param {object} mtmp
+ * @param {object} otmp
+ * @param {string} ostr
+ * @param {boolean} visMon
+ */
+export async function erodeObjBurnMon(mtmp, otmp, ostr, g = game, visMon) {
+    if (!otmp) return ER_NOTHING;
+
+    const vulnerable = isFlammable(otmp);
+    const erosion = otmp.oeroded | 0;
+    const ostrFinal = ostr || 'item';
+
+    if (!vulnerable || ((otmp.oerodeproof | 0) && (otmp.rknown | 0))) return ER_NOTHING;
+    if ((otmp.oerodeproof | 0) || ((otmp.blessed | 0) && !rnl(4))) {
+        if ((otmp.oerodeproof | 0)) otmp.rknown = 1;
+        return ER_NOTHING;
+    }
+    if (erosion < MAX_ERODE) {
+        const adverb = erosion + 1 === MAX_ERODE ? ' completely' : erosion ? ' further' : '';
+        if (visMon) {
+            const poss = monPossessiveLabel(mtmp);
+            await pline(`${poss} ${ostrFinal} smoulders${adverb}!`);
+        }
+        otmp.oeroded = erosion + 1;
+        return ER_DAMAGED;
+    }
+    return ER_NOTHING;
+}
+
+/** @typedef {{ armh?: object, armc?: object, arm?: object, armu?: object, arms?: object, armg?: object, armf?: object }} MonWorn */
+
+/**
+ * C: trap.c **`which_armor(victim, W_*)`** — optional **`mtmp.mworn`** (**`MonWorn`** keys).
+ * @param {object} mtmp
+ * @param {keyof MonWorn} k
+ */
+function monWhichArmor(mtmp, k) {
+    const w = mtmp?.mworn;
+    return w?.[k] ?? null;
+}
+
+/**
+ * C: trap.c **`burnarmor(victim)`** when **`victim != &youmonst`** — towel loop omitted until **`minvent`** + **`TOWEL`**.
+ * @param {typeof game} g
+ * @param {object} mtmp
+ * @param {boolean} visMon — C **`canseemon(victim)`** for **`erode_obj`** plines
+ * @returns {Promise<boolean>} C **`TRUE`** only from **`rn2(5)==1`** torso branch (short-circuit **`rn2(3)`**)
+ */
+export async function burnarmorMtmp(g, mtmp, visMon) {
+    if (!mtmp) return false;
+
+    async function burnDmgMon(item, ostr) {
+        const r = await erodeObjBurnMon(mtmp, item, ostr, g, visMon);
+        return r !== ER_NOTHING;
+    }
+
+    for (;;) {
+        switch (rn2(5)) {
+        case 0: {
+            const item = monWhichArmor(mtmp, 'armh');
+            if (!(await burnDmgMon(item, 'helmet'))) continue;
+            break;
+        }
+        case 1: {
+            let item = monWhichArmor(mtmp, 'armc');
+            if (item) {
+                await burnDmgMon(item, 'cloak');
+                return true;
+            }
+            item = monWhichArmor(mtmp, 'arm');
+            if (item) {
+                await burnDmgMon(item, 'armor');
+                return true;
+            }
+            item = monWhichArmor(mtmp, 'armu');
+            if (item) await burnDmgMon(item, 'shirt');
+            return true;
+        }
+        case 2: {
+            if (!(await burnDmgMon(monWhichArmor(mtmp, 'arms'), 'wooden shield'))) continue;
+            break;
+        }
+        case 3: {
+            if (!(await burnDmgMon(monWhichArmor(mtmp, 'armg'), 'gloves'))) continue;
+            break;
+        }
+        case 4: {
+            if (!(await burnDmgMon(monWhichArmor(mtmp, 'armf'), 'boots'))) continue;
+            break;
+        }
+        default:
+            break;
+        }
+        break;
+    }
+    return false;
 }
 
 /**

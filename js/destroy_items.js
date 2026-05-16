@@ -1,4 +1,4 @@
-// destroy_items.js — Hero inventory destruction by element (zap.c subset).
+// destroy_items.js — Hero + monster inventory destruction by fire (zap.c subset).
 // C ref: zap.c destroy_items(), destroyable(), maybe_destroy_item() — AD_FIRE only;
 // inventory_resistance_check / u_adtyp_resistance_obj / deferred stacks / potionbreathe /
 // Ring_gone / setnotworn / glob of slime — TODO or stubbed. **`ignite_items`** → **`ignite_items.js`**.
@@ -13,6 +13,7 @@ import { updateInventory } from './invent.js';
 import { losehp } from './mthrowu.js';
 import { exercise } from './attrib.js';
 import { A_STR, KILLED_BY, KILLED_BY_AN } from './const.js';
+import { raceptr, fireResistant } from './mondata.js';
 
 /** C: monattk.h AD_FIRE */
 export const AD_FIRE = 2;
@@ -139,6 +140,142 @@ async function maybeDestroyItemHeroFire(g, obj) {
         exercise(A_STR, false);
     }
     return dmg;
+}
+
+/**
+ * C: zap.c **`m_useup`**-style — remove **`obj`** from **`mtmp.minvent`** or decrement **`quan`**.
+ * @param {object} mtmp
+ * @param {object} obj
+ */
+function removeObjFromMonInvent(mtmp, obj) {
+    if (!mtmp || !obj) return;
+    if (mtmp.minvent === obj) {
+        mtmp.minvent = obj.nobj ?? null;
+        return;
+    }
+    let p = mtmp.minvent;
+    while (p?.nobj) {
+        if (p.nobj === obj) {
+            p.nobj = obj.nobj;
+            return;
+        }
+        p = p.nobj;
+    }
+}
+
+/**
+ * C: zap.c **`maybe_destroy_item(mon, obj, AD_FIRE)`** — monster carrier (**`!u_carry`**).
+ * @param {typeof game} g
+ * @param {object} mtmp
+ * @param {object} obj
+ * @param {boolean} visMon — C **`canseemon(carrier)`**
+ * @returns {Promise<number>} damage to apply later (**`xtradmg`** sum)
+ */
+async function maybeDestroyItemMonFire(g, mtmp, obj, visMon) {
+    const u = g.u;
+    if (!u || !obj) return 0;
+
+    const t = obj.otyp | 0;
+    if (t === OTYP_SPE_BOOK_OF_THE_DEAD) {
+        const blind = !!(u.ublind | 0) || (u.timed?.blind ?? 0) > 0;
+        if (visMon && !blind) {
+            await pline(
+                'The Book of the Dead glows a strange dark red, but remains intact.',
+            );
+        }
+        return 0;
+    }
+
+    const origQuan = obj.quan ?? 1;
+    let quan = Math.max(1, origQuan);
+    if (obj.in_use | 0) quan -= 1;
+
+    const fireResMon = fireResistant(raceptr(mtmp));
+    let dindx = 0;
+    let dmg = 0;
+    const oc = nh5HeroObjectClass(obj);
+
+    if (oc === NH5_POTION_CLASS) {
+        dindx = t === OTYP_POT_OIL ? DS_BOIL_OIL : DS_BOIL_POTION;
+        dmg = rnd(6);
+    } else if (oc === NH5_SCROLL_CLASS) {
+        dindx = DS_BURN_SCROLL;
+        dmg = 1;
+    } else if (oc === NH5_SPBOOK_CLASS) {
+        dindx = DS_BURN_SPELLBOOK;
+        dmg = 1;
+    } else {
+        return 0;
+    }
+
+    const xresist = oc !== NH5_POTION_CLASS && fireResMon;
+
+    let cnt = 0;
+    for (let i = 0; i < quan; i++) if (!rn2(3)) cnt++;
+    if (!cnt) return 0;
+
+    const str = DESTROY_STRINGS[dindx];
+    const verbIdx = cnt > 1 ? 1 : 0;
+    const verb = str[verbIdx] || str[0];
+    let mult = '';
+    if (visMon) {
+        const n = mtmp?.monnam || mtmp?.data?.mname || 'monster';
+        if (cnt === 1 && quan === 1) mult = `${n}'s `;
+        else if (cnt === 1) mult = `One of ${n}'s `;
+        else if (cnt < quan) mult = `Some of ${n}'s `;
+        else if (quan === 2) mult = `Both of ${n}'s `;
+        else mult = `All of ${n}'s `;
+        const base = objShortPhrase(obj);
+        const noun = cnt === 1 && quan === 1 ? base : `${base}s`;
+        await pline(`${mult}${noun} ${verb}!`);
+    }
+
+    const newQuan = origQuan - cnt;
+    if (newQuan <= 0) removeObjFromMonInvent(mtmp, obj);
+    else obj.quan = newQuan;
+
+    if (dmg && !xresist) return dmg;
+    return 0;
+}
+
+/**
+ * C: zap.c destroy_items(mon, AD_FIRE, dmg_in) — no bypass / defer (**`u_carry`** false).
+ * @param {typeof game} g
+ * @param {object} mtmp
+ * @param {number} dmgIn
+ * @param {boolean} visMon — C **`canseemon(mon)`** for destroy plines
+ * @returns {Promise<number>}
+ */
+export async function destroyItemsMonFire(g, mtmp, dmgIn, visMon) {
+    const dmg0 = dmgIn | 0;
+    let limit = Math.trunc(dmg0 / DMG_DESTROY_SCALE);
+    if (dmg0 % DMG_DESTROY_SCALE > rn2(DMG_DESTROY_SCALE)) limit++;
+    if (limit > MAX_ITEMS_DESTROYED) limit = MAX_ITEMS_DESTROYED;
+    if (limit < 1) return 0;
+
+    const chain = mtmp?.minvent;
+    if (!chain) return 0;
+
+    /** @type {Array<{ ref: object | null, deferred: boolean } | undefined>} */
+    const slots = [];
+    let eligStacks = 0;
+
+    for (let o = chain; o; o = o.nobj) {
+        if (!destroyableHeroFire(o)) continue;
+        const i = eligStacks < limit ? eligStacks : rn2(eligStacks);
+        eligStacks++;
+        if (i < 0 || i >= limit) continue;
+        slots[i] = { ref: o, deferred: false };
+    }
+    if (eligStacks > limit) eligStacks = limit;
+
+    let dmgOut = 0;
+    for (let i = 0; i < eligStacks; i++) {
+        const slot = slots[i];
+        const o = slot?.ref;
+        if (o && !slot.deferred) dmgOut += await maybeDestroyItemMonFire(g, mtmp, o, visMon);
+    }
+    return dmgOut;
 }
 
 /**

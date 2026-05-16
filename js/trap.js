@@ -28,8 +28,9 @@ import { waterDamageOne, splashLitOne, ER_NOTHING } from './water_damage.js';
 import { updateInventory } from './invent.js';
 import { placeFloorObject } from './floorobj.js';
 import { goodposHero } from './walkable.js';
-import { destroyItemsYoumonstFire } from './destroy_items.js';
-import { igniteHeroInventory } from './ignite_items.js';
+import { destroyItemsYoumonstFire, destroyItemsMonFire } from './destroy_items.js';
+import { igniteHeroInventory, igniteMinvent } from './ignite_items.js';
+import { burnarmorYoumonst, burnarmorMtmp } from './erode_obj.js';
 import { burnFloorObjects } from './burn_floor_objects.js';
 import { meltIceAt } from './melt_ice.js';
 import { dist2 } from './hacklib.js';
@@ -349,16 +350,14 @@ function thitmMonsterFireOverride(g, mtmp, damage, _immolateNocorpse) {
 
 /**
  * C: trap.c **`trapeffect_fire_trap`** — **`mtmp != &youmonst`** branch.
- * TODO: **`burnarmor(mtmp)`** ( **`erode_obj`** on worn mon gear); **`destroy_items(mtmp, AD_FIRE, orig_dmg)`**;
- * **`ignite_items(minvent)`** when **`catch_lit`** supports monsters; **`thitm`** miss path / **`find_mac`**.
  * @param {typeof game} g
- * @param {{ mx: number, my: number, mhp?: number, mhpmax?: number, minvis?: number, data?: { mname?: string }, monnam?: string, minvent?: unknown }} mtmp
+ * @param {{ mx: number, my: number, mhp?: number, mhpmax?: number, minvis?: number, data?: { mname?: string }, monnam?: string, minvent?: unknown, mworn?: object }} mtmp
  * @param {{ tx: number, ty: number, ttyp?: number, tseen?: boolean }} trap
  * @returns {Promise<number>} C **`Trap_Killed_Mon`** (**2**) or **`Trap_Effect_Finished`** (**0**)
  */
 export async function trapeffectFireTrapForMonster(g, mtmp, trap) {
     const u = g.u;
-    if (!u || !mtmp || !trap) return false;
+    if (!u || !mtmp || !trap) return TRAP_EFFECT_FINISHED;
 
     const tx = trap.tx | 0;
     const ty = trap.ty | 0;
@@ -391,11 +390,25 @@ export async function trapeffectFireTrapForMonster(g, mtmp, trap) {
             mtmp.mhpmax = nmax;
             if ((mtmp.mhp | 0) > nmax) mtmp.mhp = nmax;
         }
+    }
 
-        /* C: `burnarmor(mtmp) || rn2(3)` — burnarmor not ported ( **`rn2(5)`** loops / mon armor). */
-        if (rn2(3)) {
-            if (monsterStillOnLevel(g, mtmp)) {
-                /* TODO: destroy_items(mtmp, AD_FIRE, orig_dmg); ignite_items(minvent) */
+    /* C: trap.c — after **`resists_fire`** branch: **`burnarmor(mtmp) \|\| rn2(3)`** for all monsters */
+    if (
+        monsterStillOnLevel(g, mtmp)
+        && ((await burnarmorMtmp(g, mtmp, inSight)) || rn2(3))
+    ) {
+        const xtradmg = await destroyItemsMonFire(g, mtmp, origDmg, inSight);
+        await igniteMinvent(g, mtmp, inSight);
+        if (monsterStillOnLevel(g, mtmp) && (mtmp.mhp | 0) > 0 && xtradmg) {
+            mtmp.mhp = (mtmp.mhp | 0) - xtradmg;
+            if ((mtmp.mhp | 0) <= 0) {
+                const xx = mtmp.mx;
+                const yy = mtmp.my;
+                const mons = g.level?.monsters;
+                const i = mons ? mons.indexOf(mtmp) : -1;
+                if (i >= 0) mons.splice(i, 1);
+                newsym(xx, yy);
+                trapkilled = true;
             }
         }
     }
