@@ -1,6 +1,6 @@
 // roles.js — Role, race, gender, alignment data.
 // C ref: role.c — roles[], races[], aligns[] (NetHack 5.0.0); randrace(), randalign(),
-//       role_init() / validrace+validalign repair vs coerceChargenIdentity.
+//       randgend(), validgend(); role_init() repair vs coerceChargenIdentity.
 //
 // `rank` is the XL 1 title (first row in role.c for each role).
 // `allows` mirrors each role's final selfmask (lawful/neutral/chaotic,
@@ -252,8 +252,53 @@ export function randalignLikeC(rolenum, racenum) {
 }
 
 /**
+ * C: **`role.c`** **`validgend(int rolenum, int racenum, int gendnum)`** — **`gendnum`** 0 male, 1 female.
+ * JS uses **`roles[].allows.gender`**; playable **`races[]`** mirror NH5 **both** genders when role is **`any`**.
+ * @param {number} rolenum
+ * @param {number} racenum
+ * @param {number} gendnum
+ * @returns {boolean}
+ */
+export function validgendLikeC(rolenum, racenum, gendnum) {
+    const gi = gendnum | 0;
+    if (gi < 0 || gi > 1) return false;
+    const role = roles[rolenum | 0];
+    const race = races[racenum | 0];
+    if (!role || !race) return false;
+    const ag = role.allows.gender;
+    if (ag === 'female' && gi !== 1) return false;
+    if (ag === 'male' && gi !== 0) return false;
+    return true;
+}
+
+/**
+ * C: **`role.c`** **`randgend(int rolenum, int racenum)`** — count valid genders, **`rn2(n)`**, walk 0..**`ROLE_GENDERS-1`**.
+ * @param {number} rolenum
+ * @param {number} racenum
+ * @returns {number} **`0`** male, **`1`** female
+ */
+export function randgendLikeC(rolenum, racenum) {
+    const role = roles[rolenum | 0];
+    const race = races[racenum | 0];
+    if (!role || !race) return rn2(2);
+
+    let n = 0;
+    if (validgendLikeC(rolenum, racenum, 0)) n++;
+    if (validgendLikeC(rolenum, racenum, 1)) n++;
+    let pick = 0;
+    if (n) pick = rn2(n);
+    for (let gi = 0; gi < 2; gi++) {
+        if (!validgendLikeC(rolenum, racenum, gi)) continue;
+        if (pick) pick--;
+        else return gi;
+    }
+    return rn2(2);
+}
+
+/**
  * C: rigid_role_checks() / role_init() — clamp OPTIONS to a legal triple for this role.
- * Invalid race → **`randrace`**; invalid alignment for role+race → **`randalign`** (**`role_init`** order: race, then align after gender forcing in C — here align last matches **`validalign`** after race is fixed).
+ * Invalid race → **`randrace`**; **`validgend`** flip + **`randgend`** tail; invalid alignment → **`randalign`**
+ * (**`role_init`** order: race, gender, align).
  * @param {RoleRow} role
  * @param {{ name: string, adj: string, mnum: number, filecode?: string, permonst?: import('./mondata.js').Permonst, attrmin: number[], attrmax: number[] }} race
  * @param {number} alignType
@@ -271,11 +316,21 @@ export function coerceChargenIdentity(role, race, alignType, female) {
                 : /** @type {typeof races[0]} */ (findRace(a.races[0]));
     }
 
+    const rai = races.indexOf(r);
     let f = female;
+    /* C: **`role_init`** **`flags.pantheon == -1`** — **`validgend`**(…, **`flags.female`**) then flip **`flags.female`**. */
+    if (ri >= 0 && rai >= 0) {
+        const g0 = f ? 1 : 0;
+        if (!validgendLikeC(ri, rai, g0)) f = !f;
+    }
     if (a.gender === 'female') f = true;
     else if (a.gender === 'male') f = false;
+    /* C: **`!validgend`**(…, **`initgend`**) → **`initgend = flags.female`** — use **`randgend`** if still invalid. */
+    if (ri >= 0 && rai >= 0) {
+        const g1 = f ? 1 : 0;
+        if (!validgendLikeC(ri, rai, g1)) f = randgendLikeC(ri, rai) === 1;
+    }
 
-    const rai = races.indexOf(r);
     let al = alignType;
     const alignLegal =
         a.align.includes(al) && !(r.name === 'orc' && al !== -1);
