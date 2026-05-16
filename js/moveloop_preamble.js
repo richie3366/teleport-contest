@@ -10,7 +10,7 @@ import { game } from './gstate.js';
 import { pline, docrt } from './display.js';
 import { rnd } from './rng.js';
 import {
-    NEW_MOON, FULL_MOON, NORMAL_SPEED, STONE, FUZZER_IMPOSSIBLE_PANIC,
+    NEW_MOON, FULL_MOON, NORMAL_SPEED, STONE, FUZZER_IMPOSSIBLE_PANIC, UTOTYPE_NONE,
 } from './const.js';
 import { parseFixedDatetime, phaseOfTheMoonFromDate, isFriday13thFromDate } from './moonphase.js';
 import { changeLuck } from './attrib.js';
@@ -24,6 +24,7 @@ import { updateInventory } from './invent.js';
 import { takePendingGiveMayAdvancePline, takePendingDrainForgetPlines } from './u_init_skills.js';
 import { findLevelByProtoLikeC } from './sp_levchn.js';
 import { askDoTutorialMenuTTYLikeC } from './tutorial_prompt.js';
+import { scheduleGotoHeroLikeC, deferredGotoHeroLikeC } from './goto_level_hero.js';
 
 /**
  * C: allmain.c **`maybe_do_tutorial`** → **`find_level("tut-1")`** (**`dungeon.c`**).
@@ -51,7 +52,7 @@ export async function askDoTutorialLikeC() {
 
 /**
  * C: allmain.c **`maybe_do_tutorial`** — after **`moveloop_preamble`**, before **`moveloop_core`** loop.
- * **`schedule_goto` / `deferred_goto` / `goto_level`** still TODO; **`sp`** is kept for the next slice.
+ * **`goto_level`** is still a subset (**`applyGotoLevelDirectHeroLikeC`**) — no Lua **`tutorial()`**, savelev, **`keepdogs`**, …
  * @returns {Promise<void>}
  */
 export async function maybeDoTutorialLikeC() {
@@ -68,9 +69,9 @@ export async function maybeDoTutorialLikeC() {
     /* C: iflags.nofollowers = TRUE — tutorial level change ignores pets */
     g.iflags.nofollowers = true;
 
-    /* C: schedule_goto pre_msg → deferred_goto pline1 before goto_level ("Entering the tutorial.") */
-    await pline('Entering the tutorial.');
-    /* TODO: do.c schedule_goto(&sp->dlevel, UTOTYPE_NONE, …); deferred_goto() → goto_level */
+    /* C: schedule_goto(&sp->dlevel, UTOTYPE_NONE, "Entering the tutorial.", 0); deferred_goto(); */
+    scheduleGotoHeroLikeC(g, sp.dlevel, UTOTYPE_NONE, 'Entering the tutorial.', null);
+    await deferredGotoHeroLikeC(g);
 
     vision_recalc(0);
     await docrt();

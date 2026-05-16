@@ -4,8 +4,9 @@
 //
 // Ported: **`applyGotoAfterHeroHoleFallLikeC(g, dest?)`**, **`impactDropLikeC`**/**`objDeliveryLikeC`** (**`dokick.c`**), **`shopdigLikeC(1)`** / **`payForDamage('dig into')`** before **`You fall through...`** (**`dig.c`** **`digactualhole`** order); **`pickup(1)`** tail (**`do.c`** **`goto_level`**).
 // **`applyHeroDescendStairsOneLevelLikeC(g)`** — **`do.c`** **`goto_level`** down-stairs slice after **`mklev`**/**`u_on_upstairs`** (**`near_capacity`/`Punished`/`Fumbling`**, **`drag_down`**, **`losehp`**, **`placebc`** omitted).
+// **`scheduleGotoHeroLikeC` / `deferredGotoHeroLikeC`** — **`do.c`** **`schedule_goto`/`deferred_goto`** subset (**`applyGotoLevelDirectHeroLikeC`** for non-falling **`goto_level`**).
 // Deferred: **`fill_pit`**, real **`next_to_u`**,
-// **`keepdogs`**, bones/save, full **`schedule_goto`/`goto_level`** beyond **`mklev`**.
+// **`keepdogs`**, bones/save, full **`goto_level`** beyond **`mklev`**.
 
 import { mklev, u_on_upstairs } from './mklev.js';
 import { spotEffects } from './spoteffects.js';
@@ -20,6 +21,9 @@ import { nearCapacity, syncHeroInvWeightNetLikeC } from './encumbr.js';
 import { maybeHalfPhys, losehp } from './mthrowu.js';
 import { rnd } from './rng.js';
 import { dragDownHeroStairsLikeC } from './hold_another_hero.js';
+import {
+    UTOTYPE_NONE, UTOTYPE_DEFERRED, UTOTYPE_FALLING, UTOTYPE_RMPORTAL,
+} from './const.js';
 
 /** C: **`Punished`** / carried **`uball`** — macro subset until **`punish()`** sets **`u.Punished`**. */
 function heroPunishedLikeC(g) {
@@ -35,6 +39,104 @@ function heroPunishedLikeC(g) {
 /** C: mon.c **`next_to_u`** — stub **TRUE** until ball&chain / leash parity. */
 export function nextToUForHoleFallStub() {
     return true;
+}
+
+/** @param {import('./gstate.js').game} g */
+function clearDeferredGotoMessagesLikeC(g) {
+    const gd = g.gd;
+    if (!gd) return;
+    delete gd.dfr_pre_msg;
+    delete gd.dfr_post_msg;
+}
+
+/**
+ * C: **`do.c`** **`goto_level`** — plain arrival (**not** falling): set **`u.uz`**, **`mklev`**, **`spoteffects`**, **`vision_recalc`**, **`pickup(1)`**.
+ * @param {import('./gstate.js').game} g
+ * @param {{ dnum: number, dlevel: number }} dest
+ */
+export async function applyGotoLevelDirectHeroLikeC(g, dest) {
+    const u = g.u;
+    if (!u || !g.level) return;
+
+    const uz0 = u.uz || { dnum: 0, dlevel: 1 };
+    const dn = dest.dnum | 0;
+    let dl = dest.dlevel | 0;
+    const mx = g.dungeons?.[dn]?.num_dunlevs;
+    if (mx != null) {
+        if (dl > (mx | 0)) dl = mx | 0;
+        if (dl < 1) dl = 1;
+    }
+    const newUz = { dnum: dn, dlevel: dl };
+    if (onLevelLikeC(uz0, newUz)) return;
+
+    u.uz = newUz;
+    u.utrap = 0;
+    u.utraptype = 0;
+
+    await mklev();
+    await objDeliveryLikeC(g, false);
+    await spotEffects(g, false, {});
+    await objDeliveryLikeC(g, true);
+    vision_recalc(1);
+    await pickup(1);
+}
+
+/**
+ * C: **`do.c`** **`schedule_goto(tolev, utotype_flags, pre_msg, post_msg)`** — **`u.utotype`** |= **`UTOTYPE_DEFERRED`**, **`assign_level(&u.utolev, tolev)`**, **`gd.dfr_*`**.
+ * @param {import('./gstate.js').game} g
+ * @param {{ dnum: number, dlevel: number }} tolev
+ * @param {number} utotypeFlags — without **`UTOTYPE_DEFERRED`** (e.g. **`UTOTYPE_NONE`** for tutorial).
+ * @param {string|null|undefined} preMsg
+ * @param {string|null|undefined} postMsg
+ */
+export function scheduleGotoHeroLikeC(g, tolev, utotypeFlags, preMsg, postMsg) {
+    const u = g.u;
+    if (!u) return;
+    u.utotype = (utotypeFlags | 0) | UTOTYPE_DEFERRED;
+    u.utolev = { dnum: tolev.dnum | 0, dlevel: tolev.dlevel | 0 };
+    g.gd = g.gd || {};
+    if (preMsg != null && preMsg !== '') g.gd.dfr_pre_msg = preMsg;
+    else delete g.gd.dfr_pre_msg;
+    if (postMsg != null && postMsg !== '') g.gd.dfr_post_msg = postMsg;
+    else delete g.gd.dfr_post_msg;
+}
+
+/**
+ * C: **`do.c`** **`deferred_goto`** — **`pline1(dfr_pre_msg)`**, **`goto_level`** ( **`applyGotoLevelDirectHeroLikeC`** / fall ), **`dfr_post_msg`** if **`!on_level(u.uz, oldlev)`**.
+ * @param {import('./gstate.js').game} g
+ */
+export async function deferredGotoHeroLikeC(g) {
+    g.gd = g.gd || {};
+    const u = g.u;
+    if (!u) return;
+    if (!u.utolev) {
+        u.utotype = UTOTYPE_NONE;
+        clearDeferredGotoMessagesLikeC(g);
+        return;
+    }
+
+    const cur = u.uz || { dnum: 0, dlevel: 1 };
+    const tol = u.utolev;
+    if (!onLevelLikeC(cur, tol)) {
+        const typmask = u.utotype | 0;
+        const oldlev = { dnum: cur.dnum | 0, dlevel: cur.dlevel | 0 };
+        const dest = { dnum: tol.dnum | 0, dlevel: tol.dlevel | 0 };
+
+        if (g.gd.dfr_pre_msg) await pline(String(g.gd.dfr_pre_msg));
+
+        if (typmask & UTOTYPE_FALLING) await applyGotoAfterHeroHoleFallLikeC(g, dest);
+        else await applyGotoLevelDirectHeroLikeC(g, dest);
+
+        if (typmask & UTOTYPE_RMPORTAL) {
+            /* C: **`deltrap`/`newsym`** after **`goto_level`** — not ported */
+        }
+
+        const post = g.gd.dfr_post_msg;
+        if (post && !onLevelLikeC(u.uz, oldlev)) await pline(String(post));
+    }
+
+    u.utotype = UTOTYPE_NONE;
+    clearDeferredGotoMessagesLikeC(g);
 }
 
 /**
