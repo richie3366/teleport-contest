@@ -50,6 +50,109 @@ function setChargenEndMenuCursorLikeC(disp, lineStartCol, lineText, endRow) {
     disp.setCursor(lineStartCol + lineText.length + 1, endRow);
 }
 
+const NH_TTY_COLS = 80;
+/** C tty: `role_menu_extra` “forces …” line is drawn a few columns right of the main menu column. */
+const FORCES_EXTRA_COL = 45;
+
+/** C tty: right-justified confirm block shifts left when the widest line needs more than ~COLNO-MENU_COL-2. */
+function confirmMenuStartColLikeC(lineTexts) {
+    let maxW = 0;
+    for (const t of lineTexts) maxW = Math.max(maxW, t.length);
+    return Math.min(MENU_COL, Math.max(0, NH_TTY_COLS - maxW - 2));
+}
+
+function collectAlignIndicesAcrossRacesLikeC(ri) {
+    const set = new Set();
+    for (let rai = 0; rai < races.length; rai++) {
+        if (!okRaceJs(ri, rai, ROLE_RANDOM, ROLE_RANDOM)) continue;
+        for (let ai = 0; ai < aligns.length; ai++) {
+            if (okAlignJs(ri, rai, ROLE_RANDOM, ai)) set.add(ai);
+        }
+    }
+    return set;
+}
+
+function soleAlignNameAcrossRacesRecapLikeC(ri) {
+    const s = collectAlignIndicesAcrossRacesLikeC(ri);
+    if (s.size !== 1) return null;
+    return aligns[[...s][0]].name;
+}
+
+function alignChoicesStillOpenAcrossRacesLikeC(ri) {
+    return collectAlignIndicesAcrossRacesLikeC(ri).size > 1;
+}
+
+function soleAlignNameForRoleRaceLikeC(ri, rai) {
+    if (ri < 0 || rai < 0) return null;
+    const set = new Set();
+    for (let ai = 0; ai < aligns.length; ai++) {
+        if (okAlignJs(ri, rai, ROLE_RANDOM, ai)) set.add(ai);
+    }
+    if (set.size !== 1) return null;
+    return aligns[[...set][0]].name;
+}
+
+/** @param {number} ri */
+function roleGenderForceTokenLikeC(ri) {
+    if (ri < 0) return null;
+    const g = roles[ri].allows.gender;
+    if (g === 'female') return 'female';
+    if (g === 'male') return 'male';
+    return null;
+}
+
+/** @param {number} ri */
+function roleAlignForceNameLikeC(ri) {
+    if (ri < 0) return null;
+    const a = roles[ri].allows.align;
+    if (a.length !== 1) return null;
+    const v = a[0];
+    const ent = aligns.find((x) => x.value === v);
+    return ent ? ent.name : null;
+}
+
+/** C genl_player_setup / tty role hub: `role forces …` when role pins gender or alignment. */
+function raceMenuForcesLineLikeC(ri) {
+    const g = roleGenderForceTokenLikeC(ri);
+    if (g) return `role forces ${g}`;
+    const al = roleAlignForceNameLikeC(ri);
+    if (al) return `role forces ${al}`;
+    return null;
+}
+
+/**
+ * C genl_player_setup gender menu: `race forces …` when race (e.g. orc) pins alignment but role alone did not.
+ * @param {{ initrole: number, initrace: number }} f
+ */
+function genderMenuForcesLineLikeC(f) {
+    const ri = f.initrole;
+    const rai = f.initrace;
+    if (ri < 0 || rai < 0) return null;
+    const fixed = new Set();
+    for (let ai = 0; ai < aligns.length; ai++) {
+        if (okAlignJs(ri, rai, ROLE_RANDOM, ai)) fixed.add(ai);
+    }
+    if (fixed.size !== 1) return null;
+    const anyR = collectAlignIndicesAcrossRacesLikeC(ri);
+    const name = aligns[[...fixed][0]].name;
+    return anyR.size > 1 ? `race forces ${name}` : `role forces ${name}`;
+}
+
+/** @param {{ initrole: number, initrace: number, initgend: number, initalign: number }} f */
+function raceMenuRecapLineLikeC(f) {
+    const rn = roleNameForDisplay(f.initrole, f.initgend);
+    const genderTok = f.initgend >= 0
+        ? genders[f.initgend].name
+        : (roleGenderForceTokenLikeC(f.initrole) ?? '<gender>');
+    let anTok;
+    if (f.initalign >= 0) anTok = aligns[f.initalign].name;
+    else {
+        const sole = soleAlignNameAcrossRacesRecapLikeC(f.initrole);
+        anTok = sole ?? '<alignment>';
+    }
+    return `${rn} <race> ${genderTok} ${anTok}`;
+}
+
 /** C wintty.c tty_init_nhwindows: tty_curs(BASE_WINDOW,1,4) then 4×copyright + blank. */
 const TTY_COPYRIGHT_START_ROW = 4;
 /** One blank line after the four copyright rows (C tty_putstr empty before display). */
@@ -452,9 +555,7 @@ function paintRaceMenu(disp, f) {
     rigidRoleChecksJs(f);
     disp.clearScreen();
     disp.putstr(MENU_COL, 0, 'Pick a race or species', NO_COLOR, ATR_INVERSE);
-    const rn = roleNameForDisplay(f.initrole, f.initgend);
-    const an = f.initalign >= 0 ? aligns[f.initalign].name : '<alignment>';
-    disp.putstr(MENU_COL, 2, `${rn} <race> <gender> ${an}`, NO_COLOR);
+    disp.putstr(MENU_COL, 2, raceMenuRecapLineLikeC(f), NO_COLOR);
     let row = 4;
     for (let i = 0; i < races.length; i++) {
         if (!okRaceJs(f.initrole, i, f.initgend, f.initalign)) continue;
@@ -468,10 +569,34 @@ function paintRaceMenu(disp, f) {
     row++;
     disp.putstr(MENU_COL, row, '? - Pick another role first', NO_COLOR);
     row++;
-    disp.putstr(MENU_COL, row, '" - Pick gender first', NO_COLOR);
-    row++;
-    disp.putstr(45, row, 'role forces chaotic', NO_COLOR);
-    row++;
+    const ri = f.initrole;
+    const gf = roleGenderForceTokenLikeC(ri);
+    const alignOpen = ri >= 0 && alignChoicesStillOpenAcrossRacesLikeC(ri);
+    const forces = ri >= 0 ? raceMenuForcesLineLikeC(ri) : null;
+
+    if (gf) {
+        if (forces) {
+            disp.putstr(FORCES_EXTRA_COL, row, forces, NO_COLOR);
+            row++;
+        }
+        if (alignOpen) {
+            disp.putstr(MENU_COL, row, '[ - Pick alignment first', NO_COLOR);
+            row++;
+        }
+    } else {
+        if (ri >= 0 && roles[ri].allows.gender === 'any') {
+            disp.putstr(MENU_COL, row, '" - Pick gender first', NO_COLOR);
+            row++;
+        }
+        if (alignOpen) {
+            disp.putstr(MENU_COL, row, '[ - Pick alignment first', NO_COLOR);
+            row++;
+        }
+        if (forces) {
+            disp.putstr(FORCES_EXTRA_COL, row, forces, NO_COLOR);
+            row++;
+        }
+    }
     disp.putstr(MENU_COL, row, filterMenuExtraLine(), NO_COLOR);
     row++;
     disp.putstr(MENU_COL, row, 'q - Quit', NO_COLOR);
@@ -539,8 +664,10 @@ function paintGenderMenu(disp, f) {
     disp.putstr(MENU_COL, 0, 'Pick a gender or sex', NO_COLOR, ATR_INVERSE);
     const rn = roleNameForDisplay(f.initrole, f.initgend);
     const raceNoun = f.initrace >= 0 ? races[f.initrace].name : '<race>';
-    const an = f.initalign >= 0 ? aligns[f.initalign].name : '<alignment>';
-    disp.putstr(MENU_COL, 2, `${rn} ${raceNoun} <gender> ${an}`, NO_COLOR);
+    const recapAlign = f.initalign >= 0
+        ? aligns[f.initalign].name
+        : (soleAlignNameForRoleRaceLikeC(f.initrole, f.initrace) ?? '<alignment>');
+    disp.putstr(MENU_COL, 2, `${rn} ${raceNoun} <gender> ${recapAlign}`, NO_COLOR);
     let row = 4;
     disp.putstr(MENU_COL, row, 'm - male', NO_COLOR);
     row++;
@@ -554,8 +681,11 @@ function paintGenderMenu(disp, f) {
     row++;
     disp.putstr(MENU_COL, row, '/ - Pick another race first', NO_COLOR);
     row++;
-    disp.putstr(45, row, 'role forces chaotic', NO_COLOR);
-    row++;
+    const gForces = genderMenuForcesLineLikeC(f);
+    if (gForces) {
+        disp.putstr(FORCES_EXTRA_COL, row, gForces, NO_COLOR);
+        row++;
+    }
     disp.putstr(MENU_COL, row, filterMenuExtraLine(), NO_COLOR);
     row++;
     disp.putstr(MENU_COL, row, 'q - Quit', NO_COLOR);
@@ -674,24 +804,35 @@ async function readAlignChoice(disp, f) {
 function paintConfirmMenu(disp, f, plname) {
     rigidRoleChecksJs(f);
     disp.clearScreen();
-    disp.putstr(MENU_COL, 0, 'Is this ok? [ynaq]', NO_COLOR, ATR_INVERSE);
     const rn = roleNameForDisplay(f.initrole, f.initgend);
     const raceAdj = f.initrace >= 0 ? races[f.initrace].adj : '???';
     const gd = f.initgend === 1 ? 'female' : 'male';
     const an = f.initalign >= 0 ? aligns[f.initalign].name : '???';
-    disp.putstr(MENU_COL, 2, `${plname} the ${an} ${gd} ${raceAdj} ${rn}`, NO_COLOR);
+    const title = 'Is this ok? [ynaq]';
+    const recap = `${plname} the ${an} ${gd} ${raceAdj} ${rn}`;
+    const col = confirmMenuStartColLikeC([
+        title,
+        recap,
+        'y * Yes; start game',
+        'n - No; choose role again',
+        'a - Not yet; choose another name',
+        'q - Quit',
+        '(end)',
+    ]);
+    disp.putstr(col, 0, title, NO_COLOR, ATR_INVERSE);
+    disp.putstr(col, 2, recap, NO_COLOR);
     let row = 4;
-    disp.putstr(MENU_COL, row, 'y * Yes; start game', NO_COLOR);
+    disp.putstr(col, row, 'y * Yes; start game', NO_COLOR);
     row++;
-    disp.putstr(MENU_COL, row, 'n - No; choose role again', NO_COLOR);
+    disp.putstr(col, row, 'n - No; choose role again', NO_COLOR);
     row++;
-    disp.putstr(MENU_COL, row, 'a - Not yet; choose another name', NO_COLOR);
+    disp.putstr(col, row, 'a - Not yet; choose another name', NO_COLOR);
     row++;
-    disp.putstr(MENU_COL, row, 'q - Quit', NO_COLOR);
+    disp.putstr(col, row, 'q - Quit', NO_COLOR);
     row++;
-    disp.putstr(MENU_COL, row, '(end)', NO_COLOR);
+    disp.putstr(col, row, '(end)', NO_COLOR);
     disp.cursorVisible = true;
-    setChargenEndMenuCursorLikeC(disp, MENU_COL, '(end)', row);
+    setChargenEndMenuCursorLikeC(disp, col, '(end)', row);
 }
 
 async function readConfirmAnswer(disp, f, plname) {
