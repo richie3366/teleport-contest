@@ -6,6 +6,7 @@ Historical rows moved from `c-to-js-port-progress.md` so day-to-day work uses **
 
 | When | What changed |
 |------|----------------|
+| **2026-05-16 (`trap.c` `blow_up_landmine` — `del_engr_at`)** | **`trap.js`**: **`blowUpLandmine`** calls **`delEngrAt`** after **`old_typ`**, before **`wake_nearto`** (C after **`scatter`**). **`npm run score`:** **0/44**; **`seed0060`** **991/3626** (unchanged). |
 | **2026-05-16 (`trap.c` `blow_up_landmine` — `vision_recalc` before `spot_checks`)** | **`trap.js`**: **`blowUpLandmine`** — **`vision_recalc(1)`** immediately before **`spotChecksLikeC`** (C **`recalc_block_point`** then **`spot_checks`**); removed post-**`wake_nearto`** recalc; JSDoc rephrased so inline bold does not emit a **`*/`** terminator. **`npm run score`:** **0/44**; **`seed0060`** **991/3626** (unchanged). |
 | **2026-05-16 (`trap.c` `blow_up_landmine` → `hack.c` `spot_checks`)** | **`trap.js`**: **`blowUpLandmine`** saves **`old_typ`**, **`spotChecksLikeC`** on exit (**`spot_checks.js`**). **`npm run score`:** **0/44**; **`seed0060`** **991/3626** (unchanged). |
 | **2026-05-16 (`hack.h` `MATCH_WARN_OF_MON` + `context.h` warntype in `angry_guards` sensemon)** | **`shop.js`**: **`ensureContextWarntypeLikeC`**, **`matchWarnOfMonAngryGuardsLikeC`**; **`senseMonAngryGuardsLikeC`** OR branch. **`allmain.js`**: **`HWarn_of_mon`**/**`EWarn_of_mon`** **0**. **`npm run score`:** **0/44**; **`seed0060`** **991/3626** (unchanged). |

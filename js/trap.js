@@ -2,7 +2,7 @@
 // C ref: trap.c dotrap(), floor_trigger(), check_in_air(), trapeffect_selector()
 //        hero cases; dig.c digactualhole() hero u.utrap (**`TT_BURIEDBALL`/`TT_INFLOOR`**) before pit/hole;
 //        trap.c trapeffect_hole → fall_through(); dungeon.c Can_fall_thru/Can_dig_down; mondata.h ceiling_hider;
-//        trap.c blow_up_landmine tail → hack.c spot_checks (**`spot_checks.js`** subset).
+//        trap.c blow_up_landmine → engrave.c del_engr_at, hack.c spot_checks (**`spot_checks.js`** subset).
 // domagictrap() shares makemon.js stub; seffects (fate 20).
 
 import { game } from './gstate.js';
@@ -42,6 +42,7 @@ import { igniteHeroInventory, igniteMinvent } from './ignite_items.js';
 import { burnarmorYoumonst, burnarmorMtmp } from './erode_obj.js';
 import { burnFloorObjects } from './burn_floor_objects.js';
 import { meltIceAt } from './melt_ice.js';
+import { delEngrAt } from './engrave.js';
 import { spotChecksLikeC } from './spot_checks.js';
 import { doname } from './objnam.js';
 import { minuhpmaxLikeC, setUhpmaxHumanLikeC, losexpNullLikeC } from './losexp.js';
@@ -2290,7 +2291,7 @@ async function trapeffectBearHero(trap, trflags) {
 }
 
 /**
- * C: trap.c **`blow_up_landmine`** — **`wake_nearto`**, **`scatter`** (deferred), doors, drawbridge deferred;
+ * C: trap.c **`blow_up_landmine`** — **`scatter`** (deferred), **`engrave.c`** **`del_engr_at`**, **`wake_nearto`**, …;
  * converts **`LANDMINE` → `PIT`** on normal levels (**`Is_waterlevel`/`Is_airlevel`** → **`deltrap`**).
  * **`hack.c`** **`spot_checks(x,y,old_typ)`** runs after **`recalc_block_point`** in C — JS uses **`vision_recalc(1)`** as a stand-in for **`recalc_block_point`** immediately before **`spotChecksLikeC`** (C **`scatter`**, **`fill_pit`**, **`maybe_dunk`** still TODO).
  * @param {{ tx: number, ty: number, ttyp?: number, madeby_u?: boolean, tseen?: boolean }|null|undefined} trap
@@ -2302,6 +2303,7 @@ function blowUpLandmine(trap) {
     const y = trap.ty | 0;
     const lev = g.level?.at(x, y);
     const old_typ = lev ? (lev.typ | 0) : 0;
+    delEngrAt(x, y);
     wakeNearto(x, y, 400);
     const u = game.u;
     if (Is_waterlevel(u?.uz) || Is_airlevel(u?.uz)) {
