@@ -1,14 +1,16 @@
 // spoteffects.js — Hero arrival on a map cell (hack.c spoteffects / pooleffects slice).
 // C ref: hack.c spoteffects(boolean pick), pooleffects(boolean newspot); trap.c drown(),
-//        lava_effects(); pickup.c pickup(); trap.c dotrap().
+//        lava_effects(); pickup.c pickup(); trap.c dotrap(); dungeon.c ceiling(); mon.c mnexto().
 //
 // Ported: recursion guard (inspoteffects + spotloc + spotterrain + dotrap typ), in_lava_effects
 // early-out, pooleffects liquid entry (lava before pool, drown gate vs C), check_special_room stub,
-// pickup(1) before/after pit vs non-pit, dotrap with same-trap re-entry suppression.
-// Still TODO: switch_terrain, HLevitation timeout/float_down, sink+Levitation, Warning+ice,
-// ceiling piercer / m_at surprise + mnexto, gi.in_steed_dismounting, full pooleffects leave-water.
+// pickup(1) before/after pit vs non-pit, dotrap with same-trap re-entry suppression,
+// youprop.h Warning + timeout.c spot_time_left MELT_ICE_AWAY on is_ice, m_at piercer/surprise + mnexto.
+// Still TODO: switch_terrain, HLevitation timeout/float_down, sink+Levitation, gi.in_steed_dismounting,
+// full pooleffects leave-water; ceiling() vault/temple/shop/in_quest nuance; sensemon / x_monnam parity.
 
 import { game } from './gstate.js';
+import { pline, newsym } from './display.js';
 import { tAt } from './search.js';
 import { dotrap } from './trap.js';
 import { pickup } from './pickup.js';
@@ -18,10 +20,25 @@ import {
     IS_LAVA,
     IS_POOL,
     IS_WATERWALL,
+    IS_ROOM,
+    IS_WALL,
+    IS_DOOR,
+    IS_SDOOR,
+    IS_AIR,
     is_pit,
     NO_TRAP_FLAGS,
+    Is_waterlevel,
+    Is_firelevel,
+    Is_earthlevel,
+    In_quest,
 } from './const.js';
-import { raceptr, breathless, swims, amphibious } from './mondata.js';
+import { raceptr, breathless, swims, amphibious, S_PIERCER } from './mondata.js';
+import { isIceAt } from './melt_ice.js';
+import { spotTimeLeftMeltIceAway } from './level_timers.js';
+import { enextoNearMon } from './walkable.js';
+import { dealWithOvercrowding } from './mon_limbo.js';
+import { d, rnd } from './rng.js';
+import { losehp, maybeHalfPhys } from './mthrowu.js';
 
 /** C: hack.c static `inspoteffects` / `spotloc` / `spotterrain` — overwritten each nested entry. */
 let spDepth = 0;
@@ -34,6 +51,161 @@ let activeDotrapTtyp = 0;
 
 function swimmingLike(ptr) {
     return swims(ptr);
+}
+
+/** C: youprop.h **`Warning`** — **`HWarning || EWarning`**. */
+function heroWarningLikeC(u) {
+    return ((u?.HWarning | 0) || (u?.EWarning | 0)) !== 0;
+}
+
+/** C: objnam.c **`hard_helmet`** / do_wear.c — same material test as **`trap.js`**. */
+function hardHelmetForMsg(obj) {
+    if (!obj) return false;
+    const m = obj.oc_material;
+    if (m === 11 || m === 12 || m === 13) return true; /* IRON, METAL, COPPER */
+    if (m === 19) return true; /* GLASS */
+    return !!(obj.oc_crackable);
+}
+
+/** C: objnam.c **`helm_simple_name`** — helm vs hat from **`hard_helmet`**. */
+function helmSimpleNameLikeC(helm) {
+    return hardHelmetForMsg(helm) ? 'helm' : 'hat';
+}
+
+/** C: mon.c **`mon_nam`** / **`Monnam`** — stub until **`x_monnam`**. */
+function monNam(mtmp) {
+    const n = mtmp?.data?.mname || mtmp?.monnam;
+    if (n) return `the ${n}`;
+    return 'the monster';
+}
+
+function monNamCap(mtmp) {
+    const s = monNam(mtmp);
+    return s.charAt(0).toUpperCase() + s.slice(1);
+}
+
+/** C: dungeon.c **`ceiling(x,y)`** — JS subset (no **`in_rooms`** vault/temple/shop yet). */
+function ceilingStringLikeC(g, x, y) {
+    const u = g.u;
+    const loc = g.level?.at(x, y);
+    const typ = loc ? (loc.typ | 0) : 0;
+    const uz = u?.uz;
+    if (Is_waterlevel(uz)) return 'water above';
+    if (IS_AIR(typ)) return 'sky';
+    if (Is_firelevel(uz)) return 'flames above';
+    if (In_quest(uz)) return 'expanse above';
+    if ((u?.underwater | 0) !== 0) return "water's surface";
+    if ((IS_ROOM(typ) && !Is_earthlevel(uz)) || IS_WALL(typ) || IS_DOOR(typ) || IS_SDOOR(typ)) return 'ceiling';
+    return 'rock cavern';
+}
+
+function mAtOnLevel(g, x, y) {
+    return g.level?.monsters?.find((m) => (m.mx | 0) === x && (m.my | 0) === y) ?? null;
+}
+
+function heroBlindLikeMthrowu(u) {
+    return !!(u?.ublind || (u?.timed?.blind ?? 0) > 0);
+}
+
+/** C: mondata.h **`sensemon`** — telepathy stub until full warn-of / **`sensemon`**. */
+function senseMonTelepathyStub(u) {
+    return ((u?.HTelepat | 0) || (u?.ETelepat | 0)) !== 0;
+}
+
+/**
+ * C: hack.c **`if (Warning && is_ice(...))`** + **`timeout.c`** **`spot_time_left`**.
+ * @param {typeof game} g
+ */
+async function warningIceMeltPlinesLikeC(g) {
+    const u = g.u;
+    if (!u) return;
+    if (!heroWarningLikeC(u)) return;
+    if (!isIceAt(g, u.ux | 0, u.uy | 0)) return;
+    const icewarnings = /** @type {const} */ ([
+        'The ice seems very soft and slushy.',
+        'You feel the ice shift beneath you!',
+        "The ice, is gonna BREAK!", /* The Dead Zone */
+    ]);
+    const timeLeft = spotTimeLeftMeltIceAway(g, u.ux | 0, u.uy | 0) | 0;
+    if (timeLeft && timeLeft < 15) {
+        const idx = timeLeft < 5 ? 2 : timeLeft < 10 ? 1 : 0;
+        await pline('%s', icewarnings[idx]);
+    }
+}
+
+/**
+ * C: hack.c **`m_at` + piercer / surprise** + **`mon.c`** **`mnexto(mtmp, RLOC_NOMSG)`**.
+ * @param {typeof game} g
+ */
+async function spotMonsterOnHeroCeilingLikeC(g) {
+    const u = g.u;
+    if (!u) return;
+    if ((u.uswallow | 0) !== 0) return;
+    const mtmp = mAtOnLevel(g, u.ux | 0, u.uy | 0);
+    if (!mtmp) return;
+
+    mtmp.mundetected = 0;
+    mtmp.msleeping = 0;
+
+    const ptr = raceptr(mtmp);
+    const mlet = ptr.mlet | 0;
+    const ceil = ceilingStringLikeC(g, u.ux | 0, u.uy | 0);
+
+    if (mlet === S_PIERCER) {
+        await pline('%s suddenly drops from the %s!', monNamCap(mtmp), ceil);
+        if ((mtmp.mtame | 0) !== 0) {
+            /* C: empty — tame jumps to greet */
+        } else if (hardHelmetForMsg(u.uarmh)) {
+            await pline('Its blow glances off your %s.', helmSimpleNameLikeC(u.uarmh));
+        } else if ((u.uac ?? 10) + 3 <= rnd(20)) {
+            await pline('You are almost hit by %s!', monNam(mtmp));
+        } else {
+            let dmg = d(4, 6);
+            if (u.Half_physical_damage | 0) dmg = Math.trunc((dmg + 1) / 2);
+            await pline('You are hit by %s!', monNam(mtmp));
+            losehp(maybeHalfPhys(dmg), 'falling piercer', 0);
+        }
+    } else {
+        /* default: monster surprises you */
+        if ((mtmp.mtame | 0) !== 0) {
+            await pline('%s jumps near you from the %s.', monNamCap(mtmp), ceil);
+        } else if ((mtmp.mpeaceful | 0) !== 0) {
+            const blind = heroBlindLikeMthrowu(u);
+            const whom = blind && !senseMonTelepathyStub(u)
+                ? 'something'
+                : monNam(mtmp).replace(/^the /, 'a ');
+            await pline(`You surprise ${whom}!`);
+            mtmp.mpeaceful = 0;
+        } else {
+            await pline('%s attacks you by surprise!', monNamCap(mtmp));
+        }
+    }
+    await mnextoLikeC(g, mtmp);
+}
+
+/**
+ * C: mon.c **`mnexto`** — **`enexto`** near hero, else **`deal_with_overcrowding`**.
+ * @param {typeof game} g
+ */
+async function mnextoLikeC(g, mtmp) {
+    const u = g.u;
+    if (!u || !mtmp) return;
+    if (mtmp === u.usteed) {
+        mtmp.mx = u.ux | 0;
+        mtmp.my = u.uy | 0;
+        return;
+    }
+    const dest = enextoNearMon(g, u.ux | 0, u.uy | 0, mtmp);
+    if (!dest) {
+        await dealWithOvercrowding(g, mtmp);
+        return;
+    }
+    const ox = mtmp.mx | 0;
+    const oy = mtmp.my | 0;
+    mtmp.mx = dest.x | 0;
+    mtmp.my = dest.y | 0;
+    newsym(ox, oy);
+    newsym(mtmp.mx, mtmp.my);
 }
 
 /**
@@ -149,7 +321,8 @@ export async function spotEffects(g = game, pick = true, opts = {}) {
         }
         if (pick && pit) await pickup(1);
 
-        /* C: Warning + melt_ice timer plines; m_at piercer / surprise — not ported */
+        await warningIceMeltPlinesLikeC(g);
+        await spotMonsterOnHeroCeilingLikeC(g);
     } finally {
         spDepth -= 1;
         if (spDepth <= 0) {

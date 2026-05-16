@@ -117,6 +117,10 @@ export async function newgame() {
     g.u.Slimed = 0;
     g.u.HConflict = 0;
     g.u.EConflict = 0; /* extrinsic conflict sources (gethungry excludes W_ARTI only) */
+    g.u.HWarning = 0;
+    g.u.EWarning = 0; /* youprop.h Warning — ice melt timer plines in spoteffects */
+    g.u.HTelepat = 0;
+    g.u.ETelepat = 0; /* Blind + sensemon subset for spoteffects surprise */
     g.u.uwep = null;
     g.u.uswapwep = null;
     g.u.twoweap = false;

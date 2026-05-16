@@ -116,6 +116,8 @@ export const MZ_LARGE = 3;
 const S_EYE = 5;
 const S_LIGHT = 25;
 const S_VORTEX = 22;
+/** C: defsym.h MONSYM(16,'p',PIERCER,...) — piercer / lurker ceiling drop (**`hack.c`** **`spoteffects`**). */
+export const S_PIERCER = 16;
 /** C: defsym.h / monsym.h — **`S_ELEMENTAL`**. */
 export const S_ELEMENTAL = 31;
 /** C: defsym.h **`MONSYM(57, ';', EEL, …)`** — **`mon.c`** **`minliquid_core`** eel-on-land. */
