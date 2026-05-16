@@ -1,6 +1,6 @@
 // destroy_items.js — Hero + monster inventory destruction by fire / cold / electricity (zap.c subset).
 // C ref: zap.c destroy_items(), destroyable(), maybe_destroy_item() — AD_FIRE + AD_COLD + AD_ELEC;
-// inventory_resistance_check / u_adtyp_resistance_obj (hero subset); deferred stacks / potionbreathe;
+// inventory_resistance_check / u_adtyp_resistance_obj (hero subset); deferred stacks; hero fire potionbreathe (**`potion_breathe.js`**).
 // **`Ring_gone`** / **`setnotworn`** (**`wear.js`** **`ringGoneHeroLikeC`** / **`setnotwornHeroMinimalLikeC`**). **`ignite_items`** → **`ignite_items.js`**.
 
 import { game } from './gstate.js';
@@ -29,10 +29,11 @@ import {
     COLD_RES,
     SHOCK_RES,
 } from './const.js';
-import { raceptr, fireResistant } from './mondata.js';
+import { raceptr, fireResistant, breathless, haseyes } from './mondata.js';
 import { WAN_LIGHTNING } from './buzz.js';
 import { discoverScrollOtyp } from './discover_scroll.js';
 import { ringGoneHeroLikeC, setnotwornHeroMinimalLikeC } from './wear.js';
+import { potionbreatheObjBreakLikeC } from './potion_breathe.js';
 
 /** C: monattk.h AD_FIRE */
 export const AD_FIRE = 2;
@@ -183,8 +184,9 @@ function objShortPhrase(obj) {
 }
 
 /**
- * C: zap.c maybe_destroy_item(carrier, obj, AD_FIRE) — hero subset (no potionbreathe;
- * **`Ring_gone`** + **`setnotworn`** before **`useup`**; **`inventoryResistanceCheckHeroLikeC`**).
+ * C: zap.c maybe_destroy_item(carrier, obj, AD_FIRE) — hero subset (**`potionbreathe`** when
+ * **`POTION_CLASS`** after pline; **`!breathless` || `haseyes`**); **`Ring_gone`** + **`setnotworn`**
+ * before **`useup`**; **`inventoryResistanceCheckHeroLikeC`**).
  * @param {typeof game} g
  * @param {{ otyp?: number, oclass?: number, quan?: number, in_use?: number, dknown?: number }} obj
  * @returns {Promise<number>} extra damage (C dmg_out); hero lava ignores return value
@@ -250,6 +252,13 @@ async function maybeDestroyItemHeroFire(g, obj) {
     const base = objShortPhrase(obj);
     const noun = cnt === 1 && quan === 1 ? base : `${base}s`;
     await pline(`${mult}${noun} ${verb}!`);
+
+    if (oc === NH5_POTION_CLASS) {
+        const ptr = raceptr(g.youmonst);
+        if (!breathless(ptr) || haseyes(ptr)) {
+            await potionbreatheObjBreakLikeC(g, obj);
+        }
+    }
 
     if ((obj.owornmask | 0) !== 0) {
         if ((obj.owornmask | 0) & W_RING) ringGoneHeroLikeC(g, obj);
