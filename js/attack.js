@@ -10,6 +10,7 @@ import { weaponType } from './weapon_kind.js';
 import { P_NONE, P_BARE_HANDED_COMBAT, isok } from './const.js';
 import { monsterLeavesCorpse } from './mondata.js';
 import { placeCorpseForMonster } from './mkobj_corpse.js';
+import { adisturb } from './shop.js';
 
 /** @param {{ monnam?: string, data?: { mname?: string } }} mtmp */
 function monsterName(mtmp) {
@@ -32,7 +33,8 @@ function meleeWeaponSkill() {
  * still guards direct callers — pline only, no hit / no practice.
  * Damage: stub 1 + rn2(4); removes mtmp from level.monsters at 0 hp;
  * drops minimal floor corpse (`mkobj_corpse` / `placeFloorObject`).
- * @param {{ mpeaceful?: number, mhp?: number, mx?: number, my?: number, mnum?: number, mvflags?: number, monnam?: string, data?: { mname?: string, mnum?: number, mvflags?: number } }} mtmp
+ * Shop / temple / guard: `shop.adisturb` after damage (peaceful → hostile stub).
+ * @param {{ mpeaceful?: number, mhp?: number, mx?: number, my?: number, mnum?: number, mvflags?: number, monnam?: string, isshk?: number, ispriest?: number, isgd?: number, data?: { mname?: string, mnum?: number, mvflags?: number } }} mtmp
  * @param {{ xkillFlags?: number }} [opts] — C `mondead`/`xkilled` flags (e.g. `XKILL_NOCORPSE`).
  */
 export async function doBumpMeleeAttack(mtmp, opts = {}) {
@@ -46,6 +48,7 @@ export async function doBumpMeleeAttack(mtmp, opts = {}) {
     const dmg = 1 + rn2(4);
     mtmp.mhp = (mtmp.mhp | 0) - dmg;
     useSkill(game.u, meleeWeaponSkill(), 1);
+    await adisturb(mtmp);
 
     if ((mtmp.mhp | 0) <= 0) {
         const x = mtmp.mx | 0;
