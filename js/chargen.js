@@ -63,6 +63,12 @@ export function applyIdentityFromNethackrc(g, opts) {
         hpadv: { ...role.hpadv },
         enadv: { ...role.enadv },
         initrecord: role.initrecord ?? 0,
+        /* C: gu.urole — welcome() / rigid checks use ROLE_GENDMASK via allows.gender */
+        allows: {
+            align: [...role.allows.align],
+            races: [...role.allows.races],
+            gender: role.allows.gender,
+        },
     };
 
     g.urace = {
