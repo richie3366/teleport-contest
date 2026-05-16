@@ -89,7 +89,7 @@ function monNamCap(mtmp) {
 }
 
 /** C: dungeon.c **`ceiling(x,y)`** — JS subset (no **`in_rooms`** vault/temple/shop yet). */
-function ceilingStringLikeC(g, x, y) {
+export function ceilingStringHeroLikeC(g, x, y) {
     const u = g.u;
     const loc = g.level?.at(x, y);
     const typ = loc ? (loc.typ | 0) : 0;
@@ -153,7 +153,7 @@ async function spotMonsterOnHeroCeilingLikeC(g) {
 
     const ptr = raceptr(mtmp);
     const mlet = ptr.mlet | 0;
-    const ceil = ceilingStringLikeC(g, u.ux | 0, u.uy | 0);
+    const ceil = ceilingStringHeroLikeC(g, u.ux | 0, u.uy | 0);
 
     if (mlet === S_PIERCER) {
         await pline('%s suddenly drops from the %s!', monNamCap(mtmp), ceil);

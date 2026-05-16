@@ -25,6 +25,22 @@ export function nearCapacity() {
 }
 
 /**
+ * C: **`hack.c`** **`calc_capacity(int xtra_wt)`** — **`(inv_weight + xtra_wt)`** vs **`weight_cap`** tier **0..5**.
+ * @param {import('./gstate.js').game} g
+ * @param {number} xtraWt
+ */
+export function calcCapacityXtraWtLikeC(g, xtraWt) {
+    const u = g?.u;
+    if (!u) return ENC.UNENCUMBERED;
+    const wt = (u.inv_weight | 0) + (xtraWt | 0);
+    const wc = u.weight_cap | 0;
+    if (wt <= 0) return ENC.UNENCUMBERED;
+    if (wc <= 1) return ENC.OVERLOADED;
+    const cap = Math.trunc((wt * 2) / wc) + 1;
+    return cap > ENC.OVERLOADED ? ENC.OVERLOADED : cap;
+}
+
+/**
  * @param {number} [cap] — u.near_capacity result (0 = unencumbered)
  * @param {boolean} [final] — past tense like C enlightenment `final`
  */

@@ -1,4 +1,4 @@
-// throw_hero.js — dothrow.c throwit subset: slip rng, zap.c bhit(THROWN_WEAPON) ray, u.dz>0→hitfloor;
+// throw_hero.js — dothrow.c throwit subset: slip rng, stamina **`calc_capacity`**, **`toss_up`**, zap.c bhit ray, u.dz→hitfloor;
 //        throwit tail (**`breakobj`/`flooreffects`/`place_object`**) + **`throwit_mon_hit`**/**`thitmonst`** subset.
 // C ref: dothrow.c throwit(), zap.c bhit(); invent.c remove from invent.
 
@@ -19,10 +19,14 @@ import {
 } from './bhit_throw_hero.js';
 import { throwitMonHitThrownHeroLikeC } from './throwit_mon_hit_hero.js';
 import { ammoAndLauncherLikeC } from './weapon_kind.js';
+import { tossUpHeroThrowitLikeC } from './toss_up_hero.js';
+import { calcCapacityXtraWtLikeC } from './encumbr.js';
+import { exercise } from './attrib.js';
+import { A_CON, Is_airlevel, SLT_ENCUMBER } from './const.js';
 
 /**
  * C: dothrow.c throwit opening slip (rn2(7), cursed/greased, ammo_and_launcher misfire vs slip) — mutates u.dx/u.dy/u.dz.
- * Omits uswallow, toss-up u.dz<0, steed holy-water rn2(6), full thitmonst/hmon/potionhit/should_mulch_missile.
+ * Omits uswallow, steed holy-water rn2(6), full thitmonst/hmon/potionhit/should_mulch_missile.
  */
 async function applyThrowSlipRngLikeC(g, obj) {
     const u = g.u;
@@ -51,6 +55,33 @@ async function applyThrowSlipRngLikeC(g, obj) {
 }
 
 /**
+ * C: **`dothrow.c`** **`throwit`** — **`calc_capacity(obj->owt) > SLT_ENCUMBER`** stamina drop (**`You have so little stamina…`**).
+ * Uses **`encumbr.js`** **`calcCapacityXtraWtLikeC`** (**`inv_weight`/`weight_cap`**).
+ */
+async function applyThrowStaminaDropLikeC(g, obj) {
+    const u = g.u;
+    if (!u || !obj) return;
+    const dx = u.dx | 0;
+    const dy = u.dy | 0;
+    const dz = u.dz | 0;
+    if (!(dx || dy || dz < 1)) return;
+    if (calcCapacityXtraWtLikeC(g, obj.owt | 0) <= SLT_ENCUMBER) return;
+    const up = u.Upolyd | 0;
+    const weakHp = up
+        ? (u.mh | 0) < 5 && (u.mh | 0) !== (u.mhmax | 0)
+        : (u.uhp | 0) < 10 && (u.uhp | 0) !== (u.uhpmax | 0);
+    if (!weakHp) return;
+    const hp = up ? (u.mh | 0) : (u.uhp | 0);
+    if ((obj.owt | 0) <= hp * 2) return;
+    if (Is_airlevel(u.uz)) return;
+    await pline(`You have so little stamina, ${doname(obj, g)} drops from your grasp.`);
+    exercise(A_CON, false);
+    u.dx = 0;
+    u.dy = 0;
+    u.dz = 1;
+}
+
+/**
  * C: dothrow.c throwit subset — zap.c bhit ray + landing (breakobj/flooreffects/place_object),
  * throwit_mon_hit / thitmonst weapon/gem/rock/potion subset; u.dz>0 → hitfloor(obj, TRUE), top g.invent.
  * Omits uswapwep launcher check, uslinging, uball cap, boulder/Mjollnir, tether, hits_bars, **`tmp_at`** init **`DISP_TETHER`**.
@@ -69,12 +100,6 @@ export async function throwOneInventAdjacentLikeC(g = game) {
         return;
     }
 
-    if ((u.dz | 0) < 0) {
-        await pline('You cannot throw that way.');
-        g.context.move = 0;
-        return;
-    }
-
     const obj = g.invent;
     if (!obj) {
         await pline('You have nothing to throw.');
@@ -83,12 +108,22 @@ export async function throwOneInventAdjacentLikeC(g = game) {
     }
 
     await applyThrowSlipRngLikeC(g, obj);
+    await applyThrowStaminaDropLikeC(g, obj);
 
-    const dz = u.dz | 0;
-    if (dz > 0) {
+    const dz0 = u.dz | 0;
+    if (dz0 > 0) {
         /* C: dothrow.c throwit — u.dz>0 (toss down) → hitfloor(obj, TRUE); steed holy water rn2(6) omitted */
         removeObjFromHeroInvent(g, obj);
         await hitfloorHeroLikeC(g, obj, true);
+        g.context.move = 1;
+        return;
+    }
+    if (dz0 < 0) {
+        /* C: dothrow.c throwit — u.dz<0 → toss_up(obj, rn2(5) && !Underwater); Mjollnir return omitted */
+        removeObjFromHeroInvent(g, obj);
+        const underwater = (u.underwater | 0) !== 0;
+        const hitsRoof = !!rn2(5) && !underwater;
+        await tossUpHeroThrowitLikeC(g, obj, hitsRoof);
         g.context.move = 1;
         return;
     }
