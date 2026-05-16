@@ -2978,6 +2978,10 @@ export const OTYP_YELLOW_DRAGON_SCALES = 121;
 export const OTYP_BLACK_DRAGON_SCALES = 118;
 /** C: `artifact.c` **`defends`**: mail is tested as equivalent scales offset. */
 export const OTYP_DRAGON_MAIL_TO_SCALES_DELTA = OTYP_GRAY_DRAGON_SCALES - OTYP_GRAY_DRAGON_SCALE_MAIL;
+/** C: defsym.h `MONSYM` — golem (**`mondata.h`** **`is_golem`**). */
+export const S_GOLEM = 55;
+/** C: defsym.h `MONSYM` — dragon (**`makemon.c`** **`monhp_per_lvl`** adult branch). */
+export const S_DRAGON = 30;
 /** C: `monsters.h` MON() order — **`mondata.h`** **`eyecount`**. */
 export const PM_FLOATING_EYE = 29;
 /** C: `monsters.h` MON() order — cyclops. */
@@ -2998,8 +3002,15 @@ export const PM_SALAMANDER = 323;
 /** C: `monsters.h` — straw / paper / leather / wood golem (**`dofiretrap`** **`switch`**). */
 export const PM_STRAW_GOLEM = 247;
 export const PM_PAPER_GOLEM = 248;
+/** C: `monsters.h` — rope / gold / flesh / clay / stone / glass golem (**`makemon.c`** **`golemhp`**). */
+export const PM_ROPE_GOLEM = 249;
+export const PM_GOLD_GOLEM = 250;
 export const PM_LEATHER_GOLEM = 251;
 export const PM_WOOD_GOLEM = 252;
+export const PM_FLESH_GOLEM = 253;
+export const PM_CLAY_GOLEM = 254;
+export const PM_STONE_GOLEM = 255;
+export const PM_GLASS_GOLEM = 256;
 /** C: `monsters.h` — human mummy / zombie (**`dig.c`** **`dig_up_grave`** **`mkclass`** stand-in). */
 export const PM_HUMAN_MUMMY = 192;
 export const PM_HUMAN_ZOMBIE = 244;

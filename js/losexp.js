@@ -5,8 +5,25 @@ import { pline } from './display.js';
 import { newuexp } from './explevel.js';
 import { resistsDrliHeroLikeC, raceptr } from './mondata.js';
 import { applyAdjabil } from './u_init_adjabil.js';
-import { rnd } from './rng.js';
+import { rnd, rn2 } from './rng.js';
 import { rehumanizeHeroAfterPolyDrainLikeC } from './were_hero.js';
+import {
+    PM_GRAY_DRAGON,
+    PM_YELLOW_DRAGON,
+    PM_STRAW_GOLEM,
+    PM_PAPER_GOLEM,
+    PM_ROPE_GOLEM,
+    PM_LEATHER_GOLEM,
+    PM_GOLD_GOLEM,
+    PM_WOOD_GOLEM,
+    PM_FLESH_GOLEM,
+    PM_CLAY_GOLEM,
+    PM_STONE_GOLEM,
+    PM_GLASS_GOLEM,
+    PM_IRON_GOLEM,
+    S_GOLEM,
+    S_DRAGON,
+} from './const.js';
 
 /**
  * C: role.c Goodbye() — role-specific farewell word before " level N.".
@@ -40,15 +57,60 @@ export function minuhpmaxLikeC(u, altmin) {
 }
 
 /**
- * C: makemon.c **`monhp_per_lvl(struct monst *)`** — hero poly (**`gy.youmonst`**) subset (**`rnd(8)`** default).
- * Omits golem / S_DRAGON / m_lev==0 branches until mons[] wiring matches C.
+ * C: makemon.c **`golemhp(int type)`** — **`monhp_per_lvl`** golem branch.
+ * @param {number} mndx `monsndx(mon)` / hero **`umonnum`**
+ */
+export function golemhpLikeC(mndx) {
+    switch (mndx | 0) {
+        case PM_STRAW_GOLEM:
+            return 20;
+        case PM_PAPER_GOLEM:
+            return 20;
+        case PM_ROPE_GOLEM:
+            return 30;
+        case PM_LEATHER_GOLEM:
+            return 40;
+        case PM_GOLD_GOLEM:
+            return 60;
+        case PM_WOOD_GOLEM:
+            return 50;
+        case PM_FLESH_GOLEM:
+            return 40;
+        case PM_CLAY_GOLEM:
+            return 70;
+        case PM_STONE_GOLEM:
+            return 100;
+        case PM_GLASS_GOLEM:
+            return 80;
+        case PM_IRON_GOLEM:
+            return 120;
+        default:
+            return 0;
+    }
+}
+
+/**
+ * C: makemon.c **`monhp_per_lvl(struct monst *)`** — hero poly (**`gy.youmonst`**).
  * @param {import('./gstate.js').game} g
  */
 export function monhpPerLvlHeroYoumonstLikeC(g) {
     const ptr = raceptr(g?.youmonst);
-    const ml = ptr?.mlevel | 0;
-    if (ml > 49) return 4 + rnd(4);
-    if (!ml) return rnd(4);
+    const mndx = (g?.youmonst?.mnum ?? g?.u?.umonnum) | 0;
+    const mlev = (g?.youmonst?.m_lev ?? g?.u?.m_lev ?? 0) | 0;
+    const mlet = ptr?.mlet | 0;
+
+    if (mlet === S_GOLEM) {
+        const gh = golemhpLikeC(mndx);
+        const denom = Math.max(1, ptr?.mlevel | 0);
+        return Math.trunc(gh / denom);
+    }
+
+    const pml = ptr?.mlevel | 0;
+    if (pml > 49) return 4 + rnd(4);
+
+    if (mlet === S_DRAGON && mndx >= PM_GRAY_DRAGON && mndx <= PM_YELLOW_DRAGON) return 4 + rn2(5);
+
+    if (!mlev) return rnd(4);
     return rnd(8);
 }
 

@@ -2,7 +2,7 @@
 // C ref: were.c you_were(), you_unwere(); hack.c monster_nearby(); polyself.c polymon()/rehumanize() (minimal).
 
 import { pline } from './display.js';
-import { ismnum, NON_PM, M_AP_FURNITURE, M_AP_OBJECT } from './const.js';
+import { ismnum, NON_PM, M_AP_FURNITURE, M_AP_OBJECT, KILLED_BY } from './const.js';
 import {
     isWerePtr,
     isHider,
@@ -14,6 +14,8 @@ import { rn1 } from './rng.js';
 import { cansee } from './vision.js';
 import { distmin } from './hacklib.js';
 import { syncPolyHpFromHumanShape } from './u_init_hp_energy.js';
+import { losehp } from './mthrowu.js';
+import { encumberMsg } from './pickup.js';
 
 const M2_WERE = 0x00000004;
 
@@ -74,13 +76,21 @@ async function rehumanizeWereVaporSubsetLikeC(g) {
 }
 
 /**
- * C: polyself.c **`rehumanize`** — minimal return-to-race when poly HP hits **0** (**`losexp`** tail).
- * Omits inventory (break_armor, drop_weapon, find_ac, uswallow) full rehumanize.
+ * C: polyself.c **`rehumanize`** — return-to-race when poly HP hits **0** (**`losexp`** tail).
+ * Omits **`emits_light`**, **`nomul`**, inventory **`retouch_equipment`**, **`selftouch`**, full **`polyman`** stack.
  * @param {import('./gstate.js').game} g
  */
 export async function rehumanizeHeroAfterPolyDrainLikeC(g) {
     const u = g.u;
     if (!u) return;
+
+    /* C: polyself.c rehumanize — Unchanging + drained poly HP → done(DIED) */
+    if ((u.Unchanging | 0) && (u.mh | 0) < 1) {
+        const cur = u.uhp | 0;
+        losehp(Math.max(1, cur + 1), 'killed while stuck in creature form', KILLED_BY);
+        return;
+    }
+
     await pline(`You return to ${g.urace?.adj || 'human'} form!`);
     u.Upolyd = 0;
     u.mtimedone = 0;
@@ -92,14 +102,27 @@ export async function rehumanizeHeroAfterPolyDrainLikeC(g) {
     u.mhmax = 0;
     u.mh = 0;
     if ((u.uhp | 0) > (u.uhpmax | 0)) u.uhp = u.uhpmax | 0;
+
+    /* C: polyself.c rehumanize — human u.uhp < 1 after revert → done(DIED) */
+    if ((u.uhp | 0) < 1) {
+        await pline('Your old form was not healthy enough to survive.');
+        const adj = g.urace?.adj || 'human';
+        losehp(Math.max(1, (u.uhp | 0) + 1), `reverting to unhealthy ${adj} form`, KILLED_BY);
+        g.disp = g.disp || {};
+        g.disp.botl = true;
+        g.vision_full_recalc = 1;
+        return;
+    }
+
     g.disp = g.disp || {};
     g.disp.botl = true;
     g.vision_full_recalc = 1;
+    await encumberMsg();
 }
 
 /**
  * C: were.c you_unwere(purify) — paths used when **`purify`** is FALSE (**`potionbreathe`** holy vapor).
- * Omits **`paranoid_query`** / **`Polymorph_control`** (not in JS yet); omits **`Unchanging`** death.
+ * Omits **`paranoid_query`** / **`Polymorph_control`** (not in JS yet); **`Unchanging`** on vapor path only (**`rehumanizeHeroAfterPolyDrainLikeC`** covers drain-death).
  */
 export async function youUnwerePotionbreatheSubsetLikeC(g, purify) {
     const u = g.u;
