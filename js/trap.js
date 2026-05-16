@@ -44,6 +44,7 @@ import { burnFloorObjects } from './burn_floor_objects.js';
 import { meltIceAt, maybeDunkBouldersLikeC } from './melt_ice.js';
 import { fillholetypLikeC } from './fillholetyp.js';
 import { liquidFlowHeroDigLikeC } from './liquid_flow.js';
+import { isDrawbridgeWallLikeC, findDrawbridgeCoordsLikeC, destroyDrawbridgeAtLikeC } from './drawbridge.js';
 import { delEngrAt } from './engrave.js';
 import { spotChecksLikeC } from './spot_checks.js';
 import { doname } from './objnam.js';
@@ -156,6 +157,10 @@ import {
     PM_WOOD_GOLEM,
     OTYP_BOULDER,
     ROOM,
+    DOOR,
+    D_BROKEN,
+    DRAWBRIDGE_DOWN,
+    IS_DOOR,
     TRAP_EFFECT_FINISHED,
     TRAP_CAUGHT_MON,
     TRAP_KILLED_MON,
@@ -2294,14 +2299,15 @@ async function trapeffectBearHero(trap, trflags) {
 
 /**
  * C: trap.c **`blow_up_landmine`** — **`scatter`** (deferred), **`engrave.c`** **`del_engr_at`**, **`wake_nearto`**, …;
- * non-water/air: **`dig.c`** **`fillholetyp`** then either **`lev->typ`** + **`liquid_flow`** ( **`deltrap`** ) or **`LANDMINE` → `PIT`**;
+ * **`IS_DOOR`** → **`D_BROKEN`**; **`DRAWBRIDGE_DOWN`** / **`is_drawbridge_wall`** → **`find_drawbridge`** + **`destroy_drawbridge`**;
+ * **`trap = t_at(x,y)`** then non-water/air: **`fillholetyp`** / **`liquid_flow`** or **`LANDMINE` → `PIT`**;
  * **`Is_waterlevel`/`Is_airlevel`** → **`deltrap`** only (no pit).
- * Then **`fill_pit`**, **`apply.c`** **`maybe_dunk_boulders`**, **`recalc_block_point`** (JS **`vision_recalc(1)`**),
- * **`hack.c`** **`spot_checks`**.
+ * Then **`fill_pit`**, **`maybe_dunk_boulders`**, **`vision_recalc`**, **`spot_checks`**.
  * @param {{ tx: number, ty: number, ttyp?: number, madeby_u?: boolean, tseen?: boolean }|null|undefined} trap
  */
-async function blowUpLandmine(trap) {
-    if (!trap) return;
+async function blowUpLandmine(trapIn) {
+    if (!trapIn) return;
+    let trap = trapIn;
     const g = game;
     const x = trap.tx | 0;
     const y = trap.ty | 0;
@@ -2309,16 +2315,40 @@ async function blowUpLandmine(trap) {
     const old_typ = lev ? (lev.typ | 0) : 0;
     delEngrAt(x, y);
     wakeNearto(x, y, 400);
+
+    const levProbe = g.level?.at(x, y);
+    if (levProbe && IS_DOOR(levProbe.typ | 0)) {
+        levProbe.doormask = D_BROKEN;
+    }
+    if (levProbe) {
+        const lt = levProbe.typ | 0;
+        if (lt === DRAWBRIDGE_DOWN || isDrawbridgeWallLikeC(g, x, y) >= 0) {
+            const c = { x, y };
+            if (findDrawbridgeCoordsLikeC(g, c)) {
+                await destroyDrawbridgeAtLikeC(g, c.x | 0, c.y | 0);
+            }
+        }
+    }
+
+    trap = tAt(x, y);
     const u = game.u;
-    if (Is_waterlevel(u?.uz) || Is_airlevel(u?.uz)) {
-        delTrap(trap);
+    const tailAfterMine = async () => {
         await fillPitInLevel(g, x, y);
         await maybeDunkBouldersLikeC(g, x, y);
         vision_recalc(1);
         spotChecksLikeC(g, x, y, old_typ);
+    };
+
+    if (!trap) {
+        await tailAfterMine();
         return;
     }
-    if (trap) {
+    if (Is_waterlevel(u?.uz) || Is_airlevel(u?.uz)) {
+        delTrap(trap);
+        await tailAfterMine();
+        return;
+    }
+    {
         const typFill = fillholetypLikeC(g, x, y, false);
         const levCell = g.level?.at(x, y);
         if (levCell && typFill !== ROOM) {
@@ -2331,10 +2361,7 @@ async function blowUpLandmine(trap) {
             seetrap(trap);
         }
     }
-    await fillPitInLevel(g, x, y);
-    await maybeDunkBouldersLikeC(g, x, y);
-    vision_recalc(1);
-    spotChecksLikeC(g, x, y, old_typ);
+    await tailAfterMine();
 }
 
 /** C: trap.c steedintrap — returns non-zero if steed absorbed trap; not ported. */
