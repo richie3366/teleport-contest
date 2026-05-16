@@ -1,5 +1,7 @@
 // kick.js — Hero #kick (dokick.c) + shop door billing (shk.c add_damage / pay_for_damage).
-// C ref: dokick.c dokick(), kick_door(), kick_dumb(), kick_ouch(), kick_nondoor() tail;
+// C ref: dokick.c dokick(), maybe_kick_monster(), kick_monster(), kickdmg(),
+//        kick_door(), kick_dumb(), kick_ouch(), kick_nondoor() tail;
+//        uhitm.c attack_checks() subset (kick: wep null); hack.c overexertion();
 //        mon.c wake_nearby()/wake_nearto(); trap.c b_trapped(); engrave.c u_wipe_engr().
 
 import { nhgetch } from './input.js';
@@ -12,7 +14,10 @@ import { uWipeEngr } from './engrave.js';
 import { floorObjKey } from './floorobj.js';
 import { losehp, maybeHalfPhys } from './mthrowu.js';
 import { heroPassesWalls } from './walkable.js';
-import { permonstHuman, slithy, verysmall } from './mondata.js';
+import { permonstHuman, slithy, verysmall, monsterLeavesCorpse, isFlyer } from './mondata.js';
+import { placeCorpseForMonster } from './mkobj_corpse.js';
+import { overexertion, overexertHpIfEncumberedPlines } from './eat_hunger.js';
+import { useSkill } from './u_init_skills.js';
 import {
     IS_DOOR,
     D_ISOPEN,
@@ -37,9 +42,13 @@ import {
     A_STR,
     A_DEX,
     A_CON,
+    P_MARTIAL_ARTS,
 } from './const.js';
 import { nearCapacity, ENC } from './encumbr.js';
-import { inRoomsShopbaseRoomnos, addDamageAt, payForDamage } from './shop.js';
+import { inRoomsShopbaseRoomnos, addDamageAt, payForDamage, adisturb } from './shop.js';
+
+/** C: monflag.h `M1_THICK_HIDE` — **`mondata.h`** **`thick_skinned`**. */
+const M1_THICK_HIDE = 0x00200000;
 
 /** C: skills.h martial_bonus() — Samurai / Monk only (not boots / sasquatch here). */
 function martialBonusRole(g) {
@@ -130,6 +139,163 @@ async function readKickDirectionDelta() {
         return null;
     }
     return { dx: pair[0], dy: pair[1] };
+}
+
+/** C: monattk.h **`AT_KICK`** */
+const AT_KICK = 3;
+
+function polyFormHasKickAttack(g) {
+    const atk = g.youmonst?.data?.mattk;
+    if (!atk?.length) return false;
+    for (let i = 0; i < atk.length; i++) {
+        if ((atk[i].aatyp | 0) === AT_KICK) return true;
+    }
+    return false;
+}
+
+function monNamKick(mtmp) {
+    return mtmp?.monnam || mtmp?.data?.mname || 'monster';
+}
+
+/** C: mondata.h **`canspotmon`** subset — steed / invis / **`cansee`**. */
+function canseemonKick(g, mtmp) {
+    const u = g.u;
+    if (!mtmp || !u) return false;
+    if (u.usteed === mtmp) return true;
+    if ((mtmp.minvis | 0) && !(u.See_invisible | 0)) return false;
+    return cansee(mtmp.mx | 0, mtmp.my | 0);
+}
+
+/**
+ * C: uhitm.c **`attack_checks(mtmp, NULL)`** — subset for **`dokick.c`** (**`wep`** null).
+ * @returns {Promise<boolean>} true = abort kick (peaceful confirm: **`svc.context.move = 0`**).
+ */
+async function attackChecksKickMonsterLikeC(g, mtmp) {
+    const u = g.u;
+    if (!u || !mtmp) return false;
+    if (u.uswallow && u.ustuck === mtmp) return false;
+    if (g.context.forcefight | 0) return false;
+    if (g.flags?.confirm !== false && (mtmp.mpeaceful | 0) && canseemonKick(g, mtmp)
+        && !(u.Confusion | 0) && !(u.Hallucination | 0) && !(u.HStun | 0)) {
+        g.context.move = 0;
+        return true;
+    }
+    return false;
+}
+
+/**
+ * C: dokick.c **`maybe_kick_monster`** — **`gb.bhitpos`**, **`forcefight`**, **`attack_checks`**, **`overexertion`**.
+ * @returns {Promise<boolean>} true if **`kick_monster`** should run (**`mon != 0`** in C).
+ */
+async function maybeKickMonsterLikeC(g, mtmp, x, y) {
+    if (!mtmp) return true;
+    const saveFf = g.context.forcefight | 0;
+    g.context.bhitpos = { x, y };
+    if (!(mtmp.mpeaceful | 0) || !canseemonKick(g, mtmp)) g.context.forcefight = 1;
+    let abort = await attackChecksKickMonsterLikeC(g, mtmp);
+    if (!abort) {
+        const ox = overexertion();
+        for (let i = 0; i < ox.plines.length; i++) await pline(ox.plines[i]);
+        if (ox.multiNegative) abort = true;
+    }
+    g.context.forcefight = saveFf;
+    return !abort;
+}
+
+/** C: mon.c **`setmangry`** tail for shop/priest/guard (**`zap_over_floor.js`** **`wakeupMonFromZap`**). */
+async function setMangryFromKickLikeC(g, mtmp) {
+    const wasPeaceful = mtmp.mpeaceful | 0;
+    mtmp.msleeping = 0;
+    if (wasPeaceful) {
+        mtmp.mpeaceful = 0;
+        if (canseemonKick(g, mtmp) && ((mtmp.isshk | 0) || (mtmp.ispriest | 0) || (mtmp.isgd | 0))) {
+            await pline(`${monnamCap(mtmp)} gets angry!`);
+        }
+    }
+}
+
+/**
+ * C: dokick.c **`kickdmg()`** — non-**`special_dmgval`** / **`passive`** / **`killed`** (corpse **`mondead`** subset).
+ * @returns {Promise<number>} damage dealt (0 if shade / no hit)
+ */
+async function kickdmgNonPolyLikeC(g, mtmp, clumsy) {
+    const ptr = mtmp.data ?? permonstHuman;
+    let dmg = Math.trunc((acurr(A_STR) + acurr(A_DEX) + acurr(A_CON)) / 15);
+    if (clumsy) dmg = Math.trunc(dmg / 2);
+    if ((ptr.mflags1 | 0) & M1_THICK_HIDE) dmg = 0;
+    const isShade = ptr.mname === 'shade';
+    const specialdmg = 0;
+    if (isShade && !specialdmg) {
+        await pline(`Your kick passes harmlessly through ${monNamKick(mtmp)}.`);
+        return 0;
+    }
+    /** @type {number|null} */
+    let kickSkill = null;
+    if (dmg > 0) {
+        dmg = rnd(dmg);
+        if (martialLike(g)) {
+            if (dmg > 1) kickSkill = P_MARTIAL_ARTS;
+            dmg += rn2(Math.trunc(acurr(A_DEX) / 2) + 1);
+        }
+        exercise(A_DEX, true);
+    }
+    if (dmg > 0) mtmp.mhp = (mtmp.mhp | 0) - dmg;
+    await adisturb(mtmp);
+    if ((mtmp.mhp | 0) <= 0) {
+        const mx = mtmp.mx | 0;
+        const my = mtmp.my | 0;
+        if (g.level && isok(mx, my) && monsterLeavesCorpse(mtmp, g, 0)) placeCorpseForMonster(mtmp, mx, my);
+        const arr = g.level?.monsters;
+        if (arr) {
+            const ix = arr.indexOf(mtmp);
+            if (ix >= 0) arr.splice(ix, 1);
+        }
+        await pline('You kill it!');
+    }
+    if (kickSkill != null && (mtmp.mhp | 0) > 0) useSkill(g.u, kickSkill, 1, g);
+    for (const line of overexertHpIfEncumberedPlines()) await pline(line);
+    return dmg;
+}
+
+/**
+ * C: dokick.c **`kick_monster()`** — poly **`AT_KICK`** / mimic / block-kick / **`hurtle`** deferred.
+ * @param {import('./gstate.js').game} g
+ */
+async function kickMonsterNonPolyLikeC(g, mtmp, _x, _y) {
+    void _x;
+    void _y;
+    if ((g.u.Upolyd | 0) && polyFormHasKickAttack(g)) {
+        await pline('You kick at something.'); /* C: **`find_roll_to_hit`** / **`damageum`** loop — TODO */
+        return;
+    }
+    await setMangryFromKickLikeC(g, mtmp);
+    const mdptr = mtmp.data ?? permonstHuman;
+    if ((g.u.Levitation | 0) && !rn2(3) && verysmall(mdptr) && !isFlyer(mdptr)) {
+        await pline('Floating in the air, you miss wildly!');
+        exercise(A_DEX, false);
+        return;
+    }
+    let clumsy = !!(g.u.Fumbling | 0);
+    const u = g.u;
+    const j = u?.weight_cap | 0;
+    const invw = u?.inv_weight | 0;
+    if (j > 0) {
+        const i = -invw;
+        if (i < Math.trunc((j * 3) / 10)) {
+            const n1 = i < Math.trunc(j / 10) ? 2 : i < Math.trunc(j / 5) ? 3 : 4;
+            if (!rn2(n1)) {
+                if (!martialLike(g)) {
+                    await pline('Your clumsy kick does no damage.');
+                    exercise(A_DEX, false);
+                    return;
+                }
+            }
+            if (i < Math.trunc(j / 10)) clumsy = true;
+            else if (!rn2(i < Math.trunc(j / 5) ? 2 : 3)) clumsy = true;
+        }
+    }
+    await pline(`You kick ${monNamKick(mtmp)}.`);
+    await kickdmgNonPolyLikeC(g, mtmp, clumsy);
 }
 
 /**
@@ -374,10 +540,11 @@ export async function dokickFromCmd(g) {
     const x = (u.ux | 0) + delta.dx;
     const y = (u.uy | 0) + delta.dy;
     const mtmp = g.level.monsters?.find((m) => (m.mx | 0) === x && (m.my | 0) === y) ?? null;
+
     if (mtmp) {
-        await pline('You kick at something.');
         g.context.move = 1;
-        return;
+        const proceed = await maybeKickMonsterLikeC(g, mtmp, x | 0, y | 0);
+        if (!proceed) return;
     }
 
     await wakeNearbyFalseAtHero(g);
@@ -385,6 +552,12 @@ export async function dokickFromCmd(g) {
 
     if (!isok(x, y)) {
         await kickOuchAt(g, x, y);
+        g.context.move = 1;
+        return;
+    }
+
+    if (mtmp) {
+        await kickMonsterNonPolyLikeC(g, mtmp, x | 0, y | 0);
         g.context.move = 1;
         return;
     }
