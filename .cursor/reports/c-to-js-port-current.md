@@ -9,13 +9,13 @@ Thin handoff for the next coding session. Deep parity tables and history: [`c-to
 - **Plain ES modules**, no build/WASM/network in contest code; RNG via `js/rng.js`; match **clang** evaluation order for multi-call expressions.
 - API: [`docs/API.md`](../../docs/API.md); overview: [`README.md`](../../README.md).
 
-**Last slice:** **`zap.c`** **`obj_resists`** — new **`js/obj_resists.js`**: unique items (**`AMULET_OF_YENDOR`**, **`SPE_BOOK_OF_THE_DEAD`**, **`CANDELABRUM`/`BELL`** otyps from **`objects.h`**), rider corpse (**`CORPSE_OTYP`** + **`isRiderMnum`**); else **`rn2(100)`** vs **`ochance`/`achance`**. **`mondata.js`:** **`isRiderMnum`**; **`const.js`:** **`PM_DEATH`/`PM_PESTILENCE`/`PM_FAMINE`**. **`mkobj_corpse.js`:** export **`CORPSE_OTYP`**. **`burn_floor_objects.js`:** **`objResists(obj,2,100)`** replaces stub (**`rn2`** only when not unique).
+**Last slice:** **`objects.h`** / **`objnam.c`** — **`OTYP_GLOB_OF_GREEN_SLIME`** **276** (**`cpp` `OBJECTS_ENUM`**) in **`const.js`**; **`burn_floor_objects`** imports it; **`xnameBurnFloor`/`distantNameBurnFloor`/`doname`**: **`g.scrollDiscovery`** **`Set`** drives **`scroll of`** vs **`scroll labeled`**; **`makePluralBurn`** **`scroll of`**; **`discoverScrollOtyp`**. **`mklev.js`:** **`SCR_ENCHANT_ARMOR`** **326** (was **276**, collided with glob).
 
 ## Next steps (highest impact from latest fire/lava work)
 
-1. **Fuller `xname`** / scroll discovery / glob **`otyp`** audit vs **`objects_nums`** ( **`burn_floor_objects`** / **`objnam`** still use legacy glob **263** until aligned).
-2. **Full `melt_ice`** — **`obj_ice_effects`**, **`unearth_objs`**, **`boulder_hits_pool`**, **`cnv_trap_obj`** for mine/bear on ice, **`minliquid`**, **`MELT_ICE_AWAY`** timers.
-3. **`minuhpmax`/`setuhpmax`/`losexp`** ( **`dofiretrap`** human branch ); underwater/steam **`dofiretrap`** box branch; **`shieldeff`/`monstseesu`**.
+1. **Full `melt_ice`** — **`obj_ice_effects`**, **`unearth_objs`**, **`boulder_hits_pool`**, **`cnv_trap_obj`** for mine/bear on ice, **`minliquid`**, **`MELT_ICE_AWAY`** timers.
+2. **`minuhpmax`/`setuhpmax`/`losexp`** ( **`dofiretrap`** human branch ); underwater/steam **`dofiretrap`** box branch; **`shieldeff`/`monstseesu`**.
+3. **Wire `discoverScrollOtyp`** from **`read`** / **`pickup`** / **`makeknown`** when scroll ID is learned; audit remaining **`mklev.js`** **`otyp`** literals vs **`objects_nums`**.
 
 ## After you ship a slice
 
