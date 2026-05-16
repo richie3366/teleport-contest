@@ -797,6 +797,149 @@ export async function hotPursuitShk(g, shkp) {
     }
 }
 
+/** C: **`decl.c`/`allmain.c`** **`gh.hero_seq`** — **`moves << 3`** (**no per-submove `++`** yet). */
+export function heroSeqLikeC(g) {
+    return (g.moves | 0) << 3;
+}
+
+/** C: **`invent.c`** **`currency(amount)`** — hallucination picks random unit name. */
+export function currencyAmountLikeC(g, amount) {
+    const n = amount | 0;
+    const halluc = !!(g.u?.Hallucination | 0);
+    const currencies = [
+        'zorkmid',
+        'gold coin',
+        'dollar',
+        'yen',
+        'wolfram',
+        'credit',
+        'ducat',
+        'peso',
+        'florin',
+        'mark',
+        'schilling',
+        'zloty',
+        'dirham',
+        'forint',
+        'tenga',
+        'shekel',
+        'newt',
+        'wen',
+        'hongzhou dollar',
+        'Koku',
+        'Crumb',
+        'Penny',
+        'Fleury',
+        'Bolt',
+        'Milicent',
+        'Gold piece',
+        'Solaris',
+        'Joule',
+        'Credit',
+        'Galleon',
+        'Pence',
+        'Lira',
+        'Ankh-Morpork dollar',
+        'royal jelly',
+        'Au',
+        'Ducaton',
+        'Drachma',
+        'Beebz',
+        'Gil',
+        'Galactic Credit',
+        'Triganic Pu',
+        'woolong',
+        'zorkmid',
+    ];
+    let w = 'zorkmid';
+    if (halluc) w = currencies[rnd(currencies.length)] ?? 'zorkmid';
+    return n === 1 ? w : `${w}s`;
+}
+
+/**
+ * C: **`mon.c`** **`angry_guards(silent)`** — watchmen (**`PM_WATCHMAN`/`PM_WATCH_CAPTAIN`** not in JS **`const`** yet; stub **FALSE**).
+ * @returns {boolean}
+ */
+export async function angryGuardsSilentLikeC(_g, silent) {
+    void silent;
+    return false;
+}
+
+/**
+ * C: **`shk.c`** **`make_angry_shk`** — merge pending bill/debit/loan/credit into **`robbed`**, **`setpaid`** stub, pline, **`hot_pursuit`**.
+ * @param {import('./gstate.js').game} g
+ */
+export async function makeAngryShkLikeC(g, shkp, ox, oy) {
+    void ox;
+    void oy;
+    const e = ESHK(shkp);
+    if (!e || !(shkp?.isshk | 0)) return;
+    const debit = e.debit | 0;
+    const loan = e.loan | 0;
+    const credit = e.credit | 0;
+    const billct = e.billct | 0;
+    if (billct || debit || loan || credit) {
+        /** C: **`addupbill`** — stub **0** until full **`ibill`/`bill_p`** port. */
+        const addup = 0;
+        e.robbed = Math.max(0, (e.robbed | 0) + addup + debit + loan - credit);
+        e.debit = 0;
+        e.loan = 0;
+        e.credit = 0;
+        e.billct = 0;
+        if (Array.isArray(e.bill)) e.bill.length = 0;
+    }
+    const wasCalm = !!(shkp.mpeaceful | 0);
+    await pline(`${shknamDisplay(shkp)} ${wasCalm ? 'gets angry' : 'is furious'}!`);
+    await hotPursuitShk(g, shkp);
+}
+
+/**
+ * C: **`dothrow.c`** **`breakobj`** floor + **`hero_caused`** shop tail (**`check_shop_obj`** deferred).
+ * @param {import('./gstate.js').game} g
+ * @param {boolean} fromInvent — C **`from_invent`**
+ */
+export async function breakobjHeroShopFloorTailLikeC(g, obj, x, y, fromInvent) {
+    const u = g.u;
+    if (!u) return;
+
+    if ((fromInvent || (obj.unpaid | 0)) && (heroInShopOccupancyLikeUshops(g) || (obj.unpaid | 0))) {
+        /* C: **`check_shop_obj(obj, x, y, TRUE)`** — not ported */
+        return;
+    }
+
+    if ((obj.no_charge | 0) || !costlySpot(g, x | 0, y | 0)) return;
+
+    const rnosObj = inRoomsShopbaseRoomnos(g, x | 0, y | 0);
+    if (!rnosObj.length) return;
+    const shkp = shopKeeperForLevlRoomno(g, rnosObj[0] | 0);
+    if (!shkp) return;
+
+    const e = ESHK(shkp);
+    if (!e) return;
+
+    const hs = heroSeqLikeC(g);
+    if (e.break_seq === undefined) e.break_seq = -1;
+    if (hs !== (e.break_seq | 0)) {
+        e.seq_peaceful = !!(shkp.mpeaceful | 0);
+    }
+
+    const billingPeaceful = !!(e.seq_peaceful | 0);
+    const stolenVal = await stolenValueMerchBurySilent(
+        g, obj, x | 0, y | 0, shkp, false, billingPeaceful,
+    );
+
+    const rHeroList = inRoomsShopbaseRoomnos(g, u.ux | 0, u.uy | 0);
+    const rHero = rHeroList[0] ?? -1;
+    const rObj = rnosObj[0] | 0;
+    const heroInsideShop = insideShopLevlRoomno(g, u.ux | 0, u.uy | 0) !== NO_ROOM;
+    const mismatchOrOutside = rObj !== (rHero | 0) || !heroInsideShop;
+
+    if (stolenVal > 0 && mismatchOrOutside && hs !== (e.break_seq | 0)) {
+        await makeAngryShkLikeC(g, shkp, x | 0, y | 0);
+    }
+    e.break_seq = hs;
+}
+
 /** C: **`shk.c`** **`pacify_shk(shkp, FALSE)`** subset — peaceful; **`surcharge`** cleared (**`bill`** undo skipped). */
 function pacifyShkMinimal(shkp) {
     shkp.mpeaceful = 1;
@@ -1075,7 +1218,7 @@ const M1_TPORT_CNTRL = 0x04000000;
 const OTYP_CORPSE = 265;
 const OTYP_EGG = 266;
 const OTYP_TIN = 295;
-const OTYP_POT_WATER = 322;
+const OTYP_POT_WATER = 321;
 const OTYP_DUNCE_CAP = 94;
 const OTYP_HAWAIIAN_SHIRT = 136;
 const OTYP_TALLOW_CANDLE = 225;
@@ -1083,7 +1226,7 @@ const OTYP_WAX_CANDLE = 226;
 const OTYP_BRASS_LANTERN = 227;
 const OTYP_OIL_LAMP = 228;
 const OTYP_MAGIC_LAMP = 229;
-const OTYP_POT_OIL = 321;
+const OTYP_POT_OIL = 320;
 /** C: shknam.c **`#define VEGETARIAN_CLASS (MAXOCLASSES + 1)`** — NH5 **`MAXOCLASSES`** = 18 (**`VENOM_CLASS`**). */
 const NH5_VEGETARIAN_PSEUDO_CLASS = 19;
 /** C: objects.h `FIRST_REAL_GEM` / `FIRST_GLASS_GEM` — gem **`otyp`** ranges. */
@@ -1828,8 +1971,9 @@ function stolenContainerMerchBurySilent(g, obj, shkp, ininv) {
  * Still TODO: real **`mons[]`** + **`cnutrit`** for **`corpsenm_price_adj`**, C phantom bill row, **`addtobill`**.
  * @param {object | null} shkpFallback — C bury path has tile shk; used when **`billable`** leaves **`shkp` unset**.
  * @param {boolean} silent — C **`silent`** (suppresses per-object **`You`** / thief **`Norep`**; **`check_credit`** still plines like C)
+ * @param {boolean} [billingPeaceful] — when set, C **`stolen_value(..., peaceful, ...)`** uses this instead of current **`mpeaceful`** (**`breakobj`** **`seq_peaceful`**).
  */
-export async function stolenValueMerchBurySilent(g, obj, x, y, shkpFallback, silent) {
+export async function stolenValueMerchBurySilent(g, obj, x, y, shkpFallback, silent, billingPeaceful) {
     const xh = x | 0;
     const yh = y | 0;
     const owner = findObjowner(g, obj, xh, yh);
@@ -1858,7 +2002,8 @@ export async function stolenValueMerchBurySilent(g, obj, x, y, shkpFallback, sil
     const e = ESHK(shkActive);
     if (!e) return 0;
 
-    const peaceful = !!(shkActive.mpeaceful | 0);
+    const peaceful =
+        billingPeaceful !== undefined ? !!billingPeaceful : !!(shkActive.mpeaceful | 0);
     let value = 0;
     let gvalue = 0;
     const oc = obj.oclass | 0;
