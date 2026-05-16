@@ -60,6 +60,7 @@ import {
 } from './const.js';
 import { nearCapacity, ENC } from './encumbr.js';
 import { inRoomsShopbaseRoomnos, addDamageAt, payForDamage, adisturb } from './shop.js';
+import { heroBreaksObjLikeC } from './obj_break_dothrow.js';
 
 /** C: monflag.h `M1_THICK_HIDE` — **`mondata.h`** **`thick_skinned`**. */
 const M1_THICK_HIDE = 0x00200000;
@@ -516,7 +517,7 @@ async function bhitKickedObjectSlideLikeC(g, startX, startY, range, kickedForNam
 /**
  * C: dokick.c really_kick_object — traps, fumble, range, Thump!, zap.c bhit KICKED_WEAPON slide
  * (range-- then range-- > 0 steps: water wall, iron bars, m_at, web rn2(3), ZAP_POS and closed_door, pool/lava, sink).
- * Still TODO: scatter, shop costly, hero_breaks, Is_box, obstructed free, ship_object, hits_bars, tmp_at.
+ * Still TODO: scatter, shop costly, Is_box, obstructed free, ship_object, hits_bars, tmp_at.
  * @returns {Promise<number>} C truthy int (1 handled, 0 leads to kick_ouch).
  */
 async function reallyKickObjectLikeC(g, x, y, head) {
@@ -571,6 +572,9 @@ async function reallyKickObjectLikeC(g, x, y, head) {
     }
 
     await pline(`You kick ${donameKickRelative(head, isGold)}.`);
+
+    /* C: dokick.c really_kick_object — after Is_box / before Thump+slide (**`hero_breaks(..., 0)`**). */
+    if (await heroBreaksObjLikeC(g, head, x, y, 0)) return 1;
 
     if (range < 2) {
         await pline('Thump!');
