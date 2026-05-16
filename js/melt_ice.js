@@ -23,6 +23,7 @@ import {
     obliterateObjectInLevel,
 } from './floorobj.js';
 import { delEngrAt } from './engrave.js';
+import { isPoolOrLavaCellLikeC } from './fillholetyp.js';
 import {
     raceptr,
     isFlyer,
@@ -453,6 +454,22 @@ export async function boulderHitsPoolLikeC(g, otmp, rx, ry, pushing) {
 
     obliterateObjectInLevel(g, otmp);
     return true;
+}
+
+/**
+ * C: **`apply.c`** **`maybe_dunk_boulders(x, y)`** — while square is pool or lava and a boulder
+ * sits there, **`obj_extract_self`** then **`boulder_hits_pool(..., FALSE)`**.
+ * @param {import('./gstate.js').game} g
+ */
+export async function maybeDunkBouldersLikeC(g, x, y) {
+    const xi = x | 0;
+    const yi = y | 0;
+    while (isPoolOrLavaCellLikeC(g, xi, yi)) {
+        const otmp = sobjAtBoulder(g, xi, yi);
+        if (!otmp) break;
+        unlinkFloorObject(otmp);
+        await boulderHitsPoolLikeC(g, otmp, xi, yi, false);
+    }
 }
 
 /**

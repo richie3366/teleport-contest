@@ -41,7 +41,7 @@ import { destroyItemsYoumonstFire, destroyItemsYoumonstElec, destroyItemsMonFire
 import { igniteHeroInventory, igniteMinvent } from './ignite_items.js';
 import { burnarmorYoumonst, burnarmorMtmp } from './erode_obj.js';
 import { burnFloorObjects } from './burn_floor_objects.js';
-import { meltIceAt } from './melt_ice.js';
+import { meltIceAt, maybeDunkBouldersLikeC } from './melt_ice.js';
 import { delEngrAt } from './engrave.js';
 import { spotChecksLikeC } from './spot_checks.js';
 import { doname } from './objnam.js';
@@ -1679,7 +1679,7 @@ async function trapeffectLandmineMonster(g, mtmp, trap, mintrapflags) {
     }
     if (!inSight && u && !heroDeaf(u)) await pline('Kaablamm!  You hear an explosion in the distance!');
 
-    blowUpLandmine(trap);
+    await blowUpLandmine(trap);
 
     if (monsterStillOnLevel(g, mtmp) && (await thitmMonster(g, mtmp, 0, null, rnd(16), false))) {
         trapkilled = true;
@@ -1687,7 +1687,6 @@ async function trapeffectLandmineMonster(g, mtmp, trap, mintrapflags) {
         const mr = await mintrap(mtmp, RECURSIVETRAP);
         if (mr === TRAP_KILLED_MON) trapkilled = true;
     }
-    await fillPitInLevel(game, trap.tx | 0, trap.ty | 0);
     if (monsterStillOnLevel(g, mtmp) && (mtmp.mhp | 0) <= 0) trapkilled = true;
 
     return trapkilled
@@ -2293,10 +2292,11 @@ async function trapeffectBearHero(trap, trflags) {
 /**
  * C: trap.c **`blow_up_landmine`** — **`scatter`** (deferred), **`engrave.c`** **`del_engr_at`**, **`wake_nearto`**, …;
  * converts **`LANDMINE` → `PIT`** on normal levels (**`Is_waterlevel`/`Is_airlevel`** → **`deltrap`**).
- * **`hack.c`** **`spot_checks(x,y,old_typ)`** runs after **`recalc_block_point`** in C — JS uses **`vision_recalc(1)`** as a stand-in for **`recalc_block_point`** immediately before **`spotChecksLikeC`** (C **`scatter`**, **`fill_pit`**, **`maybe_dunk`** still TODO).
+ * Then **`fill_pit`**, **`apply.c`** **`maybe_dunk_boulders`**, **`recalc_block_point`** (JS **`vision_recalc(1)`**),
+ * **`hack.c`** **`spot_checks`**.
  * @param {{ tx: number, ty: number, ttyp?: number, madeby_u?: boolean, tseen?: boolean }|null|undefined} trap
  */
-function blowUpLandmine(trap) {
+async function blowUpLandmine(trap) {
     if (!trap) return;
     const g = game;
     const x = trap.tx | 0;
@@ -2308,6 +2308,8 @@ function blowUpLandmine(trap) {
     const u = game.u;
     if (Is_waterlevel(u?.uz) || Is_airlevel(u?.uz)) {
         delTrap(trap);
+        await fillPitInLevel(g, x, y);
+        await maybeDunkBouldersLikeC(g, x, y);
         vision_recalc(1);
         spotChecksLikeC(g, x, y, old_typ);
         return;
@@ -2317,6 +2319,8 @@ function blowUpLandmine(trap) {
         trap.madeby_u = false;
         seetrap(trap);
     }
+    await fillPitInLevel(g, x, y);
+    await maybeDunkBouldersLikeC(g, x, y);
     vision_recalc(1);
     spotChecksLikeC(g, x, y, old_typ);
 }
@@ -2451,12 +2455,11 @@ async function trapeffectLandmineHero(trap, trflags) {
         u.wounded_legs = Math.max(wl, wr);
         exercise(A_DEX, false);
     }
-    blowUpLandmine(trap);
+    await blowUpLandmine(trap);
     losehp(maybeHalfPhys(damage), 'land mine', 0);
     newsym(u.ux, u.uy);
     const t2 = tAt(u.ux, u.uy);
     if (t2) await dotrap(t2, RECURSIVETRAP);
-    await fillPitInLevel(game, u.ux | 0, u.uy | 0);
 }
 
 /** C: trap.c trapeffect_rolling_boulder_trap — hero (launch_obj not ported). */
