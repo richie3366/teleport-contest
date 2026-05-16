@@ -2930,3 +2930,5 @@ export const OTYP_RIN_SLOW_DIGESTION = 176;
 export const OTYP_FAKE_AMULET_OF_YENDOR = 197;
 export const OTYP_RIN_PROTECTION = 161;
 export const OTYP_MEAT_RING = 255;
+/** C: objects.h RING() — BITS chrg uses `spec`; first six rings have spec 1 (NH5 objects_nums). */
+export const OC_CHARGED_RING_OTYPES = new Set([156, 157, 158, 159, 160, 161]);

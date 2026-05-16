@@ -5,7 +5,16 @@
 
 import { game } from './gstate.js';
 import { rn2, rnd } from './rng.js';
-import { A_DEX, OTYP_FAKE_AMULET_OF_YENDOR, OTYP_MEAT_RING, OTYP_RIN_SLOW_DIGESTION } from './const.js';
+import {
+    A_DEX,
+    OC_CHARGED_RING_OTYPES,
+    OTYP_FAKE_AMULET_OF_YENDOR,
+    OTYP_MEAT_RING,
+    OTYP_RIN_PROTECTION,
+    OTYP_RIN_SLOW_DIGESTION,
+    W_RINGL,
+    W_RINGR,
+} from './const.js';
 import { acurr } from './attrib.js';
 import { uWipeEngr } from './engrave.js';
 import { nearCapacity, ENC } from './encumbr.js';
@@ -22,21 +31,41 @@ export function dosounds() {
 /**
  * C: eat.c gethungry(void) — ordinary uhunger--, accessorytime = rn2(20),
  * odd/even branches, switch(accessorytime): case 0 (slow dig vs rings), case 8 (uamul not fake),
- * case 16 (uhave.amulet); cases 4/12 partial (non-meat ring, spe≠0 or oc_charged===false).
+ * case 16 (uhave.amulet); cases 4/12 match eat.c (MEAT_RING, spe, objects[].oc_charged, RIN_PROTECTION + EProtection).
  * C order vs exerchk: allmain calls this immediately after svm.moves++, then exerchk().
  */
-/** C: eat.c gethungry — uleft/uright ring nutrition (subset: +0 charged / EProtection TODO). */
-function gethungryOneRingAccessory(ring, u) {
-    if (!ring) return;
-    const ot = ring.otyp | 0;
+/** C: eat.c objects[otyp].oc_charged — RING() chrg bit; full invent may override on otmp later. */
+function ringOcCharged(ot) {
+    return OC_CHARGED_RING_OTYPES.has(ot | 0);
+}
+
+/** C: eat.c gethungry case 4 — uleft. */
+function gethungryLeftRing(uleft, u) {
+    if (!uleft) return;
+    const ot = uleft.otyp | 0;
     if (ot === OTYP_MEAT_RING) return;
-    const spe = ring.spe | 0;
-    if (spe !== 0) {
-        u.uhunger--;
-        return;
-    }
-    if (ring.oc_charged === false) u.uhunger--;
-    /* C: +0 ring of protection vs EProtection mask; generic +0 charged rings — port with prop.c */
+    const spe = uleft.spe | 0;
+    const ep = u.EProtection | 0;
+    const protCase =
+        ot === OTYP_RIN_PROTECTION &&
+        spe === 0 &&
+        ((ep & ~W_RINGL) === 0 ||
+            ((ep & ~W_RINGL) === W_RINGR &&
+                u.uright &&
+                (u.uright.otyp | 0) === OTYP_RIN_PROTECTION &&
+                !(u.uright.spe | 0)));
+    if (spe !== 0 || !ringOcCharged(ot) || protCase) u.uhunger--;
+}
+
+/** C: eat.c gethungry case 12 — uright. */
+function gethungryRightRing(uright, u) {
+    if (!uright) return;
+    const ot = uright.otyp | 0;
+    if (ot === OTYP_MEAT_RING) return;
+    const spe = uright.spe | 0;
+    const ep = u.EProtection | 0;
+    const protCase = ot === OTYP_RIN_PROTECTION && spe === 0 && (ep & ~W_RINGR) === 0;
+    if (spe !== 0 || !ringOcCharged(ot) || protCase) u.uhunger--;
 }
 
 export function gethungry() {
@@ -65,10 +94,10 @@ export function gethungry() {
             break;
         }
         case 4:
-            gethungryOneRingAccessory(u.uleft, u);
+            gethungryLeftRing(u.uleft, u);
             break;
         case 12:
-            gethungryOneRingAccessory(u.uright, u);
+            gethungryRightRing(u.uright, u);
             break;
         case 8:
             if (u.uamul && (u.uamul.otyp | 0) !== OTYP_FAKE_AMULET_OF_YENDOR) u.uhunger--;
