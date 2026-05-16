@@ -5,7 +5,7 @@
 
 import { game } from './gstate.js';
 import { pline, newsym } from './display.js';
-import { vision_recalc } from './vision.js';
+import { vision_recalc, cansee } from './vision.js';
 import { rn2, rnd, rn1, d } from './rng.js';
 import { nomul, fallAsleep, burnAwaySlime } from './timeout.js';
 import { seetrap, trapTypName, delTrap, feeltrap, tAt } from './search.js';
@@ -32,8 +32,10 @@ import { destroyItemsYoumonstFire } from './destroy_items.js';
 import { igniteHeroInventory } from './ignite_items.js';
 import { burnFloorObjects } from './burn_floor_objects.js';
 import { meltIceAt } from './melt_ice.js';
+import { dist2 } from './hacklib.js';
 import {
     raceptr,
+    fireResistant,
     breathless,
     passesRocks,
     amorphous,
@@ -251,6 +253,129 @@ async function dofiretrapHeroNoBox() {
     await meltIceAt(game, u.ux, u.uy, null);
     game.disp = game.disp || {};
     game.disp.botl = true;
+}
+
+/** C: mondata.h canseemon(mtmp) subset — vision + invisibility vs See_invisible + steed. */
+function canseemonRip(g, mtmp) {
+    const u = g.u;
+    if (!mtmp || !u) return false;
+    if (u.usteed === mtmp) return true;
+    if ((mtmp.minvis | 0) && !(u.See_invisible | 0)) return false;
+    return cansee(mtmp.mx, mtmp.my);
+}
+
+function monsterStillOnLevel(g, mtmp) {
+    return !!(mtmp && g.level?.monsters?.includes(mtmp));
+}
+
+/** C: mon.c mon_nam / Monnam — stub until **`x_monnam`** port. */
+function monNam(mtmp) {
+    const n = mtmp?.data?.mname || mtmp?.monnam;
+    if (n) return `the ${n}`;
+    return 'the monster';
+}
+
+function monNamSentence(mtmp) {
+    const s = monNam(mtmp);
+    return s.charAt(0).toUpperCase() + s.slice(1);
+}
+
+/**
+ * C: trap.c paper/straw/wood/leather golem fire alt — uses **`data.mname`** until **`monsndx`** wired.
+ * @returns {{ alt: number, immolate: boolean }}
+ */
+function golemFireAltFromMname(mhpmax, mtmp) {
+    const n = String(mtmp?.data?.mname || '').toLowerCase();
+    if (n.includes('paper golem')) return { alt: mhpmax | 0, immolate: true };
+    if (n.includes('straw golem')) return { alt: Math.trunc((mhpmax | 0) / 2), immolate: false };
+    if (n.includes('wood golem')) return { alt: Math.trunc((mhpmax | 0) / 4), immolate: false };
+    if (n.includes('leather golem')) return { alt: Math.trunc((mhpmax | 0) / 8), immolate: false };
+    return { alt: 0, immolate: false };
+}
+
+/**
+ * C: trap.c thitm — **`obj` null, `d_override` non-zero** (forced hit, no **`rnd(20)`**).
+ * @returns {boolean} trapkilled (**`DEADMONSTER`**)
+ */
+function thitmMonsterFireOverride(g, mtmp, damage, _immolateNocorpse) {
+    void _immolateNocorpse;
+    const d = damage | 0;
+    if (d <= 0) return false;
+    mtmp.mhp = (mtmp.mhp | 0) - d;
+    if (mtmp.mhp > 0) return false;
+    const xx = mtmp.mx;
+    const yy = mtmp.my;
+    const mons = g.level?.monsters;
+    const i = mons ? mons.indexOf(mtmp) : -1;
+    if (i >= 0) mons.splice(i, 1);
+    newsym(xx, yy);
+    return true;
+}
+
+/**
+ * C: trap.c **`trapeffect_fire_trap`** — **`mtmp != &youmonst`** branch.
+ * TODO: **`burnarmor(mtmp)`** ( **`erode_obj`** on worn mon gear); **`destroy_items(mtmp, AD_FIRE, orig_dmg)`**;
+ * **`ignite_items(minvent)`** when **`catch_lit`** supports monsters; **`thitm`** miss path / **`find_mac`**.
+ * @param {typeof game} g
+ * @param {{ mx: number, my: number, mhp?: number, mhpmax?: number, minvis?: number, data?: { mname?: string }, monnam?: string, minvent?: unknown }} mtmp
+ * @param {{ tx: number, ty: number, ttyp?: number, tseen?: boolean }} trap
+ * @returns {Promise<boolean>} trapkilled (C **`Trap_Killed_Mon`** vs finished)
+ */
+export async function trapeffectFireTrapForMonster(g, mtmp, trap) {
+    const u = g.u;
+    if (!u || !mtmp || !trap) return false;
+
+    const tx = trap.tx | 0;
+    const ty = trap.ty | 0;
+    const inSight = canseemonRip(g, mtmp);
+    const seeIt = cansee(tx, ty);
+    const origDmg = d(2, 4);
+
+    const under = monNam(mtmp);
+    if (inSight) {
+        await pline(`A tower of flame erupts from the floor under ${under}!`);
+    } else if (seeIt) {
+        await pline('You see a tower of flame erupt from the floor!');
+    }
+
+    let trapkilled = false;
+
+    if (fireResistant(raceptr(mtmp))) {
+        if (inSight) await pline(`${monNamSentence(mtmp)} is uninjured.`);
+    } else {
+        let num = origDmg;
+        const mh = (mtmp.mhpmax ?? mtmp.mhp ?? 1) | 0;
+        const { alt, immolate } = golemFireAltFromMname(mh, mtmp);
+        if (alt > num) num = alt;
+
+        if (thitmMonsterFireOverride(g, mtmp, num, immolate)) trapkilled = true;
+        else {
+            const cap = num | 0;
+            const rdx = rn2(cap + 1);
+            const nmax = Math.max(1, (mtmp.mhpmax ?? 1) - rdx);
+            mtmp.mhpmax = nmax;
+            if ((mtmp.mhp | 0) > nmax) mtmp.mhp = nmax;
+        }
+
+        /* C: `burnarmor(mtmp) || rn2(3)` — burnarmor not ported ( **`rn2(5)`** loops / mon armor). */
+        if (rn2(3)) {
+            if (monsterStillOnLevel(g, mtmp)) {
+                /* TODO: destroy_items(mtmp, AD_FIRE, orig_dmg); ignite_items(minvent) */
+            }
+        }
+    }
+
+    const floorBurned = await burnFloorObjects(g, tx, ty, seeIt, false);
+    if (floorBurned > 0 && !seeIt && dist2(tx, ty, u.ux, u.uy) <= 9) await pline('You smell smoke.');
+
+    await meltIceAt(g, tx, ty, null);
+
+    if (monsterStillOnLevel(g, mtmp) && (mtmp.mhp | 0) <= 0) trapkilled = true;
+
+    const trapHere = tAt(tx, ty);
+    if (seeIt && trapHere) seetrap(trapHere);
+
+    return trapkilled;
 }
 
 /**
