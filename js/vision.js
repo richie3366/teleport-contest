@@ -557,6 +557,11 @@ export function seeMonsters() {
     /* Port display.c / mon.c when fmon and glyph refresh exist */
 }
 
+/** C: hack.c dolookaround — allmain.c newgame when a11y.glyph_updates. */
+export function dolookaroundLikeC() {
+    /* Port hack.c / display.c when glyph refresh + look parity exist */
+}
+
 /**
  * C: include/flag.h **`struct accessibility_data`** — subset used by **`notice_mon_*`** /
  * **`hack.c`** **`notice_all_mons`** (defaults zeroed like NEARDATA **`a11y`**).
@@ -590,8 +595,8 @@ export function noticeMonOnLikeC() {
 }
 
 /**
- * C: hack.c **`notice_all_mons`** — a11y **`mon_notices`** + not blocked; **`dolookaround`**
- * branch is **`a11y.glyph_updates`** in **`allmain.c`** (not ported here).
+ * C: hack.c notice_all_mons — a11y.mon_notices + not blocked.
+ * allmain.c newgame calls dolookaround instead when a11y.glyph_updates.
  * @param {boolean} reset
  */
 export function noticeAllMonsLikeC(reset) {

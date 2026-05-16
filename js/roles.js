@@ -141,10 +141,21 @@ export const aligns = [
     { name: 'chaotic', value: -1 },
 ];
 
+/** C: hack.c genders[] — welcome() uses genders[currentgend].adj when the role has no name.f pointer in C. */
 export const genders = [
-    { name: 'male', value: 0 },
-    { name: 'female', value: 1 },
+    { name: 'male', value: 0, adj: 'male' },
+    { name: 'female', value: 1, adj: 'female' },
 ];
+
+/**
+ * C: role.c roles[].name — welcome() in allmain.c gates genders[].adj on !gu.urole.name.f.
+ * Only Cave and Priest use a non-NULL second hero title (Cavewoman, Priestess).
+ * @param {RoleRow | null | undefined} role
+ */
+export function roleHasFemaleRoleNameLikeC(role) {
+    const a = role?.abbr;
+    return a === 'Cav' || a === 'Pri';
+}
 
 export function findRole(name) {
     if (!name) return null;

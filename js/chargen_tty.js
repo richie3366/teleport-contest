@@ -12,7 +12,7 @@ import {
     COPYRIGHT_BANNER_D,
 } from './const.js';
 import { NO_COLOR, ATR_INVERSE } from './terminal.js';
-import { roles, races, aligns, genders } from './roles.js';
+import { roles, races, aligns, genders, roleHasFemaleRoleNameLikeC } from './roles.js';
 import {
     rigidRoleChecksJs,
     ROLE_NONE,
@@ -828,7 +828,8 @@ export function paintRoleMenu(disp, f) {
 function roleNameForDisplay(ri, gi) {
     const r = roles[ri];
     if (!r) return '<role>';
-    if (gi === 1 && r.name.f) return r.name.f;
+    /* C: welcome() / menus — only Cav and Pri use name.f for the hero role title when female */
+    if (gi === 1 && roleHasFemaleRoleNameLikeC(r)) return r.name.f;
     return r.name.m;
 }
 

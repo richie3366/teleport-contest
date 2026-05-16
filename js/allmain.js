@@ -11,8 +11,9 @@ import { rhack } from './cmd.js';
 import { docrt, cls, bot, flush_screen, pline, clearPendingMessageAndToplineLikeC } from './display.js';
 import {
     vision_recalc, vision_reset, init_vision_globals,
-    noticeMonOffLikeC, noticeMonOnLikeC, noticeAllMonsLikeC,
+    noticeMonOffLikeC, noticeMonOnLikeC, noticeAllMonsLikeC, dolookaroundLikeC,
 } from './vision.js';
+import { genders, roleHasFemaleRoleNameLikeC } from './roles.js';
 import { fastforward_pre_mklev, fastforward_post_mklev, fastforward_fill_mineralize } from './fastforward.js';
 import { movemon, MOVE_MON_HARNESS_MAX_STEP } from './monmove.js';
 import { mcalcMoveLikeC } from './mcalc_move.js';
@@ -197,18 +198,39 @@ export async function newgame() {
     await flush_screen(1);
     await bot();
 
-    // Welcome message (C: u_init.c / pline welcome — role-specific interjection)
+    // Welcome message (C: allmain.c welcome(TRUE); pline format + buf like u_init.)
+    const hi = welcomeInterjectionLikeC(g);
+    const welcomeBuf = welcomeBufLikeC(g);
+    await pline(`${hi} ${g.plname}, welcome to NetHack!  You are a${welcomeBuf}.`);
+
+    /* C: allmain.c newgame — after welcome: notice_mon_on(); then dolookaround XOR notice_all_mons */
+    noticeMonOnLikeC();
+    if (g.a11y?.glyph_updates)
+        dolookaroundLikeC();
+    else
+        noticeAllMonsLikeC(true);
+}
+
+/**
+ * C: allmain.c welcome() — build buf after align_str (simplified: no adrift / restore branch).
+ * !gu.urole.name.f plus both-sexes role mask in C maps to !roleHasFemaleRoleNameLikeC && allows.gender === 'any'
+ * for genders[currentgend].adj; role title uses name.f only for Cave and Priest when female.
+ */
+function welcomeBufLikeC(g) {
     const t = g.u?.ualign?.type ?? 0;
     const alignName = t === 0 ? 'neutral' : t > 0 ? 'lawful' : 'chaotic';
-    const genderAdj = g.flags?.female ? 'female' : 'male';
+    const female = !!g.flags?.female;
+    const gendIdx = female ? 1 : 0;
+    const roleRow = g.urole;
     const raceAdj = g.urace?.adj || 'human';
-    const roleNm = g.flags?.female ? g.urole.name.f : g.urole.name.m;
-    const hi = welcomeInterjectionLikeC(g);
-    await pline(`${hi} ${g.plname}, welcome to NetHack!  You are a ${alignName} ${genderAdj} ${raceAdj} ${roleNm}.`);
-
-    /* C: allmain.c newgame — after welcome(TRUE): notice_mon_on(); notice_all_mons(TRUE) (a11y.glyph_updates → dolookaround) */
-    noticeMonOnLikeC();
-    noticeAllMonsLikeC(true);
+    let buf = ` ${alignName}`;
+    if (!roleHasFemaleRoleNameLikeC(roleRow) && roleRow?.allows?.gender === 'any')
+        buf += ` ${genders[gendIdx].adj}`;
+    const roleTitle = female && roleHasFemaleRoleNameLikeC(roleRow)
+        ? (roleRow.name.f || roleRow.name.m)
+        : roleRow.name.m;
+    buf += ` ${raceAdj} ${roleTitle}`;
+    return buf;
 }
 
 /** C u_init.c — first word of welcome pline depends on role (tty sessions). */
