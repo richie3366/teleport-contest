@@ -5,6 +5,7 @@
 // Deferred vs C: tmp_at / nh_delay_output; full watchman **`verbalize`**/**`angry_guards`**;
 // u.uswallow branch; pit_flow + fillholetyp; full **`digactualhole`** / shop / **`spot_checks`**;
 // **`dighole.js`** covers wand-down **ROOM/CORR** + guards (**`fillholetyp`** / **`goto_level`** / trap+destroy still TODO).
+// Vertical rock: **`observe_object`** + **`body_part(HEAD)`** subset (**`objnam.js`** / **`body_part_hero.js`**); full **`xname`** / **`discover_object`** still TODO.
 
 import { rn1, rnd } from './rng.js';
 import { pline, newsym } from './display.js';
@@ -18,6 +19,8 @@ import { stairwayAt } from './decor.js';
 import { placeFloorObject, stackObjOnFloorInLevel } from './floorobj.js';
 import { losehp, maybeHalfPhys, OBJ_ROCK } from './mthrowu.js';
 import { digholeHeroLikeC } from './dighole.js';
+import { observeObjectHeroMinimalLikeC } from './objnam.js';
+import { mbodypartHeroHeadLikeC } from './body_part_hero.js';
 import {
     isok,
     xdir,
@@ -224,7 +227,7 @@ export async function heroZapDigVerticalLikeC(g) {
         }
         const ceilLoosen = ceilingStringVertDigLikeC(g, ux, uy);
         await pline(`You loosen a rock from the ${ceilLoosen}.`);
-        await pline('It falls on your head!');
+        await pline(`It falls on your ${mbodypartHeroHeadLikeC(g)}!`);
         const dmg = rnd(hardHelmetUarmhLikeC(u) ? 2 : 6);
         losehp(maybeHalfPhys(dmg), 'falling rock', 0);
         const otmp = {
@@ -237,8 +240,8 @@ export async function heroZapDigVerticalLikeC(g) {
             spe: 0,
             opoisoned: 0,
         };
+        observeObjectHeroMinimalLikeC(g, otmp);
         placeFloorObject(otmp, ux, uy);
-        /* C: xname(otmp) — deferred until objnam parity for this path. */
         stackObjOnFloorInLevel(g, otmp);
         newsym(ux, uy);
     } else {

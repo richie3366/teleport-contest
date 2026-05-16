@@ -112,6 +112,8 @@ const M1_BREATHLESS = 0x00000400;
 const M1_NOEYES = 0x00001000;
 const M1_NOLIMBS = 0x00006000;
 const M1_SLITHY = 0x00080000;
+/** C: monflag.h `M1_HUMANOID` — **`mondata.h`** **`humanoid`**, **`polyself.c`** **`mbodypart`**. */
+const M1_HUMANOID = 0x00020000;
 const M1_NOTAKE = 0x00000080;
 /** C: monflag.h — diet (gethungry ordinary uhunger--); M1_OMNIVORE = CARNIVORE|HERBIVORE */
 const M1_CARNIVORE = 0x20000000;
@@ -556,6 +558,11 @@ export function likesLava(/** @type {Permonst} */ ptr) {
 /** C: mondata.h slithy */
 export function slithy(/** @type {Permonst} */ ptr) {
     return (ptr.mflags1 & M1_SLITHY) !== 0;
+}
+
+/** C: mondata.h **`humanoid(ptr)`** — **`(ptr)->mflags1 & M1_HUMANOID`**. */
+export function humanoidLikeC(/** @type {Permonst|null|undefined} */ ptr) {
+    return ((ptr?.mflags1 ?? 0) & M1_HUMANOID) !== 0;
 }
 
 /** C: mondata.h amorphous */

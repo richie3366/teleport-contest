@@ -193,3 +193,19 @@ export function doname(otmp, g = game) {
     }
     return `an object (${otmp.otyp})`;
 }
+
+/**
+ * C: o_init.c **`observe_object(obj)`** — **`dknown`** + **`discover_object`** (**`mark_as_encountered`**).
+ * JS: **`dknown`** when not hallucinating; **`discover_object`** / **`objects[]`** disco stub (**`FIRST_OBJECT`** approx **`otyp >= 1`**).
+ * @param {import('./gstate.js').game} g
+ * @param {{ otyp?: number, dknown?: number }} obj
+ */
+export function observeObjectHeroMinimalLikeC(g, obj) {
+    const u = g?.u;
+    if (!obj || !u) return;
+    if ((u.Hallucination | 0) || (u.timed?.hallucination ?? 0) > 0) return;
+    const oindx = obj.otyp | 0;
+    if (oindx < 1) return;
+    obj.dknown = 1;
+    /* C: discover_object(oindx, FALSE, TRUE, FALSE) — **`oc_encountered`**, **`disco[]`**, **`gem_learned`**, … */
+}
