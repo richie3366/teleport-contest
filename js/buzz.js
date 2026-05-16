@@ -21,6 +21,11 @@ export const WAN_FIRE = WAN_MAGIC_MISSILE + 1;
 /** C: objects.h — ray wands follow **`WAN_MAGIC_MISSILE`** order (**`zap.c`** **`weffects`**). */
 export const WAN_COLD = WAN_MAGIC_MISSILE + 2;
 
+/** C: objects.h — **`WAN_SLEEP`** … **`WAN_LIGHTNING`** (**`zap.c`** **`weffects`** ray block). */
+export const WAN_SLEEP = WAN_MAGIC_MISSILE + 3;
+export const WAN_DEATH = WAN_MAGIC_MISSILE + 4;
+export const WAN_LIGHTNING = WAN_MAGIC_MISSILE + 5;
+
 /** C: objects.h / **`spellbook_skill_level_data.js`** — first RAY spell (**`SPELL("magic missile"`**). */
 export const SPE_MAGIC_MISSILE = 367;
 
