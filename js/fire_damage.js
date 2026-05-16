@@ -101,6 +101,15 @@ async function lavaDamageDisplaced(g, obj, x, y) {
 }
 
 /**
+ * C: **`do.c`** **`flooreffects`** → **`trap.c`** **`lava_damage`** (**`lavaDamageDisplaced`**).
+ * @param {import('./gstate.js').game} g
+ * @returns {Promise<boolean>} true if object destroyed
+ */
+export async function lavaDamageFromFlooreffectsLikeC(g, obj, x, y) {
+    return lavaDamageDisplaced(g, obj, x, y);
+}
+
+/**
  * C: apply.c **`catch_lit`** for **`OBJ_MINVENT`** — **`cansee(mx,my)`** drives feedback (**subset**).
  * @param {typeof game} g
  * @param {{ lamplit?: number, otyp?: number, spe?: number, cursed?: number, age?: number }} obj

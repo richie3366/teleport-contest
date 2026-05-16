@@ -20,6 +20,7 @@ import {
 import { heroBreaksObjLikeC, BRK_FROM_INV } from './obj_break_dothrow.js';
 import { doname } from './objnam.js';
 import { NH5_COIN_CLASS } from './nh5_objclass.js';
+import { flooreffectsObjAtLikeC } from './flooreffects_hero.js';
 
 /** C: objects_nums — **`WAN_STRIKING`** ( **`dothrow.c`** **`hitfloor`** verb ). */
 const OTYP_WAN_STRIKING = 415;
@@ -88,7 +89,7 @@ async function doaltarObjOnHeroSqLikeC(g, obj) {
 /**
  * C: **`do.c`** **`dropz(obj, with_impact)`** — **`flooreffects`** / **`place_object`** /
  * **`check_shop_obj`** / **`stackobj`** / **`newsym`** / **`encumber_msg`** (**subset**:
- * **`flooreffects`**, uwep/uball tails, **`Blind`+`Levitation`** **`map_object`**, container impact omitted).
+ * **`flooreffects`** lava/pool only; uwep/uball, **`Blind`+`Levitation`** **`map_object`**, container impact omitted).
  * @param {import('./gstate.js').game} g
  * @param {boolean} withImpact — C only toggles **`container_impact_dmg`** / **`impact_disturbs_zombies`**
  */
@@ -109,9 +110,10 @@ export async function dropzAtHeroFeetLikeC(g, obj, withImpact) {
         return;
     }
 
-    /* C: flooreffects(obj, u.ux, u.uy, "drop") — lava/pool/boulder tails deferred */
     const x = u.ux | 0;
     const y = u.uy | 0;
+    if (await flooreffectsObjAtLikeC(g, obj, x, y, 'drop')) return;
+
     placeFloorObjectInLevel(g, obj, x, y);
     await checkShopObjAfterHeroPlaceLikeC(g, obj, x, y);
     stackObjOnFloorInLevel(g, obj);

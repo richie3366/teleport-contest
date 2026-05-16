@@ -9,6 +9,7 @@ import { game } from './gstate.js';
 import { rn2, rnd } from './rng.js';
 import { pline } from './display.js';
 import { updateInventory } from './invent.js';
+import { obliterateObjectInLevel } from './floorobj.js';
 import { NH5_POTION_CLASS, NH5_SCROLL_CLASS, NH5_SPBOOK_CLASS } from './nh5_objclass.js';
 import { OC_SKILL_ROW_BY_OTYP } from './obj_oc_skill_data.js';
 
@@ -158,8 +159,9 @@ function acidCtx(g) {
  * @param {{ quan?: number, dknown?: number }} obj
  * @param {boolean} described — C: grease washed off first (**`pline_The` "potion… explode"**)
  * @param {object|null} [carrierMon] — C: `!carried(obj)` → remove from **`mtmp.minvent`**
+ * @param {{ floorPool?: boolean }|null} [monCtx] — **`do.c`** **`flooreffects`** pool: free object (**`obliterateObjectInLevel`**)
  */
-async function potAcidDamageMinimal(g, obj, described, carrierMon = null) {
+async function potAcidDamageMinimal(g, obj, described, carrierMon = null, monCtx = null) {
     const ctx = acidCtx(g);
     const quan = Math.max(1, obj.quan ?? 1);
     const one = quan <= 1;
@@ -179,9 +181,11 @@ async function potAcidDamageMinimal(g, obj, described, carrierMon = null) {
         if (obj.dknown | 0) ctx.dkn_boom++;
         else ctx.unk_boom++;
     }
+    const floorPool = !!(monCtx && monCtx.floorPool);
     if (carrierMon) removeObjFromMinvent(carrierMon, obj);
+    else if (floorPool) obliterateObjectInLevel(g, obj);
     else removeObjFromHeroInvent(g, obj);
-    if (!carrierMon && g.iflags?.perm_invent) updateInventory();
+    if (!carrierMon && !floorPool && g.iflags?.perm_invent) updateInventory();
 }
 
 /**
@@ -210,19 +214,29 @@ export async function splashLitOne(obj, g = game, litCtx) {
  * @param {typeof game} g
  * @param {{ otyp?: number, oclass?: number, quan?: number, dknown?: number, odiluted?: number, spestudied?: number, blessed?: number, cursed?: number, greased?: number, spe?: number, cobj?: unknown, lamplit?: number }} obj
  * @param {boolean} force
- * @param {{ mtmp: object, visMon?: boolean }} [monCtx] — C: **`carried(obj)`** false → no hero **`Your`** plines
+ * @param {{ mtmp?: object, visMon?: boolean, floorPool?: boolean }|undefined} [monCtx] — hero: omit; minvent: **`mtmp`**; pool **`flooreffects`**: **`{ floorPool: true }`**
  * @returns {Promise<number>} ER_* (`ER_NOTHING` when obj null)
  */
 export async function waterDamageOne(obj, force, g = game, monCtx) {
     if (!obj) return ER_NOTHING;
 
     const t = obj.otyp | 0;
-    const inInvent = !monCtx;
+    const inInvent = monCtx === undefined;
+    const floorPool = !!(monCtx && monCtx.floorPool);
     const carrierMon = monCtx?.mtmp ?? null;
     const visMon = !!(monCtx && monCtx.visMon);
-    const litSplashCtx = monCtx
-        ? /** @type {const} */ ({ creature: /** @type {'minvent'} */ ('minvent'), visMon })
-        : undefined;
+
+    /** @type {{ creature: 'minvent', visMon: boolean }|undefined} */
+    let litSplashCtx;
+    if (monCtx === undefined) {
+        litSplashCtx = undefined;
+    } else if (floorPool) {
+        litSplashCtx = { creature: /** @type {const} */ ('minvent'), visMon: false };
+    } else if (monCtx.mtmp) {
+        litSplashCtx = { creature: /** @type {const} */ ('minvent'), visMon };
+    } else {
+        litSplashCtx = undefined;
+    }
 
     if (await splashLitOne(obj, g, litSplashCtx)) return ER_DAMAGED;
 
@@ -246,7 +260,7 @@ export async function waterDamageOne(obj, force, g = game, monCtx) {
                 described = true;
             }
             if (t === OTYP_POT_ACID) {
-                await potAcidDamageMinimal(g, obj, described, carrierMon);
+                await potAcidDamageMinimal(g, obj, described, carrierMon, monCtx);
                 return ER_DESTROYED;
             }
             if (inInvent && g.iflags?.perm_invent) updateInventory();
@@ -307,7 +321,7 @@ export async function waterDamageOne(obj, force, g = game, monCtx) {
     if (oclass === NH5_POTION_CLASS) {
         if (t === OTYP_POT_WATER) return ER_NOTHING;
         if (t === OTYP_POT_ACID) {
-            await potAcidDamageMinimal(g, obj, false, carrierMon);
+            await potAcidDamageMinimal(g, obj, false, carrierMon, monCtx);
             return ER_DESTROYED;
         }
         if ((obj.odiluted | 0) > 0) {

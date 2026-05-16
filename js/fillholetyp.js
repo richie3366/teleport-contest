@@ -38,7 +38,7 @@ function isMoatAtLikeC(g, x, y) {
  * C: dbridge.c **`is_pool(x,y)`** — order matches C (**`is_moat`** not inlined twice; Juiblex **`MOAT`** counts as pool).
  * @param {import('./gstate.js').game} g
  */
-function isPoolAtLikeC(g, x, y) {
+export function isPoolCellLikeC(g, x, y) {
     if (!isok(x, y)) return false;
     const loc = g.level?.at(x | 0, y | 0);
     if (!loc) return false;
@@ -51,7 +51,7 @@ function isPoolAtLikeC(g, x, y) {
  * C: dbridge.c **`is_lava(x,y)`**.
  * @param {import('./gstate.js').game} g
  */
-function isLavaAtLikeC(g, x, y) {
+export function isLavaCellLikeC(g, x, y) {
     if (!isok(x, y)) return false;
     const loc = g.level?.at(x | 0, y | 0);
     if (!loc) return false;
@@ -63,7 +63,7 @@ function isLavaAtLikeC(g, x, y) {
 
 /** C: dbridge.c **`is_pool(x,y) || is_lava(x,y)`** — for **`dig.c`** **`liquid_flow`** / display, not **`rm.h`** **`IS_POOL`**. */
 export function isPoolOrLavaCellLikeC(g, x, y) {
-    return isPoolAtLikeC(g, x, y) || isLavaAtLikeC(g, x, y);
+    return isPoolCellLikeC(g, x, y) || isLavaCellLikeC(g, x, y);
 }
 
 /**
@@ -90,8 +90,8 @@ export function fillholetypLikeC(g, x, y, fillIfAny) {
     for (let x1 = loX; x1 <= hiX; x1++) {
         for (let y1 = loY; y1 <= hiY; y1++) {
             if (isMoatAtLikeC(g, x1, y1)) moatCnt++;
-            else if (isPoolAtLikeC(g, x1, y1)) poolCnt++;
-            else if (isLavaAtLikeC(g, x1, y1)) lavaCnt++;
+            else if (isPoolCellLikeC(g, x1, y1)) poolCnt++;
+            else if (isLavaCellLikeC(g, x1, y1)) lavaCnt++;
         }
     }
 
