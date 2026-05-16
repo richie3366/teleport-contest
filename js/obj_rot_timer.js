@@ -2,8 +2,9 @@
 // C ref: mkobj.c obj_timer_checks(), timeout.c stop_timer()/start_timer() return semantics;
 //        timeout.c TIMER_OBJECT **`timed`** refcount (**single timer** model here).
 
-import { ROT_CORPSE, REVIVE_MON } from './const.js';
+import { ROT_CORPSE, REVIVE_MON, PM_DEATH } from './const.js';
 import { CORPSE_OTYP } from './mkobj_corpse.js';
+import { rn2 } from './rng.js';
 
 /** C: mkobj.c **`#define ROT_ICE_ADJUSTMENT 2`** */
 export const ROT_ICE_ADJUSTMENT = 2;
@@ -46,6 +47,38 @@ export function startNhObjTimer(g, o, whenDelta, funcIndex) {
 function syncObjTimedCount(o) {
     const n = o?._nhObjTimers ? Object.keys(o._nhObjTimers).length : 0;
     o.timed = n > 0 ? n : 0;
+}
+
+/** C: **`timeout.c`** **`obj_has_timer`** / queue lookup — one **`func_index`** key present. */
+export function objHasNhTimer(o, funcIndex) {
+    return o?._nhObjTimers?.[funcIndex] != null;
+}
+
+/**
+ * C: **`timeout.c`** queue removal without return value — like dequeue before **`timeout_proc`**.
+ * @returns {boolean} whether a key was removed
+ */
+export function removeNhObjTimerKey(o, funcIndex) {
+    const map = /** @type {Record<number, number>} */ (o?._nhObjTimers);
+    if (!map || map[funcIndex] == null) return false;
+    delete map[funcIndex];
+    if (!Object.keys(map).length) delete o._nhObjTimers;
+    syncObjTimedCount(o);
+    return true;
+}
+
+/**
+ * C: **`mkobj.c`** **`rider_revival_time`** — **`rn2(3)`** loop from **`minturn`** ..**`66`**.
+ * @param {{ corpsenm?: number }} body
+ * @param {boolean} retry
+ */
+export function riderRevivalTime(body, retry) {
+    const minturn = retry ? 3 : ((body?.corpsenm | 0) === PM_DEATH ? 6 : 12);
+    let when;
+    for (when = minturn; when < 67; when++) {
+        if (!rn2(3)) break;
+    }
+    return when;
 }
 
 /**

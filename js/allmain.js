@@ -28,6 +28,7 @@ import { settrack } from './track.js';
 import { initMvitalsStub } from './mvitals.js';
 import { pullDueMeltIceAwayTimers } from './level_timers.js';
 import { meltIceAt } from './melt_ice.js';
+import { runDueNhObjTimers } from './obj_timeout_dispatch.js';
 
 // C ref: allmain.c newgame()
 export async function newgame() {
@@ -222,6 +223,8 @@ export async function moveloop_core() {
                 g.context.monMoving = saveMonMoving;
             }
         }
+        /* C: timeout.c nh_timeout() → run_timers() — object **`TIMER_OBJECT`** slice */
+        runDueNhObjTimers(g);
         /* C: allmain.c — svm.moves++; … gethungry(); newuhs(TRUE); … exerchk(); */
         gethungry();
         for (const line of collectNewuhsPlines(true)) await pline(line);

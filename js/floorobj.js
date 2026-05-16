@@ -230,6 +230,43 @@ export function unearthBuriedChainAt(g, x, y) {
     unearthObjsDigInLevel(g, x, y);
 }
 
+/**
+ * C: dig.c **`bury_an_obj`** subset — prepend one object onto **`buriedObjHeads`** at **`(ox,oy)`**.
+ * @param {import('./gstate.js').game} g
+ */
+export function prependBuriedObjectInLevel(g, otmp) {
+    const lvl = g.level;
+    if (!lvl || !otmp) return;
+    const xi = otmp.ox | 0;
+    const yi = otmp.oy | 0;
+    unlinkFloorObjectInLevel(g, otmp);
+    unlinkBuriedObjectInLevel(g, otmp);
+    if (!lvl.buriedObjHeads) lvl.buriedObjHeads = new Map();
+    const k = floorObjKey(xi, yi);
+    const prev = lvl.buriedObjHeads.get(k) ?? null;
+    otmp.nexthere = prev;
+    lvl.buriedObjHeads.set(k, otmp);
+    otmp.ox = xi;
+    otmp.oy = yi;
+    if (!lvl.objects.includes(otmp)) lvl.objects.push(otmp);
+}
+
+/**
+ * Remove **`otmp`** from floor/buried chains and **`level.objects`** (**`obfree`** / **`obj_extract_self`** subset).
+ * @param {import('./gstate.js').game} g
+ */
+export function obliterateObjectInLevel(g, otmp) {
+    if (!otmp) return;
+    unlinkFloorObjectInLevel(g, otmp);
+    unlinkBuriedObjectInLevel(g, otmp);
+    const arr = g.level?.objects;
+    if (arr) {
+        const i = arr.indexOf(otmp);
+        if (i >= 0) arr.splice(i, 1);
+    }
+    otmp.nexthere = null;
+}
+
 /** C: mkobj.c place_object(otmp, x, y) */
 export function placeFloorObject(otmp, x, y) {
     const lvl = game.level;
