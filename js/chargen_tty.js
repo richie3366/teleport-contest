@@ -1,9 +1,16 @@
 // chargen_tty.js — Tty splash + askname + role/race/gender + ynaq confirmation.
 // C ref: win/tty/wintty.c tty_init_nhwindows (copyright @ y=4, blank, curs y=11), tty_askname;
+// src/version.c copyright_banner_line; include/patchlevel.h COPYRIGHT_BANNER_*;
 // role.c genl_player_setup / build_plselection_prompt; role.c setup_rolemenu /
 // reset_role_filtering / role_menu_extra(RS_filter, '~').
 
 import { nhgetch } from './input.js';
+import {
+    COPYRIGHT_BANNER_A,
+    COPYRIGHT_BANNER_B,
+    COPYRIGHT_BANNER_C,
+    COPYRIGHT_BANNER_D,
+} from './const.js';
 import { NO_COLOR, ATR_INVERSE } from './terminal.js';
 import { roles, races, aligns, genders } from './roles.js';
 import {
@@ -28,11 +35,6 @@ import {
     pickAlignJs,
 } from './chargen_rigid.js';
 import { applyIdentityFromNethackrc } from './chargen.js';
-
-const COPYRIGHT_A = 'NetHack, Copyright 1985-2026';
-const COPYRIGHT_B = 'By Stichting Mathematisch Centrum and M. Stephenson.';
-const COPYRIGHT_D = 'See license for details.';
-const COPYRIGHT_C = 'Version 5.0.0 (NetHack 5.0 port)';
 
 const MENU_COL = 41;
 
@@ -234,11 +236,29 @@ export function needsAsknameOnly(opts) {
     return opts.explicitRoleInRc && !opts.explicitNameInRc;
 }
 
+/** C version.c copyright_banner_line(indx); indx 3 ↔ nomakedefs.copyright_banner_c → const.js. */
+function copyrightBannerLineLikeC(indx) {
+    switch (indx) {
+        case 1:
+            return COPYRIGHT_BANNER_A;
+        case 2:
+            return COPYRIGHT_BANNER_B;
+        case 3:
+            return COPYRIGHT_BANNER_C;
+        case 4:
+            return COPYRIGHT_BANNER_D;
+        default:
+            return '';
+    }
+}
+
+/** C wintty: tty_putstr(BASE_WINDOW, 0, copyright_banner_line(i)) for i in 1..4. */
 function paintCopyrightAt(disp, startRow = TTY_COPYRIGHT_START_ROW) {
-    disp.putstr(0, startRow, COPYRIGHT_A, NO_COLOR);
-    disp.putstr(9, startRow + 1, COPYRIGHT_B, NO_COLOR);
-    disp.putstr(9, startRow + 2, COPYRIGHT_C, NO_COLOR);
-    disp.putstr(9, startRow + 3, COPYRIGHT_D, NO_COLOR);
+    for (let i = 0; i < 4; i++) {
+        const line = copyrightBannerLineLikeC(i + 1);
+        const t = line.length > 80 ? line.slice(0, 80) : line;
+        disp.putstr(0, startRow + i, t, NO_COLOR);
+    }
 }
 
 function paintChargenCopyrightBlockLikeC(disp) {
