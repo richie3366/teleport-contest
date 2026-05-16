@@ -1,5 +1,6 @@
 // watch_dig.js — Town watch reaction to digging damage (wand/spell/chew).
-// C ref: dig.c watch_dig(), watchman_canseeu(), get_iter_mons(watchman_canseeu)
+// C ref: dig.c watch_dig(), watchman_canseeu(), get_iter_mons(watchman_canseeu);
+//        allmain.c stop_occupation() when is_digging() (dig_occupation.js).
 
 import { inTownLikeC } from './hacklib.js';
 import { isClosedDoorLoc } from './walkable.js';
@@ -17,6 +18,7 @@ import { pline } from './display.js';
 import { isWatchMonsterLikeC } from './mondata.js';
 import { mCanSeeHeroMonsterLikeC } from './mon_seen_res.js';
 import { angryGuardsSilentLikeC } from './shop.js';
+import { ensureContextDiggingLikeC, stopOccupationIfDiggingHeroLikeC } from './dig_occupation.js';
 
 function isTreeCellLikeC(g, typ) {
     const t = typ | 0;
@@ -55,18 +57,11 @@ function findWatchmanCanSeeHeroLikeC(g) {
     return null;
 }
 
-/** C: **`svc.context.digging.warned`** — ensure object exists before **`watch_dig`** toggles it. */
-function ensureDiggingWarnSlotLikeC(g) {
-    if (!g.context) g.context = {};
-    if (!g.context.digging) g.context.digging = { warned: false };
-    return g.context.digging;
-}
-
 /**
  * C: dig.c watch_dig(struct monst *mtmp, coordxy x, coordxy y, boolean zap)
  *
  * **`SetVoice`** omitted; **`verbalize`** → **`pline`**. **`angry_guards`** → **`angryGuardsSilentLikeC`** (**`mon.c`** watch loop).
- * **`stop_occupation`** only when hero dig occupation is ported (**`is_digging`**); no broad **`g.occupation`** clear.
+ * **`stop_occupation`** when **`is_digging()`** (**`dig_occupation.js`** **`occupying`**).
  *
  * @param {import('./gstate.js').game} g
  * @param {object|null|undefined} mtmp
@@ -83,7 +78,7 @@ export async function watchDigHeroLikeC(g, mtmp, x, y, zap) {
     const m = mtmp ?? findWatchmanCanSeeHeroLikeC(g);
     if (!m) return;
 
-    const dig = ensureDiggingWarnSlotLikeC(g);
+    const dig = ensureContextDiggingLikeC(g);
     const silent = (g.u?.timed?.deaf ?? 0) > 0;
 
     if (zap || dig.warned) {
@@ -101,5 +96,5 @@ export async function watchDigHeroLikeC(g, mtmp, x, y, zap) {
         dig.warned = true;
     }
 
-    /* C: **`is_digging()`** && **`stop_occupation`** — occupation / **`context.digging`** dig bit not wired. */
+    await stopOccupationIfDiggingHeroLikeC(g);
 }

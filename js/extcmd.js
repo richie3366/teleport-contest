@@ -2,7 +2,7 @@
 // C ref: cmd.c doextcmd, extcmdlist
 //
 // JS extras: wizard **`#F`**/**`#c`** — hero **`ubuzz`** + **`zap.c`** **`destroy_items(AD_COLD, d(12,6))`** (**`zapyourself`** cold); **`#d`** — **`dig.c`** **`zap_dig`** (**`u.dz`** + horizontal);
-// **`#D`** — **`dig.c`** **`dig()`** wall/door completion harness (**`dig_hero.js`**);
+// **`#D`** — **`dig.c`** **`dig()`** wall/door completion harness (**`dig_hero.js`**) + **`dig_occupation.js`** **`occupying`** around completion;
 // **`#m`**/**`#B`** — monster **`mbuzz`** (**`muse.c`** **`BZ_M_WAND`/`BZ_M_BREATH`** from neighbor toward hero);
 // **`#i`**/**`#I`** (wizard) — **`insight.c`** **`item_resistance_message`** + **`zap.c`** **`item_what`** (**`destroy_items.js`** **`u_adtyp`** AD_FIRE/COLD/DISN/ELEC/ACID);
 // **`#l`**/**`#L`** — **`pickup.c`** **`use_container`** trapped (**`held`** floor vs invent) → **`trap.c`** **`chest_trap`** (**`pickup.js`**);
@@ -35,6 +35,7 @@ import {
 } from './buzz.js';
 import { heroZapDigLikeC } from './zap_dig.js';
 import { heroDigCompleteWallDoorOrSecretLikeC } from './dig_hero.js';
+import { setHeroDiggingOccupationLikeC } from './dig_occupation.js';
 import { d } from './rng.js';
 import {
     AD_FIRE as DEST_AD_FIRE,
@@ -156,9 +157,14 @@ export async function runExtcmdFromHashPrefix() {
         const u = game.u;
         const tx = (u.ux | 0) + (u.dx | 0);
         const ty = (u.uy | 0) + (u.dy | 0);
-        if (!(await heroDigCompleteWallDoorOrSecretLikeC(game, tx, ty))) {
-            await pline('Nothing happens.');
-            game._retainMessageAfterCommand = true;
+        setHeroDiggingOccupationLikeC(game, true);
+        try {
+            if (!(await heroDigCompleteWallDoorOrSecretLikeC(game, tx, ty))) {
+                await pline('Nothing happens.');
+                game._retainMessageAfterCommand = true;
+            }
+        } finally {
+            setHeroDiggingOccupationLikeC(game, false);
         }
         await flush_screen(1);
         return;
