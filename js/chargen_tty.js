@@ -832,7 +832,7 @@ async function readRaceChoice(disp, f) {
             if (t !== ROLE_NONE) return t;
             continue;
         }
-        /* C role.c race `select_menu`: RS_ROLE / RS_GENDER / RS_ALGNMNT extras (gender/align hubs deferred — `?`/`/` collide with replay when JS is still in readGenderChoice). */
+        /* C role.c race `select_menu`: RS_ROLE / RS_GENDER / RS_ALGNMNT extras on race hub. */
         if (k === '?' && raceMenuRsRoleExtraLikeC(f).pick) return CHARGEN_NAV_ROLE;
         if (k === '"' && raceMenuRsGenderExtraLikeC(f).pick) return CHARGEN_NAV_GENDER;
         if (k === '[') {
@@ -917,6 +917,12 @@ async function readGenderChoice(disp, f) {
             if (t !== ROLE_NONE) return t;
             continue;
         }
+        /* C `setup_gendmenu` / `select_menu`: RS_ALGNMNT only — `?`/`/` collide with replay bursts on this menu (see handoff). */
+        if (k === '[') {
+            const xAl = genderMenuRsAlignExtraLikeC(f);
+            if (xAl.pick) return CHARGEN_NAV_ALIGN;
+            continue;
+        }
         if (map.has(k) && valid.includes(/** @type {number} */ (map.get(k)))) return /** @type {number} */ (map.get(k));
     }
 }
@@ -986,6 +992,10 @@ async function readAlignChoice(disp, f) {
             if (t !== ROLE_NONE) return t;
             continue;
         }
+        /* C `setup_algnmenu` extras — align hub is short-lived in tty chargen; l/n/c do not overlap these accelerators. */
+        if (k === '?' && raceMenuRsRoleExtraLikeC(f).pick) return CHARGEN_NAV_ROLE;
+        if (k === '/' && genderMenuRsRaceExtraLikeC(f).pick) return CHARGEN_NAV_RACE;
+        if (k === '"' && !roleMenuExtraRsGenderGrayLineLikeC(f)) return CHARGEN_NAV_GENDER;
         if (map.has(k)) return /** @type {number} */ (map.get(k));
     }
 }
