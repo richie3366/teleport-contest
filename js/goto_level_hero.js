@@ -2,15 +2,15 @@
 // C ref: dig.c digactualhole() HOLE branch; trap.c trapeffect_hole() → fall_through(TRUE,…);
 //        do.c goto_level / schedule_goto tail; spoteffects(FALSE) after arrival.
 //
-// Ported: **`applyGotoAfterHeroHoleFallLikeC`** (**`u.uz.dlevel`** +1 clamp **`num_dunlevs`**), **`utrap`** clear,
-// **`mklev()`**, **`spotEffects(g, false)`**, **`vision_recalc`**; dig path **`You fall through...`** + pet jerk (**`next_to_u`** stub).
+// Ported: **`applyGotoAfterHeroHoleFallLikeC(g, dest?)`** — **`u.uz`** from **`dest`** (**`trap.c`** **`fall_through`** **`dtmp`**) or dig **`dlevel+1`**; **`utrap`** clear, **`mklev()`**, **`spotEffects`**, **`vision_recalc`**; dig path **`You fall through...`** + pet jerk (**`next_to_u`** stub).
 // Deferred: **`shopdig`/`pay_for_damage`**, **`impact_drop`/`pickup`**, **`fill_pit`**, real **`next_to_u`**,
-// **`keepdogs`**, bones/save, **`schedule_goto`** / **`find_hell`**, **`trap->dst`**, full **`goto_level`**.
+// **`keepdogs`**, bones/save, full **`schedule_goto`/`goto_level`** beyond **`mklev`**.
 
 import { mklev } from './mklev.js';
 import { spotEffects } from './spoteffects.js';
 import { vision_recalc } from './vision.js';
 import { pline } from './display.js';
+import { onLevelLikeC } from './hacklib.js';
 
 /** C: mon.c **`next_to_u`** — stub **TRUE** until ball&chain / leash parity. */
 export function nextToUForHoleFallStub() {
@@ -18,22 +18,39 @@ export function nextToUForHoleFallStub() {
 }
 
 /**
- * C: **`goto_level`** after a hole fall — bump **`dlevel`**, new map, **`spoteffects(FALSE)`**.
+ * C: **`goto_level`** after a hole fall — set **`u.uz`**, new map, **`spoteffects(FALSE)`**.
  * @param {import('./gstate.js').game} g
+ * @param {{ dnum: number, dlevel: number } | null | undefined} [dest] — C **`fall_through`** **`dtmp`** (**`trap->dst`**, **`find_hell`**, …). Omit for dig **`dlevel+1`** only.
  */
-export async function applyGotoAfterHeroHoleFallLikeC(g) {
+export async function applyGotoAfterHeroHoleFallLikeC(g, dest) {
     const u = g.u;
     if (!u || !g.level) return;
 
-    const uz = u.uz || { dnum: 0, dlevel: 1 };
-    const dnum = uz.dnum | 0;
-    const prev = uz.dlevel | 0;
-    const maxLev = g.dungeons?.[dnum]?.num_dunlevs;
-    if (maxLev != null && prev >= (maxLev | 0)) return;
+    const uz0 = u.uz || { dnum: 0, dlevel: 1 };
+    /** @type {{ dnum: number, dlevel: number }} */
+    let newUz;
 
-    let dlevel = prev + 1;
-    if (maxLev != null && dlevel > (maxLev | 0)) dlevel = maxLev | 0;
-    u.uz = { dnum, dlevel };
+    if (dest != null && Number.isInteger(dest.dlevel)) {
+        const dn = dest.dnum | 0;
+        let dl = dest.dlevel | 0;
+        const mx = g.dungeons?.[dn]?.num_dunlevs;
+        if (mx != null) {
+            if (dl > (mx | 0)) dl = mx | 0;
+            if (dl < 1) dl = 1;
+        }
+        newUz = { dnum: dn, dlevel: dl };
+        if (onLevelLikeC(uz0, newUz)) return;
+    } else {
+        const dnum = uz0.dnum | 0;
+        const prev = uz0.dlevel | 0;
+        const maxLev = g.dungeons?.[dnum]?.num_dunlevs;
+        if (maxLev != null && prev >= (maxLev | 0)) return;
+        let dlevel = prev + 1;
+        if (maxLev != null && dlevel > (maxLev | 0)) dlevel = maxLev | 0;
+        newUz = { dnum, dlevel };
+    }
+
+    u.uz = newUz;
     u.utrap = 0;
     u.utraptype = 0;
 

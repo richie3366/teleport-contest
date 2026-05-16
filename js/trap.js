@@ -2256,8 +2256,8 @@ async function trapeffectHoleHero(trap, trflags) {
         }
     }
 
-    /* C: **`shopdig`/`pay`**, **`schedule_goto`** — subset: level only. */
-    await applyGotoAfterHeroHoleFallLikeC(g);
+    /* C: **`shopdig`/`pay`**, **`schedule_goto`** — **`u.uz`** = **`dtmp`** (**`trap->dst`**, …). */
+    await applyGotoAfterHeroHoleFallLikeC(g, destLev ?? undefined);
     newsym(u.ux, u.uy);
 }
 

@@ -9,7 +9,7 @@ Thin handoff for the next coding session. Deep parity tables and history: [`c-to
 - **Plain ES modules**, no build/WASM/network in contest code; RNG via `js/rng.js`; match **clang** evaluation order for multi-call expressions.
 - API: [`docs/API.md`](../../docs/API.md); overview: [`README.md`](../../README.md).
 
-**Last slice:** **`trap.c`** **`fall_through`** deep-shaft **`dist>1`** pline — **`js/trap.js`**: **`holeFallDestinationLevelForShaftMsgLikeC`** (**`Is_stronghold`→`valley_level`**, else **`trap.dst`** clamped to **`num_dunlevs`**, else **`dlevel+1`**); **`trapeffectHoleHero`** after TOOKPLUNGE swoop sets **`controlledFlight`** (**`Flying` only**, C), then **`depth(dest)-depth(u.uz)`** and **`You fly/fall down a … shaft!`** (**`very`/`deep`** per C thresholds). **`hacklib.depth`** import. Still TODO: **`shopdig`/`impact_drop`/`schedule_goto`** so **`applyGoto`** matches multi-level **`dst`**, full **`goto_level`**. **`npm run score`:** **0/44**; **`seed0060`** **991/3626** (unchanged).
+**Last slice:** **`goto_level_hero.applyGotoAfterHeroHoleFallLikeC(g, dest?)`** — C **`fall_through`** **`schedule_goto`** **`dtmp`**: optional **`dest`** sets **`u.uz`** (**`trap->dst`** clamp, **`find_hell`/`valley_level`**, else **`dlevel+1`**); **`onLevelLikeC`** no-op if already there; dig path still omits **`dest`**. **`js/trap.js`** **`trapeffectHoleHero`** passes **`holeFallDestinationLevelForShaftMsgLikeC`** into **`apply`**. Still TODO: **`shopdig`/`impact_drop`**, full **`goto_level`** (pets, bones, **`UTOTYPE`**). **`npm run score`:** **0/44**; **`seed0060`** **991/3626** (unchanged).
 
 ## Next steps (highest impact from latest fire/lava work)
 
