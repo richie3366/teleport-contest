@@ -11,7 +11,7 @@ Thin handoff for the next coding session. **Gap inventory (not yet ported):** [`
 
 **Strategic priority:** Port **tty startup + interactive chargen** toward C **`wintty.c` / `role.c`** parity. **Eleven** public sessions ship **`nethackrc` without** embedded `OPTIONS=name:` / `role:` (and similar); C runs **“Who are you?”**, **[ynaq]**, and role/race/gender/align pickers with real **RNG**. Sessions that already set identity in **OPTIONS** must keep the **C fast path** (skip full menus when rc fixes role/race/gender/align).
 
-**Last slice:** **`options.js`** — extend **`parseRcBooleanishLikeC`** colon handling (same bug class as **`tutorial:no`**): **`color`**, **`verbose`**, **`legacy`**, **`pushweapon`**, **`showexp`**, **`time`**, **`autopickup`**/**`pickup`** → **`flags.pickup`**, **`splash_screen`**/**`perm_invent`** → **`iflags`**, all booleans vs raw strings. **`npm run score`:** **0/44**; **`seed0006`** **519/6736** RNG, **23/123** screens; **`seed0012`** **405/13878** RNG, **12/308** screens; **`seed0077`** **1507/3242** RNG, **11/33** screens; **`seed8000`** **2931/3130** RNG, **2/23** screens; **`seed0014`** **170/59178** RNG, **9/714** screens.
+**Last slice:** **`chargen.js`** — **`applyIdentityFromNethackrc`**: **`OPTIONS=gender:male`** (and **`m`**, **`mal`**) now set **`flags.female`** false; previously only the female branch ran so male stayed default **true**. Female tokens **`f`**/**`female`**/**`fem`**. **`npm run score`:** **0/44**; **`seed0006`** **519/6736** RNG, **23/123** screens; **`seed0012`** **405/13878** RNG, **12/308** screens; **`seed0077`** **1507/3242** RNG, **11/33** screens; **`seed8000`** **2931/3130** RNG, **2/23** screens; **`seed0014`** **170/59178** RNG, **9/714** screens.
 
 ## Next steps
 

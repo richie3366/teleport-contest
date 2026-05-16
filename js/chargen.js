@@ -26,8 +26,10 @@ export function applyIdentityFromNethackrc(g, opts) {
 
     let female = true;
     if (typeof opts.gender === 'string' && opts.gender.trim()) {
-        const gnd = opts.gender.toLowerCase();
-        female = gnd.startsWith('f') || gnd === 'female';
+        const gnd = opts.gender.toLowerCase().trim();
+        /* C: options.c / role.c — rc gender tokens (male/female, m/f, mal/fem abbreviations) */
+        if (gnd.startsWith('f') || gnd === 'female' || gnd === 'fem') female = true;
+        else if (gnd.startsWith('m') || gnd === 'male' || gnd === 'mal') female = false;
     }
 
     let alignType = 0;
