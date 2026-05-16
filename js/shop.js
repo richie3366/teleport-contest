@@ -10,6 +10,10 @@ import { cansee, vision_recalc } from './vision.js';
 import { delEngrAt } from './engrave.js';
 import { raceptr, passesWalls } from './mondata.js';
 import { heroPassesWalls } from './walkable.js';
+import { dist2 } from './hacklib.js';
+import { rn2 } from './rng.js';
+import { nhgetch } from './input.js';
+import { changeLuck } from './attrib.js';
 import {
     OROOM,
     NO_ROOM,
@@ -365,6 +369,285 @@ export function fixShopDamage(g = game) {
             const damg = list[i];
             if (repairDamageCatchup(g, shkp, damg)) list.splice(i, 1);
         }
+    }
+}
+
+/** C: **`hack.h`** **`PL_NSIZ`** — customer string cap. */
+const PL_NSIZ_PAY = 36;
+/** C: **`monflag.h`** **`MS_ANIMAL`**. */
+const MS_ANIMAL_SHK = 17;
+
+/** C: **`apply.c`** **`um_dist(x, y, n)`** — hero farther than **`n`** on x or y axis. */
+function umDistHero(g, x, y, n) {
+    const ux = g.u?.ux | 0;
+    const uy = g.u?.uy | 0;
+    return Math.abs(ux - (x | 0)) > n || Math.abs(uy - (y | 0)) > n;
+}
+
+function shknamDisplay(shkp) {
+    return shkp?.monnam || shkp?.data?.mname || 'The shopkeeper';
+}
+
+function muteshkShk(shkp) {
+    if (helplessShk(shkp)) return true;
+    const ms = shkp?.data?.msound ?? 0;
+    return (ms | 0) <= MS_ANIMAL_SHK;
+}
+
+/** C: **`shk.c`** **`rile_shk`** — angry + surcharge flag (**`bill`** price loop not ported). */
+function rileShkMinimal(shkp) {
+    shkp.mpeaceful = 0;
+    const e = ESHK(shkp);
+    if (e) e.surcharge = 1;
+}
+
+/**
+ * C: **`shk.c`** **`hot_pursuit`** — **`rile_shk`**, customer, **`following`**;
+ * omits **`clear_no_charge`** / **`clear_no_charge_pets`**.
+ * @param {import('./gstate.js').game} g
+ */
+async function hotPursuitShk(g, shkp) {
+    if (!(shkp?.isshk | 0)) return;
+    rileShkMinimal(shkp);
+    const e = ESHK(shkp);
+    const pn = g.plname ? String(g.plname) : 'Player';
+    if (e) {
+        e.customer = pn.slice(0, PL_NSIZ_PAY);
+        e.following = 1;
+    }
+}
+
+/** C: **`shk.c`** **`pacify_shk(shkp, FALSE)`** subset — peaceful; **`surcharge`** cleared (**`bill`** undo skipped). */
+function pacifyShkMinimal(shkp) {
+    shkp.mpeaceful = 1;
+    const m = /** @type {Record<string, unknown>} */ (shkp);
+    m.mAngry = 0;
+    const e = ESHK(shkp);
+    if (e) {
+        e.following = 0;
+        e.surcharge = 0;
+    }
+}
+
+/** C: **`shk.c`** **`money_cnt(gi.invent)`** subset — **`g._goldCount`** + **`u.umoney`**. */
+function moneyCntInvent(g) {
+    return (g._goldCount | 0) + (g.u?.umoney | 0);
+}
+
+/** C: **`shk.c`** **`money2mon`** subset — deduct hero gold. */
+function money2monShk(g, _shkp, amt) {
+    let n = amt | 0;
+    if (n <= 0) return;
+    let gc = g._goldCount | 0;
+    if (gc >= n) {
+        g._goldCount = gc - n;
+        return;
+    }
+    n -= gc;
+    g._goldCount = 0;
+    if (g.u) g.u.umoney = Math.max(0, (g.u.umoney | 0) - n);
+}
+
+/**
+ * C: **`shk.c`** **`check_credit`** — **`pline_The`** → **`pline`**.
+ * @returns {number} remaining zorkmids owed after credit applied
+ */
+async function checkCreditShk(g, tmp, shkp) {
+    const e = ESHK(shkp);
+    let credit = e?.credit | 0;
+    let t = tmp | 0;
+    if (credit === 0) return t;
+    if (credit >= t) {
+        await pline('The price is deducted from your credit.');
+        if (e) e.credit = credit - t;
+        return 0;
+    }
+    await pline('The price is partially covered by your credit.');
+    if (e) e.credit = 0;
+    return t - credit;
+}
+
+/** C: **`shk.c`** **`home_shk(shkp, FALSE)`** — move shk to **`eshk.shk`** (**`mnearto`** stub). */
+function homeShkMinimal(g, shkp) {
+    const e = ESHK(shkp);
+    if (!e) return;
+    const hx = e.shk?.x;
+    const hy = e.shk?.y;
+    if (hx == null || hy == null) return;
+    shkp.mx = hx | 0;
+    shkp.my = hy | 0;
+    if (g.level?.flags) g.level.flags.has_shop = 1;
+}
+
+/**
+ * C: **`shk.c`** **`getcad`** + **`hot_pursuit`** tail — no **`SetVoice`/`Deaf`** split beyond **`muteshk`**;
+ * **`ROLL_FROM(angrytexts)`** → fixed **`furious`**.
+ * @param {import('./gstate.js').game} g
+ */
+async function getCadShop(g, shkp, dmgstr, x, y, uinshp, animal, pursue) {
+    const dugwall = dmgstr === 'dig into' || dmgstr === 'damage';
+    const what = dugwall ? 'shop' : 'door';
+    if (muteshkShk(shkp)) {
+        if (animal && !helplessShk(shkp)) await pline(`${shknamDisplay(shkp)} yelps!`);
+    } else if (pursue || uinshp || !umDistHero(g, x, y, 1)) {
+        await pline(`${shknamDisplay(shkp)} howls angrily: \"How dare you ${dmgstr} my ${what}!\"`);
+    } else {
+        await pline(`${shknamDisplay(shkp)} shouts: \"Who dared ${dmgstr} my ${what}!\"`);
+    }
+    await hotPursuitShk(g, shkp);
+}
+
+/**
+ * C: **`shk.c`** **`pay_for_damage`** — damagelist scan (**`when == moves`** && **`cost`**), nearest shk tie-break;
+ * **`getcad`/`hot_pursuit`**, **`y_n`** pay path (**`check_credit`/`money2mon`/`pacify_shk`/`home_shk`** subset).
+ * Omits **`mnexto`/`mnearto`** movement (**`homeShkMinimal`** teleport), **`Invis`** cad honorific, **`adjalign`** precision,
+ * **`canspotmon`/`canseemon`** full parity, **`sleep`/`wait_synch`**, **`body_part`/`mbodypart`** deaf branch.
+ * @param {import('./gstate.js').game} [g]
+ * @param {string} dmgstr — C verb phrase (**`"dig into"`** / **`"damage"`** / door strings from callers).
+ * @param {boolean} [cantMollify]
+ */
+export async function payForDamage(g = game, dmgstr, cantMollify = false) {
+    const str = dmgstr != null ? String(dmgstr) : 'damage';
+    const list = g.level?.damagelist;
+    if (!list?.length) return;
+
+    const moves = g.moves | 0;
+    /** @type {{ x: number, y: number, cost?: number, when?: number, typ?: number, flags?: number } | null} */
+    let appearHere = null;
+    let shkp = null;
+    let costOfDamage = 0;
+    const nearestShkCap = ROWNO * ROWNO + COLNO * COLNO;
+    let nearestShk = nearestShkCap;
+    let nearestDamage = nearestShkCap;
+    let picks = 0;
+
+    for (let di = 0; di < list.length; di++) {
+        const tmpDam = list[di];
+        if ((tmpDam.when | 0) !== moves || !(tmpDam.cost | 0)) continue;
+        costOfDamage += tmpDam.cost | 0;
+        const dx = tmpDam.x | 0;
+        const dy = tmpDam.y | 0;
+        const shopsAffected = inRoomsShopbaseRoomnos(g, dx, dy);
+        for (let si = 0; si < shopsAffected.length; si++) {
+            const roomChar = shopsAffected[si];
+            const tmpShk = shopKeeperForLevlRoomno(g, roomChar);
+            if (!tmpShk) continue;
+            if (tmpShk === shkp) {
+                const damageDistance = dist2(dx, dy, g.u?.ux | 0, g.u?.uy | 0);
+                if (damageDistance < nearestDamage) {
+                    nearestDamage = damageDistance;
+                    appearHere = tmpDam;
+                }
+                continue;
+            }
+            if (!inHishop(g, tmpShk)) continue;
+            const shkDistance = dist2(tmpShk.mx | 0, tmpShk.my | 0, g.u?.ux | 0, g.u?.uy | 0);
+            if (shkDistance > nearestShk) continue;
+            if (shkDistance === nearestShk && picks) {
+                if (rn2(++picks)) continue;
+            } else picks = 1;
+            shkp = tmpShk;
+            nearestShk = shkDistance;
+            appearHere = tmpDam;
+            nearestDamage = dist2(dx, dy, g.u?.ux | 0, g.u?.uy | 0);
+        }
+    }
+
+    if (!costOfDamage || !shkp || !appearHere) return;
+
+    const e = ESHK(shkp);
+    const pn = g.plname ? String(g.plname) : 'Player';
+    if (e) e.customer = pn.slice(0, PL_NSIZ_PAY);
+
+    if (!(shkp.mpeaceful | 0) || (e?.following | 0)) {
+        await hotPursuitShk(g, shkp);
+        return;
+    }
+
+    const animal = (shkp.data?.msound ?? 0) <= MS_ANIMAL_SHK;
+    const uinshp = inRoomsShopbaseRoomnos(g, g.u?.ux | 0, g.u?.uy | 0).length > 0;
+    const x = appearHere.x | 0;
+    const y = appearHere.y | 0;
+
+    const shkInShop = inRoomsShopbaseRoomnos(g, shkp.mx | 0, shkp.my | 0).length > 0;
+    if (!shkInShop) {
+        if (!cansee(shkp.mx | 0, shkp.my | 0)) return;
+        await getCadShop(g, shkp, str, x, y, uinshp, animal, true);
+        return;
+    }
+
+    let pursue = false;
+
+    if (uinshp) {
+        if (!umDistHero(g, shkp.mx | 0, shkp.my | 0, 1) && umDistHero(g, shkp.mx | 0, shkp.my | 0, 3)) {
+            await pline(`${shknamDisplay(shkp)} leaps towards you!`);
+            /* C: **`mnexto(shkp, RLOC_NOMSG)`** — not ported */
+        }
+        pursue = umDistHero(g, shkp.mx | 0, shkp.my | 0, 1);
+        if (pursue) {
+            await getCadShop(g, shkp, str, x, y, uinshp, animal, pursue);
+            return;
+        }
+    } else {
+        if (monAtG(g, x, y)) {
+            if (!animal) {
+                await pline('You hear an angry voice: \"Out of my way, scum!\"');
+            } else {
+                await pline(`${shknamDisplay(shkp)} growls.`);
+            }
+        }
+        /* C: **`mnearto(shkp, x, y, TRUE, RLOC_MSG)`** — not ported */
+    }
+
+    const heroInvis = !!(g.u?.HInvis | 0) || !!(g.u?.EInvis | 0);
+    const brokeOrAngry =
+        (umDistHero(g, x, y, 1) && !uinshp)
+        || cantMollify
+        || moneyCntInvent(g) + (e?.credit | 0) < costOfDamage
+        || !rn2(50);
+    if (brokeOrAngry) {
+        await getCadShop(g, shkp, str, x, y, uinshp, animal, pursue);
+        return;
+    }
+
+    if (heroInvis) await pline(`Your invisibility does not fool ${shknamDisplay(shkp)}!`);
+    const cadPre = !animal ? 'Cad!  ' : '';
+    const cadPost = !animal ? '"' : '';
+    const qbuf = `${cadPre}You did ${costOfDamage} zorkmids worth of damage!${cadPost}  Pay?`;
+    await pline(qbuf);
+    const code = await nhgetch();
+    const ch = typeof code === 'number' ? String.fromCharCode(code) : String(code);
+    if (ch.toLowerCase() !== 'n') {
+        const wasSeen = cansee(shkp.mx | 0, shkp.my | 0);
+        const wasOutside = !inHishop(g, shkp);
+        const sx = shkp.mx | 0;
+        const sy = shkp.my | 0;
+        let payAmt = costOfDamage;
+        payAmt = await checkCreditShk(g, payAmt, shkp);
+        if (payAmt > 0) {
+            money2monShk(g, shkp, payAmt);
+            g.disp = g.disp || {};
+            g.disp.botl = true;
+        }
+        await pline(`Mollified, ${shknamDisplay(shkp)} accepts your restitution.`);
+        homeShkMinimal(g, shkp);
+        pacifyShkMinimal(shkp);
+        if ((shkp.mx | 0) !== sx || (shkp.my | 0) !== sy) {
+            if (wasOutside && cansee(shkp.mx | 0, shkp.my | 0)) {
+                await pline(`${shknamDisplay(shkp)} returns to his shop.`);
+            } else if (cansee(shkp.mx | 0, shkp.my | 0) || wasSeen) {
+                const msg = !wasSeen ? 'appears' : cansee(shkp.mx | 0, shkp.my | 0) ? 'shifts location' : 'disappears';
+                await pline(`${shknamDisplay(shkp)} ${msg}.`);
+            }
+        }
+    } else {
+        if (!animal) {
+            await pline(`${shknamDisplay(shkp)} snarls: \"Oh, yes!  You'll pay!\"`);
+        } else {
+            await pline(`${shknamDisplay(shkp)} growls.`);
+        }
+        await hotPursuitShk(g, shkp);
+        changeLuck(-1);
     }
 }
 
