@@ -16,7 +16,7 @@ export function rndmonnum() {
 /**
  * C: makemon(struct permonst *mdat, coordxy x, coordxy y, mmflags_nht mmflags)
  * Stub: consumes a minimal RNG slice for random mdat at fixed coordinates.
- * @returns {{ mx: number, my: number, mhp: number, mhpmax: number, msleeping: number, mpeaceful: number, mtame: number, mnum: number, mvflags?: number }|null}
+ * @returns {{ mx: number, my: number, mhp: number, mhpmax: number, msleeping: number, mpeaceful: number, mtame: number, mnum: number, mcanmove?: number, mfrozen?: number, mvflags?: number }|null}
  */
 export function makemon(mdat, x, y, mmflags) {
     void mmflags;
@@ -27,5 +27,5 @@ export function makemon(mdat, x, y, mmflags) {
         mnum = mdat.mnum | 0;
     }
     const hp = rnd(8);
-    return { mx: x, my: y, mhp: hp, mhpmax: hp, msleeping: 0, mpeaceful: 0, mtame: 0, mnum };
+    return { mx: x, my: y, mhp: hp, mhpmax: hp, msleeping: 0, mpeaceful: 0, mtame: 0, mnum, mcanmove: 1, mfrozen: 0 };
 }

@@ -92,6 +92,11 @@ import {
     is_hole,
     In_sokoban,
     In_endgame,
+    In_quest,
+    Is_botlevel,
+    Is_knox_level,
+    Is_waterlevel,
+    Is_airlevel,
     isok,
     NO_MM_FLAGS,
     A_CHA,
@@ -105,6 +110,7 @@ import {
     TRAP_EFFECT_FINISHED,
     TRAP_CAUGHT_MON,
     TRAP_KILLED_MON,
+    TRAP_MOVED_MON,
 } from './const.js';
 
 const M1_CLING = 0x00000010;
@@ -556,9 +562,11 @@ async function trapeffectRocktrapMonster(g, mtmp, trap) {
             : TRAP_EFFECT_FINISHED;
 }
 
-/** C: mon.c **`helpless(mtmp)`** — subset until **`mfrozen`/`mcanmove`** port. */
+/** C: mon.c **`helpless(mtmp)`** — **`mcanmove`/`mfrozen`** subset (hero **`multi`** not ported). */
 function helplessMon(mtmp) {
-    return false;
+    if (!mtmp) return false;
+    if ((mtmp.mfrozen | 0) > 0) return true;
+    return (mtmp.mcanmove | 0) === 0;
 }
 
 /** C: mondata.h **`grounded`** — flyer/floater avoids ordinary pit fall. */
@@ -582,11 +590,18 @@ async function extinguishLitMinventNotWielded(mtmp, inSight) {
     }
 }
 
-/** C: mhitm.c **`sleep_monst(mon, amt, -1)`** — JS has no **`mfrozen`** yet; **`msleeping`** only. */
-function sleepMonstFromGas(mtmp, _amt) {
-    void _amt;
+/** C: mhitm.c **`sleep_monst(mon, amt, -1)`** — timed sleep via **`mfrozen`** / **`mcanmove`**. */
+function sleepMonstFromGas(mtmp, amt) {
     if (resistsSleep(raceptr(mtmp)) || breathless(raceptr(mtmp)) || helplessMon(mtmp)) return false;
-    mtmp.msleeping = 1;
+    if (!(mtmp.mcanmove ?? 1)) return false;
+    let a = (amt | 0) + (mtmp.mfrozen | 0);
+    if (a > 0) {
+        mtmp.mcanmove = 0;
+        mtmp.mfrozen = Math.min(a, 127);
+        mtmp.msleeping = 0;
+    } else {
+        mtmp.msleeping = 1;
+    }
     return true;
 }
 
@@ -816,6 +831,207 @@ async function trapeffectWebMonster(g, mtmp, trap, mintrapflags) {
         }
     }
     return (mtmp.mtrapped | 0) ? TRAP_CAUGHT_MON : TRAP_EFFECT_FINISHED;
+}
+
+/** C: teleport.c **`random_teleport_level`** — absolute **`dlevel`** (subset; **`game.dungeons`** when present). */
+function randomTeleportLevelAbs(g) {
+    const uz = g.u?.uz;
+    if (!uz) return 1;
+    const curDepth = uz.dlevel | 0;
+    if (!rn2(5) || Is_knox_level(uz) || In_endgame(uz)) return curDepth;
+
+    let min_depth = 1;
+    let max_depth = 99;
+    const dun = g.dungeons?.[uz.dnum];
+    const numlev = dun?.num_dunlevs ?? 30;
+    const depth_start = dun?.depth_start ?? 1;
+
+    if (In_quest(uz)) {
+        const bottom = numlev;
+        min_depth = depth_start;
+        max_depth = bottom + (depth_start - 1);
+    } else {
+        min_depth = 1;
+        max_depth = numlev + (depth_start - 1);
+    }
+
+    let nlev = rn2(curDepth + 3 - min_depth) + min_depth;
+    if (nlev >= curDepth) nlev++;
+    if (nlev > max_depth) {
+        nlev = max_depth;
+        if (Is_botlevel(uz)) nlev -= rnd(3);
+    }
+    if (nlev < min_depth) {
+        nlev = min_depth;
+        if (nlev === curDepth) {
+            nlev += rnd(3);
+            if (nlev > max_depth) nlev = max_depth;
+        }
+    }
+    return nlev;
+}
+
+/** C: teleport.c **`teleport_pet`** — steed blocked; cursed leash respects **`force_it`**. */
+function teleportPetAllowsMon(g, mtmp, forceIt) {
+    const u = g.u;
+    if (!u || mtmp === u.usteed) return false;
+    if ((mtmp.mleashed | 0) && !forceIt) return false;
+    return true;
+}
+
+/** C: dungeon.c **`Can_fall_thru`** subset — no hole effects on water / air planes. */
+function canFallThruLevelForHole(g) {
+    const uz = g.u?.uz;
+    if (!uz) return false;
+    if (Is_waterlevel(uz) || Is_airlevel(uz)) return false;
+    return true;
+}
+
+/**
+ * C: teleport.c **`mlevel_tele_trap`** — remove mon from current map (**`migrate_to_level`** stub).
+ * @returns {Promise<number>} **`TRAP_MOVED_MON`** or **`TRAP_EFFECT_FINISHED`**
+ */
+async function mlevelTeleTrapMonster(g, mtmp, trap, forceIt, inSight) {
+    const u = g.u;
+    if (!u || !mtmp || !trap) return TRAP_EFFECT_FINISHED;
+    const tt = trap.ttyp | 0;
+    if (mtmp === u.ustuck) return TRAP_EFFECT_FINISHED;
+    if (!teleportPetAllowsMon(g, mtmp, !!forceIt)) return TRAP_EFFECT_FINISHED;
+
+    if (is_hole(tt)) {
+        if (Is_botlevel(u.uz)) {
+            if (inSight && trap.tseen) {
+                const holeWord = tt === HOLE ? 'hole' : 'trap';
+                await pline(`${monNamSentence(mtmp)} avoids the ${holeWord}.`);
+            }
+            return TRAP_EFFECT_FINISHED;
+        }
+    } else if (tt === MAGIC_PORTAL) {
+        if (In_endgame(u.uz) && rn2(7)) {
+            if (inSight) {
+                await pline(`${monNamSentence(mtmp)} seems to shimmer for a moment.`);
+                seetrap(trap);
+            }
+            return TRAP_EFFECT_FINISHED;
+        }
+        if (!trap.dst) return TRAP_EFFECT_FINISHED;
+    } else if (tt === LEVEL_TELEP) {
+        if (In_endgame(u.uz)) {
+            if (inSight) {
+                await pline(`${monNamSentence(mtmp)} seems very disoriented for a moment.`);
+            }
+            return TRAP_EFFECT_FINISHED;
+        }
+        const cur = u.uz.dlevel | 0;
+        const nlev = randomTeleportLevelAbs(g);
+        if (nlev === cur) {
+            if (inSight) await pline(`${monNamSentence(mtmp)} shudders for a moment.`);
+            return TRAP_EFFECT_FINISHED;
+        }
+    }
+
+    if (inSight) {
+        await pline(`Suddenly, ${monNam(mtmp)} disappears out of sight.`);
+        seetrap(trap);
+    }
+    const mx = mtmp.mx | 0;
+    const my = mtmp.my | 0;
+    const mons = g.level?.monsters;
+    const i = mons ? mons.indexOf(mtmp) : -1;
+    if (i >= 0) mons.splice(i, 1);
+    newsym(mx, my);
+    return TRAP_MOVED_MON;
+}
+
+/** C: trap.c **`mintrap`** **`LANDMINE`** — non-hero (**`rn2(3)`**, flyer **`rn2(3)`**, **`blow_up_landmine`**, **`thitm`**, **`mintrap`** pit). */
+async function trapeffectLandmineMonster(g, mtmp, trap, mintrapflags) {
+    void mintrapflags;
+    if (rn2(3)) return TRAP_EFFECT_FINISHED;
+
+    const ptr = raceptr(mtmp);
+    const inSight = canseemonRip(g, mtmp);
+    const u = g.u;
+    const alreadySeen = !!trap.tseen;
+    let trapkilled = false;
+
+    if (isFlyer(ptr)) {
+        if (inSight && !alreadySeen) {
+            await pline(`A trigger appears in a pile of soil below ${monNam(mtmp)}.`);
+            seetrap(trap);
+        }
+        if (rn2(3)) return TRAP_EFFECT_FINISHED;
+        if (inSight) {
+            newsym(mtmp.mx, mtmp.my);
+            await pline(
+                `The air currents set ${alreadySeen ? (trap.madeby_u ? 'your land mine' : 'a land mine') : 'it'} off!`,
+            );
+        }
+    } else if (inSight) {
+        newsym(mtmp.mx, mtmp.my);
+        await pline(
+            `${!heroDeaf(u) ? 'KAABLAMM!!!  ' : ''}${monNamSentence(mtmp)} triggers ${trap.madeby_u ? 'your' : 'a'} land mine!`,
+        );
+    }
+    if (!inSight && u && !heroDeaf(u)) await pline('Kaablamm!  You hear an explosion in the distance!');
+
+    blowUpLandmine(trap);
+
+    if (monsterStillOnLevel(g, mtmp) && (await thitmMonster(g, mtmp, 0, null, rnd(16), false))) {
+        trapkilled = true;
+    } else if (monsterStillOnLevel(g, mtmp)) {
+        const mr = await mintrap(mtmp, RECURSIVETRAP);
+        if (mr === TRAP_KILLED_MON) trapkilled = true;
+    }
+    fillPit(trap.tx | 0, trap.ty | 0);
+    if (monsterStillOnLevel(g, mtmp) && (mtmp.mhp | 0) <= 0) trapkilled = true;
+
+    return trapkilled
+        ? TRAP_KILLED_MON
+        : (mtmp.mtrapped | 0)
+            ? TRAP_CAUGHT_MON
+            : TRAP_EFFECT_FINISHED;
+}
+
+/** C: trap.c **`mintrap`** — **`HOLE`/`TRAPDOOR`** + **`LEVEL_TELEP`/`MAGIC_PORTAL`** (**`mlevel_tele_trap`**). */
+async function trapeffectHoleTrapdoorLevelPortalMonster(g, mtmp, trap, mintrapflags) {
+    const u = g.u;
+    if (!u) return TRAP_EFFECT_FINISHED;
+    const tt = trap.ttyp | 0;
+    const ptr = raceptr(mtmp);
+    let inSight = canseemonRip(g, mtmp);
+    const forcetrap = ((mintrapflags | 0) & (FORCETRAP | FAILEDUNTRAP)) !== 0;
+    const inescapable = forcetrap
+        || (((tt === HOLE || tt === TRAPDOOR || is_pit(tt)) && In_sokoban(u.uz) && !trap.madeby_u));
+
+    if (tt === HOLE || tt === TRAPDOOR) {
+        if (!canFallThruLevelForHole(g)) return TRAP_EFFECT_FINISHED;
+        const wormy = (mtmp.wormno | 0) > 5;
+        const wumpus = String(ptr?.mname || '').toLowerCase().includes('wumpus');
+        const huge = (ptr.msize | 0) >= MZ_HUGE;
+        const bigAir = isFlyer(ptr) || isFloater(ptr) || wumpus || wormy || huge;
+        if (bigAir) {
+            if (forcetrap && !In_sokoban(u.uz)) {
+                if (inSight) {
+                    seetrap(trap);
+                    if (tt === TRAPDOOR) {
+                        await pline(`A trap door opens, but ${monNam(mtmp)} doesn't fall through.`);
+                    } else {
+                        await pline(`${monNamSentence(mtmp)} doesn't fall through the hole.`);
+                    }
+                }
+                return TRAP_EFFECT_FINISHED;
+            }
+            if (!inescapable) return TRAP_EFFECT_FINISHED;
+            if (inSight) {
+                await pline(`${monNamSentence(mtmp)} seems to be yanked down!`);
+                inSight = false;
+                seetrap(trap);
+            }
+        }
+    }
+
+    const mres = await mlevelTeleTrapMonster(g, mtmp, trap, inescapable, inSight);
+    return mres === TRAP_MOVED_MON ? TRAP_MOVED_MON : TRAP_EFFECT_FINISHED;
 }
 
 /**
@@ -1368,10 +1584,27 @@ async function trapeffectBearHero(trap, trflags) {
     exercise(A_DEX, false);
 }
 
-/** C: trap.c blow_up_landmine — scatter / terrain / drawbridge deferred. */
-function blowUpLandmine(/** @type {{ tx: number, ty: number }} */ trap) {
-    wakeNearto(trap.tx, trap.ty, 400);
+/**
+ * C: trap.c **`blow_up_landmine`** — **`wake_nearto`**, **`scatter`** / doors / drawbridge deferred;
+ * converts **`LANDMINE` → `PIT`** on normal levels (**`Is_waterlevel`/`Is_airlevel`** → **`deltrap`**).
+ * @param {{ tx: number, ty: number, ttyp?: number, madeby_u?: boolean, tseen?: boolean }|null|undefined} trap
+ */
+function blowUpLandmine(trap) {
+    if (!trap) return;
+    const x = trap.tx | 0;
+    const y = trap.ty | 0;
+    wakeNearto(x, y, 400);
     vision_recalc(1);
+    const u = game.u;
+    if (Is_waterlevel(u?.uz) || Is_airlevel(u?.uz)) {
+        delTrap(trap);
+        return;
+    }
+    if ((trap.ttyp | 0) === LANDMINE) {
+        trap.ttyp = PIT;
+        trap.madeby_u = false;
+        seetrap(trap);
+    }
 }
 
 /** C: trap.c fill_pit — boulder fill / engraving cleanup deferred. */
@@ -1509,10 +1742,8 @@ async function trapeffectLandmineHero(trap, trflags) {
         u.wounded_legs = Math.max(wl, wr);
         exercise(A_DEX, false);
     }
-    trap.ttyp = PIT;
-    trap.madeby_u = false;
-    losehp(maybeHalfPhys(damage), 'land mine', 0);
     blowUpLandmine(trap);
+    losehp(maybeHalfPhys(damage), 'land mine', 0);
     newsym(u.ux, u.uy);
     const t2 = tAt(u.ux, u.uy);
     if (t2) await dotrap(t2, RECURSIVETRAP);
@@ -1819,6 +2050,13 @@ async function trapeffectMonsterSelector(mtmp, trap, mintrapflags) {
         return trapeffectPitMonster(game, mtmp, trap, mintrapflags);
     case WEB:
         return trapeffectWebMonster(game, mtmp, trap, mintrapflags);
+    case HOLE:
+    case TRAPDOOR:
+    case LEVEL_TELEP:
+    case MAGIC_PORTAL:
+        return trapeffectHoleTrapdoorLevelPortalMonster(game, mtmp, trap, mintrapflags);
+    case LANDMINE:
+        return trapeffectLandmineMonster(game, mtmp, trap, mintrapflags);
     default:
         return TRAP_EFFECT_FINISHED;
     }
