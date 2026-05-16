@@ -1,20 +1,25 @@
 // mondata.js — Monster type predicates and locomotion phrasing.
-// C ref: mondata.h (is_floater, is_flyer, …), mondata.c raceptr(), locomotion(),
-// stagger(), monflag.h M1_*, MZ_*, G_NOCORPSE; mon.c make_corpse (corpse gate stub).
+// C ref: mondata.h (is_floater, is_flyer, swims, amphibious, fire_resistant, …), mondata.c raceptr(),
+// stagger(), monflag.h M1_*, MR_*, MZ_*, G_NOCORPSE; mon.c make_corpse (corpse gate stub).
 
 import { game } from './gstate.js';
 import { XKILL_NOCORPSE } from './const.js';
 
-/** @typedef {{ mlet: number, mflags1: number, msize: number, mmove: number, ac?: number, mvflags?: number }} Permonst */
+/** @typedef {{ mlet: number, mflags1: number, msize: number, mmove: number, ac?: number, mvflags?: number, mresists?: number }} Permonst */
 
 /** C: monflag.h `G_NOCORPSE` — no ordinary corpse (mon.c make_corpse; genocided / unique rules). */
 export const G_NOCORPSE = 0x0010;
 
-// C: monflag.h (subset used by locomotion / stagger)
+/** C: monflag.h `MR_FIRE` — innate fire resistance (goodpos lava, trap.c, …). */
+export const MR_FIRE = 0x01;
+
+// C: monflag.h (subset used by locomotion / stagger / goodpos)
 const M1_FLY = 0x00000001;
+const M1_SWIM = 0x00000002;
 const M1_AMORPHOUS = 0x00000004;
 const M1_WALLWALK = 0x00000008;
 const M1_UNSOLID = 0x00100000;
+const M1_AMPHIBIOUS = 0x00000200;
 const M1_BREATHLESS = 0x00000400;
 const M1_NOLIMBS = 0x00006000;
 const M1_SLITHY = 0x00080000;
@@ -45,6 +50,7 @@ export const permonstHuman = Object.freeze({
     mmove: 12,
     ac: 10, /* C: mons[].ac — find_ac() base for naked humanoid hero */
     mvflags: 0,
+    mresists: 0,
 });
 
 /**
@@ -144,6 +150,21 @@ export function isFloater(/** @type {Permonst} */ ptr) {
 /** C: mondata.h is_flyer */
 export function isFlyer(/** @type {Permonst} */ ptr) {
     return (ptr.mflags1 & M1_FLY) !== 0;
+}
+
+/** C: mondata.h swims */
+export function swims(/** @type {Permonst} */ ptr) {
+    return (ptr.mflags1 & M1_SWIM) !== 0;
+}
+
+/** C: mondata.h amphibious */
+export function amphibious(/** @type {Permonst} */ ptr) {
+    return (ptr.mflags1 & M1_AMPHIBIOUS) !== 0;
+}
+
+/** C: mondata.h fire_resistant — `mons[].mresists & MR_FIRE` (subset). */
+export function fireResistant(/** @type {Permonst} */ ptr) {
+    return ((ptr?.mresists ?? 0) & MR_FIRE) !== 0;
 }
 
 /** C: mondata.h slithy */
