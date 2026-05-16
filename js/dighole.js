@@ -10,7 +10,7 @@
 // **PIT** vs **HOLE** per C; **digactualHoleHeroUtrapSubset** before trap.
 // Ported: drawbridge **`DRAWBRIDGE_DOWN`**/**wall** + **`destroy_drawbridge`**; **`DRAWBRIDGE_UP`**
 // + **`fillholetyp`** + **`liquid_flow`** (**`drawbridgemask`** **`DB_UNDER`**); **`IS_GRAVE`** + **`dig_up_grave`** subset.
-// Deferred: goto_level,
+// Deferred: full **`goto_level`** (bones, **`impact_drop`**, **`shopdig`**, **`keepdogs`**, **`next_to_u`**),
 // shop billing, monsters, furniture_handled, Invocation_lev, AM_SANCTUM, **PASSED_DESTROY_TRAP** full **`maketrap`** parity.
 
 import { pline, newsym } from './display.js';
@@ -23,6 +23,7 @@ import {
     unearthObjsDigInLevel,
 } from './floorobj.js';
 import { digUpGraveLikeC } from './dig_grave.js';
+import { gotoLevelHeroFallThroughDigHoleLikeC } from './goto_level_hero.js';
 import { spotChecksLikeC } from './spot_checks.js';
 import { fillholetypLikeC } from './fillholetyp.js';
 import { liquidFlowHeroDigLikeC } from './liquid_flow.js';
@@ -441,6 +442,11 @@ export async function digholeHeroLikeC(g, pitOnly, byMagic, cc) {
                 }
             } else {
                 await pline('You dig a hole through the floor.');
+                if (g.u.ustuck || g.u.Levitation || g.u.Flying) {
+                    /* C: no fall — **`impact_drop`/`pickup`** deferred. */
+                } else {
+                    await gotoLevelHeroFallThroughDigHoleLikeC(g, digX, digY);
+                }
             }
             wakeNeartoStub(u.ux | 0, u.uy | 0, 7 * 7);
             vision_recalc(1);
