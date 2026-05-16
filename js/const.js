@@ -2918,6 +2918,12 @@ export function ismnum(pm) {
 // ── Level classification predicates (C: dungeon.h macros) ──
 export function In_quest(uz) { return (uz ?? game?.u?.uz)?.dnum === game?.quest_dnum; }
 export function In_endgame(uz) { const lev = uz ?? game?.u?.uz; const al = game?.astral_level; return !!lev && !!al && lev.dnum === al.dnum; }
+/** C: dungeon.h `Inhell` → `In_hell(&u.uz)`; dungeon.c `In_hell` — `dungeons[dnum].flags.hellish`. */
+export function In_hell(uz) {
+    const lev = uz ?? game?.u?.uz;
+    if (!lev) return false;
+    return !!(game?.dungeons?.[lev.dnum]?.flags?.hellish);
+}
 export function Is_astralevel(uz) { return In_endgame(uz) && (uz ?? game?.u?.uz)?.dlevel === 1; }
 export function Is_waterlevel(uz) { const lev = uz ?? game?.u?.uz; const wl = game?.water_level; return !!lev && !!wl && lev.dnum === wl.dnum && lev.dlevel === wl.dlevel; }
 export function Is_firelevel(uz) { const lev = uz ?? game?.u?.uz; const fl = game?.fire_level; return !!lev && !!fl && lev.dnum === fl.dnum && lev.dlevel === fl.dlevel; }

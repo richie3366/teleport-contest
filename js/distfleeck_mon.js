@@ -1,7 +1,7 @@
 // distfleeck_mon.js — Monster flee-from-hero checks (monmove.c distfleeck + onscary).
 // C ref: monmove.c distfleeck(), onscary(); engrave.c sengr_at(); monst.h is_vampshifter.
 
-import { BOLT_LIM, IS_ALTAR, In_endgame, A_LAWFUL } from './const.js';
+import { BOLT_LIM, IS_ALTAR, In_endgame, In_hell, A_LAWFUL, EPRI, AM_SHRINE, Amask2align, TEMPLE } from './const.js';
 import { rn2, rnd } from './rng.js';
 import { monflee } from './monflee.js';
 import { monnearMonsterXYLikeC } from './mon_geom.js';
@@ -9,7 +9,7 @@ import { dist2 } from './hacklib.js';
 import { sengrAtLikeC } from './engrave.js';
 import { levlTypAt } from './decor.js';
 import { raceptr, isRiderMnum } from './mondata.js';
-import { inHishop } from './shop.js';
+import { inHishop, inRoomsTypewantedRoomnos, templeOccupiedFromUUroomsLikeC } from './shop.js';
 
 /** C: objects.h — **`SCR_SCARE_MONSTER`** otyp (NH 5.0). */
 const OTYP_SCR_SCARE_MONSTER = 279;
@@ -31,6 +31,12 @@ const S_HUMAN_MONSYM = 53;
 
 /** C: monflag.h **`M1_SEE_INVIS`** — **`perceives`** for **`Invis`** vs displaced hero in **`distfleeck`**. */
 const M1_SEE_INVIS = 0x01000000;
+
+/** C: monflag.h **`M2_MINION`** — **`is_minion`** in **`in_your_sanctuary`** (priest.c). */
+const M2_MINION = 0x00001000;
+
+/** C: priest.c top — **`u.ualign.record`** gate in **`in_your_sanctuary`**. */
+const ALGN_SINNED = -4;
 
 function heroInvisLikeC(u) {
     if (!u) return false;
@@ -58,6 +64,69 @@ function monAligntypMonsterLikeC(mtmp) {
     if (typeof mtmp?.maligntyp === 'number') return mtmp.maligntyp | 0;
     const a = raceptr(mtmp)?.maligntyp;
     return typeof a === 'number' ? a | 0 : 0;
+}
+
+function isMinionDataLikeC(ptr) {
+    return ((ptr?.mflags2 ?? 0) & M2_MINION) !== 0;
+}
+
+function onLevelLikeC(levA, levB) {
+    if (!levA || !levB) return true;
+    return (levA.dnum | 0) === (levB.dnum | 0) && (levA.dlevel | 0) === (levB.dlevel | 0);
+}
+
+/** C: priest.c **`histemple_at`** — **`on_level`** + **`EPRI->shroom`** vs **`*in_rooms(x,y,TEMPLE)`**. */
+function histempleAtMonsterLikeC(g, priest, x, y) {
+    if (!priest || !(priest.ispriest | 0)) return false;
+    const e = EPRI(priest);
+    if (!e) return false;
+    const tins = inRoomsTypewantedRoomnos(g, x | 0, y | 0, TEMPLE);
+    const tinFirst = tins[0] | 0;
+    if (!tinFirst || (e.shroom | 0) !== tinFirst) return false;
+    const uz = g.u?.uz;
+    const sl = e.shrlevel;
+    if (sl && uz && !onLevelLikeC(sl, uz)) return false;
+    return true;
+}
+
+/** C: priest.c **`has_shrine`** — needs **`levl.altarmask`** (**`AM_SHRINE`**) + **`Amask2align`** vs **`EPRI->shralign`**. */
+function hasShrineMonsterLikeC(g, pri) {
+    if (!pri || !(pri.ispriest | 0)) return false;
+    const e = EPRI(pri);
+    if (!e?.shrpos) return false;
+    const sx = e.shrpos.x | 0;
+    const sy = e.shrpos.y | 0;
+    const typ = levlTypAt(sx, sy) | 0;
+    if (!IS_ALTAR(typ)) return false;
+    const loc = g.level?.at(sx, sy);
+    const mask = loc?.altarmask | 0;
+    if ((mask & AM_SHRINE) === 0) return false;
+    const shralign = e.shralign | 0;
+    return shralign === (Amask2align((mask & ~AM_SHRINE) | 0) | 0);
+}
+
+/** C: priest.c **`inhistemple`** — **`histemple_at`** on **`mx,my`** + **`has_shrine`**. */
+function inhistempleMonsterLikeC(g, priest) {
+    if (!priest || !(priest.ispriest | 0)) return false;
+    if (!histempleAtMonsterLikeC(g, priest, priest.mx | 0, priest.my | 0)) return false;
+    return hasShrineMonsterLikeC(g, priest);
+}
+
+/** C: priest.c **`findpriest`** — first living priest with matching **`shroom`** and **`histemple_at`**. */
+function findPriestForShroomLikeC(g, shroom) {
+    for (const m of g.level?.monsters ?? []) {
+        if ((m.mhp | 0) <= 0) continue;
+        if (!(m.ispriest | 0)) continue;
+        const e = EPRI(m);
+        if (!e || (e.shroom | 0) !== (shroom | 0)) continue;
+        if (histempleAtMonsterLikeC(g, m, m.mx | 0, m.my | 0)) return m;
+    }
+    return null;
+}
+
+/** C: priest.c **`p_coaligned`**. */
+function pCoalignedMonsterLikeC(g, priest) {
+    return (g.u?.ualign?.type | 0) === (monAligntypMonsterLikeC(priest) | 0);
 }
 
 /**
@@ -90,7 +159,6 @@ function uAtLikeC(u, x, y) {
 
 /**
  * C: monmove.c **`onscary(coordxy x, coordxy y, struct monst *mtmp)`**.
- * Omits **`inhistemple`** (no **`inhishop`**-equivalent for priests yet); **`Inhell`** stub false.
  * @param {import('./gstate.js').game} g
  * @param {number} x
  * @param {number} y
@@ -111,7 +179,7 @@ export function onScaryMonsterLikeC(g, x, y, mtmp) {
     if (magical_scare && ((ptr?.mlet | 0) === S_HUMAN_MONSYM || uniqueCorpstatLikeC(ptr))) return false;
 
     if ((mtmp?.isshk | 0) && inHishop(g, mtmp)) return false;
-    /* C: **`ispriest && inhistemple`** — **`inhistemple`** not ported. */
+    if ((mtmp?.ispriest | 0) && inhistempleMonsterLikeC(g, mtmp)) return false;
 
     if (auditory_scare) return true;
 
@@ -138,7 +206,7 @@ export function onScaryMonsterLikeC(g, x, y, mtmp) {
         || !(mtmp?.mcansee | 0)
         || (mtmp?.mpeaceful | 0)
         || mnum === PM_MINOTAUR
-        || false /* Inhell */
+        || In_hell(u?.uz)
         || In_endgame(u?.uz)
     ) {
         return false;
@@ -159,10 +227,29 @@ export function fleesLightMonsterSubsetLikeC(_g, _mtmp) {
 }
 
 /**
- * C: monmove.c **`in_your_sanctuary(mtmp,0,0)`** — not ported; always false.
+ * C: priest.c **`in_your_sanctuary(mon,0,0)`** when **`mon`** non-null (monmove.c **`distfleeck`**).
  */
-export function inYourSanctuaryMonsterSubsetLikeC(_g, _mtmp) {
-    return false;
+export function inYourSanctuaryMonsterLikeC(g, mtmp) {
+    if (!mtmp) return false;
+    const ptr = raceptr(mtmp);
+    if (isMinionDataLikeC(ptr) || isRiderMnum(ptr?.mnum | 0)) return false;
+    const u = g.u;
+    if (!u) return false;
+    if ((u.ualign?.record | 0) <= ALGN_SINNED) return false;
+    const occ = templeOccupiedFromUUroomsLikeC(g);
+    if (!occ) return false;
+    const tins = inRoomsTypewantedRoomnos(g, mtmp.mx | 0, mtmp.my | 0, TEMPLE);
+    if ((tins[0] | 0) !== occ) return false;
+    const priest = findPriestForShroomLikeC(g, occ);
+    if (!priest) return false;
+    return !!(hasShrineMonsterLikeC(g, priest) && pCoalignedMonsterLikeC(g, priest) && (priest.mpeaceful | 0));
+}
+
+/**
+ * C: monmove.c **`in_your_sanctuary`** (wrapper; prefer **`inYourSanctuaryMonsterLikeC`**).
+ */
+export function inYourSanctuaryMonsterSubsetLikeC(g, mtmp) {
+    return inYourSanctuaryMonsterLikeC(g, mtmp);
 }
 
 /**
@@ -200,7 +287,7 @@ export async function distfleeckMonsterApplyLikeC(g, mtmp) {
 
     const sawscary = onScaryMonsterLikeC(g, seescaryx, seescaryy, mtmp);
     const flees = fleesLightMonsterSubsetLikeC(g, mtmp);
-    const sanct = inYourSanctuaryMonsterSubsetLikeC(g, mtmp);
+    const sanct = inYourSanctuaryMonsterLikeC(g, mtmp);
 
     if (out.nearby && (sawscary || (flees && !bravegremlin) || (!(mtmp.mpeaceful | 0) && sanct))) {
         out.scared = 1;

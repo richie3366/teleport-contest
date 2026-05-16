@@ -44,7 +44,7 @@ export async function newgame() {
     l_nhcore_init();
 
     // Set up game state needed by mklev
-    g.dungeons = [{ dname: 'The Dungeons of Doom', depth_start: 1, num_dunlevs: 30 }];
+    g.dungeons = [{ dname: 'The Dungeons of Doom', depth_start: 1, num_dunlevs: 30, flags: { hellish: 0 } }];
     g.u = g.u || {};
     g.u.dx |= 0;
     g.u.dy |= 0;

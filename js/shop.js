@@ -62,6 +62,7 @@ import {
     SHARED,
     SHARED_PLUS,
     ROOMOFFSET,
+    TEMPLE,
     SHOPBASE,
     UNIQUESHOP,
     IS_DOOR,
@@ -106,6 +107,106 @@ function roomRtypeForLevlRoomno(g, roomno) {
     const room = g.level?.rooms?.[idx];
     if (!room || (room.hx | 0) < 0) return OROOM;
     return room.rtype ?? OROOM;
+}
+
+/** C: hack.c **`in_rooms`** **`goodtype`** — **`typewanted` `0`** ⇒ any **`roomno` `>= ROOMOFFSET`**; else **`rtype`** match (or **`SHOPBASE`** range). */
+function inRoomsGoodtypeLikeC(g, roomno, typewanted) {
+    const rn = roomno | 0;
+    if (rn < ROOMOFFSET) return false;
+    if (!typewanted) return true;
+    const typefound = roomRtypeForLevlRoomno(g, rn);
+    if ((typewanted | 0) === SHOPBASE) return typefound === SHOPBASE || (typefound > SHOPBASE && typefound <= UNIQUESHOP);
+    return (typefound | 0) === (typewanted | 0);
+}
+
+/**
+ * @param {import('./gstate.js').game} g
+ * @param {number[]} acc
+ * @param {number} roomno
+ * @param {number} typewanted
+ */
+function pushRoomnoInRoomsGoodtypeUnique(g, acc, roomno, typewanted) {
+    const rn = roomno | 0;
+    if (!inRoomsGoodtypeLikeC(g, rn, typewanted)) return;
+    if (acc.includes(rn)) return;
+    acc.push(rn);
+}
+
+/**
+ * C: hack.c **`in_rooms(x, y, typewanted)`** — **`SHARED`** / **`SHARED_PLUS`** neighbor scan.
+ * @param {import('./gstate.js').game} g
+ * @param {number} cx
+ * @param {number} cy
+ * @param {number} step
+ * @param {number} typewanted
+ */
+function inRoomsTypewantedSharedNeighborScan(g, cx, cy, step, typewanted) {
+    let min_x = cx - 1;
+    let max_x = cx + 1;
+    if (cx < 1) min_x += step;
+    else if (cx >= COLNO) max_x -= step;
+
+    let min_y = cy - 1;
+    let max_y_offset = 2;
+    if (min_y < 0) {
+        min_y += step;
+        max_y_offset -= step;
+    } else if (min_y + max_y_offset >= ROWNO) max_y_offset -= step;
+
+    const out = [];
+    for (let xx = min_x; xx <= max_x; xx += step) {
+        let yOff = 0;
+        let loc = g.level?.at(xx, min_y + yOff);
+        if (loc) pushRoomnoInRoomsGoodtypeUnique(g, out, loc.roomno | 0, typewanted);
+        yOff += step;
+        if (yOff > max_y_offset) continue;
+        loc = g.level?.at(xx, min_y + yOff);
+        if (loc) pushRoomnoInRoomsGoodtypeUnique(g, out, loc.roomno | 0, typewanted);
+        yOff += step;
+        if (yOff > max_y_offset) continue;
+        loc = g.level?.at(xx, min_y + yOff);
+        if (loc) pushRoomnoInRoomsGoodtypeUnique(g, out, loc.roomno | 0, typewanted);
+    }
+    return out;
+}
+
+/**
+ * C: hack.c **`in_rooms(x, y, typewanted)`** — full **`SHARED`** / **`SHARED_PLUS`** handling; **`typewanted` `0`** lists all rooms at **`(x,y)`** (C **`in_rooms(..., 0)`**).
+ * @param {import('./gstate.js').game} g
+ * @param {number} x
+ * @param {number} y
+ * @param {number} typewanted
+ * @returns {number[]}
+ */
+export function inRoomsTypewantedRoomnos(g, x, y, typewanted) {
+    const tw = typewanted | 0;
+    const loc = g.level?.at(x | 0, y | 0);
+    if (!loc) return [];
+    const rno = loc.roomno | 0;
+    if (rno === NO_ROOM || rno === 0) return [];
+    if (rno === SHARED) return inRoomsTypewantedSharedNeighborScan(g, x | 0, y | 0, 2, tw);
+    if (rno === SHARED_PLUS) return inRoomsTypewantedSharedNeighborScan(g, x | 0, y | 0, 1, tw);
+    if (!inRoomsGoodtypeLikeC(g, rno, tw)) return [];
+    return [rno];
+}
+
+/** C: priest.c **`temple_occupied(u.urooms)`** — first **`u.urooms`** letter whose **`rtype`** is **`TEMPLE`**; else scan **`in_rooms(u.ux,u.uy,0)`** fallback when **`u.urooms`** unset. */
+export function templeOccupiedFromUUroomsLikeC(g) {
+    const u = g.u;
+    if (!u) return 0;
+    const roomsStr = u.urooms;
+    if (typeof roomsStr === 'string' && roomsStr.length) {
+        for (let i = 0; i < roomsStr.length; i++) {
+            const c = roomsStr.charCodeAt(i);
+            if (inRoomsGoodtypeLikeC(g, c, TEMPLE)) return c;
+        }
+        return 0;
+    }
+    const allAtHero = inRoomsTypewantedRoomnos(g, u.ux | 0, u.uy | 0, 0);
+    for (const c of allAtHero) {
+        if (inRoomsGoodtypeLikeC(g, c, TEMPLE)) return c;
+    }
+    return 0;
 }
 
 /** C: hack.c **`in_rooms`** **`goodtype`** for **`SHOPBASE`** (matches **`rtype`** test). */
