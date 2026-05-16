@@ -104,6 +104,8 @@ export class NethackGame {
             underwater: 0, /* C: you.h u.uinwater-style — pool / describe_decor / vision */
             utrap: 0, utraptype: 0, wounded_legs: 0, wounded_leg_side: 0,
         };
+        g.uball = null;
+        g.uchain = null;
         /* C: allmain.c newgame — svc.context.next_attrib_check = 600L */
         g.context = { move: 0, next_attrib_check: 600 };
         g.program_state = {};

@@ -5,7 +5,7 @@
 //
 // Still TODO vs C: full **`obj_timer_checks`** / **`restart_timer`** on corpses;
 // **`bury_objs`** full **`stolen_value`** (**`billable`/`get_cost`/`stolen_container`**);
-// beam/breath vectors along paths; fuller **`boulder_hits_pool`** / **`minliquid`** / **`spoteffects`**.
+// **`unearth_objs`**: full **`buried_ball`** radius scan + **`punish()`**; beam/breath vectors along paths; fuller **`boulder_hits_pool`** / **`minliquid`** / **`spoteffects`**.
 
 import { pline, newsym } from './display.js';
 import { vision_recalc, cansee } from './vision.js';
