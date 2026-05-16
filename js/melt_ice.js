@@ -3,8 +3,8 @@
 //        do.c boulder_hits_pool(), mkobj.c obj_ice_effects(), dig.c unearth_objs(),
 //        mon.c minliquid() (subset).
 //
-// Still TODO vs C: spot_stop_timers(MELT_ICE_AWAY) real level timers;
-// obj_ice_effects corpse/obj timers + on_ice; unearth_objs + buriedobjlist;
+// Still TODO vs C: full timeout.c (other func kinds); obj_ice_effects non-corpse
+// timed objects; unearth_objs + buriedobjlist;
 // cnv_trap_obj bury_it → bury_an_obj (we place on floor; no buried layer);
 // boulder_hits_pool drawbridge / waterwall / plane of water / u.uinwater /
 // lava splash damage / wake_nearto / bury_objs; full minliquid (drown,
@@ -18,7 +18,8 @@ import { rnd, rn2 } from './rng.js';
 import { floorObjKey, placeFloorObject, unlinkFloorObject } from './floorobj.js';
 import { waterDamageChain } from './water_damage.js';
 import { raceptr, isFlyer, isFloater, amphibious, breathless, swims, monsterLeavesCorpse } from './mondata.js';
-import { placeCorpseForMonster } from './mkobj_corpse.js';
+import { CORPSE_OTYP, placeCorpseForMonster } from './mkobj_corpse.js';
+import { spotStopTimersMeltIceAway } from './level_timers.js';
 import {
     ICE,
     POOL,
@@ -44,17 +45,21 @@ import {
 const OTYP_LAND_MINE = 244;
 const OTYP_BEARTRAP = 245;
 
-/** C: zap.c spot_stop_timers(x, y, MELT_ICE_AWAY) — level timer layer not ported. */
-function spotStopTimersMeltIceAway(_x, _y) {
-    void _x;
-    void _y;
-}
-
-/** C: mkobj.c obj_ice_effects(x, y, FALSE) — floor + buried + obj timers; JS has no on_ice timers yet. */
-function objIceEffectsAt(_g, _x, _y) {
-    void _g;
-    void _x;
-    void _y;
+/** C: mkobj.c obj_ice_effects(x, y, FALSE) — floor chain; buried omitted. */
+function objIceEffectsAt(g, x, y) {
+    const head = g.level?.floorObjHeads?.get(floorObjKey(x, y));
+    const moves = g.moves ?? 0;
+    const ROT_ICE_ADJUSTMENT = 2; /* C: mkobj.c ROT_ICE_ADJUSTMENT */
+    for (let o = head; o; o = o.nexthere) {
+        if ((o.otyp | 0) !== CORPSE_OTYP || !o.on_ice) continue;
+        /* C: obj_timer_checks — corpse coming off ice */
+        o.on_ice = 0;
+        const age = moves - (o.age | 0);
+        o.age = (o.age | 0) + Math.trunc((age * (ROT_ICE_ADJUSTMENT - 1)) / ROT_ICE_ADJUSTMENT);
+        if (o.timed) {
+            /* C: restart_timer after stop_timer — not ported for JS object timers */
+        }
+    }
 }
 
 /** C: dig.c unearth_objs(x, y) — buriedobjlist → floor; not ported. */
@@ -213,7 +218,7 @@ async function boulderHitsPool(g, otmp, rx, ry, pushing) {
     const u = g.u;
     const verbose = !!(g.flags?.verbose);
     if (!fillsUp || !pushing) {
-        const seeSplash = pushing ? !(u?.ublind) && !(u?.timed?.blind) : cansee(rx, ry) || u_at(rx, ry, u?.ux, u?.uy);
+        const seeSplash = pushing ? !(u?.ublind) && !(u?.timed?.blind) : cansee(rx, ry) || u_at(rx, ry);
         if (seeSplash) {
             const verb = fillsUp ? 'fills' : 'falls into';
             await pline(`There is a large splash as the boulder ${verb} the ${what}.`);
@@ -264,7 +269,7 @@ export async function meltIceAt(g, x, y, msg) {
         loc.flags &= ~(ICED_POOL | ICED_MOAT);
     }
 
-    spotStopTimersMeltIceAway(x, y);
+    spotStopTimersMeltIceAway(g, x, y);
     if (tAt(x, y)) trapIceEffectsOnMelt(g, x, y);
     objIceEffectsAt(g, x, y);
     unearthObjsAt(g, x, y);

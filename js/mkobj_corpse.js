@@ -5,6 +5,16 @@
 import { rnd } from './rng.js';
 import { placeFloorObject } from './floorobj.js';
 import { NH5_FOOD_CLASS } from './nh5_objclass.js';
+import { game } from './gstate.js';
+import { ICE, IS_DRAWBRIDGE, DB_ICE, DB_UNDER } from './const.js';
+
+/** C: trap.c is_ice / melt_ice.js isIceAt — ice floor or drawbridge span with DB_ICE. */
+function cellIsIce(g, x, y) {
+    const loc = g.level?.at(x, y);
+    if (!loc) return false;
+    if (loc.typ === ICE) return true;
+    return !!(IS_DRAWBRIDGE(loc.typ) && (loc.flags & DB_UNDER) === DB_ICE);
+}
 
 /** NH5 objects_nums corpse otyp (matches mklev.js CORPSE). */
 export const CORPSE_OTYP = 471;
@@ -13,8 +23,9 @@ export const CORPSE_OTYP = 471;
  * Place a single corpse on the floor like mksobj(CORPSE) + place_object.
  * Consumes one `rnd(2)` draw (C `next_ident`) when creating the stack.
  * @param {{ mnum?: number, data?: { mnum?: number } }} mtmp
+ * @param {typeof game} [g]
  */
-export function placeCorpseForMonster(mtmp, x, y) {
+export function placeCorpseForMonster(mtmp, x, y, g = game) {
     rnd(2);
     const corpsenm = (mtmp?.mnum ?? mtmp?.data?.mnum ?? 0) | 0;
     const otmp = {
@@ -29,7 +40,12 @@ export function placeCorpseForMonster(mtmp, x, y) {
         olocked: false,
         spe: 0,
         corpsenm,
+        age: g.moves ?? 0,
     };
     placeFloorObject(otmp, x, y);
+    if (cellIsIce(g, x, y)) {
+        /* C: mkobj.c obj_timer_checks — corpse on ice (rot timer layer still stubbed). */
+        otmp.on_ice = 1;
+    }
     return otmp;
 }

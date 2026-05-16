@@ -48,6 +48,8 @@ export class GameMap {
         this.traps = [];
         /** C: decl.h head_engr — flat list until save/restore chains port */
         this.engravings = [];
+        /** C: timeout.c level timer chains — **`MELT_ICE_AWAY`** etc. */
+        this.timers = [];
         this.flags = {
             nfountains: 0,
             nsinks: 0,

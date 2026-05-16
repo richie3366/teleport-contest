@@ -26,6 +26,8 @@ import { collectExerchkPlines } from './attrib.js';
 import { moveloopPreamble } from './moveloop_preamble.js';
 import { settrack } from './track.js';
 import { initMvitalsStub } from './mvitals.js';
+import { pullDueMeltIceAwayTimers } from './level_timers.js';
+import { meltIceAt } from './melt_ice.js';
 
 // C ref: allmain.c newgame()
 export async function newgame() {
@@ -208,6 +210,18 @@ export async function moveloop_core() {
     if (g.context?.move) {
         settrack();
         g.moves = (g.moves || 1) + 1;
+        /* C: timeout.c level MELT_ICE_AWAY -> zap.c melt_ice_away */
+        const dueMeltIce = pullDueMeltIceAwayTimers(g);
+        for (const { x, y } of dueMeltIce) {
+            g.context = g.context || {};
+            const saveMonMoving = g.context.monMoving;
+            g.context.monMoving = true;
+            try {
+                await meltIceAt(g, x, y, 'Some ice melts away.');
+            } finally {
+                g.context.monMoving = saveMonMoving;
+            }
+        }
         /* C: allmain.c — svm.moves++; … gethungry(); newuhs(TRUE); … exerchk(); */
         gethungry();
         for (const line of collectNewuhsPlines(true)) await pline(line);
