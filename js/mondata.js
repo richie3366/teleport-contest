@@ -10,12 +10,25 @@ import {
     PM_AIR_ELEMENTAL,
     PM_EARTH_ELEMENTAL,
     PM_WATER_ELEMENTAL,
+    PM_DEATH,
+    PM_PESTILENCE,
+    PM_FAMINE,
     OTYP_AMULET_OF_YENDOR,
     Is_airlevel,
     Is_firelevel,
     Is_earthlevel,
     Is_waterlevel,
 } from './const.js';
+
+/**
+ * C: mondata.h is_rider(ptr) — `mons[mnum]` is Death / Pestilence / Famine.
+ * @param {number} mnum
+ * @returns {boolean}
+ */
+export function isRiderMnum(mnum) {
+    const m = mnum | 0;
+    return m === PM_DEATH || m === PM_PESTILENCE || m === PM_FAMINE;
+}
 
 /** C: monattk.h / permonst.h */
 export const AT_ANY = -1;

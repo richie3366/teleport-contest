@@ -9,20 +9,13 @@ import { igniteItemsChain } from './ignite_items.js';
 import { nh5HeroObjectClass } from './water_damage.js';
 import { NH5_FOOD_CLASS, NH5_SCROLL_CLASS, NH5_SPBOOK_CLASS } from './nh5_objclass.js';
 import { An, distantNameBurnFloor, makePluralBurn, xnameBurnFloor } from './objnam.js';
+import { objResists } from './obj_resists.js';
 import { useupfFloor } from './shop.js';
 
 const OTYP_SCR_FIRE = 338;
 const OTYP_SPE_FIREBALL = 368;
 /** NH5 `include/objects.h` enum order — `GLOB_OF_GREEN_SLIME`. */
 const OTYP_GLOB_OF_GREEN_SLIME = 263;
-
-/** C: obj.c obj_resists — stub false until full port. */
-function objResistsFireStub(_obj, _ac, _pct) {
-    void _obj;
-    void _ac;
-    void _pct;
-    return false;
-}
 
 /**
  * @param {{ oclass?: number, otyp?: number }} obj
@@ -31,7 +24,7 @@ function objResistsFireStub(_obj, _ac, _pct) {
 function burnableFloorObj(obj) {
     const t = obj.otyp | 0;
     if (t === OTYP_SCR_FIRE || t === OTYP_SPE_FIREBALL) return false;
-    if (objResistsFireStub(obj, 2, 100)) return false;
+    if (objResists(obj, 2, 100)) return false;
     const oc = nh5HeroObjectClass(obj);
     if (oc === NH5_SCROLL_CLASS || oc === NH5_SPBOOK_CLASS) return true;
     if (oc === NH5_FOOD_CLASS && t === OTYP_GLOB_OF_GREEN_SLIME) return true;

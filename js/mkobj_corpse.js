@@ -7,7 +7,7 @@ import { placeFloorObject } from './floorobj.js';
 import { NH5_FOOD_CLASS } from './nh5_objclass.js';
 
 /** NH5 objects_nums corpse otyp (matches mklev.js CORPSE). */
-const CORPSE_OTYP = 471;
+export const CORPSE_OTYP = 471;
 
 /**
  * Place a single corpse on the floor like mksobj(CORPSE) + place_object.

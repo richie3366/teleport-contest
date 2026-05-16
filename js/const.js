@@ -2961,5 +2961,9 @@ export const PM_STRAW_GOLEM = 247;
 export const PM_PAPER_GOLEM = 248;
 export const PM_LEATHER_GOLEM = 251;
 export const PM_WOOD_GOLEM = 252;
+/** C: `monsters.h` — Riders (`is_rider`); `mons[]` order (NH 5.0 upstream). */
+export const PM_DEATH = 305;
+export const PM_PESTILENCE = 306;
+export const PM_FAMINE = 307;
 /** C: objects.h RING() — BITS chrg uses `spec`; first six rings have spec 1 (NH5 objects_nums). */
 export const OC_CHARGED_RING_OTYPES = new Set([156, 157, 158, 159, 160, 161]);
