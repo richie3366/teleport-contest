@@ -195,8 +195,42 @@ export function doname(otmp, g = game) {
 }
 
 /**
+ * C: o_init.c **`discover_object(oindx, mark_as_known, mark_as_encountered, credit_hero)`** — **`disco[]`** slot + **`oc_encountered`** / **`oc_name_known`**.
+ * JS: **`g.objectEncountered`** (**`Set<otyp>`**) when **`mark_as_encountered`**; **`oc_name_known`** only via existing **`scrollDiscovery`** / **`objectDiscovery`** when **`mark_as_known`**.
+ * Omits **`svb.bases[]`**, Samurai **`Japanese_item_name`**, **`gem_learned`**, **`update_inventory`**, **`exercise`**.
+ * @param {import('./gstate.js').game} g
+ * @param {number} oindx
+ * @param {boolean} markAsKnown
+ * @param {boolean} markAsEncountered
+ * @param {boolean} [_creditHero]
+ */
+export function discoverObjectHeroLikeC(g, oindx, markAsKnown, markAsEncountered, _creditHero) {
+    const t = oindx | 0;
+    if (t < 1) return;
+
+    if (!(g.objectEncountered instanceof Set)) g.objectEncountered = new Set();
+    const alreadyEnc = g.objectEncountered.has(t);
+
+    const scrollKnown = g.scrollDiscovery instanceof Set && g.scrollDiscovery.has(t);
+    const spellKnown = g.objectDiscovery instanceof Set && g.objectDiscovery.has(t);
+    const partialNameKnown = scrollKnown || spellKnown;
+
+    /* C: outer **`if`** — no **`objects[]`** yet; spell/scroll Sets approximate **`oc_name_known`** for those classes only. */
+    const enter = (markAsKnown && !partialNameKnown) || (markAsEncountered && !alreadyEnc);
+    if (!enter) return;
+
+    /* C: **`svd.disco[dindx] = oindx`** — ordering deferred. */
+    if (markAsEncountered) g.objectEncountered.add(t);
+
+    if (markAsKnown && !partialNameKnown) {
+        /* C: **`objects[oindx].oc_name_known`**, **`exercise`**, **`gem_learned`**, **`update_inventory`** — TODO per class. */
+        void _creditHero;
+    }
+}
+
+/**
  * C: o_init.c **`observe_object(obj)`** — **`dknown`** + **`discover_object`** (**`mark_as_encountered`**).
- * JS: **`dknown`** when not hallucinating; **`discover_object`** / **`objects[]`** disco stub (**`FIRST_OBJECT`** approx **`otyp >= 1`**).
+ * JS: **`dknown`** when not hallucinating; **`discover_object(..., FALSE, TRUE, FALSE)`** (**`objectEncountered`**).
  * @param {import('./gstate.js').game} g
  * @param {{ otyp?: number, dknown?: number }} obj
  */
@@ -207,5 +241,5 @@ export function observeObjectHeroMinimalLikeC(g, obj) {
     const oindx = obj.otyp | 0;
     if (oindx < 1) return;
     obj.dknown = 1;
-    /* C: discover_object(oindx, FALSE, TRUE, FALSE) — **`oc_encountered`**, **`disco[]`**, **`gem_learned`**, … */
+    discoverObjectHeroLikeC(g, oindx, false, true, false);
 }

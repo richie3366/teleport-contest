@@ -5,7 +5,7 @@
 // Deferred vs C: tmp_at / nh_delay_output; full watchman **`verbalize`**/**`angry_guards`**;
 // u.uswallow branch; pit_flow + fillholetyp; full **`digactualhole`** / shop / **`spot_checks`**;
 // **`dighole.js`** covers wand-down **ROOM/CORR** + guards (**`fillholetyp`** / **`goto_level`** / trap+destroy still TODO).
-// Vertical rock: **`observe_object`** + **`body_part(HEAD)`** subset (**`objnam.js`** / **`body_part_hero.js`**); full **`xname`** / **`discover_object`** still TODO.
+// Vertical rock: **`observe_object`** + **`body_part(HEAD)`** subset (**`objnam.js`** / **`body_part_hero.js`**); **`discover_object`** encounter via **`g.objectEncountered`**; full **`xname`** / **`disco[]`** / Samurai branch still TODO.
 
 import { rn1, rnd } from './rng.js';
 import { pline, newsym } from './display.js';
