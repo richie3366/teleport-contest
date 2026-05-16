@@ -28,7 +28,8 @@ function meleeWeaponSkill() {
  * C: domove → do_attack / uhitm — bump into adjacent monster.
  * Hunger: allmain moveloop_core runs gethungry() after moves++; use
  * overexertHpIfEncumberedPlines only (no double gethungry).
- * Peaceful: no hit / no practice (subset of uhitm).
+ * Peaceful: `cmd.js` domove swaps places (hack.c displace); this function
+ * still guards direct callers — pline only, no hit / no practice.
  * Damage: stub 1 + rn2(4); removes mtmp from level.monsters at 0 hp;
  * drops minimal floor corpse (`mkobj_corpse` / `placeFloorObject`).
  * @param {{ mpeaceful?: number, mhp?: number, mx?: number, my?: number, mnum?: number, mvflags?: number, monnam?: string, data?: { mname?: string, mnum?: number, mvflags?: number } }} mtmp

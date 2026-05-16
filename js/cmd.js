@@ -1,7 +1,7 @@
 // cmd.js — Command dispatch and movement.
 // C ref: cmd.c rhack(), hack.c domove(); trap.c dotrap (nomul prefix when trap present).
 //
-// Minimal skeleton: hjklyubn movement, bump into adjacent monster (attack stub).
+// Movement: hjklyubn; peaceful/tame mons → swap (hack.c displace); else bump attack stub.
 // Contestants should add: search, kick, eat, drink, read, zap,
 // wear, wield, drop, throw, pray, cast, and all other commands.
 
@@ -15,6 +15,7 @@ import { checkHere } from './pickup.js';
 import { dotrap } from './trap.js';
 import { runExtcmdFromHashPrefix } from './extcmd.js';
 import { doBumpMeleeAttack } from './attack.js';
+import { peacefulSwapWithHero } from './peaceful_displace.js';
 import { COLNO, ROWNO, STONE, DOOR, D_CLOSED, D_LOCKED,
          IS_WALL, IS_OBSTRUCTED, NO_TRAP_FLAGS } from './const.js';
 
@@ -146,11 +147,23 @@ async function domove(dx, dy) {
 
     const mtmp = mAt(newx, newy);
     if (mtmp) {
-        await doBumpMeleeAttack(mtmp);
+        if (mtmp.mpeaceful | 0) {
+            const ox = u.ux, oy = u.uy;
+            u.ux0 = ox;
+            u.uy0 = oy;
+            await peacefulSwapWithHero(mtmp, ox, oy, newx, newy);
+            maybeSmudgeEngr(ox, oy, newx, newy);
+            const trSwap = tAt(newx, newy);
+            if (trSwap) await dotrap(trSwap, NO_TRAP_FLAGS);
+            newsym(ox, oy);
+            newsym(newx, newy);
+        } else {
+            await doBumpMeleeAttack(mtmp);
+            newsym(newx, newy);
+        }
         game._pending_message = '';
         game._overlayScreen = null;
         game._inventoryMode = false;
-        newsym(newx, newy);
         vision_recalc(1);
         return true;
     }
