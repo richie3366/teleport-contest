@@ -4,7 +4,7 @@
 //
 // Movement: hjklyubn; peaceful/tame mons → swap (hack.c displace); else bump attack stub.
 // Contestants should add: search, kick, eat, drink, read, zap,
-// wear, wield, drop, throw, pray, cast, and all other commands.
+// wear, wield, drop (d), throw (t), pray, cast, and all other commands.
 
 import { game } from './gstate.js';
 import { nhgetch } from './input.js';
@@ -22,6 +22,7 @@ import { spotEffects } from './spoteffects.js';
 import { dokickFromCmd } from './kick.js';
 import { snapshotUshops0FromHeroTileLikeC } from './shop.js';
 import { doDropOneAtHeroFeetLikeC } from './drop_hero.js';
+import { throwOneInventAdjacentLikeC } from './throw_hero.js';
 
 // Direction deltas: y u k
 //                   h . l
@@ -110,6 +111,12 @@ export async function rhack(key) {
     if (ch === 'd') {
         // C: cmd.c → invent.c dodrop (subset: top invent item, no getobj menu)
         await doDropOneAtHeroFeetLikeC(game);
+        return;
+    }
+
+    if (ch === 't') {
+        // C: cmd.c → dothrow.c throwit (subset: one tile, horizontal)
+        await throwOneInventAdjacentLikeC(game);
         return;
     }
 
