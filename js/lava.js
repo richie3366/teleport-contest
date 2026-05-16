@@ -1,7 +1,7 @@
 // lava.js — Hero stepping on molten lava (trap.c lava_effects() subset).
 // C ref: trap.c lava_effects() — d(6,6) first; feel_newsym; burn_away_slime; likes_lava;
 // usurvive; in_use; boots; !Fire_resistance (death/lifesave mostly TODO); fire-resist sink;
-// burn_stuff (destroy_item) TODO.
+// burn_stuff: zap.c destroy_items(AD_FIRE) + ignite_items (ignite TODO).
 
 import { game } from './gstate.js';
 import { IS_LAVA, TT_LAVA } from './const.js';
@@ -9,6 +9,7 @@ import { d, rn1 } from './rng.js';
 import { feelNewsym, pline } from './display.js';
 import { likesLava, permonstHuman } from './mondata.js';
 import { losehp } from './mthrowu.js';
+import { destroyItemsYoumonstFire } from './destroy_items.js';
 
 /**
  * C: timeout.c burn_away_slime() — no **`u.Slimed`** / **`make_slimed`** in JS yet.
@@ -70,7 +71,8 @@ export async function maybeHeroLavaEffects(g = game) {
             await pline('You sink into the lava, but it only burns slightly.');
             if (uhp > 1) losehp(1, 'molten lava', 0);
         }
-        /* C: burn_stuff: destroy_item SCROLL/SPBOOK/POTION — TODO */
+        /* C: burn_stuff — destroy_items(&gy.youmonst, AD_FIRE, dmg); ignite_items — TODO */
+        await destroyItemsYoumonstFire(g, dmg);
     } finally {
         g.iflags.in_lava_effects = Math.max(0, (g.iflags.in_lava_effects | 0) - 1);
     }

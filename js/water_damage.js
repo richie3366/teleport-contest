@@ -93,7 +93,7 @@ function heroLuck(g) {
  * NH5 object class, or inferred from **`otyp`** range when **`oclass`** unset.
  * @param {{ otyp?: number, oclass?: number }} obj
  */
-function nh5ObjectClass(obj) {
+export function nh5HeroObjectClass(obj) {
     if (obj.oclass != null && obj.oclass !== undefined) return obj.oclass | 0;
     const row = OC_SKILL_ROW_BY_OTYP.get(obj.otyp | 0);
     if (row) return row.oclass;
@@ -109,7 +109,7 @@ function nh5ObjectClass(obj) {
  * @param {typeof game} g
  * @param {{ nobj?: unknown }} victim
  */
-function removeObjFromHeroInvent(g, victim) {
+export function removeObjFromHeroInvent(g, victim) {
     let prev = /** @type {{ nobj?: unknown } | null} */ (null);
     for (let o = g.invent; o; o = o.nobj) {
         if (o === victim) {
@@ -233,7 +233,7 @@ export async function waterDamageOne(obj, force, g = game) {
 
     if (!force && heroLuck(g) + 5 > rn2(20)) return ER_NOTHING;
 
-    const oclass = nh5ObjectClass(obj);
+    const oclass = nh5HeroObjectClass(obj);
 
     if (oclass === NH5_SCROLL_CLASS) {
         if (t === OTYP_SCR_BLANK_PAPER) return ER_NOTHING;
