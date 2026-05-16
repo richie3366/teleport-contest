@@ -1,11 +1,13 @@
 // walkable.js — Terrain blocking for hero/monster moves (shared stub).
-// C ref: hack.c test_move() (incl. diagonal `bad_rock`/`cant_squeeze_thru`/`NODIAG`), may_passwall(); teleport.c goodpos(); monmove.c accessible().
+// C ref: hack.c test_move() (diagonal doorway `doorless_door`/`block_door`/`block_entry`,
+// `bad_rock`/`cant_squeeze_thru`/`NODIAG`), may_passwall(); teleport.c goodpos(); monmove.c accessible().
 
 import { game } from './gstate.js';
 import {
-    DOOR, D_CLOSED, D_LOCKED, IS_OBSTRUCTED, IS_STWALL, IRONBARS, W_NONPASSWALL, isok,
+    DOOR, D_BROKEN, D_CLOSED, D_LOCKED, D_NODOOR, IS_DOOR, IS_OBSTRUCTED, IS_STWALL,
+    IRONBARS, W_NONPASSWALL, isok,
     POOL, MOAT, WATER, LAVAPOOL, LAVAWALL, OTYP_BOULDER,
-    In_sokoban, PM_GRID_BUG, WT_TOOMUCH_DIAGONAL,
+    In_sokoban, Is_rogue_level, PM_GRID_BUG, WT_TOOMUCH_DIAGONAL,
 } from './const.js';
 import {
     isFlyer, isFloater, raceptr, swims, amphibious, fireResistant,
@@ -29,6 +31,36 @@ export function mayPasswall(x, y, g = game) {
 /** C: monmove.c closed_door — loc must be from `g.level.at`. */
 function isClosedDoorLoc(loc) {
     return loc.typ === DOOR && ((loc.doormask | 0) & (D_CLOSED | D_LOCKED)) !== 0;
+}
+
+/**
+ * C: hack.c doorless_door(x,y) — archway / broken frame only (rogue level: never "doorless").
+ * @param {number} x
+ * @param {number} y
+ * @param {Record<string, unknown>} [g]
+ */
+export function doorlessDoorAt(x, y, g = game) {
+    const loc = g.level?.at(x, y);
+    if (!loc || !IS_DOOR(loc.typ)) return false;
+    if (Is_rogue_level(g.u?.uz)) return false;
+    const mask = loc.doormask | 0;
+    return (mask & ~(D_NODOOR | D_BROKEN)) === 0;
+}
+
+/**
+ * C: shk.c block_door — shopkeeper blocks diagonal shop exit (debit/bill/robbed).
+ * @returns {boolean}
+ */
+export function blockDoorAt(_x, _y, _g = game) {
+    return false;
+}
+
+/**
+ * C: shk.c block_entry — broken shop door + shk blocks diagonal entry.
+ * @returns {boolean}
+ */
+export function blockEntryAt(_newx, _newy, _g = game) {
+    return false;
 }
 
 /** C: mkobj.c / decl — boulder on floor stack (teleport.c goodpos `sobj_at(BOULDER, …)`). */
@@ -205,7 +237,8 @@ export function cantSqueezeThruHero(g = game) {
 }
 
 /**
- * C: hack.c test_move — diagonal `bad_rock` + `cant_squeeze_thru` + `NODIAG` (`hack.h`).
+ * C: hack.c test_move — diagonal: doorway in/out (`doorless_door`/`block_door`/`block_entry`),
+ * `bad_rock` corners + `cant_squeeze_thru`, `NODIAG` (`hack.h`). No plines (silent reject).
  * @param {number} dx
  * @param {number} dy
  * @param {number} newx
@@ -218,6 +251,26 @@ export function diagonalHeroMoveBlocked(dx, dy, newx, newy, g = game) {
     const u = /** @type {{ ux: number, uy: number, Upolyd?: number, umonnum?: number }} */ (g.u);
     const ptr = raceptr(g.youmonst);
     if ((u.Upolyd | 0) && ((u.umonnum | 0) === PM_GRID_BUG)) return true;
-    if (!(badRock(ptr, u.ux, newy, g) && badRock(ptr, newx, u.uy, g))) return false;
-    return cantSqueezeThruHero(g) !== 0;
+
+    /* Diagonal into an intact doorway (open door mask, not closed_door). */
+    if (!heroPassesWalls(g)) {
+        const destLoc = g.level?.at(newx, newy);
+        if (destLoc && IS_DOOR(destLoc.typ) && !isClosedDoorLoc(destLoc)) {
+            if (!doorlessDoorAt(newx, newy, g) || blockDoorAt(newx, newy, g)) return true;
+        }
+    }
+
+    if (badRock(ptr, u.ux, newy, g) && badRock(ptr, newx, u.uy, g) && cantSqueezeThruHero(g) !== 0) {
+        return true;
+    }
+
+    /* Diagonal out of intact doorway (C: after squeeze/worm; must run if corners not both bad_rock). */
+    if (!heroPassesWalls(g)) {
+        const ustLoc = g.level?.at(u.ux, u.uy);
+        if (ustLoc && IS_DOOR(ustLoc.typ) && (!doorlessDoorAt(u.ux, u.uy, g) || blockEntryAt(newx, newy, g))) {
+            return true;
+        }
+    }
+
+    return false;
 }
