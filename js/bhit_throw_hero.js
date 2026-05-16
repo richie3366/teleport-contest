@@ -43,7 +43,8 @@ import { raceptr, stubPermonstForCorpsenm, cantDrown, S_EEL } from './mondata.js
 import { pSkillDisplayName } from './skill_display_name.js';
 import { an } from './decor.js';
 import { nh5HeroObjectClass } from './water_damage.js';
-import { pline, newsym, mapInvisibleCellLikeC } from './display.js';
+import { pline, newsym, mapInvisibleCellLikeC, show_glyph_cell } from './display.js';
+import { CLR_WHITE } from './terminal.js';
 import { cansee } from './vision.js';
 import { doname } from './objnam.js';
 import {
@@ -59,6 +60,8 @@ import {
     NH5_CHAIN_CLASS,
     NH5_COIN_CLASS,
     NH5_SCROLL_CLASS,
+    NH5_RING_CLASS,
+    NH5_AMULET_CLASS,
 } from './nh5_objclass.js';
 import { breaktestLikeC, heroBreaksObjLikeC, BRK_FROM_INV } from './obj_break_dothrow.js';
 import { flooreffectsObjAtLikeC } from './flooreffects_hero.js';
@@ -126,6 +129,53 @@ function trapAtG(g, x, y) {
 
 function monAtCellG(g, x, y) {
     return g.level?.monsters?.find((m) => (m.mx | 0) === (x | 0) && (m.my | 0) === (y | 0)) ?? null;
+}
+
+/** C: **`display.c`** **`obj_to_glyph`** subset — thrown **`tmp_at`** flash (**`DISP_FLASH`**). */
+function thrownObjTmpGlyphHeroLikeC(obj) {
+    if (!obj) return { ch: ')', color: CLR_WHITE, dec: false };
+    const ot = obj.otyp | 0;
+    if (ot === OTYP_BOULDER) return { ch: '`', color: CLR_WHITE, dec: false };
+    if (ot === OBJ_ROCK) return { ch: '*', color: CLR_WHITE, dec: false };
+    if (ot === OTYP_HEAVY_IRON_BALL || ot === OTYP_IRON_CHAIN) return { ch: '*', color: CLR_WHITE, dec: false };
+    const oc = obj.oclass | 0;
+    if (oc === NH5_WEAPON_CLASS) return { ch: ')', color: CLR_WHITE, dec: false };
+    if (oc === NH5_GEM_CLASS || oc === NH5_ROCK_CLASS) return { ch: '*', color: CLR_WHITE, dec: false };
+    if (oc === NH5_COIN_CLASS) return { ch: '$', color: CLR_WHITE, dec: false };
+    if (oc === NH5_POTION_CLASS) return { ch: '!', color: CLR_WHITE, dec: false };
+    if (oc === NH5_SCROLL_CLASS) return { ch: '?', color: CLR_WHITE, dec: false };
+    if (oc === NH5_ARMOR_CLASS) return { ch: '[', color: CLR_WHITE, dec: false };
+    if (oc === NH5_TOOL_CLASS) return { ch: '(', color: CLR_WHITE, dec: false };
+    if (oc === NH5_FOOD_CLASS) return { ch: '%', color: CLR_WHITE, dec: false };
+    if (oc === NH5_WAND_CLASS) return { ch: '/', color: CLR_WHITE, dec: false };
+    if (oc === NH5_RING_CLASS) return { ch: '=', color: CLR_WHITE, dec: false };
+    if (oc === NH5_AMULET_CLASS) return { ch: '"', color: CLR_WHITE, dec: false };
+    if (oc === NH5_SPBOOK_CLASS) return { ch: '+', color: CLR_WHITE, dec: false };
+    if (oc === NH5_BALL_CLASS || oc === NH5_CHAIN_CLASS) return { ch: '*', color: CLR_WHITE, dec: false };
+    return { ch: ')', color: CLR_WHITE, dec: false };
+}
+
+let _thrownTmpFlashCell = /** @type {{ x: number, y: number } | null} */ (null);
+
+/** C: **`zap.c`** **`bhit`** **`tmp_at(DISP_END,0)`**-style cleanup for one **`tmp_at(x,y)`** flash cell. */
+async function clearThrownMissileTmpAtFlashG(g) {
+    void g;
+    if (_thrownTmpFlashCell) {
+        newsym(_thrownTmpFlashCell.x, _thrownTmpFlashCell.y);
+        _thrownTmpFlashCell = null;
+    }
+}
+
+/**
+ * C: **`zap.c`** **`bhit`** — **`tmp_at(x,y)`** + **`nh_delay_output`** ( **`show_glyph_cell`** + **`animationFrame`** ).
+ * @param {import('./gstate.js').game} g
+ */
+async function stepThrownMissileTmpAtHeroLikeC(g, x, y, obj) {
+    await clearThrownMissileTmpAtFlashG(g);
+    const gl = thrownObjTmpGlyphHeroLikeC(obj);
+    show_glyph_cell(x, y, gl.ch, gl.color, gl.dec);
+    _thrownTmpFlashCell = { x: x | 0, y: y | 0 };
+    if (typeof g.animationFrame === 'function') await g.animationFrame();
 }
 
 /** C: you.h m_next2u — distu(mon) <= 2 (**`dist2`** vs hero). */
@@ -408,7 +458,7 @@ async function hitBarsThrownHeroLikeC(g, obj, objx, objy, barsx, barsy) {
 }
 
 /**
- * C: zap.c bhit — THROWN_WEAPON, fhitm/fhito null (subset: shade_miss + mimic M_AP_OBJECT; tmp_at omitted; shkcatch, hits_bars, hit_bars).
+ * C: zap.c bhit — THROWN_WEAPON, fhitm/fhito null (subset: shade_miss + mimic M_AP_OBJECT; **`tmp_at`** and **`nh_delay_output`** via **`show_glyph_cell`** + **`game.animationFrame`**; still omits **`DISP_FLASH`** init glyph, **`glyph_is_invisible`** unmap, tether **`DISP_TETHER`**).
  * @returns {Promise<{ x: number, y: number, mon: object|null, stuckWeb: boolean, shkCaught?: boolean, objConsumed?: boolean }>}
  */
 export async function walkThrownWeaponBhitRayHeroLikeC(g, dx, dy, range0, obj) {
@@ -444,23 +494,27 @@ export async function walkThrownWeaponBhitRayHeroLikeC(g, dx, dy, range0, obj) {
         if (!isok(bx, by)) {
             bx -= ddx;
             by -= ddy;
+            await clearThrownMissileTmpAtFlashG(g);
             break;
         }
         const loc = g.level.at(bx, by);
         if (!loc) {
             bx -= ddx;
             by -= ddy;
+            await clearThrownMissileTmpAtFlashG(g);
             break;
         }
         if (obj && isPickLikeC(obj) && insideShopLevlRoomno(g, bx, by) !== NO_ROOM) {
             const caught = await shkcatchThrownPickHeroLikeC(g, obj, bx, by);
             if (caught) {
+                await clearThrownMissileTmpAtFlashG(g);
                 return { x: bx, y: by, mon: null, stuckWeb: false, shkCaught: true };
             }
         }
         const typ = loc.typ | 0;
 
         if (IS_WATERWALL(typ) || typ === LAVAWALL) {
+            await clearThrownMissileTmpAtFlashG(g);
             break;
         }
         if (typ === IRONBARS && obj) {
@@ -472,6 +526,7 @@ export async function walkThrownWeaponBhitRayHeroLikeC(g, dx, dy, range0, obj) {
                 bx = prevX;
                 by = prevY;
                 if (hb.consumed) {
+                    await clearThrownMissileTmpAtFlashG(g);
                     return {
                         x: bx,
                         y: by,
@@ -480,6 +535,7 @@ export async function walkThrownWeaponBhitRayHeroLikeC(g, dx, dy, range0, obj) {
                         objConsumed: true,
                     };
                 }
+                await clearThrownMissileTmpAtFlashG(g);
                 break;
             }
         }
@@ -496,6 +552,7 @@ export async function walkThrownWeaponBhitRayHeroLikeC(g, dx, dy, range0, obj) {
                 await pline(`${cap} gets stuck in a web!`);
             }
             await newsym(bx, by);
+            await clearThrownMissileTmpAtFlashG(g);
             break;
         }
 
@@ -537,6 +594,7 @@ export async function walkThrownWeaponBhitRayHeroLikeC(g, dx, dy, range0, obj) {
         if (mtmp) {
             mtmp = await clearMtmpThrownBhitShadeMimicLikeC(g, mtmp, bx, by, obj);
             if (mtmp) {
+                await clearThrownMissileTmpAtFlashG(g);
                 hitMon = mtmp;
                 break;
             }
@@ -545,14 +603,19 @@ export async function walkThrownWeaponBhitRayHeroLikeC(g, dx, dy, range0, obj) {
         if (!ZAP_POS(typ) || isClosedDoorLoc(loc)) {
             bx -= ddx;
             by -= ddy;
+            await clearThrownMissileTmpAtFlashG(g);
             break;
         }
         if (typ === SINK) {
+            await stepThrownMissileTmpAtHeroLikeC(g, bx, by, obj);
+            await clearThrownMissileTmpAtFlashG(g);
             break;
         }
+        await stepThrownMissileTmpAtHeroLikeC(g, bx, by, obj);
         pointBlank = false;
     }
 
+    await clearThrownMissileTmpAtFlashG(g);
     return { x: bx, y: by, mon: hitMon, stuckWeb };
 }
 

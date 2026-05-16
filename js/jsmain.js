@@ -168,6 +168,10 @@ export class NethackGame {
         game._preNhgetchHook = async () => {
             await nhGame.captureJudgeSnapshot();
         };
+        /** C: **`display.c`** **`nh_delay_output`** — contest hook for beam / throw animation frames. */
+        game.animationFrame = async () => {
+            await nhGame.animationFrame();
+        };
     }
 
     getScreens() { return this._screens; }
