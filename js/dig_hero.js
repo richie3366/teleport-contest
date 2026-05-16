@@ -1,6 +1,6 @@
 // dig_hero.js — Hero dig completion (**`dig.c`** **`dig()`** **`effort > 100`** wall/door slice).
 // C ref: dig.c **`dig()`** (shop wall/door/secret door); detect.c **`cvt_sdoor_to_door`**;
-//        trap.c **`b_trapped`** via **`kick.js`** harness.
+//        trap.c **`b_trapped`** (**`NO_PART`**) via **`kick.js`** **`bTrappedItemHeroLikeC`**.
 //
 // Deferred vs C: statue/boulder/stone/tree/earth **`rn2`**; **`simpleonames(uwep)`**; **`feel_newsym`**/**`unblock_point`**;
 // full **`dig()`** occupation / **`dig_check`** / **`dig_typ`**.
@@ -14,7 +14,7 @@ import {
     payAfterHeroHandDigShopWallDamageLikeC,
     payAfterHeroHandDigShopDoorBreakLikeC,
 } from './dig_pay.js';
-import { bTrappedDoorFootLikeC } from './kick.js';
+import { bTrappedItemHeroLikeC } from './kick.js';
 import { inTownLikeC } from './hacklib.js';
 import {
     IS_WALL,
@@ -71,6 +71,9 @@ export async function heroDigCompleteWallDoorOrSecretLikeC(g, dpx, dpy) {
 
     const typ = loc.typ | 0;
 
+    /** @type {'door'|'secret door'} */
+    let trapItem = 'door';
+
     if (IS_WALL(typ)) {
         if (shopedge) {
             addDamageAt(g, dpx | 0, dpy | 0, shopWallHandDigDamageCostLikeC(g));
@@ -88,6 +91,7 @@ export async function heroDigCompleteWallDoorOrSecretLikeC(g, dpx, dpy) {
         }
         digtxt = 'You make an opening in the wall.';
     } else if (typ === SDOOR) {
+        trapItem = 'secret door';
         cvtSdoorToDoorLikeC(g, loc);
         digtxt = 'You break through a secret door!';
         if (!((loc.doormask | 0) & D_TRAPPED)) loc.doormask = D_BROKEN;
@@ -111,7 +115,7 @@ export async function heroDigCompleteWallDoorOrSecretLikeC(g, dpx, dpy) {
     /* C: dig.c — trapped door after **`pay_for_damage`** (earth **`makemon`** branch omitted). */
     if (IS_DOOR(loc.typ | 0) && ((loc.doormask | 0) & D_TRAPPED)) {
         loc.doormask = D_NODOOR;
-        await bTrappedDoorFootLikeC(g);
+        await bTrappedItemHeroLikeC(g, trapItem, true);
         vision_recalc(1);
         newsym(dpx | 0, dpy | 0);
     }

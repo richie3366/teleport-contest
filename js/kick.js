@@ -3,12 +3,12 @@
 //        kick_object()/really_kick_object() subset, kick_door(), kick_dumb(),
 //        kick_ouch(), kick_nondoor() tail;
 //        uhitm.c attack_checks() subset (kick: wep null); hack.c overexertion();
-//        mon.c wake_nearby()/wake_nearto(); trap.c b_trapped(); engrave.c u_wipe_engr().
+//        mon.c wake_nearby()/wake_nearto(); trap.c b_trapped() + potion.c make_stunned(); engrave.c u_wipe_engr().
 
 import { nhgetch } from './input.js';
 import { pline, newsym } from './display.js';
 import { vision_recalc, cansee } from './vision.js';
-import { dist2 } from './hacklib.js';
+import { dist2, depth } from './hacklib.js';
 import { acurr, exercise } from './attrib.js';
 import { rnd, rn2, rnl } from './rng.js';
 import { uWipeEngr } from './engrave.js';
@@ -20,7 +20,14 @@ import {
 } from './floorobj.js';
 import { losehp, maybeHalfPhys } from './mthrowu.js';
 import { heroPassesWalls, isClosedDoorLoc } from './walkable.js';
-import { permonstHuman, slithy, verysmall, monsterLeavesCorpse, isFlyer } from './mondata.js';
+import {
+    permonstHuman,
+    slithy,
+    verysmall,
+    monsterLeavesCorpse,
+    isFlyer,
+    stagger,
+} from './mondata.js';
 import { placeCorpseForMonster } from './mkobj_corpse.js';
 import { overexertion, overexertHpIfEncumberedPlines } from './eat_hunger.js';
 import { useSkill } from './u_init_skills.js';
@@ -57,6 +64,7 @@ import {
     A_DEX,
     A_CON,
     P_MARTIAL_ARTS,
+    KILLED_BY_AN,
 } from './const.js';
 import { nearCapacity, ENC } from './encumbr.js';
 import { inRoomsShopbaseRoomnos, addDamageAt, payForDamage, adisturb } from './shop.js';
@@ -314,17 +322,72 @@ async function kickMonsterNonPolyLikeC(g, mtmp, _x, _y) {
 }
 
 /**
- * C: trap.c b_trapped("door", FOOT) — minimal (door trap branch); **`make_stunned`** not ported.
+ * C: potion.c make_stunned(xtime, talk) — hero **`HStun`** timeout + plines (**`Unaware`** suppresses talk).
+ * @param {import('./gstate.js').game} g
+ * @param {number} xtime
+ * @param {boolean} talk
  */
-export async function bTrappedDoorFootLikeC(g) {
-    const dlevel = (g.u?.uz?.dlevel ?? 1) | 0;
-    const lvl = dlevel;
+export async function makeStunnedHeroLikeC(g, xtime, talk) {
+    const u = g.u;
+    if (!u) return;
+    let docTalk = !!talk;
+    if (u.Unaware | 0) docTalk = false;
+    const old = u.HStun | 0;
+    const x = xtime | 0;
+
+    if (!x && old) {
+        if (docTalk) {
+            await pline(
+                u.Hallucination
+                    ? 'You feel less wobbly now.'
+                    : 'You feel a bit steadier now.',
+            );
+        }
+    }
+    if (x && !old) {
+        if (docTalk) {
+            if (u.usteed) await pline('You wobble in the saddle.');
+            else await pline(`You ${stagger(heroYoumonstPtr(g), 'stagger')}...`);
+        }
+    }
+    if ((!x && old) || (x && !old)) {
+        g.disp = g.disp || {};
+        g.disp.botl = true;
+    }
+    u.HStun = x;
+}
+
+/**
+ * C: trap.c b_trapped(item, bodypart) — **`level_difficulty`**, **`wake_nearby(FALSE)`**,
+ * **`losehp(Maybe_Half_Phys(dmg), ...)`**, **`exercise(A_CON)`** only if bodypart is not **`NO_PART`**
+ * ( **`eat.c`** tin uses **`NO_PART`**; **`dokick.c`** door uses **`FOOT`**; **`lock.c`** door uses **`FINGER`**).
+ * @param {import('./gstate.js').game} g
+ * @param {string} itemLabel noun phrase for "The …" (e.g. **`door`**, **`tin`**, **`secret door`**)
+ * @param {boolean} [skipConExercise] when true, omit CON exercise (**`NO_PART`**)
+ */
+export async function bTrappedItemHeroLikeC(g, itemLabel, skipConExercise = false) {
+    const u = g.u;
+    if (!u) return;
+    const lvl = depth(u.uz) | 0;
     const dmg = rnd(5 + (lvl < 5 ? lvl : 2 + Math.trunc(lvl / 2)));
-    await pline('KABOOM!! The door was booby-trapped!');
+    const cap = (itemLabel || 'object').replace(/^\s+|\s+$/g, '');
+    const shown = cap.length ? cap[0].toUpperCase() + cap.slice(1) : 'Something';
+    await pline(`KABOOM!!  The ${shown} was booby-trapped!`);
     await wakeNearbyFalseAtHero(g);
-    losehp(maybeHalfPhys(dmg), 'explosion', 0);
+    losehp(maybeHalfPhys(dmg), 'explosion', KILLED_BY_AN);
     exercise(A_STR, false);
-    exercise(A_CON, false);
+    if (!skipConExercise) exercise(A_CON, false);
+    await makeStunnedHeroLikeC(g, (u.HStun | 0) + dmg, true);
+}
+
+/** C: trap.c **`b_trapped("tin", NO_PART)`** — eat.c booby-trapped tin (no CON exercise). */
+export async function bTrappedTinNoPartHeroLikeC(g) {
+    await bTrappedItemHeroLikeC(g, 'tin', true);
+}
+
+/** C: trap.c **`b_trapped("door", FOOT)`** — dokick.c trapped door kick. */
+export async function bTrappedDoorFootLikeC(g) {
+    await bTrappedItemHeroLikeC(g, 'door', false);
 }
 
 /** C: dokick.c kick_dumb */
