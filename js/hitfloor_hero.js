@@ -19,8 +19,8 @@ import {
 } from './const.js';
 import { heroBreaksObjLikeC, BRK_FROM_INV } from './obj_break_dothrow.js';
 import { doname } from './objnam.js';
-import { NH5_COIN_CLASS } from './nh5_objclass.js';
 import { flooreffectsObjAtLikeC } from './flooreffects_hero.js';
+import { doaltarobjLikeC } from './doaltarobj.js';
 
 /** C: objects_nums — **`WAN_STRIKING`** ( **`dothrow.c`** **`hitfloor`** verb ). */
 const OTYP_WAN_STRIKING = 415;
@@ -55,35 +55,6 @@ function surfaceStringHitfloorVerboseLikeC(g, x, y) {
  */
 async function shipObjectHeroAtLikeC(_g, _obj, _x, _y, _shop) {
     return false;
-}
-
-/**
- * C: **`do.c`** **`doaltarobj`** — blind early-out; **`COIN_CLASS`** bless/curse strip;
- * bless/curse flash vs land (**`Hallucination`** **`bknown`** gate deferred).
- * @param {import('./gstate.js').game} g
- */
-async function doaltarObjOnHeroSqLikeC(g, obj) {
-    const u = g.u;
-    if (!u || !obj) return;
-    const blind = !!(u.ublind | 0) || (u.timed?.blind ?? 0) > 0;
-    if (blind) return;
-
-    if ((obj.oclass | 0) !== NH5_COIN_CLASS) {
-        /* C: livelog gnostic conduct — omitted */
-    } else {
-        obj.blessed = 0;
-        obj.cursed = 0;
-    }
-
-    if ((obj.blessed | 0) || (obj.cursed | 0)) {
-        const art = obj.blessed ? 'an amber' : 'a black';
-        await pline(`There is ${art} flash as ${doname(obj, g)} hits the altar.`);
-        obj.bknown = 1;
-    } else {
-        const landVerb = (obj.quan | 0) > 1 ? 'land' : 'lands';
-        await pline(`${doname(obj, g)} ${landVerb} on the altar.`);
-        if ((obj.oclass | 0) !== NH5_COIN_CLASS) obj.bknown = 1;
-    }
 }
 
 /**
@@ -145,7 +116,7 @@ export async function hitfloorHeroLikeC(g, obj, verbosely) {
     }
 
     if (IS_ALTAR(ltyp)) {
-        await doaltarObjOnHeroSqLikeC(g, obj);
+        await doaltarobjLikeC(g, obj);
     } else if (verbosely) {
         const verb = (obj.otyp | 0) === OTYP_WAN_STRIKING ? 'strikes' : 'hits';
         const surf = surfaceStringHitfloorVerboseLikeC(g, x, y);
@@ -169,7 +140,7 @@ export async function dropxHeroAfterFreeinvLikeC(g, obj) {
     if (!(u.uswallow | 0)) {
         if (await shipObjectHeroAtLikeC(g, obj, x, y, false)) return;
         const ltyp = g.level?.at(x, y)?.typ | 0;
-        if (IS_ALTAR(ltyp)) await doaltarObjOnHeroSqLikeC(g, obj);
+        if (IS_ALTAR(ltyp)) await doaltarobjLikeC(g, obj);
     }
     await dropyHeroAtFeetLikeC(g, obj);
 }

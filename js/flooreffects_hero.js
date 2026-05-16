@@ -1,6 +1,6 @@
 // flooreffects_hero.js — do.c flooreffects() subset at (x,y) for hero deliveries.
 // C ref: do.c flooreffects() — **`boulder_hits_pool`**, boulder+pit/**`dmgval`** squish (**`hmon`** deferred), **`is_lava`**/**`lava_damage`**, **`is_pool`**
-// (**splash** + **`water_damage`**); **`globby`** **`obj_nexto_xy`/`obj_meld`**; hot-room potions. Deferred: teeter/**`ship_object`**, mon+altar.
+// (**splash** + **`water_damage`**); **`globby`** **`obj_nexto_xy`/`obj_meld`**; **`mon_moving`**+altar+**`cansee`** **`doaltarobj`**; hot-room potions. Deferred: teeter/**`ship_object`**.
 
 import { isLavaCellLikeC, isPoolCellLikeC } from './fillholetyp.js';
 import { lavaDamageFromFlooreffectsLikeC } from './fire_damage.js';
@@ -13,6 +13,7 @@ import {
 import { boulderHitsPoolLikeC, buryObjsAtLikeC } from './melt_ice.js';
 import {
     OTYP_BOULDER,
+    IS_ALTAR,
     ROOM,
     CORR,
     WT_SPLASH_THRESHOLD,
@@ -40,6 +41,7 @@ import {
 } from './mondata.js';
 import { obliterateObjectInLevel } from './floorobj.js';
 import { flooreffectsGlobMergeChainLikeC } from './glob_flooreffects.js';
+import { doaltarobjLikeC } from './doaltarobj.js';
 
 /** C: objects_nums — **`POT_OIL`** ( **`do.c`** hot-floor branch always survives ). */
 const OTYP_POT_OIL = 320;
@@ -192,7 +194,7 @@ async function flooreffectsBoulderPitOrHoleLikeC(g, obj, xi, yi, trap, verbStr) 
 
 /**
  * C: **`do.c`** **`flooreffects(obj, x, y, verb)`** — boulder/pool/lava/pit, pool splash, hot potions.
- * Omits: teeter/**`ship_object`**, mon **`doaltarobj`** when **`mon_moving`**.
+ * Omits: teeter/**`ship_object`**.
  * @param {import('./gstate.js').game} g
  * @param {string} [verb] — C **`"drop"`** / **`"fall"`** / **`"land"`**; empty skips some plines (**`*verb`**)
  * @returns {Promise<boolean>} **true** if **`obj`** is consumed (C **`TRUE`**)
@@ -256,6 +258,11 @@ export async function flooreffectsObjAtLikeC(g, obj, x, y, verb) {
 
         const loc = g.level?.at(xi, yi);
         const typ = loc?.typ | 0;
+
+        if (!!(g.svc?.context?.mon_moving) && IS_ALTAR(typ) && cansee(xi, yi)) {
+            await doaltarobjLikeC(g, obj);
+        }
+
         const temp = (g.level?.flags?.temperature ?? 0) | 0;
         if (
             temp > 0 &&
