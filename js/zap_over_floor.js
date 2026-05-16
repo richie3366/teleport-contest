@@ -1,7 +1,8 @@
 // zap_over_floor.js — Floor tile effects from zaps / breath / wand explosions (subset).
 // C ref: zap.c zap_over_floor(), zaptype(); monattk.h AD_* → ZT_* in zap.c preamble;
 //        zap.c buzz()/bhit() — beam **`range += zap_over_floor(...)`** stepping (subset).
-//        detect.c cvt_sdoor_to_door — secret-door reveal before **`closed_door`**.
+//        detect.c cvt_sdoor_to_door — secret-door reveal before **`closed_door`**;
+//        buzz()/bhit() tail — **`if (shopdamage) pay_for_damage(...)`** once per beam.
 import {
     PHYS_EXPL_TYPE, BOLT_LIM, isok, DOOR, SDOOR, D_NODOOR, D_BROKEN, D_CLOSED, D_LOCKED,
     WM_MASK, Is_rogue_level,
@@ -12,7 +13,7 @@ import { pline, newsym } from './display.js';
 import { isClosedDoorLoc } from './walkable.js';
 import { floorObjKey } from './floorobj.js';
 import { burnFloorObjects } from './burn_floor_objects.js';
-import { applyZapShopDoorDamage } from './shop.js';
+import { applyZapShopDoorDamage, payForDamage } from './shop.js';
 
 /** C: objects.h — passed as **`exploding_wand_typ`** for oil/splatter fire (zap.c). */
 const OTYP_POT_OIL = 320;
@@ -63,6 +64,21 @@ export function zaptype(type) {
  */
 export function zapDamgtype(type) {
     return zaptype(type) % 10;
+}
+
+/**
+ * C: zap.c buzz() — **`pay_for_damage`** verb from **`damgtype`** (**`zaptype(type) % 10`**).
+ * @param {number} damg
+ * @returns {string}
+ */
+function shopDamageVerbForZapDamg(damg) {
+    switch (damg | 0) {
+    case ZT_FIRE: return 'burn away';
+    case ZT_COLD: return 'shatter';
+    case ZT_ACID: return 'damage';
+    case ZT_DEATH: return 'disintegrate';
+    default: return 'destroy';
+    }
 }
 
 /**
@@ -326,14 +342,20 @@ export async function zapOverFloor(g, x, y, type, _shopdamage = null, _ignoremon
  * @param {number} dy — −1, 0, or 1
  * @param {number} type — e.g. **`ZT_SPELL(ZT_COLD)`**
  * @param {number} [maxRange] — C beam range cap; default **`BOLT_LIM`**
+ * @param {{ value?: boolean }|null} [shopdamageRef] — C **`&shopdamage`**; fresh ref used when omitted
  */
-export async function zapOverFloorAlongRay(g, x0, y0, dx, dy, type, maxRange = BOLT_LIM) {
+export async function zapOverFloorAlongRay(g, x0, y0, dx, dy, type, maxRange = BOLT_LIM, shopdamageRef = null) {
+    const sd = shopdamageRef ?? { value: false };
     const sx = x0 | 0;
     const sy = y0 | 0;
     const ddx = dx | 0;
     const ddy = dy | 0;
     if (ddx === 0 && ddy === 0) {
-        await zapOverFloor(g, sx, sy, type);
+        await zapOverFloor(g, sx, sy, type, sd);
+        if (sd.value) {
+            await payForDamage(g, shopDamageVerbForZapDamg(zapDamgtype(type)), false);
+            sd.value = false;
+        }
         return;
     }
     let remaining = maxRange | 0;
@@ -343,9 +365,13 @@ export async function zapOverFloorAlongRay(g, x0, y0, dx, dy, type, maxRange = B
         const x = sx + ddx * i;
         const y = sy + ddy * i;
         if (!isok(x, y)) break;
-        const mod = await zapOverFloor(g, x, y, type);
+        const mod = await zapOverFloor(g, x, y, type, sd);
         remaining += mod;
         if (mod <= -1000) break;
         if (remaining <= 0) break;
+    }
+    if (sd.value) {
+        await payForDamage(g, shopDamageVerbForZapDamg(zapDamgtype(type)), false);
+        sd.value = false;
     }
 }
