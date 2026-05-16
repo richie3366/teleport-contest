@@ -446,6 +446,14 @@ export async function flush_screen(mode) {
     _buildScreenOutput();
 }
 
+/** C: display.c shieldeff() — sparkle shield animation at (x,y). Full shield_static loop TODO. */
+export async function shieldeffLikeC(g, x, y) {
+    if (!(g.flags?.sparkle)) return;
+    if (!cansee(x, y)) return;
+    await flush_screen(1);
+    newsym(x, y);
+}
+
 // ── cls ──
 export async function cls() {
     const display = game?.nhDisplay;

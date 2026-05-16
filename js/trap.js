@@ -5,7 +5,7 @@
 // domagictrap() shares makemon.js stub; seffects (fate 20).
 
 import { game } from './gstate.js';
-import { pline, newsym } from './display.js';
+import { pline, newsym, shieldeffLikeC } from './display.js';
 import { vision_recalc, cansee } from './vision.js';
 import { rn2, rnd, rn1, d, rnl } from './rng.js';
 import { nomul, fallAsleep, burnAwaySlime } from './timeout.js';
@@ -42,6 +42,7 @@ import { burnarmorYoumonst, burnarmorMtmp } from './erode_obj.js';
 import { burnFloorObjects } from './burn_floor_objects.js';
 import { meltIceAt } from './melt_ice.js';
 import { minuhpmaxLikeC, setUhpmaxHumanLikeC, losexpNullLikeC } from './losexp.js';
+import { monstseesuLikeC, monstunseesuLikeC } from './mon_seen_res.js';
 import { splitMon, splitGremlinHeroPoly } from './split_mon.js';
 import { dist2 } from './hacklib.js';
 import {
@@ -111,8 +112,12 @@ import {
     Is_stronghold,
     Is_waterlevel,
     Is_airlevel,
+    Is_earthlevel,
     isok,
     NO_MM_FLAGS,
+    ICE,
+    IS_POOL,
+    IS_LAVA,
     A_CHA,
     A_CON,
     A_STR,
@@ -133,6 +138,7 @@ import {
     MIGR_PORTAL,
     is_xport,
     KILLED_BY_AN,
+    M_SEEN_FIRE,
 } from './const.js';
 
 const M1_CLING = 0x00000010;
@@ -288,6 +294,22 @@ function tamedogStub() {
     return false;
 }
 
+/** C: dungeon.c surface(u.ux,u.uy) — subset for trap.c dofiretrap plines. */
+function surfaceAtHeroLikeC(g) {
+    const u = g.u;
+    if (!u?.level?.at) return 'floor';
+    const x = u.ux | 0;
+    const y = u.uy | 0;
+    const t = (g.level.at(x, y)?.typ | 0) || 0;
+    const uw = (u.underwater | 0) !== 0;
+    if (IS_POOL(t) && uw && !Is_waterlevel(u.uz)) return 'bottom';
+    if (IS_POOL(t)) return 'water';
+    if (t === ICE) return 'ice';
+    if (IS_LAVA(t)) return 'lava';
+    if (Is_earthlevel(u.uz)) return 'ground';
+    return 'floor';
+}
+
 /** C: **`mons[u.umonnum].mlevel`** — poly **`mhmax`** floor in **`dofiretrap`**. */
 function heroPolyFormMlevel(u) {
     const ptr = raceptr(game.youmonst);
@@ -297,21 +319,30 @@ function heroPolyFormMlevel(u) {
 }
 
 /**
- * C: trap.c dofiretrap(box null) — floor / magic fire; **`burn_away_slime`** (**`timeout.js`**)
- * before destroy; **`burnarmor`** (**`erode_obj.js`**); floor **`burn_floor_objects`** + blind smell;
- * then **`melt_ice`** (**`melt_ice.js`**). Polymorph: golem **`alt`**, **`mhmax`** vs **`mlevel`**, damage **`u.mh`**;
- * human: second **`d(2,4)`** for max-HP drain + **`losehp`**; if max falls below **`minuhpmax(1)`**,
- * C **`setuhpmax(min(olduhpmax,uhpmin),FALSE)`** then **`losexp(NULL)`** when no **`Drain_resistance`**
- * (**`exper.c`** / **`attrib.c`**).
+ * C: trap.c dofiretrap(box null) — floor / magic fire; underwater steam first;
+ * **`Fire_resistance`**: **`shieldeff`**, **`monstseesu(M_SEEN_FIRE)`**; poly/human then **`monstunseesu`**;
+ * **`burn_away_slime`** … **`melt_ice`**.
  */
 async function dofiretrapHeroNoBox() {
     const u = game.u;
     if (!u) return;
+
+    if ((u.underwater | 0) !== 0) {
+        const surf = surfaceAtHeroLikeC(game);
+        await pline(`A cascade of steamy bubbles erupts from the ${surf}!`);
+        if (u.Fire_resistance) await pline('You are uninjured.');
+        else losehp(rnd(3), 'boiling water', KILLED_BY);
+        return;
+    }
+
     const origDmg = d(2, 4);
     let num = origDmg;
 
-    await pline('A tower of flame erupts from the floor!');
+    const surfTower = surfaceAtHeroLikeC(game);
+    await pline(`A tower of flame erupts from the ${surfTower}!`);
     if (u.Fire_resistance) {
+        await shieldeffLikeC(game, u.ux, u.uy);
+        monstseesuLikeC(M_SEEN_FIRE);
         num = rn2(2);
     } else if (u.Upolyd) {
         const mhmax = u.mhmax | 0;
@@ -334,6 +365,7 @@ async function dofiretrapHeroNoBox() {
             game.disp.botl = true;
         }
         if ((u.mh | 0) > (u.mhmax | 0)) u.mh = u.mhmax;
+        monstunseesuLikeC(M_SEEN_FIRE);
     } else {
         num = d(2, 4);
         const uhpmin = minuhpmaxLikeC(u, 1);
@@ -353,6 +385,7 @@ async function dofiretrapHeroNoBox() {
             game.disp.botl = true;
         }
         if ((u.uhp ?? 0) > (u.uhpmax ?? 1)) u.uhp = u.uhpmax;
+        monstunseesuLikeC(M_SEEN_FIRE);
     }
 
     if (!num) await pline('You are uninjured.');
