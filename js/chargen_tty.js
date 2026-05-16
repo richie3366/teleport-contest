@@ -4,17 +4,18 @@
 
 import { nhgetch } from './input.js';
 import { NO_COLOR, ATR_INVERSE } from './terminal.js';
-import { rn2 } from './rng.js';
 import { roles, races, aligns, genders } from './roles.js';
 import {
     rigidRoleChecksJs,
     ROLE_NONE,
     ROLE_RANDOM,
     PICK_RANDOM,
-    okRoleJs,
+    clearChargenRfilterLikeC,
+    trySetrolefilterTokenLikeC,
     okRaceJs,
     okGendJs,
     okAlignJs,
+    okRoleJs,
     pickRoleJs,
     pickRaceJs,
     pickGendJs,
@@ -30,25 +31,14 @@ const COPYRIGHT_C = 'Version 5.0.0 (NetHack 5.0 port)';
 const MENU_COL = 41;
 const NAME_ROW = 12;
 
-/** C `gr.rfilter` — substring tty filter for the role list (`~` then line, role.c). */
-let chargenRfilter = '';
-
-/** Reset at each full chargen restart (new name from top of `runInteractiveTtyChargen`). */
+/** C clearrolefilter at each chargen top (new name / restart). */
 export function resetChargenRfilter() {
-    chargenRfilter = '';
-}
-
-function roleMatchesRfilter(ri) {
-    if (!chargenRfilter) return true;
-    const needle = chargenRfilter.toLowerCase();
-    const r = roles[ri];
-    const hay = `${r.name.m} ${r.name.f ?? ''} ${r.abbr}`.toLowerCase();
-    return hay.includes(needle);
+    clearChargenRfilterLikeC();
 }
 
 /**
- * C tty: read filter line after `~` until newline (role.c / wintty setup_rolemenu).
- * ESC clears the pending line; backspace edits. Does not paint (replay-safe).
+ * C tty: after `~`, read a line; empty line clears filters; else whitespace-
+ * separated tokens each call setrolefilter (role.c).
  */
 async function readChargenFilterLine() {
     let buf = '';
@@ -67,38 +57,13 @@ async function readChargenFilterLine() {
         if (ch.length === 1 && c >= 32 && c < 127 && buf.length < 63) buf += ch;
     }
     const trimmed = buf.trim();
-    chargenRfilter = trimmed;
-    if (trimmed) {
-        let any = false;
-        for (let ri = 0; ri < roles.length; ri++) {
-            if (roleMatchesRfilter(ri)) {
-                any = true;
-                break;
-            }
-        }
-        if (!any) chargenRfilter = '';
+    if (!trimmed) {
+        clearChargenRfilterLikeC();
+        return;
     }
-}
-
-/** Random legal role honoring current facet picks + **`chargenRfilter`** (C `*` on role menu). */
-function pickRandomRoleForHub(f) {
-    const rai = f.initrace >= 0 ? f.initrace : ROLE_RANDOM;
-    const gi = f.initgend >= 0 ? f.initgend : ROLE_RANDOM;
-    const ai = f.initalign >= 0 ? f.initalign : ROLE_RANDOM;
-    const acc = [];
-    for (let ri = 0; ri < roles.length; ri++) {
-        if (!roleMatchesRfilter(ri)) continue;
-        if (
-            okRoleJs(ri, rai, gi, ai)
-            && okRaceJs(ri, rai, gi, ai)
-            && okGendJs(ri, rai, gi, ai)
-            && okAlignJs(ri, rai, gi, ai)
-        ) {
-            acc.push(ri);
-        }
+    for (const part of trimmed.split(/\s+/)) {
+        if (part) trySetrolefilterTokenLikeC(part);
     }
-    if (acc.length === 0) return ROLE_NONE;
-    return acc[rn2(acc.length)];
 }
 
 function lowc(ch) {
@@ -188,11 +153,16 @@ export async function readYnaqPick4u() {
     }
 }
 
-function roleMenuEntries() {
+function roleMenuEntries(f) {
+    const rai = f.initrace >= 0 ? f.initrace : ROLE_RANDOM;
+    const gi = f.initgend >= 0 ? f.initgend : ROLE_RANDOM;
+    const ai = f.initalign >= 0 ? f.initalign : ROLE_RANDOM;
     const out = [];
     let lastch = '\x00';
     for (let i = 0; i < roles.length; i++) {
-        if (!roleMatchesRfilter(i)) continue;
+        if (!okRoleJs(i, rai, gi, ai) || !okRaceJs(i, rai, gi, ai) || !okGendJs(i, rai, gi, ai) || !okAlignJs(i, rai, gi, ai)) {
+            continue;
+        }
         let ch = lowc(roles[i].name.m[0]);
         if (ch === lastch) ch = highc(roles[i].name.m[0]);
         lastch = lowc(ch);
@@ -206,13 +176,13 @@ function roleMenuEntries() {
     return out;
 }
 
-export function paintRoleMenu(disp) {
+export function paintRoleMenu(disp, f) {
     disp.clearScreen();
     disp.putstr(0, 0, ' ', NO_COLOR);
     disp.putstr(1, 0, 'Pick a role or profession', NO_COLOR, ATR_INVERSE);
     disp.putstr(0, 2, ' <role> <race> <gender> <alignment>', NO_COLOR);
     let row = 4;
-    for (const e of roleMenuEntries()) {
+    for (const e of roleMenuEntries(f)) {
         disp.putstr(0, row, ` ${e.ch} - ${e.art} ${e.label}`, NO_COLOR);
         row++;
     }
@@ -456,7 +426,7 @@ async function readConfirmAnswer(disp, f, plname) {
  * @param {{ initrole: number, initrace: number, initgend: number, initalign: number }} f
  */
 async function pickManualChargenFacets(disp, f) {
-    const entries = roleMenuEntries();
+    const entries = roleMenuEntries(f);
     const roleByMenuKey = new Map(entries.map((e) => [String(e.ch), e.ri]));
     for (;;) {
         rigidRoleChecksJs(f);
@@ -465,7 +435,7 @@ async function pickManualChargenFacets(disp, f) {
         }
 
         if (f.initrole === ROLE_NONE) {
-            paintRoleMenu(disp);
+            paintRoleMenu(disp, f);
             const c = await nhgetch();
             const kRaw = String.fromCodePoint(c);
             const k = lowc(kRaw);
@@ -475,7 +445,12 @@ async function pickManualChargenFacets(disp, f) {
                 continue;
             }
             if (k === '*') {
-                const t = pickRandomRoleForHub(f);
+                const t = pickRoleJs(
+                    f.initrace >= 0 ? f.initrace : ROLE_RANDOM,
+                    f.initgend >= 0 ? f.initgend : ROLE_RANDOM,
+                    f.initalign >= 0 ? f.initalign : ROLE_RANDOM,
+                    PICK_RANDOM,
+                );
                 if (t !== ROLE_NONE) f.initrole = t;
                 continue;
             }

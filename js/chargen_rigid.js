@@ -1,7 +1,6 @@
-// chargen_rigid.js — C role.c pick_* + rigid_role_checks.
+// chargen_rigid.js — C role.c pick_* + rigid_role_checks + gr.rfilter.
 // C ref: role.c — ok_role, ok_race, ok_gend, ok_align, pick_role, pick_race,
-// pick_gend, pick_align, rigid_role_checks. Tty **`gr.rfilter`** substring UI
-// lives in **`chargen_tty.js`** (role list only); predicates here stay rfilter-free.
+// pick_gend, pick_align, rigid_role_checks, setrolefilter, clearrolefilter.
 
 import { rn2 } from './rng.js';
 import { roles, races, aligns, genders } from './roles.js';
@@ -12,6 +11,77 @@ export const PICK_RANDOM = 0;
 export const PICK_RIGID = 1;
 
 /** @typedef {{ initrole: number, initrace: number, initgend: number, initalign: number }} ChargenFlags */
+
+/* ----- C gr.rfilter — boolean means "unacceptable" (excluded from picks) ----- */
+const rfilterExcludedRole = /** @type {boolean[]} */ ([]);
+const rfilterExcludedRace = /** @type {boolean[]} */ ([]);
+const rfilterExcludedGend = /** @type {boolean[]} */ ([]);
+const rfilterExcludedAlign = /** @type {boolean[]} */ ([]);
+
+function ensureRfilterArrays() {
+    while (rfilterExcludedRole.length < roles.length) rfilterExcludedRole.push(false);
+    while (rfilterExcludedRace.length < races.length) rfilterExcludedRace.push(false);
+    while (rfilterExcludedGend.length < genders.length) rfilterExcludedGend.push(false);
+    while (rfilterExcludedAlign.length < aligns.length) rfilterExcludedAlign.push(false);
+}
+
+/** C clearrolefilter(RS_filter) — clear all exclusions. */
+export function clearChargenRfilterLikeC() {
+    ensureRfilterArrays();
+    for (let i = 0; i < roles.length; i++) rfilterExcludedRole[i] = false;
+    for (let i = 0; i < races.length; i++) rfilterExcludedRace[i] = false;
+    for (let i = 0; i < genders.length; i++) rfilterExcludedGend[i] = false;
+    for (let i = 0; i < aligns.length; i++) rfilterExcludedAlign[i] = false;
+}
+
+function strncmpiPrefix(user, canon) {
+    if (!user || !canon || user.length > canon.length) return false;
+    return canon.slice(0, user.length).toLowerCase() === user.toLowerCase();
+}
+
+/**
+ * C setrolefilter(bufp) — one token; marks matching facet as unacceptable.
+ * @returns {boolean} whether a filter slot was recognized
+ */
+export function trySetrolefilterTokenLikeC(bufp) {
+    const raw = typeof bufp === 'string' ? bufp.trim() : '';
+    if (!raw) return false;
+    const s = raw.startsWith('!') ? raw.slice(1).trim() : raw;
+    if (!s) return false;
+    ensureRfilterArrays();
+
+    for (let i = 0; i < roles.length; i++) {
+        const r = roles[i];
+        if (strncmpiPrefix(s, r.name.m) || (r.name.f && strncmpiPrefix(s, r.name.f))
+            || s.toLowerCase() === r.abbr.toLowerCase()) {
+            rfilterExcludedRole[i] = true;
+            return true;
+        }
+    }
+    for (let i = 0; i < races.length; i++) {
+        const rc = races[i];
+        if (strncmpiPrefix(s, rc.name) || strncmpiPrefix(s, rc.adj)
+            || (rc.filecode && s.toLowerCase() === rc.filecode.toLowerCase())) {
+            rfilterExcludedRace[i] = true;
+            return true;
+        }
+    }
+    for (let i = 0; i < genders.length; i++) {
+        const g = genders[i];
+        if (strncmpiPrefix(s, g.name)) {
+            rfilterExcludedGend[i] = true;
+            return true;
+        }
+    }
+    for (let i = 0; i < aligns.length; i++) {
+        const a = aligns[i];
+        if (strncmpiPrefix(s, a.name) || strncmpiPrefix(s, a.adj)) {
+            rfilterExcludedAlign[i] = true;
+            return true;
+        }
+    }
+    return false;
+}
 
 function indexOkRole(ri) {
     return ri >= 0 && ri < roles.length;
@@ -26,9 +96,11 @@ function indexOkGend(gi) {
     return gi >= 0 && gi < genders.length;
 }
 
-/** C ok_role — simplified: uses roles[].allows vs races[genders[aligns]]. */
+/** C ok_role — roles[].allows + gr.rfilter.roles[rolenum]. */
 export function okRoleJs(ri, rai, gi, ai) {
     if (!indexOkRole(ri)) return false;
+    ensureRfilterArrays();
+    if (rfilterExcludedRole[ri]) return false;
     const role = roles[ri];
     if (indexOkRace(rai)) {
         const rn = races[rai].name;
@@ -54,6 +126,8 @@ export function okRaceJs(ri, rai, gi, ai) {
         return false;
     }
     if (!indexOkRace(rai)) return false;
+    ensureRfilterArrays();
+    if (rfilterExcludedRace[rai]) return false;
     const race = races[rai];
     if (indexOkRole(ri)) {
         const role = roles[ri];
@@ -89,6 +163,8 @@ export function okGendJs(ri, rai, gi, ai) {
         return false;
     }
     if (!indexOkGend(gi)) return false;
+    ensureRfilterArrays();
+    if (rfilterExcludedGend[gi]) return false;
     const gv = genders[gi].value;
     if (indexOkRole(ri)) {
         const role = roles[ri];
@@ -114,6 +190,8 @@ export function okAlignJs(ri, rai, gi, ai) {
         return false;
     }
     if (!indexOkAlign(ai)) return false;
+    ensureRfilterArrays();
+    if (rfilterExcludedAlign[ai]) return false;
     const av = aligns[ai].value;
     if (indexOkRole(ri) && !roles[ri].allows.align.includes(av)) return false;
     if (indexOkRace(rai)) {
