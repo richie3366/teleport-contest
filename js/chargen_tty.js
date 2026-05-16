@@ -917,7 +917,12 @@ async function readGenderChoice(disp, f) {
             if (t !== ROLE_NONE) return t;
             continue;
         }
-        /* C `setup_gendmenu` / `select_menu`: RS_ALGNMNT only — `?`/`/` collide with replay bursts on this menu (see handoff). */
+        /* C `setup_gendmenu` / `select_menu`: RS_ROLE `?` / RS_RACE `/` only when role+race are set — otherwise
+         * `role_menu_extra` pick lines still match keys meant for later replay (e.g. gender-first-from-role-hub then `!=/?`). */
+        if (f.initrole >= 0 && f.initrace >= 0) {
+            if (k === '?' && genderMenuRsRoleExtraLikeC(f).pick) return CHARGEN_NAV_ROLE;
+            if (k === '/' && genderMenuRsRaceExtraLikeC(f).pick) return CHARGEN_NAV_RACE;
+        }
         if (k === '[') {
             const xAl = genderMenuRsAlignExtraLikeC(f);
             if (xAl.pick) return CHARGEN_NAV_ALIGN;
