@@ -41,6 +41,7 @@ import { igniteHeroInventory, igniteMinvent } from './ignite_items.js';
 import { burnarmorYoumonst, burnarmorMtmp } from './erode_obj.js';
 import { burnFloorObjects } from './burn_floor_objects.js';
 import { meltIceAt } from './melt_ice.js';
+import { doname } from './objnam.js';
 import { minuhpmaxLikeC, setUhpmaxHumanLikeC, losexpNullLikeC } from './losexp.js';
 import { monstseesuLikeC, monstunseesuLikeC } from './mon_seen_res.js';
 import { splitMon, splitGremlinHeroPoly } from './split_mon.js';
@@ -294,6 +295,51 @@ function tamedogStub() {
     return false;
 }
 
+/** C: invent.c carried(obj) — hero **`g.invent`** / nested **`cobj`** chains. */
+function objectCarriedByHeroLikeC(g, obj) {
+    if (!obj) return false;
+    return objectInInventChain(g.invent, obj);
+}
+
+function objectInInventChain(chain, target) {
+    for (let o = chain; o; o = o.nobj) {
+        if (o === target) return true;
+        if (o.cobj && objectInInventChain(o.cobj, target)) return true;
+    }
+    return false;
+}
+
+/** C: obj.h the() — **`doname`** / **`xname`** indefinite phrase → definite for plines. */
+function theObjnamLikeC(phrase) {
+    const p = (phrase || '').trim();
+    if (p.startsWith('a ')) return `the ${p.slice(2)}`;
+    if (p.startsWith('an ')) return `the ${p.slice(3)}`;
+    if (p.startsWith('A ')) return `The ${p.slice(2)}`;
+    if (p.startsWith('An ')) return `The ${p.slice(3)}`;
+    return p;
+}
+
+/** C: trap.c dofiretrap — **`the(box ? xname(box) : surface(u.ux,u.uy)))`** (doname ≈ xname). */
+function dofiretrapFromPhraseLikeC(g, box) {
+    if (box) return theObjnamLikeC(doname(box, g));
+    return `the ${surfaceAtHeroLikeC(g)}`;
+}
+
+/**
+ * C: trap.c dofiretrap steam guard — **`(box && !carried(box)) ? is_pool(box->ox, box->oy) : Underwater`**.
+ * @param {import('./gstate.js').game} g
+ * @param {object|null|undefined} box
+ */
+function dofiretrapSteamConditionLikeC(g, box, u) {
+    if (box && !objectCarriedByHeroLikeC(g, box)) {
+        const ox = box.ox | 0;
+        const oy = box.oy | 0;
+        const loc = g.level?.at(ox, oy);
+        return !!(loc && IS_POOL(loc.typ | 0));
+    }
+    return (u.underwater | 0) !== 0;
+}
+
 /** C: dungeon.c surface(u.ux,u.uy) — subset for trap.c dofiretrap plines. */
 function surfaceAtHeroLikeC(g) {
     const u = g.u;
@@ -319,17 +365,18 @@ function heroPolyFormMlevel(u) {
 }
 
 /**
- * C: trap.c dofiretrap(box null) — floor / magic fire; underwater steam first;
+ * C: trap.c dofiretrap(struct obj *box) — floor / magic / chest; steam first when pool-on-floor-box or **`Underwater`**;
  * **`Fire_resistance`**: **`shieldeff`**, **`monstseesu(M_SEEN_FIRE)`**; poly/human then **`monstunseesu`**;
  * **`burn_away_slime`** … **`melt_ice`**.
+ * @param {object|null|undefined} box — **`NULL`** for floor fire trap / magic fate (**`b_trapped`** chest wire TODO).
  */
-async function dofiretrapHeroNoBox() {
+async function dofiretrapHeroLikeC(box) {
     const u = game.u;
     if (!u) return;
 
-    if ((u.underwater | 0) !== 0) {
-        const surf = surfaceAtHeroLikeC(game);
-        await pline(`A cascade of steamy bubbles erupts from the ${surf}!`);
+    if (dofiretrapSteamConditionLikeC(game, box, u)) {
+        const fromPh = dofiretrapFromPhraseLikeC(game, box);
+        await pline(`A cascade of steamy bubbles erupts from ${fromPh}!`);
         if (u.Fire_resistance) await pline('You are uninjured.');
         else losehp(rnd(3), 'boiling water', KILLED_BY);
         return;
@@ -338,8 +385,8 @@ async function dofiretrapHeroNoBox() {
     const origDmg = d(2, 4);
     let num = origDmg;
 
-    const surfTower = surfaceAtHeroLikeC(game);
-    await pline(`A tower of flame erupts from the ${surfTower}!`);
+    const fromTower = dofiretrapFromPhraseLikeC(game, box);
+    await pline(`A tower of flame erupts from ${fromTower}!`);
     if (u.Fire_resistance) {
         await shieldeffLikeC(game, u.ux, u.uy);
         monstseesuLikeC(M_SEEN_FIRE);
@@ -1518,7 +1565,7 @@ async function domagictrap() {
             break;
         }
         case 12:
-            await dofiretrapHeroNoBox();
+            await dofiretrapHeroLikeC(null);
             break;
         case 13:
             await pline('A shiver runs up and down your spine!');
@@ -1854,7 +1901,7 @@ async function trapeffectFireHero(trap) {
     const u = game.u;
     if (!u) return;
     seetrap(trap);
-    await dofiretrapHeroNoBox();
+    await dofiretrapHeroLikeC(null);
 }
 
 /** C: trap.c trapeffect_bear_trap — hero. */
