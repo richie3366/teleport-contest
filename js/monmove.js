@@ -7,6 +7,7 @@
 //
 // C: **`monmove.c`** **`movemon`** — harness (**`distfleeck`/`mcalcmove`** stand-in) then **`fmon`** loop
 // **`m_move`** (**`m_move_mon.js`**), then **`mintrap`**. **`m_throw`** runs only inside **`m_move`**.
+// **`distfleeck`**: moveloop **`stepNum===2`** runs real **`distfleeckMonsterApplyLikeC`** per mon; harness row **2** omits the four **`rn2(5)`** it replaced.
 
 import { rn2 } from './rng.js';
 import { mintrapMoveloopTail } from './trap.js';
@@ -20,7 +21,8 @@ export const MOVE_MON_HARNESS_MAX_STEP = 12;
 
 const _HARNESS = [
     () => { rn2(12); rn2(12); rn2(12); rn2(12); },
-    () => { rn2(5); rn2(5); rn2(5); rn2(5); rn2(12); rn2(12); rn2(12); rn2(12); },
+    /* Step 2: **`distfleeckMonsterApplyLikeC`** (per mon) consumes the four **`rn2(5)`** brave-gremlin draws. */
+    () => { rn2(12); rn2(12); rn2(12); rn2(12); },
     () => { rn2(5); rn2(32); rn2(5); rn2(5); rn2(32); rn2(5); rn2(12); rn2(12); rn2(12); rn2(12); },
     () => { rn2(5); rn2(24); rn2(5); rn2(5); rn2(24); rn2(5); rn2(12); rn2(12); rn2(12); rn2(12); },
     () => { rn2(5); rn2(16); rn2(5); rn2(12); rn2(12); rn2(12); rn2(12); },
@@ -44,6 +46,6 @@ export async function movemon(stepNum) {
     const i = stepNum - 1;
     if (i >= 0 && i < _HARNESS.length) _HARNESS[i]();
     const mons = game.level?.monsters ?? [];
-    for (const m of mons) await mMoveOneMonsterSubsetLikeC(game, m);
+    for (const m of mons) await mMoveOneMonsterSubsetLikeC(game, m, stepNum);
     await mintrapMoveloopTail();
 }
