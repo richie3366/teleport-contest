@@ -93,6 +93,7 @@ export async function newgame() {
     g.u.resists_blind = 0;
     g.u.See_invisible = 0;
     g.u.Fire_resistance = 0;
+    g.u.Wwalking = 0; /* youprop.h WATER — water walking (boots); trap.c lava_effects / drown */
     g.u.Cold_resistance = 0;
     g.u.HInvis = 0;
     g.u.EInvis = 0;
