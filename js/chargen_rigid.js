@@ -1,6 +1,7 @@
-// chargen_rigid.js — C role.c pick_* + rigid_role_checks (no role filter).
+// chargen_rigid.js — C role.c pick_* + rigid_role_checks.
 // C ref: role.c — ok_role, ok_race, ok_gend, ok_align, pick_role, pick_race,
-// pick_gend, pick_align, rigid_role_checks (gr.rfilter assumed empty).
+// pick_gend, pick_align, rigid_role_checks. Tty **`gr.rfilter`** substring UI
+// lives in **`chargen_tty.js`** (role list only); predicates here stay rfilter-free.
 
 import { rn2 } from './rng.js';
 import { roles, races, aligns, genders } from './roles.js';
