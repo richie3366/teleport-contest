@@ -5,7 +5,7 @@
 import { game } from './gstate.js';
 import { XKILL_NOCORPSE } from './const.js';
 
-/** @typedef {{ mlet: number, mflags1: number, msize: number, mmove: number, ac?: number, mvflags?: number, mresists?: number }} Permonst */
+/** @typedef {{ mlet: number, mflags1: number, mflags2?: number, msize: number, mmove: number, ac?: number, mvflags?: number, mresists?: number }} Permonst */
 
 /** C: monflag.h `G_NOCORPSE` — no ordinary corpse (mon.c make_corpse; genocided / unique rules). */
 export const G_NOCORPSE = 0x0010;
@@ -29,6 +29,9 @@ const M1_CARNIVORE = 0x20000000;
 const M1_HERBIVORE = 0x40000000;
 const M1_METALLIVORE = 0x80000000;
 
+/** C: monflag.h `M2_ROCKTHROW` — `throws_rocks` / goodpos boulder squares (teleport.c). */
+const M2_ROCKTHROW = 0x08000000;
+
 const MZ_SMALL = 1;
 
 // C: sym.h / defsym.h — S_EYE, S_LIGHT, S_VORTEX, S_ELEMENTAL, S_HUMAN enum indices
@@ -46,6 +49,7 @@ export const permonstHuman = Object.freeze({
     mlet: S_HUMAN,
     /* C: mons[PM_HUMAN] — M1_HUMANOID | M1_OMNIVORE (ordinary food consumption in eat.c gethungry) */
     mflags1: 0x00020000 | (M1_CARNIVORE | M1_HERBIVORE),
+    mflags2: 0,
     msize: 2, /* MZ_MEDIUM */
     mmove: 12,
     ac: 10, /* C: mons[].ac — find_ac() base for naked humanoid hero */
@@ -107,6 +111,11 @@ export function breathless(/** @type {Permonst} */ ptr) {
 /** C: mondata.h passes_walls */
 export function passesWalls(/** @type {Permonst} */ ptr) {
     return (ptr.mflags1 & M1_WALLWALK) !== 0;
+}
+
+/** C: mondata.h throws_rocks — giants, xorns, titans, … (goodpos boulder tile). */
+export function throwsRocks(/** @type {Permonst} */ ptr) {
+    return ((ptr?.mflags2 ?? 0) & M2_ROCKTHROW) !== 0;
 }
 
 /** C: mondata.h unsolid */

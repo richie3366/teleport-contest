@@ -29,6 +29,7 @@ import {
     SLP_GAS_TRAP, RUST_TRAP, FIRE_TRAP, PIT, SPIKED_PIT, HOLE, TRAPDOOR, TELEP_TRAP, LEVEL_TELEP,
     MAGIC_PORTAL, WEB, STATUE_TRAP, MAGIC_TRAP, POLY_TRAP, VIBRATING_SQUARE, TRAPPED_DOOR, TRAPPED_CHEST,
     is_pit, is_hole,
+    OTYP_BOULDER,
 } from './const.js';
 import { makeEngrAt, ENGR_HEADSTONE, ENGR_MARK, ENGR_DUST, randomEngraving, getRndEpitaphText, wipeEngrAt } from './engrave.js';
 import { tAt } from './search.js';
@@ -45,7 +46,6 @@ const SCROLL_CLASS = 8;
 const POTION_CLASS = 9;
 const TOOL_CLASS = 12;
 const GEM_CLASS = 14;
-const BOULDER = 465;
 const GOLD_PIECE = 466;
 const ROCK = 467;
 const KELP_FROND = 172;
@@ -211,7 +211,7 @@ function mksobj(otyp, init, artif) {
 // This varies by object class. For the contest, we need enough to match
 // the session's RNG pattern for objects created during mklev.
 function mksobj_init(otmp, otyp) {
-    // For BOULDER, GOLD_PIECE: no extra init RNG
+    // For OTYP_BOULDER, GOLD_PIECE: no extra init RNG
     // For scrolls: blessorcurse
     // For potions: blessorcurse
     // For general objects: varies
@@ -941,7 +941,7 @@ function dig_corridor(org, dest, npoints_out, nxcor, ftyp, btyp) {
                 if (npoints_out) npoints_out.v = npoints;
                 crm.typ = ftyp;
                 if (nxcor && !rn2(50)) {
-                    mksobj_at(BOULDER, xx, yy, true, false);
+                    mksobj_at(OTYP_BOULDER, xx, yy, true, false);
                 }
             }
         } else if (crm.typ !== ftyp && crm.typ !== SCORR) {
