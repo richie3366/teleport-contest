@@ -2956,5 +2956,10 @@ export const PM_EARTH_ELEMENTAL = 157;
 export const PM_WATER_ELEMENTAL = 158;
 /** C: `monsters.h` — salamander. */
 export const PM_SALAMANDER = 323;
+/** C: `monsters.h` — straw / paper / leather / wood golem (**`dofiretrap`** **`switch`**). */
+export const PM_STRAW_GOLEM = 247;
+export const PM_PAPER_GOLEM = 248;
+export const PM_LEATHER_GOLEM = 251;
+export const PM_WOOD_GOLEM = 252;
 /** C: objects.h RING() — BITS chrg uses `spec`; first six rings have spec 1 (NH5 objects_nums). */
 export const OC_CHARGED_RING_OTYPES = new Set([156, 157, 158, 159, 160, 161]);
