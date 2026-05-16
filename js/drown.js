@@ -6,7 +6,7 @@ import { game } from './gstate.js';
 import { IS_POOL } from './const.js';
 import { raceptr, breathless, swims, amphibious } from './mondata.js';
 import { rndNexttoGoodposHero } from './walkable.js';
-import { pline } from './display.js';
+import { pline, feelNewsym } from './display.js';
 import { rn2 } from './rng.js';
 import { waterDamageChainHeroInventory } from './water_damage.js';
 
@@ -33,13 +33,16 @@ function swimmingMacro(ptr) {
  * After the hero steps onto an **`IS_POOL`** square (**`trap.c`** **`drown()`**).
  * @param {typeof game} [g]
  * @param {{ fromDx?: number, fromDy?: number }} [opts] — last move (**`u.dx`/`u.dy`**); needed for wading **`rn2(5)`** gate.
- * @returns {Promise<boolean>} true if hero **crawled** to a different square (caller should **`newsym`** pool + new cell).
+ * @returns {Promise<boolean>} true if hero **crawled** to a different square (caller should **`newsym`** pool + new cell). **`feelNewsym`** on the pool square runs inside this function (**`trap.c`** **`drown`**).
  */
 export async function maybeHeroPoolEnter(g = game, opts = {}) {
     const u = g.u;
     if (!u) return false;
     const loc = g.level?.at(u.ux, u.uy);
     if (!loc || !IS_POOL(loc.typ)) return false;
+
+    /* C: trap.c drown() — feel_newsym(u.ux, u.uy); in case Blind, map the water here */
+    feelNewsym(u.ux, u.uy);
 
     const ptr = raceptr(g.youmonst);
     const dx = opts.fromDx | 0;

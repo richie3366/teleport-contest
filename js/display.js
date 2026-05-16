@@ -1,10 +1,10 @@
 // display.js — Map rendering and terminal output.
-// C ref: display.c — newsym, show_glyph, docrt, cls, flush_screen.
+// C ref: display.c — newsym, feel_newsym, feel_location, show_glyph, docrt, cls, flush_screen.
 
 import { game } from './gstate.js';
-import { cansee } from './vision.js';
+import { cansee, setSeenvTowardHero } from './vision.js';
 import {
-    COLNO, ROWNO, STONE, ROOM, CORR, DOOR, STAIRS, LADDER,
+    COLNO, ROWNO, isok, STONE, ROOM, CORR, DOOR, STAIRS, LADDER,
     HWALL, VWALL, TLCORNER, TRCORNER, BLCORNER, BRCORNER,
     CROSSWALL, TUWALL, TDWALL, TLWALL, TRWALL,
     D_NODOOR, D_ISOPEN, D_CLOSED, D_LOCKED,
@@ -198,6 +198,50 @@ export function newsym(x, y) {
         show_glyph_cell(x, y, loc.remembered_glyph.ch,
             loc.remembered_glyph.color, loc.remembered_glyph.decgfx);
     }
+}
+
+/** C: invent.c / display.c — `suppress_map_output` subset (avoid invent↔display cycle). */
+function suppressMapOutputDisplay() {
+    const g = game;
+    const ps = g.program_state || {};
+    if (g.in_mklev || ps.saving || ps.restoring) return true;
+    return false;
+}
+
+function heroBlindForMap() {
+    const u = game.u;
+    return !!(u?.ublind || (u?.timed?.blind ?? 0) > 0);
+}
+
+/**
+ * C: display.c feel_location() — blind hero learns tile (minimal; see **`search.js`** **`feelLocation`**).
+ * @param {number} x
+ * @param {number} y
+ */
+function feelLocationDisplay(x, y) {
+    if (suppressMapOutputDisplay()) return;
+    if (!isok(x, y)) return;
+    const u = game.u;
+    const lvl = game.level;
+    if (!u || !lvl) return;
+    setSeenvTowardHero(u.ux, u.uy, x, y);
+    const loc = lvl.at(x, y);
+    if (!loc) return;
+    const tg = mapTerrainGlyph(loc, x, y);
+    if (lvl.flags?.hero_memory !== false) {
+        loc.remembered_glyph = { ch: tg.ch, color: tg.color, decgfx: tg.dec };
+    }
+    show_glyph_cell(x, y, tg.ch, tg.color, tg.dec);
+}
+
+/**
+ * C: display.c feel_newsym(x, y) — map water/lava when hero knows the cell (**`trap.c`** **`drown()`**).
+ * @param {number} x
+ * @param {number} y
+ */
+export function feelNewsym(x, y) {
+    if (heroBlindForMap()) feelLocationDisplay(x, y);
+    else newsym(x, y);
 }
 
 // ── docrt ──
