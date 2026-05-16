@@ -1,7 +1,7 @@
 // moveloop_preamble.js — Once per moveloop() before the core loop.
 // C ref: allmain.c moveloop_preamble().
 //
-// Ported: calendar, rndencode/seer_turn, set_wear/reset_justpicked stubs,
+// Ported: calendar, rndencode/seer_turn, set_wear (EProtection ring refresh) / reset_justpicked stubs,
 // disp.botlx, restore hooks, encumber_msg, defer see_monsters, uz0/move,
 // fuzzerpending, in_moveloop, perm_invent update_inventory, pickup(1),
 // queued weapon.c plines (give_may_advance_msg, drain_weapon_skill forget).
