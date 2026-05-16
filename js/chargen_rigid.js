@@ -10,6 +10,11 @@ export const ROLE_RANDOM = -2;
 export const PICK_RANDOM = 0;
 export const PICK_RIGID = 1;
 
+/** C `role.c` tty menu / reset_role_filtering row order: Rogue before Ranger (Priest … Samurai). */
+export const ROLE_MENU_ORDER_LIKE_C = Object.freeze([
+    0, 1, 2, 3, 4, 5, 6, 8, 7, 9, 10, 11, 12,
+]);
+
 /** @typedef {{ initrole: number, initrace: number, initgend: number, initalign: number }} ChargenFlags */
 
 /* ----- C gr.rfilter — boolean means "unacceptable" (excluded from picks) ----- */
@@ -437,7 +442,8 @@ export function pickRaceJs(ri, gi, ai, pickhow) {
 
 export function pickRoleJs(rai, gi, ai, pickhow) {
     const acc = [];
-    for (let ri = 0; ri < roles.length; ri++) {
+    for (const ri of ROLE_MENU_ORDER_LIKE_C) {
+        if (ri >= roles.length) continue;
         if (okRoleJs(ri, rai >= 0 ? rai : ROLE_RANDOM, gi >= 0 ? gi : ROLE_RANDOM, ai >= 0 ? ai : ROLE_RANDOM)
             && okRaceJs(ri, rai >= 0 ? rai : ROLE_RANDOM, gi >= 0 ? gi : ROLE_RANDOM, ai >= 0 ? ai : ROLE_RANDOM)
             && okGendJs(ri, rai >= 0 ? rai : ROLE_RANDOM, gi >= 0 ? gi : ROLE_RANDOM, ai >= 0 ? ai : ROLE_RANDOM)

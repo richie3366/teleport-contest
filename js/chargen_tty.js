@@ -37,6 +37,7 @@ import {
     pickRaceJs,
     pickGendJs,
     pickAlignJs,
+    ROLE_MENU_ORDER_LIKE_C,
 } from './chargen_rigid.js';
 import { applyIdentityFromNethackrc } from './chargen.js';
 
@@ -318,11 +319,11 @@ function buildResetFilterMenuEntriesLikeC() {
     /** @type {{ key: string, token: string, label: string, section: string }[]} */
     const entries = [];
     let lastch = '\x00';
-    for (let ri = 0; ri < roles.length; ri++) {
+    for (const ri of ROLE_MENU_ORDER_LIKE_C) {
+        if (ri < 0 || ri >= roles.length) continue;
         const r = roles[ri];
-        let thisch = lowc(r.name.m[0]);
-        if (thisch === lastch) thisch = highc(r.name.m[0]);
-        lastch = thisch;
+        let thisch = roleMenuAccelLetterLikeC(r.name.m[0], lowc(lastch));
+        lastch = lowc(thisch);
         let label = r.name.m;
         if (r.name.f && r.name.f !== r.name.m) label = `${r.name.m}/${r.name.f}`;
         entries.push({ key: thisch, token: r.name.m, label, section: 'roles' });
@@ -519,6 +520,13 @@ function highc(ch) {
     return ch === ch.toLowerCase() ? ch.toUpperCase() : ch.toLowerCase();
 }
 
+/** C setup_rolemenu duplicate initials: `r` Rogue then `R` Ranger (do not toggle an already-upper first letter). */
+function roleMenuAccelLetterLikeC(rawFirst, lastch) {
+    const ch = lowc(rawFirst);
+    if (ch !== lastch) return ch;
+    return rawFirst === lowc(rawFirst) ? highc(rawFirst) : rawFirst;
+}
+
 /** C build_plselection_prompt when all four facets unspecified (strsubst applied). */
 export function buildShallPickPrompt() {
     return "Shall I pick character's race, role, gender and alignment for you? [ynaq]";
@@ -614,7 +622,8 @@ export function paintPostNameYnaqScreen(disp, plname) {
     const p0 = buildShallPickPrompt();
     disp.clearScreen();
     disp.putstr(0, YNAQ_AFTER_NAME_ROW, p0, NO_COLOR);
-    disp.setCursor(p0.length, YNAQ_AFTER_NAME_ROW);
+    /* C tty_curs past prompt text — matches recorder column (e.g. seed0006: len+1). */
+    disp.setCursor(p0.length + 1, YNAQ_AFTER_NAME_ROW);
     paintChargenCopyrightBlockLikeC(disp);
     disp.putstr(0, WHO_ARE_YOU_RECAP_ROW, `Who are you? ${plname}`, NO_COLOR);
 }
@@ -685,12 +694,12 @@ function roleMenuEntries(f) {
     const ai = f.initalign >= 0 ? f.initalign : ROLE_RANDOM;
     const out = [];
     let lastch = '\x00';
-    for (let i = 0; i < roles.length; i++) {
+    for (const i of ROLE_MENU_ORDER_LIKE_C) {
+        if (i < 0 || i >= roles.length) continue;
         if (!okRoleJs(i, rai, gi, ai) || !okRaceJs(i, rai, gi, ai) || !okGendJs(i, rai, gi, ai) || !okAlignJs(i, rai, gi, ai)) {
             continue;
         }
-        let ch = lowc(roles[i].name.m[0]);
-        if (ch === lastch) ch = highc(roles[i].name.m[0]);
+        let ch = roleMenuAccelLetterLikeC(roles[i].name.m[0], lastch);
         lastch = lowc(ch);
         let label = roles[i].name.m;
         if (roles[i].name.f && roles[i].name.f !== roles[i].name.m) {
