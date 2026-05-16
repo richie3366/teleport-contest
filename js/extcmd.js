@@ -2,11 +2,13 @@
 // C ref: cmd.c doextcmd, extcmdlist
 //
 // JS extras: wizard **`#F`**/**`#c`** — hero **`ubuzz`**; **`#d`** — **`dig.c`** **`zap_dig`** horizontal;
+// **`#D`** — **`dig.c`** **`dig()`** wall/door completion harness (**`dig_hero.js`**);
 // **`#m`**/**`#B`** — monster **`mbuzz`** (**`muse.c`** **`BZ_M_WAND`/`BZ_M_BREATH`** from neighbor toward hero);
 // wizard **`z`** — **`dozap.js`**.
 
 import { game } from './gstate.js';
 import { nhgetch } from './input.js';
+import { readDirIntoU } from './dir_input.js';
 import { flush_screen, pline, docrt } from './display.js';
 import { versionPlineText } from './nethack_version.js';
 import { enhanceWeaponSkillOneStep } from './u_init_skills.js';
@@ -21,6 +23,7 @@ import {
     WAN_COLD,
 } from './buzz.js';
 import { heroZapDigHorizontalLikeC } from './zap_dig.js';
+import { heroDigCompleteWallDoorOrSecretLikeC } from './dig_hero.js';
 
 /** C: doextcmd — echo '#' on the top line, then read the next key (tty). */
 export async function runExtcmdFromHashPrefix() {
@@ -81,6 +84,26 @@ export async function runExtcmdFromHashPrefix() {
     if (ch2 === 'd' && game.flags?.wizard) {
         /* C: dig.c zap_dig — wand of digging horizontal beam; same facing as **`#c`** (**`WAN_DIGGING`**). */
         await heroZapDigHorizontalLikeC(game);
+        await flush_screen(1);
+        return;
+    }
+    if (ch2 === 'D' && game.flags?.wizard) {
+        /* C: dig.c **`dig()`** completion at adjacent cell (**`dpx,dpy`**) — wall/SDOOR/closed door + shop billing. */
+        await pline('Dig toward which wall or door?');
+        game._retainMessageAfterCommand = true;
+        await flush_screen(1);
+        if (!(await readDirIntoU(game))) {
+            await pline('Never mind.');
+            await flush_screen(1);
+            return;
+        }
+        const u = game.u;
+        const tx = (u.ux | 0) + (u.dx | 0);
+        const ty = (u.uy | 0) + (u.dy | 0);
+        if (!(await heroDigCompleteWallDoorOrSecretLikeC(game, tx, ty))) {
+            await pline('Nothing happens.');
+            game._retainMessageAfterCommand = true;
+        }
         await flush_screen(1);
         return;
     }

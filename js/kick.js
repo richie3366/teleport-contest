@@ -135,7 +135,7 @@ async function readKickDirectionDelta() {
 /**
  * C: trap.c b_trapped("door", FOOT) — minimal (door trap branch); **`make_stunned`** not ported.
  */
-async function bTrappedDoorFootLikeC(g) {
+export async function bTrappedDoorFootLikeC(g) {
     const dlevel = (g.u?.uz?.dlevel ?? 1) | 0;
     const lvl = dlevel;
     const dmg = rnd(5 + (lvl < 5 ? lvl : 2 + Math.trunc(lvl / 2)));
