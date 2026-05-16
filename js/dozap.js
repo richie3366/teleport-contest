@@ -5,6 +5,8 @@
 import { game } from './gstate.js';
 import { pline, flush_screen } from './display.js';
 import { readDirIntoU } from './dir_input.js';
+import { nothing_happens } from './const.js';
+import { rn2 } from './rng.js';
 import {
     ubuzzOverFloor,
     wandUbuzzTypeFromOtyp,
@@ -15,6 +17,27 @@ import {
 } from './buzz.js';
 import { heroZapDigHorizontalLikeC } from './zap_dig.js';
 import { NH5_WAND_CLASS } from './nh5_objclass.js';
+
+/** C: hack.h `WAND_WREST_CHANCE` */
+const WAND_WREST_CHANCE = 121;
+
+/**
+ * C: zap.c **`zappable(wand)`** — decrement **`spe`**; wrest last charge (**`rn2(WAND_WREST_CHANCE)`**).
+ * When **`wand.spe`** is omitted (**invent** stub), returns true without **`rn2`** (charges not modeled).
+ * @param {import('./gstate.js').game} g
+ * @param {{ spe?: number }} wand
+ */
+async function zappableWandLikeC(g, wand) {
+    void g;
+    if (wand == null || wand.spe === undefined) return true;
+    const spe0 = wand.spe | 0;
+    if (spe0 < 0 || (spe0 === 0 && rn2(WAND_WREST_CHANCE))) return false;
+    if (spe0 === 0) {
+        await pline('You wrest one last charge from the worn-out wand.');
+    }
+    wand.spe = spe0 - 1;
+    return true;
+}
 
 /**
  * C: zap.c **`zap_ok`** — first carried wand (**`getobj`** not ported; order = invent chain).
@@ -44,7 +67,7 @@ function wandOtypUsesGetdirLikeC(otyp) {
 }
 
 /**
- * C: zap.c **`dozap`** → **`weffects`** (no **`zappable`** / backfire / **`zapyourself`** yet).
+ * C: zap.c **`dozap`** → **`weffects`** (**`zappable`** for directional wands; no cursed **`backfire`** yet).
  */
 export async function doZapCmd() {
     const g = game;
@@ -73,8 +96,17 @@ export async function doZapCmd() {
     }
 
     const otyp = wand.otyp | 0;
-    if (!wandOtypUsesGetdirLikeC(otyp)) {
-        await pline('Nothing happens.');
+    const needDir = wandOtypUsesGetdirLikeC(otyp);
+    if (needDir) {
+        if (!(await zappableWandLikeC(g, wand))) {
+            await pline(nothing_happens);
+            game._retainMessageAfterCommand = true;
+            await flush_screen(1);
+            return;
+        }
+    }
+    if (!needDir) {
+        await pline(nothing_happens);
         game._retainMessageAfterCommand = true;
         await flush_screen(1);
         return;
@@ -97,7 +129,7 @@ export async function doZapCmd() {
             await flush_screen(1);
             return;
         }
-        await pline('Nothing happens.');
+        await pline(nothing_happens);
         await flush_screen(1);
         return;
     }

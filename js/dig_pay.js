@@ -1,8 +1,37 @@
 // dig_pay.js — dig.c shop billing tail after add_damage (dighole / zap dig paths).
 // C ref: dig.c pay_for_damage(shopdoor ? "destroy" : "dig into", FALSE) after hero
 //        shop wall/door dig; callers must have merged damagelist via shk.c add_damage.
+//        dig.c dig() shop wall/door: **`add_damage`** then **`pay_for_damage("damage"|"break", FALSE)`**;
+//        hack.h **`SHOP_WALL_DMG`**.
 
 import { payForDamage } from './shop.js';
+import { acurr } from './attrib.js';
+import { A_STR } from './const.js';
+
+/**
+ * C: hack.h **`SHOP_WALL_DMG`** — **`10L * ACURRSTR`** (hero hand-dig through shop wall).
+ * @param {import('./gstate.js').game} g
+ */
+export function shopWallHandDigDamageCostLikeC(g) {
+    void g;
+    return 10 * (acurr(A_STR) | 0);
+}
+
+/**
+ * C: dig.c **`dig()`** — caller has **`add_damage(dpx,dpy, SHOP_WALL_DMG)`** when shop wall cut.
+ * @param {import('./gstate.js').game} g
+ */
+export async function payAfterHeroHandDigShopWallDamageLikeC(g) {
+    await payForDamage(g, 'damage', false);
+}
+
+/**
+ * C: dig.c **`dig()`** — caller has **`add_damage(dpx,dpy, SHOP_DOOR_COST)`** when shop door broken.
+ * @param {import('./gstate.js').game} g
+ */
+export async function payAfterHeroHandDigShopDoorBreakLikeC(g) {
+    await payForDamage(g, 'break', false);
+}
 
 /**
  * C: dig.c — after **`add_damage`** for shop wall/door, **`pay_for_damage`** once per dig.
