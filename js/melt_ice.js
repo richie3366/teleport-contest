@@ -1,7 +1,7 @@
 // melt_ice.js — Ice terrain melts to water (fire trap, zaps, etc.).
 // C ref: zap.c melt_ice(), trap.c trap_ice_effects() / cnv_trap_obj(),
 //        do.c boulder_hits_pool(), mkobj.c obj_ice_effects(), dig.c unearth_objs(),
-//        mon.c minliquid_core() (pool/waterwall/lava/fountain/gremlin/golem/usteed/eel; rloc/split_mon/dryup/monflee/fire_damage_chain/deal_with_overcrowding still TODO).
+//        mon.c minliquid_core() (pool/waterwall/lava/fountain/gremlin/golem/usteed/eel; **`rloc`** subset **`enextoNearMon`**; split_mon/dryup/monflee/fire_damage_chain/deal_with_overcrowding still TODO).
 //
 // Still TODO vs C: corpse **`ROT_ORGANIC`** start on all bury paths; **`bury_objs`** full **`get_cost`**/**`getprice`** / angry surcharge (**`shop.js`** bill rows need **`addtobill`**);
 // **`dig.c`/`read.c`** **`buried_ball`/`punish`** (**`floorobj.js`**) — **`placebc`** blind glyphs / **`uswallow`**; beam/breath vectors; **`boulder_hits_pool`** **`recalc_block_point`**/**`wake_nearto`**/**`u.uinwater`**; **`spoteffects`**.
@@ -31,7 +31,7 @@ import {
 } from './mondata.js';
 import { CORPSE_OTYP, placeCorpseForMonster } from './mkobj_corpse.js';
 import { dist2 } from './hacklib.js';
-import { heroPassesWalls } from './walkable.js';
+import { heroPassesWalls, enextoNearMon } from './walkable.js';
 import { spotStopTimersMeltIceAway, startMeltIceAwayTimer, refirmMeltIceTimerAt } from './level_timers.js';
 import { fixWallSpinesRect } from './wall_spine.js';
 import { applyBuryObjsShopCreditAndDebt, shknamDisplay } from './shop.js';
@@ -74,6 +74,8 @@ import {
     PM_GREMLIN,
     PM_IRON_GOLEM,
     PM_WATER_ELEMENTAL,
+    RLOC_MSG,
+    RLOC_NOMSG,
 } from './const.js';
 
 /** C: objects.h — LAND_MINE / BEARTRAP (`objects_nums` / obj_oc_skill_data.js). */
@@ -278,11 +280,6 @@ function killMonsterOnPoolFill(g, mtmp, xkillFlags = 0) {
     }
 }
 
-/** C: teleport.c **`rloc(mtmp, flags)`** — escape pool/lava; stub (**`goodpos`/`rloc`** not ported). */
-async function rlocMinliquidEscape(_g, _mtmp, _flags) {
-    return false;
-}
-
 /** C: mon.c minliquid + mondata.c **`on_fire`** death phrase (**`boils away`/`melts away`/`burns to a crisp`**). */
 function lavaDestPhraseForMnum(mnum) {
     const m = mnum | 0;
@@ -298,6 +295,38 @@ function monPlineName(mtmp) {
 function monPlineNameCap(mtmp) {
     const s = monPlineName(mtmp);
     return s.charAt(0).toUpperCase() + s.slice(1);
+}
+
+/**
+ * C: teleport.c **`rloc`/`rloc_to_core`** — minliquid escape subset: **`enextoNearMon`** + **`newsym`**.
+ * Omits **`u.usteed`→`tele()`**, random **`collect_coords`** scan, **`rloc_pos_ok`** (**`onscary`**, regions),
+ * worm tails, shop **`stolen_value`**, appear/vanish phrasing vs full **`distu`**.
+ * @param {import('./gstate.js').game} g
+ * @param {Record<string, unknown>} mtmp
+ * @param {number} flags — **`RLOC_MSG`** / **`RLOC_NOMSG`**
+ */
+async function rlocMinliquidEscape(g, mtmp, flags) {
+    if (!mtmp) return false;
+    const u = g.u;
+    if (u && mtmp === u.usteed) return false;
+    const ox = mtmp.mx | 0;
+    const oy = mtmp.my | 0;
+    if (!isok(ox, oy)) return false;
+    const dest = enextoNearMon(g, ox, oy, mtmp);
+    if (!dest) return false;
+    const nx = dest.x | 0;
+    const ny = dest.y | 0;
+    if (nx === ox && ny === oy) return false;
+    if (!g.level?.at(nx, ny)) return false;
+    mtmp.mx = nx;
+    mtmp.my = ny;
+    newsym(ox, oy);
+    newsym(nx, ny);
+    const f = flags | 0;
+    if ((f & RLOC_MSG) !== 0 && (f & RLOC_NOMSG) === 0 && (cansee(ox, oy) || cansee(nx, ny))) {
+        await pline(`${monPlineNameCap(mtmp)} vanishes!`);
+    }
+    return true;
 }
 
 /**
@@ -367,7 +396,7 @@ async function boulderHitsPool(g, otmp, rx, ry, pushing) {
 
 /**
  * C: mon.c **`minliquid_core`** — liquid/fountain vs monster (**`melt_ice`** pool fill, etc.).
- * Still TODO: real **`rloc`**, **`split_mon`/`dryup`**, **`fire_damage_chain`**, **`deal_with_overcrowding`**,
+ * Still TODO: full **`rloc`** (**`usteed`/`tele()`**, **`collect_coords`**, **`rloc_pos_ok`**), **`split_mon`/`dryup`**, **`fire_damage_chain`**, **`deal_with_overcrowding`**,
  * **`monflee`**, full **`on_fire`** / Gehennom **`noteleport`** / covetous bypass.
  * @param {import('./gstate.js').game} g
  */
@@ -417,7 +446,7 @@ async function minliquidMonsterAfterMelt(g, mtmp) {
     if (inlava) {
         if (!isClinger(ptr) && !likesLava(ptr)) {
             if (canTeleportMon(ptr) && !teleRestrictMon(g, mtmp)) {
-                if (await rlocMinliquidEscape(g, mtmp, 1)) return;
+                if (await rlocMinliquidEscape(g, mtmp, RLOC_MSG)) return;
             }
             if (!fireResistant(ptr)) {
                 if (cansee(x, y)) {
@@ -446,7 +475,7 @@ async function minliquidMonsterAfterMelt(g, mtmp) {
     if (inpool || waterwall) {
         if ((waterwall || !isClinger(ptr)) && !cantDrown(ptr)) {
             if (canTeleportMon(ptr) && !teleRestrictMon(g, mtmp)) {
-                if (await rlocMinliquidEscape(g, mtmp, 1)) return;
+                if (await rlocMinliquidEscape(g, mtmp, RLOC_MSG)) return;
             }
             const name = monPlineName(mtmp);
             if (cansee(x, y)) {
