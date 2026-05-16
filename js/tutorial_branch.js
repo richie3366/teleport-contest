@@ -45,7 +45,7 @@ export function tutorialLuaHookStubLikeC(g, entering) {
 
 /**
  * C: **`do.c`** **`goto_level`** — when **`newdungeon`** (**`u.uz.dnum != newlevel->dnum`**), before **`savelev`** / **`impact_drop`**:
- * **`In_tutorial(newlevel)`** → **`tutorial(TRUE)`**; else **`In_tutorial(&u.uz)`** → **`tutorial(FALSE)`**, **`leaving_tutorial = TRUE`**.
+ * **`In_tutorial(newlevel)`** → **`tutorial(TRUE)`**; else **`In_tutorial(&u.uz)`** → **`tutorial(FALSE)`** with **`svc.context.leaving_tutorial`** (**C **`context.h`**); JS sets **`g.context.leaving_tutorial`** and **`g.gd.leaving_tutorial`**.
  * @param {import('./gstate.js').game} g
  * @param {{ dnum?: number, dlevel?: number }} oldUz
  * @param {{ dnum?: number, dlevel?: number }} newUz
@@ -64,6 +64,8 @@ export function gotoLevelTutorialBranchHookLikeC(g, oldUz, newUz) {
     }
     if ((oldUz.dnum | 0) === td) {
         tutorialLuaHookStubLikeC(g, false);
+        g.context = g.context || {};
+        g.context.leaving_tutorial = true;
         g.gd = g.gd || {};
         g.gd.leaving_tutorial = true;
     }

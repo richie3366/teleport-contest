@@ -52,7 +52,7 @@ export async function askDoTutorialLikeC() {
 
 /**
  * C: allmain.c **`maybe_do_tutorial`** — after **`moveloop_preamble`**, before **`moveloop_core`** loop.
- * **`goto_level`** is still a subset (**`applyGotoLevelDirectHeroLikeC`**) — no Lua **`tutorial()`**, savelev, **`keepdogs`**, …
+ * **`goto_level`** is still a subset (**`applyGotoLevelDirectHeroLikeC`**) — no Lua **`tutorial()`**, savelev, **`keepdogs`**, …; **`context.leaving_tutorial`** is cleared in **`moveloop_core`** tail, not here (**`runSegment`**).
  * @returns {Promise<void>}
  */
 export async function maybeDoTutorialLikeC() {
