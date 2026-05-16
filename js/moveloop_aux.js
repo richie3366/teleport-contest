@@ -21,6 +21,7 @@ import {
 import { acurr } from './attrib.js';
 import { uWipeEngr } from './engrave.js';
 import { nearCapacity, ENC } from './encumbr.js';
+import { heroEatsOrdinaryFood } from './mondata.js';
 
 export function maybe_generate_rnd_mon() {
     rn2(70);
@@ -86,9 +87,9 @@ export function gethungry() {
     if (!u || typeof u.uhunger !== 'number') return;
     if (u.uinvulnerable || game.iflags?.debug_hunger) return;
 
-    /* C: (!Unaware || !rn2(10)) && (carnivorous||…) && !Slow_digestion — carnivorous stub true */
+    /* C: (!Unaware || !rn2(10)) && (carnivorous||herbivorous||metallivorous)(youmonst.data) && !Slow_digestion */
     const unaware = u.Unaware | 0;
-    if ((!unaware || !rn2(10)) && !(u.Upolyd | 0) && !u.Slow_digestion) u.uhunger--;
+    if ((!unaware || !rn2(10)) && heroEatsOrdinaryFood() && !u.Slow_digestion) u.uhunger--;
 
     const accessorytime = rn2(20);
     if (accessorytime % 2) {

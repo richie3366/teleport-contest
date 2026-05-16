@@ -15,6 +15,10 @@ const M1_BREATHLESS = 0x00000400;
 const M1_NOLIMBS = 0x00006000;
 const M1_SLITHY = 0x00080000;
 const M1_NOTAKE = 0x00000080;
+/** C: monflag.h — diet (gethungry ordinary uhunger--); M1_OMNIVORE = CARNIVORE|HERBIVORE */
+const M1_CARNIVORE = 0x20000000;
+const M1_HERBIVORE = 0x40000000;
+const M1_METALLIVORE = 0x80000000;
 
 const MZ_SMALL = 1;
 
@@ -31,11 +35,38 @@ export { MZ_SMALL };
 /** Innate human (PM_HUMAN–style) for encumber / stagger when not polymorphed. */
 export const permonstHuman = Object.freeze({
     mlet: S_HUMAN,
-    mflags1: 0x00020000, /* M1_HUMANOID */
+    /* C: mons[PM_HUMAN] — M1_HUMANOID | M1_OMNIVORE (ordinary food consumption in eat.c gethungry) */
+    mflags1: 0x00020000 | (M1_CARNIVORE | M1_HERBIVORE),
     msize: 2, /* MZ_MEDIUM */
     mmove: 12,
     ac: 10, /* C: mons[].ac — find_ac() base for naked humanoid hero */
 });
+
+/** C: mondata.h carnivorous(ptr) — true for carnivores and omnivores */
+export function carnivorous(/** @type {Permonst} */ ptr) {
+    return ((ptr?.mflags1 ?? 0) & M1_CARNIVORE) !== 0;
+}
+
+/** C: mondata.h herbivorous(ptr) */
+export function herbivorous(/** @type {Permonst} */ ptr) {
+    return ((ptr?.mflags1 ?? 0) & M1_HERBIVORE) !== 0;
+}
+
+/** C: mondata.h metallivorous(ptr) */
+export function metallivorous(/** @type {Permonst} */ ptr) {
+    return ((ptr?.mflags1 ?? 0) & M1_METALLIVORE) !== 0;
+}
+
+/**
+ * C: eat.c gethungry — (carnivorous||herbivorous||metallivorous)(gy.youmonst.data).
+ * When polymorphed, uses `game.youmonst.data` (stub with permonstHuman if unset).
+ */
+export function heroEatsOrdinaryFood() {
+    const g = game;
+    const u = g.u;
+    const ptr = (u?.Upolyd | 0) ? (g.youmonst?.data ?? permonstHuman) : raceptr(g.youmonst);
+    return carnivorous(ptr) || herbivorous(ptr) || metallivorous(ptr);
+}
 
 /** C: mondata.h breathless */
 export function breathless(/** @type {Permonst} */ ptr) {
