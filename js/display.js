@@ -214,11 +214,11 @@ function heroBlindForMap() {
 }
 
 /**
- * C: display.c feel_location() — blind hero learns tile (minimal; see **`search.js`** **`feelLocation`**).
+ * C: display.c feel_location() — blind hero learns tile (**`detect.c`** / **`drown()`** callers).
  * @param {number} x
  * @param {number} y
  */
-function feelLocationDisplay(x, y) {
+export function feelLocation(x, y) {
     if (suppressMapOutputDisplay()) return;
     if (!isok(x, y)) return;
     const u = game.u;
@@ -240,7 +240,7 @@ function feelLocationDisplay(x, y) {
  * @param {number} y
  */
 export function feelNewsym(x, y) {
-    if (heroBlindForMap()) feelLocationDisplay(x, y);
+    if (heroBlindForMap()) feelLocation(x, y);
     else newsym(x, y);
 }
 
