@@ -42,6 +42,41 @@ import { applyIdentityFromNethackrc } from './chargen.js';
 
 const MENU_COL = 41;
 
+const CHARGEN_NAV_ROLE = -200;
+const CHARGEN_NAV_GENDER = -201;
+const CHARGEN_NAV_ALIGN = -202;
+const CHARGEN_NAV_RACE = -203;
+
+/**
+ * Apply C `nextpick` / facet clears when a submenu returns an RS_* sentinel from **`readRaceChoice`**.
+ * @param {{ initrole: number, initrace: number, initgend: number, initalign: number,
+ *   chargenResumePick?: 'race' | 'gender' | 'align' }} f
+ * @param {number} t
+ * @returns {boolean} whether **`pickManualChargenFacets`** should `continue` without assigning a race index
+ */
+function chargenHandleSubmenuNavReturnLikeC(f, t) {
+    if (t !== CHARGEN_NAV_ROLE && t !== CHARGEN_NAV_GENDER && t !== CHARGEN_NAV_ALIGN && t !== CHARGEN_NAV_RACE) {
+        return false;
+    }
+    if (t === CHARGEN_NAV_ROLE) {
+        f.initrole = ROLE_NONE;
+        return true;
+    }
+    if (t === CHARGEN_NAV_GENDER) {
+        f.initgend = ROLE_NONE;
+        f.chargenResumePick = 'gender';
+        return true;
+    }
+    if (t === CHARGEN_NAV_ALIGN) {
+        f.initalign = ROLE_NONE;
+        f.chargenResumePick = 'align';
+        return true;
+    }
+    f.initrace = ROLE_NONE;
+    f.chargenResumePick = 'race';
+    return true;
+}
+
 /**
  * C ref: win/tty/wintty.c — after `end_menu`-style text, tty cursor rests past the `(end)` line
  * (C recorder seed0077: left column menus col = len(` (end)`) + 1; right col = MENU_COL + len("(end)") + 1).
@@ -797,6 +832,14 @@ async function readRaceChoice(disp, f) {
             if (t !== ROLE_NONE) return t;
             continue;
         }
+        /* C role.c race `select_menu`: RS_ROLE / RS_GENDER / RS_ALGNMNT extras (gender/align hubs deferred — `?`/`/` collide with replay when JS is still in readGenderChoice). */
+        if (k === '?' && raceMenuRsRoleExtraLikeC(f).pick) return CHARGEN_NAV_ROLE;
+        if (k === '"' && raceMenuRsGenderExtraLikeC(f).pick) return CHARGEN_NAV_GENDER;
+        if (k === '[') {
+            const xAl = raceMenuRsAlignExtraLikeC(f);
+            if (xAl.pick) return CHARGEN_NAV_ALIGN;
+            continue;
+        }
         if (map.has(k)) return /** @type {number} */ (map.get(k));
     }
 }
@@ -1020,21 +1063,27 @@ async function pickManualChargenFacets(disp, f) {
         if (f.chargenResumePick === 'race') {
             delete f.chargenResumePick;
             if (f.initrace === ROLE_NONE) {
-                f.initrace = await readRaceChoice(disp, f);
+                const t = await readRaceChoice(disp, f);
+                if (chargenHandleSubmenuNavReturnLikeC(f, t)) continue;
+                f.initrace = t;
                 continue;
             }
         }
         if (f.chargenResumePick === 'gender') {
             delete f.chargenResumePick;
             if (f.initgend === ROLE_NONE) {
-                f.initgend = await readGenderChoice(disp, f);
+                const t = await readGenderChoice(disp, f);
+                if (chargenHandleSubmenuNavReturnLikeC(f, t)) continue;
+                f.initgend = t;
                 continue;
             }
         }
         if (f.chargenResumePick === 'align') {
             delete f.chargenResumePick;
             if (f.initalign === ROLE_NONE) {
-                f.initalign = await readAlignChoice(disp, f);
+                const t = await readAlignChoice(disp, f);
+                if (chargenHandleSubmenuNavReturnLikeC(f, t)) continue;
+                f.initalign = t;
                 continue;
             }
         }
@@ -1083,15 +1132,27 @@ async function pickManualChargenFacets(disp, f) {
                 continue;
             }
             if (k === '[') {
-                if (f.initalign === ROLE_NONE) f.initalign = await readAlignChoice(disp, f);
+                if (f.initalign === ROLE_NONE) {
+                    const t = await readAlignChoice(disp, f);
+                    if (chargenHandleSubmenuNavReturnLikeC(f, t)) continue;
+                    f.initalign = t;
+                }
                 continue;
             }
             if (k === '"') {
-                if (f.initgend === ROLE_NONE) f.initgend = await readGenderChoice(disp, f);
+                if (f.initgend === ROLE_NONE) {
+                    const t = await readGenderChoice(disp, f);
+                    if (chargenHandleSubmenuNavReturnLikeC(f, t)) continue;
+                    f.initgend = t;
+                }
                 continue;
             }
             if (k === '/') {
-                if (f.initrace === ROLE_NONE) f.initrace = await readRaceChoice(disp, f);
+                if (f.initrace === ROLE_NONE) {
+                    const t = await readRaceChoice(disp, f);
+                    if (chargenHandleSubmenuNavReturnLikeC(f, t)) continue;
+                    f.initrace = t;
+                }
                 continue;
             }
             let ri = roleByMenuKey.get(kRaw);
@@ -1105,15 +1166,21 @@ async function pickManualChargenFacets(disp, f) {
         }
 
         if (f.initrace === ROLE_NONE) {
-            f.initrace = await readRaceChoice(disp, f);
+            const t = await readRaceChoice(disp, f);
+            if (chargenHandleSubmenuNavReturnLikeC(f, t)) continue;
+            f.initrace = t;
             continue;
         }
         if (f.initgend === ROLE_NONE) {
-            f.initgend = await readGenderChoice(disp, f);
+            const t = await readGenderChoice(disp, f);
+            if (chargenHandleSubmenuNavReturnLikeC(f, t)) continue;
+            f.initgend = t;
             continue;
         }
         if (f.initalign === ROLE_NONE) {
-            f.initalign = await readAlignChoice(disp, f);
+            const t = await readAlignChoice(disp, f);
+            if (chargenHandleSubmenuNavReturnLikeC(f, t)) continue;
+            f.initalign = t;
             continue;
         }
     }
