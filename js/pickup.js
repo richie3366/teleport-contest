@@ -1,6 +1,6 @@
 // pickup.js — Autopickup, encumbrance messages, pickup_prev flags.
 // C ref: pickup.c reset_justpicked(), encumber_msg(), pickup(), check_here(); invent.c look_here();
-//        hack.c near_capacity via encumbr.js; pickup.c in_container **`otrapped`** → **`chest_trap`** (**`#l`** harness).
+//        hack.c near_capacity via encumbr.js; pickup.c **`use_container`** trapped / **`in_container`** → **`chest_trap`** (**`#l`** harness).
 
 import { game } from './gstate.js';
 import { pline, flush_screen } from './display.js';
@@ -273,7 +273,24 @@ export function floorContainerAtHeroFeetPickupLikeC(g) {
 }
 
 /**
- * C: pickup.c **`in_container`** — **`!olocked` && `otrapped`** → **`chest_trap(obj, HAND, FALSE)`** + **`nomul(-1)`**.
+ * C: pickup.c **`use_container`** — first **carried** (**`gi.invent`** chain) unlocked trapped container (**`#loot`** subset).
+ * Omits **`u_handsy`**, nested-in-container pick, shop / bag-of-tricks branches.
+ * @param {import('./gstate.js').game} g
+ * @returns {object|null}
+ */
+export function carriedTrappedUnlockedContainerPickupLikeC(g) {
+    for (let o = g.invent; o; o = o.nobj) {
+        if (o === g.uchain) continue;
+        if (!isContainerOtyp(o.otyp | 0)) continue;
+        if (o.olocked | 0) continue;
+        if (!(o.otrapped | 0)) continue;
+        return o;
+    }
+    return null;
+}
+
+/**
+ * C: pickup.c **`use_container`** / **`in_container`** — **`!olocked` && `otrapped`** → **`chest_trap(obj, HAND, FALSE)`** + **`nomul(-1)`**; **`held`** → **`You("open %s...", …)`** before **`chest_trap`**.
  * @param {import('./gstate.js').game} g
  * @param {object} obj
  * @param {boolean} held — C **`held`** (**`You("open %s...", …)`** only when true).

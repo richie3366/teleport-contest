@@ -4,7 +4,7 @@
 // JS extras: wizard **`#F`**/**`#c`** — hero **`ubuzz`**; **`#d`** — **`dig.c`** **`zap_dig`** (**`u.dz`** + horizontal);
 // **`#D`** — **`dig.c`** **`dig()`** wall/door completion harness (**`dig_hero.js`**);
 // **`#m`**/**`#B`** — monster **`mbuzz`** (**`muse.c`** **`BZ_M_WAND`/`BZ_M_BREATH`** from neighbor toward hero);
-// **`#l`**/**`#L`** — **`pickup.c`** **`in_container`** trapped subset → **`trap.c`** **`chest_trap`** (**`pickup.js`**);
+// **`#l`**/**`#L`** — **`pickup.c`** **`use_container`** trapped (**`held`** floor vs invent) → **`trap.c`** **`chest_trap`** (**`pickup.js`**);
 // **`#p`**/**`#P`** — **`lock.c`** **`picklock()`** success tail on locked floor box (**`lock_hero.js`**; instant success, no occupation);
 // wizard **`z`** — **`dozap.js`**.
 
@@ -20,7 +20,7 @@ import { is_pit } from './const.js';
 import { canReachFloor } from './engrave.js';
 import { doname } from './objnam.js';
 import { theObjnamLikeC } from './trap.js';
-import { floorContainerAtHeroFeetPickupLikeC, heroOpenTrappedContainerPickupLikeC } from './pickup.js';
+import { floorContainerAtHeroFeetPickupLikeC, heroOpenTrappedContainerPickupLikeC, carriedTrappedUnlockedContainerPickupLikeC } from './pickup.js';
 import { applyPicklockSucceededOnFloorBoxHeroLikeC, heroFirstLockToolOtypLikeC } from './lock_hero.js';
 import {
     ubuzzOverFloor,
@@ -152,7 +152,7 @@ export async function runExtcmdFromHashPrefix() {
         return;
     }
     if (ch2 === 'l' || ch2 === 'L') {
-        /* C: pickup.c **`in_container`** — floor trapped box (**`#loot`** not ported). */
+        /* C: pickup.c **`use_container`** — trapped container: floor (**`held`** false) or invent (**`held`** true); **`chest_trap(HAND)`**. */
         const g = game;
         const u = g.u;
         if (!u || !g.level) {
@@ -162,22 +162,24 @@ export async function runExtcmdFromHashPrefix() {
             return;
         }
         const tr = tAt(u.ux | 0, u.uy | 0);
-        if (!canReachFloor(!!(tr && is_pit(tr.ttyp)))) {
-            await pline('You cannot reach the floor!');
-            game._retainMessageAfterCommand = true;
-            await flush_screen(1);
-            return;
-        }
-        const box = floorContainerAtHeroFeetPickupLikeC(g);
-        if (!box) {
-            await pline('There is no container here.');
-        } else if (box.olocked | 0) {
-            await pline(`${theObjnamLikeC(doname(box, g))} is locked.`);
-        } else if (!(box.otrapped | 0)) {
-            await pline('That container is not trapped. (Full #loot not ported.)');
-        } else {
-            await heroOpenTrappedContainerPickupLikeC(g, box, false);
+        const reach = canReachFloor(!!(tr && is_pit(tr.ttyp)));
+        const boxF = reach ? floorContainerAtHeroFeetPickupLikeC(g) : null;
+        const boxC = carriedTrappedUnlockedContainerPickupLikeC(g);
+
+        if (boxF && !(boxF.olocked | 0) && (boxF.otrapped | 0)) {
+            await heroOpenTrappedContainerPickupLikeC(g, boxF, false);
             game.context.move = 1;
+        } else if (boxC) {
+            await heroOpenTrappedContainerPickupLikeC(g, boxC, true);
+            game.context.move = 1;
+        } else if (boxF && (boxF.olocked | 0)) {
+            await pline(`${theObjnamLikeC(doname(boxF, g))} is locked.`);
+        } else if (boxF && !(boxF.otrapped | 0)) {
+            await pline('That container is not trapped. (Full #loot not ported.)');
+        } else if (!reach) {
+            await pline('You cannot reach the floor!');
+        } else {
+            await pline('There is no trapped container here or in your pack.');
         }
         game._retainMessageAfterCommand = true;
         await flush_screen(1);
