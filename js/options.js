@@ -14,6 +14,7 @@ function parseRcBooleanishLikeC(val) {
 }
 
 export function parseNethackrc(rc) {
+    /* Unknown OPTIONS=key:val pairs land in flags (e.g. genericusers — C sysopt.genericusers / plnamesuffix). */
     const result = {
         name: '', role: -1, race: -1, gender: -1, align: -1,
         flags: {}, iflags: {},

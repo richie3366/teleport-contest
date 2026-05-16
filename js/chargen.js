@@ -24,13 +24,70 @@ import { permonstHuman } from './mondata.js';
 import { A_CURRENT, A_ORIGINAL } from './const.js';
 
 /**
+ * C **`hacklib.c`** **`findword`** — space-separated **`list`**; match **`word`** prefix of length **`wordlen`**;
+ * list token must end at **`wordlen`** (**`strncmp`/`strncmpi`** + boundary like C **`p[wordlen]`**).
+ * @param {string} list
+ * @param {string} word
+ * @param {number} wordlen
+ * @param {boolean} ignorecase
+ * @returns {boolean}
+ */
+function findwordNhLikeC(list, word, wordlen, ignorecase) {
+    const n = Math.min(wordlen, word.length);
+    if (n < 0) return false;
+    const w = word.slice(0, n);
+    let p = 0;
+    while (p < list.length) {
+        while (p < list.length && list[p] === ' ') p++;
+        if (p >= list.length) break;
+        const start = p;
+        while (p < list.length && list[p] !== ' ') p++;
+        const tokenEnd = p;
+        const tok = list.slice(start, tokenEnd);
+        if (tok.length < n) continue;
+        const head = ignorecase ? tok.slice(0, n).toLowerCase() === w.toLowerCase() : tok.slice(0, n) === w;
+        const boundary = start + n >= tokenEnd || list[start + n] === ' ';
+        if (head && boundary) return true;
+    }
+    return false;
+}
+
+/**
+ * C **`role.c`** **`plnamesuffix`** — **`sysopt.genericusers`** before dash-token parsing.
+ * **`OPTIONS=genericusers:foo bar`** → **`opts.flags.genericusers`**; list match or **`*`** clears **`opts.name`**.
+ * **`plnamelen`** mirrors C **`gp.plnamelen`** (usually **`0`**); first **`-`** after that bounds the name prefix for **`findword`**.
+ * @param {ReturnType<typeof import('./options.js').parseNethackrc>} opts
+ */
+function applyGenericusersPlnameClearLikeC(opts) {
+    const g = opts.flags && typeof opts.flags.genericusers === 'string' ? opts.flags.genericusers.trim() : '';
+    if (!g) return;
+    if (g === '*') {
+        opts.name = '';
+        opts.plnamelen = 0;
+        return;
+    }
+    const raw = typeof opts.name === 'string' ? opts.name : '';
+    if (!raw) return;
+    const plnamelen = typeof opts.plnamelen === 'number' && opts.plnamelen >= 0 ? opts.plnamelen : 0;
+    const sub = raw.slice(plnamelen);
+    const dashInSub = sub.indexOf('-');
+    const i = dashInSub >= 0 ? plnamelen + dashInSub : raw.length;
+    const prefix = raw.slice(0, i);
+    if (findwordNhLikeC(g, prefix, prefix.length, false)) {
+        opts.name = '';
+        opts.plnamelen = 0;
+    }
+}
+
+/**
  * C **`role.c`** **`plnamesuffix`** — strip **`name-role-race-gender-align`** tokens after first **`-`**;
- * commas in the base name → spaces (**`strNsubst`**). Skips C **`sysopt.genericusers`** (not modeled).
+ * commas in the base name → spaces (**`strNsubst`**). **`genericusers`** via **`applyGenericusersPlnameClearLikeC`**.
  * Mutates **`opts.name`**, **`opts.role`**, **`opts.race`**, **`opts.gender`**, **`opts.align`** like C **`flags.init*`** overwrites.
  * Call only after **`initRng`** when tokens may be **`random`** (**`randrole_filtered`** / **`randrace`** / …).
  * @param {ReturnType<typeof import('./options.js').parseNethackrc>} opts
  */
 export function applyPlnameSuffixToOptsLikeC(opts) {
+    applyGenericusersPlnameClearLikeC(opts);
     const raw = typeof opts.name === 'string' ? opts.name : '';
     if (!raw) return;
 
