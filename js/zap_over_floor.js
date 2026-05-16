@@ -93,17 +93,73 @@ function heroBlindForZap(g) {
     return !!(u?.ublind | 0) || (u?.timed?.blind ?? 0) > 0;
 }
 
+/** C: mondata.h canseemon(mtmp) — subset for **`zap_over_floor`** (steed / invis / cansee). */
+function canseemonZap(g, mtmp) {
+    const u = g.u;
+    if (!mtmp || !u) return false;
+    if (u.usteed === mtmp) return true;
+    if ((mtmp.minvis | 0) && !(u.See_invisible | 0)) return false;
+    return cansee(mtmp.mx | 0, mtmp.my | 0);
+}
+
+function heroDeafForZap(g) {
+    return (g.u?.timed?.deaf ?? 0) > 0;
+}
+
+/** C: mon.c Monnam — stub until **`x_monnam`** port (matches **`trap.js`** **`monNam`**). */
+function monNamZap(mtmp) {
+    const n = mtmp?.data?.mname || mtmp?.monnam;
+    if (n) return `the ${n}`;
+    return 'the monster';
+}
+
+function monNamSentenceZap(mtmp) {
+    const s = monNamZap(mtmp);
+    return s.charAt(0).toUpperCase() + s.slice(1);
+}
+
 /**
- * C: mon.c wakeup(mtmp, via_attack) — minimal for **`zap_over_floor`** (no mimic / growl / temple).
+ * C: mon.c wake_msg(mtmp, interesting)
+ * @param {boolean} interesting — C **`via_attack`** ( **`!`interesting** → sleepy “.” )
+ */
+async function wakeMsgZap(g, mtmp, interesting) {
+    if (!mtmp) return;
+    if ((mtmp.msleeping | 0) && canseemonZap(g, mtmp)) {
+        const punct = interesting ? '!' : '.';
+        await pline(`${monNamSentenceZap(mtmp)} wakes up${punct}`);
+    }
+}
+
+/** C: sounds.c growl(mtmp) — minimal ( **`canseemon` || !Deaf`** ); no **`wake_nearto`** / hallucination. */
+async function growlAfterSleepZap(g, mtmp) {
+    if (!mtmp) return;
+    if (!canseemonZap(g, mtmp) && heroDeafForZap(g)) return;
+    if (canseemonZap(g, mtmp) || !heroDeafForZap(g)) await pline(`${monNamSentenceZap(mtmp)} growls.`);
+}
+
+/**
+ * C: mon.c wakeup(mtmp, via_attack) — subset for **`zap_over_floor`** (no mimic / **`finish_meating`** /
+ * temple / shop pursuit / **`peacefuls_respond`**).
  * @param {import('./gstate.js').game} g
  * @param {Record<string, unknown>} mtmp
- * @param {boolean} viaAttack — C **`type >= 0`** (hero-sourced zap angers)
+ * @param {boolean} viaAttack — C **`type >= 0`** (hero-sourced zap)
  */
-function wakeupMonFromZap(g, mtmp, viaAttack) {
+async function wakeupMonFromZap(g, mtmp, viaAttack) {
     if (!mtmp) return;
     if (mtmp.mhp != null && (mtmp.mhp | 0) <= 0) return;
+    const wasSleeping = mtmp.msleeping | 0;
+    const wasPeaceful = mtmp.mpeaceful | 0;
+    await wakeMsgZap(g, mtmp, viaAttack);
     mtmp.msleeping = 0;
-    if (viaAttack && (mtmp.mpeaceful | 0)) mtmp.mpeaceful = 0;
+    if (!viaAttack) return;
+    if (wasSleeping) await growlAfterSleepZap(g, mtmp);
+    /* C: setmangry(mtmp, TRUE) — peaceful clear; shk/priest/guard “gets angry” when **`canseemon`** */
+    if (wasPeaceful) {
+        mtmp.mpeaceful = 0;
+        if (canseemonZap(g, mtmp) && (mtmp.isshk || mtmp.ispriest || mtmp.isgd)) {
+            await pline(`${monNamSentenceZap(mtmp)} gets angry!`);
+        }
+    }
 }
 
 /**
@@ -252,7 +308,7 @@ export async function zapOverFloor(g, x, y, type, _shopdamage = null, _ignoremon
     /* C: !ignoremon → wakeup(m_at, type >= 0) */
     if (!_ignoremon) {
         const mtmp = g.level?.monsters?.find((m) => (m.mx | 0) === x && (m.my | 0) === y) ?? null;
-        wakeupMonFromZap(g, mtmp, (type | 0) >= 0);
+        await wakeupMonFromZap(g, mtmp, (type | 0) >= 0);
     }
 
     return rangemod;
