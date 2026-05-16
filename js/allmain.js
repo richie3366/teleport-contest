@@ -44,6 +44,7 @@ export async function newgame() {
     g.u.uz = { dnum: 0, dlevel: 1 };
     g.context = g.context || {};
     if (g.context.next_attrib_check == null) g.context.next_attrib_check = 600;
+    g.context.victual = { eating: 0, fullwarn: 0, canchoke: 1 };
 
     g.flags = g.flags || {};
     // Gnomish Mines branch stub (end1 on D:1)
@@ -101,6 +102,8 @@ export async function newgame() {
     g.u.HRegeneration = 0; /* prop.c — intrinsic; high bits (e.g. FROMFORM) when poly grants from form */
     g.u.ERegeneration = 0; /* extrinsic sources bitmask (eat.c gethungry excludes W_ARTI|W_WEP) */
     g.u.Hunger = 0;
+    g.u.Breathless = 0; /* eat.c choke */
+    g.u.Strangled = 0;
     g.u.HConflict = 0;
     g.u.EConflict = 0; /* extrinsic conflict sources (gethungry excludes W_ARTI only) */
     g.u.uwep = null;
