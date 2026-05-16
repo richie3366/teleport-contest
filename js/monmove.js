@@ -5,11 +5,12 @@
 // PRNG slice from the frozen session harness. Delete _HARNESS entries as real
 // movemon consumes the same calls.
 //
-// C: **`m_throw`** at hero (**`mthrowu.c`**) — when **`m_move`** throws, call **`mthrowAtHeroUxyThituLikeC`**
-// (re-exported here for **`monmove`** / **`muse`** parity wiring); harness does not invoke it yet.
+// C: **`m_throw`** at hero (**`mthrowu.c`**) — **`movemonMthrowAtHeroTailLikeC`** after harness (**`mthrow_mon.js`**).
 
 import { rn2 } from './rng.js';
 import { mintrapMoveloopTail } from './trap.js';
+import { game } from './gstate.js';
+import { movemonMthrowAtHeroTailLikeC } from './mthrow_mon.js';
 
 export { mthrowAtHeroUxyThituLikeC } from './mthrowu.js';
 
@@ -40,5 +41,6 @@ const _HARNESS = [
 export async function movemon(stepNum) {
     const i = stepNum - 1;
     if (i >= 0 && i < _HARNESS.length) _HARNESS[i]();
+    await movemonMthrowAtHeroTailLikeC(game);
     await mintrapMoveloopTail();
 }
