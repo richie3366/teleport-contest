@@ -1,5 +1,5 @@
 // moveloop_preamble.js — Once per moveloop() before the core loop.
-// C ref: allmain.c moveloop_preamble().
+// C ref: allmain.c moveloop_preamble() + maybe_do_tutorial() (called from moveloop() after preamble).
 //
 // Ported: calendar, rndencode/seer_turn, set_wear (EProtection ring refresh) / reset_justpicked stubs,
 // disp.botlx, restore hooks, encumber_msg, defer see_monsters, uz0/move,
@@ -20,6 +20,38 @@ import { fixShopDamage } from './shop.js';
 import { seeMonsters } from './vision.js';
 import { updateInventory } from './invent.js';
 import { takePendingGiveMayAdvancePline, takePendingDrainForgetPlines } from './u_init_skills.js';
+
+/**
+ * C: dungeon.c **`find_level("tut-1")`** — special level pointer for the tutorial branch.
+ * JS has no Lua/dungeon graph yet; return a non-null sentinel only when ported.
+ * @returns {null | { dlevel: { dnum: number, dlevel: number } }}
+ */
+export function findLevelTut1LikeC() {
+    return null;
+}
+
+/**
+ * C: options.c **`ask_do_tutorial`** — if **`opt_set_in_config[opt_tutorial]`**, obey **`flags.tutorial`**
+ * without a menu; else **`select_menu`** (**`Do you want a tutorial?`**) + **`nhgetch`** loop.
+ * @returns {Promise<boolean>}
+ */
+export async function askDoTutorialLikeC() {
+    const g = game;
+    if (g.tutorial_set_in_config) return !!g.flags?.tutorial;
+    /* C: create_nhwindow NHW_MENU … — needs tty menu + replay keys when tut-1 exists */
+    return false;
+}
+
+/**
+ * C: allmain.c **`maybe_do_tutorial`** — after **`moveloop_preamble`**, before **`moveloop_core`** loop.
+ * @returns {Promise<void>}
+ */
+export async function maybeDoTutorialLikeC() {
+    if (!findLevelTut1LikeC()) return;
+    if (await askDoTutorialLikeC()) {
+        /* C: assign_level(&u.ucamefrom,&u.uz); schedule_goto(&sp->dlevel,…); deferred_goto(); docrt(); */
+    }
+}
 
 /**
  * @param {boolean} resuming — C `moveloop_preamble(resuming)` (restore vs new).

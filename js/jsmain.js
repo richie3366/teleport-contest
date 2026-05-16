@@ -13,7 +13,7 @@ import { game, resetGame } from './gstate.js';
 import { initRng, enableRngLog, getRngLog } from './rng.js';
 import { pushKey, hasQueuedInput } from './input.js';
 import { newgame, moveloop_core } from './allmain.js';
-import { moveloopPreamble } from './moveloop_preamble.js';
+import { moveloopPreamble, maybeDoTutorialLikeC } from './moveloop_preamble.js';
 import { parseNethackrc } from './options.js';
 import { flush_screen } from './display.js';
 import { GameDisplay } from './game_display.js';
@@ -245,6 +245,8 @@ export async function runSegment(input) {
 
     // C: allmain.c moveloop() — moveloop_preamble() before first moveloop_core()
     await moveloopPreamble(false);
+    // C: allmain.c moveloop() — maybe_do_tutorial() when !resuming (after preamble, before core loop)
+    await maybeDoTutorialLikeC();
 
     // Drive the game loop until input is exhausted. The judge looks
     // at game.getScreens() afterwards; whatever the contestant
