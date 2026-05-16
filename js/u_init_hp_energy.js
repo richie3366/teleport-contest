@@ -70,5 +70,10 @@ export function applyBirthHpEnergy() {
     u.uen = en;
     u.uenmax = en;
     u.uenpeak = en;
+    /* C: attrib.c newhp() — u.uhpinc[u.ulevel] before u.ulevel bumps (u.ulevel==0 here). */
+    u.uhpinc = u.uhpinc || [];
+    u.ueninc = u.ueninc || [];
+    u.uhpinc[0] = hp;
+    u.ueninc[0] = en;
     syncPolyHpFromHumanShape();
 }

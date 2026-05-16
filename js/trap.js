@@ -41,6 +41,7 @@ import { igniteHeroInventory, igniteMinvent } from './ignite_items.js';
 import { burnarmorYoumonst, burnarmorMtmp } from './erode_obj.js';
 import { burnFloorObjects } from './burn_floor_objects.js';
 import { meltIceAt } from './melt_ice.js';
+import { minuhpmaxLikeC, setUhpmaxHumanLikeC, losexpNullLikeC } from './losexp.js';
 import { splitMon, splitGremlinHeroPoly } from './split_mon.js';
 import { dist2 } from './hacklib.js';
 import {
@@ -287,12 +288,6 @@ function tamedogStub() {
     return false;
 }
 
-/** C: attrib.c **`minuhpmax`** subset — role/attr caps not ported; **`floor`** only. */
-function minuhpmaxHero(_u, floor) {
-    void _u;
-    return floor | 0;
-}
-
 /** C: **`mons[u.umonnum].mlevel`** — poly **`mhmax`** floor in **`dofiretrap`**. */
 function heroPolyFormMlevel(u) {
     const ptr = raceptr(game.youmonst);
@@ -305,7 +300,9 @@ function heroPolyFormMlevel(u) {
  * C: trap.c dofiretrap(box null) — floor / magic fire; **`burn_away_slime`** (**`timeout.js`**)
  * before destroy; **`burnarmor`** (**`erode_obj.js`**); floor **`burn_floor_objects`** + blind smell;
  * then **`melt_ice`** (**`melt_ice.js`**). Polymorph: golem **`alt`**, **`mhmax`** vs **`mlevel`**, damage **`u.mh`**;
- * human: second **`d(2,4)`** for max-HP drain + **`losehp`** (C **`minuhpmax`/`losexp`** subset).
+ * human: second **`d(2,4)`** for max-HP drain + **`losehp`**; if max falls below **`minuhpmax(1)`**,
+ * C **`setuhpmax(min(olduhpmax,uhpmin),FALSE)`** then **`losexp(NULL)`** when no **`Drain_resistance`**
+ * (**`exper.c`** / **`attrib.c`**).
  */
 async function dofiretrapHeroNoBox() {
     const u = game.u;
@@ -339,7 +336,7 @@ async function dofiretrapHeroNoBox() {
         if ((u.mh | 0) > (u.mhmax | 0)) u.mh = u.mhmax;
     } else {
         num = d(2, 4);
-        const uhpmin = minuhpmaxHero(u, 1);
+        const uhpmin = minuhpmaxLikeC(u, 1);
         const olduhpmax = u.uhpmax | 0;
         if ((u.uhpmax ?? 1) > uhpmin) {
             const cap = Math.min(u.uhpmax ?? 1, num + 1);
@@ -348,9 +345,9 @@ async function dofiretrapHeroNoBox() {
             game.disp.botl = true;
         }
         if ((u.uhpmax ?? 1) < uhpmin) {
-            u.uhpmax = Math.min(olduhpmax, uhpmin);
+            setUhpmaxHumanLikeC(game, Math.min(olduhpmax, uhpmin), false);
             if (!(u.Drain_resistance | 0)) {
-                /* C: losexp(NULL) — not ported */
+                await losexpNullLikeC(game);
             }
             game.disp = game.disp || {};
             game.disp.botl = true;

@@ -151,6 +151,11 @@ export async function newgame() {
     /* C: u_init.c u_init_role — u.ulevel after adjabil; XL 1 for new hero */
     g.u.ulevel = 1;
     g.u.ulevelmax = 1;
+    /* C: exper.c losexp — u.uhpinc[u.ulevel] / u.ueninc[u.ulevel] after XL is known (bootstrap until pluslvl). */
+    g.u.uhpinc = g.u.uhpinc || [];
+    g.u.ueninc = g.u.ueninc || [];
+    g.u.uhpinc[1] = g.u.uhpmax | 0;
+    g.u.ueninc[1] = g.u.uenmax | 0;
     g.multi = 0; /* C: gm.multi — multi-turn actions / occupation */
     g.moves = 1;
     // When non-zero, moveloop_core runs movemon + end-of-turn tail (harness).
