@@ -35,7 +35,7 @@ export function unlinkFloorObject(otmp) {
 
 /**
  * C: dig.c **`bury_objs`** — entire floor **`nexthere`** chain at **`(x,y)`** moves to **`buriedObjHeads`**.
- * Shop **`stolen_value`** / **`no_charge`** omitted; objects stay in **`level.objects`**.
+ * Shop billing (**`stolen_value`** subset + **`no_charge`**) runs in **`melt_ice.js`** before this (**`shop.js`**).
  * @param {import('./gstate.js').game} g
  */
 export function buryFloorChainAt(g, x, y) {

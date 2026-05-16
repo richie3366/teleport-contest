@@ -14,6 +14,7 @@ import { dist2 } from './hacklib.js';
 import { rn2 } from './rng.js';
 import { nhgetch } from './input.js';
 import { changeLuck } from './attrib.js';
+import { NH5_COIN_CLASS } from './nh5_objclass.js';
 import {
     OROOM,
     NO_ROOM,
@@ -129,6 +130,18 @@ export function inRoomsShopbaseRoomnos(g, x, y) {
     const rt = roomRtypeForLevlRoomno(g, rno);
     if (!rtypeIsShopClassForInRooms(rt)) return [];
     return [rno];
+}
+
+/**
+ * C: shk.c **`inside_shop(x, y)`** — strictly inside shop (**`roomno`**, not boundary **`edge`**, **`IS_SHOP`**).
+ * @returns {number} **`levl.roomno`** or **`NO_ROOM`**
+ */
+export function insideShopLevlRoomno(g, x, y) {
+    const loc = g.level?.at(x | 0, y | 0);
+    if (!loc) return NO_ROOM;
+    const rno = loc.roomno | 0;
+    if (rno < ROOMOFFSET || loc.edge || !roomnoIsShopbaseForInRooms(g, rno)) return NO_ROOM;
+    return rno;
 }
 
 /**
@@ -384,7 +397,7 @@ function umDistHero(g, x, y, n) {
     return Math.abs(ux - (x | 0)) > n || Math.abs(uy - (y | 0)) > n;
 }
 
-function shknamDisplay(shkp) {
+export function shknamDisplay(shkp) {
     return shkp?.monnam || shkp?.data?.mname || 'The shopkeeper';
 }
 
@@ -652,17 +665,94 @@ export async function payForDamage(g = game, dmgstr, cantMollify = false) {
 }
 
 /**
- * C: shk.c costly_spot(x,y) — hero in shop interior (not shk square).
- * Stub: only checks level flag; **`inside_shop`/`shop_keeper`** not wired.
+ * C: shk.c costly_spot(x,y) — strictly inside shop (**`inside_shop`**) but not **`eshk.shk`** service square.
  * @param {object} [g]
  * @param {number} x
  * @param {number} y
  */
 export function costlySpot(g = game, x, y) {
+    const xh = x | 0;
+    const yh = y | 0;
+    if (!(g.level?.flags?.has_shop | 0)) return false;
+    const rnos = inRoomsShopbaseRoomnos(g, xh, yh);
+    if (!rnos.length) return false;
+    const shkp = shopKeeperForLevlRoomno(g, rnos[0]);
+    if (!shkp || !inHishop(g, shkp)) return false;
+    const eshkp = ESHK(shkp);
+    if (!eshkp) return false;
+    if (insideShopLevlRoomno(g, xh, yh) === NO_ROOM) return false;
+    const sx = eshkp.shk?.x != null ? eshkp.shk.x | 0 : shkp.mx | 0;
+    const sy = eshkp.shk?.y != null ? eshkp.shk.y | 0 : shkp.my | 0;
+    return !(xh === sx && yh === sy);
+}
+
+/** C: shk.c **`ANGRY(mon)`** — **`!mpeaceful`**. */
+function shkpAngry(shkp) {
+    return !(shkp?.mpeaceful | 0);
+}
+
+/**
+ * C: shk.c **`stolen_value`** subset for **`dig.c`** **`bury_objs`** ( **`silent` TRUE** ):
+ * coin **`quan`**, else **`!no_charge`** and **`price * quan`** when **`price`** set.
+ * Omits **`billable`/`onbill`/`get_cost`/`stolen_container`/`find_objowner`**.
+ * @param {boolean} silent — C **`silent`** (suppresses per-object **`You`** / thief **`Norep`**; **`check_credit`** still plines like C)
+ */
+export async function stolenValueMerchBurySilent(g, obj, x, y, shkp, silent) {
     void x;
     void y;
-    if (!(g.level?.flags?.has_shop | 0)) return false;
-    return false;
+    if (!shkp) return 0;
+    const e = ESHK(shkp);
+    if (!e) return 0;
+    const peaceful = !!(shkp.mpeaceful | 0);
+    let value = 0;
+    let gvalue = 0;
+    const oc = obj.oclass | 0;
+    if (oc === NH5_COIN_CLASS) {
+        gvalue += Math.max(0, obj.quan | 0);
+    } else if (!(obj.no_charge | 0)) {
+        const quan = Math.max(1, obj.quan | 0);
+        const pr = obj.price | 0;
+        if (pr > 0) value += pr * quan;
+    }
+    if (gvalue + value === 0) return 0;
+    value += gvalue;
+
+    if (peaceful) {
+        value = await checkCreditShk(g, value, shkp);
+        if (shkpAngry(shkp)) e.robbed = (e.robbed | 0) + value;
+        else e.debit = (e.debit | 0) + value;
+        void silent;
+        return value;
+    }
+    e.robbed = (e.robbed | 0) + value;
+    if (!silent) {
+        /* C: canseemon / Deaf thief **`Norep`** — not ported */
+    }
+    await hotPursuitShk(g, shkp);
+    return value;
+}
+
+/**
+ * C: dig.c **`bury_objs`** shop pass — walk floor **`nexthere`** at **`(x,y)`** before chain is buried.
+ * @returns {{ loss: number, costly: boolean, shkp: object | null }}
+ */
+export async function applyBuryObjsShopCreditAndDebt(g, x, y) {
+    const xh = x | 0;
+    const yh = y | 0;
+    const monMoving = !!(g.svc?.context?.mon_moving);
+    const k = floorObjKey(xh, yh);
+    const head = g.level?.floorObjHeads?.get(k);
+    const rnos = inRoomsShopbaseRoomnos(g, xh, yh);
+    const shkp = rnos.length ? shopKeeperForLevlRoomno(g, rnos[0]) : null;
+    const costly = !!(shkp && costlySpot(g, xh, yh));
+    let loss = 0;
+    if (costly && !monMoving && head) {
+        for (let o = head; o; o = o.nexthere) {
+            loss += await stolenValueMerchBurySilent(g, o, xh, yh, shkp, true);
+            if ((o.oclass | 0) !== NH5_COIN_CLASS) o.no_charge = 1;
+        }
+    }
+    return { loss, costly, shkp };
 }
 
 /**

@@ -4,7 +4,7 @@
 //        mon.c minliquid() (subset).
 //
 // Still TODO vs C: full **`obj_timer_checks`** / **`restart_timer`** on corpses;
-// **`bury_objs`** shop **`stolen_value`** / **`no_charge`**;
+// **`bury_objs`** full **`stolen_value`** (**`billable`/`get_cost`/`stolen_container`**);
 // beam/breath vectors along paths; fuller **`boulder_hits_pool`** / **`minliquid`** / **`spoteffects`**.
 
 import { pline, newsym } from './display.js';
@@ -23,6 +23,7 @@ import { dist2 } from './hacklib.js';
 import { heroPassesWalls } from './walkable.js';
 import { spotStopTimersMeltIceAway, startMeltIceAwayTimer, refirmMeltIceTimerAt } from './level_timers.js';
 import { fixWallSpinesRect } from './wall_spine.js';
+import { applyBuryObjsShopCreditAndDebt, shknamDisplay } from './shop.js';
 import {
     ICE,
     POOL,
@@ -99,11 +100,18 @@ function unearthObjsAt(g, x, y) {
     newsym(x, y);
 }
 
-/** C: dig.c **`bury_objs(x, y)`** — **`del_engr_at`**, **`newsym`**; shop **`stolen_value`** omitted. */
-function buryObjsAt(g, x, y) {
+/**
+ * C: dig.c **`bury_objs(x, y)`** — per-object **`stolen_value`** (**`silent` TRUE**) + **`no_charge`**,
+ * then **`bury_an_obj`** chain (**`buryFloorChainAt`**), **`del_engr_at`**, **`newsym`**.
+ */
+async function buryObjsAt(g, x, y) {
+    const { loss, costly, shkp } = await applyBuryObjsShopCreditAndDebt(g, x, y);
     buryFloorChainAt(g, x, y);
     delEngrAt(x, y);
     newsym(x, y);
+    if (costly && loss && shkp) {
+        await pline(`You owe ${shknamDisplay(shkp)} ${loss} zorkmids for burying merchandise.`);
+    }
 }
 
 /**
@@ -337,7 +345,7 @@ export async function coldZapHitsWaterAt(g, x, y, seeIt) {
     }
 
     if (IS_LAVA(typ)) {
-        buryObjsAt(g, x, y);
+        await buryObjsAt(g, x, y);
         let spineX1 = x;
         let spineY1 = y;
         let spineX2 = x;
@@ -387,7 +395,7 @@ export async function coldZapHitsWaterAt(g, x, y, seeIt) {
     }
 
     if (typ === DRAWBRIDGE_UP) {
-        buryObjsAt(g, x, y);
+        await buryObjsAt(g, x, y);
         loc.flags = (loc.flags & ~DB_UNDER) | DB_ICE;
         if (seeIt) await pline('The water under the drawbridge freezes solid.');
         else if (g.u && dist2(x, y, g.u.ux | 0, g.u.uy | 0) <= 9) await pline('You hear a crackling sound.');
@@ -398,7 +406,7 @@ export async function coldZapHitsWaterAt(g, x, y, seeIt) {
     }
 
     if (typ === POOL || typ === MOAT) {
-        buryObjsAt(g, x, y);
+        await buryObjsAt(g, x, y);
         const moat = typ === MOAT;
         loc.flags = (loc.flags & ~(ICED_POOL | ICED_MOAT)) | (typ === POOL ? ICED_POOL : ICED_MOAT);
         loc.typ = ICE;
