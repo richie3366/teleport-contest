@@ -1,6 +1,6 @@
 // shop.js — Shopkeeper and shop-adjacent hooks.
 // C ref: shk.c fix_shop_damage(), repair_damage(), repairable_damage(), shk_impaired(), next_shkp();
-//        stolen_value()/stolen_container() subset for dig.c bury_objs; adisturb(), costly_spot(), add_damage();
+//        find_objowner(), stolen_value()/stolen_container() subset for dig.c bury_objs; adisturb(), costly_spot(), add_damage();
 //        invent.c useupf() billing; hack.c in_rooms() for **`SHOPBASE`**.
 
 import { game } from './gstate.js';
@@ -35,6 +35,7 @@ import {
     D_BROKEN,
     D_CLOSED,
     Has_contents,
+    OBJ_ONBILL,
 } from './const.js';
 
 /**
@@ -764,6 +765,77 @@ function onBillSlot(obj, shkp) {
     return null;
 }
 
+/** C: **`next_shkp`** bill filter — **`ESHK`->`billct`** or **`bill_p`** length. */
+function eshkBillCountForNextShkp(e) {
+    if (!e) return 0;
+    const ct = e.billct | 0;
+    if (ct > 0) return ct;
+    return e.bill_p?.length ?? 0;
+}
+
+/**
+ * C: **`shk.c`** **`next_shkp`** tail before return — angry + **`!surcharge`** → **`rile_shk`**
+ * (bill **`price`** bump loop; **`NOTANGRY`** already false when angry).
+ */
+function nextShkpRileIfAngryLikeC(shkp) {
+    if (!shkpAngry(shkp)) return;
+    const e = ESHK(shkp);
+    if (!e || (e.surcharge | 0)) return;
+    shkp.mpeaceful = 0;
+    e.surcharge = 1;
+    ensureEshopBillP(e);
+    for (const bp of e.bill_p) {
+        const p = bp.price | 0;
+        bp.price = p + Math.trunc((p + 2) / 3);
+    }
+}
+
+/**
+ * C: **`shk.c`** **`next_shkp(fmon, withbill)`** order (**`g.level.monsters`** vs C **`nmon`**).
+ * @param {boolean} withbill — C TRUE: require non-empty bill.
+ */
+function* iterateNextShkpLikeC(g, withbill) {
+    for (const shkp of g.level?.monsters ?? []) {
+        if ((shkp.mhp | 0) <= 0) continue;
+        if (!(shkp.isshk | 0)) continue;
+        const e = ESHK(shkp);
+        if (!e) continue;
+        if (withbill && !eshkBillCountForNextShkp(e)) continue;
+        nextShkpRileIfAngryLikeC(shkp);
+        yield shkp;
+    }
+}
+
+/** C: **`shk.c`** **`onshopbill`** — silent bill lookup. */
+function onShopBillObj(obj, shkp) {
+    return onBillSlot(obj, shkp) != null;
+}
+
+/**
+ * C: **`shk.c`** **`find_objowner(obj, x, y)`** — shared shop walls; **`OBJ_ONBILL`** scans bill-holding shks.
+ * @param {import('./gstate.js').game} g
+ * @returns {object | null}
+ */
+export function findObjowner(g, obj, x, y) {
+    const xh = x | 0;
+    const yh = y | 0;
+    if ((obj?.where | 0) === OBJ_ONBILL) {
+        for (const shkp of iterateNextShkpLikeC(g, true)) {
+            if (onShopBillObj(obj, shkp)) return shkp;
+        }
+        return null;
+    }
+    const rnos = inRoomsShopbaseRoomnos(g, xh, yh);
+    let deflt = null;
+    for (const roomno of rnos) {
+        const shkp = shopKeeperForLevlRoomno(g, roomno | 0);
+        if (!shkp) continue;
+        if (onShopBillObj(obj, shkp)) return shkp;
+        if (!deflt) deflt = shkp;
+    }
+    return deflt;
+}
+
 /**
  * C: shk.c **`sub_one_frombill`** — remove or shrink bill line; clear **`unpaid`**.
  * Omits C **`newobj`** phantom bill row when **`bquan > obj.quan`** (shrinks **`bquan`** only).
@@ -851,18 +923,25 @@ function stolenContainerMerchBurySilent(g, obj, shkp, ininv) {
 
 /**
  * C: shk.c **`stolen_value`** subset for **`dig.c`** **`bury_objs`** (**`silent` TRUE**):
- * coin **`quan`**; **`billable`/`onbill`/`sub_one_frombill`** then **`get_pricing_units * get_cost`**;
+ * **`find_objowner`** → **`roomno`** (else first **`in_rooms`** shop room); coin **`quan`**;
+ * **`billable`/`onbill`/`sub_one_frombill`** then **`get_pricing_units * get_cost`**;
  * **`Has_contents`** → **`stolen_container`** + **`contained_gold(obj, TRUE)`** (floor **`ininv` FALSE**).
- * Still TODO: **`find_objowner`**, full **`get_cost`** / **`getprice`** / **`contained_cost`**, angry surcharge.
+ * Still TODO: full **`get_cost`** / **`getprice`** / **`contained_cost`**, angry surcharge, C phantom bill row.
+ * @param {object | null} shkpFallback — C bury path has tile shk; used when **`billable`** leaves **`shkp` unset**.
  * @param {boolean} silent — C **`silent`** (suppresses per-object **`You`** / thief **`Norep`**; **`check_credit`** still plines like C)
  */
-export async function stolenValueMerchBurySilent(g, obj, x, y, shkp, silent) {
-    void x;
-    void y;
-    if (!shkp) return 0;
-    const eIn = ESHK(shkp);
-    if (!eIn) return 0;
-    const roomno = eshkShoproomAsLevlRno(eIn);
+export async function stolenValueMerchBurySilent(g, obj, x, y, shkpFallback, silent) {
+    const xh = x | 0;
+    const yh = y | 0;
+    const owner = findObjowner(g, obj, xh, yh);
+    let roomno;
+    if (owner) {
+        const eo = ESHK(owner);
+        roomno = eo ? eshkShoproomAsLevlRno(eo) : 0;
+    } else {
+        const rnos = inRoomsShopbaseRoomnos(g, xh, yh);
+        roomno = rnos[0] | 0;
+    }
     const uCount = Has_contents(obj) ? countUnpaidContentsCobj(obj) : 0;
     const shkRef = { shkp: /** @type {object | null} */ (null) };
     let billamt = 0;
@@ -875,7 +954,7 @@ export async function stolenValueMerchBurySilent(g, obj, x, y, shkp, silent) {
         }
         if (!slot && !uCount) return 0;
     }
-    const shkActive = shkRef.shkp || shkp;
+    const shkActive = shkRef.shkp || shkpFallback;
     if (!shkActive) return 0;
     const e = ESHK(shkActive);
     if (!e) return 0;
