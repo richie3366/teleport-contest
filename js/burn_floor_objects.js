@@ -8,14 +8,13 @@ import { floorObjKey, unlinkFloorObject } from './floorobj.js';
 import { igniteItemsChain } from './ignite_items.js';
 import { nh5HeroObjectClass } from './water_damage.js';
 import { NH5_FOOD_CLASS, NH5_SCROLL_CLASS, NH5_SPBOOK_CLASS } from './nh5_objclass.js';
+import { OTYP_GLOB_OF_GREEN_SLIME } from './const.js';
 import { An, distantNameBurnFloor, makePluralBurn, xnameBurnFloor } from './objnam.js';
 import { objResists } from './obj_resists.js';
 import { useupfFloor } from './shop.js';
 
 const OTYP_SCR_FIRE = 338;
 const OTYP_SPE_FIREBALL = 368;
-/** NH5 `include/objects.h` enum order — `GLOB_OF_GREEN_SLIME`. */
-const OTYP_GLOB_OF_GREEN_SLIME = 263;
 
 /**
  * @param {{ oclass?: number, otyp?: number }} obj

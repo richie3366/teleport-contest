@@ -8,11 +8,10 @@ import { isSpellbookOtyp, spellbookAppearanceNounPhrase } from './spellbook_disc
 import { nh5HeroObjectClass } from './water_damage.js';
 import { OC_SKILL_ROW_BY_OTYP } from './obj_oc_skill_data.js';
 import { cansee } from './vision.js';
+import { OTYP_GLOB_OF_GREEN_SLIME } from './const.js';
 
 /** C: objects.h GOLD_PIECE (matches mklev.js stub constant). */
 const GOLD_PIECE = 466;
-
-const OTYP_GLOB_OF_GREEN_SLIME = 263;
 
 /** C: objnam.c vowels[] subset for just_an(). */
 const VOWELS = new Set(['a', 'e', 'i', 'o', 'u']);
@@ -73,7 +72,7 @@ function spellbookAppearanceFromOtyp(otyp) {
 
 /**
  * C: xname(obj) core for zap.c burn_floor_objects classes only (no leading article).
- * Uses `obj.dknown` / `g.objectDiscovery` where wired.
+ * Uses `obj.dknown` / `g.objectDiscovery` (spellbooks) / `g.scrollDiscovery` (scrolls, Set<otyp>) when wired.
  * @param {{ otyp?: number, oclass?: number, quan?: number, dknown?: number, oartifact?: number }} obj
  * @param {object} [g]
  */
@@ -83,7 +82,11 @@ export function xnameBurnFloor(obj, g = game) {
     if (t === OTYP_GLOB_OF_GREEN_SLIME) return 'glob of green slime';
     if (oc === NH5_SCROLL_CLASS) {
         if (!(obj.dknown | 0)) return 'scroll';
-        /* oc_name_known / discoveries: not modeled for scrolls — labeled appearance. */
+        const scrollKnown = g?.scrollDiscovery instanceof Set && g.scrollDiscovery.has(t);
+        if (scrollKnown) {
+            const tail = scrollAppearanceFromOtyp(t);
+            return `scroll of ${tail}`;
+        }
         return `scroll labeled ${scrollAppearanceFromOtyp(t)}`;
     }
     if (oc === NH5_SPBOOK_CLASS || isSpellbookOtyp(t)) {
@@ -135,6 +138,7 @@ export function makePluralBurn(s) {
     if (s === 'glob of green slime') return 'globs of green slime';
     if (s === 'scroll') return 'scrolls';
     if (s === 'spellbook') return 'spellbooks';
+    if (s.startsWith('scroll of ')) return `scrolls of ${s.slice('scroll of '.length)}`;
     if (s.startsWith('scroll labeled ')) return `scrolls labeled ${s.slice('scroll labeled '.length)}`;
     if (s.startsWith('spellbook of ')) return `spellbooks of ${s.slice('spellbook of '.length)}`;
     if (s.endsWith(' spellbook')) {
@@ -145,9 +149,21 @@ export function makePluralBurn(s) {
 }
 
 /**
+ * C: invent.c discover_object / makeknown — record scroll **`otyp`** as fully named (**`nn`** / xname **`scroll of`**).
+ * @param {object} g
+ * @param {number} otyp
+ */
+export function discoverScrollOtyp(g, otyp) {
+    if (!g) return;
+    if (!(g.scrollDiscovery instanceof Set)) g.scrollDiscovery = new Set();
+    g.scrollDiscovery.add(otyp | 0);
+}
+
+/**
  * C: doname(obj) — very small subset for invent.c look_here().
  * Spellbooks: if `otyp` is an NH5 spellbook and `g.objectDiscovery` contains it,
  * name like `a spellbook of force bolt` (C appearance after skill_based_spellbook_id).
+ * Scrolls: `g.scrollDiscovery` Set drives **`scroll of`** vs **`scroll labeled`** when `dknown`.
  * @param {{ otyp?: number, quan?: number, oclass?: number }} otmp
  * @param {object} [g]
  */
@@ -158,8 +174,20 @@ export function doname(otmp, g = game) {
         return q === 1 ? 'a gold piece' : `${q} gold pieces`;
     }
     const otyp = otmp.otyp | 0;
-    const oc = otmp.oclass | 0;
+    const oc = nh5HeroObjectClass(otmp);
     const treatAsSpellbook = oc === NH5_SPBOOK_CLASS || isSpellbookOtyp(otyp);
+    if (oc === NH5_SCROLL_CLASS) {
+        const dknown = otmp.dknown | 0;
+        if (!dknown) return q === 1 ? 'a scroll' : `${q} scrolls`;
+        const scrollKnown = g?.scrollDiscovery instanceof Set && g.scrollDiscovery.has(otyp);
+        const tail = scrollAppearanceFromOtyp(otyp);
+        if (scrollKnown) {
+            if (q === 1) return `a scroll of ${tail}`;
+            return `${q} scrolls of ${tail}`;
+        }
+        if (q === 1) return `a scroll labeled ${tail}`;
+        return `${q} scrolls labeled ${tail}`;
+    }
     if (treatAsSpellbook && isSpellbookOtyp(otyp)) {
         const known = g?.objectDiscovery instanceof Set && g.objectDiscovery.has(otyp);
         const phrase = known ? spellbookAppearanceNounPhrase(otyp) : 'spellbook';

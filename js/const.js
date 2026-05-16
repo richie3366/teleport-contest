@@ -2936,6 +2936,8 @@ export const OTYP_RIN_SLOW_DIGESTION = 176;
 export const OTYP_FAKE_AMULET_OF_YENDOR = 197;
 /** C: objects.h — real Amulet (after fake); NH5 `objects_nums`. */
 export const OTYP_AMULET_OF_YENDOR = 198;
+/** C: objects.h FOOD() — `GLOB_OF_GREEN_SLIME` (NH5 `objects_nums`, cpp OBJECTS_ENUM). */
+export const OTYP_GLOB_OF_GREEN_SLIME = 276;
 export const OTYP_RIN_PROTECTION = 161;
 export const OTYP_MEAT_RING = 255;
 /** C: objects.h `OBJ("boulder", …)` — NH5 `otyp`; must match `mklev.js` floor boulder placement. */
