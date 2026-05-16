@@ -77,6 +77,11 @@ export function wandMbuzzTypeFromOtyp(otyp) {
     return BZ_M_WAND(BZ_OFS_WAN(otyp));
 }
 
+/** C: muse.c monster spell ray — **`BZ_M_SPELL(BZ_OFS_SPE(otyp))`**. */
+export function spellMbuzzTypeFromOtyp(otyp) {
+    return BZ_M_SPELL(BZ_OFS_SPE(otyp));
+}
+
 /** C: muse.c frost horn — **`BZ_M_WAND(BZ_OFS_AD(AD_COLD|AD_FIRE))`**. */
 export function hornMbuzzTypeFromAd(adtyp) {
     return BZ_M_WAND(BZ_OFS_AD(adtyp));

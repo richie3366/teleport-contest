@@ -44,6 +44,8 @@ export class GameMap {
         this.objects = [];
         /** C: svl.level.objects[x][y] — head of floor stack at each cell; key "x,y". */
         this.floorObjHeads = new Map();
+        /** C: svl.level.buriedobjlist — per-cell heads (**`dig.c`** **`bury_objs`/`unearth_objs`** subset). */
+        this.buriedObjHeads = new Map();
         this.monsters = [];
         this.traps = [];
         /** C: decl.h head_engr — flat list until save/restore chains port */

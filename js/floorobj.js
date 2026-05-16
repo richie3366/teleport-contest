@@ -1,5 +1,6 @@
 // floorobj.js — Floor object chains (nexthere) at (x,y).
-// C ref: mkobj.c place_object(), rm.c / invent floor lists.
+// C ref: mkobj.c place_object(), rm.c / invent floor lists;
+//        dig.c bury_objs() / unearth_objs() (**`buriedObjHeads`**).
 //
 // Shared by mklev.js and trap/missile code so traps can drop projectiles
 // without importing the full level generator.
@@ -30,6 +31,46 @@ export function unlinkFloorObject(otmp) {
         }
     }
     otmp.nexthere = null;
+}
+
+/**
+ * C: dig.c **`bury_objs`** — entire floor **`nexthere`** chain at **`(x,y)`** moves to **`buriedObjHeads`**.
+ * Shop **`stolen_value`** / **`no_charge`** omitted; objects stay in **`level.objects`**.
+ * @param {import('./gstate.js').game} g
+ */
+export function buryFloorChainAt(g, x, y) {
+    const lvl = g.level;
+    if (!lvl?.floorObjHeads) return;
+    const k = floorObjKey(x | 0, y | 0);
+    const floorHead = lvl.floorObjHeads.get(k);
+    if (!floorHead) return;
+    lvl.floorObjHeads.delete(k);
+    if (!lvl.buriedObjHeads) lvl.buriedObjHeads = new Map();
+    const buriedPrev = lvl.buriedObjHeads.get(k) ?? null;
+    let tail = floorHead;
+    while (tail.nexthere) tail = tail.nexthere;
+    tail.nexthere = buriedPrev;
+    lvl.buriedObjHeads.set(k, floorHead);
+}
+
+/**
+ * C: dig.c **`unearth_objs`** — buried chain at **`(x,y)`** prepended onto floor stack.
+ * **`buried_ball`** / **`ROT_ORGANIC`** **`stop_timer`** / **`stackobj`** not ported.
+ * @param {import('./gstate.js').game} g
+ */
+export function unearthBuriedChainAt(g, x, y) {
+    const lvl = g.level;
+    if (!lvl?.buriedObjHeads) return;
+    const k = floorObjKey(x | 0, y | 0);
+    const buriedHead = lvl.buriedObjHeads.get(k);
+    if (!buriedHead) return;
+    lvl.buriedObjHeads.delete(k);
+    if (!lvl.floorObjHeads) lvl.floorObjHeads = new Map();
+    const floorPrev = lvl.floorObjHeads.get(k) ?? null;
+    let tail = buriedHead;
+    while (tail.nexthere) tail = tail.nexthere;
+    tail.nexthere = floorPrev;
+    lvl.floorObjHeads.set(k, buriedHead);
 }
 
 /** C: mkobj.c place_object(otmp, x, y) */

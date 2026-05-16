@@ -4,7 +4,7 @@
 //        mon.c minliquid() (subset).
 //
 // Still TODO vs C: full **`obj_timer_checks`** / buried **`obj_ice_effects`**;
-// real **`bury_objs`** (**`buriedobjlist`**); **`unearth_objs`**;
+// **`bury_objs`**/**`unearth_objs`**: per-cell **`buriedObjHeads`** (**`dig.c`** subset; no shop billing);
 // beam/breath vectors along paths; fuller **`boulder_hits_pool`** / **`minliquid`** / **`spoteffects`**.
 
 import { pline, newsym } from './display.js';
@@ -12,7 +12,10 @@ import { vision_recalc, cansee } from './vision.js';
 import { tAt, delTrap } from './search.js';
 import { maybeHeroPoolEnter } from './drown.js';
 import { rnd, rn1, rn2 } from './rng.js';
-import { floorObjKey, placeFloorObject, unlinkFloorObject } from './floorobj.js';
+import {
+    floorObjKey, placeFloorObject, unlinkFloorObject, buryFloorChainAt, unearthBuriedChainAt,
+} from './floorobj.js';
+import { delEngrAt } from './engrave.js';
 import { waterDamageChain } from './water_damage.js';
 import { raceptr, isFlyer, isFloater, amphibious, breathless, swims, monsterLeavesCorpse } from './mondata.js';
 import { CORPSE_OTYP, placeCorpseForMonster } from './mkobj_corpse.js';
@@ -72,18 +75,18 @@ function objIceEffectsAt(g, x, y) {
     }
 }
 
-/** C: dig.c unearth_objs(x, y) — buriedobjlist → floor; not ported. */
-function unearthObjsAt(_g, _x, _y) {
-    void _g;
-    void _x;
-    void _y;
+/** C: dig.c **`unearth_objs(x, y)`** — **`del_engr_at`**, **`newsym`**. */
+function unearthObjsAt(g, x, y) {
+    unearthBuriedChainAt(g, x, y);
+    delEngrAt(x, y);
+    newsym(x, y);
 }
 
-/** C: dig.c bury_objs(x, y) — bury floor chain; JS has no buriedobjlist yet. */
-function buryObjsAt(_g, _x, _y) {
-    void _g;
-    void _x;
-    void _y;
+/** C: dig.c **`bury_objs(x, y)`** — **`del_engr_at`**, **`newsym`**; shop **`stolen_value`** omitted. */
+function buryObjsAt(g, x, y) {
+    buryFloorChainAt(g, x, y);
+    delEngrAt(x, y);
+    newsym(x, y);
 }
 
 /**
