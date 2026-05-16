@@ -2,9 +2,31 @@
 // C ref: do_wear.c set_wear(), prop.c extrinsic masks (subset: EProtection ring hands).
 
 import { game } from './gstate.js';
-import { OTYP_RIN_PROTECTION, W_RINGL, W_RINGR } from './const.js';
+import { OTYP_RIN_PROTECTION, W_RING, W_RINGL, W_RINGR } from './const.js';
 
 const _RING_PROT_MASK = W_RINGL | W_RINGR;
+
+/**
+ * C: do_wear.c **`Ring_gone`** → **`Ring_off_or_gone(obj, TRUE)`** before **`useup`** (**`zap.c`** **`maybe_destroy_item`**).
+ * Omits **`svc.context.takeoff`**, full **`setnotworn`** / **`u.uprops`** / **`monstunseesu_prop`**, and **`Ring_off_or_gone`** per-otyp tail (**`adjust_attrib`**, **`float_down`**, …).
+ * @param {import('./gstate.js').game} g
+ * @param {{ owornmask?: number, otyp?: number }} obj
+ */
+export function ringGoneHeroLikeC(g, obj) {
+    const u = g?.u;
+    if (!u || !obj) return;
+    const wm = obj.owornmask | 0;
+    if (!(wm & W_RING)) return;
+
+    if (obj === u.uleft) u.uleft = null;
+    if (obj === u.uright) u.uright = null;
+    obj.owornmask = wm & ~W_RING;
+
+    if ((obj.otyp | 0) === OTYP_RIN_PROTECTION) refreshEProtectionFromRings(u);
+
+    g.disp = g.disp || {};
+    g.disp.botl = true;
+}
 
 /**
  * C: prop.c — ring of protection on each hand sets W_RINGL / W_RINGR in EProtection

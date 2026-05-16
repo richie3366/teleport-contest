@@ -1,7 +1,7 @@
 // destroy_items.js — Hero + monster inventory destruction by fire / electricity (zap.c subset).
 // C ref: zap.c destroy_items(), destroyable(), maybe_destroy_item() — AD_FIRE + AD_ELEC;
 // inventory_resistance_check / u_adtyp_resistance_obj (hero subset); deferred stacks / potionbreathe /
-// Ring_gone / setnotworn / glob of slime — TODO or stubbed. **`ignite_items`** → **`ignite_items.js`**.
+// **`Ring_gone`** (**`wear.js`** **`ringGoneHeroLikeC`** for **`AD_ELEC`** ring dust); setnotworn / glob of slime — TODO. **`ignite_items`** → **`ignite_items.js`**.
 
 import { game } from './gstate.js';
 import { rn2, rnd } from './rng.js';
@@ -32,6 +32,7 @@ import {
 import { raceptr, fireResistant } from './mondata.js';
 import { WAN_LIGHTNING } from './buzz.js';
 import { discoverScrollOtyp } from './discover_scroll.js';
+import { ringGoneHeroLikeC } from './wear.js';
 
 /** C: monattk.h AD_FIRE */
 export const AD_FIRE = 2;
@@ -480,7 +481,8 @@ async function rechargeRingHeroElecLikeC(g, obj) {
 }
 
 /**
- * C: zap.c **`maybe_destroy_item(mon, obj, AD_ELEC)`** — hero only; **`inventory_resistance_check`** TODO.
+ * C: zap.c **`maybe_destroy_item(mon, obj, AD_ELEC)`** — hero only; **`inventoryResistanceCheckHeroLikeC`**;
+ * worn ring dust → **`wear.js`** **`ringGoneHeroLikeC`** (**`Ring_gone`** subset).
  * @param {typeof game} g
  */
 async function maybeDestroyItemHeroElec(g, obj) {
@@ -541,6 +543,8 @@ async function maybeDestroyItemHeroElec(g, obj) {
     const noun = cnt === 1 && quan === 1 ? base : `${base}s`;
     await pline(`${mult}${noun} ${verb}!`);
 
+    if ((obj.owornmask | 0) & W_RING) ringGoneHeroLikeC(g, obj);
+
     const newQuan = origQuan - cnt;
     if (newQuan <= 0) removeObjFromHeroInvent(g, obj);
     else obj.quan = newQuan;
@@ -559,7 +563,7 @@ async function maybeDestroyItemHeroElec(g, obj) {
 }
 
 /**
- * C: zap.c **`destroy_items(&gy.youmonst, AD_ELEC, dmg_in)`** — bypass/deferred omitted (**`Ring_gone`** subset).
+ * C: zap.c **`destroy_items(&gy.youmonst, AD_ELEC, dmg_in)`** — bypass/deferred omitted.
  * @param {typeof game} [g]
  * @param {number} dmgIn
  * @returns {Promise<number>}
