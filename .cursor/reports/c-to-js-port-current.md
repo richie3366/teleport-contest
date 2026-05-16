@@ -9,11 +9,11 @@ Thin handoff for the next coding session. Deep parity tables and history: [`c-to
 - **Plain ES modules**, no build/WASM/network in contest code; RNG via `js/rng.js`; match **clang** evaluation order for multi-call expressions.
 - API: [`docs/API.md`](../../docs/API.md); overview: [`README.md`](../../README.md).
 
-**Last slice:** **`level_timers.js`** + **`game.js`** **`GameMap.timers`** — **`zap.c`** **`start_melt_ice_timeout`** (**`startMeltIceAwayTimer`**, same **`MIN_ICE_TIME`/`MAX_ICE_TIME`** **`rn2`** loop), **`spot_stop_timers`** (**`spotStopTimersMeltIceAway`**); **`allmain.js`** after **`moves++`** pulls due timers and runs **`melt_ice_away`** (**`meltIceAt`** + **`context.monMoving`** like C). **`melt_ice.js`:** **`obj_ice_effects`** floor corpses **`on_ice`** off-ice age adjust (**`mkobj.c`** **`ROT_ICE_ADJUSTMENT`**); **`u_at`** splash fix. **`mkobj_corpse.js`:** **`age`**, **`on_ice`** when **`cellIsIce`**. Call **`startMeltIceAwayTimer(g,x,y,0)`** when iced terrain is created (still TODO in mklev/zap).
+**Last slice:** **`zap.c`** **`zap_over_floor`** **`ZT_COLD`** subset — **`melt_ice.js`** **`coldZapHitsWaterAt`** (waterwall / lava→**`ROOM`** / **`DRAWBRIDGE_UP`** **`DB_ICE`** / **`POOL`/`MOAT`→`ICE`** + **`ICED_*`**, plines, hero **`underwater`**, swimmer **`mundetected`**, **`startMeltIceAwayTimer`**); **`level_timers.js`** **`spotTimeLeftMeltIceAway`**, **`refirmMeltIceTimerAt`** (C already-ice branch). No default caller yet → session RNG unchanged until **`zap_over_floor`** / wand cold wires **`coldZapHitsWaterAt`**.
 
 ## Next steps (highest impact from latest fire/lava work)
 
-1. **`melt_ice` remainder** — wire **`startMeltIceAwayTimer`** when pool/moat/drawbridge gets **`ICE`/`ICED_*`**; **`unearth_objs`** + buried objects; full **`boulder_hits_pool`** / **`minliquid`** / hero **`spoteffects`**; **`obj_ice_effects`** non-corpse **`timed`** + **`obj_timer_checks`** / **`restart_timer`**.
+1. **`melt_ice` remainder** — call **`coldZapHitsWaterAt`** from **`zap_over_floor`** / breath / broken wand when **`ZT_COLD`**; **`obj_ice_effects(x,y,TRUE)`** on freeze + **`bury_objs`**; lavawall / temperature / **`IS_WATERWALL`** nuance; **`unearth_objs`** + buried objects; fuller **`boulder_hits_pool`** / **`minliquid`** / hero **`spoteffects`**.
 2. **`minuhpmax`/`setuhpmax`/`losexp`** ( **`dofiretrap`** human branch ); underwater/steam **`dofiretrap`** box branch; **`shieldeff`/`monstseesu`**.
 3. **Wire `discoverScrollOtyp`** from **`read`** / **`pickup`** / **`makeknown`** when scroll ID is learned; audit remaining **`mklev.js`** **`otyp`** literals vs **`objects_nums`**.
 

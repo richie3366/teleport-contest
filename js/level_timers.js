@@ -56,6 +56,33 @@ export function startMeltIceAwayTimer(g, x, y, minTime = 0) {
 }
 
 /**
+ * C: timeout.c spot_time_left(x, y, MELT_ICE_AWAY) — turns remaining until melt (0 if none).
+ * @param {import('./gstate.js').game} g
+ */
+export function spotTimeLeftMeltIceAway(g, x, y) {
+    const arr = g.level?.timers;
+    if (!arr?.length) return 0;
+    const m = g.moves | 0;
+    for (const t of arr) {
+        if (t.func === MELT_ICE_AWAY && t.x === x && t.y === y) {
+            return Math.max(0, (t.deadlineMoves | 0) - m);
+        }
+    }
+    return 0;
+}
+
+/**
+ * C: zap.c zap_over_floor ZT_COLD — already-ice branch (spot_stop + restart with prior melt time).
+ * @param {import('./gstate.js').game} g
+ */
+export function refirmMeltIceTimerAt(g, x, y) {
+    const meltTime = spotTimeLeftMeltIceAway(g, x, y);
+    if (meltTime === 0) return;
+    spotStopTimersMeltIceAway(g, x, y);
+    startMeltIceAwayTimer(g, x, y, meltTime);
+}
+
+/**
  * Remove all **`MELT_ICE_AWAY`** timers due on or before **`g.moves`** (C timeout dispatch order simplified).
  * @param {import('./gstate.js').game} g
  * @returns {{ x: number, y: number }[]}

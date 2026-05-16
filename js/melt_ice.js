@@ -3,8 +3,8 @@
 //        do.c boulder_hits_pool(), mkobj.c obj_ice_effects(), dig.c unearth_objs(),
 //        mon.c minliquid() (subset).
 //
-// Still TODO vs C: full timeout.c (other func kinds); obj_ice_effects non-corpse
-// timed objects; unearth_objs + buriedobjlist;
+// Still TODO vs C: full timeout.c (other func kinds); obj_ice_effects on freeze
+// (obj_timer_checks / buried TRUE); unearth_objs + buriedobjlist;
 // cnv_trap_obj bury_it → bury_an_obj (we place on floor; no buried layer);
 // boulder_hits_pool drawbridge / waterwall / plane of water / u.uinwater /
 // lava splash damage / wake_nearto / bury_objs; full minliquid (drown,
@@ -19,7 +19,8 @@ import { floorObjKey, placeFloorObject, unlinkFloorObject } from './floorobj.js'
 import { waterDamageChain } from './water_damage.js';
 import { raceptr, isFlyer, isFloater, amphibious, breathless, swims, monsterLeavesCorpse } from './mondata.js';
 import { CORPSE_OTYP, placeCorpseForMonster } from './mkobj_corpse.js';
-import { spotStopTimersMeltIceAway } from './level_timers.js';
+import { dist2 } from './hacklib.js';
+import { spotStopTimersMeltIceAway, startMeltIceAwayTimer, refirmMeltIceTimerAt } from './level_timers.js';
 import {
     ICE,
     POOL,
@@ -31,6 +32,8 @@ import {
     IS_DRAWBRIDGE,
     IS_POOL,
     IS_LAVA,
+    IS_WATERWALL,
+    DRAWBRIDGE_UP,
     u_at,
     LANDMINE,
     BEAR_TRAP,
@@ -246,6 +249,70 @@ async function minliquidMonsterAfterMelt(g, mtmp) {
     if (amphibious(ptr) || breathless(ptr) || swims(ptr)) return;
     const visMon = cansee(mtmp.mx, mtmp.my) && !(mtmp.minvis | 0);
     if (mtmp.minvent) await waterDamageChain(mtmp.minvent, false, g, { mtmp, visMon });
+}
+
+/**
+ * C: zap.c zap_over_floor() — **`ZT_COLD`** on pool / moat / lava / drawbridge / waterwall / existing ice (subset).
+ * Schedules **`start_melt_ice_timeout`** when non-lava water becomes **`ICE`** or drawbridge span gains **`DB_ICE`**.
+ * @param {import('./gstate.js').game} g
+ * @param {boolean} seeIt — C **`see_it`**
+ */
+export async function coldZapHitsWaterAt(g, x, y, seeIt) {
+    if (isIceAt(g, x, y)) {
+        refirmMeltIceTimerAt(g, x, y);
+        return;
+    }
+    const loc = g.level?.at(x, y);
+    if (!loc) return;
+    const typ = loc.typ | 0;
+
+    if (IS_WATERWALL(typ)) {
+        if (seeIt) await pline('The water freezes for a moment.');
+        else if (g.u && dist2(x, y, g.u.ux | 0, g.u.uy | 0) <= 9) await pline('You hear a soft crackling.');
+        return;
+    }
+
+    if (IS_LAVA(typ)) {
+        loc.typ = ROOM;
+        loc.flags = 0;
+        if (seeIt) await pline('The lava cools and solidifies.');
+        newsym(x, y);
+        return;
+    }
+
+    if (typ === DRAWBRIDGE_UP) {
+        loc.flags = (loc.flags & ~DB_UNDER) | DB_ICE;
+        if (seeIt) await pline('The water under the drawbridge freezes solid.');
+        else if (g.u && dist2(x, y, g.u.ux | 0, g.u.uy | 0) <= 9) await pline('You hear a crackling sound.');
+        newsym(x, y);
+        startMeltIceAwayTimer(g, x, y, 0);
+        return;
+    }
+
+    if (typ === POOL || typ === MOAT) {
+        const moat = typ === MOAT;
+        loc.flags = (loc.flags & ~(ICED_POOL | ICED_MOAT)) | (typ === POOL ? ICED_POOL : ICED_MOAT);
+        loc.typ = ICE;
+        if (seeIt) {
+            if (moat) await pline('The moat is bridged with ice!');
+            else await pline('The water freezes.');
+        } else if (g.u && dist2(x, y, g.u.ux | 0, g.u.uy | 0) <= 9) {
+            await pline('You hear a crackling sound.');
+        }
+        newsym(x, y);
+
+        const u = g.u;
+        if (u && u_at(x, y) && (u.underwater | 0)) {
+            u.underwater = 0;
+            g.vision_full_recalc = 1;
+        }
+        const mtmp = g.level?.monsters?.find((m) => m.mx === x && m.my === y);
+        if (mtmp && (mtmp.mundetected | 0) && swims(raceptr(mtmp))) mtmp.mundetected = 0;
+
+        startMeltIceAwayTimer(g, x, y, 0);
+        /* C: obj_ice_effects(x, y, TRUE); bury_objs — not ported */
+        return;
+    }
 }
 
 /**
