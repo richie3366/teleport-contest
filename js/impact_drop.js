@@ -212,7 +212,7 @@ export async function objDeliveryLikeC(g, nearHero) {
 
         if (nx > 0 && ny > 0) {
             const loc = g.level?.at(nx, ny);
-            const ltyp = loc ? loc.typ | 0 : 0;
+            const ltyp = loc ? loc.typ | 0 : STONE;
             placeFloorObjectInLevel(g, obj, nx, ny);
             stackObjOnFloorInLevel(g, obj);
             if (!nobreak && !IS_SOFT(ltyp)) {
