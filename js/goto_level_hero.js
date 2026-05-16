@@ -7,6 +7,7 @@
 // **`scheduleGotoHeroLikeC` / `deferredGotoHeroLikeC`** — **`do.c`** **`schedule_goto`/`deferred_goto`** subset (**`applyGotoLevelDirectHeroLikeC`** for non-falling **`goto_level`**).
 // **`keepdogsHeroStubLikeC`** — C **`dog.c`** **`keepdogs`** gate (**`if (!iflags.nofollowers) keepdogs(FALSE)`** in **`goto_level`**) before **`u.uz`** moves.
 // **`vision_recalc(2)`** after **`keepdogs`**, before **`u.uz`** assign — C **`goto_level`** (**`vision.c`** “no longer see old level” pass before **`savelev`**).
+// **`gotoLevelTutorialBranchHookLikeC`** — C **`do.c`** **`newdungeon`** **`In_tutorial`/`tutorial()`** before **`savelev`** / **`impact_drop`** ( **`tutorial_branch.js`** ).
 // Deferred: **`fill_pit`**, real **`next_to_u`**,
 // full **`keepdogs`/`dog.c`**, bones/save, full **`goto_level`** beyond **`mklev`**.
 
@@ -26,6 +27,7 @@ import { dragDownHeroStairsLikeC } from './hold_another_hero.js';
 import {
     UTOTYPE_NONE, UTOTYPE_DEFERRED, UTOTYPE_FALLING, UTOTYPE_RMPORTAL,
 } from './const.js';
+import { gotoLevelTutorialBranchHookLikeC } from './tutorial_branch.js';
 
 /** C: **`Punished`** / carried **`uball`** — macro subset until **`punish()`** sets **`u.Punished`**. */
 function heroPunishedLikeC(g) {
@@ -81,6 +83,8 @@ export async function applyGotoLevelDirectHeroLikeC(g, dest) {
     }
     const newUz = { dnum: dn, dlevel: dl };
     if (onLevelLikeC(uz0, newUz)) return;
+
+    gotoLevelTutorialBranchHookLikeC(g, uz0, newUz);
 
     if (!g.iflags?.nofollowers) keepdogsHeroStubLikeC(g, false);
     vision_recalc(2);
@@ -187,6 +191,8 @@ export async function applyGotoAfterHeroHoleFallLikeC(g, dest) {
         if (maxLev != null && dlevel > (maxLev | 0)) dlevel = maxLev | 0;
         newUz = { dnum, dlevel };
     }
+
+    gotoLevelTutorialBranchHookLikeC(g, uz0, newUz);
 
     /* C: do.c **`goto_level`** **`falling`** → **`impact_drop(..., newlevel->dlevel)`** before **`u.uz`** assign. */
     await impactDropLikeC(g, null, u.ux | 0, u.uy | 0, newUz.dlevel | 0);
