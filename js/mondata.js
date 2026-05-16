@@ -88,6 +88,8 @@ export const MR_SLEEP = 0x04;
 const M1_FLY = 0x00000001;
 /** C: monflag.h `M1_CLING` — **`mon.c`** **`minliquid_core`** / **`m_in_air`**. */
 const M1_CLING = 0x00000010;
+/** C: monflag.h `M1_TPORT` — **`mondata.h`** **`can_teleport`** / **`teleport.c`** **`minliquid_core`**. */
+const M1_TPORT = 0x02000000;
 const M1_SWIM = 0x00000002;
 const M1_AMORPHOUS = 0x00000004;
 const M1_WALLWALK = 0x00000008;
@@ -116,6 +118,8 @@ const S_LIGHT = 25;
 const S_VORTEX = 22;
 /** C: defsym.h / monsym.h — **`S_ELEMENTAL`**. */
 export const S_ELEMENTAL = 31;
+/** C: defsym.h **`MONSYM(57, ';', EEL, …)`** — **`mon.c`** **`minliquid_core`** eel-on-land. */
+export const S_EEL = 57;
 const S_HUMAN = 53;
 /** C: defsym.h MONSYM — troll / lizard / fungus (lichen). */
 const S_TROLL = 46;
@@ -290,6 +294,26 @@ export function isClinger(/** @type {Permonst} */ ptr) {
 /** C: mondata.h **`cant_drown`** (`is_swimmer` ≡ **`swims`**) */
 export function cantDrown(/** @type {Permonst} */ ptr) {
     return swims(ptr) || amphibious(ptr) || breathless(ptr);
+}
+
+/** C: mondata.h **`can_teleport(ptr)`** — **`M1_TPORT`**. */
+export function canTeleportMon(/** @type {Permonst} */ ptr) {
+    return ((ptr?.mflags1 ?? 0) & M1_TPORT) !== 0;
+}
+
+/**
+ * C: teleport.c **`tele_restrict(mon)`** → **`noteleport_level`** (subset: level flags + stasis).
+ * Omits Gehennom **`m_blocks_teleporting`**, covetous bypass.
+ * @param {typeof game} [g]
+ * @param {unknown} [_mtmp]
+ */
+export function teleRestrictMon(g = game, _mtmp) {
+    const f = g?.level?.flags;
+    if (!f) return false;
+    if (f.noteleport) return true;
+    const st = f.stasis_until | 0;
+    if (st > 0 && (g.moves | 0) < st) return true;
+    return false;
 }
 
 /** C: mondata.h swims */

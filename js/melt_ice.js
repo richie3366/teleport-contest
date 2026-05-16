@@ -1,27 +1,41 @@
 // melt_ice.js — Ice terrain melts to water (fire trap, zaps, etc.).
 // C ref: zap.c melt_ice(), trap.c trap_ice_effects() / cnv_trap_obj(),
 //        do.c boulder_hits_pool(), mkobj.c obj_ice_effects(), dig.c unearth_objs(),
-//        mon.c minliquid() (subset — pool/waterwall drowning after melt; teleport/usteed/gremlin/lava/eel tails still TODO).
+//        mon.c minliquid_core() (pool/waterwall/lava/fountain/gremlin/golem/usteed/eel; rloc/split_mon/dryup/monflee/fire_damage_chain/deal_with_overcrowding still TODO).
 //
 // Still TODO vs C: corpse **`ROT_ORGANIC`** start on all bury paths; **`bury_objs`** full **`get_cost`**/**`getprice`** / angry surcharge (**`shop.js`** bill rows need **`addtobill`**);
-// **`dig.c`/`read.c`** **`buried_ball`/`punish`** (**`floorobj.js`**) — **`placebc`** blind glyphs / **`uswallow`**; beam/breath vectors; **`boulder_hits_pool`** **`recalc_block_point`**/**`wake_nearto`**/**`u.uinwater`**; fuller **`minliquid`** (teleport **`rloc`**, lava, eel land) / **`spoteffects`**.
+// **`dig.c`/`read.c`** **`buried_ball`/`punish`** (**`floorobj.js`**) — **`placebc`** blind glyphs / **`uswallow`**; beam/breath vectors; **`boulder_hits_pool`** **`recalc_block_point`**/**`wake_nearto`**/**`u.uinwater`**; **`spoteffects`**.
 
 import { pline, newsym } from './display.js';
 import { vision_recalc, cansee } from './vision.js';
 import { tAt, delTrap } from './search.js';
 import { maybeHeroPoolEnter } from './drown.js';
-import { rnd, rn1, rn2 } from './rng.js';
+import { rnd, rn1, rn2, d } from './rng.js';
 import {
     floorObjKey, placeFloorObject, unlinkFloorObject, buryFloorChainAt, unearthBuriedChainAt,
 } from './floorobj.js';
 import { delEngrAt } from './engrave.js';
-import { raceptr, isFlyer, isFloater, isClinger, cantDrown, monsterLeavesCorpse } from './mondata.js';
+import {
+    raceptr,
+    isFlyer,
+    isFloater,
+    isClinger,
+    cantDrown,
+    monsterLeavesCorpse,
+    likesLava,
+    fireResistant,
+    breathless,
+    canTeleportMon,
+    teleRestrictMon,
+    S_EEL,
+} from './mondata.js';
 import { CORPSE_OTYP, placeCorpseForMonster } from './mkobj_corpse.js';
 import { dist2 } from './hacklib.js';
 import { heroPassesWalls } from './walkable.js';
 import { spotStopTimersMeltIceAway, startMeltIceAwayTimer, refirmMeltIceTimerAt } from './level_timers.js';
 import { fixWallSpinesRect } from './wall_spine.js';
 import { applyBuryObjsShopCreditAndDebt, shknamDisplay } from './shop.js';
+import { waterDamageChain } from './water_damage.js';
 import { objTimerChecksMkobj, ROT_ICE_ADJUSTMENT } from './obj_rot_timer.js';
 import {
     ICE,
@@ -54,6 +68,12 @@ import {
     HWALL,
     IS_WALL,
     Is_waterlevel,
+    IS_FOUNTAIN,
+    engulfing_u,
+    XKILL_NOCORPSE,
+    PM_GREMLIN,
+    PM_IRON_GOLEM,
+    PM_WATER_ELEMENTAL,
 } from './const.js';
 
 /** C: objects.h — LAND_MINE / BEARTRAP (`objects_nums` / obj_oc_skill_data.js). */
@@ -245,17 +265,39 @@ function mInAir(mtmp) {
     return isClinger(ptr) && (mtmp.mundetected | 0) !== 0;
 }
 
-function killMonsterOnPoolFill(g, mtmp) {
+function killMonsterOnPoolFill(g, mtmp, xkillFlags = 0) {
     if (!mtmp || (mtmp.mhp | 0) <= 0) return;
     const x = mtmp.mx | 0;
     const y = mtmp.my | 0;
     mtmp.mhp = 0;
-    if (g.level && isok(x, y) && monsterLeavesCorpse(mtmp, g, 0)) placeCorpseForMonster(mtmp, x, y);
+    if (g.level && isok(x, y) && monsterLeavesCorpse(mtmp, g, xkillFlags)) placeCorpseForMonster(mtmp, x, y);
     const arr = g.level?.monsters;
     if (arr) {
         const i = arr.indexOf(mtmp);
         if (i >= 0) arr.splice(i, 1);
     }
+}
+
+/** C: teleport.c **`rloc(mtmp, flags)`** — escape pool/lava; stub (**`goodpos`/`rloc`** not ported). */
+async function rlocMinliquidEscape(_g, _mtmp, _flags) {
+    return false;
+}
+
+/** C: mon.c minliquid + mondata.c **`on_fire`** death phrase (**`boils away`/`melts away`/`burns to a crisp`**). */
+function lavaDestPhraseForMnum(mnum) {
+    const m = mnum | 0;
+    if (m === PM_WATER_ELEMENTAL) return 'boils away';
+    return 'burns to a crisp';
+}
+
+function monPlineName(mtmp) {
+    const name = mtmp?.monnam || mtmp?.data?.mname;
+    return name || 'the monster';
+}
+
+function monPlineNameCap(mtmp) {
+    const s = monPlineName(mtmp);
+    return s.charAt(0).toUpperCase() + s.slice(1);
 }
 
 /**
@@ -324,8 +366,9 @@ async function boulderHitsPool(g, otmp, rx, ry, pushing) {
 }
 
 /**
- * C: mon.c **`minliquid_core`** — **`inpool`/`waterwall`** drowning when ice becomes pool (**`melt_ice`** tail).
- * Omits **`rloc`** teleport escape, **`u.usteed`** flying, gremlin/golem, lava, eel-on-land (**`svc.context.mon_moving`** for pline split).
+ * C: mon.c **`minliquid_core`** — liquid/fountain vs monster (**`melt_ice`** pool fill, etc.).
+ * Still TODO: real **`rloc`**, **`split_mon`/`dryup`**, **`fire_damage_chain`**, **`deal_with_overcrowding`**,
+ * **`monflee`**, full **`on_fire`** / Gehennom **`noteleport`** / covetous bypass.
  * @param {import('./gstate.js').game} g
  */
 async function minliquidMonsterAfterMelt(g, mtmp) {
@@ -338,17 +381,89 @@ async function minliquidMonsterAfterMelt(g, mtmp) {
     const ptr = raceptr(mtmp);
     const waterwall = IS_WATERWALL(typ);
     const inpool = IS_POOL(typ)
-        && ((!isFlyer(ptr) && !isFloater(ptr)) || Is_waterlevel(g.u?.uz));
-    if (!(inpool || waterwall)) return;
+        && (!(isFlyer(ptr) || isFloater(ptr)) || Is_waterlevel(g.u?.uz));
+    const inlava = IS_LAVA(typ) && !(isFlyer(ptr) || isFloater(ptr));
+    const infountain = IS_FOUNTAIN(typ);
 
-    if ((waterwall || !isClinger(ptr)) && !cantDrown(ptr)) {
-        const monMoving = !!(g.svc?.context?.mon_moving);
-        const name = mtmp?.monnam || mtmp?.data?.mname || 'the monster';
-        if (cansee(x, y)) {
-            if (monMoving) await pline(`${name} drowns.`);
-            else await pline(`You drown ${name}.`);
+    const u = g.u;
+    if (u && mtmp === u.usteed && ((u.Flying | 0) || (u.Levitation | 0)) && !waterwall) return;
+
+    if ((mtmp.mnum | 0) === PM_GREMLIN && (inpool || infountain) && rn2(3)) {
+        /* C: split_mon — not ported; dryup only after successful split */
+        if (inpool && mtmp.minvent) {
+            const vis = cansee(x, y);
+            await waterDamageChain(mtmp.minvent, true, g, { mtmp, visMon: vis });
         }
-        if ((mtmp.mhp | 0) > 0) killMonsterOnPoolFill(g, mtmp);
+        return;
+    }
+    if ((mtmp.mnum | 0) === PM_IRON_GOLEM && inpool && !rn2(5)) {
+        const dam = d(2, 6);
+        if (cansee(x, y)) await pline(`${monPlineNameCap(mtmp)} rusts.`);
+        mtmp.mhp = (mtmp.mhp | 0) - dam;
+        if ((mtmp.mhpmax | 0) > dam) mtmp.mhpmax = (mtmp.mhpmax | 0) - dam;
+        if ((mtmp.mhp | 0) <= 0) {
+            killMonsterOnPoolFill(g, mtmp, 0);
+            return;
+        }
+        if (mtmp.minvent) {
+            const vis = cansee(x, y);
+            await waterDamageChain(mtmp.minvent, true, g, { mtmp, visMon: vis });
+        }
+        return;
+    }
+
+    const monMoving = !!(g.svc?.context?.mon_moving);
+
+    if (inlava) {
+        if (!isClinger(ptr) && !likesLava(ptr)) {
+            if (canTeleportMon(ptr) && !teleRestrictMon(g, mtmp)) {
+                if (await rlocMinliquidEscape(g, mtmp, 1)) return;
+            }
+            if (!fireResistant(ptr)) {
+                if (cansee(x, y)) {
+                    const how = lavaDestPhraseForMnum(mtmp.mnum | 0);
+                    await pline(`${monPlineNameCap(mtmp)} ${how}.`);
+                }
+                if ((mtmp.mhp | 0) > 0) killMonsterOnPoolFill(g, mtmp, XKILL_NOCORPSE);
+            } else {
+                mtmp.mhp = (mtmp.mhp | 0) - 1;
+                if ((mtmp.mhp | 0) <= 0) {
+                    if (cansee(x, y)) await pline(`${monPlineNameCap(mtmp)} surrenders to the fire.`);
+                    killMonsterOnPoolFill(g, mtmp, XKILL_NOCORPSE);
+                } else if (cansee(x, y)) {
+                    await pline(`${monPlineNameCap(mtmp)} burns slightly.`);
+                }
+            }
+            if ((mtmp.mhp | 0) > 0 && g.level?.monsters?.includes(mtmp)) {
+                if (!mInAir(mtmp) && !likesLava(ptr)) {
+                    /* C: fire_damage_chain; rloc; deal_with_overcrowding — not ported */
+                }
+            }
+        }
+        return;
+    }
+
+    if (inpool || waterwall) {
+        if ((waterwall || !isClinger(ptr)) && !cantDrown(ptr)) {
+            if (canTeleportMon(ptr) && !teleRestrictMon(g, mtmp)) {
+                if (await rlocMinliquidEscape(g, mtmp, 1)) return;
+            }
+            const name = monPlineName(mtmp);
+            if (cansee(x, y)) {
+                if (monMoving) await pline(`${monPlineNameCap(mtmp)} drowns.`);
+                else await pline(`You drown ${name}.`);
+            }
+            if (engulfing_u(mtmp)) {
+                await pline(`${monPlineNameCap(mtmp)} sinks as water rushes in and flushes you out.`);
+            }
+            if ((mtmp.mhp | 0) > 0) killMonsterOnPoolFill(g, mtmp, 0);
+        }
+        return;
+    }
+
+    if ((ptr.mlet | 0) === S_EEL && !Is_waterlevel(g.u?.uz) && !breathless(ptr)) {
+        if ((mtmp.mhp | 0) > 1 && rn2(mtmp.mhp | 0) > rn2(8)) mtmp.mhp = (mtmp.mhp | 0) - 1;
+        /* C: monflee(mtmp, 2, FALSE, FALSE) — not ported */
     }
 }
 
