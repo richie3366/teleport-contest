@@ -31,12 +31,21 @@ export async function runExtcmdFromHashPrefix() {
         return;
     }
     if (ch2 === 'e' || ch2 === 'E') {
-        /* C: cmd.c doextcmd → enhance_weapon_skill — menu not ported; one auto-pick per #e */
-        const r = enhanceWeaponSkillOneStep();
+        /* C: cmd.c doextcmd → enhance_weapon_skill — menu not ported; wizard y_n → speedy */
+        let speedy = false;
+        if (game.flags?.wizard) {
+            await pline('Advance skills without practice? [yn]');
+            game._retainMessageAfterCommand = true;
+            await flush_screen(1);
+            const ans = await nhgetch();
+            speedy = ans === 121 || ans === 89; /* y Y */
+        }
+        const r = enhanceWeaponSkillOneStep(game, { speedy });
         if (!r.ok) await pline('You cannot enhance any skills at the moment.');
         else {
-            await pline(r.advancePline);
-            if (r.moreDangerousPline) await pline(r.moreDangerousPline);
+            for (const line of r.plines) {
+                await pline(line);
+            }
         }
         game._retainMessageAfterCommand = true;
         await flush_screen(1);

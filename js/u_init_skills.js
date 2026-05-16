@@ -1,7 +1,7 @@
 // u_init_skills.js — weapon / spell skills at birth (skill_init) + add_weapon_skill + lose_weapon_skill,
 // skill_advance / #enhance auto-pick, use_skill (practice), drain_weapon_skill (energy drain).
 // C ref: weapon.c skill_init(), add_weapon_skill(), lose_weapon_skill(), can_advance(), slots_required(),
-//        skill_advance(), enhance_weapon_skill() menu order, use_skill(), drain_weapon_skill();
+//        skill_advance(), enhance_weapon_skill() (incl. wizard speedy), menu order, use_skill(), drain_weapon_skill();
 //        skills.h practice_needed_to_advance; u_init.c skills_for_role().
 
 import { game } from './gstate.js';
@@ -73,19 +73,21 @@ export function slotsRequired(skillIdx, u) {
     return Math.trunc((tmp + 1) / 2);
 }
 
-/** C: weapon.c can_advance(skill, speedy) — wizard speedy path not ported. */
-export function canAdvance(u, skill, speedy) {
-    if (!u || speedy) return false;
+/** C: weapon.c can_advance(skill, speedy) — wizard + speedy skips practice / weapon_slots check. */
+export function canAdvance(u, skill, speedy, g = game) {
+    if (!u) return false;
     if (pRestricted(u, skill) || pSkill(u, skill) >= pMaxSkill(u, skill)) return false;
     if ((u.skills_advanced | 0) >= P_SKILL_LIMIT) return false;
+    if (speedy && g.flags?.wizard) return true;
+    if (speedy) return false;
     const need = practiceNeededToAdvance(pSkill(u, skill));
     return pAdvance(u, skill) >= need && (u.weapon_slots | 0) >= slotsRequired(skill, u);
 }
 
-function countCanAdvance(u) {
+function countCanAdvance(u, g = game) {
     let n = 0;
     for (let i = 0; i < P_NUM_SKILLS; i++) {
-        if (canAdvance(u, i, false)) n++;
+        if (canAdvance(u, i, false, g)) n++;
     }
     return n;
 }
@@ -113,13 +115,15 @@ export function giveMayAdvancePlineText(skill) {
 /**
  * C: weapon.c enhance_weapon_skill — first advanceable skill in menu order.
  * @param {object} u
+ * @param {boolean} [speedy]
+ * @param {object} [g]
  * @returns {number|null}
  */
-export function enhancePickFirstAdvanceable(u) {
+export function enhancePickFirstAdvanceable(u, speedy = false, g = game) {
     if (!u) return null;
     for (const [lo, hi] of ENHANCE_MENU_RANGES) {
         for (let i = lo; i <= hi; i++) {
-            if (canAdvance(u, i, false)) return i;
+            if (canAdvance(u, i, speedy, g)) return i;
         }
     }
     return null;
@@ -131,11 +135,13 @@ export function enhancePickFirstAdvanceable(u) {
  * @param {object} u
  * @param {number} skill
  * @param {object} [g]
+ * @param {{ speedy?: boolean }} [opts] — wizard speedy enhance (C enhance_weapon_skill)
  * @returns {boolean}
  */
-export function skillAdvance(u, skill, g = game) {
+export function skillAdvance(u, skill, g = game, opts = {}) {
     if (!u || skill <= 0 || skill >= P_NUM_SKILLS) return false;
-    if (!canAdvance(u, skill, false)) return false;
+    const speedy = opts.speedy === true && g.flags?.wizard === true;
+    if (!canAdvance(u, skill, speedy, g)) return false;
     weaponSkills(u);
     u.weapon_slots = (u.weapon_slots | 0) - slotsRequired(skill, u);
     const ws = u.weapon_skills[skill];
@@ -150,32 +156,55 @@ export function skillAdvance(u, skill, g = game) {
 }
 
 /**
- * One `#enhance` step: auto-pick first menu-order skill (TTY menu not ported).
+ * `#enhance` via extcmd: one normal step, or wizard **speedy** loop (C `enhance_weapon_skill`).
  * @param {object} [g]
- * @returns {{ ok: false } | { ok: true, advancePline: string, moreDangerousPline: string|null }}
+ * @param {{ speedy?: boolean }} [opts]
+ * @returns {{ ok: boolean, plines: string[] }}
  */
-export function enhanceWeaponSkillOneStep(g = game) {
+export function enhanceWeaponSkillOneStep(g = game, opts = {}) {
     const u = g.u;
-    if (!u) return { ok: false };
-    const sk = enhancePickFirstAdvanceable(u);
-    if (sk == null) return { ok: false };
-    if (!skillAdvance(u, sk, g)) return { ok: false };
+    if (!u) return { ok: false, plines: [] };
+    const speedy = opts.speedy === true && g.flags?.wizard === true;
+    const plines = [];
+
+    if (speedy) {
+        for (;;) {
+            const sk = enhancePickFirstAdvanceable(u, true, g);
+            if (sk == null) break;
+            if (!skillAdvance(u, sk, g, { speedy: true })) break;
+            const ws = u.weapon_skills[sk];
+            const atMax = ws.skill >= ws.max_skill;
+            const name = pSkillDisplayName(sk, g);
+            plines.push(`You are now ${atMax ? 'most' : 'more'} skilled in ${name}.`);
+            let more = false;
+            for (let i = 0; i < P_NUM_SKILLS; i++) {
+                if (canAdvance(u, i, true, g)) {
+                    more = true;
+                    break;
+                }
+            }
+            if (more) plines.push('You feel you could be more dangerous!');
+            else break;
+        }
+        return plines.length ? { ok: true, plines } : { ok: false, plines: [] };
+    }
+
+    const sk = enhancePickFirstAdvanceable(u, false, g);
+    if (sk == null) return { ok: false, plines: [] };
+    if (!skillAdvance(u, sk, g)) return { ok: false, plines: [] };
     const ws = u.weapon_skills[sk];
     const atMax = ws.skill >= ws.max_skill;
     const name = pSkillDisplayName(sk, g);
-    const advancePline = `You are now ${atMax ? 'most' : 'more'} skilled in ${name}.`;
+    plines.push(`You are now ${atMax ? 'most' : 'more'} skilled in ${name}.`);
     let more = false;
     for (let i = 0; i < P_NUM_SKILLS; i++) {
-        if (canAdvance(u, i, false)) {
+        if (canAdvance(u, i, false, g)) {
             more = true;
             break;
         }
     }
-    return {
-        ok: true,
-        advancePline,
-        moreDangerousPline: more ? 'You feel you could be more dangerous!' : null,
-    };
+    if (more) plines.push('You feel you could be more dangerous!');
+    return { ok: true, plines };
 }
 
 /** Pending pline from add_weapon_skill → give_may_advance_msg (flush in moveloop_preamble). */
@@ -204,10 +233,10 @@ export function useSkill(u, skill, degree, g = game) {
     if (!u || !degree) return;
     if (skill === P_NONE || pRestricted(u, skill)) return;
     weaponSkills(u);
-    const advanceBefore = canAdvance(u, skill, false);
+    const advanceBefore = canAdvance(u, skill, false, g);
     const ws = u.weapon_skills[skill];
     ws.advance = (ws.advance | 0) + degree;
-    if (!advanceBefore && canAdvance(u, skill, false)) {
+    if (!advanceBefore && canAdvance(u, skill, false, g)) {
         g._giveMayAdvancePline = giveMayAdvancePlineText(skill);
     }
 }
