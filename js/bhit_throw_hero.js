@@ -10,30 +10,57 @@ import {
     SINK,
     IS_SOFT,
     OTYP_HEAVY_IRON_BALL,
+    OTYP_BOULDER,
     TT_WEB,
     A_STR,
     BOLT_LIM,
     P_CROSSBOW,
+    P_BOW,
+    P_DART,
+    P_SHURIKEN,
+    P_SPEAR,
+    P_KNIFE,
     Is_airlevel,
     NO_ROOM,
+    WT_IRON_BALL_INCR,
+    CORR,
+    ROOM,
+    DOOR,
+    D_NODOOR,
+    W_NONDIGGABLE,
 } from './const.js';
 import { isAmmo, ammoAndLauncherLikeC, weaponType, isPickLikeC } from './weapon_kind.js';
+import { acurr } from './attrib.js';
+import { CORPSE_OTYP } from './mkobj_corpse.js';
+import { isSpecialHeroUzLikeC } from './sp_levchn.js';
 import { isPoolCellLikeC } from './fillholetyp.js';
 import { OBJ_ROCK } from './mthrowu.js';
 import { rnd, rn2 } from './rng.js';
-import { raceptr, cantDrown, S_EEL } from './mondata.js';
+import { raceptr, stubPermonstForCorpsenm, cantDrown, S_EEL } from './mondata.js';
 import { pSkillDisplayName } from './skill_display_name.js';
 import { an } from './decor.js';
 import { nh5HeroObjectClass } from './water_damage.js';
-import { NH5_GEM_CLASS } from './nh5_objclass.js';
 import { pline, newsym } from './display.js';
 import { cansee } from './vision.js';
 import { doname } from './objnam.js';
-import { NH5_WEAPON_CLASS } from './nh5_objclass.js';
+import {
+    NH5_WEAPON_CLASS,
+    NH5_GEM_CLASS,
+    NH5_ARMOR_CLASS,
+    NH5_TOOL_CLASS,
+    NH5_ROCK_CLASS,
+    NH5_FOOD_CLASS,
+    NH5_SPBOOK_CLASS,
+    NH5_WAND_CLASS,
+    NH5_BALL_CLASS,
+    NH5_CHAIN_CLASS,
+    NH5_COIN_CLASS,
+    NH5_SCROLL_CLASS,
+} from './nh5_objclass.js';
 import { breaktestLikeC, heroBreaksObjLikeC, BRK_FROM_INV } from './obj_break_dothrow.js';
 import { flooreffectsObjAtLikeC } from './flooreffects_hero.js';
 import { placeFloorObjectInLevel, stackObjOnFloorInLevel } from './floorobj.js';
-import { checkShopObjAfterHeroPlaceLikeC, insideShopLevlRoomno, shkcatchThrownPickHeroLikeC } from './shop.js';
+import { checkShopObjAfterHeroPlaceLikeC, insideShopLevlRoomno, inRoomsShopbaseRoomnos, shkcatchThrownPickHeroLikeC } from './shop.js';
 import { isClosedDoorLoc } from './walkable.js';
 
 /** C: objects_nums — venom otyps for breakobj-style landing (dothrow.c throwit). */
@@ -124,9 +151,160 @@ function canspotMonThrownRockSkipLikeC(g, mtmp) {
     return cansee(mtmp.mx | 0, mtmp.my | 0);
 }
 
+/** C: monmove.c dissolve_bars + mthrowu.c hit_bars POT_ACID branch (subset: no switch_terrain). */
+async function dissolveBarsCellThrownHeroLikeC(g, bx, by) {
+    const loc = g.level?.at(bx | 0, by | 0);
+    if (!loc) return;
+    const inAnyRoom = inRoomsShopbaseRoomnos(g, bx | 0, by | 0).length > 0;
+    const spec = isSpecialHeroUzLikeC(g);
+    loc.typ = (loc.edge | 0) === 1 ? DOOR : spec || inAnyRoom ? ROOM : CORR;
+    if ((loc.typ | 0) === DOOR) loc.doormask = D_NODOOR;
+    loc.flags = 0;
+    await newsym(bx | 0, by | 0);
+}
+
+const OTYP_STATUE_BARS = 472;
+const OTYP_WAR_HAMMER_BARS = 77;
+const OTYP_POT_ACID_BARS = 319;
+const OTYP_RUBBER_HOSE_BARS = 79;
+const MZ_TINY_C = 0;
+
+const TOOL_OTYP_PASSES_IRON_BARS = new Set([
+    222, 223, 224, 225, 226, 232, 246, 247,
+]);
+
+const OC_MAT_CLOTH = 6;
+const OC_MAT_LEATHER = 7;
+const OC_MAT_SILVER = 14;
+const OC_MAT_GOLD = 15;
+
+const BAR_SOUND = ['', 'Whang', 'Whap', 'Flapp', 'Clink', 'Clonk'];
+
+function heroDeafThrownBars(g) {
+    return (g.u?.timed?.deaf ?? 0) > 0;
+}
+
+/** C: dothrow.c harmless_missile() subset for mthrowu.c hit_bars sound index. */
+function harmlessMissileHitBarsLikeC(obj) {
+    if (!obj) return false;
+    if ((obj.oclass | 0) === NH5_SCROLL_CLASS) return true;
+    const mat = obj.oc_material | 0;
+    if (mat === OC_MAT_CLOTH) return true;
+    return false;
+}
+
+/** C: obj.h is_flimsy (oc_material <= LEATHER || rubber hose). */
+function isFlimsyHitBarsLikeC(obj) {
+    if (!obj) return false;
+    const mat = obj.oc_material | 0;
+    if (mat > 0 && mat <= OC_MAT_LEATHER) return true;
+    return (obj.otyp | 0) === OTYP_RUBBER_HOSE_BARS;
+}
+
 /**
- * C: zap.c bhit — THROWN_WEAPON, fhitm/fhito null (subset: hits_bars, shade/mimic, tmp_at omitted; **`shkcatch`** wired for thrown **`is_pick`**).
- * @returns {Promise<{ x: number, y: number, mon: object|null, stuckWeb: boolean, shkCaught?: boolean }>}
+ * C: mthrowu.c hits_bars (whodidit −1 check omitted; hero throw uses hit_bars).
+ * @param {number} alwaysHit — C int: 0 use class switch, non-zero force hit
+ */
+function hitsBarsThrownMissileLikeC(obj, alwaysHit) {
+    if (!obj) return false;
+    if (alwaysHit) return true;
+    const oc = obj.oclass | 0;
+    const ot = obj.otyp | 0;
+    const sk = weaponType(obj);
+    switch (oc) {
+        case NH5_WEAPON_CLASS:
+            return (
+                sk !== -P_BOW
+                && sk !== -P_CROSSBOW
+                && sk !== -P_DART
+                && sk !== -P_SHURIKEN
+                && sk !== P_SPEAR
+                && sk !== P_KNIFE
+            );
+        case NH5_ARMOR_CLASS:
+            return true;
+        case NH5_TOOL_CLASS:
+            return !TOOL_OTYP_PASSES_IRON_BARS.has(ot);
+        case NH5_ROCK_CLASS:
+            if (ot !== OTYP_STATUE_BARS) return true;
+            return (stubPermonstForCorpsenm(obj.corpsenm | 0).msize | 0) > MZ_TINY_C;
+        case NH5_FOOD_CLASS:
+            if (ot === CORPSE_OTYP) {
+                return (stubPermonstForCorpsenm(obj.corpsenm | 0).msize | 0) > MZ_TINY_C;
+            }
+            return false;
+        case NH5_SPBOOK_CLASS:
+        case NH5_WAND_CLASS:
+        case NH5_BALL_CLASS:
+        case NH5_CHAIN_CLASS:
+            return true;
+        default:
+            return false;
+    }
+}
+
+/**
+ * C: mthrowu.c hit_bars (hero **`BRK_BY_HERO`** → **`hero_breaks`** without **`BRK_FROM_INV`**).
+ * @returns {Promise<{ consumed: boolean }>}
+ */
+async function hitBarsThrownHeroLikeC(g, obj, objx, objy, barsx, barsy) {
+    if (!obj) return { consumed: false };
+    const objType = obj.otyp | 0;
+    const barsLoc = g.level?.at(barsx | 0, barsy | 0);
+    const nodissolve = ((barsLoc?.wall_info | 0) & W_NONDIGGABLE) !== 0;
+
+    if (await heroBreaksObjLikeC(g, obj, objx | 0, objy | 0, 0)) {
+        if (objType === OTYP_POT_ACID_BARS) {
+            if (cansee(barsx | 0, barsy | 0) && !nodissolve) {
+                await pline('The iron bars are dissolved!');
+            } else {
+                await pline('You hear a hissing noise.');
+            }
+            if (!nodissolve) await dissolveBarsCellThrownHeroLikeC(g, barsx, barsy);
+        }
+        return { consumed: true };
+    }
+
+    if (!heroDeafThrownBars(g)) {
+        let bsindx =
+            objType === OTYP_BOULDER || objType === OTYP_HEAVY_IRON_BALL
+                ? 1
+                : harmlessMissileHitBarsLikeC(obj)
+                  ? 2
+                  : isFlimsyHitBarsLikeC(obj)
+                    ? 3
+                    : (obj.oclass | 0) === NH5_COIN_CLASS
+                        || (obj.oc_material | 0) === OC_MAT_GOLD
+                        || (obj.oc_material | 0) === OC_MAT_SILVER
+                      ? 4
+                      : BAR_SOUND.length - 1;
+        const snd = BAR_SOUND[bsindx] || 'Clonk';
+        await pline(`${snd}!`);
+    }
+
+    let noise = 0;
+    if (!(harmlessMissileHitBarsLikeC(obj) || isFlimsyHitBarsLikeC(obj))) noise = 4 * 4;
+
+    if ((obj.otyp | 0) === OTYP_WAR_HAMMER_BARS || (obj.otyp | 0) === OTYP_HEAVY_IRON_BALL) {
+        const spe =
+            (obj.otyp | 0) === OTYP_HEAVY_IRON_BALL
+                ? Math.trunc((obj.owt | 0) / WT_IRON_BALL_INCR)
+                : obj.spe | 0;
+        const chance = 60 - acurr(A_STR) - spe;
+        if (!rn2(Math.max(2, chance))) {
+            await pline('You break the bars apart!');
+            await dissolveBarsCellThrownHeroLikeC(g, barsx, barsy);
+            noise *= 2;
+        }
+    }
+
+    void noise;
+    return { consumed: false };
+}
+
+/**
+ * C: zap.c bhit — THROWN_WEAPON, fhitm/fhito null (subset: shade/mimic, tmp_at omitted; shkcatch, hits_bars, hit_bars).
+ * @returns {Promise<{ x: number, y: number, mon: object|null, stuckWeb: boolean, shkCaught?: boolean, objConsumed?: boolean }>}
  */
 export async function walkThrownWeaponBhitRayHeroLikeC(g, dx, dy, range0, obj) {
     const u = g.u;
@@ -151,6 +329,8 @@ export async function walkThrownWeaponBhitRayHeroLikeC(g, dx, dy, range0, obj) {
         skiprangeEnd = sr.skipend;
         allowSkip = !rn2(3);
     }
+
+    let pointBlank = true;
 
     while (range > 0) {
         range--;
@@ -178,10 +358,25 @@ export async function walkThrownWeaponBhitRayHeroLikeC(g, dx, dy, range0, obj) {
         if (IS_WATERWALL(typ) || typ === LAVAWALL) {
             break;
         }
-        if (typ === IRONBARS) {
-            bx -= ddx;
-            by -= ddy;
-            break;
+        if (typ === IRONBARS && obj) {
+            const prevX = bx - ddx;
+            const prevY = by - ddy;
+            const alwaysHit = pointBlank ? 0 : !rn2(5) ? 1 : 0;
+            if (hitsBarsThrownMissileLikeC(obj, alwaysHit)) {
+                const hb = await hitBarsThrownHeroLikeC(g, obj, prevX, prevY, bx, by);
+                bx = prevX;
+                by = prevY;
+                if (hb.consumed) {
+                    return {
+                        x: bx,
+                        y: by,
+                        mon: null,
+                        stuckWeb: false,
+                        objConsumed: true,
+                    };
+                }
+                break;
+            }
         }
 
         let mtmp = monAtCellG(g, bx, by);
@@ -247,6 +442,7 @@ export async function walkThrownWeaponBhitRayHeroLikeC(g, dx, dy, range0, obj) {
         if (typ === SINK) {
             break;
         }
+        pointBlank = false;
     }
 
     return { x: bx, y: by, mon: hitMon, stuckWeb };

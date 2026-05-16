@@ -123,6 +123,11 @@ export async function throwOneInventAdjacentLikeC(g = game) {
         return;
     }
 
+    if (land.objConsumed) {
+        g.context.move = 1;
+        return;
+    }
+
     if (land.mon) {
         const gone = await throwitMonHitThrownHeroLikeC(g, obj, land.mon);
         if (gone) {
