@@ -8,13 +8,40 @@ import { pline, newsym } from './display.js';
 import { unlinkFloorObject, floorObjKey } from './floorobj.js';
 import { cansee, vision_recalc } from './vision.js';
 import { delEngrAt } from './engrave.js';
-import { raceptr, passesWalls } from './mondata.js';
+import { raceptr, passesWalls, stubPermonstForCorpsenm, MR_FIRE, MR_SLEEP } from './mondata.js';
 import { heroPassesWalls } from './walkable.js';
 import { dist2 } from './hacklib.js';
 import { rn2 } from './rng.js';
 import { nhgetch } from './input.js';
-import { changeLuck } from './attrib.js';
-import { NH5_COIN_CLASS, NH5_FOOD_CLASS } from './nh5_objclass.js';
+import { changeLuck, acurr } from './attrib.js';
+import {
+    NH5_COIN_CLASS,
+    NH5_FOOD_CLASS,
+    NH5_GEM_CLASS,
+    NH5_ARMOR_CLASS,
+    NH5_WEAPON_CLASS,
+    NH5_TOOL_CLASS,
+    NH5_POTION_CLASS,
+    NH5_WAND_CLASS,
+} from './nh5_objclass.js';
+import {
+    A_CHA,
+    MAXULEV,
+    ismnum,
+    FIRE_RES,
+    SLEEP_RES,
+    COLD_RES,
+    DISINT_RES,
+    SHOCK_RES,
+    POISON_RES,
+    ACID_RES,
+    STONE_RES,
+    TELEPORT,
+    TELEPORT_CONTROL,
+    TELEPAT,
+} from './const.js';
+import { UHS } from './hunger.js';
+import { objectOcCost } from './obj_oc_cost_data.js';
 import { containedGold } from './u_init_hidden_gold.js';
 import {
     OROOM,
@@ -697,18 +724,292 @@ function shkpAngry(shkp) {
     return !(shkp?.mpeaceful | 0);
 }
 
-/** C: shk.c **`get_pricing_units`** — **`quan`**; **`globby`** weight pricing not ported. */
-function getPricingUnitsStolenBury(obj) {
-    return Math.max(1, obj.quan | 0);
+/** C: monflag.h `MR_*` — `mconveys` bits (eat.c **`intrinsic_possible`**). */
+const MR_COLD = 0x02;
+const MR_DISINT = 0x08;
+const MR_ELEC = 0x10;
+const MR_POISON = 0x20;
+const MR_ACID = 0x40;
+const MR_STONE = 0x80;
+/** C: monflag.h `G_UNIQ` — **`unique_corpstat`** (mondata.h). */
+const G_UNIQ = 0x1000;
+/** C: monflag.h `M1_TPORT` / `M1_TPORT_CNTRL` — mondata.h **`can_teleport`** / **`control_teleport`**. */
+const M1_TPORT = 0x02000000;
+const M1_TPORT_CNTRL = 0x04000000;
+
+/** C: objects.h — NH5 **`objects_nums`** (see **`water_damage.js`** / cpp OBJECTS_INIT cross-check). */
+const OTYP_CORPSE = 270;
+const OTYP_EGG = 266;
+const OTYP_TIN = 296;
+const OTYP_POT_WATER = 322;
+const OTYP_DUNCE_CAP = 94;
+const OTYP_HAWAIIAN_SHIRT = 136;
+const OTYP_TALLOW_CANDLE = 225;
+const OTYP_WAX_CANDLE = 226;
+/** C: objects.h `FIRST_GLASS_GEM` — worthless glass range. */
+const OTYP_FIRST_GLASS_GEM = 461;
+const OTYP_LAST_GLASS_GEM = 469;
+
+/** C: mondata.h **`can_teleport`** / **`control_teleport`**. */
+function canTeleportMon(ptr) {
+    return ((ptr?.mflags1 ?? 0) & M1_TPORT) !== 0;
+}
+function controlTeleportMon(ptr) {
+    return ((ptr?.mflags1 ?? 0) & M1_TPORT_CNTRL) !== 0;
+}
+
+/** C: mondata.h **`telepathic`** — `mons[]` identity (**`PM_*`** from **`monsters.h`** MON order). */
+function telepathicMon(ptr) {
+    const m = ptr?.mnum | 0;
+    return m === 29 || m === 50 || m === 51;
+}
+
+/** C: mondata.h **`unique_corpstat`** */
+function uniqueCorpstat(ptr) {
+    return ((ptr?.geno ?? 0) & G_UNIQ) !== 0;
 }
 
 /**
- * C: shk.c **`get_cost`** floor subset — **`getprice`** not ported; use **`obj.price`** or **5** minimum (**`tmp || 5`**).
+ * C: shk.c **`oid_price_adjustment`**
  * @param {object} obj
+ * @param {number} oid — unsigned **`o_id`**
  */
-function getCostStolenBuryUnit(obj) {
-    const pr = obj.price | 0;
-    return pr > 0 ? pr : 5;
+function oidPriceAdjustmentLikeC(obj, oid) {
+    const otyp = obj.otyp | 0;
+    const oclass = obj.oclass | 0;
+    if ((obj.dknown | 0) && objectOcNameKnownForShop(otyp, oclass)) return 0;
+    if (oclass === NH5_GEM_CLASS && objectMaterialIsGlassLikeC(otyp, oclass)) return 0;
+    return (oid >>> 0) % 4 === 0 ? 1 : 0;
+}
+
+/** C: `objects[otyp].oc_material == GLASS` — worthless glass **`otyp`** range matches NH5 table. */
+function objectMaterialIsGlassLikeC(otyp, oclass) {
+    const t = otyp | 0;
+    if ((oclass | 0) !== NH5_GEM_CLASS) return false;
+    return t >= OTYP_FIRST_GLASS_GEM && t <= OTYP_LAST_GLASS_GEM;
+}
+
+/**
+ * C: `objects[otyp].oc_name_known` — JS: non-gems known; gems unknown until a fuller discovery port.
+ * @param {number} otyp
+ * @param {number} oclass
+ */
+function objectOcNameKnownForShop(otyp, oclass) {
+    void otyp;
+    return (oclass | 0) !== NH5_GEM_CLASS;
+}
+
+/** C: eat.c **`intrinsic_possible`** — uses **`ptr->mconveys`**. */
+function intrinsicPossibleEatC(type, ptr) {
+    const cv = (ptr?.mconveys ?? ptr?.mresists ?? 0) | 0;
+    switch (type) {
+        case FIRE_RES:
+            return (cv & MR_FIRE) !== 0;
+        case SLEEP_RES:
+            return (cv & MR_SLEEP) !== 0;
+        case COLD_RES:
+            return (cv & MR_COLD) !== 0;
+        case DISINT_RES:
+            return (cv & MR_DISINT) !== 0;
+        case SHOCK_RES:
+            return (cv & MR_ELEC) !== 0;
+        case POISON_RES:
+            return (cv & MR_POISON) !== 0;
+        case ACID_RES:
+            return (cv & MR_ACID) !== 0;
+        case STONE_RES:
+            return (cv & MR_STONE) !== 0;
+        case TELEPORT:
+            return canTeleportMon(ptr);
+        case TELEPORT_CONTROL:
+            return controlTeleportMon(ptr);
+        case TELEPAT:
+            return telepathicMon(ptr);
+        default:
+            return false;
+    }
+}
+
+/** C: shk.c **`corpsenm_price_adj`** */
+function corpsenmPriceAdjLikeC(obj) {
+    const t = obj.otyp | 0;
+    const cm = obj.corpsenm | 0;
+    if ((t !== OTYP_TIN && t !== OTYP_EGG && t !== OTYP_CORPSE) || !ismnum(cm)) return 0;
+    const ptr = stubPermonstForCorpsenm(cm);
+    const icost = [
+        [FIRE_RES, 2],
+        [SLEEP_RES, 3],
+        [COLD_RES, 2],
+        [DISINT_RES, 5],
+        [SHOCK_RES, 4],
+        [POISON_RES, 2],
+        [ACID_RES, 1],
+        [STONE_RES, 3],
+        [TELEPORT, 2],
+        [TELEPORT_CONTROL, 3],
+        [TELEPAT, 5],
+    ];
+    let tmp = 1;
+    for (let i = 0; i < icost.length; i++) {
+        if (intrinsicPossibleEatC(icost[i][0], ptr)) tmp += icost[i][1];
+    }
+    if (uniqueCorpstat(ptr)) tmp += 50;
+    const mlevel = Math.max(0, (ptr.mlevel ?? 1) | 0);
+    let val = Math.max(1, (mlevel - 1) * 2);
+    if (t === OTYP_CORPSE) {
+        const nut = ptr.cnutrit | 0;
+        val += Math.max(1, Math.trunc(nut / 30));
+    }
+    val *= tmp;
+    return val;
+}
+
+/** C: artifact.c **`arti_cost`** — no **`artilist`** in JS yet: explicit **`cost`** or **`100 * oc_cost`**. */
+function artiCostLikeC(g, obj) {
+    const ax = obj.oartifact | 0;
+    if (!ax) return objectOcCost(obj.otyp | 0);
+    const row = g?.artilist?.[ax];
+    const c = row?.cost | 0;
+    if (c) return c;
+    return 100 * (objectOcCost(obj.otyp | 0) | 0);
+}
+
+/** C: obj.h **`Is_candle`** — tallow / wax candle **`otyp`**s. */
+function isCandleOtyp(otyp) {
+    const t = otyp | 0;
+    return t === OTYP_TALLOW_CANDLE || t === OTYP_WAX_CANDLE;
+}
+
+/**
+ * C: shk.c **`getprice`**
+ * @param {import('./gstate.js').game} g
+ * @param {object} obj
+ * @param {boolean} shkBuying
+ */
+function getpriceLikeC(g, obj, shkBuying) {
+    let tmp = objectOcCost(obj.otyp | 0);
+    if (obj.oartifact | 0) {
+        tmp = artiCostLikeC(g, obj);
+        if (shkBuying) tmp = Math.trunc(tmp / 4);
+    }
+    const oc = obj.oclass | 0;
+    switch (oc) {
+        case NH5_FOOD_CLASS: {
+            tmp += corpsenmPriceAdjLikeC(obj);
+            const uhs = g.u?.uhs | 0;
+            if (uhs >= UHS.HUNGRY && !shkBuying) tmp *= uhs;
+            if (obj.oeaten | 0) tmp = 0;
+            break;
+        }
+        case NH5_WAND_CLASS:
+            if ((obj.spe | 0) === -1) tmp = 0;
+            break;
+        case NH5_POTION_CLASS:
+            if ((obj.otyp | 0) === OTYP_POT_WATER && !(obj.blessed | 0) && !(obj.cursed | 0)) tmp = 0;
+            break;
+        case NH5_ARMOR_CLASS:
+        case NH5_WEAPON_CLASS:
+            if ((obj.spe | 0) > 0) tmp += 10 * (obj.spe | 0);
+            break;
+        case NH5_TOOL_CLASS:
+            if (isCandleOtyp(obj.otyp | 0)) {
+                const base = objectOcCost(obj.otyp | 0);
+                if ((obj.age | 0) < 20 * base) tmp = Math.trunc(tmp / 2);
+            }
+            break;
+        default:
+            break;
+    }
+    return tmp;
+}
+
+/**
+ * C: shk.c **`get_cost`** — shop charge to hero (**`getprice(..., FALSE)`** + adjustments + angry surcharge).
+ * @param {import('./gstate.js').game} g
+ * @param {object} obj
+ * @param {object|null} shkp
+ */
+function getCostStolenBuryUnit(g, obj, shkp) {
+    let tmp = getpriceLikeC(g, obj, false);
+    if (!tmp) tmp = 5;
+    let multiplier = 1;
+    let divisor = 1;
+    const otyp = obj.otyp | 0;
+    const oclass = obj.oclass | 0;
+    const oid = (obj.o_id ?? 0) >>> 0;
+    if (!(obj.dknown | 0) || !objectOcNameKnownForShop(otyp, oclass)) {
+        if (oclass === NH5_GEM_CLASS && objectMaterialIsGlassLikeC(otyp, oclass)) {
+            const u = g.u;
+            const birthday = (u?.ubirthday != null ? u.ubirthday >>> 0 : 0x9e3779b9) >>> 0;
+            const pseudorand = (birthday % otyp) >= otyp / 2;
+            const sw = [
+                [440, 452],
+                [443, 448],
+                [441, 456],
+                [449, 450],
+                [442, 459],
+                [447, 453],
+                [444, 451],
+                [445, 460],
+                [455, 457],
+            ];
+            const idx = otyp - OTYP_FIRST_GLASS_GEM;
+            let repl = 440;
+            if (idx >= 0 && idx < sw.length) {
+                const [a, b] = sw[idx];
+                repl = pseudorand ? a : b;
+            }
+            tmp = objectOcCost(repl);
+        } else if (oidPriceAdjustmentLikeC(obj, oid) > 0) {
+            multiplier *= 4;
+            divisor *= 3;
+        }
+    }
+    const u = g.u;
+    const uarmh = u?.uarmh;
+    if (uarmh && (uarmh.otyp | 0) === OTYP_DUNCE_CAP) {
+        multiplier *= 4;
+        divisor *= 3;
+    } else if (
+        (u?.urole?.abbr === 'Tou' && (u?.ulevel | 0) < Math.trunc(MAXULEV / 2))
+        || (u?.uarmu && !u?.uarm && !u?.uarmc && (u.uarmu.otyp | 0) === OTYP_HAWAIIAN_SHIRT)
+    ) {
+        multiplier *= 4;
+        divisor *= 3;
+    }
+    const cha = acurr(A_CHA);
+    if (cha > 18) divisor *= 2;
+    else if (cha === 18) {
+        multiplier *= 2;
+        divisor *= 3;
+    } else if (cha >= 16) {
+        multiplier *= 3;
+        divisor *= 4;
+    } else if (cha <= 5) multiplier *= 2;
+    else if (cha <= 7) {
+        multiplier *= 3;
+        divisor *= 2;
+    } else if (cha <= 10) {
+        multiplier *= 4;
+        divisor *= 3;
+    }
+    tmp *= multiplier;
+    if (divisor > 1) {
+        tmp *= 10;
+        tmp = Math.trunc(tmp / divisor);
+        tmp += 5;
+        tmp = Math.trunc(tmp / 10);
+    }
+    if (tmp <= 0) tmp = 1;
+    if (obj.oartifact | 0) tmp *= 4;
+    const e = shkp ? ESHK(shkp) : null;
+    if (shkp && e && (e.surcharge | 0)) tmp += Math.trunc((tmp + 2) / 3);
+    return tmp | 0;
+}
+
+/** C: shk.c **`get_pricing_units`** — **`quan`**; **`globby`** weight pricing not ported. */
+function getPricingUnitsStolenBury(obj) {
+    return Math.max(1, obj.quan | 0);
 }
 
 /**
@@ -748,7 +1049,7 @@ function containerTopForContainedCost(obj) {
 
 /**
  * C: **`shk.c`** **`contained_cost`** — floor buy branch (**`usell` FALSE**) for **`billable`** / bury;
- * **`get_cost`** via **`getCostStolenBuryUnit`**; **`usell` TRUE** ( **`set_cost`/`saleable`**) not ported (no add, still recurses).
+ * **`get_cost`** via **`getCostStolenBuryUnit`** (**`getprice`** + **`oid_price_adjustment`** + Cha / dunce / tourist shirt + angry surcharge); **`usell` TRUE** ( **`set_cost`/`saleable`**) not ported (no add, still recurses).
  * @param {import('./gstate.js').game} g
  * @param {boolean} usell — C **`usell`**
  * @param {boolean} unpaidOnly — C **`unpaid_only`**
@@ -777,7 +1078,7 @@ function containedCostStolenBury(g, obj, shkp, price, usell, unpaidOnly) {
         } else if (onFloor
             ? (!(otmp.no_charge | 0) && !freespot)
             : ((otmp.unpaid | 0) || !unpaidOnly)) {
-            out += getPricingUnitsStolenBury(otmp) * getCostStolenBuryUnit(otmp);
+            out += getPricingUnitsStolenBury(otmp) * getCostStolenBuryUnit(g, otmp, shkp);
         }
         if (Has_contents(otmp)) {
             out = containedCostStolenBury(g, otmp, shkp, out, usell, unpaidOnly);
@@ -962,7 +1263,7 @@ function stolenContainerMerchBurySilent(g, obj, shkp, ininv) {
         if (billamt) {
             price += billamt;
         } else if (ininv ? !!(otmp.unpaid | 0) : !(otmp.no_charge | 0)) {
-            price += getPricingUnitsStolenBury(otmp) * getCostStolenBuryUnit(otmp);
+            price += getPricingUnitsStolenBury(otmp) * getCostStolenBuryUnit(g, otmp, shkp);
         }
         if (Has_contents(otmp)) price += stolenContainerMerchBurySilent(g, otmp, shkp, ininv);
     }
@@ -972,9 +1273,9 @@ function stolenContainerMerchBurySilent(g, obj, shkp, ininv) {
 /**
  * C: shk.c **`stolen_value`** subset for **`dig.c`** **`bury_objs`** (**`silent` TRUE**):
  * **`find_objowner`** → **`roomno`** (else first **`in_rooms`** shop room); coin **`quan`**;
- * **`billable`/`onbill`/`sub_one_frombill`** then **`get_pricing_units * get_cost`**;
+ * **`billable`/`onbill`/`sub_one_frombill`** then **`get_pricing_units * get_cost`** (**`obj_oc_cost_data.js`** **`oc_cost`**, **`shk.c`** **`getprice`** + **`get_cost`** including angry **`surcharge`**);
  * **`Has_contents`** → **`stolen_container`** + **`contained_gold(obj, TRUE)`** (floor **`ininv` FALSE**).
- * Still TODO: full **`get_cost`** / **`getprice`** ( **`usell`** **`set_cost`/`saleable`** in **`contained_cost`**), angry surcharge, C phantom bill row.
+ * Still TODO: **`usell`** **`set_cost`/`saleable`** in **`contained_cost`**, real **`mons[]`** + **`cnutrit`** for **`corpsenm_price_adj`**, C phantom bill row, **`addtobill`**.
  * @param {object | null} shkpFallback — C bury path has tile shk; used when **`billable`** leaves **`shkp` unset**.
  * @param {boolean} silent — C **`silent`** (suppresses per-object **`You`** / thief **`Norep`**; **`check_credit`** still plines like C)
  */
@@ -1017,7 +1318,7 @@ export async function stolenValueMerchBurySilent(g, obj, x, y, shkpFallback, sil
         if (billamt) {
             value += billamt;
         } else if (!(obj.no_charge | 0)) {
-            value += getPricingUnitsStolenBury(obj) * getCostStolenBuryUnit(obj);
+            value += getPricingUnitsStolenBury(obj) * getCostStolenBuryUnit(g, obj, shkActive);
         }
         if (Has_contents(obj)) {
             value += stolenContainerMerchBurySilent(g, obj, shkActive, false);

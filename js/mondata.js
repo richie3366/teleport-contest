@@ -52,7 +52,8 @@ export function stubPermonstForCorpsenm(mnum) {
     if (isTrollCorpsenm(m)) mlet = S_TROLL;
     else if (m === PM_LIZARD) mlet = S_LIZARD;
     else if (m === PM_LICHEN) mlet = S_FUNGUS;
-    return { ...permonstHuman, mlet, mnum: m };
+    /* C: permonst `cnutrit` / `mconveys` / `geno` — shk.c corpse/tin/egg pricing; eat.c intrinsic_possible */
+    return { ...permonstHuman, mlet, mnum: m, cnutrit: 0, mconveys: 0, geno: 0 };
 }
 
 /**
