@@ -66,10 +66,10 @@ function paintResetRoleFilterHelpOverlay(disp) {
         'Toggled [x] entries are excluded like setrolefilter() after Enter.',
         gotChargenRfilterLikeC()
             ? 'C also allows unpicking entries that no longer apply.'
-            : 'Empty selection after Enter clears all filters (C n==0).',
+            :         'Empty selection after Enter clears all filters (C n==0).',
         '',
         'Accelerators match role.c setup_*menu(FALSE): roles a/A, races H…',
-        'Keys: < > scroll  Enter apply  ESC cancel — press any key…',
+        'Keys: < > scroll  Enter apply  ESC cancel (no filter/facet change) — any key…',
     ];
     for (let i = 0; i < lines.length; i++) {
         const t = lines[i].length > 80 ? lines[i].slice(0, 80) : lines[i];
@@ -122,13 +122,13 @@ function buildResetFilterMenuEntriesLikeC() {
 }
 
 /**
- * C reset_role_filtering() — multi-toggle unacceptable facets; Enter applies
- * (clearrolefilter then setrolefilter per token), ESC cancels without changing
- * rfilter. Clears all four chargen facets like C after RS_filter.
- * Accelerators: role.c setup_rolemenu/setup_racemenu/setup_gendmenu/setup_algnmenu
- * with filtering=FALSE (plus collision fallback digits).
+ * C role.c reset_role_filtering() + select_menu(PICK_ANY): Enter applies
+ * (n>=0 → clearrolefilter, setrolefilter per selected, ROLE=RACE=GEND=ALGN=NONE);
+ * ESC → n<0 skips that block (filters and facets unchanged). Return (n>0).
+ * Accelerators: setup_*menu(FALSE) (plus collision fallback digits).
  * @param {import('./game_display.js').GameDisplay} disp
  * @param {{ initrole: number, initrace: number, initgend: number, initalign: number }} f
+ * @returns {Promise<boolean>} C truth value: true iff applied with at least one selection.
  */
 async function runResetRoleFilteringMenuLikeC(disp, f) {
     const entries = buildResetFilterMenuEntriesLikeC();
@@ -155,6 +155,9 @@ async function runResetRoleFilteringMenuLikeC(disp, f) {
     const VIEW_H = 16;
     const maxScroll = Math.max(0, entries.length - VIEW_H);
     let scroll = 0;
+    let applied = false;
+    /** C select_menu count n (selected rows) at apply time. */
+    let nApplied = 0;
 
     for (;;) {
         disp.clearScreen();
@@ -172,8 +175,8 @@ async function runResetRoleFilteringMenuLikeC(disp, f) {
             row++;
         }
         const foot = maxScroll > 0
-            ? `Pick all that apply (scroll ${scroll + 1}/${maxScroll + 1})`
-            : 'Pick all that apply (C end_menu)';
+            ? `Enter apply  ESC cancel (C n<0) — scroll ${scroll + 1}/${maxScroll + 1}`
+            : 'Enter apply  ESC cancel (C n<0) — C end_menu';
         disp.putstr(0, 22, foot.length > 80 ? foot.slice(0, 80) : foot, NO_COLOR);
         disp.putstr(0, 23, '', NO_COLOR);
         disp.cursorVisible = true;
@@ -182,6 +185,8 @@ async function runResetRoleFilteringMenuLikeC(disp, f) {
         const c = await nhgetch();
         if (c === 27) break;
         if (c === 13 || c === 10) {
+            applied = true;
+            nApplied = selected.size;
             clearChargenRfilterLikeC();
             for (const e of entries) {
                 if (selected.has(e.token)) trySetrolefilterTokenLikeC(e.token);
@@ -209,10 +214,14 @@ async function runResetRoleFilteringMenuLikeC(disp, f) {
         }
     }
 
-    f.initrole = ROLE_NONE;
-    f.initrace = ROLE_NONE;
-    f.initgend = ROLE_NONE;
-    f.initalign = ROLE_NONE;
+    if (applied) {
+        f.initrole = ROLE_NONE;
+        f.initrace = ROLE_NONE;
+        f.initgend = ROLE_NONE;
+        f.initalign = ROLE_NONE;
+        return nApplied > 0;
+    }
+    return false;
 }
 
 function lowc(ch) {
@@ -471,12 +480,13 @@ async function readRaceChoice(disp, f) {
         paintRaceMenu(disp, f);
         const c = await nhgetch();
         const k = lowc(String.fromCodePoint(c));
-        if (k === '~') {
-            await runResetRoleFilteringMenuLikeC(disp, f);
-            continue;
-        }
-        if (k === '*') {
-            const t = pickRaceJs(f.initrole, f.initgend, f.initalign, PICK_RANDOM);
+            if (k === '~') {
+                f.initrace = ROLE_NONE;
+                await runResetRoleFilteringMenuLikeC(disp, f);
+                continue;
+            }
+            if (k === '*') {
+                const t = pickRaceJs(f.initrole, f.initgend, f.initalign, PICK_RANDOM);
             if (t !== ROLE_NONE) return t;
             continue;
         }
@@ -531,6 +541,7 @@ async function readGenderChoice(disp, f) {
         const c = await nhgetch();
         const k = lowc(String.fromCodePoint(c));
         if (k === '~') {
+            f.initgend = ROLE_NONE;
             await runResetRoleFilteringMenuLikeC(disp, f);
             continue;
         }
@@ -592,6 +603,7 @@ async function readAlignChoice(disp, f) {
         const c = await nhgetch();
         const k = lowc(String.fromCodePoint(c));
         if (k === '~') {
+            f.initalign = ROLE_NONE;
             await runResetRoleFilteringMenuLikeC(disp, f);
             continue;
         }
@@ -663,6 +675,7 @@ async function pickManualChargenFacets(disp, f) {
             const k = lowc(kRaw);
             if (k === 'q') throw new Error('Player quit role menu');
             if (k === '~') {
+                f.initrole = ROLE_NONE;
                 await runResetRoleFilteringMenuLikeC(disp, f);
                 continue;
             }
