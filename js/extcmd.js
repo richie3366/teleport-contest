@@ -13,7 +13,7 @@ import { ZT_SPELL, ZT_COLD, ZT_WAND } from './zap_over_floor.js';
 import {
     ubuzzOverFloor,
     mbuzzTowardHeroFromFacingNeighbor,
-    wandMbuzzTypeFromOtyp,
+    mbuzzOffensiveWandFromMonsterTowardMux,
     BZ_M_BREATH,
     BZ_OFS_AD,
     AD_COLD,
@@ -77,8 +77,24 @@ export async function runExtcmdFromHashPrefix() {
         return;
     }
     if (ch2 === 'm' && game.flags?.wizard) {
-        /* C: muse.c **`use_offensive`** — **`BZ_M_WAND(BZ_OFS_WAN(WAN_COLD))`** toward hero. */
-        if (!(await mbuzzTowardHeroFromFacingNeighbor(game, wandMbuzzTypeFromOtyp(WAN_COLD), 6))) {
+        /* C: muse.c **`use_offensive`** ray wand — same geometry as neighbor harness (**`mx,my`→`mux,muy`**). */
+        const u = game.u;
+        let ok = false;
+        if (u) {
+            const dx0 = u.dx | 0;
+            const dy0 = u.dy | 0;
+            if (dx0 !== 0 || dy0 !== 0) {
+                const mtmp = {
+                    mx: (u.ux + dx0) | 0,
+                    my: (u.uy + dy0) | 0,
+                    mux: u.ux | 0,
+                    muy: u.uy | 0,
+                    mwandexp: 1,
+                };
+                ok = await mbuzzOffensiveWandFromMonsterTowardMux(game, mtmp, WAN_COLD);
+            }
+        }
+        if (!ok) {
             await pline('Nothing happens.');
             game._retainMessageAfterCommand = true;
         }

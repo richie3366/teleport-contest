@@ -7,6 +7,7 @@
 
 import { zapOverFloorAlongRay, ZT_WAND } from './zap_over_floor.js';
 import { isok } from './const.js';
+import { rn1 } from './rng.js';
 
 /** C: objects.h — first RAY wand after **`WAN_DIGGING`** ( **`mklev.js`** pins digging at **305**). */
 export const WAN_MAGIC_MISSILE = 306;
@@ -146,9 +147,82 @@ export async function mbuzzOverFloor(g, type, _nd, sx, sy, dx, dy, maxRange, sho
 }
 
 /**
+ * C: **`muse.c`** **`use_offensive`** + **`zap.c`** **`buzz`** — ray from **`(mx,my)`** toward **`(mux,muy)`**;
+ * first floor tile is **`(mx+dx,my+dy)`** (**`zapOverFloorAlongRay`** loop **`i >= 1`**).
+ *
+ * **`mux`/`muy`** default to hero (**`g.u`**) when absent, like a monster targeting **`u`**.
+ *
+ * @param {import('./gstate.js').game} g
+ * @param {Record<string, unknown>|null|undefined} mtmp
+ * @param {number} buzzType — **`BZ_M_*`** or hero **`ZT_*`**
+ * @param {number} _nd — C **`dobuzz`** nd; reserved for **`zhitm`**
+ * @param {number} [maxRange]
+ * @param {{ value?: boolean }|null} [shopdamageRef]
+ * @returns {Promise<boolean>} false if no **`mtmp`**, aim **(0,0)**, or **`!isok(mx,my)`**
+ */
+export async function mbuzzFromMonsterTowardMux(g, mtmp, buzzType, _nd, maxRange, shopdamageRef = null) {
+    if (!mtmp) return false;
+    const mx = mtmp.mx | 0;
+    const my = mtmp.my | 0;
+    if (!isok(mx, my)) return false;
+    const u = g.u;
+    const hasMux = mtmp.mux !== undefined && mtmp.mux !== null;
+    const hasMuy = mtmp.muy !== undefined && mtmp.muy !== null;
+    const mux = hasMux ? mtmp.mux | 0 : (u ? u.ux | 0 : mx);
+    const muy = hasMuy ? mtmp.muy | 0 : (u ? u.uy | 0 : my);
+    const dx = sgn(mux - mx);
+    const dy = sgn(muy - my);
+    if (dx === 0 && dy === 0) return false;
+    await mbuzzOverFloor(g, buzzType, _nd, mx, my, dx, dy, maxRange, shopdamageRef);
+    return true;
+}
+
+/** C: **`muse.c`** **`use_offensive`** — ray wand **`nd`** (**`WAN_MAGIC_MISSILE`** → **2**, else **6**). */
+export function museOffensiveRayWandNdLikeC(otyp) {
+    return (otyp | 0) === WAN_MAGIC_MISSILE ? 2 : 6;
+}
+
+/**
+ * C: **`muse.c`** **`use_offensive`** — **`MUSE_WAN_DEATH`** … **`MUSE_WAN_MAGIC_MISSILE`**:
+ * **`buzz(BZ_M_WAND(BZ_OFS_WAN(otyp)), nd, mx, my, sgn(mux-mx), sgn(muy-my))`** (floor slice).
+ * Sets **`mtmp.mwandexp`** when a beam is emitted (**`C`** trains monster after zapping).
+ * Omits **`precheck`** / **`mzapwand`** / **`buzz`** vs **`buzz_force_miss`** (**`zhitm`** / charges).
+ *
+ * @param {import('./gstate.js').game} g
+ * @param {Record<string, unknown>} mtmp
+ * @param {number} otyp — wand **`otyp`**
+ * @param {{ value?: boolean }|null} [shopdamageRef]
+ */
+export async function mbuzzOffensiveWandFromMonsterTowardMux(g, mtmp, otyp, shopdamageRef = null) {
+    const type = wandMbuzzTypeFromOtyp(otyp);
+    const nd = museOffensiveRayWandNdLikeC(otyp);
+    const ok = await mbuzzFromMonsterTowardMux(g, mtmp, type, nd, undefined, shopdamageRef);
+    if (ok && mtmp && typeof mtmp === 'object') mtmp.mwandexp = 1;
+    return ok;
+}
+
+/**
+ * C: **`muse.c`** **`use_offensive`** — **`MUSE_FIRE_HORN`** / **`MUSE_FROST_HORN`**:
+ * **`buzz(BZ_M_WAND(BZ_OFS_AD(AD_FIRE|AD_COLD)), rn1(6,6), mx, my, …)`** (floor slice; **`nd`** reserved).
+ *
+ * @param {import('./gstate.js').game} g
+ * @param {Record<string, unknown>} mtmp
+ * @param {boolean} frost — **`FROST_HORN`** vs **`FIRE_HORN`**
+ * @param {{ value?: boolean }|null} [shopdamageRef]
+ */
+export async function mbuzzOffensiveMagicHornFromMonsterTowardMux(g, mtmp, frost, shopdamageRef = null) {
+    const nd = rn1(6, 6);
+    const ad = frost ? AD_COLD : AD_FIRE;
+    const type = hornMbuzzTypeFromAd(ad);
+    const ok = await mbuzzFromMonsterTowardMux(g, mtmp, type, nd, undefined, shopdamageRef);
+    if (ok && mtmp && typeof mtmp === 'object') mtmp.mwandexp = 1;
+    return ok;
+}
+
+/**
  * Wizard harness: virtual monster on **`(u.ux+u.dx, u.uy+u.dy)`** zaps toward the hero
- * (**`muse.c`** **`sgn(u.ux-mx)`**, **`sgn(u.uy-my)`**).
- * @returns {boolean} false if **`u.dx`=`u.dy`=0`**, bad **`(sx,sy)`**, or aim **(0,0)**
+ * (**`muse.c`** aim **`sgn(u.ux-mx)`**, **`sgn(u.uy-my)`** — same as **`mbuzzFromMonsterTowardMux`**).
+ * @returns {Promise<boolean>} false if **`u.dx`=`u.dy`=0`**, bad neighbor, or aim **(0,0)**
  */
 export async function mbuzzTowardHeroFromFacingNeighbor(g, type, nd = 6, maxRange, shopdamageRef = null) {
     const u = g.u;
@@ -159,9 +233,6 @@ export async function mbuzzTowardHeroFromFacingNeighbor(g, type, nd = 6, maxRang
     const sx = (u.ux + dx0) | 0;
     const sy = (u.uy + dy0) | 0;
     if (!isok(sx, sy)) return false;
-    const mdx = sgn((u.ux | 0) - sx);
-    const mdy = sgn((u.uy | 0) - sy);
-    if (mdx === 0 && mdy === 0) return false;
-    await mbuzzOverFloor(g, type, nd, sx, sy, mdx, mdy, maxRange, shopdamageRef);
-    return true;
+    const mtmp = { mx: sx, my: sy, mux: u.ux | 0, muy: u.uy | 0 };
+    return mbuzzFromMonsterTowardMux(g, mtmp, type, nd, maxRange, shopdamageRef);
 }
