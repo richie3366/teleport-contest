@@ -537,6 +537,54 @@ function roleHubRightColumnLikeC(f) {
     return f.initrace >= 0 || f.initgend >= 0 || f.initalign >= 0;
 }
 
+/**
+ * C role.c `role_menu_extra(RS_RACE|RS_GENDER|RS_ALGNMNT)` — `Pick%s %s first`
+ * with `" another"` only when that facet index is already set (seed0012: lawful-only
+ * hub still says `Pick race first` / `Pick gender first` but `Pick another alignment first`).
+ */
+function roleHubPickRaceFirstLineLikeC(f) {
+    return `/ - Pick${f.initrace >= 0 ? ' another' : ''} race first`;
+}
+function roleHubPickGenderFirstLineLikeC(f) {
+    return `" - Pick${f.initgend >= 0 ? ' another' : ''} gender first`;
+}
+function roleHubPickAlignFirstLineLikeC(f) {
+    return `[ - Pick${f.initalign >= 0 ? ' another' : ''} alignment first`;
+}
+
+/** C `role_menu_extra` on align hub — no `[` row; `?`/`/`/`"` use the same `Pick%s … first` rule. */
+function alignMenuPickRoleFirstLineLikeC(f) {
+    return `? - Pick${f.initrole >= 0 ? ' another' : ''} role first`;
+}
+function alignMenuPickRaceFirstLineLikeC(f) {
+    return `/ - Pick${f.initrace >= 0 ? ' another' : ''} race first`;
+}
+function alignMenuPickGenderFirstLineLikeC(f) {
+    return `" - Pick${f.initgend >= 0 ? ' another' : ''} gender first`;
+}
+
+/** C role.c `maybe_skip_seps` — line budget for 24-row tty; returns excess line count. */
+function maybeRoleMenuExcessLinesLikeC(f) {
+    const ttyrows = 24;
+    const rai = f.initrace >= 0 ? f.initrace : ROLE_RANDOM;
+    const gi = f.initgend >= 0 ? f.initgend : ROLE_RANDOM;
+    const ai = f.initalign >= 0 ? f.initalign : ROLE_RANDOM;
+    let n = 4;
+    for (let i = 0; i < roles.length; i++) {
+        if (
+            okRoleJs(i, rai, gi, ai)
+            && okRaceJs(i, rai, gi, ai)
+            && okGendJs(i, rai, gi, ai)
+            && okAlignJs(i, rai, gi, ai)
+        ) {
+            n++;
+        }
+    }
+    n += 2 + 5 + 1;
+    if (ttyrows > 0 && n > ttyrows) return n - ttyrows;
+    return 0;
+}
+
 export function paintRoleMenu(disp, f) {
     disp.clearScreen();
     const rc = roleHubRightColumnLikeC(f) ? MENU_COL : 0;
@@ -549,7 +597,9 @@ export function paintRoleMenu(disp, f) {
         disp.putstr(rc, 0, 'Pick a role or profession', NO_COLOR, ATR_INVERSE);
         disp.putstr(rc, 2, recap, NO_COLOR);
     }
-    let row = 4;
+    const excess = maybeRoleMenuExcessLinesLikeC(f);
+    /* C plsel_startmenu: if excess==2, omit blank between recap and role list. */
+    let row = excess >= 2 ? 3 : 4;
     for (const e of roleMenuEntries(f)) {
         if (rc === 0) disp.putstr(0, row, ` ${e.ch} - ${e.art} ${e.label}`, NO_COLOR);
         else disp.putstr(rc, row, `${e.ch} - ${e.art} ${e.label}`, NO_COLOR);
@@ -557,9 +607,9 @@ export function paintRoleMenu(disp, f) {
     }
     const extras = [
         '* * Random',
-        '/ - Pick race first',
-        '" - Pick gender first',
-        '[ - Pick alignment first',
+        roleHubPickRaceFirstLineLikeC(f),
+        roleHubPickGenderFirstLineLikeC(f),
+        roleHubPickAlignFirstLineLikeC(f),
         filterMenuExtraLine(),
         'q - Quit',
         '(end)',
@@ -786,11 +836,11 @@ function paintAlignMenu(disp, f) {
     row++;
     disp.putstr(MENU_COL, row, '', NO_COLOR);
     row++;
-    disp.putstr(MENU_COL, row, '? - Pick role first', NO_COLOR);
+    disp.putstr(MENU_COL, row, alignMenuPickRoleFirstLineLikeC(f), NO_COLOR);
     row++;
-    disp.putstr(MENU_COL, row, '/ - Pick race first', NO_COLOR);
+    disp.putstr(MENU_COL, row, alignMenuPickRaceFirstLineLikeC(f), NO_COLOR);
     row++;
-    disp.putstr(MENU_COL, row, '" - Pick gender first', NO_COLOR);
+    disp.putstr(MENU_COL, row, alignMenuPickGenderFirstLineLikeC(f), NO_COLOR);
     row++;
     disp.putstr(MENU_COL, row, filterMenuExtraLine(), NO_COLOR);
     row++;
