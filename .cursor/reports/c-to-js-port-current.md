@@ -9,7 +9,7 @@ Thin handoff for the next coding session. Deep parity tables and history: [`c-to
 - **Plain ES modules**, no build/WASM/network in contest code; RNG via `js/rng.js`; match **clang** evaluation order for multi-call expressions.
 - API: [`docs/API.md`](../../docs/API.md); overview: [`README.md`](../../README.md).
 
-**Last slice:** **`zap.c`** **`maybe_destroy_item`** — visible monster (**`canseemon`** / JS **`visMon`**) losing **`dknown`** scrolls to AD_FIRE: **`discoverScrollOtyp`** before pline (**`js/destroy_items.js`** **`maybeDestroyItemMonFire`**), matching hero **`maybeDestroyItemHeroFire`**. **`npm run score`:** not rerun (no RNG path change; **`Set`** update only).
+**Last slice:** **`zap.c`** **`maybe_destroy_item`** — visible monster (**`canseemon`** / JS **`visMon`**) losing **`dknown`** scrolls to AD_FIRE: **`discoverScrollOtyp`** before pline (**`js/destroy_items.js`** **`maybeDestroyItemMonFire`**), matching hero **`maybeDestroyItemHeroFire`**. **`npm run score`:** not rerun this slice (no RNG path change); last run **0/44**; **`seed0060`** RNG **991/3626**.
 
 ## Next steps (highest impact from latest fire/lava work)
 
