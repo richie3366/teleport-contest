@@ -3,8 +3,8 @@
 //        do.c boulder_hits_pool(), mkobj.c obj_ice_effects(), dig.c unearth_objs(),
 //        mon.c minliquid() (subset).
 //
-// Still TODO vs C: full **`obj_timer_checks`** / buried **`obj_ice_effects`**;
-// **`bury_objs`**/**`unearth_objs`**: per-cell **`buriedObjHeads`** (**`dig.c`** subset; no shop billing);
+// Still TODO vs C: full **`obj_timer_checks`** / **`restart_timer`** on corpses;
+// **`bury_objs`** shop **`stolen_value`** / **`no_charge`**;
 // beam/breath vectors along paths; fuller **`boulder_hits_pool`** / **`minliquid`** / **`spoteffects`**.
 
 import { pline, newsym } from './display.js';
@@ -58,12 +58,17 @@ import {
 const OTYP_LAND_MINE = 244;
 const OTYP_BEARTRAP = 245;
 
-/** C: mkobj.c obj_ice_effects(x, y, FALSE) — floor chain; buried omitted. */
-function objIceEffectsAt(g, x, y) {
-    const head = g.level?.floorObjHeads?.get(floorObjKey(x, y));
+/** C: mkobj.c **`ROT_ICE_ADJUSTMENT`** */
+const ROT_ICE_ADJUSTMENT = 2;
+
+/**
+ * C: mkobj.c **`obj_timer_checks`** corpse-off-ice age tail (**`on_ice`** clear) — one **`nexthere`** chain.
+ * @param {import('./gstate.js').game} g
+ * @param {unknown} chainHead
+ */
+function objIceCorpsesOffIceChain(g, chainHead) {
     const moves = g.moves ?? 0;
-    const ROT_ICE_ADJUSTMENT = 2; /* C: mkobj.c ROT_ICE_ADJUSTMENT */
-    for (let o = head; o; o = o.nexthere) {
+    for (let o = /** @type {any} */ (chainHead); o; o = o.nexthere) {
         if ((o.otyp | 0) !== CORPSE_OTYP || !o.on_ice) continue;
         /* C: obj_timer_checks — corpse coming off ice */
         o.on_ice = 0;
@@ -73,6 +78,18 @@ function objIceEffectsAt(g, x, y) {
             /* C: restart_timer after stop_timer — not ported for JS object timers */
         }
     }
+}
+
+/** C: mkobj.c **`obj_ice_effects(x, y, FALSE)`** — floor chain only ( **`nexthere`**). */
+function objIceEffectsAt(g, x, y) {
+    const head = g.level?.floorObjHeads?.get(floorObjKey(x, y));
+    objIceCorpsesOffIceChain(g, head);
+}
+
+/** C: mkobj.c **`obj_ice_effects`** buried pass — same off-ice corpse math before **`unearth_objs`**. */
+function objIceEffectsOffIceBuriedAt(g, x, y) {
+    const head = g.level?.buriedObjHeads?.get(floorObjKey(x, y));
+    objIceCorpsesOffIceChain(g, head);
 }
 
 /** C: dig.c **`unearth_objs(x, y)`** — **`del_engr_at`**, **`newsym`**. */
@@ -90,15 +107,19 @@ function buryObjsAt(g, x, y) {
 }
 
 /**
- * C: mkobj.c obj_ice_effects(x, y, TRUE) — floor corpses **`on_ice`** after terrain is ice
- * (**`obj_timer_checks`** rot timers still stubbed).
+ * C: mkobj.c **`obj_ice_effects(x, y, TRUE)`** — floor + buried corpses **`on_ice`**
+ * after terrain is ice (**`obj_timer_checks`** rot timers still stubbed).
  * @param {import('./gstate.js').game} g
  */
 function objIceEffectsFreezeAt(g, x, y) {
-    const head = g.level?.floorObjHeads?.get(floorObjKey(x, y));
-    for (let o = head; o; o = o.nexthere) {
-        if ((o.otyp | 0) !== CORPSE_OTYP) continue;
-        o.on_ice = 1;
+    const k = floorObjKey(x, y);
+    const floorH = g.level?.floorObjHeads?.get(k);
+    const buriedH = g.level?.buriedObjHeads?.get(k);
+    for (const head of [floorH, buriedH]) {
+        for (let o = head; o; o = o.nexthere) {
+            if ((o.otyp | 0) !== CORPSE_OTYP) continue;
+            o.on_ice = 1;
+        }
     }
 }
 
@@ -428,6 +449,8 @@ export async function meltIceAt(g, x, y, msg) {
     spotStopTimersMeltIceAway(g, x, y);
     if (tAt(x, y)) trapIceEffectsOnMelt(g, x, y);
     objIceEffectsAt(g, x, y);
+    /* C **`melt_ice`** only **`obj_ice_effects(FALSE)`** (floor); buried corpses **`on_ice`** from freeze need the same off-ice age fix before **`unearth_objs`**. */
+    objIceEffectsOffIceBuriedAt(g, x, y);
     unearthObjsAt(g, x, y);
 
     const u = g.u;
