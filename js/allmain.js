@@ -12,7 +12,7 @@ import { docrt, cls, bot, flush_screen, pline } from './display.js';
 import { vision_recalc, vision_reset, init_vision_globals } from './vision.js';
 import { fastforward_pre_mklev, fastforward_post_mklev, fastforward_fill_mineralize } from './fastforward.js';
 import { movemon, MOVE_MON_HARNESS_MAX_STEP } from './monmove.js';
-import { end_of_turn_rng } from './moveloop_aux.js';
+import { end_of_turn_rng, gethungry } from './moveloop_aux.js';
 import { initIniInvStub } from './ini_inv_stub.js';
 import { applyInitAttrPipeline } from './u_init_attr.js';
 import { applyBirthHpEnergy } from './u_init_hp_energy.js';
@@ -180,6 +180,8 @@ export async function moveloop_core() {
     if (g.context?.move) {
         settrack();
         g.moves = (g.moves || 1) + 1;
+        /* C: allmain.c — svm.moves++; … gethungry(); … exerchk(); */
+        gethungry();
         for (const line of collectExerchkPlines()) await pline(line);
     }
 

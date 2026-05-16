@@ -12,6 +12,20 @@ export const UHS = {
     STARVED: 6,
 };
 
+/**
+ * C: eat.c newuhs — map u.uhunger to u.uhs (thresholds only; no faint / pline).
+ * @param {number} uh
+ * @returns {number} UHS.*
+ */
+export function uhsFromUhunger(uh) {
+    const h = uh | 0;
+    if (h > 1000) return UHS.SATIATED;
+    if (h > 150) return UHS.NOT_HUNGRY;
+    if (h > 50) return UHS.HUNGRY;
+    if (h > 0) return UHS.WEAK;
+    return UHS.FAINTING;
+}
+
 /** @param {number | undefined} uhs */
 export function enlightHungerLine(uhs) {
     const h = uhs ?? UHS.NOT_HUNGRY;

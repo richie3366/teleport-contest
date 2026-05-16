@@ -1,14 +1,15 @@
 // moveloop_aux.js — End-of-turn RNG after movemon (allmain.c moveloop_core tail).
-// C ref: allmain.c (maybe_generate_rnd_mon, dosounds, gethungry, …), attrib.c exerchk/exercise.
+// C ref: allmain.c (maybe_generate_rnd_mon, dosounds, …), eat.c gethungry (called from allmain after moves++).
 //
-// `pre_moveloop82_exercise` / `post_moveloop82_exercise` still replay bare `rn2` for session harness
-// until moveloop order matches C tail (exerchk now runs after each time-consuming move in allmain.js).
+// `pre_moveloop82_exercise` / `post_moveloop82_exercise` still replay bare `rn2` for session harness.
 
 import { game } from './gstate.js';
 import { rn2, rnd } from './rng.js';
 import { A_DEX } from './const.js';
 import { acurr } from './attrib.js';
 import { uWipeEngr } from './engrave.js';
+import { nearCapacity, ENC } from './encumbr.js';
+import { uhsFromUhunger } from './hunger.js';
 
 export function maybe_generate_rnd_mon() {
     rn2(70);
@@ -18,8 +19,29 @@ export function dosounds() {
     rn2(300);
 }
 
+/**
+ * C: eat.c gethungry(void) — minimal port: ordinary uhunger--, accessorytime = rn2(20),
+ * odd/even ring hunger (HRegeneration / encumbrance / Hunger / Conflict), no switch(ring) yet.
+ * C order vs exerchk: allmain calls this immediately after svm.moves++, then exerchk().
+ */
 export function gethungry() {
-    rn2(20);
+    const u = game.u;
+    if (!u || typeof u.uhunger !== 'number') return;
+    if (u.uinvulnerable || game.iflags?.debug_hunger) return;
+
+    /* C: !(Unaware || !rn2(10)) omitted — asleep metabolic stub */
+    if (!(u.Upolyd | 0) && !u.Slow_digestion) u.uhunger--;
+
+    const accessorytime = rn2(20);
+    if (accessorytime % 2) {
+        if (u.HRegeneration) u.uhunger--;
+        if (nearCapacity() > ENC.SLT_ENCUMBER) u.uhunger--;
+    } else {
+        if (u.Hunger) u.uhunger--;
+        if (u.HConflict) u.uhunger--;
+    }
+    /* C: switch (accessorytime) ring/amulet nutrition — port when uleft/uright/uamul exist */
+    u.uhs = uhsFromUhunger(u.uhunger);
 }
 
 /** C: allmain.c — if (!rn2(40 + ACURR(A_DEX) * 3)) u_wipe_engr(rnd(3)); */
@@ -50,7 +72,6 @@ export function post_moveloop82_exercise(stepNum) {
 export function end_of_turn_rng(stepNum) {
     maybe_generate_rnd_mon();
     dosounds();
-    gethungry();
     maybe_u_wipe_engr();
     pre_moveloop82_exercise(stepNum);
     moveloop_core_rng82();
