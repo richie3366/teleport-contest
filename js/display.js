@@ -18,8 +18,7 @@ import {
     A_STR, A_INT, A_WIS, A_DEX, A_CON, A_CHA,
 } from './const.js';
 import { acurr } from './attrib.js';
-import { depth } from './hacklib.js';
-import { inTutorialAtLevelLikeC } from './tutorial_branch.js';
+import { describeLevelStatusSlotLikeC } from './describe_level.js';
 import { NO_COLOR, CLR_GRAY, CLR_BROWN, CLR_WHITE, CLR_YELLOW, CLR_GREEN, CLR_BLUE, CLR_CYAN, CLR_RED, CLR_MAGENTA, CLR_BRIGHT_BLUE, CLR_BRIGHT_MAGENTA, CLR_BRIGHT_CYAN, DEC_TO_UNICODE } from './terminal.js';
 import { paintInventoryIntoDisplay } from './invent.js';
 import { paintOverlayScreen } from './overlay_screens.js';
@@ -380,21 +379,12 @@ function _statusLine1() {
     return `${title}${' '.repeat(gap)}${stats} ${align}`;
 }
 
-/** C: **`botl.c`** **`describe_level`** (status branch) — **`%-2d`** after label. */
-function describeLevelStatusColLikeC(uz) {
-    const d = depth(uz);
-    const s = String(d | 0);
-    return s.length >= 2 ? s : `${s} `;
-}
-
 function _statusLine2() {
     const u = game.u;
     if (!u) return '';
     const uz = u.uz || { dnum: 0, dlevel: 1 };
-    /* C: botl.c describe_level — In_tutorial(&u.uz) ? "Tutorial" : "Dlvl", depth(&u.uz) */
-    const lvlLabel = inTutorialAtLevelLikeC(game, uz) ? 'Tutorial' : 'Dlvl';
-    const lvlCol = describeLevelStatusColLikeC(uz);
-    return `${lvlLabel}:${lvlCol} $:${game._goldCount || 0} HP:${u.uhp || 0}(${u.uhpmax || 0}) Pw:${u.uen || 0}(${u.uenmax || 0}) AC:${u.uac ?? 10} Xp:${u.ulevel || 1}/${u.uexp || 0} T:${game.moves || 1}`;
+    const lvlSlot = describeLevelStatusSlotLikeC(game, uz);
+    return `${lvlSlot} $:${game._goldCount || 0} HP:${u.uhp || 0}(${u.uhpmax || 0}) Pw:${u.uen || 0}(${u.uenmax || 0}) AC:${u.uac ?? 10} Xp:${u.ulevel || 1}/${u.uexp || 0} T:${game.moves || 1}`;
 }
 
 // ── Serialize terminal grid for screen comparison ──
