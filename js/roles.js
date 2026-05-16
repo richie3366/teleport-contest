@@ -1,5 +1,6 @@
 // roles.js — Role, race, gender, alignment data.
-// C ref: role.c — roles[], races[], aligns[] (NetHack 5.0.0).
+// C ref: role.c — roles[], races[], aligns[] (NetHack 5.0.0); randrace(), randalign(),
+//       role_init() / validrace+validalign repair vs coerceChargenIdentity.
 //
 // `rank` is the XL 1 title (first row in role.c for each role).
 // `allows` mirrors each role's final selfmask (lawful/neutral/chaotic,
@@ -7,6 +8,7 @@
 
 import { permonstHuman } from './mondata.js';
 import { STR18 } from './const.js';
+import { rn2 } from './rng.js';
 
 /** Alignment as u.ualign.type: A_LAWFUL=1, A_NEUTRAL=0, A_CHAOTIC=-1 */
 
@@ -190,8 +192,68 @@ export function findAlign(name) {
     return aligns.find((a) => a.name === lc);
 }
 
+/** C: **`role.c`** **`roles[rolenum].allow & races[i].allow & ROLE_RACEMASK`** — JS uses **`allows.races`**. */
+function roleRaceMaskOkLikeC(role, raceRow) {
+    return role.allows.races.includes(raceRow.name);
+}
+
+/**
+ * C: **`role.c`** **`randrace(int rolenum)`** — count permitted races in **`races[]`** order, then **`rn2(n*100)/100`**.
+ * @param {number} rolenum
+ * @returns {number} race index **`0..races.length-1`**
+ */
+export function randraceLikeC(rolenum) {
+    const ri = rolenum | 0;
+    const role = roles[ri];
+    if (!role) return rn2(races.length);
+
+    let n = 0;
+    for (let i = 0; i < races.length; i++) {
+        if (roleRaceMaskOkLikeC(role, races[i])) n++;
+    }
+    let pick = 0;
+    if (n) pick = (rn2(n * 100) / 100) | 0;
+    for (let i = 0; i < races.length; i++) {
+        if (!roleRaceMaskOkLikeC(role, races[i])) continue;
+        if (pick) pick--;
+        else return i;
+    }
+    return rn2(races.length);
+}
+
+/**
+ * C: **`role.c`** **`randalign(int rolenum, int racenum)`** — bitmask intersection; JS uses **`allows.align`** + orc chaotic-only.
+ * @param {number} rolenum
+ * @param {number} racenum
+ * @returns {number} align index **`0..aligns.length-1`**
+ */
+export function randalignLikeC(rolenum, racenum) {
+    const role = roles[rolenum | 0];
+    const race = races[racenum | 0];
+    if (!role || !race) return rn2(aligns.length);
+
+    let n = 0;
+    for (let i = 0; i < aligns.length; i++) {
+        const av = aligns[i].value;
+        if (!role.allows.align.includes(av)) continue;
+        if (race.name === 'orc' && av !== -1) continue;
+        n++;
+    }
+    let pick = 0;
+    if (n) pick = rn2(n);
+    for (let i = 0; i < aligns.length; i++) {
+        const av = aligns[i].value;
+        if (!role.allows.align.includes(av)) continue;
+        if (race.name === 'orc' && av !== -1) continue;
+        if (pick) pick--;
+        else return i;
+    }
+    return rn2(aligns.length);
+}
+
 /**
  * C: rigid_role_checks() / role_init() — clamp OPTIONS to a legal triple for this role.
+ * Invalid race → **`randrace`**; invalid alignment for role+race → **`randalign`** (**`role_init`** order: race, then align after gender forcing in C — here align last matches **`validalign`** after race is fixed).
  * @param {RoleRow} role
  * @param {{ name: string, adj: string, mnum: number, filecode?: string, permonst?: import('./mondata.js').Permonst, attrmin: number[], attrmax: number[] }} race
  * @param {number} alignType
@@ -199,15 +261,30 @@ export function findAlign(name) {
  */
 export function coerceChargenIdentity(role, race, alignType, female) {
     const a = role.allows;
-    let r = race;
-    if (!a.races.includes(r.name)) r = /** @type {typeof races[0]} */ (findRace(a.races[0]));
+    const ri = roles.indexOf(role);
 
-    let al = alignType;
-    if (!a.align.includes(al)) al = a.align[0];
+    let r = race;
+    if (!a.races.includes(r.name)) {
+        r =
+            ri >= 0
+                ? races[randraceLikeC(ri)]
+                : /** @type {typeof races[0]} */ (findRace(a.races[0]));
+    }
 
     let f = female;
     if (a.gender === 'female') f = true;
     else if (a.gender === 'male') f = false;
+
+    const rai = races.indexOf(r);
+    let al = alignType;
+    const alignLegal =
+        a.align.includes(al) && !(r.name === 'orc' && al !== -1);
+    if (!alignLegal) {
+        al =
+            ri >= 0 && rai >= 0
+                ? aligns[randalignLikeC(ri, rai)].value
+                : a.align[0];
+    }
 
     return { race: r, alignType: al, female: f };
 }
