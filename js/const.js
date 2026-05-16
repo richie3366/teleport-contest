@@ -2928,3 +2928,5 @@ export function Is_juiblex_level(uz) { return false; /* TODO */ }
 // eat.c gethungry switch — NH5 objects_nums (objclass.h + objects.h; first weapon DART = 25).
 export const OTYP_RIN_SLOW_DIGESTION = 176;
 export const OTYP_FAKE_AMULET_OF_YENDOR = 197;
+export const OTYP_RIN_PROTECTION = 161;
+export const OTYP_MEAT_RING = 255;

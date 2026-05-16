@@ -107,6 +107,8 @@ export async function newgame() {
     g.u.uamul = null;
     g.u.uleft = null;
     g.u.uright = null;
+    g.u.Unaware = 0; /* eat.c gethungry — asleep / !rn2(10) metabolic branch */
+    g.u.EProtection = 0; /* prop.c — +0 ring of protection vs gethungry (TODO mask) */
     /* C: u_init.c u_init_misc — adjabil(0, 1) while u.ulevel == 0 */
     applyAdjabil(0, 1);
     /* C: u_init.c u_init_role — u.ulevel after adjabil; XL 1 for new hero */

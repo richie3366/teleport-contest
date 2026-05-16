@@ -5,7 +5,7 @@
 
 import { game } from './gstate.js';
 import { rn2, rnd } from './rng.js';
-import { A_DEX, OTYP_FAKE_AMULET_OF_YENDOR, OTYP_RIN_SLOW_DIGESTION } from './const.js';
+import { A_DEX, OTYP_FAKE_AMULET_OF_YENDOR, OTYP_MEAT_RING, OTYP_RIN_SLOW_DIGESTION } from './const.js';
 import { acurr } from './attrib.js';
 import { uWipeEngr } from './engrave.js';
 import { nearCapacity, ENC } from './encumbr.js';
@@ -22,16 +22,31 @@ export function dosounds() {
 /**
  * C: eat.c gethungry(void) — ordinary uhunger--, accessorytime = rn2(20),
  * odd/even branches, switch(accessorytime): case 0 (slow dig vs rings), case 8 (uamul not fake),
- * case 16 (uhave.amulet); cases 4/12 (charged rings) TODO.
+ * case 16 (uhave.amulet); cases 4/12 partial (non-meat ring, spe≠0 or oc_charged===false).
  * C order vs exerchk: allmain calls this immediately after svm.moves++, then exerchk().
  */
+/** C: eat.c gethungry — uleft/uright ring nutrition (subset: +0 charged / EProtection TODO). */
+function gethungryOneRingAccessory(ring, u) {
+    if (!ring) return;
+    const ot = ring.otyp | 0;
+    if (ot === OTYP_MEAT_RING) return;
+    const spe = ring.spe | 0;
+    if (spe !== 0) {
+        u.uhunger--;
+        return;
+    }
+    if (ring.oc_charged === false) u.uhunger--;
+    /* C: +0 ring of protection vs EProtection mask; generic +0 charged rings — port with prop.c */
+}
+
 export function gethungry() {
     const u = game.u;
     if (!u || typeof u.uhunger !== 'number') return;
     if (u.uinvulnerable || game.iflags?.debug_hunger) return;
 
-    /* C: !(Unaware || !rn2(10)) omitted — asleep metabolic stub */
-    if (!(u.Upolyd | 0) && !u.Slow_digestion) u.uhunger--;
+    /* C: (!Unaware || !rn2(10)) && (carnivorous||…) && !Slow_digestion — carnivorous stub true */
+    const unaware = u.Unaware | 0;
+    if ((!unaware || !rn2(10)) && !(u.Upolyd | 0) && !u.Slow_digestion) u.uhunger--;
 
     const accessorytime = rn2(20);
     if (accessorytime % 2) {
@@ -50,8 +65,10 @@ export function gethungry() {
             break;
         }
         case 4:
+            gethungryOneRingAccessory(u.uleft, u);
+            break;
         case 12:
-            /* uleft / uright charged ring nutrition — port with objects[] / invent */
+            gethungryOneRingAccessory(u.uright, u);
             break;
         case 8:
             if (u.uamul && (u.uamul.otyp | 0) !== OTYP_FAKE_AMULET_OF_YENDOR) u.uhunger--;
