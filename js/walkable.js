@@ -1,5 +1,6 @@
 // walkable.js — Terrain blocking for hero/monster moves (shared stub).
-// C ref: hack.c test_move(), crawl_destination(); teleport.c goodpos(); monmove.c accessible().
+// C ref: hack.c test_move(), crawl_destination(); teleport.c goodpos(); trap.c rnd_nextto_goodpos;
+// monmove.c accessible().
 
 import { game } from './gstate.js';
 import {
@@ -8,6 +9,7 @@ import {
     IRONBARS, W_NONPASSWALL, isok,
     POOL, MOAT, WATER, LAVAPOOL, LAVAWALL, OTYP_BOULDER,
     In_sokoban, Is_rogue_level, PM_GRID_BUG, WT_TOOMUCH_DIAGONAL,
+    xdir, ydir, N_DIRS,
 } from './const.js';
 import {
     isFlyer, isFloater, raceptr, swims, amphibious, fireResistant,
@@ -15,6 +17,7 @@ import {
     bigmonst, isWhirly, slithy, noncorporeal, canFogHero,
 } from './mondata.js';
 import { floorObjKey } from './floorobj.js';
+import { rn2 } from './rng.js';
 
 /**
  * C: hack.c may_passwall(x,y)
@@ -189,6 +192,32 @@ export function crawlDestinationHero(x, y, g = game) {
     const ptr = raceptr(g.youmonst);
     if (badRock(ptr, u.ux, y, g) && badRock(ptr, x, u.uy, g) && cantSqueezeThruHero(g) !== 0) return false;
     return true;
+}
+
+/**
+ * C: trap.c rnd_nextto_goodpos(&bx, &by, &gy.youmonst) — hero branch (`crawl_destination` per dir).
+ * Fisher–Yates shuffle of **`N_DIRS`** indices matches C **`rn2(i)`** swap loop.
+ * @param {number} bx
+ * @param {number} by
+ * @param {Record<string, unknown>} [g]
+ * @returns {{ x: number, y: number } | null}
+ */
+export function rndNexttoGoodposHero(bx, by, g = game) {
+    const dirs = /** @type {number[]} */ ([]);
+    for (let i = 0; i < N_DIRS; i++) dirs.push(i);
+    for (let i = N_DIRS; i > 0; i--) {
+        const j = rn2(i);
+        const k = dirs[j];
+        dirs[j] = dirs[i - 1];
+        dirs[i - 1] = k;
+    }
+    for (let i = 0; i < N_DIRS; i++) {
+        const d = dirs[i];
+        const nx = bx + xdir[d];
+        const ny = by + ydir[d];
+        if (crawlDestinationHero(nx, ny, g)) return { x: nx, y: ny };
+    }
+    return null;
 }
 
 /**
