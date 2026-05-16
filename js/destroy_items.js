@@ -219,6 +219,12 @@ async function maybeDestroyItemMonFire(g, mtmp, obj, visMon) {
     for (let i = 0; i < quan; i++) if (!rn2(3)) cnt++;
     if (!cnt) return 0;
 
+    /* C: zap.c maybe_destroy_item — u_carry||vis pline uses yname; hero path + visible mon
+     * learn scroll otyp when appearance was known (invent.c makeknown-style). */
+    if (oc === NH5_SCROLL_CLASS && (obj.dknown | 0) && visMon) {
+        discoverScrollOtyp(g, t);
+    }
+
     const str = DESTROY_STRINGS[dindx];
     const verbIdx = cnt > 1 ? 1 : 0;
     const verb = str[verbIdx] || str[0];
