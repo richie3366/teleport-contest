@@ -8,27 +8,13 @@ import { floorObjKey, unlinkFloorObject } from './floorobj.js';
 import { igniteItemsChain } from './ignite_items.js';
 import { nh5HeroObjectClass } from './water_damage.js';
 import { NH5_FOOD_CLASS, NH5_SCROLL_CLASS, NH5_SPBOOK_CLASS } from './nh5_objclass.js';
-import { OC_SKILL_ROW_BY_OTYP } from './obj_oc_skill_data.js';
+import { An, distantNameBurnFloor, makePluralBurn, xnameBurnFloor } from './objnam.js';
+import { useupfFloor } from './shop.js';
 
 const OTYP_SCR_FIRE = 338;
 const OTYP_SPE_FIREBALL = 368;
 /** NH5 `include/objects.h` enum order — `GLOB_OF_GREEN_SLIME`. */
 const OTYP_GLOB_OF_GREEN_SLIME = 263;
-
-function phraseTyp(obj) {
-    const row = OC_SKILL_ROW_BY_OTYP.get(obj.otyp | 0);
-    if (row) return row.name.toLowerCase().replace(/_/g, ' ');
-    return 'item';
-}
-
-/** C: xname-ish label for burn plines (floor at hero). */
-function burnPhrase(obj) {
-    const oc = nh5HeroObjectClass(obj);
-    if (oc === NH5_SCROLL_CLASS) return 'scroll';
-    if (oc === NH5_SPBOOK_CLASS) return 'spellbook';
-    if ((obj.otyp | 0) === OTYP_GLOB_OF_GREEN_SLIME) return 'glob of green slime';
-    return phraseTyp(obj);
-}
 
 /** C: obj.c obj_resists — stub false until full port. */
 function objResistsFireStub(_obj, _ac, _pct) {
@@ -66,8 +52,8 @@ function removeFloorObjFromLevel(g, otmp) {
 }
 
 /**
- * C: zap.c burn_floor_objects(x, y, give_feedback, u_caused) — **`useupf`** approximated as
- * stack shrink / **`delobj`** (no shop billing).
+ * C: zap.c burn_floor_objects(x, y, give_feedback, u_caused) — **`useupf`** when **`u_caused`**;
+ * **`distant_name`/`xname`** + **`An`** for plines; else **`delobj`** / **`quan`** without billing.
  * @param {typeof game} [g]
  * @param {number} x
  * @param {number} y
@@ -76,7 +62,6 @@ function removeFloorObjFromLevel(g, otmp) {
  * @returns {Promise<number>} count burned (C return; **`ignite_items`** does not add)
  */
 export async function burnFloorObjects(g = game, x, y, giveFeedback, uCaused) {
-    void uCaused;
     const lvl = g.level;
     if (!lvl?.floorObjHeads) return 0;
     const k = floorObjKey(x, y);
@@ -91,20 +76,37 @@ export async function burnFloorObjects(g = game, x, y, giveFeedback, uCaused) {
                 if (!rn2(3)) delquan++;
             }
             if (delquan) {
+                let buf1 = '';
+                let buf2 = '';
                 if (giveFeedback) {
-                    const base = burnPhrase(obj);
-                    if (delquan > 1) {
-                        if ((obj.otyp | 0) === OTYP_GLOB_OF_GREEN_SLIME)
-                            await pline(`${delquan} globs of green slime burn.`);
-                        else await pline(`${delquan} ${base}s burn.`);
-                    } else await pline(`Your ${base} burns.`);
+                    const saveq = obj.quan ?? 1;
+                    obj.quan = 1;
+                    buf1 =
+                        (g.u?.ux | 0) === x && (g.u?.uy | 0) === y
+                            ? xnameBurnFloor(obj, g)
+                            : distantNameBurnFloor(obj, x, y, g);
+                    obj.quan = 2;
+                    buf2 =
+                        (g.u?.ux | 0) === x && (g.u?.uy | 0) === y
+                            ? xnameBurnFloor(obj, g)
+                            : distantNameBurnFloor(obj, x, y, g);
+                    obj.quan = saveq;
+                    buf2 = makePluralBurn(buf2);
                 }
-                if (delquan >= scrquan) {
-                    removeFloorObjFromLevel(g, obj);
-                } else {
+                if (uCaused) useupfFloor(g, obj, delquan);
+                else if (delquan < scrquan) {
                     obj.quan = scrquan - delquan;
+                } else {
+                    removeFloorObjFromLevel(g, obj);
                 }
                 cnt += delquan;
+                if (giveFeedback) {
+                    if (delquan > 1) {
+                        await pline(`${delquan} ${buf2} burn.`);
+                    } else {
+                        await pline(`${An(buf1)} burns.`);
+                    }
+                }
             }
         }
         obj = obj2;

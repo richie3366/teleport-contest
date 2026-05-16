@@ -1,12 +1,148 @@
 // objnam.js — Object naming for messages (minimal until objnam.c is ported).
-// C ref: objnam.c doname(), doname_with_price()
+// C ref: objnam.c doname(), doname_with_price(), xname_flags (subset), distant_name(),
+// An()/just_an() for floor burn plines.
 
 import { game } from './gstate.js';
-import { NH5_SPBOOK_CLASS } from './nh5_objclass.js';
+import { NH5_SCROLL_CLASS, NH5_SPBOOK_CLASS } from './nh5_objclass.js';
 import { isSpellbookOtyp, spellbookAppearanceNounPhrase } from './spellbook_discovery_lines.js';
+import { nh5HeroObjectClass } from './water_damage.js';
+import { OC_SKILL_ROW_BY_OTYP } from './obj_oc_skill_data.js';
+import { cansee } from './vision.js';
 
 /** C: objects.h GOLD_PIECE (matches mklev.js stub constant). */
 const GOLD_PIECE = 466;
+
+const OTYP_GLOB_OF_GREEN_SLIME = 263;
+
+/** C: objnam.c vowels[] subset for just_an(). */
+const VOWELS = new Set(['a', 'e', 'i', 'o', 'u']);
+
+/**
+ * C: objnam.c just_an() — returns "", "a ", or "an " (lowercase article only).
+ * @param {string} str
+ */
+export function justArticlePrefix(str) {
+    if (!str) return 'a ';
+    const c0 = str[0].toLowerCase();
+    if (!str[1] || str[1] === ' ') {
+        return 'aehilmnosx'.includes(c0) ? 'an ' : 'a ';
+    }
+    const low = str.toLowerCase();
+    if (low.startsWith('the ') || low === 'molten lava' || low === 'iron bars' || low === 'ice') return '';
+    if (
+        (VOWELS.has(c0) &&
+            (!low.startsWith('one') || (str[3] && !'-_ '.includes(str[3]))) &&
+            !low.startsWith('eu') &&
+            !low.startsWith('uke') &&
+            !low.startsWith('ukulele') &&
+            !low.startsWith('unicorn') &&
+            !low.startsWith('uranium') &&
+            !low.startsWith('useful')) ||
+        (c0 === 'x' && str[1] && !VOWELS.has(str[1].toLowerCase()))
+    )
+        return 'an ';
+    return 'a ';
+}
+
+/**
+ * C: objnam.c An() — article + capitalize first character of result.
+ * @param {string} str
+ */
+export function An(str) {
+    if (!str) return 'Something';
+    const art = justArticlePrefix(str);
+    const out = art ? `${art}${str}` : str;
+    return out.charAt(0).toUpperCase() + out.slice(1);
+}
+
+function scrollAppearanceFromOtyp(otyp) {
+    const row = OC_SKILL_ROW_BY_OTYP.get(otyp | 0);
+    if (!row?.name) return '???';
+    let s = row.name;
+    if (s.startsWith('SCR_')) s = s.slice(4);
+    return s.toLowerCase().replace(/_/g, ' ');
+}
+
+function spellbookAppearanceFromOtyp(otyp) {
+    const row = OC_SKILL_ROW_BY_OTYP.get(otyp | 0);
+    if (!row?.name) return 'parchment';
+    let s = row.name;
+    if (s.startsWith('SPE_')) s = s.slice(4);
+    return s.toLowerCase().replace(/_/g, ' ');
+}
+
+/**
+ * C: xname(obj) core for zap.c burn_floor_objects classes only (no leading article).
+ * Uses `obj.dknown` / `g.objectDiscovery` where wired.
+ * @param {{ otyp?: number, oclass?: number, quan?: number, dknown?: number, oartifact?: number }} obj
+ * @param {object} [g]
+ */
+export function xnameBurnFloor(obj, g = game) {
+    const t = obj.otyp | 0;
+    const oc = nh5HeroObjectClass(obj);
+    if (t === OTYP_GLOB_OF_GREEN_SLIME) return 'glob of green slime';
+    if (oc === NH5_SCROLL_CLASS) {
+        if (!(obj.dknown | 0)) return 'scroll';
+        /* oc_name_known / discoveries: not modeled for scrolls — labeled appearance. */
+        return `scroll labeled ${scrollAppearanceFromOtyp(t)}`;
+    }
+    if (oc === NH5_SPBOOK_CLASS || isSpellbookOtyp(t)) {
+        if (!(obj.dknown | 0)) return 'spellbook';
+        const known = g?.objectDiscovery instanceof Set && g.objectDiscovery.has(t);
+        if (known) {
+            const ph = spellbookAppearanceNounPhrase(t);
+            if (ph) return ph;
+        }
+        return `${spellbookAppearanceFromOtyp(t)} spellbook`;
+    }
+    return 'item';
+}
+
+/**
+ * C: objnam.c distant_name(obj, xname) for floor burn — near tile + cansee uses xname;
+ * else blind-at-a-distance style base nouns (subset of gd.distantname path).
+ * @param {object} obj
+ * @param {number} x
+ * @param {number} y
+ * @param {object} [g]
+ */
+export function distantNameBurnFloor(obj, x, y, g = game) {
+    const u = g.u;
+    if (!u) return xnameBurnFloor(obj, g);
+    if ((u.ux | 0) === x && (u.uy | 0) === y) return xnameBurnFloor(obj, g);
+    if (obj.oartifact | 0) return xnameBurnFloor(obj, g);
+
+    const dx = (u.ux | 0) - x;
+    const dy = (u.uy | 0) - y;
+    const dist2 = dx * dx + dy * dy;
+    const xr = (u.xray_range | 0) > 2 ? u.xray_range | 0 : 2;
+    const neardist = xr * xr * 2 - xr;
+    if (cansee(x, y) && dist2 <= neardist) return xnameBurnFloor(obj, g);
+
+    const oc = nh5HeroObjectClass(obj);
+    const t = obj.otyp | 0;
+    if (t === OTYP_GLOB_OF_GREEN_SLIME) return 'glob of green slime';
+    if (oc === NH5_SCROLL_CLASS) return 'scroll';
+    if (oc === NH5_SPBOOK_CLASS || isSpellbookOtyp(t)) return 'spellbook';
+    return 'item';
+}
+
+/**
+ * C: xname pluralization (makeplural) subset for burn_floor_objects buf2.
+ * @param {string} s
+ */
+export function makePluralBurn(s) {
+    if (s === 'glob of green slime') return 'globs of green slime';
+    if (s === 'scroll') return 'scrolls';
+    if (s === 'spellbook') return 'spellbooks';
+    if (s.startsWith('scroll labeled ')) return `scrolls labeled ${s.slice('scroll labeled '.length)}`;
+    if (s.startsWith('spellbook of ')) return `spellbooks of ${s.slice('spellbook of '.length)}`;
+    if (s.endsWith(' spellbook')) {
+        const base = s.slice(0, -'spellbook'.length);
+        return `${base}spellbooks`;
+    }
+    return `${s}s`;
+}
 
 /**
  * C: doname(obj) — very small subset for invent.c look_here().

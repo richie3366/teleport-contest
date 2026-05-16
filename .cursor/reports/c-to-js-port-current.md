@@ -9,13 +9,13 @@ Thin handoff for the next coding session. Deep parity tables and history: [`c-to
 - **Plain ES modules**, no build/WASM/network in contest code; RNG via `js/rng.js`; match **clang** evaluation order for multi-call expressions.
 - API: [`docs/API.md`](../../docs/API.md); overview: [`README.md`](../../README.md).
 
-**Last slice:** **`trap.c`** **`dofiretrap`** hero path — C **`Upolyd`** branch: golem **`alt`** (**`PM_PAPER`/`STRAW`/`WOOD`/`LEATHER`** + **`golemFireAltFromMname`** fallback), **`num`** from first **`d(2,4)`**; **`mhmax -= rn2(min(mhmax, num+1))`** when **`mhmax > mons[umonnum].mlevel`** (**`heroPolyFormMlevel`** from **`permonst.mlevel`**); damage **`u.mh`**. Human branch: **second** **`d(2,4)`** for **`uhpmax`** drain + **`losehp`** (**`KILLED_BY_AN`**); **`minuhpmax`** stub. **`const.js`:** golem **`PM_*`**. **`mondata.js`:** **`Permonst.mlevel`**, **`permonstHuman.mlevel`**. Still **TODO:** **`minuhpmax`/`setuhpmax`/`losexp`**; underwater/steam **`dofiretrap`** box branch; **`shieldeff`/`monstseesu`**.
+**Last slice:** **`zap.c`** **`burn_floor_objects`** — **`useupfFloor`** (**`invent.c`** **`useupf`**) when **`u_caused`**: **`costlySpot`** + **`addtobillFloorStub`** (shop interior **`inside_shop`/`stolen_value`** still TODO); stack remove / **`quan`** like C. When **`!u_caused`**: **`delobj`** / decrement without billing. Plines: **`xnameBurnFloor`** / **`distantNameBurnFloor`** ( **`distu`≤`neardist`**, **`cansee`**, **`xray_range`** ), **`makePluralBurn`**, **`An`** (**`objnam.js`** **`justArticlePrefix`** subset). **`shop.js`:** **`costlySpot`**, **`useupfFloor`**.
 
 ## Next steps (highest impact from latest fire/lava work)
 
-1. **`useupf`** / shop / **`distant_name`/`An`** on floor burn (`burn_floor_objects.js` gaps).
-2. **`obj_resists`** / **`xname`** — replace stubs where fire paths depend on them.
-3. **Full `melt_ice`** — **`obj_ice_effects`**, **`unearth_objs`**, **`boulder_hits_pool`**, **`cnv_trap_obj`** for mine/bear on ice, **`minliquid`**, **`MELT_ICE_AWAY`** timers.
+1. **`obj_resists`** / fuller **`xname`** — replace stubs where fire paths depend on them.
+2. **Full `melt_ice`** — **`obj_ice_effects`**, **`unearth_objs`**, **`boulder_hits_pool`**, **`cnv_trap_obj`** for mine/bear on ice, **`minliquid`**, **`MELT_ICE_AWAY`** timers.
+3. **`minuhpmax`/`setuhpmax`/`losexp`** ( **`dofiretrap`** human branch ); underwater/steam **`dofiretrap`** box branch; **`shieldeff`/`monstseesu`**.
 
 ## After you ship a slice
 
