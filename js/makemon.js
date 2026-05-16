@@ -27,5 +27,5 @@ export function makemon(mdat, x, y, mmflags) {
         mnum = mdat.mnum | 0;
     }
     const hp = rnd(8);
-    return { mx: x, my: y, mhp: hp, mhpmax: hp, msleeping: 0, mpeaceful: 0, mtame: 0, mnum, mcanmove: 1, mfrozen: 0 };
+    return { mx: x, my: y, mhp: hp, mhpmax: hp, msleeping: 0, mpeaceful: 0, mtame: 0, mnum, mcanmove: 1, mfrozen: 0, mflee: 0, mfleetim: 0 };
 }

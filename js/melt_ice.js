@@ -1,7 +1,7 @@
 // melt_ice.js — Ice terrain melts to water (fire trap, zaps, etc.).
 // C ref: zap.c melt_ice(), trap.c trap_ice_effects() / cnv_trap_obj(),
 //        do.c boulder_hits_pool(), mkobj.c obj_ice_effects(), dig.c unearth_objs(),
-//        mon.c minliquid_core() (pool/waterwall/lava/fountain/gremlin/golem/usteed/eel; **`rloc`** subset **`enextoNearMon`**; split_mon/dryup/monflee/fire_damage_chain/deal_with_overcrowding still TODO).
+//        mon.c minliquid_core() (pool/waterwall/lava/fountain/gremlin/golem/usteed/eel; **`rloc`** subset **`enextoNearMon`**; **`monflee`** for land eel; split_mon/dryup/fire_damage_chain/deal_with_overcrowding still TODO).
 //
 // Still TODO vs C: corpse **`ROT_ORGANIC`** start on all bury paths; **`bury_objs`** full **`get_cost`**/**`getprice`** / angry surcharge (**`shop.js`** bill rows need **`addtobill`**);
 // **`dig.c`/`read.c`** **`buried_ball`/`punish`** (**`floorobj.js`**) — **`placebc`** blind glyphs / **`uswallow`**; beam/breath vectors; **`boulder_hits_pool`** **`recalc_block_point`**/**`wake_nearto`**/**`u.uinwater`**; **`spoteffects`**.
@@ -35,7 +35,7 @@ import { heroPassesWalls, enextoNearMon } from './walkable.js';
 import { spotStopTimersMeltIceAway, startMeltIceAwayTimer, refirmMeltIceTimerAt } from './level_timers.js';
 import { fixWallSpinesRect } from './wall_spine.js';
 import { applyBuryObjsShopCreditAndDebt, shknamDisplay } from './shop.js';
-import { waterDamageChain } from './water_damage.js';
+import { monflee, ensureMonsterMtrack } from './monflee.js';
 import { objTimerChecksMkobj, ROT_ICE_ADJUSTMENT } from './obj_rot_timer.js';
 import {
     ICE,
@@ -397,7 +397,7 @@ async function boulderHitsPool(g, otmp, rx, ry, pushing) {
 /**
  * C: mon.c **`minliquid_core`** — liquid/fountain vs monster (**`melt_ice`** pool fill, etc.).
  * Still TODO: full **`rloc`** (**`usteed`/`tele()`**, **`collect_coords`**, **`rloc_pos_ok`**), **`split_mon`/`dryup`**, **`fire_damage_chain`**, **`deal_with_overcrowding`**,
- * **`monflee`**, full **`on_fire`** / Gehennom **`noteleport`** / covetous bypass.
+ * full **`monflee`** (**`release_hero`**, **`flees_light`**, vrock), full **`on_fire`** / Gehennom **`noteleport`** / covetous bypass.
  * @param {import('./gstate.js').game} g
  */
 async function minliquidMonsterAfterMelt(g, mtmp) {
@@ -492,7 +492,9 @@ async function minliquidMonsterAfterMelt(g, mtmp) {
 
     if ((ptr.mlet | 0) === S_EEL && !Is_waterlevel(g.u?.uz) && !breathless(ptr)) {
         if ((mtmp.mhp | 0) > 1 && rn2(mtmp.mhp | 0) > rn2(8)) mtmp.mhp = (mtmp.mhp | 0) - 1;
-        /* C: monflee(mtmp, 2, FALSE, FALSE) — not ported */
+        /* C: monmove.c monflee(mtmp, 2, FALSE, FALSE) */
+        ensureMonsterMtrack(mtmp);
+        await monflee(g, mtmp, 2, false, false);
     }
 }
 
