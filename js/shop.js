@@ -36,6 +36,9 @@ import {
     D_CLOSED,
     Has_contents,
     OBJ_ONBILL,
+    OBJ_FLOOR,
+    OBJ_FREE,
+    OBJ_CONTAINED,
 } from './const.js';
 
 /**
@@ -732,10 +735,55 @@ function countUnpaidContentsCobj(obj) {
 }
 
 /**
- * C: shk.c **`contained_cost`** — not ported; **`billable`** no_charge test uses **0** ( **`globby`** / pricing TBD).
+ * C: **`shk.c`** **`contained_cost`** top container walk (**`OBJ_CONTAINED`** / **`ocontainer`** not in JS yet).
+ * @param {object} obj
  */
-function containedCostStolenBuryStub() {
-    return 0;
+function containerTopForContainedCost(obj) {
+    let top = obj;
+    while (top && (top.where | 0) === OBJ_CONTAINED && top.ocontainer) {
+        top = top.ocontainer;
+    }
+    return top || obj;
+}
+
+/**
+ * C: **`shk.c`** **`contained_cost`** — floor buy branch (**`usell` FALSE**) for **`billable`** / bury;
+ * **`get_cost`** via **`getCostStolenBuryUnit`**; **`usell` TRUE** ( **`set_cost`/`saleable`**) not ported (no add, still recurses).
+ * @param {import('./gstate.js').game} g
+ * @param {boolean} usell — C **`usell`**
+ * @param {boolean} unpaidOnly — C **`unpaid_only`**
+ */
+function containedCostStolenBury(g, obj, shkp, price, usell, unpaidOnly) {
+    let out = price | 0;
+    if (!shkp || !Has_contents(obj)) return out;
+    const top = containerTopForContainedCost(obj);
+    const tw = top.where != null ? (top.where | 0) : OBJ_FLOOR;
+    const onFloor = tw === OBJ_FLOOR || tw === OBJ_FREE;
+    let x = top.ox ?? 0;
+    let y = top.oy ?? 0;
+    if (tw === OBJ_FREE || top.ox == null || top.oy == null) {
+        x = g.u?.ux | 0;
+        y = g.u?.uy | 0;
+    }
+    const e = ESHK(shkp);
+    const sx = e?.shk?.x != null ? e.shk.x | 0 : shkp.mx | 0;
+    const sy = e?.shk?.y != null ? e.shk.y | 0 : shkp.my | 0;
+    const freespot = onFloor && (x | 0) === (sx | 0) && (y | 0) === (sy | 0);
+
+    for (let otmp = obj.cobj; otmp; otmp = otmp.nobj) {
+        if ((otmp.oclass | 0) === NH5_COIN_CLASS) continue;
+        if (usell) {
+            /* C: **`saleable`** / **`set_cost`** — not ported for bury path */
+        } else if (onFloor
+            ? (!(otmp.no_charge | 0) && !freespot)
+            : ((otmp.unpaid | 0) || !unpaidOnly)) {
+            out += getPricingUnitsStolenBury(otmp) * getCostStolenBuryUnit(otmp);
+        }
+        if (Has_contents(otmp)) {
+            out = containedCostStolenBury(g, otmp, shkp, out, usell, unpaidOnly);
+        }
+    }
+    return out;
 }
 
 /**
@@ -879,7 +927,7 @@ function billableStolenValue(g, shkRef, obj, roomno, resetNocharge) {
     if (obj.no_charge | 0) {
         if (!Has_contents(obj)
             || (containedGold(obj, true) === 0
-                && containedCostStolenBuryStub() === 0)) {
+                && containedCostStolenBury(g, obj, shkp, 0, false, !resetNocharge) === 0)) {
             shkRef.shkp = null;
         }
         if (resetNocharge && !shkRef.shkp && oc !== NH5_COIN_CLASS) {
@@ -926,7 +974,7 @@ function stolenContainerMerchBurySilent(g, obj, shkp, ininv) {
  * **`find_objowner`** → **`roomno`** (else first **`in_rooms`** shop room); coin **`quan`**;
  * **`billable`/`onbill`/`sub_one_frombill`** then **`get_pricing_units * get_cost`**;
  * **`Has_contents`** → **`stolen_container`** + **`contained_gold(obj, TRUE)`** (floor **`ininv` FALSE**).
- * Still TODO: full **`get_cost`** / **`getprice`** / **`contained_cost`**, angry surcharge, C phantom bill row.
+ * Still TODO: full **`get_cost`** / **`getprice`** ( **`usell`** **`set_cost`/`saleable`** in **`contained_cost`**), angry surcharge, C phantom bill row.
  * @param {object | null} shkpFallback — C bury path has tile shk; used when **`billable`** leaves **`shkp` unset**.
  * @param {boolean} silent — C **`silent`** (suppresses per-object **`You`** / thief **`Norep`**; **`check_credit`** still plines like C)
  */
