@@ -5,8 +5,7 @@
 //
 // Still TODO vs C: full **`obj_timer_checks`** / buried **`obj_ice_effects`**;
 // real **`bury_objs`** (**`buriedobjlist`**); **`unearth_objs`**;
-// lavawall solidify → **`VWALL`/`HWALL`** + **`fix_wall_spines`**;
-// fuller **`boulder_hits_pool`** / **`minliquid`** / **`spoteffects`**.
+// beam/breath vectors along paths; fuller **`boulder_hits_pool`** / **`minliquid`** / **`spoteffects`**.
 
 import { pline, newsym } from './display.js';
 import { vision_recalc, cansee } from './vision.js';
@@ -20,6 +19,7 @@ import { CORPSE_OTYP, placeCorpseForMonster } from './mkobj_corpse.js';
 import { dist2 } from './hacklib.js';
 import { heroPassesWalls } from './walkable.js';
 import { spotStopTimersMeltIceAway, startMeltIceAwayTimer, refirmMeltIceTimerAt } from './level_timers.js';
+import { fixWallSpinesRect } from './wall_spine.js';
 import {
     ICE,
     POOL,
@@ -44,6 +44,11 @@ import {
     isok,
     ROOM,
     OTYP_BOULDER,
+    COLNO,
+    ROWNO,
+    VWALL,
+    HWALL,
+    IS_WALL,
 } from './const.js';
 
 /** C: objects.h — LAND_MINE / BEARTRAP (`objects_nums` / obj_oc_skill_data.js). */
@@ -309,10 +314,36 @@ export async function coldZapHitsWaterAt(g, x, y, seeIt) {
 
     if (IS_LAVA(typ)) {
         buryObjsAt(g, x, y);
-        loc.typ = ROOM;
-        loc.flags = 0;
+        let spineX1 = x;
+        let spineY1 = y;
+        let spineX2 = x;
+        let spineY2 = y;
+        if (lavawall) {
+            const nWall = isok(x, y - 1) && IS_WALL(g.level?.at(x, y - 1)?.typ | 0);
+            const sWall = isok(x, y + 1) && IS_WALL(g.level?.at(x, y + 1)?.typ | 0);
+            loc.typ = (nWall || sWall) ? VWALL : HWALL;
+            loc.horizontal = loc.typ === HWALL;
+            loc.flags = 0;
+            spineX1 = Math.max(0, x - 1);
+            spineY1 = Math.max(0, y - 1);
+            spineX2 = Math.min(COLNO - 1, x + 1);
+            spineY2 = Math.min(ROWNO - 1, y + 1);
+            fixWallSpinesRect(g, spineX1, spineY1, spineX2, spineY2);
+            g.vision_full_recalc = 1;
+        } else {
+            loc.typ = ROOM;
+            loc.flags = 0;
+        }
         if (seeIt) await pline('The lava cools and solidifies.');
-        newsym(x, y);
+        if (lavawall) {
+            for (let xi = spineX1; xi <= spineX2; xi++) {
+                for (let yi = spineY1; yi <= spineY2; yi++) {
+                    newsym(xi, yi);
+                }
+            }
+        } else {
+            newsym(x, y);
+        }
 
         const u = g.u;
         if (u && u_at(x, y) && (u.utrap | 0) !== 0 && (u.utraptype | 0) === TT_LAVA) {

@@ -9,11 +9,11 @@ Thin handoff for the next coding session. Deep parity tables and history: [`c-to
 - **Plain ES modules**, no build/WASM/network in contest code; RNG via `js/rng.js`; match **clang** evaluation order for multi-call expressions.
 - API: [`docs/API.md`](../../docs/API.md); overview: [`README.md`](../../README.md).
 
-**Last slice:** **`zap.c`** **`zap_over_floor`** **`ZT_COLD`** — **`melt_ice.js`** **`coldZapHitsWaterAt`**: lavawall uses **`level.flags.temperature`** + **`rn2(max(2,5+temp*10)))`** for momentary “lava freezes” vs solidify (**`ROOM`**); hero on solidifying lava with **`TT_LAVA`** → **`Passes_walls`** clears utrap else **`rn1(50,20)`** + **`TT_INFLOOR`** (**`walkable.js`** **`heroPassesWalls`** export). **`game.js`** default **`level.flags.temperature`**. Wizard harness: **`extcmd.js`** **`#F`** → **`zapOverFloor(..., ZT_SPELL(ZT_COLD))`** at hero. Public sessions unchanged unless wizard + `#F` on liquid.
+**Last slice:** **`zap.c`** **`zap_over_floor`** lavawall solidify — **`js/wall_spine.js`** **`fixWallSpinesRect`** ( **`mkmap.c`** **`fix_wall_spines`** , shared with **`mklev.js`** **`wallification`**); **`coldZapHitsWaterAt`** sets **`VWALL`/`HWALL`** from N/S **`IS_WALL`** neighbors + C **`max(0,x-1)`**…**`min(COLNO-1,x+1)`** spine box + **`newsym`** 3×3 + **`vision_full_recalc`**; **`LAVAPOOL`** still **`ROOM`**. **`npm run score`:** **0/44**, RNG prefixes unchanged vs prior.
 
 ## Next steps (highest impact from latest fire/lava work)
 
-1. **`melt_ice` / cold remainder** — beam/breath/wand vectors calling **`zapOverFloor`** along paths (not only wizard **`#F`**); lavawall freeze → **`VWALL`/`HWALL`** + **`fix_wall_spines`**; full **`obj_ice_effects`** (**`obj_timer_checks`**, buried); real **`bury_objs`**/**`unearth_objs`**; fuller **`boulder_hits_pool`** / **`minliquid`** / **`spoteffects`**.
+1. **`melt_ice` / cold remainder** — beam/breath/wand vectors calling **`zapOverFloor`** along paths (not only wizard **`#F`**); full **`obj_ice_effects`** (**`obj_timer_checks`**, buried); real **`bury_objs`**/**`unearth_objs`**; fuller **`boulder_hits_pool`** / **`minliquid`** / **`spoteffects`**.
 2. **`minuhpmax`/`setuhpmax`/`losexp`** ( **`dofiretrap`** human branch ); underwater/steam **`dofiretrap`** box branch; **`shieldeff`/`monstseesu`**.
 3. **Wire `discoverScrollOtyp`** from **`read`** / **`pickup`** / **`makeknown`** when scroll ID is learned; audit remaining **`mklev.js`** **`otyp`** literals vs **`objects_nums`**.
 

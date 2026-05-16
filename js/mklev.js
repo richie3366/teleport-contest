@@ -35,6 +35,7 @@ import { makeEngrAt, ENGR_HEADSTONE, ENGR_MARK, ENGR_DUST, randomEngraving, getR
 import { tAt } from './search.js';
 import { makemon, rndmonnum } from './makemon.js';
 import { floorObjKey, placeFloorObject } from './floorobj.js';
+import { fixWallSpinesRect } from './wall_spine.js';
 
 // Object/class constants (normally from objects.js, not in contest template)
 const RANDOM_CLASS = 0;
@@ -1407,27 +1408,6 @@ function isSolidTile(x, y) {
     if (!isok(x, y)) return true;
     return IS_STWALL(game.level?.at(x, y)?.typ ?? STONE);
 }
-function isWallOrStone(x, y) {
-    if (!isok(x, y)) return 1;
-    const typ = game.level?.at(x, y)?.typ ?? STONE;
-    return (typ === STONE || isWallTile(x, y)) ? 1 : 0;
-}
-function isWallTile(x, y) {
-    if (!isok(x, y)) return 0;
-    const typ = game.level?.at(x, y)?.typ ?? STONE;
-    return (IS_WALL(typ) || IS_DOOR(typ) || typ === LAVAWALL
-        || typ === WATER || typ === SDOOR || typ === IRONBARS) ? 1 : 0;
-}
-function extend_spine(locale, wall_there, dx, dy) {
-    const nx = 1 + dx, ny = 1 + dy;
-    if (!wall_there) return 0;
-    if (dx) {
-        if (locale[1][0] && locale[1][2] && locale[nx][0] && locale[nx][2]) return 0;
-        return 1;
-    }
-    if (locale[0][1] && locale[2][1] && locale[0][ny] && locale[2][ny]) return 0;
-    return 1;
-}
 function wall_cleanup(x1, y1, x2, y2) {
     const map = game.level;
     if (!map) return;
@@ -1436,35 +1416,14 @@ function wall_cleanup(x1, y1, x2, y2) {
             const loc = map.at(x, y);
             const typ = loc?.typ ?? STONE;
             if (!(IS_WALL(typ) && typ !== DBWALL)) continue;
-            if (isSolidTile(x-1,y-1) && isSolidTile(x-1,y) && isSolidTile(x-1,y+1)
-                && isSolidTile(x,y-1) && isSolidTile(x,y+1)
-                && isSolidTile(x+1,y-1) && isSolidTile(x+1,y) && isSolidTile(x+1,y+1))
+            if (isSolidTile(x - 1, y - 1) && isSolidTile(x - 1, y) && isSolidTile(x - 1, y + 1)
+                && isSolidTile(x, y - 1) && isSolidTile(x, y + 1)
+                && isSolidTile(x + 1, y - 1) && isSolidTile(x + 1, y) && isSolidTile(x + 1, y + 1))
                 loc.typ = STONE;
         }
 }
 function fix_wall_spines(x1, y1, x2, y2) {
-    const spineArray = [VWALL, HWALL, HWALL, HWALL,
-        VWALL, TRCORNER, TLCORNER, TDWALL,
-        VWALL, BRCORNER, BLCORNER, TUWALL,
-        VWALL, TLWALL, TRWALL, CROSSWALL];
-    const map = game.level;
-    if (!map) return;
-    for (let x = x1; x <= x2; x++)
-        for (let y = y1; y <= y2; y++) {
-            const loc = map.at(x, y);
-            const typ = loc?.typ ?? STONE;
-            if (!(IS_WALL(typ) && typ !== DBWALL)) continue;
-            const locale = [
-                [isWallOrStone(x-1,y-1), isWallOrStone(x-1,y), isWallOrStone(x-1,y+1)],
-                [isWallOrStone(x,y-1), 0, isWallOrStone(x,y+1)],
-                [isWallOrStone(x+1,y-1), isWallOrStone(x+1,y), isWallOrStone(x+1,y+1)],
-            ];
-            const bits = (extend_spine(locale, isWallTile(x,y-1), 0, -1) << 3)
-                | (extend_spine(locale, isWallTile(x,y+1), 0, 1) << 2)
-                | (extend_spine(locale, isWallTile(x+1,y), 1, 0) << 1)
-                | extend_spine(locale, isWallTile(x-1,y), -1, 0);
-            if (bits) loc.typ = spineArray[bits];
-        }
+    fixWallSpinesRect(game, x1, y1, x2, y2);
 }
 function wallification(x1, y1, x2, y2) {
     wall_cleanup(x1, y1, x2, y2);
