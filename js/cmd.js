@@ -19,6 +19,7 @@ import { doBumpMeleeAttack } from './attack.js';
 import { tryPeacefulSwap } from './peaceful_displace.js';
 import { blocksMovementAt, diagonalHeroMoveBlocked } from './walkable.js';
 import { spotEffects } from './spoteffects.js';
+import { dokickFromCmd } from './kick.js';
 
 // Direction deltas: y u k
 //                   h . l
@@ -90,6 +91,12 @@ export async function rhack(key) {
 
     if (ch === '#') {
         await runExtcmdFromHashPrefix();
+        return;
+    }
+
+    if (key === 4) {
+        // C: #kick — default tty binding ^D (ASCII EOT); getdir consumes next keystroke.
+        await dokickFromCmd(game);
         return;
     }
 
