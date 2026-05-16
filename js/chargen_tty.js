@@ -813,6 +813,12 @@ export function paintRoleMenu(disp, f) {
         if (rc === 0) disp.putstr(0, row, ` ${line}`, NO_COLOR);
         else disp.putstr(rc, row, line, NO_COLOR);
         row++;
+        /* C tty right-column role hub (`MENU_COL`): blank between `* * Random` and
+         * `setup_rolemenu` pick lines — matches `setup_racemenu` spacing (seed0006). */
+        if (rc !== 0 && line === '* * Random') {
+            disp.putstr(rc, row, '', NO_COLOR);
+            row++;
+        }
     }
     disp.cursorVisible = true;
     const endStr = rc === 0 ? ' (end)' : '(end)';
