@@ -2934,19 +2934,27 @@ export function Is_juiblex_level(uz) { return false; /* TODO */ }
 // eat.c gethungry switch — NH5 objects_nums (objclass.h + objects.h; first weapon DART = 25).
 export const OTYP_RIN_SLOW_DIGESTION = 176;
 export const OTYP_FAKE_AMULET_OF_YENDOR = 197;
+/** C: objects.h — real Amulet (after fake); NH5 `objects_nums`. */
+export const OTYP_AMULET_OF_YENDOR = 198;
 export const OTYP_RIN_PROTECTION = 161;
 export const OTYP_MEAT_RING = 255;
 /** C: objects.h `OBJ("boulder", …)` — NH5 `otyp`; must match `mklev.js` floor boulder placement. */
 export const OTYP_BOULDER = 465;
-/** C: `permonst.h` enum `monnums` — `PM_GRID_BUG` (119th `MON()` in `monsters.h`, zero-based **118**). */
-export const PM_GRID_BUG = 118;
-/** C: `monsters.h` — gremlin (45th `MON()`, zero-based **44**). */
-export const PM_GREMLIN = 44;
-/** C: `monsters.h` — iron golem (269th `MON()`, zero-based **268**). */
-export const PM_IRON_GOLEM = 268;
-/** C: `monsters.h` — fire elemental (162nd `MON()`, zero-based **161**). */
-export const PM_FIRE_ELEMENTAL = 161;
-/** C: `monsters.h` — salamander (339th `MON()`, zero-based **338**). */
-export const PM_SALAMANDER = 338;
+/** C: `monsters.h` `MON()` order (NH 5.0 upstream) — zero-based `mons[]` index. */
+export const PM_GRID_BUG = 115;
+/** C: `monsters.h` — gremlin. */
+export const PM_GREMLIN = 42;
+/** C: `monsters.h` — iron golem. */
+export const PM_IRON_GOLEM = 257;
+/** C: `monsters.h` — elementals block (after stalker). */
+export const PM_AIR_ELEMENTAL = 155;
+/** C: `monsters.h` — fire elemental. */
+export const PM_FIRE_ELEMENTAL = 156;
+/** C: `monsters.h` — earth elemental. */
+export const PM_EARTH_ELEMENTAL = 157;
+/** C: `monsters.h` — water elemental. */
+export const PM_WATER_ELEMENTAL = 158;
+/** C: `monsters.h` — salamander. */
+export const PM_SALAMANDER = 323;
 /** C: objects.h RING() — BITS chrg uses `spec`; first six rings have spec 1 (NH5 objects_nums). */
 export const OC_CHARGED_RING_OTYPES = new Set([156, 157, 158, 159, 160, 161]);
