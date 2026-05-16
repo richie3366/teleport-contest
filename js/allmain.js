@@ -9,7 +9,10 @@ import { game } from './gstate.js';
 import { mklev, l_nhcore_init, u_on_upstairs } from './mklev.js';
 import { rhack } from './cmd.js';
 import { docrt, cls, bot, flush_screen, pline, clearPendingMessageAndToplineLikeC } from './display.js';
-import { vision_recalc, vision_reset, init_vision_globals } from './vision.js';
+import {
+    vision_recalc, vision_reset, init_vision_globals,
+    noticeMonOffLikeC, noticeMonOnLikeC, noticeAllMonsLikeC,
+} from './vision.js';
 import { fastforward_pre_mklev, fastforward_post_mklev, fastforward_fill_mineralize } from './fastforward.js';
 import { movemon, MOVE_MON_HARNESS_MAX_STEP } from './monmove.js';
 import { mcalcMoveLikeC } from './mcalc_move.js';
@@ -35,6 +38,9 @@ import { bootstrapSpLevchnMinesMinetnFromBranchStubLikeC } from './sp_levchn.js'
 // C ref: allmain.c newgame()
 export async function newgame() {
     const g = game;
+
+    /* C: allmain.c newgame — welcome before monster-notice plines (flag.h notice_mon_off) */
+    noticeMonOffLikeC();
 
     // Fast-forward through pre-mklev startup RNG calls.
     // Covers: o_init (shuffles), dungeon init, u_init_misc.
@@ -199,6 +205,10 @@ export async function newgame() {
     const roleNm = g.flags?.female ? g.urole.name.f : g.urole.name.m;
     const hi = welcomeInterjectionLikeC(g);
     await pline(`${hi} ${g.plname}, welcome to NetHack!  You are a ${alignName} ${genderAdj} ${raceAdj} ${roleNm}.`);
+
+    /* C: allmain.c newgame — after welcome(TRUE): notice_mon_on(); notice_all_mons(TRUE) (a11y.glyph_updates → dolookaround) */
+    noticeMonOnLikeC();
+    noticeAllMonsLikeC(true);
 }
 
 /** C u_init.c — first word of welcome pline depends on role (tty sessions). */

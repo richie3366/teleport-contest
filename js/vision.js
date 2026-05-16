@@ -556,3 +556,47 @@ export function init_vision_globals() {
 export function seeMonsters() {
     /* Port display.c / mon.c when fmon and glyph refresh exist */
 }
+
+/**
+ * C: include/flag.h **`struct accessibility_data`** — subset used by **`notice_mon_*`** /
+ * **`hack.c`** **`notice_all_mons`** (defaults zeroed like NEARDATA **`a11y`**).
+ * @returns {NonNullable<typeof game['a11y']>}
+ */
+function ensureA11yLikeC() {
+    const g = game;
+    if (!g.a11y) {
+        g.a11y = {
+            mon_notices: false,
+            mon_notices_blocked: 0,
+            glyph_updates: false,
+        };
+    }
+    return g.a11y;
+}
+
+/** C: flag.h **`notice_mon_off`** — defer **`notice_mon`** / **`notice_all_mons`** plines. */
+export function noticeMonOffLikeC() {
+    const a = ensureA11yLikeC();
+    a.mon_notices_blocked = (a.mon_notices_blocked | 0) + 1;
+}
+
+/** C: flag.h **`notice_mon_on`** — re-enable after **`welcome`** (pair with **`notice_mon_off`**). */
+export function noticeMonOnLikeC() {
+    const a = ensureA11yLikeC();
+    let b = (a.mon_notices_blocked | 0) - 1;
+    /* C: impossible("mon_notices_blocked<0"); — clamp for JS */
+    if (b < 0) b = 0;
+    a.mon_notices_blocked = b;
+}
+
+/**
+ * C: hack.c **`notice_all_mons`** — a11y **`mon_notices`** + not blocked; **`dolookaround`**
+ * branch is **`a11y.glyph_updates`** in **`allmain.c`** (not ported here).
+ * @param {boolean} reset
+ */
+export function noticeAllMonsLikeC(reset) {
+    const a = game.a11y;
+    if (!a?.mon_notices || (a.mon_notices_blocked | 0) !== 0) return;
+    seeMonsters();
+    void reset;
+}
