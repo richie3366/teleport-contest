@@ -2204,6 +2204,18 @@ async function trapeffectHoleHero(trap, trflags) {
         return;
     }
 
+    /* C: fall_through — **`(Flying||is_clinger)&&TOOKPLUNGE&&td&&t`** before **`shopdig`**. */
+    const td = true;
+    const tHere = tAt(u.ux | 0, u.uy | 0);
+    const tLikeC = tHere || trap;
+    if ((u.Flying || isClinger(ptr)) && plunged && td && tLikeC) {
+        const verb = u.Flying ? 'swoop' : 'deliberately drop';
+        const rest = (tLikeC.ttyp | 0) === TRAPDOOR
+            ? 'through the trap door'
+            : 'into the gaping hole';
+        await pline(`You ${verb} down ${rest}!`);
+    }
+
     /* C: **`shopdig`/`pay`**, **`find_hell`**, deep-shaft plines, **`schedule_goto`** — subset: level only. */
     await applyGotoAfterHeroHoleFallLikeC(g);
     newsym(u.ux, u.uy);

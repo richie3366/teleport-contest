@@ -9,7 +9,7 @@ Thin handoff for the next coding session. Deep parity tables and history: [`c-to
 - **Plain ES modules**, no build/WASM/network in contest code; RNG via `js/rng.js`; match **clang** evaluation order for multi-call expressions.
 - API: [`docs/API.md`](../../docs/API.md); overview: [`README.md`](../../README.md).
 
-**Last slice:** **`trap.c`** **`fall_through`** **`dont_fall`** first compound + C **`Can_fall_thru`** gate — **`js/trap.js`**: **`canFallThruDlevelLikeC`** (**`dungeon.c`** **`Can_dig_down || Is_stronghold`**), **`heroSquareCandig`** (**`levl.candig`**); **`trapeffectHoleHero`** entry requires **`canFallThruLevelForHole && canFallThruDlevelLikeC`** (C impossible **`!Can_fall_thru`**); **`dont_fall`** adds **`(!Can_fall_thru && !candig)`** and **`(ceiling_hider && u.uundetected)`** with **`Flying`/`is_clinger`** under **`!TOOKPLUNGE`**. **`js/mondata.js`**: **`M1_HIDE`**, **`isHider`**, **`ceilingHider`** (**`mondata.h`**). Still TODO: **`TOOKPLUNGE`** swoop plines, **`shopdig`/`impact_drop`/`schedule_goto`**, **`trap->dst`**, full **`goto_level`**. **`npm run score`:** **0/44**; **`seed0060`** **991/3626** (unchanged).
+**Last slice:** **`trap.c`** **`fall_through`** **`TOOKPLUNGE`** controlled-flight plines — **`js/trap.js`** **`trapeffectHoleHero`**: after **`dont_fall`** passes, if **`(Flying||is_clinger)&&plunged&&td&&t_at(...)`** (C **`t`**, else **`trap`**), **`You swoop down through the trap door!`/`into the gaping hole!`** vs **`deliberately drop`** (**`tLikeC.ttyp`**). Still TODO: deep-shaft **`dist>1`** (**`depth`/`trap->dst`**), **`shopdig`/`impact_drop`/`schedule_goto`**, full **`goto_level`**. **`npm run score`:** **0/44**; **`seed0060`** **991/3626** (unchanged).
 
 ## Next steps (highest impact from latest fire/lava work)
 
