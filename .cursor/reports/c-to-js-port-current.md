@@ -9,7 +9,7 @@ Thin handoff for the next coding session. Deep parity tables and history: [`c-to
 - **Plain ES modules**, no build/WASM/network in contest code; RNG via `js/rng.js`; match **clang** evaluation order for multi-call expressions.
 - API: [`docs/API.md`](../../docs/API.md); overview: [`README.md`](../../README.md).
 
-**Last slice:** **`mon.c`** **`wakeup`** / **`wake_msg`** / post-sleep **`growl`** / peaceful **`setmangry`** subset — **`js/zap_over_floor.js`** **`wakeupMonFromZap`**: **`canseemonZap`** (steed / invis / **`cansee`**), **`wakeMsgZap`** (“wakes up” **`!`/`?.`** per **`via_attack`**), **`growlAfterSleepZap`** when **`canseemon` || !Deaf**; hero zap clears **`mpeaceful`** with **`canseemon`** angry **`pline`** for **`isshk`/`ispriest`/`isgd`**. No mimic / **`finish_meating`** / alignment / **`peacefuls_respond`**. **`npm run score`:** **0/44**.
+**Last slice:** **`mon.c`** **`wakeup`** / **`wake_msg`** / post-sleep **`growl`** / peaceful **`setmangry`** subset — **`js/zap_over_floor.js`** **`wakeupMonFromZap`**: **`canseemonZap`** (steed / invis / **`cansee`**), **`wakeMsgZap`** (“wakes up” **`!`** vs **`.`** from **`via_attack`**), **`growlAfterSleepZap`** when **`canseemon` || !Deaf**; hero zap clears **`mpeaceful`** with **`canseemon`** angry **`pline`** for **`isshk`/`ispriest`/`isgd`**. No mimic / **`finish_meating`** / alignment / **`peacefuls_respond`**. **`npm run score`:** **0/44**.
 
 ## Next steps (highest impact from latest fire/lava work)
 
