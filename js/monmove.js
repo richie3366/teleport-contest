@@ -8,8 +8,10 @@
 // C: **`monmove.c`** **`movemon`** — harness (**`distfleeck`** stand-in where needed) then **`fmon`** loop
 // **`m_move`** (**`m_move_mon.js`**), then **`mintrap`**. **`m_throw`** runs only inside **`m_move`**.
 // **`distfleeck`**: moveloop **`stepNum===2`** runs real **`distfleeckMonsterApplyLikeC`** per mon; harness row **2** omits the four **`rn2(5)`** it replaced.
+// Multi-pass: C **`allmain.c`** **`do { movemon(); … } while (monscanmove)`** — repeat sweeps while any living mon still has **`movement >= NORMAL_SPEED`** after a full **`fmon`** pass ( **`gs.somebody_can_move`** ).
 
 import { rn2 } from './rng.js';
+import { NORMAL_SPEED } from './const.js';
 import { mintrapMoveloopTail } from './trap.js';
 import { game } from './gstate.js';
 import { mMoveOneMonsterSubsetLikeC } from './m_move_mon.js';
@@ -38,14 +40,22 @@ const _HARNESS = [
 
 /**
  * C: movemon() — advance all monsters for one hero time step.
- * Harness: replays session **`rn2`** slice; **`m_move`** now gates on **`movement`** (**`NORMAL_SPEED`**) like C **`movemon_singlemon`**.
- * **`m_move`**: **`m_move_mon.js`** per **`g.level.monsters`** entry.
- * Tail: **`mintrap`** when a monster enters a trapped square (C: **`monmove.c`** after **`m_move`**).
+ * Harness: once per call; replays session **`rn2`** slice; **`m_move`** gates on **`movement`** (**`NORMAL_SPEED`**) like C **`movemon_singlemon`**.
+ * **`m_move`**: **`m_move_mon.js`** per **`g.level.monsters`** entry each sweep; repeat sweeps while any living mon still has **`movement >= NORMAL_SPEED`** (C **`allmain.c`** **`while (monscanmove)`** over **`movemon()`**).
+ * Tail: **`mintrap`** after each sweep when a monster entered a trapped square (C: **`monmove.c`** after **`m_move`**).
  */
 export async function movemon(stepNum) {
     const i = stepNum - 1;
     if (i >= 0 && i < _HARNESS.length) _HARNESS[i]();
-    const mons = game.level?.monsters ?? [];
-    for (const m of mons) await mMoveOneMonsterSubsetLikeC(game, m, stepNum);
-    await mintrapMoveloopTail();
+
+    for (;;) {
+        const mons = game.level?.monsters ?? [];
+        for (const m of mons) await mMoveOneMonsterSubsetLikeC(game, m, stepNum);
+        await mintrapMoveloopTail();
+
+        const anybodyStill = (game.level?.monsters ?? []).some(
+            mm => (mm.mhp | 0) > 0 && (mm.movement | 0) >= NORMAL_SPEED,
+        );
+        if (!anybodyStill) break;
+    }
 }
