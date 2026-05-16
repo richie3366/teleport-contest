@@ -1,6 +1,7 @@
 // chargen_rigid.js — C role.c pick_* + rigid_role_checks + gr.rfilter.
 // C ref: role.c — ok_role, ok_race, ok_gend, ok_align, pick_role, pick_race,
-// pick_gend, pick_align, rigid_role_checks, setrolefilter, clearrolefilter.
+// pick_gend, pick_align, rigid_role_checks, randrole, randrole_filtered,
+// setrolefilter, clearrolefilter.
 
 import { rn2 } from './rng.js';
 import { roles, races, aligns, genders } from './roles.js';
@@ -471,12 +472,45 @@ export function pickGendJs(ri, rai, ai, pickhow) {
 }
 
 /**
+ * C role.c **`randrole(boolean for_display)`** — **`rn2(SIZE(roles) - 1)`** over valid indices.
+ * JS has no **`roles[]`** terminator row; **`rn2(roles.length)`** matches C’s span.
+ * @param {boolean} [forDisplay] — C **`rn2_on_display_rng`**; JS uses main **`rn2`** (no split display PRNG).
+ * @returns {number} role index **`0..roles.length-1`**
+ */
+export function randroleLikeC(forDisplay = false) {
+    void forDisplay;
+    return rn2(roles.length);
+}
+
+/**
+ * C role.c **`randrole_filtered()`** — used when **`pick_role`** returns **`ROLE_NONE`**
+ * for **`flags.initrole == ROLE_RANDOM`** (**`rigid_role_checks`**).
+ * @returns {number} role index **`0..roles.length-1`**
+ */
+export function randroleFilteredLikeC() {
+    /** @type {number[]} */
+    const set = [];
+    for (let i = 0; i < roles.length; i++) {
+        if (
+            okRoleJs(i, ROLE_NONE, ROLE_NONE, ROLE_NONE)
+            && okRaceJs(i, ROLE_RANDOM, ROLE_NONE, ROLE_NONE)
+            && okGendJs(i, ROLE_NONE, ROLE_RANDOM, ROLE_NONE)
+            && okAlignJs(i, ROLE_NONE, ROLE_NONE, ROLE_RANDOM)
+        ) {
+            set.push(i);
+        }
+    }
+    return set.length ? set[rn2(set.length)] : randroleLikeC(false);
+}
+
+/**
  * C rigid_role_checks() — order matches role.c:1270–1279 when initrole set.
  * @param {ChargenFlags} f
  */
 export function rigidRoleChecksJs(f) {
     if (f.initrole === ROLE_RANDOM) {
         f.initrole = pickRoleJs(f.initrace, f.initgend, f.initalign, PICK_RANDOM);
+        if (f.initrole < 0) f.initrole = randroleFilteredLikeC();
     }
     if (f.initrace === ROLE_RANDOM) {
         const t = pickRaceJs(f.initrole, f.initgend, f.initalign, PICK_RANDOM);
