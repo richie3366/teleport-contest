@@ -7,7 +7,7 @@
 // queued weapon.c plines (give_may_advance_msg, drain_weapon_skill forget).
 
 import { game } from './gstate.js';
-import { pline } from './display.js';
+import { pline, docrt } from './display.js';
 import { rnd } from './rng.js';
 import {
     NEW_MOON, FULL_MOON, NORMAL_SPEED, STONE, FUZZER_IMPOSSIBLE_PANIC,
@@ -19,7 +19,7 @@ import { setWear } from './wear.js';
 import { resetJustPicked, encumberMsg, pickup } from './pickup.js';
 import { readEngrAt } from './engrave.js';
 import { fixShopDamage } from './shop.js';
-import { seeMonsters } from './vision.js';
+import { seeMonsters, vision_recalc } from './vision.js';
 import { updateInventory } from './invent.js';
 import { takePendingGiveMayAdvancePline, takePendingDrainForgetPlines } from './u_init_skills.js';
 import { findLevelByProtoLikeC } from './sp_levchn.js';
@@ -51,13 +51,31 @@ export async function askDoTutorialLikeC() {
 
 /**
  * C: allmain.c **`maybe_do_tutorial`** — after **`moveloop_preamble`**, before **`moveloop_core`** loop.
+ * **`schedule_goto` / `deferred_goto` / `goto_level`** still TODO; **`sp`** is kept for the next slice.
  * @returns {Promise<void>}
  */
 export async function maybeDoTutorialLikeC() {
-    if (!findLevelTut1LikeC()) return;
-    if (await askDoTutorialLikeC()) {
-        /* C: assign_level(&u.ucamefrom,&u.uz); schedule_goto(&sp->dlevel,…); deferred_goto(); docrt(); */
-    }
+    const sp = findLevelTut1LikeC();
+    if (!sp) return;
+    if (!(await askDoTutorialLikeC())) return;
+
+    const g = game;
+    const u = g.u;
+    /* C: assign_level(&u.ucamefrom, &u.uz); */
+    if (u?.uz) u.ucamefrom = { dnum: u.uz.dnum | 0, dlevel: u.uz.dlevel | 0 };
+
+    g.iflags = g.iflags || {};
+    /* C: iflags.nofollowers = TRUE — tutorial level change ignores pets */
+    g.iflags.nofollowers = true;
+
+    /* C: schedule_goto pre_msg → deferred_goto pline1 before goto_level ("Entering the tutorial.") */
+    await pline('Entering the tutorial.');
+    /* TODO: do.c schedule_goto(&sp->dlevel, UTOTYPE_NONE, …); deferred_goto() → goto_level */
+
+    vision_recalc(0);
+    await docrt();
+
+    g.iflags.nofollowers = false;
 }
 
 /**
