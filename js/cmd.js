@@ -15,9 +15,9 @@ import { checkHere } from './pickup.js';
 import { dotrap } from './trap.js';
 import { runExtcmdFromHashPrefix } from './extcmd.js';
 import { doBumpMeleeAttack } from './attack.js';
-import { peacefulSwapWithHero } from './peaceful_displace.js';
-import { COLNO, ROWNO, STONE, DOOR, D_CLOSED, D_LOCKED,
-         IS_WALL, IS_OBSTRUCTED, NO_TRAP_FLAGS } from './const.js';
+import { tryPeacefulSwap } from './peaceful_displace.js';
+import { blocksMovementAt } from './walkable.js';
+import { NO_TRAP_FLAGS } from './const.js';
 
 // Direction deltas: y u k
 //                   h . l
@@ -29,14 +29,9 @@ function isMovementKey(ch) {
     return 'hjklyubn'.includes(ch);
 }
 
-// C ref: hack.c — check if a cell blocks movement
+// C ref: walkable.js blocksMovementAt (hack.c / goodpos terrain slice)
 function blocksMove(x, y) {
-    const loc = game.level?.at(x, y);
-    if (!loc) return true;
-    if (loc.typ === STONE) return true;
-    if (IS_WALL(loc.typ)) return true;
-    if (loc.typ === DOOR && (loc.doormask & (D_CLOSED | D_LOCKED))) return true;
-    return false;
+    return blocksMovementAt(x, y);
 }
 
 // C ref: cmd.c rhack — main command dispatcher
@@ -149,14 +144,18 @@ async function domove(dx, dy) {
     if (mtmp) {
         if (mtmp.mpeaceful | 0) {
             const ox = u.ux, oy = u.uy;
-            u.ux0 = ox;
-            u.uy0 = oy;
-            await peacefulSwapWithHero(mtmp, ox, oy, newx, newy);
-            maybeSmudgeEngr(ox, oy, newx, newy);
-            const trSwap = tAt(newx, newy);
-            if (trSwap) await dotrap(trSwap, NO_TRAP_FLAGS);
-            newsym(ox, oy);
-            newsym(newx, newy);
+            const { swapped } = await tryPeacefulSwap(mtmp, ox, oy, newx, newy);
+            if (swapped) {
+                u.ux0 = ox;
+                u.uy0 = oy;
+                maybeSmudgeEngr(ox, oy, newx, newy);
+                const trSwap = tAt(newx, newy);
+                if (trSwap) await dotrap(trSwap, NO_TRAP_FLAGS);
+                newsym(ox, oy);
+                newsym(newx, newy);
+            } else {
+                newsym(newx, newy);
+            }
         } else {
             await doBumpMeleeAttack(mtmp);
             newsym(newx, newy);
