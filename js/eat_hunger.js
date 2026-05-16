@@ -35,18 +35,23 @@ function overexertHpPlines() {
     return plines;
 }
 
+/** C: hack.c overexertion tail — overexert_hp when moves%3 and HVY_ENCUMBER (no gethungry). */
+export function overexertHpIfEncumberedPlines() {
+    const g = game;
+    const moves = g.moves | 0;
+    if ((moves % 3) !== 0 && nearCapacity() >= ENC.HVY_ENCUMBER) return overexertHpPlines();
+    return [];
+}
+
 /**
  * C: hack.c overexertion(void) — extra gethungry from combat exertion; then maybe overexert_hp.
- * Call from do_attack / uhitm when melee is ported (not on every domove / moveloop tick).
+ * Use when attack is **not** followed by the normal allmain gethungry (rare in this port).
  * @returns {{ plines: string[], multiNegative: boolean }}
  */
 export function overexertion() {
     gethungry();
-    const plines = [];
-    const g = game;
-    const moves = g.moves | 0;
-    if ((moves % 3) !== 0 && nearCapacity() >= ENC.HVY_ENCUMBER) plines.push(...overexertHpPlines());
-    return { plines, multiNegative: (g.multi | 0) < 0 };
+    const plines = [...overexertHpIfEncumberedPlines()];
+    return { plines, multiNegative: (game.multi | 0) < 0 };
 }
 
 /** C: eat.c morehungry(int num) — @returns {string[]} newuhs(TRUE) plines */

@@ -1,7 +1,7 @@
 // cmd.js — Command dispatch and movement.
 // C ref: cmd.c rhack(), hack.c domove(); trap.c dotrap (nomul prefix when trap present).
 //
-// Minimal skeleton: only hjklyubn movement is implemented.
+// Minimal skeleton: hjklyubn movement, bump into adjacent monster (attack stub).
 // Contestants should add: search, kick, eat, drink, read, zap,
 // wear, wield, drop, throw, pray, cast, and all other commands.
 
@@ -14,6 +14,7 @@ import { maybeSmudgeEngr } from './engrave.js';
 import { checkHere } from './pickup.js';
 import { dotrap } from './trap.js';
 import { runExtcmdFromHashPrefix } from './extcmd.js';
+import { doBumpMeleeAttack } from './attack.js';
 import { COLNO, ROWNO, STONE, DOOR, D_CLOSED, D_LOCKED,
          IS_WALL, IS_OBSTRUCTED, NO_TRAP_FLAGS } from './const.js';
 
@@ -128,7 +129,11 @@ export async function rhack(key) {
     }
 }
 
-// C ref: hack.c domove — execute a movement; returns true if hero moved.
+// C ref: hack.c domove — execute a movement; returns true if hero moved or attacked.
+function mAt(x, y) {
+    return game.level?.monsters?.find((m) => m.mx === x && m.my === y) ?? null;
+}
+
 async function domove(dx, dy) {
     const u = game.u;
     const newx = u.ux + dx;
@@ -137,6 +142,12 @@ async function domove(dx, dy) {
     if (blocksMove(newx, newy)) {
         // Can't move there — no game time (C: domove returns without moving)
         return false;
+    }
+
+    const mtmp = mAt(newx, newy);
+    if (mtmp) {
+        await doBumpMeleeAttack(mtmp);
+        return true;
     }
 
     // Move the hero
