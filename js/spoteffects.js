@@ -257,6 +257,16 @@ async function pooleffectsBooleanNewspot(g, newspot, opts) {
     return false;
 }
 
+/**
+ * C: hack.c **`pooleffects(newspot)`** — exported for **`dig.c`** **`liquid_flow`**.
+ * @param {typeof game} g
+ * @param {boolean} [newspot]
+ * @param {{ fromDx?: number, fromDy?: number }} [opts]
+ */
+export async function pooleffectsNewspotLikeC(g, newspot = false, opts = {}) {
+    return pooleffectsBooleanNewspot(g, newspot, opts);
+}
+
 /** C: hack.c **`check_special_room(FALSE)`** — stub until **`mkroom.c`** parity. */
 function checkSpecialRoomSpoteffects(_g, _picked) {
     void _g;

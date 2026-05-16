@@ -114,6 +114,18 @@ export function objIceEffectsAt(g, x, y) {
     objIceCorpsesOffIceChain(g, head, x, y, 'floor');
 }
 
+/** C: mkobj.c **`obj_ice_effects(x, y, TRUE)`** — **`timed`** objects only (**`dig.c`** **`liquid_flow`**). */
+export function objIceEffectsDigLiquidFlowLikeC(g, x, y) {
+    const head = g.level?.floorObjHeads?.get(floorObjKey(x, y));
+    for (let o = head; o; o = o.nexthere) {
+        if (o.timed) objTimerChecksMkobj(g, o, x, y, 0, 'floor', isIceAt);
+    }
+    const buried = g.level?.buriedObjHeads?.get(floorObjKey(x, y));
+    for (let o = buried; o; o = o.nexthere) {
+        if (o.timed) objTimerChecksMkobj(g, o, x, y, 0, 'buried', isIceAt);
+    }
+}
+
 /** C: mkobj.c **`obj_ice_effects`** buried pass — same order before **`unearth_objs`**. */
 function objIceEffectsOffIceBuriedAt(g, x, y) {
     const head = g.level?.buriedObjHeads?.get(floorObjKey(x, y));
@@ -711,4 +723,9 @@ export async function meltIceAt(g, x, y, msg) {
         const mtmp = g.level?.monsters?.find((m) => m.mx === x && m.my === y);
         if (mtmp) await minliquidMonsterAfterMelt(g, mtmp);
     }
+}
+
+/** C: mon.c **`minliquid(mtmp)`** — export for **`dig.c`** **`liquid_flow`**. */
+export async function minliquidMonsterAtCellLikeC(g, mtmp) {
+    return minliquidMonsterAfterMelt(g, mtmp);
 }

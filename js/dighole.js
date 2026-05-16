@@ -2,10 +2,11 @@
 // C ref: dig.c dig_check(), digcheck_fail_message(), dighole(), decl.c zdir (callers set u.dz).
 //
 // Ported: BY_YOU dig_check; digcheck_fail_message tail; dighole opening guards + magical explode;
-// pool/lava slosh + wake_nearto stub; ROOM/CORR + **!ttmp** + **DIGCHECK_PASSED|PASSED_PITONLY** + Can_dig_down
+// pool/lava slosh + wake_nearto stub; **`fillholetyp`** + **`liquid_flow`** when adjacent liquid;
+// ROOM/CORR + **!ttmp** + **DIGCHECK_PASSED|PASSED_PITONLY** + Can_dig_down
 // → **PIT** vs **HOLE** (**`nohole`/`pit_only`/`PASSED_PITONLY`** vs hole) per C; **digactualHoleHeroUtrapSubset** before trap.
-// Deferred: fillholetyp, drawbridge, boulder KADOOM, grave, cnv_trap_obj, spot_checks, goto_level,
-// shop billing, monsters, furniture_handled, Invocation_lev, AM_SANCTUM, **PASSED_DESTROY_TRAP** + trap.
+// Deferred: drawbridge, boulder KADOOM, grave, cnv_trap_obj, goto_level,
+// shop billing, monsters, furniture_handled, Invocation_lev, AM_SANCTUM, **PASSED_DESTROY_TRAP** + trap on **ROOM/CORR** (**`!ttmp`** guard).
 
 import { pline, newsym } from './display.js';
 import { vision_recalc, cansee } from './vision.js';
@@ -13,6 +14,8 @@ import { d, rn1 } from './rng.js';
 import { stairwayAt } from './decor.js';
 import { digactualHoleHeroUtrapSubset } from './floorobj.js';
 import { spotChecksLikeC } from './spot_checks.js';
+import { fillholetypLikeC } from './fillholetyp.js';
+import { liquidFlowHeroDigLikeC } from './liquid_flow.js';
 import { maybeHalfPhys, losehp } from './mthrowu.js';
 import {
     STONE,
@@ -210,7 +213,7 @@ export async function digcheckFailMessageByYouAtLikeC(g, digresult, x, y) {
 }
 
 /**
- * C: dig.c dighole(FALSE, TRUE, cc) — subset (**`fillholetyp`** / **`goto_level`** TODO).
+ * C: dig.c dighole(FALSE, TRUE, cc) — subset (**`goto_level`** / wand+trap **`cnv_trap_obj`** still TODO).
  * @param {import('./gstate.js').game} g
  * @param {boolean} pitOnly
  * @param {boolean} byMagic
@@ -272,6 +275,23 @@ export async function digholeHeroLikeC(g, pitOnly, byMagic, cc) {
             && byMagic
             && (dc === DIGCHECK_PASSED || dc === DIGCHECK_PASSED_PITONLY)
         ) {
+            const typFill = fillholetypLikeC(g, digX, digY, false);
+            lev.flags = 0;
+
+            if (typFill !== ROOM) {
+                /* C: **`furniture_handled`** — fountain/sink/drawbridge (not **ROOM/CORR** wand fill). */
+                lev.typ = typFill;
+                await liquidFlowHeroDigLikeC(
+                    g,
+                    digX,
+                    digY,
+                    typFill,
+                    ttmp,
+                    'As you dig, the hole fills with %s!',
+                );
+                return true;
+            }
+
             const wantPit = pitOnly || nohole || dc === DIGCHECK_PASSED_PITONLY;
             digactualHoleHeroUtrapSubset(g, digX, digY);
             const ttyp = wantPit ? PIT : HOLE;
