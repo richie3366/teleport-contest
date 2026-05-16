@@ -3,6 +3,7 @@
 
 import { pline } from './display.js';
 import { newuexp } from './explevel.js';
+import { resistsDrliHeroLikeC } from './mondata.js';
 
 /**
  * C: role.c Goodbye() — role-specific farewell word before " level N.".
@@ -22,15 +23,6 @@ export function goodbyeWordLikeC(g) {
         default:
             return 'Goodbye';
     }
-}
-
-/**
- * C: mondata.c resists_drli() — defended(AD_DRLI) subset; undead/demon/were not wired on raceptr.
- * @param {object} u
- */
-export function resistsDrliHeroStub(u) {
-    if (!u) return true;
-    return !!(u.Drain_resistance | 0);
 }
 
 /**
@@ -73,7 +65,7 @@ export function setUhpmaxHumanLikeC(g, newmax, evenWhenPolyd) {
 export async function losexpNullLikeC(g) {
     const u = g.u;
     if (!u) return;
-    if (resistsDrliHeroStub(u)) return;
+    if (resistsDrliHeroLikeC(g)) return;
 
     if ((u.ulevel | 0) > 1) {
         await pline(`${goodbyeWordLikeC(g)} level ${u.ulevel | 0}.`);

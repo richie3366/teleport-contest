@@ -20,6 +20,8 @@ import {
     Is_firelevel,
     Is_earthlevel,
     Is_waterlevel,
+    NON_PM,
+    LOW_PM,
 } from './const.js';
 
 /**
@@ -132,6 +134,45 @@ const S_GHOST = 54;
 
 /** C: monflag.h MZ_SMALL — used by bear trap and encumber paths. */
 export { MZ_SMALL };
+
+/** C: monflag.h M2_UNDEAD / M2_WERE / M2_DEMON */
+const M2_UNDEAD = 0x00000002;
+const M2_WERE = 0x00000004;
+const M2_DEMON = 0x00000100;
+
+/**
+ * C: mondata.h is_undead(ptr) / is_were(ptr) / is_demon(ptr)
+ * @param {Permonst|null|undefined} ptr
+ */
+export function isUndeadPtr(ptr) {
+    return ((ptr?.mflags2 ?? 0) & M2_UNDEAD) !== 0;
+}
+
+export function isWerePtr(ptr) {
+    return ((ptr?.mflags2 ?? 0) & M2_WERE) !== 0;
+}
+
+export function isDemonPtr(ptr) {
+    return ((ptr?.mflags2 ?? 0) & M2_DEMON) !== 0;
+}
+
+/**
+ * C: mondata.c resists_drli(&gy.youmonst) — intrinsic form + lycanthrope; **`defended(AD_DRLI)`** gear TODO.
+ * @param {typeof game} g
+ */
+export function resistsDrliHeroLikeC(g) {
+    const u = g?.u;
+    if (!u) return true;
+    if (u.Drain_resistance | 0) return true;
+    const ptr = raceptr(g.youmonst);
+    if (isUndeadPtr(ptr) || isDemonPtr(ptr) || isWerePtr(ptr)) return true;
+    const lycn = u.ulycn;
+    if (Number.isInteger(lycn) && lycn !== NON_PM && lycn >= LOW_PM) return true;
+    const mnum = (g.youmonst?.mnum ?? u.umonnum) | 0;
+    if (mnum === PM_DEATH) return true;
+    /* C: is_vampshifter(mon) — TODO */
+    return false;
+}
 
 /**
  * C: mondata.c dmgtype_fromattack(ptr, dtyp, atyp)
