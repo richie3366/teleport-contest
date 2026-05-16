@@ -9,11 +9,11 @@ Thin handoff for the next coding session. Deep parity tables and history: [`c-to
 - **Plain ES modules**, no build/WASM/network in contest code; RNG via `js/rng.js`; match **clang** evaluation order for multi-call expressions.
 - API: [`docs/API.md`](../../docs/API.md); overview: [`README.md`](../../README.md).
 
-**Last slice:** **Monster fire trap** — [`js/trap.js`](../../js/trap.js) **`trapeffectFireTrapForMonster`** (**`trap.c`** **`trapeffect_fire_trap`** non-hero): **`d(2,4)`**, **`fireResistant`/`raceptr`**, golem alt via **`mname`**, **`thitm`**-style kill or **`mhpmax`** **`rn2(num+1)`**, **`rn2(3)`** gate ( **`burnarmor`** / destroy / ignite **TODO**); **`burnFloorObjects(tx,ty,see_it,false)`**; smoke **`dist2≤9`**; **`meltIceAt(tx,ty)`**; **`seetrap`**. Caller **`mintrap`** / monmove still **TODO**.
+**Last slice:** **`mintrap` + moveloop tail** — [`js/const.js`](../../js/const.js) **`TRAP_EFFECT_FINISHED`/`TRAP_CAUGHT_MON`/`TRAP_KILLED_MON`/`TRAP_MOVED_MON`** (**`trap.h`**). [`js/trap.js`](../../js/trap.js) **`checkInAirMonster`**, **`mintrap`**, **`trapeffectMonsterSelector`** (**`FIRE_TRAP`** → **`trapeffectFireTrapForMonster`** returns **`TRAP_*`**); **`mintrapMoveloopTail`** tracks **`_trapPrevMx/_trapPrevMy`** per monster and runs **`mintrap`** when coords change onto a trap. **`mtrapped`** escape, **`mon_knows_traps`**, **`mindless`** on real **`M1_MINDLESS`**, and non-fire **`trapeffect_*`** still **TODO**. [`js/monmove.js`](../../js/monmove.js) **`movemon`** is **`async`** and **`await mintrapMoveloopTail()`** after harness; [`js/allmain.js`](../../js/allmain.js) **`await movemon`**.
 
 ## Next steps (highest impact from latest fire/lava work)
 
-1. **`mintrap`** / monmove — call **`trapeffectFireTrapForMonster`** (and other **`trapeffect_*`**) when a monster steps on a trap; **`burnarmor(mtmp)`** + **`destroy_items`** + **`ignite_items`** parity on mon fire.
+1. Mon fire **`burnarmor(mtmp)`** + **`destroy_items`** + **`ignite_items`** ( **`trapeffectFireTrapForMonster`** **`rn2(3)`** branch); expand **`trapeffectMonsterSelector`** beyond **`FIRE_TRAP`**; fuller **`mintrap`** (**`mtrapped`** escape RNG, …).
 2. **`dofiretrap`** poly branch — **`u.mhmax`** handling vs C.
 3. **`useupf`** / shop / **`distant_name`/`An`** on floor burn (`burn_floor_objects.js` gaps).
 4. **`obj_resists`** / **`xname`** — replace stubs where fire paths depend on them.

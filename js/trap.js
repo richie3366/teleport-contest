@@ -6,7 +6,7 @@
 import { game } from './gstate.js';
 import { pline, newsym } from './display.js';
 import { vision_recalc, cansee } from './vision.js';
-import { rn2, rnd, rn1, d } from './rng.js';
+import { rn2, rnd, rn1, d, rnl } from './rng.js';
 import { nomul, fallAsleep, burnAwaySlime } from './timeout.js';
 import { seetrap, trapTypName, delTrap, feeltrap, tAt } from './search.js';
 import { adjattrib, exercise, acurr } from './attrib.js';
@@ -36,6 +36,8 @@ import { dist2 } from './hacklib.js';
 import {
     raceptr,
     fireResistant,
+    isFlyer,
+    isFloater,
     breathless,
     passesRocks,
     amorphous,
@@ -94,6 +96,9 @@ import {
     KILLED_BY,
     PM_GREMLIN,
     PM_IRON_GOLEM,
+    TRAP_EFFECT_FINISHED,
+    TRAP_CAUGHT_MON,
+    TRAP_KILLED_MON,
 } from './const.js';
 
 const M1_CLING = 0x00000010;
@@ -152,6 +157,36 @@ function heroCheckInAir(trflags) {
     if (u.Levitation) return true;
     if (u.Flying && !plunged) return true;
     return false;
+}
+
+/** C: trap.c check_in_air(mtmp, mintrapflags) — non-hero (`is_you` false). */
+function checkInAirMonster(mtmp, mintrapflags) {
+    const plunged = (mintrapflags & (TOOKPLUNGE | VIASITTING)) !== 0;
+    const ptr = raceptr(mtmp);
+    return (
+        (mintrapflags & HURTLING) !== 0
+        || isFloater(ptr)
+        || (isFlyer(ptr) && !plunged)
+    );
+}
+
+/** C: mondata.h mindless — **`M1_MINDLESS`** not on stub **`Permonst`** yet. */
+function mindlessMon(/** @type {import('./mondata.js').Permonst} */ ptr) {
+    void ptr;
+    return false;
+}
+
+/** C: trap.c mon_knows_traps — stub false until mon learns traps port. */
+function monKnowsTraps(/** @type {unknown} */ _mtmp, /** @type {number} */ _tt) {
+    void _mtmp;
+    void _tt;
+    return false;
+}
+
+/** C: trap.c mon_learns_traps — no-op until trap memory port. */
+function monLearnsTraps(/** @type {unknown} */ _mtmp, /** @type {number} */ _tt) {
+    void _mtmp;
+    void _tt;
 }
 
 /** C: mondata.h is_clinger + has_ceiling — ceiling stub true on normal levels. */
@@ -319,7 +354,7 @@ function thitmMonsterFireOverride(g, mtmp, damage, _immolateNocorpse) {
  * @param {typeof game} g
  * @param {{ mx: number, my: number, mhp?: number, mhpmax?: number, minvis?: number, data?: { mname?: string }, monnam?: string, minvent?: unknown }} mtmp
  * @param {{ tx: number, ty: number, ttyp?: number, tseen?: boolean }} trap
- * @returns {Promise<boolean>} trapkilled (C **`Trap_Killed_Mon`** vs finished)
+ * @returns {Promise<number>} C **`Trap_Killed_Mon`** (**2**) or **`Trap_Effect_Finished`** (**0**)
  */
 export async function trapeffectFireTrapForMonster(g, mtmp, trap) {
     const u = g.u;
@@ -375,7 +410,7 @@ export async function trapeffectFireTrapForMonster(g, mtmp, trap) {
     const trapHere = tAt(tx, ty);
     if (seeIt && trapHere) seetrap(trapHere);
 
-    return trapkilled;
+    return trapkilled ? TRAP_KILLED_MON : TRAP_EFFECT_FINISHED;
 }
 
 /**
@@ -1234,6 +1269,92 @@ async function trapeffectHero(trap, trflags) {
     default:
         seetrap(trap);
         break;
+    }
+}
+
+/**
+ * C: trap.c trapeffect_selector — monster (**`mtmp != &youmonst`**); only **`FIRE_TRAP`** wired.
+ * @param {number} _mintrapflags
+ * @returns {Promise<number>}
+ */
+async function trapeffectMonsterSelector(mtmp, trap, _mintrapflags) {
+    void _mintrapflags;
+    const tt = trap.ttyp | 0;
+    switch (tt) {
+    case FIRE_TRAP:
+        return trapeffectFireTrapForMonster(game, mtmp, trap);
+    default:
+        return TRAP_EFFECT_FINISHED;
+    }
+}
+
+/**
+ * C: trap.c mintrap(mtmp, mintrapflags)
+ * TODO: **`mtrapped`** branch (**`rn2(40)`**, boulder pit, **`metallivorous`**, …).
+ * @param {{ mx: number, my: number, mtrapped?: number, mpeaceful?: number, mAngry?: number }} mtmp
+ * @param {number} [mintrapflags]
+ * @returns {Promise<number>} **`TRAP_*`**
+ */
+export async function mintrap(mtmp, mintrapflags = NO_TRAP_FLAGS) {
+    const g = game;
+    const u = g.u;
+    if (!mtmp || !u) return TRAP_EFFECT_FINISHED;
+
+    const trap = tAt(mtmp.mx, mtmp.my);
+
+    if (!trap) {
+        mtmp.mtrapped = 0;
+        return TRAP_EFFECT_FINISHED;
+    }
+
+    if (mtmp.mtrapped | 0) return TRAP_CAUGHT_MON;
+
+    const tt = trap.ttyp | 0;
+    let forcetrap = (mintrapflags & FORCETRAP) !== 0 || (mintrapflags & FAILEDUNTRAP) !== 0;
+    const forcebungle = (mintrapflags & FORCEBUNGLE) !== 0;
+    const mptr = raceptr(mtmp);
+    const alreadySeen = monKnowsTraps(mtmp, tt) || (tt === HOLE && !mindlessMon(mptr));
+
+    if (fixedTeleTrap(trap)) forcetrap = true;
+
+    if (mtmp === u.usteed) {
+        /* C: empty */
+    } else if (In_sokoban(u.uz) && (is_pit(tt) || is_hole(tt)) && !trap.madeby_u) {
+        /* C: empty — trap effects handle Sokoban messaging */
+    } else if (!forcetrap) {
+        if (floorTrigger(tt) && checkInAirMonster(mtmp, mintrapflags)) return TRAP_EFFECT_FINISHED;
+        if (alreadySeen && rn2(4) && !forcebungle) return TRAP_EFFECT_FINISHED;
+    }
+
+    monLearnsTraps(mtmp, tt);
+    monsSeeTrap(trap);
+
+    if (trap.madeby_u && rnl(5)) {
+        mtmp.mpeaceful = 0;
+        mtmp.mAngry = 1;
+    }
+
+    return trapeffectMonsterSelector(mtmp, trap, mintrapflags);
+}
+
+/**
+ * C: monmove.c tail — after **`m_move`**, **`mintrap(mtmp)`** when monster entered a trapped square.
+ * Syncs **`_trapPrev*`** each moveloop step so stationary monsters do not re-trigger.
+ */
+export async function mintrapMoveloopTail() {
+    const mons = game.level?.monsters;
+    if (!mons?.length) return;
+    for (const m of mons) {
+        if (
+            m._trapPrevMx !== undefined
+            && m._trapPrevMy !== undefined
+            && (m._trapPrevMx !== m.mx || m._trapPrevMy !== m.my)
+            && tAt(m.mx, m.my)
+        ) {
+            await mintrap(m, NO_TRAP_FLAGS);
+        }
+        m._trapPrevMx = m.mx;
+        m._trapPrevMy = m.my;
     }
 }
 

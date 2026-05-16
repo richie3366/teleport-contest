@@ -2280,6 +2280,12 @@ export const TRAPPED_DOOR = 24;
 export const TRAPPED_CHEST = 25;
 export const TRAPNUM = 26;
 
+/** C: trap.h — `mintrap` / `trapeffect_*` return codes */
+export const TRAP_EFFECT_FINISHED = 0;
+export const TRAP_CAUGHT_MON = 1;
+export const TRAP_KILLED_MON = 2;
+export const TRAP_MOVED_MON = 3;
+
 // Trap helpers (trap.h)
 export function is_pit(ttyp) { return ttyp === PIT || ttyp === SPIKED_PIT; }
 export function is_hole(ttyp) { return ttyp === HOLE || ttyp === TRAPDOOR; }

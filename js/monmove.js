@@ -6,6 +6,7 @@
 // movemon consumes the same calls.
 
 import { rn2 } from './rng.js';
+import { mintrapMoveloopTail } from './trap.js';
 
 /** Last moveloop step index that still uses the session harness (1-based stepNum). */
 export const MOVE_MON_HARNESS_MAX_STEP = 12;
@@ -29,8 +30,10 @@ const _HARNESS = [
 /**
  * C: movemon() — advance all monsters for one hero time step.
  * Harness: replays distfleeck / m_move / mcalcmove draws until movemon is ported.
+ * Tail: **`mintrap`** when a monster enters a trapped square (C: **`monmove.c`** after **`m_move`**).
  */
-export function movemon(stepNum) {
+export async function movemon(stepNum) {
     const i = stepNum - 1;
     if (i >= 0 && i < _HARNESS.length) _HARNESS[i]();
+    await mintrapMoveloopTail();
 }

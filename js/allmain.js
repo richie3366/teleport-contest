@@ -183,7 +183,7 @@ export async function moveloop_core() {
     if (g._prevMoveTick) {
         const stepNum = (g.moves || 1) - 1;
         if (stepNum > 0 && stepNum <= MOVE_MON_HARNESS_MAX_STEP) {
-            movemon(stepNum);
+            await movemon(stepNum);
             end_of_turn_rng(stepNum);
         }
     }
