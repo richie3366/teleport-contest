@@ -11,7 +11,7 @@
 import { mklev, u_on_upstairs } from './mklev.js';
 import { spotEffects } from './spoteffects.js';
 import { vision_recalc } from './vision.js';
-import { pline } from './display.js';
+import { pline, pline1 } from './display.js';
 import { onLevelLikeC } from './hacklib.js';
 import { shopdigLikeC, payForDamage, heroInShopOccupancyLikeUshops } from './shop.js';
 import { impactDropLikeC, objDeliveryLikeC } from './impact_drop.js';
@@ -122,7 +122,7 @@ export async function deferredGotoHeroLikeC(g) {
         const oldlev = { dnum: cur.dnum | 0, dlevel: cur.dlevel | 0 };
         const dest = { dnum: tol.dnum | 0, dlevel: tol.dlevel | 0 };
 
-        if (g.gd.dfr_pre_msg) await pline(String(g.gd.dfr_pre_msg));
+        if (g.gd.dfr_pre_msg) await pline1(g.gd.dfr_pre_msg);
 
         if (typmask & UTOTYPE_FALLING) await applyGotoAfterHeroHoleFallLikeC(g, dest);
         else await applyGotoLevelDirectHeroLikeC(g, dest);
@@ -132,7 +132,7 @@ export async function deferredGotoHeroLikeC(g) {
         }
 
         const post = g.gd.dfr_post_msg;
-        if (post && !onLevelLikeC(u.uz, oldlev)) await pline(String(post));
+        if (post && !onLevelLikeC(u.uz, oldlev)) await pline1(post);
     }
 
     u.utotype = UTOTYPE_NONE;

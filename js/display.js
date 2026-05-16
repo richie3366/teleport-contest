@@ -550,6 +550,15 @@ export async function pline(msg) {
 }
 
 /**
+ * C: **`hack.h`** **`#define pline1(cstr) pline("%s", cstr)`** — **`cstr`** is literal text (no **`printf`** scan over caller data).
+ * @param {string|null|undefined} cstr
+ */
+export async function pline1(cstr) {
+    if (cstr == null || cstr === '') return;
+    await pline(String(cstr));
+}
+
+/**
  * C: soundset.c **`Soundeffect`** — **`mon.c`** **`angry_guards`** uses **`se_shrill_whistle`** before **`You_hear`**.
  * JS: judge output is **`pline`** / screen only; no audio (**`nh_sound_play`** deferred).
  * @param {import('./gstate.js').game} [_g]
