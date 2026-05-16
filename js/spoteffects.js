@@ -9,7 +9,7 @@
 // hack.c switch_terrain + classify_terrain (lev/flight block, iflags.terrain_typ).
 // Still TODO: HLevitation timeout/float_down, sink+Levitation, gi.in_steed_dismounting,
 // full pooleffects leave-water; ceiling() vault/temple/shop/in_quest nuance; sensemon / x_monnam parity;
-// float_vs_flight; trap.c float_up utrap/uinwater/uswallow; C-gated classify when !terrainstatus.
+// float_vs_flight (polyself.c); trap.c float_up utrap/uinwater/uswallow; C-gated classify when !terrainstatus.
 
 import { game } from './gstate.js';
 import { pline, newsym } from './display.js';
@@ -42,7 +42,7 @@ import { enextoNearMon } from './walkable.js';
 import { dealWithOvercrowding } from './mon_limbo.js';
 import { d, rnd } from './rng.js';
 import { losehp, maybeHalfPhys } from './mthrowu.js';
-import { switchTerrainLikeC } from './switch_terrain.js';
+import { switchTerrainLikeC, levitationEffectiveLikeC, flyingEffectiveLikeC } from './switch_terrain.js';
 
 /** C: hack.c static `inspoteffects` / `spotloc` / `spotterrain` — overwritten each nested entry. */
 let spDepth = 0;
@@ -226,7 +226,7 @@ async function pooleffectsBooleanNewspot(g, newspot, opts) {
     /* C: leave-water / plane / lava oops — not ported (no **`set_uinwater`** yet). */
 
     if ((u.ustuck | 0) !== 0) return false;
-    if ((u.Levitation | 0) !== 0 || (u.Flying | 0) !== 0) return false;
+    if (levitationEffectiveLikeC(g) || flyingEffectiveLikeC(g)) return false;
 
     const loc = g.level?.at(u.ux, u.uy);
     if (!loc) return false;

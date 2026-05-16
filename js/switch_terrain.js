@@ -1,9 +1,11 @@
 // switch_terrain.js — Terrain change effects on hero (levitation / flight / status terrain).
-// C ref: hack.c switch_terrain(), classify_terrain(); trap.c float_up() (subset for unblock).
+// C ref: hack.c switch_terrain(), classify_terrain(); polyself.c float_vs_flight(), steed_vs_stealth();
+//        trap.c float_up() (subset for unblock).
 
 import { pline } from './display.js';
 import {
     FROMOUTSIDE,
+    I_SPECIAL,
     STONE,
     TREE,
     CORR,
@@ -30,29 +32,64 @@ import {
     D_CLOSED,
     D_LOCKED,
     D_TRAPPED,
+    TT_PIT,
 } from './const.js';
 import { isClosedDoorLoc } from './walkable.js';
 
-/**
- * C: youprop.h **`Levitation`** — **`(H||E) && !B`** with terrain **`FROMOUTSIDE`** block.
- * @param {import('./gstate.js').game} g
- */
-function levitationEffectiveLikeC(g) {
-    const u = g.u;
-    if (!u) return false;
-    const he = ((u.HLevitation | 0) || (u.ELevitation | 0) || (u.Levitation | 0)) !== 0;
-    return he && !((u.BLevitation | 0) & FROMOUTSIDE);
+/** C: youprop.h raw **`HLevitation||ELevitation`** (not **`Levitation`** macro). */
+function rawLevitationSources(u) {
+    return ((u?.HLevitation | 0) || (u?.ELevitation | 0) || (u?.Levitation | 0)) !== 0;
+}
+
+/** C: youprop.h raw **`HFlying||EFlying`** (no steed). */
+function rawFlyingSources(u) {
+    return ((u?.HFlying | 0) || (u?.EFlying | 0) || (u?.Flying | 0)) !== 0;
 }
 
 /**
- * C: youprop.h **`Flying`** — **`(HF||EF||steed)&&!BF`** subset (**`steed`** not wired).
+ * C: youprop.h **`Levitation`** — **`(H||E) && !BLevitation`** (any blocked bits).
  * @param {import('./gstate.js').game} g
  */
-function flyingEffectiveLikeC(g) {
+export function levitationEffectiveLikeC(g) {
     const u = g.u;
     if (!u) return false;
-    const he = ((u.HFlying | 0) || (u.EFlying | 0) || (u.Flying | 0)) !== 0;
-    return he && !((u.BFlying | 0) & FROMOUTSIDE);
+    return rawLevitationSources(u) && !(u.BLevitation | 0);
+}
+
+/**
+ * C: youprop.h **`Flying`** — **`(HF||EF)&&!BFlying`** (**`steed`** not wired).
+ * @param {import('./gstate.js').game} g
+ */
+export function flyingEffectiveLikeC(g) {
+    const u = g.u;
+    if (!u) return false;
+    return rawFlyingSources(u) && !(u.BFlying | 0);
+}
+
+/**
+ * C: polyself.c **`float_vs_flight`** — **`BFlying`/`BLevitation`** **`I_SPECIAL`** vs lev / floor trap;
+ * **`steed_vs_stealth`** omitted (**`BStealth`** not ported).
+ * @param {import('./gstate.js').game} g
+ */
+export function floatVsFlightLikeC(g) {
+    const u = g.u;
+    if (!u) return;
+    const stuckInFloor = (u.utrap | 0) !== 0 && (u.utraptype | 0) !== TT_PIT;
+
+    if (rawLevitationSources(u) || (rawFlyingSources(u) && stuckInFloor)) {
+        u.BFlying = (u.BFlying | 0) | I_SPECIAL;
+    } else {
+        u.BFlying = (u.BFlying | 0) & ~I_SPECIAL;
+    }
+
+    if (rawLevitationSources(u) && stuckInFloor) {
+        u.BLevitation = (u.BLevitation | 0) | I_SPECIAL;
+    } else {
+        u.BLevitation = (u.BLevitation | 0) & ~I_SPECIAL;
+    }
+
+    g.disp = g.disp || {};
+    g.disp.botl = true;
 }
 
 /** C: monmove.c **`closed_door(x,y)`** — hero cell. */
@@ -82,7 +119,7 @@ function blockLevOrFlyLikeC(g) {
 
 /**
  * C: **`trap.c`** **`float_up`** — branches for **`utrap`**, **`uinwater`**, **`uswallow`** omitted;
- * **`Hallucination`**, air level, default float message.
+ * **`Hallucination`**, air level, default float message; ends with **`float_vs_flight`** like C.
  * @param {import('./gstate.js').game} g
  */
 async function floatUpAfterTerrainUnblockLikeC(g) {
@@ -98,8 +135,7 @@ async function floatUpAfterTerrainUnblockLikeC(g) {
     } else {
         await pline('You start to float in the air!');
     }
-    g.disp = g.disp || {};
-    g.disp.botl = true;
+    floatVsFlightLikeC(g);
 }
 
 /**
@@ -158,11 +194,11 @@ export function classifyTerrainHeroLikeC(g) {
 
 /**
  * C: **`hack.c`** **`switch_terrain(void)`** — levitation / flight block vs **`float_up`** /
- * **`float_vs_flight`** (**`float_vs_flight`** omitted); ends with **`classify_terrain`** (always
- * updates **`iflags.terrain_typ`**; **`disp.botl`** only when **`flags.terrainstatus`**).
+ * **`float_vs_flight`**; **`classify_terrain`** when **`flags.terrainstatus`**.
  * @param {import('./gstate.js').game} g
  */
 export async function switchTerrainLikeC(g) {
+    g.flags = g.flags || {};
     const u = g.u;
     if (!u) return;
 
@@ -171,24 +207,21 @@ export async function switchTerrainLikeC(g) {
     const wasFlying = flyingEffectiveLikeC(g);
 
     if (blocklev) {
-        if (levitationEffectiveLikeC(g)) {
-            await pline('You can\'t levitate in here.');
-            u.BLevitation = (u.BLevitation | 0) | FROMOUTSIDE;
-        }
-    } else if ((u.BLevitation | 0) & FROMOUTSIDE) {
+        if (levitationEffectiveLikeC(g)) await pline('You can\'t levitate in here.');
+        u.BLevitation = (u.BLevitation | 0) | FROMOUTSIDE;
+    } else if ((u.BLevitation | 0) !== 0) {
         u.BLevitation = (u.BLevitation | 0) & ~FROMOUTSIDE;
-        if (((u.HLevitation | 0) || (u.ELevitation | 0) || (u.Levitation | 0) || (u.BLevitation | 0)) !== 0) {
+        if (rawLevitationSources(u) || (u.BLevitation | 0) !== 0) {
             await floatUpAfterTerrainUnblockLikeC(g);
         }
     }
 
     if (blocklev) {
-        if (flyingEffectiveLikeC(g)) {
-            await pline('You can\'t fly in here.');
-            u.BFlying = (u.BFlying | 0) | FROMOUTSIDE;
-        }
-    } else if ((u.BFlying | 0) & FROMOUTSIDE) {
+        if (flyingEffectiveLikeC(g)) await pline('You can\'t fly in here.');
+        u.BFlying = (u.BFlying | 0) | FROMOUTSIDE;
+    } else if ((u.BFlying | 0) !== 0) {
         u.BFlying = (u.BFlying | 0) & ~FROMOUTSIDE;
+        floatVsFlightLikeC(g);
         if (flyingEffectiveLikeC(g)) await pline('You start flying.');
     }
 
@@ -197,5 +230,5 @@ export async function switchTerrainLikeC(g) {
         g.disp.botl = true;
     }
 
-    classifyTerrainHeroLikeC(g);
+    if (g.flags.terrainstatus) classifyTerrainHeroLikeC(g);
 }
