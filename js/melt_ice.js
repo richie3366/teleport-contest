@@ -1,7 +1,7 @@
 // melt_ice.js — Ice terrain melts to water (fire trap, zaps, etc.).
 // C ref: zap.c melt_ice(), trap.c trap_ice_effects() / cnv_trap_obj(),
 //        do.c boulder_hits_pool(), mkobj.c obj_ice_effects(), dig.c unearth_objs(),
-//        mon.c minliquid_core() (pool/waterwall/lava/fountain/gremlin/golem/usteed/eel; **`rloc`** subset **`enextoNearMon`**; **`monflee`** land eel; **`split_mon`/`dryup`** gremlin; **`fire_damage_chain`** + **`rloc`** + **`deal_with_overcrowding`** on lava survivor).
+//        mon.c minliquid_core() (pool/waterwall/lava/fountain/gremlin/golem/usteed/eel; **`rloc`** subset **`enextoNearMon`**; **`monflee`** land eel; **`split_mon`/`dryup`** gremlin; pool survivor **`water_damage_chain`**+**`rloc(RLOC_NOMSG)`**+**`deal_with_overcrowding`** after **`mondied`/`xkilled`**; lava **`fire_damage_chain`** + **`rloc`** + **`deal_with_overcrowding`**).
 //
 // Still TODO vs C: corpse **`ROT_ORGANIC`** start on all bury paths; **`bury_objs`** full **`get_cost`**/**`getprice`** / angry surcharge (**`shop.js`** bill rows need **`addtobill`**);
 // **`dig.c`/`read.c`** **`buried_ball`/`punish`** (**`floorobj.js`**) — **`placebc`** blind glyphs / **`uswallow`**; beam/breath vectors; **`boulder_hits_pool`** **`recalc_block_point`**/**`wake_nearto`**/**`u.uinwater`**; **`spoteffects`**.
@@ -38,6 +38,7 @@ import { applyBuryObjsShopCreditAndDebt, shknamDisplay } from './shop.js';
 import { monflee, ensureMonsterMtrack } from './monflee.js';
 import { splitMon, dryupAt } from './split_mon.js';
 import { fireDamageChain } from './fire_damage.js';
+import { waterDamageChain } from './water_damage.js';
 import { dealWithOvercrowding } from './mon_limbo.js';
 import { objTimerChecksMkobj, ROT_ICE_ADJUSTMENT } from './obj_rot_timer.js';
 import {
@@ -74,6 +75,7 @@ import {
     IS_FOUNTAIN,
     engulfing_u,
     XKILL_NOCORPSE,
+    XKILL_NOMSG,
     PM_GREMLIN,
     PM_IRON_GOLEM,
     PM_WATER_ELEMENTAL,
@@ -283,6 +285,28 @@ function killMonsterOnPoolFill(g, mtmp, xkillFlags = 0) {
     }
 }
 
+/**
+ * C: mon.c **`minliquid_core`** pool drowning — **`mondied`** vs **`xkilled(XKILL_NOMSG)`**, then if
+ * **`!DEADMONSTER(mtmp)`**: **`water_damage_chain(minvent,FALSE)`**, **`rloc(mtmp,RLOC_NOMSG)`**,
+ * else **`deal_with_overcrowding`**. **`killMonsterOnPoolFill`** stands in for **`mondied`/`xkilled`**
+ * until full monster death (**`lifesaved`**, **`vampshifter`**, &c.) exists.
+ * @param {import('./gstate.js').game} g
+ * @param {Record<string, unknown>} mtmp
+ */
+async function poolMinliquidMondiedThenSurvivorTail(g, mtmp) {
+    if (!mtmp || (mtmp.mhp | 0) <= 0) return;
+    const monMoving = !!(g.svc?.context?.mon_moving);
+    const xkill = monMoving ? 0 : XKILL_NOMSG;
+    killMonsterOnPoolFill(g, mtmp, xkill);
+    if ((mtmp.mhp | 0) <= 0 || !g.level?.monsters?.includes(mtmp)) return;
+    if (mInAir(mtmp)) return;
+    const mx = mtmp.mx | 0;
+    const my = mtmp.my | 0;
+    const vis = cansee(mx, my);
+    await waterDamageChain(mtmp.minvent, false, g, { mtmp, visMon: vis });
+    if (!(await rlocMinliquidEscape(g, mtmp, RLOC_NOMSG))) await dealWithOvercrowding(g, mtmp);
+}
+
 /** C: mon.c minliquid + mondata.c **`on_fire`** death phrase (**`boils away`/`melts away`/`burns to a crisp`**). */
 function lavaDestPhraseForMnum(mnum) {
     const m = mnum | 0;
@@ -400,6 +424,7 @@ async function boulderHitsPool(g, otmp, rx, ry, pushing) {
 /**
  * C: mon.c **`minliquid_core`** — liquid/fountain vs monster (**`melt_ice`** pool fill, etc.).
  * Still TODO: full **`rloc`** (**`usteed`/`tele()`**, **`collect_coords`**, **`rloc_pos_ok`**),
+ * full **`mondied`/`xkilled`** (pool survivor tail only runs when **`DEADMONSTER`** false after death),
  * full **`monflee`** (**`release_hero`**, **`flees_light`**, vrock), full **`on_fire`** / Gehennom **`noteleport`** / covetous bypass.
  * @param {import('./gstate.js').game} g
  */
@@ -493,7 +518,7 @@ async function minliquidMonsterAfterMelt(g, mtmp) {
             if (engulfing_u(mtmp)) {
                 await pline(`${monPlineNameCap(mtmp)} sinks as water rushes in and flushes you out.`);
             }
-            if ((mtmp.mhp | 0) > 0) killMonsterOnPoolFill(g, mtmp, 0);
+            await poolMinliquidMondiedThenSurvivorTail(g, mtmp);
         }
         return;
     }
