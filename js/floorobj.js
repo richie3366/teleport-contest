@@ -7,7 +7,7 @@
 // without importing the full level generator.
 
 import { game } from './gstate.js';
-import { NH5_BALL_CLASS, NH5_CHAIN_CLASS } from './nh5_objclass.js';
+import { NH5_CHAIN_CLASS } from './nh5_objclass.js';
 import {
     TT_BURIEDBALL, ROT_ORGANIC,
     OTYP_HEAVY_IRON_BALL, OTYP_IRON_CHAIN, WT_IRON_BALL_INCR,
@@ -247,7 +247,6 @@ export function buriedBallFromCoord(g, cc) {
     for (const head of heads.values()) {
         for (let otmp = head; otmp; otmp = otmp.nexthere) {
             if ((otmp.otyp | 0) !== OTYP_HEAVY_IRON_BALL) continue;
-            if ((otmp.oclass | 0) !== NH5_BALL_CLASS) continue;
             if ((otmp.ox | 0) === xh && (otmp.oy | 0) === yh) return otmp;
             const odist = dist2(otmp.ox | 0, otmp.oy | 0, xh, yh);
             if (odist <= 8 && (!ball || odist < bdist)) {
