@@ -1,14 +1,15 @@
 // zap_dig.js — dig.c zap_dig() hero wand/spell digging beam (horizontal slice).
 // C ref: dig.c zap_dig() (NetHack 5.0); hack.c may_dig(); trap.c conjoined_pits();
-//        cmd.c xytodir().
+//        cmd.c xytodir(); watch_dig.c watch_dig() (town gate + watchman TODO).
 //
-// Deferred vs C: tmp_at / nh_delay_output; watch_dig / in_town watchmen; u.uswallow
-// and u.dz branches; pit_flow + fillholetyp; full dighole() when digging from a pit.
+// Deferred vs C: tmp_at / nh_delay_output; full watchman **`verbalize`**/**`angry_guards`**;
+// u.uswallow and u.dz branches; pit_flow + fillholetyp; full dighole() when digging from a pit.
 
 import { rn1 } from './rng.js';
 import { pline, newsym } from './display.js';
 import { vision_recalc, cansee } from './vision.js';
 import { inTownLikeC } from './hacklib.js';
+import { watchDigHeroLikeC } from './watch_dig.js';
 import { isClosedDoorLoc } from './walkable.js';
 import { payAfterHeroDigShopHoleLikeC } from './dig_pay.js';
 import { addDamageAt, inRoomsShopbaseRoomnos } from './shop.js';
@@ -235,6 +236,7 @@ export async function heroZapDigHorizontalLikeC(g) {
             } else if (cansee(zx, zy)) {
                 await pline('The door is razed!');
             }
+            await watchDigHeroLikeC(g, null, zx, zy, true);
             loc.doormask = D_NODOOR;
             vision_recalc(1);
             newsym(zx, zy);
@@ -285,6 +287,7 @@ export async function heroZapDigHorizontalLikeC(g) {
                     addDamageAt(g, zx, zy, SHOP_WALL_COST);
                     shopwall = true;
                 }
+                await watchDigHeroLikeC(g, null, zx, zy, true);
                 if (lvl.flags?.is_cavernous_lev && !inTownLikeC(g, zx, zy)) {
                     loc.typ = CORR;
                     loc.flags = 0;
