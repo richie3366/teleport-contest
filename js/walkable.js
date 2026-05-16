@@ -1,5 +1,5 @@
 // walkable.js — Terrain blocking for hero/monster moves (shared stub).
-// C ref: hack.c test_move(), crawl_destination(); teleport.c goodpos(); trap.c rnd_nextto_goodpos;
+// C ref: hack.c test_move(), crawl_destination(); teleport.c goodpos(), enexto_core();
 // monmove.c accessible().
 
 import { game } from './gstate.js';
@@ -7,6 +7,7 @@ import {
     ACCESSIBLE,
     DOOR, D_BROKEN, D_CLOSED, D_LOCKED, D_NODOOR, IS_DOOR, IS_OBSTRUCTED, IS_STWALL,
     IRONBARS, W_NONPASSWALL, isok,
+    COLNO, ROWNO,
     POOL, MOAT, WATER, LAVAPOOL, LAVAWALL, OTYP_BOULDER,
     In_sokoban, Is_rogue_level, PM_GRID_BUG, WT_TOOMUCH_DIAGONAL,
     xdir, ydir, N_DIRS,
@@ -171,6 +172,78 @@ export function goodposHero(x, y, g = game) {
 
     if (sobjAtBoulder(x, y, g) && !throwsRocks(ptr)) return false;
     return true;
+}
+
+/**
+ * C: teleport.c **`goodpos(x,y,mtmp,0)`** subset for **new** monster placement (no worm, no GP_*).
+ * @param {number} x
+ * @param {number} y
+ * @param {{ data?: import('./mondata.js').Permonst }} mtmp
+ * @param {Record<string, unknown>} [g]
+ */
+export function goodposNewMonster(x, y, mtmp, g = game) {
+    if (!isok(x, y)) return false;
+    const u = g.u;
+    if (u && (u.ux | 0) === x && (u.uy | 0) === y) return false;
+    if (g.level?.monsters?.some((m) => (m.mx | 0) === x && (m.my | 0) === y)) return false;
+    const loc = g.level?.at(x, y);
+    if (!loc) return false;
+    const ptr = raceptr(mtmp);
+
+    const typ = loc.typ;
+    if (isWaterTerrain(typ) || isLavaTerrain(typ)) {
+        return !terrainBlocksDisplaceForMon(mtmp, x, y, g);
+    }
+
+    if (passesWalls(ptr) && mayPasswall(x, y, g)) return true;
+    if (amorphous(ptr) && isClosedDoorLoc(loc)) return true;
+
+    if (!ACCESSIBLE(typ)) return false;
+    if (isClosedDoorLoc(loc)) return false;
+
+    if (sobjAtBoulder(x, y, g) && !throwsRocks(ptr)) return false;
+    return true;
+}
+
+/**
+ * C: teleport.c **`enexto_core`** (**`!NEW_ENEXTO`** ring walk) — up to **15** **`goodpos`** candidates, **`rn2`** pick.
+ * @param {Record<string, unknown>} g
+ * @param {number} xx
+ * @param {number} yy
+ * @param {{ data?: import('./mondata.js').Permonst }} fakemon
+ * @returns {{ x: number, y: number } | null}
+ */
+export function enextoNearMon(g, xx, yy, fakemon) {
+    const MAX_GOOD = 15;
+    /** @type {{ x: number; y: number }[]} */
+    const good = [];
+    const xh = xx | 0;
+    const yh = yy | 0;
+    const xmax = Math.max(xh - 1, COLNO - 1 - xh);
+    const ymax = Math.max(yh - 0, ROWNO - 1 - yh);
+    const rangemax = Math.max(xmax, ymax);
+    let range = 1;
+    while (range <= rangemax && good.length < MAX_GOOD) {
+        const xmin = Math.max(1, xh - range);
+        const xmax2 = Math.min(COLNO - 1, xh + range);
+        const ymin = Math.max(0, yh - range);
+        const ymax2 = Math.min(ROWNO - 1, yh + range);
+        for (let x = xmin; x <= xmax2 && good.length < MAX_GOOD; x++) {
+            if (goodposNewMonster(x, ymin, fakemon, g)) good.push({ x, y: ymin });
+            if (good.length >= MAX_GOOD) break;
+            if (ymin !== ymax2 && goodposNewMonster(x, ymax2, fakemon, g)) good.push({ x, y: ymax2 });
+        }
+        if (good.length >= MAX_GOOD) break;
+        for (let y = ymin; y < ymax2 && good.length < MAX_GOOD; y++) {
+            if (goodposNewMonster(xmin, y, fakemon, g)) good.push({ x, y });
+            if (good.length >= MAX_GOOD) break;
+            if (xmin !== xmax2 && goodposNewMonster(xmax2, y, fakemon, g)) good.push({ x, y });
+        }
+        range++;
+    }
+    if (!good.length) return null;
+    const i = rn2(good.length);
+    return good[i] ?? null;
 }
 
 /**

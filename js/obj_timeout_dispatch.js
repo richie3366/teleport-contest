@@ -22,8 +22,9 @@ import {
     riderRevivalTime,
     startNhObjTimer,
 } from './obj_rot_timer.js';
-import { isRiderMnum } from './mondata.js';
+import { isRiderMnum, fakemonForCorpsenm } from './mondata.js';
 import { d, rn2 } from './rng.js';
+import { enextoNearMon } from './walkable.js';
 
 /**
  * @param {import('./gstate.js').game} g
@@ -73,20 +74,28 @@ function tryReviveCorpseFromTimeout(g, body) {
     if ((body.otyp | 0) !== CORPSE_OTYP) return false;
     const pl = objectOnFloorOrBuried(g, body);
     if (pl !== 'floor' && pl !== 'buried') return false;
-    const x = body.ox | 0;
-    const y = body.oy | 0;
     const mons = g.level?.monsters;
     if (!mons) return false;
-    if (mons.some((m) => (m.mx | 0) === x && (m.my | 0) === y)) return false;
     const mnum = body.corpsenm | 0;
+    const fakemon = fakemonForCorpsenm(mnum);
+    let x = body.ox | 0;
+    let y = body.oy | 0;
+    if (mons.some((m) => (m.mx | 0) === x && (m.my | 0) === y)) {
+        const alt = enextoNearMon(g, x, y, fakemon);
+        if (!alt) return false;
+        x = alt.x;
+        y = alt.y;
+    }
     const mtmp = makemon({ mnum }, x, y, 0);
     if (!mtmp) return false;
     obliterateObjectInLevel(g, body);
+    mtmp.mx = x;
+    mtmp.my = y;
     mons.push(mtmp);
     return true;
 }
 
-/** C: **`do.c`** **`revive_mon`** — displacer **`rloc`** block omitted (no **`enexto`** yet). */
+/** C: **`do.c`** **`revive_mon`** — displacer **`rloc`** block still TODO. */
 export function reviveMonTimeout(g, body) {
     if (tryReviveCorpseFromTimeout(g, body)) return;
     const mnum = body.corpsenm | 0;

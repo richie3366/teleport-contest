@@ -13,6 +13,8 @@ import {
     PM_DEATH,
     PM_PESTILENCE,
     PM_FAMINE,
+    PM_LICHEN,
+    PM_LIZARD,
     OTYP_AMULET_OF_YENDOR,
     Is_airlevel,
     Is_firelevel,
@@ -37,6 +39,29 @@ export function isRiderMnum(mnum) {
 export function isTrollCorpsenm(mnum) {
     const m = mnum | 0;
     return m >= 225 && m <= 229;
+}
+
+/**
+ * C: **`mons[corpsenm]`** stub for **`goodpos`/`enexto`** ( **`mlet`** + **`permonstHuman`** base).
+ * @param {number} mnum
+ * @returns {Permonst}
+ */
+export function stubPermonstForCorpsenm(mnum) {
+    const m = mnum | 0;
+    let mlet = S_HUMAN;
+    if (isTrollCorpsenm(m)) mlet = S_TROLL;
+    else if (m === PM_LIZARD) mlet = S_LIZARD;
+    else if (m === PM_LICHEN) mlet = S_FUNGUS;
+    return { ...permonstHuman, mlet, mnum: m };
+}
+
+/**
+ * C: **`struct monst`** fakemon for **`teleport.c`** **`goodpos`** / **`enexto`** ( **`set_mon_data`** subset).
+ * @param {number} mnum
+ */
+export function fakemonForCorpsenm(mnum) {
+    const m = mnum | 0;
+    return { mx: 0, my: 0, mnum: m, wormno: 0, data: stubPermonstForCorpsenm(m) };
 }
 
 /** C: monattk.h / permonst.h */
@@ -89,6 +114,10 @@ const S_VORTEX = 22;
 /** C: defsym.h / monsym.h — **`S_ELEMENTAL`**. */
 export const S_ELEMENTAL = 31;
 const S_HUMAN = 53;
+/** C: defsym.h MONSYM — troll / lizard / fungus (lichen). */
+const S_TROLL = 46;
+const S_LIZARD = 58;
+const S_FUNGUS = 32;
 /** C: defsym.h / monsym.h — `S_GHOST` (noncorporeal). */
 const S_GHOST = 54;
 
