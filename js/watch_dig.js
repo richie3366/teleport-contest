@@ -65,7 +65,7 @@ function ensureDiggingWarnSlotLikeC(g) {
 /**
  * C: dig.c watch_dig(struct monst *mtmp, coordxy x, coordxy y, boolean zap)
  *
- * **`SetVoice`** omitted; **`verbalize`** → **`pline`**. **`angry_guards`** via **`angryGuardsSilentLikeC`** (still stub **FALSE**).
+ * **`SetVoice`** omitted; **`verbalize`** → **`pline`**. **`angry_guards`** → **`angryGuardsSilentLikeC`** (**`mon.c`** watch loop).
  * **`stop_occupation`** only when hero dig occupation is ported (**`is_digging`**); no broad **`g.occupation`** clear.
  *
  * @param {import('./gstate.js').game} g

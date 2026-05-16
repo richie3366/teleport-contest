@@ -4,7 +4,8 @@
 //        repairable_damage(), shk_impaired(), next_shkp();
 //        find_objowner(), stolen_value()/stolen_container() subset for dig.c bury_objs; adisturb(), costly_spot(), add_damage();
 //        invent.c useupf() billing; hack.c in_rooms() for **`SHOPBASE`**;
-//        shk.c **`shopdig()`** ( **`dig.c`** **`digactualhole`** HOLE + **`trap.c`** **`fall_through`** ).
+//        shk.c **`shopdig()`** ( **`dig.c`** **`digactualhole`** HOLE + **`trap.c`** **`fall_through`** );
+//        **`mon.c`** **`angry_guards`** (**`angryGuardsSilentLikeC`**).
 
 import { game } from './gstate.js';
 import { pline, newsym, mapInvisibleCellLikeC } from './display.js';
@@ -12,7 +13,18 @@ import { unlinkFloorObject, floorObjKey, unlinkFloorObjectInLevel, placeFloorObj
 import { cansee, vision_recalc } from './vision.js';
 import { delEngrAt } from './engrave.js';
 import { doname } from './objnam.js';
-import { raceptr, passesWalls, stubPermonstForCorpsenm, MR_FIRE, MR_SLEEP, noncorporeal, S_ELEMENTAL, locomotion, nolimbs } from './mondata.js';
+import {
+    raceptr,
+    passesWalls,
+    stubPermonstForCorpsenm,
+    MR_FIRE,
+    MR_SLEEP,
+    noncorporeal,
+    S_ELEMENTAL,
+    locomotion,
+    nolimbs,
+    isWatchMonsterLikeC,
+} from './mondata.js';
 import { heroPassesWalls, enextoNearMon, goodposNewMonster } from './walkable.js';
 import { dist2 } from './hacklib.js';
 import { rn2, rnd } from './rng.js';
@@ -1091,12 +1103,73 @@ export function currencyAmountLikeC(g, amount) {
 }
 
 /**
- * C: **`mon.c`** **`angry_guards(silent)`** — watchmen (**`PM_WATCHMAN`/`PM_WATCH_CAPTAIN`** not in JS **`const`** yet; stub **FALSE**).
- * @returns {boolean}
+ * C: **`mon.c`** **`canspotmon`** subset for **`angry_guards`** — hero sees/senses mon on map.
+ * @param {import('./gstate.js').game} g
+ * @param {Record<string, unknown>} mtmp
  */
-export async function angryGuardsSilentLikeC(_g, silent) {
-    void silent;
-    return false;
+function canspotMonAngryGuardsLikeC(g, mtmp) {
+    const u = g.u;
+    if (!u || !mtmp) return false;
+    if (u.usteed === mtmp) return true;
+    if ((mtmp.minvis | 0) && !(u.See_invisible | 0)) return false;
+    return cansee(mtmp.mx | 0, mtmp.my | 0);
+}
+
+/** C: **`mon.c`** **`mcanmove`** gate for anger/adjacency counts — **`mcanmove`** false only when explicitly **0**. */
+function mcanmoveMonsterAngryGuardsLikeC(mtmp) {
+    const mv = mtmp.mcanmove;
+    if (mv === undefined || mv === null) return true;
+    return (mv | 0) !== 0;
+}
+
+/**
+ * C: **`mon.c`** **`angry_guards(silent)`** — peaceful **`is_watch`** watchmen become hostile; plines unless **`silent`** (**`Deaf`**).
+ * Omits C **`Soundeffect`**, full **`canspotmon`** / **`vtense`**.
+ * @returns {boolean} true if any watchman existed (C return after **`ct`**).
+ */
+export async function angryGuardsSilentLikeC(g, silent) {
+    const u = g?.u;
+    if (!u) return false;
+    let ct = 0;
+    let nct = 0;
+    let sct = 0;
+    let slct = 0;
+    const mons = g.level?.monsters ?? [];
+    for (let i = 0; i < mons.length; i++) {
+        const mtmp = mons[i];
+        if ((mtmp.mhp | 0) <= 0) continue;
+        if (!isWatchMonsterLikeC(mtmp)) continue;
+        if (!(mtmp.mpeaceful | 0)) continue;
+        ct++;
+        if (canspotMonAngryGuardsLikeC(g, mtmp) && mcanmoveMonsterAngryGuardsLikeC(mtmp)) {
+            if (mNext2uShopdig(g, mtmp)) nct++;
+            else sct++;
+        }
+        if ((mtmp.msleeping | 0) || (mtmp.mfrozen | 0)) {
+            slct++;
+            mtmp.msleeping = 0;
+            mtmp.mfrozen = 0;
+        }
+        mtmp.mpeaceful = 0;
+    }
+    if (!ct) return false;
+    if (!silent) {
+        if (slct) {
+            if (slct === 1) await pline('The guard wakes up.');
+            else await pline('The guards wake up.');
+        }
+        if (nct) {
+            if (nct === 1) await pline('The guard gets angry!');
+            else await pline('The guards get angry!');
+        } else if (sct) {
+            if (sct === 1) await pline('An angry guard is approaching!');
+            else await pline('Angry guards are approaching!');
+        } else {
+            const w = ct === 1 ? '' : 's';
+            await pline(`You hear the shrill sound of ${ct === 1 ? "a guard's" : "guards'"} whistle${w}.`);
+        }
+    }
+    return true;
 }
 
 /**
