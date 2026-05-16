@@ -1,7 +1,7 @@
 // distfleeck_mon.js — Monster flee-from-hero checks (monmove.c distfleeck + onscary).
 // C ref: monmove.c distfleeck(), onscary(); engrave.c sengr_at(); monst.h is_vampshifter.
 
-import { BOLT_LIM, IS_ALTAR, In_endgame, In_hell, A_LAWFUL, EPRI, AM_SHRINE, Amask2align, TEMPLE } from './const.js';
+import { BOLT_LIM, IS_ALTAR, In_endgame, In_hell, A_LAWFUL, EPRI, AM_SHRINE, Amask2align, TEMPLE, PM_GREMLIN } from './const.js';
 import { rn2, rnd } from './rng.js';
 import { monflee } from './monflee.js';
 import { monnearMonsterXYLikeC } from './mon_geom.js';
@@ -10,6 +10,8 @@ import { sengrAtLikeC } from './engrave.js';
 import { levlTypAt } from './decor.js';
 import { raceptr, isRiderMnum } from './mondata.js';
 import { inHishop, inRoomsTypewantedRoomnos, templeOccupiedFromUUroomsLikeC } from './shop.js';
+import { couldsee } from './vision.js';
+import { artifactLightObjLikeC } from './artifact_light.js';
 
 /** C: objects.h — **`SCR_SCARE_MONSTER`** otyp (NH 5.0). */
 const OTYP_SCR_SCARE_MONSTER = 279;
@@ -220,10 +222,27 @@ export function onScarySquareMonsterSubsetLikeC(g, x, y, mtmp) {
 }
 
 /**
- * C: monmove.c **`flees_light(mtmp)`** — gremlin vs lit artifacts (**subset**: always false until **`artifact_light`** port).
+ * C: monmove.c **`flees_light(mtmp)`** — gremlin vs hero **`uwep`/`uarm`** lit
+ * **`artifact_light`** sources; **`mcansee`** + **`couldsee(mx,my)`**.
  */
-export function fleesLightMonsterSubsetLikeC(_g, _mtmp) {
-    return false;
+export function fleesLightMonsterLikeC(g, mtmp) {
+    const ptr = raceptr(mtmp);
+    if ((ptr?.mnum | 0) !== PM_GREMLIN) return false;
+    const u = g?.u;
+    if (!u) return false;
+    const uwep = u.uwep;
+    const uarm = u.uarm;
+    const lit =
+        ((uwep?.lamplit | 0) && artifactLightObjLikeC(uwep))
+        || ((uarm?.lamplit | 0) && artifactLightObjLikeC(uarm));
+    if (!lit) return false;
+    if (!(mtmp?.mcansee | 0)) return false;
+    return couldsee(mtmp.mx | 0, mtmp.my | 0);
+}
+
+/** @deprecated Prefer **`fleesLightMonsterLikeC`**. */
+export function fleesLightMonsterSubsetLikeC(g, mtmp) {
+    return fleesLightMonsterLikeC(g, mtmp);
 }
 
 /**
@@ -286,7 +305,7 @@ export async function distfleeckMonsterApplyLikeC(g, mtmp) {
     }
 
     const sawscary = onScaryMonsterLikeC(g, seescaryx, seescaryy, mtmp);
-    const flees = fleesLightMonsterSubsetLikeC(g, mtmp);
+    const flees = fleesLightMonsterLikeC(g, mtmp);
     const sanct = inYourSanctuaryMonsterLikeC(g, mtmp);
 
     if (out.nearby && (sawscary || (flees && !bravegremlin) || (!(mtmp.mpeaceful | 0) && sanct))) {
