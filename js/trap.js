@@ -2355,7 +2355,7 @@ async function blowUpLandmine(trapIn) {
             levCell.typ = typFill;
             const fillmsg = cansee(x, y) ? 'The hole fills with %s!' : null;
             await liquidFlowHeroDigLikeC(g, x, y, typFill, trap, fillmsg);
-        } else if ((trap.ttyp | 0) === LANDMINE) {
+        } else {
             trap.ttyp = PIT;
             trap.madeby_u = false;
             seetrap(trap);
@@ -2494,8 +2494,11 @@ async function trapeffectLandmineHero(trap, trflags) {
         u.wounded_legs = Math.max(wl, wr);
         exercise(A_DEX, false);
     }
+    /* C: trap->ttyp = PIT; trap->madeby_u = FALSE; then losehp, then blow_up_landmine (bones). */
+    trap.ttyp = PIT;
+    trap.madeby_u = false;
+    losehp(maybeHalfPhys(damage), 'land mine', KILLED_BY_AN);
     await blowUpLandmine(trap);
-    losehp(maybeHalfPhys(damage), 'land mine', 0);
     newsym(u.ux, u.uy);
     const t2 = tAt(u.ux, u.uy);
     if (t2) await dotrap(t2, RECURSIVETRAP);
