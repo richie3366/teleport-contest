@@ -1,6 +1,6 @@
 // flooreffects_hero.js — do.c flooreffects() subset at (x,y) for hero deliveries.
 // C ref: do.c flooreffects() — **`boulder_hits_pool`**, boulder+pit/**`dmgval`** squish (**`hmon`** deferred), **`is_lava`**/**`lava_damage`**, **`is_pool`**
-// (**splash** + **`water_damage`**); hot-room potions. Deferred: teeter/**`ship_object`**, glob, mon+altar.
+// (**splash** + **`water_damage`**); **`globby`** **`obj_nexto_xy`/`obj_meld`**; hot-room potions. Deferred: teeter/**`ship_object`**, mon+altar.
 
 import { isLavaCellLikeC, isPoolCellLikeC } from './fillholetyp.js';
 import { lavaDamageFromFlooreffectsLikeC } from './fire_damage.js';
@@ -39,6 +39,7 @@ import {
     isUndeadPtr,
 } from './mondata.js';
 import { obliterateObjectInLevel } from './floorobj.js';
+import { flooreffectsGlobMergeChainLikeC } from './glob_flooreffects.js';
 
 /** C: objects_nums — **`POT_OIL`** ( **`do.c`** hot-floor branch always survives ). */
 const OTYP_POT_OIL = 320;
@@ -191,7 +192,7 @@ async function flooreffectsBoulderPitOrHoleLikeC(g, obj, xi, yi, trap, verbStr) 
 
 /**
  * C: **`do.c`** **`flooreffects(obj, x, y, verb)`** — boulder/pool/lava/pit, pool splash, hot potions.
- * Omits: teeter/**`ship_object`**, glob merge, mon **`doaltarobj`**.
+ * Omits: teeter/**`ship_object`**, mon **`doaltarobj`** when **`mon_moving`**.
  * @param {import('./gstate.js').game} g
  * @param {string} [verb] — C **`"drop"`** / **`"fall"`** / **`"land"`**; empty skips some plines (**`*verb`**)
  * @returns {Promise<boolean>} **true** if **`obj`** is consumed (C **`TRUE`**)
@@ -247,6 +248,10 @@ export async function flooreffectsObjAtLikeC(g, obj, x, y, verb) {
             }
             const er = await waterDamageOne(obj, false, g, { floorPool: true });
             return er === ER_DESTROYED;
+        }
+
+        if (await flooreffectsGlobMergeChainLikeC(g, obj, xi, yi)) {
+            return true;
         }
 
         const loc = g.level?.at(xi, yi);
