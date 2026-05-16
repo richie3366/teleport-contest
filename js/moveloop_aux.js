@@ -7,13 +7,16 @@ import { game } from './gstate.js';
 import { rn2, rnd } from './rng.js';
 import {
     A_DEX,
+    FROMFORM,
     OC_CHARGED_RING_OTYPES,
     OTYP_FAKE_AMULET_OF_YENDOR,
     OTYP_MEAT_RING,
     OTYP_RIN_PROTECTION,
     OTYP_RIN_SLOW_DIGESTION,
+    W_ARTI,
     W_RINGL,
     W_RINGR,
+    W_WEP,
 } from './const.js';
 import { acurr } from './attrib.js';
 import { uWipeEngr } from './engrave.js';
@@ -27,11 +30,22 @@ export function dosounds() {
     rn2(300);
 }
 
+/** C: eat.c gethungry — (HRegeneration & ~FROMFORM) || (ERegeneration & ~(W_ARTI | W_WEP)) */
+function gethungryRegenerationDrains(u) {
+    const h = u.HRegeneration | 0;
+    const e = u.ERegeneration | 0;
+    return (h & ~FROMFORM) !== 0 || (e & ~(W_ARTI | W_WEP)) !== 0;
+}
+
+/** C: eat.c gethungry — HConflict || (EConflict & (~W_ARTI)) */
+function gethungryConflictDrains(u) {
+    if (u.HConflict | 0) return true;
+    return ((u.EConflict | 0) & ~W_ARTI) !== 0;
+}
+
 /**
  * C: eat.c gethungry(void) — ordinary uhunger--, accessorytime = rn2(20),
- * odd/even branches, switch(accessorytime): case 0 (slow dig vs rings), case 8 (uamul not fake),
- * case 16 (uhave.amulet); cases 4/12 match eat.c (MEAT_RING, spe, objects[].oc_charged, RIN_PROTECTION + EProtection).
- * C order vs exerchk: allmain calls gethungry(), then collectNewuhsPlines(true), then exerchk().
+ * odd/even branches (regen/conflict masks), switch 0/4/8/12/16; newuhs from allmain.
  */
 /** C: eat.c objects[otyp].oc_charged — RING() chrg bit; full invent may override on otmp later. */
 function ringOcCharged(ot) {
@@ -78,11 +92,11 @@ export function gethungry() {
 
     const accessorytime = rn2(20);
     if (accessorytime % 2) {
-        if (u.HRegeneration) u.uhunger--;
+        if (gethungryRegenerationDrains(u)) u.uhunger--;
         if (nearCapacity() > ENC.SLT_ENCUMBER) u.uhunger--;
     } else {
         if (u.Hunger) u.uhunger--;
-        if (u.HConflict) u.uhunger--;
+        if (gethungryConflictDrains(u)) u.uhunger--;
     }
     /* C: eat.c gethungry — switch (accessorytime); even cases 0,4,8,12,16 */
     switch (accessorytime) {

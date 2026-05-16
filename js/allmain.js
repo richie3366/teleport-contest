@@ -98,7 +98,11 @@ export async function newgame() {
     g.u.Poison_resistance = 0;
     g.u.Stealth = 0;
     g.u.Fast = 0;
-    g.u.Searching = 0;
+    g.u.HRegeneration = 0; /* prop.c — intrinsic; high bits (e.g. FROMFORM) when poly grants from form */
+    g.u.ERegeneration = 0; /* extrinsic sources bitmask (eat.c gethungry excludes W_ARTI|W_WEP) */
+    g.u.Hunger = 0;
+    g.u.HConflict = 0;
+    g.u.EConflict = 0; /* extrinsic conflict sources (gethungry excludes W_ARTI only) */
     g.u.uwep = null;
     g.u.twoweap = false;
     g.u.uarmg = null; /* gloves — port invent wear when ready */
