@@ -5,7 +5,7 @@
 // **`#D`** — **`dig.c`** **`dig()`** wall/door completion harness (**`dig_hero.js`**);
 // **`#m`**/**`#B`** — monster **`mbuzz`** (**`muse.c`** **`BZ_M_WAND`/`BZ_M_BREATH`** from neighbor toward hero);
 // **`#l`**/**`#L`** — **`pickup.c`** **`use_container`** trapped (**`held`** floor vs invent) → **`trap.c`** **`chest_trap`** (**`pickup.js`**);
-// **`#p`**/**`#P`** — **`lock.c`** **`pick_lock`** floor box + **`picklock()`** **`rn2(100)`** occupation loop (**`lock_hero.js`**); **`u_handsy`** gate.
+// **`#p`**/**`#P`** — **`lock.c`** **`pick_lock`** adjacent **door** (**`u.dx`/`u.dy`**) or floor locked box + **`picklock()`** (**`lock_hero.js`**); **`u_handsy`** gate.
 // wizard **`z`** — **`dozap.js`**.
 
 import { game } from './gstate.js';
@@ -22,7 +22,7 @@ import { doname } from './objnam.js';
 import { theObjnamLikeC } from './trap.js';
 import { floorContainerAtHeroFeetPickupLikeC, heroOpenTrappedContainerPickupLikeC, carriedTrappedUnlockedContainerPickupLikeC } from './pickup.js';
 import { uHandsyHeroLikeC } from './hero_hands.js';
-import { heroFirstLockToolOtypLikeC, tryPicklockFloorBoxOccupationRngHeroLikeC } from './lock_hero.js';
+import { heroFirstLockToolOtypLikeC, tryPicklockFloorBoxOccupationRngHeroLikeC, tryPicklockAdjacentDoorHeroLikeC } from './lock_hero.js';
 import {
     ubuzzOverFloor,
     mbuzzTowardHeroFromFacingNeighbor,
@@ -190,7 +190,7 @@ export async function runExtcmdFromHashPrefix() {
         return;
     }
     if (ch2 === 'p' || ch2 === 'P') {
-        /* C: lock.c **`pick_lock`** / **`picklock`** — floor locked **`Is_box`**: **`ch`**, occupation **`rn2(100)`**; success **`chest_trap(FINGER)`** if trapped. */
+        /* C: lock.c **`pick_lock`** / **`picklock`** — neighbor door when **`u.dx`/`u.dy`** set; else floor locked **`Is_box`**. */
         const g = game;
         const u = g.u;
         if (!u || !g.level) {
@@ -204,6 +204,30 @@ export async function runExtcmdFromHashPrefix() {
             await flush_screen(1);
             return;
         }
+
+        const dx = u.dx | 0;
+        const dy = u.dy | 0;
+        if (dx !== 0 || dy !== 0) {
+            const dr = await tryPicklockAdjacentDoorHeroLikeC(g, dx, dy);
+            if (dr != null) {
+                if (
+                    dr === 'success'
+                    || dr === 'gave_up'
+                    || dr === 'disarmed_trap'
+                    || dr === 'stopped_at_trap'
+                    || dr === 'monster_block'
+                    || dr === 'bad_door_state'
+                    || dr === 'credit_lock'
+                    || dr === 'no_tool'
+                ) {
+                    g.context.move = 1;
+                }
+                game._retainMessageAfterCommand = true;
+                await flush_screen(1);
+                return;
+            }
+        }
+
         const tr = tAt(u.ux | 0, u.uy | 0);
         if (!canReachFloor(!!(tr && is_pit(tr.ttyp)))) {
             await pline('You cannot reach the floor!');
