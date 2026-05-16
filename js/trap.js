@@ -49,7 +49,7 @@ import {
     applyGotoAfterHeroHoleFallLikeC,
     nextToUForHoleFallStub,
 } from './goto_level_hero.js';
-import { dist2 } from './hacklib.js';
+import { dist2, depth } from './hacklib.js';
 import {
     raceptr,
     fireResistant,
@@ -1205,6 +1205,32 @@ function canFallThruDlevelLikeC(g) {
     return canDigDownForFallLikeC(g) || Is_stronghold(uz);
 }
 
+/**
+ * C: **`fall_through`** **`dtmp`** before **`depth(&dtmp)-depth(&u.uz)`** (**`find_hell`**, **`t->dst`**, else **`dunlev+1`** + **`clamp_hole_destination`**).
+ * @param {typeof game} g
+ * @param {{ dst?: { dnum: number, dlevel: number } | null } | null} trapLike
+ */
+function holeFallDestinationLevelForShaftMsgLikeC(g, trapLike) {
+    const u = g.u;
+    if (!u?.uz) return null;
+    const uz = u.uz;
+    if (Is_stronghold(uz)) {
+        const vl = g.valley_level;
+        return vl
+            ? { dnum: vl.dnum | 0, dlevel: vl.dlevel | 0 }
+            : { dnum: uz.dnum | 0, dlevel: uz.dlevel | 0 };
+    }
+    const d = trapLike?.dst;
+    if (d != null && Number.isInteger(d.dlevel)) {
+        const dnum = d.dnum | 0;
+        let dl = d.dlevel | 0;
+        const maxLev = g.dungeons?.[dnum]?.num_dunlevs;
+        if (maxLev != null && dl > (maxLev | 0)) dl = maxLev | 0;
+        return { dnum, dlevel: dl };
+    }
+    return { dnum: uz.dnum | 0, dlevel: (uz.dlevel | 0) + 1 };
+}
+
 /** C: **`levl[u.ux][u.uy].candig`** — dig.c **`dig_check`** / **`fall_through`**. */
 function heroSquareCandig(g) {
     const u = g.u;
@@ -2208,15 +2234,29 @@ async function trapeffectHoleHero(trap, trflags) {
     const td = true;
     const tHere = tAt(u.ux | 0, u.uy | 0);
     const tLikeC = tHere || trap;
+    let controlledFlight = false;
     if ((u.Flying || isClinger(ptr)) && plunged && td && tLikeC) {
         const verb = u.Flying ? 'swoop' : 'deliberately drop';
         const rest = (tLikeC.ttyp | 0) === TRAPDOOR
             ? 'through the trap door'
             : 'into the gaping hole';
         await pline(`You ${verb} down ${rest}!`);
+        if (u.Flying) controlledFlight = true;
     }
 
-    /* C: **`shopdig`/`pay`**, **`find_hell`**, deep-shaft plines, **`schedule_goto`** — subset: level only. */
+    /* C: **`dist = depth(dtmp)-depth(u.uz)`**; if **`dist>1`** — **`You fly/fall down a … shaft!`** */
+    const destLev = holeFallDestinationLevelForShaftMsgLikeC(g, tLikeC);
+    if (destLev) {
+        const dist = depth(destLev) - depth(u.uz);
+        if (dist > 1) {
+            const flyWord = controlledFlight ? 'fly' : 'fall';
+            const very = dist > 3 ? 'very ' : '';
+            const deep = dist > 2 ? 'deep ' : '';
+            await pline(`You ${flyWord} down a ${very}${deep}shaft!`);
+        }
+    }
+
+    /* C: **`shopdig`/`pay`**, **`schedule_goto`** — subset: level only. */
     await applyGotoAfterHeroHoleFallLikeC(g);
     newsym(u.ux, u.uy);
 }

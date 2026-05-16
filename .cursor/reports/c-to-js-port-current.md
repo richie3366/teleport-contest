@@ -9,7 +9,7 @@ Thin handoff for the next coding session. Deep parity tables and history: [`c-to
 - **Plain ES modules**, no build/WASM/network in contest code; RNG via `js/rng.js`; match **clang** evaluation order for multi-call expressions.
 - API: [`docs/API.md`](../../docs/API.md); overview: [`README.md`](../../README.md).
 
-**Last slice:** **`trap.c`** **`fall_through`** **`TOOKPLUNGE`** controlled-flight plines — **`js/trap.js`** **`trapeffectHoleHero`**: after **`dont_fall`** passes, if **`(Flying||is_clinger)&&plunged&&td&&t_at(...)`** (C **`t`**, else **`trap`**), **`You swoop down through the trap door!`/`into the gaping hole!`** vs **`deliberately drop`** (**`tLikeC.ttyp`**). Still TODO: deep-shaft **`dist>1`** (**`depth`/`trap->dst`**), **`shopdig`/`impact_drop`/`schedule_goto`**, full **`goto_level`**. **`npm run score`:** **0/44**; **`seed0060`** **991/3626** (unchanged).
+**Last slice:** **`trap.c`** **`fall_through`** deep-shaft **`dist>1`** pline — **`js/trap.js`**: **`holeFallDestinationLevelForShaftMsgLikeC`** (**`Is_stronghold`→`valley_level`**, else **`trap.dst`** clamped to **`num_dunlevs`**, else **`dlevel+1`**); **`trapeffectHoleHero`** after TOOKPLUNGE swoop sets **`controlledFlight`** (**`Flying` only**, C), then **`depth(dest)-depth(u.uz)`** and **`You fly/fall down a … shaft!`** (**`very`/`deep`** per C thresholds). **`hacklib.depth`** import. Still TODO: **`shopdig`/`impact_drop`/`schedule_goto`** so **`applyGoto`** matches multi-level **`dst`**, full **`goto_level`**. **`npm run score`:** **0/44**; **`seed0060`** **991/3626** (unchanged).
 
 ## Next steps (highest impact from latest fire/lava work)
 
