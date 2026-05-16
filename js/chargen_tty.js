@@ -38,6 +38,18 @@ import { applyIdentityFromNethackrc } from './chargen.js';
 
 const MENU_COL = 41;
 
+/**
+ * C ref: win/tty/wintty.c — after `end_menu`-style text, tty cursor rests past the `(end)` line
+ * (C recorder seed0077: left column menus col = len(` (end)`) + 1; right col = MENU_COL + len("(end)") + 1).
+ * @param {import('./game_display.js').GameDisplay} disp
+ * @param {number} lineStartCol
+ * @param {string} lineText — exact string written on the `(end)` row
+ * @param {number} endRow
+ */
+function setChargenEndMenuCursorLikeC(disp, lineStartCol, lineText, endRow) {
+    disp.setCursor(lineStartCol + lineText.length + 1, endRow);
+}
+
 /** C wintty.c tty_init_nhwindows: tty_curs(BASE_WINDOW,1,4) then 4×copyright + blank. */
 const TTY_COPYRIGHT_START_ROW = 4;
 /** One blank line after the four copyright rows (C tty_putstr empty before display). */
@@ -426,7 +438,7 @@ export function paintRoleMenu(disp, f) {
         row++;
     }
     disp.cursorVisible = true;
-    disp.setCursor(0, 23);
+    setChargenEndMenuCursorLikeC(disp, 0, ' (end)', row - 1);
 }
 
 function roleNameForDisplay(ri, gi) {
@@ -466,7 +478,7 @@ function paintRaceMenu(disp, f) {
     row++;
     disp.putstr(MENU_COL, row, '(end)', NO_COLOR);
     disp.cursorVisible = true;
-    disp.setCursor(MENU_COL, 23);
+    setChargenEndMenuCursorLikeC(disp, MENU_COL, '(end)', row);
 }
 
 /**
@@ -550,7 +562,7 @@ function paintGenderMenu(disp, f) {
     row++;
     disp.putstr(MENU_COL, row, '(end)', NO_COLOR);
     disp.cursorVisible = true;
-    disp.setCursor(MENU_COL, 23);
+    setChargenEndMenuCursorLikeC(disp, MENU_COL, '(end)', row);
 }
 
 async function readGenderChoice(disp, f) {
@@ -625,7 +637,7 @@ function paintAlignMenu(disp, f) {
     row++;
     disp.putstr(MENU_COL, row, '(end)', NO_COLOR);
     disp.cursorVisible = true;
-    disp.setCursor(MENU_COL, 23);
+    setChargenEndMenuCursorLikeC(disp, MENU_COL, '(end)', row);
 }
 
 async function readAlignChoice(disp, f) {
@@ -679,7 +691,7 @@ function paintConfirmMenu(disp, f, plname) {
     row++;
     disp.putstr(MENU_COL, row, '(end)', NO_COLOR);
     disp.cursorVisible = true;
-    disp.setCursor(MENU_COL, 23);
+    setChargenEndMenuCursorLikeC(disp, MENU_COL, '(end)', row);
 }
 
 async function readConfirmAnswer(disp, f, plname) {
