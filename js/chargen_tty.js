@@ -274,9 +274,13 @@ function raceMenuRecapLineLikeC(f) {
 const TTY_COPYRIGHT_START_ROW = 4;
 /** One blank line after the four copyright rows (C tty_putstr empty before display). */
 const TTY_POST_COPYRIGHT_BLANK_ROW = 8;
-/** C tty_curs(BASE_WINDOW,1,11) — default row for chargen / [ynaq] (y is 0-based in tty_curs). */
-const TTY_CHARSEL_DEFAULT_ROW = 11;
-/** Line under the [ynaq] prompt for the typed-name recap (after Enter in tty_askname). */
+/** C tty: first `tty_askname` after cold start — `Who are you?` below copyright block (recorder seed0006). */
+const ASKNAME_ROW_FULL = 12;
+/** C tty: `Who are you?` after confirm `a` (another name) — no copyright repaint (recorder seed0006 step 13). */
+const ASKNAME_ROW_COMPACT = 10;
+/** C tty: `Shall I pick … [ynaq]` on row 0 above copyright + recap (recorder seed0006 step 8). */
+const YNAQ_AFTER_NAME_ROW = 0;
+/** Recap `Who are you? plname` on row 12 under blank lines after copyright (same as first askname row). */
 const WHO_ARE_YOU_RECAP_ROW = 12;
 
 /** C clearrolefilter at each chargen top (new name / restart). */
@@ -507,31 +511,39 @@ function paintChargenCopyrightBlockLikeC(disp) {
     disp.clearRow(TTY_POST_COPYRIGHT_BLANK_ROW);
 }
 
-/** C tty_askname initial + per-char echo. */
-export async function ttyAsknameLikeC(disp, g) {
+/**
+ * C tty_askname initial + per-char echo.
+ * @param {{ compact?: boolean }} [opts] — **`compact`** after confirm **`a`** (another name): C omits copyright and uses a higher prompt row.
+ */
+export async function ttyAsknameLikeC(disp, g, opts) {
+    const compact = opts?.compact === true;
+    const askRow = compact ? ASKNAME_ROW_COMPACT : ASKNAME_ROW_FULL;
     disp.clearScreen();
-    paintChargenCopyrightBlockLikeC(disp);
+    if (!compact) {
+        paintChargenCopyrightBlockLikeC(disp);
+        for (let r = 9; r <= 11; r++) disp.clearRow(r);
+    }
     /* C: static const char who_are_you[] = "Who are you? "; */
     const prompt = 'Who are you? ';
-    disp.putstr(0, TTY_CHARSEL_DEFAULT_ROW, prompt, NO_COLOR);
+    disp.putstr(0, askRow, prompt, NO_COLOR);
     disp.cursorVisible = true;
-    disp.setCursor(prompt.length, TTY_CHARSEL_DEFAULT_ROW);
+    disp.setCursor(prompt.length, askRow);
     let buf = '';
     for (;;) {
         const c = await nhgetch();
         if (c === 13 || c === 10) break;
         if (c === 27) {
             buf = '';
-            disp.clearRow(TTY_CHARSEL_DEFAULT_ROW);
-            disp.putstr(0, TTY_CHARSEL_DEFAULT_ROW, prompt, NO_COLOR);
-            disp.setCursor(prompt.length, TTY_CHARSEL_DEFAULT_ROW);
+            disp.clearRow(askRow);
+            disp.putstr(0, askRow, prompt, NO_COLOR);
+            disp.setCursor(prompt.length, askRow);
             continue;
         }
         if (c === 8 || c === 127) {
             if (buf.length) {
                 buf = buf.slice(0, -1);
-                disp.putstr(prompt.length, TTY_CHARSEL_DEFAULT_ROW, `${buf} `, NO_COLOR);
-                disp.setCursor(prompt.length + buf.length, TTY_CHARSEL_DEFAULT_ROW);
+                disp.putstr(prompt.length, askRow, `${buf} `, NO_COLOR);
+                disp.setCursor(prompt.length + buf.length, askRow);
             }
             continue;
         }
@@ -540,8 +552,8 @@ export async function ttyAsknameLikeC(disp, g) {
             if (!/[a-zA-Z]/.test(ch) && !(ch >= '0' && ch <= '9' && buf.length > 0)) ch = '_';
         }
         if (buf.length < 31) buf += ch;
-        disp.putstr(prompt.length, TTY_CHARSEL_DEFAULT_ROW, buf, NO_COLOR);
-        disp.setCursor(prompt.length + buf.length, TTY_CHARSEL_DEFAULT_ROW);
+        disp.putstr(prompt.length, askRow, buf, NO_COLOR);
+        disp.setCursor(prompt.length + buf.length, askRow);
     }
     g.plname = buf || 'X';
 }
@@ -549,10 +561,9 @@ export async function ttyAsknameLikeC(disp, g) {
 export function paintPostNameYnaqScreen(disp, plname) {
     const p0 = buildShallPickPrompt();
     disp.clearScreen();
-    /* Rows 0–3 left empty like C (room for early topline-style prompts). */
+    disp.putstr(0, YNAQ_AFTER_NAME_ROW, p0, NO_COLOR);
+    disp.setCursor(p0.length, YNAQ_AFTER_NAME_ROW);
     paintChargenCopyrightBlockLikeC(disp);
-    disp.putstr(0, TTY_CHARSEL_DEFAULT_ROW, p0, NO_COLOR);
-    disp.setCursor(p0.length, TTY_CHARSEL_DEFAULT_ROW);
     disp.putstr(0, WHO_ARE_YOU_RECAP_ROW, `Who are you? ${plname}`, NO_COLOR);
 }
 
@@ -590,7 +601,7 @@ function paintConfirmYnaqHelpOverlay(disp) {
 }
 
 /**
- * C genl_player_setup [ynaq] loop (role.c ~2260); tty shows prompt at wintty default row 11.
+ * C genl_player_setup [ynaq] loop (role.c ~2260); tty prompt row matches **`paintPostNameYnaqScreen`**.
  * @param {import('./game_display.js').GameDisplay} disp
  * @param {string} plname
  */
@@ -1208,9 +1219,11 @@ async function pickManualChargenFacets(disp, f) {
  * @param {ReturnType<typeof import('./options.js').parseNethackrc>} opts
  */
 export async function runInteractiveTtyChargen(disp, g, opts) {
+    let asknameAnotherNameCompact = false;
     top: for (;;) {
         resetChargenRfilter();
-        await ttyAsknameLikeC(disp, g);
+        await ttyAsknameLikeC(disp, g, { compact: asknameAnotherNameCompact });
+        asknameAnotherNameCompact = false;
         paintPostNameYnaqScreen(disp, g.plname);
         const pick4u = await readYnaqPick4u(disp, g.plname);
         if (pick4u === 'q') throw new Error('Player quit during chargen');
@@ -1236,7 +1249,10 @@ export async function runInteractiveTtyChargen(disp, g, opts) {
                 return;
             }
             if (ok === 'q' || ok === '\x1b') throw new Error('Player quit confirm');
-            if (ok === 'a') continue top;
+            if (ok === 'a') {
+                asknameAnotherNameCompact = true;
+                continue top;
+            }
             /* 'n': repick random (C: treat as restart ynaq from name). */
             continue top;
         }
@@ -1251,7 +1267,10 @@ export async function runInteractiveTtyChargen(disp, g, opts) {
                 return;
             }
             if (ok === 'q' || ok === '\x1b') throw new Error('Player quit confirm');
-            if (ok === 'a') continue top;
+            if (ok === 'a') {
+                asknameAnotherNameCompact = true;
+                continue top;
+            }
             if (ok === 'n') continue outer;
         }
     }
