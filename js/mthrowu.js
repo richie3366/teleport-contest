@@ -123,25 +123,11 @@ function heroBlind() {
 /**
  * C: mthrowu.c thitu(int tlev, int dam, struct obj **objp, const char *name)
  * @param {{ o: object|null }} objRef
- * @param {{ monThrower?: object|null, tetheredWeapon?: boolean }} [throwCtx] — optional in-**`thitu`** catch (**`trap.c`** omits). Prefer **`mthrowAtHeroUxyThituLikeC`** for **`m_throw`** C order (catch then **`thitu`**).
- * @returns {Promise<number>} 1 if hit, 0 if miss (or caught — **`objRef.o`** cleared, no damage)
+ * @returns {Promise<number>} 1 if hit, 0 if miss (**`trap.c`** / **`m_throw`** via **`mthrowAtHeroUxyThituLikeC`** handles catch before **`thitu`**)
  */
-export async function thitu(tlev, dam, objRef, name, throwCtx) {
+export async function thitu(tlev, dam, objRef, name) {
     const u = game.u;
     if (!u) return 0;
-
-    if (throwCtx?.monThrower && objRef?.o && !throwCtx.tetheredWeapon) {
-        const caught = await tryHeroCatchMonsterThrownObjLikeC(
-            game,
-            throwCtx.monThrower,
-            objRef.o,
-            !!throwCtx.tetheredWeapon,
-        );
-        if (caught) {
-            objRef.o = null;
-            return 0;
-        }
-    }
 
     const dieroll = rnd(20);
     const ac = u.uac ?? 10;
@@ -196,7 +182,7 @@ export async function mthrowAtHeroUxyThituLikeC(g, mon, objRef, tetheredWeapon) 
 
     const t = otmp.otyp | 0;
     if (t === OTYP_CREAM_PIE || t === OTYP_BLINDING_VENOM) {
-        return thitu(8, 0, objRef, null, undefined);
+        return thitu(8, 0, objRef, null);
     }
 
     let dam = dmgval(otmp, g.youmonst);
@@ -207,7 +193,7 @@ export async function mthrowAtHeroUxyThituLikeC(g, mon, objRef, tetheredWeapon) 
     hitv += 8 + (otmp.spe | 0);
     if (dam < 1) dam = 1;
     if (t !== OTYP_ACID_VENOM) dam = maybeHalfPhys(dam);
-    return thitu(hitv, dam, objRef, null, undefined);
+    return thitu(hitv, dam, objRef, null);
 }
 
 /** C: shk.c / invent obfree — remove object from floor list and level.objects. */

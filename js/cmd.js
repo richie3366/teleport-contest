@@ -2,7 +2,7 @@
 // C ref: cmd.c rhack(), hack.c domove(); hack.c spoteffects (pickup, dotrap, pooleffects order);
 //        trap.c drown / lava_effects via spoteffects.js.
 //
-// Movement: hjklyubn; `>` descend downstairs (do.c goto_level subset); peaceful/tame mons → swap (hack.c displace); else bump attack stub.
+// Movement: hjklyubn; `>` descend; **`u.dz > 0`** after **`getdir`** **`>`** + walk onto down-stairs → **`goto_level`** subset (**`finishDomoveDzStairsTailLikeC`**); peaceful/tame mons → swap; else bump attack stub.
 // Contestants should add: search, kick, eat, drink, read, zap,
 // wear, wield, drop (d), throw (t), pray, cast, and all other commands.
 
@@ -24,6 +24,7 @@ import { snapshotUshops0FromHeroTileLikeC } from './shop.js';
 import { doDropOneAtHeroFeetLikeC } from './drop_hero.js';
 import { throwOneInventAdjacentLikeC } from './throw_hero.js';
 import { applyHeroDescendStairsOneLevelLikeC } from './goto_level_hero.js';
+import { stairwayAtInGame } from './decor.js';
 
 // Direction deltas: y u k
 //                   h . l
@@ -165,6 +166,21 @@ function mAt(x, y) {
     return game.level?.monsters?.find((m) => m.mx === x && m.my === y) ?? null;
 }
 
+/**
+ * C: hack.c **`domove`** + **`do.c`** **`dodown`** — **`u.dz > 0`** on a down stair after a successful move (**`getdir`** **`>`** leaves **`u.dz`** set until movement).
+ * @param {import('./gstate.js').game} g
+ */
+async function finishDomoveDzStairsTailLikeC(g) {
+    const ua = g.u;
+    if (!ua) return;
+    const dz = ua.dz | 0;
+    if (dz > 0) {
+        const st = stairwayAtInGame(g, ua.ux | 0, ua.uy | 0);
+        if (st && !st.up) await applyHeroDescendStairsOneLevelLikeC(g);
+    }
+    ua.dz = 0;
+}
+
 async function domove(dx, dy) {
     const u = game.u;
     const newx = u.ux + dx;
@@ -172,10 +188,12 @@ async function domove(dx, dy) {
 
     if (blocksMove(newx, newy)) {
         // Can't move there — no game time (C: domove returns without moving)
+        if (game.u) game.u.dz = 0;
         return false;
     }
     if (diagonalHeroMoveBlocked(dx, dy, newx, newy)) {
         // C: hack.c test_move — `bad_rock` corners + `cant_squeeze_thru` + `NODIAG`
+        if (game.u) game.u.dz = 0;
         return false;
     }
 
@@ -191,16 +209,19 @@ async function domove(dx, dy) {
                 u.dy = dy;
                 maybeSmudgeEngr(ox, oy, newx, newy);
                 await spotEffects(game, true, { fromDx: dx, fromDy: dy });
+                await finishDomoveDzStairsTailLikeC(game);
                 const hx = u.ux, hy = u.uy;
                 newsym(ox, oy);
                 if (hx !== newx || hy !== newy) newsym(newx, newy);
                 newsym(hx, hy);
             } else {
                 newsym(newx, newy);
+                if (game.u) game.u.dz = 0;
             }
         } else {
             await doBumpMeleeAttack(mtmp);
             newsym(newx, newy);
+            if (game.u) game.u.dz = 0;
         }
         game._pending_message = '';
         game._overlayScreen = null;
@@ -221,6 +242,7 @@ async function domove(dx, dy) {
     // C: hack.c domove — after domove_core walk/rush
     maybeSmudgeEngr(oldx, oldy, newx, newy);
     await spotEffects(game, true, { fromDx: dx, fromDy: dy });
+    await finishDomoveDzStairsTailLikeC(game);
     const hx = u.ux, hy = u.uy;
     game._pending_message = '';
     game._overlayScreen = null;

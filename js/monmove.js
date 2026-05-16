@@ -4,9 +4,14 @@
 // Until fmon is populated and AI is ported, this replays a captured monster-side
 // PRNG slice from the frozen session harness. Delete _HARNESS entries as real
 // movemon consumes the same calls.
+//
+// C: **`m_throw`** at hero (**`mthrowu.c`**) — when **`m_move`** throws, call **`mthrowAtHeroUxyThituLikeC`**
+// (re-exported here for **`monmove`** / **`muse`** parity wiring); harness does not invoke it yet.
 
 import { rn2 } from './rng.js';
 import { mintrapMoveloopTail } from './trap.js';
+
+export { mthrowAtHeroUxyThituLikeC } from './mthrowu.js';
 
 /** Last moveloop step index that still uses the session harness (1-based stepNum). */
 export const MOVE_MON_HARNESS_MAX_STEP = 12;
