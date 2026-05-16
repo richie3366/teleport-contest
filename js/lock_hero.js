@@ -1,9 +1,14 @@
-// lock_hero.js — lock.c picklock() success on a floor container (harness; no occupation / rn2(100)).
-// C ref: lock.c picklock() box branch after success — **`olocked`**, **`lknown`**, **`chest_trap(..., FINGER, FALSE)`**, **`exercise(A_DEX, TRUE)`**; **`lock_action()`** phrasing.
+// lock_hero.js — lock.c picklock() on a floor container: **`pick_lock`** **`ch`** + occupation **`rn2(100)`** loop; success tail.
+// C ref: lock.c pick_lock() (floor **`Is_box`**: **`ch`** from **`picktyp`**, **`otmp->cursed`** halves); picklock() **`usedtime`/`rn2(100)`**;
+//        success — **`olocked`**, **`lknown`**, **`chest_trap(..., FINGER, FALSE)`**, **`exercise(A_DEX, TRUE)`**; **`lock_action()`** phrasing.
+// Omits **`is_magic_key`** trap-find / **`y_n`** disarm, **`set_occupation`** multi-input (this harness runs the tick loop in one **`#p`**).
 
 import { pline } from './display.js';
-import { exercise } from './attrib.js';
+import { acurr, exercise } from './attrib.js';
 import { A_DEX } from './const.js';
+import { rn2 } from './rng.js';
+import { raceptr } from './mondata.js';
+import { nohandsPermonstLikeC } from './hero_hands.js';
 import { chestTrapHeroLikeC } from './trap.js';
 
 /** @see water_damage.js / objects.h — CHEST 216; SKELETON_KEY / LOCK_PICK / CREDIT_CARD 222–224. */
@@ -40,6 +45,51 @@ export function heroFirstLockToolOtypLikeC(g) {
     }
     const tool = key || pick || card;
     return tool ? tool.otyp | 0 : null;
+}
+
+/**
+ * C: lock.c **`pick_lock()`** at hero feet — **`switch (picktyp)`** **`ch`** for **`Is_box`**, **`otmp->cursed`** halves.
+ * @param {import('./gstate.js').game} g
+ * @param {{ cursed?: number, otyp?: number }} box
+ * @param {number} pickOtyp
+ * @returns {number}
+ */
+export function picklockFloorBoxChanceHeroLikeC(g, box, pickOtyp) {
+    const dex = acurr(A_DEX) | 0;
+    const rogue = g?.urole?.abbr === 'Rog' ? 1 : 0;
+    const p = pickOtyp | 0;
+    let ch = 0;
+    if (p === OTYP_CREDIT_CARD) ch = dex + 20 * rogue;
+    else if (p === OTYP_LOCK_PICK) ch = 4 * dex + 25 * rogue;
+    else if (p === OTYP_SKELETON_KEY) ch = 75 + dex;
+    if (box && (box.cursed | 0)) ch = Math.trunc(ch / 2);
+    return ch;
+}
+
+/**
+ * C: lock.c **`picklock()`** occupation — **`usedtime++ >= 50 || nohands`**, then **`rn2(100) >= chance`** busy; else success tail.
+ * @param {import('./gstate.js').game} g
+ * @param {object} box
+ * @param {number} pickOtyp
+ * @returns {Promise<'success'|'gave_up'|null>}
+ */
+export async function tryPicklockFloorBoxOccupationRngHeroLikeC(g, box, pickOtyp) {
+    if (!box) return null;
+    const chance = picklockFloorBoxChanceHeroLikeC(g, box, pickOtyp);
+    const phrase = lockActionPhrasePicklockBoxUnlockLikeC(box, pickOtyp);
+    const ptr = raceptr(g.youmonst);
+    let usedtime = 0;
+    for (;;) {
+        const idx = usedtime++;
+        if (idx >= 50 || nohandsPermonstLikeC(ptr)) {
+            await pline(`You give up your attempt at ${phrase}.`);
+            exercise(A_DEX, true);
+            return 'gave_up';
+        }
+        if (rn2(100) >= chance) continue;
+        await applyPicklockSucceededOnFloorBoxHeroLikeC(g, box, pickOtyp);
+        return 'success';
+    }
 }
 
 /**

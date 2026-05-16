@@ -5,7 +5,7 @@
 // **`#D`** — **`dig.c`** **`dig()`** wall/door completion harness (**`dig_hero.js`**);
 // **`#m`**/**`#B`** — monster **`mbuzz`** (**`muse.c`** **`BZ_M_WAND`/`BZ_M_BREATH`** from neighbor toward hero);
 // **`#l`**/**`#L`** — **`pickup.c`** **`use_container`** trapped (**`held`** floor vs invent) → **`trap.c`** **`chest_trap`** (**`pickup.js`**);
-// **`#p`**/**`#P`** — **`lock.c`** **`picklock()`** success tail on locked floor box (**`lock_hero.js`**; instant success, no occupation);
+// **`#p`**/**`#P`** — **`lock.c`** **`pick_lock`** floor box + **`picklock()`** **`rn2(100)`** occupation loop (**`lock_hero.js`**); **`u_handsy`** gate.
 // wizard **`z`** — **`dozap.js`**.
 
 import { game } from './gstate.js';
@@ -22,7 +22,7 @@ import { doname } from './objnam.js';
 import { theObjnamLikeC } from './trap.js';
 import { floorContainerAtHeroFeetPickupLikeC, heroOpenTrappedContainerPickupLikeC, carriedTrappedUnlockedContainerPickupLikeC } from './pickup.js';
 import { uHandsyHeroLikeC } from './hero_hands.js';
-import { applyPicklockSucceededOnFloorBoxHeroLikeC, heroFirstLockToolOtypLikeC } from './lock_hero.js';
+import { heroFirstLockToolOtypLikeC, tryPicklockFloorBoxOccupationRngHeroLikeC } from './lock_hero.js';
 import {
     ubuzzOverFloor,
     mbuzzTowardHeroFromFacingNeighbor,
@@ -190,11 +190,16 @@ export async function runExtcmdFromHashPrefix() {
         return;
     }
     if (ch2 === 'p' || ch2 === 'P') {
-        /* C: lock.c picklock() — locked floor container: toggle **`olocked`**, **`lknown`**, **`chest_trap(..., FINGER)`** (no **`rn2(100)`** loop). */
+        /* C: lock.c **`pick_lock`** / **`picklock`** — floor locked **`Is_box`**: **`ch`**, occupation **`rn2(100)`**; success **`chest_trap(FINGER)`** if trapped. */
         const g = game;
         const u = g.u;
         if (!u || !g.level) {
             await pline('Nothing happens.');
+            game._retainMessageAfterCommand = true;
+            await flush_screen(1);
+            return;
+        }
+        if (!(await uHandsyHeroLikeC(g))) {
             game._retainMessageAfterCommand = true;
             await flush_screen(1);
             return;
@@ -216,8 +221,8 @@ export async function runExtcmdFromHashPrefix() {
             if (pickOtyp == null) {
                 await pline("You don't have anything to pick that lock with.");
             } else {
-                await applyPicklockSucceededOnFloorBoxHeroLikeC(g, box, pickOtyp);
-                g.context.move = 1;
+                const r = await tryPicklockFloorBoxOccupationRngHeroLikeC(g, box, pickOtyp);
+                if (r === 'success' || r === 'gave_up') g.context.move = 1;
             }
         }
         game._retainMessageAfterCommand = true;
