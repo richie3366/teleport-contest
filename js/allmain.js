@@ -35,6 +35,7 @@ import { pullDueMeltIceAwayTimers } from './level_timers.js';
 import { meltIceAt } from './melt_ice.js';
 import { runDueNhObjTimers } from './obj_timeout_dispatch.js';
 import { bootstrapSpLevchnMinesMinetnFromBranchStubLikeC } from './sp_levchn.js';
+import { maybeRecordEnteredNewLevelLivelogLikeC } from './livelog.js';
 
 // C ref: allmain.c newgame()
 export async function newgame() {
@@ -75,7 +76,8 @@ export async function newgame() {
     bootstrapSpLevchnMinesMinetnFromBranchStubLikeC(g);
     // Real mklev generates the level with correct room positions
     // Structural phase consumes RNG for rooms/corridors/doors/stairs
-    await mklev();
+    // C: do.c goto_level — **`if (new)`** after **`mklev`**; **`allmain.c`** **`newgame`** calls **`mklev()`** with **`u.uz`** on D:1 (no bones on brand-new game).
+    if (await mklev()) maybeRecordEnteredNewLevelLivelogLikeC(g);
 
     // Fill rooms + mineralize: replayed by fastforward
     // These create objects/monsters that don't affect terrain display
