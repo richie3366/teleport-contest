@@ -341,11 +341,11 @@ function paintYnaqHelpOverlay(disp) {
     }
 }
 
-/** C confirm [ynaq] one-line gloss (role.c confirmation loop). */
+/** C confirm [ynaq] one-line gloss (role.c confirmation loop ~2675–2677 PICK_ONE). */
 function paintConfirmYnaqHelpOverlay(disp) {
     for (let r = 1; r <= 6; r++) disp.clearRow(r);
     const lines = [
-        'y — start game with this character',
+        'y (or space/enter) — start game (C preselected y / n==0 default)',
         'n — pick role again from the role menu',
         'a — choose a different name (back to Who are you?)',
         'q / escape — quit',
@@ -486,6 +486,7 @@ async function readRaceChoice(disp, f) {
             if (!repickRole) f.chargenResumePick = 'race';
             continue;
         }
+        if (k === '\x1b' || k === 'q') throw new Error('Player quit race menu');
         if (k === '*') {
             const t = pickRaceJs(f.initrole, f.initgend, f.initalign, PICK_RANDOM);
             if (t !== ROLE_NONE) return t;
@@ -547,6 +548,7 @@ async function readGenderChoice(disp, f) {
             if (!repickRole) f.chargenResumePick = 'gender';
             continue;
         }
+        if (k === '\x1b' || k === 'q') throw new Error('Player quit gender menu');
         if (k === '*') {
             const t = pickGendJs(f.initrole, f.initrace, f.initalign, PICK_RANDOM);
             if (t !== ROLE_NONE) return t;
@@ -610,6 +612,7 @@ async function readAlignChoice(disp, f) {
             if (!repickRole) f.chargenResumePick = 'align';
             continue;
         }
+        if (k === '\x1b' || k === 'q') throw new Error('Player quit align menu');
         if (k === '*') {
             const t = pickAlignJs(f.initrole, f.initrace, f.initgend, PICK_RANDOM);
             if (t !== ROLE_NONE) return t;
@@ -646,13 +649,16 @@ async function readConfirmAnswer(disp, f, plname) {
     for (;;) {
         paintConfirmMenu(disp, f, plname);
         const c = await nhgetch();
-        const k = lowc(String.fromCodePoint(c));
+        let k = lowc(String.fromCodePoint(c));
         if (k === '?') {
             paintConfirmYnaqHelpOverlay(disp);
             await nhgetch();
             continue;
         }
-        if (k === 'y' || k === 'a' || k === 'n' || k === 'q' || k === '\x1b') return k;
+        /* C: choice = (n>0) ? selected[n-1].a_int : (n==0) ? 1 : -1; space/return = implicit y */
+        if (k === '\x1b') return 'q';
+        if (k === ' ' || k === '\n' || k === '\r') return 'y';
+        if (k === 'y' || k === 'a' || k === 'n' || k === 'q') return k;
     }
 }
 
@@ -702,7 +708,7 @@ async function pickManualChargenFacets(disp, f) {
             const c = await nhgetch();
             const kRaw = String.fromCodePoint(c);
             const k = lowc(kRaw);
-            if (k === 'q') throw new Error('Player quit role menu');
+            if (k === '\x1b' || k === 'q') throw new Error('Player quit role menu');
             if (k === '~') {
                 f.initrole = ROLE_NONE;
                 await runResetRoleFilteringMenuLikeC(disp, f);
