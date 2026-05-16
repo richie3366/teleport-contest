@@ -21,6 +21,8 @@ export const G_NOCORPSE = 0x0010;
 
 /** C: monflag.h `MR_FIRE` — innate fire resistance (goodpos lava, trap.c, …). */
 export const MR_FIRE = 0x01;
+/** C: monflag.h `MR_SLEEP` — sleep resistance (trap.c sleep gas, …). */
+export const MR_SLEEP = 0x04;
 
 // C: monflag.h (subset used by locomotion / stagger / goodpos)
 const M1_FLY = 0x00000001;
@@ -225,6 +227,11 @@ export function amphibious(/** @type {Permonst} */ ptr) {
 /** C: mondata.h fire_resistant — `mons[].mresists & MR_FIRE` (subset). */
 export function fireResistant(/** @type {Permonst} */ ptr) {
     return ((ptr?.mresists ?? 0) & MR_FIRE) !== 0;
+}
+
+/** C: mondata.h resists_sleep — `mons[].mresists & MR_SLEEP` (subset; no `defended`/`resist()` yet). */
+export function resistsSleep(/** @type {Permonst} */ ptr) {
+    return ((ptr?.mresists ?? 0) & MR_SLEEP) !== 0;
 }
 
 /** C: mondata.h likes_lava(ptr) — fire elemental or salamander (`mons[]` identity). */

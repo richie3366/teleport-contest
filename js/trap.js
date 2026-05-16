@@ -41,13 +41,16 @@ import {
     isFloater,
     breathless,
     passesRocks,
+    passesWalls,
     amorphous,
     isWhirly,
     unsolid,
     MZ_SMALL,
+    MZ_LARGE,
     locomotion,
     webmaker,
     metallivorous,
+    resistsSleep,
 } from './mondata.js';
 import {
     NO_TRAP_FLAGS,
@@ -553,8 +556,282 @@ async function trapeffectRocktrapMonster(g, mtmp, trap) {
             : TRAP_EFFECT_FINISHED;
 }
 
+/** C: mon.c **`helpless(mtmp)`** — subset until **`mfrozen`/`mcanmove`** port. */
+function helplessMon(mtmp) {
+    return false;
+}
+
+/** C: mondata.h **`grounded`** — flyer/floater avoids ordinary pit fall. */
+function groundedMon(ptr) {
+    return !(isFlyer(ptr) || isFloater(ptr));
+}
+
+/** C: trap.c **`which_armor`** keys on **`mtmp.mworn`**. */
+function monMworn(mtmp, k) {
+    return mtmp?.mworn?.[k] ?? null;
+}
+
+/** C: apply.c **`splash_lit`** on monster inventory — no hero **`Your`** wording. */
+async function extinguishLitMinventNotWielded(mtmp, inSight) {
+    const w = mtmp?.mworn;
+    for (let o = mtmp?.minvent; o; o = o.nobj) {
+        if (!(o.lamplit | 0)) continue;
+        if (o === w?.wep) continue;
+        if (inSight) await pline(`${monNamSentence(mtmp)}'s light goes out!`);
+        o.lamplit = 0;
+    }
+}
+
+/** C: mhitm.c **`sleep_monst(mon, amt, -1)`** — JS has no **`mfrozen`** yet; **`msleeping`** only. */
+function sleepMonstFromGas(mtmp, _amt) {
+    void _amt;
+    if (resistsSleep(raceptr(mtmp)) || breathless(raceptr(mtmp)) || helplessMon(mtmp)) return false;
+    mtmp.msleeping = 1;
+    return true;
+}
+
+/** C: rust trap **`completelyrusts`** — iron golem. */
+function completelyRustsMonster(ptr, mtmp) {
+    return (mtmp.mnum | 0) === PM_IRON_GOLEM
+        || String(ptr?.mname || '').toLowerCase().includes('iron golem');
+}
+
+/** C: trap.c **`mu_maybe_destroy_web`** — not ported; always false. */
+function muMaybeDestroyWebMonster(_mtmp, _trap) {
+    void _mtmp;
+    void _trap;
+    return false;
+}
+
+/** C: trap.c names that tear webs ( **`monsndx`** list; **`mname`** until **`mnum`** wired). */
+const WEB_TEAR_MNAME = /titanothere|baluchitherium|purple worm|jabberwock|iron golem|balrog|kraken|mastodon|^orion$|^norn$|cyclops|lord surtur/i;
+
+/** C: trap.c **`trapeffect_bear_trap`** — non-hero. */
+async function trapeffectBearTrapMonster(g, mtmp, trap, mintrapflags) {
+    const ptr = raceptr(mtmp);
+    const inSight = canseemonRip(g, mtmp);
+    const forcetrap = ((mintrapflags | 0) & (FORCETRAP | FAILEDUNTRAP)) !== 0;
+    let trapkilled = false;
+
+    if (
+        ((ptr.msize ?? MZ_SMALL) | 0) > MZ_SMALL
+        && !amorphous(ptr)
+        && !checkInAirMonster(mtmp, mintrapflags)
+        && !isWhirly(ptr)
+        && !unsolid(ptr)
+    ) {
+        mtmp.mtrapped = 1;
+        if (inSight) {
+            await pline(
+                `${monNamSentence(mtmp)} is caught in ${trap.madeby_u ? 'your' : 'a'} bear trap!`,
+            );
+            seetrap(trap);
+        } else {
+            const n = String(ptr?.mname || '').toLowerCase();
+            if (n.includes('owlbear') || n.includes('bugbear')) await pline('You hear the roaring of an angry bear!');
+        }
+    } else if (forcetrap && inSight) {
+        await pline(
+            `${monNamSentence(mtmp)} evades ${trap.madeby_u ? 'your' : 'a'} bear trap!`,
+        );
+        seetrap(trap);
+    }
+
+    if ((mtmp.mtrapped | 0) && !wearingIronShoesMonster(mtmp)) {
+        trapkilled = await thitmMonster(g, mtmp, 0, null, d(2, 4), false);
+    }
+    return trapkilled
+        ? TRAP_KILLED_MON
+        : (mtmp.mtrapped | 0)
+            ? TRAP_CAUGHT_MON
+            : TRAP_EFFECT_FINISHED;
+}
+
+/** C: trap.c **`trapeffect_slp_gas_trap`** — non-hero. */
+async function trapeffectSlpGasTrapMonster(g, mtmp, trap) {
+    void trap;
+    const inSight = canseemonRip(g, mtmp);
+    const ptr = raceptr(mtmp);
+    if (!resistsSleep(ptr) && !breathless(ptr) && !helplessMon(mtmp)) {
+        const amt = rnd(25);
+        if (sleepMonstFromGas(mtmp, amt) && inSight) {
+            await pline(`${monNamSentence(mtmp)} suddenly falls asleep!`);
+            seetrap(trap);
+        }
+    }
+    return TRAP_EFFECT_FINISHED;
+}
+
+/** C: trap.c **`trapeffect_rust_trap`** — non-hero (**`water_damage`** / **`splash_lit`** subset on **`mworn`** + lit invent). */
+async function trapeffectRustTrapMonster(g, mtmp, trap) {
+    void trap;
+    const inSight = canseemonRip(g, mtmp);
+    let trapkilled = false;
+    const ptr = raceptr(mtmp);
+    const gush = 'A gush of water hits';
+
+    if (inSight) seetrap(trap);
+    const b = rn2(5);
+    switch (b) {
+    case 0:
+        if (inSight) await pline(`${gush} ${monNam(mtmp)} on the head!`);
+        await waterDamageOne(monMworn(mtmp, 'armh'), true, g);
+        break;
+    case 1: {
+        if (inSight) await pline(`${gush} ${monNam(mtmp)}'s left arm!`);
+        const er = monMworn(mtmp, 'arms') ? await waterDamageOne(monMworn(mtmp, 'arms'), true, g) : ER_NOTHING;
+        if (er === ER_NOTHING) {
+            const wep = monMworn(mtmp, 'wep');
+            if (wep && bimanual(wep)) await waterDamageOne(wep, true, g);
+        }
+        await waterDamageOne(monMworn(mtmp, 'armg'), true, g);
+        break;
+    }
+    case 2:
+        if (inSight) await pline(`${gush} ${monNam(mtmp)}'s right arm!`);
+        await waterDamageOne(monMworn(mtmp, 'wep'), true, g);
+        await waterDamageOne(monMworn(mtmp, 'armg'), true, g);
+        break;
+    default:
+        if (inSight) await pline(`${gush} ${monNam(mtmp)}!`);
+        await extinguishLitMinventNotWielded(mtmp, inSight);
+        if (monMworn(mtmp, 'armc')) await waterDamageOne(monMworn(mtmp, 'armc'), true, g);
+        else if (monMworn(mtmp, 'arm')) await waterDamageOne(monMworn(mtmp, 'arm'), true, g);
+        else if (monMworn(mtmp, 'armu')) await waterDamageOne(monMworn(mtmp, 'armu'), true, g);
+        break;
+    }
+
+    if (completelyRustsMonster(ptr, mtmp)) {
+        if (inSight) await pline(`${monNamSentence(mtmp)} falls to pieces!`);
+        const mx = mtmp.mx | 0;
+        const my = mtmp.my | 0;
+        const mons = g.level?.monsters;
+        const i = mons ? mons.indexOf(mtmp) : -1;
+        if (i >= 0) mons.splice(i, 1);
+        newsym(mx, my);
+        trapkilled = true;
+    } else if ((mtmp.mnum | 0) === PM_GREMLIN && rn2(3)) {
+        /* C: split_mon — not ported */
+    }
+
+    return trapkilled
+        ? TRAP_KILLED_MON
+        : (mtmp.mtrapped | 0)
+            ? TRAP_CAUGHT_MON
+            : TRAP_EFFECT_FINISHED;
+}
+
+/** C: trap.c **`trapeffect_pit`** — non-hero (**`mselftouch`** not ported). */
+async function trapeffectPitMonster(g, mtmp, trap, mintrapflags) {
+    const u = g.u;
+    if (!u) return TRAP_EFFECT_FINISHED;
+
+    const ttype = trap.ttyp | 0;
+    let relevantSpikes = ttype === SPIKED_PIT;
+    const inSight = canseemonRip(g, mtmp);
+    const forcetrap = ((mintrapflags | 0) & (FORCETRAP | FAILEDUNTRAP)) !== 0;
+    const inescapable = forcetrap || (In_sokoban(u.uz) && !trap.madeby_u);
+    const ptr = raceptr(mtmp);
+    let trapkilled = false;
+    let fallverb = 'falls';
+
+    const wormy = (mtmp.wormno | 0) > 5;
+
+    if (!groundedMon(ptr) || wormy) {
+        if (forcetrap && !In_sokoban(u.uz)) {
+            if (inSight) {
+                seetrap(trap);
+                await pline(`${monNamSentence(mtmp)} doesn't fall into the pit.`);
+            }
+            return TRAP_EFFECT_FINISHED;
+        }
+        if (!inescapable) return TRAP_EFFECT_FINISHED;
+        fallverb = 'is dragged';
+    }
+
+    if (!passesWalls(ptr)) mtmp.mtrapped = 1;
+
+    if (inSight) {
+        await pline(
+            `${monNamSentence(mtmp)} ${fallverb} into ${trap.madeby_u ? 'your' : 'a'} pit!`,
+        );
+        const n = String(ptr?.mname || '').toLowerCase();
+        if (n.includes('pit viper') || n.includes('pit fiend')) await pline(`How pitiful.  Isn't that the pits?`);
+        seetrap(trap);
+    }
+
+    if (wearingIronShoesMonster(mtmp)) relevantSpikes = false;
+
+    if (
+        monsterStillOnLevel(g, mtmp)
+        && (await thitmMonster(g, mtmp, 0, null, rnd(relevantSpikes ? 10 : 6), false))
+    ) {
+        trapkilled = true;
+    }
+    return trapkilled
+        ? TRAP_KILLED_MON
+        : (mtmp.mtrapped | 0)
+            ? TRAP_CAUGHT_MON
+            : TRAP_EFFECT_FINISHED;
+}
+
+/** C: trap.c **`trapeffect_web`** — non-hero. */
+async function trapeffectWebMonster(g, mtmp, trap, mintrapflags) {
+    void g;
+    const ptr = raceptr(mtmp);
+    if (webmaker(ptr)) return TRAP_EFFECT_FINISHED;
+    if (muMaybeDestroyWebMonster(mtmp, trap)) return TRAP_EFFECT_FINISHED;
+
+    const inSight = canseemonRip(g, mtmp);
+    const forcetrap = ((mintrapflags | 0) & (FORCETRAP | FAILEDUNTRAP)) !== 0;
+    const ay = trap.madeby_u ? 'your' : 'a';
+    let tearWeb = false;
+    const n = String(ptr?.mname || mtmp?.monnam || '').toLowerCase();
+
+    if ((n.includes('owlbear') || n.includes('bugbear')) && !inSight) {
+        await pline('You hear the roaring of a confused bear!');
+        mtmp.mtrapped = 1;
+    } else {
+        if (
+            WEB_TEAR_MNAME.test(n)
+            || ((ptr.msize | 0) >= MZ_LARGE)
+            || (n.includes('dragon') && !n.includes('baby'))
+        ) {
+            tearWeb = true;
+        } else if (inSight) {
+            await pline(`${monNamSentence(mtmp)} is caught in ${ay} spider web.`);
+            seetrap(trap);
+        }
+        mtmp.mtrapped = tearWeb ? 0 : 1;
+    }
+
+    if (tearWeb) {
+        if (inSight) await pline(`${monNamSentence(mtmp)} tears through ${ay} spider web!`);
+        delTrap(trap);
+        newsym(mtmp.mx, mtmp.my);
+    } else if (forcetrap && !(mtmp.mtrapped | 0)) {
+        if (inSight) {
+            await pline(`${monNamSentence(mtmp)} avoids ${ay} spider web!`);
+            seetrap(trap);
+        }
+    }
+    return (mtmp.mtrapped | 0) ? TRAP_CAUGHT_MON : TRAP_EFFECT_FINISHED;
+}
+
 /**
- * C: trap.c thitm — **`obj` null, `d_override` non-zero** (forced hit, no **`rnd(20)`**).
+ * C: mon.c **`maybe_unhide_at`** / trap.c **`mintrap`** tail — reveal **`mundetected`** when hero can see mon.
+ * @param {typeof game} g
+ */
+function maybeMonsterUnhideAfterTrap(g, mtmp) {
+    if (!mtmp) return;
+    if ((mtmp.mundetected | 0) && canseemonRip(g, mtmp)) {
+        mtmp.mundetected = 0;
+        newsym(mtmp.mx | 0, mtmp.my | 0);
+    }
+}
+
+/**
+ * C: trap.c thitm — **`obj` null, `d_override` non-zero** (forced hit, no **`rnd(20)`** vs AC).
  * @returns {boolean} trapkilled (**`DEADMONSTER`**)
  */
 function thitmMonsterFireOverride(g, mtmp, damage, _immolateNocorpse) {
@@ -983,6 +1260,12 @@ const OC_IRON = 11;
 
 function wearingIronShoes(u) {
     const f = u?.uarmf;
+    return !!(f && f.oc_material === OC_IRON);
+}
+
+/** C: do_wear.c wearing_iron_shoes(mtmp) — monster **`mworn.armf`**. */
+function wearingIronShoesMonster(mtmp) {
+    const f = mtmp?.mworn?.armf;
     return !!(f && f.oc_material === OC_IRON);
 }
 
@@ -1515,7 +1798,6 @@ async function trapeffectHero(trap, trflags) {
  * @returns {Promise<number>}
  */
 async function trapeffectMonsterSelector(mtmp, trap, mintrapflags) {
-    void mintrapflags;
     const tt = trap.ttyp | 0;
     switch (tt) {
     case ARROW_TRAP:
@@ -1526,6 +1808,17 @@ async function trapeffectMonsterSelector(mtmp, trap, mintrapflags) {
         return trapeffectRocktrapMonster(game, mtmp, trap);
     case FIRE_TRAP:
         return trapeffectFireTrapForMonster(game, mtmp, trap);
+    case BEAR_TRAP:
+        return trapeffectBearTrapMonster(game, mtmp, trap, mintrapflags);
+    case SLP_GAS_TRAP:
+        return trapeffectSlpGasTrapMonster(game, mtmp, trap);
+    case RUST_TRAP:
+        return trapeffectRustTrapMonster(game, mtmp, trap);
+    case PIT:
+    case SPIKED_PIT:
+        return trapeffectPitMonster(game, mtmp, trap, mintrapflags);
+    case WEB:
+        return trapeffectWebMonster(game, mtmp, trap, mintrapflags);
     default:
         return TRAP_EFFECT_FINISHED;
     }
@@ -1576,7 +1869,9 @@ export async function mintrap(mtmp, mintrapflags = NO_TRAP_FLAGS) {
         mtmp.mAngry = 1;
     }
 
-    return await trapeffectMonsterSelector(mtmp, trap, mintrapflags);
+    const teff = await trapeffectMonsterSelector(mtmp, trap, mintrapflags);
+    maybeMonsterUnhideAfterTrap(g, mtmp);
+    return teff;
 }
 
 /**
