@@ -4,10 +4,7 @@
 import { game } from './gstate.js';
 import { pline, flush_screen } from './display.js';
 import { readDirIntoU } from './dir_input.js';
-import { ubuzzOverFloor, wandUbuzzTypeFromOtyp, WAN_MAGIC_MISSILE } from './buzz.js';
-
-/** C: objects.h — **`WAN_FIRE`** immediately after **`WAN_MAGIC_MISSILE`**. */
-const WAN_FIRE = WAN_MAGIC_MISSILE + 1;
+import { ubuzzOverFloor, wandUbuzzTypeFromOtyp, WAN_FIRE } from './buzz.js';
 
 /**
  * Wizard harness: **`getdir`** then **`ubuzz`** with wand-of-fire encoding (**`nd`** ignored here).

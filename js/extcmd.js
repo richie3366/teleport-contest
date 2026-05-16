@@ -1,8 +1,8 @@
 // extcmd.js — Extended commands (`#` prefix, doextcmd).
 // C ref: cmd.c doextcmd, extcmdlist
 //
-// JS extras: wizard **`#F`** — **`ubuzz`** spell cold; **`#c`** — wand cold (**`ZT_WAND`**);
-// wizard **`z`** — **`dozap.js`** getdir + wand fire (**`weffects`** **`WAN_FIRE`** slice).
+// JS extras: wizard **`#F`**/**`#c`** — hero **`ubuzz`**; **`#m`**/**`#B`** — monster **`mbuzz`**
+// (**`muse.c`** **`BZ_M_WAND`/`BZ_M_BREATH`** from neighbor toward hero); wizard **`z`** — **`dozap.js`**.
 
 import { game } from './gstate.js';
 import { nhgetch } from './input.js';
@@ -10,7 +10,15 @@ import { flush_screen, pline, docrt } from './display.js';
 import { versionPlineText } from './nethack_version.js';
 import { enhanceWeaponSkillOneStep } from './u_init_skills.js';
 import { ZT_SPELL, ZT_COLD, ZT_WAND } from './zap_over_floor.js';
-import { ubuzzOverFloor } from './buzz.js';
+import {
+    ubuzzOverFloor,
+    mbuzzTowardHeroFromFacingNeighbor,
+    wandMbuzzTypeFromOtyp,
+    BZ_M_BREATH,
+    BZ_OFS_AD,
+    AD_COLD,
+    WAN_COLD,
+} from './buzz.js';
 
 /** C: doextcmd — echo '#' on the top line, then read the next key (tty). */
 export async function runExtcmdFromHashPrefix() {
@@ -65,6 +73,25 @@ export async function runExtcmdFromHashPrefix() {
     if (ch2 === 'c' && game.flags?.wizard) {
         /* C: zap.c weffects — wand of cold (**`ZT_WAND(ZT_COLD)`**), same facing as **`#F`**. */
         await ubuzzOverFloor(game, ZT_WAND(ZT_COLD), 6);
+        await flush_screen(1);
+        return;
+    }
+    if (ch2 === 'm' && game.flags?.wizard) {
+        /* C: muse.c **`use_offensive`** — **`BZ_M_WAND(BZ_OFS_WAN(WAN_COLD))`** toward hero. */
+        if (!(await mbuzzTowardHeroFromFacingNeighbor(game, wandMbuzzTypeFromOtyp(WAN_COLD), 6))) {
+            await pline('Nothing happens.');
+            game._retainMessageAfterCommand = true;
+        }
+        await flush_screen(1);
+        return;
+    }
+    if (ch2 === 'B' && game.flags?.wizard) {
+        /* C: zap.c **`dobuzz`** monster breath — **`BZ_M_BREATH(BZ_OFS_AD(AD_COLD))`**. */
+        const breath = BZ_M_BREATH(BZ_OFS_AD(AD_COLD));
+        if (!(await mbuzzTowardHeroFromFacingNeighbor(game, breath, 6))) {
+            await pline('Nothing happens.');
+            game._retainMessageAfterCommand = true;
+        }
         await flush_screen(1);
         return;
     }
