@@ -32,7 +32,7 @@ export function mayPasswall(x, y, g = game) {
 }
 
 /** C: monmove.c closed_door — loc must be from `g.level.at`. */
-function isClosedDoorLoc(loc) {
+export function isClosedDoorLoc(loc) {
     return loc.typ === DOOR && ((loc.doormask | 0) & (D_CLOSED | D_LOCKED)) !== 0;
 }
 

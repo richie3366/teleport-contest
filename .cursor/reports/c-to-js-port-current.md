@@ -9,11 +9,11 @@ Thin handoff for the next coding session. Deep parity tables and history: [`c-to
 - **Plain ES modules**, no build/WASM/network in contest code; RNG via `js/rng.js`; match **clang** evaluation order for multi-call expressions.
 - API: [`docs/API.md`](../../docs/API.md); overview: [`README.md`](../../README.md).
 
-**Last slice:** **`zap.c`** buzz/bhit-style **`range += zap_over_floor`** — **`js/zap_over_floor.js`** **`zapOverFloorAlongRay(g, x0, y0, dx, dy, type, maxRange)`** (default **`BOLT_LIM`** from **`const.js`**); **`dx`=`dy`=0** → single **`zapOverFloor`** at origin (same as prior wizard **`#F`**). Wizard **`extcmd.js`** **`#F`** now calls **`zapOverFloorAlongRay`** with **`u.dx`/`u.dy`**. Public sessions unchanged (no **`#F`**); **`npm run score`:** **0/44**.
+**Last slice:** **`zap.c`** **`zap_over_floor`** **`SDOOR`** + **`closed_door`** tail — **`js/zap_over_floor.js`** after **`ZT_COLD`** floor logic: **`cvtSdoorToDoor`** (**`detect.c`**, **`WM_MASK`**, rogue **`D_NODOOR`**) + **`rangemod = -1000`** on closed doors; **`ZT_FIRE`/`ZT_COLD`/`ZT_LIGHTNING`/`ZT_BREATH(ZT_DEATH)`** door destruction / plines / **`newsym`** + **`vision_full_recalc`**; default absorb + **`You feel vibrations.`**; **`exploding_wand_typ`** clears for **`POT_OIL`/`SCR_FIRE`** (**`objects.h`** otyps **320/338**). **`walkable.js`** exports **`isClosedDoorLoc`**. Exploding **`WAN_STRIKING`** door branch still **TODO**. **`npm run score`:** **0/44**.
 
 ## Next steps (highest impact from latest fire/lava work)
 
-1. **`melt_ice` / cold remainder** — wire **`zapOverFloorAlongRay`** from real wand/breath/monster **`buzz`** when that harness exists; full **`obj_ice_effects`** (**`obj_timer_checks`**, buried); real **`bury_objs`**/**`unearth_objs`**; fuller **`boulder_hits_pool`** / **`minliquid`** / **`spoteffects`**; walls/doors/monsters in beam path (**`zap_over_floor`** tail).
+1. **`melt_ice` / cold remainder** — wire **`zapOverFloorAlongRay`** from real wand/breath/monster **`buzz`** when that harness exists; full **`obj_ice_effects`** (**`obj_timer_checks`**, buried); real **`bury_objs`**/**`unearth_objs`**; fuller **`boulder_hits_pool`** / **`minliquid`** / **`spoteffects`**; **`zap_over_floor`** **`OBJ_AT` + `burn_floor_objects`** ( **`ZT_FIRE`** after doors); shop **`add_damage`** on broken shop doors; **`WAN_STRIKING`** exploding door branch.
 2. **`minuhpmax`/`setuhpmax`/`losexp`** ( **`dofiretrap`** human branch ); underwater/steam **`dofiretrap`** box branch; **`shieldeff`/`monstseesu`**.
 3. **Wire `discoverScrollOtyp`** from **`read`** / **`pickup`** / **`makeknown`** when scroll ID is learned; audit remaining **`mklev.js`** **`otyp`** literals vs **`objects_nums`**.
 
