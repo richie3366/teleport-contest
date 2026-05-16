@@ -9,6 +9,7 @@ import {
     IRONBARS, W_NONPASSWALL, isok,
     COLNO, ROWNO,
     POOL, MOAT, WATER, LAVAPOOL, LAVAWALL, OTYP_BOULDER,
+    ICE, STONE, DRAWBRIDGE_UP, DB_UNDER, DB_ICE, DB_MOAT, DB_LAVA,
     In_sokoban, Is_rogue_level, PM_GRID_BUG, WT_TOOMUCH_DIAGONAL,
     xdir, ydir, N_DIRS,
 } from './const.js';
@@ -75,6 +76,66 @@ function sobjAtBoulder(x, y, g = game) {
         if ((o.otyp | 0) === OTYP_BOULDER) return true;
     }
     return false;
+}
+
+/** C: dbridge.c `db_under_typ` — terrain under a raised drawbridge span. */
+function dbUnderTypLikeC(mask) {
+    switch ((mask | 0) & DB_UNDER) {
+        case DB_ICE:
+            return ICE;
+        case DB_LAVA:
+            return LAVAPOOL;
+        case DB_MOAT:
+            return MOAT;
+        default:
+            return STONE;
+    }
+}
+
+/**
+ * C: rm.h `SURFACE_AT` — underlying terrain when typ is `DRAWBRIDGE_UP`.
+ * @param {number} x
+ * @param {number} y
+ * @param {Record<string, unknown>} [g]
+ */
+function surfaceTypAtForGoodposLikeC(x, y, g = game) {
+    const loc = g.level?.at(x | 0, y | 0);
+    if (!loc) return STONE;
+    const typ = loc.typ | 0;
+    if (typ === DRAWBRIDGE_UP) return dbUnderTypLikeC(loc.drawbridgemask | 0);
+    return typ;
+}
+
+/**
+ * C: monmove.c `accessible` — `ACCESSIBLE(SURFACE_AT)` && !`closed_door` on raw `levl`.
+ * @param {number} x
+ * @param {number} y
+ * @param {Record<string, unknown>} [g]
+ */
+function accessibleAtLikeC(x, y, g = game) {
+    const loc = g.level?.at(x | 0, y | 0);
+    if (!loc) return false;
+    if (!ACCESSIBLE(surfaceTypAtForGoodposLikeC(x, y, g))) return false;
+    if (isClosedDoorLoc(loc)) return false;
+    return true;
+}
+
+/**
+ * C: teleport.c `goodpos(x, y, NULL, 0)` — objects / `rloco` (no `GP_*`, no monster body checks).
+ * Rejects hero square; allows co-location with monsters; uses `accessible` + boulder rule with `mdat==NULL`.
+ * @param {number} x
+ * @param {number} y
+ * @param {Record<string, unknown>} [g]
+ */
+export function goodposNullMonLikeC(x, y, g = game) {
+    if (!isok(x, y)) return false;
+    const u = g.u;
+    if (u && (u.ux | 0) === (x | 0) && (u.uy | 0) === (y | 0)) return false;
+    const loc = g.level?.at(x | 0, y | 0);
+    if (!loc) return false;
+    if (!accessibleAtLikeC(x, y, g)) return false;
+    if (sobjAtBoulder(x, y, g)) return false;
+    return true;
 }
 
 /** C: youprop.h Passes_walls — intrinsic/extrinsic; else innate `passes_walls(raceptr(youmonst))`. */

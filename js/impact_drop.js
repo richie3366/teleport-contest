@@ -40,7 +40,7 @@ import {
     stackObjOnFloorInLevel,
     obliterateObjectInLevel,
 } from './floorobj.js';
-import { goodposHero } from './walkable.js';
+import { goodposNullMonLikeC } from './walkable.js';
 import {
     costlySpot,
     inRoomsShopbaseRoomnos,
@@ -142,7 +142,7 @@ async function rlocoObjDeliverySubsetLikeC(g, obj, nobreak) {
         tx = rn1(COLNO - 3, 2);
         ty = rn2(ROWNO);
         if (!--tryLimit) break;
-    } while (!goodposHero(tx, ty, g));
+    } while (!goodposNullMonLikeC(tx, ty, g));
     placeFloorObjectInLevel(g, obj, tx, ty);
     stackObjOnFloorInLevel(g, obj);
     if (!nobreak && breaktestLikeC(g, obj)) {
