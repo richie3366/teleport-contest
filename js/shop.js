@@ -728,6 +728,8 @@ function repairDamageCatchup(g, shkp, dam) {
  * @param {number} cost
  */
 export function addDamageAt(g, x, y, cost) {
+    /* C: shk.c **`add_damage`** — defer new **`damagelist`** rows while **`leaving_tutorial`**. */
+    if (contextLeavingTutorialActiveLikeC(g)) return;
     const loc = g.level?.at(x | 0, y | 0);
     if (!loc) return;
     if (IS_DOOR(loc.typ)) {
@@ -1491,6 +1493,8 @@ export async function checkShopObjLikeC(g, obj, x, y, broken) {
     const xh = x | 0;
     const yh = y | 0;
     if (!g.u || !obj) return;
+    /* C: **`dothrow.c`** / **`shk.c`** — defer shop-object billing while **`leaving_tutorial`**. */
+    if (contextLeavingTutorialActiveLikeC(g)) return;
     const shkp = shopdigPickShkpLikeC(g);
     if (!shkp) return;
 
@@ -1681,6 +1685,8 @@ export async function payForDamage(g = game, dmgstr, cantMollify = false) {
     const str = dmgstr != null ? String(dmgstr) : 'damage';
     const list = g.level?.damagelist;
     if (!list?.length) return;
+    /* C: shk.c **`pay_for_damage`** — defer billing / **`y_n`** while **`leaving_tutorial`**. */
+    if (contextLeavingTutorialActiveLikeC(g)) return;
 
     const moves = g.moves | 0;
     /** @type {{ x: number, y: number, cost?: number, when?: number, typ?: number, flags?: number } | null} */
