@@ -1,7 +1,7 @@
 // destroy_items.js — Hero inventory destruction by element (zap.c subset).
 // C ref: zap.c destroy_items(), destroyable(), maybe_destroy_item() — AD_FIRE only;
 // inventory_resistance_check / u_adtyp_resistance_obj / deferred stacks / potionbreathe /
-// ignite_items / Ring_gone / setnotworn / glob of slime — TODO or stubbed.
+// Ring_gone / setnotworn / glob of slime — TODO or stubbed. **`ignite_items`** → **`ignite_items.js`**.
 
 import { game } from './gstate.js';
 import { rn2, rnd } from './rng.js';
