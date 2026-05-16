@@ -49,25 +49,45 @@ function filterMenuExtraLine() {
  * C reset_role_filtering() — multi-toggle unacceptable facets; Enter applies
  * (clearrolefilter then setrolefilter per token), ESC cancels without changing
  * rfilter. Clears all four chargen facets like C after RS_filter.
+ * Tty: Rl/Rc/Gn/Al tags, scroll <>/,. , ?=PICK_ANY help (not full select_menu).
  * @param {import('./game_display.js').GameDisplay} disp
  * @param {{ initrole: number, initrace: number, initgend: number, initalign: number }} f
  */
+/** C reset_role_filtering end_menu prompt (role.c ~2754–2755). */
+function paintResetRoleFilterHelpOverlay(disp) {
+    for (let r = 1; r <= 8; r++) disp.clearRow(r);
+    const lines = [
+        'Pick all facets you want marked UNACCEPTABLE (C PICK_ANY).',
+        'Toggled [x] entries are excluded like setrolefilter() after Enter.',
+        gotChargenRfilterLikeC()
+            ? 'C also allows unpicking entries that no longer apply.'
+            : 'Empty selection after Enter clears all filters (C n==0).',
+        '',
+        'Keys: letter toggles  < > scroll list  Enter apply  ESC cancel',
+        'Press any key...',
+    ];
+    for (let i = 0; i < lines.length; i++) {
+        const t = lines[i].length > 80 ? lines[i].slice(0, 80) : lines[i];
+        disp.putstr(0, 1 + i, t, NO_COLOR);
+    }
+}
+
 async function runResetRoleFilteringMenuLikeC(disp, f) {
-    /** @type {{ key: string, token: string, label: string }[]} */
+    /** @type {{ key: string, token: string, label: string, section: string }[]} */
     const entries = [];
     const keys = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
     let nk = 0;
     for (let ri = 0; ri < roles.length; ri++) {
-        entries.push({ key: keys[nk++], token: roles[ri].name.m, label: roles[ri].name.m });
+        entries.push({ key: keys[nk++], token: roles[ri].name.m, label: roles[ri].name.m, section: 'roles' });
     }
     for (let rai = 0; rai < races.length; rai++) {
-        entries.push({ key: keys[nk++], token: races[rai].name, label: races[rai].name });
+        entries.push({ key: keys[nk++], token: races[rai].name, label: races[rai].name, section: 'races' });
     }
     for (let gi = 0; gi < genders.length; gi++) {
-        entries.push({ key: keys[nk++], token: genders[gi].name, label: genders[gi].name });
+        entries.push({ key: keys[nk++], token: genders[gi].name, label: genders[gi].name, section: 'genders' });
     }
     for (let ai = 0; ai < aligns.length; ai++) {
-        entries.push({ key: keys[nk++], token: aligns[ai].name, label: aligns[ai].name });
+        entries.push({ key: keys[nk++], token: aligns[ai].name, label: aligns[ai].name, section: 'aligns' });
     }
 
     const selected = new Set();
@@ -85,23 +105,30 @@ async function runResetRoleFilteringMenuLikeC(disp, f) {
     }
 
     const keyToToken = new Map(entries.map((e) => [e.key.toLowerCase(), e.token]));
+    const VIEW_H = 16;
+    const maxScroll = Math.max(0, entries.length - VIEW_H);
+    let scroll = 0;
 
     for (;;) {
         disp.clearScreen();
-        disp.putstr(0, 0, 'Unacceptable roles/races/genders/aligns (C reset_role_filtering)', NO_COLOR);
-        disp.putstr(0, 1, 'Toggle key marks facet as unacceptable; Enter=apply  ESC=cancel  ?=help', NO_COLOR);
-        let row = 3;
-        for (let i = 0; i < entries.length; i += 2) {
-            const a = entries[i];
-            const b = entries[i + 1];
-            const mark = (t) => (selected.has(t) ? '[x]' : '[ ]');
-            const left = ` ${a.key} ${mark(a.token)} ${a.label}`;
-            const right = b ? `  ${b.key} ${mark(b.token)} ${b.label}` : '';
-            disp.putstr(0, row, left + right, NO_COLOR);
+        disp.putstr(0, 0, 'reset_role_filtering (C role.c) — unacceptable facets', NO_COLOR);
+        disp.putstr(0, 1, 'Rl Rc Gn Al=facet  Key toggles  < > scroll  ?=help  Enter apply  ESC=cancel', NO_COLOR);
+        let row = 2;
+        for (let j = 0; j < VIEW_H && scroll + j < entries.length; j++) {
+            const e = entries[scroll + j];
+            const mark = selected.has(e.token) ? '[x]' : '[ ]';
+            const tag = e.section === 'roles' ? 'Rl'
+                : e.section === 'races' ? 'Rc'
+                    : e.section === 'genders' ? 'Gn'
+                        : 'Al';
+            disp.putstr(0, row, `${tag} ${e.key} ${mark} ${e.label}`, NO_COLOR);
             row++;
-            if (row >= 22) break;
         }
-        disp.putstr(0, 23, 'Pick all that apply (C end_menu prompt)', NO_COLOR);
+        const foot = maxScroll > 0
+            ? `Pick all that apply (scroll ${scroll + 1}/${maxScroll + 1})`
+            : 'Pick all that apply (C end_menu)';
+        disp.putstr(0, 22, foot.length > 80 ? foot.slice(0, 80) : foot, NO_COLOR);
+        disp.putstr(0, 23, '', NO_COLOR);
         disp.cursorVisible = true;
         disp.setCursor(0, 23);
 
@@ -115,7 +142,16 @@ async function runResetRoleFilteringMenuLikeC(disp, f) {
             break;
         }
         if (c === 63) {
-            /* C genl_player_setup: TODO for ? on [ynaq]; harmless here */
+            paintResetRoleFilterHelpOverlay(disp);
+            await nhgetch();
+            continue;
+        }
+        if (c === 62 || c === 46) {
+            if (scroll < maxScroll) scroll++;
+            continue;
+        }
+        if (c === 60 || c === 44) {
+            if (scroll > 0) scroll--;
             continue;
         }
         const ch = lowc(String.fromCodePoint(c));
@@ -207,13 +243,51 @@ export function paintPostNameYnaqScreen(disp, plname) {
     disp.putstr(0, NAME_ROW, `Who are you? ${plname}`, NO_COLOR);
 }
 
+/** C role.c genl_player_setup comment on [ynaq] after name (~2248–2254). */
+function paintYnaqHelpOverlay(disp) {
+    for (let r = 1; r <= 8; r++) disp.clearRow(r);
+    const lines = [
+        'y (or space/enter) — game picks role, race, gender, align; then confirm',
+        'n — you pick each facet from the role/race/gender/align menus',
+        "a (or @ or *) — random all four, skip confirm (C 'a' / randomall)",
+        'q (or escape) — quit character creation',
+        '',
+        'Press any key to return to the prompt...',
+    ];
+    for (let i = 0; i < lines.length; i++) {
+        const t = lines[i].length > 80 ? lines[i].slice(0, 80) : lines[i];
+        disp.putstr(0, 1 + i, t, NO_COLOR);
+    }
+}
+
+/** C confirm [ynaq] one-line gloss (role.c confirmation loop). */
+function paintConfirmYnaqHelpOverlay(disp) {
+    for (let r = 1; r <= 6; r++) disp.clearRow(r);
+    const lines = [
+        'y — start game with this character',
+        'n — pick role again from the role menu',
+        'a — choose a different name (back to Who are you?)',
+        'q / escape — quit',
+        '',
+        'Press any key...',
+    ];
+    for (let i = 0; i < lines.length; i++) {
+        disp.putstr(MENU_COL, 1 + i, lines[i].length > 40 ? lines[i].slice(0, 40) : lines[i], NO_COLOR);
+    }
+}
+
 /** C yn_function for [ynaq] after name (role.c ~2260). */
-export async function readYnaqPick4u() {
+export async function readYnaqPick4u(disp) {
     for (;;) {
         const c = await nhgetch();
         let k = lowc(String.fromCodePoint(c));
         if (k === '\x1b' || k === 'q') return 'q';
-        if (k === '?') continue; /* C genl_player_setup: TODO for '?' on [ynaq] */
+        if (k === '?') {
+            paintYnaqHelpOverlay(disp);
+            await nhgetch();
+            paintPostNameYnaqScreen(disp, plname);
+            continue;
+        }
         if (k === ' ' || k === '\n' || k === '\r') k = 'y';
         else if (k === '@' || k === '*') k = 'a';
         if (k === 'y' || k === 'n' || k === 'a') return k;
@@ -482,7 +556,11 @@ async function readConfirmAnswer(disp, f, plname) {
         paintConfirmMenu(disp, f, plname);
         const c = await nhgetch();
         const k = lowc(String.fromCodePoint(c));
-        if (k === '?') continue;
+        if (k === '?') {
+            paintConfirmYnaqHelpOverlay(disp);
+            await nhgetch();
+            continue;
+        }
         if (k === 'y' || k === 'a' || k === 'n' || k === 'q' || k === '\x1b') return k;
     }
 }
@@ -570,7 +648,7 @@ export async function runInteractiveTtyChargen(disp, g, opts) {
         resetChargenRfilter();
         await ttyAsknameLikeC(disp, g);
         paintPostNameYnaqScreen(disp, g.plname);
-        const pick4u = await readYnaqPick4u();
+        const pick4u = await readYnaqPick4u(disp);
         if (pick4u === 'q') throw new Error('Player quit during chargen');
         if (pick4u === 'y' || pick4u === 'a') {
             const f = { initrole: ROLE_NONE, initrace: ROLE_NONE, initgend: ROLE_NONE, initalign: ROLE_NONE };
