@@ -1,6 +1,6 @@
 // drown.js — Hero entering water (trap.c drown() subset).
-// C ref: trap.c drown() — feel_newsym; wading rn2(5); fall/sink plines; water_damage_chain /
-// gremlin / iron golem / teleport / steed / emergency_disrobe / done(DROWNING) mostly TODO.
+// C ref: trap.c drown() — feel_newsym; wading rn2(5); fall/sink plines; water_damage_chain
+// (water_damage.js); gremlin / iron golem / teleport / emergency_disrobe / done(DROWNING) mostly TODO.
 
 import { game } from './gstate.js';
 import { IS_POOL } from './const.js';
@@ -8,6 +8,7 @@ import { raceptr, breathless, swims, amphibious } from './mondata.js';
 import { rndNexttoGoodposHero } from './walkable.js';
 import { pline } from './display.js';
 import { rn2 } from './rng.js';
+import { waterDamageChainHeroInventory } from './water_damage.js';
 
 /**
  * C: trap.c waterbody_name() subset — hero on **`IS_POOL`**.
@@ -74,7 +75,7 @@ export async function maybeHeroPoolEnter(g = game, opts = {}) {
         }
     }
 
-    /* C: water_damage_chain(gi.invent, FALSE); — scroll/potion/luck draws not ported */
+    await waterDamageChainHeroInventory(g);
     /* C: gremlin split / iron golem rust — not ported */
 
     if (inpoolOk) return false;
