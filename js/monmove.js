@@ -38,7 +38,7 @@ const _HARNESS = [
 
 /**
  * C: movemon() — advance all monsters for one hero time step.
- * Harness: replays distfleeck / m_move / mcalcmove draws until **`m_move`** matches C order per mon.
+ * Harness: replays session **`rn2`** slice; **`m_move`** now gates on **`movement`** (**`NORMAL_SPEED`**) like C **`movemon_singlemon`**.
  * **`m_move`**: **`m_move_mon.js`** per **`g.level.monsters`** entry.
  * Tail: **`mintrap`** when a monster enters a trapped square (C: **`monmove.c`** after **`m_move`**).
  */
