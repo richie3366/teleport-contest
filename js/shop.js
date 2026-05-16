@@ -894,7 +894,25 @@ export async function makeAngryShkLikeC(g, shkp, ox, oy) {
 }
 
 /**
- * C: **`dothrow.c`** **`breakobj`** floor + **`hero_caused`** shop tail (**`check_shop_obj`** deferred).
+ * C: **`dothrow.c`** **`check_shop_obj(obj, x, y, TRUE)`** — first **`if`** branch only (**`broken` TRUE**).
+ * **`shop_keeper(*u.ushops)`** via **`shopdigPickShkpLikeC`**; unpaid → **`stolen_value(obj, u.ux, u.uy, mpeaceful, FALSE)`**;
+ * then **`obj->no_charge`**. **`broken` FALSE** (**`sellobj`/`subfrombill`**) still TODO.
+ * @param {import('./gstate.js').game} g
+ */
+export async function checkShopObjBrokenTrueLikeC(g, obj, _x, _y) {
+    void _x;
+    void _y;
+    if (!g.u || !obj) return;
+    const shkp = shopdigPickShkpLikeC(g);
+    if (!shkp) return;
+    if (obj.unpaid | 0) {
+        await stolenValueMerchBurySilent(g, obj, g.u.ux | 0, g.u.uy | 0, shkp, false);
+    }
+    obj.no_charge = 1;
+}
+
+/**
+ * C: **`dothrow.c`** **`breakobj`** floor + **`hero_caused`** shop tail (**`check_shop_obj`** when invent/unpaid).
  * @param {import('./gstate.js').game} g
  * @param {boolean} fromInvent — C **`from_invent`**
  */
@@ -903,7 +921,7 @@ export async function breakobjHeroShopFloorTailLikeC(g, obj, x, y, fromInvent) {
     if (!u) return;
 
     if ((fromInvent || (obj.unpaid | 0)) && (heroInShopOccupancyLikeUshops(g) || (obj.unpaid | 0))) {
-        /* C: **`check_shop_obj(obj, x, y, TRUE)`** — not ported */
+        await checkShopObjBrokenTrueLikeC(g, obj, x | 0, y | 0);
         return;
     }
 
@@ -1722,6 +1740,17 @@ function countUnpaidContentsCobj(obj) {
     return n;
 }
 
+/** C: **`shk.c`** **`count_contents`** all non-coin **`cobj`** (subset for **`stolen_value`** pline **`c_count`**). */
+function countAllContentsNonCoinCobj(obj) {
+    let n = 0;
+    for (let o = obj?.cobj; o; o = o.nobj) {
+        if ((o.oclass | 0) === NH5_COIN_CLASS) continue;
+        n++;
+        if (Has_contents(o)) n += countAllContentsNonCoinCobj(o);
+    }
+    return n;
+}
+
 /**
  * C: **`shk.c`** **`contained_cost`** top container walk (**`OBJ_CONTAINED`** / **`ocontainer`** not in JS yet).
  * @param {object} obj
@@ -1964,13 +1993,13 @@ function stolenContainerMerchBurySilent(g, obj, shkp, ininv) {
 }
 
 /**
- * C: shk.c **`stolen_value`** subset for **`dig.c`** **`bury_objs`** (**`silent` TRUE**):
+ * C: shk.c **`stolen_value`** — **`dig.c`** **`bury_objs`** (**`silent` TRUE**); **`dothrow.c`** **`check_shop_obj`**→**`stolen_value`** (**`silent` FALSE**).
  * **`find_objowner`** → **`roomno`** (else first **`in_rooms`** shop room); coin **`quan`**;
  * **`billable`/`onbill`/`sub_one_frombill`** then **`get_pricing_units * get_cost`** (**`obj_oc_cost_data.js`** **`oc_cost`**, **`shk.c`** **`getprice`** + **`get_cost`** including angry **`surcharge`**);
  * **`Has_contents`** → **`stolen_container`** + **`contained_gold(obj, TRUE)`** (floor **`ininv` FALSE**).
  * Still TODO: real **`mons[]`** + **`cnutrit`** for **`corpsenm_price_adj`**, C phantom bill row, **`addtobill`**.
  * @param {object | null} shkpFallback — C bury path has tile shk; used when **`billable`** leaves **`shkp` unset**.
- * @param {boolean} silent — C **`silent`** (suppresses per-object **`You`** / thief **`Norep`**; **`check_credit`** still plines like C)
+ * @param {boolean} silent — C **`silent`**: when **TRUE**, skip **`You owe…`** / thief **`Norep`** lines and **`angry_guards`** after pursuit; **`check_credit`** plines unchanged.
  * @param {boolean} [billingPeaceful] — when set, C **`stolen_value(..., peaceful, ...)`** uses this instead of current **`mpeaceful`** (**`breakobj`** **`seq_peaceful`**).
  */
 export async function stolenValueMerchBurySilent(g, obj, x, y, shkpFallback, silent, billingPeaceful) {
@@ -1985,7 +2014,9 @@ export async function stolenValueMerchBurySilent(g, obj, x, y, shkpFallback, sil
         const rnos = inRoomsShopbaseRoomnos(g, xh, yh);
         roomno = rnos[0] | 0;
     }
+    const wasUnpaid = !!(obj.unpaid | 0);
     const uCount = Has_contents(obj) ? countUnpaidContentsCobj(obj) : 0;
+    const cCount = Has_contents(obj) ? countAllContentsNonCoinCobj(obj) : 0;
     const shkRef = { shkp: /** @type {object | null} */ (null) };
     let billamt = 0;
     if (!billableStolenValue(g, shkRef, obj, roomno, true)) {
@@ -2024,17 +2055,55 @@ export async function stolenValueMerchBurySilent(g, obj, x, y, shkpFallback, sil
     value += gvalue;
 
     if (peaceful) {
+        const creditUse = !!(e.credit | 0);
         value = await checkCreditShk(g, value, shkActive);
         if (shkpAngry(shkActive)) e.robbed = (e.robbed | 0) + value;
         else e.debit = (e.debit | 0) + value;
-        void silent;
+        if (!silent) {
+            let still = '';
+            if (creditUse) {
+                const credAfter = e.credit | 0;
+                if (credAfter > 0) {
+                    await pline(
+                        `You have ${credAfter} ${currencyAmountLikeC(g, credAfter)} credit remaining.`,
+                    );
+                    return value;
+                }
+                if (!value) {
+                    await pline('You have no credit remaining.');
+                    return 0;
+                }
+                still = 'still ';
+            }
+            const cur = currencyAmountLikeC(g, value);
+            const nm = shknamDisplay(shkActive);
+            let tail = '';
+            if (uCount > 0) {
+                const some = cCount > uCount ? 'some of ' : '';
+                const itand = wasUnpaid ? 'it and ' : '';
+                tail = ` for ${itand}${some}its contents`;
+            } else if (oc !== NH5_COIN_CLASS) {
+                tail = (obj.quan | 0) > 1 ? ' for them' : ' for it';
+            }
+            await pline(`You ${still}owe ${nm} ${value} ${cur}${tail}!`);
+        }
         return value;
     }
     e.robbed = (e.robbed | 0) + value;
     if (!silent) {
-        /* C: canseemon / Deaf thief **`Norep`** — not ported */
+        if (cansee(shkActive.mx | 0, shkActive.my | 0)) {
+            const cust = e?.customer ? String(e.customer) : '';
+            if (!cust) {
+                const pn = g.plname ? String(g.plname) : 'Player';
+                if (e) e.customer = pn.slice(0, 36);
+            }
+            await pline(`"${g.plname || 'Player'}, you are a thief!"`);
+        } else if (!heroDeafShopdig(g)) {
+            await pline('You hear a scream, "Thief!"');
+        }
     }
     await hotPursuitShk(g, shkActive);
+    if (!silent) await angryGuardsSilentLikeC(g, false);
     return value;
 }
 
