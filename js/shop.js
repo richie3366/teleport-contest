@@ -1,11 +1,15 @@
 // shop.js — Shopkeeper and shop-adjacent hooks.
-// C ref: shk.c fix_shop_damage(), adisturb(), costly_spot(), add_damage(); invent.c useupf() billing;
+// C ref: shk.c fix_shop_damage(), repair_damage(), repairable_damage(), shk_impaired(), next_shkp();
+//        adisturb(), costly_spot(), add_damage(); invent.c useupf() billing;
 //        hack.c in_rooms() for **`SHOPBASE`**.
 
 import { game } from './gstate.js';
-import { pline } from './display.js';
-import { unlinkFloorObject } from './floorobj.js';
-import { cansee } from './vision.js';
+import { pline, newsym } from './display.js';
+import { unlinkFloorObject, floorObjKey } from './floorobj.js';
+import { cansee, vision_recalc } from './vision.js';
+import { delEngrAt } from './engrave.js';
+import { raceptr, passesWalls } from './mondata.js';
+import { heroPassesWalls } from './walkable.js';
 import {
     OROOM,
     NO_ROOM,
@@ -15,11 +19,15 @@ import {
     SHOPBASE,
     UNIQUESHOP,
     IS_DOOR,
+    IS_ROOM,
     SVALL,
     SHOP_DOOR_COST,
     ESHK,
     COLNO,
     ROWNO,
+    REPAIR_DELAY,
+    D_BROKEN,
+    D_CLOSED,
 } from './const.js';
 
 /**
@@ -119,17 +127,158 @@ export function inRoomsShopbaseRoomnos(g, x, y) {
     return [rno];
 }
 
-/** C: shk.c shop_keeper(roomno) — **`ESHK`.shoproom** matches **`roomno - ROOMOFFSET`**. */
+/**
+ * C: **`mextra.h`** **`eshk.shoproom`** is **`(sroom - svr.rooms) + ROOMOFFSET`** (**`shknam.c`**), i.e. **`levl.roomno`** form.
+ * Accept legacy **`0..n-1`** index if **`shoproom < ROOMOFFSET`**.
+ * @param {*} [eshk]
+ */
+function eshkShoproomAsLevlRno(eshk) {
+    const s = eshk?.shoproom | 0;
+    if (s >= ROOMOFFSET) return s;
+    return s + ROOMOFFSET;
+}
+
+/** C: shk.c **`shop_keeper(rmno)`** — find resident shk for **`levl.roomno`** **`rmno`**. */
 function shopKeeperForLevlRoomno(g, roomno) {
-    const idx = (roomno | 0) - ROOMOFFSET;
-    if (idx < 0) return null;
+    const target = roomno | 0;
+    if (target < ROOMOFFSET) return null;
     for (const m of g.level?.monsters ?? []) {
         if (!(m.isshk | 0)) continue;
         const e = ESHK(m);
         if (!e) continue;
-        if ((e.shoproom | 0) === idx) return m;
+        if (eshkShoproomAsLevlRno(e) === target) return m;
     }
     return null;
+}
+
+/** C: dungeon.c **`on_level(&eshk->shoplevel, &u.uz)`** — stub **`dnum`** when missing. */
+function onLevelWithHero(g, shoplevel) {
+    const uz = g.u?.uz;
+    if (!uz) return true;
+    if (!shoplevel || shoplevel.dlevel == null) return true;
+    const dnum = shoplevel.dnum != null ? shoplevel.dnum | 0 : uz.dnum | 0;
+    return (shoplevel.dlevel | 0) === (uz.dlevel | 0) && dnum === (uz.dnum | 0);
+}
+
+/** C: shk.c **`inhishop(shkp)`** */
+function inHishop(g, shkp) {
+    const e = ESHK(shkp);
+    if (!shkp || !(shkp.isshk | 0) || !e) return false;
+    if (!onLevelWithHero(g, e.shoplevel)) return false;
+    const rnos = inRoomsShopbaseRoomnos(g, shkp.mx | 0, shkp.my | 0);
+    return rnos.includes(eshkShoproomAsLevlRno(e));
+}
+
+/** C: mon.c **`helpless`** subset (**`mfrozen`/`mcanmove`**). */
+function helplessShk(mtmp) {
+    if (!mtmp) return false;
+    if ((mtmp.mfrozen | 0) > 0) return true;
+    return (mtmp.mcanmove | 0) === 0;
+}
+
+/** C: shk.c **`shk_impaired`** */
+function shkImpaired(g, shkp) {
+    if (!shkp || !(shkp.isshk | 0)) return true;
+    if (!inHishop(g, shkp)) return true;
+    const e = ESHK(shkp);
+    if (helplessShk(shkp) || (e?.following | 0)) return true;
+    return false;
+}
+
+/** C: trap.c **`t_at`** using **`g.level.traps`**. */
+function trapAtIn(g, x, y) {
+    const traps = g.level?.traps;
+    if (!traps?.length) return null;
+    return traps.find((t) => (t.tx | 0) === (x | 0) && (t.ty | 0) === (y | 0)) ?? null;
+}
+
+function delTrapIn(g, trap) {
+    const traps = g.level?.traps;
+    if (!traps) return;
+    const i = traps.indexOf(trap);
+    if (i >= 0) traps.splice(i, 1);
+}
+
+/** C: mon.c **`m_at`** on **`g.level.monsters`**. */
+function monAtG(g, x, y) {
+    return g.level?.monsters?.find((m) => (m.mx | 0) === (x | 0) && (m.my | 0) === (y | 0)) ?? null;
+}
+
+/** C: shk.c **`repairable_damage`** */
+function repairableDamage(g, shkp, dam) {
+    if (!dam || shkImpaired(g, shkp)) return false;
+    const x = dam.x | 0;
+    const y = dam.y | 0;
+    const e = ESHK(shkp);
+    if (!e) return false;
+    if ((g.moves | 0) - (dam.when | 0) < REPAIR_DELAY) return false;
+
+    const loc = g.level?.at(x, y);
+    if (!loc) return false;
+
+    const savedTyp = dam.typ | 0;
+    if (!IS_ROOM(savedTyp)) {
+        const ux = g.u?.ux | 0;
+        const uy = g.u?.uy | 0;
+        if (ux === x && uy === y && !heroPassesWalls(g)) return false;
+        if ((shkp.mx | 0) === x && (shkp.my | 0) === y) return false;
+        const mtmp = monAtG(g, x, y);
+        if (mtmp && !passesWalls(raceptr(mtmp))) return false;
+    }
+    const ttmp = trapAtIn(g, x, y);
+    if (ttmp) {
+        const ux = g.u?.ux | 0;
+        const uy = g.u?.uy | 0;
+        if (ux === x && uy === y) return false;
+        const mtmp2 = monAtG(g, x, y);
+        if (mtmp2 && (mtmp2.mtrapped | 0)) return false;
+    }
+    const shopR = eshkShoproomAsLevlRno(e);
+    if (!inRoomsShopbaseRoomnos(g, x, y).includes(shopR)) return false;
+    return true;
+}
+
+/**
+ * C: shk.c **`repair_damage(shkp, tmp_dam, TRUE)`** subset for **`fix_shop_damage`** catch-up:
+ * trap removal (**`deltrap`** without **`mksobj`/`mpickobj`** yet), wall/door terrain restore.
+ * Omits **`litter_scatter`/`block_point`/`picking_at`**; defers if floor objects at **`(x,y)`**.
+ * @returns {boolean} whether damage entry should be discarded (**C non-zero **`repair_damage`**).
+ */
+function repairDamageCatchup(g, shkp, dam) {
+    if (!repairableDamage(g, shkp, dam)) return false;
+    const x = dam.x | 0;
+    const y = dam.y | 0;
+    const loc = g.level?.at(x, y);
+    if (!loc) return false;
+
+    const heads = g.level?.floorObjHeads;
+    if (heads?.get(floorObjKey(x, y))) return false;
+
+    let disposition = 1;
+    const ttmp = trapAtIn(g, x, y);
+    if (ttmp) {
+        delTrapIn(g, ttmp);
+        delEngrAt(x, y);
+        if (cansee(x, y)) newsym(x, y);
+        disposition = 3;
+    }
+
+    const savedTyp = dam.typ | 0;
+    const curTyp = loc.typ | 0;
+    const curMask = loc.doormask | 0;
+    if (IS_ROOM(savedTyp) || (savedTyp === curTyp && (!IS_DOOR(savedTyp) || curMask > D_BROKEN))) {
+        return disposition !== 0;
+    }
+
+    loc.typ = savedTyp;
+    if (IS_DOOR(savedTyp)) loc.doormask = D_CLOSED;
+    else loc.flags = dam.flags | 0;
+
+    delEngrAt(x, y);
+    if (cansee(x, y)) newsym(x, y);
+    vision_recalc(1);
+
+    return disposition !== 0;
 }
 
 /**
@@ -199,8 +348,24 @@ export function applyZapShopDoorDamage(g, x, y, type, shopdamage) {
     }
 }
 
-/** C: fix_shop_damage() — repair shop walls after restore. */
-export function fixShopDamage() {
+/**
+ * C: shk.c **`fix_shop_damage()`** — on restore, each unimpaired in-shop shk **`repair_damage(..., TRUE)`**
+ * on **`level.damagelist`** entries (**`discard_damage_struct`**).
+ * @param {import('./gstate.js').game} [g]
+ */
+export function fixShopDamage(g = game) {
+    const list = g.level?.damagelist;
+    if (!list?.length) return;
+
+    const monsters = g.level?.monsters ?? [];
+    for (const shkp of monsters) {
+        if (!(shkp.isshk | 0)) continue;
+        if (shkImpaired(g, shkp)) continue;
+        for (let i = list.length - 1; i >= 0; i--) {
+            const damg = list[i];
+            if (repairDamageCatchup(g, shkp, damg)) list.splice(i, 1);
+        }
+    }
 }
 
 /**
