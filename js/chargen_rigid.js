@@ -496,8 +496,15 @@ export function rigidRoleChecksJs(f) {
             const t = pickRaceJs(f.initrole, f.initgend, f.initalign, PICK_RIGID);
             if (t !== ROLE_NONE) f.initrace = t;
         }
-        if (f.initalign === ROLE_NONE) {
-            const t = pickAlignJs(f.initrole, f.initrace, f.initgend, PICK_RIGID);
+        /* C pick_align: only after `racenum` is known — with race still `ROLE_NONE`,
+         * ok_align can leave multiple role-only alignments and must not call rn2 yet. */
+        if (f.initalign === ROLE_NONE && f.initrace >= 0 && f.initrace < races.length) {
+            let alcnt = 0;
+            for (let ai = 0; ai < aligns.length; ai++) {
+                if (okAlignJs(f.initrole, f.initrace, f.initgend, ai)) alcnt++;
+            }
+            const how = alcnt > 1 ? PICK_RANDOM : PICK_RIGID;
+            const t = pickAlignJs(f.initrole, f.initrace, f.initgend, how);
             if (t !== ROLE_NONE) f.initalign = t;
         }
         if (f.initgend === ROLE_NONE) {
