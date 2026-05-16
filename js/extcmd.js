@@ -221,8 +221,8 @@ export async function runExtcmdFromHashPrefix() {
             if (pickOtyp == null) {
                 await pline("You don't have anything to pick that lock with.");
             } else {
-                const r = await tryPicklockFloorBoxOccupationRngHeroLikeC(g, box, pickOtyp);
-                if (r === 'success' || r === 'gave_up') g.context.move = 1;
+                const r = await tryPicklockFloorBoxOccupationRngHeroLikeC(g, box);
+                if (r === 'success' || r === 'gave_up' || r === 'disarmed_trap' || r === 'stopped_at_trap') g.context.move = 1;
             }
         }
         game._retainMessageAfterCommand = true;
