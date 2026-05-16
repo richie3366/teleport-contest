@@ -9,7 +9,8 @@ import { game } from './gstate.js';
 import { GameMap } from './game.js';
 import { rn2, rnd, rn1 } from './rng.js';
 import { init_rect, rnd_rect, get_rect, split_rects } from './rect.js';
-import { depth as depth_of_level, onLevelLikeC } from './hacklib.js';
+import { depth as depth_of_level } from './hacklib.js';
+import { isSpecialAtUzLikeC } from './sp_levchn.js';
 import {
     COLNO, ROWNO, STONE, ROOM, CORR, DOOR, STAIRS,
     HWALL, VWALL, TLCORNER, TRCORNER, BLCORNER, BRCORNER,
@@ -1801,20 +1802,16 @@ function bound_digging() {
 function set_wall_state() { /* no-op for contest */ }
 
 /**
- * C: mkmaze.c fixup_special() tail — **`Is_special(&u.uz)`** && **`sp->flags.town`** → **`has_town`**.
- * **`game.sp_levchn`**: optional **`s_level`**-shaped list **`{ next?, dlevel: {dnum,dlevel}, flags?: { town: 0|1 } }`** (filled when **`dungeon.c`** **`sp_levchn`** ports).
+ * C: mkmaze.c fixup_special() tail — **`Is_special(&u.uz)`** && **`sp->flags.town`** → **`has_town`**
+ * via **`isSpecialAtUzLikeC`** (**`sp_levchn.js`**). Nodes: **`s_level`**-shaped **`{ next?, dlevel, flags?, proto?, … }`**.
  * @param {import('./gstate.js').game} g
  */
 function syncLevelFlagsHasTownAfterFixupSpecialLikeC(g) {
     const uz = g.u?.uz;
     const lf = g.level?.flags;
     if (!uz || !lf) return;
-    for (let sp = g.sp_levchn; sp; sp = sp.next) {
-        const dlv = sp.dlevel;
-        if (!dlv || !onLevelLikeC(uz, dlv)) continue;
-        if (sp.flags && (sp.flags.town | 0)) lf.has_town = true;
-        break;
-    }
+    const sp = isSpecialAtUzLikeC(g, uz);
+    if (sp && sp.flags && (sp.flags.town | 0)) lf.has_town = true;
 }
 
 function level_finalize_topology() {

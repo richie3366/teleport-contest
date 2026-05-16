@@ -29,6 +29,7 @@ import { initMvitalsStub } from './mvitals.js';
 import { pullDueMeltIceAwayTimers } from './level_timers.js';
 import { meltIceAt } from './melt_ice.js';
 import { runDueNhObjTimers } from './obj_timeout_dispatch.js';
+import { bootstrapSpLevchnMinesMinetnFromBranchStubLikeC } from './sp_levchn.js';
 
 // C ref: allmain.c newgame()
 export async function newgame() {
@@ -61,7 +62,9 @@ export async function newgame() {
     g.branches = [
         { end1: { dnum: 0, dlevel: 1 }, end2: { dnum: 2, dlevel: 1 }, end1_up: true },
     ];
-
+    /* C: dungeon topology — mines **`dnum`** for **`In_mines`** / future **`sp_levchn`** */
+    if (g.branches[0]?.end2?.dnum != null) g.mines_dnum = g.branches[0].end2.dnum | 0;
+    bootstrapSpLevchnMinesMinetnFromBranchStubLikeC(g);
     // Real mklev generates the level with correct room positions
     // Structural phase consumes RNG for rooms/corridors/doors/stairs
     await mklev();
