@@ -1,10 +1,11 @@
 // switch_terrain.js — Terrain change effects on hero (levitation / flight / status terrain).
 // C ref: hack.c switch_terrain(), classify_terrain(); polyself.c float_vs_flight(), steed_vs_stealth();
 //        steed.c mount/dismount also calls steed_vs_stealth (not wired in JS yet — import steedVsStealthLikeC there);
-//        trap.c float_up() (expanded: utrap / uinwater / uswallow / encumber_msg; steed+dismount TODO).
+//        trap.c float_up() (expanded: utrap / uinwater / uswallow / encumber_msg / fill_pit; steed+dismount TODO).
 
 import { pline } from './display.js';
 import { encumberMsg } from './pickup.js';
+import { fillPitInLevel } from './trap.js';
 import {
     FROMOUTSIDE,
     I_SPECIAL,
@@ -152,7 +153,7 @@ function blockLevOrFlyLikeC(g) {
 /**
  * C: **`trap.c`** **`float_up`** — **`utrap`**, **`uinwater`**, **`uswallow`** branches, default float plines,
  * pre-**`float_vs_flight`** **`Flying`** pline, **`encumber_msg`**.
- * Still TODO: **`fill_pit`**, steed + **`Lev_at_will`** / **`dismount_steed`**, **`vision_recalc`** body.
+ * Still TODO: steed + **`Lev_at_will`** / **`dismount_steed`**, **`vision_recalc`** body.
  * **`uinwater`** uses dynamic **`import('./spoteffects.js')`** to avoid static **`spoteffects`↔`switch_terrain`** cycle.
  * @param {import('./gstate.js').game} g
  */
@@ -169,7 +170,7 @@ async function floatUpAfterTerrainUnblockLikeC(g) {
             u.utraptype = 0;
             await pline('You float up, out of the pit!');
             g.vision_full_recalc = 1;
-            /* C: fill_pit(u.ux,u.uy) — trap.c boulder/flooreffects; JS stub in trap.js */
+            await fillPitInLevel(g, u.ux | 0, u.uy | 0);
         } else if (tt === TT_LAVA || tt === TT_INFLOOR) {
             await pline('Your body pulls upward, but your legs are still stuck.');
         } else if (tt === TT_BURIEDBALL) {

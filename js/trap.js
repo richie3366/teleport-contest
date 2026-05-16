@@ -27,7 +27,14 @@ import {
 import { bimanual } from './weapon_kind.js';
 import { waterDamageOne, splashLitOne, ER_NOTHING } from './water_damage.js';
 import { updateInventory } from './invent.js';
-import { placeFloorObject, floorObjKey, digactualHoleHeroUtrapSubset } from './floorobj.js';
+import {
+    placeFloorObject,
+    floorObjKey,
+    digactualHoleHeroUtrapSubset,
+    unlinkFloorObjectInLevel,
+    obliterateObjectInLevel,
+    buryFloorChainAt,
+} from './floorobj.js';
 import { goodposHero } from './walkable.js';
 import { destroyItemsYoumonstFire, destroyItemsMonFire } from './destroy_items.js';
 import { igniteHeroInventory, igniteMinvent } from './ignite_items.js';
@@ -423,17 +430,78 @@ function sobjAtBoulderAt(g, x, y) {
     return false;
 }
 
+/** C: **`trap.c`** **`t_at`** with explicit **`g.level`**. */
+function trapAtInLevel(g, x, y) {
+    const traps = g.level?.traps;
+    if (!traps?.length) return null;
+    const xi = x | 0;
+    const yi = y | 0;
+    return traps.find((t) => (t.tx | 0) === xi && (t.ty | 0) === yi) ?? null;
+}
+
+/** C: **`sobj_at(BOULDER, x, y)`** — first boulder on floor chain. */
+function firstBoulderOnFloorAt(g, x, y) {
+    const heads = g.level?.floorObjHeads;
+    if (!heads) return null;
+    const xi = x | 0;
+    const yi = y | 0;
+    for (let o = heads.get(floorObjKey(xi, yi)) ?? null; o; o = o.nexthere) {
+        if ((o.otyp | 0) === OTYP_BOULDER) return o;
+    }
+    return null;
+}
+
+/**
+ * C: **`trap.c`** **`fill_pit`** + **`do.c`** **`flooreffects`** boulder-in-pit tail (**`verb`** **`"settle"`**):
+ * pit/hole + boulder → pline, **`delfloortrap`**, hero **`utrap`** clear if still on cell, **`useupf`** boulder, **`bury_objs`**, **`newsym`**.
+ * Omits monster squish / **`hmon`** / **`boulder_hits_pool`** (not **`obj`**-free path).
+ * @param {import('./gstate.js').game} g
+ */
+export async function fillPitInLevel(g, x, y) {
+    const xi = x | 0;
+    const yi = y | 0;
+    const trap = trapAtInLevel(g, xi, yi);
+    if (!trap) return;
+    const tt = trap.ttyp | 0;
+    if (!is_pit(tt) && !is_hole(tt)) return;
+    const boulder = firstBoulderOnFloorAt(g, xi, yi);
+    if (!boulder) return;
+
+    unlinkFloorObjectInLevel(g, boulder);
+
+    const u = g.u;
+    const heroHere = u && (u.ux | 0) === xi && (u.uy | 0) === yi;
+    const blind = heroBlind();
+    const tseen = !!(trap.tseen ?? false);
+    if (blind && heroHere && !heroDeaf(u)) {
+        await pline('You hear a CRASH! beneath you.');
+    } else if (!blind && cansee(xi, yi)) {
+        const trig = tt === TRAPDOOR && !tseen ? 'triggers and ' : '';
+        const tail = tt === TRAPDOOR ? 'plugs a trap door' : tt === HOLE ? 'plugs a hole' : 'fills a pit';
+        await pline(`The boulder ${trig}${tail}.`);
+    } else if (!heroDeaf(u)) {
+        await pline('You hear a boulder settle.');
+    }
+
+    delTrap(trap);
+    if (u && (u.utrap | 0) !== 0 && (u.ux | 0) === xi && (u.uy | 0) === yi) {
+        u.utrap = 0;
+        u.utraptype = 0;
+    }
+    obliterateObjectInLevel(g, boulder);
+    buryFloorChainAt(g, xi, yi);
+    newsym(xi, yi);
+}
+
 /** C: trap.c **`m_easy_escape_pit`** — **`PM_PIT_FIEND`** stubbed via size only until **`mnum`** wired. */
 function mEasyEscapePit(mtmp) {
     const ptr = raceptr(mtmp);
     return ((ptr.msize ?? 0) | 0) >= MZ_HUGE;
 }
 
-/** C: trap.c **`fill_pit`** — no terrain fill in JS yet; **`newsym`** only when called from boulder branch. */
-function fillPitAt(g, x, y) {
-    void g;
-    void x;
-    void y;
+/** C: **`trap.c`** **`fill_pit`** — hero/monster escape paths (**`g`**-scoped). */
+async function fillPitAt(g, x, y) {
+    await fillPitInLevel(g, x | 0, y | 0);
 }
 
 /**
@@ -459,7 +527,7 @@ async function mintrapMtrappedBranch(g, mtmp, trap) {
             if (!rn2(2)) {
                 mtmp.mtrapped = 0;
                 if (canseemonRip(g, mtmp)) await pline(`${monNamSentence(mtmp)} pulls free...`);
-                fillPitAt(g, mx, my);
+                await fillPitAt(g, mx, my);
                 newsym(mx, my);
             }
         } else {
@@ -1196,7 +1264,7 @@ async function trapeffectLandmineMonster(g, mtmp, trap, mintrapflags) {
         const mr = await mintrap(mtmp, RECURSIVETRAP);
         if (mr === TRAP_KILLED_MON) trapkilled = true;
     }
-    fillPit(trap.tx | 0, trap.ty | 0);
+    await fillPitInLevel(game, trap.tx | 0, trap.ty | 0);
     if (monsterStillOnLevel(g, mtmp) && (mtmp.mhp | 0) <= 0) trapkilled = true;
 
     return trapkilled
@@ -1821,12 +1889,6 @@ function blowUpLandmine(trap) {
     }
 }
 
-/** C: trap.c fill_pit — boulder fill / engraving cleanup deferred. */
-function fillPit(_x, _y) {
-    void _x;
-    void _y;
-}
-
 /** C: trap.c steedintrap — returns non-zero if steed absorbed trap; not ported. */
 function steedintrapStub() {
     return 0;
@@ -1962,7 +2024,7 @@ async function trapeffectLandmineHero(trap, trflags) {
     newsym(u.ux, u.uy);
     const t2 = tAt(u.ux, u.uy);
     if (t2) await dotrap(t2, RECURSIVETRAP);
-    fillPit(u.ux, u.uy);
+    await fillPitInLevel(game, u.ux | 0, u.uy | 0);
 }
 
 /** C: trap.c trapeffect_rolling_boulder_trap — hero (launch_obj not ported). */
