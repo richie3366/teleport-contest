@@ -1,17 +1,19 @@
 // shop.js — Shopkeeper and shop-adjacent hooks.
-// C ref: shk.c fix_shop_damage(), repair_damage(), repairable_damage(), shk_impaired(), next_shkp();
+// C ref: shk.c fix_shop_damage(), repair_damage() (**`LANDMINE`/`BEAR_TRAP`** **`mksobj`/`mpickobj`**,
+//        **`litter_getpos`/`litter_scatter`/`litter_newsyms`**, **`block_point`** via **`vision_recalc`**),
+//        repairable_damage(), shk_impaired(), next_shkp();
 //        find_objowner(), stolen_value()/stolen_container() subset for dig.c bury_objs; adisturb(), costly_spot(), add_damage();
 //        invent.c useupf() billing; hack.c in_rooms() for **`SHOPBASE`**.
 
 import { game } from './gstate.js';
 import { pline, newsym } from './display.js';
-import { unlinkFloorObject, floorObjKey } from './floorobj.js';
+import { unlinkFloorObject, floorObjKey, unlinkFloorObjectInLevel, placeFloorObjectInLevel, stackObjOnFloorInLevel, obliterateObjectInLevel } from './floorobj.js';
 import { cansee, vision_recalc } from './vision.js';
 import { delEngrAt } from './engrave.js';
 import { raceptr, passesWalls, stubPermonstForCorpsenm, MR_FIRE, MR_SLEEP, noncorporeal, S_ELEMENTAL } from './mondata.js';
 import { heroPassesWalls } from './walkable.js';
 import { dist2 } from './hacklib.js';
-import { rn2 } from './rng.js';
+import { rn2, rnd } from './rng.js';
 import { nhgetch } from './input.js';
 import { changeLuck, acurr } from './attrib.js';
 import {
@@ -73,6 +75,12 @@ import {
     OBJ_FLOOR,
     OBJ_FREE,
     OBJ_CONTAINED,
+    LANDMINE,
+    BEAR_TRAP,
+    ZAP_POS,
+    isok,
+    OTYP_BOULDER,
+    IS_WALL,
 } from './const.js';
 
 /**
@@ -256,6 +264,142 @@ function delTrapIn(g, trap) {
     if (i >= 0) traps.splice(i, 1);
 }
 
+/** C: objects.c ROCK — **`litter_scatter`** merge into wall. */
+const OTYP_ROCK_REPAIR = 467;
+
+/** C: trap.h **`LAND_MINE`/`BEARTRAP`** otyp for **`mksobj`** (**`melt_ice.js`** parity). */
+const OTYP_LAND_MINE_SHK = 244;
+const OTYP_BEARTRAP_SHK = 245;
+
+const LITTER_OPEN = 1;
+const LITTER_INSHOP = 2;
+const LITTER_UPDATE = 4;
+
+function horiz9(i) {
+    return (i % 3) - 1;
+}
+
+function vert9(i) {
+    return Math.trunc(i / 3) - 1;
+}
+
+/**
+ * C: shk.c **`litter_getpos`** — subset (**`Punished`/`uball`/`uchain`** not ported).
+ * @param {number[]} litter
+ */
+function litterGetposShopRepair(g, litter, x, y, shkp) {
+    for (let i = 0; i < 9; i++) litter[i] = 0;
+    const loc = g.level?.at(x, y);
+    const head = g.level?.floorObjHeads?.get(floorObjKey(x, y));
+    if (!head || !loc || IS_ROOM(loc.typ | 0)) return 0;
+    const e = ESHK(shkp);
+    const shopR = eshkShoproomAsLevlRno(e);
+    let k = 0;
+    for (let i = 0; i < 9; i++) {
+        if (i === 4) continue;
+        const ix = x + horiz9(i);
+        const iy = y + vert9(i);
+        if (!isok(ix, iy)) continue;
+        const l2 = g.level?.at(ix, iy);
+        if (!l2 || !ZAP_POS(l2.typ | 0)) continue;
+        litter[i] = LITTER_OPEN;
+        if ((insideShopLevlRoomno(g, ix, iy) | 0) === (shopR | 0)) {
+            litter[i] |= LITTER_INSHOP;
+            k += 1;
+        }
+    }
+    return k;
+}
+
+/**
+ * C: shk.c **`litter_scatter`** — subset (no **`unplacebc`**, bill **`subfrombill`** not ported).
+ * @param {number[]} litter
+ */
+function litterScatterShopRepair(g, litter, x, y, shkp) {
+    for (;;) {
+        const head = g.level?.floorObjHeads?.get(floorObjKey(x, y));
+        if (!head) break;
+        const otmp = head;
+        const ot = otmp.otyp | 0;
+        if (ot === OTYP_BOULDER || ot === OTYP_ROCK_REPAIR) {
+            obliterateObjectInLevel(g, otmp);
+            continue;
+        }
+        let trylimit = 10;
+        let i = rn2(9);
+        let destIx = shkp.mx | 0;
+        let destIy = shkp.my | 0;
+        let li = -1;
+        while (--trylimit > 0) {
+            i = (i + 1) % 9;
+            if (i === 4) continue;
+            if (!((litter[i] | 0) & LITTER_INSHOP)) continue;
+            if (((litter[i] | 0) & (LITTER_OPEN | LITTER_INSHOP)) !== 0) {
+                destIx = x + horiz9(i);
+                destIy = y + vert9(i);
+                li = i;
+                break;
+            }
+        }
+        unlinkFloorObjectInLevel(g, otmp);
+        placeFloorObjectInLevel(g, otmp, destIx, destIy);
+        stackObjOnFloorInLevel(g, otmp);
+        if (li >= 0) litter[li] |= LITTER_UPDATE;
+        newsym(destIx, destIy);
+    }
+}
+
+/** C: shk.c **`litter_newsyms`**. */
+function litterNewsymsRepair(litter, x, y) {
+    for (let i = 0; i < 9; i++) {
+        if ((litter[i] | 0) & LITTER_UPDATE) newsym(x + horiz9(i), y + vert9(i));
+    }
+}
+
+/** C: mkobj.c **`mksobj`** + **`weight`** subset for **`repair_damage`** trap conversion. */
+function mksobjTrapObjForShopRepair(g, ttyp) {
+    void g;
+    rnd(2); /* C: next_ident */
+    const otyp = (ttyp | 0) === LANDMINE ? OTYP_LAND_MINE_SHK : OTYP_BEARTRAP_SHK;
+    const otmp = {
+        otyp,
+        ox: -1,
+        oy: -1,
+        quan: 1,
+        owt: (ttyp | 0) === LANDMINE ? 30 : 125,
+        cursed: false,
+        blessed: false,
+        olocked: false,
+        spe: 0,
+        opoisoned: 0,
+        nobj: null,
+    };
+    if (otyp >= 230 && otyp < 300) {
+        const r = rn2(4);
+        otmp.cursed = r === 0;
+        otmp.blessed = false;
+    }
+    return otmp;
+}
+
+/** C: steed.c / pick.c **`mpickobj(shkp, otmp)`** — prepend **`minvent`**. */
+function mpickobjShk(g, shkp, otmp) {
+    if (!shkp || !otmp) return;
+    otmp.ox = -1;
+    otmp.oy = -1;
+    otmp.nobj = shkp.minvent ?? null;
+    shkp.minvent = otmp;
+    const arr = g.level?.objects;
+    if (arr && !arr.includes(otmp)) arr.push(otmp);
+}
+
+/** C: hack.c **`block_point`** — vision/lighting (**`recalc_block_point`** not ported). */
+function repairBlockPoint(g, _x, _y) {
+    void _x;
+    void _y;
+    vision_recalc(1);
+}
+
 /** C: mon.c **`m_at`** on **`g.level.monsters`**. */
 function monAtG(g, x, y) {
     return g.level?.monsters?.find((m) => (m.mx | 0) === (x | 0) && (m.my | 0) === (y | 0)) ?? null;
@@ -297,8 +441,9 @@ function repairableDamage(g, shkp, dam) {
 
 /**
  * C: shk.c **`repair_damage(shkp, tmp_dam, TRUE)`** subset for **`fix_shop_damage`** catch-up:
- * trap removal (**`deltrap`** without **`mksobj`/`mpickobj`** yet), wall/door terrain restore.
- * Omits **`litter_scatter`/`block_point`/`picking_at`**; defers if floor objects at **`(x,y)`**.
+ * **`LANDMINE`/`BEAR_TRAP`** → **`mksobj`/`mpickobj`** then **`deltrap`**; wall/door restore with
+ * **`litter_getpos`/`litter_scatter`**, **`block_point`** (**`vision_recalc`**), **`litter_newsyms`**.
+ * Omits **`picking_at`**, **`pline`** messages (**`catchup`** TRUE); defers if floor objects at **`(x,y)`**.
  * @returns {boolean} whether damage entry should be discarded (**C non-zero **`repair_damage`**).
  */
 function repairDamageCatchup(g, shkp, dam) {
@@ -314,6 +459,11 @@ function repairDamageCatchup(g, shkp, dam) {
     let disposition = 1;
     const ttmp = trapAtIn(g, x, y);
     if (ttmp) {
+        const tt = ttmp.ttyp | 0;
+        if (tt === LANDMINE || tt === BEAR_TRAP) {
+            const otmp = mksobjTrapObjForShopRepair(g, tt);
+            mpickobjShk(g, shkp, otmp);
+        }
         delTrapIn(g, ttmp);
         delEngrAt(x, y);
         if (cansee(x, y)) newsym(x, y);
@@ -331,8 +481,17 @@ function repairDamageCatchup(g, shkp, dam) {
     if (IS_DOOR(savedTyp)) loc.doormask = D_CLOSED;
     else loc.flags = dam.flags | 0;
 
+    const litter = new Array(9).fill(0);
+    if (litterGetposShopRepair(g, litter, x, y, shkp) > 0) {
+        litterScatterShopRepair(g, litter, x, y, shkp);
+    }
     delEngrAt(x, y);
-    if (cansee(x, y)) newsym(x, y);
+    if (cansee(x, y)) {
+        newsym(x, y);
+        if (IS_WALL(savedTyp)) loc.seenv = SVALL;
+    }
+    repairBlockPoint(g, x, y);
+    litterNewsymsRepair(litter, x, y);
     vision_recalc(1);
 
     return disposition !== 0;
