@@ -3,15 +3,16 @@
 //        **`litter_getpos`/`litter_scatter`/`litter_newsyms`**, **`block_point`** via **`vision_recalc`**),
 //        repairable_damage(), shk_impaired(), next_shkp();
 //        find_objowner(), stolen_value()/stolen_container() subset for dig.c bury_objs; adisturb(), costly_spot(), add_damage();
-//        invent.c useupf() billing; hack.c in_rooms() for **`SHOPBASE`**.
+//        invent.c useupf() billing; hack.c in_rooms() for **`SHOPBASE`**;
+//        shk.c **`shopdig()`** ( **`dig.c`** **`digactualhole`** HOLE + **`trap.c`** **`fall_through`** ).
 
 import { game } from './gstate.js';
 import { pline, newsym } from './display.js';
 import { unlinkFloorObject, floorObjKey, unlinkFloorObjectInLevel, placeFloorObjectInLevel, stackObjOnFloorInLevel, obliterateObjectInLevel } from './floorobj.js';
 import { cansee, vision_recalc } from './vision.js';
 import { delEngrAt } from './engrave.js';
-import { raceptr, passesWalls, stubPermonstForCorpsenm, MR_FIRE, MR_SLEEP, noncorporeal, S_ELEMENTAL } from './mondata.js';
-import { heroPassesWalls } from './walkable.js';
+import { raceptr, passesWalls, stubPermonstForCorpsenm, MR_FIRE, MR_SLEEP, noncorporeal, S_ELEMENTAL, locomotion, nolimbs } from './mondata.js';
+import { heroPassesWalls, enextoNearMon } from './walkable.js';
 import { dist2 } from './hacklib.js';
 import { rn2, rnd } from './rng.js';
 import { nhgetch } from './input.js';
@@ -52,6 +53,8 @@ import {
 import { UHS } from './hunger.js';
 import { objectOcCost } from './obj_oc_cost_data.js';
 import { containedGold } from './u_init_hidden_gold.js';
+import { dealWithOvercrowding } from './mon_limbo.js';
+import { removeObjFromHeroInvent } from './water_damage.js';
 import {
     OROOM,
     NO_ROOM,
@@ -81,6 +84,9 @@ import {
     isok,
     OTYP_BOULDER,
     IS_WALL,
+    TT_PIT,
+    W_SWAPWEP,
+    W_QUIVER,
 } from './const.js';
 
 /**
@@ -588,6 +594,168 @@ export function fixShopDamage(g = game) {
 const PL_NSIZ_PAY = 36;
 /** C: **`monflag.h`** **`MS_ANIMAL`**. */
 const MS_ANIMAL_SHK = 17;
+/** C: **`monflag.h`** **`MS_HUMANOID`**. */
+const MS_HUMANOID_SHOPDIG = 25;
+/** C: **`objects.h`** **`LEASH`** otyp. */
+const OTYP_LEASH_SHOPDIG = 237;
+/** C: **`role.c`** **`PM_KNIGHT`** / **`urole`** — JS **`roles[]`** Knight **`mnum`**. */
+const PM_KNIGHT_MNUM_SHOPDIG = 4;
+
+/** C: **`hack.c`** `*u.ushops` non-empty ⇒ hero occupies at least one **`SHOPBASE`** room (**`in_rooms`**). */
+export function heroInShopOccupancyLikeUshops(g) {
+    const u = g.u;
+    if (!u) return false;
+    return inRoomsShopbaseRoomnos(g, u.ux | 0, u.uy | 0).length > 0;
+}
+
+function shopdigPickShkpLikeC(g) {
+    const u = g.u;
+    if (!u) return null;
+    const rnos = inRoomsShopbaseRoomnos(g, u.ux | 0, u.uy | 0);
+    if (!rnos.length) return null;
+    return shopKeeperForLevlRoomno(g, rnos[0] | 0);
+}
+
+function heroDeafShopdig(g) {
+    return (g.u?.timed?.deaf ?? 0) > 0;
+}
+
+/** C: **`attrib.c`** **`adjalign(-sgn(u.ualign.type))`** — negative **`record`/`abuse`** subset. */
+function adjalignSgnUalignTypeShopdig(g) {
+    const u = g.u;
+    if (!u) return;
+    const t = u.ualign?.type ?? 0;
+    const sgn = t > 0 ? 1 : t < 0 ? -1 : 0;
+    const n = -sgn;
+    if (!n) return;
+    u.ualign = u.ualign || { type: 0, record: 0, abuse: 0 };
+    const rec = u.ualign.record | 0;
+    const newalign = rec + n;
+    if (newalign < rec) u.ualign.record = newalign;
+    const newabuse = (u.ualign.abuse | 0) - n;
+    if (newabuse > (u.ualign.abuse | 0)) u.ualign.abuse = newabuse;
+}
+
+/** C: **`you.h`** **`m_next2u`** — **`distu(mtmp->mx, mtmp->my) <= 2`**. */
+function mNext2uShopdig(g, mtmp) {
+    const u = g.u;
+    if (!u || !mtmp) return false;
+    return dist2(mtmp.mx | 0, mtmp.my | 0, u.ux | 0, u.uy | 0) <= 2;
+}
+
+/**
+ * C: **`mon.c`** **`mnexto(shkp, RLOC_MSG)`** near hero (**`enexto`**, **`deal_with_overcrowding`**).
+ * @param {import('./gstate.js').game} g
+ */
+async function mnextoShkForShopdigLikeC(g, shkp) {
+    const u = g.u;
+    if (!u || !shkp) return;
+    if (shkp === u.usteed) {
+        shkp.mx = u.ux | 0;
+        shkp.my = u.uy | 0;
+        return;
+    }
+    const dest = enextoNearMon(g, u.ux | 0, u.uy | 0, shkp);
+    if (!dest) {
+        await dealWithOvercrowding(g, shkp);
+        return;
+    }
+    const ox = shkp.mx | 0;
+    const oy = shkp.my | 0;
+    shkp.mx = dest.x | 0;
+    shkp.my = dest.y | 0;
+    newsym(ox, oy);
+    newsym(shkp.mx, shkp.my);
+}
+
+/**
+ * C: **`shk.c`** **`shopdig(fall)`** — digging in shop (**`fall` 0**) or floor gives way (**`fall` 1** pack snatch).
+ * @param {import('./gstate.js').game} g
+ * @param {number} fall
+ */
+export async function shopdigLikeC(g, fall) {
+    const shkp = shopdigPickShkpLikeC(g);
+    if (!shkp) return;
+
+    const shkPtr = raceptr(shkp);
+    const ms = shkPtr?.msound ?? 0;
+
+    let lang = 0;
+    if (helplessShk(shkp) || ms === 0) {
+        /* lang 0 */
+    } else if (ms <= MS_ANIMAL_SHK) {
+        lang = 1;
+    } else if (ms >= MS_HUMANOID_SHOPDIG) {
+        lang = 2;
+    }
+
+    if (!fall) {
+        if (lang === 2 && !heroDeafShopdig(g) && !muteshkShk(shkp)) {
+            const female = !!(g.flags?.female);
+            const honor = female ? 'madam' : 'sir';
+            const cap = female ? 'Madam' : 'Sir';
+            if ((g.u?.utraptype | 0) === TT_PIT) {
+                await pline(
+                    `${shknamDisplay(shkp)} shouts: "Be careful, ${honor}, or you might fall through the floor."`,
+                );
+            } else {
+                await pline(`${shknamDisplay(shkp)} shouts: "${cap}, do not damage the floor here!"`);
+            }
+        }
+        if ((g.urole?.mnum | 0) === PM_KNIGHT_MNUM_SHOPDIG) {
+            await pline('You feel like a common thief.');
+            adjalignSgnUalignTypeShopdig(g);
+        }
+        return;
+    }
+
+    if (!inHishop(g, shkp)) {
+        if ((g.urole?.mnum | 0) === PM_KNIGHT_MNUM_SHOPDIG) {
+            await pline('You feel like a common thief.');
+            adjalignSgnUalignTypeShopdig(g);
+        }
+        return;
+    }
+
+    const e = ESHK(shkp);
+    const billOrDebit = eshkBillCountForNextShkp(e) > 0 || (e?.debit | 0) > 0;
+    if (umDistHero(g, shkp.mx | 0, shkp.my | 0, 5) || helplessShk(shkp) || !billOrDebit) return;
+
+    let grabs = 'grabs';
+    if (nolimbs(shkPtr)) grabs = 'knocks off';
+
+    if (!mNext2uShopdig(g, shkp)) {
+        await mnextoShkForShopdigLikeC(g, shkp);
+        if (!mNext2uShopdig(g, shkp)) {
+            if (lang === 2) {
+                await pline(`${shknamDisplay(shkp)} curses you in anger and frustration!`);
+            } else if (lang === 1) {
+                await pline(`${shknamDisplay(shkp)} growls.`);
+            }
+            rileShkMinimal(shkp);
+            return;
+        }
+        const loco = locomotion(shkPtr, 'leap');
+        const locoPlural = loco.endsWith('s') ? loco : `${loco}s`;
+        await pline(`${shknamDisplay(shkp)} ${locoPlural}, and ${grabs} your backpack!`);
+    } else {
+        await pline(`${shknamDisplay(shkp)} ${grabs} your backpack!`);
+    }
+
+    const u = g.u;
+    if (!u) return;
+    const wMask = ~(W_SWAPWEP | W_QUIVER);
+    for (let obj = g.invent, obj2; obj; obj = obj2) {
+        obj2 = obj.nobj;
+        if (((obj.owornmask | 0) & wMask) !== 0) continue;
+        if (obj === u.uswapwep && u.twoweap) continue;
+        if ((obj.otyp | 0) === OTYP_LEASH_SHOPDIG && (obj.leashmon | 0)) continue;
+
+        removeObjFromHeroInvent(g, obj);
+        subOneFromBill(obj, shkp);
+        mpickobjShk(g, shkp, obj);
+    }
+}
 
 /** C: **`apply.c`** **`um_dist(x, y, n)`** — hero farther than **`n`** on x or y axis. */
 function umDistHero(g, x, y, n) {

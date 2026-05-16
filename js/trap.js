@@ -49,6 +49,7 @@ import {
     applyGotoAfterHeroHoleFallLikeC,
     nextToUForHoleFallStub,
 } from './goto_level_hero.js';
+import { shopdigLikeC, heroInShopOccupancyLikeUshops } from './shop.js';
 import { dist2, depth } from './hacklib.js';
 import {
     raceptr,
@@ -2255,6 +2256,9 @@ async function trapeffectHoleHero(trap, trflags) {
             await pline(`You ${flyWord} down a ${very}${deep}shaft!`);
         }
     }
+
+    /* C: **`if (*u.ushops) shopdig(1);`** before **`schedule_goto`**. */
+    if (heroInShopOccupancyLikeUshops(g)) await shopdigLikeC(g, 1);
 
     /* C: **`shopdig`/`pay`**, **`schedule_goto`** — **`u.uz`** = **`dtmp`** (**`trap->dst`**, …). */
     await applyGotoAfterHeroHoleFallLikeC(g, destLev ?? undefined);

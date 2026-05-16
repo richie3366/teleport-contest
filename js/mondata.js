@@ -475,7 +475,7 @@ export function canFogHero(_g) {
 }
 
 /** C: mondata.h nolimbs */
-function nolimbs(/** @type {Permonst} */ ptr) {
+export function nolimbs(/** @type {Permonst} */ ptr) {
     return (ptr.mflags1 & M1_NOLIMBS) === M1_NOLIMBS;
 }
 
