@@ -3,12 +3,11 @@
 //        do.c boulder_hits_pool(), mkobj.c obj_ice_effects(), dig.c unearth_objs(),
 //        mon.c minliquid() (subset).
 //
-// Still TODO vs C: full timeout.c (other func kinds); obj_ice_effects on freeze
-// (obj_timer_checks / buried TRUE); unearth_objs + buriedobjlist;
-// cnv_trap_obj bury_it → bury_an_obj (we place on floor; no buried layer);
-// boulder_hits_pool drawbridge / waterwall / plane of water / u.uinwater /
-// lava splash damage / wake_nearto / bury_objs; full minliquid (drown,
-// gremlin split, iron golem, teleport, …).
+// Still TODO vs C: full **`obj_timer_checks`** / buried **`obj_ice_effects`**;
+// real **`bury_objs`** (**`buriedobjlist`**); **`unearth_objs`**;
+// **`zap_over_floor`** **`ZT_COLD`** lavawall/temperature vs waterwall; hero **`u.utrap`**
+// **`TT_LAVA`** cooling; cnv_trap_obj bury_it → bury_an_obj;
+// fuller **`boulder_hits_pool`** / **`minliquid`** / **`spoteffects`**.
 
 import { pline, newsym } from './display.js';
 import { vision_recalc, cansee } from './vision.js';
@@ -70,6 +69,26 @@ function unearthObjsAt(_g, _x, _y) {
     void _g;
     void _x;
     void _y;
+}
+
+/** C: dig.c bury_objs(x, y) — bury floor chain; JS has no buriedobjlist yet. */
+function buryObjsAt(_g, _x, _y) {
+    void _g;
+    void _x;
+    void _y;
+}
+
+/**
+ * C: mkobj.c obj_ice_effects(x, y, TRUE) — floor corpses **`on_ice`** after terrain is ice
+ * (**`obj_timer_checks`** rot timers still stubbed).
+ * @param {import('./gstate.js').game} g
+ */
+function objIceEffectsFreezeAt(g, x, y) {
+    const head = g.level?.floorObjHeads?.get(floorObjKey(x, y));
+    for (let o = head; o; o = o.nexthere) {
+        if ((o.otyp | 0) !== CORPSE_OTYP) continue;
+        o.on_ice = 1;
+    }
 }
 
 /** C: trap.c undestroyable_trap — subset for trap_ice_effects deltrap branch. */
@@ -256,40 +275,45 @@ async function minliquidMonsterAfterMelt(g, mtmp) {
  * Schedules **`start_melt_ice_timeout`** when non-lava water becomes **`ICE`** or drawbridge span gains **`DB_ICE`**.
  * @param {import('./gstate.js').game} g
  * @param {boolean} seeIt — C **`see_it`**
+ * @returns {Promise<number>} C **`zap_over_floor`** **`rangemod`** contribution for this tile
  */
 export async function coldZapHitsWaterAt(g, x, y, seeIt) {
     if (isIceAt(g, x, y)) {
         refirmMeltIceTimerAt(g, x, y);
-        return;
+        return 0;
     }
     const loc = g.level?.at(x, y);
-    if (!loc) return;
+    if (!loc) return 0;
     const typ = loc.typ | 0;
 
     if (IS_WATERWALL(typ)) {
         if (seeIt) await pline('The water freezes for a moment.');
         else if (g.u && dist2(x, y, g.u.ux | 0, g.u.uy | 0) <= 9) await pline('You hear a soft crackling.');
-        return;
+        return -1000;
     }
 
     if (IS_LAVA(typ)) {
+        buryObjsAt(g, x, y);
         loc.typ = ROOM;
         loc.flags = 0;
         if (seeIt) await pline('The lava cools and solidifies.');
         newsym(x, y);
-        return;
+        return -3;
     }
 
     if (typ === DRAWBRIDGE_UP) {
+        buryObjsAt(g, x, y);
         loc.flags = (loc.flags & ~DB_UNDER) | DB_ICE;
         if (seeIt) await pline('The water under the drawbridge freezes solid.');
         else if (g.u && dist2(x, y, g.u.ux | 0, g.u.uy | 0) <= 9) await pline('You hear a crackling sound.');
         newsym(x, y);
         startMeltIceAwayTimer(g, x, y, 0);
-        return;
+        objIceEffectsFreezeAt(g, x, y);
+        return -3;
     }
 
     if (typ === POOL || typ === MOAT) {
+        buryObjsAt(g, x, y);
         const moat = typ === MOAT;
         loc.flags = (loc.flags & ~(ICED_POOL | ICED_MOAT)) | (typ === POOL ? ICED_POOL : ICED_MOAT);
         loc.typ = ICE;
@@ -310,9 +334,10 @@ export async function coldZapHitsWaterAt(g, x, y, seeIt) {
         if (mtmp && (mtmp.mundetected | 0) && swims(raceptr(mtmp))) mtmp.mundetected = 0;
 
         startMeltIceAwayTimer(g, x, y, 0);
-        /* C: obj_ice_effects(x, y, TRUE); bury_objs — not ported */
-        return;
+        objIceEffectsFreezeAt(g, x, y);
+        return -3;
     }
+    return 0;
 }
 
 /**

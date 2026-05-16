@@ -9,11 +9,11 @@ Thin handoff for the next coding session. Deep parity tables and history: [`c-to
 - **Plain ES modules**, no build/WASM/network in contest code; RNG via `js/rng.js`; match **clang** evaluation order for multi-call expressions.
 - API: [`docs/API.md`](../../docs/API.md); overview: [`README.md`](../../README.md).
 
-**Last slice:** **`zap.c`** **`zap_over_floor`** **`ZT_COLD`** subset — **`melt_ice.js`** **`coldZapHitsWaterAt`** (waterwall / lava→**`ROOM`** / **`DRAWBRIDGE_UP`** **`DB_ICE`** / **`POOL`/`MOAT`→`ICE`** + **`ICED_*`**, plines, hero **`underwater`**, swimmer **`mundetected`**, **`startMeltIceAwayTimer`**); **`level_timers.js`** **`spotTimeLeftMeltIceAway`**, **`refirmMeltIceTimerAt`** (C already-ice branch). No default caller yet → session RNG unchanged until **`zap_over_floor`** / wand cold wires **`coldZapHitsWaterAt`**.
+**Last slice:** **`zap.c`** **`zap_over_floor`** entry — **`js/zap_over_floor.js`** (**`zaptype`**, **`zapDamgtype`**, **`ZT_WAND`/`ZT_SPELL`/`ZT_BREATH`**, **`ZT_*`** indices, **`PHYS_EXPL_TYPE`** early out); **`ZT_COLD`** → **`coldZapHitsWaterAt`**; **`coldZapHitsWaterAt`** now returns **`rangemod`** (**`-1000`** waterwall, **`-3`** lava/drawbridge/pool freeze, **`0`** else), calls stub **`buryObjsAt`**, floor corpse **`on_ice`** via **`objIceEffectsFreezeAt`** after **`ICE`/`DB_ICE`**. Still no beam/breath/wand harness calling **`zapOverFloor`** → default sessions unchanged.
 
 ## Next steps (highest impact from latest fire/lava work)
 
-1. **`melt_ice` remainder** — call **`coldZapHitsWaterAt`** from **`zap_over_floor`** / breath / broken wand when **`ZT_COLD`**; **`obj_ice_effects(x,y,TRUE)`** on freeze + **`bury_objs`**; lavawall / temperature / **`IS_WATERWALL`** nuance; **`unearth_objs`** + buried objects; fuller **`boulder_hits_pool`** / **`minliquid`** / hero **`spoteffects`**.
+1. **`melt_ice` / cold remainder** — first real caller of **`zapOverFloor`** (wand cold / breath / broken wand when that harness exists); C **`zap_over_floor`** **`ZT_COLD`**: lavawall + temperature vs **`IS_WATERWALL`**; hero **`u.utrap`** **`TT_LAVA`**; full **`obj_ice_effects`** (**`obj_timer_checks`**, buried); real **`bury_objs`**/**`unearth_objs`**; fuller **`boulder_hits_pool`** / **`minliquid`** / **`spoteffects`**.
 2. **`minuhpmax`/`setuhpmax`/`losexp`** ( **`dofiretrap`** human branch ); underwater/steam **`dofiretrap`** box branch; **`shieldeff`/`monstseesu`**.
 3. **Wire `discoverScrollOtyp`** from **`read`** / **`pickup`** / **`makeknown`** when scroll ID is learned; audit remaining **`mklev.js`** **`otyp`** literals vs **`objects_nums`**.
 
