@@ -1,9 +1,11 @@
 // mthrowu.js — Hero struck by launched objects (trap missiles, &c.).
-// C ref: mthrowu.c thitu(); trap.c t_missile(); weapon.c dmgval() (arrow/dart subset);
+// C ref: mthrowu.c thitu(); trap.c t_missile(); weapon.c dmgval() (arrow/dart/boulder subset);
 //        end.c losehp() (minimal).
 
 import { game } from './gstate.js';
-import { rnd } from './rng.js';
+import { rnd, d } from './rng.js';
+import { OTYP_BOULDER } from './const.js';
+import { raceptr, bigmonst } from './mondata.js';
 import { pline } from './display.js';
 import { placeFloorObject, unlinkFloorObject } from './floorobj.js';
 
@@ -34,13 +36,18 @@ export function tMissile(otyp, _trap) {
 }
 
 /**
- * C: weapon.c dmgval(struct obj *otmp, struct monst *mon) — small-monster branch for missiles.
+ * C: weapon.c dmgval(struct obj *otmp, struct monst *mon) — missiles + **BOULDER** (**`oc_wsdam`/`oc_wldam`** subset).
  * @param {{ otyp: number }} otmp
- * @param {{ data?: object }|null} mon
+ * @param {{ data?: object }|null|undefined} mon
  */
 export function dmgval(otmp, mon) {
-    void mon;
     const t = otmp?.otyp ?? 0;
+    if (t === OTYP_BOULDER) {
+        if (!mon) return Math.max(1, d(2, 6));
+        const ptr = raceptr(mon);
+        const tmp = bigmonst(ptr) ? d(2, 6) + rnd(6) : d(2, 6);
+        return Math.max(1, tmp);
+    }
     if (t === OBJ_ARROW) return rnd(6);
     if (t === OBJ_DART) return rnd(3);
     if (t === OBJ_ROCK) return rnd(6);

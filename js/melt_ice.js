@@ -164,6 +164,11 @@ async function buryObjsAt(g, x, y) {
     }
 }
 
+/** C: **`dig.c`** **`bury_objs`** — exported for **`do.c`** **`flooreffects`** boulder-in-pit tail. */
+export async function buryObjsAtLikeC(g, x, y) {
+    return buryObjsAt(g, x, y);
+}
+
 /**
  * C: mkobj.c **`obj_ice_effects(x, y, TRUE)`** — floor + buried: **`obj_timer_checks`** for **`timed`** corpses
  * on new ice (**`on_ice`** set inside **`obj_timer_checks`** when rot timer exists).
