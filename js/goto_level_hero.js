@@ -6,6 +6,7 @@
 // **`applyHeroDescendStairsOneLevelLikeC(g)`** — **`do.c`** **`goto_level`** down-stairs slice after **`mklev`**/**`u_on_upstairs`** (**`near_capacity`/`Punished`/`Fumbling`**, **`drag_down`**, **`losehp`**, **`placebc`** omitted).
 // **`scheduleGotoHeroLikeC` / `deferredGotoHeroLikeC`** — **`do.c`** **`schedule_goto`/`deferred_goto`** subset (**`applyGotoLevelDirectHeroLikeC`** for non-falling **`goto_level`**).
 // **`keepdogsHeroStubLikeC`** — C **`dog.c`** **`keepdogs`** gate (**`if (!iflags.nofollowers) keepdogs(FALSE)`** in **`goto_level`**) before **`u.uz`** moves.
+// **`vision_recalc(2)`** after **`keepdogs`**, before **`u.uz`** assign — C **`goto_level`** (**`vision.c`** “no longer see old level” pass before **`savelev`**).
 // Deferred: **`fill_pit`**, real **`next_to_u`**,
 // full **`keepdogs`/`dog.c`**, bones/save, full **`goto_level`** beyond **`mklev`**.
 
@@ -62,7 +63,7 @@ function clearDeferredGotoMessagesLikeC(g) {
 }
 
 /**
- * C: **`do.c`** **`goto_level`** — plain arrival (**not** falling): set **`u.uz`**, **`mklev`**, **`spoteffects`**, **`vision_recalc`**, **`pickup(1)`**.
+ * C: **`do.c`** **`goto_level`** — plain arrival (**not** falling): **`keepdogs`**, **`vision_recalc(2)`**, set **`u.uz`**, **`mklev`**, **`spoteffects`**, **`vision_recalc(1)`**, **`pickup(1)`**.
  * @param {import('./gstate.js').game} g
  * @param {{ dnum: number, dlevel: number }} dest
  */
@@ -82,6 +83,7 @@ export async function applyGotoLevelDirectHeroLikeC(g, dest) {
     if (onLevelLikeC(uz0, newUz)) return;
 
     if (!g.iflags?.nofollowers) keepdogsHeroStubLikeC(g, false);
+    vision_recalc(2);
 
     u.uz = newUz;
     u.utrap = 0;
@@ -154,7 +156,7 @@ export async function deferredGotoHeroLikeC(g) {
 }
 
 /**
- * C: **`goto_level`** after a hole fall — set **`u.uz`**, new map, **`spoteffects(FALSE)`**.
+ * C: **`goto_level`** after a hole fall — **`impact_drop`**, **`keepdogs`**, **`vision_recalc(2)`**, set **`u.uz`**, new map, **`spoteffects(FALSE)`**.
  * @param {import('./gstate.js').game} g
  * @param {{ dnum: number, dlevel: number } | null | undefined} [dest] — C **`fall_through`** **`dtmp`** (**`trap->dst`**, **`find_hell`**, …). Omit for dig **`dlevel+1`** only.
  */
@@ -190,6 +192,7 @@ export async function applyGotoAfterHeroHoleFallLikeC(g, dest) {
     await impactDropLikeC(g, null, u.ux | 0, u.uy | 0, newUz.dlevel | 0);
 
     if (!g.iflags?.nofollowers) keepdogsHeroStubLikeC(g, false);
+    vision_recalc(2);
 
     u.uz = newUz;
     u.utrap = 0;
@@ -239,6 +242,7 @@ export async function gotoLevelHeroFallThroughDigHoleLikeC(g, digX, digY) {
 /**
  * C: **`do.c`** **`goto_level`** — **`at_stairs`** && !**`up`** && !**`In_endgame`** after **`u_on_upstairs`**
  * ( **`stairway_find_from`** / **`u_on_sstairs`** omitted; **`u.dz`** treated as down).
+ * **`keepdogs`**, **`vision_recalc(2)`**, then **`u.uz`** / **`mklev`** / **`u_on_upstairs`** …
  * Omits **`ballrelease`**, **`dismount_steed`**, **`selftouch`**, **`placebc`**, **`obj_delivery`**, branch mapseen.
  * @param {import('./gstate.js').game} g
  * @returns {Promise<boolean>} true if level changed
@@ -266,6 +270,7 @@ export async function applyHeroDescendStairsOneLevelLikeC(g) {
     const newUz = { dnum, dlevel: prev + 1 };
 
     if (!g.iflags?.nofollowers) keepdogsHeroStubLikeC(g, false);
+    vision_recalc(2);
 
     u.uz = newUz;
     u.utrap = 0;
