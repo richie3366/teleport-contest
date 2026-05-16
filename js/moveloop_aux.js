@@ -1,8 +1,8 @@
 // moveloop_aux.js — End-of-turn RNG after movemon (allmain.c moveloop_core tail).
-// C ref: allmain.c (maybe_generate_rnd_mon, dosounds, gethungry, …), attrib.c exercise.
+// C ref: allmain.c (maybe_generate_rnd_mon, dosounds, gethungry, …), attrib.c exerchk/exercise.
 //
-// These are minimal parity stubs: one draw each where the recorder attributes
-// a single rn2 to the C function. Replace with real ports incrementally.
+// `pre_moveloop82_exercise` / `post_moveloop82_exercise` still replay bare `rn2` for session harness
+// until `exerchk` / `exerper` port; real `exercise()` now consumes RNG from trap/search/engrave paths.
 
 import { game } from './gstate.js';
 import { rn2, rnd } from './rng.js';

@@ -2,7 +2,15 @@
 // C ref: attrib.c acurr, adjattrib, change_luck(), exercise(); you.h ATTRMIN/ATTRMAX.
 
 import { game } from './gstate.js';
-import { LUCKMIN, LUCKMAX, STR18 } from './const.js';
+import {
+    LUCKMIN,
+    LUCKMAX,
+    STR18,
+    A_INT,
+    A_WIS,
+    A_CHA,
+    A_MAX,
+} from './const.js';
 import { rn2 } from './rng.js';
 
 const DEF_ATTRMIN = Object.freeze([3, 3, 3, 3, 3, 3]);
@@ -84,12 +92,39 @@ export function adjattrib(attr, change, tell) {
 
     if (u.atemp?.a) u.atemp.a[attr] = 0;
     if (u.atime?.a) u.atime.a[attr] = 0;
+    if (u.aexe?.a) u.aexe.a[attr] = 0;
 
     game.disp = game.disp || {};
     game.disp.botl = true;
     return true;
 }
 
-/** C: attrib.c exercise(attr, inc) — stub until full training port. */
-export function exercise(_attr, _inc) {
+/** C: attrib.c #define AVAL 50 — tune value for exercise gains */
+const AVAL = 50;
+
+function ensureAexe(u) {
+    if (!u) return;
+    if (!u.aexe?.a || u.aexe.a.length < A_MAX) {
+        const prev = u.aexe?.a || [];
+        u.aexe = { a: Array.from({ length: A_MAX }, (_, j) => prev[j] ?? 0) };
+    }
+}
+
+/**
+ * C: attrib.c exercise(int i, boolean inc_or_dec)
+ * Encumbrance message (C encumber_msg on Str/Con) not called — pickup.encumberMsg is async.
+ * @param {number} i — A_STR … A_CHA
+ * @param {boolean} incOrDec
+ */
+export function exercise(i, incOrDec) {
+    const u = game.u;
+    if (!u) return;
+    if (i === A_INT || i === A_CHA) return;
+    if ((u.Upolyd | 0) && i !== A_WIS) return;
+    ensureAexe(u);
+    let ax = u.aexe.a[i] | 0;
+    if (Math.abs(ax) >= AVAL) return;
+    ax += incOrDec ? (rn2(19) > acurr(i) ? 1 : 0) : -rn2(2);
+    u.aexe.a[i] = ax;
+    /* C: if (svm.moves > 0 && (i == A_STR || i == A_CON)) encumber_msg(); */
 }

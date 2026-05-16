@@ -1,6 +1,6 @@
 // u_init_attr.js — Hero starting attributes from role + race.
 // C ref: attrib.c init_attr(), init_attr_role_redist(), rnd_attr(), vary_init_attr();
-//        u_init.c u_init_inventory_attrs() calls init_attr(75) then vary_init_attr().
+//        u_init.c u_init_inventory_attrs() calls init_attr(75) then vary_init_attr(); zeros u.aexe[].
 
 import { game } from './gstate.js';
 import { rn2 } from './rng.js';
@@ -71,6 +71,8 @@ export function initAttr(np) {
         u.atime = u.atime || { a: [] };
         u.atemp.a[i] = 0;
         u.atime.a[i] = 0;
+        u.aexe = u.aexe || { a: [] };
+        u.aexe.a[i] = 0;
         np -= b;
     }
 
