@@ -579,14 +579,13 @@ function monMworn(mtmp, k) {
     return mtmp?.mworn?.[k] ?? null;
 }
 
-/** C: apply.c **`splash_lit`** on monster inventory — no hero **`Your`** wording. */
-async function extinguishLitMinventNotWielded(mtmp, inSight) {
+/** C: apply.c **`splash_lit`/`snuff_lit`** on monster inventory (**`Yname2`**-style when visible). */
+async function extinguishLitMinventNotWielded(mtmp, inSight, g) {
     const w = mtmp?.mworn;
     for (let o = mtmp?.minvent; o; o = o.nobj) {
         if (!(o.lamplit | 0)) continue;
         if (o === w?.wep) continue;
-        if (inSight) await pline(`${monNamSentence(mtmp)}'s light goes out!`);
-        o.lamplit = 0;
+        await splashLitOne(o, g, { creature: 'minvent', visMon: !!inSight });
     }
 }
 
@@ -684,35 +683,38 @@ async function trapeffectRustTrapMonster(g, mtmp, trap) {
     let trapkilled = false;
     const ptr = raceptr(mtmp);
     const gush = 'A gush of water hits';
+    const monCtx = { mtmp, visMon: inSight };
 
     if (inSight) seetrap(trap);
     const b = rn2(5);
     switch (b) {
     case 0:
         if (inSight) await pline(`${gush} ${monNam(mtmp)} on the head!`);
-        await waterDamageOne(monMworn(mtmp, 'armh'), true, g);
+        await waterDamageOne(monMworn(mtmp, 'armh'), true, g, monCtx);
         break;
     case 1: {
         if (inSight) await pline(`${gush} ${monNam(mtmp)}'s left arm!`);
-        const er = monMworn(mtmp, 'arms') ? await waterDamageOne(monMworn(mtmp, 'arms'), true, g) : ER_NOTHING;
+        const er = monMworn(mtmp, 'arms')
+            ? await waterDamageOne(monMworn(mtmp, 'arms'), true, g, monCtx)
+            : ER_NOTHING;
         if (er === ER_NOTHING) {
             const wep = monMworn(mtmp, 'wep');
-            if (wep && bimanual(wep)) await waterDamageOne(wep, true, g);
+            if (wep && bimanual(wep)) await waterDamageOne(wep, true, g, monCtx);
         }
-        await waterDamageOne(monMworn(mtmp, 'armg'), true, g);
+        await waterDamageOne(monMworn(mtmp, 'armg'), true, g, monCtx);
         break;
     }
     case 2:
         if (inSight) await pline(`${gush} ${monNam(mtmp)}'s right arm!`);
-        await waterDamageOne(monMworn(mtmp, 'wep'), true, g);
-        await waterDamageOne(monMworn(mtmp, 'armg'), true, g);
+        await waterDamageOne(monMworn(mtmp, 'wep'), true, g, monCtx);
+        await waterDamageOne(monMworn(mtmp, 'armg'), true, g, monCtx);
         break;
     default:
         if (inSight) await pline(`${gush} ${monNam(mtmp)}!`);
-        await extinguishLitMinventNotWielded(mtmp, inSight);
-        if (monMworn(mtmp, 'armc')) await waterDamageOne(monMworn(mtmp, 'armc'), true, g);
-        else if (monMworn(mtmp, 'arm')) await waterDamageOne(monMworn(mtmp, 'arm'), true, g);
-        else if (monMworn(mtmp, 'armu')) await waterDamageOne(monMworn(mtmp, 'armu'), true, g);
+        await extinguishLitMinventNotWielded(mtmp, inSight, g);
+        if (monMworn(mtmp, 'armc')) await waterDamageOne(monMworn(mtmp, 'armc'), true, g, monCtx);
+        else if (monMworn(mtmp, 'arm')) await waterDamageOne(monMworn(mtmp, 'arm'), true, g, monCtx);
+        else if (monMworn(mtmp, 'armu')) await waterDamageOne(monMworn(mtmp, 'armu'), true, g, monCtx);
         break;
     }
 
@@ -871,11 +873,84 @@ function randomTeleportLevelAbs(g) {
     return nlev;
 }
 
-/** C: teleport.c **`teleport_pet`** — steed blocked; cursed leash respects **`force_it`**. */
-function teleportPetAllowsMon(g, mtmp, forceIt) {
+/** @see include/objects.h — **`LEASH`** */
+const OTYP_LEASH = 237;
+
+/** C: monflag.h **`enum monst_soundtypes`** — subset for sounds.c **`yelp`** */
+const MS_BARK = 1;
+const MS_MEW = 2;
+const MS_ROAR = 3;
+const MS_GROWL = 5;
+const MS_SQEEK = 6;
+const MS_SQAWK = 7;
+const MS_WAIL = 14;
+
+/** C: apply.c **`get_mleash`** — hero invent **`LEASH`** with **`leashmon === mtmp`**. */
+function getMleashFromInvent(g, mtmp) {
+    for (let o = g.invent; o; o = o.nobj) {
+        if ((o.otyp | 0) === OTYP_LEASH && o.leashmon === mtmp) return o;
+    }
+    return null;
+}
+
+/** C: apply.c **`m_unleash(mtmp, FALSE)`** — clear leash object + **`mleashed`** (no feedback). */
+function mUnleashMon(g, mtmp) {
+    const otmp = getMleashFromInvent(g, mtmp);
+    if (otmp) otmp.leashmon = null;
+    mtmp.mleashed = 0;
+    if (g.iflags?.perm_invent) updateInventory();
+}
+
+/** C: sounds.c **`yelp(mtmp)`** — **`helpless`/`msound`** gates; verb list matches C switch. */
+async function yelpMon(g, mtmp) {
+    void g;
+    if (helplessMon(mtmp)) return;
+    const ptr = raceptr(mtmp);
+    const ms = ptr.msound;
+    if (ms == null || ms === 0) return;
+    let verb = '';
+    switch (ms) {
+    case MS_MEW:
+        verb = 'yowls';
+        break;
+    case MS_BARK:
+    case MS_GROWL:
+        verb = 'yelps';
+        break;
+    case MS_ROAR:
+        verb = 'snarls';
+        break;
+    case MS_SQEEK:
+        verb = 'squeals';
+        break;
+    case MS_SQAWK:
+        verb = 'screaks';
+        break;
+    case MS_WAIL:
+        verb = 'wails';
+        break;
+    default:
+        return;
+    }
+    await pline(`${monNam(mtmp)} ${verb}!`);
+}
+
+/** C: teleport.c **`teleport_pet`** — steed blocked; cursed leash + !**`force_it`** → **`yelp`**. */
+async function teleportPetAllowsMon(g, mtmp, forceIt) {
     const u = g.u;
     if (!u || mtmp === u.usteed) return false;
-    if ((mtmp.mleashed | 0) && !forceIt) return false;
+    if (!(mtmp.mleashed | 0)) return true;
+    const otmp = getMleashFromInvent(g, mtmp);
+    if (!otmp) {
+        mtmp.mleashed = 0;
+        return true;
+    }
+    if ((otmp.cursed | 0) && !forceIt) {
+        await yelpMon(g, mtmp);
+        return false;
+    }
+    await pline('Your leash goes slack.');
+    mUnleashMon(g, mtmp);
     return true;
 }
 
@@ -896,7 +971,7 @@ async function mlevelTeleTrapMonster(g, mtmp, trap, forceIt, inSight) {
     if (!u || !mtmp || !trap) return TRAP_EFFECT_FINISHED;
     const tt = trap.ttyp | 0;
     if (mtmp === u.ustuck) return TRAP_EFFECT_FINISHED;
-    if (!teleportPetAllowsMon(g, mtmp, !!forceIt)) return TRAP_EFFECT_FINISHED;
+    if (!(await teleportPetAllowsMon(g, mtmp, !!forceIt))) return TRAP_EFFECT_FINISHED;
 
     if (is_hole(tt)) {
         if (Is_botlevel(u.uz)) {

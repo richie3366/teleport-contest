@@ -1,8 +1,9 @@
-// water_damage.js — Hero inventory wetting (trap.c water_damage / water_damage_chain subset).
+// water_damage.js — Hero + monster inventory wetting (trap.c water_damage / water_damage_chain subset).
 // C ref: trap.c water_damage(), water_damage_chain(); apply.c splash_lit() — lantern/brass
 // nuance and snuff_candle not ported. `g.acidCtx` mirrors **`ga.acid_ctx`** for **`pot_acid_damage`**
 // wording during **`water_damage_chain`**; **`gb.bhitpos`** save/restore still TODO. **`erode_obj`**
-// / **`makeknown`** / **`blank_novel`** partial.
+// / **`makeknown`** / **`blank_novel`** partial. Monster path: C **`carried(obj)`** false — no hero **`Your`**
+// plines; **`splash_lit`** minvent uses **`The cxname goes out!`** when visible.
 
 import { game } from './gstate.js';
 import { rn2, rnd } from './rng.js';
@@ -105,6 +106,27 @@ export function nh5HeroObjectClass(obj) {
 }
 
 /**
+ * C: zap.c / apply.c — remove **`obj`** from **`mtmp.minvent`** (**`nobj`** chain).
+ * @param {object} mtmp
+ * @param {{ nobj?: unknown }} victim
+ */
+export function removeObjFromMinvent(mtmp, victim) {
+    if (!mtmp || !victim) return;
+    if (mtmp.minvent === victim) {
+        mtmp.minvent = victim.nobj ?? null;
+        return;
+    }
+    let p = mtmp.minvent;
+    while (p?.nobj) {
+        if (p.nobj === victim) {
+            p.nobj = victim.nobj;
+            return;
+        }
+        p = p.nobj;
+    }
+}
+
+/**
  * Remove one node from **`g.invent`** singly-linked list (**`nobj`**).
  * @param {typeof game} g
  * @param {{ nobj?: unknown }} victim
@@ -135,8 +157,9 @@ function acidCtx(g) {
  * @param {typeof game} g
  * @param {{ quan?: number, dknown?: number }} obj
  * @param {boolean} described — C: grease washed off first (**`pline_The` "potion… explode"**)
+ * @param {object|null} [carrierMon] — C: `!carried(obj)` → remove from **`mtmp.minvent`**
  */
-async function potAcidDamageMinimal(g, obj, described) {
+async function potAcidDamageMinimal(g, obj, described, carrierMon = null) {
     const ctx = acidCtx(g);
     const quan = Math.max(1, obj.quan ?? 1);
     const one = quan <= 1;
@@ -156,21 +179,28 @@ async function potAcidDamageMinimal(g, obj, described) {
         if (obj.dknown | 0) ctx.dkn_boom++;
         else ctx.unk_boom++;
     }
-    removeObjFromHeroInvent(g, obj);
-    if (g.iflags?.perm_invent) updateInventory();
+    if (carrierMon) removeObjFromMinvent(carrierMon, obj);
+    else removeObjFromHeroInvent(g, obj);
+    if (!carrierMon && g.iflags?.perm_invent) updateInventory();
 }
 
 /**
- * C: apply.c splash_lit(obj) — extinguish lamplit obj; stub (no brass lantern / candle split).
+ * C: apply.c splash_lit → snuff_lit — hero **`Your cxname`** vs minvent **`The cxname`** (**`Yname2`** subset).
  * @param {{ lamplit?: number, otyp?: number }} obj
  * @param {typeof game} [g]
+ * @param {{ creature?: 'hero' | 'minvent', visMon?: boolean }} [litCtx] — minvent: C **`OBJ_MINVENT`** + **`cansee`**
  * @returns {Promise<boolean>} true if extinguished (C: truthy → `water_damage` returns ER_DAMAGED)
  */
-export async function splashLitOne(obj, g = game) {
+export async function splashLitOne(obj, g = game, litCtx) {
     if (!obj || !(obj.lamplit | 0)) return false;
-    await pline(`Your ${waterDamageObjPhrase(obj)} goes out!`);
+    const minv = litCtx?.creature === 'minvent';
+    if (!minv) {
+        await pline(`Your ${waterDamageObjPhrase(obj)} goes out!`);
+    } else if (litCtx?.visMon) {
+        await pline(`The ${waterDamageObjPhrase(obj)} goes out!`);
+    }
     obj.lamplit = 0;
-    if (g.iflags?.perm_invent) updateInventory();
+    if (!minv && g.iflags?.perm_invent) updateInventory();
     return true;
 }
 
@@ -180,15 +210,21 @@ export async function splashLitOne(obj, g = game) {
  * @param {typeof game} g
  * @param {{ otyp?: number, oclass?: number, quan?: number, dknown?: number, odiluted?: number, spestudied?: number, blessed?: number, cursed?: number, greased?: number, spe?: number, cobj?: unknown, lamplit?: number }} obj
  * @param {boolean} force
+ * @param {{ mtmp: object, visMon?: boolean }} [monCtx] — C: **`carried(obj)`** false → no hero **`Your`** plines
  * @returns {Promise<number>} ER_* (`ER_NOTHING` when obj null)
  */
-export async function waterDamageOne(obj, force, g = game) {
+export async function waterDamageOne(obj, force, g = game, monCtx) {
     if (!obj) return ER_NOTHING;
 
     const t = obj.otyp | 0;
-    const inInvent = true;
+    const inInvent = !monCtx;
+    const carrierMon = monCtx?.mtmp ?? null;
+    const visMon = !!(monCtx && monCtx.visMon);
+    const litSplashCtx = monCtx
+        ? /** @type {const} */ ({ creature: /** @type {'minvent'} */ ('minvent'), visMon })
+        : undefined;
 
-    if (await splashLitOne(obj, g)) return ER_DAMAGED;
+    if (await splashLitOne(obj, g, litSplashCtx)) return ER_DAMAGED;
 
     if (t === OTYP_CAN_OF_GREASE && (obj.spe | 0) > 0) return ER_NOTHING;
 
@@ -204,9 +240,13 @@ export async function waterDamageOne(obj, force, g = game) {
     if (obj.greased) {
         if (rn2(2) === 0) {
             obj.greased = 0;
-            await pline(`The grease on your ${waterDamageObjPhrase(obj)} washes off.`);
+            let described = false;
+            if (inInvent) {
+                await pline(`The grease on your ${waterDamageObjPhrase(obj)} washes off.`);
+                described = true;
+            }
             if (t === OTYP_POT_ACID) {
-                await potAcidDamageMinimal(g, obj, true);
+                await potAcidDamageMinimal(g, obj, described, carrierMon);
                 return ER_DESTROYED;
             }
             if (inInvent && g.iflags?.perm_invent) updateInventory();
@@ -219,7 +259,7 @@ export async function waterDamageOne(obj, force, g = game) {
         (!isWaterproofContainerTyp(t) || ((obj.cursed | 0) && !rn2(3)));
     if (containerLeaks) {
         if (inInvent) await pline(`Some water gets into your ${waterDamageObjPhrase(obj)}!`);
-        if (obj.cobj) await waterDamageChain(obj.cobj, false, g);
+        if (obj.cobj) await waterDamageChain(obj.cobj, false, g, monCtx);
         return ER_DAMAGED;
     }
 
@@ -238,7 +278,7 @@ export async function waterDamageOne(obj, force, g = game) {
     if (oclass === NH5_SCROLL_CLASS) {
         if (t === OTYP_SCR_BLANK_PAPER) return ER_NOTHING;
         const q = obj.quan ?? 1;
-        await pline(q > 1 ? 'Your scrolls fade.' : 'Your scroll fades.');
+        if (inInvent) await pline(q > 1 ? 'Your scrolls fade.' : 'Your scroll fades.');
         obj.otyp = OTYP_SCR_BLANK_PAPER;
         obj.dknown = 0;
         obj.spe = 0;
@@ -249,12 +289,12 @@ export async function waterDamageOne(obj, force, g = game) {
     if (oclass === NH5_SPBOOK_CLASS) {
         if (t === OTYP_SPE_BLANK_PAPER) return ER_NOTHING;
         if (t === OTYP_SPE_BOOK_OF_THE_DEAD) {
-            await pline('Steam rises from the Book of the Dead.');
+            if (inInvent) await pline('Steam rises from the Book of the Dead.');
             return ER_NOTHING;
         }
         const old = t;
         const q = obj.quan ?? 1;
-        await pline(q > 1 ? 'Your spellbooks fade.' : 'Your spellbook fades.');
+        if (inInvent) await pline(q > 1 ? 'Your spellbooks fade.' : 'Your spellbook fades.');
         obj.otyp = OTYP_SPE_BLANK_PAPER;
         obj.dknown = 0;
         if ((obj.spestudied | 0) > 0 && old !== OTYP_SPE_NOVEL) obj.spestudied = rn2(obj.spestudied | 1);
@@ -265,18 +305,18 @@ export async function waterDamageOne(obj, force, g = game) {
     if (oclass === NH5_POTION_CLASS) {
         if (t === OTYP_POT_WATER) return ER_NOTHING;
         if (t === OTYP_POT_ACID) {
-            await potAcidDamageMinimal(g, obj, false);
+            await potAcidDamageMinimal(g, obj, false, carrierMon);
             return ER_DESTROYED;
         }
         if ((obj.odiluted | 0) > 0) {
-            await pline('Your potion dilutes further.');
+            if (inInvent) await pline('Your potion dilutes further.');
             obj.otyp = OTYP_POT_WATER;
             obj.dknown = 0;
             obj.blessed = 0;
             obj.cursed = 0;
             obj.odiluted = 0;
         } else {
-            await pline('Your potion dilutes.');
+            if (inInvent) await pline('Your potion dilutes.');
             obj.odiluted = (obj.odiluted | 0) + 1;
         }
         if (inInvent && g.iflags?.perm_invent) updateInventory();
@@ -290,8 +330,9 @@ export async function waterDamageOne(obj, force, g = game) {
  * @param {unknown} obj chain head
  * @param {boolean} here floor pile (**`nexthere`**) vs hero invent (**`nobj`**)
  * @param {typeof game} [g]
+ * @param {{ mtmp: object, visMon?: boolean }} [monCtx]
  */
-export async function waterDamageChain(obj, here, g = game) {
+export async function waterDamageChain(obj, here, g = game, monCtx) {
     if (!obj) return;
 
     /* C: trap.c water_damage_chain — init acid_ctx; bhitpos save/restore omitted until floor carry. */
@@ -302,7 +343,7 @@ export async function waterDamageChain(obj, here, g = game) {
 
     for (let o = obj; o; ) {
         const next = here ? o.nexthere : o.nobj;
-        await waterDamageOne(o, false, g);
+        await waterDamageOne(o, false, g, monCtx);
         o = next;
     }
 
