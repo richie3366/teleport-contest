@@ -296,16 +296,16 @@ function filterMenuExtraLine() {
  * C reset_role_filtering end_menu prompt (role.c ~2754–2755).
  */
 function paintResetRoleFilterHelpOverlay(disp) {
-    for (let r = 1; r <= 8; r++) disp.clearRow(r);
+    for (let r = 0; r <= 8; r++) disp.clearRow(r);
     const lines = [
         'Pick all facets you want marked UNACCEPTABLE (C PICK_ANY).',
-        'Toggled [x] entries are excluded like setrolefilter() after Enter.',
+        'Toggled +/- lines are excluded like setrolefilter() after Enter.',
         gotChargenRfilterLikeC()
             ? 'C also allows unpicking entries that no longer apply.'
             :         'Empty selection after Enter clears all filters (C n==0).',
         '',
         'Accelerators match role.c setup_*menu(FALSE): roles a/A, races H…',
-        'Keys: < > scroll  Enter apply  ESC cancel (no filter/facet change) — any key…',
+        'Keys: < > or , . change page  Enter apply  ESC cancel (no change) — any key…',
     ];
     for (let i = 0; i < lines.length; i++) {
         const t = lines[i].length > 80 ? lines[i].slice(0, 80) : lines[i];
@@ -357,6 +357,85 @@ function buildResetFilterMenuEntriesLikeC() {
     return entries;
 }
 
+/** C tty `reset_role_filtering` / plsel: two pages, `Pick all that apply` header (seed0006). */
+const FILTER_MENU_PAGE_COUNT = 2;
+
+function resetFilterRoleRecapNounLikeC(ri) {
+    const r = roles[ri];
+    if (r.name.f && r.name.f !== r.name.m) return `${r.name.m}/${r.name.f}`;
+    return r.name.m;
+}
+
+/** C indefinite article for first word (`an Archeologist`, `a Priest/Priestess`). */
+function indefiniteArticlePickerLikeC(nounPhrase) {
+    const firstWord = nounPhrase.trim().split(/[/\s]+/)[0] || 'x';
+    return /^[aeiou]/i.test(firstWord[0]) ? 'an' : 'a';
+}
+
+/**
+ * @param {{ key: string, token: string, label: string, section: string }[]} entries
+ * @param {Set<string>} selected
+ * @param {number} page — 0 = roles+races, 1 = genders+aligns
+ */
+function paintResetRoleFilterMenuLikeC(disp, entries, selected, page) {
+    disp.clearScreen();
+    disp.putstr(0, 0, ' ', NO_COLOR);
+    disp.putstr(1, 0, 'Pick all that apply', NO_COLOR, ATR_INVERSE);
+    let row = 2;
+    if (page === 0) {
+        disp.putstr(0, row, ' Unacceptable roles', NO_COLOR);
+        row++;
+        for (let ri = 0; ri < roles.length; ri++) {
+            const e = entries.find((x) => x.section === 'roles' && x.token === roles[ri].name.m);
+            if (!e) continue;
+            const mark = selected.has(e.token) ? '+' : '-';
+            const noun = resetFilterRoleRecapNounLikeC(ri);
+            const art = indefiniteArticlePickerLikeC(noun);
+            disp.putstr(0, row, ` ${e.key} ${mark} ${art} ${noun}`, NO_COLOR);
+            row++;
+        }
+        row++;
+        disp.putstr(0, row, ' Unacceptable races', NO_COLOR);
+        row++;
+        for (let rai = 0; rai < races.length; rai++) {
+            const e = entries.find((x) => x.section === 'races' && x.token === races[rai].name);
+            if (!e) continue;
+            const mark = selected.has(e.token) ? '+' : '-';
+            disp.putstr(0, row, ` ${e.key} ${mark} ${races[rai].name}`, NO_COLOR);
+            row++;
+        }
+    } else {
+        disp.putstr(0, row, ' Unacceptable genders', NO_COLOR);
+        row++;
+        for (let gi = 0; gi < genders.length; gi++) {
+            const e = entries.find((x) => x.section === 'genders' && x.token === genders[gi].name);
+            if (!e) continue;
+            const mark = selected.has(e.token) ? '+' : '-';
+            disp.putstr(0, row, ` ${e.key} ${mark} ${genders[gi].name}`, NO_COLOR);
+            row++;
+        }
+        row++;
+        disp.putstr(0, row, ' Unacceptable alignments', NO_COLOR);
+        row++;
+        for (let ai = 0; ai < aligns.length; ai++) {
+            const e = entries.find((x) => x.section === 'aligns' && x.token === aligns[ai].name);
+            if (!e) continue;
+            const mark = selected.has(e.token) ? '+' : '-';
+            disp.putstr(0, row, ` ${e.key} ${mark} ${aligns[ai].name}`, NO_COLOR);
+            row++;
+        }
+    }
+    const foot = ` (${page + 1} of ${FILTER_MENU_PAGE_COUNT})`;
+    disp.putstr(0, 23, foot, NO_COLOR);
+    disp.cursorVisible = true;
+    disp.setCursor(foot.length, 23);
+}
+
+function resetFilterAcceleratorTokenLikeC(entries, inch) {
+    const e = entries.find((x) => String(x.key) === inch);
+    return e ? e.token : undefined;
+}
+
 /**
  * C role.c reset_role_filtering() + select_menu(PICK_ANY): Enter applies
  * (n>=0 → clearrolefilter, setrolefilter per selected, ROLE=RACE=GEND=ALGN=NONE);
@@ -383,40 +462,13 @@ async function runResetRoleFilteringMenuLikeC(disp, f) {
         if (!resetFilterMenuAlignRowOkLikeC(ai)) selected.add(aligns[ai].name);
     }
 
-    const keyToToken = new Map();
-    for (const e of entries) {
-        keyToToken.set(e.key, e.token);
-    }
-
-    const VIEW_H = 16;
-    const maxScroll = Math.max(0, entries.length - VIEW_H);
-    let scroll = 0;
+    let page = 0;
     let applied = false;
     /** C select_menu count n (selected rows) at apply time. */
     let nApplied = 0;
 
     for (;;) {
-        disp.clearScreen();
-        disp.putstr(0, 0, 'reset_role_filtering (C role.c) — unacceptable facets', NO_COLOR);
-        disp.putstr(0, 1, 'Rl…=facet  ?=help  < > | C accel setup_*menu(FALSE)', NO_COLOR);
-        let row = 2;
-        for (let j = 0; j < VIEW_H && scroll + j < entries.length; j++) {
-            const e = entries[scroll + j];
-            const mark = selected.has(e.token) ? '[x]' : '[ ]';
-            const tag = e.section === 'roles' ? 'Rl'
-                : e.section === 'races' ? 'Rc'
-                    : e.section === 'genders' ? 'Gn'
-                        : 'Al';
-            disp.putstr(0, row, `${tag} ${e.key} ${mark} ${e.label}`, NO_COLOR);
-            row++;
-        }
-        const foot = maxScroll > 0
-            ? `Enter apply  ESC cancel (C n<0) — scroll ${scroll + 1}/${maxScroll + 1}`
-            : 'Enter apply  ESC cancel (C n<0) — C end_menu';
-        disp.putstr(0, 22, foot.length > 80 ? foot.slice(0, 80) : foot, NO_COLOR);
-        disp.putstr(0, 23, '', NO_COLOR);
-        disp.cursorVisible = true;
-        disp.setCursor(0, 23);
+        paintResetRoleFilterMenuLikeC(disp, entries, selected, page);
 
         const c = await nhgetch();
         if (c === 27) break;
@@ -435,15 +487,15 @@ async function runResetRoleFilteringMenuLikeC(disp, f) {
             continue;
         }
         if (c === 62 || c === 46) {
-            if (scroll < maxScroll) scroll++;
+            page = (page + 1) % FILTER_MENU_PAGE_COUNT;
             continue;
         }
         if (c === 60 || c === 44) {
-            if (scroll > 0) scroll--;
+            page = (page + FILTER_MENU_PAGE_COUNT - 1) % FILTER_MENU_PAGE_COUNT;
             continue;
         }
         const inch = String.fromCodePoint(c);
-        const tok = keyToToken.get(inch);
+        const tok = resetFilterAcceleratorTokenLikeC(entries, inch);
         if (tok) {
             if (selected.has(tok)) selected.delete(tok);
             else selected.add(tok);
