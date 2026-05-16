@@ -19,6 +19,7 @@ import { doBumpMeleeAttack } from './attack.js';
 import { tryPeacefulSwap } from './peaceful_displace.js';
 import { blocksMovementAt, diagonalHeroMoveBlocked } from './walkable.js';
 import { maybeHeroPoolEnter } from './drown.js';
+import { maybeHeroLavaEffects } from './lava.js';
 import { NO_TRAP_FLAGS } from './const.js';
 
 // Direction deltas: y u k
@@ -158,6 +159,7 @@ async function domove(dx, dy) {
                 const trSwap = tAt(newx, newy);
                 if (trSwap) await dotrap(trSwap, NO_TRAP_FLAGS);
                 await maybeHeroPoolEnter(game, { fromDx: dx, fromDy: dy });
+                if (!(game.iflags?.in_lava_effects | 0)) await maybeHeroLavaEffects(game);
                 const hx = u.ux, hy = u.uy;
                 newsym(ox, oy);
                 if (hx !== newx || hy !== newy) newsym(newx, newy);
@@ -187,6 +189,7 @@ async function domove(dx, dy) {
     const tr = tAt(newx, newy);
     if (tr) await dotrap(tr, NO_TRAP_FLAGS);
     await maybeHeroPoolEnter(game, { fromDx: dx, fromDy: dy });
+    if (!(game.iflags?.in_lava_effects | 0)) await maybeHeroLavaEffects(game);
     const hx = u.ux, hy = u.uy;
     game._pending_message = '';
     game._overlayScreen = null;

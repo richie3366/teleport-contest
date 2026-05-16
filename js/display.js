@@ -235,7 +235,7 @@ export function feelLocation(x, y) {
 }
 
 /**
- * C: display.c feel_newsym(x, y) — map water/lava when hero knows the cell (**`trap.c`** **`drown()`**).
+ * C: display.c feel_newsym(x, y) — hero learns tile (**`trap.c`** **`drown()`**, **`lava_effects()`**).
  * @param {number} x
  * @param {number} y
  */
