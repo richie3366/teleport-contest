@@ -1,7 +1,7 @@
 // trap.js — Hero stepping on floor traps (dotrap + trapeffect subset).
 // C ref: trap.c dotrap(), floor_trigger(), check_in_air(), trapeffect_selector()
 //        hero cases; trap.h fixed_tele_trap(); mondata.h is_clinger (M1_CLING).
-// domagictrap() shares makemon.js stub; seffects (fate 20); burnarmor on fire trap TODO.
+// domagictrap() shares makemon.js stub; seffects (fate 20); burn_floor_objects TODO.
 
 import { game } from './gstate.js';
 import { pline, newsym } from './display.js';
@@ -30,6 +30,7 @@ import { placeFloorObject } from './floorobj.js';
 import { goodposHero } from './walkable.js';
 import { destroyItemsYoumonstFire } from './destroy_items.js';
 import { igniteHeroInventory } from './ignite_items.js';
+import { burnarmorYoumonst } from './erode_obj.js';
 import {
     raceptr,
     breathless,
@@ -217,7 +218,7 @@ function tamedogStub() {
 
 /**
  * C: trap.c dofiretrap(box null) — floor / magic fire; **`burn_away_slime`** (**`timeout.js`**)
- * before destroy; **`if (burnarmor(&youmonst) || rn2(3))`** — **`burnarmor`** not ported (false).
+ * before destroy; **`if (burnarmor(&youmonst) || rn2(3))`** (**`erode_obj.js`** **`burnarmorYoumonst`**).
  */
 async function dofiretrapHeroNoBox() {
     const u = game.u;
@@ -238,8 +239,7 @@ async function dofiretrapHeroNoBox() {
     if (!num) await pline('You are uninjured.');
     else u.uhp = Math.max(0, (u.uhp ?? 0) - num);
     await burnAwaySlime(game);
-    const burnarmorStub = false;
-    if (burnarmorStub || rn2(3)) {
+    if ((await burnarmorYoumonst(game)) || rn2(3)) {
         await destroyItemsYoumonstFire(game, origDmg);
         await igniteHeroInventory(game);
     }
