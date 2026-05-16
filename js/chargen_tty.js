@@ -4,7 +4,7 @@
 // role.c genl_player_setup / build_plselection_prompt; role.c setup_rolemenu /
 // reset_role_filtering / role_menu_extra(RS_filter, '~').
 
-import { nhgetch } from './input.js';
+import { nhgetch, hasQueuedInput, pushKey } from './input.js';
 import {
     COPYRIGHT_BANNER_A,
     COPYRIGHT_BANNER_B,
@@ -714,7 +714,29 @@ async function pickManualChargenFacets(disp, f) {
                 await runResetRoleFilteringMenuLikeC(disp, f);
                 continue;
             }
+            /* C ref: role.c genl_player_setup — PICK_ONE n==2: first ROLE_RANDOM, second real role → choice = selected[1]. */
             if (k === '*') {
+                if (hasQueuedInput()) {
+                    const c2 = await nhgetch();
+                    const kRaw2 = String.fromCodePoint(c2);
+                    const k2 = lowc(kRaw2);
+                    if (k2 === '\x1b' || k2 === 'q') throw new Error('Player quit role menu');
+                    let ri2 = roleByMenuKey.get(kRaw2);
+                    if (ri2 === undefined) ri2 = roleByMenuKey.get(k2);
+                    if (ri2 === undefined) ri2 = roleByMenuKey.get(highc(kRaw2));
+                    if (ri2 !== undefined) {
+                        f.initrole = ri2;
+                        continue;
+                    }
+                    if (
+                        k2 !== '\r'
+                        && k2 !== '\n'
+                        && k2 !== ' '
+                        && k2 !== '*'
+                    ) {
+                        pushKey(c2);
+                    }
+                }
                 const t = pickRoleJs(
                     f.initrace >= 0 ? f.initrace : ROLE_RANDOM,
                     f.initgend >= 0 ? f.initgend : ROLE_RANDOM,
