@@ -47,6 +47,23 @@ export function isSpecialHeroUzLikeC(g) {
 }
 
 /**
+ * C: dungeon.c **`find_level(const char *s)`** — walk **`svs.sp_levchn`**, **`strcmpi(s, curr->proto)`**.
+ * JS: case-fold ASCII **`proto`** (same result as **`strcmpi`** for NH special names like **`tut-1`**).
+ * @param {import('./gstate.js').game} g
+ * @param {string} s
+ * @returns {object|null}
+ */
+export function findLevelByProtoLikeC(g, s) {
+    const needle = String(s ?? '').toLowerCase();
+    if (!needle) return null;
+    for (let sp = g.sp_levchn; sp; sp = sp.next) {
+        const hay = sp?.proto != null ? String(sp.proto).toLowerCase() : '';
+        if (hay === needle) return sp;
+    }
+    return null;
+}
+
+/**
  * C: dungeon.lua Gnomish Mines **`minetn`** (`flags = "town"`) once **`place_level`**
  * has fixed **`dlevel.dlevel`** within the mines branch.
  * Contest **`allmain`** stub uses **`num_dunlevs === 1`** mines — **no** minetn coordinate

@@ -20,14 +20,16 @@ import { fixShopDamage } from './shop.js';
 import { seeMonsters } from './vision.js';
 import { updateInventory } from './invent.js';
 import { takePendingGiveMayAdvancePline, takePendingDrainForgetPlines } from './u_init_skills.js';
+import { findLevelByProtoLikeC } from './sp_levchn.js';
 
 /**
- * C: dungeon.c **`find_level("tut-1")`** — special level pointer for the tutorial branch.
- * JS has no Lua/dungeon graph yet; return a non-null sentinel only when ported.
- * @returns {null | { dlevel: { dnum: number, dlevel: number } }}
+ * C: allmain.c **`maybe_do_tutorial`** → **`find_level("tut-1")`** (**`dungeon.c`**).
+ * Returns **`g.sp_levchn`** node when **`proto`** matches (case-insensitive); **`null`** if absent
+ * (contest stub usually has no **`tut-1`** until **`dungeon.c`** / Lua graph is ported).
+ * @returns {object|null}
  */
 export function findLevelTut1LikeC() {
-    return null;
+    return findLevelByProtoLikeC(game, 'tut-1');
 }
 
 /**
