@@ -4,7 +4,7 @@
 import { game } from './gstate.js';
 import { pline } from './display.js';
 import { tAt } from './search.js';
-import { terrainBlocksDisplaceForMon } from './walkable.js';
+import { terrainBlocksDisplaceForMon, terrainBlocksDisplaceForHero } from './walkable.js';
 
 function monLabel(mtmp) {
     return mtmp?.monnam || mtmp?.data?.mname || 'the peaceful creature';
@@ -18,17 +18,20 @@ export function mundisplaceable(mtmp) {
 }
 
 /**
- * C: hack.c displace — `!goodpos(hero,mon)` / trap on hero spot / `mundisplaceable` / `mtrapped`.
+ * C: hack.c displace — `!goodpos` for mon on hero tile and hero on mon tile / trap / `mundisplaceable` / `mtrapped`.
  * @param {{ mtrapped?: number }} mtmp
  * @param {number} heroX
  * @param {number} heroY
+ * @param {number} monX
+ * @param {number} monY
  */
-export function canPeacefullyDisplace(mtmp, heroX, heroY) {
+export function canPeacefullyDisplace(mtmp, heroX, heroY, monX, monY) {
     if (!mtmp) return false;
     if ((mtmp.mtrapped | 0) !== 0) return false;
     if (mundisplaceable(mtmp)) return false;
     if (tAt(heroX, heroY)) return false;
     if (terrainBlocksDisplaceForMon(mtmp, heroX, heroY)) return false;
+    if (terrainBlocksDisplaceForHero(monX, monY)) return false;
     return true;
 }
 
@@ -40,7 +43,7 @@ export function canPeacefullyDisplace(mtmp, heroX, heroY) {
 export async function tryPeacefulSwap(mtmp, heroX, heroY, monX, monY) {
     if (!(mtmp.mpeaceful | 0)) return { swapped: false };
     const who = monLabel(mtmp);
-    if (!canPeacefullyDisplace(mtmp, heroX, heroY)) {
+    if (!canPeacefullyDisplace(mtmp, heroX, heroY, monX, monY)) {
         await pline(`You stop. ${who} doesn't want to swap places.`);
         return { swapped: false };
     }
