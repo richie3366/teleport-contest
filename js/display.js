@@ -385,7 +385,19 @@ function _statusLine2() {
     if (!u) return '';
     const uz = u.uz || { dnum: 0, dlevel: 1 };
     const lvlSlot = describeLevelStatusSlotLikeC(game, uz);
-    return `${lvlSlot} $:${game._goldCount || 0} HP:${u.uhp || 0}(${u.uhpmax || 0}) Pw:${u.uen || 0}(${u.uenmax || 0}) AC:${u.uac ?? 10} Xp:${u.ulevel || 1}/${u.uexp || 0} T:${game.moves || 1}`;
+    /* C botl.c do_statusline2 — expr / tmmv vs flags.showexp, flags.time, Upolyd */
+    const f = game.flags || {};
+    let expr;
+    if (u.Upolyd | 0) {
+        const mlevel = game.youmonst?.data?.mlevel ?? 1;
+        expr = `HD:${mlevel}`;
+    } else if (f.showexp) {
+        expr = `Xp:${u.ulevel || 1}/${Number(u.uexp) || 0}`;
+    } else {
+        expr = `Xp:${u.ulevel || 1}`;
+    }
+    const timePart = f.time ? ` T:${game.moves | 0}` : '';
+    return `${lvlSlot} $:${game._goldCount || 0} HP:${u.uhp || 0}(${u.uhpmax || 0}) Pw:${u.uen || 0}(${u.uenmax || 0}) AC:${u.uac ?? 10} ${expr}${timePart}`;
 }
 
 /** Status rows for full-screen overlays (legacy intro, …). C tty keeps botl on rows 22–23. */

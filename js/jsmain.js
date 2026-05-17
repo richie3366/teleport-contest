@@ -99,8 +99,8 @@ export class NethackGame {
         const fullInteractiveChargen = needsFullInteractiveChargen(opts);
         const asknameOnly = needsAsknameOnly(opts);
         g.plname = (fullInteractiveChargen || asknameOnly) ? '' : (opts.name || 'Hero');
-        /* C optlist.h NHOPTB(legacy … On) — default true unless rc sets legacy:no */
-        g.flags = { verbose: true, legacy: true, ...opts.flags };
+        /* C optlist.h — NHOPTB(legacy … On), NHOPTB(showexp … Off), NHOPTB(time … Off) */
+        g.flags = { verbose: true, legacy: true, showexp: false, time: false, ...opts.flags };
         g.iflags = { ...opts.iflags };
         if (opts.preferred_pet) g.preferred_pet = opts.preferred_pet;
         if (opts.tutorial_set) g.tutorial_set_in_config = true;
