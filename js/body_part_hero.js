@@ -24,9 +24,15 @@ const S_EEL = 57;
 const S_ELEMENTAL = 31;
 /** C: defsym.h MONSYM — bat / bird (e.g. **`PM_RAVEN`** uses **`bird_parts`**). */
 const S_BAT = 28;
+/** C: defsym.h **`MONSYM`** — **`mbodypart`** LEG dog/feline/rodent → **`horse_parts[LEG]`**. */
+const S_DOG = 4;
+const S_FELINE = 6;
+const S_RODENT = 18;
 
 /** C: **`mons[]`** index — NH **5.0.0** **`monsters.h`** **`MON(NAM(\"jellyfish\")`…`JELLYFISH)`** ( **`mbodypart`**: **`S_EEL`** → **`jelly_parts`**, not **`fish_parts`**). */
 const PM_JELLYFISH = 323;
+/** C: **`mons[]`** index — NH **5.0.0** **`monsters.h`** **`MON(NAM(\"owlbear\")`…`OWLBEAR)`** (**`S_YETI`** but **`mbodypart`** dog-branch **`PM_OWLBEAR`** → **`horse_parts[LEG]`**). */
+const PM_OWLBEAR = 241;
 
 /** C: **`mons[]`** index — matches **`shop.js`** stalker / **`invisible`** tests in this fork. */
 const PM_STALKER = 153;
@@ -80,6 +86,41 @@ export function bodyPartHeroFootLikeC() {
 /** C: objnam.c **`makeplural("foot")`** — pray.c **`at_your_feet`** feet line. */
 export function makePluralHeroFootLikeC() {
     return 'feet';
+}
+
+/**
+ * C: polyself.c **`mbodypart(&gy.youmonst, LEG)`** — read.c **`seffect_remove_curse`** clasp (**`body_part(LEG)`**).
+ * Subset: dog/feline/rodent / **`PM_OWLBEAR`** **`rear leg`**; slithy **`rear region`**; spider **`leg`**; worm **`posterior`**;
+ * **`PM_JELLYFISH`** **`lower pseudopod`**; other eels **`peduncle`**; humanoid **`leg`**; default **`rear limb`**.
+ * @param {import('./gstate.js').game} g
+ * @returns {string}
+ */
+export function mbodypartHeroLegLikeC(g) {
+    const ptr = raceptr(g?.youmonst);
+    const ml = ptr.mlet | 0;
+    const mn = ptr.mnum | 0;
+    if (ml === S_DOG || ml === S_FELINE || ml === S_RODENT || mn === PM_OWLBEAR) {
+        return 'rear leg';
+    }
+    if (slithy(ptr)) {
+        return 'rear region';
+    }
+    if (ml === S_SPIDER) {
+        return 'leg';
+    }
+    if (ml === S_WORM) {
+        return 'posterior';
+    }
+    if (mn === PM_JELLYFISH) {
+        return 'lower pseudopod';
+    }
+    if (ml === S_EEL && mn !== PM_JELLYFISH) {
+        return 'peduncle';
+    }
+    if (humanoidLikeC(ptr)) {
+        return 'leg';
+    }
+    return 'rear limb';
 }
 
 /**

@@ -125,6 +125,23 @@ export function floatVsFlightLikeC(g) {
     g.disp.botl = true;
 }
 
+/**
+ * C: trap.c **`reset_utrap(msg)`** — **`float_up`** / **`You("can fly.")`** after **`set_utrap(0,0)`** (**`u.utrap`** already clear).
+ * @param {import('./gstate.js').game} g
+ * @param {boolean} msg
+ * @param {boolean} wasLevitation C **`Levitation != 0`** before **`set_utrap`**
+ * @param {boolean} wasFlying C **`Flying != 0`** before **`set_utrap`**
+ */
+export async function resetUtrapMsgAfterClearHeroLikeC(g, msg, wasLevitation, wasFlying) {
+    if (!msg) return;
+    if (!wasLevitation && levitationEffectiveLikeC(g)) {
+        await floatUpAfterTerrainUnblockLikeC(g);
+    }
+    if (!wasFlying && flyingEffectiveLikeC(g)) {
+        await pline('You can fly.');
+    }
+}
+
 /** C: monmove.c **`closed_door(x,y)`** — hero cell. */
 function closedDoorAt(g, x, y) {
     const loc = g.level?.at(x | 0, y | 0);

@@ -4,7 +4,7 @@
 //        unless **`SCR_BLANK_PAPER`**),
 //        **`seffects`** (**`exercise`** when **`oc_magic`**, **`switch(otyp)`** — blank, punishment (**`seffect_punishment`** partial), stinking cloud (discovery + **`gk`**; **`do_stinking_cloud`** TODO),
 //        remove curse (**`You_feel`** + cursed **`pline_The`**; no **`gk`**; **`Punished`** && !confused → **`unpunish`**;
-//        **`TT_BURIEDBALL`**: **`floorobj.js`** **`buriedBallToFreedomLikeC`** + clasp **`pline_The`**; invent + steed saddle **`remove_curse_hero.js`**), default stub),
+//        **`TT_BURIEDBALL`**: **`floorobj.js`** **`buriedBallToFreedomLikeC`** + **`switch_terrain.js`** **`resetUtrapMsgAfterClearHeroLikeC`** (**C **`trap.c`** **`reset_utrap(TRUE)`** **`float_up`/`You can fly.`**) after **`floatVsFlightLikeC`**; clasp **`mbodypartHeroLegLikeC`**; invent + steed saddle **`remove_curse_hero.js`**), default stub),
 //        **`learnscroll`** / **`learnscrolltyp`**.
 
 import { game } from './gstate.js';
@@ -20,7 +20,13 @@ import { heroPunishedLikeC, unpunishHeroLikeC } from './punish_hero.js';
 import { syncHeroInvWeightNetLikeC } from './encumbr.js';
 import { removeCurseHeroInventLoopLikeC } from './remove_curse_hero.js';
 import { buriedBallToFreedomLikeC } from './floorobj.js';
-import { floatVsFlightLikeC } from './switch_terrain.js';
+import {
+    floatVsFlightLikeC,
+    flyingEffectiveLikeC,
+    levitationEffectiveLikeC,
+    resetUtrapMsgAfterClearHeroLikeC,
+} from './switch_terrain.js';
+import { mbodypartHeroLegLikeC } from './body_part_hero.js';
 
 /** C: **`objects_nums`** **`SCR_BLANK_PAPER`** — **`SCROLL(..., mgc, ...)`** with **`mgc`** **0** (**`objects.h`**). */
 const OTYP_SCR_BLANK_PAPER = 364;
@@ -117,13 +123,19 @@ export async function seffectsHeroReadScrollLikeC(g, scroll, blind) {
     }
 }
 
-/** C: read.c **`seffect_remove_curse`** — **`buried_ball_to_freedom`** then **`pline_The("clasp…", body_part(LEG))`**; **`reset_utrap(TRUE)`** **`float_up`** tail TODO. */
+/** C: read.c **`seffect_remove_curse`** — **`buried_ball_to_freedom`**, **`reset_utrap(TRUE)`** msg (**`float_up`/`You can fly.`**), **`pline_The`…**`body_part(LEG)`**. */
 async function heroBuriedBallClaspVanishesAfterRemoveCurseLikeC(g) {
     const u = g?.u;
     if (!u || !(u.utrap | 0) || (u.utraptype | 0) !== TT_BURIEDBALL) return;
+    const wasLev = levitationEffectiveLikeC(g);
+    const wasFly = flyingEffectiveLikeC(g);
     const freed = buriedBallToFreedomLikeC(g);
-    if (freed) floatVsFlightLikeC(g);
-    await pline('The clasp on your leg vanishes.');
+    if (freed) {
+        floatVsFlightLikeC(g);
+        await resetUtrapMsgAfterClearHeroLikeC(g, true, wasLev, wasFly);
+    }
+    const leg = mbodypartHeroLegLikeC(g);
+    await pline(`The clasp on your ${leg} vanishes.`);
 }
 
 /** @param {import('./gstate.js').game} g */
