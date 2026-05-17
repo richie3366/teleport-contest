@@ -17,22 +17,54 @@ const AC_MAX = 99;
 
 /**
  * C `objects[].a_ac` (= OBJECT `10 - ac` in objects.h `ARMOR`/`HELM`/`CLOAK`/…) for NH5 `objects_nums`
- * `otyp` values. NH5 **`objects_nums`** mostly follows **`objects.h`** OBJECT order + **16** (see **`LEATHER_ARMOR` 134**); **`#if 0`** / cpp gaps can shift blocks — dragon suits use **`OTYP_*`** from **`const.js`**. Extend when new worn otyps appear.
+ * `otyp` values. NH5 **`objects_nums`**: helms **90–101** from **`objects.h`** armor section with **`#if 0`** deferred dragons skipped (elven … telepathy, then **`GRAY_DRAGON_SCALE_MAIL`** **102** via **`const.js`** loops). Shirts through boots use cpp **`OBJECTS_ENUM`** order (**`LEATHER_ARMOR` 134**, **`HAWAIIAN_SHIRT` 136**, …). Dragon mail/scales still filled from **`OTYP_GRAY_DRAGON_*`** … **`OTYP_YELLOW_DRAGON_*`** below.
  * @type {Map<number, number>}
  */
 const OBJECTS_A_AC_ARMOR = new Map([
+    /* Helms — C `objects.h` order with `#if 0` dragon deferrals skipped; `otyp` 90…102 = elven helm … gray dragon mail anchor (see loops below). */
+    [90, 1], /* ELVEN_LEATHER_HELM — ac 9 */
+    [91, 1], /* ORCISH_HELM */
+    [92, 2], /* DWARVISH_IRON_HELM — ac 8 */
     [93, 0], /* FEDORA — ac 10 */
-    [95, 1], /* HELMET */
+    [94, 0], /* CORNUTHAUM */
+    [95, 0], /* DUNCE_CAP */
+    [96, 1], /* DENTED_POT — ac 9 */
+    [97, 1], /* HELM_OF_BRILLIANCE */
+    [98, 1], /* HELMET */
+    [99, 1], /* HELM_OF_CAUTION */
+    [100, 1], /* HELM_OF_OPPOSITE_ALIGNMENT */
+    [101, 1], /* HELM_OF_TELEPATHY */
     [124, 6], /* SPLINT_MAIL — ac 4 */
     [132, 3], /* RING_MAIL — ac 7 */
     [134, 2], /* LEATHER_ARMOR — ac 8 */
     [135, 1], /* LEATHER_JACKET — ac 9 */
     [136, 0], /* HAWAIIAN_SHIRT — ac 10 */
+    [137, 0], /* T_SHIRT — ac 10 */
+    [138, 0], /* MUMMY_WRAPPING — ac 10 */
+    [139, 1], /* ELVEN_CLOAK — ac 9 */
+    [140, 0], /* ORCISH_CLOAK — ac 10 */
+    [141, 0], /* DWARVISH_CLOAK */
+    [142, 1], /* OILSKIN_CLOAK — ac 9 */
     [143, 2], /* ROBE (cloak) — ac 8 */
+    [144, 1], /* ALCHEMY_SMOCK — ac 9 */
+    [145, 1], /* LEATHER_CLOAK */
+    [146, 3], /* CLOAK_OF_PROTECTION — ac 7 */
+    [147, 1], /* CLOAK_OF_INVISIBILITY */
     [148, 1], /* CLOAK_OF_MAGIC_RESISTANCE */
     [149, 1], /* CLOAK_OF_DISPLACEMENT */
     [150, 1], /* SMALL_SHIELD */
+    [151, 1], /* SHIELD_OF_DRAIN_RESISTANCE */
+    [152, 1], /* SHIELD_OF_SHOCK_RESISTANCE */
+    [153, 2], /* ELVEN_SHIELD — ac 8 */
+    [154, 1], /* URUK_HAI_SHIELD */
+    [155, 1], /* ORCISH_SHIELD */
+    [156, 2], /* LARGE_SHIELD — ac 8 */
+    [157, 2], /* DWARVISH_ROUNDSHIELD */
+    [158, 2], /* SHIELD_OF_REFLECTION */
     [159, 1], /* LEATHER_GLOVES */
+    [160, 1], /* GAUNTLETS_OF_FUMBLING */
+    [161, 1], /* GAUNTLETS_OF_POWER */
+    [162, 1], /* GAUNTLETS_OF_DEXTERITY */
     [163, 1], /* LOW_BOOTS — ac 9 */
     [164, 2], /* IRON_SHOES — ac 8 */
     [165, 2], /* HIGH_BOOTS — ac 8 */
