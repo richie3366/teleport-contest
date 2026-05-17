@@ -1,5 +1,5 @@
 // pray_hero.js — C pray.c dopray / can_pray / prayer_done / pleased subset / angrygods for `#pray`.
-// C ref: pray.c dopray, can_pray, prayer_done, pleased (subset), angrygods (**`gods_angry`** + **`read.c`** **`punish`** null **`sobj`** on case **6**), gods_upset, water_prayer
+// C ref: pray.c dopray, can_pray, prayer_done, pleased (subset), angrygods (**`gods_angry`** + **`read.c`** **`punish`** null **`sobj`** on case **6**; **`minion.c`** **`summon_minion`** on cases **7–8**), gods_upset, water_prayer
 //
 // Extended commands read a tty line after `#` (terminated by `\n` or `\r`); see extcmd.js.
 // C dopray uses nomul(-3); JS drains three moveloop-equivalent ticks (moveloop_turn_advance.js)
@@ -43,6 +43,7 @@ import { pluslvlHeroLikeC } from './exper_pluslvl.js';
 import { applyPleasedPatOnHeadCases678LikeC } from './pray_pat_spell_gcrown.js';
 import { punishHeroFromObjLikeC } from './punish_hero.js';
 import { syncHeroInvWeightNetLikeC } from './encumbr.js';
+import { summonMinionHeroLikeC } from './minion_summon_hero.js';
 
 const STRIDENT = 4;
 /** C: pray.c `#define DEVOUT 14` */
@@ -495,6 +496,7 @@ async function angrygodsLikeC(g, respGod) {
                 } me?"`,
             );
             await pline(`"Then die, ${mortalOrCreature}!"`);
+            summonMinionHeroLikeC(g, rg, false);
             break;
         }
         default:
