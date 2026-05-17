@@ -4,6 +4,7 @@
 import { game } from './gstate.js';
 import { NO_COLOR, ATR_INVERSE } from './terminal.js';
 import { applyRogueHumanLinkedInventAndWieldLikeC } from './u_init_link_rogue_invent.js';
+import { applySamuraiHumanLinkedInventAndWieldLikeC } from './u_init_link_samurai_invent.js';
 
 const INV_COL = 32;
 
@@ -565,6 +566,7 @@ export function initIniInvStub(/** @type {import('./gstate.js').game} */ g) {
         g.discoveryGroups = [];
     }
     applyRogueHumanLinkedInventAndWieldLikeC(g);
+    applySamuraiHumanLinkedInventAndWieldLikeC(g);
 }
 
 /** @param {import('./game_display.js').GameDisplay} display */
