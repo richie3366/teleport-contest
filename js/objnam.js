@@ -15,6 +15,12 @@ import {
     NH5_WEAPON_CLASS,
 } from './nh5_objclass.js';
 import { isSpellbookOtyp, spellbookAppearanceNounPhrase } from './spellbook_discovery_lines.js';
+import {
+    donameArmorLikeC,
+    isArmorOtypLikeC,
+    tryMakePluralArmorBurnLikeC,
+    xnameArmorPhraseNoArticleLikeC,
+} from './objnam_armor_like_c.js';
 import { nh5HeroObjectClass } from './water_damage.js';
 import { OC_SKILL_ROW_BY_OTYP } from './obj_oc_skill_data.js';
 import { cansee } from './vision.js';
@@ -362,6 +368,10 @@ export function xnameBurnFloor(obj, g = game) {
         }
         return `${spellbookAppearanceFromOtyp(t)} spellbook`;
     }
+    if (oc === NH5_ARMOR_CLASS || isArmorOtypLikeC(t)) {
+        const ph = xnameArmorPhraseNoArticleLikeC(obj, g, false);
+        if (ph != null) return ph;
+    }
     const ocRow = OC_SKILL_ROW_BY_OTYP.get(t);
     if (ocRow) return ocSkillRowPhraseFromRow(ocRow) || 'item';
     return 'item';
@@ -407,6 +417,8 @@ export function distantNameBurnFloor(obj, x, y, g = game) {
  * @param {string} s
  */
 export function makePluralBurn(s) {
+    const armPl = tryMakePluralArmorBurnLikeC(s);
+    if (armPl != null) return armPl;
     if (s === 'glob of green slime') return 'globs of green slime';
     if (s === 'potion') return 'potions';
     if (s.endsWith(' potion') && !s.startsWith('potion of ')) {
@@ -444,6 +456,7 @@ export function makePluralBurn(s) {
  * Scrolls: `g.scrollDiscovery` Set drives **`scroll of`** vs **`scroll labeled`** when `dknown`.
  * Potions: NH **5.0.0** **`objects_nums`** **296..321** — appearance vs **`potion of …`** from **`g.potionDiscovery`** when `dknown`.
  * Wands: **`409..433`** — appearance vs **`wand of …`** from **`g.wandDiscovery`** when `dknown` (**`objects.h`** **`WAND`** through **`WAN_LIGHTNING`**).
+ * Armor: NH5 **`otyp`** **90..173** — **`OBJ_DESCR`**/**`OBJ_NAME`** from **`objnam_armor_like_c.js`**; known type from **`g.armorDiscovery`** when set (**`discoverArmorOtypHeroLikeC`**); dragon scales **`set of`**, gloves/boots **`pair of`**, unknown shield **`!dknown`** stub like C.
  * Slime mold / glob: FOOD **`otyp`** subset (**`minimal_xname`** corpsenm suppression not modeled).
  * **`OC_SKILL_ROW_BY_OTYP`** otyps: C **`OBJ_NAME`**-style phrase (**`distant_name`** far uses class stub).
  * @param {{ otyp?: number, quan?: number, oclass?: number, dknown?: number }} otmp
@@ -502,6 +515,8 @@ export function doname(otmp, g = game, opts) {
         }
         return `${q} ${phrase}s`;
     }
+    const armDon = donameArmorLikeC(otmp, g, q, overrideId, justArticlePrefix);
+    if (armDon != null) return armDon;
     const ocDon = donameFromOcSkillRowLikeC(otmp, q);
     if (ocDon != null) return ocDon;
     return `an object (${otmp.otyp})`;
@@ -565,7 +580,7 @@ export function upstartLikeC(str) {
 
 /**
  * C: o_init.c **`discover_object(oindx, mark_as_known, mark_as_encountered, credit_hero)`** — **`disco[]`** slot + **`oc_encountered`** / **`oc_name_known`**.
- * JS: **`g.objectEncountered`** (**`Set<otyp>`**) when **`mark_as_encountered`**; **`partialNameKnown`** uses **`scrollDiscovery`** / **`objectDiscovery`** / **`potionDiscovery`** / **`wandDiscovery`** like C **`objects[].oc_name_known`** gates for those JS mirrors.
+ * JS: **`g.objectEncountered`** (**`Set<otyp>`**) when **`mark_as_encountered`**; **`partialNameKnown`** uses **`scrollDiscovery`** / **`objectDiscovery`** / **`potionDiscovery`** / **`wandDiscovery`** / **`armorDiscovery`** like C **`objects[].oc_name_known`** gates for those JS mirrors.
  * Omits **`svb.bases[]`**, Samurai **`Japanese_item_name`**, **`gem_learned`**, **`update_inventory`**, **`exercise`**.
  * @param {import('./gstate.js').game} g
  * @param {number} oindx
@@ -584,7 +599,8 @@ export function discoverObjectHeroLikeC(g, oindx, markAsKnown, markAsEncountered
     const spellKnown = g.objectDiscovery instanceof Set && g.objectDiscovery.has(t);
     const potKnown = g.potionDiscovery instanceof Set && g.potionDiscovery.has(t);
     const wandKnown = g.wandDiscovery instanceof Set && g.wandDiscovery.has(t);
-    const partialNameKnown = scrollKnown || spellKnown || potKnown || wandKnown;
+    const armorKnown = g.armorDiscovery instanceof Set && g.armorDiscovery.has(t);
+    const partialNameKnown = scrollKnown || spellKnown || potKnown || wandKnown || armorKnown;
 
     /* C: outer **`if`** — no **`objects[]`** yet; spell/scroll Sets approximate **`oc_name_known`** for those classes only. */
     const enter = (markAsKnown && !partialNameKnown) || (markAsEncountered && !alreadyEnc);

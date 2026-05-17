@@ -2982,7 +2982,9 @@ export const PM_LICHEN = 162;
 /** C: `monsters.h` MON() order — adult gray–yellow dragon (`mondata.c` `defended`, `Dragon_scales_to_pm`). */
 export const PM_GRAY_DRAGON = 143;
 export const PM_YELLOW_DRAGON = 153;
-/** C: objects.h `OBJECTS_ENUM` (NH 5.0) — dragon scale mail / scales contiguous blocks. */
+/** C: `objects.h` — dragon scale mail / scales blocks + NH5 armor **`objects_nums`** **90..173** (helms … **`LEVITATION_BOOTS`**). */
+export const OTYP_ARMOR_FIRST = 90;
+export const OTYP_ARMOR_LAST = 173;
 export const OTYP_GRAY_DRAGON_SCALE_MAIL = 102;
 export const OTYP_YELLOW_DRAGON_SCALE_MAIL = 111;
 export const OTYP_GRAY_DRAGON_SCALES = 112;

@@ -10,7 +10,7 @@ import { rn2, rnd } from './rng.js';
 import { pline } from './display.js';
 import { updateInventory } from './invent.js';
 import { obliterateObjectInLevel } from './floorobj.js';
-import { NH5_POTION_CLASS, NH5_SCROLL_CLASS, NH5_SPBOOK_CLASS, NH5_WAND_CLASS } from './nh5_objclass.js';
+import { NH5_POTION_CLASS, NH5_SCROLL_CLASS, NH5_SPBOOK_CLASS, NH5_WAND_CLASS, NH5_ARMOR_CLASS } from './nh5_objclass.js';
 import { OC_SKILL_ROW_BY_OTYP } from './obj_oc_skill_data.js';
 
 /** @see include/objects.h — `SKELETON_KEY` **222** ⇒ seven **`CONTAINER`** lines **215–221**. */
@@ -86,6 +86,9 @@ const OTYP_SPE_NOVEL = 407;
 const OTYP_SPE_BOOK_OF_THE_DEAD = 408;
 const OTYP_WAND_FIRST = 409;
 const OTYP_WAND_LAST = 433;
+/** C: **`objects.h`** armor block — NH5 **`objects_nums`** **90..173**. */
+const OTYP_ARMOR_FIRST = 90;
+const OTYP_ARMOR_LAST = 173;
 
 /**
  * C: you.h Luck + LUCKADD (subset).
@@ -105,6 +108,7 @@ export function nh5HeroObjectClass(obj) {
     const row = OC_SKILL_ROW_BY_OTYP.get(obj.otyp | 0);
     if (row) return row.oclass;
     const t = obj.otyp | 0;
+    if (t >= OTYP_ARMOR_FIRST && t <= OTYP_ARMOR_LAST) return NH5_ARMOR_CLASS;
     if (t >= OTYP_POT_GAIN_ABILITY && t <= OTYP_POT_WATER) return NH5_POTION_CLASS;
     if (t > OTYP_POT_WATER && t <= OTYP_SCR_BLANK_PAPER) return NH5_SCROLL_CLASS;
     if (t >= OTYP_WAND_FIRST && t <= OTYP_WAND_LAST) return NH5_WAND_CLASS;
