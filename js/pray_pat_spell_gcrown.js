@@ -4,7 +4,7 @@
 
 import { rnd, rn2 } from './rng.js';
 import { pline, newsym } from './display.js';
-import { FROMOUTSIDE, A_LAWFUL, A_NEUTRAL, A_CHAOTIC, P_ISRESTRICTED, P_LONG_SWORD, P_BROAD_SWORD } from './const.js';
+import { FROMOUTSIDE, A_LAWFUL, A_NEUTRAL, A_CHAOTIC, P_ISRESTRICTED, P_LONG_SWORD, P_BROAD_SWORD, LL_DIVINEGIFT, LL_ARTIFACT, LL_SPOILER } from './const.js';
 import { NH5_SPBOOK_CLASS, NH5_WEAPON_CLASS } from './nh5_objclass.js';
 import { SPBOOK_CLASS_MKOBJ_OC_PROB_ROWS, SPELLBOOK_OTYP_LEVEL, SPELLBOOK_OTYP_OC_SKILL } from './mkobj_wizard_ini_inv_data.js';
 import { SPELLBOOK_SKILL_LEVEL_ROWS } from './spellbook_skill_level_data.js';
@@ -14,6 +14,7 @@ import {
     discoverObjectHeroLikeC,
     ansimpleonameLikeC,
     upstartLikeC,
+    actualonameHeroLikeC,
 } from './objnam.js';
 import { makePluralHeroFootLikeC, mbodypartMonsterStomachLikeC } from './body_part_hero.js';
 import { updateInventory } from './invent.js';
@@ -21,6 +22,7 @@ import { isWeptoolObjLikeC } from './hero_hands.js';
 import { addWeaponSkill, unrestrictWeaponSkill } from './u_init_skills.js';
 import { weaponType } from './weapon_kind.js';
 import { discoverArtifactHeroLikeC } from './artifact_discover_like_c.js';
+import { livelogPrintfLikeC } from './livelog.js';
 
 /** C: pray.c `#define PIOUS 20` */
 const PIOUS = 20;
@@ -389,6 +391,26 @@ function alignGnameGcrownLikeC(g, aligntyp) {
     return 'the void';
 }
 
+/** C: **`u_gname()`** — contest: deity label stub (**`alignGnameGcrownLikeC`** at hero align). */
+function uGnameLikeC(g) {
+    return alignGnameGcrownLikeC(g, g.u?.ualign?.type ?? 0);
+}
+
+/** C: **`uhis()`** — possessive pronoun for **`gcrownu`** **`livelog_printf`**. */
+function uhisLikeC(g) {
+    if (g.flags?.female) return 'her';
+    return 'his';
+}
+
+/** C: **`artiname(arti)`** — artifact gift names in **`gcrownu`** **`livelog`**. */
+function artinameLikeC(arti) {
+    const a = arti | 0;
+    if (a === ART_EXCALIBUR) return 'Excalibur';
+    if (a === ART_STORMBRINGER) return 'Stormbringer';
+    if (a === ART_VORPAL_BLADE) return 'Vorpal Blade';
+    return 'artifact';
+}
+
 /**
  * C: pray.c gcrownu (subset with full RNG spine for mksobj calls).
  * @param {import('./gstate.js').game} g
@@ -442,14 +464,17 @@ export async function gcrownuHeroLikeC(g, godvoices) {
     if (al === A_LAWFUL) {
         u.uevent.uhand_of_elbereth = 1;
         await pline('I crown thee... The Hand of Elbereth!');
+        livelogPrintfLikeC(g, LL_DIVINEGIFT, 'was crowned "The Hand of Elbereth" by %s', uGnameLikeC(g));
     } else if (al === A_NEUTRAL) {
         u.uevent.uhand_of_elbereth = 2;
         await pline('Thou shalt be my Envoy of Balance!');
+        livelogPrintfLikeC(g, LL_DIVINEGIFT, 'became %s Envoy of Balance', sSuffixLikeC(uGnameLikeC(g)));
     } else if (al === A_CHAOTIC) {
         u.uevent.uhand_of_elbereth = 3;
         const what =
             ((alreadyStorm && !inHandStorm) || classGiftNonStrange) ? 'take lives' : 'steal souls';
         await pline(`Thou art chosen to ${what} for My Glory!`);
+        livelogPrintfLikeC(g, LL_DIVINEGIFT, 'was chosen to %s for the Glory of %s', what, uGnameLikeC(g));
     }
 
     if (classGift !== STRANGE_OBJECT && SPELLBOOK_OTYP_OC_SKILL.has(classGift)) {
@@ -483,6 +508,12 @@ export async function gcrownuHeroLikeC(g, godvoices) {
         stackObjOnFloorInLevel(g, book);
         await newsym(x, y);
         u.ugifts = (u.ugifts | 0) + 1;
+        livelogPrintfLikeC(
+            g,
+            LL_DIVINEGIFT | LL_ARTIFACT | LL_SPOILER,
+            'was bestowed with %s',
+            actualonameHeroLikeC(book, g),
+        );
         if (knownSpellLikeC(g, classGift) !== spe_Unknown && okWepLikeC(g, u.uwep)) obj = u.uwep;
     }
 
@@ -490,8 +521,17 @@ export async function gcrownuHeroLikeC(g, godvoices) {
         if (classGift === STRANGE_OBJECT && obj && (obj.otyp | 0) === OTYP_LONG_SWORD && !(obj.oartifact | 0)) {
             const blind = !!(u.Blind | 0) || !!(u.ublind | 0) || (u.timed?.blind ?? 0) > 0;
             if (!blind) await pline('Your sword shines brightly for a moment.');
+            const lbuf = ansimpleonameLikeC(obj, g);
             obj.oartifact = ART_EXCALIBUR;
             u.ugifts = (u.ugifts | 0) + 1;
+            livelogPrintfLikeC(
+                g,
+                LL_DIVINEGIFT | LL_ARTIFACT,
+                'had %s wielded %s transformed into %s',
+                uhisLikeC(g),
+                lbuf,
+                artinameLikeC(ART_EXCALIBUR),
+            );
         }
         unrestrictWeaponSkill(u, P_LONG_SWORD);
         if (obj && (obj.oartifact | 0) === ART_EXCALIBUR) discoverArtifactHeroLikeC(g, ART_EXCALIBUR);
@@ -523,6 +563,7 @@ export async function gcrownuHeroLikeC(g, godvoices) {
             stackObjOnFloorInLevel(g, sw);
             await newsym(u.ux | 0, u.uy | 0);
             u.ugifts = (u.ugifts | 0) + 1;
+            livelogPrintfLikeC(g, LL_DIVINEGIFT | LL_ARTIFACT, 'was bestowed with %s', artinameLikeC(ART_VORPAL_BLADE));
             obj = sw;
         }
         unrestrictWeaponSkill(u, P_LONG_SWORD);
@@ -555,6 +596,7 @@ export async function gcrownuHeroLikeC(g, godvoices) {
             stackObjOnFloorInLevel(g, sw);
             await newsym(u.ux | 0, u.uy | 0);
             u.ugifts = (u.ugifts | 0) + 1;
+            livelogPrintfLikeC(g, LL_DIVINEGIFT | LL_ARTIFACT, 'was bestowed with %s', artinameLikeC(ART_STORMBRINGER));
             obj = sw;
         }
         unrestrictWeaponSkill(u, P_BROAD_SWORD);

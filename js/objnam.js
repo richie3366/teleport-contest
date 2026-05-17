@@ -207,6 +207,27 @@ export function ansimpleonameLikeC(otmp, g = game) {
 }
 
 /**
+ * C: objnam.c **`actualoname(obj)`** — **`iflags.override_ID`** then **`minimal_xname(obj)`**.
+ * JS: spellbooks use discovered-style **`spellbook of …`** (**`spellbookAppearanceNounPhrase`**) regardless of **`g.objectDiscovery`**;
+ * other classes fall back to **`doname`** with leading article stripped.
+ * @param {{ otyp?: number, oclass?: number, quan?: number, dknown?: number, oartifact?: number }} otmp
+ * @param {object} [g]
+ */
+export function actualonameHeroLikeC(otmp, g = game) {
+    if (!otmp) return '';
+    const otyp = otmp.otyp | 0;
+    const oc = nh5HeroObjectClass(otmp);
+    if (oc === NH5_SPBOOK_CLASS || isSpellbookOtyp(otyp)) {
+        const ph = spellbookAppearanceNounPhrase(otyp);
+        if (ph) return ph;
+    }
+    let s = doname(otmp, g);
+    if (s.startsWith('an ')) return s.slice(3);
+    if (s.startsWith('a ')) return s.slice(2);
+    return s;
+}
+
+/**
  * C: decl.c **`upstart(str)`** — capitalize first character (ASCII).
  * @param {string} str
  */
