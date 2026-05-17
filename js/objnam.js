@@ -155,11 +155,13 @@ export function makePluralBurn(s) {
  * Spellbooks: if `otyp` is an NH5 spellbook and `g.objectDiscovery` contains it,
  * name like `a spellbook of force bolt` (C appearance after skill_based_spellbook_id).
  * Scrolls: `g.scrollDiscovery` Set drives **`scroll of`** vs **`scroll labeled`** when `dknown`.
- * @param {{ otyp?: number, quan?: number, oclass?: number }} otmp
+ * @param {{ otyp?: number, quan?: number, oclass?: number, dknown?: number }} otmp
  * @param {object} [g]
+ * @param {{ overrideId?: boolean }} [opts] — C **`iflags.override_ID`** for **`minimal_xname`**: force type-known + **`dknown`** for naming only.
  */
-export function doname(otmp, g = game) {
+export function doname(otmp, g = game, opts) {
     if (!otmp) return 'nothing';
+    const overrideId = !!(opts && opts.overrideId);
     const q = otmp.quan ?? 1;
     if (otmp.otyp === GOLD_PIECE) {
         return q === 1 ? 'a gold piece' : `${q} gold pieces`;
@@ -168,9 +170,10 @@ export function doname(otmp, g = game) {
     const oc = nh5HeroObjectClass(otmp);
     const treatAsSpellbook = oc === NH5_SPBOOK_CLASS || isSpellbookOtyp(otyp);
     if (oc === NH5_SCROLL_CLASS) {
-        const dknown = otmp.dknown | 0;
+        const dknown = overrideId || (otmp.dknown | 0);
         if (!dknown) return q === 1 ? 'a scroll' : `${q} scrolls`;
-        const scrollKnown = g?.scrollDiscovery instanceof Set && g.scrollDiscovery.has(otyp);
+        const scrollKnown =
+            overrideId || (g?.scrollDiscovery instanceof Set && g.scrollDiscovery.has(otyp));
         const tail = scrollAppearanceFromOtyp(otyp);
         if (scrollKnown) {
             if (q === 1) return `a scroll of ${tail}`;
@@ -180,7 +183,8 @@ export function doname(otmp, g = game) {
         return `${q} scrolls labeled ${tail}`;
     }
     if (treatAsSpellbook && isSpellbookOtyp(otyp)) {
-        const known = g?.objectDiscovery instanceof Set && g.objectDiscovery.has(otyp);
+        const known =
+            overrideId || (g?.objectDiscovery instanceof Set && g.objectDiscovery.has(otyp));
         const phrase = known ? spellbookAppearanceNounPhrase(otyp) : 'spellbook';
         if (!phrase) return q === 1 ? 'a spellbook' : `${q} spellbooks`;
         if (q === 1) return `a ${phrase}`;
@@ -206,22 +210,36 @@ export function ansimpleonameLikeC(otmp, g = game) {
     return s;
 }
 
+/** C: objnam.c **`minimal_xname`** post-**`distant_name`** — strip leading **`uncursed `** when BUC leaked into **`obuf`**. */
+function stripUncursedPrefixLikeC(s) {
+    if (s.startsWith('uncursed ')) return s.slice(9);
+    return s;
+}
+
 /**
- * C: objnam.c **`actualoname(obj)`** — **`iflags.override_ID`** then **`minimal_xname(obj)`**.
- * JS: spellbooks use discovered-style **`spellbook of …`** (**`spellbookAppearanceNounPhrase`**) regardless of **`g.objectDiscovery`**;
- * other classes fall back to **`doname`** with leading article stripped.
+ * C: objnam.c **`minimal_xname(obj)`** — temp **`objects[otyp].oc_name_known` / `oc_uname`** + **`bareobj`** (**`quan`** 1, **`dknown`** from **`dknown || override_ID`**) then **`distant_name`(…, **`xname`**)**; JS approximates discovery via **`opts.overrideId`** on **`doname`** (no global **`objects[]`**).
+ * @param {{ otyp?: number, oclass?: number, quan?: number, dknown?: number, oartifact?: number }} otmp
+ * @param {object} [g]
+ * @param {boolean} [overrideId] — C **`iflags.override_ID`** during **`minimal_xname`** / always true in **`actualoname`**.
+ * @returns {string}
+ */
+export function minimalXnameHeroLikeC(otmp, g = game, overrideId = false) {
+    if (!otmp) return '';
+    const bare = { ...otmp, quan: 1 };
+    let s = doname(bare, g, { overrideId });
+    s = stripUncursedPrefixLikeC(s);
+    return s;
+}
+
+/**
+ * C: objnam.c **`actualoname(obj)`** — **`iflags.override_ID = TRUE`**, **`res = minimal_xname(obj)`**, **`iflags.override_ID = FALSE`**.
+ * JS: **`minimalXnameHeroLikeC(otmp, g, true)`** then strip leading **`a`/`an`** (livelog / caller style; C keeps articles from **`distant_name`** where applicable).
  * @param {{ otyp?: number, oclass?: number, quan?: number, dknown?: number, oartifact?: number }} otmp
  * @param {object} [g]
  */
 export function actualonameHeroLikeC(otmp, g = game) {
     if (!otmp) return '';
-    const otyp = otmp.otyp | 0;
-    const oc = nh5HeroObjectClass(otmp);
-    if (oc === NH5_SPBOOK_CLASS || isSpellbookOtyp(otyp)) {
-        const ph = spellbookAppearanceNounPhrase(otyp);
-        if (ph) return ph;
-    }
-    let s = doname(otmp, g);
+    let s = minimalXnameHeroLikeC(otmp, g, true);
     if (s.startsWith('an ')) return s.slice(3);
     if (s.startsWith('a ')) return s.slice(2);
     return s;
