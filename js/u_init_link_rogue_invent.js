@@ -43,7 +43,7 @@ export function isHumanRogueChargenLikeC(g = game) {
 /**
  * Build singly-linked **`g.invent`** (NH5 **`oclass`/`otyp`**) and set **`uwep`/`uquiver`/`uarm`**
  * for human Rogue after **`consumeRogueHumanIniInvUinitRoleRngLikeC`**
- * ( **`g._rogueIniDaggerQuan`**, **`g._rogueIniBlindfold`** ).
+ * ( **`g._rogueIniDaggerQuan`**, **`g._rogueIniBlindfold`** + blindfold **`ini_inv`** leaf draws when set ).
  * @param {import('./gstate.js').game} g
  */
 export function applyRogueHumanLinkedInventAndWieldLikeC(g) {

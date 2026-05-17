@@ -120,8 +120,13 @@ export function consumeRogueHumanIniInvUinitRoleRngLikeC() {
     mksobjInitSackStartInvLikeC();
     rn2(1);
 
-    /* C u_init.c u_init_role — if (!rn2(5)) ini_inv(Blindfold).
-     * Gate only: C `ini_inv(Blindfold)` also draws trquan×2 + mksobj `next_ident` (rnd(2)); replaying those
-     * here shifts the public RNG trace vs the harness for some seeds (e.g. seed1500). Invent is linked below. */
+    /* C u_init.c u_init_role PM_ROGUE — if (!rn2(5)) ini_inv(Blindfold).
+     * C ini_inv(Blindfold): trquan = 1+rn2(1); mksobj → next_ident (rnd(2)); ini_inv_adjust_obj TOOL → quan = trquan → rn2(1).
+     * mksobj_init has no BLINDFOLD case (mkobj.c TOOL_CLASS). */
     game._rogueIniBlindfold = rn2(5) === 0;
+    if (game._rogueIniBlindfold) {
+        rn2(1);
+        nextIdentLikeC();
+        rn2(1);
+    }
 }
