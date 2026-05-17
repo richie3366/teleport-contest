@@ -828,8 +828,11 @@ export function paintRoleMenu(disp, f) {
 function roleNameForDisplay(ri, gi) {
     const r = roles[ri];
     if (!r) return '<role>';
-    /* C: welcome() / menus — only Cav and Pri use name.f for the hero role title when female */
-    if (gi === 1 && roleHasFemaleRoleNameLikeC(r)) return r.name.f;
+    /* C: role.c role_selection_prolog — `roles[r].name.f`: gend==1 → female title; gend<0 → append "/name.f" */
+    if (roleHasFemaleRoleNameLikeC(r) && r.name.f) {
+        if (gi === 1) return r.name.f;
+        if (gi < 0) return `${r.name.m}/${r.name.f}`;
+    }
     return r.name.m;
 }
 
