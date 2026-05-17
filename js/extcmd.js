@@ -9,6 +9,7 @@
 // **`#p`**/**`#P`**/**`#pick`** — **`lock.c`** **`pick_lock`** adjacent **door** (**`u.dx`/`u.dy`**) or floor locked box + **`picklock()`** (**`lock_hero.js`**); **`u_handsy`** gate.
 // **`#pray`** — **`pray.c`** **`dopray`/`can_pray`/`prayer_done`** (**`pray_hero.js`**); tty extcmd **line** ends at `\n`/`\r` (e.g. **`#pray`** + Enter).
 // **`#chat`** — **`sounds.c`** **`dochat`** subset + **`priest.c`** **`priest_talk`** / **`minion.c`** **`bribe`** (**`priest_talk_hero.js`**).
+// **`#sit`** — **`sit.c`** **`dosit`** + **`throne_sit_effect`** / **`attrcurse`** / **`rndcurse`** subset (**`sit_hero.js`**).
 // wizard **`z`** — **`dozap.js`**.
 
 import { game } from './gstate.js';
@@ -51,6 +52,7 @@ import {
 } from './destroy_items.js';
 import { runDoprayExtcmdFlowLikeC } from './pray_hero.js';
 import { runDochatExtcmdFlowLikeC } from './priest_talk_hero.js';
+import { runDositExtcmdFlowLikeC } from './sit_hero.js';
 
 /** C: doextcmd — echo '#' on the top line, then read extcmd name until tty newline (`\n`/`\r`). */
 export async function runExtcmdFromHashPrefix() {
@@ -94,6 +96,10 @@ export async function runExtcmdFromHashPrefix() {
     }
     if (w === 'chat') {
         await runDochatExtcmdFlowLikeC(game);
+        return;
+    }
+    if (w === 'sit') {
+        await runDositExtcmdFlowLikeC(game);
         return;
     }
     if (w === 'version' || w === 'v') {

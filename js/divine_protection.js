@@ -88,12 +88,13 @@ export function applyPriestDonationUblessedLoopLikeC(g, offer, suggested) {
 }
 
 /**
- * C: sit.c crow hall case **10** — **`HProtection &= ~INTRINSIC`** (“You feel vulnerable.”).
- * @param {import('./gstate.js').game} g
+ * C: sit.c **`attrcurse`** switch case **10** / crow-hall strip — **`HProtection &= ~INTRINSIC`**.
+ * @returns {boolean} true if intrinsic Protection was present and cleared
  */
 export function stripHProtectionIntrinsicSitCrowHallLikeC(g) {
     const hi = protIntrinsic(g);
-    if ((hi & INTRINSIC) === 0) return;
+    if ((hi & INTRINSIC) === 0) return false;
     setProtIntrinsic(g, hi & ~INTRINSIC);
     markBotlFindAc(g);
+    return true;
 }

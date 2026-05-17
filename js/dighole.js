@@ -148,7 +148,8 @@ function sobjAtBoulder(g, x, y) {
     return sobjFirstBoulderAt(g, x, y) != null;
 }
 
-function surfaceHereString(g, x, y) {
+/** C: dungeon.c **`surface(x,y)`** — verb for sit / dig messages (subset). */
+export function surfaceHereString(g, x, y) {
     const levtyp = g.level?.at(x | 0, y | 0)?.typ ?? STONE;
     const u = g.u;
     if (IS_POOL(levtyp) && (u?.underwater | 0)) return 'bottom';
