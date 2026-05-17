@@ -15,7 +15,7 @@ import {
     ansimpleonameLikeC,
     upstartLikeC,
 } from './objnam.js';
-import { makePluralHeroFootLikeC } from './body_part_hero.js';
+import { makePluralHeroFootLikeC, mbodypartMonsterStomachLikeC } from './body_part_hero.js';
 import { updateInventory } from './invent.js';
 import { isWeptoolObjLikeC } from './hero_hands.js';
 import { addWeaponSkill, unrestrictWeaponSkill } from './u_init_skills.js';
@@ -261,7 +261,7 @@ async function atYourFeetLikeC(g, str) {
     const s = blind ? 'Something' : str;
     if (u.uswallow | 0) {
         const mn = monNamUstuckLikeC(u.ustuck);
-        const stom = 'stomach'; /* C: **`mbodypart(u.ustuck, STOMACH)`** — stub */
+        const stom = mbodypartMonsterStomachLikeC(u.ustuck);
         await pline(
             `${s} ${vtenseStrLikeC(s, 'drop')} into ${sSuffixLikeC(mn)} ${stom}.`,
         );
