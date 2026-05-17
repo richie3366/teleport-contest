@@ -3,6 +3,7 @@
 // C refs: u_init.c u_init_role (PM_ROGUE), ini_inv(), trquan(), mkobj.c mksobj+mksobj_init,
 //         mkbox_cnts (SACK empty at moves<=1), blessorcurse().
 
+import { game } from './gstate.js';
 import { rnd, rn2, rne } from './rng.js';
 import { P_BOW, P_SHURIKEN } from './const.js';
 import { OC_SKILL_ROW_BY_OTYP } from './obj_oc_skill_data.js';
@@ -93,11 +94,11 @@ export function consumeRogueHumanIniInvUinitRoleRngLikeC() {
     mksobjInitWeaponLikeC(OTYP_SHORT_SWORD, false);
     rn2(1);
 
-    /* DAGGER */
+    /* DAGGER — C ini_inv: first trquan(trop) consumes RNG; adjust sets quan from second trquan() */
     rn2(10);
     nextIdentLikeC();
     mksobjInitWeaponLikeC(OTYP_DAGGER, false);
-    rn2(10);
+    game._rogueIniDaggerQuan = 6 + rn2(10);
 
     /* LEATHER_ARMOR */
     rn2(1);

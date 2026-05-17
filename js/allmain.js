@@ -117,6 +117,7 @@ export async function newgame() {
     g.u.ETelepat = 0; /* Blind + sensemon subset for spoteffects surprise */
     g.u.uwep = null;
     g.u.uswapwep = null;
+    g.u.uquiver = null;
     g.u.twoweap = false;
     g.u.uarmh = null;
     g.u.uarms = null;
