@@ -9,7 +9,13 @@ import { NH5_SPBOOK_CLASS, NH5_WEAPON_CLASS } from './nh5_objclass.js';
 import { SPBOOK_CLASS_MKOBJ_OC_PROB_ROWS, SPELLBOOK_OTYP_LEVEL, SPELLBOOK_OTYP_OC_SKILL } from './mkobj_wizard_ini_inv_data.js';
 import { SPELLBOOK_SKILL_LEVEL_ROWS } from './spellbook_skill_level_data.js';
 import { placeFloorObjectInLevel, stackObjOnFloorInLevel } from './floorobj.js';
-import { observeObjectHeroMinimalLikeC, discoverObjectHeroLikeC, doname } from './objnam.js';
+import {
+    observeObjectHeroMinimalLikeC,
+    discoverObjectHeroLikeC,
+    ansimpleonameLikeC,
+    upstartLikeC,
+} from './objnam.js';
+import { makePluralHeroFootLikeC } from './body_part_hero.js';
 import { updateInventory } from './invent.js';
 import { isWeptoolObjLikeC } from './hero_hands.js';
 import { addWeaponSkill, unrestrictWeaponSkill } from './u_init_skills.js';
@@ -38,6 +44,11 @@ const STRANGE_OBJECT = 0;
 
 /** C: spl_book[] size — LAST_SPELL + 1 style; safe upper bound for force_learn loops. */
 const MAXSPELL = 52;
+
+/** C: artilist.h order — dummy **0**, then **`EXCALIBUR`**, **`STORMBRINGER`**, … **`VORPAL_BLADE`** (1-based **`oartifact`**). */
+const ART_EXCALIBUR = 1;
+const ART_STORMBRINGER = 2;
+const ART_VORPAL_BLADE = 18;
 
 /** @param {readonly (readonly [number, number])[]} rows */
 function ocProbMapFromRows(rows) {
@@ -165,8 +176,58 @@ function carryingOtypInInventLikeC(g, otyp) {
     return false;
 }
 
-/** C: pray.c / wield.c u_wield_art — stub: no artifact wield check yet. */
-function uWieldArtStub() {
+/** C: artifact.c **`u_wield_art(arti)`** — hero **`uwep`** carries artifact index. */
+function uWieldArtLikeC(g, arti) {
+    const uw = g.u?.uwep;
+    return !!uw && (uw.oartifact | 0) === (arti | 0);
+}
+
+/** C: mon.c **`mon_nam`** subset for **`u.ustuck`** swallow pline. */
+function monNamUstuckLikeC(mtmp) {
+    const n = mtmp?.data?.mname || mtmp?.monnam;
+    if (n) return `the ${n}`;
+    return 'the monster';
+}
+
+/** C: hack.h **`s_suffix(str)`** possessive ( **`mon_nam`** + **`STOMACH`** ). */
+function sSuffixLikeC(str) {
+    if (!str) return "something's";
+    if (str.endsWith('s')) return `${str}'`;
+    return `${str}'s`;
+}
+
+/** C: util.c **`vtense(subj, verb)`** — minimal **drop** / **land** / **appear** for pray.c **`at_your_feet`**. */
+function vtenseStrLikeC(subject, verb) {
+    const s = subject || '';
+    const pl =
+        /^\d+ /.test(s) && !/^1 /.test(s)
+        ? true
+        : s.toLowerCase() === 'something'
+          ? false
+          : /^some /i.test(s)
+            ? true
+            : !/^a |^an /i.test(s) && s.length > 2 && s.endsWith('s') && !s.toLowerCase().endsWith('ss');
+    if (verb === 'drop') return pl ? 'drop' : 'drops';
+    if (verb === 'land') return pl ? 'land' : 'lands';
+    if (verb === 'appear') return pl ? 'appear' : 'appears';
+    return pl ? verb : `${verb}s`;
+}
+
+/**
+ * C: artifact.c **`exist_artifact(otyp, name)`** — JS: match **`otyp`** + **`oartifact`** on invent + floor.
+ * @param {import('./gstate.js').game} g
+ * @param {number} otyp
+ * @param {number} artiId
+ */
+function existArtifactOtypArtiLikeC(g, otyp, artiId) {
+    const t = otyp | 0;
+    const a = artiId | 0;
+    for (let o = g.invent; o; o = o.nobj) {
+        if ((o.otyp | 0) === t && (o.oartifact | 0) === a) return true;
+    }
+    for (const o of g.level?.objects ?? []) {
+        if (o && (o.otyp | 0) === t && (o.oartifact | 0) === a) return true;
+    }
     return false;
 }
 
@@ -188,7 +249,7 @@ function spellObjNameFromOtyp(otyp) {
 }
 
 /**
- * C: pray.c at_your_feet (Something when Blind).
+ * C: pray.c **`at_your_feet`** (**`Blind`/`Something`**, **`uswallow`**, **`Levitation`**, **`vtense`**, **`s_suffix`**, **`mbodypart(STOMACH)`**, **`makeplural(body_part(FOOT))`**).
  * @param {import('./gstate.js').game} g
  * @param {string} str
  */
@@ -198,11 +259,16 @@ async function atYourFeetLikeC(g, str) {
     const blind = !!(u.Blind | 0) || !!(u.ublind | 0) || (u.timed?.blind ?? 0) > 0;
     const s = blind ? 'Something' : str;
     if (u.uswallow | 0) {
-        await pline(`${s} drop into something's stomach!`); /* C: mon_nam — stub */
+        const mn = monNamUstuckLikeC(u.ustuck);
+        const stom = 'stomach'; /* C: **`mbodypart(u.ustuck, STOMACH)`** — stub */
+        await pline(
+            `${s} ${vtenseStrLikeC(s, 'drop')} into ${sSuffixLikeC(mn)} ${stom}.`,
+        );
     } else if (u.Levitation | 0) {
-        await pline(`${s} lands beneath you!`);
+        await pline(`${s} ${vtenseStrLikeC(s, 'land')} beneath you!`);
     } else {
-        await pline(`${s} appear at your feet!`);
+        const feet = makePluralHeroFootLikeC();
+        await pline(`${s} ${vtenseStrLikeC(s, blind ? 'land' : 'appear')} at your ${feet}!`);
     }
 }
 
@@ -290,7 +356,7 @@ export async function giveSpellHeroLikeC(g) {
     otmp.blessed = 1;
     otmp.cursed = 0;
     const blind = !!(u.Blind | 0) || !!(u.ublind | 0) || (u.timed?.blind ?? 0) > 0;
-    const feetStr = blind ? 'Something' : doname(otmp, g);
+    const feetStr = blind ? 'Something' : upstartLikeC(ansimpleonameLikeC(otmp, g));
     await atYourFeetLikeC(g, feetStr);
     const x = u.ux | 0;
     const y = u.uy | 0;
@@ -322,11 +388,6 @@ function alignGnameGcrownLikeC(g, aligntyp) {
     return 'the void';
 }
 
-/** C: pray.c exist_artifact — stub false (no artifact DB yet). */
-function existArtifactStub() {
-    return false;
-}
-
 /**
  * C: pray.c gcrownu (subset with full RNG spine for mksobj calls).
  * @param {import('./gstate.js').game} g
@@ -354,7 +415,8 @@ export async function gcrownuHeroLikeC(g, godvoices) {
     let classGift = STRANGE_OBJECT;
     if (
         g.urole?.abbr === 'Wiz'
-        && !uWieldArtStub()
+        && !uWieldArtLikeC(g, ART_VORPAL_BLADE)
+        && !uWieldArtLikeC(g, ART_STORMBRINGER)
         && !carryingOtypInInventLikeC(g, OTYP_SPE_FINGER_OF_DEATH)
     ) {
         classGift = OTYP_SPE_FINGER_OF_DEATH;
@@ -370,10 +432,10 @@ export async function gcrownuHeroLikeC(g, godvoices) {
 
     u.uevent = u.uevent || {};
     const al = u.ualign?.type | 0;
-    const inHandVorpal = uWieldArtStub();
-    const alreadyVorpal = existArtifactStub();
-    const inHandStorm = uWieldArtStub();
-    const alreadyStorm = existArtifactStub();
+    const inHandVorpal = uWieldArtLikeC(g, ART_VORPAL_BLADE);
+    const alreadyVorpal = existArtifactOtypArtiLikeC(g, OTYP_LONG_SWORD, ART_VORPAL_BLADE);
+    const inHandStorm = uWieldArtLikeC(g, ART_STORMBRINGER);
+    const alreadyStorm = existArtifactOtypArtiLikeC(g, OTYP_RUNESWORD, ART_STORMBRINGER);
     const classGiftNonStrange = classGift !== STRANGE_OBJECT;
 
     if (al === A_LAWFUL) {
@@ -385,7 +447,7 @@ export async function gcrownuHeroLikeC(g, godvoices) {
     } else if (al === A_CHAOTIC) {
         u.uevent.uhand_of_elbereth = 3;
         const what =
-            ((alreadyVorpal && !inHandVorpal) || classGiftNonStrange) ? 'take lives' : 'steal souls';
+            ((alreadyStorm && !inHandStorm) || classGiftNonStrange) ? 'take lives' : 'steal souls';
         await pline(`Thou art chosen to ${what} for My Glory!`);
     }
 
@@ -413,7 +475,7 @@ export async function gcrownuHeroLikeC(g, godvoices) {
         book.cursed = 0;
         observeObjectHeroMinimalLikeC(g, book);
         const blind = !!(u.Blind | 0) || !!(u.ublind | 0) || (u.timed?.blind ?? 0) > 0;
-        await atYourFeetLikeC(g, blind ? 'Something' : doname(book, g));
+        await atYourFeetLikeC(g, blind ? 'Something' : upstartLikeC(ansimpleonameLikeC(book, g)));
         const x = u.ux | 0;
         const y = u.uy | 0;
         placeFloorObjectInLevel(g, book, x, y);
@@ -425,7 +487,10 @@ export async function gcrownuHeroLikeC(g, godvoices) {
 
     if (al === A_LAWFUL) {
         if (classGift === STRANGE_OBJECT && obj && (obj.otyp | 0) === OTYP_LONG_SWORD && !(obj.oartifact | 0)) {
-            /* C: Excalibur transform — deferred */
+            const blind = !!(u.Blind | 0) || !!(u.ublind | 0) || (u.timed?.blind ?? 0) > 0;
+            if (!blind) await pline('Your sword shines brightly for a moment.');
+            obj.oartifact = ART_EXCALIBUR;
+            u.ugifts = (u.ugifts | 0) + 1;
         }
         unrestrictWeaponSkill(u, P_LONG_SWORD);
     } else if (al === A_NEUTRAL) {
@@ -443,7 +508,7 @@ export async function gcrownuHeroLikeC(g, godvoices) {
                 cursed: 0,
                 blessed: 0,
                 spe: 1,
-                oartifact: 0,
+                oartifact: ART_VORPAL_BLADE,
                 oeroded: 0,
                 oeroded2: 0,
                 oerodeproof: 0,
@@ -474,7 +539,7 @@ export async function gcrownuHeroLikeC(g, godvoices) {
                 cursed: 0,
                 blessed: 0,
                 spe: 1,
-                oartifact: 0,
+                oartifact: ART_STORMBRINGER,
                 oeroded: 0,
                 oeroded2: 0,
                 oerodeproof: 0,

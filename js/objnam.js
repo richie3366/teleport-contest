@@ -195,6 +195,27 @@ export function doname(otmp, g = game) {
 }
 
 /**
+ * C: objnam.c ansimpleoname(obj) — subset: strip leading indefinite article from **`doname`**.
+ * @param {{ otyp?: number, quan?: number, oclass?: number }} otmp
+ * @param {object} [g]
+ */
+export function ansimpleonameLikeC(otmp, g = game) {
+    let s = doname(otmp, g);
+    if (s.startsWith('an ')) return s.slice(3);
+    if (s.startsWith('a ')) return s.slice(2);
+    return s;
+}
+
+/**
+ * C: decl.c **`upstart(str)`** — capitalize first character (ASCII).
+ * @param {string} str
+ */
+export function upstartLikeC(str) {
+    if (!str) return str;
+    return str.charAt(0).toUpperCase() + str.slice(1);
+}
+
+/**
  * C: o_init.c **`discover_object(oindx, mark_as_known, mark_as_encountered, credit_hero)`** — **`disco[]`** slot + **`oc_encountered`** / **`oc_name_known`**.
  * JS: **`g.objectEncountered`** (**`Set<otyp>`**) when **`mark_as_encountered`**; **`oc_name_known`** only via existing **`scrollDiscovery`** / **`objectDiscovery`** when **`mark_as_known`**.
  * Omits **`svb.bases[]`**, Samurai **`Japanese_item_name`**, **`gem_learned`**, **`update_inventory`**, **`exercise`**.

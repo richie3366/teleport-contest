@@ -63,3 +63,13 @@ export function mbodypartHeroHeadLikeC(g) {
 
     return 'head';
 }
+
+/** C: hack.c **`body_part(FOOT)`** for humanoid hero — **`"foot"`** ( **`makeplural` → `"feet"`** in pray.c **`at_your_feet`**). */
+export function bodyPartHeroFootLikeC() {
+    return 'foot';
+}
+
+/** C: objnam.c **`makeplural("foot")`** — pray.c **`at_your_feet`** feet line. */
+export function makePluralHeroFootLikeC() {
+    return 'feet';
+}
