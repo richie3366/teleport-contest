@@ -1,11 +1,12 @@
 // remove_curse_hero.js — read.c seffect_remove_curse invent + steed saddle (partial).
-// C ref: read.c seffect_remove_curse ~1507–1596; shop **`costly_alteration`** (**`COST_UNCURS`**) + **`bill_dummy`** still TODO.
+// C ref: read.c seffect_remove_curse ~1507–1596; shop **`costly_alteration`**/**`bill_dummy`** for unpaid **`POT_WATER`** before **`uncurse`** (**`shop.js`** **`costlyAlterationUnpaidHeroInventLikeC`**).
 
 import {
     W_ART,
     W_ARTI,
     W_BALL,
     W_SADDLE,
+    COST_UNCURS,
 } from './const.js';
 import { rn2 } from './rng.js';
 import { NH5_COIN_CLASS, NH5_GEM_CLASS, NH5_WEAPON_CLASS } from './nh5_objclass.js';
@@ -14,7 +15,7 @@ import { doname } from './objnam.js';
 import { pline } from './display.js';
 import { game } from './gstate.js';
 import { uslingingHeroLikeC } from './weapon_kind.js';
-import { alterCostShopBillObjLikeC } from './shop.js';
+import { alterCostShopBillObjLikeC, costlyAlterationUnpaidHeroInventLikeC } from './shop.js';
 
 /** C: objects_nums **`POT_WATER`**. */
 const OTYP_POT_WATER = 321;
@@ -249,7 +250,9 @@ export async function removeCurseHeroInventLoopLikeC(g, scroll, confused) {
                         alterCostShopBillObjLikeC(g, obj, 0);
                     }
                 } else if (obj.cursed | 0) {
-                    /* C: costly_alteration(obj, COST_UNCURS) before uncurse — verbalize + bill_dummy TODO */
+                    if (shopH2o) {
+                        await costlyAlterationUnpaidHeroInventLikeC(g, obj, COST_UNCURS);
+                    }
                     uncurseObjHeroLikeC(obj);
                     if ((obj.bknown | 0) && scrollOtyp === OTYP_SCR_REMOVE_CURSE) {
                         learnscrolltypHeroLikeC(g, OTYP_SCR_REMOVE_CURSE);

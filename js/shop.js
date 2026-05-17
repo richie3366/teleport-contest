@@ -64,6 +64,8 @@ import {
     TELEPORT_CONTROL,
     TELEPAT,
     OTYP_HAWAIIAN_SHIRT,
+    COST_UNBLSS,
+    COST_UNCURS,
 } from './const.js';
 import { UHS } from './hunger.js';
 import { objectOcCost } from './obj_oc_cost_data.js';
@@ -2530,6 +2532,114 @@ export function alterCostShopBillObjLikeC(g, obj, amt) {
         return false;
     }
     return false;
+}
+
+/** C: mkobj.c **`alteration_verbs[]`** — index must match **`COST_*`** in **`hack.h`**. */
+const ALTERATION_VERBS_MKOBJ = [
+    'cancel',
+    'drain',
+    'uncharge',
+    'unbless',
+    'uncurse',
+    'disenchant',
+    'degrade',
+    'dilute',
+    'erase',
+    'burn',
+    'neutralize',
+    'destroy',
+    'splatter',
+    'bite',
+    'open',
+    'break the lock on',
+    'rust',
+    'rot',
+    'tarnish',
+    'crack',
+];
+
+/**
+ * @param {import('./gstate.js').game} g
+ * @param {object} obj
+ * @returns {{ shkp: object, slot: { bp: object, idx: number } } | null}
+ */
+function shkpOnBillSlotForUnpaidObjLikeC(g, obj) {
+    if (!(obj?.unpaid | 0)) return null;
+    for (const shkp of iterateNextShkpLikeC(g, true)) {
+        const slot = onBillSlot(obj, shkp);
+        if (slot) return { shkp, slot };
+    }
+    return null;
+}
+
+/** Bill **`bo_id`** for **`OBJ_FREE`** dummy rows (**`bill_dummy_object`**). */
+function nextBillDummyOidLikeC(g) {
+    const seq = ((g._billDummyOidSeq = (g._billDummyOidSeq | 0) + 1) | 0) >>> 0;
+    return (0xbd110000 ^ seq) >>> 0;
+}
+
+/**
+ * C: mkobj.c **`bill_dummy_object(otmp)`** — hero invent / unpaid (**`subfrombill`**, phantom **`bill_p`** row, **`alter_cost(dummy,-cost)`**).
+ * @param {import('./gstate.js').game} g
+ * @param {object} obj — real invent object (**`unpaid`** cleared by **`sub_one_frombill`**)
+ * @param {object} shkp
+ */
+function billDummyObjectUnpaidHeroInventLikeC(g, obj, shkp) {
+    const slot0 = onBillSlot(obj, shkp);
+    if (!slot0) return;
+    const cost = slot0.bp.price | 0;
+    subOneFromBill(obj, shkp);
+    const eshk = ESHK(shkp);
+    if (!eshk) return;
+    ensureEshopBillP(eshk);
+    const dummy = { ...obj };
+    dummy.nobj = undefined;
+    dummy.nexthere = undefined;
+    dummy.ocontainer = undefined;
+    dummy.cobj = undefined;
+    dummy.owornmask = 0;
+    dummy.o_id = nextBillDummyOidLikeC(g);
+    dummy.unpaid = 0;
+    const bq = Math.max(1, obj.quan | 0);
+    const unit = getCostStolenBuryUnit(g, dummy, shkp);
+    eshk.bill_p.push({
+        bo_id: dummy.o_id,
+        bquan: bq,
+        price: unit,
+        useup: true,
+    });
+    if (typeof eshk.billct === 'number') eshk.billct = (eshk.billct | 0) + 1;
+    else eshk.billct = eshk.bill_p.length;
+    dummy.unpaid = 1;
+    alterCostShopBillObjLikeC(g, dummy, -cost);
+    g.disp = g.disp || {};
+    g.disp.botl = true;
+}
+
+/**
+ * C: mkobj.c **`costly_alteration(obj, alter_type)`** — **`OBJ_INVENT`** / unpaid only (**`read.c`** shop **`POT_WATER`** **`COST_UNCURS`**).
+ * @param {import('./gstate.js').game} g
+ * @param {object} obj
+ * @param {number} alterType — **`COST_UNCURS`** etc.
+ */
+export async function costlyAlterationUnpaidHeroInventLikeC(g, obj, alterType) {
+    if (!(obj?.unpaid | 0)) return;
+    const pair = shkpOnBillSlotForUnpaidObjLikeC(g, obj);
+    if (!pair) return;
+    const { shkp } = pair;
+    const at = alterType | 0;
+    if (at < 0 || at >= ALTERATION_VERBS_MKOBJ.length) return;
+    const learnBknown = at === COST_UNCURS || at === COST_UNBLSS;
+    if (learnBknown) {
+        obj.bknown = 1;
+    }
+    const q = Math.max(1, obj.quan | 0);
+    const those = q === 1 ? 'that' : 'those';
+    const them = q === 1 ? 'it' : 'them';
+    const verb = ALTERATION_VERBS_MKOBJ[at] ?? 'alter';
+    void shkp;
+    await pline(`You ${verb} ${those} ${doname(obj, g)}, you pay for ${them}!`);
+    billDummyObjectUnpaidHeroInventLikeC(g, obj, shkp);
 }
 
 /** C: **`next_shkp`** bill filter — **`ESHK`->`billct`** or **`bill_p`** length. */
