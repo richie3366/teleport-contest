@@ -3,7 +3,15 @@
 // An()/just_an() for floor burn plines.
 
 import { game } from './gstate.js';
-import { NH5_POTION_CLASS, NH5_SCROLL_CLASS, NH5_SPBOOK_CLASS } from './nh5_objclass.js';
+import {
+    NH5_GEM_CLASS,
+    NH5_POTION_CLASS,
+    NH5_ROCK_CLASS,
+    NH5_SCROLL_CLASS,
+    NH5_SPBOOK_CLASS,
+    NH5_TOOL_CLASS,
+    NH5_WEAPON_CLASS,
+} from './nh5_objclass.js';
 import { isSpellbookOtyp, spellbookAppearanceNounPhrase } from './spellbook_discovery_lines.js';
 import { nh5HeroObjectClass } from './water_damage.js';
 import { OC_SKILL_ROW_BY_OTYP } from './obj_oc_skill_data.js';
@@ -76,6 +84,9 @@ const POTION_NAME_BY_IX = [
 
 /** C: objects.h **`SLIME_MOLD`** index ( **`mkobj_food_class_rng_like_c.js`**). */
 const OTYP_SLIME_MOLD = 194;
+
+/** C: **`makeplural`**-style fixes for **`OC_SKILL_ROW_BY_OTYP`** phrases (quan **> 1** **`doname`** only). */
+const OC_SKILL_PHRASE_PLURAL = new Map([['worm tooth', 'worm teeth']]);
 
 export { discoverScrollOtyp } from './discover_scroll.js';
 
@@ -159,6 +170,49 @@ function spellbookAppearanceFromOtyp(otyp) {
     return s.toLowerCase().replace(/_/g, ' ');
 }
 
+/** C: **`objects[]`** **`OBJ_NAME`**-shaped base text — **`OC_SKILL_ROW_BY_OTYP.name`** (**NH5 `objects_nums`** slice). */
+function ocSkillRowPhraseFromRow(row) {
+    if (!row?.name) return '';
+    return String(row.name)
+        .toLowerCase()
+        .replace(/_/g, ' ');
+}
+
+/** C: **`makeplural`** subset for **`doname`** quan **> 1** on **`ocSkillRowPhraseFromRow`** output. */
+function ocSkillRowPluralDonameLikeC(phrase, q) {
+    const spec = OC_SKILL_PHRASE_PLURAL.get(phrase);
+    if (spec) return `${q} ${spec}`;
+    if (/\bglass$/i.test(phrase)) return `${q} ${phrase.replace(/\bglass$/i, 'glasses')}`;
+    if (phrase.endsWith(' tooth')) return `${q} ${phrase.replace(/ tooth$/, ' teeth')}`;
+    return `${q} ${phrase}s`;
+}
+
+/**
+ * C: **`doname`** / **`minimal_xname`** fallback for **`otyp`** in **`OC_SKILL_ROW_BY_OTYP`** (weapon/tool/gem/rock…).
+ * @returns {string|null}
+ */
+function donameFromOcSkillRowLikeC(otmp, q) {
+    const row = OC_SKILL_ROW_BY_OTYP.get(otmp.otyp | 0);
+    if (!row) return null;
+    const phrase = ocSkillRowPhraseFromRow(row);
+    if (!phrase) return null;
+    const iq = Math.max(1, q | 0);
+    if (iq === 1) {
+        const art = justArticlePrefix(phrase);
+        return `${art}${phrase}`;
+    }
+    return ocSkillRowPluralDonameLikeC(phrase, iq);
+}
+
+/** C: **`distant_name`** blind/far class stub — subset keyed by **`objclass`**. */
+function distantNameOcClassStubLikeC(row) {
+    const oc = row.oclass | 0;
+    if (oc === NH5_WEAPON_CLASS) return 'weapon';
+    if (oc === NH5_TOOL_CLASS) return 'tool';
+    if (oc === NH5_GEM_CLASS || oc === NH5_ROCK_CLASS) return 'gem';
+    return 'item';
+}
+
 /**
  * C: xname(obj) core for zap.c burn_floor_objects classes only (no leading article).
  * Uses `obj.dknown` / `g.objectDiscovery` (spellbooks) / `g.scrollDiscovery` (scrolls) / `g.potionDiscovery` (potions) when wired.
@@ -194,6 +248,8 @@ export function xnameBurnFloor(obj, g = game) {
         }
         return `${spellbookAppearanceFromOtyp(t)} spellbook`;
     }
+    const ocRow = OC_SKILL_ROW_BY_OTYP.get(t);
+    if (ocRow) return ocSkillRowPhraseFromRow(ocRow) || 'item';
     return 'item';
 }
 
@@ -224,6 +280,8 @@ export function distantNameBurnFloor(obj, x, y, g = game) {
     if (t >= OTYP_POT_FIRST && t <= OTYP_POT_LAST) return 'potion';
     if (oc === NH5_SCROLL_CLASS) return 'scroll';
     if (oc === NH5_SPBOOK_CLASS || isSpellbookOtyp(t)) return 'spellbook';
+    const ocRow = OC_SKILL_ROW_BY_OTYP.get(t);
+    if (ocRow) return distantNameOcClassStubLikeC(ocRow);
     return 'item';
 }
 
@@ -248,6 +306,8 @@ export function makePluralBurn(s) {
         const base = s.slice(0, -'spellbook'.length);
         return `${base}spellbooks`;
     }
+    if (s.endsWith(' tooth')) return s.replace(/ tooth$/, ' teeth');
+    if (/\bglass$/i.test(s)) return s.replace(/\bglass$/i, 'glasses');
     return `${s}s`;
 }
 
@@ -258,6 +318,7 @@ export function makePluralBurn(s) {
  * Scrolls: `g.scrollDiscovery` Set drives **`scroll of`** vs **`scroll labeled`** when `dknown`.
  * Potions: NH **5.0.0** **`objects_nums`** **296..321** — appearance vs **`potion of …`** from **`g.potionDiscovery`** when `dknown`.
  * Slime mold / glob: FOOD **`otyp`** subset (**`minimal_xname`** corpsenm suppression not modeled).
+ * **`OC_SKILL_ROW_BY_OTYP`** otyps: C **`OBJ_NAME`**-style phrase (**`distant_name`** far uses class stub).
  * @param {{ otyp?: number, quan?: number, oclass?: number, dknown?: number }} otmp
  * @param {object} [g]
  * @param {{ overrideId?: boolean }} [opts] — C **`iflags.override_ID`** for **`minimal_xname`**: force type-known + **`dknown`** for naming only.
@@ -306,6 +367,8 @@ export function doname(otmp, g = game, opts) {
         }
         return `${q} ${phrase}s`;
     }
+    const ocDon = donameFromOcSkillRowLikeC(otmp, q);
+    if (ocDon != null) return ocDon;
     return `an object (${otmp.otyp})`;
 }
 
