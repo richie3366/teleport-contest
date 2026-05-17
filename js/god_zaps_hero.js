@@ -17,6 +17,7 @@ import { monNamUstuckLikeC, monNamMonnamUstuckLikeC } from './pray_pat_spell_gcr
 import { summonMinionHeroLikeC } from './minion_summon_hero.js';
 import { rn2 } from './rng.js';
 import { resistsDisintMonLikeC, resistsElecMonLikeC } from './mondata.js';
+import { disintegrateArmHeroAtObjGodZapsLikeC } from './disintegrate_arm_hero.js';
 
 /** C: pray.c **`godvoices[]`** + **`ROLL_FROM`**. */
 const GODVOICES = ['booms out', 'thunders', 'rings out', 'booms'];
@@ -78,7 +79,7 @@ async function fryByGodHeroLikeC(g, respGod, viaDisint) {
 
 /**
  * C: pray.c **`god_zaps_you(aligntyp resp_god)`** — swallow / reflect / shock / fry / disintegration / astral triple **`summon_minion`**.
- * Omits **`disintegrate_arm`** (**`do_wear.c`**) and real **`xkilled`** / **`done(DIED)`** beyond **`losehp`** in **`fryByGodHeroLikeC`**. Swallow **`resists_elec`/`resists_disint`** — C **`Resists_Elem`** innate **`mon_resistancebits`** only (**`mondata.js`**; no monst **`mextrinsics`** / inventory **`defends`** yet).
+ * Omits real **`xkilled`** / **`done(DIED)`** beyond **`losehp`** in **`fryByGodHeroLikeC`**. Swallow **`resists_elec`/`resists_disint`** — C **`Resists_Elem`** innate **`mon_resistancebits`** only (**`mondata.js`**; no monst **`mextrinsics`** / inventory **`defends`** yet). Non-swallow **`disintegrate_arm`** — **`disintegrate_arm_hero.js`** (**`obj_resists(...,0,90)`**; no **`EReflecting`/`EDisint_resistance` & `W_*`** gates until extrinsic masks are ported).
  * @param {import('./gstate.js').game} g
  * @param {number} respGod
  */
@@ -130,6 +131,12 @@ export async function godZapsYouHeroLikeC(g, respGod) {
         }
     } else {
         await pline('A wide-angle disintegration beam hits you!');
+        /* C: pray.c — disintegrate shield or cloak or suit or shirt before fry; EReflecting or EDisint on W_* slots TODO. */
+        if (u.uarms) await disintegrateArmHeroAtObjGodZapsLikeC(g, u.uarms, 'arms');
+        if (u.uarmc) await disintegrateArmHeroAtObjGodZapsLikeC(g, u.uarmc, 'armc');
+        if (u.uarm && !u.uarmc) await disintegrateArmHeroAtObjGodZapsLikeC(g, u.uarm, 'arm');
+        if (u.uarmu && !u.uarm && !u.uarmc) await disintegrateArmHeroAtObjGodZapsLikeC(g, u.uarmu, 'armu');
+
         if (!heroDisintResGodZapsLikeC(u)) {
             await fryByGodHeroLikeC(g, rg, true);
             monstunseesuLikeC(M_SEEN_DISINT);
