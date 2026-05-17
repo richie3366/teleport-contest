@@ -93,8 +93,14 @@ export const G_NOCORPSE = 0x0010;
 
 /** C: monflag.h `MR_FIRE` — innate fire resistance (goodpos lava, trap.c, …). */
 export const MR_FIRE = 0x01;
+/** C: monflag.h `MR_COLD` */
+export const MR_COLD = 0x02;
 /** C: monflag.h `MR_SLEEP` — sleep resistance (trap.c sleep gas, …). */
 export const MR_SLEEP = 0x04;
+/** C: monflag.h `MR_DISINT` */
+export const MR_DISINT = 0x08;
+/** C: monflag.h `MR_ELEC` */
+export const MR_ELEC = 0x10;
 
 // C: monflag.h (subset used by locomotion / stagger / goodpos)
 const M1_FLY = 0x00000001;
@@ -547,6 +553,25 @@ export function fireResistant(/** @type {Permonst} */ ptr) {
 /** C: mondata.h resists_sleep — `mons[].mresists & MR_SLEEP` (subset; no `defended`/`resist()` yet). */
 export function resistsSleep(/** @type {Permonst} */ ptr) {
     return ((ptr?.mresists ?? 0) & MR_SLEEP) !== 0;
+}
+
+/**
+ * C: monst.h **`mon_resistancebits(mon)`** — **`mresists|mextrinsics|mintrinsics`**.
+ * JS: **`mextrinsics`/`mintrinsics`** on **`struct monst`** not modeled; **`raceptr`** for **`data`**.
+ * @param {{ data?: Permonst }|null|undefined} mtmp
+ */
+export function monResistanceBitsLikeC(mtmp) {
+    return (raceptr(mtmp)?.mresists ?? 0) | 0;
+}
+
+/** C: monst.h **`resists_elec`** — **`Resists_Elem`** innate-bit subset (**`MR_ELEC`** only; no worn **`defends`** yet). */
+export function resistsElecMonLikeC(mtmp) {
+    return (monResistanceBitsLikeC(mtmp) & MR_ELEC) !== 0;
+}
+
+/** C: monst.h **`resists_disint`** — innate **`MR_DISINT`** subset. */
+export function resistsDisintMonLikeC(mtmp) {
+    return (monResistanceBitsLikeC(mtmp) & MR_DISINT) !== 0;
 }
 
 /** C: mondata.h likes_lava(ptr) — fire elemental or salamander (`mons[]` identity). */

@@ -16,6 +16,7 @@ import { losehp } from './mthrowu.js';
 import { monNamUstuckLikeC, monNamMonnamUstuckLikeC } from './pray_pat_spell_gcrown.js';
 import { summonMinionHeroLikeC } from './minion_summon_hero.js';
 import { rn2 } from './rng.js';
+import { resistsDisintMonLikeC, resistsElecMonLikeC } from './mondata.js';
 
 /** C: pray.c **`godvoices[]`** + **`ROLL_FROM`**. */
 const GODVOICES = ['booms out', 'thunders', 'rings out', 'booms'];
@@ -75,17 +76,9 @@ async function fryByGodHeroLikeC(g, respGod, viaDisint) {
     losehp(n, kn, KILLED_BY);
 }
 
-function resistsElecMonsterGodZapsStub(_mtmp) {
-    return false;
-}
-
-function resistsDisintMonsterGodZapsStub(_mtmp) {
-    return false;
-}
-
 /**
  * C: pray.c **`god_zaps_you(aligntyp resp_god)`** — swallow / reflect / shock / fry / disintegration / astral triple **`summon_minion`**.
- * Omits **`disintegrate_arm`** (**`do_wear.c`**) and real **`xkilled`** / **`done(DIED)`** beyond **`losehp`** in **`fryByGodHeroLikeC`**.
+ * Omits **`disintegrate_arm`** (**`do_wear.c`**) and real **`xkilled`** / **`done(DIED)`** beyond **`losehp`** in **`fryByGodHeroLikeC`**. Swallow **`resists_elec`/`resists_disint`** — C **`Resists_Elem`** innate **`mon_resistancebits`** only (**`mondata.js`**; no monst **`mextrinsics`** / inventory **`defends`** yet).
  * @param {import('./gstate.js').game} g
  * @param {number} respGod
  */
@@ -100,7 +93,7 @@ export async function godZapsYouHeroLikeC(g, respGod) {
         const stuck = u.ustuck;
         await pline('Suddenly a bolt of lightning comes down at you from the heavens!');
         await pline(`It strikes ${monNamUstuckLikeC(stuck)}!`);
-        if (!resistsElecMonsterGodZapsStub(stuck)) {
+        if (!resistsElecMonLikeC(stuck)) {
             await pline(`${monNamMonnamUstuckLikeC(stuck)} fries to a crisp!`);
         } else {
             await pline(`${monNamMonnamUstuckLikeC(stuck)} seems unaffected.`);
@@ -130,7 +123,7 @@ export async function godZapsYouHeroLikeC(g, respGod) {
     if (u.uswallow | 0) {
         const stuck = u.ustuck;
         await pline(`A wide-angle disintegration beam aimed at you hits ${monNamUstuckLikeC(stuck)}!`);
-        if (!resistsDisintMonsterGodZapsStub(stuck)) {
+        if (!resistsDisintMonLikeC(stuck)) {
             await pline(`${monNamMonnamUstuckLikeC(stuck)} disintegrates into a pile of dust!`);
         } else {
             await pline(`${monNamMonnamUstuckLikeC(stuck)} seems unaffected.`);
