@@ -2,6 +2,7 @@
 // C ref: mon.c m_respond ~4122–4130, m_respond_shrieker ~4088–4104, wizard.c aggravate ~494–510.
 
 import { PM_ERINYS, PM_MEDUSA, inWTowerLikeC } from './const.js';
+import { gazemuMedusaMrespondMonsterLikeC } from './gazemu_mhitu.js';
 import { rn2 } from './rng.js';
 import { couldsee } from './vision.js';
 import { raceptr } from './mondata.js';
@@ -51,7 +52,7 @@ export function aggravateMonstersLikeC(g) {
 
 /**
  * C: mon.c m_respond(mtmp) — between flee-teleport and mflee courage in dochug.
- * Medusa `gazemu` not ported (TODO mhitu.c AD_STON).
+ * Medusa → **`gazemu_mhitu.js`** **`gazemuMedusaMrespondMonsterLikeC`** (**`mhitu.c`** **`gazemu`** **`AD_STON`** subset).
  * @param {import('./gstate.js').game} g
  * @param {*} mtmp
  */
@@ -73,7 +74,7 @@ export function mRespondMonsterDochugLikeC(g, mtmp) {
     }
 
     if ((ptr.mnum | 0) === PM_MEDUSA && couldsee(mx, my)) {
-        /* C: m_respond_medusa → gazemu — RNG + stoning TODO */
+        gazemuMedusaMrespondMonsterLikeC(g, mtmp);
     }
 
     if ((ptr.mnum | 0) === PM_ERINYS && !(mtmp.mpeaceful | 0) && mCanSeeHeroMonsterLikeC(mtmp)) {
