@@ -1,6 +1,6 @@
 // u_init_role_rng.js — C u_init.c / mkobj.c leaf RNG for role inventory (narrow port).
 // Used while ini_inv is still stubbed so ISAAC matches upstream before init_attr(75).
-// C refs: u_init.c u_init_role (PM_ROGUE / PM_SAMURAI / PM_VALKYRIE / PM_KNIGHT / PM_MONK), ini_inv(), trquan(), mkobj.c mksobj+mksobj_init,
+// C refs: u_init.c u_init_role (PM_ROGUE / PM_SAMURAI / PM_VALKYRIE / PM_KNIGHT / PM_MONK / PM_ARCHEOLOGIST), ini_inv(), trquan(), mkobj.c mksobj+mksobj_init,
 //         mkbox_cnts (SACK empty at moves<=1), blessorcurse().
 
 import { game } from './gstate.js';
@@ -43,6 +43,17 @@ const OTYP_POT_SICKNESS = 317;
 /** C Wizard[] — `OBJECTS_ENUM` / `objects.h`. */
 const OTYP_QUARTERSTAFF = 79;
 const OTYP_CLOAK_OF_MAGIC_RESISTANCE = 148;
+/** C `OC_SKILL_ROW_BY_OTYP` — **`BULLWHIP`** (`mksobj_init` WEAPON); NH5 invent **`otyp`** = **82** (OC key **83** − **1**, same pattern as Rogue **`SHORT_SWORD`**). */
+const OTYP_BULLWHIP_MK = 83;
+const OTYP_FOOD_RATION = 143;
+const OTYP_LEATHER_JACKET = 136;
+const OTYP_FEDORA = 93;
+/** C `objects_nums` — **`WEPTOOL`** **`pick-axe`** after **`DRUM_OF_EARTHQUAKE`** (**`obj_oc_skill_data.js`** **259**). */
+const OTYP_PICK_AXE = 260;
+const OTYP_TINNING_KIT = 239;
+const OTYP_TOUCHSTONE = 472;
+const OTYP_TIN_OPENER = 240;
+const OTYP_OIL_LAMP = 228;
 
 /** C: mkobj.c next_ident — ident += rnd(2) */
 function nextIdentLikeC() {
@@ -129,6 +140,13 @@ function mksobjInitDefaultFoodQuanMaybeDoubleLikeC() {
 /** C: mkobj.c FOOD_RATION path — same default **`quan`** tail as other non-corpse food. */
 function mksobjInitFoodRationQuanLikeC() {
     return mksobjInitDefaultFoodQuanMaybeDoubleLikeC();
+}
+
+/** C: mkobj.c **`GEM_CLASS`** — **`TOUCHSTONE`** / non-**`LUCKSTONE`** gray: **`!rn2(6)`** → **`quan`** **2** (overwritten to **1** by **`ini_inv_adjust_obj`**). */
+function mksobjInitTouchstoneGemQuanDrawLikeC() {
+    if (!rn2(6)) {
+        /* otmp->quan = 2 — C ini_inv_adjust_obj forces graystone stack to 1 */
+    }
 }
 
 /** C: mkobj.c **`OIL_LAMP`** — **`age = rn1(500, 1000)`**, **`blessorcurse(otmp, 5)`**. */
@@ -412,6 +430,84 @@ export function consumeWizardHumanIniInvUinitRoleRngLikeC() {
     rn2(1);
 
     game._wizardIniBlindfold = consumeIniInvBlindfoldLeafRngIfGateLikeC();
+}
+
+/**
+ * C: u_init.c **`PM_ARCHEOLOGIST`** **`ini_inv(Archeologist[])`** for human (no race subs) +
+ * **`if (!rn2(10)) ini_inv(Tinopener); else if (!rn2(4)) ini_inv(Lamp); else if (!rn2(5)) ini_inv(Magicmarker);`**
+ * (**strict** **`if` / `else if`** — only one optional pack’s draws).
+ */
+export function consumeArcheologistHumanIniInvUinitRoleRngLikeC() {
+    /* BULLWHIP +2 */
+    rn2(1);
+    nextIdentLikeC();
+    mksobjInitWeaponLikeC(OTYP_BULLWHIP_MK, false);
+    rn2(1);
+
+    /* LEATHER_JACKET +0 */
+    rn2(1);
+    nextIdentLikeC();
+    mksobjInitArmorLikeC(false);
+
+    /* FEDORA +0 */
+    rn2(1);
+    nextIdentLikeC();
+    mksobjInitArmorLikeC(false);
+
+    const foodQ = 3 + rn2(1);
+    game._archIniFoodRationQuans = [];
+    for (let i = 0; i < foodQ; i++) {
+        nextIdentLikeC();
+        game._archIniFoodRationQuans.push(mksobjInitFoodRationQuanLikeC());
+        rn2(1);
+    }
+
+    /* PICK_AXE — TOOL_CLASS **`WEPTOOL`**: no **`mksobj_init`** tool branch */
+    rn2(1);
+    nextIdentLikeC();
+    rn2(1);
+
+    /* TINNING_KIT — C **`MAGIC_MARKER`** / **`TINNING_KIT`** shared **`rn1(70,30)`** */
+    rn2(1);
+    nextIdentLikeC();
+    game._archIniTinningSpe = rn1(70, 30);
+    rn2(1);
+
+    /* TOUCHSTONE */
+    rn2(1);
+    nextIdentLikeC();
+    mksobjInitTouchstoneGemQuanDrawLikeC();
+
+    /* SACK */
+    rn2(1);
+    nextIdentLikeC();
+    mksobjInitSackStartInvLikeC();
+    rn2(1);
+
+    if (!rn2(10)) {
+        rn2(1);
+        nextIdentLikeC();
+        rn2(1);
+        game._archIniExtra = 'tin';
+        game._archIniMagicmarkerSpe = undefined;
+    } else if (!rn2(4)) {
+        rn2(1);
+        nextIdentLikeC();
+        mksobjInitOilLampToolLikeC();
+        rn2(1);
+        game._archIniExtra = 'lamp';
+        game._archIniMagicmarkerSpe = undefined;
+    } else if (!rn2(5)) {
+        rn2(1);
+        nextIdentLikeC();
+        mksobjInitMagicMarkerSpeRn1LikeC();
+        game._archIniMagicmarkerSpe = 19 + rn2(4);
+        rn2(1);
+        game._archIniExtra = 'marker';
+    } else {
+        game._archIniExtra = null;
+        game._archIniMagicmarkerSpe = undefined;
+    }
 }
 
 export function consumeMonkHumanIniInvUinitRoleRngLikeC() {

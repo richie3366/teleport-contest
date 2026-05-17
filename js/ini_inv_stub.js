@@ -9,6 +9,7 @@ import { applyValkyrieHumanLinkedInventAndWieldLikeC } from './u_init_link_valky
 import { applyKnightHumanLinkedInventAndWieldLikeC } from './u_init_link_knight_invent.js';
 import { applyMonkHumanLinkedInventAndWearLikeC } from './u_init_link_monk_invent.js';
 import { applyWizardHumanLinkedInventAndWearLikeC } from './u_init_link_wizard_invent.js';
+import { applyArcheologistHumanLinkedInventAndWearLikeC } from './u_init_link_archeologist_invent.js';
 
 const INV_COL = 32;
 
@@ -575,6 +576,7 @@ export function initIniInvStub(/** @type {import('./gstate.js').game} */ g) {
     applyKnightHumanLinkedInventAndWieldLikeC(g);
     applyMonkHumanLinkedInventAndWearLikeC(g);
     applyWizardHumanLinkedInventAndWearLikeC(g);
+    applyArcheologistHumanLinkedInventAndWearLikeC(g);
 }
 
 /** @param {import('./game_display.js').GameDisplay} display */
