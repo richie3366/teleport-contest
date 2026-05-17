@@ -3011,8 +3011,10 @@ export const OTYP_BOULDER = 465;
 export const OTYP_HEAVY_IRON_BALL = 473;
 /** C: objects.h `OBJ("iron chain", …)` — follows heavy iron ball in `OBJECTS_ENUM`. */
 export const OTYP_IRON_CHAIN = 474;
-/** C: `monsters.h` `MON()` order (NH 5.0 upstream) — zero-based `mons[]` index. */
-export const PM_GRID_BUG = 115;
+/** C: `monsters.h` `MON()` order (NH 5.0 upstream) — zero-based `mons[]` index; purple worm line (**`LITTLE_TO_BIG`** **[115,117]**). */
+export const PM_BABY_PURPLE_WORM = 115;
+export const PM_PURPLE_WORM = 117;
+export const PM_GRID_BUG = 118;
 /** C: `monsters.h` — gremlin. */
 export const PM_GREMLIN = 42;
 /** C: `monsters.h` MON() order — displacer beast (`set_apparxy` displacement exception). */
