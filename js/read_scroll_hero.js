@@ -4,7 +4,7 @@
 //        unless **`SCR_BLANK_PAPER`**),
 //        **`seffects`** (**`exercise`** when **`oc_magic`**, **`switch(otyp)`** — blank, punishment (**`seffect_punishment`** partial), stinking cloud (discovery + **`gk`**; **`do_stinking_cloud`** TODO),
 //        remove curse (**`You_feel`** + cursed **`pline_The`**; no **`gk`**; **`Punished`** && !confused → **`unpunish`**;
-//        **`TT_BURIEDBALL`** clasp pline + clear **`utrap`** (**`buried_ball_to_freedom`** map ball TODO); invent loop **`remove_curse_hero.js`** (steed saddle TODO)), default stub),
+//        **`TT_BURIEDBALL`** clasp pline + clear **`utrap`** (**`buried_ball_to_freedom`** map ball TODO); invent + steed saddle **`remove_curse_hero.js`**), default stub),
 //        **`learnscroll`** / **`learnscrolltyp`**.
 
 import { game } from './gstate.js';
