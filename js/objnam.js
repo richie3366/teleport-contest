@@ -3,12 +3,79 @@
 // An()/just_an() for floor burn plines.
 
 import { game } from './gstate.js';
-import { NH5_SCROLL_CLASS, NH5_SPBOOK_CLASS } from './nh5_objclass.js';
+import { NH5_POTION_CLASS, NH5_SCROLL_CLASS, NH5_SPBOOK_CLASS } from './nh5_objclass.js';
 import { isSpellbookOtyp, spellbookAppearanceNounPhrase } from './spellbook_discovery_lines.js';
 import { nh5HeroObjectClass } from './water_damage.js';
 import { OC_SKILL_ROW_BY_OTYP } from './obj_oc_skill_data.js';
 import { cansee } from './vision.js';
 import { OTYP_GLOB_OF_GREEN_SLIME } from './const.js';
+
+/** C: include/objects.h POTION(...) block — NH **5.0.0** contiguous **`objects_nums`** **296..321** (see **`water_damage.js`** **`nh5HeroObjectClass`**). */
+const OTYP_POT_FIRST = 296;
+const OTYP_POT_LAST = 321;
+
+/** C: OBJ_DESCR — unknown appearance before **`potion of …`**. */
+const POTION_DESCR_BY_IX = [
+    'ruby',
+    'pink',
+    'orange',
+    'yellow',
+    'emerald',
+    'dark green',
+    'cyan',
+    'sky blue',
+    'brilliant blue',
+    'magenta',
+    'purple-red',
+    'puce',
+    'milky',
+    'swirly',
+    'bubbly',
+    'smoky',
+    'cloudy',
+    'effervescent',
+    'black',
+    'golden',
+    'brown',
+    'fizzy',
+    'dark',
+    'white',
+    'murky',
+    'clear',
+];
+
+/** C: OBJ actual name — known **`potion of …`** tail. */
+const POTION_NAME_BY_IX = [
+    'gain ability',
+    'restore ability',
+    'confusion',
+    'blindness',
+    'paralysis',
+    'speed',
+    'levitation',
+    'hallucination',
+    'invisibility',
+    'see invisible',
+    'healing',
+    'extra healing',
+    'gain level',
+    'enlightenment',
+    'monster detection',
+    'object detection',
+    'gain energy',
+    'sleeping',
+    'full healing',
+    'polymorph',
+    'booze',
+    'sickness',
+    'fruit juice',
+    'acid',
+    'oil',
+    'water',
+];
+
+/** C: objects.h **`SLIME_MOLD`** index ( **`mkobj_food_class_rng_like_c.js`**). */
+const OTYP_SLIME_MOLD = 194;
 
 export { discoverScrollOtyp } from './discover_scroll.js';
 
@@ -17,6 +84,26 @@ const GOLD_PIECE = 466;
 
 /** C: objnam.c vowels[] subset for just_an(). */
 const VOWELS = new Set(['a', 'e', 'i', 'o', 'u']);
+
+/** C: xname/doname potion branch — **`dknown`** appearance vs **`potionDiscovery`** known type. */
+function donamePotionLikeC(otmp, g, q, overrideId) {
+    const otyp = otmp.otyp | 0;
+    const ix = otyp - OTYP_POT_FIRST;
+    if (ix < 0 || ix > OTYP_POT_LAST - OTYP_POT_FIRST) return q === 1 ? 'a potion' : `${q} potions`;
+    const dknown = overrideId || (otmp.dknown | 0);
+    if (!dknown) return q === 1 ? 'a potion' : `${q} potions`;
+    const known = overrideId || (g?.potionDiscovery instanceof Set && g.potionDiscovery.has(otyp));
+    const appe = POTION_DESCR_BY_IX[ix];
+    const effect = POTION_NAME_BY_IX[ix];
+    if (known) {
+        if (q === 1) return `a potion of ${effect}`;
+        return `${q} potions of ${effect}`;
+    }
+    const colored = `${appe} potion`;
+    const art = justArticlePrefix(colored);
+    if (q === 1) return `${art}${colored}`;
+    return `${q} ${appe} potions`;
+}
 
 /**
  * C: objnam.c just_an() — returns "", "a ", or "an " (lowercase article only).
@@ -74,7 +161,7 @@ function spellbookAppearanceFromOtyp(otyp) {
 
 /**
  * C: xname(obj) core for zap.c burn_floor_objects classes only (no leading article).
- * Uses `obj.dknown` / `g.objectDiscovery` (spellbooks) / `g.scrollDiscovery` (scrolls, Set<otyp>) when wired.
+ * Uses `obj.dknown` / `g.objectDiscovery` (spellbooks) / `g.scrollDiscovery` (scrolls) / `g.potionDiscovery` (potions) when wired.
  * @param {{ otyp?: number, oclass?: number, quan?: number, dknown?: number, oartifact?: number }} obj
  * @param {object} [g]
  */
@@ -82,6 +169,13 @@ export function xnameBurnFloor(obj, g = game) {
     const t = obj.otyp | 0;
     const oc = nh5HeroObjectClass(obj);
     if (t === OTYP_GLOB_OF_GREEN_SLIME) return 'glob of green slime';
+    if (t >= OTYP_POT_FIRST && t <= OTYP_POT_LAST) {
+        if (!(obj.dknown | 0)) return 'potion';
+        const known = g?.potionDiscovery instanceof Set && g.potionDiscovery.has(t);
+        const ix = t - OTYP_POT_FIRST;
+        if (known) return `potion of ${POTION_NAME_BY_IX[ix]}`;
+        return `${POTION_DESCR_BY_IX[ix]} potion`;
+    }
     if (oc === NH5_SCROLL_CLASS) {
         if (!(obj.dknown | 0)) return 'scroll';
         const scrollKnown = g?.scrollDiscovery instanceof Set && g.scrollDiscovery.has(t);
@@ -127,6 +221,7 @@ export function distantNameBurnFloor(obj, x, y, g = game) {
     const oc = nh5HeroObjectClass(obj);
     const t = obj.otyp | 0;
     if (t === OTYP_GLOB_OF_GREEN_SLIME) return 'glob of green slime';
+    if (t >= OTYP_POT_FIRST && t <= OTYP_POT_LAST) return 'potion';
     if (oc === NH5_SCROLL_CLASS) return 'scroll';
     if (oc === NH5_SPBOOK_CLASS || isSpellbookOtyp(t)) return 'spellbook';
     return 'item';
@@ -138,6 +233,12 @@ export function distantNameBurnFloor(obj, x, y, g = game) {
  */
 export function makePluralBurn(s) {
     if (s === 'glob of green slime') return 'globs of green slime';
+    if (s === 'potion') return 'potions';
+    if (s.endsWith(' potion') && !s.startsWith('potion of ')) {
+        const appe = s.slice(0, -' potion'.length);
+        return `${appe} potions`;
+    }
+    if (s.startsWith('potion of ')) return `potions of ${s.slice('potion of '.length)}`;
     if (s === 'scroll') return 'scrolls';
     if (s === 'spellbook') return 'spellbooks';
     if (s.startsWith('scroll of ')) return `scrolls of ${s.slice('scroll of '.length)}`;
@@ -155,6 +256,8 @@ export function makePluralBurn(s) {
  * Spellbooks: if `otyp` is an NH5 spellbook and `g.objectDiscovery` contains it,
  * name like `a spellbook of force bolt` (C appearance after skill_based_spellbook_id).
  * Scrolls: `g.scrollDiscovery` Set drives **`scroll of`** vs **`scroll labeled`** when `dknown`.
+ * Potions: NH **5.0.0** **`objects_nums`** **296..321** — appearance vs **`potion of …`** from **`g.potionDiscovery`** when `dknown`.
+ * Slime mold / glob: FOOD **`otyp`** subset (**`minimal_xname`** corpsenm suppression not modeled).
  * @param {{ otyp?: number, quan?: number, oclass?: number, dknown?: number }} otmp
  * @param {object} [g]
  * @param {{ overrideId?: boolean }} [opts] — C **`iflags.override_ID`** for **`minimal_xname`**: force type-known + **`dknown`** for naming only.
@@ -167,7 +270,15 @@ export function doname(otmp, g = game, opts) {
         return q === 1 ? 'a gold piece' : `${q} gold pieces`;
     }
     const otyp = otmp.otyp | 0;
+    if (otyp === OTYP_GLOB_OF_GREEN_SLIME) {
+        return q === 1 ? 'a glob of green slime' : `${q} globs of green slime`;
+    }
+    if (otyp === OTYP_SLIME_MOLD) {
+        return q === 1 ? 'a slime mold' : `${q} slime molds`;
+    }
     const oc = nh5HeroObjectClass(otmp);
+    const onPotion = oc === NH5_POTION_CLASS || (otyp >= OTYP_POT_FIRST && otyp <= OTYP_POT_LAST);
+    if (onPotion) return donamePotionLikeC(otmp, g, q, overrideId);
     const treatAsSpellbook = oc === NH5_SPBOOK_CLASS || isSpellbookOtyp(otyp);
     if (oc === NH5_SCROLL_CLASS) {
         const dknown = overrideId || (otmp.dknown | 0);
@@ -256,7 +367,7 @@ export function upstartLikeC(str) {
 
 /**
  * C: o_init.c **`discover_object(oindx, mark_as_known, mark_as_encountered, credit_hero)`** — **`disco[]`** slot + **`oc_encountered`** / **`oc_name_known`**.
- * JS: **`g.objectEncountered`** (**`Set<otyp>`**) when **`mark_as_encountered`**; **`oc_name_known`** only via existing **`scrollDiscovery`** / **`objectDiscovery`** when **`mark_as_known`**.
+ * JS: **`g.objectEncountered`** (**`Set<otyp>`**) when **`mark_as_encountered`**; **`partialNameKnown`** uses **`scrollDiscovery`** / **`objectDiscovery`** / **`potionDiscovery`** like C type-known gates.
  * Omits **`svb.bases[]`**, Samurai **`Japanese_item_name`**, **`gem_learned`**, **`update_inventory`**, **`exercise`**.
  * @param {import('./gstate.js').game} g
  * @param {number} oindx
@@ -273,7 +384,8 @@ export function discoverObjectHeroLikeC(g, oindx, markAsKnown, markAsEncountered
 
     const scrollKnown = g.scrollDiscovery instanceof Set && g.scrollDiscovery.has(t);
     const spellKnown = g.objectDiscovery instanceof Set && g.objectDiscovery.has(t);
-    const partialNameKnown = scrollKnown || spellKnown;
+    const potKnown = g.potionDiscovery instanceof Set && g.potionDiscovery.has(t);
+    const partialNameKnown = scrollKnown || spellKnown || potKnown;
 
     /* C: outer **`if`** — no **`objects[]`** yet; spell/scroll Sets approximate **`oc_name_known`** for those classes only. */
     const enter = (markAsKnown && !partialNameKnown) || (markAsEncountered && !alreadyEnc);
