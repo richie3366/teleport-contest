@@ -1,5 +1,5 @@
 // pray_hero.js — C pray.c dopray / can_pray / prayer_done / pleased subset / angrygods for `#pray`.
-// C ref: pray.c dopray, can_pray, prayer_done, pleased (subset), angrygods (**`gods_angry`** + **`read.c`** **`punish`** null **`sobj`** on case **6**; **`minion.c`** **`summon_minion`** on cases **7–8**; **`gods_angry`/`god_zaps_you`** on **`default`** via **`god_zaps_hero.js`**), gods_upset, water_prayer
+// C ref: pray.c dopray, can_pray, prayer_done, pleased (subset), angrygods (**`gods_angry`** (**`godvoice`** **`rn2(4)`**) on cases **4–6** + **`read.c`** **`punish`** null **`sobj`** on case **6**; **`minion.c`** **`summon_minion`** on cases **7–8**; **`gods_angry`/`god_zaps_you`** on **`default`** via **`god_zaps_hero.js`**), gods_upset, water_prayer
 //
 // Extended commands read a tty line after `#` (terminated by `\n` or `\r`); see extcmd.js.
 // C dopray uses nomul(-3); JS drains three moveloop-equivalent ticks (moveloop_turn_advance.js)
@@ -464,7 +464,7 @@ async function angrygodsLikeC(g, respGod) {
         case 6:
             if (!(u.Punished | 0)) {
                 /* C: **`gods_angry`** + **`read.c`** **`punish((struct obj *) 0)`** */
-                await pline(`The voice of ${alignGnameRespGodLikeC(g, rg)} thunders: "Thou hast angered me."`);
+                await godsAngryHeroLikeC(g, rg);
                 await punishHeroFromObjLikeC(g, null);
                 syncHeroInvWeightNetLikeC(g);
                 break;
@@ -472,7 +472,7 @@ async function angrygodsLikeC(g, respGod) {
             /* FALLTHRU */
         case 4:
         case 5: {
-            await pline(`The voice of ${alignGnameRespGodLikeC(g, rg)} thunders: "Thou hast angered me."`);
+            await godsAngryHeroLikeC(g, rg);
             const blind = !!(u.Blind | 0);
             const antimagic = !!(u.Antimagic | 0);
             if (!blind && !antimagic) await pline('A black glow surrounds you.');
