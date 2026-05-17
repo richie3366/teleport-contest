@@ -11,6 +11,7 @@ import {
     OTYP_RIN_PROTECTION,
     OTYP_YELLOW_DRAGON_SCALE_MAIL,
     OTYP_YELLOW_DRAGON_SCALES,
+    PROTECTION,
 } from './const.js';
 
 const AC_MAX = 99;
@@ -147,8 +148,9 @@ export function findAc(g = game) {
     if (u.uright && (u.uright.otyp | 0) === OTYP_RIN_PROTECTION) uac -= u.uright.spe | 0;
     if (u.uamul && (u.uamul.otyp | 0) === OTYP_AMULET_OF_GUARDING) uac -= 2;
 
-    /* C: youprop.h HProtection & INTRINSIC → uac -= u.ublessed (pray.c divine protection, …) */
-    if ((u.HProtection | 0) & INTRINSIC) uac -= u.ublessed | 0;
+    /* C: youprop.h HProtection — `u.uprops[PROTECTION].intrinsic`; do_wear.c find_ac uses `(intrinsic & INTRINSIC)` */
+    const protIntrinsic = u.uprops?.[PROTECTION]?.intrinsic | 0;
+    if ((protIntrinsic & INTRINSIC) !== 0) uac -= u.ublessed | 0;
     uac -= u.uspellprot | 0;
 
     if (Math.abs(uac) > AC_MAX) uac = Math.sign(uac) * AC_MAX;

@@ -39,6 +39,7 @@ import { maybeRecordEnteredNewLevelLivelogLikeC } from './livelog.js';
 import { contextLeavingTutorialActiveLikeC } from './tutorial_branch.js';
 import { awaitLegacyIntroMoreLikeC } from './legacy_intro.js';
 import { rn2 } from './rng.js';
+import { LAST_PROP } from './const.js';
 
 // C ref: allmain.c newgame()
 export async function newgame() {
@@ -132,8 +133,12 @@ export async function newgame() {
     g.u.uright = null;
     g.u.Unaware = 0; /* eat.c gethungry — asleep / !rn2(10) metabolic branch */
     g.u.EProtection = 0; /* prop.c subset — wear.js refreshEProtectionFromRings sets W_RING* from rings */
-    /* C: youprop.h HProtection — u.uprops[PROTECTION].intrinsic; do_wear.c find_ac uses (HProtection & INTRINSIC) */
-    g.u.HProtection = 0;
+    /* C: you.h `struct u_property u.uprops[LAST_PROP+1]` — stub; pray.c / prop.c set `[PROTECTION].intrinsic` (youprop.h HProtection). */
+    {
+        const up = new Array(LAST_PROP + 1);
+        for (let i = 0; i <= LAST_PROP; i++) up[i] = { intrinsic: 0, extrinsic: 0, blocked: 0 };
+        g.u.uprops = up;
+    }
     /* C: u_init.c u_init_misc — u.ublessed / u.uspellprot (you.h); pray / spell protection vs AC */
     g.u.ublessed = 0;
     g.u.uspellprot = 0;
