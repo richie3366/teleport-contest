@@ -1,5 +1,5 @@
 // read_scroll_hero.js — Hero **`r`** read scroll subset until full **`read.c`** **`doread`** / **`seffects`**.
-// C ref: read.c **`doread`** (**`gk.known=FALSE`**, blind+**`dknown`**, non-blank disappear/confused plines,
+// C ref: read.c **`doread`** (**`gk.known=FALSE`**, blind+**`dknown`**, non-blank **`nodisappear`** plines (**`SCR_FIRE`**, cursed **`SCR_REMOVE_CURSE`**),
 //        **`!seffects(scroll)`** tail: **`learnscroll`** vs **`trycall`** when **`!oc_name_known`** (**`gk.known`** gate), **`useup`**
 //        unless **`SCR_BLANK_PAPER`**),
 //        **`seffects`** (**`exercise`** when **`oc_magic`**, **`switch(otyp)`** — blank wired, other cases stub),
@@ -17,6 +17,10 @@ import { learnscrollHeroLikeC, trycallHeroLikeC } from './discover_scroll.js';
 
 /** C: **`objects_nums`** **`SCR_BLANK_PAPER`** — **`SCROLL(..., mgc, ...)`** with **`mgc`** **0** (**`objects.h`**). */
 const OTYP_SCR_BLANK_PAPER = 364;
+/** C: **`objects_nums`** / **`SCROLL_CLASS_MKOBJ_OC_PROB_ROWS`** — **`SCR_REMOVE_CURSE`**. */
+const OTYP_SCR_REMOVE_CURSE = 327;
+/** C: **`SCR_FIRE`**. */
+const OTYP_SCR_FIRE = 339;
 
 /**
  * C: **`objects[otyp].oc_magic`** — **`SCROLL`** macro **`mgc`**; false for blank paper (and otyps outside scroll table).
@@ -127,11 +131,20 @@ export async function doReadHeroScrollCmdLikeC(g = game) {
     /* C: read.c **`doread`** — **`if (otyp != SCR_BLANK_PAPER)`** disappear + confused plines before **`seffects`** */
     if (otyp !== OTYP_SCR_BLANK_PAPER) {
         const silently = false; /* C: **`can_chant`** — not ported */
+        /* C: **`nodisappear`** — **`SCR_FIRE`** or cursed **`SCR_REMOVE_CURSE`** (avoid “disappears” wording) */
+        const nodisappear =
+            otyp === OTYP_SCR_FIRE || (otyp === OTYP_SCR_REMOVE_CURSE && (scroll.cursed | 0));
         if (blind) {
-            await pline(
-                'As you %s the formula on it, the scroll disappears.',
-                silently ? 'cogitate' : 'pronounce',
-            );
+            if (nodisappear) {
+                await pline('You %s the formula on the scroll.', silently ? 'cogitate' : 'pronounce');
+            } else {
+                await pline(
+                    'As you %s the formula on it, the scroll disappears.',
+                    silently ? 'cogitate' : 'pronounce',
+                );
+            }
+        } else if (nodisappear) {
+            await pline('You read the scroll.');
         } else {
             await pline('As you read the scroll, it disappears.');
         }
