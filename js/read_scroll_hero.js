@@ -3,7 +3,7 @@
 //        **`!seffects(scroll)`** tail: **`learnscroll`** vs **`trycall`** when **`!oc_name_known`** (**`gk.known`** gate), **`useup`**
 //        unless **`SCR_BLANK_PAPER`**),
 //        **`seffects`** (**`exercise`** when **`oc_magic`**, **`switch(otyp)`** — blank, punishment (**`seffect_punishment`** partial), stinking cloud (discovery + **`gk`**; **`do_stinking_cloud`** TODO),
-//        remove curse (**`You_feel`** + cursed **`pline_The`**; no **`gk`**; invent/**`unpunish`**/**`buried_ball`** TODO), default stub),
+//        remove curse (**`You_feel`** + cursed **`pline_The`**; no **`gk`**; **`Punished`** && !confused → **`unpunish`**; invent/**`buried_ball`** TODO), default stub),
 //        **`learnscroll`** / **`learnscrolltyp`**.
 
 import { game } from './gstate.js';
@@ -15,6 +15,7 @@ import { NH5_SCROLL_CLASS } from './nh5_objclass.js';
 import { removeObjFromHeroInvent } from './water_damage.js';
 import { observeObjectHeroMinimalLikeC } from './objnam.js';
 import { learnscrollHeroLikeC, trycallHeroLikeC } from './discover_scroll.js';
+import { heroPunishedLikeC, unpunishHeroLikeC } from './punish_hero.js';
 
 /** C: **`objects_nums`** **`SCR_BLANK_PAPER`** — **`SCROLL(..., mgc, ...)`** with **`mgc`** **0** (**`objects.h`**). */
 const OTYP_SCR_BLANK_PAPER = 364;
@@ -89,8 +90,11 @@ export async function seffectsHeroReadScrollLikeC(g, scroll, blind) {
             await pline(`You feel ${feel}`);
             if (scroll.cursed | 0) {
                 await pline('The scroll disintegrates.');
+            } else {
+                /* C: invent loop (blessorcurse, uncurse, learnscrolltyp), steed saddle — TODO */
             }
-            /* C: else invent loop (blessorcurse, uncurse, learnscrolltyp), steed saddle, unpunish, buried_ball_to_freedom — TODO */
+            /* C: after if/else — **`if (Punished && !confused) unpunish()`**; then **`buried_ball_to_freedom`** — TODO */
+            if (heroPunishedLikeC(g) && !confused) unpunishHeroLikeC(g);
             return 0;
         }
         default: {
