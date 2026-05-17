@@ -15,6 +15,7 @@ import { maybeSmudgeEngr } from './engrave.js';
 import { checkHere } from './pickup.js';
 import { runExtcmdFromHashPrefix } from './extcmd.js';
 import { doZapCmd } from './dozap.js';
+import { doReadHeroScrollCmdLikeC } from './read_scroll_hero.js';
 import { doBumpMeleeAttack } from './attack.js';
 import { tryPeacefulSwap } from './peaceful_displace.js';
 import { blocksMovementAt, diagonalHeroMoveBlocked } from './walkable.js';
@@ -107,6 +108,12 @@ export async function rhack(key) {
 
     if (ch === 'z') {
         await doZapCmd();
+        return;
+    }
+
+    if (ch === 'r') {
+        /* C: cmd.c → read.c doread (subset: first invent scroll, no getobj / seffects yet) */
+        await doReadHeroScrollCmdLikeC(game);
         return;
     }
 
