@@ -1,5 +1,5 @@
 // exper_pluslvl.js — C exper.c pluslvl() / newpw(); attrib.c newhp() for u.ulevel > 0.
-// C ref: exper.c pluslvl(), newpw(); attrib.c newhp() (non-zero level); pray.c pleased pat_on_head.
+// C ref: exper.c pluslvl(), newpw(), more_experienced(); attrib.c newhp() (non-zero level); pray.c pleased pat_on_head.
 
 import { pline } from './display.js';
 import { rnd, rn1 } from './rng.js';
@@ -171,4 +171,43 @@ export async function pluslvlHeroLikeC(g, incr) {
 
     g.disp = g.disp || {};
     g.disp.botl = true;
+}
+
+/**
+ * C: exper.c **`more_experienced(exper, rexp)`** — **`u.uexp += exper`**, **`u.urexp += 4*exper + rexp`** (cap on positive wrap).
+ * Omits **`flags.showexp`** / **`exp_percent_changing`** botl nuance when only **`uexp`** moves.
+ * @param {import('./gstate.js').game} g
+ * @param {number} exper
+ * @param {number} rexp
+ */
+export function moreExperiencedHeroLikeC(g, exper, rexp) {
+    const u = g?.u;
+    if (!u) return;
+    const ex = exper | 0;
+    const rx = rexp | 0;
+    let oldexp = Number(u.uexp) | 0;
+    if (!Number.isFinite(oldexp)) oldexp = 0;
+    let oldrexp = Number(u.urexp) | 0;
+    if (!Number.isFinite(oldrexp)) oldrexp = 0;
+
+    let newexp = oldexp + ex;
+    const rexpincr = 4 * ex + rx;
+    let newrexp = oldrexp + rexpincr;
+
+    if (newexp < 0 && ex > 0) newexp = Number.MAX_SAFE_INTEGER;
+    if (newrexp < 0 && rexpincr > 0) newrexp = Number.MAX_SAFE_INTEGER;
+
+    if (newexp !== oldexp) {
+        u.uexp = newexp;
+        g.disp = g.disp || {};
+        g.disp.botl = true;
+    }
+    if (newrexp !== oldrexp) u.urexp = newrexp;
+
+    /* C: exper.c more_experienced — Role_if(PM_WIZARD) ? 1000 : 2000 */
+    const wiz = g?.urole?.abbr === 'Wiz';
+    const thresh = wiz ? 1000 : 2000;
+    if ((u.urexp | 0) >= thresh && g.flags && typeof g.flags === 'object') {
+        g.flags.beginner = false;
+    }
 }

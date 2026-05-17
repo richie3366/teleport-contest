@@ -68,6 +68,7 @@ export async function newgame() {
     g.u.umortality = 0;
     g.u.Half_physical_damage = 0;
     g.u.uexp = 0;
+    g.u.urexp = 0; /* C: u_init / exper.c — score-style experience accumulator */
     g.u.ualign = g.u.ualign || { type: 0, record: 0 };
     g.u.uhs = UHS.NOT_HUNGRY; /* port eat.c / moveloop when hunger advances */
     /* C: eat.c init_uhunger — u.uhunger = 900 (NOT_HUNGRY band for exerper) */

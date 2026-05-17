@@ -18,6 +18,7 @@ import {
 import { heroZapDigLikeC } from './zap_dig.js';
 import { NH5_WAND_CLASS } from './nh5_objclass.js';
 import { learnwandHeroLikeC } from './objnam.js';
+import { moreExperiencedHeroLikeC } from './exper_pluslvl.js';
 
 /** C: objects.h wand block — first otyp **409**; **RAY** digging then magic missile..lightning (**`weffects`**). */
 const OTYP_NH5_WAN_FIRST = 409;
@@ -150,12 +151,16 @@ export async function doZapCmd() {
         return;
     }
 
+    /* C: zap.c **`weffects`** — **`was_unkn = !objects[otyp].oc_name_known`** before **`learnwand`**. */
+    const wasUnkn = !(g.wandDiscovery instanceof Set && g.wandDiscovery.has(otyp));
+
     if (isWanDiggingOtyp(otyp)) {
         await heroZapDigLikeC(g);
     } else {
         await ubuzzOverFloor(g, wandUbuzzTypeFromOtyp(otyp), wandUbuzzNdLikeC(otyp));
     }
-    /* C: zap.c **`weffects`** — **`if (disclose) learnwand(obj)`** for RAY / **`zap_dig`** branch. */
+    /* C: **`if (disclose) { learnwand(obj); if (was_unkn) more_experienced(0, 10); }`** */
     learnwandHeroLikeC(g, wand);
+    if (wasUnkn) moreExperiencedHeroLikeC(g, 0, 10);
     await flush_screen(1);
 }
