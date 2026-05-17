@@ -1,7 +1,6 @@
 // moveloop_aux.js — End-of-turn RNG after movemon (allmain.c moveloop_core tail).
-// C ref: allmain.c (maybe_generate_rnd_mon, dosounds, …), eat.c gethungry (called from allmain after moves++).
-//
-// `pre_moveloop82_exercise` / `post_moveloop82_exercise` still replay bare `rn2` for session harness.
+// C ref: allmain.c — **`maybe_generate_rnd_mon`** + **`settrack()`** + **`svm.moves++`**, then dosounds/gethungry/…
+// **`runPostCommandTurnAdvanceLikeC`** calls **`maybe_generate_rnd_mon`** before **`moves++`** to match C order.
 
 import { game } from './gstate.js';
 import { rn2, rnd } from './rng.js';
@@ -22,6 +21,7 @@ import { acurr } from './attrib.js';
 import { uWipeEngr } from './engrave.js';
 import { nearCapacity, ENC } from './encumbr.js';
 import { heroEatsOrdinaryFood } from './mondata.js';
+import { MOVE_MON_HARNESS_MAX_STEP } from './monmove.js';
 
 export function maybe_generate_rnd_mon() {
     rn2(70);
@@ -144,12 +144,13 @@ export function post_moveloop82_exercise(stepNum) {
     if (stepNum === 6) rn2(31);
 }
 
-/** Full tail after movemon for one game-time step (harness range only). */
+/** C: allmain.c — per-turn tail **after** **`svm.moves++`** (dosounds … u_wipe_engr …). */
 export function end_of_turn_rng(stepNum) {
-    maybe_generate_rnd_mon();
     dosounds();
     gethungry();
     maybe_u_wipe_engr();
-    pre_moveloop82_exercise(stepNum);
-    post_moveloop82_exercise(stepNum);
+    if (stepNum > 0 && stepNum <= MOVE_MON_HARNESS_MAX_STEP) {
+        pre_moveloop82_exercise(stepNum);
+        post_moveloop82_exercise(stepNum);
+    }
 }

@@ -7,7 +7,7 @@
 //
 // C: **`monmove.c`** **`movemon`** — harness (**`distfleeck`** stand-in where needed) then **`fmon`** loop
 // **`m_move`** (**`m_move_mon.js`**), then **`mintrap`**. **`m_throw`** runs only inside **`m_move`**.
-// **`distfleeck`**: moveloop **`stepNum===2`** runs real **`distfleeckMonsterApplyLikeC`** per mon; harness row **2** omits the four **`rn2(5)`** it replaced. Further steps still use harness **`rn2(5)`** until per-step monster counts match peel (**`distfleeck`** order: **`monmove.c`** **`m_move`**).
+// **`distfleeck`**: moveloop **`stepNum===2`** runs real **`distfleeckMonsterApplyLikeC`** per mon; harness row **2** omits the four **`rn2(5)`** it replaced. Trailing **`rn2(12)×4`** were removed from rows **2–12**: **`mcalcmove`** for all **`fmon`** is replayed in **`runPostCommandTurnAdvanceLikeC`** after **`movemon`** (C **`allmain.c`** order).
 // Multi-pass: C **`allmain.c`** **`do { movemon(); … } while (monscanmove)`** — repeat sweeps while any living mon still has **`movement >= NORMAL_SPEED`** after a full **`fmon`** pass ( **`gs.somebody_can_move`** ).
 
 import { rn2 } from './rng.js';
@@ -22,20 +22,20 @@ export { mthrowAtHeroUxyThituLikeC } from './mthrowu.js';
 export const MOVE_MON_HARNESS_MAX_STEP = 12;
 
 const _HARNESS = [
-    /* **`mcalcmove`** draws replayed in **`runPostCommandTurnAdvanceLikeC`** when **`monsters`** is empty. */
+    /* **`mcalcmove`** draws replayed in **`runPostCommandTurnAdvanceLikeC`** after **`movemon`** when **`monsters`** is empty. */
     () => {},
     () => {},
-    () => { rn2(5); rn2(32); rn2(5); rn2(5); rn2(32); rn2(5); rn2(12); rn2(12); rn2(12); rn2(12); },
-    () => { rn2(5); rn2(24); rn2(5); rn2(5); rn2(24); rn2(5); rn2(12); rn2(12); rn2(12); rn2(12); },
-    () => { rn2(5); rn2(16); rn2(5); rn2(12); rn2(12); rn2(12); rn2(12); },
-    () => { rn2(5); rn2(12); rn2(5); rn2(5); rn2(5); rn2(12); rn2(12); rn2(12); rn2(12); },
-    () => { rn2(5); rn2(16); rn2(5); rn2(5); rn2(16); rn2(5); rn2(12); rn2(12); rn2(12); rn2(12); },
-    () => { rn2(5); rn2(12); rn2(5); rn2(12); rn2(12); rn2(12); rn2(12); },
-    () => { rn2(5); rn2(20); rn2(5); rn2(5); rn2(8); rn2(5); rn2(12); rn2(12); rn2(12); rn2(12); },
-    () => { rn2(5); rn2(12); rn2(5); rn2(5); rn2(20); rn2(5); rn2(12); rn2(12); rn2(12); rn2(12); },
+    () => { rn2(5); rn2(32); rn2(5); rn2(5); rn2(32); rn2(5); },
+    () => { rn2(5); rn2(24); rn2(5); rn2(5); rn2(24); rn2(5); },
+    () => { rn2(5); rn2(16); rn2(5); },
+    () => { rn2(5); rn2(12); rn2(5); rn2(5); rn2(5); },
+    () => { rn2(5); rn2(16); rn2(5); rn2(5); rn2(16); rn2(5); },
+    () => { rn2(5); rn2(12); rn2(5); },
+    () => { rn2(5); rn2(20); rn2(5); rn2(5); rn2(8); rn2(5); },
+    () => { rn2(5); rn2(12); rn2(5); rn2(5); rn2(20); rn2(5); },
     // moveloop steps 11–12: #search (harness tail)
-    () => { rn2(5); rn2(20); rn2(5); rn2(5); rn2(12); rn2(5); rn2(12); rn2(12); rn2(12); rn2(12); },
-    () => { rn2(5); rn2(16); rn2(5); rn2(5); rn2(16); rn2(5); rn2(12); rn2(12); rn2(12); rn2(12); },
+    () => { rn2(5); rn2(20); rn2(5); rn2(5); rn2(12); rn2(5); },
+    () => { rn2(5); rn2(16); rn2(5); rn2(5); rn2(16); rn2(5); },
 ];
 
 /**
@@ -45,8 +45,13 @@ const _HARNESS = [
  * Tail: **`mintrap`** after each sweep when a monster entered a trapped square (C: **`monmove.c`** after **`m_move`**).
  */
 export async function movemon(stepNum) {
-    const i = stepNum - 1;
-    if (i >= 0 && i < _HARNESS.length) _HARNESS[i]();
+    const raw = stepNum - 1;
+    if (raw >= 0 && raw < _HARNESS.length) {
+        _HARNESS[raw]();
+    } else if (raw >= _HARNESS.length) {
+        /* Beyond captured harness steps: replay last row so **`rn2`** shape stays closer to C than silence. */
+        _HARNESS[_HARNESS.length - 1]();
+    }
 
     for (;;) {
         const mons = game.level?.monsters ?? [];
