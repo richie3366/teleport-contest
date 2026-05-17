@@ -7,13 +7,13 @@
 // without importing the full level generator.
 
 import { game } from './gstate.js';
-import { NH5_CHAIN_CLASS } from './nh5_objclass.js';
+import { NH5_BALL_CLASS, NH5_CHAIN_CLASS } from './nh5_objclass.js';
 import {
     TT_BURIEDBALL, TT_INFLOOR, ROT_ORGANIC,
-    OTYP_HEAVY_IRON_BALL, OTYP_IRON_CHAIN, WT_IRON_BALL_INCR,
+    OTYP_HEAVY_IRON_BALL, OTYP_IRON_CHAIN, WT_IRON_BALL_BASE, WT_IRON_BALL_INCR,
 } from './const.js';
 import { dist2 } from './hacklib.js';
-import { rnd, rn2 } from './rng.js';
+import { rnd } from './rng.js';
 import { newsym } from './display.js';
 import { permonstHuman, amorphous, isWhirly, unsolid } from './mondata.js';
 import { stopNhObjTimer } from './obj_rot_timer.js';
@@ -168,12 +168,15 @@ function delEngrAtInLevel(g, x, y) {
     if (L.engravings.length < n) newsym(xi, yi);
 }
 
+/** C: **`o_init.c`** **`init_oclass_probs`** — NH **5.0.0** **`objects.h`** single **`IRON_CHAIN`** and **`HEAVY_IRON_BALL`** per class (**`oc_prob`** **1000**). */
+const MKOBJ_OCLASS_PROB_CHAIN_OR_BALL_SINGLETON = 1000;
+
 /**
- * C: mkobj.c **`next_ident`** + minimal **`struct obj`** for read.c **`punish()`** chain (**`mkobj(CHAIN_CLASS, TRUE)`** subset).
+ * C: **`mkobj.c`** **`mkobj(CHAIN_CLASS, TRUE)`** — **`rnd(go.oclass_prob_totals[CHAIN_CLASS])`** + **`mksobj`** (**`CHAIN_CLASS`** **`mksobj_init`** is empty; chain stays uncursed).
  */
-function mksobjIronChainForPunish() {
-    rnd(2);
-    const otmp = {
+export function mksobjIronChainMkobjPunishLikeC() {
+    rnd(MKOBJ_OCLASS_PROB_CHAIN_OR_BALL_SINGLETON);
+    return {
         otyp: OTYP_IRON_CHAIN,
         oclass: NH5_CHAIN_CLASS,
         ox: -1,
@@ -186,10 +189,26 @@ function mksobjIronChainForPunish() {
         spe: 0,
         opoisoned: 0,
     };
-    const r = rn2(4);
-    otmp.cursed = r === 0;
-    otmp.blessed = false;
-    return otmp;
+}
+
+/**
+ * C: **`mkobj.c`** **`mkobj(BALL_CLASS, TRUE)`** — same **`rnd(oclass_prob_total)`** pattern as chain (**`BALL_CLASS`** init empty).
+ */
+export function mksobjHeavyIronBallMkobjPunishLikeC() {
+    rnd(MKOBJ_OCLASS_PROB_CHAIN_OR_BALL_SINGLETON);
+    return {
+        otyp: OTYP_HEAVY_IRON_BALL,
+        oclass: NH5_BALL_CLASS,
+        ox: -1,
+        oy: -1,
+        quan: 1,
+        owt: WT_IRON_BALL_BASE,
+        cursed: false,
+        blessed: false,
+        olocked: false,
+        spe: 0,
+        opoisoned: 0,
+    };
 }
 
 /**
@@ -217,7 +236,7 @@ function punishUnearthedIronBallRead(g, ball) {
         }
         return;
     }
-    const chain = mksobjIronChainForPunish();
+    const chain = mksobjIronChainMkobjPunishLikeC();
     g.uchain = chain;
     g.uball = ball;
     const ux = u.ux | 0;

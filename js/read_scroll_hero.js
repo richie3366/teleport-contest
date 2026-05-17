@@ -2,7 +2,7 @@
 // C ref: read.c **`doread`** (**`gk.known=FALSE`**, blind+**`dknown`**, **`scroll->in_use`**, non-blank **`nodisappear`** plines (**`SCR_FIRE`**, cursed **`SCR_REMOVE_CURSE`**),
 //        **`!seffects(scroll)`** tail: **`learnscroll`** vs **`trycall`** when **`!oc_name_known`** (**`gk.known`** gate), **`useup`**
 //        unless **`SCR_BLANK_PAPER`**),
-//        **`seffects`** (**`exercise`** when **`oc_magic`**, **`switch(otyp)`** — blank, punishment (**`seffect_punishment`** partial), stinking cloud (discovery + **`gk`**; **`do_stinking_cloud`** TODO),
+//        **`seffects`** (**`exercise`** when **`oc_magic`**, **`switch(otyp)`** — blank, punishment (**`seffect_punishment`**: guilty vs **`punish_hero.js`** **`punishHeroFromObjLikeC`**; no **`placebc`**), stinking cloud (discovery + **`gk`**; **`do_stinking_cloud`** TODO),
 //        remove curse (**`You_feel`** + cursed **`pline_The`**; no **`gk`**; **`Punished`** && !confused → **`unpunish`**;
 //        **`TT_BURIEDBALL`**: **`floorobj.js`** **`buriedBallToFreedomLikeC`** + **`switch_terrain.js`** **`resetUtrapMsgAfterClearHeroLikeC`** (**C **`trap.c`** **`reset_utrap(TRUE)`** **`float_up`/`You can fly.`**) after **`floatVsFlightLikeC`**; clasp **`mbodypartHeroLegLikeC`**; invent + steed saddle **`remove_curse_hero.js`** (**`uslinging`**, shop water confused **`alter_cost`**; unpaid cursed water **`costly_alteration`/`bill_dummy`** before **`uncurse`**), default stub),
 //        **`learnscroll`** / **`learnscrolltyp`**.
@@ -16,7 +16,7 @@ import { NH5_SCROLL_CLASS } from './nh5_objclass.js';
 import { removeObjFromHeroInvent } from './water_damage.js';
 import { observeObjectHeroMinimalLikeC } from './objnam.js';
 import { learnscrollHeroLikeC, trycallHeroLikeC } from './discover_scroll.js';
-import { heroPunishedLikeC, unpunishHeroLikeC } from './punish_hero.js';
+import { heroPunishedLikeC, punishHeroFromObjLikeC, unpunishHeroLikeC } from './punish_hero.js';
 import { syncHeroInvWeightNetLikeC } from './encumbr.js';
 import { removeCurseHeroInventLoopLikeC } from './remove_curse_hero.js';
 import { buriedBallToFreedomLikeC } from './floorobj.js';
@@ -73,10 +73,13 @@ export async function seffectsHeroReadScrollLikeC(g, scroll, blind) {
             return 0;
         }
         case OTYP_SCR_PUNISHMENT: {
-            /* C: **`seffect_punishment`** — **`gk.known = TRUE`**; confused/blessed → **`You_feel("guilty.")`**; else **`punish`** */
+            /* C: **`seffect_punishment`** — **`gk.known = TRUE`**; confused/blessed → **`You_feel("guilty.")`**; else **`punish(sobj)`** */
             g._readScrollGkKnown = true;
             if (heroConfusedForReadLikeC(g) || (scroll.blessed | 0)) {
                 await pline('You feel guilty.');
+            } else {
+                await punishHeroFromObjLikeC(g, scroll);
+                syncHeroInvWeightNetLikeC(g);
             }
             return 0;
         }
