@@ -39,6 +39,12 @@ import { floorObjKey, placeFloorObject } from './floorobj.js';
 import { fixWallSpinesRect } from './wall_spine.js';
 
 // Object/class constants (normally from objects.js, not in contest template)
+/* NH5 audit: scroll **`otyp`** literals below are **legacy** (pre–`objects_nums` / `mkobj_scroll_class_rng_like_c.js`).
+ * C NH5 **`objects.h`** / **`SCROLL_CLASS_MKOBJ_OC_PROB_ROWS`** examples: **`SCR_ENCHANT_ARMOR`** **323**,
+ * **`SCR_TELEPORTATION`** **333**, **`SCR_ENCHANT_WEAPON`** **328**, **`SCR_CONFUSE_MONSTER`** **325**,
+ * **`SCR_SCARE_MONSTER`** **326**. Do not copy these **`287`/`275`/`326`** values into new NH5 invent/mkobj paths
+ * without replaying C **`mkobj`** draws — changing them here shifts layout RNG vs recorded sessions.
+ */
 const RANDOM_CLASS = 0;
 const WEAPON_CLASS = 1;
 const ARMOR_CLASS = 2;

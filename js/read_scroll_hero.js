@@ -1,6 +1,6 @@
 // read_scroll_hero.js — Hero **`r`** read scroll subset until full **`read.c`** **`doread`** / **`seffects`**.
 // C ref: read.c **`doread`** (**`gk.known=FALSE`**, blind+**`dknown`**, non-blank disappear/confused plines,
-//        **`!seffects(scroll)`** tail: **`learnscroll`**/**`trycall`** if **`!oc_name_known`**, **`useup`**
+//        **`!seffects(scroll)`** tail: **`learnscroll`** vs **`trycall`** when **`!oc_name_known`** (**`gk.known`** gate), **`useup`**
 //        unless **`SCR_BLANK_PAPER`**),
 //        **`seffects`** (**`exercise`** when **`oc_magic`**, **`switch(otyp)`** — blank wired, other cases stub),
 //        **`learnscroll`** / **`learnscrolltyp`**.
@@ -13,7 +13,7 @@ import { SCROLL_CLASS_MKOBJ_OC_PROB_ROWS } from './mkobj_scroll_class_rng_like_c
 import { NH5_SCROLL_CLASS } from './nh5_objclass.js';
 import { removeObjFromHeroInvent } from './water_damage.js';
 import { observeObjectHeroMinimalLikeC } from './objnam.js';
-import { learnscrollHeroLikeC } from './discover_scroll.js';
+import { learnscrollHeroLikeC, trycallHeroLikeC } from './discover_scroll.js';
 
 /** C: **`objects_nums`** **`SCR_BLANK_PAPER`** — **`SCROLL(..., mgc, ...)`** with **`mgc`** **0** (**`objects.h`**). */
 const OTYP_SCR_BLANK_PAPER = 364;
@@ -155,8 +155,9 @@ export async function doReadHeroScrollCmdLikeC(g = game) {
         if (!alreadyKnown) {
             if (g._readScrollGkKnown) {
                 learnscrollHeroLikeC(g, scroll);
+            } else {
+                trycallHeroLikeC(g, scroll);
             }
-            /* C: else **`trycall(scroll)`** — not ported */
         }
         if (t !== OTYP_SCR_BLANK_PAPER) {
             const q = scroll.quan | 0;

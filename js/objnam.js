@@ -156,7 +156,12 @@ const OTYP_SPE_BOOK_OF_THE_DEAD = 408;
 /** C: **`makeplural`**-style fixes for **`OC_SKILL_ROW_BY_OTYP`** phrases (quan **> 1** **`doname`** only). */
 const OC_SKILL_PHRASE_PLURAL = new Map([['worm tooth', 'worm teeth']]);
 
-export { discoverScrollOtyp, learnscrolltypHeroLikeC, learnscrollHeroLikeC } from './discover_scroll.js';
+export {
+    discoverScrollOtyp,
+    learnscrolltypHeroLikeC,
+    learnscrollHeroLikeC,
+    trycallHeroLikeC,
+} from './discover_scroll.js';
 import { discoverWandOtyp } from './discover_wand.js';
 
 export { discoverWandOtyp };
