@@ -19,7 +19,7 @@ import { movemon, MOVE_MON_HARNESS_MAX_STEP } from './monmove.js';
 import { mcalcMoveLikeC } from './mcalc_move.js';
 import { end_of_turn_rng, gethungry } from './moveloop_aux.js';
 import { initIniInvStub } from './ini_inv_stub.js';
-import { applyInitAttrPipeline } from './u_init_attr.js';
+import { applyInitAttrPipeline, uInitCarryAttrBoostLikeC } from './u_init_attr.js';
 import { applyBirthHpEnergy } from './u_init_hp_energy.js';
 import { applyRoleStartingUmoney0 } from './u_init_money.js';
 import { applyAdjabil } from './u_init_adjabil.js';
@@ -177,16 +177,19 @@ export async function newgame() {
     /* C: u_init.c u_init_inventory_attrs — u.umoney0 from u_init_role before ini_inv / init_attr */
     applyRoleStartingUmoney0();
 
-    /* C: u_init.c u_init_inventory_attrs — init_attr(75); vary_init_attr(); */
+    /* C: u_init.c u_init_inventory_attrs — ini_inv display stub (no linked gi.invent yet); */
+    initIniInvStub(g);
+    /* C: u_init.c u_init_inventory_attrs — u.umoney0 += hidden_gold(TRUE) after invent */
+    applyHiddenGoldToUmoney0(g);
+
+    /* C: u_init.c u_init_inventory_attrs — init_attr(75); vary_init_attr(); u_init_carry_attr_boost(); */
     applyInitAttrPipeline(75);
+    uInitCarryAttrBoostLikeC(g);
 
     g.multi = 0; /* C: gm.multi — multi-turn actions / occupation */
     // When non-zero, moveloop_core runs movemon + end-of-turn tail (harness).
     g._prevMoveTick = 1;
     g.plname = g.plname || 'Contestant';
-    initIniInvStub(g);
-    /* C: u_init.c u_init_inventory_attrs — u.umoney0 += hidden_gold(TRUE) after invent */
-    applyHiddenGoldToUmoney0(g);
     /* C: u_init.c u_init_skills_discoveries — skill_init() before find_ac (weapon_type on g.invent when linked) */
     applySkillInit(g);
     /* C: u_init.c u_init_skills_discoveries — find_ac() after invent (worn gear stubbed) */

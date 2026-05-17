@@ -4,8 +4,9 @@
 
 import { game } from './gstate.js';
 import { rn2 } from './rng.js';
-import { A_MAX } from './const.js';
+import { A_MAX, A_STR, A_CON } from './const.js';
 import { adjattrib, getRaceAttrMin, getRaceAttrMax } from './attrib.js';
+import { syncHeroInvWeightNetLikeC, syncHeroWeightCapStrConBaselineLikeC } from './encumbr.js';
 
 /**
  * C: attrib.c rnd_attr — uses gu.urole.attrdist[].
@@ -100,4 +101,22 @@ export function varyInitAttr() {
 export function applyInitAttrPipeline(np) {
     initAttr(np);
     varyInitAttr();
+}
+
+/**
+ * C: u_init.c u_init_carry_attr_boost — raise Str/Con while **`inv_weight() > 0`**.
+ * Uses **`syncHeroWeightCapStrConBaselineLikeC`** so capacity tracks **`adjattrib`** bumps (C **`weight_cap()`**).
+ * @param {import('./gstate.js').game} g
+ */
+export function uInitCarryAttrBoostLikeC(g) {
+    const u = g?.u;
+    if (!u) return;
+    for (;;) {
+        syncHeroWeightCapStrConBaselineLikeC(g);
+        syncHeroInvWeightNetLikeC(g);
+        if ((u.inv_weight | 0) <= 0) break;
+        if (adjattrib(A_STR, 1, true)) continue;
+        if (adjattrib(A_CON, 1, true)) continue;
+        break;
+    }
 }

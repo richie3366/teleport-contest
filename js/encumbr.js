@@ -4,6 +4,13 @@
 
 import { game } from './gstate.js';
 import { NH5_COIN_CLASS } from './nh5_objclass.js';
+import {
+    A_STR,
+    A_CON,
+    WT_WEIGHTCAP_STRCON,
+    WT_WEIGHTCAP_SPARE,
+    MAX_CARR_CAP,
+} from './const.js';
 
 export const ENC = {
     UNENCUMBERED: 0,
@@ -16,6 +23,24 @@ export const ENC = {
 
 /** C: botl.c enc_stat[] — index matches ENC (0 unused). */
 const ENC_WORD = ['', 'burdened', 'stressed', 'strained', 'overtaxed', 'overloaded'];
+
+/**
+ * C: hack.c **`weight_cap()`** core — **`WT_WEIGHTCAP_STRCON * (ACURRSTR + ACURR(A_CON)) + WT_WEIGHTCAP_SPARE`**
+ * capped by **`MAX_CARR_CAP`**, floored at **1** (poly / levitation / wounded legs omitted until ported).
+ * @param {import('./gstate.js').game} g
+ * @returns {number}
+ */
+export function syncHeroWeightCapStrConBaselineLikeC(g) {
+    const u = g?.u;
+    if (!u?.acurr?.a) return 1;
+    const str = u.acurr.a[A_STR] ?? 10;
+    const con = u.acurr.a[A_CON] ?? 10;
+    let carrcap = WT_WEIGHTCAP_STRCON * (str + con) + WT_WEIGHTCAP_SPARE;
+    if (carrcap > MAX_CARR_CAP) carrcap = MAX_CARR_CAP;
+    const cap = Math.max(carrcap | 0, 1);
+    u.weight_cap = cap;
+    return cap;
+}
 
 /**
  * C: hack.c **`inv_weight()`** weight sum on **`gi.invent`** (coins **`(quan+50)/100`**, boulder
