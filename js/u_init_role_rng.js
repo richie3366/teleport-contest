@@ -1,6 +1,6 @@
 // u_init_role_rng.js — C u_init.c / mkobj.c leaf RNG for role inventory (narrow port).
 // Used while ini_inv is still stubbed so ISAAC matches upstream before init_attr(75).
-// C refs: u_init.c u_init_role (PM_ROGUE … PM_HEALER / PM_BARBARIAN), ini_inv(), trquan(), mkobj.c mksobj+mksobj_init,
+// C refs: u_init.c u_init_role (PM_ROGUE … PM_BARBARIAN / PM_CAVE_DWELLER), ini_inv(), trquan(), mkobj.c mksobj+mksobj_init,
 //         mkbox_cnts (SACK empty at moves<=1), blessorcurse().
 
 import { game } from './gstate.js';
@@ -70,6 +70,11 @@ const OTYP_APPLE = 277;
 const OTYP_TWO_HANDED_SWORD_MK = 56;
 const OTYP_AXE_MK = 45;
 const OTYP_BATTLE_AXE_MK = 46;
+/** NH5 — **`CLUB`**; **`SLING`** after **`YUMI`** **86** (`objects.h` **BOW** block). */
+const OTYP_CLUB = 78;
+const OTYP_SLING = 87;
+const OTYP_FLINT = 473;
+const OTYP_ROCK = 474;
 
 /** C: mkobj.c next_ident — ident += rnd(2) */
 function nextIdentLikeC() {
@@ -156,6 +161,11 @@ function mksobjInitDefaultFoodQuanMaybeDoubleLikeC() {
 /** C: mkobj.c FOOD_RATION path — same default **`quan`** tail as other non-corpse food. */
 function mksobjInitFoodRationQuanLikeC() {
     return mksobjInitDefaultFoodQuanMaybeDoubleLikeC();
+}
+
+/** C: mkobj.c **`mksobj_init`** — **`GEM_CLASS`** — **FLINT** (not **`LUCKSTONE`**) **`!rn2(6)`** → stack **2** else **1**. */
+function mksobjInitGemFlintStackQuanLikeC() {
+    return !rn2(6) ? 2 : 1;
 }
 
 /** C: mkobj.c **`GEM_CLASS`** — **`TOUCHSTONE`** / non-**`LUCKSTONE`** gray: **`!rn2(6)`** → **`quan`** **2** (overwritten to **1** by **`ini_inv_adjust_obj`**). */
@@ -647,6 +657,50 @@ export function consumeBarbarianHumanIniInvUinitRoleRngLikeC() {
         mksobjInitOilLampToolLikeC();
         rn2(1);
     }
+}
+
+/**
+ * C: u_init.c **`PM_CAVE_DWELLER`** — **`ini_inv(Cave_man[])`** (human; no race subs).
+ * **`Cave_man[]`**: club **`+1`**, sling **`+2`**, flint **`10..20`** separate **`mksobj`** stacks
+ * (**`mksobj_init`** GEM **FLINT** **`!rn2(6)`** quan **2** else **1**), rock **`3+rn2(1)`** stacks
+ * (**`ROCK`** **`rn1(6,6)`** quan each), leather armor **`+0`**.
+ */
+export function consumeCaveDwellerHumanIniInvUinitRoleRngLikeC() {
+    /* CLUB +1 */
+    rn2(1);
+    nextIdentLikeC();
+    mksobjInitWeaponLikeC(OTYP_CLUB, false);
+    rn2(1);
+
+    /* SLING +2 */
+    rn2(1);
+    nextIdentLikeC();
+    mksobjInitWeaponLikeC(OTYP_SLING, false);
+    rn2(1);
+
+    const nFlint = 10 + rn2(11);
+    game._caveIniNFlintTrobj = nFlint;
+    let flintQuanSum = 0;
+    for (let i = 0; i < nFlint; i++) {
+        nextIdentLikeC();
+        flintQuanSum += mksobjInitGemFlintStackQuanLikeC();
+    }
+    game._caveIniFlintQuan = flintQuanSum;
+
+    const nRock = 3 + rn2(1);
+    game._caveIniNRockTrobj = nRock;
+    let rockQuanSum = 0;
+    for (let i = 0; i < nRock; i++) {
+        nextIdentLikeC();
+        rockQuanSum += rn1(6, 6);
+    }
+    game._caveIniRockQuan = rockQuanSum;
+
+    /* LEATHER_ARMOR +0 */
+    rn2(1);
+    nextIdentLikeC();
+    mksobjInitArmorLikeC(false);
+    rn2(1);
 }
 
 export function consumeMonkHumanIniInvUinitRoleRngLikeC() {

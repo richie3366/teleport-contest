@@ -12,6 +12,7 @@ import { applyWizardHumanLinkedInventAndWearLikeC } from './u_init_link_wizard_i
 import { applyArcheologistHumanLinkedInventAndWearLikeC } from './u_init_link_archeologist_invent.js';
 import { applyHealerHumanLinkedInventAndWearLikeC } from './u_init_link_healer_invent.js';
 import { applyBarbarianHumanLinkedInventAndWearLikeC } from './u_init_link_barbarian_invent.js';
+import { applyCaveDwellerHumanLinkedInventAndWearLikeC } from './u_init_link_cave_dweller_invent.js';
 
 const INV_COL = 32;
 
@@ -581,6 +582,7 @@ export function initIniInvStub(/** @type {import('./gstate.js').game} */ g) {
     applyArcheologistHumanLinkedInventAndWearLikeC(g);
     applyHealerHumanLinkedInventAndWearLikeC(g);
     applyBarbarianHumanLinkedInventAndWearLikeC(g);
+    applyCaveDwellerHumanLinkedInventAndWearLikeC(g);
 }
 
 /** @param {import('./game_display.js').GameDisplay} display */
