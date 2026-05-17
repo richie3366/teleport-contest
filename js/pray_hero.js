@@ -40,6 +40,7 @@ import { findAc } from './u_init_find_ac.js';
 import { updateInventory } from './invent.js';
 import { weldedUwepLikeC, isWeptoolObjLikeC } from './hero_hands.js';
 import { pluslvlHeroLikeC } from './exper_pluslvl.js';
+import { applyPleasedPatOnHeadCases678LikeC } from './pray_pat_spell_gcrown.js';
 
 const STRIDENT = 4;
 /** C: pray.c `#define DEVOUT 14` */
@@ -206,7 +207,7 @@ async function applyPleasedPatOnHeadSwitchLikeC(g, g_align, patSw) {
         case 6:
         case 7:
         case 8:
-            /* C: give_spell() / gcrownu() — not ported (spellbooks / crowning). */
+            await applyPleasedPatOnHeadCases678LikeC(g, GODVOICES);
             break;
         default:
             break;
@@ -328,7 +329,7 @@ async function waterPrayerLikeC(g, blessWater) {
 
 /**
  * C: pray.c **`pleased(aligntyp g_align)`** — **`You_feel`**, **`adjalign`**, trouble/action **`rn1`/`rnl`/`switch`**,
- * pat_on_head (rn2((Luck+6)>>1) cases 0–5; 6–8 no-op until give_spell/gcrownu), ublesscnt tail (rnz(350), kick, moves throttle).
+ * pat_on_head (rn2((Luck+6)>>1) cases 0–8; 6–8 give_spell / gcrownu), ublesscnt tail (rnz(350), kick, moves throttle).
  * @param {import('./gstate.js').game} g
  * @param {number} g_align
  */
