@@ -1,5 +1,5 @@
 // read_scroll_hero.js — Hero **`r`** read scroll subset until full **`read.c`** **`doread`** / **`seffects`**.
-// C ref: read.c **`doread`** (**`gk.known=FALSE`**, blind+**`dknown`**, non-blank **`nodisappear`** plines (**`SCR_FIRE`**, cursed **`SCR_REMOVE_CURSE`**),
+// C ref: read.c **`doread`** (**`gk.known=FALSE`**, blind+**`dknown`**, **`scroll->in_use`**, non-blank **`nodisappear`** plines (**`SCR_FIRE`**, cursed **`SCR_REMOVE_CURSE`**),
 //        **`!seffects(scroll)`** tail: **`learnscroll`** vs **`trycall`** when **`!oc_name_known`** (**`gk.known`** gate), **`useup`**
 //        unless **`SCR_BLANK_PAPER`**),
 //        **`seffects`** (**`exercise`** when **`oc_magic`**, **`switch(otyp)`** — blank wired, other cases stub),
@@ -125,6 +125,9 @@ export async function doReadHeroScrollCmdLikeC(g = game) {
 
     observeObjectHeroMinimalLikeC(g, scroll);
 
+    /* C: read.c **`scroll->in_use = TRUE`** — scroll (not spellbook) now being read */
+    scroll.in_use = 1;
+
     /* C: **`gk.known = FALSE`** at **`doread`** entry — carried on **`g`** for tail */
     g._readScrollGkKnown = false;
 
@@ -172,6 +175,8 @@ export async function doReadHeroScrollCmdLikeC(g = game) {
                 trycallHeroLikeC(g, scroll);
             }
         }
+        /* C: **`scroll->in_use = FALSE`** before **`useup`** */
+        scroll.in_use = 0;
         if (t !== OTYP_SCR_BLANK_PAPER) {
             const q = scroll.quan | 0;
             if (q > 1) {
