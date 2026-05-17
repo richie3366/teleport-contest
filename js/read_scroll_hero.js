@@ -2,7 +2,7 @@
 // C ref: read.c **`doread`** (**`gk.known=FALSE`**, blind+**`dknown`**, **`scroll->in_use`**, non-blank **`nodisappear`** plines (**`SCR_FIRE`**, cursed **`SCR_REMOVE_CURSE`**),
 //        **`!seffects(scroll)`** tail: **`learnscroll`** vs **`trycall`** when **`!oc_name_known`** (**`gk.known`** gate), **`useup`**
 //        unless **`SCR_BLANK_PAPER`**),
-//        **`seffects`** (**`exercise`** when **`oc_magic`**, **`switch(otyp)`** — blank, punishment (**`seffect_punishment`** partial), default stub),
+//        **`seffects`** (**`exercise`** when **`oc_magic`**, **`switch(otyp)`** — blank, punishment (**`seffect_punishment`** partial), stinking cloud (discovery + **`gk`**; **`do_stinking_cloud`** TODO), default stub),
 //        **`learnscroll`** / **`learnscrolltyp`**.
 
 import { game } from './gstate.js';
@@ -23,6 +23,8 @@ const OTYP_SCR_REMOVE_CURSE = 327;
 const OTYP_SCR_FIRE = 339;
 /** C: **`SCR_PUNISHMENT`** — **`read.c`** **`seffect_punishment`**. */
 const OTYP_SCR_PUNISHMENT = 341;
+/** C: **`SCR_STINKING_CLOUD`** — **`read.c`** **`seffect_stinking_cloud`**. */
+const OTYP_SCR_STINKING_CLOUD = 343;
 
 /**
  * C: **`objects[otyp].oc_magic`** — **`SCROLL`** macro **`mgc`**; false for blank paper (and otyps outside scroll table).
@@ -63,6 +65,13 @@ export async function seffectsHeroReadScrollLikeC(g, scroll, blind) {
             if (heroConfusedForReadLikeC(g) || (scroll.blessed | 0)) {
                 await pline('You feel guilty.');
             }
+            return 0;
+        }
+        case OTYP_SCR_STINKING_CLOUD: {
+            /* C: **`seffect_stinking_cloud`** — discovery pline + **`gk.known`**; **`do_stinking_cloud`** (**`getpos`**, gas) not ported */
+            const alreadyKnown = g.scrollDiscovery instanceof Set && g.scrollDiscovery.has(otyp);
+            if (!alreadyKnown) await pline('You have found a scroll of stinking cloud!');
+            g._readScrollGkKnown = true;
             return 0;
         }
         default: {
