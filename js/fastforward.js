@@ -14,6 +14,9 @@
 // Derived from a frozen reference session RNG log (historical extraction).
 
 import { rn2, rnd, d, rne, rnz } from "./rng.js";
+import { game } from "./gstate.js";
+import { consumeRogueHumanIniInvUinitRoleRngLikeC } from "./u_init_role_rng.js";
+import { races } from "./roles.js";
 
 // Pre-mklev startup: o_init shuffles, dungeon init, u_init_misc (handedness rn2(10) in allmain.js before l_nhcore_init)
 // 302 leaf RNG calls (session indices 0-307)
@@ -129,8 +132,14 @@ export function fastforward_pre_mklev() {
 // except rnd(9000)/rnd(30) (see moveloop_preamble.js).
 // init_attr(75)+vary_init_attr() PRNG is replayed by u_init_attr.js (allmain.js).
 // Leading rnd(1000) for tourist starting gold is real code: u_init_money.js (allmain.js).
-// ~84 leaf RNG calls here (was ~85).
+// ~84 leaf RNG calls here for generic roles (was ~85). Human Rogue uses u_init_role_rng.js only.
 export function fastforward_post_mklev() {
+    const humanIdx = races.findIndex((r) => r.name === "human");
+    const rog = game.urole?.abbr === "Rog" && (game.initrace | 0) === humanIdx;
+    if (rog) {
+        consumeRogueHumanIniInvUinitRoleRngLikeC();
+        return;
+    }
     rn2(20); rnd(2); rn2(6); rn2(11); rn2(10); rn2(10); rn2(100); rn2(20); rn2(1);
     rnd(1000); rnd(2); rn2(6); rnd(1000); rnd(2); rn2(6); rnd(1000); rnd(2); rn2(6); rnd(1000);
     rnd(2); rn2(6); rnd(1000); rnd(2); rn2(6); rnd(1000); rnd(2); rn2(6); rnd(1000); rnd(2);
