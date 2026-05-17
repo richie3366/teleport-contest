@@ -1,5 +1,5 @@
 // pray_hero.js — C pray.c dopray / can_pray / prayer_done / pleased subset / angrygods for `#pray`.
-// C ref: pray.c dopray, can_pray, prayer_done, pleased (subset), angrygods, gods_upset, water_prayer
+// C ref: pray.c dopray, can_pray, prayer_done, pleased (subset), angrygods (**`gods_angry`** + **`read.c`** **`punish`** null **`sobj`** on case **6**), gods_upset, water_prayer
 //
 // Extended commands read a tty line after `#` (terminated by `\n` or `\r`); see extcmd.js.
 // C dopray uses nomul(-3); JS drains three moveloop-equivalent ticks (moveloop_turn_advance.js)
@@ -41,6 +41,8 @@ import { updateInventory } from './invent.js';
 import { weldedUwepLikeC, isWeptoolObjLikeC } from './hero_hands.js';
 import { pluslvlHeroLikeC } from './exper_pluslvl.js';
 import { applyPleasedPatOnHeadCases678LikeC } from './pray_pat_spell_gcrown.js';
+import { punishHeroFromObjLikeC } from './punish_hero.js';
+import { syncHeroInvWeightNetLikeC } from './encumbr.js';
 
 const STRIDENT = 4;
 /** C: pray.c `#define DEVOUT 14` */
@@ -459,9 +461,10 @@ async function angrygodsLikeC(g, respGod) {
         }
         case 6:
             if (!(u.Punished | 0)) {
+                /* C: **`gods_angry`** + **`read.c`** **`punish((struct obj *) 0)`** */
                 await pline(`The voice of ${alignGnameRespGodLikeC(g, rg)} thunders: "Thou hast angered me."`);
-                await pline('You are being punished for your misbehavior!');
-                /* C: read.c punish(NULL) — mkobj CHAIN/BALL, placebc; not ported (RNG when exercised). */
+                await punishHeroFromObjLikeC(g, null);
+                syncHeroInvWeightNetLikeC(g);
                 break;
             }
             /* FALLTHRU */

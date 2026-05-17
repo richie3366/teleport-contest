@@ -50,10 +50,10 @@ export function heroPunishedLikeC(g) {
 }
 
 /**
- * C: read.c **`punish(sobj)`** — scroll / unearthed ball / future **`angrygods(NULL)`** (**`reuse_ball`**).
+ * C: read.c **`punish(sobj)`** — scroll / unearthed ball / **`pray.c`** **`angrygods`** null **`sobj`** (**`reuse_ball`**).
  * Omits **`placebc`/`set_bc`** blind detail; non-**`uswallow`** tail uses **`newsym`** only (**`ball.c`** **`placebc_core`** TODO).
  * @param {import('./gstate.js').game} g
- * @param {{ otyp?: number, cursed?: number } | null} sobj scroll or **`HEAVY_IRON_BALL`**; **`NULL`** not used from JS yet
+ * @param {{ otyp?: number, cursed?: number } | null} sobj scroll, **`HEAVY_IRON_BALL`**, or **`null`** (gods’ punishment)
  */
 export async function punishHeroFromObjLikeC(g, sobj) {
     const u = g?.u;
