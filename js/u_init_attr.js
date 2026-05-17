@@ -68,6 +68,8 @@ export function initAttr(np) {
         const b = base[i];
         u.acurr.a[i] = b;
         u.amax.a[i] = b;
+        u.abon = u.abon || { a: [] };
+        u.abon.a[i] = 0;
         u.atemp = u.atemp || { a: [] };
         u.atime = u.atime || { a: [] };
         u.atemp.a[i] = 0;

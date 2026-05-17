@@ -16,6 +16,7 @@ import {
 } from './const.js';
 import { rn1, rn2 } from './rng.js';
 import { nearCapacity, ENC } from './encumbr.js';
+import { acurrLikeC } from './attr_acurr_like_c.js';
 
 const DEF_ATTRMIN = Object.freeze([3, 3, 3, 3, 3, 3]);
 const DEF_ATTRMAX = Object.freeze([STR18(100), 18, 18, 18, 18, 18]);
@@ -41,12 +42,11 @@ function attrMax(ndx) {
 }
 
 /**
- * C: attrib.c acurr(x) — effective attribute (minimal: ABASE only until poly/bonus port).
+ * C: attrib.c acurr(x) — effective attribute (**`u.abon`/`u.atemp`/`u.acurr`** sum + C specials).
  * @param {number} x attrib_types A_STR…A_CHA
  */
 export function acurr(x) {
-    const u = game.u;
-    return u?.acurr?.a?.[x] ?? 10;
+    return acurrLikeC(x, game);
 }
 
 /**

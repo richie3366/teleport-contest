@@ -5,12 +5,12 @@
 import { game } from './gstate.js';
 import { NH5_COIN_CLASS } from './nh5_objclass.js';
 import {
-    A_STR,
     A_CON,
     WT_WEIGHTCAP_STRCON,
     WT_WEIGHTCAP_SPARE,
     MAX_CARR_CAP,
 } from './const.js';
+import { acurrLikeC, acurrstrLikeC } from './attr_acurr_like_c.js';
 
 export const ENC = {
     UNENCUMBERED: 0,
@@ -33,8 +33,8 @@ const ENC_WORD = ['', 'burdened', 'stressed', 'strained', 'overtaxed', 'overload
 export function syncHeroWeightCapStrConBaselineLikeC(g) {
     const u = g?.u;
     if (!u?.acurr?.a) return 1;
-    const str = u.acurr.a[A_STR] ?? 10;
-    const con = u.acurr.a[A_CON] ?? 10;
+    const str = acurrstrLikeC(g);
+    const con = acurrLikeC(A_CON, g);
     let carrcap = WT_WEIGHTCAP_STRCON * (str + con) + WT_WEIGHTCAP_SPARE;
     if (carrcap > MAX_CARR_CAP) carrcap = MAX_CARR_CAP;
     const cap = Math.max(carrcap | 0, 1);

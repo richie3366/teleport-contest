@@ -2971,6 +2971,8 @@ export const OTYP_IRON_CHAIN = 474;
 export const PM_GRID_BUG = 115;
 /** C: `monsters.h` — gremlin. */
 export const PM_GREMLIN = 42;
+/** C: `monsters.h` — incubus/succubus (`MON(NAMS(..., AMOROUS_DEMON)`); `#if 0` blocks skipped vs `MON()` count). */
+export const PM_AMOROUS_DEMON = 292;
 /** C: `monsters.h` MON() order — lichen/lizard corpses skip **`start_corpse_timeout`**. */
 export const PM_LICHEN = 162;
 /** C: `monsters.h` MON() order — adult gray–yellow dragon (`mondata.c` `defended`, `Dragon_scales_to_pm`). */
@@ -2986,6 +2988,8 @@ export const OTYP_BLACK_DRAGON_SCALES = 118;
 export const OTYP_DRAGON_MAIL_TO_SCALES_DELTA = OTYP_GRAY_DRAGON_SCALES - OTYP_GRAY_DRAGON_SCALE_MAIL;
 /** C: defsym.h `MONSYM` — golem (**`mondata.h`** **`is_golem`**). */
 export const S_GOLEM = 55;
+/** C: defsym.h `MONSYM` — nymph (**`attrib.c`** **`acurr`** CHA floor when poly). */
+export const S_NYMPH = 14;
 /** C: defsym.h `MONSYM` — dragon (**`makemon.c`** **`monhp_per_lvl`** adult branch). */
 export const S_DRAGON = 30;
 /** C: `monsters.h` MON() order — **`mondata.h`** **`eyecount`**. */

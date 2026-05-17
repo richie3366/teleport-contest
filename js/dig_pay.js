@@ -5,16 +5,14 @@
 //        hack.h **`SHOP_WALL_DMG`**.
 
 import { payForDamage } from './shop.js';
-import { acurr } from './attrib.js';
-import { A_STR } from './const.js';
+import { acurrstrLikeC } from './attr_acurr_like_c.js';
 
 /**
  * C: hack.h **`SHOP_WALL_DMG`** — **`10L * ACURRSTR`** (hero hand-dig through shop wall).
  * @param {import('./gstate.js').game} g
  */
 export function shopWallHandDigDamageCostLikeC(g) {
-    void g;
-    return 10 * (acurr(A_STR) | 0);
+    return 10 * (acurrstrLikeC(g) | 0);
 }
 
 /**
