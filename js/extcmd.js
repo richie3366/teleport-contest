@@ -6,7 +6,8 @@
 // **`#m`**/**`#B`** — monster **`mbuzz`** (**`muse.c`** **`BZ_M_WAND`/`BZ_M_BREATH`** from neighbor toward hero);
 // **`#i`**/**`#I`** (wizard) — **`insight.c`** **`item_resistance_message`** + **`zap.c`** **`item_what`** (**`destroy_items.js`** **`u_adtyp`** AD_FIRE/COLD/DISN/ELEC/ACID);
 // **`#l`**/**`#L`** — **`pickup.c`** **`use_container`** trapped (**`held`** floor vs invent) → **`trap.c`** **`chest_trap`** (**`pickup.js`**);
-// **`#p`**/**`#P`** — **`lock.c`** **`pick_lock`** adjacent **door** (**`u.dx`/`u.dy`**) or floor locked box + **`picklock()`** (**`lock_hero.js`**); **`u_handsy`** gate.
+// **`#p`**/**`#P`**/**`#pick`** — **`lock.c`** **`pick_lock`** adjacent **door** (**`u.dx`/`u.dy`**) or floor locked box + **`picklock()`** (**`lock_hero.js`**); **`u_handsy`** gate.
+// **`#pray`** — **`pray.c`** **`dopray`/`can_pray`/`prayer_done`** (**`pray_hero.js`**); tty extcmd **line** ends at `\n`/`\r` (e.g. **`#pray`** + Enter).
 // wizard **`z`** — **`dozap.js`**.
 
 import { game } from './gstate.js';
@@ -47,8 +48,9 @@ import {
     itemWhatAdtypInventoryProtectWizardLikeC,
     uAdtypResistanceObjPercentHeroLikeC,
 } from './destroy_items.js';
+import { runDoprayExtcmdFlowLikeC } from './pray_hero.js';
 
-/** C: doextcmd — echo '#' on the top line, then read the next key (tty). */
+/** C: doextcmd — echo '#' on the top line, then read extcmd name until tty newline (`\n`/`\r`). */
 export async function runExtcmdFromHashPrefix() {
     game.context.move = 0;
     if (game._overlayScreen || game._inventoryMode) {
@@ -64,14 +66,37 @@ export async function runExtcmdFromHashPrefix() {
         await flush_screen(1);
         return;
     }
-    const ch2 = String.fromCharCode(k);
-    if (ch2 === 'v' || ch2 === 'V') {
+    if (k === 10 || k === 13) {
+        await pline('Unknown extended command.');
+        game._retainMessageAfterCommand = true;
+        await flush_screen(1);
+        return;
+    }
+    let line = String.fromCharCode(k);
+    for (;;) {
+        const c = await nhgetch();
+        if (c === 27) {
+            await flush_screen(1);
+            return;
+        }
+        if (c === 10 || c === 13) break;
+        line += String.fromCharCode(c);
+        if (line.length > 200) break;
+    }
+    const raw = line.trim();
+    const w = raw.toLowerCase();
+
+    if (w === 'pray') {
+        await runDoprayExtcmdFlowLikeC(game);
+        return;
+    }
+    if (w === 'version' || w === 'v') {
         await pline(versionPlineText());
         game._retainMessageAfterCommand = true;
         await flush_screen(1);
         return;
     }
-    if (ch2 === 'e' || ch2 === 'E') {
+    if (w === 'enhance' || w === 'e' || w.startsWith('enhanc')) {
         /* C: cmd.c doextcmd → enhance_weapon_skill — menu not ported; wizard y_n → speedy */
         let speedy = false;
         if (game.flags?.wizard) {
@@ -84,15 +109,15 @@ export async function runExtcmdFromHashPrefix() {
         const r = enhanceWeaponSkillOneStep(game, { speedy });
         if (!r.ok) await pline('You cannot enhance any skills at the moment.');
         else {
-            for (const line of r.plines) {
-                await pline(line);
+            for (const line2 of r.plines) {
+                await pline(line2);
             }
         }
         game._retainMessageAfterCommand = true;
         await flush_screen(1);
         return;
     }
-    if ((ch2 === 'i' || ch2 === 'I') && game.flags?.wizard) {
+    if ((w === 'insight' || w === 'i') && game.flags?.wizard) {
         /* C: insight.c item_resistance_message + zap.c item_what — monattk.h AD types with **`u_adtyp`** in zap.c. */
         const g = game;
         let any = false;
@@ -124,27 +149,27 @@ export async function runExtcmdFromHashPrefix() {
         await flush_screen(1);
         return;
     }
-    if (ch2 === 'F' && game.flags?.wizard) {
+    if ((raw === 'F' || raw === 'f') && game.flags?.wizard) {
         /* C: zap.c ubuzz — cone of cold (**`ZT_SPELL(ZT_COLD)`**), wizard harness. */
         await ubuzzOverFloor(game, ZT_SPELL(ZT_COLD), 0);
         await destroyItemsYoumonstCold(game, d(12, 6));
         await flush_screen(1);
         return;
     }
-    if (ch2 === 'c' && game.flags?.wizard) {
+    if (w === 'c' && game.flags?.wizard) {
         /* C: zap.c weffects — wand of cold (**`ZT_WAND(ZT_COLD)`**), same facing as **`#F`**. */
         await ubuzzOverFloor(game, ZT_WAND(ZT_COLD), 6);
         await destroyItemsYoumonstCold(game, d(12, 6));
         await flush_screen(1);
         return;
     }
-    if (ch2 === 'd' && game.flags?.wizard) {
+    if (w === 'd' && game.flags?.wizard) {
         /* C: dig.c zap_dig — wand of digging; same facing as **`#c`** (**`WAN_DIGGING`**). */
         await heroZapDigLikeC(game);
         await flush_screen(1);
         return;
     }
-    if (ch2 === 'D' && game.flags?.wizard) {
+    if (raw === 'D' && game.flags?.wizard) {
         /* C: dig.c **`dig()`** completion at adjacent cell (**`dpx,dpy`**) — wall/SDOOR/closed door + shop billing. */
         await pline('Dig toward which wall or door?');
         game._retainMessageAfterCommand = true;
@@ -169,7 +194,7 @@ export async function runExtcmdFromHashPrefix() {
         await flush_screen(1);
         return;
     }
-    if (ch2 === 'm' && game.flags?.wizard) {
+    if (w === 'm' && game.flags?.wizard) {
         /* C: muse.c **`use_offensive`** ray wand — same geometry as neighbor harness (**`mx,my`→`mux,muy`**). */
         const u = game.u;
         let ok = false;
@@ -194,7 +219,7 @@ export async function runExtcmdFromHashPrefix() {
         await flush_screen(1);
         return;
     }
-    if (ch2 === 'B' && game.flags?.wizard) {
+    if ((raw === 'B' || w === 'b') && game.flags?.wizard) {
         /* C: zap.c **`dobuzz`** monster breath — **`BZ_M_BREATH(BZ_OFS_AD(AD_COLD))`**. */
         const breath = BZ_M_BREATH(BZ_OFS_AD(AD_COLD));
         if (!(await mbuzzTowardHeroFromFacingNeighbor(game, breath, 6))) {
@@ -204,7 +229,7 @@ export async function runExtcmdFromHashPrefix() {
         await flush_screen(1);
         return;
     }
-    if (ch2 === 'l' || ch2 === 'L') {
+    if (w === 'loot' || w === 'l') {
         /* C: pickup.c **`use_container`** — trapped container: floor (**`held`** false) or invent (**`held`** true); **`chest_trap(HAND)`**. */
         const g = game;
         const u = g.u;
@@ -225,9 +250,9 @@ export async function runExtcmdFromHashPrefix() {
         const boxC = carriedTrappedUnlockedContainerPickupLikeC(g);
 
         if (boxF && !(boxF.olocked | 0) && (boxF.otrapped | 0)) {
-            if (await heroOpenTrappedContainerPickupLikeC(g, boxF, false)) game.context.move = 1;
+            if (await heroOpenTrappedContainerPickupLikeC(g, boxF, false)) g.context.move = 1;
         } else if (boxC) {
-            if (await heroOpenTrappedContainerPickupLikeC(g, boxC, true)) game.context.move = 1;
+            if (await heroOpenTrappedContainerPickupLikeC(g, boxC, true)) g.context.move = 1;
         } else if (boxF && (boxF.olocked | 0)) {
             await pline(`${theObjnamLikeC(doname(boxF, g))} is locked.`);
         } else if (boxF && !(boxF.otrapped | 0)) {
@@ -241,7 +266,7 @@ export async function runExtcmdFromHashPrefix() {
         await flush_screen(1);
         return;
     }
-    if (ch2 === 'p' || ch2 === 'P') {
+    if (w === 'pick' || w === 'p' || w.startsWith('pick')) {
         /* C: lock.c **`pick_lock`** / **`picklock`** — neighbor door when **`u.dx`/`u.dy`** set; else floor locked **`Is_box`**. */
         const g = game;
         const u = g.u;
@@ -305,7 +330,7 @@ export async function runExtcmdFromHashPrefix() {
         await flush_screen(1);
         return;
     }
-    await pline(`Unknown extended command '#${ch2}'.`);
+    await pline(`Unknown extended command '#${raw || w}'.`);
     game._retainMessageAfterCommand = true;
     await flush_screen(1);
 }

@@ -15,9 +15,11 @@ import {
 } from './vision.js';
 import { genders, roleHasFemaleRoleNameLikeC } from './roles.js';
 import { fastforward_pre_mklev, fastforward_post_mklev, fastforward_fill_mineralize } from './fastforward.js';
-import { movemon, MOVE_MON_HARNESS_MAX_STEP } from './monmove.js';
-import { mcalcMoveLikeC } from './mcalc_move.js';
-import { end_of_turn_rng, gethungry } from './moveloop_aux.js';
+import {
+    runMoveloopPreambleBeforeRhackLikeC,
+    runPostCommandTurnAdvanceLikeC,
+    clearLeavingTutorialIfActiveLikeC,
+} from './moveloop_turn_advance.js';
 import { initIniInvStub } from './ini_inv_stub.js';
 import { applyInitAttrPipeline, uInitCarryAttrBoostLikeC } from './u_init_attr.js';
 import { applyBirthHpEnergy } from './u_init_hp_energy.js';
@@ -26,17 +28,11 @@ import { applyAdjabil } from './u_init_adjabil.js';
 import { findAc } from './u_init_find_ac.js';
 import { applyHiddenGoldToUmoney0 } from './u_init_hidden_gold.js';
 import { applySkillInit } from './u_init_skills.js';
-import { UHS, collectNewuhsPlines } from './hunger.js';
-import { collectExerchkPlines } from './attrib.js';
+import { UHS } from './hunger.js';
 import { moveloopPreamble } from './moveloop_preamble.js';
-import { settrack } from './track.js';
 import { initMvitalsStub } from './mvitals.js';
-import { pullDueMeltIceAwayTimers } from './level_timers.js';
-import { meltIceAt } from './melt_ice.js';
-import { runDueNhObjTimers } from './obj_timeout_dispatch.js';
 import { bootstrapSpLevchnMinesMinetnFromBranchStubLikeC } from './sp_levchn.js';
 import { maybeRecordEnteredNewLevelLivelogLikeC } from './livelog.js';
-import { contextLeavingTutorialActiveLikeC } from './tutorial_branch.js';
 import { awaitLegacyIntroMoreLikeC } from './legacy_intro.js';
 import { rn2 } from './rng.js';
 import { LAST_PROP } from './const.js';
@@ -133,7 +129,7 @@ export async function newgame() {
     g.u.uright = null;
     g.u.Unaware = 0; /* eat.c gethungry — asleep / !rn2(10) metabolic branch */
     g.u.EProtection = 0; /* prop.c subset — wear.js refreshEProtectionFromRings sets W_RING* from rings */
-    /* C: you.h `struct u_property u.uprops[LAST_PROP+1]` — stub; pray.c / prop.c set `[PROTECTION].intrinsic` (youprop.h HProtection). Helpers: `divine_protection.js` until `#pray` / priest donation / sit are wired. */
+    /* C: you.h `struct u_property u.uprops[LAST_PROP+1]` — stub; pray.c / prop.c set `[PROTECTION].intrinsic` (youprop.h HProtection). Helpers: `divine_protection.js`; `#pray` via `pray_hero.js` + `extcmd.js` tty line. Priest temple donation / `sit.c` crow hall still TODO call sites. */
     {
         const up = new Array(LAST_PROP + 1);
         for (let i = 0; i <= LAST_PROP; i++) up[i] = { intrinsic: 0, extrinsic: 0, blocked: 0 };
@@ -272,24 +268,7 @@ function welcomeInterjectionLikeC(g) {
 export async function moveloop_core() {
     const g = game;
 
-    // Fast-forward per-step RNG (monster movement, regen, sounds, hunger).
-    // Skip when the previous command took no game time (unknown key, etc.),
-    // so repeated nhgetch on the same move clock does not replay the template.
-    if (g._prevMoveTick) {
-        const stepNum = (g.moves || 1) - 1;
-        if (stepNum > 0 && stepNum <= MOVE_MON_HARNESS_MAX_STEP) {
-            await movemon(stepNum);
-            end_of_turn_rng(stepNum);
-        }
-    }
-
-    // Vision + display
-    if (g.vision_full_recalc) {
-        vision_recalc(0);
-        g.vision_full_recalc = 0;
-    }
-    await bot();
-    await flush_screen(1);
+    await runMoveloopPreambleBeforeRhackLikeC(g);
 
     // Read and execute one command
     await rhack(0);
@@ -301,40 +280,12 @@ export async function moveloop_core() {
 
     // Advance turn (C: allmain.c — settrack() before svm.moves++)
     if (g.context?.move) {
-        /* C: allmain.c moveloop_core — after mcalcdistress; before maybe_generate_rnd_mon / u_calc_moveamt:
-         *   for (mtmp = fmon; mtmp; mtmp = mtmp->nmon) mtmp->movement += mcalcmove(mtmp, TRUE); */
-        for (const m of g.level?.monsters ?? []) {
-            m.movement = (m.movement | 0) + mcalcMoveLikeC(m, true, g);
-        }
-        settrack();
-        g.moves = (g.moves || 1) + 1;
-        /* C: timeout.c level MELT_ICE_AWAY -> zap.c melt_ice_away */
-        const dueMeltIce = pullDueMeltIceAwayTimers(g);
-        for (const { x, y } of dueMeltIce) {
-            g.context = g.context || {};
-            const saveMonMoving = g.context.monMoving;
-            g.context.monMoving = true;
-            try {
-                await meltIceAt(g, x, y, 'Some ice melts away.');
-            } finally {
-                g.context.monMoving = saveMonMoving;
-            }
-        }
-        /* C: timeout.c nh_timeout() → run_timers() — object **`TIMER_OBJECT`** slice */
-        runDueNhObjTimers(g);
-        /* C: allmain.c — svm.moves++; … gethungry(); newuhs(TRUE); … exerchk(); */
-        gethungry();
-        for (const line of collectNewuhsPlines(true)) await pline(line);
-        for (const line of collectExerchkPlines()) await pline(line);
+        await runPostCommandTurnAdvanceLikeC(g);
     }
 
     g._prevMoveTick = g.context?.move ? 1 : 0;
 
-    /* C: **`context.h`** **`leaving_tutorial`** — set in **`do.c`** **`goto_level`** when exiting tutorial branch; cleared each **`moveloop_core`** tail ( **`runSegment`** does not re-run **`moveloop_preamble`** per key). */
-    if (contextLeavingTutorialActiveLikeC(g)) {
-        if (g.context) g.context.leaving_tutorial = false;
-        if (g.gd) delete g.gd.leaving_tutorial;
-    }
+    clearLeavingTutorialIfActiveLikeC(g);
 }
 
 // C ref: allmain.c moveloop()
