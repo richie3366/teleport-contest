@@ -3,12 +3,13 @@
 //        **`!seffects(scroll)`** tail: **`learnscroll`** vs **`trycall`** when **`!oc_name_known`** (**`gk.known`** gate), **`useup`**
 //        unless **`SCR_BLANK_PAPER`**),
 //        **`seffects`** (**`exercise`** when **`oc_magic`**, **`switch(otyp)`** — blank, punishment (**`seffect_punishment`** partial), stinking cloud (discovery + **`gk`**; **`do_stinking_cloud`** TODO),
-//        remove curse (**`You_feel`** + cursed **`pline_The`**; no **`gk`**; **`Punished`** && !confused → **`unpunish`**; invent/**`buried_ball`** TODO), default stub),
+//        remove curse (**`You_feel`** + cursed **`pline_The`**; no **`gk`**; **`Punished`** && !confused → **`unpunish`**;
+//        **`TT_BURIEDBALL`** clasp pline + clear **`utrap`** (**`buried_ball_to_freedom`** map ball TODO); invent TODO), default stub),
 //        **`learnscroll`** / **`learnscrolltyp`**.
 
 import { game } from './gstate.js';
 import { pline, flush_screen } from './display.js';
-import { A_WIS } from './const.js';
+import { A_WIS, TT_BURIEDBALL } from './const.js';
 import { exercise } from './attrib.js';
 import { SCROLL_CLASS_MKOBJ_OC_PROB_ROWS } from './mkobj_scroll_class_rng_like_c.js';
 import { NH5_SCROLL_CLASS } from './nh5_objclass.js';
@@ -16,6 +17,7 @@ import { removeObjFromHeroInvent } from './water_damage.js';
 import { observeObjectHeroMinimalLikeC } from './objnam.js';
 import { learnscrollHeroLikeC, trycallHeroLikeC } from './discover_scroll.js';
 import { heroPunishedLikeC, unpunishHeroLikeC } from './punish_hero.js';
+import { syncHeroInvWeightNetLikeC } from './encumbr.js';
 
 /** C: **`objects_nums`** **`SCR_BLANK_PAPER`** — **`SCROLL(..., mgc, ...)`** with **`mgc`** **0** (**`objects.h`**). */
 const OTYP_SCR_BLANK_PAPER = 364;
@@ -93,8 +95,10 @@ export async function seffectsHeroReadScrollLikeC(g, scroll, blind) {
             } else {
                 /* C: invent loop (blessorcurse, uncurse, learnscrolltyp), steed saddle — TODO */
             }
-            /* C: after if/else — **`if (Punished && !confused) unpunish()`**; then **`buried_ball_to_freedom`** — TODO */
+            /* C: after if/else — **`if (Punished && !confused) unpunish()`**; **`if (utrap && TT_BURIEDBALL)`** **`buried_ball_to_freedom`** + pline */
             if (heroPunishedLikeC(g) && !confused) unpunishHeroLikeC(g);
+            await heroBuriedBallClaspVanishesAfterRemoveCurseLikeC(g);
+            syncHeroInvWeightNetLikeC(g);
             return 0;
         }
         default: {
@@ -108,6 +112,15 @@ export async function seffectsHeroReadScrollLikeC(g, scroll, blind) {
             return 0;
         }
     }
+}
+
+/** C: read.c **`seffect_remove_curse`** — **`buried_ball_to_freedom`** + **`pline_The("clasp…", body_part(LEG))`**; unearthed **`place_object`** / **`stackobj`** TODO. */
+async function heroBuriedBallClaspVanishesAfterRemoveCurseLikeC(g) {
+    const u = g?.u;
+    if (!u || !(u.utrap | 0) || (u.utraptype | 0) !== TT_BURIEDBALL) return;
+    u.utrap = 0;
+    u.utraptype = 0;
+    await pline('The clasp on your leg vanishes.');
 }
 
 /** @param {import('./gstate.js').game} g */
