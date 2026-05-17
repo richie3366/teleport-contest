@@ -4,7 +4,7 @@
 //        unless **`SCR_BLANK_PAPER`**),
 //        **`seffects`** (**`exercise`** when **`oc_magic`**, **`switch(otyp)`** — blank, punishment (**`seffect_punishment`** partial), stinking cloud (discovery + **`gk`**; **`do_stinking_cloud`** TODO),
 //        remove curse (**`You_feel`** + cursed **`pline_The`**; no **`gk`**; **`Punished`** && !confused → **`unpunish`**;
-//        **`TT_BURIEDBALL`**: **`floorobj.js`** **`buriedBallToFreedomLikeC`** + **`switch_terrain.js`** **`resetUtrapMsgAfterClearHeroLikeC`** (**C **`trap.c`** **`reset_utrap(TRUE)`** **`float_up`/`You can fly.`**) after **`floatVsFlightLikeC`**; clasp **`mbodypartHeroLegLikeC`**; invent + steed saddle **`remove_curse_hero.js`**), default stub),
+//        **`TT_BURIEDBALL`**: **`floorobj.js`** **`buriedBallToFreedomLikeC`** + **`switch_terrain.js`** **`resetUtrapMsgAfterClearHeroLikeC`** (**C **`trap.c`** **`reset_utrap(TRUE)`** **`float_up`/`You can fly.`**) after **`floatVsFlightLikeC`**; clasp **`mbodypartHeroLegLikeC`**; invent + steed saddle **`remove_curse_hero.js`** (**`uslinging`**, shop water **`alter_cost`** when confused; **`costly_alteration`** **`COST_UNCURS`** TODO)), default stub),
 //        **`learnscroll`** / **`learnscrolltyp`**.
 
 import { game } from './gstate.js';

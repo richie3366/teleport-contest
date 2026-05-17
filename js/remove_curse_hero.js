@@ -1,5 +1,5 @@
 // remove_curse_hero.js — read.c seffect_remove_curse invent + steed saddle (partial).
-// C ref: read.c seffect_remove_curse ~1507–1596; shop costly_alteration, uslinging TODO.
+// C ref: read.c seffect_remove_curse ~1507–1596; shop **`costly_alteration`** (**`COST_UNCURS`**) + **`bill_dummy`** still TODO.
 
 import {
     W_ART,
@@ -13,8 +13,12 @@ import { learnscrolltypHeroLikeC } from './discover_scroll.js';
 import { doname } from './objnam.js';
 import { pline } from './display.js';
 import { game } from './gstate.js';
+import { uslingingHeroLikeC } from './weapon_kind.js';
+import { alterCostShopBillObjLikeC } from './shop.js';
 
-/** C: objects_nums — SCR_REMOVE_CURSE. */
+/** C: objects_nums **`POT_WATER`**. */
+const OTYP_POT_WATER = 321;
+/** C: objects.h — SCR_REMOVE_CURSE. */
 const OTYP_SCR_REMOVE_CURSE = 327;
 /** C: objects.h LOADSTONE. */
 const OTYP_LOADSTONE = 471;
@@ -223,8 +227,7 @@ export async function removeCurseHeroInventLoopLikeC(g, scroll, confused) {
                     if (ocl === NH5_WEAPON_CLASS) {
                         if (!OC_MERGE_QUIVER_WEAPON_OTYP.has(ot)) wornmask = 0;
                     } else if (ocl === NH5_GEM_CLASS) {
-                        /* C: !uslinging() — not ported; assume false → no quivered-gem worn effect */
-                        wornmask = 0;
+                        if (!uslingingHeroLikeC(g)) wornmask = 0;
                     } else {
                         wornmask = 0;
                     }
@@ -237,11 +240,16 @@ export async function removeCurseHeroInventLoopLikeC(g, scroll, confused) {
                 (obj.otyp | 0) === OTYP_LOADSTONE ||
                 ((obj.otyp | 0) === OTYP_LEASH && (obj.leashmon | 0))
             ) {
-                /* C: shop POT_WATER + costly_alteration / alter_cost — not ported */
+                const shopH2o = !!(obj.unpaid | 0) && (obj.otyp | 0) === OTYP_POT_WATER;
                 if (confused) {
                     blessorcurseObjChance2LikeC(obj);
                     obj.bknown = 0;
+                    /* C: read.c — confused + unpaid water cursed/blessed → shk.c alter_cost(obj, 0) */
+                    if (shopH2o && ((obj.cursed | 0) || (obj.blessed | 0))) {
+                        alterCostShopBillObjLikeC(g, obj, 0);
+                    }
                 } else if (obj.cursed | 0) {
+                    /* C: costly_alteration(obj, COST_UNCURS) before uncurse — verbalize + bill_dummy TODO */
                     uncurseObjHeroLikeC(obj);
                     if ((obj.bknown | 0) && scrollOtyp === OTYP_SCR_REMOVE_CURSE) {
                         learnscrolltypHeroLikeC(g, OTYP_SCR_REMOVE_CURSE);

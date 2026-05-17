@@ -1,8 +1,9 @@
 // weapon_kind.js — weapon_type() / is_ammo() / ammo_and_launcher() helpers.
-// C ref: weapon.c weapon_type(); include/obj.h is_ammo, matching_launcher, ammo_and_launcher.
+// C ref: weapon.c weapon_type(); include/obj.h is_ammo, matching_launcher, ammo_and_launcher, uslinging.
 
 import {
     P_NONE,
+    P_SLING,
     P_BARE_HANDED_COMBAT,
     P_BOW,
     P_CROSSBOW,
@@ -10,6 +11,9 @@ import {
 } from './const.js';
 import { OC_SKILL_ROW_BY_OTYP } from './obj_oc_skill_data.js';
 import { NH5_WEAPON_CLASS, NH5_TOOL_CLASS, NH5_GEM_CLASS } from './nh5_objclass.js';
+
+/** C: objects_nums **`SLING`** — sparse **`OC_SKILL_ROW_BY_OTYP`** may omit the bow block. */
+const OTYP_SLING = 87;
 
 /** @param {number} otyp */
 function objectOcSkill(otyp) {
@@ -70,6 +74,21 @@ export function isAmmo(obj) {
     if (oc !== NH5_WEAPON_CLASS && oc !== NH5_GEM_CLASS) return false;
     const sk = objectOcSkill(obj.otyp | 0);
     return sk >= -P_CROSSBOW && sk <= -P_BOW;
+}
+
+/**
+ * C: include/obj.h **`uslinging()`** — **`uwep`** && **`objects[uwep->otyp].oc_skill == P_SLING`**.
+ * @param {import('./gstate.js').game} g
+ * @returns {boolean}
+ */
+export function uslingingHeroLikeC(g) {
+    const w = g?.u?.uwep;
+    if (!w) return false;
+    const oc = w.oclass | 0;
+    if (oc !== NH5_WEAPON_CLASS && oc !== NH5_TOOL_CLASS) return false;
+    const sk = OC_SKILL_ROW_BY_OTYP.get(w.otyp | 0)?.oc_skill;
+    if (sk !== undefined) return sk === P_SLING;
+    return (w.otyp | 0) === OTYP_SLING;
 }
 
 /**

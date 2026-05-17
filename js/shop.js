@@ -2504,6 +2504,34 @@ function onBillSlot(obj, shkp) {
     return null;
 }
 
+/**
+ * C: shk.c **`alter_cost(obj, amt)`** — raise **`bill_p`**.**`price`** when **`get_cost`** exceeds old (**`amt`** **0**),
+ * or set from **`amt`** (**`amt` &lt; 0** → **`-amt`**).
+ * @param {import('./gstate.js').game} g
+ * @param {object} obj
+ * @param {number} amt
+ * @returns {boolean} whether a bill line was updated
+ */
+export function alterCostShopBillObjLikeC(g, obj, amt) {
+    if (!(obj?.unpaid | 0)) return false;
+    for (const shkp of iterateNextShkpLikeC(g, true)) {
+        const slot = onBillSlot(obj, shkp);
+        if (!slot) continue;
+        const bp = slot.bp;
+        const a = amt | 0;
+        const newPrice = !a ? getCostStolenBuryUnit(g, obj, shkp) : a < 0 ? -a : a;
+        const old = bp.price | 0;
+        if (newPrice > old || a < 0) {
+            bp.price = newPrice;
+            g.disp = g.disp || {};
+            g.disp.botl = true;
+            return true;
+        }
+        return false;
+    }
+    return false;
+}
+
 /** C: **`next_shkp`** bill filter — **`ESHK`->`billct`** or **`bill_p`** length. */
 function eshkBillCountForNextShkp(e) {
     if (!e) return 0;
