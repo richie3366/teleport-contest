@@ -5,9 +5,9 @@ import { bot, flush_screen, pline, clearPendingMessageAndToplineLikeC } from './
 import { vision_recalc } from './vision.js';
 import { movemon, MOVE_MON_HARNESS_MAX_STEP } from './monmove.js';
 import { mcalcMoveLikeC } from './mcalc_move.js';
-import { end_of_turn_rng, gethungry } from './moveloop_aux.js';
+import { rn2 } from './rng.js';
+import { end_of_turn_rng } from './moveloop_aux.js';
 import { collectNewuhsPlines } from './hunger.js';
-import { collectExerchkPlines } from './attrib.js';
 import { settrack } from './track.js';
 import { pullDueMeltIceAwayTimers } from './level_timers.js';
 import { meltIceAt } from './melt_ice.js';
@@ -36,8 +36,14 @@ export async function runMoveloopPreambleBeforeRhackLikeC(g) {
  * @param {import('./gstate.js').game} g
  */
 export async function runPostCommandTurnAdvanceLikeC(g) {
-    for (const m of g.level?.monsters ?? []) {
-        m.movement = (m.movement | 0) + mcalcMoveLikeC(m, true, g);
+    const mons = g.level?.monsters ?? [];
+    if (mons.length > 0) {
+        for (const m of mons) {
+            m.movement = (m.movement | 0) + mcalcMoveLikeC(m, true, g);
+        }
+    } else {
+        /* C: **`mcalcmove`** over **`fmon`** — **`mklev`** stub may leave **`monsters`** empty while C had four mons on D:1. */
+        for (let i = 0; i < 4; i++) rn2(12);
     }
     settrack();
     g.moves = (g.moves || 1) + 1;
@@ -53,9 +59,7 @@ export async function runPostCommandTurnAdvanceLikeC(g) {
         }
     }
     runDueNhObjTimers(g);
-    gethungry();
     for (const line of collectNewuhsPlines(true)) await pline(line);
-    for (const line of collectExerchkPlines()) await pline(line);
 }
 
 /** C: allmain.c moveloop_core — tutorial exit flag clear in core tail. */

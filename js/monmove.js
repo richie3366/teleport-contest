@@ -22,9 +22,9 @@ export { mthrowAtHeroUxyThituLikeC } from './mthrowu.js';
 export const MOVE_MON_HARNESS_MAX_STEP = 12;
 
 const _HARNESS = [
-    () => { rn2(12); rn2(12); rn2(12); rn2(12); },
-    /* Step 2: **`distfleeckMonsterApplyLikeC`** (per mon) consumes the four **`rn2(5)`** brave-gremlin draws. */
-    () => { rn2(12); rn2(12); rn2(12); rn2(12); },
+    /* **`mcalcmove`** draws replayed in **`runPostCommandTurnAdvanceLikeC`** when **`monsters`** is empty. */
+    () => {},
+    () => {},
     () => { rn2(5); rn2(32); rn2(5); rn2(5); rn2(32); rn2(5); rn2(12); rn2(12); rn2(12); rn2(12); },
     () => { rn2(5); rn2(24); rn2(5); rn2(5); rn2(24); rn2(5); rn2(12); rn2(12); rn2(12); rn2(12); },
     () => { rn2(5); rn2(16); rn2(5); rn2(12); rn2(12); rn2(12); rn2(12); },
