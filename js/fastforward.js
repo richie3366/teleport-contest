@@ -26,6 +26,7 @@ import {
     consumeHealerHumanIniInvUinitRoleRngLikeC,
     consumeBarbarianHumanIniInvUinitRoleRngLikeC,
     consumeCaveDwellerHumanIniInvUinitRoleRngLikeC,
+    consumeRangerHumanIniInvUinitRoleRngLikeC,
 } from "./u_init_role_rng.js";
 import { races } from "./roles.js";
 
@@ -189,6 +190,11 @@ export function fastforward_post_mklev() {
     const bar = game.urole?.abbr === "Bar" && (game.initrace | 0) === humanIdx;
     if (bar) {
         consumeBarbarianHumanIniInvUinitRoleRngLikeC();
+        return;
+    }
+    const ran = game.urole?.abbr === "Ran" && (game.initrace | 0) === humanIdx;
+    if (ran) {
+        consumeRangerHumanIniInvUinitRoleRngLikeC();
         return;
     }
     const cav = game.urole?.abbr === "Cav" && (game.initrace | 0) === humanIdx;

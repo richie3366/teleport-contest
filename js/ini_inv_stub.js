@@ -13,6 +13,7 @@ import { applyArcheologistHumanLinkedInventAndWearLikeC } from './u_init_link_ar
 import { applyHealerHumanLinkedInventAndWearLikeC } from './u_init_link_healer_invent.js';
 import { applyBarbarianHumanLinkedInventAndWearLikeC } from './u_init_link_barbarian_invent.js';
 import { applyCaveDwellerHumanLinkedInventAndWearLikeC } from './u_init_link_cave_dweller_invent.js';
+import { applyRangerHumanLinkedInventAndWearLikeC } from './u_init_link_ranger_invent.js';
 
 const INV_COL = 32;
 
@@ -404,8 +405,15 @@ const RANGER_INI_INV = [
         oclass: 'Weapons',
         discoveryLine: '  bow',
     },
-    { type: 'item', text: 'c - 54 uncursed +2 arrows' },
-    { type: 'item', text: 'd - 34 uncursed +0 arrows' },
+    {
+        type: 'item',
+        text: (g) =>
+            `c - ${g._rangerIniArrow1Quan ?? 54} uncursed +2 arrows (in quiver)`,
+    },
+    {
+        type: 'item',
+        text: (g) => `d - ${g._rangerIniArrow2Quan ?? 34} uncursed +0 arrows`,
+    },
     { type: 'cat', name: 'Armor' },
     {
         type: 'item',
@@ -414,7 +422,15 @@ const RANGER_INI_INV = [
         discoveryLine: '  cloak of displacement',
     },
     { type: 'cat', name: 'Comestibles' },
-    { type: 'item', text: 'f - 4 uncursed cram rations' },
+    {
+        type: 'item',
+        text: (g) => {
+            const qs = g._rangerIniCramQuans;
+            if (!Array.isArray(qs) || !qs.length) return 'f - 4 uncursed cram rations';
+            const t = qs.reduce((a, b) => (a | 0) + (b | 0), 0);
+            return `f - ${t} uncursed cram ration${t === 1 ? '' : 's'}`;
+        },
+    },
     { type: 'item', text: '(end)' },
 ];
 
@@ -583,6 +599,7 @@ export function initIniInvStub(/** @type {import('./gstate.js').game} */ g) {
     applyHealerHumanLinkedInventAndWearLikeC(g);
     applyBarbarianHumanLinkedInventAndWearLikeC(g);
     applyCaveDwellerHumanLinkedInventAndWearLikeC(g);
+    applyRangerHumanLinkedInventAndWearLikeC(g);
 }
 
 /** @param {import('./game_display.js').GameDisplay} display */

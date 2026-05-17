@@ -75,6 +75,24 @@ const OTYP_CLUB = 78;
 const OTYP_SLING = 87;
 const OTYP_FLINT = 473;
 const OTYP_ROCK = 474;
+/** C `objects.h` — PROJECTILE **`ARROW`** … **`CROSSBOW_BOLT`** (NH5 `otyp` **19–24**; `OC_SKILL_ROW_BY_OTYP` omits this slice). */
+const OTYP_FIRST_PROJECTILE = 19;
+const OTYP_LAST_PROJECTILE = 24;
+const OTYP_ARROW = 19;
+/** C `objects.h` — first **`BOW("bow"`** after **`BULLWHIP`** (**`otyp`** **84**). */
+const OTYP_BOW = 84;
+/** C `mklev.js` anchor — **`CRAM_RATION`**. */
+const OTYP_CRAM_RATION = 145;
+/** C `u_init_find_ac.js` — **`CLOAK_OF_DISPLACEMENT`**. */
+const OTYP_CLOAK_OF_DISPLACEMENT = 150;
+
+/** C `obj.h` **`is_multigen`** / **`is_poisonable`** (WEAPON + **`oc_skill`** in **`-P_SHURIKEN`..`-P_BOW`**), extended when **`OC_SKILL_ROW_BY_OTYP`** lacks projectiles **19–24**. */
+function weaponAmmoMultigenOrPoisonableLikeC(otyp) {
+    const row = OC_SKILL_ROW_BY_OTYP.get(otyp);
+    const sk = row?.oc_skill ?? 0;
+    if (row?.oclass === NH5_WEAPON_CLASS && sk >= -P_SHURIKEN && sk <= -P_BOW) return true;
+    return otyp >= OTYP_FIRST_PROJECTILE && otyp <= OTYP_LAST_PROJECTILE;
+}
 
 /** C: mkobj.c next_ident — ident += rnd(2) */
 function nextIdentLikeC() {
@@ -90,11 +108,9 @@ function blessorcurseLikeC(chance) {
 
 /** C: mkobj.c mksobj_init — WEAPON_CLASS (artif always FALSE for ini_inv). */
 function mksobjInitWeaponLikeC(otyp, artif) {
-    const row = OC_SKILL_ROW_BY_OTYP.get(otyp);
-    const sk = row?.oc_skill ?? 0;
-    const multigen = row?.oclass === 2 && sk >= -P_SHURIKEN && sk <= -P_BOW;
+    const multigen = weaponAmmoMultigenOrPoisonableLikeC(otyp);
     if (multigen) {
-        rn2(6);
+        rn1(6, 6);
     }
     if (!rn2(11)) {
         rne(3);
@@ -104,8 +120,7 @@ function mksobjInitWeaponLikeC(otyp, artif) {
     } else {
         blessorcurseLikeC(10);
     }
-    const poisonable = row?.oclass === 2 && sk >= -P_SHURIKEN && sk <= -P_BOW;
-    if (poisonable && !rn2(100)) {
+    if (multigen && !rn2(100)) {
         /* otmp->opoisoned = 1 */
     }
     if (artif) {
@@ -701,6 +716,53 @@ export function consumeCaveDwellerHumanIniInvUinitRoleRngLikeC() {
     nextIdentLikeC();
     mksobjInitArmorLikeC(false);
     rn2(1);
+}
+
+/**
+ * C: u_init.c **`PM_RANGER`** — **`ini_inv(Ranger[])`** for human (no race subs).
+ * **`u_init_role`**: **`knows_class(WEAPON_CLASS)`** only (no RNG). Order: **`trquan`** / **`mksobj`** **`next_ident`**
+ * / **`mksobj_init`** / second **`trquan`** on **WEAPON** rows (**`ini_inv_adjust_obj`**); cram **FOOD** × **`4+rn2(1)`**
+ * with default FOOD **`!rn2(6)`** stack quan each (**`mksobjInitDefaultFoodQuanMaybeDoubleLikeC`** + per-obj tail **`rn2(1)`** like Monk ration loop).
+ */
+export function consumeRangerHumanIniInvUinitRoleRngLikeC() {
+    /* DAGGER +1 */
+    rn2(1);
+    nextIdentLikeC();
+    mksobjInitWeaponLikeC(OTYP_DAGGER, false);
+    rn2(1);
+
+    /* BOW +1 */
+    rn2(1);
+    nextIdentLikeC();
+    mksobjInitWeaponLikeC(OTYP_BOW, false);
+    rn2(1);
+
+    /* ARROW +2 — first **`trquan`** then stack from second **`trquan`** */
+    50 + rn2(10);
+    nextIdentLikeC();
+    mksobjInitWeaponLikeC(OTYP_ARROW, false);
+    game._rangerIniArrow1Quan = 50 + rn2(10);
+
+    /* ARROW +0 */
+    30 + rn2(10);
+    nextIdentLikeC();
+    mksobjInitWeaponLikeC(OTYP_ARROW, false);
+    game._rangerIniArrow2Quan = 30 + rn2(10);
+
+    /* CLOAK_OF_DISPLACEMENT +2 */
+    rn2(1);
+    nextIdentLikeC();
+    mksobjInitArmorLikeC(false);
+    rn2(1);
+
+    const nc = 4 + rn2(1);
+    game._rangerIniCramN = nc;
+    game._rangerIniCramQuans = [];
+    for (let i = 0; i < nc; i++) {
+        nextIdentLikeC();
+        game._rangerIniCramQuans.push(mksobjInitDefaultFoodQuanMaybeDoubleLikeC());
+        rn2(1);
+    }
 }
 
 export function consumeMonkHumanIniInvUinitRoleRngLikeC() {
