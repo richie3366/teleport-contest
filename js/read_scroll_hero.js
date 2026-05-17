@@ -2,7 +2,8 @@
 // C ref: read.c **`doread`** (**`gk.known=FALSE`**, blind+**`dknown`**, **`scroll->in_use`**, non-blank **`nodisappear`** plines (**`SCR_FIRE`**, cursed **`SCR_REMOVE_CURSE`**),
 //        **`!seffects(scroll)`** tail: **`learnscroll`** vs **`trycall`** when **`!oc_name_known`** (**`gk.known`** gate), **`useup`**
 //        unless **`SCR_BLANK_PAPER`**),
-//        **`seffects`** (**`exercise`** when **`oc_magic`**, **`switch(otyp)`** — blank, punishment (**`seffect_punishment`** partial), stinking cloud (discovery + **`gk`**; **`do_stinking_cloud`** TODO), default stub),
+//        **`seffects`** (**`exercise`** when **`oc_magic`**, **`switch(otyp)`** — blank, punishment (**`seffect_punishment`** partial), stinking cloud (discovery + **`gk`**; **`do_stinking_cloud`** TODO),
+//        remove curse (**`You_feel`** + cursed **`pline_The`**; no **`gk`**; invent/**`unpunish`**/**`buried_ball`** TODO), default stub),
 //        **`learnscroll`** / **`learnscrolltyp`**.
 
 import { game } from './gstate.js';
@@ -74,6 +75,24 @@ export async function seffectsHeroReadScrollLikeC(g, scroll, blind) {
             g._readScrollGkKnown = true;
             return 0;
         }
+        case OTYP_SCR_REMOVE_CURSE: {
+            /* C: **`seffect_remove_curse`** — opening **`You_feel`**; cursed → **`pline_The("scroll disintegrates.")`**; no **`gk.known`** here */
+            const hallu = heroHallucinationForReadLikeC(g);
+            const confused = heroConfusedForReadLikeC(g);
+            const feel = !hallu
+                ? confused
+                    ? 'like you need some help.'
+                    : 'like someone is helping you.'
+                : confused
+                  ? 'the power of the Force against you!'
+                  : 'in touch with the Universal Oneness.';
+            await pline(`You feel ${feel}`);
+            if (scroll.cursed | 0) {
+                await pline('The scroll disintegrates.');
+            }
+            /* C: else invent loop (blessorcurse, uncurse, learnscrolltyp), steed saddle, unpunish, buried_ball_to_freedom — TODO */
+            return 0;
+        }
         default: {
             const ocl = scroll.oclass | 0;
             if (ocl === NH5_SCROLL_CLASS && otyp !== OTYP_SCR_BLANK_PAPER) {
@@ -104,6 +123,13 @@ function heroConfusedForReadLikeC(g) {
     const u = g?.u;
     if (!u) return false;
     return !!(u.Confusion | 0) || (u.timed?.confusion ?? 0) > 0;
+}
+
+/** @param {import('./gstate.js').game} g */
+function heroHallucinationForReadLikeC(g) {
+    const u = g?.u;
+    if (!u) return false;
+    return !!(u.Hallucination | 0) || (u.timed?.hallucination ?? 0) > 0;
 }
 
 /**
