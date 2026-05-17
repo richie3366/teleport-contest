@@ -132,6 +132,11 @@ export async function newgame() {
     g.u.uright = null;
     g.u.Unaware = 0; /* eat.c gethungry — asleep / !rn2(10) metabolic branch */
     g.u.EProtection = 0; /* prop.c subset — wear.js refreshEProtectionFromRings sets W_RING* from rings */
+    /* C: youprop.h HProtection — u.uprops[PROTECTION].intrinsic; do_wear.c find_ac uses (HProtection & INTRINSIC) */
+    g.u.HProtection = 0;
+    /* C: u_init.c u_init_misc — u.ublessed / u.uspellprot (you.h); pray / spell protection vs AC */
+    g.u.ublessed = 0;
+    g.u.uspellprot = 0;
     /* C u_init_misc — newhp()/newpw() with u.ulevel==0; adjabil(0,1); u.ulevel=u.ulevelmax=1 (before mklev) */
     g.u.ulevel = 0;
     g.u.ulevelmax = 0;

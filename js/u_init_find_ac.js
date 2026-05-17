@@ -4,6 +4,7 @@
 import { game } from './gstate.js';
 import { permonstHuman } from './mondata.js';
 import {
+    INTRINSIC,
     OTYP_AMULET_OF_GUARDING,
     OTYP_RIN_PROTECTION,
 } from './const.js';
@@ -69,7 +70,8 @@ export function findAc(g = game) {
     if (u.uright && (u.uright.otyp | 0) === OTYP_RIN_PROTECTION) uac -= u.uright.spe | 0;
     if (u.uamul && (u.uamul.otyp | 0) === OTYP_AMULET_OF_GUARDING) uac -= 2;
 
-    /* C: if (HProtection & INTRINSIC) uac -= u.ublessed; — not modeled in JS yet */
+    /* C: youprop.h HProtection & INTRINSIC → uac -= u.ublessed (pray.c divine protection, …) */
+    if ((u.HProtection | 0) & INTRINSIC) uac -= u.ublessed | 0;
     uac -= u.uspellprot | 0;
 
     if (Math.abs(uac) > AC_MAX) uac = Math.sign(uac) * AC_MAX;
