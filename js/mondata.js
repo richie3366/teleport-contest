@@ -205,7 +205,7 @@ function isDragonArmorOtypLikeC(otyp) {
 }
 
 /** C: artifact.c **`defends(adtyp, otmp)`** — artifact **`defn.adtyp`** + dragon armor subset. */
-function defendsAdtypOnObjHeroSubsetLikeC(g, adtyp, obj) {
+export function defendsAdtypOnObjHeroSubsetLikeC(g, adtyp, obj) {
     if (!obj) return false;
     const ax = obj.oartifact | 0;
     if (ax) {

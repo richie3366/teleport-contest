@@ -2,12 +2,17 @@
 // C ref: pray.c gods_angry (~1428), godvoice (~1414), god_zaps_you (~610), fry_by_god (~693); muse.c ureflects (~2835).
 
 import {
+    DISINT_RES,
     Is_astralevel,
     Is_sanctum,
     KILLED_BY,
     M_SEEN_DISINT,
     M_SEEN_ELEC,
     M_SEEN_REFL,
+    REFLECTING,
+    W_ARMC,
+    W_ARM,
+    W_ARMS,
 } from './const.js';
 import { alignGnameLikeC, uhimHeroLikeC } from './pray_align_gname_like_c.js';
 import { pline, shieldeffLikeC } from './display.js';
@@ -16,7 +21,8 @@ import { losehp } from './mthrowu.js';
 import { monNamUstuckLikeC, monNamMonnamUstuckLikeC } from './pray_pat_spell_gcrown.js';
 import { summonMinionHeroLikeC } from './minion_summon_hero.js';
 import { rn2 } from './rng.js';
-import { resistsDisintMonLikeC, resistsElecMonLikeC } from './mondata.js';
+import { AD_DISN } from './destroy_items.js';
+import { defendsAdtypOnObjHeroSubsetLikeC, resistsDisintMonLikeC, resistsElecMonLikeC } from './mondata.js';
 import { disintegrateArmHeroAtObjGodZapsLikeC } from './disintegrate_arm_hero.js';
 
 /** C: pray.c **`godvoices[]`** + **`ROLL_FROM`**. */
@@ -56,6 +62,24 @@ function heroDisintResGodZapsLikeC(u) {
 }
 
 /**
+ * C: pray.c **`god_zaps_you`** — **`!(EReflecting & W_*)`** and **`!(EDisint_resistance & W_*)`** before **`disintegrate_arm`** on **`uarms`/`uarmc`/`uarm`** (not **`uarmu`**).
+ * Uses **`u.uprops[prop].extrinsic`** when set; else **`oc_oprop`** and **`artifact.c`** **`defends(AD_DISN, …)`** on the worn piece.
+ * @param {import('./gstate.js').game} g
+ * @param {object|null|undefined} obj
+ * @param {number} wbit `W_ARMS` / `W_ARMC` / `W_ARM`
+ */
+function skipDisintegrateArmSlotGodZapsLikeC(g, obj, wbit) {
+    const u = g?.u;
+    if (!u || !obj) return true;
+    const wb = wbit | 0;
+    if (((u.uprops?.[REFLECTING]?.extrinsic | 0) & wb) !== 0) return true;
+    if (((u.uprops?.[DISINT_RES]?.extrinsic | 0) & wb) !== 0) return true;
+    if ((obj.oc_oprop | 0) === REFLECTING) return true;
+    if ((obj.oc_oprop | 0) === DISINT_RES) return true;
+    return defendsAdtypOnObjHeroSubsetLikeC(g, AD_DISN, obj);
+}
+
+/**
  * C: muse.c **`ureflects`** first matching slot (**`EReflecting & W_*`**) — JS uses **`Reflecting`** only; message matches **`pray.c`** **`ureflects("%s reflects from your %s.", "It")`** shield branch wording when reflection is active.
  */
 async function ureflectsGodZapsHeroLikeC() {
@@ -79,7 +103,7 @@ async function fryByGodHeroLikeC(g, respGod, viaDisint) {
 
 /**
  * C: pray.c **`god_zaps_you(aligntyp resp_god)`** — swallow / reflect / shock / fry / disintegration / astral triple **`summon_minion`**.
- * Omits real **`xkilled`** / **`done(DIED)`** beyond **`losehp`** in **`fryByGodHeroLikeC`**. Swallow **`resists_elec`/`resists_disint`** — C **`Resists_Elem`** innate **`mon_resistancebits`** only (**`mondata.js`**; no monst **`mextrinsics`** / inventory **`defends`** yet). Non-swallow **`disintegrate_arm`** — **`disintegrate_arm_hero.js`** (**`obj_resists(...,0,90)`**; no **`EReflecting`/`EDisint_resistance` & `W_*`** gates until extrinsic masks are ported).
+ * Omits real **`xkilled`** / **`done(DIED)`** beyond **`losehp`** in **`fryByGodHeroLikeC`**. Swallow **`resists_elec`/`resists_disint`** — C **`Resists_Elem`** innate **`mon_resistancebits`** only (**`mondata.js`**; no monst **`mextrinsics`** / inventory **`defends`** yet). Non-swallow **`disintegrate_arm`** — **`disintegrate_arm_hero.js`** (**`obj_resists(...,0,90)`**); slot skips match C **`!(EReflecting & W_*)`** / **`!(EDisint_resistance & W_*)`** via **`uprops`** + **`oc_oprop`** + **`defends(AD_DISN)`** (**`uarmu`** unchanged: C has no **`W_ARMU`** gate).
  * @param {import('./gstate.js').game} g
  * @param {number} respGod
  */
@@ -131,10 +155,15 @@ export async function godZapsYouHeroLikeC(g, respGod) {
         }
     } else {
         await pline('A wide-angle disintegration beam hits you!');
-        /* C: pray.c — disintegrate shield or cloak or suit or shirt before fry; EReflecting or EDisint on W_* slots TODO. */
-        if (u.uarms) await disintegrateArmHeroAtObjGodZapsLikeC(g, u.uarms, 'arms');
-        if (u.uarmc) await disintegrateArmHeroAtObjGodZapsLikeC(g, u.uarmc, 'armc');
-        if (u.uarm && !u.uarmc) await disintegrateArmHeroAtObjGodZapsLikeC(g, u.uarm, 'arm');
+        if (u.uarms && !skipDisintegrateArmSlotGodZapsLikeC(g, u.uarms, W_ARMS)) {
+            await disintegrateArmHeroAtObjGodZapsLikeC(g, u.uarms, 'arms');
+        }
+        if (u.uarmc && !skipDisintegrateArmSlotGodZapsLikeC(g, u.uarmc, W_ARMC)) {
+            await disintegrateArmHeroAtObjGodZapsLikeC(g, u.uarmc, 'armc');
+        }
+        if (u.uarm && !u.uarmc && !skipDisintegrateArmSlotGodZapsLikeC(g, u.uarm, W_ARM)) {
+            await disintegrateArmHeroAtObjGodZapsLikeC(g, u.uarm, 'arm');
+        }
         if (u.uarmu && !u.uarm && !u.uarmc) await disintegrateArmHeroAtObjGodZapsLikeC(g, u.uarmu, 'armu');
 
         if (!heroDisintResGodZapsLikeC(u)) {
