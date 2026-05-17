@@ -24,7 +24,7 @@ export function nohandsPermonstLikeC(ptr) {
  * C: obj.h **`is_weptool(o)`** — tool with non-**`P_NONE`** weapon skill (towel excluded).
  * @param {{ oclass?: number, otyp?: number }|null|undefined} obj
  */
-function isWeptoolLikeC(obj) {
+export function isWeptoolObjLikeC(obj) {
     if (!obj) return false;
     if ((obj.oclass | 0) !== NH5_TOOL_CLASS) return false;
     return weaponType(obj) !== P_NONE;
@@ -39,7 +39,7 @@ function erodeableWeaponWeldLikeC(obj) {
     const oc = obj.oclass | 0;
     const ot = obj.otyp | 0;
     if (oc === NH5_WEAPON_CLASS) return true;
-    if (isWeptoolLikeC(obj)) return true;
+    if (isWeptoolObjLikeC(obj)) return true;
     if (ot === OTYP_HEAVY_IRON_BALL || ot === OTYP_IRON_CHAIN) return true;
     return false;
 }
@@ -59,7 +59,7 @@ function willWeldObjLikeC(obj) {
  * @param {import('./gstate.js').game} g
  * @param {object|null|undefined} obj
  */
-function weldedUwepLikeC(g, obj) {
+export function weldedUwepLikeC(g, obj) {
     const u = g?.u;
     if (!obj || !u || obj !== u.uwep) return false;
     if (!willWeldObjLikeC(obj)) return false;

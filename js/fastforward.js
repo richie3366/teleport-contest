@@ -137,8 +137,12 @@ export function fastforward_pre_mklev() {
     rn2(100); rn2(100);
     // place_level
     rn2(1); rn2(1);
-    // init_castle_tune
-    rn2(7); rn2(7); rn2(7); rn2(7); rn2(7);
+    // init_castle_tune (dungeon.c init_castle_tune — store for pray.c pleased pat_on_head)
+    {
+        let tune = '';
+        for (let i = 0; i < 5; i++) tune += String.fromCharCode(65 + rn2(7));
+        game._castleTuneStr = tune;
+    }
     /* C u_init.c u_init_misc — `u.uhandedness = rn2(10) ? …` (allmain.js newgame, after g.u scaffold) */
 }
 

@@ -6,12 +6,13 @@
 // before prayer_done so monster RNG interleaving matches the recorder harness.
 
 import { nhgetch } from './input.js';
-import { flush_screen, pline } from './display.js';
+import { flush_screen, pline, youHearLikeC } from './display.js';
 import {
     A_CHAOTIC,
     A_LAWFUL,
     A_NEUTRAL,
     A_NONE,
+    A_STR,
     A_WIS,
     AM_MASK,
     AM_SHRINE,
@@ -25,7 +26,7 @@ import { rn1, rn2, rnz, rnl } from './rng.js';
 import { adjattrib, changeLuck } from './attrib.js';
 import { losexpNullLikeC } from './losexp.js';
 import { floorObjKey } from './floorobj.js';
-import { NH5_POTION_CLASS } from './nh5_objclass.js';
+import { NH5_POTION_CLASS, NH5_WEAPON_CLASS } from './nh5_objclass.js';
 import { adjalignLikeC } from './dig_grave.js';
 import { executeHelplessMoveloopTickLikeC } from './moveloop_turn_advance.js';
 import {
@@ -33,6 +34,12 @@ import {
     applyPleasedPatOnHeadCase5IntrinsicGiftsLikeC,
 } from './divine_protection.js';
 import { attrcurseHeroLikeC, rndcurseHeroLikeC } from './sit_hero.js';
+import { doname } from './objnam.js';
+import { encumberMsg } from './pickup.js';
+import { findAc } from './u_init_find_ac.js';
+import { updateInventory } from './invent.js';
+import { weldedUwepLikeC, isWeptoolObjLikeC } from './hero_hands.js';
+import { pluslvlHeroLikeC } from './exper_pluslvl.js';
 
 const STRIDENT = 4;
 /** C: pray.c `#define DEVOUT 14` */
@@ -40,6 +47,171 @@ const DEVOUT = 14;
 const OTYP_POT_WATER = 321;
 /** C: defsym.h **`MONSYM(..., HUMAN, S_HUMAN, ...)`** — **`gy.youmonst.data->mlet`** in pray.c */
 const S_HUMAN_MLET = 53;
+/** C: objects.h **`HELM_OF_OPPOSITE_ALIGNMENT`** (NH5 otyp **100**). */
+const HELM_OF_OPPOSITE_ALIGNMENT = 100;
+/** C: pray.c **`godvoices[]`** — **`ROLL_FROM`** for **`godvoice`**. */
+const GODVOICES = ['booms out', 'thunders', 'rings out', 'booms'];
+
+/** @param {import('./gstate.js').game} g */
+function uGnameLikeC(g) {
+    return alignGnamePrayTargetLikeC(g, g.u?.ualign?.type ?? 0);
+}
+
+/**
+ * C: pray.c **`pleased`** **`pat_on_head`** cases **2** (golden heal / **`pluslvl`**) and fallthrough from **3**.
+ * @param {import('./gstate.js').game} g
+ */
+async function applyPleasedPatOnHeadGoldenGlowHealLikeC(g) {
+    const u = g.u;
+    if (!u) return;
+    const blind = !!(u.Blind | 0) || !!(u.ublind | 0) || (u.timed?.blind ?? 0) > 0;
+    if (!blind) await pline('You are surrounded by a golden glow.');
+
+    if ((u.ulevel | 0) < (u.ulevelmax | 0)) {
+        u.ulevelmax = (u.ulevelmax | 0) - 1;
+        await pluslvlHeroLikeC(g, false);
+    } else {
+        u.uhpmax = (u.uhpmax | 0) + 5;
+        if ((u.uhpmax | 0) > (u.uhppeak | 0)) u.uhppeak = u.uhpmax | 0;
+        if (u.Upolyd | 0) u.mhmax = (u.mhmax | 0) + 5;
+    }
+    u.uhp = u.uhpmax | 0;
+    if (u.Upolyd | 0) u.mh = u.mhmax | 0;
+
+    const ac = u.acurr?.a;
+    const am = u.amax?.a;
+    if (ac && am && (ac[A_STR] ?? 0) < (am[A_STR] ?? 0)) {
+        ac[A_STR] = am[A_STR] ?? ac[A_STR];
+        g.disp = g.disp || {};
+        g.disp.botl = true;
+        findAc(g);
+        await encumberMsg();
+    }
+    if ((u.uhunger | 0) < 900) u.uhunger = 900;
+    if ((u.uluck | 0) < 0) u.uluck = 0;
+    u.ucreamed = 0;
+    u.ublind = 0;
+    if (u.timed) u.timed.blind = 0;
+    g.disp = g.disp || {};
+    g.disp.botl = true;
+}
+
+/**
+ * C: pray.c **`pleased`** **`pat_on_head`** switch (**`rn2((Luck+6)>>1)`**).
+ * @param {import('./gstate.js').game} g
+ * @param {number} g_align
+ * @param {number} patSw
+ */
+async function applyPleasedPatOnHeadSwitchLikeC(g, g_align, patSw) {
+    const u = g.u;
+    if (!u) return;
+
+    switch (patSw) {
+        case 0:
+            break;
+        case 1: {
+            const uwep = u.uwep;
+            const wpn =
+                uwep
+                && (weldedUwepLikeC(g, uwep)
+                    || (uwep.oclass | 0) === NH5_WEAPON_CLASS
+                    || isWeptoolObjLikeC(uwep));
+            if (!wpn) break;
+
+            let repairBuf = '';
+            if ((uwep.oeroded | 0) || (uwep.oeroded2 | 0)) {
+                repairBuf = ` and ${(uwep.quan | 0) > 1 ? 'are' : 'is'} now as good as new`;
+            }
+
+            const blind = !!(u.Blind | 0) || !!(u.ublind | 0) || (u.timed?.blind ?? 0) > 0;
+            if (uwep.cursed | 0) {
+                if (!blind) {
+                    await pline(`${doname(uwep, g)} softly glows amber${repairBuf}.`);
+                } else {
+                    await pline(`You feel the power of ${uGnameLikeC(g)} over ${doname(uwep, g)}.`);
+                }
+                uwep.cursed = 0;
+                uwep.bknown = 1;
+                repairBuf = '';
+            } else if (!(uwep.blessed | 0)) {
+                if (!blind) {
+                    await pline(`${doname(uwep, g)} softly glows with a light blue aura${repairBuf}.`);
+                } else {
+                    await pline(`You feel the blessing of ${uGnameLikeC(g)} over ${doname(uwep, g)}.`);
+                }
+                uwep.blessed = 1;
+                uwep.cursed = 0;
+                uwep.bknown = 1;
+                repairBuf = '';
+            }
+
+            if ((uwep.oeroded | 0) || (uwep.oeroded2 | 0)) {
+                uwep.oeroded = 0;
+                uwep.oeroded2 = 0;
+                if (repairBuf) await pline(`${doname(uwep, g)} ${blind ? 'feel' : 'look'} as good as new!`);
+            }
+            if (g.iflags?.perm_invent) updateInventory();
+            break;
+        }
+        case 3: {
+            u.uevent = u.uevent || {};
+            const ev = u.uevent;
+            const noBridge = !(ev.uopened_dbridge | 0);
+            const noGeh = !(ev.gehennom_entered | 0);
+            if (noBridge && noGeh) {
+                if ((ev.uheard_tune | 0) < 1) {
+                    const gv = GODVOICES[rn2(GODVOICES.length)];
+                    await pline(`The voice of ${alignGnamePrayTargetLikeC(g, g_align)} ${gv}:`);
+                    const mortalOrCreature =
+                        (u.youmonst?.data?.mlet | 0) === S_HUMAN_MLET ? 'mortal' : 'creature';
+                    await pline(`"Hark, ${mortalOrCreature}!"`);
+                    await pline('"To enter the castle, thou must play the right tune!"');
+                    ev.uheard_tune = (ev.uheard_tune | 0) + 1;
+                    break;
+                }
+                if ((ev.uheard_tune | 0) < 2) {
+                    await youHearLikeC('You hear a divine music...');
+                    const tune = g._castleTuneStr ?? '?????';
+                    await pline(`It sounds like:  "${tune}".`);
+                    ev.uheard_tune = (ev.uheard_tune | 0) + 1;
+                    break;
+                }
+            }
+        }
+        /* FALLTHRU */
+        case 2:
+            await applyPleasedPatOnHeadGoldenGlowHealLikeC(g);
+            break;
+        case 4: {
+            let any = 0;
+            const blind = !!(u.Blind | 0) || !!(u.ublind | 0) || (u.timed?.blind ?? 0) > 0;
+            if (blind) await pline(`You feel the power of ${uGnameLikeC(g)}.`);
+            else await pline('You are surrounded by a light blue aura.');
+            for (let o = g.invent; o; o = o.nobj) {
+                if (!(o.cursed | 0)) continue;
+                if (o === u.uarmh && (o.otyp | 0) === HELM_OF_OPPOSITE_ALIGNMENT) continue;
+                if (!blind) {
+                    await pline(`${doname(o, g)} softly glows amber.`);
+                    o.bknown = 1;
+                    any += 1;
+                }
+                o.cursed = 0;
+            }
+            if (any && g.iflags?.perm_invent) updateInventory();
+            break;
+        }
+        case 5:
+            await applyPleasedPatOnHeadCase5IntrinsicGiftsLikeC(g);
+            break;
+        case 6:
+        case 7:
+        case 8:
+            /* C: give_spell() / gcrownu() — not ported (spellbooks / crowning). */
+            break;
+        default:
+            break;
+    }
+}
 
 /** @param {import('./gstate.js').game} g */
 function alignGnamePrayTargetLikeC(g, aligntyp) {
@@ -156,7 +328,7 @@ async function waterPrayerLikeC(g, blessWater) {
 
 /**
  * C: pray.c **`pleased(aligntyp g_align)`** — **`You_feel`**, **`adjalign`**, trouble/action **`rn1`/`rnl`/`switch`**,
- * **`pat_on_head`** subset (**`rn2((Luck+6)>>1)`** cases **0** + **5** only), **`ublesscnt`** tail (**`rnz(350)`**, kick, **`moves`** throttle).
+ * pat_on_head (rn2((Luck+6)>>1) cases 0–5; 6–8 no-op until give_spell/gcrownu), ublesscnt tail (rnz(350), kick, moves throttle).
  * @param {import('./gstate.js').game} g
  * @param {number} g_align
  */
@@ -235,15 +407,7 @@ async function pleasedHeroLikeC(g, g_align) {
 
     if (pat_on_head) {
         const patSw = rn2((Luck + 6) >> 1);
-        switch (patSw) {
-            case 0:
-                break;
-            case 5:
-                await applyPleasedPatOnHeadCase5IntrinsicGiftsLikeC(g);
-                break;
-            default:
-                break;
-        }
+        await applyPleasedPatOnHeadSwitchLikeC(g, g_align, patSw);
     }
 
     u.ublesscnt = (u.ublesscnt | 0) + rnz(350);
