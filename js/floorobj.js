@@ -1,7 +1,7 @@
 // floorobj.js — Floor object chains (nexthere) at (x,y).
 // C ref: mkobj.c place_object(), rm.c / invent floor lists;
 //        dig.c bury_objs() / unearth_objs() (**`buriedObjHeads`**, **`stackobj`**, **`buried_ball`**),
-//        read.c punish() (**`buried_ball_to_punishment`** unearthed ball).
+//        dig.c buried_ball_to_freedom() / read.c punish() (**`buried_ball_to_punishment`** unearthed ball).
 //
 // Shared by mklev.js and trap/missile code so traps can drop projectiles
 // without importing the full level generator.
@@ -268,6 +268,28 @@ export function buriedBallFromCoord(g, cc) {
 export function buriedBallAtCellForUnearth(g, x, y) {
     const cc = { x: x | 0, y: y | 0 };
     return buriedBallFromCoord(g, cc);
+}
+
+/**
+ * C: dig.c **`buried_ball_to_freedom`** — **`buried_ball`**, **`obj_extract_self`**, **`place_object`**, **`stackobj`**,
+ * **`reset_utrap(TRUE)`** (**`float_up`/`You can fly.`** not ported), **`del_engr_at`**, **`newsym`**.
+ * @param {import('./gstate.js').game} g
+ * @returns {boolean} true when a ball was unearthed (**`reset_utrap`** ran)
+ */
+export function buriedBallToFreedomLikeC(g) {
+    const u = g?.u;
+    if (!u || !(u.utrap | 0) || (u.utraptype | 0) !== TT_BURIEDBALL) return false;
+    const cc = { x: u.ux | 0, y: u.uy | 0 };
+    const ball = buriedBallFromCoord(g, cc);
+    if (!ball) return false;
+    unlinkBuriedObjectInLevel(g, ball);
+    placeFloorObjectInLevel(g, ball, cc.x | 0, cc.y | 0);
+    stackObjOnFloorInLevel(g, ball);
+    u.utrap = 0;
+    u.utraptype = 0;
+    delEngrAtInLevel(g, cc.x | 0, cc.y | 0);
+    newsym(cc.x | 0, cc.y | 0);
+    return true;
 }
 
 /**

@@ -4,7 +4,7 @@
 //        unless **`SCR_BLANK_PAPER`**),
 //        **`seffects`** (**`exercise`** when **`oc_magic`**, **`switch(otyp)`** — blank, punishment (**`seffect_punishment`** partial), stinking cloud (discovery + **`gk`**; **`do_stinking_cloud`** TODO),
 //        remove curse (**`You_feel`** + cursed **`pline_The`**; no **`gk`**; **`Punished`** && !confused → **`unpunish`**;
-//        **`TT_BURIEDBALL`** clasp pline + clear **`utrap`** (**`buried_ball_to_freedom`** map ball TODO); invent + steed saddle **`remove_curse_hero.js`**), default stub),
+//        **`TT_BURIEDBALL`**: **`floorobj.js`** **`buriedBallToFreedomLikeC`** + clasp **`pline_The`**; invent + steed saddle **`remove_curse_hero.js`**), default stub),
 //        **`learnscroll`** / **`learnscrolltyp`**.
 
 import { game } from './gstate.js';
@@ -19,6 +19,8 @@ import { learnscrollHeroLikeC, trycallHeroLikeC } from './discover_scroll.js';
 import { heroPunishedLikeC, unpunishHeroLikeC } from './punish_hero.js';
 import { syncHeroInvWeightNetLikeC } from './encumbr.js';
 import { removeCurseHeroInventLoopLikeC } from './remove_curse_hero.js';
+import { buriedBallToFreedomLikeC } from './floorobj.js';
+import { floatVsFlightLikeC } from './switch_terrain.js';
 
 /** C: **`objects_nums`** **`SCR_BLANK_PAPER`** — **`SCROLL(..., mgc, ...)`** with **`mgc`** **0** (**`objects.h`**). */
 const OTYP_SCR_BLANK_PAPER = 364;
@@ -115,12 +117,12 @@ export async function seffectsHeroReadScrollLikeC(g, scroll, blind) {
     }
 }
 
-/** C: read.c **`seffect_remove_curse`** — **`buried_ball_to_freedom`** + **`pline_The("clasp…", body_part(LEG))`**; unearthed **`place_object`** / **`stackobj`** TODO. */
+/** C: read.c **`seffect_remove_curse`** — **`buried_ball_to_freedom`** then **`pline_The("clasp…", body_part(LEG))`**; **`reset_utrap(TRUE)`** **`float_up`** tail TODO. */
 async function heroBuriedBallClaspVanishesAfterRemoveCurseLikeC(g) {
     const u = g?.u;
     if (!u || !(u.utrap | 0) || (u.utraptype | 0) !== TT_BURIEDBALL) return;
-    u.utrap = 0;
-    u.utraptype = 0;
+    const freed = buriedBallToFreedomLikeC(g);
+    if (freed) floatVsFlightLikeC(g);
     await pline('The clasp on your leg vanishes.');
 }
 
