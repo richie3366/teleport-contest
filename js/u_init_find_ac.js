@@ -13,8 +13,7 @@ const AC_MAX = 99;
 
 /**
  * C `objects[].a_ac` (= OBJECT `10 - ac` in objects.h `ARMOR`/`HELM`/`CLOAK`/…) for NH5 `objects_nums`
- * `otyp` values. Anchored vs **`HAWAIIAN_SHIRT`** **136** (see **`shop.js`**); indices from
- * `nethack-c/upstream/include/objects.h` symbol order. Extend when new worn otyps appear.
+ * `otyp` values. NH5 **`otyp`** = **`objects.h`** symbol-order index + **16** (same offset as **`LEATHER_ARMOR`** **134** at index **118**; **`HAWAIIAN_SHIRT` 136** at **120**). Extend when new worn otyps appear.
  * @type {ReadonlyMap<number, number>}
  */
 const OBJECTS_A_AC_ARMOR = new Map([
@@ -30,6 +29,16 @@ const OBJECTS_A_AC_ARMOR = new Map([
     [149, 1], /* CLOAK_OF_DISPLACEMENT */
     [150, 1], /* SMALL_SHIELD */
     [159, 1], /* LEATHER_GLOVES */
+    [163, 1], /* LOW_BOOTS — ac 9 */
+    [164, 2], /* IRON_SHOES — ac 8 */
+    [165, 2], /* HIGH_BOOTS — ac 8 */
+    [166, 1], /* SPEED_BOOTS — ac 9 */
+    [167, 1], /* WATER_WALKING_BOOTS */
+    [168, 1], /* JUMPING_BOOTS */
+    [169, 1], /* ELVEN_BOOTS */
+    [170, 1], /* KICKING_BOOTS */
+    [171, 1], /* FUMBLE_BOOTS */
+    [172, 1], /* LEVITATION_BOOTS */
 ]);
 
 /**
