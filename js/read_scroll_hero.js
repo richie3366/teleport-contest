@@ -1,7 +1,9 @@
 // read_scroll_hero.js — Hero **`r`** read scroll subset until full **`read.c`** **`doread`** / **`seffects`**.
-// C ref: read.c **`doread`** (blind+**`dknown`**, confused preamble, blank **`seffect_blank_paper`**),
-//        **`seffects`** preamble (**`objects[otyp].oc_magic`** → **`exercise(A_WIS,TRUE)`**),
-//        **`learnscroll`** / **`learnscrolltyp`**; invent consume when scroll vanishes (**`useup`**-style).
+// C ref: read.c **`doread`** (**`gk.known=FALSE`**, blind+**`dknown`**, non-blank disappear/confused plines,
+//        **`!seffects(scroll)`** tail: **`learnscroll`**/**`trycall`** if **`!oc_name_known`**, **`useup`**
+//        unless **`SCR_BLANK_PAPER`**),
+//        **`seffects`** (**`exercise`** when **`oc_magic`**, **`switch(otyp)`** — blank wired, other cases stub),
+//        **`learnscroll`** / **`learnscrolltyp`**.
 
 import { game } from './gstate.js';
 import { pline, flush_screen } from './display.js';
@@ -27,6 +29,39 @@ export function scrollOtypHasOcMagicLikeC(otyp) {
         if ((SCROLL_CLASS_MKOBJ_OC_PROB_ROWS[i][0] | 0) === t) return true;
     }
     return false;
+}
+
+/**
+ * C: read.c **`seffects`** — return **1** if scroll was **`useup`**'d inside (**`sobj`** null), else **0**.
+ * Per-**`otyp`** effects mostly TODO; non-blank scrolls set **`gk.known`** so **`doread`** tail matches **`learnscroll`** until real **`seffect_*`** ports.
+ * @param {import('./gstate.js').game} g
+ * @param {{ otyp?: number, oclass?: number, dknown?: number }} scroll
+ * @param {boolean} blind
+ * @returns {Promise<number>}
+ */
+export async function seffectsHeroReadScrollLikeC(g, scroll, blind) {
+    const otyp = scroll.otyp | 0;
+    if (scrollOtypHasOcMagicLikeC(otyp)) exercise(A_WIS, true);
+
+    switch (otyp) {
+        case OTYP_SCR_BLANK_PAPER: {
+            /* C: **`seffect_blank_paper`** — plines; **`gk.known = TRUE`** */
+            if (blind) await pline("You don't remember there being any magic words on this scroll.");
+            else await pline('This scroll seems to be blank.');
+            g._readScrollGkKnown = true;
+            return 0;
+        }
+        default: {
+            const ocl = scroll.oclass | 0;
+            if (ocl === NH5_SCROLL_CLASS && otyp !== OTYP_SCR_BLANK_PAPER) {
+                /* C: most **`seffect_*`** set **`gk.known`**; stub keeps prior always-learn on read until wired */
+                g._readScrollGkKnown = true;
+            } else {
+                g._readScrollGkKnown = false;
+            }
+            return 0;
+        }
+    }
 }
 
 /** @param {import('./gstate.js').game} g */
@@ -60,7 +95,7 @@ export function firstCarriedScrollForReadLikeC(g) {
 }
 
 /**
- * C: read.c **`doread`** — first invent scroll; **`seffects`** body still TODO (**`switch(otyp)`**).
+ * C: read.c **`doread`** — first invent scroll; **`seffects`** **`switch(otyp)`** (blank + stub default).
  * @param {import('./gstate.js').game} [g]
  */
 export async function doReadHeroScrollCmdLikeC(g = game) {
@@ -86,47 +121,55 @@ export async function doReadHeroScrollCmdLikeC(g = game) {
 
     observeObjectHeroMinimalLikeC(g, scroll);
 
-    /* C: read.c **`seffects`** — **`if (objects[otyp].oc_magic) exercise(A_WIS, TRUE);`** before switch */
-    if (scrollOtypHasOcMagicLikeC(otyp)) exercise(A_WIS, true);
+    /* C: **`gk.known = FALSE`** at **`doread`** entry — carried on **`g`** for tail */
+    g._readScrollGkKnown = false;
 
-    if (otyp === OTYP_SCR_BLANK_PAPER) {
-        if (blind) await pline("You don't remember there being any magic words on this scroll.");
-        else await pline('This scroll seems to be blank.');
-        learnscrollHeroLikeC(g, scroll);
-        g._retainMessageAfterCommand = true;
-        await flush_screen(1);
-        return;
-    }
-
-    const silently = false; /* C: **`can_chant`** — not ported */
-    if (blind) {
-        await pline(
-            'As you %s the formula on it, the scroll disappears.',
-            silently ? 'cogitate' : 'pronounce',
-        );
-    } else {
-        await pline('As you read the scroll, it disappears.');
-    }
-    if (confused) {
-        const u = g.u;
-        if ((u?.Hallucination | 0) || (u?.timed?.hallucination ?? 0) > 0) {
-            await pline('Being so trippy, you screw up...');
+    /* C: read.c **`doread`** — **`if (otyp != SCR_BLANK_PAPER)`** disappear + confused plines before **`seffects`** */
+    if (otyp !== OTYP_SCR_BLANK_PAPER) {
+        const silently = false; /* C: **`can_chant`** — not ported */
+        if (blind) {
+            await pline(
+                'As you %s the formula on it, the scroll disappears.',
+                silently ? 'cogitate' : 'pronounce',
+            );
         } else {
-            await pline('Being confused, you %s the magic words...', silently ? 'misunderstand' : 'mispronounce');
+            await pline('As you read the scroll, it disappears.');
+        }
+        if (confused) {
+            const u = g.u;
+            if ((u?.Hallucination | 0) || (u?.timed?.hallucination ?? 0) > 0) {
+                await pline('Being so trippy, you screw up...');
+            } else {
+                await pline('Being confused, you %s the magic words...', silently ? 'misunderstand' : 'mispronounce');
+            }
         }
     }
 
-    learnscrollHeroLikeC(g, scroll);
+    /* C: **`seffects`** returns **1** if **`useup`** already ran inside (**`sobj`** null) */
+    const scrollUseupInside = await seffectsHeroReadScrollLikeC(g, scroll, blind);
 
-    const q = scroll.quan | 0;
-    if (q > 1) {
-        scroll.quan = q - 1;
-        if (scroll.owt != null) {
-            const per = Math.max(1, Math.trunc((scroll.owt | 0) / q));
-            scroll.owt = per * (scroll.quan | 0);
+    /* C: **`if (!seffects(scroll))`** */
+    if (!scrollUseupInside) {
+        const t = scroll.otyp | 0;
+        const alreadyKnown = g.scrollDiscovery instanceof Set && g.scrollDiscovery.has(t);
+        if (!alreadyKnown) {
+            if (g._readScrollGkKnown) {
+                learnscrollHeroLikeC(g, scroll);
+            }
+            /* C: else **`trycall(scroll)`** — not ported */
         }
-    } else {
-        removeObjFromHeroInvent(g, scroll);
+        if (t !== OTYP_SCR_BLANK_PAPER) {
+            const q = scroll.quan | 0;
+            if (q > 1) {
+                scroll.quan = q - 1;
+                if (scroll.owt != null) {
+                    const per = Math.max(1, Math.trunc((scroll.owt | 0) / q));
+                    scroll.owt = per * (scroll.quan | 0);
+                }
+            } else {
+                removeObjFromHeroInvent(g, scroll);
+            }
+        }
     }
 
     g.context.move = 1;
