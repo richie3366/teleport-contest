@@ -15,8 +15,8 @@
 
 import { rn2, rnd, d, rne, rnz } from "./rng.js";
 
-// Pre-mklev startup: o_init shuffles, dungeon init, u_init_misc
-// 303 leaf RNG calls (session indices 0-308)
+// Pre-mklev startup: o_init shuffles, dungeon init, u_init_misc (handedness rn2(10) in allmain.js before l_nhcore_init)
+// 302 leaf RNG calls (session indices 0-307)
 export function fastforward_pre_mklev() {
     // randomize_gem_colors
     rn2(2); rn2(2); rn2(4);
@@ -122,8 +122,7 @@ export function fastforward_pre_mklev() {
     rn2(1); rn2(1);
     // init_castle_tune
     rn2(7); rn2(7); rn2(7); rn2(7); rn2(7);
-    // u_init_misc
-    rn2(10);
+    /* C u_init.c u_init_misc — `u.uhandedness = rn2(10) ? …` (allmain.js newgame, after g.u scaffold) */
 }
 
 // Post-mklev startup: u_init_role, ini_inv, and most of moveloop_preamble RNG

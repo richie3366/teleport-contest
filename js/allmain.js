@@ -38,6 +38,7 @@ import { bootstrapSpLevchnMinesMinetnFromBranchStubLikeC } from './sp_levchn.js'
 import { maybeRecordEnteredNewLevelLivelogLikeC } from './livelog.js';
 import { contextLeavingTutorialActiveLikeC } from './tutorial_branch.js';
 import { awaitLegacyIntroMoreLikeC } from './legacy_intro.js';
+import { rn2 } from './rng.js';
 
 // C ref: allmain.c newgame()
 export async function newgame() {
@@ -45,10 +46,16 @@ export async function newgame() {
 
     /* C: allmain.c newgame — welcome before monster-notice plines (flag.h notice_mon_off) */
     noticeMonOffLikeC();
+    /* C: u_init_misc / moveloop — svm.moves==0 until u_init_role sets 1 (u_init.c u_init_role) */
+    g.moves = 0;
 
     // Fast-forward through pre-mklev startup RNG calls.
-    // Covers: o_init (shuffles), dungeon init, u_init_misc.
+    // Covers: o_init (shuffles), dungeon init, u_init_misc (except handedness line — see below).
     fastforward_pre_mklev();
+
+    /* C u_init.c u_init_misc — handedness before l_nhcore_init (allmain.c newgame order) */
+    g.u = g.u || {};
+    g.u.left_handed = (rn2(10) === 0);
 
     // C ref: allmain.c l_nhcore_init() — shuffle align[] for Lua
     // Consumes rn2(3), rn2(2) matching session indices 309-310
@@ -56,49 +63,10 @@ export async function newgame() {
 
     // Set up game state needed by mklev
     g.dungeons = [{ dname: 'The Dungeons of Doom', depth_start: 1, num_dunlevs: 30, flags: { hellish: 0 } }];
-    g.u = g.u || {};
     g.u.dx |= 0;
     g.u.dy |= 0;
     g.u.uz = { dnum: 0, dlevel: 1 };
-    g.context = g.context || {};
-    if (g.context.next_attrib_check == null) g.context.next_attrib_check = 600;
-    g.context.victual = { eating: 0, fullwarn: 0, canchoke: 1 };
-    /* C: decl.c mvitals — stub array for mon.c make_corpse G_NOCORPSE / geno */
-    initMvitalsStub(g);
-
-    g.flags = g.flags || {};
-    /* C: hack.c flags.terrainstatus — gate classify_terrain; default on for new games */
-    if (g.flags.terrainstatus === undefined) g.flags.terrainstatus = true;
-    // Gnomish Mines branch stub (end1 on D:1)
-    g.branches = [
-        { end1: { dnum: 0, dlevel: 1 }, end2: { dnum: 2, dlevel: 1 }, end1_up: true },
-    ];
-    /* C: dungeon topology — mines **`dnum`** for **`In_mines`** / future **`sp_levchn`** */
-    if (g.branches[0]?.end2?.dnum != null) g.mines_dnum = g.branches[0].end2.dnum | 0;
-    bootstrapSpLevchnMinesMinetnFromBranchStubLikeC(g);
-    // Real mklev generates the level with correct room positions
-    // Structural phase consumes RNG for rooms/corridors/doors/stairs
-    // C: do.c goto_level — **`if (new)`** after **`mklev`**; **`allmain.c`** **`newgame`** calls **`mklev()`** with **`u.uz`** on D:1 (no bones on brand-new game).
-    if (await mklev()) maybeRecordEnteredNewLevelLivelogLikeC(g);
-
-    // Fill rooms + mineralize: replayed by fastforward
-    // These create objects/monsters that don't affect terrain display
-    fastforward_fill_mineralize();
-
-    // Fast-forward through post-mklev startup RNG calls.
-    // Covers: u_init_role, ini_inv, attributes, moveloop_preamble.
-    fastforward_post_mklev();
-
-    /* C: u_init.c u_init_inventory_attrs — u.umoney0 from u_init_role before ini_inv / init_attr */
-    applyRoleStartingUmoney0();
-
-    /* C: u_init.c u_init_inventory_attrs — init_attr(75); vary_init_attr(); */
-    applyInitAttrPipeline(75);
-    /* C: u_init.c u_init_misc — newhp()/newpw() before adjabil; peaks same as max at birth */
-    applyBirthHpEnergy();
-
-    // Hardcoded player state for early stub.
-    // Contestants: port u_init / invent (g._goldCount follows u.umoney0; applyHiddenGoldToUmoney0 adds sack gold when g.invent exists).
+    // Hardcoded player state for early stub (C u_init_misc zeroing / defaults before newhp).
     g.u.umortality = 0;
     g.u.Half_physical_damage = 0;
     g.u.uexp = 0;
@@ -163,24 +131,59 @@ export async function newgame() {
     g.u.uright = null;
     g.u.Unaware = 0; /* eat.c gethungry — asleep / !rn2(10) metabolic branch */
     g.u.EProtection = 0; /* prop.c subset — wear.js refreshEProtectionFromRings sets W_RING* from rings */
-    /* C: u_init.c u_init_misc — adjabil(0, 1) while u.ulevel == 0 */
+    /* C u_init_misc — newhp()/newpw() with u.ulevel==0; adjabil(0,1); u.ulevel=u.ulevelmax=1 (before mklev) */
+    g.u.ulevel = 0;
+    g.u.ulevelmax = 0;
+    applyBirthHpEnergy();
     applyAdjabil(0, 1);
-    /* C: u_init.c u_init_role — u.ulevel after adjabil; XL 1 for new hero */
     g.u.ulevel = 1;
     g.u.ulevelmax = 1;
-    /* C: exper.c losexp — u.uhpinc[u.ulevel] / u.ueninc[u.ulevel] after XL is known (bootstrap until pluslvl). */
     g.u.uhpinc = g.u.uhpinc || [];
     g.u.ueninc = g.u.ueninc || [];
     g.u.uhpinc[1] = g.u.uhpmax | 0;
     g.u.ueninc[1] = g.u.uenmax | 0;
-    g.multi = 0; /* C: gm.multi — multi-turn actions / occupation */
+
+    g.context = g.context || {};
+    if (g.context.next_attrib_check == null) g.context.next_attrib_check = 600;
+    g.context.victual = { eating: 0, fullwarn: 0, canchoke: 1 };
+    /* C: decl.c mvitals — stub array for mon.c make_corpse G_NOCORPSE / geno */
+    initMvitalsStub(g);
+
+    g.flags = g.flags || {};
+    /* C: hack.c flags.terrainstatus — gate classify_terrain; default on for new games */
+    if (g.flags.terrainstatus === undefined) g.flags.terrainstatus = true;
+    // Gnomish Mines branch stub (end1 on D:1)
+    g.branches = [
+        { end1: { dnum: 0, dlevel: 1 }, end2: { dnum: 2, dlevel: 1 }, end1_up: true },
+    ];
+    /* C: dungeon topology — mines **`dnum`** for **`In_mines`** / future **`sp_levchn`** */
+    if (g.branches[0]?.end2?.dnum != null) g.mines_dnum = g.branches[0].end2.dnum | 0;
+    bootstrapSpLevchnMinesMinetnFromBranchStubLikeC(g);
+    // Real mklev generates the level with correct room positions
+    // Structural phase consumes RNG for rooms/corridors/doors/stairs
+    // C: do.c goto_level — **`if (new)`** after **`mklev`**; **`allmain.c`** **`newgame`** calls **`mklev()`** with **`u.uz`** on D:1 (no bones on brand-new game).
+    if (await mklev()) maybeRecordEnteredNewLevelLivelogLikeC(g);
+
+    // Fill rooms + mineralize: replayed by fastforward
+    // These create objects/monsters that don't affect terrain display
+    fastforward_fill_mineralize();
+
+    /* C u_init.c u_init_role — svm.moves = 1L before ini_inv (before post-mklev fastforward replay) */
     g.moves = 1;
+    // Fast-forward through post-mklev startup RNG calls.
+    // Covers: u_init_role, ini_inv, and most of moveloop_preamble RNG
+    fastforward_post_mklev();
+
+    /* C: u_init.c u_init_inventory_attrs — u.umoney0 from u_init_role before ini_inv / init_attr */
+    applyRoleStartingUmoney0();
+
+    /* C: u_init.c u_init_inventory_attrs — init_attr(75); vary_init_attr(); */
+    applyInitAttrPipeline(75);
+
+    g.multi = 0; /* C: gm.multi — multi-turn actions / occupation */
     // When non-zero, moveloop_core runs movemon + end-of-turn tail (harness).
-    // moves starts at 1 so the first post-newgame moveloop still runs the step-0
-    // template (a no-op) before the first real key, matching upstream pacing.
     g._prevMoveTick = 1;
     g.plname = g.plname || 'Contestant';
-    g.u.left_handed = true;
     initIniInvStub(g);
     /* C: u_init.c u_init_inventory_attrs — u.umoney0 += hidden_gold(TRUE) after invent */
     applyHiddenGoldToUmoney0(g);
