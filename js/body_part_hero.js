@@ -2,7 +2,7 @@
 // C ref: polyself.c mbodypart(&gy.youmonst, part); dig.c zap_dig vertical — pline(**`body_part(HEAD)`**);
 //        defsym.h MONSYM indices (**`S_*`**); **`shop.js`** **`PM_STALKER`** **153** (**`mons[]`** order in this fork).
 //
-// Omits **`PM_JELLYFISH`** on **`S_EEL`** (eel class vs jelly **`cerebral area`**) until contest **`mnum`** is wired.
+// **`PM_JELLYFISH`** — NH **5.0.0** **`include/monsters.h`** **`MON(...)`** order ( **`PM_FLOATING_EYE`** **29** matches **`js/const.js`**).
 
 import { raceptr, slithy, humanoidLikeC } from './mondata.js';
 
@@ -25,6 +25,9 @@ const S_ELEMENTAL = 31;
 /** C: defsym.h MONSYM — bat / bird (e.g. **`PM_RAVEN`** uses **`bird_parts`**). */
 const S_BAT = 28;
 
+/** C: **`mons[]`** index — NH **5.0.0** **`monsters.h`** **`MON(NAM(\"jellyfish\")`…`JELLYFISH)`** ( **`mbodypart`**: **`S_EEL`** → **`jelly_parts`**, not **`fish_parts`**). */
+const PM_JELLYFISH = 323;
+
 /** C: **`mons[]`** index — matches **`shop.js`** stalker / **`invisible`** tests in this fork. */
 const PM_STALKER = 153;
 
@@ -44,7 +47,10 @@ export function mbodypartHeroHeadLikeC(g) {
 
     if (mn === PM_STALKER) return 'head';
 
-    if (ml === S_EEL) return 'head'; /* C: fish_parts[HEAD]; jellyfish should use jelly_parts (TODO **`PM_JELLYFISH`**) */
+    if (ml === S_EEL) {
+        if (mn === PM_JELLYFISH) return 'cerebral area'; /* C: jelly_parts[HEAD] */
+        return 'head'; /* C: fish_parts[HEAD] */
+    }
 
     if (ml === S_WORM) return 'anterior segment';
     if (ml === S_SPIDER) return 'cephalothorax';
@@ -98,7 +104,7 @@ export function mbodypartMonsterStomachLikeC(mtmp) {
     if (ml === S_WORM) return 'stomach'; /* C: **`worm_parts[STOMACH]`** */
     if (slithy(ptr)) return 'stomach'; /* C: **`snake_parts[STOMACH]`** ( **`slithy`** || dragon+HAIR; STOMACH uses snake when slithy) */
     if (ml === S_JELLY || ml === S_BLOB || ml === S_PUDDING) return 'stomach'; /* C: **`jelly_parts`** (+ jellyfish **`S_EEL`**) */
-    if (ml === S_EEL) return 'stomach'; /* C: **`fish_parts[STOMACH]`** (jellyfish shares **`jelly_parts`** STOMACH → same string) */
+    if (ml === S_EEL) return 'stomach'; /* C: **`fish_parts`** / **`jelly_parts`** STOMACH — both **`stomach`** */
     if (humanoidLikeC(ptr)) return 'stomach'; /* C: **`humanoid_parts[STOMACH]`** (incl. **`S_YETI`**) */
     return 'stomach'; /* C: **`animal_parts[STOMACH]`** */
 }
