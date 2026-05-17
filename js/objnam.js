@@ -4,9 +4,11 @@
 
 import { game } from './gstate.js';
 import {
+    NH5_AMULET_CLASS,
     NH5_ARMOR_CLASS,
     NH5_GEM_CLASS,
     NH5_POTION_CLASS,
+    NH5_RING_CLASS,
     NH5_ROCK_CLASS,
     NH5_SCROLL_CLASS,
     NH5_SPBOOK_CLASS,
@@ -21,6 +23,15 @@ import {
     tryMakePluralArmorBurnLikeC,
     xnameArmorPhraseNoArticleLikeC,
 } from './objnam_armor_like_c.js';
+import {
+    donameAmuletLikeC,
+    donameRingLikeC,
+    isAmuletOtypNh5SequentialLikeC,
+    isRingOtypInMkobjWalkLikeC,
+    tryMakePluralRingAmuletBurnLikeC,
+    xnameAmuletPhraseNoArticleLikeC,
+    xnameRingPhraseNoArticleLikeC,
+} from './objnam_ring_amulet_like_c.js';
 import { nh5HeroObjectClass } from './water_damage.js';
 import { OC_SKILL_ROW_BY_OTYP } from './obj_oc_skill_data.js';
 import { cansee } from './vision.js';
@@ -312,6 +323,8 @@ function distantNameOcClassStubLikeC(row) {
     if (oc === NH5_WEAPON_CLASS) return 'weapon';
     if (oc === NH5_TOOL_CLASS) return 'tool';
     if (oc === NH5_WAND_CLASS) return 'wand';
+    if (oc === NH5_RING_CLASS) return 'ring';
+    if (oc === NH5_AMULET_CLASS) return 'amulet';
     if (oc === NH5_ARMOR_CLASS) return 'armor';
     if (oc === NH5_GEM_CLASS || oc === NH5_ROCK_CLASS) return 'gem';
     return 'item';
@@ -368,7 +381,22 @@ export function xnameBurnFloor(obj, g = game) {
         }
         return `${spellbookAppearanceFromOtyp(t)} spellbook`;
     }
-    if (oc === NH5_ARMOR_CLASS || isArmorOtypLikeC(t)) {
+    const rawOc = obj.oclass != null && obj.oclass !== undefined ? obj.oclass | 0 : -1;
+    const armorOnlyTyp = isArmorOtypLikeC(t) && rawOc !== NH5_RING_CLASS;
+    const ringTyp =
+        isRingOtypInMkobjWalkLikeC(t) &&
+        rawOc !== NH5_ARMOR_CLASS &&
+        !(rawOc === -1 && armorOnlyTyp);
+    const amuletBranch = rawOc === NH5_AMULET_CLASS || isAmuletOtypNh5SequentialLikeC(t);
+    if (amuletBranch) {
+        const ax = xnameAmuletPhraseNoArticleLikeC(obj, g, false);
+        if (ax != null) return ax;
+    }
+    if (ringTyp) {
+        const rx = xnameRingPhraseNoArticleLikeC(obj, g, false);
+        if (rx != null) return rx;
+    }
+    if (armorOnlyTyp) {
         const ph = xnameArmorPhraseNoArticleLikeC(obj, g, false);
         if (ph != null) return ph;
     }
@@ -404,6 +432,8 @@ export function distantNameBurnFloor(obj, x, y, g = game) {
     if (t >= OTYP_POT_FIRST && t <= OTYP_POT_LAST) return 'potion';
     if ((t >= OTYP_WAND_FIRST && t <= OTYP_WAND_LAST) || oc === NH5_WAND_CLASS) return 'wand';
     if (t === OTYP_SPE_BOOK_OF_THE_DEAD || t === OTYP_SPE_NOVEL) return 'spellbook';
+    if (oc === NH5_RING_CLASS) return 'ring';
+    if (oc === NH5_AMULET_CLASS) return 'amulet';
     if (oc === NH5_ARMOR_CLASS) return 'armor';
     if (oc === NH5_SCROLL_CLASS) return 'scroll';
     if (oc === NH5_SPBOOK_CLASS || isSpellbookOtyp(t)) return 'spellbook';
@@ -419,6 +449,8 @@ export function distantNameBurnFloor(obj, x, y, g = game) {
 export function makePluralBurn(s) {
     const armPl = tryMakePluralArmorBurnLikeC(s);
     if (armPl != null) return armPl;
+    const raPl = tryMakePluralRingAmuletBurnLikeC(s);
+    if (raPl != null) return raPl;
     if (s === 'glob of green slime') return 'globs of green slime';
     if (s === 'potion') return 'potions';
     if (s.endsWith(' potion') && !s.startsWith('potion of ')) {
@@ -456,7 +488,8 @@ export function makePluralBurn(s) {
  * Scrolls: `g.scrollDiscovery` Set drives **`scroll of`** vs **`scroll labeled`** when `dknown`.
  * Potions: NH **5.0.0** **`objects_nums`** **296..321** — appearance vs **`potion of …`** from **`g.potionDiscovery`** when `dknown`.
  * Wands: **`409..433`** — appearance vs **`wand of …`** from **`g.wandDiscovery`** when `dknown` (**`objects.h`** **`WAND`** through **`WAN_LIGHTNING`**).
- * Armor: NH5 **`otyp`** **90..173** — **`OBJ_DESCR`**/**`OBJ_NAME`** from **`objnam_armor_like_c.js`**; known type from **`g.armorDiscovery`** when set (**`discoverArmorOtypHeroLikeC`**); dragon scales **`set of`**, gloves/boots **`pair of`**, unknown shield **`!dknown`** stub like C.
+ * Armor: NH5 otyp 90..173 — appearance and actual names from objnam_armor_like_c.js; g.armorDiscovery when set (discoverArmorOtypHeroLikeC); set of dragon scales, pair of gloves or boots, unknown shield when !dknown like C.
+ * Rings and amulets: objnam_ring_amulet_like_c.js — RING() order matches RING_CLASS_MKOBJ_ROWS (173..200); ring of … vs stone appearance plus ring from g.ringDiscovery; amulets 201..213 plus oclass AMULET_CLASS for OTYP_FAKE_AMULET_OF_YENDOR and OTYP_AMULET_OF_YENDOR rows; g.amuletDiscovery.
  * Slime mold / glob: FOOD **`otyp`** subset (**`minimal_xname`** corpsenm suppression not modeled).
  * **`OC_SKILL_ROW_BY_OTYP`** otyps: C **`OBJ_NAME`**-style phrase (**`distant_name`** far uses class stub).
  * @param {{ otyp?: number, quan?: number, oclass?: number, dknown?: number }} otmp
@@ -515,8 +548,26 @@ export function doname(otmp, g = game, opts) {
         }
         return `${q} ${phrase}s`;
     }
-    const armDon = donameArmorLikeC(otmp, g, q, overrideId, justArticlePrefix);
-    if (armDon != null) return armDon;
+    const rawOc = otmp.oclass != null && otmp.oclass !== undefined ? otmp.oclass | 0 : -1;
+    const armorOnlyTyp = isArmorOtypLikeC(otyp) && rawOc !== NH5_RING_CLASS;
+    const ringTyp =
+        isRingOtypInMkobjWalkLikeC(otyp) &&
+        rawOc !== NH5_ARMOR_CLASS &&
+        !(rawOc === -1 && armorOnlyTyp);
+    const amuletBranch =
+        rawOc === NH5_AMULET_CLASS || isAmuletOtypNh5SequentialLikeC(otyp);
+    if (amuletBranch) {
+        const amu = donameAmuletLikeC(otmp, g, q, overrideId, justArticlePrefix);
+        if (amu != null) return amu;
+    }
+    if (ringTyp) {
+        const rin = donameRingLikeC(otmp, g, q, overrideId, justArticlePrefix);
+        if (rin != null) return rin;
+    }
+    if (armorOnlyTyp) {
+        const armDon = donameArmorLikeC(otmp, g, q, overrideId, justArticlePrefix);
+        if (armDon != null) return armDon;
+    }
     const ocDon = donameFromOcSkillRowLikeC(otmp, q);
     if (ocDon != null) return ocDon;
     return `an object (${otmp.otyp})`;
@@ -580,7 +631,7 @@ export function upstartLikeC(str) {
 
 /**
  * C: o_init.c **`discover_object(oindx, mark_as_known, mark_as_encountered, credit_hero)`** — **`disco[]`** slot + **`oc_encountered`** / **`oc_name_known`**.
- * JS: **`g.objectEncountered`** (**`Set<otyp>`**) when **`mark_as_encountered`**; **`partialNameKnown`** uses **`scrollDiscovery`** / **`objectDiscovery`** / **`potionDiscovery`** / **`wandDiscovery`** / **`armorDiscovery`** like C **`objects[].oc_name_known`** gates for those JS mirrors.
+ * JS: **`g.objectEncountered`** (**`Set<otyp>`**) when **`mark_as_encountered`**; **`partialNameKnown`** uses **`scrollDiscovery`** / **`objectDiscovery`** / **`potionDiscovery`** / **`wandDiscovery`** / **`armorDiscovery`** / **`ringDiscovery`** / **`amuletDiscovery`** like C **`objects[].oc_name_known`** gates for those JS mirrors.
  * Omits **`svb.bases[]`**, Samurai **`Japanese_item_name`**, **`gem_learned`**, **`update_inventory`**, **`exercise`**.
  * @param {import('./gstate.js').game} g
  * @param {number} oindx
@@ -600,7 +651,16 @@ export function discoverObjectHeroLikeC(g, oindx, markAsKnown, markAsEncountered
     const potKnown = g.potionDiscovery instanceof Set && g.potionDiscovery.has(t);
     const wandKnown = g.wandDiscovery instanceof Set && g.wandDiscovery.has(t);
     const armorKnown = g.armorDiscovery instanceof Set && g.armorDiscovery.has(t);
-    const partialNameKnown = scrollKnown || spellKnown || potKnown || wandKnown || armorKnown;
+    const ringKnown = g.ringDiscovery instanceof Set && g.ringDiscovery.has(t);
+    const amuletKnown = g.amuletDiscovery instanceof Set && g.amuletDiscovery.has(t);
+    const partialNameKnown =
+        scrollKnown ||
+        spellKnown ||
+        potKnown ||
+        wandKnown ||
+        armorKnown ||
+        ringKnown ||
+        amuletKnown;
 
     /* C: outer **`if`** — no **`objects[]`** yet; spell/scroll Sets approximate **`oc_name_known`** for those classes only. */
     const enter = (markAsKnown && !partialNameKnown) || (markAsEncountered && !alreadyEnc);

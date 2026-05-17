@@ -10,7 +10,7 @@ import { rn2, rnd } from './rng.js';
 import { pline } from './display.js';
 import { updateInventory } from './invent.js';
 import { obliterateObjectInLevel } from './floorobj.js';
-import { NH5_POTION_CLASS, NH5_SCROLL_CLASS, NH5_SPBOOK_CLASS, NH5_WAND_CLASS, NH5_ARMOR_CLASS } from './nh5_objclass.js';
+import { NH5_POTION_CLASS, NH5_SCROLL_CLASS, NH5_SPBOOK_CLASS, NH5_WAND_CLASS, NH5_ARMOR_CLASS, NH5_RING_CLASS, NH5_AMULET_CLASS } from './nh5_objclass.js';
 import { OC_SKILL_ROW_BY_OTYP } from './obj_oc_skill_data.js';
 
 /** @see include/objects.h — `SKELETON_KEY` **222** ⇒ seven **`CONTAINER`** lines **215–221**. */
@@ -108,6 +108,8 @@ export function nh5HeroObjectClass(obj) {
     const row = OC_SKILL_ROW_BY_OTYP.get(obj.otyp | 0);
     if (row) return row.oclass;
     const t = obj.otyp | 0;
+    if (t >= 201 && t <= 213) return NH5_AMULET_CLASS;
+    if (t >= 174 && t <= 200) return NH5_RING_CLASS;
     if (t >= OTYP_ARMOR_FIRST && t <= OTYP_ARMOR_LAST) return NH5_ARMOR_CLASS;
     if (t >= OTYP_POT_GAIN_ABILITY && t <= OTYP_POT_WATER) return NH5_POTION_CLASS;
     if (t > OTYP_POT_WATER && t <= OTYP_SCR_BLANK_PAPER) return NH5_SCROLL_CLASS;
