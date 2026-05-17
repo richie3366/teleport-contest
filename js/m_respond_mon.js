@@ -1,7 +1,7 @@
 // m_respond_mon.js — C mon.c m_respond(); monmove.c dochug callsite (~752–755).
 // C ref: mon.c m_respond ~4122–4130, m_respond_shrieker ~4088–4104, wizard.c aggravate ~494–510.
 
-import { PM_ERINYS, PM_MEDUSA } from './const.js';
+import { PM_ERINYS, PM_MEDUSA, inWTowerLikeC } from './const.js';
 import { rn2 } from './rng.js';
 import { couldsee } from './vision.js';
 import { raceptr } from './mondata.js';
@@ -26,16 +26,18 @@ const STRAT_AGGR_MASK = 0x20000000 | 0x80000000;
 
 /**
  * C: wizard.c aggravate() — wake same W-tower region; `rn2(5)` may unfreeze immobile mons.
- * `In_W_tower` not ported; stub treats all mons as same region (both “not in tower”).
+ * **`In_W_tower`** via **`onWTowerLevelLikeC`** / **`game.dndest`** when **`wiz*_level`** + bounds are wired.
  * @param {import('./gstate.js').game} g
  */
 export function aggravateMonstersLikeC(g) {
     const mons = g.level?.monsters;
     if (!mons?.length) return;
-    const inWTowerHero = false; /* TODO: C In_W_tower(u.ux,u.uy,&u.uz) */
+    const ux = g.u?.ux | 0;
+    const uy = g.u?.uy | 0;
+    const inWTowerHero = inWTowerLikeC(ux, uy, g);
     for (const m of mons) {
         if ((m.mhp | 0) <= 0) continue;
-        const inWTowerMon = false; /* TODO: C In_W_tower(m->mx,m->my,&u.uz) */
+        const inWTowerMon = inWTowerLikeC(m.mx | 0, m.my | 0, g);
         if (inWTowerHero !== inWTowerMon) continue;
         m.mstrategy = (m.mstrategy | 0) & ~STRAT_AGGR_MASK;
         m.msleeping = 0;
