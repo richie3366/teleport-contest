@@ -17,7 +17,7 @@ const AC_MAX = 99;
 
 /**
  * C `objects[].a_ac` (= OBJECT `10 - ac` in objects.h `ARMOR`/`HELM`/`CLOAK`/…) for NH5 `objects_nums`
- * `otyp` values. NH5 **`objects_nums`**: helms **90–101** from **`objects.h`** armor section with **`#if 0`** deferred dragons skipped (elven … telepathy, then **`GRAY_DRAGON_SCALE_MAIL`** **102** via **`const.js`** loops). Shirts through boots use cpp **`OBJECTS_ENUM`** order (**`LEATHER_ARMOR` 134**, **`HAWAIIAN_SHIRT` 136**, …). Dragon mail/scales still filled from **`OTYP_GRAY_DRAGON_*`** … **`OTYP_YELLOW_DRAGON_*`** below.
+ * `otyp` values. NH5 **`objects_nums`**: helms **90–101** from **`objects.h`** armor section with **`#if 0`** deferred dragons skipped (elven … telepathy, then **`GRAY_DRAGON_SCALE_MAIL`** **102** via **`const.js`** loops). Non-dragon suits (**`PLATE_MAIL`** … **`LEATHER_ARMOR`**) and shirts through boots use cpp **`OBJECTS_ENUM`** indices **+1** when cpp **`otyp` ≥ 120** (cpp **`YELLOW_DRAGON_SCALES` 120** → **`OTYP_YELLOW_DRAGON_SCALES` 121**; cpp **`PLATE_MAIL` 121** → **122**). Dragon mail/scales still filled from **`OTYP_GRAY_DRAGON_*`** … **`OTYP_YELLOW_DRAGON_*`** below.
  * @type {Map<number, number>}
  */
 const OBJECTS_A_AC_ARMOR = new Map([
@@ -34,47 +34,59 @@ const OBJECTS_A_AC_ARMOR = new Map([
     [99, 1], /* HELM_OF_CAUTION */
     [100, 1], /* HELM_OF_OPPOSITE_ALIGNMENT */
     [101, 1], /* HELM_OF_TELEPATHY */
-    [124, 6], /* SPLINT_MAIL — ac 4 */
-    [132, 3], /* RING_MAIL — ac 7 */
-    [134, 2], /* LEATHER_ARMOR — ac 8 */
-    [135, 1], /* LEATHER_JACKET — ac 9 */
-    [136, 0], /* HAWAIIAN_SHIRT — ac 10 */
-    [137, 0], /* T_SHIRT — ac 10 */
-    [138, 0], /* MUMMY_WRAPPING — ac 10 */
-    [139, 1], /* ELVEN_CLOAK — ac 9 */
-    [140, 0], /* ORCISH_CLOAK — ac 10 */
-    [141, 0], /* DWARVISH_CLOAK */
-    [142, 1], /* OILSKIN_CLOAK — ac 9 */
-    [143, 2], /* ROBE (cloak) — ac 8 */
-    [144, 1], /* ALCHEMY_SMOCK — ac 9 */
-    [145, 1], /* LEATHER_CLOAK */
-    [146, 3], /* CLOAK_OF_PROTECTION — ac 7 */
-    [147, 1], /* CLOAK_OF_INVISIBILITY */
-    [148, 1], /* CLOAK_OF_MAGIC_RESISTANCE */
-    [149, 1], /* CLOAK_OF_DISPLACEMENT */
-    [150, 1], /* SMALL_SHIELD */
-    [151, 1], /* SHIELD_OF_DRAIN_RESISTANCE */
-    [152, 1], /* SHIELD_OF_SHOCK_RESISTANCE */
-    [153, 2], /* ELVEN_SHIELD — ac 8 */
-    [154, 1], /* URUK_HAI_SHIELD */
-    [155, 1], /* ORCISH_SHIELD */
-    [156, 2], /* LARGE_SHIELD — ac 8 */
-    [157, 2], /* DWARVISH_ROUNDSHIELD */
-    [158, 2], /* SHIELD_OF_REFLECTION */
-    [159, 1], /* LEATHER_GLOVES */
-    [160, 1], /* GAUNTLETS_OF_FUMBLING */
-    [161, 1], /* GAUNTLETS_OF_POWER */
-    [162, 1], /* GAUNTLETS_OF_DEXTERITY */
-    [163, 1], /* LOW_BOOTS — ac 9 */
-    [164, 2], /* IRON_SHOES — ac 8 */
-    [165, 2], /* HIGH_BOOTS — ac 8 */
-    [166, 1], /* SPEED_BOOTS — ac 9 */
-    [167, 1], /* WATER_WALKING_BOOTS */
-    [168, 1], /* JUMPING_BOOTS */
-    [169, 1], /* ELVEN_BOOTS */
-    [170, 1], /* KICKING_BOOTS */
-    [171, 1], /* FUMBLE_BOOTS */
-    [172, 1], /* LEVITATION_BOOTS */
+    /* Suits — C `objects.h` “other suits” after dragon scales; NH5 `otyp` = cpp OBJECTS_ENUM + 1 when cpp ≥ 120. */
+    [122, 7], /* PLATE_MAIL — ac 3 */
+    [123, 7], /* CRYSTAL_PLATE_MAIL */
+    [124, 6], /* BRONZE_PLATE_MAIL — ac 4 */
+    [125, 6], /* SPLINT_MAIL */
+    [126, 6], /* BANDED_MAIL */
+    [127, 6], /* DWARVISH_MITHRIL_COAT */
+    [128, 5], /* ELVEN_MITHRIL_COAT */
+    [129, 5], /* CHAIN_MAIL */
+    [130, 4], /* ORCISH_CHAIN_MAIL */
+    [131, 4], /* SCALE_MAIL */
+    [132, 3], /* STUDDED_LEATHER_ARMOR */
+    [133, 3], /* RING_MAIL */
+    [134, 2], /* ORCISH_RING_MAIL — ac 8 */
+    [135, 2], /* LEATHER_ARMOR */
+    [136, 1], /* LEATHER_JACKET — ac 9 */
+    [137, 0], /* HAWAIIAN_SHIRT — ac 10 */
+    [138, 0], /* T_SHIRT — ac 10 */
+    [139, 0], /* MUMMY_WRAPPING — ac 10 */
+    [140, 1], /* ELVEN_CLOAK — ac 9 */
+    [141, 0], /* ORCISH_CLOAK — ac 10 */
+    [142, 0], /* DWARVISH_CLOAK */
+    [143, 1], /* OILSKIN_CLOAK — ac 9 */
+    [144, 2], /* ROBE (cloak) — ac 8 */
+    [145, 1], /* ALCHEMY_SMOCK — ac 9 */
+    [146, 1], /* LEATHER_CLOAK */
+    [147, 3], /* CLOAK_OF_PROTECTION — ac 7 */
+    [148, 1], /* CLOAK_OF_INVISIBILITY */
+    [149, 1], /* CLOAK_OF_MAGIC_RESISTANCE */
+    [150, 1], /* CLOAK_OF_DISPLACEMENT */
+    [151, 1], /* SMALL_SHIELD */
+    [152, 1], /* SHIELD_OF_DRAIN_RESISTANCE */
+    [153, 1], /* SHIELD_OF_SHOCK_RESISTANCE */
+    [154, 2], /* ELVEN_SHIELD — ac 8 */
+    [155, 1], /* URUK_HAI_SHIELD */
+    [156, 1], /* ORCISH_SHIELD */
+    [157, 2], /* LARGE_SHIELD — ac 8 */
+    [158, 2], /* DWARVISH_ROUNDSHIELD */
+    [159, 2], /* SHIELD_OF_REFLECTION */
+    [160, 1], /* LEATHER_GLOVES */
+    [161, 1], /* GAUNTLETS_OF_FUMBLING */
+    [162, 1], /* GAUNTLETS_OF_POWER */
+    [163, 1], /* GAUNTLETS_OF_DEXTERITY */
+    [164, 1], /* LOW_BOOTS — ac 9 */
+    [165, 2], /* IRON_SHOES — ac 8 */
+    [166, 2], /* HIGH_BOOTS — ac 8 */
+    [167, 1], /* SPEED_BOOTS — ac 9 */
+    [168, 1], /* WATER_WALKING_BOOTS */
+    [169, 1], /* JUMPING_BOOTS */
+    [170, 1], /* ELVEN_BOOTS */
+    [171, 1], /* KICKING_BOOTS */
+    [172, 1], /* FUMBLE_BOOTS */
+    [173, 1], /* LEVITATION_BOOTS */
 ]);
 
 /* C DRGN_ARMR — all dragon scale mail `ac` 1 (`a_ac` 9); all dragon scales `ac` 7 (`a_ac` 3). */

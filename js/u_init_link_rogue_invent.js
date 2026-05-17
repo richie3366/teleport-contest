@@ -15,7 +15,7 @@ import {
 /** C objects_nums — Rogue[] trobj (NH5 `enum objects_nums`; cpp OBJECTS_ENUM index = `nl − 1`). */
 const OTYP_SHORT_SWORD = 46;
 const OTYP_DAGGER = 34;
-const OTYP_LEATHER_ARMOR = 134;
+const OTYP_LEATHER_ARMOR = 135;
 const OTYP_POT_SICKNESS = 317;
 const OTYP_LOCK_PICK = 221;
 const OTYP_SACK = 216;

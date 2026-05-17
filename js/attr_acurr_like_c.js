@@ -21,7 +21,7 @@ import { raceptr } from './mondata.js';
 /** C: objects.h OBJECTS_ENUM — dunce cap. */
 const OTYP_DUNCE_CAP = 94;
 /** C: objects.h OBJECTS_ENUM — gauntlets of power. */
-const OTYP_GAUNTLETS_OF_POWER = 161;
+const OTYP_GAUNTLETS_OF_POWER = 162;
 /** C: artilist.h — Ogresmasher (`A("Ogresmasher", …, OGRESMASHER)`); matches `artifact_light.js` indexing. */
 const ART_OGRESMASHER = 16;
 
