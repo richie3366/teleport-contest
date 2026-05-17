@@ -15,6 +15,10 @@ export const WAN_DIGGING = 305;
 /** C: objects.h — first RAY wand after **`WAN_DIGGING`** ( **`mklev.js`** pins digging at **305**). */
 export const WAN_MAGIC_MISSILE = 306;
 
+/** NH **5.0.0** **`objects_nums`** contiguous **`WAND_CLASS`** — magic missile..lightning (**`weffects`** ray block **428..433**). */
+const OTYP_NH5_WAN_MAGIC_MISSILE = 428;
+const OTYP_NH5_WAN_LIGHTNING = 433;
+
 /** C: objects.h — **`WAN_FIRE`** after magic missile. */
 export const WAN_FIRE = WAN_MAGIC_MISSILE + 1;
 
@@ -39,7 +43,9 @@ export const AD_COLD = 3;
  * @param {number} otyp
  */
 export function BZ_OFS_WAN(otyp) {
-    return Math.abs((otyp | 0) - WAN_MAGIC_MISSILE) % 10;
+    const t = otyp | 0;
+    const base = t >= 409 && t <= OTYP_NH5_WAN_LIGHTNING ? OTYP_NH5_WAN_MAGIC_MISSILE : WAN_MAGIC_MISSILE;
+    return Math.abs(t - base) % 10;
 }
 
 /**
@@ -187,7 +193,8 @@ export async function mbuzzFromMonsterTowardMux(g, mtmp, buzzType, _nd, maxRange
 
 /** C: **`muse.c`** **`use_offensive`** — ray wand **`nd`** (**`WAN_MAGIC_MISSILE`** → **2**, else **6**). */
 export function museOffensiveRayWandNdLikeC(otyp) {
-    return (otyp | 0) === WAN_MAGIC_MISSILE ? 2 : 6;
+    const t = otyp | 0;
+    return t === WAN_MAGIC_MISSILE || t === OTYP_NH5_WAN_MAGIC_MISSILE ? 2 : 6;
 }
 
 /**

@@ -157,7 +157,9 @@ const OTYP_SPE_BOOK_OF_THE_DEAD = 408;
 const OC_SKILL_PHRASE_PLURAL = new Map([['worm tooth', 'worm teeth']]);
 
 export { discoverScrollOtyp } from './discover_scroll.js';
-export { discoverWandOtyp } from './discover_wand.js';
+import { discoverWandOtyp } from './discover_wand.js';
+
+export { discoverWandOtyp };
 
 /** C: objects.h GOLD_PIECE (matches mklev.js stub constant). */
 const GOLD_PIECE = 466;
@@ -606,4 +608,31 @@ export function observeObjectHeroMinimalLikeC(g, obj) {
     if (oindx < 1) return;
     obj.dknown = 1;
     discoverObjectHeroLikeC(g, oindx, false, true, false);
+}
+
+/**
+ * C: zap.c **`learnwand(obj)`** — after observable hero wand effect (**`weffects`** **`disclose`**).
+ * JS: spellbooks skipped (**`SPBOOK_CLASS`** fake spell **`obj`**); **`wandDiscovery`** mirrors **`oc_name_known`**;
+ * **`observe_object`** / **`makeknown`** (**`discoverWandOtyp`**) per C **`Blind`** / **`dknown`** order.
+ * Omits **`update_inventory`**, **`more_experienced`** (**`weffects`** **`was_unkn`** tail).
+ * @param {import('./gstate.js').game} g
+ * @param {{ otyp?: number, oclass?: number, dknown?: number }} obj
+ */
+export function learnwandHeroLikeC(g, obj) {
+    if (!g || !obj) return;
+    if ((obj.oclass | 0) === NH5_SPBOOK_CLASS) return;
+
+    const otyp = obj.otyp | 0;
+    const wandKnown = g.wandDiscovery instanceof Set && g.wandDiscovery.has(otyp);
+    if (wandKnown) {
+        observeObjectHeroMinimalLikeC(g, obj);
+        return;
+    }
+
+    const u = g.u;
+    const blind =
+        !!u &&
+        (!!(u.Blind | 0) || !!(u.ublind | 0) || (u.timed?.blind ?? 0) > 0 || (u.timed?.blinded ?? 0) > 0);
+    if (!blind) observeObjectHeroMinimalLikeC(g, obj);
+    if (obj.dknown | 0) discoverWandOtyp(g, otyp);
 }

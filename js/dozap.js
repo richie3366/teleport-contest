@@ -17,6 +17,13 @@ import {
 } from './buzz.js';
 import { heroZapDigLikeC } from './zap_dig.js';
 import { NH5_WAND_CLASS } from './nh5_objclass.js';
+import { learnwandHeroLikeC } from './objnam.js';
+
+/** C: objects.h wand block — first otyp **409**; **RAY** digging then magic missile..lightning (**`weffects`**). */
+const OTYP_NH5_WAN_FIRST = 409;
+const OTYP_NH5_WAN_DIGGING = OTYP_NH5_WAN_FIRST + 18;
+const OTYP_NH5_WAN_MAGIC_MISSILE = OTYP_NH5_WAN_FIRST + 19;
+const OTYP_NH5_WAN_LIGHTNING = OTYP_NH5_WAN_FIRST + 24;
 
 /** C: hack.h `WAND_WREST_CHANCE` */
 const WAND_WREST_CHANCE = 121;
@@ -56,14 +63,23 @@ export function firstCarriedWandForZapLikeC(g) {
  * @param {number} otyp
  */
 export function wandUbuzzNdLikeC(otyp) {
-    return (otyp | 0) === WAN_MAGIC_MISSILE ? 2 : 6;
+    const t = otyp | 0;
+    return t === WAN_MAGIC_MISSILE || t === OTYP_NH5_WAN_MAGIC_MISSILE ? 2 : 6;
 }
 
 /** C: zap.c **`weffects`** — directional digging + offensive ray wands only ( **`oc_dir`** **`RAY`**). */
 function wandOtypUsesGetdirLikeC(otyp) {
     const t = otyp | 0;
+    if (t === OTYP_NH5_WAN_DIGGING || (t >= OTYP_NH5_WAN_MAGIC_MISSILE && t <= OTYP_NH5_WAN_LIGHTNING)) return true;
+    /* Legacy **`buzz.js`** scale (**`mklev.js`** digging **305**) until all callers use NH5 **`objects_nums`**. */
     if (t === WAN_DIGGING) return true;
     return t >= WAN_MAGIC_MISSILE && t <= WAN_LIGHTNING;
+}
+
+/** C: **`WAN_DIGGING`** — NH5 **427** or legacy **305**. */
+function isWanDiggingOtyp(otyp) {
+    const t = otyp | 0;
+    return t === OTYP_NH5_WAN_DIGGING || t === WAN_DIGGING;
 }
 
 /**
@@ -125,7 +141,7 @@ export async function doZapCmd() {
     const u = g.u;
     if (u && !(u.dx | 0) && !(u.dy | 0) && !(u.dz | 0)) {
         /* C: **`zapyourself`** — digging is a no-op; ray self-zap not ported */
-        if (otyp === WAN_DIGGING) {
+        if (isWanDiggingOtyp(otyp)) {
             await flush_screen(1);
             return;
         }
@@ -134,10 +150,12 @@ export async function doZapCmd() {
         return;
     }
 
-    if (otyp === WAN_DIGGING) {
+    if (isWanDiggingOtyp(otyp)) {
         await heroZapDigLikeC(g);
     } else {
         await ubuzzOverFloor(g, wandUbuzzTypeFromOtyp(otyp), wandUbuzzNdLikeC(otyp));
     }
+    /* C: zap.c **`weffects`** — **`if (disclose) learnwand(obj)`** for RAY / **`zap_dig`** branch. */
+    learnwandHeroLikeC(g, wand);
     await flush_screen(1);
 }
