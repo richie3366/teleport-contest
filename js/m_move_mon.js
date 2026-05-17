@@ -3,7 +3,7 @@
 //
 // Ported: C **`monmove.c`** **`dochug`** — **`wipe_engr_at`** (~734); phase-one **`rn2`** (~737–760);
 // **`set_apparxy`** (~778); covetous **`tactics`** + **`mstate`** early out + second **`set_apparxy`** (~782–787);
-// first **`distfleeck`** (~791); **`m_move`**/**`m_throw`**; second **`distfleeck`** (~915) when
+// first **`distfleeck`** (~791); **`m_move`**/**`m_throw`**; **`mon_offmap`** early **`return`** (~912–913) before second **`distfleeck`** (~915) when
 // **`status != MMOVE_DIED`** (**`MMOVE_DIED`** vs hero **`thitu`** / future **`m_move`** death).
 // **`stepNum===1`**: harness only (no per-mon **`distfleeck`** in this stub pairing). **`stepNum ≥ 2`**:
 // both **`distfleeck`** calls; **`monmove.js`** harness rows **3–12** omit aggregate **`rn2(5)`** from **`distfleeck`**.
@@ -85,6 +85,9 @@ export async function mMoveOneMonsterSubsetLikeC(g, mtmp, stepNum = 0) {
     let mmStatus = MMOVE_NOTHING; /* C m_move status; MMOVE_DIED if mhp<=0 after m_throw */
     await mThrowAtHeroAfterMmoveIfLinedUpLikeC(g, mtmp);
     if ((mtmp.mhp | 0) <= 0) mmStatus = MMOVE_DIED;
+
+    /* C: monmove.c dochug ~912 — after m_move; skip second distfleeck (return 1 from dochug). */
+    if (monOffmapLikeC(mtmp)) return;
 
     if (stepNum >= 2 && mmStatus !== MMOVE_DIED) await distfleeckMonsterApplyLikeC(g, mtmp);
 }
