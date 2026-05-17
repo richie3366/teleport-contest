@@ -1,6 +1,5 @@
-// pray_hero.js — C pray.c dopray / can_pray / prayer_done / angrygods subset for `#pray`.
-// C ref: pray.c dopray, can_pray, prayer_done, angrygods (incl. adjattrib/losexp, attrcurse/rndcurse),
-//        gods_upset, water_prayer
+// pray_hero.js — C pray.c dopray / can_pray / prayer_done / pleased subset / angrygods for `#pray`.
+// C ref: pray.c dopray, can_pray, prayer_done, pleased (subset), angrygods, gods_upset, water_prayer
 //
 // Extended commands read a tty line after `#` (terminated by `\n` or `\r`); see extcmd.js.
 // C dopray uses nomul(-3); JS drains three moveloop-equivalent ticks (moveloop_turn_advance.js)
@@ -15,22 +14,29 @@ import {
     A_NONE,
     A_WIS,
     AM_MASK,
+    AM_SHRINE,
     IS_ALTAR,
     In_hell,
     Amask2align,
 } from './const.js';
 import { heroLuck } from './water_damage.js';
 import { enlightMissionLines } from './enlght_patrons.js';
-import { rn2, rnz, rnl } from './rng.js';
+import { rn1, rn2, rnz, rnl } from './rng.js';
 import { adjattrib, changeLuck } from './attrib.js';
 import { losexpNullLikeC } from './losexp.js';
 import { floorObjKey } from './floorobj.js';
 import { NH5_POTION_CLASS } from './nh5_objclass.js';
+import { adjalignLikeC } from './dig_grave.js';
 import { executeHelplessMoveloopTickLikeC } from './moveloop_turn_advance.js';
-import { clearUblessedAngryGodsLikeC, grantGodsFifthPleasedGiftProtectionLikeC } from './divine_protection.js';
+import {
+    clearUblessedAngryGodsLikeC,
+    applyPleasedPatOnHeadCase5IntrinsicGiftsLikeC,
+} from './divine_protection.js';
 import { attrcurseHeroLikeC, rndcurseHeroLikeC } from './sit_hero.js';
 
 const STRIDENT = 4;
+/** C: pray.c `#define DEVOUT 14` */
+const DEVOUT = 14;
 const OTYP_POT_WATER = 321;
 /** C: defsym.h **`MONSYM(..., HUMAN, S_HUMAN, ...)`** — **`gy.youmonst.data->mlet`** in pray.c */
 const S_HUMAN_MLET = 53;
@@ -146,6 +152,112 @@ async function waterPrayerLikeC(g, blessWater) {
         );
     }
     return changed > 0;
+}
+
+/**
+ * C: pray.c **`pleased(aligntyp g_align)`** — **`You_feel`**, **`adjalign`**, trouble/action **`rn1`/`rnl`/`switch`**,
+ * **`pat_on_head`** subset (**`rn2((Luck+6)>>1)`** cases **0** + **5** only), **`ublesscnt`** tail (**`rnz(350)`**, kick, **`moves`** throttle).
+ * @param {import('./gstate.js').game} g
+ * @param {number} g_align
+ */
+async function pleasedHeroLikeC(g, g_align) {
+    const u = g.u;
+    const gp = g._prayGp;
+    if (!u || !gp) return;
+
+    let trouble = inTroublePrayStubLikeC();
+    const Luck = heroLuck(g);
+    const record = u.ualign?.record | 0;
+    const hallu = !!(u.Hallucination | 0);
+
+    const ux = u.ux | 0;
+    const uy = u.uy | 0;
+    const levl = g.level?.levl;
+    const typ = levl?.[ux]?.[uy]?.typ | 0;
+    const onAltar = IS_ALTAR(typ);
+
+    let recPhrase;
+    if (record >= DEVOUT) recPhrase = hallu ? 'pleased as punch' : 'well-pleased';
+    else if (record >= STRIDENT) recPhrase = hallu ? 'ticklish' : 'pleased';
+    else recPhrase = hallu ? 'full' : 'satisfied';
+
+    await pline(`You feel that ${alignGnamePrayTargetLikeC(g, g_align)} is ${recPhrase}.`);
+
+    if (onAltar && (gp.p_aligntyp | 0) !== (u.ualign?.type | 0)) {
+        adjalignLikeC(g, -1);
+        return;
+    }
+    if (record < 2 && trouble <= 0) adjalignLikeC(g, 1);
+
+    let pat_on_head = 0;
+    if (!trouble && record >= DEVOUT) {
+        if ((gp.p_trouble | 0) === 0) pat_on_head = 1;
+    } else {
+        const prayer_luck = Math.max(Luck, -1);
+        const shrine =
+            onAltar && levl?.[ux]?.[uy]
+                ? (((levl[ux][uy].altarmask | 0) & AM_SHRINE) !== 0 ? 1 : 0)
+                : 0;
+        let action = rn1(prayer_luck + (onAltar ? 3 + shrine : 2), 1);
+        if (!onAltar) action = Math.min(action, 3);
+        if (record < STRIDENT) {
+            action = record > 0 || !rnl(2) ? 1 : 0;
+        }
+        const ac = Math.min(action, 5);
+        let tryct = 0;
+        switch (ac) {
+            case 5:
+                pat_on_head = 1;
+            /* falls through */
+            case 4:
+                do {
+                    void 0; /* C: fix_worst_trouble(trouble) */
+                } while ((trouble = inTroublePrayStubLikeC()) !== 0);
+                break;
+            case 3:
+                /* C: fix_worst_trouble(trouble) */
+            /* falls through */
+            case 2:
+                while ((trouble = inTroublePrayStubLikeC()) > 0 && ++tryct < 10) {
+                    void 0; /* C: fix_worst_trouble(trouble) */
+                }
+                break;
+            case 1:
+                if (trouble > 0) {
+                    void 0; /* C: fix_worst_trouble(trouble) */
+                }
+                break;
+            case 0:
+            default:
+                break;
+        }
+    }
+
+    if (pat_on_head) {
+        const patSw = rn2((Luck + 6) >> 1);
+        switch (patSw) {
+            case 0:
+                break;
+            case 5:
+                await applyPleasedPatOnHeadCase5IntrinsicGiftsLikeC(g);
+                break;
+            default:
+                break;
+        }
+    }
+
+    u.ublesscnt = (u.ublesscnt | 0) + rnz(350);
+    let kick_on_butt = u.uevent?.udemigod ? 1 : 0;
+    if (u.uevent?.uhand_of_elbereth | 0) kick_on_butt += 1;
+    if (kick_on_butt) u.ublesscnt += kick_on_butt * rnz(1000);
+
+    const moves = g.moves | 0;
+    if (moves > 100000) {
+        let incr = Math.trunc((moves - 100000) / 100);
+        const cap = 2147483647 - (u.ublesscnt | 0);
+        if (incr > cap) incr = cap;
+        if (incr > 0) u.ublesscnt = (u.ublesscnt | 0) + incr;
+    }
 }
 
 /**
@@ -302,13 +414,13 @@ async function prayerDoneLikeC(g) {
             changeLuck(-3);
             await godsUpsetLikeC(g, u.ualign.type | 0);
         } else {
-            grantGodsFifthPleasedGiftProtectionLikeC(g);
+            await pleasedHeroLikeC(g, alignment);
         }
     } else {
         if (onAltar) {
             await waterPrayerLikeC(g, true);
         }
-        grantGodsFifthPleasedGiftProtectionLikeC(g);
+        await pleasedHeroLikeC(g, alignment);
     }
 }
 

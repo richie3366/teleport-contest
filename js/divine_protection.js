@@ -1,10 +1,34 @@
 // divine_protection.js — C pray.c / priest.c / sit.c hooks for divine Protection (youprop HProtection).
-// C refs: pray.c pleased() case 5 (else branch), pray.c angrygods() u.ublessed clear;
-//         priest.c donation block (HProtection | FROMOUTSIDE + ublessed loop); sit.c case 10 strip.
+// C refs: pray.c pleased() pat_on_head case 5 (HTelepat/HFast/HStealth/HProtection), angrygods u.ublessed clear;
+//         priest.c donation block; sit.c case 10 strip.
 
-import { PROTECTION, FROMOUTSIDE, INTRINSIC } from './const.js';
+import {
+    PROTECTION,
+    FROMOUTSIDE,
+    INTRINSIC,
+    A_LAWFUL,
+    A_NEUTRAL,
+    A_CHAOTIC,
+} from './const.js';
 import { rn1, rn2 } from './rng.js';
 import { findAc } from './u_init_find_ac.js';
+import { pline } from './display.js';
+import { enlightMissionLines } from './enlght_patrons.js';
+
+/** @param {import('./gstate.js').game} g */
+function alignGnameUalignTypeLikeC(g) {
+    const u = g?.u;
+    if (!u) return 'your god';
+    const t = u.ualign?.type ?? 0;
+    const role = g.urole?.name?.m || 'Tourist';
+    const lines = enlightMissionLines(role, t);
+    const m = lines[0]?.match(/for ([^.]+)/);
+    if (m) return m[1].trim();
+    if ((t | 0) === A_LAWFUL) return 'a Lawful deity';
+    if ((t | 0) === A_CHAOTIC) return 'a Chaotic deity';
+    if ((t | 0) === A_NEUTRAL) return 'a Neutral deity';
+    return 'the void';
+}
 
 /** @param {import('./gstate.js').game} g */
 function markBotlFindAc(g) {
@@ -52,6 +76,36 @@ export function grantGodsFifthPleasedGiftProtectionLikeC(g) {
         u.ublessed = (u.ublessed | 0) + 1;
     }
     markBotlFindAc(g);
+}
+
+/**
+ * C: pray.c **`pleased`** — **`pat_on_head`** **`switch (rn2((Luck+6)>>1))`** case **5** only
+ * (**`godvoice`**, Telepathy / Fast / Stealth / Protection + **`verbalize`**).
+ * @param {import('./gstate.js').game} g
+ */
+export async function applyPleasedPatOnHeadCase5IntrinsicGiftsLikeC(g) {
+    const u = g?.u;
+    if (!u) return;
+    const gnm = alignGnameUalignTypeLikeC(g);
+    const msg = '"and thus I grant thee the gift of %s!"';
+    await pline(`The voice of ${gnm} thunders: "Thou hast pleased me with thy progress,"`);
+    if (((u.HTelepat | 0) & INTRINSIC) === 0) {
+        u.HTelepat = (u.HTelepat | 0) | FROMOUTSIDE;
+        markBotlFindAc(g);
+        await pline(msg.replace('%s', 'Telepathy'));
+    } else if (((u.HFast | 0) & INTRINSIC) === 0) {
+        u.HFast = (u.HFast | 0) | FROMOUTSIDE;
+        markBotlFindAc(g);
+        await pline(msg.replace('%s', 'Speed'));
+    } else if (((u.HStealth | 0) & INTRINSIC) === 0) {
+        u.HStealth = (u.HStealth | 0) | FROMOUTSIDE;
+        markBotlFindAc(g);
+        await pline(msg.replace('%s', 'Stealth'));
+    } else {
+        grantGodsFifthPleasedGiftProtectionLikeC(g);
+        await pline(msg.replace('%s', 'my protection'));
+    }
+    await pline('Use it wisely in my name!');
 }
 
 /**
