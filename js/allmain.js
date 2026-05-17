@@ -31,6 +31,7 @@ import { applySkillInit } from './u_init_skills.js';
 import { UHS } from './hunger.js';
 import { moveloopPreamble } from './moveloop_preamble.js';
 import { initMvitalsStub } from './mvitals.js';
+import { initArtidiscoHeroLikeC } from './artifact_discover_like_c.js';
 import { bootstrapSpLevchnMinesMinetnFromBranchStubLikeC } from './sp_levchn.js';
 import { maybeRecordEnteredNewLevelLivelogLikeC } from './livelog.js';
 import { awaitLegacyIntroMoreLikeC } from './legacy_intro.js';
@@ -155,6 +156,8 @@ export async function newgame() {
     g.context.victual = { eating: 0, fullwarn: 0, canchoke: 1 };
     /* C: allmain.c newgame — mvitals[i].mvflags = mons[i].geno & G_NOCORPSE (see mvitals.js initMvitalsStub) */
     initMvitalsStub(g);
+    /* C: artifact.c **`init_artifacts`** — **`artidisco[]`** zeroed with **`artiexist[]`** */
+    initArtidiscoHeroLikeC(g);
 
     g.flags = g.flags || {};
     /* C: hack.c flags.terrainstatus — gate classify_terrain; default on for new games */

@@ -20,6 +20,7 @@ import { updateInventory } from './invent.js';
 import { isWeptoolObjLikeC } from './hero_hands.js';
 import { addWeaponSkill, unrestrictWeaponSkill } from './u_init_skills.js';
 import { weaponType } from './weapon_kind.js';
+import { discoverArtifactHeroLikeC } from './artifact_discover_like_c.js';
 
 /** C: pray.c `#define PIOUS 20` */
 const PIOUS = 20;
@@ -493,6 +494,7 @@ export async function gcrownuHeroLikeC(g, godvoices) {
             u.ugifts = (u.ugifts | 0) + 1;
         }
         unrestrictWeaponSkill(u, P_LONG_SWORD);
+        if (obj && (obj.oartifact | 0) === ART_EXCALIBUR) discoverArtifactHeroLikeC(g, ART_EXCALIBUR);
     } else if (al === A_NEUTRAL) {
         if (classGift === STRANGE_OBJECT && obj && inHandVorpal) {
             observeObjectHeroMinimalLikeC(g, obj);
@@ -524,6 +526,7 @@ export async function gcrownuHeroLikeC(g, godvoices) {
             obj = sw;
         }
         unrestrictWeaponSkill(u, P_LONG_SWORD);
+        if (obj && (obj.oartifact | 0) === ART_VORPAL_BLADE) discoverArtifactHeroLikeC(g, ART_VORPAL_BLADE);
     } else if (al === A_CHAOTIC) {
         if (classGift === STRANGE_OBJECT && obj && inHandStorm) {
             observeObjectHeroMinimalLikeC(g, obj);
@@ -555,6 +558,7 @@ export async function gcrownuHeroLikeC(g, godvoices) {
             obj = sw;
         }
         unrestrictWeaponSkill(u, P_BROAD_SWORD);
+        if (obj && (obj.oartifact | 0) === ART_STORMBRINGER) discoverArtifactHeroLikeC(g, ART_STORMBRINGER);
     }
 
     if (okWepLikeC(g, obj)) {
