@@ -4,7 +4,7 @@
 //        unless **`SCR_BLANK_PAPER`**),
 //        **`seffects`** (**`exercise`** when **`oc_magic`**, **`switch(otyp)`** — blank, punishment (**`seffect_punishment`** partial), stinking cloud (discovery + **`gk`**; **`do_stinking_cloud`** TODO),
 //        remove curse (**`You_feel`** + cursed **`pline_The`**; no **`gk`**; **`Punished`** && !confused → **`unpunish`**;
-//        **`TT_BURIEDBALL`** clasp pline + clear **`utrap`** (**`buried_ball_to_freedom`** map ball TODO); invent TODO), default stub),
+//        **`TT_BURIEDBALL`** clasp pline + clear **`utrap`** (**`buried_ball_to_freedom`** map ball TODO); invent loop **`remove_curse_hero.js`** (steed saddle TODO)), default stub),
 //        **`learnscroll`** / **`learnscrolltyp`**.
 
 import { game } from './gstate.js';
@@ -18,6 +18,7 @@ import { observeObjectHeroMinimalLikeC } from './objnam.js';
 import { learnscrollHeroLikeC, trycallHeroLikeC } from './discover_scroll.js';
 import { heroPunishedLikeC, unpunishHeroLikeC } from './punish_hero.js';
 import { syncHeroInvWeightNetLikeC } from './encumbr.js';
+import { removeCurseHeroInventLoopLikeC } from './remove_curse_hero.js';
 
 /** C: **`objects_nums`** **`SCR_BLANK_PAPER`** — **`SCROLL(..., mgc, ...)`** with **`mgc`** **0** (**`objects.h`**). */
 const OTYP_SCR_BLANK_PAPER = 364;
@@ -93,7 +94,7 @@ export async function seffectsHeroReadScrollLikeC(g, scroll, blind) {
             if (scroll.cursed | 0) {
                 await pline('The scroll disintegrates.');
             } else {
-                /* C: invent loop (blessorcurse, uncurse, learnscrolltyp), steed saddle — TODO */
+                await removeCurseHeroInventLoopLikeC(g, scroll, confused);
             }
             /* C: after if/else — **`if (Punished && !confused) unpunish()`**; **`if (utrap && TT_BURIEDBALL)`** **`buried_ball_to_freedom`** + pline */
             if (heroPunishedLikeC(g) && !confused) unpunishHeroLikeC(g);
