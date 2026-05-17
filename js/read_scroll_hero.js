@@ -2,7 +2,7 @@
 // C ref: read.c **`doread`** (**`gk.known=FALSE`**, blind+**`dknown`**, **`scroll->in_use`**, non-blank **`nodisappear`** plines (**`SCR_FIRE`**, cursed **`SCR_REMOVE_CURSE`**),
 //        **`!seffects(scroll)`** tail: **`learnscroll`** vs **`trycall`** when **`!oc_name_known`** (**`gk.known`** gate), **`useup`**
 //        unless **`SCR_BLANK_PAPER`**),
-//        **`seffects`** (**`exercise`** when **`oc_magic`**, **`switch(otyp)`** — blank, punishment (**`seffect_punishment`**: guilty vs **`punish_hero.js`** **`punishHeroFromObjLikeC`**; no **`placebc`**), stinking cloud (discovery + **`gk`**; **`do_stinking_cloud`** TODO),
+//        **`seffects`** (**`exercise`** when **`oc_magic`**, **`switch(otyp)`** — blank, punishment (**`seffect_punishment`**: guilty vs **`punish_hero.js`** **`punishHeroFromObjLikeC`**; no **`placebc`**), stinking cloud (**`stinking_cloud_hero.js`** **`doStinkingCloudHeroReadScrollLikeC`** + **`createGasCloudRndBurnHeroLikeC`**; **`getpos`**/**`tmp_at`** TODO),
 //        remove curse (**`You_feel`** + cursed **`pline_The`**; no **`gk`**; **`Punished`** && !confused → **`unpunish`**;
 //        **`TT_BURIEDBALL`**: **`floorobj.js`** **`buriedBallToFreedomLikeC`** + **`switch_terrain.js`** **`resetUtrapMsgAfterClearHeroLikeC`** (**C **`trap.c`** **`reset_utrap(TRUE)`** **`float_up`/`You can fly.`**) after **`floatVsFlightLikeC`**; clasp **`mbodypartHeroLegLikeC`**; invent + steed saddle **`remove_curse_hero.js`** (**`uslinging`**, shop water confused **`alter_cost`**; unpaid cursed water **`costly_alteration`/`bill_dummy`** before **`uncurse`**), default stub),
 //        **`learnscroll`** / **`learnscrolltyp`**.
@@ -27,6 +27,7 @@ import {
     resetUtrapMsgAfterClearHeroLikeC,
 } from './switch_terrain.js';
 import { mbodypartHeroLegLikeC } from './body_part_hero.js';
+import { doStinkingCloudHeroReadScrollLikeC } from './stinking_cloud_hero.js';
 
 /** C: **`objects_nums`** **`SCR_BLANK_PAPER`** — **`SCROLL(..., mgc, ...)`** with **`mgc`** **0** (**`objects.h`**). */
 const OTYP_SCR_BLANK_PAPER = 364;
@@ -84,10 +85,11 @@ export async function seffectsHeroReadScrollLikeC(g, scroll, blind) {
             return 0;
         }
         case OTYP_SCR_STINKING_CLOUD: {
-            /* C: **`seffect_stinking_cloud`** — discovery pline + **`gk.known`**; **`do_stinking_cloud`** (**`getpos`**, gas) not ported */
+            /* C: **`seffect_stinking_cloud`** — discovery; **`gk.known`**; **`do_stinking_cloud`** */
             const alreadyKnown = g.scrollDiscovery instanceof Set && g.scrollDiscovery.has(otyp);
             if (!alreadyKnown) await pline('You have found a scroll of stinking cloud!');
             g._readScrollGkKnown = true;
+            await doStinkingCloudHeroReadScrollLikeC(g, scroll, alreadyKnown);
             return 0;
         }
         case OTYP_SCR_REMOVE_CURSE: {
