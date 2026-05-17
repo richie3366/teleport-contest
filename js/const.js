@@ -2975,6 +2975,10 @@ export const OTYP_IRON_CHAIN = 474;
 export const PM_GRID_BUG = 115;
 /** C: `monsters.h` — gremlin. */
 export const PM_GREMLIN = 42;
+/** C: `monsters.h` MON() order — displacer beast (`set_apparxy` displacement exception). */
+export const PM_DISPLACER_BEAST = 41;
+/** C: `monsters.h` MON() order — xorn (`set_apparxy` smell-gold when blind to hero). */
+export const PM_XORN = 238;
 /** C: `monsters.h` — incubus/succubus (`MON(NAMS(..., AMOROUS_DEMON)`); `#if 0` blocks skipped vs `MON()` count). */
 export const PM_AMOROUS_DEMON = 292;
 /** C: `monsters.h` MON() order — lichen/lizard corpses skip **`start_corpse_timeout`**. */

@@ -1,8 +1,8 @@
 // m_move_mon.js — **`mon.c`** **`m_move()`** subset invoked from **`monmove.c`** **`movemon`**.
 // C ref: mon.c **`m_move(struct monst *mtmp, int after)`**; monmove.c **`movemon`** walks **`fmon`**.
 //
-// Ported: C **`monmove.c`** **`dochug`** — **`wipe_engr_at`** (~734); phase-one **`rn2`** (~737–760) before
-// **`set_apparxy`**; first **`distfleeck`** (~791) then **`m_move`**/**`m_throw`**; second **`distfleeck`** (~915) when
+// Ported: C **`monmove.c`** **`dochug`** — **`wipe_engr_at`** (~734); phase-one **`rn2`** (~737–760);
+// **`set_apparxy`** (~778) before first **`distfleeck`** (~791); then **`m_move`**/**`m_throw`**; second **`distfleeck`** (~915) when
 // **`status != MMOVE_DIED`** (**`MMOVE_DIED`** vs hero **`thitu`** / future **`m_move`** death).
 // **`stepNum===1`**: harness only (no per-mon **`distfleeck`** in this stub pairing). **`stepNum ≥ 2`**:
 // both **`distfleeck`** calls; **`monmove.js`** harness rows **3–12** omit aggregate **`rn2(5)`** from **`distfleeck`**.
@@ -13,6 +13,7 @@ import { NORMAL_SPEED, MMOVE_DIED, MMOVE_NOTHING } from './const.js';
 import { mThrowAtHeroAfterMmoveIfLinedUpLikeC } from './mthrow_mon.js';
 import { distfleeckMonsterApplyLikeC } from './distfleeck_mon.js';
 import { wipeEngrAt } from './engrave.js';
+import { setApparxyMonsterLikeC } from './set_apparxy_mon.js';
 import { canTeleportMon, teleRestrictMon } from './mondata.js';
 import { rn2 } from './rng.js';
 
@@ -68,6 +69,7 @@ export async function mMoveOneMonsterSubsetLikeC(g, mtmp, stepNum = 0) {
         const my = mtmp.my | 0;
         wipeEngrAt(mx, my, 1, false);
         dochugPhaseOneRngAfterWipeEngrLikeC(g, mtmp);
+        setApparxyMonsterLikeC(g, mtmp);
         await distfleeckMonsterApplyLikeC(g, mtmp);
     }
 
