@@ -11,9 +11,11 @@ import { iniInvMkobjFilterScrollClassMonkLikeC } from './mkobj_scroll_class_rng_
 import { iniInvOneMkobjFoodUndefDrawLikeC } from './mkobj_food_class_rng_like_c.js';
 import {
     gnIniInvFreshLikeC,
+    iniInvAdjustObjRingSpeUndefTropLikeC,
     iniInvGnAfterUndefAcceptLikeC,
     iniInvMkobjFilterPriestHumanLikeC,
     iniInvMkobjFilterWizardHumanLikeC,
+    takeLastIniInvRingMksobjSpeLikeC,
 } from './mkobj_wizard_ini_inv_filter_like_c.js';
 import { SPELLBOOK_OTYP_LEVEL } from './mkobj_wizard_ini_inv_data.js';
 import {
@@ -420,6 +422,7 @@ function trquanMinMaxLikeC(min, max) {
 /**
  * C: u_init.c **`PM_WIZARD`** **`ini_inv(Wizard[])`** for human (no race subs) + **`!rn2(5)`** blindfold.
  * Order: **`trquan`** / **`mksobj`** / **`ini_inv_adjust_obj`** per C **`ini_inv`** + **`ini_inv_mkobj_filter`** gn state.
+ * Wizard UNDEF rings: **`ini_inv_adjust_obj`** — charged **`spe <= 0`** → **`rne(3)`** (**`takeLastIniInvRingMksobjSpeLikeC`** + **`iniInvAdjustObjRingSpeUndefTropLikeC`**).
  */
 export function consumeWizardHumanIniInvUinitRoleRngLikeC() {
     const gn = gnIniInvFreshLikeC();
@@ -447,6 +450,8 @@ export function consumeWizardHumanIniInvUinitRoleRngLikeC() {
     game._wizardIniRingOtyps = [];
     for (let i = 0; i < ringQ; i++) {
         const ro = iniInvMkobjFilterWizardHumanLikeC(NH5_RING_CLASS, false, gn, false);
+        const speMk = takeLastIniInvRingMksobjSpeLikeC();
+        iniInvAdjustObjRingSpeUndefTropLikeC(ro, speMk ?? 0);
         game._wizardIniRingOtyps.push(ro);
         iniInvGnAfterUndefAcceptLikeC(NH5_RING_CLASS, ro, gn);
         rn2(1);

@@ -67,6 +67,9 @@ const WIZARD_SKILL_W_SKILLS = new Set([
 
 const RING_OC_CHARGED = new Map(RING_CLASS_MKOBJ_ROWS);
 
+/** C: last **`mksobj_init`** **`RING_CLASS`** **`obj->spe`** before **`u_init.c`** **`ini_inv_adjust_obj`**. */
+let lastIniInvRingMksobjSpe = /** @type {number | undefined} */ (undefined);
+
 const OTYP_WAN_WISHING = 413;
 const OTYP_WAN_STASIS = 414;
 const OTYP_WAN_NOTHING = 415;
@@ -157,7 +160,10 @@ function bcsignLikeC(bc) {
     return (!!bc.blessed | 0) - (!!bc.cursed | 0);
 }
 
-/** C: mkobj.c mksobj_init — RING_CLASS */
+/**
+ * C: mkobj.c **`mksobj_init`** — **`RING_CLASS`** (**`obj->spe`**).
+ * @returns {number} **`spe`** after **`mksobj_init`** (**`0`** if not charged).
+ */
 function mksobjInitRingLikeC(otyp, charged) {
     const bc = { blessed: 0, cursed: 0 };
     if (charged) {
@@ -176,7 +182,9 @@ function mksobjInitRingLikeC(otyp, charged) {
         if (spe < 0 && rn2(5)) {
             /* curse(otmp) — no RNG */
         }
-    } else if (
+        return spe;
+    }
+    if (
         rn2(10) &&
         (otyp === OTYP_RIN_TELEPORTATION ||
             otyp === OTYP_RIN_POLYMORPH ||
@@ -186,6 +194,25 @@ function mksobjInitRingLikeC(otyp, charged) {
     ) {
         /* curse(otmp) — no RNG */
     }
+    return 0;
+}
+
+/**
+ * C: **`u_init.c`** **`ini_inv_adjust_obj`** — when **`trop->trspe == UNDEF_SPE`**, charged ring with **`spe <= 0`** → **`spe = rne(3)`**.
+ * @param {number} otyp
+ * @param {number} speAfterMksobj
+ */
+export function iniInvAdjustObjRingSpeUndefTropLikeC(otyp, speAfterMksobj) {
+    if (RING_OC_CHARGED.get(otyp) !== 1) return;
+    if (speAfterMksobj > 0) return;
+    rne(3);
+}
+
+/** @returns {number | undefined} */
+export function takeLastIniInvRingMksobjSpeLikeC() {
+    const v = lastIniInvRingMksobjSpe;
+    lastIniInvRingMksobjSpe = undefined;
+    return v;
 }
 
 function mksobjInitPotionLikeC() {
@@ -305,15 +332,21 @@ function iniInvMkobjFilterRejectPriestHumanLikeC(oclassNH5, otyp, gotSp1, gn, ra
 function mksobjInitForOclassLikeC(oclassNH5, otyp) {
     nextIdentLikeC();
     if (oclassNH5 === NH5_WAND_CLASS) {
+        lastIniInvRingMksobjSpe = undefined;
         mksobjInitWandLikeC(otyp);
     } else if (oclassNH5 === NH5_RING_CLASS) {
-        mksobjInitRingLikeC(otyp, RING_OC_CHARGED.get(otyp) === 1);
+        lastIniInvRingMksobjSpe = mksobjInitRingLikeC(otyp, RING_OC_CHARGED.get(otyp) === 1);
     } else if (oclassNH5 === NH5_POTION_CLASS) {
+        lastIniInvRingMksobjSpe = undefined;
         mksobjInitPotionLikeC();
     } else if (oclassNH5 === NH5_SCROLL_CLASS) {
+        lastIniInvRingMksobjSpe = undefined;
         mksobjInitScrollBless4LikeC();
     } else if (oclassNH5 === NH5_SPBOOK_CLASS) {
+        lastIniInvRingMksobjSpe = undefined;
         mksobjInitSpellbookIniInvLikeC();
+    } else {
+        lastIniInvRingMksobjSpe = undefined;
     }
 }
 
@@ -352,6 +385,7 @@ export function iniInvMkobjFilterWizardHumanLikeC(oclassNH5, gotSp1, gn, raceOrc
     mksobjInitForOclassLikeC(oclassNH5, otyp);
     while (iniInvMkobjFilterRejectWizardLikeC(oclassNH5, otyp, gotSp1, gn, raceOrc)) {
         if (++trycnt > 1000) {
+            lastIniInvRingMksobjSpe = undefined;
             nextIdentLikeC();
             mksobjInitPancakeFoodTailLikeC();
             return OTYP_PANCAKE;
@@ -376,6 +410,7 @@ export function iniInvMkobjFilterPriestHumanLikeC(oclassNH5, gotSp1, gn, raceOrc
     mksobjInitForOclassLikeC(oclassNH5, otyp);
     while (iniInvMkobjFilterRejectPriestHumanLikeC(oclassNH5, otyp, gotSp1, gn, raceOrc)) {
         if (++trycnt > 1000) {
+            lastIniInvRingMksobjSpe = undefined;
             nextIdentLikeC();
             mksobjInitPancakeFoodTailLikeC();
             return OTYP_PANCAKE;
