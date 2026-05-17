@@ -1,16 +1,33 @@
 // read_scroll_hero.js — Hero **`r`** read scroll subset until full **`read.c`** **`doread`** / **`seffects`**.
 // C ref: read.c **`doread`** (blind+**`dknown`**, confused preamble, blank **`seffect_blank_paper`**),
+//        **`seffects`** preamble (**`objects[otyp].oc_magic`** → **`exercise(A_WIS,TRUE)`**),
 //        **`learnscroll`** / **`learnscrolltyp`**; invent consume when scroll vanishes (**`useup`**-style).
 
 import { game } from './gstate.js';
 import { pline, flush_screen } from './display.js';
+import { A_WIS } from './const.js';
+import { exercise } from './attrib.js';
+import { SCROLL_CLASS_MKOBJ_OC_PROB_ROWS } from './mkobj_scroll_class_rng_like_c.js';
 import { NH5_SCROLL_CLASS } from './nh5_objclass.js';
 import { removeObjFromHeroInvent } from './water_damage.js';
 import { observeObjectHeroMinimalLikeC } from './objnam.js';
 import { learnscrollHeroLikeC } from './discover_scroll.js';
 
-/** C: **`objects_nums`** **`SCR_BLANK_PAPER`** (**`mkobj_scroll_class_rng_like_c.js`**). */
+/** C: **`objects_nums`** **`SCR_BLANK_PAPER`** — **`SCROLL(..., mgc, ...)`** with **`mgc`** **0** (**`objects.h`**). */
 const OTYP_SCR_BLANK_PAPER = 364;
+
+/**
+ * C: **`objects[otyp].oc_magic`** — **`SCROLL`** macro **`mgc`**; false for blank paper (and otyps outside scroll table).
+ * @param {number} otyp
+ */
+export function scrollOtypHasOcMagicLikeC(otyp) {
+    const t = otyp | 0;
+    if (t === OTYP_SCR_BLANK_PAPER) return false;
+    for (let i = 0; i < SCROLL_CLASS_MKOBJ_OC_PROB_ROWS.length; i++) {
+        if ((SCROLL_CLASS_MKOBJ_OC_PROB_ROWS[i][0] | 0) === t) return true;
+    }
+    return false;
+}
 
 /** @param {import('./gstate.js').game} g */
 function heroBlindForReadLikeC(g) {
@@ -43,7 +60,7 @@ export function firstCarriedScrollForReadLikeC(g) {
 }
 
 /**
- * C: read.c **`doread`** — single scroll from invent; **`seffects`** deferred (**`nothing_happens`** tail only if unsupported otyp).
+ * C: read.c **`doread`** — first invent scroll; **`seffects`** body still TODO (**`switch(otyp)`**).
  * @param {import('./gstate.js').game} [g]
  */
 export async function doReadHeroScrollCmdLikeC(g = game) {
@@ -68,6 +85,9 @@ export async function doReadHeroScrollCmdLikeC(g = game) {
     const confused = heroConfusedForReadLikeC(g);
 
     observeObjectHeroMinimalLikeC(g, scroll);
+
+    /* C: read.c **`seffects`** — **`if (objects[otyp].oc_magic) exercise(A_WIS, TRUE);`** before switch */
+    if (scrollOtypHasOcMagicLikeC(otyp)) exercise(A_WIS, true);
 
     if (otyp === OTYP_SCR_BLANK_PAPER) {
         if (blind) await pline("You don't remember there being any magic words on this scroll.");
