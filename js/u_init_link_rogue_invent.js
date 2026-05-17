@@ -19,6 +19,8 @@ const OTYP_LEATHER_ARMOR = 134;
 const OTYP_POT_SICKNESS = 317;
 const OTYP_LOCK_PICK = 221;
 const OTYP_SACK = 216;
+/** C `objects_nums` — `OBJECTS_ENUM` / `EYEWEAR("blindfold",…, BLINDFOLD)`. */
+const OTYP_BLINDFOLD = 232;
 
 /** C objects[] oc_weight (NH5) for starting Rogue otyps. */
 const BASE_WT = {
@@ -28,6 +30,7 @@ const BASE_WT = {
     [OTYP_POT_SICKNESS]: 20,
     [OTYP_LOCK_PICK]: 4,
     [OTYP_SACK]: 15,
+    [OTYP_BLINDFOLD]: 2,
 };
 
 /** @param {import('./gstate.js').game} [g] */
@@ -38,8 +41,8 @@ export function isHumanRogueChargenLikeC(g = game) {
 
 /**
  * Build singly-linked **`g.invent`** (NH5 **`oclass`/`otyp`**) and set **`uwep`/`uquiver`/`uarm`**
- * for human Rogue after **`consumeRogueHumanIniInvUinitRoleRngLikeC`** ( **`g._rogueIniDaggerQuan`** ).
- * Omits optional blindfold (**`!rn2(5)`**) extra **`ini_inv`** until that path’s mkobj RNG is replayed here.
+ * for human Rogue after **`consumeRogueHumanIniInvUinitRoleRngLikeC`**
+ * ( **`g._rogueIniDaggerQuan`**, **`g._rogueIniBlindfold`** ).
  * @param {import('./gstate.js').game} g
  */
 export function applyRogueHumanLinkedInventAndWieldLikeC(g) {
@@ -78,6 +81,13 @@ export function applyRogueHumanLinkedInventAndWieldLikeC(g) {
     for (const o of order) {
         o.nobj = g.invent ?? null;
         g.invent = o;
+    }
+
+    /* C u_init_role: ini_inv(Blindfold) after Rogue[] — addinv prepends → new chain head */
+    if (g._rogueIniBlindfold) {
+        const blind = mk(OTYP_BLINDFOLD, NH5_TOOL_CLASS, 1, 0);
+        blind.nobj = g.invent ?? null;
+        g.invent = blind;
     }
 
     const u = g.u;

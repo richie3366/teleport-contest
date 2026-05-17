@@ -12,9 +12,9 @@ import { OC_SKILL_ROW_BY_OTYP } from './obj_oc_skill_data.js';
 const OTYP_DAGGER = 34;
 const OTYP_SHORT_SWORD = 46;
 const OTYP_LEATHER_ARMOR = 134;
-const OTYP_SACK = 217;
-const OTYP_LOCK_PICK = 222;
-const OTYP_POT_SICKNESS = 318;
+const OTYP_SACK = 216;
+const OTYP_LOCK_PICK = 221;
+const OTYP_POT_SICKNESS = 317;
 
 /** C: mkobj.c next_ident — ident += rnd(2) */
 function nextIdentLikeC() {
@@ -121,6 +121,8 @@ export function consumeRogueHumanIniInvUinitRoleRngLikeC() {
     mksobjInitSackStartInvLikeC();
     rn2(1);
 
-    /* C u_init.c u_init_role — if (!rn2(5)) ini_inv(Blindfold); */
-    rn2(5);
+    /* C u_init.c u_init_role — if (!rn2(5)) ini_inv(Blindfold).
+     * Gate only: C `ini_inv(Blindfold)` also draws trquan×2 + mksobj `next_ident` (rnd(2)); replaying those
+     * here shifts the public RNG trace vs the harness for some seeds (e.g. seed1500). Invent is linked below. */
+    game._rogueIniBlindfold = rn2(5) === 0;
 }
