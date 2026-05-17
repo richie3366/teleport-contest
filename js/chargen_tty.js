@@ -1111,11 +1111,12 @@ function paintConfirmMenu(disp, f, plname) {
     coerceChargenIndicesForRoleSelectionPrologLikeC(d);
     disp.clearScreen();
     const rn = roleNameForDisplay(d.initrole, d.initgend);
-    const raceAdj = d.initrace >= 0 ? races[d.initrace].adj : '???';
+    /* C role_selection_prolog race line: races[c].noun — not the adjective */
+    const raceNoun = d.initrace >= 0 ? races[d.initrace].name : '???';
     const gd = d.initgend === 1 ? 'female' : 'male';
     const an = d.initalign >= 0 ? aligns[d.initalign].name : '???';
     const title = 'Is this ok? [ynaq]';
-    const recap = `${plname} the ${an} ${gd} ${raceAdj} ${rn}`;
+    const recap = `${plname} the ${an} ${gd} ${raceNoun} ${rn}`;
     const col = confirmMenuStartColLikeC([
         title,
         recap,

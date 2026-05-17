@@ -13,7 +13,7 @@ Thin handoff for the next coding session. **Gap inventory (not yet ported):** [`
 
 **Deferred for now:** **`maybe_do_tutorial`** / **`tut-1`** / full **`do.c`** **`goto_level`** (Lua **`tutorial()`** / **`free_tutorial()`**, **`savelev`**, **`gmst_*`**, …) and **`dokick`**/**`dothrow`** vs **`leaving_tutorial`** — strong upstream dependencies (save, specials, fuller **`do.c`**); treat as backlog until chargen / core early-game parity is further along; **`LIVELOGFILE`** parity if the judge ever compares livelog lines.
 
-**Last slice:** **`chargen_tty.js`** — C **`role.c`** **`role_selection_prolog`** role line: when **`roles[r].name.f`** exists (**Cav**/**Pri**) and **`gend < 0`** (**`ROLE_NONE`** / **`ROLE_RANDOM`**), append **`/`** + female title (**`Caveman/Cavewoman`**, **`Priest/Priestess`**) like C **`Sprintf(eos(buf), "/%s", …)`**; **`gend == 1`** still shows **`name.f`** only. **`npm run score`:** **0/44**; **`seed0002`** **289/27158** RNG; **`seed0006`** **519/6736** RNG, **24/123** screens; **`seed0077`** **1507/3242** RNG, **11/33** screens; **`seed8000`** **2931/3130** RNG, **2/23** screens; **`seed0014`** **170/59178** RNG, **9/714** screens).
+**Last slice:** **`chargen_tty.js`** — C **`role.c`** **`role_selection_prolog`** race line: confirm **`[ynaq]`** recap used **`races[].adj`**; C uses **`races[c].noun`** (JS **`races[].name`** — e.g. **elf** not **elven**). **`npm run score`:** **0/44**; **`seed0002`** **289/27158** RNG; **`seed0006`** **519/6736** RNG, **22/123** screens (**24/123** before noun fix); **`seed0077`** **1507/3242** RNG, **11/33** screens; **`seed8000`** **2931/3130** RNG, **2/23** screens; **`seed0014`** **170/59178** RNG, **9/714** screens (**10/714** before).
 
 ## Next steps
 
