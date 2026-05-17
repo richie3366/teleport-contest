@@ -83,6 +83,21 @@ function mksobjInitSackStartInvLikeC() {
 }
 
 /**
+ * C: u_init.c — **`if (!rn2(5)) ini_inv(Blindfold)`** after role **`trobj[]`** (Rogue, Samurai, Wizard).
+ * **`ini_inv(Blindfold)`**: **`trquan`** (**`rn2(1)`**), **`mksobj`** **`next_ident`** (**`rnd(2)`**), **`ini_inv_adjust_obj`** **`trquan`** (**`rn2(1)`**).
+ * @returns {boolean} gate open (caller may set **`g._rogueIniBlindfold`** for Rogue invent linker).
+ */
+export function consumeIniInvBlindfoldLeafRngIfGateLikeC() {
+    const open = rn2(5) === 0;
+    if (open) {
+        rn2(1);
+        nextIdentLikeC();
+        rn2(1);
+    }
+    return open;
+}
+
+/**
  * C: u_init.c u_init_role PM_ROGUE + ini_inv(Rogue[]) for human (no race subs).
  * Order: trquan/mksobj/adjust per u_init.c ini_inv + ini_inv_adjust_obj.
  */
@@ -120,13 +135,6 @@ export function consumeRogueHumanIniInvUinitRoleRngLikeC() {
     mksobjInitSackStartInvLikeC();
     rn2(1);
 
-    /* C u_init.c u_init_role PM_ROGUE — if (!rn2(5)) ini_inv(Blindfold).
-     * C ini_inv(Blindfold): trquan = 1+rn2(1); mksobj → next_ident (rnd(2)); ini_inv_adjust_obj TOOL → quan = trquan → rn2(1).
-     * mksobj_init has no BLINDFOLD case (mkobj.c TOOL_CLASS). */
-    game._rogueIniBlindfold = rn2(5) === 0;
-    if (game._rogueIniBlindfold) {
-        rn2(1);
-        nextIdentLikeC();
-        rn2(1);
-    }
+    /* C u_init.c PM_ROGUE — optional Blindfold after Rogue[] (Samurai/Wizard share same gate when ported). */
+    game._rogueIniBlindfold = consumeIniInvBlindfoldLeafRngIfGateLikeC();
 }

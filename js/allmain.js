@@ -133,7 +133,7 @@ export async function newgame() {
     g.u.uright = null;
     g.u.Unaware = 0; /* eat.c gethungry — asleep / !rn2(10) metabolic branch */
     g.u.EProtection = 0; /* prop.c subset — wear.js refreshEProtectionFromRings sets W_RING* from rings */
-    /* C: you.h `struct u_property u.uprops[LAST_PROP+1]` — stub; pray.c / prop.c set `[PROTECTION].intrinsic` (youprop.h HProtection). */
+    /* C: you.h `struct u_property u.uprops[LAST_PROP+1]` — stub; pray.c / prop.c set `[PROTECTION].intrinsic` (youprop.h HProtection). Helpers: `divine_protection.js` until `#pray` / priest donation / sit are wired. */
     {
         const up = new Array(LAST_PROP + 1);
         for (let i = 0; i <= LAST_PROP; i++) up[i] = { intrinsic: 0, extrinsic: 0, blocked: 0 };
