@@ -1,6 +1,6 @@
 // u_init_role_rng.js — C u_init.c / mkobj.c leaf RNG for role inventory (narrow port).
 // Used while ini_inv is still stubbed so ISAAC matches upstream before init_attr(75).
-// C refs: u_init.c u_init_role (PM_ROGUE … PM_ARCHEOLOGIST / PM_HEALER), ini_inv(), trquan(), mkobj.c mksobj+mksobj_init,
+// C refs: u_init.c u_init_role (PM_ROGUE … PM_HEALER / PM_BARBARIAN), ini_inv(), trquan(), mkobj.c mksobj+mksobj_init,
 //         mkbox_cnts (SACK empty at moves<=1), blessorcurse().
 
 import { game } from './gstate.js';
@@ -66,6 +66,10 @@ const OTYP_SPE_HEALING = 374;
 const OTYP_SPE_EXTRA_HEALING = 391;
 const OTYP_SPE_STONE_TO_FLESH = 405;
 const OTYP_APPLE = 277;
+/** C `OC_SKILL` / NH5 — **`TWO_HANDED_SWORD`** **`mk`** **56**, invent **55** (adjacent **`KATANA`** **56** nh5 in **`objects_nums`**). */
+const OTYP_TWO_HANDED_SWORD_MK = 56;
+const OTYP_AXE_MK = 45;
+const OTYP_BATTLE_AXE_MK = 46;
 
 /** C: mkobj.c next_ident — ident += rnd(2) */
 function nextIdentLikeC() {
@@ -590,6 +594,54 @@ export function consumeHealerHumanIniInvUinitRoleRngLikeC() {
 
     game._healerIniLamp = !rn2(25);
     if (game._healerIniLamp) {
+        rn2(1);
+        nextIdentLikeC();
+        mksobjInitOilLampToolLikeC();
+        rn2(1);
+    }
+}
+
+/**
+ * C: u_init.c **`PM_BARBARIAN`** — **`if (rn2(100) >= 50) ini_inv(Barbarian_0); else ini_inv(Barbarian_1);`**
+ * then **`if (!rn2(6)) ini_inv(Lamp)`** (human; no race subs).
+ */
+export function consumeBarbarianHumanIniInvUinitRoleRngLikeC() {
+    const pack0 = rn2(100) >= 50;
+    game._barbarianIniPack0 = pack0;
+
+    if (pack0) {
+        rn2(1);
+        nextIdentLikeC();
+        mksobjInitWeaponLikeC(OTYP_TWO_HANDED_SWORD_MK, false);
+        rn2(1);
+
+        rn2(1);
+        nextIdentLikeC();
+        mksobjInitWeaponLikeC(OTYP_AXE_MK, false);
+        rn2(1);
+    } else {
+        rn2(1);
+        nextIdentLikeC();
+        mksobjInitWeaponLikeC(OTYP_BATTLE_AXE_MK, false);
+        rn2(1);
+
+        rn2(1);
+        nextIdentLikeC();
+        mksobjInitWeaponLikeC(OTYP_SHORT_SWORD, false);
+        rn2(1);
+    }
+
+    rn2(1);
+    nextIdentLikeC();
+    mksobjInitArmorLikeC(false);
+    rn2(1);
+
+    rn2(1);
+    nextIdentLikeC();
+    game._barbarianIniFoodQuan = mksobjInitFoodRationQuanLikeC();
+
+    game._barbarianIniLamp = !rn2(6);
+    if (game._barbarianIniLamp) {
         rn2(1);
         nextIdentLikeC();
         mksobjInitOilLampToolLikeC();
