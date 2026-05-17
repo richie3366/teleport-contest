@@ -8,6 +8,7 @@ import { rnd, rn2, rne, rn1 } from './rng.js';
 import { OTYP_LEATHER_ARMOR, P_BOW, P_SHURIKEN } from './const.js';
 import { OC_SKILL_ROW_BY_OTYP } from './obj_oc_skill_data.js';
 import { iniInvMkobjFilterScrollClassMonkLikeC } from './mkobj_scroll_class_rng_like_c.js';
+import { iniInvOneMkobjFoodUndefDrawLikeC } from './mkobj_food_class_rng_like_c.js';
 import {
     gnIniInvFreshLikeC,
     iniInvGnAfterUndefAcceptLikeC,
@@ -81,6 +82,8 @@ const OTYP_ROCK = 474;
 const OTYP_FIRST_PROJECTILE = 19;
 const OTYP_LAST_PROJECTILE = 24;
 const OTYP_ARROW = 19;
+/** C `OC_SKILL_ROW_BY_OTYP` — **`DART`** (**NH5 invent** **25**). */
+const OTYP_DART = 25;
 /** C `objects.h` — first **`BOW("bow"`** after **`BULLWHIP`** (**`otyp`** **84**). */
 const OTYP_BOW = 84;
 /** C `mklev.js` anchor — **`CRAM_RATION`**. */
@@ -163,6 +166,11 @@ function mksobjInitArmorLikeC(artif) {
 
 /** C: mkobj.c mksobj_init — POTION_CLASS blessorcurse(otmp, 4) */
 function mksobjInitPotionLikeC() {
+    blessorcurseLikeC(4);
+}
+
+/** C: mkobj.c mksobj_init — SCROLL_CLASS blessorcurse(otmp, 4) */
+function mksobjInitScrollIniInvLikeC() {
     blessorcurseLikeC(4);
 }
 
@@ -848,6 +856,83 @@ export function consumePriestHumanIniInvUinitRoleRngLikeC() {
             mksobjInitOilLampToolLikeC();
             rn2(1);
         }
+    }
+}
+
+/**
+ * C: u_init.c **`PM_TOURIST`** — **`u.umoney0 = rnd(1000)`** then **`ini_inv(Tourist[])`** + strict optional tool chain.
+ * Money replay: **`u_init_money.js`** (**`game._touristIniUmoney0Rnd`**).
+ */
+export function consumeTouristHumanIniInvUinitRoleRngLikeC() {
+    game._touristIniUmoney0Rnd = rnd(1000);
+
+    /* DART +2 — C **`Tourist[]`** **`trquan`** **21..40** (one draw). */
+    const dartQuan = 21 + rn2(20);
+    nextIdentLikeC();
+    mksobjInitWeaponLikeC(OTYP_DART, false);
+    game._touristIniDartQuan = dartQuan;
+
+    const foodN = trquanMinMaxLikeC(10, 10);
+    for (let i = 0; i < foodN; i++) {
+        iniInvOneMkobjFoodUndefDrawLikeC();
+    }
+
+    const potN = trquanMinMaxLikeC(2, 2);
+    for (let i = 0; i < potN; i++) {
+        nextIdentLikeC();
+        mksobjInitPotionLikeC();
+        rn2(1);
+    }
+
+    const scrN = trquanMinMaxLikeC(4, 4);
+    for (let i = 0; i < scrN; i++) {
+        nextIdentLikeC();
+        mksobjInitScrollIniInvLikeC();
+        rn2(1);
+    }
+
+    trquanMinMaxLikeC(1, 1);
+    nextIdentLikeC();
+    mksobjInitArmorLikeC(false);
+    rn2(1);
+
+    trquanMinMaxLikeC(1, 1);
+    nextIdentLikeC();
+    game._touristIniCameraSpe = rn1(70, 30);
+    rn2(1);
+
+    trquanMinMaxLikeC(1, 1);
+    nextIdentLikeC();
+    rn2(1);
+
+    if (!rn2(25)) {
+        rn2(1);
+        nextIdentLikeC();
+        rn2(1);
+        game._touristIniExtra = 'tinopener';
+        game._touristIniMagicmarkerSpe = undefined;
+    } else if (!rn2(25)) {
+        rn2(1);
+        nextIdentLikeC();
+        rn2(1);
+        game._touristIniExtra = 'leash';
+        game._touristIniMagicmarkerSpe = undefined;
+    } else if (!rn2(25)) {
+        rn2(1);
+        nextIdentLikeC();
+        rn2(1);
+        game._touristIniExtra = 'towel';
+        game._touristIniMagicmarkerSpe = undefined;
+    } else if (!rn2(20)) {
+        rn2(1);
+        nextIdentLikeC();
+        mksobjInitMagicMarkerSpeRn1LikeC();
+        game._touristIniMagicmarkerSpe = 19 + rn2(4);
+        rn2(1);
+        game._touristIniExtra = 'marker';
+    } else {
+        game._touristIniExtra = null;
+        game._touristIniMagicmarkerSpe = undefined;
     }
 }
 

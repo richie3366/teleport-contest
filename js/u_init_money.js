@@ -26,7 +26,15 @@ export function applyRoleStartingUmoney0() {
         }
     }
     else if (abbr === 'Rog') gold = 0;
-    else if (abbr === 'Tou') gold = rnd(1000);
+    else if (abbr === 'Tou') {
+        /* C `u_init_role` — **`rnd(1000)`** before **`ini_inv(Tourist)`**; replayed in **`consumeTouristHumanIniInvUinitRoleRngLikeC`** when present. */
+        if (game._touristIniUmoney0Rnd != null) {
+            gold = game._touristIniUmoney0Rnd | 0;
+            game._touristIniUmoney0Rnd = undefined;
+        } else {
+            gold = rnd(1000);
+        }
+    }
     else gold = 0;
     u.umoney0 = gold;
     game._goldCount = gold;
