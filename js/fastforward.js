@@ -20,6 +20,7 @@ import {
     consumeSamuraiHumanIniInvUinitRoleRngLikeC,
     consumeValkyrieHumanIniInvUinitRoleRngLikeC,
     consumeKnightHumanIniInvUinitRoleRngLikeC,
+    consumeMonkHumanIniInvUinitRoleRngLikeC,
 } from "./u_init_role_rng.js";
 import { races } from "./roles.js";
 
@@ -158,6 +159,11 @@ export function fastforward_post_mklev() {
     const kni = game.urole?.abbr === "Kni" && (game.initrace | 0) === humanIdx;
     if (kni) {
         consumeKnightHumanIniInvUinitRoleRngLikeC();
+        return;
+    }
+    const mon = game.urole?.abbr === "Mon" && (game.initrace | 0) === humanIdx;
+    if (mon) {
+        consumeMonkHumanIniInvUinitRoleRngLikeC();
         return;
     }
     rn2(20); rnd(2); rn2(6); rn2(11); rn2(10); rn2(10); rn2(100); rn2(20); rn2(1);

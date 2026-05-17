@@ -1,12 +1,13 @@
 // u_init_role_rng.js — C u_init.c / mkobj.c leaf RNG for role inventory (narrow port).
 // Used while ini_inv is still stubbed so ISAAC matches upstream before init_attr(75).
-// C refs: u_init.c u_init_role (PM_ROGUE / PM_SAMURAI / PM_VALKYRIE / PM_KNIGHT), ini_inv(), trquan(), mkobj.c mksobj+mksobj_init,
+// C refs: u_init.c u_init_role (PM_ROGUE / PM_SAMURAI / PM_VALKYRIE / PM_KNIGHT / PM_MONK), ini_inv(), trquan(), mkobj.c mksobj+mksobj_init,
 //         mkbox_cnts (SACK empty at moves<=1), blessorcurse().
 
 import { game } from './gstate.js';
 import { rnd, rn2, rne, rn1 } from './rng.js';
 import { OTYP_LEATHER_ARMOR, P_BOW, P_SHURIKEN } from './const.js';
 import { OC_SKILL_ROW_BY_OTYP } from './obj_oc_skill_data.js';
+import { iniInvMkobjFilterScrollClassMonkLikeC } from './mkobj_scroll_class_rng_like_c.js';
 
 /** C objects_nums — OBJECTS_ENUM (nethack-c/upstream/include/objects.h). */
 const OTYP_DAGGER = 34;
@@ -85,6 +86,16 @@ function mksobjInitArmorLikeC(artif) {
 /** C: mkobj.c mksobj_init — POTION_CLASS blessorcurse(otmp, 4) */
 function mksobjInitPotionLikeC() {
     blessorcurseLikeC(4);
+}
+
+/** C: mkobj.c mksobj_init — SPBOOK_CLASS blessorcurse(otmp, 17) */
+function mksobjInitSpellbookIniInvLikeC() {
+    blessorcurseLikeC(17);
+}
+
+/** C: mkobj.c mksobj_init — MAGIC_MARKER `otmp->spe = rn1(70, 30)` */
+function mksobjInitMagicMarkerSpeRn1LikeC() {
+    rn1(70, 30);
 }
 
 /** C: mkobj.c mksobj_init — SACK → mkbox_cnts; moves<=1 && !in_mklev → n=0 → for (n = rn2(1); …) */
@@ -292,5 +303,93 @@ export function consumeValkyrieHumanIniInvUinitRoleRngLikeC() {
         nextIdentLikeC();
         mksobjInitOilLampToolLikeC();
         rn2(1);
+    }
+}
+
+/** C **`M_spell[]`** order: Healing, Protection, Confuse monster. */
+const OTYP_MONK_MSPELL_BOOKS = /** @type {const} */ ([373, 402, 376]);
+
+/**
+ * C: u_init.c **`PM_MONK`** **`u_init_role`** — **`ini_inv(Monk[])`**, **`M_spell[rn2(90)/30]`**,
+ * **`!rn2(4)`** **`Magicmarker`**, **`else if (!rn2(10))`** **`Lamp`** (human; no race subs).
+ */
+export function consumeMonkHumanIniInvUinitRoleRngLikeC() {
+    /* `quan = trquan` — gloves `1+rn2(1)` */
+    rn2(1);
+    nextIdentLikeC();
+    mksobjInitArmorLikeC(false);
+    rn2(1);
+
+    rn2(1);
+    nextIdentLikeC();
+    mksobjInitArmorLikeC(false);
+    rn2(1);
+
+    /* UNDEF scroll row: `quan = trquan` then mkobj filter */
+    rn2(1);
+    game._monkIniUndefScrollOtyp = iniInvMkobjFilterScrollClassMonkLikeC();
+
+    const pq = 3 + rn2(1);
+    game._monkIniPotionHealingQuan = pq;
+    for (let i = 0; i < pq; i++) {
+        nextIdentLikeC();
+        mksobjInitPotionLikeC();
+        rn2(1);
+    }
+
+    const rq = 3 + rn2(1);
+    game._monkIniFoodRationQuan = rq;
+    for (let i = 0; i < rq; i++) {
+        nextIdentLikeC();
+        mksobjInitFoodRationQuanLikeC();
+        rn2(1);
+    }
+
+    const aq = 5 + rn2(1);
+    game._monkIniAppleQuan = aq;
+    for (let i = 0; i < aq; i++) {
+        nextIdentLikeC();
+        mksobjInitDefaultFoodQuanMaybeDoubleLikeC();
+    }
+
+    const oq = 5 + rn2(1);
+    game._monkIniOrangeQuan = oq;
+    for (let i = 0; i < oq; i++) {
+        nextIdentLikeC();
+        mksobjInitDefaultFoodQuanMaybeDoubleLikeC();
+    }
+
+    const fq = 3 + rn2(1);
+    game._monkIniFortuneCookieQuan = fq;
+    for (let i = 0; i < fq; i++) {
+        nextIdentLikeC();
+        mksobjInitDefaultFoodQuanMaybeDoubleLikeC();
+    }
+
+    /* C: `ini_inv(M_spell[rn2(90) / 30])` — **`rn2(90)`** before spell row **`trquan`**. */
+    const spIdx = (rn2(90) / 30) | 0;
+    game._monkIniMspellIdx = spIdx;
+    const speOtyp = OTYP_MONK_MSPELL_BOOKS[spIdx] ?? OTYP_MONK_MSPELL_BOOKS[0];
+    game._monkIniMspellSpeOtyp = speOtyp;
+    rn2(1);
+    nextIdentLikeC();
+    mksobjInitSpellbookIniInvLikeC();
+    rn2(1);
+
+    game._monkIniMagicmarker = !rn2(4);
+    if (game._monkIniMagicmarker) {
+        rn2(1);
+        nextIdentLikeC();
+        mksobjInitMagicMarkerSpeRn1LikeC();
+        game._monkIniMagicmarkerSpe = 19 + rn2(4);
+        rn2(1);
+    } else {
+        game._monkIniLamp = !rn2(10);
+        if (game._monkIniLamp) {
+            rn2(1);
+            nextIdentLikeC();
+            mksobjInitOilLampToolLikeC();
+            rn2(1);
+        }
     }
 }
