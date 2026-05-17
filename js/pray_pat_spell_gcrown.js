@@ -4,7 +4,20 @@
 
 import { rnd, rn2 } from './rng.js';
 import { pline, newsym } from './display.js';
-import { FROMOUTSIDE, A_LAWFUL, A_NEUTRAL, A_CHAOTIC, P_ISRESTRICTED, P_LONG_SWORD, P_BROAD_SWORD, LL_DIVINEGIFT, LL_ARTIFACT, LL_SPOILER } from './const.js';
+import {
+    FROMOUTSIDE,
+    A_LAWFUL,
+    A_NEUTRAL,
+    A_CHAOTIC,
+    P_ISRESTRICTED,
+    P_LONG_SWORD,
+    P_BROAD_SWORD,
+    LL_DIVINEGIFT,
+    LL_ARTIFACT,
+    LL_SPOILER,
+    ONAME_GIFT,
+    ONAME_KNOW_ARTI,
+} from './const.js';
 import { NH5_SPBOOK_CLASS, NH5_WEAPON_CLASS } from './nh5_objclass.js';
 import { SPBOOK_CLASS_MKOBJ_OC_PROB_ROWS, SPELLBOOK_OTYP_LEVEL, SPELLBOOK_OTYP_OC_SKILL } from './mkobj_wizard_ini_inv_data.js';
 import { SPELLBOOK_SKILL_LEVEL_ROWS } from './spellbook_skill_level_data.js';
@@ -21,7 +34,7 @@ import { updateInventory } from './invent.js';
 import { isWeptoolObjLikeC } from './hero_hands.js';
 import { addWeaponSkill, unrestrictWeaponSkill } from './u_init_skills.js';
 import { weaponType } from './weapon_kind.js';
-import { discoverArtifactHeroLikeC } from './artifact_discover_like_c.js';
+import { discoverArtifactHeroLikeC, artifactOriginHeroLikeC } from './artifact_discover_like_c.js';
 import { livelogPrintfLikeC } from './livelog.js';
 
 /** C: pray.c `#define PIOUS 20` */
@@ -523,6 +536,7 @@ export async function gcrownuHeroLikeC(g, godvoices) {
             if (!blind) await pline('Your sword shines brightly for a moment.');
             const lbuf = ansimpleonameLikeC(obj, g);
             obj.oartifact = ART_EXCALIBUR;
+            artifactOriginHeroLikeC(g, ART_EXCALIBUR, ONAME_GIFT | ONAME_KNOW_ARTI);
             u.ugifts = (u.ugifts | 0) + 1;
             livelogPrintfLikeC(
                 g,
@@ -563,6 +577,7 @@ export async function gcrownuHeroLikeC(g, godvoices) {
             stackObjOnFloorInLevel(g, sw);
             await newsym(u.ux | 0, u.uy | 0);
             u.ugifts = (u.ugifts | 0) + 1;
+            artifactOriginHeroLikeC(g, ART_VORPAL_BLADE, ONAME_GIFT | ONAME_KNOW_ARTI);
             livelogPrintfLikeC(g, LL_DIVINEGIFT | LL_ARTIFACT, 'was bestowed with %s', artinameLikeC(ART_VORPAL_BLADE));
             obj = sw;
         }
@@ -596,6 +611,7 @@ export async function gcrownuHeroLikeC(g, godvoices) {
             stackObjOnFloorInLevel(g, sw);
             await newsym(u.ux | 0, u.uy | 0);
             u.ugifts = (u.ugifts | 0) + 1;
+            artifactOriginHeroLikeC(g, ART_STORMBRINGER, ONAME_GIFT | ONAME_KNOW_ARTI);
             livelogPrintfLikeC(g, LL_DIVINEGIFT | LL_ARTIFACT, 'was bestowed with %s', artinameLikeC(ART_STORMBRINGER));
             obj = sw;
         }
