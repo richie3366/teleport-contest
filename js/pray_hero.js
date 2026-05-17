@@ -1,5 +1,6 @@
 // pray_hero.js — C pray.c dopray / can_pray / prayer_done / angrygods subset for `#pray`.
-// C ref: pray.c dopray, can_pray, prayer_done, angrygods, water_prayer, gods_upset
+// C ref: pray.c dopray, can_pray, prayer_done, angrygods (incl. adjattrib/losexp, attrcurse/rndcurse),
+//        gods_upset, water_prayer
 //
 // Extended commands read a tty line after `#` (terminated by `\n` or `\r`); see extcmd.js.
 // C dopray uses nomul(-3); JS drains three moveloop-equivalent ticks (moveloop_turn_advance.js)
@@ -12,6 +13,7 @@ import {
     A_LAWFUL,
     A_NEUTRAL,
     A_NONE,
+    A_WIS,
     AM_MASK,
     IS_ALTAR,
     In_hell,
@@ -20,14 +22,18 @@ import {
 import { heroLuck } from './water_damage.js';
 import { enlightMissionLines } from './enlght_patrons.js';
 import { rn2, rnz, rnl } from './rng.js';
-import { changeLuck } from './attrib.js';
+import { adjattrib, changeLuck } from './attrib.js';
+import { losexpNullLikeC } from './losexp.js';
 import { floorObjKey } from './floorobj.js';
 import { NH5_POTION_CLASS } from './nh5_objclass.js';
 import { executeHelplessMoveloopTickLikeC } from './moveloop_turn_advance.js';
 import { clearUblessedAngryGodsLikeC, grantGodsFifthPleasedGiftProtectionLikeC } from './divine_protection.js';
+import { attrcurseHeroLikeC, rndcurseHeroLikeC } from './sit_hero.js';
 
 const STRIDENT = 4;
 const OTYP_POT_WATER = 321;
+/** C: defsym.h **`MONSYM(..., HUMAN, S_HUMAN, ...)`** — **`gy.youmonst.data->mlet`** in pray.c */
+const S_HUMAN_MLET = 53;
 
 /** @param {import('./gstate.js').game} g */
 function alignGnamePrayTargetLikeC(g, aligntyp) {
@@ -181,26 +187,44 @@ async function angrygodsLikeC(g, respGod) {
             );
             break;
         case 2:
-        case 3:
+        case 3: {
+            const mortalOrCreature =
+                (u.youmonst?.data?.mlet | 0) === S_HUMAN_MLET ? 'mortal' : 'creature';
             await pline(
                 `The voice of ${alignGnameRespGodLikeC(g, rg)} thunders: "Thou ${
                     ugodAngry && rg === (u.ualign?.type | 0) ? 'hast strayed from the path' : 'art arrogant'
-                }, mortal."`,
+                }, ${mortalOrCreature}."`,
             );
             await pline('Thou must relearn thy lessons!');
+            adjattrib(A_WIS, -1, false);
+            await losexpNullLikeC(g);
             break;
+        }
         case 6:
+            if (!(u.Punished | 0)) {
+                await pline(`The voice of ${alignGnameRespGodLikeC(g, rg)} thunders: "Thou hast angered me."`);
+                await pline('You are being punished for your misbehavior!');
+                /* C: read.c punish(NULL) — mkobj CHAIN/BALL, placebc; not ported (RNG when exercised). */
+                break;
+            }
+            /* FALLTHRU */
         case 4:
         case 5: {
             await pline(`The voice of ${alignGnameRespGodLikeC(g, rg)} thunders: "Thou hast angered me."`);
             const blind = !!(u.Blind | 0);
             const antimagic = !!(u.Antimagic | 0);
             if (!blind && !antimagic) await pline('A black glow surrounds you.');
-            rn2(2);
+            if (rn2(2)) await rndcurseHeroLikeC(g);
+            else {
+                const stripped = await attrcurseHeroLikeC(g);
+                if (!stripped) await rndcurseHeroLikeC(g);
+            }
             break;
         }
         case 7:
         case 8: {
+            const mortalOrCreature =
+                (u.youmonst?.data?.mlet | 0) === S_HUMAN_MLET ? 'mortal' : 'creature';
             const onAltar = IS_ALTAR(g.level?.levl?.[u.ux | 0]?.[u.uy | 0]?.typ | 0);
             const aa = onAltar
                 ? Amask2align((g.level.levl[u.ux | 0][u.uy | 0].altarmask | 0) & AM_MASK)
@@ -210,7 +234,7 @@ async function angrygodsLikeC(g, respGod) {
                     onAltar && aa !== rg ? 'scorn' : 'call upon'
                 } me?"`,
             );
-            await pline('"Then die, mortal!"');
+            await pline(`"Then die, ${mortalOrCreature}!"`);
             break;
         }
         default:

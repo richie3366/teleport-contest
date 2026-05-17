@@ -80,7 +80,7 @@ function takeGoldSitLikeC(g) {
  * C: sit.c **`rndcurse`** — malignant aura + random curse attempts (**`gi.invent`**).
  * @param {import('./gstate.js').game} g
  */
-async function rndcurseHeroLikeC(g) {
+export async function rndcurseHeroLikeC(g) {
     const u = g.u;
     if (!u) return;
     if ((u.Antimagic | 0) !== 0) {
