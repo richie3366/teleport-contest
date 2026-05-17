@@ -24,6 +24,7 @@ import {
     consumeWizardHumanIniInvUinitRoleRngLikeC,
     consumeArcheologistHumanIniInvUinitRoleRngLikeC,
     consumeHealerHumanIniInvUinitRoleRngLikeC,
+    consumePriestHumanIniInvUinitRoleRngLikeC,
     consumeBarbarianHumanIniInvUinitRoleRngLikeC,
     consumeCaveDwellerHumanIniInvUinitRoleRngLikeC,
     consumeRangerHumanIniInvUinitRoleRngLikeC,
@@ -185,6 +186,11 @@ export function fastforward_post_mklev() {
     const hea = game.urole?.abbr === "Hea" && (game.initrace | 0) === humanIdx;
     if (hea) {
         consumeHealerHumanIniInvUinitRoleRngLikeC();
+        return;
+    }
+    const pri = game.urole?.abbr === "Pri" && (game.initrace | 0) === humanIdx;
+    if (pri) {
+        consumePriestHumanIniInvUinitRoleRngLikeC();
         return;
     }
     const bar = game.urole?.abbr === "Bar" && (game.initrace | 0) === humanIdx;

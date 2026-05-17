@@ -1,6 +1,6 @@
 // u_init_role_rng.js — C u_init.c / mkobj.c leaf RNG for role inventory (narrow port).
 // Used while ini_inv is still stubbed so ISAAC matches upstream before init_attr(75).
-// C refs: u_init.c u_init_role (PM_ROGUE … PM_BARBARIAN / PM_CAVE_DWELLER), ini_inv(), trquan(), mkobj.c mksobj+mksobj_init,
+// C refs: u_init.c u_init_role (PM_ROGUE … PM_CLERIC / PM_RANGER), ini_inv(), trquan(), mkobj.c mksobj+mksobj_init,
 //         mkbox_cnts (SACK empty at moves<=1), blessorcurse().
 
 import { game } from './gstate.js';
@@ -11,8 +11,10 @@ import { iniInvMkobjFilterScrollClassMonkLikeC } from './mkobj_scroll_class_rng_
 import {
     gnIniInvFreshLikeC,
     iniInvGnAfterUndefAcceptLikeC,
+    iniInvMkobjFilterPriestHumanLikeC,
     iniInvMkobjFilterWizardHumanLikeC,
 } from './mkobj_wizard_ini_inv_filter_like_c.js';
+import { SPELLBOOK_OTYP_LEVEL } from './mkobj_wizard_ini_inv_data.js';
 import {
     NH5_ARMOR_CLASS,
     NH5_POTION_CLASS,
@@ -85,6 +87,17 @@ const OTYP_BOW = 84;
 const OTYP_CRAM_RATION = 145;
 /** C `u_init_find_ac.js` — **`CLOAK_OF_DISPLACEMENT`**. */
 const OTYP_CLOAK_OF_DISPLACEMENT = 150;
+/** C `objects.h` / **`obj_oc_skill_data.js`** — **`MACE`**. */
+const OTYP_MACE = 74;
+/** C **`ROBE`** — Monk linker **`otyp`**. */
+const OTYP_ROBE = 144;
+/** C **`SMALL_SHIELD`** — Valkyrie/Knight anchor **151**. */
+const OTYP_SMALL_SHIELD = 151;
+/** C **`POT_WATER`** — `water_damage.js` anchor **321**. */
+const OTYP_POT_WATER = 321;
+/** C `objects.h` FOOD after **`CARROT`** — **`SPRIG_OF_WOLFSBANE`**, **`CLOVE_OF_GARLIC`**. */
+const OTYP_SPRIG_WOLFSBANE = 283;
+const OTYP_CLOVE_GARLIC = 284;
 
 /** C `obj.h` **`is_multigen`** / **`is_poisonable`** (WEAPON + **`oc_skill`** in **`-P_SHURIKEN`..`-P_BOW`**), extended when **`OC_SKILL_ROW_BY_OTYP`** lacks projectiles **19–24**. */
 function weaponAmmoMultigenOrPoisonableLikeC(otyp) {
@@ -762,6 +775,79 @@ export function consumeRangerHumanIniInvUinitRoleRngLikeC() {
         nextIdentLikeC();
         game._rangerIniCramQuans.push(mksobjInitDefaultFoodQuanMaybeDoubleLikeC());
         rn2(1);
+    }
+}
+
+/**
+ * C: u_init.c **`PM_CLERIC`** — **`ini_inv(Priest[])`** for human (no race subs) + **`!rn2(5)`** **`Magicmarker`**
+ * **`else if (!rn2(10))`** **`Lamp`** (**strict** **`else if`** — lamp gate only when marker misses).
+ */
+export function consumePriestHumanIniInvUinitRoleRngLikeC() {
+    /* MACE +1 (blessed from **`trobj.trbless`**) */
+    rn2(1);
+    nextIdentLikeC();
+    mksobjInitWeaponLikeC(OTYP_MACE, false);
+    rn2(1);
+
+    /* ROBE +0 */
+    rn2(1);
+    nextIdentLikeC();
+    mksobjInitArmorLikeC(false);
+    rn2(1);
+
+    /* SMALL_SHIELD +0 */
+    rn2(1);
+    nextIdentLikeC();
+    mksobjInitArmorLikeC(false);
+    rn2(1);
+
+    /* POT_WATER × 4 (blessed holy water) */
+    const holyQ = 4 + rn2(1);
+    for (let i = 0; i < holyQ; i++) {
+        nextIdentLikeC();
+        mksobjInitPotionLikeC();
+        rn2(1);
+    }
+
+    /* CLOVE_OF_GARLIC */
+    rn2(1);
+    nextIdentLikeC();
+    mksobjInitDefaultFoodQuanMaybeDoubleLikeC();
+    rn2(1);
+
+    /* SPRIG_OF_WOLFSBANE */
+    rn2(1);
+    nextIdentLikeC();
+    mksobjInitDefaultFoodQuanMaybeDoubleLikeC();
+    rn2(1);
+
+    const gn = gnIniInvFreshLikeC();
+    const sbQ = trquanMinMaxLikeC(2, 2);
+    game._priestIniSpellbookOtyps = [];
+    let gotSp1 = false;
+    for (let i = 0; i < sbQ; i++) {
+        const otyp = iniInvMkobjFilterPriestHumanLikeC(NH5_SPBOOK_CLASS, gotSp1, gn, false);
+        game._priestIniSpellbookOtyps.push(otyp);
+        iniInvGnAfterUndefAcceptLikeC(NH5_SPBOOK_CLASS, otyp, gn);
+        if ((SPELLBOOK_OTYP_LEVEL.get(otyp) ?? 99) === 1) gotSp1 = true;
+        rn2(1);
+    }
+
+    game._priestIniMagicmarker = !rn2(5);
+    if (game._priestIniMagicmarker) {
+        rn2(1);
+        nextIdentLikeC();
+        mksobjInitMagicMarkerSpeRn1LikeC();
+        game._priestIniMagicmarkerSpe = 19 + rn2(4);
+        rn2(1);
+    } else {
+        game._priestIniLamp = !rn2(10);
+        if (game._priestIniLamp) {
+            rn2(1);
+            nextIdentLikeC();
+            mksobjInitOilLampToolLikeC();
+            rn2(1);
+        }
     }
 }
 
