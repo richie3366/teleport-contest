@@ -49,6 +49,22 @@ export function acurr(x) {
     return u?.acurr?.a?.[x] ?? 10;
 }
 
+/**
+ * C: botl.c get_strength_str — string for **St:** on **`do_statusline1`** from **ACURR(A_STR)**.
+ * Encoded strength: plain **3–18**, **18/01–18/99**, **18/\*\*** at **STR18(100)**, **19–25** when **> STR18(100)** (**`%2d`**).
+ */
+export function getStrengthStrLikeC() {
+    const st = acurr(A_STR);
+    if (st > 18) {
+        if (st > STR18(100))
+            return String(st - 100).padStart(2, ' ');
+        if (st < STR18(100))
+            return `18/${String(st - 18).padStart(2, '0')}`;
+        return '18/**';
+    }
+    return `${st}`;
+}
+
 /** C: change_luck(schar n) — adjust u.uluck with bounds; no RNG. */
 export function changeLuck(n) {
     const u = game.u;
