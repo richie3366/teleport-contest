@@ -2951,9 +2951,9 @@ export function Is_knox_level(uz) { const g = game; return g?.knox_level && (uz 
 export function Is_juiblex_level(uz) { return false; /* TODO */ }
 
 // eat.c gethungry switch — NH5 objects_nums (objclass.h + objects.h; first weapon DART = 25).
-export const OTYP_RIN_SLOW_DIGESTION = 176;
-/** C: objects.h RING order (NH5 `objects_nums`) — index **18** after first ring **156** (`OC_CHARGED_RING_OTYPES`). */
-export const OTYP_RIN_SHOCK_RESISTANCE = 174;
+export const OTYP_RIN_SLOW_DIGESTION = 192;
+/** C: objects.h RING() — NH5 `objects_nums` / cpp OBJECTS_ENUM (symbol index + 16 from `objects.h` order). */
+export const OTYP_RIN_SHOCK_RESISTANCE = 190;
 export const OTYP_FAKE_AMULET_OF_YENDOR = 197;
 /** C: objects.h — real Amulet (after fake); NH5 `objects_nums`. */
 export const OTYP_AMULET_OF_YENDOR = 198;
@@ -2961,7 +2961,7 @@ export const OTYP_AMULET_OF_YENDOR = 198;
 export const OTYP_AMULET_OF_GUARDING = 195;
 /** C: objects.h FOOD() — `GLOB_OF_GREEN_SLIME` (NH5 `objects_nums`, cpp OBJECTS_ENUM). */
 export const OTYP_GLOB_OF_GREEN_SLIME = 276;
-export const OTYP_RIN_PROTECTION = 161;
+export const OTYP_RIN_PROTECTION = 178;
 export const OTYP_MEAT_RING = 255;
 /** C: objects.h `OBJ("boulder", …)` — NH5 `otyp`; must match `mklev.js` floor boulder placement. */
 export const OTYP_BOULDER = 465;
@@ -3034,4 +3034,5 @@ export const PM_DEATH = 305;
 export const PM_PESTILENCE = 306;
 export const PM_FAMINE = 307;
 /** C: objects.h RING() — BITS chrg uses `spec`; first six rings have spec 1 (NH5 objects_nums). */
-export const OC_CHARGED_RING_OTYPES = new Set([156, 157, 158, 159, 160, 161]);
+/** C: objects.h — first six `RING()` entries use `spec` 1 (charged rings); NH5 `otyp`. */
+export const OC_CHARGED_RING_OTYPES = new Set([173, 174, 175, 176, 177, 178]);

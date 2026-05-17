@@ -6,15 +6,19 @@ import { permonstHuman } from './mondata.js';
 import {
     INTRINSIC,
     OTYP_AMULET_OF_GUARDING,
+    OTYP_GRAY_DRAGON_SCALE_MAIL,
+    OTYP_GRAY_DRAGON_SCALES,
     OTYP_RIN_PROTECTION,
+    OTYP_YELLOW_DRAGON_SCALE_MAIL,
+    OTYP_YELLOW_DRAGON_SCALES,
 } from './const.js';
 
 const AC_MAX = 99;
 
 /**
  * C `objects[].a_ac` (= OBJECT `10 - ac` in objects.h `ARMOR`/`HELM`/`CLOAK`/…) for NH5 `objects_nums`
- * `otyp` values. NH5 **`otyp`** = **`objects.h`** symbol-order index + **16** (same offset as **`LEATHER_ARMOR`** **134** at index **118**; **`HAWAIIAN_SHIRT` 136** at **120**). Extend when new worn otyps appear.
- * @type {ReadonlyMap<number, number>}
+ * `otyp` values. NH5 **`objects_nums`** mostly follows **`objects.h`** OBJECT order + **16** (see **`LEATHER_ARMOR` 134**); **`#if 0`** / cpp gaps can shift blocks — dragon suits use **`OTYP_*`** from **`const.js`**. Extend when new worn otyps appear.
+ * @type {Map<number, number>}
  */
 const OBJECTS_A_AC_ARMOR = new Map([
     [93, 0], /* FEDORA — ac 10 */
@@ -40,6 +44,14 @@ const OBJECTS_A_AC_ARMOR = new Map([
     [171, 1], /* FUMBLE_BOOTS */
     [172, 1], /* LEVITATION_BOOTS */
 ]);
+
+/* C DRGN_ARMR — all dragon scale mail `ac` 1 (`a_ac` 9); all dragon scales `ac` 7 (`a_ac` 3). */
+for (let o = OTYP_GRAY_DRAGON_SCALE_MAIL; o <= OTYP_YELLOW_DRAGON_SCALE_MAIL; o++) {
+    OBJECTS_A_AC_ARMOR.set(o, 9);
+}
+for (let o = OTYP_GRAY_DRAGON_SCALES; o <= OTYP_YELLOW_DRAGON_SCALES; o++) {
+    OBJECTS_A_AC_ARMOR.set(o, 3);
+}
 
 /**
  * C: obj.h **`greatest_erosion(otmp)`** — max of rust/burn vs corr/rot counters.

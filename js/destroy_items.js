@@ -51,9 +51,9 @@ export const AD_ACID = 8;
 
 /** C: objects.h OBJECTS_ENUM (NH 5.0 cpp) — dwarvish cloak; fire/cold/shock rings. */
 const OTYP_DWARVISH_CLOAK = 141;
-const OTYP_RIN_FIRE_RESISTANCE = 189;
-const OTYP_RIN_COLD_RESISTANCE = 190;
-const OTYP_RIN_SHOCK_RESISTANCE_ENUM = 191;
+const OTYP_RIN_FIRE_RESISTANCE = 188;
+const OTYP_RIN_COLD_RESISTANCE = 189;
+const OTYP_RIN_SHOCK_RESISTANCE_ENUM = 190;
 
 /** C: zap.c adtyp_to_prop — subset used by **`u_adtyp_resistance_obj`** / **`destroy_items`** AD types. */
 function adtypToPropDestroyItemsLikeC(dmgtyp) {
