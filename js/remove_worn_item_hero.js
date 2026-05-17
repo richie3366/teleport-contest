@@ -2,6 +2,7 @@
 // C ref: steal.c remove_worn_item(); dokick.c ship_object() calls it before breaktest/add_to_migration.
 
 import { refreshEProtectionFromRings } from './wear.js';
+import { findAc } from './u_init_find_ac.js';
 
 /**
  * C: **`steal.c`** **`remove_worn_item(obj, unchain_ball)`** — clear **`u.*`** slots that
@@ -35,4 +36,5 @@ export function removeWornItemHeroShipObjectLikeC(g, obj, _unchainBall) {
 
     obj.owornmask = 0;
     refreshEProtectionFromRings(u);
+    findAc(g);
 }
