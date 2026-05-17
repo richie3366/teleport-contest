@@ -2,7 +2,7 @@
 // C ref: read.c **`doread`** (**`gk.known=FALSE`**, blind+**`dknown`**, **`scroll->in_use`**, non-blank **`nodisappear`** plines (**`SCR_FIRE`**, cursed **`SCR_REMOVE_CURSE`**),
 //        **`!seffects(scroll)`** tail: **`learnscroll`** vs **`trycall`** when **`!oc_name_known`** (**`gk.known`** gate), **`useup`**
 //        unless **`SCR_BLANK_PAPER`**),
-//        **`seffects`** (**`exercise`** when **`oc_magic`**, **`switch(otyp)`** — blank wired, other cases stub),
+//        **`seffects`** (**`exercise`** when **`oc_magic`**, **`switch(otyp)`** — blank, punishment (**`seffect_punishment`** partial), default stub),
 //        **`learnscroll`** / **`learnscrolltyp`**.
 
 import { game } from './gstate.js';
@@ -21,6 +21,8 @@ const OTYP_SCR_BLANK_PAPER = 364;
 const OTYP_SCR_REMOVE_CURSE = 327;
 /** C: **`SCR_FIRE`**. */
 const OTYP_SCR_FIRE = 339;
+/** C: **`SCR_PUNISHMENT`** — **`read.c`** **`seffect_punishment`**. */
+const OTYP_SCR_PUNISHMENT = 341;
 
 /**
  * C: **`objects[otyp].oc_magic`** — **`SCROLL`** macro **`mgc`**; false for blank paper (and otyps outside scroll table).
@@ -53,6 +55,14 @@ export async function seffectsHeroReadScrollLikeC(g, scroll, blind) {
             if (blind) await pline("You don't remember there being any magic words on this scroll.");
             else await pline('This scroll seems to be blank.');
             g._readScrollGkKnown = true;
+            return 0;
+        }
+        case OTYP_SCR_PUNISHMENT: {
+            /* C: **`seffect_punishment`** — **`gk.known = TRUE`**; confused/blessed → **`You_feel("guilty.")`**; else **`punish`** */
+            g._readScrollGkKnown = true;
+            if (heroConfusedForReadLikeC(g) || (scroll.blessed | 0)) {
+                await pline('You feel guilty.');
+            }
             return 0;
         }
         default: {
