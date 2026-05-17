@@ -1,10 +1,13 @@
 // mkobj_food_class_rng_like_c.js — C mkobj.c mkobj(FOOD_CLASS) + mksobj FOOD_CLASS init for u_init ini_inv.
 // C refs: mkobj.c mkobj(), mksobj_init() FOOD_CLASS, rndmonnum/rndmonnum_adj, rndmonst_adj;
-//         makemon.c rndmonst_adj (D:1 !Inhell, AM_NEutral dungeon); mon.c undead_to_corpse, can_be_hatched;
-//         eat.c set_tin_variety RANDOM_TIN / TTSZ; read.c assign_candy_wrapper; mondata.c little_to_big.
+//         makemon.c rndmonst_adj (D:1 !Inhell, AM_NEutral dungeon); mon.c undead_to_corpse, can_be_hatched,
+//         dead_species; mondata.c little_to_big / big_to_little;
+//         eat.c set_tin_variety RANDOM_TIN / TTSZ; read.c assign_candy_wrapper.
 //
 // Data: js/mons_rndmonst_ini_inv_data.js — mons[0..SPECIAL_PM-1] geno/difficulty/maligntyp/cnutrit/mflags1 + grownups.
 
+import { G_GENOD } from './const.js';
+import { game } from './gstate.js';
 import { rnd, rn1, rn2 } from './rng.js';
 import {
     LITTLE_TO_BIG_GROWNUPS,
@@ -269,8 +272,38 @@ function canBeHatchedIniInvLikeC(mnum) {
     return NON_PM;
 }
 
-function deadSpeciesIniInvLikeC() {
-    return false;
+/** C: **`mondata.c`** **`big_to_little`** (inverse of **`little_to_big`** on **`grownups`**). */
+function bigToLittleIniInvLikeC(montype) {
+    let m = montype | 0;
+    for (let i = 0; i < LITTLE_TO_BIG_GROWNUPS.length; i++) {
+        const pair = LITTLE_TO_BIG_GROWNUPS[i];
+        const from = pair[0] | 0;
+        if (from < 0) break;
+        const to = pair[1] | 0;
+        if (m === to) {
+            m = from;
+            break;
+        }
+    }
+    return m;
+}
+
+/**
+ * C: **`mon.c`** **`dead_species`** — egg path uses **`egg == TRUE`** (**`big_to_little`** alt index).
+ * @param {number} mIdx
+ * @param {boolean} egg
+ */
+function deadSpeciesIniInvLikeC(mIdx, egg) {
+    const m = mIdx | 0;
+    if (m < LOW_PM) return true;
+    const altIdx = egg ? bigToLittleIniInvLikeC(m) : m;
+    const arr = game?.mvitals;
+    if (!Array.isArray(arr)) return false;
+    const slotM = arr[m];
+    const slotAlt = arr[altIdx];
+    const g1 = (slotM?.mvflags | 0) & G_GENOD;
+    const g2 = (slotAlt?.mvflags | 0) & G_GENOD;
+    return g1 !== 0 || g2 !== 0;
 }
 
 /** C: **`eat.c`** **`nonrotting_corpse`** (no **`is_rider`** macro — rider indices). */
@@ -323,7 +356,7 @@ export function mksobjInitFoodClassIniInvAfterOtypLikeC(otyp) {
             if (!rn2(3)) {
                 for (let tryct = 200; tryct > 0; tryct--) {
                     const mndx = canBeHatchedIniInvLikeC(rndmonnumIniInvLikeC());
-                    if (mndx !== NON_PM && !deadSpeciesIniInvLikeC()) break;
+                    if (mndx !== NON_PM && !deadSpeciesIniInvLikeC(mndx, true)) break;
                 }
             }
             break;
