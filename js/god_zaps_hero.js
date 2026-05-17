@@ -13,9 +13,13 @@ import {
     W_ARMC,
     W_ARM,
     W_ARMS,
+    XKILL_NOCORPSE,
+    XKILL_NOCONDUCT,
+    XKILL_NOMSG,
+    isok,
 } from './const.js';
 import { alignGnameLikeC, uhimHeroLikeC } from './pray_align_gname_like_c.js';
-import { pline, shieldeffLikeC } from './display.js';
+import { newsym, pline, shieldeffLikeC } from './display.js';
 import { monstseesuLikeC, monstunseesuLikeC } from './mon_seen_res.js';
 import { losehp } from './mthrowu.js';
 import { monNamUstuckLikeC, monNamMonnamUstuckLikeC } from './pray_pat_spell_gcrown.js';
@@ -102,8 +106,34 @@ async function fryByGodHeroLikeC(g, respGod, viaDisint) {
 }
 
 /**
+ * C: mon.c **`xkilled(mtmp, xkill_flags)`** — **`pray.c`** **`god_zaps_you`** when **`u.ustuck`** dies from lightning or disintegration while **`u.uswallow`**.
+ * Sets **`mhp`**, clears **`u.uswallow`** and **`u.ustuck`** when **`mtmp === ustuck`**, removes **`mtmp`** from **`g.level.monsters`**, **`newsym`**.
+ * Omits **`mondead`** / **`m_detach`**, **`experience`** / **`more_experienced`** / **`newexplevel`**, **`spoteffects`** expulsion, corpse (**`wasinside`**), **`rn2(6)`** treasure, luck / **`You("murderer!")`**, conduct livelog.
+ * @param {import('./gstate.js').game} g
+ * @param {object|null|undefined} mtmp
+ * @param {number} xkillFlags C **`XKILL_*`** (documented; corpse path not implemented for swallowed kills)
+ */
+function xkilledUstuckSwallowGodZapsSubsetLikeC(g, mtmp, _xkillFlags) {
+    if (!mtmp) return;
+    const u = g?.u;
+    const mx = mtmp.mx | 0;
+    const my = mtmp.my | 0;
+    mtmp.mhp = 0;
+    if (u && u.ustuck === mtmp) {
+        u.uswallow = 0;
+        u.ustuck = null;
+    }
+    const arr = g?.level?.monsters;
+    if (arr) {
+        const i = arr.indexOf(mtmp);
+        if (i >= 0) arr.splice(i, 1);
+    }
+    if (isok(mx, my)) newsym(mx, my);
+}
+
+/**
  * C: pray.c **`god_zaps_you(aligntyp resp_god)`** — swallow / reflect / shock / fry / disintegration / astral triple **`summon_minion`**.
- * Omits real **`xkilled`** / **`done(DIED)`** beyond **`losehp`** in **`fryByGodHeroLikeC`**. Swallow **`resists_elec`/`resists_disint`** — C **`Resists_Elem`** innate **`mon_resistancebits`** only (**`mondata.js`**; no monst **`mextrinsics`** / inventory **`defends`** yet). Non-swallow **`disintegrate_arm`** — **`disintegrate_arm_hero.js`** (**`obj_resists(...,0,90)`**); slot skips match C **`!(EReflecting & W_*)`** / **`!(EDisint_resistance & W_*)`** via **`uprops`** + **`oc_oprop`** + **`defends(AD_DISN)`** (**`uarmu`** unchanged: C has no **`W_ARMU`** gate).
+ * Swallow kills: **`xkilledUstuckSwallowGodZapsSubsetLikeC`** after fry or disint plines (**`XKILL_NOMSG|XKILL_NOCONDUCT`** lightning; **`XKILL_NOCORPSE`** on disint). Omits full **`mondead`** and **`experience`** and **`done(DIED)`** beyond **`losehp`** in **`fryByGodHeroLikeC`**. Swallow resist checks — C **`Resists_Elem`** innate **`mon_resistancebits`** only (**`mondata.js`**; no monst **`mextrinsics`** or inventory **`defends`** yet). Non-swallow **`disintegrate_arm`** — **`disintegrate_arm_hero.js`** (**`obj_resists(...,0,90)`**); slot skips match C **`!(EReflecting & W_*)`** / **`!(EDisint_resistance & W_*)`** via **`uprops`** + **`oc_oprop`** + **`defends(AD_DISN)`** (**`uarmu`** unchanged: C has no **`W_ARMU`** gate).
  * @param {import('./gstate.js').game} g
  * @param {number} respGod
  */
@@ -120,6 +150,7 @@ export async function godZapsYouHeroLikeC(g, respGod) {
         await pline(`It strikes ${monNamUstuckLikeC(stuck)}!`);
         if (!resistsElecMonLikeC(stuck)) {
             await pline(`${monNamMonnamUstuckLikeC(stuck)} fries to a crisp!`);
+            xkilledUstuckSwallowGodZapsSubsetLikeC(g, stuck, XKILL_NOMSG | XKILL_NOCONDUCT);
         } else {
             await pline(`${monNamMonnamUstuckLikeC(stuck)} seems unaffected.`);
         }
@@ -150,6 +181,11 @@ export async function godZapsYouHeroLikeC(g, respGod) {
         await pline(`A wide-angle disintegration beam aimed at you hits ${monNamUstuckLikeC(stuck)}!`);
         if (!resistsDisintMonLikeC(stuck)) {
             await pline(`${monNamMonnamUstuckLikeC(stuck)} disintegrates into a pile of dust!`);
+            xkilledUstuckSwallowGodZapsSubsetLikeC(
+                g,
+                stuck,
+                XKILL_NOMSG | XKILL_NOCORPSE | XKILL_NOCONDUCT,
+            );
         } else {
             await pline(`${monNamMonnamUstuckLikeC(stuck)} seems unaffected.`);
         }
