@@ -1,6 +1,6 @@
 // u_init_role_rng.js — C u_init.c / mkobj.c leaf RNG for role inventory (narrow port).
 // Used while ini_inv is still stubbed so ISAAC matches upstream before init_attr(75).
-// C refs: u_init.c u_init_role (PM_ROGUE / PM_SAMURAI / PM_VALKYRIE), ini_inv(), trquan(), mkobj.c mksobj+mksobj_init,
+// C refs: u_init.c u_init_role (PM_ROGUE / PM_SAMURAI / PM_VALKYRIE / PM_KNIGHT), ini_inv(), trquan(), mkobj.c mksobj+mksobj_init,
 //         mkbox_cnts (SACK empty at moves<=1), blessorcurse().
 
 import { game } from './gstate.js';
@@ -18,6 +18,9 @@ const OTYP_YUMI = 86;
 const OTYP_SPLINT_MAIL = 125;
 /** C `OC_SKILL_ROW_BY_OTYP` key for **`SPEAR`** (NH5 invent **`otyp`** = **27**, same **−1** pattern as Rogue short sword **46** vs map **47**). */
 const OTYP_SPEAR_MK = 28;
+/** C `OC_SKILL_ROW_BY_OTYP` — **`LONG_SWORD`** / **`LANCE`** (`mksobj_init` WEAPON). */
+const OTYP_LONG_SWORD_MK = 55;
+const OTYP_LANCE_MK = 73;
 const OTYP_SACK = 216;
 const OTYP_LOCK_PICK = 221;
 const OTYP_POT_SICKNESS = 317;
@@ -89,9 +92,14 @@ function mksobjInitSackStartInvLikeC() {
     rn2(1);
 }
 
-/** C: mkobj.c FOOD_RATION path — after switch, **`!rn2(6)`** doubles **`quan`** to **2**. */
-function mksobjInitFoodRationQuanLikeC() {
+/** C: mkobj.c FOOD default tail — **`!rn2(6)`** sets **`quan`** **2** (food ration, apple, carrot, …). */
+function mksobjInitDefaultFoodQuanMaybeDoubleLikeC() {
     return !rn2(6) ? 2 : 1;
+}
+
+/** C: mkobj.c FOOD_RATION path — same default **`quan`** tail as other non-corpse food. */
+function mksobjInitFoodRationQuanLikeC() {
+    return mksobjInitDefaultFoodQuanMaybeDoubleLikeC();
 }
 
 /** C: mkobj.c **`OIL_LAMP`** — **`age = rn1(500, 1000)`**, **`blessorcurse(otmp, 5)`**. */
@@ -193,6 +201,62 @@ export function consumeSamuraiHumanIniInvUinitRoleRngLikeC() {
 
     /* C **`u_init_role`**: **`if (!rn2(5)) ini_inv(Blindfold)`** after **`Samurai[]`**. */
     game._samuraiIniBlindfold = consumeIniInvBlindfoldLeafRngIfGateLikeC();
+}
+
+/**
+ * C: u_init.c **`PM_KNIGHT`** **`ini_inv(Knight[])`** for human (no **`Lamp`** / blindfold after pack).
+ * Apples/carrots: per-obj **`mksobj`** (**`next_ident`** + default FOOD **`!rn2(6)`** stack quan); entering APPLE/CARROT **`quan = 10 + rn2(1)`** each.
+ */
+export function consumeKnightHumanIniInvUinitRoleRngLikeC() {
+    /* LONG_SWORD +1 */
+    rn2(1);
+    nextIdentLikeC();
+    mksobjInitWeaponLikeC(OTYP_LONG_SWORD_MK, false);
+    rn2(1);
+
+    /* LANCE +1 */
+    rn2(1);
+    nextIdentLikeC();
+    mksobjInitWeaponLikeC(OTYP_LANCE_MK, false);
+    rn2(1);
+
+    /* RING_MAIL +1 */
+    rn2(1);
+    nextIdentLikeC();
+    mksobjInitArmorLikeC(false);
+    rn2(1);
+
+    /* HELMET +0 */
+    rn2(1);
+    nextIdentLikeC();
+    mksobjInitArmorLikeC(false);
+    rn2(1);
+
+    /* SMALL_SHIELD +0 */
+    rn2(1);
+    nextIdentLikeC();
+    mksobjInitArmorLikeC(false);
+    rn2(1);
+
+    /* LEATHER_GLOVES +0 */
+    rn2(1);
+    nextIdentLikeC();
+    mksobjInitArmorLikeC(false);
+    rn2(1);
+
+    game._knightIniAppleQuans = [];
+    rn2(1);
+    for (let i = 0; i < 10; i++) {
+        nextIdentLikeC();
+        game._knightIniAppleQuans.push(mksobjInitDefaultFoodQuanMaybeDoubleLikeC());
+    }
+
+    game._knightIniCarrotQuans = [];
+    rn2(1);
+    for (let i = 0; i < 10; i++) {
+        nextIdentLikeC();
+        game._knightIniCarrotQuans.push(mksobjInitDefaultFoodQuanMaybeDoubleLikeC());
+    }
 }
 
 /**
