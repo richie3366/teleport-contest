@@ -8,6 +8,7 @@
 
 import { G_GENOD } from './const.js';
 import { game } from './gstate.js';
+import { mvitalsNocorpseLikeC } from './mvitals.js';
 import { rnd, rn1, rn2 } from './rng.js';
 import {
     LITTLE_TO_BIG_GROWNUPS,
@@ -22,8 +23,6 @@ const G_UNIQ = 0x1000;
 const G_NOHELL = 0x0800;
 const G_HELL = 0x0400;
 const G_NOGEN = 0x0200;
-/** C `monflag.h` **`G_NOCORPSE`** */
-const G_NOCORPSE = 0x0010;
 /** C `monflag.h` **`G_FREQ`** mask */
 const G_FREQ = 0x0007;
 
@@ -346,7 +345,7 @@ export function mksobjInitFoodClassIniInvAfterOtypLikeC(otyp) {
             let cm = 0;
             do {
                 cm = undeadToCorpseIniInvLikeC(rndmonnumIniInvLikeC());
-            } while ((MONS_GENO_PLAN_B[cm] & G_NOCORPSE) !== 0 && --tryct > 0);
+            } while (mvitalsNocorpseLikeC(game, cm) && --tryct > 0);
             if (tryct === 0) {
                 /* C: **`corpsenm = PM_HUMAN`** — no extra RNG. */
             }
@@ -367,7 +366,7 @@ export function mksobjInitFoodClassIniInvAfterOtypLikeC(otyp) {
                 let tryct = 200;
                 while (tryct-- > 0) {
                     const mndx = undeadToCorpseIniInvLikeC(rndmonnumIniInvLikeC());
-                    if ((MONS_RNDMONST_CNUTRIT[mndx] | 0) !== 0 && (MONS_GENO_PLAN_B[mndx] & G_NOCORPSE) === 0) {
+                    if ((MONS_RNDMONST_CNUTRIT[mndx] | 0) !== 0 && !mvitalsNocorpseLikeC(game, mndx)) {
                         let r = rn2(TTSZ - 1);
                         if (r === ROTTEN_TIN && nonrottingCorpseIniInvLikeC(mndx)) r = HOMEMADE_TIN;
                         void r;
