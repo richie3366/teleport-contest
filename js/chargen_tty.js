@@ -1111,12 +1111,17 @@ function paintConfirmMenu(disp, f, plname) {
     coerceChargenIndicesForRoleSelectionPrologLikeC(d);
     disp.clearScreen();
     const rn = roleNameForDisplay(d.initrole, d.initgend);
-    /* C role_selection_prolog race line: races[c].noun — not the adjective */
-    const raceNoun = d.initrace >= 0 ? races[d.initrace].name : '???';
-    const gd = d.initgend === 1 ? 'female' : 'male';
-    const an = d.initalign >= 0 ? aligns[d.initalign].name : '???';
+    /* C role.c root_plselection_prompt ~1519–1525: with a valid role, racial word is races[].adj
+     * ("… lawful female gnomish cavewoman"); noun only when rolenum == ROLE_NONE. Separate
+     * role_selection_prolog race *line* still uses races[c].noun — different UI. */
+    const rc = d.initrace >= 0 ? races[d.initrace] : null;
+    const raceRecapTok = !rc
+        ? '???'
+        : (d.initrole >= 0 && d.initrole < roles.length ? rc.adj : rc.name);
+    const gd = d.initgend >= 0 && d.initgend < genders.length ? genders[d.initgend].adj : '???';
+    const an = d.initalign >= 0 ? aligns[d.initalign].adj : '???';
     const title = 'Is this ok? [ynaq]';
-    const recap = `${plname} the ${an} ${gd} ${raceNoun} ${rn}`;
+    const recap = `${plname} the ${an} ${gd} ${raceRecapTok} ${rn}`;
     const col = confirmMenuStartColLikeC([
         title,
         recap,
