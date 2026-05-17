@@ -1619,6 +1619,29 @@ function moneyCntInvent(g) {
     return (g._goldCount | 0) + (g.u?.umoney | 0);
 }
 
+/** C: **`shk.c`** **`money_cnt(gi.invent)`** — exported for **`priest.c`** / **`minion.c`** **`bribe`** callers. */
+export function moneyCntInventLikeC(g) {
+    return moneyCntInvent(g);
+}
+
+/** C: **`shk.c`** **`money_cnt(mtmp->minvent)`** — gold **`quan`** sum (any monster). */
+export function moneyCntMinventLikeC(mtmp) {
+    let n = 0;
+    for (let o = mtmp?.minvent; o; o = o.nobj) {
+        if ((o.oclass | 0) === NH5_COIN_CLASS) n += o.quan | 0;
+    }
+    return n;
+}
+
+/**
+ * C: **`shk.c`** **`money2mon`** — deduct hero gold (**`g._goldCount`** / **`u.umoney`**); no **`minvent`** attach yet.
+ * @param {import('./gstate.js').game} g
+ * @param {number} amt
+ */
+export function money2monDeductHeroLikeC(g, amt) {
+    money2monShk(g, null, amt);
+}
+
 /** C: **`shk.c`** **`money2mon`** subset — deduct hero gold. */
 function money2monShk(g, _shkp, amt) {
     let n = amt | 0;

@@ -23,7 +23,7 @@ import { makemon } from './makemon.js';
 import { delEngrAt } from './engrave.js';
 
 /** C: attrib.c **`adjalign`** — negative branch (**`record`**, **`abuse`**) subset. */
-function adjalignLikeC(g, n) {
+export function adjalignLikeC(g, n) {
     const u = g.u;
     if (!u) return;
     u.ualign = u.ualign || { type: 0, record: 0, abuse: 0 };

@@ -80,7 +80,7 @@ function histempleAtMonsterLikeC(g, priest, x, y) {
 }
 
 /** C: priest.c **`has_shrine`** — needs **`levl.altarmask`** (**`AM_SHRINE`**) + **`Amask2align`** vs **`EPRI->shralign`**. */
-function hasShrineMonsterLikeC(g, pri) {
+export function hasShrineMonsterLikeC(g, pri) {
     if (!pri || !(pri.ispriest | 0)) return false;
     const e = EPRI(pri);
     if (!e?.shrpos) return false;
@@ -96,7 +96,7 @@ function hasShrineMonsterLikeC(g, pri) {
 }
 
 /** C: priest.c **`inhistemple`** — **`histemple_at`** on **`mx,my`** + **`has_shrine`**. */
-function inhistempleMonsterLikeC(g, priest) {
+export function inhistempleMonsterLikeC(g, priest) {
     if (!priest || !(priest.ispriest | 0)) return false;
     if (!histempleAtMonsterLikeC(g, priest, priest.mx | 0, priest.my | 0)) return false;
     return hasShrineMonsterLikeC(g, priest);
@@ -115,7 +115,7 @@ function findPriestForShroomLikeC(g, shroom) {
 }
 
 /** C: priest.c **`p_coaligned`**. */
-function pCoalignedMonsterLikeC(g, priest) {
+export function pCoalignedMonsterLikeC(g, priest) {
     return (g.u?.ualign?.type | 0) === (monAligntypMonsterLikeC(priest) | 0);
 }
 
