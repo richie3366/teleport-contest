@@ -37,6 +37,7 @@ import { runDueNhObjTimers } from './obj_timeout_dispatch.js';
 import { bootstrapSpLevchnMinesMinetnFromBranchStubLikeC } from './sp_levchn.js';
 import { maybeRecordEnteredNewLevelLivelogLikeC } from './livelog.js';
 import { contextLeavingTutorialActiveLikeC } from './tutorial_branch.js';
+import { awaitLegacyIntroMoreLikeC } from './legacy_intro.js';
 
 // C ref: allmain.c newgame()
 export async function newgame() {
@@ -200,6 +201,9 @@ export async function newgame() {
     await docrt();
     await flush_screen(1);
     await bot();
+
+    /* C: allmain.c newgame — `if (flags.legacy) com_pager(...)` before `welcome(TRUE)`. */
+    await awaitLegacyIntroMoreLikeC();
 
     // Welcome message (C: allmain.c welcome(TRUE); pline format + buf like u_init.)
     const hi = welcomeInterjectionLikeC(g);

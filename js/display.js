@@ -22,6 +22,7 @@ import { describeLevelStatusSlotLikeC } from './describe_level.js';
 import { NO_COLOR, CLR_GRAY, CLR_BROWN, CLR_WHITE, CLR_YELLOW, CLR_GREEN, CLR_BLUE, CLR_CYAN, CLR_RED, CLR_MAGENTA, CLR_BRIGHT_BLUE, CLR_BRIGHT_MAGENTA, CLR_BRIGHT_CYAN, DEC_TO_UNICODE } from './terminal.js';
 import { paintInventoryIntoDisplay } from './invent.js';
 import { paintOverlayScreen } from './overlay_screens.js';
+import { paintLegacyIntroIntoDisplay } from './legacy_intro_paint.js';
 
 // C ref: win/tty/topl.c — `update_topl` same-line append (`n0 + strlen(gt.toplines) + 3 < CO - 8`).
 const DEFMORE_LEN = 8;
@@ -387,6 +388,17 @@ function _statusLine2() {
     return `${lvlSlot} $:${game._goldCount || 0} HP:${u.uhp || 0}(${u.uhpmax || 0}) Pw:${u.uen || 0}(${u.uenmax || 0}) AC:${u.uac ?? 10} Xp:${u.ulevel || 1}/${u.uexp || 0} T:${game.moves || 1}`;
 }
 
+/** Status rows for full-screen overlays (legacy intro, …). C tty keeps botl on rows 22–23. */
+export function paintStatusRowsForLegacyIntro(display) {
+    const s1 = _statusLine1().replace(/\x1b\[[0-9;]*[A-Za-z]/g, (m) =>
+        (m.match(/\x1b\[\d+C/) ? ' '.repeat(parseInt(m.slice(2), 10)) : ''));
+    for (let c = 0; c < Math.min(s1.length, display.cols); c++)
+        display.setCell(c, 22, s1[c], NO_COLOR, 0);
+    const s2 = _statusLine2();
+    for (let c = 0; c < Math.min(s2.length, display.cols); c++)
+        display.setCell(c, 23, s2[c], NO_COLOR, 0);
+}
+
 // ── Serialize terminal grid for screen comparison ──
 export function serialize_terminal_grid(display) {
     let output = '';
@@ -418,6 +430,14 @@ export function serialize_terminal_grid(display) {
 function _buildScreenOutput() {
     const display = game?.nhDisplay;
     if (!display) return;
+
+    /* C allmain.c newgame: `com_pager("legacy")` full-screen menu before `welcome(TRUE)`. */
+    if (game._legacyIntroActive) {
+        paintLegacyIntroIntoDisplay(display);
+        paintStatusRowsForLegacyIntro(display);
+        game._screen_output = display.terminal?.serialize ? display.terminal.serialize() : '';
+        return;
+    }
 
     if (game._overlayScreen) {
         display.clearScreen();
