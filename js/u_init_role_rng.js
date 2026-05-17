@@ -8,6 +8,21 @@ import { rnd, rn2, rne, rn1 } from './rng.js';
 import { OTYP_LEATHER_ARMOR, P_BOW, P_SHURIKEN } from './const.js';
 import { OC_SKILL_ROW_BY_OTYP } from './obj_oc_skill_data.js';
 import { iniInvMkobjFilterScrollClassMonkLikeC } from './mkobj_scroll_class_rng_like_c.js';
+import {
+    gnIniInvFreshLikeC,
+    iniInvGnAfterUndefAcceptLikeC,
+    iniInvMkobjFilterWizardHumanLikeC,
+} from './mkobj_wizard_ini_inv_filter_like_c.js';
+import {
+    NH5_ARMOR_CLASS,
+    NH5_POTION_CLASS,
+    NH5_RING_CLASS,
+    NH5_SCROLL_CLASS,
+    NH5_SPBOOK_CLASS,
+    NH5_TOOL_CLASS,
+    NH5_WAND_CLASS,
+    NH5_WEAPON_CLASS,
+} from './nh5_objclass.js';
 
 /** C objects_nums — OBJECTS_ENUM (nethack-c/upstream/include/objects.h). */
 const OTYP_DAGGER = 34;
@@ -25,6 +40,9 @@ const OTYP_LANCE_MK = 73;
 const OTYP_SACK = 216;
 const OTYP_LOCK_PICK = 221;
 const OTYP_POT_SICKNESS = 317;
+/** C Wizard[] — `OBJECTS_ENUM` / `objects.h`. */
+const OTYP_QUARTERSTAFF = 79;
+const OTYP_CLOAK_OF_MAGIC_RESISTANCE = 148;
 
 /** C: mkobj.c next_ident — ident += rnd(2) */
 function nextIdentLikeC() {
@@ -313,6 +331,89 @@ const OTYP_MONK_MSPELL_BOOKS = /** @type {const} */ ([373, 402, 376]);
  * C: u_init.c **`PM_MONK`** **`u_init_role`** — **`ini_inv(Monk[])`**, **`M_spell[rn2(90)/30]`**,
  * **`!rn2(4)`** **`Magicmarker`**, **`else if (!rn2(10))`** **`Lamp`** (human; no race subs).
  */
+/** C: `trquan()` when `trquan_min` non-zero — `min + rn2(max - min + 1)`. */
+function trquanMinMaxLikeC(min, max) {
+    if (!min) return 1;
+    return min + rn2(max - min + 1);
+}
+
+/**
+ * C: u_init.c **`PM_WIZARD`** **`ini_inv(Wizard[])`** for human (no race subs) + **`!rn2(5)`** blindfold.
+ * Order: **`trquan`** / **`mksobj`** / **`ini_inv_adjust_obj`** per C **`ini_inv`** + **`ini_inv_mkobj_filter`** gn state.
+ */
+export function consumeWizardHumanIniInvUinitRoleRngLikeC() {
+    const gn = gnIniInvFreshLikeC();
+
+    /* QUARTERSTAFF +1 blessed */
+    trquanMinMaxLikeC(1, 1);
+    nextIdentLikeC();
+    mksobjInitWeaponLikeC(OTYP_QUARTERSTAFF, false);
+    rn2(1);
+
+    /* CLOAK_OF_MAGIC_RESISTANCE +0 */
+    trquanMinMaxLikeC(1, 1);
+    nextIdentLikeC();
+    mksobjInitArmorLikeC(false);
+    rn2(1);
+
+    /* UNDEF wand */
+    trquanMinMaxLikeC(1, 1);
+    game._wizardIniWandOtyp = iniInvMkobjFilterWizardHumanLikeC(NH5_WAND_CLASS, false, gn, false);
+    iniInvGnAfterUndefAcceptLikeC(NH5_WAND_CLASS, game._wizardIniWandOtyp | 0, gn);
+    rn2(1);
+
+    const ringQ = trquanMinMaxLikeC(2, 2);
+    game._wizardIniRingQuan = ringQ;
+    game._wizardIniRingOtyps = [];
+    for (let i = 0; i < ringQ; i++) {
+        const ro = iniInvMkobjFilterWizardHumanLikeC(NH5_RING_CLASS, false, gn, false);
+        game._wizardIniRingOtyps.push(ro);
+        iniInvGnAfterUndefAcceptLikeC(NH5_RING_CLASS, ro, gn);
+        rn2(1);
+    }
+
+    const potQ = trquanMinMaxLikeC(3, 3);
+    game._wizardIniPotionQuan = potQ;
+    game._wizardIniPotionOtyps = [];
+    for (let i = 0; i < potQ; i++) {
+        const po = iniInvMkobjFilterWizardHumanLikeC(NH5_POTION_CLASS, false, gn, false);
+        game._wizardIniPotionOtyps.push(po);
+        iniInvGnAfterUndefAcceptLikeC(NH5_POTION_CLASS, po, gn);
+        rn2(1);
+    }
+
+    const scrQ = trquanMinMaxLikeC(3, 3);
+    game._wizardIniScrollQuan = scrQ;
+    game._wizardIniScrollOtyps = [];
+    for (let i = 0; i < scrQ; i++) {
+        const so = iniInvMkobjFilterWizardHumanLikeC(NH5_SCROLL_CLASS, false, gn, false);
+        game._wizardIniScrollOtyps.push(so);
+        iniInvGnAfterUndefAcceptLikeC(NH5_SCROLL_CLASS, so, gn);
+        rn2(1);
+    }
+
+    /* SPE_FORCE_BOLT — fixed; sets **`got_sp1`** in C before UNDEF spellbook */
+    trquanMinMaxLikeC(1, 1);
+    nextIdentLikeC();
+    mksobjInitSpellbookIniInvLikeC();
+    rn2(1);
+
+    /* UNDEF spellbook — `got_level1_spellbook` TRUE */
+    trquanMinMaxLikeC(1, 1);
+    game._wizardIniSecondSpellbookOtyp = iniInvMkobjFilterWizardHumanLikeC(NH5_SPBOOK_CLASS, true, gn, false);
+    iniInvGnAfterUndefAcceptLikeC(NH5_SPBOOK_CLASS, game._wizardIniSecondSpellbookOtyp | 0, gn);
+    rn2(1);
+
+    /* MAGIC_MARKER — C: `mksobj_init` **`rn1(70,30)`** then **`ini_inv_adjust_obj`** forces **`spe`** **19** + **`rn2(4)`** */
+    trquanMinMaxLikeC(1, 1);
+    nextIdentLikeC();
+    mksobjInitMagicMarkerSpeRn1LikeC();
+    game._wizardIniMagicmarkerSpe = 19 + rn2(4);
+    rn2(1);
+
+    game._wizardIniBlindfold = consumeIniInvBlindfoldLeafRngIfGateLikeC();
+}
+
 export function consumeMonkHumanIniInvUinitRoleRngLikeC() {
     /* `quan = trquan` — gloves `1+rn2(1)` */
     rn2(1);
