@@ -34,3 +34,8 @@ Everything else under `js/` is fair game.
 
 - [docs/PHASES.md](docs/PHASES.md) — Phase 2 rewards maintainable `js/`; prefer clear structure.
 - [nethack-c/README.md](nethack-c/README.md) — patched **clang** recorder vs vanilla upstream.
+
+## C upstream (`nethack-c/upstream/`)
+
+- Initialize on a fresh clone: `git submodule update --init nethack-c/upstream` (see [AGENTS.md](../../AGENTS.md)).
+- **Tooling:** that tree is a **nested git repo**. Workspace **Glob** / some **rg** scopes often **omit or under-index** it even when checked out. To read C: **`read_file`** on paths under `nethack-c/upstream/`, or **terminal** `rg`/`grep` with an **explicit path** there (e.g. `rg pattern nethack-c/upstream/src`), or `rg --no-ignore-vcs` if ignores hide matches.

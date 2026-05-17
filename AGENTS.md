@@ -11,3 +11,5 @@ This repository is a **Teleport Coding Challenge** fork: port NetHack 5.0 to Jav
 **Do not edit** contest-frozen harness files (the judge overlays them): `js/isaac64.js`, `js/terminal.js`, `js/storage.js`.
 
 **C reference** lives in the submodule `nethack-c/upstream/` (NetHack 5.0.0 release tag). Initialize it with `git submodule update --init nethack-c/upstream` before deep work in that tree.
+
+**Finding C in tools:** `nethack-c/upstream` is a nested repository, so IDE **Glob** / default workspace **code search** may skip it even when present. Prefer **`read_file`** on paths under that directory, **terminal `rg`/`grep`** with an explicit path (e.g. `rg pattern nethack-c/upstream/include`), or `rg --no-ignore-vcs`. Same reminder lives in **`.cursor/rules/teleport-contest.mdc`** (always applied).
