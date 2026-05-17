@@ -3,6 +3,7 @@
 
 import { game } from './gstate.js';
 import { NO_COLOR } from './terminal.js';
+import { rankHeroTitleLikeC } from './roles.js';
 
 /** C role.c pantheon: lgod, ngod, cgod. */
 const ROLE_PANTHEON = {
@@ -45,11 +46,7 @@ function alignGtitleLikeC(g) {
 }
 
 function rankTitleAtNewgameLikeC(g) {
-    const female = !!g.flags?.female;
-    const role = g.urole;
-    if (!role) return 'Player';
-    if (female && role.rank?.f) return role.rank.f;
-    return role.rank?.m || role.name?.m || 'Player';
+    return rankHeroTitleLikeC(g);
 }
 
 function substituteLegacyLine(line, g) {

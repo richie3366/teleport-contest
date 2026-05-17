@@ -14,6 +14,7 @@ import { enlightPlaytimeLine } from './enlight_misc.js';
 import { A_STR, A_INT, A_WIS, A_DEX, A_CON, A_CHA } from './const.js';
 import { mergeSpellbookObjectDiscoveryIntoGroups } from './spellbook_discovery_lines.js';
 import { mergeScrollDiscoveryIntoGroups } from './scroll_discovery_lines.js';
+import { rankOfRoleLikeC } from './roles.js';
 
 /** @param {import('./game_display.js').GameDisplay} display */
 export function paintDiscoveriesIntoDisplay(display) {
@@ -83,10 +84,10 @@ export function paintAttributesIntoDisplay(display, page) {
     const pl = g.plname || 'Contestant';
     const female = !!g.flags?.female;
     const gender = female ? 'female' : 'male';
-    const rank = female ? g.urole?.rank?.f : g.urole?.rank?.m;
+    const lev = u.ulevel ?? 1;
+    const rank = rankOfRoleLikeC(g.urole, lev, female);
     const roleName = female ? g.urole?.name?.f : g.urole?.name?.m;
     const race = g.urace?.adj || 'human';
-    const lev = u.ulevel ?? 1;
     const dname = g.dungeons?.[0]?.dname || 'The Dungeons of Doom';
     const dnameInSentence = dname.replace(/^The /, 'the ');
     const dlev = u.uz?.dlevel ?? 1;

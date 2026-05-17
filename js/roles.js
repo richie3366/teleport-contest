@@ -2,13 +2,15 @@
 // C ref: role.c — roles[], races[], aligns[] (NetHack 5.0.0); validrole/validrace,
 //       validgend/validalign, randrace/randalign/randgend; role_init() vs coerceChargenIdentity.
 //
-// `rank` is the XL 1 title (first row in role.c for each role).
+// `rank` duplicates XL1 titles; `ranks` is nine slots from C role.c for botl rank_of().
 // `allows` mirrors each role's final selfmask (lawful/neutral/chaotic,
 // races, gender): see `roles[]` entries in role.c.
 
 import { permonstHuman } from './mondata.js';
 import { STR18 } from './const.js';
 import { rn2 } from './rng.js';
+import { game } from './gstate.js';
+import { ROLE_RANK_TITLES_BY_ABBR } from './role_ranks_like_c.js';
 
 /** Alignment as u.ualign.type: A_LAWFUL=1, A_NEUTRAL=0, A_CHAOTIC=-1 */
 
@@ -21,6 +23,7 @@ import { rn2 } from './rng.js';
  *   abbr: string,
  *   name: { m: string, f: string },
  *   rank: { m: string, f: string },
+ *   ranks: Array<{ m: string, f?: string }>,
  *   mnum: number,
  *   allows: { align: number[], races: string[], gender: 'any' | 'female' | 'male' },
  *   attrbase: number[],
@@ -34,78 +37,91 @@ import { rn2 } from './rng.js';
 /** @type {RoleRow[]} */
 export const roles = [
     { abbr: 'Arc', name: { m: 'Archeologist', f: 'Archeologist' }, rank: { m: 'Digger', f: 'Digger' }, mnum: 0,
+      ranks: ROLE_RANK_TITLES_BY_ABBR.Arc,
       allows: { align: [1, 0], races: ['human', 'dwarf', 'gnome'], gender: 'any' },
       attrbase: [7, 10, 10, 7, 7, 7], attrdist: [20, 20, 20, 10, 20, 10],
       hpadv: { infix: 11, inrnd: 0, lofix: 0, lornd: 8, hifix: 1, hirnd: 0 },
       enadv: { infix: 1, inrnd: 0, lofix: 0, lornd: 1, hifix: 0, hirnd: 1 },
       initrecord: 10 },
     { abbr: 'Bar', name: { m: 'Barbarian', f: 'Barbarian' }, rank: { m: 'Plunderer', f: 'Plunderess' }, mnum: 1,
+      ranks: ROLE_RANK_TITLES_BY_ABBR.Bar,
       allows: { align: [0, -1], races: ['human', 'orc'], gender: 'any' },
       attrbase: [16, 7, 7, 15, 16, 6], attrdist: [30, 6, 7, 20, 30, 7],
       hpadv: { infix: 14, inrnd: 0, lofix: 0, lornd: 10, hifix: 2, hirnd: 0 },
       enadv: { infix: 1, inrnd: 0, lofix: 0, lornd: 1, hifix: 0, hirnd: 1 },
       initrecord: 14 },
     { abbr: 'Cav', name: { m: 'Caveman', f: 'Cavewoman' }, rank: { m: 'Troglodyte', f: 'Troglodyte' }, mnum: 2,
+      ranks: ROLE_RANK_TITLES_BY_ABBR.Cav,
       allows: { align: [1, 0], races: ['human', 'dwarf', 'gnome'], gender: 'any' },
       attrbase: [10, 7, 7, 7, 8, 6], attrdist: [30, 6, 7, 20, 30, 7],
       hpadv: { infix: 14, inrnd: 0, lofix: 0, lornd: 8, hifix: 2, hirnd: 0 },
       enadv: { infix: 1, inrnd: 0, lofix: 0, lornd: 1, hifix: 0, hirnd: 1 },
       initrecord: 0 },
     { abbr: 'Hea', name: { m: 'Healer', f: 'Healer' }, rank: { m: 'Rhizotomist', f: 'Rhizotomist' }, mnum: 3,
+      ranks: ROLE_RANK_TITLES_BY_ABBR.Hea,
       allows: { align: [0], races: ['human', 'gnome'], gender: 'any' },
       attrbase: [7, 7, 13, 7, 11, 16], attrdist: [15, 20, 20, 15, 25, 5],
       hpadv: { infix: 11, inrnd: 0, lofix: 0, lornd: 8, hifix: 1, hirnd: 0 },
       enadv: { infix: 1, inrnd: 4, lofix: 0, lornd: 1, hifix: 0, hirnd: 2 },
       initrecord: 10 },
     { abbr: 'Kni', name: { m: 'Knight', f: 'Knight' }, rank: { m: 'Gallant', f: 'Gallant' }, mnum: 4,
+      ranks: ROLE_RANK_TITLES_BY_ABBR.Kni,
       allows: { align: [1], races: ['human'], gender: 'any' },
       attrbase: [13, 7, 14, 8, 10, 17], attrdist: [30, 15, 15, 10, 20, 10],
       hpadv: { infix: 14, inrnd: 0, lofix: 0, lornd: 8, hifix: 2, hirnd: 0 },
       enadv: { infix: 1, inrnd: 4, lofix: 0, lornd: 1, hifix: 0, hirnd: 2 },
       initrecord: 8 },
     { abbr: 'Mon', name: { m: 'Monk', f: 'Monk' }, rank: { m: 'Candidate', f: 'Candidate' }, mnum: 5,
+      ranks: ROLE_RANK_TITLES_BY_ABBR.Mon,
       allows: { align: [1, 0, -1], races: ['human'], gender: 'any' },
       attrbase: [10, 7, 8, 8, 7, 7], attrdist: [25, 10, 20, 20, 15, 10],
       hpadv: { infix: 12, inrnd: 0, lofix: 0, lornd: 8, hifix: 1, hirnd: 0 },
       enadv: { infix: 2, inrnd: 2, lofix: 0, lornd: 2, hifix: 0, hirnd: 2 },
       initrecord: 8 },
     { abbr: 'Pri', name: { m: 'Priest', f: 'Priestess' }, rank: { m: 'Aspirant', f: 'Aspirant' }, mnum: 6,
+      ranks: ROLE_RANK_TITLES_BY_ABBR.Pri,
       allows: { align: [1, 0, -1], races: ['human', 'elf'], gender: 'any' },
       attrbase: [7, 7, 10, 7, 7, 7], attrdist: [15, 10, 30, 15, 20, 10],
       hpadv: { infix: 12, inrnd: 0, lofix: 0, lornd: 8, hifix: 1, hirnd: 0 },
       enadv: { infix: 4, inrnd: 3, lofix: 0, lornd: 2, hifix: 0, hirnd: 2 },
       initrecord: 0 },
     { abbr: 'Ran', name: { m: 'Ranger', f: 'Ranger' }, rank: { m: 'Tenderfoot', f: 'Tenderfoot' }, mnum: 7,
+      ranks: ROLE_RANK_TITLES_BY_ABBR.Ran,
       allows: { align: [0, -1], races: ['human', 'elf', 'gnome', 'orc'], gender: 'any' },
       attrbase: [13, 13, 13, 9, 13, 7], attrdist: [30, 10, 10, 20, 20, 10],
       hpadv: { infix: 13, inrnd: 0, lofix: 0, lornd: 6, hifix: 1, hirnd: 0 },
       enadv: { infix: 1, inrnd: 0, lofix: 0, lornd: 1, hifix: 0, hirnd: 1 },
       initrecord: 9 },
     { abbr: 'Rog', name: { m: 'Rogue', f: 'Rogue' }, rank: { m: 'Footpad', f: 'Footpad' }, mnum: 8,
+      ranks: ROLE_RANK_TITLES_BY_ABBR.Rog,
       allows: { align: [-1], races: ['human', 'orc'], gender: 'any' },
       attrbase: [7, 7, 7, 10, 7, 6], attrdist: [20, 10, 10, 30, 20, 10],
       hpadv: { infix: 10, inrnd: 0, lofix: 0, lornd: 8, hifix: 1, hirnd: 0 },
       enadv: { infix: 1, inrnd: 0, lofix: 0, lornd: 1, hifix: 0, hirnd: 1 },
       initrecord: 10 },
     { abbr: 'Sam', name: { m: 'Samurai', f: 'Samurai' }, rank: { m: 'Hatamoto', f: 'Hatamoto' }, mnum: 9,
+      ranks: ROLE_RANK_TITLES_BY_ABBR.Sam,
       allows: { align: [1], races: ['human'], gender: 'any' },
       attrbase: [10, 8, 7, 10, 17, 6], attrdist: [30, 10, 8, 30, 14, 8],
       hpadv: { infix: 13, inrnd: 0, lofix: 0, lornd: 8, hifix: 1, hirnd: 0 },
       enadv: { infix: 1, inrnd: 0, lofix: 0, lornd: 1, hifix: 0, hirnd: 1 },
       initrecord: 10 },
     { abbr: 'Tou', name: { m: 'Tourist', f: 'Tourist' }, rank: { m: 'Rambler', f: 'Rambler' }, mnum: 10,
+      ranks: ROLE_RANK_TITLES_BY_ABBR.Tou,
       allows: { align: [0], races: ['human'], gender: 'any' },
       attrbase: [7, 10, 6, 7, 7, 10], attrdist: [15, 10, 10, 15, 30, 20],
       hpadv: { infix: 8, inrnd: 0, lofix: 0, lornd: 8, hifix: 0, hirnd: 0 },
       enadv: { infix: 1, inrnd: 0, lofix: 0, lornd: 1, hifix: 0, hirnd: 1 },
       initrecord: 0 },
     { abbr: 'Val', name: { m: 'Valkyrie', f: 'Valkyrie' }, rank: { m: 'Stripling', f: 'Stripling' }, mnum: 11,
+      ranks: ROLE_RANK_TITLES_BY_ABBR.Val,
       allows: { align: [1, 0], races: ['human', 'dwarf'], gender: 'female' },
       attrbase: [10, 7, 7, 7, 10, 7], attrdist: [30, 6, 7, 20, 30, 7],
       hpadv: { infix: 14, inrnd: 0, lofix: 0, lornd: 8, hifix: 2, hirnd: 0 },
       enadv: { infix: 1, inrnd: 0, lofix: 0, lornd: 1, hifix: 0, hirnd: 1 },
       initrecord: 0 },
     { abbr: 'Wiz', name: { m: 'Wizard', f: 'Wizard' }, rank: { m: 'Evoker', f: 'Evoker' }, mnum: 12,
+      ranks: ROLE_RANK_TITLES_BY_ABBR.Wiz,
       allows: { align: [0, -1], races: ['human', 'elf', 'gnome', 'orc'], gender: 'any' },
       attrbase: [7, 10, 7, 7, 7, 7], attrdist: [10, 30, 10, 20, 20, 10],
       hpadv: { infix: 10, inrnd: 0, lofix: 0, lornd: 8, hifix: 1, hirnd: 0 },
@@ -523,4 +539,54 @@ export function coerceChargenIdentity(role, race, alignType, female) {
     }
 
     return { race: r, alignType: al, female: f };
+}
+
+/**
+ * C: botl.c xlev_to_rank — experience level **1..30** → rank slot **0..8**.
+ * @param {number} xlev
+ * @returns {number}
+ */
+export function xlevToRankLikeC(xlev) {
+    const x = xlev | 0;
+    return (x <= 2) ? 0 : (x <= 30) ? Math.trunc((x + 2) / 4) : 8;
+}
+
+/**
+ * C: botl.c rank_of(lev, monnum, female) — **monnum** / **Role_switch** omitted; caller passes **`g.urole`**.
+ * @param {RoleRow | null | undefined} role
+ * @param {number} lev — **`u.ulevel`**
+ * @param {boolean} female — **`flags.female`**
+ * @returns {string}
+ */
+export function rankOfRoleLikeC(role, lev, female) {
+    if (!role?.name?.m) return 'Player';
+    const ranks = role.ranks;
+    const level = lev > 0 ? lev : 1;
+    if (!ranks?.length) {
+        const r = role.rank;
+        if (female && r?.f) return r.f;
+        return r?.m || (female && role.name.f ? role.name.f : role.name.m) || 'Player';
+    }
+    let ri = xlevToRankLikeC(level);
+    if (ri >= ranks.length) ri = ranks.length - 1;
+    for (let i = ri; i >= 0; i--) {
+        const r = ranks[i];
+        if (!r) continue;
+        if (female && r.f) return r.f;
+        if (r.m) return r.m;
+    }
+    if (female && role.name.f) return role.name.f;
+    if (role.name.m) return role.name.m;
+    return 'Player';
+}
+
+/**
+ * C: botl.c rank() — **`rank_of(u.ulevel, Role_switch, flags.female)`**.
+ * @param {import('./gstate.js').game} [g]
+ */
+export function rankHeroTitleLikeC(g = game) {
+    const u = g?.u;
+    const lev = u?.ulevel != null ? u.ulevel | 0 : 1;
+    const female = !!g?.flags?.female;
+    return rankOfRoleLikeC(g?.urole, lev, female);
 }

@@ -18,6 +18,7 @@ import {
     A_STR, A_INT, A_WIS, A_DEX, A_CON, A_CHA,
 } from './const.js';
 import { acurr, getStrengthStrLikeC } from './attrib.js';
+import { rankHeroTitleLikeC } from './roles.js';
 import { describeLevelStatusSlotLikeC } from './describe_level.js';
 import { NO_COLOR, CLR_GRAY, CLR_BROWN, CLR_WHITE, CLR_YELLOW, CLR_GREEN, CLR_BLUE, CLR_CYAN, CLR_RED, CLR_MAGENTA, CLR_BRIGHT_BLUE, CLR_BRIGHT_MAGENTA, CLR_BRIGHT_CYAN, DEC_TO_UNICODE } from './terminal.js';
 import { paintInventoryIntoDisplay } from './invent.js';
@@ -369,7 +370,7 @@ function _statusLine1() {
     const u = game.u;
     if (!u) return '';
     const name = game.plname || 'Hero';
-    const role = game.urole?.rank?.m || game.urole?.name?.m || 'Adventurer';
+    const role = rankHeroTitleLikeC(game);
     const title = `${name} the ${role}`;
     const stats = `St:${getStrengthStrLikeC()} Dx:${acurr(A_DEX) || '?'} Co:${acurr(A_CON) || '?'} In:${acurr(A_INT) || '?'} Wi:${acurr(A_WIS) || '?'} Ch:${acurr(A_CHA) || '?'}`;
     const align = u.ualign?.type === 0 ? 'Neutral' : u.ualign?.type > 0 ? 'Lawful' : 'Chaotic';
