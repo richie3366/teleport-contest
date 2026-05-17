@@ -12,12 +12,24 @@ import {
 const AC_MAX = 99;
 
 /**
- * C `objects[].a_ac` for armor the port actually wears in JS (NH5 `objects_nums` `otyp`).
- * From objects.h `ARMOR` → OBJECT `10 - ac` in oc_oc1. Extend when new otyps are equipped.
+ * C `objects[].a_ac` (= OBJECT `10 - ac` in objects.h `ARMOR`/`HELM`/`CLOAK`/…) for NH5 `objects_nums`
+ * `otyp` values. Anchored vs **`HAWAIIAN_SHIRT`** **136** (see **`shop.js`**); indices from
+ * `nethack-c/upstream/include/objects.h` symbol order. Extend when new worn otyps appear.
  * @type {ReadonlyMap<number, number>}
  */
 const OBJECTS_A_AC_ARMOR = new Map([
-    [134, 2], /* LEATHER_ARMOR — ac 8 → a_ac 2 */
+    [93, 0], /* FEDORA — ac 10 */
+    [95, 1], /* HELMET */
+    [124, 6], /* SPLINT_MAIL — ac 4 */
+    [132, 3], /* RING_MAIL — ac 7 */
+    [134, 2], /* LEATHER_ARMOR — ac 8 */
+    [135, 1], /* LEATHER_JACKET — ac 9 */
+    [136, 0], /* HAWAIIAN_SHIRT — ac 10 */
+    [143, 2], /* ROBE (cloak) — ac 8 */
+    [148, 1], /* CLOAK_OF_MAGIC_RESISTANCE */
+    [149, 1], /* CLOAK_OF_DISPLACEMENT */
+    [150, 1], /* SMALL_SHIELD */
+    [159, 1], /* LEATHER_GLOVES */
 ]);
 
 /**
