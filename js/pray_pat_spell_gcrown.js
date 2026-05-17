@@ -36,6 +36,7 @@ import { addWeaponSkill, unrestrictWeaponSkill } from './u_init_skills.js';
 import { weaponType } from './weapon_kind.js';
 import { discoverArtifactHeroLikeC, artifactOriginHeroLikeC } from './artifact_discover_like_c.js';
 import { livelogPrintfLikeC } from './livelog.js';
+import { alignGnameLikeC, uGnameHeroLikeC, uhisHeroLikeC } from './pray_align_gname_like_c.js';
 
 /** C: pray.c `#define PIOUS 20` */
 const PIOUS = 20;
@@ -388,31 +389,7 @@ async function godvoiceLikeC(g, gAlign, words, godvoices) {
     const gv = godvoices[rn2(godvoices.length)];
     const w = words || '';
     const quot = w ? '"' : '';
-    await pline(`The voice of ${alignGnameGcrownLikeC(g, gAlign)} ${gv}: ${quot}${w}${quot}`);
-}
-
-function alignGnameGcrownLikeC(g, aligntyp) {
-    const u = g.u;
-    const heroT = u?.ualign?.type ?? 0;
-    if ((aligntyp | 0) === (heroT | 0)) {
-        const role = g.urole?.name?.m || 'Tourist';
-        if (role) return role; /* stub: u_gname() */
-    }
-    if ((aligntyp | 0) === A_LAWFUL) return 'a Lawful deity';
-    if ((aligntyp | 0) === A_CHAOTIC) return 'a Chaotic deity';
-    if ((aligntyp | 0) === A_NEUTRAL) return 'a Neutral deity';
-    return 'the void';
-}
-
-/** C: **`u_gname()`** — contest: deity label stub (**`alignGnameGcrownLikeC`** at hero align). */
-function uGnameLikeC(g) {
-    return alignGnameGcrownLikeC(g, g.u?.ualign?.type ?? 0);
-}
-
-/** C: **`uhis()`** — possessive pronoun for **`gcrownu`** **`livelog_printf`**. */
-function uhisLikeC(g) {
-    if (g.flags?.female) return 'her';
-    return 'his';
+    await pline(`The voice of ${alignGnameLikeC(g, gAlign)} ${gv}: ${quot}${w}${quot}`);
 }
 
 /** C: **`artiname(arti)`** — artifact gift names in **`gcrownu`** **`livelog`**. */
@@ -477,17 +454,17 @@ export async function gcrownuHeroLikeC(g, godvoices) {
     if (al === A_LAWFUL) {
         u.uevent.uhand_of_elbereth = 1;
         await pline('I crown thee... The Hand of Elbereth!');
-        livelogPrintfLikeC(g, LL_DIVINEGIFT, 'was crowned "The Hand of Elbereth" by %s', uGnameLikeC(g));
+        livelogPrintfLikeC(g, LL_DIVINEGIFT, 'was crowned "The Hand of Elbereth" by %s', uGnameHeroLikeC(g));
     } else if (al === A_NEUTRAL) {
         u.uevent.uhand_of_elbereth = 2;
         await pline('Thou shalt be my Envoy of Balance!');
-        livelogPrintfLikeC(g, LL_DIVINEGIFT, 'became %s Envoy of Balance', sSuffixLikeC(uGnameLikeC(g)));
+        livelogPrintfLikeC(g, LL_DIVINEGIFT, 'became %s Envoy of Balance', sSuffixLikeC(uGnameHeroLikeC(g)));
     } else if (al === A_CHAOTIC) {
         u.uevent.uhand_of_elbereth = 3;
         const what =
             ((alreadyStorm && !inHandStorm) || classGiftNonStrange) ? 'take lives' : 'steal souls';
         await pline(`Thou art chosen to ${what} for My Glory!`);
-        livelogPrintfLikeC(g, LL_DIVINEGIFT, 'was chosen to %s for the Glory of %s', what, uGnameLikeC(g));
+        livelogPrintfLikeC(g, LL_DIVINEGIFT, 'was chosen to %s for the Glory of %s', what, uGnameHeroLikeC(g));
     }
 
     if (classGift !== STRANGE_OBJECT && SPELLBOOK_OTYP_OC_SKILL.has(classGift)) {
@@ -542,7 +519,7 @@ export async function gcrownuHeroLikeC(g, godvoices) {
                 g,
                 LL_DIVINEGIFT | LL_ARTIFACT,
                 'had %s wielded %s transformed into %s',
-                uhisLikeC(g),
+                uhisHeroLikeC(g),
                 lbuf,
                 artinameLikeC(ART_EXCALIBUR),
             );

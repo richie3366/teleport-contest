@@ -21,7 +21,7 @@ import {
     Amask2align,
 } from './const.js';
 import { heroLuck } from './water_damage.js';
-import { enlightMissionLines } from './enlght_patrons.js';
+import { alignGnameLikeC, uGnameHeroLikeC } from './pray_align_gname_like_c.js';
 import { rn1, rn2, rnz, rnl } from './rng.js';
 import { adjattrib, changeLuck } from './attrib.js';
 import { losexpNullLikeC } from './losexp.js';
@@ -52,11 +52,6 @@ const S_HUMAN_MLET = 53;
 const HELM_OF_OPPOSITE_ALIGNMENT = 100;
 /** C: pray.c **`godvoices[]`** — **`ROLL_FROM`** for **`godvoice`**. */
 const GODVOICES = ['booms out', 'thunders', 'rings out', 'booms'];
-
-/** @param {import('./gstate.js').game} g */
-function uGnameLikeC(g) {
-    return alignGnamePrayTargetLikeC(g, g.u?.ualign?.type ?? 0);
-}
 
 /**
  * C: pray.c **`pleased`** **`pat_on_head`** cases **2** (golden heal / **`pluslvl`**) and fallthrough from **3**.
@@ -129,7 +124,7 @@ async function applyPleasedPatOnHeadSwitchLikeC(g, g_align, patSw) {
                 if (!blind) {
                     await pline(`${doname(uwep, g)} softly glows amber${repairBuf}.`);
                 } else {
-                    await pline(`You feel the power of ${uGnameLikeC(g)} over ${doname(uwep, g)}.`);
+                    await pline(`You feel the power of ${uGnameHeroLikeC(g)} over ${doname(uwep, g)}.`);
                 }
                 uwep.cursed = 0;
                 uwep.bknown = 1;
@@ -138,7 +133,7 @@ async function applyPleasedPatOnHeadSwitchLikeC(g, g_align, patSw) {
                 if (!blind) {
                     await pline(`${doname(uwep, g)} softly glows with a light blue aura${repairBuf}.`);
                 } else {
-                    await pline(`You feel the blessing of ${uGnameLikeC(g)} over ${doname(uwep, g)}.`);
+                    await pline(`You feel the blessing of ${uGnameHeroLikeC(g)} over ${doname(uwep, g)}.`);
                 }
                 uwep.blessed = 1;
                 uwep.cursed = 0;
@@ -162,7 +157,7 @@ async function applyPleasedPatOnHeadSwitchLikeC(g, g_align, patSw) {
             if (noBridge && noGeh) {
                 if ((ev.uheard_tune | 0) < 1) {
                     const gv = GODVOICES[rn2(GODVOICES.length)];
-                    await pline(`The voice of ${alignGnamePrayTargetLikeC(g, g_align)} ${gv}:`);
+                    await pline(`The voice of ${alignGnameLikeC(g, g_align)} ${gv}:`);
                     const mortalOrCreature =
                         (u.youmonst?.data?.mlet | 0) === S_HUMAN_MLET ? 'mortal' : 'creature';
                     await pline(`"Hark, ${mortalOrCreature}!"`);
@@ -186,7 +181,7 @@ async function applyPleasedPatOnHeadSwitchLikeC(g, g_align, patSw) {
         case 4: {
             let any = 0;
             const blind = !!(u.Blind | 0) || !!(u.ublind | 0) || (u.timed?.blind ?? 0) > 0;
-            if (blind) await pline(`You feel the power of ${uGnameLikeC(g)}.`);
+            if (blind) await pline(`You feel the power of ${uGnameHeroLikeC(g)}.`);
             else await pline('You are surrounded by a light blue aura.');
             for (let o = g.invent; o; o = o.nobj) {
                 if (!(o.cursed | 0)) continue;
@@ -215,23 +210,8 @@ async function applyPleasedPatOnHeadSwitchLikeC(g, g_align, patSw) {
 }
 
 /** @param {import('./gstate.js').game} g */
-function alignGnamePrayTargetLikeC(g, aligntyp) {
-    const heroT = g.u?.ualign?.type ?? 0;
-    if ((aligntyp | 0) === (heroT | 0)) {
-        const role = g.urole?.name?.m || 'Tourist';
-        const lines = enlightMissionLines(role, heroT);
-        const m = lines[0]?.match(/for ([^.]+)/);
-        if (m) return m[1].trim();
-    }
-    if ((aligntyp | 0) === A_LAWFUL) return 'a Lawful deity';
-    if ((aligntyp | 0) === A_CHAOTIC) return 'a Chaotic deity';
-    if ((aligntyp | 0) === A_NEUTRAL) return 'a Neutral deity';
-    return 'the void';
-}
-
-/** @param {import('./gstate.js').game} g */
 function alignGnameRespGodLikeC(g, respGod) {
-    return alignGnamePrayTargetLikeC(g, respGod);
+    return alignGnameLikeC(g, respGod);
 }
 
 /** C: pray.c in_trouble — worst problem; stub 0 (no serious trouble). */
@@ -266,7 +246,7 @@ async function canPraySetupLikeC(g, praying) {
     g._prayGp = { p_aligntyp: pAligntyp, p_trouble: pTrouble, p_type: 0 };
 
     if (praying) {
-        await pline(`You begin praying to ${alignGnamePrayTargetLikeC(g, pAligntyp)}.`);
+        await pline(`You begin praying to ${alignGnameLikeC(g, pAligntyp)}.`);
     }
 
     let alignment;
@@ -354,7 +334,7 @@ async function pleasedHeroLikeC(g, g_align) {
     else if (record >= STRIDENT) recPhrase = hallu ? 'ticklish' : 'pleased';
     else recPhrase = hallu ? 'full' : 'satisfied';
 
-    await pline(`You feel that ${alignGnamePrayTargetLikeC(g, g_align)} is ${recPhrase}.`);
+    await pline(`You feel that ${alignGnameLikeC(g, g_align)} is ${recPhrase}.`);
 
     if (onAltar && (gp.p_aligntyp | 0) !== (u.ualign?.type | 0)) {
         adjalignLikeC(g, -1);
@@ -547,7 +527,7 @@ async function prayerDoneLikeC(g) {
     const alignment = gp.p_aligntyp | 0;
 
     if (In_hell(u.uz)) {
-        await pline(`Since you are in Gehennom, ${alignGnamePrayTargetLikeC(g, alignment)} can't help you.`);
+        await pline(`Since you are in Gehennom, ${alignGnameLikeC(g, alignment)} can't help you.`);
         if ((u.ualign?.record | 0) <= 0 || rnl(u.ualign.record | 0)) {
             await angrygodsLikeC(g, u.ualign.type | 0);
         }

@@ -6,28 +6,15 @@ import {
     PROTECTION,
     FROMOUTSIDE,
     INTRINSIC,
-    A_LAWFUL,
-    A_NEUTRAL,
-    A_CHAOTIC,
 } from './const.js';
 import { rn1, rn2 } from './rng.js';
 import { findAc } from './u_init_find_ac.js';
 import { pline } from './display.js';
-import { enlightMissionLines } from './enlght_patrons.js';
+import { uGnameHeroLikeC } from './pray_align_gname_like_c.js';
 
 /** @param {import('./gstate.js').game} g */
 function alignGnameUalignTypeLikeC(g) {
-    const u = g?.u;
-    if (!u) return 'your god';
-    const t = u.ualign?.type ?? 0;
-    const role = g.urole?.name?.m || 'Tourist';
-    const lines = enlightMissionLines(role, t);
-    const m = lines[0]?.match(/for ([^.]+)/);
-    if (m) return m[1].trim();
-    if ((t | 0) === A_LAWFUL) return 'a Lawful deity';
-    if ((t | 0) === A_CHAOTIC) return 'a Chaotic deity';
-    if ((t | 0) === A_NEUTRAL) return 'a Neutral deity';
-    return 'the void';
+    return uGnameHeroLikeC(g);
 }
 
 /** @param {import('./gstate.js').game} g */

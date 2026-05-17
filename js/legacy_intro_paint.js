@@ -4,45 +4,14 @@
 import { game } from './gstate.js';
 import { NO_COLOR } from './terminal.js';
 import { rankHeroTitleLikeC } from './roles.js';
+import { alignGnameLikeC, alignGtitleLikeC } from './pray_align_gname_like_c.js';
 
-/** C role.c pantheon: lgod, ngod, cgod. */
-const ROLE_PANTHEON = {
-    Arc: ['Quetzalcoatl', 'Camaxtli', 'Huhetotl'],
-    Bar: ['Mitra', 'Crom', 'Set'],
-    Cav: ['Anu', '_Ishtar', 'Anshar'],
-    Hea: ['_Athena', 'Hermes', 'Poseidon'],
-    Kni: ['Lugh', '_Brigit', 'Manannan Mac Lir'],
-    Mon: ['Shan Lai Ching', 'Chih Sung-tzu', 'Huan Ti'],
-    Pri: ['Quetzalcoatl', 'Camaxtli', 'Huhetotl'], /* C role.c: 0,0,0 — pantheon copied from randrole at role_init; stub until Priest pantheon is wired */
-    Ran: ['Mercury', '_Venus', 'Mars'],
-    Rog: ['Issek', 'Mog', 'Kos'],
-    Sam: ['_Amaterasu Omikami', 'Raijin', 'Susanowo'],
-    Tou: ['Blind Io', '_The Lady', 'Offler'],
-    Val: ['Tyr', 'Odin', 'Loki'],
-    Wiz: ['Ptah', 'Thoth', 'Anhur'],
-};
-
-function alignGnameLikeC(g) {
-    const t = g.u?.ualign?.type ?? 0;
-    const abbr = g.urole?.abbr;
-    const tri = abbr ? ROLE_PANTHEON[abbr] : null;
-    if (!tri) return 'someone';
-    let s;
-    if (t > 0) s = tri[0];
-    else if (t < 0) s = tri[2];
-    else s = tri[1];
-    if (s.startsWith('_')) s = s.slice(1);
-    return s;
+function legacyHeroAlignGnameLikeC(g) {
+    return alignGnameLikeC(g, g.u?.ualign?.type ?? 0);
 }
 
-function alignGtitleLikeC(g) {
-    const t = g.u?.ualign?.type ?? 0;
-    const abbr = g.urole?.abbr;
-    const tri = abbr ? ROLE_PANTHEON[abbr] : null;
-    if (!tri) return 'god';
-    const gnam = t > 0 ? tri[0] : t < 0 ? tri[2] : tri[1];
-    if (gnam && gnam.startsWith('_')) return 'goddess';
-    return 'god';
+function legacyHeroAlignGtitleLikeC(g) {
+    return alignGtitleLikeC(g, g.u?.ualign?.type ?? 0);
 }
 
 function rankTitleAtNewgameLikeC(g) {
@@ -50,8 +19,8 @@ function rankTitleAtNewgameLikeC(g) {
 }
 
 function substituteLegacyLine(line, g) {
-    const d = alignGnameLikeC(g);
-    const G = alignGtitleLikeC(g);
+    const d = legacyHeroAlignGnameLikeC(g);
+    const G = legacyHeroAlignGtitleLikeC(g);
     const r = rankTitleAtNewgameLikeC(g);
     return line.replace(/%d/g, d).replace(/%G/g, G).replace(/%r/g, r);
 }
