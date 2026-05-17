@@ -1,16 +1,53 @@
 // m_move_mon.js — **`mon.c`** **`m_move()`** subset invoked from **`monmove.c`** **`movemon`**.
 // C ref: mon.c **`m_move(struct monst *mtmp, int after)`**; monmove.c **`movemon`** walks **`fmon`**.
 //
-// Ported: C **`monmove.c`** **`dochug`** — first **`distfleeck`** (~791) then **`m_move`**/**`m_throw`**,
-// then second **`distfleeck`** (~915) when **`status != MMOVE_DIED`** (alive ⇒ **`mhp > 0`** here).
+// Ported: C **`monmove.c`** **`dochug`** — **`wipe_engr_at`** (~734); phase-one **`rn2`** (~737–760) before
+// **`set_apparxy`**; first **`distfleeck`** (~791) then **`m_move`**/**`m_throw`**; second **`distfleeck`** (~915) when
+// **`status != MMOVE_DIED`** (**`MMOVE_DIED`** vs hero **`thitu`** / future **`m_move`** death).
 // **`stepNum===1`**: harness only (no per-mon **`distfleeck`** in this stub pairing). **`stepNum ≥ 2`**:
 // both **`distfleeck`** calls; **`monmove.js`** harness rows **3–12** omit aggregate **`rn2(5)`** from **`distfleeck`**.
 // **`mcalcmove`**: **`allmain.js`** adds **`movement`** each **`context.move`**; this path subtracts **`NORMAL_SPEED`** before **`distfleeck`**/**`m_throw`** (C order: spend then **`dochugw`** subtree).
 // Omits **`minliquid`**, misc_worn, hider/eel, **`fightm`**, grid **`domove`**, vault guard, worm tails.
 
-import { NORMAL_SPEED } from './const.js';
+import { NORMAL_SPEED, MMOVE_DIED, MMOVE_NOTHING } from './const.js';
 import { mThrowAtHeroAfterMmoveIfLinedUpLikeC } from './mthrow_mon.js';
 import { distfleeckMonsterApplyLikeC } from './distfleeck_mon.js';
+import { wipeEngrAt } from './engrave.js';
+import { canTeleportMon, teleRestrictMon } from './mondata.js';
+import { rn2 } from './rng.js';
+
+/**
+ * C: monmove.c dochug ~736–760 — m_respond RNG differs per msound (TODO).
+ * Teleport branch: !rn2(40) only when mflee.
+ * @param {import('./gstate.js').game} g
+ * @param {*} mtmp
+ */
+function dochugPhaseOneRngAfterWipeEngrLikeC(g, mtmp) {
+    if (!mtmp) return;
+    const mconf = mtmp.mconf | 0;
+    if (mconf && !rn2(50)) mtmp.mconf = 0;
+    const mstun = mtmp.mstun | 0;
+    if (mstun && !rn2(10)) mtmp.mstun = 0;
+
+    const mflee = mtmp.mflee | 0;
+    const ptr = mtmp.data;
+    if (
+        mflee &&
+        !rn2(40) &&
+        ptr &&
+        canTeleportMon(ptr) &&
+        !(mtmp.iswiz | 0) &&
+        !teleRestrictMon(g, mtmp)
+    ) {
+        /* C: rloc(mtmp, RLOC_MSG) then return 0 — rloc RNG not fully ported. */
+    }
+    /* C: m_respond(mtmp) — shrieker / Medusa / Erinys (usually no RNG on D:1). */
+
+    const fleetim = mtmp.mfleetim | 0;
+    const mhp = mtmp.mhp | 0;
+    const mhpmax = mtmp.mhpmax | 0;
+    if (mflee && !fleetim && mhp === mhpmax && !rn2(25)) mtmp.mflee = 0;
+}
 
 /**
  * C: **`mon.c`** **`m_move(mtmp, 0)`** — one monster’s turn (**subset**).
@@ -25,7 +62,19 @@ export async function mMoveOneMonsterSubsetLikeC(g, mtmp, stepNum = 0) {
     const mov = mtmp.movement | 0;
     if (mov < NORMAL_SPEED) return;
     mtmp.movement = mov - NORMAL_SPEED;
-    if (stepNum >= 2) await distfleeckMonsterApplyLikeC(g, mtmp);
+
+    if (stepNum >= 2) {
+        const mx = mtmp.mx | 0;
+        const my = mtmp.my | 0;
+        wipeEngrAt(mx, my, 1, false);
+        dochugPhaseOneRngAfterWipeEngrLikeC(g, mtmp);
+        await distfleeckMonsterApplyLikeC(g, mtmp);
+    }
+
+    /** @type {number} */
+    let mmStatus = MMOVE_NOTHING; /* C m_move status; MMOVE_DIED if mhp<=0 after m_throw */
     await mThrowAtHeroAfterMmoveIfLinedUpLikeC(g, mtmp);
-    if (stepNum >= 2 && (mtmp.mhp | 0) > 0) await distfleeckMonsterApplyLikeC(g, mtmp);
+    if ((mtmp.mhp | 0) <= 0) mmStatus = MMOVE_DIED;
+
+    if (stepNum >= 2 && mmStatus !== MMOVE_DIED) await distfleeckMonsterApplyLikeC(g, mtmp);
 }

@@ -7,7 +7,7 @@
 //
 // C: **`monmove.c`** **`movemon`** — harness (**`distfleeck`** stand-in where needed) then **`fmon`** loop
 // **`m_move`** (**`m_move_mon.js`**), then **`mintrap`**. **`m_throw`** runs only inside **`m_move`**.
-// **`distfleeck`**: **`m_move_mon.js`** runs first + second **`distfleeckMonsterApplyLikeC`** per mon when **`stepNum ≥ 2`** (C **`dochug`** ~791 / ~915). Harness rows **3–12** (**`raw` 2–11**, **`stepNum` 3–12**): stripped of **`rn2(5)`** only (**`distfleeck`** **`bravegremlin`** aggregate); remaining **`rn2(k)`** approximate other **`dochug`** draws. Rows **0–1** stay empty (**`stepNum` 1–2**: **`distfleeck`** draws come only from **`m_move_mon`** on **`stepNum ≥ 2`**). **`stepNum > 12`**: no **`_HARNESS`** replay. Trailing **`rn2(12)×4`** were removed from harness rows **2–12**: **`mcalcmove`** replayed in **`runPostCommandTurnAdvanceLikeC`**.
+// **`distfleeck`**: **`m_move_mon.js`** — **`wipe_engr_at`**, **`dochug`** phase-one **`rn2`** ( **`mconf`**/**`mstun`**/**`mflee`** teleport & courage ), first + second **`distfleeck`** when **`stepNum ≥ 2`** (second gated **`MMOVE_DIED`**). Harness rows **3–12**: **`rn2(5)`** peeled (**`bravegremlin`**).
 // Multi-pass: C **`allmain.c`** **`do { movemon(); … } while (monscanmove)`** — repeat sweeps while any living mon still has **`movement >= NORMAL_SPEED`** after a full **`fmon`** pass ( **`gs.somebody_can_move`** ).
 
 import { rn2 } from './rng.js';
