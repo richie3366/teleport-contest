@@ -2988,6 +2988,16 @@ export const OTYP_YELLOW_DRAGON_SCALES = 121;
 export const OTYP_BLACK_DRAGON_SCALES = 118;
 /** C: `artifact.c` **`defends`**: mail is tested as equivalent scales offset. */
 export const OTYP_DRAGON_MAIL_TO_SCALES_DELTA = OTYP_GRAY_DRAGON_SCALES - OTYP_GRAY_DRAGON_SCALE_MAIL;
+/**
+ * C: `objects.h` `OBJECTS_ENUM` armor tail — NH5 `objects_nums` matches cpp index **+1** when cpp **`otyp` ≥ 120**
+ * (cpp `YELLOW_DRAGON_SCALES` **120** → `OTYP_YELLOW_DRAGON_SCALES` **121**; first suit `PLATE_MAIL` cpp **121** → **122**).
+ * Use these instead of raw literals in JS that keys off post-dragon armor.
+ */
+export const OTYP_PLATE_MAIL = 122;
+export const OTYP_LEATHER_ARMOR = 135;
+export const OTYP_HAWAIIAN_SHIRT = 137;
+export const OTYP_DWARVISH_CLOAK = 142;
+export const OTYP_GAUNTLETS_OF_POWER = 162;
 /** C: defsym.h `MONSYM` — golem (**`mondata.h`** **`is_golem`**). */
 export const S_GOLEM = 55;
 /** C: defsym.h `MONSYM` — nymph (**`attrib.c`** **`acurr`** CHA floor when poly). */

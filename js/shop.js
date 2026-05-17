@@ -63,6 +63,7 @@ import {
     TELEPORT,
     TELEPORT_CONTROL,
     TELEPAT,
+    OTYP_HAWAIIAN_SHIRT,
 } from './const.js';
 import { UHS } from './hunger.js';
 import { objectOcCost } from './obj_oc_cost_data.js';
@@ -1883,7 +1884,6 @@ const OTYP_EGG = 266;
 const OTYP_TIN = 295;
 const OTYP_POT_WATER = 321;
 const OTYP_DUNCE_CAP = 94;
-const OTYP_HAWAIIAN_SHIRT = 137;
 const OTYP_TALLOW_CANDLE = 225;
 const OTYP_WAX_CANDLE = 226;
 const OTYP_BRASS_LANTERN = 227;

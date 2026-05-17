@@ -15,13 +15,12 @@ import {
     STR19,
     S_NYMPH,
     PM_AMOROUS_DEMON,
+    OTYP_GAUNTLETS_OF_POWER,
 } from './const.js';
 import { raceptr } from './mondata.js';
 
 /** C: objects.h OBJECTS_ENUM — dunce cap. */
 const OTYP_DUNCE_CAP = 94;
-/** C: objects.h OBJECTS_ENUM — gauntlets of power. */
-const OTYP_GAUNTLETS_OF_POWER = 162;
 /** C: artilist.h — Ogresmasher (`A("Ogresmasher", …, OGRESMASHER)`); matches `artifact_light.js` indexing. */
 const ART_OGRESMASHER = 16;
 
