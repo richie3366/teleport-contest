@@ -96,3 +96,13 @@ export function uhisHeroLikeC(g) {
     const row = genders[female ? 1 : 0];
     return row?.his || 'its';
 }
+
+/**
+ * C: you.h **`#define uhim()`** — **`genders[flags.female ? 1 : 0].him`**.
+ * @param {import('./gstate.js').game} g
+ */
+export function uhimHeroLikeC(g) {
+    const female = !!g?.flags?.female;
+    const row = genders[female ? 1 : 0];
+    return row?.him || 'it';
+}

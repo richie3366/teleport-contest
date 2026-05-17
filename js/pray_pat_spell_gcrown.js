@@ -200,10 +200,16 @@ function uWieldArtLikeC(g, arti) {
 }
 
 /** C: mon.c **`mon_nam`** subset for **`u.ustuck`** swallow pline. */
-function monNamUstuckLikeC(mtmp) {
+export function monNamUstuckLikeC(mtmp) {
     const n = mtmp?.data?.mname || mtmp?.monnam;
     if (n) return `the ${n}`;
     return 'the monster';
+}
+
+/** C: mon.c **`Monnam`** — capitalize **`mon_nam`** (**`x_monnam`** stub). */
+export function monNamMonnamUstuckLikeC(mtmp) {
+    const s = monNamUstuckLikeC(mtmp);
+    return s.charAt(0).toUpperCase() + s.slice(1);
 }
 
 /** C: hack.h **`s_suffix(str)`** possessive ( **`mon_nam`** + **`STOMACH`** ). */

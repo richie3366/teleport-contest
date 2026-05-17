@@ -2937,6 +2937,8 @@ export function In_mines(uz) { return (uz ?? game?.u?.uz)?.dnum === game?.mines_
 export function In_sokoban(uz) { return (uz ?? game?.u?.uz)?.dnum === game?.sokoban_dnum; }
 export function In_V_tower(uz) { return (uz ?? game?.u?.uz)?.dnum === game?.tower_dnum; }
 export function Is_stronghold(uz) { const g = game; return g?.stronghold_level && (uz ?? g?.u?.uz)?.dnum === g.stronghold_level.dnum && (uz ?? g?.u?.uz)?.dlevel === g.stronghold_level.dlevel; }
+/** C: dungeon.h **`Is_sanctum(x)`** — **`Lcheck(x, &sanctum_level)`**; JS when **`game.sanctum_level`** is set. */
+export function Is_sanctum(uz) { const g = game; return g?.sanctum_level && (uz ?? g?.u?.uz)?.dnum === g.sanctum_level.dnum && (uz ?? g?.u?.uz)?.dlevel === g.sanctum_level.dlevel; }
 // C ref: dungeon.c:1637 — Is_botlevel checks if level is the deepest
 // in its dungeon branch. Each branch has its own num_dunlevs.
 export function Is_botlevel(uz) {

@@ -1,0 +1,161 @@
+// god_zaps_hero.js — C pray.c `gods_angry` / `god_zaps_you` / `fry_by_god` subset for `angrygods` default.
+// C ref: pray.c gods_angry (~1428), godvoice (~1414), god_zaps_you (~610), fry_by_god (~693); muse.c ureflects (~2835).
+
+import {
+    Is_astralevel,
+    Is_sanctum,
+    KILLED_BY,
+    M_SEEN_DISINT,
+    M_SEEN_ELEC,
+    M_SEEN_REFL,
+} from './const.js';
+import { alignGnameLikeC, uhimHeroLikeC } from './pray_align_gname_like_c.js';
+import { pline, shieldeffLikeC } from './display.js';
+import { monstseesuLikeC, monstunseesuLikeC } from './mon_seen_res.js';
+import { losehp } from './mthrowu.js';
+import { monNamUstuckLikeC, monNamMonnamUstuckLikeC } from './pray_pat_spell_gcrown.js';
+import { summonMinionHeroLikeC } from './minion_summon_hero.js';
+import { rn2 } from './rng.js';
+
+/** C: pray.c **`godvoices[]`** + **`ROLL_FROM`**. */
+const GODVOICES = ['booms out', 'thunders', 'rings out', 'booms'];
+
+/** C: pline.c **`verbalize`** — quoted **`vpline`** (**`PLINE_VERBALIZE`** flag omitted in JS). */
+async function verbalizeHeroLikeC(msg) {
+    await pline(`"${msg}"`);
+}
+
+/**
+ * C: pray.c **`godvoice`** + **`gods_angry`** — **`pline_The("voice of %s %s: \"%s\"")`** with **`rn2(4)`** verb.
+ * @param {import('./gstate.js').game} g
+ * @param {number} respGod
+ */
+export async function godsAngryHeroLikeC(g, respGod) {
+    const verb = GODVOICES[rn2(4)];
+    const name = alignGnameLikeC(g, respGod);
+    await pline(`The voice of ${name} ${verb}: "Thou hast angered me."`);
+}
+
+function heroBlindGodZapsLikeC(u) {
+    return !!(u?.Blind | 0) || !!(u?.ublind | 0) || (u?.timed?.blind ?? 0) > 0;
+}
+
+/** C: prop.h **`Reflecting`** / muse.c **`ureflects`** — contest subset (**`u.Reflecting`** intrinsic-style only until **`EReflecting`** is ported). */
+function heroReflectingGodZapsLikeC(u) {
+    return !!(u?.Reflecting | 0);
+}
+
+function heroShockResGodZapsLikeC(u) {
+    return !!(u?.Shock_resistance | 0);
+}
+
+function heroDisintResGodZapsLikeC(u) {
+    return !!(u?.Disint_resistance | 0);
+}
+
+/**
+ * C: muse.c **`ureflects`** first matching slot (**`EReflecting & W_*`**) — JS uses **`Reflecting`** only; message matches **`pray.c`** **`ureflects("%s reflects from your %s.", "It")`** shield branch wording when reflection is active.
+ */
+async function ureflectsGodZapsHeroLikeC() {
+    await pline('It reflects from your shield.');
+}
+
+/**
+ * C: pray.c **`fry_by_god`** — **`You`/`done(DIED)`**; contest **`losehp`** until **`uhp`** **0** (**`end.c`** **`really_done`** not ported).
+ * @param {import('./gstate.js').game} g
+ * @param {number} respGod
+ * @param {boolean} viaDisint
+ */
+async function fryByGodHeroLikeC(g, respGod, viaDisint) {
+    await pline(viaDisint ? 'You disintegrate into a pile of dust!' : 'You fry to a crisp!');
+    const kn = `the wrath of ${alignGnameLikeC(g, respGod)}`;
+    const u = g?.u;
+    if (!u) return;
+    const n = Math.max(1, (u.uhp | 0) + 1);
+    losehp(n, kn, KILLED_BY);
+}
+
+function resistsElecMonsterGodZapsStub(_mtmp) {
+    return false;
+}
+
+function resistsDisintMonsterGodZapsStub(_mtmp) {
+    return false;
+}
+
+/**
+ * C: pray.c **`god_zaps_you(aligntyp resp_god)`** — swallow / reflect / shock / fry / disintegration / astral triple **`summon_minion`**.
+ * Omits **`disintegrate_arm`** (**`do_wear.c`**) and real **`xkilled`** / **`done(DIED)`** beyond **`losehp`** in **`fryByGodHeroLikeC`**.
+ * @param {import('./gstate.js').game} g
+ * @param {number} respGod
+ */
+export async function godZapsYouHeroLikeC(g, respGod) {
+    const u = g?.u;
+    if (!u) return;
+    const rg = respGod | 0;
+    const ux = u.ux | 0;
+    const uy = u.uy | 0;
+
+    if (u.uswallow | 0) {
+        const stuck = u.ustuck;
+        await pline('Suddenly a bolt of lightning comes down at you from the heavens!');
+        await pline(`It strikes ${monNamUstuckLikeC(stuck)}!`);
+        if (!resistsElecMonsterGodZapsStub(stuck)) {
+            await pline(`${monNamMonnamUstuckLikeC(stuck)} fries to a crisp!`);
+        } else {
+            await pline(`${monNamMonnamUstuckLikeC(stuck)} seems unaffected.`);
+        }
+    } else {
+        await pline('Suddenly, a bolt of lightning strikes you!');
+        if (heroReflectingGodZapsLikeC(u)) {
+            await shieldeffLikeC(g, ux, uy);
+            if (heroBlindGodZapsLikeC(u)) await pline("For some reason you're unaffected.");
+            else await ureflectsGodZapsHeroLikeC();
+            monstseesuLikeC(M_SEEN_REFL);
+        } else if (heroShockResGodZapsLikeC(u)) {
+            await shieldeffLikeC(g, ux, uy);
+            await pline('It seems not to affect you.');
+            monstseesuLikeC(M_SEEN_ELEC);
+            monstunseesuLikeC(M_SEEN_REFL);
+        } else {
+            await fryByGodHeroLikeC(g, rg, false);
+            monstunseesuLikeC(M_SEEN_REFL | M_SEEN_ELEC);
+        }
+    }
+
+    if ((u.uhp | 0) <= 0) return;
+
+    await pline(`${alignGnameLikeC(g, rg)} is not deterred...`);
+
+    if (u.uswallow | 0) {
+        const stuck = u.ustuck;
+        await pline(`A wide-angle disintegration beam aimed at you hits ${monNamUstuckLikeC(stuck)}!`);
+        if (!resistsDisintMonsterGodZapsStub(stuck)) {
+            await pline(`${monNamMonnamUstuckLikeC(stuck)} disintegrates into a pile of dust!`);
+        } else {
+            await pline(`${monNamMonnamUstuckLikeC(stuck)} seems unaffected.`);
+        }
+    } else {
+        await pline('A wide-angle disintegration beam hits you!');
+        if (!heroDisintResGodZapsLikeC(u)) {
+            await fryByGodHeroLikeC(g, rg, true);
+            monstunseesuLikeC(M_SEEN_DISINT);
+        } else {
+            await pline('You bask in its black glow for a minute...');
+            const verb = GODVOICES[rn2(4)];
+            const name = alignGnameLikeC(g, rg);
+            await pline(`The voice of ${name} ${verb}: "I believe it not!"`);
+            monstseesuLikeC(M_SEEN_DISINT);
+        }
+        if ((u.uhp | 0) <= 0) return;
+
+        const uz = u.uz;
+        if (Is_astralevel(uz) || Is_sanctum(uz)) {
+            await verbalizeHeroLikeC('Thou cannot escape my wrath, mortal!');
+            summonMinionHeroLikeC(g, rg, false);
+            summonMinionHeroLikeC(g, rg, false);
+            summonMinionHeroLikeC(g, rg, false);
+            await verbalizeHeroLikeC(`Destroy ${uhimHeroLikeC(g)}, my servants!`);
+        }
+    }
+}
