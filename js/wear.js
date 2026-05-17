@@ -1,8 +1,10 @@
 // wear.js — Side effects of worn equipment.
-// C ref: do_wear.c set_wear(), prop.c extrinsic masks (subset: EProtection ring hands).
+// C ref: do_wear.c set_wear(), prop.c extrinsic masks (subset: EProtection ring hands);
+//        find_ac() after ring removal / setnotworn / set_wear refresh (subset).
 
 import { game } from './gstate.js';
 import { OTYP_RIN_PROTECTION, W_RING, W_RINGL, W_RINGR } from './const.js';
+import { findAc } from './u_init_find_ac.js';
 
 const _RING_PROT_MASK = W_RINGL | W_RINGR;
 
@@ -27,6 +29,7 @@ export function ringGoneHeroLikeC(g, obj) {
 
     g.disp = g.disp || {};
     g.disp.botl = true;
+    findAc(g);
 }
 
 /**
@@ -61,6 +64,7 @@ export function setnotwornHeroMinimalLikeC(g, obj) {
     if ((obj.otyp | 0) === OTYP_RIN_PROTECTION) refreshEProtectionFromRings(u);
     g.disp = g.disp || {};
     g.disp.botl = true;
+    findAc(g);
 }
 
 /**
@@ -90,5 +94,6 @@ export function setWear(obj) {
         /* When ublindf, uright, uarm, … are real obj pointers, call the *_on helpers. */
     }
     refreshEProtectionFromRings();
+    findAc(g);
     g._wearInitialDon = false;
 }
