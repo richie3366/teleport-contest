@@ -4,7 +4,8 @@
 //        unless **`SCR_BLANK_PAPER`**),
 //        **`seffects`** (**`exercise`** when **`oc_magic`**, **`switch(otyp)`** — blank, punishment (**`seffect_punishment`**: guilty vs **`punish_hero.js`** **`punishHeroFromObjLikeC`**; no **`placebc`**), stinking cloud (**`stinking_cloud_hero.js`** **`doStinkingCloudHeroReadScrollLikeC`** + **`createGasCloudRndBurnHeroLikeC`**; **`getpos`**/**`tmp_at`** TODO),
 //        remove curse (**`You_feel`** + cursed **`pline_The`**; no **`gk`**; **`Punished`** && !confused → **`unpunish`**;
-//        **`TT_BURIEDBALL`**: **`floorobj.js`** **`buriedBallToFreedomLikeC`** + **`switch_terrain.js`** **`resetUtrapMsgAfterClearHeroLikeC`** (**C **`trap.c`** **`reset_utrap(TRUE)`** **`float_up`/`You can fly.`**) after **`floatVsFlightLikeC`**; clasp **`mbodypartHeroLegLikeC`**; invent + steed saddle **`remove_curse_hero.js`** (**`uslinging`**, shop water confused **`alter_cost`**; unpaid cursed water **`costly_alteration`/`bill_dummy`** before **`uncurse`**), default stub),
+//        **`TT_BURIEDBALL`**: **`floorobj.js`** **`buriedBallToFreedomLikeC`** + **`switch_terrain.js`** **`resetUtrapMsgAfterClearHeroLikeC`** (**C **`trap.c`** **`reset_utrap(TRUE)`** **`float_up`/`You can fly.`**) after **`floatVsFlightLikeC`**; clasp **`mbodypartHeroLegLikeC`**; invent + steed saddle **`remove_curse_hero.js`** (**`uslinging`**, shop water confused **`alter_cost`**; unpaid cursed water **`costly_alteration`/`bill_dummy`** before **`uncurse`**),
+//        default: C **`seffects`** **`impossible`** on unknown **`otyp`** — JS leaves **`gk.known`** false so **`doread`** tail runs **`trycall`** when **`!scrollDiscovery`** (**`SCR_FIRE`** etc. still need real **`seffect_*`** / inner **`useup`** like C).
 //        **`learnscroll`** / **`learnscrolltyp`**.
 
 import { game } from './gstate.js';
@@ -55,7 +56,7 @@ export function scrollOtypHasOcMagicLikeC(otyp) {
 
 /**
  * C: read.c **`seffects`** — return **1** if scroll was **`useup`**'d inside (**`sobj`** null), else **0**.
- * Per-**`otyp`** effects mostly TODO; non-blank scrolls set **`gk.known`** so **`doread`** tail matches **`learnscroll`** until real **`seffect_*`** ports.
+ * Each **`seffect_*`** sets **`gk.known`** when appropriate; **`doread`** tail (**`learnscroll`** vs **`trycall`**) keys off **`gk.known`** when **`!oc_name_known`** (JS: **`scrollDiscovery`**).
  * @param {import('./gstate.js').game} g
  * @param {{ otyp?: number, oclass?: number, dknown?: number }} scroll
  * @param {boolean} blind
@@ -116,13 +117,8 @@ export async function seffectsHeroReadScrollLikeC(g, scroll, blind) {
             return 0;
         }
         default: {
-            const ocl = scroll.oclass | 0;
-            if (ocl === NH5_SCROLL_CLASS && otyp !== OTYP_SCR_BLANK_PAPER) {
-                /* C: most **`seffect_*`** set **`gk.known`**; stub keeps prior always-learn on read until wired */
-                g._readScrollGkKnown = true;
-            } else {
-                g._readScrollGkKnown = false;
-            }
+            /* C: **`switch`** ends in **`impossible`** for unknown **`otyp`** — no **`gk.known`** unless a **`seffect_*`** runs */
+            g._readScrollGkKnown = false;
             return 0;
         }
     }
