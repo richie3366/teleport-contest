@@ -1,9 +1,11 @@
 // moveloop_aux.js — End-of-turn RNG after movemon (allmain.c moveloop_core tail).
-// C ref: allmain.c — **`maybe_generate_rnd_mon`** + **`settrack()`** + **`svm.moves++`**, then dosounds/gethungry/…
+// C ref: allmain.c — **`maybe_generate_rnd_mon`** + **`settrack()`** + **`svm.moves++`**, then
+// **`dosounds`**, **`do_storms`**, **`gethungry`**, **`age_spells`**, **`exerchk`**, **`u_wipe_engr`**, …
 // **`runPostCommandTurnAdvanceLikeC`** calls **`maybe_generate_rnd_mon`** before **`moves++`** to match C order.
 
 import { game } from './gstate.js';
 import { rn2, rnd } from './rng.js';
+import { pline } from './display.js';
 import {
     A_DEX,
     FROMFORM,
@@ -12,16 +14,49 @@ import {
     OTYP_MEAT_RING,
     OTYP_RIN_PROTECTION,
     OTYP_RIN_SLOW_DIGESTION,
+    NO_SPELL,
     W_ARTI,
     W_RINGL,
     W_RINGR,
     W_WEP,
 } from './const.js';
-import { acurr } from './attrib.js';
+import { acurr, collectExerchkPlines } from './attrib.js';
 import { uWipeEngr } from './engrave.js';
 import { nearCapacity, ENC } from './encumbr.js';
 import { heroEatsOrdinaryFood } from './mondata.js';
 import { MOVE_MON_HARNESS_MAX_STEP } from './monmove.js';
+
+/** C: spell.h MAXSPELL-sized spl_book walk in spell.c age_spells. */
+const MAXSPELL = 52;
+
+/**
+ * C: timeout.c do_storms(void) — `if (!stormy || rn2(8)) return;` short-circuit
+ * (no **`rn2(8)`** when the level is not stormy).
+ * @param {import('./gstate.js').game} g
+ */
+export function doStormsMoveloopTailLikeC(g) {
+    const stormy = g.level?.flags?.stormy | 0;
+    if (!stormy || rn2(8)) return;
+    /* Full cloud/lightning **`buzz`** port TODO — rare levels only. */
+}
+
+/**
+ * C: spell.c age_spells(void) — **`decrnknow`** on known slots; no RNG.
+ * @param {import('./gstate.js').game} g
+ */
+export function ageSpellsMoveloopTailLikeC(g) {
+    const u = g.u;
+    if (!u) return;
+    const book = u.spl_book;
+    if (!Array.isArray(book)) return;
+    const n = Math.min(book.length, MAXSPELL);
+    for (let i = 0; i < n; i++) {
+        const ent = book[i];
+        if (!ent || (ent.sp_id | 0) === NO_SPELL) break;
+        const know = ent.sp_know | 0;
+        if (know) ent.sp_know = know - 1;
+    }
+}
 
 export function maybe_generate_rnd_mon() {
     rn2(70);
@@ -144,10 +179,16 @@ export function post_moveloop82_exercise(stepNum) {
     if (stepNum === 6) rn2(31);
 }
 
-/** C: allmain.c — per-turn tail **after** **`svm.moves++`** (dosounds … u_wipe_engr …). */
-export function end_of_turn_rng(stepNum) {
+/**
+ * C: allmain.c moveloop_core — per-turn tail **after** **`svm.moves++`**
+ * (**`dosounds`**, **`do_storms`**, **`gethungry`**, **`age_spells`**, **`exerchk`**, … **`u_wipe_engr`**).
+ */
+export async function end_of_turn_rng(stepNum) {
     dosounds();
+    doStormsMoveloopTailLikeC(game);
     gethungry();
+    ageSpellsMoveloopTailLikeC(game);
+    for (const line of collectExerchkPlines()) await pline(line);
     maybe_u_wipe_engr();
     if (stepNum > 0 && stepNum <= MOVE_MON_HARNESS_MAX_STEP) {
         pre_moveloop82_exercise(stepNum);

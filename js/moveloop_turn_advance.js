@@ -63,7 +63,7 @@ export async function runPostCommandTurnAdvanceLikeC(g) {
     for (const line of collectNewuhsPlines(true)) await pline(line);
 
     if (g._prevMoveTick) {
-        end_of_turn_rng(stepNum);
+        await end_of_turn_rng(stepNum);
     }
 }
 
