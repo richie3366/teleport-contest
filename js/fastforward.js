@@ -23,6 +23,7 @@ import {
     consumeMonkHumanIniInvUinitRoleRngLikeC,
     consumeWizardHumanIniInvUinitRoleRngLikeC,
     consumeArcheologistHumanIniInvUinitRoleRngLikeC,
+    consumeHealerHumanIniInvUinitRoleRngLikeC,
 } from "./u_init_role_rng.js";
 import { races } from "./roles.js";
 
@@ -176,6 +177,11 @@ export function fastforward_post_mklev() {
     const arc = game.urole?.abbr === "Arc" && (game.initrace | 0) === humanIdx;
     if (arc) {
         consumeArcheologistHumanIniInvUinitRoleRngLikeC();
+        return;
+    }
+    const hea = game.urole?.abbr === "Hea" && (game.initrace | 0) === humanIdx;
+    if (hea) {
+        consumeHealerHumanIniInvUinitRoleRngLikeC();
         return;
     }
     rn2(20); rnd(2); rn2(6); rn2(11); rn2(10); rn2(10); rn2(100); rn2(20); rn2(1);

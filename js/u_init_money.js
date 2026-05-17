@@ -16,7 +16,15 @@ export function applyRoleStartingUmoney0() {
     if (!u) return;
     const abbr = game.urole?.abbr;
     let gold = 0;
-    if (abbr === 'Hea') gold = rn1(1000, 1001);
+    if (abbr === 'Hea') {
+        /* C `u_init_role` — **`rn1(1000,1001)`** runs before **`ini_inv(Healer)`**; replayed in **`consumeHealerHumanIniInvUinitRoleRngLikeC`** when present. */
+        if (game._healerIniUmoney0Rn1 != null) {
+            gold = game._healerIniUmoney0Rn1 | 0;
+            game._healerIniUmoney0Rn1 = undefined;
+        } else {
+            gold = rn1(1000, 1001);
+        }
+    }
     else if (abbr === 'Rog') gold = 0;
     else if (abbr === 'Tou') gold = rnd(1000);
     else gold = 0;

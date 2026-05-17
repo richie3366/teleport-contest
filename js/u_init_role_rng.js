@@ -1,6 +1,6 @@
 // u_init_role_rng.js — C u_init.c / mkobj.c leaf RNG for role inventory (narrow port).
 // Used while ini_inv is still stubbed so ISAAC matches upstream before init_attr(75).
-// C refs: u_init.c u_init_role (PM_ROGUE / PM_SAMURAI / PM_VALKYRIE / PM_KNIGHT / PM_MONK / PM_ARCHEOLOGIST), ini_inv(), trquan(), mkobj.c mksobj+mksobj_init,
+// C refs: u_init.c u_init_role (PM_ROGUE … PM_ARCHEOLOGIST / PM_HEALER), ini_inv(), trquan(), mkobj.c mksobj+mksobj_init,
 //         mkbox_cnts (SACK empty at moves<=1), blessorcurse().
 
 import { game } from './gstate.js';
@@ -54,6 +54,18 @@ const OTYP_TINNING_KIT = 239;
 const OTYP_TOUCHSTONE = 472;
 const OTYP_TIN_OPENER = 240;
 const OTYP_OIL_LAMP = 228;
+/** C `OC_SKILL_ROW_BY_OTYP` — **`SCALPEL`** (`mksobj_init`); NH5 invent **`otyp`** **39** (**`OC`** **40** − **1**). */
+const OTYP_SCALPEL_MK = 40;
+const OTYP_LEATHER_GLOVES_HEAL = 160;
+const OTYP_STETHOSCOPE = 238;
+/** C `mkobj_wizard_ini_inv_data.js` **`POTION_CLASS_MKOBJ_OC_PROB_ROWS`** order. */
+const OTYP_POT_HEALING = 306;
+const OTYP_POT_EXTRA_HEALING = 307;
+/** C `spellbook_skill_level_data.js` / `objects.h`. */
+const OTYP_SPE_HEALING = 374;
+const OTYP_SPE_EXTRA_HEALING = 391;
+const OTYP_SPE_STONE_TO_FLESH = 405;
+const OTYP_APPLE = 277;
 
 /** C: mkobj.c next_ident — ident += rnd(2) */
 function nextIdentLikeC() {
@@ -507,6 +519,81 @@ export function consumeArcheologistHumanIniInvUinitRoleRngLikeC() {
     } else {
         game._archIniExtra = null;
         game._archIniMagicmarkerSpe = undefined;
+    }
+}
+
+/**
+ * C: u_init.c **`PM_HEALER`** **`u_init_role`** — **`u.umoney0 = rn1(1000,1001)`** then **`ini_inv(Healer[])`**,
+ * **`if (!rn2(25)) ini_inv(Lamp)`** (human; no race subs). Money **`rn1`** must precede pack draws (see **`u_init_money.js`**).
+ */
+export function consumeHealerHumanIniInvUinitRoleRngLikeC() {
+    game._healerIniUmoney0Rn1 = rn1(1000, 1001);
+
+    /* SCALPEL */
+    rn2(1);
+    nextIdentLikeC();
+    mksobjInitWeaponLikeC(OTYP_SCALPEL_MK, false);
+    rn2(1);
+
+    /* LEATHER_GLOVES +1 */
+    rn2(1);
+    nextIdentLikeC();
+    mksobjInitArmorLikeC(false);
+
+    /* STETHOSCOPE */
+    rn2(1);
+    nextIdentLikeC();
+    rn2(1);
+
+    const healQ = 4 + rn2(1);
+    for (let i = 0; i < healQ; i++) {
+        nextIdentLikeC();
+        mksobjInitPotionLikeC();
+        rn2(1);
+    }
+
+    const extraHealQ = 4 + rn2(1);
+    for (let i = 0; i < extraHealQ; i++) {
+        nextIdentLikeC();
+        mksobjInitPotionLikeC();
+        rn2(1);
+    }
+
+    const gn = gnIniInvFreshLikeC();
+    trquanMinMaxLikeC(1, 1);
+    game._healerIniWandOtyp = iniInvMkobjFilterWizardHumanLikeC(NH5_WAND_CLASS, false, gn, false);
+    iniInvGnAfterUndefAcceptLikeC(NH5_WAND_CLASS, game._healerIniWandOtyp | 0, gn);
+    rn2(1);
+
+    trquanMinMaxLikeC(1, 1);
+    nextIdentLikeC();
+    mksobjInitSpellbookIniInvLikeC();
+    rn2(1);
+
+    trquanMinMaxLikeC(1, 1);
+    nextIdentLikeC();
+    mksobjInitSpellbookIniInvLikeC();
+    rn2(1);
+
+    trquanMinMaxLikeC(1, 1);
+    nextIdentLikeC();
+    mksobjInitSpellbookIniInvLikeC();
+    rn2(1);
+
+    rn2(1);
+    game._healerIniAppleQuans = [];
+    const appleQ = 5 + rn2(1);
+    for (let i = 0; i < appleQ; i++) {
+        nextIdentLikeC();
+        game._healerIniAppleQuans.push(mksobjInitDefaultFoodQuanMaybeDoubleLikeC());
+    }
+
+    game._healerIniLamp = !rn2(25);
+    if (game._healerIniLamp) {
+        rn2(1);
+        nextIdentLikeC();
+        mksobjInitOilLampToolLikeC();
+        rn2(1);
     }
 }
 
