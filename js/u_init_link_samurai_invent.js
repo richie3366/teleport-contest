@@ -4,7 +4,7 @@
 
 import { game } from './gstate.js';
 import { races } from './roles.js';
-import { NH5_WEAPON_CLASS, NH5_ARMOR_CLASS } from './nh5_objclass.js';
+import { NH5_WEAPON_CLASS, NH5_ARMOR_CLASS, NH5_TOOL_CLASS } from './nh5_objclass.js';
 import { findAc } from './u_init_find_ac.js';
 
 /** C `objects_nums` / cpp OBJECTS_ENUM indices (NH5; splint +2 vs cpp ≥ dragon block per `u_init_find_ac.js`). */
@@ -14,6 +14,8 @@ const OTYP_KATANA = 56;
 const OTYP_YUMI = 86;
 /** NH5 — matches **`OBJECTS_A_AC_ARMOR`** splint row **125**. */
 const OTYP_SPLINT_MAIL = 125;
+/** C `objects_nums` — `EYEWEAR("blindfold",…, BLINDFOLD)`. */
+const OTYP_BLINDFOLD = 232;
 
 /** C `objects[]` oc_weight × quan → owt (subset). */
 const BASE_WT = {
@@ -22,6 +24,7 @@ const BASE_WT = {
     [OTYP_YUMI]: 30,
     [OTYP_YA]: 1,
     [OTYP_SPLINT_MAIL]: 400,
+    [OTYP_BLINDFOLD]: 2,
 };
 
 /** @param {import('./gstate.js').game} [g] */
@@ -32,13 +35,13 @@ export function isHumanSamuraiChargenLikeC(g = game) {
 
 /**
  * Build singly-linked **`g.invent`** and set **`uwep`/`uswapwep`/`uquiver`/`uarm`**
- * for human Samurai ( **`g._samuraiIniYaQuan`** optional **26–45** from future **`u_init_role`** RNG ).
+ * for human Samurai ( **`g._samuraiIniYaQuan`** **26–45** from **`consumeSamuraiHumanIniInvUinitRoleRngLikeC`** ).
  * @param {import('./gstate.js').game} g
  */
 export function applySamuraiHumanLinkedInventAndWieldLikeC(g) {
     if (!isHumanSamuraiChargenLikeC(g)) return;
     const yq = g._samuraiIniYaQuan | 0;
-    const yaQuan = yq >= 26 && yq <= 45 ? yq : 35;
+    const yaQuan = yq >= 26 && yq <= 45 ? yq : 35; /* stub mid until fastforward consumes **`u_init_role`** */
 
     g.invent = null;
 
@@ -70,6 +73,12 @@ export function applySamuraiHumanLinkedInventAndWieldLikeC(g) {
     for (const o of order) {
         o.nobj = g.invent ?? null;
         g.invent = o;
+    }
+
+    if (g._samuraiIniBlindfold) {
+        const blind = mk(OTYP_BLINDFOLD, NH5_TOOL_CLASS, 1, 0);
+        blind.nobj = g.invent ?? null;
+        g.invent = blind;
     }
 
     const u = g.u;

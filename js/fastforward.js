@@ -15,7 +15,10 @@
 
 import { rn2, rnd, d, rne, rnz } from "./rng.js";
 import { game } from "./gstate.js";
-import { consumeRogueHumanIniInvUinitRoleRngLikeC } from "./u_init_role_rng.js";
+import {
+    consumeRogueHumanIniInvUinitRoleRngLikeC,
+    consumeSamuraiHumanIniInvUinitRoleRngLikeC,
+} from "./u_init_role_rng.js";
 import { races } from "./roles.js";
 
 // Pre-mklev startup: o_init shuffles, dungeon init, u_init_misc (handedness rn2(10) in allmain.js before l_nhcore_init)
@@ -132,12 +135,17 @@ export function fastforward_pre_mklev() {
 // except rnd(9000)/rnd(30) (see moveloop_preamble.js).
 // init_attr(75)+vary_init_attr() PRNG is replayed by u_init_attr.js (allmain.js).
 // Leading rnd(1000) for tourist starting gold is real code: u_init_money.js (allmain.js).
-// ~84 leaf RNG calls here for generic roles (was ~85). Human Rogue uses u_init_role_rng.js only.
+// ~84 leaf RNG calls here for generic roles (was ~85). Human Rogue / Samurai use u_init_role_rng.js.
 export function fastforward_post_mklev() {
     const humanIdx = races.findIndex((r) => r.name === "human");
     const rog = game.urole?.abbr === "Rog" && (game.initrace | 0) === humanIdx;
     if (rog) {
         consumeRogueHumanIniInvUinitRoleRngLikeC();
+        return;
+    }
+    const sam = game.urole?.abbr === "Sam" && (game.initrace | 0) === humanIdx;
+    if (sam) {
+        consumeSamuraiHumanIniInvUinitRoleRngLikeC();
         return;
     }
     rn2(20); rnd(2); rn2(6); rn2(11); rn2(10); rn2(10); rn2(100); rn2(20); rn2(1);

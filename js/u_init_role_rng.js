@@ -1,6 +1,6 @@
 // u_init_role_rng.js — C u_init.c / mkobj.c leaf RNG for role inventory (narrow port).
 // Used while ini_inv is still stubbed so ISAAC matches upstream before init_attr(75).
-// C refs: u_init.c u_init_role (PM_ROGUE), ini_inv(), trquan(), mkobj.c mksobj+mksobj_init,
+// C refs: u_init.c u_init_role (PM_ROGUE / PM_SAMURAI), ini_inv(), trquan(), mkobj.c mksobj+mksobj_init,
 //         mkbox_cnts (SACK empty at moves<=1), blessorcurse().
 
 import { game } from './gstate.js';
@@ -10,7 +10,12 @@ import { OC_SKILL_ROW_BY_OTYP } from './obj_oc_skill_data.js';
 
 /** C objects_nums — OBJECTS_ENUM (nethack-c/upstream/include/objects.h). */
 const OTYP_DAGGER = 34;
+const OTYP_YA = 22;
 const OTYP_SHORT_SWORD = 46;
+const OTYP_KATANA = 56;
+const OTYP_YUMI = 86;
+/** NH5 — matches **`OBJECTS_A_AC_ARMOR`** splint row **125** (`u_init_find_ac.js`). */
+const OTYP_SPLINT_MAIL = 125;
 const OTYP_SACK = 216;
 const OTYP_LOCK_PICK = 221;
 const OTYP_POT_SICKNESS = 317;
@@ -85,7 +90,7 @@ function mksobjInitSackStartInvLikeC() {
 /**
  * C: u_init.c — **`if (!rn2(5)) ini_inv(Blindfold)`** after role **`trobj[]`** (Rogue, Samurai, Wizard).
  * **`ini_inv(Blindfold)`**: **`trquan`** (**`rn2(1)`**), **`mksobj`** **`next_ident`** (**`rnd(2)`**), **`ini_inv_adjust_obj`** **`trquan`** (**`rn2(1)`**).
- * @returns {boolean} gate open (caller may set **`g._rogueIniBlindfold`** for Rogue invent linker).
+ * @returns {boolean} gate open (Rogue / Samurai / Wizard linkers store on role-specific **`g._…IniBlindfold`**).
  */
 export function consumeIniInvBlindfoldLeafRngIfGateLikeC() {
     const open = rn2(5) === 0;
@@ -137,4 +142,42 @@ export function consumeRogueHumanIniInvUinitRoleRngLikeC() {
 
     /* C u_init.c PM_ROGUE — optional Blindfold after Rogue[] (Samurai/Wizard share same gate when ported). */
     game._rogueIniBlindfold = consumeIniInvBlindfoldLeafRngIfGateLikeC();
+}
+
+/**
+ * C: u_init.c **`PM_SAMURAI`** **`ini_inv(Samurai[])`** for human (no race subs) + **`!rn2(5)`** blindfold.
+ * Order: **`trquan`** / **`mksobj`** / **`ini_inv_adjust_obj`** **`trquan`** per C **`ini_inv`** (weapons: two **`trquan`** each; YA quan from second **`trquan`** → **`g._samuraiIniYaQuan`**).
+ */
+export function consumeSamuraiHumanIniInvUinitRoleRngLikeC() {
+    /* KATANA */
+    rn2(1);
+    nextIdentLikeC();
+    mksobjInitWeaponLikeC(OTYP_KATANA, false);
+    rn2(1);
+
+    /* SHORT_SWORD (wakizashi) */
+    rn2(1);
+    nextIdentLikeC();
+    mksobjInitWeaponLikeC(OTYP_SHORT_SWORD, false);
+    rn2(1);
+
+    /* YUMI */
+    rn2(1);
+    nextIdentLikeC();
+    mksobjInitWeaponLikeC(OTYP_YUMI, false);
+    rn2(1);
+
+    /* YA — first **`trquan`** then adjust stack from second **`trquan`** */
+    26 + rn2(20);
+    nextIdentLikeC();
+    mksobjInitWeaponLikeC(OTYP_YA, false);
+    game._samuraiIniYaQuan = 26 + rn2(20);
+
+    /* SPLINT_MAIL */
+    rn2(1);
+    nextIdentLikeC();
+    mksobjInitArmorLikeC(false);
+
+    /* C **`u_init_role`**: **`if (!rn2(5)) ini_inv(Blindfold)`** after **`Samurai[]`**. */
+    game._samuraiIniBlindfold = consumeIniInvBlindfoldLeafRngIfGateLikeC();
 }
