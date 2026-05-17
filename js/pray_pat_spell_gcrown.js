@@ -50,8 +50,8 @@ const spe_Unknown = 0;
 const spe_Fresh = 1;
 const spe_GoingStale = 2;
 
-const OTYP_SPE_BLANK_PAPER = 407;
-const OTYP_SPE_BOOK_OF_THE_DEAD = 409;
+const OTYP_SPE_BLANK_PAPER = 406;
+const OTYP_SPE_BOOK_OF_THE_DEAD = 408;
 const OTYP_MAGIC_MARKER = 242;
 const OTYP_SPE_FINGER_OF_DEATH = 371;
 const OTYP_SPE_RESTORE_ABILITY = 392;

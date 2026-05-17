@@ -6,8 +6,8 @@ import { OTYP_AMULET_OF_YENDOR } from './const.js';
 import { CORPSE_OTYP } from './mkobj_corpse.js';
 import { isRiderMnum } from './mondata.js';
 
-const OTYP_SPE_BOOK_OF_THE_DEAD = 409;
-/* C: objects.h — invocation tools (NH5 `objects_nums` via cpp OBJECTS_ENUM). TODO: align if fork otyp map drifts. */
+const OTYP_SPE_BOOK_OF_THE_DEAD = 408;
+/* C: objects.h — NH 5.0.0 `objects_nums` `SPE_BOOK_OF_THE_DEAD` (408). */
 const OTYP_CANDELABRUM_OF_INVOCATION = 265;
 const OTYP_BELL_OF_OPENING = 266;
 

@@ -10,7 +10,7 @@ import { rn2, rnd } from './rng.js';
 import { pline } from './display.js';
 import { updateInventory } from './invent.js';
 import { obliterateObjectInLevel } from './floorobj.js';
-import { NH5_POTION_CLASS, NH5_SCROLL_CLASS, NH5_SPBOOK_CLASS } from './nh5_objclass.js';
+import { NH5_POTION_CLASS, NH5_SCROLL_CLASS, NH5_SPBOOK_CLASS, NH5_WAND_CLASS } from './nh5_objclass.js';
 import { OC_SKILL_ROW_BY_OTYP } from './obj_oc_skill_data.js';
 
 /** @see include/objects.h — `SKELETON_KEY` **222** ⇒ seven **`CONTAINER`** lines **215–221**. */
@@ -78,9 +78,14 @@ const OTYP_POT_WATER = 321;
 const OTYP_POT_ACID = 319;
 const OTYP_SCR_BLANK_PAPER = 365;
 const OTYP_SPE_DIG = 366;
-const OTYP_SPE_BLANK_PAPER = 407;
-const OTYP_SPE_NOVEL = 408;
-const OTYP_SPE_BOOK_OF_THE_DEAD = 409;
+/** C: **`objects_nums`** **`SPE_BLANK_PAPER`** (NH **5.0.0** **`objclass.h`** + **`objects.h`**). */
+const OTYP_SPE_BLANK_PAPER = 406;
+/** C: **`SPE_NOVEL`**. */
+const OTYP_SPE_NOVEL = 407;
+/** C: **`SPE_BOOK_OF_THE_DEAD`** (not **`WAN_LIGHT`** **409**). */
+const OTYP_SPE_BOOK_OF_THE_DEAD = 408;
+const OTYP_WAND_FIRST = 409;
+const OTYP_WAND_LAST = 433;
 
 /**
  * C: you.h Luck + LUCKADD (subset).
@@ -102,6 +107,7 @@ export function nh5HeroObjectClass(obj) {
     const t = obj.otyp | 0;
     if (t >= OTYP_POT_GAIN_ABILITY && t <= OTYP_POT_WATER) return NH5_POTION_CLASS;
     if (t > OTYP_POT_WATER && t <= OTYP_SCR_BLANK_PAPER) return NH5_SCROLL_CLASS;
+    if (t >= OTYP_WAND_FIRST && t <= OTYP_WAND_LAST) return NH5_WAND_CLASS;
     if (t >= OTYP_SPE_DIG && t <= OTYP_SPE_BOOK_OF_THE_DEAD) return NH5_SPBOOK_CLASS;
     return -1;
 }

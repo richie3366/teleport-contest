@@ -216,7 +216,7 @@ const MAX_ITEMS_DESTROYED = 20;
 /** @see water_damage.js — NH5 scroll / spellbook / potion blocks */
 const OTYP_POT_OIL = 320;
 const OTYP_SCR_FIRE = 338; /* objects.h SCROLL order to SCR_FIRE */
-const OTYP_SPE_BOOK_OF_THE_DEAD = 409;
+const OTYP_SPE_BOOK_OF_THE_DEAD = 408;
 const OTYP_SPE_FIREBALL = 368;
 
 /** C: zap.c destroy_strings[dindx] — AD_COLD uses row **0** (freeze / shattered potion). */

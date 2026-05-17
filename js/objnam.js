@@ -10,6 +10,7 @@ import {
     NH5_SCROLL_CLASS,
     NH5_SPBOOK_CLASS,
     NH5_TOOL_CLASS,
+    NH5_WAND_CLASS,
     NH5_WEAPON_CLASS,
 } from './nh5_objclass.js';
 import { isSpellbookOtyp, spellbookAppearanceNounPhrase } from './spellbook_discovery_lines.js';
@@ -82,8 +83,74 @@ const POTION_NAME_BY_IX = [
     'water',
 ];
 
+/** C: `objects.h` WAND(...) — NH **5.0.0** contiguous **`objects_nums`** **409..433** (**`mkobj_wizard_ini_inv_data.js`** **`WAND_CLASS_MKOBJ_OC_PROB_ROWS`**). */
+const OTYP_WAND_FIRST = 409;
+const OTYP_WAND_LAST = 433;
+
+/** C: WAND macro appearance (**`typ`** / wood or metal). */
+const WAND_TYP_BY_IX = [
+    'glass',
+    'balsa',
+    'crystal',
+    'maple',
+    'pine',
+    'redwood',
+    'oak',
+    'ebony',
+    'marble',
+    'tin',
+    'brass',
+    'copper',
+    'silver',
+    'platinum',
+    'iridium',
+    'zinc',
+    'aluminum',
+    'uranium',
+    'iron',
+    'steel',
+    'hexagonal',
+    'short',
+    'runed',
+    'long',
+    'curved',
+];
+
+/** C: WAND macro **`name`** — known **`wand of …`**. */
+const WAND_NAME_BY_IX = [
+    'light',
+    'secret door detection',
+    'enlightenment',
+    'create monster',
+    'wishing',
+    'stasis',
+    'nothing',
+    'striking',
+    'make invisible',
+    'slow monster',
+    'speed monster',
+    'undead turning',
+    'polymorph',
+    'cancellation',
+    'teleportation',
+    'opening',
+    'locking',
+    'probing',
+    'digging',
+    'magic missile',
+    'fire',
+    'cold',
+    'sleep',
+    'death',
+    'lightning',
+];
+
 /** C: objects.h **`SLIME_MOLD`** index ( **`mkobj_food_class_rng_like_c.js`**). */
 const OTYP_SLIME_MOLD = 194;
+
+/** C: **`objects_nums`** **`SPE_NOVEL`** / **`SPE_BOOK_OF_THE_DEAD`** (after **`SPELLBOOK_OTYP`** map in **`spellbook_skill_level_data.js`**). */
+const OTYP_SPE_NOVEL = 407;
+const OTYP_SPE_BOOK_OF_THE_DEAD = 408;
 
 /** C: **`makeplural`**-style fixes for **`OC_SKILL_ROW_BY_OTYP`** phrases (quan **> 1** **`doname`** only). */
 const OC_SKILL_PHRASE_PLURAL = new Map([['worm tooth', 'worm teeth']]);
@@ -141,6 +208,26 @@ export function justArticlePrefix(str) {
     )
         return 'an ';
     return 'a ';
+}
+
+/** C: xname/doname wand branch — appearance vs known (**`override_ID`** or **`g.wandDiscovery`**). */
+function donameWandLikeC(otmp, g, q, overrideId) {
+    const otyp = otmp.otyp | 0;
+    const ix = otyp - OTYP_WAND_FIRST;
+    if (ix < 0 || ix > OTYP_WAND_LAST - OTYP_WAND_FIRST) return q === 1 ? 'a wand' : `${q} wands`;
+    const dknown = overrideId || (otmp.dknown | 0);
+    if (!dknown) return q === 1 ? 'a wand' : `${q} wands`;
+    const known = overrideId || (g?.wandDiscovery instanceof Set && g.wandDiscovery.has(otyp));
+    const appe = WAND_TYP_BY_IX[ix];
+    const effect = WAND_NAME_BY_IX[ix];
+    if (known) {
+        if (q === 1) return `a wand of ${effect}`;
+        return `${q} wands of ${effect}`;
+    }
+    const colored = `${appe} wand`;
+    const art = justArticlePrefix(colored);
+    if (q === 1) return `${art}${colored}`;
+    return `${q} ${appe} wands`;
 }
 
 /**
@@ -209,13 +296,14 @@ function distantNameOcClassStubLikeC(row) {
     const oc = row.oclass | 0;
     if (oc === NH5_WEAPON_CLASS) return 'weapon';
     if (oc === NH5_TOOL_CLASS) return 'tool';
+    if (oc === NH5_WAND_CLASS) return 'wand';
     if (oc === NH5_GEM_CLASS || oc === NH5_ROCK_CLASS) return 'gem';
     return 'item';
 }
 
 /**
  * C: xname(obj) core for zap.c burn_floor_objects classes only (no leading article).
- * Uses `obj.dknown` / `g.objectDiscovery` (spellbooks) / `g.scrollDiscovery` (scrolls) / `g.potionDiscovery` (potions) when wired.
+ * Uses `obj.dknown` / `g.objectDiscovery` (spellbooks) / `g.scrollDiscovery` (scrolls) / `g.potionDiscovery` (potions) / `g.wandDiscovery` (wands) when wired.
  * @param {{ otyp?: number, oclass?: number, quan?: number, dknown?: number, oartifact?: number }} obj
  * @param {object} [g]
  */
@@ -229,6 +317,22 @@ export function xnameBurnFloor(obj, g = game) {
         const ix = t - OTYP_POT_FIRST;
         if (known) return `potion of ${POTION_NAME_BY_IX[ix]}`;
         return `${POTION_DESCR_BY_IX[ix]} potion`;
+    }
+    if ((t >= OTYP_WAND_FIRST && t <= OTYP_WAND_LAST) || oc === NH5_WAND_CLASS) {
+        if (!(obj.dknown | 0)) return 'wand';
+        const ix = t - OTYP_WAND_FIRST;
+        if (ix < 0 || ix > OTYP_WAND_LAST - OTYP_WAND_FIRST) return 'wand';
+        const known = g?.wandDiscovery instanceof Set && g.wandDiscovery.has(t);
+        if (known) return `wand of ${WAND_NAME_BY_IX[ix]}`;
+        return `${WAND_TYP_BY_IX[ix]} wand`;
+    }
+    if (t === OTYP_SPE_BOOK_OF_THE_DEAD) {
+        if (!(obj.dknown | 0)) return 'spellbook';
+        return 'Book of the Dead';
+    }
+    if (t === OTYP_SPE_NOVEL) {
+        if (!(obj.dknown | 0)) return 'spellbook';
+        return 'novel';
     }
     if (oc === NH5_SCROLL_CLASS) {
         if (!(obj.dknown | 0)) return 'scroll';
@@ -278,6 +382,8 @@ export function distantNameBurnFloor(obj, x, y, g = game) {
     const t = obj.otyp | 0;
     if (t === OTYP_GLOB_OF_GREEN_SLIME) return 'glob of green slime';
     if (t >= OTYP_POT_FIRST && t <= OTYP_POT_LAST) return 'potion';
+    if ((t >= OTYP_WAND_FIRST && t <= OTYP_WAND_LAST) || oc === NH5_WAND_CLASS) return 'wand';
+    if (t === OTYP_SPE_BOOK_OF_THE_DEAD || t === OTYP_SPE_NOVEL) return 'spellbook';
     if (oc === NH5_SCROLL_CLASS) return 'scroll';
     if (oc === NH5_SPBOOK_CLASS || isSpellbookOtyp(t)) return 'spellbook';
     const ocRow = OC_SKILL_ROW_BY_OTYP.get(t);
@@ -297,6 +403,14 @@ export function makePluralBurn(s) {
         return `${appe} potions`;
     }
     if (s.startsWith('potion of ')) return `potions of ${s.slice('potion of '.length)}`;
+    if (s === 'wand') return 'wands';
+    if (s.endsWith(' wand') && !s.startsWith('wand of ')) {
+        const appe = s.slice(0, -' wand'.length);
+        return `${appe} wands`;
+    }
+    if (s.startsWith('wand of ')) return `wands of ${s.slice('wand of '.length)}`;
+    if (s === 'Book of the Dead') return 'Books of the Dead';
+    if (s === 'novel') return 'novels';
     if (s === 'scroll') return 'scrolls';
     if (s === 'spellbook') return 'spellbooks';
     if (s.startsWith('scroll of ')) return `scrolls of ${s.slice('scroll of '.length)}`;
@@ -317,6 +431,7 @@ export function makePluralBurn(s) {
  * name like `a spellbook of force bolt` (C appearance after skill_based_spellbook_id).
  * Scrolls: `g.scrollDiscovery` Set drives **`scroll of`** vs **`scroll labeled`** when `dknown`.
  * Potions: NH **5.0.0** **`objects_nums`** **296..321** — appearance vs **`potion of …`** from **`g.potionDiscovery`** when `dknown`.
+ * Wands: **`409..433`** — appearance vs **`wand of …`** from **`g.wandDiscovery`** when `dknown` (**`objects.h`** **`WAND`** through **`WAN_LIGHTNING`**).
  * Slime mold / glob: FOOD **`otyp`** subset (**`minimal_xname`** corpsenm suppression not modeled).
  * **`OC_SKILL_ROW_BY_OTYP`** otyps: C **`OBJ_NAME`**-style phrase (**`distant_name`** far uses class stub).
  * @param {{ otyp?: number, quan?: number, oclass?: number, dknown?: number }} otmp
@@ -337,9 +452,17 @@ export function doname(otmp, g = game, opts) {
     if (otyp === OTYP_SLIME_MOLD) {
         return q === 1 ? 'a slime mold' : `${q} slime molds`;
     }
+    if (otyp === OTYP_SPE_BOOK_OF_THE_DEAD) {
+        return q === 1 ? 'the Book of the Dead' : `${q} Books of the Dead`;
+    }
+    if (otyp === OTYP_SPE_NOVEL) {
+        return q === 1 ? 'a novel' : `${q} novels`;
+    }
     const oc = nh5HeroObjectClass(otmp);
     const onPotion = oc === NH5_POTION_CLASS || (otyp >= OTYP_POT_FIRST && otyp <= OTYP_POT_LAST);
     if (onPotion) return donamePotionLikeC(otmp, g, q, overrideId);
+    const onWand = oc === NH5_WAND_CLASS || (otyp >= OTYP_WAND_FIRST && otyp <= OTYP_WAND_LAST);
+    if (onWand) return donameWandLikeC(otmp, g, q, overrideId);
     const treatAsSpellbook = oc === NH5_SPBOOK_CLASS || isSpellbookOtyp(otyp);
     if (oc === NH5_SCROLL_CLASS) {
         const dknown = overrideId || (otmp.dknown | 0);
