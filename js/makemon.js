@@ -50,7 +50,15 @@ export function makemon(mdat, x, y, mmflags) {
         mflee: 0,
         mfleetim: 0,
         movement: 0,
+        mgenmklev: 0,
     };
+    /* C: makemon.c — level-gen spawns (fill_ordinary_room, …) before hero play. */
+    if (game.in_mklev) {
+        mtmp.mgenmklev = 1;
+        if (!(game.u?.uhave?.amulet) && !rn2(5)) {
+            mtmp.msleeping = 1;
+        }
+    }
     const mons = game.level?.monsters;
     if (mons) mons.push(mtmp);
     return mtmp;

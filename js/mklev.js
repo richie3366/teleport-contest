@@ -490,7 +490,10 @@ async function makelevel() {
         place_branch(branchp);
     }
 
-    // Fill rooms + mineralize: consumed by fastforward_fill_mineralize (allmain.js)
+    /* Fill + mineralize: real path is fillAllOrdinaryRoomsLikeC + level_finalize_topology
+     * mineralize (see fillAndMineralizeFromMklevLikeC). Still replayed via fastforward_fill_mineralize
+     * in allmain.js until per-room RNG order matches C (~1412 first diverges: extra draws before
+     * makemon rnd(100) when fillable-room count/order differs from the recorder). */
 }
 
 /**
@@ -1858,7 +1861,7 @@ function syncLevelFlagsHasTownAfterFixupSpecialLikeC(g) {
 
 function level_finalize_topology() {
     bound_digging();
-    // mineralize is consumed by fastforward_fill_mineralize
+    /* mineralize(-1,…,FALSE) — paired with fill; see makelevel comment + fastforward_fill_mineralize */
     game.in_mklev = false;
     if (!game.level?.flags?.is_maze_lev) {
         const nroom = game.level?.nroom ?? 0;
