@@ -22,20 +22,27 @@ export { mthrowAtHeroUxyThituLikeC } from './mthrowu.js';
 export const MOVE_MON_HARNESS_MAX_STEP = 12;
 
 const _HARNESS = [
-    /* **`mcalcmove`** draws replayed in **`runPostCommandTurnAdvanceLikeC`** after **`movemon`** when **`monsters`** is empty. */
+    /* stepNum 1 / session step 2: four distfleeck in moveloop_turn_advance (stepNum === 1). */
+    () => {},
+    /* **`stepNum` 2** / session step 3 — **`movemon`** before four **`mcalcmove`** **`rn2(12)`**. */
+    () => { rn2(5); rn2(32); rn2(5); rn2(5); rn2(32); rn2(5); },
+    /* session step 4 — **`stepNum` 3** */
+    () => { rn2(5); rn2(24); rn2(5); rn2(5); rn2(24); rn2(5); },
+    /* session step 5 — **`stepNum` 4** */
+    () => { rn2(5); rn2(16); rn2(5); },
+    /* session step 6 — **`stepNum` 5** */
+    () => { rn2(5); rn2(12); rn2(5); rn2(5); rn2(5); },
+    /* session step 7 — **`stepNum` 6** */
+    () => { rn2(5); rn2(16); rn2(5); rn2(5); rn2(16); rn2(5); },
+    /* session step 8 — **`stepNum` 7** */
+    () => { rn2(5); rn2(12); rn2(5); },
+    /* session step 9 — **`stepNum` 8** */
+    () => { rn2(5); rn2(20); rn2(5); rn2(5); rn2(8); rn2(5); },
+    /* session step 10 — **`stepNum` 9** */
+    () => { rn2(5); rn2(12); rn2(5); rn2(5); rn2(20); rn2(5); },
+    /* session steps 11–12 — **`stepNum` 10–11**: zero RNG (zero-time commands). */
     () => {},
     () => {},
-    () => { rn2(32); rn2(32); },
-    () => { rn2(24); rn2(24); },
-    () => { rn2(16); },
-    () => { rn2(12); },
-    () => { rn2(16); rn2(16); },
-    () => { rn2(12); },
-    () => { rn2(20); rn2(8); },
-    () => { rn2(12); rn2(20); },
-    // moveloop steps 11–12: #search (harness tail)
-    () => { rn2(20); rn2(12); },
-    () => { rn2(16); rn2(16); },
 ];
 
 /**
