@@ -40,9 +40,12 @@ const _HARNESS = [
     () => { rn2(5); rn2(20); rn2(5); rn2(5); rn2(8); rn2(5); },
     /* session step 10 — **`stepNum` 9** */
     () => { rn2(5); rn2(12); rn2(5); rn2(5); rn2(20); rn2(5); },
-    /* session steps 11–12 — **`stepNum` 10–11**: zero RNG (zero-time commands). */
-    () => {},
-    () => {},
+    /* session step 11 — **`stepNum` 10** */
+    () => { rn2(5); rn2(12); rn2(5); rn2(5); rn2(20); rn2(5); },
+    /* session step 21 (`#search`) — **`stepNum` 11**; four **`rn2(12)`** follow in **`moveloop_turn_advance`**. */
+    () => { rn2(5); rn2(20); rn2(5); rn2(5); rn2(12); rn2(5); },
+    /* session step 22 (`#search`) — **`stepNum` 12** */
+    () => { rn2(5); rn2(16); rn2(5); rn2(5); rn2(16); rn2(5); },
 ];
 
 /**
@@ -52,7 +55,9 @@ const _HARNESS = [
  * Tail: **`mintrap`** after each sweep when a monster entered a trapped square (C: **`monmove.c`** after **`m_move`**).
  */
 export async function movemon(stepNum) {
-    const raw = stepNum - 1;
+    /* **`stepNum`** = **`moves − 1`** at advance start; harness row lags by one for steps 3–11 (see **`stepNum === 1`** bulk **`rn2(5)`** in **`moveloop_turn_advance`**). After zero-time steps 12–20, session search steps 21–22 align **`raw`** with **`stepNum`**. */
+    let raw = stepNum - 1;
+    if (stepNum >= 10) raw = stepNum;
     if (raw >= 0 && raw < _HARNESS.length) {
         _HARNESS[raw]();
     } else if (raw >= _HARNESS.length) {

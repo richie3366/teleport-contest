@@ -32,7 +32,7 @@ export async function runMoveloopPreambleBeforeRhackLikeC(g) {
  */
 export async function runPostCommandTurnAdvanceLikeC(g) {
     const stepNum = (g.moves || 1) - 1;
-    if (g._prevMoveTick && stepNum > 0) {
+    if (stepNum > 0) {
         await movemon(stepNum);
     }
 
@@ -65,9 +65,7 @@ export async function runPostCommandTurnAdvanceLikeC(g) {
     runDueNhObjTimers(g);
     for (const line of collectNewuhsPlines(true)) await pline(line);
 
-    if (g._prevMoveTick) {
-        await end_of_turn_rng(stepNum);
-    }
+    await end_of_turn_rng(stepNum);
 }
 
 /** C: allmain.c moveloop_core — tutorial exit flag clear in core tail. */
