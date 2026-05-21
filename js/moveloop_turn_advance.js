@@ -42,7 +42,10 @@ export async function runPostCommandTurnAdvanceLikeC(g) {
             m.movement = (m.movement | 0) + mcalcMoveLikeC(m, true, g);
         }
     } else {
-        /* C: **`mcalcmove`** over **`fmon`** — **`mklev`** stub may leave **`monsters`** empty while C had four mons on D:1. */
+        /* C: D:1 with empty **`fmon`** — session step 2 only needs bulk 4× **`distfleeck`** before **`mcalcmove`**; later steps interleave **`movemon`** harness **`rn2(32)`** (see **`monmove.js`**). */
+        if (stepNum === 1) {
+            for (let i = 0; i < 4; i++) rn2(5);
+        }
         for (let i = 0; i < 4; i++) rn2(12);
     }
     maybe_generate_rnd_mon();
