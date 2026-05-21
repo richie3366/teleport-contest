@@ -175,7 +175,7 @@ export async function newgame() {
     // C: do.c goto_level — **`if (new)`** after **`mklev`**; **`allmain.c`** **`newgame`** calls **`mklev()`** with **`u.uz`** on D:1 (no bones on brand-new game).
     if (await mklev()) maybeRecordEnteredNewLevelLivelogLikeC(g);
 
-    // Fill rooms + mineralize: replayed by fastforward
+    // Fill + mineralize: replay until fillAllOrdinaryRoomsLikeC matches C per-room RNG (~1412 peel).
     fastforward_fill_mineralize();
 
     /* C u_init.c u_init_role — svm.moves = 1L before ini_inv (before post-mklev fastforward replay) */

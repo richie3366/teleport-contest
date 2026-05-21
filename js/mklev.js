@@ -6,6 +6,7 @@
 // Uses the real game PRNG (not a separate layout PRNG) for bit-exact parity.
 
 import { game } from './gstate.js';
+import { insideRoomLikeC } from './hacklib.js';
 import { GameMap } from './game.js';
 import { rn2, rnd, rn1 } from './rng.js';
 import { init_rect, rnd_rect, get_rect, split_rects } from './rect.js';
@@ -490,10 +491,10 @@ async function makelevel() {
         place_branch(branchp);
     }
 
-    /* Fill + mineralize: real path is fillAllOrdinaryRoomsLikeC + level_finalize_topology
-     * mineralize (see fillAndMineralizeFromMklevLikeC). Still replayed via fastforward_fill_mineralize
-     * in allmain.js until per-room RNG order matches C (~1412 first diverges: extra draws before
-     * makemon rnd(100) when fillable-room count/order differs from the recorder). */
+    /* C: mklev.c makelevel tail — fill ordinary rooms here (gi.in_mklev); mineralize in
+     * level_finalize_topology. Still replayed via fastforward_fill_mineralize in allmain.js until
+     * per-room RNG matches C (~1412: real fill calls shallow mkobj rnd(2) vs recorder makemon
+     * rnd(100) after identical rn2(8)/rn2(6); shallow mkobj/mktrap stubs + C call order). */
 }
 
 /**
@@ -525,10 +526,13 @@ export async function fillAllOrdinaryRoomsLikeC(g = game) {
  * C: mklev.c makelevel fill + level_finalize_topology mineralize (replaces fastforward_fill_mineralize replay).
  * @param {import('./gstate.js').game} [g]
  */
-/** @deprecated Use fill in makelevel + mineralize in level_finalize_topology (C mklev order). */
+/** Dev / peel path: C runs fill in makelevel with gi.in_mklev, mineralize in level_finalize_topology. */
 export async function fillAndMineralizeFromMklevLikeC(g = game) {
+    const prev = !!g.in_mklev;
+    g.in_mklev = true;
     await fillAllOrdinaryRoomsLikeC(g);
     mineralize(-1, -1, -1, -1, false);
+    g.in_mklev = prev;
 }
 
 // C ref: mklev.c makerooms()
@@ -1191,13 +1195,22 @@ function somexy(croom, c) {
         c.y = somey(croom);
         return true;
     }
+    /* C: mkroom.c somexy — coords must not fall in a subroom or on a wall */
     let try_cnt = 0;
     while (try_cnt++ < 100) {
         c.x = somex(croom);
         c.y = somey(croom);
         const loc = game.level.at(c.x, c.y);
         if (loc && IS_WALL(loc.typ)) continue;
-        return true;
+        let inSub = false;
+        for (let i = 0; i < (croom.nsubrooms | 0); i++) {
+            const sub = croom.sbrooms?.[i];
+            if (sub && insideRoomLikeC(game, sub, c.x, c.y)) {
+                inSub = true;
+                break;
+            }
+        }
+        if (!inSub) return true;
     }
     return false;
 }
@@ -1622,12 +1635,22 @@ function mkgrave_room(croom) {
 async function fill_ordinary_room(croom, bonus_items) {
     const g = game;
     if (!croom || (croom.rtype !== OROOM && croom.rtype !== THEMEROOM)) return;
+
+    /* C: mklev.c fill_ordinary_room — subrooms before parent needfill check */
+    for (let si = 0; si < (croom.nsubrooms | 0); si++) {
+        const subroom = croom.sbrooms?.[si];
+        if (!subroom) return;
+        await fill_ordinary_room(subroom, false);
+    }
+
     if (croom.needfill !== FILL_NORMAL) return;
 
     const pos = { x: 0, y: 0 };
     // C: (u.uhave.amulet || !rn2(3)) && somexyspace — sleeping monster
     if ((g.u?.uhave?.amulet || !rn2(3)) && somexyspace(croom, pos)) {
-        makemon(null, pos.x, pos.y, MM_NOGRP);
+        const tmonst = makemon(null, pos.x, pos.y, MM_NOGRP);
+        /* C: giant spider + WEB when !occupied(pos) — PM check when rndmonst sets mnum */
+        void tmonst;
     }
     // Traps
     const u_depth = g.u?.uz?.dlevel ?? 1;
@@ -1861,7 +1884,7 @@ function syncLevelFlagsHasTownAfterFixupSpecialLikeC(g) {
 
 function level_finalize_topology() {
     bound_digging();
-    /* mineralize(-1,…,FALSE) — paired with fill; see makelevel comment + fastforward_fill_mineralize */
+    /* mineralize(-1,…,FALSE) runs with fill in C level_finalize_topology before gi.in_mklev=FALSE */
     game.in_mklev = false;
     if (!game.level?.flags?.is_maze_lev) {
         const nroom = game.level?.nroom ?? 0;
