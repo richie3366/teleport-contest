@@ -7,6 +7,7 @@
 
 import { game } from './gstate.js';
 import { insideRoomLikeC } from './hacklib.js';
+import { mkobjMklevConsumeRngLikeC } from './mkobj_mklev_like_c.js';
 import { GameMap } from './game.js';
 import { rn2, rnd, rn1 } from './rng.js';
 import { init_rect, rnd_rect, get_rect, split_rects } from './rect.js';
@@ -191,10 +192,7 @@ function level_difficulty() {
 
 let _nextObjId = 1;
 
-// C ref: mkobj.c next_ident — rnd(2) for item identification
-function next_ident() { rnd(2); }
-
-// C ref: mkobj.c blessorcurse — rn2(4) BUC selection
+// C ref: mkobj.c blessorcurse — rn2(4) BUC selection (supply chest / legacy paths)
 function blessorcurse(otmp) {
     const r = rn2(4);
     if (otmp) {
@@ -203,33 +201,21 @@ function blessorcurse(otmp) {
     }
 }
 
-// C ref: mkobj.c mksobj — create a specific object
-// Minimal stub: consumes RNG for next_ident + type-specific init
+// C ref: mkobj.c mksobj — next_ident + mksobj_init (mklev placement paths; not mkobj() class pick)
 function mksobj(otyp, init, artif) {
     const otmp = {
         otyp, ox: -1, oy: -1, quan: 1, owt: 1, cursed: false, blessed: false, olocked: false, spe: 0,
     };
-    next_ident();
+    rnd(2);
     if (init) {
-        mksobj_init(otmp, otyp);
+        const t = otyp | 0;
+        if (t >= 270 && t < 300) {
+            blessorcurse(otmp);
+        } else if (t >= 230 && t < 270) {
+            blessorcurse(otmp);
+        }
     }
     return otmp;
-}
-
-// C ref: mkobj.c mksobj initialization RNG consumption
-// This varies by object class. For the contest, we need enough to match
-// the session's RNG pattern for objects created during mklev.
-function mksobj_init(otmp, otyp) {
-    // For OTYP_BOULDER, GOLD_PIECE: no extra init RNG
-    // For scrolls: blessorcurse
-    // For potions: blessorcurse
-    // For general objects: varies
-    // We just do blessorcurse for scrolls/potions
-    if (otyp >= 270 && otyp < 300) { // scrolls
-        blessorcurse(otmp);
-    } else if (otyp >= 230 && otyp < 270) { // potions
-        blessorcurse(otmp);
-    }
 }
 
 /** C: mkobj.c / gold detection — first gold stack in floor chain at (x,y). */
@@ -250,10 +236,26 @@ function mksobj_at(otyp, x, y, init, artif) {
     return otmp;
 }
 
+/** Shallow mkobj until fill runs without fastforward (corridor stub parity). */
+function mkobj_shallow(oclass, artif) {
+    void oclass;
+    void artif;
+    rnd(2);
+    return {
+        otyp: 0, ox: -1, oy: -1, quan: 1, owt: 1, cursed: false, blessed: false, olocked: false, spe: 0,
+    };
+}
+
+/** C: mkobj.c mkobj + mksobj init — fill_ordinary_room / mktrap_room only. */
+function mkobjFromMklevCLikeC(oclass, artif) {
+    const otyp = mkobjMklevConsumeRngLikeC(oclass, artif);
+    return {
+        otyp, ox: -1, oy: -1, quan: 1, owt: 1, cursed: false, blessed: false, olocked: false, spe: 0,
+    };
+}
+
 function mkobj(oclass, artif) {
-    // Class-based random object creation
-    // For contest, just consume the right RNG
-    return mksobj(0, false, artif);
+    return mkobj_shallow(oclass, artif);
 }
 
 function mkobj_at(oclass, x, y, artif) {
@@ -1544,7 +1546,7 @@ function mktrap_victim(trap) {
     // Random items on victim
     do {
         const cls = [WEAPON_CLASS, TOOL_CLASS, FOOD_CLASS, GEM_CLASS][rn2(4)];
-        const otmp = mkobj(cls, false);
+        const otmp = mkobjFromMklevCLikeC(cls, false);
         curse(otmp);
     } while (!rn2(5));
     // Victim type
@@ -1626,7 +1628,7 @@ function mkgrave_room(croom) {
         mkgold(rnd(20) + depth * rnd(5), pos.x, pos.y);
     }
     for (let tryct = rn2(5); tryct > 0; tryct--) {
-        const otmp = mkobj(RANDOM_CLASS, true);
+        const otmp = mkobjFromMklevCLikeC(RANDOM_CLASS, true);
         curse(otmp);
     }
     if (dobell) mksobj_at(BELL, pos.x, pos.y, true, false);
@@ -1718,12 +1720,12 @@ async function fill_ordinary_room(croom, bonus_items) {
                         SCROLL_CLASS, POTION_CLASS, RING_CLASS,
                         SPBOOK_no_NOVEL, SPBOOK_no_NOVEL, SPBOOK_no_NOVEL];
                     const oclass = extra_classes[rn2(extra_classes.length)];
-                    let otmp = mkobj(oclass, false);
+                    let otmp = mkobjFromMklevCLikeC(oclass, false);
                     if (oclass === SPBOOK_no_NOVEL && otmp) {
                         const depth = g.u?.uz?.dlevel ?? 1;
                         const maxpass = (depth > 2) ? 2 : 3;
                         for (let pass = 1; pass <= maxpass; pass++) {
-                            mkobj(oclass, false);
+                            mkobjFromMklevCLikeC(oclass, false);
                         }
                     }
                 }
@@ -1804,7 +1806,7 @@ function mineralize(kelp_pool, kelp_moat, goldprob, gemprob, skip_lvl_checks) {
                 if (rn2(1000) < gemprob) {
                     const cnt = rnd(2 + Math.trunc(dunLevel / 3));
                     for (let i = 0; i < cnt; i++) {
-                        mkobj(GEM_CLASS, false);
+                        mkobjFromMklevCLikeC(GEM_CLASS, false);
                     }
                 }
             }
