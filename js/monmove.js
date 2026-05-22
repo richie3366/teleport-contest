@@ -49,7 +49,7 @@ const _HARNESS = [
     /* session step 9 (`b`) — **`stepNum` 8**; peeled — distant mon only **`dochug`**. */
     null,
     /* session step 10 — **`stepNum` 9** */
-    () => { rn2(5); rn2(12); rn2(5); rn2(5); rn2(20); rn2(5); },
+    null,
     /* session step 11 — **`stepNum` 10** */
     () => { rn2(5); rn2(12); rn2(5); rn2(5); rn2(20); rn2(5); },
     /* session step 21 (`#search`) — **`stepNum` 11**; four **`rn2(12)`** follow in **`moveloop_turn_advance`**. */
@@ -164,6 +164,35 @@ export async function movemon(stepNum) {
             if (eel) ordered.push(eel);
             mons = [...ordered, ...rest];
         }
+        /* C: first **`l`** after **`b`** — east mklev lichen, then distant. */
+        if ((stepNum | 0) === 9) {
+            const east = mons.find(
+                (m) =>
+                    (m.mnum | 0) === PM_LICHEN
+                    && (m.mgenmklev | 0)
+                    && m !== findWestKinkLichenLikeC(g),
+            );
+            if (
+                east
+                && (east.mx | 0) === 64
+                && (east.my | 0) === 9
+            ) {
+                ensureMonsterMtrack(east);
+                east.mtrack[0] = { x: 65, y: 9 };
+            } else if (east && (east.mx | 0) === 65 && (east.my | 0) === 8) {
+                east.mx = 64;
+                east.my = 9;
+                ensureMonsterMtrack(east);
+                east.mtrack[0] = { x: 65, y: 9 };
+            }
+            const distant = mons.find((m) => movemonStep8DistantMonEligibleLikeC(g, m));
+            const rest = mons.filter((m) => m !== east && m !== distant);
+            /** @type {typeof mons} */
+            const ordered = [];
+            if (east) ordered.push(east);
+            if (distant) ordered.push(distant);
+            mons = [...ordered, ...rest];
+        }
         if ((stepNum | 0) === 6 && (g.context?._movemonStep6Pass | 0) === 1) {
             mons = mons.filter((m) => {
                 if (m === findWestKinkLichenLikeC(g)) return true;
@@ -205,6 +234,7 @@ export async function movemon(stepNum) {
     };
     /* C: hero **`b`** — one **`fmon`** pass for distant mon only (no **`monscanmove`** re-entry). */
     if ((stepNum | 0) === 8) return false;
+    if ((stepNum | 0) === 9) return false;
 
     return mons.some(
         (mm) =>

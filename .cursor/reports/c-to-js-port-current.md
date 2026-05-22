@@ -18,11 +18,11 @@ Thin handoff for the next coding session. **Gap inventory (not yet ported):** [`
 
 **Deferred for now:** **`maybe_do_tutorial`** / **`tut-1`** / full **`do.c`** **`goto_level`** (Lua **`tutorial()`** / **`free_tutorial()`**, **`savelev`**, **`gmst_*`**, …) and **`dokick`**/**`dothrow`** vs **`leaving_tutorial`** — strong upstream dependencies (save, specials, fuller **`do.c`**); treat as backlog until chargen / core early-game parity is further along; **`LIVELOGFILE`** parity if the judge ever compares livelog lines.
 
-**Last slice:** **`monmove.js`** + **`m_move_mon.js`** + **`mfndpos_mon.js`** — moveloop **`b`** (**`stepNum` 8**): peel harness row **7**; **`fmon`** order distant → west kink → land eel; distant **`mtrack[0]=(21,14)`** → **`rn2(20)`**; eel **`m_move`** **`!rn2(8)`** + **`distfleeck`**; west **`distfleeck`** only. **`seed8000-tourist-starter` PASS** (**3130/3130** RNG, **23/23** screens). **`npm run score`:** **1/44**.
+**Last slice:** **`monmove.js`** + **`m_move_mon.js`** — moveloop first **`l`** after **`b`** (**`stepNum` 9**): peel harness row **8**; east mklev lichen at **(64,9)** **`distfleeck`** + **`m_move`** (**`rn2(12)`** via **`mtrack[0]=(65,9)`**) + 2× recalc; distant **`rn2(20)`** track rejection + **`distfleeck`** only (no displacement); **`restoreEastMklevLichenAt649AfterMmoveLikeC`** on kick/**`l`**. **`seed8000-tourist-starter` PASS** (**3130/3130** RNG, **23/23** screens). **`npm run score`:** **1/44**.
 
 ## Next steps
 
-1. **Moveloop step 10 (`l`)** — peel harness row **8** (**`stepNum` 9**): **`rn2(5); rn2(12); …`** (first west move after **`b`**).
+1. **Moveloop second **`l`** — peel harness row **9** (**`stepNum` 10**): same six-draw pattern as row **8** (session step **11**).
 2. **Moveloop rows 9–12** — remaining harness peels; replace eel **`_eelStep8ChcntBase`** hack with C **`mfndpos`/`mtrack`** parity when land-eel path is fully ported.
 2. **`newmonhp`** / **`minliquid`** land-eel — restore C **`minliquid`** on distfleeck-only turns once **`mhp`** parity matches (remove blanket **`stepNum===1–3`** skips where C runs **`minliquid`**).
 2. **`mklev`/`dig_corridor`** — corridor **`roomno`** / kink tiles if C **`mfndpos`** needs **6** neighbors at door **(65,12)** without walkability hacks alone.
