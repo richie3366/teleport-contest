@@ -109,6 +109,7 @@ export function makemon(mdat, x, y, mmflags) {
         mfleetim: 0,
         movement: 0,
         mgenmklev: 0,
+        mstrategy: 0,
     };
     monTrackInitLikeC(mtmp);
     mtmp.mgenmklev = game.in_mklev ? 1 : 0;

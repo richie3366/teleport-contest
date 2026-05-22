@@ -17,7 +17,7 @@ import { MONS_MMOVE } from './mons_rndmonst_ini_inv_data.js';
  */
 export function mcalcMoveLikeC(mon, mMoving, g) {
     const mndx = mon.mnum | 0;
-    /* **`mcalcmove`** runs before **`moves++`**; first allocation (**`moves===1`**) uses hero stub speed. */
+    /* **`mcalcmove`** runs before **`moves++`**; first allocation uses **`raceptr`** ( **`permonstHuman.mmove`** until **`MONS_MMOVE`** wired on permonst). */
     let mmove = ((g?.moves | 0) === 1)
         ? ((raceptr(mon)?.mmove) | 0)
         : ((MONS_MMOVE[mndx] ?? raceptr(mon)?.mmove) | 0);

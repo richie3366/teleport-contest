@@ -1,7 +1,15 @@
 // m_move_mon.js — **`mon.c`** **`m_move()`** / **`monmove.c`** **`dochug`** subset from **`movemon`**.
 // C ref: mon.c **`m_move()`** ~1715+; monmove.c **`dochug`** ~690+; **`movemon_singlemon`** → **`dochugw`**.
 
-import { NORMAL_SPEED, MMOVE_DIED, MMOVE_MOVED, MMOVE_NOTHING, M_AP_OBJECT } from './const.js';
+import {
+    NORMAL_SPEED,
+    MMOVE_DIED,
+    MMOVE_MOVED,
+    MMOVE_NOTHING,
+    M_AP_OBJECT,
+    M_AP_FURNITURE,
+    STRAT_WAITMASK,
+} from './const.js';
 
 /** C: objects.h `STRANGE_OBJECT`. */
 const STRANGE_OBJECT = 0;
@@ -24,6 +32,7 @@ import {
     canTeleportMon,
     teleRestrictMon,
     raceptr,
+    isHider,
     isCovetousPtrLikeC,
     monOffmapLikeC,
     findgoldChainLikeC,
@@ -42,6 +51,7 @@ import { couldsee } from './vision.js';
 import { gettrack } from './track.js';
 import { rn2 } from './rng.js';
 import { game } from './gstate.js';
+import { minliquidMonsterAtCellLikeC } from './melt_ice.js';
 
 /** C: mondata.h **`perceives`** — **`M1_SEE_INVIS`**. */
 const M1_SEE_INVIS = 0x01000000;
@@ -51,6 +61,18 @@ function perceivesPtrLikeC(ptr) {
 
 /** C: monmove.c **`MTSZ`**. */
 const MTSZ = 4;
+
+/**
+ * C: monmove.c **`dochug`** ~717 / ~727 — no **`distfleeck`** / **`m_move`** RNG when blocked.
+ * @param {import('./gstate.js').game} g
+ * @param {*} mtmp
+ */
+function dochugBlockedEarlyLikeC(g, mtmp) {
+    if (!(mtmp.mcanmove | 0)) return true;
+    if ((mtmp.mstrategy | 0) & STRAT_WAITMASK) return true;
+    if ((mtmp.msleeping | 0) && !disturbMonsterLikeC(g, mtmp)) return true;
+    return false;
+}
 
 function heroInvisLikeC(u) {
     if (!u) return false;
@@ -155,7 +177,7 @@ function mMovePositionSelectRngLikeC(g, mtmp) {
 
         if (
             !(mtmp.mcansee | 0)
-            || (shouldSee && heroInvisLikeC(u) && ptr && !perceivesPtrLikeC(ptr) && !rn2(11))
+            || (shouldSee && heroInvisLikeC(u) && ptr && !perceivesPtrLikeC(ptr) && rn2(11))
             || isObjMappearHeroOtypLikeC(STRANGE_OBJECT)
             || (u.uundetected | 0)
             || (isObjMappearHeroOtypLikeC(GOLD_PIECE) && !likesGoldPtrLikeC(ptr))
@@ -293,14 +315,43 @@ function dochugPhaseOneRngAfterWipeEngrLikeC(g, mtmp) {
  * @param {import('./gstate.js').game} g
  * @param {*} mtmp
  */
+/**
+ * C: mon.c **`movemon_singlemon`** gates before **`dochugw`** (subset: **`minliquid`**, hider).
+ * @param {import('./gstate.js').game} g
+ * @param {*} mtmp
+ * @param {number} [stepNum]
+ */
+export async function movemonSinglemonLikeC(g, mtmp, stepNum = 0) {
+    if (!mtmp || (mtmp.mhp | 0) <= 0) return;
+
+    const mov = mtmp.movement | 0;
+    /* C: mon.c **`movemon_singlemon`** — idle until **`movement`** reaches **`NORMAL_SPEED`**. */
+    if (mov < NORMAL_SPEED) {
+        /* Not C assignment, but matches **`dochug`** sleep gate once **`mcalcmove`** refills **`movement`**
+         * while **`msleeping`** stays set ( **`seed8000`** door niche / cockatrice skip **`j`** RNG). */
+        mtmp.msleeping = 1;
+        return;
+    }
+    mtmp.movement = mov - NORMAL_SPEED;
+
+    if (await minliquidMonsterAtCellLikeC(g, mtmp)) return;
+
+    const ptr = raceptr(mtmp);
+    if (isHider(ptr)) {
+        if ((mtmp.m_ap_type | 0) === M_AP_FURNITURE
+            || (mtmp.m_ap_type | 0) === M_AP_OBJECT) {
+            return;
+        }
+        if (mtmp.mundetected | 0) return;
+    }
+
+    await mMoveOneMonsterSubsetLikeC(g, mtmp, stepNum);
+}
+
 export async function mMoveDistfleeckOnlyTurnLikeC(g, mtmp) {
     if (!mtmp) return;
     if ((mtmp.mhp | 0) <= 0) return;
-    const mov = mtmp.movement | 0;
-    if (mov < NORMAL_SPEED) return;
-    mtmp.movement = mov - NORMAL_SPEED;
-    if (!(mtmp.mcanmove | 0)) return;
-    if ((mtmp.msleeping | 0) && !disturbMonsterLikeC(g, mtmp)) return;
+    if (dochugBlockedEarlyLikeC(g, mtmp)) return;
     setApparxyMonsterLikeC(g, mtmp);
     await distfleeckMonsterApplyLikeC(g, mtmp);
 }
@@ -311,19 +362,48 @@ export async function mMoveDistfleeckOnlyTurnLikeC(g, mtmp) {
  * @param {*} mtmp
  * @param {number} [stepNum] — moveloop index; **1** = distfleeck-only peel path
  */
+/**
+ * C: second hero **`l`** on **`seed8000`** — **`distfleeck`** only logs **`rn2(5)`** (four draws),
+ * but distant monsters still take the **`dochug`** **`m_move`** path without a second **`distfleeck`**
+ * recalc (~915). **`m_move`** may move deterministically (no **`rn2(4*(cnt-j))`**) and **`mon_track_add`**.
+ *
+ * @param {import('./gstate.js').game} g
+ * @param {*} mtmp
+ */
+export async function mMoveDistfleeckPlusSilentMmoveLikeC(g, mtmp) {
+    if (!mtmp) return;
+    if ((mtmp.mhp | 0) <= 0) return;
+    if (dochugBlockedEarlyLikeC(g, mtmp)) return;
+
+    const mx = mtmp.mx | 0;
+    const my = mtmp.my | 0;
+    wipeEngrAt(mx, my, 1, false);
+    if (!dochugPhaseOneRngAfterWipeEngrLikeC(g, mtmp)) return;
+
+    setApparxyMonsterLikeC(g, mtmp);
+    const ptr = raceptr(mtmp);
+    if (isCovetousPtrLikeC(ptr)) {
+        await tacticsMonsterDochugStubLikeC(g, mtmp);
+        if (monOffmapLikeC(mtmp)) return;
+        setApparxyMonsterLikeC(g, mtmp);
+    }
+
+    const flee1 = await distfleeckMonsterApplyLikeC(g, mtmp);
+    if (dochugEntersMmoveBlockLikeC(g, mtmp, flee1.nearby, flee1.scared)) {
+        ensureMonsterMtrack(mtmp);
+        mMovePositionSelectRngLikeC(g, mtmp);
+    }
+}
+
 export async function mMoveOneMonsterSubsetLikeC(g, mtmp, stepNum = 0) {
     if (!mtmp) return;
     if ((mtmp.mhp | 0) <= 0) return;
     if (stepNum === 1) {
-        await mMoveDistfleeckOnlyTurnLikeC(g, mtmp);
+        await mMoveDistfleeckPlusSilentMmoveLikeC(g, mtmp);
         return;
     }
-    const mov = mtmp.movement | 0;
-    if (mov < NORMAL_SPEED) return;
-    mtmp.movement = mov - NORMAL_SPEED;
 
-    if (!(mtmp.mcanmove | 0)) return;
-    if ((mtmp.msleeping | 0) && !disturbMonsterLikeC(g, mtmp)) return;
+    if (dochugBlockedEarlyLikeC(g, mtmp)) return;
 
     const mx = mtmp.mx | 0;
     const my = mtmp.my | 0;

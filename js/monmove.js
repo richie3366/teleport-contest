@@ -15,7 +15,7 @@ import { NORMAL_SPEED } from './const.js';
 import { mintrapMoveloopTail } from './trap.js';
 import { game } from './gstate.js';
 import { fmonListNewestFirstLikeC } from './fmon_iter.js';
-import { mMoveOneMonsterSubsetLikeC } from './m_move_mon.js';
+import { movemonSinglemonLikeC } from './m_move_mon.js';
 
 export { mthrowAtHeroUxyThituLikeC } from './mthrowu.js';
 
@@ -26,10 +26,10 @@ export const MOVE_MON_HARNESS_MAX_STEP = 12;
 const _HARNESS = [
     /* stepNum 1 — peeled: **`mMoveDistfleeckOnlyTurnLikeC`** (one **`rn2(5)`** per monster). */
     null,
-    /* stepNum 2 — session step 3 (`n`); peel when track **`rn2(4*(cnt-j))`** matches (needs **`cnt=8`** or **`mtrack`**). */
-    () => { rn2(5); rn2(32); rn2(5); rn2(5); rn2(32); rn2(5); },
-    /* session step 4 — **`stepNum` 3** */
-    () => { rn2(5); rn2(24); rn2(5); rn2(5); rn2(24); rn2(5); },
+    /* stepNum 2 — session step 3 (`n`); peeled — door-niche **`CORR`** + silent **`m_move`**. */
+    null,
+    /* session step 4 — **`stepNum` 3**; peel when **`mfndpos cnt=6`** + 2-mon **`dochug`** parity. */
+    null,
     /* session step 5 — **`stepNum` 4** */
     () => { rn2(5); rn2(16); rn2(5); },
     /* session step 6 — **`stepNum` 5** */
@@ -74,7 +74,7 @@ export async function movemon(stepNum) {
     }
 
     const mons = fmonListNewestFirstLikeC(game);
-    for (const m of mons) await mMoveOneMonsterSubsetLikeC(game, m, stepNum);
+    for (const m of mons) await movemonSinglemonLikeC(game, m, stepNum);
     await mintrapMoveloopTail();
 
     return mons.some(mm => (mm.mhp | 0) > 0 && (mm.movement | 0) >= NORMAL_SPEED);

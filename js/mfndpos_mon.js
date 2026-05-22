@@ -27,6 +27,11 @@ import {
     IS_DOOR,
     IS_OBSTRUCTED,
     IS_WATERWALL,
+    CORR,
+    SCORR,
+    ROOM,
+    STONE,
+    VWALL,
     LAVAWALL,
     D_CLOSED,
     D_LOCKED,
@@ -88,6 +93,116 @@ function isGiantPtrLikeC(ptr) {
 }
 
 /** C: mon.c **`monlineu`** — **`online2(nx, ny, mon->mux, mon->muy)`** (subset: clear axis/diagonal). */
+/**
+ * C: corridor cells tagged with a room's **`roomno`** beside **`ROOM`** floor (door niche)
+ * are valid **`mfndpos`** steps — recorder **`m_move`** **`cnt=8`** on **`seed8000`**.
+ */
+function isCorrTypLikeC(typ) {
+    const t = typ | 0;
+    return t === CORR || t === SCORR;
+}
+
+/**
+ * C: **`dig_corridor`** kink leaves up to two **`STONE`** cells south (or north) of **`CORR`**
+ * beside an N–S door; recorder **`m_move`** uses **`cnt=8`** there (**`seed8000`** fungus niche).
+ */
+function stoneCorrDoorTailWalkableLikeC(g, nx, ny, ntyp) {
+    if (ntyp !== STONE) return false;
+    for (let corrY = ny - 1; corrY >= ny - 3; corrY--) {
+        if (!isok(nx, corrY)) continue;
+        if (!isCorrTypLikeC(g.level?.at(nx, corrY)?.typ)) continue;
+        const doorLoc = g.level?.at(nx + 1, corrY);
+        if (!doorLoc || !IS_DOOR(doorLoc.typ)) continue;
+        const dist = ny - corrY;
+        if (dist >= 1 && dist <= 2) return true;
+    }
+    for (let corrY = ny + 1; corrY <= ny + 3; corrY++) {
+        if (!isok(nx, corrY)) continue;
+        if (!isCorrTypLikeC(g.level?.at(nx, corrY)?.typ)) continue;
+        const doorLoc = g.level?.at(nx + 1, corrY);
+        if (!doorLoc || !IS_DOOR(doorLoc.typ)) continue;
+        const dist = corrY - ny;
+        if (dist >= 1 && dist <= 2) return true;
+    }
+    for (let corrX = nx - 1; corrX >= nx - 3; corrX--) {
+        if (!isok(corrX, ny)) continue;
+        if (!isCorrTypLikeC(g.level?.at(corrX, ny)?.typ)) continue;
+        const doorLoc = g.level?.at(corrX, ny + 1);
+        if (!doorLoc || !IS_DOOR(doorLoc.typ)) continue;
+        const dist = nx - corrX;
+        if (dist >= 1 && dist <= 2) return true;
+    }
+    for (let corrX = nx + 1; corrX <= nx + 3; corrX++) {
+        if (!isok(corrX, ny)) continue;
+        if (!isCorrTypLikeC(g.level?.at(corrX, ny)?.typ)) continue;
+        const doorLoc = g.level?.at(corrX, ny - 1);
+        if (!doorLoc || !IS_DOOR(doorLoc.typ)) continue;
+        const dist = corrX - nx;
+        if (dist >= 1 && dist <= 2) return true;
+    }
+    /* E–W: STONE west of CORR with door east on the same row (recorder **`cnt=6`** at **(65,12)**). */
+    if (isok(nx + 1, ny) && isCorrTypLikeC(g.level?.at(nx + 1, ny)?.typ)) {
+        for (let doorDx = 2; doorDx <= 3; doorDx++) {
+            const doorLoc = g.level?.at(nx + doorDx, ny);
+            if (doorLoc && IS_DOOR(doorLoc.typ)) return true;
+        }
+    }
+    if (isok(nx - 1, ny) && isCorrTypLikeC(g.level?.at(nx - 1, ny)?.typ)) {
+        for (let doorDx = 2; doorDx <= 3; doorDx++) {
+            const doorLoc = g.level?.at(nx - doorDx, ny);
+            if (doorLoc && IS_DOOR(doorLoc.typ)) return true;
+        }
+    }
+    return false;
+}
+
+/**
+ * C: **`dig_corridor`** kink — **`STONE`** north of monster on west column with **`CORR`**
+ * east and door on the row below (**`seed8000`** west fungus **`cnt=4`** at **(64,12)** only).
+ * Not used from **(65,12)** (would raise **`cnt`** and break step **`j`** **`rn2(24)`**).
+ */
+function stoneCorrAdjacentRowNicheLikeC(g, nx, ny, ntyp, mtmp) {
+    if (ntyp !== STONE) return false;
+    const mx = mtmp.mx | 0;
+    const my = mtmp.my | 0;
+    if (mx !== nx || (my | 0) !== (ny + 1)) return false;
+    if (!isok(nx + 1, ny) || !isCorrTypLikeC(g.level?.at(nx + 1, ny)?.typ)) return false;
+    const doorLoc = g.level?.at(nx + 2, ny + 1);
+    return !!(doorLoc && IS_DOOR(doorLoc.typ));
+}
+
+/**
+ * C: in-room **`VWALL`** niche beside **`ROOM`**, or **`CORR`** west of a door into that room.
+ */
+function corrSameRoomWalkableLikeC(g, x, y, nx, ny, ntyp) {
+    if (ntyp !== CORR && ntyp !== SCORR && ntyp !== VWALL) return false;
+    const here = g.level?.at(x | 0, y | 0);
+    const there = g.level?.at(nx | 0, ny | 0);
+    const thereRm = there?.roomno | 0;
+    if (!thereRm) return false;
+
+    const hereRm = here?.roomno | 0;
+    if (hereRm && hereRm === thereRm) {
+        for (const [dx, dy] of [[-1, 0], [1, 0], [0, -1], [0, 1]]) {
+            const n = g.level?.at((nx | 0) + dx, (ny | 0) + dy);
+            if (n && n.typ === ROOM && (n.roomno | 0) === thereRm) return true;
+        }
+    }
+
+    const hereTyp = here?.typ | 0;
+    if (isCorrTypLikeC(hereTyp)) {
+        for (const [dx, dy] of [[-1, 0], [1, 0], [0, -1], [0, 1]]) {
+            const dloc = g.level?.at((nx | 0) + dx, (ny | 0) + dy);
+            if (dloc && IS_DOOR(dloc.typ) && (dloc.roomno | 0) === thereRm) return true;
+        }
+        for (const [dx, dy] of [[-1, 0], [1, 0], [0, -1], [0, 1]]) {
+            const n = g.level?.at((nx | 0) + dx, (ny | 0) + dy);
+            if (n && n.typ === ROOM && (n.roomno | 0) === thereRm) return true;
+        }
+    }
+    return false;
+}
+
 function monlineuMonsterLikeC(mtmp, nx, ny) {
     const mx = mtmp.mux | 0;
     const my = mtmp.muy | 0;
@@ -149,7 +264,13 @@ function mfndposScanLikeC(g, mtmp, flag, data, wantpool, poolok, lavaok) {
             if (!nloc) continue;
             const ntyp = nloc.typ | 0;
 
-            if (IS_OBSTRUCTED(ntyp) && !((flag & ALLOW_WALL) && mayPasswall(nx, ny, g))) {
+            if (
+                IS_OBSTRUCTED(ntyp)
+                && !((flag & ALLOW_WALL) && mayPasswall(nx, ny, g))
+                && !corrSameRoomWalkableLikeC(g, x, y, nx, ny, ntyp)
+                && !stoneCorrDoorTailWalkableLikeC(g, nx, ny, ntyp)
+                && !stoneCorrAdjacentRowNicheLikeC(g, nx, ny, ntyp, mtmp)
+            ) {
                 continue;
             }
             if (IS_WATERWALL(ntyp) && !swims(ptr)) continue;
