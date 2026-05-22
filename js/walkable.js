@@ -314,12 +314,13 @@ export function goodposMakemonLikeC(x, y, mtmp, gpflags = 0, g = game) {
         if (goodposOnscaryMdatLikeC(g, x, y, ptr)) return false;
     }
 
-    if (!accessibleAtMonmoveLikeC(x, y, g)) {
+    if (!ACCESSIBLE(loc.typ | 0)) {
         if (!(isPoolCellGoodposLikeC(g, x, y) && ignorewater)
             && !(isLavaTerrain(loc.typ | 0) && ignorelava)) {
             return false;
         }
     }
+    if (isClosedDoorLoc(loc)) return false;
 
     if (sobjAtBoulder(x, y, g) && !throwsRocks(ptr)) return false;
     return true;
