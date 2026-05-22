@@ -580,19 +580,6 @@ export async function fillAllOrdinaryRoomsLikeC(g = game) {
     }
 }
 
-/**
- * C: mklev.c makelevel fill + level_finalize_topology mineralize (replaces fastforward_fill_mineralize replay).
- * @param {import('./gstate.js').game} [g]
- */
-/** Dev / peel path: C runs fill in makelevel with gi.in_mklev, mineralize in level_finalize_topology. */
-export async function fillAndMineralizeFromMklevLikeC(g = game) {
-    const prev = !!g.in_mklev;
-    g.in_mklev = true;
-    await fillAllOrdinaryRoomsLikeC(g);
-    mineralize(-1, -1, -1, -1, false);
-    g.in_mklev = prev;
-}
-
 // C ref: mklev.c makerooms()
 async function makerooms() {
     const g = game;
