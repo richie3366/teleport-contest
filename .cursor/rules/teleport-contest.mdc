@@ -15,6 +15,11 @@ Port **NetHack 5.0** behavior to plain JavaScript so the judge matches **C refer
 - Do **not** tune the implementation to **memorize** the 44 public sessions: no hardcoded session traces, no copying `sessions/*.session.json` outputs into code as a substitute for real logic. Ground truth is not passed into `runSegment`; do not treat public JSON as a spec to paste in.
 - Declare participant **category** honestly (e.g. agentic vs transpiled) per [README.md](README.md).
 
+## Score vs port (rule of thumb)
+
+- **`npm run score`** is a **regression check** after a C-faithful slice — not the task picker and not a reason to add fastforward/harness bytes without porting the matching C call site.
+- Full table: always-on rule [`.cursor/rules/port-from-c-not-score.mdc`](port-from-c-not-score.mdc).
+
 ## Frozen files (judge overwrites)
 
 Do **not** modify:

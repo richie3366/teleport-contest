@@ -4,6 +4,8 @@
 
 **Reference tree:** `nethack-c/upstream/src/` — **130** `.c` compilation units (NetHack 5.0.0 tag). **Contest rules:** do not edit frozen `js/isaac64.js`, `js/terminal.js`, `js/storage.js`; do not tune logic to memorize the 44 public sessions.
 
+**Working principle:** port **C call sites** first; use **`npm run score`** as a **regression check** only ([`.cursor/rules/port-from-c-not-score.mdc`](../rules/port-from-c-not-score.mdc)). Do not grow **`fastforward.js`** / harness to chase **1/44** without matching upstream logic.
+
 **Scale reminder:** Upstream `.c`+`.h` under `nethack-c/upstream` is on the order of **550k** lines; contestant `js/` is on the order of **35k** lines (including data blobs). Behavioral coverage is far below line-count ratios suggest because large JS files are **constants** and **partial** algorithms.
 
 ---
@@ -144,7 +146,9 @@ When a slice closes a comment, **delete or narrow** the comment and adjust **`fa
 
 ---
 
-## 5. Suggested ordering (contest parity — same spirit as progress §7)
+## 5. Suggested ordering (C port milestones — not “maximize score”)
+
+Slices should **delete** scaffolding as C lands, not extend replay lists. Score may stay **1/44** for many commits while C depth grows.
 
 1. **Shrink `fastforward.js`** — port **`o_init`**, **`dungeon.c`** init/placement, post-`mklev` phases, and **`u_init`** ordering so replay blocks delete in **C call order**.
 2. **Wire `game.invent` + `mkobj` + `ini_inv`** (NH5 **`otyp`/`oclass`**) — unlocks skills, hidden gold, most item-driven traps and combat prep.

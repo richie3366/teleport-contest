@@ -18,7 +18,8 @@ alwaysApply: false
 
 ## Skeleton vs real port
 
-- [js/fastforward.js](js/fastforward.js) is **temporary** replay scaffolding for early seeds. Replace entries with real ported logic over time; do not grow it into a second answer key for sessions.
+- [js/fastforward.js](js/fastforward.js) is **temporary** replay scaffolding. **Remove** replay rows when real `js/` logic matches C RNG at that call site — do **not** extend fastforward to “fix” score without porting C ([`port-from-c-not-score.mdc`](port-from-c-not-score.mdc)).
+- [js/monmove.js](js/monmove.js) `_HARNESS` (and similar) are the same: peel only when per-path draws match `monmove.c`, not when a session index “needs” a value.
 
 ## API surface
 

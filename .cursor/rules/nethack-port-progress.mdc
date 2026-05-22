@@ -16,4 +16,6 @@ alwaysApply: false
 
 Contest integrity: port from **C** in `nethack-c/upstream/`; no session trace memorization; do not edit frozen `js/isaac64.js`, `js/terminal.js`, `js/storage.js`.
 
+**Prioritize C port over score:** pick slices from `current.md` / C gaps, not from “what might pass another public session.” Run `npm run score` to catch regressions — see [`.cursor/rules/port-from-c-not-score.mdc`](../rules/port-from-c-not-score.mdc).
+
 After each meaningful slice: **`git commit`** (one commit; conventional message) per [`.cursor/prompts/continue-nethack-port.md`](../prompts/continue-nethack-port.md).

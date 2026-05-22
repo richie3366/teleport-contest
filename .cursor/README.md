@@ -7,6 +7,7 @@ This directory holds **Cursor rules** (`.cursor/rules/*.mdc`) that steer agents 
 | Rule | When it applies |
 |------|-----------------|
 | `teleport-contest.mdc` | Always (`alwaysApply: true`) — contest contract, ethics, frozen files, sandbox. |
+| `port-from-c-not-score.mdc` | Always — **port C first**; `npm run score` is regression-only; anti fastforward/harness score-chasing. |
 | `teleport-js-port.mdc` | When editing files under `js/` — ES modules, RNG order, porting style. |
 | `nethack-upstream-c.mdc` | When editing files under `nethack-c/upstream/` — C reference tree, tag, patches vs vanilla. |
 | `nethack-port-progress.mdc` | When editing `js/` or `.cursor/reports/` — read `c-to-js-port-current.md` first; full progress + changelog archive when needed. |
