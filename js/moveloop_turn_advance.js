@@ -144,6 +144,9 @@ export async function runPostCommandTurnAdvanceLikeC(g) {
         delete g.context._movemonStep5Passes;
         delete g.context._movemonStep6Passes;
         delete g.context._movemonStep6Pass;
+        delete g.context._searchMovemonStarted;
+        delete g.context._movemonSearch11SubPasses;
+        delete g.context._movemonSearch11SubPass;
         delete g.context._movemonStep7Passes;
         delete g.context._movemonStep8Passes;
     }

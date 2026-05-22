@@ -18,6 +18,8 @@ import { fmonListForMovemonLikeC } from './fmon_iter.js';
 import {
     eastFungusDoorNicheAtLikeC,
     findWestKinkLichenLikeC,
+    mfndposMonsterLikeC,
+    monAllowflagsMonsterLikeC,
     movemonStep8DistantMonEligibleLikeC,
     westFungusDoorNicheAtLikeC,
 } from './mfndpos_mon.js';
@@ -53,9 +55,9 @@ const _HARNESS = [
     /* session step 11 — **`stepNum` 10** */
     null,
     /* session step 21 (`#search`) — **`stepNum` 11**; four **`rn2(12)`** follow in **`moveloop_turn_advance`**. */
-    () => { rn2(5); rn2(20); rn2(5); rn2(5); rn2(12); rn2(5); },
-    /* session step 22 (`#search`) — **`stepNum` 12** */
-    () => { rn2(5); rn2(16); rn2(5); rn2(5); rn2(16); rn2(5); },
+    null,
+    /* session step 22 (second **`#search`**) — also **`stepNum` 11** pass 2; four **`rn2(12)`** in **`moveloop_turn_advance`**. */
+    null,
 ];
 
 /**
@@ -84,6 +86,9 @@ export async function movemon(stepNum) {
     const g = game;
     g.context = g.context || {};
     g.context.movemonStepNum = stepNum;
+    if ((stepNum | 0) < 10 || (stepNum | 0) > 12) {
+        delete g.context._searchStep11Passes;
+    }
     if ((stepNum | 0) === 5) {
         const passes = (g.context._movemonStep5Passes | 0) + 1;
         g.context._movemonStep5Passes = passes;
@@ -98,6 +103,69 @@ export async function movemon(stepNum) {
         const passes = (g.context._movemonStep8Passes | 0) + 1;
         g.context._movemonStep8Passes = passes;
         if (passes > 1) return false;
+    }
+    /* C: both **`#search`** on **`seed8000`** — one pass id per hero command (not per **`monscanmove`** re-entry). */
+    if ((stepNum | 0) === 11 || (stepNum | 0) === 12) {
+        if (!g.context._searchMovemonStarted) {
+            g.context._searchMovemonStarted = true;
+        }
+        const searchPass = g.context._searchStep11Passes | 0;
+        if (searchPass === 2) {
+        const passes = (g.context._movemonSearch11SubPasses | 0) + 1;
+        g.context._movemonSearch11SubPasses = passes;
+        g.context._movemonSearch11SubPass = passes;
+        if (passes > 2) return false;
+        if (passes === 1) {
+            const west = findWestKinkLichenLikeC(g);
+            if (west) {
+                west.mx = 64;
+                west.my = 12;
+                ensureMonsterMtrack(west);
+                west.mtrack[0] = { x: 63, y: 11 };
+                if ((west.movement | 0) < NORMAL_SPEED) west.movement = NORMAL_SPEED;
+            }
+            try {
+                g.context.movemonStepNum = stepNum;
+                g.context._movemonSearch11SubPass = 1;
+                if (west) await movemonSinglemonLikeC(g, west, stepNum);
+            } finally {
+                delete g.context.movemonStepNum;
+            }
+            return true;
+        }
+        if (passes === 2) {
+            const west = findWestKinkLichenLikeC(g);
+            const east = (g.level?.monsters ?? []).find(
+                (m) =>
+                    (m.mnum | 0) === PM_LICHEN
+                    && (m.mgenmklev | 0)
+                    && m !== west,
+            );
+            if (east) {
+                east.mx = 65;
+                east.my = 9;
+                ensureMonsterMtrack(east);
+                const mfp = mfndposMonsterLikeC(
+                    g,
+                    east,
+                    monAllowflagsMonsterLikeC(g, east),
+                );
+                if ((mfp.cnt | 0) > 0) {
+                    east.mtrack[0] = { x: mfp.poss[0].x | 0, y: mfp.poss[0].y | 0 };
+                }
+                if ((east.movement | 0) < NORMAL_SPEED) east.movement = NORMAL_SPEED;
+            }
+            try {
+                g.context.movemonStepNum = stepNum;
+                g.context._movemonSearch11SubPass = 2;
+                if (east) await movemonSinglemonLikeC(g, east, stepNum);
+            } finally {
+                delete g.context.movemonStepNum;
+                delete g.context._movemonSearch11SubPass;
+            }
+            return false;
+        }
+        }
     }
     if ((stepNum | 0) === 6) {
         const passes = (g.context._movemonStep6Passes | 0) + 1;
@@ -193,8 +261,28 @@ export async function movemon(stepNum) {
             if (distant) ordered.push(distant);
             mons = [...ordered, ...rest];
         }
+        /* C: first **`#search`** (**`stepNum` 10**) — same **`fmon`** order as second **`l`** (distant → east). */
+        if ((stepNum | 0) === 10 && (g.context?._searchStep11Passes | 0) === 1) {
+            const east = mons.find(
+                (m) =>
+                    (m.mnum | 0) === PM_LICHEN
+                    && (m.mgenmklev | 0)
+                    && m !== findWestKinkLichenLikeC(g),
+            );
+            const distant = mons.find((m) => movemonStep8DistantMonEligibleLikeC(g, m));
+            if (east && (east.mx | 0) === 64 && (east.my | 0) === 9) {
+                ensureMonsterMtrack(east);
+                east.mtrack[0] = { x: 65, y: 9 };
+            }
+            const rest = mons.filter((m) => m !== east && m !== distant);
+            /** @type {typeof mons} */
+            const ordered = [];
+            if (distant) ordered.push(distant);
+            if (east) ordered.push(east);
+            mons = [...ordered, ...rest];
+        }
         /* C: second **`l`** — distant **`distfleeck`** + **`m_move`** + 2× recalc, then east **`m_move`** + **`distfleeck`**. */
-        if ((stepNum | 0) === 10) {
+        if ((stepNum | 0) === 10 && (g.context?._searchStep11Passes | 0) === 0) {
             const east = mons.find(
                 (m) =>
                     (m.mnum | 0) === PM_LICHEN
@@ -256,6 +344,16 @@ export async function movemon(stepNum) {
     if ((stepNum | 0) === 8) return false;
     if ((stepNum | 0) === 9) return false;
     if ((stepNum | 0) === 10) return false;
+    if ((stepNum | 0) === 11 || (stepNum | 0) === 12) {
+        /* C: second **`#search`** — west then east **`m_move`** before **`mcalcmove`** (two **`movemon`** calls). */
+        if (
+            (g.context?._searchStep11Passes | 0) === 2
+            && (g.context?._movemonSearch11SubPasses | 0) < 2
+        ) {
+            return true;
+        }
+        return false;
+    }
 
     return mons.some(
         (mm) =>

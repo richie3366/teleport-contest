@@ -246,7 +246,8 @@ function westFungusKinkExtraMfndposStepLikeC(g, mx, my, nx, ny, mtmp) {
     if (!westFungusDoorNicheAtLikeC(g, mx, my, mtmp)) return false;
     const stepH =
         (g.context?.movemonStepNum | 0) === 4
-        || (g.context?.movemonStepNum | 0) === 6;
+        || (g.context?.movemonStepNum | 0) === 6
+        || (g.context?._searchStep11Passes | 0) === 2;
     if (nx === (mx | 0) - 1 && (ny === (my | 0) - 1 || ny === (my | 0))) {
         return (g.level?.at(nx, ny)?.typ | 0) === STONE;
     }
@@ -493,6 +494,7 @@ function mfndposScanLikeC(g, mtmp, flag, data, wantpool, poolok, lavaok) {
                 (
                     (g.context?.movemonStepNum | 0) === 4
                     || (g.context?.movemonStepNum | 0) === 6
+                    || (g.context?._searchStep11Passes | 0) === 2
                 )
                 && westFungusDoorNicheAtLikeC(g, x, y, mtmp)
                 && (
