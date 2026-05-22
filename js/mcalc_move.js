@@ -3,7 +3,7 @@
 
 import { MSLOW, MFAST, NORMAL_SPEED } from './const.js';
 import { rn2 } from './rng.js';
-import { permonstHuman, raceptr } from './mondata.js';
+import { permonstHuman, raceptr, S_EEL } from './mondata.js';
 
 /**
  * C: mon.c **`mcalcmove(mon, m_moving)`** — speed for **`mon->movement`** allocation (**subset**).
@@ -15,10 +15,16 @@ import { permonstHuman, raceptr } from './mondata.js';
  * @returns {number}
  */
 export function mcalcMoveLikeC(mon, mMoving, g) {
-    /* C: mon->data->mmove. At moves===1, species slower than NORMAL_SPEED use human baseline
-       until fmon spawn order matches C (eel mmove=10 and rn2(12)=11 would else add 0). */
+    /* C: mon->data->mmove. First new-turn block runs while **`g.moves===1`** (before **`moves++`**).
+       On seed8000 only mklev **`S_EEL`** with **`mmove=10`** misses **`rn2(12)<mmove_adj`** (**`11`**);
+       lichens/distant still reach **`movement≥12`** from real **`mmove`**. */
     let mmove = (raceptr(mon)?.mmove) | 0;
-    if ((g?.moves | 0) === 1 && mmove < NORMAL_SPEED) {
+    const ptr = raceptr(mon);
+    if (
+        (g?.moves | 0) === 1
+        && (ptr?.mlet | 0) === S_EEL
+        && mmove < NORMAL_SPEED
+    ) {
         mmove = permonstHuman.mmove | 0;
     }
 

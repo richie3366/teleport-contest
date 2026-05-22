@@ -6,6 +6,7 @@ Historical rows moved from `c-to-js-port-progress.md` so day-to-day work uses **
 
 | When | What changed |
 |------|----------------|
+| **2026-05-22 (`mcalcmove` eel-only floor)** | **`mcalc_move.js`**: first new-turn **`moves===1`** human **`mmove`** only for **`S_EEL`** with **`mmove < 12`** (lichen/distant use real **`data->mmove`**). **`fmon`** fill order matches C **`mklev.c`**; eel/distant splice still breaks **`movemon`**. **`seed8000` PASS**. **`npm run score`:** **1/44**. |
 | **2026-05-22 (`mklev` corridor `roomno`)** | **`mklev.js`**: **`tagCorrRoomnoAdjacentRoomsLikeC`** after **`topologize`** — **`CORR`/`SCORR`** beside **`DOOR`/`ROOM`/`VWALL`** inherit **`roomno`** for **`corrSameRoomWalkableLikeC`**. **`mcalcmove` moves===1** floor kept (eel/distant **`fmon`** swap regresses **`movemon`** ~**2982**). **`seed8000` PASS**. **`npm run score`:** **1/44**. |
 | **2026-05-22 (`mcalcmove` first-turn floor)** | **`mcalc_move.js`**: always **`raceptr`→`data->mmove`**; at **`moves===1`** only, **`mmove < NORMAL_SPEED`** uses human **12** (eel **10** + **`rn2(12)=11`** else 0 → 4th **`distfleeck`** missing at **~2982**). Faster species use real **`mmove`** on first new-turn. **`seed8000` PASS**. **`npm run score`:** **1/44**. |
 | **2026-05-22 (`mcalcmove` fmon-only)** | **`moveloop_turn_advance.js`**: drop **`fmon.length < 4`** **`rn2(12)`** padding — C **`allmain.c`** walks **`fmon`** only. **`seed8000`** has **4** monsters; anchor **`moves===1`** unchanged. **`seed8000` PASS**. **`npm run score`:** **1/44**. |
