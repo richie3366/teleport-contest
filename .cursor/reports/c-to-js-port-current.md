@@ -18,11 +18,11 @@ Thin handoff for the next coding session. **Gap inventory (not yet ported):** [`
 
 **Deferred for now:** **`maybe_do_tutorial`** / **`tut-1`** / full **`do.c`** **`goto_level`** (Lua **`tutorial()`** / **`free_tutorial()`**, **`savelev`**, **`gmst_*`**, …) and **`dokick`**/**`dothrow`** vs **`leaving_tutorial`** — strong upstream dependencies (save, specials, fuller **`do.c`**); treat as backlog until chargen / core early-game parity is further along; **`LIVELOGFILE`** parity if the judge ever compares livelog lines.
 
-**Last slice:** **`permonst.mmove` + `mcalcmove`** — **`permonstFromMndxLikeC`** sets **`mmove`** from **`MONS_MMOVE`**; **`mcalcMoveLikeC`** uses **`raceptr`→`data->mmove`** when **`moves>1`** (C **`mon->data->mmove`**). **`PM_GIANT_EEL`** **326→328** (was piranha index). First new-turn block still **`permonstHuman.mmove` (12)** at **`moves===1`** until full **`fmon`** pacing matches C (dropping it regresses **`seed8000`** at **~2996**). **`seed8000` PASS** (**3130/3130**). **`npm run score`:** **1/44**.
+**Last slice:** **`mcalcmove` fmon walk** — removed **`rn2(12)` padding** when **`fmon.length < 4`** in **`moveloop_turn_advance.js`**; C **`allmain.c`** only **`mtmp->movement += mcalcmove(mtmp, TRUE)`** per **`fmon`** link (**`seed8000`** has **4** mklev mons, so no draw-count change). **`moves===1`** human-12 anchor kept in **`mcalc_move.js`** (dropping it still regresses **`n`** at **~2996**). **`seed8000` PASS** (**3130/3130**). **`npm run score`:** **1/44**.
 
 ## Next steps
 
-1. **`mcalcmove` at `moves===1`** — drop human-12 anchor once **`fmon`** walk + **`monscanmove`** match C; then retry **`minliquid`** steps **1–2** peel (still needs **`is_pool`** at eel or land-eel movement gate). **`hideunder`** **`rn2(4)`** stays skipped.
+1. **`mcalcmove` at `moves===1`** — drop **`permonstHuman.mmove` (12)** anchor so first new-turn uses **`mon->data->mmove`** (movement parity for **`mmove≠12`** eels/lichens); then retry **`minliquid`** steps **1–2** peel. **`hideunder`** **`rn2(4)`** stays skipped.
 2. **`mklev`/`dig_corridor`** — corridor **`roomno`** / kink tiles if C **`mfndpos`** needs **6** neighbors at door **(65,12)** without walkability hacks alone.
 2. **Chargen** — shrink **`fastforward_pre_mklev`** / **`post_mklev`** toward real **`o_init`** / **`u_init_role`** (**`seed0900`**, **`seed0077`**).
 2. **Mklev remainder** — supply extra **`mkobj(SPBOOK)`** reroll dealloc; **`setgemprobs`**; wall-neighbor check vs C **`levl[x][y±1]`** if mineralize count drifts on other seeds.

@@ -76,14 +76,8 @@ export async function runMoveloopPreambleBeforeRhackLikeC(g) {
  */
 async function runNewTurnSetupAndTailLikeC(g, stepNum) {
     const mons = fmonListNewestFirstLikeC(g);
-    if (mons.length > 0) {
-        for (const m of mons) {
-            m.movement = (m.movement | 0) + mcalcMoveLikeC(m, true, g);
-        }
-        /* Until every fmon entry is ported, pad to four mcalcmove draws like C's full fmon walk. */
-        for (let i = mons.length; i < 4; i++) rn2(12);
-    } else {
-        for (let i = 0; i < 4; i++) rn2(12);
+    for (const m of mons) {
+        m.movement = (m.movement | 0) + mcalcMoveLikeC(m, true, g);
     }
     maybe_generate_rnd_mon();
     settrack();

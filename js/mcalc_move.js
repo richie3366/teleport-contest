@@ -15,7 +15,6 @@ import { permonstHuman, raceptr } from './mondata.js';
  * @returns {number}
  */
 export function mcalcMoveLikeC(mon, mMoving, g) {
-    /* C: **`mon->data->mmove`**; first new-turn block still uses human-12 anchor until **`fmon`** pacing matches C at **`moves===1`**. */
     let mmove = ((g?.moves | 0) === 1)
         ? (permonstHuman.mmove | 0)
         : ((raceptr(mon)?.mmove) | 0);
