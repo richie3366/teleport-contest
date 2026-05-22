@@ -2,10 +2,15 @@
 // C ref: mkobj.c mksobj (next_ident) + place_object; mon.c make_corpse.
 // Caller should skip when mondata.monsterLeavesCorpse is false (G_NOCORPSE / mvitals).
 
-import { rnd } from './rng.js';
+import { rnd, rn2 } from './rng.js';
 import { placeFloorObject } from './floorobj.js';
 import { NH5_FOOD_CLASS } from './nh5_objclass.js';
 import { game } from './gstate.js';
+import { mvitalsNocorpseLikeC } from './mvitals.js';
+import {
+    rndmonnumIniInvLikeC,
+    undeadToCorpseIniInvLikeC,
+} from './mkobj_food_class_rng_like_c.js';
 import { ICE, IS_DRAWBRIDGE, DB_ICE, DB_UNDER } from './const.js';
 import { startCorpseTimeout, objTimerChecksMkobj } from './obj_rot_timer.js';
 
@@ -19,6 +24,30 @@ function cellIsIce(g, x, y) {
 
 /** NH5 objects_nums corpse otyp (matches mklev.js CORPSE). */
 export const CORPSE_OTYP = 471;
+
+/**
+ * C: mkobj.c mksobj_init — FOOD_CLASS CORPSE branch (before mkcorpstat ptr override).
+ * Consumes rndmonnum (+ retry) even when caller fixes corpsenm afterward.
+ */
+export function consumeMksobjInitCorpseRngLikeC() {
+    let tryct = 50;
+    let cm = 0;
+    do {
+        cm = undeadToCorpseIniInvLikeC(rndmonnumIniInvLikeC());
+    } while (mvitalsNocorpseLikeC(game, cm) && --tryct > 0);
+}
+
+/**
+ * C: mkobj.c mksobj tail — CORPSE/STATUE/FIGURINE spe when gender not fixed.
+ * @param {number} corpsenm
+ */
+export function consumeMksobjCorpseSpeRngLikeC(corpsenm) {
+    const pm = corpsenm | 0;
+    /* ORC/dwarf/etc. have fixed gender in mons[] — no rn2(2). Humanoids may. */
+    if (pm >= 305 && pm <= 321) {
+        rn2(2);
+    }
+}
 
 /**
  * Place a single corpse on the floor like mksobj(CORPSE) + place_object.

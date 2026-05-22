@@ -71,6 +71,8 @@ const AMULET_CLASS_MKOBJ_OC_PROB_ROWS = Object.freeze([
 
 const OTYP_LOADSTONE = 88;
 const OTYP_ROCK = 89;
+/** C: objects.h LUCKSTONE — skip `!rn2(6)` quan-2 branch in mksobj_init GEM_CLASS. */
+const OTYP_LUCKSTONE = 470;
 const OTYP_WAN_WISHING = 413;
 const OTYP_WAN_STASIS = 415;
 
@@ -80,9 +82,24 @@ const RING_CHARGED = new Set(
 
 const WEAPON_MULTIGEN_OTYP = new Set([24, 25, 26]); /* DART, SHURIKEN, BOOMERANG */
 
-/** C: mkobj.c mkobj_erosions — in_mklev floor objects (may_generate_eroded TRUE). */
-function mkobjErosionsMklevLikeC() {
+/** C: objnam.c erosion_matters — GEM/food/etc. skip mkobj_erosions. */
+function erosionMattersMklevLikeC(oclass) {
+    switch (oclass | 0) {
+    case NH5_WEAPON_CLASS:
+    case NH5_ARMOR_CLASS:
+        return true;
+    case NH5_TOOL_CLASS:
+        return false;
+    default:
+        return false;
+    }
+}
+
+/** C: mkobj.c may_generate_eroded + mkobj_erosions — in_mklev floor objects only when damageable. */
+function mkobjErosionsMklevLikeC(otyp, oclass) {
     if (!game.in_mklev) return;
+    if (!erosionMattersMklevLikeC(oclass)) return;
+    void otyp;
     if (!rn2(100)) return;
     if (!rn2(80)) {
         let eroded = 0;
@@ -224,11 +241,12 @@ function mksobjInitRingLikeC(otyp) {
 }
 
 function mksobjInitGemLikeC(otyp) {
-    if ((otyp | 0) === OTYP_LOADSTONE) {
-        /* curse — no rng */
-    } else if ((otyp | 0) === OTYP_ROCK) {
+    const t = otyp | 0;
+    if (t === OTYP_LOADSTONE) {
+        /* curse(otmp) — no RNG in mktrap_victim path */
+    } else if (t === OTYP_ROCK) {
         rn1(6, 6);
-    } else if (!rn2(6)) {
+    } else if (t !== OTYP_LUCKSTONE && !rn2(6)) {
         /* quan 2 */
     }
 }
@@ -247,7 +265,7 @@ export function mkobjMklevConsumeRngLikeC(let_, artif) {
     const otyp = mkobjPickOtypForClassLikeC(oclass);
     rnd(2);
     mksobjInitMklevLikeC(otyp, oclass, artif);
-    mkobjErosionsMklevLikeC();
+    mkobjErosionsMklevLikeC(otyp, oclass);
     return otyp | 0;
 }
 

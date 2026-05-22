@@ -33,6 +33,7 @@ import {
     ARROW_TRAP, DART_TRAP, ROCKTRAP, SQKY_BOARD, BEAR_TRAP, LANDMINE, ROLLING_BOULDER_TRAP,
     SLP_GAS_TRAP, RUST_TRAP, FIRE_TRAP, PIT, SPIKED_PIT, HOLE, TRAPDOOR, TELEP_TRAP, LEVEL_TELEP,
     MAGIC_PORTAL, WEB, STATUE_TRAP, MAGIC_TRAP, POLY_TRAP, VIBRATING_SQUARE, TRAPPED_DOOR, TRAPPED_CHEST,
+    MKTRAP_NOFLAGS, MKTRAP_NOSPIDERONWEB, MKTRAP_NOVICTIM,
     is_pit, is_hole,
     OTYP_BOULDER,
 } from './const.js';
@@ -41,6 +42,10 @@ import { tAt } from './search.js';
 import { breaktestLikeC } from './obj_break_dothrow.js';
 import { makemon } from './makemon.js';
 import { rndmonstLikeC } from './makemon_rndmonst.js';
+import {
+    consumeMksobjInitCorpseRngLikeC,
+    consumeMksobjCorpseSpeRngLikeC,
+} from './mkobj_corpse.js';
 import { floorObjKey, placeFloorObject } from './floorobj.js';
 import { fixWallSpinesRect } from './wall_spine.js';
 
@@ -307,12 +312,16 @@ function set_corpsenm(otmp, pm) { /* stub */ }
 
 // mkcorpstat stub
 function mkcorpstat(objtyp, mtmp, pm, x, y, flags) {
-    // C ref: mkcorpstat calls mksobj(objtyp) then set_corpsenm.
-    // For STATUE: mksobj(STATUE, false, false) then set corpse identity.
-    // RNG: next_ident from mksobj
-    const otmp = mksobj(objtyp, false, false);
-    if (pm === null) {
+    const init = ((flags | 0) & 8) !== 0; /* CORPSTAT_INIT */
+    const otmp = mksobj(objtyp, init, false);
+    if (init && (objtyp | 0) === CORPSE) {
+        consumeMksobjInitCorpseRngLikeC();
+    } else if (pm === null) {
         rndmonstLikeC();
+    }
+    if (typeof pm === 'number') {
+        otmp.corpsenm = pm | 0;
+        if (init) consumeMksobjCorpseSpeRngLikeC(pm);
     }
     return otmp;
 }
@@ -1514,8 +1523,9 @@ function wallification(x1, y1, x2, y2) {
 // Fill ordinary room
 // ============================================================
 
-function traptype_rnd() {
-    const lvl = game.u?.uz?.dlevel ?? 1;
+/** C: mklev.c traptype_rnd(mktrapflags) — `level_difficulty()`, WEB gated by depth/flags. */
+function traptype_rnd(mktrapflags = 0) {
+    const lvl = level_difficulty();
     let kind = rnd(TRAPNUM - 1);
     switch (kind) {
     case TRAPPED_DOOR: case TRAPPED_CHEST: case MAGIC_PORTAL: case VIBRATING_SQUARE:
@@ -1529,7 +1539,8 @@ function traptype_rnd() {
     case LANDMINE:
         if (lvl < 6) kind = NO_TRAP; break;
     case WEB:
-        if (lvl < 7) kind = NO_TRAP; break;
+        if (lvl < 7 && !(mktrapflags & MKTRAP_NOSPIDERONWEB)) kind = NO_TRAP;
+        break;
     case STATUE_TRAP: case POLY_TRAP:
         if (lvl < 8) kind = NO_TRAP; break;
     case FIRE_TRAP:
@@ -1554,7 +1565,7 @@ function find_okay_roompos(croom, crd) {
 /** C: mklev.c mktrap_victim — trap ammo, cursed possessions, corpse on shallow traps. */
 function mktrap_victim(trap) {
     const g = game;
-    const lvl = g.u?.uz?.dlevel ?? 1;
+    const lvl = level_difficulty();
     const kind = trap.ttyp | 0;
     const x = trap.tx | 0;
     const y = trap.ty | 0;
@@ -1628,26 +1639,23 @@ function mktrap_victim(trap) {
     mkcorpstat(CORPSE, null, victim_mnum, x, y, 8);
 }
 
-const MKTRAP_NOFLAGS = 0;
-const MKTRAP_NOSPIDERONWEB = 4;
-const MKTRAP_NOVICTIM = 8;
-
 /** C: mklev.c mktrap(num, mktrapflags, croom, tm). */
 async function mktrapLikeC(num, mktrapflags, croom, tm) {
     const g = game;
     if (!tm && !croom && !(mktrapflags & 2)) return;
     const m = { x: 0, y: 0 };
     let kind;
-    const lvl = g.u?.uz?.dlevel ?? 1;
+    const lvlDiff = level_difficulty();
+    const dlevel = g.u?.uz?.dlevel ?? 1;
     if (num > NO_TRAP && num < TRAPNUM) {
         kind = num;
     } else {
         do {
-            kind = traptype_rnd();
+            kind = traptype_rnd(mktrapflags);
         } while (kind === NO_TRAP);
     }
     const dungeon = g.dungeons?.[g.u?.uz?.dnum ?? 0];
-    const canFallThru = lvl < (dungeon?.num_dunlevs ?? 1);
+    const canFallThru = dlevel < (dungeon?.num_dunlevs ?? 1);
     if (is_hole(kind) && !canFallThru) kind = ROCKTRAP;
     if (tm) {
         m.x = tm.x | 0;
@@ -1662,12 +1670,13 @@ async function mktrapLikeC(num, mktrapflags, croom, tm) {
     }
     const trap = await maketrap(m.x, m.y, kind);
     kind = trap ? (trap.ttyp | 0) : NO_TRAP;
+    /* C: mklev.c — spider only when WEB is actually placed (not on D:1 random traps). */
     if (kind === WEB && !(mktrapflags & MKTRAP_NOSPIDERONWEB)) {
         makemon({ mnum: PM_GIANT_SPIDER }, m.x, m.y, NO_MM_FLAGS);
     }
     if (g.in_mklev && trap && !(mktrapflags & MKTRAP_NOVICTIM)
         && kind !== NO_TRAP
-        && lvl <= rnd(4)
+        && (lvlDiff | 0) <= rnd(4)
         && kind !== SQKY_BOARD && kind !== RUST_TRAP
         && !(kind === ROLLING_BOULDER_TRAP
             && trap.launch?.x === trap.tx && trap.launch?.y === trap.ty)
@@ -1734,15 +1743,17 @@ async function fill_ordinary_room(croom, bonus_items) {
 
     const pos = { x: 0, y: 0 };
     // C: (u.uhave.amulet || !rn2(3)) && somexyspace — sleeping monster
-    if ((g.u?.uhave?.amulet || !rn2(3)) && somexyspace(croom, pos)) {
-        const tmonst = makemon(null, pos.x, pos.y, MM_NOGRP);
-        if (tmonst && (tmonst.mnum | 0) === PM_GIANT_SPIDER && !occupied(pos.x, pos.y)) {
-            await maketrap(pos.x, pos.y, WEB);
+    {
+        const sleepGate = g.u?.uhave?.amulet || !rn2(3);
+        if (sleepGate && somexyspace(croom, pos)) {
+            const tmonst = makemon(null, pos.x, pos.y, MM_NOGRP);
+            if (tmonst && (tmonst.mnum | 0) === PM_GIANT_SPIDER && !occupied(pos.x, pos.y)) {
+                await maketrap(pos.x, pos.y, WEB);
+            }
         }
     }
     // Traps — C: mktrap(0, MKTRAP_NOFLAGS, croom, (coord *) 0)
-    const u_depth = g.u?.uz?.dlevel ?? 1;
-    let x = 8 - Math.trunc(u_depth / 6);
+    let x = 8 - Math.trunc(level_difficulty() / 6);
     if (x <= 1) x = 2;
     let trycnt = 0;
     while (!rn2(x) && ++trycnt < 1000) {
@@ -1763,7 +1774,8 @@ async function fill_ordinary_room(croom, bonus_items) {
     }
     // Altar
     if (!rn2(60)) mkaltar(croom);
-    // Grave
+    // Grave — C: depth(&u.uz) not level_difficulty()
+    const u_depth = depth_of_level(g.u?.uz);
     x = 80 - (u_depth * 2);
     if (x < 2) x = 2;
     if (!rn2(x)) mkgrave_room(croom);
