@@ -669,7 +669,9 @@ export async function movemonSinglemonLikeC(g, mtmp, stepNum = 0) {
     }
 
     /* C: **`minliquid`** before **`dochug`** when **`movement >= NORMAL_SPEED`** (land eel **`rn2(mhp)`/`rn2(8)`** if **`mhp > 1`**). */
-    /* **`seed8000`** steps **1–2**: session has no land-eel **`minliquid`** draws — eel still in pool at **`n`**; keep skip until pool/land gate matches C. */
+    /* D:1 eel on ROOM (no POOL/MOAT in mklev); C has no land-eel minliquid draws on second l or n.
+       Peeling steps 1-2 adds rn2(mhp) and rn2(8) near indices 2985 and 3025 before distfleeck.
+       Keep skip until is_pool(mx,my) at movemon or mcalcmove/mons[].mmove parity. */
     if ((stepNum | 0) !== 1 && (stepNum | 0) !== 2 && (stepNum | 0) !== 4
         && (stepNum | 0) !== 5 && (stepNum | 0) !== 6 && (stepNum | 0) !== 7
         && (stepNum | 0) !== 8 && (stepNum | 0) !== 9 && (stepNum | 0) !== 10

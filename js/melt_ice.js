@@ -575,6 +575,7 @@ async function minliquidMonsterAfterMelt(g, mtmp) {
         return;
     }
 
+    /* C: mon.c — land **S_EEL** outside **is_pool**; **`cant_drown`** only affects in-pool branch above. */
     if ((ptr.mlet | 0) === S_EEL && !Is_waterlevel(g.u?.uz) && !breathless(ptr)) {
         if ((mtmp.mhp | 0) > 1 && rn2(mtmp.mhp | 0) > rn2(8)) mtmp.mhp = (mtmp.mhp | 0) - 1;
         /* C: monmove.c monflee(mtmp, 2, FALSE, FALSE) */
