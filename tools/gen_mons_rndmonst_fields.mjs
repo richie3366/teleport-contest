@@ -39,6 +39,24 @@ const mmove = [];
 const difficulty = [];
 /** @type {number[]} */
 const genoPlanB = [];
+/** @type {number[]} */
+const mflags3 = [];
+
+/** @param {string} block */
+function parseMflags3(block) {
+    let f = 0;
+    if (block.includes('M3_WANTSAMUL')) f |= 0x0001;
+    if (block.includes('M3_WANTSBELL')) f |= 0x0002;
+    if (block.includes('M3_WANTSBOOK')) f |= 0x0004;
+    if (block.includes('M3_WANTSCAND')) f |= 0x0008;
+    if (block.includes('M3_WANTSARTI')) f |= 0x0010;
+    if (block.includes('M3_WAITFORU')) f |= 0x0040;
+    if (block.includes('M3_CLOSE')) f |= 0x0080;
+    if (block.includes('M3_INFRAVISION')) f |= 0x0100;
+    if (block.includes('M3_INFRAVISIBLE')) f |= 0x0200;
+    if (block.includes('M3_DISPLACES')) f |= 0x0400;
+    return f;
+}
 
 /** @param {string} block */
 function parseGenoPlanB(block) {
@@ -60,6 +78,7 @@ for (const block of blocks) {
     const diffM = block.match(/,\s*(\d+)\s*,\s*CLR_[A-Z_]+/);
     difficulty.push(diffM ? parseInt(diffM[1], 10) : 0);
     genoPlanB.push(parseGenoPlanB(block));
+    mflags3.push(parseMflags3(block));
 }
 
 const dataJs = readFileSync(dataPath, 'utf8');
@@ -78,6 +97,14 @@ function replaceArray(src, name, values) {
 
 let out = replaceArray(dataJs, 'MONS_MLEVEL', mlevel);
 out = replaceArray(out, 'MONS_MMOVE', mmove);
+if (!/export const MONS_MFLAGS3/.test(out)) {
+    out = out.replace(
+        /export const MONS_MMOVE = .*?;\n/,
+        (m) => `${m}\nexport const MONS_MFLAGS3 = /** @type {readonly number[]} */ (${fmt(mflags3)});\n`,
+    );
+} else {
+    out = replaceArray(out, 'MONS_MFLAGS3', mflags3);
+}
 const updateAll = process.argv.includes('--all');
 if (updateAll) {
     out = replaceArray(out, 'MONS_RNDMONST_DIFFICULTY', difficulty);
