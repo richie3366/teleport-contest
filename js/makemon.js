@@ -8,8 +8,10 @@ import {
     MONS_MFLAGS2,
     MONS_MLEVEL,
 } from './mons_rndmonst_ini_inv_data.js';
-import { permonstFromMndxLikeC } from './mondata.js';
+import { permonstFromMndxLikeC, throwsRocks } from './mondata.js';
 import { monTrackInitLikeC } from './monflee.js';
+import { In_sokoban } from './const.js';
+import { goodposNewMonster } from './walkable.js';
 
 /** C: monflag.h M2_NEUTER */
 const M2_NEUTER = 0x00040000;
@@ -89,9 +91,22 @@ export function makemon(mdat, x, y, mmflags) {
     }
     let mnum = 0;
     if (mdat === null) {
-        const picked = rndmonstLikeC();
-        if (picked < 0) return null;
-        mnum = picked;
+        let tryct = 0;
+        mnum = -1;
+        do {
+            const picked = rndmonstLikeC();
+            if (picked < 0) return null;
+            const fakemon = { data: permonstFromMndxLikeC(picked), mnum: picked, mx: 0, my: 0, wormno: 0 };
+            const ok = !(
+                (tryct === 0 && throwsRocks(fakemon.data) && In_sokoban(game.u?.uz))
+                || !goodposNewMonster(px, py, fakemon)
+            );
+            if (ok) {
+                mnum = picked;
+                break;
+            }
+        } while (++tryct <= 50);
+        if (mnum < 0) return null;
     } else if (mdat && typeof mdat === 'object' && typeof mdat.mnum === 'number') {
         mnum = mdat.mnum | 0;
     }
