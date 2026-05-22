@@ -15,7 +15,10 @@ import {
     raceptr,
     isCovetousPtrLikeC,
     monOffmapLikeC,
+    findgoldChainLikeC,
+    isWandererPtr,
 } from './mondata.js';
+import { game } from './gstate.js';
 
 /** C: mondata.h **`perceives`** — **`M1_SEE_INVIS`**. */
 const M1_SEE_INVIS = 0x01000000;
@@ -57,7 +60,12 @@ function dochugEntersMmoveBlockLikeC(g, mtmp, nearby, scared) {
         || (mtmp.mconf | 0)
         || (mtmp.mstun | 0)
         || ((mtmp.minvis | 0) && !rn2(3))
-        || (mlet === S_LEPRECHAUN && !rn2(2))
+        || (
+            mlet === S_LEPRECHAUN
+            && !findgoldChainLikeC(game.invent)
+            && (findgoldChainLikeC(mtmp.minvent) || rn2(2))
+        )
+        || (isWandererPtr(ptr) && !rn2(4))
         || ((u?.Conflict | 0) && !(mtmp.iswiz | 0))
         || (!(mtmp.mcansee | 0) && !rn2(4))
         || (mtmp.mpeaceful | 0)

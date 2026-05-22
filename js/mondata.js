@@ -188,10 +188,14 @@ const S_GHOST = 54;
 /** C: monflag.h MZ_SMALL — used by bear trap and encumber paths. */
 export { MZ_SMALL };
 
-/** C: monflag.h M2_UNDEAD / M2_WERE / M2_DEMON */
+/** C: monflag.h M2_UNDEAD / M2_WERE / M2_DEMON / M2_WANDER */
 const M2_UNDEAD = 0x00000002;
 const M2_WERE = 0x00000004;
 const M2_DEMON = 0x00000100;
+const M2_WANDER = 0x00800000;
+
+/** C: objects.h GOLD_PIECE — steal.c findgold(). */
+const GOLD_PIECE = 466;
 
 /**
  * C: mondata.h is_undead(ptr) / is_were(ptr) / is_demon(ptr)
@@ -207,6 +211,22 @@ export function isWerePtr(ptr) {
 
 export function isDemonPtr(ptr) {
     return ((ptr?.mflags2 ?? 0) & M2_DEMON) !== 0;
+}
+
+/** C: mondata.h is_wanderer(ptr). */
+export function isWandererPtr(ptr) {
+    return ((ptr?.mflags2 ?? 0) & M2_WANDER) !== 0;
+}
+
+/**
+ * C: steal.c findgold(chain) — first GOLD_PIECE on an object chain.
+ * @param {{ otyp?: number, nobj?: unknown } | null | undefined} chain
+ */
+export function findgoldChainLikeC(chain) {
+    for (let o = chain; o; o = o.nobj) {
+        if ((o.otyp | 0) === GOLD_PIECE) return o;
+    }
+    return null;
 }
 
 /** C: monst.h **`is_vampshifter`** — **`cham`** vs **`PM_VAMPIRE`** / **`PM_VAMPIRE_LEADER`** / **`PM_VLAD_THE_IMPALER`** (**`monsters.h`** NH 5.0). */
