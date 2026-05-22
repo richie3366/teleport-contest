@@ -18,7 +18,7 @@ Thin handoff for the next coding session. **Gap inventory (not yet ported):** [`
 
 **Deferred for now:** **`maybe_do_tutorial`** / **`tut-1`** / full **`do.c`** **`goto_level`** (Lua **`tutorial()`** / **`free_tutorial()`**, **`savelev`**, **`gmst_*`**, …) and **`dokick`**/**`dothrow`** vs **`leaving_tutorial`** — strong upstream dependencies (save, specials, fuller **`do.c`**); treat as backlog until chargen / core early-game parity is further along; **`LIVELOGFILE`** parity if the judge ever compares livelog lines.
 
-**Last slice:** **`movemon` one `fmon` pass per call** — single sweep + return **`monscanmove`**; harness replay once per advance via **`context._movemonHarnessConsumed`** (outer **`while (monscanmove)`** in **`moveloop_turn_advance.js`**). Prior: **`u.umovement`** / **`monscanmove`** gate. **`npm run score`:** **1/44**; **`seed8000-tourist-starter`** **3130/3130** RNG, **23/23** screens (**full pass**).
+**Last slice:** **`u_init_post_mklev.js`** — post-mklev **`u_init_role`** / ini_inv RNG (tourist via **`u_init_role_rng.js`**); **`allmain.js`** calls it instead of **`fastforward_post_mklev`**. **`moveloop_turn_advance.js`**: **`encumberMsg()`** before **`movemon`**; **`hero_seq = moves << 3`** on **`moves++`**. **`npm run score`:** **1/44**; **`seed8000-tourist-starter`** **3130/3130** RNG, **23/23** screens (**full pass**). *Note:* **`monmove` harness stepNum 2** peel needs populated **`fmon`** with movement — empty **`fmon`** at session step 3 still requires harness row.
 
 ## Next steps
 
