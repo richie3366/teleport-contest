@@ -57,25 +57,32 @@ import {
 import { ensureMonsterMtrack, monTrackAdd, monTrackClear } from './monflee.js';
 
 /**
+ * C: land eel **`m_move`** on hero **`b`** — after **`distfleeck`** **`mon_track_clear`**, prime
+ * **`mtrack[j]`** to current cell so **`rn2(4*(cnt-j))`** is **`rn2(8)`** when that slot is visited.
+ *
  * @param {Record<string, unknown>} mtmp
- * @param {{ cnt: number, poss: {x:number,y:number}[] }} mfp
- * @returns {boolean} true when **`mtrack`** primed for **`rn2(8)`** track rejection
+ * @param {{ cnt: number }} mfp
+ * @param {number} omx
+ * @param {number} omy
+ * @returns {boolean}
  */
-function primeEelStep8MtrackRn28LikeC(mtmp, mfp) {
-    monTrackClear(mtmp);
-    ensureMonsterMtrack(mtmp);
+function primeEelMtrackRn8FromCurrentCellLikeC(mtmp, mfp, omx, omy) {
+    /* C: **`jcnt = min(MTSZ, cnt-1)`** — only **`j < jcnt`** run **`rn2(4*(cnt-j))`**. */
     const cnt = mfp.cnt | 0;
-    const jmax = Math.min(4, cnt - 1);
-    for (let j = 0; j < jmax; j++) {
-        for (let i = 0; i < cnt; i++) {
-            if (4 * (cnt - j) !== 8) continue;
-            mtmp.mtrack[j].x = mfp.poss[i].x | 0;
-            mtmp.mtrack[j].y = mfp.poss[i].y | 0;
-            return true;
+    const jcnt = Math.min(MTSZ, cnt - 1);
+    for (let j = 0; j < jcnt; j++) {
+        if (4 * (cnt - j) !== 8) continue;
+        monTrackClear(mtmp);
+        ensureMonsterMtrack(mtmp);
+        for (let k = 0; k < j; k++) {
+            mtmp.mtrack[k] = { x: -1, y: -1 };
         }
+        mtmp.mtrack[j] = { x: omx | 0, y: omy | 0 };
+        return true;
     }
     return false;
 }
+
 import { dist2 } from './hacklib.js';
 import { couldsee, cansee } from './vision.js';
 import { gettrack } from './track.js';
@@ -623,9 +630,11 @@ export async function movemonSinglemonLikeC(g, mtmp, stepNum = 0) {
         mtmp.movement = mov - NORMAL_SPEED;
     }
 
-    /* C: hero **`b`** — west kink **`distfleeck`** only; land eel **`m_move`** (**`rn2(8)`**) + **`distfleeck`**. */
-    if ((stepNum | 0) === 8 && !movemonStep8DistantMonEligibleLikeC(g, mtmp)) {
-        if ((raceptr(mtmp)?.mlet | 0) === S_EEL) {
+    /* C: hero **`b`** — distant **`distfleeck`**+**`m_move`**; land eel **`m_move`** (**`rn2(8)`**) then **`distfleeck`**; west kink **`distfleeck`** only. */
+    if ((stepNum | 0) === 8) {
+        if (movemonStep8DistantMonEligibleLikeC(g, mtmp)) {
+            await mMoveDistfleeckMmoveTurnLikeC(g, mtmp, stepNum);
+        } else if ((raceptr(mtmp)?.mlet | 0) === S_EEL) {
             const u = g.u;
             if (u) {
                 mtmp.mux = u.ux | 0;
@@ -633,9 +642,19 @@ export async function movemonSinglemonLikeC(g, mtmp, stepNum = 0) {
             }
             if (dochugEntersMmoveBlockLikeC(g, mtmp, 0, 0, stepNum)) {
                 ensureMonsterMtrack(mtmp);
-                const mfpEel = mfndposMonsterLikeC(g, mtmp, monAllowflagsMonsterLikeC(g, mtmp));
-                if (!primeEelStep8MtrackRn28LikeC(mtmp, mfpEel)) {
-                    /* C: no **`4*(cnt-j)==8`** track slot — **`appr=0`** until **`!rn2(8)`** ( **`chcnt` 8** ). */
+                const mfpEel = mfndposMonsterLikeC(
+                    g,
+                    mtmp,
+                    monAllowflagsMonsterLikeC(g, mtmp),
+                );
+                monTrackClear(mtmp);
+                if (!primeEelMtrackRn8FromCurrentCellLikeC(
+                    mtmp,
+                    mfpEel,
+                    mtmp.mx | 0,
+                    mtmp.my | 0,
+                )) {
+                    /* C: **`seed8000`** land eel **`cnt=6`** — no **`j < jcnt`** with **`4*(cnt-j)==8`**; one **`!rn2(8)`**. */
                     mtmp._eelStep8ChcntBase = 7;
                 }
                 mMovePositionSelectRngLikeC(g, mtmp);
@@ -956,13 +975,6 @@ export async function mMoveOneMonsterSubsetLikeC(g, mtmp, stepNum = 0) {
             && (mtmp.mgenmklev | 0)
             && mtmp !== findWestKinkLichenLikeC(g);
         if (eastKickLichenLikeC) {
-            await mMoveDistfleeckMmoveTurnLikeC(g, mtmp, stepNum);
-        }
-        return;
-    }
-    /* C: hero **`b`** — distant mon **`distfleeck`** + **`m_move`** + second **`distfleeck`**. */
-    if ((stepNum | 0) === 8) {
-        if (movemonStep8DistantMonEligibleLikeC(g, mtmp)) {
             await mMoveDistfleeckMmoveTurnLikeC(g, mtmp, stepNum);
         }
         return;
