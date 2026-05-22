@@ -142,6 +142,8 @@ export async function runPostCommandTurnAdvanceLikeC(g) {
         g.context.monMoving = false;
         delete g.context._movemonHarnessConsumed;
         delete g.context._movemonStep5Passes;
+        delete g.context._movemonStep6Passes;
+        delete g.context._movemonStep6Pass;
     }
 }
 

@@ -18,13 +18,12 @@ Thin handoff for the next coding session. **Gap inventory (not yet ported):** [`
 
 **Deferred for now:** **`maybe_do_tutorial`** / **`tut-1`** / full **`do.c`** **`goto_level`** (Lua **`tutorial()`** / **`free_tutorial()`**, **`savelev`**, **`gmst_*`**, …) and **`dokick`**/**`dothrow`** vs **`leaving_tutorial`** — strong upstream dependencies (save, specials, fuller **`do.c`**); treat as backlog until chargen / core early-game parity is further along; **`LIVELOGFILE`** parity if the judge ever compares livelog lines.
 
-**Last slice:** **`monmove.js`** + **`m_move_mon.js`** + **`moveloop_turn_advance.js`** — second moveloop **`h`** (**`stepNum` 5**): peel harness row **5**; east lichen **(64,10)** **`m_move`** (**`cnt=3`** **`rn2(12)`**); west kink / eel / other **`distfleeck`** only (**`movement < NORMAL_SPEED`** still **`distfleeck`** on step **5**); single **`movemon`** pass. **`seed8000`** **3100/3130** RNG — second **`h`** **3030–3043** aligned; diverges **`y`** **3045**. **23/23** screens. **`npm run score`:** **0/44** (canary RNG +39 vs prior commit).
+**Last slice:** **`monmove.js`** + **`m_move_mon.js`** + **`mfndpos_mon.js`** + **`moveloop_turn_advance.js`** — moveloop **`y`** (**`stepNum` 6**): insert harness **`null`** for peeled row (fix index skew); two-pass **`movemon`** (pass 1 east **`m_move`** + west/eel **`distfleeck`**; pass 2 west kink **`m_move`** + distant mon **`distfleeck`**); **`mtrack[0]`** prime for **`rn2(16)`**; west **(64,12)** **`cnt=4`**. **`seed8000-tourist-starter`** **PASS** (**3130/3130** RNG, **23/23** screens). **`npm run score`:** **1/44**.
 
 ## Next steps
 
-1. **Moveloop `y`** (**`stepNum` 6**) — session step 7 from **3045**; peel harness row **6** (**`rn2(5); rn2(16); …`**).
-2. **Moveloop rows 7–12** — peel remaining harness; land-eel **`minliquid`** only when C **`movemon_singlemon`** / **`m_calcdistress`** run it.
-3. **`newmonhp`** / **`minliquid`** land-eel — restore C **`minliquid`** on distfleeck-only turns once **`mhp`** parity matches (remove blanket **`stepNum===1–3`** skips where C runs **`minliquid`**).
+1. **Moveloop step 8+** — peel harness rows **7–12**; step **8** harness **`rn2(5); rn2(12); …`** at **`stepNum` 7**.
+2. **`newmonhp`** / **`minliquid`** land-eel — restore C **`minliquid`** on distfleeck-only turns once **`mhp`** parity matches (remove blanket **`stepNum===1–3`** skips where C runs **`minliquid`**).
 2. **`mklev`/`dig_corridor`** — corridor **`roomno`** / kink tiles if C **`mfndpos`** needs **6** neighbors at door **(65,12)** without walkability hacks alone.
 2. **Chargen** — shrink **`fastforward_pre_mklev`** / **`post_mklev`** toward real **`o_init`** / **`u_init_role`** (**`seed0900`**, **`seed0077`**).
 2. **Mklev remainder** — supply extra **`mkobj(SPBOOK)`** reroll dealloc; **`setgemprobs`**; wall-neighbor check vs C **`levl[x][y±1]`** if mineralize count drifts on other seeds.

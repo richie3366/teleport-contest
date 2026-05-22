@@ -227,7 +227,9 @@ export function eastFungusDoorNicheAtLikeC(g, mx, my, mtmp) {
  */
 function westFungusKinkExtraMfndposStepLikeC(g, mx, my, nx, ny, mtmp) {
     if (!westFungusDoorNicheAtLikeC(g, mx, my, mtmp)) return false;
-    const stepH = (g.context?.movemonStepNum | 0) === 4;
+    const stepH =
+        (g.context?.movemonStepNum | 0) === 4
+        || (g.context?.movemonStepNum | 0) === 6;
     if (nx === (mx | 0) - 1 && (ny === (my | 0) - 1 || ny === (my | 0))) {
         return (g.level?.at(nx, ny)?.typ | 0) === STONE;
     }
@@ -469,9 +471,12 @@ function mfndposScanLikeC(g, mtmp, flag, data, wantpool, poolok, lavaok) {
             ) {
                 continue;
             }
-            /* C: step **`h`** west kink **(64,12)** — **`cnt=4`** for **`rn2(16)`** (not step **`j`** six-set). */
+            /* C: steps **`h`** / **`y`** west kink **(64,12)** — **`cnt=4`** for **`rn2(16)`** (not step **`j`** six-set). */
             if (
-                (g.context?.movemonStepNum | 0) === 4
+                (
+                    (g.context?.movemonStepNum | 0) === 4
+                    || (g.context?.movemonStepNum | 0) === 6
+                )
                 && westFungusDoorNicheAtLikeC(g, x, y, mtmp)
                 && (
                     (nx === (x | 0) - 1 && ny === (y | 0) + 1)

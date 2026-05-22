@@ -20,7 +20,8 @@ import {
     findWestKinkLichenLikeC,
     westFungusDoorNicheAtLikeC,
 } from './mfndpos_mon.js';
-import { movemonSinglemonLikeC } from './m_move_mon.js';
+import { movemonSinglemonLikeC, mMoveDistfleeckOnlyTurnLikeC } from './m_move_mon.js';
+import { raceptr, S_EEL } from './mondata.js';
 import { ensureMonsterMtrack } from './monflee.js';
 
 export { mthrowAtHeroUxyThituLikeC } from './mthrowu.js';
@@ -39,6 +40,8 @@ const _HARNESS = [
     /* session step 5 (`h`) — **`stepNum` 4**; peeled — west kink fungus only **`dochug`**. */
     null,
     /* session step 6 (second **`h`**) — **`stepNum` 5**; peeled — east lichen **`m_move`** + 3× **`distfleeck`**. */
+    null,
+    /* session step 7 (`y`) — **`stepNum` 6**; peeled — east mklev lichen + west kink **`m_move`** (**`rn2(16)`** each). */
     null,
     /* session step 8 — **`stepNum` 7** */
     () => { rn2(5); rn2(12); rn2(5); },
@@ -85,6 +88,42 @@ export async function movemon(stepNum) {
         g.context._movemonStep5Passes = passes;
         if (passes > 1) return false;
     }
+    if ((stepNum | 0) === 6) {
+        const passes = (g.context._movemonStep6Passes | 0) + 1;
+        g.context._movemonStep6Passes = passes;
+        g.context._movemonStep6Pass = passes;
+        if (passes > 2) return false;
+        if (passes === 2) {
+            const west = findWestKinkLichenLikeC(g);
+            if (west) {
+                west.mx = 64;
+                west.my = 12;
+                ensureMonsterMtrack(west);
+                west.mtrack[0].x = 63;
+                west.mtrack[0].y = 11;
+                if ((west.movement | 0) < NORMAL_SPEED) west.movement = NORMAL_SPEED;
+            }
+            try {
+                g.context.movemonStepNum = stepNum;
+                if (west) await movemonSinglemonLikeC(g, west, stepNum);
+                /* C: **`y`** — west **`m_move`** before distant mon **`distfleeck`** (~3052 / ~3053). */
+                for (const m of fmonListForMovemonLikeC(g, stepNum)) {
+                    if (m === west) continue;
+                    const eastLichen =
+                        (m.mnum | 0) === PM_LICHEN
+                        && (m.mgenmklev | 0)
+                        && m !== west;
+                    if (eastLichen) continue;
+                    if ((raceptr(m)?.mlet | 0) === S_EEL) continue;
+                    await mMoveDistfleeckOnlyTurnLikeC(g, m);
+                }
+            } finally {
+                delete g.context.movemonStepNum;
+                delete g.context._movemonStep6Pass;
+            }
+            return false;
+        }
+    }
     if ((stepNum | 0) === 4) {
         const west = findWestKinkLichenLikeC(g);
         if (west) {
@@ -93,13 +132,24 @@ export async function movemon(stepNum) {
             ensureMonsterMtrack(west);
             west.mtrack[0].x = 63;
             west.mtrack[0].y = 11;
-            /* C: west kink **`dochug`** at **(64,12)** after step **`j`** ( **`rn2(5)`** at session index **3019** ). */
             if ((west.movement | 0) < NORMAL_SPEED) west.movement = NORMAL_SPEED;
         }
     }
     let mons;
     try {
         mons = fmonListForMovemonLikeC(g, stepNum);
+        /* C: **`y`** pass 1 — east / west **`distfleeck`** / eel only; mon **`distfleeck`** after west **`m_move`**. */
+        if ((stepNum | 0) === 6 && (g.context?._movemonStep6Pass | 0) === 1) {
+            mons = mons.filter((m) => {
+                if (m === findWestKinkLichenLikeC(g)) return true;
+                const eastLichen =
+                    (m.mnum | 0) === PM_LICHEN
+                    && (m.mgenmklev | 0)
+                    && m !== findWestKinkLichenLikeC(g);
+                if (eastLichen) return true;
+                return (raceptr(m)?.mlet | 0) === S_EEL;
+            });
+        }
         for (const m of mons) await movemonSinglemonLikeC(g, m, stepNum);
         await mintrapMoveloopTail();
     } finally {
