@@ -2,7 +2,11 @@
 // C ref: makemon.c — `mtmp->nmon = fmon; fmon = mtmp` prepends each new monster.
 
 import { PM_LICHEN } from './const.js';
-import { findWestKinkLichenLikeC, westFungusDoorNicheAtLikeC } from './mfndpos_mon.js';
+import {
+    eastFungusDoorNicheAtLikeC,
+    findWestKinkLichenLikeC,
+    westFungusDoorNicheAtLikeC,
+} from './mfndpos_mon.js';
 
 /**
  * C: **`for (mtmp = fmon; mtmp; mtmp = mtmp->nmon)`** — newest **`makemon`** first.
@@ -37,7 +41,7 @@ export function fmonListForMovemonLikeC(g, stepNum = 0) {
         (m) =>
             (m.mnum | 0) === PM_LICHEN
             && (m.mgenmklev | 0)
-            && m !== west
+            && eastFungusDoorNicheAtLikeC(g, m.mx | 0, m.my | 0, m),
     );
     const rest = mons.filter((m) => m !== west && m !== east);
     return [west, east, ...rest].filter(Boolean);

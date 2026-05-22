@@ -18,12 +18,11 @@ Thin handoff for the next coding session. **Gap inventory (not yet ported):** [`
 
 **Deferred for now:** **`maybe_do_tutorial`** / **`tut-1`** / full **`do.c`** **`goto_level`** (Lua **`tutorial()`** / **`free_tutorial()`**, **`savelev`**, **`gmst_*`**, …) and **`dokick`**/**`dothrow`** vs **`leaving_tutorial`** — strong upstream dependencies (save, specials, fuller **`do.c`**); treat as backlog until chargen / core early-game parity is further along; **`LIVELOGFILE`** parity if the judge ever compares livelog lines.
 
-**Last slice:** **`m_move_mon.js`** — hero **`b`** land eel **`m_move`** (**`stepNum` 8**): replace blind **`mon_track_clear` + first-`poss` prime** with C-shaped **`primeEelMtrackRn8FromCurrentCellLikeC`** when **`j < min(MTSZ,cnt-1)`** and **`4*(cnt-j)==8`**; document that **`seed8000`** eel **`cnt=6`** cannot hit **`rn2(8)`** via track rejection (only **`j=0..3`**), so **`!rn2(8)`** via **`appr=0`** fallback remains. **`monTrackClear`** before **`m_move`** avoids spurious **`rn2(24)`** from **`{0,0}`** slots. **`seed8000-tourist-starter` PASS** (**3130/3130** RNG, **23/23** screens). **`npm run score`:** **1/44**.
+**Last slice:** **`stepNum` 3 (`j`)** — confirm door-niche moveloop is C-driven: **`fmon_iter.js`** east lichen via **`eastFungusDoorNicheAtLikeC`** (not “any non-west mklev”); **`movemon_singlemon`** runs C **`minliquid`** on step **`j`** (land lichens no-op, no extra RNG). Harness row already peeled; **`mfndpos cnt=6`** + **`mklev`** **`mtrack`** prior + west-then-east **`rn2(24)`** unchanged. **`seed8000-tourist-starter` PASS** (**3130/3130** RNG, **23/23** screens). **`npm run score`:** **1/44**.
 
 ## Next steps
 
-1. **Moveloop `stepNum` 3 (`j`)** — peel harness row when **`mfndpos cnt=6`** + west-then-east **`rn2(24)`** pair is fully C-driven (no extra track draws).
-2. **`newmonhp`** / **`minliquid`** land-eel — restore C **`minliquid`** on distfleeck-only turns once **`mhp`** parity matches (remove blanket **`stepNum===1–3`** skips where C runs **`minliquid`**).
+1. **`newmonhp`** / **`minliquid`** land-eel — restore C **`minliquid`** on distfleeck-only turns once **`mhp`** parity matches (remove remaining **`stepNum===1–2`** / eel **`hideunder`** skips where C runs **`minliquid`** / **`rn2(mhp)`**/**`rn2(8)`**).
 2. **`mklev`/`dig_corridor`** — corridor **`roomno`** / kink tiles if C **`mfndpos`** needs **6** neighbors at door **(65,12)** without walkability hacks alone.
 2. **Chargen** — shrink **`fastforward_pre_mklev`** / **`post_mklev`** toward real **`o_init`** / **`u_init_role`** (**`seed0900`**, **`seed0077`**).
 2. **Mklev remainder** — supply extra **`mkobj(SPBOOK)`** reroll dealloc; **`setgemprobs`**; wall-neighbor check vs C **`levl[x][y±1]`** if mineralize count drifts on other seeds.

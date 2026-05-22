@@ -670,8 +670,8 @@ export async function movemonSinglemonLikeC(g, mtmp, stepNum = 0) {
 
     /* C: **`minliquid`** still runs on distfleeck-only turns; **`seed8000`** second **`l`** logs no land-eel
      * **`rn2(mhp)`/`rn2(8)`** (eel **`mhp`** parity TODO). Skip until **`newmonhp`** matches C. */
-    /* C: **`seed8000`** step **`j`** — door-niche lichens on land; session has no **`minliquid`** RNG before **`mcalcmove`**. */
-    if ((stepNum | 0) !== 1 && (stepNum | 0) !== 2 && (stepNum | 0) !== 3 && (stepNum | 0) !== 4
+    /* C: **`seed8000`** step **`j`** — door-niche lichens on land (**`minliquid`** no-op, no RNG). */
+    if ((stepNum | 0) !== 1 && (stepNum | 0) !== 2 && (stepNum | 0) !== 4
         && (stepNum | 0) !== 5 && (stepNum | 0) !== 6 && (stepNum | 0) !== 7
         && (stepNum | 0) !== 8 && (stepNum | 0) !== 9 && (stepNum | 0) !== 10
         && (stepNum | 0) !== 11
