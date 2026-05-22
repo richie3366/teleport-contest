@@ -39,7 +39,8 @@ import {
 import { makeEngrAt, ENGR_HEADSTONE, ENGR_MARK, ENGR_DUST, randomEngraving, getRndEpitaphText, wipeEngrAt } from './engrave.js';
 import { tAt } from './search.js';
 import { breaktestLikeC } from './obj_break_dothrow.js';
-import { makemon, rndmonnum } from './makemon.js';
+import { makemon } from './makemon.js';
+import { rndmonstLikeC } from './makemon_rndmonst.js';
 import { floorObjKey, placeFloorObject } from './floorobj.js';
 import { fixWallSpinesRect } from './wall_spine.js';
 
@@ -311,8 +312,7 @@ function mkcorpstat(objtyp, mtmp, pm, x, y, flags) {
     // RNG: next_ident from mksobj
     const otmp = mksobj(objtyp, false, false);
     if (pm === null) {
-        // rndmonnum — pick random monster
-        rndmonnum();
+        rndmonstLikeC();
     }
     return otmp;
 }
@@ -508,8 +508,8 @@ async function makelevel() {
         place_branch(branchp);
     }
 
-    /* C: mklev.c makelevel tail — fill in gi.in_mklev; still replayed via fastforward_fill_mineralize until
-     * per-room RNG matches C (~1426 peel on seed8000 with real fill). */
+    /* C: mklev.c makelevel tail — fill ordinary rooms (gi.in_mklev). */
+    await fillAllOrdinaryRoomsLikeC(g);
 }
 
 /**
@@ -518,16 +518,20 @@ async function makelevel() {
  */
 export async function fillAllOrdinaryRoomsLikeC(g = game) {
     const rooms = g.level?.rooms ?? [];
+    /* C: mklev.c makelevel — for (croom = svr.rooms; croom->hx > 0; croom++) */
     let fillableCount = 0;
-    for (const croom of rooms) {
-        if ((croom?.hx | 0) <= 0) continue;
-        if (croom.needfill !== FILL_NORMAL) continue;
-        if (croom.rtype !== OROOM && croom.rtype !== THEMEROOM) continue;
-        fillableCount++;
+    for (let i = 0; ; i++) {
+        const croom = rooms[i];
+        if (!croom || (croom.hx | 0) <= 0) break;
+        if (croom.needfill === FILL_NORMAL
+            && (croom.rtype === OROOM || croom.rtype === THEMEROOM)) {
+            fillableCount++;
+        }
     }
     let bonusCountdown = fillableCount > 0 ? rn2(fillableCount) : -1;
-    for (const croom of rooms) {
-        if ((croom?.hx | 0) <= 0) continue;
+    for (let i = 0; ; i++) {
+        const croom = rooms[i];
+        if (!croom || (croom.hx | 0) <= 0) break;
         const fillable =
             croom.needfill === FILL_NORMAL &&
             (croom.rtype === OROOM || croom.rtype === THEMEROOM);
@@ -1722,7 +1726,7 @@ async function fill_ordinary_room(croom, bonus_items) {
     /* C: mklev.c fill_ordinary_room — subrooms before parent needfill check */
     for (let si = 0; si < (croom.nsubrooms | 0); si++) {
         const subroom = croom.sbrooms?.[si];
-        if (!subroom) return;
+        if (!subroom) continue;
         await fill_ordinary_room(subroom, false);
     }
 
@@ -1968,7 +1972,8 @@ function syncLevelFlagsHasTownAfterFixupSpecialLikeC(g) {
 
 function level_finalize_topology() {
     bound_digging();
-    /* C: mineralize(-1,…) before gi.in_mklev=FALSE — replayed in fastforward until real fill is stable */
+    /* C: mklev.c level_finalize_topology — mineralize before gi.in_mklev=FALSE */
+    mineralize(-1, -1, -1, -1, false);
     game.in_mklev = false;
     if (!game.level?.flags?.is_maze_lev) {
         const nroom = game.level?.nroom ?? 0;

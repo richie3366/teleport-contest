@@ -1,6 +1,7 @@
 // mkobj_mklev_like_c.js — C mkobj.c mkobj/mksobj_init RNG for mklev fill (not ini_inv).
 // C refs: mkobj.c mkobj(), mksobj(), mksobj_init(); fill_ordinary_room mkobj_at(RANDOM_CLASS, …).
 
+import { game } from './gstate.js';
 import { rnd, rn2, rn1, rne } from './rng.js';
 import {
     NH5_RANDOM_CLASS,
@@ -78,6 +79,27 @@ const RING_CHARGED = new Set(
 );
 
 const WEAPON_MULTIGEN_OTYP = new Set([24, 25, 26]); /* DART, SHURIKEN, BOOMERANG */
+
+/** C: mkobj.c mkobj_erosions — in_mklev floor objects (may_generate_eroded TRUE). */
+function mkobjErosionsMklevLikeC() {
+    if (!game.in_mklev) return;
+    if (!rn2(100)) return;
+    if (!rn2(80)) {
+        let eroded = 0;
+        do {
+            eroded++;
+        } while (eroded < 3 && !rn2(9));
+    }
+    if (!rn2(80)) {
+        let eroded2 = 0;
+        do {
+            eroded2++;
+        } while (eroded2 < 3 && !rn2(9));
+    }
+    if (!rn2(1000)) {
+        /* greased */
+    }
+}
 
 /** @param {readonly (readonly [number, number])[]} rows */
 export function mkobjOtypFromProbRowsLikeC(rows) {
@@ -225,6 +247,7 @@ export function mkobjMklevConsumeRngLikeC(let_, artif) {
     const otyp = mkobjPickOtypForClassLikeC(oclass);
     rnd(2);
     mksobjInitMklevLikeC(otyp, oclass, artif);
+    mkobjErosionsMklevLikeC();
     return otyp | 0;
 }
 

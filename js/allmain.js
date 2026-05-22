@@ -14,7 +14,7 @@ import {
     noticeMonOffLikeC, noticeMonOnLikeC, noticeAllMonsLikeC, dolookaroundLikeC,
 } from './vision.js';
 import { genders, roleHasFemaleRoleNameLikeC } from './roles.js';
-import { fastforward_pre_mklev, fastforward_post_mklev, fastforward_fill_mineralize } from './fastforward.js';
+import { fastforward_pre_mklev, fastforward_post_mklev } from './fastforward.js';
 import {
     runMoveloopPreambleBeforeRhackLikeC,
     runPostCommandTurnAdvanceLikeC,
@@ -175,8 +175,7 @@ export async function newgame() {
     // C: do.c goto_level — **`if (new)`** after **`mklev`**; **`allmain.c`** **`newgame`** calls **`mklev()`** with **`u.uz`** on D:1 (no bones on brand-new game).
     if (await mklev()) maybeRecordEnteredNewLevelLivelogLikeC(g);
 
-    // Fill + mineralize: replay until real fill/mineralize matches C (see mklev.js peel ~1426).
-    fastforward_fill_mineralize();
+    /* C: mklev.c makelevel fill + level_finalize_topology mineralize (no fastforward replay). */
 
     /* C u_init.c u_init_role — svm.moves = 1L before ini_inv (before post-mklev fastforward replay) */
     g.moves = 1;
