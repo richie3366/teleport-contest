@@ -27,7 +27,9 @@ import {
     A_LAWFUL, Align2amask,
     LR_UPTELE,
     MM_NOGRP,
+    NO_MM_FLAGS,
     NO_TRAP, TRAPNUM,
+    PM_GIANT_SPIDER,
     ARROW_TRAP, DART_TRAP, ROCKTRAP, SQKY_BOARD, BEAR_TRAP, LANDMINE, ROLLING_BOULDER_TRAP,
     SLP_GAS_TRAP, RUST_TRAP, FIRE_TRAP, PIT, SPIKED_PIT, HOLE, TRAPDOOR, TELEP_TRAP, LEVEL_TELEP,
     MAGIC_PORTAL, WEB, STATUE_TRAP, MAGIC_TRAP, POLY_TRAP, VIBRATING_SQUARE, TRAPPED_DOOR, TRAPPED_CHEST,
@@ -36,6 +38,7 @@ import {
 } from './const.js';
 import { makeEngrAt, ENGR_HEADSTONE, ENGR_MARK, ENGR_DUST, randomEngraving, getRndEpitaphText, wipeEngrAt } from './engrave.js';
 import { tAt } from './search.js';
+import { breaktestLikeC } from './obj_break_dothrow.js';
 import { makemon, rndmonnum } from './makemon.js';
 import { floorObjKey, placeFloorObject } from './floorobj.js';
 import { fixWallSpinesRect } from './wall_spine.js';
@@ -58,6 +61,11 @@ const TOOL_CLASS = 12;
 const GEM_CLASS = 14;
 const GOLD_PIECE = 466;
 const ROCK = 467;
+/** NH5 `objects_nums` — C `mktrap_victim` ARROW / DART (`u_init_role_rng.js`). */
+const OTYP_ARROW = 19;
+const OTYP_DART = 25;
+const OTYP_TALLOW_CANDLE = 225;
+const OTYP_WAX_CANDLE = 226;
 const KELP_FROND = 172;
 const SCR_TELEPORTATION = 287;
 const BELL = 358;
@@ -246,7 +254,7 @@ function mkobj_shallow(oclass, artif) {
     };
 }
 
-/** C: mkobj.c mkobj + mksobj init — fill_ordinary_room / mktrap_room only. */
+/** C: mkobj.c mkobj + mksobj init — fill_ordinary_room / mktrap_victim only. */
 function mkobjFromMklevCLikeC(oclass, artif) {
     const otyp = mkobjMklevConsumeRngLikeC(oclass, artif);
     return {
@@ -260,6 +268,13 @@ function mkobj(oclass, artif) {
 
 function mkobj_at(oclass, x, y, artif) {
     return mkobj(oclass, artif);
+}
+
+/** C: mkobj.c mkobj_at — fill/mineralize use full mkobj RNG + floor placement. */
+function mkobjFillAtLikeC(oclass, x, y, artif) {
+    const otmp = mkobjFromMklevCLikeC(oclass, artif);
+    placeFloorObject(otmp, x, y);
+    return otmp;
 }
 
 function mkgold(amount, x, y) {
@@ -493,10 +508,8 @@ async function makelevel() {
         place_branch(branchp);
     }
 
-    /* C: mklev.c makelevel tail — fill ordinary rooms here (gi.in_mklev); mineralize in
-     * level_finalize_topology. Still replayed via fastforward_fill_mineralize in allmain.js until
-     * per-room RNG matches C (~1412: real fill calls shallow mkobj rnd(2) vs recorder makemon
-     * rnd(100) after identical rn2(8)/rn2(6); shallow mkobj/mktrap stubs + C call order). */
+    /* C: mklev.c makelevel tail — fill in gi.in_mklev; still replayed via fastforward_fill_mineralize until
+     * per-room RNG matches C (~1426 peel on seed8000 with real fill). */
 }
 
 /**
@@ -1217,8 +1230,10 @@ function somexy(croom, c) {
     return false;
 }
 
+/** C: mklev.c occupied — trap, furniture, lava/pool, invocation tile. */
 function occupied(x, y) {
-    const loc = game.level.at(x, y);
+    if (tAt(x, y)) return true;
+    const loc = game.level?.at(x, y);
     if (!loc) return false;
     return !!(IS_FURNITURE(loc.typ) || loc.typ === LAVAPOOL || IS_POOL(loc.typ));
 }
@@ -1532,26 +1547,53 @@ function find_okay_roompos(croom, crd) {
     return true;
 }
 
+/** C: mklev.c mktrap_victim — trap ammo, cursed possessions, corpse on shallow traps. */
 function mktrap_victim(trap) {
-    const lvl = game.u?.uz?.dlevel ?? 1;
-    const kind = trap.ttyp;
-    const x = trap.tx, y = trap.ty;
-    // Object based on trap type
+    const g = game;
+    const lvl = g.u?.uz?.dlevel ?? 1;
+    const kind = trap.ttyp | 0;
+    const x = trap.tx | 0;
+    const y = trap.ty | 0;
+    let otmp = null;
     switch (kind) {
-    case ARROW_TRAP: mksobj(349, true, false); break; // ARROW
-    case DART_TRAP: mksobj(353, true, false); break; // DART
-    case ROCKTRAP: mksobj(ROCK, true, false); break;
-    default: break;
+    case ARROW_TRAP:
+        otmp = mksobj(OTYP_ARROW, true, false);
+        if (otmp) otmp.opoisoned = 0;
+        break;
+    case DART_TRAP:
+        otmp = mksobj(OTYP_DART, true, false);
+        break;
+    case ROCKTRAP:
+        otmp = mksobj(ROCK, true, false);
+        break;
+    default:
+        break;
     }
-    // Random items on victim
+    if (otmp) placeFloorObject(otmp, x, y);
     do {
-        const cls = [WEAPON_CLASS, TOOL_CLASS, FOOD_CLASS, GEM_CLASS][rn2(4)];
-        const otmp = mkobjFromMklevCLikeC(cls, false);
+        let possClass = RANDOM_CLASS;
+        switch (rn2(4)) {
+        case 0: possClass = WEAPON_CLASS; break;
+        case 1: possClass = TOOL_CLASS; break;
+        case 2: possClass = FOOD_CLASS; break;
+        case 3: possClass = GEM_CLASS; break;
+        default: break;
+        }
+        otmp = mkobjFromMklevCLikeC(possClass, false);
         curse(otmp);
+        if (trap.ttyp === PIT && breaktestLikeC(g, otmp)) {
+            dealloc_obj(otmp);
+        } else {
+            placeFloorObject(otmp, x, y);
+        }
     } while (!rn2(5));
-    // Victim type
-    const PM_ELF = 18, PM_DWARF = 19, PM_ORC = 20, PM_GNOME = 21, PM_HUMAN = 22;
-    const PM_ARCHEOLOGIST = 305, PM_WIZARD = 321;
+    const PM_ELF = 18;
+    const PM_DWARF = 19;
+    const PM_ORC = 20;
+    const PM_GNOME = 21;
+    const PM_HUMAN = 22;
+    const PM_ARCHEOLOGIST = 305;
+    const PM_WIZARD = 321;
     let victim_mnum;
     switch (rn2(15)) {
     case 0:
@@ -1563,34 +1605,73 @@ function mktrap_victim(trap) {
     case 6: case 7: case 8: case 9:
         victim_mnum = PM_GNOME;
         if (!rn2(10)) {
-            const otmp = mksobj(rn2(4) ? 370 : 371, true, false); // TALLOW_CANDLE / WAX_CANDLE
-            curse(otmp);
+            otmp = mksobj(rn2(4) ? OTYP_TALLOW_CANDLE : OTYP_WAX_CANDLE, true, false);
+            if (otmp) {
+                otmp.quan = 1;
+                otmp.owt = weight(otmp);
+                curse(otmp);
+                placeFloorObject(otmp, x, y);
+            }
         }
         break;
-    default: victim_mnum = PM_HUMAN; break;
+    default:
+        victim_mnum = PM_HUMAN;
+        break;
     }
-    if (victim_mnum === PM_HUMAN && rn2(25))
+    if (victim_mnum === PM_HUMAN && rn2(25)) {
         victim_mnum = rn1(PM_WIZARD - PM_ARCHEOLOGIST, PM_ARCHEOLOGIST);
-    mkcorpstat(CORPSE, null, victim_mnum, x, y, 8); // CORPSTAT_INIT
+    }
+    mkcorpstat(CORPSE, null, victim_mnum, x, y, 8);
 }
 
-async function mktrap_room(croom) {
+const MKTRAP_NOFLAGS = 0;
+const MKTRAP_NOSPIDERONWEB = 4;
+const MKTRAP_NOVICTIM = 8;
+
+/** C: mklev.c mktrap(num, mktrapflags, croom, tm). */
+async function mktrapLikeC(num, mktrapflags, croom, tm) {
+    const g = game;
+    if (!tm && !croom && !(mktrapflags & 2)) return;
+    const m = { x: 0, y: 0 };
     let kind;
-    do { kind = traptype_rnd(); } while (kind === NO_TRAP);
-    const dungeon = game.dungeons?.[game.u?.uz?.dnum ?? 0];
-    const canFallThru = (game.u?.uz?.dlevel ?? 1) < (dungeon?.num_dunlevs ?? 1);
+    const lvl = g.u?.uz?.dlevel ?? 1;
+    if (num > NO_TRAP && num < TRAPNUM) {
+        kind = num;
+    } else {
+        do {
+            kind = traptype_rnd();
+        } while (kind === NO_TRAP);
+    }
+    const dungeon = g.dungeons?.[g.u?.uz?.dnum ?? 0];
+    const canFallThru = lvl < (dungeon?.num_dunlevs ?? 1);
     if (is_hole(kind) && !canFallThru) kind = ROCKTRAP;
-    const pos = { x: 0, y: 0 };
-    if (!somexyspace(croom, pos)) return;
-    const trap = await maketrap(pos.x, pos.y, kind);
-    kind = trap ? trap.ttyp : NO_TRAP;
-    const lvl = game.u?.uz?.dlevel ?? 1;
-    if (game.in_mklev && kind !== NO_TRAP
+    if (tm) {
+        m.x = tm.x | 0;
+        m.y = tm.y | 0;
+    } else {
+        const avoidBoulder = is_pit(kind) || is_hole(kind);
+        let tryct = 0;
+        do {
+            if (++tryct > 200) return;
+            if (!somexyspace(croom, m)) return;
+        } while (occupied(m.x, m.y) || (avoidBoulder && sobj_at(OTYP_BOULDER, m.x, m.y)));
+    }
+    const trap = await maketrap(m.x, m.y, kind);
+    kind = trap ? (trap.ttyp | 0) : NO_TRAP;
+    if (kind === WEB && !(mktrapflags & MKTRAP_NOSPIDERONWEB)) {
+        makemon({ mnum: PM_GIANT_SPIDER }, m.x, m.y, NO_MM_FLAGS);
+    }
+    if (g.in_mklev && trap && !(mktrapflags & MKTRAP_NOVICTIM)
+        && kind !== NO_TRAP
         && lvl <= rnd(4)
         && kind !== SQKY_BOARD && kind !== RUST_TRAP
-        && !(kind === ROLLING_BOULDER_TRAP && trap.launch?.x === trap.tx && trap.launch?.y === trap.ty)
+        && !(kind === ROLLING_BOULDER_TRAP
+            && trap.launch?.x === trap.tx && trap.launch?.y === trap.ty)
         && !is_pit(kind) && (kind < HOLE || kind === MAGIC_TRAP)) {
-        if (kind === LANDMINE) { trap.ttyp = PIT; trap.tseen = true; }
+        if (kind === LANDMINE) {
+            trap.ttyp = PIT;
+            trap.tseen = true;
+        }
         mktrap_victim(trap);
     }
 }
@@ -1651,16 +1732,17 @@ async function fill_ordinary_room(croom, bonus_items) {
     // C: (u.uhave.amulet || !rn2(3)) && somexyspace — sleeping monster
     if ((g.u?.uhave?.amulet || !rn2(3)) && somexyspace(croom, pos)) {
         const tmonst = makemon(null, pos.x, pos.y, MM_NOGRP);
-        /* C: giant spider + WEB when !occupied(pos) — PM check when rndmonst sets mnum */
-        void tmonst;
+        if (tmonst && (tmonst.mnum | 0) === PM_GIANT_SPIDER && !occupied(pos.x, pos.y)) {
+            await maketrap(pos.x, pos.y, WEB);
+        }
     }
-    // Traps
+    // Traps — C: mktrap(0, MKTRAP_NOFLAGS, croom, (coord *) 0)
     const u_depth = g.u?.uz?.dlevel ?? 1;
     let x = 8 - Math.trunc(u_depth / 6);
     if (x <= 1) x = 2;
     let trycnt = 0;
     while (!rn2(x) && ++trycnt < 1000) {
-        await mktrap_room(croom);
+        await mktrapLikeC(0, MKTRAP_NOFLAGS, croom, null);
     }
     // Gold
     if (!rn2(3) && somexyspace(croom, pos)) {
@@ -1749,11 +1831,11 @@ async function fill_ordinary_room(croom, bonus_items) {
     }
     // Random objects
     if (!rn2(3) && somexyspace(croom, pos)) {
-        mkobj_at(RANDOM_CLASS, pos.x, pos.y, true);
+        mkobjFillAtLikeC(RANDOM_CLASS, pos.x, pos.y, true);
         let objTrycnt = 0;
         while (!rn2(5)) {
             if (++objTrycnt > 100) break;
-            if (somexyspace(croom, pos)) mkobj_at(RANDOM_CLASS, pos.x, pos.y, true);
+            if (somexyspace(croom, pos)) mkobjFillAtLikeC(RANDOM_CLASS, pos.x, pos.y, true);
         }
     }
 }
@@ -1886,7 +1968,7 @@ function syncLevelFlagsHasTownAfterFixupSpecialLikeC(g) {
 
 function level_finalize_topology() {
     bound_digging();
-    /* mineralize(-1,…,FALSE) runs with fill in C level_finalize_topology before gi.in_mklev=FALSE */
+    /* C: mineralize(-1,…) before gi.in_mklev=FALSE — replayed in fastforward until real fill is stable */
     game.in_mklev = false;
     if (!game.level?.flags?.is_maze_lev) {
         const nroom = game.level?.nroom ?? 0;
