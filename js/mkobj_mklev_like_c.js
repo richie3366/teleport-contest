@@ -17,6 +17,7 @@ import {
     NH5_SPBOOK_CLASS,
     NH5_WAND_CLASS,
     NH5_GEM_CLASS,
+    NH5_ROCK_CLASS,
     NH5_AMULET_CLASS,
 } from './nh5_objclass.js';
 import {
@@ -274,7 +275,7 @@ function mksobjInitStatueLikeC(otyp) {
 }
 
 /** C: mkobj.c mksobj — STATUE corpsenm spe after mksobj_init. */
-function mksobjPostInitStatueLikeC(otyp) {
+export function mksobjPostInitStatueLikeC(otyp) {
     if ((otyp | 0) !== OTYP_STATUE) return;
     rn2(2);
 }
@@ -330,6 +331,8 @@ export function mksobjInitMklevLikeC(otyp, oclass, artif, otmp) {
         break;
     case NH5_GEM_CLASS:
         mksobjInitGemLikeC(otyp);
+        break;
+    case NH5_ROCK_CLASS:
         mksobjInitStatueLikeC(otyp);
         break;
     case NH5_AMULET_CLASS:

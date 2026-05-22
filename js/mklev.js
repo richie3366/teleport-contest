@@ -7,12 +7,17 @@
 
 import { game } from './gstate.js';
 import { insideRoomLikeC } from './hacklib.js';
-import { mkobjMklevConsumeRngLikeC, mksobjInitMklevLikeC } from './mkobj_mklev_like_c.js';
+import {
+    mkobjMklevConsumeRngLikeC,
+    mksobjInitMklevLikeC,
+    mksobjPostInitStatueLikeC,
+} from './mkobj_mklev_like_c.js';
 import {
     NH5_POTION_CLASS,
     NH5_SCROLL_CLASS,
     NH5_WAND_CLASS,
     NH5_SPBOOK_CLASS,
+    NH5_ROCK_CLASS,
 } from './nh5_objclass.js';
 import { GameMap } from './game.js';
 import { rn2, rnd, rn1 } from './rng.js';
@@ -213,13 +218,15 @@ function level_difficulty() {
 
 let _nextObjId = 1;
 
-/** NH5 otyp → class for mksobj_init (supply chest, mksobj_at). */
+/** NH5 otyp → class for mksobj_init (supply chest, mkcorpstat, mksobj_at). */
 function nh5OclassForOtyp(otyp) {
     const t = otyp | 0;
     if (t >= 297 && t <= 322) return NH5_POTION_CLASS;
     if (t >= 323 && t <= 364) return NH5_SCROLL_CLASS;
     if (t >= 365 && t <= 408) return NH5_SPBOOK_CLASS;
     if (t >= 409 && t <= 433) return NH5_WAND_CLASS;
+    /* C: objects.h — BOULDER/STATUE are ROCK_CLASS, not GEM_CLASS. */
+    if (t === OTYP_BOULDER || t === STATUE) return NH5_ROCK_CLASS;
     return 0;
 }
 
@@ -232,6 +239,7 @@ function mksobj(otyp, init, artif) {
     if (init) {
         const oclass = nh5OclassForOtyp(otyp);
         if (oclass) mksobjInitMklevLikeC(otyp, oclass, artif, otmp);
+        if ((otyp | 0) === STATUE) mksobjPostInitStatueLikeC(otyp);
     }
     return otmp;
 }
@@ -320,16 +328,13 @@ function mkcorpstat(objtyp, mtmp, pm, x, y, flags) {
     const init = ((flags | 0) & 8) !== 0; /* CORPSTAT_INIT */
     const otmp = mksobj(objtyp, init, false);
     otmp.corpsenm = -1;
-    if (init && (objtyp | 0) === CORPSE) {
-        otmp.corpsenm = consumeMksobjInitCorpseRngLikeC();
-    } else if (pm === null && !init) {
-        rndmonstLikeC();
-    }
     const t = objtyp | 0;
-    if ((t === CORPSE || t === STATUE) && (otmp.corpsenm | 0) < 0) {
+    if (init && t === CORPSE) {
+        otmp.corpsenm = consumeMksobjInitCorpseRngLikeC();
+    } else if (!init && pm === null && (t === CORPSE || t === STATUE)) {
         rndmonstLikeC();
     }
-    if ((t === CORPSE || t === STATUE) && (otmp.corpsenm | 0) >= 0) {
+    if (t === CORPSE && (otmp.corpsenm | 0) >= 0) {
         /* C: mksobj tail spe before mkcorpstat ptr override. */
         consumeMksobjCorpseSpeRngLikeC(otmp.corpsenm);
     }
