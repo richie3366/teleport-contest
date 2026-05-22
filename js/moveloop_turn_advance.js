@@ -8,6 +8,7 @@ import { mcalcMoveLikeC } from './mcalc_move.js';
 import { rn2 } from './rng.js';
 import { NORMAL_SPEED } from './const.js';
 import { end_of_turn_rng, maybe_generate_rnd_mon } from './moveloop_aux.js';
+import { encumberMsg } from './pickup.js';
 import { collectNewuhsPlines } from './hunger.js';
 import { settrack } from './track.js';
 import { pullDueMeltIceAwayTimers } from './level_timers.js';
@@ -50,6 +51,7 @@ async function runNewTurnSetupAndTailLikeC(g, stepNum) {
     maybe_generate_rnd_mon();
     settrack();
     g.moves = (g.moves || 1) + 1;
+    g.hero_seq = (g.moves | 0) << 3;
     const dueMeltIce = pullDueMeltIceAwayTimers(g);
     for (const { x, y } of dueMeltIce) {
         g.context = g.context || {};
@@ -87,6 +89,7 @@ export async function runPostCommandTurnAdvanceLikeC(g) {
     g.context.monMoving = true;
     try {
         if (stepNum > 0) {
+            await encumberMsg();
             do {
                 monscanmove = await movemon(stepNum);
                 if ((u.umovement | 0) >= NORMAL_SPEED) break;
