@@ -120,11 +120,12 @@ function mMovePositionSelectRngLikeC(g, mtmp) {
         const ny = mfp.poss[i].y | 0;
 
         if (appr !== 0) {
+            ensureMonsterMtrack(mtmp);
             const mtrk = mtmp.mtrack;
             let skipPos = false;
             for (let j = 0; j < jcnt; j++) {
-                const tr = mtrk?.[j];
-                if (tr && nx === (tr.x | 0) && ny === (tr.y | 0) && rn2(4 * (cnt - j))) {
+                const tr = mtrk[j];
+                if (nx === (tr.x | 0) && ny === (tr.y | 0) && rn2(4 * (cnt - j))) {
                     skipPos = true;
                     break;
                 }

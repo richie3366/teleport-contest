@@ -9,6 +9,13 @@ import { raceptr } from './mondata.js';
 /** C: monmove.c **`MTSZ`** — ring size for **`mtrack`** (subset). */
 const MTSZ = 4;
 
+/** C: **`struct monst`** **`mtrack`** ring — zeroed at birth ( **`mon_track_clear`** memset). */
+export function monTrackInitLikeC(mtmp) {
+    if (!mtmp) return;
+    mtmp.mtrack = [];
+    for (let j = 0; j < MTSZ; j++) mtmp.mtrack.push({ x: 0, y: 0 });
+}
+
 /** C: monmove.c **`mon_track_add`** — push prior **`(x,y)`** onto **`mtrack`** ring. */
 export function monTrackAdd(mtmp, x, y) {
     if (!mtmp) return;
@@ -90,6 +97,7 @@ export async function monflee(g = game, mtmp, fleetime, first, fleemsg) {
  * @param {Record<string, unknown>} mtmp
  */
 export function ensureMonsterMtrack(mtmp) {
-    if (!mtmp || mtmp.mtrack) return;
-    mtmp.mtrack = Array.from({ length: MTSZ }, () => ({ x: 0, y: 0 }));
+    if (!mtmp?.mtrack || !Array.isArray(mtmp.mtrack) || mtmp.mtrack.length < MTSZ) {
+        monTrackInitLikeC(mtmp);
+    }
 }

@@ -9,6 +9,7 @@ import {
     MONS_MLEVEL,
 } from './mons_rndmonst_ini_inv_data.js';
 import { permonstFromMndxLikeC } from './mondata.js';
+import { monTrackInitLikeC } from './monflee.js';
 
 /** C: monflag.h M2_NEUTER */
 const M2_NEUTER = 0x00040000;
@@ -109,6 +110,7 @@ export function makemon(mdat, x, y, mmflags) {
         movement: 0,
         mgenmklev: 0,
     };
+    monTrackInitLikeC(mtmp);
     mtmp.mgenmklev = game.in_mklev ? 1 : 0;
     /* C: makemon.c — `femaleok = !is_male(ptr) && !is_neuter(ptr)`; neuter skips `rn2(2)`. */
     const femaleok = ((MONS_MFLAGS2[mnum | 0] | 0) & M2_NEUTER) === 0;
