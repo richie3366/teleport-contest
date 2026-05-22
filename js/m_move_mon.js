@@ -1,10 +1,21 @@
 // m_move_mon.js — **`mon.c`** **`m_move()`** / **`monmove.c`** **`dochug`** subset from **`movemon`**.
 // C ref: mon.c **`m_move()`** ~1715+; monmove.c **`dochug`** ~690+; **`movemon_singlemon`** → **`dochugw`**.
 
-import { NORMAL_SPEED, MMOVE_DIED, MMOVE_MOVED, MMOVE_NOTHING } from './const.js';
+import { NORMAL_SPEED, MMOVE_DIED, MMOVE_MOVED, MMOVE_NOTHING, M_AP_OBJECT } from './const.js';
+
+/** C: objects.h `STRANGE_OBJECT`. */
+const STRANGE_OBJECT = 0;
 
 /** C: defsym.h — leprechaun. */
 const S_LEPRECHAUN = 46;
+/** C: defsym.h — bat / light. */
+const S_BAT = 28;
+const S_LIGHT = 25;
+/** C: monsters.h — stalker. */
+const PM_STALKER = 153;
+/** C: objects.h — gold piece. */
+const GOLD_PIECE = 466;
+
 import { mThrowAtHeroAfterMmoveIfLinedUpLikeC } from './mthrow_mon.js';
 import { distfleeckMonsterApplyLikeC } from './distfleeck_mon.js';
 import { wipeEngrAt } from './engrave.js';
@@ -17,14 +28,10 @@ import {
     monOffmapLikeC,
     findgoldChainLikeC,
     isWandererPtr,
+    canTrackPtrLikeC,
+    likesGoldPtrLikeC,
 } from './mondata.js';
-import { game } from './gstate.js';
-
-/** C: mondata.h **`perceives`** — **`M1_SEE_INVIS`**. */
-const M1_SEE_INVIS = 0x01000000;
-function perceivesPtrLikeC(ptr) {
-    return ((ptr?.mflags1 ?? 0) & M1_SEE_INVIS) !== 0;
-}
+import { mCanSeeHeroMonsterLikeC } from './mon_seen_res.js';
 import { tacticsMonsterDochugStubLikeC } from './tactics_mon.js';
 import { mRespondMonsterDochugLikeC } from './m_respond_mon.js';
 import { disturbMonsterLikeC } from './disturb_mon.js';
@@ -32,7 +39,15 @@ import { mfndposMonsterLikeC, monAllowflagsMonsterLikeC } from './mfndpos_mon.js
 import { ensureMonsterMtrack, monTrackAdd } from './monflee.js';
 import { dist2 } from './hacklib.js';
 import { couldsee } from './vision.js';
+import { gettrack } from './track.js';
 import { rn2 } from './rng.js';
+import { game } from './gstate.js';
+
+/** C: mondata.h **`perceives`** — **`M1_SEE_INVIS`**. */
+const M1_SEE_INVIS = 0x01000000;
+function perceivesPtrLikeC(ptr) {
+    return ((ptr?.mflags1 ?? 0) & M1_SEE_INVIS) !== 0;
+}
 
 /** C: monmove.c **`MTSZ`**. */
 const MTSZ = 4;
@@ -40,6 +55,38 @@ const MTSZ = 4;
 function heroInvisLikeC(u) {
     if (!u) return false;
     return !!((u.HInvis | 0) || (u.EInvis | 0) || (u.BInvis | 0));
+}
+
+/** C: `is_obj_mappear(&gy.youmonst, otyp)` subset — hero disguised as object type. */
+function isObjMappearHeroOtypLikeC(otyp) {
+    const youmonst = /** @type {{ m_ap_type?: number, mappearance?: number }|null} */ (
+        game.youmonst ?? null
+    );
+    if (!youmonst) return false;
+    return ((youmonst.m_ap_type | 0) === M_AP_OBJECT)
+        && ((youmonst.mappearance | 0) === (otyp | 0));
+}
+
+/** C: monmove.c `leppie_avoidance`. */
+function leppieAvoidanceMonsterLikeC(g, mtmp) {
+    const ptr = raceptr(mtmp);
+    if ((ptr?.mlet | 0) !== S_LEPRECHAUN) return false;
+    const lepgold = findgoldChainLikeC(mtmp.minvent);
+    if (!lepgold) return false;
+    const ygold = findgoldChainLikeC(g.invent);
+    const yq = ygold ? (ygold.quan | 0) : 0;
+    return (lepgold.quan | 0) > yq;
+}
+
+/**
+ * C: monmove.c `m_balks_at_approaching` — launcher/pole/autoreturn/ranged subset omitted.
+ * @returns {number}
+ */
+function mBalksAtApproachingLikeC(appr, mtmp) {
+    if (mtmp.mpeaceful | 0) return appr;
+    const edist = dist2(mtmp.mx | 0, mtmp.my | 0, mtmp.mux | 0, mtmp.muy | 0);
+    if (edist >= 25 || !mCanSeeHeroMonsterLikeC(mtmp)) return appr;
+    return appr;
 }
 
 /**
@@ -62,7 +109,7 @@ function dochugEntersMmoveBlockLikeC(g, mtmp, nearby, scared) {
         || ((mtmp.minvis | 0) && !rn2(3))
         || (
             mlet === S_LEPRECHAUN
-            && !findgoldChainLikeC(game.invent)
+            && !findgoldChainLikeC(g.invent)
             && (findgoldChainLikeC(mtmp.minvent) || rn2(2))
         )
         || (isWandererPtr(ptr) && !rn2(4))
@@ -92,6 +139,9 @@ function mMovePositionSelectRngLikeC(g, mtmp) {
     let ggy = mtmp.muy | 0;
     let appr = (mtmp.mflee | 0) ? -1 : 1;
     const ptr = raceptr(mtmp);
+    const mnum = ptr?.mnum | 0;
+    let preferredrangeMin = 0;
+    let preferredrangeMax = 0;
 
     if ((mtmp.mconf | 0) /* || engulfing_u — not ported */) {
         appr = 0;
@@ -102,11 +152,32 @@ function mMovePositionSelectRngLikeC(g, mtmp) {
             couldsee(omx, omy)
             && (((locMux?.lit | 0) !== 0) || !((locOmx?.lit | 0) !== 0))
             && (dist2(omx, omy, ggx, ggy) <= 36);
+
         if (
             !(mtmp.mcansee | 0)
             || (shouldSee && heroInvisLikeC(u) && ptr && !perceivesPtrLikeC(ptr) && !rn2(11))
+            || isObjMappearHeroOtypLikeC(STRANGE_OBJECT)
+            || (u.uundetected | 0)
+            || (isObjMappearHeroOtypLikeC(GOLD_PIECE) && !likesGoldPtrLikeC(ptr))
+            || ((mtmp.mpeaceful | 0) && !(mtmp.isshk | 0))
+            || (
+                (mnum === PM_STALKER || (ptr?.mlet | 0) === S_BAT || (ptr?.mlet | 0) === S_LIGHT)
+                && !rn2(3)
+            )
         ) {
             appr = 0;
+        }
+
+        if (appr === 1 && leppieAvoidanceMonsterLikeC(g, mtmp)) appr = -1;
+
+        appr = mBalksAtApproachingLikeC(appr, mtmp);
+
+        if (!shouldSee && canTrackPtrLikeC(ptr)) {
+            const cp = gettrack(omx, omy);
+            if (cp) {
+                ggx = cp.x | 0;
+                ggy = cp.y | 0;
+            }
         }
     }
 
@@ -122,6 +193,15 @@ function mMovePositionSelectRngLikeC(g, mtmp) {
     let mmoved = MMOVE_NOTHING;
     let chcnt = 0;
     const jcnt = Math.min(MTSZ, cnt - 1);
+
+    if (
+        !(mtmp.mpeaceful | 0)
+        && g.level?.flags?.shortsighted
+        && nidist > (couldsee(nix, niy) ? 144 : 36)
+        && appr === 1
+    ) {
+        appr = 0;
+    }
 
     for (let i = 0; i < cnt; i++) {
         const nx = mfp.poss[i].x | 0;
@@ -141,16 +221,24 @@ function mMovePositionSelectRngLikeC(g, mtmp) {
             if (skipPos) continue;
         }
 
-        const nearer = dist2(nx, ny, ggx, ggy) < nidist;
+        const ndist = dist2(nx, ny, ggx, ggy);
+        const nearer = ndist < nidist;
         if (
             (appr === 1 && nearer)
             || (appr === -1 && !nearer)
             || (!appr && !rn2(++chcnt))
+            || (
+                appr === -2
+                && (
+                    (ndist <= preferredrangeMin && !nearer)
+                    || (ndist >= preferredrangeMax && nearer)
+                )
+            )
             || mmoved === MMOVE_NOTHING
         ) {
             nix = nx;
             niy = ny;
-            nidist = dist2(nix, niy, ggx, ggy);
+            nidist = ndist;
             chi = i;
             mmoved = MMOVE_MOVED;
         }

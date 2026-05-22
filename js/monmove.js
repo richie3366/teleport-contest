@@ -26,7 +26,7 @@ export const MOVE_MON_HARNESS_MAX_STEP = 12;
 const _HARNESS = [
     /* stepNum 1 — peeled: **`mMoveDistfleeckOnlyTurnLikeC`** (one **`rn2(5)`** per monster). */
     null,
-    /* stepNum 2 — session step 3 (`n`); peel when **`mfndpos` cnt=8** + two-mon **`m_move`**. */
+    /* stepNum 2 — session step 3 (`n`); peel when track **`rn2(4*(cnt-j))`** matches (needs **`cnt=8`** or **`mtrack`**). */
     () => { rn2(5); rn2(32); rn2(5); rn2(5); rn2(32); rn2(5); },
     /* session step 4 — **`stepNum` 3** */
     () => { rn2(5); rn2(24); rn2(5); rn2(5); rn2(24); rn2(5); },

@@ -34,7 +34,7 @@ import {
 } from './const.js';
 import { floorObjKey } from './floorobj.js';
 import { isPoolCellLikeC, isLavaCellLikeC } from './fillholetyp.js';
-import { mayPasswall } from './walkable.js';
+import { mayPasswall, badRock } from './walkable.js';
 import { onScaryMonsterLikeC, inYourSanctuaryMonsterLikeC } from './distfleeck_mon.js';
 import {
     raceptr,
@@ -51,6 +51,7 @@ import {
     isFloater,
     isClinger,
     verysmall,
+    cantSqueezeThruMonsterLikeC,
 } from './mondata.js';
 import { nohandsPermonstLikeC } from './hero_hands.js';
 import { inRoomsTypewantedRoomnos } from './shop.js';
@@ -62,6 +63,18 @@ const PM_MINOTAUR = 176;
 
 /** C: monflag.h **M2_GIANT**. */
 const M2_GIANT = 0x00000400;
+
+/** C: monflag.h **`M1_SEE_INVIS`** — **`perceives`** for **`monseeu`**. */
+const M1_SEE_INVIS = 0x01000000;
+
+function heroInvisLikeC(u) {
+    if (!u) return false;
+    return !!((u.HInvis | 0) || (u.EInvis | 0) || (u.BInvis | 0));
+}
+
+function perceivesPtrLikeC(ptr) {
+    return ((ptr?.mflags1 ?? 0) & M1_SEE_INVIS) !== 0;
+}
 
 /** C: mon.c **`m_in_air`** — subset (no **`has_ceiling`**). */
 function mInAirMonsterLikeC(mtmp) {
@@ -204,7 +217,14 @@ function mfndposScanLikeC(g, mtmp, flag, data, wantpool, poolok, lavaok) {
                 info |= ALLOW_ROCK;
             }
 
-            if ((mtmp.mcansee | 0) && monlineuMonsterLikeC(mtmp, nx, ny)) {
+            if (nx !== x && ny !== y && badRock(ptr, x, ny, g) && badRock(ptr, nx, y, g)
+                && cantSqueezeThruMonsterLikeC(mtmp) !== 0) {
+                continue;
+            }
+
+            const monseeu = (mtmp.mcansee | 0)
+                && (!heroInvisLikeC(u) || perceivesPtrLikeC(ptr));
+            if (monseeu && monlineuMonsterLikeC(mtmp, nx, ny)) {
                 if (flag & NOTONL) continue;
                 info |= NOTONL;
             }

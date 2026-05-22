@@ -434,6 +434,35 @@ export function haseyes(/** @type {Permonst|null|undefined} */ ptr) {
     return ((ptr?.mflags1 ?? 0) & M1_NOEYES) === 0;
 }
 
+/** C: mondata.c `can_track(ptr)` — Excalibur or **`haseyes`** (Excalibur wield when artifact path is ported). */
+export function canTrackPtrLikeC(/** @type {Permonst|null|undefined} */ ptr) {
+    return haseyes(ptr);
+}
+
+/** C: monflag.h `M2_GREEDY`. */
+const M2_GREEDY = 0x10000000;
+
+export function likesGoldPtrLikeC(/** @type {Permonst|null|undefined} */ ptr) {
+    return ((ptr?.mflags2 ?? 0) & M2_GREEDY) !== 0;
+}
+
+/**
+ * C: hack.c `cant_squeeze_thru(mon)` — subset (no **`curr_mon_load`** / steed fog).
+ * @param {Record<string, unknown>} mtmp
+ * @returns {0|1|2|3}
+ */
+export function cantSqueezeThruMonsterLikeC(mtmp) {
+    const ptr = raceptr(mtmp);
+    if (passesWalls(ptr)) return 0;
+    if (
+        bigmonst(ptr)
+        && !(amorphous(ptr) || isWhirly(ptr) || noncorporeal(ptr) || slithy(ptr))
+    ) {
+        return 1;
+    }
+    return 0;
+}
+
 /**
  * C: mondata.h `eyecount(ptr)` — cyclops / floating eye **1**, else **2** if **`haseyes`**, else **0**.
  * @param {Permonst|null|undefined} ptr
