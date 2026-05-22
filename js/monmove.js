@@ -38,8 +38,8 @@ const _HARNESS = [
     null,
     /* session step 5 (`h`) — **`stepNum` 4**; peeled — west kink fungus only **`dochug`**. */
     null,
-    /* session step 7 — **`stepNum` 6** */
-    () => { rn2(5); rn2(16); rn2(5); rn2(5); rn2(16); rn2(5); },
+    /* session step 6 (second **`h`**) — **`stepNum` 5**; peeled — east lichen **`m_move`** + 3× **`distfleeck`**. */
+    null,
     /* session step 8 — **`stepNum` 7** */
     () => { rn2(5); rn2(12); rn2(5); },
     /* session step 9 — **`stepNum` 8** */
@@ -80,6 +80,11 @@ export async function movemon(stepNum) {
     const g = game;
     g.context = g.context || {};
     g.context.movemonStepNum = stepNum;
+    if ((stepNum | 0) === 5) {
+        const passes = (g.context._movemonStep5Passes | 0) + 1;
+        g.context._movemonStep5Passes = passes;
+        if (passes > 1) return false;
+    }
     if ((stepNum | 0) === 4) {
         const west = findWestKinkLichenLikeC(g);
         if (west) {

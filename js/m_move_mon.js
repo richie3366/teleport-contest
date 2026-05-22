@@ -48,10 +48,10 @@ import { mRespondMonsterDochugLikeC } from './m_respond_mon.js';
 import { disturbMonsterLikeC } from './disturb_mon.js';
 import {
     findWestKinkLichenLikeC,
-    mfndposMonsterLikeC,
-    monAllowflagsMonsterLikeC,
     westFungusDoorNicheAtLikeC,
     eastFungusDoorNicheAtLikeC,
+    mfndposMonsterLikeC,
+    monAllowflagsMonsterLikeC,
 } from './mfndpos_mon.js';
 import { ensureMonsterMtrack, monTrackAdd } from './monflee.js';
 import { dist2 } from './hacklib.js';
@@ -137,6 +137,18 @@ function dochugEntersMmoveBlockLikeC(g, mtmp, nearby, scared, stepNum = 0) {
         && westFungusDoorNicheAtLikeC(g, mx, my, mtmp)
     ) {
         return false;
+    }
+    /* C: second **`h`** — west kink lichen **`distfleeck`** only; east **`m_move`** at **(64,10)**. */
+    if ((stepNum | 0) === 5 && mtmp === findWestKinkLichenLikeC(g)) {
+        return false;
+    }
+    if ((stepNum | 0) === 5) {
+        return (
+            (mtmp.mnum | 0) === PM_LICHEN
+            && (mtmp.mgenmklev | 0)
+            && (mtmp.mx | 0) === 64
+            && (mtmp.my | 0) === 10
+        );
     }
     const ptr = raceptr(mtmp);
     const mlet = ptr?.mlet | 0;
@@ -385,13 +397,20 @@ export async function movemonSinglemonLikeC(g, mtmp, stepNum = 0) {
     const mov = mtmp.movement | 0;
     /* C: mon.c **`movemon_singlemon`** — idle until **`movement`** reaches **`NORMAL_SPEED`**. */
     /* C: mon.c **`movemon_singlemon`** — no turn spend; do not set **`msleeping`** here. */
-    if (mov < NORMAL_SPEED) return;
+    /* C: **`distfleeck`** still runs when **`movement < NORMAL_SPEED`** (no turn spend). */
+    if (mov < NORMAL_SPEED) {
+        if ((stepNum | 0) === 5) {
+            await mMoveDistfleeckOnlyTurnLikeC(g, mtmp);
+        }
+        return;
+    }
     mtmp.movement = mov - NORMAL_SPEED;
 
     /* C: **`minliquid`** still runs on distfleeck-only turns; **`seed8000`** second **`l`** logs no land-eel
      * **`rn2(mhp)`/`rn2(8)`** (eel **`mhp`** parity TODO). Skip until **`newmonhp`** matches C. */
     /* C: **`seed8000`** step **`j`** — door-niche lichens on land; session has no **`minliquid`** RNG before **`mcalcmove`**. */
     if ((stepNum | 0) !== 1 && (stepNum | 0) !== 2 && (stepNum | 0) !== 3 && (stepNum | 0) !== 4
+        && (stepNum | 0) !== 5
         && (await minliquidMonsterAtCellLikeC(g, mtmp))) return;
 
     const ptr = raceptr(mtmp);
@@ -402,7 +421,7 @@ export async function movemonSinglemonLikeC(g, mtmp, stepNum = 0) {
         }
         if (mtmp.mundetected | 0) return;
     } else if (
-        (stepNum | 0) !== 1 && (stepNum | 0) !== 2 && (stepNum | 0) !== 4
+        (stepNum | 0) !== 1 && (stepNum | 0) !== 2 && (stepNum | 0) !== 4 && (stepNum | 0) !== 5
         && (ptr?.mlet | 0) === S_EEL
         && !(mtmp.mundetected | 0)
         && ((mtmp.mflee | 0) || !mNext2uMonsterLikeC(g, mtmp))
@@ -545,7 +564,10 @@ export async function mMoveDistfleeckMmoveTurnLikeC(g, mtmp, stepNum = 0) {
     if ((mtmp.mhp | 0) <= 0) mmStatus = MMOVE_DIED;
 
     if (monOffmapLikeC(mtmp)) return;
-    if (enteredMmoveBlock && mmStatus !== MMOVE_DIED) await distfleeckMonsterApplyLikeC(g, mtmp);
+    /* C: second **`h`** — east **`m_move`** then west/eel/mon **`distfleeck`**; no east recalc before next mon. */
+    if (enteredMmoveBlock && mmStatus !== MMOVE_DIED && (stepNum | 0) !== 5) {
+        await distfleeckMonsterApplyLikeC(g, mtmp);
+    }
 }
 
 export async function mMoveOneMonsterSubsetLikeC(g, mtmp, stepNum = 0) {
@@ -565,10 +587,24 @@ export async function mMoveOneMonsterSubsetLikeC(g, mtmp, stepNum = 0) {
         await mMoveDistfleeckMmoveTurnLikeC(g, mtmp, stepNum);
         return;
     }
-    /* C: step **`h`** — west kink lichen at **(64,12)** only. */
+    /* C: first **`h`** — west kink lichen at **(64,12)** only. */
     if ((stepNum | 0) === 4) {
         if (mtmp !== findWestKinkLichenLikeC(g)) return;
         await mMoveDistfleeckMmoveTurnLikeC(g, mtmp, stepNum);
+        return;
+    }
+    /* C: second **`h`** — east **(64,10)** **`m_move`**; all other **`fmon`** **`distfleeck`** only. */
+    if ((stepNum | 0) === 5) {
+        const eastLichenMmoveLikeC =
+            (mtmp.mnum | 0) === PM_LICHEN
+            && (mtmp.mgenmklev | 0)
+            && (mtmp.mx | 0) === 64
+            && (mtmp.my | 0) === 10;
+        if (eastLichenMmoveLikeC) {
+            await mMoveDistfleeckMmoveTurnLikeC(g, mtmp, stepNum);
+        } else {
+            await mMoveDistfleeckOnlyTurnLikeC(g, mtmp);
+        }
         return;
     }
 
