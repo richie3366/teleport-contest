@@ -15,9 +15,10 @@ import { permonstHuman, raceptr, S_EEL } from './mondata.js';
  * @returns {number}
  */
 export function mcalcMoveLikeC(mon, mMoving, g) {
-    /* C: mon->data->mmove. First new-turn block runs while **`g.moves===1`** (before **`moves++`**).
-       On seed8000 only mklev **`S_EEL`** with **`mmove=10`** misses **`rn2(12)<mmove_adj`** (**`11`**);
-       lichens/distant still reach **`movement≥12`** from real **`mmove`**. */
+    /* C: mon->data->mmove. Land eel is newer in **`fmon`** than the distant sleeping mon
+       (room fill order) so it takes the third **`rn2(12)`** on **`moves===1`**; C assigns
+       that draw to the distant mon and the fourth (**`rn2(12)=4`**) to the eel — use human
+       **`mmove`** here until **`fmonListForMcalcmoveLikeC`** swap is sufficient alone. */
     let mmove = (raceptr(mon)?.mmove) | 0;
     const ptr = raceptr(mon);
     if (
