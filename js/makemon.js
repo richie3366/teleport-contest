@@ -134,7 +134,8 @@ export function makemon(mdat, x, y, mmflags) {
         }
     }
     const mons = game.level?.monsters;
-    if (mons) mons.push(mtmp);
+    if (mons) mons.unshift(mtmp);
+    else if (game.level) game.level.monsters = [mtmp];
     return mtmp;
 }
 

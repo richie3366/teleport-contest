@@ -14,6 +14,7 @@ import { rn2 } from './rng.js';
 import { NORMAL_SPEED } from './const.js';
 import { mintrapMoveloopTail } from './trap.js';
 import { game } from './gstate.js';
+import { fmonListNewestFirstLikeC } from './fmon_iter.js';
 import { mMoveOneMonsterSubsetLikeC } from './m_move_mon.js';
 
 export { mthrowAtHeroUxyThituLikeC } from './mthrowu.js';
@@ -72,7 +73,7 @@ export async function movemon(stepNum) {
         }
     }
 
-    const mons = game.level?.monsters ?? [];
+    const mons = fmonListNewestFirstLikeC(game);
     for (const m of mons) await mMoveOneMonsterSubsetLikeC(game, m, stepNum);
     await mintrapMoveloopTail();
 

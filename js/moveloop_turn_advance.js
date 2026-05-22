@@ -4,6 +4,7 @@
 import { bot, flush_screen, pline, clearPendingMessageAndToplineLikeC } from './display.js';
 import { vision_recalc } from './vision.js';
 import { movemon } from './monmove.js';
+import { fmonListNewestFirstLikeC } from './fmon_iter.js';
 import { mcalcMoveLikeC } from './mcalc_move.js';
 import { rn2 } from './rng.js';
 import { NORMAL_SPEED } from './const.js';
@@ -34,7 +35,7 @@ export async function runMoveloopPreambleBeforeRhackLikeC(g) {
  * @param {number} stepNum
  */
 async function runNewTurnSetupAndTailLikeC(g, stepNum) {
-    const mons = g.level?.monsters ?? [];
+    const mons = fmonListNewestFirstLikeC(g);
     if (mons.length > 0) {
         for (const m of mons) {
             m.movement = (m.movement | 0) + mcalcMoveLikeC(m, true, g);

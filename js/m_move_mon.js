@@ -27,7 +27,6 @@ import { mRespondMonsterDochugLikeC } from './m_respond_mon.js';
 import { disturbMonsterLikeC } from './disturb_mon.js';
 import { mfndposMonsterLikeC, monAllowflagsMonsterLikeC } from './mfndpos_mon.js';
 import { ensureMonsterMtrack, monTrackAdd } from './monflee.js';
-import { minliquidMonsterAtCellLikeC } from './melt_ice.js';
 import { dist2 } from './hacklib.js';
 import { couldsee } from './vision.js';
 import { rn2 } from './rng.js';
