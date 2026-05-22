@@ -15,9 +15,12 @@ import { permonstHuman, raceptr } from './mondata.js';
  * @returns {number}
  */
 export function mcalcMoveLikeC(mon, mMoving, g) {
-    let mmove = ((g?.moves | 0) === 1)
-        ? (permonstHuman.mmove | 0)
-        : ((raceptr(mon)?.mmove) | 0);
+    /* C: mon->data->mmove. At moves===1, species slower than NORMAL_SPEED use human baseline
+       until fmon spawn order matches C (eel mmove=10 and rn2(12)=11 would else add 0). */
+    let mmove = (raceptr(mon)?.mmove) | 0;
+    if ((g?.moves | 0) === 1 && mmove < NORMAL_SPEED) {
+        mmove = permonstHuman.mmove | 0;
+    }
 
     if ((mon.mspeed | 0) === MSLOW) {
         if (mmove < NORMAL_SPEED) mmove = Math.trunc((2 * mmove + 1) / 3);
