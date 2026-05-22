@@ -317,6 +317,11 @@ function dealloc_obj(otmp) { /* stub */ }
 function curse(otmp) { if (otmp) otmp.cursed = true; }
 function weight(otmp) { return otmp?.owt || 1; }
 function add_to_container(container, otmp) { /* stub */ }
+/** C: mkobj.c add_to_buried — mineralize uses rn2(3) vs place_object; floor chain stub for now. */
+function add_to_buried(otmp) {
+    if (!otmp) return;
+    placeFloorObject(otmp, otmp.ox | 0, otmp.oy | 0);
+}
 function sobj_at(otyp, x, y) { return false; }
 
 // set_corpsenm stub
@@ -1928,14 +1933,26 @@ function mineralize(kelp_pool, kelp_moat, goldprob, gemprob, skip_lvl_checks) {
                 && n([1,0]) && n([-1,0])
                 && n([1,1]) && n([-1,1])) {
                 if (rn2(1000) < goldprob) {
-                    const otmp = mksobj_at(GOLD_PIECE, x, y, false, false);
+                    const otmp = mksobj(GOLD_PIECE, false, false);
+                    otmp.ox = x;
+                    otmp.oy = y;
                     otmp.quan = 1 + rnd(goldprob * 3);
                     otmp.owt = Math.max(1, otmp.quan | 0);
+                    if (!rn2(3)) add_to_buried(otmp);
+                    else placeFloorObject(otmp, x, y);
                 }
                 if (rn2(1000) < gemprob) {
-                    const cnt = rnd(2 + Math.trunc(dunLevel / 3));
-                    for (let i = 0; i < cnt; i++) {
-                        mkobjFromMklevCLikeC(GEM_CLASS, false);
+                    let cnt = rnd(2 + Math.trunc(dunLevel / 3));
+                    while (cnt-- > 0) {
+                        const otmp = mkobjFromMklevCLikeC(GEM_CLASS, false);
+                        if ((otmp.otyp | 0) === 89) { /* C: ROCK */
+                            dealloc_obj(otmp);
+                        } else {
+                            otmp.ox = x;
+                            otmp.oy = y;
+                            if (!rn2(3)) add_to_buried(otmp);
+                            else placeFloorObject(otmp, x, y);
+                        }
                     }
                 }
             }
