@@ -18,11 +18,12 @@ Thin handoff for the next coding session. **Gap inventory (not yet ported):** [`
 
 **Deferred for now:** **`maybe_do_tutorial`** / **`tut-1`** / full **`do.c`** **`goto_level`** (Lua **`tutorial()`** / **`free_tutorial()`**, **`savelev`**, **`gmst_*`**, …) and **`dokick`**/**`dothrow`** vs **`leaving_tutorial`** — strong upstream dependencies (save, specials, fuller **`do.c`**); treat as backlog until chargen / core early-game parity is further along; **`LIVELOGFILE`** parity if the judge ever compares livelog lines.
 
-**Last slice:** **`monmove.js`** + **`m_move_mon.js`** + **`mfndpos_mon.js`** + **`moveloop_turn_advance.js`** — moveloop **`y`** (**`stepNum` 6**): insert harness **`null`** for peeled row (fix index skew); two-pass **`movemon`** (pass 1 east **`m_move`** + west/eel **`distfleeck`**; pass 2 west kink **`m_move`** + distant mon **`distfleeck`**); **`mtrack[0]`** prime for **`rn2(16)`**; west **(64,12)** **`cnt=4`**. **`seed8000-tourist-starter`** **PASS** (**3130/3130** RNG, **23/23** screens). **`npm run score`:** **1/44**.
+**Last slice:** **`monmove.js`** + **`m_move_mon.js`** + **`moveloop_turn_advance.js`** — moveloop kick **`kb`** (**`stepNum` 7**): peel harness row **7**; only east mklev lichen **`dochug`** (**`distfleeck`** + **`m_move`** + second **`distfleeck`**, **`rn2(12)`**); single **`movemon`** pass; other **`fmon`** skip RNG. **`seed8000-tourist-starter`** **PASS** (**3130/3130** RNG, **23/23** screens). **`npm run score`:** **1/44**.
 
 ## Next steps
 
-1. **Moveloop step 8+** — peel harness rows **7–12**; step **8** harness **`rn2(5); rn2(12); …`** at **`stepNum` 7**.
+1. **Moveloop step 9 (`b`)** — peel harness row **8** (**`stepNum` 8**): **`rn2(5); rn2(20); rn2(5); …`**.
+2. **Moveloop rows 9–12** — remaining harness peels.
 2. **`newmonhp`** / **`minliquid`** land-eel — restore C **`minliquid`** on distfleeck-only turns once **`mhp`** parity matches (remove blanket **`stepNum===1–3`** skips where C runs **`minliquid`**).
 2. **`mklev`/`dig_corridor`** — corridor **`roomno`** / kink tiles if C **`mfndpos`** needs **6** neighbors at door **(65,12)** without walkability hacks alone.
 2. **Chargen** — shrink **`fastforward_pre_mklev`** / **`post_mklev`** toward real **`o_init`** / **`u_init_role`** (**`seed0900`**, **`seed0077`**).

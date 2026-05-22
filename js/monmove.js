@@ -43,8 +43,8 @@ const _HARNESS = [
     null,
     /* session step 7 (`y`) — **`stepNum` 6**; peeled — east mklev lichen + west kink **`m_move`** (**`rn2(16)`** each). */
     null,
-    /* session step 8 — **`stepNum` 7** */
-    () => { rn2(5); rn2(12); rn2(5); },
+    /* session step 8 (`k`) — **`stepNum` 7**; peeled — real **`fmon`** consumes draws. */
+    null,
     /* session step 9 — **`stepNum` 8** */
     () => { rn2(5); rn2(20); rn2(5); rn2(5); rn2(8); rn2(5); },
     /* session step 10 — **`stepNum` 9** */
@@ -86,6 +86,11 @@ export async function movemon(stepNum) {
     if ((stepNum | 0) === 5) {
         const passes = (g.context._movemonStep5Passes | 0) + 1;
         g.context._movemonStep5Passes = passes;
+        if (passes > 1) return false;
+    }
+    if ((stepNum | 0) === 7) {
+        const passes = (g.context._movemonStep7Passes | 0) + 1;
+        g.context._movemonStep7Passes = passes;
         if (passes > 1) return false;
     }
     if ((stepNum | 0) === 6) {
@@ -158,6 +163,13 @@ export async function movemon(stepNum) {
 
     const monscanEligible = (mm) => {
         if ((stepNum | 0) === 4) return mm === findWestKinkLichenLikeC(g);
+        if ((stepNum | 0) === 7) {
+            return (
+                (mm.mnum | 0) === PM_LICHEN
+                && (mm.mgenmklev | 0)
+                && mm !== findWestKinkLichenLikeC(g)
+            );
+        }
         if ((stepNum | 0) !== 3) return true;
         const mx = mm.mx | 0;
         const my = mm.my | 0;

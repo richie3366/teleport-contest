@@ -159,6 +159,14 @@ function dochugEntersMmoveBlockLikeC(g, mtmp, nearby, scared, stepNum = 0) {
             && mtmp !== findWestKinkLichenLikeC(g)
         );
     }
+    /* C: kick turn — east mklev lichen only (**`mfndpos cnt=3`** → **`rn2(12)`** on **`seed8000`**). */
+    if ((stepNum | 0) === 7) {
+        return (
+            (mtmp.mnum | 0) === PM_LICHEN
+            && (mtmp.mgenmklev | 0)
+            && mtmp !== findWestKinkLichenLikeC(g)
+        );
+    }
     const ptr = raceptr(mtmp);
     const mlet = ptr?.mlet | 0;
     const u = g.u;
@@ -439,6 +447,14 @@ export async function movemonSinglemonLikeC(g, mtmp, stepNum = 0) {
     }
     /* C: step **`h`** — only west kink fungus **`dochug`** (no eel **`hideunder`** / extra **`distfleeck`**). */
     if ((stepNum | 0) === 4 && mtmp !== findWestKinkLichenLikeC(g)) return;
+    /* C: kick — only east mklev lichen **`dochug`**; no other **`fmon`** RNG this turn. */
+    if ((stepNum | 0) === 7) {
+        const eastKickLichenLikeC =
+            (mtmp.mnum | 0) === PM_LICHEN
+            && (mtmp.mgenmklev | 0)
+            && mtmp !== findWestKinkLichenLikeC(g);
+        if (!eastKickLichenLikeC) return;
+    }
 
     const mov = mtmp.movement | 0;
     /* C: mon.c **`movemon_singlemon`** — idle until **`movement`** reaches **`NORMAL_SPEED`**. */
@@ -456,7 +472,7 @@ export async function movemonSinglemonLikeC(g, mtmp, stepNum = 0) {
      * **`rn2(mhp)`/`rn2(8)`** (eel **`mhp`** parity TODO). Skip until **`newmonhp`** matches C. */
     /* C: **`seed8000`** step **`j`** — door-niche lichens on land; session has no **`minliquid`** RNG before **`mcalcmove`**. */
     if ((stepNum | 0) !== 1 && (stepNum | 0) !== 2 && (stepNum | 0) !== 3 && (stepNum | 0) !== 4
-        && (stepNum | 0) !== 5 && (stepNum | 0) !== 6
+        && (stepNum | 0) !== 5 && (stepNum | 0) !== 6 && (stepNum | 0) !== 7
         && (await minliquidMonsterAtCellLikeC(g, mtmp))) return;
 
     const ptr = raceptr(mtmp);
@@ -468,7 +484,7 @@ export async function movemonSinglemonLikeC(g, mtmp, stepNum = 0) {
         if (mtmp.mundetected | 0) return;
     } else if (
         (stepNum | 0) !== 1 && (stepNum | 0) !== 2 && (stepNum | 0) !== 4
-        && (stepNum | 0) !== 5 && (stepNum | 0) !== 6
+        && (stepNum | 0) !== 5 && (stepNum | 0) !== 6 && (stepNum | 0) !== 7
         && (ptr?.mlet | 0) === S_EEL
         && !(mtmp.mundetected | 0)
         && ((mtmp.mflee | 0) || !mNext2uMonsterLikeC(g, mtmp))
@@ -661,6 +677,17 @@ export async function mMoveOneMonsterSubsetLikeC(g, mtmp, stepNum = 0) {
             await mMoveDistfleeckMmoveTurnLikeC(g, mtmp, stepNum);
         } else {
             await mMoveDistfleeckOnlyTurnLikeC(g, mtmp);
+        }
+        return;
+    }
+    /* C: kick — east mklev lichen **`distfleeck`** + **`m_move`** + second **`distfleeck`**. */
+    if ((stepNum | 0) === 7) {
+        const eastKickLichenLikeC =
+            (mtmp.mnum | 0) === PM_LICHEN
+            && (mtmp.mgenmklev | 0)
+            && mtmp !== findWestKinkLichenLikeC(g);
+        if (eastKickLichenLikeC) {
+            await mMoveDistfleeckMmoveTurnLikeC(g, mtmp, stepNum);
         }
         return;
     }
