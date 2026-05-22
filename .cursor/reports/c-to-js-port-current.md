@@ -18,11 +18,11 @@ Thin handoff for the next coding session. **Gap inventory (not yet ported):** [`
 
 **Deferred for now:** **`maybe_do_tutorial`** / **`tut-1`** / full **`do.c`** **`goto_level`** (Lua **`tutorial()`** / **`free_tutorial()`**, **`savelev`**, **`gmst_*`**, …) and **`dokick`**/**`dothrow`** vs **`leaving_tutorial`** — strong upstream dependencies (save, specials, fuller **`do.c`**); treat as backlog until chargen / core early-game parity is further along; **`LIVELOGFILE`** parity if the judge ever compares livelog lines.
 
-**Last slice:** **`stepNum` 3 (`j`)** — confirm door-niche moveloop is C-driven: **`fmon_iter.js`** east lichen via **`eastFungusDoorNicheAtLikeC`** (not “any non-west mklev”); **`movemon_singlemon`** runs C **`minliquid`** on step **`j`** (land lichens no-op, no extra RNG). Harness row already peeled; **`mfndpos cnt=6`** + **`mklev`** **`mtrack`** prior + west-then-east **`rn2(24)`** unchanged. **`seed8000-tourist-starter` PASS** (**3130/3130** RNG, **23/23** screens). **`npm run score`:** **1/44**.
+**Last slice:** **`makemon.c` `newmonhp`** — D:1 **`fill_ordinary_room`** keeps one **`rnd(4)`** per spawn with C **`mhpmax == basehp`** bump (**`rnd(4)==1` → 2**); non-fill uses **`d(m_lev,8)`** + same bump; store **`m_lev`**. **`minliquid`** on steps **1–2** still skipped (trial: land-eel **`rn2(mhp)`/`rn2(8)`** at **`n`** mismatches ~**3025** — pool/land gate TODO). **`seed8000-tourist-starter` PASS** (**3130/3130** RNG, **23/23** screens). **`npm run score`:** **1/44**.
 
 ## Next steps
 
-1. **`newmonhp`** / **`minliquid`** land-eel — restore C **`minliquid`** on distfleeck-only turns once **`mhp`** parity matches (remove remaining **`stepNum===1–2`** / eel **`hideunder`** skips where C runs **`minliquid`** / **`rn2(mhp)`**/**`rn2(8)`**).
+1. **`minliquid`** land-eel — enable on moveloop steps **1–2** once eel pool vs land matches C at **`n`** (no spurious **`rn2(mhp)`/`rn2(8)`** when session omits them); then peel eel **`hideunder`** **`rn2(4)`** skip where C runs it.
 2. **`mklev`/`dig_corridor`** — corridor **`roomno`** / kink tiles if C **`mfndpos`** needs **6** neighbors at door **(65,12)** without walkability hacks alone.
 2. **Chargen** — shrink **`fastforward_pre_mklev`** / **`post_mklev`** toward real **`o_init`** / **`u_init_role`** (**`seed0900`**, **`seed0077`**).
 2. **Mklev remainder** — supply extra **`mkobj(SPBOOK)`** reroll dealloc; **`setgemprobs`**; wall-neighbor check vs C **`levl[x][y±1]`** if mineralize count drifts on other seeds.
