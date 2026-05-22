@@ -30,8 +30,8 @@ const _HARNESS = [
     null,
     /* session step 4 — **`stepNum` 3**; peel when **`mfndpos cnt=6`** + 2-mon **`dochug`** parity. */
     null,
-    /* session step 5 — **`stepNum` 4** */
-    () => { rn2(5); rn2(16); rn2(5); },
+    /* session step 6 (`h`) — **`stepNum` 5**; peeled — west fungus only **`dochug`** (eel **`S_EEL`** land **`hideunder`**). */
+    null,
     /* session step 6 — **`stepNum` 5** */
     () => { rn2(5); rn2(12); rn2(5); rn2(5); rn2(5); },
     /* session step 7 — **`stepNum` 6** */

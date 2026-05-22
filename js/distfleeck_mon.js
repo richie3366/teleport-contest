@@ -37,9 +37,10 @@ const M2_MINION = 0x00001000;
 /** C: priest.c top — **`u.ualign.record`** gate in **`in_your_sanctuary`**. */
 const ALGN_SINNED = -4;
 
+/** C: youprop.h **`Invis`** — **`(HInvis || EInvis) && !BInvis`**. */
 function heroInvisLikeC(u) {
     if (!u) return false;
-    return !!((u.HInvis | 0) || (u.EInvis | 0) || (u.BInvis | 0));
+    return !!(((u.HInvis | 0) || (u.EInvis | 0)) && !(u.BInvis | 0));
 }
 
 function perceivesDataLikeC(data) {

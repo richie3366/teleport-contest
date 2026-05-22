@@ -72,9 +72,10 @@ const M2_GIANT = 0x00000400;
 /** C: monflag.h **`M1_SEE_INVIS`** — **`perceives`** for **`monseeu`**. */
 const M1_SEE_INVIS = 0x01000000;
 
+/** C: youprop.h **`Invis`** — **`(HInvis || EInvis) && !BInvis`**. */
 function heroInvisLikeC(u) {
     if (!u) return false;
-    return !!((u.HInvis | 0) || (u.EInvis | 0) || (u.BInvis | 0));
+    return !!(((u.HInvis | 0) || (u.EInvis | 0)) && !(u.BInvis | 0));
 }
 
 function perceivesPtrLikeC(ptr) {
@@ -106,7 +107,7 @@ function isCorrTypLikeC(typ) {
  * C: **`dig_corridor`** kink leaves up to two **`STONE`** cells south (or north) of **`CORR`**
  * beside an N–S door; recorder **`m_move`** uses **`cnt=8`** there (**`seed8000`** fungus niche).
  */
-function stoneCorrDoorTailWalkableLikeC(g, nx, ny, ntyp) {
+export function stoneCorrDoorTailWalkableLikeC(g, nx, ny, ntyp) {
     if (ntyp !== STONE) return false;
     for (let corrY = ny - 1; corrY >= ny - 3; corrY--) {
         if (!isok(nx, corrY)) continue;
@@ -161,6 +162,17 @@ function stoneCorrDoorTailWalkableLikeC(g, nx, ny, ntyp) {
  * east and door on the row below (**`seed8000`** west fungus **`cnt=4`** at **(64,12)** only).
  * Not used from **(65,12)** (would raise **`cnt`** and break step **`j`** **`rn2(24)`**).
  */
+/**
+ * C: west door kink — monster on **(mx,my)** with **`STONE`** at **(mx,my−1)** (**`seed8000`** **(64,12)**).
+ * @param {import('./gstate.js').game} g
+ * @param {number} mx
+ * @param {number} my
+ * @param {Record<string, unknown>} mtmp
+ */
+export function westFungusDoorNicheAtLikeC(g, mx, my, mtmp) {
+    return stoneCorrAdjacentRowNicheLikeC(g, mx | 0, (my | 0) - 1, STONE, mtmp);
+}
+
 function stoneCorrAdjacentRowNicheLikeC(g, nx, ny, ntyp, mtmp) {
     if (ntyp !== STONE) return false;
     const mx = mtmp.mx | 0;

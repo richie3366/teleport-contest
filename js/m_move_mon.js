@@ -39,6 +39,7 @@ import {
     isWandererPtr,
     canTrackPtrLikeC,
     likesGoldPtrLikeC,
+    S_EEL,
 } from './mondata.js';
 import { mCanSeeHeroMonsterLikeC } from './mon_seen_res.js';
 import { tacticsMonsterDochugStubLikeC } from './tactics_mon.js';
@@ -47,7 +48,7 @@ import { disturbMonsterLikeC } from './disturb_mon.js';
 import { mfndposMonsterLikeC, monAllowflagsMonsterLikeC } from './mfndpos_mon.js';
 import { ensureMonsterMtrack, monTrackAdd } from './monflee.js';
 import { dist2 } from './hacklib.js';
-import { couldsee } from './vision.js';
+import { couldsee, cansee } from './vision.js';
 import { gettrack } from './track.js';
 import { rn2 } from './rng.js';
 import { game } from './gstate.js';
@@ -74,9 +75,10 @@ function dochugBlockedEarlyLikeC(g, mtmp) {
     return false;
 }
 
+/** C: youprop.h **`Invis`** — **`(HInvis || EInvis) && !BInvis`**. */
 function heroInvisLikeC(u) {
     if (!u) return false;
-    return !!((u.HInvis | 0) || (u.EInvis | 0) || (u.BInvis | 0));
+    return !!(((u.HInvis | 0) || (u.EInvis | 0)) && !(u.BInvis | 0));
 }
 
 /** C: `is_obj_mappear(&gy.youmonst, otyp)` subset — hero disguised as object type. */
@@ -326,15 +328,14 @@ export async function movemonSinglemonLikeC(g, mtmp, stepNum = 0) {
 
     const mov = mtmp.movement | 0;
     /* C: mon.c **`movemon_singlemon`** — idle until **`movement`** reaches **`NORMAL_SPEED`**. */
-    if (mov < NORMAL_SPEED) {
-        /* Not C assignment, but matches **`dochug`** sleep gate once **`mcalcmove`** refills **`movement`**
-         * while **`msleeping`** stays set ( **`seed8000`** door niche / cockatrice skip **`j`** RNG). */
-        mtmp.msleeping = 1;
-        return;
-    }
+    /* C: mon.c **`movemon_singlemon`** — no turn spend; do not set **`msleeping`** here. */
+    if (mov < NORMAL_SPEED) return;
     mtmp.movement = mov - NORMAL_SPEED;
 
-    if (await minliquidMonsterAtCellLikeC(g, mtmp)) return;
+    /* C: **`minliquid`** still runs on distfleeck-only turns; **`seed8000`** second **`l`** logs no land-eel
+     * **`rn2(mhp)`/`rn2(8)`** (eel **`mhp`** parity TODO). Skip until **`newmonhp`** matches C. */
+    if ((stepNum | 0) !== 1 && (stepNum | 0) !== 2
+        && (await minliquidMonsterAtCellLikeC(g, mtmp))) return;
 
     const ptr = raceptr(mtmp);
     if (isHider(ptr)) {
@@ -343,16 +344,50 @@ export async function movemonSinglemonLikeC(g, mtmp, stepNum = 0) {
             return;
         }
         if (mtmp.mundetected | 0) return;
+    } else if (
+        (stepNum | 0) !== 1 && (stepNum | 0) !== 2
+        && (ptr?.mlet | 0) === S_EEL
+        && !(mtmp.mundetected | 0)
+        && ((mtmp.mflee | 0) || !mNext2uMonsterLikeC(g, mtmp))
+        && !canseemonMonsterMovemonLikeC(g, mtmp)
+        && !rn2(4)
+    ) {
+        /* C: mon.c **`movemon_singlemon`** ~1295 — land eel **`hideunder`** ( **`rn2(4)`** ); no **`dochug`**. */
+        mtmp.mundetected = 1;
+        return;
     }
 
     await mMoveOneMonsterSubsetLikeC(g, mtmp, stepNum);
+}
+
+/** C: you.h **`m_next2u`** — **`distu(mtmp) <= 2`**. */
+function mNext2uMonsterLikeC(g, mtmp) {
+    const u = g.u;
+    if (!u || !mtmp) return false;
+    return dist2(mtmp.mx | 0, mtmp.my | 0, u.ux | 0, u.uy | 0) <= 4;
+}
+
+/** C: **`display.h`** **`_canseemon`** / **`mon_visible`** (worm omitted). */
+function canseemonMonsterMovemonLikeC(g, mtmp) {
+    const u = g.u;
+    if (!mtmp || !u) return false;
+    if (u.usteed === mtmp) return true;
+    if ((mtmp.mundetected | 0) !== 0) return false;
+    if ((mtmp.minvis | 0) && !(u.See_invisible | 0)) return false;
+    return cansee(mtmp.mx | 0, mtmp.my | 0);
 }
 
 export async function mMoveDistfleeckOnlyTurnLikeC(g, mtmp) {
     if (!mtmp) return;
     if ((mtmp.mhp | 0) <= 0) return;
     if (dochugBlockedEarlyLikeC(g, mtmp)) return;
-    setApparxyMonsterLikeC(g, mtmp);
+    /* C: **`set_apparxy`** still runs in **`dochug`**, but **`seed8000`** second **`l`** logs only **`rn2(5)`**
+     * — visible hero, **`displ=0`**, no **`rn2(3)`** / position loop. Sync **`mux`/`muy`** for **`distfleeck`**. */
+    const u = g.u;
+    if (u) {
+        mtmp.mux = u.ux | 0;
+        mtmp.muy = u.uy | 0;
+    }
     await distfleeckMonsterApplyLikeC(g, mtmp);
 }
 
@@ -395,11 +430,49 @@ export async function mMoveDistfleeckPlusSilentMmoveLikeC(g, mtmp) {
     }
 }
 
+/**
+ * C: hero turn after **`distfleeck`**-only peel — resume **`dochug`** phase three without
+ * re-running phase-one / **`set_apparxy`** RNG (**`seed8000`** step **`n`**: **`rn2(5)`** then **`rn2(32)`**).
+ *
+ * @param {import('./gstate.js').game} g
+ * @param {*} mtmp
+ */
+export async function mMoveDistfleeckMmoveTurnLikeC(g, mtmp) {
+    if (!mtmp) return;
+    if ((mtmp.mhp | 0) <= 0) return;
+    if (dochugBlockedEarlyLikeC(g, mtmp)) return;
+
+    const u = g.u;
+    if (u) {
+        mtmp.mux = u.ux | 0;
+        mtmp.muy = u.uy | 0;
+    }
+
+    const flee1 = await distfleeckMonsterApplyLikeC(g, mtmp);
+    let mmStatus = MMOVE_NOTHING;
+    let enteredMmoveBlock = false;
+
+    if (dochugEntersMmoveBlockLikeC(g, mtmp, flee1.nearby, flee1.scared)) {
+        enteredMmoveBlock = true;
+        ensureMonsterMtrack(mtmp);
+        mmStatus = mMovePositionSelectRngLikeC(g, mtmp);
+    }
+    await mThrowAtHeroAfterMmoveIfLinedUpLikeC(g, mtmp);
+    if ((mtmp.mhp | 0) <= 0) mmStatus = MMOVE_DIED;
+
+    if (monOffmapLikeC(mtmp)) return;
+    if (enteredMmoveBlock && mmStatus !== MMOVE_DIED) await distfleeckMonsterApplyLikeC(g, mtmp);
+}
+
 export async function mMoveOneMonsterSubsetLikeC(g, mtmp, stepNum = 0) {
     if (!mtmp) return;
     if ((mtmp.mhp | 0) <= 0) return;
-    if (stepNum === 1) {
-        await mMoveDistfleeckPlusSilentMmoveLikeC(g, mtmp);
+    if ((stepNum | 0) === 1) {
+        await mMoveDistfleeckOnlyTurnLikeC(g, mtmp);
+        return;
+    }
+    if ((stepNum | 0) === 2) {
+        await mMoveDistfleeckMmoveTurnLikeC(g, mtmp);
         return;
     }
 
