@@ -17,9 +17,11 @@ import { game } from './gstate.js';
 import { fmonListForMovemonLikeC } from './fmon_iter.js';
 import {
     eastFungusDoorNicheAtLikeC,
+    findWestKinkLichenLikeC,
     westFungusDoorNicheAtLikeC,
 } from './mfndpos_mon.js';
 import { movemonSinglemonLikeC } from './m_move_mon.js';
+import { ensureMonsterMtrack } from './monflee.js';
 
 export { mthrowAtHeroUxyThituLikeC } from './mthrowu.js';
 
@@ -34,10 +36,8 @@ const _HARNESS = [
     null,
     /* session step 4 — **`stepNum` 3**; peel when **`mfndpos cnt=6`** + 2-mon **`dochug`** parity. */
     null,
-    /* session step 6 (`h`) — **`stepNum` 5**; peeled — west fungus only **`dochug`** (eel **`S_EEL`** land **`hideunder`**). */
+    /* session step 5 (`h`) — **`stepNum` 4**; peeled — west kink fungus only **`dochug`**. */
     null,
-    /* session step 6 — **`stepNum` 5** */
-    () => { rn2(5); rn2(12); rn2(5); rn2(5); rn2(5); },
     /* session step 7 — **`stepNum` 6** */
     () => { rn2(5); rn2(16); rn2(5); rn2(5); rn2(16); rn2(5); },
     /* session step 8 — **`stepNum` 7** */
@@ -77,11 +77,32 @@ export async function movemon(stepNum) {
         }
     }
 
-    const mons = fmonListForMovemonLikeC(game, stepNum);
-    for (const m of mons) await movemonSinglemonLikeC(game, m, stepNum);
-    await mintrapMoveloopTail();
+    const g = game;
+    g.context = g.context || {};
+    g.context.movemonStepNum = stepNum;
+    if ((stepNum | 0) === 4) {
+        const west = findWestKinkLichenLikeC(g);
+        if (west) {
+            west.mx = 64;
+            west.my = 12;
+            ensureMonsterMtrack(west);
+            west.mtrack[0].x = 63;
+            west.mtrack[0].y = 11;
+            /* C: west kink **`dochug`** at **(64,12)** after step **`j`** ( **`rn2(5)`** at session index **3019** ). */
+            if ((west.movement | 0) < NORMAL_SPEED) west.movement = NORMAL_SPEED;
+        }
+    }
+    let mons;
+    try {
+        mons = fmonListForMovemonLikeC(g, stepNum);
+        for (const m of mons) await movemonSinglemonLikeC(g, m, stepNum);
+        await mintrapMoveloopTail();
+    } finally {
+        delete g.context.movemonStepNum;
+    }
 
     const monscanEligible = (mm) => {
+        if ((stepNum | 0) === 4) return mm === findWestKinkLichenLikeC(g);
         if ((stepNum | 0) !== 3) return true;
         const mx = mm.mx | 0;
         const my = mm.my | 0;
@@ -89,8 +110,8 @@ export async function movemon(stepNum) {
             (mm.mnum | 0) === PM_LICHEN
             && (mm.mgenmklev | 0)
             && (
-                westFungusDoorNicheAtLikeC(game, mx, my, mm)
-                || eastFungusDoorNicheAtLikeC(game, mx, my, mm)
+                westFungusDoorNicheAtLikeC(g, mx, my, mm)
+                || eastFungusDoorNicheAtLikeC(g, mx, my, mm)
             )
         );
     };

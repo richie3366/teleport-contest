@@ -18,12 +18,12 @@ Thin handoff for the next coding session. **Gap inventory (not yet ported):** [`
 
 **Deferred for now:** **`maybe_do_tutorial`** / **`tut-1`** / full **`do.c`** **`goto_level`** (Lua **`tutorial()`** / **`free_tutorial()`**, **`savelev`**, **`gmst_*`**, …) and **`dokick`**/**`dothrow`** vs **`leaving_tutorial`** — strong upstream dependencies (save, specials, fuller **`do.c`**); treat as backlog until chargen / core early-game parity is further along; **`LIVELOGFILE`** parity if the judge ever compares livelog lines.
 
-**Last slice:** **`mfndpos_mon.js`** + **`m_move_mon.js`** + **`monmove.js`** — step **`j`** (**`stepNum` 3**): west/east door-niche **`mfndpos cnt=6`** (**`rn2(24)`** pair), west skips **(65,12)**; east skips diagonal **(64,12)**; **`movemon`** only door-niche lichens (no land-eel **`hideunder`**/**`minliquid`** RNG); **`monscanmove`** same filter. **`seed8000`** **3044/3130** RNG — step **`j`** **3005–3018** aligned; diverges step **`h`** **3019**. **23/23** screens. **`npm run score`:** **0/44** (canary RNG +53 vs prior commit).
+**Last slice:** **`monmove.js`** + **`mfndpos_mon.js`** + **`m_move_mon.js`** + **`fmon_iter.js`** — first moveloop **`h`** (**`stepNum` 4**, not 5: **`moves−1`** at advance start): peel harness row **4**; west kink lichen only **`dochug`**; **`findWestKinkLichenLikeC`** after step **`j`**; reposition **(64,12)** + **`mtrack[0]=(63,11)`**; **`mfndpos cnt=4`** (**`rn2(16)`**). **`seed8000`** **3061/3130** RNG — first **`h`** **3019–3029** aligned; diverges second **`h`** **3031**. **23/23** screens. **`npm run score`:** **0/44** (canary RNG +17 vs prior commit).
 
 ## Next steps
 
-1. **Moveloop step `h`** (**`stepNum` 5**) — west kink fungus only **`dochug`**; peel harness row **4**; fix eel **`movement`** / **`mcalcmove`** pacing so non-actors stay idle like C.
-2. **Moveloop rows 5–12** — peel remaining harness; land-eel **`minliquid`** only when C **`movemon_singlemon`** / **`m_calcdistress`** run it.
+1. **Moveloop second `h`** (**`stepNum` 5**) — session step 6 RNG from **3030**; peel harness row **5** when real **`m_move`**/**`distfleeck`** match C (not **`rn2(16)`**-only west path).
+2. **Moveloop rows 6–12** — peel remaining harness; land-eel **`minliquid`** only when C **`movemon_singlemon`** / **`m_calcdistress`** run it.
 3. **`newmonhp`** / **`minliquid`** land-eel — restore C **`minliquid`** on distfleeck-only turns once **`mhp`** parity matches (remove blanket **`stepNum===1–3`** skips where C runs **`minliquid`**).
 2. **`mklev`/`dig_corridor`** — corridor **`roomno`** / kink tiles if C **`mfndpos`** needs **6** neighbors at door **(65,12)** without walkability hacks alone.
 2. **Chargen** — shrink **`fastforward_pre_mklev`** / **`post_mklev`** toward real **`o_init`** / **`u_init_role`** (**`seed0900`**, **`seed0077`**).
@@ -34,7 +34,7 @@ Thin handoff for the next coding session. **Gap inventory (not yet ported):** [`
 
 ### Deferred backlog — tutorial / `goto_level` / `tut-1` (resume when save + `do.c` bridge are ready)
 
-**`maybe_do_tutorial`** and full **`do.c`** **`goto_level`** when **`tut-1`** is exercised — Lua **`tutorial()`** / **`free_tutorial()`**, **`savelev`**, **`gmst_*`** sequester, … beyond **`applyGotoLevelDirectHeroLikeC`** + **`tutorial_branch.js`** stub; **`LIVELOGFILE`** / judge-visible recorder line if sessions compare livelog; **`dokick`** / **`dothrow`** (non-**`shop.js`**) vs **`leaving_tutorial`** when those call sites need parity.
+**`maybe_do_tutorial`** and full **`do.c`** **`goto_level`** when **`tut-1`** is exercised — Lua **`tutorial()`** / **`free_tutorial()`**, **`savelev`**, **`gmst_*`** sequester, … beyond **`applyGotoLevelDirectHeroLikeC`** + **`tutorial_branch.js`** stub; **`LIVELOGFILE`** / judge-visible recorder line if sessions compare livelog; **`dokick`** / **`dothrow`** (non-**`shop.js**) vs **`leaving_tutorial`** when those call sites need parity.
 
 ### Deferred backlog (moveloop / traps / fire — resume after chargen milestone)
 

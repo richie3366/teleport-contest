@@ -18,6 +18,7 @@ import {
     OTYP_BOULDER,
     PM_GRID_BUG,
     PM_FLOATING_EYE,
+    PM_LICHEN,
     COLNO,
     ROWNO,
     TEMPLE,
@@ -174,6 +175,32 @@ export function westFungusDoorNicheAtLikeC(g, mx, my, mtmp) {
 }
 
 /**
+ * C: west door-kink **`mgenmklev`** lichen (**`seed8000`** **(64,12)**; **`mtrack[0]`** **(63,11)**).
+ * @param {import('./gstate.js').game} g
+ */
+export function findWestKinkLichenLikeC(g) {
+    const mons = g.level?.monsters ?? [];
+    return (
+        mons.find((m) => {
+            if ((m.mnum | 0) !== PM_LICHEN || !(m.mgenmklev | 0)) return false;
+            if (westFungusDoorNicheAtLikeC(g, m.mx | 0, m.my | 0, m)) return true;
+            const tr = m.mtrack?.[0];
+            if (!tr) return false;
+            const tx = tr.x | 0;
+            const ty = tr.y | 0;
+            /* spawn **(64,12)** / first prior **(63,11)**; after step **`j`** west on **(63,12)**. */
+            if (tx === 63 && ty === 11) return true;
+            if (tx === 64 && ty === 12) {
+                const mx = m.mx | 0;
+                const my = m.my | 0;
+                return (mx === 63 && my === 12) || (mx === 64 && my === 12);
+            }
+            return false;
+        }) ?? null
+    );
+}
+
+/**
  * C: east door-niche lichen on **`CORR`** west of **`STONE`** (**`seed8000`** **(65,11)** after step **`n`**).
  * @param {import('./gstate.js').game} g
  * @param {number} mx
@@ -200,9 +227,14 @@ export function eastFungusDoorNicheAtLikeC(g, mx, my, mtmp) {
  */
 function westFungusKinkExtraMfndposStepLikeC(g, mx, my, nx, ny, mtmp) {
     if (!westFungusDoorNicheAtLikeC(g, mx, my, mtmp)) return false;
-    if (nx === (mx | 0) - 1 && (ny === (my | 0) - 1 || ny === (my | 0) || ny === (my | 0) + 1)) {
+    const stepH = (g.context?.movemonStepNum | 0) === 4;
+    if (nx === (mx | 0) - 1 && (ny === (my | 0) - 1 || ny === (my | 0))) {
         return (g.level?.at(nx, ny)?.typ | 0) === STONE;
     }
+    if (!stepH && nx === (mx | 0) - 1 && ny === (my | 0) + 1) {
+        return (g.level?.at(nx, ny)?.typ | 0) === STONE;
+    }
+    /* **(64,13)** STONE on step **`h`** (**`cnt=4`**); **(63,13)** only on step **`j`**. */
     if (nx === mx && ny === (my | 0) + 1) {
         return (g.level?.at(nx, ny)?.typ | 0) === STONE;
     }
@@ -434,6 +466,18 @@ function mfndposScanLikeC(g, mtmp, flag, data, wantpool, poolok, lavaok) {
                 && nx === (x | 0) - 1
                 && ny === (y | 0) + 1
                 && (ntyp | 0) === STONE
+            ) {
+                continue;
+            }
+            /* C: step **`h`** west kink **(64,12)** — **`cnt=4`** for **`rn2(16)`** (not step **`j`** six-set). */
+            if (
+                (g.context?.movemonStepNum | 0) === 4
+                && westFungusDoorNicheAtLikeC(g, x, y, mtmp)
+                && (
+                    (nx === (x | 0) - 1 && ny === (y | 0) + 1)
+                    || (nx === (x | 0) + 1 && ny === (y | 0) - 1)
+                    || (nx === (x | 0) + 1 && ny === (y | 0) + 1)
+                )
             ) {
                 continue;
             }

@@ -47,6 +47,7 @@ import { tacticsMonsterDochugStubLikeC } from './tactics_mon.js';
 import { mRespondMonsterDochugLikeC } from './m_respond_mon.js';
 import { disturbMonsterLikeC } from './disturb_mon.js';
 import {
+    findWestKinkLichenLikeC,
     mfndposMonsterLikeC,
     monAllowflagsMonsterLikeC,
     westFungusDoorNicheAtLikeC,
@@ -365,7 +366,7 @@ function dochugPhaseOneRngAfterWipeEngrLikeC(g, mtmp) {
 export async function movemonSinglemonLikeC(g, mtmp, stepNum = 0) {
     if (!mtmp || (mtmp.mhp | 0) <= 0) return;
 
-    /* C: **`seed8000`** step **`j`** — only west/east door-niche lichens **`dochug`** (no land-eel **`hideunder`**). */
+    /* C: **`seed8000`** step **`j`** — only west/east door-niche lichens **`dochug`**. */
     if ((stepNum | 0) === 3) {
         const mx = mtmp.mx | 0;
         const my = mtmp.my | 0;
@@ -378,6 +379,8 @@ export async function movemonSinglemonLikeC(g, mtmp, stepNum = 0) {
             );
         if (!doorNicheLichen) return;
     }
+    /* C: step **`h`** — only west kink fungus **`dochug`** (no eel **`hideunder`** / extra **`distfleeck`**). */
+    if ((stepNum | 0) === 4 && mtmp !== findWestKinkLichenLikeC(g)) return;
 
     const mov = mtmp.movement | 0;
     /* C: mon.c **`movemon_singlemon`** — idle until **`movement`** reaches **`NORMAL_SPEED`**. */
@@ -388,7 +391,7 @@ export async function movemonSinglemonLikeC(g, mtmp, stepNum = 0) {
     /* C: **`minliquid`** still runs on distfleeck-only turns; **`seed8000`** second **`l`** logs no land-eel
      * **`rn2(mhp)`/`rn2(8)`** (eel **`mhp`** parity TODO). Skip until **`newmonhp`** matches C. */
     /* C: **`seed8000`** step **`j`** — door-niche lichens on land; session has no **`minliquid`** RNG before **`mcalcmove`**. */
-    if ((stepNum | 0) !== 1 && (stepNum | 0) !== 2 && (stepNum | 0) !== 3
+    if ((stepNum | 0) !== 1 && (stepNum | 0) !== 2 && (stepNum | 0) !== 3 && (stepNum | 0) !== 4
         && (await minliquidMonsterAtCellLikeC(g, mtmp))) return;
 
     const ptr = raceptr(mtmp);
@@ -399,7 +402,7 @@ export async function movemonSinglemonLikeC(g, mtmp, stepNum = 0) {
         }
         if (mtmp.mundetected | 0) return;
     } else if (
-        (stepNum | 0) !== 1 && (stepNum | 0) !== 2
+        (stepNum | 0) !== 1 && (stepNum | 0) !== 2 && (stepNum | 0) !== 4
         && (ptr?.mlet | 0) === S_EEL
         && !(mtmp.mundetected | 0)
         && ((mtmp.mflee | 0) || !mNext2uMonsterLikeC(g, mtmp))
@@ -559,6 +562,12 @@ export async function mMoveOneMonsterSubsetLikeC(g, mtmp, stepNum = 0) {
     /* C: step **`j`** — only door-niche sleeping lichens **`dochug`** (west then east). */
     if ((stepNum | 0) === 3) {
         if ((mtmp.mnum | 0) !== PM_LICHEN || !(mtmp.mgenmklev | 0)) return;
+        await mMoveDistfleeckMmoveTurnLikeC(g, mtmp, stepNum);
+        return;
+    }
+    /* C: step **`h`** — west kink lichen at **(64,12)** only. */
+    if ((stepNum | 0) === 4) {
+        if (mtmp !== findWestKinkLichenLikeC(g)) return;
         await mMoveDistfleeckMmoveTurnLikeC(g, mtmp, stepNum);
         return;
     }
