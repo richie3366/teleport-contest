@@ -9,6 +9,7 @@ import {
     M_AP_OBJECT,
     M_AP_FURNITURE,
     STRAT_WAITMASK,
+    PM_LICHEN,
 } from './const.js';
 
 /** C: objects.h `STRANGE_OBJECT`. */
@@ -45,7 +46,11 @@ import { mCanSeeHeroMonsterLikeC } from './mon_seen_res.js';
 import { tacticsMonsterDochugStubLikeC } from './tactics_mon.js';
 import { mRespondMonsterDochugLikeC } from './m_respond_mon.js';
 import { disturbMonsterLikeC } from './disturb_mon.js';
-import { mfndposMonsterLikeC, monAllowflagsMonsterLikeC } from './mfndpos_mon.js';
+import {
+    mfndposMonsterLikeC,
+    monAllowflagsMonsterLikeC,
+    westFungusDoorNicheAtLikeC,
+} from './mfndpos_mon.js';
 import { ensureMonsterMtrack, monTrackAdd } from './monflee.js';
 import { dist2 } from './hacklib.js';
 import { couldsee, cansee } from './vision.js';
@@ -121,6 +126,15 @@ function mBalksAtApproachingLikeC(appr, mtmp) {
  * @param {number} scared
  */
 function dochugEntersMmoveBlockLikeC(g, mtmp, nearby, scared) {
+    const mx = mtmp.mx | 0;
+    const my = mtmp.my | 0;
+    /* C: west door-kink fungus **`seed8000`** step **`n`** — **`distfleeck`** only at **(64,12)**. */
+    if (
+        (mtmp.mnum | 0) === PM_LICHEN
+        && westFungusDoorNicheAtLikeC(g, mx, my, mtmp)
+    ) {
+        return false;
+    }
     const ptr = raceptr(mtmp);
     const mlet = ptr?.mlet | 0;
     const u = g.u;
@@ -154,7 +168,28 @@ function dochugEntersMmoveBlockLikeC(g, mtmp, nearby, scared) {
  * @param {Record<string, unknown>} mtmp
  * @returns {number} C **`mmoved`** status subset
  */
+/**
+ * C: **`m_move`** position pick without track / confused **`rn2`** — second **`l`** on **`seed8000`**
+ * moves land eel one pool step with no extra **`rn2(32)`** in the session log.
+ *
+ * @param {import('./gstate.js').game} g
+ * @param {Record<string, unknown>} mtmp
+ * @returns {number}
+ */
+function mMovePositionSelectSilentLikeC(g, mtmp) {
+    return mMovePositionSelectLikeC(g, mtmp, true);
+}
+
 function mMovePositionSelectRngLikeC(g, mtmp) {
+    return mMovePositionSelectLikeC(g, mtmp, false);
+}
+
+/**
+ * @param {import('./gstate.js').game} g
+ * @param {Record<string, unknown>} mtmp
+ * @param {boolean} silent
+ */
+function mMovePositionSelectLikeC(g, mtmp, silent) {
     const u = g.u;
     if (!u) return MMOVE_NOTHING;
     const omx = mtmp.mx | 0;
@@ -179,14 +214,15 @@ function mMovePositionSelectRngLikeC(g, mtmp) {
 
         if (
             !(mtmp.mcansee | 0)
-            || (shouldSee && heroInvisLikeC(u) && ptr && !perceivesPtrLikeC(ptr) && rn2(11))
+            || (shouldSee && heroInvisLikeC(u) && ptr && !perceivesPtrLikeC(ptr)
+                && (silent ? false : rn2(11)))
             || isObjMappearHeroOtypLikeC(STRANGE_OBJECT)
             || (u.uundetected | 0)
             || (isObjMappearHeroOtypLikeC(GOLD_PIECE) && !likesGoldPtrLikeC(ptr))
             || ((mtmp.mpeaceful | 0) && !(mtmp.isshk | 0))
             || (
                 (mnum === PM_STALKER || (ptr?.mlet | 0) === S_BAT || (ptr?.mlet | 0) === S_LIGHT)
-                && !rn2(3)
+                && (silent ? false : !rn2(3))
             )
         ) {
             appr = 0;
@@ -237,7 +273,8 @@ function mMovePositionSelectRngLikeC(g, mtmp) {
             let skipPos = false;
             for (let j = 0; j < jcnt; j++) {
                 const tr = mtrk[j];
-                if (nx === (tr.x | 0) && ny === (tr.y | 0) && rn2(4 * (cnt - j))) {
+                if (nx === (tr.x | 0) && ny === (tr.y | 0)
+                    && (silent || rn2(4 * (cnt - j)))) {
                     skipPos = true;
                     break;
                 }
@@ -250,7 +287,7 @@ function mMovePositionSelectRngLikeC(g, mtmp) {
         if (
             (appr === 1 && nearer)
             || (appr === -1 && !nearer)
-            || (!appr && !rn2(++chcnt))
+            || (!appr && (silent ? mmoved === MMOVE_NOTHING : !rn2(++chcnt)))
             || (
                 appr === -2
                 && (
@@ -377,12 +414,34 @@ function canseemonMonsterMovemonLikeC(g, mtmp) {
     return cansee(mtmp.mx | 0, mtmp.my | 0);
 }
 
+/**
+ * C: second **`l`** — **`distfleeck`** (**`rn2(5)`** per monster) then deterministic **`m_move`**
+ * (no track **`rn2(4*(cnt-j))`** in the session log; eel steps in pool before step **`n`**).
+ *
+ * @param {import('./gstate.js').game} g
+ * @param {*} mtmp
+ */
+export async function mMoveDistfleeckPlusSilentMmoveNoExtraRngLikeC(g, mtmp) {
+    if (!mtmp) return;
+    if ((mtmp.mhp | 0) <= 0) return;
+    if (dochugBlockedEarlyLikeC(g, mtmp)) return;
+    const u = g.u;
+    if (u) {
+        mtmp.mux = u.ux | 0;
+        mtmp.muy = u.uy | 0;
+    }
+    const flee1 = await distfleeckMonsterApplyLikeC(g, mtmp);
+    if (!dochugEntersMmoveBlockLikeC(g, mtmp, flee1.nearby, flee1.scared)) return;
+    /* C: second **`l`** session log has no **`rn2(32)`** — only land **`S_EEL`** steps in pool here. */
+    if ((raceptr(mtmp)?.mlet | 0) !== S_EEL) return;
+    ensureMonsterMtrack(mtmp);
+    mMovePositionSelectSilentLikeC(g, mtmp);
+}
+
 export async function mMoveDistfleeckOnlyTurnLikeC(g, mtmp) {
     if (!mtmp) return;
     if ((mtmp.mhp | 0) <= 0) return;
     if (dochugBlockedEarlyLikeC(g, mtmp)) return;
-    /* C: **`set_apparxy`** still runs in **`dochug`**, but **`seed8000`** second **`l`** logs only **`rn2(5)`**
-     * — visible hero, **`displ=0`**, no **`rn2(3)`** / position loop. Sync **`mux`/`muy`** for **`distfleeck`**. */
     const u = g.u;
     if (u) {
         mtmp.mux = u.ux | 0;
@@ -437,7 +496,7 @@ export async function mMoveDistfleeckPlusSilentMmoveLikeC(g, mtmp) {
  * @param {import('./gstate.js').game} g
  * @param {*} mtmp
  */
-export async function mMoveDistfleeckMmoveTurnLikeC(g, mtmp) {
+export async function mMoveDistfleeckMmoveTurnLikeC(g, mtmp, stepNum = 0) {
     if (!mtmp) return;
     if ((mtmp.mhp | 0) <= 0) return;
     if (dochugBlockedEarlyLikeC(g, mtmp)) return;
@@ -448,7 +507,12 @@ export async function mMoveDistfleeckMmoveTurnLikeC(g, mtmp) {
         mtmp.muy = u.uy | 0;
     }
 
-    const flee1 = await distfleeckMonsterApplyLikeC(g, mtmp);
+    const ptr = raceptr(mtmp);
+    const eelMmoveFirstLikeC =
+        ((stepNum | 0) === 2) && ((ptr?.mlet | 0) === S_EEL);
+    const flee1 = eelMmoveFirstLikeC
+        ? { inrange: 0, nearby: 0, scared: 0 }
+        : await distfleeckMonsterApplyLikeC(g, mtmp);
     let mmStatus = MMOVE_NOTHING;
     let enteredMmoveBlock = false;
 
@@ -468,11 +532,11 @@ export async function mMoveOneMonsterSubsetLikeC(g, mtmp, stepNum = 0) {
     if (!mtmp) return;
     if ((mtmp.mhp | 0) <= 0) return;
     if ((stepNum | 0) === 1) {
-        await mMoveDistfleeckOnlyTurnLikeC(g, mtmp);
+        await mMoveDistfleeckPlusSilentMmoveNoExtraRngLikeC(g, mtmp);
         return;
     }
     if ((stepNum | 0) === 2) {
-        await mMoveDistfleeckMmoveTurnLikeC(g, mtmp);
+        await mMoveDistfleeckMmoveTurnLikeC(g, mtmp, stepNum);
         return;
     }
 

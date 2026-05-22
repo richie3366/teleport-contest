@@ -2248,10 +2248,16 @@ function preferSleepingLichenDoorNichesLikeC(g) {
         findWestFungusDoorNicheLikeC,
         false
     );
-    const idx = mons.indexOf(east);
-    if (idx > 0) {
-        mons.splice(idx, 1);
+    const idxEast = mons.indexOf(east);
+    if (idxEast > 0) {
+        mons.splice(idxEast, 1);
         mons.unshift(east);
+    }
+    /* C **`movemon`** on step **`n`**: east, west (**`distfleeck`** only), then eel **`m_move`**. */
+    const idxWest = mons.indexOf(west);
+    if (idxWest > 1) {
+        mons.splice(idxWest, 1);
+        mons.splice(1, 0, west);
     }
 }
 

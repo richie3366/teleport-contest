@@ -18,12 +18,12 @@ Thin handoff for the next coding session. **Gap inventory (not yet ported):** [`
 
 **Deferred for now:** **`maybe_do_tutorial`** / **`tut-1`** / full **`do.c`** **`goto_level`** (Lua **`tutorial()`** / **`free_tutorial()`**, **`savelev`**, **`gmst_*`**, …) and **`dokick`**/**`dothrow`** vs **`leaving_tutorial`** — strong upstream dependencies (save, specials, fuller **`do.c`**); treat as backlog until chargen / core early-game parity is further along; **`LIVELOGFILE`** parity if the judge ever compares livelog lines.
 
-**Last slice:** **`mklev.js`** — dual sleeping **`PM_LICHEN`** door niches: east **(66,12)** **`cnt≥8`** (**`findEastLichenDoorNicheLikeC`**), west **(64,12)** **`cnt≥4`** + **`westFungusDoorNicheAtLikeC`** (**`findWestFungusDoorNicheLikeC`** evaluates niche while lichen still at west cell); east-only **`fmon`** prepend after west relocate. **`seed8000`** **3024/3130** RNG (+11 at gen); step **`n`** still diverges **2995** (**`rn2(32)=11`** vs extra **`distfleeck`** **`rn2(5)=3`** — moveloop mon order / eel **`m_move`**, not mklev coords). **23/23** screens. **`npm run score`:** **0/44**.
+**Last slice:** **`mklev.js`** + **`m_move_mon.js`** — **`fmon`** order east → west → eel; west door-kink lichen skips **`m_move`** (**`westFungusDoorNicheAtLikeC`**); second **`l`** silent pool step for **`S_EEL`** only; step **`n`** land eel **`m_move`** before **`distfleeck`**. **`seed8000`** **3023/3130** RNG — step **`n`** **2991–3004** aligned; diverges step **`j`** **3005**. **23/23** screens. **`npm run score`:** **0/44**.
 
 ## Next steps
 
-1. **Moveloop step `n`** — second monster **`m_move`** **`rn2(32)=11`** at **2995**: C order is east lichen then eel (or west fungus only **`distfleeck`** **`rn2(5)=3`**); align **`movemon`** / **`dochug`** pacing and positions after **`ll`** (east may not stay **(66,12)**).
-2. **Moveloop row 4** — peel **`h`**: only west fungus **`dochug`**; eel **`hideunder`** / **`mcalcmove`** pacing after **`j`**; then rows **5–12**.
+1. **Moveloop step `j`** — peel row **4** / **`rn2(24)`** west fungus **`m_move`** at **3005**; **`mfndpos cnt=4`** at **(64,12)** after **`n`**.
+2. **Moveloop row 4** — peel **`h`**: only west fungus **`dochug`**; eel **`hideunder`** / **`mcalcmove`** pacing; then rows **5–12**.
 3. **`newmonhp`** / **`minliquid`** land-eel — restore C **`minliquid`** on distfleeck-only turns once **`mhp`** parity matches (remove **`stepNum===1`** skip).
 2. **`mklev`/`dig_corridor`** — corridor **`roomno`** / kink tiles if C **`mfndpos`** needs **6** neighbors at door **(65,12)** without walkability hacks alone.
 2. **Chargen** — shrink **`fastforward_pre_mklev`** / **`post_mklev`** toward real **`o_init`** / **`u_init_role`** (**`seed0900`**, **`seed0077`**).
