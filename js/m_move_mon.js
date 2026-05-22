@@ -26,7 +26,8 @@ import { tacticsMonsterDochugStubLikeC } from './tactics_mon.js';
 import { mRespondMonsterDochugLikeC } from './m_respond_mon.js';
 import { disturbMonsterLikeC } from './disturb_mon.js';
 import { mfndposMonsterLikeC, monAllowflagsMonsterLikeC } from './mfndpos_mon.js';
-import { ensureMonsterMtrack } from './monflee.js';
+import { ensureMonsterMtrack, monTrackAdd } from './monflee.js';
+import { minliquidMonsterAtCellLikeC } from './melt_ice.js';
 import { dist2 } from './hacklib.js';
 import { couldsee } from './vision.js';
 import { rn2 } from './rng.js';
@@ -68,8 +69,8 @@ function dochugEntersMmoveBlockLikeC(g, mtmp, nearby, scared) {
 }
 
 /**
- * C: monmove.c **`m_move`** ~1857–1983 — **`appr`** + **`mfndpos`** + track **`rn2(4*(cnt-j))`** loop.
- * Does not **`postmov`** / change **`mx,my`** yet.
+ * C: monmove.c **`m_move`** ~1857–2062 — **`appr`** + **`mfndpos`** + track **`rn2(4*(cnt-j))`**;
+ * **`mon_track_add`** + **`place_monster`** subset (updates **`mx,my`** only).
  *
  * @param {import('./gstate.js').game} g
  * @param {Record<string, unknown>} mtmp
@@ -146,9 +147,12 @@ function mMovePositionSelectRngLikeC(g, mtmp) {
             mmoved = MMOVE_MOVED;
         }
     }
-    void chi;
-    void nix;
-    void niy;
+
+    if (mmoved === MMOVE_MOVED && chi >= 0 && (nix !== omx || niy !== omy)) {
+        monTrackAdd(mtmp, omx, omy);
+        mtmp.mx = nix;
+        mtmp.my = niy;
+    }
     return mmoved;
 }
 
@@ -188,9 +192,8 @@ function dochugPhaseOneRngAfterWipeEngrLikeC(g, mtmp) {
 }
 
 /**
- * C: **`dochug`** subset for session step 2 — one **`distfleeck`** per monster (**`rn2(5)`**)
- * before **`mcalcmove`**; no **`m_move`** / phase-one RNG yet (replaces bulk **`rn2(5)`** in
- * **`moveloop_turn_advance`** until full early **`dochug`** matches C draw count).
+ * C: **`dochug`** subset for **`stepNum` 1** — one **`distfleeck`** per monster (**`rn2(5)`**)
+ * before **`mcalcmove`**; no **`m_move`** / phase-one RNG yet.
  * @param {import('./gstate.js').game} g
  * @param {*} mtmp
  */
@@ -200,6 +203,7 @@ export async function mMoveDistfleeckOnlyTurnLikeC(g, mtmp) {
     const mov = mtmp.movement | 0;
     if (mov < NORMAL_SPEED) return;
     mtmp.movement = mov - NORMAL_SPEED;
+    if (!(mtmp.mcanmove | 0)) return;
     if ((mtmp.msleeping | 0) && !disturbMonsterLikeC(g, mtmp)) return;
     setApparxyMonsterLikeC(g, mtmp);
     await distfleeckMonsterApplyLikeC(g, mtmp);
@@ -222,6 +226,7 @@ export async function mMoveOneMonsterSubsetLikeC(g, mtmp, stepNum = 0) {
     if (mov < NORMAL_SPEED) return;
     mtmp.movement = mov - NORMAL_SPEED;
 
+    if (!(mtmp.mcanmove | 0)) return;
     if ((mtmp.msleeping | 0) && !disturbMonsterLikeC(g, mtmp)) return;
 
     const mx = mtmp.mx | 0;

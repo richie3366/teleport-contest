@@ -9,6 +9,19 @@ import { raceptr } from './mondata.js';
 /** C: monmove.c **`MTSZ`** — ring size for **`mtrack`** (subset). */
 const MTSZ = 4;
 
+/** C: monmove.c **`mon_track_add`** — push prior **`(x,y)`** onto **`mtrack`** ring. */
+export function monTrackAdd(mtmp, x, y) {
+    if (!mtmp) return;
+    ensureMonsterMtrack(mtmp);
+    const ring = mtmp.mtrack;
+    for (let j = MTSZ - 1; j > 0; j--) {
+        ring[j].x = ring[j - 1].x | 0;
+        ring[j].y = ring[j - 1].y | 0;
+    }
+    ring[0].x = x | 0;
+    ring[0].y = y | 0;
+}
+
 /** C: monmove.c **`mon_track_clear`** — zero **`mtrack`** ring. */
 export function monTrackClear(mtmp) {
     if (!mtmp?.mtrack || !Array.isArray(mtmp.mtrack)) return;
