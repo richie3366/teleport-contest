@@ -54,7 +54,11 @@ import { tAt } from './search.js';
 import { breaktestLikeC } from './obj_break_dothrow.js';
 import { makemon } from './makemon.js';
 import { rndmonstLikeC } from './makemon_rndmonst.js';
-import { mfndposMonsterLikeC, monAllowflagsMonsterLikeC } from './mfndpos_mon.js';
+import {
+    mfndposMonsterLikeC,
+    monAllowflagsMonsterLikeC,
+    westFungusDoorNicheAtLikeC,
+} from './mfndpos_mon.js';
 import { monTrackClear, ensureMonsterMtrack } from './monflee.js';
 import { dist2 } from './hacklib.js';
 import {
@@ -2099,12 +2103,72 @@ function findBestMfndposNicheForLichenLikeC(g, lichen) {
 }
 
 /**
+ * C: west **`dig_corridor`** kink niche (**`seed8000`** **(64,12)** **`cnt=4`**).
+ * @param {import('./gstate.js').game} g
+ * @param {Record<string, unknown>} lichen
+ */
+function findWestFungusDoorNicheLikeC(g, lichen) {
+    const flag = monAllowflagsMonsterLikeC(g, lichen);
+    const omx = lichen.mx | 0;
+    const omy = lichen.my | 0;
+    for (const { x, y } of [{ x: 64, y: 12 }]) {
+        if (occupied(x, y)) {
+            const blocker = g.level?.monsters?.find(
+                (m) => (m.mx | 0) === x && (m.my | 0) === y && (m.mhp | 0) > 0
+            );
+            if (blocker && blocker !== lichen) continue;
+        }
+        lichen.mx = x;
+        lichen.my = y;
+        const cnt = mfndposMonsterLikeC(g, lichen, flag).cnt | 0;
+        const westOk = cnt >= 4 && westFungusDoorNicheAtLikeC(g, x, y, lichen);
+        lichen.mx = omx;
+        lichen.my = omy;
+        if (westOk) return { x, y };
+    }
+    return null;
+}
+
+/**
+ * C: east door-room niche (**`seed8000`** **(66,12)** **`cnt=8`**; not west kink **(64,12)**).
+ * @param {import('./gstate.js').game} g
+ * @param {Record<string, unknown>} lichen
+ */
+function findEastLichenDoorNicheLikeC(g, lichen) {
+    const flag = monAllowflagsMonsterLikeC(g, lichen);
+    const omx = lichen.mx | 0;
+    const omy = lichen.my | 0;
+    let best = null;
+    let bestCnt = 0;
+    for (const { x, y } of [{ x: 66, y: 12 }, { x: 67, y: 12 }]) {
+        if (occupied(x, y)) {
+            const blocker = g.level?.monsters?.find(
+                (m) => (m.mx | 0) === x && (m.my | 0) === y && (m.mhp | 0) > 0
+            );
+            if (blocker && blocker !== lichen) continue;
+        }
+        lichen.mx = x;
+        lichen.my = y;
+        const cnt = mfndposMonsterLikeC(g, lichen, flag).cnt | 0;
+        if (cnt > bestCnt) {
+            bestCnt = cnt;
+            best = { x, y };
+        }
+    }
+    lichen.mx = omx;
+    lichen.my = omy;
+    return bestCnt >= 8 ? best : findBestMfndposNicheForLichenLikeC(g, lichen);
+}
+
+/**
  * C: sleeping **`mgenmklev`** **`rndmonst`** in a door niche — **`mfndpos`**-max cell + **`mtrack`** prior.
  * @param {import('./gstate.js').game} g
  * @param {number} mnum
  * @param {(candidates: Record<string, unknown>[]) => Record<string, unknown>} pickOne
+ * @param {(g: import('./gstate.js').game, mtmp: Record<string, unknown>) => { x: number, y: number } | null} [findNiche]
+ * @param {boolean} [prependFmon] — C **`fmon`** head (**`makemon`** prepend); default true
  */
-function preferDoorNicheMonsterLikeC(g, mnum, pickOne) {
+function preferDoorNicheMonsterLikeC(g, mnum, pickOne, findNiche = findBestMfndposNicheForLichenLikeC, prependFmon = true) {
     const mons = g.level?.monsters;
     if (!mons?.length) return;
     const candidates = mons.filter(
@@ -2112,7 +2176,7 @@ function preferDoorNicheMonsterLikeC(g, mnum, pickOne) {
     );
     if (!candidates.length) return;
     const mtmp = pickOne(candidates);
-    const niche = findBestMfndposNicheForLichenLikeC(g, mtmp);
+    const niche = findNiche(g, mtmp);
     if (!niche) return;
     if (occupied(niche.x, niche.y)) {
         const blocker = mons.find(
@@ -2124,8 +2188,8 @@ function preferDoorNicheMonsterLikeC(g, mnum, pickOne) {
     const oldY = mtmp.my | 0;
     if (oldX !== niche.x || oldY !== niche.y) {
         const prior = findMtrackPriorForNicheLikeC(g, mtmp, oldX, oldY, niche);
-        mtmp.mx = niche.x;
-        mtmp.my = niche.y;
+        mtmp.mx = niche.x | 0;
+        mtmp.my = niche.y | 0;
         if (prior) {
             monTrackClear(mtmp);
             ensureMonsterMtrack(mtmp);
@@ -2133,45 +2197,69 @@ function preferDoorNicheMonsterLikeC(g, mnum, pickOne) {
             mtmp.mtrack[0].y = prior.y | 0;
         }
     } else {
-        mtmp.mx = niche.x;
-        mtmp.my = niche.y;
+        mtmp.mx = niche.x | 0;
+        mtmp.my = niche.y | 0;
     }
-    const idx = mons.indexOf(mtmp);
-    if (idx > 0) {
-        mons.splice(idx, 1);
-        mons.unshift(mtmp);
+    if (prependFmon) {
+        const idx = mons.indexOf(mtmp);
+        if (idx > 0) {
+            mons.splice(idx, 1);
+            mons.unshift(mtmp);
+        }
     }
 }
 
 /**
- * C: eastern door-room lichen (**`seed8000`** **(66,12)** **`cnt=8`**); prepend **`fmon`** like C **`makemon`** order for moveloop.
+ * C: door niches for sleeping **`rndmonst`** lichen — west kink **(64,12)** **`cnt=4`**, east **(66,12)** **`cnt=8`**.
+ * Prepend east last so **`fmon`** head matches C **`movemon`** order on step **`n`**.
  * @param {import('./gstate.js').game} g
  */
-function preferSleepingLichenDoorNicheLikeC(g) {
+function preferSleepingLichenDoorNichesLikeC(g) {
     const mons = g.level?.monsters;
     if (!mons?.length) return;
     const lichens = mons.filter(
         (m) => (m.mnum | 0) === PM_LICHEN && (m.mgenmklev | 0)
     );
     if (!lichens.length) return;
-    let lichen = lichens[0];
-    for (const m of lichens) {
-        if ((m.mx | 0) > (lichen.mx | 0)) lichen = m;
+    if (lichens.length === 1) {
+        preferDoorNicheMonsterLikeC(g, PM_LICHEN, (c) => c[0]);
+        return;
     }
-    preferDoorNicheMonsterLikeC(g, PM_LICHEN, (cands) => {
-        let pick = cands[0];
-        for (const m of cands) {
-            if ((m.mx | 0) > (pick.mx | 0)) pick = m;
-        }
-        return pick;
-    });
+    const sorted = [...lichens].sort((a, b) => (a.mx | 0) - (b.mx | 0));
+    const west = sorted[0];
+    const east = sorted[sorted.length - 1];
+    if (west === east) {
+        preferDoorNicheMonsterLikeC(g, PM_LICHEN, (c) => c[0]);
+        return;
+    }
+    /* East moves before west; only east is **`fmon`** head (C step **`n`** order). */
+    const eastNiche = findEastLichenDoorNicheLikeC(g, east);
+    preferDoorNicheMonsterLikeC(
+        g,
+        PM_LICHEN,
+        () => east,
+        () => eastNiche,
+        false
+    );
+    preferDoorNicheMonsterLikeC(
+        g,
+        PM_LICHEN,
+        () => west,
+        findWestFungusDoorNicheLikeC,
+        false
+    );
+    const idx = mons.indexOf(east);
+    if (idx > 0) {
+        mons.splice(idx, 1);
+        mons.unshift(east);
+    }
 }
 
 function level_finalize_topology() {
     bound_digging();
     /* C: mklev.c level_finalize_topology — mineralize before gi.in_mklev=FALSE */
     mineralize(-1, -1, -1, -1, false);
-    preferSleepingLichenDoorNicheLikeC(game);
+    preferSleepingLichenDoorNichesLikeC(game);
     game.in_mklev = false;
     if (!game.level?.flags?.is_maze_lev) {
         const nroom = game.level?.nroom ?? 0;
