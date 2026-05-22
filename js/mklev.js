@@ -2261,6 +2261,35 @@ function preferSleepingLichenDoorNichesLikeC(g) {
     }
 }
 
+/**
+ * After **`topologize`**, tag **`CORR`/`SCORR`** beside a door or room edge that already has
+ * **`roomno`** so **`mon.c`-style **`mfndpos`** corridor steps (**`corrSameRoomWalkableLikeC`**) see
+ * the same room id as C recorder door niches (**`seed8000`** **(65,12)** **`cnt=6`** path).
+ * @param {import('./gstate.js').game} g
+ */
+function tagCorrRoomnoAdjacentRoomsLikeC(g) {
+    const map = g.level;
+    if (!map) return;
+    for (let x = 1; x < COLNO; x++) {
+        for (let y = 0; y < ROWNO; y++) {
+            const loc = map.at(x, y);
+            if (!loc) continue;
+            const typ = loc.typ | 0;
+            if (typ !== CORR && typ !== SCORR) continue;
+            for (const [dx, dy] of [[-1, 0], [1, 0], [0, -1], [0, 1]]) {
+                const nloc = map.at(x + dx, y + dy);
+                if (!nloc) continue;
+                const nt = nloc.typ | 0;
+                if (!IS_DOOR(nt) && nt !== ROOM && nt !== VWALL) continue;
+                const rno = nloc.roomno | 0;
+                if (rno < ROOMOFFSET) continue;
+                if (!(loc.roomno | 0)) loc.roomno = rno;
+                else if ((loc.roomno | 0) !== rno) loc.roomno = SHARED;
+            }
+        }
+    }
+}
+
 function level_finalize_topology() {
     bound_digging();
     /* C: mklev.c level_finalize_topology — mineralize before gi.in_mklev=FALSE */
@@ -2271,6 +2300,7 @@ function level_finalize_topology() {
         const nroom = game.level?.nroom ?? 0;
         for (let i = 0; i < nroom; i++)
             topologize(game.level.rooms?.[i]);
+        tagCorrRoomnoAdjacentRoomsLikeC(game);
     }
     set_wall_state();
     const rooms = game.level?.rooms ?? [];
