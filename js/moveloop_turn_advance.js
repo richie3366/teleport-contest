@@ -37,15 +37,17 @@ export async function runPostCommandTurnAdvanceLikeC(g) {
     }
 
     const mons = g.level?.monsters ?? [];
+    /* C: allmain.c first post-chargen turn with empty fmon — four distfleeck stand-ins before mcalcmove (session step 2 / stepNum 1). */
+    if (stepNum === 1) {
+        for (let i = 0; i < 4; i++) rn2(5);
+    }
     if (mons.length > 0) {
         for (const m of mons) {
             m.movement = (m.movement | 0) + mcalcMoveLikeC(m, true, g);
         }
+        /* Until every fmon entry is ported, pad to four mcalcmove draws like C's full fmon walk. */
+        for (let i = mons.length; i < 4; i++) rn2(12);
     } else {
-        /* C: D:1 with empty **`fmon`** — session step 2 only needs bulk 4× **`distfleeck`** before **`mcalcmove`**; later steps interleave **`movemon`** harness **`rn2(32)`** (see **`monmove.js`**). */
-        if (stepNum === 1) {
-            for (let i = 0; i < 4; i++) rn2(5);
-        }
         for (let i = 0; i < 4; i++) rn2(12);
     }
     maybe_generate_rnd_mon();
