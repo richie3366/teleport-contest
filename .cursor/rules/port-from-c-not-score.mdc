@@ -1,0 +1,37 @@
+---
+description: Port from C upstream first; npm run score is regression-only (not the task picker)
+alwaysApply: true
+---
+
+# Port from C — score is regression only
+
+**Primary goal:** implement **C semantics** from `nethack-c/upstream/` (call order, flags, branches, RNG at each call site). **Secondary check:** `npm run score` confirms you did not break known anchors — it does **not** choose the next slice.
+
+## Do
+
+- Open the **C function** (e.g. `mklev.c` `fill_ordinary_room`, `mkobj.c`, `role.c`, `monmove.c` `dochug`) and port control flow into `js/`.
+- **Delete** `fastforward.js` replay rows or `monmove.js` `_HARNESS` entries only when the **real** ported path consumes the same RNG sequence on the paths you exercised.
+- Use a failing public session to **find which subsystem** to port next — then read C; do not paste session RNG into code.
+- Run **`npm run score`** after slices that touch RNG or screens (or when unsure) — treat **regressions** as bugs, not as a mandate to revert good C port work without cause.
+
+## Avoid (score-chasing)
+
+- Adding **`fastforward.js`** draws because the log “expects” them without a matching call site in ported code.
+- Tuning **`_HARNESS`** / `stepNum` hacks to move one index on one seed while logic stays stubby.
+- Shallow stubs that log one draw (e.g. `mkobj` → only `rnd(2)` `next_ident`) where C runs a full chain — parity will diverge later even if a few indices match.
+- Choosing work only because it might improve **1/44** without mapping to a C file and call graph.
+
+## Fastforward / harness
+
+- **`fastforward.js`** and moveloop harnesses are **scaffolding**, not the implementation. Growing them without porting C creates a second, session-shaped answer key.
+- Prefer **strategic** C milestones: chargen (`wintty.c` / `role.c` / `u_init.c`), mklev fill + `mineralize` inside `makelevel`, real `fmon` + `dochug`, then peel harnesses.
+
+## Session signals (locate work, not spec)
+
+| Signal | Use for |
+|--------|---------|
+| `seed8000-tourist-starter` | Short startup / moveloop canary (OPTIONS fast path) |
+| `seed0900`, `seed0006`, … | Chargen / tty menus (need real C pickers) |
+| Any FAIL line | Which **phase** diverged — then **`rg` in upstream** |
+
+Handoff order: [`.cursor/reports/c-to-js-port-current.md`](../reports/c-to-js-port-current.md). Repeatable workflow: [`.cursor/prompts/continue-nethack-port.md`](../prompts/continue-nethack-port.md).

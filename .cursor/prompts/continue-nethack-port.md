@@ -15,7 +15,12 @@ Use this file when you want a **new agent session** to continue the port without
    - Append **one row** to **[`c-to-js-port-changelog-archive.md`](../reports/c-to-js-port-changelog-archive.md)**.
    - Refresh **`c-to-js-port-current.md`** (last slice + next steps).
    - Run **`npm run score`** when behavior touches **RNG or screens** (or when unsure) — **regression only**; fixing a red session by replay bytes without C port is out of scope.
-7. **`git commit`** — create **one commit per meaningful slice** (port code, docs handoff, or both together if tightly coupled). Message: repo style (`feat(js):`, `fix(js):`, `docs(port):`, …); focus on **why** the change matches C or unblocks parity. Do not bundle unrelated work; do not skip hooks.
+7. **`git commit` (required every slice — do not wait for the user to ask)** — after step 6, **`git add` + `git commit`** before ending the session. One commit per meaningful slice; include **all** artifacts from that slice:
+   - `js/` port code
+   - **`.cursor/reports/`** handoff (`c-to-js-port-current.md`, one changelog row)
+   - **`tools/`** or **`scripts/`** helpers you added or changed for the slice
+   - **`.cursor/rules/`** or **`.cursor/prompts/`** when you add workflow rules
+   Message: repo style (`feat(js):`, `fix(js):`, `docs(port):`, `chore(tools):`, …); focus on **why** (C parity / peel / regression). Do not leave a green `npm run score` sitting uncommitted. Do not skip hooks.
 
 ---
 

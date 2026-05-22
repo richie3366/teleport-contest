@@ -8,6 +8,8 @@ This repository is a **Teleport Coding Challenge** fork: port NetHack 5.0 to Jav
 
 **Repeatable “continue port” prompt (copy each session; includes commit-per-slice):** [.cursor/prompts/continue-nethack-port.md](.cursor/prompts/continue-nethack-port.md)
 
+**Git:** commit **each meaningful slice** before ending a session (port code, `.cursor/reports/` handoff, `tools/`/`scripts/` changes) — do not wait for the user to ask; see step 7 in the continue-port prompt.
+
 **Port from C, not score-chasing:** always-on rule [.cursor/rules/port-from-c-not-score.mdc](.cursor/rules/port-from-c-not-score.mdc) — implement `nethack-c/upstream/` semantics; use `npm run score` as a regression check only; do not grow `fastforward.js` / harness without matching C call sites.
 
 **Do not edit** contest-frozen harness files (the judge overlays them): `js/isaac64.js`, `js/terminal.js`, `js/storage.js`.
