@@ -83,6 +83,7 @@ export async function runPostCommandTurnAdvanceLikeC(g) {
     let monscanmove = false;
 
     g.context = g.context || {};
+    g.context._movemonHarnessConsumed = false;
     g.context.monMoving = true;
     try {
         if (stepNum > 0) {
@@ -93,6 +94,7 @@ export async function runPostCommandTurnAdvanceLikeC(g) {
         }
     } finally {
         g.context.monMoving = false;
+        delete g.context._movemonHarnessConsumed;
     }
 
     if (!monscanmove && (u.umovement | 0) < NORMAL_SPEED) {
