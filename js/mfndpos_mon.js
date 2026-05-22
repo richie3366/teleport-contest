@@ -173,6 +173,61 @@ export function westFungusDoorNicheAtLikeC(g, mx, my, mtmp) {
     return stoneCorrAdjacentRowNicheLikeC(g, mx | 0, (my | 0) - 1, STONE, mtmp);
 }
 
+/**
+ * C: east door-niche lichen on **`CORR`** west of **`STONE`** (**`seed8000`** **(65,11)** after step **`n`**).
+ * @param {import('./gstate.js').game} g
+ * @param {number} mx
+ * @param {number} my
+ * @param {Record<string, unknown>} mtmp
+ */
+export function eastFungusDoorNicheAtLikeC(g, mx, my, mtmp) {
+    const x = mx | 0;
+    const y = my | 0;
+    if (!isCorrTypLikeC(g.level?.at(x, y)?.typ)) return false;
+    if ((g.level?.at(x - 1, y)?.typ | 0) !== STONE) return false;
+    const doorLoc = g.level?.at(x + 1, y + 1);
+    return !!(doorLoc && IS_DOOR(doorLoc.typ));
+}
+
+/**
+ * C: extra **`mfndpos`** steps from west door-kink **(64,12)** (**`rn2(24)`** on step **`j`**).
+ * @param {import('./gstate.js').game} g
+ * @param {number} mx
+ * @param {number} my
+ * @param {number} nx
+ * @param {number} ny
+ * @param {Record<string, unknown>} mtmp
+ */
+function westFungusKinkExtraMfndposStepLikeC(g, mx, my, nx, ny, mtmp) {
+    if (!westFungusDoorNicheAtLikeC(g, mx, my, mtmp)) return false;
+    if (nx === (mx | 0) - 1 && (ny === (my | 0) - 1 || ny === (my | 0) || ny === (my | 0) + 1)) {
+        return (g.level?.at(nx, ny)?.typ | 0) === STONE;
+    }
+    if (nx === mx && ny === (my | 0) + 1) {
+        return (g.level?.at(nx, ny)?.typ | 0) === STONE;
+    }
+    return false;
+}
+
+/**
+ * C: east **`CORR`** at **(65,11)** — west **`STONE`** **(64,11)** niche step (**`rn2(24)`** second mon).
+ * @param {import('./gstate.js').game} g
+ * @param {number} mx
+ * @param {number} my
+ * @param {number} nx
+ * @param {number} ny
+ */
+function eastCorrDoorWestStoneStepLikeC(g, mx, my, nx, ny) {
+    if (!isCorrTypLikeC(g.level?.at(mx, my)?.typ)) return false;
+    if ((nx | 0) === (mx | 0) - 1 && (ny | 0) === (my | 0)) {
+        return (g.level?.at(nx, ny)?.typ | 0) === STONE;
+    }
+    if ((nx | 0) === (mx | 0) - 1 && (ny | 0) === (my | 0) - 1) {
+        return (g.level?.at(nx, ny)?.typ | 0) === STONE;
+    }
+    return false;
+}
+
 function stoneCorrAdjacentRowNicheLikeC(g, nx, ny, ntyp, mtmp) {
     if (ntyp !== STONE) return false;
     const mx = mtmp.mx | 0;
@@ -282,6 +337,8 @@ function mfndposScanLikeC(g, mtmp, flag, data, wantpool, poolok, lavaok) {
                 && !corrSameRoomWalkableLikeC(g, x, y, nx, ny, ntyp)
                 && !stoneCorrDoorTailWalkableLikeC(g, nx, ny, ntyp)
                 && !stoneCorrAdjacentRowNicheLikeC(g, nx, ny, ntyp, mtmp)
+                && !westFungusKinkExtraMfndposStepLikeC(g, x, y, nx, ny, mtmp)
+                && !eastCorrDoorWestStoneStepLikeC(g, x, y, nx, ny)
             ) {
                 continue;
             }
@@ -360,6 +417,25 @@ function mfndposScanLikeC(g, mtmp, flag, data, wantpool, poolok, lavaok) {
             if (monseeu && monlineuMonsterLikeC(mtmp, nx, ny)) {
                 if (flag & NOTONL) continue;
                 info |= NOTONL;
+            }
+
+            /* C: west kink lichen at **(64,12)** does not step east onto **(65,12)**. */
+            if (
+                westFungusDoorNicheAtLikeC(g, x, y, mtmp)
+                && nx === (x | 0) + 1
+                && ny === (y | 0)
+                && isCorrTypLikeC(ntyp)
+            ) {
+                continue;
+            }
+            /* C: east niche at **(65,11)** — no diagonal **(64,12)** STONE (west kink column). */
+            if (
+                eastFungusDoorNicheAtLikeC(g, x, y, mtmp)
+                && nx === (x | 0) - 1
+                && ny === (y | 0) + 1
+                && (ntyp | 0) === STONE
+            ) {
+                continue;
             }
 
             const cnt = data.cnt;

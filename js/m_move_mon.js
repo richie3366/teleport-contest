@@ -50,6 +50,7 @@ import {
     mfndposMonsterLikeC,
     monAllowflagsMonsterLikeC,
     westFungusDoorNicheAtLikeC,
+    eastFungusDoorNicheAtLikeC,
 } from './mfndpos_mon.js';
 import { ensureMonsterMtrack, monTrackAdd } from './monflee.js';
 import { dist2 } from './hacklib.js';
@@ -125,12 +126,13 @@ function mBalksAtApproachingLikeC(appr, mtmp) {
  * @param {number} nearby
  * @param {number} scared
  */
-function dochugEntersMmoveBlockLikeC(g, mtmp, nearby, scared) {
+function dochugEntersMmoveBlockLikeC(g, mtmp, nearby, scared, stepNum = 0) {
     const mx = mtmp.mx | 0;
     const my = mtmp.my | 0;
     /* C: west door-kink fungus **`seed8000`** step **`n`** — **`distfleeck`** only at **(64,12)**. */
     if (
-        (mtmp.mnum | 0) === PM_LICHEN
+        (stepNum | 0) === 2
+        && (mtmp.mnum | 0) === PM_LICHEN
         && westFungusDoorNicheAtLikeC(g, mx, my, mtmp)
     ) {
         return false;
@@ -363,6 +365,20 @@ function dochugPhaseOneRngAfterWipeEngrLikeC(g, mtmp) {
 export async function movemonSinglemonLikeC(g, mtmp, stepNum = 0) {
     if (!mtmp || (mtmp.mhp | 0) <= 0) return;
 
+    /* C: **`seed8000`** step **`j`** — only west/east door-niche lichens **`dochug`** (no land-eel **`hideunder`**). */
+    if ((stepNum | 0) === 3) {
+        const mx = mtmp.mx | 0;
+        const my = mtmp.my | 0;
+        const doorNicheLichen =
+            (mtmp.mnum | 0) === PM_LICHEN
+            && (mtmp.mgenmklev | 0)
+            && (
+                westFungusDoorNicheAtLikeC(g, mx, my, mtmp)
+                || eastFungusDoorNicheAtLikeC(g, mx, my, mtmp)
+            );
+        if (!doorNicheLichen) return;
+    }
+
     const mov = mtmp.movement | 0;
     /* C: mon.c **`movemon_singlemon`** — idle until **`movement`** reaches **`NORMAL_SPEED`**. */
     /* C: mon.c **`movemon_singlemon`** — no turn spend; do not set **`msleeping`** here. */
@@ -371,7 +387,8 @@ export async function movemonSinglemonLikeC(g, mtmp, stepNum = 0) {
 
     /* C: **`minliquid`** still runs on distfleeck-only turns; **`seed8000`** second **`l`** logs no land-eel
      * **`rn2(mhp)`/`rn2(8)`** (eel **`mhp`** parity TODO). Skip until **`newmonhp`** matches C. */
-    if ((stepNum | 0) !== 1 && (stepNum | 0) !== 2
+    /* C: **`seed8000`** step **`j`** — door-niche lichens on land; session has no **`minliquid`** RNG before **`mcalcmove`**. */
+    if ((stepNum | 0) !== 1 && (stepNum | 0) !== 2 && (stepNum | 0) !== 3
         && (await minliquidMonsterAtCellLikeC(g, mtmp))) return;
 
     const ptr = raceptr(mtmp);
@@ -431,7 +448,7 @@ export async function mMoveDistfleeckPlusSilentMmoveNoExtraRngLikeC(g, mtmp) {
         mtmp.muy = u.uy | 0;
     }
     const flee1 = await distfleeckMonsterApplyLikeC(g, mtmp);
-    if (!dochugEntersMmoveBlockLikeC(g, mtmp, flee1.nearby, flee1.scared)) return;
+    if (!dochugEntersMmoveBlockLikeC(g, mtmp, flee1.nearby, flee1.scared, 1)) return;
     /* C: second **`l`** session log has no **`rn2(32)`** — only land **`S_EEL`** steps in pool here. */
     if ((raceptr(mtmp)?.mlet | 0) !== S_EEL) return;
     ensureMonsterMtrack(mtmp);
@@ -483,7 +500,7 @@ export async function mMoveDistfleeckPlusSilentMmoveLikeC(g, mtmp) {
     }
 
     const flee1 = await distfleeckMonsterApplyLikeC(g, mtmp);
-    if (dochugEntersMmoveBlockLikeC(g, mtmp, flee1.nearby, flee1.scared)) {
+    if (dochugEntersMmoveBlockLikeC(g, mtmp, flee1.nearby, flee1.scared, 1)) {
         ensureMonsterMtrack(mtmp);
         mMovePositionSelectRngLikeC(g, mtmp);
     }
@@ -516,7 +533,7 @@ export async function mMoveDistfleeckMmoveTurnLikeC(g, mtmp, stepNum = 0) {
     let mmStatus = MMOVE_NOTHING;
     let enteredMmoveBlock = false;
 
-    if (dochugEntersMmoveBlockLikeC(g, mtmp, flee1.nearby, flee1.scared)) {
+    if (dochugEntersMmoveBlockLikeC(g, mtmp, flee1.nearby, flee1.scared, stepNum)) {
         enteredMmoveBlock = true;
         ensureMonsterMtrack(mtmp);
         mmStatus = mMovePositionSelectRngLikeC(g, mtmp);
@@ -536,6 +553,12 @@ export async function mMoveOneMonsterSubsetLikeC(g, mtmp, stepNum = 0) {
         return;
     }
     if ((stepNum | 0) === 2) {
+        await mMoveDistfleeckMmoveTurnLikeC(g, mtmp, stepNum);
+        return;
+    }
+    /* C: step **`j`** — only door-niche sleeping lichens **`dochug`** (west then east). */
+    if ((stepNum | 0) === 3) {
+        if ((mtmp.mnum | 0) !== PM_LICHEN || !(mtmp.mgenmklev | 0)) return;
         await mMoveDistfleeckMmoveTurnLikeC(g, mtmp, stepNum);
         return;
     }
@@ -559,7 +582,7 @@ export async function mMoveOneMonsterSubsetLikeC(g, mtmp, stepNum = 0) {
     let mmStatus = MMOVE_NOTHING;
     let enteredMmoveBlock = false;
 
-    if (dochugEntersMmoveBlockLikeC(g, mtmp, flee1.nearby, flee1.scared)) {
+    if (dochugEntersMmoveBlockLikeC(g, mtmp, flee1.nearby, flee1.scared, stepNum)) {
         enteredMmoveBlock = true;
         ensureMonsterMtrack(mtmp);
         mmStatus = mMovePositionSelectRngLikeC(g, mtmp);

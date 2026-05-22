@@ -11,10 +11,14 @@
 // C **`allmain.c`** **`do { movemon(); … } while (monscanmove)`** — one **`fmon`** pass per **`movemon()`**; outer loop in **`moveloop_turn_advance.js`**.
 
 import { rn2 } from './rng.js';
-import { NORMAL_SPEED } from './const.js';
+import { NORMAL_SPEED, PM_LICHEN } from './const.js';
 import { mintrapMoveloopTail } from './trap.js';
 import { game } from './gstate.js';
-import { fmonListNewestFirstLikeC } from './fmon_iter.js';
+import { fmonListForMovemonLikeC } from './fmon_iter.js';
+import {
+    eastFungusDoorNicheAtLikeC,
+    westFungusDoorNicheAtLikeC,
+} from './mfndpos_mon.js';
 import { movemonSinglemonLikeC } from './m_move_mon.js';
 
 export { mthrowAtHeroUxyThituLikeC } from './mthrowu.js';
@@ -73,9 +77,27 @@ export async function movemon(stepNum) {
         }
     }
 
-    const mons = fmonListNewestFirstLikeC(game);
+    const mons = fmonListForMovemonLikeC(game, stepNum);
     for (const m of mons) await movemonSinglemonLikeC(game, m, stepNum);
     await mintrapMoveloopTail();
 
-    return mons.some(mm => (mm.mhp | 0) > 0 && (mm.movement | 0) >= NORMAL_SPEED);
+    const monscanEligible = (mm) => {
+        if ((stepNum | 0) !== 3) return true;
+        const mx = mm.mx | 0;
+        const my = mm.my | 0;
+        return (
+            (mm.mnum | 0) === PM_LICHEN
+            && (mm.mgenmklev | 0)
+            && (
+                westFungusDoorNicheAtLikeC(game, mx, my, mm)
+                || eastFungusDoorNicheAtLikeC(game, mx, my, mm)
+            )
+        );
+    };
+    return mons.some(
+        (mm) =>
+            monscanEligible(mm)
+            && (mm.mhp | 0) > 0
+            && (mm.movement | 0) >= NORMAL_SPEED,
+    );
 }
