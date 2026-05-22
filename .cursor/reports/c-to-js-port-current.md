@@ -18,7 +18,7 @@ Thin handoff for the next coding session. **Gap inventory (not yet ported):** [`
 
 **Deferred for now:** **`maybe_do_tutorial`** / **`tut-1`** / full **`do.c`** **`goto_level`** (Lua **`tutorial()`** / **`free_tutorial()`**, **`savelev`**, **`gmst_*`**, …) and **`dokick`**/**`dothrow`** vs **`leaving_tutorial`** — strong upstream dependencies (save, specials, fuller **`do.c`**); treat as backlog until chargen / core early-game parity is further along; **`LIVELOGFILE`** parity if the judge ever compares livelog lines.
 
-**Last slice:** **`makemon.c` `newmonhp`** — D:1 **`fill_ordinary_room`** keeps one **`rnd(4)`** per spawn with C **`mhpmax == basehp`** bump (**`rnd(4)==1` → 2**); non-fill uses **`d(m_lev,8)`** + same bump; store **`m_lev`**. **`minliquid`** on steps **1–2** still skipped (trial: land-eel **`rn2(mhp)`/`rn2(8)`** at **`n`** mismatches ~**3025** — pool/land gate TODO). **`seed8000-tourist-starter` PASS** (**3130/3130** RNG, **23/23** screens). **`npm run score`:** **1/44**.
+**Last slice:** **`mon.c` `minliquid_core`** pool/lava gates — **`isPoolCellLikeC`/`isLavaCellLikeC`** (**`dbridge.c` `is_pool`/`is_lava`**) instead of rm.h **`IS_POOL`/`IS_LAVA(typ)`** in **`melt_ice.js`**. **`minliquid`** on moveloop steps **1–2** still skipped (trial without skip: land-eel **`rn2(mhp)`/`rn2(8)`** ~**2985** while C has only **`distfleeck`** — eel must read as in-pool at second **`l`** before peel). **`seed8000-tourist-starter` PASS** (**3130/3130** RNG, **23/23** screens). **`npm run score`:** **1/44**.
 
 ## Next steps
 
