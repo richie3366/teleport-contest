@@ -15,10 +15,10 @@ import { permonstHuman, raceptr, S_EEL } from './mondata.js';
  * @returns {number}
  */
 export function mcalcMoveLikeC(mon, mMoving, g) {
-    /* C: mon->data->mmove. Land eel is newer in **`fmon`** than the distant sleeping mon
-       (room fill order) so it takes the third **`rn2(12)`** on **`moves===1`**; C assigns
-       that draw to the distant mon and the fourth (**`rn2(12)=4`**) to the eel — use human
-       **`mmove`** here until **`fmonListForMcalcmoveLikeC`** swap is sufficient alone. */
+    /* C: mon->data->mmove. **`fmonListForMcalcmoveLikeC`** (swap) assigns C **`rn2(12)`** slots but
+       distant **`mmove<12`** still yields **`movement` 0** on **`seed8000`** until **`rndmonst`**
+       matches C; keep eel human **`mmove`** on **`moves===1`** so the eel reaches **`movement≥12`**
+       when it takes **`rn2(12)=11`** before the distant mon in default **`fmon`** order. */
     let mmove = (raceptr(mon)?.mmove) | 0;
     const ptr = raceptr(mon);
     if (

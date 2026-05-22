@@ -670,8 +670,7 @@ export async function movemonSinglemonLikeC(g, mtmp, stepNum = 0) {
 
     /* C: **`minliquid`** before **`dochug`** when **`movement >= NORMAL_SPEED`** (land eel **`rn2(mhp)`/`rn2(8)`** if **`mhp > 1`**). */
     /* D:1 eel on ROOM (no POOL/MOAT in mklev); C has no land-eel minliquid draws on second l or n.
-       Peeling steps 1-2 adds rn2(mhp) and rn2(8) near indices 2985 and 3025 before distfleeck.
-       Keep skip until is_pool(mx,my) at movemon or mcalcmove/mons[].mmove parity. */
+       Peeling steps 1-2 regresses ~3023 (eel hideunder path); keep skip until distant mcalcmove parity. */
     if ((stepNum | 0) !== 1 && (stepNum | 0) !== 2 && (stepNum | 0) !== 4
         && (stepNum | 0) !== 5 && (stepNum | 0) !== 6 && (stepNum | 0) !== 7
         && (stepNum | 0) !== 8 && (stepNum | 0) !== 9 && (stepNum | 0) !== 10
@@ -687,7 +686,7 @@ export async function movemonSinglemonLikeC(g, mtmp, stepNum = 0) {
         if (mtmp.mundetected | 0) return;
     } else if (
         (stepNum | 0) !== 1 && (stepNum | 0) !== 2 && (stepNum | 0) !== 4
-        &&         (stepNum | 0) !== 5 && (stepNum | 0) !== 6 && (stepNum | 0) !== 7
+        && (stepNum | 0) !== 5 && (stepNum | 0) !== 6 && (stepNum | 0) !== 7
         && (stepNum | 0) !== 8 && (stepNum | 0) !== 9 && (stepNum | 0) !== 10
         && (stepNum | 0) !== 11
         && (ptr?.mlet | 0) === S_EEL
