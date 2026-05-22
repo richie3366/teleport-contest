@@ -58,6 +58,7 @@ import {
     isClinger,
     verysmall,
     cantSqueezeThruMonsterLikeC,
+    S_EEL,
 } from './mondata.js';
 import { nohandsPermonstLikeC } from './hero_hands.js';
 import { inRoomsTypewantedRoomnos } from './shop.js';
@@ -178,6 +179,22 @@ export function westFungusDoorNicheAtLikeC(g, mx, my, mtmp) {
  * C: west door-kink **`mgenmklev`** lichen (**`seed8000`** **(64,12)**; **`mtrack[0]`** **(63,11)**).
  * @param {import('./gstate.js').game} g
  */
+/**
+ * C: **`seed8000`** hero **`b`** moveloop (**`stepNum` 8** when **`moves=9`**) — only distant **`fmon`**
+ * (not mklev lichen / west kink / land eel) runs **`dochug`** RNG this pass.
+ *
+ * @param {import('./gstate.js').game} g
+ * @param {Record<string, unknown>} mtmp
+ */
+export function movemonStep8DistantMonEligibleLikeC(g, mtmp) {
+    if (!mtmp) return false;
+    if ((mtmp.mnum | 0) === PM_LICHEN && (mtmp.mgenmklev | 0)) return false;
+    if (mtmp === findWestKinkLichenLikeC(g)) return false;
+    const mlet = raceptr(mtmp)?.mlet | 0;
+    if (mlet === S_EEL) return false;
+    return true;
+}
+
 export function findWestKinkLichenLikeC(g) {
     const mons = g.level?.monsters ?? [];
     return (

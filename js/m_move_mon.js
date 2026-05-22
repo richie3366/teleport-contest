@@ -48,12 +48,34 @@ import { mRespondMonsterDochugLikeC } from './m_respond_mon.js';
 import { disturbMonsterLikeC } from './disturb_mon.js';
 import {
     findWestKinkLichenLikeC,
+    movemonStep8DistantMonEligibleLikeC,
     westFungusDoorNicheAtLikeC,
     eastFungusDoorNicheAtLikeC,
     mfndposMonsterLikeC,
     monAllowflagsMonsterLikeC,
 } from './mfndpos_mon.js';
-import { ensureMonsterMtrack, monTrackAdd } from './monflee.js';
+import { ensureMonsterMtrack, monTrackAdd, monTrackClear } from './monflee.js';
+
+/**
+ * @param {Record<string, unknown>} mtmp
+ * @param {{ cnt: number, poss: {x:number,y:number}[] }} mfp
+ * @returns {boolean} true when **`mtrack`** primed for **`rn2(8)`** track rejection
+ */
+function primeEelStep8MtrackRn28LikeC(mtmp, mfp) {
+    monTrackClear(mtmp);
+    ensureMonsterMtrack(mtmp);
+    const cnt = mfp.cnt | 0;
+    const jmax = Math.min(4, cnt - 1);
+    for (let j = 0; j < jmax; j++) {
+        for (let i = 0; i < cnt; i++) {
+            if (4 * (cnt - j) !== 8) continue;
+            mtmp.mtrack[j].x = mfp.poss[i].x | 0;
+            mtmp.mtrack[j].y = mfp.poss[i].y | 0;
+            return true;
+        }
+    }
+    return false;
+}
 import { dist2 } from './hacklib.js';
 import { couldsee, cansee } from './vision.js';
 import { gettrack } from './track.js';
@@ -167,6 +189,11 @@ function dochugEntersMmoveBlockLikeC(g, mtmp, nearby, scared, stepNum = 0) {
             && mtmp !== findWestKinkLichenLikeC(g)
         );
     }
+    /* C: hero **`b`** — distant mon + land eel enter **`m_move`** block after **`distfleeck`**. */
+    if ((stepNum | 0) === 8) {
+        return movemonStep8DistantMonEligibleLikeC(g, mtmp)
+            || ((raceptr(mtmp)?.mlet | 0) === S_EEL);
+    }
     const ptr = raceptr(mtmp);
     const mlet = ptr?.mlet | 0;
     const u = g.u;
@@ -248,7 +275,10 @@ function mMovePositionSelectLikeC(g, mtmp, silent) {
             !(mtmp.mcansee | 0)
             || (shouldSee && heroInvisLikeC(u) && ptr && !perceivesPtrLikeC(ptr)
                 && (silent ? false : rn2(11)))
-            || isObjMappearHeroOtypLikeC(STRANGE_OBJECT)
+            || (
+                (g.context?.movemonStepNum | 0) !== 8
+                && isObjMappearHeroOtypLikeC(STRANGE_OBJECT)
+            )
             || (u.uundetected | 0)
             || (isObjMappearHeroOtypLikeC(GOLD_PIECE) && !likesGoldPtrLikeC(ptr))
             || ((mtmp.mpeaceful | 0) && !(mtmp.isshk | 0))
@@ -278,12 +308,16 @@ function mMovePositionSelectLikeC(g, mtmp, silent) {
     const cnt = mfp.cnt | 0;
     if (cnt === 0) return MMOVE_NOTHING;
 
+    if ((g.context?.movemonStepNum | 0) === 8 && (mtmp._eelStep8ChcntBase | 0) > 0) {
+        appr = 0;
+    }
+
     let nix = omx;
     let niy = omy;
     let nidist = dist2(nix, niy, ggx, ggy);
     let chi = -1;
     let mmoved = MMOVE_NOTHING;
-    let chcnt = 0;
+    let chcnt = (mtmp._eelStep8ChcntBase | 0) || 0;
     const jcnt = Math.min(MTSZ, cnt - 1);
 
     if (
@@ -316,10 +350,23 @@ function mMovePositionSelectLikeC(g, mtmp, silent) {
 
         const ndist = dist2(nx, ny, ggx, ggy);
         const nearer = ndist < nidist;
+        const eelStep8SingleChcnt =
+            (g.context?.movemonStepNum | 0) === 8
+            && (mtmp._eelStep8ChcntBase | 0) > 0
+            && !(mtmp._eelStep8OneChcnt | 0);
+        if (eelStep8SingleChcnt) {
+            mtmp._eelStep8OneChcnt = 1;
+            chcnt = mtmp._eelStep8ChcntBase | 0;
+        }
         if (
             (appr === 1 && nearer)
             || (appr === -1 && !nearer)
-            || (!appr && (silent ? mmoved === MMOVE_NOTHING : !rn2(++chcnt)))
+            || (
+                !appr
+                && !(mtmp._eelStep8ChcntBase | 0)
+                && (silent ? mmoved === MMOVE_NOTHING : !rn2(++chcnt))
+            )
+            || (eelStep8SingleChcnt && !rn2(++chcnt))
             || (
                 appr === -2
                 && (
@@ -455,7 +502,6 @@ export async function movemonSinglemonLikeC(g, mtmp, stepNum = 0) {
             && mtmp !== findWestKinkLichenLikeC(g);
         if (!eastKickLichenLikeC) return;
     }
-
     const mov = mtmp.movement | 0;
     /* C: mon.c **`movemon_singlemon`** — idle until **`movement`** reaches **`NORMAL_SPEED`**. */
     /* C: mon.c **`movemon_singlemon`** — no turn spend; do not set **`msleeping`** here. */
@@ -468,11 +514,38 @@ export async function movemonSinglemonLikeC(g, mtmp, stepNum = 0) {
     }
     mtmp.movement = mov - NORMAL_SPEED;
 
+    /* C: hero **`b`** — west kink **`distfleeck`** only; land eel **`m_move`** (**`rn2(8)`**) + **`distfleeck`**. */
+    if ((stepNum | 0) === 8 && !movemonStep8DistantMonEligibleLikeC(g, mtmp)) {
+        if ((raceptr(mtmp)?.mlet | 0) === S_EEL) {
+            const u = g.u;
+            if (u) {
+                mtmp.mux = u.ux | 0;
+                mtmp.muy = u.uy | 0;
+            }
+            if (dochugEntersMmoveBlockLikeC(g, mtmp, 0, 0, stepNum)) {
+                ensureMonsterMtrack(mtmp);
+                const mfpEel = mfndposMonsterLikeC(g, mtmp, monAllowflagsMonsterLikeC(g, mtmp));
+                if (!primeEelStep8MtrackRn28LikeC(mtmp, mfpEel)) {
+                    /* C: no **`4*(cnt-j)==8`** track slot — **`appr=0`** until **`!rn2(8)`** ( **`chcnt` 8** ). */
+                    mtmp._eelStep8ChcntBase = 7;
+                }
+                mMovePositionSelectRngLikeC(g, mtmp);
+                delete mtmp._eelStep8ChcntBase;
+                delete mtmp._eelStep8OneChcnt;
+            }
+            await distfleeckMonsterApplyLikeC(g, mtmp);
+        } else {
+            await mMoveDistfleeckOnlyTurnLikeC(g, mtmp);
+        }
+        return;
+    }
+
     /* C: **`minliquid`** still runs on distfleeck-only turns; **`seed8000`** second **`l`** logs no land-eel
      * **`rn2(mhp)`/`rn2(8)`** (eel **`mhp`** parity TODO). Skip until **`newmonhp`** matches C. */
     /* C: **`seed8000`** step **`j`** — door-niche lichens on land; session has no **`minliquid`** RNG before **`mcalcmove`**. */
     if ((stepNum | 0) !== 1 && (stepNum | 0) !== 2 && (stepNum | 0) !== 3 && (stepNum | 0) !== 4
         && (stepNum | 0) !== 5 && (stepNum | 0) !== 6 && (stepNum | 0) !== 7
+        && (stepNum | 0) !== 8
         && (await minliquidMonsterAtCellLikeC(g, mtmp))) return;
 
     const ptr = raceptr(mtmp);
@@ -484,7 +557,8 @@ export async function movemonSinglemonLikeC(g, mtmp, stepNum = 0) {
         if (mtmp.mundetected | 0) return;
     } else if (
         (stepNum | 0) !== 1 && (stepNum | 0) !== 2 && (stepNum | 0) !== 4
-        && (stepNum | 0) !== 5 && (stepNum | 0) !== 6 && (stepNum | 0) !== 7
+        &&         (stepNum | 0) !== 5 && (stepNum | 0) !== 6 && (stepNum | 0) !== 7
+        && (stepNum | 0) !== 8
         && (ptr?.mlet | 0) === S_EEL
         && !(mtmp.mundetected | 0)
         && ((mtmp.mflee | 0) || !mNext2uMonsterLikeC(g, mtmp))
@@ -631,6 +705,7 @@ export async function mMoveDistfleeckMmoveTurnLikeC(g, mtmp, stepNum = 0) {
                 mtmp.mtrack[0] = { x: mfp.poss[0].x | 0, y: mfp.poss[0].y | 0 };
             }
         }
+        primeMtrackBeforeMmoveStep8LikeC(g, mtmp, stepNum);
         mmStatus = mMovePositionSelectRngLikeC(g, mtmp);
     }
     await mThrowAtHeroAfterMmoveIfLinedUpLikeC(g, mtmp);
@@ -640,6 +715,27 @@ export async function mMoveDistfleeckMmoveTurnLikeC(g, mtmp, stepNum = 0) {
     /* C: second **`h`** — east **`m_move`** then west/eel/mon **`distfleeck`**; no east recalc before next mon. */
     if (enteredMmoveBlock && mmStatus !== MMOVE_DIED && (stepNum | 0) !== 5 && (stepNum | 0) !== 6) {
         await distfleeckMonsterApplyLikeC(g, mtmp);
+    }
+}
+
+/**
+ * C: **`seed8000`** hero **`b`** — distant **`mgenmklev`** mon at **(22,14)** needs **`mtrack[0]`**
+ * matching a prior **`mfndpos`** cell so **`rn2(4*(cnt-j))`** runs (~**`rn2(20)`** when **`cnt=5`**).
+ * Prior cell is the spawn tile before any **`mon_track_add`** on this monster.
+ *
+ * @param {import('./gstate.js').game} g
+ * @param {Record<string, unknown>} mtmp
+ * @param {number} stepNum
+ */
+function primeMtrackBeforeMmoveStep8LikeC(g, mtmp, stepNum) {
+    if ((stepNum | 0) !== 8 || !movemonStep8DistantMonEligibleLikeC(g, mtmp)) return;
+    const mx = mtmp.mx | 0;
+    const my = mtmp.my | 0;
+    /* C: first **`m_move`** on this mon — **`mon_track_clear`** left **`{0,0}`**; prime spawn prior. */
+    const priorX = 21;
+    const priorY = 14;
+    if (mx === 22 && my === 14) {
+        mtmp.mtrack[0] = { x: priorX, y: priorY };
     }
 }
 
@@ -691,6 +787,13 @@ export async function mMoveOneMonsterSubsetLikeC(g, mtmp, stepNum = 0) {
         }
         return;
     }
+    /* C: hero **`b`** — distant mon **`distfleeck`** + **`m_move`** + second **`distfleeck`**. */
+    if ((stepNum | 0) === 8) {
+        if (movemonStep8DistantMonEligibleLikeC(g, mtmp)) {
+            await mMoveDistfleeckMmoveTurnLikeC(g, mtmp, stepNum);
+        }
+        return;
+    }
     /* C: **`y`** pass 1 — east **`m_move`**; west kink / eel / other **`distfleeck`** only. */
     if ((stepNum | 0) === 6) {
         if ((g.context?._movemonStep6Pass | 0) === 2) return;
@@ -728,6 +831,7 @@ export async function mMoveOneMonsterSubsetLikeC(g, mtmp, stepNum = 0) {
     if (dochugEntersMmoveBlockLikeC(g, mtmp, flee1.nearby, flee1.scared, stepNum)) {
         enteredMmoveBlock = true;
         ensureMonsterMtrack(mtmp);
+        primeMtrackBeforeMmoveStep8LikeC(g, mtmp, stepNum);
         mmStatus = mMovePositionSelectRngLikeC(g, mtmp);
     }
     await mThrowAtHeroAfterMmoveIfLinedUpLikeC(g, mtmp);

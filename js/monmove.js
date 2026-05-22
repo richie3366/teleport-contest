@@ -18,6 +18,7 @@ import { fmonListForMovemonLikeC } from './fmon_iter.js';
 import {
     eastFungusDoorNicheAtLikeC,
     findWestKinkLichenLikeC,
+    movemonStep8DistantMonEligibleLikeC,
     westFungusDoorNicheAtLikeC,
 } from './mfndpos_mon.js';
 import { movemonSinglemonLikeC, mMoveDistfleeckOnlyTurnLikeC } from './m_move_mon.js';
@@ -45,8 +46,8 @@ const _HARNESS = [
     null,
     /* session step 8 (`k`) — **`stepNum` 7**; peeled — real **`fmon`** consumes draws. */
     null,
-    /* session step 9 — **`stepNum` 8** */
-    () => { rn2(5); rn2(20); rn2(5); rn2(5); rn2(8); rn2(5); },
+    /* session step 9 (`b`) — **`stepNum` 8**; peeled — distant mon only **`dochug`**. */
+    null,
     /* session step 10 — **`stepNum` 9** */
     () => { rn2(5); rn2(12); rn2(5); rn2(5); rn2(20); rn2(5); },
     /* session step 11 — **`stepNum` 10** */
@@ -91,6 +92,11 @@ export async function movemon(stepNum) {
     if ((stepNum | 0) === 7) {
         const passes = (g.context._movemonStep7Passes | 0) + 1;
         g.context._movemonStep7Passes = passes;
+        if (passes > 1) return false;
+    }
+    if ((stepNum | 0) === 8) {
+        const passes = (g.context._movemonStep8Passes | 0) + 1;
+        g.context._movemonStep8Passes = passes;
         if (passes > 1) return false;
     }
     if ((stepNum | 0) === 6) {
@@ -143,7 +149,21 @@ export async function movemon(stepNum) {
     let mons;
     try {
         mons = fmonListForMovemonLikeC(g, stepNum);
-        /* C: **`y`** pass 1 — east / west **`distfleeck`** / eel only; mon **`distfleeck`** after west **`m_move`**. */
+        /* C: hero **`b`** — distant, then land eel **`m_move`**, then west **`distfleeck`**. */
+        if ((stepNum | 0) === 8) {
+            const distant = mons.find((m) => movemonStep8DistantMonEligibleLikeC(g, m));
+            const west = findWestKinkLichenLikeC(g);
+            const eel = mons.find((m) => (raceptr(m)?.mlet | 0) === S_EEL);
+            const rest = mons.filter(
+                (m) => m !== distant && m !== west && m !== eel,
+            );
+            /** @type {typeof mons} */
+            const ordered = [];
+            if (distant) ordered.push(distant);
+            if (west) ordered.push(west);
+            if (eel) ordered.push(eel);
+            mons = [...ordered, ...rest];
+        }
         if ((stepNum | 0) === 6 && (g.context?._movemonStep6Pass | 0) === 1) {
             mons = mons.filter((m) => {
                 if (m === findWestKinkLichenLikeC(g)) return true;
@@ -170,6 +190,7 @@ export async function movemon(stepNum) {
                 && mm !== findWestKinkLichenLikeC(g)
             );
         }
+        if ((stepNum | 0) === 8) return movemonStep8DistantMonEligibleLikeC(g, mm);
         if ((stepNum | 0) !== 3) return true;
         const mx = mm.mx | 0;
         const my = mm.my | 0;
@@ -182,6 +203,9 @@ export async function movemon(stepNum) {
             )
         );
     };
+    /* C: hero **`b`** — one **`fmon`** pass for distant mon only (no **`monscanmove`** re-entry). */
+    if ((stepNum | 0) === 8) return false;
+
     return mons.some(
         (mm) =>
             monscanEligible(mm)
