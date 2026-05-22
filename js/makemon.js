@@ -24,7 +24,8 @@ function isNdemonMndxLikeC(mndx) {
 
 const PM_WUMPUS = 86;
 const PM_LONG_WORM = 114;
-const PM_GIANT_EEL = 326;
+/** C: monsters.h **`PM_GIANT_EEL`** (block index 328; was wrongly 326 = piranha). */
+const PM_GIANT_EEL = 328;
 
 /** C: dungeon.c level_difficulty — depth of current level. */
 function levelDifficultyLikeC() {
