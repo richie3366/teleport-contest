@@ -163,7 +163,7 @@ export async function newgame() {
     g.flags = g.flags || {};
     /* C: hack.c flags.terrainstatus — gate classify_terrain; default on for new games */
     if (g.flags.terrainstatus === undefined) g.flags.terrainstatus = true;
-    // Gnomish Mines branch stub (end1 on D:1)
+    // Gnomish Mines branch stub (end1 on main dungeon; entrance dlevel from dungeon.lua base=2)
     g.branches = [
         { end1: { dnum: 0, dlevel: 1 }, end2: { dnum: 2, dlevel: 1 }, end1_up: true },
     ];

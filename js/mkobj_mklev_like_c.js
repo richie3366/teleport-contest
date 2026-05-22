@@ -2,6 +2,8 @@
 // C refs: mkobj.c mkobj(), mksobj(), mksobj_init(); fill_ordinary_room mkobj_at(RANDOM_CLASS, …).
 
 import { game } from './gstate.js';
+import { depth as depth_of_level } from './hacklib.js';
+import { rndmonstLikeC } from './makemon_rndmonst.js';
 import { rnd, rn2, rn1, rne } from './rng.js';
 import {
     NH5_RANDOM_CLASS,
@@ -75,6 +77,8 @@ const OTYP_ROCK = 89;
 const OTYP_LUCKSTONE = 470;
 const OTYP_WAN_WISHING = 413;
 const OTYP_WAN_STASIS = 415;
+/** C: objects.h STATUE — mksobj_init ROCK_CLASS branch (NH5 GEM_CLASS pick). */
+const OTYP_STATUE = 472;
 
 const RING_CHARGED = new Set(
     RING_CLASS_MKOBJ_ROWS.filter((r) => (r[1] | 0) === 1).map((r) => r[0] | 0),
@@ -181,8 +185,16 @@ function mkobjPickOtypForClassLikeC(oclass) {
     }
 }
 
-function blessorcurseLikeC(chance) {
-    if (!rn2(chance)) rn2(2);
+/** C: mkobj.c blessorcurse(otmp, chance) — optional otmp for supply-chest cursed checks. */
+function blessorcurseLikeC(chance, otmp) {
+    if (otmp && (otmp.blessed || otmp.cursed)) return;
+    if (!rn2(chance)) {
+        if (!rn2(2)) {
+            if (otmp) otmp.cursed = true;
+        } else if (otmp) {
+            otmp.blessed = true;
+        }
+    }
 }
 
 function mksobjInitWeaponLikeC(otyp, artif) {
@@ -211,7 +223,7 @@ function mksobjInitArmorLikeC(artif) {
     if (artif && !rn2(40)) { /* mk_artifact stub */ }
 }
 
-function mksobjInitWandLikeC(otyp) {
+function mksobjInitWandLikeC(otyp, otmp) {
     if ((otyp | 0) === OTYP_WAN_WISHING) {
         /* spe = 1 */
     } else if ((otyp | 0) === OTYP_WAN_STASIS) {
@@ -219,7 +231,7 @@ function mksobjInitWandLikeC(otyp) {
     } else {
         rn1(5, 4);
     }
-    blessorcurseLikeC(17);
+    blessorcurseLikeC(17, otmp);
 }
 
 function mksobjInitRingLikeC(otyp) {
@@ -251,6 +263,22 @@ function mksobjInitGemLikeC(otyp) {
     }
 }
 
+/** C: mkobj.c mksobj_init ROCK_CLASS STATUE — rndmonnum + optional nested mkobj(SPBOOK). */
+function mksobjInitStatueLikeC(otyp) {
+    if ((otyp | 0) !== OTYP_STATUE) return;
+    rndmonstLikeC(); /* rndmonnum → rndmonst_adj */
+    const ld = depth_of_level(game.u?.uz) | 0;
+    if (rn2(Math.trunc(ld / 2) + 10) > 10) {
+        mkobjMklevConsumeRngLikeC(11, false); /* SPBOOK_no_NOVEL */
+    }
+}
+
+/** C: mkobj.c mksobj — STATUE corpsenm spe after mksobj_init. */
+function mksobjPostInitStatueLikeC(otyp) {
+    if ((otyp | 0) !== OTYP_STATUE) return;
+    rn2(2);
+}
+
 /**
  * C: mkobj.c mkobj + mksobj(TRUE) init tail — consumes RNG only (no invent graph).
  * @param {number} let_ oclass (mklev legacy or NH5 index)
@@ -265,6 +293,7 @@ export function mkobjMklevConsumeRngLikeC(let_, artif) {
     const otyp = mkobjPickOtypForClassLikeC(oclass);
     rnd(2);
     mksobjInitMklevLikeC(otyp, oclass, artif);
+    mksobjPostInitStatueLikeC(otyp);
     mkobjErosionsMklevLikeC(otyp, oclass);
     return otyp | 0;
 }
@@ -275,17 +304,17 @@ export function mkobjMklevConsumeRngLikeC(let_, artif) {
  * @param {number} oclass NH5 class
  * @param {boolean} artif
  */
-export function mksobjInitMklevLikeC(otyp, oclass, artif) {
+export function mksobjInitMklevLikeC(otyp, oclass, artif, otmp) {
     switch (oclass) {
     case NH5_SCROLL_CLASS:
     case NH5_POTION_CLASS:
-        blessorcurseLikeC(4);
+        blessorcurseLikeC(4, otmp);
         break;
     case NH5_SPBOOK_CLASS:
-        blessorcurseLikeC(17);
+        blessorcurseLikeC(17, otmp);
         break;
     case NH5_WAND_CLASS:
-        mksobjInitWandLikeC(otyp);
+        mksobjInitWandLikeC(otyp, otmp);
         break;
     case NH5_RING_CLASS:
         mksobjInitRingLikeC(otyp);
@@ -301,6 +330,7 @@ export function mksobjInitMklevLikeC(otyp, oclass, artif) {
         break;
     case NH5_GEM_CLASS:
         mksobjInitGemLikeC(otyp);
+        mksobjInitStatueLikeC(otyp);
         break;
     case NH5_AMULET_CLASS:
         if (rn2(10)) blessorcurseLikeC(10);

@@ -7,7 +7,13 @@
 
 import { game } from './gstate.js';
 import { insideRoomLikeC } from './hacklib.js';
-import { mkobjMklevConsumeRngLikeC } from './mkobj_mklev_like_c.js';
+import { mkobjMklevConsumeRngLikeC, mksobjInitMklevLikeC } from './mkobj_mklev_like_c.js';
+import {
+    NH5_POTION_CLASS,
+    NH5_SCROLL_CLASS,
+    NH5_WAND_CLASS,
+    NH5_SPBOOK_CLASS,
+} from './nh5_objclass.js';
 import { GameMap } from './game.js';
 import { rn2, rnd, rn1 } from './rng.js';
 import { init_rect, rnd_rect, get_rect, split_rects } from './rect.js';
@@ -46,6 +52,7 @@ import {
     consumeMksobjInitCorpseRngLikeC,
     consumeMksobjCorpseSpeRngLikeC,
 } from './mkobj_corpse.js';
+import { startCorpseTimeout } from './obj_rot_timer.js';
 import { floorObjKey, placeFloorObject } from './floorobj.js';
 import { fixWallSpinesRect } from './wall_spine.js';
 
@@ -73,23 +80,23 @@ const OTYP_DART = 25;
 const OTYP_TALLOW_CANDLE = 225;
 const OTYP_WAX_CANDLE = 226;
 const KELP_FROND = 172;
-const SCR_TELEPORTATION = 287;
+const SCR_TELEPORTATION = 333;
 const BELL = 358;
 const CORPSE = 471;
 const STATUE = 472;
 const SPBOOK_no_NOVEL = 11;
 
-// Supply chest items
-const POT_HEALING = 235;
-const POT_EXTRA_HEALING = 236;
-const POT_SPEED = 245;
-const POT_GAIN_ENERGY = 250;
-const SCR_ENCHANT_WEAPON = 275;
-const SCR_ENCHANT_ARMOR = 326;
-const SCR_CONFUSE_MONSTER = 278;
-const SCR_SCARE_MONSTER = 279;
-const WAN_DIGGING = 305;
-const SPE_HEALING = 327;
+// Supply chest items (NH5 objects.h / mkobj_*_OC_PROB_ROWS)
+const POT_HEALING = 307;
+const POT_EXTRA_HEALING = 308;
+const POT_SPEED = 302;
+const POT_GAIN_ENERGY = 313;
+const SCR_ENCHANT_WEAPON = 328;
+const SCR_ENCHANT_ARMOR = 323;
+const SCR_CONFUSE_MONSTER = 325;
+const SCR_SCARE_MONSTER = 326;
+const WAN_DIGGING = 427;
+const SPE_HEALING = 374;
 const LARGE_BOX = 214;
 const CHEST = 215;
 const FOOD_RATION = 143;
@@ -206,13 +213,14 @@ function level_difficulty() {
 
 let _nextObjId = 1;
 
-// C ref: mkobj.c blessorcurse — rn2(4) BUC selection (supply chest / legacy paths)
-function blessorcurse(otmp) {
-    const r = rn2(4);
-    if (otmp) {
-        otmp.cursed = (r === 0);
-        otmp.blessed = false;
-    }
+/** NH5 otyp → class for mksobj_init (supply chest, mksobj_at). */
+function nh5OclassForOtyp(otyp) {
+    const t = otyp | 0;
+    if (t >= 297 && t <= 322) return NH5_POTION_CLASS;
+    if (t >= 323 && t <= 364) return NH5_SCROLL_CLASS;
+    if (t >= 365 && t <= 408) return NH5_SPBOOK_CLASS;
+    if (t >= 409 && t <= 433) return NH5_WAND_CLASS;
+    return 0;
 }
 
 // C ref: mkobj.c mksobj — next_ident + mksobj_init (mklev placement paths; not mkobj() class pick)
@@ -222,12 +230,8 @@ function mksobj(otyp, init, artif) {
     };
     rnd(2);
     if (init) {
-        const t = otyp | 0;
-        if (t >= 270 && t < 300) {
-            blessorcurse(otmp);
-        } else if (t >= 230 && t < 270) {
-            blessorcurse(otmp);
-        }
+        const oclass = nh5OclassForOtyp(otyp);
+        if (oclass) mksobjInitMklevLikeC(otyp, oclass, artif, otmp);
     }
     return otmp;
 }
@@ -310,18 +314,34 @@ function sobj_at(otyp, x, y) { return false; }
 // set_corpsenm stub
 function set_corpsenm(otmp, pm) { /* stub */ }
 
-// mkcorpstat stub
+// mkcorpstat — C: mkobj.c mkcorpstat (mksobj init + spe + ptr override + set_corpsenm)
 function mkcorpstat(objtyp, mtmp, pm, x, y, flags) {
+    void mtmp;
     const init = ((flags | 0) & 8) !== 0; /* CORPSTAT_INIT */
     const otmp = mksobj(objtyp, init, false);
+    otmp.corpsenm = -1;
     if (init && (objtyp | 0) === CORPSE) {
-        consumeMksobjInitCorpseRngLikeC();
-    } else if (pm === null) {
+        otmp.corpsenm = consumeMksobjInitCorpseRngLikeC();
+    } else if (pm === null && !init) {
         rndmonstLikeC();
+    }
+    const t = objtyp | 0;
+    if ((t === CORPSE || t === STATUE) && (otmp.corpsenm | 0) < 0) {
+        rndmonstLikeC();
+    }
+    if ((t === CORPSE || t === STATUE) && (otmp.corpsenm | 0) >= 0) {
+        /* C: mksobj tail spe before mkcorpstat ptr override. */
+        consumeMksobjCorpseSpeRngLikeC(otmp.corpsenm);
     }
     if (typeof pm === 'number') {
         otmp.corpsenm = pm | 0;
-        if (init) consumeMksobjCorpseSpeRngLikeC(pm);
+    }
+    const cm = otmp.corpsenm | 0;
+    if (t === CORPSE && cm >= 0) {
+        startCorpseTimeout(game, otmp);
+    }
+    if ((x | 0) !== 0 || (y | 0) !== 0) {
+        placeFloorObject(otmp, x | 0, y | 0);
     }
     return otmp;
 }
@@ -1756,7 +1776,7 @@ async function fill_ordinary_room(croom, bonus_items) {
     let x = 8 - Math.trunc(level_difficulty() / 6);
     if (x <= 1) x = 2;
     let trycnt = 0;
-    while (!rn2(x) && ++trycnt < 1000) {
+    while (!rn2(x) && (++trycnt < 1000)) {
         await mktrapLikeC(0, MKTRAP_NOFLAGS, croom, null);
     }
     // Gold
@@ -1786,13 +1806,19 @@ async function fill_ordinary_room(croom, bonus_items) {
     // Bonus items
     let skip_chests = false;
     if (bonus_items && somexyspace(croom, pos)) {
-        const branchp = is_branchlev();
+        const mines_dnum = g.mines_dnum ?? 2;
+        const uz_dnum = g.u?.uz?.dnum ?? 0;
+        const uz_dlevel = g.u?.uz?.dlevel ?? 1;
+        const oracle_dnum = g.oracle_level?.dnum ?? 0;
         const oracle_dlevel = g.oracle_level?.dlevel ?? 5;
-        if (branchp) {
-            // Mines entrance bonus food
+        const branch0 = g.branches?.[0];
+        /* C: mines food at branch entrance (dungeon.lua base=2); D:1 uses oracle supply chest. */
+        if (branch0 && uz_dnum !== mines_dnum && uz_dlevel >= 2
+            && (branch0.end1?.dnum === mines_dnum || branch0.end2?.dnum === mines_dnum)) {
             mksobj_at((rn2(5) < 3) ? FOOD_RATION : rn2(2) ? CRAM_RATION : LEMBAS_WAFER,
                 pos.x, pos.y, true, false);
-        } else if (g.u?.uz?.dnum === 0 && (g.u?.uz?.dlevel ?? 1) < oracle_dlevel && rn2(3)) {
+        } else if (uz_dnum === oracle_dnum
+                   && (g.u?.uz?.dlevel ?? 1) < oracle_dlevel && rn2(3)) {
             // Supply chest
             const supply_chest = mksobj_at(rn2(3) ? CHEST : LARGE_BOX, pos.x, pos.y, false, false);
             if (supply_chest) {

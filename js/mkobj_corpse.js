@@ -7,11 +7,15 @@ import { placeFloorObject } from './floorobj.js';
 import { NH5_FOOD_CLASS } from './nh5_objclass.js';
 import { game } from './gstate.js';
 import { mvitalsNocorpseLikeC } from './mvitals.js';
+import { MONS_MFLAGS2 } from './mons_rndmonst_ini_inv_data.js';
 import {
     rndmonnumIniInvLikeC,
     undeadToCorpseIniInvLikeC,
 } from './mkobj_food_class_rng_like_c.js';
-import { ICE, IS_DRAWBRIDGE, DB_ICE, DB_UNDER } from './const.js';
+
+/** C: monflag.h M2_NEUTER */
+const M2_NEUTER = 0x00040000;
+import { ICE, IS_DRAWBRIDGE, DB_ICE, DB_UNDER, PM_LICHEN, PM_LIZARD } from './const.js';
 import { startCorpseTimeout, objTimerChecksMkobj } from './obj_rot_timer.js';
 
 /** C: trap.c is_ice / melt_ice.js isIceAt — ice floor or drawbridge span with DB_ICE. */
@@ -43,10 +47,10 @@ export function consumeMksobjInitCorpseRngLikeC() {
  */
 export function consumeMksobjCorpseSpeRngLikeC(corpsenm) {
     const pm = corpsenm | 0;
-    /* ORC/dwarf/etc. have fixed gender in mons[] — no rn2(2). Humanoids may. */
-    if (pm >= 305 && pm <= 321) {
-        rn2(2);
-    }
+    /* C: mkobj.c mksobj CORPSE/STATUE — fixed gender skips rn2(2); else rn2(2). */
+    if (pm === PM_LICHEN || pm === PM_LIZARD) return;
+    if (((MONS_MFLAGS2[pm] | 0) & M2_NEUTER) !== 0) return;
+    rn2(2);
 }
 
 /**
