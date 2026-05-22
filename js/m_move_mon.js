@@ -188,14 +188,36 @@ function dochugPhaseOneRngAfterWipeEngrLikeC(g, mtmp) {
 }
 
 /**
+ * C: **`dochug`** subset for session step 2 — one **`distfleeck`** per monster (**`rn2(5)`**)
+ * before **`mcalcmove`**; no **`m_move`** / phase-one RNG yet (replaces bulk **`rn2(5)`** in
+ * **`moveloop_turn_advance`** until full early **`dochug`** matches C draw count).
+ * @param {import('./gstate.js').game} g
+ * @param {*} mtmp
+ */
+export async function mMoveDistfleeckOnlyTurnLikeC(g, mtmp) {
+    if (!mtmp) return;
+    if ((mtmp.mhp | 0) <= 0) return;
+    const mov = mtmp.movement | 0;
+    if (mov < NORMAL_SPEED) return;
+    mtmp.movement = mov - NORMAL_SPEED;
+    if ((mtmp.msleeping | 0) && !disturbMonsterLikeC(g, mtmp)) return;
+    setApparxyMonsterLikeC(g, mtmp);
+    await distfleeckMonsterApplyLikeC(g, mtmp);
+}
+
+/**
  * C: **`mon.c`** **`movemon_singlemon`** → **`dochugw`** / **`dochug`** subset for one **`fmon`** entry.
  * @param {import('./gstate.js').game} g
  * @param {*} mtmp
- * @param {number} [_stepNum] — moveloop index (unused; C has no step gate)
+ * @param {number} [stepNum] — moveloop index; **1** = distfleeck-only peel path
  */
-export async function mMoveOneMonsterSubsetLikeC(g, mtmp, _stepNum = 0) {
+export async function mMoveOneMonsterSubsetLikeC(g, mtmp, stepNum = 0) {
     if (!mtmp) return;
     if ((mtmp.mhp | 0) <= 0) return;
+    if (stepNum === 1) {
+        await mMoveDistfleeckOnlyTurnLikeC(g, mtmp);
+        return;
+    }
     const mov = mtmp.movement | 0;
     if (mov < NORMAL_SPEED) return;
     mtmp.movement = mov - NORMAL_SPEED;

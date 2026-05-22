@@ -23,9 +23,9 @@ export const MOVE_MON_HARNESS_MAX_STEP = 12;
 
 /** `null` = harness peeled; run real **`fmon`** loop. */
 const _HARNESS = [
-    /* stepNum 1 — four **`distfleeck`** before **`mcalcmove`** (bulk in **`moveloop_turn_advance`** when **`fmon`** empty). */
-    () => {},
-    /* stepNum 2 — replay until **`mfndpos`/`nearby`** match C on peeled **`fmon`**. */
+    /* stepNum 1 — peeled: **`mMoveDistfleeckOnlyTurnLikeC`** (one **`rn2(5)`** per monster). */
+    null,
+    /* stepNum 2 — replay until **`m_move`** **`rn2(4*(cnt-j))`** matches C (**`cnt=8`** / **`mtrack`**). */
     () => { rn2(5); rn2(32); rn2(5); rn2(5); rn2(32); rn2(5); },
     /* session step 4 — **`stepNum` 3** */
     () => { rn2(5); rn2(24); rn2(5); rn2(5); rn2(24); rn2(5); },
