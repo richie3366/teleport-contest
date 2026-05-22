@@ -11,7 +11,7 @@ import {
 import { permonstFromMndxLikeC, throwsRocks } from './mondata.js';
 import { monTrackInitLikeC } from './monflee.js';
 import { GP_AVOID_MONPOS, GP_CHECKSCARY, In_sokoban, MM_IGNOREWATER } from './const.js';
-import { goodposMakemonLikeC, goodposNewMonster } from './walkable.js';
+import { goodposMakemonLikeC } from './walkable.js';
 
 /** C: monflag.h M2_NEUTER */
 const M2_NEUTER = 0x00040000;
@@ -99,11 +99,14 @@ export function makemon(mdat, x, y, mmflags) {
             const gpflags = ((mmflags & MM_IGNOREWATER) ? MM_IGNOREWATER : 0)
                 | GP_CHECKSCARY
                 | GP_AVOID_MONPOS;
-            // C: full goodposMakemonLikeC (land S_EEL rn2(13)) shifts mklev RNG before getrumor
-            // (~1633) on seed8000; use goodposNewMonster in in_mklev until eel paths match C.
-            const posOk = game.in_mklev
-                ? goodposNewMonster(px, py, fakemon)
-                : goodposMakemonLikeC(px, py, fakemon, gpflags);
+            const posOk = goodposMakemonLikeC(
+                px,
+                py,
+                fakemon,
+                gpflags,
+                game,
+                game.in_mklev ? { skipLandEelRn2: true } : {}
+            );
             const ok = !(
                 (tryct === 0 && throwsRocks(fakemon.data) && In_sokoban(game.u?.uz))
                 || !posOk

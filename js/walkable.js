@@ -265,8 +265,9 @@ function isPoolCellGoodposLikeC(g, x, y) {
  * @param {{ data?: unknown, mnum?: number, mx?: number, my?: number, wormno?: number, m_id?: number }} mtmp
  * @param {number} [gpflags]
  * @param {Record<string, unknown>} [g]
+ * @param {{ skipLandEelRn2?: boolean }} [opts]
  */
-export function goodposMakemonLikeC(x, y, mtmp, gpflags = 0, g = game) {
+export function goodposMakemonLikeC(x, y, mtmp, gpflags = 0, g = game, opts = {}) {
     if (!isok(x, y)) return false;
     const ignorewater = (gpflags & MM_IGNOREWATER) !== 0;
     const ignorelava = (gpflags & MM_IGNORELAVA) !== 0;
@@ -295,7 +296,14 @@ export function goodposMakemonLikeC(x, y, mtmp, gpflags = 0, g = game) {
         if (swims(ptr) || mInAirMtmpLikeC(mtmp)) return true;
         return false;
     }
-    if ((ptr.mlet | 0) === S_EEL && !ignorewater && rn2(13)) return false;
+    if (
+        (ptr.mlet | 0) === S_EEL
+        && !ignorewater
+        && !opts.skipLandEelRn2
+        && rn2(13)
+    ) {
+        return false;
+    }
 
     if (isLavaTerrain(loc.typ | 0) && !ignorelava) {
         if ((ptr.mnum | 0) === PM_FLOATING_EYE) return false;
