@@ -7,7 +7,7 @@
 //
 // C: **`monmove.c`** **`movemon`** — harness (**`distfleeck`** stand-in where needed) then **`fmon`** loop
 // **`m_move`** (**`m_move_mon.js`**), then **`mintrap`**. **`m_throw`** runs only inside **`m_move`**.
-// **`distfleeck`**: **`m_move_mon.js`** — **`wipe_engr_at`**, **`dochug`** phase-one **`rn2`** ( **`mconf`**/**`mstun`**/**`mflee`** teleport & courage ), first + second **`distfleeck`** when **`stepNum ≥ 2`** (second gated **`MMOVE_DIED`**). Harness rows **3–12**: **`rn2(5)`** peeled (**`bravegremlin`**).
+// **`distfleeck`/`m_move`**: **`m_move_mon.js`** — **`dochug`** subset, **`mfndpos_mon.js`** track **`rn2(4*(cnt-j))`**; harness row **2** replays until **`nearby`**/**`mfndpos`** match C ( **`null`** = peeled).
 // C **`allmain.c`** **`do { movemon(); … } while (monscanmove)`** — one **`fmon`** pass per **`movemon()`**; outer loop in **`moveloop_turn_advance.js`**.
 
 import { rn2 } from './rng.js';
@@ -21,10 +21,11 @@ export { mthrowAtHeroUxyThituLikeC } from './mthrowu.js';
 /** Last moveloop step index that still uses the session harness (1-based stepNum). */
 export const MOVE_MON_HARNESS_MAX_STEP = 12;
 
+/** `null` = harness peeled; run real **`fmon`** loop. */
 const _HARNESS = [
-    /* stepNum 1 / session step 2: four distfleeck in moveloop_turn_advance (stepNum === 1). */
+    /* stepNum 1 — four **`distfleeck`** before **`mcalcmove`** (bulk in **`moveloop_turn_advance`** when **`fmon`** empty). */
     () => {},
-    /* **`stepNum` 2** / session step 3 — **`movemon`** before four **`mcalcmove`** **`rn2(12)`**. */
+    /* stepNum 2 — **`mfndpos`/`m_move` track RNG in **`m_move_mon.js`**; replay until **`nearby`** matches C. */
     () => { rn2(5); rn2(32); rn2(5); rn2(5); rn2(32); rn2(5); },
     /* session step 4 — **`stepNum` 3** */
     () => { rn2(5); rn2(24); rn2(5); rn2(5); rn2(24); rn2(5); },
@@ -61,10 +62,14 @@ export async function movemon(stepNum) {
 
     const ctx = game.context || (game.context = {});
     if (!ctx._movemonHarnessConsumed && raw >= 0 && raw < _HARNESS.length) {
-        _HARNESS[raw]();
+        const row = _HARNESS[raw];
         ctx._movemonHarnessConsumed = true;
-        /* Session PRNG for this step is in the harness row; real **`m_move`** not yet for these steps. */
-        return false;
+        if (row === null) {
+            /* peeled — real **`m_move`** consumes this step's draws */
+        } else {
+            row();
+            return false;
+        }
     }
 
     const mons = game.level?.monsters ?? [];
