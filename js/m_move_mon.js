@@ -88,8 +88,11 @@ function mMovePositionSelectRngLikeC(g, mtmp) {
     if ((mtmp.mconf | 0) /* || engulfing_u — not ported */) {
         appr = 0;
     } else {
+        const locMux = g.level?.at(ggx, ggy);
+        const locOmx = g.level?.at(omx, omy);
         const shouldSee =
             couldsee(omx, omy)
+            && (((locMux?.lit | 0) !== 0) || !((locOmx?.lit | 0) !== 0))
             && (dist2(omx, omy, ggx, ggy) <= 36);
         if (
             !(mtmp.mcansee | 0)
@@ -221,7 +224,6 @@ export async function mMoveOneMonsterSubsetLikeC(g, mtmp, _stepNum = 0) {
         ensureMonsterMtrack(mtmp);
         mmStatus = mMovePositionSelectRngLikeC(g, mtmp);
     }
-
     await mThrowAtHeroAfterMmoveIfLinedUpLikeC(g, mtmp);
     if ((mtmp.mhp | 0) <= 0) mmStatus = MMOVE_DIED;
 

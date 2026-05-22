@@ -25,7 +25,7 @@ export const MOVE_MON_HARNESS_MAX_STEP = 12;
 const _HARNESS = [
     /* stepNum 1 — four **`distfleeck`** before **`mcalcmove`** (bulk in **`moveloop_turn_advance`** when **`fmon`** empty). */
     () => {},
-    /* stepNum 2 — **`mfndpos`/`m_move` track RNG in **`m_move_mon.js`**; replay until **`nearby`** matches C. */
+    /* stepNum 2 — replay until **`mfndpos`/`nearby`** match C on peeled **`fmon`**. */
     () => { rn2(5); rn2(32); rn2(5); rn2(5); rn2(32); rn2(5); },
     /* session step 4 — **`stepNum` 3** */
     () => { rn2(5); rn2(24); rn2(5); rn2(5); rn2(24); rn2(5); },

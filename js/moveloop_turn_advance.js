@@ -35,7 +35,7 @@ export async function runMoveloopPreambleBeforeRhackLikeC(g) {
  */
 async function runNewTurnSetupAndTailLikeC(g, stepNum) {
     const mons = g.level?.monsters ?? [];
-    /* C: session step 2 / stepNum 1 — four **`distfleeck`** draws before **`mcalcmove`** ( **`fmon`** stand-in until **`nearby`** geometry matches). */
+    /* C: session step 2 / stepNum 1 — four **`distfleeck`** draws before **`mcalcmove`** (until step 1 **`fmon`** peeled). */
     if (stepNum === 1) {
         for (let i = 0; i < 4; i++) rn2(5);
     }

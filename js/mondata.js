@@ -4,6 +4,12 @@
 
 import { game } from './gstate.js';
 import {
+    MONS_MLET,
+    MONS_RNDMONST_MFLAGS1,
+    MONS_MFLAGS2,
+    MONS_MLEVEL,
+} from './mons_rndmonst_ini_inv_data.js';
+import {
     XKILL_NOCORPSE,
     PM_FIRE_ELEMENTAL,
     PM_SALAMANDER,
@@ -67,6 +73,32 @@ export function stubPermonstForCorpsenm(mnum) {
     else if (m === PM_LICHEN) mlet = S_FUNGUS;
     /* C: permonst `cnutrit` / `mconveys` / `geno` — shk.c corpse/tin/egg pricing; eat.c intrinsic_possible */
     return { ...permonstHuman, mlet, mnum: m, cnutrit: 0, mconveys: 0, geno: 0 };
+}
+
+/** C: mondata.h **`is_human(ptr)`** — **`M2_HUMAN`**. */
+const M2_HUMAN = 0x00000008;
+
+/**
+ * C: **`mons[mndx]`** permonst fields used by **`mon_allowflags`** / **`mfndpos`** / **`mcalcmove`**.
+ * @param {number} mndx
+ * @returns {Permonst}
+ */
+export function permonstFromMndxLikeC(mndx) {
+    const m = mndx | 0;
+    return {
+        ...permonstHuman,
+        mnum: m,
+        mlet: MONS_MLET[m] ?? S_HUMAN,
+        mflags1: MONS_RNDMONST_MFLAGS1[m] ?? 0,
+        mflags2: MONS_MFLAGS2[m] ?? 0,
+        mlevel: MONS_MLEVEL[m] ?? 1,
+        geno: 0,
+    };
+}
+
+/** C: mondata.h **`is_human(ptr)`**. */
+export function isHumanPtrLikeC(ptr) {
+    return ((ptr?.mflags2 ?? 0) & M2_HUMAN) !== 0;
 }
 
 /**

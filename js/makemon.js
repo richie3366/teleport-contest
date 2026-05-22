@@ -8,6 +8,7 @@ import {
     MONS_MFLAGS2,
     MONS_MLEVEL,
 } from './mons_rndmonst_ini_inv_data.js';
+import { permonstFromMndxLikeC } from './mondata.js';
 
 /** C: monflag.h M2_NEUTER */
 const M2_NEUTER = 0x00040000;
@@ -99,6 +100,7 @@ export function makemon(mdat, x, y, mmflags) {
         mpeaceful: 0,
         mtame: 0,
         mnum,
+        data: permonstFromMndxLikeC(mnum),
         mcanmove: 1,
         mcansee: 1,
         mfrozen: 0,
