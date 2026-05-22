@@ -6,6 +6,7 @@ import { vision_recalc } from './vision.js';
 import { movemon } from './monmove.js';
 import { mcalcMoveLikeC } from './mcalc_move.js';
 import { rn2 } from './rng.js';
+import { NORMAL_SPEED } from './const.js';
 import { end_of_turn_rng, maybe_generate_rnd_mon } from './moveloop_aux.js';
 import { collectNewuhsPlines } from './hunger.js';
 import { settrack } from './track.js';
@@ -25,17 +26,13 @@ export async function runMoveloopPreambleBeforeRhackLikeC(g) {
 }
 
 /**
- * C: allmain.c moveloop_core — after a time-costing hero command: inner **`movemon`** sweeps,
- * then new-turn **`mcalcmove`** / **`maybe_generate_rnd_mon`** / **`moves++`** / per-turn tail.
- * Order matches C: **`movemon()`** before **`fmon`** **`mcalcmove`** allotment (see **`allmain.c`** ~211–244).
+ * C: allmain.c — new-turn block when both hero and monsters are out of movement
+ * (`!monscanmove && u.umovement < NORMAL_SPEED`): mcalcmove, maybe_generate_rnd_mon, moves++,
+ * once-per-turn tail.
  * @param {import('./gstate.js').game} g
+ * @param {number} stepNum
  */
-export async function runPostCommandTurnAdvanceLikeC(g) {
-    const stepNum = (g.moves || 1) - 1;
-    if (stepNum > 0) {
-        await movemon(stepNum);
-    }
-
+async function runNewTurnSetupAndTailLikeC(g, stepNum) {
     const mons = g.level?.monsters ?? [];
     /* C: allmain.c first post-chargen turn with empty fmon — four distfleeck stand-ins before mcalcmove (session step 2 / stepNum 1). */
     if (stepNum === 1) {
@@ -68,6 +65,39 @@ export async function runPostCommandTurnAdvanceLikeC(g) {
     for (const line of collectNewuhsPlines(true)) await pline(line);
 
     await end_of_turn_rng(stepNum);
+}
+
+/**
+ * C: allmain.c moveloop_core — after a time-costing hero command: `u.umovement -= NORMAL_SPEED`,
+ * `do { movemon(); … } while (monscanmove)` (break early if hero still has movement), then new-turn
+ * setup only when `!monscanmove && u.umovement < NORMAL_SPEED`.
+ * @param {import('./gstate.js').game} g
+ */
+export async function runPostCommandTurnAdvanceLikeC(g) {
+    const u = g.u;
+    if (!u) return;
+
+    u.umovement = (u.umovement ?? NORMAL_SPEED) - NORMAL_SPEED;
+
+    const stepNum = (g.moves || 1) - 1;
+    let monscanmove = false;
+
+    g.context = g.context || {};
+    g.context.monMoving = true;
+    try {
+        if (stepNum > 0) {
+            do {
+                monscanmove = await movemon(stepNum);
+                if ((u.umovement | 0) >= NORMAL_SPEED) break;
+            } while (monscanmove);
+        }
+    } finally {
+        g.context.monMoving = false;
+    }
+
+    if (!monscanmove && (u.umovement | 0) < NORMAL_SPEED) {
+        await runNewTurnSetupAndTailLikeC(g, stepNum);
+    }
 }
 
 /** C: allmain.c moveloop_core — tutorial exit flag clear in core tail. */
