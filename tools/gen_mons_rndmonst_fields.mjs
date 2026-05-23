@@ -10,7 +10,14 @@ import { fileURLToPath } from 'node:url';
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const root = join(__dirname, '..');
 const monstersH = join(root, 'nethack-c/upstream/include/monsters.h');
+const monflagH = join(root, 'nethack-c/upstream/include/monflag.h');
 const dataPath = join(root, 'js/mons_rndmonst_ini_inv_data.js');
+
+/** @type {Record<string, number>} */
+const M2_BITS = {};
+for (const m of readFileSync(monflagH, 'utf8').matchAll(/#define (M2_[A-Z0-9_]+)\s+(0x[0-9a-f]+)L?/gi)) {
+    M2_BITS[m[1]] = parseInt(m[2], 16);
+}
 
 const text = readFileSync(monstersH, 'utf8');
 /** @type {string[]} */
@@ -40,7 +47,19 @@ const difficulty = [];
 /** @type {number[]} */
 const genoPlanB = [];
 /** @type {number[]} */
+const mflags2 = [];
+/** @type {number[]} */
 const mflags3 = [];
+
+/** @param {string} block */
+function parseMflags2(block) {
+    let f = 0;
+    for (const tok of block.matchAll(/\b(M2_[A-Z0-9_]+)\b/g)) {
+        const bit = M2_BITS[tok[1]];
+        if (bit !== undefined) f |= bit;
+    }
+    return f;
+}
 
 /** @param {string} block */
 function parseMflags3(block) {
@@ -82,6 +101,7 @@ for (const block of blocks) {
     );
     difficulty.push(diffM ? parseInt(diffM[1], 10) : 0);
     genoPlanB.push(parseGenoPlanB(block));
+    mflags2.push(parseMflags2(block));
     mflags3.push(parseMflags3(block));
 }
 
@@ -101,6 +121,7 @@ function replaceArray(src, name, values) {
 
 let out = replaceArray(dataJs, 'MONS_MLEVEL', mlevel);
 out = replaceArray(out, 'MONS_MMOVE', mmove);
+out = replaceArray(out, 'MONS_MFLAGS2', mflags2);
 if (!/export const MONS_MFLAGS3/.test(out)) {
     out = out.replace(
         /export const MONS_MMOVE = .*?;\n/,
@@ -119,7 +140,7 @@ if (updateAll) {
 }
 writeFileSync(dataPath, out);
 console.log(
-    `Updated ${blocks.length} monsters: MONS_MLEVEL, MONS_MMOVE`
+    `Updated ${blocks.length} monsters: MONS_MLEVEL, MONS_MMOVE, MONS_MFLAGS2`
         + (updateAll ? ', MONS_RNDMONST_DIFFICULTY, MONS_GENO_PLAN_B' : '')
         + (updateGeno && !updateAll ? ', MONS_GENO_PLAN_B' : '')
         + (!updateAll && !updateGeno ? ' (pass --geno or --all for rndmonst tables)' : ''),
