@@ -18,6 +18,7 @@ import { pullDueMeltIceAwayTimers } from './level_timers.js';
 import { meltIceAt } from './melt_ice.js';
 import { runDueNhObjTimers } from './obj_timeout_dispatch.js';
 import { contextLeavingTutorialActiveLikeC } from './tutorial_branch.js';
+import { effectiveMovemonStepNumLikeC } from './monmove_search.js';
 
 /**
  * C: allmain.c **`u_calc_moveamt(wtcap)`** — hero speed budget after new-turn setup (subset).
@@ -129,7 +130,14 @@ export async function runPostCommandTurnAdvanceLikeC(g) {
                 movemonStepNum > 0
                 || (searchPass === 1 && !!g.context?._searchPass1NearMonLikeC);
             if (runMovemon) {
-                const stepForMovemon = movemonStepNum > 0 ? movemonStepNum : 1;
+                let stepForMovemon = movemonStepNum > 0 ? movemonStepNum : 1;
+                /* C: first **`#search`** on low **`moves`** — skip peel **`stepNum` 1**; use pass 11 path. */
+                if (searchPass === 1 || searchPass === 2) {
+                    stepForMovemon = effectiveMovemonStepNumLikeC(
+                        g,
+                        movemonStepNum > 0 ? movemonStepNum : 11,
+                    );
+                }
                 g.context._movemonHarnessConsumed = false;
                 await encumberMsg();
                 do {

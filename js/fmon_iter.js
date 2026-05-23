@@ -217,13 +217,24 @@ export function fmonListForMovemonLikeC(g, stepNum = 0) {
                     ? [east]
                     : [];
                 /* C: gate **`dochug`** + pet **`dog_goal`** before remaining peel **`distfleeck`**. */
-                return [
+                const ordered = [
                     ...preGatePeel,
                     ...(rogHostile ? [rogHostile] : []),
                     ...(pet ? [pet] : []),
                     ...postGatePeel,
                     ...eastTail,
                 ].filter(Boolean);
+                if (typeof globalThis.__diagFmonAtSearch === 'function') {
+                    globalThis.__diagFmonAtSearch(g, stepNum, ordered, {
+                        preGatePeel,
+                        postGatePeel,
+                        mklevTail,
+                        nearHostile,
+                        nearRemainder,
+                        midRest,
+                    });
+                }
+                return ordered;
             }
             return [
                 ...(rogHostile ? [rogHostile] : []),

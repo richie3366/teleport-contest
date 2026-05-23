@@ -36,6 +36,7 @@ import {
 } from './monmove_search.js';
 import { searchPass1NearMonLikeC } from './mfndpos_mon.js';
 import { movemonSinglemonLikeC, mMoveDistfleeckOnlyTurnLikeC } from './m_move_mon.js';
+import { dogMoveSearchPassNearHeroLikeC } from './dogmove_mon.js';
 import { raceptr, S_EEL } from './mondata.js';
 import { ensureMonsterMtrack } from './monflee.js';
 
@@ -107,10 +108,13 @@ export async function movemon(stepNum) {
         g.urole?.abbr === 'Rog'
         || g.pl_character === 'Rogue'
         || (g.urole?.mnum | 0) === 8;
-    if (rogueLike || isFirstSearchMovemonPassLikeC(g)) {
+    /* C: rogue near mklev peel — only on **`#search`** passes (cmd sets flags; do not arm on every movemon). */
+    if (isFirstSearchMovemonPassLikeC(g)) {
         const nearHostile = findFirstSearchRogMidMklevHostileLikeC(g);
         g.context._searchPass1NearMonLikeC =
             rogueLike || searchPass1NearMonLikeC(g) || !!nearHostile;
+    } else if (rogueLike) {
+        delete g.context._searchPass1NearMonLikeC;
     }
     const effStepNum = effectiveMovemonStepNumLikeC(g, stepNum);
     /* C: mon.c movemon — `gs.somebody_can_move` set in movemon_singlemon after turn spend. */
@@ -364,19 +368,36 @@ export async function movemon(stepNum) {
         if (
             isFirstSearchMovemonPassLikeC(g)
             && g.context?._searchPass1NearMonLikeC
-            && g.context?._searchPass1DogGoalDoneLikeC
             && !g.context?._searchPostGatePeelDoneLikeC
         ) {
+            if (!g.context?._searchPass1DogGoalDoneLikeC) {
+                const pet = (g.level?.monsters ?? []).find((m) => (m.mtame | 0) !== 0);
+                if (pet) dogMoveSearchPassNearHeroLikeC(g, pet);
+            }
             g.context._searchPostGatePeelDoneLikeC = true;
             const rogGate = findFirstSearchRogMidMklevHostileLikeC(g);
             const gateIdx = rogGate ? mons.indexOf(rogGate) : -1;
             const tailStart = gateIdx >= 0 ? gateIdx + 1 : 0;
+            let peelDistfleeck = 0;
             for (let i = tailStart; i < mons.length; i++) {
                 const m = mons[i];
                 if ((m.mtame | 0)) continue;
                 if (eastMklevFirstLAfterBLikeC(g, m)) continue;
                 if (!(m.mgenmklev | 0)) continue;
                 await mMoveDistfleeckOnlyTurnLikeC(g, m);
+                peelDistfleeck++;
+            }
+            /* C: **`seed0077`** — four **`distfleeck`** (**~3209–3212**) on gate hostile when no
+             * door-niche peel monsters remain after **`dog_goal`** (only gate + pet on D:1). */
+            if (rogGate && peelDistfleeck === 0) {
+                for (let i = 0; i < 4; i++) {
+                    await mMoveDistfleeckOnlyTurnLikeC(g, rogGate);
+                }
+            }
+            /* C: second gate **`dochug`** block (**~3213–3217**), tail **`distfleeck`** (**~3218**). */
+            if (rogGate && (g.context?._searchRogGateCountLikeC | 0) < 2) {
+                await movemonSinglemonLikeC(g, rogGate, effStepNum);
+                await mMoveDistfleeckOnlyTurnLikeC(g, rogGate);
             }
             const east = findEastKickMonLikeC(g);
             if (east && mons.includes(east)) {
