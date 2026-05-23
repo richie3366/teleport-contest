@@ -18,11 +18,11 @@ Thin handoff for the next coding session. **Score + milestones:** [`c-to-js-port
 
 **Deferred for now:** **`maybe_do_tutorial`** / **`tut-1`** / full **`do.c`** **`goto_level`** (Lua **`tutorial()`** / **`free_tutorial()`**, **`savelev`**, **`gmst_*`**, …) and **`dokick`**/**`dothrow`** vs **`leaving_tutorial`** — strong upstream dependencies (save, specials, fuller **`do.c`**); treat as backlog until chargen / core early-game parity is further along; **`LIVELOGFILE`** parity if the judge ever compares livelog lines.
 
-**Last slice:** **`dogmove_mon.js`**: split first/second **`dog_goal`** — first pass legacy floor RNG + **`appr==0`**; second pass C **`fobj`** loop + **`dogfoodRankLikeC`** (**`obj_resists`** in **`dogfood`**) + lit/**`cansee`** apport branch + **`dogGoalFollowGxGyApprLikeC`** tail. Diag: **`diag_dog_bbox_fobj.mjs`** (only **2** floor objs in bbox at second pass — C needs **3** **`obj_resists`** at **~3217**). **`seed0077`:** **3218/3242** (**3203–3216**; **~3217** missing floor **`fobj`** / **`could_reach`** / pet **`my`**). **`seed8000`:** **PASS**. **`npm run score`:** **1/44**.
+**Last slice:** **`dogmove_reach.js`** + **`dogmove_mon.js`**: C **`could_reach_item`/`can_reach_location`**, **`cursed_object_at`**, **`can_carry`** on apport branch, **`dog_goal`** follow gate (**skip invent/`rn2(4)`** when **`gg.gtyp`** is **`DOGFOOD`/`APPORT`**); **`dogInventDogfoodAtFeetLikeC`** (one **`dogfood`** at feet, not full stack). Diag: **`diag_reach_objects.mjs`**, **`diag_floor_at_search.mjs`** — JS has **2** bbox **`fobj`** at second pass; C needs **3** **`obj_resists`** at **~3217** (third likely missing floor obj / pet **`mx,my`** vs C). **`seed0077`:** **3218/3242** (**~3217**). **`seed8000`:** **PASS**. **`npm run score`:** **1/44**.
 
 ## Next steps
 
-1. **`seed0077` first `#search` tail (~3217–3225)** — Second **`dog_goal`**: third **`obj_resists`** at **~3217** (JS bbox has **2** **`fobj`** at **(35,2)/(35,5)** only — **`mklev`/`mineralize`** or pet **(36,8)** widening bbox vs C); tail **`distfleeck`** vs **`mcalcmove`**; wire **`could_reach_item`/`can_reach_location`** goal filters after full **`dogfood`** ranks.
+1. **`seed0077` first `#search` ~3217** — Third **`dog_goal`** **`obj_resists`** at **~3217**: only **2** floor objs in bbox at pet **(36,7)** **(35,2)/(35,5)**; C session wants **3** before **`distfleeck`**; trace **`mklev`/`fill_ordinary_room`** vs pet **`dog_move`** position (**`mfndpos`** / west-of-door geometry **(35,8)** is **STONE** in JS).
 
 2. **`makeroguerooms` / rogue special level** — when **`Is_rogue_level`** is true (now that **`rogue_level`** is set); separate from rogue **class** on main D:1.
 

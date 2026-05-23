@@ -8,24 +8,46 @@ import {
     MANFOOD,
     POISON,
     TABU,
+    DOGFOOD,
     IS_ROOM,
+    MAGIC_PORTAL,
 } from './const.js';
 import { EDOG, has_edog } from './const.js';
+import { stairwayAtInGame } from './decor.js';
 import { couldsee, cansee } from './vision.js';
 import { dist2, distmin } from './hacklib.js';
 import { rn2 } from './rng.js';
 import { objResists } from './obj_resists.js';
+import { NH5_FOOD_CLASS } from './nh5_objclass.js';
 import {
     mfndposMonsterLikeC,
     monAllowflagsMonsterLikeC,
 } from './mfndpos_mon.js';
 import { ensureMonsterMtrack } from './monflee.js';
 import { floorObjKey } from './floorobj.js';
+import {
+    couldReachItemDogmoveLikeC,
+    canReachLocationDogmoveLikeC,
+    cursedObjectAtDogmoveLikeC,
+} from './dogmove_reach.js';
+
+/**
+ * C: mon.c can_carry — tame pet apport gate subset (**`can_carry > 0`** at dogmove.c:555).
+ * @param {Record<string, unknown>} mtmp
+ * @param {Record<string, unknown>} obj
+ */
+function canCarryMonsterObjDogmoveLikeC(mtmp, obj) {
+    if (!obj) return 0;
+    const quan = obj.quan | 0;
+    if (quan <= 0) return 0;
+  /* Kitten / small pets: contest slice treats single-quan floor items as carriable. */
+    return quan > 20000 ? 20000 : quan > 1 ? 1 : 1;
+}
+
 const SQSRCHRADIUS = 5;
 
 /**
- * C: dog.c dogfood — minimal floor loop (**`obj_resists`**, **`APPORT`** vs **`MANFOOD`** ranks).
- * Full corpse/tripe/vegan tables deferred.
+ * C: dog.c dogfood — floor loop + invent scan subset (**`obj_resists`**, ranks).
  * @param {Record<string, unknown>} obj
  * @returns {number}
  */
@@ -33,7 +55,21 @@ function dogfoodRankLikeC(obj) {
     if (!obj) return UNDEF;
     if (obj.opoisoned) return POISON;
     if (objResists(obj, 0, 95)) return obj.cursed ? TABU : APPORT;
+    if ((obj.oclass | 0) === NH5_FOOD_CLASS) return DOGFOOD;
     return MANFOOD;
+}
+
+/**
+ * C: dogmove.c dog_invent — **`dogfood`** only when floor stack at pet feet (not full **`droppables`** path).
+ * @param {import('./gstate.js').game} g
+ * @param {Record<string, unknown>} mtmp
+ */
+function dogInventDogfoodAtFeetLikeC(g, mtmp) {
+    const omx = mtmp.mx | 0;
+    const omy = mtmp.my | 0;
+    const head = g.level?.floorObjHeads?.get(floorObjKey(omx, omy));
+    if (!head) return;
+    dogfoodRankLikeC(head);
 }
 
 /**
@@ -50,19 +86,6 @@ function fobjInDogGoalBoxLikeC(g, minX, maxX, minY, maxY) {
         out.push(obj);
     }
     return out;
-}
-
-/**
- * C: dogmove.c dog_invent — **`dogfood`** on object at pet **`(mx,my)`** before **`dog_goal`**.
- * @param {import('./gstate.js').game} g
- * @param {Record<string, unknown>} mtmp
- */
-function dogInventObjResistsAtFeetLikeC(g, mtmp) {
-    const omx = mtmp.mx | 0;
-    const omy = mtmp.my | 0;
-    const obj = g.level?.floorObjHeads?.get(floorObjKey(omx, omy)) ?? null;
-    if (!obj) return;
-    dogfoodRankLikeC(obj);
 }
 
 /**
@@ -110,7 +133,7 @@ function dogGoalFloorScanRngLikeC(
     }
     if (!floor.length) {
         return dogGoalFollowGxGyApprLikeC(
-            g, mtmp, UNDEF, ux, uy, udist, whappr, trackApportGoalLikeC,
+            g, mtmp, UNDEF, ux, uy, udist, whappr, edog,
         );
     }
     let gtyp = UNDEF;
@@ -122,8 +145,18 @@ function dogGoalFloorScanRngLikeC(
         const ny = obj.oy | 0;
         const otyp = dogfoodRankLikeC(obj);
         if (otyp > gtyp || otyp === UNDEF) continue;
-        /* C: **`could_reach_item`/`can_reach_location`** — goal filter only; **`dogfood`** RNG
-         * already consumed above. Full gates when **`dogfood`** ranks are complete. */
+        if (
+            cursedObjectAtDogmoveLikeC(g, nx, ny)
+            && !(edog?.mhpmax_penalty && otyp < MANFOOD)
+        ) {
+            continue;
+        }
+        if (
+            !couldReachItemDogmoveLikeC(g, mtmp, nx, ny)
+            || !canReachLocationDogmoveLikeC(g, mtmp, omx, omy, nx, ny)
+        ) {
+            continue;
+        }
         if (otyp < MANFOOD) {
             if (otyp < gtyp || dist2(nx, ny, omx, omy) < dist2(gx, gy, omx, omy)) {
                 gx = nx;
@@ -140,6 +173,7 @@ function dogGoalFloorScanRngLikeC(
                 litOk
                 && (otyp === MANFOOD || cansee(nx, ny))
                 && (edog.apport | 0) > rn2(8)
+                && canCarryMonsterObjDogmoveLikeC(mtmp, obj) > 0
             ) {
                 gx = nx;
                 gy = ny;
@@ -148,12 +182,12 @@ function dogGoalFloorScanRngLikeC(
         }
     }
     return dogGoalFollowGxGyApprLikeC(
-        g, mtmp, gtyp, gx, gy, udist, whappr, trackApportGoalLikeC,
+        g, mtmp, gtyp, gx, gy, udist, whappr, edog,
     );
 }
 
 /**
- * C: dogmove.c dog_goal tail — **`gg`**, **`appr`** after floor scan.
+ * C: dogmove.c dog_goal tail — follow hero **`gg`**, **`appr`**, invent/portal closeness.
  * @param {import('./gstate.js').game} g
  * @param {Record<string, unknown>} mtmp
  * @param {number} gtyp
@@ -161,7 +195,7 @@ function dogGoalFloorScanRngLikeC(
  * @param {number} gy
  * @param {number} udist
  * @param {boolean} whappr
- * @param {boolean} trackApportGoalLikeC
+ * @param {Record<string, unknown>} edog
  * @returns {{ gx: number, gy: number, appr: number }}
  */
 function dogGoalFollowGxGyApprLikeC(
@@ -172,16 +206,21 @@ function dogGoalFollowGxGyApprLikeC(
     gy,
     udist,
     whappr,
-    trackApportGoalLikeC,
+    edog,
 ) {
     const u = g.u;
     if (!u) return { gx, gy, appr: 1 };
-    if (gtyp !== UNDEF) {
+    const moves = g.moves | 0;
+    const hungrytime = edog?.hungrytime | 0;
+    /* C: dog_goal — skip follow when **`gg.gtyp`** is **`DOGFOOD`/`APPORT`** or pet not hungry. */
+    if (
+        gtyp !== UNDEF
+        && (gtyp === DOGFOOD || gtyp === APPORT || moves >= hungrytime)
+    ) {
         return { gx, gy, appr: 1 };
     }
     gx = u.ux | 0;
     gy = u.uy | 0;
-    const edog = EDOG(mtmp);
     const dogHasMinvent = false; /* NO_MINVENT starting pet */
     let appr = udist >= 9 ? 1 : (mtmp.mflee | 0) ? -1 : 0;
     if (udist > 1) {
@@ -192,6 +231,29 @@ function dogGoalFollowGxGyApprLikeC(
             || (dogHasMinvent && edog && !rn2(edog.apport | 0))
         ) {
             appr = 1;
+        }
+    }
+    if (appr === 0) {
+        if (stairwayAtInGame(g, gx, gy)) {
+            appr = 1;
+        } else {
+            for (let o = g.invent; o; o = o.nobj) {
+                if (dogfoodRankLikeC(o) === DOGFOOD) {
+                    appr = 1;
+                    break;
+                }
+            }
+            if (appr === 0) {
+                const ux = u.ux | 0;
+                const uy = u.uy | 0;
+                for (const t of g.level?.traps ?? []) {
+                    if (!t || (t.ttyp | 0) !== MAGIC_PORTAL) continue;
+                    if (distmin(ux, uy, t.tx | 0, t.ty | 0) <= 2) {
+                        appr = 1;
+                        break;
+                    }
+                }
+            }
         }
     }
     if (mtmp.mconf | 0) appr = 0;
@@ -302,14 +364,14 @@ export function dogMoveSearchPassNearHeroLikeC(g, mtmp) {
     if (ctx._searchPass1NearMonLikeC) {
         ctx._searchPass1DogGoalDoneLikeC = true;
     }
-    dogInventObjResistsAtFeetLikeC(g, mtmp);
+    dogInventDogfoodAtFeetLikeC(g, mtmp);
     const goal = dogGoalFloorScanRngLikeC(
         g, mtmp, trackApportGoalLikeC, whappr,
     );
     if (typeof globalThis.__diagDogGoalAtSearch === 'function') {
         globalThis.__diagDogGoalAtSearch(g, mtmp, trackApportGoalLikeC);
     }
-    /* C: dogmove.c dog_move — **`mfndpos`** pick + move; first **`#search`** gate pet only. */
+    /* C: first **`#search`** gate — one **`dog_move`** pick; second gate is **`dog_goal`** only. */
     if (!trackApportGoalLikeC) {
         if (goal.appr === 0) {
             dogMovePositionPickFirstSearchApprZeroLikeC(

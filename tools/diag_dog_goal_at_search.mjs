@@ -24,19 +24,19 @@ globalThis.__diagDogGoalAtSearch = (g, mtmp, second) => {
     const minY = Math.max(0, omy - SQ);
     const maxY = Math.min(23, omy + SQ);
     const inBox = [];
+    const allNear = [];
     for (const o of g.level?.objects ?? []) {
         if (!o) continue;
         const nx = o.ox | 0;
         const ny = o.oy | 0;
-        if (nx < minX || nx > maxX || ny < minY || ny > maxY) continue;
-        inBox.push({ ox: nx, oy: ny, otyp: o.otyp, oclass: o.oclass });
+        if (nx >= minX && nx <= maxX && ny >= minY && ny <= maxY) {
+            inBox.push({ ox: nx, oy: ny, otyp: o.otyp, oclass: o.oclass });
+        }
+        if (Math.abs(nx - omx) <= 8 && Math.abs(ny - omy) <= 8) {
+            allNear.push({ ox: nx, oy: ny, otyp: o.otyp });
+        }
     }
     const feet = g.level?.floorObjHeads?.get(floorObjKey(omx, omy));
-    const all = (g.level?.objects ?? []).map((o) => ({
-        ox: o.ox,
-        oy: o.oy,
-        otyp: o.otyp,
-    }));
     const ux = g.u?.ux | 0;
     const uy = g.u?.uy | 0;
     const udist = (omx - ux) * (omx - ux) + (omy - uy) * (omy - uy);
@@ -62,6 +62,11 @@ globalThis.__diagDogGoalAtSearch = (g, mtmp, second) => {
         'inBox',
         inBox.length,
         inBox,
+        'feetObj',
+        feet ? { ox: feet.ox, oy: feet.oy, otyp: feet.otyp } : null,
+        'allNear',
+        allNear.length,
+        allNear,
     );
 };
 
