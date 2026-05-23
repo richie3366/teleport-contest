@@ -2,6 +2,7 @@
 // C ref: makemon.c — `mtmp->nmon = fmon; fmon = mtmp` prepends each new monster.
 
 import { PM_LICHEN } from './const.js';
+import { game } from './gstate.js';
 import { S_EEL, raceptr } from './mondata.js';
 import {
     eastFungusDoorNicheAtLikeC,
@@ -119,6 +120,20 @@ export function fmonListForMovemonLikeC(g, stepNum = 0) {
         const ordered = [];
         if (east) ordered.push(east);
         if (distant) ordered.push(distant);
+        return [...ordered, ...rest].filter(Boolean);
+    }
+    /* C: first **`#search`** — distant **`m_move`** then east **(64,9)** **`rn2(12)`**. */
+    if (
+        ((stepNum | 0) === 10 || (stepNum | 0) === 11)
+        && (game.context?._searchStep11Passes | 0) === 1
+    ) {
+        const east = findEastKickMonLikeC(g);
+        const distant = findDistantMklevMonLikeC(g);
+        const rest = mons.filter((m) => m !== east && m !== distant);
+        /** @type {typeof mons} */
+        const ordered = [];
+        if (distant) ordered.push(distant);
+        if (east) ordered.push(east);
         return [...ordered, ...rest].filter(Boolean);
     }
     /* C: step **`n`** — east **`movement < NORMAL_SPEED`** (no RNG); west **`distfleeck`**;

@@ -234,21 +234,18 @@ function dochugEntersMmoveBlockLikeC(g, mtmp, nearby, scared, stepNum = 0) {
         return mtmp === findDistantMklevMonLikeC(g)
             || isLandEelForMovemonLikeC(g, mtmp);
     }
-    /* C: first **`l`** after **`b`** / first **`#search`** — east **(64,9)** + distant **`m_move`**. */
+    /* C: first **`l`** after **`b`** — east **(64,9)** + distant **`m_move`**. */
+    if ((stepNum | 0) === 9) {
+        return mtmp === findDistantMklevMonLikeC(g)
+            || eastMklevFirstLAfterBLikeC(g, mtmp);
+    }
+    /* C: first **`#search`** — distant + east **(64,9)** enter **`m_move`**. */
     if (
-        (stepNum | 0) === 9
-        || ((stepNum | 0) === 10 && (g.context?._searchStep11Passes | 0) === 1)
-        || ((stepNum | 0) === 11 && (g.context?._searchStep11Passes | 0) !== 2)
+        ((stepNum | 0) === 10 || (stepNum | 0) === 11)
+        && (g.context?._searchStep11Passes | 0) === 1
     ) {
-        return (
-            mtmp === findDistantMklevMonLikeC(g)
-            || eastMklevFirstLAfterBLikeC(g, mtmp)
-            || (
-                (mtmp.mnum | 0) === PM_LICHEN
-                && (mtmp.mgenmklev | 0)
-                && mtmp !== findWestKinkLichenLikeC(g)
-            )
-        );
+        return mtmp === findDistantMklevMonLikeC(g)
+            || eastMklevFirstLAfterBLikeC(g, mtmp);
     }
     const ptr = raceptr(mtmp);
     const mlet = ptr?.mlet | 0;
@@ -619,19 +616,15 @@ export async function movemonSinglemonLikeC(g, mtmp, stepNum = 0) {
         await mMoveDistfleeckOnlyTurnLikeC(g, mtmp);
         return;
     }
-    /* C: **`l`** after **`b`** / first **`#search`** — east mklev lichen + distant only. */
+    /* C: **`l`** after **`b`** / first **`#search`** — east **(64,9)** + distant only. */
+    if ((stepNum | 0) === 9) {
+        if (!eastMklevFirstLAfterBLikeC(g, mtmp) && mtmp !== findDistantMklevMonLikeC(g)) return;
+    }
     if (
-        (stepNum | 0) === 9
-        || ((stepNum | 0) === 10 && (g.context?._searchStep11Passes | 0) === 1)
-        || ((stepNum | 0) === 11 && (g.context?._searchStep11Passes | 0) !== 2)
+        ((stepNum | 0) === 10 || (stepNum | 0) === 11)
+        && (g.context?._searchStep11Passes | 0) === 1
     ) {
-        const eastFirstLLikeC = eastMklevFirstLAfterBLikeC(g, mtmp)
-            || (
-                (mtmp.mnum | 0) === PM_LICHEN
-                && (mtmp.mgenmklev | 0)
-                && mtmp !== findWestKinkLichenLikeC(g)
-            );
-        if (!eastFirstLLikeC && mtmp !== findDistantMklevMonLikeC(g)) return;
+        if (!eastMklevFirstLAfterBLikeC(g, mtmp) && mtmp !== findDistantMklevMonLikeC(g)) return;
     }
     if ((g.context?._searchStep11Passes | 0) === 2
         && (g.context?._movemonSearch11SubPass | 0) === 1) {
@@ -644,17 +637,12 @@ export async function movemonSinglemonLikeC(g, mtmp, stepNum = 0) {
     const eastMklevLowMovDochugLikeC =
         (
             (stepNum | 0) === 9
-            || ((stepNum | 0) === 10 && (g.context?._searchStep11Passes | 0) === 1)
-            || ((stepNum | 0) === 11 && (g.context?._searchStep11Passes | 0) !== 2)
-        )
-        && (
-            eastMklevFirstLAfterBLikeC(g, mtmp)
             || (
-                (mtmp.mnum | 0) === PM_LICHEN
-                && (mtmp.mgenmklev | 0)
-                && mtmp !== findWestKinkLichenLikeC(g)
+                ((stepNum | 0) === 10 || (stepNum | 0) === 11)
+                && (g.context?._searchStep11Passes | 0) === 1
             )
-        );
+        )
+        && eastMklevFirstLAfterBLikeC(g, mtmp);
     if (mov < NORMAL_SPEED) {
         if ((stepNum | 0) === 6) {
             if (mtmp !== findEastMklevSecondHLikeC(g)) {
@@ -1235,25 +1223,19 @@ export async function mMoveOneMonsterSubsetLikeC(g, mtmp, stepNum = 0) {
     }
     if (
         ((stepNum | 0) === 10 && (g.context?._searchStep11Passes | 0) === 1)
-        || ((stepNum | 0) === 11 && (g.context?._searchStep11Passes | 0) !== 2)
+        || ((stepNum | 0) === 11 && (g.context?._searchStep11Passes | 0) === 1)
     ) {
-        const eastLichenLikeC =
-            (mtmp.mnum | 0) === PM_LICHEN
-            && (mtmp.mgenmklev | 0)
-            && mtmp !== findWestKinkLichenLikeC(g);
-        if (movemonStep8DistantMonEligibleLikeC(g, mtmp)) {
+        if (mtmp === findDistantMklevMonLikeC(g)) {
             await mMoveDistfleeckMmoveTurnLikeC(g, mtmp, stepNum);
             await distfleeckMonsterApplyLikeC(g, mtmp);
-        } else if (eastLichenLikeC) {
+        } else if (eastMklevFirstLAfterBLikeC(g, mtmp)) {
             const u = g.u;
             if (u) {
                 mtmp.mux = u.ux | 0;
                 mtmp.muy = u.uy | 0;
             }
             ensureMonsterMtrack(mtmp);
-            if ((mtmp.mx | 0) === 64 && (mtmp.my | 0) === 9) {
-                mtmp.mtrack[0] = { x: 65, y: 9 };
-            }
+            mtmp.mtrack[0] = { x: 65, y: 9 };
             if (dochugEntersMmoveBlockLikeC(g, mtmp, 1, 0, stepNum)) {
                 rn2(12);
             }

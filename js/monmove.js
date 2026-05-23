@@ -299,35 +299,21 @@ export async function movemon(stepNum) {
                 east.mtrack[0] = { x: 65, y: 9 };
             }
         }
-        /* C: first **`#search`** (**`stepNum` 10**) — same **`fmon`** order as second **`l`** (distant → east). */
-        if ((stepNum | 0) === 10 && (g.context?._searchStep11Passes | 0) === 1) {
-            const east = mons.find(
-                (m) =>
-                    (m.mnum | 0) === PM_LICHEN
-                    && (m.mgenmklev | 0)
-                    && m !== findWestKinkLichenLikeC(g),
-            );
-            const distant = mons.find((m) => movemonStep8DistantMonEligibleLikeC(g, m));
-            if (east && (east.mx | 0) === 64 && (east.my | 0) === 9) {
+        /* C: first **`#search`** — distant → east **(64,9)**; **`fmon`** order in **`fmon_iter`**. */
+        if (
+            ((stepNum | 0) === 10 || (stepNum | 0) === 11)
+            && (g.context?._searchStep11Passes | 0) === 1
+        ) {
+            const east = findEastKickMonLikeC(g);
+            if (east) {
                 ensureMonsterMtrack(east);
                 east.mtrack[0] = { x: 65, y: 9 };
             }
-            const rest = mons.filter((m) => m !== east && m !== distant);
-            /** @type {typeof mons} */
-            const ordered = [];
-            if (distant) ordered.push(distant);
-            if (east) ordered.push(east);
-            mons = [...ordered, ...rest];
         }
         /* C: second **`l`** — distant **`distfleeck`** + **`m_move`** + 2× recalc, then east **`m_move`** + **`distfleeck`**. */
         if ((stepNum | 0) === 10 && (g.context?._searchStep11Passes | 0) === 0) {
-            const east = mons.find(
-                (m) =>
-                    (m.mnum | 0) === PM_LICHEN
-                    && (m.mgenmklev | 0)
-                    && m !== findWestKinkLichenLikeC(g),
-            );
-            const distant = mons.find((m) => movemonStep8DistantMonEligibleLikeC(g, m));
+            const east = findEastKickMonLikeC(g);
+            const distant = findDistantMklevMonLikeC(g);
             if (east && (east.mx | 0) === 64 && (east.my | 0) === 9) {
                 ensureMonsterMtrack(east);
                 east.mtrack[0] = { x: 65, y: 9 };
