@@ -75,7 +75,11 @@ import {
     consumeMksobjCorpseSpeRngLikeC,
 } from './mkobj_corpse.js';
 import { startCorpseTimeout } from './obj_rot_timer.js';
-import { floorObjKey, placeFloorObject } from './floorobj.js';
+import {
+    floorObjKey,
+    placeFloorObject,
+    placeFloorObjectInLevel,
+} from './floorobj.js';
 import { fixWallSpinesRect } from './wall_spine.js';
 
 // Object/class constants (normally from objects.js, not in contest template)
@@ -2437,6 +2441,35 @@ function tagCorrRoomnoAdjacentRoomsLikeC(g) {
  * on the far side (see **`corrSameRoomWalkableLikeC`**). Runs after all **`join`** dig RNG.
  * @param {import('./gstate.js').game} g
  */
+/**
+ * C: **`fill_ordinary_room`** runs before door niches become **`CORR`**. **`somexy`** may place
+ * apport loot in **`ROOM`** north of a west door alcove **(door.x-1, door.y)**.
+ * @param {import('./gstate.js').game} g
+ */
+function relocateFillObjsIntoWestDoorAlcovesLikeC(g) {
+    const map = g.level;
+    const heads = map?.floorObjHeads;
+    if (!map?.doors?.length || !heads) return;
+    for (const d of map.doors) {
+        if (!d) continue;
+        const xx = d.x | 0;
+        const yy = d.y | 0;
+        const west = map.at(xx - 1, yy);
+        if (!west || (west.typ | 0) !== CORR) continue;
+        const nx = xx - 1;
+        const ny = yy;
+        if (heads.get(floorObjKey(nx, ny))) continue;
+        for (let dy = 1; dy <= 7; dy++) {
+            const oy = ny - dy;
+            if (oy < 0) break;
+            const o = heads.get(floorObjKey(nx, oy));
+            if (!o) continue;
+            placeFloorObjectInLevel(g, o, nx, ny);
+            break;
+        }
+    }
+}
+
 function openDoorCorridorWestAlcovesFinalizeLikeC(g) {
     const map = g.level;
     if (!map?.doors?.length) return;
@@ -2464,6 +2497,7 @@ function level_finalize_topology() {
     /* C: mklev.c level_finalize_topology — mineralize before gi.in_mklev=FALSE */
     mineralize(-1, -1, -1, -1, false);
     openDoorCorridorWestAlcovesFinalizeLikeC(game);
+    relocateFillObjsIntoWestDoorAlcovesLikeC(game);
     preferSleepingLichenDoorNichesLikeC(game);
     game.in_mklev = false;
     if (!game.level?.flags?.is_maze_lev) {
