@@ -189,6 +189,15 @@ export function isLandEelForMovemonLikeC(g, mtmp) {
     const m = mtmp.mnum | 0;
     if (m === (PM_GIANT_EEL | 0)) return true;
     if ((MONS_MLET[m] | 0) === 57 && (MONS_MMOVE[m] | 0) === 9) return true;
+    /* C: D:1 fill_ordinary_room land eel — mnum 329/331 until mons[] matches C PM_GIANT_EEL. */
+    if (
+        (g.u?.uz?.dnum | 0) === 0
+        && (g.u?.uz?.dlevel | 0) === 1
+        && (mtmp.mgenmklev | 0)
+        && (m === 329 || m === 331)
+    ) {
+        return true;
+    }
     return (
         (g.u?.uz?.dnum | 0) === 0
         && (g.u?.uz?.dlevel | 0) === 1
@@ -597,7 +606,7 @@ export function mfndposMonsterLikeC(g, mtmp, flag) {
     }
     if (!(mtmp.mcansee | 0)) flag |= ALLOW_SSM;
 
-    let wantpool = (ptr.mlet | 0) === 46; /* S_EEL */
+    let wantpool = (ptr.mlet | 0) === S_EEL || isLandEelForMovemonLikeC(g, mtmp);
     const poolok = (!Is_waterlevel(g.u?.uz) && mInAirMonsterLikeC(mtmp))
         || (swims(ptr) && !wantpool);
     let lavaok = mInAirMonsterLikeC(mtmp) || likesLava(ptr);

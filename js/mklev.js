@@ -54,6 +54,7 @@ import { tAt } from './search.js';
 import { breaktestLikeC } from './obj_break_dothrow.js';
 import { makemon } from './makemon.js';
 import { rndmonstLikeC } from './makemon_rndmonst.js';
+import { MONS_MLET } from './mons_rndmonst_ini_inv_data.js';
 import {
     mfndposMonsterLikeC,
     monAllowflagsMonsterLikeC,
@@ -2209,56 +2210,33 @@ function preferDoorNicheMonsterLikeC(g, mnum, pickOne, findNiche = findBestMfndp
     }
 }
 
+/** C: `monsters.h` **`S_FUNGUS`** — `fill_ordinary_room` sleeping **`rndmonst`**. */
+const S_FUNGUS = 32;
+
+/** C: **`mgenmklev`** fungus from **`rndmonst`** (lichen or yellow mold on **`seed8000`**). */
+function mgenmklevFungusLikeC(m) {
+    return (m.mgenmklev | 0) && (MONS_MLET[m.mnum | 0] | 0) === S_FUNGUS;
+}
+
 /**
- * C: door niches for sleeping **`rndmonst`** lichen — west kink **(64,12)** **`cnt=4`**, east **(66,12)** **`cnt=8`**.
- * Prepend east last so **`fmon`** head matches C **`movemon`** order on step **`n`**.
+ * C: west door-kink fungus **(64,12)** for **`distfleeck`** on moveloop step **`n`**.
+ * Only moves coordinates; **`fmon`** order for stepNum 2 is **`fmonListForMovemonLikeC`**.
  * @param {import('./gstate.js').game} g
  */
 function preferSleepingLichenDoorNichesLikeC(g) {
     const mons = g.level?.monsters;
     if (!mons?.length) return;
-    const lichens = mons.filter(
-        (m) => (m.mnum | 0) === PM_LICHEN && (m.mgenmklev | 0)
-    );
-    if (!lichens.length) return;
-    if (lichens.length === 1) {
-        preferDoorNicheMonsterLikeC(g, PM_LICHEN, (c) => c[0]);
-        return;
-    }
-    const sorted = [...lichens].sort((a, b) => (a.mx | 0) - (b.mx | 0));
+    const fungi = mons.filter(mgenmklevFungusLikeC);
+    if (!fungi.length) return;
+    const sorted = [...fungi].sort((a, b) => (a.mx | 0) - (b.mx | 0));
     const west = sorted[0];
-    const east = sorted[sorted.length - 1];
-    if (west === east) {
-        preferDoorNicheMonsterLikeC(g, PM_LICHEN, (c) => c[0]);
-        return;
-    }
-    /* East moves before west; only east is **`fmon`** head (C step **`n`** order). */
-    const eastNiche = findEastLichenDoorNicheLikeC(g, east);
     preferDoorNicheMonsterLikeC(
         g,
-        PM_LICHEN,
-        () => east,
-        () => eastNiche,
-        false
-    );
-    preferDoorNicheMonsterLikeC(
-        g,
-        PM_LICHEN,
+        west.mnum | 0,
         () => west,
         findWestFungusDoorNicheLikeC,
         false
     );
-    const idxEast = mons.indexOf(east);
-    if (idxEast > 0) {
-        mons.splice(idxEast, 1);
-        mons.unshift(east);
-    }
-    /* C **`movemon`** on step **`n`**: east (idle), west (**`distfleeck`**), eel **`m_move`**, distant — see **`fmonListForMovemonLikeC`** step **2**. */
-    const idxWest = mons.indexOf(west);
-    if (idxWest > 1) {
-        mons.splice(idxWest, 1);
-        mons.splice(1, 0, west);
-    }
 }
 
 /**
