@@ -38,7 +38,10 @@ import {
 } from './monmove_search.js';
 import { searchPass1NearMonLikeC } from './mfndpos_mon.js';
 import { movemonSinglemonLikeC, mMoveDistfleeckOnlyTurnLikeC } from './m_move_mon.js';
-import { dogMoveSearchPassNearHeroLikeC } from './dogmove_mon.js';
+import {
+    dogGoalScanSearchPostGateLikeC,
+    dogMoveSearchPassNearHeroLikeC,
+} from './dogmove_mon.js';
 import { raceptr, S_EEL } from './mondata.js';
 import { ensureMonsterMtrack } from './monflee.js';
 
@@ -404,7 +407,7 @@ export async function movemon(stepNum) {
                 const petAfterGate = (g.level?.monsters ?? []).find(
                     (m) => (m.mtame | 0) !== 0,
                 );
-                if (petAfterGate) dogMoveSearchPassNearHeroLikeC(g, petAfterGate);
+                if (petAfterGate) dogGoalScanSearchPostGateLikeC(g, petAfterGate);
                 await mMoveDistfleeckOnlyTurnLikeC(g, rogGate);
             }
             const east = findEastKickMonLikeC(g);
