@@ -62,6 +62,8 @@ import {
     monAllowflagsMonsterLikeC,
 } from './mfndpos_mon.js';
 import { ensureMonsterMtrack, monTrackAdd, monTrackClear } from './monflee.js';
+import { dogMoveSearchPassNearHeroLikeC } from './dogmove_mon.js';
+import { monnearMonsterXYLikeC } from './mon_geom.js';
 
 /**
  * C: land eel **`m_move`** on hero **`b`** — after **`distfleeck`** **`mon_track_clear`**, prime
@@ -259,10 +261,11 @@ function dochugEntersMmoveBlockLikeC(g, mtmp, nearby, scared, stepNum = 0) {
         return mtmp === findDistantMklevMonLikeC(g)
             || eastMklevFirstLAfterBLikeC(g, mtmp);
     }
-    /* C: first **`#search`** — distant + east **(64,9)** enter **`m_move`**. */
+    /* C: first **`#search`** on normal D:1 — distant + east **(64,9)** enter **`m_move`**. */
     if (
         ((stepNum | 0) === 10 || (stepNum | 0) === 11)
         && (g.context?._searchStep11Passes | 0) === 1
+        && !g.context?._searchPass1NearMonLikeC
     ) {
         return mtmp === findDistantMklevMonLikeC(g)
             || eastMklevFirstLAfterBLikeC(g, mtmp);
@@ -618,6 +621,7 @@ export async function movemonSinglemonLikeC(g, mtmp, stepNum = 0) {
     if (
         ((stepNum | 0) === 10 || (stepNum | 0) === 11)
         && (g.context?._searchStep11Passes | 0) === 1
+        && !g.context?._searchPass1NearMonLikeC
     ) {
         if (!eastMklevFirstLAfterBLikeC(g, mtmp) && mtmp !== findDistantMklevMonLikeC(g)) return;
     }
@@ -633,6 +637,7 @@ export async function movemonSinglemonLikeC(g, mtmp, stepNum = 0) {
             || (
                 ((stepNum | 0) === 10 || (stepNum | 0) === 11)
                 && (g.context?._searchStep11Passes | 0) === 1
+                && !g.context?._searchPass1NearMonLikeC
             )
         )
         && eastMklevFirstLAfterBLikeC(g, mtmp);
@@ -657,6 +662,16 @@ export async function movemonSinglemonLikeC(g, mtmp, stepNum = 0) {
             const ctx = g.context || (g.context = {});
             ctx._somebodyCanMoveLikeC = true;
         }
+    }
+
+    if (
+        ((stepNum | 0) === 10 || (stepNum | 0) === 11)
+        && (g.context?._searchStep11Passes | 0) === 1
+        && g.context?._searchPass1NearMonLikeC
+        && (mtmp.mtame | 0)
+    ) {
+        dogMoveSearchPassNearHeroLikeC(g, mtmp);
+        return;
     }
 
     /* C: hero **`b`** — distant **`distfleeck`**+**`m_move`**; land eel **`m_move`** (**`rn2(8)`**) then **`distfleeck`**; west kink **`distfleeck`** only. */
@@ -1209,7 +1224,20 @@ export async function mMoveOneMonsterSubsetLikeC(g, mtmp, stepNum = 0) {
         ((stepNum | 0) === 10 && (g.context?._searchStep11Passes | 0) === 1)
         || ((stepNum | 0) === 11 && (g.context?._searchStep11Passes | 0) === 1)
     ) {
-        if (mtmp === findDistantMklevMonLikeC(g)) {
+        if (g.context?._searchPass1NearMonLikeC) {
+            /* C: rogue near path — tail **`distfleeck`** only; hero-adjacent east runs generic **`dochug`**. */
+            if (mtmp === findDistantMklevMonLikeC(g)) {
+                await mMoveDistfleeckOnlyTurnLikeC(g, mtmp);
+                return;
+            }
+            if (eastMklevFirstLAfterBLikeC(g, mtmp)) {
+                const u = g.u;
+                if (!u || !monnearMonsterXYLikeC(mtmp, u.ux | 0, u.uy | 0)) {
+                    await mMoveDistfleeckOnlyTurnLikeC(g, mtmp);
+                    return;
+                }
+            }
+        } else if (mtmp === findDistantMklevMonLikeC(g)) {
             await mMoveDistfleeckMmoveTurnLikeC(g, mtmp, stepNum);
             await distfleeckMonsterApplyLikeC(g, mtmp);
         } else if (eastMklevFirstLAfterBLikeC(g, mtmp)) {

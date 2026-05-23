@@ -292,10 +292,11 @@ export async function movemon(stepNum) {
                 east.mtrack[0] = { x: 65, y: 9 };
             }
         }
-        /* C: first **`#search`** — distant → east **(64,9)**; **`fmon`** order in **`fmon_iter`**. */
+        /* C: first **`#search`** east-corridor — east **(64,9)** **`mtrack`** before **`rn2(12)`** when not rogue near path. */
         if (
             ((stepNum | 0) === 10 || (stepNum | 0) === 11)
             && (g.context?._searchStep11Passes | 0) === 1
+            && !g.context._searchPass1NearMonLikeC
         ) {
             const east = findEastKickMonLikeC(g);
             if (east) {

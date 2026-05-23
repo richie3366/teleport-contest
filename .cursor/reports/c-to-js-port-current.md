@@ -18,11 +18,11 @@ Thin handoff for the next coding session. **Score + milestones:** [`c-to-js-port
 
 **Deferred for now:** **`maybe_do_tutorial`** / **`tut-1`** / full **`do.c`** **`goto_level`** (Lua **`tutorial()`** / **`free_tutorial()`**, **`savelev`**, **`gmst_*`**, …) and **`dokick`**/**`dothrow`** vs **`leaving_tutorial`** — strong upstream dependencies (save, specials, fuller **`do.c`**); treat as backlog until chargen / core early-game parity is further along; **`LIVELOGFILE`** parity if the judge ever compares livelog lines.
 
-**Last slice:** Investigation only (no RNG change) — first **`#search`** diverges by geometry: **`seed8000`** distant **`m_move`** **`rn2(20)`** then east **`rn2(12)`**; **`seed0077`** adjacent hostile **`dochug`** gate **`rn2(4)`** then pet **`dog_move`** then distant/east **`distfleeck`**. Added **`tools/diag_rng_window.mjs`**. Removed wrong single peel (distant-first + east/distant-only **`dochug`** on all search pass 1). **`seed0077`:** **3206/3242** (~**3203**). **`seed8000`:** **PASS**. **`npm run score`:** **1/44**.
+**Last slice:** First **`#search`** split scaffold + pet **`edog`**: **`searchPass1NearMonLikeC`** / **`fmon_iter`** near→pet→tail vs distant→east; **`dog.js`** **`newedog`/`initedog`**, **`dogmove_mon.js`** stub, **`makemon`/`makedog`** **`MM_EDOG`**; near hostile must use generic **`dochug`** (not east peel **`distfleeck`**). **`searchPass1NearMonLikeC`** not yet firing at runtime on **`seed0077`** (~**3203** still distant peel). **`seed0077`:** **3205/3242**. **`seed8000`:** **PASS**. **`npm run score`:** **1/44**.
 
 ## Next steps
 
-1. **`seed0077` ~3203** — Split first **`#search`** by C session log (not one peel): set **`context._searchPass1NearMonLikeC`** when **`monnear`** door-niche / hostile (exclude west-kink **(64,12)**); then **`fmon`** near → pet → distant/east **`distfleeck`** only; generic **`dochug`** for near mon (**`rn2(4)`** @ ~886). **`seed8000`:** keep distant→east **`m_move`** peel when flag false. Port **`dogmove.c`** **`dog_move`** / **`dog_goal`** ( **`obj_resists`** ) for pet between gate and tail **`distfleeck`**. Drop **`dochugEntersMmoveBlockLikeC`** search-pass-1 distant/east-only override (~262–268).
+1. **`seed0077` ~3203** — Debug why **`searchPass1NearMonLikeC`** stays false at first **`#search`** (hero-adjacent hostile / door-niche geometry vs **`_searchStep11Passes`** timing); then near mon generic **`dochug`** gate **`rn2(4)`**, pet **`dog_move`**, tail **`distfleeck`**. Port more **`dogmove.c`** **`dog_goal`** draw counts. **`seed8000`:** keep **`!_searchPass1NearMonLikeC`** distant→east peel.
 
 2. **Chargen + `u_init_role` RNG** — **`consumeRogueHumanIniInvUinitRoleRngLikeC`** / **`ini_inv`** when mklev tail is aligned.
 

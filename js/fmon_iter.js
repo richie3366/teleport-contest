@@ -14,6 +14,7 @@ import {
     isLandEelForMovemonLikeC,
     findDistantMklevMonLikeC,
     movemonStep8DistantMonEligibleLikeC,
+    searchPass1NearMonLikeC,
     westFungusDoorNicheAtLikeC,
 } from './mfndpos_mon.js';
 
@@ -149,13 +150,47 @@ export function fmonListForMovemonLikeC(g, stepNum = 0) {
         if (distant) ordered.push(distant);
         return [...ordered, ...rest].filter(Boolean);
     }
-    /* C: first **`#search`** — distant **`m_move`** then east **(64,9)** **`rn2(12)`**. */
+    /* C: first **`#search`** — rogue: near hostile → pet → distant/east tail; else distant→east. */
     if (
         ((stepNum | 0) === 10 || (stepNum | 0) === 11)
         && (game.context?._searchStep11Passes | 0) === 1
     ) {
+        const ctx = game.context || (game.context = {});
+        const nearMon = searchPass1NearMonLikeC(g);
+        ctx._searchPass1NearMonLikeC = nearMon;
         const east = findEastKickMonLikeC(g);
         const distant = findDistantMklevMonLikeC(g);
+        const pet = mons.find((m) => (m.mtame | 0) !== 0);
+        const westKink = findWestKinkMonsterLikeC(g);
+        if (nearMon) {
+            const near = [];
+            const mid = [];
+            const ux = game.u?.ux | 0;
+            const uy = game.u?.uy | 0;
+            for (const m of mons) {
+                if (m === distant || m === pet || m === westKink) continue;
+                if (game.u?.urole?.abbr === 'Tou' && m === east) continue;
+                const mx = m.mx | 0;
+                const my = m.my | 0;
+                if (
+                    monnearMonsterXYLikeC(m, ux, uy)
+                    || (
+                        (m.mgenmklev | 0)
+                        && dist2(mx, my, ux, uy) <= 25
+                        && (
+                            westFungusDoorNicheAtLikeC(g, mx, my, m)
+                            || eastFungusDoorNicheAtLikeC(g, mx, my, m)
+                        )
+                    )
+                ) {
+                    near.push(m);
+                } else mid.push(m);
+            }
+            const tail = [];
+            if (distant) tail.push(distant);
+            if (east && !near.includes(east)) tail.push(east);
+            return [...near, ...mid, ...(pet ? [pet] : []), ...tail].filter(Boolean);
+        }
         const rest = mons.filter((m) => m !== east && m !== distant);
         /** @type {typeof mons} */
         const ordered = [];
