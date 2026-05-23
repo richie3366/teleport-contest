@@ -61,12 +61,14 @@ function parseMflags3(block) {
 /** @param {string} block */
 function parseGenoPlanB(block) {
     let geno = 0;
-    if (block.includes('G_NOGEN')) geno |= 0x200;
-    if (block.includes('G_UNIQ')) geno |= 0x1000;
-    if (block.includes('G_HELL')) geno |= 0x400;
+    const genoLine = block.match(/LVL\([^)]+\),\s*\(([^)]+)\)/);
+    const genoSpec = genoLine ? genoLine[1] : '';
+    if (genoSpec.includes('G_NOGEN')) geno |= 0x200;
+    if (genoSpec.includes('G_UNIQ')) geno |= 0x1000;
+    if (genoSpec.includes('G_HELL')) geno |= 0x400;
     const m =
-        block.match(/\(G_[A-Z_]+\s*\|\s*(\d+)\)/)
-        || block.match(/\(G_GENO\s*\|\s*(\d+)\)/);
+        genoSpec.match(/G_[A-Z_]+\s*\|\s*(\d+)/)
+        || genoSpec.match(/G_GENO\s*\|\s*(\d+)/);
     if (m) geno |= parseInt(m[1], 10);
     return geno;
 }
@@ -106,12 +108,17 @@ if (!/export const MONS_MFLAGS3/.test(out)) {
     out = replaceArray(out, 'MONS_MFLAGS3', mflags3);
 }
 const updateAll = process.argv.includes('--all');
+const updateGeno = updateAll || process.argv.includes('--geno');
 if (updateAll) {
     out = replaceArray(out, 'MONS_RNDMONST_DIFFICULTY', difficulty);
+    out = replaceArray(out, 'MONS_GENO_PLAN_B', genoPlanB);
+} else if (updateGeno) {
     out = replaceArray(out, 'MONS_GENO_PLAN_B', genoPlanB);
 }
 writeFileSync(dataPath, out);
 console.log(
     `Updated ${blocks.length} monsters: MONS_MLEVEL, MONS_MMOVE`
-        + (updateAll ? ', MONS_RNDMONST_DIFFICULTY, MONS_GENO_PLAN_B' : ' (pass --all for rndmonst tables)'),
+        + (updateAll ? ', MONS_RNDMONST_DIFFICULTY, MONS_GENO_PLAN_B' : '')
+        + (updateGeno && !updateAll ? ', MONS_GENO_PLAN_B' : '')
+        + (!updateAll && !updateGeno ? ' (pass --geno or --all for rndmonst tables)' : ''),
 );
