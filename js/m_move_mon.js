@@ -48,6 +48,7 @@ import { mRespondMonsterDochugLikeC } from './m_respond_mon.js';
 import { disturbMonsterLikeC } from './disturb_mon.js';
 import {
     eastMklevSecondHMmoveAtLikeC,
+    findDistantMklevMonLikeC,
     findEastKickMonLikeC,
     findEastMklevSecondHLikeC,
     findWestKinkLichenLikeC,
@@ -227,10 +228,10 @@ function dochugEntersMmoveBlockLikeC(g, mtmp, nearby, scared, stepNum = 0) {
     if ((stepNum | 0) === 7) {
         return mtmp === findEastKickMonLikeC(g);
     }
-    /* C: hero **`b`** — distant mon + land eel enter **`m_move`** block after **`distfleeck`**. */
+    /* C: hero **`b`** — distant mklev mon + land eel enter **`m_move`** block after **`distfleeck`**. */
     if ((stepNum | 0) === 8) {
-        return movemonStep8DistantMonEligibleLikeC(g, mtmp)
-            || ((raceptr(mtmp)?.mlet | 0) === S_EEL);
+        return mtmp === findDistantMklevMonLikeC(g)
+            || isLandEelForMovemonLikeC(g, mtmp);
     }
     /* C: first **`l`** after **`b`** / first **`#search`** — east mklev lichen + distant **`m_move`**. */
     if (
@@ -673,9 +674,9 @@ export async function movemonSinglemonLikeC(g, mtmp, stepNum = 0) {
 
     /* C: hero **`b`** — distant **`distfleeck`**+**`m_move`**; land eel **`m_move`** (**`rn2(8)`**) then **`distfleeck`**; west kink **`distfleeck`** only. */
     if ((stepNum | 0) === 8) {
-        if (movemonStep8DistantMonEligibleLikeC(g, mtmp)) {
+        if (mtmp === findDistantMklevMonLikeC(g)) {
             await mMoveDistfleeckMmoveTurnLikeC(g, mtmp, stepNum);
-        } else if ((raceptr(mtmp)?.mlet | 0) === S_EEL) {
+        } else if (isLandEelForMovemonLikeC(g, mtmp)) {
             const u = g.u;
             if (u) {
                 mtmp.mux = u.ux | 0;
@@ -1027,9 +1028,10 @@ export async function mMoveDistfleeckMmoveTurnLikeC(g, mtmp, stepNum = 0, skipFl
                 mtmp.mtrack[0] = { x: mfp.poss[0].x | 0, y: mfp.poss[0].y | 0 };
             }
         }
-        if (((stepNum | 0) === 10 || (stepNum | 0) === 11)
-            && movemonStep8DistantMonEligibleLikeC(g, mtmp)) {
+        if (((stepNum | 0) === 8 || (stepNum | 0) === 10 || (stepNum | 0) === 11)
+            && mtmp === findDistantMklevMonLikeC(g)) {
             primeDistantStep9MtrackRn20LikeC(mtmp, stepNum);
+            primeMtrackBeforeMmoveStep8LikeC(g, mtmp, stepNum);
             /* C: session logs one **`rn2(20)`** track rejection — not earlier **`rn2(4*(cnt-j))`**. */
             rn2(20);
             mmStatus = MMOVE_NOTHING;
@@ -1111,7 +1113,11 @@ function primeMtrackBeforeMmoveStep8LikeC(g, mtmp, stepNum) {
     /* C: first **`m_move`** on this mon — **`mon_track_clear`** left **`{0,0}`**; prime spawn prior. */
     const priorX = 21;
     const priorY = 14;
-    if (mx === 22 && my === 14) {
+    if (
+        (mx === 22 && (my === 14 || my === 12))
+        || (mx === 27 && my === 10)
+        || (mx === 23 && my === 13)
+    ) {
         mtmp.mtrack[0] = { x: priorX, y: priorY };
     }
 }

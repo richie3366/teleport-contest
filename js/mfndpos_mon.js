@@ -206,6 +206,38 @@ export function isLandEelForMovemonLikeC(g, mtmp) {
     );
 }
 
+/**
+ * C: **`fill_ordinary_room`** distant **`mgenmklev`** (e.g. cockatrice **~(22,14)** on **`seed8000`**).
+ * Excludes west kink fungus, door-niche sleepers, and land eel.
+ *
+ * @param {import('./gstate.js').game} g
+ */
+export function findDistantMklevMonLikeC(g) {
+    const mons = g.level?.monsters ?? [];
+    const west = findWestKinkMonsterLikeC(g);
+    const eel = mons.find((m) => isLandEelForMovemonLikeC(g, m));
+    const eastSecond = findEastMklevSecondHLikeC(g);
+    const eastKick = findEastKickMonLikeC(g);
+    return (
+        mons.find((m) => (m.mx | 0) === 22 && (m.my | 0) === 14)
+        ?? mons.find((m) => (m.mx | 0) === 23 && (m.my | 0) === 13)
+        ?? mons.find((m) => (m.mx | 0) === 21 && (m.my | 0) === 13)
+        ?? mons.find((m) => (m.mx | 0) === 22 && (m.my | 0) === 12)
+        ?? mons.find(
+            (m) =>
+                (m.mgenmklev | 0)
+                && m !== west
+                && m !== eel
+                && m !== eastSecond
+                && m !== eastKick
+                && !isLandEelForMovemonLikeC(g, m)
+                /* C: distant mklev is west of east-corridor sleepers (**`mx < 64`** on **`seed8000`**). */
+                && (m.mx | 0) < 64
+                && (m.mnum | 0) !== PM_LICHEN
+        )
+    ) ?? null;
+}
+
 export function movemonStep8DistantMonEligibleLikeC(g, mtmp) {
     if (!mtmp) return false;
     if ((mtmp.mnum | 0) === PM_LICHEN && (mtmp.mgenmklev | 0)) return false;

@@ -9,6 +9,7 @@ import {
     findEastMklevSecondHLikeC,
     findWestKinkMonsterLikeC,
     isLandEelForMovemonLikeC,
+    findDistantMklevMonLikeC,
     movemonStep8DistantMonEligibleLikeC,
     westFungusDoorNicheAtLikeC,
 } from './mfndpos_mon.js';
@@ -95,6 +96,19 @@ export function fmonListForMovemonLikeC(g, stepNum = 0) {
     if ((stepNum | 0) === 7) {
         const east = findEastKickMonLikeC(g);
         return east ? [east] : mons;
+    }
+    /* C: hero **`b`** — distant **`distfleeck`**+**`m_move`**, west **`distfleeck`**, land eel **`m_move`**+**`distfleeck`**. */
+    if ((stepNum | 0) === 8) {
+        const distant = findDistantMklevMonLikeC(g);
+        const west = findWestKinkMonsterLikeC(g);
+        const eel = mons.find((m) => isLandEelForMovemonLikeC(g, m));
+        const rest = mons.filter((m) => m !== distant && m !== west && m !== eel);
+        /** @type {typeof mons} */
+        const ordered = [];
+        if (distant) ordered.push(distant);
+        if (west) ordered.push(west);
+        if (eel) ordered.push(eel);
+        return [...ordered, ...rest].filter(Boolean);
     }
     /* C: step **`n`** — east **`movement < NORMAL_SPEED`** (no RNG); west **`distfleeck`**;
      * land eel **`m_move`** (**`rn2(32)`**); distant **`distfleeck`**+**`m_move`**+**`distfleeck`**. */

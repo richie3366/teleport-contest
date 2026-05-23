@@ -17,6 +17,7 @@ import { game } from './gstate.js';
 import { fmonListForMovemonLikeC } from './fmon_iter.js';
 import {
     eastFungusDoorNicheAtLikeC,
+    findDistantMklevMonLikeC,
     findEastKickMonLikeC,
     findEastMklevSecondHLikeC,
     findWestKinkLichenLikeC,
@@ -268,11 +269,11 @@ export async function movemon(stepNum) {
     let mons;
     try {
         mons = fmonListForMovemonLikeC(g, stepNum);
-        /* C: hero **`b`** — distant, then land eel **`m_move`**, then west **`distfleeck`**. */
+        /* C: hero **`b`** — distant, then west **`distfleeck`**, then land eel **`m_move`**. */
         if ((stepNum | 0) === 8) {
-            const distant = mons.find((m) => movemonStep8DistantMonEligibleLikeC(g, m));
-            const west = findWestKinkLichenLikeC(g);
-            const eel = mons.find((m) => (raceptr(m)?.mlet | 0) === S_EEL);
+            const distant = findDistantMklevMonLikeC(g);
+            const west = findWestKinkMonsterLikeC(g);
+            const eel = mons.find((m) => isLandEelForMovemonLikeC(g, m));
             const rest = mons.filter(
                 (m) => m !== distant && m !== west && m !== eel,
             );
