@@ -18,11 +18,11 @@ Thin handoff for the next coding session. **Score + milestones:** [`c-to-js-port
 
 **Deferred for now:** **`maybe_do_tutorial`** / **`tut-1`** / full **`do.c`** **`goto_level`** (Lua **`tutorial()`** / **`free_tutorial()`**, **`savelev`**, **`gmst_*`**, …) and **`dokick`**/**`dothrow`** vs **`leaving_tutorial`** — strong upstream dependencies (save, specials, fuller **`do.c`**); treat as backlog until chargen / core early-game parity is further along; **`LIVELOGFILE`** parity if the judge ever compares livelog lines.
 
-**Last slice:** **`nhlib.lua` align shuffle** — **`com_pager`** **`nhl_init`** loads **`dat/nhlib.lua`** ( **`shuffle(align)`** → **`rn2(3)`**, **`rn2(2)`** ) after **`vary_init_attr`**, before **`moveloop_preamble`** **`rnd(9000)`**; **`js/nhlib_align_shuffle.js`** + **`legacy_intro.js`**. **`seed0077`:** **3200/3242** RNG (was **3199**); first gap ~**3195** (**`rnl(20)`** / **`pickup.c`**). **`seed8000`:** **PASS**. **`npm run score`:** **1/44**.
+**Last slice:** **`lock.c` autoopen + `dosdoor` `doormask`** — C **`flags.autoopen`** (default on); **`mklev.c` `dosdoor`** wrote **`doormask`** not **`loc.flags`**; **`doopen_indir`** **`rnl(20)`** from **`hack.c` `test_move`** via **`domove`**. **`seed0077`:** **3204/3242** RNG (was **3200**); first gap ~**3199** (**`rn2(400)`** vs **`rn2(300)`** — post-open **`movemon`**). **`seed8000`:** **PASS**. **`npm run score`:** **1/44**.
 
 ## Next steps
 
-1. **`seed0077` chargen** — first RNG gap ~**3195** (**`rnl(20)`** vs **`rn2(12)`**); **`pickup.c`** autopickup / **`moveloop_preamble`** tail after **`rnd(9000)`**.
+1. **`seed0077` chargen** — first RNG gap ~**3199** (**`rn2(400)`** vs **`rn2(300)`**); **`movemon`** / monster **`mkobj`** after first door open (**step 20** **`j`** tail).
 
 2. **Chargen + `u_init_role` RNG** — **`consumeRogueHumanIniInvUinitRoleRngLikeC`** / **`ini_inv`** when mklev tail is aligned.
 

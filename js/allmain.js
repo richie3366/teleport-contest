@@ -54,6 +54,8 @@ export async function newgame() {
     /* C: allmain.c — flags.pantheon = -1; role_init() before init_dungeons(). */
     g.flags = g.flags || {};
     g.flags.pantheon = -1;
+    /* C: optlist.h autoopen — default On (opt_out); hack.c test_move DO_MOVE closed door. */
+    if (g.flags.autoopen === undefined) g.flags.autoopen = true;
     roleInitLikeC(g);
     /* C: init_dungeons nhl_init → nhlib.lua align shuffle (until dungeon Lua loader is ported). */
     rn2(3);

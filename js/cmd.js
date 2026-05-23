@@ -18,7 +18,9 @@ import { doZapCmd } from './dozap.js';
 import { doReadHeroScrollCmdLikeC } from './read_scroll_hero.js';
 import { doBumpMeleeAttack } from './attack.js';
 import { tryPeacefulSwap } from './peaceful_displace.js';
-import { blocksMovementAt, diagonalHeroMoveBlocked } from './walkable.js';
+import { blocksMovementAt, diagonalHeroMoveBlocked, isClosedDoorLoc } from './walkable.js';
+import { doopenIndirHeroLikeC } from './lock_hero.js';
+import { IS_DOOR } from './const.js';
 import { spotEffects } from './spoteffects.js';
 import { dokickFromCmd } from './kick.js';
 import { snapshotUshops0FromHeroTileLikeC } from './shop.js';
@@ -136,7 +138,8 @@ export async function rhack(key) {
     }
 
     if (isMovementKey(ch)) {
-        game.context.move = (await domove(DIR_DX[ch], DIR_DY[ch])) ? 1 : 0;
+        const moved = await domove(DIR_DX[ch], DIR_DY[ch]);
+        game.context.move = moved || game.context?.door_opened ? 1 : 0;
     } else if (ch === 's') {
         // C: cmd.c rhack — #search → dosearch() → dosearch0 (detect.c)
         game.context.move = 1;
@@ -192,9 +195,34 @@ async function finishDomoveDzStairsTailLikeC(g) {
 }
 
 async function domove(dx, dy) {
-    const u = game.u;
+    const g = game;
+    const u = g.u;
     const newx = u.ux + dx;
     const newy = u.uy + dy;
+
+    g.context = g.context || {};
+    g.context.door_opened = false;
+
+    const dest = g.level?.at(newx, newy);
+    if (
+        dest
+        && IS_DOOR(dest.typ | 0)
+        && isClosedDoorLoc(dest)
+        && g.flags?.autoopen
+        && !g.context?.run
+        && !(u.Confusion | 0)
+        && !(u.HStun | 0)
+        && !(u.Fumbling | 0)
+    ) {
+        await doopenIndirHeroLikeC(g, newx, newy);
+        g.context.door_opened = !isClosedDoorLoc(dest);
+        u.dz = 0;
+        clearPendingMessageAndToplineLikeC();
+        g._overlayScreen = null;
+        g._inventoryMode = false;
+        vision_recalc(1);
+        return false;
+    }
 
     if (blocksMove(newx, newy)) {
         // Can't move there — no game time (C: domove returns without moving)
