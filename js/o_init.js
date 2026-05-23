@@ -7,6 +7,7 @@ import {
     O_INIT_NUM_OBJECTS,
     O_INIT_OCLASS_BASES,
     O_INIT_OC_CLASS,
+    O_INIT_OC_HAS_DESCR,
     O_INIT_OC_MAGIC,
     O_INIT_OC_NAME_KNOWN,
     O_INIT_OC_UNIQUE,
@@ -24,6 +25,28 @@ const SHUFFLE_TYPES = [
     O_INIT_OTYP.SPEED_BOOTS,
 ];
 
+/** Mutable copy of oc_name_known after init_objects repair (C: objects[i].oc_name_known). */
+let ocNameKnown = null;
+
+/** C: svb.bases[] after init_objects gap-fill. */
+function oclassBasesLikeC() {
+    return O_INIT_OCLASS_BASES;
+}
+
+/**
+ * C: o_init.c init_objects — repair oc_name_known when descr presence disagrees.
+ * @param {Int8Array|number[]} nmkn
+ */
+function repairOcNameKnownLikeC(nmkn) {
+    for (let i = O_INIT_MAXOCLASSES | 0; i < (O_INIT_NUM_OBJECTS | 0); i++) {
+        const known = (nmkn[i] | 0) !== 0;
+        const hasDescr = (O_INIT_OC_HAS_DESCR[i] | 0) !== 0;
+        if ((!hasDescr) ^ known) {
+            nmkn[i] = known ? 0 : 1;
+        }
+    }
+}
+
 /**
  * C: o_init.c obj_shuffle_range — lo/hi for description shuffle.
  * @param {number} otyp
@@ -33,7 +56,7 @@ function objShuffleRangeLikeC(otyp) {
     const ocls = O_INIT_OC_CLASS[otyp] | 0;
     let lo = otyp | 0;
     let hi = otyp | 0;
-    const bases = O_INIT_OCLASS_BASES;
+    const bases = oclassBasesLikeC();
 
     if (ocls === 3) {
         if (otyp >= O_INIT_OTYP.HELMET && otyp <= O_INIT_OTYP.HELM_OF_TELEPATHY) {
@@ -83,18 +106,19 @@ function objShuffleRangeLikeC(otyp) {
  * @param {number} oHigh
  */
 function shuffleLikeC(oLow, oHigh) {
+    const nmkn = ocNameKnown;
     let numToShuffle = 0;
     for (let j = oLow; j <= oHigh; j++) {
-        if (!(O_INIT_OC_NAME_KNOWN[j] | 0)) numToShuffle++;
+        if (!(nmkn[j] | 0)) numToShuffle++;
     }
     if (numToShuffle < 2) return;
 
     for (let j = oLow; j <= oHigh; j++) {
-        if (O_INIT_OC_NAME_KNOWN[j] | 0) continue;
+        if (nmkn[j] | 0) continue;
         let i;
         do {
             i = j + rn2(oHigh - j + 1);
-        } while (O_INIT_OC_NAME_KNOWN[i] | 0);
+        } while (nmkn[i] | 0);
     }
 }
 
@@ -124,6 +148,8 @@ function shuffleAllLikeC() {
 export function initObjectsLikeC() {
     if ((O_INIT_MAXOCLASSES | 0) >= (O_INIT_NUM_OBJECTS | 0)) return;
 
+    ocNameKnown = Int8Array.from(O_INIT_OC_NAME_KNOWN);
+
     randomizeGemColorsLikeC();
 
     let first = O_INIT_MAXOCLASSES | 0;
@@ -136,10 +162,9 @@ export function initObjectsLikeC() {
         first = last;
     }
 
-    /* shuffle_all + WAN_NOTHING oc_dir still in fastforward_pre_mklev until
-     * O_INIT_OC_NAME_KNOWN + armor otyp bounds match C (see o_init.js shuffleAllLikeC). */
-    // shuffleAllLikeC();
-    // rn2(2); /* WAN_NOTHING — after shuffle_all in C */
+    repairOcNameKnownLikeC(ocNameKnown);
+    shuffleAllLikeC();
+    rn2(2); /* WAN_NOTHING — after shuffle_all in C */
 }
 
 /** @deprecated — use initObjectsLikeC */
