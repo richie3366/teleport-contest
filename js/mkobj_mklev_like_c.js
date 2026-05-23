@@ -235,21 +235,108 @@ function mksobjInitWandLikeC(otyp, otmp) {
     blessorcurseLikeC(17, otmp);
 }
 
+/** C: mkobj.c bcsign — +1 blessed, -1 cursed, else 0. */
+function bcsignFreshLikeC(bc) {
+    return (!!bc.blessed | 0) - (!!bc.cursed | 0);
+}
+
+/** C: mkobj.c blessorcurse — skip when already b/c. */
+function blessorcurseFreshLikeC(bc, chance) {
+    if (bc.blessed || bc.cursed) return;
+    if (!rn2(chance)) {
+        if (!rn2(2)) bc.cursed = true;
+        else bc.blessed = true;
+    }
+}
+
+/** C: mkobj.c RING_CLASS — non-charged curse types. */
+const OTYP_RIN_TELEPORTATION = 194;
+const OTYP_RIN_POLYMORPH = 195;
+const OTYP_RIN_AGGRAVATE_MONSTER = 196;
+const OTYP_RIN_HUNGER = 197;
+
 function mksobjInitRingLikeC(otyp) {
-    if (RING_CHARGED.has(otyp | 0)) {
-        blessorcurseLikeC(3);
+    const t = otyp | 0;
+    if (RING_CHARGED.has(t)) {
+        const bc = { blessed: false, cursed: false };
+        blessorcurseFreshLikeC(bc, 3);
+        let spe = 0;
         if (rn2(10)) {
-            if (rn2(10)) {
-                rn2(2) ? rne(3) : rne(3);
+            const sign = bcsignFreshLikeC(bc);
+            if (rn2(10) && sign) {
+                spe = sign * rne(3);
             } else {
-                rn2(2) ? rne(3) : rne(3);
+                spe = rn2(2) ? rne(3) : -rne(3);
             }
         }
-        rn2(4);
-        rn2(3);
-        if (rn2(5)) { /* curse */ }
-    } else if (rn2(10) && !rn2(9)) {
-        /* curse ring types */
+        if (spe === 0) {
+            spe = rn2(4) - rn2(3);
+        }
+        if (spe < 0 && rn2(5)) {
+            /* curse(otmp) */
+        }
+    } else if (
+        rn2(10) &&
+        (t === OTYP_RIN_TELEPORTATION ||
+            t === OTYP_RIN_POLYMORPH ||
+            t === OTYP_RIN_AGGRAVATE_MONSTER ||
+            t === OTYP_RIN_HUNGER ||
+            !rn2(9))
+    ) {
+        /* curse(otmp) */
+    }
+}
+
+/** C: mkobj.c mksobj_init — TOOL_CLASS (per-otyp; default is `break` only). */
+function mksobjInitToolLikeC(otyp) {
+    const t = otyp | 0;
+    switch (t) {
+    case 219: /* TALLOW_CANDLE */
+    case 220: /* WAX_CANDLE */
+        if (rn2(2)) rn2(7);
+        blessorcurseLikeC(5);
+        break;
+    case 221: /* BRASS_LANTERN */
+    case 222: /* OIL_LAMP */
+        rn1(500, 1000);
+        blessorcurseLikeC(5);
+        break;
+    case 223: /* MAGIC_LAMP */
+        blessorcurseLikeC(2);
+        break;
+    case 215: /* LARGE_BOX */
+    case 216: /* CHEST */
+        rn2(5);
+        rn2(10);
+        if (!rn2(100)) { /* tknown when trapped */ }
+        /* mkbox_cnts — TODO when floor containers need contents RNG */
+        break;
+    case 245: /* EXPENSIVE_CAMERA */
+    case 246: /* TINNING_KIT */
+    case 247: /* MAGIC_MARKER */
+        rn1(70, 30);
+        break;
+    case 248: /* CAN_OF_GREASE */
+        rn1(21, 5);
+        blessorcurseLikeC(10);
+        break;
+    case 249: /* CRYSTAL_BALL */
+        rn1(5, 3);
+        blessorcurseLikeC(2);
+        break;
+    case 250: /* HORN_OF_PLENTY */
+    case 251: /* BAG_OF_TRICKS */
+        rn1(18, 3);
+        break;
+    case 252: /* MAGIC_FLUTE */
+    case 253: /* MAGIC_HARP */
+    case 254: /* FROST_HORN */
+    case 255: /* FIRE_HORN */
+    case 256: /* DRUM_OF_EARTHQUAKE */
+        rn1(5, 4);
+        break;
+    default:
+        break;
     }
 }
 
@@ -340,7 +427,7 @@ export function mksobjInitMklevLikeC(otyp, oclass, artif, otmp) {
         else blessorcurseLikeC(10);
         break;
     case NH5_TOOL_CLASS:
-        blessorcurseLikeC(5);
+        mksobjInitToolLikeC(otyp);
         break;
     default:
         break;
