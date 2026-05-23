@@ -151,6 +151,8 @@ export async function rhack(key) {
         game.context._searchStep11Passes = (game.context._searchStep11Passes | 0) + 1;
         if ((game.context._searchStep11Passes | 0) === 1) {
             delete game.context._searchRogGateCountLikeC;
+            delete game.context._searchPass1DogGoalDoneLikeC;
+            delete game.context._searchRogGateDoneLikeC;
             const rogueLike =
                 game.urole?.abbr === 'Rog'
                 || game.pl_character === 'Rogue'

@@ -109,6 +109,10 @@ export function dogMoveSearchPassNearHeroLikeC(g, mtmp) {
         mtmp.mux = u.ux | 0;
         mtmp.muy = u.uy | 0;
     }
+    const ctx = g.context || (g.context = {});
+    if (ctx._searchPass1NearMonLikeC) {
+        ctx._searchPass1DogGoalDoneLikeC = true;
+    }
     dogGoalFloorScanRngLikeC(g, mtmp);
     /* C: dogmove.c dog_move — one **`rn2(1)`** position trial on first **`#search`** pass. */
     rn2(1);

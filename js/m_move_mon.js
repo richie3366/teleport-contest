@@ -262,6 +262,8 @@ function dochugEntersMmoveBlockLikeC(
     opts = null,
 ) {
     if (opts?.forceRogFirstSearchGateLikeC) {
+        const ctx = g.context || (g.context = {});
+        ctx._searchRogGateDoneLikeC = true;
         return evaluateRogFirstSearchGateMmoveLikeC(mtmp);
     }
     /* C: step **`h`** — west kink fungus **`m_move`** after **`distfleeck`** (**`rn2(16)`** when **`cnt=4`**). */
@@ -718,16 +720,6 @@ export async function movemonSinglemonLikeC(g, mtmp, stepNum = 0) {
             const ctx = g.context || (g.context = {});
             ctx._somebodyCanMoveLikeC = true;
         }
-    }
-
-    /* C: pet `dog_move` only after first `#search` rhack (`_searchStep11Passes===1`), not on prior post. */
-    if (
-        isFirstSearchMovemonPassLikeC(g)
-        && isRogFirstSearchMovemonNearPathLikeC(g)
-        && (mtmp.mtame | 0)
-    ) {
-        dogMoveSearchPassNearHeroLikeC(g, mtmp);
-        return;
     }
 
     /* C: hero **`b`** — distant **`distfleeck`**+**`m_move`**; land eel **`m_move`** (**`rn2(8)`**) then **`distfleeck`**; west kink **`distfleeck`** only. */
@@ -1367,6 +1359,8 @@ export async function mMoveOneMonsterSubsetLikeC(g, mtmp, stepNum = 0) {
     let gateMfleeSave;
     if (gateMonPeek) {
         consumeRogFirstSearchDochugGateMonsterLikeC(g);
+        const ctx = g.context || (g.context = {});
+        ctx._searchRogGateDoneLikeC = true;
         nearby = 1;
         scared = 0;
         gateMcanseeSave = mtmp.mcansee;
@@ -1401,5 +1395,15 @@ export async function mMoveOneMonsterSubsetLikeC(g, mtmp, stepNum = 0) {
         if (!skipRecalcDistfleeckFirstSearchRogLikeC) {
             await distfleeckMonsterApplyLikeC(g, mtmp);
         }
+    }
+    /* C: rogue first **`#search`** — pet **`dog_goal`** immediately after gate **`rn2(4)`**. */
+    if (
+        gateMonPeek
+        && g.context?._searchPass1NearMonLikeC
+        && g.context?._searchRogGateDoneLikeC
+        && !g.context?._searchPass1DogGoalDoneLikeC
+    ) {
+        const pet = (g.level?.monsters ?? []).find((m) => (m.mtame | 0) !== 0);
+        if (pet) dogMoveSearchPassNearHeroLikeC(g, pet);
     }
 }
