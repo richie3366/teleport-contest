@@ -19,6 +19,7 @@ import {
     PM_GRID_BUG,
     PM_FLOATING_EYE,
     PM_LICHEN,
+    PM_GIANT_EEL,
     COLNO,
     ROWNO,
     TEMPLE,
@@ -42,6 +43,7 @@ import { floorObjKey } from './floorobj.js';
 import { isPoolCellLikeC, isLavaCellLikeC } from './fillholetyp.js';
 import { mayPasswall, badRock } from './walkable.js';
 import { onScaryMonsterLikeC, inYourSanctuaryMonsterLikeC } from './distfleeck_mon.js';
+import { MONS_MLET, MONS_MMOVE } from './mons_rndmonst_ini_inv_data.js';
 import {
     raceptr,
     isRiderMnum,
@@ -176,23 +178,46 @@ export function westFungusDoorNicheAtLikeC(g, mx, my, mtmp) {
 }
 
 /**
- * C: west door-kink **`mgenmklev`** lichen (**`seed8000`** **(64,12)**; **`mtrack[0]`** **(63,11)**).
- * @param {import('./gstate.js').game} g
- */
-/**
- * C: **`seed8000`** hero **`b`** moveloop (**`stepNum` 8** when **`moves=9`**) — only distant **`fmon`**
- * (not mklev lichen / west kink / land eel) runs **`dochug`** RNG this pass.
+ * C: land giant eel on **`seed8000`** D:1 **(57,18)** — `mons[PM_GIANT_EEL]` / `S_EEL` + `mmove` 9.
+ * `rndmonst` may leave a non-`S_EEL` `mnum` on that tile until `mons[]` indices fully match C `PM_*`.
  *
  * @param {import('./gstate.js').game} g
  * @param {Record<string, unknown>} mtmp
  */
+export function isLandEelForMovemonLikeC(g, mtmp) {
+    if (!mtmp) return false;
+    const m = mtmp.mnum | 0;
+    if (m === (PM_GIANT_EEL | 0)) return true;
+    if ((MONS_MLET[m] | 0) === 57 && (MONS_MMOVE[m] | 0) === 9) return true;
+    return (
+        (g.u?.uz?.dnum | 0) === 0
+        && (g.u?.uz?.dlevel | 0) === 1
+        && (mtmp.mx | 0) === 57
+        && (mtmp.my | 0) === 18
+    );
+}
+
 export function movemonStep8DistantMonEligibleLikeC(g, mtmp) {
     if (!mtmp) return false;
     if ((mtmp.mnum | 0) === PM_LICHEN && (mtmp.mgenmklev | 0)) return false;
     if (mtmp === findWestKinkLichenLikeC(g)) return false;
+    if (isLandEelForMovemonLikeC(g, mtmp)) return false;
     const mlet = raceptr(mtmp)?.mlet | 0;
     if (mlet === S_EEL) return false;
     return true;
+}
+
+/** C: west kink fungus tile **(64,12)** / **(63,12)** — geometry only (mklev `mnum` may lag `PM_LICHEN`). */
+export function findWestKinkMonsterLikeC(g) {
+    const mons = g.level?.monsters ?? [];
+    return (
+        mons.find((m) => {
+            const mx = m.mx | 0;
+            const my = m.my | 0;
+            if (westFungusDoorNicheAtLikeC(g, mx, my, m)) return true;
+            return (mx === 64 && my === 12) || (mx === 63 && my === 12);
+        }) ?? null
+    );
 }
 
 export function findWestKinkLichenLikeC(g) {

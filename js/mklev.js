@@ -2253,7 +2253,7 @@ function preferSleepingLichenDoorNichesLikeC(g) {
         mons.splice(idxEast, 1);
         mons.unshift(east);
     }
-    /* C **`movemon`** on step **`n`**: east, west (**`distfleeck`** only), then eel **`m_move`**. */
+    /* C **`movemon`** on step **`n`**: east (idle), west (**`distfleeck`**), eel **`m_move`**, distant — see **`fmonListForMovemonLikeC`** step **2**. */
     const idxWest = mons.indexOf(west);
     if (idxWest > 1) {
         mons.splice(idxWest, 1);

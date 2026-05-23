@@ -48,6 +48,7 @@ import { mRespondMonsterDochugLikeC } from './m_respond_mon.js';
 import { disturbMonsterLikeC } from './disturb_mon.js';
 import {
     findWestKinkLichenLikeC,
+    isLandEelForMovemonLikeC,
     movemonStep8DistantMonEligibleLikeC,
     westFungusDoorNicheAtLikeC,
     eastFungusDoorNicheAtLikeC,
@@ -160,11 +161,7 @@ function dochugEntersMmoveBlockLikeC(g, mtmp, nearby, scared, stepNum = 0) {
     const mx = mtmp.mx | 0;
     const my = mtmp.my | 0;
     /* C: west door-kink fungus **`seed8000`** step **`n`** — **`distfleeck`** only at **(64,12)**. */
-    if (
-        (stepNum | 0) === 2
-        && (mtmp.mnum | 0) === PM_LICHEN
-        && westFungusDoorNicheAtLikeC(g, mx, my, mtmp)
-    ) {
+    if ((stepNum | 0) === 2 && westFungusDoorNicheAtLikeC(g, mx, my, mtmp)) {
         return false;
     }
     /* C: second **`h`** — west kink lichen **`distfleeck`** only; east **`m_move`** at **(64,10)**. */
@@ -836,7 +833,8 @@ export async function mMoveDistfleeckMmoveTurnLikeC(g, mtmp, stepNum = 0) {
 
     const ptr = raceptr(mtmp);
     const eelMmoveFirstLikeC =
-        ((stepNum | 0) === 2) && ((ptr?.mlet | 0) === S_EEL);
+        (((stepNum | 0) === 2) && isLandEelForMovemonLikeC(g, mtmp))
+        || ((ptr?.mlet | 0) === S_EEL);
     const flee1 = eelMmoveFirstLikeC
         ? { inrange: 0, nearby: 0, scared: 0 }
         : await distfleeckMonsterApplyLikeC(g, mtmp);
