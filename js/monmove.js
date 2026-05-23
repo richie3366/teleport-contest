@@ -17,10 +17,10 @@ import { game } from './gstate.js';
 import { fmonListForMovemonLikeC } from './fmon_iter.js';
 import {
     eastFungusDoorNicheAtLikeC,
-    eastMklevFirstLAfterBLikeC,
     findDistantMklevMonLikeC,
     findFirstSearchRogMidMklevHostileLikeC,
     findEastKickMonLikeC,
+    eastMklevFirstLAfterBLikeC,
     findEastMklevSecondHLikeC,
     findWestKinkMonsterLikeC,
     isLandEelForMovemonLikeC,
@@ -359,8 +359,8 @@ export async function movemon(stepNum) {
             mons = [...ordered, ...rest.filter((m) => m !== eel)];
         }
         for (const m of mons) await movemonSinglemonLikeC(g, m, effStepNum);
-        /* C: rogue first **`#search`** — post-gate mklev peel **`distfleeck`** after **`dog_goal`**
-         * (**`seed0077` ~3209–3212**); sleeping peel often skips **`movemon_singlemon`** RNG. */
+        /* C: rogue first **`#search`** — post-gate **`distfleeck`** peel after **`dog_goal`**
+         * (**`seed0077` ~3209–3212**); complements **`fmon_iter`** pet-before-peel order. */
         if (
             isFirstSearchMovemonPassLikeC(g)
             && g.context?._searchPass1NearMonLikeC

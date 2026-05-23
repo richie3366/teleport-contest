@@ -216,11 +216,12 @@ export function fmonListForMovemonLikeC(g, stepNum = 0) {
                 const eastTail = east && !preGatePeel.includes(east) && !postGatePeel.includes(east)
                     ? [east]
                     : [];
+                /* C: gate **`dochug`** + pet **`dog_goal`** before remaining peel **`distfleeck`**. */
                 return [
                     ...preGatePeel,
                     ...(rogHostile ? [rogHostile] : []),
-                    ...postGatePeel,
                     ...(pet ? [pet] : []),
+                    ...postGatePeel,
                     ...eastTail,
                 ].filter(Boolean);
             }

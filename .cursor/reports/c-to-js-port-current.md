@@ -18,17 +18,19 @@ Thin handoff for the next coding session. **Score + milestones:** [`c-to-js-port
 
 **Deferred for now:** **`maybe_do_tutorial`** / **`tut-1`** / full **`do.c`** **`goto_level`** (Lua **`tutorial()`** / **`free_tutorial()`**, **`savelev`**, **`gmst_*`**, …) and **`dokick`**/**`dothrow`** vs **`leaving_tutorial`** — strong upstream dependencies (save, specials, fuller **`do.c`**); treat as backlog until chargen / core early-game parity is further along; **`LIVELOGFILE`** parity if the judge ever compares livelog lines.
 
-**Last slice:** **`seed0077`** first **`#search`** moveloop timing + peel tail scaffolding — **`cmd.js`**: run **`runPostCommandTurnAdvanceLikeC`** inline after **`dosearch()`** (C session RNG on the **`s`** step); **`allmain.js`**: skip duplicate post when **`_searchInlinePostDoneLikeC`**. **`monmove.js`**: post-gate mklev **`distfleeck`** tail after **`dog_goal`**; **`m_move_mon.js`**: east **`distfleeck`** + **`rn2(12)`** only after **`dog_goal`**. Diag: rogue D:1 has only **2** monsters at search (gate + pet) — C expects **four** post-gate **`distfleeck`** (**~3209–3212**) from sleeping **`mgenmklev`** peel not yet on level. **`seed0077`:** **3210/3242** (unchanged). **`seed8000`:** **PASS**. **`npm run score`:** **1/44**.
+**Last slice:** **`dungeon_init.js`**: C **`fixup_level_locations`** → **`fixupLevelLocationsLikeC`** (`rogue_level`, `oracle_level`, `medusa_level`, … from **`sp_levchn`**). **`fmon_iter.js`**: first **`#search`** order gate → pet → post-gate peel (C: **`dog_goal`** before tail **`distfleeck`**). **`monmove.js`**: post-gate **`distfleeck`** tail after **`dog_goal`**. Diag (**`tools/diag_mklev_monsters_at_search.mjs`**): D:1 has **7** themed **`needfill`** rooms but **one** sleeping **`makemon`** (RNG); **2** monsters at first **`#search`** (gate + pet) — **`postGatePeel`** empty → **~3209** still **`mcalcmove`** vs four **`distfleeck`**. **`seed0077`:** **3210/3242** (unchanged). **`seed8000`:** **PASS**. **`npm run score`:** **1/44**.
 
 ## Next steps
 
-1. **`seed0077` mklev sleepers on D:1** — Port C **`fill_ordinary_room`** / sleeping **`rndmonst`** **`mgenmklev`** (door-niche fungi + distant) so first **`#search`** has peel monsters for four post-gate **`distfleeck`** (**~3209–3212**); read **`mklev.c`** + session step-40 RNG annotations. Then re-verify peel **`fmon`** order vs **`monmove.c`**.
+1. **`seed0077` first `#search` peel (~3209–3212)** — With RNG matched through **~3208**, gap is **movemon** / **`fmon`** peel slots (four **`distfleeck`**), not mklev **`rn2(3)`** count (same **1** sleeper as C for this seed). Port door-**`j`** / east-niche **`mgenmklev`** classification (**`mfndpos_mon.js`**, **`preferSleepingLichenDoorNichesLikeC`**) or C **`monmove.c`** peel loop for rogue near path; re-check **`postGatePeel`** when niche fungi exist after **`j`**.
 
-2. **Chargen + `u_init_role` RNG** — **`consumeRogueHumanIniInvUinitRoleRngLikeC`** / **`ini_inv`** when mklev tail is aligned.
+2. **`makeroguerooms` / rogue special level** — when **`Is_rogue_level`** is true (now that **`rogue_level`** is set); separate from rogue **class** on main D:1.
 
-3. **`ini_inv` + `mkobj` → `game.invent`** — wire NH5 **`otyp`/`oclass`** so **`skill_init`**, hidden gold, traps, and combat prep follow C; replace **`ini_inv_stub.js`** overlays when paths match.
+3. **Chargen + `u_init_role` RNG** — **`consumeRogueHumanIniInvUinitRoleRngLikeC`** / **`ini_inv`** when moveloop peel is aligned.
 
-4. **Generalize moveloop** — peel **`monmove.js`** / **`moveloop_aux.js`** harness only when **per-path RNG draw counts** match C; **`mklev`/`dig_corridor`/`mfndpos`** when geometry blocks later **`dochug`** steps.
+4. **`ini_inv` + `mkobj` → `game.invent`** — wire NH5 **`otyp`/`oclass`** so **`skill_init`**, hidden gold, traps, and combat prep follow C; replace **`ini_inv_stub.js`** overlays when paths match.
+
+5. **Generalize moveloop** — peel **`monmove.js`** / **`moveloop_aux.js`** harness only when **per-path RNG draw counts** match C; **`mklev`/`dig_corridor`/`mfndpos`** when geometry blocks later **`dochug`** steps.
 
 ### Extended backlog (unchanged lanes)
 
