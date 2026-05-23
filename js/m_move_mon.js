@@ -1205,7 +1205,13 @@ export async function mMoveOneMonsterSubsetLikeC(g, mtmp, stepNum = 0) {
             return;
         }
         if (!rogLead || mtmp !== rogLead) {
-            await mMoveDistfleeckPlusSilentMmoveNoExtraRngLikeC(g, mtmp, stepNum);
+            /* C: step-1 peel — one **`distfleeck`** per **`fmon`** entry (harness row **1**); land eel
+             * **`m_move`** is step **`n`** / **`b`**, not **`dochugEnters`** on sleeping mklev here. */
+            if (isLandEelForMovemonLikeC(g, mtmp)) {
+                await mMoveDistfleeckPlusSilentMmoveNoExtraRngLikeC(g, mtmp, stepNum);
+            } else {
+                await mMoveDistfleeckOnlyTurnLikeC(g, mtmp);
+            }
             return;
         }
     }
@@ -1391,7 +1397,11 @@ export async function mMoveOneMonsterSubsetLikeC(g, mtmp, stepNum = 0) {
     }
 
     const gateMonPeek = peekRogFirstSearchDochugGateMonsterLikeC(g, mtmp);
-    const flee1 = await distfleeckMonsterApplyLikeC(g, mtmp);
+    const gatePassN = g.context?._searchRogGateCountLikeC | 0;
+    /* C: second gate **`dochug`** on first **`#search`** — no leading **`distfleeck`** (~3213). */
+    const flee1 = gateMonPeek && gatePassN >= 1
+        ? { inrange: 1, nearby: 1, scared: 0 }
+        : await distfleeckMonsterApplyLikeC(g, mtmp);
     let nearby = flee1.nearby | 0;
     let scared = flee1.scared | 0;
     let gateMcanseeSave;

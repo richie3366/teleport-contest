@@ -394,9 +394,14 @@ export async function movemon(stepNum) {
                     await mMoveDistfleeckOnlyTurnLikeC(g, rogGate);
                 }
             }
-            /* C: second gate **`dochug`** block (**~3213–3217**), tail **`distfleeck`** (**~3218**). */
+            /* C: second gate **`dochug`** (**~3213**), second **`dog_goal`** (**~3214–3217**),
+             * tail **`distfleeck`** (**~3218**). */
             if (rogGate && (g.context?._searchRogGateCountLikeC | 0) < 2) {
                 await movemonSinglemonLikeC(g, rogGate, effStepNum);
+                const petAfterGate = (g.level?.monsters ?? []).find(
+                    (m) => (m.mtame | 0) !== 0,
+                );
+                if (petAfterGate) dogMoveSearchPassNearHeroLikeC(g, petAfterGate);
                 await mMoveDistfleeckOnlyTurnLikeC(g, rogGate);
             }
             const east = findEastKickMonLikeC(g);

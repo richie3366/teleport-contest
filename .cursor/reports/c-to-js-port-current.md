@@ -18,11 +18,11 @@ Thin handoff for the next coding session. **Score + milestones:** [`c-to-js-port
 
 **Deferred for now:** **`maybe_do_tutorial`** / **`tut-1`** / full **`do.c`** **`goto_level`** (Lua **`tutorial()`** / **`free_tutorial()`**, **`savelev`**, **`gmst_*`**, …) and **`dokick`**/**`dothrow`** vs **`leaving_tutorial`** — strong upstream dependencies (save, specials, fuller **`do.c`**); treat as backlog until chargen / core early-game parity is further along; **`LIVELOGFILE`** parity if the judge ever compares livelog lines.
 
-**Last slice:** **`monmove.js`**: arm **`_searchPass1NearMonLikeC`** only on first **`#search`** (was every rogue **`movemon`** — gate **`dochug`** ran on pre-**`s`** moves and consumed **~3202–3208**). Post-gate peel tail: four gate **`distfleeck`** when no peel mons, second gate **`dochug`**, optional **`dog_goal`**. **`moveloop_turn_advance.js`**: **`#search`** uses **`effectiveMovemonStepNum`** **11** (not peel **`stepNum` 1**). **`fmon_iter.js`**: optional **`__diagFmonAtSearch`** hook. Tools: **`diag_fmon_at_search.mjs`**, **`diag_mons_per_move.mjs`**. **`seed0077`:** **3207/3242** (was **3210**; first mismatch **~3203** gate **`rn2(4)`** vs extra peel). **`seed8000`:** **PASS**. **`npm run score`:** **1/44**.
+**Last slice:** **`moveloop_turn_advance.js`**: rogue D:1 gate+pet — skip **`movemon(stepNum===1)`** until first **`#search`**; defer **`end_of_turn_rng`** until **`#search`** inline post (**`peekReplayMoves`**). **`input.js`/`jsmain.js`**: replay position for peek. **`m_move_mon.js`**: step-1 peel **`distfleeck`**-only (eel keeps silent **`m_move`**); second gate skip leading **`distfleeck`**; **`monmove.js`**: second gate **`dog_goal`** + tail **`distfleeck`**. **`seed0077`:** **3218/3242** (first gate block **3203–3216** aligned; gap **~3217** second **`dog_goal`**). **`seed8000`:** **PASS**. **`npm run score`:** **1/44**.
 
 ## Next steps
 
-1. **`seed0077` first `#search` gate block (~3203–3218)** — Gate **`dochug`** + **`dog_goal`** now on the **`s`** step; align **~3203** (**`rn2(4)`**) and post-gate four **`distfleeck`** (**~3209–3212**) vs extra peel / east **`mcalcmove`** draws. Only **2** D:1 mons (gate + pet) — peel tail uses four gate **`distfleeck`** until mklev niche fungi exist.
+1. **`seed0077` first `#search` tail (~3217–3225)** — Second **`dog_goal`** after second gate: C **`rn2(100)`** at **~3217** without extra **`rn2(8)`** from a full floor rescan; then east **`rn2(12)`** ×2 + deferred new-turn tail order vs **`mcalcmove`**.
 
 2. **`makeroguerooms` / rogue special level** — when **`Is_rogue_level`** is true (now that **`rogue_level`** is set); separate from rogue **class** on main D:1.
 
@@ -30,7 +30,7 @@ Thin handoff for the next coding session. **Score + milestones:** [`c-to-js-port
 
 4. **`ini_inv` + `mkobj` → `game.invent`** — wire NH5 **`otyp`/`oclass`** so **`skill_init`**, hidden gold, traps, and combat prep follow C; replace **`ini_inv_stub.js`** overlays when paths match.
 
-5. **Generalize moveloop** — peel **`monmove.js`** / **`moveloop_aux.js`** harness only when **per-path RNG draw counts** match C; **`mklev`/`dig_corridor`/`mfndpos`** when geometry blocks later **`dochug`** steps.
+5. **Generalize moveloop** — peel harness only when **per-path RNG draw counts** match C; **`mklev`/`dig_corridor`/`mfndpos`** when geometry blocks later **`dochug`** steps.
 
 ### Extended backlog (unchanged lanes)
 
