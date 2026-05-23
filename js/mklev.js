@@ -593,15 +593,15 @@ export async function fillAllOrdinaryRoomsLikeC(g = game) {
         }
     }
     let bonusCountdown = fillableCount > 0 ? rn2(fillableCount) : -1;
+    /* C: mklev.c makelevel — fill_ordinary_room every room (rtype/needfill gate inside). */
     for (let i = 0; ; i++) {
         const croom = rooms[i];
         if (!croom || (croom.hx | 0) <= 0) break;
         const fillable =
             croom.needfill === FILL_NORMAL &&
             (croom.rtype === OROOM || croom.rtype === THEMEROOM);
-        if (!fillable) continue;
-        await fill_ordinary_room(croom, bonusCountdown === 0);
-        bonusCountdown--;
+        await fill_ordinary_room(croom, fillable && bonusCountdown === 0);
+        if (fillable) bonusCountdown--;
     }
 }
 
@@ -1805,26 +1805,23 @@ async function fill_ordinary_room(croom, bonus_items) {
     if (!rn2(3) && somexyspace(croom, pos)) {
         mkgold(0, pos.x, pos.y);
     }
-    // Fountain
-    if (!rn2(10)) mkfount(croom);
-    // Sink
-    if (!rn2(60)) {
-        if (find_okay_roompos(croom, pos)) {
-            const loc = g.level?.at(pos.x, pos.y);
-            if (loc) { loc.typ = SINK; g.level.flags.nsinks = (g.level.flags.nsinks || 0) + 1; }
-        }
-    }
-    // Altar
-    if (!rn2(60)) mkaltar(croom);
-    // Grave — C: depth(&u.uz) not level_difficulty()
     const u_depth = depth_of_level(g.u?.uz);
-    x = 80 - (u_depth * 2);
-    if (x < 2) x = 2;
-    if (!rn2(x)) mkgrave_room(croom);
-    // Statue
-    if (!rn2(20) && somexyspace(croom, pos)) {
-        mkcorpstat(STATUE, null, null, pos.x, pos.y, 8);
-    }
+    /* C: mklev.c — `goto skip_nonrogue` on rogue level (fountain…graffiti + bonus/chest). */
+    if (!Is_rogue_level(g.u?.uz)) {
+        if (!rn2(10)) mkfount(croom);
+        if (!rn2(60)) {
+            if (find_okay_roompos(croom, pos)) {
+                const loc = g.level?.at(pos.x, pos.y);
+                if (loc) { loc.typ = SINK; g.level.flags.nsinks = (g.level.flags.nsinks || 0) + 1; }
+            }
+        }
+        if (!rn2(60)) mkaltar(croom);
+        x = 80 - (u_depth * 2);
+        if (x < 2) x = 2;
+        if (!rn2(x)) mkgrave_room(croom);
+        if (!rn2(20) && somexyspace(croom, pos)) {
+            mkcorpstat(STATUE, null, null, pos.x, pos.y, 8);
+        }
     // Bonus items
     let skip_chests = false;
     if (bonus_items && somexyspace(croom, pos)) {
@@ -1879,21 +1876,22 @@ async function fill_ordinary_room(croom, bonus_items) {
             skip_chests = true;
         }
     }
-    // Box/chest check
-    if (!skip_chests && !rn2(Math.trunc(g.level.nroom * 5 / 2)) && somexyspace(croom, pos)) {
-        mksobj_at(rn2(3) ? LARGE_BOX : CHEST, pos.x, pos.y, true, false);
-    }
-    // Graffiti (C: mklev.c fill_ordinary_room — random_engraving + make_engr_at MARK)
-    if (!rn2(27 + 3 * Math.abs(u_depth))) {
-        const { text: mesg } = randomEngraving();
-        if (mesg) {
-            do {
-                somexyspace(croom, pos);
-            } while (g.level?.at(pos.x, pos.y)?.typ !== ROOM && !rn2(40));
-            if (g.level?.at(pos.x, pos.y)?.typ === ROOM) makeEngrAt(pos.x, pos.y, mesg, ENGR_MARK);
+        // Box/chest check
+        if (!skip_chests && !rn2(Math.trunc(g.level.nroom * 5 / 2)) && somexyspace(croom, pos)) {
+            mksobj_at(rn2(3) ? LARGE_BOX : CHEST, pos.x, pos.y, true, false);
+        }
+        // Graffiti (C: mklev.c fill_ordinary_room — random_engraving + make_engr_at MARK)
+        if (!rn2(27 + 3 * Math.abs(u_depth))) {
+            const { text: mesg } = randomEngraving();
+            if (mesg) {
+                do {
+                    somexyspace(croom, pos);
+                } while (g.level?.at(pos.x, pos.y)?.typ !== ROOM && !rn2(40));
+                if (g.level?.at(pos.x, pos.y)?.typ === ROOM) makeEngrAt(pos.x, pos.y, mesg, ENGR_MARK);
+            }
         }
     }
-    // Random objects
+    /* skip_nonrogue: random objects (all levels). */
     if (!rn2(3) && somexyspace(croom, pos)) {
         mkobjFillAtLikeC(RANDOM_CLASS, pos.x, pos.y, true);
         let objTrycnt = 0;

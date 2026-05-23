@@ -18,17 +18,17 @@ Thin handoff for the next coding session. **Score + milestones:** [`c-to-js-port
 
 **Deferred for now:** **`maybe_do_tutorial`** / **`tut-1`** / full **`do.c`** **`goto_level`** (Lua **`tutorial()`** / **`free_tutorial()`**, **`savelev`**, **`gmst_*`**, …) and **`dokick`**/**`dothrow`** vs **`leaving_tutorial`** — strong upstream dependencies (save, specials, fuller **`do.c`**); treat as backlog until chargen / core early-game parity is further along; **`LIVELOGFILE`** parity if the judge ever compares livelog lines.
 
-**Last slice:** **`makemon.c` gender + `MONS_MFLAGS2`** — C **`is_male`/`is_female`/`is_neuter`** branches (not neuter-only); **`newmonhp`** always sets **`m_lev = adj_lev`**; **`m_initinv`** uses **`mtmp.m_lev`**. **`tools/gen_mons_rndmonst_fields.mjs`**: regenerate **`MONS_MFLAGS2`** from **`monsters.h`** **`M2_*`** tokens (was wrong on most indices — e.g. grid bug spurious **`M2_NEUTER`**). **`seed0077`:** **1643/3242** RNG (was **1613**); **`seed8000`:** **PASS**. **`npm run score`:** **1/44**.
+**Last slice:** **`mklev.c` `fill_ordinary_room`** — C **`Is_rogue_level` → `skip_nonrogue`** (skip fountain/sink/altar/grave/statue/bonus/chest/graffiti RNG; random objects at label); **`fillAllOrdinaryRoomsLikeC`** calls **`fill_ordinary_room`** on every room like C (gates inside). **`seed0077`:** **1643/3242** RNG (unchanged); **`seed8000`:** **PASS**. **`npm run score`:** **1/44**.
 
 ## Next steps
 
-1. **`fill_ordinary_room` / mklev tail** — **`seed0077`** first divergence ~**1636** (**`rn2(3)`** sleeping gate vs extra **`rn2(5)`** — room order or **`while (!rn2(5))`** random-object loop vs next room); add C **`Is_rogue_level` → `skip_nonrogue`** so fountain/sink/altar/grave/statue/chest/graffiti RNG is skipped on rogue levels. **`seed0900`** and rc-without-identity sessions → **`wintty.c` / `role.c`** TTY pickers.
+1. **`fill_ordinary_room` random-object loop** — **`seed0077`** first divergence ~**1636** (**`rn2(3)`** next-room sleeping vs extra **`rn2(5)`** after **`while (!rn2(5))`** @ 1161 — trace duplicate room fill / subroom double-fill vs C **`gs.subrooms`**). **`seed0900`** and rc-without-identity sessions → **`wintty.c` / `role.c`** TTY pickers.
 
-2. **Chargen + `u_init_role` RNG** — **`consumeRogueHumanIniInvUinitRoleRngLikeC`** / **`ini_inv`** when mklev tail is aligned. Remaining **`rnd_rect`** **`rn2(1)`** before **`ini_inv`** if sessions still drift post-mklev.
+2. **Chargen + `u_init_role` RNG** — **`consumeRogueHumanIniInvUinitRoleRngLikeC`** / **`ini_inv`** when mklev tail is aligned.
 
-2. **`ini_inv` + `mkobj` → `game.invent`** — wire NH5 **`otyp`/`oclass`** so **`skill_init`**, hidden gold, traps, and combat prep follow C; replace **`ini_inv_stub.js`** overlays when paths match.
+3. **`ini_inv` + `mkobj` → `game.invent`** — wire NH5 **`otyp`/`oclass`** so **`skill_init`**, hidden gold, traps, and combat prep follow C; replace **`ini_inv_stub.js`** overlays when paths match.
 
-3. **Generalize moveloop** — peel **`monmove.js`** / **`moveloop_aux.js`** harness only when **per-path RNG draw counts** match C; **`mklev`/`dig_corridor`/`mfndpos`** (e.g. east **(66,12)** vs **(65,11)**) when geometry blocks later **`dochug`** steps.
+4. **Generalize moveloop** — peel **`monmove.js`** / **`moveloop_aux.js`** harness only when **per-path RNG draw counts** match C; **`mklev`/`dig_corridor`/`mfndpos`** (e.g. east **(66,12)** vs **(65,11)**) when geometry blocks later **`dochug`** steps.
 
 ### Extended backlog (unchanged lanes)
 
