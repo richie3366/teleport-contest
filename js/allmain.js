@@ -270,7 +270,7 @@ export async function moveloop_core() {
        for the *previous* command before reading the next one. */
     if (g.context.move) {
         if (g.context._searchInlinePostDoneLikeC) {
-            delete g.context._searchInlinePostDoneLikeC;
+            /* C: inline **`#search`** post already ran in cmd.js — do not run moveloop post again. */
         } else {
             await runPostCommandTurnAdvanceLikeC(g);
         }

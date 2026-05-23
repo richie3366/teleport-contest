@@ -18,11 +18,11 @@ Thin handoff for the next coding session. **Score + milestones:** [`c-to-js-port
 
 **Deferred for now:** **`maybe_do_tutorial`** / **`tut-1`** / full **`do.c`** **`goto_level`** (Lua **`tutorial()`** / **`free_tutorial()`**, **`savelev`**, **`gmst_*`**, …) and **`dokick`**/**`dothrow`** vs **`leaving_tutorial`** — strong upstream dependencies (save, specials, fuller **`do.c`**); treat as backlog until chargen / core early-game parity is further along; **`LIVELOGFILE`** parity if the judge ever compares livelog lines.
 
-**Last slice:** **`mklev.js`**: post-join door corridor west alcove (**`openDoorCorridorWestAlcovesFinalizeLikeC`** in **`level_finalize_topology`**) — HWALL west of door → **`CORR`** when corridor continues on far side; **`finddpos_shift`** irregular-room branch from C. Fixes pet **`dog_move`** to **(35,8)** vs **(36,7)** so second **`dog_goal`** sees third bbox **`fobj`** (**`corrSameRoomWalkableLikeC`**). **`seed0077`:** **3225/3242** (**3214–3224** aligned). **`seed8000`:** **PASS**. **`npm run score`:** **1/44**.
+**Last slice:** **`detect.c`/`do.c`**: **`dosearchCmdSafetyPreventionLikeC`** — C **`cmd_safety_prevention`** when **`safe_wait`** (default on) blocks repeat **`#search`** adjacent to hostiles without incrementing **`_searchStep11Passes`** (session first **`s`** is 0 RNG). **`moveloop_turn_advance.js`**: inline **`#search`** always runs new-turn tail once; **`newTurnDone`** guard per post call. **`allmain.js`**: do not re-run moveloop post when **`_searchInlinePostDoneLikeC`**. **`seed0077`:** still **3225/3242** — extra **`mcalcmove`** at **`:`** step before **`dolook`** RNG (need **`invent.c` `look_here`** + **`jsmain` tail post** for **3236–3241**). **`seed8000`:** **PASS**. **`npm run score`:** **1/44**.
 
 ## Next steps
 
-1. **`seed0077` first `#search` ~3225** — Deferred new-turn tail after **`moveloop_core`** **`rn2(94)`** at **~3224**; first mismatch **`rn2(5)`** at **~3225** (extra **`mcalcmove`** / peel order vs C end-of-turn).
+1. **`seed0077` ~3225** — **`:`** step: port **`dolook`/`look_here`/`check_here`** RNG (**`rn2(5)`** at **3225**); ensure **`jsmain.js` tail `runPostCommandTurnAdvanceLikeC`** supplies **3236–3241** new-turn block (C records it on **`:`** step after **`dolook`**).
 
 2. **`makeroguerooms` / rogue special level** — when **`Is_rogue_level`** is true (now that **`rogue_level`** is set); separate from rogue **class** on main D:1.
 

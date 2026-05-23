@@ -10,7 +10,7 @@ import { game } from './gstate.js';
 import { nhgetch } from './input.js';
 import { newsym, flush_screen, pline, docrt, clearPendingMessageAndToplineLikeC } from './display.js';
 import { vision_recalc } from './vision.js';
-import { dosearch } from './search.js';
+import { dosearch, dosearchCmdSafetyPreventionLikeC } from './search.js';
 import {
     findFirstSearchRogMidMklevHostileLikeC,
     searchPass1NearMonLikeC,
@@ -18,7 +18,6 @@ import {
 import { disturbMonsterLikeC } from './disturb_mon.js';
 import {
     runPostCommandTurnAdvanceLikeC,
-    runDeferredNewTurnIfAnyLikeC,
 } from './moveloop_turn_advance.js';
 import { maybeSmudgeEngr } from './engrave.js';
 import { dolookHeroLikeC } from './pickup.js';
@@ -151,6 +150,10 @@ export async function rhack(key) {
         game.context.move = moved || game.context?.door_opened ? 1 : 0;
     } else if (ch === 's') {
         // C: cmd.c rhack — #search → dosearch() → dosearch0 (detect.c)
+        if (await dosearchCmdSafetyPreventionLikeC()) {
+            game.context.move = 0;
+            return;
+        }
         game.context.move = 1;
         game.context._searchStep11Passes = (game.context._searchStep11Passes | 0) + 1;
         if ((game.context._searchStep11Passes | 0) === 1) {
@@ -171,11 +174,11 @@ export async function rhack(key) {
             }
         }
         await dosearch();
-        /* C: **`#search`** costs time — **`movemon`** + new-turn tail run before next input
-         * (session RNG on the **`s`** step, not the following moveloop post). */
+        /* C: **`#search`** costs time — inline **`movemon`** + new-turn tail on the **`s`** step. */
         game.context._searchInlinePostDoneLikeC = true;
         await runPostCommandTurnAdvanceLikeC(game);
-        await runDeferredNewTurnIfAnyLikeC(game);
+        game.context.move = 0;
+        delete game.context._searchInlinePostDoneLikeC;
     } else if (ch === 'i') {
         // C: cmd.c #inventory — minimal full-screen list (invent.c)
         game.context.move = 0;

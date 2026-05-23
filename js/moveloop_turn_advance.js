@@ -157,6 +157,7 @@ export async function runPostCommandTurnAdvanceLikeC(g) {
     g.context = g.context || {};
     g.context.monMoving = true;
     try {
+        let newTurnDone = false;
         do {
             let monscanmove = false;
             /* C: allmain.c — **`movemon`** uses current **`svm.moves`** each inner-loop pass
@@ -190,12 +191,22 @@ export async function runPostCommandTurnAdvanceLikeC(g) {
                 }
             }
 
-            if (!monscanmove && (u.umovement | 0) < NORMAL_SPEED) {
+            if (!monscanmove && (u.umovement | 0) < NORMAL_SPEED && !newTurnDone) {
                 const tailStepNum = (g.moves | 0) - 1;
-                if (deferNewTurnBeforeSearchLikeC(g)) {
+                /* C: rogue D:1 — defer new-turn before first **`#search`** (`peek 's'`).
+                 * Inline **`#search`** post always runs the tail here (no double defer+flush). */
+                if (
+                    !g.context._searchInlinePostDoneLikeC
+                    && (
+                        g.context._deferredNewTurnLikeC
+                        || deferNewTurnBeforeSearchLikeC(g)
+                    )
+                ) {
                     g.context._deferredNewTurnLikeC = true;
                 } else {
                     await runNewTurnSetupAndTailLikeC(g, tailStepNum);
+                    delete g.context._deferredNewTurnLikeC;
+                    newTurnDone = true;
                 }
             }
         } while (
