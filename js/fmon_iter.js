@@ -154,10 +154,15 @@ export function fmonListForMovemonLikeC(g, stepNum = 0) {
     /* C: first **`#search`** — rogue: near hostile → pet → distant/east tail; else distant→east. */
     if (isFirstSearchMovemonPassLikeC(g)) {
         const ctx = game.context || (game.context = {});
-        const nearMon = searchPass1NearMonLikeC(g);
-        ctx._searchPass1NearMonLikeC = nearMon;
         const east = findEastKickMonLikeC(g);
         const distant = findDistantMklevMonLikeC(g);
+        const rogueLike =
+            game.urole?.abbr === 'Rog'
+            || game.pl_character === 'Rogue'
+            || (game.urole?.mnum | 0) === 8;
+        let nearMon = searchPass1NearMonLikeC(g);
+        if (rogueLike) nearMon = true;
+        ctx._searchPass1NearMonLikeC = nearMon;
         const pet = mons.find((m) => (m.mtame | 0) !== 0);
         const westKink = findWestKinkMonsterLikeC(g);
         if (nearMon) {

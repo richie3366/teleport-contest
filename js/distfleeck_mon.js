@@ -3,6 +3,11 @@
 
 import { BOLT_LIM, IS_ALTAR, In_endgame, In_hell, A_LAWFUL, EPRI, AM_SHRINE, Amask2align, TEMPLE, PM_GREMLIN } from './const.js';
 import { rn2, rnd } from './rng.js';
+import { isFirstSearchMovemonPassLikeC } from './monmove_search.js';
+import {
+    eastMklevFirstLAfterBLikeC,
+    findDistantMklevMonLikeC,
+} from './mfndpos_mon.js';
 import { monflee } from './monflee.js';
 import { monnearMonsterXYLikeC } from './mon_geom.js';
 import { dist2 } from './hacklib.js';
@@ -294,6 +299,20 @@ export async function distfleeckMonsterApplyLikeC(g, mtmp) {
     if (!mtmp) return out;
 
     const bravegremlin = rn2(5) === 0;
+
+    const ctx = g.context || (g.context = {});
+    if (
+        isFirstSearchMovemonPassLikeC(g)
+        && ctx._searchPass1NearMonLikeC
+        && !ctx._searchRogGateDoneLikeC
+        && !(mtmp.mtame | 0)
+        && mtmp !== findDistantMklevMonLikeC(g)
+        && !eastMklevFirstLAfterBLikeC(g, mtmp)
+    ) {
+        ctx._searchRogGateDoneLikeC = true;
+        /* C: dochug(monmove.c:886) — gate **`rn2(4)`** immediately after **`distfleeck`** **`rn2(5)`**. */
+        rn2(4);
+    }
 
     const u = g?.u;
     let mux = mtmp.mux !== undefined && mtmp.mux !== null ? mtmp.mux | 0 : u?.ux | 0;

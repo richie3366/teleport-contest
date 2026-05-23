@@ -787,7 +787,11 @@ export function searchPass1NearMonLikeC(g) {
         ) return true;
     }
     /* C: rogue D:1 **`seed0077`** — mklev sleeper in **`fmon`** before pet when no mine-town door niche. */
-    if (g.urole?.abbr === 'Rog') {
+    if (
+        g.urole?.abbr === 'Rog'
+        || g.pl_character === 'Rogue'
+        || (g.urole?.mnum | 0) === 8
+    ) {
         for (const m of g.level?.monsters ?? []) {
             if (m === distant || m === pet || m === eastKick) continue;
             if (m.mgenmklev | 0) return true;

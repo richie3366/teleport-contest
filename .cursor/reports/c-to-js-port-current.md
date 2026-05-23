@@ -18,11 +18,11 @@ Thin handoff for the next coding session. **Score + milestones:** [`c-to-js-port
 
 **Deferred for now:** **`maybe_do_tutorial`** / **`tut-1`** / full **`do.c`** **`goto_level`** (Lua **`tutorial()`** / **`free_tutorial()`**, **`savelev`**, **`gmst_*`**, …) and **`dokick`**/**`dothrow`** vs **`leaving_tutorial`** — strong upstream dependencies (save, specials, fuller **`do.c`**); treat as backlog until chargen / core early-game parity is further along; **`LIVELOGFILE`** parity if the judge ever compares livelog lines.
 
-**Last slice:** First **`#search`** on rogue D:1 — preserve **`_searchStep11Passes`** when **`movemonStepNum < 10`** (was cleared before **`fmon`**); **`isFirstSearchMovemonPassLikeC`** keyed on pass id (**`monmove_search.js`**); one **`movemon`** per first search; rogue mklev near path + **`dochug`** fall-through + gate **`rn2(4)`** stub. Gap ~**3203** remains (extra **`rn2(5)`** before gate — trace **`m_respond`**/**`aggravate`** / peel ordering). **`seed0077`:** **3205/3242**. **`seed8000`:** **PASS**. **`npm run score`:** **1/44**.
+**Last slice:** **`seed0077`** first **`#search`** — C order is mklev **`distfleeck`** → gate **`rn2(4)`** @ **`dochug:886`** → pet **`dog_goal`** (not tourist east **`rn2(12)`** first). **`fmon_iter`**: force rogue **`_searchPass1NearMonLikeC`**; **`distfleeck_mon`**: gate **`rn2(4)`** after first near mklev **`distfleeck`**; **`m_move_mon`**: clang short-circuit gate OR, mid-mklev through movement gate, skip **`m_respond`** aggravate on first search; **`cmd`**: reset **`_searchRogGateDoneLikeC`**. Diag: JS still has two extra **`rn2(12)`** at **~3196** before search mklev (peel/moveloop — fix next). **`seed0077`:** **3205/3242**. **`seed8000`:** **PASS**. **`npm run score`:** **1/44**.
 
 ## Next steps
 
-1. **`seed0077` ~3203** — Remove stray **`rn2(5)`** before rogue mklev gate **`rn2(4)`** (C: **`distfleeck`** then gate then pet **`dog_goal`**); port C **`m_respond`** call-site guards vs **`aggravateMonstersLikeC`** **`rn2(5)`** loop; align mklev sleeper tile vs **`nearby`**. **`seed8000`:** keep tourist distant→east peel when **`!_searchPass1NearMonLikeC`**.
+1. **`seed0077` ~3196–3203** — Drop two stray **`rn2(12)`** before first-search mklev **`distfleeck`** (tourist east-peel / **`moveloop`** harness on rogue path); then **`distfleeck_mon`** gate **`rn2(4)`** should align at **~3203**. C first-**`s`** step: **`distfleeck`**, **`rn2(4)`**, pet **`obj_resists`/`dog_goal`**. **`seed8000`:** keep distant→east peel when **`!_searchPass1NearMonLikeC`**.
 
 2. **Chargen + `u_init_role` RNG** — **`consumeRogueHumanIniInvUinitRoleRngLikeC`** / **`ini_inv`** when mklev tail is aligned.
 

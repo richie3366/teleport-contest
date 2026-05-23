@@ -144,6 +144,9 @@ export async function rhack(key) {
         // C: cmd.c rhack — #search → dosearch() → dosearch0 (detect.c)
         game.context.move = 1;
         game.context._searchStep11Passes = (game.context._searchStep11Passes | 0) + 1;
+        if ((game.context._searchStep11Passes | 0) === 1) {
+            delete game.context._searchRogGateDoneLikeC;
+        }
         await dosearch();
     } else if (ch === 'i') {
         // C: cmd.c #inventory — minimal full-screen list (invent.c)
