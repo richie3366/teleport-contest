@@ -20,6 +20,7 @@ import {
     bigmonst, isWhirly, slithy, noncorporeal, canFogHero, likesLava, S_EEL,
 } from './mondata.js';
 import { goodposOnscaryMdatLikeC } from './distfleeck_mon.js';
+import { isPoolCellLikeC } from './fillholetyp.js';
 import { floorObjKey } from './floorobj.js';
 import { rn2 } from './rng.js';
 
@@ -251,11 +252,9 @@ function mInAirMtmpLikeC(mtmp) {
     return isClinger(ptr) && (mtmp.mundetected | 0) !== 0;
 }
 
+/** C: dbridge.c **`is_pool(x,y)`** — includes **`is_moat`** (drawbridge under moat, etc.). */
 function isPoolCellGoodposLikeC(g, x, y) {
-    const loc = g.level?.at(x | 0, y | 0);
-    if (!loc) return false;
-    const typ = loc.typ | 0;
-    return typ === POOL || typ === MOAT || typ === WATER;
+    return isPoolCellLikeC(g, x, y);
 }
 
 /**
@@ -300,9 +299,10 @@ export function goodposMakemonLikeC(x, y, mtmp, gpflags = 0, g = game, opts = {}
         (ptr.mlet | 0) === S_EEL
         && !ignorewater
         && !opts.skipLandEelRn2
-        && rn2(13)
     ) {
-        return false;
+        if (rn2(13)) {
+            return false;
+        }
     }
 
     if (isLavaTerrain(loc.typ | 0) && !ignorelava) {
