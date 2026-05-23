@@ -768,13 +768,12 @@ export function searchPass1NearMonLikeC(g) {
     const u = g.u;
     if (!u) return false;
     const distant = findDistantMklevMonLikeC(g);
-    const westKink = findWestKinkMonsterLikeC(g);
     const eastKick = findEastKickMonLikeC(g);
     const pet = (g.level?.monsters ?? []).find((m) => (m.mtame | 0) !== 0);
     const ux = u.ux | 0;
     const uy = u.uy | 0;
     for (const m of g.level?.monsters ?? []) {
-        if (m === distant || m === pet || m === westKink) continue;
+        if (m === distant || m === pet) continue;
         /* C: **`seed8000`** tourist east-corridor peel — not rogue door-**`j`** near hostile. */
         if (g.urole?.abbr === 'Tou' && m === eastKick) continue;
         if (monnearMonsterXYLikeC(m, ux, uy)) return true;
@@ -786,6 +785,13 @@ export function searchPass1NearMonLikeC(g) {
             westFungusDoorNicheAtLikeC(g, mx, my, m)
             || eastFungusDoorNicheAtLikeC(g, mx, my, m)
         ) return true;
+    }
+    /* C: rogue D:1 **`seed0077`** — mklev sleeper in **`fmon`** before pet when no mine-town door niche. */
+    if (g.urole?.abbr === 'Rog') {
+        for (const m of g.level?.monsters ?? []) {
+            if (m === distant || m === pet || m === eastKick) continue;
+            if (m.mgenmklev | 0) return true;
+        }
     }
     return false;
 }

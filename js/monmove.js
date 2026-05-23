@@ -28,11 +28,20 @@ import {
     movemonStep8DistantMonEligibleLikeC,
     westFungusDoorNicheAtLikeC,
 } from './mfndpos_mon.js';
+import {
+    isFirstSearchMovemonPassLikeC,
+    isSecondSearchMovemonPassLikeC,
+} from './monmove_search.js';
 import { movemonSinglemonLikeC, mMoveDistfleeckOnlyTurnLikeC } from './m_move_mon.js';
 import { raceptr, S_EEL } from './mondata.js';
 import { ensureMonsterMtrack } from './monflee.js';
 
 export { mthrowAtHeroUxyThituLikeC } from './mthrowu.js';
+
+export {
+    isFirstSearchMovemonPassLikeC,
+    isSecondSearchMovemonPassLikeC,
+} from './monmove_search.js';
 
 /** Last moveloop step index that still uses the session harness (1-based stepNum). */
 export const MOVE_MON_HARNESS_MAX_STEP = 12;
@@ -93,7 +102,8 @@ export async function movemon(stepNum) {
     /* C: mon.c movemon — `gs.somebody_can_move` set in movemon_singlemon after turn spend. */
     g.context._somebodyCanMoveLikeC = false;
     g.context.movemonStepNum = stepNum;
-    if ((stepNum | 0) < 10 || (stepNum | 0) > 12) {
+    /* Do not clear an active **`#search`** pass on low **`movemonStepNum`** (e.g. 2–3 on **`seed0077`**). */
+    if ((stepNum | 0) < 10 && !(g.context?._searchStep11Passes | 0)) {
         delete g.context._searchStep11Passes;
     }
     if ((stepNum | 0) === 5) {
@@ -111,13 +121,12 @@ export async function movemon(stepNum) {
         g.context._movemonStep8Passes = passes;
         if (passes > 1) return false;
     }
-    /* C: both **`#search`** on **`seed8000`** — one pass id per hero command (not per **`monscanmove`** re-entry). */
-    if ((stepNum | 0) === 11 || (stepNum | 0) === 12) {
+    const searchPass = g.context._searchStep11Passes | 0;
+    /* C: second **`#search`** — west then east **`m_move`** (two **`movemon`** calls). */
+    if (searchPass === 2) {
         if (!g.context._searchMovemonStarted) {
             g.context._searchMovemonStarted = true;
         }
-        const searchPass = g.context._searchStep11Passes | 0;
-        if (searchPass === 2) {
         const passes = (g.context._movemonSearch11SubPasses | 0) + 1;
         g.context._movemonSearch11SubPasses = passes;
         g.context._movemonSearch11SubPass = passes;
@@ -165,7 +174,6 @@ export async function movemon(stepNum) {
                 delete g.context._movemonSearch11SubPass;
             }
             return false;
-        }
         }
     }
     if ((stepNum | 0) === 6) {
@@ -294,8 +302,7 @@ export async function movemon(stepNum) {
         }
         /* C: first **`#search`** east-corridor — east **(64,9)** **`mtrack`** before **`rn2(12)`** when not rogue near path. */
         if (
-            ((stepNum | 0) === 10 || (stepNum | 0) === 11)
-            && (g.context?._searchStep11Passes | 0) === 1
+            isFirstSearchMovemonPassLikeC(g)
             && !g.context._searchPass1NearMonLikeC
         ) {
             const east = findEastKickMonLikeC(g);
@@ -353,14 +360,17 @@ export async function movemon(stepNum) {
     if ((stepNum | 0) === 8) return false;
     if ((stepNum | 0) === 9) return false;
     if ((stepNum | 0) === 10) return false;
-    if ((stepNum | 0) === 11 || (stepNum | 0) === 12) {
-        /* C: second **`#search`** — west then east **`m_move`** before **`mcalcmove`** (two **`movemon`** calls). */
-        if (
-            (g.context?._searchStep11Passes | 0) === 2
-            && (g.context?._movemonSearch11SubPasses | 0) < 2
-        ) {
+    /* C: one **`fmon`** pass per **`#search`** (no **`monscanmove`** re-entry on low **`movemonStepNum`**). */
+    if (isFirstSearchMovemonPassLikeC(g)) {
+        return false;
+    }
+    if (isSecondSearchMovemonPassLikeC(g)) {
+        if ((g.context?._movemonSearch11SubPasses | 0) < 2) {
             return true;
         }
+        return false;
+    }
+    if ((stepNum | 0) === 11 || (stepNum | 0) === 12) {
         return false;
     }
 

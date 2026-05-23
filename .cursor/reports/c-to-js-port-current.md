@@ -18,11 +18,11 @@ Thin handoff for the next coding session. **Score + milestones:** [`c-to-js-port
 
 **Deferred for now:** **`maybe_do_tutorial`** / **`tut-1`** / full **`do.c`** **`goto_level`** (Lua **`tutorial()`** / **`free_tutorial()`**, **`savelev`**, **`gmst_*`**, …) and **`dokick`**/**`dothrow`** vs **`leaving_tutorial`** — strong upstream dependencies (save, specials, fuller **`do.c`**); treat as backlog until chargen / core early-game parity is further along; **`LIVELOGFILE`** parity if the judge ever compares livelog lines.
 
-**Last slice:** First **`#search`** split scaffold + pet **`edog`**: **`searchPass1NearMonLikeC`** / **`fmon_iter`** near→pet→tail vs distant→east; **`dog.js`** **`newedog`/`initedog`**, **`dogmove_mon.js`** stub, **`makemon`/`makedog`** **`MM_EDOG`**; near hostile must use generic **`dochug`** (not east peel **`distfleeck`**). **`searchPass1NearMonLikeC`** not yet firing at runtime on **`seed0077`** (~**3203** still distant peel). **`seed0077`:** **3205/3242**. **`seed8000`:** **PASS**. **`npm run score`:** **1/44**.
+**Last slice:** First **`#search`** on rogue D:1 — preserve **`_searchStep11Passes`** when **`movemonStepNum < 10`** (was cleared before **`fmon`**); **`isFirstSearchMovemonPassLikeC`** keyed on pass id (**`monmove_search.js`**); one **`movemon`** per first search; rogue mklev near path + **`dochug`** fall-through + gate **`rn2(4)`** stub. Gap ~**3203** remains (extra **`rn2(5)`** before gate — trace **`m_respond`**/**`aggravate`** / peel ordering). **`seed0077`:** **3205/3242**. **`seed8000`:** **PASS**. **`npm run score`:** **1/44**.
 
 ## Next steps
 
-1. **`seed0077` ~3203** — Debug why **`searchPass1NearMonLikeC`** stays false at first **`#search`** (hero-adjacent hostile / door-niche geometry vs **`_searchStep11Passes`** timing); then near mon generic **`dochug`** gate **`rn2(4)`**, pet **`dog_move`**, tail **`distfleeck`**. Port more **`dogmove.c`** **`dog_goal`** draw counts. **`seed8000`:** keep **`!_searchPass1NearMonLikeC`** distant→east peel.
+1. **`seed0077` ~3203** — Remove stray **`rn2(5)`** before rogue mklev gate **`rn2(4)`** (C: **`distfleeck`** then gate then pet **`dog_goal`**); port C **`m_respond`** call-site guards vs **`aggravateMonstersLikeC`** **`rn2(5)`** loop; align mklev sleeper tile vs **`nearby`**. **`seed8000`:** keep tourist distant→east peel when **`!_searchPass1NearMonLikeC`**.
 
 2. **Chargen + `u_init_role` RNG** — **`consumeRogueHumanIniInvUinitRoleRngLikeC`** / **`ini_inv`** when mklev tail is aligned.
 

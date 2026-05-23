@@ -6,6 +6,7 @@ import { game } from './gstate.js';
 import { dist2 } from './hacklib.js';
 import { monnearMonsterXYLikeC } from './mon_geom.js';
 import { S_EEL, raceptr } from './mondata.js';
+import { isFirstSearchMovemonPassLikeC } from './monmove_search.js';
 import {
     eastFungusDoorNicheAtLikeC,
     findEastKickMonLikeC,
@@ -151,10 +152,7 @@ export function fmonListForMovemonLikeC(g, stepNum = 0) {
         return [...ordered, ...rest].filter(Boolean);
     }
     /* C: first **`#search`** — rogue: near hostile → pet → distant/east tail; else distant→east. */
-    if (
-        ((stepNum | 0) === 10 || (stepNum | 0) === 11)
-        && (game.context?._searchStep11Passes | 0) === 1
-    ) {
+    if (isFirstSearchMovemonPassLikeC(g)) {
         const ctx = game.context || (game.context = {});
         const nearMon = searchPass1NearMonLikeC(g);
         ctx._searchPass1NearMonLikeC = nearMon;
@@ -168,7 +166,7 @@ export function fmonListForMovemonLikeC(g, stepNum = 0) {
             const ux = game.u?.ux | 0;
             const uy = game.u?.uy | 0;
             for (const m of mons) {
-                if (m === distant || m === pet || m === westKink) continue;
+                if (m === distant || m === pet) continue;
                 if (game.u?.urole?.abbr === 'Tou' && m === east) continue;
                 const mx = m.mx | 0;
                 const my = m.my | 0;
