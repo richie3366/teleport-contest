@@ -18,11 +18,11 @@ Thin handoff for the next coding session. **Gap inventory (not yet ported):** [`
 
 **Deferred for now:** **`maybe_do_tutorial`** / **`tut-1`** / full **`do.c`** **`goto_level`** (Lua **`tutorial()`** / **`free_tutorial()`**, **`savelev`**, **`gmst_*`**, …) and **`dokick`**/**`dothrow`** vs **`leaving_tutorial`** — strong upstream dependencies (save, specials, fuller **`do.c`**); treat as backlog until chargen / core early-game parity is further along; **`LIVELOGFILE`** parity if the judge ever compares livelog lines.
 
-**Last slice:** **`mcalcmove`/`fmon` wired** — **`moveloop_turn_advance.js`** uses **`fmonListForMcalcmoveLikeC`** on first new-turn (**`moves===1`**); **`mcalc_move.js`** human **`mmove`** floor moved from land eel to **`movemonStep8DistantMonEligibleLikeC`** only (swap assigns distant the third **`rn2(12)`** slot; eel uses real **`data->mmove`**). **`makemon`** still uses **`skipLandEelRn2`** in mklev. **`npm run score`:** **1/44**.
+**Last slice:** **`goodposMakemonLikeC` `accessible()`** — floor check uses **`accessibleAtMonmoveLikeC`** (C **`teleport.c`** **`accessible(x,y)`** + **`SURFACE_AT`**), not raw **`ACCESSIBLE(typ)`** alone. **`skipLandEelRn2`** still required in mklev: full land-eel **`rn2(13)`** at the sleeping-mon retry would run at RNG index **~1633** (**`getrumor`** slot) while C is in **`random_engraving`** — recorder never draws **`rn2(13)`** before that anchor on **`seed8000`**. **`npm run score`:** **1/44**.
 
 ## Next steps
 
-1. **`makemon` / `goodpos`** — drop **`skipLandEelRn2`** once mklev **`rndmonst`** retry path matches C land-eel **`rn2(13)`** ordering (or prove sleeping-mon path never draws eel before anchor ~**1633**). Then drop distant **`moves===1`** human **`mmove`** floor when **`rndmonst`** + **`fmon`** creation order match C without swap.
+1. **`makemon` / `goodpos`** — align mklev **`rndmonst`**+**`goodpos`** retry so first accepted species matches C without **`skipLandEelRn2`** (no extra **`rn2(13)`** at graffiti **`getrumor`** index); then drop distant **`moves===1`** human **`mmove`** floor when **`fmon`** creation order matches C without swap.
 2. **`mklev`/`dig_corridor`** — kink **`STONE`** / **`mfndpos`** **(65,12)** **`cnt=6`** vs **(64,12)** **`cnt=4`**; peel **`stoneCorr*`** hacks where **`roomno`** + C **`mfndpos`** suffice.
 2. **Chargen** — shrink **`fastforward_pre_mklev`** / **`post_mklev`** toward real **`o_init`** / **`u_init_role`** (**`seed0900`**, **`seed0077`**).
 2. **Mklev remainder** — supply extra **`mkobj(SPBOOK)`** reroll dealloc; **`setgemprobs`**; wall-neighbor check vs C **`levl[x][y±1]`** if mineralize count drifts on other seeds.
