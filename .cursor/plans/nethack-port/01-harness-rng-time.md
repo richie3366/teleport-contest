@@ -2,6 +2,14 @@
 
 Parent: global plan **NetHack JS port roadmap** (Workstream A — harness, RNG, time).
 
+## Status (as of 2026-05-23)
+
+- **Partial:** [`js/rng.js`](../../js/rng.js) wrappers + logging; clang-order audits ongoing; fixed datetime consumed for moon / Friday 13th paths.
+- **Partial:** Three RNG contexts still documented as “core first”; Lua/display split when those ports land.
+- **Not done:** `rne`/`rnz` logging parity, full `runSegment` datetime plumbing where C needs it.
+
+---
+
 ## Goals
 
 - **P channel:** `getRngLog()` entries match C order and values (judge strips `@ caller` suffix from C lines).

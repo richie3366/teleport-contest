@@ -2,6 +2,14 @@
 
 Parent: global plan **NetHack JS port roadmap** (Workstream G).
 
+## Status (as of 2026-05-23)
+
+- **Partial:** [`js/makemon.js`](../../js/makemon.js) + [`js/makemon_rndmonst.js`](../../js/makemon_rndmonst.js) / [`js/walkable.js`](../../js/walkable.js) **`goodpos`** slices; land-eel / `rndmonst_adj` still has documented guards (`skipLandEelRn2`) until full geno/`mons[]` parity.
+- **Partial:** [`js/monmove.js`](../../js/monmove.js) / [`js/m_move_mon.js`](../../js/m_move_mon.js) — real **`distfleeck`** / **`m_move`** for canary path; **`stepNum`** sequencing must shrink as **`dochug`** order matches C.
+- **Stub:** [`js/attack.js`](../../js/attack.js) bump damage — no real **`uhitm`** pipeline yet.
+
+---
+
 ## Goals
 
 - Correct **creation**, **placement**, **movement**, **attacks**, **damage**, **death**, and **corpse** RNG relative to `mon.c`, `mhitu.c`, `mhitm.c`, `dog.c`, etc.

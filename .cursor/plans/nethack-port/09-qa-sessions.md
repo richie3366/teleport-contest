@@ -2,6 +2,13 @@
 
 Parent: global plan **NetHack JS port roadmap** (Workstream L).
 
+## Status (as of 2026-05-23)
+
+- **Tooling:** [`.cursor/reports/c-to-js-port-dashboard.md`](../../reports/c-to-js-port-dashboard.md) + [`tools/port-score-snapshot.mjs`](../../tools/port-score-snapshot.mjs) — committed **`frozen/port-score-snapshot.json`**; run `node tools/port-score-snapshot.mjs --update-dashboard` after milestones.
+- **Score:** **1/44** public sessions full pass (`seed8000-tourist-starter`) — use as **regression only** ([`port-from-c-not-score.mdc`](../../rules/port-from-c-not-score.mdc)).
+
+---
+
 ## Goals
 
 - Tight feedback loop: **measure → smallest fix → re-measure** without overfitting public JSON ([.cursor/rules/teleport-contest.mdc](../../rules/teleport-contest.mdc)).
@@ -20,7 +27,7 @@ Optional C recorder: [nethack-c/build-recorder.sh](../../nethack-c/build-recorde
 
 ### Triage
 
-- [ ] Table of 44 public sessions: first divergence **step index**, P% vs S%, sorted by easiest wins
+- [x] Table of 44 public sessions — **see [c-to-js-port-dashboard.md](../../reports/c-to-js-port-dashboard.md)** (regenerate via `port-score-snapshot.mjs`); sort/filter in spreadsheet if desired.
 - [ ] Keep a “focus session” per sprint; only widen after it passes or is blocked on dependency
 
 ### Debugging discipline

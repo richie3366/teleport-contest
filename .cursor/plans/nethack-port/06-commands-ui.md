@@ -2,6 +2,13 @@
 
 Parent: global plan **NetHack JS port roadmap** (Workstream F).
 
+## Status (as of 2026-05-23)
+
+- **Partial:** [`js/cmd.js`](../../js/cmd.js) movement + peaceful swap / bump dispatch; [`js/extcmd.js`](../../js/extcmd.js) subset (`#e` enhance, …); [`js/search.js`](../../js/search.js) growing.
+- **Not done:** Full `cmd.c` / menu stack / most `#` extcmds.
+
+---
+
 ## Goals
 
 - Every **keystroke** in recorded `moves` dispatches to the correct C-equivalent handler and consumes RNG in order.

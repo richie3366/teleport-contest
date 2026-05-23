@@ -2,6 +2,13 @@
 
 Parent: global plan **NetHack JS port roadmap** (Workstream I + J overlap for map).
 
+## Status (as of 2026-05-23)
+
+- **Partial:** [`js/display.js`](../../js/display.js), [`js/game_display.js`](../../js/game_display.js), [`js/vision.js`](../../js/vision.js); [`js/terminal.js`](../../js/terminal.js) frozen — drive via APIs only.
+- **Not done:** Full `botl`, SGR/cursor parity, menu redraws vs C.
+
+---
+
 ## Goals
 
 - **S channel:** Serialized 24×80 frames at each `nhgetch` boundary match C after contest canonicalization ([docs/API.md](../../docs/API.md) *Screen comparator*).

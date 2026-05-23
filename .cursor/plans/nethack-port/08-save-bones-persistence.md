@@ -2,6 +2,12 @@
 
 Parent: global plan **NetHack JS port roadmap** (Workstream K).
 
+## Status (as of 2026-05-23)
+
+- **Deferred:** Game-side save/bones/topten vs C not the active slice; [`js/storage.js`](../../js/storage.js) is frozen API only.
+
+---
+
 ## Goals
 
 - Multi-segment sessions: state in `input.storage` survives across `runSegment` calls per [docs/API.md](../../docs/API.md).

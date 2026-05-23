@@ -2,6 +2,13 @@
 
 Parent: global plan **NetHack JS port roadmap** (Workstream D).
 
+## Status (as of 2026-05-23)
+
+- **Partial:** Large [`js/mklev.js`](../../js/mklev.js) — includes vault **`rnd_rect` + `create_vault`** loop, **`mineralize`** early-return + mines/quest scaling, many fill paths.
+- **Not done:** `dig_corridor` / `mfndpos` geometry vs recorder on some steps; **`setgemprobs`** / erosion tails; legacy **`otyp`** literals vs NH5 until `mkobj` parity; Lua **`sp_lev`** / full branch graph.
+
+---
+
 ## Goals
 
 - Bit-exact **geometry and RNG** for all dungeon levels and branches exercised by judge sessions.
@@ -9,8 +16,8 @@ Parent: global plan **NetHack JS port roadmap** (Workstream D).
 
 ## Current repo anchor
 
-- Large partial port: [js/mklev.js](../../js/mklev.js) (see file header for C file mapping).
-- [js/allmain.js](../../js/allmain.js) wires `mklev()`, then [js/fastforward.js](../../js/fastforward.js) `fastforward_fill_mineralize()` for remaining placement RNG.
+- Large partial port: [js/mklev.js](../../js/mklev.js) (see file header for C file mapping) — **mineralize / room fill consume RNG here**, not via a separate `fastforward_fill_mineralize` export.
+- [js/allmain.js](../../js/allmain.js) wires `mklev()` then post-mklev **`u_init`** pipeline (see [02-init-chargen.md](./02-init-chargen.md)).
 
 ## Upstream C inventory (incremental diff)
 
@@ -31,10 +38,10 @@ Use `nethack-c/upstream/src/` — check off as you prove parity per subsystem:
 - [ ] Mines branch: entrance on correct dlvl; RNG for stairs placement.
 - [ ] Quest / Sokoban / other branches: defer until sessions require; track in session-specific notes under [09-qa-sessions.md](./09-qa-sessions.md).
 
-### `fastforward_fill_mineralize`
+### Mineralize / fill (was `fastforward_fill_mineralize`)
 
-- [ ] Map each replay cluster to C function (`fill_room`, `makeniche`, `create_mon`, `create_object`, …).
-- [ ] Replace cluster with real calls from ported helpers; shrink file until deleted.
+- [x] **Mostly in `mklev.js` now** — mineralize + fill draw in makelevel; keep porting remaining C gaps (`setgemprobs`, legacy otyp, …).
+- [ ] Replace any **leftover** replay (if found elsewhere) with real C calls; goal is zero session-shaped fill clusters.
 
 ### Lua
 
@@ -47,5 +54,5 @@ Use `nethack-c/upstream/src/` — check off as you prove parity per subsystem:
 
 ## Exit criteria
 
-- No mineralize/room-fill replay left in `fastforward.js` for covered sessions.
+- No mineralize/room-fill replay left in **`fastforward.js`** for covered sessions *(true — **`fastforward.js`** is a stub)*; remaining fill gaps are **C parity inside `mklev.js`**.
 - `mklev.js` sections documented with “ported / partial / missing” vs C line ranges.

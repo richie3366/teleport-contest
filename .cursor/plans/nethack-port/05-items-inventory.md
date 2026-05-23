@@ -2,6 +2,13 @@
 
 Parent: global plan **NetHack JS port roadmap** (Workstream H + overlaps with D/F).
 
+## Status (as of 2026-05-23)
+
+- **Stub / overlay:** [`js/ini_inv_stub.js`](../../js/ini_inv_stub.js) for `#inventory` / discoveries; no linked **`game.invent`** from real **`mkobj`** / **`ini_inv`** yet.
+- **Partial:** Floor objects mklev-shaped; [`js/shop.js`](../../js/shop.js), [`js/trap.js`](../../js/trap.js), [`js/pickup.js`](../../js/pickup.js) — large TODO surface.
+
+---
+
 ## Goals
 
 - `struct obj` parity for pickup, merge, stack, naming, BUC, erosion, charges, timers.

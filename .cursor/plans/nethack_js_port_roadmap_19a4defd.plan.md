@@ -40,7 +40,7 @@ isProject: false
 ## How to use this plan
 
 - **North star:** Same PRNG call stream and same terminal frames as the C recorder at every input boundary ([`docs/API.md`](docs/API.md)), with maintainable `js/` for Phase 2 ([`docs/PHASES.md`](docs/PHASES.md)).
-- **Execution style:** Tight **parity loop** per subsystem: map C call sites → port → shrink [`js/fastforward.js`](js/fastforward.js) / remove hardcodes → `bash frozen/score.sh` or one session → fix divergence.
+- **Execution style:** Tight **parity loop** per subsystem: map C call sites → port → shrink **harness** (`monmove.js`, `moveloop_aux.js`, any leftover `u_init_post_mklev` tail) / remove hardcodes → `bash frozen/score.sh` or one session → fix divergence.
 - **Reference code:** Submodule [`nethack-c/upstream/`](nethack-c/upstream/) @ `NetHack-5.0.0_Release`; judge matches **patched clang** build ([`nethack-c/patches/`](nethack-c/patches/), [`nethack-c/README.md`](nethack-c/README.md)).
 - **Satellite plans:** When a workstream’s checklist grows too large, copy its section into a new file under [`.cursor/plans/nethack-port/`](.cursor/plans/nethack-port/) (create the directory when needed). Keep the **main plan** as an index with one-paragraph summaries and links to those files.
 
@@ -48,7 +48,10 @@ isProject: false
 
 - **Contest API:** [`js/jsmain.js`](js/jsmain.js) exports `runSegment`; game object must implement `getScreens`, `getRngLog`, `getCursors` ([`docs/API.md`](docs/API.md)).
 - **Frozen:** [`js/isaac64.js`](js/isaac64.js), [`js/terminal.js`](js/terminal.js), [`js/storage.js`](js/storage.js).
-- **Skeleton:** [`js/allmain.js`](js/allmain.js) still relies on [`js/fastforward.js`](js/fastforward.js) for pre/post-mklev RNG and hardcodes seed8000 tourist stats after `mklev`; [`js/cmd.js`](js/cmd.js) implements movement only; [`js/mklev.js`](js/mklev.js) is already a large partial port; [`js/display.js`](js/display.js) / [`js/vision.js`](js/vision.js) are partial.
+- **Startup / init:** [`js/fastforward.js`](js/fastforward.js) is a **stub** (post-mklev delegates to [`js/u_init_post_mklev.js`](js/u_init_post_mklev.js)). Real RNG: [`js/o_init.js`](js/o_init.js), [`js/dungeon_init.js`](js/dungeon_init.js), [`js/role_init.js`](js/role_init.js), large partial [`js/mklev.js`](js/mklev.js), [`js/allmain.js`](js/allmain.js) `newgame` ordering toward C.
+- **Moveloop:** [`js/cmd.js`](js/cmd.js) movement + more; per-turn tail still mixes real code with **[`js/monmove.js`](js/monmove.js)** + **[`js/moveloop_aux.js`](js/moveloop_aux.js)** harness until full `allmain.c` / `monmove.c` parity.
+- **Score / triage:** **[`.cursor/reports/c-to-js-port-dashboard.md`](.cursor/reports/c-to-js-port-dashboard.md)** + **`node tools/port-score-snapshot.mjs --update-dashboard`**; **`npm run score`** → **1/44** public sessions at full P+S (`seed8000-tourist-starter` pass) — regression check only ([`.cursor/rules/port-from-c-not-score.mdc`](.cursor/rules/port-from-c-not-score.mdc)).
+- **Display:** [`js/display.js`](js/display.js) / [`js/vision.js`](js/vision.js) partial.
 
 ## Satellite plan files (create as checklists grow)
 

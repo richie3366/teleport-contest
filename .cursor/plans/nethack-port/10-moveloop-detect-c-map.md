@@ -2,18 +2,25 @@
 
 Parent: NetHack JS port roadmap — **structure tracks the C tree**, not session JSON.
 
+## Status (as of 2026-05-23)
+
+- **Startup:** [`js/fastforward.js`](../../js/fastforward.js) is a **stub** — per-turn debt is **[`js/monmove.js`](../../js/monmove.js)** + **[`js/moveloop_aux.js`](../../js/moveloop_aux.js)** from [`js/allmain.js`](../../js/allmain.js) `moveloop_core`.
+- **Canary:** `seed8000` **movemon** path combines real C slices with **`stepNum`** gates — peel when **`dochug`** / `fmon` order explains draws without session geometry.
+
+---
+
 ## Principle
 
 - **Sessions** (`sessions/*.session.json`) are regression *signals*: they show what the judge compares, not the source of truth for logic.
-- **Upstream** (`nethack-c/src/` or your pinned tree) defines order, RNG consumption, and messages.
-- **Debt:** [js/fastforward.js](../../js/fastforward.js) startup replay (`fastforward_*`) until JS owns the same call graph as C. Per-turn tail lives in [js/monmove.js](../../js/monmove.js) + [js/moveloop_aux.js](../../js/moveloop_aux.js), invoked from [js/allmain.js](../../js/allmain.js) `moveloop_core`; delete harness rows as ports land.
+- **Upstream** (`nethack-c/upstream/src/`) defines order, RNG consumption, and messages.
+- **Debt:** Per-turn harness in **`monmove.js`** / **`moveloop_aux.js`** until JS owns the same post-hero call graph as C. Startup replay table in **`fastforward.js`** is **retired** (remainder in **`u_init_post_mklev.js`**).
 
 ## Target C files → JS modules
 
 | C (typical) | Role | JS direction |
 |-------------|------|----------------|
-| `allmain.c` | `moveloop`, `moveloop_core`, move clock, `maybe_generate_rnd_mon`, end-of-turn ordering | [js/allmain.js](../../js/allmain.js) calls [js/monmove.js](../../js/monmove.js) + [js/moveloop_aux.js](../../js/moveloop_aux.js) from `moveloop_core` (harness until ported). Startup fill still in [js/fastforward.js](../../js/fastforward.js). |
-| `monmove.c` | `movemon`, `m_move`, fleeing / distfleeck | [js/monmove.js](../../js/monmove.js) — **harness** replays session monster slice; replace with real `movemon` when `fmon` exists. |
+| `allmain.c` | `moveloop`, `moveloop_core`, move clock, `maybe_generate_rnd_mon`, end-of-turn ordering | [js/allmain.js](../../js/allmain.js) calls [js/monmove.js](../../js/monmove.js) + [js/moveloop_aux.js](../../js/moveloop_aux.js) from `moveloop_core` (harness until ported). Startup RNG is **not** in [js/fastforward.js](../../js/fastforward.js) (stub); post-mklev hero init continues in **`u_init_post_mklev.js`**. |
+| `monmove.c` | `movemon`, `m_move`, fleeing / distfleeck | [js/monmove.js](../../js/monmove.js) — **mixed**: real `distfleeck`/`m_move` slices + harness **`stepNum`** until full `dochug` parity. |
 | `mon.c` | `mcalcmove`, monster AI state | Same area as monmove or `js/mon.js` if you split data vs movement. |
 | `sounds.c` | `dosounds` | Port when dungeon state and turn hooks exist. |
 | `eat.c` | `gethungry` | Port with `u` hunger fields and move consumption. |
