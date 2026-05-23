@@ -77,7 +77,9 @@ for (const block of blocks) {
     const lvlM = block.match(/LVL\(\s*(\d+)\s*,\s*(\d+)/);
     mlevel.push(lvlM ? parseInt(lvlM[1], 10) : 0);
     mmove.push(lvlM ? parseInt(lvlM[2], 10) : 12);
-    const diffM = block.match(/,\s*(\d+)\s*,\s*CLR_[A-Z_]+/);
+    const diffM = block.match(
+        /(\d+)\s*,\s*[A-Z][A-Z0-9_]+\s*,\s*[A-Z][A-Z0-9_]+\s*\)\s*$/m,
+    );
     difficulty.push(diffM ? parseInt(diffM[1], 10) : 0);
     genoPlanB.push(parseGenoPlanB(block));
     mflags3.push(parseMflags3(block));
