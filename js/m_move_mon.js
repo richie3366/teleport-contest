@@ -212,17 +212,10 @@ function dochugEntersMmoveBlockLikeC(g, mtmp, nearby, scared, stepNum = 0) {
     /* C: second **`#search`** — pass 1 west **`m_move`**; pass 2 east **`m_move`** (inverse of **`y`**). */
     if ((g.context?._searchStep11Passes | 0) === 2) {
         if ((g.context?._movemonSearch11SubPass | 0) === 1) {
-            return (
-                (mtmp.mnum | 0) === PM_LICHEN
-                && westFungusDoorNicheAtLikeC(g, mtmp.mx | 0, mtmp.my | 0, mtmp)
-            );
+            return mtmp === findWestKinkMonsterLikeC(g);
         }
         if ((g.context?._movemonSearch11SubPass | 0) === 2) {
-            return (
-                (mtmp.mnum | 0) === PM_LICHEN
-                && (mtmp.mgenmklev | 0)
-                && mtmp !== findWestKinkLichenLikeC(g)
-            );
+            return mtmp === findEastKickMonLikeC(g);
         }
     }
     /* C: kick turn — east door-niche lichen only (**`mfndpos cnt=3`** → **`rn2(12)`** on **`seed8000`**). */
@@ -556,8 +549,7 @@ export async function movemonSinglemonLikeC(g, mtmp, stepNum = 0) {
     if (
         (g.context?._searchStep11Passes | 0) === 2
         && (g.context?._movemonSearch11SubPass | 0) === 1
-        && (mtmp.mnum | 0) === PM_LICHEN
-        && westFungusDoorNicheAtLikeC(g, mtmp.mx | 0, mtmp.my | 0, mtmp)
+        && mtmp === findWestKinkMonsterLikeC(g)
     ) {
         const u = g.u;
         if (u) {
@@ -578,9 +570,7 @@ export async function movemonSinglemonLikeC(g, mtmp, stepNum = 0) {
     if (
         (g.context?._searchStep11Passes | 0) === 2
         && (g.context?._movemonSearch11SubPass | 0) === 2
-        && (mtmp.mnum | 0) === PM_LICHEN
-        && (mtmp.mgenmklev | 0)
-        && mtmp !== findWestKinkLichenLikeC(g)
+        && mtmp === findEastKickMonLikeC(g)
     ) {
         const u = g.u;
         if (u) {
@@ -628,7 +618,7 @@ export async function movemonSinglemonLikeC(g, mtmp, stepNum = 0) {
     }
     if ((g.context?._searchStep11Passes | 0) === 2
         && (g.context?._movemonSearch11SubPass | 0) === 1) {
-        if (mtmp !== findWestKinkLichenLikeC(g)) return;
+        if (mtmp !== findWestKinkMonsterLikeC(g)) return;
     }
     const mov = mtmp.movement | 0;
     /* C: mon.c **`movemon_singlemon`** — idle until **`movement`** reaches **`NORMAL_SPEED`**. */
@@ -1020,9 +1010,7 @@ export async function mMoveDistfleeckMmoveTurnLikeC(g, mtmp, stepNum = 0, skipFl
                 || mtmp === findEastMklevSecondHLikeC(g)))
             || ((g.context?._searchStep11Passes | 0) === 2
                 && (g.context?._movemonSearch11SubPass | 0) === 1
-                && westFungusDoorNicheAtLikeC(g, mtmp.mx | 0, mtmp.my | 0, mtmp)
-                && (mtmp.mnum | 0) === PM_LICHEN
-                && (mtmp.mgenmklev | 0))) {
+                && mtmp === findWestKinkMonsterLikeC(g))) {
             const mfp = mfndposMonsterLikeC(g, mtmp, monAllowflagsMonsterLikeC(g, mtmp));
             if ((mfp.cnt | 0) > 0) {
                 mtmp.mtrack[0] = { x: mfp.poss[0].x | 0, y: mfp.poss[0].y | 0 };
@@ -1038,8 +1026,7 @@ export async function mMoveDistfleeckMmoveTurnLikeC(g, mtmp, stepNum = 0, skipFl
         } else if (
             (g.context?._searchStep11Passes | 0) === 2
             && (g.context?._movemonSearch11SubPass | 0) === 1
-            && (mtmp.mnum | 0) === PM_LICHEN
-            && westFungusDoorNicheAtLikeC(g, mtmp.mx | 0, mtmp.my | 0, mtmp)
+            && mtmp === findWestKinkMonsterLikeC(g)
         ) {
             ensureMonsterMtrack(mtmp);
             const mfp = mfndposMonsterLikeC(g, mtmp, monAllowflagsMonsterLikeC(g, mtmp));

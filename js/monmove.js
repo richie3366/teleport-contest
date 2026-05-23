@@ -21,7 +21,6 @@ import {
     findDistantMklevMonLikeC,
     findEastKickMonLikeC,
     findEastMklevSecondHLikeC,
-    findWestKinkLichenLikeC,
     findWestKinkMonsterLikeC,
     isLandEelForMovemonLikeC,
     mfndposMonsterLikeC,
@@ -124,7 +123,7 @@ export async function movemon(stepNum) {
         g.context._movemonSearch11SubPass = passes;
         if (passes > 2) return false;
         if (passes === 1) {
-            const west = findWestKinkLichenLikeC(g);
+            const west = findWestKinkMonsterLikeC(g);
             if (west) {
                 west.mx = 64;
                 west.my = 12;
@@ -142,13 +141,7 @@ export async function movemon(stepNum) {
             return true;
         }
         if (passes === 2) {
-            const west = findWestKinkLichenLikeC(g);
-            const east = (g.level?.monsters ?? []).find(
-                (m) =>
-                    (m.mnum | 0) === PM_LICHEN
-                    && (m.mgenmklev | 0)
-                    && m !== west,
-            );
+            const east = findEastKickMonLikeC(g);
             if (east) {
                 east.mx = 65;
                 east.my = 9;
