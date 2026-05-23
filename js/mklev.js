@@ -79,6 +79,7 @@ import {
     floorObjKey,
     placeFloorObject,
     placeFloorObjectInLevel,
+    refreshFobjHeadInLevel,
 } from './floorobj.js';
 import { fixWallSpinesRect } from './wall_spine.js';
 
@@ -2446,6 +2447,33 @@ function tagCorrRoomnoAdjacentRoomsLikeC(g) {
  * apport loot in **`ROOM`** north of a west door alcove **(door.x-1, door.y)**.
  * @param {import('./gstate.js').game} g
  */
+/**
+ * C: **`mineralize`** runs after **`fill_ordinary_room`** — wall gold in a west-door column must
+ * stay newer on global **`fobj`** than apport fill loot even when fill placed gold before towel.
+ * @param {import('./gstate.js').game} g
+ */
+function refreshWestDoorColumnFobjAfterMineralizeLikeC(g) {
+    const map = g.level;
+    if (!map?.doors?.length || !map.fobj) return;
+    for (const d of map.doors) {
+        if (!d) continue;
+        const xx = d.x | 0;
+        const yy = d.y | 0;
+        const west = map.at(xx - 1, yy);
+        if (!west || (west.typ | 0) !== CORR) continue;
+        const nx = xx - 1;
+        let gold = null;
+        let towel = null;
+        for (let o = map.fobj; o; o = o.nobj) {
+            if ((o.ox | 0) !== nx) continue;
+            const ot = o.otyp | 0;
+            if (ot === GOLD_PIECE) gold = o;
+            else if (ot === 234 || ot === 235) towel = o;
+        }
+        if (gold && towel) refreshFobjHeadInLevel(g, gold);
+    }
+}
+
 function relocateFillObjsIntoWestDoorAlcovesLikeC(g) {
     const map = g.level;
     const heads = map?.floorObjHeads;
@@ -2498,6 +2526,7 @@ function level_finalize_topology() {
     mineralize(-1, -1, -1, -1, false);
     openDoorCorridorWestAlcovesFinalizeLikeC(game);
     relocateFillObjsIntoWestDoorAlcovesLikeC(game);
+    refreshWestDoorColumnFobjAfterMineralizeLikeC(game);
     preferSleepingLichenDoorNichesLikeC(game);
     game.in_mklev = false;
     if (!game.level?.flags?.is_maze_lev) {

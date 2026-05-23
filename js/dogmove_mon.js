@@ -37,9 +37,30 @@ import {
     canReachLocationDogmoveLikeC,
     cursedObjectAtDogmoveLikeC,
 } from './dogmove_reach.js';
+import { raceptr, MZ_MEDIUM } from './mondata.js';
+import { MAX_CARR_CAP } from './const.js';
+
+/** C: mon.c **`curr_mon_load`**. */
+function currMonLoadMtmpLikeC(mtmp) {
+    let curload = 0;
+    for (let o = mtmp.minvent; o; o = o.nobj) curload += o.owt | 0;
+    return curload;
+}
 
 /**
- * C: mon.c can_carry — tame pet apport gate subset (**`can_carry > 0`** at dogmove.c:555).
+ * C: mon.c **`max_mon_load`** — **`!cwt`** uses **`msize`/`MZ_HUMAN`**; tame pets not **`strongmonst`** halve.
+ * @param {Record<string, unknown>} mtmp
+ */
+function maxMonLoadMtmpLikeC(mtmp) {
+    const ptr = raceptr(mtmp);
+    const msize = ptr?.msize ?? MZ_MEDIUM;
+    let maxload = Math.trunc((MAX_CARR_CAP * msize) / MZ_MEDIUM);
+    maxload = Math.trunc(maxload / 2);
+    return maxload < 1 ? 1 : maxload;
+}
+
+/**
+ * C: mon.c **`can_carry`** — apport goal gate (**`can_carry > 0`** at dogmove.c:555).
  * @param {Record<string, unknown>} mtmp
  * @param {Record<string, unknown>} obj
  */
@@ -47,8 +68,10 @@ function canCarryMonsterObjDogmoveLikeC(mtmp, obj) {
     if (!obj) return 0;
     const quan = obj.quan | 0;
     if (quan <= 0) return 0;
-  /* Kitten / small pets: contest slice treats single-quan floor items as carriable. */
-    return quan > 20000 ? 20000 : quan > 1 ? 1 : 1;
+    const iquan = quan > 20000 ? 20000 : quan;
+    const owt = obj.owt | 0;
+    if (owt > 0 && currMonLoadMtmpLikeC(mtmp) + owt > maxMonLoadMtmpLikeC(mtmp)) return 0;
+    return iquan;
 }
 
 /** C: dogmove.c **`droppables`** — non-null when pet should consider **`relobj`**. */
@@ -152,17 +175,17 @@ function dogInventLikeC(g, mtmp, udist) {
  * C: dogmove.c — **`fobj`** chain members in **`[minX..maxX]×[minY..maxY]`** (creation order).
  * @param {import('./gstate.js').game} g
  */
+/**
+ * C: dog_goal walks global **`fobj`** (newest-first; **`place_object`** prepends).
+ * @param {import('./gstate.js').game} g
+ */
 function fobjInDogGoalBoxLikeC(g, minX, maxX, minY, maxY) {
     const out = [];
-    const heads = g.level?.floorObjHeads;
-    if (!heads) return out;
-    for (const head of heads.values()) {
-        for (let obj = head; obj; obj = obj.nexthere) {
-            const nx = obj.ox | 0;
-            const ny = obj.oy | 0;
-            if (nx < minX || nx > maxX || ny < minY || ny > maxY) continue;
-            out.push(obj);
-        }
+    for (let obj = g.level?.fobj; obj; obj = obj.nobj) {
+        const nx = obj.ox | 0;
+        const ny = obj.oy | 0;
+        if (nx < minX || nx > maxX || ny < minY || ny > maxY) continue;
+        out.push(obj);
     }
     return out;
 }
@@ -195,7 +218,7 @@ function dogGoalFloorScanRngLikeC(
     const uy = u.uy | 0;
     const udist = dist2(omx, omy, ux, uy);
     const inSight = couldsee(omx, omy);
-    const hasMinvent = false; /* NO_MINVENT starting pet */
+    const hasMinvent = droppablesMtmpLikeC(mtmp) !== null;
     if (!trackApportGoalLikeC) {
         for (const obj of floor) {
             if (!obj) continue;
@@ -300,7 +323,7 @@ function dogGoalFollowGxGyApprLikeC(
     }
     gx = u.ux | 0;
     gy = u.uy | 0;
-    const dogHasMinvent = false; /* NO_MINVENT starting pet */
+    const dogHasMinvent = droppablesMtmpLikeC(mtmp) !== null;
     let appr = udist >= 9 ? 1 : (mtmp.mflee | 0) ? -1 : 0;
     if (udist > 1) {
         if (

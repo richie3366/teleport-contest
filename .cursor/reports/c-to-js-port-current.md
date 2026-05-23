@@ -18,13 +18,13 @@ Thin handoff for the next coding session. **Score + milestones:** [`c-to-js-port
 
 **Deferred for now:** **`maybe_do_tutorial`** / **`tut-1`** / full **`do.c`** **`goto_level`** (Lua **`tutorial()`** / **`free_tutorial()`**, **`savelev`**, **`gmst_*`**, …) and **`dokick`**/**`dothrow`** vs **`leaving_tutorial`** — strong upstream dependencies (save, specials, fuller **`do.c`**); treat as backlog until chargen / core early-game parity is further along; **`LIVELOGFILE`** parity if the judge ever compares livelog lines.
 
-**Last slice:** **`dogmove_mon.js`**: **`dogInventLikeC`** **`mpickobj`** + apport decrement + pickup pline; first **`#search`** full **`dog_goal`** + pick; **`dogGoalScanSearchPostGateLikeC`** — post-gate **`dog_goal`** only (no second **`dog_invent`** at **~3215**). **`monmove.js`**: gate tail calls goal scan, not full **`dogMoveSearchPassNearHeroLikeC`**. **`seed0077`:** **3218/3242** (first gap **~3218** — **`distfleeck`** / second **`#search`** **`dog_invent`** **`rn2(20)`** + pet on towel). **`seed8000`:** **PASS**. **`npm run score`:** **1/44**.
+**Last slice:** **`floorobj.js`**: C global **`fobj`** chain (**`nobj`**, prepend on **`place_object`**, unlink on extract); intra-level moves keep **`fobj`** order; **`mklev.js`**: **`refreshWestDoorColumnFobjAfterMineralizeLikeC`** so wall gold stays newer than apport towel for **`dog_goal`**. **`dogmove_mon.js`**: **`dog_goal`** walks **`level.fobj`**; **`can_carry`** load gate; **`dog_has_minvent`** via **`droppables`**. **`seed0077`:** **3218/3242** (first gap **~3218** — second **`#search`** **`dog_invent`** / **`mfndpos`** pick). **`seed8000`:** **PASS**. **`npm run score`:** **1/44**.
 
 ## Next steps
 
-1. **`seed0077` ~3218+** — second **`#search`** pet on **(35,8)** for **`dog_invent`** **`rn2(20)`**/**`rn2(apport)`** (session pline “kitten picks up a towel”); align **`distfleeck`** / moveloop tail **3218–3227**; **`:`** new-turn **3236+** after invent chain. Tools: **`tools/diag_rng_window.mjs`**, **`tools/diag_dog_goal_at_search.mjs`**, **`tools/diag_floor_at_search.mjs`**.
+1. **`seed0077` ~3218+** — second **`#search`** **`dog_invent`** **`rn2(20)`**/**`rn2(apport)`** with pet on towel **(35,8)**; align **`dog_move`** **`mfndpos`** pick **3207–3217** vs C **`rn2(8)`** tail; **`:`** new-turn **3236+**. Tools: **`tools/diag_rng_window.mjs`**, **`tools/diag_dog_goal_at_search.mjs`**.
 
-2. **`jsmain` tail post** — new-turn **3236–3241** after **`dolook`** on **`:`** step once **`dog_invent`** chain aligns.
+2. **`jsmain` tail post** — new-turn **3236–3241** after **`dolook`** on **`:`** step once invent chain aligns.
 
 3. **`makeroguerooms` / rogue special level** — when **`Is_rogue_level`** is true.
 
