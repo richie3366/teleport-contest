@@ -20,9 +20,8 @@ import { runUInitRoleRngAfterMklevLikeC } from "./u_init_post_mklev.js";
 // Pre-mklev startup: o_init shuffles, dungeon init, u_init_misc (handedness rn2(10) in allmain.js before l_nhcore_init)
 // 302 leaf RNG calls (session indices 0-307)
 export function fastforward_pre_mklev() {
-    // randomize_gem_colors
-    rn2(2); rn2(2); rn2(4);
-    // shuffle
+    /* gem colors + WAN_NOTHING oc_dir — js/o_init.js initObjectsLikeC */
+    // shuffle (until real shuffle_all matches C oc_name_known / armor otyp bounds)
     rn2(11); rn2(10); rn2(9); rn2(8); rn2(7); rn2(6); rn2(5); rn2(4);
     rn2(3); rn2(2); rn2(1); rn2(25); rn2(24); rn2(23); rn2(22); rn2(21);
     rn2(20); rn2(19); rn2(18); rn2(17); rn2(16); rn2(15); rn2(14); rn2(13);
@@ -48,7 +47,7 @@ export function fastforward_pre_mklev() {
     rn2(4); rn2(3); rn2(2); rn2(1); rn2(4); rn2(3); rn2(2); rn2(1);
     rn2(4); rn2(3); rn2(2); rn2(1); rn2(7); rn2(6); rn2(5); rn2(4);
     rn2(3); rn2(2); rn2(1);
-    // init_objects
+    // init_objects WAN_NOTHING (after shuffle_all in C)
     rn2(2);
     // random
     rn2(3); rn2(2);

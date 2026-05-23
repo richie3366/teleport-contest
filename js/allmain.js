@@ -14,6 +14,7 @@ import {
     noticeMonOffLikeC, noticeMonOnLikeC, noticeAllMonsLikeC, dolookaroundLikeC,
 } from './vision.js';
 import { genders, roleHasFemaleRoleNameLikeC } from './roles.js';
+import { initObjectsLikeC } from './o_init.js';
 import { fastforward_pre_mklev } from './fastforward.js';
 import { runUInitRoleRngAfterMklevLikeC } from './u_init_post_mklev.js';
 import {
@@ -48,8 +49,9 @@ export async function newgame() {
     /* C: u_init_misc / moveloop — svm.moves==0 until u_init_role sets 1 (u_init.c u_init_role) */
     g.moves = 0;
 
-    // Fast-forward through pre-mklev startup RNG calls.
-    // Covers: o_init (shuffles), dungeon init, u_init_misc (except handedness line — see below).
+    /* C: o_init.c init_objects — gem colors, description shuffles, WAN_NOTHING oc_dir. */
+    initObjectsLikeC();
+    /* dungeon.c / init_objects remainder — peeled as real C lands. */
     fastforward_pre_mklev();
 
     /* C u_init.c u_init_misc — handedness before l_nhcore_init (allmain.c newgame order) */
