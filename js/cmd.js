@@ -155,9 +155,9 @@ export async function rhack(key) {
                 game.urole?.abbr === 'Rog'
                 || game.pl_character === 'Rogue'
                 || (game.urole?.mnum | 0) === 8;
-            game.context._searchPass1NearMonLikeC =
-                rogueLike || searchPass1NearMonLikeC(game);
             const nearHostile = findFirstSearchRogMidMklevHostileLikeC(game);
+            game.context._searchPass1NearMonLikeC =
+                rogueLike || searchPass1NearMonLikeC(game) || !!nearHostile;
             if (nearHostile) {
                 disturbMonsterLikeC(game, nearHostile);
                 if ((nearHostile.msleeping | 0)) nearHostile.msleeping = 0;

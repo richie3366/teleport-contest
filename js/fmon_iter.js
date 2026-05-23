@@ -153,8 +153,8 @@ export function fmonListForMovemonLikeC(g, stepNum = 0) {
         if (distant) ordered.push(distant);
         return [...ordered, ...rest].filter(Boolean);
     }
-    /* C: first **`#search`** — rogue: near hostile → pet → distant/east tail; else distant→east. */
-    if (isFirstSearchMovemonPassLikeC(g)) {
+    /* C: rogue near mklev / first **`#search`** — gate hostile before pet (also step **`1`** peel). */
+    if (isFirstSearchMovemonPassLikeC(g) || g.context?._searchPass1NearMonLikeC) {
         const ctx = game.context || (game.context = {});
         const east = findEastKickMonLikeC(g);
         const distant = findDistantMklevMonLikeC(g);
@@ -162,8 +162,8 @@ export function fmonListForMovemonLikeC(g, stepNum = 0) {
             game.urole?.abbr === 'Rog'
             || game.pl_character === 'Rogue'
             || (game.urole?.mnum | 0) === 8;
-        let nearMon = searchPass1NearMonLikeC(g);
-        if (rogueLike) nearMon = true;
+        const rogHostile = rogueLike ? findFirstSearchRogMidMklevHostileLikeC(g) : null;
+        let nearMon = rogueLike || searchPass1NearMonLikeC(g) || !!rogHostile;
         ctx._searchPass1NearMonLikeC = nearMon;
         const pet = mons.find((m) => (m.mtame | 0) !== 0);
         const westKink = findWestKinkMonsterLikeC(g);
@@ -195,7 +195,6 @@ export function fmonListForMovemonLikeC(g, stepNum = 0) {
             if (distant) tail.push(distant);
             if (east && !near.includes(east)) tail.push(east);
             /* C: rogue **`seed0077`** — mid mklev hostile before door-niche / pet on first **`#search`**. */
-            const rogHostile = rogueLike ? findFirstSearchRogMidMklevHostileLikeC(g) : null;
             const nearHostile = near.filter(
                 (m) => firstSearchNearMklevHostileLikeC(g, m) && m !== rogHostile,
             );
@@ -205,10 +204,10 @@ export function fmonListForMovemonLikeC(g, stepNum = 0) {
             const midRest = mid.filter((m) => m !== rogHostile);
             return [
                 ...(rogHostile ? [rogHostile] : []),
+                ...(pet ? [pet] : []),
                 ...nearHostile,
                 ...nearRemainder,
                 ...midRest,
-                ...(pet ? [pet] : []),
                 ...tail,
             ].filter(Boolean);
         }

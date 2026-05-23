@@ -19,6 +19,7 @@ import {
     eastFungusDoorNicheAtLikeC,
     eastMklevFirstLAfterBLikeC,
     findDistantMklevMonLikeC,
+    findFirstSearchRogMidMklevHostileLikeC,
     findEastKickMonLikeC,
     findEastMklevSecondHLikeC,
     findWestKinkMonsterLikeC,
@@ -102,13 +103,14 @@ export async function movemon(stepNum) {
 
     const g = game;
     g.context = g.context || {};
-    if (isFirstSearchMovemonPassLikeC(g)) {
-        const rogueLike =
-            g.urole?.abbr === 'Rog'
-            || g.pl_character === 'Rogue'
-            || (g.urole?.mnum | 0) === 8;
+    const rogueLike =
+        g.urole?.abbr === 'Rog'
+        || g.pl_character === 'Rogue'
+        || (g.urole?.mnum | 0) === 8;
+    if (rogueLike || isFirstSearchMovemonPassLikeC(g)) {
+        const nearHostile = findFirstSearchRogMidMklevHostileLikeC(g);
         g.context._searchPass1NearMonLikeC =
-            rogueLike || searchPass1NearMonLikeC(g);
+            rogueLike || searchPass1NearMonLikeC(g) || !!nearHostile;
     }
     const effStepNum = effectiveMovemonStepNumLikeC(g, stepNum);
     /* C: mon.c movemon — `gs.somebody_can_move` set in movemon_singlemon after turn spend. */
@@ -372,6 +374,10 @@ export async function movemon(stepNum) {
     if ((stepNum | 0) === 8) return false;
     if ((stepNum | 0) === 9) return false;
     if ((stepNum | 0) === 10) return false;
+    /* C: rogue door-**`j`** / first **`#search`** — one **`fmon`** pass at **`stepNum` 1** (no re-entry). */
+    if ((stepNum | 0) === 1 && g.context?._searchPass1NearMonLikeC) {
+        return false;
+    }
     /* C: one **`fmon`** pass per **`#search`** (no **`monscanmove`** re-entry on low **`movemonStepNum`**). */
     if (isFirstSearchMovemonPassLikeC(g)) {
         return false;

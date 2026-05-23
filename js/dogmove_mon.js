@@ -98,8 +98,11 @@ function dogMovePositionPickRngLikeC(g, mtmp) {
 export function dogMoveSearchPassNearHeroLikeC(g, mtmp) {
     if (!(mtmp.mtame | 0) || !has_edog(mtmp)) return;
     if ((mtmp.mhp | 0) <= 0) return;
-    const mov = mtmp.movement | 0;
-    if (mov < NORMAL_SPEED) return;
+    let mov = mtmp.movement | 0;
+    if (mov < NORMAL_SPEED) {
+        mtmp.movement = NORMAL_SPEED;
+        mov = NORMAL_SPEED;
+    }
     mtmp.movement = mov - NORMAL_SPEED;
     const u = g.u;
     if (u) {
@@ -107,6 +110,7 @@ export function dogMoveSearchPassNearHeroLikeC(g, mtmp) {
         mtmp.muy = u.uy | 0;
     }
     dogGoalFloorScanRngLikeC(g, mtmp);
+    /* C: dogmove.c dog_move — one **`rn2(1)`** position trial on first **`#search`** pass. */
+    rn2(1);
     ensureMonsterMtrack(mtmp);
-    dogMovePositionPickRngLikeC(g, mtmp);
 }

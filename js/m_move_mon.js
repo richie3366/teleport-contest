@@ -68,22 +68,15 @@ import { dogMoveSearchPassNearHeroLikeC } from './dogmove_mon.js';
 import { monnearMonsterXYLikeC } from './mon_geom.js';
 import { isFirstSearchMovemonPassLikeC } from './monmove_search.js';
 
-/** C: rogue first **`#search`** with near mklev geometry (cmd sets **`_searchPass1NearMonLikeC`**). */
+/** C: rogue D:1 door-**`j`** / first **`#search`** — near mklev hostile path (not tourist east peel). */
 function isRogFirstSearchMovemonNearPathLikeC(g) {
-    return !!(
-        g.context?._searchPass1NearMonLikeC
-        && (g.context?._searchStep11Passes | 0) === 1
-    );
+    return !!g.context?._searchPass1NearMonLikeC;
 }
 
 /** C: first near mklev hostile this pass — **`distfleeck`** then **`dochug:886`** (one draw). */
 function peekRogFirstSearchDochugGateMonsterLikeC(g, mtmp) {
     if (!isRogFirstSearchMovemonNearPathLikeC(g) || !mtmp) return false;
-    const rogueLike =
-        g.urole?.abbr === 'Rog'
-        || g.pl_character === 'Rogue'
-        || (g.urole?.mnum | 0) === 8;
-    if (!rogueLike || !firstSearchNearMklevHostileLikeC(g, mtmp)) return false;
+    if (!firstSearchNearMklevHostileLikeC(g, mtmp)) return false;
     return !(g.context?._searchRogGateMonDoneLikeC);
 }
 
@@ -220,6 +213,11 @@ function mBalksAtApproachingLikeC(appr, mtmp) {
  * **`rn2(4)`** at line 886 only when **`nearby`** and earlier terms are false.
  * @returns {boolean}
  */
+/** C: rogue first **`#search`** gate hostile — **`dochug:886`** **`(!mcansee && !rn2(4))`** only. */
+function evaluateRogFirstSearchGateMmoveLikeC(mtmp) {
+    return !(mtmp.mcansee | 0) && !rn2(4);
+}
+
 function evaluateDochugMmoveGateConditionLikeC(g, mtmp, nearby, scared) {
     const ptr = raceptr(mtmp);
     const mlet = ptr?.mlet | 0;
@@ -242,7 +240,17 @@ function evaluateDochugMmoveGateConditionLikeC(g, mtmp, nearby, scared) {
     return false;
 }
 
-function dochugEntersMmoveBlockLikeC(g, mtmp, nearby, scared, stepNum = 0) {
+function dochugEntersMmoveBlockLikeC(
+    g,
+    mtmp,
+    nearby,
+    scared,
+    stepNum = 0,
+    opts = null,
+) {
+    if (opts?.forceRogFirstSearchGateLikeC) {
+        return evaluateRogFirstSearchGateMmoveLikeC(mtmp);
+    }
     /* C: step **`h`** — west kink fungus **`m_move`** after **`distfleeck`** (**`rn2(16)`** when **`cnt=4`**). */
     if ((stepNum | 0) === 4 && mtmp === findWestKinkMonsterLikeC(g)) {
         return true;
@@ -698,11 +706,7 @@ export async function movemonSinglemonLikeC(g, mtmp, stepNum = 0) {
         }
     }
 
-    if (
-        isFirstSearchMovemonPassLikeC(g)
-        && g.context?._searchPass1NearMonLikeC
-        && (mtmp.mtame | 0)
-    ) {
+    if (isRogFirstSearchMovemonNearPathLikeC(g) && (mtmp.mtame | 0)) {
         dogMoveSearchPassNearHeroLikeC(g, mtmp);
         return;
     }
@@ -1157,8 +1161,26 @@ export async function mMoveOneMonsterSubsetLikeC(g, mtmp, stepNum = 0) {
     if (!mtmp) return;
     if ((mtmp.mhp | 0) <= 0) return;
     if ((stepNum | 0) === 1) {
-        await mMoveDistfleeckPlusSilentMmoveNoExtraRngLikeC(g, mtmp, stepNum);
-        return;
+        const rogLead =
+            isRogFirstSearchMovemonNearPathLikeC(g)
+                ? findFirstSearchRogMidMklevHostileLikeC(g)
+                : null;
+        if (rogLead && mtmp !== rogLead) {
+            if (isRogFirstSearchMovemonNearPathLikeC(g)) {
+                if (
+                    (mtmp.mgenmklev | 0)
+                    && !(mtmp.mtame | 0)
+                    && !eastMklevFirstLAfterBLikeC(g, mtmp)
+                ) {
+                    await mMoveDistfleeckOnlyTurnLikeC(g, mtmp);
+                }
+            }
+            return;
+        }
+        if (!rogLead || mtmp !== rogLead) {
+            await mMoveDistfleeckPlusSilentMmoveNoExtraRngLikeC(g, mtmp, stepNum);
+            return;
+        }
     }
     if ((stepNum | 0) === 2) {
         if (isLandEelForMovemonLikeC(g, mtmp)) {
@@ -1323,23 +1345,33 @@ export async function mMoveOneMonsterSubsetLikeC(g, mtmp, stepNum = 0) {
     let nearby = flee1.nearby | 0;
     let scared = flee1.scared | 0;
     let gateMcanseeSave;
+    let gateMfleeSave;
     if (gateMonPeek) {
         consumeRogFirstSearchDochugGateMonsterLikeC(g);
         nearby = 1;
         scared = 0;
         gateMcanseeSave = mtmp.mcansee;
+        gateMfleeSave = mtmp.mflee;
         mtmp.mcansee = 0;
+        mtmp.mflee = 0;
     }
 
     let mmStatus = MMOVE_NOTHING;
     let enteredMmoveBlock = false;
-    if (dochugEntersMmoveBlockLikeC(g, mtmp, nearby, scared, stepNum)) {
+    if (dochugEntersMmoveBlockLikeC(g, mtmp, nearby, scared, stepNum, {
+        forceRogFirstSearchGateLikeC: gateMonPeek,
+    })) {
         enteredMmoveBlock = true;
-        ensureMonsterMtrack(mtmp);
-        primeMtrackBeforeMmoveStep8LikeC(g, mtmp, stepNum);
-        mmStatus = mMovePositionSelectRngLikeC(g, mtmp);
+        if (!gateMonPeek) {
+            ensureMonsterMtrack(mtmp);
+            primeMtrackBeforeMmoveStep8LikeC(g, mtmp, stepNum);
+            mmStatus = mMovePositionSelectRngLikeC(g, mtmp);
+        }
     }
-    if (gateMcanseeSave !== undefined) mtmp.mcansee = gateMcanseeSave;
+    if (gateMcanseeSave !== undefined) {
+        mtmp.mcansee = gateMcanseeSave;
+        mtmp.mflee = gateMfleeSave;
+    }
 
     await mThrowAtHeroAfterMmoveIfLinedUpLikeC(g, mtmp);
     if ((mtmp.mhp | 0) <= 0) mmStatus = MMOVE_DIED;
