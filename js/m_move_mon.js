@@ -720,7 +720,12 @@ export async function movemonSinglemonLikeC(g, mtmp, stepNum = 0) {
         }
     }
 
-    if (isRogFirstSearchMovemonNearPathLikeC(g) && (mtmp.mtame | 0)) {
+    /* C: pet `dog_move` only after first `#search` rhack (`_searchStep11Passes===1`), not on prior post. */
+    if (
+        isFirstSearchMovemonPassLikeC(g)
+        && isRogFirstSearchMovemonNearPathLikeC(g)
+        && (mtmp.mtame | 0)
+    ) {
         dogMoveSearchPassNearHeroLikeC(g, mtmp);
         return;
     }
@@ -1289,7 +1294,7 @@ export async function mMoveOneMonsterSubsetLikeC(g, mtmp, stepNum = 0) {
         }
         return;
     }
-    if (isRogFirstSearchMovemonNearPathLikeC(g)) {
+    if (isFirstSearchMovemonPassLikeC(g) && isRogFirstSearchMovemonNearPathLikeC(g)) {
         /* C: rogue near path — tail **`distfleeck`** only; gate hostile falls through to **`dochug`**. */
         if (mtmp === findDistantMklevMonLikeC(g)) {
             await mMoveDistfleeckOnlyTurnLikeC(g, mtmp);

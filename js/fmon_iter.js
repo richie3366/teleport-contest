@@ -202,6 +202,21 @@ export function fmonListForMovemonLikeC(g, stepNum = 0) {
                 (m) => m !== rogHostile && !nearHostile.includes(m),
             );
             const midRest = mid.filter((m) => m !== rogHostile);
+            /* C: first #search post — pet, peel mklev tail (incl. distant), gate hostile last. */
+            if (isFirstSearchMovemonPassLikeC(g)) {
+                const mklevTail = [...nearHostile, ...nearRemainder, ...midRest];
+                if (distant && distant !== rogHostile && !mklevTail.includes(distant)) {
+                    mklevTail.push(distant);
+                }
+                const peelTail = mklevTail.filter((m) => m !== rogHostile);
+                const eastTail = east && !peelTail.includes(east) ? [east] : [];
+                return [
+                    ...(pet ? [pet] : []),
+                    ...peelTail,
+                    ...(rogHostile ? [rogHostile] : []),
+                    ...eastTail,
+                ].filter(Boolean);
+            }
             return [
                 ...(rogHostile ? [rogHostile] : []),
                 ...(pet ? [pet] : []),

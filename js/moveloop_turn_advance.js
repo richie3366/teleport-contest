@@ -122,11 +122,18 @@ export async function runPostCommandTurnAdvanceLikeC(g) {
             /* C: allmain.c — **`movemon`** uses current **`svm.moves`** each inner-loop pass
                (hero speed surplus can run monster pass + new-turn more than once per input). */
             const movemonStepNum = (g.moves | 0) - 1;
-            if (movemonStepNum > 0) {
+            /* C: allmain.c always `movemon()` when `context.move`; first `#search` post on D:1
+               can be `moves===1` (`movemonStepNum===0`) — peel still maps to step 11. */
+            const searchPass = g.context?._searchStep11Passes | 0;
+            const runMovemon =
+                movemonStepNum > 0
+                || (searchPass === 1 && !!g.context?._searchPass1NearMonLikeC);
+            if (runMovemon) {
+                const stepForMovemon = movemonStepNum > 0 ? movemonStepNum : 1;
                 g.context._movemonHarnessConsumed = false;
                 await encumberMsg();
                 do {
-                    monscanmove = await movemon(movemonStepNum);
+                    monscanmove = await movemon(stepForMovemon);
                     if ((u.umovement | 0) >= NORMAL_SPEED) break;
                 } while (monscanmove);
             }
