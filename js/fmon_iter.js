@@ -146,10 +146,7 @@ export function fmonListForMovemonLikeC(g, stepNum = 0) {
                 return tr && (tr.x | 0) === 63 && (tr.y | 0) === 11;
             });
         const eel = mons.find((m) => isLandEelForMovemonLikeC(g, m));
-        const distant =
-            mons.find((m) => (m.mx | 0) === 22 && (m.my | 0) === 14)
-            ?? mons.find((m) => (m.mx | 0) === 23 && (m.my | 0) === 13)
-            ?? mons.find((m) => movemonStep8DistantMonEligibleLikeC(g, m));
+        const distant = findDistantMklevMonLikeC(g);
         const east = mons.find(
             (m) =>
                 (m.mgenmklev | 0)

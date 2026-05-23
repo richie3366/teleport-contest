@@ -187,8 +187,8 @@ function dochugEntersMmoveBlockLikeC(g, mtmp, nearby, scared, stepNum = 0) {
     if ((stepNum | 0) === 4 && mtmp === findWestKinkMonsterLikeC(g)) {
         return true;
     }
-    /* C: west door-kink fungus **`seed8000`** step **`n`** — **`distfleeck`** only at **(64,12)**. */
-    if ((stepNum | 0) === 2 && westFungusDoorNicheAtLikeC(g, mx, my, mtmp)) {
+    /* C: step **`n`** — west kink fungus **`distfleeck`** only (no **`m_move`**). */
+    if ((stepNum | 0) === 2 && mtmp === findWestKinkMonsterLikeC(g)) {
         return false;
     }
     /* C: step **`n`** — land eel **`m_move`** (`rn2(32)` on **`seed8000`**) after west **`distfleeck`**. */
@@ -516,8 +516,8 @@ async function mMoveMmoveOnlyTurnLikeC(g, mtmp, stepNum = 0) {
             && (mtmp === findWestKinkMonsterLikeC(g)
                 || mtmp === findEastMklevSecondHLikeC(g)))
         || ((g.context?._searchStep11Passes | 0) === 2
-            && (mtmp.mnum | 0) === PM_LICHEN
-            && (mtmp.mgenmklev | 0))
+            && (g.context?._movemonSearch11SubPass | 0) === 1
+            && mtmp === findWestKinkMonsterLikeC(g))
     ) {
         monTrackClear(mtmp);
         const mfp = mfndposMonsterLikeC(g, mtmp, monAllowflagsMonsterLikeC(g, mtmp));
@@ -639,10 +639,7 @@ export async function movemonSinglemonLikeC(g, mtmp, stepNum = 0) {
                 await mMoveDistfleeckOnlyTurnLikeC(g, mtmp);
                 return;
             }
-        } else if (
-            (stepNum | 0) === 2
-            && westFungusDoorNicheAtLikeC(g, mtmp.mx | 0, mtmp.my | 0, mtmp)
-        ) {
+        } else if ((stepNum | 0) === 2 && mtmp === findWestKinkMonsterLikeC(g)) {
             /* C: step **`n`** — west kink fungus **`distfleeck`** with **`movement < NORMAL_SPEED`**. */
             await mMoveDistfleeckOnlyTurnLikeC(g, mtmp);
             return;
@@ -1119,7 +1116,7 @@ export async function mMoveOneMonsterSubsetLikeC(g, mtmp, stepNum = 0) {
     if ((stepNum | 0) === 2) {
         if (isLandEelForMovemonLikeC(g, mtmp)) {
             await mMoveLandEelStepNLikeC(g, mtmp);
-        } else if (movemonStep8DistantMonEligibleLikeC(g, mtmp)) {
+        } else if (mtmp === findDistantMklevMonLikeC(g)) {
             await mMoveDistantStepNLikeC(g, mtmp);
         } else {
             await mMoveDistfleeckMmoveTurnLikeC(g, mtmp, stepNum);
