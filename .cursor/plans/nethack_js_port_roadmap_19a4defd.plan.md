@@ -58,8 +58,8 @@ isProject: false
 | File (to add) | Owns |
 |----------------|------|
 | [`.cursor/plans/nethack-port/01-harness-rng-time.md`](.cursor/plans/nethack-port/01-harness-rng-time.md) | RNG contexts, logging, `runSegment`, segment storage, datetime/moon, animation hook policy |
-| [`.cursor/plans/nethack-port/02-init-chargen.md`](.cursor/plans/nethack-port/02-init-chargen.md) | `newgame`, `u_init`, `nethackrc` / [`js/options.js`](js/options.js), eliminating fastforward pre/post and hardcoded `g.u` |
-| [`.cursor/plans/nethack-port/03-dungeon-mklev.md`](.cursor/plans/nethack-port/03-dungeon-mklev.md) | `mklev`, branches, special levels / Lua RNG context, `fastforward_fill_mineralize` retirement |
+| [`.cursor/plans/nethack-port/02-init-chargen.md`](.cursor/plans/nethack-port/02-init-chargen.md) | `newgame`, `u_init`, `nethackrc` / [`js/options.js`](js/options.js); finish **`u_init_post_mklev`** / **`ini_inv`** / hardcoded `g.u` cleanup — **`fastforward.js`** startup replay already retired (stub) |
+| [`.cursor/plans/nethack-port/03-dungeon-mklev.md`](.cursor/plans/nethack-port/03-dungeon-mklev.md) | `mklev`, branches, special levels / Lua RNG context; mineralize/fill parity inside **`mklev.js`** (old `fastforward_fill_mineralize` name obsolete) |
 | [`.cursor/plans/nethack-port/04-monsters-combat.md`](.cursor/plans/nethack-port/04-monsters-combat.md) | `mon`, `mhitu`, `mhitm`, movement, death, corpses |
 | [`.cursor/plans/nethack-port/05-items-inventory.md`](.cursor/plans/nethack-port/05-items-inventory.md) | `obj`, invent, pickup/drop, use, charging, containers |
 | [`.cursor/plans/nethack-port/06-commands-ui.md`](.cursor/plans/nethack-port/06-commands-ui.md) | `cmd.c` surface, multi-key extended commands, menus, `--More--` |
@@ -99,7 +99,7 @@ isProject: false
 
 ## Workstream C — Startup: `newgame`, initialization, kill `fastforward`
 
-**Outcome:** All pre- and post-mklev RNG comes from real ported code; [`js/fastforward.js`](js/fastforward.js) deleted or reduced to zero.
+**Outcome:** All pre- and post-mklev RNG comes from real ported code; [`js/fastforward.js`](js/fastforward.js) deleted or reduced to zero. *(As of 2026-05-23: file is already a **stub** — remaining work is **`u_init_post_mklev` / `ini_inv` / `mkobj`** and **per-turn** harness in `monmove.js` / `moveloop_aux.js`, not a large `fastforward` replay table.)*
 
 **Tasks / subtasks**
 
