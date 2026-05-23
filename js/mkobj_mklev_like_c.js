@@ -4,6 +4,8 @@
 import { game } from './gstate.js';
 import { depth as depth_of_level } from './hacklib.js';
 import { rndmonstLikeC } from './makemon_rndmonst.js';
+import { P_BOW, P_SHURIKEN } from './const.js';
+import { OC_SKILL_ROW_BY_OTYP } from './obj_oc_skill_data.js';
 import { rnd, rn2, rn1, rne } from './rng.js';
 import {
     NH5_RANDOM_CLASS,
@@ -122,7 +124,17 @@ const RING_CHARGED = new Set(
     RING_CLASS_MKOBJ_ROWS.filter((r) => (r[1] | 0) === 1).map((r) => r[0] | 0),
 );
 
-const WEAPON_MULTIGEN_OTYP = new Set([24, 25, 26]); /* DART, SHURIKEN, BOOMERANG */
+/** C: obj.h is_multigen — projectiles 19–24 lack OC_SKILL_ROW_BY_OTYP entries. */
+const OTYP_FIRST_PROJECTILE = 19;
+const OTYP_LAST_PROJECTILE = 24;
+
+function weaponMultigenMklevLikeC(otyp) {
+    const t = otyp | 0;
+    const row = OC_SKILL_ROW_BY_OTYP.get(t);
+    const sk = row?.oc_skill ?? 0;
+    if (row?.oclass === NH5_WEAPON_CLASS && sk >= -P_SHURIKEN && sk <= -P_BOW) return true;
+    return t >= OTYP_FIRST_PROJECTILE && t <= OTYP_LAST_PROJECTILE;
+}
 
 /** C: objnam.c erosion_matters — GEM/food/etc. skip mkobj_erosions. */
 function erosionMattersMklevLikeC(oclass) {
@@ -137,8 +149,8 @@ function erosionMattersMklevLikeC(oclass) {
     }
 }
 
-/** C: mkobj.c may_generate_eroded + mkobj_erosions — in_mklev floor objects only when damageable. */
-function mkobjErosionsMklevLikeC(otyp, oclass) {
+/** C: mkobj.c mksobj_init tail — mkobj_erosions (WEAPON/ARMOR in mklev). */
+export function mkobjErosionsMklevLikeC(otyp, oclass) {
     if (!game.in_mklev) return;
     if (!erosionMattersMklevLikeC(oclass)) return;
     void otyp;
@@ -236,7 +248,7 @@ function blessorcurseLikeC(chance, otmp) {
 }
 
 function mksobjInitWeaponLikeC(otyp, artif) {
-    if (WEAPON_MULTIGEN_OTYP.has(otyp | 0)) rn1(6, 6);
+    if (weaponMultigenMklevLikeC(otyp)) rn1(6, 6);
     if (!rn2(11)) {
         rne(3);
         rn2(2);

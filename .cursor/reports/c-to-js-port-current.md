@@ -18,11 +18,11 @@ Thin handoff for the next coding session. **Score + milestones:** [`c-to-js-port
 
 **Deferred for now:** **`maybe_do_tutorial`** / **`tut-1`** / full **`do.c`** **`goto_level`** (Lua **`tutorial()`** / **`free_tutorial()`**, **`savelev`**, **`gmst_*`**, …) and **`dokick`**/**`dothrow`** vs **`leaving_tutorial`** — strong upstream dependencies (save, specials, fuller **`do.c`**); treat as backlog until chargen / core early-game parity is further along; **`LIVELOGFILE`** parity if the judge ever compares livelog lines.
 
-**Last slice:** **`objnam.c` `rnd_class`** — **`mkobj_mklev_like_c.js`** **`SPBOOK_no_NOVEL`** uses **`rnd_class(first, SPE_BLANK_PAPER)`** → **`rnd(999)`** (not full-class **`rnd(1000)`**); supply-chest **`mkobj(SPBOOK_no_NOVEL)`** path. **`seed0077`:** **1757/3242** RNG (was **1753**); **`seed8000`:** **PASS**. **`npm run score`:** **1/44**.
+**Last slice:** **`mklev.c` `mktrap_victim` trap ammo** — **`mksobj(ARROW/DART/ROCK)`** runs C **`mksobj_init`** + **`mkobj_erosions`** ( **`nh5OclassForOtyp`** for projectiles/gem/candles; **`weaponMultigenMklevLikeC`** for otyp **19–24**); fake-player corpse **`rn1(PM_WIZARD - PM_ARCHEOLOGIST, …)`** uses **`const.js`** PM indices. **`seed0077`:** **3060/3242** RNG (was **1757**); **`seed8000`:** **PASS**. **`npm run score`:** **1/44**.
 
 ## Next steps
 
-1. **`mktrap_victim` / `mksobj_init`** — **`seed0077`** first divergence ~**1752** (**`mkobj.c`** weapon init vs extra **`rn2(4)`** — trace trap victim **`mkobj(poss_class)`** vs C). Then **`wintty.c` / `role.c`** TTY pickers.
+1. **`seed0077` mklev/chargen tail** — first RNG gap ~**2514** (after **`mktrap_victim` `mkcorpstat`** / **`rndmonst_adj`** chain); then **`wintty.c` / `role.c`** TTY pickers.
 
 2. **Chargen + `u_init_role` RNG** — **`consumeRogueHumanIniInvUinitRoleRngLikeC`** / **`ini_inv`** when mklev tail is aligned.
 

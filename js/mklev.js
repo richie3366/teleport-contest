@@ -9,10 +9,14 @@ import { game } from './gstate.js';
 import { insideRoomLikeC } from './hacklib.js';
 import {
     mkobjMklevConsumeRngLikeC,
+    mkobjErosionsMklevLikeC,
     mksobjInitMklevLikeC,
     mksobjPostInitStatueLikeC,
 } from './mkobj_mklev_like_c.js';
 import {
+    NH5_WEAPON_CLASS,
+    NH5_TOOL_CLASS,
+    NH5_GEM_CLASS,
     NH5_POTION_CLASS,
     NH5_SCROLL_CLASS,
     NH5_WAND_CLASS,
@@ -42,6 +46,8 @@ import {
     NO_TRAP, TRAPNUM,
     PM_GIANT_SPIDER,
     PM_LICHEN,
+    PM_ARCHEOLOGIST,
+    PM_WIZARD,
     ARROW_TRAP, DART_TRAP, ROCKTRAP, SQKY_BOARD, BEAR_TRAP, LANDMINE, ROLLING_BOULDER_TRAP,
     SLP_GAS_TRAP, RUST_TRAP, FIRE_TRAP, PIT, SPIKED_PIT, HOLE, TRAPDOOR, TELEP_TRAP, LEVEL_TELEP,
     MAGIC_PORTAL, WEB, STATUE_TRAP, MAGIC_TRAP, POLY_TRAP, VIBRATING_SQUARE, TRAPPED_DOOR, TRAPPED_CHEST,
@@ -229,14 +235,18 @@ function level_difficulty() {
 
 let _nextObjId = 1;
 
-/** NH5 otyp → class for mksobj_init (supply chest, mkcorpstat, mksobj_at). */
+/** NH5 otyp → class for mksobj_init (supply chest, mktrap_victim ammo, mksobj_at). */
 function nh5OclassForOtyp(otyp) {
     const t = otyp | 0;
+    /* C: mktrap_victim — ARROW/DART/ROCK mksobj(TRUE) runs mksobj_init (projectiles lack OC_SKILL_ROW). */
+    if (t >= OTYP_ARROW && t <= 24) return NH5_WEAPON_CLASS;
+    if (t === OTYP_DART) return NH5_WEAPON_CLASS;
+    if (t === ROCK) return NH5_GEM_CLASS;
+    if (t === OTYP_TALLOW_CANDLE || t === OTYP_WAX_CANDLE) return NH5_TOOL_CLASS;
     if (t >= 297 && t <= 322) return NH5_POTION_CLASS;
     if (t >= 323 && t <= 364) return NH5_SCROLL_CLASS;
     if (t >= 365 && t <= 408) return NH5_SPBOOK_CLASS;
     if (t >= 409 && t <= 433) return NH5_WAND_CLASS;
-    /* C: objects.h — BOULDER/STATUE are ROCK_CLASS, not GEM_CLASS. */
     if (t === OTYP_BOULDER || t === STATUE) return NH5_ROCK_CLASS;
     return 0;
 }
@@ -249,7 +259,11 @@ function mksobj(otyp, init, artif) {
     rnd(2);
     if (init) {
         const oclass = nh5OclassForOtyp(otyp);
-        if (oclass) mksobjInitMklevLikeC(otyp, oclass, artif, otmp);
+        if (oclass) {
+            mksobjInitMklevLikeC(otyp, oclass, artif, otmp);
+            /* C: mksobj_init() always ends with mkobj_erosions (mktrap_victim ammo, …). */
+            mkobjErosionsMklevLikeC(otyp, oclass);
+        }
         if ((otyp | 0) === STATUE) mksobjPostInitStatueLikeC(otyp);
     }
     return otmp;
@@ -1649,8 +1663,6 @@ function mktrap_victim(trap) {
     const PM_ORC = 20;
     const PM_GNOME = 21;
     const PM_HUMAN = 22;
-    const PM_ARCHEOLOGIST = 305;
-    const PM_WIZARD = 321;
     let victim_mnum;
     switch (rn2(15)) {
     case 0:
