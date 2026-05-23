@@ -66,23 +66,36 @@ import {
 import { ensureMonsterMtrack, monTrackAdd, monTrackClear } from './monflee.js';
 import { dogMoveSearchPassNearHeroLikeC } from './dogmove_mon.js';
 import { monnearMonsterXYLikeC } from './mon_geom.js';
-import { isFirstSearchMovemonPassLikeC } from './monmove_search.js';
+import {
+    isFirstSearchMovemonPassLikeC,
+    isMovemonStepOnePeelLikeC,
+    isRogFirstSearchStepOnePeelLikeC,
+} from './monmove_search.js';
 
 /** C: rogue D:1 door-**`j`** / first **`#search`** — near mklev hostile path (not tourist east peel). */
 function isRogFirstSearchMovemonNearPathLikeC(g) {
     return !!g.context?._searchPass1NearMonLikeC;
 }
 
+/** C: sleeping tail **`mgenmklev`** — **`distfleeck`** on peel step even when **`movement < NORMAL_SPEED`**. */
+function isRogPeelMklevDistfleeckCandidateLikeC(g, mtmp, stepNum) {
+    if (!mtmp || !isRogFirstSearchStepOnePeelLikeC(g, stepNum)) return false;
+    if (!isRogFirstSearchMovemonNearPathLikeC(g)) return false;
+    if (mtmp === findFirstSearchRogMidMklevHostileLikeC(g)) return false;
+    if (!(mtmp.mgenmklev | 0) || (mtmp.mtame | 0)) return false;
+    return !eastMklevFirstLAfterBLikeC(g, mtmp);
+}
+
 /** C: first near mklev hostile this pass — **`distfleeck`** then **`dochug:886`** (one draw). */
 function peekRogFirstSearchDochugGateMonsterLikeC(g, mtmp) {
     if (!isRogFirstSearchMovemonNearPathLikeC(g) || !mtmp) return false;
     if (!firstSearchNearMklevHostileLikeC(g, mtmp)) return false;
-    return !(g.context?._searchRogGateMonDoneLikeC);
+    return (g.context?._searchRogGateCountLikeC | 0) < 2;
 }
 
 function consumeRogFirstSearchDochugGateMonsterLikeC(g) {
     const ctx = g.context || (g.context = {});
-    ctx._searchRogGateMonDoneLikeC = true;
+    ctx._searchRogGateCountLikeC = (ctx._searchRogGateCountLikeC | 0) + 1;
 }
 
 /** C: first **`#search`** rogue — skip **`m_respond`** **`aggravate`** before **`distfleeck`**. */
@@ -697,6 +710,7 @@ export async function movemonSinglemonLikeC(g, mtmp, stepNum = 0) {
             !eastMklevLowMovDochugLikeC
             && !((stepNum | 0) === 6 && mtmp === findEastMklevSecondHLikeC(g))
             && !firstSearchNearMklevHostileLikeC(g, mtmp)
+            && !isRogPeelMklevDistfleeckCandidateLikeC(g, mtmp, stepNum)
         ) return;
     } else {
         mtmp.movement = mov - NORMAL_SPEED;
@@ -1160,7 +1174,7 @@ function primeMtrackBeforeMmoveStep8LikeC(g, mtmp, stepNum) {
 export async function mMoveOneMonsterSubsetLikeC(g, mtmp, stepNum = 0) {
     if (!mtmp) return;
     if ((mtmp.mhp | 0) <= 0) return;
-    if ((stepNum | 0) === 1) {
+    if (isMovemonStepOnePeelLikeC(g, stepNum)) {
         const rogLead =
             isRogFirstSearchMovemonNearPathLikeC(g)
                 ? findFirstSearchRogMidMklevHostileLikeC(g)

@@ -6,6 +6,28 @@ export function isFirstSearchMovemonPassLikeC(g) {
     return (g.context?._searchStep11Passes | 0) === 1;
 }
 
+/**
+ * C: **`movemon`** step-1 peel — all roles at **`stepNum===1`**; rogue near mklev also on
+ * first **`#search`** when harness maps **`effStepNum===11`** (**`seed0077`** tail **`distfleeck`**).
+ *
+ * @param {import('./gstate.js').game} g
+ * @param {number} stepNum
+ */
+export function isMovemonStepOnePeelLikeC(g, stepNum) {
+    if ((stepNum | 0) === 1) return true;
+    return (
+        isFirstSearchMovemonPassLikeC(g)
+        && !!g.context?._searchPass1NearMonLikeC
+    );
+}
+
+/** Rogue near peel only (sleeping **`mgenmklev`** / gate); not tourist step-1 bulk peel. */
+export function isRogFirstSearchStepOnePeelLikeC(g, stepNum) {
+    if (!g.context?._searchPass1NearMonLikeC) return false;
+    if ((stepNum | 0) === 1) return true;
+    return isFirstSearchMovemonPassLikeC(g);
+}
+
 /** C: second **`#search`** — **`_searchStep11Passes===2`**. */
 export function isSecondSearchMovemonPassLikeC(g) {
     return (g.context?._searchStep11Passes | 0) === 2;
