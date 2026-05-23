@@ -18,11 +18,11 @@ Thin handoff for the next coding session. **Score + milestones:** [`c-to-js-port
 
 **Deferred for now:** **`maybe_do_tutorial`** / **`tut-1`** / full **`do.c`** **`goto_level`** (Lua **`tutorial()`** / **`free_tutorial()`**, **`savelev`**, **`gmst_*`**, …) and **`dokick`**/**`dothrow`** vs **`leaving_tutorial`** — strong upstream dependencies (save, specials, fuller **`do.c`**); treat as backlog until chargen / core early-game parity is further along; **`LIVELOGFILE`** parity if the judge ever compares livelog lines.
 
-**Last slice:** **`moveloop_turn_advance.js`**: rogue D:1 gate+pet — skip **`movemon(stepNum===1)`** until first **`#search`**; defer **`end_of_turn_rng`** until **`#search`** inline post (**`peekReplayMoves`**). **`input.js`/`jsmain.js`**: replay position for peek. **`m_move_mon.js`**: step-1 peel **`distfleeck`**-only (eel keeps silent **`m_move`**); second gate skip leading **`distfleeck`**; **`monmove.js`**: second gate **`dog_goal`** + tail **`distfleeck`**. **`seed0077`:** **3218/3242** (first gate block **3203–3216** aligned; gap **~3217** second **`dog_goal`**). **`seed8000`:** **PASS**. **`npm run score`:** **1/44**.
+**Last slice:** **`dogmove_mon.js`**: C **`dog_goal`** — **`gg.gtyp==UNDEF`** guard on second first-**`#search`** **`dog_goal`** only (no extra **`rn2(8)`** after APPORT set); **`obj_resists`** for non-poisoned (incl. cursed); **`floorObjHeads`** bbox scan; **`dog_invent`** feet **`dogfood`** before **`dog_goal`**; skip second-pass **`rn2(1)`** position pick. **`seed0077`:** **3218/3242** (first block **3203–3216** aligned; **~3217** still missing third **`obj_resists`** before tail **`distfleeck`**). **`seed8000`:** **PASS**. **`npm run score`:** **1/44**.
 
 ## Next steps
 
-1. **`seed0077` first `#search` tail (~3217–3225)** — Second **`dog_goal`** after second gate: C **`rn2(100)`** at **~3217** without extra **`rn2(8)`** from a full floor rescan; then east **`rn2(12)`** ×2 + deferred new-turn tail order vs **`mcalcmove`**.
+1. **`seed0077` first `#search` tail (~3217–3225)** — Second **`dog_goal`**: third floor **`dogfood`/`obj_resists`** at **~3217** (reachability / **`fobj`** order vs **`floorObjHeads`**); then east **`rn2(12)`** ×2 + deferred new-turn tail vs **`mcalcmove`**.
 
 2. **`makeroguerooms` / rogue special level** — when **`Is_rogue_level`** is true (now that **`rogue_level`** is set); separate from rogue **class** on main D:1.
 
