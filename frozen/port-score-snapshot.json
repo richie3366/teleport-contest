@@ -1,0 +1,1392 @@
+{
+  "timestamp": "2026-05-23T11:53:40.921Z",
+  "commit": "609868b",
+  "passCount": 1,
+  "totalSessions": 44,
+  "results": [
+    {
+      "session": "seed0002-healer-reflection-drummer.session.json",
+      "passed": false,
+      "metrics": {
+        "rngCalls": {
+          "matched": 1148,
+          "total": 27158
+        },
+        "screens": {
+          "matched": 7,
+          "total": 595
+        },
+        "cellsOnly": {
+          "matched": 7,
+          "total": 595
+        },
+        "cursors": {
+          "matched": 30,
+          "total": 595
+        },
+        "animFrames": {
+          "matched": 0,
+          "total": 128
+        }
+      },
+      "error": null,
+      "buckets": [
+        "screens>0"
+      ],
+      "rngRatio": 0.04227115398777524,
+      "screenRatio": 0.011764705882352941
+    },
+    {
+      "session": "seed0004-feeding-pony.session.json",
+      "passed": false,
+      "metrics": {
+        "rngCalls": {
+          "matched": 545,
+          "total": 12084
+        },
+        "screens": {
+          "matched": 7,
+          "total": 409
+        },
+        "cellsOnly": {
+          "matched": 7,
+          "total": 409
+        },
+        "cursors": {
+          "matched": 13,
+          "total": 409
+        },
+        "animFrames": {
+          "matched": 0,
+          "total": 47
+        }
+      },
+      "error": null,
+      "buckets": [
+        "screens>0"
+      ],
+      "rngRatio": 0.0451009599470374,
+      "screenRatio": 0.017114914425427872
+    },
+    {
+      "session": "seed0006-wizard-water-demon.session.json",
+      "passed": false,
+      "metrics": {
+        "rngCalls": {
+          "matched": 1240,
+          "total": 6736
+        },
+        "screens": {
+          "matched": 24,
+          "total": 123
+        },
+        "cellsOnly": {
+          "matched": 24,
+          "total": 123
+        },
+        "cursors": {
+          "matched": 36,
+          "total": 123
+        },
+        "animFrames": {
+          "matched": 0,
+          "total": 8
+        }
+      },
+      "error": null,
+      "buckets": [
+        "screens>0"
+      ],
+      "rngRatio": 0.1840855106888361,
+      "screenRatio": 0.1951219512195122
+    },
+    {
+      "session": "seed0007-rogue-snake-swamp.session.json",
+      "passed": false,
+      "metrics": {
+        "rngCalls": {
+          "matched": 1104,
+          "total": 16373
+        },
+        "screens": {
+          "matched": 8,
+          "total": 302
+        },
+        "cellsOnly": {
+          "matched": 8,
+          "total": 302
+        },
+        "cursors": {
+          "matched": 10,
+          "total": 302
+        },
+        "animFrames": {
+          "matched": 0,
+          "total": 58
+        }
+      },
+      "error": null,
+      "buckets": [
+        "screens>0"
+      ],
+      "rngRatio": 0.06742808281927563,
+      "screenRatio": 0.026490066225165563
+    },
+    {
+      "session": "seed0009-swimmer-mforce.session.json",
+      "passed": false,
+      "metrics": {
+        "rngCalls": {
+          "matched": 531,
+          "total": 3713
+        },
+        "screens": {
+          "matched": 9,
+          "total": 73
+        },
+        "cellsOnly": {
+          "matched": 9,
+          "total": 73
+        },
+        "cursors": {
+          "matched": 11,
+          "total": 73
+        },
+        "animFrames": {
+          "matched": 0,
+          "total": 0
+        }
+      },
+      "error": null,
+      "buckets": [
+        "screens>0"
+      ],
+      "rngRatio": 0.1430110422838675,
+      "screenRatio": 0.1232876712328767
+    },
+    {
+      "session": "seed0012-monk-vault-escort.session.json",
+      "passed": false,
+      "metrics": {
+        "rngCalls": {
+          "matched": 1256,
+          "total": 13878
+        },
+        "screens": {
+          "matched": 12,
+          "total": 308
+        },
+        "cellsOnly": {
+          "matched": 12,
+          "total": 308
+        },
+        "cursors": {
+          "matched": 15,
+          "total": 308
+        },
+        "animFrames": {
+          "matched": 0,
+          "total": 49
+        }
+      },
+      "error": null,
+      "buckets": [
+        "screens>0"
+      ],
+      "rngRatio": 0.0905029543161839,
+      "screenRatio": 0.03896103896103896
+    },
+    {
+      "session": "seed0013-friday13-save-then-fullmoon-restore.session.json",
+      "passed": false,
+      "metrics": {
+        "rngCalls": {
+          "matched": 520,
+          "total": 4804
+        },
+        "screens": {
+          "matched": 0,
+          "total": 99
+        },
+        "cellsOnly": {
+          "matched": 0,
+          "total": 99
+        },
+        "cursors": {
+          "matched": 3,
+          "total": 99
+        },
+        "animFrames": {
+          "matched": 0,
+          "total": 10
+        }
+      },
+      "error": null,
+      "buckets": [],
+      "rngRatio": 0.10824313072439634,
+      "screenRatio": 0
+    },
+    {
+      "session": "seed0013-rogue-friday13-combat.session.json",
+      "passed": false,
+      "metrics": {
+        "rngCalls": {
+          "matched": 516,
+          "total": 4838
+        },
+        "screens": {
+          "matched": 0,
+          "total": 59
+        },
+        "cellsOnly": {
+          "matched": 0,
+          "total": 59
+        },
+        "cursors": {
+          "matched": 3,
+          "total": 59
+        },
+        "animFrames": {
+          "matched": 0,
+          "total": 10
+        }
+      },
+      "error": null,
+      "buckets": [],
+      "rngRatio": 0.10665564282761472,
+      "screenRatio": 0
+    },
+    {
+      "session": "seed0014-dequa-fountain-explore.session.json",
+      "passed": false,
+      "metrics": {
+        "rngCalls": {
+          "matched": 140,
+          "total": 59178
+        },
+        "screens": {
+          "matched": 10,
+          "total": 714
+        },
+        "cellsOnly": {
+          "matched": 10,
+          "total": 714
+        },
+        "cursors": {
+          "matched": 11,
+          "total": 714
+        },
+        "animFrames": {
+          "matched": 0,
+          "total": 995
+        }
+      },
+      "error": null,
+      "buckets": [
+        "early-diverge",
+        "screens>0"
+      ],
+      "rngRatio": 0.0023657440264963333,
+      "screenRatio": 0.014005602240896359
+    },
+    {
+      "session": "seed0015-valk-level2-pit-dog-wait.session.json",
+      "passed": false,
+      "metrics": {
+        "rngCalls": {
+          "matched": 354,
+          "total": 8563
+        },
+        "screens": {
+          "matched": 0,
+          "total": 44
+        },
+        "cellsOnly": {
+          "matched": 0,
+          "total": 44
+        },
+        "cursors": {
+          "matched": 4,
+          "total": 44
+        },
+        "animFrames": {
+          "matched": 0,
+          "total": 0
+        }
+      },
+      "error": null,
+      "buckets": [
+        "early-diverge"
+      ],
+      "rngRatio": 0.0413406516407801,
+      "screenRatio": 0
+    },
+    {
+      "session": "seed0016-healer-newmoon-eat-zap.session.json",
+      "passed": false,
+      "metrics": {
+        "rngCalls": {
+          "matched": 2130,
+          "total": 3656
+        },
+        "screens": {
+          "matched": 0,
+          "total": 36
+        },
+        "cellsOnly": {
+          "matched": 0,
+          "total": 36
+        },
+        "cursors": {
+          "matched": 2,
+          "total": 36
+        },
+        "animFrames": {
+          "matched": 0,
+          "total": 4
+        }
+      },
+      "error": null,
+      "buckets": [
+        "rng>50%"
+      ],
+      "rngRatio": 0.5826039387308534,
+      "screenRatio": 0
+    },
+    {
+      "session": "seed0017-samurai-altar-pray.session.json",
+      "passed": false,
+      "metrics": {
+        "rngCalls": {
+          "matched": 2403,
+          "total": 3465
+        },
+        "screens": {
+          "matched": 8,
+          "total": 67
+        },
+        "cellsOnly": {
+          "matched": 8,
+          "total": 67
+        },
+        "cursors": {
+          "matched": 11,
+          "total": 67
+        },
+        "animFrames": {
+          "matched": 0,
+          "total": 33
+        }
+      },
+      "error": null,
+      "buckets": [
+        "rng>50%",
+        "screens>0"
+      ],
+      "rngRatio": 0.6935064935064935,
+      "screenRatio": 0.11940298507462686
+    },
+    {
+      "session": "seed0030-ten-diverse-deaths.session.json",
+      "passed": false,
+      "metrics": {
+        "rngCalls": {
+          "matched": 5206,
+          "total": 105529
+        },
+        "screens": {
+          "matched": 0,
+          "total": 1953
+        },
+        "cellsOnly": {
+          "matched": 0,
+          "total": 1953
+        },
+        "cursors": {
+          "matched": 120,
+          "total": 1953
+        },
+        "animFrames": {
+          "matched": 0,
+          "total": 40
+        }
+      },
+      "error": null,
+      "buckets": [],
+      "rngRatio": 0.04933241099602953,
+      "screenRatio": 0
+    },
+    {
+      "session": "seed0060-orc-rogue-kick-search.session.json",
+      "passed": false,
+      "metrics": {
+        "rngCalls": {
+          "matched": 1053,
+          "total": 3626
+        },
+        "screens": {
+          "matched": 0,
+          "total": 41
+        },
+        "cellsOnly": {
+          "matched": 0,
+          "total": 41
+        },
+        "cursors": {
+          "matched": 6,
+          "total": 41
+        },
+        "animFrames": {
+          "matched": 0,
+          "total": 4
+        }
+      },
+      "error": null,
+      "buckets": [],
+      "rngRatio": 0.2904026475455047,
+      "screenRatio": 0
+    },
+    {
+      "session": "seed0077-rogue-chargen.session.json",
+      "passed": false,
+      "metrics": {
+        "rngCalls": {
+          "matched": 1613,
+          "total": 3242
+        },
+        "screens": {
+          "matched": 11,
+          "total": 33
+        },
+        "cellsOnly": {
+          "matched": 11,
+          "total": 33
+        },
+        "cursors": {
+          "matched": 16,
+          "total": 33
+        },
+        "animFrames": {
+          "matched": 0,
+          "total": 0
+        }
+      },
+      "error": null,
+      "buckets": [
+        "screens>0"
+      ],
+      "rngRatio": 0.4975323874151758,
+      "screenRatio": 0.3333333333333333
+    },
+    {
+      "session": "seed0101-ranger-quiver-throw-travel-engrave.session.json",
+      "passed": false,
+      "metrics": {
+        "rngCalls": {
+          "matched": 1014,
+          "total": 2371
+        },
+        "screens": {
+          "matched": 0,
+          "total": 27
+        },
+        "cellsOnly": {
+          "matched": 0,
+          "total": 27
+        },
+        "cursors": {
+          "matched": 5,
+          "total": 27
+        },
+        "animFrames": {
+          "matched": 0,
+          "total": 0
+        }
+      },
+      "error": null,
+      "buckets": [],
+      "rngRatio": 0.4276676507802615,
+      "screenRatio": 0
+    },
+    {
+      "session": "seed0102-ranger-name-cancel.session.json",
+      "passed": false,
+      "metrics": {
+        "rngCalls": {
+          "matched": 1249,
+          "total": 4485
+        },
+        "screens": {
+          "matched": 0,
+          "total": 25
+        },
+        "cellsOnly": {
+          "matched": 0,
+          "total": 25
+        },
+        "cursors": {
+          "matched": 6,
+          "total": 25
+        },
+        "animFrames": {
+          "matched": 0,
+          "total": 0
+        }
+      },
+      "error": null,
+      "buckets": [],
+      "rngRatio": 0.2784838350055741,
+      "screenRatio": 0
+    },
+    {
+      "session": "seed0103-knight-ride-pony.session.json",
+      "passed": false,
+      "metrics": {
+        "rngCalls": {
+          "matched": 2027,
+          "total": 2640
+        },
+        "screens": {
+          "matched": 0,
+          "total": 60
+        },
+        "cellsOnly": {
+          "matched": 0,
+          "total": 60
+        },
+        "cursors": {
+          "matched": 1,
+          "total": 60
+        },
+        "animFrames": {
+          "matched": 0,
+          "total": 0
+        }
+      },
+      "error": null,
+      "buckets": [
+        "rng>50%"
+      ],
+      "rngRatio": 0.7678030303030303,
+      "screenRatio": 0
+    },
+    {
+      "session": "seed0104-knight-ride-combat.session.json",
+      "passed": false,
+      "metrics": {
+        "rngCalls": {
+          "matched": 2261,
+          "total": 3223
+        },
+        "screens": {
+          "matched": 0,
+          "total": 43
+        },
+        "cellsOnly": {
+          "matched": 0,
+          "total": 43
+        },
+        "cursors": {
+          "matched": 7,
+          "total": 43
+        },
+        "animFrames": {
+          "matched": 0,
+          "total": 2
+        }
+      },
+      "error": null,
+      "buckets": [
+        "rng>50%"
+      ],
+      "rngRatio": 0.7015203226807323,
+      "screenRatio": 0
+    },
+    {
+      "session": "seed0105-valk-chat-lamp-ration.session.json",
+      "passed": false,
+      "metrics": {
+        "rngCalls": {
+          "matched": 958,
+          "total": 2499
+        },
+        "screens": {
+          "matched": 0,
+          "total": 30
+        },
+        "cellsOnly": {
+          "matched": 0,
+          "total": 30
+        },
+        "cursors": {
+          "matched": 1,
+          "total": 30
+        },
+        "animFrames": {
+          "matched": 0,
+          "total": 0
+        }
+      },
+      "error": null,
+      "buckets": [],
+      "rngRatio": 0.3833533413365346,
+      "screenRatio": 0
+    },
+    {
+      "session": "seed0106-priest-extcmd-sweep.session.json",
+      "passed": false,
+      "metrics": {
+        "rngCalls": {
+          "matched": 2209,
+          "total": 4194
+        },
+        "screens": {
+          "matched": 0,
+          "total": 267
+        },
+        "cellsOnly": {
+          "matched": 0,
+          "total": 267
+        },
+        "cursors": {
+          "matched": 3,
+          "total": 267
+        },
+        "animFrames": {
+          "matched": 0,
+          "total": 6
+        }
+      },
+      "error": null,
+      "buckets": [
+        "rng>50%"
+      ],
+      "rngRatio": 0.5267048164043873,
+      "screenRatio": 0
+    },
+    {
+      "session": "seed0107-samurai-twoweapon-enhance.session.json",
+      "passed": false,
+      "metrics": {
+        "rngCalls": {
+          "matched": 2490,
+          "total": 2902
+        },
+        "screens": {
+          "matched": 0,
+          "total": 98
+        },
+        "cellsOnly": {
+          "matched": 0,
+          "total": 98
+        },
+        "cursors": {
+          "matched": 25,
+          "total": 98
+        },
+        "animFrames": {
+          "matched": 0,
+          "total": 0
+        }
+      },
+      "error": null,
+      "buckets": [
+        "rng>50%"
+      ],
+      "rngRatio": 0.8580289455547898,
+      "screenRatio": 0
+    },
+    {
+      "session": "seed0108-wizard-extcmd-wishlist.session.json",
+      "passed": false,
+      "metrics": {
+        "rngCalls": {
+          "matched": 465,
+          "total": 16958
+        },
+        "screens": {
+          "matched": 0,
+          "total": 303
+        },
+        "cellsOnly": {
+          "matched": 0,
+          "total": 303
+        },
+        "cursors": {
+          "matched": 3,
+          "total": 303
+        },
+        "animFrames": {
+          "matched": 0,
+          "total": 4
+        }
+      },
+      "error": null,
+      "buckets": [
+        "early-diverge"
+      ],
+      "rngRatio": 0.027420686401698313,
+      "screenRatio": 0
+    },
+    {
+      "session": "seed0116-wizard-wear-shop.session.json",
+      "passed": false,
+      "metrics": {
+        "rngCalls": {
+          "matched": 233,
+          "total": 12562
+        },
+        "screens": {
+          "matched": 0,
+          "total": 127
+        },
+        "cellsOnly": {
+          "matched": 0,
+          "total": 127
+        },
+        "cursors": {
+          "matched": 3,
+          "total": 127
+        },
+        "animFrames": {
+          "matched": 0,
+          "total": 8
+        }
+      },
+      "error": null,
+      "buckets": [
+        "early-diverge"
+      ],
+      "rngRatio": 0.018548001910523804,
+      "screenRatio": 0
+    },
+    {
+      "session": "seed0200-monk-north-search.session.json",
+      "passed": false,
+      "metrics": {
+        "rngCalls": {
+          "matched": 1539,
+          "total": 3822
+        },
+        "screens": {
+          "matched": 0,
+          "total": 40
+        },
+        "cellsOnly": {
+          "matched": 0,
+          "total": 40
+        },
+        "cursors": {
+          "matched": 3,
+          "total": 40
+        },
+        "animFrames": {
+          "matched": 0,
+          "total": 0
+        }
+      },
+      "error": null,
+      "buckets": [],
+      "rngRatio": 0.4026687598116169,
+      "screenRatio": 0
+    },
+    {
+      "session": "seed0360-wizard-world-tour.session.json",
+      "passed": false,
+      "metrics": {
+        "rngCalls": {
+          "matched": 458,
+          "total": 120639
+        },
+        "screens": {
+          "matched": 0,
+          "total": 833
+        },
+        "cellsOnly": {
+          "matched": 0,
+          "total": 833
+        },
+        "cursors": {
+          "matched": 3,
+          "total": 833
+        },
+        "animFrames": {
+          "matched": 0,
+          "total": 12
+        }
+      },
+      "error": null,
+      "buckets": [
+        "early-diverge"
+      ],
+      "rngRatio": 0.003796450567395287,
+      "screenRatio": 0
+    },
+    {
+      "session": "seed0361-archeologist-tour.session.json",
+      "passed": false,
+      "metrics": {
+        "rngCalls": {
+          "matched": 279,
+          "total": 53865
+        },
+        "screens": {
+          "matched": 0,
+          "total": 366
+        },
+        "cellsOnly": {
+          "matched": 0,
+          "total": 366
+        },
+        "cursors": {
+          "matched": 2,
+          "total": 366
+        },
+        "animFrames": {
+          "matched": 0,
+          "total": 10
+        }
+      },
+      "error": null,
+      "buckets": [
+        "early-diverge"
+      ],
+      "rngRatio": 0.005179615705931496,
+      "screenRatio": 0
+    },
+    {
+      "session": "seed0367-priest-quest-tour.session.json",
+      "passed": false,
+      "metrics": {
+        "rngCalls": {
+          "matched": 271,
+          "total": 50125
+        },
+        "screens": {
+          "matched": 0,
+          "total": 324
+        },
+        "cellsOnly": {
+          "matched": 0,
+          "total": 324
+        },
+        "cursors": {
+          "matched": 3,
+          "total": 324
+        },
+        "animFrames": {
+          "matched": 0,
+          "total": 0
+        }
+      },
+      "error": null,
+      "buckets": [
+        "early-diverge"
+      ],
+      "rngRatio": 0.005406483790523691,
+      "screenRatio": 0
+    },
+    {
+      "session": "seed0373-barbarian-quest-tour.session.json",
+      "passed": false,
+      "metrics": {
+        "rngCalls": {
+          "matched": 1135,
+          "total": 35386
+        },
+        "screens": {
+          "matched": 0,
+          "total": 124
+        },
+        "cellsOnly": {
+          "matched": 0,
+          "total": 124
+        },
+        "cursors": {
+          "matched": 3,
+          "total": 124
+        },
+        "animFrames": {
+          "matched": 0,
+          "total": 0
+        }
+      },
+      "error": null,
+      "buckets": [],
+      "rngRatio": 0.0320748318544057,
+      "screenRatio": 0
+    },
+    {
+      "session": "seed0383-wizard-hallucinate.session.json",
+      "passed": false,
+      "metrics": {
+        "rngCalls": {
+          "matched": 1318,
+          "total": 16915
+        },
+        "screens": {
+          "matched": 0,
+          "total": 219
+        },
+        "cellsOnly": {
+          "matched": 0,
+          "total": 219
+        },
+        "cursors": {
+          "matched": 3,
+          "total": 219
+        },
+        "animFrames": {
+          "matched": 0,
+          "total": 1
+        }
+      },
+      "error": null,
+      "buckets": [],
+      "rngRatio": 0.07791900679869938,
+      "screenRatio": 0
+    },
+    {
+      "session": "seed0398-wizard-wandpoly-pile.session.json",
+      "passed": false,
+      "metrics": {
+        "rngCalls": {
+          "matched": 961,
+          "total": 3026
+        },
+        "screens": {
+          "matched": 0,
+          "total": 87
+        },
+        "cellsOnly": {
+          "matched": 0,
+          "total": 87
+        },
+        "cursors": {
+          "matched": 0,
+          "total": 87
+        },
+        "animFrames": {
+          "matched": 0,
+          "total": 0
+        }
+      },
+      "error": null,
+      "buckets": [],
+      "rngRatio": 0.3175809649702578,
+      "screenRatio": 0
+    },
+    {
+      "session": "seed0399-wizard-hallu-actions.session.json",
+      "passed": false,
+      "metrics": {
+        "rngCalls": {
+          "matched": 248,
+          "total": 11409
+        },
+        "screens": {
+          "matched": 0,
+          "total": 532
+        },
+        "cellsOnly": {
+          "matched": 0,
+          "total": 532
+        },
+        "cursors": {
+          "matched": 1,
+          "total": 532
+        },
+        "animFrames": {
+          "matched": 0,
+          "total": 0
+        }
+      },
+      "error": null,
+      "buckets": [
+        "early-diverge"
+      ],
+      "rngRatio": 0.021737224997808748,
+      "screenRatio": 0
+    },
+    {
+      "session": "seed0501-priest-cast-read-turn.session.json",
+      "passed": false,
+      "metrics": {
+        "rngCalls": {
+          "matched": 1143,
+          "total": 2238
+        },
+        "screens": {
+          "matched": 0,
+          "total": 28
+        },
+        "cellsOnly": {
+          "matched": 0,
+          "total": 28
+        },
+        "cursors": {
+          "matched": 3,
+          "total": 28
+        },
+        "animFrames": {
+          "matched": 0,
+          "total": 0
+        }
+      },
+      "error": null,
+      "buckets": [
+        "rng>50%"
+      ],
+      "rngRatio": 0.5107238605898123,
+      "screenRatio": 0
+    },
+    {
+      "session": "seed0700-samurai-explore-descend.session.json",
+      "passed": false,
+      "metrics": {
+        "rngCalls": {
+          "matched": 1736,
+          "total": 3230
+        },
+        "screens": {
+          "matched": 0,
+          "total": 51
+        },
+        "cellsOnly": {
+          "matched": 0,
+          "total": 51
+        },
+        "cursors": {
+          "matched": 3,
+          "total": 51
+        },
+        "animFrames": {
+          "matched": 0,
+          "total": 0
+        }
+      },
+      "error": null,
+      "buckets": [
+        "rng>50%"
+      ],
+      "rngRatio": 0.5374613003095975,
+      "screenRatio": 0
+    },
+    {
+      "session": "seed0900-tourist-explore-actions.session.json",
+      "passed": false,
+      "metrics": {
+        "rngCalls": {
+          "matched": 966,
+          "total": 2983
+        },
+        "screens": {
+          "matched": 0,
+          "total": 84
+        },
+        "cellsOnly": {
+          "matched": 0,
+          "total": 84
+        },
+        "cursors": {
+          "matched": 2,
+          "total": 84
+        },
+        "animFrames": {
+          "matched": 0,
+          "total": 3
+        }
+      },
+      "error": null,
+      "buckets": [],
+      "rngRatio": 0.32383506537043244,
+      "screenRatio": 0
+    },
+    {
+      "session": "seed1150-caveman-explore-move.session.json",
+      "passed": false,
+      "metrics": {
+        "rngCalls": {
+          "matched": 337,
+          "total": 3137
+        },
+        "screens": {
+          "matched": 0,
+          "total": 51
+        },
+        "cellsOnly": {
+          "matched": 0,
+          "total": 51
+        },
+        "cursors": {
+          "matched": 2,
+          "total": 51
+        },
+        "animFrames": {
+          "matched": 0,
+          "total": 6
+        }
+      },
+      "error": null,
+      "buckets": [
+        "early-diverge"
+      ],
+      "rngRatio": 0.10742747848262671,
+      "screenRatio": 0
+    },
+    {
+      "session": "seed1500-rogue-explore-move.session.json",
+      "passed": false,
+      "metrics": {
+        "rngCalls": {
+          "matched": 1877,
+          "total": 2768
+        },
+        "screens": {
+          "matched": 0,
+          "total": 40
+        },
+        "cellsOnly": {
+          "matched": 0,
+          "total": 40
+        },
+        "cursors": {
+          "matched": 4,
+          "total": 40
+        },
+        "animFrames": {
+          "matched": 0,
+          "total": 0
+        }
+      },
+      "error": null,
+      "buckets": [
+        "rng>50%"
+      ],
+      "rngRatio": 0.678106936416185,
+      "screenRatio": 0
+    },
+    {
+      "session": "seed1800-tourist-eat-throw.session.json",
+      "passed": false,
+      "metrics": {
+        "rngCalls": {
+          "matched": 1981,
+          "total": 2458
+        },
+        "screens": {
+          "matched": 0,
+          "total": 26
+        },
+        "cellsOnly": {
+          "matched": 0,
+          "total": 26
+        },
+        "cursors": {
+          "matched": 0,
+          "total": 26
+        },
+        "animFrames": {
+          "matched": 0,
+          "total": 0
+        }
+      },
+      "error": null,
+      "buckets": [
+        "rng>50%"
+      ],
+      "rngRatio": 0.805939788445891,
+      "screenRatio": 0
+    },
+    {
+      "session": "seed2200-wizard-quaff-zap-read.session.json",
+      "passed": false,
+      "metrics": {
+        "rngCalls": {
+          "matched": 2380,
+          "total": 3018
+        },
+        "screens": {
+          "matched": 0,
+          "total": 230
+        },
+        "cellsOnly": {
+          "matched": 0,
+          "total": 230
+        },
+        "cursors": {
+          "matched": 6,
+          "total": 230
+        },
+        "animFrames": {
+          "matched": 0,
+          "total": 0
+        }
+      },
+      "error": null,
+      "buckets": [
+        "rng>50%"
+      ],
+      "rngRatio": 0.7886017229953611,
+      "screenRatio": 0
+    },
+    {
+      "session": "seed2600-wizard-custom-binds.session.json",
+      "passed": false,
+      "metrics": {
+        "rngCalls": {
+          "matched": 261,
+          "total": 11647
+        },
+        "screens": {
+          "matched": 0,
+          "total": 38
+        },
+        "cellsOnly": {
+          "matched": 0,
+          "total": 38
+        },
+        "cursors": {
+          "matched": 3,
+          "total": 38
+        },
+        "animFrames": {
+          "matched": 0,
+          "total": 0
+        }
+      },
+      "error": null,
+      "buckets": [
+        "early-diverge"
+      ],
+      "rngRatio": 0.022409204086889328,
+      "screenRatio": 0
+    },
+    {
+      "session": "seed4500-knight-coverage.session.json",
+      "passed": false,
+      "metrics": {
+        "rngCalls": {
+          "matched": 226,
+          "total": 108275
+        },
+        "screens": {
+          "matched": 0,
+          "total": 1814
+        },
+        "cellsOnly": {
+          "matched": 0,
+          "total": 1814
+        },
+        "cursors": {
+          "matched": 9,
+          "total": 1814
+        },
+        "animFrames": {
+          "matched": 0,
+          "total": 37
+        }
+      },
+      "error": null,
+      "buckets": [
+        "early-diverge"
+      ],
+      "rngRatio": 0.002087277764950358,
+      "screenRatio": 0
+    },
+    {
+      "session": "seed5002-wizard-coverage-pair.session.json",
+      "passed": false,
+      "metrics": {
+        "rngCalls": {
+          "matched": 658,
+          "total": 12167
+        },
+        "screens": {
+          "matched": 0,
+          "total": 410
+        },
+        "cellsOnly": {
+          "matched": 0,
+          "total": 410
+        },
+        "cursors": {
+          "matched": 0,
+          "total": 410
+        },
+        "animFrames": {
+          "matched": 0,
+          "total": 8
+        }
+      },
+      "error": null,
+      "buckets": [],
+      "rngRatio": 0.054080710117531024,
+      "screenRatio": 0
+    },
+    {
+      "session": "seed5006-tourist-stress-disaster.session.json",
+      "passed": false,
+      "metrics": {
+        "rngCalls": {
+          "matched": 369,
+          "total": 13923
+        },
+        "screens": {
+          "matched": 0,
+          "total": 249
+        },
+        "cellsOnly": {
+          "matched": 0,
+          "total": 249
+        },
+        "cursors": {
+          "matched": 0,
+          "total": 249
+        },
+        "animFrames": {
+          "matched": 0,
+          "total": 0
+        }
+      },
+      "error": null,
+      "buckets": [
+        "early-diverge"
+      ],
+      "rngRatio": 0.026502908855850032,
+      "screenRatio": 0
+    },
+    {
+      "session": "seed8000-tourist-starter.session.json",
+      "passed": true,
+      "metrics": {
+        "rngCalls": {
+          "matched": 3130,
+          "total": 3130
+        },
+        "screens": {
+          "matched": 23,
+          "total": 23
+        },
+        "cellsOnly": {
+          "matched": 23,
+          "total": 23
+        },
+        "cursors": {
+          "matched": 23,
+          "total": 23
+        },
+        "animFrames": {
+          "matched": 0,
+          "total": 0
+        }
+      },
+      "error": null,
+      "buckets": [
+        "full-pass"
+      ],
+      "rngRatio": 1,
+      "screenRatio": 1
+    }
+  ]
+}
