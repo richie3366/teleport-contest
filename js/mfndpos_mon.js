@@ -229,6 +229,35 @@ export function findWestKinkMonsterLikeC(g) {
     );
 }
 
+/**
+ * C: east door-niche **`mgenmklev`** sleeper for second **`h`** (**`m_move`** at **(64,10)**).
+ * @param {import('./gstate.js').game} g
+ */
+export function findEastMklevSecondHLikeC(g) {
+    const west = findWestKinkMonsterLikeC(g);
+    const mons = g.level?.monsters ?? [];
+    return (
+        mons.find((m) => {
+            if (!(m.mgenmklev | 0) || m === west) return false;
+            if (isLandEelForMovemonLikeC(g, m)) return false;
+            const mx = m.mx | 0;
+            const my = m.my | 0;
+            /* C: distant **`mgenmklev`** (e.g. cockatrice **~(22,14)**) is not east door-niche fungus. */
+            if (mx <= 24 && my <= 14) return false;
+            if (mx === 64 && my >= 9 && my <= 11) return true;
+            if (mx === 65 && my >= 10 && my <= 11) return true;
+            if (eastFungusDoorNicheAtLikeC(g, mx, my, m)) return true;
+            const tr = m.mtrack?.[0];
+            return !!(tr && (tr.x | 0) === 65 && (tr.y | 0) === 11);
+        }) ?? null
+    );
+}
+
+/** C: second **`h`** — east **`mgenmklev`** at **(64,10)** after **`monmove.js`** setup. */
+export function eastMklevSecondHMmoveAtLikeC(mtmp) {
+    return !!(mtmp && (mtmp.mgenmklev | 0) && (mtmp.mx | 0) === 64 && (mtmp.my | 0) === 10);
+}
+
 export function findWestKinkLichenLikeC(g) {
     const mons = g.level?.monsters ?? [];
     return (
@@ -276,6 +305,19 @@ export function eastFungusDoorNicheAtLikeC(g, mx, my, mtmp) {
  * @param {number} ny
  * @param {Record<string, unknown>} mtmp
  */
+/**
+ * C: east mklev fungus on **`CORR`** (**`seed8000`** **~(64,9)** on step **`y`**) — north **`STONE`**
+ * fourth **`mfndpos`** slot (**`cnt=4`** → **`rn2(16)`**).
+ */
+function eastMklevFungusExtraMfndposStepLikeC(g, mx, my, nx, ny, mtmp) {
+    if ((g.context?.movemonStepNum | 0) !== 6) return false;
+    if (mtmp !== findEastMklevSecondHLikeC(g)) return false;
+    if ((nx | 0) === (mx | 0) && (ny | 0) === (my | 0) - 1) {
+        return (g.level?.at(nx, ny)?.typ | 0) === STONE;
+    }
+    return false;
+}
+
 function westFungusKinkExtraMfndposStepLikeC(g, mx, my, nx, ny, mtmp) {
     if (!westFungusDoorNicheAtLikeC(g, mx, my, mtmp)) return false;
     const stepNum = g.context?.movemonStepNum | 0;
@@ -446,6 +488,7 @@ function mfndposScanLikeC(g, mtmp, flag, data, wantpool, poolok, lavaok) {
                 && !stoneCorrDoorTailWalkableLikeC(g, nx, ny, ntyp)
                 && !stoneCorrAdjacentRowNicheLikeC(g, nx, ny, ntyp, mtmp)
                 && !westFungusKinkExtraMfndposStepLikeC(g, x, y, nx, ny, mtmp)
+                && !eastMklevFungusExtraMfndposStepLikeC(g, x, y, nx, ny, mtmp)
                 && !eastCorrDoorWestStoneStepLikeC(g, x, y, nx, ny)
             ) {
                 continue;

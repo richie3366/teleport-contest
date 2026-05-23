@@ -5,6 +5,7 @@ import { PM_LICHEN } from './const.js';
 import { S_EEL, raceptr } from './mondata.js';
 import {
     eastFungusDoorNicheAtLikeC,
+    findEastMklevSecondHLikeC,
     findWestKinkMonsterLikeC,
     isLandEelForMovemonLikeC,
     movemonStep8DistantMonEligibleLikeC,
@@ -54,6 +55,27 @@ export function fmonListForMovemonLikeC(g, stepNum = 0) {
     if ((stepNum | 0) === 4) {
         const west = findWestKinkMonsterLikeC(g);
         return west ? [west] : [];
+    }
+    /* C: second **`h`** — east **(64,10)** **`m_move`** (**`rn2(12)`**) before west/eel/distant **`distfleeck`**. */
+    if ((stepNum | 0) === 5) {
+        const east = findEastMklevSecondHLikeC(g);
+        const west = findWestKinkMonsterLikeC(g);
+        const eel = mons.find((m) => isLandEelForMovemonLikeC(g, m));
+        const distant =
+            mons.find((m) => (m.mx | 0) === 22 && (m.my | 0) === 14)
+            ?? mons.find((m) => (m.mx | 0) === 23 && (m.my | 0) === 13)
+            ?? mons.find((m) => (m.mx | 0) === 21 && (m.my | 0) === 13)
+            ?? mons.find(
+                (m) =>
+                    m !== east
+                    && m !== west
+                    && m !== eel
+                    && movemonStep8DistantMonEligibleLikeC(g, m),
+            );
+        const rest = mons.filter(
+            (m) => m !== east && m !== west && m !== eel && m !== distant,
+        );
+        return [east, west, eel, distant, ...rest].filter(Boolean);
     }
     /* C: step **`n`** — east **`movement < NORMAL_SPEED`** (no RNG); west **`distfleeck`**;
      * land eel **`m_move`** (**`rn2(32)`**); distant **`distfleeck`**+**`m_move`**+**`distfleeck`**. */
