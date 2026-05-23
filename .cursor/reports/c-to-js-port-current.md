@@ -18,11 +18,11 @@ Thin handoff for the next coding session. **Score + milestones:** [`c-to-js-port
 
 **Deferred for now:** **`maybe_do_tutorial`** / **`tut-1`** / full **`do.c`** **`goto_level`** (Lua **`tutorial()`** / **`free_tutorial()`**, **`savelev`**, **`gmst_*`**, …) and **`dokick`**/**`dothrow`** vs **`leaving_tutorial`** — strong upstream dependencies (save, specials, fuller **`do.c`**); treat as backlog until chargen / core early-game parity is further along; **`LIVELOGFILE`** parity if the judge ever compares livelog lines.
 
-**Last slice:** **`sounds.c` `dosounds()`** + **`dochug` ~886 gate** prep — C **`dosounds`** uses **`rn2(400)`** when **`nfountains>0`**; **`flags.acoustics`** default on. **`m_move_mon.js`**: extracted **`evaluateDochugMmoveGateConditionLikeC`** (monmove.c ~882–887); **`set_apparxy`** before **`distfleeck`** on stepNum **1** peel; **`moveloop_turn_advance`**: **`movemonStepNum = moves−1`** each inner pass. **`seed0077`:** **3206/3242** RNG; first gap ~**3203** (**`rn2(4)`** dochug gate vs extra **`distfleeck`** — hero-adjacent mon needs **`nearby=1`** + wanderer/blind gate, not distant west-kink **`fmon`** first). **`seed8000`:** **PASS**. **`npm run score`:** **1/44**.
+**Last slice:** D:1 **`movemon`** **`fmon`** order + **`distfleeck`** **`nearby`** — **`fmon_iter.js`**: west-kink **(64,12)** after other D:1 mons near hero (default **`movemon`**; step **`n`** peel unchanged). **`distfleeck_mon.js`**: sync **`mux,muy`** to **`u.ux,u.uy`** when mon sees adjacent hero but **`monnear(mux,muy)`** false. **`m_move_mon.js`**: comment — no **`dochug`** when **`movement < NORMAL_SPEED`**. **`seed0077`:** **3206/3242** (gap ~**3203** unchanged). **`seed8000`:** **PASS**. **`npm run score`:** **1/44**.
 
 ## Next steps
 
-1. **`seed0077` ~3203** — C **`distfleeck`** then **`dochug(monmove.c:886)` `rn2(4)`** on same monster (second **`j`** moveloop tail); fix **`nearby`** after **`set_apparxy`**, **`fmon`** order vs C **`movement < NORMAL_SPEED`** for distant west kink, or full generic **`dochug`** on hero-adjacent mon (not second **`distfleeck`**).
+1. **`seed0077` ~3203** — C **`dochug(monmove.c:886)` `rn2(4)`** with **`nearby=1`**; JS second **`distfleeck`** **`rn2(5)`**. Next: **`set_apparxy`** parity, west kink **`msleeping`/`disturb`**, **`movement`** before generic **`dochug`** (C **`mon.c` `movemon_singlemon`**).
 
 2. **Chargen + `u_init_role` RNG** — **`consumeRogueHumanIniInvUinitRoleRngLikeC`** / **`ini_inv`** when mklev tail is aligned.
 

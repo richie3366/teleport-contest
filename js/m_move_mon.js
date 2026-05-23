@@ -623,9 +623,7 @@ export async function movemonSinglemonLikeC(g, mtmp, stepNum = 0) {
         if (mtmp !== findWestKinkMonsterLikeC(g)) return;
     }
     const mov = mtmp.movement | 0;
-    /* C: mon.c **`movemon_singlemon`** — idle until **`movement`** reaches **`NORMAL_SPEED`**. */
-    /* C: mon.c **`movemon_singlemon`** — no turn spend; do not set **`msleeping`** here. */
-    /* C: **`distfleeck`** still runs when **`movement < NORMAL_SPEED`** (no turn spend). */
+    /* C: mon.c **`movemon_singlemon`** — idle until **`movement`** reaches **`NORMAL_SPEED`** (no **`dochug`**). */
     const eastMklevLowMovDochugLikeC =
         (
             (stepNum | 0) === 9

@@ -296,10 +296,25 @@ export async function distfleeckMonsterApplyLikeC(g, mtmp) {
     const bravegremlin = rn2(5) === 0;
 
     const u = g?.u;
-    const mux = mtmp.mux !== undefined && mtmp.mux !== null ? mtmp.mux | 0 : u?.ux | 0;
-    const muy = mtmp.muy !== undefined && mtmp.muy !== null ? mtmp.muy | 0 : u?.uy | 0;
+    let mux = mtmp.mux !== undefined && mtmp.mux !== null ? mtmp.mux | 0 : u?.ux | 0;
+    let muy = mtmp.muy !== undefined && mtmp.muy !== null ? mtmp.muy | 0 : u?.uy | 0;
     const bx = mtmp.mx | 0;
     const by = mtmp.my | 0;
+
+    /* C: after **`set_apparxy`**, **`monnear(mtmp, mux, muy)`** — undisplaced seen hero uses **`u.ux,u.uy`**. */
+    if (
+        u
+        && (mtmp.mcansee | 0)
+        && !heroInvisLikeC(u)
+        && perceivesDataLikeC(mtmp.data)
+        && monnearMonsterXYLikeC(mtmp, u.ux | 0, u.uy | 0)
+        && !monnearMonsterXYLikeC(mtmp, mux, muy)
+    ) {
+        mux = u.ux | 0;
+        muy = u.uy | 0;
+        mtmp.mux = mux;
+        mtmp.muy = muy;
+    }
 
     const boltLimSq = BOLT_LIM * BOLT_LIM;
     out.inrange = dist2(bx, by, mux, muy) <= boltLimSq ? 1 : 0;

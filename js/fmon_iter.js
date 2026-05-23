@@ -3,6 +3,8 @@
 
 import { PM_LICHEN } from './const.js';
 import { game } from './gstate.js';
+import { dist2 } from './hacklib.js';
+import { monnearMonsterXYLikeC } from './mon_geom.js';
 import { S_EEL, raceptr } from './mondata.js';
 import {
     eastFungusDoorNicheAtLikeC,
@@ -24,6 +26,31 @@ import {
  */
 export function fmonListNewestFirstLikeC(g) {
     return g.level?.monsters ?? [];
+}
+
+/**
+ * C: when the hero is in the east corridor, **`movemon`** should **`dochug`** **`monnear`**
+ * monsters before the west-kink **(64,12)** sleeper (still **`movement < NORMAL_SPEED`** in C).
+ * Only reorder when at least one non-west mon is adjacent; keep **`fmon`** order otherwise.
+ *
+ * @param {import('./gstate.js').game} g
+ * @param {Record<string, unknown>[]} mons
+ */
+function fmonListD1WestKinkAfterNearHeroLikeC(g, mons) {
+    const u = g.u;
+    const west = findWestKinkMonsterLikeC(g);
+    if (!u || !west || !mons.includes(west)) return mons;
+    const ux = u.ux | 0;
+    const uy = u.uy | 0;
+    const hasNear = mons.some((m) => {
+        if (m === west) return false;
+        return (
+            monnearMonsterXYLikeC(m, ux, uy)
+            || dist2(m.mx | 0, m.my | 0, ux, uy) <= 36
+        );
+    });
+    if (!hasNear) return mons;
+    return [...mons.filter((m) => m !== west), west];
 }
 
 /**
@@ -157,6 +184,9 @@ export function fmonListForMovemonLikeC(g, stepNum = 0) {
         );
         /* C: east may be **`movement < NORMAL_SPEED`** (no RNG); west **`distfleeck`**, eel **`m_move`**, distant. */
         return [west, eel, distant, east, ...rest].filter(Boolean);
+    }
+    if ((g.u?.uz?.dnum | 0) === 0 && (g.u?.uz?.dlevel | 0) === 1) {
+        return fmonListD1WestKinkAfterNearHeroLikeC(g, mons);
     }
     if ((stepNum | 0) !== 3) return mons;
     const west = mons.find(
