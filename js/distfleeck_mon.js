@@ -7,6 +7,7 @@ import { isFirstSearchMovemonPassLikeC } from './monmove_search.js';
 import {
     eastMklevFirstLAfterBLikeC,
     findDistantMklevMonLikeC,
+    searchPass1NearMonLikeC,
 } from './mfndpos_mon.js';
 import { monflee } from './monflee.js';
 import { monnearMonsterXYLikeC } from './mon_geom.js';
@@ -303,9 +304,10 @@ export async function distfleeckMonsterApplyLikeC(g, mtmp) {
     const ctx = g.context || (g.context = {});
     if (
         isFirstSearchMovemonPassLikeC(g)
-        && ctx._searchPass1NearMonLikeC
+        && (ctx._searchPass1NearMonLikeC || searchPass1NearMonLikeC(g))
         && !ctx._searchRogGateDoneLikeC
         && !(mtmp.mtame | 0)
+        && (mtmp.mgenmklev | 0)
         && mtmp !== findDistantMklevMonLikeC(g)
         && !eastMklevFirstLAfterBLikeC(g, mtmp)
     ) {

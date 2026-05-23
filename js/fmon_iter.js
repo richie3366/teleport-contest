@@ -192,7 +192,10 @@ export function fmonListForMovemonLikeC(g, stepNum = 0) {
             const tail = [];
             if (distant) tail.push(distant);
             if (east && !near.includes(east)) tail.push(east);
-            return [...near, ...mid, ...(pet ? [pet] : []), ...tail].filter(Boolean);
+            /* C: rogue **`seed0077`** — mklev hostile **`distfleeck`** + gate before pet **`dog_goal`**
+             * (pet is **`monnear`** but must not precede mid mklev on first **`#search`**). */
+            const nearHostile = near.filter((m) => m !== pet);
+            return [...nearHostile, ...mid, ...(pet ? [pet] : []), ...tail].filter(Boolean);
         }
         const rest = mons.filter((m) => m !== east && m !== distant);
         /** @type {typeof mons} */

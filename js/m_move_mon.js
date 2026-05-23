@@ -294,6 +294,14 @@ function dochugEntersMmoveBlockLikeC(g, mtmp, nearby, scared, stepNum = 0) {
         return mtmp === findDistantMklevMonLikeC(g)
             || eastMklevFirstLAfterBLikeC(g, mtmp);
     }
+    if (
+        isFirstSearchMovemonPassLikeC(g)
+        && g.context?._searchRogGateDoneLikeC
+        && firstSearchNearMklevHostileLikeC(g, mtmp)
+    ) {
+        /* C: gate **`rn2(4)`** already drawn in **`distfleeck_mon`** — skip **`m_move`** block. */
+        return false;
+    }
     return evaluateDochugMmoveGateConditionLikeC(g, mtmp, nearby, scared);
 }
 

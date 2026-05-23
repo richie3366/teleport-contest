@@ -29,6 +29,7 @@ import {
     westFungusDoorNicheAtLikeC,
 } from './mfndpos_mon.js';
 import {
+    effectiveMovemonStepNumLikeC,
     isFirstSearchMovemonPassLikeC,
     isSecondSearchMovemonPassLikeC,
 } from './monmove_search.js';
@@ -39,6 +40,7 @@ import { ensureMonsterMtrack } from './monflee.js';
 export { mthrowAtHeroUxyThituLikeC } from './mthrowu.js';
 
 export {
+    effectiveMovemonStepNumLikeC,
     isFirstSearchMovemonPassLikeC,
     isSecondSearchMovemonPassLikeC,
 } from './monmove_search.js';
@@ -99,9 +101,10 @@ export async function movemon(stepNum) {
 
     const g = game;
     g.context = g.context || {};
+    const effStepNum = effectiveMovemonStepNumLikeC(g, stepNum);
     /* C: mon.c movemon — `gs.somebody_can_move` set in movemon_singlemon after turn spend. */
     g.context._somebodyCanMoveLikeC = false;
-    g.context.movemonStepNum = stepNum;
+    g.context.movemonStepNum = effStepNum;
     /* Do not clear an active **`#search`** pass on low **`movemonStepNum`** (e.g. 2–3 on **`seed0077`**). */
     if ((stepNum | 0) < 10 && !(g.context?._searchStep11Passes | 0)) {
         delete g.context._searchStep11Passes;
@@ -270,7 +273,7 @@ export async function movemon(stepNum) {
     }
     let mons;
     try {
-        mons = fmonListForMovemonLikeC(g, stepNum);
+        mons = fmonListForMovemonLikeC(g, effStepNum);
         /* C: hero **`b`** — distant, then west **`distfleeck`**, then land eel **`m_move`**. */
         if ((stepNum | 0) === 8) {
             const distant = findDistantMklevMonLikeC(g);
@@ -344,7 +347,7 @@ export async function movemon(stepNum) {
             if (eel) ordered.push(eel);
             mons = [...ordered, ...rest.filter((m) => m !== eel)];
         }
-        for (const m of mons) await movemonSinglemonLikeC(g, m, stepNum);
+        for (const m of mons) await movemonSinglemonLikeC(g, m, effStepNum);
         await mintrapMoveloopTail();
     } finally {
         delete g.context.movemonStepNum;

@@ -69,8 +69,8 @@ export async function runMoveloopPreambleBeforeRhackLikeC(g) {
 
 /**
  * C: allmain.c — new-turn block when both hero and monsters are out of movement
- * (`!monscanmove && u.umovement < NORMAL_SPEED`): mcalcmove, maybe_generate_rnd_mon, moves++,
- * once-per-turn tail.
+ * (`!monscanmove && u.umovement < NORMAL_SPEED`): mcalcmove, maybe_generate_rnd_mon,
+ * **`u_calc_moveamt`**, **`settrack`**, **`moves++`**, once-per-turn tail.
  * @param {import('./gstate.js').game} g
  * @param {number} stepNum
  */
@@ -80,6 +80,8 @@ async function runNewTurnSetupAndTailLikeC(g, stepNum) {
         m.movement = (m.movement | 0) + mcalcMoveLikeC(m, true, g);
     }
     maybe_generate_rnd_mon();
+    /* C: allmain.c — **`u_calc_moveamt`** before **`settrack`/`moves++`/tail RNG. */
+    uCalcMoveamtLikeC(g, nearCapacity(g));
     settrack();
     g.moves = (g.moves || 1) + 1;
     g.hero_seq = (g.moves | 0) << 3;
@@ -132,7 +134,6 @@ export async function runPostCommandTurnAdvanceLikeC(g) {
             if (!monscanmove && (u.umovement | 0) < NORMAL_SPEED) {
                 const tailStepNum = (g.moves | 0) - 1;
                 await runNewTurnSetupAndTailLikeC(g, tailStepNum);
-                uCalcMoveamtLikeC(g, nearCapacity(g));
             }
         } while ((u.umovement | 0) < NORMAL_SPEED);
     } finally {
