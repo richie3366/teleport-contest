@@ -359,6 +359,30 @@ export async function movemon(stepNum) {
             mons = [...ordered, ...rest.filter((m) => m !== eel)];
         }
         for (const m of mons) await movemonSinglemonLikeC(g, m, effStepNum);
+        /* C: rogue first **`#search`** — post-gate mklev peel **`distfleeck`** after **`dog_goal`**
+         * (**`seed0077` ~3209–3212**); sleeping peel often skips **`movemon_singlemon`** RNG. */
+        if (
+            isFirstSearchMovemonPassLikeC(g)
+            && g.context?._searchPass1NearMonLikeC
+            && g.context?._searchPass1DogGoalDoneLikeC
+            && !g.context?._searchPostGatePeelDoneLikeC
+        ) {
+            g.context._searchPostGatePeelDoneLikeC = true;
+            const rogGate = findFirstSearchRogMidMklevHostileLikeC(g);
+            const gateIdx = rogGate ? mons.indexOf(rogGate) : -1;
+            const tailStart = gateIdx >= 0 ? gateIdx + 1 : 0;
+            for (let i = tailStart; i < mons.length; i++) {
+                const m = mons[i];
+                if ((m.mtame | 0)) continue;
+                if (eastMklevFirstLAfterBLikeC(g, m)) continue;
+                if (!(m.mgenmklev | 0)) continue;
+                await mMoveDistfleeckOnlyTurnLikeC(g, m);
+            }
+            const east = findEastKickMonLikeC(g);
+            if (east && mons.includes(east)) {
+                await movemonSinglemonLikeC(g, east, effStepNum);
+            }
+        }
         await mintrapMoveloopTail();
     } finally {
         delete g.context.movemonStepNum;

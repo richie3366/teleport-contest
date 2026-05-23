@@ -16,6 +16,7 @@ import {
     searchPass1NearMonLikeC,
 } from './mfndpos_mon.js';
 import { disturbMonsterLikeC } from './disturb_mon.js';
+import { runPostCommandTurnAdvanceLikeC } from './moveloop_turn_advance.js';
 import { maybeSmudgeEngr } from './engrave.js';
 import { dolookHeroLikeC } from './pickup.js';
 import { runExtcmdFromHashPrefix } from './extcmd.js';
@@ -153,6 +154,7 @@ export async function rhack(key) {
             delete game.context._searchRogGateCountLikeC;
             delete game.context._searchPass1DogGoalDoneLikeC;
             delete game.context._searchRogGateDoneLikeC;
+            delete game.context._searchPostGatePeelDoneLikeC;
             const rogueLike =
                 game.urole?.abbr === 'Rog'
                 || game.pl_character === 'Rogue'
@@ -166,6 +168,10 @@ export async function rhack(key) {
             }
         }
         await dosearch();
+        /* C: **`#search`** costs time — **`movemon`** + new-turn tail run before next input
+         * (session RNG on the **`s`** step, not the following moveloop post). */
+        game.context._searchInlinePostDoneLikeC = true;
+        await runPostCommandTurnAdvanceLikeC(game);
     } else if (ch === 'i') {
         // C: cmd.c #inventory — minimal full-screen list (invent.c)
         game.context.move = 0;

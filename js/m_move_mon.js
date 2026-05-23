@@ -323,6 +323,14 @@ function dochugEntersMmoveBlockLikeC(
         return mtmp === findDistantMklevMonLikeC(g)
             || eastMklevFirstLAfterBLikeC(g, mtmp);
     }
+    /* C: rogue near first **`#search`** — east **`m_move`** only in explicit east-tail block above. */
+    if (
+        isFirstSearchMovemonPassLikeC(g)
+        && g.context?._searchPass1NearMonLikeC
+        && eastMklevFirstLAfterBLikeC(g, mtmp)
+    ) {
+        return false;
+    }
     return evaluateDochugMmoveGateConditionLikeC(g, mtmp, nearby, scared);
 }
 
@@ -706,6 +714,14 @@ export async function movemonSinglemonLikeC(g, mtmp, stepNum = 0) {
         } else if ((stepNum | 0) === 2 && mtmp === findWestKinkMonsterLikeC(g)) {
             /* C: step **`n`** — west kink fungus **`distfleeck`** with **`movement < NORMAL_SPEED`**. */
             await mMoveDistfleeckOnlyTurnLikeC(g, mtmp);
+            return;
+        }
+        if (
+            isFirstSearchMovemonPassLikeC(g)
+            && isRogFirstSearchMovemonNearPathLikeC(g)
+            && eastMklevFirstLAfterBLikeC(g, mtmp)
+            && !g.context?._searchPass1DogGoalDoneLikeC
+        ) {
             return;
         }
         if (
@@ -1292,12 +1308,35 @@ export async function mMoveOneMonsterSubsetLikeC(g, mtmp, stepNum = 0) {
             await mMoveDistfleeckOnlyTurnLikeC(g, mtmp);
             return;
         }
+        if ((mtmp.mtame | 0) && g.context?._searchPass1DogGoalDoneLikeC) {
+            return;
+        }
         if (eastMklevFirstLAfterBLikeC(g, mtmp)) {
+            if (!g.context?._searchPass1DogGoalDoneLikeC) return;
+            await mMoveDistfleeckOnlyTurnLikeC(g, mtmp);
+            const u = g.u;
+            if (u) {
+                mtmp.mux = u.ux | 0;
+                mtmp.muy = u.uy | 0;
+            }
+            ensureMonsterMtrack(mtmp);
+            mtmp.mtrack[0] = { x: 65, y: 9 };
+            if (dochugEntersMmoveBlockLikeC(g, mtmp, 1, 0, stepNum)) {
+                const mfpK = mfndposMonsterLikeC(g, mtmp, monAllowflagsMonsterLikeC(g, mtmp));
+                if ((mfpK.cnt | 0) > 0) {
+                    mtmp.mtrack[0] = { x: mfpK.poss[0].x | 0, y: mfpK.poss[0].y | 0 };
+                }
+                rn2(12);
+            }
+            await distfleeckMonsterApplyLikeC(g, mtmp);
             return;
         }
         if (peekRogFirstSearchDochugGateMonsterLikeC(g, mtmp)) {
             /* fall through to full **`dochug`** (gate **`rn2(4)`** in **`evaluateDochugMmoveGateConditionLikeC`**). */
+        } else if ((mtmp.mtame | 0)) {
+            return;
         } else if (mtmp !== findDistantMklevMonLikeC(g)) {
+            await mMoveDistfleeckOnlyTurnLikeC(g, mtmp);
             return;
         }
     } else if (isFirstSearchMovemonPassLikeC(g)) {
