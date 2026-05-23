@@ -53,6 +53,43 @@ const MKOBJ_PROBS = Object.freeze([
     [1, NH5_AMULET_CLASS],
 ]);
 
+/** C: objclass.h `SPBOOK_no_NOVEL` — mklev.js / mkobj.c `mkobj(SPBOOK_no_NOVEL, …)`. */
+const LET_SPBOOK_NO_NOVEL = 11;
+
+/** C: objects.h `SPE_BLANK_PAPER` — `rnd_class` upper bound for novel spellbooks. */
+const OTYP_SPE_BLANK_PAPER = 406;
+
+/** @param {readonly (readonly [number, number])[]} rows */
+function ocProbMapFromRows(rows) {
+    /** @type {Map<number, number>} */
+    const m = new Map();
+    for (const r of rows) m.set(r[0] | 0, r[1] | 0);
+    return m;
+}
+
+const SPBOOK_OC_PROB = ocProbMapFromRows(SPBOOK_CLASS_MKOBJ_OC_PROB_ROWS);
+const OTYP_SPBOOK_CLASS_FIRST = SPBOOK_CLASS_MKOBJ_OC_PROB_ROWS[0][0] | 0;
+
+/**
+ * C: objnam.c rnd_class(first, last) — walk contiguous `objects[i].oc_prob`.
+ * @param {number} first
+ * @param {number} last
+ */
+function rndClassMklevOtypLikeC(first, last) {
+    const lo = first | 0;
+    const hi = last | 0;
+    if (hi <= lo) return lo === hi ? lo : 0;
+    let sum = 0;
+    for (let i = lo; i <= hi; i++) sum += SPBOOK_OC_PROB.get(i) | 0;
+    if (!sum) return rn1(hi - lo + 1, lo);
+    let x = rnd(sum);
+    for (let i = lo; i <= hi; i++) {
+        x -= SPBOOK_OC_PROB.get(i) | 0;
+        if (x <= 0) return i;
+    }
+    return hi;
+}
+
 /** mklev.js legacy oclass literals → NH5 objclass.h indices. */
 const LEGACY_OCLASS_TO_NH5 = new Map([
     [0, NH5_RANDOM_CLASS],
@@ -374,11 +411,20 @@ export function mksobjPostInitStatueLikeC(otyp) {
  * @returns {number} otyp
  */
 export function mkobjMklevConsumeRngLikeC(let_, artif) {
-    let oclass = nh5OclassFromLet(let_);
-    if (oclass === NH5_RANDOM_CLASS) {
-        oclass = mkobjPickOclassFromMkobjprobsLikeC();
+    const letRaw = let_ | 0;
+    let oclass;
+    let otyp;
+    if (letRaw === LET_SPBOOK_NO_NOVEL) {
+        /* C: mkobj.c — `rnd_class(svb.bases[SPBOOK_CLASS], SPE_BLANK_PAPER)` */
+        otyp = rndClassMklevOtypLikeC(OTYP_SPBOOK_CLASS_FIRST, OTYP_SPE_BLANK_PAPER);
+        oclass = NH5_SPBOOK_CLASS;
+    } else {
+        oclass = nh5OclassFromLet(letRaw);
+        if (oclass === NH5_RANDOM_CLASS) {
+            oclass = mkobjPickOclassFromMkobjprobsLikeC();
+        }
+        otyp = mkobjPickOtypForClassLikeC(oclass);
     }
-    const otyp = mkobjPickOtypForClassLikeC(oclass);
     rnd(2);
     mksobjInitMklevLikeC(otyp, oclass, artif);
     mksobjPostInitStatueLikeC(otyp);
