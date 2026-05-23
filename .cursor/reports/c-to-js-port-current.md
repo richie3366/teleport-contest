@@ -18,13 +18,13 @@ Thin handoff for the next coding session. **Score + milestones:** [`c-to-js-port
 
 **Deferred for now:** **`maybe_do_tutorial`** / **`tut-1`** / full **`do.c`** **`goto_level`** (Lua **`tutorial()`** / **`free_tutorial()`**, **`savelev`**, **`gmst_*`**, …) and **`dokick`**/**`dothrow`** vs **`leaving_tutorial`** — strong upstream dependencies (save, specials, fuller **`do.c`**); treat as backlog until chargen / core early-game parity is further along; **`LIVELOGFILE`** parity if the judge ever compares livelog lines.
 
-**Last slice:** **`dogmove_mon.js`**: **`dogInventLikeC`** (C **`dog_invent`** pickup RNG), **`dogMoveLikeC`** / **`dogMoveGoalAndPickLikeC`** (full **`dog_goal`** + **`mfndpos`** pick); **`fobjInDogGoalBoxLikeC`** scans **`floorObjHeads`** (not empty **`level.objects`**). **`m_move_mon.js`**: **`mMovePetOrPositionSelectLikeC`** — **`mtame`** → **`dog_move`** instead of generic **`m_move`**. Tool: **`tools/diag_colon_pet.mjs`**. **`seed0077`:** still **3228/3242** — colon **`:`** step needs moveloop **`movemon`** with non-peel **`stepNum`** + **`context.move`** (see next). **`seed8000`:** **PASS**. **`npm run score`:** **1/44**.
+**Last slice:** Rogue twin **`#search`** (**`seed0077`**): keep **`_searchStep11Passes`** between **`s`** keys; second pass runs full **`fmon`** (gate **`distfleeck`** only → pet **`dogMoveLikeC`**, not tourist west/east subpasses); preserve **`_searchPass1NearMonLikeC`** through pass 2; **`dogmove_mon.js`** **`udist`** = C **`distu`** (**`dist2`**); colon **`:`** moveloop path retained. **`seed0077`:** **3228/3242** (first gap **`dog_invent`** — floor towel at pet feet / **`mklev`** placement). **`seed8000`:** **PASS**. **`npm run score`:** **1/44**.
 
 ## Next steps
 
-1. **`seed0077` colon `:` step (~3226+)** — C runs **`movemon`/`dog_move`** on the **`:`** step (session **`dog_invent`** then **`dog_goal`**). JS still hits **`dog_goal:575`** **`rn2(4)`** without **`dog_invent`** because colon **`movemon`** either does not run ( **`context.move=0`** after **`#search`**) or runs at **`movemonStepNum===3`** (door-**`j`** peel). Port C **`allmain.c`** post timing: rogue **`:`** after **`s`** should run full **`fmon`** + **`dogMoveLikeC`** (flag from **`cmd.js`**, non-peel **`stepNum`** in **`moveloop_turn_advance.js`** — do not double-post). Reuse **`tools/diag_colon_pet.mjs`**.
+1. **`seed0077` second `#search` `dog_invent` (~3227+)** — C **`dog_invent`** at pet feet (**`rn2(20)`**, **`rn2(udist)`** with **`udist=dist2`**) before second **`dog_goal`** **`rn2(8)`**; JS has no floor object under pet at **(35,8)** (towel-like **`otyp` 234** is at **(35,5)** in **`floorObjHeads`**). Port C **`mklev`/`fill_ordinary_room`** floor object at pet landing **(35,8)** (see prior **`openDoorCorridorWestAlcoves`** handoff) or first-search **`dog_move`** position pick onto that tile — then **`dogInventLikeC`** pickup RNG. Tools: **`tools/diag_floor_at_search.mjs`**, **`tools/diag_dog_goal_at_search.mjs`**, **`tools/diag_colon_pet.mjs`**.
 
-2. **`jsmain` tail post** — new-turn **3236–3241** after **`dolook`** on **`:`** step once colon **`movemon`** aligns.
+2. **`jsmain` tail post** — new-turn **3236–3241** after **`dolook`** on **`:`** step once **`dog_invent`** chain aligns.
 
 3. **`makeroguerooms` / rogue special level** — when **`Is_rogue_level`** is true.
 

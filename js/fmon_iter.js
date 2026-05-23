@@ -6,7 +6,12 @@ import { game } from './gstate.js';
 import { dist2 } from './hacklib.js';
 import { monnearMonsterXYLikeC } from './mon_geom.js';
 import { S_EEL, raceptr } from './mondata.js';
-import { isFirstSearchMovemonPassLikeC } from './monmove_search.js';
+import {
+    isFirstSearchMovemonPassLikeC,
+    isRogueColonMovemonActiveLikeC,
+    isSecondSearchMovemonPassLikeC,
+    rogueSecondSearchFullFmonLikeC,
+} from './monmove_search.js';
 import {
     eastFungusDoorNicheAtLikeC,
     findEastKickMonLikeC,
@@ -86,6 +91,20 @@ export function fmonListForMcalcmoveLikeC(g) {
  */
 export function fmonListForMovemonLikeC(g, stepNum = 0) {
     const mons = fmonListNewestFirstLikeC(g);
+    if (
+        isRogueColonMovemonActiveLikeC(g)
+        || (isSecondSearchMovemonPassLikeC(g) && rogueSecondSearchFullFmonLikeC(g))
+    ) {
+        const gate = findFirstSearchRogMidMklevHostileLikeC(g);
+        const pet = mons.find((m) => (m.mtame | 0) !== 0);
+        const ordered = [];
+        if (gate) ordered.push(gate);
+        if (pet) ordered.push(pet);
+        for (const m of mons) {
+            if (m !== gate && m !== pet) ordered.push(m);
+        }
+        return ordered;
+    }
     if ((stepNum | 0) === 4) {
         const west = findWestKinkMonsterLikeC(g);
         return west ? [west] : [];

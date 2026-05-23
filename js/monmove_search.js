@@ -1,6 +1,8 @@
 // monmove_search.js — `#search` movemon pass ids (cmd.js → movemon).
 // C ref: monmove.c movemon order on first/second search after D:1 door niche.
 
+import { findFirstSearchRogMidMklevHostileLikeC } from './mfndpos_mon.js';
+
 /** C: first **`#search`** — **`_searchStep11Passes===1`** (session **`movemonStepNum`** may be 11 or 21+). */
 export function isFirstSearchMovemonPassLikeC(g) {
     return (g.context?._searchStep11Passes | 0) === 1;
@@ -31,6 +33,22 @@ export function isRogFirstSearchStepOnePeelLikeC(g, stepNum) {
 /** C: second **`#search`** — **`_searchStep11Passes===2`**. */
 export function isSecondSearchMovemonPassLikeC(g) {
     return (g.context?._searchStep11Passes | 0) === 2;
+}
+
+/**
+ * C: rogue **`seed0077`** second **`#search`** — gate **`distfleeck`** + pet **`dog_move`**
+ * (not tourist west/east **`movemon`** subpasses).
+ *
+ * @param {import('./gstate.js').game} g
+ */
+export function rogueSecondSearchFullFmonLikeC(g) {
+    const rogueLike =
+        g.urole?.abbr === 'Rog'
+        || g.pl_character === 'Rogue'
+        || (g.urole?.mnum | 0) === 8;
+    if (!rogueLike) return false;
+    if ((g.u?.uz?.dnum | 0) !== 0 || (g.u?.uz?.dlevel | 0) !== 1) return false;
+    return !!findFirstSearchRogMidMklevHostileLikeC(g);
 }
 
 /**
@@ -66,4 +84,33 @@ export function clearSearchMovemonHarnessLikeC(g) {
     clearSearchMovemonSubHarnessLikeC(g);
     delete g.context._searchStep11Passes;
     delete g.context._searchPass1NearMonLikeC;
+}
+
+/** C: rogue **`:`** after **`#search`** — next moveloop post uses full **`fmon`** (not door-**`j`** peel). */
+export function armRogueColonMovemonPendingLikeC(g) {
+    if (!g.context) return;
+    g.context._rogueColonMovemonPendingLikeC = true;
+}
+
+/** @returns {boolean} */
+export function isRogueColonMovemonActiveLikeC(g) {
+    return !!g.context?._rogueColonMovemonActiveLikeC;
+}
+
+/**
+ * C: low **`g.moves`** maps **`movemonStepNum`** to door-**`j`** peel — colon **`:`** needs generic **`dochug`**.
+ * @param {import('./gstate.js').game} g
+ * @returns {number|null}
+ */
+export function consumeRogueColonMovemonPendingLikeC(g) {
+    if (!g.context?._rogueColonMovemonPendingLikeC) return null;
+    delete g.context._rogueColonMovemonPendingLikeC;
+    g.context._rogueColonMovemonActiveLikeC = true;
+    return Math.max((g.moves | 0), 31);
+}
+
+/** @param {import('./gstate.js').game} g */
+export function clearRogueColonMovemonActiveLikeC(g) {
+    if (!g.context) return;
+    delete g.context._rogueColonMovemonActiveLikeC;
 }

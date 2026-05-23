@@ -22,6 +22,7 @@ import {
 import {
     clearSearchMovemonHarnessLikeC,
     clearSearchMovemonSubHarnessLikeC,
+    armRogueColonMovemonPendingLikeC,
 } from './monmove_search.js';
 import { peekQueuedKey } from './input.js';
 import { maybeSmudgeEngr } from './engrave.js';
@@ -188,13 +189,17 @@ export async function rhack(key) {
             game.urole?.abbr === 'Rog'
             || game.pl_character === 'Rogue'
             || (game.urole?.mnum | 0) === 8;
-        /* C: rogue **`:`** after **`s`** needs normal **`movemon`**; tourist twin **`s`** keeps pass id. */
-        if (!rogueLike && nextCh === 's') {
+        /* C: twin **`#search`** — keep **`_searchStep11Passes`**; full clear only before **`:`** / other cmds. */
+        if (nextCh === 's') {
             clearSearchMovemonSubHarnessLikeC(game);
         } else {
             clearSearchMovemonHarnessLikeC(game);
         }
-        game.context.move = 0;
+        if (rogueLike && nextCh === ':') {
+            armRogueColonMovemonPendingLikeC(game);
+        } else {
+            game.context.move = 0;
+        }
         delete game.context._searchInlinePostDoneLikeC;
     } else if (ch === 'i') {
         // C: cmd.c #inventory — minimal full-screen list (invent.c)

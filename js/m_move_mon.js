@@ -71,6 +71,9 @@ import {
     isFirstSearchMovemonPassLikeC,
     isMovemonStepOnePeelLikeC,
     isRogFirstSearchStepOnePeelLikeC,
+    isRogueColonMovemonActiveLikeC,
+    isSecondSearchMovemonPassLikeC,
+    rogueSecondSearchFullFmonLikeC,
 } from './monmove_search.js';
 
 /** C: rogue D:1 door-**`j`** / first **`#search`** — near mklev hostile path (not tourist east peel). */
@@ -294,7 +297,7 @@ function dochugEntersMmoveBlockLikeC(
         return mtmp === findEastMklevSecondHLikeC(g);
     }
     /* C: second **`#search`** — pass 1 west **`m_move`**; pass 2 east **`m_move`** (inverse of **`y`**). */
-    if ((g.context?._searchStep11Passes | 0) === 2) {
+    if ((g.context?._searchStep11Passes | 0) === 2 && !rogueSecondSearchFullFmonLikeC(g)) {
         if ((g.context?._movemonSearch11SubPass | 0) === 1) {
             return mtmp === findWestKinkMonsterLikeC(g);
         }
@@ -611,6 +614,37 @@ function mMovePetOrPositionSelectLikeC(g, mtmp) {
 export async function movemonSinglemonLikeC(g, mtmp, stepNum = 0) {
     if (!mtmp || (mtmp.mhp | 0) <= 0) return;
 
+    /* C: rogue second **`#search`** — gate hostile **`distfleeck`** only (no **`dochug:886`**). */
+    if (
+        isSecondSearchMovemonPassLikeC(g)
+        && rogueSecondSearchFullFmonLikeC(g)
+        && mtmp === findFirstSearchRogMidMklevHostileLikeC(g)
+    ) {
+        await mMoveDistfleeckOnlyTurnLikeC(g, mtmp);
+        return;
+    }
+    /* C: rogue second **`#search`** — pet **`dog_move`** only (no leading **`distfleeck`**). */
+    if (
+        isSecondSearchMovemonPassLikeC(g)
+        && rogueSecondSearchFullFmonLikeC(g)
+        && (mtmp.mtame | 0)
+        && has_edog(mtmp)
+    ) {
+        let mov = mtmp.movement | 0;
+        if (mov < NORMAL_SPEED) {
+            mtmp.movement = NORMAL_SPEED;
+            mov = NORMAL_SPEED;
+        }
+        mtmp.movement = mov - NORMAL_SPEED;
+        const u = g.u;
+        if (u) {
+            mtmp.mux = u.ux | 0;
+            mtmp.muy = u.uy | 0;
+        }
+        dogMoveLikeC(g, mtmp);
+        return;
+    }
+
     /* C: kick — east lichen **`dochug`** before **`mcalcmove`** ( **`movement` may be 0 ). */
     if ((stepNum | 0) === 7) {
         if (mtmp !== findEastKickMonLikeC(g)) return;
@@ -699,11 +733,25 @@ export async function movemonSinglemonLikeC(g, mtmp, stepNum = 0) {
         const midMklevHostile = firstSearchNearMklevHostileLikeC(g, mtmp);
         if (!peelMon && !midMklevHostile) return;
     }
-    if ((g.context?._searchStep11Passes | 0) === 2
-        && (g.context?._movemonSearch11SubPass | 0) === 1) {
+    if (
+        (g.context?._searchStep11Passes | 0) === 2
+        && !rogueSecondSearchFullFmonLikeC(g)
+        && (g.context?._movemonSearch11SubPass | 0) === 1
+    ) {
         if (mtmp !== findWestKinkMonsterLikeC(g)) return;
     }
-    const mov = mtmp.movement | 0;
+    let mov = mtmp.movement | 0;
+    if (
+        (mtmp.mtame | 0)
+        && mov < NORMAL_SPEED
+        && (
+            isRogueColonMovemonActiveLikeC(g)
+            || (isSecondSearchMovemonPassLikeC(g) && rogueSecondSearchFullFmonLikeC(g))
+        )
+    ) {
+        mtmp.movement = NORMAL_SPEED;
+        mov = NORMAL_SPEED;
+    }
     /* C: mon.c **`movemon_singlemon`** — idle until **`movement`** reaches **`NORMAL_SPEED`** (no **`dochug`**). */
     const eastMklevLowMovDochugLikeC =
         (
@@ -1376,7 +1424,7 @@ export async function mMoveOneMonsterSubsetLikeC(g, mtmp, stepNum = 0) {
         }
     }
     /* C: second **`#search`** pass 1 — west **(64,12)** only (handled in **`monmove.js`** pass 1). */
-    if ((g.context?._searchStep11Passes | 0) === 2) {
+    if ((g.context?._searchStep11Passes | 0) === 2 && !rogueSecondSearchFullFmonLikeC(g)) {
         return;
     }
     /* C: **`y`** pass 1 — west/eel **`distfleeck`**; east fungus **`m_move`** (**`rn2(16)`**). */

@@ -18,7 +18,10 @@ import { pullDueMeltIceAwayTimers } from './level_timers.js';
 import { meltIceAt } from './melt_ice.js';
 import { runDueNhObjTimers } from './obj_timeout_dispatch.js';
 import { contextLeavingTutorialActiveLikeC } from './tutorial_branch.js';
-import { effectiveMovemonStepNumLikeC } from './monmove_search.js';
+import {
+    consumeRogueColonMovemonPendingLikeC,
+    effectiveMovemonStepNumLikeC,
+} from './monmove_search.js';
 import { peekReplayMoves } from './input.js';
 
 /**
@@ -162,7 +165,9 @@ export async function runPostCommandTurnAdvanceLikeC(g) {
             let monscanmove = false;
             /* C: allmain.c — **`movemon`** uses current **`svm.moves`** each inner-loop pass
                (hero speed surplus can run monster pass + new-turn more than once per input). */
-            const movemonStepNum = (g.moves | 0) - 1;
+            const colonStep = consumeRogueColonMovemonPendingLikeC(g);
+            const movemonStepNum =
+                colonStep != null ? colonStep : (g.moves | 0) - 1;
             /* C: allmain.c always `movemon()` when `context.move`; first `#search` post on D:1
                can be `moves===1` (`movemonStepNum===0`) — peel still maps to step 11. */
             const searchPass = g.context?._searchStep11Passes | 0;

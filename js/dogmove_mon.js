@@ -146,7 +146,7 @@ function dogGoalFloorScanRngLikeC(
     const floor = fobjInDogGoalBoxLikeC(g, minX, maxX, minY, maxY);
     const ux = u.ux | 0;
     const uy = u.uy | 0;
-    const udist = distmin(omx, omy, ux, uy);
+    const udist = dist2(omx, omy, ux, uy);
     const inSight = couldsee(omx, omy);
     const hasMinvent = false; /* NO_MINVENT starting pet */
     if (!trackApportGoalLikeC) {
@@ -388,7 +388,7 @@ function dogMoveGoalAndPickLikeC(g, mtmp, trackApportGoalLikeC, doPick = true) {
     if (!u || !edog) return MMOVE_NOTHING;
     const omx = mtmp.mx | 0;
     const omy = mtmp.my | 0;
-    const udist = distmin(omx, omy, u.ux | 0, u.uy | 0);
+    const udist = dist2(omx, omy, u.ux | 0, u.uy | 0);
     if (!udist) return MMOVE_NOTHING;
     mtmp.mux = u.ux | 0;
     mtmp.muy = u.uy | 0;

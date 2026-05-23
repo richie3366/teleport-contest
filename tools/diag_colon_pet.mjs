@@ -12,6 +12,7 @@ globalThis.__diagMovemon = (stepNum, moves) => {
     calls.push({ stepNum, moves });
     if (calls.length > 30) calls.shift();
 };
+const colonPetFloor = [];
 globalThis.__diagMovemonSinglemon = (g, mtmp, stepNum) => {
     petSnaps.push({
         where: 'singlemon',
@@ -20,6 +21,35 @@ globalThis.__diagMovemonSinglemon = (g, mtmp, stepNum) => {
         mtame: mtmp.mtame | 0,
     });
     if (petSnaps.length > 40) petSnaps.shift();
+    if ((stepNum | 0) === 31 && (mtmp.mtame | 0)) {
+        const heads = g.level?.floorObjHeads;
+        const omx = mtmp.mx | 0;
+        const omy = mtmp.my | 0;
+        const inBox = [];
+        if (heads) {
+            for (const head of heads.values()) {
+                for (let o = head; o; o = o.nexthere) {
+                    const nx = o.ox | 0;
+                    const ny = o.oy | 0;
+                    if (
+                        nx >= omx - 5 && nx <= omx + 5
+                        && ny >= omy - 5 && ny <= omy + 5
+                    ) {
+                        inBox.push({ nx, ny, otyp: o.otyp, oclass: o.oclass });
+                    }
+                }
+            }
+        }
+        colonPetFloor.push({
+            mx: omx,
+            my: omy,
+            apport: mtmp.edog?.apport,
+            hasEdog: !!mtmp.edog,
+            nFloor: heads?.size ?? 0,
+            inBox: inBox.length,
+            inBoxSample: inBox.slice(0, 8),
+        });
+    }
 };
 globalThis.__diagPetMovemon = (g, mtmp, stepNum, where) => {
     petSnaps.push({
@@ -58,3 +88,4 @@ console.log('dogMoveLikeC calls', dogMoveCalls);
 console.log('petSnaps', petSnaps.length, petSnaps.slice(-10));
 const mons = g.level?.monsters ?? [];
 console.log('mons', mons.length, 'tame', mons.filter((m) => m.mtame | 0).length);
+console.log('colonPetFloor', colonPetFloor);

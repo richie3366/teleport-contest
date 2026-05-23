@@ -30,9 +30,11 @@ import {
     westFungusDoorNicheAtLikeC,
 } from './mfndpos_mon.js';
 import {
+    clearRogueColonMovemonActiveLikeC,
     effectiveMovemonStepNumLikeC,
     isFirstSearchMovemonPassLikeC,
     isSecondSearchMovemonPassLikeC,
+    rogueSecondSearchFullFmonLikeC,
 } from './monmove_search.js';
 import { searchPass1NearMonLikeC } from './mfndpos_mon.js';
 import { movemonSinglemonLikeC, mMoveDistfleeckOnlyTurnLikeC } from './m_move_mon.js';
@@ -46,6 +48,7 @@ export {
     effectiveMovemonStepNumLikeC,
     isFirstSearchMovemonPassLikeC,
     isSecondSearchMovemonPassLikeC,
+    rogueSecondSearchFullFmonLikeC,
 } from './monmove_search.js';
 
 /** Last moveloop step index that still uses the session harness (1-based stepNum). */
@@ -113,7 +116,7 @@ export async function movemon(stepNum) {
         const nearHostile = findFirstSearchRogMidMklevHostileLikeC(g);
         g.context._searchPass1NearMonLikeC =
             rogueLike || searchPass1NearMonLikeC(g) || !!nearHostile;
-    } else if (rogueLike) {
+    } else if (rogueLike && !(g.context?._searchStep11Passes | 0)) {
         delete g.context._searchPass1NearMonLikeC;
     }
     const effStepNum = effectiveMovemonStepNumLikeC(g, stepNum);
@@ -141,7 +144,7 @@ export async function movemon(stepNum) {
     }
     const searchPass = g.context._searchStep11Passes | 0;
     /* C: second **`#search`** — west then east **`m_move`** (two **`movemon`** calls). */
-    if (searchPass === 2) {
+    if (searchPass === 2 && !rogueSecondSearchFullFmonLikeC(g)) {
         if (!g.context._searchMovemonStarted) {
             g.context._searchMovemonStarted = true;
         }
@@ -411,6 +414,7 @@ export async function movemon(stepNum) {
         }
         await mintrapMoveloopTail();
     } finally {
+        clearRogueColonMovemonActiveLikeC(g);
         delete g.context.movemonStepNum;
     }
 
@@ -432,10 +436,13 @@ export async function movemon(stepNum) {
     if (isFirstSearchMovemonPassLikeC(g)) {
         return false;
     }
-    if (isSecondSearchMovemonPassLikeC(g)) {
+    if (isSecondSearchMovemonPassLikeC(g) && !rogueSecondSearchFullFmonLikeC(g)) {
         if ((g.context?._movemonSearch11SubPasses | 0) < 2) {
             return true;
         }
+        return false;
+    }
+    if (isSecondSearchMovemonPassLikeC(g) && rogueSecondSearchFullFmonLikeC(g)) {
         return false;
     }
     if ((stepNum | 0) === 11 || (stepNum | 0) === 12) {
