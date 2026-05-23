@@ -15,6 +15,7 @@ This directory holds **Cursor rules** (`.cursor/rules/*.mdc`) that steer agents 
 ## Read first (humans and agents)
 
 - [.cursor/reports/c-to-js-port-current.md](reports/c-to-js-port-current.md) — **default for port work:** next steps, constraints, short “continue” prompt.
+- [.cursor/reports/c-to-js-port-dashboard.md](reports/c-to-js-port-dashboard.md) — **score table + milestones** (run `node tools/port-score-snapshot.mjs --update-dashboard` to refresh).
 - [.cursor/reports/c-to-js-port-remaining.md](reports/c-to-js-port-remaining.md) — **gap inventory** (what is still stub / harness / missing vs C).
 - [.cursor/prompts/continue-nethack-port.md](prompts/continue-nethack-port.md) — **canonical repeatable prompt** + autonomous agent workflow for each session.
 

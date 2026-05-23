@@ -75,11 +75,14 @@ bash frozen/set-category.sh <CATEGORY>
 bash frozen/score.sh
 ```
 
-Out of the box, the skeleton scores partial credit on
-`seed8000-tourist-starter` — its `fastforward.js` replay nails most
-of the early-game PRNG and the first dozen-or-so screens. That's
-your hello world: getting it from "partial" to "full pass," and
-then taking on the other 87 sessions.
+Out of the box, a **fresh skeleton** may score partial credit on
+`seed8000-tourist-starter` using transitional **`js/fastforward.js`**
+replay for early PRNG. **This fork** has ported much of startup and
+the canary session to **full P+S pass** on `seed8000` while other
+public sessions remain red — see **[`.cursor/reports/c-to-js-port-dashboard.md`](.cursor/reports/c-to-js-port-dashboard.md)**
+(regenerate metrics: `node tools/port-score-snapshot.mjs --update-dashboard`).
+Treat **`npm run score`** as a **regression check** while porting from C
+(see [`.cursor/rules/port-from-c-not-score.mdc`](.cursor/rules/port-from-c-not-score.mdc)).
 
 ## What's in this repo
 
@@ -87,15 +90,14 @@ Three things, layered like the Dungeons of Doom themselves.
 
 ### 1. A skeleton port of NetHack 5.0
 
-A minimal JavaScript implementation that runs through the first short
-tourist game (`seed8000-tourist-starter`) far enough to render a few
-recognizable screens. It does NOT pass that session yet — chargen is
-unimplemented, and the skeleton "fakes" the early game by replaying a
-hardcoded sequence of PRNG draws read out of the recorded session
-(see `js/fastforward.js`). It's enough scaffolding to see the engine
-move; it's not enough to score. Treat it as the surface layer:
-gentle, well-mapped, populated almost entirely with grid bugs. You
-will have to dig.
+A JavaScript implementation that runs through the first short
+tourist game (`seed8000-tourist-starter`) with **bit-exact** PRNG and
+terminal frames on that path when the port is far enough along.
+Older skeletons used **`js/fastforward.js`** to replay captured draws
+until real **`o_init`**, **`dungeon.c`**, and **`u_init`** logic landed;
+**`fastforward.js`** is now a **small stub** here — see
+[`js/u_init_post_mklev.js`](js/u_init_post_mklev.js) and the
+[dashboard](.cursor/reports/c-to-js-port-dashboard.md) for what still bridges RNG vs C. The rest of NetHack still lives in **`nethack-c/upstream/`** — port call sites into `js/` per the contest rules.
 
 **Where the code lives:**
 

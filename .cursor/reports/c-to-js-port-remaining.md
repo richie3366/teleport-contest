@@ -16,8 +16,8 @@ These items explain why public harness scoring remains **near-zero screen parity
 
 | Gap | C anchors (representative) | JS today |
 |-----|------------------------------|----------|
-| **Startup RNG bridge** | `o_init.c`, `dungeon.c` (`init_dungeons`, `place_level`, …), post-`mklev` mineralize/fill, `u_init.c` ordering | `fastforward.js` replays hundreds of leaf draws; `o_init.js` documented as stub aligned to that bridge |
-| **Monster turn truth** | `monmove.c` (`movemon`, `dochug`, `distfleeck`, `m_move`, `m_throw`, …), `mon.c` | `monmove.js` **session harness** through step **12**; only **some** `distfleeck` / `m_move` slices are real; **`dochug`** order vs harness rows is still being peeled |
+| **Startup RNG bridge** | `o_init.c`, `dungeon.c` (`init_dungeons`, `place_level`, …), post-`mklev` mineralize/fill, `u_init.c` ordering | **Mostly real C:** live shuffle + gem colors in **`o_init.js`**, **`dungeon_init.js`** **`init_dungeons`**, post-`mklev` **`mklev.js`** / **`u_init_post_mklev.js`**. **`js/fastforward.js`** is a **small stub** (no large replay table). Remaining drift is **`ini_inv` / `mkobj` / `u_init_role`** ordering and any tail in **`runUInitRoleRngAfterMklevLikeC`**, not “replay hundreds of draws” in fastforward. |
+| **Monster turn truth** | `monmove.c` (`movemon`, `dochug`, `distfleeck`, `m_move`, `m_throw`, …), `mon.c` | `monmove.js` mixes **real** `distfleeck` / `m_move` slices with **stepNum** / geometry sequencing for the canary path; full **`dochug`** order vs harness is still being peeled. **Do not** add session-specific finders without a mapped C call site — generalize by matching **`fmon`** / C order, then delete gates. |
 | **End-of-turn tail** | `allmain.c` (post-hero `movemon` loops, `dosounds`, `rnd` exercise hooks, …) | `moveloop_aux.js` replays **condition-shaped** `rn2` blocks instead of full C |
 | **Object + inventory core** | `mkobj.c`, `invent.c`, `pickup.c`, `obj.c`, `dothrow.c`, `do_wear.c`, wield/bimanual, containers | Floor objects are **mklev-shaped**; **`ini_inv_stub.js`** stands in for **`ini_inv`**; no full **`mkobj`** / linked **`invent`** driving most item semantics |
 | **Combat** | `uhitm.c`, `mhitu.c`, `mhitm.c`, full `weapon.c` to-hit/damage | `attack.js` **stub damage** (`1+rn2(4)`), no AC/to-hit pipeline, minimal death/corpse path |
@@ -25,6 +25,8 @@ These items explain why public harness scoring remains **near-zero screen parity
 | **Branches & special levels** | `sp_lev.c`, Lua under `dat/`, full `dungeon.c` graph | `sp_levchn.js` **stub**; `mklev.js` partial room-and-corridor; no real **minetn** graph parity |
 | **Persistence** | `save.c`, `bones.c`, `topten.c` | `storage.js` is API/frozen; **game state serialization** to match C save semantics is not the focus of current `js/` |
 | **Full trap / zap / shop long tail** | `trap.c`, `zap.c`, `shk.c`, `music.c`, `apply.c`, … | Large **partial** ports (`trap.js`, `zap_dig.js`, `shop.js`, …) with many branches still **TODO** or **stub** (see §4) |
+
+**Moveloop harness warning:** Recent `monmove.js` work is **geometry / stepNum–accurate for the `seed8000` canary** together with real `distfleeck` / `m_move` slices. Milestone “full **`dochug`** like C” means **removing** `stepNum` gates as `fmon` order and upstream call order explain more paths — **not** accumulating session-specific monster finders without a C anchor.
 
 ---
 
@@ -128,7 +130,7 @@ These files exist and encode **real** C-aligned logic in places, but large branc
 High-signal patterns from repository grep (`TODO`, `not ported`, `STUB`, …) — **not exhaustive**; treat as a **backlog radar**:
 
 - **`trap.js`:** `chest_trap`, `tele`, `steedintrap`, rolling boulder, level tele, statue animate, poly trap, magic portal, web destruction, non-hero pit `mselftouch`, …
-- **`fastforward.js` / `o_init.js`:** transitional RNG replay until real init graphs land
+- **`fastforward.js` / `o_init.js`:** startup replay **retired** from fastforward; remaining startup tail is **`u_init_post_mklev.js`** + real **`o_init`** / **`dungeon_init`** until **`ini_inv`/`mkobj`** consume the same draws
 - **`monmove.js`:** harness steps **1–12**; `distfleeck` peel vs **`dochug`** interleaving
 - **`attack.js`:** explicit stub until **`uhitm.c`**
 - **`makemon.js`:** explicit stub until **`makemon.c`**
@@ -150,7 +152,7 @@ When a slice closes a comment, **delete or narrow** the comment and adjust **`fa
 
 Slices should **delete** scaffolding as C lands, not extend replay lists. Score may stay **1/44** for many commits while C depth grows.
 
-1. **Shrink `fastforward.js`** — port **`o_init`**, **`dungeon.c`** init/placement, post-`mklev` phases, and **`u_init`** ordering so replay blocks delete in **C call order**.
+1. **Shrink `fastforward.js`** — **largely achieved** (file is a stub); continue replacing remaining **`u_init_post_mklev`** / **`ini_inv`** / **`mkobj`** draws with real C call order and **delete** harness rows only when RNG counts match.
 2. **Wire `game.invent` + `mkobj` + `ini_inv`** (NH5 **`otyp`/`oclass`**) — unlocks skills, hidden gold, most item-driven traps and combat prep.
 3. **Replace `monmove.js` harness** with real **`movemon`** / **`dochug`** / **`distfleeck`** / **`m_throw`** draw ordering; align **`m_move_mon.js`** with C.
 4. **Replace `moveloop_aux.js` harness** with real **`allmain.c`** end-of-turn tail.
@@ -168,6 +170,7 @@ Slices should **delete** scaffolding as C lands, not extend replay lists. Score 
 |----------|------|
 | [`c-to-js-port-current.md`](c-to-js-port-current.md) | Thin handoff + immediate next steps |
 | [`c-to-js-port-progress.md`](c-to-js-port-progress.md) | What *is* ported, changelog pointer, module sizes |
+| [`c-to-js-port-dashboard.md`](c-to-js-port-dashboard.md) | Score table (regenerate via `port-score-snapshot.mjs`), milestone matrix, harness inventory |
 | [`c-to-js-port-changelog-archive.md`](c-to-js-port-changelog-archive.md) | Dated slice history |
 | [`.cursor/plans/nethack_js_port_roadmap_19a4defd.plan.md`](../plans/nethack_js_port_roadmap_19a4defd.plan.md) | Roadmap index |
 | `.cursor/plans/nethack-port/*.md` | Satellite checklists |

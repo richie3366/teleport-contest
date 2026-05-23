@@ -9,6 +9,7 @@ alwaysApply: false
 # Port progress docs
 
 - **Start with** [`.cursor/reports/c-to-js-port-current.md`](../reports/c-to-js-port-current.md) — next steps, constraints.
+- **[`.cursor/reports/c-to-js-port-dashboard.md`](../reports/c-to-js-port-dashboard.md)** — public session score table + milestone matrix (`node tools/port-score-snapshot.mjs --update-dashboard`).
 - Skim [`.cursor/reports/c-to-js-port-remaining.md`](../reports/c-to-js-port-remaining.md) for **unported / stub / harness** surface so slices stay focused.
 - Canonical **continue** prompt + workflow: [`.cursor/prompts/continue-nethack-port.md`](../prompts/continue-nethack-port.md).
 - Use [`.cursor/reports/c-to-js-port-progress.md`](../reports/c-to-js-port-progress.md) for **deep** module tables and long-form analysis only when needed (token-heavy).

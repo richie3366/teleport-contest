@@ -7,7 +7,7 @@ Use this file when you want a **new agent session** to continue the port without
 ## Autonomous agent workflow (follow in order)
 
 1. Read **[`.cursor/reports/c-to-js-port-current.md`](../reports/c-to-js-port-current.md)** — authoritative **next steps**, **last slice**, and contest constraints.
-2. Skim **[`.cursor/reports/c-to-js-port-remaining.md`](../reports/c-to-js-port-remaining.md)** — **gap inventory** (what is still stub/harness/partial). Use it to avoid duplicating work or to pick a slice if `current` is ambiguous.
+2. Skim **[`.cursor/reports/c-to-js-port-remaining.md`](../reports/c-to-js-port-remaining.md)** — **gap inventory** (what is still stub/harness/partial). Use it to avoid duplicating work or to pick a slice if `current` is ambiguous. Optionally refresh **[`c-to-js-port-dashboard.md`](../reports/c-to-js-port-dashboard.md)** after large milestones: `node tools/port-score-snapshot.mjs --update-dashboard`.
 3. Open the relevant **C** under `nethack-c/upstream/` (init submodule if empty: `git submodule update --init nethack-c/upstream`). Port **semantics and call/RNG order**, not public session JSON. See **`.cursor/rules/port-from-c-not-score.mdc`** — score is regression-only; do not add fastforward/harness rows to chase 1/44.
 4. Implement the **smallest meaningful slice** in `js/` (respect **`teleport-js-port.mdc`**: ES modules, `rng.js`, clang evaluation order).
 5. **Never edit** frozen harness files: `js/isaac64.js`, `js/terminal.js`, `js/storage.js`.
