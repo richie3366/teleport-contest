@@ -7,7 +7,7 @@ import { isFirstSearchMovemonPassLikeC } from './monmove_search.js';
 import {
     eastMklevFirstLAfterBLikeC,
     findDistantMklevMonLikeC,
-    searchPass1NearMonLikeC,
+    findFirstSearchRogMidMklevHostileLikeC,
 } from './mfndpos_mon.js';
 import { monflee } from './monflee.js';
 import { monnearMonsterXYLikeC } from './mon_geom.js';
@@ -301,21 +301,6 @@ export async function distfleeckMonsterApplyLikeC(g, mtmp) {
 
     const bravegremlin = rn2(5) === 0;
 
-    const ctx = g.context || (g.context = {});
-    if (
-        isFirstSearchMovemonPassLikeC(g)
-        && (ctx._searchPass1NearMonLikeC || searchPass1NearMonLikeC(g))
-        && !ctx._searchRogGateDoneLikeC
-        && !(mtmp.mtame | 0)
-        && (mtmp.mgenmklev | 0)
-        && mtmp !== findDistantMklevMonLikeC(g)
-        && !eastMklevFirstLAfterBLikeC(g, mtmp)
-    ) {
-        ctx._searchRogGateDoneLikeC = true;
-        /* C: dochug(monmove.c:886) — gate **`rn2(4)`** immediately after **`distfleeck`** **`rn2(5)`**. */
-        rn2(4);
-    }
-
     const u = g?.u;
     let mux = mtmp.mux !== undefined && mtmp.mux !== null ? mtmp.mux | 0 : u?.ux | 0;
     let muy = mtmp.muy !== undefined && mtmp.muy !== null ? mtmp.muy | 0 : u?.uy | 0;
@@ -355,7 +340,15 @@ export async function distfleeckMonsterApplyLikeC(g, mtmp) {
     const flees = fleesLightMonsterLikeC(g, mtmp);
     const sanct = inYourSanctuaryMonsterLikeC(g, mtmp);
 
-    if (out.nearby && (sawscary || (flees && !bravegremlin) || (!(mtmp.mpeaceful | 0) && sanct))) {
+    const skipScaredFleeFirstSearchRogLikeC =
+        isFirstSearchMovemonPassLikeC(g)
+        && (g.context?._searchPass1NearMonLikeC)
+        && mtmp === findFirstSearchRogMidMklevHostileLikeC(g);
+    if (
+        out.nearby
+        && !skipScaredFleeFirstSearchRogLikeC
+        && (sawscary || (flees && !bravegremlin) || (!(mtmp.mpeaceful | 0) && sanct))
+    ) {
         out.scared = 1;
         const fleeRoll = rn2(7) ? 10 : 100;
         await monflee(g, mtmp, rnd(fleeRoll), true, true);

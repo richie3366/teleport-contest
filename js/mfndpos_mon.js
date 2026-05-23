@@ -759,6 +759,48 @@ export function mfndposMonsterLikeC(g, mtmp, flag) {
 }
 
 /**
+ * C: first **`#search`** mid mklev hostile (rogue **`seed0077`**) — not door-niche peel / distant / pet.
+ *
+ * @param {import('./gstate.js').game} g
+ * @param {Record<string, unknown>} mtmp
+ */
+export function firstSearchNearMklevHostileLikeC(g, mtmp) {
+    if (!mtmp) return false;
+    return (
+        (mtmp.mgenmklev | 0)
+        && !(mtmp.mtame | 0)
+        && mtmp !== findDistantMklevMonLikeC(g)
+        /* C: tourist east **(64,9)** peel — rogue door-**`j`** niche stays on near path. */
+        && !eastMklevFirstLAfterBLikeC(g, mtmp)
+    );
+}
+
+/**
+ * C: rogue first **`#search`** — **`monnear`** mklev sleeper after door **`j`**, then other near hostiles.
+ *
+ * @param {import('./gstate.js').game} g
+ * @returns {Record<string, unknown>|null}
+ */
+export function findFirstSearchRogMidMklevHostileLikeC(g) {
+    const u = g.u;
+    const distant = findDistantMklevMonLikeC(g);
+    if (u) {
+        const ux = u.ux | 0;
+        const uy = u.uy | 0;
+        for (const m of g.level?.monsters ?? []) {
+            if (!(m.mgenmklev | 0) || (m.mtame | 0) || m === distant) continue;
+            /* C: tourist east **(64,9)** peel — not the rogue gate hostile before **`dog_goal`**. */
+            if (eastMklevFirstLAfterBLikeC(g, m)) continue;
+            if (monnearMonsterXYLikeC(m, ux, uy)) return m;
+        }
+    }
+    for (const m of g.level?.monsters ?? []) {
+        if (firstSearchNearMklevHostileLikeC(g, m)) return m;
+    }
+    return null;
+}
+
+/**
  * C: first **`#search`** on rogue D:1 after door **`j`** — west/east door-niche **`mgenmklev`**
  * fungus within **`dist2 ≤ 25`** of hero. Normal D:1 (**`seed8000`**) keeps distant→east peel.
  *

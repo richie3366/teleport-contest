@@ -33,6 +33,7 @@ import {
     isFirstSearchMovemonPassLikeC,
     isSecondSearchMovemonPassLikeC,
 } from './monmove_search.js';
+import { searchPass1NearMonLikeC } from './mfndpos_mon.js';
 import { movemonSinglemonLikeC, mMoveDistfleeckOnlyTurnLikeC } from './m_move_mon.js';
 import { raceptr, S_EEL } from './mondata.js';
 import { ensureMonsterMtrack } from './monflee.js';
@@ -101,6 +102,14 @@ export async function movemon(stepNum) {
 
     const g = game;
     g.context = g.context || {};
+    if (isFirstSearchMovemonPassLikeC(g)) {
+        const rogueLike =
+            g.urole?.abbr === 'Rog'
+            || g.pl_character === 'Rogue'
+            || (g.urole?.mnum | 0) === 8;
+        g.context._searchPass1NearMonLikeC =
+            rogueLike || searchPass1NearMonLikeC(g);
+    }
     const effStepNum = effectiveMovemonStepNumLikeC(g, stepNum);
     /* C: mon.c movemon — `gs.somebody_can_move` set in movemon_singlemon after turn spend. */
     g.context._somebodyCanMoveLikeC = false;

@@ -11,6 +11,11 @@ import { nhgetch } from './input.js';
 import { newsym, flush_screen, pline, docrt, clearPendingMessageAndToplineLikeC } from './display.js';
 import { vision_recalc } from './vision.js';
 import { dosearch } from './search.js';
+import {
+    findFirstSearchRogMidMklevHostileLikeC,
+    searchPass1NearMonLikeC,
+} from './mfndpos_mon.js';
+import { disturbMonsterLikeC } from './disturb_mon.js';
 import { maybeSmudgeEngr } from './engrave.js';
 import { dolookHeroLikeC } from './pickup.js';
 import { runExtcmdFromHashPrefix } from './extcmd.js';
@@ -145,7 +150,18 @@ export async function rhack(key) {
         game.context.move = 1;
         game.context._searchStep11Passes = (game.context._searchStep11Passes | 0) + 1;
         if ((game.context._searchStep11Passes | 0) === 1) {
-            delete game.context._searchRogGateDoneLikeC;
+            delete game.context._searchRogGateMonDoneLikeC;
+            const rogueLike =
+                game.urole?.abbr === 'Rog'
+                || game.pl_character === 'Rogue'
+                || (game.urole?.mnum | 0) === 8;
+            game.context._searchPass1NearMonLikeC =
+                rogueLike || searchPass1NearMonLikeC(game);
+            const nearHostile = findFirstSearchRogMidMklevHostileLikeC(game);
+            if (nearHostile) {
+                disturbMonsterLikeC(game, nearHostile);
+                if ((nearHostile.msleeping | 0)) nearHostile.msleeping = 0;
+            }
         }
         await dosearch();
     } else if (ch === 'i') {

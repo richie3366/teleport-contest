@@ -262,21 +262,23 @@ function welcomeInterjectionLikeC(g) {
 // C ref: allmain.c moveloop_core()
 export async function moveloop_core() {
     const g = game;
+    g.context = g.context || {};
 
     await runMoveloopPreambleBeforeRhackLikeC(g);
 
-    // Read and execute one command
-    await rhack(0);
-
-    // Clear top line unless rhack asked to keep it for the next nhgetch
-    // capture (zero-time plines such as # / spell hint).
-    if (!g._retainMessageAfterCommand) clearPendingMessageAndToplineLikeC();
-    g._retainMessageAfterCommand = false;
-
-    // Advance turn (C: allmain.c — settrack() before svm.moves++)
-    if (g.context?.move) {
+    /* C: allmain.c — **`if (svc.context.move)`** at top: spend hero time + **`movemon`**
+       for the *previous* command before reading the next one. */
+    if (g.context.move) {
         await runPostCommandTurnAdvanceLikeC(g);
     }
+
+    /* C: allmain.c — default assume next command costs time; rhack may clear it. */
+    g.context.move = 1;
+
+    await rhack(0);
+
+    if (!g._retainMessageAfterCommand) clearPendingMessageAndToplineLikeC();
+    g._retainMessageAfterCommand = false;
 
     g._prevMoveTick = g.context?.move ? 1 : 0;
 
