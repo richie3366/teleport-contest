@@ -95,7 +95,8 @@ const POTION_CLASS = 9;
 const TOOL_CLASS = 12;
 const GEM_CLASS = 14;
 const GOLD_PIECE = 466;
-const ROCK = 467;
+/** C `objects.h` **`ROCK("rock")`** — NH5 otyp **473** (glass worthless **467**). */
+const OTYP_GEM_ROCK = 473;
 /** NH5 `objects_nums` — C `mktrap_victim` ARROW / DART (`u_init_role_rng.js`). */
 const OTYP_ARROW = 19;
 const OTYP_DART = 25;
@@ -241,7 +242,7 @@ function nh5OclassForOtyp(otyp) {
     /* C: mktrap_victim — ARROW/DART/ROCK mksobj(TRUE) runs mksobj_init (projectiles lack OC_SKILL_ROW). */
     if (t >= OTYP_ARROW && t <= 24) return NH5_WEAPON_CLASS;
     if (t === OTYP_DART) return NH5_WEAPON_CLASS;
-    if (t === ROCK) return NH5_GEM_CLASS;
+    if (t === OTYP_GEM_ROCK) return NH5_GEM_CLASS;
     if (t === OTYP_TALLOW_CANDLE || t === OTYP_WAX_CANDLE) return NH5_TOOL_CLASS;
     if (t >= 297 && t <= 322) return NH5_POTION_CLASS;
     if (t >= 323 && t <= 364) return NH5_SCROLL_CLASS;
@@ -1635,7 +1636,7 @@ function mktrap_victim(trap) {
         otmp = mksobj(OTYP_DART, true, false);
         break;
     case ROCKTRAP:
-        otmp = mksobj(ROCK, true, false);
+        otmp = mksobj(OTYP_GEM_ROCK, true, false);
         break;
     default:
         break;
@@ -1986,7 +1987,7 @@ function mineralize(kelp_pool, kelp_moat, goldprob, gemprob, skip_lvl_checks) {
                     let cnt = rnd(2 + Math.trunc(dunLevel / 3));
                     while (cnt-- > 0) {
                         const otmp = mkobjFromMklevCLikeC(GEM_CLASS, false);
-                        if ((otmp.otyp | 0) === 89) { /* C: ROCK */
+                        if ((otmp.otyp | 0) === OTYP_GEM_ROCK) { /* C: GEM_CLASS ROCK — dealloc, no bury RNG */
                             dealloc_obj(otmp);
                         } else {
                             otmp.ox = x;

@@ -112,7 +112,8 @@ const AMULET_CLASS_MKOBJ_OC_PROB_ROWS = Object.freeze([
 ]);
 
 const OTYP_LOADSTONE = 88;
-const OTYP_ROCK = 89;
+/** C `objects.h` **`ROCK("rock")`** — NH5 otyp **473**. */
+const OTYP_ROCK = 473;
 /** C: objects.h LUCKSTONE — skip `!rn2(6)` quan-2 branch in mksobj_init GEM_CLASS. */
 const OTYP_LUCKSTONE = 470;
 const OTYP_WAN_WISHING = 413;

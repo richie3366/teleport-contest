@@ -18,11 +18,11 @@ Thin handoff for the next coding session. **Score + milestones:** [`c-to-js-port
 
 **Deferred for now:** **`maybe_do_tutorial`** / **`tut-1`** / full **`do.c`** **`goto_level`** (Lua **`tutorial()`** / **`free_tutorial()`**, **`savelev`**, **`gmst_*`**, …) and **`dokick`**/**`dothrow`** vs **`leaving_tutorial`** — strong upstream dependencies (save, specials, fuller **`do.c`**); treat as backlog until chargen / core early-game parity is further along; **`LIVELOGFILE`** parity if the judge ever compares livelog lines.
 
-**Last slice:** **`mklev.c` `mktrap_victim` trap ammo** — **`mksobj(ARROW/DART/ROCK)`** runs C **`mksobj_init`** + **`mkobj_erosions`** ( **`nh5OclassForOtyp`** for projectiles/gem/candles; **`weaponMultigenMklevLikeC`** for otyp **19–24**); fake-player corpse **`rn1(PM_WIZARD - PM_ARCHEOLOGIST, …)`** uses **`const.js`** PM indices. **`seed0077`:** **3060/3242** RNG (was **1757**); **`seed8000`:** **PASS**. **`npm run score`:** **1/44**.
+**Last slice:** **`mklev.c` `mineralize`** — C **`ROCK("rock")`** is NH5 otyp **473** (not glass **467** / legacy **89**); **`dealloc_obj`** on **`mkobj(GEM_CLASS)`** ROCK skips bury **`rn2(3)`**; trap ammo **`OTYP_GEM_ROCK`**. **`seed0077`:** **3069/3242** RNG (was **3060**); **`seed8000`:** **PASS**. **`npm run score`:** **1/44**.
 
 ## Next steps
 
-1. **`seed0077` mklev/chargen tail** — first RNG gap ~**2514** (after **`mktrap_victim` `mkcorpstat`** / **`rndmonst_adj`** chain); then **`wintty.c` / `role.c`** TTY pickers.
+1. **`seed0077` post-mineralize / chargen** — first RNG gap ~**3069** (end of **`mineralize`** / start chargen); then **`wintty.c` / `role.c`** TTY pickers. **`setgemprobs`** in **`oinit()`** still stubbed (see **`o_init.js`**).
 
 2. **Chargen + `u_init_role` RNG** — **`consumeRogueHumanIniInvUinitRoleRngLikeC`** / **`ini_inv`** when mklev tail is aligned.
 
