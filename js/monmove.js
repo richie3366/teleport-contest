@@ -17,6 +17,7 @@ import { game } from './gstate.js';
 import { fmonListForMovemonLikeC } from './fmon_iter.js';
 import {
     eastFungusDoorNicheAtLikeC,
+    findEastKickMonLikeC,
     findEastMklevSecondHLikeC,
     findWestKinkLichenLikeC,
     findWestKinkMonsterLikeC,
@@ -218,6 +219,19 @@ export async function movemon(stepNum) {
             west.mtrack[0].x = 63;
             west.mtrack[0].y = 11;
             if ((west.movement | 0) < NORMAL_SPEED) west.movement = NORMAL_SPEED;
+        }
+    }
+    if ((stepNum | 0) === 7) {
+        const east = findEastKickMonLikeC(g);
+        if (east) {
+            const emx = east.mx | 0;
+            const emy = east.my | 0;
+            if ((emx === 65 || emx === 64) && (emy === 9 || emy === 10)) {
+                east.mx = 64;
+                east.my = 9;
+            }
+            ensureMonsterMtrack(east);
+            east.mtrack[0] = { x: 65, y: 9 };
         }
     }
     if ((stepNum | 0) === 5) {

@@ -18,11 +18,11 @@ Thin handoff for the next coding session. **Gap inventory (not yet ported):** [`
 
 **Deferred for now:** **`maybe_do_tutorial`** / **`tut-1`** / full **`do.c`** **`goto_level`** (Lua **`tutorial()`** / **`free_tutorial()`**, **`savelev`**, **`gmst_*`**, …) and **`dokick`**/**`dothrow`** vs **`leaving_tutorial`** — strong upstream dependencies (save, specials, fuller **`do.c`**); treat as backlog until chargen / core early-game parity is further along; **`LIVELOGFILE`** parity if the judge ever compares livelog lines.
 
-**Last slice:** step **`y`** (**`stepNum` 6**) — two **`movemon`** passes: pass 1 west→east→eel (**`distfleeck`** / east **`rn2(16)`** / eel **`distfleeck`**); pass 2 eel **`distfleeck`**, west **`m_move`**, distant **`distfleeck`** only. **`fmon_iter.js`**: pass 1 **`fmon`** order. **`mfndpos_mon.js`**: east **(65,10)** skips **(64,9)** (**`cnt=4`**). **`m_move_mon.js`**: **`monTrackClear`** + prime west/east before **`m_move`**. **`monmove.js`**: pass 1 **`return true`** for pass 2. **`seed8000`:** **3072/3130** RNG, **23/23** screens; drift **~3062** (step **`n`**). **`npm run score`:** **0/44** (improved vs **3068**, no regression).
+**Last slice:** step **`k`** (**`stepNum` 7**) — east door-niche **`mgenmklev`** fungus at **(65,9)** → **(64,9)** for kick **`dochug`** before **`mcalcmove`** (**`movement` 0**). **`findEastKickMonLikeC`**, **`fmon_iter`** east-only; **`movemonSinglemon`** bypasses low-mov gate; **`mtrack`** prime **`cnt=3`** → **`rn2(12)`**. **`findEastMklevSecondHLikeC`**: **(65,9)**. **`seed8000`:** **3099/3130** RNG, **23/23** screens; drift **~3074** (step **`n`**). **`npm run score`:** **0/44** (improved vs **3072**, no regression).
 
 ## Next steps
 
-1. **`monmove.c` / `m_move`** — step **`n`** (**`stepNum` 2**): west kink low-mov **`distfleeck`** + land eel **`rn2(32)`** / distant chain (~**3062**); full **`m_movePositionSelectLikeC`** **`cnt`** parity.
+1. **`monmove.c` / `m_move`** — step **`n`** (**`stepNum` 2**): west kink low-mov **`distfleeck`** + land eel **`rn2(32)`** / distant chain (~**3074**); full **`m_movePositionSelectLikeC`** **`cnt`** parity.
 2. **`mklev`/`dig_corridor`** — align east **(66,12)** recorder comment vs **(65,11)** geometry if C **`mfndpos`** expects **`cnt=8`** on later steps; peel **`stoneCorr*`** when **`corrSameRoomWalkable`** suffices.
 3. **Chargen** — shrink **`fastforward_pre_mklev`** / **`post_mklev`** toward real **`o_init`** / **`u_init_role`** (**`seed0900`**, **`seed0077`**).
 4. **`mkobj` / mklev** — post–sleeping-mon paths on other seeds; **`setgemprobs`** / erode when mineralize drifts.

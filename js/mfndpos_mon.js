@@ -245,7 +245,7 @@ export function findEastMklevSecondHLikeC(g) {
             /* C: distant **`mgenmklev`** (e.g. cockatrice **~(22,14)**) is not east door-niche fungus. */
             if (mx <= 24 && my <= 14) return false;
             if (mx === 64 && my >= 9 && my <= 11) return true;
-            if (mx === 65 && my >= 10 && my <= 11) return true;
+            if (mx === 65 && my >= 9 && my <= 11) return true;
             if (eastFungusDoorNicheAtLikeC(g, mx, my, m)) return true;
             const tr = m.mtrack?.[0];
             return !!(tr && (tr.x | 0) === 65 && (tr.y | 0) === 11);
@@ -256,6 +256,29 @@ export function findEastMklevSecondHLikeC(g) {
 /** C: second **`h`** — east **`mgenmklev`** at **(64,10)** after **`monmove.js`** setup. */
 export function eastMklevSecondHMmoveAtLikeC(mtmp) {
     return !!(mtmp && (mtmp.mgenmklev | 0) && (mtmp.mx | 0) === 64 && (mtmp.my | 0) === 10);
+}
+
+/**
+ * C: kick **`k`** — east door-niche **`mgenmklev`** lichen at **(64,9)** (**`mfndpos cnt=3`** → **`rn2(12)`**).
+ * @param {import('./gstate.js').game} g
+ */
+export function findEastKickMonLikeC(g) {
+    const westM = findWestKinkMonsterLikeC(g);
+    const east = findEastMklevSecondHLikeC(g);
+    if (east && east !== westM) return east;
+    const mons = g.level?.monsters ?? [];
+    return (
+        mons.find((m) => {
+            if (!(m.mgenmklev | 0) || m === westM) return false;
+            const mx = m.mx | 0;
+            const my = m.my | 0;
+            if (mx === 64 && my === 12) return false;
+            if ((mx === 64 || mx === 65) && (my === 9 || my === 10)) return true;
+            if (eastFungusDoorNicheAtLikeC(g, mx, my, m)) return true;
+            const tr = m.mtrack?.[0];
+            return !!(tr && (tr.x | 0) === 65 && (tr.y | 0) === 9);
+        }) ?? null
+    );
 }
 
 export function findWestKinkLichenLikeC(g) {

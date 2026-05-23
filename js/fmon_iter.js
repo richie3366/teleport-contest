@@ -5,6 +5,7 @@ import { PM_LICHEN } from './const.js';
 import { S_EEL, raceptr } from './mondata.js';
 import {
     eastFungusDoorNicheAtLikeC,
+    findEastKickMonLikeC,
     findEastMklevSecondHLikeC,
     findWestKinkMonsterLikeC,
     isLandEelForMovemonLikeC,
@@ -89,6 +90,11 @@ export function fmonListForMovemonLikeC(g, stepNum = 0) {
             (m) => m !== east && m !== west && m !== eel && m !== distant,
         );
         return [east, west, eel, distant, ...rest].filter(Boolean);
+    }
+    /* C: kick — east door-niche lichen only (**`distfleeck`** + **`m_move`** + **`distfleeck`**). */
+    if ((stepNum | 0) === 7) {
+        const east = findEastKickMonLikeC(g);
+        return east ? [east] : mons;
     }
     /* C: step **`n`** — east **`movement < NORMAL_SPEED`** (no RNG); west **`distfleeck`**;
      * land eel **`m_move`** (**`rn2(32)`**); distant **`distfleeck`**+**`m_move`**+**`distfleeck`**. */
