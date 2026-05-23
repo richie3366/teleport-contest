@@ -38,6 +38,9 @@ for (const m of text.matchAll(/\bMON\s*\(/g)) {
     }
 }
 
+/** Real `MON(NAM(...` blocks only — skip `#define MON(...)` template lines at top of monsters.h. */
+const monBlocks = blocks.slice(2);
+
 /** @type {number[]} */
 const mlevel = [];
 /** @type {number[]} */
@@ -92,7 +95,7 @@ function parseGenoPlanB(block) {
     return geno;
 }
 
-for (const block of blocks) {
+for (const block of monBlocks) {
     const lvlM = block.match(/LVL\(\s*(\d+)\s*,\s*(\d+)/);
     mlevel.push(lvlM ? parseInt(lvlM[1], 10) : 0);
     mmove.push(lvlM ? parseInt(lvlM[2], 10) : 12);

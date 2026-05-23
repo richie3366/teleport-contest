@@ -18,11 +18,11 @@ Thin handoff for the next coding session. **Score + milestones:** [`c-to-js-port
 
 **Deferred for now:** **`maybe_do_tutorial`** / **`tut-1`** / full **`do.c`** **`goto_level`** (Lua **`tutorial()`** / **`free_tutorial()`**, **`savelev`**, **`gmst_*`**, …) and **`dokick`**/**`dothrow`** vs **`leaving_tutorial`** — strong upstream dependencies (save, specials, fuller **`do.c`**); treat as backlog until chargen / core early-game parity is further along; **`LIVELOGFILE`** parity if the judge ever compares livelog lines.
 
-**Last slice:** **`mklev.c` `mineralize`** — C **`ROCK("rock")`** is NH5 otyp **473** (not glass **467** / legacy **89**); **`dealloc_obj`** on **`mkobj(GEM_CLASS)`** ROCK skips bury **`rn2(3)`**; trap ammo **`OTYP_GEM_ROCK`**. **`seed0077`:** **3069/3242** RNG (was **3060**); **`seed8000`:** **PASS**. **`npm run score`:** **1/44**.
+**Last slice:** **`teleport.c` `collect_coords` + `enexto_core` (NEW_ENEXTO)** — **`js/collect_coords.js`**; **`makemon`** **`byyou`** placement; **`makedog`** → **`makemon(MM_EDOG|NO_MINVENT)`**; **`d()`** logs **`d(n,x)=`**; kitten **`adj_lev`/`is_neuter`** fixes. **`seed0077`:** **3197/3242** RNG (was **3069**); **`seed8000`:** **PASS**. **`npm run score`:** **1/44**.
 
 ## Next steps
 
-1. **`seed0077` post-mineralize / chargen** — first RNG gap ~**3069** (end of **`mineralize`** / start chargen); then **`wintty.c` / `role.c`** TTY pickers. **`setgemprobs`** in **`oinit()`** still stubbed (see **`o_init.js`**).
+1. **`seed0077` chargen** — first RNG gap ~**3145** (rogue **`ini_inv`** tail / TTY); **`wintty.c` / `role.c`** pickers. **`setgemprobs`** in **`oinit()`** still stubbed.
 
 2. **Chargen + `u_init_role` RNG** — **`consumeRogueHumanIniInvUinitRoleRngLikeC`** / **`ini_inv`** when mklev tail is aligned.
 
