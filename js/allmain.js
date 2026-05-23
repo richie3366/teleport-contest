@@ -15,6 +15,7 @@ import {
 } from './vision.js';
 import { genders, roleHasFemaleRoleNameLikeC } from './roles.js';
 import { initObjectsLikeC } from './o_init.js';
+import { initDungeonsLikeC } from './dungeon_init.js';
 import { fastforward_pre_mklev } from './fastforward.js';
 import { runUInitRoleRngAfterMklevLikeC } from './u_init_post_mklev.js';
 import {
@@ -51,19 +52,21 @@ export async function newgame() {
 
     /* C: o_init.c init_objects — gem colors, description shuffles, WAN_NOTHING oc_dir. */
     initObjectsLikeC();
-    /* dungeon.c / init_objects remainder — peeled as real C lands. */
+    /* C: nhlib.lua align shuffle before init_dungeons (session indices 199–200 on seed8000). */
+    rn2(3);
+    rn2(2);
+    /* C: dungeon.c init_dungeons — dungeon graph + init_castle_tune. */
+    initDungeonsLikeC(g);
     fastforward_pre_mklev();
 
-    /* C u_init.c u_init_misc — handedness before l_nhcore_init (allmain.c newgame order) */
+    /* C u_init.c u_init_misc — handedness (allmain.c newgame after init_dungeons). */
     g.u = g.u || {};
     g.u.left_handed = (rn2(10) === 0);
 
     // C ref: allmain.c l_nhcore_init() — shuffle align[] for Lua
-    // Consumes rn2(3), rn2(2) matching session indices 309-310
     l_nhcore_init();
 
-    // Set up game state needed by mklev
-    g.dungeons = [{ dname: 'The Dungeons of Doom', depth_start: 1, num_dunlevs: 30, flags: { hellish: 0 } }];
+    // Set up game state needed by mklev (dungeons[] from initDungeonsLikeC)
     g.u.dx |= 0;
     g.u.dy |= 0;
     g.u.uz = { dnum: 0, dlevel: 1 };
@@ -166,12 +169,13 @@ export async function newgame() {
     g.flags = g.flags || {};
     /* C: hack.c flags.terrainstatus — gate classify_terrain; default on for new games */
     if (g.flags.terrainstatus === undefined) g.flags.terrainstatus = true;
-    // Gnomish Mines branch stub (end1 on main dungeon; entrance dlevel from dungeon.lua base=2)
-    g.branches = [
-        { end1: { dnum: 0, dlevel: 1 }, end2: { dnum: 2, dlevel: 1 }, end1_up: true },
-    ];
-    /* C: dungeon topology — mines **`dnum`** for **`In_mines`** / future **`sp_levchn`** */
-    if (g.branches[0]?.end2?.dnum != null) g.mines_dnum = g.branches[0].end2.dnum | 0;
+    /* C: dungeon topology — mines **`dnum`** from init_dungeons branch list. */
+    for (const br of g.branches || []) {
+        if ((br.end2?.dnum | 0) > 0 && br.end1_up) {
+            g.mines_dnum = br.end2.dnum | 0;
+            break;
+        }
+    }
     bootstrapSpLevchnMinesMinetnFromBranchStubLikeC(g);
     // Real mklev generates the level with correct room positions
     // Structural phase consumes RNG for rooms/corridors/doors/stairs
