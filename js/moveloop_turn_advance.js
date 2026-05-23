@@ -4,7 +4,7 @@
 import { bot, flush_screen, pline, clearPendingMessageAndToplineLikeC } from './display.js';
 import { vision_recalc } from './vision.js';
 import { movemon } from './monmove.js';
-import { fmonListNewestFirstLikeC } from './fmon_iter.js';
+import { fmonListForMcalcmoveLikeC } from './fmon_iter.js';
 import { mcalcMoveLikeC } from './mcalc_move.js';
 import { NORMAL_SPEED } from './const.js';
 import { end_of_turn_rng, maybe_generate_rnd_mon } from './moveloop_aux.js';
@@ -75,7 +75,7 @@ export async function runMoveloopPreambleBeforeRhackLikeC(g) {
  * @param {number} stepNum
  */
 async function runNewTurnSetupAndTailLikeC(g, stepNum) {
-    const mons = fmonListNewestFirstLikeC(g);
+    const mons = fmonListForMcalcmoveLikeC(g);
     for (const m of mons) {
         m.movement = (m.movement | 0) + mcalcMoveLikeC(m, true, g);
     }

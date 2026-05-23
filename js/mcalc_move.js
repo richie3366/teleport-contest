@@ -3,7 +3,8 @@
 
 import { MSLOW, MFAST, NORMAL_SPEED } from './const.js';
 import { rn2 } from './rng.js';
-import { permonstHuman, raceptr, S_EEL } from './mondata.js';
+import { permonstHuman, raceptr } from './mondata.js';
+import { movemonStep8DistantMonEligibleLikeC } from './mfndpos_mon.js';
 
 /**
  * C: mon.c **`mcalcmove(mon, m_moving)`** — speed for **`mon->movement`** allocation (**subset**).
@@ -15,15 +16,13 @@ import { permonstHuman, raceptr, S_EEL } from './mondata.js';
  * @returns {number}
  */
 export function mcalcMoveLikeC(mon, mMoving, g) {
-    /* C: mon->data->mmove. **`fmonListForMcalcmoveLikeC`** (swap) assigns C **`rn2(12)`** slots but
-       distant **`mmove<12`** still yields **`movement` 0** on **`seed8000`** until **`rndmonst`**
-       matches C; keep eel human **`mmove`** on **`moves===1`** so the eel reaches **`movement≥12`**
-       when it takes **`rn2(12)=11`** before the distant mon in default **`fmon`** order. */
+    // C: mon->data->mmove. With fmonListForMcalcmoveLikeC, distant mon gets third rn2(12) (often 11);
+    // mmove 6 would leave movement 0 — human speed on moves===1 until mklev fmon order matches C.
     let mmove = (raceptr(mon)?.mmove) | 0;
-    const ptr = raceptr(mon);
     if (
         (g?.moves | 0) === 1
-        && (ptr?.mlet | 0) === S_EEL
+        && g
+        && movemonStep8DistantMonEligibleLikeC(g, mon)
         && mmove < NORMAL_SPEED
     ) {
         mmove = permonstHuman.mmove | 0;

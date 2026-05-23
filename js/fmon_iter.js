@@ -25,9 +25,8 @@ export function fmonListNewestFirstLikeC(g) {
  * C: first **`moves===1`** **`mcalcmove`** — **`fmon`** newest-first; **`fill_ordinary_room`**
  * creates the distant sleeping mon before the land eel, but **`makemon`** prepends so the eel
  * is newer and would take the third **`rn2(12)`** (**`11`**) while C assigns it to the distant mon.
- * Swap only for this pass (**`movemon`** order unchanged). Do not combine with
- * **`mcalc_move.js`** eel **`moves===1`** floor — both alter slot assignment; wired
- * together regresses **`seed8000`** to **3014/3130**.
+ * Swap only for this pass (**`movemon`** order unchanged). Pairs with distant-only human
+ * **`mmove`** floor in **`mcalc_move.js`** on **`moves===1`** (eel uses real **`data->mmove`**).
  *
  * @param {import('./gstate.js').game} g
  * @returns {Record<string, unknown>[]}
