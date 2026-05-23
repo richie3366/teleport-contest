@@ -19,6 +19,11 @@ import { disturbMonsterLikeC } from './disturb_mon.js';
 import {
     runPostCommandTurnAdvanceLikeC,
 } from './moveloop_turn_advance.js';
+import {
+    clearSearchMovemonHarnessLikeC,
+    clearSearchMovemonSubHarnessLikeC,
+} from './monmove_search.js';
+import { peekQueuedKey } from './input.js';
 import { maybeSmudgeEngr } from './engrave.js';
 import { dolookHeroLikeC } from './pickup.js';
 import { runExtcmdFromHashPrefix } from './extcmd.js';
@@ -177,6 +182,18 @@ export async function rhack(key) {
         /* C: **`#search`** costs time — inline **`movemon`** + new-turn tail on the **`s`** step. */
         game.context._searchInlinePostDoneLikeC = true;
         await runPostCommandTurnAdvanceLikeC(game);
+        const nextKey = peekQueuedKey();
+        const nextCh = nextKey == null ? null : String.fromCharCode(nextKey);
+        const rogueLike =
+            game.urole?.abbr === 'Rog'
+            || game.pl_character === 'Rogue'
+            || (game.urole?.mnum | 0) === 8;
+        /* C: rogue **`:`** after **`s`** needs normal **`movemon`**; tourist twin **`s`** keeps pass id. */
+        if (!rogueLike && nextCh === 's') {
+            clearSearchMovemonSubHarnessLikeC(game);
+        } else {
+            clearSearchMovemonHarnessLikeC(game);
+        }
         game.context.move = 0;
         delete game.context._searchInlinePostDoneLikeC;
     } else if (ch === 'i') {

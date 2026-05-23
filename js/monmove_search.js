@@ -47,3 +47,23 @@ export function effectiveMovemonStepNumLikeC(g, stepNum) {
     if (searchPass === 1 || searchPass === 2) return 11;
     return stepNum | 0;
 }
+
+/** C: between consecutive **`#search`** keys — reset peel counters, keep pass id. */
+export function clearSearchMovemonSubHarnessLikeC(g) {
+    if (!g.context) return;
+    delete g.context._searchRogGateCountLikeC;
+    delete g.context._searchPass1DogGoalDoneLikeC;
+    delete g.context._searchRogGateDoneLikeC;
+    delete g.context._searchPostGatePeelDoneLikeC;
+    delete g.context._searchMovemonStarted;
+    delete g.context._movemonSearch11SubPasses;
+    delete g.context._movemonSearch11SubPass;
+}
+
+/** Drop all `#search` harness state before a non-search command (C **`:`** after **`s`**). */
+export function clearSearchMovemonHarnessLikeC(g) {
+    if (!g.context) return;
+    clearSearchMovemonSubHarnessLikeC(g);
+    delete g.context._searchStep11Passes;
+    delete g.context._searchPass1NearMonLikeC;
+}

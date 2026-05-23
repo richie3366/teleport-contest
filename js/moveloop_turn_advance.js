@@ -168,7 +168,10 @@ export async function runPostCommandTurnAdvanceLikeC(g) {
             const searchPass = g.context?._searchStep11Passes | 0;
             const runMovemon =
                 movemonStepNum > 0
-                || (searchPass === 1 && !!g.context?._searchPass1NearMonLikeC);
+                || (
+                    (searchPass === 1 || searchPass === 2)
+                    && !!g.context?._searchPass1NearMonLikeC
+                );
             if (runMovemon) {
                 let stepForMovemon = movemonStepNum > 0 ? movemonStepNum : 1;
                 /* C: first **`#search`** on low **`moves`** — skip peel **`stepNum` 1**; use pass 11 path. */
