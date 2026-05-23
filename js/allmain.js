@@ -15,6 +15,7 @@ import {
 } from './vision.js';
 import { genders, roleHasFemaleRoleNameLikeC } from './roles.js';
 import { initObjectsLikeC } from './o_init.js';
+import { roleInitLikeC } from './role_init.js';
 import { initDungeonsLikeC } from './dungeon_init.js';
 import { fastforward_pre_mklev } from './fastforward.js';
 import { runUInitRoleRngAfterMklevLikeC } from './u_init_post_mklev.js';
@@ -52,6 +53,10 @@ export async function newgame() {
 
     /* C: o_init.c init_objects — gem colors, description shuffles, WAN_NOTHING oc_dir. */
     initObjectsLikeC();
+    /* C: allmain.c — flags.pantheon = -1; role_init() before init_dungeons(). */
+    g.flags = g.flags || {};
+    g.flags.pantheon = -1;
+    roleInitLikeC(g);
     /* C: nhlib.lua align shuffle before init_dungeons (session indices 199–200 on seed8000). */
     rn2(3);
     rn2(2);
