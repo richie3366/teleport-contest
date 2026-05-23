@@ -231,8 +231,9 @@ export function findDistantMklevMonLikeC(g) {
                 && m !== eastSecond
                 && m !== eastKick
                 && !isLandEelForMovemonLikeC(g, m)
-                /* C: distant mklev is west of east-corridor sleepers (**`mx < 64`** on **`seed8000`**). */
+                /* C: distant mklev is well west of hero / east-corridor sleepers (**`mx < 64`** on **`seed8000`**). */
                 && (m.mx | 0) < 64
+                && (g.u ? (m.mx | 0) < (g.u.ux | 0) - 8 : true)
                 && (m.mnum | 0) !== PM_LICHEN
         )
     ) ?? null;

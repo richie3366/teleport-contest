@@ -180,9 +180,33 @@ function mBalksAtApproachingLikeC(appr, mtmp) {
  * @param {number} nearby
  * @param {number} scared
  */
+/**
+ * C: monmove.c dochug ~882–887 — may enter **`m_move`** (evaluates **`rn2(4)`** on wanderer / blind).
+ * @returns {boolean}
+ */
+function evaluateDochugMmoveGateConditionLikeC(g, mtmp, nearby, scared) {
+    const ptr = raceptr(mtmp);
+    const mlet = ptr?.mlet | 0;
+    const u = g.u;
+    if (!nearby) return true;
+    if ((mtmp.mflee | 0)) return true;
+    if (scared) return true;
+    if ((mtmp.mconf | 0)) return true;
+    if ((mtmp.mstun | 0)) return true;
+    if ((mtmp.minvis | 0) && !rn2(3)) return true;
+    if (
+        mlet === S_LEPRECHAUN
+        && !findgoldChainLikeC(g.invent)
+        && (findgoldChainLikeC(mtmp.minvent) || rn2(2))
+    ) return true;
+    if (isWandererPtr(ptr) && !rn2(4)) return true;
+    if ((u?.Conflict | 0) && !(mtmp.iswiz | 0)) return true;
+    if (!(mtmp.mcansee | 0) && !rn2(4)) return true;
+    if ((mtmp.mpeaceful | 0)) return true;
+    return false;
+}
+
 function dochugEntersMmoveBlockLikeC(g, mtmp, nearby, scared, stepNum = 0) {
-    const mx = mtmp.mx | 0;
-    const my = mtmp.my | 0;
     /* C: step **`h`** — west kink fungus **`m_move`** after **`distfleeck`** (**`rn2(16)`** when **`cnt=4`**). */
     if ((stepNum | 0) === 4 && mtmp === findWestKinkMonsterLikeC(g)) {
         return true;
@@ -240,29 +264,7 @@ function dochugEntersMmoveBlockLikeC(g, mtmp, nearby, scared, stepNum = 0) {
         return mtmp === findDistantMklevMonLikeC(g)
             || eastMklevFirstLAfterBLikeC(g, mtmp);
     }
-    const ptr = raceptr(mtmp);
-    const mlet = ptr?.mlet | 0;
-    const u = g.u;
-    if (
-        !nearby
-        || (mtmp.mflee | 0)
-        || scared
-        || (mtmp.mconf | 0)
-        || (mtmp.mstun | 0)
-        || ((mtmp.minvis | 0) && !rn2(3))
-        || (
-            mlet === S_LEPRECHAUN
-            && !findgoldChainLikeC(g.invent)
-            && (findgoldChainLikeC(mtmp.minvent) || rn2(2))
-        )
-        || (isWandererPtr(ptr) && !rn2(4))
-        || ((u?.Conflict | 0) && !(mtmp.iswiz | 0))
-        || (!(mtmp.mcansee | 0) && !rn2(4))
-        || (mtmp.mpeaceful | 0)
-    ) {
-        return true;
-    }
-    return false;
+    return evaluateDochugMmoveGateConditionLikeC(g, mtmp, nearby, scared);
 }
 
 /**
@@ -696,7 +698,7 @@ export async function movemonSinglemonLikeC(g, mtmp, stepNum = 0) {
 
     /* C: **`minliquid`** before **`dochug`** when **`movement >= NORMAL_SPEED`** (land eel **`rn2(mhp)`/`rn2(8)`** if **`mhp > 1`**). */
     /* D:1 eel on ROOM (no POOL/MOAT in mklev); C has no land-eel minliquid draws on second l or n.
-       Peeling steps 1-2 regresses ~3023 (eel hideunder path); keep skip until distant mcalcmove parity. */
+       Peeling steps 1-2 regresses **`seed8000`**; keep skip until **`mcalcmove`** / fmon order match C. */
     if ((stepNum | 0) !== 1 && (stepNum | 0) !== 2 && (stepNum | 0) !== 4
         && (stepNum | 0) !== 5 && (stepNum | 0) !== 6 && (stepNum | 0) !== 7
         && (stepNum | 0) !== 8 && (stepNum | 0) !== 9 && (stepNum | 0) !== 10
@@ -753,17 +755,13 @@ function canseemonMonsterMovemonLikeC(g, mtmp) {
  * @param {import('./gstate.js').game} g
  * @param {*} mtmp
  */
-export async function mMoveDistfleeckPlusSilentMmoveNoExtraRngLikeC(g, mtmp) {
+export async function mMoveDistfleeckPlusSilentMmoveNoExtraRngLikeC(g, mtmp, stepNum = 1) {
     if (!mtmp) return;
     if ((mtmp.mhp | 0) <= 0) return;
     if (dochugBlockedEarlyLikeC(g, mtmp)) return;
-    const u = g.u;
-    if (u) {
-        mtmp.mux = u.ux | 0;
-        mtmp.muy = u.uy | 0;
-    }
+    setApparxyMonsterLikeC(g, mtmp);
     const flee1 = await distfleeckMonsterApplyLikeC(g, mtmp);
-    if (!dochugEntersMmoveBlockLikeC(g, mtmp, flee1.nearby, flee1.scared, 1)) return;
+    if (!dochugEntersMmoveBlockLikeC(g, mtmp, flee1.nearby, flee1.scared, stepNum)) return;
     /* C: second **`l`** session log has no **`rn2(32)`** — only land **`S_EEL`** steps in pool here. */
     if ((raceptr(mtmp)?.mlet | 0) !== S_EEL) return;
     ensureMonsterMtrack(mtmp);
@@ -1110,18 +1108,19 @@ export async function mMoveOneMonsterSubsetLikeC(g, mtmp, stepNum = 0) {
     if (!mtmp) return;
     if ((mtmp.mhp | 0) <= 0) return;
     if ((stepNum | 0) === 1) {
-        await mMoveDistfleeckPlusSilentMmoveNoExtraRngLikeC(g, mtmp);
+        await mMoveDistfleeckPlusSilentMmoveNoExtraRngLikeC(g, mtmp, stepNum);
         return;
     }
     if ((stepNum | 0) === 2) {
         if (isLandEelForMovemonLikeC(g, mtmp)) {
             await mMoveLandEelStepNLikeC(g, mtmp);
-        } else if (mtmp === findDistantMklevMonLikeC(g)) {
-            await mMoveDistantStepNLikeC(g, mtmp);
-        } else {
-            await mMoveDistfleeckMmoveTurnLikeC(g, mtmp, stepNum);
+            return;
         }
-        return;
+        if (mtmp === findDistantMklevMonLikeC(g) && movemonStep8DistantMonEligibleLikeC(g, mtmp)) {
+            await mMoveDistantStepNLikeC(g, mtmp);
+            return;
+        }
+        /* **`seed0077`** D:1 — fall through to generic **`dochug`**. */
     }
     /* C: step **`j`** — only door-niche **`mgenmklev`** sleepers **`dochug`** (west then east). */
     if ((stepNum | 0) === 3) {

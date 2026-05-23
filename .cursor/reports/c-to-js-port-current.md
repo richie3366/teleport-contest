@@ -18,11 +18,11 @@ Thin handoff for the next coding session. **Score + milestones:** [`c-to-js-port
 
 **Deferred for now:** **`maybe_do_tutorial`** / **`tut-1`** / full **`do.c`** **`goto_level`** (Lua **`tutorial()`** / **`free_tutorial()`**, **`savelev`**, **`gmst_*`**, …) and **`dokick`**/**`dothrow`** vs **`leaving_tutorial`** — strong upstream dependencies (save, specials, fuller **`do.c`**); treat as backlog until chargen / core early-game parity is further along; **`LIVELOGFILE`** parity if the judge ever compares livelog lines.
 
-**Last slice:** **`lock.c` autoopen + `dosdoor` `doormask`** — C **`flags.autoopen`** (default on); **`mklev.c` `dosdoor`** wrote **`doormask`** not **`loc.flags`**; **`doopen_indir`** **`rnl(20)`** from **`hack.c` `test_move`** via **`domove`**. **`seed0077`:** **3204/3242** RNG (was **3200**); first gap ~**3199** (**`rn2(400)`** vs **`rn2(300)`** — post-open **`movemon`**). **`seed8000`:** **PASS**. **`npm run score`:** **1/44**.
+**Last slice:** **`sounds.c` `dosounds()`** + **`dochug` ~886 gate** prep — C **`dosounds`** uses **`rn2(400)`** when **`nfountains>0`**; **`flags.acoustics`** default on. **`m_move_mon.js`**: extracted **`evaluateDochugMmoveGateConditionLikeC`** (monmove.c ~882–887); **`set_apparxy`** before **`distfleeck`** on stepNum **1** peel; **`moveloop_turn_advance`**: **`movemonStepNum = moves−1`** each inner pass. **`seed0077`:** **3206/3242** RNG; first gap ~**3203** (**`rn2(4)`** dochug gate vs extra **`distfleeck`** — hero-adjacent mon needs **`nearby=1`** + wanderer/blind gate, not distant west-kink **`fmon`** first). **`seed8000`:** **PASS**. **`npm run score`:** **1/44**.
 
 ## Next steps
 
-1. **`seed0077` chargen** — first RNG gap ~**3199** (**`rn2(400)`** vs **`rn2(300)`**); **`movemon`** / monster **`mkobj`** after first door open (**step 20** **`j`** tail).
+1. **`seed0077` ~3203** — C **`distfleeck`** then **`dochug(monmove.c:886)` `rn2(4)`** on same monster (second **`j`** moveloop tail); fix **`nearby`** after **`set_apparxy`**, **`fmon`** order vs C **`movement < NORMAL_SPEED`** for distant west kink, or full generic **`dochug`** on hero-adjacent mon (not second **`distfleeck`**).
 
 2. **Chargen + `u_init_role` RNG** — **`consumeRogueHumanIniInvUinitRoleRngLikeC`** / **`ini_inv`** when mklev tail is aligned.
 
