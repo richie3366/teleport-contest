@@ -188,22 +188,25 @@ function evaluateDochugMmoveGateConditionLikeC(g, mtmp, nearby, scared) {
     const ptr = raceptr(mtmp);
     const mlet = ptr?.mlet | 0;
     const u = g.u;
-    if (!nearby) return true;
-    if ((mtmp.mflee | 0)) return true;
-    if (scared) return true;
-    if ((mtmp.mconf | 0)) return true;
-    if ((mtmp.mstun | 0)) return true;
-    if ((mtmp.minvis | 0) && !rn2(3)) return true;
-    if (
-        mlet === S_LEPRECHAUN
-        && !findgoldChainLikeC(g.invent)
-        && (findgoldChainLikeC(mtmp.minvent) || rn2(2))
-    ) return true;
-    if (isWandererPtr(ptr) && !rn2(4)) return true;
-    if ((u?.Conflict | 0) && !(mtmp.iswiz | 0)) return true;
-    if (!(mtmp.mcansee | 0) && !rn2(4)) return true;
-    if ((mtmp.mpeaceful | 0)) return true;
-    return false;
+    /* C: monmove.c ~882 — single **`if (!nearby || …)`** with short-circuit ( **`rn2(4)`** only
+     * when **`nearby`** and a later term is tested). */
+    return (
+        !nearby
+        || (mtmp.mflee | 0)
+        || scared
+        || (mtmp.mconf | 0)
+        || (mtmp.mstun | 0)
+        || ((mtmp.minvis | 0) && !rn2(3))
+        || (
+            mlet === S_LEPRECHAUN
+            && !findgoldChainLikeC(g.invent)
+            && (findgoldChainLikeC(mtmp.minvent) || rn2(2))
+        )
+        || (isWandererPtr(ptr) && !rn2(4))
+        || ((u?.Conflict | 0) && !(mtmp.iswiz | 0))
+        || (!(mtmp.mcansee | 0) && !rn2(4))
+        || (mtmp.mpeaceful | 0)
+    );
 }
 
 function dochugEntersMmoveBlockLikeC(g, mtmp, nearby, scared, stepNum = 0) {

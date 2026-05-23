@@ -301,12 +301,12 @@ export async function distfleeckMonsterApplyLikeC(g, mtmp) {
     const bx = mtmp.mx | 0;
     const by = mtmp.my | 0;
 
-    /* C: after **`set_apparxy`**, **`monnear(mtmp, mux, muy)`** — undisplaced seen hero uses **`u.ux,u.uy`**. */
+    /* C: **`distfleeck`** uses **`monnear(mtmp, mux, muy)`** after **`set_apparxy`**. When the hero is
+     * not **`Displaced`**, an adjacent monster’s **`mux,muy`** must match **`u.ux,u.uy`** (C sets
+     * **`displ=0`** when **`mcansee`** and hero is visible). */
     if (
         u
-        && (mtmp.mcansee | 0)
-        && !heroInvisLikeC(u)
-        && perceivesDataLikeC(mtmp.data)
+        && !(u.Displaced | 0)
         && monnearMonsterXYLikeC(mtmp, u.ux | 0, u.uy | 0)
         && !monnearMonsterXYLikeC(mtmp, mux, muy)
     ) {

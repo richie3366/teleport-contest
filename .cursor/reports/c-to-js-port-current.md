@@ -18,11 +18,11 @@ Thin handoff for the next coding session. **Score + milestones:** [`c-to-js-port
 
 **Deferred for now:** **`maybe_do_tutorial`** / **`tut-1`** / full **`do.c`** **`goto_level`** (Lua **`tutorial()`** / **`free_tutorial()`**, **`savelev`**, **`gmst_*`**, …) and **`dokick`**/**`dothrow`** vs **`leaving_tutorial`** — strong upstream dependencies (save, specials, fuller **`do.c`**); treat as backlog until chargen / core early-game parity is further along; **`LIVELOGFILE`** parity if the judge ever compares livelog lines.
 
-**Last slice:** D:1 **`movemon`** **`fmon`** order + **`distfleeck`** **`nearby`** — **`fmon_iter.js`**: west-kink **(64,12)** after other D:1 mons near hero (default **`movemon`**; step **`n`** peel unchanged). **`distfleeck_mon.js`**: sync **`mux,muy`** to **`u.ux,u.uy`** when mon sees adjacent hero but **`monnear(mux,muy)`** false. **`m_move_mon.js`**: comment — no **`dochug`** when **`movement < NORMAL_SPEED`**. **`seed0077`:** **3206/3242** (gap ~**3203** unchanged). **`seed8000`:** **PASS**. **`npm run score`:** **1/44**.
+**Last slice:** **`dochug`** gate + **`distfleeck`** **`nearby`** — **`m_move_mon.js`**: **`evaluateDochugMmoveGateConditionLikeC`** as one C **`if (!nearby || …)`** OR chain (short-circuit). **`distfleeck_mon.js`**: when hero not **`Displaced`** and mon is physically adjacent, sync **`mux,muy`** to **`u.ux,u.uy`** before **`monnear(mux,muy)`**. **`seed0077`:** **3206/3242** (gap ~**3203** unchanged: C gate **`rn2(4)`** vs JS second **`distfleeck`** **`rn2(5)`** — **`nearby=0`** on wrong/`fmon` peel). **`seed8000`:** **PASS**. **`npm run score`:** **1/44**.
 
 ## Next steps
 
-1. **`seed0077` ~3203** — C **`dochug(monmove.c:886)` `rn2(4)`** with **`nearby=1`**; JS second **`distfleeck`** **`rn2(5)`**. Next: **`set_apparxy`** parity, west kink **`msleeping`/`disturb`**, **`movement`** before generic **`dochug`** (C **`mon.c` `movemon_singlemon`**).
+1. **`seed0077` ~3203** — On first **`#search`** after door **`j`**, C logs one **`distfleeck`** then gate **`rn2(4)`** ( **`nearby=1`** ); JS runs a far **`fmon`** peel with **`nearby=0`** then second **`distfleeck`**. Port C **`movemon_singlemon`** idle (**`movement < NORMAL_SPEED`**, **`msleeping`**) for distant/east before hero-adjacent generic **`dochug`**; avoid breaking **`seed8000`** search pass 1 east low-mov peel.
 
 2. **Chargen + `u_init_role` RNG** — **`consumeRogueHumanIniInvUinitRoleRngLikeC`** / **`ini_inv`** when mklev tail is aligned.
 
