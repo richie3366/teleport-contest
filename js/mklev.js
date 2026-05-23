@@ -56,6 +56,7 @@ import { makemon } from './makemon.js';
 import { rndmonstLikeC } from './makemon_rndmonst.js';
 import { MONS_MLET } from './mons_rndmonst_ini_inv_data.js';
 import {
+    eastFungusDoorNicheAtLikeC,
     mfndposMonsterLikeC,
     monAllowflagsMonsterLikeC,
     westFungusDoorNicheAtLikeC,
@@ -2108,6 +2109,33 @@ function findBestMfndposNicheForLichenLikeC(g, lichen) {
  * @param {import('./gstate.js').game} g
  * @param {Record<string, unknown>} lichen
  */
+/**
+ * C: east door-niche **`CORR`** (**`seed8000`** **(65,11)**; step **`j`** **`rn2(24)`** east **`m_move`**).
+ * @param {import('./gstate.js').game} g
+ * @param {Record<string, unknown>} mtmp
+ */
+function findEastFungusDoorNicheLikeC(g, mtmp) {
+    const flag = monAllowflagsMonsterLikeC(g, mtmp);
+    const omx = mtmp.mx | 0;
+    const omy = mtmp.my | 0;
+    for (const { x, y } of [{ x: 65, y: 11 }]) {
+        if (occupied(x, y)) {
+            const blocker = g.level?.monsters?.find(
+                (m) => (m.mx | 0) === x && (m.my | 0) === y && (m.mhp | 0) > 0
+            );
+            if (blocker && blocker !== mtmp) continue;
+        }
+        mtmp.mx = x;
+        mtmp.my = y;
+        const cnt = mfndposMonsterLikeC(g, mtmp, flag).cnt | 0;
+        const eastOk = cnt >= 5 && eastFungusDoorNicheAtLikeC(g, x, y, mtmp);
+        mtmp.mx = omx;
+        mtmp.my = omy;
+        if (eastOk) return { x, y };
+    }
+    return null;
+}
+
 function findWestFungusDoorNicheLikeC(g, lichen) {
     const flag = monAllowflagsMonsterLikeC(g, lichen);
     const omx = lichen.mx | 0;
@@ -2237,6 +2265,16 @@ function preferSleepingLichenDoorNichesLikeC(g) {
         findWestFungusDoorNicheLikeC,
         false
     );
+    const east = sorted.find((m) => m !== west) ?? null;
+    if (east) {
+        preferDoorNicheMonsterLikeC(
+            g,
+            east.mnum | 0,
+            () => east,
+            findEastFungusDoorNicheLikeC,
+            false
+        );
+    }
 }
 
 /**

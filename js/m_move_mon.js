@@ -587,18 +587,17 @@ export async function movemonSinglemonLikeC(g, mtmp, stepNum = 0) {
         return;
     }
 
-    /* C: **`seed8000`** step **`j`** — only west/east door-niche lichens **`dochug`**. */
+    /* C: step **`j`** — only west/east door-niche **`mgenmklev`** sleepers **`dochug`** (fungus or lichen). */
     if ((stepNum | 0) === 3) {
         const mx = mtmp.mx | 0;
         const my = mtmp.my | 0;
-        const doorNicheLichen =
-            (mtmp.mnum | 0) === PM_LICHEN
-            && (mtmp.mgenmklev | 0)
+        const doorNicheSleeper =
+            (mtmp.mgenmklev | 0)
             && (
                 westFungusDoorNicheAtLikeC(g, mx, my, mtmp)
                 || eastFungusDoorNicheAtLikeC(g, mx, my, mtmp)
             );
-        if (!doorNicheLichen) return;
+        if (!doorNicheSleeper) return;
     }
     /* C: step **`h`** — only west kink fungus **`dochug`** (no eel **`hideunder`** / extra **`distfleeck`**). */
     if ((stepNum | 0) === 4 && mtmp !== findWestKinkLichenLikeC(g)) return;
@@ -653,6 +652,10 @@ export async function movemonSinglemonLikeC(g, mtmp, stepNum = 0) {
         if (!eastMklevLowMovDochugLikeC) return;
     } else {
         mtmp.movement = mov - NORMAL_SPEED;
+        if ((mtmp.movement | 0) >= NORMAL_SPEED) {
+            const ctx = g.context || (g.context = {});
+            ctx._somebodyCanMoveLikeC = true;
+        }
     }
 
     /* C: hero **`b`** — distant **`distfleeck`**+**`m_move`**; land eel **`m_move`** (**`rn2(8)`**) then **`distfleeck`**; west kink **`distfleeck`** only. */
@@ -892,6 +895,8 @@ async function mMoveDistantStepNLikeC(g, mtmp) {
             }
         }
     }
+    /* C: monmove.c dochug ~915 — recalc **`distfleeck`** after **`m_move`** (step **`n`** distant **`rn2(5)=0`**). */
+    await distfleeckMonsterApplyLikeC(g, mtmp);
 }
 
 async function mMoveLandEelStepNLikeC(g, mtmp) {
@@ -961,6 +966,19 @@ export async function mMoveDistfleeckMmoveTurnLikeC(g, mtmp, stepNum = 0, skipFl
     if (dochugEntersMmoveBlockLikeC(g, mtmp, flee1.nearby, flee1.scared, stepNum)) {
         enteredMmoveBlock = true;
         ensureMonsterMtrack(mtmp);
+        if ((stepNum | 0) === 3) {
+            const mx = mtmp.mx | 0;
+            const my = mtmp.my | 0;
+            if (
+                westFungusDoorNicheAtLikeC(g, mx, my, mtmp)
+                || eastFungusDoorNicheAtLikeC(g, mx, my, mtmp)
+            ) {
+                const mfpJ = mfndposMonsterLikeC(g, mtmp, monAllowflagsMonsterLikeC(g, mtmp));
+                if ((mfpJ.cnt | 0) > 0) {
+                    mtmp.mtrack[0] = { x: mfpJ.poss[0].x | 0, y: mfpJ.poss[0].y | 0 };
+                }
+            }
+        }
         /* C: **`y`** west/east kink **`m_move`** — prime **`mtrack[0]`** to first **`mfndpos`** slot so
          * **`rn2(4*(cnt-j))`** runs like C track rejection (~**`rn2(16)`** when **`cnt=4`**). */
         if (((stepNum | 0) === 6
@@ -1080,9 +1098,17 @@ export async function mMoveOneMonsterSubsetLikeC(g, mtmp, stepNum = 0) {
         }
         return;
     }
-    /* C: step **`j`** — only door-niche sleeping lichens **`dochug`** (west then east). */
+    /* C: step **`j`** — only door-niche **`mgenmklev`** sleepers **`dochug`** (west then east). */
     if ((stepNum | 0) === 3) {
-        if ((mtmp.mnum | 0) !== PM_LICHEN || !(mtmp.mgenmklev | 0)) return;
+        const mx = mtmp.mx | 0;
+        const my = mtmp.my | 0;
+        if (
+            !(mtmp.mgenmklev | 0)
+            || !(
+                westFungusDoorNicheAtLikeC(g, mx, my, mtmp)
+                || eastFungusDoorNicheAtLikeC(g, mx, my, mtmp)
+            )
+        ) return;
         await mMoveDistfleeckMmoveTurnLikeC(g, mtmp, stepNum);
         return;
     }

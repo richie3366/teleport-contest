@@ -84,14 +84,12 @@ export function fmonListForMovemonLikeC(g, stepNum = 0) {
     if ((stepNum | 0) !== 3) return mons;
     const west = mons.find(
         (m) =>
-            (m.mnum | 0) === PM_LICHEN
-            && (m.mgenmklev | 0)
-            && westFungusDoorNicheAtLikeC(g, m.mx | 0, m.my | 0, m)
+            (m.mgenmklev | 0)
+            && westFungusDoorNicheAtLikeC(g, m.mx | 0, m.my | 0, m),
     );
     const east = mons.find(
         (m) =>
-            (m.mnum | 0) === PM_LICHEN
-            && (m.mgenmklev | 0)
+            (m.mgenmklev | 0)
             && eastFungusDoorNicheAtLikeC(g, m.mx | 0, m.my | 0, m),
     );
     const rest = mons.filter((m) => m !== west && m !== east);

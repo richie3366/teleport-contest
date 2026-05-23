@@ -278,10 +278,24 @@ export function eastFungusDoorNicheAtLikeC(g, mx, my, mtmp) {
  */
 function westFungusKinkExtraMfndposStepLikeC(g, mx, my, nx, ny, mtmp) {
     if (!westFungusDoorNicheAtLikeC(g, mx, my, mtmp)) return false;
+    const stepNum = g.context?.movemonStepNum | 0;
     const stepH =
-        (g.context?.movemonStepNum | 0) === 4
-        || (g.context?.movemonStepNum | 0) === 6
+        stepNum === 4
+        || stepNum === 6
         || (g.context?._searchStep11Passes | 0) === 2;
+    /* C: step **`j`** west **(64,12)** — **`cnt=6`** for **`rn2(24)`** (not step **`h`** west-column pair). */
+    if (stepNum === 3) {
+        if (nx === (mx | 0) - 1 && (ny === (my | 0) - 1 || ny === (my | 0) + 1)) {
+            return (g.level?.at(nx, ny)?.typ | 0) === STONE;
+        }
+        if (nx === (mx | 0) - 1 && ny === (my | 0)) {
+            return (g.level?.at(nx, ny)?.typ | 0) === STONE;
+        }
+        if (nx === mx && ny === (my | 0) + 1) {
+            return (g.level?.at(nx, ny)?.typ | 0) === STONE;
+        }
+        return false;
+    }
     if (nx === (mx | 0) - 1 && (ny === (my | 0) - 1 || ny === (my | 0))) {
         return (g.level?.at(nx, ny)?.typ | 0) === STONE;
     }

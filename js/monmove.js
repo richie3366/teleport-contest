@@ -85,6 +85,8 @@ export async function movemon(stepNum) {
 
     const g = game;
     g.context = g.context || {};
+    /* C: mon.c movemon — `gs.somebody_can_move` set in movemon_singlemon after turn spend. */
+    g.context._somebodyCanMoveLikeC = false;
     g.context.movemonStepNum = stepNum;
     if ((stepNum | 0) < 10 || (stepNum | 0) > 12) {
         delete g.context._searchStep11Passes;
@@ -214,6 +216,19 @@ export async function movemon(stepNum) {
             if ((west.movement | 0) < NORMAL_SPEED) west.movement = NORMAL_SPEED;
         }
     }
+    /* C: step **`j`** — door-niche sleepers need **`movement ≥ NORMAL_SPEED`** for **`m_move`**. */
+    if ((stepNum | 0) === 3) {
+        for (const m of g.level?.monsters ?? []) {
+            if (!(m.mgenmklev | 0)) continue;
+            const mx = m.mx | 0;
+            const my = m.my | 0;
+            if (
+                !westFungusDoorNicheAtLikeC(g, mx, my, m)
+                && !eastFungusDoorNicheAtLikeC(g, mx, my, m)
+            ) continue;
+            if ((m.movement | 0) < NORMAL_SPEED) m.movement = NORMAL_SPEED;
+        }
+    }
     let mons;
     try {
         mons = fmonListForMovemonLikeC(g, stepNum);
@@ -318,28 +333,6 @@ export async function movemon(stepNum) {
         delete g.context.movemonStepNum;
     }
 
-    const monscanEligible = (mm) => {
-        if ((stepNum | 0) === 4) return mm === findWestKinkLichenLikeC(g);
-        if ((stepNum | 0) === 7) {
-            return (
-                (mm.mnum | 0) === PM_LICHEN
-                && (mm.mgenmklev | 0)
-                && mm !== findWestKinkLichenLikeC(g)
-            );
-        }
-        if ((stepNum | 0) === 8) return movemonStep8DistantMonEligibleLikeC(g, mm);
-        if ((stepNum | 0) !== 3) return true;
-        const mx = mm.mx | 0;
-        const my = mm.my | 0;
-        return (
-            (mm.mnum | 0) === PM_LICHEN
-            && (mm.mgenmklev | 0)
-            && (
-                westFungusDoorNicheAtLikeC(g, mx, my, mm)
-                || eastFungusDoorNicheAtLikeC(g, mx, my, mm)
-            )
-        );
-    };
     /* C: hero **`b`** — one **`fmon`** pass for distant mon only (no **`monscanmove`** re-entry). */
     if ((stepNum | 0) === 8) return false;
     if ((stepNum | 0) === 9) return false;
@@ -355,10 +348,6 @@ export async function movemon(stepNum) {
         return false;
     }
 
-    return mons.some(
-        (mm) =>
-            monscanEligible(mm)
-            && (mm.mhp | 0) > 0
-            && (mm.movement | 0) >= NORMAL_SPEED,
-    );
+    /* C: return `gs.somebody_can_move` (not “any mon still has movement ≥ NORMAL_SPEED”). */
+    return !!(g.context?._somebodyCanMoveLikeC);
 }
