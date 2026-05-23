@@ -1003,7 +1003,88 @@ function good_rm_wall_doorpos(x, y, dir, room) {
 function finddpos_shift(xp, yp, dir, aroom) {
     const rdir = DIR_180(dir);
     if (good_rm_wall_doorpos(xp.v, yp.v, rdir, aroom)) return true;
+    /* C: mklev.c finddpos_shift — irregular rooms shift into STONE/CORR until door wall fits. */
+    if (aroom.irregular) {
+        const map = game.level;
+        let rx = xp.v | 0;
+        let ry = yp.v | 0;
+        const dx = xdir[rdir] | 0;
+        const dy = ydir[rdir] | 0;
+        let fail = false;
+        while (!fail && isok(rx, ry)) {
+            const loc = map.at(rx, ry);
+            const typ = loc?.typ | 0;
+            if (typ !== STONE && typ !== CORR) fail = true;
+            else {
+                rx += dx;
+                ry += dy;
+                if (good_rm_wall_doorpos(rx, ry, rdir, aroom)) {
+                    xp.v = rx;
+                    yp.v = ry;
+                    return true;
+                }
+                if (typ !== STONE && typ !== CORR) fail = true;
+                if (rx < aroom.lx || rx > aroom.hx || ry < aroom.ly || ry > aroom.hy) fail = true;
+            }
+        }
+    }
     return false;
+}
+
+/**
+ * C: corridor **`join`** door niche — HWALL west/north of a door becomes **`CORR`**
+ * when the dug corridor continues on the far side ( **`corrSameRoomWalkableLikeC`** / pet **`mfndpos`** ).
+ * @param {number} dx join corridor x step
+ * @param {number} dy join corridor y step
+ * @param {number} doorX
+ * @param {number} doorY
+ */
+function openDoorCorridorWestAlcoveJoinLikeC(dx, dy, doorX, doorY) {
+    const map = game.level;
+    if (!map) return;
+    const isCorr = (x, y) => {
+        const t = map.at(x | 0, y | 0)?.typ | 0;
+        return t === CORR || t === SCORR;
+    };
+    const xx = doorX | 0;
+    const yy = doorY | 0;
+    if (dy === 1) {
+        for (let wx = xx - 1; wx >= 1; wx--) {
+            const wloc = map.at(wx, yy);
+            if (!wloc || (wloc.typ | 0) !== HWALL) break;
+            if (!isCorr(wx, yy + 1)) break;
+            const east = map.at(wx + 1, yy);
+            if (!east || !IS_DOOR(east.typ | 0)) break;
+            wloc.typ = CORR;
+        }
+    } else if (dy === -1) {
+        for (let wx = xx - 1; wx >= 1; wx--) {
+            const wloc = map.at(wx, yy);
+            if (!wloc || (wloc.typ | 0) !== HWALL) break;
+            if (!isCorr(wx, yy - 1)) break;
+            const east = map.at(wx + 1, yy);
+            if (!east || !IS_DOOR(east.typ | 0)) break;
+            wloc.typ = CORR;
+        }
+    } else if (dx === 1) {
+        for (let wy = yy - 1; wy >= 0; wy--) {
+            const wloc = map.at(xx, wy);
+            if (!wloc || (wloc.typ | 0) !== HWALL) break;
+            if (!isCorr(xx + 1, wy)) break;
+            const south = map.at(xx, wy + 1);
+            if (!south || !IS_DOOR(south.typ | 0)) break;
+            wloc.typ = CORR;
+        }
+    } else if (dx === -1) {
+        for (let wy = yy - 1; wy >= 0; wy--) {
+            const wloc = map.at(xx, wy);
+            if (!wloc || (wloc.typ | 0) !== HWALL) break;
+            if (!isCorr(xx - 1, wy)) break;
+            const south = map.at(xx, wy + 1);
+            if (!south || !IS_DOOR(south.typ | 0)) break;
+            wloc.typ = CORR;
+        }
+    }
 }
 
 // C ref: mklev.c finddpos()
@@ -2351,10 +2432,38 @@ function tagCorrRoomnoAdjacentRoomsLikeC(g) {
     }
 }
 
+/**
+ * C: post-join door niches — HWALL beside a door becomes **`CORR`** when corridor continues
+ * on the far side (see **`corrSameRoomWalkableLikeC`**). Runs after all **`join`** dig RNG.
+ * @param {import('./gstate.js').game} g
+ */
+function openDoorCorridorWestAlcovesFinalizeLikeC(g) {
+    const map = g.level;
+    if (!map?.doors?.length) return;
+    for (const d of map.doors) {
+        if (!d) continue;
+        const xx = d.x | 0;
+        const yy = d.y | 0;
+        const below = map.at(xx, yy + 1);
+        const above = map.at(xx, yy - 1);
+        const east = map.at(xx + 1, yy);
+        const west = map.at(xx - 1, yy);
+        if (below && ((below.typ | 0) === CORR || (below.typ | 0) === SCORR))
+            openDoorCorridorWestAlcoveJoinLikeC(0, 1, xx, yy);
+        else if (above && ((above.typ | 0) === CORR || (above.typ | 0) === SCORR))
+            openDoorCorridorWestAlcoveJoinLikeC(0, -1, xx, yy);
+        else if (east && ((east.typ | 0) === CORR || (east.typ | 0) === SCORR))
+            openDoorCorridorWestAlcoveJoinLikeC(1, 0, xx, yy);
+        else if (west && ((west.typ | 0) === CORR || (west.typ | 0) === SCORR))
+            openDoorCorridorWestAlcoveJoinLikeC(-1, 0, xx, yy);
+    }
+}
+
 function level_finalize_topology() {
     bound_digging();
     /* C: mklev.c level_finalize_topology — mineralize before gi.in_mklev=FALSE */
     mineralize(-1, -1, -1, -1, false);
+    openDoorCorridorWestAlcovesFinalizeLikeC(game);
     preferSleepingLichenDoorNichesLikeC(game);
     game.in_mklev = false;
     if (!game.level?.flags?.is_maze_lev) {
