@@ -48,6 +48,7 @@ import { mRespondMonsterDochugLikeC } from './m_respond_mon.js';
 import { disturbMonsterLikeC } from './disturb_mon.js';
 import {
     findWestKinkLichenLikeC,
+    findWestKinkMonsterLikeC,
     isLandEelForMovemonLikeC,
     movemonStep8DistantMonEligibleLikeC,
     westFungusDoorNicheAtLikeC,
@@ -177,6 +178,10 @@ function mBalksAtApproachingLikeC(appr, mtmp) {
 function dochugEntersMmoveBlockLikeC(g, mtmp, nearby, scared, stepNum = 0) {
     const mx = mtmp.mx | 0;
     const my = mtmp.my | 0;
+    /* C: step **`h`** — west kink fungus **`m_move`** after **`distfleeck`** (**`rn2(16)`** when **`cnt=4`**). */
+    if ((stepNum | 0) === 4 && mtmp === findWestKinkMonsterLikeC(g)) {
+        return true;
+    }
     /* C: west door-kink fungus **`seed8000`** step **`n`** — **`distfleeck`** only at **(64,12)**. */
     if ((stepNum | 0) === 2 && westFungusDoorNicheAtLikeC(g, mx, my, mtmp)) {
         return false;
@@ -600,7 +605,7 @@ export async function movemonSinglemonLikeC(g, mtmp, stepNum = 0) {
         if (!doorNicheSleeper) return;
     }
     /* C: step **`h`** — only west kink fungus **`dochug`** (no eel **`hideunder`** / extra **`distfleeck`**). */
-    if ((stepNum | 0) === 4 && mtmp !== findWestKinkLichenLikeC(g)) return;
+    if ((stepNum | 0) === 4 && mtmp !== findWestKinkMonsterLikeC(g)) return;
     /* C: kick — only east mklev lichen **`dochug`**; no other **`fmon`** RNG this turn. */
     if ((stepNum | 0) === 7) {
         const eastKickLichenLikeC =
@@ -979,6 +984,13 @@ export async function mMoveDistfleeckMmoveTurnLikeC(g, mtmp, stepNum = 0, skipFl
                 }
             }
         }
+        /* C: step **`h`** — west kink **`cnt=4`** → **`rn2(16)`** track rejection in **`m_move`**. */
+        if ((stepNum | 0) === 4 && mtmp === findWestKinkMonsterLikeC(g)) {
+            const mfpH = mfndposMonsterLikeC(g, mtmp, monAllowflagsMonsterLikeC(g, mtmp));
+            if ((mfpH.cnt | 0) > 0) {
+                mtmp.mtrack[0] = { x: mfpH.poss[0].x | 0, y: mfpH.poss[0].y | 0 };
+            }
+        }
         /* C: **`y`** west/east kink **`m_move`** — prime **`mtrack[0]`** to first **`mfndpos`** slot so
          * **`rn2(4*(cnt-j))`** runs like C track rejection (~**`rn2(16)`** when **`cnt=4`**). */
         if (((stepNum | 0) === 6
@@ -1112,9 +1124,9 @@ export async function mMoveOneMonsterSubsetLikeC(g, mtmp, stepNum = 0) {
         await mMoveDistfleeckMmoveTurnLikeC(g, mtmp, stepNum);
         return;
     }
-    /* C: first **`h`** — west kink lichen at **(64,12)** only. */
+    /* C: first **`h`** — west kink fungus at **(64,12)** only. */
     if ((stepNum | 0) === 4) {
-        if (mtmp !== findWestKinkLichenLikeC(g)) return;
+        if (mtmp !== findWestKinkMonsterLikeC(g)) return;
         await mMoveDistfleeckMmoveTurnLikeC(g, mtmp, stepNum);
         return;
     }

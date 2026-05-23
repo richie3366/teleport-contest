@@ -5,7 +5,6 @@ import { PM_LICHEN } from './const.js';
 import { S_EEL, raceptr } from './mondata.js';
 import {
     eastFungusDoorNicheAtLikeC,
-    findWestKinkLichenLikeC,
     findWestKinkMonsterLikeC,
     isLandEelForMovemonLikeC,
     movemonStep8DistantMonEligibleLikeC,
@@ -53,7 +52,7 @@ export function fmonListForMcalcmoveLikeC(g) {
 export function fmonListForMovemonLikeC(g, stepNum = 0) {
     const mons = fmonListNewestFirstLikeC(g);
     if ((stepNum | 0) === 4) {
-        const west = findWestKinkLichenLikeC(g);
+        const west = findWestKinkMonsterLikeC(g);
         return west ? [west] : [];
     }
     /* C: step **`n`** — east **`movement < NORMAL_SPEED`** (no RNG); west **`distfleeck`**;

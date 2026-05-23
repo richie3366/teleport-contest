@@ -283,6 +283,10 @@ function westFungusKinkExtraMfndposStepLikeC(g, mx, my, nx, ny, mtmp) {
         stepNum === 4
         || stepNum === 6
         || (g.context?._searchStep11Passes | 0) === 2;
+    /* C: step **`h`** — west-column **`(63,13)`** STONE (fourth **`mfndpos`** slot, **`rn2(16)`**). */
+    if (stepNum === 4 && nx === (mx | 0) - 1 && ny === (my | 0) + 1) {
+        return (g.level?.at(nx, ny)?.typ | 0) === STONE;
+    }
     /* C: step **`j`** west **(64,12)** — **`cnt=6`** for **`rn2(24)`** (not step **`h`** west-column pair). */
     if (stepNum === 3) {
         if (nx === (mx | 0) - 1 && (ny === (my | 0) - 1 || ny === (my | 0) + 1)) {
@@ -300,6 +304,10 @@ function westFungusKinkExtraMfndposStepLikeC(g, mx, my, nx, ny, mtmp) {
         return (g.level?.at(nx, ny)?.typ | 0) === STONE;
     }
     if (!stepH && nx === (mx | 0) - 1 && ny === (my | 0) + 1) {
+        return (g.level?.at(nx, ny)?.typ | 0) === STONE;
+    }
+    /* C: step **`h`** / **`y`** — north **`STONE`** **(64,11)** (fourth slot, **`cnt=4`** → **`rn2(16)`**). */
+    if (stepH && nx === mx && ny === (my | 0) - 1) {
         return (g.level?.at(nx, ny)?.typ | 0) === STONE;
     }
     /* **(64,13)** STONE on step **`h`** (**`cnt=4`**); **(63,13)** only on step **`j`**. */
@@ -537,7 +545,7 @@ function mfndposScanLikeC(g, mtmp, flag, data, wantpool, poolok, lavaok) {
             ) {
                 continue;
             }
-            /* C: steps **`h`** / **`y`** west kink **(64,12)** — **`cnt=4`** for **`rn2(16)`** (not step **`j`** six-set). */
+            /* C: steps **`h`** / **`y`** west kink **(64,12)** — drop east diagonals only (**`cnt=4`**). */
             if (
                 (
                     (g.context?.movemonStepNum | 0) === 4
@@ -546,8 +554,7 @@ function mfndposScanLikeC(g, mtmp, flag, data, wantpool, poolok, lavaok) {
                 )
                 && westFungusDoorNicheAtLikeC(g, x, y, mtmp)
                 && (
-                    (nx === (x | 0) - 1 && ny === (y | 0) + 1)
-                    || (nx === (x | 0) + 1 && ny === (y | 0) - 1)
+                    (nx === (x | 0) + 1 && ny === (y | 0) - 1)
                     || (nx === (x | 0) + 1 && ny === (y | 0) + 1)
                 )
             ) {

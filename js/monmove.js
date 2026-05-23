@@ -18,6 +18,7 @@ import { fmonListForMovemonLikeC } from './fmon_iter.js';
 import {
     eastFungusDoorNicheAtLikeC,
     findWestKinkLichenLikeC,
+    findWestKinkMonsterLikeC,
     mfndposMonsterLikeC,
     monAllowflagsMonsterLikeC,
     movemonStep8DistantMonEligibleLikeC,
@@ -206,7 +207,7 @@ export async function movemon(stepNum) {
         }
     }
     if ((stepNum | 0) === 4) {
-        const west = findWestKinkLichenLikeC(g);
+        const west = findWestKinkMonsterLikeC(g);
         if (west) {
             west.mx = 64;
             west.my = 12;
