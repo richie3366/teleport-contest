@@ -18,11 +18,11 @@ Thin handoff for the next coding session. **Score + milestones:** [`c-to-js-port
 
 **Deferred for now:** **`maybe_do_tutorial`** / **`tut-1`** / full **`do.c`** **`goto_level`** (Lua **`tutorial()`** / **`free_tutorial()`**, **`savelev`**, **`gmst_*`**, …) and **`dokick`**/**`dothrow`** vs **`leaving_tutorial`** — strong upstream dependencies (save, specials, fuller **`do.c`**); treat as backlog until chargen / core early-game parity is further along; **`LIVELOGFILE`** parity if the judge ever compares livelog lines.
 
-**Last slice:** **`mkobj.c` `mkbox_cnts`** — startup **SACK** always **`rn2(n+1)`** even when **`n=0`** (`moves<=1 && !in_mklev`); **`mksobjInitSackStartInvLikeC`** no longer returns early. **`seed0077`:** **3199/3242** RNG (was **3197**); first gap ~**3191** (**`wintty.c`** name/role TTY). **`seed8000`:** **PASS**. **`npm run score`:** **1/44**.
+**Last slice:** **`nhlib.lua` align shuffle** — **`com_pager`** **`nhl_init`** loads **`dat/nhlib.lua`** ( **`shuffle(align)`** → **`rn2(3)`**, **`rn2(2)`** ) after **`vary_init_attr`**, before **`moveloop_preamble`** **`rnd(9000)`**; **`js/nhlib_align_shuffle.js`** + **`legacy_intro.js`**. **`seed0077`:** **3200/3242** RNG (was **3199**); first gap ~**3195** (**`rnl(20)`** / **`pickup.c`**). **`seed8000`:** **PASS**. **`npm run score`:** **1/44**.
 
 ## Next steps
 
-1. **`seed0077` chargen** — first RNG gap ~**3191** (**`rnd(9000)`** / **`rnd(30)`** vs **`rn2(3)`** / **`rn2(2)`**); **`wintty.c` / `role.c`** pickers after **`init_attr`/`vary_init_attr`**.
+1. **`seed0077` chargen** — first RNG gap ~**3195** (**`rnl(20)`** vs **`rn2(12)`**); **`pickup.c`** autopickup / **`moveloop_preamble`** tail after **`rnd(9000)`**.
 
 2. **Chargen + `u_init_role` RNG** — **`consumeRogueHumanIniInvUinitRoleRngLikeC`** / **`ini_inv`** when mklev tail is aligned.
 

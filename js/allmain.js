@@ -55,10 +55,9 @@ export async function newgame() {
     g.flags = g.flags || {};
     g.flags.pantheon = -1;
     roleInitLikeC(g);
-    /* C: nhlib.lua align shuffle before init_dungeons (session indices 199–200 on seed8000). */
+    /* C: init_dungeons nhl_init → nhlib.lua align shuffle (until dungeon Lua loader is ported). */
     rn2(3);
     rn2(2);
-    /* C: dungeon.c init_dungeons — dungeon graph + init_castle_tune. */
     initDungeonsLikeC(g);
     fastforward_pre_mklev();
 
