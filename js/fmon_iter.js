@@ -110,6 +110,17 @@ export function fmonListForMovemonLikeC(g, stepNum = 0) {
         if (eel) ordered.push(eel);
         return [...ordered, ...rest].filter(Boolean);
     }
+    /* C: first **`l`** after **`b`** — east **(64,9)** **`m_move`** then distant **`m_move`**. */
+    if ((stepNum | 0) === 9) {
+        const east = findEastKickMonLikeC(g);
+        const distant = findDistantMklevMonLikeC(g);
+        const rest = mons.filter((m) => m !== east && m !== distant);
+        /** @type {typeof mons} */
+        const ordered = [];
+        if (east) ordered.push(east);
+        if (distant) ordered.push(distant);
+        return [...ordered, ...rest].filter(Boolean);
+    }
     /* C: step **`n`** — east **`movement < NORMAL_SPEED`** (no RNG); west **`distfleeck`**;
      * land eel **`m_move`** (**`rn2(32)`**); distant **`distfleeck`**+**`m_move`**+**`distfleeck`**. */
     if ((stepNum | 0) === 2) {

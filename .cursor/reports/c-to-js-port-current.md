@@ -18,11 +18,11 @@ Thin handoff for the next coding session. **Gap inventory (not yet ported):** [`
 
 **Deferred for now:** **`maybe_do_tutorial`** / **`tut-1`** / full **`do.c`** **`goto_level`** (Lua **`tutorial()`** / **`free_tutorial()`**, **`savelev`**, **`gmst_*`**, …) and **`dokick`**/**`dothrow`** vs **`leaving_tutorial`** — strong upstream dependencies (save, specials, fuller **`do.c`**); treat as backlog until chargen / core early-game parity is further along; **`LIVELOGFILE`** parity if the judge ever compares livelog lines.
 
-**Last slice:** hero **`b`** (**`stepNum` 8**, not 9 — `stepNum = g.moves − 1` at **`movemon`**). **`findDistantMklevMonLikeC`** (**`mx < 64`**, tile fallbacks incl. **(27,10)**) so west kink fungus is not the “distant” mon; **`fmon`** order distant → west → land eel; **`m_move`** **`rn2(20)`** branch includes **`stepNum` 8**; west **`distfleeck`** only. **`seed8000`:** **3097/3130** RNG, **23/23** screens; drift **~3088** (first **`l`** after **`b`**). **`npm run score`:** **0/44** (no regression vs kick anchor).
+**Last slice:** first **`l`** after **`b`** (**`stepNum` 9**). **`eastMklevFirstLAfterBLikeC`** + **`findEastKickMonLikeC`** (fungus at **(64,9)**, not **`PM_LICHEN`**); **`fmon_iter`** east → distant; kick/**`b`**-style **`mtrack`** prime → **`rn2(12)`**; distant **`rn2(20)`** + **`distfleeck`**. **`seed8000`:** **3101/3130** RNG (full first-**`l`**-after-**`b`** step), **23/23** screens; drift **~3103** (first **`#search`**). **`npm run score`:** **0/44**.
 
 ## Next steps
 
-1. **`monmove.c` / `m_move`** — first **`l`** after **`b`** (**`stepNum` 9**): east mklev **`rn2(12)`** + **`distfleeck`**, distant **`rn2(20)`** + recalc (~**3088**); do not remap **`b`** to **`stepNum` 9** (that regresses kick/**`n`**).
+1. **`monmove.c` / `m_move`** — first **`#search`** (**`stepNum` 10**, **`_searchStep11Passes===1`**): distant **`rn2(20)`** then east **`rn2(12)`** (~**3103**); order distant → east in **`fmon_iter`** / **`monmove.js`**.
 2. **`monmove.c` / `m_move`** — step **`n`** (**`stepNum` 2**): west kink low-mov **`distfleeck`** + land eel **`rn2(32)`** / distant chain; full **`m_movePositionSelectLikeC`** **`cnt`** parity.
 3. **`mklev`/`dig_corridor`** — align east **(66,12)** recorder comment vs **(65,11)** geometry if C **`mfndpos`** expects **`cnt=8`** on later steps; peel **`stoneCorr*`** when **`corrSameRoomWalkable`** suffices.
 4. **Chargen** — shrink **`fastforward_pre_mklev`** / **`post_mklev`** toward real **`o_init`** / **`u_init_role`** (**`seed0900`**, **`seed0077`**).

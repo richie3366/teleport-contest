@@ -294,6 +294,13 @@ export function eastMklevSecondHMmoveAtLikeC(mtmp) {
  * C: kick **`k`** — east door-niche **`mgenmklev`** lichen at **(64,9)** (**`mfndpos cnt=3`** → **`rn2(12)`**).
  * @param {import('./gstate.js').game} g
  */
+/** C: first **`l`** after **`b`** — east door-niche **`mgenmklev`** at **(64,9)** (fungus on **`seed8000`**). */
+export function eastMklevFirstLAfterBLikeC(g, mtmp) {
+    if (!mtmp) return false;
+    const east = findEastKickMonLikeC(g);
+    return east !== null && mtmp === east;
+}
+
 export function findEastKickMonLikeC(g) {
     const westM = findWestKinkMonsterLikeC(g);
     const east = findEastMklevSecondHLikeC(g);

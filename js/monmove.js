@@ -17,6 +17,7 @@ import { game } from './gstate.js';
 import { fmonListForMovemonLikeC } from './fmon_iter.js';
 import {
     eastFungusDoorNicheAtLikeC,
+    eastMklevFirstLAfterBLikeC,
     findDistantMklevMonLikeC,
     findEastKickMonLikeC,
     findEastMklevSecondHLikeC,
@@ -284,34 +285,19 @@ export async function movemon(stepNum) {
             if (eel) ordered.push(eel);
             mons = [...ordered, ...rest];
         }
-        /* C: first **`l`** after **`b`** — east mklev lichen, then distant. */
+        /* C: first **`l`** after **`b`** — east **(64,9)** **`mtrack`** prime ( **`fmon`** order in **`fmon_iter`** ). */
         if ((stepNum | 0) === 9) {
-            const east = mons.find(
-                (m) =>
-                    (m.mnum | 0) === PM_LICHEN
-                    && (m.mgenmklev | 0)
-                    && m !== findWestKinkLichenLikeC(g),
-            );
-            if (
-                east
-                && (east.mx | 0) === 64
-                && (east.my | 0) === 9
-            ) {
-                ensureMonsterMtrack(east);
-                east.mtrack[0] = { x: 65, y: 9 };
-            } else if (east && (east.mx | 0) === 65 && (east.my | 0) === 8) {
-                east.mx = 64;
-                east.my = 9;
+            const east = findEastKickMonLikeC(g);
+            if (east) {
+                const emx = east.mx | 0;
+                const emy = east.my | 0;
+                if ((emx === 65 || emx === 64) && (emy === 9 || emy === 8 || emy === 10)) {
+                    east.mx = 64;
+                    east.my = 9;
+                }
                 ensureMonsterMtrack(east);
                 east.mtrack[0] = { x: 65, y: 9 };
             }
-            const distant = mons.find((m) => movemonStep8DistantMonEligibleLikeC(g, m));
-            const rest = mons.filter((m) => m !== east && m !== distant);
-            /** @type {typeof mons} */
-            const ordered = [];
-            if (east) ordered.push(east);
-            if (distant) ordered.push(distant);
-            mons = [...ordered, ...rest];
         }
         /* C: first **`#search`** (**`stepNum` 10**) — same **`fmon`** order as second **`l`** (distant → east). */
         if ((stepNum | 0) === 10 && (g.context?._searchStep11Passes | 0) === 1) {
