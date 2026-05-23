@@ -190,13 +190,18 @@ export async function movemon(stepNum) {
             const east = findEastMklevSecondHLikeC(g);
             try {
                 g.context.movemonStepNum = stepNum;
+                /* C: **`y`** pass 2 — land eel **`distfleeck`** before west **`m_move`** (~3051). */
+                const eel = (g.level?.monsters ?? []).find((m) =>
+                    isLandEelForMovemonLikeC(g, m));
+                if (eel) await mMoveDistfleeckOnlyTurnLikeC(g, eel);
                 if (west) await movemonSinglemonLikeC(g, west, stepNum);
                 /* C: **`y`** — west **`m_move`** before distant mon **`distfleeck`** (~3052 / ~3053). */
-                for (const m of fmonListForMovemonLikeC(g, stepNum)) {
-                    if (m === west || m === east) continue;
-                    if (isLandEelForMovemonLikeC(g, m)) continue;
-                    await mMoveDistfleeckOnlyTurnLikeC(g, m);
-                }
+                const levelMons = g.level?.monsters ?? [];
+                const distant =
+                    levelMons.find((m) => (m.mx | 0) === 22 && (m.my | 0) === 14)
+                    ?? levelMons.find((m) => (m.mx | 0) === 23 && (m.my | 0) === 13)
+                    ?? levelMons.find((m) => (m.mx | 0) === 21 && (m.my | 0) === 13);
+                if (distant) await mMoveDistfleeckOnlyTurnLikeC(g, distant);
             } finally {
                 delete g.context.movemonStepNum;
                 delete g.context._movemonStep6Pass;
@@ -336,7 +341,9 @@ export async function movemon(stepNum) {
         if ((stepNum | 0) === 6 && (g.context?._movemonStep6Pass | 0) === 1) {
             const west = findWestKinkMonsterLikeC(g);
             const east = findEastMklevSecondHLikeC(g);
-            if (east && (east.movement | 0) < NORMAL_SPEED) east.movement = NORMAL_SPEED;
+            if (east) {
+                if ((east.movement | 0) < NORMAL_SPEED) east.movement = NORMAL_SPEED;
+            }
             mons = mons.filter(
                 (m) => m === west || m === east || isLandEelForMovemonLikeC(g, m),
             );
@@ -357,6 +364,11 @@ export async function movemon(stepNum) {
 
     /* C: hero **`b`** — one **`fmon`** pass for distant mon only (no **`monscanmove`** re-entry). */
     if ((stepNum | 0) === 5) return false;
+    /* C: **`y`** — two **`movemon`** passes (pass 1 west/east/eel; pass 2 eel recalc, west **`m_move`**, distant **`distfleeck`**). */
+    if ((stepNum | 0) === 6 && (g.context?._movemonStep6Pass | 0) === 1) {
+        return true;
+    }
+    if ((stepNum | 0) === 6) return false;
     if ((stepNum | 0) === 8) return false;
     if ((stepNum | 0) === 9) return false;
     if ((stepNum | 0) === 10) return false;

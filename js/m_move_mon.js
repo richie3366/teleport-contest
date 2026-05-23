@@ -522,11 +522,14 @@ async function mMoveMmoveOnlyTurnLikeC(g, mtmp, stepNum = 0) {
         primeDistantStep9MtrackRn20LikeC(mtmp, stepNum);
     }
     if (
-        ((stepNum | 0) === 6 && mtmp === findWestKinkMonsterLikeC(g))
+        ((stepNum | 0) === 6
+            && (mtmp === findWestKinkMonsterLikeC(g)
+                || mtmp === findEastMklevSecondHLikeC(g)))
         || ((g.context?._searchStep11Passes | 0) === 2
             && (mtmp.mnum | 0) === PM_LICHEN
             && (mtmp.mgenmklev | 0))
     ) {
+        monTrackClear(mtmp);
         const mfp = mfndposMonsterLikeC(g, mtmp, monAllowflagsMonsterLikeC(g, mtmp));
         if ((mfp.cnt | 0) > 0) {
             mtmp.mtrack[0] = { x: mfp.poss[0].x | 0, y: mfp.poss[0].y | 0 };

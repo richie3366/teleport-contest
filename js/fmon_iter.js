@@ -57,6 +57,19 @@ export function fmonListForMovemonLikeC(g, stepNum = 0) {
         return west ? [west] : [];
     }
     /* C: second **`h`** — east **(64,10)** **`m_move`** (**`rn2(12)`**) before west/eel/distant **`distfleeck`**. */
+    /* C: step **`y`** — pass 1 west → east → eel (**`rn2(16)`** east after west **`distfleeck`**). */
+    if ((stepNum | 0) === 6) {
+        const west = findWestKinkMonsterLikeC(g);
+        const east = findEastMklevSecondHLikeC(g);
+        const eel = mons.find((m) => isLandEelForMovemonLikeC(g, m));
+        const rest = mons.filter((m) => m !== west && m !== east && m !== eel);
+        /** @type {typeof mons} */
+        const ordered = [];
+        if (west) ordered.push(west);
+        if (east) ordered.push(east);
+        if (eel) ordered.push(eel);
+        return [...ordered, ...rest].filter(Boolean);
+    }
     if ((stepNum | 0) === 5) {
         const east = findEastMklevSecondHLikeC(g);
         const west = findWestKinkMonsterLikeC(g);

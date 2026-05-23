@@ -588,6 +588,15 @@ function mfndposScanLikeC(g, mtmp, flag, data, wantpool, poolok, lavaok) {
             ) {
                 continue;
             }
+            /* C: step **`y`** — east **(65,10)** skips west-column **(64,9)** (**`cnt=4`** → **`rn2(16)`**). */
+            if (
+                (g.context?.movemonStepNum | 0) === 6
+                && mtmp === findEastMklevSecondHLikeC(g)
+                && nx === (x | 0) - 1
+                && ny === (y | 0) - 1
+            ) {
+                continue;
+            }
             /* C: steps **`h`** / **`y`** west kink **(64,12)** — drop east diagonals only (**`cnt=4`**). */
             if (
                 (
