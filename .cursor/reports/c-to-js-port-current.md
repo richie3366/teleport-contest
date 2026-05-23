@@ -18,11 +18,11 @@ Thin handoff for the next coding session. **Score + milestones:** [`c-to-js-port
 
 **Deferred for now:** **`maybe_do_tutorial`** / **`tut-1`** / full **`do.c`** **`goto_level`** (Lua **`tutorial()`** / **`free_tutorial()`**, **`savelev`**, **`gmst_*`**, …) and **`dokick`**/**`dothrow`** vs **`leaving_tutorial`** — strong upstream dependencies (save, specials, fuller **`do.c`**); treat as backlog until chargen / core early-game parity is further along; **`LIVELOGFILE`** parity if the judge ever compares livelog lines.
 
-**Last slice:** **`teleport.c` `collect_coords` + `enexto_core` (NEW_ENEXTO)** — **`js/collect_coords.js`**; **`makemon`** **`byyou`** placement; **`makedog`** → **`makemon(MM_EDOG|NO_MINVENT)`**; **`d()`** logs **`d(n,x)=`**; kitten **`adj_lev`/`is_neuter`** fixes. **`seed0077`:** **3197/3242** RNG (was **3069**); **`seed8000`:** **PASS**. **`npm run score`:** **1/44**.
+**Last slice:** **`mkobj.c` `mkbox_cnts`** — startup **SACK** always **`rn2(n+1)`** even when **`n=0`** (`moves<=1 && !in_mklev`); **`mksobjInitSackStartInvLikeC`** no longer returns early. **`seed0077`:** **3199/3242** RNG (was **3197**); first gap ~**3191** (**`wintty.c`** name/role TTY). **`seed8000`:** **PASS**. **`npm run score`:** **1/44**.
 
 ## Next steps
 
-1. **`seed0077` chargen** — first RNG gap ~**3145** (rogue **`ini_inv`** tail / TTY); **`wintty.c` / `role.c`** pickers. **`setgemprobs`** in **`oinit()`** still stubbed.
+1. **`seed0077` chargen** — first RNG gap ~**3191** (**`rnd(9000)`** / **`rnd(30)`** vs **`rn2(3)`** / **`rn2(2)`**); **`wintty.c` / `role.c`** pickers after **`init_attr`/`vary_init_attr`**.
 
 2. **Chargen + `u_init_role` RNG** — **`consumeRogueHumanIniInvUinitRoleRngLikeC`** / **`ini_inv`** when mklev tail is aligned.
 
