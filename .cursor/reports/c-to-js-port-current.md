@@ -18,11 +18,11 @@ Thin handoff for the next coding session. **Score + milestones:** [`c-to-js-port
 
 **Deferred for now:** **`maybe_do_tutorial`** / **`tut-1`** / full **`do.c`** **`goto_level`** (Lua **`tutorial()`** / **`free_tutorial()`**, **`savelev`**, **`gmst_*`**, …) and **`dokick`**/**`dothrow`** vs **`leaving_tutorial`** — strong upstream dependencies (save, specials, fuller **`do.c`**); treat as backlog until chargen / core early-game parity is further along; **`LIVELOGFILE`** parity if the judge ever compares livelog lines.
 
-**Last slice:** **`dogmove_mon.js`**: first gate **`dog_goal`** — **`appr==0`** without **`rn2(4)`** at dog_goal:575 (C session: hero/pet **`udist<=1`**); second pass full **`dogGoalFollowGxGyApprLikeC`** (**`whappr`**, **`IS_ROOM`||**`rn2(4)`**); **`dog_move`** first pass **`rn2(1)`** + **`place_monster`** toward **`gg`**; general pick loop for **`appr!=0`**. Tools: **`diag_dog_goal_at_search.mjs`**, **`diag_hero_moves.mjs`**. **`seed0077`:** **3218/3242** (**3203–3216**; **~3217** third **`obj_resists`** / **`mfndpos`** curse filters). **`seed8000`:** **PASS**. **`npm run score`:** **1/44**.
+**Last slice:** **`dogmove_mon.js`**: split first/second **`dog_goal`** — first pass legacy floor RNG + **`appr==0`**; second pass C **`fobj`** loop + **`dogfoodRankLikeC`** (**`obj_resists`** in **`dogfood`**) + lit/**`cansee`** apport branch + **`dogGoalFollowGxGyApprLikeC`** tail. Diag: **`diag_dog_bbox_fobj.mjs`** (only **2** floor objs in bbox at second pass — C needs **3** **`obj_resists`** at **~3217**). **`seed0077`:** **3218/3242** (**3203–3216**; **~3217** missing floor **`fobj`** / **`could_reach`** / pet **`my`**). **`seed8000`:** **PASS**. **`npm run score`:** **1/44**.
 
 ## Next steps
 
-1. **`seed0077` first `#search` tail (~3217–3225)** — Second **`dog_goal`**: third **`obj_resists`** at **~3217** (pet **`place_monster`** after first pick vs C **`mfndpos`** pre-pick filters; hero **`uy`** vs C **D:1** stair placement); east **`rn2(12)`** ×2 + deferred new-turn tail vs **`mcalcmove`**.
+1. **`seed0077` first `#search` tail (~3217–3225)** — Second **`dog_goal`**: third **`obj_resists`** at **~3217** (JS bbox has **2** **`fobj`** at **(35,2)/(35,5)** only — **`mklev`/`mineralize`** or pet **(36,8)** widening bbox vs C); tail **`distfleeck`** vs **`mcalcmove`**; wire **`could_reach_item`/`can_reach_location`** goal filters after full **`dogfood`** ranks.
 
 2. **`makeroguerooms` / rogue special level** — when **`Is_rogue_level`** is true (now that **`rogue_level`** is set); separate from rogue **class** on main D:1.
 

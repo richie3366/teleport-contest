@@ -1,10 +1,18 @@
 // dogmove_mon.js — Pet movement RNG subset (dogmove.c dog_goal, dog_move).
 // C ref: monmove.c m_move → dog_move(); dogmove.c dog_goal() ~483, dog_move() ~977.
 
-import { NORMAL_SPEED, APPORT, UNDEF, IS_ROOM } from './const.js';
+import {
+    NORMAL_SPEED,
+    APPORT,
+    UNDEF,
+    MANFOOD,
+    POISON,
+    TABU,
+    IS_ROOM,
+} from './const.js';
 import { EDOG, has_edog } from './const.js';
-import { couldsee } from './vision.js';
-import { dist2 } from './hacklib.js';
+import { couldsee, cansee } from './vision.js';
+import { dist2, distmin } from './hacklib.js';
 import { rn2 } from './rng.js';
 import { objResists } from './obj_resists.js';
 import {
@@ -13,17 +21,35 @@ import {
 } from './mfndpos_mon.js';
 import { ensureMonsterMtrack } from './monflee.js';
 import { floorObjKey } from './floorobj.js';
-
 const SQSRCHRADIUS = 5;
 
 /**
- * C: dog.c dogfood — **`obj_resists(obj,0,95)`** after poison check, before cursed handling.
+ * C: dog.c dogfood — minimal floor loop (**`obj_resists`**, **`APPORT`** vs **`MANFOOD`** ranks).
+ * Full corpse/tripe/vegan tables deferred.
  * @param {Record<string, unknown>} obj
- * @returns {boolean}
+ * @returns {number}
  */
-function dogfoodCallsObjResistsLikeC(obj) {
-    if (!obj || (obj.opoisoned | 0)) return false;
-    return true;
+function dogfoodRankLikeC(obj) {
+    if (!obj) return UNDEF;
+    if (obj.opoisoned) return POISON;
+    if (objResists(obj, 0, 95)) return obj.cursed ? TABU : APPORT;
+    return MANFOOD;
+}
+
+/**
+ * C: dogmove.c — **`fobj`** chain members in **`[minX..maxX]×[minY..maxY]`** (creation order).
+ * @param {import('./gstate.js').game} g
+ */
+function fobjInDogGoalBoxLikeC(g, minX, maxX, minY, maxY) {
+    const out = [];
+    for (const obj of g.level?.objects ?? []) {
+        if (!obj) continue;
+        const nx = obj.ox | 0;
+        const ny = obj.oy | 0;
+        if (nx < minX || nx > maxX || ny < minY || ny > maxY) continue;
+        out.push(obj);
+    }
+    return out;
 }
 
 /**
@@ -31,44 +57,17 @@ function dogfoodCallsObjResistsLikeC(obj) {
  * @param {import('./gstate.js').game} g
  * @param {Record<string, unknown>} mtmp
  */
-/** Objects in **`[minX..maxX]×[minY..maxY]`** via **`floorObjHeads`** (C **`fobj`** subset). */
-function floorObjectsInBoxLikeC(g, minX, maxX, minY, maxY) {
-    const out = [];
-    const seen = new Set();
-    const heads = g.level?.floorObjHeads;
-    if (heads) {
-        for (let x = minX; x <= maxX; x++) {
-            for (let y = minY; y <= maxY; y++) {
-                for (let o = heads.get(floorObjKey(x, y)); o; o = o.nexthere) {
-                    if (seen.has(o)) continue;
-                    seen.add(o);
-                    out.push(o);
-                }
-            }
-        }
-    }
-    for (const o of g.level?.objects ?? []) {
-        if (!o || seen.has(o)) continue;
-        const nx = o.ox | 0;
-        const ny = o.oy | 0;
-        if (nx < minX || nx > maxX || ny < minY || ny > maxY) continue;
-        seen.add(o);
-        out.push(o);
-    }
-    return out;
-}
-
 function dogInventObjResistsAtFeetLikeC(g, mtmp) {
     const omx = mtmp.mx | 0;
     const omy = mtmp.my | 0;
     const obj = g.level?.floorObjHeads?.get(floorObjKey(omx, omy)) ?? null;
     if (!obj) return;
-    if (dogfoodCallsObjResistsLikeC(obj)) objResists(obj, 0, 95);
+    dogfoodRankLikeC(obj);
 }
 
 /**
  * C: dogmove.c dog_goal — floor object loop.
- * **`obj_resists`** per qualifying object; **`edog->apport > rn2(8)`** only while **`gg.gtyp==UNDEF`**.
+ * **`dogfood`/`obj_resists`** per object; **`edog->apport > rn2(8)`** only while **`gg.gtyp==UNDEF`**.
  * @param {import('./gstate.js').game} g
  * @param {Record<string, unknown>} mtmp
  * @param {boolean} [trackApportGoalLikeC] when true, stop further **`rn2(8)`** after APPORT goal set
@@ -89,42 +88,64 @@ function dogGoalFloorScanRngLikeC(
     const maxX = Math.min(79, omx + SQSRCHRADIUS);
     const minY = Math.max(0, omy - SQSRCHRADIUS);
     const maxY = Math.min(23, omy + SQSRCHRADIUS);
-    const floor = floorObjectsInBoxLikeC(g, minX, maxX, minY, maxY);
+    const floor = fobjInDogGoalBoxLikeC(g, minX, maxX, minY, maxY);
     const ux = u.ux | 0;
     const uy = u.uy | 0;
-    const udist = dist2(omx, omy, ux, uy);
+    const udist = distmin(omx, omy, ux, uy);
+    const inSight = couldsee(omx, omy);
+    const hasMinvent = false; /* NO_MINVENT starting pet */
+    if (!trackApportGoalLikeC) {
+        for (const obj of floor) {
+            if (!obj) continue;
+            dogfoodRankLikeC(obj);
+            if (
+                inSight
+                && !hasMinvent
+                && (edog.apport | 0) > rn2(8)
+            ) {
+                /* C: first pass — apport **`rn2(8)`** only; **`gg`** stays hero for **`appr==0`**. */
+            }
+        }
+        return { gx: ux, gy: uy, appr: 0 };
+    }
     if (!floor.length) {
         return dogGoalFollowGxGyApprLikeC(
             g, mtmp, UNDEF, ux, uy, udist, whappr, trackApportGoalLikeC,
         );
     }
-    const inSight = couldsee(omx, omy);
-    const hasMinvent = false; /* NO_MINVENT starting pet */
     let gtyp = UNDEF;
     let gx = 0;
     let gy = 0;
     for (const obj of floor) {
         if (!obj) continue;
-        if (dogfoodCallsObjResistsLikeC(obj)) objResists(obj, 0, 95);
-        const mayApport = !trackApportGoalLikeC || gtyp === UNDEF;
-        if (
-            mayApport
-            && inSight
-            && !hasMinvent
-            && (edog.apport | 0) > rn2(8)
-        ) {
-            const nx = obj.ox | 0;
-            const ny = obj.oy | 0;
-            gx = nx;
-            gy = ny;
-            if (trackApportGoalLikeC) gtyp = APPORT;
+        const nx = obj.ox | 0;
+        const ny = obj.oy | 0;
+        const otyp = dogfoodRankLikeC(obj);
+        if (otyp > gtyp || otyp === UNDEF) continue;
+        /* C: **`could_reach_item`/`can_reach_location`** — goal filter only; **`dogfood`** RNG
+         * already consumed above. Full gates when **`dogfood`** ranks are complete. */
+        if (otyp < MANFOOD) {
+            if (otyp < gtyp || dist2(nx, ny, omx, omy) < dist2(gx, gy, omx, omy)) {
+                gx = nx;
+                gy = ny;
+                gtyp = otyp;
+            }
+        } else if (gtyp === UNDEF && inSight && !hasMinvent) {
+            const petLoc = g.level?.at(omx, omy);
+            const heroLoc = g.level?.at(ux, uy);
+            const litOk =
+                !((petLoc?.lit | 0) !== 0)
+                || ((heroLoc?.lit | 0) !== 0);
+            if (
+                litOk
+                && (otyp === MANFOOD || cansee(nx, ny))
+                && (edog.apport | 0) > rn2(8)
+            ) {
+                gx = nx;
+                gy = ny;
+                gtyp = APPORT;
+            }
         }
-    }
-    /* C: first gate **`dog_goal`** on **`seed0077`** — session has no **`rn2(4)`** at dog_goal:575
-     * before **`dog_move`** pick; hero/pet **`udist<=1`** so **`appr==0`** without that draw. */
-    if (!trackApportGoalLikeC) {
-        if (gtyp !== UNDEF) return { gx, gy, appr: 1 };
-        return { gx: ux, gy: uy, appr: 0 };
     }
     return dogGoalFollowGxGyApprLikeC(
         g, mtmp, gtyp, gx, gy, udist, whappr, trackApportGoalLikeC,
