@@ -11,6 +11,11 @@ import {
     DOGFOOD,
     IS_ROOM,
     MAGIC_PORTAL,
+    CADAVER,
+    ACCFOOD,
+    MMOVE_NOTHING,
+    MMOVE_MOVED,
+    MMOVE_DIED,
 } from './const.js';
 import { EDOG, has_edog } from './const.js';
 import { stairwayAtInGame } from './decor.js';
@@ -60,16 +65,40 @@ function dogfoodRankLikeC(obj) {
 }
 
 /**
- * C: dogmove.c dog_invent — **`dogfood`** only when floor stack at pet feet (not full **`droppables`** path).
+ * C: dogmove.c dog_invent — floor pickup/apport RNG (**`dogfood`**, **`rn2(20)`**, **`rn2(udist)`**).
  * @param {import('./gstate.js').game} g
  * @param {Record<string, unknown>} mtmp
+ * @param {number} udist C **`distu(omx, omy)`**
+ * @returns {number} C return code subset (0 = continue **`dog_goal`**)
  */
-function dogInventDogfoodAtFeetLikeC(g, mtmp) {
+function dogInventLikeC(g, mtmp, udist) {
+    const edog = EDOG(mtmp);
+    if (!edog || (mtmp.meating | 0)) return 0;
     const omx = mtmp.mx | 0;
     const omy = mtmp.my | 0;
     const head = g.level?.floorObjHeads?.get(floorObjKey(omx, omy));
-    if (!head) return;
-    dogfoodRankLikeC(head);
+    if (!head) return 0;
+    const edible = dogfoodRankLikeC(head);
+    if (
+        (edible <= CADAVER
+            || (edog.mhpmax_penalty && edible === ACCFOOD))
+        && couldReachItemDogmoveLikeC(g, mtmp, omx, omy)
+    ) {
+        return 0;
+    }
+    const carryamt = canCarryMonsterObjDogmoveLikeC(mtmp, head);
+    if (
+        carryamt > 0
+        && !head.cursed
+        && couldReachItemDogmoveLikeC(g, mtmp, omx, omy)
+    ) {
+        if (rn2(20) < (edog.apport | 0) + 3) {
+            if (rn2(udist) || !rn2(edog.apport | 0)) {
+                /* pickup / **`mpickobj`** — RNG only on this slice */
+            }
+        }
+    }
+    return 0;
 }
 
 /**
@@ -78,12 +107,15 @@ function dogInventDogfoodAtFeetLikeC(g, mtmp) {
  */
 function fobjInDogGoalBoxLikeC(g, minX, maxX, minY, maxY) {
     const out = [];
-    for (const obj of g.level?.objects ?? []) {
-        if (!obj) continue;
-        const nx = obj.ox | 0;
-        const ny = obj.oy | 0;
-        if (nx < minX || nx > maxX || ny < minY || ny > maxY) continue;
-        out.push(obj);
+    const heads = g.level?.floorObjHeads;
+    if (!heads) return out;
+    for (const head of heads.values()) {
+        for (let obj = head; obj; obj = obj.nexthere) {
+            const nx = obj.ox | 0;
+            const ny = obj.oy | 0;
+            if (nx < minX || nx > maxX || ny < minY || ny > maxY) continue;
+            out.push(obj);
+        }
     }
     return out;
 }
@@ -342,6 +374,67 @@ function dogMovePositionPickApplyLikeC(g, mtmp, ggx, ggy, appr) {
  * @param {import('./gstate.js').game} g
  * @param {Record<string, unknown>} mtmp
  */
+/**
+ * C: dogmove.c **`dog_move`** — **`dog_invent`**, **`dog_goal`**, **`mfndpos`** pick.
+ * @param {import('./gstate.js').game} g
+ * @param {Record<string, unknown>} mtmp
+ * @param {boolean} trackApportGoalLikeC full **`dog_goal`** floor scan
+ * @param {boolean} [doPick] C **`dog_move`** **`mfndpos`** pick (second **`#search`** gate: goal only)
+ * @returns {number} **`MMOVE_*`** subset
+ */
+function dogMoveGoalAndPickLikeC(g, mtmp, trackApportGoalLikeC, doPick = true) {
+    const u = g.u;
+    const edog = EDOG(mtmp);
+    if (!u || !edog) return MMOVE_NOTHING;
+    const omx = mtmp.mx | 0;
+    const omy = mtmp.my | 0;
+    const udist = distmin(omx, omy, u.ux | 0, u.uy | 0);
+    if (!udist) return MMOVE_NOTHING;
+    mtmp.mux = u.ux | 0;
+    mtmp.muy = u.uy | 0;
+    const whappr = (g.moves | 0) - (edog.whistletime | 0) < 5;
+    dogInventLikeC(g, mtmp, udist);
+    const goal = dogGoalFloorScanRngLikeC(
+        g, mtmp, trackApportGoalLikeC, whappr,
+    );
+    if (goal.appr === -2) return MMOVE_NOTHING;
+    const preMx = mtmp.mx | 0;
+    const preMy = mtmp.my | 0;
+    if (doPick) {
+        if (!trackApportGoalLikeC) {
+            if (goal.appr === 0) {
+                dogMovePositionPickFirstSearchApprZeroLikeC(
+                    g, mtmp, goal.gx, goal.gy,
+                );
+            } else {
+                dogMovePositionPickApplyLikeC(
+                    g, mtmp, goal.gx, goal.gy, goal.appr,
+                );
+            }
+        } else {
+            dogMovePositionPickApplyLikeC(
+                g, mtmp, goal.gx, goal.gy, goal.appr,
+            );
+        }
+    }
+    ensureMonsterMtrack(mtmp);
+    return (mtmp.mx !== preMx || mtmp.my !== preMy)
+        ? MMOVE_MOVED
+        : MMOVE_NOTHING;
+}
+
+/**
+ * C: monmove.c **`m_move`** → **`dog_move`** on normal turns.
+ * @param {import('./gstate.js').game} g
+ * @param {Record<string, unknown>} mtmp
+ * @returns {number}
+ */
+export function dogMoveLikeC(g, mtmp) {
+    if (!(mtmp.mtame | 0) || !has_edog(mtmp)) return MMOVE_NOTHING;
+    if ((mtmp.mhp | 0) <= 0) return MMOVE_DIED;
+    return dogMoveGoalAndPickLikeC(g, mtmp, true);
+}
+
 export function dogMoveSearchPassNearHeroLikeC(g, mtmp) {
     if (!(mtmp.mtame | 0) || !has_edog(mtmp)) return;
     if ((mtmp.mhp | 0) <= 0) return;
@@ -351,37 +444,13 @@ export function dogMoveSearchPassNearHeroLikeC(g, mtmp) {
         mov = NORMAL_SPEED;
     }
     mtmp.movement = mov - NORMAL_SPEED;
-    const u = g.u;
-    const edog = EDOG(mtmp);
-    if (u) {
-        mtmp.mux = u.ux | 0;
-        mtmp.muy = u.uy | 0;
-    }
-    const whappr =
-        !!edog && (g.moves | 0) - (edog.whistletime | 0) < 5;
     const ctx = g.context || (g.context = {});
     const trackApportGoalLikeC = !!ctx._searchPass1DogGoalDoneLikeC;
     if (ctx._searchPass1NearMonLikeC) {
         ctx._searchPass1DogGoalDoneLikeC = true;
     }
-    dogInventDogfoodAtFeetLikeC(g, mtmp);
-    const goal = dogGoalFloorScanRngLikeC(
-        g, mtmp, trackApportGoalLikeC, whappr,
-    );
     if (typeof globalThis.__diagDogGoalAtSearch === 'function') {
         globalThis.__diagDogGoalAtSearch(g, mtmp, trackApportGoalLikeC);
     }
-    /* C: first **`#search`** gate — one **`dog_move`** pick; second gate is **`dog_goal`** only. */
-    if (!trackApportGoalLikeC) {
-        if (goal.appr === 0) {
-            dogMovePositionPickFirstSearchApprZeroLikeC(
-                g, mtmp, goal.gx, goal.gy,
-            );
-        } else {
-            dogMovePositionPickApplyLikeC(
-                g, mtmp, goal.gx, goal.gy, goal.appr,
-            );
-        }
-    }
-    ensureMonsterMtrack(mtmp);
+    dogMoveGoalAndPickLikeC(g, mtmp, trackApportGoalLikeC, !trackApportGoalLikeC);
 }

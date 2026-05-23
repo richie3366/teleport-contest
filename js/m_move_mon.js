@@ -10,6 +10,7 @@ import {
     M_AP_FURNITURE,
     STRAT_WAITMASK,
     PM_LICHEN,
+    has_edog,
 } from './const.js';
 
 /** C: objects.h `STRANGE_OBJECT`. */
@@ -64,7 +65,7 @@ import {
     findFirstSearchRogMidMklevHostileLikeC,
 } from './mfndpos_mon.js';
 import { ensureMonsterMtrack, monTrackAdd, monTrackClear } from './monflee.js';
-import { dogMoveSearchPassNearHeroLikeC } from './dogmove_mon.js';
+import { dogMoveLikeC, dogMoveSearchPassNearHeroLikeC } from './dogmove_mon.js';
 import { monnearMonsterXYLikeC } from './mon_geom.js';
 import {
     isFirstSearchMovemonPassLikeC,
@@ -596,7 +597,15 @@ async function mMoveMmoveOnlyTurnLikeC(g, mtmp, stepNum = 0) {
             mtmp.mtrack[0] = { x: mfp.poss[0].x | 0, y: mfp.poss[0].y | 0 };
         }
     }
-    mMovePositionSelectRngLikeC(g, mtmp);
+    mMovePetOrPositionSelectLikeC(g, mtmp);
+}
+
+/** C: **`mtame`** → **`dog_move`**; else **`m_move`** position pick. */
+function mMovePetOrPositionSelectLikeC(g, mtmp) {
+    if ((mtmp.mtame | 0) && has_edog(mtmp)) {
+        return dogMoveLikeC(g, mtmp);
+    }
+    return mMovePositionSelectRngLikeC(g, mtmp);
 }
 
 export async function movemonSinglemonLikeC(g, mtmp, stepNum = 0) {
@@ -1129,7 +1138,7 @@ export async function mMoveDistfleeckMmoveTurnLikeC(g, mtmp, stepNum = 0, skipFl
                     mtmp._eelStep2ChcntBase = 31;
                 }
             }
-            mmStatus = mMovePositionSelectRngLikeC(g, mtmp);
+            mmStatus = mMovePetOrPositionSelectLikeC(g, mtmp);
             delete mtmp._eelStep2ChcntBase;
         }
         restoreEastMklevLichenAt649AfterMmoveLikeC(g, mtmp, stepNum, preMx, preMy);
@@ -1427,7 +1436,7 @@ export async function mMoveOneMonsterSubsetLikeC(g, mtmp, stepNum = 0) {
         if (!gateMonPeek) {
             ensureMonsterMtrack(mtmp);
             primeMtrackBeforeMmoveStep8LikeC(g, mtmp, stepNum);
-            mmStatus = mMovePositionSelectRngLikeC(g, mtmp);
+            mmStatus = mMovePetOrPositionSelectLikeC(g, mtmp);
         }
     }
     if (gateMcanseeSave !== undefined) {

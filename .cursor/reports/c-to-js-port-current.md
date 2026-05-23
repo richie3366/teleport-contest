@@ -18,19 +18,19 @@ Thin handoff for the next coding session. **Score + milestones:** [`c-to-js-port
 
 **Deferred for now:** **`maybe_do_tutorial`** / **`tut-1`** / full **`do.c`** **`goto_level`** (Lua **`tutorial()`** / **`free_tutorial()`**, **`savelev`**, **`gmst_*`**, …) and **`dokick`**/**`dothrow`** vs **`leaving_tutorial`** — strong upstream dependencies (save, specials, fuller **`do.c`**); treat as backlog until chargen / core early-game parity is further along; **`LIVELOGFILE`** parity if the judge ever compares livelog lines.
 
-**Last slice:** **`monmove_search.js`**: **`clearSearchMovemonHarnessLikeC`** / **`clearSearchMovemonSubHarnessLikeC`** — drop **`#search`** peel state before **`:`** (rogue full clear; tourist twin **`s`** keeps pass id). **`cmd.js`**: call after inline **`#search`** post. **`moveloop_turn_advance.js`**: **`runMovemon`** when **`searchPass===2`** on low **`moves`**. **`seed0077`:** **3228/3242** (**3225** **`distfleeck`** on **`:`** step — colon **`movemon`** before **`dolook`**; **3226+** still **`dog_invent`/`m_move`** order). **`seed8000`:** **PASS**. **`npm run score`:** **1/44**.
+**Last slice:** **`dogmove_mon.js`**: **`dogInventLikeC`** (C **`dog_invent`** pickup RNG), **`dogMoveLikeC`** / **`dogMoveGoalAndPickLikeC`** (full **`dog_goal`** + **`mfndpos`** pick); **`fobjInDogGoalBoxLikeC`** scans **`floorObjHeads`** (not empty **`level.objects`**). **`m_move_mon.js`**: **`mMovePetOrPositionSelectLikeC`** — **`mtame`** → **`dog_move`** instead of generic **`m_move`**. Tool: **`tools/diag_colon_pet.mjs`**. **`seed0077`:** still **3228/3242** — colon **`:`** step needs moveloop **`movemon`** with non-peel **`stepNum`** + **`context.move`** (see next). **`seed8000`:** **PASS**. **`npm run score`:** **1/44**.
 
 ## Next steps
 
-1. **`seed0077` ~3226+`:` step** — port colon-step **`movemon`** tail (**`dog_invent`**, **`m_move`**, **`distfleeck`** at **3226–3235**); then **`jsmain` tail post** new-turn (**3236–3241**) after **`dolook`** (C **`look_here`** still 0 RNG on this session).
+1. **`seed0077` colon `:` step (~3226+)** — C runs **`movemon`/`dog_move`** on the **`:`** step (session **`dog_invent`** then **`dog_goal`**). JS still hits **`dog_goal:575`** **`rn2(4)`** without **`dog_invent`** because colon **`movemon`** either does not run ( **`context.move=0`** after **`#search`**) or runs at **`movemonStepNum===3`** (door-**`j`** peel). Port C **`allmain.c`** post timing: rogue **`:`** after **`s`** should run full **`fmon`** + **`dogMoveLikeC`** (flag from **`cmd.js`**, non-peel **`stepNum`** in **`moveloop_turn_advance.js`** — do not double-post). Reuse **`tools/diag_colon_pet.mjs`**.
 
-2. **`makeroguerooms` / rogue special level** — when **`Is_rogue_level`** is true (now that **`rogue_level`** is set); separate from rogue **class** on main D:1.
+2. **`jsmain` tail post** — new-turn **3236–3241** after **`dolook`** on **`:`** step once colon **`movemon`** aligns.
 
-3. **Chargen + `u_init_role` RNG** — **`consumeRogueHumanIniInvUinitRoleRngLikeC`** / **`ini_inv`** when moveloop peel is aligned.
+3. **`makeroguerooms` / rogue special level** — when **`Is_rogue_level`** is true.
 
-4. **`ini_inv` + `mkobj` → `game.invent`** — wire NH5 **`otyp`/`oclass`** so **`skill_init`**, hidden gold, traps, and combat prep follow C; replace **`ini_inv_stub.js`** overlays when paths match.
+4. **Chargen + `u_init_role` RNG** — **`ini_inv`** when moveloop peel is aligned.
 
-5. **Generalize moveloop** — peel harness only when **per-path RNG draw counts** match C; **`mklev`/`dig_corridor`/`mfndpos`** when geometry blocks later **`dochug`** steps.
+5. **Generalize moveloop** — peel harness only when per-path draw counts match C.
 
 ### Extended backlog (unchanged lanes)
 
