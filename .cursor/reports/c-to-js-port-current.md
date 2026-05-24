@@ -18,11 +18,11 @@ Thin handoff for the next coding session. **Score + milestones:** [`c-to-js-port
 
 **Deferred for now:** **`maybe_do_tutorial`** / **`tut-1`** / full **`do.c`** **`goto_level`** (Lua **`tutorial()`** / **`free_tutorial()`**, **`savelev`**, **`gmst_*`**, …) and **`dokick`**/**`dothrow`** vs **`leaving_tutorial`** — strong upstream dependencies (save, specials, fuller **`do.c`**); treat as backlog until chargen / core early-game parity is further along; **`LIVELOGFILE`** parity if the judge ever compares livelog lines.
 
-**Last slice:** **`lock_hero.js`** + **`cmd.js`**: C **`apply.c`** lock-pick direction (**`a`** / **`e`** / **`getdir`**) — no stray **`domove`** on direction **`j`** (was walking hero onto door tile and wrong **`dog_invent`** **`rn2(udist)`**). **`seed0077`:** still **3229/3242** (first gap **~3228** — **`dog_invent`** needs **`distu`** **5** vs JS **1**: hero/pet tile parity after door **`j`**). **`seed8000`:** **PASS**. **`npm run score`:** **1/44**.
+**Last slice:** **`lock_hero.js`**: Rogue starting lock pick **`otyp` 221** (was **223**, so **`apply` `e`** never armed **`_applyGetdirPendingLikeC`**); **`heroLockPickObjLikeC`** for **`e`** (not skeleton key). Second **`j`** no longer **`domove`** through door — hero stays **(36,7)**. **`seed0077`:** **3229/3242** (first gap **~3228** — **`dog_invent`** **`rn2(udist)`** C **`udist=5`** vs JS **`2`**; pet **(35,8)** vs hero **(36,7)**). **`seed8000`:** **PASS**. **`npm run score`:** **1/44**.
 
 ## Next steps
 
-1. **`seed0077` ~3228** — **`dog_invent`** **`rn2(udist)`** with **`distu===5`** (C **`rn2(5)=2`** pickup) vs JS **`udist=1`**; trace hero **`(ux,uy)`** vs pet after door **`j`** / first **`#search`** **`mfndpos`**. Tools: **`tools/diag_rng_window.mjs`**, **`tools/diag_pet_pos_second_search.mjs`**, **`tools/diag_hero_pos_keys.mjs`**.
+1. **`seed0077` ~3228** — **`dog_invent`** **`rn2(udist)`**: C **`distu=5`** (e.g. pet **(38,8)** or hero farther south) vs JS **`udist=2`** at pet **(35,8)** / hero **(36,7)**; trace first **`#search`** **`dog_move`** **`mfndpos`** / **`enexto`**. Tools: **`tools/diag_rng_window.mjs`**, **`tools/diag_start_pos.mjs`**, **`tools/diag_door_map.mjs`**.
 
 2. **`seed0077` ~3228+** — second **`#search`** west **`rn2(16)`** peel; **`:`** **`dolook`** new-turn **3236+**.
 
