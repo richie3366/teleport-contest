@@ -33,7 +33,12 @@ import { doReadHeroScrollCmdLikeC } from './read_scroll_hero.js';
 import { doBumpMeleeAttack } from './attack.js';
 import { tryPeacefulSwap } from './peaceful_displace.js';
 import { blocksMovementAt, diagonalHeroMoveBlocked, isClosedDoorLoc } from './walkable.js';
-import { doopenIndirHeroLikeC } from './lock_hero.js';
+import {
+    doopenIndirHeroLikeC,
+    startApplyPromptHeroLikeC,
+    applyLockpickGetdirPromptHeroLikeC,
+    consumeApplyDirectionHeroLikeC,
+} from './lock_hero.js';
 import { IS_DOOR } from './const.js';
 import { spotEffects } from './spoteffects.js';
 import { dokickFromCmd } from './kick.js';
@@ -151,6 +156,33 @@ export async function rhack(key) {
         return;
     }
 
+    if (game.context?._applyGetdirPendingLikeC) {
+        if (isMovementKey(ch)) {
+            await consumeApplyDirectionHeroLikeC(
+                game,
+                DIR_DX[ch],
+                DIR_DY[ch],
+            );
+            game.context.move = 1;
+        } else {
+            delete game.context._applyGetdirPendingLikeC;
+            game.context.move = 0;
+        }
+        return;
+    }
+    if (game.context?._applyPromptLikeC) {
+        if (ch === 'e') {
+            await applyLockpickGetdirPromptHeroLikeC(game);
+            game.context.move = 0;
+            return;
+        }
+        delete game.context._applyPromptLikeC;
+    }
+    if (ch === 'a') {
+        await startApplyPromptHeroLikeC(game);
+        game.context.move = 0;
+        return;
+    }
     if (isMovementKey(ch)) {
         const moved = await domove(DIR_DX[ch], DIR_DY[ch]);
         game.context.move = moved || game.context?.door_opened ? 1 : 0;

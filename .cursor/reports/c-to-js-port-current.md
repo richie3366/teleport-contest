@@ -18,11 +18,13 @@ Thin handoff for the next coding session. **Score + milestones:** [`c-to-js-port
 
 **Deferred for now:** **`maybe_do_tutorial`** / **`tut-1`** / full **`do.c`** **`goto_level`** (Lua **`tutorial()`** / **`free_tutorial()`**, **`savelev`**, **`gmst_*`**, …) and **`dokick`**/**`dothrow`** vs **`leaving_tutorial`** — strong upstream dependencies (save, specials, fuller **`do.c`**); treat as backlog until chargen / core early-game parity is further along; **`LIVELOGFILE`** parity if the judge ever compares livelog lines.
 
-**Last slice (`9e430fe`):** **`dogmove_mon.js`**: post-gate **`dog_goal`** restores first-pass towel **`gtyp=APPORT`** (no second **`rn2(8)`**, skip follow-tail **`gi.invent`** resist). **`seed0077`:** **3229/3242** (first gap **~3228** — second **`#search`** / **`:`** tail). **`seed8000`:** **PASS**. **`npm run score`:** **1/44**.
+**Last slice:** **`lock_hero.js`** + **`cmd.js`**: C **`apply.c`** lock-pick direction (**`a`** / **`e`** / **`getdir`**) — no stray **`domove`** on direction **`j`** (was walking hero onto door tile and wrong **`dog_invent`** **`rn2(udist)`**). **`seed0077`:** still **3229/3242** (first gap **~3228** — **`dog_invent`** needs **`distu`** **5** vs JS **1**: hero/pet tile parity after door **`j`**). **`seed8000`:** **PASS**. **`npm run score`:** **1/44**.
 
 ## Next steps
 
-1. **`seed0077` ~3228+** — second **`#search`** **`dog_move`** / **`dog_invent`**; **`:`** **`dolook`** new-turn **3236+**. Tools: **`tools/diag_rng_window.mjs`**, **`tools/diag_rng_step_map.mjs`**.
+1. **`seed0077` ~3228** — **`dog_invent`** **`rn2(udist)`** with **`distu===5`** (C **`rn2(5)=2`** pickup) vs JS **`udist=1`**; trace hero **`(ux,uy)`** vs pet after door **`j`** / first **`#search`** **`mfndpos`**. Tools: **`tools/diag_rng_window.mjs`**, **`tools/diag_pet_pos_second_search.mjs`**, **`tools/diag_hero_pos_keys.mjs`**.
+
+2. **`seed0077` ~3228+** — second **`#search`** west **`rn2(16)`** peel; **`:`** **`dolook`** new-turn **3236+**.
 
 2. **`jsmain` tail post** — new-turn **3236–3241** after **`dolook`** on **`:`** step once invent chain aligns.
 

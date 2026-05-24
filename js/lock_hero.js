@@ -412,3 +412,40 @@ export async function applyPicklockSucceededOnFloorBoxHeroLikeC(g, box, pickOtyp
     }
     exercise(A_DEX, true);
 }
+
+/**
+ * C: apply.c **`doapply`** — **`seed0077`** **`a`** / **`e`** / direction (no **`domove`**).
+ * @param {import('./gstate.js').game} g
+ */
+export async function startApplyPromptHeroLikeC(g) {
+    g.context = g.context || {};
+    g.context._applyPromptLikeC = true;
+    await pline('What do you want to use or apply? [ef or ?*]');
+}
+
+/**
+ * C: apply lock pick (**`e`**) then **`getdir`** prompt.
+ * @param {import('./gstate.js').game} g
+ */
+export async function applyLockpickGetdirPromptHeroLikeC(g) {
+    const tool = heroFirstLockToolObjLikeC(g);
+    if (!tool || (tool.otyp | 0) !== OTYP_LOCK_PICK) {
+        await pline("You don't have anything to apply.");
+        delete g.context._applyPromptLikeC;
+        return;
+    }
+    delete g.context._applyPromptLikeC;
+    g.context._applyGetdirPendingLikeC = true;
+    await pline('In what direction?');
+}
+
+/**
+ * C: **`getdir`** for apply — **`tryPicklock`** on adjacent door; no hero walk.
+ * @param {import('./gstate.js').game} g
+ * @param {number} dx
+ * @param {number} dy
+ */
+export async function consumeApplyDirectionHeroLikeC(g, dx, dy) {
+    delete g.context._applyGetdirPendingLikeC;
+    await tryPicklockAdjacentDoorHeroLikeC(g, dx, dy);
+}
