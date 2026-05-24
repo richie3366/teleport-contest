@@ -703,11 +703,14 @@ export async function movemonSinglemonLikeC(g, mtmp, stepNum = 0) {
             mtmp.mux = u.ux | 0;
             mtmp.muy = u.uy | 0;
         }
-        await distfleeckMonsterApplyLikeC(g, mtmp);
         ensureMonsterMtrack(mtmp);
         const mfpWest = mfndposMonsterLikeC(g, mtmp, monAllowflagsMonsterLikeC(g, mtmp));
         if ((mfpWest.cnt | 0) > 0) {
             mtmp.mtrack[0] = { x: mfpWest.poss[0].x | 0, y: mfpWest.poss[0].y | 0 };
+        }
+        /* C: rogue second **`#search`** peel already ran west **`distfleeck`** — **`m_move`** only (~3234). */
+        if (!rogueSecondSearchFullFmonLikeC(g)) {
+            await distfleeckMonsterApplyLikeC(g, mtmp);
         }
         rn2(16);
         await distfleeckMonsterApplyLikeC(g, mtmp);
@@ -1492,8 +1495,12 @@ export async function mMoveOneMonsterSubsetLikeC(g, mtmp, stepNum = 0) {
 
     const gateMonPeek = peekRogFirstSearchDochugGateMonsterLikeC(g, mtmp);
     const gatePassN = g.context?._searchRogGateCountLikeC | 0;
-    /* C: second gate **`dochug`** on first **`#search`** — no leading **`distfleeck`** (~3213). */
-    const flee1 = gateMonPeek && gatePassN >= 1
+    const secondRogGateDochug = !!(
+        g.context?._searchSecondRogGateDochugLikeC
+        && mtmp === findFirstSearchRogMidMklevHostileLikeC(g)
+    );
+    /* C: second gate **`dochug`** (first or second **`#search`**) — no leading **`distfleeck`** (~3213 / ~3230). */
+    const flee1 = (gateMonPeek && gatePassN >= 1) || secondRogGateDochug
         ? { inrange: 1, nearby: 1, scared: 0 }
         : await distfleeckMonsterApplyLikeC(g, mtmp);
     let nearby = flee1.nearby | 0;
@@ -1504,6 +1511,8 @@ export async function mMoveOneMonsterSubsetLikeC(g, mtmp, stepNum = 0) {
         consumeRogFirstSearchDochugGateMonsterLikeC(g);
         const ctx = g.context || (g.context = {});
         ctx._searchRogGateDoneLikeC = true;
+    }
+    if (gateMonPeek || secondRogGateDochug) {
         nearby = 1;
         scared = 0;
         gateMcanseeSave = mtmp.mcansee;
@@ -1515,13 +1524,10 @@ export async function mMoveOneMonsterSubsetLikeC(g, mtmp, stepNum = 0) {
     let mmStatus = MMOVE_NOTHING;
     let enteredMmoveBlock = false;
     if (dochugEntersMmoveBlockLikeC(g, mtmp, nearby, scared, stepNum, {
-        forceRogFirstSearchGateLikeC: gateMonPeek,
+        forceRogFirstSearchGateLikeC: gateMonPeek || secondRogGateDochug,
     })) {
         enteredMmoveBlock = true;
-        if (
-            g.context?._searchSecondRogGateDochugLikeC
-            && mtmp === findFirstSearchRogMidMklevHostileLikeC(g)
-        ) {
+        if (secondRogGateDochug) {
             /* C: second **`#search`** post-pet gate — one **`m_move`** pick (**`rn2(1)`** ~3231). */
             const mfpGate = mfndposMonsterLikeC(
                 g,
@@ -1546,7 +1552,7 @@ export async function mMoveOneMonsterSubsetLikeC(g, mtmp, stepNum = 0) {
 
     if (monOffmapLikeC(mtmp)) return;
     if (enteredMmoveBlock && mmStatus !== MMOVE_DIED) {
-        const skipRecalcDistfleeckFirstSearchRogLikeC = gateMonPeek;
+        const skipRecalcDistfleeckFirstSearchRogLikeC = gateMonPeek || secondRogGateDochug;
         if (!skipRecalcDistfleeckFirstSearchRogLikeC) {
             await distfleeckMonsterApplyLikeC(g, mtmp);
         }
