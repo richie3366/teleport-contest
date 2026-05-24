@@ -3,10 +3,43 @@
 
 import { game } from './gstate.js';
 import { nhgetch } from './input.js';
-import { flush_screen, clearPendingMessageAndToplineLikeC } from './display.js';
+import { flush_screen, clearPendingMessageAndToplineLikeC, docrt } from './display.js';
 import { NO_COLOR } from './terminal.js';
 
 const MENU_COL = 21;
+const TTY_COLS = 80;
+
+/**
+ * C: wintty.c tty_end_menu — menu width drives cw->cols; offx = max(10, cols - maxcol - 1).
+ * @returns {number}
+ */
+export function tutorialMenuOffxLikeC() {
+    const hint = tutorialSkipQueryHintLineLikeC();
+    const lines = [
+        '',
+        'y - Yes, do a tutorial',
+        'n - No, just start play',
+        '',
+        hint,
+        '(end)',
+        "(Please choose 'y' or 'n'.)",
+    ];
+    let maxcol = 0;
+    for (const s of lines) maxcol = Math.max(maxcol, s.length + 2);
+    return Math.max(10, TTY_COLS - maxcol - 1);
+}
+
+/**
+ * C: wintty.c process_menu_window — rows that get cl_end() when cw->offx > 0.
+ * @param {number} pass
+ * @returns {readonly number[]}
+ */
+export function tutorialMenuBlankRowsLikeC(pass) {
+    /* C: process_menu_window page_lines — not row 0 (toplin prompt) or status rows. */
+    const rows = [2, 3, 4, 5, 6];
+    if ((pass | 0) > 0) rows.push(17);
+    return rows;
+}
 
 /**
  * C: options.c config-file hint (tty **`seed0077`** records **`.nethackrc`** basename).
@@ -54,6 +87,7 @@ export async function askDoTutorialMenuTTYLikeC(disp) {
             g._tutorialMenuActive = false;
             delete g._tutorialMenuPass;
             clearPendingMessageAndToplineLikeC();
+            await docrt();
             return true;
         }
         if (k === 110 || k === 78) break;
@@ -61,5 +95,6 @@ export async function askDoTutorialMenuTTYLikeC(disp) {
     g._tutorialMenuActive = false;
     delete g._tutorialMenuPass;
     clearPendingMessageAndToplineLikeC();
+    await docrt();
     return false;
 }

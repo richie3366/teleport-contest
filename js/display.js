@@ -13,12 +13,13 @@ import {
     NH5_FOOD_CLASS, NH5_WAND_CLASS, NH5_RING_CLASS, NH5_AMULET_CLASS,
     NH5_SPBOOK_CLASS, NH5_BALL_CLASS, NH5_CHAIN_CLASS,
 } from './nh5_objclass.js';
+import { wallAngleCmapLikeC } from './wall_angle.js';
 import {
     COLNO, ROWNO, isok, STONE, ROOM, CORR, DOOR, STAIRS, LADDER,
-    HWALL, VWALL, TLCORNER, TRCORNER, BLCORNER, BRCORNER,
-    CROSSWALL, TUWALL, TDWALL, TLWALL, TRWALL,
+    HWALL, VWALL, SDOOR, TLCORNER, TRCORNER, BLCORNER, BRCORNER,
+    CROSSWALL, TUWALL, TDWALL, TLWALL, TRWALL, decgraphics,
     D_NODOOR, D_ISOPEN, D_CLOSED, D_LOCKED,
-    SDOOR, SCORR, IRONBARS, TREE, POOL, MOAT, WATER, ICE,
+    SCORR, IRONBARS, TREE, POOL, MOAT, WATER, ICE,
     FOUNTAIN, SINK, ALTAR, GRAVE, THRONE, LAVAPOOL, LAVAWALL,
     Is_rogue_level, OTYP_BOULDER, OTYP_HEAVY_IRON_BALL, OTYP_IRON_CHAIN,
     ARROW_TRAP, DART_TRAP, ROCKTRAP, SQKY_BOARD, BEAR_TRAP, LANDMINE,
@@ -41,7 +42,11 @@ import {
 import { paintInventoryIntoDisplay, paintInventoryOverlayLikeC } from './invent.js';
 import { paintOverlayScreen } from './overlay_screens.js';
 import { paintLegacyIntroIntoDisplay } from './legacy_intro_paint.js';
-import { paintTutorialMenuOverlayLikeC } from './tutorial_prompt.js';
+import {
+    paintTutorialMenuOverlayLikeC,
+    tutorialMenuOffxLikeC,
+    tutorialMenuBlankRowsLikeC,
+} from './tutorial_prompt.js';
 
 // C ref: win/tty/topl.c — `update_topl` same-line append (`n0 + strlen(gt.toplines) + 3 < CO - 8`).
 const DEFMORE_LEN = 8;
@@ -237,6 +242,31 @@ function paintCellGlyph(x, y, loc, gl, show) {
     rememberCellGlyph(loc, gl);
 }
 
+/** C: cmap_to_glyph / defsym PCHAR — DEC wall indices 1..11, S_stone → blank. */
+function cmapIdxToTerrainGlyph(cmapIdx) {
+    const idx = cmapIdx | 0;
+    if (idx === 0) return { ch: ' ', color: NO_COLOR, dec: false };
+    const decCh = decgraphics[idx - 1];
+    if (decCh) return { ch: decCh, color: NO_COLOR, dec: true };
+    return { ch: '?', color: NO_COLOR, dec: false };
+}
+
+/** C: back_to_glyph — `ptr->seenv ? wall_angle(ptr) : S_stone` for wall cells. */
+function wallTerrainGlyphLikeC(loc) {
+    const cmap = loc.seenv ? wallAngleCmapLikeC(loc) : 0;
+    return cmapIdxToTerrainGlyph(cmap);
+}
+
+/** C: wintty.c process_menu_window — `cl_end()` from menu offx through EOL. */
+function blankTutorialMenuTailOnDisplay(disp) {
+    const offx = tutorialMenuOffxLikeC();
+    for (const row of tutorialMenuBlankRowsLikeC(game._tutorialMenuPass | 0)) {
+        for (let c = offx; c < COLNO - 1; c++) {
+            disp.setCell(c, row, ' ', NO_COLOR, 0);
+        }
+    }
+}
+
 // ── Terrain to display character + color + DEC flag ──
 // C ref: display.c back_to_glyph / map_glyphinfo (simplified).
 export function mapTerrainGlyph(loc, x, y) {
@@ -258,23 +288,19 @@ export function mapTerrainGlyph(loc, x, y) {
         if (game.level?.upstair?.x === x && game.level?.upstair?.y === y)
             return { ch: '<', color: CLR_YELLOW, dec: false };
         return { ch: '>', color: CLR_YELLOW, dec: false };
-    // Wall types → DEC line-drawing characters
-    case HWALL:     return { ch: 'q', color: NO_COLOR, dec: true };  // ─
-    case VWALL:     return { ch: 'x', color: NO_COLOR, dec: true };  // │
-    case TLCORNER:  return { ch: 'l', color: NO_COLOR, dec: true };  // ┌
-    case TRCORNER:  return { ch: 'k', color: NO_COLOR, dec: true };  // ┐
-    case BLCORNER:  return { ch: 'm', color: NO_COLOR, dec: true };  // └
-    case BRCORNER:  return { ch: 'j', color: NO_COLOR, dec: true };  // ┘
-    case CROSSWALL: return { ch: 'n', color: NO_COLOR, dec: true };  // ┼
-    case TUWALL:    return { ch: 'v', color: NO_COLOR, dec: true };  // ┴
-    case TDWALL:    return { ch: 'w', color: NO_COLOR, dec: true };  // ┬
-    case TLWALL:    return { ch: 'u', color: NO_COLOR, dec: true };  // ┤
-    case TRWALL:    return { ch: 't', color: NO_COLOR, dec: true };  // ├
+    case HWALL:
+    case VWALL:
+    case TLCORNER:
+    case TRCORNER:
+    case BLCORNER:
+    case BRCORNER:
+    case CROSSWALL:
+    case TUWALL:
+    case TDWALL:
+    case TLWALL:
+    case TRWALL:
     case SDOOR:
-        // C: looks like a wall until found — use same DEC glyphs as HWALL/VWALL
-        return loc.horizontal
-            ? { ch: 'q', color: NO_COLOR, dec: true }
-            : { ch: 'x', color: NO_COLOR, dec: true };
+        return wallTerrainGlyphLikeC(loc);
     case SCORR:
         return { ch: '#', color: NO_COLOR, dec: false };
     case IRONBARS:
@@ -639,11 +665,6 @@ function _buildScreenOutput() {
     }
 
     if (game._tutorialMenuActive) {
-        let output = formatPendingMessageLineLikeC() + '\n';
-        for (let y = 0; y < ROWNO; y++) output += render_map_row(y) + '\n';
-        output += _statusLine1() + '\n';
-        output += _statusLine2();
-        game._screen_output = output;
         if (display.grid) {
             display.clearScreen();
             const msg = formatPendingMessageLineLikeC();
@@ -657,6 +678,7 @@ function _buildScreenOutput() {
                     display.setCell(x - 1, y + 1, ch, loc.disp_color ?? NO_COLOR, loc.disp_attr ?? 0);
                 }
             }
+            blankTutorialMenuTailOnDisplay(display);
             paintTutorialMenuOverlayLikeC(display, game._tutorialMenuPass | 0);
             const s1 = _statusLine1().replace(/\x1b\[[0-9;]*[A-Za-z]/g, (m) =>
                 (m.match(/\x1b\[\d+C/) ? ' '.repeat(parseInt(m.slice(2), 10)) : ''));
@@ -666,6 +688,9 @@ function _buildScreenOutput() {
             for (let c = 0; c < Math.min(s2.length, display.cols); c++)
                 display.setCell(c, 23, s2[c], NO_COLOR, 0);
             syncTtyCursorForJudgeLikeC(display);
+            game._screen_output = display.terminal?.serialize
+                ? display.terminal.serialize()
+                : '';
         }
         return;
     }
