@@ -53,7 +53,10 @@ export async function nhgetch() {
 
     if (_inputQueue.length > 0) {
         if (_replayPos < _replayMoves.length) _replayPos++;
-        return _inputQueue.shift();
+        const key = _inputQueue.shift();
+        /* C: tty_nhgetch — topline seen; drop NEED_MORE / --More-- before next frame. */
+        if (game._toplineNeedMore) game._toplineNeedMore = false;
+        return key;
     }
 
     // Browser mode: wait for keypress from the display

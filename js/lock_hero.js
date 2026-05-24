@@ -85,6 +85,7 @@ export async function doopenIndirHeroLikeC(g, x, y) {
     const threshold = Math.trunc((acurr(A_STR) + acurr(A_DEX) + acurr(A_CON)) / 3);
     if (rnl(20) < threshold) {
         await pline('The door opens.');
+        g._retainMessageAfterCommand = true;
         if (dm0 & D_TRAPPED) {
             await bTrappedDoorFootLikeC(g);
             loc.doormask = D_NODOOR;
@@ -421,6 +422,7 @@ export async function startApplyPromptHeroLikeC(g) {
     g.context = g.context || {};
     g.context._applyPromptLikeC = true;
     await pline('What do you want to use or apply? [ef or ?*]');
+    g._retainMessageAfterCommand = true;
 }
 
 /**
@@ -445,6 +447,7 @@ export async function applyLockpickGetdirPromptHeroLikeC(g) {
     delete g.context._applyPromptLikeC;
     g.context._applyGetdirPendingLikeC = true;
     await pline('In what direction?');
+    g._retainMessageAfterCommand = true;
 }
 
 /**

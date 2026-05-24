@@ -18,11 +18,11 @@ Thin handoff for the next coding session. **Score + milestones:** [`c-to-js-port
 
 **Deferred for now:** **`maybe_do_tutorial`** / **`tut-1`** / full **`do.c`** **`goto_level`** (Lua **`tutorial()`** / **`free_tutorial()`**, **`savelev`**, **`gmst_*`**, …) and **`dokick`**/**`dothrow`** vs **`leaving_tutorial`** — strong upstream dependencies (save, specials, fuller **`do.c`**); treat as backlog until chargen / core early-game parity is further along; **`LIVELOGFILE`** parity if the judge ever compares livelog lines.
 
-**Last slice:** **Second `#search` lone-gate peel + west `m_move` (~3232–3241).** **`monmove.js`**: when no mklev peel tail, **`distfleeck`** gate once before gate-tail; west subpass uses **`rogGate`** when no west-kink fungus. **`m_move_mon.js`**: gate **`distfleeck`** skipped during west/east subpass; west **`rn2(16)`** on gate; one post-**`m_move`** **`distfleeck`** when **`rogueSecondSearchFullFmonLikeC`**. **`seed0077`:** **RNG 3242/3242** (full stream); **screens 12/33** (cursor/display drift). **`seed8000`:** **PASS**. **`npm run score`:** **1/44**.
+**Last slice:** **TTY topline / `#inventory` / `dolook` (screens).** **`display.js`**: **`_retainMessageAfterCommand`** on search/apply/door; **`#inventory`** overlay at col **28** (Weapons header, rogue pick-invent lines); tutorial menu col **21** + welcome **`--More--`** dismiss; **`syncTtyCursorForJudgeLikeC`** for invent/tutorial. **`decor.js`**: **`stairs_description`** D:1 up “out of the dungeon”. **`dogmove_mon.js`**: **`The kitten picks up`** pline. **`mklev.js`**: branch up-stair **`u_traversed`**. **`seed0077`:** **RNG 3242/3242**; **screens 12/33** (**28/33** cursors). **`seed8000`:** **20/23** screens (was **23/23** — revisit **`--More--`** / query cursor). **`npm run score`:** **1/44**.
 
 ## Next steps
 
-1. **`seed0077` screens** — RNG complete; fix **24×80** / cursor mismatch (**12/33** screens, **26/33** cursors) after second **`#search`** west/east gate **`m_move`** (display / **`dolook`** / pet position), not moveloop RNG order.
+1. **`seed0077` screens** — RNG complete; fix remaining **24×80** cell drift (**12/33** screens, **28/33** cursors): map glyphs after second **`#search`**, welcome **`--More--`** on step **12**, full **`display_pickinv`** / **`newsym`** parity.
 
 2. **`mklev` lregions** — wire **`game.dndest`/`updest`** when **`place_lregions`** ported.
 

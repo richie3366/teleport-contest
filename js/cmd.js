@@ -212,6 +212,7 @@ export async function rhack(key) {
             }
         }
         await dosearch();
+        game._retainMessageAfterCommand = true;
         /* C: **`#search`** costs time — inline **`movemon`** + new-turn tail on the **`s`** step. */
         game.context._searchInlinePostDoneLikeC = true;
         await runPostCommandTurnAdvanceLikeC(game);
@@ -234,9 +235,18 @@ export async function rhack(key) {
             delete game.context._searchInlinePostDoneLikeC;
         }
     } else if (ch === 'i') {
-        // C: cmd.c #inventory — minimal full-screen list (invent.c)
+        // C: cmd.c #inventory — display_pickinv overlay (map stays visible)
         game.context.move = 0;
+        if (game._inventoryMode) {
+            game._inventoryMode = false;
+            delete game._invSelCat;
+            clearPendingMessageAndToplineLikeC();
+            await docrt();
+            await flush_screen(1);
+            return;
+        }
         game._inventoryMode = true;
+        game._invSelCat = 'Weapons';
         await flush_screen(1);
     } else if (ch === '+') {
         // C: spell menu — no spells known yet

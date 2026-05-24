@@ -157,7 +157,15 @@ TRAP_ENGRAVINGS[LEVEL_TELEP] = 'ad aerarium';
 
 // is_pit / is_hole from const.js (trap.h)
 function stairway_add(x, y, up, isladder, dest) {
-    const node = { sx: x, sy: y, up, isladder, tolev: { ...dest }, next: game.stairs };
+    const node = {
+        sx: x,
+        sy: y,
+        up,
+        isladder,
+        tolev: { ...dest },
+        u_traversed: false,
+        next: game.stairs,
+    };
     game.stairs = node;
 }
 
@@ -618,7 +626,16 @@ async function makelevel() {
 
     // C: mklev.c skip0 — place_branch then fill ordinary rooms
     if (branchp) {
+        const prevStairs = g.stairs;
         place_branch(branchp);
+        if (
+            (g.u?.uz?.dnum | 0) === 0
+            && (g.u?.uz?.dlevel | 0) === 1
+            && g.stairs !== prevStairs
+            && g.stairs
+        ) {
+            g.stairs.u_traversed = true;
+        }
     }
 
     /* C: mklev.c makelevel tail — fill ordinary rooms (gi.in_mklev). */

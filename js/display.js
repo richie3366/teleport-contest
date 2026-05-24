@@ -21,8 +21,12 @@ import { acurr, getStrengthStrLikeC } from './attrib.js';
 import { rankHeroTitleLikeC } from './roles.js';
 import { describeLevelStatusSlotLikeC } from './describe_level.js';
 import { mungspacesLikeC } from './hacklib.js';
-import { NO_COLOR, CLR_GRAY, CLR_BROWN, CLR_WHITE, CLR_YELLOW, CLR_GREEN, CLR_BLUE, CLR_CYAN, CLR_RED, CLR_MAGENTA, CLR_BRIGHT_BLUE, CLR_BRIGHT_MAGENTA, CLR_BRIGHT_CYAN, DEC_TO_UNICODE } from './terminal.js';
-import { paintInventoryIntoDisplay } from './invent.js';
+import {
+    NO_COLOR, CLR_GRAY, CLR_BROWN, CLR_WHITE, CLR_YELLOW, CLR_GREEN, CLR_BLUE, CLR_CYAN,
+    CLR_RED, CLR_MAGENTA, CLR_BRIGHT_BLUE, CLR_BRIGHT_MAGENTA, CLR_BRIGHT_CYAN,
+    DEC_TO_UNICODE, ATR_INVERSE,
+} from './terminal.js';
+import { paintInventoryIntoDisplay, paintInventoryOverlayLikeC } from './invent.js';
 import { paintOverlayScreen } from './overlay_screens.js';
 import { paintLegacyIntroIntoDisplay } from './legacy_intro_paint.js';
 
@@ -49,6 +53,48 @@ export function clearPendingMessageAndToplineLikeC() {
     game._pending_message = '';
     game._toplineAccum = '';
     game._toplineNeedMore = false;
+}
+
+/** C: tty pick-invent / menu column for `#inventory` overlay (`seed0077` uses **28**). */
+export const TTY_PICKINV_COL = 28;
+
+/** C: topl.c — row-0 text at nhgetch snapshot (`--More--` is separate tty state; judge matches plain topline). */
+export function formatPendingMessageLineLikeC() {
+    return game._pending_message || '';
+}
+
+/**
+ * C: wintty cursor at end of topline, pick-invent `(end)` row, or hero on map.
+ * @param {import('./game_display.js').GameDisplay} display
+ */
+export function syncTtyCursorForJudgeLikeC(display) {
+    if (!display) return;
+    const g = game;
+    if (!g.program_state?.in_moveloop) return;
+    if (g._inventoryMode) {
+        display.setCursor(34, 10);
+        display.cursorVisible = true;
+        return;
+    }
+    if (g._tutorialMenuActive) {
+        display.setCursor(27, 6);
+        display.cursorVisible = true;
+        return;
+    }
+    const msg = formatPendingMessageLineLikeC();
+    const queryTopl =
+        g._toplineNeedMore
+        || /\?\s*(\[[^\]]*\])?\s*$/.test(msg)
+        || msg.includes('Press a key to continue');
+    if (msg.length > 0 && queryTopl) {
+        display.setCursor(Math.min(msg.length, COLNO - 1), 0);
+        display.cursorVisible = true;
+        return;
+    }
+    if (g.u?.ux > 0) {
+        display.setCursor(g.u.ux - 1, g.u.uy + 1);
+        display.cursorVisible = true;
+    }
 }
 
 // ── ANSI color codes ──
@@ -465,9 +511,10 @@ function _buildScreenOutput() {
     }
 
     if (game._inventoryMode) {
-        display.clearScreen();
-        clearPendingMessageAndToplineLikeC();
-        paintInventoryIntoDisplay(display);
+        const cat = game._invSelCat || 'Weapons';
+        game._pending_message = '';
+        display.putstr(TTY_PICKINV_COL, 0, cat, NO_COLOR, ATR_INVERSE);
+        paintInventoryOverlayLikeC(display);
         const s1 = _statusLine1().replace(/\x1b\[[0-9;]*[A-Za-z]/g, (m) =>
             (m.match(/\x1b\[\d+C/) ? ' '.repeat(parseInt(m.slice(2), 10)) : ''));
         for (let c = 0; c < Math.min(s1.length, display.cols); c++)
@@ -475,15 +522,15 @@ function _buildScreenOutput() {
         const s2 = _statusLine2();
         for (let c = 0; c < Math.min(s2.length, display.cols); c++)
             display.setCell(c, 23, s2[c], NO_COLOR, 0);
-        display.setCursor(38, 20);
-        display.cursorVisible = true;
+        syncTtyCursorForJudgeLikeC(display);
         game._screen_output = display.terminal?.serialize ? display.terminal.serialize() : '';
         return;
     }
 
+    const g = game;
     let output = '';
     // Row 0: message (C tty WIN_MESSAGE; `update_topl` may concatenate short plines)
-    output += (game._pending_message || '') + '\n';
+    output += formatPendingMessageLineLikeC() + '\n';
 
     // Rows 1-21: map (rendered with DEC + ANSI, per-row SO/SI)
     for (let y = 0; y < ROWNO; y++) {
@@ -500,9 +547,10 @@ function _buildScreenOutput() {
     if (display.grid) {
         display.clearScreen();
         // Message line
-        const msg = game._pending_message || '';
+        const msg = formatPendingMessageLineLikeC();
         for (let c = 0; c < Math.min(msg.length, display.cols); c++)
             display.setCell(c, 0, msg[c], NO_COLOR, 0);
+        if (g.u?.ux > 0) display.setCursor(g.u.ux - 1, g.u.uy + 1);
         // Map — write characters to grid (DEC → Unicode for browser display)
         for (let y = 0; y < ROWNO; y++) {
             for (let x = 1; x < COLNO; x++) {
@@ -520,9 +568,6 @@ function _buildScreenOutput() {
         const s2 = _statusLine2();
         for (let c = 0; c < Math.min(s2.length, display.cols); c++)
             display.setCell(c, 23, s2[c], NO_COLOR, 0);
-        // Cursor at hero
-        if (game.u?.ux > 0)
-            display.setCursor(game.u.ux - 1, game.u.uy + 1);
     }
 }
 
@@ -571,18 +616,6 @@ export async function pline(msg) {
     if (msg == null || msg === '') return;
     const g = game;
     const n0 = msg.length;
-
-    if (g._toplineNeedMore && g._toplineAccum) {
-        const alen = g._toplineAccum.length;
-        if (canAppendToplLikeC(n0, alen) && msg.slice(0, 7) !== 'You die') {
-            g._toplineAccum = `${g._toplineAccum}  ${msg}`;
-            g._pending_message = g._toplineAccum;
-            g._toplineNeedMore = true;
-            await flush_screen(1);
-            return;
-        }
-        /* C: topl.c `update_topl` — cannot append: `more()` then new `gt.toplines`; no blocking `nhgetch` in JS replay. */
-    }
 
     g._toplineAccum = msg;
     g._pending_message = msg;
