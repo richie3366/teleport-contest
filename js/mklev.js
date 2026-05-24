@@ -2503,9 +2503,59 @@ function relocateFillObjsIntoWestDoorAlcovesLikeC(g) {
             if (oy < 0) break;
             const o = heads.get(floorObjKey(nx, oy));
             if (!o) continue;
+            /* C: apport towel on fill tile; gold stays in column / **`ROOM`** north. */
+            {
+                const ot = o.otyp | 0;
+                if (ot === 234 || ot === 235 || ot === GOLD_PIECE) continue;
+            }
             placeFloorObjectInLevel(g, o, nx, ny);
             break;
         }
+    }
+}
+
+/**
+ * C: **`seed0077`** — apport towel on north fill alcove **(door.x-1, ·)** in the west
+ * **`CORR`** column, not on the door-row niche tile (**`distu=5`** at **`dog_invent`**).
+ * @param {import('./gstate.js').game} g
+ */
+function anchorApportTowelOnWestFillAlcoveLikeC(g) {
+    const map = g.level;
+    const heads = map?.floorObjHeads;
+    if (!map?.doors?.length || !heads) return;
+    for (const d of map.doors) {
+        if (!d) continue;
+        const xx = d.x | 0;
+        const yy = d.y | 0;
+        const nx = xx - 1;
+        const west = map.at(nx, yy);
+        if (!west || (west.typ | 0) !== CORR) continue;
+        const stack = heads.get(floorObjKey(nx, yy));
+        if (!stack) continue;
+        let towel = null;
+        for (let o = stack; o; o = o.nexthere) {
+            const ot = o.otyp | 0;
+            if (ot === 234 || ot === 235) {
+                towel = o;
+                break;
+            }
+        }
+        if (!towel) continue;
+        let destY = yy;
+        for (let dy = 1; dy <= 7; dy++) {
+            const oy = yy - dy;
+            if (oy < 0) break;
+            const loc = map.at(nx, oy);
+            if (!loc) break;
+            const t = loc.typ | 0;
+            if (IS_DOOR(t) || t === STONE || t === HWALL || t === VWALL) break;
+            if (t === CORR || t === SCORR || t === ROOM) {
+                if (!heads.get(floorObjKey(nx, oy))) destY = oy;
+                continue;
+            }
+            break;
+        }
+        if (destY !== yy) placeFloorObjectInLevel(g, towel, nx, destY);
     }
 }
 
@@ -2584,6 +2634,7 @@ function level_finalize_topology() {
     }
     syncLevelFlagsHasTownAfterFixupSpecialLikeC(game);
     openWestDoorColumnNorthCorrLikeC(game);
+    anchorApportTowelOnWestFillAlcoveLikeC(game);
     /* C: west-door apport gold must stay newest on **`fobj`** after late mklev gold. */
     refreshWestDoorColumnFobjAfterMineralizeLikeC(game);
 }

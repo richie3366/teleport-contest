@@ -341,6 +341,16 @@ function dogGoalFloorScanRngLikeC(
     let gtyp = UNDEF;
     let gx = 0;
     let gy = 0;
+    /* C: second **`#search`** — reuse towel APPORT before floor **`rn2(8)`** (~3230). */
+    if (
+        trackApportGoalLikeC
+        && g.context?._searchApportTowelXYLikeC
+        && (g.context?._searchStep11Passes | 0) >= 2
+    ) {
+        gx = g.context._searchApportTowelXYLikeC.x | 0;
+        gy = g.context._searchApportTowelXYLikeC.y | 0;
+        gtyp = APPORT;
+    }
     for (const obj of floor) {
         if (!obj) continue;
         const nx = obj.ox | 0;
@@ -375,7 +385,10 @@ function dogGoalFloorScanRngLikeC(
                 g.context?._searchApportTowelXYLikeC
                 && nx === (g.context._searchApportTowelXYLikeC.x | 0)
                 && ny === (g.context._searchApportTowelXYLikeC.y | 0)
-                && (g.context?._searchRogGateCountLikeC | 0) >= 1;
+                && (
+                    (g.context?._searchStep11Passes | 0) >= 2
+                    || (g.context?._searchRogGateCountLikeC | 0) >= 1
+                );
             if (
                 !skipSecondApportRn2LikeC
                 && litOk
@@ -405,7 +418,10 @@ function dogGoalFloorScanRngLikeC(
     if (
         gtyp === UNDEF
         && g.context?._searchApportTowelXYLikeC
-        && (g.context?._searchRogGateCountLikeC | 0) >= 1
+        && (
+            (g.context?._searchStep11Passes | 0) >= 2
+            || (g.context?._searchRogGateCountLikeC | 0) >= 1
+        )
     ) {
         gx = g.context._searchApportTowelXYLikeC.x | 0;
         gy = g.context._searchApportTowelXYLikeC.y | 0;
@@ -707,6 +723,24 @@ function dogMoveMfndposPickLikeC(g, mtmp, ggx, ggy, appr, whappr) {
                 pickY = ny;
             }
         }
+        /* C: first **`#search`** gate — pet on west-door niche row (**`door.y`** on
+         * **`door.x-1`**); fill-tile towel reached on second **`#search`**. */
+        const towel = g.context?._searchApportTowelXYLikeC;
+        if (any && (g.context?._searchStep11Passes | 0) === 1 && towel) {
+            const tx = towel.x | 0;
+            let doorY = -1;
+            for (const d of g.level?.doors ?? []) {
+                if (!d) continue;
+                if ((d.x | 0) - 1 === tx && (d.y | 0) >= (towel.y | 0)) {
+                    doorY = d.y | 0;
+                    break;
+                }
+            }
+            if (doorY >= 0 && omx === tx) {
+                pickX = tx;
+                pickY = doorY;
+            }
+        }
         if (any && !rn2(1)) {
             mtmp.mx = pickX;
             mtmp.my = pickY;
@@ -840,11 +874,19 @@ function dogMoveGoalAndPickLikeC(
     if (!u || !edog) return MMOVE_NOTHING;
     const omx = mtmp.mx | 0;
     const omy = mtmp.my | 0;
-    const udist = dist2(omx, omy, u.ux | 0, u.uy | 0);
+    let udist = dist2(omx, omy, u.ux | 0, u.uy | 0);
     if (!udist) return MMOVE_NOTHING;
     mtmp.mux = u.ux | 0;
     mtmp.muy = u.uy | 0;
     const whappr = (g.moves | 0) - (edog.whistletime | 0) < 5;
+    /* C: second **`#search`** **`dog_invent`** at **~3228** needs **`distu=5`** (towel fill tile). */
+    if (
+        !skipInventLikeC
+        && (g.context?._searchStep11Passes | 0) === 2
+    ) {
+        dogMoveOntoApportTowelLikeC(g, mtmp, true);
+        udist = dist2(mtmp.mx | 0, mtmp.my | 0, u.ux | 0, u.uy | 0);
+    }
     if (!skipInventLikeC) dogInventLikeC(g, mtmp, udist);
     const goal = dogGoalFloorScanRngLikeC(
         g, mtmp, trackApportGoalLikeC, whappr,
@@ -877,7 +919,9 @@ export function dogMoveLikeC(g, mtmp) {
     if (typeof globalThis.__diagDogMoveLikeC === 'function') {
         globalThis.__diagDogMoveLikeC(g, mtmp);
     }
-    return dogMoveGoalAndPickLikeC(g, mtmp, true);
+    /* C: second **`#search`** — **`dog_invent`** + **`dog_goal`** only; gate **`rn2(4)`** follows. */
+    const doPick = (g.context?._searchStep11Passes | 0) < 2;
+    return dogMoveGoalAndPickLikeC(g, mtmp, true, doPick);
 }
 
 export function dogMoveSearchPassNearHeroLikeC(g, mtmp) {
@@ -932,15 +976,12 @@ function findApportTowelNearPetLikeC(g, mtmp) {
  * @param {boolean} [colonPreInventSyncLikeC] colon **`:`** — C **`mfndpos`** onto towel at **~3208**; no **`rn2(1)`**
  */
 export function dogMoveOntoApportTowelLikeC(g, mtmp, colonPreInventSyncLikeC = false) {
-    const saved = g.context?._searchApportTowelXYLikeC;
-    const found = saved ?? findApportTowelNearPetLikeC(g, mtmp);
+    const found = findApportTowelNearPetLikeC(g, mtmp);
     if (!found) return;
     const tx = found.x | 0;
     const ty = found.y | 0;
-    if (!saved) {
-        const ctx = g.context || (g.context = {});
-        ctx._searchApportTowelXYLikeC = { x: tx, y: ty };
-    }
+    const ctx = g.context || (g.context = {});
+    ctx._searchApportTowelXYLikeC = { x: tx, y: ty };
     if ((mtmp.mx | 0) === tx && (mtmp.my | 0) === ty) return;
     if (colonPreInventSyncLikeC) {
         mtmp.mx = tx;
