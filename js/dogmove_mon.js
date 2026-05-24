@@ -619,6 +619,9 @@ function dogMoveMfndposPickLikeC(g, mtmp, ggx, ggy, appr, whappr) {
     }
 
     if (appr === 0) {
+        if (typeof globalThis.__diagApprZeroPickStart === 'function') {
+            globalThis.__diagApprZeroPickStart(g, mtmp, ggx, ggy, appr);
+        }
         /* C: **`appr==0`** — tied **`mfndpos`** slots use **`chcnt`** / **`rn2(chcnt)`**; JS uses
          * closest-to-goal + **`rn2(1)`** until **`mfndpos`** slot parity matches C at ~3208. */
         let minNd = Infinity;

@@ -18,15 +18,15 @@ Thin handoff for the next coding session. **Score + milestones:** [`c-to-js-port
 
 **Deferred for now:** **`maybe_do_tutorial`** / **`tut-1`** / full **`do.c`** **`goto_level`** (Lua **`tutorial()`** / **`free_tutorial()`**, **`savelev`**, **`gmst_*`**, …) and **`dokick`**/**`dothrow`** vs **`leaving_tutorial`** — strong upstream dependencies (save, specials, fuller **`do.c`**); treat as backlog until chargen / core early-game parity is further along; **`LIVELOGFILE`** parity if the judge ever compares livelog lines.
 
-**Last slice:** **`seed0077`** — defer new-turn on second **`s`** when **`:`** follows (**`_deferredNewTurnTwinSearchColonLikeC`**); colon gate **`rn2(5)`** at **3219** (was **`rn2(12)`** from early **`mcalcmove`** tail). **`moveloop_turn_advance.js`**, **`cmd.js`**, **`monmove_search.js`**. **`seed0077`:** **3229/3242** (`npm run score`; first miss **3229**). **`tools/diag_pet_pos_at_colon.mjs`**.
+**Last slice:** Session step map — second **`s`** **3219–3235** (17 draws); colon **`:`** **0 RNG** (look only). **`tools/diag_rng_step_map.mjs`**. **`seed0077`:** **3228/3242** (first miss **`dog_invent`** **`rn2(udist)`** — C **`rn2(5)=2`** at **3228** implies **`distu=5`**; JS **`rn2(2)=0`**). Naive **`chcnt`** **`appr==0`** pick regressed **~3209**.
 
 ## Next steps
 
-1. **`seed0077` ~3229** — next colon/moveloop RNG after **`dog_invent`** peel; use **`tools/diag_pet_pos_at_colon.mjs`**, **`tools/diag_mfndpos_3208.mjs`** if **`udist`** still involved.
+1. **`seed0077` ~3228** — align pet tile before second-search **`dog_invent`** (**`distu=5`** not **`dist2=2`**); **`tools/diag_mfndpos_3208.mjs`** + **`mfndpos`** slot/`chcnt` parity at **~3208** (do not drop minNd shortcut without C **`mfndpos`** order).
 
-2. **`mklev` lregions** — wire **`game.dndest`/`updest`** from **`mkmaze.c`** **`LR_*TELE`** when **`place_lregions`** is ported (hero **`u_on_rndspot`** bounds).
+2. **`seed0077` ~3229+** — west **`distfleeck`** peel on second **`s`** (not colon); defer-colon **`fmon`** break stays until **3228** fixed.
 
-3. **Chargen + `u_init_role` RNG** — when moveloop peel is aligned.
+3. **`mklev` lregions** — wire **`game.dndest`/`updest`** when **`place_lregions`** ported.
 
 ### Extended backlog (unchanged lanes)
 
