@@ -15,6 +15,7 @@ import {
 } from './mkobj_mklev_like_c.js';
 import {
     NH5_WEAPON_CLASS,
+    NH5_COIN_CLASS,
     NH5_TOOL_CLASS,
     NH5_GEM_CLASS,
     NH5_POTION_CLASS,
@@ -266,6 +267,7 @@ function nh5OclassForOtyp(otyp) {
     if (t >= OTYP_ARROW && t <= 24) return NH5_WEAPON_CLASS;
     if (t === OTYP_DART) return NH5_WEAPON_CLASS;
     if (t === OTYP_GEM_ROCK) return NH5_GEM_CLASS;
+    if (t === GOLD_PIECE) return NH5_COIN_CLASS;
     if (t === OTYP_TALLOW_CANDLE || t === OTYP_WAX_CANDLE) return NH5_TOOL_CLASS;
     if (t === 234 || t === 235) return NH5_TOOL_CLASS;
     if (t >= 297 && t <= 322) return NH5_POTION_CLASS;
@@ -285,6 +287,7 @@ function mksobj(otyp, init, artif) {
     if (init) {
         const oclass = nh5OclassForOtyp(otyp);
         if (oclass) {
+            otmp.oclass = oclass;
             mksobjInitMklevLikeC(otyp, oclass, artif, otmp);
             /* C: mksobj_init() always ends with mkobj_erosions (mktrap_victim ammo, …). */
             mkobjErosionsMklevLikeC(otyp, oclass);

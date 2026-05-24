@@ -21,7 +21,7 @@ import {
     D_NODOOR, D_ISOPEN, D_CLOSED, D_LOCKED,
     SCORR, IRONBARS, TREE, POOL, MOAT, WATER, ICE,
     FOUNTAIN, SINK, ALTAR, GRAVE, THRONE, LAVAPOOL, LAVAWALL,
-    Is_rogue_level, OTYP_BOULDER, OTYP_HEAVY_IRON_BALL, OTYP_IRON_CHAIN,
+    Is_rogue_level, OTYP_BOULDER, OTYP_GOLD_PIECE, OTYP_HEAVY_IRON_BALL, OTYP_IRON_CHAIN,
     ARROW_TRAP, DART_TRAP, ROCKTRAP, SQKY_BOARD, BEAR_TRAP, LANDMINE,
     ROLLING_BOULDER_TRAP, SLP_GAS_TRAP, RUST_TRAP, FIRE_TRAP,
     PIT, SPIKED_PIT, HOLE, TRAPDOOR, TELEP_TRAP, LEVEL_TELEP,
@@ -188,6 +188,11 @@ function vobjAtLikeC(x, y) {
 function mapObjectGlyphLikeC(obj) {
     if (!obj) return { ch: ')', color: CLR_WHITE, dec: false };
     const ot = obj.otyp | 0;
+    /* C: display.c obj_to_glyph — objects[otyp].oc_class → SYM_OFF_O ($ for COIN_CLASS). */
+    if (ot === OTYP_GOLD_PIECE) {
+        const rogue = Is_rogue_level(game.u?.uz);
+        return { ch: '$', color: rogue ? CLR_YELLOW : CLR_WHITE, dec: false };
+    }
     if (ot === OTYP_BOULDER) return { ch: '`', color: CLR_WHITE, dec: false };
     if (ot === OBJ_ROCK) return { ch: '*', color: CLR_WHITE, dec: false };
     if (ot === OTYP_HEAVY_IRON_BALL || ot === OTYP_IRON_CHAIN) return { ch: '*', color: CLR_WHITE, dec: false };
