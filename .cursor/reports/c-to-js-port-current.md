@@ -18,11 +18,11 @@ Thin handoff for the next coding session. **Score + milestones:** [`c-to-js-port
 
 **Deferred for now:** **`maybe_do_tutorial`** / **`tut-1`** / full **`do.c`** **`goto_level`** (Lua **`tutorial()`** / **`free_tutorial()`**, **`savelev`**, **`gmst_*`**, …) and **`dokick`**/**`dothrow`** vs **`leaving_tutorial`** — strong upstream dependencies (save, specials, fuller **`do.c`**); treat as backlog until chargen / core early-game parity is further along; **`LIVELOGFILE`** parity if the judge ever compares livelog lines.
 
-**Last slice:** **`hack.c` domove autoopen topline.** **`cmd.js`**: after **`doopen_indir`** success, do not **`clearPendingMessageAndToplineLikeC`** when **`_retainMessageAfterCommand`** (C keeps “The door opens.” through the next boundary). **`seed0077`:** **RNG 3242/3242**; **screens 12/33** (**33/33** cursors). **`seed8000`:** **20/23** screens. **`npm run score`:** **0/44**.
+**Last slice:** **`display.c` `newsym` / `_map_location`.** **`display.js`**: **`vobj_at`** floor objects (**`obj_to_glyph`** subset), monster layer (**`monsym`**), trap/terrain precedence; rogue **`S_room`** → **`.`** (not DEC **`~`**). **`makemon_rndmonst.js`**: export **`monsymCharLikeC`**. **`seed0077`:** **RNG 3242/3242**; **screens 12/33** (**33/33** cursors). **`seed8000`:** **20/23** screens. **`npm run score`:** **0/44**.
 
 ## Next steps
 
-1. **`seed0077` screens** — **33/33** cursors; fix remaining **21/33** **24×80** map/cell drift (west-door glyphs after open/search, tutorial menu vs map tiles, overlay attr pager).
+1. **`seed0077` screens** — **33/33** cursors; fix remaining **21/33** **24×80** drift (west-door **terrain**/`seenv` wall angles vs C, tutorial menu blanking map under tty menu, Ctrl-X attributes overlay).
 
 2. **`mklev` lregions** — wire **`game.dndest`/`updest`** when **`place_lregions`** ported.
 

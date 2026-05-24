@@ -3,6 +3,16 @@
 
 import { game } from './gstate.js';
 import { cansee, setSeenvTowardHero } from './vision.js';
+import { floorObjKey } from './floorobj.js';
+import { isPoolCellLikeC } from './fillholetyp.js';
+import { monsymCharLikeC } from './makemon_rndmonst.js';
+import { MONS_MLET } from './mons_rndmonst_ini_inv_data.js';
+import {
+    NH5_WEAPON_CLASS, NH5_GEM_CLASS, NH5_ROCK_CLASS, NH5_COIN_CLASS,
+    NH5_POTION_CLASS, NH5_SCROLL_CLASS, NH5_ARMOR_CLASS, NH5_TOOL_CLASS,
+    NH5_FOOD_CLASS, NH5_WAND_CLASS, NH5_RING_CLASS, NH5_AMULET_CLASS,
+    NH5_SPBOOK_CLASS, NH5_BALL_CLASS, NH5_CHAIN_CLASS,
+} from './nh5_objclass.js';
 import {
     COLNO, ROWNO, isok, STONE, ROOM, CORR, DOOR, STAIRS, LADDER,
     HWALL, VWALL, TLCORNER, TRCORNER, BLCORNER, BRCORNER,
@@ -10,6 +20,7 @@ import {
     D_NODOOR, D_ISOPEN, D_CLOSED, D_LOCKED,
     SDOOR, SCORR, IRONBARS, TREE, POOL, MOAT, WATER, ICE,
     FOUNTAIN, SINK, ALTAR, GRAVE, THRONE, LAVAPOOL, LAVAWALL,
+    Is_rogue_level, OTYP_BOULDER, OTYP_HEAVY_IRON_BALL, OTYP_IRON_CHAIN,
     ARROW_TRAP, DART_TRAP, ROCKTRAP, SQKY_BOARD, BEAR_TRAP, LANDMINE,
     ROLLING_BOULDER_TRAP, SLP_GAS_TRAP, RUST_TRAP, FIRE_TRAP,
     PIT, SPIKED_PIT, HOLE, TRAPDOOR, TELEP_TRAP, LEVEL_TELEP,
@@ -21,6 +32,7 @@ import { acurr, getStrengthStrLikeC } from './attrib.js';
 import { rankHeroTitleLikeC } from './roles.js';
 import { describeLevelStatusSlotLikeC } from './describe_level.js';
 import { mungspacesLikeC } from './hacklib.js';
+import { OBJ_ROCK } from './mthrowu.js';
 import {
     NO_COLOR, CLR_GRAY, CLR_BROWN, CLR_WHITE, CLR_YELLOW, CLR_GREEN, CLR_BLUE, CLR_CYAN,
     CLR_RED, CLR_MAGENTA, CLR_BRIGHT_BLUE, CLR_BRIGHT_MAGENTA, CLR_BRIGHT_CYAN,
@@ -149,17 +161,97 @@ const ANSI_COLOR = [
     97,  // CLR_WHITE     15
 ];
 
+/** C: display.h **`covers_objects()`** — pool (not underwater), lava pool/wall. */
+function coversObjectsAt(x, y) {
+    const g = game;
+    const loc = g.level?.at(x, y);
+    if (!loc) return false;
+    if (isPoolCellLikeC(g, x, y) && !(g.u?.uswallow)) return true;
+    const typ = loc.typ | 0;
+    return typ === LAVAPOOL || typ === LAVAWALL;
+}
+
+/** C: **`vobj_at(x,y)`** — top of **`floorObjHeads`** chain at (x,y). */
+function vobjAtLikeC(x, y) {
+    const heads = game.level?.floorObjHeads;
+    if (!heads) return null;
+    return heads.get(floorObjKey(x | 0, y | 0)) ?? null;
+}
+
+/** C: display.c **`obj_to_glyph`** subset (tty **`map_glyphinfo`** / **`show_glyph`**). */
+function mapObjectGlyphLikeC(obj) {
+    if (!obj) return { ch: ')', color: CLR_WHITE, dec: false };
+    const ot = obj.otyp | 0;
+    if (ot === OTYP_BOULDER) return { ch: '`', color: CLR_WHITE, dec: false };
+    if (ot === OBJ_ROCK) return { ch: '*', color: CLR_WHITE, dec: false };
+    if (ot === OTYP_HEAVY_IRON_BALL || ot === OTYP_IRON_CHAIN) return { ch: '*', color: CLR_WHITE, dec: false };
+    const oc = obj.oclass | 0;
+    if (oc === NH5_WEAPON_CLASS) return { ch: ')', color: CLR_WHITE, dec: false };
+    if (oc === NH5_GEM_CLASS || oc === NH5_ROCK_CLASS) return { ch: '*', color: CLR_WHITE, dec: false };
+    if (oc === NH5_COIN_CLASS) return { ch: '$', color: CLR_WHITE, dec: false };
+    if (oc === NH5_POTION_CLASS) return { ch: '!', color: CLR_WHITE, dec: false };
+    if (oc === NH5_SCROLL_CLASS) return { ch: '?', color: CLR_WHITE, dec: false };
+    if (oc === NH5_ARMOR_CLASS) return { ch: '[', color: CLR_WHITE, dec: false };
+    if (oc === NH5_TOOL_CLASS) return { ch: '(', color: CLR_WHITE, dec: false };
+    if (oc === NH5_FOOD_CLASS) return { ch: '%', color: CLR_WHITE, dec: false };
+    if (oc === NH5_WAND_CLASS) return { ch: '/', color: CLR_WHITE, dec: false };
+    if (oc === NH5_RING_CLASS) return { ch: '=', color: CLR_WHITE, dec: false };
+    if (oc === NH5_AMULET_CLASS) return { ch: '"', color: CLR_WHITE, dec: false };
+    if (oc === NH5_SPBOOK_CLASS) return { ch: '+', color: CLR_WHITE, dec: false };
+    if (oc === NH5_BALL_CLASS || oc === NH5_CHAIN_CLASS) return { ch: '*', color: CLR_WHITE, dec: false };
+    return { ch: ')', color: CLR_WHITE, dec: false };
+}
+
+function monAtCellLikeC(x, y) {
+    const monsters = game.level?.monsters;
+    if (!monsters?.length) return null;
+    const xi = x | 0;
+    const yi = y | 0;
+    return monsters.find((m) => (m.mx | 0) === xi && (m.my | 0) === yi) ?? null;
+}
+
+/** C: display.h **`mon_visible`** subset for **`newsym`** (worm tails omitted). */
+function monVisibleForNewsymLikeC(mtmp) {
+    const u = game.u;
+    if (!u || !mtmp) return false;
+    if (u.usteed === mtmp) return true;
+    if ((mtmp.mundetected | 0) !== 0) return false;
+    if ((mtmp.minvis | 0) && !(u.See_invisible | 0)) return false;
+    return cansee(mtmp.mx | 0, mtmp.my | 0);
+}
+
+function mapMonsterGlyphLikeC(mtmp) {
+    const mlet = MONS_MLET[mtmp.mnum | 0] ?? 0;
+    const ch = monsymCharLikeC(mlet);
+    return { ch: ch || '?', color: CLR_WHITE, dec: false };
+}
+
+function rememberCellGlyph(loc, gl) {
+    if (game.level?.flags?.hero_memory !== false) {
+        loc.remembered_glyph = { ch: gl.ch, color: gl.color, decgfx: gl.dec };
+    }
+}
+
+function paintCellGlyph(x, y, loc, gl, show) {
+    if (show) show_glyph_cell(x, y, gl.ch, gl.color, gl.dec);
+    rememberCellGlyph(loc, gl);
+}
+
 // ── Terrain to display character + color + DEC flag ──
-// C ref: display.c mapglyph / levl typ → cmap (simplified).
+// C ref: display.c back_to_glyph / map_glyphinfo (simplified).
 export function mapTerrainGlyph(loc, x, y) {
     const typ = loc.typ;
+    const rogue = Is_rogue_level(game.u?.uz);
     switch (typ) {
     case STONE:     return { ch: ' ', color: NO_COLOR, dec: false };
-    case ROOM:      return { ch: '~', color: NO_COLOR, dec: true };  // DEC middle dot
+    case ROOM:
+        if (rogue) return { ch: '.', color: CLR_GRAY, dec: false };
+        return { ch: '~', color: NO_COLOR, dec: true };  // DEC middle dot
     case CORR:      return { ch: '#', color: NO_COLOR, dec: false };
     case DOOR:
         if (loc.doormask & D_ISOPEN) return { ch: '|', color: CLR_BROWN, dec: false };
         if (loc.doormask & (D_CLOSED | D_LOCKED)) return { ch: '+', color: CLR_BROWN, dec: false };
+        if (rogue) return { ch: '.', color: CLR_GRAY, dec: false };
         return { ch: '~', color: NO_COLOR, dec: true };  // D_NODOOR = floor
     case STAIRS:
         // Check upstair vs downstair
@@ -280,45 +372,52 @@ export function mapInvisibleCellLikeC(x, y) {
     show_glyph_cell(xi, yi, 'I', NO_COLOR, false);
 }
 
+/**
+ * C: display.c **`_map_location`** — floor object, seen trap, else terrain.
+ * @param {boolean} show — **`show_glyph`** when true
+ */
+function mapLocationLikeC(x, y, show) {
+    const loc = game.level?.at(x, y);
+    if (!loc) return;
+
+    const obj = vobjAtLikeC(x, y);
+    if (obj && !coversObjectsAt(x, y)) {
+        paintCellGlyph(x, y, loc, mapObjectGlyphLikeC(obj), show);
+        return;
+    }
+    const trap = trapAtCell(x, y);
+    if (trap?.tseen) {
+        paintCellGlyph(x, y, loc, seenTrapGlyphColor(trap), show);
+        return;
+    }
+    paintCellGlyph(x, y, loc, mapTerrainGlyph(loc, x, y), show);
+}
+
 // ── newsym ──
 export function newsym(x, y) {
+    if (suppressMapOutputDisplay()) return;
     const loc = game.level?.at(x, y);
     if (!loc) return;
 
     if (game.u?.ux === x && game.u?.uy === y) {
-        // Hero
         show_glyph_cell(x, y, '@', CLR_WHITE, false);
         const tg = mapTerrainGlyph(loc, x, y);
-        loc.remembered_glyph = { ch: tg.ch, color: tg.color, decgfx: tg.dec };
+        rememberCellGlyph(loc, tg);
         return;
     }
 
-    // Contestants: add monster, object, and trap display here.
-    const trap = trapAtCell(x, y);
-    if (trap?.tseen) {
-        const vis = cansee(x, y);
-        const tg = seenTrapGlyphColor(trap);
-        if (vis) {
-            show_glyph_cell(x, y, tg.ch, tg.color, tg.dec);
-            if (game.level?.flags?.hero_memory) {
-                loc.remembered_glyph = { ch: tg.ch, color: tg.color, decgfx: tg.dec };
-            }
-        } else if (loc.remembered_glyph) {
-            show_glyph_cell(x, y, loc.remembered_glyph.ch,
-                loc.remembered_glyph.color, loc.remembered_glyph.decgfx);
-        }
-        return;
-    }
-
-    const tg = mapTerrainGlyph(loc, x, y);
-    // Only update display/memory if cell is IN_SIGHT (lit and visible)
     if (cansee(x, y)) {
-        show_glyph_cell(x, y, tg.ch, tg.color, tg.dec);
-        if (game.level?.flags?.hero_memory) {
-            loc.remembered_glyph = { ch: tg.ch, color: tg.color, decgfx: tg.dec };
+        const mon = monAtCellLikeC(x, y);
+        if (mon && monVisibleForNewsymLikeC(mon)) {
+            mapLocationLikeC(x, y, false);
+            paintCellGlyph(x, y, loc, mapMonsterGlyphLikeC(mon), true);
+            return;
         }
-    } else if (loc.remembered_glyph) {
-        // Out of sight but remembered — show remembered glyph
+        mapLocationLikeC(x, y, true);
+        return;
+    }
+
+    if (loc.remembered_glyph) {
         show_glyph_cell(x, y, loc.remembered_glyph.ch,
             loc.remembered_glyph.color, loc.remembered_glyph.decgfx);
     }
