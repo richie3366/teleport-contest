@@ -13,7 +13,7 @@ const { EDOG } = await import(join(ROOT, 'js/const.js'));
 
 globalThis.__diagDogInventLikeC = (g, mtmp, udist) => {
     const n = getRngLog().length | 0;
-    if (n < 3225 || n > 3230) return;
+    if (n < 3218 || n > 3230) return;
     const u = g.u;
     const ed = EDOG(mtmp);
     const d2 = u ? dist2(mtmp.mx | 0, mtmp.my | 0, u.ux | 0, u.uy | 0) : -1;

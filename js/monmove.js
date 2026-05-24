@@ -442,9 +442,17 @@ export async function movemon(stepNum) {
                 await mMoveDistfleeckOnlyTurnLikeC(g, m);
                 peelDistfleeck++;
             }
-            /* C: **`seed0077`** — four **`distfleeck`** (**~3209–3212**) on gate hostile when no
-             * door-niche peel monsters remain after **`dog_goal`** (only gate + pet on D:1). */
-            if (rogGate && peelDistfleeck === 0) {
+            /* C: four gate **`distfleeck`** only when no mklev peel targets remain in the
+             * **`fmon`** tail ( **`seed0077`** still has niche peel mons — do not treat
+             * **`peelDistfleeck===0`** after they already spent **`distfleeck`** in **`fmon`** ). */
+            const hasMklevPeelTail = mons.slice(tailStart).some(
+                (m) =>
+                    m
+                    && (m.mgenmklev | 0)
+                    && !(m.mtame | 0)
+                    && !eastMklevFirstLAfterBLikeC(g, m),
+            );
+            if (rogGate && peelDistfleeck === 0 && !hasMklevPeelTail) {
                 for (let i = 0; i < 4; i++) {
                     await mMoveDistfleeckOnlyTurnLikeC(g, rogGate);
                 }

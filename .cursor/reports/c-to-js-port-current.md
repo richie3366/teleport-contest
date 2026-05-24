@@ -18,11 +18,11 @@ Thin handoff for the next coding session. **Score + milestones:** [`c-to-js-port
 
 **Deferred for now:** **`maybe_do_tutorial`** / **`tut-1`** / full **`do.c`** **`goto_level`** (Lua **`tutorial()`** / **`free_tutorial()`**, **`savelev`**, **`gmst_*`**, …) and **`dokick`**/**`dothrow`** vs **`leaving_tutorial`** — strong upstream dependencies (save, specials, fuller **`do.c`**); treat as backlog until chargen / core early-game parity is further along; **`LIVELOGFILE`** parity if the judge ever compares livelog lines.
 
-**Last slice:** Twin **`#search`** moveloop on second **`s`** only (**`3225–3241`**); colon **`:`** **`dolook`** only (0 RNG). **`tools/diag_rng_step_map.mjs`**, **`tools/diag_dog_invent_3228.mjs`**. **`seed0077`:** **3229/3242** (first miss **~3228** **`dog_invent`** **`rn2(udist)`** — C **`rn2(5)=2`**, JS **`rn2(2)=0`** at pet **(35,8)** hero **(36,7)**).
+**Last slice:** **`seed0077` ~3228** diagnosis + post-gate peel guard. **`monmove.js`**: do not run four gate **`distfleeck`** when **`peelDistfleeck===0`** but mklev peel targets still exist in the **`fmon`** tail (already peeled in **`fmon`**). **`dogmove_mon.js`**: **`__diagDogInventLikeC`** / **`__diagDogMoveLikeC`** hooks for **`tools/diag_*`**. **`seed0077`:** still **3229/3242** — zip **3228** **`dog_invent`** **`rn2(udist)`** (C **`rn2(5)=2`**, JS **`rn2(2)=0`** at pet **(35,8)** hero **(36,7)**); leaving towel on fill tile **(35,5)** needs **`mfndpos`** onto towel without regressing post-gate **`dog_goal`** **~3211**.
 
 ## Next steps
 
-1. **`seed0077` ~3228** — **`dog_invent(dogmove.c:447)`** needs **`distu=5`** for **`rn2(5)`** while **`rn2(20)`** at **3227** implies towel under pet; reconcile with C **`mfndpos`** **`chcnt`** at **~3208** (full **`appr==0`** loop regressed **~3209**). **`tools/diag_mfndpos_3208.mjs`**, **`tools/diag_dog_invent_3228.mjs`**.
+1. **`seed0077` ~3228 `dog_invent`** — C **`rn2(5)`** at **`dogmove.c:447`** needs **`distu=5`** (towel on vertical fill tile **(35,5)** with hero **(36,7)**); JS **`relocateFillObjsIntoWestDoorAlcovesLikeC`** moves towel to **(35,8)** so pet ends on door row **`dist2=2`**. Port path: keep apport towel on fill alcove tile (C **`somexy`** column) + **`appr==0`** **`mfndpos`** step onto towel goal ( **`rn2(1)`** at **~3202** ) + post-gate peel guard (this slice). Verify with **`tools/diag_dog_invent_3228.mjs`**, **`tools/diag_rng_step_map.mjs`**, **`tools/diag_hero_pet_trace.mjs`**.
 
 2. **`mklev` lregions** — wire **`game.dndest`/`updest`** when **`place_lregions`** ported.
 
