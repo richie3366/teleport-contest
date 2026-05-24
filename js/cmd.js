@@ -328,7 +328,8 @@ async function domove(dx, dy) {
         await doopenIndirHeroLikeC(g, newx, newy);
         g.context.door_opened = !isClosedDoorLoc(dest);
         u.dz = 0;
-        clearPendingMessageAndToplineLikeC();
+        /* C: autoopen pline stays on row 0 until the next command (do not cls here). */
+        if (!g._retainMessageAfterCommand) clearPendingMessageAndToplineLikeC();
         g._overlayScreen = null;
         g._inventoryMode = false;
         vision_recalc(1);
