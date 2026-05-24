@@ -79,6 +79,7 @@ export function clearSearchMovemonSubHarnessLikeC(g) {
     delete g.context._searchRogGateDoneLikeC;
     delete g.context._searchPostGatePeelDoneLikeC;
     delete g.context._searchPostGate2PeelDoneLikeC;
+    delete g.context._searchPostGate2WestEastDoneLikeC;
     delete g.context._searchSecondRogGateDochugLikeC;
     delete g.context._searchMovemonStarted;
     delete g.context._movemonSearch11SubPasses;

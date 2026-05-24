@@ -96,6 +96,7 @@ function isRogPeelMklevDistfleeckCandidateLikeC(g, mtmp, stepNum) {
 
 /** C: first near mklev hostile this pass — **`distfleeck`** then **`dochug:886`** (one draw). */
 function peekRogFirstSearchDochugGateMonsterLikeC(g, mtmp) {
+    if (!isFirstSearchMovemonPassLikeC(g)) return false;
     if (!isRogFirstSearchMovemonNearPathLikeC(g) || !mtmp) return false;
     if (!firstSearchNearMklevHostileLikeC(g, mtmp)) return false;
     return (g.context?._searchRogGateCountLikeC | 0) < 2;
@@ -643,7 +644,7 @@ export async function movemonSinglemonLikeC(g, mtmp, stepNum = 0) {
         dogMoveLikeC(g, mtmp);
         return;
     }
-    /* C: rogue second **`#search`** — gate hostile **`distfleeck`** only in main **`fmon`** loop. */
+    /* C: rogue second **`#search`** — gate **`distfleeck`** in main **`fmon`**; post-pet **`dochug`**. */
     if (
         isSecondSearchMovemonPassLikeC(g)
         && rogueSecondSearchFullFmonLikeC(g)
@@ -731,7 +732,8 @@ export async function movemonSinglemonLikeC(g, mtmp, stepNum = 0) {
         if ((mfp.cnt | 0) > 0) {
             mtmp.mtrack[0] = { x: mfp.poss[0].x | 0, y: mfp.poss[0].y | 0 };
         }
-        rn2(16);
+        /* C: rogue east door-niche **`cnt=3`** → **`rn2(12)`**; tourist **`rn2(16)`** (**`cnt=4`**). */
+        rn2(rogueSecondSearchFullFmonLikeC(g) ? 12 : 16);
         await distfleeckMonsterApplyLikeC(g, mtmp);
         return;
     }
@@ -1516,11 +1518,10 @@ export async function mMoveOneMonsterSubsetLikeC(g, mtmp, stepNum = 0) {
         forceRogFirstSearchGateLikeC: gateMonPeek,
     })) {
         enteredMmoveBlock = true;
-        if (!gateMonPeek) {
-            ensureMonsterMtrack(mtmp);
-            primeMtrackBeforeMmoveStep8LikeC(g, mtmp, stepNum);
-            mmStatus = mMovePetOrPositionSelectLikeC(g, mtmp);
-        } else if (g.context?._searchSecondRogGateDochugLikeC) {
+        if (
+            g.context?._searchSecondRogGateDochugLikeC
+            && mtmp === findFirstSearchRogMidMklevHostileLikeC(g)
+        ) {
             /* C: second **`#search`** post-pet gate — one **`m_move`** pick (**`rn2(1)`** ~3231). */
             const mfpGate = mfndposMonsterLikeC(
                 g,
@@ -1529,6 +1530,10 @@ export async function mMoveOneMonsterSubsetLikeC(g, mtmp, stepNum = 0) {
             );
             if ((mfpGate.cnt | 0) > 0) rn2(1);
             mmStatus = MMOVE_NOTHING;
+        } else if (!gateMonPeek) {
+            ensureMonsterMtrack(mtmp);
+            primeMtrackBeforeMmoveStep8LikeC(g, mtmp, stepNum);
+            mmStatus = mMovePetOrPositionSelectLikeC(g, mtmp);
         }
     }
     if (gateMcanseeSave !== undefined) {

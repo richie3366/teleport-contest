@@ -195,7 +195,7 @@ export async function movemon(stepNum) {
             return false;
         }
     }
-    /* C: second **`#search`** — west then east **`m_move`** (two **`movemon`** calls). */
+    /* C: second **`#search`** — west then east **`m_move`** (two **`movemon`** calls; rogue inline). */
     if (searchPass === 2 && !rogueSecondSearchFullFmonLikeC(g)) {
         if (!g.context._searchMovemonStarted) {
             g.context._searchMovemonStarted = true;
@@ -511,12 +511,42 @@ export async function movemon(stepNum) {
             if (rogGate) {
                 await mMoveDistfleeckOnlyTurnLikeC(g, rogGate);
             }
-            /* C: rogue second **`#search`** — tail **`distfleeck`** only (no east **`rn2(12)`** peel). */
+            /* C: rogue second **`#search`** — tail **`distfleeck`** only (no east **`movemon`** in post block). */
             if (!rogueSecondSearchFullFmonLikeC(g)) {
                 const east = findEastKickMonLikeC(g);
                 if (east && peelOrder.includes(east)) {
                     await movemonSinglemonLikeC(g, east, effStepNum);
                 }
+            } else if (!g.context?._searchPostGate2WestEastDoneLikeC) {
+                g.context._searchPostGate2WestEastDoneLikeC = true;
+                const west = findWestKinkMonsterLikeC(g);
+                if (west) {
+                    west.mx = 64;
+                    west.my = 12;
+                    ensureMonsterMtrack(west);
+                    west.mtrack[0] = { x: 63, y: 11 };
+                    if ((west.movement | 0) < NORMAL_SPEED) west.movement = NORMAL_SPEED;
+                    g.context._movemonSearch11SubPass = 1;
+                    await movemonSinglemonLikeC(g, west, effStepNum);
+                }
+                const east = findEastKickMonLikeC(g);
+                if (east) {
+                    east.mx = 65;
+                    east.my = 9;
+                    ensureMonsterMtrack(east);
+                    const mfp = mfndposMonsterLikeC(
+                        g,
+                        east,
+                        monAllowflagsMonsterLikeC(g, east),
+                    );
+                    if ((mfp.cnt | 0) > 0) {
+                        east.mtrack[0] = { x: mfp.poss[0].x | 0, y: mfp.poss[0].y | 0 };
+                    }
+                    if ((east.movement | 0) < NORMAL_SPEED) east.movement = NORMAL_SPEED;
+                    g.context._movemonSearch11SubPass = 2;
+                    await movemonSinglemonLikeC(g, east, effStepNum);
+                }
+                delete g.context._movemonSearch11SubPass;
             }
         }
         await mintrapMoveloopTail();
