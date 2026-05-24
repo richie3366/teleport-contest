@@ -137,7 +137,16 @@ export function wallAngleCmapLikeC(lev) {
     case TDWALL:
         return twallAngle(wall_matrix[T_d], seenv, wmask);
     case SDOOR:
-        if (lev.horizontal) break;
+        if (lev.horizontal) {
+            /* C: display.c wall_angle — `goto horiz` (HWALL branch). */
+            switch (wmask) {
+            case 0: return seenv ? S_hwall : S_stone;
+            case 1: return seenv & (SV3 | SV4 | SV5 | SV6 | SV7) ? S_hwall : S_stone;
+            case 2: return seenv & (SV0 | SV1 | SV2 | SV3 | SV7) ? S_hwall : S_stone;
+            default: return S_stone;
+            }
+        }
+        /* C: vertical SDOOR → VWALL branch (fall through). */
         /* fall through */
     case VWALL:
         switch (wmask) {

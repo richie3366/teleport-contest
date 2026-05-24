@@ -18,11 +18,11 @@ Thin handoff for the next coding session. **Score + milestones:** [`c-to-js-port
 
 **Deferred for now:** **`maybe_do_tutorial`** / **`tut-1`** / full **`do.c`** **`goto_level`** (Lua **`tutorial()`** / **`free_tutorial()`**, **`savelev`**, **`gmst_*`**, …) and **`dokick`**/**`dothrow`** vs **`leaving_tutorial`** — strong upstream dependencies (save, specials, fuller **`do.c`**); treat as backlog until chargen / core early-game parity is further along; **`LIVELOGFILE`** parity if the judge ever compares livelog lines.
 
-**Last slice:** **`display.c` `obj_to_glyph` / `objects[GOLD_PIECE].oc_class`.** **`display.js`**: **`mapObjectGlyphLikeC`** — **`OTYP_GOLD_PIECE`** → **`$`** (rogue **`CLR_YELLOW`**). **`const.js`**: **`OTYP_GOLD_PIECE`**. **`mklev.js`**: **`nh5OclassForOtyp`** → **`NH5_COIN_CLASS`**; **`mksobj`** sets **`otmp.oclass`**. **`seed0077`:** **RNG 3242/3242**; **screens 13/33** (**33/33** cursors). **`seed8000`:** **20/23** screens. **`npm run score`:** **0/44**.
+**Last slice:** **`display.c` `wall_angle` horizontal SDOOR.** **`wall_angle.js`**: horizontal **`SDOOR`** uses HWALL branch (**`goto horiz`**); restore **`VWALL`** case for vertical SDOOR / walls. **`seed0077`:** **RNG 3242/3242**; **screens 13/33** (**33/33** cursors). **`seed8000`:** **20/23** screens. **`npm run score`:** **0/44**.
 
 ## Next steps
 
-1. **`seed0077` screens** — west-door **`#` vs `q`** at **(34,9)** needs C **`mklev`** geometry + **`vision.c`** **`seenv`** (do not drop **`openWestDoorColumnNorthCorrLikeC`** — moveloop RNG depends on it); wall corners **(33,2–3)**; post-tutorial status **AC** on capture boundaries **12–13**; Ctrl-X overlay (**step 25**).
+1. **`seed0077` screens** — west-door **`#` vs `q`** at **(34,9)** (**`CORR`** vs C **`HWALL`**; do not drop **`openWestDoorColumnNorthCorrLikeC`** / **`openDoorCorridorWestAlcoveJoinLikeC`** without moveloop RNG plan); wall corner **(33,3)** **`x`/`y`**; post-tutorial status **AC** on steps **12–13**; Ctrl-X overlay (**step 25**).
 
 2. **`mklev` lregions** — wire **`game.dndest`/`updest`** when **`place_lregions`** ported.
 
