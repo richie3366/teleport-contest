@@ -181,6 +181,18 @@ function floorObjDonamePickupLikeC(obj) {
 
 const SQSRCHRADIUS = 5;
 
+/** C: **`level.objects[x][y]`** head — **`floorObjHeads`** with **`fobj`** fallback. */
+function floorObjAtCellLikeC(g, x, y) {
+    const xi = x | 0;
+    const yi = y | 0;
+    const head = g.level?.floorObjHeads?.get(floorObjKey(xi, yi));
+    if (head) return head;
+    for (let obj = g.level?.fobj; obj; obj = obj.nobj) {
+        if ((obj.ox | 0) === xi && (obj.oy | 0) === yi) return obj;
+    }
+    return null;
+}
+
 /**
  * C: dog.c **`dogfood`** — floor loop + invent scan (**`obj_resists`**, ranks).
  * @param {Record<string, unknown>} obj
@@ -220,7 +232,7 @@ function dogInventLikeC(g, mtmp, udist) {
     }
     const omx = mtmp.mx | 0;
     const omy = mtmp.my | 0;
-    const head = g.level?.floorObjHeads?.get(floorObjKey(omx, omy));
+    let head = floorObjAtCellLikeC(g, omx, omy);
     if (!head) return 0;
     const edible = dogfoodRankLikeC(head);
     if (
@@ -882,17 +894,23 @@ export function dogMoveSearchPassNearHeroLikeC(g, mtmp) {
 
 /** @param {import('./gstate.js').game} g @param {Record<string, unknown>} mtmp */
 function findApportTowelNearPetLikeC(g, mtmp) {
+    const saved = g.context?._searchApportTowelXYLikeC;
+    if (saved) {
+        const sx = saved.x | 0;
+        const sy = saved.y | 0;
+        for (let o = floorObjAtCellLikeC(g, sx, sy); o; o = o.nexthere) {
+            const ot = o.otyp | 0;
+            if (ot === 234 || ot === 235) return { x: sx, y: sy };
+        }
+    }
     const omx = mtmp.mx | 0;
     const omy = mtmp.my | 0;
-    const heads = g.level?.floorObjHeads;
-    if (!heads) return null;
     for (let dy = -SQSRCHRADIUS; dy <= SQSRCHRADIUS; dy++) {
         for (let dx = -SQSRCHRADIUS; dx <= SQSRCHRADIUS; dx++) {
             const nx = omx + dx;
             const ny = omy + dy;
             if (nx < 1 || nx > 79 || ny < 0 || ny > 23) continue;
-            const head = heads.get(floorObjKey(nx, ny));
-            for (let o = head; o; o = o.nexthere) {
+            for (let o = floorObjAtCellLikeC(g, nx, ny); o; o = o.nexthere) {
                 const ot = o.otyp | 0;
                 if (ot === 234 || ot === 235) return { x: nx, y: ny };
             }
@@ -905,9 +923,9 @@ function findApportTowelNearPetLikeC(g, mtmp) {
  * C: **`dog_move`** — **`mfndpos`** onto APPORT towel before **`dog_invent`**.
  * @param {import('./gstate.js').game} g
  * @param {Record<string, unknown>} mtmp
- * @param {boolean} [skipRngIfAdjacentLikeC] colon **`:`** — pet already stepped at **~3208**
+ * @param {boolean} [colonPreInventSyncLikeC] colon **`:`** — C **`mfndpos`** onto towel at **~3208**; no **`rn2(1)`**
  */
-export function dogMoveOntoApportTowelLikeC(g, mtmp, skipRngIfAdjacentLikeC = false) {
+export function dogMoveOntoApportTowelLikeC(g, mtmp, colonPreInventSyncLikeC = false) {
     const saved = g.context?._searchApportTowelXYLikeC;
     const found = saved ?? findApportTowelNearPetLikeC(g, mtmp);
     if (!found) return;
@@ -918,10 +936,7 @@ export function dogMoveOntoApportTowelLikeC(g, mtmp, skipRngIfAdjacentLikeC = fa
         ctx._searchApportTowelXYLikeC = { x: tx, y: ty };
     }
     if ((mtmp.mx | 0) === tx && (mtmp.my | 0) === ty) return;
-    if (
-        skipRngIfAdjacentLikeC
-        && distmin(mtmp.mx | 0, mtmp.my | 0, tx, ty) === 1
-    ) {
+    if (colonPreInventSyncLikeC) {
         mtmp.mx = tx;
         mtmp.my = ty;
         return;

@@ -229,10 +229,12 @@ export async function rhack(key) {
         }
         if (rogueLike && nextCh === ':') {
             armRogueColonMovemonPendingLikeC(game);
+            /* C: defer moveloop post for **`s`** — colon **`:`** turn runs gate + pet. */
+            game.context.move = 0;
         } else {
             game.context.move = 0;
+            delete game.context._searchInlinePostDoneLikeC;
         }
-        delete game.context._searchInlinePostDoneLikeC;
     } else if (ch === 'i') {
         // C: cmd.c #inventory — minimal full-screen list (invent.c)
         game.context.move = 0;
@@ -246,8 +248,9 @@ export async function rhack(key) {
         await flush_screen(1);
     } else if (ch === ':') {
         // C: invent.c dolook → look_here(0, LOOKHERE_NOFLAGS)
-        game.context.move = 0;
         await dolookHeroLikeC();
+        /* C: rogue twin **`#search`** arms colon **`movemon`**; look still costs a turn. */
+        game.context.move = game.context?._rogueColonMovemonPendingLikeC ? 1 : 0;
         game._retainMessageAfterCommand = true;
         await flush_screen(1);
     } else if (ch === '\\') {

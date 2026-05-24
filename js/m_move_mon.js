@@ -618,33 +618,8 @@ function mMovePetOrPositionSelectLikeC(g, mtmp) {
 
 export async function movemonSinglemonLikeC(g, mtmp, stepNum = 0) {
     if (!mtmp || (mtmp.mhp | 0) <= 0) return;
-
-    /* C: rogue second **`#search`** — gate hostile **`distfleeck`** only (no **`dochug:886`**). */
-    if (
-        isSecondSearchMovemonPassLikeC(g)
-        && rogueSecondSearchFullFmonLikeC(g)
-        && mtmp === findFirstSearchRogMidMklevHostileLikeC(g)
-    ) {
-        await mMoveDistfleeckOnlyTurnLikeC(g, mtmp);
-        return;
-    }
-    /* C: second **`#search`** — **`mfndpos`** appr==0 only; **`dog_invent`** on **`:`**. */
-    if (
-        isSecondSearchMovemonPassLikeC(g)
-        && rogueSecondSearchFullFmonLikeC(g)
-        && (mtmp.mtame | 0)
-        && has_edog(mtmp)
-    ) {
-        let mov = mtmp.movement | 0;
-        if (mov < NORMAL_SPEED) {
-            mtmp.movement = NORMAL_SPEED;
-            mov = NORMAL_SPEED;
-        }
-        mtmp.movement = mov - NORMAL_SPEED;
-        dogMoveSecondSearchMfndposLikeC(g, mtmp);
-        return;
-    }
-    /* C: rogue **`:`** after twin **`#search`** — gate **`distfleeck`** then pet **`dog_invent`** (**3219+**). */
+    /* C: rogue **`:`** after twin **`#search`** — gate + pet before second-search handlers
+     * ( **`_searchStep11Passes`** may still be **2** until **`movemon`** finishes ). */
     if (isRogueColonMovemonActiveLikeC(g) && mtmp === findFirstSearchRogMidMklevHostileLikeC(g)) {
         await mMoveDistfleeckOnlyTurnLikeC(g, mtmp);
         return;
@@ -667,6 +642,33 @@ export async function movemonSinglemonLikeC(g, mtmp, stepNum = 0) {
         }
         dogMoveOntoApportTowelLikeC(g, mtmp, true);
         dogMoveLikeC(g, mtmp);
+        return;
+    }
+    /* C: rogue second **`#search`** — gate hostile **`distfleeck`** only (no **`dochug:886`**). */
+    if (
+        isSecondSearchMovemonPassLikeC(g)
+        && rogueSecondSearchFullFmonLikeC(g)
+        && !isRogueColonMovemonActiveLikeC(g)
+        && mtmp === findFirstSearchRogMidMklevHostileLikeC(g)
+    ) {
+        await mMoveDistfleeckOnlyTurnLikeC(g, mtmp);
+        return;
+    }
+    /* C: second **`#search`** — **`mfndpos`** appr==0 only; **`dog_invent`** on **`:`**. */
+    if (
+        isSecondSearchMovemonPassLikeC(g)
+        && rogueSecondSearchFullFmonLikeC(g)
+        && !isRogueColonMovemonActiveLikeC(g)
+        && (mtmp.mtame | 0)
+        && has_edog(mtmp)
+    ) {
+        let mov = mtmp.movement | 0;
+        if (mov < NORMAL_SPEED) {
+            mtmp.movement = NORMAL_SPEED;
+            mov = NORMAL_SPEED;
+        }
+        mtmp.movement = mov - NORMAL_SPEED;
+        dogMoveSecondSearchMfndposLikeC(g, mtmp);
         return;
     }
 

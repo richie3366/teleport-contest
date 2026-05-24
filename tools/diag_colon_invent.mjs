@@ -42,3 +42,9 @@ console.log('pet', pet?.mx, pet?.my, 'udist', pet && g.u ? dist2(pet.mx, pet.my,
 console.log('towelXY', g.context?._searchApportTowelXYLikeC);
 console.log('towel (35,8)', towelAt(35, 8));
 console.log('towel at pet', pet ? towelAt(pet.mx | 0, pet.my | 0) : null);
+const chain = [];
+let o = g.level?.floorObjHeads?.get(floorObjKey(35, 8));
+for (; o; o = o.nexthere) {
+    chain.push({ otyp: o.otyp, oclass: o.oclass });
+}
+console.log('pile (35,8)', chain);

@@ -21,6 +21,7 @@ import { contextLeavingTutorialActiveLikeC } from './tutorial_branch.js';
 import {
     consumeRogueColonMovemonPendingLikeC,
     effectiveMovemonStepNumLikeC,
+    isRogueColonMovemonActiveLikeC,
 } from './monmove_search.js';
 import { peekReplayMoves } from './input.js';
 
@@ -166,8 +167,18 @@ export async function runPostCommandTurnAdvanceLikeC(g) {
             /* C: allmain.c — **`movemon`** uses current **`svm.moves`** each inner-loop pass
                (hero speed surplus can run monster pass + new-turn more than once per input). */
             const colonStep = consumeRogueColonMovemonPendingLikeC(g);
+            if (colonStep != null) {
+                g.context._rogueColonMovemonStepLikeC = colonStep;
+            }
             const movemonStepNum =
-                colonStep != null ? colonStep : (g.moves | 0) - 1;
+                colonStep != null
+                    ? colonStep
+                    : (
+                        isRogueColonMovemonActiveLikeC(g)
+                        && g.context?._rogueColonMovemonStepLikeC != null
+                    )
+                        ? (g.context._rogueColonMovemonStepLikeC | 0)
+                        : (g.moves | 0) - 1;
             /* C: allmain.c always `movemon()` when `context.move`; first `#search` post on D:1
                can be `moves===1` (`movemonStepNum===0`) — peel still maps to step 11. */
             const searchPass = g.context?._searchStep11Passes | 0;
@@ -180,7 +191,11 @@ export async function runPostCommandTurnAdvanceLikeC(g) {
             if (runMovemon) {
                 let stepForMovemon = movemonStepNum > 0 ? movemonStepNum : 1;
                 /* C: first **`#search`** on low **`moves`** — skip peel **`stepNum` 1**; use pass 11 path. */
-                if (searchPass === 1 || searchPass === 2) {
+                if (
+                    (searchPass === 1 || searchPass === 2)
+                    && colonStep == null
+                    && !isRogueColonMovemonActiveLikeC(g)
+                ) {
                     stepForMovemon = effectiveMovemonStepNumLikeC(
                         g,
                         movemonStepNum > 0 ? movemonStepNum : 11,

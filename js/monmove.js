@@ -152,7 +152,10 @@ export async function movemon(stepNum) {
         const passes = (g.context._movemonSearch11SubPasses | 0) + 1;
         g.context._movemonSearch11SubPasses = passes;
         g.context._movemonSearch11SubPass = passes;
-        if (passes > 2) return false;
+        if (passes > 2) {
+            clearRogueColonMovemonActiveLikeC(g);
+            return false;
+        }
         if (passes === 1) {
             const west = findWestKinkMonsterLikeC(g);
             if (west) {
@@ -188,6 +191,7 @@ export async function movemon(stepNum) {
                 delete g.context.movemonStepNum;
                 delete g.context._movemonSearch11SubPass;
             }
+            clearRogueColonMovemonActiveLikeC(g);
             return false;
         }
     }
@@ -462,7 +466,6 @@ export async function movemon(stepNum) {
         }
         await mintrapMoveloopTail();
     } finally {
-        clearRogueColonMovemonActiveLikeC(g);
         delete g.context.movemonStepNum;
     }
 

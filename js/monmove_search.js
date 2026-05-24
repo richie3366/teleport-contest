@@ -62,7 +62,12 @@ export function rogueSecondSearchFullFmonLikeC(g) {
  */
 export function effectiveMovemonStepNumLikeC(g, stepNum) {
     const searchPass = g.context?._searchStep11Passes | 0;
-    if (searchPass === 1 || searchPass === 2) return 11;
+    if (
+        (searchPass === 1 || searchPass === 2)
+        && !isRogueColonMovemonActiveLikeC(g)
+    ) {
+        return 11;
+    }
     return stepNum | 0;
 }
 
@@ -90,6 +95,7 @@ export function clearSearchMovemonHarnessLikeC(g) {
 export function armRogueColonMovemonPendingLikeC(g) {
     if (!g.context) return;
     g.context._rogueColonMovemonPendingLikeC = true;
+    delete g.context._searchStep11Passes;
 }
 
 /** @returns {boolean} */
@@ -106,6 +112,10 @@ export function consumeRogueColonMovemonPendingLikeC(g) {
     if (!g.context?._rogueColonMovemonPendingLikeC) return null;
     delete g.context._rogueColonMovemonPendingLikeC;
     g.context._rogueColonMovemonActiveLikeC = true;
+    delete g.context._rogueColonMainFmonDoneLikeC;
+    delete g.context._movemonSearch11SubPasses;
+    delete g.context._movemonSearch11SubPass;
+    delete g.context._searchInlinePostDoneLikeC;
     return Math.max((g.moves | 0), 31);
 }
 
@@ -113,6 +123,7 @@ export function consumeRogueColonMovemonPendingLikeC(g) {
 export function clearRogueColonMovemonActiveLikeC(g) {
     if (!g.context) return;
     delete g.context._rogueColonMovemonActiveLikeC;
+    delete g.context._rogueColonMovemonStepLikeC;
     delete g.context._rogueColonMainFmonDoneLikeC;
     delete g.context._movemonSearch11SubPasses;
     delete g.context._movemonSearch11SubPass;

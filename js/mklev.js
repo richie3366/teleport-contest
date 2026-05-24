@@ -249,6 +249,7 @@ function nh5OclassForOtyp(otyp) {
     if (t === OTYP_DART) return NH5_WEAPON_CLASS;
     if (t === OTYP_GEM_ROCK) return NH5_GEM_CLASS;
     if (t === OTYP_TALLOW_CANDLE || t === OTYP_WAX_CANDLE) return NH5_TOOL_CLASS;
+    if (t === 234 || t === 235) return NH5_TOOL_CLASS;
     if (t >= 297 && t <= 322) return NH5_POTION_CLASS;
     if (t >= 323 && t <= 364) return NH5_SCROLL_CLASS;
     if (t >= 365 && t <= 408) return NH5_SPBOOK_CLASS;
@@ -306,8 +307,18 @@ function mkobj_shallow(oclass, artif) {
 /** C: mkobj.c mkobj + mksobj init — fill_ordinary_room / mktrap_victim only. */
 function mkobjFromMklevCLikeC(oclass, artif) {
     const otyp = mkobjMklevConsumeRngLikeC(oclass, artif);
+    const oc = oclass | 0;
     return {
-        otyp, ox: -1, oy: -1, quan: 1, owt: 1, cursed: false, blessed: false, olocked: false, spe: 0,
+        otyp,
+        oclass: oc || nh5OclassForOtyp(otyp),
+        ox: -1,
+        oy: -1,
+        quan: 1,
+        owt: 1,
+        cursed: false,
+        blessed: false,
+        olocked: false,
+        spe: 0,
     };
 }
 
