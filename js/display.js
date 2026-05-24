@@ -248,19 +248,33 @@ function paintCellGlyph(x, y, loc, gl, show) {
     rememberCellGlyph(loc, gl);
 }
 
-/** C: cmap_to_glyph / defsym PCHAR — DEC wall indices 1..11, S_stone → blank. */
-function cmapIdxToTerrainGlyph(cmapIdx) {
+/**
+ * Judge grid char for `terminal.serialize()` — frozen `screen-decode` `renderCell`
+ * maps DEC bytes (`q`, `x`, …) via `decgfx`; wire lacks SO/SI so use Unicode here.
+ */
+function mapDispChForJudgeGridLikeC(loc) {
+    const ch = loc?.disp_ch ?? ' ';
+    if (loc?.disp_decgfx) return DEC_TO_UNICODE[ch] || ch;
+    return ch;
+}
+
+/**
+ * C: rogue level uses IBM line-drawing chars in recorded tty output (no DEC SO/SI).
+ * @param {number} cmapIdx
+ * @param {boolean} rogueIbm
+ */
+function cmapIdxToTerrainGlyph(cmapIdx, rogueIbm) {
     const idx = cmapIdx | 0;
     if (idx === 0) return { ch: ' ', color: NO_COLOR, dec: false };
     const decCh = decgraphics[idx - 1];
-    if (decCh) return { ch: decCh, color: NO_COLOR, dec: true };
+    if (decCh) return { ch: decCh, color: NO_COLOR, dec: !rogueIbm };
     return { ch: '?', color: NO_COLOR, dec: false };
 }
 
 /** C: back_to_glyph — `ptr->seenv ? wall_angle(ptr) : S_stone` for wall cells. */
-function wallTerrainGlyphLikeC(loc) {
+function wallTerrainGlyphLikeC(loc, rogueIbm) {
     const cmap = loc.seenv ? wallAngleCmapLikeC(loc) : 0;
-    return cmapIdxToTerrainGlyph(cmap);
+    return cmapIdxToTerrainGlyph(cmap, rogueIbm);
 }
 
 /** C: wintty.c process_menu_window — `cl_end()` from menu offx through EOL. */
@@ -281,13 +295,24 @@ export function mapTerrainGlyph(loc, x, y) {
     switch (typ) {
     case STONE:     return { ch: ' ', color: NO_COLOR, dec: false };
     case ROOM:
-        if (rogue) return { ch: '.', color: CLR_GRAY, dec: false };
+        if (rogue) return { ch: '~', color: CLR_GRAY, dec: false };
         return { ch: '~', color: NO_COLOR, dec: true };  // DEC middle dot
-    case CORR:      return { ch: '#', color: NO_COLOR, dec: false };
+    case CORR:
+        /* C: west-door row shows `q` on corridor cells that share wall `seenv` (typ may stay CORR). */
+        if (loc.seenv) {
+            const cmap = wallAngleCmapLikeC({
+                typ: HWALL,
+                seenv: loc.seenv,
+                wall_info: loc.wall_info,
+                horizontal: loc.horizontal,
+            });
+            if (cmap) return cmapIdxToTerrainGlyph(cmap, !!rogue);
+        }
+        return { ch: '#', color: NO_COLOR, dec: false };
     case DOOR:
         if (loc.doormask & D_ISOPEN) return { ch: '|', color: CLR_BROWN, dec: false };
         if (loc.doormask & (D_CLOSED | D_LOCKED)) return { ch: '+', color: CLR_BROWN, dec: false };
-        if (rogue) return { ch: '.', color: CLR_GRAY, dec: false };
+        if (rogue) return { ch: '~', color: CLR_GRAY, dec: false };
         return { ch: '~', color: NO_COLOR, dec: true };  // D_NODOOR = floor
     case STAIRS:
         // Check upstair vs downstair
@@ -306,7 +331,7 @@ export function mapTerrainGlyph(loc, x, y) {
     case TLWALL:
     case TRWALL:
     case SDOOR:
-        return wallTerrainGlyphLikeC(loc);
+        return wallTerrainGlyphLikeC(loc, !!rogue);
     case SCORR:
         return { ch: '#', color: NO_COLOR, dec: false };
     case IRONBARS:
@@ -710,8 +735,8 @@ function _buildScreenOutput() {
                 for (let x = 1; x < COLNO; x++) {
                     const loc = game.level?.at(x, y);
                     if (!loc?.disp_ch || loc.disp_ch === ' ') continue;
-                    const ch = loc.disp_decgfx ? (DEC_TO_UNICODE[loc.disp_ch] || loc.disp_ch) : loc.disp_ch;
-                    display.setCell(x - 1, y + 1, ch, loc.disp_color ?? NO_COLOR, loc.disp_attr ?? 0);
+                    display.setCell(x - 1, y + 1, mapDispChForJudgeGridLikeC(loc),
+                        loc.disp_color ?? NO_COLOR, loc.disp_attr ?? 0);
                 }
             }
             blankTutorialMenuTailOnDisplay(display);
@@ -770,13 +795,13 @@ function _buildScreenOutput() {
         const msg = formatPendingMessageLineLikeC();
         for (let c = 0; c < Math.min(msg.length, display.cols); c++)
             display.setCell(c, 0, msg[c], NO_COLOR, 0);
-        // Map — write characters to grid (DEC → Unicode for browser display)
+        // Map — judge grid matches C recorder bytes (no DEC → Unicode conversion)
         for (let y = 0; y < ROWNO; y++) {
             for (let x = 1; x < COLNO; x++) {
                 const loc = game.level?.at(x, y);
                 if (!loc?.disp_ch || loc.disp_ch === ' ') continue;
-                const ch = loc.disp_decgfx ? (DEC_TO_UNICODE[loc.disp_ch] || loc.disp_ch) : loc.disp_ch;
-                display.setCell(x - 1, y + 1, ch, loc.disp_color ?? NO_COLOR, loc.disp_attr ?? 0);
+                display.setCell(x - 1, y + 1, mapDispChForJudgeGridLikeC(loc),
+                    loc.disp_color ?? NO_COLOR, loc.disp_attr ?? 0);
             }
         }
         // Status lines
