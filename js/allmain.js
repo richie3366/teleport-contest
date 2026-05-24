@@ -8,7 +8,10 @@
 import { game } from './gstate.js';
 import { mklev, l_nhcore_init, u_on_upstairs } from './mklev.js';
 import { rhack } from './cmd.js';
-import { docrt, cls, bot, flush_screen, pline, clearPendingMessageAndToplineLikeC } from './display.js';
+import {
+    docrt, cls, bot, flush_screen, pline,
+    clearPendingMessageAndToplineLikeC, shouldClearMoveloopToplineLikeC, latchRetainedToplineLikeC,
+} from './display.js';
 import {
     vision_recalc, vision_reset, init_vision_globals,
     noticeMonOffLikeC, noticeMonOnLikeC, noticeAllMonsLikeC, dolookaroundLikeC,
@@ -218,6 +221,8 @@ export async function newgame() {
     const welcomeBuf = welcomeBufLikeC(g);
     /* C: allmain.c welcome() — `pline(..., "You are a%s.")`; tty recorder emits two spaces after `!` (matches public sessions). */
     await pline(`${hi} ${g.plname}, welcome to NetHack!  You are a${welcomeBuf}.`);
+    /* C: topl.c `redotoplin` + `more()` — welcome snapshot shows `--More--` before first key. */
+    g._showDefmoreOnTopline = true;
 
     /* C: allmain.c newgame — after welcome: notice_mon_on(); then dolookaround XOR notice_all_mons */
     noticeMonOnLikeC();
@@ -281,8 +286,8 @@ export async function moveloop_core() {
 
     await rhack(0);
 
-    if (!g._retainMessageAfterCommand) clearPendingMessageAndToplineLikeC();
-    g._retainMessageAfterCommand = false;
+    if (shouldClearMoveloopToplineLikeC(g)) clearPendingMessageAndToplineLikeC();
+    latchRetainedToplineLikeC(g);
 
     g._prevMoveTick = g.context?.move ? 1 : 0;
 

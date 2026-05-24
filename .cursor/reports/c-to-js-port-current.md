@@ -18,11 +18,11 @@ Thin handoff for the next coding session. **Score + milestones:** [`c-to-js-port
 
 **Deferred for now:** **`maybe_do_tutorial`** / **`tut-1`** / full **`do.c`** **`goto_level`** (Lua **`tutorial()`** / **`free_tutorial()`**, **`savelev`**, **`gmst_*`**, …) and **`dokick`**/**`dothrow`** vs **`leaving_tutorial`** — strong upstream dependencies (save, specials, fuller **`do.c`**); treat as backlog until chargen / core early-game parity is further along; **`LIVELOGFILE`** parity if the judge ever compares livelog lines.
 
-**Last slice:** **TTY topline / `#inventory` / `dolook` (screens).** **`display.js`**: **`_retainMessageAfterCommand`** on search/apply/door; **`#inventory`** overlay at col **28** (Weapons header, rogue pick-invent lines); tutorial menu col **21** + welcome **`--More--`** dismiss; **`syncTtyCursorForJudgeLikeC`** for invent/tutorial. **`decor.js`**: **`stairs_description`** D:1 up “out of the dungeon”. **`dogmove_mon.js`**: **`The kitten picks up`** pline. **`mklev.js`**: branch up-stair **`u_traversed`**. **`seed0077`:** **RNG 3242/3242**; **screens 12/33** (**28/33** cursors). **`seed8000`:** **20/23** screens (was **23/23** — revisit **`--More--`** / query cursor). **`npm run score`:** **1/44**.
+**Last slice:** **TTY topline / tutorial / invent snapshot (`topl.c`).** **`display.js`**: welcome **`--More--`** via **`_showDefmoreOnTopline`**; **`shouldClearMoveloopToplineLikeC`** + **`latchRetainedToplineLikeC`**; tutorial menu repainted on **`flush_screen`**; query/defmore cursor sync. **`input.js`**: **`more()`** dismiss clears active line unless **`_keepToplineUntilNextCommand`**. **`tutorial_prompt.js`**: shared **`paintTutorialMenuOverlayLikeC`**. **`cmd.js`**: invent dismiss on next key; twin **`#search`** clears trap pline. **`allmain.js`**: welcome sets defmore flag. **`seed0077`:** **RNG 3242/3242**; **screens 12/33** (**26/33** cursors). **`seed8000`:** **19/23** screens (**20/23** cells). **`npm run score`:** **0/44** (RNG-only anchors unchanged).
 
 ## Next steps
 
-1. **`seed0077` screens** — RNG complete; fix remaining **24×80** cell drift (**12/33** screens, **28/33** cursors): map glyphs after second **`#search`**, welcome **`--More--`** on step **12**, full **`display_pickinv`** / **`newsym`** parity.
+1. **`seed0077` screens** — RNG complete; fix remaining **24×80** drift (**12/33** screens): welcome row-0 at step **12**, tutorial cursor **13**, apply/getdir retained plines **17–20**, map glyphs after second **`#search`**, restore **`seed8000`** screens (**19/23** vs **20/23**).
 
 2. **`mklev` lregions** — wire **`game.dndest`/`updest`** when **`place_lregions`** ported.
 

@@ -54,8 +54,15 @@ export async function nhgetch() {
     if (_inputQueue.length > 0) {
         if (_replayPos < _replayMoves.length) _replayPos++;
         const key = _inputQueue.shift();
-        /* C: tty_nhgetch — topline seen; drop NEED_MORE / --More-- before next frame. */
-        if (game._toplineNeedMore) game._toplineNeedMore = false;
+        /* C: tty_nhgetch / topl.c `more()` — dismiss `--More--`; clear active line unless retained. */
+        if (game._toplineNeedMore) {
+            game._toplineNeedMore = false;
+            game._showDefmoreOnTopline = false;
+            if (!game._keepToplineUntilNextCommand) {
+                game._pending_message = '';
+                game._toplineAccum = '';
+            }
+        }
         return key;
     }
 

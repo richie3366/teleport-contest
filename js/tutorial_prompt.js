@@ -19,35 +19,47 @@ export function tutorialSkipQueryHintLineLikeC() {
 /**
  * C: options.c **`ask_do_tutorial`** — tty menu rows at column **21** (map stays visible).
  * @param {import('./game_display.js').GameDisplay} disp
+ * @param {number} pass — re-prompt pass (invalid choice)
+ */
+export function paintTutorialMenuOverlayLikeC(disp, pass) {
+    const hint = tutorialSkipQueryHintLineLikeC();
+    game._pending_message = `\x1b[${MENU_COL}C\x1b[7mDo you want a tutorial?\x1b[0m`;
+    disp.putstr(MENU_COL, 2, 'y - Yes, do a tutorial', NO_COLOR, 0);
+    disp.putstr(MENU_COL, 3, 'n - No, just start play', NO_COLOR, 0);
+    disp.putstr(MENU_COL, 5, hint, NO_COLOR, 0);
+    if ((pass | 0) > 0) {
+        disp.putstr(MENU_COL, 17, "(Please choose 'y' or 'n'.)", NO_COLOR, 0);
+    }
+    disp.putstr(MENU_COL, 6, '(end)', NO_COLOR, 0);
+}
+
+/**
+ * C: options.c **`ask_do_tutorial`** — tty menu rows at column **21** (map stays visible).
+ * @param {import('./game_display.js').GameDisplay} disp
  * @returns {Promise<boolean>} true → tutorial, false → skip or ESC
  */
 export async function askDoTutorialMenuTTYLikeC(disp) {
-    const hint = tutorialSkipQueryHintLineLikeC();
     /* C: first key dismisses welcome `--More--` before tutorial menu paints. */
     if (game._toplineNeedMore) await nhgetch();
     const g = game;
     g._tutorialMenuActive = true;
     clearPendingMessageAndToplineLikeC();
     for (let pass = 0; ; pass++) {
-        g._pending_message = `\x1b[${MENU_COL}C\x1b[7mDo you want a tutorial?\x1b[0m`;
-        disp.putstr(MENU_COL, 2, 'y - Yes, do a tutorial', NO_COLOR, 0);
-        disp.putstr(MENU_COL, 3, 'n - No, just start play', NO_COLOR, 0);
-        disp.putstr(MENU_COL, 5, hint, NO_COLOR, 0);
-        if (pass > 0) {
-            disp.putstr(MENU_COL, 17, "(Please choose 'y' or 'n'.)", NO_COLOR, 0);
-        }
-        disp.putstr(MENU_COL, 6, '(end)', NO_COLOR, 0);
+        g._tutorialMenuPass = pass;
+        paintTutorialMenuOverlayLikeC(disp, pass);
         await flush_screen(1);
         const k = await nhgetch();
         if (k === 27) break;
         if (k === 121 || k === 89) {
             g._tutorialMenuActive = false;
+            delete g._tutorialMenuPass;
             clearPendingMessageAndToplineLikeC();
             return true;
         }
         if (k === 110 || k === 78) break;
     }
     g._tutorialMenuActive = false;
+    delete g._tutorialMenuPass;
     clearPendingMessageAndToplineLikeC();
     return false;
 }

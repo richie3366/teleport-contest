@@ -29,9 +29,12 @@ import {
 import { paintInventoryIntoDisplay, paintInventoryOverlayLikeC } from './invent.js';
 import { paintOverlayScreen } from './overlay_screens.js';
 import { paintLegacyIntroIntoDisplay } from './legacy_intro_paint.js';
+import { paintTutorialMenuOverlayLikeC } from './tutorial_prompt.js';
 
 // C ref: win/tty/topl.c — `update_topl` same-line append (`n0 + strlen(gt.toplines) + 3 < CO - 8`).
 const DEFMORE_LEN = 8;
+/** C: topl.c `defmorestr` — appended by `more()` on the message row. */
+const DEFMORE_STR = '--More--';
 
 /** Tty width for message packing (C `CO`; contest map/judge uses COLNO). */
 function ttyCoLikeC() {
@@ -53,14 +56,31 @@ export function clearPendingMessageAndToplineLikeC() {
     game._pending_message = '';
     game._toplineAccum = '';
     game._toplineNeedMore = false;
+    game._showDefmoreOnTopline = false;
 }
 
 /** C: tty pick-invent / menu column for `#inventory` overlay (`seed0077` uses **28**). */
 export const TTY_PICKINV_COL = 28;
 
-/** C: topl.c — row-0 text at nhgetch snapshot (`--More--` is separate tty state; judge matches plain topline). */
+/** C: topl.c — row-0 text at nhgetch snapshot. */
 export function formatPendingMessageLineLikeC() {
-    return game._pending_message || '';
+    const base = game._pending_message || '';
+    if (!game._showDefmoreOnTopline || !game._toplineNeedMore) return base;
+    if (base.endsWith(DEFMORE_STR)) return base;
+    const co = ttyCoLikeC();
+    if (base.length >= co - DEFMORE_LEN) return `${base}\n${DEFMORE_STR}`;
+    return base + DEFMORE_STR;
+}
+
+/** C: allmain.c moveloop_core — do not clear welcome / retained plines yet. */
+export function shouldClearMoveloopToplineLikeC(g) {
+    return !g._retainMessageAfterCommand && !g._toplineNeedMore && !g._keepToplineUntilNextCommand;
+}
+
+/** C: remember_topl — pline retained across the next moveloop iteration until the next command. */
+export function latchRetainedToplineLikeC(g) {
+    if (g._retainMessageAfterCommand) g._keepToplineUntilNextCommand = true;
+    g._retainMessageAfterCommand = false;
 }
 
 /**
@@ -510,6 +530,38 @@ function _buildScreenOutput() {
         return;
     }
 
+    if (game._tutorialMenuActive) {
+        let output = formatPendingMessageLineLikeC() + '\n';
+        for (let y = 0; y < ROWNO; y++) output += render_map_row(y) + '\n';
+        output += _statusLine1() + '\n';
+        output += _statusLine2();
+        game._screen_output = output;
+        if (display.grid) {
+            display.clearScreen();
+            const msg = formatPendingMessageLineLikeC();
+            for (let c = 0; c < Math.min(msg.length, display.cols); c++)
+                display.setCell(c, 0, msg[c], NO_COLOR, 0);
+            for (let y = 0; y < ROWNO; y++) {
+                for (let x = 1; x < COLNO; x++) {
+                    const loc = game.level?.at(x, y);
+                    if (!loc?.disp_ch || loc.disp_ch === ' ') continue;
+                    const ch = loc.disp_decgfx ? (DEC_TO_UNICODE[loc.disp_ch] || loc.disp_ch) : loc.disp_ch;
+                    display.setCell(x - 1, y + 1, ch, loc.disp_color ?? NO_COLOR, loc.disp_attr ?? 0);
+                }
+            }
+            paintTutorialMenuOverlayLikeC(display, game._tutorialMenuPass | 0);
+            const s1 = _statusLine1().replace(/\x1b\[[0-9;]*[A-Za-z]/g, (m) =>
+                (m.match(/\x1b\[\d+C/) ? ' '.repeat(parseInt(m.slice(2), 10)) : ''));
+            for (let c = 0; c < Math.min(s1.length, display.cols); c++)
+                display.setCell(c, 22, s1[c], NO_COLOR, 0);
+            const s2 = _statusLine2();
+            for (let c = 0; c < Math.min(s2.length, display.cols); c++)
+                display.setCell(c, 23, s2[c], NO_COLOR, 0);
+            syncTtyCursorForJudgeLikeC(display);
+        }
+        return;
+    }
+
     if (game._inventoryMode) {
         const cat = game._invSelCat || 'Weapons';
         game._pending_message = '';
@@ -550,7 +602,6 @@ function _buildScreenOutput() {
         const msg = formatPendingMessageLineLikeC();
         for (let c = 0; c < Math.min(msg.length, display.cols); c++)
             display.setCell(c, 0, msg[c], NO_COLOR, 0);
-        if (g.u?.ux > 0) display.setCursor(g.u.ux - 1, g.u.uy + 1);
         // Map — write characters to grid (DEC → Unicode for browser display)
         for (let y = 0; y < ROWNO; y++) {
             for (let x = 1; x < COLNO; x++) {
@@ -568,6 +619,17 @@ function _buildScreenOutput() {
         const s2 = _statusLine2();
         for (let c = 0; c < Math.min(s2.length, display.cols); c++)
             display.setCell(c, 23, s2[c], NO_COLOR, 0);
+        const queryTopl =
+            g._toplineNeedMore
+            || g._showDefmoreOnTopline
+            || /\?\s*(\[[^\]]*\])?\s*$/.test(msg)
+            || msg.includes('Press a key to continue');
+        if (g._showDefmoreOnTopline || g._toplineNeedMore || (msg.length > 0 && queryTopl)) {
+            syncTtyCursorForJudgeLikeC(display);
+        } else if (g.u?.ux > 0) {
+            display.setCursor(g.u.ux - 1, g.u.uy + 1);
+            display.cursorVisible = true;
+        }
     }
 }
 
