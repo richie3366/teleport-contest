@@ -2542,4 +2542,6 @@ function level_finalize_topology() {
         if (rm && rm.rtype != null) rm.orig_rtype = rm.rtype;
     }
     syncLevelFlagsHasTownAfterFixupSpecialLikeC(game);
+    /* C: west-door apport gold must stay newest on **`fobj`** after late mklev gold. */
+    refreshWestDoorColumnFobjAfterMineralizeLikeC(game);
 }

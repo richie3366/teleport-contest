@@ -1,7 +1,9 @@
 // dogmove_reach.js — C dogmove.c could_reach_item / can_reach_location (goal filters).
 // C ref: dogmove.c could_reach_item() ~1362, can_reach_location() ~1379.
 
-import { IS_DOOR, CORR, ROOM } from './const.js';
+import {
+    IS_DOOR, CORR, ROOM, IS_STWALL, IS_TREE, W_NONDIGGABLE, Is_rogue_level,
+} from './const.js';
 import { isPoolCellLikeC, isLavaCellLikeC } from './fillholetyp.js';
 import { throwsRocks, passesWalls, swims, likesLava } from './mondata.js';
 import { raceptr } from './mondata.js';
@@ -107,6 +109,24 @@ function isObstructedDogmoveLikeC(g, typ) {
     return typ < IS_DOOR && (typ | 0) !== CORR && (typ | 0) !== ROOM;
 }
 
+/** C: mondata.h **`M1_TUNNEL`**. */
+const M1_TUNNEL = 0x00000020;
+
+/** C: mondata.h **`tunnels(ptr)`**. */
+function tunnelsPermonstLikeC(ptr) {
+    return ((ptr?.mflags1 ?? 0) & M1_TUNNEL) !== 0;
+}
+
+/** C: hack.c **`may_dig`** — STWALL/tree + **`W_NONDIGGABLE`**. */
+function mayDigLocDogmoveLikeC(g, x, y) {
+    const loc = g.level?.at(x | 0, y | 0);
+    if (!loc) return true;
+    const typ = loc.typ | 0;
+    const wi = loc.wall_info | 0;
+    if ((IS_STWALL(typ) || IS_TREE(typ)) && (wi & W_NONDIGGABLE)) return false;
+    return true;
+}
+
 /**
  * C: dogmove.c can_reach_location — recursive reachability for dog_goal filters.
  * @param {import('./gstate.js').game} g
@@ -131,7 +151,17 @@ export function canReachLocationDogmoveLikeC(g, mtmp, mx, my, fx, fy) {
             const loc = g.level?.at(i, j);
             if (!loc) continue;
             const typ = loc.typ | 0;
-            if (isObstructedDogmoveLikeC(g, typ) && !passesWalls(ptr)) continue;
+            if (
+                isObstructedDogmoveLikeC(g, typ)
+                && !passesWalls(ptr)
+                && (
+                    !mayDigLocDogmoveLikeC(g, i, j)
+                    || !tunnelsPermonstLikeC(ptr)
+                    || Is_rogue_level(g.u?.uz)
+                )
+            ) {
+                continue;
+            }
             if (IS_DOOR(typ) && ((loc.doormask | 0) & 3)) continue;
             if (!couldReachItemDogmoveLikeC(g, mtmp, i, j)) continue;
             if (canReachLocationDogmoveLikeC(g, mtmp, i, j, xf, yf)) return true;

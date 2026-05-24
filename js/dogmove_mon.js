@@ -123,20 +123,6 @@ function currMonLoadMtmpLikeC(mtmp) {
  * @param {Record<string, unknown>} mtmp
  * @param {Record<string, unknown>} obj
  */
-/**
- * C: **`dog_goal`** APPORT branch — **`can_carry > 0`** and pet can take whole stack
- * ( **`M1_NOHANDS`** pets **`can_carry`** returns **1** for **`iquan > 1`** ).
- * @param {Record<string, unknown>} mtmp
- * @param {Record<string, unknown>} obj
- */
-function canCarryApportGoalLikeC(mtmp, obj) {
-    const carry = canCarryMonsterObjDogmoveLikeC(mtmp, obj);
-    if (carry <= 0) return false;
-    const quan = obj.quan | 0;
-    if (quan <= 1) return true;
-    return carry >= quan;
-}
-
 function canCarryMonsterObjDogmoveLikeC(mtmp, obj) {
     if (!obj) return 0;
     const ptr = raceptr(mtmp);
@@ -367,7 +353,7 @@ function dogGoalFloorScanRngLikeC(
                 && litOk
                 && (otyp === MANFOOD || mCanseeDogmoveLikeC(g, mtmp, nx, ny))
                 && (edog.apport | 0) > rn2(8)
-                && canCarryApportGoalLikeC(mtmp, obj)
+                && canCarryMonsterObjDogmoveLikeC(mtmp, obj) > 0
             ) {
                 gx = nx;
                 gy = ny;
