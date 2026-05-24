@@ -290,6 +290,12 @@ export async function moveloop_core() {
 
     await rhack(0);
 
+    /* C: allmain.c moveloop_core — vision_recalc after rhack when unblock/block changed. */
+    if (g.vision_full_recalc) {
+        vision_recalc(0);
+        g.vision_full_recalc = 0;
+    }
+
     if (shouldClearMoveloopToplineLikeC(g)) clearPendingMessageAndToplineLikeC();
     latchRetainedToplineLikeC(g);
 

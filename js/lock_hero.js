@@ -3,7 +3,8 @@
 //        door **`b_trapped("door", FINGER)`**, **`D_NODOOR`**, shop **`add_damage`** (**`SHOP_DOOR_COST`**), **`newsym`**; **`is_magic_key`** + **`D_TRAPPED`** door — **`y_n`** disarm (no **`tknown`** on door).
 // **`doopen_indir`**: **`rnl(20)`** strength open, trapped door **`b_trapped`**. Omits drawbridge/portcullis, mimic **`stumble_onto_mimic`**, **`autounlock`**, **`get_adjacent_loc`**.
 
-import { pline, flush_screen, newsym } from './display.js';
+import { pline, flush_screen, feelNewsym, newsym } from './display.js';
+import { recalcBlockPointLikeC } from './vision.js';
 import { nhgetch } from './input.js';
 import { acurr, exercise } from './attrib.js';
 import {
@@ -93,7 +94,8 @@ export async function doopenIndirHeroLikeC(g, x, y) {
         } else {
             loc.doormask = D_ISOPEN;
         }
-        newsym(x, y);
+        feelNewsym(x, y);
+        recalcBlockPointLikeC(x, y);
     } else {
         exercise(A_STR, true);
         await pline('The door resists!');

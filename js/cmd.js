@@ -332,7 +332,7 @@ async function domove(dx, dy) {
         if (!g._retainMessageAfterCommand) clearPendingMessageAndToplineLikeC();
         g._overlayScreen = null;
         g._inventoryMode = false;
-        vision_recalc(1);
+        /* C: no domove vision_recalc when autoopen without moving — moveloop_core tail. */
         return false;
     }
 

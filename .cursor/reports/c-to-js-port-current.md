@@ -18,11 +18,11 @@ Thin handoff for the next coding session. **Score + milestones:** [`c-to-js-port
 
 **Deferred for now:** **`maybe_do_tutorial`** / **`tut-1`** / full **`do.c`** **`goto_level`** (Lua **`tutorial()`** / **`free_tutorial()`**, **`savelev`**, **`gmst_*`**, …) and **`dokick`**/**`dothrow`** vs **`leaving_tutorial`** — strong upstream dependencies (save, specials, fuller **`do.c`**); treat as backlog until chargen / core early-game parity is further along; **`LIVELOGFILE`** parity if the judge ever compares livelog lines.
 
-**Last slice:** **`display.c` / `botl.c` legacy pager + `display_pickinv`.** **`display.js`**: **`com_pager`** keeps pre-**`find_ac`** status (**AC:0** step 11); skip **`bot()`** on legacy intro / welcome **`--More--`** flush; **`#inventory`** **`clearScreen`** (no stale map under pick-invent). **`allmain.js`** / **`legacy_intro.js`**: snapshot + clear **`_botlLine*PreFindAcBotlLikeC`**. **`seed0077`:** **RNG 3242/3242**; **screens 19/33** (**33/33** cursors). **`seed8000`:** **20/23** screens. **`npm run score`:** **0/44**.
+**Last slice:** **`vision.c` rogue door-open + `rogue_vision`.** **`vision.js`**: C **`dig_point`/`fill_point`** in **`recalcBlockPointLikeC`**; **`rogue_vision`** on rogue levels; **`moveloop_core`** / **`lock.c`** **`feel_newsym`** + deferred **`vision_recalc(0)`**; rogue floor display gated on **`viz_clear`**. **`search.js`**: rogue **`D_NODOOR`** in **`cvt_sdoor_to_door`**. **`cmd.js`**: no **`vision_recalc(1)`** on autoopen-without-move. **`seed0077`:** **RNG 3242/3242**; **screens 19/33** (**33/33** cursors) — west apport alcove (**step 17** cols 35–36) matches C; **~11** cells NW of door still early-reveal vs C. **`seed8000`:** **20/23** screens. **`npm run score`:** **0/44**.
 
 ## Next steps
 
-1. **`seed0077` screens** — moveloop map/status steps **17+** (chargen steps **0–6** still open); keep west-door **`CORR`** / moveloop RNG plan when touching **`mklev`** niche sleepers.
+1. **`seed0077` screens** — step **17** NW corridor / lichen (**~11** cells); moveloop steps **18+**; chargen steps **0–6** (tty date banner). **`viz_clear`** / rogue room bounds vs C when corridor north of west door should stay blank until explored.
 
 2. **`mklev` lregions** — wire **`game.dndest`/`updest`** when **`place_lregions`** ported.
 
