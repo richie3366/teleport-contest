@@ -207,6 +207,9 @@ export async function newgame() {
     await docrt();
     await flush_screen(1);
     await bot();
+    /* C: com_pager — first botl lines stay at AC:0 until welcome refresh after find_ac. */
+    g._botlLine1PreFindAcBotlLikeC = g._cachedBotlLine1;
+    g._botlLine2PreFindAcBotlLikeC = g._cachedBotlLine2;
 
     /* C: u_init.c u_init_skills_discoveries — skill_init(); find_ac() after invent + docrt/bot */
     applySkillInit(g);

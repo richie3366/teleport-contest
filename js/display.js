@@ -693,12 +693,17 @@ function useStaleCachedBotlLikeC() {
 }
 
 function statusLine1ForPaintLikeC() {
+    /* C: com_pager — status still matches pre-find_ac bot() until welcome bot() refresh. */
+    if (game._legacyIntroActive && game._botlLine1PreFindAcBotlLikeC != null)
+        return game._botlLine1PreFindAcBotlLikeC;
     /* C: find_ac sets disp.botl; tty keeps prior bot() lines until the next bot(). */
     if (useStaleCachedBotlLikeC() && game._cachedBotlLine1 != null) return game._cachedBotlLine1;
     return statusLine1ExpandedLikeC();
 }
 
 function statusLine2ForPaintLikeC() {
+    if (game._legacyIntroActive && game._botlLine2PreFindAcBotlLikeC != null)
+        return game._botlLine2PreFindAcBotlLikeC;
     if (useStaleCachedBotlLikeC()) return game._cachedBotlLine2;
     return _statusLine2();
 }
@@ -794,13 +799,14 @@ function _buildScreenOutput() {
     if (game._inventoryMode) {
         const cat = game._invSelCat || 'Weapons';
         game._pending_message = '';
+        /* C: invent.c display_pickinv — NHW_MENU clears map rows; inventory at TTY_PICKINV_COL. */
+        display.clearScreen();
         display.putstr(TTY_PICKINV_COL, 0, cat, NO_COLOR, ATR_INVERSE);
         paintInventoryOverlayLikeC(display);
-        const s1 = _statusLine1().replace(/\x1b\[[0-9;]*[A-Za-z]/g, (m) =>
-            (m.match(/\x1b\[\d+C/) ? ' '.repeat(parseInt(m.slice(2), 10)) : ''));
+        const s1 = statusLine1ForPaintLikeC();
         for (let c = 0; c < Math.min(s1.length, display.cols); c++)
             display.setCell(c, 22, s1[c], NO_COLOR, 0);
-        const s2 = _statusLine2();
+        const s2 = statusLine2ForPaintLikeC();
         for (let c = 0; c < Math.min(s2.length, display.cols); c++)
             display.setCell(c, 23, s2[c], NO_COLOR, 0);
         syncTtyCursorForJudgeLikeC(display);
@@ -863,8 +869,14 @@ function _buildScreenOutput() {
 
 // ── flush_screen ──
 export async function flush_screen(mode) {
-    /* C: display.c flush_screen — refresh status before map when disp.botl/botlx. */
-    if (game.disp?.botl || game.disp?.botlx) await bot();
+    /* C: display.c flush_screen — refresh status before map when disp.botl/botlx.
+     * Skip bot() on welcome `--More--` only: find_ac already set disp.botl but tty
+     * has not repainted status yet (seed0077 tutorial menu still shows AC:0). */
+    const skipBotForWelcomeMore =
+        game._showDefmoreOnTopline && game._toplineNeedMore;
+    const skipBotForLegacyIntro = game._legacyIntroActive;
+    if ((game.disp?.botl || game.disp?.botlx) && !skipBotForWelcomeMore && !skipBotForLegacyIntro)
+        await bot();
     _buildScreenOutput();
 }
 
@@ -904,10 +916,10 @@ export async function bot() {
     if (game.program_state?.in_moveloop) findAc();
     const disp = game.nhDisplay;
     if (disp?.grid) {
-        const s1 = statusLine1ExpandedLikeC();
+        const s1 = statusLine1ForPaintLikeC();
         for (let c = 0; c < Math.min(s1.length, disp.cols); c++)
             disp.setCell(c, 22, s1[c], NO_COLOR, 0);
-        const s2 = _statusLine2();
+        const s2 = statusLine2ForPaintLikeC();
         for (let c = 0; c < Math.min(s2.length, disp.cols); c++)
             disp.setCell(c, 23, s2[c], NO_COLOR, 0);
     }

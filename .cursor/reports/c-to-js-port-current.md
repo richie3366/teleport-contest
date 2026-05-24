@@ -18,11 +18,11 @@ Thin handoff for the next coding session. **Score + milestones:** [`c-to-js-port
 
 **Deferred for now:** **`maybe_do_tutorial`** / **`tut-1`** / full **`do.c`** **`goto_level`** (Lua **`tutorial()`** / **`free_tutorial()`**, **`savelev`**, **`gmst_*`**, …) and **`dokick`**/**`dothrow`** vs **`leaving_tutorial`** — strong upstream dependencies (save, specials, fuller **`do.c`**); treat as backlog until chargen / core early-game parity is further along; **`LIVELOGFILE`** parity if the judge ever compares livelog lines.
 
-**Last slice:** **`display.c` west apport alcove corners + object colors.** **`display.js`**: **`westApportAlcoveCornerGlyphLikeC`** (SDOOR north + west/east **`CORR`** — IBM **`x`** **`CLR_MAGENTA`**; hide **`mgenmklev`** on that tile until moveloop peel); gold **`CLR_YELLOW`**, towel **`CLR_MAGENTA`** (**`objects.h`**). **`seed0077`:** **RNG 3242/3242**; **screens 17/33** (**33/33** cursors). **`seed8000`:** **20/23** screens. **`npm run score`:** **0/44**.
+**Last slice:** **`display.c` / `botl.c` legacy pager + `display_pickinv`.** **`display.js`**: **`com_pager`** keeps pre-**`find_ac`** status (**AC:0** step 11); skip **`bot()`** on legacy intro / welcome **`--More--`** flush; **`#inventory`** **`clearScreen`** (no stale map under pick-invent). **`allmain.js`** / **`legacy_intro.js`**: snapshot + clear **`_botlLine*PreFindAcBotlLikeC`**. **`seed0077`:** **RNG 3242/3242**; **screens 19/33** (**33/33** cursors). **`seed8000`:** **20/23** screens. **`npm run score`:** **0/44**.
 
 ## Next steps
 
-1. **`seed0077` screens** — next failing steps after **12–14** (e.g. **15+** map/status); keep west-door **`CORR`** / moveloop RNG plan when touching **`mklev`** niche sleepers.
+1. **`seed0077` screens** — moveloop map/status steps **17+** (chargen steps **0–6** still open); keep west-door **`CORR`** / moveloop RNG plan when touching **`mklev`** niche sleepers.
 
 2. **`mklev` lregions** — wire **`game.dndest`/`updest`** when **`place_lregions`** ported.
 
