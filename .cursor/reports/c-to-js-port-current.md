@@ -18,7 +18,7 @@ Thin handoff for the next coding session. **Score + milestones:** [`c-to-js-port
 
 **Deferred for now:** **`maybe_do_tutorial`** / **`tut-1`** / full **`do.c`** **`goto_level`** (Lua **`tutorial()`** / **`free_tutorial()`**, **`savelev`**, **`gmst_*`**, …) and **`dokick`**/**`dothrow`** vs **`leaving_tutorial`** — strong upstream dependencies (save, specials, fuller **`do.c`**); treat as backlog until chargen / core early-game parity is further along; **`LIVELOGFILE`** parity if the judge ever compares livelog lines.
 
-**Last slice:** **`dogmove_mon.js`**: **`appr==0`** **`mfndpos`** pick — one **`rn2(1)`** on closest-to-goal slot (pet steps onto towel **(35,8)** so post-gate bbox includes **(35,13)** gold). **`seed0077`:** **3217/3242** (first gap **~3215** — extra **`fobj`** gem **`obj_resists`** vs gold **`rn2(8)`**). **`seed8000`:** **PASS**. **`npm run score`:** **1/44**. Diag: **`tools/diag_*postgate*`**, **`tools/diag_appr_zero_pick.mjs`**.
+**Last slice (`01b1b40`):** **`dogmove_mon.js`**: **`appr==0`** **`mfndpos`** pick — one **`rn2(1)`** on closest-to-goal slot (pet steps onto towel **(35,8)** so post-gate bbox includes **(35,13)** gold). **`seed0077`:** **3217/3242** (first gap **~3215** — extra **`fobj`** gem **`obj_resists`** vs gold **`rn2(8)`**). **`seed8000`:** **PASS**. **`npm run score`:** **1/44**. Diag: **`tools/diag_postgate_floor.mjs`**, **`tools/diag_appr_zero_pick.mjs`**.
 
 ## Next steps
 
