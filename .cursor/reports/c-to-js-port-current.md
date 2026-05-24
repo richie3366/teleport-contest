@@ -18,7 +18,7 @@ Thin handoff for the next coding session. **Score + milestones:** [`c-to-js-port
 
 **Deferred for now:** **`maybe_do_tutorial`** / **`tut-1`** / full **`do.c`** **`goto_level`** (Lua **`tutorial()`** / **`free_tutorial()`**, **`savelev`**, **`gmst_*`**, …) and **`dokick`**/**`dothrow`** vs **`leaving_tutorial`** — strong upstream dependencies (save, specials, fuller **`do.c`**); treat as backlog until chargen / core early-game parity is further along; **`LIVELOGFILE`** parity if the judge ever compares livelog lines.
 
-**Last slice:** **`dogmove_mon.js`**: post-gate **`dog_goal`** restores first-pass towel **`gtyp=APPORT`** (no second **`rn2(8)`**, skip follow-tail **`gi.invent`** resist). **`seed0077`:** **3229/3242** (first gap **~3228** — second **`#search`** / **`:`** tail). **`seed8000`:** **PASS**. **`npm run score`:** **1/44**.
+**Last slice (`9e430fe`):** **`dogmove_mon.js`**: post-gate **`dog_goal`** restores first-pass towel **`gtyp=APPORT`** (no second **`rn2(8)`**, skip follow-tail **`gi.invent`** resist). **`seed0077`:** **3229/3242** (first gap **~3228** — second **`#search`** / **`:`** tail). **`seed8000`:** **PASS**. **`npm run score`:** **1/44**.
 
 ## Next steps
 
