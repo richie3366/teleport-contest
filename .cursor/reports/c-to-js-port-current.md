@@ -18,11 +18,11 @@ Thin handoff for the next coding session. **Score + milestones:** [`c-to-js-port
 
 **Deferred for now:** **`maybe_do_tutorial`** / **`tut-1`** / full **`do.c`** **`goto_level`** (Lua **`tutorial()`** / **`free_tutorial()`**, **`savelev`**, **`gmst_*`**, …) and **`dokick`**/**`dothrow`** vs **`leaving_tutorial`** — strong upstream dependencies (save, specials, fuller **`do.c`**); treat as backlog until chargen / core early-game parity is further along; **`LIVELOGFILE`** parity if the judge ever compares livelog lines.
 
-**Last slice (`3f083f8`):** **`dogmove_mon.js`**: **`dog_goal`** APPORT branch — C **`can_carry(mtmp,obj) > 0`** (not full-stack **`canCarryApportGoalLikeC`**); **`dogmove_reach.js`**: rogue **`can_reach_location`** dig/tunnel gate; **`mklev.js`**: second **`refreshWestDoorColumnFobjAfterMineralizeLikeC`** at **`level_finalize_topology`**. **`seed0077`:** **3215/3242** (first gap **~3207** — first **`#search`** **`dog_move`** extra **`rn2(8)`** vs **`mfndpos`** **`rn2(1)`** after gold sets **`gtyp`**). **`seed8000`:** **PASS**. **`npm run score`:** **1/44**. Diag: **`tools/diag_can_reach_gem.mjs`**, **`tools/diag_rng_window.mjs`**.
+**Last slice:** **`dogmove_mon.js`**: APPORT — **`can_carry > 0`** consumes **`rn2(8)`**; **`canCarryApportGoalLikeC`** (full stack) sets **`gtyp`**; towel-only **`_searchApportTowelXYLikeC`**. **`dogmove_reach.js`**: **`m_cansee`** same-square **`clear_path`**. **`mklev.js`**: **`openWestDoorColumnNorthCorrLikeC`** (vertical alcove **`CORR`** for **`clear_path`** to north ROOM). **`seed0077`:** **3218/3242** (first gap **~3218** post-gate peel **`distfleeck`** vs extra **`obj_resists`**). **`seed8000`:** **PASS**. **`npm run score`:** **1/44**. Diag: **`tools/diag_dog_goal_3207.mjs`**.
 
 ## Next steps
 
-1. **`seed0077` ~3207+** — first **`#search`** **`dog_goal`**: match C when **`can_carry > 0`** sets **`gtyp`** at **~3205** vs second apport **`rn2(8)`** at **~3207** (clang **`&&`** / **`can_carry`** return value vs **`M1_NOHANDS`**); then post-gate tail **`distfleeck`** **~3216+**; second **`#search`** **`dog_invent`** **~3227+**; **`:`** **3236+**. Tools: **`tools/diag_rng_window.mjs`**, **`tools/diag_postgate_floor.mjs`**.
+1. **`seed0077` ~3218+** — post-gate peel **`distfleeck`** / gate hostile **`dochug`** tail; second **`#search`** **`dog_invent`** **~3227+**; **`:`** **3236+**. Tools: **`tools/diag_rng_window.mjs`**, **`tools/diag_postgate_floor.mjs`**.
 
 2. **`jsmain` tail post** — new-turn **3236–3241** after **`dolook`** on **`:`** step once invent chain aligns.
 

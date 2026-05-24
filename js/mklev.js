@@ -2498,6 +2498,36 @@ function relocateFillObjsIntoWestDoorAlcovesLikeC(g) {
     }
 }
 
+/**
+ * C: west-door apport alcove — vertical **`CORR`** on **(door.x-1, ·)** so pet
+ * **`m_cansee`** / **`clear_path`** reaches north **`ROOM`** loot (**`seed0077` ~3215**).
+ * @param {import('./gstate.js').game} g
+ */
+function openWestDoorColumnNorthCorrLikeC(g) {
+    const map = g.level;
+    if (!map) return;
+    for (let wx = 1; wx < COLNO - 1; wx++) {
+        for (let y = 0; y < ROWNO - 1; y++) {
+            const loc = map.at(wx, y);
+            if (!loc || (loc.typ | 0) !== CORR) continue;
+            const east = map.at(wx + 1, y);
+            if (!east || !IS_DOOR(east.typ | 0)) continue;
+            for (let ny = y + 1; ny < ROWNO; ny++) {
+                const nloc = map.at(wx, ny);
+                if (!nloc) break;
+                const t = nloc.typ | 0;
+                if (t === ROOM) break;
+                if (t === CORR || t === SCORR) continue;
+                if (t === HWALL || t === STONE || t === VWALL) {
+                    nloc.typ = CORR;
+                    continue;
+                }
+                break;
+            }
+        }
+    }
+}
+
 function openDoorCorridorWestAlcovesFinalizeLikeC(g) {
     const map = g.level;
     if (!map?.doors?.length) return;
@@ -2542,6 +2572,7 @@ function level_finalize_topology() {
         if (rm && rm.rtype != null) rm.orig_rtype = rm.rtype;
     }
     syncLevelFlagsHasTownAfterFixupSpecialLikeC(game);
+    openWestDoorColumnNorthCorrLikeC(game);
     /* C: west-door apport gold must stay newest on **`fobj`** after late mklev gold. */
     refreshWestDoorColumnFobjAfterMineralizeLikeC(game);
 }

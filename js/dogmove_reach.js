@@ -44,9 +44,13 @@ function sobjAtBoulderLikeC(g, x, y) {
  * @param {number} y
  */
 export function mCanseeDogmoveLikeC(g, mtmp, x, y) {
-    return clearPathRayToTargetLikeC(
-        g, x | 0, y | 0, mtmp.mx | 0, mtmp.my | 0, false,
-    );
+    const xi = x | 0;
+    const yi = y | 0;
+    const mx = mtmp.mx | 0;
+    const my = mtmp.my | 0;
+    /* C: vision.c **`clear_path`** — same square is visible. */
+    if (mx === xi && my === yi) return true;
+    return clearPathRayToTargetLikeC(g, xi, yi, mx, my, false);
 }
 
 /**

@@ -119,10 +119,20 @@ function currMonLoadMtmpLikeC(mtmp) {
 }
 
 /**
- * C: mon.c **`can_carry`** — apport goal gate (**`can_carry > 0`** at dogmove.c:555).
+ * C: **`dog_goal`** APPORT — set **`gg.gtyp`** only when pet can take whole stack.
+ * **`can_carry > 0`** still gates the **`&&`** chain after **`rn2(8)`** (clang order);
+ * **`M1_NOHANDS`** partial stacks return **1** for **`iquan > 1`** without satisfying this.
  * @param {Record<string, unknown>} mtmp
  * @param {Record<string, unknown>} obj
  */
+function canCarryApportGoalLikeC(mtmp, obj) {
+    const carry = canCarryMonsterObjDogmoveLikeC(mtmp, obj);
+    if (carry <= 0) return false;
+    const quan = obj.quan | 0;
+    if (quan <= 1) return true;
+    return carry >= quan;
+}
+
 function canCarryMonsterObjDogmoveLikeC(mtmp, obj) {
     if (!obj) return 0;
     const ptr = raceptr(mtmp);
@@ -286,6 +296,9 @@ function dogGoalFloorScanRngLikeC(
     const minY = Math.max(0, omy - SQSRCHRADIUS);
     const maxY = Math.min(23, omy + SQSRCHRADIUS);
     const floor = fobjInDogGoalBoxLikeC(g, minX, maxX, minY, maxY);
+    if (typeof globalThis.__diagDogGoalFloor === 'function') {
+        globalThis.__diagDogGoalFloor(g, mtmp, floor, trackApportGoalLikeC);
+    }
     const ux = u.ux | 0;
     const uy = u.uy | 0;
     const udist = dist2(omx, omy, ux, uy);
@@ -355,9 +368,11 @@ function dogGoalFloorScanRngLikeC(
                 && (edog.apport | 0) > rn2(8)
                 && canCarryMonsterObjDogmoveLikeC(mtmp, obj) > 0
             ) {
-                gx = nx;
-                gy = ny;
-                gtyp = APPORT;
+                if (canCarryApportGoalLikeC(mtmp, obj)) {
+                    gx = nx;
+                    gy = ny;
+                    gtyp = APPORT;
+                }
             }
         }
     }
@@ -366,8 +381,12 @@ function dogGoalFloorScanRngLikeC(
         && g.context?._searchPass1NearMonLikeC
         && gtyp === APPORT
     ) {
-        const ctx = g.context || (g.context = {});
-        ctx._searchApportTowelXYLikeC = { x: gx, y: gy };
+        const head = g.level?.floorObjHeads?.get(floorObjKey(gx, gy));
+        const otyp = head?.otyp | 0;
+        if (otyp === 234 || otyp === 235) {
+            const ctx = g.context || (g.context = {});
+            ctx._searchApportTowelXYLikeC = { x: gx, y: gy };
+        }
     }
     return dogGoalFollowGxGyApprLikeC(
         g, mtmp, gtyp, gx, gy, udist, whappr, edog,
