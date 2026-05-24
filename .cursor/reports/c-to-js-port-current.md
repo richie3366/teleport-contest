@@ -18,7 +18,7 @@ Thin handoff for the next coding session. **Score + milestones:** [`c-to-js-port
 
 **Deferred for now:** **`maybe_do_tutorial`** / **`tut-1`** / full **`do.c`** **`goto_level`** (Lua **`tutorial()`** / **`free_tutorial()`**, **`savelev`**, **`gmst_*`**, …) and **`dokick`**/**`dothrow`** vs **`leaving_tutorial`** — strong upstream dependencies (save, specials, fuller **`do.c`**); treat as backlog until chargen / core early-game parity is further along; **`LIVELOGFILE`** parity if the judge ever compares livelog lines.
 
-**Last slice:** **`dogmove_mon.js`**: APPORT — **`can_carry > 0`** consumes **`rn2(8)`**; **`canCarryApportGoalLikeC`** (full stack) sets **`gtyp`**; towel-only **`_searchApportTowelXYLikeC`**. **`dogmove_reach.js`**: **`m_cansee`** same-square **`clear_path`**. **`mklev.js`**: **`openWestDoorColumnNorthCorrLikeC`** (vertical alcove **`CORR`** for **`clear_path`** to north ROOM). **`seed0077`:** **3218/3242** (first gap **~3218** post-gate peel **`distfleeck`** vs extra **`obj_resists`**). **`seed8000`:** **PASS**. **`npm run score`:** **1/44**. Diag: **`tools/diag_dog_goal_3207.mjs`**.
+**Last slice (`ecdbbfa`):** **`dogmove_mon.js`**: APPORT — **`can_carry > 0`** consumes **`rn2(8)`**; **`canCarryApportGoalLikeC`** (full stack) sets **`gtyp`**; towel-only **`_searchApportTowelXYLikeC`**. **`dogmove_reach.js`**: **`m_cansee`** same-square **`clear_path`**. **`mklev.js`**: **`openWestDoorColumnNorthCorrLikeC`** (vertical alcove **`CORR`** for **`clear_path`** to north ROOM). **`seed0077`:** **3218/3242** (first gap **~3218** post-gate peel **`distfleeck`** vs extra **`obj_resists`**). **`seed8000`:** **PASS**. **`npm run score`:** **1/44**. Diag: **`tools/diag_dog_goal_3207.mjs`**.
 
 ## Next steps
 
