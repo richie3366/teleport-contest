@@ -97,6 +97,7 @@ export function armRogueColonMovemonPendingLikeC(g) {
     g.context._rogueColonMovemonPendingLikeC = true;
     delete g.context._searchStep11Passes;
     delete g.context._deferRogColonMovemonUntilColonLikeC;
+    g.context._deferredNewTurnLikeC = true;
 }
 
 /** @param {import('./gstate.js').game} g */

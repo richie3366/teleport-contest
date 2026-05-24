@@ -230,6 +230,8 @@ export async function rhack(key) {
             && rogueSecondSearchFullFmonLikeC(game)
         ) {
             game.context._deferRogColonMovemonUntilColonLikeC = true;
+            /* C: new-turn tail (**`mcalcmove`** / **`rn2(12)`**, …) is on **`:`**, not second **`s`**. */
+            game.context._deferredNewTurnTwinSearchColonLikeC = true;
         }
         /* C: **`#search`** costs time — inline **`movemon`** + new-turn tail on the **`s`** step. */
         game.context._searchInlinePostDoneLikeC = true;

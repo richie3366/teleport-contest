@@ -18,19 +18,15 @@ Thin handoff for the next coding session. **Score + milestones:** [`c-to-js-port
 
 **Deferred for now:** **`maybe_do_tutorial`** / **`tut-1`** / full **`do.c`** **`goto_level`** (Lua **`tutorial()`** / **`free_tutorial()`**, **`savelev`**, **`gmst_*`**, …) and **`dokick`**/**`dothrow`** vs **`leaving_tutorial`** — strong upstream dependencies (save, specials, fuller **`do.c`**); treat as backlog until chargen / core early-game parity is further along; **`LIVELOGFILE`** parity if the judge ever compares livelog lines.
 
-**Last slice:** **`seed0077`** session step map — second **`s`** RNG **3196–3218**; colon **`:`** **3219–3235** (**`dog_invent`** **`rn2(20)`/`rn2(udist)`** at **3221–3222**). **`cmd.js`**: defer colon **`fmon`** when next key is **`:`**; arm colon + **`runPostCommandTurnAdvance`** on **`:`**. **`monmove.js`**: stop **`fmon`** after pet when deferred. **`m_move_mon.js`**: second **`s`** **`dogMoveInventGoalNoPickLikeC`**; colon pet **`dogMoveLikeC`** (invent before **`mfndpos`**). **`mklev.js`**: **`u_on_sstairs`/`u_on_rndspot`** per **`stairs.c`/`dungeon.c`**. **`seed0077`:** **3219/3236** (first miss **3219** gate **`rn2(5)`**; **~3222** **`udist`**). **`npm run score`:** verify **`seed8000`** screen (was **PASS**). **`tools/diag_pet_at_rng.mjs`**.
+**Last slice:** **`seed0077`** — defer new-turn on second **`s`** when **`:`** follows (**`_deferredNewTurnTwinSearchColonLikeC`**); colon gate **`rn2(5)`** at **3219** (was **`rn2(12)`** from early **`mcalcmove`** tail). **`moveloop_turn_advance.js`**, **`cmd.js`**, **`monmove_search.js`**. **`seed0077`:** **3229/3242** (`npm run score`; first miss **3229**). **`tools/diag_pet_pos_at_colon.mjs`**.
 
 ## Next steps
 
-1. **`seed0077` ~3219** — colon **`:`** moveloop must open with gate **`distfleeck`** **`rn2(5)=1`** (JS **`rn2(12)`** at **3219**); confirm **`isRogueColonMovemonActiveLikeC`** + **`fmon_iter`** gate-first order after **`armRogueColonMovemonPendingLikeC`**.
+1. **`seed0077` ~3229** — next colon/moveloop RNG after **`dog_invent`** peel; use **`tools/diag_pet_pos_at_colon.mjs`**, **`tools/diag_mfndpos_3208.mjs`** if **`udist`** still involved.
 
-2. **`seed0077` ~3222** — colon **`dog_invent`** **`rn2(udist)`** needs **`distu=5`** (pet west of towel **(35,8)** before **`mfndpos`** onto towel); **`tools/diag_pet_at_rng.mjs`**, **`tools/diag_mfndpos_slots.mjs`** at first-search **~3208**.
+2. **`mklev` lregions** — wire **`game.dndest`/`updest`** from **`mkmaze.c`** **`LR_*TELE`** when **`place_lregions`** is ported (hero **`u_on_rndspot`** bounds).
 
-3. **`seed0077` ~3223+** — colon west **`rn2(16)`** peel + new-turn tail once **3219–3222** align.
-
-4. **`mklev` lregions** — wire **`game.dndest`/`updest`** from **`mkmaze.c`** **`LR_*TELE`** when **`place_lregions`** is ported (hero **`u_on_rndspot`** bounds).
-
-5. **Chargen + `u_init_role` RNG** — when moveloop peel is aligned.
+3. **Chargen + `u_init_role` RNG** — when moveloop peel is aligned.
 
 ### Extended backlog (unchanged lanes)
 

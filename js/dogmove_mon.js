@@ -619,9 +619,8 @@ function dogMoveMfndposPickLikeC(g, mtmp, ggx, ggy, appr, whappr) {
     }
 
     if (appr === 0) {
-        /* C: **`appr==0`** — one **`rn2(1)`** on the closest-to-goal **`mfndpos`** slot
-         * (recorder **`seed0077`** ~3208 onto APPORT towel; avoids **`rn2(2..)`** when extra
-         * neighbor slots exist in JS but not C). */
+        /* C: **`appr==0`** — tied **`mfndpos`** slots use **`chcnt`** / **`rn2(chcnt)`**; JS uses
+         * closest-to-goal + **`rn2(1)`** until **`mfndpos`** slot parity matches C at ~3208. */
         let minNd = Infinity;
         let pickX = omx;
         let pickY = omy;
@@ -897,8 +896,8 @@ export function dogMoveSearchPassNearHeroLikeC(g, mtmp) {
     if (ctx._searchPass1NearMonLikeC) {
         ctx._searchPass1DogGoalDoneLikeC = true;
     }
-    /* C: rogue first **`#search`** gate — **`dog_move`** **`mfndpos`** uses **`appr==0`**
-     * ( **`seed0077`** **`rn2(1)`** at ~3208 while **`dog_goal`** set APPORT **`appr==1`** ). */
+    /* C: rogue first **`#search`** gate — **`dog_goal`** then **`mfndpos`** with **`appr==0`**
+     * (**`chcnt`** / **`rn2(chcnt)`** tie picks, **`seed0077`** ~3208). */
     dogMoveGoalAndPickLikeC(g, mtmp, true, true, 0);
 }
 
