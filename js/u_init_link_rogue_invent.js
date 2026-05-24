@@ -12,7 +12,6 @@ import {
     NH5_TOOL_CLASS,
 } from './nh5_objclass.js';
 import { OTYP_LEATHER_ARMOR } from './const.js';
-import { findAc } from './u_init_find_ac.js';
 
 /** C objects_nums — Rogue[] trobj (NH5 `enum objects_nums`; cpp OBJECTS_ENUM index = `nl − 1`). */
 const OTYP_SHORT_SWORD = 46;
@@ -96,6 +95,4 @@ export function applyRogueHumanLinkedInventAndWieldLikeC(g) {
     u.uwep = shortSword;
     u.uquiver = dagger;
     u.uarm = leather;
-    /* C: do_wear.c find_ac — after ini_inv slots / worn armor (subset before full set_wear). */
-    findAc(g);
 }

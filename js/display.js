@@ -605,13 +605,43 @@ function _statusLine2() {
     );
 }
 
+/** Status line 1 with cursor-forward gaps expanded (grid / tty menu paths). */
+function statusLine1ExpandedLikeC() {
+    return _statusLine1().replace(/\x1b\[[0-9;]*[A-Za-z]/g, (m) =>
+        (m.match(/\x1b\[\d+C/) ? ' '.repeat(parseInt(m.slice(2), 10)) : ''));
+}
+
+/**
+ * C: botl.c / tty — last `bot()` snapshot; NHW_MENU tutorial keeps stale status until next `bot()`.
+ */
+export function refreshCachedBotlLinesLikeC() {
+    game._cachedBotlLine1 = statusLine1ExpandedLikeC();
+    game._cachedBotlLine2 = _statusLine2();
+    game.disp = game.disp || {};
+    game.disp.botl = false;
+}
+
+function useStaleCachedBotlLikeC() {
+    return !!(game._cachedBotlLine2 != null && game.disp?.botl);
+}
+
+function statusLine1ForPaintLikeC() {
+    /* C: find_ac sets disp.botl; tty keeps prior bot() lines until the next bot(). */
+    if (useStaleCachedBotlLikeC() && game._cachedBotlLine1 != null) return game._cachedBotlLine1;
+    return statusLine1ExpandedLikeC();
+}
+
+function statusLine2ForPaintLikeC() {
+    if (useStaleCachedBotlLikeC()) return game._cachedBotlLine2;
+    return _statusLine2();
+}
+
 /** Status rows for full-screen overlays (legacy intro, …). C tty keeps botl on rows 22–23. */
 export function paintStatusRowsForLegacyIntro(display) {
-    const s1 = _statusLine1().replace(/\x1b\[[0-9;]*[A-Za-z]/g, (m) =>
-        (m.match(/\x1b\[\d+C/) ? ' '.repeat(parseInt(m.slice(2), 10)) : ''));
+    const s1 = statusLine1ForPaintLikeC();
     for (let c = 0; c < Math.min(s1.length, display.cols); c++)
         display.setCell(c, 22, s1[c], NO_COLOR, 0);
-    const s2 = _statusLine2();
+    const s2 = statusLine2ForPaintLikeC();
     for (let c = 0; c < Math.min(s2.length, display.cols); c++)
         display.setCell(c, 23, s2[c], NO_COLOR, 0);
 }
@@ -680,11 +710,10 @@ function _buildScreenOutput() {
             }
             blankTutorialMenuTailOnDisplay(display);
             paintTutorialMenuOverlayLikeC(display, game._tutorialMenuPass | 0);
-            const s1 = _statusLine1().replace(/\x1b\[[0-9;]*[A-Za-z]/g, (m) =>
-                (m.match(/\x1b\[\d+C/) ? ' '.repeat(parseInt(m.slice(2), 10)) : ''));
+            const s1 = statusLine1ForPaintLikeC();
             for (let c = 0; c < Math.min(s1.length, display.cols); c++)
                 display.setCell(c, 22, s1[c], NO_COLOR, 0);
-            const s2 = _statusLine2();
+            const s2 = statusLine2ForPaintLikeC();
             for (let c = 0; c < Math.min(s2.length, display.cols); c++)
                 display.setCell(c, 23, s2[c], NO_COLOR, 0);
             syncTtyCursorForJudgeLikeC(display);
@@ -724,7 +753,7 @@ function _buildScreenOutput() {
 
     // Row 22-23: status
     output += _statusLine1() + '\n';
-    output += _statusLine2();
+    output += statusLine2ForPaintLikeC();
 
     game._screen_output = output;
 
@@ -745,11 +774,10 @@ function _buildScreenOutput() {
             }
         }
         // Status lines
-        const s1 = _statusLine1().replace(/\x1b\[[0-9;]*[A-Za-z]/g, m =>
-            m.match(/\x1b\[\d+C/) ? ' '.repeat(parseInt(m.slice(2))) : '');
+        const s1 = statusLine1ForPaintLikeC();
         for (let c = 0; c < Math.min(s1.length, display.cols); c++)
             display.setCell(c, 22, s1[c], NO_COLOR, 0);
-        const s2 = _statusLine2();
+        const s2 = statusLine2ForPaintLikeC();
         for (let c = 0; c < Math.min(s2.length, display.cols); c++)
             display.setCell(c, 23, s2[c], NO_COLOR, 0);
         const queryTopl =
@@ -803,7 +831,7 @@ export async function cls() {
 
 // ── bot ──
 export async function bot() {
-    // Status line updates happen in _buildScreenOutput
+    refreshCachedBotlLinesLikeC();
 }
 
 // ── pline ──
