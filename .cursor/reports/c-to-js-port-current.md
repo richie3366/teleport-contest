@@ -18,11 +18,11 @@ Thin handoff for the next coding session. **Score + milestones:** [`c-to-js-port
 
 **Deferred for now:** **`maybe_do_tutorial`** / **`tut-1`** / full **`do.c`** **`goto_level`** (Lua **`tutorial()`** / **`free_tutorial()`**, **`savelev`**, **`gmst_*`**, …) and **`dokick`**/**`dothrow`** vs **`leaving_tutorial`** — strong upstream dependencies (save, specials, fuller **`do.c`**); treat as backlog until chargen / core early-game parity is further along; **`LIVELOGFILE`** parity if the judge ever compares livelog lines.
 
-**Last slice (`ecdbbfa`):** **`dogmove_mon.js`**: APPORT — **`can_carry > 0`** consumes **`rn2(8)`**; **`canCarryApportGoalLikeC`** (full stack) sets **`gtyp`**; towel-only **`_searchApportTowelXYLikeC`**. **`dogmove_reach.js`**: **`m_cansee`** same-square **`clear_path`**. **`mklev.js`**: **`openWestDoorColumnNorthCorrLikeC`** (vertical alcove **`CORR`** for **`clear_path`** to north ROOM). **`seed0077`:** **3218/3242** (first gap **~3218** post-gate peel **`distfleeck`** vs extra **`obj_resists`**). **`seed8000`:** **PASS**. **`npm run score`:** **1/44**. Diag: **`tools/diag_dog_goal_3207.mjs`**.
+**Last slice:** **`dogmove_mon.js`**: post-gate **`dog_goal`** restores first-pass towel **`gtyp=APPORT`** (no second **`rn2(8)`**, skip follow-tail **`gi.invent`** resist). **`seed0077`:** **3229/3242** (first gap **~3228** — second **`#search`** / **`:`** tail). **`seed8000`:** **PASS**. **`npm run score`:** **1/44**.
 
 ## Next steps
 
-1. **`seed0077` ~3218+** — post-gate peel **`distfleeck`** / gate hostile **`dochug`** tail; second **`#search`** **`dog_invent`** **~3227+**; **`:`** **3236+**. Tools: **`tools/diag_rng_window.mjs`**, **`tools/diag_postgate_floor.mjs`**.
+1. **`seed0077` ~3228+** — second **`#search`** **`dog_move`** / **`dog_invent`**; **`:`** **`dolook`** new-turn **3236+**. Tools: **`tools/diag_rng_window.mjs`**, **`tools/diag_rng_step_map.mjs`**.
 
 2. **`jsmain` tail post** — new-turn **3236–3241** after **`dolook`** on **`:`** step once invent chain aligns.
 

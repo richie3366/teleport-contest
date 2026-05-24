@@ -388,6 +388,18 @@ function dogGoalFloorScanRngLikeC(
             ctx._searchApportTowelXYLikeC = { x: gx, y: gy };
         }
     }
+    /* C: post-gate **`dog_goal`** — first-pass towel APPORT goal persists without a
+     * second **`rn2(8)`**; keeps **`gg.gtyp`** off **`UNDEF`** so follow tail skips
+     * **`gi.invent`** **`dogfood`** resist draws (**`seed0077` ~3218**). */
+    if (
+        gtyp === UNDEF
+        && g.context?._searchApportTowelXYLikeC
+        && (g.context?._searchRogGateCountLikeC | 0) >= 1
+    ) {
+        gx = g.context._searchApportTowelXYLikeC.x | 0;
+        gy = g.context._searchApportTowelXYLikeC.y | 0;
+        gtyp = APPORT;
+    }
     return dogGoalFollowGxGyApprLikeC(
         g, mtmp, gtyp, gx, gy, udist, whappr, edog,
     );
