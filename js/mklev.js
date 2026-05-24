@@ -38,6 +38,7 @@ import {
     DIR_N, DIR_S, DIR_E, DIR_W, DIR_180,
     IS_WALL, IS_STWALL, IS_DOOR, IS_OBSTRUCTED, IS_FURNITURE, IS_POOL,
     SPACE_POS, isok, W_NONDIGGABLE, FILL_NORMAL,
+    XL_UP, XL_DOWN, XL_LEFT, XL_RIGHT,
     ICE, MOAT, POOL, WATER, LAVAPOOL, LAVAWALL, DBWALL,
     A_LAWFUL, Align2amask,
     LR_UPTELE,
@@ -128,6 +129,14 @@ const SPE_HEALING = 374;
 const LARGE_BOX = 214;
 const CHEST = 215;
 const FOOD_RATION = 143;
+/** C: `mons[PM_GHOST]` — NH5 permonst index (S_GHOST). */
+const PM_GHOST = 289;
+const MACE = 74;
+const TWO_HANDED_SWORD = 55;
+const BOW = 84;
+const RING_MAIL = 133;
+const PLATE_MAIL = 122;
+const FAKE_AMULET_OF_YENDOR = 197;
 const CRAM_RATION = 145;
 const LEMBAS_WAFER = 146;
 const DUST = 3;
@@ -556,7 +565,13 @@ async function makelevel() {
         g._luathemes_loaded[dnum] = true;
     }
 
-    await makerooms();
+    const rogue = Is_rogue_level(g.u?.uz);
+    if (rogue) {
+        makerogueroomsLikeC();
+        makerogueghostLikeC();
+    } else {
+        await makerooms();
+    }
 
     if (g.level.nroom <= 0) return;
     sort_rooms();
@@ -565,8 +580,10 @@ async function makelevel() {
     // Branch check
     const branchp = is_branchlev();
 
-    makecorridors();
-    await make_niches();
+    /* C: mklev.c — rogue D:1 `goto skip0` (no corridors, niches, vault, special rooms). */
+    if (!rogue) {
+        makecorridors();
+        await make_niches();
 
     /* C: mklev.c makelevel — secret vault (check_room, else rnd_rect + create_vault + check_room). */
     if (g.vault_x !== -1) {
@@ -597,8 +614,9 @@ async function makelevel() {
             }
         }
     }
+    }
 
-    // Place dungeon branch
+    // C: mklev.c skip0 — place_branch then fill ordinary rooms
     if (branchp) {
         place_branch(branchp);
     }
@@ -1276,6 +1294,280 @@ function bydoor(x, y) {
     return false;
 }
 
+/** C: extralev.c corr — rogue corridor tile. */
+function corrRogueLikeC(x, y) {
+    const loc = game.level?.at(x, y);
+    if (!loc) return;
+    loc.typ = rn2(50) ? CORR : SCORR;
+}
+
+/** C: extralev.c roguejoin — L-shaped corridor between two points. */
+function roguejoinLikeC(x1, y1, x2, y2, horiz) {
+    let x;
+    let y;
+    let middle;
+    if (horiz) {
+        middle = x1 + rn2(x2 - x1 + 1);
+        for (x = Math.min(x1, middle); x <= Math.max(x1, middle); x++) {
+            corrRogueLikeC(x, y1);
+        }
+        for (y = Math.min(y1, y2); y <= Math.max(y1, y2); y++) {
+            corrRogueLikeC(middle, y);
+        }
+        for (x = Math.min(middle, x2); x <= Math.max(middle, x2); x++) {
+            corrRogueLikeC(x, y2);
+        }
+    } else {
+        middle = y1 + rn2(y2 - y1 + 1);
+        for (y = Math.min(y1, middle); y <= Math.max(y1, middle); y++) {
+            corrRogueLikeC(x1, y);
+        }
+        for (x = Math.min(x1, x2); x <= Math.max(x1, x2); x++) {
+            corrRogueLikeC(x, middle);
+        }
+        for (y = Math.min(middle, y2); y <= Math.max(middle, y2); y++) {
+            corrRogueLikeC(x2, y);
+        }
+    }
+}
+
+/** C: extralev.c roguecorr — connect rogue grid cells. */
+function roguecorrLikeC(x, y, dir) {
+    const g = game;
+    const here = g.gr.r[x][y];
+    const map = g.level;
+    if (dir === XL_DOWN) {
+        here.doortable &= ~XL_DOWN;
+        let fromx;
+        let fromy;
+        if (!here.real) {
+            fromx = here.rlx + 1 + 26 * x;
+            fromy = here.rly + 7 * y;
+        } else {
+            fromx = here.rlx + rn2(here.dx) + 1 + 26 * x;
+            fromy = here.rly + here.dy + 7 * y;
+            const floc = map.at(fromx, fromy);
+            if (!floc || !IS_WALL(floc.typ)) return;
+            dodoor(fromx, fromy, g.level.rooms[here.nroom]);
+            floc.doormask = D_NODOOR;
+            fromy++;
+        }
+        if (y >= 2) return;
+        y++;
+        const there = g.gr.r[x][y];
+        there.doortable &= ~XL_UP;
+        let tox;
+        let toy;
+        if (!there.real) {
+            tox = there.rlx + 1 + 26 * x;
+            toy = there.rly + 7 * y;
+        } else {
+            tox = there.rlx + rn2(there.dx) + 1 + 26 * x;
+            toy = there.rly - 1 + 7 * y;
+            const tloc = map.at(tox, toy);
+            if (!tloc || !IS_WALL(tloc.typ)) return;
+            dodoor(tox, toy, g.level.rooms[there.nroom]);
+            tloc.doormask = D_NODOOR;
+            toy--;
+        }
+        roguejoinLikeC(fromx, fromy, tox, toy, false);
+        return;
+    }
+    if (dir === XL_RIGHT) {
+        here.doortable &= ~XL_RIGHT;
+        let fromx;
+        let fromy;
+        if (!here.real) {
+            fromx = here.rlx + 1 + 26 * x;
+            fromy = here.rly + 7 * y;
+        } else {
+            fromx = here.rlx + here.dx + 1 + 26 * x;
+            fromy = here.rly + rn2(here.dy) + 7 * y;
+            const floc = map.at(fromx, fromy);
+            if (!floc || !IS_WALL(floc.typ)) return;
+            dodoor(fromx, fromy, g.level.rooms[here.nroom]);
+            floc.doormask = D_NODOOR;
+            fromx++;
+        }
+        if (x >= 2) return;
+        x++;
+        const there = g.gr.r[x][y];
+        there.doortable &= ~XL_LEFT;
+        let tox;
+        let toy;
+        if (!there.real) {
+            tox = there.rlx + 1 + 26 * x;
+            toy = there.rly + 7 * y;
+        } else {
+            tox = there.rlx - 1 + 1 + 26 * x;
+            toy = there.rly + rn2(there.dy) + 7 * y;
+            const tloc = map.at(tox, toy);
+            if (!tloc || !IS_WALL(tloc.typ)) return;
+            dodoor(tox, toy, g.level.rooms[there.nroom]);
+            tloc.doormask = D_NODOOR;
+            tox--;
+        }
+        roguejoinLikeC(fromx, fromy, tox, toy, true);
+    }
+}
+
+/** C: extralev.c miniwalk — connect rogue 3×3 room graph. */
+function miniwalkRogueLikeC(x, y) {
+    const g = game;
+    while (true) {
+        let q = 0;
+        const dirs = [];
+        const here = g.gr.r[x][y];
+        const doorhere = here.doortable;
+        if (x > 0 && !(doorhere & XL_LEFT)
+            && (!g.gr.r[x - 1][y].doortable || !rn2(10))) {
+            dirs[q++] = 0;
+        }
+        if (x < 2 && !(doorhere & XL_RIGHT)
+            && (!g.gr.r[x + 1][y].doortable || !rn2(10))) {
+            dirs[q++] = 1;
+        }
+        if (y > 0 && !(doorhere & XL_UP)
+            && (!g.gr.r[x][y - 1].doortable || !rn2(10))) {
+            dirs[q++] = 2;
+        }
+        if (y < 2 && !(doorhere & XL_DOWN)
+            && (!g.gr.r[x][y + 1].doortable || !rn2(10))) {
+            dirs[q++] = 3;
+        }
+        if (!q) return;
+        const dir = dirs[rn2(q)];
+        if (dir === 0) {
+            here.doortable |= XL_LEFT;
+            x--;
+            g.gr.r[x][y].doortable |= XL_RIGHT;
+        } else if (dir === 1) {
+            here.doortable |= XL_RIGHT;
+            x++;
+            g.gr.r[x][y].doortable |= XL_LEFT;
+        } else if (dir === 2) {
+            here.doortable |= XL_UP;
+            y--;
+            g.gr.r[x][y].doortable |= XL_DOWN;
+        } else {
+            here.doortable |= XL_DOWN;
+            y++;
+            g.gr.r[x][y].doortable |= XL_UP;
+        }
+    }
+}
+
+/** C: extralev.c makeroguerooms — rogue D:1 3×3 room grid (not makerooms). */
+function makerogueroomsLikeC() {
+    const g = game;
+    g.gr = g.gr || {};
+    g.gr.r = Array.from({ length: 3 }, () =>
+        Array.from({ length: 3 }, () => ({
+            real: false,
+            doortable: 0,
+            rlx: 0,
+            rly: 0,
+            dx: 0,
+            dy: 0,
+            nroom: 0,
+        })),
+    );
+    g.level.nroom = 0;
+    for (let y = 0; y < 3; y++) {
+        for (let x = 0; x < 3; x++) {
+            const here = g.gr.r[x][y];
+            if (!rn2(5) && (g.level.nroom || (x < 2 && y < 2))) {
+                here.real = false;
+                here.rlx = rn1(22, 2);
+                here.rly = rn1(y === 2 ? 4 : 3, 2);
+            } else {
+                here.real = true;
+                here.dx = rn1(22, 2);
+                here.dy = rn1(y === 2 ? 4 : 3, 2);
+                here.rlx = rnd(23 - here.dx + 1);
+                here.rly = rnd((y === 2 ? 5 : 4) - here.dy + 1);
+                g.level.nroom++;
+            }
+            here.doortable = 0;
+        }
+    }
+    miniwalkRogueLikeC(rn2(3), rn2(3));
+    g.level.nroom = 0;
+    for (let y = 0; y < 3; y++) {
+        for (let x = 0; x < 3; x++) {
+            const here = g.gr.r[x][y];
+            if (!here.real) continue;
+            here.nroom = g.level.nroom;
+            g.smeq[g.level.nroom] = g.level.nroom;
+            const lowx = 1 + 26 * x + here.rlx;
+            const lowy = 7 * y + here.rly;
+            const hix = 1 + 26 * x + here.rlx + here.dx - 1;
+            const hiy = 7 * y + here.rly + here.dy - 1;
+            add_room(lowx, lowy, hix, hiy, !rn2(7), OROOM, false);
+            const room = g.level.rooms[g.level.nroom - 1];
+            if (room) room.needfill = FILL_NORMAL;
+        }
+    }
+    for (let y = 0; y < 3; y++) {
+        for (let x = 0; x < 3; x++) {
+            const here = g.gr.r[x][y];
+            if (here.doortable & XL_DOWN) roguecorrLikeC(x, y, XL_DOWN);
+            if (here.doortable & XL_RIGHT) roguecorrLikeC(x, y, XL_RIGHT);
+        }
+    }
+}
+
+/** C: extralev.c makerogueghost — sleeping ghost + floor gear (christen/roguename deferred). */
+function makerogueghostLikeC() {
+    const g = game;
+    if (!(g.level.nroom | 0)) return;
+    const croom = g.level.rooms[rn2(g.level.nroom)];
+    if (!croom || (croom.hx | 0) <= 0) return;
+    const x = somex(croom);
+    const y = somey(croom);
+    const mtmp = makemon({ mnum: PM_GHOST }, x, y, NO_MM_FLAGS);
+    if (!mtmp) return;
+    mtmp.msleeping = 1;
+    let ghostobj;
+    if (rn2(4)) {
+        ghostobj = mksobj_at(FOOD_RATION, x, y, false, false);
+        ghostobj.quan = rnd(7);
+        ghostobj.owt = weight(ghostobj);
+    }
+    if (rn2(2)) {
+        ghostobj = mksobj_at(MACE, x, y, false, false);
+        ghostobj.spe = rnd(3);
+        if (rn2(4)) curse(ghostobj);
+    } else {
+        ghostobj = mksobj_at(TWO_HANDED_SWORD, x, y, false, false);
+        ghostobj.spe = rnd(5) - 2;
+        if (rn2(4)) curse(ghostobj);
+    }
+    ghostobj = mksobj_at(BOW, x, y, false, false);
+    ghostobj.spe = 1;
+    if (rn2(4)) curse(ghostobj);
+    ghostobj = mksobj_at(OTYP_ARROW, x, y, false, false);
+    ghostobj.spe = 0;
+    ghostobj.quan = rn1(10, 25);
+    ghostobj.owt = weight(ghostobj);
+    if (rn2(4)) curse(ghostobj);
+    if (rn2(2)) {
+        ghostobj = mksobj_at(RING_MAIL, x, y, false, false);
+        ghostobj.spe = rn2(3);
+        if (!rn2(3)) ghostobj.oerodeproof = true;
+        if (rn2(4)) curse(ghostobj);
+    } else {
+        ghostobj = mksobj_at(PLATE_MAIL, x, y, false, false);
+        ghostobj.spe = rnd(5) - 2;
+        if (!rn2(3)) ghostobj.oerodeproof = true;
+        if (rn2(4)) curse(ghostobj);
+    }
+    if (rn2(2)) {
+        ghostobj = mksobj_at(FAKE_AMULET_OF_YENDOR, x, y, true, false);
+        ghostobj.known = true;
+    }
+}
+
 function okdoor(x, y) {
     const map = game.level;
     const loc = map.at(x, y);
@@ -1897,10 +2189,13 @@ async function fill_ordinary_room(croom, bonus_items) {
     // C: (u.uhave.amulet || !rn2(3)) && somexyspace — sleeping monster
     {
         const sleepGate = g.u?.uhave?.amulet || !rn2(3);
-        if (sleepGate && somexyspace(croom, pos)) {
-            const tmonst = makemon(null, pos.x, pos.y, MM_NOGRP);
-            if (tmonst && (tmonst.mnum | 0) === PM_GIANT_SPIDER && !occupied(pos.x, pos.y)) {
-                await maketrap(pos.x, pos.y, WEB);
+        if (sleepGate) {
+            const hasSpace = somexyspace(croom, pos);
+            if (hasSpace) {
+                const tmonst = makemon(null, pos.x, pos.y, MM_NOGRP);
+                if (tmonst && (tmonst.mnum | 0) === PM_GIANT_SPIDER && !occupied(pos.x, pos.y)) {
+                    await maketrap(pos.x, pos.y, WEB);
+                }
             }
         }
     }

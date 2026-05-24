@@ -511,9 +511,12 @@ export async function movemon(stepNum) {
             if (rogGate) {
                 await mMoveDistfleeckOnlyTurnLikeC(g, rogGate);
             }
-            const east = findEastKickMonLikeC(g);
-            if (east && peelOrder.includes(east)) {
-                await movemonSinglemonLikeC(g, east, effStepNum);
+            /* C: rogue second **`#search`** — tail **`distfleeck`** only (no east **`rn2(12)`** peel). */
+            if (!rogueSecondSearchFullFmonLikeC(g)) {
+                const east = findEastKickMonLikeC(g);
+                if (east && peelOrder.includes(east)) {
+                    await movemonSinglemonLikeC(g, east, effStepNum);
+                }
             }
         }
         await mintrapMoveloopTail();
