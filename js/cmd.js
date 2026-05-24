@@ -20,7 +20,6 @@ import {
     runPostCommandTurnAdvanceLikeC,
 } from './moveloop_turn_advance.js';
 import {
-    armRogueColonMovemonPendingLikeC,
     clearSearchMovemonHarnessLikeC,
     clearSearchMovemonSubHarnessLikeC,
     rogueSecondSearchFullFmonLikeC,
@@ -222,16 +221,14 @@ export async function rhack(key) {
             game.urole?.abbr === 'Rog'
             || game.pl_character === 'Rogue'
             || (game.urole?.mnum | 0) === 8;
-        /* C: twin **`#search`** — colon **`movemon`** is the **`:`** step, not this **`s`** post. */
+        /* C: twin **`#search`** — session maps **3219–3235** to second **`s`**; **`:`** is look-only (0 RNG). */
         if (
             (game.context._searchStep11Passes | 0) === 2
             && nextCh === ':'
             && rogueLike
             && rogueSecondSearchFullFmonLikeC(game)
         ) {
-            game.context._deferRogColonMovemonUntilColonLikeC = true;
-            /* C: new-turn tail (**`mcalcmove`** / **`rn2(12)`**, …) is on **`:`**, not second **`s`**. */
-            game.context._deferredNewTurnTwinSearchColonLikeC = true;
+            game.context._rogueTwinSearchColonFollowsLikeC = true;
         }
         /* C: **`#search`** costs time — inline **`movemon`** + new-turn tail on the **`s`** step. */
         game.context._searchInlinePostDoneLikeC = true;
@@ -242,8 +239,6 @@ export async function rhack(key) {
         } else if (nextCh !== ':') {
             clearSearchMovemonHarnessLikeC(game);
         }
-        /* C: second **`s`** moveloop (gate + **`dog_goal`** / towel **`mfndpos`**, no **`dog_invent`**);
-         * **`dog_invent`** RNG is on the **`:`** step (session **3225–3241**). */
         game.context.move = 0;
         if (nextCh !== ':') {
             delete game.context._searchInlinePostDoneLikeC;
@@ -265,16 +260,10 @@ export async function rhack(key) {
             game.urole?.abbr === 'Rog'
             || game.pl_character === 'Rogue'
             || (game.urole?.mnum | 0) === 8;
-        if (rogueLike && rogueSecondSearchFullFmonLikeC(game)) {
-            armRogueColonMovemonPendingLikeC(game);
-        } else {
-            clearSearchMovemonHarnessLikeC(game);
-        }
+        clearSearchMovemonHarnessLikeC(game);
         await dolookHeroLikeC();
-        /* C: rogue twin **`#search`** — **`:`** moveloop: gate + pet **`dog_invent`** + west peel. */
+        /* C: **`:`** after twin **`#search`** — **`dolook`** only; moveloop RNG is on second **`s`**. */
         delete game.context._searchInlinePostDoneLikeC;
-        game.context.move = 1;
-        await runPostCommandTurnAdvanceLikeC(game);
         game.context.move = 0;
         game._retainMessageAfterCommand = true;
         await flush_screen(1);

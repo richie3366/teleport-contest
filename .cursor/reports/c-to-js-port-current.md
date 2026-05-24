@@ -18,15 +18,13 @@ Thin handoff for the next coding session. **Score + milestones:** [`c-to-js-port
 
 **Deferred for now:** **`maybe_do_tutorial`** / **`tut-1`** / full **`do.c`** **`goto_level`** (Lua **`tutorial()`** / **`free_tutorial()`**, **`savelev`**, **`gmst_*`**, …) and **`dokick`**/**`dothrow`** vs **`leaving_tutorial`** — strong upstream dependencies (save, specials, fuller **`do.c`**); treat as backlog until chargen / core early-game parity is further along; **`LIVELOGFILE`** parity if the judge ever compares livelog lines.
 
-**Last slice:** Session step map — second **`s`** **3219–3235** (17 draws); colon **`:`** **0 RNG** (look only). **`tools/diag_rng_step_map.mjs`**. **`seed0077`:** **3228/3242** (first miss **`dog_invent`** **`rn2(udist)`** — C **`rn2(5)=2`** at **3228** implies **`distu=5`**; JS **`rn2(2)=0`**). Naive **`chcnt`** **`appr==0`** pick regressed **~3209**.
+**Last slice:** Twin **`#search`** moveloop on second **`s`** only (**`3225–3241`**); colon **`:`** **`dolook`** only (0 RNG). **`tools/diag_rng_step_map.mjs`**, **`tools/diag_dog_invent_3228.mjs`**. **`seed0077`:** **3229/3242** (first miss **~3228** **`dog_invent`** **`rn2(udist)`** — C **`rn2(5)=2`**, JS **`rn2(2)=0`** at pet **(35,8)** hero **(36,7)**).
 
 ## Next steps
 
-1. **`seed0077` ~3228** — align pet tile before second-search **`dog_invent`** (**`distu=5`** not **`dist2=2`**); **`tools/diag_mfndpos_3208.mjs`** + **`mfndpos`** slot/`chcnt` parity at **~3208** (do not drop minNd shortcut without C **`mfndpos`** order).
+1. **`seed0077` ~3228** — **`dog_invent(dogmove.c:447)`** needs **`distu=5`** for **`rn2(5)`** while **`rn2(20)`** at **3227** implies towel under pet; reconcile with C **`mfndpos`** **`chcnt`** at **~3208** (full **`appr==0`** loop regressed **~3209**). **`tools/diag_mfndpos_3208.mjs`**, **`tools/diag_dog_invent_3228.mjs`**.
 
-2. **`seed0077` ~3229+** — west **`distfleeck`** peel on second **`s`** (not colon); defer-colon **`fmon`** break stays until **3228** fixed.
-
-3. **`mklev` lregions** — wire **`game.dndest`/`updest`** when **`place_lregions`** ported.
+2. **`mklev` lregions** — wire **`game.dndest`/`updest`** when **`place_lregions`** ported.
 
 ### Extended backlog (unchanged lanes)
 

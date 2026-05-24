@@ -101,9 +101,13 @@ export function armRogueColonMovemonPendingLikeC(g) {
 }
 
 /** @param {import('./gstate.js').game} g */
+export function rogueTwinSearchColonFollowsLikeC(g) {
+    return !!g.context?._rogueTwinSearchColonFollowsLikeC;
+}
+
+/** @deprecated twin-search RNG is on second **`s`**; kept for stale harness reads. */
 export function deferRogColonMovemonUntilColonLikeC(g) {
-    return !!g.context?._deferRogColonMovemonUntilColonLikeC
-        && !isRogueColonMovemonActiveLikeC(g);
+    return false;
 }
 
 /** @returns {boolean} */

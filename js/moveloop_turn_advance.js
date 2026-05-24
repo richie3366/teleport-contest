@@ -20,7 +20,6 @@ import { runDueNhObjTimers } from './obj_timeout_dispatch.js';
 import { contextLeavingTutorialActiveLikeC } from './tutorial_branch.js';
 import {
     consumeRogueColonMovemonPendingLikeC,
-    deferRogColonMovemonUntilColonLikeC,
     effectiveMovemonStepNumLikeC,
     isRogueColonMovemonActiveLikeC,
 } from './monmove_search.js';
@@ -148,37 +147,18 @@ async function runNewTurnSetupAndTailLikeC(g, stepNum) {
 export async function runDeferredNewTurnIfAnyLikeC(g) {
     if (!g.context?._deferredNewTurnLikeC) return;
     delete g.context._deferredNewTurnLikeC;
-    delete g.context._deferredNewTurnTwinSearchColonLikeC;
     const tailStepNum = (g.moves | 0) - 1;
     await runNewTurnSetupAndTailLikeC(g, tailStepNum);
 }
 
-/**
- * C: rogue twin **`#search`** then **`:`** — second **`s`** inline post must not run new-turn
- * (**`mcalcmove`** / session **`rn2(12)`** at **~3219**); colon **`:`** **`movemon`** first.
- *
- * @param {import('./gstate.js').game} g
- */
+/** @param {import('./gstate.js').game} g */
 function shouldDeferNewTurnAfterMovemonLikeC(g) {
-    if (
-        g.context._searchInlinePostDoneLikeC
-        && deferRogColonMovemonUntilColonLikeC(g)
-    ) {
-        return true;
-    }
-    if (
-        g.context._deferredNewTurnTwinSearchColonLikeC
-        && isRogueColonMovemonActiveLikeC(g)
-    ) {
-        return true;
-    }
     if (
         !g.context._searchInlinePostDoneLikeC
         && (
             g.context._deferredNewTurnLikeC
             || deferNewTurnBeforeSearchLikeC(g)
         )
-        && !g.context._deferredNewTurnTwinSearchColonLikeC
     ) {
         return true;
     }
@@ -257,7 +237,6 @@ export async function runPostCommandTurnAdvanceLikeC(g) {
                 } else {
                     await runNewTurnSetupAndTailLikeC(g, tailStepNum);
                     delete g.context._deferredNewTurnLikeC;
-                    delete g.context._deferredNewTurnTwinSearchColonLikeC;
                     newTurnDone = true;
                 }
             }
