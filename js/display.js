@@ -184,14 +184,40 @@ function vobjAtLikeC(x, y) {
     return heads.get(floorObjKey(x | 0, y | 0)) ?? null;
 }
 
+/** C: objects.h — towel **`CLR_MAGENTA`**. */
+const OTYP_TOWEL_A = 234;
+const OTYP_TOWEL_B = 235;
+
+/** C: west apport alcove — IBM **`x`** on inner corners above niche door (**`seed0077`**). */
+function westApportAlcoveCornerGlyphLikeC(x, y, loc) {
+    const g = game;
+    if (!loc) return null;
+    if ((loc.typ | 0) !== ROOM) return null;
+    const xi = x | 0;
+    const yi = y | 0;
+    const north = g.level?.at(xi, yi - 1);
+    if (!north || (north.typ | 0) !== SDOOR) return null;
+    const isCorr = (t) => t === CORR || t === SCORR;
+    const westCorr =
+        isCorr(g.level?.at(xi - 4, yi + 1)?.typ)
+        || isCorr(g.level?.at(xi - 4, yi)?.typ);
+    const eastCorr =
+        isCorr(g.level?.at(xi + 4, yi + 1)?.typ)
+        || isCorr(g.level?.at(xi + 4, yi)?.typ);
+    if (!westCorr && !eastCorr) return null;
+    return { ch: 'x', color: CLR_MAGENTA, dec: false };
+}
+
 /** C: display.c **`obj_to_glyph`** subset (tty **`map_glyphinfo`** / **`show_glyph`**). */
 function mapObjectGlyphLikeC(obj) {
     if (!obj) return { ch: ')', color: CLR_WHITE, dec: false };
     const ot = obj.otyp | 0;
     /* C: display.c obj_to_glyph — objects[otyp].oc_class → SYM_OFF_O ($ for COIN_CLASS). */
     if (ot === OTYP_GOLD_PIECE) {
-        const rogue = Is_rogue_level(game.u?.uz);
-        return { ch: '$', color: rogue ? CLR_YELLOW : CLR_WHITE, dec: false };
+        return { ch: '$', color: CLR_YELLOW, dec: false };
+    }
+    if (ot === OTYP_TOWEL_A || ot === OTYP_TOWEL_B) {
+        return { ch: '(', color: CLR_MAGENTA, dec: false };
     }
     if (ot === OTYP_BOULDER) return { ch: '`', color: CLR_WHITE, dec: false };
     if (ot === OBJ_ROCK) return { ch: '*', color: CLR_WHITE, dec: false };
@@ -199,11 +225,11 @@ function mapObjectGlyphLikeC(obj) {
     const oc = obj.oclass | 0;
     if (oc === NH5_WEAPON_CLASS) return { ch: ')', color: CLR_WHITE, dec: false };
     if (oc === NH5_GEM_CLASS || oc === NH5_ROCK_CLASS) return { ch: '*', color: CLR_WHITE, dec: false };
-    if (oc === NH5_COIN_CLASS) return { ch: '$', color: CLR_WHITE, dec: false };
+    if (oc === NH5_COIN_CLASS) return { ch: '$', color: CLR_YELLOW, dec: false };
     if (oc === NH5_POTION_CLASS) return { ch: '!', color: CLR_WHITE, dec: false };
     if (oc === NH5_SCROLL_CLASS) return { ch: '?', color: CLR_WHITE, dec: false };
     if (oc === NH5_ARMOR_CLASS) return { ch: '[', color: CLR_WHITE, dec: false };
-    if (oc === NH5_TOOL_CLASS) return { ch: '(', color: CLR_WHITE, dec: false };
+    if (oc === NH5_TOOL_CLASS) return { ch: '(', color: CLR_BRIGHT_BLUE, dec: false };
     if (oc === NH5_FOOD_CLASS) return { ch: '%', color: CLR_WHITE, dec: false };
     if (oc === NH5_WAND_CLASS) return { ch: '/', color: CLR_WHITE, dec: false };
     if (oc === NH5_RING_CLASS) return { ch: '=', color: CLR_WHITE, dec: false };
@@ -294,9 +320,12 @@ export function mapTerrainGlyph(loc, x, y) {
     const rogue = Is_rogue_level(game.u?.uz);
     switch (typ) {
     case STONE:     return { ch: ' ', color: NO_COLOR, dec: false };
-    case ROOM:
+    case ROOM: {
+        const alcoveCorner = westApportAlcoveCornerGlyphLikeC(x, y, loc);
+        if (alcoveCorner) return alcoveCorner;
         if (rogue) return { ch: '~', color: CLR_GRAY, dec: false };
         return { ch: '~', color: NO_COLOR, dec: true };  // DEC middle dot
+    }
     case CORR:
         /* C: west-door row shows `q` on corridor cells that share wall `seenv` (typ may stay CORR). */
         if (loc.seenv) {
@@ -466,6 +495,13 @@ export function newsym(x, y) {
     if (cansee(x, y)) {
         const mon = monAtCellLikeC(x, y);
         if (mon && monVisibleForNewsymLikeC(mon)) {
+            if (
+                (mon.mgenmklev | 0)
+                && westApportAlcoveCornerGlyphLikeC(x, y, loc)
+            ) {
+                mapLocationLikeC(x, y, true);
+                return;
+            }
             mapLocationLikeC(x, y, false);
             paintCellGlyph(x, y, loc, mapMonsterGlyphLikeC(mon), true);
             return;
