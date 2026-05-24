@@ -22,7 +22,6 @@ import {
 import {
     clearSearchMovemonHarnessLikeC,
     clearSearchMovemonSubHarnessLikeC,
-    armRogueColonMovemonPendingLikeC,
 } from './monmove_search.js';
 import { peekQueuedKey } from './input.js';
 import { maybeSmudgeEngr } from './engrave.js';
@@ -227,12 +226,10 @@ export async function rhack(key) {
         } else {
             clearSearchMovemonHarnessLikeC(game);
         }
-        if (rogueLike && nextCh === ':') {
-            armRogueColonMovemonPendingLikeC(game);
-            /* C: defer moveloop post for **`s`** — colon **`:`** turn runs gate + pet. */
-            game.context.move = 0;
-        } else {
-            game.context.move = 0;
+        /* C: **`seed0077`** — twin **`#search`** moveloop (gate + **`dog_invent`**) on second **`s`**;
+         * **`:`** is **`dolook`** only (session has **0** RNG on **`:`**). */
+        game.context.move = 0;
+        if (nextCh !== ':') {
             delete game.context._searchInlinePostDoneLikeC;
         }
     } else if (ch === 'i') {
@@ -249,8 +246,8 @@ export async function rhack(key) {
     } else if (ch === ':') {
         // C: invent.c dolook → look_here(0, LOOKHERE_NOFLAGS)
         await dolookHeroLikeC();
-        /* C: rogue twin **`#search`** arms colon **`movemon`**; look still costs a turn. */
-        game.context.move = game.context?._rogueColonMovemonPendingLikeC ? 1 : 0;
+        /* C: **`dolook`** — no **`movemon`** on **`:`** after twin **`#search`** (RNG on second **`s`**). */
+        game.context.move = 0;
         game._retainMessageAfterCommand = true;
         await flush_screen(1);
     } else if (ch === '\\') {

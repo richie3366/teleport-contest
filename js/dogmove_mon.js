@@ -950,7 +950,7 @@ export function dogMoveOntoApportTowelLikeC(g, mtmp, colonPreInventSyncLikeC = f
     dogMoveMfndposPickLikeC(g, mtmp, tx, ty, 0, whappr);
 }
 
-/** C: second **`#search`** — **`mfndpos`** onto towel; **`dog_invent`** on **`:`**. */
+/** C: second **`#search`** — **`mfndpos`** onto towel only (full **`dog_move`** on that pass in **`seed0077`**). */
 export function dogMoveSecondSearchMfndposLikeC(g, mtmp) {
     if (!(mtmp.mtame | 0) || !has_edog(mtmp)) return;
     if ((mtmp.mhp | 0) <= 0) return;

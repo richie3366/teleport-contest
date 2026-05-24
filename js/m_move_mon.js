@@ -68,7 +68,6 @@ import { ensureMonsterMtrack, monTrackAdd, monTrackClear } from './monflee.js';
 import {
     dogMoveLikeC,
     dogMoveOntoApportTowelLikeC,
-    dogMoveSecondSearchMfndposLikeC,
     dogMoveSearchPassNearHeroLikeC,
 } from './dogmove_mon.js';
 import { monnearMonsterXYLikeC } from './mon_geom.js';
@@ -654,7 +653,7 @@ export async function movemonSinglemonLikeC(g, mtmp, stepNum = 0) {
         await mMoveDistfleeckOnlyTurnLikeC(g, mtmp);
         return;
     }
-    /* C: second **`#search`** — **`mfndpos`** appr==0 only; **`dog_invent`** on **`:`**. */
+    /* C: second **`#search`** — full **`dog_move`** (invent + goal); **`:`** is **`dolook`** only. */
     if (
         isSecondSearchMovemonPassLikeC(g)
         && rogueSecondSearchFullFmonLikeC(g)
@@ -668,7 +667,7 @@ export async function movemonSinglemonLikeC(g, mtmp, stepNum = 0) {
             mov = NORMAL_SPEED;
         }
         mtmp.movement = mov - NORMAL_SPEED;
-        dogMoveSecondSearchMfndposLikeC(g, mtmp);
+        dogMoveLikeC(g, mtmp);
         return;
     }
 

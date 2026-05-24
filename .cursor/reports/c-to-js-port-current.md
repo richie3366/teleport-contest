@@ -18,13 +18,13 @@ Thin handoff for the next coding session. **Score + milestones:** [`c-to-js-port
 
 **Deferred for now:** **`maybe_do_tutorial`** / **`tut-1`** / full **`do.c`** **`goto_level`** (Lua **`tutorial()`** / **`free_tutorial()`**, **`savelev`**, **`gmst_*`**, …) and **`dokick`**/**`dothrow`** vs **`leaving_tutorial`** — strong upstream dependencies (save, specials, fuller **`do.c`**); treat as backlog until chargen / core early-game parity is further along; **`LIVELOGFILE`** parity if the judge ever compares livelog lines.
 
-**Last slice:** colon **`:`** moveloop scheduling — **`cmd.js`** (twin **`s`** then **`:`** defers duplicate post; **`:`** sets **`move=1`** when colon pending); **`monmove_search.js`** (colon clears **`_searchStep11Passes`**, no step-11 remap while colon active, **`consumeRogueColonMovemonPending`** resets subpasses); **`moveloop_turn_advance.js`** (pin colon step, skip search remap); **`monmove.js`** (clear colon after west/east subpasses, not in **`finally`**); **`m_move_mon.js`** (colon gate+pet before second-search peel; skip peel when colon active); **`mklev.js`** (**`oclass`** on fill, towel **`NH5_TOOL_CLASS`**); **`dogmove_mon.js`** (**`floorObjAtCellLikeC`**). **`tools/diag_colon_invent.mjs`**. **`seed0077`:** **3229/3242** (diag **~3227** — duplicate second-search **`movemon`** still runs **`dog_goal`** **`rn2(8)`** before colon **`dog_invent`** **`rn2(20)`**). **`seed8000`:** **PASS**. **`npm run score`:** **1/44**.
+**Last slice:** **`seed0077`** session trace — colon **`:`** has **0** RNG; twin second **`#search`** moveloop runs gate + full **`dog_move`** (**`dog_invent`** **`rn2(20)`**). **`cmd.js`**: drop **`armRogueColonMovemonPending`** / colon **`movemon`** on **`:`**; **`m_move_mon.js`**: second-search pet uses **`dogMoveLikeC`** (not **`skipInvent`** mfndpos-only). **`seed0077`:** **3229/3242** (was **~3227**; **~3228+** **`dog_invent`** inner **`rn2(udist)`** — C **`dist2=5`**, JS hero **(36,7)** vs pet **(35,8)** **`dist2=2`**). **`seed8000`:** **PASS**. **`npm run score`:** **1/44**.
 
 ## Next steps
 
-1. **`seed0077` ~3227** — single colon **`movemon(31)`** fmon pass: gate **`rn2(5)`** then pet **`dog_invent`** **`rn2(20)`** in same loop (no intervening second-search **`dog_goal`** **`rn2(8)`**). Trace **`consumeRogueColonMovemonPending`**, **`isRogueColonMovemonActiveLikeC`** for full main **`fmon`**; confirm **`edog.apport > 0`** (C **`dog_goal`** apport **`rn2(8)`** on second **`#search`**). **`tools/diag_colon_invent.mjs`**, **`tools/diag_rng_window.mjs`**.
+1. **`seed0077` ~3228+** — **`dog_invent`** pickup inner: C **`rn2(5)=2`** at **`rn2(udist)`** needs **`distu`** **5** (hero tile vs pet on towel **(35,8)**); trace **`domove`** / apply **`j`** before twin **`#search`**. **`tools/diag_rng_window.mjs`**, **`tools/diag_second_search_pos.mjs`**.
 
-2. **`seed0077` ~3234+** — colon west **`rn2(16)`** peel; **`dolook`** new-turn **3236+**.
+2. **`seed0077` ~3232+** — second-search west **`rn2(16)`** peel + new-turn tail (**`mcalcmove`**, **`dosounds`**, …) once invent inner aligns.
 
 3. **`jsmain` tail post** — new-turn **3236–3241** after **`dolook`** on **`:`** step once invent chain aligns.
 
