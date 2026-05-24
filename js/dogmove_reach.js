@@ -8,6 +8,7 @@ import { raceptr } from './mondata.js';
 import { dist2 } from './hacklib.js';
 import { OTYP_BOULDER } from './const.js';
 import { floorObjKey } from './floorobj.js';
+import { clearPathRayToTargetLikeC } from './mthrow_mon.js';
 
 /** C: dogmove.c cursed_object_at — any cursed member of floor stack at (x,y). */
 export function cursedObjectAtDogmoveLikeC(g, x, y) {
@@ -31,6 +32,19 @@ function sobjAtBoulderLikeC(g, x, y) {
         if ((o.otyp | 0) === OTYP_BOULDER) return true;
     }
     return false;
+}
+
+/**
+ * C: vision.h **`m_cansee(mtmp,x,y)`** — **`clear_path`** from monster (**`dogmove.c:553`**).
+ * @param {import('./gstate.js').game} g
+ * @param {Record<string, unknown>} mtmp
+ * @param {number} x
+ * @param {number} y
+ */
+export function mCanseeDogmoveLikeC(g, mtmp, x, y) {
+    return clearPathRayToTargetLikeC(
+        g, x | 0, y | 0, mtmp.mx | 0, mtmp.my | 0, false,
+    );
 }
 
 export function couldReachItemDogmoveLikeC(g, mtmp, nx, ny) {
