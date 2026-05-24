@@ -147,58 +147,6 @@ export async function movemon(stepNum) {
         if (passes > 1) return false;
     }
     const searchPass = g.context._searchStep11Passes | 0;
-    /* C: rogue second **`#search`** — west/east peel after gate + pet **`dog_move`** (**`seed0077` ~3232+**). */
-    if (
-        searchPass === 2
-        && rogueSecondSearchFullFmonLikeC(g)
-        && g.context?._rogueSecondSearchMainFmonDoneLikeC
-    ) {
-        const passes = (g.context._movemonSearch11SubPasses | 0) + 1;
-        g.context._movemonSearch11SubPasses = passes;
-        g.context._movemonSearch11SubPass = passes;
-        if (passes > 2) {
-            delete g.context._rogueSecondSearchMainFmonDoneLikeC;
-            return false;
-        }
-        if (passes === 1) {
-            const west = findWestKinkMonsterLikeC(g);
-            if (west) {
-                west.mx = 64;
-                west.my = 12;
-                ensureMonsterMtrack(west);
-                west.mtrack[0] = { x: 63, y: 11 };
-                if ((west.movement | 0) < NORMAL_SPEED) west.movement = NORMAL_SPEED;
-            }
-            try {
-                g.context.movemonStepNum = stepNum;
-                g.context._movemonSearch11SubPass = 1;
-                if (west) await movemonSinglemonLikeC(g, west, stepNum);
-            } finally {
-                delete g.context.movemonStepNum;
-            }
-            return true;
-        }
-        if (passes === 2) {
-            const east = findEastKickMonLikeC(g);
-            if (east) {
-                east.mx = 65;
-                east.my = 9;
-                ensureMonsterMtrack(east);
-                east.mtrack[0] = { x: 65, y: 9 };
-                if ((east.movement | 0) < NORMAL_SPEED) east.movement = NORMAL_SPEED;
-            }
-            try {
-                g.context.movemonStepNum = stepNum;
-                g.context._movemonSearch11SubPass = 2;
-                if (east) await movemonSinglemonLikeC(g, east, stepNum);
-            } finally {
-                delete g.context.movemonStepNum;
-                delete g.context._movemonSearch11SubPass;
-            }
-            delete g.context._rogueSecondSearchMainFmonDoneLikeC;
-            return false;
-        }
-    }
     /* C: rogue **`:`** — west/east peel after gate + pet **`dog_invent`**. */
     if (isRogueColonMovemonActiveLikeC(g) && g.context?._rogueColonMainFmonDoneLikeC) {
         const passes = (g.context._movemonSearch11SubPasses | 0) + 1;
@@ -469,9 +417,7 @@ export async function movemon(stepNum) {
             if (eel) ordered.push(eel);
             mons = [...ordered, ...rest.filter((m) => m !== eel)];
         }
-        for (const m of mons) {
-            await movemonSinglemonLikeC(g, m, effStepNum);
-        }
+        for (const m of mons) await movemonSinglemonLikeC(g, m, effStepNum);
         /* C: rogue first **`#search`** — post-gate **`distfleeck`** peel after **`dog_goal`**
          * (**`seed0077` ~3209–3212**); complements **`fmon_iter`** pet-before-peel order. */
         if (
@@ -548,11 +494,6 @@ export async function movemon(stepNum) {
         return false;
     }
     if (isSecondSearchMovemonPassLikeC(g) && rogueSecondSearchFullFmonLikeC(g)) {
-        if (!g.context._rogueSecondSearchMainFmonDoneLikeC) {
-            g.context._rogueSecondSearchMainFmonDoneLikeC = true;
-            return true;
-        }
-        if ((g.context._movemonSearch11SubPasses | 0) < 2) return true;
         return false;
     }
     if (isRogueColonMovemonActiveLikeC(g)) {

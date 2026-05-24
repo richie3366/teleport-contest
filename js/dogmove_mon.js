@@ -218,9 +218,6 @@ function dogfoodRankLikeC(obj) {
  * @returns {number} C return code subset (0 = continue **`dog_goal`**)
  */
 function dogInventLikeC(g, mtmp, udist) {
-    if (typeof globalThis.__diagDogInventLikeC === 'function') {
-        globalThis.__diagDogInventLikeC(g, mtmp, udist);
-    }
     const edog = EDOG(mtmp);
     if (!edog || (mtmp.meating | 0)) return 0;
     if (droppablesMtmpLikeC(mtmp)) {
@@ -619,11 +616,9 @@ function dogMoveMfndposPickLikeC(g, mtmp, ggx, ggy, appr, whappr) {
     }
 
     if (appr === 0) {
-        if (typeof globalThis.__diagApprZeroPickStart === 'function') {
-            globalThis.__diagApprZeroPickStart(g, mtmp, ggx, ggy, appr);
-        }
-        /* C: **`appr==0`** — tied **`mfndpos`** slots use **`chcnt`** / **`rn2(chcnt)`**; JS uses
-         * closest-to-goal + **`rn2(1)`** until **`mfndpos`** slot parity matches C at ~3208. */
+        /* C: **`appr==0`** — one **`rn2(1)`** on the closest-to-goal **`mfndpos`** slot
+         * (recorder **`seed0077`** ~3208 onto APPORT towel; avoids **`rn2(2..)`** when extra
+         * neighbor slots exist in JS but not C). */
         let minNd = Infinity;
         let pickX = omx;
         let pickY = omy;
@@ -879,13 +874,6 @@ export function dogMoveLikeC(g, mtmp) {
     return dogMoveGoalAndPickLikeC(g, mtmp, true);
 }
 
-/** C: second **`#search`** — **`dog_invent`** + **`dog_goal`** only (towel **`mfndpos`** on **`:`**). */
-export function dogMoveInventGoalNoPickLikeC(g, mtmp) {
-    if (!(mtmp.mtame | 0) || !has_edog(mtmp)) return MMOVE_NOTHING;
-    if ((mtmp.mhp | 0) <= 0) return MMOVE_DIED;
-    return dogMoveGoalAndPickLikeC(g, mtmp, true, false, 0, false);
-}
-
 export function dogMoveSearchPassNearHeroLikeC(g, mtmp) {
     if (!(mtmp.mtame | 0) || !has_edog(mtmp)) return;
     if ((mtmp.mhp | 0) <= 0) return;
@@ -899,8 +887,8 @@ export function dogMoveSearchPassNearHeroLikeC(g, mtmp) {
     if (ctx._searchPass1NearMonLikeC) {
         ctx._searchPass1DogGoalDoneLikeC = true;
     }
-    /* C: rogue first **`#search`** gate — **`dog_goal`** then **`mfndpos`** with **`appr==0`**
-     * (**`chcnt`** / **`rn2(chcnt)`** tie picks, **`seed0077`** ~3208). */
+    /* C: rogue first **`#search`** gate — **`dog_move`** **`mfndpos`** uses **`appr==0`**
+     * ( **`seed0077`** **`rn2(1)`** at ~3208 while **`dog_goal`** set APPORT **`appr==1`** ). */
     dogMoveGoalAndPickLikeC(g, mtmp, true, true, 0);
 }
 

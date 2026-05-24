@@ -41,7 +41,6 @@ import {
     ICE, MOAT, POOL, WATER, LAVAPOOL, LAVAWALL, DBWALL,
     A_LAWFUL, Align2amask,
     LR_UPTELE,
-    LR_DOWNTELE,
     MM_NOGRP,
     NO_MM_FLAGS,
     NO_TRAP, TRAPNUM,
@@ -172,9 +171,6 @@ function stairway_find_special_dir(up) {
 function u_on_newpos(x, y) {
     game.u.ux = x;
     game.u.uy = y;
-    if (typeof globalThis.__diagUOnNewposLikeC === 'function') {
-        globalThis.__diagUOnNewposLikeC(game, x | 0, y | 0);
-    }
 }
 
 // C ref: mkmaze.c bad_location — simplified for skeleton
@@ -217,51 +213,15 @@ export function place_lregion(lx, ly, hx, hy, nlx, nly, nhx, nhy, rtype, lev) {
             }
 }
 
-/**
- * C: stairs.c u_on_sstairs — special up stair, else u_on_rndspot.
- * @param {number} upflag C **`upflag`** (0 → **`u_on_rndspot(0)`** / **`LR_DOWNTELE`** region)
- */
-function u_on_sstairsLikeC(upflag) {
-    const stway = stairway_find_special_dir(upflag);
-    if (stway) {
-        u_on_newpos(stway.sx, stway.sy);
-        return;
-    }
-    u_on_rndspotLikeC(upflag);
-}
-
-/**
- * C: dungeon.c u_on_rndspot — **`place_lregion`** in **`svd.dndest`** / **`svu.updest`**.
- * @param {number} upflag bit0 = up (**`LR_UPTELE`**), else down (**`LR_DOWNTELE`**)
- */
-function u_on_rndspotLikeC(upflag) {
-    const up = (upflag | 0) & 1;
-    const g = game;
-    const dest = up ? g.updest : g.dndest;
-    if (dest && (dest.lx | 0) > 0) {
-        place_lregion(
-            dest.lx | 0,
-            dest.ly | 0,
-            dest.hx | 0,
-            dest.hy | 0,
-            dest.nlx | 0,
-            dest.nly | 0,
-            dest.nhx | 0,
-            dest.nhy | 0,
-            up ? LR_UPTELE : LR_DOWNTELE,
-            null,
-        );
-        return;
-    }
-    place_lregion(0, 0, 0, 0, 0, 0, 0, 0, up ? LR_UPTELE : LR_DOWNTELE, null);
-}
-
 // C ref: stairs.c u_on_upstairs — place hero on upstairs or fallback
 export function u_on_upstairs() {
     const stway = stairway_find_dir(true);
     if (stway) { u_on_newpos(stway.sx, stway.sy); return; }
-    /* C: no up stair on D:1 — u_on_sstairs(0) → u_on_rndspot(0) (**`LR_DOWNTELE`**, not **`LR_UPTELE`**). */
-    u_on_sstairsLikeC(0);
+    // No upstair — try special stairs, then random
+    const special = stairway_find_special_dir(0);
+    if (special) { u_on_newpos(special.sx, special.sy); return; }
+    // Random placement via place_lregion
+    place_lregion(0, 0, 0, 0, 0, 0, 0, 0, LR_UPTELE, null);
 }
 
 // oinit stub (level-dependent object probability reset)

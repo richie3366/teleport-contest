@@ -619,22 +619,14 @@ export async function movemonSinglemonLikeC(g, mtmp, stepNum = 0) {
     if (!mtmp || (mtmp.mhp | 0) <= 0) return;
     /* C: rogue **`:`** after twin **`#search`** — gate + pet before second-search handlers
      * ( **`_searchStep11Passes`** may still be **2** until **`movemon`** finishes ). */
-    /* C: second **`#search`** — gate **`distfleeck`**, pet **`dog_move`** (**`dog_invent`** ~3227–3228), west peel subpass. */
-    if (
-        isSecondSearchMovemonPassLikeC(g)
-        && rogueSecondSearchFullFmonLikeC(g)
-        && mtmp === findFirstSearchRogMidMklevHostileLikeC(g)
-        && !(g.context?._movemonSearch11SubPass | 0)
-    ) {
+    if (isRogueColonMovemonActiveLikeC(g) && mtmp === findFirstSearchRogMidMklevHostileLikeC(g)) {
         await mMoveDistfleeckOnlyTurnLikeC(g, mtmp);
         return;
     }
     if (
-        isSecondSearchMovemonPassLikeC(g)
-        && rogueSecondSearchFullFmonLikeC(g)
+        isRogueColonMovemonActiveLikeC(g)
         && (mtmp.mtame | 0)
         && has_edog(mtmp)
-        && !(g.context?._movemonSearch11SubPass | 0)
     ) {
         let mov = mtmp.movement | 0;
         if (mov < NORMAL_SPEED) {
@@ -647,6 +639,34 @@ export async function movemonSinglemonLikeC(g, mtmp, stepNum = 0) {
             mtmp.mux = u.ux | 0;
             mtmp.muy = u.uy | 0;
         }
+        dogMoveOntoApportTowelLikeC(g, mtmp, true);
+        dogMoveLikeC(g, mtmp);
+        return;
+    }
+    /* C: rogue second **`#search`** — gate hostile **`distfleeck`** only (no **`dochug:886`**). */
+    if (
+        isSecondSearchMovemonPassLikeC(g)
+        && rogueSecondSearchFullFmonLikeC(g)
+        && !isRogueColonMovemonActiveLikeC(g)
+        && mtmp === findFirstSearchRogMidMklevHostileLikeC(g)
+    ) {
+        await mMoveDistfleeckOnlyTurnLikeC(g, mtmp);
+        return;
+    }
+    /* C: second **`#search`** — full **`dog_move`** (invent + goal); **`:`** is **`dolook`** only. */
+    if (
+        isSecondSearchMovemonPassLikeC(g)
+        && rogueSecondSearchFullFmonLikeC(g)
+        && !isRogueColonMovemonActiveLikeC(g)
+        && (mtmp.mtame | 0)
+        && has_edog(mtmp)
+    ) {
+        let mov = mtmp.movement | 0;
+        if (mov < NORMAL_SPEED) {
+            mtmp.movement = NORMAL_SPEED;
+            mov = NORMAL_SPEED;
+        }
+        mtmp.movement = mov - NORMAL_SPEED;
         dogMoveLikeC(g, mtmp);
         return;
     }
@@ -668,10 +688,7 @@ export async function movemonSinglemonLikeC(g, mtmp, stepNum = 0) {
     }
     if (
         (
-            (
-                isSecondSearchMovemonPassLikeC(g)
-                && rogueSecondSearchFullFmonLikeC(g)
-            )
+            (g.context?._searchStep11Passes | 0) === 2
             || isRogueColonMovemonActiveLikeC(g)
         )
         && (g.context?._movemonSearch11SubPass | 0) === 1

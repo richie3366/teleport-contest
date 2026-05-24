@@ -264,12 +264,25 @@ async function runSession(sessionPath) {
     // ({seed, datetime, nethackrc, moves, steps}).
     const segments = normalizeSession(sessionData).segments;
 
+    /** Stream canonical PRNG lines without materializing giant arrays (e.g. **`seed0399`**). */
+    function* eachCanonRngLine(segs) {
+        for (const seg of segs) {
+            for (const step of seg.steps || []) {
+                const rngArr = step.rng;
+                if (!Array.isArray(rngArr)) continue;
+                for (const line of rngArr) {
+                    if (isRngCall(line)) yield line;
+                }
+            }
+        }
+    }
+
     // Flatten C-side RNG + screens + cursors across all segments (judge
     // totals). cCursors is indexed identically to cScreens — entry [i]
     // is the recorded cursor position for the boundary that produced
     // cScreens[i]. Steps without a cursor field push `null` so the
     // index stays aligned.
-    const cRng = [];
+    let rngTotal = 0;
     const cScreens = [];
     const cCursors = [];
     // Per-step canonical animation frames, flat across segments,
@@ -278,7 +291,12 @@ async function runSession(sessionPath) {
     const cAnimByStep = [];
     for (const seg of segments) {
         for (const step of seg.steps || []) {
-            cRng.push(...extractRngCalls(step.rng));
+            const rngArr = step.rng;
+            if (Array.isArray(rngArr)) {
+                for (const line of rngArr) {
+                    if (isRngCall(line)) rngTotal++;
+                }
+            }
             if (step.screen) {
                 cScreens.push(step.screen);
                 cCursors.push(Array.isArray(step.cursor) ? step.cursor : null);
@@ -304,20 +322,26 @@ async function runSession(sessionPath) {
     };
 
     // Per-segment outputs accumulated harness-side.
-    let jsRng = [];
     let jsScreens = [];
     let jsAnimByStep = [];
     let jsCursors = [];
     let lastGame = null;
     let jsError = null;
+    let rngMatched = 0;
+    const canonRngIt = eachCanonRngLine(segments);
     try {
         for (const seg of segments) {
             const input = { ...replayInputFor(seg), storage: storageHandle };
             const segGame = await runSegment(input);
-            const segRng = (segGame.getRngLog?.() || []).map(e =>
-                typeof e === 'string' ? e.replace(/^\d+\s+/, '') : String(e)
-            ).filter(isRngCall);
-            jsRng.push(...segRng);
+            for (const raw of (segGame.getRngLog?.() || [])) {
+                if (!isRngCall(raw)) continue;
+                const cn = canonRngIt.next();
+                if (cn.done) break;
+                const je = typeof raw === 'string' ? raw.replace(/^\d+\s+/, '') : String(raw);
+                if (normalizeRng(String(cn.value || '')) === normalizeRng(je)) {
+                    rngMatched++;
+                }
+            }
             jsScreens.push(...(segGame.getScreens?.() || []));
             jsCursors.push(...(segGame.getCursors?.() || []));
             if (typeof segGame.getAnimationFramesByStep === 'function') {
@@ -330,12 +354,7 @@ async function runSession(sessionPath) {
     }
     const game = lastGame;
 
-    const rngTotal = cRng.length;
-    let rngMatched = 0;
-    for (let i = 0; i < rngTotal; i++) {
-        if (normalizeRng(cRng[i] || '') === normalizeRng(jsRng[i] || '')) rngMatched++;
-    }
-
+    // RNG parity: zip canonical stream vs JS log without **`cRng`/`jsRng`** megarrays.
     // A screen counts as matched only when BOTH the cell grid AND the
     // cursor position agree. A correctly-rendered screen with the
     // cursor in the wrong place is a missed screen — the visible
@@ -431,7 +450,9 @@ async function main() {
         process.exit(1);
     }
 
-    const timeoutMs = Number(process.env.SESSION_REPLAY_TIMEOUT_MS || 45000);
+    /* Heavy public sessions (e.g. `seed0399-wizard-hallu-actions`) can exceed 45s wall
+     * in the worker; default high enough for local `npm run score` / judge parity checks. */
+    const timeoutMs = Number(process.env.SESSION_REPLAY_TIMEOUT_MS || 120000);
     const results = [];
     for (const sf of sessionFiles) {
         const child = spawnSync(process.execPath, [SCRIPT_PATH, `--worker-session=${sf}`], {

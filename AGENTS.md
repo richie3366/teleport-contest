@@ -10,6 +10,8 @@ This repository is a **Teleport Coding Challenge** fork: port NetHack 5.0 to Jav
 
 **Git:** commit **each meaningful slice** before ending a session (port code, `.cursor/reports/` handoff, `tools/`/`scripts/` changes) — do not wait for the user to ask; see step 7 in the continue-port prompt.
 
+**GitHub Actions on your fork:** the template ships [`.github/workflows/score.yml`](.github/workflows/score.yml) for per-push scoring. New forks often have Actions disabled until you turn them on once under **Settings → Actions → General** (allow GitHub Actions). This does not affect the official judge, but it restores fast feedback on `main` pushes.
+
 **Port from C, not score-chasing:** always-on rule [.cursor/rules/port-from-c-not-score.mdc](.cursor/rules/port-from-c-not-score.mdc) — implement `nethack-c/upstream/` semantics; use `npm run score` as a regression check only; do not grow `fastforward.js` / harness without matching C call sites.
 
 **Do not edit** contest-frozen harness files (the judge overlays them): `js/isaac64.js`, `js/terminal.js`, `js/storage.js`.
