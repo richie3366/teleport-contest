@@ -31,6 +31,7 @@ import {
 } from './mfndpos_mon.js';
 import {
     clearRogueColonMovemonActiveLikeC,
+    deferRogColonMovemonUntilColonLikeC,
     effectiveMovemonStepNumLikeC,
     isFirstSearchMovemonPassLikeC,
     isRogueColonMovemonActiveLikeC,
@@ -417,7 +418,18 @@ export async function movemon(stepNum) {
             if (eel) ordered.push(eel);
             mons = [...ordered, ...rest.filter((m) => m !== eel)];
         }
-        for (const m of mons) await movemonSinglemonLikeC(g, m, effStepNum);
+        for (const m of mons) {
+            await movemonSinglemonLikeC(g, m, effStepNum);
+            /* C: second **`s`** when **`:`** follows — stop **`fmon`** after pet (**`3218`**); colon runs **`3219+`**. */
+            if (
+                deferRogColonMovemonUntilColonLikeC(g)
+                && isSecondSearchMovemonPassLikeC(g)
+                && rogueSecondSearchFullFmonLikeC(g)
+                && (m.mtame | 0)
+            ) {
+                break;
+            }
+        }
         /* C: rogue first **`#search`** — post-gate **`distfleeck`** peel after **`dog_goal`**
          * (**`seed0077` ~3209–3212**); complements **`fmon_iter`** pet-before-peel order. */
         if (

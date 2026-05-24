@@ -20,8 +20,10 @@ import {
     runPostCommandTurnAdvanceLikeC,
 } from './moveloop_turn_advance.js';
 import {
+    armRogueColonMovemonPendingLikeC,
     clearSearchMovemonHarnessLikeC,
     clearSearchMovemonSubHarnessLikeC,
+    rogueSecondSearchFullFmonLikeC,
 } from './monmove_search.js';
 import { peekQueuedKey } from './input.js';
 import { maybeSmudgeEngr } from './engrave.js';
@@ -68,6 +70,9 @@ export async function rhack(key) {
         // Read key from input
         await flush_screen(1);
         key = await nhgetch();
+    }
+    if (typeof globalThis.__diagRhackPreLikeC === 'function') {
+        globalThis.__diagRhackPreLikeC(game, key);
     }
 
     if (key === 27) {
@@ -211,23 +216,32 @@ export async function rhack(key) {
             }
         }
         await dosearch();
-        /* C: **`#search`** costs time — inline **`movemon`** + new-turn tail on the **`s`** step. */
-        game.context._searchInlinePostDoneLikeC = true;
-        await runPostCommandTurnAdvanceLikeC(game);
         const nextKey = peekQueuedKey();
         const nextCh = nextKey == null ? null : String.fromCharCode(nextKey);
         const rogueLike =
             game.urole?.abbr === 'Rog'
             || game.pl_character === 'Rogue'
             || (game.urole?.mnum | 0) === 8;
-        /* C: twin **`#search`** — keep **`_searchStep11Passes`**; full clear only before **`:`** / other cmds. */
+        /* C: twin **`#search`** — colon **`movemon`** is the **`:`** step, not this **`s`** post. */
+        if (
+            (game.context._searchStep11Passes | 0) === 2
+            && nextCh === ':'
+            && rogueLike
+            && rogueSecondSearchFullFmonLikeC(game)
+        ) {
+            game.context._deferRogColonMovemonUntilColonLikeC = true;
+        }
+        /* C: **`#search`** costs time — inline **`movemon`** + new-turn tail on the **`s`** step. */
+        game.context._searchInlinePostDoneLikeC = true;
+        await runPostCommandTurnAdvanceLikeC(game);
+        /* C: twin **`#search`** — keep pass id through second **`s`** post; colon arms its own **`movemon`**. */
         if (nextCh === 's') {
             clearSearchMovemonSubHarnessLikeC(game);
-        } else {
+        } else if (nextCh !== ':') {
             clearSearchMovemonHarnessLikeC(game);
         }
-        /* C: **`seed0077`** — twin **`#search`** moveloop (gate + **`dog_invent`**) on second **`s`**;
-         * **`:`** is **`dolook`** only (session has **0** RNG on **`:`**). */
+        /* C: second **`s`** moveloop (gate + **`dog_goal`** / towel **`mfndpos`**, no **`dog_invent`**);
+         * **`dog_invent`** RNG is on the **`:`** step (session **3225–3241**). */
         game.context.move = 0;
         if (nextCh !== ':') {
             delete game.context._searchInlinePostDoneLikeC;
@@ -245,8 +259,20 @@ export async function rhack(key) {
         await flush_screen(1);
     } else if (ch === ':') {
         // C: invent.c dolook → look_here(0, LOOKHERE_NOFLAGS)
+        const rogueLike =
+            game.urole?.abbr === 'Rog'
+            || game.pl_character === 'Rogue'
+            || (game.urole?.mnum | 0) === 8;
+        if (rogueLike && rogueSecondSearchFullFmonLikeC(game)) {
+            armRogueColonMovemonPendingLikeC(game);
+        } else {
+            clearSearchMovemonHarnessLikeC(game);
+        }
         await dolookHeroLikeC();
-        /* C: **`dolook`** — no **`movemon`** on **`:`** after twin **`#search`** (RNG on second **`s`**). */
+        /* C: rogue twin **`#search`** — **`:`** moveloop: gate + pet **`dog_invent`** + west peel. */
+        delete game.context._searchInlinePostDoneLikeC;
+        game.context.move = 1;
+        await runPostCommandTurnAdvanceLikeC(game);
         game.context.move = 0;
         game._retainMessageAfterCommand = true;
         await flush_screen(1);

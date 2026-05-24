@@ -96,6 +96,13 @@ export function armRogueColonMovemonPendingLikeC(g) {
     if (!g.context) return;
     g.context._rogueColonMovemonPendingLikeC = true;
     delete g.context._searchStep11Passes;
+    delete g.context._deferRogColonMovemonUntilColonLikeC;
+}
+
+/** @param {import('./gstate.js').game} g */
+export function deferRogColonMovemonUntilColonLikeC(g) {
+    return !!g.context?._deferRogColonMovemonUntilColonLikeC
+        && !isRogueColonMovemonActiveLikeC(g);
 }
 
 /** @returns {boolean} */

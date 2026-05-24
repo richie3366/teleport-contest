@@ -218,6 +218,9 @@ function dogfoodRankLikeC(obj) {
  * @returns {number} C return code subset (0 = continue **`dog_goal`**)
  */
 function dogInventLikeC(g, mtmp, udist) {
+    if (typeof globalThis.__diagDogInventLikeC === 'function') {
+        globalThis.__diagDogInventLikeC(g, mtmp, udist);
+    }
     const edog = EDOG(mtmp);
     if (!edog || (mtmp.meating | 0)) return 0;
     if (droppablesMtmpLikeC(mtmp)) {
@@ -872,6 +875,13 @@ export function dogMoveLikeC(g, mtmp) {
     if (!(mtmp.mtame | 0) || !has_edog(mtmp)) return MMOVE_NOTHING;
     if ((mtmp.mhp | 0) <= 0) return MMOVE_DIED;
     return dogMoveGoalAndPickLikeC(g, mtmp, true);
+}
+
+/** C: second **`#search`** — **`dog_invent`** + **`dog_goal`** only (towel **`mfndpos`** on **`:`**). */
+export function dogMoveInventGoalNoPickLikeC(g, mtmp) {
+    if (!(mtmp.mtame | 0) || !has_edog(mtmp)) return MMOVE_NOTHING;
+    if ((mtmp.mhp | 0) <= 0) return MMOVE_DIED;
+    return dogMoveGoalAndPickLikeC(g, mtmp, true, false, 0, false);
 }
 
 export function dogMoveSearchPassNearHeroLikeC(g, mtmp) {

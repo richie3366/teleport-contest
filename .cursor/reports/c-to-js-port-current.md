@@ -18,26 +18,24 @@ Thin handoff for the next coding session. **Score + milestones:** [`c-to-js-port
 
 **Deferred for now:** **`maybe_do_tutorial`** / **`tut-1`** / full **`do.c`** **`goto_level`** (Lua **`tutorial()`** / **`free_tutorial()`**, **`savelev`**, **`gmst_*`**, …) and **`dokick`**/**`dothrow`** vs **`leaving_tutorial`** — strong upstream dependencies (save, specials, fuller **`do.c`**); treat as backlog until chargen / core early-game parity is further along; **`LIVELOGFILE`** parity if the judge ever compares livelog lines.
 
-**Last slice:** **`seed0077`** session trace — colon **`:`** has **0** RNG; twin second **`#search`** moveloop runs gate + full **`dog_move`** (**`dog_invent`** **`rn2(20)`**). **`cmd.js`**: drop **`armRogueColonMovemonPending`** / colon **`movemon`** on **`:`**; **`m_move_mon.js`**: second-search pet uses **`dogMoveLikeC`** (not **`skipInvent`** mfndpos-only). **`seed0077`:** **3229/3242** (was **~3227**; **~3228+** **`dog_invent`** inner **`rn2(udist)`** — C **`dist2=5`**, JS hero **(36,7)** vs pet **(35,8)** **`dist2=2`**). **`seed8000`:** **PASS**. **`npm run score`:** **1/44**.
+**Last slice:** **`seed0077`** session step map — second **`s`** RNG **3196–3218**; colon **`:`** **3219–3235** (**`dog_invent`** **`rn2(20)`/`rn2(udist)`** at **3221–3222**). **`cmd.js`**: defer colon **`fmon`** when next key is **`:`**; arm colon + **`runPostCommandTurnAdvance`** on **`:`**. **`monmove.js`**: stop **`fmon`** after pet when deferred. **`m_move_mon.js`**: second **`s`** **`dogMoveInventGoalNoPickLikeC`**; colon pet **`dogMoveLikeC`** (invent before **`mfndpos`**). **`mklev.js`**: **`u_on_sstairs`/`u_on_rndspot`** per **`stairs.c`/`dungeon.c`**. **`seed0077`:** **3219/3236** (first miss **3219** gate **`rn2(5)`**; **~3222** **`udist`**). **`npm run score`:** verify **`seed8000`** screen (was **PASS**). **`tools/diag_pet_at_rng.mjs`**.
 
 ## Next steps
 
-1. **`seed0077` ~3228+** — **`dog_invent`** pickup inner: C **`rn2(5)=2`** at **`rn2(udist)`** needs **`distu`** **5** (hero tile vs pet on towel **(35,8)**); trace **`domove`** / apply **`j`** before twin **`#search`**. **`tools/diag_rng_window.mjs`**, **`tools/diag_second_search_pos.mjs`**.
+1. **`seed0077` ~3219** — colon **`:`** moveloop must open with gate **`distfleeck`** **`rn2(5)=1`** (JS **`rn2(12)`** at **3219**); confirm **`isRogueColonMovemonActiveLikeC`** + **`fmon_iter`** gate-first order after **`armRogueColonMovemonPendingLikeC`**.
 
-2. **`seed0077` ~3232+** — second-search west **`rn2(16)`** peel + new-turn tail (**`mcalcmove`**, **`dosounds`**, …) once invent inner aligns.
+2. **`seed0077` ~3222** — colon **`dog_invent`** **`rn2(udist)`** needs **`distu=5`** (pet west of towel **(35,8)** before **`mfndpos`** onto towel); **`tools/diag_pet_at_rng.mjs`**, **`tools/diag_mfndpos_slots.mjs`** at first-search **~3208**.
 
-3. **`jsmain` tail post** — new-turn **3236–3241** after **`dolook`** on **`:`** step once invent chain aligns.
+3. **`seed0077` ~3223+** — colon west **`rn2(16)`** peel + new-turn tail once **3219–3222** align.
 
-3. **`makeroguerooms` / rogue special level** — when **`Is_rogue_level`** is true.
+4. **`mklev` lregions** — wire **`game.dndest`/`updest`** from **`mkmaze.c`** **`LR_*TELE`** when **`place_lregions`** is ported (hero **`u_on_rndspot`** bounds).
 
-4. **Chargen + `u_init_role` RNG** — **`ini_inv`** when moveloop peel is aligned.
-
-5. **Generalize moveloop** — peel harness only when per-path draw counts match C.
+5. **Chargen + `u_init_role` RNG** — when moveloop peel is aligned.
 
 ### Extended backlog (unchanged lanes)
 
 - **`mklev` / `mfndpos`:** `setgemprobs`, mineralize drift, legacy floor **`otyp`** vs NH5 when replaying C **`mkobj`** (see **`mklev.js`** audit comments).
-- **`pray.c` / `sit.c` / `angrygods` / `read.c` / scroll & trap long tail:** prior handoff bullets 4–6 — see [`c-to-js-port-remaining.md`](c-to-js-port-remaining.md) §3–§4 and `TODO`s under `js/`.
+- **`pray.c` / `sit.c` / `angrygods` / `read.c` / scroll & trap long tail:** prior handoff bullets — see [`c-to-js-port-remaining.md`](c-to-js-port-remaining.md) §3–§4 and `TODO`s under `js/`.
 
 ### Deferred backlog — tutorial / `goto_level` / `tut-1` (resume when save + `do.c` bridge are ready)
 
