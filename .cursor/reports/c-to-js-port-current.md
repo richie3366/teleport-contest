@@ -18,11 +18,11 @@ Thin handoff for the next coding session. **Score + milestones:** [`c-to-js-port
 
 **Deferred for now:** **`maybe_do_tutorial`** / **`tut-1`** / full **`do.c`** **`goto_level`** (Lua **`tutorial()`** / **`free_tutorial()`**, **`savelev`**, **`gmst_*`**, …) and **`dokick`**/**`dothrow`** vs **`leaving_tutorial`** — strong upstream dependencies (save, specials, fuller **`do.c`**); treat as backlog until chargen / core early-game parity is further along; **`LIVELOGFILE`** parity if the judge ever compares livelog lines.
 
-**Last slice:** **Second `#search` gate `dochug` without leading `distfleeck` (~3230).** **`m_move_mon.js`**: **`secondRogGateDochug`** skips **`distfleeck`** + **`forceRogFirstSearchGate`** **`rn2(4)`** before **`rn2(1)`**; west subpass skips leading **`distfleeck`** when **`rogueSecondSearchFullFmonLikeC`**. **`monmove.js`**: pin **`rogSecondFullFmon`**; gate tail **`distfleeck`** via **`distfleeckMonsterApplyLikeC`**; west **`mtrack`** fallback. **`mklev.js`**: **`preferSleepingLichenDoorNiches`** after **`openWestDoorColumnNorthCorr`**; rogue west-niche door scan. **`seed0077`:** **3233/3242** — **3230–3232** aligned; **~3233+** west/east niche sleepers still **null** at post block (need rogue D:1 door-niche **`mgenmklev`** placement). **`seed8000`:** **PASS**. **`npm run score`:** **1/44**.
+**Last slice:** **Second `#search` lone-gate peel + west `m_move` (~3232–3241).** **`monmove.js`**: when no mklev peel tail, **`distfleeck`** gate once before gate-tail; west subpass uses **`rogGate`** when no west-kink fungus. **`m_move_mon.js`**: gate **`distfleeck`** skipped during west/east subpass; west **`rn2(16)`** on gate; one post-**`m_move`** **`distfleeck`** when **`rogueSecondSearchFullFmonLikeC`**. **`seed0077`:** **RNG 3242/3242** (full stream); **screens 12/33** (cursor/display drift). **`seed8000`:** **PASS**. **`npm run score`:** **1/44**.
 
 ## Next steps
 
-1. **`seed0077` ~3233+** — at second-search post block, **`findWestKinkMonsterLikeC`** / **`findEastKickMonLikeC`** are **null** (diag: no door-niche fungi on level). Port C rogue **`fill_ordinary_room`** / door-niche sleeper placement so west **(64,12)** + east kick fungus exist before second **`#search`**; then west **`rn2(16)`** / east **`rn2(12)`** subpasses. **`tools/diag_post2_3233.mjs`**, **`tools/diag_rng_window.mjs`** **3230–3240**.
+1. **`seed0077` screens** — RNG complete; fix **24×80** / cursor mismatch (**12/33** screens, **26/33** cursors) after second **`#search`** west/east gate **`m_move`** (display / **`dolook`** / pet position), not moveloop RNG order.
 
 2. **`mklev` lregions** — wire **`game.dndest`/`updest`** when **`place_lregions`** ported.
 

@@ -652,8 +652,11 @@ export async function movemonSinglemonLikeC(g, mtmp, stepNum = 0) {
         && mtmp === findFirstSearchRogMidMklevHostileLikeC(g)
     ) {
         if (!g.context?._searchSecondRogGateDochugLikeC) {
-            await mMoveDistfleeckOnlyTurnLikeC(g, mtmp);
-            return;
+            if (!(g.context?._movemonSearch11SubPass | 0)) {
+                await mMoveDistfleeckOnlyTurnLikeC(g, mtmp);
+                return;
+            }
+            /* post-block west/east **`m_move`** — fall through below. */
         }
         /* fall through — post-pet gate **`dochug`** (**`rn2(4)`** ~3230). */
     }
@@ -696,7 +699,14 @@ export async function movemonSinglemonLikeC(g, mtmp, stepNum = 0) {
             || isRogueColonMovemonActiveLikeC(g)
         )
         && (g.context?._movemonSearch11SubPass | 0) === 1
-        && mtmp === findWestKinkMonsterLikeC(g)
+        && (
+            mtmp === findWestKinkMonsterLikeC(g)
+            || (
+                isSecondSearchMovemonPassLikeC(g)
+                && rogueSecondSearchFullFmonLikeC(g)
+                && mtmp === findFirstSearchRogMidMklevHostileLikeC(g)
+            )
+        )
     ) {
         const u = g.u;
         if (u) {
@@ -714,7 +724,9 @@ export async function movemonSinglemonLikeC(g, mtmp, stepNum = 0) {
         }
         rn2(16);
         await distfleeckMonsterApplyLikeC(g, mtmp);
-        await distfleeckMonsterApplyLikeC(g, mtmp);
+        if (!rogueSecondSearchFullFmonLikeC(g)) {
+            await distfleeckMonsterApplyLikeC(g, mtmp);
+        }
         return;
     }
     if (

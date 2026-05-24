@@ -504,6 +504,7 @@ export async function movemon(stepNum) {
             }
             const gateIdx = rogGate ? peelOrder.indexOf(rogGate) : -1;
             const tailStart = gateIdx >= 0 ? gateIdx + 1 : 0;
+            let postPeelDistfleeck = 0;
             for (let i = tailStart; i < peelOrder.length; i++) {
                 const m = peelOrder[i];
                 if (m === pet || m === rogGate) continue;
@@ -511,6 +512,11 @@ export async function movemon(stepNum) {
                 if (eastMklevFirstLAfterBLikeC(g, m)) continue;
                 if (!(m.mgenmklev | 0)) continue;
                 await mMoveDistfleeckOnlyTurnLikeC(g, m);
+                postPeelDistfleeck++;
+            }
+            /* C: **`seed0077`** — lone **`mgenmklev`** gate is also mklev-tail peel before gate-tail **`distfleeck`**. */
+            if (rogGate && postPeelDistfleeck === 0) {
+                await mMoveDistfleeckOnlyTurnLikeC(g, rogGate);
             }
             if (rogGate) {
                 /* C: post-**`dochug`** gate tail **`distfleeck`** (~3233) — always **`rn2(5)`**, even if
@@ -540,7 +546,7 @@ export async function movemon(stepNum) {
                             && (tr.y | 0) === 11
                         );
                     })
-                    ?? null;
+                    ?? (rogGate && (rogGate.mgenmklev | 0) ? rogGate : null);
                 if (west) {
                     const wx = west.mx | 0;
                     const wy = west.my | 0;
