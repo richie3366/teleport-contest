@@ -198,6 +198,7 @@ export async function rhack(key) {
             delete game.context._searchPass1DogGoalDoneLikeC;
             delete game.context._searchRogGateDoneLikeC;
             delete game.context._searchPostGatePeelDoneLikeC;
+            delete game.context._searchPostGate2PeelDoneLikeC;
             const rogueLike =
                 game.urole?.abbr === 'Rog'
                 || game.pl_character === 'Rogue'

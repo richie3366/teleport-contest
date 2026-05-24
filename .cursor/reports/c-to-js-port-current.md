@@ -18,11 +18,11 @@ Thin handoff for the next coding session. **Score + milestones:** [`c-to-js-port
 
 **Deferred for now:** **`maybe_do_tutorial`** / **`tut-1`** / full **`do.c`** **`goto_level`** (Lua **`tutorial()`** / **`free_tutorial()`**, **`savelev`**, **`gmst_*`**, …) and **`dokick`**/**`dothrow`** vs **`leaving_tutorial`** — strong upstream dependencies (save, specials, fuller **`do.c`**); treat as backlog until chargen / core early-game parity is further along; **`LIVELOGFILE`** parity if the judge ever compares livelog lines.
 
-**Last slice:** **`seed0077` west-door apport towel + twin `#search` `dog_move`.** **`mklev.js`**: anchor towel on fill **`ROOM`** tile **(35,5)** (`anchorApportTowelOnWestFillAlcoveLikeC`); skip relocating towel/gold in **`relocateFillObjsIntoWestDoorAlcovesLikeC`**. **`dogmove_mon.js`**: first-search gate **`mfndpos`** keeps pet on door row; second-search pre-**`dog_invent`** sync onto towel (`distu=5`); restore APPORT goal without extra **`rn2(8)`**; **`dogMoveLikeC`** goal-only on pass 2; **`findApportTowelNearPetLikeC`** for stale saved xy. **`seed0077`:** **3230/3242** (was **3229/3242** at **3228**) — zip **3230** gate **`rn2(4)`** vs JS **`rn2(12)`** (extra moveloop **`mfndpos`** tail).
+**Last slice:** **`seed0077` second `#search` gate `dochug` order.** **`fmon_iter.js`**: rogue pass 2 main loop gate + pet only (tail deferred). **`monmove.js`**: post-fmon block — gate **`dochug`** + **`rn2(1)`** + mklev tail **`distfleeck`** + gate recalc + east (mirror first-search peel). **`m_move_mon.js`**: second-search gate distfleeck in loop vs full **`dochug`** post-pet; one **`rn2(1)`** gate pick; no first-search **`dog_goal`** after second gate. **`cmd.js`/`monmove_search.js`**: peel harness flags. **`seed0077`:** **3233/3242** (was **3230/3242**) — **3230–3232** aligned; **~3233** east **`rn2(12)`** vs C tail **`rn2(5)`** (JS **`level.monsters`** only gate + pet at second search — missing mklev sleepers).
 
 ## Next steps
 
-1. **`seed0077` ~3230** — C gate **`rn2(4)=0`** after second **`#search`** **`dog_invent`**; JS still runs **`mfndpos`** / other mon **`m_move`** draws before gate. Align second-search moveloop tail order with C **`fmon`** / **`movemon`** (no extra pet pick after **`dog_goal`**). Verify with **`tools/diag_rng_window.mjs`** **3225–3235**.
+1. **`seed0077` ~3233** — C still has mklev tail **`distfleeck`**/**`m_move`** draws after second-search gate; JS **`level.monsters`** is gate + pet only (east peel runs too early). Find why west-door / distant mklev sleepers are gone before pass 2 ( **`makemon`** / **`mongone`** / first-search peel). Verify with **`tools/diag_rng_window.mjs`** **3230–3240**.
 
 2. **`mklev` lregions** — wire **`game.dndest`/`updest`** when **`place_lregions`** ported.
 

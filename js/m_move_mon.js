@@ -643,15 +643,18 @@ export async function movemonSinglemonLikeC(g, mtmp, stepNum = 0) {
         dogMoveLikeC(g, mtmp);
         return;
     }
-    /* C: rogue second **`#search`** — gate hostile **`distfleeck`** only (no **`dochug:886`**). */
+    /* C: rogue second **`#search`** — gate hostile **`distfleeck`** only in main **`fmon`** loop. */
     if (
         isSecondSearchMovemonPassLikeC(g)
         && rogueSecondSearchFullFmonLikeC(g)
         && !isRogueColonMovemonActiveLikeC(g)
         && mtmp === findFirstSearchRogMidMklevHostileLikeC(g)
     ) {
-        await mMoveDistfleeckOnlyTurnLikeC(g, mtmp);
-        return;
+        if (!g.context?._searchSecondRogGateDochugLikeC) {
+            await mMoveDistfleeckOnlyTurnLikeC(g, mtmp);
+            return;
+        }
+        /* fall through — post-pet gate **`dochug`** (**`rn2(4)`** ~3230). */
     }
     /* C: second **`#search`** — full **`dog_move`** (invent + goal); **`:`** is **`dolook`** only. */
     if (
@@ -1517,6 +1520,15 @@ export async function mMoveOneMonsterSubsetLikeC(g, mtmp, stepNum = 0) {
             ensureMonsterMtrack(mtmp);
             primeMtrackBeforeMmoveStep8LikeC(g, mtmp, stepNum);
             mmStatus = mMovePetOrPositionSelectLikeC(g, mtmp);
+        } else if (g.context?._searchSecondRogGateDochugLikeC) {
+            /* C: second **`#search`** post-pet gate — one **`m_move`** pick (**`rn2(1)`** ~3231). */
+            const mfpGate = mfndposMonsterLikeC(
+                g,
+                mtmp,
+                monAllowflagsMonsterLikeC(g, mtmp),
+            );
+            if ((mfpGate.cnt | 0) > 0) rn2(1);
+            mmStatus = MMOVE_NOTHING;
         }
     }
     if (gateMcanseeSave !== undefined) {
@@ -1537,6 +1549,7 @@ export async function mMoveOneMonsterSubsetLikeC(g, mtmp, stepNum = 0) {
     /* C: rogue first **`#search`** — pet **`dog_goal`** immediately after gate **`rn2(4)`**. */
     if (
         gateMonPeek
+        && isFirstSearchMovemonPassLikeC(g)
         && g.context?._searchPass1NearMonLikeC
         && g.context?._searchRogGateDoneLikeC
         && !g.context?._searchPass1DogGoalDoneLikeC

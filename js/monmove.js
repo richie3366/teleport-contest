@@ -14,7 +14,7 @@ import { rn2 } from './rng.js';
 import { NORMAL_SPEED, PM_LICHEN } from './const.js';
 import { mintrapMoveloopTail } from './trap.js';
 import { game } from './gstate.js';
-import { fmonListForMovemonLikeC } from './fmon_iter.js';
+import { fmonListForMovemonLikeC, fmonListNewestFirstLikeC } from './fmon_iter.js';
 import {
     eastFungusDoorNicheAtLikeC,
     findDistantMklevMonLikeC,
@@ -469,6 +469,50 @@ export async function movemon(stepNum) {
             }
             const east = findEastKickMonLikeC(g);
             if (east && mons.includes(east)) {
+                await movemonSinglemonLikeC(g, east, effStepNum);
+            }
+        }
+        /* C: rogue second **`#search`** — gate **`dochug`** + mklev tail peel after pet **`dog_move`**
+         * (**`seed0077` ~3230–3235**); main **`fmon`** loop is gate + pet only. */
+        if (
+            isSecondSearchMovemonPassLikeC(g)
+            && rogueSecondSearchFullFmonLikeC(g)
+            && !g.context?._searchPostGate2PeelDoneLikeC
+        ) {
+            g.context._searchPostGate2PeelDoneLikeC = true;
+            const allMons = fmonListNewestFirstLikeC(g);
+            const rogGate = findFirstSearchRogMidMklevHostileLikeC(g);
+            const pet = allMons.find((m) => (m.mtame | 0) !== 0);
+            /** @type {typeof allMons} */
+            const peelOrder = [];
+            if (rogGate) peelOrder.push(rogGate);
+            if (pet) peelOrder.push(pet);
+            for (const m of allMons) {
+                if (m !== rogGate && m !== pet) peelOrder.push(m);
+            }
+            if (rogGate && (g.context?._searchRogGateCountLikeC | 0) < 1) {
+                g.context._searchRogGateCountLikeC = 1;
+            }
+            if (rogGate) {
+                g.context._searchSecondRogGateDochugLikeC = true;
+                await movemonSinglemonLikeC(g, rogGate, effStepNum);
+                delete g.context._searchSecondRogGateDochugLikeC;
+            }
+            const gateIdx = rogGate ? peelOrder.indexOf(rogGate) : -1;
+            const tailStart = gateIdx >= 0 ? gateIdx + 1 : 0;
+            for (let i = tailStart; i < peelOrder.length; i++) {
+                const m = peelOrder[i];
+                if (m === pet || m === rogGate) continue;
+                if ((m.mtame | 0)) continue;
+                if (eastMklevFirstLAfterBLikeC(g, m)) continue;
+                if (!(m.mgenmklev | 0)) continue;
+                await mMoveDistfleeckOnlyTurnLikeC(g, m);
+            }
+            if (rogGate) {
+                await mMoveDistfleeckOnlyTurnLikeC(g, rogGate);
+            }
+            const east = findEastKickMonLikeC(g);
+            if (east && peelOrder.includes(east)) {
                 await movemonSinglemonLikeC(g, east, effStepNum);
             }
         }
