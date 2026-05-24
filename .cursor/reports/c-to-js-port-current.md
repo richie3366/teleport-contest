@@ -18,11 +18,11 @@ Thin handoff for the next coding session. **Score + milestones:** [`c-to-js-port
 
 **Deferred for now:** **`maybe_do_tutorial`** / **`tut-1`** / full **`do.c`** **`goto_level`** (Lua **`tutorial()`** / **`free_tutorial()`**, **`savelev`**, **`gmst_*`**, …) and **`dokick`**/**`dothrow`** vs **`leaving_tutorial`** — strong upstream dependencies (save, specials, fuller **`do.c`**); treat as backlog until chargen / core early-game parity is further along; **`LIVELOGFILE`** parity if the judge ever compares livelog lines.
 
-**Last slice:** **`display.c` `wall_angle` + tty tutorial `cl_end`.** **`wall_angle.js`**: port **`wall_angle()`** → **`mapTerrainGlyph`** uses **`seenv ? wall_angle : S_stone`**. **`tutorial_prompt.js`**: **`tutorialMenuOffxLikeC`** + menu-row **`cl_end`** blanking; **`docrt()`** after dismiss. **`seed0077`:** **RNG 3242/3242**; **screens 12/33** (**33/33** cursors; tutorial step **~1 cell** vs **~16** before). **`seed8000`:** **20/23** screens. **`npm run score`:** **0/44**.
+**Last slice:** **`display.c` `set_wall_state`.** **`wall_state.js`**: port **`check_pos`**, **`set_wall`/`set_twall`/`set_corn`/`set_crosswall`**, **`xy_set_wall_state`**, **`set_wall_state`**; wired from **`mklev.js`** **`level_finalize_topology`**. **`seed0077`:** **RNG 3242/3242**; **screens 12/33** (**33/33** cursors). **`seed8000`:** **20/23** screens. **`npm run score`:** **0/44**.
 
 ## Next steps
 
-1. **`seed0077` screens** — **`mklev.c` `set_wall_state`** ( **`wall_info`** ); **`vision.c`** **`seenv`** on west-door cells; floor **`$`** at **(34,3)**; status gold **step 11**; Ctrl-X attributes overlay (**step 25**).
+1. **`seed0077` screens** — **`vision.c`** **`seenv`** on west-door cells (wall **`#` vs `q`** at **(34,9)** is **`CORR` vs `HWALL` typ**); floor **`$`** at **(34,3)**; status gold **step 11**; Ctrl-X attributes overlay (**step 25**).
 
 2. **`mklev` lregions** — wire **`game.dndest`/`updest`** when **`place_lregions`** ported.
 

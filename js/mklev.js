@@ -71,6 +71,7 @@ import {
 } from './mfndpos_mon.js';
 import { monTrackClear, ensureMonsterMtrack } from './monflee.js';
 import { dist2 } from './hacklib.js';
+import { setWallStateLikeC } from './wall_state.js';
 import {
     consumeMksobjInitCorpseRngLikeC,
     consumeMksobjCorpseSpeRngLikeC,
@@ -2466,7 +2467,10 @@ function bound_digging() {
         }
 }
 
-function set_wall_state() { /* no-op for contest */ }
+/** C: display.c set_wall_state — delegated to wall_state.js */
+function set_wall_state() {
+    setWallStateLikeC();
+}
 
 /**
  * C: mkmaze.c fixup_special() tail — **`Is_special(&u.uz)`** && **`sp->flags.town`** → **`has_town`**
