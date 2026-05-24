@@ -1,0 +1,33 @@
+#!/usr/bin/env node
+import { readFileSync } from 'fs';
+import { join, dirname } from 'path';
+import { fileURLToPath } from 'url';
+
+const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
+const { normalizeSession } = await import(join(ROOT, 'frozen/session_loader.mjs'));
+const { runSegment } = await import(join(ROOT, 'js/jsmain.js'));
+
+const { game } = await import(join(ROOT, 'js/gstate.js'));
+game._preNhgetchHook = async () => {
+    const { peekQueuedKey } = await import(join(ROOT, 'js/input.js'));
+    const k = peekQueuedKey();
+    if (k == null) return;
+    const ch = k >= 32 && k < 127 ? String.fromCharCode(k) : `#${k}`;
+    if ((game.moves | 0) <= 4) console.log(`peek nhgetch ${JSON.stringify(ch)} moves=${game.moves}`);
+};
+
+const session = JSON.parse(
+    readFileSync(join(ROOT, 'sessions/seed0077-rogue-chargen.session.json'), 'utf8'),
+);
+const storage = new Map();
+const h = {
+    getItem(k) { return storage.get(k) ?? null; },
+    setItem(k, v) { storage.set(k, String(v)); },
+    removeItem(k) { storage.delete(k); },
+    get length() { return storage.size; },
+    key(i) { return [...storage.keys()][i] ?? null; },
+};
+
+for (const seg of normalizeSession(session).segments) {
+    await runSegment({ ...seg, storage: h });
+}
