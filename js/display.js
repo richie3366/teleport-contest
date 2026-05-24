@@ -31,6 +31,7 @@ import {
 } from './const.js';
 import { acurr, getStrengthStrLikeC } from './attrib.js';
 import { rankHeroTitleLikeC } from './roles.js';
+import { findAc } from './u_init_find_ac.js';
 import { describeLevelStatusSlotLikeC } from './describe_level.js';
 import { mungspacesLikeC } from './hacklib.js';
 import { OBJ_ROCK } from './mthrowu.js';
@@ -831,6 +832,8 @@ export async function cls() {
 
 // ── bot ──
 export async function bot() {
+    /* C: allmain.c moveloop — find_ac() before bot(); newgame bot() is before u_init_skills_discoveries find_ac. */
+    if (game.program_state?.in_moveloop) findAc();
     refreshCachedBotlLinesLikeC();
 }
 

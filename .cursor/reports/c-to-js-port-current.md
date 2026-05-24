@@ -18,11 +18,11 @@ Thin handoff for the next coding session. **Score + milestones:** [`c-to-js-port
 
 **Deferred for now:** **`maybe_do_tutorial`** / **`tut-1`** / full **`do.c`** **`goto_level`** (Lua **`tutorial()`** / **`free_tutorial()`**, **`savelev`**, **`gmst_*`**, …) and **`dokick`**/**`dothrow`** vs **`leaving_tutorial`** — strong upstream dependencies (save, specials, fuller **`do.c`**); treat as backlog until chargen / core early-game parity is further along; **`LIVELOGFILE`** parity if the judge ever compares livelog lines.
 
-**Last slice:** **`botl.c` stale status after `find_ac`.** **`display.js`**: cache status at **`bot()`**; paint stale lines when **`disp.botl`** until next **`bot()`** (C tty after **`u_init_skills_discoveries`** **`find_ac`**); legacy pager + tutorial menus use cached rows. **`jsmain.js`**: **`u.uac = 0`** before first **`bot()`**; snapshot flush when **`disp.botl`** + cache. **`u_init_link_rogue_invent.js`**: drop premature **`findAc`** (C only in **`u_init_skills_discoveries`**). **`seed0077`:** **RNG 3242/3242**; **screens 13/33** (**33/33** cursors). **`seed8000`:** **20/23** screens. **`npm run score`:** **0/44**.
+**Last slice:** **`allmain.c` moveloop `find_ac` + tutorial status refresh.** **`display.js`**: **`bot()`** calls **`findAc()`** when **`program_state.in_moveloop`** (C **`find_ac()`** before status update each turn; not at newgame **`bot()`** before **`u_init_skills_discoveries`**). **`tutorial_prompt.js`**: **`findAc()`** + **`refreshCachedBotlLinesLikeC()`** after tutorial dismiss. **`seed0077`:** **RNG 3242/3242**; **screens 13/33** (**33/33** cursors). **`seed8000`:** **20/23** screens. **`npm run score`:** **0/44**.
 
 ## Next steps
 
-1. **`seed0077` screens** — **`vision.c`** **`seenv`** / west-door **`#` vs `q`** at **(34,9)** (**`CORR` vs `HWALL` typ**); floor **`$`** at **(34,3)**; map cells **step 12+**; Ctrl-X attributes overlay (**step 25**).
+1. **`seed0077` screens** — west-door **`#` vs `q`** at **(34,9)** needs C **`mklev`** geometry + **`vision.c`** **`seenv`** (do not drop **`openWestDoorColumnNorthCorrLikeC`** — moveloop RNG depends on it); floor **`$`** at **(34,3)**; post-tutorial status **AC** on capture boundaries **12–13**; Ctrl-X overlay (**step 25**).
 
 2. **`mklev` lregions** — wire **`game.dndest`/`updest`** when **`place_lregions`** ported.
 

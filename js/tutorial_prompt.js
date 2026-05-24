@@ -3,7 +3,8 @@
 
 import { game } from './gstate.js';
 import { nhgetch } from './input.js';
-import { flush_screen, clearPendingMessageAndToplineLikeC, docrt } from './display.js';
+import { flush_screen, clearPendingMessageAndToplineLikeC, docrt, refreshCachedBotlLinesLikeC } from './display.js';
+import { findAc } from './u_init_find_ac.js';
 import { NO_COLOR } from './terminal.js';
 
 const MENU_COL = 21;
@@ -87,6 +88,11 @@ export async function askDoTutorialMenuTTYLikeC(disp) {
             g._tutorialMenuActive = false;
             delete g._tutorialMenuPass;
             clearPendingMessageAndToplineLikeC();
+            /* C: tty bot() after tutorial — moveloop find_ac + status refresh. */
+            findAc(g);
+            refreshCachedBotlLinesLikeC();
+            g.disp = g.disp || {};
+            g.disp.botl = false;
             await docrt();
             return true;
         }
@@ -95,6 +101,10 @@ export async function askDoTutorialMenuTTYLikeC(disp) {
     g._tutorialMenuActive = false;
     delete g._tutorialMenuPass;
     clearPendingMessageAndToplineLikeC();
+    findAc(g);
+    refreshCachedBotlLinesLikeC();
+    g.disp = g.disp || {};
+    g.disp.botl = false;
     await docrt();
     return false;
 }
