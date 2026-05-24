@@ -18,11 +18,11 @@ Thin handoff for the next coding session. **Score + milestones:** [`c-to-js-port
 
 **Deferred for now:** **`maybe_do_tutorial`** / **`tut-1`** / full **`do.c`** **`goto_level`** (Lua **`tutorial()`** / **`free_tutorial()`**, **`savelev`**, **`gmst_*`**, …) and **`dokick`**/**`dothrow`** vs **`leaving_tutorial`** — strong upstream dependencies (save, specials, fuller **`do.c`**); treat as backlog until chargen / core early-game parity is further along; **`LIVELOGFILE`** parity if the judge ever compares livelog lines.
 
-**Last slice:** **`m_move_mon.js`** / **`dogmove_mon.js`** / **`fmon_iter.js`** / **`monmove.js`**: defer rogue pet **`dog_invent`** to **`:`** moveloop (gate **`distfleeck`** then **`dogMoveLikeC`**); colon main **`fmon`** gate+pet only + west/east subpasses; second **`#search`** **`dogMoveSecondSearchMfndposLikeC`** (**`mfndpos`** without invent). **`seed0077`:** **`npm run score`** **3229/3242**; local **`diag_rng_window`** first gap **~3227** (**3226** **`rn2(100)`** aligned). **`seed8000`:** **PASS**. **`npm run score`:** **1/44**.
+**Last slice:** **`dogmove_mon.js`**: **`findApportTowelNearPetLikeC`**, **`dogMoveOntoApportTowelLikeC`** (colon adjacent step without extra **`rn2(1)`**), persist towel **`_searchApportTowelXYLikeC`** without **`_searchPass1NearMon`** gate; second **`#search`** **`dogMoveSecondSearchMfndposLikeC`** (goal+mfndpos, invent on **`:`**). **`tools/diag_colon_invent.mjs`**. **`seed0077`:** **3229/3242** (diag **~3227** — pet must be on towel tile before **`dog_invent`** **`rn2(20)`**). **`seed8000`:** **PASS**. **`npm run score`:** **1/44**.
 
 ## Next steps
 
-1. **`seed0077` ~3227** — colon **`dog_invent`** chain: C **`rn2(20)=3`** vs JS **`rn2(8)=3`** (pet on towel / **`dog_goal`** before **`rn2(20)`**); then **`rn2(udist)`** with **`udist=5`**. Tools: **`tools/diag_rng_window.mjs`**, **`tools/diag_colon_pet.mjs`**.
+1. **`seed0077` ~3227** — colon **`dog_invent`**: JS runs **`dog_goal`** **`rn2(8)`** before **`dog_invent`** **`rn2(20)`** because pet not on towel at **`:`** (end state **(35,8)** ok); trace **`dogMoveOntoApportTowel`** / **`mfndpos`** on second **`#search`**. **`tools/diag_colon_invent.mjs`**, **`tools/diag_rng_window.mjs`**.
 
 2. **`seed0077` ~3234+** — colon west **`rn2(16)`** peel; **`dolook`** new-turn **3236+**.
 

@@ -67,6 +67,7 @@ import {
 import { ensureMonsterMtrack, monTrackAdd, monTrackClear } from './monflee.js';
 import {
     dogMoveLikeC,
+    dogMoveOntoApportTowelLikeC,
     dogMoveSecondSearchMfndposLikeC,
     dogMoveSearchPassNearHeroLikeC,
 } from './dogmove_mon.js';
@@ -664,6 +665,7 @@ export async function movemonSinglemonLikeC(g, mtmp, stepNum = 0) {
             mtmp.mux = u.ux | 0;
             mtmp.muy = u.uy | 0;
         }
+        dogMoveOntoApportTowelLikeC(g, mtmp, true);
         dogMoveLikeC(g, mtmp);
         return;
     }
