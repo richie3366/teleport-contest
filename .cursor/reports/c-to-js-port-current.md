@@ -18,11 +18,11 @@ Thin handoff for the next coding session. **Score + milestones:** [`c-to-js-port
 
 **Deferred for now:** **`maybe_do_tutorial`** / **`tut-1`** / full **`do.c`** **`goto_level`** (Lua **`tutorial()`** / **`free_tutorial()`**, **`savelev`**, **`gmst_*`**, …) and **`dokick`**/**`dothrow`** vs **`leaving_tutorial`** — strong upstream dependencies (save, specials, fuller **`do.c`**); treat as backlog until chargen / core early-game parity is further along; **`LIVELOGFILE`** parity if the judge ever compares livelog lines.
 
-**Last slice:** **`dogmove_mon.js`**: **`dogMoveMfndposPickApprZeroLikeC`** (one **`rn2(1)`**, no step onto towel); **`m_avoid_kicked_loc`** / **`m_avoid_soko_push_loc`**; post-gate **`dog_goal`** skips second towel **`rn2(8)`** when first-search APPORT recorded. **`dogmove_reach.js`**: kick/soko avoid helpers. **`kick.js`**: **`g.kickedloc`**. **`seed0077`:** **3220/3242** (first gap **~3217** — third bbox **`obj_resists`** / tail **`distfleeck`**). **`seed8000`:** **PASS**. **`npm run score`:** **1/44**.
+**Last slice:** **`dogmove_mon.js`**: **`appr==0`** **`mfndpos`** pick — one **`rn2(1)`** on closest-to-goal slot (pet steps onto towel **(35,8)** so post-gate bbox includes **(35,13)** gold). **`seed0077`:** **3217/3242** (first gap **~3215** — extra **`fobj`** gem **`obj_resists`** vs gold **`rn2(8)`**). **`seed8000`:** **PASS**. **`npm run score`:** **1/44**. Diag: **`tools/diag_*postgate*`**, **`tools/diag_appr_zero_pick.mjs`**.
 
 ## Next steps
 
-1. **`seed0077` ~3217+** — third **`fobj`** **`obj_resists`** before post-gate tail **`distfleeck`**; second **`#search`** **`dog_invent`** ~3227+; **`:`** new-turn **3236+**. Tools: **`tools/diag_rng_window.mjs`**, **`tools/diag_dog_goal_at_search.mjs`**.
+1. **`seed0077` ~3215+** — post-gate **`dog_goal`** **`fobj`** order (drop extra gem **(34,13)** or match C fill); gold **`rn2(8)`**; tail **`distfleeck`** ~3218; second **`#search`** **`dog_invent`** ~3227+; **`:`** **3236+**. Tools: **`tools/diag_rng_window.mjs`**, **`tools/diag_postgate_floor.mjs`**.
 
 2. **`jsmain` tail post** — new-turn **3236–3241** after **`dolook`** on **`:`** step once invent chain aligns.
 
