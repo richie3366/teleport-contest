@@ -18,11 +18,11 @@ Thin handoff for the next coding session. **Score + milestones:** [`c-to-js-port
 
 **Deferred for now:** **`maybe_do_tutorial`** / **`tut-1`** / full **`do.c`** **`goto_level`** (Lua **`tutorial()`** / **`free_tutorial()`**, **`savelev`**, **`gmst_*`**, …) and **`dokick`**/**`dothrow`** vs **`leaving_tutorial`** — strong upstream dependencies (save, specials, fuller **`do.c`**); treat as backlog until chargen / core early-game parity is further along; **`LIVELOGFILE`** parity if the judge ever compares livelog lines.
 
-**Last slice:** **`dogmove_mon.js`**: C **`can_carry`** / **`max_mon_load`** (kitten **`cwt`**, **`M1_NOHANDS`** apport gate); **`dogfoodRankLikeC`** APPORT for gems; **`dogMoveMfndposPickLikeC`** (cursed/trap/**`mtrack`** filters); first **`#search`** gate **`mfndpos`** uses **`appr==0`** while **`dog_goal`** may set APPORT **`appr==1`** (**`rn2(1)`** ~3208). **`dogmove_reach.js`**: **`mCanseeDogmoveLikeC`**. **`seed0077`:** **3212/3242** (first gap **~3209** — post-gate **`distfleeck`** peel / pet step). **`seed8000`:** **PASS**. **`npm run score`:** **1/44**.
+**Last slice:** **`dogmove_mon.js`**: **`dogMoveMfndposPickApprZeroLikeC`** (one **`rn2(1)`**, no step onto towel); **`m_avoid_kicked_loc`** / **`m_avoid_soko_push_loc`**; post-gate **`dog_goal`** skips second towel **`rn2(8)`** when first-search APPORT recorded. **`dogmove_reach.js`**: kick/soko avoid helpers. **`kick.js`**: **`g.kickedloc`**. **`seed0077`:** **3220/3242** (first gap **~3217** — third bbox **`obj_resists`** / tail **`distfleeck`**). **`seed8000`:** **PASS**. **`npm run score`:** **1/44**.
 
 ## Next steps
 
-1. **`seed0077` ~3209+** — post-gate **`distfleeck`** peel count/direction after first-search **`mfndpos`** **`appr==0`** pick; second gate **`dog_goal`** ~3214–3217; second **`#search`** **`dog_invent`** ~3227+; **`:`** new-turn **3236+**. Tools: **`tools/diag_rng_window.mjs`**, **`tools/diag_dog_goal_at_search.mjs`**.
+1. **`seed0077` ~3217+** — third **`fobj`** **`obj_resists`** before post-gate tail **`distfleeck`**; second **`#search`** **`dog_invent`** ~3227+; **`:`** new-turn **3236+**. Tools: **`tools/diag_rng_window.mjs`**, **`tools/diag_dog_goal_at_search.mjs`**.
 
 2. **`jsmain` tail post** — new-turn **3236–3241** after **`dolook`** on **`:`** step once invent chain aligns.
 

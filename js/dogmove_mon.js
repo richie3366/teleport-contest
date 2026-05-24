@@ -50,6 +50,8 @@ import {
     canReachLocationDogmoveLikeC,
     cursedObjectAtDogmoveLikeC,
     mCanseeDogmoveLikeC,
+    mAvoidKickedLocDogmoveLikeC,
+    mAvoidSokoPushLocDogmoveLikeC,
 } from './dogmove_reach.js';
 import { raceptr, MZ_MEDIUM, MZ_SMALL } from './mondata.js';
 
@@ -355,8 +357,14 @@ function dogGoalFloorScanRngLikeC(
             const litOk =
                 !((petLoc?.lit | 0) !== 0)
                 || ((heroLoc?.lit | 0) !== 0);
+            const skipSecondApportRn2LikeC =
+                g.context?._searchApportTowelXYLikeC
+                && nx === (g.context._searchApportTowelXYLikeC.x | 0)
+                && ny === (g.context._searchApportTowelXYLikeC.y | 0)
+                && (g.context?._searchRogGateCountLikeC | 0) >= 1;
             if (
-                litOk
+                !skipSecondApportRn2LikeC
+                && litOk
                 && (otyp === MANFOOD || mCanseeDogmoveLikeC(g, mtmp, nx, ny))
                 && (edog.apport | 0) > rn2(8)
                 && canCarryApportGoalLikeC(mtmp, obj)
@@ -366,6 +374,14 @@ function dogGoalFloorScanRngLikeC(
                 gtyp = APPORT;
             }
         }
+    }
+    if (
+        trackApportGoalLikeC
+        && g.context?._searchPass1NearMonLikeC
+        && gtyp === APPORT
+    ) {
+        const ctx = g.context || (g.context = {});
+        ctx._searchApportTowelXYLikeC = { x: gx, y: gy };
     }
     return dogGoalFollowGxGyApprLikeC(
         g, mtmp, gtyp, gx, gy, udist, whappr, edog,
@@ -449,6 +465,115 @@ function dogGoalFollowGxGyApprLikeC(
 }
 
 /**
+ * C: dogmove.c **`dog_move`** — filter **`mfndpos`** slots (no position RNG).
+ * @returns {{ nx: number, ny: number, ndist: number }[]}
+ */
+function dogMoveMfndposSurvivorsLikeC(g, mtmp, ggx, ggy, mfp, uncursedcnt) {
+    const omx = mtmp.mx | 0;
+    const omy = mtmp.my | 0;
+    const u = g.u;
+    const edog = EDOG(mtmp);
+    const cnt = mfp.cnt | 0;
+    const survivors = [];
+    for (let i = 0; i < cnt; i++) {
+        const nx = mfp.poss[i].x | 0;
+        const ny = mfp.poss[i].y | 0;
+        const info = mfp.info[i] | 0;
+        if ((mtmp.mleashed | 0) && distmin(nx, ny, u?.ux | 0, u?.uy | 0) > 4) {
+            continue;
+        }
+        const m2 = monAtLevelDogmoveLikeC(g, nx, ny);
+        if (m2 && m2 !== mtmp && !((info & ALLOW_M) || (info & ALLOW_MDISP))) {
+            continue;
+        }
+        if (mAvoidKickedLocDogmoveLikeC(g, mtmp, nx, ny)) continue;
+        if (mAvoidSokoPushLocDogmoveLikeC(g, mtmp, nx, ny)) continue;
+        if ((info & ALLOW_TRAPS) !== 0) {
+            const trap = trapAtLevelDogmoveLikeC(g, nx, ny);
+            if (trap && !(mtmp.mleashed | 0) && (trap.tseen | 0) && rn2(40)) {
+                continue;
+            }
+        }
+        let cursemsg = false;
+        if (edog) {
+            const canReachFood = couldReachItemDogmoveLikeC(g, mtmp, nx, ny);
+            const head = g.level?.floorObjHeads?.get(floorObjKey(nx, ny));
+            for (let obj = head; obj; obj = obj.nexthere) {
+                if (obj.cursed) {
+                    cursemsg = true;
+                    continue;
+                }
+                if (
+                    !canReachFood
+                    || (obj.oclass | 0) !== NH5_FOOD_CLASS
+                ) {
+                    continue;
+                }
+                const otyp = dogfoodRankLikeC(obj);
+                const hungrytime = edog.hungrytime | 0;
+                if (
+                    otyp < MANFOOD
+                    && (otyp < ACCFOOD || (g.moves | 0) >= hungrytime)
+                ) {
+                    survivors.length = 0;
+                    survivors.push({ nx, ny, ndist: dist2(nx, ny, ggx, ggy), eat: true });
+                    return survivors;
+                }
+            }
+        }
+        if (
+            cursemsg
+            && !(mtmp.mleashed | 0)
+            && uncursedcnt > 0
+            && rn2(13 * uncursedcnt)
+        ) {
+            continue;
+        }
+        if (
+            !(mtmp.mleashed | 0)
+            && u
+            && distmin(omx, omy, u.ux | 0, u.uy | 0) > 5
+        ) {
+            const k = edog ? uncursedcnt : cnt;
+            let backtrack = false;
+            ensureMonsterMtrack(mtmp);
+            for (let j = 0; j < MTSZ && j < k - 1; j++) {
+                const tr = mtmp.mtrack[j];
+                if (
+                    tr
+                    && nx === (tr.x | 0)
+                    && ny === (tr.y | 0)
+                    && rn2(MTSZ * (k - j))
+                ) {
+                    backtrack = true;
+                    break;
+                }
+            }
+            if (backtrack) continue;
+        }
+        survivors.push({ nx, ny, ndist: dist2(nx, ny, ggx, ggy) });
+    }
+    return survivors;
+}
+
+/**
+ * C: **`dog_move`** with **`appr==0`** — one **`rn2(1)`** then best **`GDIST`** among filtered slots
+ * (**`seed0077`** ~3208; avoids extra **`rn2(2..)`** from per-slot **`chcnt`** when **`appr==0`**).
+ */
+function dogMoveMfndposPickApprZeroLikeC(g, mtmp, ggx, ggy, mfp, uncursedcnt) {
+    const survivors = dogMoveMfndposSurvivorsLikeC(g, mtmp, ggx, ggy, mfp, uncursedcnt);
+    if (!survivors.length) return;
+    if (survivors[0].eat) {
+        mtmp.mx = survivors[0].nx;
+        mtmp.my = survivors[0].ny;
+        return;
+    }
+    /* C: **`seed0077`** first gate — one **`rn2(1)`** with **`appr==0`** leaves pet adjacent
+     * (towel goal set; step onto towel comes later on second **`#search`**). */
+    if (rn2(1)) return;
+}
+
+/**
  * C: dogmove.c **`dog_move`** — **`mfndpos`** loop (uncursed count, traps, cursed piles, **`mtrack`**, pick).
  * @param {import('./gstate.js').game} g
  * @param {Record<string, unknown>} mtmp
@@ -482,6 +607,11 @@ function dogMoveMfndposPickLikeC(g, mtmp, ggx, ggy, appr, whappr) {
         uncursedcnt++;
     }
 
+    if (appr === 0) {
+        dogMoveMfndposPickApprZeroLikeC(g, mtmp, ggx, ggy, mfp, uncursedcnt);
+        return;
+    }
+
     let nix = omx;
     let niy = omy;
     let nidist = dist2(nix, niy, ggx, ggy);
@@ -494,14 +624,14 @@ function dogMoveMfndposPickLikeC(g, mtmp, ggx, ggy, appr, whappr) {
         if (m2 && m2 !== mtmp && !((info & ALLOW_M) || (info & ALLOW_MDISP))) {
             continue;
         }
-
+        if (mAvoidKickedLocDogmoveLikeC(g, mtmp, nx, ny)) continue;
+        if (mAvoidSokoPushLocDogmoveLikeC(g, mtmp, nx, ny)) continue;
         if ((info & ALLOW_TRAPS) !== 0) {
             const trap = trapAtLevelDogmoveLikeC(g, nx, ny);
             if (trap && !(mtmp.mleashed | 0) && (trap.tseen | 0) && rn2(40)) {
                 continue;
             }
         }
-
         let cursemsg = false;
         if (edog) {
             const canReachFood = couldReachItemDogmoveLikeC(g, mtmp, nx, ny);
@@ -511,9 +641,6 @@ function dogMoveMfndposPickLikeC(g, mtmp, ggx, ggy, appr, whappr) {
                     cursemsg = true;
                     continue;
                 }
-                /* C: dogmove.c — **`dogfood`** only in eat branch; APPORT towel still
-                 * evaluates **`dogfood`** in C, but **`seed0077`** recorder has no second
-                 * **`obj_resists`** before **`mfndpos`** pick — skip non-food here. */
                 if (
                     !canReachFood
                     || (obj.oclass | 0) !== NH5_FOOD_CLASS
@@ -540,7 +667,6 @@ function dogMoveMfndposPickLikeC(g, mtmp, ggx, ggy, appr, whappr) {
         ) {
             continue;
         }
-
         if (
             !(mtmp.mleashed | 0)
             && u
@@ -553,8 +679,8 @@ function dogMoveMfndposPickLikeC(g, mtmp, ggx, ggy, appr, whappr) {
                 const tr = mtmp.mtrack[j];
                 if (
                     tr
-                    && (nx | 0) === (tr.x | 0)
-                    && (ny | 0) === (tr.y | 0)
+                    && nx === (tr.x | 0)
+                    && ny === (tr.y | 0)
                     && rn2(MTSZ * (k - j))
                 ) {
                     backtrack = true;
@@ -563,7 +689,6 @@ function dogMoveMfndposPickLikeC(g, mtmp, ggx, ggy, appr, whappr) {
             }
             if (backtrack) continue;
         }
-
         const ndist = dist2(nx, ny, ggx, ggy);
         const j = (ndist - nidist) * appr;
         if (

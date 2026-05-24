@@ -5,7 +5,7 @@ import { IS_DOOR, CORR, ROOM } from './const.js';
 import { isPoolCellLikeC, isLavaCellLikeC } from './fillholetyp.js';
 import { throwsRocks, passesWalls, swims, likesLava } from './mondata.js';
 import { raceptr } from './mondata.js';
-import { dist2 } from './hacklib.js';
+import { dist2, distmin } from './hacklib.js';
 import { OTYP_BOULDER } from './const.js';
 import { floorObjKey } from './floorobj.js';
 import { clearPathRayToTargetLikeC } from './mthrow_mon.js';
@@ -45,6 +45,54 @@ export function mCanseeDogmoveLikeC(g, mtmp, x, y) {
     return clearPathRayToTargetLikeC(
         g, x | 0, y | 0, mtmp.mx | 0, mtmp.my | 0, false,
     );
+}
+
+/**
+ * C: monmove.c **`m_avoid_kicked_loc`** — tame/peaceful pet avoids hero's last kick square.
+ * @param {import('./gstate.js').game} g
+ * @param {Record<string, unknown>} mtmp
+ * @param {number} nx
+ * @param {number} ny
+ */
+export function mAvoidKickedLocDogmoveLikeC(g, mtmp, nx, ny) {
+    const kl = g.kickedloc;
+    if (!kl || (kl.x | 0) < 1) return false;
+    const u = g.u;
+    if (!u) return false;
+    if (!((mtmp.mpeaceful | 0) || (mtmp.mtame | 0))) return false;
+    if (!(mtmp.mcansee | 0) || (mtmp.mconf | 0) || (mtmp.mstun | 0)) return false;
+    if (u.Conflict | 0) return false;
+    const xi = nx | 0;
+    const yi = ny | 0;
+    if (xi !== (kl.x | 0) || yi !== (kl.y | 0)) return false;
+    return distmin(xi, yi, u.ux | 0, u.uy | 0) <= 1;
+}
+
+/**
+ * C: monmove.c **`m_avoid_soko_push_loc`** — sokoban boulder-push avoidance (subset).
+ * @param {import('./gstate.js').game} g
+ * @param {Record<string, unknown>} mtmp
+ * @param {number} nx
+ * @param {number} ny
+ */
+export function mAvoidSokoPushLocDogmoveLikeC(g, mtmp, nx, ny) {
+    if (!g.Sokoban) return false;
+    const u = g.u;
+    if (!u) return false;
+    if (!((mtmp.mpeaceful | 0) || (mtmp.mtame | 0))) return false;
+    if ((mtmp.mconf | 0) || (mtmp.mstun | 0) || (u.Conflict | 0)) return false;
+    const ux = u.ux | 0;
+    const uy = u.uy | 0;
+    const xi = nx | 0;
+    const yi = ny | 0;
+    if (dist2(xi, yi, ux, uy) !== 4) return false;
+    const bx = xi + Math.sign(ux - xi);
+    const by = yi + Math.sign(uy - yi);
+    const head = g.level?.floorObjHeads?.get(floorObjKey(bx, by));
+    for (let o = head; o; o = o.nexthere) {
+        if ((o.otyp | 0) === OTYP_BOULDER) return true;
+    }
+    return false;
 }
 
 export function couldReachItemDogmoveLikeC(g, mtmp, nx, ny) {
