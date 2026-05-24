@@ -802,6 +802,8 @@ function _buildScreenOutput() {
 
 // ── flush_screen ──
 export async function flush_screen(mode) {
+    /* C: display.c flush_screen — refresh status before map when disp.botl/botlx. */
+    if (game.disp?.botl || game.disp?.botlx) await bot();
     _buildScreenOutput();
 }
 
@@ -839,6 +841,15 @@ export async function cls() {
 export async function bot() {
     /* C: allmain.c moveloop — find_ac() before bot(); newgame bot() is before u_init_skills_discoveries find_ac. */
     if (game.program_state?.in_moveloop) findAc();
+    const disp = game.nhDisplay;
+    if (disp?.grid) {
+        const s1 = statusLine1ExpandedLikeC();
+        for (let c = 0; c < Math.min(s1.length, disp.cols); c++)
+            disp.setCell(c, 22, s1[c], NO_COLOR, 0);
+        const s2 = _statusLine2();
+        for (let c = 0; c < Math.min(s2.length, disp.cols); c++)
+            disp.setCell(c, 23, s2[c], NO_COLOR, 0);
+    }
     refreshCachedBotlLinesLikeC();
 }
 
