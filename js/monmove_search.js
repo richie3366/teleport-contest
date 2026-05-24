@@ -113,4 +113,7 @@ export function consumeRogueColonMovemonPendingLikeC(g) {
 export function clearRogueColonMovemonActiveLikeC(g) {
     if (!g.context) return;
     delete g.context._rogueColonMovemonActiveLikeC;
+    delete g.context._rogueColonMainFmonDoneLikeC;
+    delete g.context._movemonSearch11SubPasses;
+    delete g.context._movemonSearch11SubPass;
 }

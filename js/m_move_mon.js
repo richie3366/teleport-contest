@@ -65,7 +65,11 @@ import {
     findFirstSearchRogMidMklevHostileLikeC,
 } from './mfndpos_mon.js';
 import { ensureMonsterMtrack, monTrackAdd, monTrackClear } from './monflee.js';
-import { dogMoveLikeC, dogMoveSearchPassNearHeroLikeC } from './dogmove_mon.js';
+import {
+    dogMoveLikeC,
+    dogMoveSecondSearchMfndposLikeC,
+    dogMoveSearchPassNearHeroLikeC,
+} from './dogmove_mon.js';
 import { monnearMonsterXYLikeC } from './mon_geom.js';
 import {
     isFirstSearchMovemonPassLikeC,
@@ -623,10 +627,29 @@ export async function movemonSinglemonLikeC(g, mtmp, stepNum = 0) {
         await mMoveDistfleeckOnlyTurnLikeC(g, mtmp);
         return;
     }
-    /* C: rogue second **`#search`** — pet **`dog_move`** only (no leading **`distfleeck`**). */
+    /* C: second **`#search`** — **`mfndpos`** appr==0 only; **`dog_invent`** on **`:`**. */
     if (
         isSecondSearchMovemonPassLikeC(g)
         && rogueSecondSearchFullFmonLikeC(g)
+        && (mtmp.mtame | 0)
+        && has_edog(mtmp)
+    ) {
+        let mov = mtmp.movement | 0;
+        if (mov < NORMAL_SPEED) {
+            mtmp.movement = NORMAL_SPEED;
+            mov = NORMAL_SPEED;
+        }
+        mtmp.movement = mov - NORMAL_SPEED;
+        dogMoveSecondSearchMfndposLikeC(g, mtmp);
+        return;
+    }
+    /* C: rogue **`:`** after twin **`#search`** — gate **`distfleeck`** then pet **`dog_invent`** (**3219+**). */
+    if (isRogueColonMovemonActiveLikeC(g) && mtmp === findFirstSearchRogMidMklevHostileLikeC(g)) {
+        await mMoveDistfleeckOnlyTurnLikeC(g, mtmp);
+        return;
+    }
+    if (
+        isRogueColonMovemonActiveLikeC(g)
         && (mtmp.mtame | 0)
         && has_edog(mtmp)
     ) {
@@ -661,7 +684,10 @@ export async function movemonSinglemonLikeC(g, mtmp, stepNum = 0) {
         return;
     }
     if (
-        (g.context?._searchStep11Passes | 0) === 2
+        (
+            (g.context?._searchStep11Passes | 0) === 2
+            || isRogueColonMovemonActiveLikeC(g)
+        )
         && (g.context?._movemonSearch11SubPass | 0) === 1
         && mtmp === findWestKinkMonsterLikeC(g)
     ) {
@@ -682,7 +708,10 @@ export async function movemonSinglemonLikeC(g, mtmp, stepNum = 0) {
         return;
     }
     if (
-        (g.context?._searchStep11Passes | 0) === 2
+        (
+            (g.context?._searchStep11Passes | 0) === 2
+            || isRogueColonMovemonActiveLikeC(g)
+        )
         && (g.context?._movemonSearch11SubPass | 0) === 2
         && mtmp === findEastKickMonLikeC(g)
     ) {

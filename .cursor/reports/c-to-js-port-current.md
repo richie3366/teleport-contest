@@ -18,13 +18,13 @@ Thin handoff for the next coding session. **Score + milestones:** [`c-to-js-port
 
 **Deferred for now:** **`maybe_do_tutorial`** / **`tut-1`** / full **`do.c`** **`goto_level`** (Lua **`tutorial()`** / **`free_tutorial()`**, **`savelev`**, **`gmst_*`**, …) and **`dokick`**/**`dothrow`** vs **`leaving_tutorial`** — strong upstream dependencies (save, specials, fuller **`do.c`**); treat as backlog until chargen / core early-game parity is further along; **`LIVELOGFILE`** parity if the judge ever compares livelog lines.
 
-**Last slice:** **`lock_hero.js`**: Rogue starting lock pick **`otyp` 221** (was **223**, so **`apply` `e`** never armed **`_applyGetdirPendingLikeC`**); **`heroLockPickObjLikeC`** for **`e`** (not skeleton key). Second **`j`** no longer **`domove`** through door — hero stays **(36,7)**. **`seed0077`:** **3229/3242** (first gap **~3228** — **`dog_invent`** **`rn2(udist)`** C **`udist=5`** vs JS **`2`**; pet **(35,8)** vs hero **(36,7)**). **`seed8000`:** **PASS**. **`npm run score`:** **1/44**.
+**Last slice:** **`m_move_mon.js`** / **`dogmove_mon.js`** / **`fmon_iter.js`** / **`monmove.js`**: defer rogue pet **`dog_invent`** to **`:`** moveloop (gate **`distfleeck`** then **`dogMoveLikeC`**); colon main **`fmon`** gate+pet only + west/east subpasses; second **`#search`** **`dogMoveSecondSearchMfndposLikeC`** (**`mfndpos`** without invent). **`seed0077`:** **`npm run score`** **3229/3242**; local **`diag_rng_window`** first gap **~3227** (**3226** **`rn2(100)`** aligned). **`seed8000`:** **PASS**. **`npm run score`:** **1/44**.
 
 ## Next steps
 
-1. **`seed0077` ~3228** — **`dog_invent`** **`rn2(udist)`**: C **`distu=5`** (e.g. pet **(38,8)** or hero farther south) vs JS **`udist=2`** at pet **(35,8)** / hero **(36,7)**; trace first **`#search`** **`dog_move`** **`mfndpos`** / **`enexto`**. Tools: **`tools/diag_rng_window.mjs`**, **`tools/diag_start_pos.mjs`**, **`tools/diag_door_map.mjs`**.
+1. **`seed0077` ~3227** — colon **`dog_invent`** chain: C **`rn2(20)=3`** vs JS **`rn2(8)=3`** (pet on towel / **`dog_goal`** before **`rn2(20)`**); then **`rn2(udist)`** with **`udist=5`**. Tools: **`tools/diag_rng_window.mjs`**, **`tools/diag_colon_pet.mjs`**.
 
-2. **`seed0077` ~3228+** — second **`#search`** west **`rn2(16)`** peel; **`:`** **`dolook`** new-turn **3236+**.
+2. **`seed0077` ~3234+** — colon west **`rn2(16)`** peel; **`dolook`** new-turn **3236+**.
 
 2. **`jsmain` tail post** — new-turn **3236–3241** after **`dolook`** on **`:`** step once invent chain aligns.
 

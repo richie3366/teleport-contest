@@ -91,10 +91,17 @@ export function fmonListForMcalcmoveLikeC(g) {
  */
 export function fmonListForMovemonLikeC(g, stepNum = 0) {
     const mons = fmonListNewestFirstLikeC(g);
-    if (
-        isRogueColonMovemonActiveLikeC(g)
-        || (isSecondSearchMovemonPassLikeC(g) && rogueSecondSearchFullFmonLikeC(g))
-    ) {
+    if (isRogueColonMovemonActiveLikeC(g)) {
+        const gate = findFirstSearchRogMidMklevHostileLikeC(g);
+        const pet = mons.find((m) => (m.mtame | 0) !== 0);
+        if (!(g.context?._movemonSearch11SubPass | 0)) {
+            const ordered = [];
+            if (gate) ordered.push(gate);
+            if (pet) ordered.push(pet);
+            return ordered;
+        }
+    }
+    if (isSecondSearchMovemonPassLikeC(g) && rogueSecondSearchFullFmonLikeC(g)) {
         const gate = findFirstSearchRogMidMklevHostileLikeC(g);
         const pet = mons.find((m) => (m.mtame | 0) !== 0);
         const ordered = [];

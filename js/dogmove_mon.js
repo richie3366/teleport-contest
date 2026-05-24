@@ -822,6 +822,7 @@ function dogMoveGoalAndPickLikeC(
     trackApportGoalLikeC,
     doPick = true,
     mfndposApprLikeC = null,
+    skipInventLikeC = false,
 ) {
     const u = g.u;
     const edog = EDOG(mtmp);
@@ -833,7 +834,7 @@ function dogMoveGoalAndPickLikeC(
     mtmp.mux = u.ux | 0;
     mtmp.muy = u.uy | 0;
     const whappr = (g.moves | 0) - (edog.whistletime | 0) < 5;
-    dogInventLikeC(g, mtmp, udist);
+    if (!skipInventLikeC) dogInventLikeC(g, mtmp, udist);
     const goal = dogGoalFloorScanRngLikeC(
         g, mtmp, trackApportGoalLikeC, whappr,
     );
@@ -881,6 +882,18 @@ export function dogMoveSearchPassNearHeroLikeC(g, mtmp) {
     /* C: rogue first **`#search`** gate — **`dog_move`** **`mfndpos`** uses **`appr==0`**
      * ( **`seed0077`** **`rn2(1)`** at ~3208 while **`dog_goal`** set APPORT **`appr==1`** ). */
     dogMoveGoalAndPickLikeC(g, mtmp, true, true, 0);
+}
+
+/** C: second **`#search`** — **`mfndpos`** toward apport; **`dog_invent`** deferred to **`:`**. */
+export function dogMoveSecondSearchMfndposLikeC(g, mtmp) {
+    if (!(mtmp.mtame | 0) || !has_edog(mtmp)) return;
+    if ((mtmp.mhp | 0) <= 0) return;
+    const u = g.u;
+    if (u) {
+        mtmp.mux = u.ux | 0;
+        mtmp.muy = u.uy | 0;
+    }
+    dogMoveGoalAndPickLikeC(g, mtmp, true, true, 0, true);
 }
 
 /**
