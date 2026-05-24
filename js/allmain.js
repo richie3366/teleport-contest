@@ -223,6 +223,7 @@ export async function newgame() {
     await pline(`${hi} ${g.plname}, welcome to NetHack!  You are a${welcomeBuf}.`);
     /* C: topl.c `redotoplin` + `more()` — welcome snapshot shows `--More--` before first key. */
     g._showDefmoreOnTopline = true;
+    await flush_screen(1);
 
     /* C: allmain.c newgame — after welcome: notice_mon_on(); then dolookaround XOR notice_all_mons */
     noticeMonOnLikeC();

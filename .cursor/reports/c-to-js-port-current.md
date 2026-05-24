@@ -18,11 +18,11 @@ Thin handoff for the next coding session. **Score + milestones:** [`c-to-js-port
 
 **Deferred for now:** **`maybe_do_tutorial`** / **`tut-1`** / full **`do.c`** **`goto_level`** (Lua **`tutorial()`** / **`free_tutorial()`**, **`savelev`**, **`gmst_*`**, …) and **`dokick`**/**`dothrow`** vs **`leaving_tutorial`** — strong upstream dependencies (save, specials, fuller **`do.c`**); treat as backlog until chargen / core early-game parity is further along; **`LIVELOGFILE`** parity if the judge ever compares livelog lines.
 
-**Last slice:** **TTY topline / tutorial / invent snapshot (`topl.c`).** **`display.js`**: welcome **`--More--`** via **`_showDefmoreOnTopline`**; **`shouldClearMoveloopToplineLikeC`** + **`latchRetainedToplineLikeC`**; tutorial menu repainted on **`flush_screen`**; query/defmore cursor sync. **`input.js`**: **`more()`** dismiss clears active line unless **`_keepToplineUntilNextCommand`**. **`tutorial_prompt.js`**: shared **`paintTutorialMenuOverlayLikeC`**. **`cmd.js`**: invent dismiss on next key; twin **`#search`** clears trap pline. **`allmain.js`**: welcome sets defmore flag. **`seed0077`:** **RNG 3242/3242**; **screens 12/33** (**26/33** cursors). **`seed8000`:** **19/23** screens (**20/23** cells). **`npm run score`:** **0/44** (RNG-only anchors unchanged).
+**Last slice:** **Judge snapshot flush + topline cursor (`topl.c` / `getlin`).** **`jsmain.js`**: **`flush_screen`** in **`captureJudgeSnapshot`** when **`in_moveloop`** (welcome **`--More--`** without breaking chargen). **`display.js`**: getlin cursor **`msg.length+1`** vs defmore **`msg.length`**; retained plines drop active **`--More--`**. **`cmd.js`**: invent overlay key consumed. **`lock_hero.js`**: open-door pline retained. **`seed0077`:** **RNG 3242/3242**; **screens 12/33** (**33/33** cursors). **`seed8000`:** **20/23** screens. **`npm run score`:** **0/44**.
 
 ## Next steps
 
-1. **`seed0077` screens** — RNG complete; fix remaining **24×80** drift (**12/33** screens): welcome row-0 at step **12**, tutorial cursor **13**, apply/getdir retained plines **17–20**, map glyphs after second **`#search`**, restore **`seed8000`** screens (**19/23** vs **20/23**).
+1. **`seed0077` screens** — **33/33** cursors; fix remaining **21/33** **24×80** cell drift (tutorial menu row-0, map glyphs after **`#search`**, minor welcome row-0 gaps).
 
 2. **`mklev` lregions** — wire **`game.dndest`/`updest`** when **`place_lregions`** ported.
 

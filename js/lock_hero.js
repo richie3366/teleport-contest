@@ -268,6 +268,7 @@ export async function tryPicklockAdjacentDoorHeroLikeC(g, dx, dy) {
             return 'bad_door_state';
         case D_ISOPEN:
             await pline('You cannot lock an open door.');
+            g._retainMessageAfterCommand = true;
             return 'bad_door_state';
         case D_BROKEN:
             await pline('This door is broken.');

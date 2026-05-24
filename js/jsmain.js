@@ -175,6 +175,9 @@ export class NethackGame {
         const slice = fullLog.slice(this._lastRngIdx);
         this._lastRngIdx = fullLog.length;
 
+        /* C: tty refresh before moveloop input boundaries; skip during tty chargen menus. */
+        if (game.program_state?.in_moveloop) await flush_screen(1);
+
         const disp = game?.nhDisplay;
         const term = disp?.terminal || disp;
         this._screens.push(term?.serialize ? term.serialize() : '');

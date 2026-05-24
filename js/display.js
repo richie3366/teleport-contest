@@ -79,7 +79,12 @@ export function shouldClearMoveloopToplineLikeC(g) {
 
 /** C: remember_topl — pline retained across the next moveloop iteration until the next command. */
 export function latchRetainedToplineLikeC(g) {
-    if (g._retainMessageAfterCommand) g._keepToplineUntilNextCommand = true;
+    if (g._retainMessageAfterCommand) {
+        g._keepToplineUntilNextCommand = true;
+        /* C: retained status plines stay on row 0 without an active `--More--` prompt. */
+        g._toplineNeedMore = false;
+        g._showDefmoreOnTopline = false;
+    }
     g._retainMessageAfterCommand = false;
 }
 
@@ -107,7 +112,11 @@ export function syncTtyCursorForJudgeLikeC(display) {
         || /\?\s*(\[[^\]]*\])?\s*$/.test(msg)
         || msg.includes('Press a key to continue');
     if (msg.length > 0 && queryTopl) {
-        display.setCursor(Math.min(msg.length, COLNO - 1), 0);
+        /* C: `more()` leaves curx at end of `--More--`; getlin/getobj leaves curx past prompt. */
+        const col = (g._showDefmoreOnTopline && g._toplineNeedMore)
+            ? Math.min(msg.length, COLNO - 1)
+            : Math.min(msg.length + 1, COLNO - 1);
+        display.setCursor(col, 0);
         display.cursorVisible = true;
         return;
     }

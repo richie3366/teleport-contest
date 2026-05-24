@@ -72,17 +72,15 @@ export async function rhack(key) {
         key = await nhgetch();
     }
 
-    /* C: invent.c display_pickinv — next key dismisses overlay (not a second `i` toggle). */
+    /* C: invent.c display_pickinv — next key dismisses overlay; key is consumed. */
     if (key !== 0 && game._inventoryMode && key !== 27) {
         game._inventoryMode = false;
         delete game._invSelCat;
         clearPendingMessageAndToplineLikeC();
         await docrt();
         await flush_screen(1);
-        if (String.fromCharCode(key) === 'i') {
-            game.context.move = 0;
-            return;
-        }
+        game.context.move = 0;
+        return;
     }
 
     if (key === 27) {
