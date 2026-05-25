@@ -123,6 +123,7 @@ import {
     solidifyMapLikeC,
 } from './sp_lev_load.js';
 import { premapDetectLikeC } from './premap_detect.js';
+import { ensureWayOutLikeC } from './ensure_way_out.js';
 
 // Object/class constants (normally from objects.js, not in contest template)
 /* NH5 audit: scroll **`otyp`** literals below are **legacy** (pre–`objects_nums` / `mkobj_scroll_class_rng_like_c.js`).
@@ -405,7 +406,7 @@ function loadSpecialAfterLuaLikeC(g) {
     const coder = g.desCoder;
     linkDoorsRoomsLikeC(g, add_door);
     removeBoundarySymsLikeC(g);
-    /* ensure_way_out — deferred */
+    if (coder?.checkInaccessibles) ensureWayOutLikeC(g);
     mapCleanupLikeC(g);
     const lf = g.level?.flags;
     if (lf && !lf.corrmaze) {
