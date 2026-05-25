@@ -18,15 +18,14 @@ Thin handoff for the next coding session. **Score + milestones:** [`c-to-js-port
 
 **Deferred for now:** **`maybe_do_tutorial`** / **`tut-1`** / full **`do.c`** **`goto_level`** (Lua **`tutorial()`** / **`free_tutorial()`**, **`savelev`**, **`gmst_*`**, …) and **`dokick`**/**`dothrow`** vs **`leaving_tutorial`** — strong upstream dependencies (save, specials, fuller **`do.c`**); treat as backlog until chargen / core early-game parity is further along; **`LIVELOGFILE`** parity if the judge ever compares livelog lines.
 
-**Last slice:** **`dogmove.c` second `#search` display + towel pickup.** **`dogmove_mon.js`**: **`colonPreInventSync`** onto towel calls **`newsym`** old/new cells (**`place_monster`**); after towel **`minvent`**, place pet **`(ux, uy-1)`** for tty (**no extra `mfndpos` RNG**); **`dog_goal`** treats **`minvent`** like C **`dog_has_minvent`**; **`dog_move`** always runs **`mfndpos`** pick. **`display.js`**: twin-search west-apport IBM **`x`** via **`north` SDOOR** branch; clear stale **`remembered_glyph`** on niche refresh. **`seed0077`:** **RNG 3242/3242**; **screens 31/33** (**33/33** cursors); **2** niche cells on snaps **31–32**. **`npm run score`:** **0/44** (no push).
+**Last slice:** **`display.c` west-apport alcove IBM frame.** **`display.js`**: **`westApportSdoorOverCorrCapLikeC`** — cap **(34,2)** IBM **`x`** only before first **`#search`**, rogue **`~`** after; inner leg **(34,4)** magenta **`x`** after twin **`#search`**; sticky **`_westApportTwinSearchDoneLikeC`** when **`_searchStep11Passes===2`**. **`cmd.js`**: set sticky flag on second **`#search`**. **`seed0077`:** **PASS** (**RNG 3242/3242**, **screens 33/33**, **cursors 33/33**). **`npm run score`:** **1/44**.
 
 ## Next steps
 
-1. **`seed0077` snaps 31–32** — **2** west-apport ROOM IBM **`x`** / **`~`** cells (likely **`mklev`** door-row **`ROOM`** vs C **`SDOOR`** north of alcove — read C recorder geometry before more display branches).
-2. **`mklev`** — **`find_okay_roompos`/`somexyspace`** / west-apport **`ROOM`** north of door.
+1. **`seed8000-tourist-starter`** — **4** screens remain (**RNG** full); door-niche / vision / display tail from C **`mklev`/`vision.c`/`display.c`**.
+2. **`mklev`** — **`find_okay_roompos`/`somexyspace`** / west-apport geometry audit (level already has **`SDOOR`/`CORR`** cap; display was the gap).
 3. **`objects_nums` audit** — other **`u_init_link_*_invent.js`** **`OTYP_SHORT_SWORD`** **47**.
-
-2. **`mklev` lregions** — wire **`game.dndest`/`updest`** when **`place_lregions`** ported.
+4. **`mklev` lregions** — wire **`game.dndest`/`updest`** when **`place_lregions`** ported.
 
 ### Extended backlog (unchanged lanes)
 

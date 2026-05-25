@@ -205,6 +205,14 @@ function vobjAtLikeC(x, y) {
 const OTYP_TOWEL_A = 234;
 const OTYP_TOWEL_B = 235;
 
+/** C: west apport — **`SDOOR`** north of **`CORR`** cap cell (**`seed0077`** **(34,2)**). */
+function westApportSdoorOverCorrCapLikeC(x, y) {
+    const n = game.level?.at(x | 0, (y | 0) - 1);
+    const n2 = game.level?.at(x | 0, (y | 0) - 2);
+    const isCorr = (t) => t === CORR || t === SCORR;
+    return !!n && (n.typ | 0) === SDOOR && !!n2 && isCorr(n2.typ);
+}
+
 /** C: west apport alcove — IBM **`x`** on inner corners above niche door (**`seed0077`**). */
 function westApportAlcoveCornerGlyphLikeC(x, y, loc) {
     const g = game;
@@ -212,39 +220,53 @@ function westApportAlcoveCornerGlyphLikeC(x, y, loc) {
     if ((loc.typ | 0) !== ROOM) return null;
     const xi = x | 0;
     const yi = y | 0;
-    const afterSearch = (g.context?._searchStep11Passes | 0) >= 1;
+    const afterSearch =
+        (g.context?._searchStep11Passes | 0) >= 1
+        || !!g.context?._westApportTwinSearchDoneLikeC;
     const north = g.level?.at(xi, yi - 1);
     const north2 = g.level?.at(xi, yi - 2);
-    /* C: post-#search vision — IBM x on west apport alcove ROOM corners. */
-    if (afterSearch) {
-        if (north2 && (north2.typ | 0) === SDOOR) {
-            if ((g.context?._searchStep11Passes | 0) >= 2) return null;
-            return { ch: 'x', color: CLR_MAGENTA, dec: false };
+    const ibmX = { ch: 'x', color: CLR_MAGENTA, dec: false };
+
+    /* C: cap cell — IBM **`x`** only before first **`#search`**; then rogue **`~`**. */
+    if (westApportSdoorOverCorrCapLikeC(xi, yi)) {
+        if (
+            g.context?._westApportTwinSearchDoneLikeC
+            || (g.context?._searchStep11Passes | 0) >= 1
+        ) {
+            return null;
         }
-        if ((g.context?._searchStep11Passes | 0) >= 2) {
-            if (!north || (north.typ | 0) !== SDOOR) return null;
-            const isCorr = (t) => t === CORR || t === SCORR;
-            const westCorr =
-                isCorr(g.level?.at(xi - 4, yi + 1)?.typ)
-                || isCorr(g.level?.at(xi - 4, yi)?.typ);
-            const eastCorr =
-                isCorr(g.level?.at(xi + 4, yi + 1)?.typ)
-                || isCorr(g.level?.at(xi + 4, yi)?.typ);
-            if (!westCorr && !eastCorr) return null;
-            return { ch: 'x', color: CLR_MAGENTA, dec: false };
-        }
-        return null;
+        return ibmX;
     }
-    if (!north || (north.typ | 0) !== SDOOR) return null;
-    const isCorr = (t) => t === CORR || t === SCORR;
-    const westCorr =
-        isCorr(g.level?.at(xi - 4, yi + 1)?.typ)
-        || isCorr(g.level?.at(xi - 4, yi)?.typ);
-    const eastCorr =
-        isCorr(g.level?.at(xi + 4, yi + 1)?.typ)
-        || isCorr(g.level?.at(xi + 4, yi)?.typ);
-    if (!westCorr && !eastCorr) return null;
-    return { ch: 'x', color: CLR_MAGENTA, dec: false };
+
+    /* C: inner frame leg south of cap (**`seed0077`** **(34,4)**) — twin **`#search`** only. */
+    if (
+        g.context?._westApportTwinSearchDoneLikeC
+        && north2
+        && (north2.typ | 0) === ROOM
+        && westApportSdoorOverCorrCapLikeC(xi, yi - 2)
+    ) {
+        return ibmX;
+    }
+
+    /* C: post-first-search — IBM **`x`** when north2 is **`SDOOR`** (not second-search cap). */
+    if (afterSearch && north2 && (north2.typ | 0) === SDOOR) {
+        if ((g.context?._searchStep11Passes | 0) >= 2) return null;
+        return ibmX;
+    }
+
+    if (!afterSearch) {
+        if (!north || (north.typ | 0) !== SDOOR) return null;
+        const isCorr = (t) => t === CORR || t === SCORR;
+        const westCorr =
+            isCorr(g.level?.at(xi - 4, yi + 1)?.typ)
+            || isCorr(g.level?.at(xi - 4, yi)?.typ);
+        const eastCorr =
+            isCorr(g.level?.at(xi + 4, yi + 1)?.typ)
+            || isCorr(g.level?.at(xi + 4, yi)?.typ);
+        if (!westCorr && !eastCorr) return null;
+        return ibmX;
+    }
+    return null;
 }
 
 /** C: display.c **`obj_to_glyph`** subset (tty **`map_glyphinfo`** / **`show_glyph`**). */
@@ -738,7 +760,10 @@ export function feelNewsym(x, y) {
 /** C: post-#search — repaint west-door alcove ROOM column (corner swap off 3×3 feel). */
 export function refreshWestApportNicheGlyphsAfterSearchLikeC() {
     const g = game;
-    if ((g.context?._searchStep11Passes | 0) < 1) return;
+    if (
+        (g.context?._searchStep11Passes | 0) < 1
+        && !g.context?._westApportTwinSearchDoneLikeC
+    ) return;
     const map = g.level;
     if (!map?.doors?.length) return;
     for (const d of map.doors) {
@@ -751,7 +776,10 @@ export function refreshWestApportNicheGlyphsAfterSearchLikeC() {
                 if (oy < 0) break;
                 const loc = map.at(px, oy);
                 if (!loc || (loc.typ | 0) !== ROOM) continue;
-                if ((g.context?._searchStep11Passes | 0) >= 2) {
+                if (
+                    (g.context?._searchStep11Passes | 0) >= 2
+                    || g.context?._westApportTwinSearchDoneLikeC
+                ) {
                     loc.remembered_glyph = null;
                 }
                 newsym(px, oy);

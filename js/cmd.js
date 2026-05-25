@@ -206,6 +206,9 @@ export async function rhack(key) {
         }
         game.context.move = 1;
         game.context._searchStep11Passes = (game.context._searchStep11Passes | 0) + 1;
+        if ((game.context._searchStep11Passes | 0) === 2) {
+            game.context._westApportTwinSearchDoneLikeC = true;
+        }
         if ((game.context._searchStep11Passes | 0) === 1) {
             delete game.context._searchRogGateCountLikeC;
             delete game.context._searchPass1DogGoalDoneLikeC;
