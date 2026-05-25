@@ -15,7 +15,11 @@ import {
     NH5_SPBOOK_CLASS, NH5_BALL_CLASS, NH5_CHAIN_CLASS,
 } from './nh5_objclass.js';
 import { wallAngleCmapLikeC } from './wall_angle.js';
-import { cmapSymGlyphFromShowsymsLikeC, S_room, S_ndoor } from './symbols_file.js';
+import {
+    cmapSymGlyphFromShowsymsLikeC,
+    S_room, S_ndoor, S_vodoor, S_hodoor, S_vcdoor, S_hcdoor,
+} from './symbols_file.js';
+import { vision_recalc, seeMonsters } from './vision.js';
 import {
     COLNO, ROWNO, isok, TEMP_LIT, IN_SIGHT, STONE, ROOM, CORR, DOOR, STAIRS, LADDER,
     HWALL, VWALL, SDOOR, TLCORNER, TRCORNER, BLCORNER, BRCORNER,
@@ -516,11 +520,19 @@ export function mapTerrainGlyph(loc, x, y, skipApportMon = false) {
             return { ch: '~', color: CLR_GRAY, dec: false };
         }
         if (loc.doormask & D_ISOPEN) {
+            const openIdx = loc.horizontal ? S_hodoor : S_vodoor;
+            const openSym = cmapSymGlyphFromShowsymsLikeC(openIdx, false);
+            if (openSym) return { ...openSym, color: CLR_BROWN };
             return loc.horizontal
                 ? { ch: '-', color: CLR_BROWN, dec: false }
                 : { ch: '|', color: CLR_BROWN, dec: false };
         }
-        if (loc.doormask & (D_CLOSED | D_LOCKED)) return { ch: '+', color: CLR_BROWN, dec: false };
+        if (loc.doormask & (D_CLOSED | D_LOCKED)) {
+            const closedIdx = loc.horizontal ? S_hcdoor : S_vcdoor;
+            const closedSym = cmapSymGlyphFromShowsymsLikeC(closedIdx, false);
+            if (closedSym) return { ...closedSym, color: CLR_BROWN };
+            return { ch: '+', color: CLR_BROWN, dec: false };
+        }
         return cmapSymGlyphFromShowsymsLikeC(S_ndoor, false)
             ?? { ch: '~', color: NO_COLOR, dec: true };
     case STAIRS:
@@ -904,6 +916,7 @@ export async function docrt_flags(refreshFlags) {
     try {
         const maponly = (refreshFlags & docrtMapOnly) !== 0;
         const redrawonly = (refreshFlags & docrtRefresh) !== 0;
+        const nocls = (refreshFlags & docrtNocls) !== 0;
 
         if (redrawonly) {
             await redrawMapLikeC(false);
@@ -914,12 +927,24 @@ export async function docrt_flags(refreshFlags) {
             return;
         }
 
-        /* Full C docrt_flags(docrtRecalc): vision_recalc(2); cls; show_glyph loop; vision_recalc(0); see_monsters — pending lev->glyph port. */
-        if (!game.level) return;
-        for (let y = 0; y < ROWNO; y++) {
-            for (let x = 1; x < COLNO; x++) showGlyphFromLevLikeC(x, y);
+        if (ps.newgame_docrt_recalc) {
+            ps.newgame_docrt_recalc = false;
+            vision_recalc(2);
+            if (!nocls) await cls();
+            if (game.level) {
+                for (let y = 0; y < ROWNO; y++) {
+                    for (let x = 1; x < COLNO; x++) showGlyphFromLevLikeC(x, y);
+                }
+            }
+            if (game.u?.ux > 0) show_glyph_cell(game.u.ux, game.u.uy, '@', CLR_WHITE, false);
+            vision_recalc(0);
+            seeMonsters();
+        } else if (game.level) {
+            for (let y = 0; y < ROWNO; y++) {
+                for (let x = 1; x < COLNO; x++) showGlyphFromLevLikeC(x, y);
+            }
+            if (game.u?.ux > 0) show_glyph_cell(game.u.ux, game.u.uy, '@', CLR_WHITE, false);
         }
-        if (game.u?.ux > 0) show_glyph_cell(game.u.ux, game.u.uy, '@', CLR_WHITE, false);
 
         if (!maponly) {
             game.disp = game.disp || {};

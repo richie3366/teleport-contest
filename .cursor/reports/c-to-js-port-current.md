@@ -18,12 +18,12 @@ Thin handoff for the next coding session. **Score + milestones:** [`c-to-js-port
 
 **Deferred for now:** **`maybe_do_tutorial`** / **`tut-1`** / full **`do.c`** **`goto_level`** (Lua **`tutorial()`** / **`free_tutorial()`**, **`savelev`**, **`gmst_*`**, …) and **`dokick`**/**`dothrow`** vs **`leaving_tutorial`** — strong upstream dependencies (save, specials, fuller **`do.c`**); treat as backlog until chargen / core early-game parity is further along; **`LIVELOGFILE`** parity if the judge ever compares livelog lines.
 
-**Last slice:** **`symbols.c` `parse_sym_line` cmap + `gs.showsyms` in `mapTerrainGlyph`.** Extended **`symbols_file.js`** DEC/IBM tables (doors, room, walls, …); **`cmapSymGlyphFromShowsymsLikeC`** / **`decSymByteToTtyCh`**; **`cmapIdxToTerrainGlyph`** + ROOM/ndoor read active symset; **`jsmain.js`** calls **`readSymFilePrimaryLikeC`** after **`applyPrimarySymsetFromRcLikeC`**. Stairs/tree keep ASCII **`<`/`>`** / **`#`** (DEC symset uses **`y`/`z`** on wire only when C maps cmap glyphs). **`seed0077`:** **PASS** (**33/33**). **`seed8000`:** **PASS** (**23/23**). **`npm run score`:** **2/44**.
+**Last slice:** **`display.c` newgame `docrt_flags` + door cmap sym rows.** **`allmain.js`**: scoped full recalc (**`vision_recalc(2)`**, **`showGlyphFromLevLikeC`**, **`seeMonsters`**) via **`newgame_docrt_recalc`** + **`docrtNocls`** after prior **`cls()`**. **`moveloop_preamble.js`**: tutorial level change uses **`docrtRefresh`** (not full recalc). **`display.js`**: open/closed doors via **`S_vodoor`/`S_hodoor`/`S_vcdoor`/`S_hcdoor`** + **`cmapSymGlyphFromShowsymsLikeC`**. **`seed0077`:** **PASS** (**33/33**). **`seed8000`:** **PASS** (**23/23**). **`npm run score`:** **2/44**.
 
 ## Next steps
 
-1. **`display.c` `docrt_flags(docrtRecalc)`** — enable **`vision_recalc(2)`**, **`cls`**, full **`show_glyph(lev->glyph)`** once glyph buffer replay is safe (overlay paths stay **`docrtRefresh`**).
-2. **`symbols.c` `parse_sym_line`** — object/mon sym rows + open-door **`S_vodoor`/`S_hodoor`** in **`mapTerrainGlyph`**; optional real **`dat/symbols`** file parse.
+1. **`display.c` `docrt_flags(docrtRecalc)`** — extend full recalc beyond newgame once **`lev->glyph`** replay is safe; keep overlay/tutorial paths on **`docrtRefresh`**.
+2. **`symbols.c` `parse_sym_line`** — object/mon sym rows; optional real **`dat/symbols`** file parse (cmap doors wired).
 2. **`mklev`** — **`find_okay_roompos`/`somexyspace`** / west-apport geometry audit (level already has **`SDOOR`/`CORR`** cap; display was the gap).
 3. **`objects_nums` audit** — other **`u_init_link_*_invent.js`** **`OTYP_SHORT_SWORD`** **47**.
 4. **`mklev` lregions** — wire **`game.dndest`/`updest`** when **`place_lregions`** ported.
