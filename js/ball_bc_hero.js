@@ -5,14 +5,20 @@ import { placeFloorObjectInLevel, stackObjOnFloorInLevel, unlinkFloorObjectInLev
 import { removeObjFromHeroInvent } from './water_damage.js';
 import { flooreffectsObjAtLikeC } from './flooreffects_hero.js';
 import { pline, newsym } from './display.js';
-import { Is_waterlevel } from './const.js';
+import { Is_waterlevel, POOL, is_pit, is_hole } from './const.js';
 import { weldedUwepLikeC } from './hero_hands.js';
 import { encumberMsg } from './pickup.js';
-import { syncHeroInvWeightNetLikeC } from './encumbr.js';
+import { nearCapacity, ENC, syncHeroInvWeightNetLikeC } from './encumbr.js';
 import { dist2, distmin } from './hacklib.js';
-import { rn1, rn2 } from './rng.js';
+import { rn1, rn2, rnd } from './rng.js';
 import { losehp, maybeHalfPhys } from './mthrowu.js';
 import { heroPunishedLikeC } from './punish_hero.js';
+import { isPoolCellLikeC } from './fillholetyp.js';
+import { tAt } from './search.js';
+import { nomul } from './timeout.js';
+import { heroLuck } from './water_damage.js';
+import { raceptr } from './mondata.js';
+import { spotEffects } from './spoteffects.js';
 
 /** C: ball.c — ball & chain stack order at hero feet. */
 export const BCPOS_DIFFER = 0;
@@ -184,6 +190,98 @@ function isChainRockStub() {
     return false;
 }
 
+/** C: mon.c **`m_at`**. */
+function monAtBallDragLikeC(g, x, y) {
+    const xi = x | 0;
+    const yi = y | 0;
+    for (const m of g.level?.monsters ?? []) {
+        if ((m.mx | 0) === xi && (m.my | 0) === yi) return m;
+    }
+    return null;
+}
+
+/** C: trap.c **`find_mac(mtmp)`** — **`mtmp.mac`** or **`permonst.ac`**. */
+function findMacBallDragLikeC(mtmp) {
+    return (mtmp.mac ?? raceptr(mtmp)?.ac ?? 10) | 0;
+}
+
+/** C: uhitm.c **`omon_adj`** — deferred; no RNG until ported. */
+function omonAdjBallDragStub() {
+    return 0;
+}
+
+/**
+ * C: ball.c **`drag:`** pool/pit test — chain over pool (not mere water continuation) or pit/hole trap.
+ * @param {import('./gstate.js').game} g
+ */
+function chainOverPoolOrPitLikeC(g, chain, ball) {
+    const cx = chain.ox | 0;
+    const cy = chain.oy | 0;
+    if (isPoolCellLikeC(g, cx, cy)) {
+        const chainLoc = g.level?.at(cx, cy);
+        const chainTyp = chainLoc?.typ | 0;
+        if (chainTyp === POOL) return true;
+        const bx = ball.ox | 0;
+        const by = ball.oy | 0;
+        if (!isPoolCellLikeC(g, bx, by)) return true;
+        const ballLoc = g.level?.at(bx, by);
+        return (ballLoc?.typ | 0) === POOL;
+    }
+    const t = tAt(cx, cy);
+    if (t) {
+        const tt = t.ttyp | 0;
+        if (is_pit(tt) || is_hole(tt)) return true;
+    }
+    return false;
+}
+
+/**
+ * C: ball.c **`drag:`** pool/pit — levitation pline or non-lev jerk-back + **`spoteffects(TRUE)`**.
+ * @returns {Promise<boolean>} true when drag aborted (**`return FALSE`** path)
+ */
+async function dragBallPoolPitJerkBackLikeC(g, out) {
+    const u = g.u;
+    const ball = g.uball;
+    const chain = g.uchain;
+    if (!u || !ball || !chain || !chainOverPoolOrPitLikeC(g, chain, ball)) return false;
+
+    const cx = chain.ox | 0;
+    const cy = chain.oy | 0;
+    const t = tAt(cx, cy);
+
+    if (u.Levitation) {
+        await pline('You feel a tug from the iron ball.');
+        if (t) t.tseen = 1;
+        return false;
+    }
+
+    await pline('You are jerked back by the iron ball!');
+    const victim = monAtBallDragLikeC(g, cx, cy);
+    if (victim) {
+        const dieroll = rnd(20);
+        const tmp = -2 + (heroLuck(g) | 0) + findMacBallDragLikeC(victim) + omonAdjBallDragStub();
+        if (tmp >= dieroll) {
+            /* C: **`hmon(victim, uball, HMON_DRAGGED, dieroll)`** — full **`hmon`** deferred */
+        }
+        /* C: **`miss`** — no extra RNG in this slice */
+    }
+    if (!monAtBallDragLikeC(g, cx, cy)) {
+        u.ux = cx;
+        u.uy = cy;
+        newsym(u.ux0 | 0, u.uy0 | 0);
+    }
+    nomul(0);
+
+    out.bcControl = BC_BALL;
+    moveBcHeroLikeC(g, 1, BC_BALL, out.ballx, out.bally, out.chainx, out.chainy);
+    out.ballx = cx;
+    out.bally = cy;
+    moveBcHeroLikeC(g, 0, BC_BALL, out.ballx, out.bally, out.chainx, out.chainy);
+    await spotEffects(g, true, {});
+    out.ok = false;
+    return true;
+}
+
 function chainInMiddleLikeC(x, y, hx, hy, bx, by) {
     return distmin(x, y, hx, hy) <= 1 && distmin(hx, hy, bx, by) <= 1;
 }
@@ -237,10 +335,10 @@ export function moveBcHeroLikeC(g, before, control, ballx, bally, chainx, chainy
 
 /**
  * C: ball.c **`drag_ball`** — subset for **`teleport.c`** **`teleds`** (chain drag + teleport fallback).
- * **`IS_CHAIN_ROCK`** / pool-pit jerk-back deferred.
- * @returns {{ ok: boolean, bcControl: number, ballx: number, bally: number, chainx: number, chainy: number }}
+ * **`IS_CHAIN_ROCK`** deferred; pool/pit jerk-back at **`drag:`** label.
+ * @returns {Promise<{ ok: boolean, bcControl: number, ballx: number, bally: number, chainx: number, chainy: number }>}
  */
-export function dragBallHeroLikeC(g, x, y, allowDrag) {
+export async function dragBallHeroLikeC(g, x, y, allowDrag) {
     const u = g.u;
     const ball = g.uball;
     const chain = g.uchain;
@@ -342,6 +440,19 @@ export function dragBallHeroLikeC(g, x, y, allowDrag) {
         }
         return out;
     }
+
+    if (
+        (nearCapacity(g) | 0) > ENC.SLT_ENCUMBER
+        && dist2(xi, yi, u.ux | 0, u.uy | 0) <= 2
+    ) {
+        const also = g.invent ? 'carry all that and also ' : '';
+        await pline(`You cannot ${also}drag the heavy iron ball.`);
+        nomul(0);
+        out.ok = false;
+        return out;
+    }
+
+    if (await dragBallPoolPitJerkBackLikeC(g, out)) return out;
 
     out.bcControl = BC_BALL | BC_CHAIN;
     moveBcHeroLikeC(g, 1, out.bcControl, out.ballx, out.bally, out.chainx, out.chainy);

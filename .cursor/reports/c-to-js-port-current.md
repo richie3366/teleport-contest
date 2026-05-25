@@ -18,12 +18,12 @@ Thin handoff for the next coding session. **Score + milestones:** [`c-to-js-port
 
 **Deferred for now:** **`maybe_do_tutorial`** / **`tut-1`** / full **`do.c`** **`goto_level`** (Lua **`tutorial()`** / **`free_tutorial()`**, **`savelev`**, **`gmst_*`**, …) and **`dokick`**/**`dothrow`** vs **`leaving_tutorial`** — strong upstream dependencies (save, specials, fuller **`do.c`**); treat as backlog until chargen / core early-game parity is further along; **`LIVELOGFILE`** parity if the judge ever compares livelog lines.
 
-**Last slice:** **`teleport.c`** **`teleds`** tail — **`fill_pit`**, vault guard (**`findgd`/`uleftvault`**); **`vault_hero.js`** + steed **`mdrop_special_objs`** in **`keepdogs`**. Deferred: **`gd_move`**, pool-pit **`drag_ball`** jerk-back. **`seed0077`/`seed8000`:** **PASS**. **`npm run score`:** **2/44**.
+**Last slice:** **`ball.c`** **`drag_ball`** pool/pit at **`drag:`** — encumbered drag fail, levitation tug, non-lev jerk-back + **`spoteffects(TRUE)`**; **`dragBallHeroLikeC`** async for **`teleds`**. Deferred: **`gd_move`**, full **`hmon`/`miss`**. **`seed0077`/`seed8000`:** **PASS**. **`npm run score`:** **2/44**.
 
 ## Next steps
 
 1. **`mkmaze`** — **`load_lua`** / full **`load_special`** (NHL des compiler).
-2. **`goto_level`** — savelev tail; pool-pit **`drag_ball`** jerk-back; full **`worm.c`** when long worms on level.
+2. **`goto_level`** — savelev tail; full **`worm.c`** when long worms on level.
 3. **`objects_nums`** — wire **`nh5OclassForOtyp`** via map for ARMOR/ROCK only after **`mksobj_init`** floor parity; more legacy floor **`otyp`** vs C when replaying **`mkobj`**.
 
 ### Extended backlog (unchanged lanes)

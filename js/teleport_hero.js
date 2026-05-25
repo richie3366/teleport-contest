@@ -121,7 +121,7 @@ export async function teledsHeroLikeC(g, nux, nuy, teledsFlags) {
     u.uy0 = uy0;
 
     if (ballActive && (ballStillInRange || allowDrag)) {
-        const dr = dragBallHeroLikeC(g, nxi, nyi, allowDrag);
+        const dr = await dragBallHeroLikeC(g, nxi, nyi, allowDrag);
         if (dr.ok) {
             moveBcHeroLikeC(
                 g,
