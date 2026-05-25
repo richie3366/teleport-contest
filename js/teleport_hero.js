@@ -82,7 +82,7 @@ export function teleokHeroLikeC(g, x, y, trapok) {
 
 /**
  * C: teleport.c **`teleds(nux, nuy, flags)`** — hero move with **`drag_ball`** / **`placebc`** order.
- * Deferred: **`buried_ball_to_punishment`**, swallowed **`docrt`**, **`gd_move`**, verbose teleport line.
+ * Deferred: **`buried_ball_to_punishment`**, swallowed **`docrt`**, verbose teleport line.
  * @param {import('./gstate.js').game} g
  */
 export async function teledsHeroLikeC(g, nux, nuy, teledsFlags) {

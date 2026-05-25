@@ -18,7 +18,7 @@ Thin handoff for the next coding session. **Score + milestones:** [`c-to-js-port
 
 **Deferred for now:** **`maybe_do_tutorial`** / **`tut-1`** / full **`do.c`** **`goto_level`** (Lua **`tutorial()`** / **`free_tutorial()`**, **`savelev`**, **`gmst_*`**, …) and **`dokick`**/**`dothrow`** vs **`leaving_tutorial`** — strong upstream dependencies (save, specials, fuller **`do.c`**); treat as backlog until chargen / core early-game parity is further along; **`LIVELOGFILE`** parity if the judge ever compares livelog lines.
 
-**Last slice:** **`ball.c`** **`drag_ball`** pool/pit at **`drag:`** — encumbered drag fail, levitation tug, non-lev jerk-back + **`spoteffects(TRUE)`**; **`dragBallHeroLikeC`** async for **`teleds`**. Deferred: **`gd_move`**, full **`hmon`/`miss`**. **`seed0077`/`seed8000`:** **PASS**. **`npm run score`:** **2/44**.
+**Last slice:** **`vault.c`** **`uleftvault`** — **`hidden_gold`**, **`in_fcorridor`**, **`canspotmon`** pline gate, **`gd_move`** stub; **`findgd`** parked-guard **`mhp`** restore. Deferred: full **`gd_move`** / fakecorr build. **`seed0077`/`seed8000`:** **PASS**. **`npm run score`:** **2/44**.
 
 ## Next steps
 

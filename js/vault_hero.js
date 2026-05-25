@@ -9,6 +9,8 @@ import { objResists } from './obj_resists.js';
 import { placeFloorObjectInLevel, stackObjOnFloorInLevel } from './floorobj.js';
 import { distmin } from './hacklib.js';
 import { moneyCntInventLikeC } from './shop.js';
+import { hiddenGold } from './u_init_hidden_gold.js';
+import { cansee } from './vision.js';
 
 /** C: vault.c **`vault_occupied(char *array)`** — first **`u.urooms`** letter in a **`VAULT`** room. */
 export function vaultOccupiedFromUroomsLikeC(g) {
@@ -36,7 +38,12 @@ export function findGdHeroLikeC(g) {
         for (const m of mons) {
             if (!m?.isgd) continue;
             const egd = EGD(m);
-            if (egd && onLevelLikeC(egd.gdlevel, uz)) return m;
+            if (egd && onLevelLikeC(egd.gdlevel, uz)) {
+                if (!(m.mx | 0) && !(egd.gddone | 0)) {
+                    m.mhp = m.mhpmax | 0;
+                }
+                return m;
+            }
         }
     }
     const mig = g.migratingMons;
@@ -57,21 +64,65 @@ function monnamVaultLikeC(mtmp) {
     return n ? `the ${n}` : 'the guard';
 }
 
+/** C: vault.c **`in_fcorridor(grd, x, y)`** — guard fake-corridor segment list. */
+function inFcorridorHeroLikeC(grd, x, y) {
+    const egrd = EGD(grd);
+    if (!egrd) return false;
+    const fcbeg = egrd.fcbeg | 0;
+    const fcend = egrd.fcend | 0;
+    const fc = egrd.fakecorr;
+    if (!fc || fcend <= fcbeg) return false;
+    const xi = x | 0;
+    const yi = y | 0;
+    for (let fci = fcbeg; fci < fcend; fci++) {
+        const seg = fc[fci];
+        if (seg && (seg.fx | 0) === xi && (seg.fy | 0) === yi) return true;
+    }
+    return false;
+}
+
+/** C: **`display.h`** **`canspotmon`** subset — see or sense (telepathy stub). */
+function canspotMonVaultLikeC(g, mtmp) {
+    const u = g.u;
+    if (!u || !mtmp) return false;
+    if (u.usteed === mtmp) return true;
+    if ((mtmp.minvis | 0) && !(u.See_invisible | 0)) return false;
+    if (cansee(mtmp.mx | 0, mtmp.my | 0)) return true;
+    if (u.Telepat || u.HTelepat) return true;
+    return false;
+}
+
+/**
+ * C: vault.c **`gd_move(grd)`** — guard corridor cleanup / teleport.
+ * Full AI deferred; no-op stub until fakecorr + guard path are ported.
+ * @returns {boolean}
+ */
+export function gdMoveHeroLikeC(g, grd) {
+    void g;
+    void grd;
+    return false;
+}
+
 /**
  * C: vault.c **`uleftvault(grd)`** — hero left vault; guard may turn hostile.
- * Deferred: **`hidden_gold`**, **`in_fcorridor`**, **`gd_move`**.
  * @param {import('./gstate.js').game} g
  */
 export async function uleftvaultHeroLikeC(g, grd) {
     if (!grd || !(grd.isgd | 0) || (grd.mhp | 0) <= 0) return;
     const ux = g.u?.ux | 0;
     const uy = g.u?.uy | 0;
-    const hasGold = (moneyCntInventLikeC(g) | 0) > 0;
+    const hasGold =
+        (moneyCntInventLikeC(g) | 0) > 0
+        || (hiddenGold(g, true) | 0) > 0;
     if (hasGold && distmin(ux, uy, grd.mx | 0, grd.my | 0) > 1) {
         if (grd.mpeaceful) {
-            await pline(`${monnamVaultLikeC(grd)} becomes irate.`);
+            if (canspotMonVaultLikeC(g, grd)) {
+                await pline(`${monnamVaultLikeC(grd)} becomes irate.`);
+            }
             grd.mpeaceful = 0;
-            grd.mAngry = 1;
+        }
+        if (!inFcorridorHeroLikeC(grd, ux, uy)) {
+            gdMoveHeroLikeC(g, grd);
         }
     }
 }
