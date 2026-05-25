@@ -2,7 +2,7 @@
 // C ref: display.c — newsym, feel_newsym, feel_location, show_glyph, docrt, cls, flush_screen.
 
 import { game } from './gstate.js';
-import { cansee, couldsee, setSeenvTowardHero, rogueFloorInSightForNewsymLikeC } from './vision.js';
+import { cansee, couldsee, setSeenvTowardHero } from './vision.js';
 import { westApportSleeperNicheAtLikeC } from './mfndpos_mon.js';
 import { floorObjKey } from './floorobj.js';
 import { isPoolCellLikeC } from './fillholetyp.js';
@@ -16,7 +16,7 @@ import {
 } from './nh5_objclass.js';
 import { wallAngleCmapLikeC } from './wall_angle.js';
 import {
-    COLNO, ROWNO, isok, TEMP_LIT, STONE, ROOM, CORR, DOOR, STAIRS, LADDER,
+    COLNO, ROWNO, isok, TEMP_LIT, IN_SIGHT, STONE, ROOM, CORR, DOOR, STAIRS, LADDER,
     HWALL, VWALL, SDOOR, TLCORNER, TRCORNER, BLCORNER, BRCORNER,
     CROSSWALL, TUWALL, TDWALL, TLWALL, TRWALL, decgraphics,
     D_NODOOR, D_ISOPEN, D_CLOSED, D_LOCKED,
@@ -80,6 +80,22 @@ export function clearPendingMessageAndToplineLikeC() {
 
 /** C: tty pick-invent / menu column for `#inventory` overlay (`seed0077` uses **28**). */
 export const TTY_PICKINV_COL = 28;
+
+/** C: invent.c display_pickinv — left map cols always; south-west defer band keeps IN_SIGHT cols. */
+function shouldPaintInventoryMapCellLikeC(x, y, loc) {
+    if (!loc?.disp_ch || loc.disp_ch === ' ') return false;
+    if (x <= TTY_PICKINV_COL) return true;
+    const doorY = game._southWestDeferDoorY | 0;
+    const doorX = game._southWestDeferDoorX | 0;
+    if (!doorY || !doorX || y <= doorY + 1) return false;
+    const maxRow = doorY + 8;
+    if (y > maxRow + 1) return false;
+    if (x > doorX + 1) return false;
+    if (!(game.viz_array?.[y]?.[x] & IN_SIGHT)) return false;
+    const ch = loc.disp_ch;
+    if (ch === '~' || ch === '+') return true;
+    return (ch >= 'a' && ch <= 'z') || (ch >= 'A' && ch <= 'Z');
+}
 
 /** C: topl.c — row-0 text at nhgetch snapshot. */
 export function formatPendingMessageLineLikeC() {
@@ -558,8 +574,7 @@ export function newsym(x, y) {
         }
     }
 
-    if (cansee(x, y) || apportSleeperSeenViaTempLitLikeC(x, y)
-        || rogueFloorInSightForNewsymLikeC(x, y)) {
+    if (cansee(x, y) || apportSleeperSeenViaTempLitLikeC(x, y)) {
         const mon = monAtCellLikeC(x, y);
         if (mon && monVisibleForNewsymLikeC(mon)) {
             if (
@@ -880,8 +895,19 @@ function _buildScreenOutput() {
     if (game._inventoryMode) {
         const cat = game._invSelCat || 'Weapons';
         game._pending_message = '';
-        /* C: invent.c display_pickinv — NHW_MENU clears map rows; inventory at TTY_PICKINV_COL. */
+        /* C: invent.c display_pickinv — map stays visible left of pick-inv column. */
         display.clearScreen();
+        const msgInv = formatPendingMessageLineLikeC();
+        for (let c = 0; c < Math.min(msgInv.length, display.cols); c++)
+            display.setCell(c, 0, msgInv[c], NO_COLOR, 0);
+        for (let y = 0; y < ROWNO; y++) {
+            for (let x = 1; x < COLNO; x++) {
+                const loc = game.level?.at(x, y);
+                if (!shouldPaintInventoryMapCellLikeC(x, y, loc)) continue;
+                display.setCell(x - 1, y + 1, mapDispChForJudgeGridLikeC(loc),
+                    loc.disp_color ?? NO_COLOR, loc.disp_attr ?? 0);
+            }
+        }
         display.putstr(TTY_PICKINV_COL, 0, cat, NO_COLOR, ATR_INVERSE);
         paintInventoryOverlayLikeC(display);
         const s1 = statusLine1ForPaintLikeC();

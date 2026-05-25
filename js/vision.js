@@ -553,6 +553,7 @@ export function vision_recalc(control = 0) {
                     nv = next_row[col];
                     if (deferSouthLit) {
                         show_glyph_cell(col, row, ' ', NO_COLOR, false);
+                        game._southWestDeferPending = 1;
                     }
                 }
 
@@ -566,7 +567,7 @@ export function vision_recalc(control = 0) {
                     /* C: door-open recalc — apport sleeper skips seenv merge but still needs newsym
                        when the west door glyph changes (else terrain stays closed-door wall). */
                     if (!(ov & IN_SIGHT) || oldseenv !== loc.seenv || apportSleeper) {
-                        if (!rogueBlocksFloorDisplayLikeC(col, row, loc)) newsym(col, row);
+                        newsym(col, row);
                     }
                 } else if ((nv & COULD_SEE) && (loc.lit || (nv & TEMP_LIT))) {
                     /* C: door-open defer — lit wall/floor must not promote IN_SIGHT this recalc. */
@@ -585,10 +586,10 @@ export function vision_recalc(control = 0) {
                                 loc.seenv = (loc.seenv || 0) | sv;
                             }
                             if (!(ov & IN_SIGHT) || oldseenv !== loc.seenv) {
-                                if (!rogueBlocksFloorDisplayLikeC(col, row, loc)) newsym(col, row);
+                                newsym(col, row);
                             }
                         }
-                    } else if (!rogueBlocksFloorDisplayLikeC(col, row, loc)) {
+                    } else {
                         next_row[col] |= IN_SIGHT;
                         const oldseenv = loc.seenv || 0;
                         const sv = seenv_matrix[dy + 1][(col < ux) ? 0 : (col > ux ? 2 : 1)];
@@ -601,25 +602,18 @@ export function vision_recalc(control = 0) {
                     }
                 } else if ((nv & COULD_SEE) && loc.waslit) {
                     loc.waslit = 0;
-                    if (!deferNorthCorr && !deferSouthLit
-                        && !rogueBlocksFloorDisplayLikeC(col, row, loc)) {
+                    if (!deferNorthCorr && !deferSouthLit) {
                         newsym(col, row);
                     }
                 } else {
                     const couldSeeToggle = (nv & COULD_SEE) ^ (ov & COULD_SEE);
-                    if (ov & IN_SIGHT) {
-                        if (deferSouthLit || deferNorthCorr) {
+                    if (deferSouthLit || deferNorthCorr) {
+                        if (ov & IN_SIGHT) {
                             show_glyph_cell(col, row, ' ', NO_COLOR, false);
-                        } else if (!rogueBlocksFloorDisplayLikeC(col, row, loc)) {
-                            newsym(col, row);
                         }
-                    } else if (couldSeeToggle && !deferNorthCorr && !deferSouthLit) {
-                        if (!(nv & IN_SIGHT)
-                            && (typ0 === CORR || typ0 === SCORR || typ0 === ROOM)) {
-                            show_glyph_cell(col, row, ' ', NO_COLOR, false);
-                        } else if (!rogueBlocksFloorDisplayLikeC(col, row, loc)) {
-                            newsym(col, row);
-                        }
+                    } else if ((ov & IN_SIGHT) || couldSeeToggle) {
+                        /* C: vision.c not_in_sight — newsym skips col 0 */
+                        if (col > 0) newsym(col, row);
                     }
                 }
             }
@@ -631,23 +625,33 @@ export function vision_recalc(control = 0) {
     game._viz_rmax = next_rmax;
 }
 
-/** Rogue: IN_SIGHT room/corr floor not blocked by viz_clear — newsym even if cansee() is false. */
-export function rogueFloorInSightForNewsymLikeC(x, y) {
-    if (!Is_rogue_level(game.u?.uz)) return false;
-    if (!(game.viz_array?.[y]?.[x] & IN_SIGHT)) return false;
-    if (viz_clear[y]?.[x]) return false;
-    const loc = game.level?.at(x, y);
-    if (!loc) return false;
-    const typ = loc.typ | 0;
-    return typ === ROOM || typ === CORR || typ === SCORR;
-}
+/**
+ * C: vision.c lit COULD_SEE branch — door-open defer leaves disp blank until a later
+ * flush/vision; promote IN_SIGHT and newsym when still COULD_SEE+lit in the defer band.
+ */
+export function refreshSouthWestDeferredDispLikeC() {
+    const doorX = game._southWestDeferDoorX | 0;
+    const doorY = game._southWestDeferDoorY | 0;
+    if (doorX <= 0 || doorY <= 0 || !(game._southWestDeferPending | 0)) return;
 
-/** Rogue: room-fill IN_SIGHT does not paint floor behind blocking segments (viz_clear). */
-function rogueBlocksFloorDisplayLikeC(col, row, loc) {
-    if (!Is_rogue_level(game.u?.uz) || !loc) return false;
-    if (viz_clear[row]?.[col]) return false;
-    const typ = loc.typ | 0;
-    return typ !== DOOR && typ !== SDOOR && !IS_WALL(typ);
+    const maxRow = doorY + 8;
+    let pending = false;
+    for (let row = doorY + 2; row <= maxRow + 1 && row < ROWNO; row++) {
+        const colMax = row <= maxRow ? doorX : doorX - 1;
+        for (let col = 0; col < colMax; col++) {
+            const loc = game.level?.at(col, row);
+            if (!loc || loc.disp_ch !== ' ') continue;
+            const v = game.viz_array?.[row]?.[col] | 0;
+            if (!(v & COULD_SEE) || !(loc.lit || (v & TEMP_LIT))) continue;
+            /* C: defer band keeps corridor/wall cells blank on tty until ROOM/DOOR floor shows. */
+            const typ = loc.typ | 0;
+            if (typ !== ROOM && typ !== DOOR) continue;
+            pending = true;
+            game.viz_array[row][col] |= IN_SIGHT;
+            newsym(col, row);
+        }
+    }
+    if (!pending) game._southWestDeferPending = 0;
 }
 
 /** C: rm.c set_seenv — hero-relative seenv bits (used by feel_location). */
@@ -663,8 +667,7 @@ export function setSeenvTowardHero(ux, uy, x, y) {
 // C ref: vision.h — `#define cansee(x, y) ((gv.viz_array[y][x] & IN_SIGHT) != 0)`
 export function cansee(x, y) {
     if (y < 0 || y >= ROWNO || x < 0 || x >= COLNO) return false;
-    if (!(game.viz_array?.[y]?.[x] & IN_SIGHT)) return false;
-    return !rogueBlocksFloorDisplayLikeC(x, y, game.level?.at(x, y));
+    return !!(game.viz_array?.[y]?.[x] & IN_SIGHT);
 }
 
 // C ref: couldsee(x, y)

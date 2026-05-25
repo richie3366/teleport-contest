@@ -98,6 +98,9 @@ export async function doopenIndirHeroLikeC(g, x, y) {
         g._deferCorrInSightOnce = 1;
         g._deferDoorOpenX = x | 0;
         g._deferDoorOpenY = y | 0;
+        g._southWestDeferDoorX = x | 0;
+        g._southWestDeferDoorY = y | 0;
+        g._southWestDeferPending = 1;
         feelNewsym(x, y);
         recalcBlockPointLikeC(x, y);
         const ax = (x | 0) - 1;
