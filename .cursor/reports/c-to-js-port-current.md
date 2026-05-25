@@ -18,12 +18,12 @@ Thin handoff for the next coding session. **Score + milestones:** [`c-to-js-port
 
 **Deferred for now:** **`maybe_do_tutorial`** / **`tut-1`** / full **`do.c`** **`goto_level`** (Lua **`tutorial()`** / **`free_tutorial()`**, **`savelev`**, **`gmst_*`**, …) and **`dokick`**/**`dothrow`** vs **`leaving_tutorial`** — strong upstream dependencies (save, specials, fuller **`do.c`**); treat as backlog until chargen / core early-game parity is further along; **`LIVELOGFILE`** parity if the judge ever compares livelog lines.
 
-**Last slice:** **`vision.h` `cansee` + `vision.c` defer `newsym` + `display_pickinv` map paint.** **`vision.js`**: **`cansee`** = **`IN_SIGHT`** only (drop **`rogueBlocksFloorDisplay`**); C **`not_in_sight`** **`newsym`** branch; **`refreshSouthWestDeferredDispLikeC`** (ROOM/DOOR only, no **`Is_rogue_level`** gate — chargen is D:1 not **`rogue_level`** dlevel). **`display.js`**: **`#inventory`** repaints map cols **≤28** from **`disp_ch`**; south-west defer band repaints **`IN_SIGHT`** **`~`**/**`+`**/monster letters east of pick-inv (wire chars, not DEC unicode). **`lock_hero.js`**: **`_southWestDefer*`** on door open. **`seed0077`:** **RNG 3242/3242**; **screens 29/33** — steps **17–27** ok; first fail **28** (**`overlay_screens`** attr row vs map). **`seed8000`:** **20/23**. **`npm run score`:** **0/44** (no push).
+**Last slice:** **`insight.c` enlightenment wield + rogue `SHORT_SWORD` otyp.** **`enlight_wield.js`**: **`weapon_descr`** via **`weaponType`** + **`pSkillDisplayName`**; **`skill_level_name`** + **`you_have`/`you_are`** skill lines (**`insight.c`** **`status_enlightenment`**). **`u_init_link_rogue_invent.js`**: **`OTYP_SHORT_SWORD` 47** (was **46** = **`BATTLE_AXE`**). **`seed0077`:** **RNG 3242/3242**; **screens 30/33** — **#attributes** pages **28–29** ok; first fail **30** (search **`s`** floor glyphs). **`seed8000`:** **20/23**. **`npm run score`:** **0/44** (no push).
 
 ## Next steps
 
-1. **`seed0077` step 28+** — **`overlay_screens.js`** attr-2 row (**`as`/`som`** vs map); then moveloop **29+**; chargen **0–6**.
-2. **`seed0077` defer tail** — if step **21** **`j`** at **(37,17)** regresses, tighten east bound vs **`vision.c`** col tier on last defer row.
+1. **`seed0077` step 30+** — search **`s`** floor object glyphs (**`(`** towel / **`{`** sink vs **`f`**/**`x`**); moveloop **31+**; chargen **0–6**.
+2. **`objects_nums` audit** — align other **`u_init_link_*_invent.js`** **`OTYP_SHORT_SWORD`** constants with **`obj_oc_skill_data.js`**.
 
 2. **`mklev` lregions** — wire **`game.dndest`/`updest`** when **`place_lregions`** ported.
 
