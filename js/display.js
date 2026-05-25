@@ -2,7 +2,7 @@
 // C ref: display.c — newsym, feel_newsym, feel_location, show_glyph, docrt, cls, flush_screen.
 
 import { game } from './gstate.js';
-import { cansee, setSeenvTowardHero } from './vision.js';
+import { cansee, couldsee, setSeenvTowardHero } from './vision.js';
 import { westApportSleeperNicheAtLikeC } from './mfndpos_mon.js';
 import { floorObjKey } from './floorobj.js';
 import { isPoolCellLikeC } from './fillholetyp.js';
@@ -16,7 +16,7 @@ import {
 } from './nh5_objclass.js';
 import { wallAngleCmapLikeC } from './wall_angle.js';
 import {
-    COLNO, ROWNO, isok, STONE, ROOM, CORR, DOOR, STAIRS, LADDER,
+    COLNO, ROWNO, isok, TEMP_LIT, STONE, ROOM, CORR, DOOR, STAIRS, LADDER,
     HWALL, VWALL, SDOOR, TLCORNER, TRCORNER, BLCORNER, BRCORNER,
     CROSSWALL, TUWALL, TDWALL, TLWALL, TRWALL, decgraphics,
     D_NODOOR, D_ISOPEN, D_CLOSED, D_LOCKED,
@@ -248,6 +248,17 @@ function monAtCellLikeC(x, y) {
     return monsters.find((m) => (m.mx | 0) === xi && (m.my | 0) === yi) ?? null;
 }
 
+/** C: vision.c lit/TEMP_LIT + display.c newsym — apport sleeper before IN_SIGHT. */
+function apportSleeperSeenViaTempLitLikeC(x, y) {
+    const mon = monAtCellLikeC(x, y);
+    if (!mon || !(mon.mgenmklev | 0) || !westApportSleeperNicheAtLikeC(game, x, y)) {
+        return false;
+    }
+    const v = game.viz_array?.[y]?.[x] | 0;
+    const loc = game.level?.at(x, y);
+    return couldsee(x, y) && !!(loc?.lit || (v & TEMP_LIT));
+}
+
 /** C: display.h **`mon_visible`** subset for **`newsym`** (worm tails omitted). */
 function monVisibleForNewsymLikeC(mtmp) {
     const u = game.u;
@@ -255,7 +266,15 @@ function monVisibleForNewsymLikeC(mtmp) {
     if (u.usteed === mtmp) return true;
     if ((mtmp.mundetected | 0) !== 0) return false;
     if ((mtmp.minvis | 0) && !(u.See_invisible | 0)) return false;
-    return cansee(mtmp.mx | 0, mtmp.my | 0);
+    const mx = mtmp.mx | 0;
+    const my = mtmp.my | 0;
+    /* C: door-open + light.c TEMP_LIT — apport sleeper before IN_SIGHT is committed. */
+    if ((mtmp.mgenmklev | 0) && westApportSleeperNicheAtLikeC(game, mx, my)) {
+        const v = game.viz_array?.[my]?.[mx] | 0;
+        const loc = game.level?.at(mx, my);
+        if (couldsee(mx, my) && (loc?.lit || (v & TEMP_LIT))) return true;
+    }
+    return cansee(mx, my);
 }
 
 function mapMonsterGlyphLikeC(mtmp) {
@@ -299,7 +318,8 @@ function cmapIdxToTerrainGlyph(cmapIdx, rogueIbm) {
     const idx = cmapIdx | 0;
     if (idx === 0) return { ch: ' ', color: NO_COLOR, dec: false };
     const decCh = decgraphics[idx - 1];
-    if (decCh) return { ch: decCh, color: NO_COLOR, dec: !rogueIbm };
+    /* C tty recorder on rogue D:1 still emits DEC line-drawing (SO/SI) for wall cmap. */
+    if (decCh) return { ch: decCh, color: NO_COLOR, dec: true };
     return { ch: '?', color: NO_COLOR, dec: false };
 }
 
@@ -350,7 +370,11 @@ export function mapTerrainGlyph(loc, x, y) {
         return { ch: '#', color: NO_COLOR, dec: false };
     }
     case DOOR:
-        if (loc.doormask & D_ISOPEN) return { ch: '|', color: CLR_BROWN, dec: false };
+        if (loc.doormask & D_ISOPEN) {
+            return loc.horizontal
+                ? { ch: '-', color: CLR_BROWN, dec: false }
+                : { ch: '|', color: CLR_BROWN, dec: false };
+        }
         if (loc.doormask & (D_CLOSED | D_LOCKED)) return { ch: '+', color: CLR_BROWN, dec: false };
         if (rogue) return { ch: '~', color: CLR_GRAY, dec: false };
         return { ch: '~', color: NO_COLOR, dec: true };  // D_NODOOR = floor
@@ -503,7 +527,7 @@ export function newsym(x, y) {
         return;
     }
 
-    if (cansee(x, y)) {
+    if (cansee(x, y) || apportSleeperSeenViaTempLitLikeC(x, y)) {
         const mon = monAtCellLikeC(x, y);
         if (mon && monVisibleForNewsymLikeC(mon)) {
             if (

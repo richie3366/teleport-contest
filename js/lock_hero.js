@@ -96,20 +96,19 @@ export async function doopenIndirHeroLikeC(g, x, y) {
             loc.doormask = D_ISOPEN;
         }
         feelNewsym(x, y);
-        const wx = (x | 0) - 1;
-        const wy = (y | 0) + 1;
-        if (westApportSleeperNicheAtLikeC(g, wx, wy)) {
-            const wloc = g.level?.at(wx, wy);
-            if (wloc) {
-                wloc.remembered_glyph = null;
-                wloc.seenv = 0;
-            }
-            feelNewsym(wx, wy);
-        }
         recalcBlockPointLikeC(x, y);
         g._deferCorrInSightOnce = 1;
         g._deferDoorOpenX = x | 0;
         g._deferDoorOpenY = y | 0;
+        const ax = (x | 0) - 1;
+        const ay = (y | 0) + 1;
+        if (westApportSleeperNicheAtLikeC(g, ax, ay)) {
+            g._doorOpenApportNewsymX = ax;
+            g._doorOpenApportNewsymY = ay;
+        } else {
+            g._doorOpenApportNewsymX = 0;
+            g._doorOpenApportNewsymY = 0;
+        }
     } else {
         exercise(A_STR, true);
         await pline('The door resists!');

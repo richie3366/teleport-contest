@@ -35,6 +35,7 @@ import {
     SCORR,
     ROOM,
     SDOOR,
+    FOUNTAIN,
     STONE,
     VWALL,
     LAVAWALL,
@@ -195,6 +196,15 @@ export function westDoorCorrNicheAtLikeC(g, mx, my) {
     return false;
 }
 
+/** C: west fill apport — **`SDOOR`/`ROOM`** north of west-door column (**`seed0077`**). */
+export function westFillApportDoorLikeC(g, d) {
+    if (!d) return false;
+    const alcove = g.level?.at((d.x | 0) - 1, (d.y | 0) - 1);
+    if (!alcove) return false;
+    const t = alcove.typ | 0;
+    return t === SDOOR || t === ROOM || t === FOUNTAIN;
+}
+
 /** C: west apport sleeper — **`CORR`** at **(door.x−1, door.y+1)** beside the west door. */
 export function westApportSleeperNicheAtLikeC(g, mx, my) {
     if (!westDoorCorrNicheAtLikeC(g, mx, my)) return false;
@@ -202,7 +212,10 @@ export function westApportSleeperNicheAtLikeC(g, mx, my) {
     const y = my | 0;
     for (const d of g.level?.doors ?? []) {
         if (!d) continue;
-        if (x === (d.x | 0) - 1 && y === (d.y | 0) + 1) return true;
+        if (x === (d.x | 0) - 1 && y === (d.y | 0) + 1
+            && westFillApportDoorLikeC(g, d)) {
+            return true;
+        }
     }
     return false;
 }

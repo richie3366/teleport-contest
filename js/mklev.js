@@ -71,6 +71,7 @@ import {
     westFungusDoorNicheAtLikeC,
     westDoorCorrNicheAtLikeC,
     westApportSleeperNicheAtLikeC,
+    westFillApportDoorLikeC,
 } from './mfndpos_mon.js';
 import { monTrackClear, ensureMonsterMtrack } from './monflee.js';
 import { dist2 } from './hacklib.js';
@@ -2858,15 +2859,6 @@ function preferSleepingLichenDoorNichesLikeC(g) {
  * C: west apport **`SDOOR`** alcove sleeper at **(door.x−1, door.y+1)** — overrides higher-**`cnt`** kinks.
  * @param {import('./gstate.js').game} g
  */
-/** C: west fill apport — **`SDOOR`/`ROOM`** north of west-door column (**`seed0077`** **(35,7)**). */
-function westFillApportDoorLikeC(g, d) {
-    if (!d) return false;
-    const alcove = g.level?.at((d.x | 0) - 1, (d.y | 0) - 1);
-    if (!alcove) return false;
-    const t = alcove.typ | 0;
-    return t === SDOOR || t === ROOM || t === FOUNTAIN;
-}
-
 function anchorWestApportSleeperLikeC(g) {
     const mons = g.level?.monsters ?? [];
     const sleeper = mons.find((m) => (m.mgenmklev | 0)) ?? null;
