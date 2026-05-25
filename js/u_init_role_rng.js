@@ -32,12 +32,12 @@ import {
 /** C objects_nums — OBJECTS_ENUM (nethack-c/upstream/include/objects.h). */
 const OTYP_DAGGER = 34;
 const OTYP_YA = 22;
-const OTYP_SHORT_SWORD = 46;
-const OTYP_KATANA = 56;
+const OTYP_SHORT_SWORD = 47;
+const OTYP_KATANA = 57;
 const OTYP_YUMI = 86;
 /** NH5 — matches **`OBJECTS_A_AC_ARMOR`** splint row **125** (`u_init_find_ac.js`). */
 const OTYP_SPLINT_MAIL = 125;
-/** C `OC_SKILL_ROW_BY_OTYP` key for **`SPEAR`** (NH5 invent **`otyp`** = **27**, same **−1** pattern as Rogue short sword **46** vs map **47**). */
+/** C `OC_SKILL_ROW_BY_OTYP` — **`SPEAR`** (NH5 **`otyp`** **28**). */
 const OTYP_SPEAR_MK = 28;
 /** C `OC_SKILL_ROW_BY_OTYP` — **`LONG_SWORD`** / **`LANCE`** (`mksobj_init` WEAPON). */
 const OTYP_LONG_SWORD_MK = 55;

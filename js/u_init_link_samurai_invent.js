@@ -9,8 +9,8 @@ import { findAc } from './u_init_find_ac.js';
 
 /** C `objects_nums` / cpp OBJECTS_ENUM indices (NH5; splint +2 vs cpp ≥ dragon block per `u_init_find_ac.js`). */
 const OTYP_YA = 22;
-const OTYP_SHORT_SWORD = 46;
-const OTYP_KATANA = 56;
+const OTYP_SHORT_SWORD = 47;
+const OTYP_KATANA = 57;
 const OTYP_YUMI = 86;
 /** NH5 — matches **`OBJECTS_A_AC_ARMOR`** splint row **125**. */
 const OTYP_SPLINT_MAIL = 125;
