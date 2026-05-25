@@ -18,12 +18,12 @@ Thin handoff for the next coding session. **Score + milestones:** [`c-to-js-port
 
 **Deferred for now:** **`maybe_do_tutorial`** / **`tut-1`** / full **`do.c`** **`goto_level`** (Lua **`tutorial()`** / **`free_tutorial()`**, **`savelev`**, **`gmst_*`**, …) and **`dokick`**/**`dothrow`** vs **`leaving_tutorial`** — strong upstream dependencies (save, specials, fuller **`do.c`**); treat as backlog until chargen / core early-game parity is further along; **`LIVELOGFILE`** parity if the judge ever compares livelog lines.
 
-**Last slice:** **`drawing.c` rogue object-class tty glyphs.** **`display.js`**: **`mapObjectGlyphLikeC`** — on **`Is_rogue_level`**, **`TOOL_CLASS`** → **`,`** **`CLR_BRIGHT_BLUE`**, **`FOOD_CLASS`** → **`:`** **`CLR_RED`** (**`def_r_oc_syms`**); towel still **`(`** **`CLR_MAGENTA`**. Reverted dead **`anchorWestApportFoodOnFillTileLikeC`** (**`Is_rogue_level`** false on D:1 chargen). **`seed0077`:** **RNG 3242/3242**; **screens 30/33** (fail **30**: mklev sink vs fountain **(34,7)/(35,7)**; food **`f`** vs towel; alcove **`~`/`x`** — display class glyphs do not apply on D:1). **`seed8000`:** **19/23**. **`npm run score`:** **0/44** (no push).
+**Last slice:** **`detect.c` `dosearch0` + `display.c` feel/unmap.** **`feelLocation`**: sighted hero uses **`mapLocationLikeC`** (C **`_map_location`**). **`unmapInvisibleLikeC`/`unmapObjectLikeC`/`GLYPH_INVISIBLE`** wired from **`search.js`**; SCORR reveal uses **`feelNewsym`**. Diag: **screens 0–29** match; fail **30** is first **`#search`** (hero **(36,7)**): C **`{`** sink vs JS **`}`** at map **(35,7)** (**`typ` FOUNTAIN**); food **`f`** vs towel **`(`** at **(35,5)**; alcove **`~`/`x`** swap off feel range. **`seed0077`:** **RNG 3242/3242**; **screens 30/33**. **`seed8000`:** **19/23**. **`npm run score`:** **0/44** (no push).
 
 ## Next steps
 
-1. **`seed0077` screen 30** — **mklev** (C sink **`{`** at **(34,7)** vs JS **`FOUNTAIN`** **(35,7)** — room/RNG before fill; **0** **`mksink`** **`rn2(60)`** hits on this seed); apport food **`f`** at **(34,5)** vs towel **(35,5)**; west niche corners (**`westApportAlcoveCornerGlyph`** state-dependent — screen **12** vs **30**).
-2. **`display.c`** — **`has_rogue_color`** / **`GMAP_ROGUELEVEL`** vs **`Is_rogue_level`** on chargen D:1 if IBM/rogue tty paths diverge; **`newsym`** flush before serialize.
+1. **`seed0077` screen 30** — **`#search`** + post-turn repaint: C **`SINK`** at **(35,7)** vs JS **`FOUNTAIN`** (terrain/`mkfount`/`mksink` parity); apport **food `f`** vs towel **`(`** at **(35,5)**; west niche **`x`/`~`** (may need full **`feel_location`** blind branch / post-search **`newsym`** sweep, not only 3×3 feel).
+2. **`mklev`** — **`find_okay_roompos`/`somexyspace`** if furniture coords diverge before search.
 3. **`objects_nums` audit** — other **`u_init_link_*_invent.js`** **`OTYP_SHORT_SWORD`** **47**.
 
 2. **`mklev` lregions** — wire **`game.dndest`/`updest`** when **`place_lregions`** ported.

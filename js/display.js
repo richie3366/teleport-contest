@@ -515,6 +515,14 @@ export function show_glyph_cell(x, y, ch, color = NO_COLOR, decgfx = false, attr
  * @param {number} x
  * @param {number} y
  */
+/** C: display.h **`GLYPH_INVISIBLE`** — hero_memory “unseen monster” on object layer. */
+export const GLYPH_INVISIBLE = -2;
+
+export function glyphIsInvisibleAtLikeC(x, y) {
+    const loc = game.level?.at(x | 0, y | 0);
+    return (loc?.glyph | 0) === GLYPH_INVISIBLE;
+}
+
 export function mapInvisibleCellLikeC(x, y) {
     const u = game.u;
     const lvl = game.level;
@@ -524,10 +532,43 @@ export function mapInvisibleCellLikeC(x, y) {
     if (xi === (u.ux | 0) && yi === (u.uy | 0)) return;
     const loc = lvl.at(xi, yi);
     if (!loc) return;
+    loc.glyph = GLYPH_INVISIBLE;
     if (lvl.flags?.hero_memory !== false) {
         loc.remembered_glyph = { ch: 'I', color: NO_COLOR, decgfx: false };
     }
     show_glyph_cell(xi, yi, 'I', NO_COLOR, false);
+}
+
+/**
+ * C: display.c unmap_object() — drop stale object-layer memory; map trap or background.
+ * @param {number} x
+ * @param {number} y
+ */
+export function unmapObjectLikeC(x, y) {
+    const lvl = game.level;
+    if (!lvl?.flags?.hero_memory) return;
+    const loc = lvl.at(x | 0, y | 0);
+    if (!loc) return;
+    loc.glyph = 0;
+    const trap = trapAtCell(x, y);
+    if (trap?.tseen) {
+        mapLocationLikeC(x, y, true);
+        return;
+    }
+    mapLocationLikeC(x, y, true);
+}
+
+/**
+ * C: display.c unmap_invisible() — realize “I” was wrong; refresh tile.
+ * @param {number} x
+ * @param {number} y
+ * @returns {boolean}
+ */
+export function unmapInvisibleLikeC(x, y) {
+    if (!isok(x, y) || !glyphIsInvisibleAtLikeC(x, y)) return false;
+    unmapObjectLikeC(x, y);
+    newsym(x, y);
+    return true;
 }
 
 /**
@@ -643,9 +684,16 @@ export function feelLocation(x, y) {
     const u = game.u;
     const lvl = game.level;
     if (!u || !lvl) return;
-    setSeenvTowardHero(u.ux, u.uy, x, y);
     const loc = lvl.at(x, y);
     if (!loc) return;
+    /* C: feel_location — accurate invisible-mon memory with m_at present: skip. */
+    if (glyphIsInvisibleAtLikeC(x, y) && monAtCellLikeC(x, y)) return;
+    setSeenvTowardHero(u.ux, u.uy, x, y);
+    /* C: sighted hero — set_seenv then _map_location(x, y, 1). */
+    if (!heroBlindForMap()) {
+        mapLocationLikeC(x, y, true);
+        return;
+    }
     const tg = mapTerrainGlyph(loc, x, y);
     if (lvl.flags?.hero_memory !== false) {
         loc.remembered_glyph = { ch: tg.ch, color: tg.color, decgfx: tg.dec };
