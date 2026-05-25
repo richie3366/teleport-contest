@@ -281,6 +281,12 @@ function clearLregionDestLikeC(g) {
     g.updest = null;
 }
 
+/** C: mkmaze.c / sp_lev.c — interior maze bounds for **`mazexy`** (set when maze level is built). */
+export function setMazeMaxBoundsLikeC(g, xmax, ymax) {
+    g.x_maze_max = xmax | 0;
+    g.y_maze_max = ymax | 0;
+}
+
 function placeLregionHereLikeC(x, y, nlx, nly, nhx, nhy, rtype, lev) {
     const g = game;
     const rt = rtype | 0;
@@ -725,6 +731,8 @@ function clear_level_structures() {
     lf.stormy = false;
     lf.stasis_until = 0;
     clearLregionDestLikeC(g);
+    delete g.x_maze_max;
+    delete g.y_maze_max;
     init_rect();
 }
 

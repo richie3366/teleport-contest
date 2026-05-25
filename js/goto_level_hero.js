@@ -12,7 +12,8 @@
 // Deferred: **`fill_pit`**, real **`next_to_u`**,
 // full **`keepdogs`/`dog.c`** migration (**`migrate_to_level`**, …), bones/save, full **`goto_level`** beyond **`mklev`**.
 
-import { mklev, u_on_upstairs } from './mklev.js';
+import { mklev, u_on_upstairs, u_onRndspotLikeC } from './mklev.js';
+import { In_endgame, onWTowerLevelLikeC } from './const.js';
 import { spotEffects } from './spoteffects.js';
 import { vision_recalc } from './vision.js';
 import { pline, pline1 } from './display.js';
@@ -116,6 +117,10 @@ export async function applyGotoLevelDirectHeroLikeC(g, dest) {
     u.utraptype = 0;
 
     if (await mklev()) maybeRecordEnteredNewLevelLivelogLikeC(g);
+    if (!In_endgame(newUz)) {
+        const wasInWTower = onWTowerLevelLikeC(uz0);
+        u_onRndspotLikeC(g, wasInWTower ? 2 : 0);
+    }
     await objDeliveryLikeC(g, false);
     await spotEffects(g, false, {});
     await objDeliveryLikeC(g, true);
@@ -227,6 +232,7 @@ export async function applyGotoAfterHeroHoleFallLikeC(g, dest) {
     u.utraptype = 0;
 
     if (await mklev()) maybeRecordEnteredNewLevelLivelogLikeC(g);
+    if (!In_endgame(newUz)) u_onRndspotLikeC(g, 0);
     await objDeliveryLikeC(g, false);
     await spotEffects(g, false, {});
     await objDeliveryLikeC(g, true);

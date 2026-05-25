@@ -30,7 +30,7 @@ import {
 } from './nh5_objclass.js';
 
 /** C objects_nums — OBJECTS_ENUM (nethack-c/upstream/include/objects.h). */
-const OTYP_DAGGER = 34;
+const OTYP_DAGGER = 35;
 const OTYP_YA = 22;
 const OTYP_SHORT_SWORD = 47;
 const OTYP_KATANA = 57;
