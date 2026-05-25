@@ -6,6 +6,7 @@ Historical rows moved from `c-to-js-port-progress.md` so day-to-day work uses **
 
 | When | What changed |
 |------|----------------|
+| **2026-05-25 (`sp_lev.c` load_special scaffolding)** | **`checkRansackedLikeC`**, **`loadSpecialLikeC`** C-shaped (**`createDesCoder`/`load_lua`/`give_up`**), **`loadSpecialAfterLuaLikeC`**; **`makemazLikeC`** **`LEV_EXT`** + **`in_mk_themerooms`**. NHL **`load_lua`** deferred. **`seed0077`/`seed8000`:** **PASS**. **`npm run score`:** **2/44**. |
 | **2026-05-25 (`mkmaze.c` makemaz protofile rndlevs)** | **`resolveMakemazProtofileLikeC`** — C **`makemaz`** Snprintf before **`load_special`**; **`makemazLikeC`** uses resolved name. **`load_lua`** deferred. **`seed0077`/`seed8000`:** **PASS**. **`npm run score`:** **2/44**. |
 | **2026-05-25 (`vault.c` uleftvault + findgd)** | **`vault_hero.js`**: **`hidden_gold`**, **`in_fcorridor`**, **`canspotmon`** pline, **`gdMoveHeroLikeC`** stub; **`findgd`** **`mhp`** when parked. Full **`gd_move`** deferred. **`seed0077`/`seed8000`:** **PASS**. **`npm run score`:** **2/44**. |
 | **2026-05-25 (`ball.c` drag_ball pool-pit jerk-back)** | **`ball_bc_hero.js`**: **`drag:`** encumber fail, chain pool/pit test, levitation pline, jerk-back + **`spotEffects`**; **`teleds`** awaits async **`dragBallHeroLikeC`**. **`hmon`/`miss`** deferred. **`seed0077`/`seed8000`:** **PASS**. **`npm run score`:** **2/44**. |

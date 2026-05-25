@@ -69,6 +69,7 @@ import {
     In_endgame, In_hell, In_V_tower, Is_rogue_level, Is_oracle_level, In_mines, In_quest,
     Is_knox_level,
     MKTRAP_MAZEFLAG,
+    LEV_EXT,
 } from './const.js';
 import { isPoolOrLavaCellLikeC } from './fillholetyp.js';
 import { makeEngrAt, ENGR_HEADSTONE, ENGR_MARK, ENGR_DUST, randomEngraving, getRndEpitaphText, wipeEngrAt } from './engrave.js';
@@ -332,23 +333,91 @@ export function appendLregionLikeC(g, region) {
 }
 
 /**
- * C: sp_lev.c `load_special` tail — **`fixup_special`**, wallification, lregions (after **`load_lua`**).
+ * C: mkmaze.c `check_ransacked` — before **`load_special`** (proto name without **`LEV_EXT`**).
+ * @param {import('./gstate.js').game} g
+ * @param {string} protoBase
+ */
+export function checkRansackedLikeC(g, protoBase) {
+    const minesDnum = g.mines_dnum;
+    const uz = g.u?.uz;
+    if (minesDnum == null || !uz) {
+        g.ransacked = false;
+        return;
+    }
+    g.ransacked = (uz.dnum | 0) === (minesDnum | 0) && protoBase === 'minetn-1';
+}
+
+/**
+ * C: sp_lev.c `create_des_coder` / `give_up` — NHL des compiler state (stub until **`load_lua`**).
  * @param {import('./gstate.js').game} g
  */
-export function fixupSpecialLikeC(g) {
+function createDesCoderLikeC(g) {
+    if (!g.desCoder) g.desCoder = {};
+}
+
+/** @param {import('./gstate.js').game} g */
+function freeDesCoderLikeC(g) {
+    g.desCoder = null;
+}
+
+/**
+ * C: nhlua.c `load_lua` — compile/run `.lua` des level (NHL not ported).
+ * @returns {Promise<boolean>}
+ */
+async function loadLuaLikeC(g, name) {
+    void g;
+    void name;
+    return false;
+}
+
+/**
+ * C: sp_lev.c `load_special` post-**`load_lua`** chain (deferred pieces are no-ops until NHL).
+ * @param {import('./gstate.js').game} g
+ */
+function loadSpecialAfterLuaLikeC(g) {
+    /* link_doors_rooms, remove_boundary_syms, ensure_way_out, map_cleanup — deferred */
     const lf = g.level?.flags;
     if (lf && !lf.corrmaze) {
         wallification(1, 0, COLNO - 1, ROWNO - 1);
     }
+    /* flip_level_rnd, count_level_features, solidify_map — deferred */
+    fixupSpecialLikeC(g);
+    /* premap_detect — deferred */
+}
+
+/**
+ * C: mkmaze.c `fixup_special` tail + sp_lev.c `load_special` — lregions, **`has_town`** (via **`level_finalize_topology`**).
+ * @param {import('./gstate.js').game} g
+ */
+export function fixupSpecialLikeC(g) {
     if (g.lregions?.length) {
         placeLregionsFixupSpecialLikeC(g, g.lregions);
         g.lregions = null;
     }
+    /* stolen_booty / medusa / baalz_fixup — deferred until **`load_lua`** + full **`fixup_special`** */
+}
+
+/**
+ * C: sp_lev.c `load_special` — des-file level via **`load_lua`**.
+ * @param {import('./gstate.js').game} g
+ * @param {string} name — protofile + **`LEV_EXT`** (caller appends extension)
+ * @returns {Promise<boolean>} true when a compiled level was loaded
+ */
+export async function loadSpecialLikeC(g, name) {
+    if (!name) return false;
+    createDesCoderLikeC(g);
+    let result = false;
+    if (await loadLuaLikeC(g, name)) {
+        loadSpecialAfterLuaLikeC(g);
+        result = true;
+    }
+    freeDesCoderLikeC(g);
+    return result;
 }
 
 /**
  * C: mkmaze.c **`makemaz`** — resolve des protofile from **`s`**, **`Is_special`**, dungeon **`proto`**.
- * Omits wizard **`SPLEVTYPE`** env override and **`check_ransacked`**.
+ * Omits wizard **`SPLEVTYPE`** env override.
  * @param {import('./gstate.js').game} g
  * @param {string} s — from **`makelevelMazefileLikeC`** (empty → dungeon **`proto`** branch)
  * @returns {string}
@@ -377,17 +446,6 @@ export function resolveMakemazProtofileLikeC(g, s) {
         return pb;
     }
     return '';
-}
-
-/**
- * C: sp_lev.c `load_special` — des-file level via **`load_lua`**; **`fixupSpecialLikeC`** on success.
- * @returns {Promise<boolean>} true when a compiled level was loaded
- */
-export async function loadSpecialLikeC(g, protofile) {
-    if (!protofile) return false;
-    /* C: mkmaze.c `Strcat(protofile, LEV_EXT)` before call — NHL **`load_lua`** not ported yet. */
-    void g;
-    return false;
 }
 
 /**
@@ -712,9 +770,14 @@ async function populateMazeLikeC(g) {
  */
 export async function makemazLikeC(g, protofile = '') {
     const resolvedProto = resolveMakemazProtofileLikeC(g, protofile);
-    if (await loadSpecialLikeC(g, resolvedProto)) {
-        /* C: `dmonsfree()` after successful load — deferred */
-        return true;
+    if (resolvedProto.length > 0) {
+        checkRansackedLikeC(g, resolvedProto);
+        g.in_mk_themerooms = false;
+        if (await loadSpecialLikeC(g, resolvedProto + LEV_EXT)) {
+            /* C: `dmonsfree()` after successful load — deferred */
+            return true;
+        }
+        /* C: impossible("Couldn't load \"%s\" - making a maze.", protofile); — no RNG */
     }
     const lf = g.level.flags;
     lf.is_maze_lev = true;
@@ -1194,6 +1257,8 @@ function clear_level_structures() {
     lf.stasis_until = 0;
     clearLregionDestLikeC(g);
     g.lregions = null;
+    g.ransacked = false;
+    g.desCoder = null;
     resetMazeMaxBoundsLikeC(g);
     init_rect();
 }
