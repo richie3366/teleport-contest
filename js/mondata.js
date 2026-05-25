@@ -41,6 +41,9 @@ import {
     NON_PM,
     LOW_PM,
     MON_FLOOR,
+    S_GOLEM,
+    PM_STONE_GOLEM,
+    G_GENOD,
 } from './const.js';
 
 /**
@@ -150,6 +153,8 @@ export const G_NOCORPSE = 0x0010;
 
 /** C: monflag.h `MR_FIRE` — innate fire resistance (goodpos lava, trap.c, …). */
 export const MR_FIRE = 0x01;
+/** C: monflag.h MR_STONE */
+export const MR_STONE = 0x80;
 /** C: monflag.h `MR_COLD` */
 export const MR_COLD = 0x02;
 /** C: monflag.h `MR_SLEEP` — sleep resistance (trap.c sleep gas, …). */
@@ -667,6 +672,27 @@ export function amphibious(/** @type {Permonst} */ ptr) {
 /** C: mondata.h fire_resistant — `mons[].mresists & MR_FIRE` (subset). */
 export function fireResistant(/** @type {Permonst} */ ptr) {
     return ((ptr?.mresists ?? 0) & MR_FIRE) !== 0;
+}
+
+/** C: mondata.c pm_resistance — innate `mresists` only. */
+export function pmResistanceLikeC(/** @type {Permonst} */ ptr, mr) {
+    return ((ptr?.mresists ?? 0) & (mr | 0)) !== 0;
+}
+
+/** C: mondata.c is_golem */
+export function isGolemPtrLikeC(/** @type {Permonst} */ ptr) {
+    return (ptr?.mlet | 0) === S_GOLEM;
+}
+
+/**
+ * C: mondata.c poly_when_stoned — non-stone golems petrify to stone golem unless genocided.
+ * @param {import('./gstate.js').game} g
+ */
+export function polyWhenStonedLikeC(g, /** @type {Permonst} */ ptr) {
+    if (!isGolemPtrLikeC(ptr)) return false;
+    if ((ptr.mnum | 0) === PM_STONE_GOLEM) return false;
+    if (((g.mvitals?.[PM_STONE_GOLEM]?.mvflags | 0) & G_GENOD) !== 0) return false;
+    return true;
 }
 
 /** C: mondata.h resists_sleep — `mons[].mresists & MR_SLEEP` (subset; no `defended`/`resist()` yet). */

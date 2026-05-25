@@ -93,6 +93,12 @@ import { monTrackClear, ensureMonsterMtrack } from './monflee.js';
 import { dist2, onLevelLikeC } from './hacklib.js';
 import { goodposNullMonLikeC } from './walkable.js';
 import { rndmonnum } from './makemon.js';
+import {
+    MR_STONE,
+    permonstFromMndxLikeC,
+    pmResistanceLikeC,
+    polyWhenStonedLikeC,
+} from './mondata.js';
 import { setWallStateLikeC } from './wall_state.js';
 import {
     consumeMksobjInitCorpseRngLikeC,
@@ -421,6 +427,37 @@ function isMedusaLevelLikeC(g, uz) {
 }
 
 /**
+ * C: mkobj.c `set_corpsenm` — statue/corpse **`corpsenm`** + weight (timers deferred).
+ * @param {Record<string, unknown>|null|undefined} otmp
+ * @param {number} id
+ */
+function set_corpsenm(otmp, id) {
+    if (!otmp) return;
+    otmp.corpsenm = id | 0;
+    otmp.owt = weight(otmp);
+}
+
+/** C: mkobj.c `mk_tt_object(STATUE)` — no init; **`tt_oname`** not ported → **`rn1`** role corpsenm. */
+function mkTtObjectStatueLikeC(x, y) {
+    const otmp = mksobj_at(STATUE, x, y, false, false);
+    const pm = rn1(PM_WIZARD - PM_ARCHEOLOGIST + 1, PM_ARCHEOLOGIST);
+    set_corpsenm(otmp, pm);
+    return otmp;
+}
+
+/**
+ * C: mkmaze.c Medusa fixup — retry when **`poly_when_stoned`** or stone resistance.
+ * @param {import('./gstate.js').game} g
+ * @param {Record<string, unknown>|null|undefined} otmp
+ */
+function medusaStatueNeedsRerollLikeC(g, otmp) {
+    const cm = otmp?.corpsenm | 0;
+    if (cm < 0) return false;
+    const ptr = permonstFromMndxLikeC(cm);
+    return polyWhenStonedLikeC(g, ptr) || pmResistanceLikeC(ptr, MR_STONE);
+}
+
+/**
  * C: mkmaze.c `fixup_special` — Medusa level statue placement (**`mk_tt_object`** / **`mkcorpstat`**).
  * @param {import('./gstate.js').game} g
  */
@@ -432,24 +469,23 @@ function fixupSpecialMedusaStatuesLikeC(g) {
         const x = somex(croom);
         const y = somey(croom);
         if (goodposNullMonLikeC(x, y, g)) {
-            let otmp = mkcorpstat(STATUE, null, null, x, y, CORPSTAT_NONE);
+            let otmp = mkTtObjectStatueLikeC(x, y);
             let tryct2 = 0;
-            while (++tryct2 < 100 && otmp) {
-                /* poly_when_stoned / pm_resistance(MR_STONE) — deferred; no extra rndmonnum yet */
-                break;
+            while (++tryct2 < 100 && otmp && medusaStatueNeedsRerollLikeC(g, otmp)) {
+                set_corpsenm(otmp, rndmonnum());
             }
         }
     }
     let otmp;
     if (rn2(2)) {
-        otmp = mkcorpstat(STATUE, null, null, somex(croom), somey(croom), CORPSTAT_NONE);
+        otmp = mkTtObjectStatueLikeC(somex(croom), somey(croom));
     } else {
         otmp = mkcorpstat(STATUE, null, null, somex(croom), somey(croom), CORPSTAT_NONE);
     }
     if (otmp) {
         let tryct = 0;
-        while (++tryct < 100 && otmp) {
-            break;
+        while (++tryct < 100 && otmp && medusaStatueNeedsRerollLikeC(g, otmp)) {
+            set_corpsenm(otmp, rndmonnum());
         }
     }
 }
@@ -1204,9 +1240,6 @@ function add_to_buried(otmp) {
 }
 function sobj_at(otyp, x, y) { return false; }
 
-// set_corpsenm stub
-function set_corpsenm(otmp, pm) { /* stub */ }
-
 // mkcorpstat — C: mkobj.c mkcorpstat (mksobj init + spe + ptr override + set_corpsenm)
 function mkcorpstat(objtyp, mtmp, pm, x, y, flags) {
     void mtmp;
@@ -1217,7 +1250,8 @@ function mkcorpstat(objtyp, mtmp, pm, x, y, flags) {
     if (init && t === CORPSE) {
         otmp.corpsenm = consumeMksobjInitCorpseRngLikeC();
     } else if (!init && pm === null && (t === CORPSE || t === STATUE)) {
-        rndmonstLikeC();
+        otmp.corpsenm = rndmonstLikeC();
+        otmp.owt = weight(otmp);
     }
     if (t === CORPSE && (otmp.corpsenm | 0) >= 0) {
         /* C: mksobj tail spe before mkcorpstat ptr override. */
