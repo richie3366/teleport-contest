@@ -18,11 +18,11 @@ Thin handoff for the next coding session. **Score + milestones:** [`c-to-js-port
 
 **Deferred for now:** **`maybe_do_tutorial`** / **`tut-1`** / full **`do.c`** **`goto_level`** (Lua **`tutorial()`** / **`free_tutorial()`**, **`savelev`**, **`gmst_*`**, …) and **`dokick`**/**`dothrow`** vs **`leaving_tutorial`** — strong upstream dependencies (save, specials, fuller **`do.c`**); treat as backlog until chargen / core early-game parity is further along; **`LIVELOGFILE`** parity if the judge ever compares livelog lines.
 
-**Last slice:** **`sp_lev.c`** **`load_special`** post-**`load_lua`** — **`sp_lev_load.js`** (**`linkDoorsRoomsLikeC`**, **`removeBoundarySymsLikeC`**, **`mapCleanupLikeC`**, **`flipLevelRndLikeC`**, **`solidifyMapLikeC`**); wired in **`loadSpecialAfterLuaLikeC`**. **`flip_level`** body + NHL **`load_lua`** still deferred. **`seed0077`/`seed8000`:** **PASS**. **`npm run score`:** **2/44**.
+**Last slice:** **`mkmaze.c`** **`fixup_special`** tail — graveyard flags (Priest quest, stronghold), Medusa statue RNG skeleton, **`has_town`** in **`fixupSpecialLikeC`**; **`stolen_booty`** / **`baalz_fixup`** deferred. NHL **`load_lua`** + **`flip_level`** still deferred. **`seed0077`/`seed8000`:** **PASS**. **`npm run score`:** **2/44**.
 
 ## Next steps
 
-1. **`mkmaze`** — NHL **`load_lua`** (des compiler) + **`flip_level`**; full **`fixup_special`** (**`stolen_booty`**, medusa, baalz); **`premap_detect`** / **`ensure_way_out`**.
+1. **`mkmaze`** — NHL **`load_lua`**; full **`stolen_booty`** / Medusa **`set_corpsenm`** retries; **`flip_level`**; **`baalz_fixup`**; **`premap_detect`** / **`ensure_way_out`**.
 2. **`goto_level`** — savelev tail; full **`worm.c`** when long worms on level.
 3. **`objects_nums`** — wire **`nh5OclassForOtyp`** via map for ARMOR/ROCK only after **`mksobj_init`** floor parity; more legacy floor **`otyp`** vs C when replaying **`mkobj`**.
 

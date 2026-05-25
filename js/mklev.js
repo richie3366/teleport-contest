@@ -67,7 +67,8 @@ import {
     is_pit, is_hole,
     OTYP_BOULDER,
     In_endgame, In_hell, In_V_tower, Is_rogue_level, Is_oracle_level, In_mines, In_quest,
-    Is_knox_level,
+    Is_knox_level, Is_stronghold,
+    CORPSTAT_NONE,
     MKTRAP_MAZEFLAG,
     LEV_EXT,
 } from './const.js';
@@ -89,7 +90,9 @@ import {
     westFillApportDoorLikeC,
 } from './mfndpos_mon.js';
 import { monTrackClear, ensureMonsterMtrack } from './monflee.js';
-import { dist2 } from './hacklib.js';
+import { dist2, onLevelLikeC } from './hacklib.js';
+import { goodposNullMonLikeC } from './walkable.js';
+import { rndmonnum } from './makemon.js';
 import { setWallStateLikeC } from './wall_state.js';
 import {
     consumeMksobjInitCorpseRngLikeC,
@@ -407,7 +410,81 @@ function loadSpecialAfterLuaLikeC(g) {
 }
 
 /**
- * C: mkmaze.c `fixup_special` tail + sp_lev.c `load_special` — lregions, **`has_town`** (via **`level_finalize_topology`**).
+ * C: dungeon.c **`Is_medusa_level(&u.uz)`** — **`on_level`** vs **`medusa_level`**.
+ * @param {import('./gstate.js').game} g
+ * @param {{ dnum?: number, dlevel?: number }|null|undefined} [uz]
+ */
+function isMedusaLevelLikeC(g, uz) {
+    const med = g.medusa_level;
+    const lev = uz ?? g.u?.uz;
+    return !!(med && lev && onLevelLikeC(lev, med));
+}
+
+/**
+ * C: mkmaze.c `fixup_special` — Medusa level statue placement (**`mk_tt_object`** / **`mkcorpstat`**).
+ * @param {import('./gstate.js').game} g
+ */
+function fixupSpecialMedusaStatuesLikeC(g) {
+    const croom = g.level?.rooms?.[0];
+    if (!croom || (croom.hx | 0) <= 0) return;
+    let tryct = rnd(4);
+    while (tryct--) {
+        const x = somex(croom);
+        const y = somey(croom);
+        if (goodposNullMonLikeC(x, y, g)) {
+            let otmp = mkcorpstat(STATUE, null, null, x, y, CORPSTAT_NONE);
+            let tryct2 = 0;
+            while (++tryct2 < 100 && otmp) {
+                /* poly_when_stoned / pm_resistance(MR_STONE) — deferred; no extra rndmonnum yet */
+                break;
+            }
+        }
+    }
+    let otmp;
+    if (rn2(2)) {
+        otmp = mkcorpstat(STATUE, null, null, somex(croom), somey(croom), CORPSTAT_NONE);
+    } else {
+        otmp = mkcorpstat(STATUE, null, null, somex(croom), somey(croom), CORPSTAT_NONE);
+    }
+    if (otmp) {
+        let tryct = 0;
+        while (++tryct < 100 && otmp) {
+            break;
+        }
+    }
+}
+
+/**
+ * C: mkmaze.c `stolen_booty` — orctown **`minetn-1`** after des load (**`check_ransacked`**).
+ * @param {import('./gstate.js').game} g
+ */
+function stolenBootyLikeC(g) {
+    void g;
+    /* rndorcname, migr_booty_item, migrate_orc, shiny_orc_stuff — deferred */
+    g.ransacked = false;
+}
+
+/**
+ * C: mkmaze.c `fixup_special` — post-**`lregions`** tail (graveyard, medusa, stolen booty, **`has_town`**).
+ * @param {import('./gstate.js').game} g
+ */
+function fixupSpecialTailLikeC(g) {
+    const uz = g.u?.uz;
+    const lf = g.level?.flags;
+    if (!lf || !uz) return;
+    if (isMedusaLevelLikeC(g, uz)) {
+        fixupSpecialMedusaStatuesLikeC(g);
+    } else if (g.urole?.abbr === 'Pri' && In_quest(uz)) {
+        lf.graveyard = true;
+    } else if (Is_stronghold(uz)) {
+        lf.graveyard = true;
+    } else if (g.ransacked) {
+        stolenBootyLikeC(g);
+    }
+}
+
+/**
+ * C: mkmaze.c `fixup_special` tail + sp_lev.c `load_special` — lregions, then level-specific tail.
  * @param {import('./gstate.js').game} g
  */
 export function fixupSpecialLikeC(g) {
@@ -415,7 +492,9 @@ export function fixupSpecialLikeC(g) {
         placeLregionsFixupSpecialLikeC(g, g.lregions);
         g.lregions = null;
     }
-    /* stolen_booty / medusa / baalz_fixup — deferred until **`load_lua`** + full **`fixup_special`** */
+    fixupSpecialTailLikeC(g);
+    syncLevelFlagsHasTownAfterFixupSpecialLikeC(g);
+    /* baalz_fixup — deferred */
 }
 
 /**
