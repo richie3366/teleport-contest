@@ -28,7 +28,7 @@ import {
 import { GameMap } from './game.js';
 import { rn2, rnd, rn1 } from './rng.js';
 import { init_rect, rnd_rect, get_rect, split_rects } from './rect.js';
-import { depth as depth_of_level, depth } from './hacklib.js';
+import { depth as depth_of_level, depth, distmin } from './hacklib.js';
 import {
     findLevelByProtoLikeC, isSpecialAtUzLikeC, isSpecialHeroUzLikeC,
 } from './sp_levchn.js';
@@ -540,9 +540,54 @@ export function createMazeLikeC(g, corrwidIn, wallthickIn, rmdeadends) {
     }
 }
 
-/** C: dungeon.c `Invocation_lev` — stub until invocation level is ported. */
-function invocationLevLikeC(_uz) {
-    return false;
+/**
+ * C: dungeon.c `Invocation_lev` — bottom Gehennom level (`hellish` && max `dlevel`).
+ * @param {import('./gstate.js').game} g
+ * @param {{ dnum?: number, dlevel?: number }|null|undefined} [uz]
+ */
+export function invocationLevLikeC(g, uz) {
+    const lev = uz ?? g?.u?.uz;
+    if (!lev || !In_hell(lev)) return false;
+    const dnum = lev.dnum | 0;
+    const dl = lev.dlevel | 0;
+    const max = g.dungeons?.[dnum]?.num_dunlevs;
+    if (max == null) return false;
+    return dl === ((max | 0) - 1);
+}
+
+/**
+ * C: mkmaze.c `pick_vibrasquare_location` — Moloch sanctum stairs site for `VIBRATING_SQUARE`.
+ * @param {import('./gstate.js').game} g
+ */
+function pickVibrasquareLocationLikeC(g) {
+    const INVPOS_X_MARGIN = 4;
+    const INVPOS_Y_MARGIN = 3;
+    const INVPOS_DISTANCE = 11;
+    const xMazeMin = 2;
+    const yMazeMin = 2;
+    const xRange = (g.x_maze_max | 0) - xMazeMin - 2 * INVPOS_X_MARGIN - 1;
+    const yRange = (g.y_maze_max | 0) - yMazeMin - 2 * INVPOS_Y_MARGIN - 1;
+    g.inv_pos = { x: 0, y: 0 };
+    if (xRange <= INVPOS_X_MARGIN || yRange <= INVPOS_Y_MARGIN
+        || xRange * yRange <= INVPOS_DISTANCE * INVPOS_DISTANCE) {
+        return;
+    }
+    const stway = stairway_find_dir(true);
+    let tryct = 0;
+    let x = 0;
+    let y = 0;
+    do {
+        x = rn1(xRange, xMazeMin + INVPOS_X_MARGIN + 1);
+        y = rn1(yRange, yMazeMin + INVPOS_Y_MARGIN + 1);
+        if (++tryct > 1000) break;
+    } while (stway && (
+        x === (stway.sx | 0) || y === (stway.sy | 0)
+        || Math.abs(x - (stway.sx | 0)) === Math.abs(y - (stway.sy | 0))
+        || distmin(x, y, stway.sx | 0, stway.sy | 0) <= INVPOS_DISTANCE
+        || !SPACE_POS(g.level?.at(x, y)?.typ | 0)
+        || occupied(x, y)
+    ));
+    g.inv_pos = { x: x | 0, y: y | 0 };
 }
 
 /** C: monsters.h `PM_MINOTAUR`. */
@@ -601,7 +646,7 @@ export async function makemazLikeC(g, protofile = '') {
     lf.corrmaze = !rn2(3);
     resetMazeMaxBoundsLikeC(g);
 
-    if (!invocationLevLikeC(g.u?.uz) && rn2(2)) {
+    if (!invocationLevLikeC(g, g.u?.uz) && rn2(2)) {
         createMazeLikeC(g, -1, -1, !rn2(5));
     } else {
         createMazeLikeC(g, 1, 1, false);
@@ -613,11 +658,15 @@ export async function makemazLikeC(g, protofile = '') {
     const mm = { x: 0, y: 0 };
     mazexyLikeC(mm);
     mkstairs(mm.x, mm.y, true, null);
-    if (!invocationLevLikeC(g.u?.uz)) {
+    if (!invocationLevLikeC(g, g.u?.uz)) {
         mazexyLikeC(mm);
         mkstairs(mm.x, mm.y, false, null);
     }
-    /* C: `pick_vibrasquare_location` + `VIBRATING_SQUARE` — deferred */
+    if (invocationLevLikeC(g, g.u?.uz)) {
+        pickVibrasquareLocationLikeC(g);
+        const ip = g.inv_pos;
+        if (ip) await maketrap(ip.x | 0, ip.y | 0, VIBRATING_SQUARE);
+    }
 
     place_branch(is_branchlev(), 0, 0);
     await populateMazeLikeC(g);
@@ -1034,6 +1083,7 @@ function clear_level_structures() {
     g.level.doorindex = 0;
     g.level.doors = [];
     g.stairs = null;
+    g.inv_pos = null;
     g.vault_x = -1;
     const lf = g.level.flags;
     lf.nfountains = 0;
@@ -2277,10 +2327,11 @@ function somexy(croom, c) {
  * @param {number} y
  */
 function invocationPosLikeC(x, y) {
-    void x;
-    void y;
-    /* C: Invocation_lev(&u.uz) && x == svi.inv_pos.x && y == svi.inv_pos.y */
-    return false;
+    const g = game;
+    if (!invocationLevLikeC(g, g.u?.uz)) return false;
+    const ip = g.inv_pos;
+    if (!ip) return false;
+    return (x | 0) === (ip.x | 0) && (y | 0) === (ip.y | 0);
 }
 
 /** C: mklev.c occupied — trap, furniture, lava/pool, invocation tile. */
