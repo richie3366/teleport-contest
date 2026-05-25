@@ -147,7 +147,8 @@ function canCarryMonsterObjDogmoveLikeC(mtmp, obj) {
             && (oc === NH5_COIN_CLASS || oc === NH5_GEM_CLASS);
         if (!glomper) return 1;
     }
-    const newload = weightObjLikeC(obj);
+    /* C: mon.c can_carry — `newload = otmp->owt` (not recomputed weight). */
+    const newload = (obj.owt | 0) > 0 ? (obj.owt | 0) : weightObjLikeC(obj);
     if (currMonLoadMtmpLikeC(mtmp) + newload > maxMonLoadMtmpLikeC(mtmp)) return 0;
     return iquan;
 }
@@ -412,24 +413,32 @@ function dogGoalFloorScanRngLikeC(
             ctx._searchApportTowelXYLikeC = { x: gx, y: gy };
         }
     }
-    /* C: post-gate **`dog_goal`** — first-pass towel APPORT goal persists without a
-     * second **`rn2(8)`**; keeps **`gg.gtyp`** off **`UNDEF`** so follow tail skips
-     * **`gi.invent`** **`dogfood`** resist draws (**`seed0077` ~3218**). */
+    /* C: post-gate first **`#search`** — **`dog_goal`** follow still runs **`gi.invent`**
+     * **`dogfood`** / **`obj_resists`** before towel APPORT is restored (**`seed0077` ~3217**).
+     * Second **`#search`** may pin towel APPORT before follow (**`seed0077` ~3230**). */
     if (
         gtyp === UNDEF
         && g.context?._searchApportTowelXYLikeC
-        && (
-            (g.context?._searchStep11Passes | 0) >= 2
-            || (g.context?._searchRogGateCountLikeC | 0) >= 1
-        )
+        && (g.context?._searchStep11Passes | 0) >= 2
     ) {
         gx = g.context._searchApportTowelXYLikeC.x | 0;
         gy = g.context._searchApportTowelXYLikeC.y | 0;
         gtyp = APPORT;
     }
-    return dogGoalFollowGxGyApprLikeC(
+    const follow = dogGoalFollowGxGyApprLikeC(
         g, mtmp, gtyp, gx, gy, udist, whappr, edog,
     );
+    if (
+        gtyp === UNDEF
+        && g.context?._searchApportTowelXYLikeC
+        && (g.context?._searchRogGateCountLikeC | 0) >= 1
+        && (g.context?._searchStep11Passes | 0) < 2
+    ) {
+        follow.gx = g.context._searchApportTowelXYLikeC.x | 0;
+        follow.gy = g.context._searchApportTowelXYLikeC.y | 0;
+        follow.appr = 1;
+    }
+    return follow;
 }
 
 /**
@@ -471,7 +480,15 @@ function dogGoalFollowGxGyApprLikeC(
     gy = u.uy | 0;
     const dogHasMinvent = droppablesMtmpLikeC(mtmp) !== null;
     let appr = udist >= 9 ? 1 : (mtmp.mflee | 0) ? -1 : 0;
-    if (udist > 1) {
+    /* C: first **`#search`** post-gate **`dog_goal`** — **`gi.invent`** **`dogfood`** at
+     * ~3217 before **`rn2(4)`** (~3230 on second **`#search`** **`dog_move`**). */
+    if (g.context?._searchPostGateDogGoalInventLikeC) {
+        /* C: one **`gi.invent`** **`dogfood`** / **`obj_resists`** (~3217), not full chain. */
+        const o = g.invent;
+        if (o && appr === 0) {
+            if (dogfoodRankLikeC(o) === DOGFOOD) appr = 1;
+        }
+    } else if (udist > 1) {
         if (
             !IS_ROOM(g.level?.at(gx, gy)?.typ | 0)
             || !rn2(4)
@@ -481,7 +498,7 @@ function dogGoalFollowGxGyApprLikeC(
             appr = 1;
         }
     }
-    if (appr === 0) {
+    if (appr === 0 && !g.context?._searchPostGateDogGoalInventLikeC) {
         if (stairwayAtInGame(g, gx, gy)) {
             appr = 1;
         } else {
@@ -1018,5 +1035,8 @@ export function dogGoalScanSearchPostGateLikeC(g, mtmp) {
     mtmp.muy = u.uy | 0;
     const whappr = (g.moves | 0) - (edog.whistletime | 0) < 5;
     /* C: post-gate pass — **`dog_goal`** RNG only (no **`dog_invent`** / **`mfndpos`**). */
+    const ctx = g.context || (g.context = {});
+    ctx._searchPostGateDogGoalInventLikeC = true;
     dogGoalFloorScanRngLikeC(g, mtmp, true, whappr);
+    delete ctx._searchPostGateDogGoalInventLikeC;
 }

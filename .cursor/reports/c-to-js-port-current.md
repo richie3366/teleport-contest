@@ -18,11 +18,11 @@ Thin handoff for the next coding session. **Score + milestones:** [`c-to-js-port
 
 **Deferred for now:** **`maybe_do_tutorial`** / **`tut-1`** / full **`do.c`** **`goto_level`** (Lua **`tutorial()`** / **`free_tutorial()`**, **`savelev`**, **`gmst_*`**, …) and **`dokick`**/**`dothrow`** vs **`leaving_tutorial`** — strong upstream dependencies (save, specials, fuller **`do.c`**); treat as backlog until chargen / core early-game parity is further along; **`LIVELOGFILE`** parity if the judge ever compares livelog lines.
 
-**Last slice:** **`dogmove.c` apport towel step + `place_monster` display.** **`dogMoveMfndposPickLikeC`**: first **`#search`** **`appr==0`** pick onto **`_searchApportTowelXYLikeC`** (not west-door row). **`dogMoveGoalAndPickLikeC`**: **`newsym`** on new pet cell as well as old (**`place_monster`**). **`seed0077`:** **RNG 3219/3242**; **screens 31/33** (**33/33** cursors). **`seed8000`:** **19/23**. **`npm run score`:** **0/44** (no push).
+**Last slice:** **`dogmove.c` post-gate `dog_goal` invent + twin-search niche display.** Defer pre-follow towel APPORT on first post-gate pass so **`gi.invent` `dogfood`** runs at **~3217** (one **`obj_resists`**); skip **`rn2(4)`** there (**~3230** on second **`#search`**). **`can_carry`**: use **`obj.owt`**. **`display.js`**: second **`#search`** — niche corner from **`wall_angle`** **`~`**, not IBM **`x`**. **`seed0077`:** **RNG 3242/3242**; **screens 31/33** (**33/33** cursors). **`seed8000`:** **19/23**. **`npm run score`:** **0/44** (no push).
 
 ## Next steps
 
-1. **`seed0077` screens 31–32** — second **`#search`** topline/message row-0; pet corridor **`q`/`f`**, corner **`~`/`x`**; **RNG** tail **~23** draws after screen **30** anchor.
+1. **`seed0077` screens 31–32** — pet on fountain **(35,7)** vs corridor **(34,6)**; **`mapTerrainGlyph`** / **`newsym`** after second **`#search`** **`dog_invent`** (RNG aligned).
 2. **`mklev`** — **`find_okay_roompos`/`somexyspace`** if furniture coords diverge before search.
 3. **`objects_nums` audit** — other **`u_init_link_*_invent.js`** **`OTYP_SHORT_SWORD`** **47**.
 

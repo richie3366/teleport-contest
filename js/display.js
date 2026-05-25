@@ -217,6 +217,8 @@ function westApportAlcoveCornerGlyphLikeC(x, y, loc) {
     const north2 = g.level?.at(xi, yi - 2);
     /* C: post-#search vision — IBM x one tile south in west apport niche. */
     if (afterSearch) {
+        /* C: twin **`#search`** — corridor **`~`** from **`wall_angle`** (snap 31–32). */
+        if ((g.context?._searchStep11Passes | 0) >= 2) return null;
         if (north2 && (north2.typ | 0) === SDOOR) {
             return { ch: 'x', color: CLR_MAGENTA, dec: false };
         }
