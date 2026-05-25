@@ -20,7 +20,7 @@ import {
     objClassSymGlyphFromShowsymsLikeC,
     monClassSymGlyphFromShowsymsLikeC,
     S_room, S_ndoor, S_vodoor, S_hodoor, S_vcdoor, S_hcdoor,
-    S_corr, S_litcorr,
+    S_corr, S_litcorr, S_fountain, S_sink, S_pool, S_water, S_ice, S_lava,
 } from './symbols_file.js';
 import { vision_recalc, seeMonsters } from './vision.js';
 import {
@@ -501,6 +501,12 @@ function terrainFromCmapLikeC(sIdx, color, fallback) {
     return { ...fallback };
 }
 
+/** Feature tiles (fountain/sink/pool) — keep fallback `dec` (rogue D:1 wire avoids DEC SO/SI). */
+function terrainFeatureFromCmapLikeC(sIdx, color, fallback) {
+    const g = terrainFromCmapLikeC(sIdx, color, fallback);
+    return { ch: g.ch, color: g.color, dec: fallback.dec };
+}
+
 /** C: wintty.c process_menu_window — `cl_end()` from menu offx through EOL. */
 function blankTutorialMenuTailOnDisplay(disp) {
     const offx = tutorialMenuOffxLikeC();
@@ -595,17 +601,36 @@ export function mapTerrainGlyph(loc, x, y, skipApportMon = false) {
     case TREE:
         return { ch: '#', color: CLR_GREEN, dec: false };
     case POOL:
-    case MOAT:
-    case WATER:
-        return { ch: '~', color: CLR_BRIGHT_BLUE, dec: false };
-    case ICE:
-        return { ch: '.', color: CLR_CYAN, dec: false };
-    case FOUNTAIN:
-        /* C: defsym.h S_fountain — `{` + CLR_BRIGHT_BLUE (not `}` / pool glyph). */
-        return { ch: '{', color: CLR_BRIGHT_BLUE, dec: false };
-    case SINK:
-        /* C: defsym.h S_sink — `{` + CLR_WHITE; MG_BW_SINK when color off. */
-        return { ch: '{', color: CLR_WHITE, dec: false };
+    case MOAT: {
+        const fb = { ch: '~', color: CLR_BRIGHT_BLUE, dec: false };
+        if (Is_rogue_level(game.u?.uz)) return fb;
+        if (gs.showsyms?.[S_pool | 0]) return terrainFeatureFromCmapLikeC(S_pool, CLR_BLUE, fb);
+        return fb;
+    }
+    case WATER: {
+        const fb = { ch: '~', color: CLR_BRIGHT_BLUE, dec: false };
+        if (Is_rogue_level(game.u?.uz)) return fb;
+        if (gs.showsyms?.[S_water | 0]) return terrainFeatureFromCmapLikeC(S_water, CLR_BRIGHT_BLUE, fb);
+        return fb;
+    }
+    case ICE: {
+        const fb = { ch: '.', color: CLR_CYAN, dec: false };
+        if (Is_rogue_level(game.u?.uz)) return fb;
+        if (gs.showsyms?.[S_ice | 0]) return terrainFeatureFromCmapLikeC(S_ice, CLR_CYAN, fb);
+        return fb;
+    }
+    case FOUNTAIN: {
+        const fb = { ch: '{', color: CLR_BRIGHT_BLUE, dec: false };
+        if (Is_rogue_level(game.u?.uz)) return fb;
+        if (gs.showsyms?.[S_fountain | 0]) return terrainFeatureFromCmapLikeC(S_fountain, CLR_BRIGHT_BLUE, fb);
+        return fb;
+    }
+    case SINK: {
+        const fb = { ch: '{', color: CLR_WHITE, dec: false };
+        if (Is_rogue_level(game.u?.uz)) return fb;
+        if (gs.showsyms?.[S_sink | 0]) return terrainFeatureFromCmapLikeC(S_sink, CLR_WHITE, fb);
+        return fb;
+    }
     case ALTAR:
         return { ch: '_', color: CLR_BRIGHT_MAGENTA, dec: false };
     case THRONE:
@@ -613,8 +638,12 @@ export function mapTerrainGlyph(loc, x, y, skipApportMon = false) {
     case GRAVE:
         return { ch: '|', color: CLR_GRAY, dec: false };
     case LAVAPOOL:
-    case LAVAWALL:
-        return { ch: '}', color: CLR_RED, dec: false };
+    case LAVAWALL: {
+        const fb = { ch: '}', color: CLR_RED, dec: false };
+        if (Is_rogue_level(game.u?.uz)) return fb;
+        if (gs.showsyms?.[S_lava | 0]) return terrainFeatureFromCmapLikeC(S_lava, CLR_RED, fb);
+        return fb;
+    }
     case LADDER:
         return { ch: '>', color: CLR_YELLOW, dec: false };
     default:        return { ch: '?', color: NO_COLOR, dec: false };
