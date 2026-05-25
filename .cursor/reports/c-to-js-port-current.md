@@ -18,12 +18,13 @@ Thin handoff for the next coding session. **Score + milestones:** [`c-to-js-port
 
 **Deferred for now:** **`maybe_do_tutorial`** / **`tut-1`** / full **`do.c`** **`goto_level`** (Lua **`tutorial()`** / **`free_tutorial()`**, **`savelev`**, **`gmst_*`**, …) and **`dokick`**/**`dothrow`** vs **`leaving_tutorial`** — strong upstream dependencies (save, specials, fuller **`do.c`**); treat as backlog until chargen / core early-game parity is further along; **`LIVELOGFILE`** parity if the judge ever compares livelog lines.
 
-**Last slice:** **`mkmaze.c` `set_levltyp` + `mklev.c` furniture.** **`set_levltyp.js`**: **`setLevltypLikeC`** (**`CAN_OVERWRITE_TERRAIN`**, SDOOR/air, lava lit, fountain/sink recount). **`mklev.js`**: **`mkfount`/`mksink`/`mkaltar`** call **`set_levltyp`** like C (**`mksink`** returns bool). **`seed0077`:** **RNG 3242/3242**; **screens 30/33** (fail **30**: **7** fill rooms, **no `rn2(60)==0`** sink rolls this seed — C **`{`** at **(34,7)** vs JS **`}`** with **`FOUNTAIN`** at **(35,7)** / **`ROOM`** at **(34,7)**; food **`f`** vs towel **`(`** at **(34,5)/(35,5)**; alcove **`x`/`~`**). **`seed8000`:** **20/23**. **`npm run score`:** **0/44** (no push).
+**Last slice:** **`drawing.c` rogue object-class tty glyphs.** **`display.js`**: **`mapObjectGlyphLikeC`** — on **`Is_rogue_level`**, **`TOOL_CLASS`** → **`,`** **`CLR_BRIGHT_BLUE`**, **`FOOD_CLASS`** → **`:`** **`CLR_RED`** (**`def_r_oc_syms`**); towel still **`(`** **`CLR_MAGENTA`**. Reverted dead **`anchorWestApportFoodOnFillTileLikeC`** (**`Is_rogue_level`** false on D:1 chargen). **`seed0077`:** **RNG 3242/3242**; **screens 30/33** (fail **30**: mklev sink vs fountain **(34,7)/(35,7)**; food **`f`** vs towel; alcove **`~`/`x`** — display class glyphs do not apply on D:1). **`seed8000`:** **19/23**. **`npm run score`:** **0/44** (no push).
 
 ## Next steps
 
-1. **`seed0077` screen 30** — **mklev layout** (fountain **(35,7)** vs C sink glyph **(34,7)** — likely **room/RNG before fill**, not missing **`mksink`** body); **`relocateFillObjs`/`anchorApportTowel`** vs C food **`f`** at **(34,5)**; west niche **`westApportAlcoveCornerGlyph`** / **`seenv`**.
-2. **`objects_nums` audit** — other **`u_init_link_*_invent.js`** **`OTYP_SHORT_SWORD`** **47**.
+1. **`seed0077` screen 30** — **mklev** (C sink **`{`** at **(34,7)** vs JS **`FOUNTAIN`** **(35,7)** — room/RNG before fill; **0** **`mksink`** **`rn2(60)`** hits on this seed); apport food **`f`** at **(34,5)** vs towel **(35,5)**; west niche corners (**`westApportAlcoveCornerGlyph`** state-dependent — screen **12** vs **30**).
+2. **`display.c`** — **`has_rogue_color`** / **`GMAP_ROGUELEVEL`** vs **`Is_rogue_level`** on chargen D:1 if IBM/rogue tty paths diverge; **`newsym`** flush before serialize.
+3. **`objects_nums` audit** — other **`u_init_link_*_invent.js`** **`OTYP_SHORT_SWORD`** **47**.
 
 2. **`mklev` lregions** — wire **`game.dndest`/`updest`** when **`place_lregions`** ported.
 

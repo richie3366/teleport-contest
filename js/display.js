@@ -246,8 +246,15 @@ function mapObjectGlyphLikeC(obj) {
     if (oc === NH5_POTION_CLASS) return { ch: '!', color: CLR_WHITE, dec: false };
     if (oc === NH5_SCROLL_CLASS) return { ch: '?', color: CLR_WHITE, dec: false };
     if (oc === NH5_ARMOR_CLASS) return { ch: '[', color: CLR_WHITE, dec: false };
-    if (oc === NH5_TOOL_CLASS) return { ch: '(', color: CLR_BRIGHT_BLUE, dec: false };
-    if (oc === NH5_FOOD_CLASS) return { ch: '%', color: CLR_WHITE, dec: false };
+    if (oc === NH5_TOOL_CLASS) {
+        /* C: drawing.c def_r_oc_syms[TOOL_CLASS] + display.c rogue obj color. */
+        if (Is_rogue_level(game.u?.uz)) return { ch: ',', color: CLR_BRIGHT_BLUE, dec: false };
+        return { ch: '(', color: CLR_BRIGHT_BLUE, dec: false };
+    }
+    if (oc === NH5_FOOD_CLASS) {
+        if (Is_rogue_level(game.u?.uz)) return { ch: ':', color: CLR_RED, dec: false };
+        return { ch: '%', color: CLR_WHITE, dec: false };
+    }
     if (oc === NH5_WAND_CLASS) return { ch: '/', color: CLR_WHITE, dec: false };
     if (oc === NH5_RING_CLASS) return { ch: '=', color: CLR_WHITE, dec: false };
     if (oc === NH5_AMULET_CLASS) return { ch: '"', color: CLR_WHITE, dec: false };
