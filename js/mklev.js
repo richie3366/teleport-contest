@@ -122,16 +122,20 @@ const OTYP_ARROW = 19;
 const OTYP_DART = 25;
 const OTYP_TALLOW_CANDLE = 225;
 const OTYP_WAX_CANDLE = 226;
-const KELP_FROND = 172;
+/** C `objects[]` — `FOOD("kelp frond", …)` (not armor otyp 172). */
+const KELP_FROND = 275;
 const SCR_TELEPORTATION = 333;
 const BELL = 358;
-const CORPSE = 471;
-const STATUE = 472;
+/** C `objects[]` — `FOOD("corpse")` at food-class base **264** + 1. */
+const CORPSE = 265;
+/** C `objects[]` — `ROCK_CLASS` `STATUE` (after `BOULDER` **474**). */
+const STATUE = 475;
 const SPBOOK_no_NOVEL = 11;
 
 // Supply chest items (NH5 objects.h / mkobj_*_OC_PROB_ROWS)
-const POT_HEALING = 307;
-const POT_EXTRA_HEALING = 308;
+/** C `objects[]` — `POT_HEALING` **306**, `POT_EXTRA_HEALING` **307**. */
+const POT_HEALING = 306;
+const POT_EXTRA_HEALING = 307;
 const POT_SPEED = 302;
 const POT_GAIN_ENERGY = 313;
 const SCR_ENCHANT_WEAPON = 328;
@@ -879,7 +883,7 @@ function nh5OclassForOtyp(otyp) {
     if (t === OTYP_GEM_ROCK) return NH5_GEM_CLASS;
     if (t === GOLD_PIECE) return NH5_COIN_CLASS;
     if (t === OTYP_TALLOW_CANDLE || t === OTYP_WAX_CANDLE) return NH5_TOOL_CLASS;
-    if (t === 234 || t === 235) return NH5_TOOL_CLASS;
+    if (t === 233 || t === 235) return NH5_TOOL_CLASS; /* blindfold, towel */
     if (t >= 297 && t <= 322) return NH5_POTION_CLASS;
     if (t >= 323 && t <= 364) return NH5_SCROLL_CLASS;
     if (t >= 365 && t <= 408) return NH5_SPBOOK_CLASS;

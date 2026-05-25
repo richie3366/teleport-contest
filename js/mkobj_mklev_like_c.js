@@ -118,8 +118,8 @@ const OTYP_ROCK = 473;
 const OTYP_LUCKSTONE = 470;
 const OTYP_WAN_WISHING = 413;
 const OTYP_WAN_STASIS = 415;
-/** C: objects.h STATUE — mksobj_init ROCK_CLASS branch (NH5 GEM_CLASS pick). */
-const OTYP_STATUE = 472;
+/** C `objects[]` — `ROCK_CLASS` `STATUE` (**474** = `BOULDER`). */
+const OTYP_STATUE = 475;
 
 const RING_CHARGED = new Set(
     RING_CLASS_MKOBJ_ROWS.filter((r) => (r[1] | 0) === 1).map((r) => r[0] | 0),

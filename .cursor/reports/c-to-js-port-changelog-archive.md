@@ -6,6 +6,7 @@ Historical rows moved from `c-to-js-port-progress.md` so day-to-day work uses **
 
 | When | What changed |
 |------|----------------|
+| **2026-05-25 (`objects_nums` mklev floor otyp audit)** | **`mklev.js`** supply chest/oracle otyps; **`const.js`** boulder/statue/ball/chain; **`CORPSE_OTYP`**/**`OTYP_STATUE`** in mkobj/floorobj/fire_damage. **`seed0077`/`seed8000`:** **PASS**. **`npm run score`:** **2/44**. |
 | **2026-05-25 (`objects_nums` regenerate obj_oc_skill_data.js`)** | **`tools/gen_obj_oc_skill_data.mjs`** — C **`OBJECTS_INIT`** → **`OC_SKILL_ROW_BY_OTYP`** keyed by **`objects[]`** index (whip **82**, projectiles **19–24**, …). **`seed0077`/`seed8000`:** **PASS**. **`npm run score`:** **2/44**. |
 | **2026-05-25 (`objects_nums` u_init otyp audit vs C objects[])** | Monk pot/lamp, Healer scalpel, Arc **`BULLWHIP_MK`** 82, **`MAGIC_MARKER`** 243, blindfold 233 in role invent links. **`seed0077`/`seed8000`:** **PASS**. **`npm run score`:** **2/44**. |
 | **2026-05-25 (`do.c` goto_level placement + fixup_special tail`)** | **`placeHeroAfterGotoLevelLikeC`**, **`u_on_dnstairs`/`u_on_sstairs`**; **`deferredGotoHeroLikeC`** **`UTOTYPE_*`**; **`fixupSpecialLikeC`** for **`load_special`** (**`load_lua`** deferred). **`seed0077`/`seed8000`:** **PASS**. **`npm run score`:** **2/44**. |
