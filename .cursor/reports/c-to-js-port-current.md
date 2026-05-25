@@ -18,11 +18,11 @@ Thin handoff for the next coding session. **Score + milestones:** [`c-to-js-port
 
 **Deferred for now:** **`maybe_do_tutorial`** / **`tut-1`** / full **`do.c`** **`goto_level`** (Lua **`tutorial()`** / **`free_tutorial()`**, **`savelev`**, **`gmst_*`**, …) and **`dokick`**/**`dothrow`** vs **`leaving_tutorial`** — strong upstream dependencies (save, specials, fuller **`do.c`**); treat as backlog until chargen / core early-game parity is further along; **`LIVELOGFILE`** parity if the judge ever compares livelog lines.
 
-**Last slice:** **`mkmaze.c`** Medusa **`fixup_special`** — **`mkTtObjectStatueLikeC`**, **`set_corpsenm`**, **`polyWhenStonedLikeC`**/**`pmResistanceLikeC`** retry loops; **`mkcorpstat`** assigns **`rndmonstLikeC`** corpsenm. **`stolen_booty`** / **`baalz_fixup`** / NHL **`load_lua`** / **`flip_level`** deferred. **`seed0077`/`seed8000`:** **PASS**. **`npm run score`:** **2/44**.
+**Last slice:** **`mkmaze.c`** **`stolen_booty`** — **`do_name_orc.js`** (**`rndorcname`**, **`christen_monst`**, **`christen_orc`**), **`stolen_booty.js`** (**`migr_booty_item`**, **`migrate_orc`**, **`shiny_orc_stuff`**, **`fmon`** gang loop); **`FOOD_CLASS_MKOBJ_WALK`** export. NHL **`load_lua`** / **`flip_level`** / **`baalz_fixup`** deferred. **`seed0077`/`seed8000`:** **PASS**. **`npm run score`:** **2/44**.
 
 ## Next steps
 
-1. **`mkmaze`** — NHL **`load_lua`**; full **`stolen_booty`**; **`flip_level`**; **`baalz_fixup`**; **`premap_detect`** / **`ensure_way_out`**.
+1. **`mkmaze`** — NHL **`load_lua`**; **`flip_level`**; **`baalz_fixup`**; **`premap_detect`** / **`ensure_way_out`**; **`obj_delivery`** **`MIGR_TO_SPECIES`** when booty objects arrive.
 2. **`goto_level`** — savelev tail; full **`worm.c`** when long worms on level.
 3. **`objects_nums`** — wire **`nh5OclassForOtyp`** via map for ARMOR/ROCK only after **`mksobj_init`** floor parity; more legacy floor **`otyp`** vs C when replaying **`mkobj`**.
 
