@@ -8,7 +8,7 @@ import {
     COLNO, ROWNO, DOOR, SDOOR, TREE,
     D_CLOSED, D_LOCKED, D_TRAPPED,
     SV0, SV1, SV2, SV3, SV4, SV5, SV6, SV7, SVALL,
-    IS_WALL, IS_OBSTRUCTED, IS_DOOR, ROOMOFFSET,
+    IS_WALL, IS_OBSTRUCTED, IS_DOOR, ROOMOFFSET, CORR, SCORR,
     Is_rogue_level,
 } from './const.js';
 import { newsym } from './display.js';
@@ -152,7 +152,6 @@ function rogueVisionLikeC(next, next_rmin, next_rmax) {
             for (let zx = lx; zx <= hx; zx++) {
                 if (zx < 1 || zx >= COLNO) continue;
                 if (room.rlit) {
-                    /* C sets IN_SIGHT + seenv; display still gates floor on viz_clear in update pass. */
                     next[zy][zx] = COULD_SEE | IN_SIGHT;
                     const loc = level.at(zx, zy);
                     if (loc) loc.seenv = SVALL;
@@ -454,6 +453,8 @@ export function vision_recalc(control = 0) {
     const u = game.u;
     if (!u || !game.level) return;
     game.vision_full_recalc = 0;
+    const deferCorrInSight = (game._deferCorrInSightOnce | 0) !== 0;
+    if (deferCorrInSight) game._deferCorrInSightOnce = 0;
     if (game.in_mklev) return;
 
     // Swap to unused buffer
@@ -475,45 +476,13 @@ export function vision_recalc(control = 0) {
         }
     }
 
-    // Compute IN_SIGHT from COULD_SEE + lighting
-    const level = game.level;
-    const ux = u.ux, uy = u.uy;
-
-    for (let row = 0; row < ROWNO; row++) {
-        const dy = Math.sign(uy - row);
-        for (let col = next_rmin[row]; col <= next_rmax[row]; col++) {
-            if (!(next[row][col] & COULD_SEE)) continue;
-            const loc = level?.at(col, row);
-            if (!loc) continue;
-
-            // Night vision: adjacent cells always IN_SIGHT
-            if (Math.abs(col - ux) <= 1 && Math.abs(row - uy) <= 1) {
-                next[row][col] |= IN_SIGHT;
-                continue;
-            }
-
-            // Lit cells
-            if (loc.lit) {
-                if ((loc.typ === DOOR || loc.typ === SDOOR || IS_WALL(loc.typ))
-                    && !viz_clear[row]?.[col]) {
-                    // Walls/doors: only IN_SIGHT if adjacent cell toward hero is lit
-                    const dx = Math.sign(ux - col);
-                    const flev = level?.at(col + dx, row + dy);
-                    if (flev?.lit) {
-                        next[row][col] |= IN_SIGHT;
-                    }
-                } else {
-                    next[row][col] |= IN_SIGHT;
-                }
-            }
-        }
-    }
-
-    // Swap viz_array and run newsym updates
+    // Swap viz_array and run newsym updates (C: IN_SIGHT from COULD_SEE+lit in loop below)
     const old_array = game.viz_array;
     game.viz_array = next;
     game.active_buf = game.active_buf === 0 ? 1 : 0;
 
+    const level = game.level;
+    const ux = u.ux, uy = u.uy;
     const old_rmin = game._viz_rmin;
     const old_rmax = game._viz_rmax;
     if (old_array && control !== 2 && game.level) {
@@ -554,13 +523,20 @@ export function vision_recalc(control = 0) {
                             if (!(ov & IN_SIGHT) || oldseenv !== loc.seenv)
                                 newsym(col, row);
                         }
-                    } else if (!rogueBlocksFloorDisplayLikeC(col, row, loc)) {
-                        next_row[col] |= IN_SIGHT;
-                        const oldseenv = loc.seenv || 0;
-                        const sv = seenv_matrix[dy + 1][(col < ux) ? 0 : (col > ux ? 2 : 1)];
-                        loc.seenv = (loc.seenv || 0) | sv;
-                        if (!(ov & IN_SIGHT) || oldseenv !== loc.seenv)
-                            newsym(col, row);
+                    } else {
+                        const typ = loc.typ | 0;
+                        const firstCould = !(ov & COULD_SEE);
+                        /* C: door-open recalc — newly COULD_SEE lit CORR stays off-map until explored. */
+                        if (deferCorrInSight && firstCould && (typ === CORR || typ === SCORR)) {
+                            /* COULD_SEE only this vision_recalc */
+                        } else if (!rogueBlocksFloorDisplayLikeC(col, row, loc)) {
+                            next_row[col] |= IN_SIGHT;
+                            const oldseenv = loc.seenv || 0;
+                            const sv = seenv_matrix[dy + 1][(col < ux) ? 0 : (col > ux ? 2 : 1)];
+                            loc.seenv = (loc.seenv || 0) | sv;
+                            if (!(ov & IN_SIGHT) || oldseenv !== loc.seenv)
+                                newsym(col, row);
+                        }
                     }
                 } else if ((nv & COULD_SEE) && loc.waslit) {
                     loc.waslit = 0;

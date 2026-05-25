@@ -96,6 +96,7 @@ export async function doopenIndirHeroLikeC(g, x, y) {
         }
         feelNewsym(x, y);
         recalcBlockPointLikeC(x, y);
+        g._deferCorrInSightOnce = 1;
     } else {
         exercise(A_STR, true);
         await pline('The door resists!');

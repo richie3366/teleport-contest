@@ -18,11 +18,11 @@ Thin handoff for the next coding session. **Score + milestones:** [`c-to-js-port
 
 **Deferred for now:** **`maybe_do_tutorial`** / **`tut-1`** / full **`do.c`** **`goto_level`** (Lua **`tutorial()`** / **`free_tutorial()`**, **`savelev`**, **`gmst_*`**, …) and **`dokick`**/**`dothrow`** vs **`leaving_tutorial`** — strong upstream dependencies (save, specials, fuller **`do.c`**); treat as backlog until chargen / core early-game parity is further along; **`LIVELOGFILE`** parity if the judge ever compares livelog lines.
 
-**Last slice:** **`vision.c` rogue door-open + `rogue_vision`.** **`vision.js`**: C **`dig_point`/`fill_point`** in **`recalcBlockPointLikeC`**; **`rogue_vision`** on rogue levels; **`moveloop_core`** / **`lock.c`** **`feel_newsym`** + deferred **`vision_recalc(0)`**; rogue floor display gated on **`viz_clear`**. **`search.js`**: rogue **`D_NODOOR`** in **`cvt_sdoor_to_door`**. **`cmd.js`**: no **`vision_recalc(1)`** on autoopen-without-move. **`seed0077`:** **RNG 3242/3242**; **screens 19/33** (**33/33** cursors) — west apport alcove (**step 17** cols 35–36) matches C; **~11** cells NW of door still early-reveal vs C. **`seed8000`:** **20/23** screens. **`npm run score`:** **0/44**.
+**Last slice:** **`vision.c` door-open lit CORR defer.** **`lock_hero.js`**: **`_deferCorrInSightOnce`** after **`doopen_indir`**. **`vision.js`**: on that **`vision_recalc`**, first-time **`COULD_SEE`** lit **`CORR`/`SCORR`** keep **`COULD_SEE`** only (no **`IN_SIGHT`** / **`newsym`** paint) — matches C keeping north corridor blank while west apport **`ROOM`** (cols 35–36) still reveals. **`seed0077`:** **RNG 3242/3242**; **screens 19/33** (**33/33** cursors); step **17** still **~10** cells (lichen **(35,9)**, west-wall **`seenv`** spill **(34,14–18)**, …). **`seed8000`:** **20/23** screens. **`npm run score`:** **0/44**.
 
 ## Next steps
 
-1. **`seed0077` screens** — step **17** NW corridor / lichen (**~11** cells); moveloop steps **18+**; chargen steps **0–6** (tty date banner). **`viz_clear`** / rogue room bounds vs C when corridor north of west door should stay blank until explored.
+1. **`seed0077` screens** — step **17** lichen **(35,9)** (**`mklev`** niche sleeper / **`newsym`**); west-wall early **`seenv`** beside apport **(34,14–18)**; moveloop **18+**; chargen **0–6** (tty date banner). Root cause for remaining spill: **`ROOM`** **`IN_SIGHT`** + **`wall_angle`** on adjacent **`CORR`**, not corridor **`COULD_SEE`** alone.
 
 2. **`mklev` lregions** — wire **`game.dndest`/`updest`** when **`place_lregions`** ported.
 
