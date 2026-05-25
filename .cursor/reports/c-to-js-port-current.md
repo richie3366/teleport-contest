@@ -18,11 +18,11 @@ Thin handoff for the next coding session. **Score + milestones:** [`c-to-js-port
 
 **Deferred for now:** **`maybe_do_tutorial`** / **`tut-1`** / full **`do.c`** **`goto_level`** (Lua **`tutorial()`** / **`free_tutorial()`**, **`savelev`**, **`gmst_*`**, …) and **`dokick`**/**`dothrow`** vs **`leaving_tutorial`** — strong upstream dependencies (save, specials, fuller **`do.c`**); treat as backlog until chargen / core early-game parity is further along; **`LIVELOGFILE`** parity if the judge ever compares livelog lines.
 
-**Last slice:** **`lock.c`/`vision.c`/`display.c` west apport door-open.** **`mfndpos_mon.js`**: export **`westFillApportDoorLikeC`**; **`westApportSleeperNicheAtLikeC`** requires west-fill apport. **`vision.js`**: C **`cansee`** = **`IN_SIGHT`**; door-open **`TEMP_LIT`** + lit defer; skip **`newsym`** on deferred **`COULD_SEE`** toggle. **`lock_hero.js`**: door-only **`feelNewsym`**; apport **`_doorOpenApportNewsym*`** + **`allmain.js`** post-**`vision_recalc`** **`flush_screen`**. **`display.js`**: horizontal open door **`-`**; rogue wall **`decgfx`**; **`TEMP_LIT`** apport visibility. **`seed0077`:** **RNG 3242/3242**; **screens 19/33** — step **17**: C **`a`** on door row col **35**, JS **`-`** + fungus one row south (**9** cell diffs). **`seed8000`:** **RNG 3130/3130**; **20/23** screens. **`npm run score`:** **0/44** (no push).
+**Last slice:** **`display.c`/`symbols.c` rogue apport tty + `vision.c` defer.** **`display.js`**: rogue doors **`+`** (**`init_rogue_symbols`**); west apport fungus on door cell **(door.x, door.y)** not niche **CORR**; niche stays blank; door **`newsym`** paints sleeper on open door. **`vision.js`**: restore **`rogueBlocksFloorDisplayLikeC`**; south-west defer blanks **`ROOM`/`CORR`** on **`COULD_SEE`** toggle. **`seed0077`:** **RNG 3242/3242**; **screens 19/33** — step **17** door-row fungus **`a`** matches C (**8** cell diffs: south-west **#`/`$** spill, rogue wall **`q`** vs **`─`**). **`seed8000`:** **RNG 3130/3130**; **20/23** screens. **`npm run score`:** **0/44** (no push).
 
 ## Next steps
 
-1. **`seed0077` step 17** — fungus vs open-door on **(36,8)** (C **`a`** decode col **35** vs JS **`-`**); south-west **`#`/`$`** spill **(34,13–18)**; rogue wall **`q`** vs **`─`** at capture; moveloop **18+**; chargen **0–6**. Port **`light.c`** **`do_light_sources`** when TEMP_LIT defer is insufficient.
+1. **`seed0077` step 17** — south-west lit spill **(34,13–18)** (port **`light.c`** **`do_light_sources`** / C **`COULD_SEE`** without **`IN_SIGHT`**); rogue DEC **`q`** vs IBM **`─`**; moveloop **18+**; chargen **0–6**.
 
 2. **`mklev` lregions** — wire **`game.dndest`/`updest`** when **`place_lregions`** ported.
 

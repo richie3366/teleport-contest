@@ -248,6 +248,12 @@ function monAtCellLikeC(x, y) {
     return monsters.find((m) => (m.mx | 0) === xi && (m.my | 0) === yi) ?? null;
 }
 
+/** C: west apport sleeper at (door.x−1, door.y+1) — tty paints mon on door cell east. */
+function westApportDoorCellForSleeperLikeC(x, y) {
+    if (!westApportSleeperNicheAtLikeC(game, x | 0, y | 0)) return null;
+    return { x: (x | 0) + 1, y: (y | 0) - 1 };
+}
+
 /** C: vision.c lit/TEMP_LIT + display.c newsym — apport sleeper before IN_SIGHT. */
 function apportSleeperSeenViaTempLitLikeC(x, y) {
     const mon = monAtCellLikeC(x, y);
@@ -341,7 +347,7 @@ function blankTutorialMenuTailOnDisplay(disp) {
 
 // ── Terrain to display character + color + DEC flag ──
 // C ref: display.c back_to_glyph / map_glyphinfo (simplified).
-export function mapTerrainGlyph(loc, x, y) {
+export function mapTerrainGlyph(loc, x, y, skipApportMon = false) {
     const typ = loc.typ;
     const rogue = Is_rogue_level(game.u?.uz);
     switch (typ) {
@@ -353,9 +359,11 @@ export function mapTerrainGlyph(loc, x, y) {
         return { ch: '~', color: NO_COLOR, dec: true };  // DEC middle dot
     }
     case CORR: {
-        const sleeper = monAtCellLikeC(x, y);
-        if (sleeper && (sleeper.mgenmklev | 0) && westApportSleeperNicheAtLikeC(game, x, y)) {
-            return mapMonsterGlyphLikeC(sleeper);
+        if (!skipApportMon) {
+            const sleeper = monAtCellLikeC(x, y);
+            if (sleeper && (sleeper.mgenmklev | 0) && westApportSleeperNicheAtLikeC(game, x, y)) {
+                return mapMonsterGlyphLikeC(sleeper);
+            }
         }
         /* C: west-door row shows `q` on corridor cells that share wall `seenv` (typ may stay CORR). */
         if (loc.seenv) {
@@ -370,13 +378,18 @@ export function mapTerrainGlyph(loc, x, y) {
         return { ch: '#', color: NO_COLOR, dec: false };
     }
     case DOOR:
+        /* C: symbols.c init_rogue_symbols — open/closed doors are '+' on rogue. */
+        if (rogue) {
+            if (loc.doormask & D_ISOPEN) return { ch: '+', color: CLR_BROWN, dec: false };
+            if (loc.doormask & (D_CLOSED | D_LOCKED)) return { ch: '+', color: CLR_BROWN, dec: false };
+            return { ch: '~', color: CLR_GRAY, dec: false };
+        }
         if (loc.doormask & D_ISOPEN) {
             return loc.horizontal
                 ? { ch: '-', color: CLR_BROWN, dec: false }
                 : { ch: '|', color: CLR_BROWN, dec: false };
         }
         if (loc.doormask & (D_CLOSED | D_LOCKED)) return { ch: '+', color: CLR_BROWN, dec: false };
-        if (rogue) return { ch: '~', color: CLR_GRAY, dec: false };
         return { ch: '~', color: NO_COLOR, dec: true };  // D_NODOOR = floor
     case STAIRS:
         // Check upstair vs downstair
@@ -527,6 +540,23 @@ export function newsym(x, y) {
         return;
     }
 
+    const door = game.level?.at(x, y);
+    if (door && (door.typ | 0) === DOOR) {
+        const wx = (x | 0) - 1;
+        const wy = (y | 0) + 1;
+        const sleeper = monAtCellLikeC(wx, wy);
+        if (
+            sleeper
+            && (sleeper.mgenmklev | 0)
+            && westApportSleeperNicheAtLikeC(game, wx, wy)
+            && (cansee(wx, wy) || apportSleeperSeenViaTempLitLikeC(wx, wy))
+            && monVisibleForNewsymLikeC(sleeper)
+        ) {
+            paintCellGlyph(x, y, loc, mapMonsterGlyphLikeC(sleeper), true);
+            return;
+        }
+    }
+
     if (cansee(x, y) || apportSleeperSeenViaTempLitLikeC(x, y)) {
         const mon = monAtCellLikeC(x, y);
         if (mon && monVisibleForNewsymLikeC(mon)) {
@@ -535,6 +565,20 @@ export function newsym(x, y) {
                 && westApportAlcoveCornerGlyphLikeC(x, y, loc)
             ) {
                 mapLocationLikeC(x, y, true);
+                return;
+            }
+            const doorCell = westApportDoorCellForSleeperLikeC(x, y);
+            if ((mon.mgenmklev | 0) && doorCell) {
+                loc.remembered_glyph = null;
+                /* C tty: fungus on door cell; niche CORR stays blank on screen. */
+                show_glyph_cell(x, y, ' ', NO_COLOR, false);
+                const doorLoc = game.level?.at(doorCell.x, doorCell.y);
+                if (doorLoc) {
+                    paintCellGlyph(
+                        doorCell.x, doorCell.y, doorLoc,
+                        mapMonsterGlyphLikeC(mon), true,
+                    );
+                }
                 return;
             }
             mapLocationLikeC(x, y, false);
