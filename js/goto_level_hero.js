@@ -10,7 +10,7 @@
 // **`gotoLevelTutorialBranchHookLikeC`** — C **`do.c`** **`newdungeon`** **`In_tutorial`/`tutorial()`** before **`savelev`** / **`impact_drop`** ( **`tutorial_branch.js`** ).
 // **`maybeRecordEnteredNewLevelLivelogLikeC`** after **`mklev()`** when map built (**`livelog.js`**) — C **`new`** after **`mklev`**; **`livelogPrintfLikeC`** ring (**`gd.livelog_recent`**), no **`LIVELOGFILE`**.
 // Deferred: **`fill_pit`**, real **`next_to_u`**,
-// full **`keepdogs`/`dog.c`** migration (**`migrate_to_level`**, …), bones/save, **`safe_teleds`** on same-level mystery-force.
+// full **`keepdogs`/`dog.c`** migration (**`migrate_to_level`**, …), bones/save, **`safe_teleds`** on same-level mystery-force (**`teleds`** subset not ported).
 
 import {
     mklev,
@@ -55,7 +55,13 @@ import {
 } from './const.js';
 import { gotoLevelTutorialBranchHookLikeC } from './tutorial_branch.js';
 import { maybeRecordEnteredNewLevelLivelogLikeC } from './livelog.js';
-import { placebcHeroLikeC, unplacebcHeroLikeC, ballreleaseHeroLikeC } from './ball_bc_hero.js';
+import {
+    placebcHeroLikeC,
+    unplacebcHeroLikeC,
+    ballreleaseHeroLikeC,
+    ballfallHeroLikeC,
+    weldedUballLikeC,
+} from './ball_bc_hero.js';
 
 /** C: **`Punished`** / carried **`uball`** — macro subset until **`punish()`** sets **`u.Punished`**. */
 function heroPunishedLikeC(g) {
@@ -389,6 +395,7 @@ export async function applyGotoAfterHeroHoleFallLikeC(g, dest) {
 
     if (await mklev()) maybeRecordEnteredNewLevelLivelogLikeC(g);
     if (!In_endgame(newUz)) u_onRndspotLikeC(g, 0);
+    if (heroPunishedLikeC(g) && !weldedUballLikeC(g)) await ballfallHeroLikeC(g);
     if (heroPunishedLikeC(g)) await placebcHeroLikeC(g);
     await objDeliveryLikeC(g, false);
     await spotEffects(g, false, {});

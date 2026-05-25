@@ -9,6 +9,8 @@ import { Is_waterlevel } from './const.js';
 import { weldedUwepLikeC } from './hero_hands.js';
 import { encumberMsg } from './pickup.js';
 import { syncHeroInvWeightNetLikeC } from './encumbr.js';
+import { rn1, rn2 } from './rng.js';
+import { losehp, maybeHalfPhys } from './mthrowu.js';
 
 /** C: ball.c — ball & chain stack order at hero feet. */
 export const BCPOS_DIFFER = 0;
@@ -131,4 +133,46 @@ export async function ballreleaseHeroLikeC(g, showmsg) {
     removeObjFromHeroInvent(g, ball);
     syncHeroInvWeightNetLikeC(g);
     await encumberMsg();
+}
+
+/** C: do_wear.c **`hard_helmet(uarmh)`** — metallic/crackable helm materials. */
+function hardHelmetUarmhLikeC(helm) {
+    if (!helm) return false;
+    const m = helm.oc_material | 0;
+    if (m === 11 || m === 12 || m === 13) return true;
+    if (m === 19) return true;
+    return !!(helm.oc_crackable | 0);
+}
+
+/**
+ * C: ball.c **`ballfall()`** — trap-door / hole fall: ball may hit hero before **`placebc`**.
+ * @param {import('./gstate.js').game} g
+ */
+export async function ballfallHeroLikeC(g) {
+    const u = g.u;
+    const ball = g.uball;
+    if (!ball) return;
+    if (objectCarriedByHeroLikeC(g, ball) && weldedUballLikeC(g)) return;
+
+    const ux = u.ux | 0;
+    const uy = u.uy | 0;
+    const getsHit =
+        ((ball.ox | 0) !== ux || (ball.oy | 0) !== uy)
+        && (u.uwep === ball ? false : !!rn2(5));
+
+    await ballreleaseHeroLikeC(g, true);
+    if (!getsHit) return;
+
+    let dmg = rn1(7, 25);
+    await pline('The iron ball falls on your head.');
+    const helm = u.uarmh;
+    if (helm) {
+        if (hardHelmetUarmhLikeC(helm)) {
+            await pline('Fortunately, you are wearing a hard helmet.');
+            dmg = 3;
+        } else if (g.flags?.verbose) {
+            await pline('Your headgear does not protect you.');
+        }
+    }
+    losehp(maybeHalfPhys(dmg), 'crunched in the head by an iron ball', 0);
 }
