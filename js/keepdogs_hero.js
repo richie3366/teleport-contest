@@ -1,11 +1,26 @@
 // keepdogs_hero.js — dog.c keepdogs() subset for goto_level.
 // C ref: dog.c keepdogs(), mondata.c levl_follower(); mon.c helpless().
 
-import { STRAT_WAITFORU } from './const.js';
-import { ESHK } from './const.js';
-import { newsym } from './display.js';
+import {
+    STRAT_WAITFORU,
+    ESHK,
+    EPRI,
+    EGD,
+    NO_TRAP_FLAGS,
+    MIGR_EXACT_XY,
+} from './const.js';
+import { pline, newsym } from './display.js';
+import { onLevelLikeC } from './hacklib.js';
 import { monnearMonsterXYLikeC } from './mon_geom.js';
-import { levlFollowerLikeC, monHasAmulet } from './mondata.js';
+import {
+    levlFollowerLikeC,
+    monHasAmulet,
+    humanoidLikeC,
+    raceptr,
+} from './mondata.js';
+import { migrateMonToLevelLikeC } from './mon_limbo.js';
+import { cansee } from './vision.js';
+import { mintrap, mUnleashMonLikeC } from './trap.js';
 
 /** C: mon.c **`helpless(mtmp)`** — **`mfrozen`/`mcanmove`** subset. */
 function helplessMonsterKeepdogsLikeC(mtmp) {
@@ -14,14 +29,46 @@ function helplessMonsterKeepdogsLikeC(mtmp) {
     return (mtmp.mcanmove | 0) === 0;
 }
 
+/** C: mondata.h **`canseemon`** subset for **`keepdogs`** plines. */
+function canseemonKeepdogsLikeC(g, mtmp) {
+    const u = g.u;
+    if (!mtmp || !u) return false;
+    if (u.usteed === mtmp) return true;
+    if ((mtmp.minvis | 0) && !(u.See_invisible | 0)) return false;
+    return cansee(mtmp.mx, mtmp.my);
+}
+
+/** C: mon.c **`Monnam`** — stub until **`x_monnam`**. */
+function monnamKeepdogsLikeC(mtmp) {
+    const n = mtmp?.data?.mname || mtmp?.monnam;
+    if (n) return `the ${n}`;
+    return 'the monster';
+}
+
+/** C: dog.c **`keep_mon_accessible`**. */
+function keepMonAccessibleLikeC(g, mtmp) {
+    if (mtmp?.iswiz) return true;
+    const uz = g.u?.uz;
+    if (!uz || !mtmp?.mextra) return false;
+    if ((mtmp.isshk | 0) && ESHK(mtmp)?.shoplevel && !onLevelLikeC(uz, ESHK(mtmp).shoplevel)) {
+        return true;
+    }
+    if ((mtmp.ispriest | 0) && EPRI(mtmp)?.shrlevel && !onLevelLikeC(uz, EPRI(mtmp).shrlevel)) {
+        return true;
+    }
+    if ((mtmp.isgd | 0) && EGD(mtmp)?.gdlevel && !onLevelLikeC(uz, EGD(mtmp).gdlevel)) {
+        return true;
+    }
+    return false;
+}
+
 /**
  * C: dog.c **`keepdogs(boolean pets_only)`** — pets / followers near hero → **`gm.mydogs`**.
- * Deferred: **`mintrap`**, **`finish_meating`**, **`stay_behind`** plines, **`keep_mon_accessible`**,
- * **`migrate_to_level`**, leash slack, worm **`mon_leave`**.
+ * Deferred: **`finish_meating`**, worm **`mon_leave`**, **`mdrop_special_objs`** (steed amulet).
  * @param {import('./gstate.js').game} g
  * @param {boolean} petsOnly
  */
-export function keepdogsHeroLikeC(g, petsOnly) {
+export async function keepdogsHeroLikeC(g, petsOnly) {
     g.gd = g.gd || {};
     g.gd.keepdogs_last_pets_only = !!petsOnly;
 
@@ -58,30 +105,67 @@ export function keepdogsHeroLikeC(g, petsOnly) {
             && (!helplessMonsterKeepdogsLikeC(mtmp) || mtmp === u.usteed)
             && !((mtmp.mstrategy | 0) & STRAT_WAITFORU);
 
-        if (!follows) continue;
+        if (follows) {
+            if (mtmp.mtrapped) await mintrap(mtmp, NO_TRAP_FLAGS);
 
-        if (mtmp !== u.usteed && ((mtmp.meating | 0) || (mtmp.mtrapped | 0))) continue;
-        if (mtmp !== u.usteed && monHasAmulet(mtmp)) continue;
+            let stayBehind = false;
 
-        if (mtmp === u.usteed) {
-            mtmp.mtrapped = 0;
-            mtmp.meating = 0;
+            if (mtmp === u.usteed) {
+                mtmp.mtrapped = 0;
+                mtmp.meating = 0;
+            } else if ((mtmp.meating | 0) || (mtmp.mtrapped | 0)) {
+                if (canseemonKeepdogsLikeC(g, mtmp)) {
+                    const who = monnamKeepdogsLikeC(mtmp);
+                    const what = (mtmp.meating | 0) ? 'eating' : 'trapped';
+                    await pline(`${who} is still ${what}.`);
+                }
+                stayBehind = true;
+            } else if (monHasAmulet(mtmp)) {
+                if (canseemonKeepdogsLikeC(g, mtmp)) {
+                    await pline(`${monnamKeepdogsLikeC(mtmp)} seems very disoriented for a moment.`);
+                }
+                stayBehind = true;
+            }
+
+            if (stayBehind) {
+                if (mtmp.mleashed) {
+                    const ptr = raceptr(mtmp);
+                    const pron = humanoidLikeC(ptr)
+                        ? ((mtmp.female | 0) ? 'Her' : 'His')
+                        : 'Its';
+                    await pline(`${pron} leash suddenly comes loose.`);
+                    await mUnleashMonLikeC(g, mtmp, false);
+                }
+                continue;
+            }
+
+            const mx = mtmp.mx | 0;
+            const my = mtmp.my | 0;
+            mons.splice(i, 1);
+            if (!g.mydogs) g.mydogs = [];
+            g.mydogs.push({
+                mtmp,
+                xWas: mx,
+                yWas: my,
+                wormno: 0,
+                mlstmv: g.moves | 0,
+            });
+            mtmp.mx = 0;
+            mtmp.my = 0;
+            if (mx) newsym(mx, my);
+            continue;
         }
 
-        const mx = mtmp.mx | 0;
-        const my = mtmp.my | 0;
-        mons.splice(i, 1);
-        if (!g.mydogs) g.mydogs = [];
-        g.mydogs.push({
-            mtmp,
-            xWas: mx,
-            yWas: my,
-            wormno: 0,
-            mlstmv: g.moves | 0,
-        });
-        mtmp.mx = 0;
-        mtmp.my = 0;
-        if (mx) newsym(mx, my);
+        if (keepMonAccessibleLikeC(g, mtmp)) {
+            const uz = u.uz;
+            if (uz) migrateMonToLevelLikeC(g, mtmp, uz, MIGR_EXACT_XY);
+            continue;
+        }
+
+        if (mtmp.mleashed) {
+            await pline(`${monnamKeepdogsLikeC(mtmp)}'s leash goes slack.`);
+            await mUnleashMonLikeC(g, mtmp, false);
+        }
     }
 
     g.gd.keepdogs_last_tame_seen = tame;

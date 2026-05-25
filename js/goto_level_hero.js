@@ -5,7 +5,7 @@
 // Ported: **`applyGotoAfterHeroHoleFallLikeC(g, dest?)`**, **`impactDropLikeC`**/**`objDeliveryLikeC`** (**`dokick.c`**), **`shopdigLikeC(1)`** / **`payForDamage('dig into')`** before **`You fall through...`** (**`dig.c`** **`digactualhole`** order); **`pickup(1)`** tail (**`do.c`** **`goto_level`**).
 // **`applyHeroDescendStairsOneLevelLikeC(g)`** — **`do.c`** **`goto_level`** down-stairs slice after **`mklev`**/**`u_on_upstairs`** (**`near_capacity`/`Punished`/`Fumbling`**, **`drag_down`**, **`losehp`**, **`placebc`**).
 // **`scheduleGotoHeroLikeC` / `deferredGotoHeroLikeC`** — **`do.c`** **`schedule_goto`/`deferred_goto`** subset (**`applyGotoLevelDirectHeroLikeC`** for non-falling **`goto_level`**).
-// **`keepdogsHeroLikeC`** — C **`dog.c`** **`keepdogs(pets_only)`** (**`levl_follower`**, **`monnear`**, **`gm.mydogs`**); **`mintrap`** / **`keep_mon_accessible`** deferred.
+// **`keepdogsHeroLikeC`** — C **`dog.c`** **`keepdogs(pets_only)`** (**`mintrap`**, **`stay_behind`**, **`keep_mon_accessible`**, **`gm.mydogs`**).
 // **`vision_recalc(2)`** after **`keepdogs`**, before **`u.uz`** assign — C **`goto_level`** (**`vision.c`** “no longer see old level” pass before **`savelev`**).
 // **`gotoLevelTutorialBranchHookLikeC`** — C **`do.c`** **`newdungeon`** **`In_tutorial`/`tutorial()`** before **`savelev`** / **`impact_drop`** ( **`tutorial_branch.js`** ).
 // **`maybeRecordEnteredNewLevelLivelogLikeC`** after **`mklev()`** when map built (**`livelog.js`**) — C **`new`** after **`mklev`**; **`livelogPrintfLikeC`** ring (**`gd.livelog_recent`**), no **`LIVELOGFILE`**.
@@ -231,7 +231,7 @@ export async function applyGotoLevelDirectHeroLikeC(g, dest, gotoOpts = {}) {
 
     if (heroPunishedLikeC(g)) unplacebcHeroLikeC(g);
 
-    if (!g.iflags?.nofollowers) keepdogsHeroLikeC(g, false);
+    if (!g.iflags?.nofollowers) await keepdogsHeroLikeC(g, false);
     vision_recalc(2);
 
     u.uz = newUz;
@@ -361,7 +361,7 @@ export async function applyGotoAfterHeroHoleFallLikeC(g, dest) {
 
     if (heroPunishedLikeC(g)) unplacebcHeroLikeC(g);
 
-    if (!g.iflags?.nofollowers) keepdogsHeroLikeC(g, false);
+    if (!g.iflags?.nofollowers) await keepdogsHeroLikeC(g, false);
     vision_recalc(2);
 
     u.uz = newUz;
@@ -444,7 +444,7 @@ export async function applyHeroDescendStairsOneLevelLikeC(g) {
 
     if (heroPunishedLikeC(g)) unplacebcHeroLikeC(g);
 
-    if (!g.iflags?.nofollowers) keepdogsHeroLikeC(g, false);
+    if (!g.iflags?.nofollowers) await keepdogsHeroLikeC(g, false);
     vision_recalc(2);
 
     u.uz = newUz;

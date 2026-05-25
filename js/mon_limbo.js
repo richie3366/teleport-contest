@@ -42,7 +42,8 @@ function okToObliterateLikeC(g, mtmp, mon) {
  * @param {{ dnum: number, dlevel: number }} toLev
  * @param {number} migrateTyp
  */
-function migrateMonToLevel(g, mtmp, toLev, migrateTyp) {
+/** C: dog.c **`migrate_to_level`** — remove from **`fmon`**, queue **`migrating_mons`**. */
+export function migrateMonToLevelLikeC(g, mtmp, toLev, migrateTyp) {
     if ((mtmp.mleashed | 0)) {
         mtmp.mtame = Math.max(0, (mtmp.mtame | 0) - 1);
         mtmp.mleashed = 0;
@@ -80,7 +81,7 @@ export function mIntoLimbo(g, mtmp) {
         if (mtmp === u.ustuck) u.ustuck = null;
     }
     mtmp.mstate = (mtmp.mstate | 0) | MON_LIMBO;
-    migrateMonToLevel(g, mtmp, { dnum: u.uz.dnum | 0, dlevel: u.uz.dlevel | 0 }, MIGR_APPROX_XY);
+    migrateMonToLevelLikeC(g, mtmp, { dnum: u.uz.dnum | 0, dlevel: u.uz.dlevel | 0 }, MIGR_APPROX_XY);
 }
 
 function obliterateMonGone(g, victim) {

@@ -6,6 +6,7 @@ Historical rows moved from `c-to-js-port-progress.md` so day-to-day work uses **
 
 | When | What changed |
 |------|----------------|
+| **2026-05-25 (`dog.c` keepdogs mintrap + stay_behind + accessible)** | **`keepdogs_hero.js`**: **`mintrap`**, **`stay_behind`** / leash plines, **`keep_mon_accessible`** → **`migrateMonToLevelLikeC`**. **`trap.js`**: export **`mUnleashMonLikeC`**. **`seed0077`/`seed8000`:** **PASS**. **`npm run score`:** **2/44**. |
 | **2026-05-25 (`dog.c` keepdogs levl_follower + mydogs)** | **`keepdogs_hero.js`**: C **`keepdogs`** follow gate (**`levl_follower`**, **`monnear`**, **`STRAT_WAITFORU`**, **`helpless`**); followers → **`g.mydogs`**. **`mondata.js`**: **`levlFollowerLikeC`**, **`isFshkMonsterLikeC`**. **`mintrap`**/**`keep_mon_accessible`** deferred. **`seed0077`/`seed8000`:** **PASS**. **`npm run score`:** **2/44**. |
 | **2026-05-25 (`objects_nums` ARMOR+ROCK obj_oc_skill_data)** | **`gen_obj_oc_skill_data.mjs`**: export **ARMOR**/**ROCK** classes (248 rows); **`nh5OclassFromOcSkillMapLikeC`**. **`mklev`** **`nh5OclassForOtyp`** map wiring deferred (regressed to **0/44**). **`seed0077`/`seed8000`:** **PASS**. **`npm run score`:** **2/44**. |
 | **2026-05-25 (`teleport.c` safe_teleds mystery force)`** | **`teleport_hero.js`** **`safeTeledsHeroLikeC`** / **`teledsHeroLikeC`**; Gehennom amulet same-level abort via **`collect_coords`** + **`goodpos`**. **`seed0077`/`seed8000`:** **PASS**. **`npm run score`:** **2/44**. |
