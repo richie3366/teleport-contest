@@ -10,8 +10,10 @@ import { floorObjKey, obliterateObjectInLevel } from './floorobj.js';
 import {
     COLNO, ROWNO, STONE, ROOM, CROSSWALL, DOOR, SDOOR, IRONBARS,
     IS_WALL, IS_STWALL, IS_DOOR, IS_OBSTRUCTED, IS_POOL, IS_LAVA, IS_TREE,
+    IS_DRAWBRIDGE,
     W_NONDIGGABLE, W_NONPASSWALL, ROOMOFFSET, OTYP_BOULDER, isok,
     MAGIC_PORTAL, VIBRATING_SQUARE,
+    DB_DIR, DB_NORTH, DB_SOUTH, DB_WEST, DB_EAST,
 } from './const.js';
 
 /** C: rm.h IS_DOORJOIN */
@@ -296,9 +298,125 @@ function swapLocCellsFlipLikeC(map, x1, y1, x2, y2) {
     const a = map.at(x1, y1);
     const b = map.at(x2, y2);
     if (!a || !b) return;
+    flipDbridgeVerticalLikeC(a);
+    flipDbridgeVerticalLikeC(b);
     const tmp = { ...a };
     Object.assign(a, b);
     Object.assign(b, tmp);
+}
+
+/** C: sp_lev.c inFlipArea */
+function inFlipAreaLikeC(x, y, minx, maxx, miny, maxy) {
+    return (x | 0) >= minx && (x | 0) <= maxx && (y | 0) >= miny && (y | 0) <= maxy;
+}
+
+/** C: sp_lev.c Flip_coord */
+function flipCoordLikeC(cc, bits, minx, maxx, miny, maxy, flipX, flipY) {
+    const x = cc?.x | 0;
+    const y = cc?.y | 0;
+    if (!x || !inFlipAreaLikeC(x, y, minx, maxx, miny, maxy)) return;
+    if (bits & 1) cc.y = flipY(y);
+    if (bits & 2) cc.x = flipX(x);
+}
+
+/** C: sp_lev.c flip_dbridge_horizontal */
+function flipDbridgeHorizontalLikeC(loc) {
+    if (!loc || !IS_DRAWBRIDGE(loc.typ)) return;
+    const m = loc.drawbridgemask | 0;
+    const dir = m & DB_DIR;
+    if (dir === DB_WEST) loc.drawbridgemask = (m & ~DB_DIR) | DB_EAST;
+    else if (dir === DB_EAST) loc.drawbridgemask = (m & ~DB_DIR) | DB_WEST;
+}
+
+/** C: sp_lev.c flip_dbridge_vertical */
+function flipDbridgeVerticalLikeC(loc) {
+    if (!loc || !IS_DRAWBRIDGE(loc.typ)) return;
+    const m = loc.drawbridgemask | 0;
+    const dir = m & DB_DIR;
+    if (dir === DB_NORTH) loc.drawbridgemask = (m & ~DB_DIR) | DB_SOUTH;
+    else if (dir === DB_SOUTH) loc.drawbridgemask = (m & ~DB_DIR) | DB_NORTH;
+}
+
+/** C: sp_lev.c flip_level — swap drawbridge dir before horizontal terrain swap */
+function swapLocCellsFlipHorizontalLikeC(map, x1, y1, x2, y2) {
+    const a = map.at(x1, y1);
+    const b = map.at(x2, y2);
+    if (!a || !b) return;
+    flipDbridgeHorizontalLikeC(a);
+    flipDbridgeHorizontalLikeC(b);
+    const tmp = { ...a };
+    Object.assign(a, b);
+    Object.assign(b, tmp);
+}
+
+/**
+ * C: sp_lev.c flip_level — room / subroom bounds.
+ * @param {object} room
+ */
+function flipRoomBoundsLikeC(room, bits, flipX, flipY) {
+    if (!room || (room.hx | 0) < 0) return;
+    if (bits & 1) {
+        let ly = flipY(room.ly | 0);
+        let hy = flipY(room.hy | 0);
+        if (ly > hy) { const t = ly; ly = hy; hy = t; }
+        room.ly = ly;
+        room.hy = hy;
+    }
+    if (bits & 2) {
+        let lx = flipX(room.lx | 0);
+        let hx = flipX(room.hx | 0);
+        if (lx > hx) { const t = lx; lx = hx; hx = t; }
+        room.lx = lx;
+        room.hx = hx;
+    }
+    const nsub = room.nsubrooms | 0;
+    for (let i = 0; i < nsub; i++) {
+        flipRoomBoundsLikeC(room.sbrooms?.[i], bits, flipX, flipY);
+    }
+}
+
+/** C: sp_lev.c lregions[] box flip */
+function flipLregionBoxLikeC(box, bits, flipX, flipY) {
+    if (!box) return;
+    if (bits & 1) {
+        let y1 = flipY(box.y1 | 0);
+        let y2 = flipY(box.y2 | 0);
+        if (y1 > y2) { const t = y1; y1 = y2; y2 = t; }
+        box.y1 = y1;
+        box.y2 = y2;
+    }
+    if (bits & 2) {
+        let x1 = flipX(box.x1 | 0);
+        let x2 = flipX(box.x2 | 0);
+        if (x1 > x2) { const t = x1; x1 = x2; x2 = t; }
+        box.x1 = x1;
+        box.x2 = x2;
+    }
+}
+
+/** @param {import('./gstate.js').game} g */
+function flipFloorObjListCoordsLikeC(g, bits, minx, maxx, miny, maxy, flipX, flipY) {
+    const lvl = g.level;
+    if (!lvl) return;
+    for (let o = lvl.fobj; o; o = o.nobj) {
+        const ox = o.ox | 0;
+        const oy = o.oy | 0;
+        if (!inFlipAreaLikeC(ox, oy, minx, maxx, miny, maxy)) continue;
+        if (bits & 1) o.oy = flipY(oy);
+        if (bits & 2) o.ox = flipX(ox);
+    }
+    const buried = lvl.buriedObjHeads;
+    if (buried) {
+        for (const head of buried.values()) {
+            for (let o = head; o; o = o.nexthere) {
+                const ox = o.ox | 0;
+                const oy = o.oy | 0;
+                if (!inFlipAreaLikeC(ox, oy, minx, maxx, miny, maxy)) continue;
+                if (bits & 1) o.oy = flipY(oy);
+                if (bits & 2) o.ox = flipX(ox);
+            }
+        }
+    }
 }
 
 /**
@@ -325,18 +443,43 @@ export function flipLevelLikeC(g, flp, extras) {
     for (const t of map.traps || []) {
         const tx = t.tx | 0;
         const ty = t.ty | 0;
-        if (tx < minx || tx > maxx || ty < miny || ty > maxy) continue;
+        if (!inFlipAreaLikeC(tx, ty, minx, maxx, miny, maxy)) continue;
         if (bits & 1) t.ty = flipY(ty);
         if (bits & 2) t.tx = flipX(tx);
     }
+
+    flipFloorObjListCoordsLikeC(g, bits, minx, maxx, miny, maxy, flipX, flipY);
 
     for (const m of map.monsters || []) {
         const mx = m.mx | 0;
         const my = m.my | 0;
         if (!mx && !my) continue;
-        if (mx < minx || mx > maxx || my < miny || my > maxy) continue;
+        if (!inFlipAreaLikeC(mx, my, minx, maxx, miny, maxy)) continue;
         if (bits & 1) m.my = flipY(my);
         if (bits & 2) m.mx = flipX(mx);
+        if (m.mgoal) flipCoordLikeC(m.mgoal, bits, minx, maxx, miny, maxy, flipX, flipY);
+    }
+
+    for (const e of map.engravings || []) {
+        const ex = e.engr_x | 0;
+        const ey = e.engr_y | 0;
+        if (bits & 1) e.engr_y = flipY(ey);
+        if (bits & 2) e.engr_x = flipX(ex);
+    }
+
+    for (const r of g.lregions || []) {
+        if (!r) continue;
+        flipLregionBoxLikeC(r.inarea, bits, flipX, flipY);
+        flipLregionBoxLikeC(r.delarea, bits, flipX, flipY);
+    }
+
+    for (const room of map.rooms || []) {
+        flipRoomBoundsLikeC(room, bits, flipX, flipY);
+    }
+
+    const nDoors = map.doorindex | 0;
+    for (let i = 0; i < nDoors; i++) {
+        flipCoordLikeC(map.doors[i], bits, minx, maxx, miny, maxy, flipX, flipY);
     }
 
     if (bits & 1) {
@@ -354,7 +497,7 @@ export function flipLevelLikeC(g, flp, extras) {
         for (let x = minx; x < half; x++) {
             const nx = flipX(x);
             for (let y = miny; y <= maxy; y++) {
-                swapLocCellsFlipLikeC(map, x, y, nx, y);
+                swapLocCellsFlipHorizontalLikeC(map, x, y, nx, y);
                 swapFloorHeadsFlipLikeC(g, x, y, nx, y);
             }
         }

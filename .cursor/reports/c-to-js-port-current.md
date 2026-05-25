@@ -18,11 +18,11 @@ Thin handoff for the next coding session. **Score + milestones:** [`c-to-js-port
 
 **Deferred for now:** **`maybe_do_tutorial`** / **`tut-1`** / full **`do.c`** **`goto_level`** (Lua **`tutorial()`** / **`free_tutorial()`**, **`savelev`**, **`gmst_*`**, …) and **`dokick`**/**`dothrow`** vs **`leaving_tutorial`** — strong upstream dependencies (save, specials, fuller **`do.c`**); treat as backlog until chargen / core early-game parity is further along; **`LIVELOGFILE`** parity if the judge ever compares livelog lines.
 
-**Last slice:** **`dog.c`** **`mon_arrive`** — locale via stairs/ladder/**`stairway_find`**, portal, hero tile; **`mon_catchup_elapsed_time`** + wander; **`mnearto`**/**`rloc`** placement; **`decor.js`** **`stairwayFindLikeC`**. **`seed0077`/`seed8000`:** **PASS**. **`npm run score`:** **2/44**.
+**Last slice:** **`sp_lev.c`** **`flip_level`** level-creation remainder — doors, rooms/subrooms, **`lregions`**, engravings, **`fobj`**/buried coords, drawbridge mask flip on terrain swap; **`mgoal`** flip. Worms/vault guard/**`extras`** deferred. **`seed0077`/`seed8000`:** **PASS**. **`npm run score`:** **2/44**.
 
 ## Next steps
 
-1. **`mkmaze`** — NHL **`load_lua`**; **`flip_level`** remainder (drawbridges, doors, worms).
+1. **`mkmaze`** — NHL **`load_lua`**; **`flip_level`** worms / pit **`conjoined`** / **`extras`** wiz path.
 2. **`mon_arrive`** — irregular-room **`somexy`**, **`deal_with_overcrowding`** on failed place, **`losedogs`** integration.
 3. **`goto_level`** — savelev tail; full **`worm.c`** when long worms on level.
 4. **`objects_nums`** — wire **`nh5OclassForOtyp`** via map for ARMOR/ROCK only after **`mksobj_init`** floor parity; more legacy floor **`otyp`** vs C when replaying **`mkobj`**.
