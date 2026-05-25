@@ -14,6 +14,7 @@ import {
     W_NONDIGGABLE, W_NONPASSWALL, ROOMOFFSET, OTYP_BOULDER, isok,
     MAGIC_PORTAL, VIBRATING_SQUARE,
     DB_DIR, DB_NORTH, DB_SOUTH, DB_WEST, DB_EAST,
+    ROLLING_BOULDER_TRAP, is_pit,
 } from './const.js';
 
 /** C: rm.h IS_DOORJOIN */
@@ -319,6 +320,72 @@ function flipCoordLikeC(cc, bits, minx, maxx, miny, maxy, flipX, flipY) {
     if (bits & 2) cc.x = flipX(x);
 }
 
+/** C: hacklib.c swapbits */
+function swapbitsLikeC(val, indx1, indx2) {
+    let v = val | 0;
+    const b1 = (v >> indx1) & 1;
+    const b2 = (v >> indx2) & 1;
+    if (b1 !== b2) v ^= (1 << indx1) | (1 << indx2);
+    return v;
+}
+
+/** C: sp_lev.c flip_encoded_dir_bits — pit conjoined direction bitmask */
+function flipEncodedDirBitsLikeC(flp, val) {
+    let v = val | 0;
+    if (flp & 1) {
+        v = swapbitsLikeC(v, 1, 7);
+        v = swapbitsLikeC(v, 2, 6);
+        v = swapbitsLikeC(v, 3, 5);
+    }
+    if (flp & 2) {
+        v = swapbitsLikeC(v, 1, 3);
+        v = swapbitsLikeC(v, 0, 4);
+        v = swapbitsLikeC(v, 7, 5);
+    }
+    return v;
+}
+
+/** C: sp_lev.c flip_level trap block — rolling boulder launch + pit conjoined */
+function flipTrapLevelCreationLikeC(t, bits, flipX, flipY) {
+    const tt = t.ttyp | 0;
+    if (bits & 1) {
+        t.ty = flipY(t.ty | 0);
+        if (tt === ROLLING_BOULDER_TRAP) {
+            if (t.launch) t.launch.y = flipY(t.launch.y | 0);
+            if (t.launch2) t.launch2.y = flipY(t.launch2.y | 0);
+        } else if (is_pit(tt) && t.conjoined) {
+            t.conjoined = flipEncodedDirBitsLikeC(bits, t.conjoined | 0);
+        }
+    }
+    if (bits & 2) {
+        t.tx = flipX(t.tx | 0);
+        if (tt === ROLLING_BOULDER_TRAP) {
+            if (t.launch) t.launch.x = flipX(t.launch.x | 0);
+            if (t.launch2) t.launch2.x = flipX(t.launch2.x | 0);
+        } else if (is_pit(tt) && t.conjoined) {
+            t.conjoined = flipEncodedDirBitsLikeC(bits, t.conjoined | 0);
+        }
+    }
+}
+
+/** C: worm.c flip_worm_segs_vertical */
+function flipWormSegsVerticalLikeC(g, wormno, miny, maxy) {
+    let curr = g.level?.wormTails?.[wormno | 0];
+    while (curr) {
+        curr.wy = maxy - (curr.wy | 0) + miny;
+        curr = curr.nseg;
+    }
+}
+
+/** C: worm.c flip_worm_segs_horizontal */
+function flipWormSegsHorizontalLikeC(g, wormno, minx, maxx) {
+    let curr = g.level?.wormTails?.[wormno | 0];
+    while (curr) {
+        curr.wx = maxx - (curr.wx | 0) + minx;
+        curr = curr.nseg;
+    }
+}
+
 /** C: sp_lev.c flip_dbridge_horizontal */
 function flipDbridgeHorizontalLikeC(loc) {
     if (!loc || !IS_DRAWBRIDGE(loc.typ)) return;
@@ -420,7 +487,7 @@ function flipFloorObjListCoordsLikeC(g, bits, minx, maxx, miny, maxy, flipX, fli
 }
 
 /**
- * C: sp_lev.c flip_level — level-creation subset (`extras` false); #wizfliplevel deferred.
+ * C: sp_lev.c flip_level — level-creation subset (`extras` false); #wizfliplevel / vault guard deferred.
  * @param {import('./gstate.js').game} g
  * @param {number} flp — bit 1 vertical, bit 2 horizontal
  * @param {boolean} extras
@@ -444,13 +511,13 @@ export function flipLevelLikeC(g, flp, extras) {
         const tx = t.tx | 0;
         const ty = t.ty | 0;
         if (!inFlipAreaLikeC(tx, ty, minx, maxx, miny, maxy)) continue;
-        if (bits & 1) t.ty = flipY(ty);
-        if (bits & 2) t.tx = flipX(tx);
+        flipTrapLevelCreationLikeC(t, bits, flipX, flipY);
     }
 
     flipFloorObjListCoordsLikeC(g, bits, minx, maxx, miny, maxy, flipX, flipY);
 
     for (const m of map.monsters || []) {
+        if (m.isgd && !(m.mx | 0)) continue;
         const mx = m.mx | 0;
         const my = m.my | 0;
         if (!mx && !my) continue;
@@ -458,6 +525,11 @@ export function flipLevelLikeC(g, flp, extras) {
         if (bits & 1) m.my = flipY(my);
         if (bits & 2) m.mx = flipX(mx);
         if (m.mgoal) flipCoordLikeC(m.mgoal, bits, minx, maxx, miny, maxy, flipX, flipY);
+        const wn = m.wormno | 0;
+        if (wn) {
+            if (bits & 1) flipWormSegsVerticalLikeC(g, wn, miny, maxy);
+            if (bits & 2) flipWormSegsHorizontalLikeC(g, wn, minx, maxx);
+        }
     }
 
     for (const e of map.engravings || []) {

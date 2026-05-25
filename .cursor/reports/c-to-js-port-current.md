@@ -18,11 +18,11 @@ Thin handoff for the next coding session. **Score + milestones:** [`c-to-js-port
 
 **Deferred for now:** **`maybe_do_tutorial`** / **`tut-1`** / full **`do.c`** **`goto_level`** (Lua **`tutorial()`** / **`free_tutorial()`**, **`savelev`**, **`gmst_*`**, …) and **`dokick`**/**`dothrow`** vs **`leaving_tutorial`** — strong upstream dependencies (save, specials, fuller **`do.c`**); treat as backlog until chargen / core early-game parity is further along; **`LIVELOGFILE`** parity if the judge ever compares livelog lines.
 
-**Last slice:** **`dog.c`** **`mon_arrive`** — full **`mkroom.c`** **`somexy`** (irregular rooms, subrooms); **`mnearto`** calls **`deal_with_overcrowding`** when blocker has no **`enexto`**; async drain from **`goto_level_hero`**. Failed placement still re-queues (C **`relmon`**/**`losedogs`** deferred). **`seed0077`/`seed8000`:** **PASS**. **`npm run score`:** **2/44**.
+**Last slice:** **`sp_lev.c`** **`flip_level`** level-creation traps/monsters — **`ROLLING_BOULDER_TRAP`** **`launch`/`launch2`**, pit **`conjoined`** via **`flip_encoded_dir_bits`**, **`worm.c`** segment flip on **`wormTails`**; vault guard off-map skip. **`#wizfliplevel`** **`extras`** still deferred. **`seed0077`/`seed8000`:** **PASS**. **`npm run score`:** **2/44**.
 
 ## Next steps
 
-1. **`mkmaze`** — NHL **`load_lua`**; **`flip_level`** worms / pit **`conjoined`** / **`extras`** wiz path.
+1. **`mkmaze`** — NHL **`load_lua`**; **`flip_level`** **`extras`** (**`#wizfliplevel`**, hero/ball, vault guard, migrating mons).
 2. **`mon_arrive`** / **`dog.c`** — **`losedogs`** / **`relmon`** failed-arrivals vs **`m_into_limbo`**; **`MON_STILL_ARRIVING`** / **`Wiz_arrive`** when those paths run.
 3. **`goto_level`** — savelev tail; full **`worm.c`** when long worms on level.
 4. **`objects_nums`** — wire **`nh5OclassForOtyp`** via map for ARMOR/ROCK only after **`mksobj_init`** floor parity; more legacy floor **`otyp`** vs C when replaying **`mkobj`**.
