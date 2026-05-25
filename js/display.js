@@ -32,7 +32,7 @@ import {
     D_NODOOR, D_ISOPEN, D_CLOSED, D_LOCKED,
     SCORR, IRONBARS, TREE, POOL, MOAT, WATER, ICE,
     FOUNTAIN, SINK, ALTAR, GRAVE, THRONE, LAVAPOOL, LAVAWALL,
-    Is_rogue_level, LA_DOWN, gs, H_DEC, PRIMARYSET,
+    Is_rogue_level, Is_waterlevel, LA_DOWN, gs, H_DEC, PRIMARYSET,
     OTYP_BOULDER, OTYP_GOLD_PIECE, OTYP_HEAVY_IRON_BALL, OTYP_IRON_CHAIN,
     ARROW_TRAP, DART_TRAP, ROCKTRAP, SQKY_BOARD, BEAR_TRAP, LANDMINE,
     ROLLING_BOULDER_TRAP, SLP_GAS_TRAP, RUST_TRAP, FIRE_TRAP,
@@ -982,6 +982,26 @@ function showGlyphFromLevLikeC(x, y) {
     }
 }
 
+/**
+ * C: display.c `swallowed(first)` — docrt early-out; full stomach glyphs deferred.
+ * @param {boolean} first
+ */
+async function swallowedDocrtLikeC(first) {
+    if (first) await cls();
+    await redrawMapLikeC(false);
+}
+
+/**
+ * C: display.c `under_water(mode)` — docrt early-out when `Underwater` and not water level.
+ * @param {number} mode — C passes `1` from `docrt_flags`
+ */
+async function underWaterDocrtLikeC(mode) {
+    const u = game.u;
+    if (!u || Is_waterlevel(u.uz) || (u.uswallow | 0)) return;
+    if ((mode | 0) === 1) await cls();
+    await redrawMapLikeC(false);
+}
+
 /** C: display.c `redraw_map` — resend current map without full docrt recalc. */
 async function redrawMapLikeC(cursorOnU) {
     if (!game.u?.ux || suppressMapOutputDisplay()) return;
@@ -1014,6 +1034,24 @@ export async function docrt_flags(refreshFlags) {
 
         if (redrawonly) {
             await redrawMapLikeC(false);
+            if (!maponly) {
+                game.disp = game.disp || {};
+                game.disp.botlx = true;
+            }
+            return;
+        }
+
+        const u = game.u;
+        if ((u.uswallow | 0) !== 0) {
+            await swallowedDocrtLikeC(true);
+            if (!maponly) {
+                game.disp = game.disp || {};
+                game.disp.botlx = true;
+            }
+            return;
+        }
+        if ((u.Underwater | 0) !== 0 && !Is_waterlevel(u.uz)) {
+            await underWaterDocrtLikeC(1);
             if (!maponly) {
                 game.disp = game.disp || {};
                 game.disp.botlx = true;
