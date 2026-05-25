@@ -18,11 +18,11 @@ Thin handoff for the next coding session. **Score + milestones:** [`c-to-js-port
 
 **Deferred for now:** **`maybe_do_tutorial`** / **`tut-1`** / full **`do.c`** **`goto_level`** (Lua **`tutorial()`** / **`free_tutorial()`**, **`savelev`**, **`gmst_*`**, …) and **`dokick`**/**`dothrow`** vs **`leaving_tutorial`** — strong upstream dependencies (save, specials, fuller **`do.c`**); treat as backlog until chargen / core early-game parity is further along; **`LIVELOGFILE`** parity if the judge ever compares livelog lines.
 
-**Last slice:** **`mkmaze.c` `create_maze` + `makemaz` tail.** **`createMazeLikeC`** (**`walkfrom`**, **`maze_remove_deadends`**, scale-up); **`makemazLikeC`** C RNG (**`rn2(2)`**, **`create_maze(-1,-1,!rn2(5))`**, **`mazexy`/`mkstairs`**, **`place_branch`**). **`load_special`**/**`wallification`**/**`populate_maze`** deferred. **`seed0077`/`seed8000`:** **PASS**. **`npm run score`:** **2/44**.
+**Last slice:** **`mkmaze.c` `populate_maze` + `wallification`.** **`populateMazeLikeC`** (C **`rn1`/`rn2`** loops, **`mkobjFillAtLikeC`**, boulders, minotaurs, **`mktrap` MAZEFLAG**); **`makemazLikeC`** calls **`wallification`** when !**`corrmaze`**. **`load_special`**/**`Invocation_lev`** deferred. **`seed0077`/`seed8000`:** **PASS**. **`npm run score`:** **2/44**.
 
 ## Next steps
 
-1. **`mkmaze`** — **`load_special`** (des → **`appendLregionLikeC`**); **`wallification`**; **`populate_maze`**; **`Invocation_lev`** vibrating square.
+1. **`mkmaze`** — **`load_special`** (des → **`appendLregionLikeC`**); **`pick_vibrasquare_location`** / **`Invocation_lev`** vibrating square.
 2. **`objects_nums`** — sweep remaining **`u_init_*`** otyps vs **`obj_oc_skill_data.js`** (projectiles, armor, …).
 3. **`goto_level`** — portal **`MAGIC_PORTAL`** placement branch; **`at_stairs`** vs **`u_on_upstairs`** split in **`applyGotoLevelDirectHeroLikeC`**.
 

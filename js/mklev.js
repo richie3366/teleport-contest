@@ -18,6 +18,7 @@ import {
     NH5_COIN_CLASS,
     NH5_TOOL_CLASS,
     NH5_GEM_CLASS,
+    NH5_RANDOM_CLASS,
     NH5_POTION_CLASS,
     NH5_SCROLL_CLASS,
     NH5_WAND_CLASS,
@@ -544,6 +545,46 @@ function invocationLevLikeC(_uz) {
     return false;
 }
 
+/** C: monsters.h `PM_MINOTAUR`. */
+const PM_MINOTAUR_MAZE = 176;
+
+/**
+ * C: mkmaze.c `populate_maze` — objects/monsters/traps on procedural maze levels.
+ * @param {import('./gstate.js').game} g
+ */
+async function populateMazeLikeC(g) {
+    const mm = { x: 0, y: 0 };
+    let i = rn1(8, 11);
+    while (i--) {
+        mazexyLikeC(mm);
+        mkobjFillAtLikeC(rn2(2) ? NH5_GEM_CLASS : NH5_RANDOM_CLASS, mm.x, mm.y, true);
+    }
+    i = rn1(10, 2);
+    while (i--) {
+        mazexyLikeC(mm);
+        mksobj_at(OTYP_BOULDER, mm.x, mm.y, true, false);
+    }
+    i = rn2(3);
+    while (i--) {
+        mazexyLikeC(mm);
+        makemon({ mnum: PM_MINOTAUR_MAZE }, mm.x, mm.y, NO_MM_FLAGS);
+    }
+    i = rn1(5, 7);
+    while (i--) {
+        mazexyLikeC(mm);
+        makemon(null, mm.x, mm.y, NO_MM_FLAGS);
+    }
+    i = rn1(6, 7);
+    while (i--) {
+        mazexyLikeC(mm);
+        mkgold(0, mm.x, mm.y);
+    }
+    i = rn1(6, 7);
+    while (i--) {
+        await mktrapLikeC(0, MKTRAP_MAZEFLAG, null, null);
+    }
+}
+
 /**
  * C: mkmaze.c `makemaz` — des load or procedural maze.
  * @param {import('./gstate.js').game} g
@@ -566,7 +607,9 @@ export async function makemazLikeC(g, protofile = '') {
         createMazeLikeC(g, 1, 1, false);
     }
 
-    /* C: `wallification` when !corrmaze — deferred */
+    if (!lf.corrmaze) {
+        wallification(2, 2, g.x_maze_max | 0, g.y_maze_max | 0);
+    }
     const mm = { x: 0, y: 0 };
     mazexyLikeC(mm);
     mkstairs(mm.x, mm.y, true, null);
@@ -577,7 +620,7 @@ export async function makemazLikeC(g, protofile = '') {
     /* C: `pick_vibrasquare_location` + `VIBRATING_SQUARE` — deferred */
 
     place_branch(is_branchlev(), 0, 0);
-    /* C: `populate_maze` — deferred */
+    await populateMazeLikeC(g);
     return true;
 }
 
