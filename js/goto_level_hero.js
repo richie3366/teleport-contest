@@ -3,7 +3,7 @@
 //        do.c goto_level / schedule_goto tail; spoteffects(FALSE) after arrival.
 //
 // Ported: **`applyGotoAfterHeroHoleFallLikeC(g, dest?)`**, **`impactDropLikeC`**/**`objDeliveryLikeC`** (**`dokick.c`**), **`shopdigLikeC(1)`** / **`payForDamage('dig into')`** before **`You fall through...`** (**`dig.c`** **`digactualhole`** order); **`pickup(1)`** tail (**`do.c`** **`goto_level`**).
-// **`applyHeroDescendStairsOneLevelLikeC(g)`** — **`do.c`** **`goto_level`** down-stairs slice after **`mklev`**/**`u_on_upstairs`** (**`near_capacity`/`Punished`/`Fumbling`**, **`drag_down`**, **`losehp`**, **`placebc`** omitted).
+// **`applyHeroDescendStairsOneLevelLikeC(g)`** — **`do.c`** **`goto_level`** down-stairs slice after **`mklev`**/**`u_on_upstairs`** (**`near_capacity`/`Punished`/`Fumbling`**, **`drag_down`**, **`losehp`**, **`placebc`**).
 // **`scheduleGotoHeroLikeC` / `deferredGotoHeroLikeC`** — **`do.c`** **`schedule_goto`/`deferred_goto`** subset (**`applyGotoLevelDirectHeroLikeC`** for non-falling **`goto_level`**).
 // **`keepdogsHeroStubLikeC`** — C **`dog.c`** **`keepdogs(pets_only)`** gate (**`if (!iflags.nofollowers) keepdogs(FALSE)`** in **`goto_level`**) before **`u.uz`** moves; stub tallies tame **`level.monsters`** and applies the C **`pets_only==TRUE`** tame-clear subset when that flag is passed (**ascension** / final escape — not wired from **`do.c`** yet).
 // **`vision_recalc(2)`** after **`keepdogs`**, before **`u.uz`** assign — C **`goto_level`** (**`vision.c`** “no longer see old level” pass before **`savelev`**).
@@ -55,6 +55,7 @@ import {
 } from './const.js';
 import { gotoLevelTutorialBranchHookLikeC } from './tutorial_branch.js';
 import { maybeRecordEnteredNewLevelLivelogLikeC } from './livelog.js';
+import { placebcHeroLikeC, unplacebcHeroLikeC } from './ball_bc_hero.js';
 
 /** C: **`Punished`** / carried **`uball`** — macro subset until **`punish()`** sets **`u.Punished`**. */
 function heroPunishedLikeC(g) {
@@ -247,6 +248,8 @@ export async function applyGotoLevelDirectHeroLikeC(g, dest, gotoOpts = {}) {
 
     gotoLevelTutorialBranchHookLikeC(g, uz0, newUz);
 
+    if (heroPunishedLikeC(g)) unplacebcHeroLikeC(g);
+
     if (!g.iflags?.nofollowers) keepdogsHeroStubLikeC(g, false);
     vision_recalc(2);
 
@@ -266,6 +269,7 @@ export async function applyGotoLevelDirectHeroLikeC(g, dest, gotoOpts = {}) {
             newdungeon,
         });
     }
+    if (heroPunishedLikeC(g)) await placebcHeroLikeC(g);
     await objDeliveryLikeC(g, false);
     await spotEffects(g, false, {});
     await objDeliveryLikeC(g, true);
@@ -374,6 +378,8 @@ export async function applyGotoAfterHeroHoleFallLikeC(g, dest) {
     /* C: do.c **`goto_level`** **`falling`** → **`impact_drop(..., newlevel->dlevel)`** before **`u.uz`** assign. */
     await impactDropLikeC(g, null, u.ux | 0, u.uy | 0, newUz.dlevel | 0);
 
+    if (heroPunishedLikeC(g)) unplacebcHeroLikeC(g);
+
     if (!g.iflags?.nofollowers) keepdogsHeroStubLikeC(g, false);
     vision_recalc(2);
 
@@ -383,6 +389,7 @@ export async function applyGotoAfterHeroHoleFallLikeC(g, dest) {
 
     if (await mklev()) maybeRecordEnteredNewLevelLivelogLikeC(g);
     if (!In_endgame(newUz)) u_onRndspotLikeC(g, 0);
+    if (heroPunishedLikeC(g)) await placebcHeroLikeC(g);
     await objDeliveryLikeC(g, false);
     await spotEffects(g, false, {});
     await objDeliveryLikeC(g, true);
@@ -453,6 +460,8 @@ export async function applyHeroDescendStairsOneLevelLikeC(g) {
     const atLadder = !!st.isladder;
     const newUz = { dnum, dlevel: prev + 1 };
 
+    if (heroPunishedLikeC(g)) unplacebcHeroLikeC(g);
+
     if (!g.iflags?.nofollowers) keepdogsHeroStubLikeC(g, false);
     vision_recalc(2);
 
@@ -495,7 +504,7 @@ export async function applyHeroDescendStairsOneLevelLikeC(g) {
         await pline(atLadder ? 'You climb down the ladder.' : 'You descend the stairs.');
     }
 
-    /* C: **`goto_level`** — **`placebc`** after arrival when **`Punished`** (not ported). */
+    if (heroPunishedLikeC(g)) await placebcHeroLikeC(g);
     await objDeliveryLikeC(g, false);
     await spotEffects(g, false, {});
     await objDeliveryLikeC(g, true);

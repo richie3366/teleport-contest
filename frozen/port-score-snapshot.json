@@ -1,6 +1,6 @@
 {
-  "timestamp": "2026-05-25T22:08:18.111Z",
-  "commit": "b9a3c0e",
+  "timestamp": "2026-05-25T22:11:38.453Z",
+  "commit": "f56838b",
   "passCount": 2,
   "totalSessions": 44,
   "results": [
@@ -977,7 +977,7 @@
       "passed": false,
       "metrics": {
         "rngCalls": {
-          "matched": 303,
+          "matched": 247,
           "total": 11409
         },
         "screens": {
@@ -1001,7 +1001,7 @@
       "buckets": [
         "early-diverge"
       ],
-      "rngRatio": 0.02655798054167762,
+      "rngRatio": 0.02164957489701113,
       "screenRatio": 0
     },
     {

@@ -59,7 +59,7 @@ That runs `bash frozen/score.sh` (~20s), then splices the markdown block below.
 | `seed0373-barbarian-quest-tour.session.json` | N | 279/35386 | 0/124 | early-diverge |
 | `seed0383-wizard-hallucinate.session.json` | N | 1321/16915 | 0/219 | — |
 | `seed0398-wizard-wandpoly-pile.session.json` | N | 966/3026 | 0/87 | — |
-| `seed0399-wizard-hallu-actions.session.json` | N | 303/11409 | 0/532 | early-diverge |
+| `seed0399-wizard-hallu-actions.session.json` | N | 247/11409 | 0/532 | early-diverge |
 | `seed0501-priest-cast-read-turn.session.json` | N | 1141/2238 | 0/28 | rng>50% |
 | `seed0700-samurai-explore-descend.session.json` | N | 1739/3230 | 0/51 | rng>50% |
 | `seed0900-tourist-explore-actions.session.json` | N | 359/2983 | 0/84 | early-diverge |
@@ -73,7 +73,7 @@ That runs `bash frozen/score.sh` (~20s), then splices the markdown block below.
 | `seed5006-tourist-stress-disaster.session.json` | N | 374/13923 | 0/249 | early-diverge |
 | `seed8000-tourist-starter.session.json` | Y | 3130/3130 | 23/23 | full-pass |
 
-**Summary:** 2/44 passing · commit `b9a3c0e` · `2026-05-25T22:08:18.111Z`
+**Summary:** 2/44 passing · commit `f56838b` · `2026-05-25T22:11:38.453Z`
 
 <!-- PORT_SCORE_SNAPSHOT_END -->
 
