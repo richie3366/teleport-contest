@@ -127,6 +127,7 @@ function addToMinvLikeC(mtmp, otmp) {
  */
 function mksobjMigrToSpeciesLikeC(g, otyp, mflags2, init, artif, gang) {
     const otmp = mksobjBootyLikeC(otyp, init, artif);
+    otmp.corpsenm = mflags2 | 0; /* C: migr_species alias */
     if (!g.migratingObjs) g.migratingObjs = [];
     g.migratingObjs.unshift({
         obj: otmp,

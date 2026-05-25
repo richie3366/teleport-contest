@@ -64,6 +64,7 @@ import {
 } from './ball_bc_hero.js';
 import { safeTeledsHeroLikeC, TELEDS_NO_FLAGS } from './teleport_hero.js';
 import { keepdogsHeroLikeC } from './keepdogs_hero.js';
+import { arriveMigratingMonsForCurrentLevelLikeC } from './mon_arrive.js';
 
 /** C: **`Punished`** / carried **`uball`** — macro subset until **`punish()`** sets **`u.Punished`**. */
 function heroPunishedLikeC(g) {
@@ -239,6 +240,7 @@ export async function applyGotoLevelDirectHeroLikeC(g, dest, gotoOpts = {}) {
     u.utraptype = 0;
 
     if (await mklev()) maybeRecordEnteredNewLevelLivelogLikeC(g);
+    arriveMigratingMonsForCurrentLevelLikeC(g);
     if (!In_endgame(newUz)) {
         placeHeroAfterGotoLevelLikeC(g, {
             portal: !!gotoOpts.portal,
@@ -369,6 +371,7 @@ export async function applyGotoAfterHeroHoleFallLikeC(g, dest) {
     u.utraptype = 0;
 
     if (await mklev()) maybeRecordEnteredNewLevelLivelogLikeC(g);
+    arriveMigratingMonsForCurrentLevelLikeC(g);
     if (!In_endgame(newUz)) u_onRndspotLikeC(g, 0);
     if (heroPunishedLikeC(g) && !weldedUballLikeC(g)) await ballfallHeroLikeC(g);
     if (heroPunishedLikeC(g)) await placebcHeroLikeC(g);
@@ -452,6 +455,7 @@ export async function applyHeroDescendStairsOneLevelLikeC(g) {
     u.utraptype = 0;
 
     if (await mklev()) maybeRecordEnteredNewLevelLivelogLikeC(g);
+    arriveMigratingMonsForCurrentLevelLikeC(g);
     placeHeroAfterGotoLevelLikeC(g, {
         atStairs: true,
         up: false,

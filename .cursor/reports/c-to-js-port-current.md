@@ -18,11 +18,11 @@ Thin handoff for the next coding session. **Score + milestones:** [`c-to-js-port
 
 **Deferred for now:** **`maybe_do_tutorial`** / **`tut-1`** / full **`do.c`** **`goto_level`** (Lua **`tutorial()`** / **`free_tutorial()`**, **`savelev`**, **`gmst_*`**, …) and **`dokick`**/**`dothrow`** vs **`leaving_tutorial`** — strong upstream dependencies (save, specials, fuller **`do.c`**); treat as backlog until chargen / core early-game parity is further along; **`LIVELOGFILE`** parity if the judge ever compares livelog lines.
 
-**Last slice:** **`sp_lev.c`** **`flip_level`** subset + **`detect.c`** **`premap_detect`** — **`sp_lev_load.js`** **`flipLevelLikeC`** (terrain/floor/stairs/traps/monsters in flip bounds; **`extras`** / wiz flip deferred); **`premap_detect.js`** + **`mapObjectLikeC`** / exported **`mapTrapLikeC`**; wired in **`loadSpecialAfterLuaLikeC`** when **`coder.premapped`**. NHL **`load_lua`** still stub. **`seed0077`/`seed8000`:** **PASS**. **`npm run score`:** **2/44**.
+**Last slice:** **`dokick.c`** **`deliver_obj_to_mon`** — **`deliver_obj_to_mon.js`** (**`MIGR_TO_SPECIES`**, **`christen_orc`** / **`rn2(2)`**, **`add_to_minv`**); **`mon_arrive.js`** **`MIGR_LEFTOVERS`** + **`MIGR_RANDOM`** placement; **`makemon`** + **`goto_level_hero`** hooks; **`stolen_booty`** sets **`corpsenm`**/**`migr_species`**. **`ensure_way_out`** / NHL **`load_lua`** deferred. **`seed0077`/`seed8000`:** **PASS**. **`npm run score`:** **2/44**.
 
 ## Next steps
 
-1. **`mkmaze`** — NHL **`load_lua`**; **`flip_level`** remainder (drawbridges, doors, worms, hero/ball, **`extras`**); **`ensure_way_out`**; **`obj_delivery`** **`MIGR_TO_SPECIES`** when booty objects arrive.
+1. **`mkmaze`** — NHL **`load_lua`**; **`flip_level`** remainder; **`ensure_way_out`**; fuller **`mon_arrive`** (stairs/portal locale, **`mnearto`**, catchup).
 2. **`goto_level`** — savelev tail; full **`worm.c`** when long worms on level.
 3. **`objects_nums`** — wire **`nh5OclassForOtyp`** via map for ARMOR/ROCK only after **`mksobj_init`** floor parity; more legacy floor **`otyp`** vs C when replaying **`mkobj`**.
 
