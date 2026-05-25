@@ -24,8 +24,8 @@ Thin handoff for the next coding session. **Score + milestones:** [`c-to-js-port
 
 1. **`mkmaze`** — NHL **`load_lua`**; **`flip_level`** remainder (drawbridges, doors, worms).
 2. **`mon_arrive`** — irregular-room **`somexy`**, **`deal_with_overcrowding`** on failed place, **`losedogs`** integration.
-2. **`goto_level`** — savelev tail; full **`worm.c`** when long worms on level.
-3. **`objects_nums`** — wire **`nh5OclassForOtyp`** via map for ARMOR/ROCK only after **`mksobj_init`** floor parity; more legacy floor **`otyp`** vs C when replaying **`mkobj`**.
+3. **`goto_level`** — savelev tail; full **`worm.c`** when long worms on level.
+4. **`objects_nums`** — wire **`nh5OclassForOtyp`** via map for ARMOR/ROCK only after **`mksobj_init`** floor parity; more legacy floor **`otyp`** vs C when replaying **`mkobj`**.
 
 ### Extended backlog (unchanged lanes)
 
