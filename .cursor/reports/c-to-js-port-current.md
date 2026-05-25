@@ -18,13 +18,13 @@ Thin handoff for the next coding session. **Score + milestones:** [`c-to-js-port
 
 **Deferred for now:** **`maybe_do_tutorial`** / **`tut-1`** / full **`do.c`** **`goto_level`** (Lua **`tutorial()`** / **`free_tutorial()`**, **`savelev`**, **`gmst_*`**, …) and **`dokick`**/**`dothrow`** vs **`leaving_tutorial`** — strong upstream dependencies (save, specials, fuller **`do.c`**); treat as backlog until chargen / core early-game parity is further along; **`LIVELOGFILE`** parity if the judge ever compares livelog lines.
 
-**Last slice:** **`teleport.c`** **`safe_teleds`** on Gehennom mystery-force same-level. **`teleport_hero.js`**: **`teleok`**, **`safe_teleds`** (40× random + **`collect_coords`**), **`teleds`** subset with **`placebc`**; wired in **`applyGehennomMysteryForceGotoDestLikeC`**. **`drag_ball`** / regions deferred. **`load_lua`** deferred. **`seed0077`/`seed8000`:** **PASS**. **`npm run score`:** **2/44**.
+**Last slice:** **`objects_nums`** — **`gen_obj_oc_skill_data.mjs`** exports **ARMOR** + **ROCK** into **`OC_SKILL_ROW_BY_OTYP`** (248 rows, otyp 2..475); **`nh5OclassFromOcSkillMapLikeC`**. **`mklev.js`** **`nh5OclassForOtyp`** map lookup **deferred** (wiring caused **0/44** — floor **`mksobj(TRUE)`** armor init must match C before enable). **`seed0077`/`seed8000`:** **PASS**. **`npm run score`:** **2/44**.
 
 ## Next steps
 
 1. **`mkmaze`** — **`load_lua`** / full **`load_special`** (NHL des compiler).
 2. **`goto_level`** — full **`keepdogs`** / savelev tail; fuller **`teleds`** (**`drag_ball`**, vault guard).
-3. **`objects_nums`** — armor rows in **`obj_oc_skill_data`** if mkobj paths need them; more legacy floor **`otyp`** vs C when replaying **`mkobj`**.
+3. **`objects_nums`** — wire **`nh5OclassForOtyp`** via map for ARMOR/ROCK only after **`mksobj_init`** floor parity; more legacy floor **`otyp`** vs C when replaying **`mkobj`**.
 
 ### Extended backlog (unchanged lanes)
 
