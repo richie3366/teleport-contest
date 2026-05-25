@@ -49,7 +49,8 @@ const OTYP_POT_SICKNESS = 317;
 const OTYP_QUARTERSTAFF = 79;
 const OTYP_CLOAK_OF_MAGIC_RESISTANCE = 148;
 /** C `OC_SKILL_ROW_BY_OTYP` — **`BULLWHIP`** (`mksobj_init` WEAPON); NH5 invent **`otyp`** = **82** (OC key **83** − **1**, same pattern as Rogue **`SHORT_SWORD`**). */
-const OTYP_BULLWHIP_MK = 83;
+/** C `objects[]` — **`P_WHIP`** / bullwhip (83 is bow). */
+const OTYP_BULLWHIP_MK = 82;
 const OTYP_FOOD_RATION = 143;
 const OTYP_LEATHER_JACKET = 136;
 const OTYP_FEDORA = 93;

@@ -14,8 +14,8 @@ const OTYP_KATANA = 57;
 const OTYP_YUMI = 86;
 /** NH5 — matches **`OBJECTS_A_AC_ARMOR`** splint row **125**. */
 const OTYP_SPLINT_MAIL = 125;
-/** C `objects_nums` — `EYEWEAR("blindfold",…, BLINDFOLD)`. */
-const OTYP_BLINDFOLD = 232;
+/** C `objects[]` — blindfold (**`BLINDED`**, black cloth) 233. */
+const OTYP_BLINDFOLD = 233;
 
 /** C `objects[]` oc_weight × quan → owt (subset). */
 const BASE_WT = {

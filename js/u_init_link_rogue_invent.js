@@ -20,8 +20,8 @@ const OTYP_DAGGER = 35;
 const OTYP_POT_SICKNESS = 317;
 const OTYP_LOCK_PICK = 221;
 const OTYP_SACK = 216;
-/** C `objects_nums` — `OBJECTS_ENUM` / `EYEWEAR("blindfold",…, BLINDFOLD)`. */
-const OTYP_BLINDFOLD = 232;
+/** C `objects[]` — blindfold (**`BLINDED`**, black cloth) 233. */
+const OTYP_BLINDFOLD = 233;
 /** C `objects_nums` — tutorial floor daggers in **`dodiscovered`** (**`seed0077`**). */
 const OTYP_ELVEN_DAGGER = 36;
 const OTYP_ORCISH_DAGGER = 37;

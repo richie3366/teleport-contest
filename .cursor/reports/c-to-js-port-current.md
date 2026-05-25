@@ -18,12 +18,12 @@ Thin handoff for the next coding session. **Score + milestones:** [`c-to-js-port
 
 **Deferred for now:** **`maybe_do_tutorial`** / **`tut-1`** / full **`do.c`** **`goto_level`** (Lua **`tutorial()`** / **`free_tutorial()`**, **`savelev`**, **`gmst_*`**, …) and **`dokick`**/**`dothrow`** vs **`leaving_tutorial`** — strong upstream dependencies (save, specials, fuller **`do.c`**); treat as backlog until chargen / core early-game parity is further along; **`LIVELOGFILE`** parity if the judge ever compares livelog lines.
 
-**Last slice:** **`do.c` `goto_level` hero placement + `fixupSpecialLikeC`.** **`placeHeroAfterGotoLevelLikeC`** (portal **`MAGIC_PORTAL`**, **`at_stairs`** via **`stairwayFindFromLikeC`** / **`u_on_*stairs`**); **`deferredGotoHeroLikeC`** passes **`UTOTYPE_ATSTAIRS`/`UTOTYPE_PORTAL`**; **`fixupSpecialLikeC`** extracted from **`load_special`** tail (**`load_lua`** still deferred). **`seed0077`/`seed8000`:** **PASS**. **`npm run score`:** **2/44**.
+**Last slice:** **`objects_nums` `u_init_*` otyp audit.** C **`objects[]`** indices: Monk **`POT_HEALING`**/**`OIL_LAMP`**, Healer **`SCALPEL`**, Arc RNG **`BULLWHIP`**, **`MAGIC_MARKER`** 243, blindfold 233 across Wiz/Rog/Sam. **`load_lua`** still deferred. **`seed0077`/`seed8000`:** **PASS**. **`npm run score`:** **2/44**.
 
 ## Next steps
 
 1. **`mkmaze`** — **`load_lua`** / full **`load_special`** (NHL des compiler).
-2. **`objects_nums`** — sweep remaining **`u_init_*`** otyps vs **`obj_oc_skill_data.js`** (projectiles, armor, …).
+2. **`objects_nums`** — regenerate **`obj_oc_skill_data.js`** from upstream (partial map drift); armor/projectile sweep in **`mklev`** legacy otyps.
 3. **`goto_level`** — Gehennom mystery-force **`assign_rnd_level`**, **`placebc`**, full **`keepdogs`** / savelev tail.
 
 ### Extended backlog (unchanged lanes)
