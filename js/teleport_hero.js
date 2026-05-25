@@ -1,7 +1,16 @@
 // teleport_hero.js — teleport.c safe_teleds / teleds subset for hero.
 // C ref: teleport.c safe_teleds(), teleds(), teleok(); do.c goto_level mystery-force same-level.
 
-import { COLNO, ROWNO, VIBRATING_SQUARE, is_pit, is_hole, TELEDS_NO_FLAGS } from './const.js';
+import {
+    COLNO,
+    ROWNO,
+    VIBRATING_SQUARE,
+    is_pit,
+    is_hole,
+    TELEDS_NO_FLAGS,
+    TELEDS_ALLOW_DRAG,
+    SLT_ENCUMBER,
+} from './const.js';
 import { rnd, rn2 } from './rng.js';
 import {
     collectCoordsLikeC,
@@ -14,8 +23,16 @@ import { tAt } from './search.js';
 import { newsym } from './display.js';
 import { vision_recalc } from './vision.js';
 import { spotEffects } from './spoteffects.js';
-import { unplacebcHeroLikeC, placebcHeroLikeC } from './ball_bc_hero.js';
-import { heroPunishedLikeC } from './punish_hero.js';
+import {
+    unplacebcHeroLikeC,
+    placebcHeroLikeC,
+    dragBallHeroLikeC,
+    moveBcHeroLikeC,
+    ballActiveForTeledsLikeC,
+} from './ball_bc_hero.js';
+import { distmin } from './hacklib.js';
+import { nearCapacity } from './encumbr.js';
+import { floorObjKey } from './floorobj.js';
 
 /**
  * C: teleport.c **`tele_jump_ok`** / **`in_out_region`** — stubs **TRUE** until regions wired.
@@ -56,35 +73,92 @@ export function teleokHeroLikeC(g, x, y, trapok) {
 }
 
 /**
- * C: teleport.c **`teleds(nux, nuy, flags)`** — hero move subset (no drag_ball / vault guard).
+ * C: teleport.c **`teleds(nux, nuy, flags)`** — hero move with **`drag_ball`** / **`placebc`** order.
+ * Deferred: **`buried_ball_to_punishment`**, swallowed **`docrt`**, vault guard, **`fill_pit`**, verbose teleport line.
  * @param {import('./gstate.js').game} g
  */
 export async function teledsHeroLikeC(g, nux, nuy, teledsFlags) {
     const u = g.u;
     if (!u || !g.level) return;
 
-    const ux0 = u.ux | 0;
-    const uy0 = u.uy | 0;
     const nxi = nux | 0;
     const nyi = nuy | 0;
+    const ux0 = u.ux | 0;
+    const uy0 = u.uy | 0;
 
-    if (heroPunishedLikeC(g)) unplacebcHeroLikeC(g);
+    let allowDrag = ((teledsFlags | 0) & TELEDS_ALLOW_DRAG) !== 0;
+    let ballActive = ballActiveForTeledsLikeC(g);
+    const ball = g.uball;
+
+    if (
+        ballActive
+        && (nearCapacity(g) > SLT_ENCUMBER || distmin(ux0, uy0, nxi, nyi) > 1)
+    ) {
+        allowDrag = false;
+    }
+
+    let ballStillInRange = false;
+    if (ballActive && ball && !objectCarriedByHeroForTeleds(g, ball)) {
+        if (distmin(nxi, nyi, ball.ox | 0, ball.oy | 0) <= 2) {
+            ballStillInRange = true;
+        } else if (!allowDrag) {
+            unplacebcHeroLikeC(g);
+        }
+    }
 
     u.utrap = 0;
     u.utraptype = 0;
     u.ustuck = 0;
+    u.ux0 = ux0;
+    u.uy0 = uy0;
+
+    if (ballActive && (ballStillInRange || allowDrag)) {
+        const dr = dragBallHeroLikeC(g, nxi, nyi, allowDrag);
+        if (dr.ok) {
+            moveBcHeroLikeC(
+                g,
+                0,
+                dr.bcControl,
+                dr.ballx,
+                dr.bally,
+                dr.chainx,
+                dr.chainy,
+            );
+        } else if (ballActiveForTeledsLikeC(g)) {
+            unplacebcHeroLikeC(g);
+        }
+    }
 
     u.ux = nxi;
     u.uy = nyi;
 
-    if (heroPunishedLikeC(g)) await placebcHeroLikeC(g);
+    if (ballActive && g.uchain && !objOnFloorHeadsLikeC(g, g.uchain)) {
+        await placebcHeroLikeC(g);
+    }
 
     newsym(ux0, uy0);
     newsym(nxi, nyi);
     vision_recalc(0);
     await spotEffects(g, true);
     vision_recalc(1);
-    void teledsFlags;
+}
+
+/** @param {import('./gstate.js').game} g */
+function objectCarriedByHeroForTeleds(g, obj) {
+    for (let o = g.invent; o; o = o.nobj) {
+        if (o === obj) return true;
+    }
+    return false;
+}
+
+/** C: **`uchain->where != OBJ_FREE`** — chain still in **`floorObjHeads`**. */
+function objOnFloorHeadsLikeC(g, otmp) {
+    if (!otmp || (otmp.ox | 0) < 0 || (otmp.oy | 0) < 0) return false;
+    const head = g.level?.floorObjHeads?.get(floorObjKey(otmp.ox | 0, otmp.oy | 0));
+    for (let o = head; o; o = o.nexthere) {
+        if (o === otmp) return true;
+    }
+    return false;
 }
 
 /**

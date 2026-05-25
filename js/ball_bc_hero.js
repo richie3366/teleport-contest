@@ -9,8 +9,10 @@ import { Is_waterlevel } from './const.js';
 import { weldedUwepLikeC } from './hero_hands.js';
 import { encumberMsg } from './pickup.js';
 import { syncHeroInvWeightNetLikeC } from './encumbr.js';
+import { dist2, distmin } from './hacklib.js';
 import { rn1, rn2 } from './rng.js';
 import { losehp, maybeHalfPhys } from './mthrowu.js';
+import { heroPunishedLikeC } from './punish_hero.js';
 
 /** C: ball.c — ball & chain stack order at hero feet. */
 export const BCPOS_DIFFER = 0;
@@ -175,4 +177,202 @@ export async function ballfallHeroLikeC(g) {
         }
     }
     losehp(maybeHalfPhys(dmg), 'crunched in the head by an iron ball', 0);
+}
+
+/** C: ball.c **`IS_CHAIN_ROCK`** — deferred; treat as never blocked until **`IS_OBSTRUCTED`** wired. */
+function isChainRockStub() {
+    return false;
+}
+
+function chainInMiddleLikeC(x, y, hx, hy, bx, by) {
+    return distmin(x, y, hx, hy) <= 1 && distmin(hx, hy, bx, by) <= 1;
+}
+
+/**
+ * C: ball.c **`move_bc`** — non-blind before/after subset (omits blind glyph dance).
+ * @param {import('./gstate.js').game} g
+ */
+export function moveBcHeroLikeC(g, before, control, ballx, bally, chainx, chainy) {
+    const u = g.u;
+    const ball = g.uball;
+    const chain = g.uchain;
+    if (!u || !chain) return;
+
+    const onFloor = ball && !objectCarriedByHeroLikeC(g, ball);
+    const bx = ballx | 0;
+    const by = bally | 0;
+    const cx = chainx | 0;
+    const cy = chainy | 0;
+
+    if (before) {
+        if (objectOnFloorLikeC(chain)) {
+            unlinkFloorObjectInLevel(g, chain);
+            newsym(chain.ox | 0, chain.oy | 0);
+        }
+        if (onFloor && objectOnFloorLikeC(ball)) {
+            unlinkFloorObjectInLevel(g, ball);
+            newsym(ball.ox | 0, ball.oy | 0);
+        }
+        return;
+    }
+
+    if ((control & BC_CHAIN) || (!(control & BC_BALL) && (u.bc_order | 0) === BCPOS_CHAIN)) {
+        if (onFloor) {
+            placeFloorObjectInLevel(g, ball, bx, by);
+            stackObjOnFloorInLevel(g, ball);
+        }
+        placeFloorObjectInLevel(g, chain, cx, cy);
+        stackObjOnFloorInLevel(g, chain);
+    } else {
+        placeFloorObjectInLevel(g, chain, cx, cy);
+        stackObjOnFloorInLevel(g, chain);
+        if (onFloor) {
+            placeFloorObjectInLevel(g, ball, bx, by);
+            stackObjOnFloorInLevel(g, ball);
+        }
+    }
+    newsym(cx, cy);
+    if (onFloor) newsym(bx, by);
+}
+
+/**
+ * C: ball.c **`drag_ball`** — subset for **`teleport.c`** **`teleds`** (chain drag + teleport fallback).
+ * **`IS_CHAIN_ROCK`** / pool-pit jerk-back deferred.
+ * @returns {{ ok: boolean, bcControl: number, ballx: number, bally: number, chainx: number, chainy: number }}
+ */
+export function dragBallHeroLikeC(g, x, y, allowDrag) {
+    const u = g.u;
+    const ball = g.uball;
+    const chain = g.uchain;
+    const xi = x | 0;
+    const yi = y | 0;
+    const out = {
+        ok: true,
+        bcControl: 0,
+        ballx: ball?.ox | 0,
+        bally: ball?.oy | 0,
+        chainx: chain?.ox | 0,
+        chainy: chain?.oy | 0,
+    };
+    if (!u || !ball || !chain) return out;
+
+    if (dist2(xi, yi, chain.ox | 0, chain.oy | 0) <= 2) {
+        moveBcHeroLikeC(g, 1, 0, out.ballx, out.bally, out.chainx, out.chainy);
+        return out;
+    }
+
+    const carried = objectCarriedByHeroLikeC(g, ball);
+    if (carried || distmin(xi, yi, ball.ox | 0, ball.oy | 0) <= 2) {
+        out.bcControl = BC_CHAIN;
+        moveBcHeroLikeC(g, 1, BC_CHAIN, out.ballx, out.bally, out.chainx, out.chainy);
+        if (carried) {
+            if (distmin(xi, yi, chain.ox | 0, chain.oy | 0) > 1) {
+                out.chainx = u.ux | 0;
+                out.chainy = u.uy | 0;
+            }
+            return out;
+        }
+
+        const bx = ball.ox | 0;
+        const by = ball.oy | 0;
+        const dBall = dist2(xi, yi, bx, by);
+        switch (dBall) {
+        case 8:
+            out.chainx = ((bx + xi) / 2) | 0;
+            out.chainy = ((by + yi) / 2) | 0;
+            break;
+        case 5: {
+            let tempx;
+            let tempy;
+            let tempx2;
+            let tempy2;
+            if (Math.abs(xi - bx) === 1) {
+                tempx = xi;
+                tempx2 = bx;
+                tempy = tempy2 = ((by + yi) / 2) | 0;
+            } else {
+                tempx = tempx2 = ((bx + xi) / 2) | 0;
+                tempy = yi;
+                tempy2 = by;
+            }
+            if (
+                dist2(tempx, tempy, chain.ox | 0, chain.oy | 0)
+                < dist2(tempx2, tempy2, chain.ox | 0, chain.oy | 0)
+                || (dist2(tempx, tempy, chain.ox | 0, chain.oy | 0)
+                    === dist2(tempx2, tempy2, chain.ox | 0, chain.oy | 0)
+                    && rn2(2))
+            ) {
+                out.chainx = tempx;
+                out.chainy = tempy;
+            } else {
+                out.chainx = tempx2;
+                out.chainy = tempy2;
+            }
+            break;
+        }
+        case 4:
+            if (!chainInMiddleLikeC(chain.ox | 0, chain.oy | 0, xi, yi, bx, by)) {
+                out.chainx = ((xi + bx) / 2) | 0;
+                out.chainy = ((yi + by) / 2) | 0;
+            }
+            break;
+        case 2:
+            if (
+                dist2(xi, yi, bx, by) === 2
+                && dist2(xi, yi, chain.ox | 0, chain.oy | 0) === 4
+            ) {
+                if ((chain.oy | 0) === yi) out.chainx = bx;
+                else out.chainy = by;
+            }
+            break;
+        case 1:
+        case 0:
+            if (!chainInMiddleLikeC(chain.ox | 0, chain.oy | 0, xi, yi, bx, by)) {
+                if (chainInMiddleLikeC(u.ux | 0, u.uy | 0, xi, yi, bx, by)) {
+                    out.chainx = u.ux | 0;
+                    out.chainy = u.uy | 0;
+                } else {
+                    out.chainx = xi;
+                    out.chainy = yi;
+                }
+            }
+            break;
+        default:
+            break;
+        }
+        return out;
+    }
+
+    out.bcControl = BC_BALL | BC_CHAIN;
+    moveBcHeroLikeC(g, 1, out.bcControl, out.ballx, out.bally, out.chainx, out.chainy);
+    if (dist2(xi, yi, u.ux | 0, u.uy | 0) > 2) {
+        out.ballx = xi;
+        out.bally = yi;
+        out.chainx = xi;
+        out.chainy = yi;
+        return out;
+    }
+
+    let newchainx = u.ux | 0;
+    let newchainy = u.uy | 0;
+    if (
+        dist2(xi, yi, chain.ox | 0, chain.oy | 0) === 4
+        && !isChainRockStub(newchainx, newchainy)
+    ) {
+        newchainx = ((xi + (chain.ox | 0)) / 2) | 0;
+        newchainy = ((yi + (chain.oy | 0)) / 2) | 0;
+    }
+    out.ballx = chain.ox | 0;
+    out.bally = chain.oy | 0;
+    out.chainx = newchainx;
+    out.chainy = newchainy;
+    return out;
+}
+
+/** C: teleport.c **`teleds`** — ball active when Punished and ball not **`OBJ_FREE`**. */
+export function ballActiveForTeledsLikeC(g) {
+    if (!heroPunishedLikeC(g)) return false;
+    const ball = g.uball;
+    if (!ball || !g.uchain) return false;
+    return objectCarriedByHeroLikeC(g, ball) || objectOnFloorLikeC(ball);
 }
