@@ -6,6 +6,7 @@ Historical rows moved from `c-to-js-port-progress.md` so day-to-day work uses **
 
 | When | What changed |
 |------|----------------|
+| **2026-05-25 (`teleport.c` teleds fill_pit + vault guard + mdrop_special)** | **`vault_hero.js`**: **`findGdHeroLikeC`**, **`uleftvaultHeroLikeC`**, **`mdropSpecialObjsHeroLikeC`**. **`teleds`**: **`fillPitInLevel`**, vault-exit guard check; **`keepdogs`** steed amulet drop. **`seed0077`/`seed8000`:** **PASS**. **`npm run score`:** **2/44**. |
 | **2026-05-25 (`dog.c` mon_leave + finish_meating)** | **`keepdogs_hero.js`**: **`monLeaveHeroLikeC`**, **`finishMeatingHeroLikeC`**; **`keepdogs`** / **`migrateMonToLevelLikeC`** set migration **`wormno`**. **`seed0077`/`seed8000`:** **PASS**. **`npm run score`:** **2/44**. |
 | **2026-05-25 (`teleport.c` teleds drag_ball subset)** | **`ball_bc_hero.js`**: **`dragBallHeroLikeC`**, **`moveBcHeroLikeC`**. **`teleport_hero.js`**: C **`teleds`** order (**`drag_ball`** then hero pos, **`placebc`** if chain off-map). **`seed0077`/`seed8000`:** **PASS**. **`npm run score`:** **2/44**. |
 | **2026-05-25 (`dog.c` keepdogs mintrap + stay_behind + accessible)** | **`keepdogs_hero.js`**: **`mintrap`**, **`stay_behind`** / leash plines, **`keep_mon_accessible`** → **`migrateMonToLevelLikeC`**. **`trap.js`**: export **`mUnleashMonLikeC`**. **`seed0077`/`seed8000`:** **PASS**. **`npm run score`:** **2/44**. |

@@ -23,6 +23,7 @@ import {
 import { migrateMonToLevelLikeC } from './mon_limbo.js';
 import { cansee } from './vision.js';
 import { mintrap, mUnleashMonLikeC } from './trap.js';
+import { mdropSpecialObjsHeroLikeC } from './vault_hero.js';
 
 /** C: mon.c **`helpless(mtmp)`** — **`mfrozen`/`mcanmove`** subset. */
 function helplessMonsterKeepdogsLikeC(mtmp) {
@@ -146,7 +147,7 @@ function keepMonAccessibleLikeC(g, mtmp) {
 
 /**
  * C: dog.c **`keepdogs(boolean pets_only)`** — pets / followers near hero → **`gm.mydogs`**.
- * Deferred: **`mdrop_special_objs`** (steed amulet); full **`worm.c`** tail map when long worms spawn.
+ * Deferred: full **`worm.c`** tail map when long worms spawn.
  * @param {import('./gstate.js').game} g
  * @param {boolean} petsOnly
  */
@@ -195,6 +196,7 @@ export async function keepdogsHeroLikeC(g, petsOnly) {
             if (mtmp === u.usteed) {
                 mtmp.mtrapped = 0;
                 mtmp.meating = 0;
+                mdropSpecialObjsHeroLikeC(g, mtmp);
             } else if ((mtmp.meating | 0) || (mtmp.mtrapped | 0)) {
                 if (canseemonKeepdogsLikeC(g, mtmp)) {
                     const who = monnamKeepdogsLikeC(mtmp);

@@ -10,6 +10,7 @@ import {
     TELEDS_NO_FLAGS,
     TELEDS_ALLOW_DRAG,
     SLT_ENCUMBER,
+    VAULT,
 } from './const.js';
 import { rnd, rn2 } from './rng.js';
 import {
@@ -33,6 +34,13 @@ import {
 import { distmin } from './hacklib.js';
 import { nearCapacity } from './encumbr.js';
 import { floorObjKey } from './floorobj.js';
+import { fillPitInLevel } from './trap.js';
+import { inRoomsTypewantedRoomnos } from './shop.js';
+import {
+    vaultOccupiedFromUroomsLikeC,
+    findGdHeroLikeC,
+    uleftvaultHeroLikeC,
+} from './vault_hero.js';
 
 /**
  * C: teleport.c **`tele_jump_ok`** / **`in_out_region`** — stubs **TRUE** until regions wired.
@@ -74,7 +82,7 @@ export function teleokHeroLikeC(g, x, y, trapok) {
 
 /**
  * C: teleport.c **`teleds(nux, nuy, flags)`** — hero move with **`drag_ball`** / **`placebc`** order.
- * Deferred: **`buried_ball_to_punishment`**, swallowed **`docrt`**, vault guard, **`fill_pit`**, verbose teleport line.
+ * Deferred: **`buried_ball_to_punishment`**, swallowed **`docrt`**, **`gd_move`**, verbose teleport line.
  * @param {import('./gstate.js').game} g
  */
 export async function teledsHeroLikeC(g, nux, nuy, teledsFlags) {
@@ -132,6 +140,8 @@ export async function teledsHeroLikeC(g, nux, nuy, teledsFlags) {
     u.ux = nxi;
     u.uy = nyi;
 
+    await fillPitInLevel(g, ux0, uy0);
+
     if (ballActive && g.uchain && !objOnFloorHeadsLikeC(g, g.uchain)) {
         await placebcHeroLikeC(g);
     }
@@ -139,6 +149,18 @@ export async function teledsHeroLikeC(g, nux, nuy, teledsFlags) {
     newsym(ux0, uy0);
     newsym(nxi, nyi);
     vision_recalc(0);
+
+    const vaultGuard = vaultOccupiedFromUroomsLikeC(g) ? findGdHeroLikeC(g) : null;
+    if (vaultGuard) {
+        const saveUrooms = u.urooms;
+        const vaultRnos = inRoomsTypewantedRoomnos(g, nxi, nyi, VAULT);
+        u.urooms = vaultRnos.length ? String.fromCharCode(vaultRnos[0]) : '';
+        if (!vaultOccupiedFromUroomsLikeC(g)) {
+            await uleftvaultHeroLikeC(g, vaultGuard);
+        }
+        u.urooms = saveUrooms;
+    }
+
     await spotEffects(g, true);
     vision_recalc(1);
 }
