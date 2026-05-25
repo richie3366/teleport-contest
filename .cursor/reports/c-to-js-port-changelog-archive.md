@@ -6,6 +6,7 @@ Historical rows moved from `c-to-js-port-progress.md` so day-to-day work uses **
 
 | When | What changed |
 |------|----------------|
+| **2026-05-26 (`dog.c` losedogs + mon_arrive failure)** | **`mon_arrive.js`**: C **`losedogs`** order; **`relmon`**/**`failed_arrivals`**/**`m_into_limbo`**; **`With_you`** **`rn2`**; **`MON_STILL_ARRIVING`**; **`goto_level_hero`** calls **`losedogsLikeC`**. Dismiss-kops deferred. **`seed0077`/`seed8000`:** **PASS**. **`npm run score`:** **2/44**. |
 | **2026-05-26 (`sp_lev.c` flip_level traps + worms)** | **`sp_lev_load.js`**: C level-creation **`flip_level`** — rolling-boulder **`launch`/`launch2`**, pit **`conjoined`** **`flip_encoded_dir_bits`**, **`flip_worm_segs_*`** on **`wormTails`**. **`extras`** wiz path deferred. **`seed0077`/`seed8000`:** **PASS**. **`npm run score`:** **2/44**. |
 | **2026-05-26 (`dog.c` mon_arrive somexy + overcrowding)** | **`mon_arrive.js`**: C **`somexy`** (irregular/subrooms); **`deal_with_overcrowding`** on blocked **`mnearto`**; async **`arriveMigratingMonsForCurrentLevelLikeC`**. **`losedogs`** deferred. **`seed0077`/`seed8000`:** **PASS**. **`npm run score`:** **2/44**. |
 | **2026-05-26 (`sp_lev.c` flip_level remainder)** | **`sp_lev_load.js`**: C **`flip_level`** doors, rooms, **`lregions`**, engravings, **`fobj`**/buried, drawbridge **`DB_DIR`** on swap, **`mgoal`**. Worms/**`extras`** deferred. **`seed0077`/`seed8000`:** **PASS**. **`npm run score`:** **2/44**. |

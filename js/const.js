@@ -1318,6 +1318,12 @@ export const MON_OFFMAP = 0x01;
 export const MON_DETACH = 0x02;
 export const MON_MIGRATING = 0x04;
 export const MON_LIMBO = 0x08;
+/** C: monst.h MON_STILL_ARRIVING — dog.c mon_arrive in progress */
+export const MON_STILL_ARRIVING = 0x100;
+/** C: dog.c mon_arrive `when` (Before_you / With_you / After_you / Wiz_arrive) */
+export const MON_ARRIVE_BEFORE_YOU = 0;
+export const MON_ARRIVE_AFTER_YOU = 2;
+export const WIZ_ARRIVE = -1;
 export const MON_BUBBLEMOVE = 0x10;
 export const MON_ENDGAME_FREE = 0x20;
 export const MON_ENDGAME_MIGR = 0x40;

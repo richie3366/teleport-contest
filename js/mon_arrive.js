@@ -7,6 +7,8 @@ import {
     MIGR_STAIRS_UP, MIGR_STAIRS_DOWN, MIGR_LADDER_UP, MIGR_LADDER_DOWN,
     MIGR_SSTAIRS, MIGR_PORTAL, MIGR_WITH_HERO, MIGR_LEFTOVERS,
     In_endgame, IS_WALL,
+    MON_STILL_ARRIVING, MON_MIGRATING, MON_LIMBO,
+    MON_ARRIVE_WITH_YOU, MON_ARRIVE_BEFORE_YOU, MON_ARRIVE_AFTER_YOU, WIZ_ARRIVE,
 } from './const.js';
 import { rn1, rn2 } from './rng.js';
 import { newsym } from './display.js';
@@ -15,7 +17,7 @@ import { goodposNullMonLikeC, goodposNewMonster, enextoNearMon } from './walkabl
 import { monArriveLeftoversDeliverLikeC } from './deliver_obj_to_mon.js';
 import { stairwayFindFromLikeC, stairwayFindLikeC } from './decor.js';
 import { inRoomsTypewantedRoomnos } from './shop.js';
-import { dealWithOvercrowding } from './mon_limbo.js';
+import { dealWithOvercrowding, mIntoLimbo } from './mon_limbo.js';
 
 /**
  * C: dog.c `mon_catchup_elapsed_time` — status timers + rn2 recovery (subset).
@@ -317,49 +319,172 @@ function placeMigratingMonRandomLikeC(g, mtmp) {
     return true;
 }
 
+/** C: mon.c relmon — remove from fmon; optional failed_arrivals list */
+function relmonFailedArrivalLikeC(g, mtmp) {
+    const mons = g.level?.monsters;
+    const i = mons ? mons.indexOf(mtmp) : -1;
+    if (i >= 0) {
+        mons.splice(i, 1);
+        const mx = mtmp.mx | 0;
+        const my = mtmp.my | 0;
+        if (mx) newsym(mx, my);
+    }
+    mtmp.mx = 0;
+    mtmp.my = 0;
+    if (!g.failedArrivals) g.failedArrivals = [];
+    g.failedArrivals.push(mtmp);
+}
+
+/** C: dog.c mon_arrive — prepend to fmon before placement attempt */
+function prependFmonMonArriveLikeC(g, mtmp) {
+    if (!g.level) return;
+    const mons = g.level.monsters;
+    if (!mons) g.level.monsters = [mtmp];
+    else if (!mons.includes(mtmp)) mons.unshift(mtmp);
+}
+
+/**
+ * C: dog.c mon_arrive(With_you) — rn2 tame/peaceful vs mnexto near hero.
+ * @param {import('./gstate.js').game} g
+ */
+async function monArriveWithYouLikeC(g, mtmp) {
+    const u = g.u;
+    if (!u || !mtmp) return false;
+    const ux = u.ux | 0;
+    const uy = u.uy | 0;
+    const blocked = g.level?.monsters?.some(
+        (m) => m !== mtmp && (m.mx | 0) === ux && (m.my | 0) === uy,
+    );
+    const tame = mtmp.mtame | 0;
+    const peaceful = mtmp.mpeaceful | 0;
+    if (!blocked && !rn2(tame ? 10 : peaceful ? 5 : 2)) {
+        mtmp.mx = ux;
+        mtmp.my = uy;
+        newsym(ux, uy);
+        return true;
+    }
+    const dest = enextoNearMon(g, ux, uy, mtmp);
+    if (!dest) {
+        await dealWithOvercrowding(g, mtmp);
+        return true;
+    }
+    mtmp.mx = dest.x | 0;
+    mtmp.my = dest.y | 0;
+    newsym(dest.x, dest.y);
+    return true;
+}
+
 /**
  * C: dog.c `mon_arrive` — place one migrating monster on current level.
  * @param {import('./gstate.js').game} g
  * @param {object} entry
+ * @param {number} when — MON_ARRIVE_* / WIZ_ARRIVE
  * @returns {Promise<boolean>}
  */
-async function monArriveOneLikeC(g, entry) {
+async function monArriveOneLikeC(g, entry, when) {
     const mtmp = entry.mtmp;
     if (!mtmp) return false;
+
+    mtmp.mstate = ((mtmp.mstate | 0) | MON_STILL_ARRIVING) & ~(MON_MIGRATING | MON_LIMBO);
+    prependFmonMonArriveLikeC(g, mtmp);
+
+    if (mtmp === g.u?.usteed) {
+        mtmp.mstate = (mtmp.mstate | 0) & ~MON_STILL_ARRIVING;
+        return true;
+    }
+
+    if (when === MON_ARRIVE_WITH_YOU) {
+        await monArriveWithYouLikeC(g, mtmp);
+        mtmp.mstate = (mtmp.mstate | 0) & ~MON_STILL_ARRIVING;
+        return true;
+    }
 
     const { xlocale, ylocale } = resolveMonArriveLocaleLikeC(g, entry);
     monArriveLeftoversDeliverLikeC(g, mtmp);
 
+    let placed;
     if (xlocale > 0 && ylocale >= 0) {
-        return mneartoMonArriveLikeC(g, mtmp, xlocale, ylocale);
+        placed = await mneartoMonArriveLikeC(g, mtmp, xlocale, ylocale);
+    } else {
+        placed = rlocMonArriveLikeC(g, mtmp);
     }
-    return rlocMonArriveLikeC(g, mtmp);
+
+    if (!placed) {
+        if ((when | 0) === WIZ_ARRIVE) {
+            mIntoLimbo(g, mtmp);
+        } else {
+            relmonFailedArrivalLikeC(g, mtmp);
+        }
+    } else {
+        mtmp.migflags = (mtmp.migflags | 0) & ~MIGR_LEFTOVERS;
+    }
+    mtmp.mstate = (mtmp.mstate | 0) & ~MON_STILL_ARRIVING;
+    return placed;
 }
 
 /**
- * Drain `g.migratingMons` entries destined for hero's current `u.uz`.
+ * C: dog.c `losedogs` — exact-XY migraters, mydogs, then other migraters; failed → limbo.
+ * Shopkeeper dismiss-kops scan deferred.
  * @param {import('./gstate.js').game} g
  */
-export async function arriveMigratingMonsForCurrentLevelLikeC(g) {
+export async function losedogsLikeC(g) {
     const uz = g.u?.uz;
-    const list = g.migratingMons;
-    if (!uz || !list?.length) return;
+    if (!uz) return;
 
+    g.failedArrivals = [];
     const dnum = uz.dnum | 0;
     const dlevel = uz.dlevel | 0;
-    const remain = [];
 
-    for (const entry of list) {
-        if ((entry.mux | 0) !== dnum || (entry.muy | 0) !== dlevel) {
-            remain.push(entry);
-            continue;
-        }
-        if (await monArriveOneLikeC(g, entry)) {
-            entry.mtmp.migflags = (entry.mtmp.migflags | 0) & ~MIGR_LEFTOVERS;
+    let mig = g.migratingMons || [];
+    let remain = [];
+    for (const entry of mig) {
+        if ((entry.mux | 0) === dnum && (entry.muy | 0) === dlevel
+            && (entry.migrateTyp | 0) === MIGR_EXACT_XY) {
+            await monArriveOneLikeC(g, entry, MON_ARRIVE_BEFORE_YOU);
         } else {
             remain.push(entry);
         }
     }
-
     g.migratingMons = remain;
+
+    const mydogs = g.mydogs || [];
+    g.mydogs = [];
+    for (const dog of mydogs) {
+        const entry = {
+            mtmp: dog.mtmp,
+            migrateTyp: MIGR_WITH_HERO,
+            fromDnum: uz.dnum,
+            fromDlevel: uz.dlevel,
+            xWas: dog.xWas | 0,
+            yWas: dog.yWas | 0,
+        };
+        if (dog.mtmp) dog.mtmp.mlstmv = dog.mlstmv | 0;
+        await monArriveOneLikeC(g, entry, MON_ARRIVE_WITH_YOU);
+    }
+
+    mig = g.migratingMons || [];
+    remain = [];
+    for (const entry of mig) {
+        if ((entry.mux | 0) === dnum && (entry.muy | 0) === dlevel
+            && (entry.migrateTyp | 0) !== MIGR_EXACT_XY) {
+            await monArriveOneLikeC(g, entry, MON_ARRIVE_AFTER_YOU);
+        } else {
+            remain.push(entry);
+        }
+    }
+    g.migratingMons = remain;
+
+    while (g.failedArrivals?.length) {
+        const mtmp = g.failedArrivals.shift();
+        prependFmonMonArriveLikeC(g, mtmp);
+        mIntoLimbo(g, mtmp);
+    }
+}
+
+/**
+ * C: goto_level tail — `losedogs()` places migraters and pets on new level.
+ * @param {import('./gstate.js').game} g
+ */
+export async function arriveMigratingMonsForCurrentLevelLikeC(g) {
+    await losedogsLikeC(g);
 }
