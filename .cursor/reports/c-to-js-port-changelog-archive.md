@@ -6,6 +6,7 @@ Historical rows moved from `c-to-js-port-progress.md` so day-to-day work uses **
 
 | When | What changed |
 |------|----------------|
+| **2026-05-25 (`mklev.c` occupied IS_LAVA/IS_POOL + invocation_pos`)** | **`mklev.js` `occupied`**: C **`IS_LAVA`/`IS_POOL`** (not only **`LAVAPOOL`**); **`invocationPosLikeC`** stub for **`hack.c` `invocation_pos`**. **`find_okay_roompos`/`somexyspace`** unchanged (already matched **`mkroom.c`**). **`seed0077`/`seed8000`:** **PASS**. **`npm run score`:** **2/44**. |
 | **2026-05-25 (`display.c` docrt_flags swallow underwater branches`)** | **`docrt_flags`**: C early-outs for **`u.uswallow`** and **`Underwater&&!Is_waterlevel`** before vision shutdown; **`swallowedDocrtLikeC`/`underWaterDocrtLikeC`** stubs. **`seed0077`/`seed8000`:** **PASS**. **`npm run score`:** **2/44**. |
 | **2026-05-25 (`symbols.c` DECgraphics stairs + cmapSym ASCII fallthrough`)** | **`DECGRAPHICS_PRIMARY`**: no **`S_upstair`/`S_dnstair`** (C keeps **`<`/`>`**); **`cmapSymGlyphFromShowsymsLikeC`** → **`symNhsymToGlyphLikeC`** for non-DEC bytes; **`mapTerrainGlyph`** stair/ladder cmap. **`seed0077`/`seed8000`:** **PASS**. **`npm run score`:** **2/44**. |
 | **2026-05-25 (`display.c` back_to_glyph bars/tree/altar cmap`)** | **`mapTerrainGlyph`**: **`S_bars`/`S_tree`/`S_altar`/`S_grave`/`S_throne`** via **`terrainFromCmapLikeC`**; rogue ASCII fallback; stairs symset deferred (regressed **`seed8000`** screen 6). **`seed0077`/`seed8000`:** **PASS**. **`npm run score`:** **2/44**. |

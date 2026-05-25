@@ -18,12 +18,13 @@ Thin handoff for the next coding session. **Score + milestones:** [`c-to-js-port
 
 **Deferred for now:** **`maybe_do_tutorial`** / **`tut-1`** / full **`do.c`** **`goto_level`** (Lua **`tutorial()`** / **`free_tutorial()`**, **`savelev`**, **`gmst_*`**, …) and **`dokick`**/**`dothrow`** vs **`leaving_tutorial`** — strong upstream dependencies (save, specials, fuller **`do.c`**); treat as backlog until chargen / core early-game parity is further along; **`LIVELOGFILE`** parity if the judge ever compares livelog lines.
 
-**Last slice:** **`display.c` `docrt_flags` swallow/underwater early-outs.** After **`docrtRefresh`**, C order: **`u.uswallow`→`swallowed(1)`**, **`Underwater&&!Is_waterlevel`→`under_water(1)`** (stubs **`swallowedDocrtLikeC`/`underWaterDocrtLikeC`** + **`redrawMapLikeC`**; full stomach glyphs deferred). Full **`lev->glyph`** **`show_glyph`** loop still gated on **`newgame_docrt_recalc`**. **`seed0077`:** **PASS** (**33/33**). **`seed8000`:** **PASS** (**23/23**). **`npm run score`:** **2/44**.
+**Last slice:** **`mklev.c` `occupied`/`find_okay_roompos`.** **`occupied`**: C **`IS_FURNITURE`/`IS_LAVA`/`IS_POOL`** via **`is_lava`/`is_pool`** macros (was **`LAVAPOOL`** only); **`invocationPosLikeC`** stub (**`hack.c` `invocation_pos`**, false until Invocation level). **`seed0077`:** **PASS** (**33/33**). **`seed8000`:** **PASS** (**23/23**). **`npm run score`:** **2/44**.
 
 ## Next steps
 
-1. **`display.c` `docrt_flags(docrtRecalc)`** — full **`vision_recalc(2)`/`cls`/`show_glyph(lev->glyph)`** when **`lev->glyph`** pipeline exists; **`mapLocationLikeC`** on newgame docrt regressed early screens (defer).
-2. **`display.c` `swallowed`/`under_water`** — **`swallow_to_glyph`** stomach frame when engulf paths run.
+1. **`display.c` `docrt_flags(docrtRecalc)`** — full **`vision_recalc(2)`/`cls`/`show_glyph(lev->glyph)`** when **`lev->glyph`** / **`map_background`** pipeline exists; **`mapLocationLikeC`** on newgame docrt regressed early screens (defer).
+2. **`display.c` `map_background`** — set hero-memory glyph from **`back_to_glyph`**; wire into **`showGlyphFromLevLikeC`** for docrt replay.
+3. **`display.c` `swallowed`/`under_water`** — **`swallow_to_glyph`** stomach frame when engulf paths run.
 3. **`symbols.c` `parse_sym_line`** — optional real **`dat/symbols`** file I/O (embedded tables remain source of truth).
 2. **`mklev`** — **`find_okay_roompos`/`somexyspace`** / west-apport geometry audit (level already has **`SDOOR`/`CORR`** cap; display was the gap).
 3. **`objects_nums` audit** — other **`u_init_link_*_invent.js`** **`OTYP_SHORT_SWORD`** **47**.
