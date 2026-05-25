@@ -6,6 +6,7 @@ Historical rows moved from `c-to-js-port-progress.md` so day-to-day work uses **
 
 | When | What changed |
 |------|----------------|
+| **2026-05-25 (`mkmaze.c` maze bounds + lregions API`)** | **`mklev.js`**: **`resetMazeMaxBoundsLikeC`** (C **`decl.c`** **`(COLNO-1)&~1`**, **`(ROWNO-1)&~1`**); **`appendLregionLikeC`** for des **`lregions`**; **`makemazLikeC`** stub (**`is_maze_lev`**, **`corrmaze`**, bounds); **`clear_level_structures`** resets bounds + clears **`g.lregions`**. **`seed0077`/`seed8000`:** **PASS**. **`npm run score`:** **2/44**. |
 | **2026-05-25 (`objects_nums` DAGGER + goto_level u_on_rndspot`)** | **`OTYP_DAGGER`** **35** in **`u_init_role_rng`** + Ranger/Rogue/Valkyrie invent; **`goto_level_hero`**: **`u_onRndspotLikeC`** after **`mklev`**; **`setMazeMaxBoundsLikeC`**. **`seed0077`/`seed8000`:** **PASS**. **`npm run score`:** **2/44**. |
 | **2026-05-25 (`mkmaze.c` lregions dndest/updest`)** | **`mklev.js`**: C **`fixup_special`** tele regions → **`game.dndest`/`updest`**; **`placeLregionsFixupSpecialLikeC`**, **`u_onRndspotLikeC`**, **`place_lregion`** rtype switch; clear on **`clear_level_structures`**. **`seed0077`/`seed8000`:** **PASS**. **`npm run score`:** **2/44**. |
 | **2026-05-25 (`objects_nums` SHORT_SWORD otyp 47 audit`)** | **`u_init_role_rng`**, **`u_init_link_barbarian_invent`**, **`u_init_link_samurai_invent`**: **`OTYP_SHORT_SWORD`** **47**; Barbarian axe/battle-axe/two-handed; Samurai **`KATANA`** **57** per **`obj_oc_skill_data.js`**. **`seed0077`/`seed8000`:** **PASS**. **`npm run score`:** **2/44**. |

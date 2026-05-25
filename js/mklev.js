@@ -287,6 +287,39 @@ export function setMazeMaxBoundsLikeC(g, xmax, ymax) {
     g.y_maze_max = ymax | 0;
 }
 
+/** C: decl.c `g_init_x` / `g_init_y` — default maze interior before **`create_maze`**. */
+export function resetMazeMaxBoundsLikeC(g) {
+    setMazeMaxBoundsLikeC(g, (COLNO - 1) & ~1, (ROWNO - 1) & ~1);
+}
+
+/**
+ * C: sp_lev.c `store_lregion` — accumulate compiler **`lregions`** until **`fixup_special`**.
+ * @param {import('./gstate.js').game} g
+ * @param {{ rtype?: number, inarea?: object, delarea?: object, lev?: object|null, rname?: string|null }} region
+ */
+export function appendLregionLikeC(g, region) {
+    if (!region) return;
+    if (!g.lregions) g.lregions = [];
+    g.lregions.push(region);
+}
+
+/**
+ * C: mkmaze.c `makemaz` — procedural maze when **`load_special`** fails (subset: flags + bounds only).
+ * @param {import('./gstate.js').game} g
+ * @param {string} [_s] — des proto / fill name (unused until **`load_special`** is ported)
+ * @returns {Promise<boolean>} true when maze path ran (caller skips regular **`makerooms`**)
+ */
+export async function makemazLikeC(g, _s = '') {
+    void _s;
+    /* C: `load_special(protofile)` — not ported; always fall through to procedural maze. */
+    const lf = g.level.flags;
+    lf.is_maze_lev = true;
+    lf.corrmaze = !rn2(3);
+    resetMazeMaxBoundsLikeC(g);
+    /* deferred: create_maze, wallification, mkstairs, place_branch, populate_maze */
+    return true;
+}
+
 function placeLregionHereLikeC(x, y, nlx, nly, nhx, nhy, rtype, lev) {
     const g = game;
     const rt = rtype | 0;
@@ -731,8 +764,8 @@ function clear_level_structures() {
     lf.stormy = false;
     lf.stasis_until = 0;
     clearLregionDestLikeC(g);
-    delete g.x_maze_max;
-    delete g.y_maze_max;
+    g.lregions = null;
+    resetMazeMaxBoundsLikeC(g);
     init_rect();
 }
 
