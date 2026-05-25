@@ -122,6 +122,7 @@ import {
     removeBoundarySymsLikeC,
     solidifyMapLikeC,
 } from './sp_lev_load.js';
+import { premapDetectLikeC } from './premap_detect.js';
 
 // Object/class constants (normally from objects.js, not in contest template)
 /* NH5 audit: scroll **`otyp`** literals below are **legacy** (pre–`objects_nums` / `mkobj_scroll_class_rng_like_c.js`).
@@ -414,7 +415,7 @@ function loadSpecialAfterLuaLikeC(g) {
     recount_level_features();
     if (coder?.solidify) solidifyMapLikeC(g);
     fixupSpecialLikeC(g);
-    /* premap_detect — deferred */
+    if (coder?.premapped) premapDetectLikeC(g);
 }
 
 /**

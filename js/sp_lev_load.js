@@ -8,7 +8,7 @@ import { delEngrAt, engrAt } from './engrave.js';
 import { tAt, delTrap } from './search.js';
 import { floorObjKey, obliterateObjectInLevel } from './floorobj.js';
 import {
-    COLNO, ROWNO, ROOM, CROSSWALL, DOOR, SDOOR, IRONBARS,
+    COLNO, ROWNO, STONE, ROOM, CROSSWALL, DOOR, SDOOR, IRONBARS,
     IS_WALL, IS_STWALL, IS_DOOR, IS_OBSTRUCTED, IS_POOL, IS_LAVA, IS_TREE,
     W_NONDIGGABLE, W_NONPASSWALL, ROOMOFFSET, OTYP_BOULDER, isok,
     MAGIC_PORTAL, VIBRATING_SQUARE,
@@ -190,16 +190,175 @@ export function solidifyMapLikeC(g) {
 }
 
 /**
- * C: sp_lev.c flip_level — full map transpose deferred (#wizfliplevel extras omitted).
+ * C: mklev.c get_level_extends — bounds for flip_level (subset of mklev finalize).
+ * @param {import('./gstate.js').game} g
+ */
+function getLevelExtendsFlipLikeC(g) {
+    const map = g.level;
+    if (!map) return { minx: 1, maxx: COLNO - 1, miny: 0, maxy: ROWNO - 1 };
+    let xmin = 0;
+    let xmax = COLNO - 1;
+    let ymin = 0;
+    let ymax = ROWNO - 1;
+    let found = false;
+    let nonwall = false;
+    for (xmin = 0; !found && xmin <= COLNO - 1; xmin++) {
+        for (let y = 0; y <= ROWNO - 1; y++) {
+            const typ = map.at(xmin, y)?.typ ?? STONE;
+            if (typ !== STONE) {
+                found = true;
+                if (!IS_WALL(typ)) nonwall = true;
+            }
+        }
+    }
+    xmin -= (nonwall || !map.flags?.is_maze_lev) ? 2 : 1;
+    found = false;
+    nonwall = false;
+    for (xmax = COLNO - 1; !found && xmax >= 0; xmax--) {
+        for (let y = 0; y <= ROWNO - 1; y++) {
+            const typ = map.at(xmax, y)?.typ ?? STONE;
+            if (typ !== STONE) {
+                found = true;
+                if (!IS_WALL(typ)) nonwall = true;
+            }
+        }
+    }
+    xmax += (nonwall || !map.flags?.is_maze_lev) ? 2 : 1;
+    found = false;
+    nonwall = false;
+    for (ymin = 0; !found && ymin <= ROWNO - 1; ymin++) {
+        for (let x = xmin; x <= xmax; x++) {
+            const typ = map.at(x, ymin)?.typ ?? STONE;
+            if (typ !== STONE) {
+                found = true;
+                if (!IS_WALL(typ)) nonwall = true;
+            }
+        }
+    }
+    ymin -= (nonwall || !map.flags?.is_maze_lev) ? 2 : 1;
+    found = false;
+    nonwall = false;
+    for (ymax = ROWNO - 1; !found && ymax >= 0; ymax--) {
+        for (let x = xmin; x <= xmax; x++) {
+            const typ = map.at(x, ymax)?.typ ?? STONE;
+            if (typ !== STONE) {
+                found = true;
+                if (!IS_WALL(typ)) nonwall = true;
+            }
+        }
+    }
+    ymax += (nonwall || !map.flags?.is_maze_lev) ? 2 : 1;
+    let minx = xmin | 0;
+    let maxx = xmax | 0;
+    let miny = ymin | 0;
+    let maxy = ymax | 0;
+    if (miny < 0) miny = 0;
+    if (minx < 1) minx = 1;
+    if (maxx >= COLNO) maxx = COLNO - 1;
+    if (maxy >= ROWNO) maxy = ROWNO - 1;
+    return { minx, maxx, miny, maxy };
+}
+
+/** @param {object} otmp @param {number} x @param {number} y */
+function relinkFloorChainCoords(otmp, x, y) {
+    for (let o = otmp; o; o = o.nexthere) {
+        o.ox = x | 0;
+        o.oy = y | 0;
+    }
+}
+
+/**
+ * @param {import('./gstate.js').game} g
+ * @param {number} x1
+ * @param {number} y1
+ * @param {number} x2
+ * @param {number} y2
+ */
+function swapFloorHeadsFlipLikeC(g, x1, y1, x2, y2) {
+    const heads = g.level?.floorObjHeads;
+    if (!heads) return;
+    const k1 = floorObjKey(x1, y1);
+    const k2 = floorObjKey(x2, y2);
+    const h1 = heads.get(k1);
+    const h2 = heads.get(k2);
+    if (h1) relinkFloorChainCoords(h1, x2, y2);
+    if (h2) relinkFloorChainCoords(h2, x1, y1);
+    if (h1) heads.set(k2, h1);
+    else heads.delete(k2);
+    if (h2) heads.set(k1, h2);
+    else heads.delete(k1);
+}
+
+/**
+ * @param {import('./game.js').GameMap} map
+ */
+function swapLocCellsFlipLikeC(map, x1, y1, x2, y2) {
+    const a = map.at(x1, y1);
+    const b = map.at(x2, y2);
+    if (!a || !b) return;
+    const tmp = { ...a };
+    Object.assign(a, b);
+    Object.assign(b, tmp);
+}
+
+/**
+ * C: sp_lev.c flip_level — level-creation subset (`extras` false); #wizfliplevel deferred.
  * @param {import('./gstate.js').game} g
  * @param {number} flp — bit 1 vertical, bit 2 horizontal
  * @param {boolean} extras
  */
 export function flipLevelLikeC(g, flp, extras) {
-    void g;
-    void flp;
-    void extras;
-    /* C: sp_lev.c flip_level — terrain/monsters/objects/timer flip; deferred */
+    const bits = flp | 0;
+    if ((bits & 3) === 0) return;
+    if (extras) return;
+    const map = g.level;
+    if (!map) return;
+    const { minx, maxx, miny, maxy } = getLevelExtendsFlipLikeC(g);
+    const flipY = (y) => (maxy - (y | 0)) + miny;
+    const flipX = (x) => (maxx - (x | 0)) + minx;
+
+    for (let st = g.stairs; st; st = st.next) {
+        if (bits & 1) st.sy = flipY(st.sy | 0);
+        if (bits & 2) st.sx = flipX(st.sx | 0);
+    }
+
+    for (const t of map.traps || []) {
+        const tx = t.tx | 0;
+        const ty = t.ty | 0;
+        if (tx < minx || tx > maxx || ty < miny || ty > maxy) continue;
+        if (bits & 1) t.ty = flipY(ty);
+        if (bits & 2) t.tx = flipX(tx);
+    }
+
+    for (const m of map.monsters || []) {
+        const mx = m.mx | 0;
+        const my = m.my | 0;
+        if (!mx && !my) continue;
+        if (mx < minx || mx > maxx || my < miny || my > maxy) continue;
+        if (bits & 1) m.my = flipY(my);
+        if (bits & 2) m.mx = flipX(mx);
+    }
+
+    if (bits & 1) {
+        const half = miny + Math.trunc((maxy - miny + 1) / 2);
+        for (let x = minx; x <= maxx; x++) {
+            for (let y = miny; y < half; y++) {
+                const ny = flipY(y);
+                swapLocCellsFlipLikeC(map, x, y, x, ny);
+                swapFloorHeadsFlipLikeC(g, x, y, x, ny);
+            }
+        }
+    }
+    if (bits & 2) {
+        const half = minx + Math.trunc((maxx - minx + 1) / 2);
+        for (let x = minx; x < half; x++) {
+            const nx = flipX(x);
+            for (let y = miny; y <= maxy; y++) {
+                swapLocCellsFlipLikeC(map, x, y, nx, y);
+                swapFloorHeadsFlipLikeC(g, x, y, nx, y);
+            }
+        }
+    }
 }
 
 /**
