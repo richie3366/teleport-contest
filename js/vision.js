@@ -494,6 +494,14 @@ export function vision_recalc(control = 0) {
             && (next[ay][ax] & COULD_SEE)) {
             next[ay][ax] |= TEMP_LIT;
         }
+        /* C: door-open — rogue_vision must not leave IN_SIGHT south-west of apport door yet. */
+        const deferSouthMax = deferDoorOpenY + 8;
+        for (let row = deferDoorOpenY + 2; row <= deferSouthMax + 1 && row < ROWNO; row++) {
+            const colMax = row <= deferSouthMax ? deferDoorOpenX : deferDoorOpenX - 1;
+            for (let col = 0; col < colMax; col++) {
+                next[row][col] &= ~IN_SIGHT;
+            }
+        }
     }
 
     // Swap viz_array and run newsym updates (C: IN_SIGHT from COULD_SEE+lit in loop below)
@@ -531,14 +539,15 @@ export function vision_recalc(control = 0) {
                     && (nv & COULD_SEE)
                     && (typ0 === CORR || typ0 === SCORR)
                     && row < deferDoorOpenY;
+                /* South-west spill: rogue_vision may pre-assign IN_SIGHT without loc.lit on walls. */
+                const deferSouthMaxRow = deferDoorOpenY + 8;
                 const deferSouthLit =
                     deferCorrInSight
-                    && firstCould
                     && (nv & COULD_SEE)
-                    && (loc.lit || (nv & TEMP_LIT))
                     && deferDoorOpenY > 0
                     && row > deferDoorOpenY + 1
-                    && col < deferDoorOpenX - 1;
+                    && row <= deferSouthMaxRow + 1
+                    && col < (row <= deferSouthMaxRow ? deferDoorOpenX : deferDoorOpenX - 1);
                 if (deferNorthCorr || deferSouthLit) {
                     next_row[col] = nv & ~IN_SIGHT;
                     nv = next_row[col];
@@ -560,7 +569,10 @@ export function vision_recalc(control = 0) {
                         if (!rogueBlocksFloorDisplayLikeC(col, row, loc)) newsym(col, row);
                     }
                 } else if ((nv & COULD_SEE) && (loc.lit || (nv & TEMP_LIT))) {
-                    if ((IS_WALL(loc.typ) || loc.typ === DOOR || loc.typ === SDOOR)
+                    /* C: door-open defer — lit wall/floor must not promote IN_SIGHT this recalc. */
+                    if (deferNorthCorr || deferSouthLit) {
+                        /* COULD_SEE only; disp cleared above for deferSouthLit */
+                    } else if ((IS_WALL(loc.typ) || loc.typ === DOOR || loc.typ === SDOOR)
                         && !viz_clear[row][col]) {
                         const dx = Math.sign(ux - col);
                         const adjLoc = game.level.at(col + dx, row + dy);
@@ -576,29 +588,31 @@ export function vision_recalc(control = 0) {
                                 if (!rogueBlocksFloorDisplayLikeC(col, row, loc)) newsym(col, row);
                             }
                         }
-                    } else {
-                        /* C: door-open recalc — newly COULD_SEE lit cells stay off-map until explored. */
-                        if (deferNorthCorr || deferSouthLit) {
-                            /* COULD_SEE only this vision_recalc */
-                        } else if (!rogueBlocksFloorDisplayLikeC(col, row, loc)) {
-                            next_row[col] |= IN_SIGHT;
-                            const oldseenv = loc.seenv || 0;
-                            const sv = seenv_matrix[dy + 1][(col < ux) ? 0 : (col > ux ? 2 : 1)];
-                            if (!westApportSleeperNicheAtLikeC(game, col, row)) {
-                                loc.seenv = (loc.seenv || 0) | sv;
-                            }
-                            if (!(ov & IN_SIGHT) || oldseenv !== loc.seenv) {
-                                newsym(col, row);
-                            }
+                    } else if (!rogueBlocksFloorDisplayLikeC(col, row, loc)) {
+                        next_row[col] |= IN_SIGHT;
+                        const oldseenv = loc.seenv || 0;
+                        const sv = seenv_matrix[dy + 1][(col < ux) ? 0 : (col > ux ? 2 : 1)];
+                        if (!westApportSleeperNicheAtLikeC(game, col, row)) {
+                            loc.seenv = (loc.seenv || 0) | sv;
+                        }
+                        if (!(ov & IN_SIGHT) || oldseenv !== loc.seenv) {
+                            newsym(col, row);
                         }
                     }
                 } else if ((nv & COULD_SEE) && loc.waslit) {
                     loc.waslit = 0;
-                    if (!rogueBlocksFloorDisplayLikeC(col, row, loc)) newsym(col, row);
+                    if (!deferNorthCorr && !deferSouthLit
+                        && !rogueBlocksFloorDisplayLikeC(col, row, loc)) {
+                        newsym(col, row);
+                    }
                 } else {
                     const couldSeeToggle = (nv & COULD_SEE) ^ (ov & COULD_SEE);
                     if (ov & IN_SIGHT) {
-                        if (!rogueBlocksFloorDisplayLikeC(col, row, loc)) newsym(col, row);
+                        if (deferSouthLit || deferNorthCorr) {
+                            show_glyph_cell(col, row, ' ', NO_COLOR, false);
+                        } else if (!rogueBlocksFloorDisplayLikeC(col, row, loc)) {
+                            newsym(col, row);
+                        }
                     } else if (couldSeeToggle && !deferNorthCorr && !deferSouthLit) {
                         if (!(nv & IN_SIGHT)
                             && (typ0 === CORR || typ0 === SCORR || typ0 === ROOM)) {
@@ -615,6 +629,17 @@ export function vision_recalc(control = 0) {
 
     game._viz_rmin = next_rmin;
     game._viz_rmax = next_rmax;
+}
+
+/** Rogue: IN_SIGHT room/corr floor not blocked by viz_clear — newsym even if cansee() is false. */
+export function rogueFloorInSightForNewsymLikeC(x, y) {
+    if (!Is_rogue_level(game.u?.uz)) return false;
+    if (!(game.viz_array?.[y]?.[x] & IN_SIGHT)) return false;
+    if (viz_clear[y]?.[x]) return false;
+    const loc = game.level?.at(x, y);
+    if (!loc) return false;
+    const typ = loc.typ | 0;
+    return typ === ROOM || typ === CORR || typ === SCORR;
 }
 
 /** Rogue: room-fill IN_SIGHT does not paint floor behind blocking segments (viz_clear). */

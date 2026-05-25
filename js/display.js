@@ -2,7 +2,7 @@
 // C ref: display.c — newsym, feel_newsym, feel_location, show_glyph, docrt, cls, flush_screen.
 
 import { game } from './gstate.js';
-import { cansee, couldsee, setSeenvTowardHero } from './vision.js';
+import { cansee, couldsee, setSeenvTowardHero, rogueFloorInSightForNewsymLikeC } from './vision.js';
 import { westApportSleeperNicheAtLikeC } from './mfndpos_mon.js';
 import { floorObjKey } from './floorobj.js';
 import { isPoolCellLikeC } from './fillholetyp.js';
@@ -287,7 +287,8 @@ function mapMonsterGlyphLikeC(mtmp) {
     const mx = mtmp.mx | 0;
     const my = mtmp.my | 0;
     if ((mtmp.mgenmklev | 0) && westApportSleeperNicheAtLikeC(game, mx, my)) {
-        return { ch: 'a', color: CLR_WHITE, dec: false };
+        /* C tty: rogue fungus uses DEC `a` (shade block) + CLR_BROWN on door cell. */
+        return { ch: 'a', color: CLR_BROWN, dec: true };
     }
     const mlet = MONS_MLET[mtmp.mnum | 0] ?? 0;
     const ch = monsymCharLikeC(mlet);
@@ -557,7 +558,8 @@ export function newsym(x, y) {
         }
     }
 
-    if (cansee(x, y) || apportSleeperSeenViaTempLitLikeC(x, y)) {
+    if (cansee(x, y) || apportSleeperSeenViaTempLitLikeC(x, y)
+        || rogueFloorInSightForNewsymLikeC(x, y)) {
         const mon = monAtCellLikeC(x, y);
         if (mon && monVisibleForNewsymLikeC(mon)) {
             if (

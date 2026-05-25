@@ -95,11 +95,11 @@ export async function doopenIndirHeroLikeC(g, x, y) {
         } else {
             loc.doormask = D_ISOPEN;
         }
-        feelNewsym(x, y);
-        recalcBlockPointLikeC(x, y);
         g._deferCorrInSightOnce = 1;
         g._deferDoorOpenX = x | 0;
         g._deferDoorOpenY = y | 0;
+        feelNewsym(x, y);
+        recalcBlockPointLikeC(x, y);
         const ax = (x | 0) - 1;
         const ay = (y | 0) + 1;
         if (westApportSleeperNicheAtLikeC(g, ax, ay)) {
