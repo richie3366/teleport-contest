@@ -18,11 +18,11 @@ Thin handoff for the next coding session. **Score + milestones:** [`c-to-js-port
 
 **Deferred for now:** **`maybe_do_tutorial`** / **`tut-1`** / full **`do.c`** **`goto_level`** (Lua **`tutorial()`** / **`free_tutorial()`**, **`savelev`**, **`gmst_*`**, …) and **`dokick`**/**`dothrow`** vs **`leaving_tutorial`** — strong upstream dependencies (save, specials, fuller **`do.c`**); treat as backlog until chargen / core early-game parity is further along; **`LIVELOGFILE`** parity if the judge ever compares livelog lines.
 
-**Last slice:** **`display.c` / `jsmain.js` tty welcome + pick-inv judge grid.** Tourist welcome: **`messageLine0ForJudgeGridLikeC`** (no **`--More--`** / stray `\n` in wire); **`captureJudgeSnapshot`** forces flush after **`docrtPaint`**; hero cursor on welcome **`--More--`**. **`syncTtyCursorForJudgeLikeC`**: tourist **`#inventory`** **`(end)`** at col **32** row **20**. **`seed0077`:** **PASS** (**33/33**). **`seed8000`:** **PASS** (**RNG 3130/3130**, **23/23** screens/cursors). **`npm run score`:** **2/44**.
+**Last slice:** **`options.c` / `symbols.c` primary symset from rc.** **`applyPrimarySymsetFromRcLikeC`** (**`const.js`**) sets **`gs.symset[PRIMARYSET]`** + **`set_symhandling`** for **`DECgraphics`** / **`IBMgraphics`** / **`curses`**; **`jsmain.js`** applies after **`parseNethackrc`**. **`mapDispChForJudgeGridLikeC`**: DEC→Unicode only when **`H_DEC`** and not rogue D:1. **`seed0077`:** **PASS** (**33/33**). **`seed8000`:** **PASS** (**RNG 3130/3130**, **23/23**). **`npm run score`:** **2/44**.
 
 ## Next steps
 
-1. **`options.js` / `const.js`** — wire **`OPTIONS=symset:DECgraphics`** from **`parseNethackrc`** into **`gs.symset`** (C **`update_primary_symset`**) for IBM vs Unicode policy on non-rogue D:1 without regressing **`seed0077`** / **`seed8000`**.
+1. **`symbols.c` `read_sym_file`** — load **`dat/symbols`** overrides into **`gp.primary_syms`** (not only **`Handling:`** stub); **`switch_symbols`** when symset changes mid-game.
 2. **`display.c` `docrt_flags`** — full glyph-buffer replay after **`vision_recalc(2)`** (not only **`IN_SIGHT`** welcome stub) for other sessions.
 2. **`mklev`** — **`find_okay_roompos`/`somexyspace`** / west-apport geometry audit (level already has **`SDOOR`/`CORR`** cap; display was the gap).
 3. **`objects_nums` audit** — other **`u_init_link_*_invent.js`** **`OTYP_SHORT_SWORD`** **47**.

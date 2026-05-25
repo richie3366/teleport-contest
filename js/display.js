@@ -22,7 +22,8 @@ import {
     D_NODOOR, D_ISOPEN, D_CLOSED, D_LOCKED,
     SCORR, IRONBARS, TREE, POOL, MOAT, WATER, ICE,
     FOUNTAIN, SINK, ALTAR, GRAVE, THRONE, LAVAPOOL, LAVAWALL,
-    Is_rogue_level, OTYP_BOULDER, OTYP_GOLD_PIECE, OTYP_HEAVY_IRON_BALL, OTYP_IRON_CHAIN,
+    Is_rogue_level, gs, H_DEC, PRIMARYSET,
+    OTYP_BOULDER, OTYP_GOLD_PIECE, OTYP_HEAVY_IRON_BALL, OTYP_IRON_CHAIN,
     ARROW_TRAP, DART_TRAP, ROCKTRAP, SQKY_BOARD, BEAR_TRAP, LANDMINE,
     ROLLING_BOULDER_TRAP, SLP_GAS_TRAP, RUST_TRAP, FIRE_TRAP,
     PIT, SPIKED_PIT, HOLE, TRAPDOOR, TELEP_TRAP, LEVEL_TELEP,
@@ -435,7 +436,8 @@ function paintCellGlyph(x, y, loc, gl, show) {
 function mapDispChForJudgeGridLikeC(loc) {
     const ch = loc?.disp_ch ?? ' ';
     /* C tty on rogue D:1 records IBM wall bytes (`l`, `q`, …), not DEC→Unicode. */
-    if (loc?.disp_decgfx && !Is_rogue_level(game.u?.uz))
+    const decHandler = gs.symset[PRIMARYSET].handling === H_DEC;
+    if (loc?.disp_decgfx && decHandler && !Is_rogue_level(game.u?.uz))
         return DEC_TO_UNICODE[ch] || ch;
     return ch;
 }
