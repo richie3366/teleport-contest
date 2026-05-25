@@ -18,14 +18,13 @@ Thin handoff for the next coding session. **Score + milestones:** [`c-to-js-port
 
 **Deferred for now:** **`maybe_do_tutorial`** / **`tut-1`** / full **`do.c`** **`goto_level`** (Lua **`tutorial()`** / **`free_tutorial()`**, **`savelev`**, **`gmst_*`**, …) and **`dokick`**/**`dothrow`** vs **`leaving_tutorial`** — strong upstream dependencies (save, specials, fuller **`do.c`**); treat as backlog until chargen / core early-game parity is further along; **`LIVELOGFILE`** parity if the judge ever compares livelog lines.
 
-**Last slice:** **`display.c` `swallowed`/`under_water`/`under_ground`.** **`swallowedLikeC`** stomach frame (**`swallow_to_glyph`** / **`S_sw_*`** cmap); **`underWaterLikeC`** 3×3 pool/lava/ice **`newsym`**; **`underGroundDocrtLikeC`** stub; **`newsym`** early-outs. **`seed0077`/`seed8000`:** **PASS**. **`npm run score`:** **2/44**.
+**Last slice:** **`symbols.c` `parse_sym_line` + `read_sym_file`.** **`parseSymLineLikeC`** / **`symValLikeC`** / **`SYM_PARSE_BY_NAME`**; optional **`nethack-c/upstream/dat/symbols`** I/O with embedded-table fallback. **`seed0077`/`seed8000`:** **PASS**. **`npm run score`:** **2/44**.
 
 ## Next steps
 
-1. **`symbols.c` `parse_sym_line`** — optional real **`dat/symbols`** file I/O (embedded tables remain source of truth).
-2. **`mklev`** — **`find_okay_roompos`/`somexyspace`** / west-apport geometry audit (level already has **`SDOOR`/`CORR`** cap; display was the gap).
-3. **`objects_nums` audit** — other **`u_init_link_*_invent.js`** **`OTYP_SHORT_SWORD`** **47**.
-4. **`mklev` lregions** — wire **`game.dndest`/`updest`** when **`place_lregions`** ported.
+1. **`mklev`** — **`find_okay_roompos`/`somexyspace`** / west-apport geometry audit (level already has **`SDOOR`/`CORR`** cap; display was the gap).
+2. **`objects_nums` audit** — other **`u_init_link_*_invent.js`** **`OTYP_SHORT_SWORD`** **47**.
+3. **`mklev` lregions** — wire **`game.dndest`/`updest`** when **`place_lregions`** ported.
 
 ### Extended backlog (unchanged lanes)
 
