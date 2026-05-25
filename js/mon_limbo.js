@@ -16,6 +16,7 @@ import {
     MIGR_RANDOM,
 } from './const.js';
 import { raceptr, monHasAmulet, isHomeElemental, isRiderMnum, S_ELEMENTAL } from './mondata.js';
+import { monLeaveHeroLikeC } from './keepdogs_hero.js';
 
 /**
  * C: mon.c **`ok_to_obliterate`** — **`mons[PM_WIZARD_OF_YENDOR]`** via **`mname`** when **`mnum`** not wired.
@@ -48,6 +49,7 @@ export function migrateMonToLevelLikeC(g, mtmp, toLev, migrateTyp) {
         mtmp.mtame = Math.max(0, (mtmp.mtame | 0) - 1);
         mtmp.mleashed = 0;
     }
+    const numSegs = monLeaveHeroLikeC(g, mtmp);
     const mx = mtmp.mx | 0;
     const my = mtmp.my | 0;
     const mons = g.level?.monsters;
@@ -67,6 +69,8 @@ export function migrateMonToLevelLikeC(g, mtmp, toLev, migrateTyp) {
     });
     mtmp.mx = 0;
     mtmp.my = 0;
+    mtmp.wormno = numSegs;
+    mtmp.mlstmv = g.moves | 0;
     newsym(mx, my);
 }
 
