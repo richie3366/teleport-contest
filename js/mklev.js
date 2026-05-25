@@ -57,7 +57,10 @@ import {
     is_pit, is_hole,
     OTYP_BOULDER,
     In_endgame, In_hell, In_V_tower, Is_rogue_level, Is_oracle_level, In_mines, In_quest,
+    Is_knox_level,
+    MKTRAP_MAZEFLAG,
 } from './const.js';
+import { isPoolOrLavaCellLikeC } from './fillholetyp.js';
 import { makeEngrAt, ENGR_HEADSTONE, ENGR_MARK, ENGR_DUST, randomEngraving, getRndEpitaphText, wipeEngrAt } from './engrave.js';
 import { tAt } from './search.js';
 import { canFallThruDlevelLikeC } from './trap.js';
@@ -2040,6 +2043,19 @@ function wallification(x1, y1, x2, y2) {
 // Fill ordinary room
 // ============================================================
 
+/** C: mklev.c traptype_roguelvl — Rogue branch trap set. */
+function traptypeRoguelvlLikeC() {
+    switch (rn2(7)) {
+    default: return BEAR_TRAP;
+    case 1: return ARROW_TRAP;
+    case 2: return DART_TRAP;
+    case 3: return TRAPDOOR;
+    case 4: return PIT;
+    case 5: return SLP_GAS_TRAP;
+    case 6: return RUST_TRAP;
+    }
+}
+
 /** C: mklev.c traptype_rnd(mktrapflags) — `level_difficulty()`, WEB gated by depth/flags. */
 function traptype_rnd(mktrapflags = 0) {
     const lvl = level_difficulty();
@@ -2050,7 +2066,8 @@ function traptype_rnd(mktrapflags = 0) {
     case ROLLING_BOULDER_TRAP: case SLP_GAS_TRAP:
         if (lvl < 2) kind = NO_TRAP; break;
     case LEVEL_TELEP:
-        if (lvl < 5 || game.level?.flags?.noteleport) kind = NO_TRAP; break;
+        if (lvl < 5 || game.level?.flags?.noteleport || Is_knox_level(game.u?.uz)) kind = NO_TRAP;
+        break;
     case SPIKED_PIT:
         if (lvl < 5) kind = NO_TRAP; break;
     case LANDMINE:
@@ -2061,7 +2078,8 @@ function traptype_rnd(mktrapflags = 0) {
     case STATUE_TRAP: case POLY_TRAP:
         if (lvl < 8) kind = NO_TRAP; break;
     case FIRE_TRAP:
-        kind = NO_TRAP; break; // not hellish
+        if (!In_hell(game.u?.uz)) kind = NO_TRAP;
+        break;
     case TELEP_TRAP:
         if (game.level?.flags?.noteleport) kind = NO_TRAP; break;
     case HOLE:
@@ -2157,21 +2175,24 @@ function mktrap_victim(trap) {
 /** C: mklev.c mktrap(num, mktrapflags, croom, tm). */
 async function mktrapLikeC(num, mktrapflags, croom, tm) {
     const g = game;
-    if (!tm && !croom && !(mktrapflags & 2)) return;
+    if (!tm && !croom && !(mktrapflags & MKTRAP_MAZEFLAG)) return;
     const m = { x: 0, y: 0 };
     let kind;
     const lvlDiff = level_difficulty();
-    const dlevel = g.u?.uz?.dlevel ?? 1;
+    const uz = g.u?.uz;
+    if (tm && isPoolOrLavaCellLikeC(g, tm.x, tm.y)) return;
     if (num > NO_TRAP && num < TRAPNUM) {
         kind = num;
+    } else if (Is_rogue_level(uz)) {
+        kind = traptypeRoguelvlLikeC();
+    } else if (In_hell(uz) && !rn2(5)) {
+        kind = FIRE_TRAP;
     } else {
         do {
             kind = traptype_rnd(mktrapflags);
         } while (kind === NO_TRAP);
     }
-    const dungeon = g.dungeons?.[g.u?.uz?.dnum ?? 0];
-    const canFallThru = dlevel < (dungeon?.num_dunlevs ?? 1);
-    if (is_hole(kind) && !canFallThru) kind = ROCKTRAP;
+    if (is_hole(kind) && !canFallThruDlevelLikeC(g)) kind = ROCKTRAP;
     if (tm) {
         m.x = tm.x | 0;
         m.y = tm.y | 0;
@@ -2180,7 +2201,8 @@ async function mktrapLikeC(num, mktrapflags, croom, tm) {
         let tryct = 0;
         do {
             if (++tryct > 200) return;
-            if (!somexyspace(croom, m)) return;
+            if ((mktrapflags & MKTRAP_MAZEFLAG) !== 0) return; /* mazexy not ported */
+            if (croom && !somexyspace(croom, m)) return;
         } while (occupied(m.x, m.y) || (avoidBoulder && sobj_at(OTYP_BOULDER, m.x, m.y)));
     }
     const trap = await maketrap(m.x, m.y, kind);
@@ -2875,6 +2897,11 @@ function pickWestMgenmklevForDoorNicheLikeC(g, findWestNiche) {
  * Only moves coordinates; **`fmon`** order for stepNum 2 is **`fmonListForMovemonLikeC`**.
  * @param {import('./gstate.js').game} g
  */
+/** C: `makemon` sets `mgenmklev` while `gi.in_mklev` — niche finalize only then. */
+function anyMgenmklevMonsterLikeC(g) {
+    return (g.level?.monsters ?? []).some((m) => (m.mgenmklev | 0));
+}
+
 function preferSleepingLichenDoorNichesLikeC(g) {
     const mons = g.level?.monsters;
     if (!mons?.length) return;
@@ -3155,8 +3182,12 @@ function level_finalize_topology() {
     }
     syncLevelFlagsHasTownAfterFixupSpecialLikeC(game);
     openWestDoorColumnNorthCorrLikeC(game);
-    /* C: door-niche sleepers need west-column **`CORR`** ( **`openWestDoorColumnNorthCorr`** ). */
-    preferSleepingLichenDoorNichesLikeC(game);
+    /* C: `mgenmklev` sleepers from `fill_ordinary_room` — no post-`level_finalize_topology` move in C. */
+    if (anyMgenmklevMonsterLikeC(game)) {
+        preferSleepingLichenDoorNichesLikeC(game);
+    } else {
+        anchorWestApportSleeperLikeC(game);
+    }
     anchorApportTowelOnWestFillAlcoveLikeC(game);
     /* C: west-door apport gold must stay newest on **`fobj`** after late mklev gold. */
     refreshWestDoorColumnFobjAfterMineralizeLikeC(game);
