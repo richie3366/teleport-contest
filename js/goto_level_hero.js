@@ -10,7 +10,7 @@
 // **`gotoLevelTutorialBranchHookLikeC`** — C **`do.c`** **`newdungeon`** **`In_tutorial`/`tutorial()`** before **`savelev`** / **`impact_drop`** ( **`tutorial_branch.js`** ).
 // **`maybeRecordEnteredNewLevelLivelogLikeC`** after **`mklev()`** when map built (**`livelog.js`**) — C **`new`** after **`mklev`**; **`livelogPrintfLikeC`** ring (**`gd.livelog_recent`**), no **`LIVELOGFILE`**.
 // Deferred: **`fill_pit`**, real **`next_to_u`**,
-// full **`keepdogs`/`dog.c`** migration (**`migrate_to_level`**, …), bones/save, Gehennom mystery-force **`assign_rnd_level`**.
+// full **`keepdogs`/`dog.c`** migration (**`migrate_to_level`**, …), bones/save, **`safe_teleds`** on same-level mystery-force.
 
 import {
     mklev,
@@ -20,11 +20,26 @@ import {
     u_on_newpos,
     u_onRndspotLikeC,
 } from './mklev.js';
-import { In_endgame, onWTowerLevelLikeC, MAGIC_PORTAL, UTOTYPE_ATSTAIRS, UTOTYPE_PORTAL } from './const.js';
+import {
+    In_endgame,
+    In_hell,
+    onWTowerLevelLikeC,
+    inWTowerLikeC,
+    MAGIC_PORTAL,
+    UTOTYPE_ATSTAIRS,
+    UTOTYPE_PORTAL,
+} from './const.js';
 import { spotEffects } from './spoteffects.js';
 import { vision_recalc } from './vision.js';
 import { pline, pline1 } from './display.js';
-import { depth, onLevelLikeC } from './hacklib.js';
+import {
+    depth,
+    onLevelLikeC,
+    dunlevLikeC,
+    dunlevsInDungeonLikeC,
+    assignLevelLikeC,
+    assignRndLevelLikeC,
+} from './hacklib.js';
 import { seetrap } from './search.js';
 import { stairwayFindFromLikeC } from './decor.js';
 import { shopdigLikeC, payForDamage, heroInShopOccupancyLikeUshops } from './shop.js';
@@ -55,6 +70,39 @@ function heroPunishedLikeC(g) {
 /** C: mon.c **`next_to_u`** — stub **TRUE** until ball&chain / leash parity. */
 export function nextToUForHoleFallStub() {
     return true;
+}
+
+/**
+ * C: **`do.c`** **`goto_level`** — Gehennom amulet “mysterious force” may push **`dest`** deeper when climbing up.
+ * @param {import('./gstate.js').game} g
+ * @param {{ dnum: number, dlevel: number }} dest — mutated in place
+ * @param {{ up: boolean, portal: boolean, newdungeon: boolean, wasInWTower: boolean }} opts
+ * @returns {Promise<boolean>} **true** when C returns early (**`safe_teleds`** on same level — teleported subset omitted).
+ */
+async function applyGehennomMysteryForceGotoDestLikeC(g, dest, opts) {
+    const u = g.u;
+    const uz0 = u?.uz;
+    if (!uz0) return false;
+    if (!In_hell(uz0) || !opts.up || !u.uhave?.amulet || opts.newdungeon || opts.portal) return false;
+    if (dunlevLikeC(uz0) >= dunlevsInDungeonLikeC(uz0) - 3) return false;
+
+    g.context = g.context || {};
+    const mf = g.context.mysteryforce | 0;
+    if (rn2(4 + mf)) return false;
+
+    const odds = 3 + (u.ualign?.type | 0);
+    let diff = odds <= 1 ? 0 : rn2(odds);
+    if (diff !== 0) {
+        assignRndLevelLikeC(dest, uz0, diff);
+        diff = (dest.dlevel | 0) - (uz0.dlevel | 0);
+        if (opts.wasInWTower && !onWTowerLevelLikeC(dest)) diff = 0;
+    }
+    if (diff === 0) assignLevelLikeC(dest, uz0);
+
+    await pline('A mysterious force momentarily surrounds you...');
+    g.context.mysteryforce = mf + rn2(diff + 2);
+
+    return onLevelLikeC(dest, uz0);
 }
 
 /**
@@ -167,8 +215,28 @@ export async function applyGotoLevelDirectHeroLikeC(g, dest, gotoOpts = {}) {
     if (!u || !g.level) return;
 
     const uz0 = u.uz || { dnum: 0, dlevel: 1 };
-    const dn = dest.dnum | 0;
-    let dl = dest.dlevel | 0;
+    const destMut = { dnum: dest.dnum | 0, dlevel: dest.dlevel | 0 };
+    if (dunlevLikeC(destMut) > dunlevsInDungeonLikeC(destMut)) {
+        destMut.dlevel = dunlevsInDungeonLikeC(destMut);
+    }
+
+    const up = gotoOpts.up != null
+        ? !!gotoOpts.up
+        : depth(uz0) > depth(destMut);
+    const newdungeon = (uz0.dnum | 0) !== (destMut.dnum | 0);
+    const wasInWTower = inWTowerLikeC(u.ux | 0, u.uy | 0, g);
+
+    if (await applyGehennomMysteryForceGotoDestLikeC(g, destMut, {
+        up,
+        portal: !!gotoOpts.portal,
+        newdungeon,
+        wasInWTower,
+    })) {
+        return;
+    }
+
+    const dn = destMut.dnum | 0;
+    let dl = destMut.dlevel | 0;
     const mx = g.dungeons?.[dn]?.num_dunlevs;
     if (mx != null) {
         if (dl > (mx | 0)) dl = mx | 0;
@@ -176,12 +244,6 @@ export async function applyGotoLevelDirectHeroLikeC(g, dest, gotoOpts = {}) {
     }
     const newUz = { dnum: dn, dlevel: dl };
     if (onLevelLikeC(uz0, newUz)) return;
-
-    const up = gotoOpts.up != null
-        ? !!gotoOpts.up
-        : depth(uz0) > depth(newUz);
-    const newdungeon = (uz0.dnum | 0) !== (newUz.dnum | 0);
-    const wasInWTower = onWTowerLevelLikeC(uz0);
 
     gotoLevelTutorialBranchHookLikeC(g, uz0, newUz);
 

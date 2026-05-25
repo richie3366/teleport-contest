@@ -73,7 +73,7 @@ That runs `bash frozen/score.sh` (~20s), then splices the markdown block below.
 | `seed5006-tourist-stress-disaster.session.json` | N | 374/13923 | 0/249 | early-diverge |
 | `seed8000-tourist-starter.session.json` | Y | 3130/3130 | 23/23 | full-pass |
 
-**Summary:** 2/44 passing · commit `c3021d0` · `2026-05-25T22:02:56.288Z`
+**Summary:** 2/44 passing · commit `b9a3c0e` · `2026-05-25T22:08:18.111Z`
 
 <!-- PORT_SCORE_SNAPSHOT_END -->
 

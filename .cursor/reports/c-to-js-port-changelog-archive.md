@@ -6,6 +6,7 @@ Historical rows moved from `c-to-js-port-progress.md` so day-to-day work uses **
 
 | When | What changed |
 |------|----------------|
+| **2026-05-25 (`goto_level` Gehennom mystery force)** | **`hacklib.js`** **`assign_rnd_level`**; **`applyGehennomMysteryForceGotoDestLikeC`** (**`rn2(4+mysteryforce)`**, alignment **`rn2(odds)`**, W-tower guard); **`jsmain`** **`context.mysteryforce`**. **`seed0077`/`seed8000`:** **PASS**. **`npm run score`:** **2/44**. |
 | **2026-05-25 (`objects_nums` LOADSTONE otyp 471)** | **`const.js`** **`OTYP_LUCKSTONE`**/**`OTYP_LOADSTONE`**; **`mkobj_mklev_like_c.js`** gem init **88→471**; **`remove_curse_hero`/`hold_another_hero`** import. **`seed0077`/`seed8000`:** **PASS**. **`npm run score`:** **2/44**. |
 | **2026-05-25 (`objects_nums` mklev floor otyp audit)** | **`mklev.js`** supply chest/oracle otyps; **`const.js`** boulder/statue/ball/chain; **`CORPSE_OTYP`**/**`OTYP_STATUE`** in mkobj/floorobj/fire_damage. **`seed0077`/`seed8000`:** **PASS**. **`npm run score`:** **2/44**. |
 | **2026-05-25 (`objects_nums` regenerate obj_oc_skill_data.js`)** | **`tools/gen_obj_oc_skill_data.mjs`** — C **`OBJECTS_INIT`** → **`OC_SKILL_ROW_BY_OTYP`** keyed by **`objects[]`** index (whip **82**, projectiles **19–24**, …). **`seed0077`/`seed8000`:** **PASS**. **`npm run score`:** **2/44**. |
