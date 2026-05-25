@@ -3,9 +3,23 @@
 
 import { gs, gp, H_DEC, H_IBM, PRIMARYSET } from './const.js';
 import { NO_COLOR } from './terminal.js';
+import { DEF_MONSYM_DISPLAY } from './makemon_rndmonst.js';
 
 /** C: hack.h SYM_MAX — room for cmap + obj + mon + other symbol slots. */
 const SYM_MAX = 512;
+
+/** C: sym.h MAXPCHARS, objclass.h MAXOCLASSES, sym.h MAXMCLASSES. */
+const MAXPCHARS = 105;
+const MAXOCLASSES = 18;
+const MAXMCLASSES = 61;
+/** C: hack.h SYM_OFF_O / SYM_OFF_M */
+const SYM_OFF_O = MAXPCHARS;
+const SYM_OFF_M = SYM_OFF_O + MAXOCLASSES;
+
+/** C: drawing.c def_oc_syms[MAXOCLASSES] (defsym.h OBJCLASS). */
+const DEF_OC_SYMS = Object.freeze([
+    '\0', '\0', ')', '[', '=', '"', '(', '%', '!', '?', '+', '/', '$', '*', '`', '0', '_', '.',
+]);
 
 /** C: defsym.h cmap indices (PCHAR idx). */
 export const S_stone = 0;
@@ -74,9 +88,21 @@ const SYMSSET_PRIMARY_OVERRIDES = {
     curses: DECGRAPHICS_PRIMARY,
 };
 
+/** C: symbols.c init_showsyms / init_primary_symbols — obj + mon class bytes. */
+function initObjMonSymsInArrayLikeC(arr) {
+    for (let i = 0; i < MAXOCLASSES; i++) {
+        arr[SYM_OFF_O + i] = (DEF_OC_SYMS[i]?.charCodeAt(0) ?? 0) & 0xff;
+    }
+    for (let i = 0; i < MAXMCLASSES; i++) {
+        arr[SYM_OFF_M + i] = (DEF_MONSYM_DISPLAY[i]?.charCodeAt(0) ?? 0) & 0xff;
+    }
+}
+
 function initPrimarySymbolsLikeC() {
     gp.primary_syms = new Array(SYM_MAX).fill(0);
     gs.showsyms = new Array(SYM_MAX).fill(0);
+    initObjMonSymsInArrayLikeC(gp.primary_syms);
+    initObjMonSymsInArrayLikeC(gs.showsyms);
 }
 
 function applySymsetOverridesLikeC(name) {
@@ -102,6 +128,36 @@ export function decSymByteToTtyCh(byte) {
  * @param {boolean} rogueIbm — rogue D:1 IBM wire for non-DEC handlers
  * @returns {{ ch: string, color: number, dec: boolean }|null}
  */
+/**
+ * C: display.c glyph_to_mapglyph — nhsym → tty char (DEC sym_val bytes use decSymByteToTtyCh).
+ * @param {number} sym
+ * @returns {{ ch: string, color: number, dec: boolean }|null}
+ */
+function symNhsymToGlyphLikeC(sym) {
+    const handling = gs.symset[PRIMARYSET]?.handling | 0;
+    if (handling === H_DEC) {
+        const ch = decSymByteToTtyCh(sym);
+        if (ch) return { ch, color: NO_COLOR, dec: true };
+    }
+    const ch = String.fromCharCode(sym & 0xff);
+    if (!ch || ch === '\0') return null;
+    return { ch, color: NO_COLOR, dec: false };
+}
+
+/** C: objects[otyp].oc_class + SYM_OFF_O → gs.showsyms (non-rogue; rogue uses def_r_oc_syms in display.c). */
+export function objClassSymGlyphFromShowsymsLikeC(ocClass) {
+    const sym = gs.showsyms?.[SYM_OFF_O + (ocClass | 0)] | 0;
+    if (!sym) return null;
+    return symNhsymToGlyphLikeC(sym);
+}
+
+/** C: mons[mnum].mlet + SYM_OFF_M → gs.showsyms. */
+export function monClassSymGlyphFromShowsymsLikeC(mlet) {
+    const sym = gs.showsyms?.[SYM_OFF_M + (mlet | 0)] | 0;
+    if (!sym) return null;
+    return symNhsymToGlyphLikeC(sym);
+}
+
 export function cmapSymGlyphFromShowsymsLikeC(sIdx, rogueIbm) {
     const sym = gs.showsyms?.[sIdx | 0] | 0;
     if (!sym) return null;

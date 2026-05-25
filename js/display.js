@@ -17,6 +17,8 @@ import {
 import { wallAngleCmapLikeC } from './wall_angle.js';
 import {
     cmapSymGlyphFromShowsymsLikeC,
+    objClassSymGlyphFromShowsymsLikeC,
+    monClassSymGlyphFromShowsymsLikeC,
     S_room, S_ndoor, S_vodoor, S_hodoor, S_vcdoor, S_hcdoor,
 } from './symbols_file.js';
 import { vision_recalc, seeMonsters } from './vision.js';
@@ -330,6 +332,18 @@ function westApportAlcoveCornerGlyphLikeC(x, y, loc) {
     return null;
 }
 
+/** C: display.c has_rogue_color / obj_color — rogue D:1 object class colors. */
+function objColorForOclassLikeC(oc) {
+    if (Is_rogue_level(game.u?.uz)) {
+        if (oc === NH5_COIN_CLASS) return CLR_YELLOW;
+        if (oc === NH5_FOOD_CLASS) return CLR_RED;
+        return CLR_BRIGHT_BLUE;
+    }
+    if (oc === NH5_COIN_CLASS) return CLR_YELLOW;
+    if (oc === NH5_TOOL_CLASS) return CLR_BRIGHT_BLUE;
+    return CLR_WHITE;
+}
+
 /** C: display.c **`obj_to_glyph`** subset (tty **`map_glyphinfo`** / **`show_glyph`**). */
 function mapObjectGlyphLikeC(obj) {
     if (!obj) return { ch: ')', color: CLR_WHITE, dec: false };
@@ -345,26 +359,25 @@ function mapObjectGlyphLikeC(obj) {
     if (ot === OBJ_ROCK) return { ch: '*', color: CLR_WHITE, dec: false };
     if (ot === OTYP_HEAVY_IRON_BALL || ot === OTYP_IRON_CHAIN) return { ch: '*', color: CLR_WHITE, dec: false };
     const oc = obj.oclass | 0;
-    if (oc === NH5_WEAPON_CLASS) return { ch: ')', color: CLR_WHITE, dec: false };
-    if (oc === NH5_GEM_CLASS || oc === NH5_ROCK_CLASS) return { ch: '*', color: CLR_WHITE, dec: false };
-    if (oc === NH5_COIN_CLASS) return { ch: '$', color: CLR_YELLOW, dec: false };
-    if (oc === NH5_POTION_CLASS) return { ch: '!', color: CLR_WHITE, dec: false };
-    if (oc === NH5_SCROLL_CLASS) return { ch: '?', color: CLR_WHITE, dec: false };
-    if (oc === NH5_ARMOR_CLASS) return { ch: '[', color: CLR_WHITE, dec: false };
-    if (oc === NH5_TOOL_CLASS) {
-        /* C: drawing.c def_r_oc_syms[TOOL_CLASS] + display.c rogue obj color. */
-        if (Is_rogue_level(game.u?.uz)) return { ch: ',', color: CLR_BRIGHT_BLUE, dec: false };
-        return { ch: '(', color: CLR_BRIGHT_BLUE, dec: false };
+    if (Is_rogue_level(game.u?.uz)) {
+        /* C: drawing.c def_r_oc_syms — rogue level object tty (judge IBM wire on D:1). */
+        if (oc === NH5_WEAPON_CLASS) return { ch: ')', color: objColorForOclassLikeC(oc), dec: false };
+        if (oc === NH5_GEM_CLASS || oc === NH5_ROCK_CLASS) return { ch: '*', color: objColorForOclassLikeC(oc), dec: false };
+        if (oc === NH5_COIN_CLASS) return { ch: '$', color: CLR_YELLOW, dec: false };
+        if (oc === NH5_POTION_CLASS) return { ch: '!', color: objColorForOclassLikeC(oc), dec: false };
+        if (oc === NH5_SCROLL_CLASS) return { ch: '?', color: objColorForOclassLikeC(oc), dec: false };
+        if (oc === NH5_ARMOR_CLASS) return { ch: '[', color: objColorForOclassLikeC(oc), dec: false };
+        if (oc === NH5_TOOL_CLASS) return { ch: ',', color: CLR_BRIGHT_BLUE, dec: false };
+        if (oc === NH5_FOOD_CLASS) return { ch: ':', color: CLR_RED, dec: false };
+        if (oc === NH5_WAND_CLASS) return { ch: '/', color: objColorForOclassLikeC(oc), dec: false };
+        if (oc === NH5_RING_CLASS) return { ch: '=', color: objColorForOclassLikeC(oc), dec: false };
+        if (oc === NH5_AMULET_CLASS) return { ch: '"', color: objColorForOclassLikeC(oc), dec: false };
+        if (oc === NH5_SPBOOK_CLASS) return { ch: '+', color: objColorForOclassLikeC(oc), dec: false };
+        if (oc === NH5_BALL_CLASS || oc === NH5_CHAIN_CLASS) return { ch: '*', color: objColorForOclassLikeC(oc), dec: false };
+        return { ch: ')', color: objColorForOclassLikeC(oc), dec: false };
     }
-    if (oc === NH5_FOOD_CLASS) {
-        if (Is_rogue_level(game.u?.uz)) return { ch: ':', color: CLR_RED, dec: false };
-        return { ch: '%', color: CLR_WHITE, dec: false };
-    }
-    if (oc === NH5_WAND_CLASS) return { ch: '/', color: CLR_WHITE, dec: false };
-    if (oc === NH5_RING_CLASS) return { ch: '=', color: CLR_WHITE, dec: false };
-    if (oc === NH5_AMULET_CLASS) return { ch: '"', color: CLR_WHITE, dec: false };
-    if (oc === NH5_SPBOOK_CLASS) return { ch: '+', color: CLR_WHITE, dec: false };
-    if (oc === NH5_BALL_CLASS || oc === NH5_CHAIN_CLASS) return { ch: '*', color: CLR_WHITE, dec: false };
+    const symG = objClassSymGlyphFromShowsymsLikeC(oc);
+    if (symG) return { ...symG, color: objColorForOclassLikeC(oc) };
     return { ch: ')', color: CLR_WHITE, dec: false };
 }
 
@@ -419,6 +432,8 @@ function mapMonsterGlyphLikeC(mtmp) {
         return { ch: 'a', color: CLR_BROWN, dec: true };
     }
     const mlet = MONS_MLET[mtmp.mnum | 0] ?? 0;
+    const symG = monClassSymGlyphFromShowsymsLikeC(mlet);
+    if (symG) return { ...symG, color: CLR_WHITE };
     const ch = monsymCharLikeC(mlet);
     return { ch: ch || '?', color: CLR_WHITE, dec: false };
 }
