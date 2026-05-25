@@ -18,12 +18,12 @@ Thin handoff for the next coding session. **Score + milestones:** [`c-to-js-port
 
 **Deferred for now:** **`maybe_do_tutorial`** / **`tut-1`** / full **`do.c`** **`goto_level`** (Lua **`tutorial()`** / **`free_tutorial()`**, **`savelev`**, **`gmst_*`**, …) and **`dokick`**/**`dothrow`** vs **`leaving_tutorial`** — strong upstream dependencies (save, specials, fuller **`do.c`**); treat as backlog until chargen / core early-game parity is further along; **`LIVELOGFILE`** parity if the judge ever compares livelog lines.
 
-**Last slice:** **`symbols.c` IBMgraphics SYM_OC overrides.** **`symbols_file.js`**: **`IBMGRAPHICS_OBJ`** (**`S_weapon`…`S_venom`** from **`dat/symbols`**) → **`gp.primary_syms[SYM_OFF_O+oc_class]`**; **`symNhsymToGlyphLikeC`** IBM wire. DEC symset still cmap-only (obj rows **`0x32`** placeholders). **`seed0077`:** **PASS** (**33/33**). **`seed8000`:** **PASS** (**23/23**). **`npm run score`:** **2/44**.
+**Last slice:** **`symbols.c` IBMgraphics cmap A/B from `dat/symbols`.** **`symbols_file.js`**: full **`IBMGRAPHICS_PRIMARY`** (**`S_corr`**, **`S_pool`**, doors, **`S_water`**, …); fixed T-wall bytes vs C file; **`cmapSymGlyphFromShowsymsLikeC`** applies **`H_IBM`** on any level. DEC symset unchanged. **`seed0077`:** **PASS** (**33/33**). **`seed8000`:** **PASS** (**23/23**). **`npm run score`:** **2/44**.
 
 ## Next steps
 
 1. **`display.c` `docrt_flags(docrtRecalc)`** — extend full recalc beyond newgame once **`lev->glyph`** replay is safe; keep overlay/tutorial paths on **`docrtRefresh`**.
-2. **`symbols.c` `parse_sym_line`** — optional real **`dat/symbols`** file I/O; extend IBM cmap rows (**`S_corr`**, **`S_pool`**, …) from **`dat/symbols`** block.
+2. **`symbols.c` `parse_sym_line`** — optional real **`dat/symbols`** file I/O; wire **`mapTerrainGlyph`** CORR/POOL/FOUNTAIN through **`showsyms`** on non-rogue DEC/IBM.
 2. **`mklev`** — **`find_okay_roompos`/`somexyspace`** / west-apport geometry audit (level already has **`SDOOR`/`CORR`** cap; display was the gap).
 3. **`objects_nums` audit** — other **`u_init_link_*_invent.js`** **`OTYP_SHORT_SWORD`** **47**.
 4. **`mklev` lregions** — wire **`game.dndest`/`updest`** when **`place_lregions`** ported.

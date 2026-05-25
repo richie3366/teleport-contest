@@ -51,15 +51,22 @@ export const S_hcdoor = 16;
 export const S_bars = 17;
 export const S_tree = 18;
 export const S_room = 19;
+export const S_darkroom = 20;
+export const S_engroom = 21;
+export const S_corr = 22;
+export const S_litcorr = 23;
+export const S_engrcorr = 24;
 export const S_upstair = 25;
 export const S_dnstair = 26;
 export const S_upladder = 27;
 export const S_dnladder = 28;
 export const S_altar = 33;
+export const S_sink = 36;
 export const S_fountain = 37;
 export const S_pool = 38;
 export const S_ice = 39;
 export const S_lava = 40;
+export const S_water = 48;
 
 /**
  * C: dat/symbols DECgraphics — sym_val bytes → tty DEC line-drawing chars (SO/SI set).
@@ -84,11 +91,17 @@ const DECGRAPHICS_PRIMARY = Object.freeze({
     [S_lava]: 0xe0,
 });
 
-/** C: dat/symbols IBMgraphics wall cmap bytes (subset). */
+/** C: dat/symbols IBMgraphics cmap A/B (parse_sym_line subset). */
 const IBMGRAPHICS_PRIMARY = Object.freeze({
     [S_vwall]: 0xb3, [S_hwall]: 0xc4, [S_tlcorn]: 0xda, [S_trcorn]: 0xbf,
-    [S_blcorn]: 0xc0, [S_brcorn]: 0xd9, [S_crwall]: 0xcc,
-    [S_tuwall]: 0xc9, [S_tdwall]: 0xcb, [S_tlwall]: 0xcb, [S_trwall]: 0xcc,
+    [S_blcorn]: 0xc0, [S_brcorn]: 0xd9, [S_crwall]: 0xc5,
+    [S_tuwall]: 0xc1, [S_tdwall]: 0xc2, [S_tlwall]: 0xb4, [S_trwall]: 0xc3,
+    [S_ndoor]: 0xfa, [S_vodoor]: 0xfe, [S_hodoor]: 0xfe,
+    [S_bars]: 0xf0, [S_tree]: 0xf1, [S_room]: 0xfa,
+    [S_corr]: 0xb0, [S_litcorr]: 0xb1, [S_engrcorr]: 0xb0,
+    [S_engroom]: 0xee,
+    [S_fountain]: 0xf4, [S_sink]: 0xf4, [S_pool]: 0xf7,
+    [S_ice]: 0xfa, [S_lava]: 0xf7, [S_water]: 0xf7,
 });
 
 /** C: dat/symbols IBMgraphics — parse_sym_line SYM_OC rows (S_weapon … S_venom). */
@@ -199,6 +212,7 @@ export function monClassSymGlyphFromShowsymsLikeC(mlet) {
 }
 
 export function cmapSymGlyphFromShowsymsLikeC(sIdx, rogueIbm) {
+    void rogueIbm;
     const sym = gs.showsyms?.[sIdx | 0] | 0;
     if (!sym) return null;
     const handling = gs.symset[PRIMARYSET]?.handling | 0;
@@ -207,8 +221,9 @@ export function cmapSymGlyphFromShowsymsLikeC(sIdx, rogueIbm) {
         if (!ch) return null;
         return { ch, color: NO_COLOR, dec: true };
     }
-    if (handling === H_IBM && rogueIbm) {
+    if (handling === H_IBM) {
         const ch = String.fromCharCode(sym & 0xff);
+        if (!ch || ch === '\0') return null;
         return { ch, color: NO_COLOR, dec: false };
     }
     return null;
