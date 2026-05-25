@@ -101,6 +101,7 @@ import {
 } from './mondata.js';
 import { setWallStateLikeC } from './wall_state.js';
 import { stolenBootyLikeC } from './stolen_booty.js';
+import { baalzFixupLikeC } from './baalz_fixup.js';
 import {
     consumeMksobjInitCorpseRngLikeC,
     consumeMksobjCorpseSpeRngLikeC,
@@ -427,6 +428,13 @@ function isMedusaLevelLikeC(g, uz) {
     return !!(med && lev && onLevelLikeC(lev, med));
 }
 
+/** C: dungeon.h `Is_baal_level` — `on_level` vs `baalzebub_level`. */
+function isBaalLevelLikeC(g, uz) {
+    const baal = g.baalzebub_level;
+    const lev = uz ?? g.u?.uz;
+    return !!(baal && lev && onLevelLikeC(lev, baal));
+}
+
 /**
  * C: mkobj.c `set_corpsenm` — statue/corpse **`corpsenm`** + weight (timers deferred).
  * @param {Record<string, unknown>|null|undefined} otmp
@@ -505,6 +513,8 @@ function fixupSpecialTailLikeC(g) {
         lf.graveyard = true;
     } else if (Is_stronghold(uz)) {
         lf.graveyard = true;
+    } else if (isBaalLevelLikeC(g, uz)) {
+        baalzFixupLikeC(g);
     } else if (g.ransacked) {
         stolenBootyLikeC(g);
     }
@@ -521,7 +531,6 @@ export function fixupSpecialLikeC(g) {
     }
     fixupSpecialTailLikeC(g);
     syncLevelFlagsHasTownAfterFixupSpecialLikeC(g);
-    /* baalz_fixup — deferred */
 }
 
 /**
