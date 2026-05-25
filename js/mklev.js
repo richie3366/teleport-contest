@@ -28,7 +28,13 @@ import {
 import { GameMap } from './game.js';
 import { rn2, rnd, rn1 } from './rng.js';
 import { init_rect, rnd_rect, get_rect, split_rects } from './rect.js';
-import { depth as depth_of_level, depth, distmin } from './hacklib.js';
+import {
+    depth as depth_of_level,
+    depth,
+    distmin,
+    dunlevLikeC,
+    dunlevsInDungeonLikeC,
+} from './hacklib.js';
 import {
     findLevelByProtoLikeC, isSpecialAtUzLikeC, isSpecialHeroUzLikeC,
 } from './sp_levchn.js';
@@ -338,6 +344,39 @@ export function fixupSpecialLikeC(g) {
         placeLregionsFixupSpecialLikeC(g, g.lregions);
         g.lregions = null;
     }
+}
+
+/**
+ * C: mkmaze.c **`makemaz`** — resolve des protofile from **`s`**, **`Is_special`**, dungeon **`proto`**.
+ * Omits wizard **`SPLEVTYPE`** env override and **`check_ransacked`**.
+ * @param {import('./gstate.js').game} g
+ * @param {string} s — from **`makelevelMazefileLikeC`** (empty → dungeon **`proto`** branch)
+ * @returns {string}
+ */
+export function resolveMakemazProtofileLikeC(g, s) {
+    const uz = g.u?.uz;
+    if (!uz) return '';
+    const sp = isSpecialHeroUzLikeC(g);
+    const sIn = String(s ?? '');
+
+    if (sIn.length > 0) {
+        if (sp?.rndlevs) return `${sIn}-${rnd(sp.rndlevs | 0)}`;
+        return sIn;
+    }
+
+    const dun = g.dungeons?.[uz.dnum | 0];
+    const protoBase = dun?.proto;
+    if (protoBase != null && String(protoBase).length > 0) {
+        const pb = String(protoBase);
+        if (dunlevsInDungeonLikeC(uz) > 1) {
+            const lev = dunlevLikeC(uz);
+            if (sp?.rndlevs) return `${pb}${lev}-${rnd(sp.rndlevs | 0)}`;
+            return `${pb}${lev}`;
+        }
+        if (sp?.rndlevs) return `${pb}-${rnd(sp.rndlevs | 0)}`;
+        return pb;
+    }
+    return '';
 }
 
 /**
@@ -672,7 +711,8 @@ async function populateMazeLikeC(g) {
  * @returns {Promise<boolean>} true when caller should skip regular **`makerooms`** (loaded or procedural)
  */
 export async function makemazLikeC(g, protofile = '') {
-    if (await loadSpecialLikeC(g, protofile)) {
+    const resolvedProto = resolveMakemazProtofileLikeC(g, protofile);
+    if (await loadSpecialLikeC(g, resolvedProto)) {
         /* C: `dmonsfree()` after successful load — deferred */
         return true;
     }
