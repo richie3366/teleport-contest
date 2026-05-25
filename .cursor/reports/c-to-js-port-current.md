@@ -18,12 +18,13 @@ Thin handoff for the next coding session. **Score + milestones:** [`c-to-js-port
 
 **Deferred for now:** **`maybe_do_tutorial`** / **`tut-1`** / full **`do.c`** **`goto_level`** (Lua **`tutorial()`** / **`free_tutorial()`**, **`savelev`**, **`gmst_*`**, …) and **`dokick`**/**`dothrow`** vs **`leaving_tutorial`** — strong upstream dependencies (save, specials, fuller **`do.c`**); treat as backlog until chargen / core early-game parity is further along; **`LIVELOGFILE`** parity if the judge ever compares livelog lines.
 
-**Last slice:** **`symbols.c` `init_primary_symbols` defsyms cmap.** **`symbols_file.js`**: **`DEF_PCHAR_SYMS`** (105 **`defsym.h`** PCHAR bytes) + **`initCmapDefsymsInArrayLikeC`** in **`initPrimarySymbolsLikeC`** before symset overrides (C **`defsyms[]`→`gp.primary_syms`**). **`seed0077`:** **PASS** (**33/33**). **`seed8000`:** **PASS** (**23/23**). **`npm run score`:** **2/44**.
+**Last slice:** **`display.c` `back_to_glyph` cmap subset.** **`mapTerrainGlyph`**: **`S_bars`/`S_tree`/`S_altar`/`S_grave`/`S_throne`** via **`terrainFromCmapLikeC`** (rogue D:1 ASCII fallback); **`S_upstair`/`S_dnstair`** deferred — symset stairs broke **`seed8000`** welcome screen 6. **`seed0077`:** **PASS** (**33/33**). **`seed8000`:** **PASS** (**23/23**). **`npm run score`:** **2/44**.
 
 ## Next steps
 
-1. **`display.c` `docrt_flags(docrtRecalc)`** — extend full recalc beyond newgame once **`lev->glyph`** replay is safe; **`showGlyphFromLevLikeC`→`mapLocationLikeC`** on newgame regressed early screens (defer).
-2. **`symbols.c` `parse_sym_line`** — optional real **`dat/symbols`** file I/O (embedded tables remain source of truth).
+1. **`display.c` stairs/ladder cmap** — wire **`S_upstair`/`S_dnstair`** when welcome/docrt path matches C tty (IBM **`y`/`z`** vs **`<`/`>`** on tourist D:1 screen 6).
+2. **`display.c` `docrt_flags(docrtRecalc)`** — extend full recalc beyond newgame once **`lev->glyph`** replay is safe; **`showGlyphFromLevLikeC`→`mapLocationLikeC`** on newgame regressed early screens (defer).
+3. **`symbols.c` `parse_sym_line`** — optional real **`dat/symbols`** file I/O (embedded tables remain source of truth).
 2. **`mklev`** — **`find_okay_roompos`/`somexyspace`** / west-apport geometry audit (level already has **`SDOOR`/`CORR`** cap; display was the gap).
 3. **`objects_nums` audit** — other **`u_init_link_*_invent.js`** **`OTYP_SHORT_SWORD`** **47**.
 4. **`mklev` lregions** — wire **`game.dndest`/`updest`** when **`place_lregions`** ported.

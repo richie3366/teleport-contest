@@ -20,7 +20,8 @@ import {
     objClassSymGlyphFromShowsymsLikeC,
     monClassSymGlyphFromShowsymsLikeC,
     S_room, S_ndoor, S_vodoor, S_hodoor, S_vcdoor, S_hcdoor,
-    S_corr, S_litcorr, S_fountain, S_sink, S_pool, S_water, S_ice, S_lava,
+    S_corr, S_litcorr, S_bars, S_tree, S_altar, S_grave, S_throne,
+    S_fountain, S_sink, S_pool, S_water, S_ice, S_lava,
 } from './symbols_file.js';
 import { vision_recalc, seeMonsters } from './vision.js';
 import {
@@ -581,6 +582,8 @@ export function mapTerrainGlyph(loc, x, y, skipApportMon = false) {
         if (game.level?.upstair?.x === x && game.level?.upstair?.y === y)
             return { ch: '<', color: CLR_YELLOW, dec: false };
         return { ch: '>', color: CLR_YELLOW, dec: false };
+    case LADDER:
+        return { ch: '>', color: CLR_YELLOW, dec: false };
     case HWALL:
     case VWALL:
     case TLCORNER:
@@ -596,10 +599,16 @@ export function mapTerrainGlyph(loc, x, y, skipApportMon = false) {
         return wallTerrainGlyphLikeC(loc, !!rogue);
     case SCORR:
         return { ch: '#', color: NO_COLOR, dec: false };
-    case IRONBARS:
-        return { ch: '#', color: CLR_GRAY, dec: false };
-    case TREE:
-        return { ch: '#', color: CLR_GREEN, dec: false };
+    case IRONBARS: {
+        const fb = { ch: '#', color: CLR_GRAY, dec: false };
+        if (rogue) return fb;
+        return terrainFromCmapLikeC(S_bars, CLR_GRAY, fb);
+    }
+    case TREE: {
+        const fb = { ch: '#', color: CLR_GREEN, dec: false };
+        if (rogue) return fb;
+        return terrainFromCmapLikeC(S_tree, CLR_GREEN, fb);
+    }
     case POOL:
     case MOAT: {
         const fb = { ch: '~', color: CLR_BRIGHT_BLUE, dec: false };
@@ -631,12 +640,21 @@ export function mapTerrainGlyph(loc, x, y, skipApportMon = false) {
         if (gs.showsyms?.[S_sink | 0]) return terrainFeatureFromCmapLikeC(S_sink, CLR_WHITE, fb);
         return fb;
     }
-    case ALTAR:
-        return { ch: '_', color: CLR_BRIGHT_MAGENTA, dec: false };
-    case THRONE:
-        return { ch: '^', color: CLR_YELLOW, dec: false };
-    case GRAVE:
-        return { ch: '|', color: CLR_GRAY, dec: false };
+    case ALTAR: {
+        const fb = { ch: '_', color: CLR_BRIGHT_MAGENTA, dec: false };
+        if (rogue) return fb;
+        return terrainFromCmapLikeC(S_altar, CLR_BRIGHT_MAGENTA, fb);
+    }
+    case THRONE: {
+        const fb = { ch: '^', color: CLR_YELLOW, dec: false };
+        if (rogue) return fb;
+        return terrainFromCmapLikeC(S_throne, CLR_YELLOW, fb);
+    }
+    case GRAVE: {
+        const fb = { ch: '|', color: CLR_GRAY, dec: false };
+        if (rogue) return fb;
+        return terrainFromCmapLikeC(S_grave, CLR_GRAY, fb);
+    }
     case LAVAPOOL:
     case LAVAWALL: {
         const fb = { ch: '}', color: CLR_RED, dec: false };

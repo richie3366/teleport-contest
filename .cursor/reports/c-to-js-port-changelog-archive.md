@@ -6,6 +6,7 @@ Historical rows moved from `c-to-js-port-progress.md` so day-to-day work uses **
 
 | When | What changed |
 |------|----------------|
+| **2026-05-25 (`display.c` back_to_glyph bars/tree/altar cmap`)** | **`mapTerrainGlyph`**: **`S_bars`/`S_tree`/`S_altar`/`S_grave`/`S_throne`** via **`terrainFromCmapLikeC`**; rogue ASCII fallback; stairs symset deferred (regressed **`seed8000`** screen 6). **`seed0077`/`seed8000`:** **PASS**. **`npm run score`:** **2/44**. |
 | **2026-05-25 (`symbols.c` init_primary_symbols defsyms cmap`)** | **`symbols_file.js`**: **`DEF_PCHAR_SYMS`** + **`initCmapDefsymsInArrayLikeC`** — C **`defsyms[MAXPCHARS]`** into **`gp.primary_syms`/`gs.showsyms`** before DEC/IBM overrides. **`seed0077`/`seed8000`:** **PASS**. **`npm run score`:** **2/44**. |
 | **2026-05-25 (`display.c` feature terrain via showsyms`)** | **`display.js`**: **`terrainFeatureFromCmapLikeC`** (preserve fallback **`dec`**); POOL/FOUNTAIN/SINK/WATER/ICE/LAVA via **`gs.showsyms`** when **`Is_rogue_level`** false. **`seed0077`/`seed8000`:** **PASS**. **`npm run score`:** **2/44**. |
 | **2026-05-25 (`display.c` CORR cmap via showsyms`)** | **`display.js`**: **`terrainFromCmapLikeC`**; non-rogue **`CORR`** uses **`S_corr`/`S_litcorr`** + **`gs.showsyms`** (C **`waslit`/`flags.lit_corridor`**); rogue D:1 **`#`** unchanged. **`seed0077`/`seed8000`:** **PASS**. **`npm run score`:** **2/44**. |
