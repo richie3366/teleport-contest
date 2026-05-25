@@ -30,6 +30,18 @@ const DEF_OC_SYMS = Object.freeze([
     '\0', '\0', ')', '[', '=', '"', '(', '%', '!', '?', '+', '/', '$', '*', '`', '0', '_', '.',
 ]);
 
+/** C: drawing.c defsyms[MAXPCHARS] — defsym.h PCHAR default tty chars (idx 0..104). */
+const DEF_PCHAR_SYMS = Object.freeze([
+    32, 124, 45, 45, 45, 45, 45, 45, 45, 45, 124, 124, 46, 45, 124, 43, 43, 35, 35, 46, 46, 96, 35, 35, 35, 60, 62, 60, 62, 60, 62, 60, 62, 95, 124, 92, 123, 123, 125, 46, 125, 125, 46, 46, 35, 35, 32, 35, 125, 94, 94, 94, 94, 94, 94, 94, 94, 94, 94, 94, 94, 94, 94, 94, 94, 94, 34, 94, 94, 94, 94, 126, 94, 94, 124, 45, 92, 47, 42, 33, 41, 40, 48, 35, 64, 42, 35, 36, 47, 45, 92, 124, 124, 92, 45, 47, 47, 45, 92, 124, 32, 124, 92, 45, 47,
+]);
+
+/** C: symbols.c init_primary_symbols / init_showsyms — cmap PCHAR defaults. */
+function initCmapDefsymsInArrayLikeC(arr) {
+    for (let i = 0; i < MAXPCHARS; i++) {
+        arr[i] = DEF_PCHAR_SYMS[i] & 0xff;
+    }
+}
+
 /** C: defsym.h cmap indices (PCHAR idx). */
 export const S_stone = 0;
 export const S_vwall = 1;
@@ -147,6 +159,8 @@ function initObjMonSymsInArrayLikeC(arr) {
 function initPrimarySymbolsLikeC() {
     gp.primary_syms = new Array(SYM_MAX).fill(0);
     gs.showsyms = new Array(SYM_MAX).fill(0);
+    initCmapDefsymsInArrayLikeC(gp.primary_syms);
+    initCmapDefsymsInArrayLikeC(gs.showsyms);
     initObjMonSymsInArrayLikeC(gp.primary_syms);
     initObjMonSymsInArrayLikeC(gs.showsyms);
 }
