@@ -18,12 +18,12 @@ Thin handoff for the next coding session. **Score + milestones:** [`c-to-js-port
 
 **Deferred for now:** **`maybe_do_tutorial`** / **`tut-1`** / full **`do.c`** **`goto_level`** (Lua **`tutorial()`** / **`free_tutorial()`**, **`savelev`**, **`gmst_*`**, …) and **`dokick`**/**`dothrow`** vs **`leaving_tutorial`** — strong upstream dependencies (save, specials, fuller **`do.c`**); treat as backlog until chargen / core early-game parity is further along; **`LIVELOGFILE`** parity if the judge ever compares livelog lines.
 
-**Last slice:** **`objects_nums`** — **`gen_obj_oc_skill_data.mjs`** exports **ARMOR** + **ROCK** into **`OC_SKILL_ROW_BY_OTYP`** (248 rows, otyp 2..475); **`nh5OclassFromOcSkillMapLikeC`**. **`mklev.js`** **`nh5OclassForOtyp`** map lookup **deferred** (wiring caused **0/44** — floor **`mksobj(TRUE)`** armor init must match C before enable). **`seed0077`/`seed8000`:** **PASS**. **`npm run score`:** **2/44**.
+**Last slice:** **`dog.c`** **`keepdogs`** subset — **`keepdogs_hero.js`** (**`levl_follower`**, **`monnear`**, **`gm.mydogs`** queue); **`mondata.js`** **`levlFollowerLikeC`** / **`isFshkMonsterLikeC`**. **`goto_level_hero`** calls **`keepdogsHeroLikeC`**. Deferred: **`mintrap`**, **`stay_behind`** plines, **`keep_mon_accessible`**, **`migrate_to_level`**, worm **`mon_leave`**. **`seed0077`/`seed8000`:** **PASS**. **`npm run score`:** **2/44**.
 
 ## Next steps
 
 1. **`mkmaze`** — **`load_lua`** / full **`load_special`** (NHL des compiler).
-2. **`goto_level`** — full **`keepdogs`** / savelev tail; fuller **`teleds`** (**`drag_ball`**, vault guard).
+2. **`goto_level`** — **`keepdogs`** **`mintrap`** / **`stay_behind`** / **`keep_mon_accessible`**; savelev tail; fuller **`teleds`** (**`drag_ball`**, vault guard).
 3. **`objects_nums`** — wire **`nh5OclassForOtyp`** via map for ARMOR/ROCK only after **`mksobj_init`** floor parity; more legacy floor **`otyp`** vs C when replaying **`mkobj`**.
 
 ### Extended backlog (unchanged lanes)

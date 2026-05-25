@@ -10,6 +10,7 @@ import {
     MONS_MFLAGS2,
     MONS_MLEVEL,
 } from './mons_rndmonst_ini_inv_data.js';
+import { ESHK } from './const.js';
 import {
     XKILL_NOCORPSE,
     PM_FIRE_ELEMENTAL,
@@ -720,6 +721,28 @@ export function amorphous(/** @type {Permonst} */ ptr) {
 export function monHasAmulet(mtmp) {
     for (let o = mtmp?.minvent; o; o = o.nobj) {
         if ((o.otyp | 0) === OTYP_AMULET_OF_YENDOR) return true;
+    }
+    return false;
+}
+
+/** C: shk.c **`is_fshk`** — fleeing shopkeeper follows across levels. */
+export function isFshkMonsterLikeC(mtmp) {
+    return !!(mtmp?.isshk && (ESHK(mtmp)?.following | 0));
+}
+
+/**
+ * C: mondata.c **`levl_follower(mtmp)`** — tame / wiz / fleeing shk / stalkers.
+ * @param {import('./gstate.js').game} g
+ */
+export function levlFollowerLikeC(g, mtmp) {
+    const u = g?.u;
+    if (!u || !mtmp) return false;
+    if (mtmp === u.usteed) return true;
+    if ((mtmp.iswiz | 0) && monHasAmulet(mtmp)) return false;
+    if ((mtmp.mtame | 0) || (mtmp.iswiz | 0) || isFshkMonsterLikeC(mtmp)) return true;
+    const ptr = raceptr(mtmp);
+    if ((ptr?.mflags2 & M2_STALK_WATCH) !== 0 && (!((mtmp.mflee | 0)) || u.uhave?.amulet)) {
+        return true;
     }
     return false;
 }
