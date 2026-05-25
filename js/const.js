@@ -2601,6 +2601,8 @@ export const decgraphics = [
     't',  // S_trwall (11) - T right
 ];
 
+import { readSymFilePrimaryLikeC } from './symbols_file.js';
+
 // getSymbolChar: canonical version is pchar_sym() in drawing.js
 
 // def_char_to_objclass — moved to drawing.js (depends on MAXOCLASSES, def_oc_syms)
@@ -2656,6 +2658,7 @@ export function applyPrimarySymsetFromRcLikeC(name) {
   gs.symset[PRIMARYSET].name = name;
   const handling = SYMSSET_HANDLING_BY_NAME[name];
   if (handling) set_symhandling(handling, PRIMARYSET);
+  readSymFilePrimaryLikeC(name);
 }
 
 // free_symsets, savedsym_free, savedsym_add, savedsym_strbuf, parsesymbols

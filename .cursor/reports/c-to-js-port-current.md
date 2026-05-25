@@ -18,12 +18,12 @@ Thin handoff for the next coding session. **Score + milestones:** [`c-to-js-port
 
 **Deferred for now:** **`maybe_do_tutorial`** / **`tut-1`** / full **`do.c`** **`goto_level`** (Lua **`tutorial()`** / **`free_tutorial()`**, **`savelev`**, **`gmst_*`**, …) and **`dokick`**/**`dothrow`** vs **`leaving_tutorial`** — strong upstream dependencies (save, specials, fuller **`do.c`**); treat as backlog until chargen / core early-game parity is further along; **`LIVELOGFILE`** parity if the judge ever compares livelog lines.
 
-**Last slice:** **`options.c` / `symbols.c` primary symset from rc.** **`applyPrimarySymsetFromRcLikeC`** (**`const.js`**) sets **`gs.symset[PRIMARYSET]`** + **`set_symhandling`** for **`DECgraphics`** / **`IBMgraphics`** / **`curses`**; **`jsmain.js`** applies after **`parseNethackrc`**. **`mapDispChForJudgeGridLikeC`**: DEC→Unicode only when **`H_DEC`** and not rogue D:1. **`seed0077`:** **PASS** (**33/33**). **`seed8000`:** **PASS** (**RNG 3130/3130**, **23/23**). **`npm run score`:** **2/44**.
+**Last slice:** **`symbols.c` / `display.c` symset + docrt_flags.** **`symbols_file.js`**: **`readSymFilePrimaryLikeC`** + **`switchSymbolsPrimaryLikeC`** (DEC/IBM wall cmap bytes → **`gp.primary_syms`** / **`gs.showsyms`**); **`applyPrimarySymsetFromRcLikeC`** calls it. **`display.js`**: **`docrt_flags`** / **`redraw_map`**; overlay dismiss uses **`docrtRefresh`** (no cls); full **`docrtRecalc`** cls/vision deferred until **`lev->glyph`** replay. **`seed0077`:** **PASS** (**33/33**). **`seed8000`:** **PASS** (**23/23**). **`npm run score`:** **2/44**.
 
 ## Next steps
 
-1. **`symbols.c` `read_sym_file`** — load **`dat/symbols`** overrides into **`gp.primary_syms`** (not only **`Handling:`** stub); **`switch_symbols`** when symset changes mid-game.
-2. **`display.c` `docrt_flags`** — full glyph-buffer replay after **`vision_recalc(2)`** (not only **`IN_SIGHT`** welcome stub) for other sessions.
+1. **`display.c` `docrt_flags(docrtRecalc)`** — enable **`vision_recalc(2)`**, **`cls`**, full **`show_glyph(lev->glyph)`** once glyph buffer + **`read_sym_file`** object/mon rows are wired.
+2. **`symbols.c` `parse_sym_line`** — parse full **`dat/symbols`** blocks (doors, pools, …) into **`gp.primary_syms`** and consume via **`mapTerrainGlyph`** / **`show_glyph`**.
 2. **`mklev`** — **`find_okay_roompos`/`somexyspace`** / west-apport geometry audit (level already has **`SDOOR`/`CORR`** cap; display was the gap).
 3. **`objects_nums` audit** — other **`u_init_link_*_invent.js`** **`OTYP_SHORT_SWORD`** **47**.
 4. **`mklev` lregions** — wire **`game.dndest`/`updest`** when **`place_lregions`** ported.

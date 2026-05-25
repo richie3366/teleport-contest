@@ -848,17 +848,87 @@ export function refreshWestApportNicheGlyphsAfterSearchLikeC() {
 }
 
 // ── docrt ──
-export async function docrt() {
+/** C: include/display.h `enum docrt_flags_bits` */
+export const docrtRecalc = 0;
+export const docrtRefresh = 1;
+export const docrtMapOnly = 2;
+export const docrtNocls = 4;
+
+/** C: display.c `show_glyph(x, y, lev->glyph)` during docrt memory pass (glyph id subset). */
+function showGlyphFromLevLikeC(x, y) {
+    const loc = game.level?.at(x, y);
+    if (!loc) return;
+    if ((loc.glyph | 0) === GLYPH_INVISIBLE) {
+        show_glyph_cell(x, y, 'I', NO_COLOR, false);
+        return;
+    }
+    if (loc.remembered_glyph) {
+        show_glyph_cell(x, y, loc.remembered_glyph.ch,
+            loc.remembered_glyph.color, loc.remembered_glyph.decgfx);
+        return;
+    }
+    if (loc.disp_ch && loc.disp_ch !== ' ') {
+        show_glyph_cell(x, y, loc.disp_ch, loc.disp_color ?? NO_COLOR, !!loc.disp_decgfx);
+    }
+}
+
+/** C: display.c `redraw_map` — resend current map without full docrt recalc. */
+async function redrawMapLikeC(cursorOnU) {
+    if (!game.u?.ux || suppressMapOutputDisplay()) return;
     if (!game.level) return;
-    for (let y = 0; y < ROWNO; y++)
+    for (let y = 0; y < ROWNO; y++) {
         for (let x = 1; x < COLNO; x++) {
             const loc = game.level.at(x, y);
-            if (loc?.remembered_glyph) {
-                show_glyph_cell(x, y, loc.remembered_glyph.ch,
-                    loc.remembered_glyph.color, loc.remembered_glyph.decgfx);
-            }
+            if (!loc?.disp_ch || loc.disp_ch === ' ') continue;
+            show_glyph_cell(x, y, loc.disp_ch, loc.disp_color ?? NO_COLOR, !!loc.disp_decgfx);
         }
+    }
     if (game.u?.ux > 0) show_glyph_cell(game.u.ux, game.u.uy, '@', CLR_WHITE, false);
+    await flush_screen(cursorOnU ? 1 : 0);
+}
+
+/**
+ * C: display.c `docrt_flags` — full recalc needs `lev->glyph` replay (after `read_sym_file`);
+ * until then `docrtRecalc` replays hero_memory without cls/vision shutdown.
+ * @param {number} refreshFlags
+ */
+export async function docrt_flags(refreshFlags) {
+    if (!game.u?.ux) return;
+    const ps = game.program_state || (game.program_state = {});
+    if (ps.in_docrt) return;
+    ps.in_docrt = true;
+    try {
+        const maponly = (refreshFlags & docrtMapOnly) !== 0;
+        const redrawonly = (refreshFlags & docrtRefresh) !== 0;
+
+        if (redrawonly) {
+            await redrawMapLikeC(false);
+            if (!maponly) {
+                game.disp = game.disp || {};
+                game.disp.botlx = true;
+            }
+            return;
+        }
+
+        /* Full C docrt_flags(docrtRecalc): vision_recalc(2); cls; show_glyph loop; vision_recalc(0); see_monsters — pending lev->glyph port. */
+        if (!game.level) return;
+        for (let y = 0; y < ROWNO; y++) {
+            for (let x = 1; x < COLNO; x++) showGlyphFromLevLikeC(x, y);
+        }
+        if (game.u?.ux > 0) show_glyph_cell(game.u.ux, game.u.uy, '@', CLR_WHITE, false);
+
+        if (!maponly) {
+            game.disp = game.disp || {};
+            game.disp.botlx = true;
+        }
+    } finally {
+        ps.in_docrt = false;
+    }
+}
+
+/** C: display.c `docrt` → `docrt_flags(docrtRecalc)`. */
+export async function docrt() {
+    await docrt_flags(docrtRecalc);
 }
 
 /** C: allmain.c newgame — after vision_recalc, paint IN_SIGHT map for welcome snapshot. */
