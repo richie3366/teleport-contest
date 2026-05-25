@@ -20,6 +20,7 @@ import {
     objClassSymGlyphFromShowsymsLikeC,
     monClassSymGlyphFromShowsymsLikeC,
     S_room, S_ndoor, S_vodoor, S_hodoor, S_vcdoor, S_hcdoor,
+    S_corr, S_litcorr,
 } from './symbols_file.js';
 import { vision_recalc, seeMonsters } from './vision.js';
 import {
@@ -484,6 +485,22 @@ function wallTerrainGlyphLikeC(loc, rogueIbm) {
     return cmapIdxToTerrainGlyph(cmap, rogueIbm);
 }
 
+/**
+ * C: display.c `back_to_glyph` → `map_glyphinfo` cmap symidx + color.
+ * Uses active symset when `gs.showsyms[sIdx]` is set; else defsym.h ASCII fallback.
+ * @param {number} sIdx
+ * @param {number} color
+ * @param {{ ch: string, color: number, dec: boolean }} fallback
+ */
+function terrainFromCmapLikeC(sIdx, color, fallback) {
+    const sym = gs.showsyms?.[sIdx | 0] | 0;
+    if (sym) {
+        const g = cmapIdxToTerrainGlyph(sIdx, false);
+        if (g) return { ...g, color };
+    }
+    return { ...fallback };
+}
+
 /** C: wintty.c process_menu_window — `cl_end()` from menu offx through EOL. */
 function blankTutorialMenuTailOnDisplay(disp) {
     const offx = tutorialMenuOffxLikeC();
@@ -525,7 +542,11 @@ export function mapTerrainGlyph(loc, x, y, skipApportMon = false) {
             });
             if (cmap) return cmapIdxToTerrainGlyph(cmap, !!rogue);
         }
-        return { ch: '#', color: NO_COLOR, dec: false };
+        if (rogue) return { ch: '#', color: NO_COLOR, dec: false };
+        const corrIdx = (loc.waslit || game.flags?.lit_corridor)
+            ? S_litcorr
+            : S_corr;
+        return terrainFromCmapLikeC(corrIdx, CLR_GRAY, { ch: '#', color: CLR_GRAY, dec: false });
     }
     case DOOR:
         /* C: symbols.c init_rogue_symbols — open/closed doors are '+' on rogue. */

@@ -6,6 +6,7 @@ Historical rows moved from `c-to-js-port-progress.md` so day-to-day work uses **
 
 | When | What changed |
 |------|----------------|
+| **2026-05-25 (`display.c` CORR cmap via showsyms`)** | **`display.js`**: **`terrainFromCmapLikeC`**; non-rogue **`CORR`** uses **`S_corr`/`S_litcorr`** + **`gs.showsyms`** (C **`waslit`/`flags.lit_corridor`**); rogue D:1 **`#`** unchanged. **`seed0077`/`seed8000`:** **PASS**. **`npm run score`:** **2/44**. |
 | **2026-05-25 (`symbols.c` IBMgraphics cmap A/B from dat/symbols`)** | **`symbols_file.js`**: extended **`IBMGRAPHICS_PRIMARY`** (**`S_corr`**, **`S_pool`**, **`S_water`**, doors, …); corrected T-wall IBM bytes; **`cmapSymGlyphFromShowsymsLikeC`** for **`H_IBM`** on all levels. **`seed0077`/`seed8000`:** **PASS**. **`npm run score`:** **2/44**. |
 | **2026-05-25 (`symbols.c` IBMgraphics SYM_OC overrides`)** | **`symbols_file.js`**: **`IBMGRAPHICS_OBJ`** from **`dat/symbols`** → **`SYM_OFF_O`**; **`symNhsymToGlyphLikeC`** **`H_IBM`** path. DEC obj rows still skipped (**`0x32`**). **`seed0077`/`seed8000`:** **PASS**. **`npm run score`:** **2/44**. |
 | **2026-05-25 (`symbols.c` init_showsyms obj/mon → map glyphs`)** | **`symbols_file.js`**: **`initObjMonSymsInArrayLikeC`** (**`def_oc_syms`**, **`def_monsyms`**); **`objClassSymGlyphFromShowsymsLikeC`** / **`monClassSymGlyphFromShowsymsLikeC`**. **`display.js`**: non-rogue **`mapObjectGlyphLikeC`** / **`mapMonsterGlyphLikeC`** via **`gs.showsyms`**; rogue D:1 **`def_r_oc_syms`** unchanged. **`seed0077`/`seed8000`:** **PASS**. **`npm run score`:** **2/44**. |
