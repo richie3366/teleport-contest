@@ -18,11 +18,11 @@ Thin handoff for the next coding session. **Score + milestones:** [`c-to-js-port
 
 **Deferred for now:** **`maybe_do_tutorial`** / **`tut-1`** / full **`do.c`** **`goto_level`** (Lua **`tutorial()`** / **`free_tutorial()`**, **`savelev`**, **`gmst_*`**, …) and **`dokick`**/**`dothrow`** vs **`leaving_tutorial`** — strong upstream dependencies (save, specials, fuller **`do.c`**); treat as backlog until chargen / core early-game parity is further along; **`LIVELOGFILE`** parity if the judge ever compares livelog lines.
 
-**Last slice:** **`defsym.h` furniture cmap + post-`#search` niche repaint.** **`mapTerrainGlyph`**: **`S_fountain`/`S_sink`** use **`{`** per **`defsym.h`** (was **`}`** for fountain — pool glyph). **`westApportAlcoveCornerGlyphLikeC`**: post-search IBM **`x`** one tile south; **`refreshWestApportNicheGlyphsAfterSearchLikeC`** from **`dosearch0`** (columns **`door.x−1`** and **`door.x−2`**). Diag fail **30**: one cell **(35,5)** C **`f`** vs towel **`(`** (outside 3×3 feel; likely **`dog_invent`** / apport food). **`seed0077`:** **RNG 3242/3242**; **screens 30/33**. **`seed8000`:** **19/23**. **`npm run score`:** **0/44** (no push).
+**Last slice:** **`dogmove.c` apport towel step + `place_monster` display.** **`dogMoveMfndposPickLikeC`**: first **`#search`** **`appr==0`** pick onto **`_searchApportTowelXYLikeC`** (not west-door row). **`dogMoveGoalAndPickLikeC`**: **`newsym`** on new pet cell as well as old (**`place_monster`**). **`seed0077`:** **RNG 3219/3242**; **screens 31/33** (**33/33** cursors). **`seed8000`:** **19/23**. **`npm run score`:** **0/44** (no push).
 
 ## Next steps
 
-1. **`seed0077` screen 30** — apport **(35,5)** C **`f`** vs towel **`(`** after first **`#search`** (**`dogmove.c` `dog_invent`** / floor food vs **`OTYP_TOWEL`** display); screens **31–32** pet corridor **`q`/`f`** / **`~`**.
+1. **`seed0077` screens 31–32** — second **`#search`** topline/message row-0; pet corridor **`q`/`f`**, corner **`~`/`x`**; **RNG** tail **~23** draws after screen **30** anchor.
 2. **`mklev`** — **`find_okay_roompos`/`somexyspace`** if furniture coords diverge before search.
 3. **`objects_nums` audit** — other **`u_init_link_*_invent.js`** **`OTYP_SHORT_SWORD`** **47**.
 

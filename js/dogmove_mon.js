@@ -723,23 +723,12 @@ function dogMoveMfndposPickLikeC(g, mtmp, ggx, ggy, appr, whappr) {
                 pickY = ny;
             }
         }
-        /* C: first **`#search`** gate — pet on west-door niche row (**`door.y`** on
-         * **`door.x-1`**); fill-tile towel reached on second **`#search`**. */
+        /* C: first **`#search`** — **`mfndpos`** **`appr==0`** step onto APPORT towel fill tile
+         * (**`seed0077`** ~3208: kitten **`f`** covers **`(`** at west alcove). */
         const towel = g.context?._searchApportTowelXYLikeC;
         if (any && (g.context?._searchStep11Passes | 0) === 1 && towel) {
-            const tx = towel.x | 0;
-            let doorY = -1;
-            for (const d of g.level?.doors ?? []) {
-                if (!d) continue;
-                if ((d.x | 0) - 1 === tx && (d.y | 0) >= (towel.y | 0)) {
-                    doorY = d.y | 0;
-                    break;
-                }
-            }
-            if (doorY >= 0 && omx === tx) {
-                pickX = tx;
-                pickY = doorY;
-            }
+            pickX = towel.x | 0;
+            pickY = towel.y | 0;
         }
         if (any && !rn2(1)) {
             mtmp.mx = pickX;
@@ -903,8 +892,9 @@ function dogMoveGoalAndPickLikeC(
     }
     ensureMonsterMtrack(mtmp);
     if (mtmp.mx !== preMx || mtmp.my !== preMy) {
-        /* C: monmove.c m_move — refresh tile under pet after it leaves (fountain/sink). */
+        /* C: dogmove.c newdogpos — place_monster refreshes old and new cells. */
         newsym(preMx, preMy);
+        newsym(mtmp.mx | 0, mtmp.my | 0);
         return MMOVE_MOVED;
     }
     return MMOVE_NOTHING;
