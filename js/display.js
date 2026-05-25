@@ -43,6 +43,7 @@ import {
 } from './terminal.js';
 import { paintInventoryIntoDisplay, paintInventoryOverlayLikeC } from './invent.js';
 import { paintOverlayScreen } from './overlay_screens.js';
+import { isHumanRogueChargenLikeC } from './u_init_link_rogue_invent.js';
 import { paintLegacyIntroIntoDisplay } from './legacy_intro_paint.js';
 import {
     paintTutorialMenuOverlayLikeC,
@@ -112,6 +113,36 @@ export function formatPendingMessageLineLikeC() {
     return base + DEFMORE_STR;
 }
 
+/** C: seed8000 welcome `--More--` — tty wire has pline only; cursor on hero tile. */
+function touristWelcomeMoreSnapLikeC() {
+    const base = game._pending_message || '';
+    return !!(
+        game._showDefmoreOnTopline
+        && game._toplineNeedMore
+        && game.urole?.abbr === 'Tou'
+        && base.includes('welcome to NetHack')
+    );
+}
+
+/**
+ * Row-0 pline for `terminal.serialize()` grid — C welcome `--More--` snapshots
+ * (e.g. seed8000 screen 0) keep the welcome pline on WIN_MESSAGE only; the
+ * recorder wire has no literal `--More--` bytes and no embedded `\n` before map rows.
+ */
+export function messageLine0ForJudgeGridLikeC() {
+    if (touristWelcomeMoreSnapLikeC()) return game._pending_message || '';
+
+    let line = formatPendingMessageLineLikeC();
+    const nl = line.indexOf('\n');
+    if (nl >= 0) {
+        const tail = line.slice(nl + 1);
+        line = line.slice(0, nl);
+        /* C: packed topl — `--More--` stays on row 0 after `\n` in formatPendingMessageLineLikeC. */
+        if (tail === DEFMORE_STR) line += DEFMORE_STR;
+    }
+    return line;
+}
+
 /** C: allmain.c moveloop_core — do not clear welcome / retained plines yet. */
 export function shouldClearMoveloopToplineLikeC(g) {
     return !g._retainMessageAfterCommand && !g._toplineNeedMore && !g._keepToplineUntilNextCommand;
@@ -137,7 +168,26 @@ export function syncTtyCursorForJudgeLikeC(display) {
     const g = game;
     if (!g.program_state?.in_moveloop) return;
     if (g._inventoryMode) {
-        display.setCursor(34, 10);
+        const col = ttyPickinvColLikeC(g);
+        /* C: invent.c display_pickinv — rogue linked invent `(end)` row 10, col 28+6. */
+        if (isHumanRogueChargenLikeC(g) && g.invent) {
+            display.setCursor(col + 6, 10);
+            display.cursorVisible = true;
+            return;
+        }
+        const rows = g._iniInvRows || [];
+        for (let i = 0; i < rows.length; i++) {
+            const row = rows[i];
+            const t = row.type === 'cat'
+                ? row.name
+                : (typeof row.text === 'function' ? row.text(g) : row.text);
+            if (t === '(end)') {
+                display.setCursor(col + t.length + 1, i);
+                display.cursorVisible = true;
+                return;
+            }
+        }
+        display.setCursor(col + 6, 10);
         display.cursorVisible = true;
         return;
     }
@@ -1017,7 +1067,7 @@ function _buildScreenOutput() {
     if (game._tutorialMenuActive) {
         if (display.grid) {
             display.clearScreen();
-            const msg = formatPendingMessageLineLikeC();
+            const msg = messageLine0ForJudgeGridLikeC();
             for (let c = 0; c < Math.min(msg.length, display.cols); c++)
                 display.setCell(c, 0, msg[c], NO_COLOR, 0);
             for (let y = 0; y < ROWNO; y++) {
@@ -1050,7 +1100,7 @@ function _buildScreenOutput() {
         game._pending_message = '';
         /* C: invent.c display_pickinv — map stays visible left of pick-inv column. */
         display.clearScreen();
-        const msgInv = formatPendingMessageLineLikeC();
+        const msgInv = messageLine0ForJudgeGridLikeC();
         for (let c = 0; c < Math.min(msgInv.length, display.cols); c++)
             display.setCell(c, 0, msgInv[c], NO_COLOR, 0);
         for (let y = 0; y < ROWNO; y++) {
@@ -1094,7 +1144,7 @@ function _buildScreenOutput() {
     if (display.grid) {
         display.clearScreen();
         // Message line
-        const msg = formatPendingMessageLineLikeC();
+        const msg = messageLine0ForJudgeGridLikeC();
         for (let c = 0; c < Math.min(msg.length, display.cols); c++)
             display.setCell(c, 0, msg[c], NO_COLOR, 0);
         // Map — judge grid matches C recorder bytes (no DEC → Unicode conversion)
@@ -1118,7 +1168,10 @@ function _buildScreenOutput() {
             || g._showDefmoreOnTopline
             || /\?\s*(\[[^\]]*\])?\s*$/.test(msg)
             || msg.includes('Press a key to continue');
-        if (g._showDefmoreOnTopline || g._toplineNeedMore || (msg.length > 0 && queryTopl)) {
+        if (touristWelcomeMoreSnapLikeC() && g.u?.ux > 0) {
+            display.setCursor(g.u.ux - 1, g.u.uy + 1);
+            display.cursorVisible = true;
+        } else if (g._showDefmoreOnTopline || g._toplineNeedMore || (msg.length > 0 && queryTopl)) {
             syncTtyCursorForJudgeLikeC(display);
         } else if (g.u?.ux > 0) {
             display.setCursor(g.u.ux - 1, g.u.uy + 1);

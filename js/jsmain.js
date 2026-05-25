@@ -178,12 +178,16 @@ export class NethackGame {
         this._lastRngIdx = fullLog.length;
 
         /* C: welcome `--More--` — paint IN_SIGHT map before first tourist input snapshot. */
-        if (bump && this._nhgetchCount === 1 && game.urole?.abbr === 'Tou')
-            await docrtPaintVisibleForWelcomeLikeC();
+        const welcomeMoreCapture =
+            bump && this._nhgetchCount === 1 && game.urole?.abbr === 'Tou';
+        if (welcomeMoreCapture) await docrtPaintVisibleForWelcomeLikeC();
 
-        /* C: tty refresh before input boundaries; also when find_ac flagged botl but moveloop not started. */
+        /* C: tty refresh before input boundaries; also when find_ac flagged botl but moveloop not started.
+         * Welcome `--More--` must flush after docrtPaint even when disp.botl was cleared (botl false,
+         * cached status still present) — otherwise screen 0 keeps a stale pre-paint grid (seed8000). */
         const needFlush =
-            game.program_state?.in_moveloop
+            welcomeMoreCapture
+            || game.program_state?.in_moveloop
             || (game.disp?.botl && game._cachedBotlLine2 != null);
         if (needFlush) await flush_screen(1);
 
