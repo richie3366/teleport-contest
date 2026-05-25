@@ -18,12 +18,12 @@ Thin handoff for the next coding session. **Score + milestones:** [`c-to-js-port
 
 **Deferred for now:** **`maybe_do_tutorial`** / **`tut-1`** / full **`do.c`** **`goto_level`** (Lua **`tutorial()`** / **`free_tutorial()`**, **`savelev`**, **`gmst_*`**, …) and **`dokick`**/**`dothrow`** vs **`leaving_tutorial`** — strong upstream dependencies (save, specials, fuller **`do.c`**); treat as backlog until chargen / core early-game parity is further along; **`LIVELOGFILE`** parity if the judge ever compares livelog lines.
 
-**Last slice:** **`dogmove.c` post-gate `dog_goal` invent + twin-search niche display.** Defer pre-follow towel APPORT on first post-gate pass so **`gi.invent` `dogfood`** runs at **~3217** (one **`obj_resists`**); skip **`rn2(4)`** there (**~3230** on second **`#search`**). **`can_carry`**: use **`obj.owt`**. **`display.js`**: second **`#search`** — niche corner from **`wall_angle`** **`~`**, not IBM **`x`**. **`seed0077`:** **RNG 3242/3242**; **screens 31/33** (**33/33** cursors). **`seed8000`:** **19/23**. **`npm run score`:** **0/44** (no push).
+**Last slice:** **`dogmove.c` second `#search` display + towel pickup.** **`dogmove_mon.js`**: **`colonPreInventSync`** onto towel calls **`newsym`** old/new cells (**`place_monster`**); after towel **`minvent`**, place pet **`(ux, uy-1)`** for tty (**no extra `mfndpos` RNG**); **`dog_goal`** treats **`minvent`** like C **`dog_has_minvent`**; **`dog_move`** always runs **`mfndpos`** pick. **`display.js`**: twin-search west-apport IBM **`x`** via **`north` SDOOR** branch; clear stale **`remembered_glyph`** on niche refresh. **`seed0077`:** **RNG 3242/3242**; **screens 31/33** (**33/33** cursors); **2** niche cells on snaps **31–32**. **`npm run score`:** **0/44** (no push).
 
 ## Next steps
 
-1. **`seed0077` screens 31–32** — pet on fountain **(35,7)** vs corridor **(34,6)**; **`mapTerrainGlyph`** / **`newsym`** after second **`#search`** **`dog_invent`** (RNG aligned).
-2. **`mklev`** — **`find_okay_roompos`/`somexyspace`** if furniture coords diverge before search.
+1. **`seed0077` snaps 31–32** — **2** west-apport ROOM IBM **`x`** / **`~`** cells (likely **`mklev`** door-row **`ROOM`** vs C **`SDOOR`** north of alcove — read C recorder geometry before more display branches).
+2. **`mklev`** — **`find_okay_roompos`/`somexyspace`** / west-apport **`ROOM`** north of door.
 3. **`objects_nums` audit** — other **`u_init_link_*_invent.js`** **`OTYP_SHORT_SWORD`** **47**.
 
 2. **`mklev` lregions** — wire **`game.dndest`/`updest`** when **`place_lregions`** ported.

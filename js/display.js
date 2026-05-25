@@ -215,11 +215,22 @@ function westApportAlcoveCornerGlyphLikeC(x, y, loc) {
     const afterSearch = (g.context?._searchStep11Passes | 0) >= 1;
     const north = g.level?.at(xi, yi - 1);
     const north2 = g.level?.at(xi, yi - 2);
-    /* C: post-#search vision — IBM x one tile south in west apport niche. */
+    /* C: post-#search vision — IBM x on west apport alcove ROOM corners. */
     if (afterSearch) {
-        /* C: twin **`#search`** — corridor **`~`** from **`wall_angle`** (snap 31–32). */
-        if ((g.context?._searchStep11Passes | 0) >= 2) return null;
         if (north2 && (north2.typ | 0) === SDOOR) {
+            if ((g.context?._searchStep11Passes | 0) >= 2) return null;
+            return { ch: 'x', color: CLR_MAGENTA, dec: false };
+        }
+        if ((g.context?._searchStep11Passes | 0) >= 2) {
+            if (!north || (north.typ | 0) !== SDOOR) return null;
+            const isCorr = (t) => t === CORR || t === SCORR;
+            const westCorr =
+                isCorr(g.level?.at(xi - 4, yi + 1)?.typ)
+                || isCorr(g.level?.at(xi - 4, yi)?.typ);
+            const eastCorr =
+                isCorr(g.level?.at(xi + 4, yi + 1)?.typ)
+                || isCorr(g.level?.at(xi + 4, yi)?.typ);
+            if (!westCorr && !eastCorr) return null;
             return { ch: 'x', color: CLR_MAGENTA, dec: false };
         }
         return null;
@@ -740,6 +751,9 @@ export function refreshWestApportNicheGlyphsAfterSearchLikeC() {
                 if (oy < 0) break;
                 const loc = map.at(px, oy);
                 if (!loc || (loc.typ | 0) !== ROOM) continue;
+                if ((g.context?._searchStep11Passes | 0) >= 2) {
+                    loc.remembered_glyph = null;
+                }
                 newsym(px, oy);
             }
         }

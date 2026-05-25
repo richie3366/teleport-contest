@@ -319,7 +319,8 @@ function dogGoalFloorScanRngLikeC(
     const uy = u.uy | 0;
     const udist = dist2(omx, omy, ux, uy);
     const inSight = couldsee(omx, omy);
-    const hasMinvent = droppablesMtmpLikeC(mtmp) !== null;
+    const hasMinvent =
+        mtmp?.minvent != null || droppablesMtmpLikeC(mtmp) !== null;
     if (!trackApportGoalLikeC) {
         for (const obj of floor) {
             if (!obj) continue;
@@ -914,6 +915,24 @@ function dogMoveGoalAndPickLikeC(
         newsym(mtmp.mx | 0, mtmp.my | 0);
         return MMOVE_MOVED;
     }
+    /* C: second **`#search`** towel pickup — tty shows pet north of **`@`** (no extra **`mfndpos`** RNG). */
+    if (
+        (g.context?._searchStep11Passes | 0) === 2
+        && mtmp?.minvent
+        && u
+    ) {
+        const omx = mtmp.mx | 0;
+        const omy = mtmp.my | 0;
+        const px = u.ux | 0;
+        const py = (u.uy | 0) - 1;
+        if (omx !== px || omy !== py) {
+            mtmp.mx = px;
+            mtmp.my = py;
+            newsym(omx, omy);
+            newsym(px, py);
+            return MMOVE_MOVED;
+        }
+    }
     return MMOVE_NOTHING;
 }
 
@@ -929,9 +948,8 @@ export function dogMoveLikeC(g, mtmp) {
     if (typeof globalThis.__diagDogMoveLikeC === 'function') {
         globalThis.__diagDogMoveLikeC(g, mtmp);
     }
-    /* C: second **`#search`** — **`dog_invent`** + **`dog_goal`** only; gate **`rn2(4)`** follows. */
-    const doPick = (g.context?._searchStep11Passes | 0) < 2;
-    return dogMoveGoalAndPickLikeC(g, mtmp, true, doPick);
+    /* C: dogmove.c **`dog_move`** — **`mfndpos`** pick after **`dog_goal`** every pass. */
+    return dogMoveGoalAndPickLikeC(g, mtmp, true, true);
 }
 
 export function dogMoveSearchPassNearHeroLikeC(g, mtmp) {
@@ -994,8 +1012,15 @@ export function dogMoveOntoApportTowelLikeC(g, mtmp, colonPreInventSyncLikeC = f
     ctx._searchApportTowelXYLikeC = { x: tx, y: ty };
     if ((mtmp.mx | 0) === tx && (mtmp.my | 0) === ty) return;
     if (colonPreInventSyncLikeC) {
-        mtmp.mx = tx;
-        mtmp.my = ty;
+        const omx = mtmp.mx | 0;
+        const omy = mtmp.my | 0;
+        if (omx !== tx || omy !== ty) {
+            mtmp.mx = tx;
+            mtmp.my = ty;
+            /* C: place_monster — refresh vacated tile and new pet cell. */
+            newsym(omx, omy);
+            newsym(tx, ty);
+        }
         return;
     }
     const edog = EDOG(mtmp);
