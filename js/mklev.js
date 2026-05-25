@@ -39,7 +39,7 @@ import {
     OROOM, VAULT, THEMEROOM, ROOMOFFSET, MAXNROFROOMS, SHARED,
     SDOOR, SCORR, IRONBARS, FOUNTAIN, SINK, ALTAR, GRAVE,
     DIR_N, DIR_S, DIR_E, DIR_W, DIR_180,
-    IS_WALL, IS_STWALL, IS_DOOR, IS_OBSTRUCTED, IS_FURNITURE, IS_POOL, IS_LAVA,
+    IS_WALL, IS_STWALL, IS_DOOR, IS_OBSTRUCTED, IS_FURNITURE, IS_POOL, IS_LAVA, ACCESSIBLE,
     SPACE_POS, isok, W_NONDIGGABLE, FILL_NORMAL,
     XL_UP, XL_DOWN, XL_LEFT, XL_RIGHT,
     ICE, MOAT, POOL, WATER, LAVAPOOL, LAVAWALL, DBWALL,
@@ -349,8 +349,203 @@ export function makelevelMazefileLikeC(g) {
     return null;
 }
 
+/** C: mkmaze.c `mz_move` — one step (dir 0=N, 1=E, 2=S, 3=W). */
+function mzMoveLikeC(pos, dir) {
+    switch (dir | 0) {
+    case 0: pos.y--; break;
+    case 1: pos.x++; break;
+    case 2: pos.y++; break;
+    case 3: pos.x--; break;
+    default:
+        throw new Error(`mz_move: bad direction ${dir}`);
+    }
+}
+
+/** C: mkmaze.c `okay` — two steps in **`dir`** land on **`STONE`**. */
+function mazeOkayLikeC(g, x, y, dir) {
+    const pos = { x: x | 0, y: y | 0 };
+    mzMoveLikeC(pos, dir);
+    mzMoveLikeC(pos, dir);
+    const xmax = g.x_maze_max | 0;
+    const ymax = g.y_maze_max | 0;
+    if (pos.x < 3 || pos.y < 3 || pos.x > xmax || pos.y > ymax) return false;
+    const loc = g.level.at(pos.x, pos.y);
+    return loc && (loc.typ | 0) === STONE;
+}
+
+/** C: mkmaze.c `maze0xy` — walkfrom start cell. */
+function maze0xyLikeC(g, cc) {
+    const xmax = g.x_maze_max | 0;
+    const ymax = g.y_maze_max | 0;
+    cc.x = 3 + 2 * rn2((xmax >> 1) - 1);
+    cc.y = 3 + 2 * rn2((ymax >> 1) - 1);
+}
+
+/** C: mkmaze.c `walkfrom` — recursive maze carve ( **`rn2(q)`** order must match C ). */
+function walkfromLikeC(g, pos, typIn) {
+    let typ = typIn | 0;
+    if (!typ) typ = g.level.flags.corrmaze ? CORR : ROOM;
+    const loc0 = g.level.at(pos.x, pos.y);
+    if (loc0 && !IS_DOOR(loc0.typ | 0)) {
+        loc0.typ = typ;
+        loc0.flags = 0;
+    }
+    for (;;) {
+        const dirs = [];
+        for (let a = 0; a < 4; a++) {
+            if (mazeOkayLikeC(g, pos.x, pos.y, a)) dirs.push(a);
+        }
+        if (!dirs.length) return;
+        const dir = dirs[rn2(dirs.length)];
+        mzMoveLikeC(pos, dir);
+        const loc = g.level.at(pos.x, pos.y);
+        if (loc) loc.typ = typ;
+        mzMoveLikeC(pos, dir);
+        walkfromLikeC(g, pos, typ);
+    }
+}
+
+/** C: mkmaze.c `maze_inbounds` */
+function mazeInboundsLikeC(g, x, y) {
+    const xi = x | 0;
+    const yi = y | 0;
+    return xi >= 2 && yi >= 2 && xi < (g.x_maze_max | 0) && yi < (g.y_maze_max | 0) && isok(xi, yi);
+}
+
+/** C: mkmaze.c `maze_remove_deadends` */
+function mazeRemoveDeadendsLikeC(g, typ) {
+    const t = typ | 0;
+    const xmax = g.x_maze_max | 0;
+    const ymax = g.y_maze_max | 0;
+    for (let x = 2; x < xmax; x++) {
+        for (let y = 2; y < ymax; y++) {
+            const loc = g.level.at(x, y);
+            if (!loc || !ACCESSIBLE(loc.typ | 0) || !(x % 2) || !(y % 2)) continue;
+            const dirok = [];
+            let idx2 = 0;
+            for (let dir = 0; dir < 4; dir++) {
+                const p1 = { x, y };
+                const p2 = { x, y };
+                mzMoveLikeC(p1, dir);
+                if (!mazeInboundsLikeC(g, p1.x, p1.y)) {
+                    idx2++;
+                    continue;
+                }
+                mzMoveLikeC(p2, dir);
+                mzMoveLikeC(p2, dir);
+                if (!mazeInboundsLikeC(g, p2.x, p2.y)) {
+                    idx2++;
+                    continue;
+                }
+                const l1 = g.level.at(p1.x, p1.y);
+                const l2 = g.level.at(p2.x, p2.y);
+                if (!ACCESSIBLE(l1?.typ | 0) && ACCESSIBLE(l2?.typ | 0)) {
+                    dirok.push(dir);
+                    idx2++;
+                }
+            }
+            if (idx2 >= 3 && dirok.length > 0) {
+                const pos = { x, y };
+                mzMoveLikeC(pos, dirok[rn2(dirok.length)]);
+                const cut = g.level.at(pos.x, pos.y);
+                if (cut) cut.typ = t;
+            }
+        }
+    }
+}
+
 /**
- * C: mkmaze.c `makemaz` — des load or procedural maze (subset: flags + bounds only).
+ * C: mkmaze.c `create_maze` — procedural maze grid (**`walkfrom`** + optional scale-up).
+ * @param {import('./gstate.js').game} g
+ */
+export function createMazeLikeC(g, corrwidIn, wallthickIn, rmdeadends) {
+    const lv = g.level;
+    let corrwid = corrwidIn | 0;
+    let wallthick = wallthickIn | 0;
+    const tmpXmax = g.x_maze_max | 0;
+    const tmpYmax = g.y_maze_max | 0;
+
+    if (corrwid === -1) corrwid = rnd(4);
+    if (wallthick === -1) wallthick = rnd(4) - corrwid;
+    if (wallthick < 1) wallthick = 1;
+    else if (wallthick > 5) wallthick = 5;
+    if (corrwid < 1) corrwid = 1;
+    else if (corrwid > 5) corrwid = 5;
+
+    const scale = corrwid + wallthick;
+    const rdx = (tmpXmax / scale) | 0;
+    const rdy = (tmpYmax / scale) | 0;
+    const corrmaze = !!g.level.flags.corrmaze;
+
+    if (corrmaze) {
+        for (let x = 2; x < rdx * 2; x++) {
+            for (let y = 2; y < rdy * 2; y++) {
+                const loc = lv.at(x, y);
+                if (loc) loc.typ = STONE;
+            }
+        }
+    } else {
+        for (let x = 2; x <= rdx * 2; x++) {
+            for (let y = 2; y <= rdy * 2; y++) {
+                const loc = lv.at(x, y);
+                if (loc) loc.typ = ((x % 2) && (y % 2)) ? STONE : HWALL;
+            }
+        }
+    }
+
+    g.x_maze_max = rdx * 2;
+    g.y_maze_max = rdy * 2;
+
+    const mm = { x: 0, y: 0 };
+    maze0xyLikeC(g, mm);
+    walkfromLikeC(g, mm, 0);
+
+    if (rmdeadends) mazeRemoveDeadendsLikeC(g, corrmaze ? CORR : ROOM);
+
+    const innerXmax = g.x_maze_max | 0;
+    const innerYmax = g.y_maze_max | 0;
+    g.x_maze_max = tmpXmax;
+    g.y_maze_max = tmpYmax;
+
+    if (scale > 2) {
+        const tmpmap = Array.from({ length: COLNO }, () => new Array(ROWNO).fill(STONE));
+        for (let x = 1; x < innerXmax; x++) {
+            for (let y = 1; y < innerYmax; y++) {
+                const loc = lv.at(x, y);
+                tmpmap[x][y] = loc ? (loc.typ | 0) : STONE;
+            }
+        }
+        let rx = 2;
+        let x = 2;
+        while (rx < innerXmax) {
+            const mx = (x % 2) ? corrwid : (x === 2 || x === rdx * 2) ? 1 : wallthick;
+            let ry = 2;
+            let y = 2;
+            while (ry < innerYmax) {
+                const my = (y % 2) ? corrwid : (y === 2 || y === rdy * 2) ? 1 : wallthick;
+                for (let dx = 0; dx < mx; dx++) {
+                    for (let dy = 0; dy < my; dy++) {
+                        if (rx + dx >= innerXmax || ry + dy >= innerYmax) break;
+                        const cell = lv.at(rx + dx, ry + dy);
+                        if (cell) cell.typ = tmpmap[x][y];
+                    }
+                }
+                ry += my;
+                y++;
+            }
+            rx += mx;
+            x++;
+        }
+    }
+}
+
+/** C: dungeon.c `Invocation_lev` — stub until invocation level is ported. */
+function invocationLevLikeC(_uz) {
+    return false;
+}
+
+/**
+ * C: mkmaze.c `makemaz` — des load or procedural maze.
  * @param {import('./gstate.js').game} g
  * @param {string} protofile — des proto / fill name
  * @returns {Promise<boolean>} true when caller should skip regular **`makerooms`** (loaded or procedural)
@@ -364,7 +559,25 @@ export async function makemazLikeC(g, protofile = '') {
     lf.is_maze_lev = true;
     lf.corrmaze = !rn2(3);
     resetMazeMaxBoundsLikeC(g);
-    /* deferred: create_maze, wallification, mkstairs, place_branch, populate_maze */
+
+    if (!invocationLevLikeC(g.u?.uz) && rn2(2)) {
+        createMazeLikeC(g, -1, -1, !rn2(5));
+    } else {
+        createMazeLikeC(g, 1, 1, false);
+    }
+
+    /* C: `wallification` when !corrmaze — deferred */
+    const mm = { x: 0, y: 0 };
+    mazexyLikeC(mm);
+    mkstairs(mm.x, mm.y, true, null);
+    if (!invocationLevLikeC(g.u?.uz)) {
+        mazexyLikeC(mm);
+        mkstairs(mm.x, mm.y, false, null);
+    }
+    /* C: `pick_vibrasquare_location` + `VIBRATING_SQUARE` — deferred */
+
+    place_branch(is_branchlev(), 0, 0);
+    /* C: `populate_maze` — deferred */
     return true;
 }
 
