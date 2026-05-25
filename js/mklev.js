@@ -53,7 +53,7 @@ import {
     ARROW_TRAP, DART_TRAP, ROCKTRAP, SQKY_BOARD, BEAR_TRAP, LANDMINE, ROLLING_BOULDER_TRAP,
     SLP_GAS_TRAP, RUST_TRAP, FIRE_TRAP, PIT, SPIKED_PIT, HOLE, TRAPDOOR, TELEP_TRAP, LEVEL_TELEP,
     MAGIC_PORTAL, WEB, STATUE_TRAP, MAGIC_TRAP, POLY_TRAP, VIBRATING_SQUARE, TRAPPED_DOOR, TRAPPED_CHEST,
-    MKTRAP_NOFLAGS, MKTRAP_NOSPIDERONWEB, MKTRAP_NOVICTIM,
+    MKTRAP_NOFLAGS, MKTRAP_SEEN, MKTRAP_NOSPIDERONWEB, MKTRAP_NOVICTIM,
     is_pit, is_hole,
     OTYP_BOULDER,
     In_endgame, In_hell, In_V_tower, Is_rogue_level, Is_oracle_level, In_mines, In_quest,
@@ -210,6 +210,47 @@ function bad_location(x, y, nlx, nly, nhx, nhy) {
     if (loc.typ !== ROOM && !(loc.typ === CORR && game.level?.flags?.is_maze_lev))
         return true;
     return false;
+}
+
+/** C: mkmaze.c mazexy — random CORR/ROOM cell in maze interior (not moat/wall). */
+function mazexyLikeC(cc) {
+    const g = game;
+    const map = g.level;
+    if (!map || !cc) return;
+    const allowedtyp = g.level?.flags?.corrmaze ? CORR : ROOM;
+    const xmax = (g.x_maze_max | 0) || (COLNO - 2);
+    const ymax = (g.y_maze_max | 0) || (ROWNO - 2);
+    let cpt = 0;
+    do {
+        const x = rnd(xmax);
+        const y = rnd(ymax);
+        const loc = map.at(x, y);
+        if (loc && (loc.typ | 0) === allowedtyp) {
+            cc.x = x;
+            cc.y = y;
+            return;
+        }
+    } while (++cpt < 100);
+    for (let x = 1; x <= xmax; x++) {
+        for (let y = 1; y <= ymax; y++) {
+            const loc = map.at(x, y);
+            if (loc && (loc.typ | 0) === allowedtyp) {
+                cc.x = x;
+                cc.y = y;
+                return;
+            }
+        }
+    }
+    for (let x = 1; x < COLNO - 1; x++) {
+        for (let y = 0; y < ROWNO; y++) {
+            const loc = map.at(x, y);
+            if (loc && (loc.typ | 0) === allowedtyp) {
+                cc.x = x;
+                cc.y = y;
+                return;
+            }
+        }
+    }
 }
 
 // C ref: mkmaze.c place_lregion — place hero (LR_UPTELE/LR_DOWNTELE)
@@ -2201,8 +2242,11 @@ async function mktrapLikeC(num, mktrapflags, croom, tm) {
         let tryct = 0;
         do {
             if (++tryct > 200) return;
-            if ((mktrapflags & MKTRAP_MAZEFLAG) !== 0) return; /* mazexy not ported */
-            if (croom && !somexyspace(croom, m)) return;
+            if ((mktrapflags & MKTRAP_MAZEFLAG) !== 0) {
+                mazexyLikeC(m);
+            } else if (!croom || !somexyspace(croom, m)) {
+                return;
+            }
         } while (occupied(m.x, m.y) || (avoidBoulder && sobj_at(OTYP_BOULDER, m.x, m.y)));
     }
     const trap = await maketrap(m.x, m.y, kind);
@@ -2210,6 +2254,13 @@ async function mktrapLikeC(num, mktrapflags, croom, tm) {
     /* C: mklev.c — spider only when WEB is actually placed (not on D:1 random traps). */
     if (kind === WEB && !(mktrapflags & MKTRAP_NOSPIDERONWEB)) {
         makemon({ mnum: PM_GIANT_SPIDER }, m.x, m.y, NO_MM_FLAGS);
+    }
+    if (trap && (mktrapflags & MKTRAP_SEEN)) trap.tseen = true;
+    if (kind === MAGIC_PORTAL && trap) {
+        const from = g.u?.ucamefrom;
+        if (from && ((from.dnum | 0) || (from.dlevel | 0))) {
+            trap.dst = { dnum: from.dnum | 0, dlevel: from.dlevel | 0 };
+        }
     }
     if (g.in_mklev && trap && !(mktrapflags & MKTRAP_NOVICTIM)
         && kind !== NO_TRAP
