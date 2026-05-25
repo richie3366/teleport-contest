@@ -10,14 +10,23 @@
 // **`gotoLevelTutorialBranchHookLikeC`** — C **`do.c`** **`newdungeon`** **`In_tutorial`/`tutorial()`** before **`savelev`** / **`impact_drop`** ( **`tutorial_branch.js`** ).
 // **`maybeRecordEnteredNewLevelLivelogLikeC`** after **`mklev()`** when map built (**`livelog.js`**) — C **`new`** after **`mklev`**; **`livelogPrintfLikeC`** ring (**`gd.livelog_recent`**), no **`LIVELOGFILE`**.
 // Deferred: **`fill_pit`**, real **`next_to_u`**,
-// full **`keepdogs`/`dog.c`** migration (**`migrate_to_level`**, …), bones/save, full **`goto_level`** beyond **`mklev`**.
+// full **`keepdogs`/`dog.c`** migration (**`migrate_to_level`**, …), bones/save, Gehennom mystery-force **`assign_rnd_level`**.
 
-import { mklev, u_on_upstairs, u_onRndspotLikeC } from './mklev.js';
-import { In_endgame, onWTowerLevelLikeC } from './const.js';
+import {
+    mklev,
+    u_on_upstairs,
+    u_on_dnstairsLikeC,
+    u_on_sstairsLikeC,
+    u_on_newpos,
+    u_onRndspotLikeC,
+} from './mklev.js';
+import { In_endgame, onWTowerLevelLikeC, MAGIC_PORTAL, UTOTYPE_ATSTAIRS, UTOTYPE_PORTAL } from './const.js';
 import { spotEffects } from './spoteffects.js';
 import { vision_recalc } from './vision.js';
 import { pline, pline1 } from './display.js';
-import { onLevelLikeC } from './hacklib.js';
+import { depth, onLevelLikeC } from './hacklib.js';
+import { seetrap } from './search.js';
+import { stairwayFindFromLikeC } from './decor.js';
 import { shopdigLikeC, payForDamage, heroInShopOccupancyLikeUshops } from './shop.js';
 import { impactDropLikeC, objDeliveryLikeC } from './impact_drop.js';
 import { pickup } from './pickup.js';
@@ -79,6 +88,66 @@ export function keepdogsHeroStubLikeC(g, petsOnly) {
     g.gd.keepdogs_last_tame_seen = tame;
 }
 
+/**
+ * C: **`do.c`** **`goto_level`** post-**`mklev`** placement — portal, **`at_stairs`**, else **`u_on_rndspot`**.
+ * @param {import('./gstate.js').game} g
+ * @param {{ portal?: boolean, atStairs?: boolean, up?: boolean, uz0: { dnum: number, dlevel: number }, atLadder?: boolean, wasInWTower?: boolean, newdungeon?: boolean }} opts
+ */
+export function placeHeroAfterGotoLevelLikeC(g, opts) {
+    const u = g.u;
+    if (!u) return;
+    const uz = u.uz;
+    const uz0 = opts.uz0;
+    const portal = !!opts.portal;
+    const atStairs = !!opts.atStairs;
+    const up = !!opts.up;
+    const atLadder = !!opts.atLadder;
+    const wasInWTower = !!opts.wasInWTower;
+    const newdungeon = !!opts.newdungeon;
+
+    if (portal && !In_endgame(uz)) {
+        const traps = g.level?.traps;
+        let ttrap = null;
+        if (traps) {
+            for (let i = 0; i < traps.length; i++) {
+                const t = traps[i];
+                if (t && (t.ttyp | 0) === MAGIC_PORTAL) {
+                    ttrap = t;
+                    break;
+                }
+            }
+        }
+        if (!ttrap) {
+            u_onRndspotLikeC(g, 0);
+        } else {
+            seetrap(ttrap);
+            u_on_newpos(ttrap.tx | 0, ttrap.ty | 0);
+        }
+        return;
+    }
+
+    if (atStairs && !In_endgame(uz)) {
+        if (up) {
+            const stway = stairwayFindFromLikeC(g, uz0, atLadder);
+            if (stway) {
+                u_on_newpos(stway.sx | 0, stway.sy | 0);
+                stway.u_traversed = true;
+            } else if (newdungeon) u_on_sstairsLikeC(1);
+            else u_on_dnstairsLikeC();
+        } else {
+            const stway = stairwayFindFromLikeC(g, uz0, atLadder);
+            if (stway) {
+                u_on_newpos(stway.sx | 0, stway.sy | 0);
+                stway.u_traversed = true;
+            } else if (newdungeon) u_on_sstairsLikeC(0);
+            else u_on_upstairs();
+        }
+        return;
+    }
+
+    u_onRndspotLikeC(g, (up ? 1 : 0) | (wasInWTower ? 2 : 0));
+}
+
 /** @param {import('./gstate.js').game} g */
 function clearDeferredGotoMessagesLikeC(g) {
     const gd = g.gd;
@@ -91,8 +160,9 @@ function clearDeferredGotoMessagesLikeC(g) {
  * C: **`do.c`** **`goto_level`** — plain arrival (**not** falling): **`keepdogs`**, **`vision_recalc(2)`**, set **`u.uz`**, **`mklev`**, **`spoteffects`**, **`vision_recalc(1)`**, **`pickup(1)`**.
  * @param {import('./gstate.js').game} g
  * @param {{ dnum: number, dlevel: number }} dest
+ * @param {{ atStairs?: boolean, portal?: boolean, up?: boolean, atLadder?: boolean }} [gotoOpts]
  */
-export async function applyGotoLevelDirectHeroLikeC(g, dest) {
+export async function applyGotoLevelDirectHeroLikeC(g, dest, gotoOpts = {}) {
     const u = g.u;
     if (!u || !g.level) return;
 
@@ -107,6 +177,12 @@ export async function applyGotoLevelDirectHeroLikeC(g, dest) {
     const newUz = { dnum: dn, dlevel: dl };
     if (onLevelLikeC(uz0, newUz)) return;
 
+    const up = gotoOpts.up != null
+        ? !!gotoOpts.up
+        : depth(uz0) > depth(newUz);
+    const newdungeon = (uz0.dnum | 0) !== (newUz.dnum | 0);
+    const wasInWTower = onWTowerLevelLikeC(uz0);
+
     gotoLevelTutorialBranchHookLikeC(g, uz0, newUz);
 
     if (!g.iflags?.nofollowers) keepdogsHeroStubLikeC(g, false);
@@ -118,8 +194,15 @@ export async function applyGotoLevelDirectHeroLikeC(g, dest) {
 
     if (await mklev()) maybeRecordEnteredNewLevelLivelogLikeC(g);
     if (!In_endgame(newUz)) {
-        const wasInWTower = onWTowerLevelLikeC(uz0);
-        u_onRndspotLikeC(g, wasInWTower ? 2 : 0);
+        placeHeroAfterGotoLevelLikeC(g, {
+            portal: !!gotoOpts.portal,
+            atStairs: !!gotoOpts.atStairs,
+            up,
+            uz0,
+            atLadder: !!gotoOpts.atLadder,
+            wasInWTower,
+            newdungeon,
+        });
     }
     await objDeliveryLikeC(g, false);
     await spotEffects(g, false, {});
@@ -172,7 +255,12 @@ export async function deferredGotoHeroLikeC(g) {
         if (g.gd.dfr_pre_msg) await pline1(g.gd.dfr_pre_msg);
 
         if (typmask & UTOTYPE_FALLING) await applyGotoAfterHeroHoleFallLikeC(g, dest);
-        else await applyGotoLevelDirectHeroLikeC(g, dest);
+        else {
+            await applyGotoLevelDirectHeroLikeC(g, dest, {
+                atStairs: (typmask & UTOTYPE_ATSTAIRS) !== 0,
+                portal: (typmask & UTOTYPE_PORTAL) !== 0,
+            });
+        }
 
         if (typmask & UTOTYPE_RMPORTAL) {
             /* C: **`deltrap`/`newsym`** after **`goto_level`** — not ported */
@@ -311,7 +399,14 @@ export async function applyHeroDescendStairsOneLevelLikeC(g) {
     u.utraptype = 0;
 
     if (await mklev()) maybeRecordEnteredNewLevelLivelogLikeC(g);
-    u_on_upstairs();
+    placeHeroAfterGotoLevelLikeC(g, {
+        atStairs: true,
+        up: false,
+        uz0,
+        atLadder,
+        wasInWTower: false,
+        newdungeon: (uz0.dnum | 0) !== (newUz.dnum | 0),
+    });
     syncHeroInvWeightNetLikeC(g);
 
     const flying = !!(u.Levitation || u.Flying);

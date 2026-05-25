@@ -199,9 +199,24 @@ function stairway_find_special_dir(up) {
 
 // ── Hero placement (C ref: stairs.c, mkmaze.c) ──
 
-function u_on_newpos(x, y) {
-    game.u.ux = x;
-    game.u.uy = y;
+/** C: mkmaze.c / stairs.c — set hero map coordinates. */
+export function u_on_newpos(x, y) {
+    game.u.ux = x | 0;
+    game.u.uy = y | 0;
+}
+
+/** C: stairs.c `u_on_sstairs` — special staircase from another branch. */
+export function u_on_sstairsLikeC(upflag) {
+    const stway = stairway_find_special_dir(!!(upflag | 0));
+    if (stway) u_on_newpos(stway.sx, stway.sy);
+    else u_onRndspotLikeC(game, upflag | 0);
+}
+
+/** C: stairs.c `u_on_dnstairs` — down stairs (or special up equivalent). */
+export function u_on_dnstairsLikeC() {
+    const stway = stairway_find_dir(false);
+    if (stway) u_on_newpos(stway.sx, stway.sy);
+    else u_on_sstairsLikeC(1);
 }
 
 // C ref: mkmaze.c bad_location — simplified for skeleton
@@ -307,12 +322,28 @@ export function appendLregionLikeC(g, region) {
 }
 
 /**
- * C: sp_lev.c `load_special` — des-file level ( **`fixup_special`** / **`appendLregionLikeC`** ).
+ * C: sp_lev.c `load_special` tail — **`fixup_special`**, wallification, lregions (after **`load_lua`**).
+ * @param {import('./gstate.js').game} g
+ */
+export function fixupSpecialLikeC(g) {
+    const lf = g.level?.flags;
+    if (lf && !lf.corrmaze) {
+        wallification(1, 0, COLNO - 1, ROWNO - 1);
+    }
+    if (g.lregions?.length) {
+        placeLregionsFixupSpecialLikeC(g, g.lregions);
+        g.lregions = null;
+    }
+}
+
+/**
+ * C: sp_lev.c `load_special` — des-file level via **`load_lua`**; **`fixupSpecialLikeC`** on success.
  * @returns {Promise<boolean>} true when a compiled level was loaded
  */
-export async function loadSpecialLikeC(_g, _protofile) {
-    void _g;
-    void _protofile;
+export async function loadSpecialLikeC(g, protofile) {
+    if (!protofile) return false;
+    /* C: mkmaze.c `Strcat(protofile, LEV_EXT)` before call — NHL **`load_lua`** not ported yet. */
+    void g;
     return false;
 }
 

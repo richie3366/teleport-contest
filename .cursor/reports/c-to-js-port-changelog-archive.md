@@ -6,6 +6,7 @@ Historical rows moved from `c-to-js-port-progress.md` so day-to-day work uses **
 
 | When | What changed |
 |------|----------------|
+| **2026-05-25 (`do.c` goto_level placement + fixup_special tail`)** | **`placeHeroAfterGotoLevelLikeC`**, **`u_on_dnstairs`/`u_on_sstairs`**; **`deferredGotoHeroLikeC`** **`UTOTYPE_*`**; **`fixupSpecialLikeC`** for **`load_special`** (**`load_lua`** deferred). **`seed0077`/`seed8000`:** **PASS**. **`npm run score`:** **2/44**. |
 | **2026-05-25 (`mkmaze.c` Invocation_lev + pick_vibrasquare_location`)** | **`invocationLevLikeC`**, **`pickVibrasquareLocationLikeC`**, **`makemazLikeC`** **`VIBRATING_SQUARE`**; **`invocationPosLikeC`**/**`g.inv_pos`**. **`load_special`** deferred. **`seed0077`/`seed8000`:** **PASS**. **`npm run score`:** **2/44**. |
 | **2026-05-25 (`mkmaze.c` populate_maze + wallification`)** | **`populateMazeLikeC`**: C maze loot/monsters/traps RNG; **`makemazLikeC`** wires **`wallification(2,2,x_maze_max,y_maze_max)`** when !**`corrmaze`**. **`load_special`/`Invocation_lev`** deferred. **`seed0077`/`seed8000`:** **PASS**. **`npm run score`:** **2/44**. |
 | **2026-05-25 (`mkmaze.c` create_maze + makemaz tail`)** | **`createMazeLikeC`**: C **`walkfrom`**, **`maze0xy`**, **`maze_remove_deadends`**, corridor scale-up; **`makemazLikeC`**: **`rn2(2)`**/**`create_maze`**/**`mazexy`/`mkstairs`/`place_branch`**. **`load_special`/`wallification`/`populate_maze`** deferred. **`seed0077`/`seed8000`:** **PASS**. **`npm run score`:** **2/44**. |

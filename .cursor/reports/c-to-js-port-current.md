@@ -18,13 +18,13 @@ Thin handoff for the next coding session. **Score + milestones:** [`c-to-js-port
 
 **Deferred for now:** **`maybe_do_tutorial`** / **`tut-1`** / full **`do.c`** **`goto_level`** (Lua **`tutorial()`** / **`free_tutorial()`**, **`savelev`**, **`gmst_*`**, …) and **`dokick`**/**`dothrow`** vs **`leaving_tutorial`** — strong upstream dependencies (save, specials, fuller **`do.c`**); treat as backlog until chargen / core early-game parity is further along; **`LIVELOGFILE`** parity if the judge ever compares livelog lines.
 
-**Last slice:** **`mkmaze.c` `Invocation_lev` + `pick_vibrasquare_location`.** **`invocationLevLikeC`** (C **`dungeon.c`** bottom Gehennom); **`pickVibrasquareLocationLikeC`** + **`maketrap` `VIBRATING_SQUARE`** in **`makemazLikeC`**; **`invocationPosLikeC`**/**`occupied`** use **`g.inv_pos`**. **`load_special`** still stub. **`seed0077`/`seed8000`:** **PASS**. **`npm run score`:** **2/44**.
+**Last slice:** **`do.c` `goto_level` hero placement + `fixupSpecialLikeC`.** **`placeHeroAfterGotoLevelLikeC`** (portal **`MAGIC_PORTAL`**, **`at_stairs`** via **`stairwayFindFromLikeC`** / **`u_on_*stairs`**); **`deferredGotoHeroLikeC`** passes **`UTOTYPE_ATSTAIRS`/`UTOTYPE_PORTAL`**; **`fixupSpecialLikeC`** extracted from **`load_special`** tail (**`load_lua`** still deferred). **`seed0077`/`seed8000`:** **PASS**. **`npm run score`:** **2/44**.
 
 ## Next steps
 
-1. **`mkmaze`** — **`load_special`** (des → **`appendLregionLikeC`** / **`place_lregions`**).
+1. **`mkmaze`** — **`load_lua`** / full **`load_special`** (NHL des compiler).
 2. **`objects_nums`** — sweep remaining **`u_init_*`** otyps vs **`obj_oc_skill_data.js`** (projectiles, armor, …).
-3. **`goto_level`** — portal **`MAGIC_PORTAL`** placement branch; **`at_stairs`** vs **`u_on_upstairs`** split in **`applyGotoLevelDirectHeroLikeC`**.
+3. **`goto_level`** — Gehennom mystery-force **`assign_rnd_level`**, **`placebc`**, full **`keepdogs`** / savelev tail.
 
 ### Extended backlog (unchanged lanes)
 
