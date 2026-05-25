@@ -6,6 +6,7 @@ Historical rows moved from `c-to-js-port-progress.md` so day-to-day work uses **
 
 | When | What changed |
 |------|----------------|
+| **2026-05-26 (`mkmaze.c` stolen_booty`)** | **`stolen_booty.js`**: C **`stolen_booty`** RNG chain (**`rndorcname`**, **`migr_booty_item`**, **`migrate_orc`**, **`shiny_orc_stuff`**, **`makemon`** gang); **`do_name_orc.js`**; **`mklev`** wires **`stolenBootyLikeC`**. **`load_lua`** deferred. **`seed0077`/`seed8000`:** **PASS**. **`npm run score`:** **2/44**. |
 | **2026-05-25 (`mkmaze.c` Medusa fixup_special statues)** | **`mkTtObjectStatueLikeC`**, **`set_corpsenm`**, C retry loops (**`poly_when_stoned`**, **`MR_STONE`**); **`mondata.js`** **`polyWhenStonedLikeC`**. **`stolen_booty`** deferred. **`seed0077`/`seed8000`:** **PASS**. **`npm run score`:** **2/44**. |
 | **2026-05-25 (`mkmaze.c` fixup_special tail)** | **`fixupSpecialTailLikeC`**: Medusa statues (**`rnd`/`rn2`/`mkcorpstat`**), Priest quest + stronghold **`graveyard`**, **`has_town`**; **`stolenBootyLikeC`** stub. **`seed0077`/`seed8000`:** **PASS**. **`npm run score`:** **2/44**. |
 | **2026-05-25 (`sp_lev.c` load_special post-load_lua`)** | **`sp_lev_load.js`**: **`linkDoorsRoomsLikeC`**, **`removeBoundarySymsLikeC`**, **`mapCleanupLikeC`**, **`flipLevelRndLikeC`**, **`solidifyMapLikeC`**; C-order **`loadSpecialAfterLuaLikeC`**. **`flip_level`** + **`load_lua`** deferred. **`seed0077`/`seed8000`:** **PASS**. **`npm run score`:** **2/44**. |

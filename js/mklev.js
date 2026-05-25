@@ -100,6 +100,7 @@ import {
     polyWhenStonedLikeC,
 } from './mondata.js';
 import { setWallStateLikeC } from './wall_state.js';
+import { stolenBootyLikeC } from './stolen_booty.js';
 import {
     consumeMksobjInitCorpseRngLikeC,
     consumeMksobjCorpseSpeRngLikeC,
@@ -488,16 +489,6 @@ function fixupSpecialMedusaStatuesLikeC(g) {
             set_corpsenm(otmp, rndmonnum());
         }
     }
-}
-
-/**
- * C: mkmaze.c `stolen_booty` — orctown **`minetn-1`** after des load (**`check_ransacked`**).
- * @param {import('./gstate.js').game} g
- */
-function stolenBootyLikeC(g) {
-    void g;
-    /* rndorcname, migr_booty_item, migrate_orc, shiny_orc_stuff — deferred */
-    g.ransacked = false;
 }
 
 /**
