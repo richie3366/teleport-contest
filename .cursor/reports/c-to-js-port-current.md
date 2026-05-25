@@ -18,11 +18,11 @@ Thin handoff for the next coding session. **Score + milestones:** [`c-to-js-port
 
 **Deferred for now:** **`maybe_do_tutorial`** / **`tut-1`** / full **`do.c`** **`goto_level`** (Lua **`tutorial()`** / **`free_tutorial()`**, **`savelev`**, **`gmst_*`**, …) and **`dokick`**/**`dothrow`** vs **`leaving_tutorial`** — strong upstream dependencies (save, specials, fuller **`do.c`**); treat as backlog until chargen / core early-game parity is further along; **`LIVELOGFILE`** parity if the judge ever compares livelog lines.
 
-**Last slice:** **`seed8000-tourist-starter` display/invent/enlight tail.** **`weapon.c`/`insight.c`**: **`enlightWieldSkillLine`** uses **`weapon_type(NULL)` → `P_BARE_HANDED_COMBAT`**. **`display.js`**: **`ttyPickinvColLikeC`** (tourist **32**, rogue **28**); rogue D:1 judge grid keeps IBM wall bytes (no DEC→Unicode); tourist **`docrtPaintVisibleForWelcomeLikeC`** after **`vision_recalc`**. **`cmd.js`**: tourist **`#inventory`** opens on **Coins**; twin **`#search`** clears topline when C silent. **`seed0077`:** **PASS** (**33/33**). **`seed8000`:** **RNG 3130/3130**; **21/23** screens (**22/23** cells); fail **screen 0** welcome map glyphs. **`npm run score`:** **1/44**.
+**Last slice:** **`jsmain.js` welcome snapshot refresh.** First **`nhgetch`** capture calls **`docrtPaintVisibleForWelcomeLikeC`** for tourist (C **`--More--`** map visible before first key). **`seed0077`:** **PASS** (**33/33**). **`seed8000`:** **RNG 3130/3130**; **21/23** screens; fail **screen 0** (west-apport IBM wall row still blank / DEC wire). **`npm run score`:** **1/44**.
 
 ## Next steps
 
-1. **`seed8000-tourist-starter`** — **1** screen (**welcome** `--More--` map: IBM **`l`/`q`/`x`** west apport + row-0/1 tail); C **`allmain.c` `docrt`** before **`welcome`** / **`display.c`** rogue tty bytes.
+1. **`seed8000-tourist-starter`** — **screen 0** only: C **`display.c` `docrt_flags`** / **`redraw_map`** after **`vision_recalc`** at welcome (not just **`IN_SIGHT`** stub); **`OPTIONS=symset:DECgraphics`** IBM bytes in judge grid without regressing **`seed0077`**; west-apport **`seenv`** row **(34,2)** visible before first snapshot.
 2. **`mklev`** — **`find_okay_roompos`/`somexyspace`** / west-apport geometry audit (level already has **`SDOOR`/`CORR`** cap; display was the gap).
 3. **`objects_nums` audit** — other **`u_init_link_*_invent.js`** **`OTYP_SHORT_SWORD`** **47**.
 4. **`mklev` lregions** — wire **`game.dndest`/`updest`** when **`place_lregions`** ported.
