@@ -18,11 +18,11 @@ Thin handoff for the next coding session. **Score + milestones:** [`c-to-js-port
 
 **Deferred for now:** **`maybe_do_tutorial`** / **`tut-1`** / full **`do.c`** **`goto_level`** (Lua **`tutorial()`** / **`free_tutorial()`**, **`savelev`**, **`gmst_*`**, …) and **`dokick`**/**`dothrow`** vs **`leaving_tutorial`** — strong upstream dependencies (save, specials, fuller **`do.c`**); treat as backlog until chargen / core early-game parity is further along; **`LIVELOGFILE`** parity if the judge ever compares livelog lines.
 
-**Last slice:** **`symbols.c` `parse_sym_line` + `read_sym_file`.** **`parseSymLineLikeC`** / **`symValLikeC`** / **`SYM_PARSE_BY_NAME`**; optional **`nethack-c/upstream/dat/symbols`** I/O with embedded-table fallback. **`seed0077`/`seed8000`:** **PASS**. **`npm run score`:** **2/44**.
+**Last slice:** **`mkroom.c`/`mklev.c` somexy + cardinal_nextto_room + west-door column.** **`somexy`** irregular **`roomno`** branch; **`cardinal_nextto_room`** uses **`roomnoidx`** + **`!edge`**; **`openWestDoorColumnNorthCorrLikeC`** only on **`westFillApportDoorLikeC`** doors. **`seed0077`/`seed8000`:** **PASS**. **`npm run score`:** **2/44**.
 
 ## Next steps
 
-1. **`mklev`** — **`find_okay_roompos`/`somexyspace`** / west-apport geometry audit (level already has **`SDOOR`/`CORR`** cap; display was the gap).
+1. **`mklev`** — **`find_okay_roompos`/`somexyspace`** remainder + **`place_niche`/`makeniche`** vs C **`bydoor`**; west-apport **`relocateFillObjs`** / lichen niche audit.
 2. **`objects_nums` audit** — other **`u_init_link_*_invent.js`** **`OTYP_SHORT_SWORD`** **47**.
 3. **`mklev` lregions** — wire **`game.dndest`/`updest`** when **`place_lregions`** ported.
 

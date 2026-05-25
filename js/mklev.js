@@ -1689,6 +1689,30 @@ function somex(croom) { return rn1(croom.hx - croom.lx + 1, croom.lx); }
 function somey(croom) { return rn1(croom.hy - croom.ly + 1, croom.ly); }
 
 function somexy(croom, c) {
+    const lvl = game.level;
+    if (!lvl || !croom) return false;
+    /* C: mkroom.c somexy — irregular themed rooms use roomno + edge, not bbox only. */
+    if (croom.irregular) {
+        const roomno = (croom.roomnoidx | 0) + ROOMOFFSET;
+        let try_cnt = 0;
+        while (try_cnt++ < 100) {
+            c.x = somex(croom);
+            c.y = somey(croom);
+            const loc = lvl.at(c.x, c.y);
+            if (loc && !loc.edge && (loc.roomno | 0) === roomno) return true;
+        }
+        for (let x = croom.lx | 0; x <= (croom.hx | 0); x++) {
+            for (let y = croom.ly | 0; y <= (croom.hy | 0); y++) {
+                const loc = lvl.at(x, y);
+                if (loc && !loc.edge && (loc.roomno | 0) === roomno) {
+                    c.x = x;
+                    c.y = y;
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
     if (!croom.nsubrooms) {
         c.x = somex(croom);
         c.y = somey(croom);
@@ -1699,7 +1723,7 @@ function somexy(croom, c) {
     while (try_cnt++ < 100) {
         c.x = somex(croom);
         c.y = somey(croom);
-        const loc = game.level.at(c.x, c.y);
+        const loc = lvl.at(c.x, c.y);
         if (loc && IS_WALL(loc.typ)) continue;
         let inSub = false;
         for (let i = 0; i < (croom.nsubrooms | 0); i++) {
@@ -1831,13 +1855,19 @@ async function generate_stairs() {
 // Niches
 // ============================================================
 
+/** C: mklev.c cardinal_nextto_room — adjacent tile in parent room (not subroom edge). */
 function cardinal_nextto_room(aroom, x, y) {
     const map = game.level;
-    const rmno = game.level.rooms.indexOf(aroom) + ROOMOFFSET;
-    for (const [dx, dy] of [[-1,0],[1,0],[0,-1],[0,1]]) {
-        if (!isok(x + dx, y + dy)) continue;
-        const loc = map.at(x + dx, y + dy);
-        if (loc && !loc.edge && loc.roomno === rmno) return true;
+    if (!map || !aroom) return false;
+    const rmno = (aroom.roomnoidx | 0) + ROOMOFFSET;
+    const xi = x | 0;
+    const yi = y | 0;
+    for (const [dx, dy] of [[-1, 0], [1, 0], [0, -1], [0, 1]]) {
+        const nx = xi + dx;
+        const ny = yi + dy;
+        if (!isok(nx, ny)) continue;
+        const loc = map.at(nx, ny);
+        if (loc && !loc.edge && (loc.roomno | 0) === rmno) return true;
     }
     return false;
 }
@@ -3051,25 +3081,27 @@ function anchorApportTowelOnWestFillAlcoveLikeC(g) {
  */
 function openWestDoorColumnNorthCorrLikeC(g) {
     const map = g.level;
-    if (!map) return;
-    for (let wx = 1; wx < COLNO - 1; wx++) {
-        for (let y = 0; y < ROWNO - 1; y++) {
-            const loc = map.at(wx, y);
-            if (!loc || (loc.typ | 0) !== CORR) continue;
-            const east = map.at(wx + 1, y);
-            if (!east || !IS_DOOR(east.typ | 0)) continue;
-            for (let ny = y + 1; ny < ROWNO; ny++) {
-                const nloc = map.at(wx, ny);
-                if (!nloc) break;
-                const t = nloc.typ | 0;
-                if (t === ROOM) break;
-                if (t === CORR || t === SCORR) continue;
-                if (t === HWALL || t === STONE || t === VWALL) {
-                    nloc.typ = CORR;
-                    continue;
-                }
-                break;
+    if (!map?.doors?.length) return;
+    for (const d of map.doors) {
+        if (!d) continue;
+        if (!westFillApportDoorLikeC(g, d)) continue;
+        const wx = (d.x | 0) - 1;
+        const y = d.y | 0;
+        const loc = map.at(wx, y);
+        if (!loc || (loc.typ | 0) !== CORR) continue;
+        const east = map.at(wx + 1, y);
+        if (!east || !IS_DOOR(east.typ | 0)) continue;
+        for (let ny = y + 1; ny < ROWNO; ny++) {
+            const nloc = map.at(wx, ny);
+            if (!nloc) break;
+            const t = nloc.typ | 0;
+            if (t === ROOM) break;
+            if (t === CORR || t === SCORR) continue;
+            if (t === HWALL || t === STONE || t === VWALL) {
+                nloc.typ = CORR;
+                continue;
             }
+            break;
         }
     }
 }
