@@ -18,6 +18,7 @@ import { runPostCommandTurnAdvanceLikeC } from './moveloop_turn_advance.js';
 import { moveloopPreamble, maybeDoTutorialLikeC } from './moveloop_preamble.js';
 import { parseNethackrc } from './options.js';
 import { applyPrimarySymsetFromRcLikeC } from './const.js';
+import { readSymFilePrimaryLikeC } from './symbols_file.js';
 import { flush_screen } from './display.js';
 import { GameDisplay } from './game_display.js';
 import { applyIdentityFromNethackrc } from './chargen.js';
@@ -99,7 +100,10 @@ export class NethackGame {
 
         // Parse nethackrc
         const opts = parseNethackrc(this._nethackrc);
-        if (opts.symset) applyPrimarySymsetFromRcLikeC(opts.symset);
+        if (opts.symset) {
+            applyPrimarySymsetFromRcLikeC(opts.symset);
+            readSymFilePrimaryLikeC(opts.symset);
+        }
         const fullInteractiveChargen = needsFullInteractiveChargen(opts);
         const asknameOnly = needsAsknameOnly(opts);
         g.plname = (fullInteractiveChargen || asknameOnly) ? '' : (opts.name || 'Hero');

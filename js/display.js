@@ -15,6 +15,7 @@ import {
     NH5_SPBOOK_CLASS, NH5_BALL_CLASS, NH5_CHAIN_CLASS,
 } from './nh5_objclass.js';
 import { wallAngleCmapLikeC } from './wall_angle.js';
+import { cmapSymGlyphFromShowsymsLikeC, S_room, S_ndoor } from './symbols_file.js';
 import {
     COLNO, ROWNO, isok, TEMP_LIT, IN_SIGHT, STONE, ROOM, CORR, DOOR, STAIRS, LADDER,
     HWALL, VWALL, SDOOR, TLCORNER, TRCORNER, BLCORNER, BRCORNER,
@@ -450,6 +451,8 @@ function mapDispChForJudgeGridLikeC(loc) {
 function cmapIdxToTerrainGlyph(cmapIdx, rogueIbm) {
     const idx = cmapIdx | 0;
     if (idx === 0) return { ch: ' ', color: NO_COLOR, dec: false };
+    const fromSym = cmapSymGlyphFromShowsymsLikeC(idx, rogueIbm);
+    if (fromSym) return fromSym;
     const decCh = decgraphics[idx - 1];
     /* C tty recorder on rogue D:1 still emits DEC line-drawing (SO/SI) for wall cmap. */
     if (decCh) return { ch: decCh, color: NO_COLOR, dec: true };
@@ -483,7 +486,8 @@ export function mapTerrainGlyph(loc, x, y, skipApportMon = false) {
         const alcoveCorner = westApportAlcoveCornerGlyphLikeC(x, y, loc);
         if (alcoveCorner) return alcoveCorner;
         if (rogue) return { ch: '~', color: CLR_GRAY, dec: false };
-        return { ch: '~', color: NO_COLOR, dec: true };  // DEC middle dot
+        return cmapSymGlyphFromShowsymsLikeC(S_room, false)
+            ?? { ch: '~', color: NO_COLOR, dec: true };
     }
     case CORR: {
         if (!skipApportMon) {
@@ -517,9 +521,9 @@ export function mapTerrainGlyph(loc, x, y, skipApportMon = false) {
                 : { ch: '|', color: CLR_BROWN, dec: false };
         }
         if (loc.doormask & (D_CLOSED | D_LOCKED)) return { ch: '+', color: CLR_BROWN, dec: false };
-        return { ch: '~', color: NO_COLOR, dec: true };  // D_NODOOR = floor
+        return cmapSymGlyphFromShowsymsLikeC(S_ndoor, false)
+            ?? { ch: '~', color: NO_COLOR, dec: true };
     case STAIRS:
-        // Check upstair vs downstair
         if (game.level?.upstair?.x === x && game.level?.upstair?.y === y)
             return { ch: '<', color: CLR_YELLOW, dec: false };
         return { ch: '>', color: CLR_YELLOW, dec: false };
