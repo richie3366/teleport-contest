@@ -4,6 +4,15 @@
 import { gs, gp, H_DEC, H_IBM, PRIMARYSET } from './const.js';
 import { NO_COLOR } from './terminal.js';
 import { DEF_MONSYM_DISPLAY } from './makemon_rndmonst.js';
+import {
+    NH5_WEAPON_CLASS, NH5_ARMOR_CLASS, NH5_RING_CLASS, NH5_AMULET_CLASS,
+    NH5_TOOL_CLASS, NH5_FOOD_CLASS, NH5_POTION_CLASS, NH5_SCROLL_CLASS,
+    NH5_SPBOOK_CLASS, NH5_WAND_CLASS, NH5_COIN_CLASS, NH5_GEM_CLASS,
+    NH5_ROCK_CLASS, NH5_BALL_CLASS, NH5_CHAIN_CLASS,
+} from './nh5_objclass.js';
+
+/** C: objclass.h VENOM_CLASS — not exported from nh5_objclass.js stub. */
+const NH5_VENOM_CLASS = 17;
 
 /** C: hack.h SYM_MAX — room for cmap + obj + mon + other symbol slots. */
 const SYM_MAX = 512;
@@ -82,10 +91,34 @@ const IBMGRAPHICS_PRIMARY = Object.freeze({
     [S_tuwall]: 0xc9, [S_tdwall]: 0xcb, [S_tlwall]: 0xcb, [S_trwall]: 0xcc,
 });
 
+/** C: dat/symbols IBMgraphics — parse_sym_line SYM_OC rows (S_weapon … S_venom). */
+const IBMGRAPHICS_OBJ = Object.freeze({
+    [NH5_WEAPON_CLASS]: 0x18,
+    [NH5_ARMOR_CLASS]: 0x5b,
+    [NH5_RING_CLASS]: 0x3d,
+    [NH5_AMULET_CLASS]: 0x0c,
+    [NH5_TOOL_CLASS]: 0x28,
+    [NH5_FOOD_CLASS]: 0x05,
+    [NH5_POTION_CLASS]: 0xad,
+    [NH5_SCROLL_CLASS]: 0x0e,
+    [NH5_SPBOOK_CLASS]: 0x2b,
+    [NH5_WAND_CLASS]: 0xe7,
+    [NH5_COIN_CLASS]: 0x0f,
+    [NH5_GEM_CLASS]: 0x0f,
+    [NH5_ROCK_CLASS]: 0x60,
+    [NH5_BALL_CLASS]: 0x30,
+    [NH5_CHAIN_CLASS]: 0x5f,
+    [NH5_VENOM_CLASS]: 0x2e,
+});
+
 const SYMSSET_PRIMARY_OVERRIDES = {
     DECgraphics: DECGRAPHICS_PRIMARY,
     IBMgraphics: IBMGRAPHICS_PRIMARY,
     curses: DECGRAPHICS_PRIMARY,
+};
+
+const SYMSSET_OBJ_OVERRIDES = {
+    IBMgraphics: IBMGRAPHICS_OBJ,
 };
 
 /** C: symbols.c init_showsyms / init_primary_symbols — obj + mon class bytes. */
@@ -106,10 +139,18 @@ function initPrimarySymbolsLikeC() {
 }
 
 function applySymsetOverridesLikeC(name) {
+    if (!gp.primary_syms) return;
     const tab = SYMSSET_PRIMARY_OVERRIDES[name];
-    if (!tab || !gp.primary_syms) return;
-    for (const [idx, byte] of Object.entries(tab)) {
-        gp.primary_syms[idx | 0] = byte | 0;
+    if (tab) {
+        for (const [idx, byte] of Object.entries(tab)) {
+            gp.primary_syms[idx | 0] = byte | 0;
+        }
+    }
+    const objTab = SYMSSET_OBJ_OVERRIDES[name];
+    if (objTab) {
+        for (const [oc, byte] of Object.entries(objTab)) {
+            gp.primary_syms[SYM_OFF_O + (oc | 0)] = byte | 0;
+        }
     }
 }
 
@@ -123,12 +164,6 @@ export function decSymByteToTtyCh(byte) {
 }
 
 /**
- * C: display.c show_glyph — primary symset cmap entry → map_glyphinfo char.
- * @param {number} sIdx — defsym.h cmap index (e.g. S_room)
- * @param {boolean} rogueIbm — rogue D:1 IBM wire for non-DEC handlers
- * @returns {{ ch: string, color: number, dec: boolean }|null}
- */
-/**
  * C: display.c glyph_to_mapglyph — nhsym → tty char (DEC sym_val bytes use decSymByteToTtyCh).
  * @param {number} sym
  * @returns {{ ch: string, color: number, dec: boolean }|null}
@@ -138,6 +173,11 @@ function symNhsymToGlyphLikeC(sym) {
     if (handling === H_DEC) {
         const ch = decSymByteToTtyCh(sym);
         if (ch) return { ch, color: NO_COLOR, dec: true };
+    }
+    if (handling === H_IBM) {
+        const ch = String.fromCharCode(sym & 0xff);
+        if (!ch || ch === '\0') return null;
+        return { ch, color: NO_COLOR, dec: false };
     }
     const ch = String.fromCharCode(sym & 0xff);
     if (!ch || ch === '\0') return null;
