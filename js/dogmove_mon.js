@@ -902,9 +902,12 @@ function dogMoveGoalAndPickLikeC(
         );
     }
     ensureMonsterMtrack(mtmp);
-    return (mtmp.mx !== preMx || mtmp.my !== preMy)
-        ? MMOVE_MOVED
-        : MMOVE_NOTHING;
+    if (mtmp.mx !== preMx || mtmp.my !== preMy) {
+        /* C: monmove.c m_move — refresh tile under pet after it leaves (fountain/sink). */
+        newsym(preMx, preMy);
+        return MMOVE_MOVED;
+    }
+    return MMOVE_NOTHING;
 }
 
 /**
