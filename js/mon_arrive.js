@@ -6,14 +6,16 @@ import {
     MIGR_RANDOM, MIGR_APPROX_XY, MIGR_EXACT_XY,
     MIGR_STAIRS_UP, MIGR_STAIRS_DOWN, MIGR_LADDER_UP, MIGR_LADDER_DOWN,
     MIGR_SSTAIRS, MIGR_PORTAL, MIGR_WITH_HERO, MIGR_LEFTOVERS,
-    In_endgame,
+    In_endgame, IS_WALL,
 } from './const.js';
 import { rn1, rn2 } from './rng.js';
 import { newsym } from './display.js';
+import { insideRoomLikeC } from './hacklib.js';
 import { goodposNullMonLikeC, goodposNewMonster, enextoNearMon } from './walkable.js';
 import { monArriveLeftoversDeliverLikeC } from './deliver_obj_to_mon.js';
 import { stairwayFindFromLikeC, stairwayFindLikeC } from './decor.js';
 import { inRoomsTypewantedRoomnos } from './shop.js';
+import { dealWithOvercrowding } from './mon_limbo.js';
 
 /**
  * C: dog.c `mon_catchup_elapsed_time` — status timers + rn2 recovery (subset).
@@ -39,13 +41,62 @@ function monCatchupElapsedTimeLikeC(mtmp, nmv) {
     if (mtmp.mstun && rn2(imv + 1) > 5) mtmp.mstun = 0;
 }
 
-/** C: mkroom.c `somexy` — non-irregular room fast path. */
+/** C: mkroom.c `somex` / `somey` */
+function somexMonArriveLikeC(croom) {
+    return rn1((croom.hx | 0) - (croom.lx | 0) + 1, croom.lx | 0);
+}
+
+function someyMonArriveLikeC(croom) {
+    return rn1((croom.hy | 0) - (croom.ly | 0) + 1, croom.ly | 0);
+}
+
+/** C: mkroom.c `somexy` — irregular themed rooms + subroom avoidance. */
 function somexyMonArriveLikeC(g, croom, c) {
-    if (!croom) return false;
-    if (croom.irregular) return false;
-    c.x = rn1((croom.hx | 0) - (croom.lx | 0) + 1, croom.lx | 0);
-    c.y = rn1((croom.hy | 0) - (croom.ly | 0) + 1, croom.ly | 0);
-    return true;
+    const lvl = g.level;
+    if (!lvl || !croom) return false;
+    if (croom.irregular) {
+        const roomno = (croom.roomnoidx | 0) + ROOMOFFSET;
+        let tryct = 0;
+        while (tryct++ < 100) {
+            c.x = somexMonArriveLikeC(croom);
+            c.y = someyMonArriveLikeC(croom);
+            const loc = lvl.at(c.x, c.y);
+            if (loc && !loc.edge && (loc.roomno | 0) === roomno) return true;
+        }
+        for (let x = croom.lx | 0; x <= (croom.hx | 0); x++) {
+            for (let y = croom.ly | 0; y <= (croom.hy | 0); y++) {
+                const loc = lvl.at(x, y);
+                if (loc && !loc.edge && (loc.roomno | 0) === roomno) {
+                    c.x = x;
+                    c.y = y;
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+    if (!(croom.nsubrooms | 0)) {
+        c.x = somexMonArriveLikeC(croom);
+        c.y = someyMonArriveLikeC(croom);
+        return true;
+    }
+    let tryct = 0;
+    while (tryct++ < 100) {
+        c.x = somexMonArriveLikeC(croom);
+        c.y = someyMonArriveLikeC(croom);
+        const loc = lvl.at(c.x, c.y);
+        if (loc && IS_WALL(loc.typ)) continue;
+        let inSub = false;
+        for (let i = 0; i < (croom.nsubrooms | 0); i++) {
+            const sub = croom.sbrooms?.[i];
+            if (sub && insideRoomLikeC(g, sub, c.x, c.y)) {
+                inSub = true;
+                break;
+            }
+        }
+        if (!inSub) return true;
+    }
+    return false;
 }
 
 /**
@@ -185,9 +236,9 @@ function resolveMonArriveLocaleLikeC(g, entry) {
 
 /**
  * C: mon.c `mnearto(mtmp, x, y, FALSE, RLOC_NOMSG)` — placement subset.
- * @returns {boolean}
+ * @returns {Promise<boolean>}
  */
-function mneartoMonArriveLikeC(g, mtmp, tx, ty) {
+async function mneartoMonArriveLikeC(g, mtmp, tx, ty) {
     const xi = tx | 0;
     const yi = ty | 0;
     const sx = mtmp.mx | 0;
@@ -199,13 +250,16 @@ function mneartoMonArriveLikeC(g, mtmp, tx, ty) {
     );
     if (blocker) {
         const bdest = enextoNearMon(g, xi, yi, blocker);
-        if (!bdest) return false;
-        const bx0 = blocker.mx | 0;
-        const by0 = blocker.my | 0;
-        blocker.mx = bdest.x | 0;
-        blocker.my = bdest.y | 0;
-        newsym(bx0, by0);
-        newsym(blocker.mx, blocker.my);
+        if (!bdest) {
+            await dealWithOvercrowding(g, blocker);
+        } else {
+            const bx0 = blocker.mx | 0;
+            const by0 = blocker.my | 0;
+            blocker.mx = bdest.x | 0;
+            blocker.my = bdest.y | 0;
+            newsym(bx0, by0);
+            newsym(blocker.mx, blocker.my);
+        }
     }
 
     let nx = xi;
@@ -267,9 +321,9 @@ function placeMigratingMonRandomLikeC(g, mtmp) {
  * C: dog.c `mon_arrive` — place one migrating monster on current level.
  * @param {import('./gstate.js').game} g
  * @param {object} entry
- * @returns {boolean}
+ * @returns {Promise<boolean>}
  */
-function monArriveOneLikeC(g, entry) {
+async function monArriveOneLikeC(g, entry) {
     const mtmp = entry.mtmp;
     if (!mtmp) return false;
 
@@ -286,7 +340,7 @@ function monArriveOneLikeC(g, entry) {
  * Drain `g.migratingMons` entries destined for hero's current `u.uz`.
  * @param {import('./gstate.js').game} g
  */
-export function arriveMigratingMonsForCurrentLevelLikeC(g) {
+export async function arriveMigratingMonsForCurrentLevelLikeC(g) {
     const uz = g.u?.uz;
     const list = g.migratingMons;
     if (!uz || !list?.length) return;
@@ -300,7 +354,7 @@ export function arriveMigratingMonsForCurrentLevelLikeC(g) {
             remain.push(entry);
             continue;
         }
-        if (monArriveOneLikeC(g, entry)) {
+        if (await monArriveOneLikeC(g, entry)) {
             entry.mtmp.migflags = (entry.mtmp.migflags | 0) & ~MIGR_LEFTOVERS;
         } else {
             remain.push(entry);

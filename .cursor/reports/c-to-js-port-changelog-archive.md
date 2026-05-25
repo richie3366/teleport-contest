@@ -6,6 +6,7 @@ Historical rows moved from `c-to-js-port-progress.md` so day-to-day work uses **
 
 | When | What changed |
 |------|----------------|
+| **2026-05-26 (`dog.c` mon_arrive somexy + overcrowding)** | **`mon_arrive.js`**: C **`somexy`** (irregular/subrooms); **`deal_with_overcrowding`** on blocked **`mnearto`**; async **`arriveMigratingMonsForCurrentLevelLikeC`**. **`losedogs`** deferred. **`seed0077`/`seed8000`:** **PASS**. **`npm run score`:** **2/44**. |
 | **2026-05-26 (`sp_lev.c` flip_level remainder)** | **`sp_lev_load.js`**: C **`flip_level`** doors, rooms, **`lregions`**, engravings, **`fobj`**/buried, drawbridge **`DB_DIR`** on swap, **`mgoal`**. Worms/**`extras`** deferred. **`seed0077`/`seed8000`:** **PASS**. **`npm run score`:** **2/44**. |
 | **2026-05-26 (`dog.c` mon_arrive locale + catchup)** | **`mon_arrive.js`**: C **`mon_arrive`** stairs/ladder/S-stairs/portal/hero/**`MIGR_RANDOM`**; **`mon_catchup_elapsed_time`**; **`mnearto`** subset; **`decor.js`** **`stairwayFindLikeC`**. **`load_lua`** deferred. **`seed0077`/`seed8000`:** **PASS**. **`npm run score`:** **2/44**. |
 | **2026-05-26 (`sp_lev.c` ensure_way_out)** | **`selection.js`**: C **`selection_*`** floodfill subset; **`ensure_way_out.js`**: **`ensure_way_out`** / **`generate_way_out_method`**; **`mklev`** when **`checkInaccessibles`**. NHL **`load_lua`** deferred. **`seed0077`/`seed8000`:** **PASS**. **`npm run score`:** **2/44**. |
