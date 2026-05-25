@@ -27,8 +27,10 @@ import {
 import { GameMap } from './game.js';
 import { rn2, rnd, rn1 } from './rng.js';
 import { init_rect, rnd_rect, get_rect, split_rects } from './rect.js';
-import { depth as depth_of_level } from './hacklib.js';
-import { isSpecialAtUzLikeC } from './sp_levchn.js';
+import { depth as depth_of_level, depth } from './hacklib.js';
+import {
+    findLevelByProtoLikeC, isSpecialAtUzLikeC, isSpecialHeroUzLikeC,
+} from './sp_levchn.js';
 import {
     COLNO, ROWNO, STONE, ROOM, CORR, DOOR, STAIRS,
     HWALL, VWALL, TLCORNER, TRCORNER, BLCORNER, BRCORNER,
@@ -304,14 +306,60 @@ export function appendLregionLikeC(g, region) {
 }
 
 /**
- * C: mkmaze.c `makemaz` — procedural maze when **`load_special`** fails (subset: flags + bounds only).
- * @param {import('./gstate.js').game} g
- * @param {string} [_s] — des proto / fill name (unused until **`load_special`** is ported)
- * @returns {Promise<boolean>} true when maze path ran (caller skips regular **`makerooms`**)
+ * C: sp_lev.c `load_special` — des-file level ( **`fixup_special`** / **`appendLregionLikeC`** ).
+ * @returns {Promise<boolean>} true when a compiled level was loaded
  */
-export async function makemazLikeC(g, _s = '') {
-    void _s;
-    /* C: `load_special(protofile)` — not ported; always fall through to procedural maze. */
+export async function loadSpecialLikeC(_g, _protofile) {
+    void _g;
+    void _protofile;
+    return false;
+}
+
+/**
+ * C: mklev.c `makelevel` — which branch calls **`makemaz`** (protofile string), or **`null`** for regular.
+ * @param {import('./gstate.js').game} g
+ * @returns {string|null}
+ */
+export function makelevelMazefileLikeC(g) {
+    const uz = g.u?.uz;
+    if (!uz) return null;
+
+    const slev = isSpecialHeroUzLikeC(g);
+    if (slev && !Is_rogue_level(uz)) {
+        return slev.proto ?? '';
+    }
+
+    const dun = g.dungeons?.[uz.dnum | 0];
+    if (dun?.proto?.[0]) return '';
+    if (dun?.fill_lvl?.[0]) return dun.fill_lvl;
+
+    if (In_quest(uz)) {
+        const fc = g.urole?.abbr ?? 'Tou';
+        const locLev = findLevelByProtoLikeC(g, `${fc}-loca`);
+        const locDl = locLev?.dlevel?.dlevel ?? 999;
+        const suffix = (uz.dlevel | 0) < (locDl | 0) ? 'a' : 'b';
+        return `${fc}-fil${suffix}`;
+    }
+
+    const med = g.medusa_level;
+    if (In_hell(uz)
+        || (rn2(5) && (uz.dnum | 0) === (med?.dnum | 0) && depth(uz) > depth(med))) {
+        return '';
+    }
+    return null;
+}
+
+/**
+ * C: mkmaze.c `makemaz` — des load or procedural maze (subset: flags + bounds only).
+ * @param {import('./gstate.js').game} g
+ * @param {string} protofile — des proto / fill name
+ * @returns {Promise<boolean>} true when caller should skip regular **`makerooms`** (loaded or procedural)
+ */
+export async function makemazLikeC(g, protofile = '') {
+    if (await loadSpecialLikeC(g, protofile)) {
+        /* C: `dmonsfree()` after successful load — deferred */
+        return true;
+    }
     const lf = g.level.flags;
     lf.is_maze_lev = true;
     lf.corrmaze = !rn2(3);
@@ -784,16 +832,10 @@ async function makelevel() {
     oinit();
     clear_level_structures();
 
-    // C ref: mklev.c:1295 — check for below-Medusa maze level
-    // This rn2(5) is consumed even when the condition fails (short-circuit)
-    const medusa = g.medusa_level;
-    if (rn2(5) && g.u?.uz?.dnum === medusa?.dnum
-        && (g.u?.uz?.dlevel ?? 1) > (medusa?.dlevel ?? 999)) {
-        // Would generate maze — not applicable for contest level 1
-    }
+    const mazefile = makelevelMazefileLikeC(g);
+    const mazePath = mazefile !== null && (await makemazLikeC(g, mazefile));
 
-    // Regular level generation
-    // C ref: mklev.c:382-388 — load themerms.lua for themed rooms
+    // C ref: mklev.c:382-388 — load themerms.lua for themed rooms (inside **`makerooms`** in C)
     // nhlib.lua shuffle when loading themerms.lua (first level of branch)
     const dnum = g.u?.uz?.dnum ?? 0;
     if (!g._luathemes_loaded) g._luathemes_loaded = {};
@@ -806,23 +848,27 @@ async function makelevel() {
         g._luathemes_loaded[dnum] = true;
     }
 
-    const rogue = Is_rogue_level(g.u?.uz);
-    if (rogue) {
-        makerogueroomsLikeC();
-        makerogueghostLikeC();
-    } else {
-        await makerooms();
+    if (!mazePath) {
+        const rogue = Is_rogue_level(g.u?.uz);
+        if (rogue) {
+            makerogueroomsLikeC();
+            makerogueghostLikeC();
+        } else {
+            await makerooms();
+        }
     }
 
-    if (g.level.nroom <= 0) return;
-    sort_rooms();
-    await generate_stairs();
+    if (g.level.nroom <= 0 && !g.level.flags.is_maze_lev) return;
+    if (!mazePath) {
+        sort_rooms();
+        await generate_stairs();
+    }
 
     // Branch check
     const branchp = is_branchlev();
 
     /* C: mklev.c — rogue D:1 `goto skip0` (no corridors, niches, vault, special rooms). */
-    if (!rogue) {
+    if (!mazePath && !Is_rogue_level(g.u?.uz)) {
         makecorridors();
         await make_niches();
 
@@ -877,8 +923,8 @@ async function makelevel() {
         g.lregions = null;
     }
 
-    /* C: mklev.c makelevel tail — fill ordinary rooms (gi.in_mklev). */
-    await fillAllOrdinaryRoomsLikeC(g);
+    /* C: mklev.c makelevel tail — fill ordinary rooms (regular branch only). */
+    if (!mazePath) await fillAllOrdinaryRoomsLikeC(g);
 }
 
 /**

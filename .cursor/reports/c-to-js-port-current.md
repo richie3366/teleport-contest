@@ -18,11 +18,11 @@ Thin handoff for the next coding session. **Score + milestones:** [`c-to-js-port
 
 **Deferred for now:** **`maybe_do_tutorial`** / **`tut-1`** / full **`do.c`** **`goto_level`** (Lua **`tutorial()`** / **`free_tutorial()`**, **`savelev`**, **`gmst_*`**, …) and **`dokick`**/**`dothrow`** vs **`leaving_tutorial`** — strong upstream dependencies (save, specials, fuller **`do.c`**); treat as backlog until chargen / core early-game parity is further along; **`LIVELOGFILE`** parity if the judge ever compares livelog lines.
 
-**Last slice:** **`mkmaze.c` bounds + des `lregions` API.** **`resetMazeMaxBoundsLikeC`** (C **`decl.c`** defaults), **`appendLregionLikeC`**, **`makemazLikeC`** stub (flags + bounds; **`create_maze`** deferred); **`clear_level_structures`** resets bounds and clears **`g.lregions`**. **`seed0077`/`seed8000`:** **PASS**. **`npm run score`:** **2/44**.
+**Last slice:** **`mklev.c` makelevel maze branch + `makemaz`.** C **`makelevel`** if-chain via **`makelevelMazefileLikeC`** / **`makemazLikeC`** / **`loadSpecialLikeC`** stub; medusa **`rn2(5)`** only on hell/medusa branch; maze path skips regular **`makerooms`**/fill. **`seed0077`/`seed8000`:** **PASS**. **`npm run score`:** **2/44**.
 
 ## Next steps
 
-1. **`mkmaze`** — wire **`makemazLikeC`** from **`makelevel`** (special/proto/hell/medusa branches); port **`create_maze`** / **`load_special`** → **`appendLregionLikeC`**.
+1. **`mkmaze`** — port **`create_maze`** / **`load_special`** (des → **`appendLregionLikeC`**); **`makemaz`** stairs/**`populate_maze`**.
 2. **`objects_nums`** — sweep remaining **`u_init_*`** otyps vs **`obj_oc_skill_data.js`** (projectiles, armor, …).
 3. **`goto_level`** — portal **`MAGIC_PORTAL`** placement branch; **`at_stairs`** vs **`u_on_upstairs`** split in **`applyGotoLevelDirectHeroLikeC`**.
 
