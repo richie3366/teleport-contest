@@ -18,12 +18,12 @@ Thin handoff for the next coding session. **Score + milestones:** [`c-to-js-port
 
 **Deferred for now:** **`maybe_do_tutorial`** / **`tut-1`** / full **`do.c`** **`goto_level`** (Lua **`tutorial()`** / **`free_tutorial()`**, **`savelev`**, **`gmst_*`**, …) and **`dokick`**/**`dothrow`** vs **`leaving_tutorial`** — strong upstream dependencies (save, specials, fuller **`do.c`**); treat as backlog until chargen / core early-game parity is further along; **`LIVELOGFILE`** parity if the judge ever compares livelog lines.
 
-**Last slice:** **`ball.c`** **`ballfall`** on hole / trap-door fall. **`ballfallHeroLikeC`** in **`applyGotoAfterHeroHoleFallLikeC`** after **`u_on_rndspot`**, before **`placebc`**; **`rn2(5)`** head-hit, **`ballrelease`**, hard-helm subset. **`safe_teleds`** deferred. **`load_lua`** deferred. **`seed0077`/`seed8000`:** **PASS**. **`npm run score`:** **2/44**.
+**Last slice:** **`teleport.c`** **`safe_teleds`** on Gehennom mystery-force same-level. **`teleport_hero.js`**: **`teleok`**, **`safe_teleds`** (40× random + **`collect_coords`**), **`teleds`** subset with **`placebc`**; wired in **`applyGehennomMysteryForceGotoDestLikeC`**. **`drag_ball`** / regions deferred. **`load_lua`** deferred. **`seed0077`/`seed8000`:** **PASS**. **`npm run score`:** **2/44**.
 
 ## Next steps
 
 1. **`mkmaze`** — **`load_lua`** / full **`load_special`** (NHL des compiler).
-2. **`goto_level`** — full **`keepdogs`** / savelev tail, **`safe_teleds`** on mystery-force same-level.
+2. **`goto_level`** — full **`keepdogs`** / savelev tail; fuller **`teleds`** (**`drag_ball`**, vault guard).
 3. **`objects_nums`** — armor rows in **`obj_oc_skill_data`** if mkobj paths need them; more legacy floor **`otyp`** vs C when replaying **`mkobj`**.
 
 ### Extended backlog (unchanged lanes)

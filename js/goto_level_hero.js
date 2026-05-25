@@ -10,7 +10,7 @@
 // **`gotoLevelTutorialBranchHookLikeC`** — C **`do.c`** **`newdungeon`** **`In_tutorial`/`tutorial()`** before **`savelev`** / **`impact_drop`** ( **`tutorial_branch.js`** ).
 // **`maybeRecordEnteredNewLevelLivelogLikeC`** after **`mklev()`** when map built (**`livelog.js`**) — C **`new`** after **`mklev`**; **`livelogPrintfLikeC`** ring (**`gd.livelog_recent`**), no **`LIVELOGFILE`**.
 // Deferred: **`fill_pit`**, real **`next_to_u`**,
-// full **`keepdogs`/`dog.c`** migration (**`migrate_to_level`**, …), bones/save, **`safe_teleds`** on same-level mystery-force (**`teleds`** subset not ported).
+// full **`keepdogs`/`dog.c`** migration (**`migrate_to_level`**, …), bones/save.
 
 import {
     mklev,
@@ -62,6 +62,7 @@ import {
     ballfallHeroLikeC,
     weldedUballLikeC,
 } from './ball_bc_hero.js';
+import { safeTeledsHeroLikeC, TELEDS_NO_FLAGS } from './teleport_hero.js';
 
 /** C: **`Punished`** / carried **`uball`** — macro subset until **`punish()`** sets **`u.Punished`**. */
 function heroPunishedLikeC(g) {
@@ -109,7 +110,11 @@ async function applyGehennomMysteryForceGotoDestLikeC(g, dest, opts) {
     await pline('A mysterious force momentarily surrounds you...');
     g.context.mysteryforce = mf + rn2(diff + 2);
 
-    return onLevelLikeC(dest, uz0);
+    if (onLevelLikeC(dest, uz0)) {
+        await safeTeledsHeroLikeC(g, TELEDS_NO_FLAGS);
+        return true;
+    }
+    return false;
 }
 
 /**

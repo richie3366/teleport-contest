@@ -6,6 +6,7 @@ Historical rows moved from `c-to-js-port-progress.md` so day-to-day work uses **
 
 | When | What changed |
 |------|----------------|
+| **2026-05-25 (`teleport.c` safe_teleds mystery force)`** | **`teleport_hero.js`** **`safeTeledsHeroLikeC`** / **`teledsHeroLikeC`**; Gehennom amulet same-level abort via **`collect_coords`** + **`goodpos`**. **`seed0077`/`seed8000`:** **PASS**. **`npm run score`:** **2/44**. |
 | **2026-05-25 (`ball.c` ballfall on hole fall)** | **`ballfallHeroLikeC`** — C **`goto_level`** **`falling`** path after **`u_on_rndspot`**; head crush **`rn1`/`rn2`**, **`ballrelease`**, hard helmet. **`seed0077`/`seed8000`:** **PASS**. **`npm run score`:** **2/44**. |
 | **2026-05-25 (`ball.c` ballrelease on stair fall)** | **`ballreleaseHeroLikeC`**, **`weldedUballLikeC`**; **`goto_level`** descend-stairs tumble after **`drag_down`**. **`seed0077`/`seed8000`:** **PASS**. **`npm run score`:** **2/44**. |
 | **2026-05-25 (`ball.c` placebc for goto_level)** | **`ball_bc_hero.js`** **`placebcHeroLikeC`/`unplacebcHeroLikeC`**; **`goto_level_hero`** unplace before travel / place after arrival; **`punish_hero`** calls **`placebc`**. **`seed0077`/`seed8000`:** **PASS**. **`npm run score`:** **2/44**. |
