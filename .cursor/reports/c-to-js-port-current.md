@@ -18,13 +18,13 @@ Thin handoff for the next coding session. **Score + milestones:** [`c-to-js-port
 
 **Deferred for now:** **`maybe_do_tutorial`** / **`tut-1`** / full **`do.c`** **`goto_level`** (Lua **`tutorial()`** / **`free_tutorial()`**, **`savelev`**, **`gmst_*`**, …) and **`dokick`**/**`dothrow`** vs **`leaving_tutorial`** — strong upstream dependencies (save, specials, fuller **`do.c`**); treat as backlog until chargen / core early-game parity is further along; **`LIVELOGFILE`** parity if the judge ever compares livelog lines.
 
-**Last slice:** **`objects_nums` weapon otyp audit.** **`OTYP_SHORT_SWORD`** **47** (not **46** **`BATTLE_AXE`**) in **`u_init_role_rng`**, Barbarian/Samurai **`u_init_link_*_invent`**; Barbarian axe/two-handed aligned to **`obj_oc_skill_data.js`**. **`seed0077`/`seed8000`:** **PASS**. **`npm run score`:** **2/44**.
+**Last slice:** **`mkmaze.c` lregions + `dungeon.c` `u_on_rndspot`.** **`placeLregionsFixupSpecialLikeC`** saves **`game.dndest`/`updest`**; **`u_onRndspotLikeC`**; **`place_lregion`** rtype dispatch; **`makelevel`** consumes **`g.lregions`**. **`seed0077`/`seed8000`:** **PASS**. **`npm run score`:** **2/44**.
 
 ## Next steps
 
-1. **`mklev` lregions** — wire **`game.dndest`/`updest`** when **`place_lregions`** ported.
-2. **`mkmaze`** — set **`game.x_maze_max`/`y_maze_max`** when full maze generation ported ( **`mazexy`** currently defaults to **`COLNO`/`ROWNO`** bounds).
-3. **`objects_nums`** — sweep remaining **`u_init_link_*`** / **`u_init_role_rng`** otyps vs **`obj_oc_skill_data.js`** (e.g. **`DAGGER`** **35**).
+1. **`mkmaze`** — set **`game.x_maze_max`/`y_maze_max`** when full maze generation ported; populate **`g.lregions`** from des-file loader.
+2. **`objects_nums`** — sweep remaining **`u_init_link_*`** / **`u_init_role_rng`** otyps vs **`obj_oc_skill_data.js`** (e.g. **`DAGGER`** **35**).
+3. **`goto_level`** — call **`u_onRndspotLikeC`** after **`mklev`** on tower/special teleports.
 
 ### Extended backlog (unchanged lanes)
 

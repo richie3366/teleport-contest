@@ -42,7 +42,8 @@ import {
     XL_UP, XL_DOWN, XL_LEFT, XL_RIGHT,
     ICE, MOAT, POOL, WATER, LAVAPOOL, LAVAWALL, DBWALL,
     A_LAWFUL, Align2amask,
-    LR_UPTELE,
+    LR_DOWNSTAIR, LR_UPSTAIR, LR_PORTAL, LR_BRANCH, LR_TELE, LR_UPTELE, LR_DOWNTELE,
+    onWTowerLevelLikeC,
     MM_NOGRP,
     NO_MM_FLAGS,
     NO_TRAP, TRAPNUM,
@@ -253,32 +254,169 @@ function mazexyLikeC(cc) {
     }
 }
 
-// C ref: mkmaze.c place_lregion — place hero (LR_UPTELE/LR_DOWNTELE)
+/** C: mkmaze.c — bounded region for **`goto_level`** / **`u_on_rndspot`**. */
+function lregionBoxLikeC(lx, ly, hx, hy, nlx, nly, nhx, nhy) {
+    return {
+        lx: lx | 0,
+        ly: ly | 0,
+        hx: hx | 0,
+        hy: hy | 0,
+        nlx: nlx | 0,
+        nly: nly | 0,
+        nhx: nhx | 0,
+        nhy: nhy | 0,
+    };
+}
+
+/** C: mkmaze.c `fixup_special` — save **`svu.updest`** / **`svd.dndest`** for tele regions. */
+function assignLregionDestBoundsLikeC(g, rtype, lx, ly, hx, hy, nlx, nly, nhx, nhy) {
+    const rt = rtype | 0;
+    const box = lregionBoxLikeC(lx, ly, hx, hy, nlx, nly, nhx, nhy);
+    if (rt === LR_TELE || rt === LR_UPTELE) g.updest = box;
+    if (rt === LR_TELE || rt === LR_DOWNTELE) g.dndest = box;
+}
+
+function clearLregionDestLikeC(g) {
+    g.dndest = null;
+    g.updest = null;
+}
+
+function placeLregionHereLikeC(x, y, nlx, nly, nhx, nhy, rtype, lev) {
+    const g = game;
+    const rt = rtype | 0;
+    if (bad_location(x, y, nlx, nly, nhx, nhy)) return false;
+    switch (rt) {
+    case LR_TELE:
+    case LR_UPTELE:
+    case LR_DOWNTELE:
+        u_on_newpos(x, y);
+        return true;
+    case LR_BRANCH: {
+        const branchp = is_branchlev();
+        if (branchp) place_branch(branchp);
+        return true;
+    }
+    case LR_DOWNSTAIR:
+    case LR_UPSTAIR:
+        mkstairs(x, y, rt === LR_UPSTAIR, null);
+        return true;
+    case LR_PORTAL:
+        /* mkportal not ported */
+        return true;
+    default:
+        return false;
+    }
+}
+
+// C ref: mkmaze.c place_lregion — hero tele/stairs/branch placement
 export function place_lregion(lx, ly, hx, hy, nlx, nly, nhx, nhy, rtype, lev) {
+    const g = game;
+    const rt = rtype | 0;
     if (!lx) {
-        lx = 1; hx = COLNO - 1; ly = 0; hy = ROWNO - 1;
+        if (rt === LR_BRANCH && (g.level?.nroom | 0) > 0) {
+            const branchp = is_branchlev();
+            if (branchp) place_branch(branchp);
+            return;
+        }
+        lx = 1;
+        hx = COLNO - 1;
+        ly = 0;
+        hy = ROWNO - 1;
     }
     if (lx < 1) lx = 1;
     if (hx > COLNO - 1) hx = COLNO - 1;
     if (ly < 0) ly = 0;
     if (hy > ROWNO - 1) hy = ROWNO - 1;
 
-    // Probabilistic search
-    for (let trycnt = 0; trycnt < 200; trycnt++) {
+    const oneshot = lx === hx && ly === hy;
+    for (let tryct = 0; tryct < 200; tryct++) {
         const x = rn1((hx - lx) + 1, lx);
         const y = rn1((hy - ly) + 1, ly);
-        if (!bad_location(x, y, nlx, nly, nhx, nhy)) {
-            u_on_newpos(x, y);
+        if (placeLregionHereLikeC(x, y, nlx, nly, nhx, nhy, rt, lev)) return;
+        if (oneshot) break;
+    }
+    for (let x = lx; x <= hx; x++) {
+        for (let y = ly; y <= hy; y++) {
+            if (placeLregionHereLikeC(x, y, nlx, nly, nhx, nhy, rt, lev)) return;
+        }
+    }
+}
+
+/**
+ * C: mkmaze.c `fixup_special` — process compiler **`lregions`** (stairs/portals now; tele → **`dndest`/`updest`**).
+ * @param {import('./gstate.js').game} g
+ * @param {Array<{ rtype?: number, inarea?: { x1?: number, y1?: number, x2?: number, y2?: number }, delarea?: { x1?: number, y1?: number, x2?: number, y2?: number }, lev?: { dnum?: number, dlevel?: number }|null }>|null|undefined} regions
+ */
+export function placeLregionsFixupSpecialLikeC(g, regions) {
+    if (!regions?.length) return;
+    let addedBranch = false;
+    for (const r of regions) {
+        if (!r) continue;
+        const rt = r.rtype | 0;
+        const ia = r.inarea ?? {};
+        const da = r.delarea ?? {};
+        const lx = ia.x1 | 0;
+        const ly = ia.y1 | 0;
+        const hx = ia.x2 | 0;
+        const hy = ia.y2 | 0;
+        const nlx = da.x1 | 0;
+        const nly = da.y1 | 0;
+        const nhx = da.x2 | 0;
+        const nhy = da.y2 | 0;
+        switch (rt) {
+        case LR_BRANCH:
+            addedBranch = true;
+            place_lregion(lx, ly, hx, hy, nlx, nly, nhx, nhy, rt, r.lev ?? null);
+            break;
+        case LR_PORTAL:
+        case LR_UPSTAIR:
+        case LR_DOWNSTAIR:
+            place_lregion(lx, ly, hx, hy, nlx, nly, nhx, nhy, rt, r.lev ?? null);
+            break;
+        case LR_TELE:
+        case LR_UPTELE:
+        case LR_DOWNTELE:
+            assignLregionDestBoundsLikeC(g, rt, lx, ly, hx, hy, nlx, nly, nhx, nhy);
+            break;
+        default:
+            break;
+        }
+    }
+    if (!addedBranch && is_branchlev()) {
+        place_lregion(0, 0, 0, 0, 0, 0, 0, 0, LR_BRANCH, null);
+    }
+}
+
+/** C: dungeon.c `u_on_rndspot` — place hero in saved tele regions after **`goto_level`**. */
+export function u_onRndspotLikeC(g, upflag) {
+    const up = (upflag | 0) & 1;
+    const wasInWTower = ((upflag | 0) & 2) !== 0;
+    if (wasInWTower && onWTowerLevelLikeC(g.u?.uz)) {
+        const d = g.dndest;
+        if (d?.nlx) {
+            place_lregion(d.nlx, d.nly, d.nhx, d.nhy, 0, 0, 0, 0, LR_DOWNTELE, null);
             return;
         }
     }
-    // Deterministic fallback
-    for (let x = lx; x <= hx; x++)
-        for (let y = ly; y <= hy; y++)
-            if (!bad_location(x, y, nlx, nly, nhx, nhy)) {
-                u_on_newpos(x, y);
-                return;
-            }
+    const udest = g.updest;
+    const ddest = g.dndest;
+    if (up && udest?.lx) {
+        place_lregion(
+            udest.lx, udest.ly, udest.hx, udest.hy,
+            udest.nlx, udest.nly, udest.nhx, udest.nhy,
+            LR_UPTELE, null
+        );
+        return;
+    }
+    if (ddest?.lx) {
+        place_lregion(
+            ddest.lx, ddest.ly, ddest.hx, ddest.hy,
+            ddest.nlx, ddest.nly, ddest.nhx, ddest.nhy,
+            LR_DOWNTELE, null
+        );
+        return;
+    }
+    place_lregion(0, 0, 0, 0, 0, 0, 0, 0, up ? LR_UPTELE : LR_DOWNTELE, null);
 }
 
 // C ref: stairs.c u_on_upstairs — place hero on upstairs or fallback
@@ -586,6 +724,7 @@ function clear_level_structures() {
     lf.fumaroles = false;
     lf.stormy = false;
     lf.stasis_until = 0;
+    clearLregionDestLikeC(g);
     init_rect();
 }
 
@@ -689,6 +828,12 @@ async function makelevel() {
         ) {
             g.stairs.u_traversed = true;
         }
+    }
+
+    /* C: mkmaze.c fixup_special — des-file **`lregions`** (tele bounds → **`dndest`/`updest`**). */
+    if (g.lregions?.length) {
+        placeLregionsFixupSpecialLikeC(g, g.lregions);
+        g.lregions = null;
     }
 
     /* C: mklev.c makelevel tail — fill ordinary rooms (gi.in_mklev). */
