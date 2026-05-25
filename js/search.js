@@ -8,7 +8,8 @@
 import { game } from './gstate.js';
 import { rn2, rnl } from './rng.js';
 import {
-    pline, newsym, feelLocation, feelNewsym, unmapInvisibleLikeC, GLYPH_INVISIBLE,
+    pline, newsym,     feelLocation, feelNewsym, unmapInvisibleLikeC, GLYPH_INVISIBLE,
+    refreshWestApportNicheGlyphsAfterSearchLikeC,
 } from './display.js';
 import { recalcBlockPointLikeC, cansee } from './vision.js';
 import { exercise } from './attrib.js';
@@ -364,4 +365,5 @@ export async function dosearch0(aflag) {
     }
 
     if (!reported) await pline('You find no traps or secret doors.');
+    refreshWestApportNicheGlyphsAfterSearchLikeC();
 }

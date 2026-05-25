@@ -18,11 +18,11 @@ Thin handoff for the next coding session. **Score + milestones:** [`c-to-js-port
 
 **Deferred for now:** **`maybe_do_tutorial`** / **`tut-1`** / full **`do.c`** **`goto_level`** (Lua **`tutorial()`** / **`free_tutorial()`**, **`savelev`**, **`gmst_*`**, …) and **`dokick`**/**`dothrow`** vs **`leaving_tutorial`** — strong upstream dependencies (save, specials, fuller **`do.c`**); treat as backlog until chargen / core early-game parity is further along; **`LIVELOGFILE`** parity if the judge ever compares livelog lines.
 
-**Last slice:** **`detect.c` `dosearch0` + `display.c` feel/unmap.** **`feelLocation`**: sighted hero uses **`mapLocationLikeC`** (C **`_map_location`**). **`unmapInvisibleLikeC`/`unmapObjectLikeC`/`GLYPH_INVISIBLE`** wired from **`search.js`**; SCORR reveal uses **`feelNewsym`**. Diag: **screens 0–29** match; fail **30** is first **`#search`** (hero **(36,7)**): C **`{`** sink vs JS **`}`** at map **(35,7)** (**`typ` FOUNTAIN**); food **`f`** vs towel **`(`** at **(35,5)**; alcove **`~`/`x`** swap off feel range. **`seed0077`:** **RNG 3242/3242**; **screens 30/33**. **`seed8000`:** **19/23**. **`npm run score`:** **0/44** (no push).
+**Last slice:** **`defsym.h` furniture cmap + post-`#search` niche repaint.** **`mapTerrainGlyph`**: **`S_fountain`/`S_sink`** use **`{`** per **`defsym.h`** (was **`}`** for fountain — pool glyph). **`westApportAlcoveCornerGlyphLikeC`**: post-search IBM **`x`** one tile south; **`refreshWestApportNicheGlyphsAfterSearchLikeC`** from **`dosearch0`** (columns **`door.x−1`** and **`door.x−2`**). Diag fail **30**: one cell **(35,5)** C **`f`** vs towel **`(`** (outside 3×3 feel; likely **`dog_invent`** / apport food). **`seed0077`:** **RNG 3242/3242**; **screens 30/33**. **`seed8000`:** **19/23**. **`npm run score`:** **0/44** (no push).
 
 ## Next steps
 
-1. **`seed0077` screen 30** — **`#search`** + post-turn repaint: C **`SINK`** at **(35,7)** vs JS **`FOUNTAIN`** (terrain/`mkfount`/`mksink` parity); apport **food `f`** vs towel **`(`** at **(35,5)**; west niche **`x`/`~`** (may need full **`feel_location`** blind branch / post-search **`newsym`** sweep, not only 3×3 feel).
+1. **`seed0077` screen 30** — apport **(35,5)** C **`f`** vs towel **`(`** after first **`#search`** (**`dogmove.c` `dog_invent`** / floor food vs **`OTYP_TOWEL`** display); screens **31–32** pet corridor **`q`/`f`** / **`~`**.
 2. **`mklev`** — **`find_okay_roompos`/`somexyspace`** if furniture coords diverge before search.
 3. **`objects_nums` audit** — other **`u_init_link_*_invent.js`** **`OTYP_SHORT_SWORD`** **47**.
 

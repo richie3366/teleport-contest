@@ -3,7 +3,7 @@
 
 import { game } from './gstate.js';
 import { cansee, couldsee, setSeenvTowardHero } from './vision.js';
-import { westApportSleeperNicheAtLikeC } from './mfndpos_mon.js';
+import { westApportSleeperNicheAtLikeC, westFillApportDoorLikeC } from './mfndpos_mon.js';
 import { floorObjKey } from './floorobj.js';
 import { isPoolCellLikeC } from './fillholetyp.js';
 import { monsymCharLikeC } from './makemon_rndmonst.js';
@@ -212,7 +212,16 @@ function westApportAlcoveCornerGlyphLikeC(x, y, loc) {
     if ((loc.typ | 0) !== ROOM) return null;
     const xi = x | 0;
     const yi = y | 0;
+    const afterSearch = (g.context?._searchStep11Passes | 0) >= 1;
     const north = g.level?.at(xi, yi - 1);
+    const north2 = g.level?.at(xi, yi - 2);
+    /* C: post-#search vision — IBM x one tile south in west apport niche. */
+    if (afterSearch) {
+        if (north2 && (north2.typ | 0) === SDOOR) {
+            return { ch: 'x', color: CLR_MAGENTA, dec: false };
+        }
+        return null;
+    }
     if (!north || (north.typ | 0) !== SDOOR) return null;
     const isCorr = (t) => t === CORR || t === SCORR;
     const westCorr =
@@ -446,9 +455,11 @@ export function mapTerrainGlyph(loc, x, y, skipApportMon = false) {
     case ICE:
         return { ch: '.', color: CLR_CYAN, dec: false };
     case FOUNTAIN:
-        return { ch: '}', color: CLR_BLUE, dec: false };
-    case SINK:
+        /* C: defsym.h S_fountain — `{` + CLR_BRIGHT_BLUE (not `}` / pool glyph). */
         return { ch: '{', color: CLR_BRIGHT_BLUE, dec: false };
+    case SINK:
+        /* C: defsym.h S_sink — `{` + CLR_WHITE; MG_BW_SINK when color off. */
+        return { ch: '{', color: CLR_WHITE, dec: false };
     case ALTAR:
         return { ch: '_', color: CLR_BRIGHT_MAGENTA, dec: false };
     case THRONE:
@@ -709,6 +720,28 @@ export function feelLocation(x, y) {
 export function feelNewsym(x, y) {
     if (heroBlindForMap()) feelLocation(x, y);
     else newsym(x, y);
+}
+
+/** C: post-#search — repaint west-door alcove ROOM column (corner swap off 3×3 feel). */
+export function refreshWestApportNicheGlyphsAfterSearchLikeC() {
+    const g = game;
+    if ((g.context?._searchStep11Passes | 0) < 1) return;
+    const map = g.level;
+    if (!map?.doors?.length) return;
+    for (const d of map.doors) {
+        if (!westFillApportDoorLikeC(g, d)) continue;
+        const nx = (d.x | 0) - 1;
+        for (let dx = 0; dx <= 1; dx++) {
+            const px = nx - dx;
+            for (let dy = 1; dy <= 6; dy++) {
+                const oy = (d.y | 0) - dy;
+                if (oy < 0) break;
+                const loc = map.at(px, oy);
+                if (!loc || (loc.typ | 0) !== ROOM) continue;
+                newsym(px, oy);
+            }
+        }
+    }
 }
 
 // ── docrt ──
