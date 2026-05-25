@@ -6,6 +6,7 @@ Historical rows moved from `c-to-js-port-progress.md` so day-to-day work uses **
 
 | When | What changed |
 |------|----------------|
+| **2026-05-25 (`ball.c` ballrelease on stair fall)** | **`ballreleaseHeroLikeC`**, **`weldedUballLikeC`**; **`goto_level`** descend-stairs tumble after **`drag_down`**. **`seed0077`/`seed8000`:** **PASS**. **`npm run score`:** **2/44**. |
 | **2026-05-25 (`ball.c` placebc for goto_level)** | **`ball_bc_hero.js`** **`placebcHeroLikeC`/`unplacebcHeroLikeC`**; **`goto_level_hero`** unplace before travel / place after arrival; **`punish_hero`** calls **`placebc`**. **`seed0077`/`seed8000`:** **PASS**. **`npm run score`:** **2/44**. |
 | **2026-05-25 (`goto_level` Gehennom mystery force)** | **`hacklib.js`** **`assign_rnd_level`**; **`applyGehennomMysteryForceGotoDestLikeC`** (**`rn2(4+mysteryforce)`**, alignment **`rn2(odds)`**, W-tower guard); **`jsmain`** **`context.mysteryforce`**. **`seed0077`/`seed8000`:** **PASS**. **`npm run score`:** **2/44**. |
 | **2026-05-25 (`objects_nums` LOADSTONE otyp 471)** | **`const.js`** **`OTYP_LUCKSTONE`**/**`OTYP_LOADSTONE`**; **`mkobj_mklev_like_c.js`** gem init **88→471**; **`remove_curse_hero`/`hold_another_hero`** import. **`seed0077`/`seed8000`:** **PASS**. **`npm run score`:** **2/44**. |

@@ -18,12 +18,12 @@ Thin handoff for the next coding session. **Score + milestones:** [`c-to-js-port
 
 **Deferred for now:** **`maybe_do_tutorial`** / **`tut-1`** / full **`do.c`** **`goto_level`** (Lua **`tutorial()`** / **`free_tutorial()`**, **`savelev`**, **`gmst_*`**, …) and **`dokick`**/**`dothrow`** vs **`leaving_tutorial`** — strong upstream dependencies (save, specials, fuller **`do.c`**); treat as backlog until chargen / core early-game parity is further along; **`LIVELOGFILE`** parity if the judge ever compares livelog lines.
 
-**Last slice:** **`ball.c`** **`placebc`/`unplacebc`** for **`goto_level`**. **`ball_bc_hero.js`** (**`placebc_core`**, **`unplacebc_core`** subset); wired in **`goto_level_hero.js`** + **`punish_hero.js`**; **`flooreffects`** on chain/ball at hero feet. Blind **`bglyph`/`cglyph`**, **`bcrestriction`**, **`safe_teleds`** deferred. **`load_lua`** deferred. **`seed0077`/`seed8000`:** **PASS**. **`npm run score`:** **2/44**.
+**Last slice:** **`ball.c`** **`ballrelease`** on stair tumble. **`ballreleaseHeroLikeC`**, **`weldedUballLikeC`**; **`applyHeroDescendStairsOneLevelLikeC`** after **`drag_down`** when **`Punished`**. **`ballfall`**, **`safe_teleds`** deferred. **`load_lua`** deferred. **`seed0077`/`seed8000`:** **PASS**. **`npm run score`:** **2/44**.
 
 ## Next steps
 
 1. **`mkmaze`** — **`load_lua`** / full **`load_special`** (NHL des compiler).
-2. **`goto_level`** — full **`keepdogs`** / savelev tail, **`safe_teleds`** on mystery-force same-level, **`ballrelease`** on stair fall.
+2. **`goto_level`** — full **`keepdogs`** / savelev tail, **`safe_teleds`** on mystery-force same-level, **`ballfall`** on hole fall.
 3. **`objects_nums`** — armor rows in **`obj_oc_skill_data`** if mkobj paths need them; more legacy floor **`otyp`** vs C when replaying **`mkobj`**.
 
 ### Extended backlog (unchanged lanes)

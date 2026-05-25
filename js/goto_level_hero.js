@@ -55,7 +55,7 @@ import {
 } from './const.js';
 import { gotoLevelTutorialBranchHookLikeC } from './tutorial_branch.js';
 import { maybeRecordEnteredNewLevelLivelogLikeC } from './livelog.js';
-import { placebcHeroLikeC, unplacebcHeroLikeC } from './ball_bc_hero.js';
+import { placebcHeroLikeC, unplacebcHeroLikeC, ballreleaseHeroLikeC } from './ball_bc_hero.js';
 
 /** C: **`Punished`** / carried **`uball`** — macro subset until **`punish()`** sets **`u.Punished`**. */
 function heroPunishedLikeC(g) {
@@ -434,7 +434,7 @@ export async function gotoLevelHeroFallThroughDigHoleLikeC(g, digX, digY) {
  * C: **`do.c`** **`goto_level`** — **`at_stairs`** && !**`up`** && !**`In_endgame`** after **`u_on_upstairs`**
  * ( **`stairway_find_from`** / **`u_on_sstairs`** omitted; **`u.dz`** treated as down).
  * **`keepdogs`**, **`vision_recalc(2)`**, then **`u.uz`** / **`mklev`** / **`u_on_upstairs`** …
- * Omits **`ballrelease`**, **`dismount_steed`**, **`selftouch`**, **`placebc`**, **`obj_delivery`**, branch mapseen.
+ * Omits **`dismount_steed`**, **`selftouch`**, **`obj_delivery`**, branch mapseen.
  * @param {import('./gstate.js').game} g
  * @returns {Promise<boolean>} true if level changed
  */
@@ -495,7 +495,10 @@ export async function applyHeroDescendStairsOneLevelLikeC(g) {
         || (u.Fumbling | 0) !== 0
     ) {
         await pline(atLadder ? 'You fall down the ladder.' : 'You fall down the stairs.');
-        if (heroPunishedLikeC(g) && g.uball) await dragDownHeroStairsLikeC(g);
+        if (heroPunishedLikeC(g) && g.uball) {
+            await dragDownHeroStairsLikeC(g);
+            await ballreleaseHeroLikeC(g, false);
+        }
         if (!(u.usteed | 0)) {
             const knm = atLadder ? 'falling off a ladder' : 'tumbling down a flight of stairs';
             losehp(maybeHalfPhys(rnd(3)), knm, 0);

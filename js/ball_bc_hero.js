@@ -1,11 +1,14 @@
-// ball_bc_hero.js — ball.c placebc / unplacebc subset for hero level changes.
-// C ref: ball.c placebc_core(), unplacebc_core(); do.c goto_level Punished hooks.
+// ball_bc_hero.js — ball.c placebc / unplacebc / ballrelease subset for hero level changes.
+// C ref: ball.c placebc_core(), unplacebc_core(), ballrelease(); do.c goto_level Punished hooks.
 
 import { placeFloorObjectInLevel, stackObjOnFloorInLevel, unlinkFloorObjectInLevel } from './floorobj.js';
 import { removeObjFromHeroInvent } from './water_damage.js';
 import { flooreffectsObjAtLikeC } from './flooreffects_hero.js';
-import { newsym } from './display.js';
+import { pline, newsym } from './display.js';
 import { Is_waterlevel } from './const.js';
+import { weldedUwepLikeC } from './hero_hands.js';
+import { encumberMsg } from './pickup.js';
+import { syncHeroInvWeightNetLikeC } from './encumbr.js';
 
 /** C: ball.c — ball & chain stack order at hero feet. */
 export const BCPOS_DIFFER = 0;
@@ -100,4 +103,32 @@ export function unplacebcHeroLikeC(g) {
         newsym(chain.ox | 0, chain.oy | 0);
     }
     u.bc_felt = 0;
+}
+
+/**
+ * C: wield.c **`welded(uball)`** — ball welded only when wielded as **`uwep`** and **`will_weld`**.
+ * @param {import('./gstate.js').game} g
+ */
+export function weldedUballLikeC(g) {
+    const ball = g.uball;
+    return !!(ball && weldedUwepLikeC(g, ball));
+}
+
+/**
+ * C: ball.c **`ballrelease(boolean showmsg)`** — drop carried ball from grip (not floor placement).
+ * @param {import('./gstate.js').game} g
+ * @param {boolean} showmsg
+ */
+export async function ballreleaseHeroLikeC(g, showmsg) {
+    const u = g.u;
+    const ball = g.uball;
+    if (!u || !ball || !objectCarriedByHeroLikeC(g, ball) || weldedUballLikeC(g)) return;
+
+    if (showmsg) await pline('Startled, you drop the iron ball.');
+    if (u.uwep === ball) u.uwep = null;
+    if (u.uswapwep === ball) u.uswapwep = null;
+    if (u.uquiver === ball) u.uquiver = null;
+    removeObjFromHeroInvent(g, ball);
+    syncHeroInvWeightNetLikeC(g);
+    await encumberMsg();
 }
