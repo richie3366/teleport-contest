@@ -18,12 +18,12 @@ Thin handoff for the next coding session. **Score + milestones:** [`c-to-js-port
 
 **Deferred for now:** **`maybe_do_tutorial`** / **`tut-1`** / full **`do.c`** **`goto_level`** (Lua **`tutorial()`** / **`free_tutorial()`**, **`savelev`**, **`gmst_*`**, …) and **`dokick`**/**`dothrow`** vs **`leaving_tutorial`** — strong upstream dependencies (save, specials, fuller **`do.c`**); treat as backlog until chargen / core early-game parity is further along; **`LIVELOGFILE`** parity if the judge ever compares livelog lines.
 
-**Last slice:** **`objects_nums` `u_init_*` otyp audit.** C **`objects[]`** indices: Monk **`POT_HEALING`**/**`OIL_LAMP`**, Healer **`SCALPEL`**, Arc RNG **`BULLWHIP`**, **`MAGIC_MARKER`** 243, blindfold 233 across Wiz/Rog/Sam. **`load_lua`** still deferred. **`seed0077`/`seed8000`:** **PASS**. **`npm run score`:** **2/44**.
+**Last slice:** **`objects_nums` — regenerate `obj_oc_skill_data.js`.** **`tools/gen_obj_oc_skill_data.mjs`** from C **`OBJECTS_INIT`** (keys = **`objects[]`** index); 160 WEAPON/TOOL/GEM rows including projectiles **19–24**, whip **82**, quarterstaff **79**. **`load_lua`** deferred. **`seed0077`/`seed8000`:** **PASS**. **`npm run score`:** **2/44**.
 
 ## Next steps
 
 1. **`mkmaze`** — **`load_lua`** / full **`load_special`** (NHL des compiler).
-2. **`objects_nums`** — regenerate **`obj_oc_skill_data.js`** from upstream (partial map drift); armor/projectile sweep in **`mklev`** legacy otyps.
+2. **`objects_nums`** — **`mklev`** legacy floor **`otyp`** audit vs **`objects[]`**; armor rows in **`obj_oc_skill_data`** if **`weapon_type`** needs them.
 3. **`goto_level`** — Gehennom mystery-force **`assign_rnd_level`**, **`placebc`**, full **`keepdogs`** / savelev tail.
 
 ### Extended backlog (unchanged lanes)

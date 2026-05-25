@@ -48,7 +48,7 @@ const OTYP_POT_SICKNESS = 317;
 /** C Wizard[] — `OBJECTS_ENUM` / `objects.h`. */
 const OTYP_QUARTERSTAFF = 79;
 const OTYP_CLOAK_OF_MAGIC_RESISTANCE = 148;
-/** C `OC_SKILL_ROW_BY_OTYP` — **`BULLWHIP`** (`mksobj_init` WEAPON); NH5 invent **`otyp`** = **82** (OC key **83** − **1**, same pattern as Rogue **`SHORT_SWORD`**). */
+/** C `objects[]` — **`P_WHIP`** / bullwhip at otyp **82**. */
 /** C `objects[]` — **`P_WHIP`** / bullwhip (83 is bow). */
 const OTYP_BULLWHIP_MK = 82;
 const OTYP_FOOD_RATION = 143;
@@ -81,7 +81,7 @@ const OTYP_CLUB = 78;
 const OTYP_SLING = 87;
 const OTYP_FLINT = 473;
 const OTYP_ROCK = 474;
-/** C `objects.h` — PROJECTILE **`ARROW`** … **`CROSSBOW_BOLT`** (NH5 `otyp` **19–24**; `OC_SKILL_ROW_BY_OTYP` omits this slice). */
+/** C `objects[]` — PROJECTILE **`ARROW`** … **`CROSSBOW_BOLT`** (otyp **19–24**, negative **`P_BOW`** … skills). */
 const OTYP_FIRST_PROJECTILE = 19;
 const OTYP_LAST_PROJECTILE = 24;
 const OTYP_ARROW = 19;
