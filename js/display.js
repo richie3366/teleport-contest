@@ -452,6 +452,55 @@ function paintCellGlyph(x, y, loc, gl, show) {
     rememberCellGlyph(loc, gl);
 }
 
+/** C: `back_to_glyph` terrain at (x,y) — `mapTerrainGlyph` until full glyph ids exist. */
+function backToTerrainGlyphLikeC(loc, x, y) {
+    return mapTerrainGlyph(loc, x, y);
+}
+
+/**
+ * C: display.c `map_background(x, y, show)` — hero_memory terrain glyph; optional `show_glyph`.
+ * @param {number} x
+ * @param {number} y
+ * @param {boolean} show
+ */
+export function mapBackgroundLikeC(x, y, show) {
+    const lvl = game.level;
+    const loc = lvl?.at(x | 0, y | 0);
+    if (!loc) return;
+    const gl = backToTerrainGlyphLikeC(loc, x, y);
+    if ((loc.glyph | 0) === GLYPH_INVISIBLE) loc.glyph = 0;
+    if (lvl.flags?.hero_memory !== false) {
+        rememberCellGlyph(loc, gl);
+        loc.glyph = 0;
+    }
+    if (show) show_glyph_cell(x, y, gl.ch, gl.color, gl.dec);
+}
+
+/**
+ * C: display.c `map_trap(trap, show)`.
+ * @param {{ tx: number, ty: number }} trap
+ * @param {boolean} show
+ */
+function mapTrapLikeC(trap, show) {
+    const x = trap.tx | 0;
+    const y = trap.ty | 0;
+    const loc = game.level?.at(x, y);
+    if (!loc) return;
+    const gl = seenTrapGlyphColor(trap);
+    if ((loc.glyph | 0) === GLYPH_INVISIBLE) loc.glyph = 0;
+    paintCellGlyph(x, y, loc, gl, show);
+}
+
+/** Room cmap glyph for `unmap_object` dark-room stone downgrade (C `cmap_to_glyph(S_room)`). */
+function roomTerrainGlyphLikeC() {
+    return cmapSymGlyphFromShowsymsLikeC(S_room, false)
+        ?? { ch: '~', color: NO_COLOR, dec: true };
+}
+
+function terrainGlyphsEqual(a, b) {
+    return a.ch === b.ch && (a.color | 0) === (b.color | 0) && !!a.dec === !!b.dec;
+}
+
 /**
  * Judge grid char for `terminal.serialize()` — frozen `screen-decode` `renderCell`
  * maps DEC bytes (`q`, `x`, …) via `decgfx`; wire lacks SO/SI so use Unicode here.
@@ -762,15 +811,29 @@ export function mapInvisibleCellLikeC(x, y) {
 export function unmapObjectLikeC(x, y) {
     const lvl = game.level;
     if (!lvl?.flags?.hero_memory) return;
-    const loc = lvl.at(x | 0, y | 0);
+    const xi = x | 0;
+    const yi = y | 0;
+    const loc = lvl.at(xi, yi);
     if (!loc) return;
-    loc.glyph = 0;
-    const trap = trapAtCell(x, y);
+    const trap = trapAtCell(xi, yi);
     if (trap?.tseen) {
-        mapLocationLikeC(x, y, true);
+        mapTrapLikeC(trap, false);
         return;
     }
-    mapLocationLikeC(x, y, true);
+    if (loc.seenv) {
+        mapBackgroundLikeC(xi, yi, false);
+        /* C: dark unlit ROOM memory becomes stone, not lit-room cmap. */
+        if (!loc.waslit && (loc.typ | 0) === ROOM) {
+            const rg = loc.remembered_glyph;
+            if (rg && terrainGlyphsEqual(rg, roomTerrainGlyphLikeC())) {
+                rememberCellGlyph(loc, { ch: ' ', color: NO_COLOR, dec: false });
+                loc.glyph = 0;
+            }
+        }
+        return;
+    }
+    loc.glyph = 0;
+    loc.remembered_glyph = null;
 }
 
 /**
@@ -801,10 +864,10 @@ function mapLocationLikeC(x, y, show) {
     }
     const trap = trapAtCell(x, y);
     if (trap?.tseen) {
-        paintCellGlyph(x, y, loc, seenTrapGlyphColor(trap), show);
+        mapTrapLikeC(trap, show);
         return;
     }
-    paintCellGlyph(x, y, loc, mapTerrainGlyph(loc, x, y), show);
+    mapBackgroundLikeC(x, y, show);
 }
 
 // ── newsym ──
@@ -909,11 +972,7 @@ export function feelLocation(x, y) {
         mapLocationLikeC(x, y, true);
         return;
     }
-    const tg = mapTerrainGlyph(loc, x, y);
-    if (lvl.flags?.hero_memory !== false) {
-        loc.remembered_glyph = { ch: tg.ch, color: tg.color, decgfx: tg.dec };
-    }
-    show_glyph_cell(x, y, tg.ch, tg.color, tg.dec);
+    mapBackgroundLikeC(x, y, true);
 }
 
 /**
