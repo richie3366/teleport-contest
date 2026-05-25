@@ -104,6 +104,13 @@ import {
 } from './floorobj.js';
 import { fixWallSpinesRect } from './wall_spine.js';
 import { setLevltypLikeC } from './set_levltyp.js';
+import {
+    flipLevelRndLikeC,
+    linkDoorsRoomsLikeC,
+    mapCleanupLikeC,
+    removeBoundarySymsLikeC,
+    solidifyMapLikeC,
+} from './sp_lev_load.js';
 
 // Object/class constants (normally from objects.js, not in contest template)
 /* NH5 audit: scroll **`otyp`** literals below are **legacy** (pre–`objects_nums` / `mkobj_scroll_class_rng_like_c.js`).
@@ -352,7 +359,15 @@ export function checkRansackedLikeC(g, protoBase) {
  * @param {import('./gstate.js').game} g
  */
 function createDesCoderLikeC(g) {
-    if (!g.desCoder) g.desCoder = {};
+    if (!g.desCoder) {
+        g.desCoder = {
+            allowFlips: 0,
+            solidify: false,
+            checkInaccessibles: false,
+            premapped: false,
+            spLevMap: null,
+        };
+    }
 }
 
 /** @param {import('./gstate.js').game} g */
@@ -375,12 +390,18 @@ async function loadLuaLikeC(g, name) {
  * @param {import('./gstate.js').game} g
  */
 function loadSpecialAfterLuaLikeC(g) {
-    /* link_doors_rooms, remove_boundary_syms, ensure_way_out, map_cleanup — deferred */
+    const coder = g.desCoder;
+    linkDoorsRoomsLikeC(g, add_door);
+    removeBoundarySymsLikeC(g);
+    /* ensure_way_out — deferred */
+    mapCleanupLikeC(g);
     const lf = g.level?.flags;
     if (lf && !lf.corrmaze) {
         wallification(1, 0, COLNO - 1, ROWNO - 1);
     }
-    /* flip_level_rnd, count_level_features, solidify_map — deferred */
+    flipLevelRndLikeC(g, coder?.allowFlips ?? 0, false);
+    recount_level_features();
+    if (coder?.solidify) solidifyMapLikeC(g);
     fixupSpecialLikeC(g);
     /* premap_detect — deferred */
 }

@@ -18,11 +18,11 @@ Thin handoff for the next coding session. **Score + milestones:** [`c-to-js-port
 
 **Deferred for now:** **`maybe_do_tutorial`** / **`tut-1`** / full **`do.c`** **`goto_level`** (Lua **`tutorial()`** / **`free_tutorial()`**, **`savelev`**, **`gmst_*`**, …) and **`dokick`**/**`dothrow`** vs **`leaving_tutorial`** — strong upstream dependencies (save, specials, fuller **`do.c`**); treat as backlog until chargen / core early-game parity is further along; **`LIVELOGFILE`** parity if the judge ever compares livelog lines.
 
-**Last slice:** **`sp_lev.c`** **`load_special`** scaffolding — **`checkRansackedLikeC`**, **`LEV_EXT`**, **`in_mk_themerooms`**, **`createDesCoderLikeC`**/**`loadLuaLikeC`** stub, **`loadSpecialAfterLuaLikeC`** post-**`load_lua`** chain; **`makemazLikeC`** C order before procedural maze. NHL **`load_lua`** still deferred. **`seed0077`/`seed8000`:** **PASS**. **`npm run score`:** **2/44**.
+**Last slice:** **`sp_lev.c`** **`load_special`** post-**`load_lua`** — **`sp_lev_load.js`** (**`linkDoorsRoomsLikeC`**, **`removeBoundarySymsLikeC`**, **`mapCleanupLikeC`**, **`flipLevelRndLikeC`**, **`solidifyMapLikeC`**); wired in **`loadSpecialAfterLuaLikeC`**. **`flip_level`** body + NHL **`load_lua`** still deferred. **`seed0077`/`seed8000`:** **PASS**. **`npm run score`:** **2/44**.
 
 ## Next steps
 
-1. **`mkmaze`** — **`load_lua`** (NHL des compiler) + **`load_special`** remainder (**`link_doors_rooms`**, **`flip_level_rnd`**, **`stolen_booty`** in full **`fixup_special`**).
+1. **`mkmaze`** — NHL **`load_lua`** (des compiler) + **`flip_level`**; full **`fixup_special`** (**`stolen_booty`**, medusa, baalz); **`premap_detect`** / **`ensure_way_out`**.
 2. **`goto_level`** — savelev tail; full **`worm.c`** when long worms on level.
 3. **`objects_nums`** — wire **`nh5OclassForOtyp`** via map for ARMOR/ROCK only after **`mksobj_init`** floor parity; more legacy floor **`otyp`** vs C when replaying **`mkobj`**.
 

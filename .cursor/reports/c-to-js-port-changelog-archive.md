@@ -6,6 +6,7 @@ Historical rows moved from `c-to-js-port-progress.md` so day-to-day work uses **
 
 | When | What changed |
 |------|----------------|
+| **2026-05-25 (`sp_lev.c` load_special post-load_lua`)** | **`sp_lev_load.js`**: **`linkDoorsRoomsLikeC`**, **`removeBoundarySymsLikeC`**, **`mapCleanupLikeC`**, **`flipLevelRndLikeC`**, **`solidifyMapLikeC`**; C-order **`loadSpecialAfterLuaLikeC`**. **`flip_level`** + **`load_lua`** deferred. **`seed0077`/`seed8000`:** **PASS**. **`npm run score`:** **2/44**. |
 | **2026-05-25 (`sp_lev.c` load_special scaffolding)** | **`checkRansackedLikeC`**, **`loadSpecialLikeC`** C-shaped (**`createDesCoder`/`load_lua`/`give_up`**), **`loadSpecialAfterLuaLikeC`**; **`makemazLikeC`** **`LEV_EXT`** + **`in_mk_themerooms`**. NHL **`load_lua`** deferred. **`seed0077`/`seed8000`:** **PASS**. **`npm run score`:** **2/44**. |
 | **2026-05-25 (`mkmaze.c` makemaz protofile rndlevs)** | **`resolveMakemazProtofileLikeC`** — C **`makemaz`** Snprintf before **`load_special`**; **`makemazLikeC`** uses resolved name. **`load_lua`** deferred. **`seed0077`/`seed8000`:** **PASS**. **`npm run score`:** **2/44**. |
 | **2026-05-25 (`vault.c` uleftvault + findgd)** | **`vault_hero.js`**: **`hidden_gold`**, **`in_fcorridor`**, **`canspotmon`** pline, **`gdMoveHeroLikeC`** stub; **`findgd`** **`mhp`** when parked. Full **`gd_move`** deferred. **`seed0077`/`seed8000`:** **PASS**. **`npm run score`:** **2/44**. |
