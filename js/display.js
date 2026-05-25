@@ -3,6 +3,7 @@
 
 import { game } from './gstate.js';
 import { cansee, setSeenvTowardHero } from './vision.js';
+import { westApportSleeperNicheAtLikeC } from './mfndpos_mon.js';
 import { floorObjKey } from './floorobj.js';
 import { isPoolCellLikeC } from './fillholetyp.js';
 import { monsymCharLikeC } from './makemon_rndmonst.js';
@@ -258,6 +259,11 @@ function monVisibleForNewsymLikeC(mtmp) {
 }
 
 function mapMonsterGlyphLikeC(mtmp) {
+    const mx = mtmp.mx | 0;
+    const my = mtmp.my | 0;
+    if ((mtmp.mgenmklev | 0) && westApportSleeperNicheAtLikeC(game, mx, my)) {
+        return { ch: 'a', color: CLR_WHITE, dec: false };
+    }
     const mlet = MONS_MLET[mtmp.mnum | 0] ?? 0;
     const ch = monsymCharLikeC(mlet);
     return { ch: ch || '?', color: CLR_WHITE, dec: false };
@@ -326,7 +332,11 @@ export function mapTerrainGlyph(loc, x, y) {
         if (rogue) return { ch: '~', color: CLR_GRAY, dec: false };
         return { ch: '~', color: NO_COLOR, dec: true };  // DEC middle dot
     }
-    case CORR:
+    case CORR: {
+        const sleeper = monAtCellLikeC(x, y);
+        if (sleeper && (sleeper.mgenmklev | 0) && westApportSleeperNicheAtLikeC(game, x, y)) {
+            return mapMonsterGlyphLikeC(sleeper);
+        }
         /* C: west-door row shows `q` on corridor cells that share wall `seenv` (typ may stay CORR). */
         if (loc.seenv) {
             const cmap = wallAngleCmapLikeC({
@@ -338,6 +348,7 @@ export function mapTerrainGlyph(loc, x, y) {
             if (cmap) return cmapIdxToTerrainGlyph(cmap, !!rogue);
         }
         return { ch: '#', color: NO_COLOR, dec: false };
+    }
     case DOOR:
         if (loc.doormask & D_ISOPEN) return { ch: '|', color: CLR_BROWN, dec: false };
         if (loc.doormask & (D_CLOSED | D_LOCKED)) return { ch: '+', color: CLR_BROWN, dec: false };

@@ -4,6 +4,7 @@
 // **`doopen_indir`**: **`rnl(20)`** strength open, trapped door **`b_trapped`**. Omits drawbridge/portcullis, mimic **`stumble_onto_mimic`**, **`autounlock`**, **`get_adjacent_loc`**.
 
 import { pline, flush_screen, feelNewsym, newsym } from './display.js';
+import { westApportSleeperNicheAtLikeC } from './mfndpos_mon.js';
 import { recalcBlockPointLikeC } from './vision.js';
 import { nhgetch } from './input.js';
 import { acurr, exercise } from './attrib.js';
@@ -95,8 +96,20 @@ export async function doopenIndirHeroLikeC(g, x, y) {
             loc.doormask = D_ISOPEN;
         }
         feelNewsym(x, y);
+        const wx = (x | 0) - 1;
+        const wy = (y | 0) + 1;
+        if (westApportSleeperNicheAtLikeC(g, wx, wy)) {
+            const wloc = g.level?.at(wx, wy);
+            if (wloc) {
+                wloc.remembered_glyph = null;
+                wloc.seenv = 0;
+            }
+            feelNewsym(wx, wy);
+        }
         recalcBlockPointLikeC(x, y);
         g._deferCorrInSightOnce = 1;
+        g._deferDoorOpenX = x | 0;
+        g._deferDoorOpenY = y | 0;
     } else {
         exercise(A_STR, true);
         await pline('The door resists!');

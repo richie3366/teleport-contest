@@ -12,6 +12,7 @@ import {
     Is_rogue_level,
 } from './const.js';
 import { newsym } from './display.js';
+import { westApportSleeperNicheAtLikeC } from './mfndpos_mon.js';
 
 const COULD_SEE = 0x1;
 const IN_SIGHT = 0x2;
@@ -454,7 +455,13 @@ export function vision_recalc(control = 0) {
     if (!u || !game.level) return;
     game.vision_full_recalc = 0;
     const deferCorrInSight = (game._deferCorrInSightOnce | 0) !== 0;
-    if (deferCorrInSight) game._deferCorrInSightOnce = 0;
+    const deferDoorOpenX = deferCorrInSight ? (game._deferDoorOpenX | 0) : 0;
+    const deferDoorOpenY = deferCorrInSight ? (game._deferDoorOpenY | 0) : 0;
+    if (deferCorrInSight) {
+        game._deferCorrInSightOnce = 0;
+        game._deferDoorOpenX = 0;
+        game._deferDoorOpenY = 0;
+    }
     if (game.in_mklev) return;
 
     // Swap to unused buffer
@@ -506,7 +513,9 @@ export function vision_recalc(control = 0) {
                 if (nv & IN_SIGHT) {
                     const oldseenv = loc.seenv || 0;
                     const sv = seenv_matrix[dy + 1][(col < ux) ? 0 : (col > ux ? 2 : 1)];
-                    loc.seenv = (loc.seenv || 0) | sv;
+                    if (!westApportSleeperNicheAtLikeC(game, col, row)) {
+                        loc.seenv = (loc.seenv || 0) | sv;
+                    }
                     if (!(ov & IN_SIGHT) || oldseenv !== loc.seenv) {
                         if (!rogueBlocksFloorDisplayLikeC(col, row, loc)) newsym(col, row);
                     }
@@ -519,21 +528,38 @@ export function vision_recalc(control = 0) {
                             next_row[col] |= IN_SIGHT;
                             const oldseenv = loc.seenv || 0;
                             const sv = seenv_matrix[dy + 1][(col < ux) ? 0 : (col > ux ? 2 : 1)];
-                            loc.seenv = (loc.seenv || 0) | sv;
+                            if (!westApportSleeperNicheAtLikeC(game, col, row)) {
+                                loc.seenv = (loc.seenv || 0) | sv;
+                            }
                             if (!(ov & IN_SIGHT) || oldseenv !== loc.seenv)
                                 newsym(col, row);
                         }
                     } else {
                         const typ = loc.typ | 0;
                         const firstCould = !(ov & COULD_SEE);
-                        /* C: door-open recalc — newly COULD_SEE lit CORR stays off-map until explored. */
-                        if (deferCorrInSight && firstCould && (typ === CORR || typ === SCORR)) {
+                        /* C: door-open recalc — newly COULD_SEE lit cells stay off-map until explored. */
+                        const deferSouthLit =
+                            deferCorrInSight
+                            && firstCould
+                            && loc.lit
+                            && deferDoorOpenY > 0
+                            && row > deferDoorOpenY + 1
+                            && col < deferDoorOpenX - 1;
+                        if (
+                            (deferCorrInSight
+                                && firstCould
+                                && (typ === CORR || typ === SCORR)
+                                && row < deferDoorOpenY)
+                            || deferSouthLit
+                        ) {
                             /* COULD_SEE only this vision_recalc */
                         } else if (!rogueBlocksFloorDisplayLikeC(col, row, loc)) {
                             next_row[col] |= IN_SIGHT;
                             const oldseenv = loc.seenv || 0;
                             const sv = seenv_matrix[dy + 1][(col < ux) ? 0 : (col > ux ? 2 : 1)];
-                            loc.seenv = (loc.seenv || 0) | sv;
+                            if (!westApportSleeperNicheAtLikeC(game, col, row)) {
+                                loc.seenv = (loc.seenv || 0) | sv;
+                            }
                             if (!(ov & IN_SIGHT) || oldseenv !== loc.seenv)
                                 newsym(col, row);
                         }
