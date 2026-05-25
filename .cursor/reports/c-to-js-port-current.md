@@ -18,11 +18,11 @@ Thin handoff for the next coding session. **Score + milestones:** [`c-to-js-port
 
 **Deferred for now:** **`maybe_do_tutorial`** / **`tut-1`** / full **`do.c`** **`goto_level`** (Lua **`tutorial()`** / **`free_tutorial()`**, **`savelev`**, **`gmst_*`**, …) and **`dokick`**/**`dothrow`** vs **`leaving_tutorial`** — strong upstream dependencies (save, specials, fuller **`do.c`**); treat as backlog until chargen / core early-game parity is further along; **`LIVELOGFILE`** parity if the judge ever compares livelog lines.
 
-**Last slice:** **`monmove.c` pet move + map refresh.** **`dogmove_mon.js`**: **`newsym(preMx, preMy)`** when tame pet leaves a cell (**`monmove.c` `m_move` `newsym(omx, omy)`**), fixing stale kitten glyph on fountain tiles. **`seed0077`:** **RNG 3242/3242**; **screens 30/33** (fail **30**: west niche **`~`/`x`**, food **`f`** vs towel **`(`**, sink **`{`** vs fountain **`}`** at **(34,7)** — **no `SINK` typ** in JS level; **`mksink`** / apport column still open). **`seed8000`:** **20/23**. **`npm run score`:** **0/44** (no push).
+**Last slice:** **`mkmaze.c` `set_levltyp` + `mklev.c` furniture.** **`set_levltyp.js`**: **`setLevltypLikeC`** (**`CAN_OVERWRITE_TERRAIN`**, SDOOR/air, lava lit, fountain/sink recount). **`mklev.js`**: **`mkfount`/`mksink`/`mkaltar`** call **`set_levltyp`** like C (**`mksink`** returns bool). **`seed0077`:** **RNG 3242/3242**; **screens 30/33** (fail **30**: **7** fill rooms, **no `rn2(60)==0`** sink rolls this seed — C **`{`** at **(34,7)** vs JS **`}`** with **`FOUNTAIN`** at **(35,7)** / **`ROOM`** at **(34,7)**; food **`f`** vs towel **`(`** at **(34,5)/(35,5)**; alcove **`x`/`~`**). **`seed8000`:** **20/23**. **`npm run score`:** **0/44** (no push).
 
 ## Next steps
 
-1. **`seed0077` screen 30** — port **`mklev.c` `mksink`/`set_levltyp`** (JS has **0 sinks** vs C **`{` at (34,7)**); **`anchorApportTowelOnWestFillAlcoveLikeC`** / **`mkobj`** food at **(34,5)** not towel **(35,5)**; west niche **`seenv`** / remembered glyph vs C **`x`/`~`**.
+1. **`seed0077` screen 30** — **mklev layout** (fountain **(35,7)** vs C sink glyph **(34,7)** — likely **room/RNG before fill**, not missing **`mksink`** body); **`relocateFillObjs`/`anchorApportTowel`** vs C food **`f`** at **(34,5)**; west niche **`westApportAlcoveCornerGlyph`** / **`seenv`**.
 2. **`objects_nums` audit** — other **`u_init_link_*_invent.js`** **`OTYP_SHORT_SWORD`** **47**.
 
 2. **`mklev` lregions** — wire **`game.dndest`/`updest`** when **`place_lregions`** ported.
