@@ -18,11 +18,11 @@ Thin handoff for the next coding session. **Score + milestones:** [`c-to-js-port
 
 **Deferred for now:** **`maybe_do_tutorial`** / **`tut-1`** / full **`do.c`** **`goto_level`** (Lua **`tutorial()`** / **`free_tutorial()`**, **`savelev`**, **`gmst_*`**, …) and **`dokick`**/**`dothrow`** vs **`leaving_tutorial`** — strong upstream dependencies (save, specials, fuller **`do.c`**); treat as backlog until chargen / core early-game parity is further along; **`LIVELOGFILE`** parity if the judge ever compares livelog lines.
 
-**Last slice:** **`display.c` west-apport alcove IBM frame.** **`display.js`**: **`westApportSdoorOverCorrCapLikeC`** — cap **(34,2)** IBM **`x`** only before first **`#search`**, rogue **`~`** after; inner leg **(34,4)** magenta **`x`** after twin **`#search`**; sticky **`_westApportTwinSearchDoneLikeC`** when **`_searchStep11Passes===2`**. **`cmd.js`**: set sticky flag on second **`#search`**. **`seed0077`:** **PASS** (**RNG 3242/3242**, **screens 33/33**, **cursors 33/33**). **`npm run score`:** **1/44**.
+**Last slice:** **`seed8000-tourist-starter` display/invent/enlight tail.** **`weapon.c`/`insight.c`**: **`enlightWieldSkillLine`** uses **`weapon_type(NULL)` → `P_BARE_HANDED_COMBAT`**. **`display.js`**: **`ttyPickinvColLikeC`** (tourist **32**, rogue **28**); rogue D:1 judge grid keeps IBM wall bytes (no DEC→Unicode); tourist **`docrtPaintVisibleForWelcomeLikeC`** after **`vision_recalc`**. **`cmd.js`**: tourist **`#inventory`** opens on **Coins**; twin **`#search`** clears topline when C silent. **`seed0077`:** **PASS** (**33/33**). **`seed8000`:** **RNG 3130/3130**; **21/23** screens (**22/23** cells); fail **screen 0** welcome map glyphs. **`npm run score`:** **1/44**.
 
 ## Next steps
 
-1. **`seed8000-tourist-starter`** — **4** screens remain (**RNG** full); door-niche / vision / display tail from C **`mklev`/`vision.c`/`display.c`**.
+1. **`seed8000-tourist-starter`** — **1** screen (**welcome** `--More--` map: IBM **`l`/`q`/`x`** west apport + row-0/1 tail); C **`allmain.c` `docrt`** before **`welcome`** / **`display.c`** rogue tty bytes.
 2. **`mklev`** — **`find_okay_roompos`/`somexyspace`** / west-apport geometry audit (level already has **`SDOOR`/`CORR`** cap; display was the gap).
 3. **`objects_nums` audit** — other **`u_init_link_*_invent.js`** **`OTYP_SHORT_SWORD`** **47**.
 4. **`mklev` lregions** — wire **`game.dndest`/`updest`** when **`place_lregions`** ported.
