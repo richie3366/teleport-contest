@@ -52,7 +52,7 @@ import {
     CLR_RED, CLR_MAGENTA, CLR_BRIGHT_BLUE, CLR_BRIGHT_MAGENTA, CLR_BRIGHT_CYAN,
     DEC_TO_UNICODE, ATR_INVERSE,
 } from './terminal.js';
-import { paintInventoryIntoDisplay, paintInventoryOverlayLikeC } from './invent.js';
+import { paintInventoryIntoDisplay, paintInventoryOverlayLikeC, updateInventory } from './invent.js';
 import { paintOverlayScreen } from './overlay_screens.js';
 import { isHumanRogueChargenLikeC } from './u_init_link_rogue_invent.js';
 import { paintLegacyIntroIntoDisplay } from './legacy_intro_paint.js';
@@ -1077,8 +1077,9 @@ async function redrawMapLikeC(cursorOnU) {
 }
 
 /**
- * C: display.c `docrt_flags` — full recalc needs `lev->glyph` replay (after `read_sym_file`);
- * until then `docrtRecalc` replays hero_memory without cls/vision shutdown.
+ * C: display.c `docrt_flags` — `vision_recalc(2)`, optional `cls`, `show_glyph(lev->glyph)`
+ * memory replay (`showGlyphFromLevLikeC` prefers `remembered_glyph`), `vision_recalc(0)`,
+ * `see_monsters`; defer full-grid `mapLocationLikeC` on docrt (regressed early screens).
  * @param {number} refreshFlags
  */
 export async function docrt_flags(refreshFlags) {
@@ -1093,57 +1094,44 @@ export async function docrt_flags(refreshFlags) {
 
         if (redrawonly) {
             await redrawMapLikeC(false);
-            if (!maponly) {
-                game.disp = game.disp || {};
-                game.disp.botlx = true;
-            }
+            if (!maponly) postDocrtMapLikeC();
             return;
         }
 
         const u = game.u;
         if ((u.uswallow | 0) !== 0) {
             await swallowedDocrtLikeC(true);
-            if (!maponly) {
-                game.disp = game.disp || {};
-                game.disp.botlx = true;
-            }
+            if (!maponly) postDocrtMapLikeC();
             return;
         }
         if ((u.Underwater | 0) !== 0 && !Is_waterlevel(u.uz)) {
             await underWaterDocrtLikeC(1);
-            if (!maponly) {
-                game.disp = game.disp || {};
-                game.disp.botlx = true;
-            }
+            if (!maponly) postDocrtMapLikeC();
             return;
         }
 
-        if (ps.newgame_docrt_recalc) {
-            ps.newgame_docrt_recalc = false;
-            vision_recalc(2);
-            if (!nocls) await cls();
-            if (game.level) {
-                for (let y = 0; y < ROWNO; y++) {
-                    for (let x = 1; x < COLNO; x++) showGlyphFromLevLikeC(x, y);
-                }
-            }
-            if (game.u?.ux > 0) show_glyph_cell(game.u.ux, game.u.uy, '@', CLR_WHITE, false);
-            vision_recalc(0);
-            seeMonsters();
-        } else if (game.level) {
+        vision_recalc(2);
+        if (!nocls) await cls();
+        if (game.level) {
             for (let y = 0; y < ROWNO; y++) {
                 for (let x = 1; x < COLNO; x++) showGlyphFromLevLikeC(x, y);
             }
-            if (game.u?.ux > 0) show_glyph_cell(game.u.ux, game.u.uy, '@', CLR_WHITE, false);
         }
+        if (game.u?.ux > 0) show_glyph_cell(game.u.ux, game.u.uy, '@', CLR_WHITE, false);
+        vision_recalc(0);
+        seeMonsters();
 
-        if (!maponly) {
-            game.disp = game.disp || {};
-            game.disp.botlx = true;
-        }
+        if (!maponly) postDocrtMapLikeC();
     } finally {
         ps.in_docrt = false;
     }
+}
+
+/** C: display.c `docrt_flags` post_map — `update_inventory`, `disp.botlx`. */
+function postDocrtMapLikeC() {
+    if (game.iflags?.perm_invent) updateInventory();
+    game.disp = game.disp || {};
+    game.disp.botlx = true;
 }
 
 /** C: display.c `docrt` → `docrt_flags(docrtRecalc)`. */
