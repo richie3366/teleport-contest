@@ -100,7 +100,8 @@ const DECGRAPHICS_PRIMARY = Object.freeze({
     [S_tuwall]: 0xf6, [S_tdwall]: 0xf7, [S_tlwall]: 0xf5, [S_trwall]: 0xf4,
     [S_ndoor]: 0xfe, [S_vodoor]: 0xe1, [S_hodoor]: 0xe1,
     [S_bars]: 0xfc, [S_tree]: 0xe7, [S_room]: 0xfe,
-    [S_upstair]: 0xf9, [S_dnstair]: 0xfa, [S_upladder]: 0xf9, [S_dnladder]: 0xfa,
+    /* C: dat/symbols DECgraphics — no S_upstair/S_dnstair; defsym '<'/'>' remain */
+    [S_upladder]: 0xf9, [S_dnladder]: 0xfa,
     [S_altar]: 0xfb, [S_fountain]: 0xfb, [S_pool]: 0xe0, [S_ice]: 0xfe,
     [S_lava]: 0xe0,
 });
@@ -231,18 +232,8 @@ export function cmapSymGlyphFromShowsymsLikeC(sIdx, rogueIbm) {
     void rogueIbm;
     const sym = gs.showsyms?.[sIdx | 0] | 0;
     if (!sym) return null;
-    const handling = gs.symset[PRIMARYSET]?.handling | 0;
-    if (handling === H_DEC) {
-        const ch = decSymByteToTtyCh(sym);
-        if (!ch) return null;
-        return { ch, color: NO_COLOR, dec: true };
-    }
-    if (handling === H_IBM) {
-        const ch = String.fromCharCode(sym & 0xff);
-        if (!ch || ch === '\0') return null;
-        return { ch, color: NO_COLOR, dec: false };
-    }
-    return null;
+    /* C: map_glyphinfo — DEC sym_val bytes map to tty alt-font; defsym ASCII unchanged */
+    return symNhsymToGlyphLikeC(sym);
 }
 
 /** C: symbols.c switch_symbols(nondefault) — copy primary_syms → showsyms. */

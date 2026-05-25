@@ -21,6 +21,7 @@ import {
     monClassSymGlyphFromShowsymsLikeC,
     S_room, S_ndoor, S_vodoor, S_hodoor, S_vcdoor, S_hcdoor,
     S_corr, S_litcorr, S_bars, S_tree, S_altar, S_grave, S_throne,
+    S_upstair, S_dnstair, S_upladder, S_dnladder,
     S_fountain, S_sink, S_pool, S_water, S_ice, S_lava,
 } from './symbols_file.js';
 import { vision_recalc, seeMonsters } from './vision.js';
@@ -31,7 +32,7 @@ import {
     D_NODOOR, D_ISOPEN, D_CLOSED, D_LOCKED,
     SCORR, IRONBARS, TREE, POOL, MOAT, WATER, ICE,
     FOUNTAIN, SINK, ALTAR, GRAVE, THRONE, LAVAPOOL, LAVAWALL,
-    Is_rogue_level, gs, H_DEC, PRIMARYSET,
+    Is_rogue_level, LA_DOWN, gs, H_DEC, PRIMARYSET,
     OTYP_BOULDER, OTYP_GOLD_PIECE, OTYP_HEAVY_IRON_BALL, OTYP_IRON_CHAIN,
     ARROW_TRAP, DART_TRAP, ROCKTRAP, SQKY_BOARD, BEAR_TRAP, LANDMINE,
     ROLLING_BOULDER_TRAP, SLP_GAS_TRAP, RUST_TRAP, FIRE_TRAP,
@@ -578,12 +579,22 @@ export function mapTerrainGlyph(loc, x, y, skipApportMon = false) {
         }
         return cmapSymGlyphFromShowsymsLikeC(S_ndoor, false)
             ?? { ch: '~', color: NO_COLOR, dec: true };
-    case STAIRS:
-        if (game.level?.upstair?.x === x && game.level?.upstair?.y === y)
-            return { ch: '<', color: CLR_YELLOW, dec: false };
-        return { ch: '>', color: CLR_YELLOW, dec: false };
-    case LADDER:
-        return { ch: '>', color: CLR_YELLOW, dec: false };
+    case STAIRS: {
+        const up = game.level?.upstair?.x === x && game.level?.upstair?.y === y;
+        const fb = up
+            ? { ch: '<', color: CLR_YELLOW, dec: false }
+            : { ch: '>', color: CLR_YELLOW, dec: false };
+        if (rogue) return fb;
+        return terrainFromCmapLikeC(up ? S_upstair : S_dnstair, CLR_YELLOW, fb);
+    }
+    case LADDER: {
+        const down = ((loc.ladder | 0) & LA_DOWN) !== 0;
+        const fb = down
+            ? { ch: '>', color: CLR_YELLOW, dec: false }
+            : { ch: '<', color: CLR_YELLOW, dec: false };
+        if (rogue) return fb;
+        return terrainFromCmapLikeC(down ? S_dnladder : S_upladder, CLR_YELLOW, fb);
+    }
     case HWALL:
     case VWALL:
     case TLCORNER:

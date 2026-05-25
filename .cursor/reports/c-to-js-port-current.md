@@ -18,12 +18,11 @@ Thin handoff for the next coding session. **Score + milestones:** [`c-to-js-port
 
 **Deferred for now:** **`maybe_do_tutorial`** / **`tut-1`** / full **`do.c`** **`goto_level`** (Lua **`tutorial()`** / **`free_tutorial()`**, **`savelev`**, **`gmst_*`**, …) and **`dokick`**/**`dothrow`** vs **`leaving_tutorial`** — strong upstream dependencies (save, specials, fuller **`do.c`**); treat as backlog until chargen / core early-game parity is further along; **`LIVELOGFILE`** parity if the judge ever compares livelog lines.
 
-**Last slice:** **`display.c` `back_to_glyph` cmap subset.** **`mapTerrainGlyph`**: **`S_bars`/`S_tree`/`S_altar`/`S_grave`/`S_throne`** via **`terrainFromCmapLikeC`** (rogue D:1 ASCII fallback); **`S_upstair`/`S_dnstair`** deferred — symset stairs broke **`seed8000`** welcome screen 6. **`seed0077`:** **PASS** (**33/33**). **`seed8000`:** **PASS** (**23/23**). **`npm run score`:** **2/44**.
+**Last slice:** **`symbols.c`/`display.c` DECgraphics stair cmap.** **`DECGRAPHICS_PRIMARY`**: drop erroneous **`S_upstair`/`S_dnstair`** overrides (C **`dat/symbols`** keeps defsym **`<`/`>`**); **`cmapSymGlyphFromShowsymsLikeC`** fall through to ASCII when DEC byte has no alt-font mapping (fixes **`?`** on stairs). **`mapTerrainGlyph`**: **`S_upstair`/`S_dnstair`/`S_upladder`/`S_dnladder`** via **`terrainFromCmapLikeC`**. **`seed0077`:** **PASS** (**33/33**). **`seed8000`:** **PASS** (**23/23**). **`npm run score`:** **2/44**.
 
 ## Next steps
 
-1. **`display.c` stairs/ladder cmap** — wire **`S_upstair`/`S_dnstair`** when welcome/docrt path matches C tty (IBM **`y`/`z`** vs **`<`/`>`** on tourist D:1 screen 6).
-2. **`display.c` `docrt_flags(docrtRecalc)`** — extend full recalc beyond newgame once **`lev->glyph`** replay is safe; **`showGlyphFromLevLikeC`→`mapLocationLikeC`** on newgame regressed early screens (defer).
+1. **`display.c` `docrt_flags(docrtRecalc)`** — extend full recalc beyond newgame once **`lev->glyph`** replay is safe; **`showGlyphFromLevLikeC`→`mapLocationLikeC`** on newgame regressed early screens (defer).
 3. **`symbols.c` `parse_sym_line`** — optional real **`dat/symbols`** file I/O (embedded tables remain source of truth).
 2. **`mklev`** — **`find_okay_roompos`/`somexyspace`** / west-apport geometry audit (level already has **`SDOOR`/`CORR`** cap; display was the gap).
 3. **`objects_nums` audit** — other **`u_init_link_*_invent.js`** **`OTYP_SHORT_SWORD`** **47**.
