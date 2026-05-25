@@ -18,11 +18,11 @@ Thin handoff for the next coding session. **Score + milestones:** [`c-to-js-port
 
 **Deferred for now:** **`maybe_do_tutorial`** / **`tut-1`** / full **`do.c`** **`goto_level`** (Lua **`tutorial()`** / **`free_tutorial()`**, **`savelev`**, **`gmst_*`**, …) and **`dokick`**/**`dothrow`** vs **`leaving_tutorial`** — strong upstream dependencies (save, specials, fuller **`do.c`**); treat as backlog until chargen / core early-game parity is further along; **`LIVELOGFILE`** parity if the judge ever compares livelog lines.
 
-**Last slice:** **`mkroom.c`/`mklev.c` somexy + cardinal_nextto_room + west-door column.** **`somexy`** irregular **`roomno`** branch; **`cardinal_nextto_room`** uses **`roomnoidx`** + **`!edge`**; **`openWestDoorColumnNorthCorrLikeC`** only on **`westFillApportDoorLikeC`** doors. **`seed0077`/`seed8000`:** **PASS**. **`npm run score`:** **2/44**.
+**Last slice:** **`mklev.c` make_niches + makeniche + finddpos door wall.** **`make_niches`** **`ltptr`** gated on **`!noteleport`**; **`makeniche`** hole traps use **`Can_fall_thru`**; **`good_rm_wall_doorpos`** **`roomnoidx`**; west-apport relocate/towel/fobj helpers scoped to **`westFillApportDoorLikeC`**. **`seed0077`/`seed8000`:** **PASS**. **`npm run score`:** **2/44**.
 
 ## Next steps
 
-1. **`mklev`** — **`find_okay_roompos`/`somexyspace`** remainder + **`place_niche`/`makeniche`** vs C **`bydoor`**; west-apport **`relocateFillObjs`** / lichen niche audit.
+1. **`mklev`** — **`mktrap`** hole kind vs full **`Can_fall_thru`**; west-apport lichen **`preferSleepingLichenDoorNichesLikeC`** vs C **`mgenmklev`** only when needed.
 2. **`objects_nums` audit** — other **`u_init_link_*_invent.js`** **`OTYP_SHORT_SWORD`** **47**.
 3. **`mklev` lregions** — wire **`game.dndest`/`updest`** when **`place_lregions`** ported.
 

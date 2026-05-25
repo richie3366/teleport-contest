@@ -60,6 +60,7 @@ import {
 } from './const.js';
 import { makeEngrAt, ENGR_HEADSTONE, ENGR_MARK, ENGR_DUST, randomEngraving, getRndEpitaphText, wipeEngrAt } from './engrave.js';
 import { tAt } from './search.js';
+import { canFallThruDlevelLikeC } from './trap.js';
 import { breaktestLikeC } from './obj_break_dothrow.js';
 import { makemon } from './makemon.js';
 import { rndmonstLikeC } from './makemon_rndmonst.js';
@@ -1044,7 +1045,7 @@ function topologize(croom) {
 
 function good_rm_wall_doorpos(x, y, dir, room) {
     const map = game.level;
-    const rmno = game.level.rooms.indexOf(room) + ROOMOFFSET;
+    const rmno = (room.roomnoidx | 0) + ROOMOFFSET;
     if (!isok(x, y) || !room.needjoining) return false;
     const loc = map.at(x, y);
     if (!loc) return false;
@@ -1907,7 +1908,7 @@ async function makeniche(trap_type) {
             rm.typ = SCORR;
             if (trap_type) {
                 let actualTrap = trap_type;
-                if (is_hole(actualTrap)) actualTrap = ROCKTRAP;
+                if (is_hole(actualTrap) && !canFallThruDlevelLikeC(g)) actualTrap = ROCKTRAP;
                 const ttmp = await maketrap(xx, yy + dy, actualTrap);
                 if (ttmp) {
                     if (actualTrap !== ROCKTRAP) ttmp.once = 1;
@@ -1948,8 +1949,9 @@ async function makeniche(trap_type) {
 async function make_niches() {
     const g = game;
     let ct = rnd(Math.trunc(g.level.nroom / 2) + 1);
-    let ltptr = ((g.u?.uz?.dlevel ?? 1) > 15);
-    let vamp = ((g.u?.uz?.dlevel ?? 1) > 5 && (g.u?.uz?.dlevel ?? 1) < 25);
+    const dep = g.u?.uz?.dlevel ?? 1;
+    let ltptr = !g.level?.flags?.noteleport && dep > 15;
+    let vamp = dep > 5 && dep < 25;
     while (ct--) {
         if (ltptr && !rn2(6)) {
             ltptr = false;
@@ -2983,6 +2985,7 @@ function refreshWestDoorColumnFobjAfterMineralizeLikeC(g) {
     if (!map?.doors?.length || !map.fobj) return;
     for (const d of map.doors) {
         if (!d) continue;
+        if (!westFillApportDoorLikeC(g, d)) continue;
         const xx = d.x | 0;
         const yy = d.y | 0;
         const west = map.at(xx - 1, yy);
@@ -3006,6 +3009,7 @@ function relocateFillObjsIntoWestDoorAlcovesLikeC(g) {
     if (!map?.doors?.length || !heads) return;
     for (const d of map.doors) {
         if (!d) continue;
+        if (!westFillApportDoorLikeC(g, d)) continue;
         const xx = d.x | 0;
         const yy = d.y | 0;
         const west = map.at(xx - 1, yy);
@@ -3040,6 +3044,7 @@ function anchorApportTowelOnWestFillAlcoveLikeC(g) {
     if (!map?.doors?.length || !heads) return;
     for (const d of map.doors) {
         if (!d) continue;
+        if (!westFillApportDoorLikeC(g, d)) continue;
         const xx = d.x | 0;
         const yy = d.y | 0;
         const nx = xx - 1;
