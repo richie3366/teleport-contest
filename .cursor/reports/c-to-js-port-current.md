@@ -18,12 +18,12 @@ Thin handoff for the next coding session. **Score + milestones:** [`c-to-js-port
 
 **Deferred for now:** **`maybe_do_tutorial`** / **`tut-1`** / full **`do.c`** **`goto_level`** (Lua **`tutorial()`** / **`free_tutorial()`**, **`savelev`**, **`gmst_*`**, …) and **`dokick`**/**`dothrow`** vs **`leaving_tutorial`** — strong upstream dependencies (save, specials, fuller **`do.c`**); treat as backlog until chargen / core early-game parity is further along; **`LIVELOGFILE`** parity if the judge ever compares livelog lines.
 
-**Last slice:** **`objects_nums` — `mklev` floor otyp audit.** C **`objects[]`**: **`POT_HEALING`**/**`POT_EXTRA_HEALING`**, **`CORPSE`** **265**, **`STATUE`** **475**, **`KELP_FROND`** **275**; **`const.js`** **`OTYP_BOULDER`** **474** + ball/chain; **`nh5OclassForOtyp`** blindfold **233**. **`load_lua`** deferred. **`seed0077`/`seed8000`:** **PASS**. **`npm run score`:** **2/44**.
+**Last slice:** **`objects_nums` — `LOADSTONE` otyp 471.** **`const.js`** exports **`OTYP_LUCKSTONE`**/**`OTYP_LOADSTONE`**; **`mkobj_mklev_like_c.js`** **`mksobjInitGemLikeC`** was **88** (crossbow) → **471**; curse/hold import from **`const.js`**. **`load_lua`** deferred. **`seed0077`/`seed8000`:** **PASS**. **`npm run score`:** **2/44**.
 
 ## Next steps
 
 1. **`mkmaze`** — **`load_lua`** / full **`load_special`** (NHL des compiler).
-2. **`objects_nums`** — align **`LOADSTONE`** / curse paths (**`remove_curse_hero`**, **`mkobj_mklev`**) with C gem otyp; armor in **`obj_oc_skill_data`** if needed.
+2. **`objects_nums`** — armor rows in **`obj_oc_skill_data`** if mkobj paths need them; more legacy floor **`otyp`** vs C when replaying **`mkobj`**.
 3. **`goto_level`** — Gehennom mystery-force **`assign_rnd_level`**, **`placebc`**, full **`keepdogs`** / savelev tail.
 
 ### Extended backlog (unchanged lanes)

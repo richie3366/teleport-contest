@@ -3028,6 +3028,9 @@ export const OTYP_MEAT_RING = 255;
 export const OTYP_BOULDER = 474;
 /** C: objects.h `COIN("gold piece", …, GOLD_PIECE)` */
 export const OTYP_GOLD_PIECE = 466;
+/** C: objects.h gray stones — `LUCKSTONE` **470**, `LOADSTONE` **471** (`objects[]` order after worthless glass). */
+export const OTYP_LUCKSTONE = 470;
+export const OTYP_LOADSTONE = 471;
 /** C: objects.h `STATUE` **475**; `HEAVY_IRON_BALL` **476**; `IRON_CHAIN` **477**. */
 export const OTYP_STATUE = 475;
 export const OTYP_HEAVY_IRON_BALL = 476;

@@ -4,7 +4,7 @@
 import { game } from './gstate.js';
 import { depth as depth_of_level } from './hacklib.js';
 import { rndmonstLikeC } from './makemon_rndmonst.js';
-import { P_BOW, P_SHURIKEN } from './const.js';
+import { P_BOW, P_SHURIKEN, OTYP_LOADSTONE, OTYP_LUCKSTONE } from './const.js';
 import { OC_SKILL_ROW_BY_OTYP } from './obj_oc_skill_data.js';
 import { rnd, rn2, rn1, rne } from './rng.js';
 import {
@@ -111,11 +111,8 @@ const AMULET_CLASS_MKOBJ_OC_PROB_ROWS = Object.freeze([
     [191, 1], [192, 1], [193, 1], [194, 1], [195, 1], [196, 1], [197, 1], [198, 1],
 ]);
 
-const OTYP_LOADSTONE = 88;
 /** C `objects.h` **`ROCK("rock")`** — NH5 otyp **473**. */
 const OTYP_ROCK = 473;
-/** C: objects.h LUCKSTONE — skip `!rn2(6)` quan-2 branch in mksobj_init GEM_CLASS. */
-const OTYP_LUCKSTONE = 470;
 const OTYP_WAN_WISHING = 413;
 const OTYP_WAN_STASIS = 415;
 /** C `objects[]` — `ROCK_CLASS` `STATUE` (**474** = `BOULDER`). */
