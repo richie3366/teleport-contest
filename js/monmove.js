@@ -425,7 +425,8 @@ export async function movemon(stepNum) {
             mons = [...ordered, ...rest.filter((m) => m !== eel)];
         }
         if (g.context?._postBumpKillDochugGateLikeC) {
-            const postBumpDistant = findDistantMklevMonLikeC(g);
+            const postBumpDistant =
+                g.context._postBumpDistantMtmpLikeC ?? findDistantMklevMonLikeC(g);
             const postBumpPet = mons.find((m) => (m.mtame | 0) !== 0);
             const postBumpRest = mons.filter(
                 (m) => m !== postBumpDistant && m !== postBumpPet,

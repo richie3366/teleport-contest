@@ -91,6 +91,19 @@ export function fmonListForMcalcmoveLikeC(g) {
  */
 export function fmonListForMovemonLikeC(g, stepNum = 0) {
     const mons = fmonListNewestFirstLikeC(g);
+    /* C: post-bump **`l`** — distant **`distfleeck`** before pet **`dochug:886`** (**`seed0006`** ~2530). */
+    if (g.context?._postBumpKillDochugGateLikeC) {
+        const distant = findDistantMklevMonLikeC(g);
+        const pet = mons.find((m) => (m.mtame | 0) !== 0);
+        const ctxF = g.context || (g.context = {});
+        if (distant) ctxF._postBumpDistantMtmpLikeC = distant;
+        const rest = mons.filter((m) => m !== distant && m !== pet);
+        /** @type {typeof mons} */
+        const ordered = [];
+        if (distant) ordered.push(distant);
+        if (pet) ordered.push(pet);
+        return [...ordered, ...rest];
+    }
     if (isRogueColonMovemonActiveLikeC(g)) {
         const gate = findFirstSearchRogMidMklevHostileLikeC(g);
         const pet = mons.find((m) => (m.mtame | 0) !== 0);

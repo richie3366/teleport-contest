@@ -72,6 +72,7 @@ import {
     dogMoveOntoApportTowelLikeC,
     dogMoveSearchPassNearHeroLikeC,
 } from './dogmove_mon.js';
+import { fmonListForMovemonLikeC } from './fmon_iter.js';
 import { monnearMonsterXYLikeC } from './mon_geom.js';
 import {
     isFirstSearchMovemonPassLikeC,
@@ -1592,19 +1593,45 @@ export async function mMoveOneMonsterSubsetLikeC(g, mtmp, stepNum = 0) {
 
     if (dochugBlockedEarlyLikeC(g, mtmp)) return;
 
-    /* C: post-bump **`movemon`** — distant **`distfleeck`** then pet gate **`rn2(4)`** + **`dog_move`**
-     * (no leading pet **`distfleeck`** / ~915 recalc; **`seed0006`** ~2530–2531). */
-    if (
-        (mtmp.mtame | 0)
-        && has_edog(mtmp)
-        && g.context?._postBumpKillDochugGateLikeC
-    ) {
-        delete g.context._postBumpKillDochugGateLikeC;
-        setApparxyMonsterLikeC(g, mtmp);
-        rn2(4);
-        ensureMonsterMtrack(mtmp);
-        dogMoveLikeC(g, mtmp);
-        return;
+    /* C: post-bump **`movemon`** — distant **`set_apparxy`** + **`distfleeck`** then pet gate + **`dog_move`**
+     * (**`seed0006`** ~2530–2532). */
+    if (g.context?._postBumpKillDochugGateLikeC) {
+        if (g.context._postBumpInlineDoneLikeC) {
+            delete g.context._postBumpKillDochugGateLikeC;
+            delete g.context._postBumpDistantMtmpLikeC;
+            return;
+        }
+        const postBumpDistant = g.context._postBumpDistantMtmpLikeC ?? findDistantMklevMonLikeC(g);
+        if (mtmp === postBumpDistant) {
+            const mx = mtmp.mx | 0;
+            const my = mtmp.my | 0;
+            wipeEngrAt(mx, my, 1, false);
+            if (!dochugPhaseOneRngAfterWipeEngrLikeC(g, mtmp)) return;
+            setApparxyMonsterLikeC(g, mtmp);
+            const flee1 = await distfleeckMonsterApplyLikeC(g, mtmp);
+            const nearbyGate = nearbyForDochugGateLikeC(g, mtmp, flee1);
+            if (
+                dochugEntersMmoveBlockLikeC(
+                    g,
+                    mtmp,
+                    nearbyGate,
+                    flee1.scared | 0,
+                    stepNum,
+                )
+            ) {
+                ensureMonsterMtrack(mtmp);
+                mMovePositionSelectSilentLikeC(g, mtmp);
+            }
+            return;
+        }
+        if ((mtmp.mtame | 0) && has_edog(mtmp)) {
+            delete g.context._postBumpKillDochugGateLikeC;
+            delete g.context._postBumpDistantMtmpLikeC;
+            setApparxyMonsterLikeC(g, mtmp);
+            rn2(4);
+            dogMoveLikeC(g, mtmp);
+            return;
+        }
     }
 
     const mx = mtmp.mx | 0;
@@ -1698,4 +1725,51 @@ export async function mMoveOneMonsterSubsetLikeC(g, mtmp, stepNum = 0) {
         const pet = (g.level?.monsters ?? []).find((m) => (m.mtame | 0) !== 0);
         if (pet) dogMoveSearchPassNearHeroLikeC(g, pet);
     }
+}
+
+/**
+ * C: same hero turn as melee kill — **`movemon`** after **`xkilled`** (allmain runs
+ * **`movemon`** after the command, not before; see **`moveloop_core`** preamble).
+ *
+ * @param {import('./gstate.js').game} g
+ */
+export async function runPostBumpMovemonSliceLikeC(g) {
+    const ctx = g.context;
+    if (!ctx?._postBumpKillDochugGateLikeC) return;
+    const distant = findDistantMklevMonLikeC(g);
+    const pet = (g.level?.monsters ?? []).find((m) => (m.mtame | 0) && has_edog(m));
+    const stepNum = (g.moves | 0) - 1;
+
+    if (distant) {
+        const mx = distant.mx | 0;
+        const my = distant.my | 0;
+        wipeEngrAt(mx, my, 1, false);
+        if (dochugPhaseOneRngAfterWipeEngrLikeC(g, distant)) {
+            setApparxyMonsterLikeC(g, distant);
+            const flee1 = await distfleeckMonsterApplyLikeC(g, distant);
+            const nearbyGate = nearbyForDochugGateLikeC(g, distant, flee1);
+            if (
+                dochugEntersMmoveBlockLikeC(
+                    g,
+                    distant,
+                    nearbyGate,
+                    flee1.scared | 0,
+                    stepNum,
+                )
+            ) {
+                ensureMonsterMtrack(distant);
+                mMovePositionSelectSilentLikeC(g, distant);
+            }
+        }
+    }
+
+    if (pet && ctx._postBumpKillDochugGateLikeC) {
+        setApparxyMonsterLikeC(g, pet);
+        rn2(4);
+        dogMoveLikeC(g, pet);
+    }
+
+    ctx._postBumpInlineDoneLikeC = true;
+    delete ctx._postBumpKillDochugGateLikeC;
+    delete ctx._postBumpDistantMtmpLikeC;
 }
