@@ -947,6 +947,31 @@ export function dogMoveGoalOnlyNoPickLikeC(g, mtmp) {
     return dogMoveGoalAndPickLikeC(g, mtmp, true, false);
 }
 
+/** C: wizard D:1 step-1 — pet **`dog_invent`** after peel **`dog_goal`** (**`seed0006`** **`n`** ~2590). */
+export function dogMoveInventOnlyLikeC(g, mtmp) {
+    if (!(mtmp.mtame | 0) || !has_edog(mtmp)) return MMOVE_NOTHING;
+    if ((mtmp.mhp | 0) <= 0) return MMOVE_DIED;
+    const u = g.u;
+    if (!u) return MMOVE_NOTHING;
+    const edog = EDOG(mtmp);
+    if (!edog) return MMOVE_NOTHING;
+    const udist = dist2(mtmp.mx | 0, mtmp.my | 0, u.ux | 0, u.uy | 0);
+    if (!udist) return MMOVE_NOTHING;
+    mtmp.mux = u.ux | 0;
+    mtmp.muy = u.uy | 0;
+    const ctx = g.context || (g.context = {});
+    const whappr = (g.moves | 0) - (edog.whistletime | 0) < 5;
+    /* C: near mklev **`dochug:886`** already drew **`rn2(4)`** — floor **`dogfood`** scan then **`dog_invent`**. */
+    ctx._postBumpSkipDogGoalRn2LikeC = true;
+    try {
+        dogGoalFloorScanRngLikeC(g, mtmp, true, whappr);
+        dogInventLikeC(g, mtmp, udist);
+    } finally {
+        delete ctx._postBumpSkipDogGoalRn2LikeC;
+    }
+    return MMOVE_NOTHING;
+}
+
 export function dogMoveSearchPassNearHeroLikeC(g, mtmp) {
     if (!(mtmp.mtame | 0) || !has_edog(mtmp)) return;
     if ((mtmp.mhp | 0) <= 0) return;

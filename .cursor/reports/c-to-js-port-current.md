@@ -31,7 +31,7 @@ Use this when **`Next steps`** below feels stale or several lanes compete. Order
 
 **Deferred for now:** **`maybe_do_tutorial`** / **`tut-1`** / full **`do.c`** **`goto_level`** (Lua **`tutorial()`** / **`free_tutorial()`**, **`savelev`**, **`gmst_*`**, …) and **`dokick`**/**`dothrow`** vs **`leaving_tutorial`** — strong upstream dependencies (save, specials, fuller **`do.c`**); treat as backlog until chargen / core early-game parity is further along; **`LIVELOGFILE`** parity if the judge ever compares livelog lines.
 
-**Last slice:** Post-bump **`l`** tail — second non-distant mklev **`distfleeck`**, then **`dog_goal`** + distant ~915 **`distfleeck`** before **`mcalcmove`**; **`anchorWestApportSleeperLikeC`** skip only when sleeper already at west kink **(64,12)** (not **`findWestFungusDoorNicheLikeC`** probe). **`seed0006`** **2708/6736**; bump turn **~2559–2567** aligned; first gap **~2568** on **`n`** (C **`distfleeck`** vs JS **`mcalcmove`**). **`seed0077`/`seed8000`:** **PASS**. **2/44**.
+**Last slice:** Wizard D:1 step **`n`** — **`movemon(stepNum 1)`** only after post-bump (**`_postBumpInlineDoneLikeC`**); peel **`fmon`** order distant→pet→rest; post-peel distant **`distfleeck`+`rn2(20)`+2× recalc**, near mklev **`rn2(4)`**, then pet **`dog_goal`** floor scan + **`dog_invent`**. **`seed0006`** **2703/6736**; **~2568–2575** aligned; first gap **~2576** (C **`dog_goal`** **`obj_resists`** **`rn2(100)`** vs JS **`mcalcmove`** **`rn2(12)`** / missing **`fobj`** in pet box). **`seed0077`/`seed8000`:** **PASS**. **2/44**.
 
 **Handoff refresh:** **Priority matrix** (lanes A–D) + **Next steps** aligned to it; **`c-to-js-port-remaining.md`** / **`c-to-js-port-dashboard.md`** / **`nhl-port-notes.md`** / **`continue-nethack-port.md`** updated for post-`load_lua` reality and NHL ordering.
 
@@ -39,7 +39,7 @@ Use this when **`Next steps`** below feels stale or several lanes compete. Order
 
 Pick **one** primary lane per slice; refresh this list after each merge.
 
-1. **Lane C — `seed0006` step `n` moveloop** — RNG **2708/6736** at **~2568**: bump **`l`** tail through **`mcalcmove`** aligned; C **`distfleeck`** peel then pet **`dog_goal`** on **`n`**; JS **`mcalcmove`** early. Port step-1 / first-**`n`** **`movemon`** order; **`anchorWestApportSleeperLikeC`** before west-kink when mklev placement slice is ready. Diag: **`tools/diag_rng_window.mjs`**.
+1. **Lane C — `seed0006` step `n` moveloop** — RNG **2703/6736** at **~2576**: post-peel pet **`dog_goal`** floor **`dogfood`/`obj_resists`** (**`rn2(100)`** chain) before **`mcalcmove`**; align **`fobjInDogGoalBoxLikeC`** / hero–pet distance with C; then pet **`mfndpos`** pick (**~2597+**). Diag: **`tools/diag_rng_window.mjs`**, **`tools/diag_seed0006_dog_goal_floor.mjs`**.
 2. **Lane A — Chargen / init + early moveloop** — tty / **`role.c`** pickers when rc omits identity.
 3. **Lane B — NHL** — next **`lspo_*`** + **`nhl_lua.js`** allowlist per [`nhl-port-notes.md`](nhl-port-notes.md).
 4. **Lane D — `objects_nums` / mkobj** — audit other **`const.js`** otyps vs NH5 **`objects_nums`** after AoY fix.
