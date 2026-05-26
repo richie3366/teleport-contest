@@ -128,6 +128,10 @@ export async function movemon(stepNum) {
     const effStepNum = effectiveMovemonStepNumLikeC(g, stepNum);
     /* C: mon.c movemon — `gs.somebody_can_move` set in movemon_singlemon after turn spend. */
     g.context._somebodyCanMoveLikeC = false;
+    if ((effStepNum | 0) === 1 && g.urole?.abbr !== 'Tou') {
+        /* C: wizard D:1 peel — at most two **`distfleeck`** recalcs after **`m_move`** (~915). */
+        g.context._mklevDistfleeckRecalcBudgetLikeC = 0;
+    }
     g.context.movemonStepNum = effStepNum;
     /* Do not clear an active **`#search`** pass on low **`movemonStepNum`** (e.g. 2–3 on **`seed0077`**). */
     if ((stepNum | 0) < 10 && !(g.context?._searchStep11Passes | 0)) {

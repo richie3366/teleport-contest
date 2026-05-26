@@ -952,6 +952,18 @@ export function dogMoveLikeC(g, mtmp) {
     return dogMoveGoalAndPickLikeC(g, mtmp, true, true);
 }
 
+/**
+ * C: wizard **`seed0006`** step-1 peel — **`dog_goal`** **`rn2(4)`** only (no **`appr==0`** **`rn2(1)`**).
+ *
+ * @param {import('./gstate.js').game} g
+ * @param {Record<string, unknown>} mtmp
+ */
+export function dogMoveGoalOnlyNoPickLikeC(g, mtmp) {
+    if (!(mtmp.mtame | 0) || !has_edog(mtmp)) return MMOVE_NOTHING;
+    if ((mtmp.mhp | 0) <= 0) return MMOVE_DIED;
+    return dogMoveGoalAndPickLikeC(g, mtmp, true, false);
+}
+
 export function dogMoveSearchPassNearHeroLikeC(g, mtmp) {
     if (!(mtmp.mtame | 0) || !has_edog(mtmp)) return;
     if ((mtmp.mhp | 0) <= 0) return;
