@@ -49,7 +49,8 @@ import {
     applyGenlPick4uRandomFacetsLikeC,
     ROLE_MENU_ORDER_LIKE_C,
 } from './chargen_rigid.js';
-import { applyIdentityFromNethackrc } from './chargen.js';
+import { applyIdentityFromNethackrc, applyPlnameSuffixToOptsLikeC, chargenFacetIndicesFromOptsLikeC } from './chargen.js';
+import { buildPlselectionPromptLikeC, chargenPickSomethingLikeC } from './chargen_plselection.js';
 
 const MENU_COL = 41;
 
@@ -538,8 +539,11 @@ function roleMenuAccelLetterLikeC(rawFirst, lastch) {
 }
 
 /** C build_plselection_prompt when all four facets unspecified (strsubst applied). */
-export function buildShallPickPrompt() {
-    return "Shall I pick character's race, role, gender and alignment for you? [ynaq]";
+export function buildShallPickPrompt(f) {
+    if (f) {
+        return buildPlselectionPromptLikeC(f.initrole, f.initrace, f.initgend, f.initalign);
+    }
+    return buildPlselectionPromptLikeC(ROLE_NONE, ROLE_NONE, ROLE_NONE, ROLE_NONE);
 }
 
 export function needsFullInteractiveChargen(opts) {
@@ -638,8 +642,8 @@ export async function ttyAsknameLikeC(disp, g, opts) {
     }
 }
 
-export function paintPostNameYnaqScreen(disp, plname) {
-    const p0 = buildShallPickPrompt();
+export function paintPostNameYnaqScreen(disp, plname, f) {
+    const p0 = buildShallPickPrompt(f);
     disp.clearScreen();
     disp.putstr(0, YNAQ_AFTER_NAME_ROW, p0, NO_COLOR);
     /* C tty_curs past prompt text — matches recorder column (e.g. seed0006: len+1). */
@@ -691,7 +695,7 @@ function paintConfirmYnaqHelpOverlay(disp, col) {
  * @param {import('./game_display.js').GameDisplay} disp
  * @param {string} plname
  */
-export async function readYnaqPick4u(disp, plname) {
+export async function readYnaqPick4u(disp, plname, f) {
     for (;;) {
         const c = await nhgetch();
         let k = lowc(String.fromCodePoint(c));
@@ -699,7 +703,7 @@ export async function readYnaqPick4u(disp, plname) {
         if (k === '?') {
             paintYnaqHelpOverlay(disp);
             await nhgetch();
-            paintPostNameYnaqScreen(disp, plname);
+            paintPostNameYnaqScreen(disp, plname, f);
             continue;
         }
         if (k === ' ' || k === '\n' || k === '\r') k = 'y';
@@ -1353,11 +1357,19 @@ export async function runInteractiveTtyChargen(disp, g, opts) {
         resetChargenRfilter();
         await ttyAsknameLikeC(disp, g, { compact: asknameAnotherNameCompact });
         asknameAnotherNameCompact = false;
-        paintPostNameYnaqScreen(disp, g.plname);
-        const pick4u = await readYnaqPick4u(disp, g.plname);
+        opts.name = g.plname;
+        applyPlnameSuffixToOptsLikeC(opts);
+        const fFromName = chargenFacetIndicesFromOptsLikeC(opts);
+        rigidRoleChecksJs(fFromName);
+        if (!chargenPickSomethingLikeC(fFromName)) {
+            applyChargenFlagsToGame(g, opts, fFromName);
+            return;
+        }
+        paintPostNameYnaqScreen(disp, g.plname, fFromName);
+        const pick4u = await readYnaqPick4u(disp, g.plname, fFromName);
         if (pick4u === 'q') throw new Error('Player quit during chargen');
         if (pick4u === 'y' || pick4u === 'a') {
-            const f = { initrole: ROLE_NONE, initrace: ROLE_NONE, initgend: ROLE_NONE, initalign: ROLE_NONE };
+            const f = chargenFacetIndicesFromOptsLikeC(opts);
             applyGenlPick4uRandomFacetsLikeC(f);
             if (pick4u === 'a') {
                 /* C: skip confirmation for "a" (all random, no confirm). */
@@ -1404,7 +1416,7 @@ export async function runInteractiveTtyChargen(disp, g, opts) {
         }
 
         outer: for (;;) {
-            const f = { initrole: ROLE_NONE, initrace: ROLE_NONE, initgend: ROLE_NONE, initalign: ROLE_NONE };
+            const f = chargenFacetIndicesFromOptsLikeC(opts);
             await pickManualChargenFacets(disp, f);
             for (;;) {
                 rigidRoleChecksJs(f);
