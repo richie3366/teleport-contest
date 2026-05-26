@@ -6,6 +6,8 @@ This repository is a **Teleport Coding Challenge** fork: port NetHack 5.0 to Jav
 
 **Port handoff (agents):** [.cursor/reports/c-to-js-port-current.md](.cursor/reports/c-to-js-port-current.md) — read this first for next steps; skim [.cursor/reports/c-to-js-port-remaining.md](.cursor/reports/c-to-js-port-remaining.md) for what is still unported; use [.cursor/reports/c-to-js-port-progress.md](.cursor/reports/c-to-js-port-progress.md) only when you need the full parity report.
 
+**Tutorial gate:** [docs/plans/tutorial-port-gate.md](docs/plans/tutorial-port-gate.md) — mandatory dependencies (**MD-1 … MD-7**). When all are satisfied, **Lane E (tutorial)** becomes the primary port lane until [`.cursor/plans/nethack-port/10-tutorial.md`](.cursor/plans/nethack-port/10-tutorial.md) exit criteria.
+
 **Repeatable “continue port” prompt (copy each session; includes commit-per-slice):** [.cursor/prompts/continue-nethack-port.md](.cursor/prompts/continue-nethack-port.md)
 
 **Git:** commit **each meaningful slice** before ending a session (port code, `.cursor/reports/` handoff, `tools/`/`scripts/` changes) — do not wait for the user to ask; see step 7 in the continue-port prompt.

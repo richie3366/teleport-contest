@@ -16,8 +16,9 @@ Use this when **`Next steps`** below feels stale or several lanes compete. Order
 | **B — NHL / des** | C-faithful `.lua` specials when `makemaz` resolves a protofile | `nhlua.c`, `sp_lev.c` `lspo_*` → **`nhl_lua.js`**, **`des_api.js`**, **`nhl_des_runtime.js`** | Mines / branch specials; extend one **`dat/*.lua`** + bindings per slice ([`nhl-port-notes.md`](nhl-port-notes.md)) |
 | **C — Travel / dogs** | Orthogonal moveloop prep | `dog.c`, `goto_level` → **`mon_arrive.js`**, **`goto_level_hero.js`** | Good interleave when pausing Lua; bounded C surfaces |
 | **D — Objects / mkobj** | Floor + invent parity | `mkobj.c`, `u_init.c` → **`mklev.js`**, `nh5*` maps | After chargen milestone or when sessions diverge on items |
+| **E — Tutorial** | Optional `tut-1` branch at newgame | `allmain.c`, `do.c`, `nhlua.c`, `dat/tut-*.lua` → **`tutorial_*`**, **`goto_level_hero.js`**, **`nhl_lua.js`** | **Only when** [tutorial port gate](../../docs/plans/tutorial-port-gate.md) **MD-1 … MD-7** are all satisfied — then **primary** until [10-tutorial.md](../plans/nethack-port/10-tutorial.md) exit criteria |
 
-**Deferred (explicit):** tutorial / `tut-1` / full `savelev` tail; large **`monmove`** / **`moveloop_aux`** harness peels until per-path RNG matches C — see extended backlog sections below.
+**Gated (not “never”):** tutorial / `tut-1` — blocked on mandatory dependencies in [`docs/plans/tutorial-port-gate.md`](../../docs/plans/tutorial-port-gate.md); large **`monmove`** / **`moveloop_aux`** harness peels remain parallel long tail — see extended backlog sections below.
 
 ## Contract (non-negotiable)
 
@@ -29,7 +30,7 @@ Use this when **`Next steps`** below feels stale or several lanes compete. Order
 
 **Strategic priority (dual track):** **Lane A** — port **tty startup + interactive chargen** toward C **`wintty.c` / `role.c`** (**`chargen_tty.js`**, **`chargen_rigid.js`**). **Lane B** — expand NHL / des-file levels when specials matter (**`nhl-port-notes.md`**). **Eleven** public sessions ship **`nethackrc` without** embedded `OPTIONS=name:` / `role:` (and similar); C runs **“Who are you?”**, **[ynaq]**, and role/race/gender/align pickers with real **RNG**. Sessions that already set identity in **OPTIONS** must keep the **C fast path** (skip full menus when rc fixes role/race/gender/align).
 
-**Deferred for now:** **`maybe_do_tutorial`** / **`tut-1`** / full **`do.c`** **`goto_level`** (Lua **`tutorial()`** / **`free_tutorial()`**, **`savelev`**, **`gmst_*`**, …) and **`dokick`**/**`dothrow`** vs **`leaving_tutorial`** — strong upstream dependencies (save, specials, fuller **`do.c`**); treat as backlog until chargen / core early-game parity is further along; **`LIVELOGFILE`** parity if the judge ever compares livelog lines.
+**Tutorial (Lane E):** Scaffolding exists (`tutorial_prompt.js`, `maybeDoTutorialLikeC`, `tutorial_branch.js` stubs). **Do not** take tutorial slices until [`docs/plans/tutorial-port-gate.md`](../../docs/plans/tutorial-port-gate.md) **MD-1 … MD-7** are checked; then **Lane E becomes step 1** (see [10-tutorial.md](../plans/nethack-port/10-tutorial.md)). While advancing Lanes A–D, prefer slices that close an open MD-* item. **`LIVELOGFILE`** / full **`dokick`**/**`dothrow`** vs **`leaving_tutorial`** are Lane E long tail, not gate blockers.
 
 **Last slice:** Wizard D:1 **`L`** — C **`allmain.c`** one-post tail: second post-invent **`movemon`** (~2660–2672), third + fourth new-turn, fourth peel-only **`movemon`** (~2679–2687), fourth new-turn + **`post_moveloop82_exercise`** (**`stepNum` 5**, ~2694); **`_wizD1LPostOuterLoopDoneLikeC`** stops duplicate outer peel. **`moveloop_turn_advance.js`**, **`monmove.js`**, **`dogmove_mon.js`**. **`seed0006`** **2795/6736** (was **2805** at **2680** gap; **~2660–2695** aligned). **`seed0077`/`seed8000`:** **PASS**. **2/44**.
 
@@ -39,19 +40,21 @@ Use this when **`Next steps`** below feels stale or several lanes compete. Order
 
 Pick **one** primary lane per slice; refresh this list after each merge.
 
+**First:** open [`docs/plans/tutorial-port-gate.md`](../../docs/plans/tutorial-port-gate.md) — if **all MD-1 … MD-7** are checked, do **Lane E** step 1 from [10-tutorial.md](../plans/nethack-port/10-tutorial.md) instead of the list below.
+
 1. **Lane C — `seed0006` ~2696+** — first gap after wizard **`L`** post completes (~2695): pet **`dog_goal`** **`rn2(4)`** vs C **`rn2(3)`** (next command / moveloop boundary). Lane A: **`chargen_tty.js`** when rc omits identity.
 2. **Lane A — Chargen / init + early moveloop** — tty / **`role.c`** pickers when rc omits identity.
-3. **Lane B — NHL** — next **`lspo_*`** + **`nhl_lua.js`** allowlist per [`nhl-port-notes.md`](nhl-port-notes.md).
-4. **Lane D — `objects_nums` / mkobj** — audit other **`const.js`** otyps vs NH5 **`objects_nums`** after AoY fix.
+3. **Lane B — NHL** — next **`lspo_*`** + **`nhl_lua.js`** allowlist per [`nhl-port-notes.md`](nhl-port-notes.md) (**advances MD-3 / MD-4**).
+4. **Lane D — `objects_nums` / mkobj** — audit other **`const.js`** otyps vs NH5 **`objects_nums`** after AoY fix (**advances MD-1**).
 
 ### Extended backlog (unchanged lanes)
 
 - **`mklev` / `mfndpos`:** `setgemprobs`, mineralize drift, legacy floor **`otyp`** vs NH5 when replaying C **`mkobj`** (see **`mklev.js`** audit comments).
 - **`pray.c` / `sit.c` / `angrygods` / `read.c` / scroll & trap long tail:** prior handoff bullets — see [`c-to-js-port-remaining.md`](c-to-js-port-remaining.md) §3–§4 and `TODO`s under `js/`.
 
-### Deferred backlog — tutorial / `goto_level` / `tut-1` (resume when save + `do.c` bridge are ready)
+### Lane E backlog — tutorial (gated; see [`docs/plans/tutorial-port-gate.md`](../../docs/plans/tutorial-port-gate.md))
 
-**`maybe_do_tutorial`** and full **`do.c`** **`goto_level`** when **`tut-1`** is exercised — Lua **`tutorial()`** / **`free_tutorial()`**, **`savelev`**, **`gmst_*`** sequester, … beyond **`applyGotoLevelDirectHeroLikeC`** + **`tutorial_branch.js`** stub; **`LIVELOGFILE`** / judge-visible recorder line if sessions compare livelog; **`dokick`** / **`dothrow`** (non-**`shop.js`**) vs **`leaving_tutorial`** when those call sites need parity.
+Mandatory dependencies **MD-1 … MD-7** (inventory, in-memory **`goto_level`/`savelev`**, Lua RNG, **`tut-*.lua`** bindings, **`nh.eckey`**, **`tutorial()`/`free_tutorial()`**). Execution checklist: [10-tutorial.md](../plans/nethack-port/10-tutorial.md). Already stubbed: **`maybe_do_tutorial`**, **`ask_do_tutorial`**, **`tutorial_branch.js`** hooks, **`leaving_tutorial`** shop/invent skips.
 
 ### Deferred backlog (moveloop / traps / fire — resume after chargen milestone)
 

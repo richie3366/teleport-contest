@@ -1,6 +1,6 @@
 ---
 name: NHL Lua port strategy
-overview: "Treat NetHack Lua (NHL) as a multi-phase program—not one slice—while honoring `c-to-js-port-current.md` ordering. Immediate work: finish `flip_level` extras and NHL Phase 0 (Lua RNG context + des API skeleton), then vertical-slice `minetn-1.lua` before attempting a full VM. Run chargen (`wintty.c`/`role.c`) in parallel for score ROI; defer tutorial/save Lua until later."
+overview: "Treat NetHack Lua (NHL) as a multi-phase program—not one slice—while honoring `c-to-js-port-current.md` ordering. Immediate work: finish `flip_level` extras and NHL Phase 0 (Lua RNG context + des API skeleton), then vertical-slice `minetn-1.lua` before attempting a full VM. Run chargen (`wintty.c`/`role.c`) in parallel for score ROI. Tutorial is gated on docs/plans/tutorial-port-gate.md MD-1…MD-7 (NHL work advances MD-3/MD-4/MD-5); Lane E becomes primary when the gate opens."
 todos:
   - id: preflight-git-score
     content: Confirm clean sync (no push); run npm run score only after a new port commit
@@ -70,7 +70,7 @@ flowchart TB
 | **des-file levels** | [`nethack-c/upstream/src/sp_lev.c`](nethack-c/upstream/src/sp_lev.c) `lspo_*` + [`nethack-c/upstream/src/nhlua.c`](nethack-c/upstream/src/nhlua.c) `load_lua` | [`js/mklev.js`](js/mklev.js) `loadLuaLikeC` **always returns false** → post-lua chain never runs for des levels | ~37 `des.*` C bindings; **128** `.lua` under `dat/`; scripts call `selection.*`, `shuffle`, `math.random`, loops |
 | **nhlib** | `dat/nhlib.lua` | [`js/nhlib_align_shuffle.js`](js/nhlib_align_shuffle.js) (align shuffle only) | Small, incremental |
 | **dungeon graph** | `dat/dungeon.lua` | [`js/dungeon_proto.js`](js/dungeon_proto.js) via [`tools/gen_dungeon_proto.mjs`](tools/gen_dungeon_proto.mjs) | **Done pattern** for *data*, not executable des |
-| **Tutorial** | `nhlua.c` `tutorial()` | [`js/tutorial_branch.js`](js/tutorial_branch.js) stub | **Deferred** per [`c-to-js-port-current.md`](.cursor/reports/c-to-js-port-current.md) |
+| **Tutorial** | `nhlua.c` `tutorial()` | [`js/tutorial_branch.js`](js/tutorial_branch.js) stub | **Gated** — [`docs/plans/tutorial-port-gate.md`](../../docs/plans/tutorial-port-gate.md) MD-3…MD-7; Lane E when open |
 
 **Critical blocker:** [`loadLuaLikeC`](js/mklev.js) stub means `makemazLikeC` never loads `minetn-*.lua`, quest files, etc.—procedural maze runs instead, so Mines/special-level RNG diverges from C whenever those paths execute.
 
@@ -164,7 +164,7 @@ Add a **thin tracker** (new file, ~80 lines, not a second progress doc):
 
 ## What this plan explicitly defers
 
-- Full **tutorial** / `tut-1` / `savelev` / `gmst_*` Lua ([`c-to-js-port-current.md`](.cursor/reports/c-to-js-port-current.md) deferred backlog)
+- Full **tutorial** / `tut-1` / `savelev` / `gmst_*` — after [`docs/plans/tutorial-port-gate.md`](../../docs/plans/tutorial-port-gate.md) opens ([`10-tutorial.md`](nethack-port/10-tutorial.md))
 - Porting all **128** `dat/*.lua` before a vertical proof
 - Embedding Lua for **quest pager** / menu NHL APIs (`nhl_menu`, `getlin`, …)—chargen is C tty first
 - Score-chasing via `fastforward.js` / harness without C call sites

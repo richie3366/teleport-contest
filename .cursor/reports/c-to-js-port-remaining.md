@@ -162,6 +162,8 @@ Slices should **delete** scaffolding as C lands, not extend replay lists. Score 
 8. **Save/bones** semantics vs `docs/API.md`.
 9. **Display/botl/cursor** hardening.
 
+**Tutorial (Lane E):** Gated on [`docs/plans/tutorial-port-gate.md`](../../docs/plans/tutorial-port-gate.md) **MD-1 … MD-7**. Until the gate opens, advance MD-* via items 2 (invent/mkobj), 7 (NHL/Lua), and `goto_level` work in §3.1/§3.2; do not treat tutorial as open-ended deferral. After the gate opens, **Lane E is primary** until [10-tutorial.md](../plans/nethack-port/10-tutorial.md) exit criteria.
+
 ---
 
 ## 6. Related documents (do not duplicate maintenance here)
@@ -175,6 +177,8 @@ Slices should **delete** scaffolding as C lands, not extend replay lists. Score 
 | [`.cursor/plans/nethack_js_port_roadmap_19a4defd.plan.md`](../plans/nethack_js_port_roadmap_19a4defd.plan.md) | Roadmap index |
 | `.cursor/plans/nethack-port/*.md` | Satellite checklists |
 | [`.cursor/prompts/continue-nethack-port.md`](../prompts/continue-nethack-port.md) | Repeatable user prompt + autonomous agent workflow |
+| [`docs/plans/tutorial-port-gate.md`](../../docs/plans/tutorial-port-gate.md) | Tutorial mandatory dependencies + gate-open → Lane E |
+| [`.cursor/plans/nethack-port/10-tutorial.md`](../plans/nethack-port/10-tutorial.md) | Tutorial execution checklist (after gate) |
 
 ---
 

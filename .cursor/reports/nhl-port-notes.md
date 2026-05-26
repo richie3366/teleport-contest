@@ -60,3 +60,5 @@ Thin tracker for des-file work (not a second progress doc). **Do not** paste `se
 4. Run **`npm run score`** when RNG or map generation changes; keep **`nhlib_align_shuffle.js`** on **core** `rn2` until full **`nhl_init`** drives nhlib from C-shaped **`init_dungeons`** (see file comment — avoids 0/44 harness drift).
 
 For **cross-lane** ordering (chargen vs NHL vs moveloop), use the **priority matrix** in [`c-to-js-port-current.md`](c-to-js-port-current.md).
+
+**Tutorial:** NHL slices that add Lua RNG context, `des.*` bindings, or `nh.eckey` advance [`docs/plans/tutorial-port-gate.md`](../../docs/plans/tutorial-port-gate.md) **MD-3 … MD-5**. When **MD-1 … MD-7** are all satisfied, **Lane E** is primary ([`10-tutorial.md`](../plans/nethack-port/10-tutorial.md)).

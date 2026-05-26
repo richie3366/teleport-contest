@@ -111,7 +111,9 @@ That runs `bash frozen/score.sh` (~20s), then splices the markdown block below.
 
 **Tier B — generalize moveloop:** port `monmove.c` / `allmain.c` slices; **delete** harness branches when measured parity holds — do not add session-specific replay.
 
-**Tier C — deferred:** tutorial / `goto_level` / `tut-1`, full trap/zap/shop long tail (see [`c-to-js-port-current.md`](c-to-js-port-current.md) deferred sections).
+**Tier C — gated tutorial:** [`docs/plans/tutorial-port-gate.md`](../../docs/plans/tutorial-port-gate.md) **MD-1 … MD-7** — becomes **Lane E (primary)** when all checked; until then advance MD-* via Tier A/B/D work. Full trap/zap/shop long tail stays deferred alongside moveloop harness.
+
+**Tier C — long tail (unchanged):** full trap/zap/shop surface (see [`c-to-js-port-current.md`](c-to-js-port-current.md) extended backlog).
 
 ### Anti-patterns (do not forget)
 

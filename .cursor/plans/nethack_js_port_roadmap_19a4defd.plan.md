@@ -66,6 +66,8 @@ isProject: false
 | [`.cursor/plans/nethack-port/07-display-terminal.md`](.cursor/plans/nethack-port/07-display-terminal.md) | `docrt`, botl, colors/SGR, symset, cursor, pline vs C |
 | [`.cursor/plans/nethack-port/08-save-bones-persistence.md`](.cursor/plans/nethack-port/08-save-bones-persistence.md) | Multi-segment sessions, `storage` VFS, bones, topten |
 | [`.cursor/plans/nethack-port/09-qa-sessions.md`](.cursor/plans/nethack-port/09-qa-sessions.md) | Session triage workflow, recorder build, regression discipline |
+| [`.cursor/plans/nethack-port/10-tutorial.md`](.cursor/plans/nethack-port/10-tutorial.md) | Tutorial vertical slice (after [`docs/plans/tutorial-port-gate.md`](docs/plans/tutorial-port-gate.md)) |
+| [`docs/plans/tutorial-port-gate.md`](docs/plans/tutorial-port-gate.md) | Mandatory MD-* dependencies before Lane E |
 
 ---
 

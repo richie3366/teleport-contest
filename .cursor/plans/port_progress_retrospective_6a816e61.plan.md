@@ -167,7 +167,7 @@ Reconcile handoff with C milestones (no score-chasing):
 
 **Tier C — deferred backlog** (unchanged)
 
-- Tutorial / `goto_level` / `tut-1`, full trap/zap/shop long tail — keep in current.md deferred sections; do not pull forward until Tier A/B reduce harness surface.
+- Tutorial — gated on [`docs/plans/tutorial-port-gate.md`](../../docs/plans/tutorial-port-gate.md) MD-1…MD-7 (Lane E when open); full trap/zap/shop long tail stays Tier C long tail.
 
 **Explicit anti-patterns to record in dashboard**
 
