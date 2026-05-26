@@ -1069,42 +1069,39 @@ export function u_onRndspotLikeC(g, upflag) {
     const up = (upflag | 0) & 1;
     const wasInWTower = ((upflag | 0) & 2) !== 0;
     if (wasInWTower && onWTowerLevelLikeC(g.u?.uz)) {
-        const d = g.dndest;
-        if (d?.nlx) {
-            place_lregion(d.nlx, d.nly, d.nhx, d.nhy, 0, 0, 0, 0, LR_DOWNTELE, null);
-            return;
-        }
-    }
-    const udest = g.updest;
-    const ddest = g.dndest;
-    if (up && udest?.lx) {
+        const d = g.dndest ?? {};
         place_lregion(
-            udest.lx, udest.ly, udest.hx, udest.hy,
-            udest.nlx, udest.nly, udest.nhx, udest.nhy,
-            LR_UPTELE, null
+            d.nlx | 0, d.nly | 0, d.nhx | 0, d.nhy | 0,
+            0, 0, 0, 0, LR_DOWNTELE, null,
         );
         return;
     }
-    if (ddest?.lx) {
+    const udest = g.updest ?? {};
+    const ddest = g.dndest ?? {};
+    if (up) {
         place_lregion(
-            ddest.lx, ddest.ly, ddest.hx, ddest.hy,
-            ddest.nlx, ddest.nly, ddest.nhx, ddest.nhy,
-            LR_DOWNTELE, null
+            udest.lx | 0, udest.ly | 0, udest.hx | 0, udest.hy | 0,
+            udest.nlx | 0, udest.nly | 0, udest.nhx | 0, udest.nhy | 0,
+            LR_UPTELE, null,
         );
-        return;
+    } else {
+        place_lregion(
+            ddest.lx | 0, ddest.ly | 0, ddest.hx | 0, ddest.hy | 0,
+            ddest.nlx | 0, ddest.nly | 0, ddest.nhx | 0, ddest.nhy | 0,
+            LR_DOWNTELE, null,
+        );
     }
-    place_lregion(0, 0, 0, 0, 0, 0, 0, 0, up ? LR_UPTELE : LR_DOWNTELE, null);
 }
 
 // C ref: stairs.c u_on_upstairs — place hero on upstairs or fallback
 export function u_on_upstairs() {
     const stway = stairway_find_dir(true);
-    if (stway) { u_on_newpos(stway.sx, stway.sy); return; }
-    // No upstair — try special stairs, then random
-    const special = stairway_find_special_dir(0);
-    if (special) { u_on_newpos(special.sx, special.sy); return; }
-    // Random placement via place_lregion
-    place_lregion(0, 0, 0, 0, 0, 0, 0, 0, LR_UPTELE, null);
+    if (stway) {
+        u_on_newpos(stway.sx, stway.sy);
+        return;
+    }
+    /* C: stairs.c — no upstairs on D:1 → u_on_sstairs(0) → u_on_rndspot (dndest). */
+    u_on_sstairsLikeC(0);
 }
 
 // oinit stub (level-dependent object probability reset)

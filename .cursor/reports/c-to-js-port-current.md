@@ -31,7 +31,7 @@ Use this when **`Next steps`** below feels stale or several lanes compete. Order
 
 **Deferred for now:** **`maybe_do_tutorial`** / **`tut-1`** / full **`do.c`** **`goto_level`** (Lua **`tutorial()`** / **`free_tutorial()`**, **`savelev`**, **`gmst_*`**, …) and **`dokick`**/**`dothrow`** vs **`leaving_tutorial`** — strong upstream dependencies (save, specials, fuller **`do.c`**); treat as backlog until chargen / core early-game parity is further along; **`LIVELOGFILE`** parity if the judge ever compares livelog lines.
 
-**Last slice:** Lane D — **`mkobj.c` `mkobj()`** ring pick: **`RING_CLASS_MKOBJ_OC_PROB_ROWS`** (full **`objects[]`** walk, sum **28**) for floor **`mkobj(RANDOM_CLASS)`**; stop using ini_inv **`RING_CLASS_MKOBJ_ROWS`** (sum **6**). **`seed0006`:** **35/123** screens (**2368/6736** RNG; first fail ~**2350** **`collect_coords`** / **`makedog`** **`enexto`**). **`npm run score`:** **2/44** (`seed0077`, `seed8000`).
+**Last slice:** Lane A/D — **`stairs.c` `u_on_upstairs`** → **`u_on_sstairs(0)`** / **`dungeon.c` `u_on_rndspot`** (**`dndest`**, **`LR_DOWNTELE`**); **`role.c` `roles[]` `petnum`** on **`g.urole`** so **`dog.c` `pet_type()`** skips **`rn2(2)`** for Wizard (**`PM_KITTEN`**). **`seed0006`:** **35/123** screens (**2476/6736** RNG; first fail ~**2397** **`makemon.c` `peace_minded`**). **`npm run score`:** **2/44** (`seed0077`, `seed8000`).
 
 **Handoff refresh:** **Priority matrix** (lanes A–D) + **Next steps** aligned to it; **`c-to-js-port-remaining.md`** / **`c-to-js-port-dashboard.md`** / **`nhl-port-notes.md`** / **`continue-nethack-port.md`** updated for post-`load_lua` reality and NHL ordering.
 
@@ -39,7 +39,7 @@ Use this when **`Next steps`** below feels stale or several lanes compete. Order
 
 Pick **one** primary lane per slice; refresh this list after each merge.
 
-1. **Lane A — Chargen / init** — **`seed0006`** — RNG diverges at game-start (**2368/6736**, step **35** `\r`; first fail ~**2350** **`teleport.c` `collect_coords`** after **`mineralize`**, before **`makemon`**); next: **`enexto_core`** / **`makedog`** vs C ring counts; rc cluster without embedded identity.
+1. **Lane A — Chargen / init** — **`seed0006`** — RNG **2476/6736** (step **35** `\r`; first fail ~**2397** **`makemon.c` `peace_minded`** after **`makedog`** **`enexto`**); next: **`peace_minded`** / **`makemon`** flags vs C; then **`u_init`** **`ini_inv`** tail; rc cluster without embedded identity.
 2. **Lane B — NHL** — next **`lspo_*`** + **`nhl_lua.js`** allowlist for the next target **`dat/*.lua`**; fill gaps in [`nhl-port-notes.md`](nhl-port-notes.md); **`selection.js`** vs **`nhlsel.c`** only for ops that script uses.
 3. **Lane C — `mon_arrive` / `goto_level`** — long-worm **`initworm`** on arrive; **`Wiz_arrive`** from **`resurrect`**; **`losedogs`** dismiss-kops / **`make_happy_shoppers`**; **`goto_level`** savelev tail / **`worm.c`** when worms on level.
 4. **Lane D — `objects_nums` / mkobj** — **`nh5OclassForOtyp`** map (ARMOR/ROCK first) after **`mksobj_init`** floor parity; legacy floor **`otyp`** vs C when replaying **`mkobj`**.

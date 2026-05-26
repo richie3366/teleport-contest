@@ -2,6 +2,7 @@
 // C refs: allmain.c flags.pantheon = -1; role_init(); pray.c align_gtitle for godgend.
 
 import { rn2 } from './rng.js';
+import { NON_PM } from './const.js';
 import {
     roles,
     races,
@@ -73,6 +74,7 @@ function assignUroleUraceLikeC(g, role, race, alignType, female, gods) {
         name: { m: role.name.m, f: role.name.f },
         rank: { m: role.rank.m, f: role.rank.f },
         mnum: role.mnum,
+        petnum: role.petnum ?? NON_PM,
         attrbase: [...role.attrbase],
         attrdist: [...role.attrdist],
         hpadv: { ...role.hpadv },
