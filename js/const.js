@@ -1285,6 +1285,7 @@ export const RS_ROLE = 1;
 export const RS_RACE = 2;
 export const RS_GENDER = 3;
 export const RS_ALGNMNT = 4;
+export const RS_filter = 5;
 export const WININIT = 0;
 export const WININIT_UNDO = 1;
 export const WINCHAIN_ALLOC = 0;

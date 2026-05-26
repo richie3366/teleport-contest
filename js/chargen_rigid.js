@@ -5,6 +5,16 @@
 
 import { rn2 } from './rng.js';
 import {
+    RS_filter,
+    RS_ROLE,
+    RS_RACE,
+    RS_GENDER,
+    RS_ALGNMNT,
+    ROLE_RACEMASK,
+    ROLE_GENDMASK,
+    ROLE_ALIGNMASK,
+} from './const.js';
+import {
     roles,
     races,
     aligns,
@@ -39,11 +49,36 @@ function ensureRfilterRoleArray() {
     while (rfilterExcludedRole.length < roles.length) rfilterExcludedRole.push(false);
 }
 
+/**
+ * C clearrolefilter(which) — RS_filter clears mask + roles; per-aspect clears mask bits.
+ * @param {number} which — RS_filter | RS_ROLE | RS_RACE | RS_GENDER | RS_ALGNMNT
+ */
+export function clearChargenRfilterAspectLikeC(which) {
+    ensureRfilterRoleArray();
+    switch (which) {
+    case RS_filter:
+        rfilterMask = 0;
+        /* FALLTHROUGH */
+    case RS_ROLE:
+        for (let i = 0; i < roles.length; i++) rfilterExcludedRole[i] = false;
+        break;
+    case RS_RACE:
+        rfilterMask &= ~ROLE_RACEMASK;
+        break;
+    case RS_GENDER:
+        rfilterMask &= ~ROLE_GENDMASK;
+        break;
+    case RS_ALGNMNT:
+        rfilterMask &= ~ROLE_ALIGNMASK;
+        break;
+    default:
+        break;
+    }
+}
+
 /** C clearrolefilter(RS_filter) — clear all exclusions. */
 export function clearChargenRfilterLikeC() {
-    ensureRfilterRoleArray();
-    rfilterMask = 0;
-    for (let i = 0; i < roles.length; i++) rfilterExcludedRole[i] = false;
+    clearChargenRfilterAspectLikeC(RS_filter);
 }
 
 function strncmpiPrefix(user, canon) {
