@@ -30,7 +30,7 @@ That runs `bash frozen/score.sh` (~20s), then splices the markdown block below.
 |---------|---|-------------------|------------------------|---------|
 | `seed0002-healer-reflection-drummer.session.json` | N | 2220/27158 | 7/595 | screens>0 |
 | `seed0004-feeding-pony.session.json` | N | 544/12084 | 7/409 | screens>0 |
-| `seed0006-wizard-water-demon.session.json` | N | 2367/6736 | 35/123 | screens>0 |
+| `seed0006-wizard-water-demon.session.json` | N | 2368/6736 | 35/123 | screens>0 |
 | `seed0007-rogue-snake-swamp.session.json` | N | 1556/16373 | 13/302 | screens>0 |
 | `seed0009-swimmer-mforce.session.json` | N | 530/3713 | 9/73 | screens>0 |
 | `seed0012-monk-vault-escort.session.json` | N | 1272/13878 | 12/308 | screens>0 |
@@ -43,7 +43,7 @@ That runs `bash frozen/score.sh` (~20s), then splices the markdown block below.
 | `seed0030-ten-diverse-deaths.session.json` | N | 5131/105529 | 0/1953 | — |
 | `seed0060-orc-rogue-kick-search.session.json` | N | 1051/3626 | 0/41 | — |
 | `seed0077-rogue-chargen.session.json` | Y | 3242/3242 | 33/33 | full-pass |
-| `seed0101-ranger-quiver-throw-travel-engrave.session.json` | N | 1003/2371 | 0/27 | — |
+| `seed0101-ranger-quiver-throw-travel-engrave.session.json` | N | 1004/2371 | 0/27 | — |
 | `seed0102-ranger-name-cancel.session.json` | N | 1250/4485 | 0/25 | — |
 | `seed0103-knight-ride-pony.session.json` | N | 2022/2640 | 0/60 | rng>50% |
 | `seed0104-knight-ride-combat.session.json` | N | 2382/3223 | 0/43 | rng>50% |
@@ -73,7 +73,7 @@ That runs `bash frozen/score.sh` (~20s), then splices the markdown block below.
 | `seed5006-tourist-stress-disaster.session.json` | N | 374/13923 | 0/249 | early-diverge |
 | `seed8000-tourist-starter.session.json` | Y | 3130/3130 | 23/23 | full-pass |
 
-**Summary:** 2/44 passing · commit `d991165` · `2026-05-26T01:25:50.971Z`
+**Summary:** 2/44 passing · commit `9fe5f39` · `2026-05-26T01:30:11.106Z`
 
 <!-- PORT_SCORE_SNAPSHOT_END -->
 

@@ -1,6 +1,6 @@
 {
-  "timestamp": "2026-05-26T01:25:50.971Z",
-  "commit": "d991165",
+  "timestamp": "2026-05-26T01:30:11.106Z",
+  "commit": "9fe5f39",
   "passCount": 2,
   "totalSessions": 44,
   "results": [
@@ -73,7 +73,7 @@
       "passed": false,
       "metrics": {
         "rngCalls": {
-          "matched": 2367,
+          "matched": 2368,
           "total": 6736
         },
         "screens": {
@@ -97,7 +97,7 @@
       "buckets": [
         "screens>0"
       ],
-      "rngRatio": 0.351395486935867,
+      "rngRatio": 0.3515439429928741,
       "screenRatio": 0.2845528455284553
     },
     {
@@ -483,7 +483,7 @@
       "passed": false,
       "metrics": {
         "rngCalls": {
-          "matched": 1003,
+          "matched": 1004,
           "total": 2371
         },
         "screens": {
@@ -505,7 +505,7 @@
       },
       "error": null,
       "buckets": [],
-      "rngRatio": 0.4230282581189372,
+      "rngRatio": 0.42345002108814844,
       "screenRatio": 0
     },
     {

@@ -28,12 +28,12 @@ import {
     ARMOR_CLASS_MKOBJ_OC_PROB_ROWS,
     TOOL_CLASS_MKOBJ_OC_PROB_ROWS,
     GEM_CLASS_MKOBJ_OC_PROB_ROWS,
+    RING_CLASS_MKOBJ_OC_PROB_ROWS,
 } from './mkobj_mklev_oc_prob_data.js';
 import {
     POTION_CLASS_MKOBJ_OC_PROB_ROWS,
     WAND_CLASS_MKOBJ_OC_PROB_ROWS,
     SPBOOK_CLASS_MKOBJ_OC_PROB_ROWS,
-    RING_CLASS_MKOBJ_ROWS,
 } from './mkobj_wizard_ini_inv_data.js';
 import { SCROLL_CLASS_MKOBJ_OC_PROB_ROWS } from './mkobj_scroll_class_rng_like_c.js';
 import {
@@ -143,7 +143,7 @@ const OTYP_WAN_STASIS = 415;
 const OTYP_STATUE = 475;
 
 const RING_CHARGED = new Set(
-    RING_CLASS_MKOBJ_ROWS.filter((r) => (r[1] | 0) === 1).map((r) => r[0] | 0),
+    RING_CLASS_MKOBJ_OC_PROB_ROWS.filter((r) => (r[1] | 0) === 1).map((r) => r[0] | 0),
 );
 
 /** C: obj.h is_multigen — projectiles 19–24 lack OC_SKILL_ROW_BY_OTYP entries. */
@@ -239,7 +239,7 @@ function mkobjPickOtypForClassLikeC(oclass) {
     case NH5_SPBOOK_CLASS:
         return mkobjOtypFromProbRowsLikeC(SPBOOK_CLASS_MKOBJ_OC_PROB_ROWS);
     case NH5_RING_CLASS:
-        return mkobjOtypFromProbRowsLikeC(RING_CLASS_MKOBJ_ROWS);
+        return mkobjOtypFromProbRowsLikeC(RING_CLASS_MKOBJ_OC_PROB_ROWS);
     case NH5_FOOD_CLASS:
         return mkobjOtypFoodClassIniInvLikeC();
     case NH5_WEAPON_CLASS:
