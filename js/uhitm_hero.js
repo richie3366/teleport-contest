@@ -4,16 +4,22 @@
 import { game } from './gstate.js';
 import { rn2, rnd } from './rng.js';
 import { pline } from './display.js';
-import { A_STR, A_DEX, XKILL_GIVEMSG } from './const.js';
+import {
+    A_STR, A_DEX, XKILL_GIVEMSG,
+    P_NONE, P_UNSKILLED, P_BASIC, P_SKILLED, P_EXPERT, P_ISRESTRICTED,
+    P_TWO_WEAPON_COMBAT, P_LAST_WEAPON,
+} from './const.js';
+import { weaponType } from './weapon_kind.js';
 import { exercise, acurr } from './attrib.js';
 import { nearCapacity } from './encumbr.js';
 import { useSkill } from './u_init_skills.js';
 import { P_BARE_HANDED_COMBAT } from './const.js';
-import { monsterLeavesCorpse } from './mondata.js';
+import { monsterLeavesCorpse, verysmall } from './mondata.js';
 import { placeCorpseForMonster } from './mkobj_corpse.js';
 import { adisturb } from './shop.js';
 import { isok } from './const.js';
-import { overexertHpIfEncumberedPlines } from './eat_hunger.js';
+import { overexertion, overexertHpIfEncumberedPlines } from './eat_hunger.js';
+import { collectNewuhsPlines } from './hunger.js';
 import { dmgval } from './mthrowu.js';
 
 /** @param {{ monnam?: string, data?: { mname?: string } }} mtmp */
@@ -47,14 +53,40 @@ function dbonLikeC() {
     return 4;
 }
 
+/** @param {import('./gstate.js').game['u']} u @param {number} type */
+function pSkillLikeC(u, type) {
+    const ws = u?.weapon_skills;
+    if (!ws || type === P_NONE) return P_UNSKILLED;
+    const row = ws[type | 0];
+    return (row?.skill ?? P_UNSKILLED) | 0;
+}
+
 /**
  * C: weapon.c weapon_dam_bonus — bare hands (**`weapon == null`**) → 0.
  * @param {Record<string, unknown>|null|undefined} weapon
  */
 function weaponDamBonusLikeC(weapon) {
     if (!weapon) return 0;
-    /* Full skill table deferred; unskilled weapon is the common wizard bump case. */
-    return -2;
+    const u = game.u;
+    if (!u) return 0;
+    let type = weaponType(weapon);
+    if ((u.twoweap | 0) && (weapon === u.uwep || weapon === u.uswapwep)) {
+        type = P_TWO_WEAPON_COMBAT;
+    }
+    if (type === P_NONE || type > P_LAST_WEAPON) return 0;
+    switch (pSkillLikeC(u, type)) {
+        case P_ISRESTRICTED:
+        case P_UNSKILLED:
+            return -2;
+        case P_BASIC:
+            return 0;
+        case P_SKILLED:
+            return 1;
+        case P_EXPERT:
+            return 2;
+        default:
+            return -2;
+    }
 }
 
 /**
@@ -94,11 +126,13 @@ function findRollToHitMeleeLikeC(g, mtmp) {
  * C: mon.c corpse_chance — fungus-sized monsters use tmp=2..4 style roll.
  * @param {Record<string, unknown>} mtmp
  */
+/** C: mon.c corpse_chance — tmp = 2 + rare geno + verysmall; !rn2(tmp). */
 function corpseChanceLikeC(mtmp) {
     const mdat = mtmp.data;
     if (!mdat) return false;
-    let tmp = 2;
-    if ((mdat.msize | 0) < 2) tmp += 1;
+    const geno = mdat.geno | 0;
+    const G_FREQ = 1;
+    let tmp = 2 + ((geno & G_FREQ) < 2 ? 1 : 0) + (verysmall(mdat) ? 1 : 0);
     return !rn2(tmp);
 }
 
@@ -125,7 +159,6 @@ async function xkilledHeroBumpLikeC(g, mtmp, xkillFlags) {
     if (!nocorpse && isok(x, y)) rn2(6);
 
     if (!nocorpse && corpseChanceLikeC(mtmp) && monsterLeavesCorpse(mtmp, g, 0)) {
-        rn2(4);
         placeCorpseForMonster(mtmp, x, y);
     }
 
@@ -143,6 +176,12 @@ async function xkilledHeroBumpLikeC(g, mtmp, xkillFlags) {
  */
 export async function bumpMeleeAttackLikeC(g, mtmp) {
     if (!mtmp || (mtmp.mhp | 0) <= 0) return;
+
+    /* C: uhitm.c do_attack → hack.c overexertion() → gethungry() before exercise/hitum. */
+    const { plines: oxPlines, multiNegative } = overexertion();
+    for (const line of oxPlines) await pline(line);
+    for (const line of collectNewuhsPlines(true)) await pline(line);
+    if (multiNegative) return;
 
     exercise(A_STR, true);
 

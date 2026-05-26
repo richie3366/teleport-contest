@@ -41,7 +41,7 @@ import {
     applyLockpickGetdirPromptHeroLikeC,
     consumeApplyDirectionHeroLikeC,
 } from './lock_hero.js';
-import { IS_DOOR } from './const.js';
+import { COLNO, IS_DOOR } from './const.js';
 import { spotEffects } from './spoteffects.js';
 import { dokickFromCmd } from './kick.js';
 import { snapshotUshops0FromHeroTileLikeC } from './shop.js';
@@ -202,19 +202,23 @@ export async function rhack(key) {
         return;
     }
     if (isMovementKey(ch)) {
-        const moved = await domove(DIR_DX[ch], DIR_DY[ch]);
+        const moved = await domoveHeroDirLikeC(DIR_DX[ch], DIR_DY[ch]);
         game.context.move = moved || game.context?.door_opened ? 1 : 0;
     } else if (isRunMovementKey(ch)) {
-        /* C: do_run_* → set_move_cmd(dir, 1); ECMD_TIME (hack.c domove with context.run). */
+        /* C: cmd.c DOMOVE_RUSH — set_move_cmd + gm.multi=COLNO + context.mv; first domove here. */
         const lower = ch.toLowerCase();
-        game.context = game.context || {};
-        game.context.run = 1;
-        try {
-            await domove(DIR_DX[lower], DIR_DY[lower]);
-        } finally {
-            game.context.run = 0;
-        }
-        game.context.move = 1;
+        const g = game;
+        const dx = DIR_DX[lower];
+        const dy = DIR_DY[lower];
+        g.context = g.context || {};
+        g.u = g.u || {};
+        g.u.dx = dx;
+        g.u.dy = dy;
+        g.context.run = 1;
+        g.context.mv = true;
+        g.multi = COLNO;
+        await domoveHeroDirLikeC(dx, dy);
+        g.context.move = 1;
     } else if (ch === '.') {
         /* C: do.c donull — wait/rest one turn (ECMD_TIME). */
         game.context.move = 1;
@@ -334,7 +338,8 @@ async function finishDomoveDzStairsTailLikeC(g) {
     ua.dz = 0;
 }
 
-async function domove(dx, dy) {
+/** C: hack.c domove — hero move / bump / door (uses u.dx/u.dy when called from multi tail). */
+export async function domoveHeroDirLikeC(dx, dy) {
     const g = game;
     const u = g.u;
     const newx = u.ux + dx;
