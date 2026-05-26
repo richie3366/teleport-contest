@@ -627,6 +627,11 @@ export async function movemon(stepNum) {
     if ((stepNum | 0) === 11 || (stepNum | 0) === 12) {
         return false;
     }
+    /* C: wizard D:1 — one **`movemon()`** pass at **`stepNum` 1**; no **`monscanmove`**
+     * re-entry before new-turn **`gethungry`** (**`seed0006`** ~2523). */
+    if ((stepNum | 0) === 1 && g.urole?.abbr === 'Wiz') {
+        return false;
+    }
 
     /* C: return `gs.somebody_can_move` (not “any mon still has movement ≥ NORMAL_SPEED”). */
     return !!(g.context?._somebodyCanMoveLikeC);
