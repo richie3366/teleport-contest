@@ -44,6 +44,7 @@ import { setApparxyMonsterLikeC } from './set_apparxy_mon.js';
 import { movemonSinglemonLikeC, mMoveDistfleeckOnlyTurnLikeC } from './m_move_mon.js';
 import {
     dogGoalScanSearchPostGateLikeC,
+    dogMoveGoalOnlyNoPickLikeC,
     dogMoveSearchPassNearHeroLikeC,
 } from './dogmove_mon.js';
 import { raceptr, S_EEL } from './mondata.js';
@@ -461,6 +462,24 @@ export async function movemon(stepNum) {
                 if (!(m.mgenmklev | 0)) continue;
                 setApparxyMonsterLikeC(g, m);
                 await distfleeckMonsterApplyLikeC(g, m);
+            }
+            /* C: non-distant door-niche mklev — second tail **`distfleeck`** before **`dog_goal`** (~2559). */
+            const postBumpNearMklev = (g.level?.monsters ?? []).find((m) => {
+                if (m === postBumpPet || (m.mtame | 0) || m === postBumpDistant) return false;
+                return (m.mgenmklev | 0);
+            });
+            if (postBumpNearMklev) {
+                setApparxyMonsterLikeC(g, postBumpNearMklev);
+                await distfleeckMonsterApplyLikeC(g, postBumpNearMklev);
+            }
+            /* C: post-bump **`l`** tail — **`dog_goal`** then distant ~915 **`distfleeck`** (~2560–2561). */
+            if (postBumpPet) {
+                setApparxyMonsterLikeC(g, postBumpPet);
+                dogMoveGoalOnlyNoPickLikeC(g, postBumpPet);
+            }
+            if (postBumpDistant) {
+                setApparxyMonsterLikeC(g, postBumpDistant);
+                await distfleeckMonsterApplyLikeC(g, postBumpDistant);
             }
         } else {
             for (const m of mons) await movemonSinglemonLikeC(g, m, effStepNum);
