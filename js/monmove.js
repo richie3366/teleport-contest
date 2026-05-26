@@ -428,14 +428,15 @@ export async function movemon(stepNum) {
             const postBumpDistant =
                 g.context._postBumpDistantMtmpLikeC ?? findDistantMklevMonLikeC(g);
             const postBumpPet = mons.find((m) => (m.mtame | 0) !== 0);
-            const postBumpRest = mons.filter(
+            if (postBumpDistant) {
+                await movemonSinglemonLikeC(g, postBumpDistant, effStepNum);
+            }
+            if (postBumpPet && g.context?._postBumpKillDochugGateLikeC) {
+                await movemonSinglemonLikeC(g, postBumpPet, effStepNum);
+            }
+            mons = mons.filter(
                 (m) => m !== postBumpDistant && m !== postBumpPet,
             );
-            /** @type {typeof mons} */
-            const postBumpOrder = [];
-            if (postBumpDistant) postBumpOrder.push(postBumpDistant);
-            if (postBumpPet) postBumpOrder.push(postBumpPet);
-            mons = [...postBumpOrder, ...postBumpRest];
         }
         for (const m of mons) await movemonSinglemonLikeC(g, m, effStepNum);
         /* C: rogue first **`#search`** — post-gate **`distfleeck`** peel after **`dog_goal`**

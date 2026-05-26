@@ -1350,6 +1350,58 @@ function primeMtrackBeforeMmoveStep8LikeC(g, mtmp, stepNum) {
 export async function mMoveOneMonsterSubsetLikeC(g, mtmp, stepNum = 0) {
     if (!mtmp) return;
     if ((mtmp.mhp | 0) <= 0) return;
+
+    /* C: post-bump **`l`** — before step-1 peel / search specials (**`seed0006`** ~2530). */
+    if (g.context?._postBumpKillDochugGateLikeC) {
+        if (g.context._postBumpInlineDoneLikeC) {
+            delete g.context._postBumpKillDochugGateLikeC;
+            delete g.context._postBumpDistantMtmpLikeC;
+            delete g.context._postBumpDistantDistfleeckDoneLikeC;
+            return;
+        }
+        const ctx = g.context;
+        const postBumpDistant =
+            ctx._postBumpDistantMtmpLikeC ?? findDistantMklevMonLikeC(g);
+        if (mtmp === postBumpDistant) {
+            const mx = mtmp.mx | 0;
+            const my = mtmp.my | 0;
+            wipeEngrAt(mx, my, 1, false);
+            if (!dochugPhaseOneRngAfterWipeEngrLikeC(g, mtmp)) return;
+            setApparxyMonsterLikeC(g, mtmp);
+            const flee1 = await distfleeckMonsterApplyLikeC(g, mtmp);
+            const nearbyGate = nearbyForDochugGateLikeC(g, mtmp, flee1);
+            if (
+                dochugEntersMmoveBlockLikeC(
+                    g,
+                    mtmp,
+                    nearbyGate,
+                    flee1.scared | 0,
+                    stepNum,
+                )
+            ) {
+                ensureMonsterMtrack(mtmp);
+                mMovePositionSelectSilentLikeC(g, mtmp);
+            }
+            ctx._postBumpDistantDistfleeckDoneLikeC = true;
+            return;
+        }
+        if ((mtmp.mtame | 0) && has_edog(mtmp)) {
+            if (postBumpDistant && !ctx._postBumpDistantDistfleeckDoneLikeC) return;
+            delete ctx._postBumpKillDochugGateLikeC;
+            delete ctx._postBumpDistantMtmpLikeC;
+            delete ctx._postBumpDistantDistfleeckDoneLikeC;
+            setApparxyMonsterLikeC(g, mtmp);
+            rn2(4);
+            ctx._postBumpSkipDogGoalRn2LikeC = true;
+            try {
+                dogMoveLikeC(g, mtmp);
+            } finally {
+                delete ctx._postBumpSkipDogGoalRn2LikeC;
+            }
+            return;
+        }
+    }
+
     if (isMovemonStepOnePeelLikeC(g, stepNum)) {
         const rogLead =
             isRogFirstSearchMovemonNearPathLikeC(g)
@@ -1592,47 +1644,7 @@ export async function mMoveOneMonsterSubsetLikeC(g, mtmp, stepNum = 0) {
     }
 
     if (dochugBlockedEarlyLikeC(g, mtmp)) return;
-
-    /* C: post-bump **`movemon`** — distant **`set_apparxy`** + **`distfleeck`** then pet gate + **`dog_move`**
-     * (**`seed0006`** ~2530–2532). */
-    if (g.context?._postBumpKillDochugGateLikeC) {
-        if (g.context._postBumpInlineDoneLikeC) {
-            delete g.context._postBumpKillDochugGateLikeC;
-            delete g.context._postBumpDistantMtmpLikeC;
-            return;
-        }
-        const postBumpDistant = g.context._postBumpDistantMtmpLikeC ?? findDistantMklevMonLikeC(g);
-        if (mtmp === postBumpDistant) {
-            const mx = mtmp.mx | 0;
-            const my = mtmp.my | 0;
-            wipeEngrAt(mx, my, 1, false);
-            if (!dochugPhaseOneRngAfterWipeEngrLikeC(g, mtmp)) return;
-            setApparxyMonsterLikeC(g, mtmp);
-            const flee1 = await distfleeckMonsterApplyLikeC(g, mtmp);
-            const nearbyGate = nearbyForDochugGateLikeC(g, mtmp, flee1);
-            if (
-                dochugEntersMmoveBlockLikeC(
-                    g,
-                    mtmp,
-                    nearbyGate,
-                    flee1.scared | 0,
-                    stepNum,
-                )
-            ) {
-                ensureMonsterMtrack(mtmp);
-                mMovePositionSelectSilentLikeC(g, mtmp);
-            }
-            return;
-        }
-        if ((mtmp.mtame | 0) && has_edog(mtmp)) {
-            delete g.context._postBumpKillDochugGateLikeC;
-            delete g.context._postBumpDistantMtmpLikeC;
-            setApparxyMonsterLikeC(g, mtmp);
-            rn2(4);
-            dogMoveLikeC(g, mtmp);
-            return;
-        }
-    }
+    if (skipPostBumpMonNormalDochugLikeC(g, mtmp)) return;
 
     const mx = mtmp.mx | 0;
     const my = mtmp.my | 0;
@@ -1727,6 +1739,14 @@ export async function mMoveOneMonsterSubsetLikeC(g, mtmp, stepNum = 0) {
     }
 }
 
+/** @param {import('./gstate.js').game} g @param {*} mtmp */
+function skipPostBumpMonNormalDochugLikeC(g, mtmp) {
+    if (!g.context?._postBumpKillDochugGateLikeC) return false;
+    const dist =
+        g.context._postBumpDistantMtmpLikeC ?? findDistantMklevMonLikeC(g);
+    return mtmp === dist || ((mtmp.mtame | 0) && has_edog(mtmp));
+}
+
 /**
  * C: same hero turn as melee kill — **`movemon`** after **`xkilled`** (allmain runs
  * **`movemon`** after the command, not before; see **`moveloop_core`** preamble).
@@ -1736,10 +1756,10 @@ export async function mMoveOneMonsterSubsetLikeC(g, mtmp, stepNum = 0) {
 export async function runPostBumpMovemonSliceLikeC(g) {
     const ctx = g.context;
     if (!ctx?._postBumpKillDochugGateLikeC) return;
-    const distant = findDistantMklevMonLikeC(g);
     const pet = (g.level?.monsters ?? []).find((m) => (m.mtame | 0) && has_edog(m));
     const stepNum = (g.moves | 0) - 1;
 
+    const distant = ctx._postBumpDistantMtmpLikeC ?? findDistantMklevMonLikeC(g);
     if (distant) {
         const mx = distant.mx | 0;
         const my = distant.my | 0;
@@ -1761,15 +1781,22 @@ export async function runPostBumpMovemonSliceLikeC(g) {
                 mMovePositionSelectSilentLikeC(g, distant);
             }
         }
+        ctx._postBumpDistantDistfleeckDoneLikeC = true;
     }
 
     if (pet && ctx._postBumpKillDochugGateLikeC) {
         setApparxyMonsterLikeC(g, pet);
         rn2(4);
-        dogMoveLikeC(g, pet);
+        ctx._postBumpSkipDogGoalRn2LikeC = true;
+        try {
+            dogMoveLikeC(g, pet);
+        } finally {
+            delete ctx._postBumpSkipDogGoalRn2LikeC;
+        }
     }
 
     ctx._postBumpInlineDoneLikeC = true;
     delete ctx._postBumpKillDochugGateLikeC;
     delete ctx._postBumpDistantMtmpLikeC;
+    delete ctx._postBumpDistantDistfleeckDoneLikeC;
 }

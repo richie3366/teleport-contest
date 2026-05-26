@@ -490,7 +490,9 @@ function dogGoalFollowGxGyApprLikeC(
             if (dogfoodRankLikeC(o) === DOGFOOD) appr = 1;
         }
     } else if (udist > 1) {
-        if (
+        if (g.context?._postBumpSkipDogGoalRn2LikeC) {
+            appr = 1;
+        } else if (
             !IS_ROOM(g.level?.at(gx, gy)?.typ | 0)
             || !rn2(4)
             || whappr
