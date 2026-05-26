@@ -193,6 +193,7 @@ export async function runPostCommandTurnAdvanceLikeC(g) {
         delete g.context._wizD1Step1LPetInventAfterNewturnDoneLikeC;
         /* Keep **`_wizD1Step1PendingLPostPeelLikeC`** until **`L`** post consumes it (set on **`n`** invent). */
         delete g.context._wizD1Step1PetMfndposPickDoneLikeC;
+        delete g.context._wizD1LPostOuterLoopDoneLikeC;
     }
     g.context.monMoving = true;
     try {
@@ -337,17 +338,35 @@ export async function runPostCommandTurnAdvanceLikeC(g) {
                         }
                         g.context._wizD1Step1LPetInventAfterNewturnDoneLikeC = true;
                         delete g.context._wizD1Step1CachedDogGoalLikeC;
-                        /* C: allmain.c — **`mcalcmove`** gives monsters movement; second **`movemon`**
-                         * then third new-turn (~2660–2675). */
+                        /* C: second **`movemon`** peel (~2660–2672) then third new-turn (~2673+). */
                         g.context._wizD1Step1LPostSecondMovemonPendingLikeC = true;
-                        delete g.context._wizD1MovemonRanThisPostLikeC;
-                        newTurnDone = false;
+                        g.context._movemonHarnessConsumed = false;
+                        await movemon(1);
+                        g.context._wizD1LPetInventSkipMoveloop82ExerciseLikeC = true;
+                        try {
+                            await runNewTurnSetupAndTailLikeC(g, (g.moves | 0) - 1);
+                        } finally {
+                            delete g.context._wizD1LPetInventSkipMoveloop82ExerciseLikeC;
+                        }
+                        /* C: fourth **`movemon`** in same post (~2679+); keep **`MovemonRan`** so
+                         * outer loop does not re-enter peel before fourth new-turn (~2688+). */
+                        g.context._wizD1LPostFourthMovemonLikeC = true;
+                        g.context._movemonHarnessConsumed = false;
+                        try {
+                            await movemon(1);
+                        } finally {
+                            delete g.context._wizD1LPostFourthMovemonLikeC;
+                        }
+                        /* C: fourth new-turn (~2688+); **`post_moveloop82_exercise`** at step 5 (~2694). */
+                        await runNewTurnSetupAndTailLikeC(g, 5);
+                        g.context._wizD1LPostOuterLoopDoneLikeC = true;
                     }
                 }
             }
         } while (
             (u.umovement | 0) < NORMAL_SPEED
             && !g.context?._deferredNewTurnLikeC
+            && !g.context?._wizD1LPostOuterLoopDoneLikeC
         );
     } finally {
         g.context.monMoving = false;
@@ -360,6 +379,7 @@ export async function runPostCommandTurnAdvanceLikeC(g) {
         delete g.context._movemonSearch11SubPass;
         delete g.context._movemonStep7Passes;
         delete g.context._movemonStep8Passes;
+        delete g.context._wizD1LPostOuterLoopDoneLikeC;
     }
 }
 

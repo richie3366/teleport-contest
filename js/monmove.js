@@ -53,6 +53,7 @@ import {
     dogMoveGoalOnlyNoPickLikeC,
     dogMoveGoalAndPickLikeC,
     dogMoveLPetTailPostPeelLikeC,
+    dogMoveWizardD1FourthMovemonPetLikeC,
     dogMoveInventOnlyLikeC,
     dogMoveSearchPassNearHeroLikeC,
 } from './dogmove_mon.js';
@@ -370,7 +371,10 @@ export async function movemon(stepNum) {
         /* C: wizard **`L`** — second **`movemon`** in one post is peel-only (~2660+). */
         if (
             isWizardD1Step1PeelLikeC(g, effStepNum)
-            && g.context?._wizD1Step1LPostSecondMovemonPendingLikeC
+            && (
+                g.context?._wizD1Step1LPostSecondMovemonPendingLikeC
+                || g.context?._wizD1LPostFourthMovemonLikeC
+            )
         ) {
             mons = [];
         }
@@ -570,13 +574,41 @@ export async function movemon(stepNum) {
                     primeDistantMtrackRn20LikeC(peelDistant);
                     rn2(20);
                     await distfleeckMonsterApplyLikeC(g, peelDistant);
+                    g.context._wizD1Step1DistantMmoveDoneLikeC = true;
                 }
                 delete g.context._wizD1Step1LPostSecondMovemonPendingLikeC;
+                delete g.context._wizD1Step1PendingLPostPeelLikeC;
+            }
+            /* C: **`L`** — fourth **`movemon`** after third new-turn (~2679–2683). */
+            if (
+                !wizInventPost
+                && g.context?._wizD1LPostFourthMovemonLikeC
+            ) {
+                if (nearMklev) {
+                    setApparxyMonsterLikeC(g, nearMklev);
+                    await distfleeckMonsterApplyLikeC(g, nearMklev);
+                }
+                if (pet) {
+                    setApparxyMonsterLikeC(g, pet);
+                    dogMoveWizardD1FourthMovemonPetLikeC(g, pet);
+                }
+                const peelDistant =
+                    g.context._wizD1Step1DistantPeelMtmpLikeC ?? distant;
+                if (peelDistant) {
+                    setApparxyMonsterLikeC(g, peelDistant);
+                    await distfleeckMonsterApplyLikeC(g, peelDistant);
+                    await distfleeckMonsterApplyLikeC(g, peelDistant);
+                    primeDistantMtrackRn20LikeC(peelDistant);
+                    rn2(20);
+                    await distfleeckMonsterApplyLikeC(g, peelDistant);
+                }
+                delete g.context._wizD1LPostFourthMovemonLikeC;
             }
             /* C: **`L`** post-peel — once after **`n`** invent (~2608–2621). */
             if (
                 !wizInventPost
                 && g.context?._wizD1Step1PendingLPostPeelLikeC
+                && !g.context?._wizD1Step1LPetInventAfterNewturnDoneLikeC
             ) {
                 if (
                     g.context?._wizD1Step1DistantFirstDfDoneLikeC

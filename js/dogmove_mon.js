@@ -538,8 +538,11 @@ function dogGoalFollowGxGyApprLikeC(
             if (dogfoodRankLikeC(o) === DOGFOOD) appr = 1;
         }
     } else if (
-        (udist > 1 && !g.context?._wizD1Step1DogGoalInventLikeC)
-        || g.context?._wizD1Step1LPetTailDogGoalLikeC
+        !g.context?._wizD1LPostFourthPetDogGoalLikeC
+        && (
+            (udist > 1 && !g.context?._wizD1Step1DogGoalInventLikeC)
+            || g.context?._wizD1Step1LPetTailDogGoalLikeC
+        )
     ) {
         /* C: post-bump **`dochug:886`** already drew **`rn2(4)`** — still run **`appr==0`** invent
          * **`dogfood`** / **`obj_resists`** tail (~2532+ on **`seed0006`**). */
@@ -682,7 +685,10 @@ function dogMovePickRn2LikeC(g, n) {
     if (ctx?._wizD1LPickRngBudget != null) {
         if ((ctx._wizD1LPickRngBudget | 0) <= 0) {
             if (
-                ctx._wizD1Step1LPetTailDogGoalLikeC
+                (
+                    ctx._wizD1Step1LPetTailDogGoalLikeC
+                    || ctx._wizD1LPostFourthPetDogGoalLikeC
+                )
                 && (n | 0) === 12
             ) {
                 return rn2(n);
@@ -926,8 +932,13 @@ function dogMoveMfndposPickLikeC(g, mtmp, ggx, ggy, appr, whappr) {
             } else if (j < 0) {
                 pickTake = true;
             }
-        } else if (j === 0 && !dogMovePickRn2LikeC(g, ++chcnt)) {
-            pickTake = true;
+        } else if (j === 0) {
+            /* C: dogmove.c ~1255 — **`chcnt`** ties use **`rn2(++chcnt)`** (second post-invent
+             * **`movemon`** ~2667; budget must not swallow the draw). */
+            const chcntWin = g.context?._wizD1LPetSecondMovemonTailLikeC
+                ? !rn2(++chcnt)
+                : !dogMovePickRn2LikeC(g, ++chcnt);
+            if (chcntWin) pickTake = true;
         } else if (j < 0) {
             pickTake = true;
         } else if (j > 0 && !whappr) {
@@ -1023,6 +1034,7 @@ export function dogMoveGoalAndPickLikeC(
         && (
             g.context?._postBumpInlineDoneLikeC
             || g.context?._wizD1Step1LPetTailDogGoalLikeC
+            || g.context?._wizD1LPostFourthPetDogGoalLikeC
         )
         && g.urole?.abbr === 'Wiz'
         && (g.u?.uz?.dnum | 0) === 0
@@ -1130,7 +1142,44 @@ export function dogMoveMfndposPickOnlyWizD1LikeC(g, mtmp) {
         delete ctx._wizD1LPickRngBudget;
     }
     delete ctx._wizD1Step1CachedDogGoalLikeC;
-    ctx._wizD1Step1NearMklevDistfleeckOnlyLikeC = 2;
+    if (!ctx._wizD1LPostFourthPetDogGoalLikeC) {
+        ctx._wizD1Step1NearMklevDistfleeckOnlyLikeC = 2;
+    }
+    return MMOVE_NOTHING;
+}
+
+/**
+ * C: wizard D:1 **`L`** — fourth **`movemon`** pet **`dog_move`** (~2680+); hero-pinned
+ * **`udist`** so adjacent pets skip follow **`rn2(4)`** (C **`dog_goal`** ~1042).
+ * @param {import('./gstate.js').game} g
+ * @param {Record<string, unknown>} mtmp
+ */
+export function dogMoveWizardD1FourthMovemonPetLikeC(g, mtmp) {
+    if (!(mtmp.mtame | 0) || !has_edog(mtmp)) return MMOVE_NOTHING;
+    if ((mtmp.mhp | 0) <= 0) return MMOVE_DIED;
+    const u = g.u;
+    const edog = EDOG(mtmp);
+    if (!u || !edog) return MMOVE_NOTHING;
+    const pin = g.context?._wizD1Step1DogGoalHeroXYLikeC;
+    mtmp.mux = pin ? (pin.ux | 0) : (u.ux | 0);
+    mtmp.muy = pin ? (pin.uy | 0) : (u.uy | 0);
+    let mov = mtmp.movement | 0;
+    if (mov < NORMAL_SPEED) {
+        mtmp.movement = NORMAL_SPEED;
+        mov = NORMAL_SPEED;
+    }
+    mtmp.movement = mov - NORMAL_SPEED;
+    const ctx = g.context || (g.context = {});
+    delete ctx._wizD1Step1PetMfndposPickDoneLikeC;
+    ctx._wizD1LPostFourthPetDogGoalLikeC = true;
+    ctx._wizD1LPickRngBudget = 4;
+    try {
+        dogMoveGoalOnlyNoPickLikeC(g, mtmp);
+        dogMoveMfndposPickOnlyWizD1LikeC(g, mtmp);
+    } finally {
+        delete ctx._wizD1LPostFourthPetDogGoalLikeC;
+        delete ctx._wizD1LPickRngBudget;
+    }
     return MMOVE_NOTHING;
 }
 
@@ -1149,9 +1198,13 @@ export function dogMoveLPetTailPostPeelLikeC(g, mtmp) {
     const ctx = g.context || (g.context = {});
     ctx._wizD1Step1LPetTailDogGoalLikeC = true;
     ctx._wizD1LPickRngBudget = 5;
+    const secondMovemon = !!ctx._wizD1LPetSecondMovemonTailLikeC;
     try {
-        dogMoveGoalAndPickLikeC(g, mtmp, true, false, null, true);
-        dogMoveMfndposPickFromCachedGoalWizD1LikeC(g, mtmp);
+        /* C: first **`L`** peel — goal then cached pick; second post-invent — single pick pass. */
+        dogMoveGoalAndPickLikeC(g, mtmp, true, secondMovemon, null, true);
+        if (!secondMovemon) {
+            dogMoveMfndposPickFromCachedGoalWizD1LikeC(g, mtmp);
+        }
     } finally {
         delete ctx._wizD1Step1LPetTailDogGoalLikeC;
         delete ctx._wizD1LPickRngBudget;
@@ -1165,11 +1218,8 @@ export function dogMoveMfndposPickFromCachedGoalWizD1LikeC(g, mtmp) {
     if (!(mtmp.mtame | 0) || !has_edog(mtmp)) return MMOVE_NOTHING;
     if ((mtmp.mhp | 0) <= 0) return MMOVE_DIED;
     const ctx = g.context || (g.context = {});
-    /* C: second post-invent **`movemon`** — **`dog_goal`**+pick already consumed (~2661–2668). */
-    if (
-        ctx._wizD1LPetSecondMovemonTailLikeC
-        && ctx._wizD1Step1PetMfndposPickDoneLikeC
-    ) {
+    /* C: second post-invent **`movemon`** — one **`mfndpos`** pass inside **`dogMoveGoalAndPickLikeC`**. */
+    if (ctx._wizD1LPetSecondMovemonTailLikeC) {
         return MMOVE_NOTHING;
     }
     const goal = ctx._wizD1Step1CachedDogGoalLikeC;
