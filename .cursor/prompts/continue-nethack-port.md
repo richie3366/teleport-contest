@@ -42,6 +42,7 @@ Continue port: .cursor/reports/c-to-js-port-current.md + skim c-to-js-port-remai
 
 ## When stuck or choosing between slices
 
-- Prefer **`c-to-js-port-current.md`** ordering — it reflects the latest firefighting.
-- If priorities drift, use **§5 “Suggested ordering”** in **`c-to-js-port-remaining.md`** (fastforward → invent/mkobj → real movemon → moveloop_aux → commands → combat → branches → save/display).
+- Prefer **[`c-to-js-port-current.md`](../reports/c-to-js-port-current.md)** — especially the **Priority matrix** and **Next steps (aligned with matrix)**.
+- Gap inventory **§5** in [`c-to-js-port-remaining.md`](../reports/c-to-js-port-remaining.md) lists C milestones (chargen → invent/mkobj → movemon → … → branches/Lua).
+- NHL-only ordering: [`nhl-port-notes.md`](../reports/nhl-port-notes.md) § *Methodical ordering (NHL lane only)*.
 - Harness peels (**`fastforward.js`**, **`monmove.js`**): only remove replay rows when **measured** per-path RNG consumption matches C; do not “trim” from session guesswork. Do not add harness/FF rows to improve score without porting the C call site (see **`port-from-c-not-score.mdc`**).

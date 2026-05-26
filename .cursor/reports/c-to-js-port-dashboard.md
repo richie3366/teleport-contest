@@ -18,7 +18,7 @@ That runs `bash frozen/score.sh` (~20s), then splices the markdown block below.
 
 **Static header** (update manually when the narrative shifts):
 
-- **Strategic focus:** TTY chargen + `u_init` / `ini_inv` toward C `wintty.c` / `role.c` / `u_init.c`; then `game.invent` + `mkobj`; peel `monmove` / `moveloop_aux` harness only when per-path RNG matches C ([`port-from-c-not-score.mdc`](../rules/port-from-c-not-score.mdc)).
+- **Strategic focus:** TTY chargen + `u_init` / `ini_inv` toward C `wintty.c` / `role.c` / `u_init.c`; **in parallel**, NHL des-file expansion (`load_lua` / `lspo_*`, see [`nhl-port-notes.md`](nhl-port-notes.md)); then `game.invent` + `mkobj`; peel `monmove` / `moveloop_aux` harness only when per-path RNG matches C ([`port-from-c-not-score.mdc`](../rules/port-from-c-not-score.mdc)).
 
 ---
 

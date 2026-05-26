@@ -15,7 +15,14 @@ import {
     MAGIC_PORTAL, VIBRATING_SQUARE,
     DB_DIR, DB_NORTH, DB_SOUTH, DB_WEST, DB_EAST,
     ROLLING_BOULDER_TRAP, is_pit,
+    MELT_ICE_AWAY, OBJ_FREE, EGD, ESHK, EPRI, SVALL,
 } from './const.js';
+import { onLevelLikeC } from './hacklib.js';
+import { vision_reset } from './vision.js';
+import { fixWallSpinesRect } from './wall_spine.js';
+import { setWallStateLikeC } from './wall_state.js';
+import { heroPunishedLikeC } from './punish_hero.js';
+import { unplacebcHeroLikeC, placebcHeroSyncForFlipLikeC } from './ball_bc_hero.js';
 
 /** C: rm.h IS_DOORJOIN */
 function isDoorjoinTyp(typ) {
@@ -311,6 +318,101 @@ function inFlipAreaLikeC(x, y, minx, maxx, miny, maxy) {
     return (x | 0) >= minx && (x | 0) <= maxx && (y | 0) >= miny && (y | 0) <= maxy;
 }
 
+/** C: sp_lev.c flip_vault_guard — #wizfliplevel; egd + fakecorr */
+function flipVaultGuardLikeC(g, m, bits, minx, maxx, miny, maxy, flipX, flipY) {
+    void g;
+    void m;
+    const egd = EGD(m);
+    if (!egd) return;
+    const flipPair = (ox, oy) => {
+        const o = { x: ox | 0, y: oy | 0 };
+        const x = o.x;
+        const y = o.y;
+        if (!inFlipAreaLikeC(x, y, minx, maxx, miny, maxy)) return o;
+        if (bits & 1) o.y = flipY(y);
+        if (bits & 2) o.x = flipX(x);
+        return o;
+    };
+    if (egd.gdx !== undefined) {
+        const p = flipPair(egd.gdx | 0, egd.gdy | 0);
+        egd.gdx = p.x;
+        egd.gdy = p.y;
+    }
+    if (egd.ogx !== undefined) {
+        const p = flipPair(egd.ogx | 0, egd.ogy | 0);
+        egd.ogx = p.x;
+        egd.ogy = p.y;
+    }
+    const fc = egd.fakecorr;
+    const fcbeg = egd.fcbeg | 0;
+    const fcend = egd.fcend | 0;
+    if (fc && fcend > fcbeg) {
+        for (let i = fcbeg; i < fcend; i++) {
+            const seg = fc[i];
+            if (!seg) continue;
+            const p = flipPair(seg.fx | 0, seg.fy | 0);
+            seg.fx = p.x;
+            seg.fy = p.y;
+        }
+    }
+}
+
+/** C: sp_lev.c flip_level — poison cloud region rects (gn.n_regions) — not ported in JS yet (no gr.regions). */
+
+/** C: sp_lev.c flip_level — MELT_ICE_AWAY timer arg packing */
+function flipMeltIceTimersLikeC(g, bits, minx, maxx, miny, maxy, flipY, flipX) {
+    const arr = g.level?.timers;
+    if (!arr?.length) return;
+    for (const timer of arr) {
+        if (timer.func !== MELT_ICE_AWAY) continue;
+        let ty = timer.y | 0;
+        let tx = timer.x | 0;
+        if (bits & 1) ty = flipY(ty);
+        if (bits & 2) tx = flipX(tx);
+        timer.x = tx;
+        timer.y = ty;
+    }
+}
+
+/** C: sp_lev.c flip_visuals — seenv octants in flip area (#wizfliplevel). */
+function flipVisualsExtrasLikeC(g, bits, minx, maxx, miny, maxy, flipY, flipX) {
+    const map = g.level;
+    if (!map) return;
+    for (let y = miny; y <= maxy; y++) {
+        for (let x = minx; x <= maxx; x++) {
+            const lev = map.at(x, y);
+            if (!lev) continue;
+            let seenv = (lev.seenv | 0) & 0xff;
+            if (seenv === 0) continue;
+            if (seenv !== SVALL) {
+                if (bits & 1) {
+                    seenv = swapbitsLikeC(seenv, 2, 4);
+                    seenv = swapbitsLikeC(seenv, 1, 5);
+                    seenv = swapbitsLikeC(seenv, 0, 6);
+                }
+                if (bits & 2) {
+                    seenv = swapbitsLikeC(seenv, 2, 0);
+                    seenv = swapbitsLikeC(seenv, 3, 7);
+                    seenv = swapbitsLikeC(seenv, 4, 6);
+                }
+                lev.seenv = seenv;
+            }
+        }
+    }
+}
+
+function uballCarriedForFlipLikeC(g) {
+    for (let o = g.invent; o; o = o.nobj) {
+        if (o === g.uball) return true;
+        if (o.cobj) {
+            for (let c = o.cobj; c; c = c.nobj) {
+                if (c === g.uball) return true;
+            }
+        }
+    }
+    return false;
+}
+
 /** C: sp_lev.c Flip_coord */
 function flipCoordLikeC(cc, bits, minx, maxx, miny, maxy, flipX, flipY) {
     const x = cc?.x | 0;
@@ -487,7 +589,7 @@ function flipFloorObjListCoordsLikeC(g, bits, minx, maxx, miny, maxy, flipX, fli
 }
 
 /**
- * C: sp_lev.c flip_level — level-creation subset (`extras` false); #wizfliplevel / vault guard deferred.
+ * C: sp_lev.c flip_level — level creation (`extras` false) and **`#wizfliplevel`** (`extras` true).
  * @param {import('./gstate.js').game} g
  * @param {number} flp — bit 1 vertical, bit 2 horizontal
  * @param {boolean} extras
@@ -495,12 +597,32 @@ function flipFloorObjListCoordsLikeC(g, bits, minx, maxx, miny, maxy, flipX, fli
 export function flipLevelLikeC(g, flp, extras) {
     const bits = flp | 0;
     if ((bits & 3) === 0) return;
-    if (extras) return;
     const map = g.level;
     if (!map) return;
     const { minx, maxx, miny, maxy } = getLevelExtendsFlipLikeC(g);
     const flipY = (y) => (maxy - (y | 0)) + miny;
     const flipX = (x) => (maxx - (x | 0)) + minx;
+
+    let ballActive = false;
+    let ballFliparea = false;
+    if (extras && heroPunishedLikeC(g)) {
+        const ball = g.uball;
+        const chain = g.uchain;
+        const wh = ball?.where;
+        const ballPlaced = wh === undefined || (wh | 0) !== OBJ_FREE;
+        if (ball && chain && ballPlaced) {
+            ballActive = true;
+            if (uballCarriedForFlipLikeC(g)) {
+                ball.ox = g.u.ux | 0;
+                ball.oy = g.u.uy | 0;
+            }
+            const bIn = inFlipAreaLikeC(ball.ox | 0, ball.oy | 0, minx, maxx, miny, maxy);
+            const cIn = inFlipAreaLikeC(chain.ox | 0, chain.oy | 0, minx, maxx, miny, maxy);
+            const uIn = inFlipAreaLikeC(g.u.ux | 0, g.u.uy | 0, minx, maxx, miny, maxy);
+            ballFliparea = (bIn === cIn) && (bIn === uIn);
+            if (!ballFliparea) unplacebcHeroLikeC(g);
+        }
+    }
 
     for (let st = g.stairs; st; st = st.next) {
         if (bits & 1) st.sy = flipY(st.sy | 0);
@@ -517,7 +639,8 @@ export function flipLevelLikeC(g, flp, extras) {
     flipFloorObjListCoordsLikeC(g, bits, minx, maxx, miny, maxy, flipX, flipY);
 
     for (const m of map.monsters || []) {
-        if (m.isgd && !(m.mx | 0)) continue;
+        if (extras && (m.isgd | 0)) flipVaultGuardLikeC(g, m, bits, minx, maxx, miny, maxy, flipX, flipY);
+        if ((m.isgd | 0) && !(m.mx | 0)) continue;
         const mx = m.mx | 0;
         const my = m.my | 0;
         if (!mx && !my) continue;
@@ -529,6 +652,24 @@ export function flipLevelLikeC(g, flp, extras) {
         if (wn) {
             if (bits & 1) flipWormSegsVerticalLikeC(g, wn, miny, maxy);
             if (bits & 2) flipWormSegsHorizontalLikeC(g, wn, minx, maxx);
+        }
+    }
+
+    if (extras) {
+        const uz = g.u?.uz;
+        for (const entry of g.migratingMons || []) {
+            const mtmp = entry.mtmp;
+            if (!mtmp) continue;
+            if ((mtmp.isgd | 0) && uz && EGD(mtmp) && onLevelLikeC(uz, EGD(mtmp).gdlevel)) {
+                flipVaultGuardLikeC(g, mtmp, bits, minx, maxx, miny, maxy, flipX, flipY);
+            } else if ((mtmp.ispriest | 0) && uz && EPRI(mtmp) && onLevelLikeC(uz, EPRI(mtmp).shrlevel)) {
+                const ep = EPRI(mtmp);
+                if (ep?.shrpos) flipCoordLikeC(ep.shrpos, bits, minx, maxx, miny, maxy, flipX, flipY);
+            } else if ((mtmp.isshk | 0) && uz && ESHK(mtmp) && onLevelLikeC(uz, ESHK(mtmp).shoplevel)) {
+                const es = ESHK(mtmp);
+                if (es?.shk) flipCoordLikeC(es.shk, bits, minx, maxx, miny, maxy, flipX, flipY);
+                if (es?.shd) flipCoordLikeC(es.shd, bits, minx, maxx, miny, maxy, flipX, flipY);
+            }
         }
     }
 
@@ -574,6 +715,29 @@ export function flipLevelLikeC(g, flp, extras) {
             }
         }
     }
+
+    flipMeltIceTimersLikeC(g, bits, minx, maxx, miny, maxy, flipY, flipX);
+
+    if (extras) {
+        const u = g.u;
+        if (u && inFlipAreaLikeC(u.ux | 0, u.uy | 0, minx, maxx, miny, maxy)) {
+            if (bits & 1) u.uy = flipY(u.uy | 0);
+            if (bits & 2) u.ux = flipX(u.ux | 0);
+            u.ux0 = u.ux | 0;
+            u.uy0 = u.uy | 0;
+        }
+        if (ballActive && !ballFliparea) placebcHeroSyncForFlipLikeC(g);
+        if (g.iflags?.travelcc) flipCoordLikeC(g.iflags.travelcc, bits, minx, maxx, miny, maxy, flipX, flipY);
+        const digp = g.context?.digging?.pos;
+        if (digp) flipCoordLikeC(digp, bits, minx, maxx, miny, maxy, flipX, flipY);
+    }
+
+    fixWallSpinesRect(g, 1, 0, COLNO - 1, ROWNO - 1);
+    if (extras && bits) {
+        setWallStateLikeC();
+        flipVisualsExtrasLikeC(g, bits, minx, maxx, miny, maxy, flipY, flipX);
+    }
+    vision_reset();
 }
 
 /**

@@ -393,9 +393,17 @@ function freeDesCoderLikeC(g) {
  * @returns {Promise<boolean>}
  */
 async function loadLuaLikeC(g, name) {
-    void g;
-    void name;
-    return false;
+    const { runLuaProtofileLikeC } = await import('./nhl_lua.js');
+    return runLuaProtofileLikeC(g, name, {
+        appendLregion: appendLregionLikeC,
+        addRoom: add_room,
+        digCorridor: dig_corridor,
+        somexy,
+        wallification,
+        litstateRnd: litstate_rnd,
+        mksobj,
+        mkcorpstat,
+    });
 }
 
 /**

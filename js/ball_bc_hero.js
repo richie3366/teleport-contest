@@ -116,6 +116,37 @@ export function unplacebcHeroLikeC(g) {
 }
 
 /**
+ * C: ball.c **`placebc_core`** — sync subset for **`sp_lev.c` `flip_level(..., extras)`** tail
+ * (**`#wizfliplevel`**) after **`unplacebc`** when ball/chain split across flip area.
+ * Skips **`flooreffects`** / async **`newsym`** ( **`flip_level`** ends with **`vision_reset`**).
+ * @param {import('./gstate.js').game} g
+ */
+export function placebcHeroSyncForFlipLikeC(g) {
+    const u = g.u;
+    const chain = g.uchain;
+    const ball = g.uball;
+    if (!u || !chain || !ball) return;
+
+    const ux = u.ux | 0;
+    const uy = u.uy | 0;
+
+    if (objectCarriedByHeroLikeC(g, ball)) {
+        u.bc_order = BCPOS_DIFFER;
+    } else {
+        if (objectOnFloorLikeC(ball)) unlinkFloorObjectInLevel(g, ball);
+        removeObjFromHeroInvent(g, ball);
+        placeFloorObjectInLevel(g, ball, ux, uy);
+        stackObjOnFloorInLevel(g, ball);
+        u.bc_order = BCPOS_CHAIN;
+    }
+    if (objectOnFloorLikeC(chain)) unlinkFloorObjectInLevel(g, chain);
+    removeObjFromHeroInvent(g, chain);
+    placeFloorObjectInLevel(g, chain, ux, uy);
+    stackObjOnFloorInLevel(g, chain);
+    u.bc_felt = 0;
+}
+
+/**
  * C: wield.c **`welded(uball)`** — ball welded only when wielded as **`uwep`** and **`will_weld`**.
  * @param {import('./gstate.js').game} g
  */

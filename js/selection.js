@@ -150,7 +150,48 @@ export function selectionFloodfillLikeC(ov, x, y, diagonals) {
     selectionFreeLikeC(tmp, true);
 }
 
-/** C: selvar.c selection_rndcoord */
+/** C: selvar.c `selection_do_grow` with **`W_ANY`** — one-step 8-neighbor dilation. */
+export function selectionDilate8LikeC(ov) {
+    if (!ov?.map) return;
+    const rect = { lx: COLNO, ly: ROWNO, hx: 0, hy: 0 };
+    for (let x = 0; x < ov.wid; x++) {
+        for (let y = 0; y < ov.hei; y++) {
+            if (selectionGetpointLikeC(x, y, ov)) {
+                if (x < rect.lx) rect.lx = x;
+                if (y < rect.ly) rect.ly = y;
+                if (x > rect.hx) rect.hx = x;
+                if (y > rect.hy) rect.hy = y;
+            }
+        }
+    }
+    if (rect.lx > rect.hx) return;
+    const tmp = selectionCloneLikeC(ov);
+    const x0 = Math.max(0, rect.lx - 1);
+    const y0 = Math.max(0, rect.ly - 1);
+    const x1 = Math.min(ov.wid - 1, rect.hx + 1);
+    const y1 = Math.min(ov.hei - 1, rect.hy + 1);
+    for (let x = x0; x <= x1; x++) {
+        for (let y = y0; y <= y1; y++) {
+            let hit = false;
+            for (let dy = -1; dy <= 1 && !hit; dy++) {
+                for (let dx = -1; dx <= 1 && !hit; dx++) {
+                    if (!dx && !dy) continue;
+                    const nx = x + dx;
+                    const ny = y + dy;
+                    if (nx >= 0 && ny >= 0 && nx < ov.wid && ny < ov.hei
+                        && selectionGetpointLikeC(nx, ny, ov)) hit = true;
+                }
+            }
+            if (hit) selectionSetpointLikeC(x, y, tmp, 1);
+        }
+    }
+    for (let x = 0; x < ov.wid; x++) {
+        for (let y = 0; y < ov.hei; y++) {
+            if (selectionGetpointLikeC(x, y, tmp)) selectionSetpointLikeC(x, y, ov, 1);
+        }
+    }
+}
+
 export function selectionRndcoordLikeC(ov, removeit) {
     const rect = selectionGetBoundsLikeC(ov);
     let idx = 0;

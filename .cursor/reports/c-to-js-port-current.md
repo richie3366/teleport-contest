@@ -6,6 +6,19 @@ Thin handoff for the next coding session. **Score + milestones:** [`c-to-js-port
 
 **Port from C; score is regression only.** Pick work from C gaps and [`c-to-js-port-remaining.md`](c-to-js-port-remaining.md), not from “what might pass another public session.” Run **`npm run score`** to catch regressions after RNG/screen slices — do not add **`fastforward.js`** / harness bytes without porting the matching C call site. Full rule: [`.cursor/rules/port-from-c-not-score.mdc`](../rules/port-from-c-not-score.mdc).
 
+## Priority matrix (methodical)
+
+Use this when **`Next steps`** below feels stale or several lanes compete. Order by **(1)** failing session only as a **locator** → **(2)** one C function / call graph → **(3)** dependencies → **(4)** score vs C-depth tradeoff for this sprint.
+
+| Lane | Goal | Typical C / JS | When to favor |
+|------|------|----------------|----------------|
+| **A — Chargen / TTY** | More sessions with real identity pickers | `wintty.c`, `role.c` → **`chargen_tty.js`**, **`chargen_rigid.js`** | Short-term **score ROI**; rc without embedded `OPTIONS` identity |
+| **B — NHL / des** | C-faithful `.lua` specials when `makemaz` resolves a protofile | `nhlua.c`, `sp_lev.c` `lspo_*` → **`nhl_lua.js`**, **`des_api.js`**, **`nhl_des_runtime.js`** | Mines / branch specials; extend one **`dat/*.lua`** + bindings per slice ([`nhl-port-notes.md`](nhl-port-notes.md)) |
+| **C — Travel / dogs** | Orthogonal moveloop prep | `dog.c`, `goto_level` → **`mon_arrive.js`**, **`goto_level_hero.js`** | Good interleave when pausing Lua; bounded C surfaces |
+| **D — Objects / mkobj** | Floor + invent parity | `mkobj.c`, `u_init.c` → **`mklev.js`**, `nh5*` maps | After chargen milestone or when sessions diverge on items |
+
+**Deferred (explicit):** tutorial / `tut-1` / full `savelev` tail; large **`monmove`** / **`moveloop_aux`** harness peels until per-path RNG matches C — see extended backlog sections below.
+
 ## Contract (non-negotiable)
 
 - Port from **C semantics** in `nethack-c/upstream/` (init submodule if empty). Do **not** derive behavior from binaries or memorize the 44 public sessions.
@@ -14,18 +27,22 @@ Thin handoff for the next coding session. **Score + milestones:** [`c-to-js-port
 - **Plain ES modules**, no build/WASM/network in contest code; RNG via `js/rng.js`; match **clang** evaluation order for multi-call expressions.
 - API: [`docs/API.md`](../../docs/API.md); overview: [`README.md`](../../README.md).
 
-**Strategic priority:** Port **tty startup + interactive chargen** toward C **`wintty.c` / `role.c`** parity. **Eleven** public sessions ship **`nethackrc` without** embedded `OPTIONS=name:` / `role:` (and similar); C runs **“Who are you?”**, **[ynaq]**, and role/race/gender/align pickers with real **RNG**. Sessions that already set identity in **OPTIONS** must keep the **C fast path** (skip full menus when rc fixes role/race/gender/align).
+**Strategic priority (dual track):** **Lane A** — port **tty startup + interactive chargen** toward C **`wintty.c` / `role.c`** (**`chargen_tty.js`**, **`chargen_rigid.js`**). **Lane B** — expand NHL / des-file levels when specials matter (**`nhl-port-notes.md`**). **Eleven** public sessions ship **`nethackrc` without** embedded `OPTIONS=name:` / `role:` (and similar); C runs **“Who are you?”**, **[ynaq]**, and role/race/gender/align pickers with real **RNG**. Sessions that already set identity in **OPTIONS** must keep the **C fast path** (skip full menus when rc fixes role/race/gender/align).
 
 **Deferred for now:** **`maybe_do_tutorial`** / **`tut-1`** / full **`do.c`** **`goto_level`** (Lua **`tutorial()`** / **`free_tutorial()`**, **`savelev`**, **`gmst_*`**, …) and **`dokick`**/**`dothrow`** vs **`leaving_tutorial`** — strong upstream dependencies (save, specials, fuller **`do.c`**); treat as backlog until chargen / core early-game parity is further along; **`LIVELOGFILE`** parity if the judge ever compares livelog lines.
 
-**Last slice:** **`dog.c`** **`losedogs`** + **`mon_arrive`** — C arrival order (**`MIGR_EXACT_XY`** → **`mydogs`** → other migraters); **`relmon`**/**`failed_arrivals`**/**`m_into_limbo`**; **`With_you`** **`rn2`** placement; **`MON_STILL_ARRIVING`**; wired from **`goto_level_hero`**. Shopkeeper dismiss-kops deferred. **`seed0077`/`seed8000`:** **PASS**. **`npm run score`:** **2/44**.
+**Last slice:** NHL **`load_lua`** — **`mklev.js`** **`loadLuaLikeC`** dynamically imports **`nhl_lua.js`** (Fengari: **`nhlib.lua`** + **`minetn-1.lua`**); **`des_api.js`** re-exports **`nhl_des_runtime.js`** `lspo` subset; post-load **`loadSpecialAfterLuaLikeC`** unchanged. **`nhlib_align_shuffle.js`** documents core-stream shim vs Lua **`nhlRn2LikeC`** under real NHL. **`flip_level`** **`extras=TRUE`** in **`sp_lev_load.js`**. **`npm run score`:** **2/44** (`seed0077`, `seed8000`).
 
-## Next steps
+**Handoff refresh:** **Priority matrix** (lanes A–D) + **Next steps** aligned to it; **`c-to-js-port-remaining.md`** / **`c-to-js-port-dashboard.md`** / **`nhl-port-notes.md`** / **`continue-nethack-port.md`** updated for post-`load_lua` reality and NHL ordering.
 
-1. **`mkmaze`** — NHL **`load_lua`**; **`flip_level`** **`extras`** (**`#wizfliplevel`**, hero/ball, vault guard, migrating mons).
-2. **`mon_arrive`** — long-worm **`initworm`** on arrive; **`Wiz_arrive`** from **`resurrect`** when that path runs; **`losedogs`** dismiss-kops / **`make_happy_shoppers`**.
-3. **`goto_level`** — savelev tail; full **`worm.c`** when long worms on level.
-4. **`objects_nums`** — wire **`nh5OclassForOtyp`** via map for ARMOR/ROCK only after **`mksobj_init`** floor parity; more legacy floor **`otyp`** vs C when replaying **`mkobj`**.
+## Next steps (aligned with matrix)
+
+Pick **one** primary lane per slice; refresh this list after each merge.
+
+1. **Lane A — Chargen** — **`wintty.c` / `role.c`** gaps in **`chargen_tty.js`** / **`chargen_rigid.js`** for rc without embedded identity (eleven-session cluster).
+2. **Lane B — NHL** — next **`lspo_*`** + **`nhl_lua.js`** allowlist for the next target **`dat/*.lua`**; fill gaps in [`nhl-port-notes.md`](nhl-port-notes.md); **`selection.js`** vs **`nhlsel.c`** only for ops that script uses.
+3. **Lane C — `mon_arrive` / `goto_level`** — long-worm **`initworm`** on arrive; **`Wiz_arrive`** from **`resurrect`**; **`losedogs`** dismiss-kops / **`make_happy_shoppers`**; **`goto_level`** savelev tail / **`worm.c`** when worms on level.
+4. **Lane D — `objects_nums` / mkobj** — **`nh5OclassForOtyp`** map (ARMOR/ROCK first) after **`mksobj_init`** floor parity; legacy floor **`otyp`** vs C when replaying **`mkobj`**.
 
 ### Extended backlog (unchanged lanes)
 

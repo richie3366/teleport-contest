@@ -22,7 +22,7 @@ These items explain why public harness scoring remains **near-zero screen parity
 | **Object + inventory core** | `mkobj.c`, `invent.c`, `pickup.c`, `obj.c`, `dothrow.c`, `do_wear.c`, wield/bimanual, containers | Floor objects are **mklev-shaped**; **`ini_inv_stub.js`** stands in for **`ini_inv`**; no full **`mkobj`** / linked **`invent`** driving most item semantics |
 | **Combat** | `uhitm.c`, `mhitu.c`, `mhitm.c`, full `weapon.c` to-hit/damage | `attack.js` **stub damage** (`1+rn2(4)`), no AC/to-hit pipeline, minimal death/corpse path |
 | **Command surface** | Most of `cmd.c`, `do.c`, `apply.c`, `pray.c`, … | Narrow subset: movement, search, pickup/look, a few `#` extcmds; no general menu/`do` stack |
-| **Branches & special levels** | `sp_lev.c`, Lua under `dat/`, full `dungeon.c` graph | `sp_levchn.js` **stub**; `mklev.js` partial room-and-corridor; no real **minetn** graph parity |
+| **Branches & special levels** | `sp_lev.c`, `nhlua.c` `load_lua`, Lua under `dat/`, full `dungeon.c` graph | **Partial:** `loadLuaLikeC` runs **Fengari** for **`minetn-1.lua`** (+ nhlib in-runner) via **`nhl_lua.js`** / **`des_api.js`**; many **`lspo_*`** still unbound; **`sp_levchn.js`** / full **`place_level`** vs C still stubbed — see [`nhl-port-notes.md`](nhl-port-notes.md) |
 | **Persistence** | `save.c`, `bones.c`, `topten.c` | `storage.js` is API/frozen; **game state serialization** to match C save semantics is not the focus of current `js/` |
 | **Full trap / zap / shop long tail** | `trap.c`, `zap.c`, `shk.c`, `music.c`, `apply.c`, … | Large **partial** ports (`trap.js`, `zap_dig.js`, `shop.js`, …) with many branches still **TODO** or **stub** (see §4) |
 
@@ -158,7 +158,7 @@ Slices should **delete** scaffolding as C lands, not extend replay lists. Score 
 4. **Replace `moveloop_aux.js` harness** with real **`allmain.c`** end-of-turn tail.
 5. **Expand `cmd.c` / `do.c`** surface to match session inputs.
 6. **Combat pipeline** (`uhitm`/`mhitu`/AC/to-hit/damage).
-7. **Branches + `sp_lev` + Lua RNG channel**.
+7. **Branches + `sp_lev` + Lua des** — **in progress:** hybrid Fengari + JS `lspo` subset (**`minetn-1`** vertical); remaining **`dat/*.lua`**, full **`nhlua.c`** surface, and **`dungeon.c`** **`place_level`** / **`sp_levchn`** graph parity. Lua ISAAC: **`nhl_rng.js`**; nhlib align shuffle before **`init_dungeons`** remains a **core `rn2` shim** for public harness (see **`nhlib_align_shuffle.js`** comment).
 8. **Save/bones** semantics vs `docs/API.md`.
 9. **Display/botl/cursor** hardening.
 
