@@ -47,6 +47,8 @@ import {
     pickGendWithPick4uFallbackLikeC,
     pickAlignWithPick4uFallbackLikeC,
     applyGenlPick4uRandomFacetsLikeC,
+    applyChargenRandomallUnsetFacetsLikeC,
+    chargenGetConfirmationLikeC,
     ROLE_MENU_ORDER_LIKE_C,
 } from './chargen_rigid.js';
 import { applyIdentityFromNethackrc, applyPlnameSuffixToOptsLikeC, chargenFacetIndicesFromOptsLikeC } from './chargen.js';
@@ -1374,6 +1376,9 @@ export async function runInteractiveTtyChargen(disp, g, opts) {
         opts.name = g.plname;
         applyPlnameSuffixToOptsLikeC(opts);
         const fFromName = chargenFacetIndicesFromOptsLikeC(opts);
+        const picksomething = chargenPickSomethingLikeC(fFromName);
+        const randomall = !!g.flags?.randomall;
+        applyChargenRandomallUnsetFacetsLikeC(fFromName, randomall, picksomething);
         rigidRoleChecksJs(fFromName);
         if (!chargenPickSomethingLikeC(fFromName)) {
             applyChargenFlagsToGame(g, opts, fFromName);
@@ -1384,9 +1389,10 @@ export async function runInteractiveTtyChargen(disp, g, opts) {
         if (pick4u === 'q') throw new Error('Player quit during chargen');
         if (pick4u === 'y' || pick4u === 'a') {
             const f = chargenFacetIndicesFromOptsLikeC(opts);
+            applyChargenRandomallUnsetFacetsLikeC(f, randomall, picksomething);
+            rigidRoleChecksJs(f);
             applyGenlPick4uRandomFacetsLikeC(f);
-            if (pick4u === 'a') {
-                /* C: skip confirmation for "a" (all random, no confirm). */
+            if (!chargenGetConfirmationLikeC(picksomething, pick4u, randomall)) {
                 applyChargenFlagsToGame(g, opts, f);
                 return;
             }
@@ -1406,6 +1412,10 @@ export async function runInteractiveTtyChargen(disp, g, opts) {
             f.initgend = ROLE_NONE;
             f.initalign = ROLE_NONE;
             await pickManualChargenFacets(disp, f, g.plname);
+            if (!chargenGetConfirmationLikeC(picksomething, pick4u, randomall)) {
+                applyChargenFlagsToGame(g, opts, f);
+                return;
+            }
             for (;;) {
                 rigidRoleChecksJs(f);
                 const ok2 = await readConfirmAnswer(disp, f, g.plname);
@@ -1432,6 +1442,10 @@ export async function runInteractiveTtyChargen(disp, g, opts) {
         outer: for (;;) {
             const f = chargenFacetIndicesFromOptsLikeC(opts);
             await pickManualChargenFacets(disp, f, g.plname);
+            if (!chargenGetConfirmationLikeC(picksomething, pick4u, randomall)) {
+                applyChargenFlagsToGame(g, opts, f);
+                return;
+            }
             for (;;) {
                 rigidRoleChecksJs(f);
                 const ok = await readConfirmAnswer(disp, f, g.plname);

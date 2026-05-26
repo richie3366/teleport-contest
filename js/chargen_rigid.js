@@ -573,6 +573,26 @@ export function pickAlignWithPick4uFallbackLikeC(ri, rai, gi) {
  * and validrace/validgend/validalign re-pick when a preset facet is illegal.
  * @param {ChargenFlags} f
  */
+/**
+ * C genl_player_setup — `flags.randomall && picksomething` sets unset facets to ROLE_RANDOM
+ * before `rigid_role_checks()`.
+ * @param {ChargenFlags} f
+ * @param {boolean} randomall
+ * @param {boolean} picksomething
+ */
+export function applyChargenRandomallUnsetFacetsLikeC(f, randomall, picksomething) {
+    if (!randomall || !picksomething) return;
+    if (f.initrole === ROLE_NONE) f.initrole = ROLE_RANDOM;
+    if (f.initrace === ROLE_NONE) f.initrace = ROLE_RANDOM;
+    if (f.initgend === ROLE_NONE) f.initgend = ROLE_RANDOM;
+    if (f.initalign === ROLE_NONE) f.initalign = ROLE_RANDOM;
+}
+
+/** C genl_player_setup — `getconfirmation = (picksomething && pick4u != 'a' && !flags.randomall)`. */
+export function chargenGetConfirmationLikeC(picksomething, pick4u, randomall) {
+    return picksomething && pick4u !== 'a' && !randomall;
+}
+
 export function applyGenlPick4uRandomFacetsLikeC(f) {
     if (f.initrole === ROLE_NONE) {
         f.initrole = pickRoleWithPick4uFallbackLikeC(f.initrace, f.initgend, f.initalign);
