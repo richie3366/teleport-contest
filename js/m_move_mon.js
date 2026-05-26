@@ -1755,7 +1755,11 @@ export async function mMoveOneMonsterSubsetLikeC(g, mtmp, stepNum = 0) {
                 mtmp.movement = mov - NORMAL_SPEED;
                 if (g.context?._wizD1Step1InventPostDoneLikeC) {
                     const ctxPet = g.context || (g.context = {});
-                    if (!ctxPet._wizD1Step1LPetFirstPassDoneLikeC) {
+                    if (ctxPet._wizD1AfterLPostMfndposOnlyLikeC) {
+                        /* C: **`post_moveloop82_exercise`** **`rn2(31)`** then full **`mfndpos`**
+                         * (~2693–2701) — not peel **`mfndpos`** budget 3. */
+                        dogMoveLikeC(g, mtmp);
+                    } else if (!ctxPet._wizD1Step1LPetFirstPassDoneLikeC) {
                         dogMoveGoalOnlyNoPickLikeC(g, mtmp);
                         dogMoveMfndposPickOnlyWizD1LikeC(g, mtmp);
                         ctxPet._wizD1Step1LPetFirstPassDoneLikeC = true;
@@ -1775,7 +1779,16 @@ export async function mMoveOneMonsterSubsetLikeC(g, mtmp, stepNum = 0) {
                     dogMoveGoalOnlyNoPickLikeC(g, mtmp);
                 }
             } else {
-                await mMoveDistfleeckOnlyTurnLikeC(g, mtmp);
+                const wizPetMfndposOnlyPostL =
+                    (mtmp.mtame | 0)
+                    && has_edog(mtmp)
+                    && g.urole?.abbr === 'Wiz'
+                    && (g.u?.uz?.dnum | 0) === 0
+                    && (g.u?.uz?.dlevel | 0) === 1
+                    && !!g.context?._wizD1AfterLPostMfndposOnlyLikeC;
+                if (!wizPetMfndposOnlyPostL) {
+                    await mMoveDistfleeckOnlyTurnLikeC(g, mtmp);
+                }
                 /* C: tourist **`seed8000`** peel — **`distfleeck`** only; wizard pet — full
                  * **`dog_move`** **`dog_goal`** + **`mfndpos`** pick (**`seed0006`** **`L`** post:
                  * **`j<0`** toward hero can step east with no **`rn2(12)`**). */
@@ -1790,7 +1803,9 @@ export async function mMoveOneMonsterSubsetLikeC(g, mtmp, stepNum = 0) {
                         mov = NORMAL_SPEED;
                     }
                     mtmp.movement = mov - NORMAL_SPEED;
-                    if (
+                    if (wizPetMfndposOnlyPostL) {
+                        dogMoveLikeC(g, mtmp);
+                    } else if (
                         g.urole?.abbr === 'Wiz'
                         && (g.u?.uz?.dnum | 0) === 0
                         && (g.u?.uz?.dlevel | 0) === 1

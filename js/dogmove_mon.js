@@ -1143,6 +1143,10 @@ export function dogMoveLikeC(g, mtmp) {
                 goal.appr | 0,
                 whappr,
             );
+            /* C: near mklev **`distfleeck`** ×2 before distant **`m_move`** (~2702–2703). */
+            if (!ctx._wizD1LPostFourthPetDogGoalLikeC) {
+                ctx._wizD1Step1NearMklevDistfleeckOnlyLikeC = 2;
+            }
             return MMOVE_NOTHING;
         } finally {
             delete ctx._wizD1AfterLPostMfndposOnlyLikeC;

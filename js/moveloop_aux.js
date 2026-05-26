@@ -204,6 +204,7 @@ export function post_moveloop82_exercise(stepNum) {
             g.context = g.context || {};
             /* C: next pet **`dog_move`** (~2696) — full **`mfndpos`** (~2696–2704), no follow **`rn2(4)`**. */
             g.context._wizD1AfterLPostMfndposOnlyLikeC = true;
+            g.context._wizD1Step1NearMklevDistfleeckOnlyLikeC = 2;
             delete g.context._wizD1Step1PetMfndposPickDoneLikeC;
         }
     }
