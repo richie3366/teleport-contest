@@ -3168,9 +3168,18 @@ async function fill_ordinary_room(croom, bonus_items) {
             const hasSpace = somexyspace(croom, pos);
             if (hasSpace) {
                 const tmonst = makemon(null, pos.x, pos.y, MM_NOGRP);
+                if (typeof globalThis.__diagFillSleep === 'function') {
+                    globalThis.__diagFillSleep({
+                        gate: true,
+                        ok: !!tmonst,
+                        space: true,
+                    });
+                }
                 if (tmonst && (tmonst.mnum | 0) === PM_GIANT_SPIDER && !occupied(pos.x, pos.y)) {
                     await maketrap(pos.x, pos.y, WEB);
                 }
+            } else if (typeof globalThis.__diagFillSleep === 'function') {
+                globalThis.__diagFillSleep({ gate: true, ok: false, space: false });
             }
         }
     }
