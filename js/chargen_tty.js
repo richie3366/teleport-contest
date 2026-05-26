@@ -27,6 +27,7 @@ import {
     rigidRoleChecksJs,
     ROLE_NONE,
     ROLE_RANDOM,
+    applyChargenRfiltersFromOptsLikeC,
     clearChargenRfilterLikeC,
     trySetrolefilterTokenLikeC,
     gotChargenRfilterLikeC,
@@ -172,6 +173,13 @@ function genderMenuForcesLineLikeC(f) {
     const ri = f.initrole;
     const rai = f.initrace;
     if (ri < 0 || rai < 0) return null;
+    /* C role_menu_extra(RS_ALGNMNT): selected race.allow pins alignment before gender pick. */
+    const race = races[rai];
+    const raceAl = race.allows?.align;
+    if (raceAl?.length === 1) {
+        const ent = aligns.find((x) => x.value === raceAl[0]);
+        if (ent) return `race forces ${ent.name}`;
+    }
     const fixed = new Set();
     for (let ai = 0; ai < aligns.length; ai++) {
         if (okAlignJs(ri, rai, ROLE_RANDOM, ai)) fixed.add(ai);
@@ -256,6 +264,8 @@ function genderMenuRsRaceExtraLikeC(f) {
 function genderMenuRsAlignExtraLikeC(f) {
     const gray = roleMenuExtraRsAlignGrayLineLikeC(f);
     if (gray) return { gray };
+    /* C: alignment already resolved (e.g. pick_align rn2(1) after gnome) — no `[` hub line. */
+    if (f.initalign >= 0) return {};
     const ri = f.initrole;
     if (ri >= 0 && f.initrace >= 0) {
         const open = [];
@@ -1398,8 +1408,13 @@ async function pickManualChargenFacets(disp, f, plname = '') {
  * @param {ReturnType<typeof import('./options.js').parseNethackrc>} opts
  */
 export async function runInteractiveTtyChargen(disp, g, opts) {
+    let rcRoleFiltersApplied = false;
     top: for (;;) {
-        resetChargenRfilter();
+        if (!rcRoleFiltersApplied) {
+            clearChargenRfilterLikeC();
+            applyChargenRfiltersFromOptsLikeC(opts);
+            rcRoleFiltersApplied = true;
+        }
         await ttyAsknameLikeC(disp, g);
         opts.name = g.plname;
         applyPlnameSuffixToOptsLikeC(opts);
