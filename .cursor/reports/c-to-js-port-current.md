@@ -31,7 +31,7 @@ Use this when **`Next steps`** below feels stale or several lanes compete. Order
 
 **Deferred for now:** **`maybe_do_tutorial`** / **`tut-1`** / full **`do.c`** **`goto_level`** (Lua **`tutorial()`** / **`free_tutorial()`**, **`savelev`**, **`gmst_*`**, …) and **`dokick`**/**`dothrow`** vs **`leaving_tutorial`** — strong upstream dependencies (save, specials, fuller **`do.c`**); treat as backlog until chargen / core early-game parity is further along; **`LIVELOGFILE`** parity if the judge ever compares livelog lines.
 
-**Last slice:** Wizard D:1 **`L`** post-peel — **`mMoveWizardD1LPostTailDistantLikeC`** (pinned distant **`distfleeck`** + **`m_move`** ~2622–2623); pet tail **`rn2(1)`** once then **`rn2(12)`** + budget-5 pick; rest **`movemon`** under **`_wizD1Step1RestDochugLikeC`**. **`m_move_mon.js`**, **`dogmove_mon.js`**, **`monmove.js`**. **`seed0006`** **2745/6736** (diag first gap **~2631** chargen **`rn2(100)`**; **~2615–2630** moveloop aligned). **`seed0077`/`seed8000`:** **PASS**. **2/44**.
+**Last slice:** Wizard D:1 **`L`** — C **`dog_goal`** follow **`rn2(4)`** only when **`udist > 1`** (`dogmove.c`); post-newturn **`gi.invent`** **`obj_resists`** prescan + **`mfndpos`** **`chcnt`** ladder (`dogMoveLPetInventAfterNewturnLikeC`, **`moveloop_turn_advance.js`** hook). **`dogmove_mon.js`**, **`moveloop_turn_advance.js`**. **`seed0006`** **2768/6736** (diag **~2642** pet **`mfndpos`** after prescan). **`seed0077`/`seed8000`:** **PASS**. **2/44**.
 
 **Handoff refresh:** **Priority matrix** (lanes A–D) + **Next steps** aligned to it; **`c-to-js-port-remaining.md`** / **`c-to-js-port-dashboard.md`** / **`nhl-port-notes.md`** / **`continue-nethack-port.md`** updated for post-`load_lua` reality and NHL ordering.
 
@@ -39,7 +39,7 @@ Use this when **`Next steps`** below feels stale or several lanes compete. Order
 
 Pick **one** primary lane per slice; refresh this list after each merge.
 
-1. **Lane A — `seed0006` ~2631+ chargen** — first gap **`rn2(100)`** (C identity pickers vs JS dungeon **`mfndpos`**); **`wintty.c`** / **`role.c`** → **`chargen_tty.js`**. Lane C tail: any remaining D:1 **`fmon`** after **`L`** if sessions still show moveloop skew before chargen.
+1. **Lane C — `seed0006` ~2642+ `L` pet `mfndpos`** — after new-turn invent prescan, C **`dog_move`** **`rn2(1..8)`** **`chcnt`** ties (`dogmove.c` ~1255); JS emits **`distfleeck`/`m_move`** — wire **`mfndpos`** pick after **`dogMoveLPetInventAfterNewturnLikeC`**. Lane A: **`chargen_tty.js`** when rc omits identity.
 2. **Lane A — Chargen / init + early moveloop** — tty / **`role.c`** pickers when rc omits identity.
 3. **Lane B — NHL** — next **`lspo_*`** + **`nhl_lua.js`** allowlist per [`nhl-port-notes.md`](nhl-port-notes.md).
 4. **Lane D — `objects_nums` / mkobj** — audit other **`const.js`** otyps vs NH5 **`objects_nums`** after AoY fix.
