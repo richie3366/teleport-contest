@@ -67,7 +67,6 @@ import {
 } from './mfndpos_mon.js';
 import { ensureMonsterMtrack, monTrackAdd, monTrackClear } from './monflee.js';
 import {
-    dogMoveGoalOnlyNoPickLikeC,
     dogMoveLikeC,
     dogMoveOntoApportTowelLikeC,
     dogMoveSearchPassNearHeroLikeC,
@@ -1359,6 +1358,7 @@ export async function mMoveOneMonsterSubsetLikeC(g, mtmp, stepNum = 0) {
             delete g.context._postBumpKillDochugGateLikeC;
             delete g.context._postBumpDistantMtmpLikeC;
             delete g.context._postBumpDistantDistfleeckDoneLikeC;
+            delete g.context._postBumpDistantSecondPassLikeC;
             return;
         }
         const ctx = g.context;
@@ -1370,6 +1370,13 @@ export async function mMoveOneMonsterSubsetLikeC(g, mtmp, stepNum = 0) {
             wipeEngrAt(mx, my, 1, false);
             if (!dochugPhaseOneRngAfterWipeEngrLikeC(g, mtmp)) return;
             setApparxyMonsterLikeC(g, mtmp);
+            if (!ctx._postBumpDistantSecondPassLikeC) {
+                /* C: **`seed0006`** ~2530 — distant **`distfleeck`** before pet **`dochug:886`**. */
+                await distfleeckMonsterApplyLikeC(g, mtmp);
+                ctx._postBumpDistantDistfleeckDoneLikeC = true;
+                return;
+            }
+            /* C: after pet **`dog_move`** — **`distfleeck`** ×2 then **`m_move`** (~2553–2555). */
             const flee1 = await distfleeckMonsterApplyLikeC(g, mtmp);
             const nearbyGate = nearbyForDochugGateLikeC(g, mtmp, flee1);
             if (
@@ -1384,7 +1391,6 @@ export async function mMoveOneMonsterSubsetLikeC(g, mtmp, stepNum = 0) {
                 ensureMonsterMtrack(mtmp);
                 mMovePositionSelectSilentLikeC(g, mtmp);
             }
-            ctx._postBumpDistantDistfleeckDoneLikeC = true;
             return;
         }
         if ((mtmp.mtame | 0) && has_edog(mtmp)) {
@@ -1456,8 +1462,9 @@ export async function mMoveOneMonsterSubsetLikeC(g, mtmp, stepNum = 0) {
                 }
             } else {
                 await mMoveDistfleeckOnlyTurnLikeC(g, mtmp);
-                /* C: tourist **`seed8000`** peel — **`distfleeck`** only; wizard pet — **`dog_goal`**
-                 * **`rn2(4)`** without **`appr==0`** **`rn2(1)`** (**`seed0006`**). */
+                /* C: tourist **`seed8000`** peel — **`distfleeck`** only; wizard pet — full
+                 * **`dog_move`** **`dog_goal`** + **`mfndpos`** pick (**`seed0006`** **`L`** post:
+                 * **`j<0`** toward hero can step east with no **`rn2(12)`**). */
                 if (
                     (mtmp.mtame | 0)
                     && has_edog(mtmp)
@@ -1469,7 +1476,7 @@ export async function mMoveOneMonsterSubsetLikeC(g, mtmp, stepNum = 0) {
                         mov = NORMAL_SPEED;
                     }
                     mtmp.movement = mov - NORMAL_SPEED;
-                    dogMoveGoalOnlyNoPickLikeC(g, mtmp);
+                    dogMoveLikeC(g, mtmp);
                 }
             }
             return;

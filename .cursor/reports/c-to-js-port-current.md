@@ -31,7 +31,7 @@ Use this when **`Next steps`** below feels stale or several lanes compete. Order
 
 **Deferred for now:** **`maybe_do_tutorial`** / **`tut-1`** / full **`do.c`** **`goto_level`** (Lua **`tutorial()`** / **`free_tutorial()`**, **`savelev`**, **`gmst_*`**, …) and **`dokick`**/**`dothrow`** vs **`leaving_tutorial`** — strong upstream dependencies (save, specials, fuller **`do.c`**); treat as backlog until chargen / core early-game parity is further along; **`LIVELOGFILE`** parity if the judge ever compares livelog lines.
 
-**Last slice:** Lane A — **`uhitm_hero.js`**: bump kill does not walk hero onto **`bhitpos`** (C **`domove_attackmon_at`** / **`do_attack`** return without **`domove`** step). Post-bump pet **`dog_move`** now hero **(49,13)** pet **(47,14)** **`dist2=5`**; C **14× `obj_resists`** need **`dist2≤1`** (skip **`dog_goal`** **`udist>1`** **`whappr`** block) → pet **~(48,13)** with same hero — likely **`L`** post **`mfndpos`** pick. **`seed0006`** still **2647/6736** at **~2532**. **`seed0077`/`seed8000`:** **PASS**. **2/44**.
+**Last slice:** **`const.js`** NH5 **`OTYP_*_AMULET_OF_YENDOR`** **212/213** (fix **`obj_resists`** treating ring **otyp 198** as AoY). Post-bump **`dog_move`**: 14× invent **`obj_resists`** + **`mfndpos`** **`rn2(1..7)`** aligned (**~2545–2552**). Wizard step-1 peel **`dogMoveLikeC`**; distant two-pass (**`distfleeck`** → pet → **`distfleeck`+`m_move`**). **`seed0006`** **2672/6736** at **~2553** (distant **`rn2(5)`** vs JS **`rn2(12)`**). **`seed0077`/`seed8000`:** **PASS**. **2/44**.
 
 **Handoff refresh:** **Priority matrix** (lanes A–D) + **Next steps** aligned to it; **`c-to-js-port-remaining.md`** / **`c-to-js-port-dashboard.md`** / **`nhl-port-notes.md`** / **`continue-nethack-port.md`** updated for post-`load_lua` reality and NHL ordering.
 
@@ -39,10 +39,10 @@ Use this when **`Next steps`** below feels stale or several lanes compete. Order
 
 Pick **one** primary lane per slice; refresh this list after each merge.
 
-1. **Lane A — Chargen / init + early moveloop** — **`seed0006`** — RNG **2647/6736** at **~2532** (after **`dochug:886`** **`rn2(4)`**): **`dog_goal`** **`gi.invent`** **`dogfood`** when **`dist2(omx,omy,ux,uy)≤1`** (pet **~(48,13)** hero **(49,13)**); **`whappr`** blocks invent when **`udist>1`** and **`moves-whistletime&lt;5`**. Next: **`L`** post pet **`mfndpos`** step east vs C; then **`mfndpos`** pick tail. Diag: **`tools/diag_rng_window.mjs`**, **`tools/diag_seed0006_post_n_L.mjs`**.
-2. **Lane B — NHL** — next **`lspo_*`** + **`nhl_lua.js`** allowlist for the next target **`dat/*.lua`**; fill gaps in [`nhl-port-notes.md`](nhl-port-notes.md); **`selection.js`** vs **`nhlsel.c`** only for ops that script uses.
-3. **Lane C — `mon_arrive` / `goto_level`** — long-worm **`initworm`** on arrive; **`Wiz_arrive`** from **`resurrect`**; **`losedogs`** dismiss-kops / **`make_happy_shoppers`**; **`goto_level`** savelev tail / **`worm.c`** when worms on level.
-4. **Lane D — `objects_nums` / mkobj** — **`nh5OclassForOtyp`** map (ARMOR/ROCK first) after **`mksobj_init`** floor parity; legacy floor **`otyp`** vs C when replaying **`mkobj`**.
+1. **Lane C — `seed0006` post-bump moveloop** — RNG **2672/6736** at **~2553**: after pet **`mfndpos`** **`chcnt`**, C distant **`distfleeck`** **`rn2(5)`**×2 then **`m_move`** **`rn2(20)`**; JS **`rn2(12)`** ( **`m_move`** before **`distfleeck`** or extra **`mfndpos`** slot). **`monmove.c`** / **`m_move_mon.c`** post-bump second distant pass + **`skipDistfleeckRecalcAfterMmoveLikeC`**. Diag: **`tools/diag_rng_window.mjs`**, **`tools/diag_seed0006_invent_count.mjs`**.
+2. **Lane A — Chargen / init + early moveloop** — tty / **`role.c`** pickers when rc omits identity.
+3. **Lane B — NHL** — next **`lspo_*`** + **`nhl_lua.js`** allowlist per [`nhl-port-notes.md`](nhl-port-notes.md).
+4. **Lane D — `objects_nums` / mkobj** — audit other **`const.js`** otyps vs NH5 **`objects_nums`** after AoY fix.
 
 ### Extended backlog (unchanged lanes)
 

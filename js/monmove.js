@@ -434,6 +434,13 @@ export async function movemon(stepNum) {
             if (postBumpPet && g.context?._postBumpKillDochugGateLikeC) {
                 await movemonSinglemonLikeC(g, postBumpPet, effStepNum);
             }
+            if (
+                postBumpDistant
+                && g.context?._postBumpKillDochugGateLikeC
+            ) {
+                g.context._postBumpDistantSecondPassLikeC = true;
+                await movemonSinglemonLikeC(g, postBumpDistant, effStepNum);
+            }
             mons = mons.filter(
                 (m) => m !== postBumpDistant && m !== postBumpPet,
             );
@@ -443,6 +450,7 @@ export async function movemon(stepNum) {
             delete g.context._postBumpKillDochugGateLikeC;
             delete g.context._postBumpDistantMtmpLikeC;
             delete g.context._postBumpDistantDistfleeckDoneLikeC;
+            delete g.context._postBumpDistantSecondPassLikeC;
         }
         /* C: rogue first **`#search`** — post-gate **`distfleeck`** peel after **`dog_goal`**
          * (**`seed0077` ~3209–3212**); complements **`fmon_iter`** pet-before-peel order. */
