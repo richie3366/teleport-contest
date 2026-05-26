@@ -31,7 +31,7 @@ Use this when **`Next steps`** below feels stale or several lanes compete. Order
 
 **Deferred for now:** **`maybe_do_tutorial`** / **`tut-1`** / full **`do.c`** **`goto_level`** (Lua **`tutorial()`** / **`free_tutorial()`**, **`savelev`**, **`gmst_*`**, …) and **`dokick`**/**`dothrow`** vs **`leaving_tutorial`** — strong upstream dependencies (save, specials, fuller **`do.c`**); treat as backlog until chargen / core early-game parity is further along; **`LIVELOGFILE`** parity if the judge ever compares livelog lines.
 
-**Last slice:** Lane A — **`allmain.c`/`cmd.c`**: C run (**`gm.multi`/`context.mv`**) — **`HJKLYUBN`** sets **`COLNO`** + extra **`domove`** before next **`rhack`**. **`dmgval`**: **`objects[].oc_wsdam`/`oc_wldam`** (**`obj_oc_damage_data.js`**); **`weapon_dam_bonus`** by **`P_SKILL`**; wizard **`uwep`** for all races (**`u_init_link_wizard_invent.js`**). **`end_running`**: clear **`gm.multi`**. **`seed0006`** **2659/6736** (was **2576**); first miss **~2529** (**`corpse_chance`** **`rn2(4)`** vs **`rn2(3)`** — **`permonst.geno`** stub). **`seed0077`/`seed8000`:** **PASS**. **2/44**.
+**Last slice:** Lane A — **`mon.c` `corpse_chance`**: wire **`permonst.geno`** / **`msize`** from **`MONS_GENO_PLAN_B`** / **`MONS_MSIZE`** (**`mondata.js`**); **`G_FREQ=0x7`** in **`uhitm_hero.js`**; **`gen_mons_rndmonst_fields.mjs --msize-only`** pads **`[0,0]`** to match 396-entry tables. Bump kill **`rn2(4)`** corpse roll through **~2530**; **~2531** **`dochug:886`** **`rn2(4)`** vs extra **`distfleeck`**. **`seed0006`** **2654/6736**. **`seed0077`/`seed8000`:** **PASS**. **2/44**.
 
 **Handoff refresh:** **Priority matrix** (lanes A–D) + **Next steps** aligned to it; **`c-to-js-port-remaining.md`** / **`c-to-js-port-dashboard.md`** / **`nhl-port-notes.md`** / **`continue-nethack-port.md`** updated for post-`load_lua` reality and NHL ordering.
 
@@ -39,7 +39,7 @@ Use this when **`Next steps`** below feels stale or several lanes compete. Order
 
 Pick **one** primary lane per slice; refresh this list after each merge.
 
-1. **Lane A — Chargen / init + early moveloop** — **`seed0006`** — RNG **2659/6736**; **~2529** — **`corpse_chance`** **`rn2(tmp)`** (**`permonst.geno`** / **`verysmall`** on niche fungus); then **`mkobj`** treasure tail vs **`distfleeck`**. Run multi + **`dmgval`/`uwep`** bump block through **2528**. Diag: **`tools/diag_rng_window.mjs`**, **`tools/diag_seed0006_post_n_L.mjs`**.
+1. **Lane A — Chargen / init + early moveloop** — **`seed0006`** — RNG **2654/6736**; **~2531** — **`monmove.c` `dochug:886`** **`(!mcansee && !rn2(4))`** vs wizard peel **`distfleeck`** recalc (**`m_move_mon.js`** **`stepNum` 1**); then **`obj_resists`** tail. Diag: **`tools/diag_rng_window.mjs`**, **`tools/diag_seed0006_post_n_L.mjs`**.
 2. **Lane B — NHL** — next **`lspo_*`** + **`nhl_lua.js`** allowlist for the next target **`dat/*.lua`**; fill gaps in [`nhl-port-notes.md`](nhl-port-notes.md); **`selection.js`** vs **`nhlsel.c`** only for ops that script uses.
 3. **Lane C — `mon_arrive` / `goto_level`** — long-worm **`initworm`** on arrive; **`Wiz_arrive`** from **`resurrect`**; **`losedogs`** dismiss-kops / **`make_happy_shoppers`**; **`goto_level`** savelev tail / **`worm.c`** when worms on level.
 4. **Lane D — `objects_nums` / mkobj** — **`nh5OclassForOtyp`** map (ARMOR/ROCK first) after **`mksobj_init`** floor parity; legacy floor **`otyp`** vs C when replaying **`mkobj`**.

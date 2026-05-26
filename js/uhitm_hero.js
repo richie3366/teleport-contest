@@ -126,12 +126,14 @@ function findRollToHitMeleeLikeC(g, mtmp) {
  * C: mon.c corpse_chance — fungus-sized monsters use tmp=2..4 style roll.
  * @param {Record<string, unknown>} mtmp
  */
+/** C: monflag.h `G_FREQ` mask (mon.c corpse_chance). */
+const G_FREQ = 0x0007;
+
 /** C: mon.c corpse_chance — tmp = 2 + rare geno + verysmall; !rn2(tmp). */
 function corpseChanceLikeC(mtmp) {
     const mdat = mtmp.data;
     if (!mdat) return false;
     const geno = mdat.geno | 0;
-    const G_FREQ = 1;
     let tmp = 2 + ((geno & G_FREQ) < 2 ? 1 : 0) + (verysmall(mdat) ? 1 : 0);
     return !rn2(tmp);
 }

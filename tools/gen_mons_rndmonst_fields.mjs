@@ -15,8 +15,13 @@ const dataPath = join(root, 'js/mons_rndmonst_ini_inv_data.js');
 
 /** @type {Record<string, number>} */
 const M2_BITS = {};
+/** @type {Record<string, number>} */
+const MZ_MAP = {};
 for (const m of readFileSync(monflagH, 'utf8').matchAll(/#define (M2_[A-Z0-9_]+)\s+(0x[0-9a-f]+)L?/gi)) {
     M2_BITS[m[1]] = parseInt(m[2], 16);
+}
+for (const m of readFileSync(monflagH, 'utf8').matchAll(/#define (MZ_[A-Z]+)\s+(\d+)/g)) {
+    MZ_MAP[m[1]] = parseInt(m[2], 10);
 }
 
 const text = readFileSync(monstersH, 'utf8');
@@ -50,6 +55,8 @@ const difficulty = [];
 /** @type {number[]} */
 const genoPlanB = [];
 /** @type {number[]} */
+const msize = [];
+/** @type {number[]} */
 const mflags2 = [];
 /** @type {number[]} */
 const mflags3 = [];
@@ -81,6 +88,13 @@ function parseMflags3(block) {
 }
 
 /** @param {string} block */
+function parseMsize(block) {
+    const m = block.match(/SIZ\([^)]+,\s*(MZ_[A-Z]+)\)/);
+    if (!m) return 2;
+    return MZ_MAP[m[1]] ?? 2;
+}
+
+/** @param {string} block */
 function parseGenoPlanB(block) {
     let geno = 0;
     const genoLine = block.match(/LVL\([^)]+\),\s*\(([^)]+)\)/);
@@ -104,6 +118,7 @@ for (const block of monBlocks) {
     );
     difficulty.push(diffM ? parseInt(diffM[1], 10) : 0);
     genoPlanB.push(parseGenoPlanB(block));
+    msize.push(parseMsize(block));
     mflags2.push(parseMflags2(block));
     mflags3.push(parseMflags3(block));
 }
@@ -125,6 +140,14 @@ function replaceArray(src, name, values) {
 let out = replaceArray(dataJs, 'MONS_MLEVEL', mlevel);
 out = replaceArray(out, 'MONS_MMOVE', mmove);
 out = replaceArray(out, 'MONS_MFLAGS2', mflags2);
+if (!/export const MONS_MSIZE/.test(out)) {
+    out = out.replace(
+        /export const MONS_MFLAGS2 = .*?;\n/,
+        (m) => `${m}\nexport const MONS_MSIZE = /** @type {readonly number[]} */ (${fmt(msize)});\n`,
+    );
+} else {
+    out = replaceArray(out, 'MONS_MSIZE', msize);
+}
 if (!/export const MONS_MFLAGS3/.test(out)) {
     out = out.replace(
         /export const MONS_MMOVE = .*?;\n/,
@@ -135,6 +158,23 @@ if (!/export const MONS_MFLAGS3/.test(out)) {
 }
 const updateAll = process.argv.includes('--all');
 const updateGeno = updateAll || process.argv.includes('--geno');
+const msizeOnly = process.argv.includes('--msize-only');
+if (msizeOnly) {
+    /* Align with committed `MONS_GENO_PLAN_B` — two leading `mons[0..1]` pads, then 394 `MON` rows. */
+    const msizePadded = [0, 0, ...msize];
+    let src = readFileSync(dataPath, 'utf8');
+    if (!/export const MONS_MSIZE/.test(src)) {
+        src = src.replace(
+            /export const MONS_MFLAGS2 = .*?;\n/,
+            (m) => `${m}\nexport const MONS_MSIZE = /** @type {readonly number[]} */ (${fmt(msizePadded)});\n`,
+        );
+    } else {
+        src = replaceArray(src, 'MONS_MSIZE', msizePadded);
+    }
+    writeFileSync(dataPath, src);
+    console.log(`Updated MONS_MSIZE only (${msizePadded.length} entries)`);
+    process.exit(0);
+}
 if (updateAll) {
     out = replaceArray(out, 'MONS_RNDMONST_DIFFICULTY', difficulty);
     out = replaceArray(out, 'MONS_GENO_PLAN_B', genoPlanB);
@@ -143,8 +183,10 @@ if (updateAll) {
 }
 writeFileSync(dataPath, out);
 console.log(
-    `Updated ${blocks.length} monsters: MONS_MLEVEL, MONS_MMOVE, MONS_MFLAGS2`
+    `Updated ${blocks.length} monsters: MONS_MLEVEL, MONS_MMOVE, MONS_MFLAGS2, MONS_MSIZE`
         + (updateAll ? ', MONS_RNDMONST_DIFFICULTY, MONS_GENO_PLAN_B' : '')
         + (updateGeno && !updateAll ? ', MONS_GENO_PLAN_B' : '')
-        + (!updateAll && !updateGeno ? ' (pass --geno or --all for rndmonst tables)' : ''),
+        + (!updateAll && !updateGeno && !msizeOnly
+            ? ' (pass --msize-only, --geno, or --all)'
+            : ''),
 );
