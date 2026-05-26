@@ -518,6 +518,11 @@ export async function movemon(stepNum) {
                 setApparxyMonsterLikeC(g, pet);
                 dogMoveInventOnlyLikeC(g, pet);
             }
+            /* C: **`seed0006`** **`n`** — near mklev **`distfleeck`** after pet **`mfndpos`** (~2597). */
+            if (nearMklev) {
+                setApparxyMonsterLikeC(g, nearMklev);
+                await distfleeckMonsterApplyLikeC(g, nearMklev);
+            }
         }
         /* C: post-bump gate cleared in **`finally`** — search / east peels below stay distfleeck-only. */
         /* C: rogue first **`#search`** — post-gate **`distfleeck`** peel after **`dog_goal`**

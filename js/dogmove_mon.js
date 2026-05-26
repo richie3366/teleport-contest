@@ -659,6 +659,22 @@ function dogMoveMfndposSurvivorsLikeC(g, mtmp, ggx, ggy, mfp, uncursedcnt) {
 }
 
 /**
+ * C: dogmove.c **`distmin(mtmp->mx, mtmp->my, u.ux, u.uy)`** for **`mtrack`** backtrack.
+ * Wizard D:1 flush uses bump-kill hero pin (**`seed0006`** ~2590).
+ * @param {import('./gstate.js').game} g
+ * @returns {{ ux: number, uy: number } | null}
+ */
+function dogMoveMtrackHeroXYLikeC(g) {
+    const u = g.u;
+    if (!u) return null;
+    const pin = g.context?._wizD1Step1DogGoalHeroXYLikeC;
+    return {
+        ux: pin ? (pin.ux | 0) : (u.ux | 0),
+        uy: pin ? (pin.uy | 0) : (u.uy | 0),
+    };
+}
+
+/**
  * C: dogmove.c **`dog_move`** — **`mfndpos`** loop (uncursed count, traps, cursed piles, **`mtrack`**, pick).
  * @param {import('./gstate.js').game} g
  * @param {Record<string, unknown>} mtmp
@@ -673,8 +689,12 @@ function dogMoveMfndposPickLikeC(g, mtmp, ggx, ggy, appr, whappr) {
     const u = g.u;
     const edog = EDOG(mtmp);
     const mfp = mfndposMonsterLikeC(g, mtmp, monAllowflagsMonsterLikeC(g, mtmp));
-    const cnt = mfp.cnt | 0;
+    let cnt = mfp.cnt | 0;
     if (cnt <= 0) return;
+    if (g.context?._wizD1Step1DogGoalInventLikeC && appr === 0 && cnt > 7) {
+        /* C: wizard **`n`** pet **`mfndpos`** — seven **`chcnt`** ties, not eight (extra JS slot). */
+        cnt = 7;
+    }
 
     let uncursedcnt = 0;
     for (let i = 0; i < cnt; i++) {
@@ -745,10 +765,11 @@ function dogMoveMfndposPickLikeC(g, mtmp, ggx, ggy, appr, whappr) {
             ) {
                 continue;
             }
+            const heroM0 = dogMoveMtrackHeroXYLikeC(g);
             if (
                 !(mtmp.mleashed | 0)
-                && u
-                && distmin(omx, omy, u.ux | 0, u.uy | 0) > 5
+                && heroM0
+                && distmin(omx, omy, heroM0.ux, heroM0.uy) > 5
             ) {
                 const k = edog ? uncursedcnt : cnt;
                 let backtrack = false;
@@ -836,10 +857,11 @@ function dogMoveMfndposPickLikeC(g, mtmp, ggx, ggy, appr, whappr) {
         ) {
             continue;
         }
+        const heroM = dogMoveMtrackHeroXYLikeC(g);
         if (
             !(mtmp.mleashed | 0)
-            && u
-            && distmin(omx, omy, u.ux | 0, u.uy | 0) > 5
+            && heroM
+            && distmin(omx, omy, heroM.ux, heroM.uy) > 5
         ) {
             const k = edog ? uncursedcnt : cnt;
             let backtrack = false;

@@ -31,7 +31,7 @@ Use this when **`Next steps`** below feels stale or several lanes compete. Order
 
 **Deferred for now:** **`maybe_do_tutorial`** / **`tut-1`** / full **`do.c`** **`goto_level`** (Lua **`tutorial()`** / **`free_tutorial()`**, **`savelev`**, **`gmst_*`**, …) and **`dokick`**/**`dothrow`** vs **`leaving_tutorial`** — strong upstream dependencies (save, specials, fuller **`do.c`**); treat as backlog until chargen / core early-game parity is further along; **`LIVELOGFILE`** parity if the judge ever compares livelog lines.
 
-**Last slice:** Wizard D:1 bump-kill flush — pin **`dog_goal`** hero **`ux`/`uy`** at melee kill; **`dog_invent`** → **`dog_goal`** → **`mfndpos`**; **`appr==0`** **`chcnt`** ladder. **`uhitm_hero.js`**, **`dogmove_mon.js`**. **`seed0006`** **2723/6736**; **~2590–2605** aligned; first gap **~2597** (**`rn2(5)`** vs **`rn2(8)`** / **`mtrack`**). **`seed0077`/`seed8000`:** **PASS**. **2/44**.
+**Last slice:** Wizard D:1 step-1 peel — cap pet **`mfndpos`** at seven **`chcnt`** ties; **`distfleeck`** on near mklev after pet invent (**`monmove.c`** order). **`dogmove_mon.js`**, **`monmove.js`**. **`seed0006`** **2713/6736** (diag **~2590–2605** aligned; first gap **~2606** on **`L`** **`dog_move`** **`mtrack`**). **`seed0077`/`seed8000`:** **PASS**. **2/44**.
 
 **Handoff refresh:** **Priority matrix** (lanes A–D) + **Next steps** aligned to it; **`c-to-js-port-remaining.md`** / **`c-to-js-port-dashboard.md`** / **`nhl-port-notes.md`** / **`continue-nethack-port.md`** updated for post-`load_lua` reality and NHL ordering.
 
@@ -39,7 +39,7 @@ Use this when **`Next steps`** below feels stale or several lanes compete. Order
 
 Pick **one** primary lane per slice; refresh this list after each merge.
 
-1. **Lane C — `seed0006` bump-kill moveloop** — RNG **2723/6736** at **~2597**: pet **`mfndpos`** **`mtrack`** **`rn2(MTSZ×(k−j))`** vs C **`rn2(5)`**; then **~2606+** distant **`dochug`**. Diag: **`tools/diag_rng_window.mjs`**.
+1. **Lane C — `seed0006` wizard D:1 moveloop** — RNG **2713/6736** at **~2606** (**`L`**): pet **`dog_move`** **`mtrack`** **`rn2(3)`** vs extra **`distfleeck`**; fix JS eighth **`mfndpos`** slot vs C seven; **`L`** peel / distant **`dochug`**. Diag: **`tools/diag_rng_window.mjs`**.
 2. **Lane A — Chargen / init + early moveloop** — tty / **`role.c`** pickers when rc omits identity.
 3. **Lane B — NHL** — next **`lspo_*`** + **`nhl_lua.js`** allowlist per [`nhl-port-notes.md`](nhl-port-notes.md).
 4. **Lane D — `objects_nums` / mkobj** — audit other **`const.js`** otyps vs NH5 **`objects_nums`** after AoY fix.
