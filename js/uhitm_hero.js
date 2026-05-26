@@ -209,19 +209,13 @@ export async function bumpMeleeAttackLikeC(g, mtmp) {
     useSkill(g.u, P_BARE_HANDED_COMBAT, 1);
     await adisturb(mtmp);
 
-    const nx = (g.u?.ux | 0) + (g.u?.dx | 0);
-    const ny = (g.u?.uy | 0) + (g.u?.dy | 0);
-
     if ((mtmp.mhp | 0) <= 0) {
         const ctx = g.context || (g.context = {});
         ctx._postBumpKillDochugGateLikeC = true;
         const distant = findDistantMklevMonLikeC(g);
         if (distant) ctx._postBumpDistantMtmpLikeC = distant;
+        /* C: domove_attackmon_at → do_attack — bump kill does not walk onto bhitpos. */
         await xkilledHeroBumpLikeC(g, mtmp, XKILL_GIVEMSG);
-        if (g.u && isok(nx, ny)) {
-            g.u.ux = nx;
-            g.u.uy = ny;
-        }
     }
 
     for (const line of overexertHpIfEncumberedPlines()) await pline(line);
