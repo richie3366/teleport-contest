@@ -211,6 +211,7 @@ export async function bumpMeleeAttackLikeC(g, mtmp) {
 
     if ((mtmp.mhp | 0) <= 0) {
         const ctx = g.context || (g.context = {});
+        delete ctx._postBumpInlineDoneLikeC;
         ctx._postBumpKillDochugGateLikeC = true;
         const distant = findDistantMklevMonLikeC(g);
         if (distant) ctx._postBumpDistantMtmpLikeC = distant;
