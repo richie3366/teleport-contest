@@ -31,7 +31,7 @@ Use this when **`Next steps`** below feels stale or several lanes compete. Order
 
 **Deferred for now:** **`maybe_do_tutorial`** / **`tut-1`** / full **`do.c`** **`goto_level`** (Lua **`tutorial()`** / **`free_tutorial()`**, **`savelev`**, **`gmst_*`**, …) and **`dokick`**/**`dothrow`** vs **`leaving_tutorial`** — strong upstream dependencies (save, specials, fuller **`do.c`**); treat as backlog until chargen / core early-game parity is further along; **`LIVELOGFILE`** parity if the judge ever compares livelog lines.
 
-**Last slice:** Lane A — **`monmove.c`** wizard step-**1** peel: C **`dochug`** **`distfleeck`** + **`m_move`** gate + recalc **`distfleeck`** (~915) for **`mgenmklev`** (not peel-only); **`dogMoveGoalOnlyNoPickLikeC`** (**`dog_goal`** **`rn2(4)`** without **`appr==0`** **`rn2(1)`**); cap **2** mklev recalcs/movemon (**`_mklevDistfleeckRecalcBudgetLikeC`**). Peel **`2509–2522`** matches C; first miss **~2523** (**`rn2(20)`**). **`seed0077`/`seed8000`:** **PASS**. **`npm run score`:** **2/44**; **`seed0006`** **2529/6736**.
+**Last slice:** Lane A — **`cmd.c`**: C **`do_run_*`** (shift-dir **`HJKLYUBN`**) + **`donull`** (**`.`**) set **`context.move = 1`** (**`ECMD_TIME`**) so moveloop post runs after **`L`** / run-east; was unknown-command **`move=0`** and deferred **`movemon`**. **`seed0006`** **2573/6736** (was **2529**); first miss **~2523** (**`gethungry`** **`rn2(20)`** vs post **`distfleeck`** — bump **`hitum`** chain on east **`l`** still stub). **`seed0077`/`seed8000`:** **PASS**. **2/44**.
 
 **Handoff refresh:** **Priority matrix** (lanes A–D) + **Next steps** aligned to it; **`c-to-js-port-remaining.md`** / **`c-to-js-port-dashboard.md`** / **`nhl-port-notes.md`** / **`continue-nethack-port.md`** updated for post-`load_lua` reality and NHL ordering.
 
@@ -39,7 +39,7 @@ Use this when **`Next steps`** below feels stale or several lanes compete. Order
 
 Pick **one** primary lane per slice; refresh this list after each merge.
 
-1. **Lane A — Chargen / init + early moveloop** — **`seed0006`** — RNG **2529/6736**; **~2523** — post-**`l`** peel ok through **`mcalcmove`** tail; next C **`dochug`** / **`mfndpos`** / **`rn2(20)`** after **`n`** (not budget cap); replace **`_mklevDistfleeckRecalcBudgetLikeC`** with per-mon gate when C path clear. Diag: **`tools/diag_rng_window.mjs`**, **`tools/diag_seed0006_post_n_L.mjs`**.
+1. **Lane A — Chargen / init + early moveloop** — **`seed0006`** — RNG **2573/6736**; **~2523** — east **`l`** needs C **`uhitm`/`hitum`** + **`exercise`** before post **`distfleeck`** (stub **`doBumpMeleeAttack`** skips session block); **`m_move`** track **`rn2(4*(cnt-j))`** vs single **`rn2(32)`** on distant step-**`n`**; replace **`_mklevDistfleeckRecalcBudgetLikeC`** when C gate clear. Diag: **`tools/diag_rng_window.mjs`**, **`tools/diag_seed0006_post_n_L.mjs`**.
 2. **Lane B — NHL** — next **`lspo_*`** + **`nhl_lua.js`** allowlist for the next target **`dat/*.lua`**; fill gaps in [`nhl-port-notes.md`](nhl-port-notes.md); **`selection.js`** vs **`nhlsel.c`** only for ops that script uses.
 3. **Lane C — `mon_arrive` / `goto_level`** — long-worm **`initworm`** on arrive; **`Wiz_arrive`** from **`resurrect`**; **`losedogs`** dismiss-kops / **`make_happy_shoppers`**; **`goto_level`** savelev tail / **`worm.c`** when worms on level.
 4. **Lane D — `objects_nums` / mkobj** — **`nh5OclassForOtyp`** map (ARMOR/ROCK first) after **`mksobj_init`** floor parity; legacy floor **`otyp`** vs C when replaying **`mkobj`**.

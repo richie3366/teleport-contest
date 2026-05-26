@@ -60,6 +60,11 @@ function isMovementKey(ch) {
     return 'hjklyubn'.includes(ch);
 }
 
+/** C: cmd.c move_funcs[][N_MOVEMODES_RUN] — shift-dir / run-* extended cmds. */
+function isRunMovementKey(ch) {
+    return 'HJKLYUBN'.includes(ch);
+}
+
 // C ref: walkable.js blocksMovementAt (hack.c / goodpos terrain slice)
 function blocksMove(x, y) {
     return blocksMovementAt(x, y);
@@ -199,6 +204,20 @@ export async function rhack(key) {
     if (isMovementKey(ch)) {
         const moved = await domove(DIR_DX[ch], DIR_DY[ch]);
         game.context.move = moved || game.context?.door_opened ? 1 : 0;
+    } else if (isRunMovementKey(ch)) {
+        /* C: do_run_* → set_move_cmd(dir, 1); ECMD_TIME (hack.c domove with context.run). */
+        const lower = ch.toLowerCase();
+        game.context = game.context || {};
+        game.context.run = 1;
+        try {
+            await domove(DIR_DX[lower], DIR_DY[lower]);
+        } finally {
+            game.context.run = 0;
+        }
+        game.context.move = 1;
+    } else if (ch === '.') {
+        /* C: do.c donull — wait/rest one turn (ECMD_TIME). */
+        game.context.move = 1;
     } else if (ch === 's') {
         // C: cmd.c rhack — #search → dosearch() → dosearch0 (detect.c)
         if (await dosearchCmdSafetyPreventionLikeC()) {
