@@ -1759,6 +1759,16 @@ export async function mMoveOneMonsterSubsetLikeC(g, mtmp, stepNum = 0) {
                         dogMoveGoalOnlyNoPickLikeC(g, mtmp);
                         dogMoveMfndposPickOnlyWizD1LikeC(g, mtmp);
                         ctxPet._wizD1Step1LPetFirstPassDoneLikeC = true;
+                    } else {
+                        /* C: later run-east **`L`** (~2692+) — **`dog_goal`** without follow
+                         * **`rn2(4)`** when **`mdistu≤1`**, then **`mfndpos`** (~2693+). */
+                        ctxPet._wizD1LSecondRunEastPetMfndposLikeC = true;
+                        try {
+                            dogMoveGoalOnlyNoPickLikeC(g, mtmp);
+                            dogMoveMfndposPickOnlyWizD1LikeC(g, mtmp);
+                        } finally {
+                            delete ctxPet._wizD1LSecondRunEastPetMfndposLikeC;
+                        }
                     }
                     /* C: **`L`** tail — second **`dog_goal`** in **`monmove.js`** post (~2611+). */
                 } else {
@@ -1780,7 +1790,24 @@ export async function mMoveOneMonsterSubsetLikeC(g, mtmp, stepNum = 0) {
                         mov = NORMAL_SPEED;
                     }
                     mtmp.movement = mov - NORMAL_SPEED;
-                    dogMoveLikeC(g, mtmp);
+                    if (
+                        g.urole?.abbr === 'Wiz'
+                        && (g.u?.uz?.dnum | 0) === 0
+                        && (g.u?.uz?.dlevel | 0) === 1
+                        && g.context?._wizD1Step1InventPostDoneLikeC
+                        && g.context?._wizD1Step1LPetFirstPassDoneLikeC
+                    ) {
+                        const ctxPet = g.context || (g.context = {});
+                        ctxPet._wizD1LSecondRunEastPetMfndposLikeC = true;
+                        try {
+                            dogMoveGoalOnlyNoPickLikeC(g, mtmp);
+                            dogMoveMfndposPickOnlyWizD1LikeC(g, mtmp);
+                        } finally {
+                            delete ctxPet._wizD1LSecondRunEastPetMfndposLikeC;
+                        }
+                    } else {
+                        dogMoveLikeC(g, mtmp);
+                    }
                 }
             }
             return;

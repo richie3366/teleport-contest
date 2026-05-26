@@ -539,6 +539,8 @@ function dogGoalFollowGxGyApprLikeC(
         }
     } else if (
         !g.context?._wizD1LPostFourthPetDogGoalLikeC
+        && !g.context?._wizD1LSecondRunEastPetMfndposLikeC
+        && !g.context?._wizD1AfterLPostMfndposOnlyLikeC
         && (
             (udist > 1 && !g.context?._wizD1Step1DogGoalInventLikeC)
             || g.context?._wizD1Step1LPetTailDogGoalLikeC
@@ -682,6 +684,7 @@ function dogMoveMfndposSurvivorsLikeC(g, mtmp, ggx, ggy, mfp, uncursedcnt) {
 /** @param {import('./gstate.js').game} g @param {number} n */
 function dogMovePickRn2LikeC(g, n) {
     const ctx = g.context;
+    const ni = n | 0;
     if (ctx?._wizD1LPickRngBudget != null) {
         if ((ctx._wizD1LPickRngBudget | 0) <= 0) {
             if (
@@ -689,15 +692,25 @@ function dogMovePickRn2LikeC(g, n) {
                     ctx._wizD1Step1LPetTailDogGoalLikeC
                     || ctx._wizD1LPostFourthPetDogGoalLikeC
                 )
-                && (n | 0) === 12
+                && ni === 12
             ) {
-                return rn2(n);
+                return rn2(ni);
             }
-            return n;
+            /* C: exhausted budget — no **`rn2(3)`** draw; treat as **`!rn2(3)`** true (~pick). */
+            if (
+                (
+                    ctx._wizD1Step1LPetTailDogGoalLikeC
+                    || ctx._wizD1LPostFourthPetDogGoalLikeC
+                )
+                && (ni === 3 || ni === 1)
+            ) {
+                return 0;
+            }
+            return ni;
         }
         ctx._wizD1LPickRngBudget = (ctx._wizD1LPickRngBudget | 0) - 1;
     }
-    return rn2(n);
+    return rn2(ni);
 }
 
 function dogMoveMtrackHeroXYLikeC(g) {
@@ -1035,6 +1048,7 @@ export function dogMoveGoalAndPickLikeC(
             g.context?._postBumpInlineDoneLikeC
             || g.context?._wizD1Step1LPetTailDogGoalLikeC
             || g.context?._wizD1LPostFourthPetDogGoalLikeC
+            || g.context?._wizD1LSecondRunEastPetMfndposLikeC
         )
         && g.urole?.abbr === 'Wiz'
         && (g.u?.uz?.dnum | 0) === 0
@@ -1095,6 +1109,46 @@ export function dogMoveLikeC(g, mtmp) {
     if ((mtmp.mhp | 0) <= 0) return MMOVE_DIED;
     if (typeof globalThis.__diagDogMoveLikeC === 'function') {
         globalThis.__diagDogMoveLikeC(g, mtmp);
+    }
+    const ctx = g.context;
+    const mfndposOnly = !!ctx?._wizD1AfterLPostMfndposOnlyLikeC;
+    if (mfndposOnly && ctx) {
+        delete ctx._wizD1Step1PetMfndposPickDoneLikeC;
+        delete ctx._wizD1LPickRngBudget;
+        delete ctx._wizD1Step1CachedDogGoalLikeC;
+        const u = g.u;
+        const edog = EDOG(mtmp);
+        if (!u || !edog) return MMOVE_NOTHING;
+        const whappr = (g.moves | 0) - (edog.whistletime | 0) < 5;
+        try {
+            const goal = dogGoalFloorScanRngLikeC(g, mtmp, true, whappr);
+            if ((goal.appr | 0) === -2) return MMOVE_NOTHING;
+            let mov = mtmp.movement | 0;
+            if (mov < NORMAL_SPEED) {
+                mtmp.movement = NORMAL_SPEED;
+                mov = NORMAL_SPEED;
+            }
+            mtmp.movement = mov - NORMAL_SPEED;
+            ctx._wizD1Step1CachedDogGoalLikeC = {
+                gx: goal.gx | 0,
+                gy: goal.gy | 0,
+                appr: goal.appr | 0,
+            };
+            ctx._wizD1LPickRngBudget = 10;
+            dogMoveMfndposPickLikeC(
+                g,
+                mtmp,
+                goal.gx | 0,
+                goal.gy | 0,
+                goal.appr | 0,
+                whappr,
+            );
+            return MMOVE_NOTHING;
+        } finally {
+            delete ctx._wizD1AfterLPostMfndposOnlyLikeC;
+            delete ctx._wizD1LPickRngBudget;
+            delete ctx._wizD1Step1CachedDogGoalLikeC;
+        }
     }
     /* C: dogmove.c **`dog_move`** — **`mfndpos`** pick after **`dog_goal`** every pass. */
     return dogMoveGoalAndPickLikeC(g, mtmp, true, true);

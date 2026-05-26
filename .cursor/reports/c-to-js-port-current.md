@@ -32,7 +32,7 @@ Use this when **`Next steps`** below feels stale or several lanes compete. Order
 
 **Tutorial (Lane E):** Scaffolding exists (`tutorial_prompt.js`, `maybeDoTutorialLikeC`, `tutorial_branch.js` stubs). **Do not** take tutorial slices until [`docs/plans/tutorial-port-gate.md`](../../docs/plans/tutorial-port-gate.md) **MD-1 … MD-7** are checked; then **Lane E becomes step 1** (see [10-tutorial.md](../plans/nethack-port/10-tutorial.md)). While advancing Lanes A–D, prefer slices that close an open MD-* item. **`LIVELOGFILE`** / full **`dokick`**/**`dothrow`** vs **`leaving_tutorial`** are Lane E long tail, not gate blockers.
 
-**Last slice:** Wizard D:1 **`L`** — C **`allmain.c`** one-post tail: second post-invent **`movemon`** (~2660–2672), third + fourth new-turn, fourth peel-only **`movemon`** (~2679–2687), fourth new-turn + **`post_moveloop82_exercise`** (**`stepNum` 5**, ~2694); **`_wizD1LPostOuterLoopDoneLikeC`** stops duplicate outer peel. **`moveloop_turn_advance.js`**, **`monmove.js`**, **`dogmove_mon.js`**. **`seed0006`** **2795/6736** (was **2805** at **2680** gap; **~2660–2695** aligned). **`seed0077`/`seed8000`:** **PASS**. **2/44**.
+**Last slice:** Wizard D:1 second run-east **`L`** post — C **`dogmove.c`**: after **`post_moveloop82_exercise`** **`rn2(31)`** (~2694), pet **`dog_move`** skips follow **`rn2(4)`** when **`mdistu≤1`** and runs full **`mfndpos`** (~2696–2704); **`_wizD1AfterLPostMfndposOnlyLikeC`**, dedicated pick path, **`dogMovePickRn2LikeC`** budget tail fix. **`moveloop_aux.js`**, **`dogmove_mon.js`**, **`m_move_mon.js`**. **`seed0006`** **2845/6736** (was **2795**; **~2696–2698** aligned; **~2699** near mklev **`distfleeck`** vs **`mfndpos`** **`rn2(12)`**). **`seed0077`/`seed8000`:** **PASS**. **2/44**.
 
 **Handoff refresh:** **Priority matrix** (lanes A–D) + **Next steps** aligned to it; **`c-to-js-port-remaining.md`** / **`c-to-js-port-dashboard.md`** / **`nhl-port-notes.md`** / **`continue-nethack-port.md`** updated for post-`load_lua` reality and NHL ordering.
 
@@ -42,7 +42,7 @@ Pick **one** primary lane per slice; refresh this list after each merge.
 
 **First:** open [`docs/plans/tutorial-port-gate.md`](../../docs/plans/tutorial-port-gate.md) — if **all MD-1 … MD-7** are checked, do **Lane E** step 1 from [10-tutorial.md](../plans/nethack-port/10-tutorial.md) instead of the list below.
 
-1. **Lane C — `seed0006` ~2696+** — first gap after wizard **`L`** post completes (~2695): pet **`dog_goal`** **`rn2(4)`** vs C **`rn2(3)`** (next command / moveloop boundary). Lane A: **`chargen_tty.js`** when rc omits identity.
+1. **Lane C — `seed0006` ~2699+** — complete pet **`mfndpos`** tail (~2699–2704) before near mklev **`distfleeck`**; **`fmon`** order / pick loop vs C **`dogmove.c` ~1257`**. Lane A: **`chargen_tty.js`** when rc omits identity.
 2. **Lane A — Chargen / init + early moveloop** — tty / **`role.c`** pickers when rc omits identity.
 3. **Lane B — NHL** — next **`lspo_*`** + **`nhl_lua.js`** allowlist per [`nhl-port-notes.md`](nhl-port-notes.md) (**advances MD-3 / MD-4**).
 4. **Lane D — `objects_nums` / mkobj** — audit other **`const.js`** otyps vs NH5 **`objects_nums`** after AoY fix (**advances MD-1**).
