@@ -31,7 +31,7 @@ Use this when **`Next steps`** below feels stale or several lanes compete. Order
 
 **Deferred for now:** **`maybe_do_tutorial`** / **`tut-1`** / full **`do.c`** **`goto_level`** (Lua **`tutorial()`** / **`free_tutorial()`**, **`savelev`**, **`gmst_*`**, …) and **`dokick`**/**`dothrow`** vs **`leaving_tutorial`** — strong upstream dependencies (save, specials, fuller **`do.c`**); treat as backlog until chargen / core early-game parity is further along; **`LIVELOGFILE`** parity if the judge ever compares livelog lines.
 
-**Last slice:** Wizard D:1 **`L`** peel — C **`fmon`** order (distant df → pet goal+pick → near 2× df → distant **`rn2(20)`** + df → pet tail); one-shot post via **`_wizD1Step1PendingLPostPeelLikeC`**; split **`n`** vs **`L`** post-peel. **`fmon_iter.js`**, **`dogmove_mon.js`**, **`m_move_mon.js`**, **`monmove.js`**, **`moveloop_turn_advance.js`**. **`seed0006`** **2741/6736** (diag **~2601–2621** aligned; first gap **~2622** rest **`distfleeck`**). **`seed0077`/`seed8000`:** **PASS**. **2/44**.
+**Last slice:** Wizard D:1 **`L`** post-peel — distant **`m_move`** when **`movement < NORMAL_SPEED`**; preserve **`_wizD1Step1PendingLPostPeelLikeC`** across turn advance; **`dogMoveLPetTailPostPeelLikeC`** (no invent, pick budget 5, **`rn2(1)`** after **`rn2(3)`** tie); rest on **`level.monsters`**. **`m_move_mon.js`**, **`dogmove_mon.js`**, **`monmove.js`**, **`moveloop_turn_advance.js`**. **`seed0006`** **2746/6736** (diag **~2604–2621** aligned; first gap **~2622** deferred rest **`distfleeck`** vs **`m_move`**). **`seed0077`/`seed8000`:** **PASS**. **2/44**.
 
 **Handoff refresh:** **Priority matrix** (lanes A–D) + **Next steps** aligned to it; **`c-to-js-port-remaining.md`** / **`c-to-js-port-dashboard.md`** / **`nhl-port-notes.md`** / **`continue-nethack-port.md`** updated for post-`load_lua` reality and NHL ordering.
 
@@ -39,7 +39,7 @@ Use this when **`Next steps`** below feels stale or several lanes compete. Order
 
 Pick **one** primary lane per slice; refresh this list after each merge.
 
-1. **Lane C — `seed0006` wizard D:1 moveloop** — RNG **2741/6736** at **~2622**: deferred **`fmon`** rest **`distfleeck`** vs extra **`m_move`**; peel remaining mklev/eel without spurious **`rn2(12)`**. Diag: **`tools/diag_rng_window.mjs`**.
+1. **Lane C — `seed0006` wizard D:1 moveloop** — RNG **2746/6736** at **~2622**: deferred **`fmon`** rest — **`distfleeck`** (`rn2(5)`) vs spurious **`m_move`** (`rn2(12)`); read C **`monmove.c`** / **`dogmove.c`** for post-tail mklev order. Diag: **`tools/diag_rng_window.mjs`**.
 2. **Lane A — Chargen / init + early moveloop** — tty / **`role.c`** pickers when rc omits identity.
 3. **Lane B — NHL** — next **`lspo_*`** + **`nhl_lua.js`** allowlist per [`nhl-port-notes.md`](nhl-port-notes.md).
 4. **Lane D — `objects_nums` / mkobj** — audit other **`const.js`** otyps vs NH5 **`objects_nums`** after AoY fix.

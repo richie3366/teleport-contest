@@ -51,6 +51,7 @@ import {
     dogGoalScanSearchPostGateLikeC,
     dogMoveGoalOnlyNoPickLikeC,
     dogMoveGoalAndPickLikeC,
+    dogMoveLPetTailPostPeelLikeC,
     dogMoveInventOnlyLikeC,
     dogMoveSearchPassNearHeroLikeC,
 } from './dogmove_mon.js';
@@ -556,7 +557,7 @@ export async function movemon(stepNum) {
                 if (pet && !g.context?._wizD1Step1LPetTailDoneLikeC) {
                     setApparxyMonsterLikeC(g, pet);
                     delete g.context._wizD1Step1PetMfndposPickDoneLikeC;
-                    dogMoveGoalAndPickLikeC(g, pet, true, true);
+                    dogMoveLPetTailPostPeelLikeC(g, pet);
                     g.context._wizD1Step1LPetTailDoneLikeC = true;
                 }
                 if (g.context?._wizD1Step1LPetTailDoneLikeC) {
@@ -566,7 +567,7 @@ export async function movemon(stepNum) {
                     const handled = new Set(
                         [peelDistant, pet, nearMklev].filter(Boolean),
                     );
-                    for (const m of mons) {
+                    for (const m of g.level?.monsters ?? []) {
                         if (handled.has(m)) continue;
                         if (!(m.mgenmklev | 0) || (m.mtame | 0)) continue;
                         setApparxyMonsterLikeC(g, m);

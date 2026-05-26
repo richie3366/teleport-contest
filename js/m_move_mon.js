@@ -932,6 +932,16 @@ export async function movemonSinglemonLikeC(g, mtmp, stepNum = 0) {
         && !(mtmp.mtame | 0)
         && mtmp !== findDistantMklevMonLikeC(g)
     );
+    const wizD1DistantPeelLowMovLikeC =
+        isWizardD1Step1PeelLikeC(g, stepNum)
+        && g.context?._wizD1Step1InventPostDoneLikeC
+        && (mtmp.mgenmklev | 0)
+        && !(mtmp.mtame | 0)
+        && mtmp
+        === (
+            g.context?._wizD1Step1DistantPeelMtmpLikeC
+            ?? findDistantMklevMonLikeC(g)
+        );
     if (mov < NORMAL_SPEED) {
         if ((stepNum | 0) === 6) {
             if (mtmp !== findEastMklevSecondHLikeC(g)) {
@@ -959,6 +969,7 @@ export async function movemonSinglemonLikeC(g, mtmp, stepNum = 0) {
         if (
             !eastMklevLowMovDochugLikeC
             && !wizStep1NearPostPeelDochugLikeC
+            && !wizD1DistantPeelLowMovLikeC
             && !((stepNum | 0) === 6 && mtmp === findEastMklevSecondHLikeC(g))
             && !firstSearchNearMklevHostileLikeC(g, mtmp)
             && !isRogPeelMklevDistfleeckCandidateLikeC(g, mtmp, stepNum)
@@ -1559,11 +1570,16 @@ export async function mMoveOneMonsterSubsetLikeC(g, mtmp, stepNum = 0) {
                 && !(mtmp.mtame | 0)
             ) {
                 const mklevDfOnly = g.context?._wizD1Step1NearMklevDistfleeckOnlyLikeC | 0;
+                const ctxDist = g.context || (g.context = {});
+                const peelDistMtmp =
+                    ctxDist._wizD1Step1DistantPeelMtmpLikeC
+                    ?? findDistantMklevMonLikeC(g);
                 if (
                     isWizardD1Step1PeelLikeC(g, stepNum)
                     && g.context?._wizD1Step1InventPostDoneLikeC
                     && mklevDfOnly <= 0
-                    && mtmp !== findDistantMklevMonLikeC(g)
+                    && peelDistMtmp
+                    && mtmp !== peelDistMtmp
                 ) {
                     return;
                 }
@@ -1576,7 +1592,6 @@ export async function mMoveOneMonsterSubsetLikeC(g, mtmp, stepNum = 0) {
                     delete g.context._wizD1Step1NearMklevDistfleeckOnlyLikeC;
                     return;
                 }
-                const ctxDist = g.context || (g.context = {});
                 if (
                     isWizardD1Step1PeelLikeC(g, stepNum)
                     && g.context?._wizD1Step1InventPostDoneLikeC

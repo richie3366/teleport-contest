@@ -187,7 +187,7 @@ export async function runPostCommandTurnAdvanceLikeC(g) {
         delete g.context._wizD1Step1DistantPeelMtmpLikeC;
         delete g.context._wizD1Step1LPetFirstPassDoneLikeC;
         delete g.context._wizD1Step1LPetTailDoneLikeC;
-        delete g.context._wizD1Step1PendingLPostPeelLikeC;
+        /* Keep **`_wizD1Step1PendingLPostPeelLikeC`** until **`L`** post consumes it (set on **`n`** invent). */
         delete g.context._wizD1Step1PetMfndposPickDoneLikeC;
     }
     g.context.monMoving = true;
