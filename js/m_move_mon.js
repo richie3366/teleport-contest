@@ -942,6 +942,11 @@ export async function movemonSinglemonLikeC(g, mtmp, stepNum = 0) {
             g.context?._wizD1Step1DistantPeelMtmpLikeC
             ?? findDistantMklevMonLikeC(g)
         );
+    const wizD1RestDochugLowMovLikeC =
+        isWizardD1Step1PeelLikeC(g, stepNum)
+        && !!g.context?._wizD1Step1RestDochugLikeC
+        && (mtmp.mgenmklev | 0)
+        && !(mtmp.mtame | 0);
     if (mov < NORMAL_SPEED) {
         if ((stepNum | 0) === 6) {
             if (mtmp !== findEastMklevSecondHLikeC(g)) {
@@ -970,6 +975,7 @@ export async function movemonSinglemonLikeC(g, mtmp, stepNum = 0) {
             !eastMklevLowMovDochugLikeC
             && !wizStep1NearPostPeelDochugLikeC
             && !wizD1DistantPeelLowMovLikeC
+            && !wizD1RestDochugLowMovLikeC
             && !((stepNum | 0) === 6 && mtmp === findEastMklevSecondHLikeC(g))
             && !firstSearchNearMklevHostileLikeC(g, mtmp)
             && !isRogPeelMklevDistfleeckCandidateLikeC(g, mtmp, stepNum)
@@ -1468,6 +1474,37 @@ export async function mMoveWizardD1Step1DistantAfterPeelLikeC(g, mtmp) {
     await distfleeckMonsterApplyLikeC(g, mtmp);
 }
 
+/**
+ * C: wizard D:1 **`L`** post-peel — pinned distant ~915 **`distfleeck`** + **`m_move`** (~2622–2623).
+ *
+ * @param {import('./gstate.js').game} g
+ * @param {Record<string, unknown>} mtmp
+ * @param {number} [stepNum]
+ */
+export async function mMoveWizardD1LPostTailDistantLikeC(g, mtmp, stepNum = 1) {
+    if (!mtmp || (mtmp.mhp | 0) <= 0) return;
+    const u = g.u;
+    if (u) {
+        mtmp.mux = u.ux | 0;
+        mtmp.muy = u.uy | 0;
+    }
+    setApparxyMonsterLikeC(g, mtmp);
+    const flee1 = await distfleeckMonsterApplyLikeC(g, mtmp);
+    const nearbyGate = nearbyForDochugGateLikeC(g, mtmp, flee1);
+    if (
+        dochugEntersMmoveBlockLikeC(
+            g,
+            mtmp,
+            nearbyGate,
+            flee1.scared | 0,
+            stepNum,
+        )
+    ) {
+        ensureMonsterMtrack(mtmp);
+        mMovePositionSelectSilentLikeC(g, mtmp);
+    }
+}
+
 export async function mMoveOneMonsterSubsetLikeC(g, mtmp, stepNum = 0) {
     if (!mtmp) return;
     if ((mtmp.mhp | 0) <= 0) return;
@@ -1556,6 +1593,39 @@ export async function mMoveOneMonsterSubsetLikeC(g, mtmp, stepNum = 0) {
         if (!rogLead || mtmp !== rogLead) {
             /* C: step-1 peel — one **`distfleeck`** per **`fmon`** entry (harness row **1**); land eel
              * **`m_move`** is step **`n`** / **`b`**, not **`dochugEnters`** on sleeping mklev here. */
+            if (
+                g.context?._wizD1Step1RestDochugLikeC
+                && (mtmp.mgenmklev | 0)
+                && !(mtmp.mtame | 0)
+            ) {
+                /* C: **`L`** deferred **`fmon`** rest — **`distfleeck`** then **`m_move`** (~2622+). */
+                setApparxyMonsterLikeC(g, mtmp);
+                const flee1 = await distfleeckMonsterApplyLikeC(g, mtmp);
+                const nearbyGate = nearbyForDochugGateLikeC(g, mtmp, flee1);
+                const ctxRest = g.context || (g.context = {});
+                const recalcBudget = ctxRest._mklevDistfleeckRecalcBudgetLikeC | 0;
+                if (
+                    dochugEntersMmoveBlockLikeC(
+                        g,
+                        mtmp,
+                        nearbyGate,
+                        flee1.scared | 0,
+                        stepNum,
+                    )
+                ) {
+                    ensureMonsterMtrack(mtmp);
+                    mMovePositionSelectSilentLikeC(g, mtmp);
+                    if (
+                        recalcBudget < 2
+                        && !skipDistfleeckRecalcAfterMmoveLikeC(g, mtmp, nearbyGate)
+                    ) {
+                        ctxRest._mklevDistfleeckRecalcBudgetLikeC =
+                            recalcBudget + 1;
+                        await distfleeckMonsterApplyLikeC(g, mtmp);
+                    }
+                }
+                return;
+            }
             if (isLandEelForMovemonLikeC(g, mtmp)) {
                 if (
                     isWizardD1Step1PeelLikeC(g, stepNum)

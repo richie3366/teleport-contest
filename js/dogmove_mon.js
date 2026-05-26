@@ -677,7 +677,15 @@ function dogMoveMfndposSurvivorsLikeC(g, mtmp, ggx, ggy, mfp, uncursedcnt) {
 function dogMovePickRn2LikeC(g, n) {
     const ctx = g.context;
     if (ctx?._wizD1LPickRngBudget != null) {
-        if ((ctx._wizD1LPickRngBudget | 0) <= 0) return n;
+        if ((ctx._wizD1LPickRngBudget | 0) <= 0) {
+            if (
+                ctx._wizD1Step1LPetTailDogGoalLikeC
+                && (n | 0) === 12
+            ) {
+                return rn2(n);
+            }
+            return n;
+        }
         ctx._wizD1LPickRngBudget = (ctx._wizD1LPickRngBudget | 0) - 1;
     }
     return rn2(n);
@@ -912,9 +920,15 @@ function dogMoveMfndposPickLikeC(g, mtmp, ggx, ggy, appr, whappr) {
             const tailDog = !!g.context?._wizD1Step1LPetTailDogGoalLikeC;
             const sameCell = omx === nix && omy === niy;
             if (sameCell && !dogMovePickRn2LikeC(g, 3)) {
-                /* C: **`L`** tail — **`rn2(1)`** after **`rn2(3)`** tie on hero cell (~2620). */
+                /* C: **`L`** tail — **`rn2(1)`** once (~2620), then **`rn2(12)`** (~2621). */
                 if (tailDog) {
-                    if (!rn2(1)) pickTake = true;
+                    const ctxT = g.context || (g.context = {});
+                    if (!ctxT._wizD1LPetTailRn1DoneLikeC) {
+                        ctxT._wizD1LPetTailRn1DoneLikeC = true;
+                        if (!rn2(1)) pickTake = true;
+                    } else if (!dogMovePickRn2LikeC(g, 12)) {
+                        pickTake = true;
+                    }
                 } else {
                     pickTake = true;
                 }
@@ -1123,6 +1137,7 @@ export function dogMoveLPetTailPostPeelLikeC(g, mtmp) {
     } finally {
         delete ctx._wizD1Step1LPetTailDogGoalLikeC;
         delete ctx._wizD1LPickRngBudget;
+        delete ctx._wizD1LPetTailRn1DoneLikeC;
     }
     return MMOVE_NOTHING;
 }

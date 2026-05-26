@@ -45,6 +45,7 @@ import {
     movemonSinglemonLikeC,
     mMoveDistfleeckOnlyTurnLikeC,
     mMoveWizardD1Step1DistantAfterPeelLikeC,
+    mMoveWizardD1LPostTailDistantLikeC,
     primeDistantMtrackRn20LikeC,
 } from './m_move_mon.js';
 import {
@@ -560,6 +561,19 @@ export async function movemon(stepNum) {
                     dogMoveLPetTailPostPeelLikeC(g, pet);
                     g.context._wizD1Step1LPetTailDoneLikeC = true;
                 }
+                /* C: after pet tail — distant ~915 **`distfleeck`** then **`m_move`** (~2622–2623). */
+                if (g.context?._wizD1Step1LPetTailDoneLikeC) {
+                    const peelDistant =
+                        g.context._wizD1Step1DistantPeelMtmpLikeC
+                        ?? distant;
+                    if (peelDistant) {
+                        await mMoveWizardD1LPostTailDistantLikeC(
+                            g,
+                            peelDistant,
+                            effStepNum,
+                        );
+                    }
+                }
                 if (g.context?._wizD1Step1LPetTailDoneLikeC) {
                     const peelDistant =
                         g.context._wizD1Step1DistantPeelMtmpLikeC
@@ -567,11 +581,19 @@ export async function movemon(stepNum) {
                     const handled = new Set(
                         [peelDistant, pet, nearMklev].filter(Boolean),
                     );
-                    for (const m of g.level?.monsters ?? []) {
-                        if (handled.has(m)) continue;
-                        if (!(m.mgenmklev | 0) || (m.mtame | 0)) continue;
-                        setApparxyMonsterLikeC(g, m);
-                        await distfleeckMonsterApplyLikeC(g, m);
+                    const restMons = (g.level?.monsters ?? []).filter(
+                        (m) =>
+                            (m.mgenmklev | 0)
+                            && !(m.mtame | 0)
+                            && !handled.has(m),
+                    );
+                    g.context._wizD1Step1RestDochugLikeC = true;
+                    try {
+                        for (const m of restMons) {
+                            await movemonSinglemonLikeC(g, m, effStepNum);
+                        }
+                    } finally {
+                        delete g.context._wizD1Step1RestDochugLikeC;
                     }
                 }
                 delete g.context._wizD1Step1PendingLPostPeelLikeC;
