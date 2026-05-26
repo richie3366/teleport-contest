@@ -715,7 +715,12 @@ function dogMoveMtrackHeroXYLikeC(g) {
  */
 function dogMoveMfndposPickLikeC(g, mtmp, ggx, ggy, appr, whappr) {
     const ctxPick = g.context;
-    if (ctxPick?._wizD1Step1PetMfndposPickDoneLikeC) return;
+    if (
+        ctxPick?._wizD1Step1PetMfndposPickDoneLikeC
+        && !ctxPick?._wizD1LPetInventAfterNewturnChcntOnlyLikeC
+    ) {
+        return;
+    }
     const omx = mtmp.mx | 0;
     const omy = mtmp.my | 0;
     const u = g.u;
@@ -959,6 +964,7 @@ function dogMoveMfndposPickLikeC(g, mtmp, ggx, ggy, appr, whappr) {
     if (
         ctxPick?._wizD1Step1InventPostDoneLikeC
         && !ctxPick?._wizD1Step1DogGoalInventLikeC
+        && !ctxPick?._wizD1LPetInventAfterNewturnChcntOnlyLikeC
         && (mtmp.mtame | 0)
         && ctxPick?._wizD1LPickRngBudget == null
     ) {
@@ -1164,12 +1170,17 @@ export function dogMoveMfndposPickFromCachedGoalWizD1LikeC(g, mtmp) {
     const edog = EDOG(mtmp);
     if (!edog) return MMOVE_NOTHING;
     const whappr = (g.moves | 0) - (edog.whistletime | 0) < 5;
+    /* C: post-newturn invent **`mfndpos`** — **`chcnt`** ties use **`appr==0`** (~2642–2649). */
+    const pickAppr =
+        ctx._wizD1LPetInventAfterNewturnChcntOnlyLikeC
+            ? 0
+            : (goal.appr | 0);
     dogMoveMfndposPickLikeC(
         g,
         mtmp,
         goal.gx | 0,
         goal.gy | 0,
-        goal.appr | 0,
+        pickAppr,
         whappr,
     );
     delete ctx._wizD1Step1CachedDogGoalLikeC;
