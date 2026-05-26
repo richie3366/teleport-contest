@@ -255,9 +255,11 @@ function skipDistfleeckRecalcAfterMmoveLikeC(g, mtmp, nearby) {
     if (monOffmapLikeC(mtmp)) return true;
     /* C: tame **`dog_move`** path — no post-**`m_move`** **`distfleeck`** recalc on bump turn. */
     if ((mtmp.mtame | 0) && has_edog(mtmp)) return true;
-    /* C: distant **`mgenmklev`** — **`!nearby`** gate without ~915 recalc before pet / floor tail (**`seed0006`** ~2531). */
+    /* C: post-bump **`l`** distant — skip ~915 recalc before pet / floor tail (**`seed0006`** ~2531).
+     * Step-1 peel still recalc (~2515); do not blanket-skip all distant **`mgenmklev`**. */
     if (
-        !(nearby | 0)
+        g.context?._postBumpKillDochugGateLikeC
+        && !(nearby | 0)
         && (mtmp.mgenmklev | 0)
         && !(mtmp.mtame | 0)
         && g.u
@@ -1387,9 +1389,6 @@ export async function mMoveOneMonsterSubsetLikeC(g, mtmp, stepNum = 0) {
         }
         if ((mtmp.mtame | 0) && has_edog(mtmp)) {
             if (postBumpDistant && !ctx._postBumpDistantDistfleeckDoneLikeC) return;
-            delete ctx._postBumpKillDochugGateLikeC;
-            delete ctx._postBumpDistantMtmpLikeC;
-            delete ctx._postBumpDistantDistfleeckDoneLikeC;
             setApparxyMonsterLikeC(g, mtmp);
             rn2(4);
             ctx._postBumpSkipDogGoalRn2LikeC = true;
@@ -1741,10 +1740,8 @@ export async function mMoveOneMonsterSubsetLikeC(g, mtmp, stepNum = 0) {
 
 /** @param {import('./gstate.js').game} g @param {*} mtmp */
 function skipPostBumpMonNormalDochugLikeC(g, mtmp) {
-    if (!g.context?._postBumpKillDochugGateLikeC) return false;
-    const dist =
-        g.context._postBumpDistantMtmpLikeC ?? findDistantMklevMonLikeC(g);
-    return mtmp === dist || ((mtmp.mtame | 0) && has_edog(mtmp));
+    /* C: post-bump turn — only explicit distant + pet slices; no tail **`fmon`** **`dochug`**. */
+    return !!g.context?._postBumpKillDochugGateLikeC;
 }
 
 /**

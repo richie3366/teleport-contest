@@ -439,6 +439,11 @@ export async function movemon(stepNum) {
             );
         }
         for (const m of mons) await movemonSinglemonLikeC(g, m, effStepNum);
+        if (g.context?._postBumpKillDochugGateLikeC) {
+            delete g.context._postBumpKillDochugGateLikeC;
+            delete g.context._postBumpDistantMtmpLikeC;
+            delete g.context._postBumpDistantDistfleeckDoneLikeC;
+        }
         /* C: rogue first **`#search`** — post-gate **`distfleeck`** peel after **`dog_goal`**
          * (**`seed0077` ~3209–3212**); complements **`fmon_iter`** pet-before-peel order. */
         if (
