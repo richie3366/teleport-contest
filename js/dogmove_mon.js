@@ -490,11 +490,12 @@ function dogGoalFollowGxGyApprLikeC(
             if (dogfoodRankLikeC(o) === DOGFOOD) appr = 1;
         }
     } else if (udist > 1) {
-        if (g.context?._postBumpSkipDogGoalRn2LikeC) {
-            appr = 1;
-        } else if (
+        /* C: post-bump **`dochug:886`** already drew **`rn2(4)`** — still run **`appr==0`** invent
+         * **`dogfood`** / **`obj_resists`** tail (~2532+ on **`seed0006`**). */
+        const skipFollowRn2_4 = !!g.context?._postBumpSkipDogGoalRn2LikeC;
+        if (
             !IS_ROOM(g.level?.at(gx, gy)?.typ | 0)
-            || !rn2(4)
+            || (!skipFollowRn2_4 && !rn2(4))
             || whappr
             || (dogHasMinvent && edog && !rn2(edog.apport | 0))
         ) {
@@ -561,18 +562,12 @@ function dogMoveMfndposSurvivorsLikeC(g, mtmp, ggx, ggy, mfp, uncursedcnt) {
         let cursemsg = false;
         if (edog) {
             const canReachFood = couldReachItemDogmoveLikeC(g, mtmp, nx, ny);
-            const head = g.level?.floorObjHeads?.get(floorObjKey(nx, ny));
-            for (let obj = head; obj; obj = obj.nexthere) {
+            for (let obj = floorObjAtCellLikeC(g, nx, ny); obj; obj = obj.nexthere) {
                 if (obj.cursed) {
                     cursemsg = true;
                     continue;
                 }
-                if (
-                    !canReachFood
-                    || (obj.oclass | 0) !== NH5_FOOD_CLASS
-                ) {
-                    continue;
-                }
+                if (!canReachFood) continue;
                 const otyp = dogfoodRankLikeC(obj);
                 const hungrytime = edog.hungrytime | 0;
                 if (
@@ -681,18 +676,13 @@ function dogMoveMfndposPickLikeC(g, mtmp, ggx, ggy, appr, whappr) {
             let cursemsg = false;
             if (edog) {
                 const canReachFood = couldReachItemDogmoveLikeC(g, mtmp, nx, ny);
-                const head = g.level?.floorObjHeads?.get(floorObjKey(nx, ny));
-                for (let obj = head; obj; obj = obj.nexthere) {
+                for (let obj = floorObjAtCellLikeC(g, nx, ny); obj; obj = obj.nexthere) {
                     if (obj.cursed) {
                         cursemsg = true;
                         continue;
                     }
-                    if (
-                        !canReachFood
-                        || (obj.oclass | 0) !== NH5_FOOD_CLASS
-                    ) {
-                        continue;
-                    }
+                    if (!canReachFood) continue;
+                    /* C: dogmove.c — **`dogfood`** on every reachable pile member ( **`obj_resists`** ). */
                     const otyp = dogfoodRankLikeC(obj);
                     const hungrytime = edog.hungrytime | 0;
                     if (
@@ -780,18 +770,12 @@ function dogMoveMfndposPickLikeC(g, mtmp, ggx, ggy, appr, whappr) {
         let cursemsg = false;
         if (edog) {
             const canReachFood = couldReachItemDogmoveLikeC(g, mtmp, nx, ny);
-            const head = g.level?.floorObjHeads?.get(floorObjKey(nx, ny));
-            for (let obj = head; obj; obj = obj.nexthere) {
+            for (let obj = floorObjAtCellLikeC(g, nx, ny); obj; obj = obj.nexthere) {
                 if (obj.cursed) {
                     cursemsg = true;
                     continue;
                 }
-                if (
-                    !canReachFood
-                    || (obj.oclass | 0) !== NH5_FOOD_CLASS
-                ) {
-                    continue;
-                }
+                if (!canReachFood) continue;
                 const otyp = dogfoodRankLikeC(obj);
                 const hungrytime = edog.hungrytime | 0;
                 if (
