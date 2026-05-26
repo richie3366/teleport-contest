@@ -447,9 +447,18 @@ export async function movemon(stepNum) {
             );
         }
         if (g.context?._postBumpKillDochugGateLikeC) {
-            /* C: tail **`fmon`** — **`distfleeck`** only (~2558+); no **`m_move`** **`rn2(12)`**. */
-            for (const m of mons) {
-                if ((m.mtame | 0)) continue;
+            /* C: tail **`fmon`** — distant ~915 **`distfleeck`** recalc, then each other mklev
+             * (**`seed0006`** ~2558–2559); use live **`level.monsters`**, not filtered **`mons`**. */
+            const postBumpDistant =
+                g.context._postBumpDistantMtmpLikeC ?? findDistantMklevMonLikeC(g);
+            const postBumpPet = (g.level?.monsters ?? []).find((m) => (m.mtame | 0) !== 0);
+            if (postBumpDistant) {
+                setApparxyMonsterLikeC(g, postBumpDistant);
+                await distfleeckMonsterApplyLikeC(g, postBumpDistant);
+            }
+            for (const m of g.level?.monsters ?? []) {
+                if (m === postBumpPet || (m.mtame | 0) || m === postBumpDistant) continue;
+                if (!(m.mgenmklev | 0)) continue;
                 setApparxyMonsterLikeC(g, m);
                 await distfleeckMonsterApplyLikeC(g, m);
             }
@@ -460,7 +469,8 @@ export async function movemon(stepNum) {
         /* C: rogue first **`#search`** — post-gate **`distfleeck`** peel after **`dog_goal`**
          * (**`seed0077` ~3209–3212**); complements **`fmon_iter`** pet-before-peel order. */
         if (
-            isFirstSearchMovemonPassLikeC(g)
+            !g.context?._postBumpKillDochugGateLikeC
+            && isFirstSearchMovemonPassLikeC(g)
             && g.context?._searchPass1NearMonLikeC
             && !g.context?._searchPostGatePeelDoneLikeC
         ) {
@@ -514,7 +524,8 @@ export async function movemon(stepNum) {
         /* C: rogue second **`#search`** — gate **`dochug`** + mklev tail peel after pet **`dog_move`**
          * (**`seed0077` ~3230–3235**); main **`fmon`** loop is gate + pet only. */
         if (
-            isSecondSearchMovemonPassLikeC(g)
+            !g.context?._postBumpKillDochugGateLikeC
+            && isSecondSearchMovemonPassLikeC(g)
             && rogueSecondSearchFullFmonLikeC(g)
             && !g.context?._searchPostGate2PeelDoneLikeC
         ) {

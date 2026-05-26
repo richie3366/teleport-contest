@@ -31,7 +31,7 @@ Use this when **`Next steps`** below feels stale or several lanes compete. Order
 
 **Deferred for now:** **`maybe_do_tutorial`** / **`tut-1`** / full **`do.c`** **`goto_level`** (Lua **`tutorial()`** / **`free_tutorial()`**, **`savelev`**, **`gmst_*`**, …) and **`dokick`**/**`dothrow`** vs **`leaving_tutorial`** — strong upstream dependencies (save, specials, fuller **`do.c`**); treat as backlog until chargen / core early-game parity is further along; **`LIVELOGFILE`** parity if the judge ever compares livelog lines.
 
-**Last slice:** Post-bump distant pass 2 — **`movemon_singlemon`** movement bypass; **`distfleeck`**×2 + **`rn2(20)`** + recalc (**~2550–2557** aligned); wizard D:1 one **`movemon`** per post-command; tail **`fmon`** **`distfleeck`**-only when gate active. **`seed0006`** **2668/6736**; first gap **~2558** (C **`rn2(5)`** vs JS **`rn2(12)`** — east **`m_move`** before tail **`distfleeck`**). **`seed0077`/`seed8000`:** **PASS**. **2/44**.
+**Last slice:** Post-bump tail — distant ~915 **`distfleeck`** recalc + other mklev from **`level.monsters`**; **`findDistantMklevMonLikeC`** westernmost / exclude door-niche sleepers; clear search harness on bump kill; gate search peels when post-bump active. **`seed0006`** **2668/6736**; **~2558** aligned; first gap **~2559** (C **`rn2(5)`** + **`rn2(4)`** vs JS **`rn2(12)`** — west-apport **`m_move`** before second tail **`distfleeck`**). **`seed0077`/`seed8000`:** **PASS**. **2/44**.
 
 **Handoff refresh:** **Priority matrix** (lanes A–D) + **Next steps** aligned to it; **`c-to-js-port-remaining.md`** / **`c-to-js-port-dashboard.md`** / **`nhl-port-notes.md`** / **`continue-nethack-port.md`** updated for post-`load_lua` reality and NHL ordering.
 
@@ -39,7 +39,7 @@ Use this when **`Next steps`** below feels stale or several lanes compete. Order
 
 Pick **one** primary lane per slice; refresh this list after each merge.
 
-1. **Lane C — `seed0006` post-bump moveloop** — RNG **2668/6736** at **~2558**: pet + distant pass 2 through **~2557** aligned; C tail **`distfleeck`** **`rn2(5)`**×3 then **`rn2(4)`**; JS **`rn2(12)`**×3 (east **`m_move`** with gate off or search peel). Trace **`rn2(12)`** call sites with gate state; **`monmove.c`** ~915 recalc order vs **`m_move`** **`rn2(4*(cnt-j))`**. Diag: **`tools/diag_rng_window.mjs`**.
+1. **Lane C — `seed0006` post-bump moveloop** — RNG **2668/6736** at **~2559**: through **~2558** aligned; C west-apport **`distfleeck`** then **`rn2(4)`** then east **`rn2(12)`**; JS **`rn2(12)`** early (**`m_move`** before niche **`distfleeck`**). Port **`dochug`** ~915 tail for door-niche mklev with gate; confirm **`findDistantMklevMonLikeC`** pin at bump vs live find. Diag: **`tools/diag_rng_window.mjs`**.
 2. **Lane A — Chargen / init + early moveloop** — tty / **`role.c`** pickers when rc omits identity.
 3. **Lane B — NHL** — next **`lspo_*`** + **`nhl_lua.js`** allowlist per [`nhl-port-notes.md`](nhl-port-notes.md).
 4. **Lane D — `objects_nums` / mkobj** — audit other **`const.js`** otyps vs NH5 **`objects_nums`** after AoY fix.

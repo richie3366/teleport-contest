@@ -22,6 +22,7 @@ import { overexertion, overexertHpIfEncumberedPlines } from './eat_hunger.js';
 import { collectNewuhsPlines } from './hunger.js';
 import { dmgval } from './mthrowu.js';
 import { findDistantMklevMonLikeC } from './mfndpos_mon.js';
+import { clearSearchMovemonHarnessLikeC } from './monmove_search.js';
 
 /** @param {{ monnam?: string, data?: { mname?: string } }} mtmp */
 function monsterName(mtmp) {
@@ -212,6 +213,8 @@ export async function bumpMeleeAttackLikeC(g, mtmp) {
     if ((mtmp.mhp | 0) <= 0) {
         const ctx = g.context || (g.context = {});
         delete ctx._postBumpInlineDoneLikeC;
+        /* C: melee kill is not `#search` — drop stale peel pass id before post-`movemon`. */
+        clearSearchMovemonHarnessLikeC(g);
         ctx._postBumpKillDochugGateLikeC = true;
         const distant = findDistantMklevMonLikeC(g);
         if (distant) ctx._postBumpDistantMtmpLikeC = distant;
