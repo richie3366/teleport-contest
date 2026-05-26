@@ -31,7 +31,7 @@ Use this when **`Next steps`** below feels stale or several lanes compete. Order
 
 **Deferred for now:** **`maybe_do_tutorial`** / **`tut-1`** / full **`do.c`** **`goto_level`** (Lua **`tutorial()`** / **`free_tutorial()`**, **`savelev`**, **`gmst_*`**, …) and **`dokick`**/**`dothrow`** vs **`leaving_tutorial`** — strong upstream dependencies (save, specials, fuller **`do.c`**); treat as backlog until chargen / core early-game parity is further along; **`LIVELOGFILE`** parity if the judge ever compares livelog lines.
 
-**Last slice:** Lane A — **`chargen_plselection.js`**: C **`build_plselection_prompt`** / **`root_plselection_prompt`** — **`promptsep`**, **`roleHasFemaleRoleNameLikeC`** (no bogus **`Wizard/Wizard`**), Priest/Priestess possessive. **`npm run score`:** **2/44** (`seed0077`, `seed8000`).
+**Last slice:** Lane A — **`role.c` genl_player_setup** confirm **`a`**: **`chargenAskAnotherNameKeepFacetsLikeC`** (save facets → compact **`askname`** → restore; stay in confirm loop). **`roles.js`**: C **`roles[]`** — **Rogue** before **Ranger**; filter-menu accel order. **`seed0006`:** **34/123** screens (**1241/6736** RNG). **`npm run score`:** **2/44** (`seed0077`, `seed8000`).
 
 **Handoff refresh:** **Priority matrix** (lanes A–D) + **Next steps** aligned to it; **`c-to-js-port-remaining.md`** / **`c-to-js-port-dashboard.md`** / **`nhl-port-notes.md`** / **`continue-nethack-port.md`** updated for post-`load_lua` reality and NHL ordering.
 
@@ -39,7 +39,7 @@ Use this when **`Next steps`** below feels stale or several lanes compete. Order
 
 Pick **one** primary lane per slice; refresh this list after each merge.
 
-1. **Lane A — Chargen** — **`wintty.c` / `role.c`**: **`seed0006`** menu parity (role hub / filter / confirm); wire **`clearChargenRfilterAspectLikeC`** from OPTIONS role-filter negation; rc without embedded identity (eleven-session cluster).
+1. **Lane A — Chargen** — **`wintty.c` / `role.c`**: **`seed0006`** — gender hub **`/`** pick-race-first line + post-filter **`w`/`g`/`f`** / **`pick_align`** RNG; wire **`clearChargenRfilterAspectLikeC`** from OPTIONS role-filter negation; rc without embedded identity (eleven-session cluster).
 2. **Lane B — NHL** — next **`lspo_*`** + **`nhl_lua.js`** allowlist for the next target **`dat/*.lua`**; fill gaps in [`nhl-port-notes.md`](nhl-port-notes.md); **`selection.js`** vs **`nhlsel.c`** only for ops that script uses.
 3. **Lane C — `mon_arrive` / `goto_level`** — long-worm **`initworm`** on arrive; **`Wiz_arrive`** from **`resurrect`**; **`losedogs`** dismiss-kops / **`make_happy_shoppers`**; **`goto_level`** savelev tail / **`worm.c`** when worms on level.
 4. **Lane D — `objects_nums` / mkobj** — **`nh5OclassForOtyp`** map (ARMOR/ROCK first) after **`mksobj_init`** floor parity; legacy floor **`otyp`** vs C when replaying **`mkobj`**.

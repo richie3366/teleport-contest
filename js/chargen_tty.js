@@ -331,11 +331,11 @@ function paintResetRoleFilterHelpOverlay(disp) {
 function buildResetFilterMenuEntriesLikeC() {
     /** @type {{ key: string, token: string, label: string, section: string }[]} */
     const entries = [];
+    /* C reset_role_filtering → setup_rolemenu(FALSE): `for (i = 0; roles[i].name.m; ++i)`. */
     let lastch = '\x00';
-    for (const ri of ROLE_MENU_ORDER_LIKE_C) {
-        if (ri < 0 || ri >= roles.length) continue;
+    for (let ri = 0; ri < roles.length; ri++) {
         const r = roles[ri];
-        let thisch = roleMenuAccelLetterLikeC(r.name.m[0], lowc(lastch));
+        let thisch = roleMenuAccelLetterLikeC(r.name.m[0], lastch);
         lastch = lowc(thisch);
         let label = r.name.m;
         if (r.name.f && r.name.f !== r.name.m) label = `${r.name.m}/${r.name.f}`;
@@ -591,6 +591,32 @@ function paintChargenCopyrightBlockLikeC(disp) {
  * C tty_askname initial + per-char echo.
  * @param {{ compact?: boolean }} [opts] — **`compact`** after confirm **`a`** (another name): C omits copyright and uses a higher prompt row.
  */
+/**
+ * C role.c genl_player_setup confirm `a` — save ROLE/RACE/GEND/ALGN, `askname()`, restore facets;
+ * stay in `getconfirmation` (no ynaq / `makepicks` restart).
+ * @param {import('./gstate.js').game} g
+ * @param {ReturnType<typeof import('./options.js').parseNethackrc>} opts
+ * @param {{ initrole: number, initrace: number, initgend: number, initalign: number }} f
+ */
+async function chargenAskAnotherNameKeepFacetsLikeC(disp, g, opts, f) {
+    const saved = {
+        initrole: f.initrole,
+        initrace: f.initrace,
+        initgend: f.initgend,
+        initalign: f.initalign,
+    };
+    g.plname = '';
+    await ttyAsknameLikeC(disp, g, { compact: true });
+    opts.name = g.plname;
+    applyPlnameSuffixToOptsLikeC(opts);
+    f.initrole = saved.initrole;
+    f.initrace = saved.initrace;
+    f.initgend = saved.initgend;
+    f.initalign = saved.initalign;
+    /* C tty: confirm menu does not repaint over compact askname row (seed0006 screen 20). */
+    f.chargenRetainAsknameOnConfirm = true;
+}
+
 export async function ttyAsknameLikeC(disp, g, opts) {
     const compact = opts?.compact === true;
     const askRow = compact ? ASKNAME_ROW_COMPACT : ASKNAME_ROW_FULL;
@@ -1167,6 +1193,10 @@ function paintConfirmMenu(disp, f, plname) {
     };
     coerceChargenIndicesForRoleSelectionPrologLikeC(d);
     disp.clearScreen();
+    if (f.chargenRetainAsknameOnConfirm) {
+        disp.putstr(0, ASKNAME_ROW_COMPACT, `Who are you? ${plname}`, NO_COLOR);
+        delete f.chargenRetainAsknameOnConfirm;
+    }
     const rn = roleNameForDisplay(d.initrole, d.initgend);
     /* C role.c root_plselection_prompt ~1519–1525: with a valid role, racial word is races[].adj
      * ("… lawful female gnomish cavewoman"); noun only when rolenum == ROLE_NONE. Separate
@@ -1368,11 +1398,9 @@ async function pickManualChargenFacets(disp, f, plname = '') {
  * @param {ReturnType<typeof import('./options.js').parseNethackrc>} opts
  */
 export async function runInteractiveTtyChargen(disp, g, opts) {
-    let asknameAnotherNameCompact = false;
     top: for (;;) {
         resetChargenRfilter();
-        await ttyAsknameLikeC(disp, g, { compact: asknameAnotherNameCompact });
-        asknameAnotherNameCompact = false;
+        await ttyAsknameLikeC(disp, g);
         opts.name = g.plname;
         applyPlnameSuffixToOptsLikeC(opts);
         const fFromName = chargenFacetIndicesFromOptsLikeC(opts);
@@ -1396,15 +1424,18 @@ export async function runInteractiveTtyChargen(disp, g, opts) {
                 applyChargenFlagsToGame(g, opts, f);
                 return;
             }
-            const ok = await readConfirmAnswer(disp, f, g.plname);
-            if (ok === 'y') {
-                applyChargenFlagsToGame(g, opts, f);
-                return;
-            }
-            if (ok === 'q' || ok === '\x1b') throw new Error('Player quit confirm');
-            if (ok === 'a') {
-                asknameAnotherNameCompact = true;
-                continue top;
+            confirmAfterAuto: for (;;) {
+                const ok = await readConfirmAnswer(disp, f, g.plname);
+                if (ok === 'y') {
+                    applyChargenFlagsToGame(g, opts, f);
+                    return;
+                }
+                if (ok === 'q' || ok === '\x1b') throw new Error('Player quit confirm');
+                if (ok === 'a') {
+                    await chargenAskAnotherNameKeepFacetsLikeC(disp, g, opts, f);
+                    continue confirmAfterAuto;
+                }
+                break;
             }
             /* C confirm 'n': pick4u stays 'y'; ROLE/RACE/GEND/ALGN = ROLE_NONE; goto makepicks (manual). */
             f.initrole = ROLE_NONE;
@@ -1425,8 +1456,8 @@ export async function runInteractiveTtyChargen(disp, g, opts) {
                 }
                 if (ok2 === 'q' || ok2 === '\x1b') throw new Error('Player quit confirm');
                 if (ok2 === 'a') {
-                    asknameAnotherNameCompact = true;
-                    continue top;
+                    await chargenAskAnotherNameKeepFacetsLikeC(disp, g, opts, f);
+                    continue;
                 }
                 if (ok2 === 'n') {
                     f.initrole = ROLE_NONE;
@@ -1455,8 +1486,8 @@ export async function runInteractiveTtyChargen(disp, g, opts) {
                 }
                 if (ok === 'q' || ok === '\x1b') throw new Error('Player quit confirm');
                 if (ok === 'a') {
-                    asknameAnotherNameCompact = true;
-                    continue top;
+                    await chargenAskAnotherNameKeepFacetsLikeC(disp, g, opts, f);
+                    continue;
                 }
                 if (ok === 'n') continue outer;
             }

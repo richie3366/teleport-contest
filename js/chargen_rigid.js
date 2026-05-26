@@ -33,10 +33,10 @@ export const ROLE_RANDOM = -2;
 export const PICK_RANDOM = 0;
 export const PICK_RIGID = 1;
 
-/** C `role.c` tty menu / reset_role_filtering row order: Rogue before Ranger (Priest … Samurai). */
-export const ROLE_MENU_ORDER_LIKE_C = Object.freeze([
-    0, 1, 2, 3, 4, 5, 6, 8, 7, 9, 10, 11, 12,
-]);
+/** C `role.c` `roles[]` index order (`setup_rolemenu` walks `i = 0 …`). */
+export const ROLE_MENU_ORDER_LIKE_C = Object.freeze(
+    Array.from({ length: roles.length }, (_, i) => i),
+);
 
 /** @typedef {{ initrole: number, initrace: number, initgend: number, initalign: number }} ChargenFlags */
 
