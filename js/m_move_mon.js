@@ -242,6 +242,55 @@ function evaluateRogFirstSearchGateMmoveLikeC(mtmp) {
     return !(mtmp.mcansee | 0) && !rn2(4);
 }
 
+/**
+ * C: monmove.c dochug ~914-915 — skip **`distfleeck`** recalc after **`m_move`** when
+ * **`mon_offmap`** or blind **`nearby`** gate (**`seed0006`** bump: **`rn2(4)`** then floor **`obj_resists`**).
+ *
+ * @param {import('./gstate.js').game} g
+ * @param {*} mtmp
+ * @param {number} nearby
+ */
+function skipDistfleeckRecalcAfterMmoveLikeC(g, mtmp, nearby) {
+    if (monOffmapLikeC(mtmp)) return true;
+    /* C: tame **`dog_move`** path — no post-**`m_move`** **`distfleeck`** recalc on bump turn. */
+    if ((mtmp.mtame | 0) && has_edog(mtmp)) return true;
+    /* C: distant **`mgenmklev`** — **`!nearby`** gate without ~915 recalc before pet / floor tail (**`seed0006`** ~2531). */
+    if (
+        !(nearby | 0)
+        && (mtmp.mgenmklev | 0)
+        && !(mtmp.mtame | 0)
+        && g.u
+        && !monnearMonsterXYLikeC(mtmp, g.u.ux | 0, g.u.uy | 0)
+    ) {
+        return true;
+    }
+    if ((nearby | 0) && !(mtmp.mcansee | 0)) return true;
+    return false;
+}
+
+/**
+ * C: **`distfleeck`** **`nearby`** for **`dochug:886`** — same **`nearby`** as C unless
+ * blind, in-range, and adjacent to the real hero while **`mux,muy`** missed **`monnear`**.
+ *
+ * @param {import('./gstate.js').game} g
+ * @param {*} mtmp
+ * @param {{ inrange: number, nearby: number }} flee1
+ */
+function nearbyForDochugGateLikeC(g, mtmp, flee1) {
+    let nearby = flee1.nearby | 0;
+    if (nearby) return nearby;
+    const u = g.u;
+    if (
+        u
+        && (flee1.inrange | 0)
+        && !(mtmp.mcansee | 0)
+        && monnearMonsterXYLikeC(mtmp, u.ux | 0, u.uy | 0)
+    ) {
+        return 1;
+    }
+    return 0;
+}
+
 function evaluateDochugMmoveGateConditionLikeC(g, mtmp, nearby, scared) {
     const ptr = raceptr(mtmp);
     const mlet = ptr?.mlet | 0;
@@ -1327,31 +1376,31 @@ export async function mMoveOneMonsterSubsetLikeC(g, mtmp, stepNum = 0) {
                 && (mtmp.mgenmklev | 0)
                 && !(mtmp.mtame | 0)
             ) {
-                /* C: wizard D:1 — **`dochug`** **`distfleeck`**, optional silent **`m_move`**, recalc
-                 * **`distfleeck`** (~915) when **`!nearby`** gate passes (**`seed0006`** ~2511–2515). */
-                const u = g.u;
-                if (u) {
-                    mtmp.mux = u.ux | 0;
-                    mtmp.muy = u.uy | 0;
-                }
+                /* C: wizard D:1 peel — **`set_apparxy`** then **`distfleeck`**; gate **`rn2(4)`** when
+                 * **`nearby`**; no second **`distfleeck`** after blind nearby **`m_move`** (~2531). */
                 setApparxyMonsterLikeC(g, mtmp);
                 const flee1 = await distfleeckMonsterApplyLikeC(g, mtmp);
+                const nearbyGate = nearbyForDochugGateLikeC(g, mtmp, flee1);
                 const ctx = g.context || (g.context = {});
                 const recalcBudget = ctx._mklevDistfleeckRecalcBudgetLikeC | 0;
                 if (
-                    recalcBudget < 2
-                    && dochugEntersMmoveBlockLikeC(
+                    dochugEntersMmoveBlockLikeC(
                         g,
                         mtmp,
-                        flee1.nearby | 0,
+                        nearbyGate,
                         flee1.scared | 0,
                         stepNum,
                     )
                 ) {
-                    ctx._mklevDistfleeckRecalcBudgetLikeC = recalcBudget + 1;
                     ensureMonsterMtrack(mtmp);
                     mMovePositionSelectSilentLikeC(g, mtmp);
-                    await distfleeckMonsterApplyLikeC(g, mtmp);
+                    if (
+                        recalcBudget < 2
+                        && !skipDistfleeckRecalcAfterMmoveLikeC(g, mtmp, nearbyGate)
+                    ) {
+                        ctx._mklevDistfleeckRecalcBudgetLikeC = recalcBudget + 1;
+                        await distfleeckMonsterApplyLikeC(g, mtmp);
+                    }
                 }
             } else {
                 await mMoveDistfleeckOnlyTurnLikeC(g, mtmp);
@@ -1543,6 +1592,21 @@ export async function mMoveOneMonsterSubsetLikeC(g, mtmp, stepNum = 0) {
 
     if (dochugBlockedEarlyLikeC(g, mtmp)) return;
 
+    /* C: post-bump **`movemon`** — distant **`distfleeck`** then pet gate **`rn2(4)`** + **`dog_move`**
+     * (no leading pet **`distfleeck`** / ~915 recalc; **`seed0006`** ~2530–2531). */
+    if (
+        (mtmp.mtame | 0)
+        && has_edog(mtmp)
+        && g.context?._postBumpKillDochugGateLikeC
+    ) {
+        delete g.context._postBumpKillDochugGateLikeC;
+        setApparxyMonsterLikeC(g, mtmp);
+        rn2(4);
+        ensureMonsterMtrack(mtmp);
+        dogMoveLikeC(g, mtmp);
+        return;
+    }
+
     const mx = mtmp.mx | 0;
     const my = mtmp.my | 0;
     wipeEngrAt(mx, my, 1, false);
@@ -1566,7 +1630,7 @@ export async function mMoveOneMonsterSubsetLikeC(g, mtmp, stepNum = 0) {
     const flee1 = (gateMonPeek && gatePassN >= 1) || secondRogGateDochug
         ? { inrange: 1, nearby: 1, scared: 0 }
         : await distfleeckMonsterApplyLikeC(g, mtmp);
-    let nearby = flee1.nearby | 0;
+    let nearby = nearbyForDochugGateLikeC(g, mtmp, flee1);
     let scared = flee1.scared | 0;
     let gateMcanseeSave;
     let gateMfleeSave;
@@ -1616,7 +1680,10 @@ export async function mMoveOneMonsterSubsetLikeC(g, mtmp, stepNum = 0) {
     if (monOffmapLikeC(mtmp)) return;
     if (enteredMmoveBlock && mmStatus !== MMOVE_DIED) {
         const skipRecalcDistfleeckFirstSearchRogLikeC = gateMonPeek || secondRogGateDochug;
-        if (!skipRecalcDistfleeckFirstSearchRogLikeC) {
+        if (
+            !skipRecalcDistfleeckFirstSearchRogLikeC
+            && !skipDistfleeckRecalcAfterMmoveLikeC(g, mtmp, nearby)
+        ) {
             await distfleeckMonsterApplyLikeC(g, mtmp);
         }
     }

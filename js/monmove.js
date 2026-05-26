@@ -424,6 +424,18 @@ export async function movemon(stepNum) {
             if (eel) ordered.push(eel);
             mons = [...ordered, ...rest.filter((m) => m !== eel)];
         }
+        if (g.context?._postBumpKillDochugGateLikeC) {
+            const postBumpDistant = findDistantMklevMonLikeC(g);
+            const postBumpPet = mons.find((m) => (m.mtame | 0) !== 0);
+            const postBumpRest = mons.filter(
+                (m) => m !== postBumpDistant && m !== postBumpPet,
+            );
+            /** @type {typeof mons} */
+            const postBumpOrder = [];
+            if (postBumpDistant) postBumpOrder.push(postBumpDistant);
+            if (postBumpPet) postBumpOrder.push(postBumpPet);
+            mons = [...postBumpOrder, ...postBumpRest];
+        }
         for (const m of mons) await movemonSinglemonLikeC(g, m, effStepNum);
         /* C: rogue first **`#search`** — post-gate **`distfleeck`** peel after **`dog_goal`**
          * (**`seed0077` ~3209–3212**); complements **`fmon_iter`** pet-before-peel order. */

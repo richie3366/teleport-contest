@@ -212,6 +212,8 @@ export async function bumpMeleeAttackLikeC(g, mtmp) {
     const ny = (g.u?.uy | 0) + (g.u?.dy | 0);
 
     if ((mtmp.mhp | 0) <= 0) {
+        const ctx = g.context || (g.context = {});
+        ctx._postBumpKillDochugGateLikeC = true;
         await xkilledHeroBumpLikeC(g, mtmp, XKILL_GIVEMSG);
         if (g.u && isok(nx, ny)) {
             g.u.ux = nx;
