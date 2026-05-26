@@ -27,6 +27,7 @@ import { EDOG, has_edog } from './const.js';
 import { stairwayAtInGame } from './decor.js';
 import { couldsee, cansee } from './vision.js';
 import { dist2, distmin } from './hacklib.js';
+import { game } from './gstate.js';
 import { rn2 } from './rng.js';
 import { objResists } from './obj_resists.js';
 import {
@@ -195,11 +196,11 @@ function floorObjAtCellLikeC(g, x, y) {
 }
 
 /**
- * C: dog.c **`dogfood`** — floor loop + invent scan (**`obj_resists`**, ranks).
+ * C: dog.c **`dogfood`** — **`obj_resists`** + rank (no cache).
  * @param {Record<string, unknown>} obj
  * @returns {number}
  */
-function dogfoodRankLikeC(obj) {
+function dogfoodRankComputeLikeC(obj) {
     if (!obj) return UNDEF;
     if (obj.opoisoned) return POISON;
     if (objResists(obj, 0, 95)) return obj.cursed ? TABU : APPORT;
@@ -209,6 +210,46 @@ function dogfoodRankLikeC(obj) {
     if (obj.cursed) return TABU;
     if (oc === NH5_BALL_CLASS || oc === NH5_CHAIN_CLASS) return MANFOOD;
     return APPORT;
+}
+
+/**
+ * C: dog.c **`dogfood`** — floor loop + invent scan (**`obj_resists`**, ranks).
+ * @param {Record<string, unknown>} obj
+ * @returns {number}
+ */
+function dogfoodRankLikeC(obj) {
+    if (!obj) return UNDEF;
+    const ctx = game.context;
+    if (ctx?._wizD1Step1ObjResistsPrescanLikeC) {
+        const cache =
+            ctx._dogfoodRankCacheLikeC ?? (ctx._dogfoodRankCacheLikeC = new WeakMap());
+        if (cache.has(obj)) return cache.get(obj);
+        const rank = dogfoodRankComputeLikeC(obj);
+        cache.set(obj, rank);
+        return rank;
+    }
+    return dogfoodRankComputeLikeC(obj);
+}
+
+/**
+ * C: wizard D:1 step **`n`** — **`dog_goal`** floor **`fobj`** + **`gi.invent`** **`obj_resists`**
+ * before **`dog_invent`** / **`mcalcmove`** (**`seed0006`** ~2576–2589).
+ *
+ * @param {import('./gstate.js').game} g
+ * @param {Record<string, unknown>} mtmp
+ */
+function dogGoalWizardD1Step1ObjResistsPrescanLikeC(g, mtmp) {
+    const omx = mtmp.mx | 0;
+    const omy = mtmp.my | 0;
+    const minX = Math.max(1, omx - SQSRCHRADIUS);
+    const maxX = Math.min(79, omx + SQSRCHRADIUS);
+    const minY = Math.max(0, omy - SQSRCHRADIUS);
+    const maxY = Math.min(23, omy + SQSRCHRADIUS);
+    for (const obj of fobjInDogGoalBoxLikeC(g, minX, maxX, minY, maxY)) {
+        dogfoodRankLikeC(obj);
+    }
+    /* C: **`dog_goal`** tail — **`gi.invent`** when **`appr==0`** (~2590+). */
+    for (let o = g.invent; o; o = o.nobj) dogfoodRankLikeC(o);
 }
 
 /**
@@ -489,7 +530,7 @@ function dogGoalFollowGxGyApprLikeC(
         if (o && appr === 0) {
             if (dogfoodRankLikeC(o) === DOGFOOD) appr = 1;
         }
-    } else if (udist > 1) {
+    } else if (udist > 1 && !g.context?._wizD1Step1DogGoalInventLikeC) {
         /* C: post-bump **`dochug:886`** already drew **`rn2(4)`** — still run **`appr==0`** invent
          * **`dogfood`** / **`obj_resists`** tail (~2532+ on **`seed0006`**). */
         const skipFollowRn2_4 = !!g.context?._postBumpSkipDogGoalRn2LikeC;
@@ -962,12 +1003,35 @@ export function dogMoveInventOnlyLikeC(g, mtmp) {
     const ctx = g.context || (g.context = {});
     const whappr = (g.moves | 0) - (edog.whistletime | 0) < 5;
     /* C: near mklev **`dochug:886`** already drew **`rn2(4)`** — floor **`dogfood`** scan then **`dog_invent`**. */
+    ctx._wizD1Step1DogGoalInventLikeC = true;
     ctx._postBumpSkipDogGoalRn2LikeC = true;
+    ctx._wizD1Step1ObjResistsPrescanLikeC = true;
     try {
-        dogGoalFloorScanRngLikeC(g, mtmp, true, whappr);
+        dogGoalWizardD1Step1ObjResistsPrescanLikeC(g, mtmp);
+        const goal = dogGoalFloorScanRngLikeC(g, mtmp, true, whappr);
         dogInventLikeC(g, mtmp, udist);
+        /* C: **`dog_move`** — **`mfndpos`** pick after **`dog_invent`** (~2590+). */
+        if ((goal.appr | 0) !== -2) {
+            let mov = mtmp.movement | 0;
+            if (mov < NORMAL_SPEED) {
+                mtmp.movement = NORMAL_SPEED;
+                mov = NORMAL_SPEED;
+            }
+            mtmp.movement = mov - NORMAL_SPEED;
+            dogMoveMfndposPickLikeC(
+                g,
+                mtmp,
+                goal.gx | 0,
+                goal.gy | 0,
+                goal.appr | 0,
+                whappr,
+            );
+        }
     } finally {
+        delete ctx._wizD1Step1DogGoalInventLikeC;
         delete ctx._postBumpSkipDogGoalRn2LikeC;
+        delete ctx._wizD1Step1ObjResistsPrescanLikeC;
+        delete ctx._dogfoodRankCacheLikeC;
     }
     return MMOVE_NOTHING;
 }
