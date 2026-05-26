@@ -6,6 +6,8 @@ Historical rows moved from `c-to-js-port-progress.md` so day-to-day work uses **
 
 | When | What changed |
 |------|----------------|
+| **2026-05-26 (`role.c` build_plselection_prompt)** | **`chargen_plselection.js`**: C **`promptsep`**, **`roleHasFemaleRoleNameLikeC`** in **`root_plselection_prompt`**, Priest/Priestess **`'s`**. **`seed0077`/`seed8000`:** **PASS**. **`npm run score`:** **2/44**. |
+| **2026-05-26 (`role.c` flags.randomall)** | **`chargen_rigid.js`**: C **`flags.randomall`** pre-**`rigid_role_checks`** ROLE_RANDOM + skip confirm; **`chargen_tty.js`** wired; **`jsmain.js`** **`OPTIONS=randomall`**. **`seed0077`/`seed8000`:** **PASS**. **`npm run score`:** **2/44**. |
 | **2026-05-26 (`role.c` clearrolefilter per-aspect)** | **`chargen_rigid.js`**: C **`clearrolefilter(which)`** — **`clearChargenRfilterAspectLikeC`** (**`RS_filter`** fallthrough **`RS_ROLE`**, mask clears for race/gender/align); **`const.js`** **`RS_filter`**. **`seed0077`/`seed8000`:** **PASS**. **`npm run score`:** **2/44**. |
 | **2026-05-26 (`role.c` gr.rfilter.mask)** | **`chargen_rigid.js`**: C **`gr.rfilter.mask`** for race/gender/align filters (**`setrolefilter`**, **`ok_race`/`ok_gend`/`ok_align`**, **`gotrolefilter`**); **`roles.js`** **`selfmask`** + **`allowMask`**; **`const.js`** **`MH_*`**. **`seed0077`/`seed8000`:** **PASS**. **`npm run score`:** **2/44**. |
 | **2026-05-26 (`role.c` plsel_startmenu recap)** | **`chargen_tty.js`**: C **`plsel_startmenu`** **`qbuf`** via **`plselStartMenuRecapLineLikeC`** on facet menus; **`plname`** passed through **`pickManualChargenFacets`** / **`read*Choice`**. **`seed0077`/`seed8000`:** **PASS**. **`npm run score`:** **2/44**. |
