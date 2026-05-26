@@ -206,7 +206,11 @@ export async function end_of_turn_rng(stepNum) {
     ageSpellsMoveloopTailLikeC(game);
     for (const line of collectExerchkPlines()) await pline(line);
     maybe_u_wipe_engr();
-    if (stepNum > 0 && stepNum <= MOVE_MON_HARNESS_MAX_STEP) {
+    if (
+        stepNum > 0
+        && stepNum <= MOVE_MON_HARNESS_MAX_STEP
+        && !game.context?._wizD1LPetInventSkipMoveloop82ExerciseLikeC
+    ) {
         post_moveloop82_exercise(stepNum);
     }
 }

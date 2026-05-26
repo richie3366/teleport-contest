@@ -367,6 +367,13 @@ export async function movemon(stepNum) {
     let mons;
     try {
         mons = fmonListForMovemonLikeC(g, effStepNum);
+        /* C: wizard **`L`** — second **`movemon`** in one post is peel-only (~2660+). */
+        if (
+            isWizardD1Step1PeelLikeC(g, effStepNum)
+            && g.context?._wizD1Step1LPostSecondMovemonPendingLikeC
+        ) {
+            mons = [];
+        }
         /* C: hero **`b`** — distant, then west **`distfleeck`**, then land eel **`m_move`**. */
         if ((stepNum | 0) === 8) {
             const distant = findDistantMklevMonLikeC(g);
@@ -534,6 +541,38 @@ export async function movemon(stepNum) {
                 setApparxyMonsterLikeC(g, nearMklev);
                 await distfleeckMonsterApplyLikeC(g, nearMklev);
             }
+            /* C: **`L`** — second **`movemon`** after post-newturn invent (~2660–2672). */
+            if (
+                !wizInventPost
+                && g.context?._wizD1Step1LPostSecondMovemonPendingLikeC
+            ) {
+                const peelDistant =
+                    g.context._wizD1Step1DistantPeelMtmpLikeC ?? distant;
+                if (nearMklev) {
+                    setApparxyMonsterLikeC(g, nearMklev);
+                    await distfleeckMonsterApplyLikeC(g, nearMklev);
+                }
+                if (pet) {
+                    setApparxyMonsterLikeC(g, pet);
+                    delete g.context._wizD1Step1PetMfndposPickDoneLikeC;
+                    delete g.context._wizD1Step1CachedDogGoalLikeC;
+                    g.context._wizD1LPetSecondMovemonTailLikeC = true;
+                    try {
+                        dogMoveLPetTailPostPeelLikeC(g, pet);
+                    } finally {
+                        delete g.context._wizD1LPetSecondMovemonTailLikeC;
+                    }
+                }
+                if (peelDistant) {
+                    setApparxyMonsterLikeC(g, peelDistant);
+                    await distfleeckMonsterApplyLikeC(g, peelDistant);
+                    await distfleeckMonsterApplyLikeC(g, peelDistant);
+                    primeDistantMtrackRn20LikeC(peelDistant);
+                    rn2(20);
+                    await distfleeckMonsterApplyLikeC(g, peelDistant);
+                }
+                delete g.context._wizD1Step1LPostSecondMovemonPendingLikeC;
+            }
             /* C: **`L`** post-peel — once after **`n`** invent (~2608–2621). */
             if (
                 !wizInventPost
@@ -542,6 +581,7 @@ export async function movemon(stepNum) {
                 if (
                     g.context?._wizD1Step1DistantFirstDfDoneLikeC
                     && !g.context?._wizD1Step1DistantMmoveDoneLikeC
+                    && !g.context?._wizD1Step1LPetInventAfterNewturnDoneLikeC
                 ) {
                     const peelDistant =
                         g.context._wizD1Step1DistantPeelMtmpLikeC

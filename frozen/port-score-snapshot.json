@@ -1,6 +1,6 @@
 {
-  "timestamp": "2026-05-26T01:30:11.106Z",
-  "commit": "9fe5f39",
+  "timestamp": "2026-05-26T22:45:05.686Z",
+  "commit": "d2cbd75",
   "passCount": 2,
   "totalSessions": 44,
   "results": [
@@ -9,7 +9,7 @@
       "passed": false,
       "metrics": {
         "rngCalls": {
-          "matched": 2220,
+          "matched": 3584,
           "total": 27158
         },
         "screens": {
@@ -21,7 +21,7 @@
           "total": 595
         },
         "cursors": {
-          "matched": 27,
+          "matched": 26,
           "total": 595
         },
         "animFrames": {
@@ -33,7 +33,7 @@
       "buckets": [
         "screens>0"
       ],
-      "rngRatio": 0.08174386920980926,
+      "rngRatio": 0.1319684807423227,
       "screenRatio": 0.011764705882352941
     },
     {
@@ -41,7 +41,7 @@
       "passed": false,
       "metrics": {
         "rngCalls": {
-          "matched": 544,
+          "matched": 629,
           "total": 12084
         },
         "screens": {
@@ -53,7 +53,7 @@
           "total": 409
         },
         "cursors": {
-          "matched": 17,
+          "matched": 14,
           "total": 409
         },
         "animFrames": {
@@ -65,7 +65,7 @@
       "buckets": [
         "screens>0"
       ],
-      "rngRatio": 0.045018205892088714,
+      "rngRatio": 0.052052300562727576,
       "screenRatio": 0.017114914425427872
     },
     {
@@ -73,7 +73,7 @@
       "passed": false,
       "metrics": {
         "rngCalls": {
-          "matched": 2368,
+          "matched": 2805,
           "total": 6736
         },
         "screens": {
@@ -85,7 +85,7 @@
           "total": 123
         },
         "cursors": {
-          "matched": 38,
+          "matched": 39,
           "total": 123
         },
         "animFrames": {
@@ -97,7 +97,7 @@
       "buckets": [
         "screens>0"
       ],
-      "rngRatio": 0.3515439429928741,
+      "rngRatio": 0.41641923990498814,
       "screenRatio": 0.2845528455284553
     },
     {
@@ -105,7 +105,7 @@
       "passed": false,
       "metrics": {
         "rngCalls": {
-          "matched": 1556,
+          "matched": 1745,
           "total": 16373
         },
         "screens": {
@@ -129,7 +129,7 @@
       "buckets": [
         "screens>0"
       ],
-      "rngRatio": 0.0950345080315153,
+      "rngRatio": 0.10657790264459781,
       "screenRatio": 0.04304635761589404
     },
     {
@@ -169,7 +169,7 @@
       "passed": false,
       "metrics": {
         "rngCalls": {
-          "matched": 1272,
+          "matched": 1416,
           "total": 13878
         },
         "screens": {
@@ -181,7 +181,7 @@
           "total": 308
         },
         "cursors": {
-          "matched": 18,
+          "matched": 20,
           "total": 308
         },
         "animFrames": {
@@ -193,7 +193,7 @@
       "buckets": [
         "screens>0"
       ],
-      "rngRatio": 0.09165585819282317,
+      "rngRatio": 0.10203199308257674,
       "screenRatio": 0.03896103896103896
     },
     {
@@ -201,7 +201,7 @@
       "passed": false,
       "metrics": {
         "rngCalls": {
-          "matched": 520,
+          "matched": 536,
           "total": 4804
         },
         "screens": {
@@ -213,7 +213,7 @@
           "total": 99
         },
         "cursors": {
-          "matched": 4,
+          "matched": 1,
           "total": 99
         },
         "animFrames": {
@@ -223,7 +223,7 @@
       },
       "error": null,
       "buckets": [],
-      "rngRatio": 0.10824313072439634,
+      "rngRatio": 0.1115736885928393,
       "screenRatio": 0
     },
     {
@@ -231,7 +231,7 @@
       "passed": false,
       "metrics": {
         "rngCalls": {
-          "matched": 516,
+          "matched": 536,
           "total": 4838
         },
         "screens": {
@@ -243,7 +243,7 @@
           "total": 59
         },
         "cursors": {
-          "matched": 5,
+          "matched": 1,
           "total": 59
         },
         "animFrames": {
@@ -253,7 +253,7 @@
       },
       "error": null,
       "buckets": [],
-      "rngRatio": 0.10665564282761472,
+      "rngRatio": 0.1107895824720959,
       "screenRatio": 0
     },
     {
@@ -261,7 +261,7 @@
       "passed": false,
       "metrics": {
         "rngCalls": {
-          "matched": 169,
+          "matched": 416,
           "total": 59178
         },
         "screens": {
@@ -286,7 +286,7 @@
         "early-diverge",
         "screens>0"
       ],
-      "rngRatio": 0.002855791003413431,
+      "rngRatio": 0.0070296393930176755,
       "screenRatio": 0.014005602240896359
     },
     {
@@ -326,7 +326,7 @@
       "passed": false,
       "metrics": {
         "rngCalls": {
-          "matched": 2124,
+          "matched": 2126,
           "total": 3656
         },
         "screens": {
@@ -350,7 +350,7 @@
       "buckets": [
         "rng>50%"
       ],
-      "rngRatio": 0.5809628008752735,
+      "rngRatio": 0.5815098468271335,
       "screenRatio": 0
     },
     {
@@ -358,7 +358,7 @@
       "passed": false,
       "metrics": {
         "rngCalls": {
-          "matched": 2431,
+          "matched": 2539,
           "total": 3465
         },
         "screens": {
@@ -370,7 +370,7 @@
           "total": 67
         },
         "cursors": {
-          "matched": 12,
+          "matched": 8,
           "total": 67
         },
         "animFrames": {
@@ -383,7 +383,7 @@
         "rng>50%",
         "screens>0"
       ],
-      "rngRatio": 0.7015873015873015,
+      "rngRatio": 0.7327561327561327,
       "screenRatio": 0.11940298507462686
     },
     {
@@ -391,7 +391,7 @@
       "passed": false,
       "metrics": {
         "rngCalls": {
-          "matched": 5131,
+          "matched": 5169,
           "total": 105529
         },
         "screens": {
@@ -403,7 +403,7 @@
           "total": 1953
         },
         "cursors": {
-          "matched": 99,
+          "matched": 161,
           "total": 1953
         },
         "animFrames": {
@@ -413,7 +413,7 @@
       },
       "error": null,
       "buckets": [],
-      "rngRatio": 0.04862170588179553,
+      "rngRatio": 0.04898179647300742,
       "screenRatio": 0
     },
     {
@@ -421,7 +421,7 @@
       "passed": false,
       "metrics": {
         "rngCalls": {
-          "matched": 1051,
+          "matched": 1088,
           "total": 3626
         },
         "screens": {
@@ -433,7 +433,7 @@
           "total": 41
         },
         "cursors": {
-          "matched": 5,
+          "matched": 4,
           "total": 41
         },
         "animFrames": {
@@ -443,7 +443,7 @@
       },
       "error": null,
       "buckets": [],
-      "rngRatio": 0.28985107556536127,
+      "rngRatio": 0.30005515719801434,
       "screenRatio": 0
     },
     {
@@ -483,7 +483,7 @@
       "passed": false,
       "metrics": {
         "rngCalls": {
-          "matched": 1004,
+          "matched": 1005,
           "total": 2371
         },
         "screens": {
@@ -505,7 +505,7 @@
       },
       "error": null,
       "buckets": [],
-      "rngRatio": 0.42345002108814844,
+      "rngRatio": 0.42387178405735976,
       "screenRatio": 0
     },
     {
@@ -513,7 +513,7 @@
       "passed": false,
       "metrics": {
         "rngCalls": {
-          "matched": 1250,
+          "matched": 1253,
           "total": 4485
         },
         "screens": {
@@ -535,7 +535,7 @@
       },
       "error": null,
       "buckets": [],
-      "rngRatio": 0.2787068004459309,
+      "rngRatio": 0.27937569676700114,
       "screenRatio": 0
     },
     {
@@ -543,7 +543,7 @@
       "passed": false,
       "metrics": {
         "rngCalls": {
-          "matched": 2022,
+          "matched": 2034,
           "total": 2640
         },
         "screens": {
@@ -567,7 +567,7 @@
       "buckets": [
         "rng>50%"
       ],
-      "rngRatio": 0.7659090909090909,
+      "rngRatio": 0.7704545454545455,
       "screenRatio": 0
     },
     {
@@ -575,7 +575,7 @@
       "passed": false,
       "metrics": {
         "rngCalls": {
-          "matched": 2382,
+          "matched": 2389,
           "total": 3223
         },
         "screens": {
@@ -587,7 +587,7 @@
           "total": 43
         },
         "cursors": {
-          "matched": 8,
+          "matched": 23,
           "total": 43
         },
         "animFrames": {
@@ -599,7 +599,7 @@
       "buckets": [
         "rng>50%"
       ],
-      "rngRatio": 0.7390629847967732,
+      "rngRatio": 0.7412348743406764,
       "screenRatio": 0
     },
     {
@@ -607,7 +607,7 @@
       "passed": false,
       "metrics": {
         "rngCalls": {
-          "matched": 959,
+          "matched": 960,
           "total": 2499
         },
         "screens": {
@@ -629,7 +629,7 @@
       },
       "error": null,
       "buckets": [],
-      "rngRatio": 0.38375350140056025,
+      "rngRatio": 0.38415366146458585,
       "screenRatio": 0
     },
     {
@@ -667,7 +667,7 @@
       "passed": false,
       "metrics": {
         "rngCalls": {
-          "matched": 1135,
+          "matched": 1152,
           "total": 2902
         },
         "screens": {
@@ -679,7 +679,7 @@
           "total": 98
         },
         "cursors": {
-          "matched": 39,
+          "matched": 14,
           "total": 98
         },
         "animFrames": {
@@ -689,7 +689,7 @@
       },
       "error": null,
       "buckets": [],
-      "rngRatio": 0.39110957960027565,
+      "rngRatio": 0.39696760854583046,
       "screenRatio": 0
     },
     {
@@ -729,7 +729,7 @@
       "passed": false,
       "metrics": {
         "rngCalls": {
-          "matched": 743,
+          "matched": 832,
           "total": 12562
         },
         "screens": {
@@ -751,7 +751,7 @@
       },
       "error": null,
       "buckets": [],
-      "rngRatio": 0.059146632701799075,
+      "rngRatio": 0.06623149180066869,
       "screenRatio": 0
     },
     {
@@ -759,7 +759,7 @@
       "passed": false,
       "metrics": {
         "rngCalls": {
-          "matched": 576,
+          "matched": 578,
           "total": 3822
         },
         "screens": {
@@ -781,7 +781,7 @@
       },
       "error": null,
       "buckets": [],
-      "rngRatio": 0.15070643642072212,
+      "rngRatio": 0.1512297226582941,
       "screenRatio": 0
     },
     {
@@ -789,7 +789,7 @@
       "passed": false,
       "metrics": {
         "rngCalls": {
-          "matched": 459,
+          "matched": 487,
           "total": 120639
         },
         "screens": {
@@ -813,7 +813,7 @@
       "buckets": [
         "early-diverge"
       ],
-      "rngRatio": 0.003804739760773879,
+      "rngRatio": 0.004036837175374465,
       "screenRatio": 0
     },
     {
@@ -821,7 +821,7 @@
       "passed": false,
       "metrics": {
         "rngCalls": {
-          "matched": 1187,
+          "matched": 1258,
           "total": 53865
         },
         "screens": {
@@ -843,7 +843,7 @@
       },
       "error": null,
       "buckets": [],
-      "rngRatio": 0.022036572913765897,
+      "rngRatio": 0.02335468300380581,
       "screenRatio": 0
     },
     {
@@ -851,7 +851,7 @@
       "passed": false,
       "metrics": {
         "rngCalls": {
-          "matched": 272,
+          "matched": 344,
           "total": 50125
         },
         "screens": {
@@ -875,7 +875,7 @@
       "buckets": [
         "early-diverge"
       ],
-      "rngRatio": 0.00542643391521197,
+      "rngRatio": 0.00686284289276808,
       "screenRatio": 0
     },
     {
@@ -883,7 +883,7 @@
       "passed": false,
       "metrics": {
         "rngCalls": {
-          "matched": 279,
+          "matched": 304,
           "total": 35386
         },
         "screens": {
@@ -907,7 +907,7 @@
       "buckets": [
         "early-diverge"
       ],
-      "rngRatio": 0.007884474085796643,
+      "rngRatio": 0.008590968179506019,
       "screenRatio": 0
     },
     {
@@ -915,7 +915,7 @@
       "passed": false,
       "metrics": {
         "rngCalls": {
-          "matched": 1320,
+          "matched": 1318,
           "total": 16915
         },
         "screens": {
@@ -937,7 +937,7 @@
       },
       "error": null,
       "buckets": [],
-      "rngRatio": 0.07803724504877328,
+      "rngRatio": 0.07791900679869938,
       "screenRatio": 0
     },
     {
@@ -945,7 +945,7 @@
       "passed": false,
       "metrics": {
         "rngCalls": {
-          "matched": 968,
+          "matched": 965,
           "total": 3026
         },
         "screens": {
@@ -967,7 +967,7 @@
       },
       "error": null,
       "buckets": [],
-      "rngRatio": 0.3198942498347654,
+      "rngRatio": 0.3189028420356907,
       "screenRatio": 0
     },
     {
@@ -975,7 +975,7 @@
       "passed": false,
       "metrics": {
         "rngCalls": {
-          "matched": 247,
+          "matched": 244,
           "total": 11409
         },
         "screens": {
@@ -999,7 +999,7 @@
       "buckets": [
         "early-diverge"
       ],
-      "rngRatio": 0.02164957489701113,
+      "rngRatio": 0.021386624594618285,
       "screenRatio": 0
     },
     {
@@ -1007,7 +1007,7 @@
       "passed": false,
       "metrics": {
         "rngCalls": {
-          "matched": 1145,
+          "matched": 1146,
           "total": 2238
         },
         "screens": {
@@ -1031,7 +1031,7 @@
       "buckets": [
         "rng>50%"
       ],
-      "rngRatio": 0.5116175156389634,
+      "rngRatio": 0.5120643431635389,
       "screenRatio": 0
     },
     {
@@ -1071,7 +1071,7 @@
       "passed": false,
       "metrics": {
         "rngCalls": {
-          "matched": 923,
+          "matched": 920,
           "total": 2983
         },
         "screens": {
@@ -1083,7 +1083,7 @@
           "total": 84
         },
         "cursors": {
-          "matched": 2,
+          "matched": 0,
           "total": 84
         },
         "animFrames": {
@@ -1093,7 +1093,7 @@
       },
       "error": null,
       "buckets": [],
-      "rngRatio": 0.30942004693261815,
+      "rngRatio": 0.3084143479718404,
       "screenRatio": 0
     },
     {
@@ -1101,7 +1101,7 @@
       "passed": false,
       "metrics": {
         "rngCalls": {
-          "matched": 335,
+          "matched": 337,
           "total": 3137
         },
         "screens": {
@@ -1125,7 +1125,7 @@
       "buckets": [
         "early-diverge"
       ],
-      "rngRatio": 0.10678992668154287,
+      "rngRatio": 0.10742747848262671,
       "screenRatio": 0
     },
     {
@@ -1133,7 +1133,7 @@
       "passed": false,
       "metrics": {
         "rngCalls": {
-          "matched": 1060,
+          "matched": 1055,
           "total": 2768
         },
         "screens": {
@@ -1155,7 +1155,7 @@
       },
       "error": null,
       "buckets": [],
-      "rngRatio": 0.3829479768786127,
+      "rngRatio": 0.3811416184971098,
       "screenRatio": 0
     },
     {
@@ -1163,7 +1163,7 @@
       "passed": false,
       "metrics": {
         "rngCalls": {
-          "matched": 1984,
+          "matched": 1982,
           "total": 2458
         },
         "screens": {
@@ -1187,7 +1187,7 @@
       "buckets": [
         "rng>50%"
       ],
-      "rngRatio": 0.807160292921074,
+      "rngRatio": 0.806346623270952,
       "screenRatio": 0
     },
     {
@@ -1195,7 +1195,7 @@
       "passed": false,
       "metrics": {
         "rngCalls": {
-          "matched": 2388,
+          "matched": 2447,
           "total": 3018
         },
         "screens": {
@@ -1219,7 +1219,7 @@
       "buckets": [
         "rng>50%"
       ],
-      "rngRatio": 0.7912524850894632,
+      "rngRatio": 0.8108018555334658,
       "screenRatio": 0
     },
     {
@@ -1227,7 +1227,7 @@
       "passed": false,
       "metrics": {
         "rngCalls": {
-          "matched": 260,
+          "matched": 270,
           "total": 11647
         },
         "screens": {
@@ -1251,7 +1251,7 @@
       "buckets": [
         "early-diverge"
       ],
-      "rngRatio": 0.02232334506739933,
+      "rngRatio": 0.023181935262299305,
       "screenRatio": 0
     },
     {
@@ -1259,7 +1259,7 @@
       "passed": false,
       "metrics": {
         "rngCalls": {
-          "matched": 223,
+          "matched": 224,
           "total": 108275
         },
         "screens": {
@@ -1283,7 +1283,7 @@
       "buckets": [
         "early-diverge"
       ],
-      "rngRatio": 0.0020595705379819903,
+      "rngRatio": 0.0020688062803047797,
       "screenRatio": 0
     },
     {
@@ -1291,7 +1291,7 @@
       "passed": false,
       "metrics": {
         "rngCalls": {
-          "matched": 628,
+          "matched": 681,
           "total": 12167
         },
         "screens": {
@@ -1313,7 +1313,7 @@
       },
       "error": null,
       "buckets": [],
-      "rngRatio": 0.05161502424591107,
+      "rngRatio": 0.055971069285772994,
       "screenRatio": 0
     },
     {
@@ -1321,7 +1321,7 @@
       "passed": false,
       "metrics": {
         "rngCalls": {
-          "matched": 374,
+          "matched": 379,
           "total": 13923
         },
         "screens": {
@@ -1345,7 +1345,7 @@
       "buckets": [
         "early-diverge"
       ],
-      "rngRatio": 0.026862026862026864,
+      "rngRatio": 0.027221144868203692,
       "screenRatio": 0
     },
     {

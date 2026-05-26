@@ -1165,6 +1165,13 @@ export function dogMoveMfndposPickFromCachedGoalWizD1LikeC(g, mtmp) {
     if (!(mtmp.mtame | 0) || !has_edog(mtmp)) return MMOVE_NOTHING;
     if ((mtmp.mhp | 0) <= 0) return MMOVE_DIED;
     const ctx = g.context || (g.context = {});
+    /* C: second post-invent **`movemon`** — **`dog_goal`**+pick already consumed (~2661–2668). */
+    if (
+        ctx._wizD1LPetSecondMovemonTailLikeC
+        && ctx._wizD1Step1PetMfndposPickDoneLikeC
+    ) {
+        return MMOVE_NOTHING;
+    }
     const goal = ctx._wizD1Step1CachedDogGoalLikeC;
     if (!goal || (goal.appr | 0) === -2) return MMOVE_NOTHING;
     const edog = EDOG(mtmp);

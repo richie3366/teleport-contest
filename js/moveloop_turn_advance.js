@@ -323,7 +323,25 @@ export async function runPostCommandTurnAdvanceLikeC(g) {
                         if (pet) {
                             dogMoveLPetInventAfterNewturnLikeC(g, pet);
                         }
+                        /* C: after post-newturn **`mfndpos`** — near mklev **`distfleeck`** (~2653). */
+                        if (nearMklev) {
+                            setApparxyMonsterLikeC(g, nearMklev);
+                            await distfleeckMonsterApplyLikeC(g, nearMklev);
+                        }
+                        /* C: second new-turn block in same post (~2654+ **`mcalcmove`**). */
+                        g.context._wizD1LPetInventSkipMoveloop82ExerciseLikeC = true;
+                        try {
+                            await runNewTurnSetupAndTailLikeC(g, (g.moves | 0) - 1);
+                        } finally {
+                            delete g.context._wizD1LPetInventSkipMoveloop82ExerciseLikeC;
+                        }
                         g.context._wizD1Step1LPetInventAfterNewturnDoneLikeC = true;
+                        delete g.context._wizD1Step1CachedDogGoalLikeC;
+                        /* C: allmain.c — **`mcalcmove`** gives monsters movement; second **`movemon`**
+                         * then third new-turn (~2660–2675). */
+                        g.context._wizD1Step1LPostSecondMovemonPendingLikeC = true;
+                        delete g.context._wizD1MovemonRanThisPostLikeC;
+                        newTurnDone = false;
                     }
                 }
             }
