@@ -356,8 +356,9 @@ function dogGoalFloorScanRngLikeC(
     if (typeof globalThis.__diagDogGoalFloor === 'function') {
         globalThis.__diagDogGoalFloor(g, mtmp, floor, trackApportGoalLikeC);
     }
-    const ux = u.ux | 0;
-    const uy = u.uy | 0;
+    const pin = g.context?._wizD1Step1DogGoalHeroXYLikeC;
+    const ux = pin ? (pin.ux | 0) : (u.ux | 0);
+    const uy = pin ? (pin.uy | 0) : (u.uy | 0);
     const udist = dist2(omx, omy, ux, uy);
     const inSight = couldsee(omx, omy);
     const hasMinvent =
@@ -507,6 +508,7 @@ function dogGoalFollowGxGyApprLikeC(
 ) {
     const u = g.u;
     if (!u) return { gx, gy, appr: 1 };
+    const pin = g.context?._wizD1Step1DogGoalHeroXYLikeC;
     const moves = g.moves | 0;
     const hungrytime = edog?.hungrytime | 0;
     /* C: dog_goal — skip follow when **`gg.gtyp`** is **`DOGFOOD`/`APPORT`** or pet not hungry. */
@@ -518,8 +520,8 @@ function dogGoalFollowGxGyApprLikeC(
         if (mtmp.mconf | 0) appr = 0;
         return { gx, gy, appr };
     }
-    gx = u.ux | 0;
-    gy = u.uy | 0;
+    gx = pin ? (pin.ux | 0) : (u.ux | 0);
+    gy = pin ? (pin.uy | 0) : (u.uy | 0);
     const dogHasMinvent = droppablesMtmpLikeC(mtmp) !== null;
     let appr = udist >= 9 ? 1 : (mtmp.mflee | 0) ? -1 : 0;
     /* C: first **`#search`** post-gate **`dog_goal`** — **`gi.invent`** **`dogfood`** at
@@ -554,11 +556,11 @@ function dogGoalFollowGxGyApprLikeC(
                 }
             }
             if (appr === 0) {
-                const ux = u.ux | 0;
-                const uy = u.uy | 0;
+                const tux = pin ? (pin.ux | 0) : (u.ux | 0);
+                const tuy = pin ? (pin.uy | 0) : (u.uy | 0);
                 for (const t of g.level?.traps ?? []) {
                     if (!t || (t.ttyp | 0) !== MAGIC_PORTAL) continue;
-                    if (distmin(ux, uy, t.tx | 0, t.ty | 0) <= 2) {
+                    if (distmin(tux, tuy, t.tx | 0, t.ty | 0) <= 2) {
                         appr = 1;
                         break;
                     }
@@ -988,7 +990,7 @@ export function dogMoveGoalOnlyNoPickLikeC(g, mtmp) {
     return dogMoveGoalAndPickLikeC(g, mtmp, true, false);
 }
 
-/** C: wizard D:1 step-1 — pet **`dog_invent`** after peel **`dog_goal`** (**`seed0006`** **`n`** ~2590). */
+/** C: wizard D:1 step-1 — pet **`dog_invent`** + **`dog_goal`** + **`mfndpos`** (**`seed0006`** ~2590). */
 export function dogMoveInventOnlyLikeC(g, mtmp) {
     if (!(mtmp.mtame | 0) || !has_edog(mtmp)) return MMOVE_NOTHING;
     if ((mtmp.mhp | 0) <= 0) return MMOVE_DIED;
@@ -996,21 +998,24 @@ export function dogMoveInventOnlyLikeC(g, mtmp) {
     if (!u) return MMOVE_NOTHING;
     const edog = EDOG(mtmp);
     if (!edog) return MMOVE_NOTHING;
-    const udist = dist2(mtmp.mx | 0, mtmp.my | 0, u.ux | 0, u.uy | 0);
-    if (!udist) return MMOVE_NOTHING;
-    mtmp.mux = u.ux | 0;
-    mtmp.muy = u.uy | 0;
     const ctx = g.context || (g.context = {});
+    const pin = ctx._wizD1Step1DogGoalHeroXYLikeC;
+    const hx = pin ? (pin.ux | 0) : (u.ux | 0);
+    const hy = pin ? (pin.uy | 0) : (u.uy | 0);
+    const udist = dist2(mtmp.mx | 0, mtmp.my | 0, hx, hy);
+    if (!udist) return MMOVE_NOTHING;
+    mtmp.mux = hx;
+    mtmp.muy = hy;
     const whappr = (g.moves | 0) - (edog.whistletime | 0) < 5;
     /* C: near mklev **`dochug:886`** already drew **`rn2(4)`** — floor **`dogfood`** scan then **`dog_invent`**. */
     ctx._wizD1Step1DogGoalInventLikeC = true;
     ctx._postBumpSkipDogGoalRn2LikeC = true;
     ctx._wizD1Step1ObjResistsPrescanLikeC = true;
     try {
+        /* C: **`dog_move`** — **`dog_invent`** then **`dog_goal`** then **`mfndpos`** (~2590+). */
+        dogInventLikeC(g, mtmp, udist);
         dogGoalWizardD1Step1ObjResistsPrescanLikeC(g, mtmp);
         const goal = dogGoalFloorScanRngLikeC(g, mtmp, true, whappr);
-        dogInventLikeC(g, mtmp, udist);
-        /* C: **`dog_move`** — **`mfndpos`** pick after **`dog_invent`** (~2590+). */
         if ((goal.appr | 0) !== -2) {
             let mov = mtmp.movement | 0;
             if (mov < NORMAL_SPEED) {
@@ -1031,6 +1036,7 @@ export function dogMoveInventOnlyLikeC(g, mtmp) {
         delete ctx._wizD1Step1DogGoalInventLikeC;
         delete ctx._postBumpSkipDogGoalRn2LikeC;
         delete ctx._wizD1Step1ObjResistsPrescanLikeC;
+        delete ctx._wizD1Step1DogGoalHeroXYLikeC;
         delete ctx._dogfoodRankCacheLikeC;
     }
     return MMOVE_NOTHING;
