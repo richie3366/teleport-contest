@@ -171,8 +171,9 @@ const SCR_CONFUSE_MONSTER = 325;
 const SCR_SCARE_MONSTER = 326;
 const WAN_DIGGING = 427;
 const SPE_HEALING = 374;
-const LARGE_BOX = 214;
-const CHEST = 215;
+/** C: objects.h — `LARGE_BOX` **215**, `CHEST` **216** (NH5 `objects_nums`). */
+const LARGE_BOX = 215;
+const CHEST = 216;
 const FOOD_RATION = 143;
 /** C: `mons[PM_GHOST]` — NH5 permonst index (S_GHOST). */
 const PM_GHOST = 289;
@@ -1138,6 +1139,8 @@ function nh5OclassForOtyp(otyp) {
     if (t >= 365 && t <= 408) return NH5_SPBOOK_CLASS;
     if (t >= 409 && t <= 433) return NH5_WAND_CLASS;
     if (t === OTYP_BOULDER || t === STATUE) return NH5_ROCK_CLASS;
+    /* C: mkobj.c mksobj_init TOOL_CLASS — floor chests/boxes/sacks (fill_ordinary_room mksobj_at). */
+    if (t >= 215 && t <= 220) return NH5_TOOL_CLASS;
     return 0;
 }
 
