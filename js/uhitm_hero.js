@@ -21,6 +21,7 @@ import { isok } from './const.js';
 import { overexertion, overexertHpIfEncumberedPlines } from './eat_hunger.js';
 import { collectNewuhsPlines } from './hunger.js';
 import { dmgval } from './mthrowu.js';
+import { findDistantMklevMonLikeC } from './mfndpos_mon.js';
 
 /** @param {{ monnam?: string, data?: { mname?: string } }} mtmp */
 function monsterName(mtmp) {
@@ -214,6 +215,8 @@ export async function bumpMeleeAttackLikeC(g, mtmp) {
     if ((mtmp.mhp | 0) <= 0) {
         const ctx = g.context || (g.context = {});
         ctx._postBumpKillDochugGateLikeC = true;
+        const distant = findDistantMklevMonLikeC(g);
+        if (distant) ctx._postBumpDistantMtmpLikeC = distant;
         await xkilledHeroBumpLikeC(g, mtmp, XKILL_GIVEMSG);
         if (g.u && isok(nx, ny)) {
             g.u.ux = nx;
