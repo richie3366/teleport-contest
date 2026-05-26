@@ -27,7 +27,6 @@ import {
     rigidRoleChecksJs,
     ROLE_NONE,
     ROLE_RANDOM,
-    PICK_RANDOM,
     clearChargenRfilterLikeC,
     trySetrolefilterTokenLikeC,
     gotChargenRfilterLikeC,
@@ -43,10 +42,11 @@ import {
     roleMenuExtraRsRoleGrayLineLikeC,
     roleMenuExtraRsRaceGrayLineLikeC,
     roleMenuExtraRsGenderGrayLineLikeC,
-    pickRoleJs,
-    pickRaceJs,
-    pickGendJs,
-    pickAlignJs,
+    pickRoleWithPick4uFallbackLikeC,
+    pickRaceWithPick4uFallbackLikeC,
+    pickGendWithPick4uFallbackLikeC,
+    pickAlignWithPick4uFallbackLikeC,
+    applyGenlPick4uRandomFacetsLikeC,
     ROLE_MENU_ORDER_LIKE_C,
 } from './chargen_rigid.js';
 import { applyIdentityFromNethackrc } from './chargen.js';
@@ -942,7 +942,7 @@ async function readRaceChoice(disp, f) {
             const t = await chargenStarPickOneN2LikeC(
                 'race menu',
                 (k2) => (map.has(k2) ? /** @type {number} */ (map.get(k2)) : undefined),
-                () => pickRaceJs(f.initrole, f.initgend, f.initalign, PICK_RANDOM),
+                () => pickRaceWithPick4uFallbackLikeC(f.initrole, f.initgend, f.initalign),
             );
             if (t !== ROLE_NONE) return t;
             continue;
@@ -1032,7 +1032,7 @@ async function readGenderChoice(disp, f) {
                     const gi = /** @type {number} */ (map.get(k2));
                     return valid.includes(gi) ? gi : undefined;
                 },
-                () => pickGendJs(f.initrole, f.initrace, f.initalign, PICK_RANDOM),
+                () => pickGendWithPick4uFallbackLikeC(f.initrole, f.initrace, f.initalign),
             );
             if (t !== ROLE_NONE) return t;
             continue;
@@ -1117,7 +1117,7 @@ async function readAlignChoice(disp, f) {
             const t = await chargenStarPickOneN2LikeC(
                 'align menu',
                 (k2) => (map.has(k2) ? /** @type {number} */ (map.get(k2)) : undefined),
-                () => pickAlignJs(f.initrole, f.initrace, f.initgend, PICK_RANDOM),
+                () => pickAlignWithPick4uFallbackLikeC(f.initrole, f.initrace, f.initgend),
             );
             if (t !== ROLE_NONE) return t;
             continue;
@@ -1283,13 +1283,7 @@ async function pickManualChargenFacets(disp, f) {
                         pushKey(c2);
                     }
                 }
-                const t = pickRoleJs(
-                    f.initrace >= 0 ? f.initrace : ROLE_RANDOM,
-                    f.initgend >= 0 ? f.initgend : ROLE_RANDOM,
-                    f.initalign >= 0 ? f.initalign : ROLE_RANDOM,
-                    PICK_RANDOM,
-                );
-                if (t !== ROLE_NONE) f.initrole = t;
+                f.initrole = pickRoleWithPick4uFallbackLikeC(f.initrace, f.initgend, f.initalign);
                 continue;
             }
             if (k === '[') {
@@ -1364,15 +1358,7 @@ export async function runInteractiveTtyChargen(disp, g, opts) {
         if (pick4u === 'q') throw new Error('Player quit during chargen');
         if (pick4u === 'y' || pick4u === 'a') {
             const f = { initrole: ROLE_NONE, initrace: ROLE_NONE, initgend: ROLE_NONE, initalign: ROLE_NONE };
-            f.initrole = pickRoleJs(ROLE_RANDOM, ROLE_RANDOM, ROLE_RANDOM, PICK_RANDOM);
-            if (f.initrole === ROLE_NONE) throw new Error('pick_role failed');
-            rigidRoleChecksJs(f);
-            if (f.initrace === ROLE_NONE) f.initrace = pickRaceJs(f.initrole, f.initgend, f.initalign, PICK_RANDOM);
-            if (f.initgend === ROLE_NONE) f.initgend = pickGendJs(f.initrole, f.initrace, f.initalign, PICK_RANDOM);
-            if (f.initalign === ROLE_NONE) {
-                const t = pickAlignJs(f.initrole, f.initrace, f.initgend, PICK_RANDOM);
-                if (t !== ROLE_NONE) f.initalign = t;
-            }
+            applyGenlPick4uRandomFacetsLikeC(f);
             if (pick4u === 'a') {
                 /* C: skip confirmation for "a" (all random, no confirm). */
                 applyChargenFlagsToGame(g, opts, f);

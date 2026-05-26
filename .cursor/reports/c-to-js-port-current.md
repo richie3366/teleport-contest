@@ -31,7 +31,7 @@ Use this when **`Next steps`** below feels stale or several lanes compete. Order
 
 **Deferred for now:** **`maybe_do_tutorial`** / **`tut-1`** / full **`do.c`** **`goto_level`** (Lua **`tutorial()`** / **`free_tutorial()`**, **`savelev`**, **`gmst_*`**, …) and **`dokick`**/**`dothrow`** vs **`leaving_tutorial`** — strong upstream dependencies (save, specials, fuller **`do.c`**); treat as backlog until chargen / core early-game parity is further along; **`LIVELOGFILE`** parity if the judge ever compares livelog lines.
 
-**Last slice:** Lane A — **`chargen_tty.js`**: C **`tty_askname`** empty-name retry (no **`'X'`** default); confirm **`n`** after **`y`** random → **`makepicks`** manual menus (not restart askname); race/gender/align menus fall back to **`validrace`/`validgend`/`validalign`** when **`ok_*`** count is 0 (**`role.c`** **`genl_player_setup`**). **`npm run score`:** **2/44** (`seed0077`, `seed8000`).
+**Last slice:** Lane A — **`chargen_rigid.js`** / **`chargen_tty.js`**: C **`genl_player_setup`** **`pick4u`** **`y`**/**`a`** — **`applyGenlPick4uRandomFacetsLikeC`** with **`randrole`/`randrace`/`randgend`/`randalign`** when **`pick_*`** fails; re-pick on illegal preset facets; **`*`** menus use same fallbacks. **`npm run score`:** **2/44** (`seed0077`, `seed8000`).
 
 **Handoff refresh:** **Priority matrix** (lanes A–D) + **Next steps** aligned to it; **`c-to-js-port-remaining.md`** / **`c-to-js-port-dashboard.md`** / **`nhl-port-notes.md`** / **`continue-nethack-port.md`** updated for post-`load_lua` reality and NHL ordering.
 

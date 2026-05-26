@@ -4,7 +4,19 @@
 // setrolefilter, clearrolefilter.
 
 import { rn2 } from './rng.js';
-import { roles, races, aligns, genders, raceAllowsAlignValueLikeC } from './roles.js';
+import {
+    roles,
+    races,
+    aligns,
+    genders,
+    raceAllowsAlignValueLikeC,
+    validraceLikeC,
+    validgendLikeC,
+    validalignLikeC,
+    randraceLikeC,
+    randgendLikeC,
+    randalignLikeC,
+} from './roles.js';
 
 export const ROLE_NONE = -1;
 export const ROLE_RANDOM = -2;
@@ -500,6 +512,64 @@ export function randroleFilteredLikeC() {
         }
     }
     return set.length ? set[rn2(set.length)] : randroleLikeC(false);
+}
+
+/** C `genl_player_setup` / `*` menu: `pick_role` then `randrole(FALSE)` on failure. */
+export function pickRoleWithPick4uFallbackLikeC(rai, gi, ai) {
+    const r = rai >= 0 ? rai : ROLE_RANDOM;
+    const g = gi >= 0 ? gi : ROLE_RANDOM;
+    const a = ai >= 0 ? ai : ROLE_RANDOM;
+    let k = pickRoleJs(r, g, a, PICK_RANDOM);
+    if (k === ROLE_NONE) k = randroleLikeC(false);
+    return k;
+}
+
+/** C `genl_player_setup`: `pick_race` then `randrace(ROLE)` on failure. */
+export function pickRaceWithPick4uFallbackLikeC(ri, gi, ai) {
+    const g = gi >= 0 ? gi : ROLE_RANDOM;
+    const a = ai >= 0 ? ai : ROLE_RANDOM;
+    let k = pickRaceJs(ri, g, a, PICK_RANDOM);
+    if (k === ROLE_NONE) k = randraceLikeC(ri);
+    return k;
+}
+
+/** C `genl_player_setup`: `pick_gend` then `randgend(ROLE, RACE)` on failure. */
+export function pickGendWithPick4uFallbackLikeC(ri, rai, ai) {
+    const a = ai >= 0 ? ai : ROLE_RANDOM;
+    let k = pickGendJs(ri, rai, a, PICK_RANDOM);
+    if (k === ROLE_NONE) k = randgendLikeC(ri, rai);
+    return k;
+}
+
+/** C `genl_player_setup`: `pick_align` then `randalign(ROLE, RACE)` on failure. */
+export function pickAlignWithPick4uFallbackLikeC(ri, rai, gi) {
+    let k = pickAlignJs(ri, rai, gi, PICK_RANDOM);
+    if (k === ROLE_NONE) k = randalignLikeC(ri, rai);
+    return k;
+}
+
+/**
+ * C role.c genl_player_setup — pick4u y or a facet picks with incompatible fallbacks
+ * and validrace/validgend/validalign re-pick when a preset facet is illegal.
+ * @param {ChargenFlags} f
+ */
+export function applyGenlPick4uRandomFacetsLikeC(f) {
+    if (f.initrole === ROLE_NONE) {
+        f.initrole = pickRoleWithPick4uFallbackLikeC(f.initrace, f.initgend, f.initalign);
+    }
+    rigidRoleChecksJs(f);
+    const ri = f.initrole;
+    if (f.initrace === ROLE_NONE || !validraceLikeC(ri, f.initrace)) {
+        f.initrace = pickRaceWithPick4uFallbackLikeC(ri, f.initgend, f.initalign);
+    }
+    const rai = f.initrace;
+    if (f.initgend === ROLE_NONE || !validgendLikeC(ri, rai, f.initgend)) {
+        f.initgend = pickGendWithPick4uFallbackLikeC(ri, rai, f.initalign);
+    }
+    const gi = f.initgend;
+    if (f.initalign === ROLE_NONE || !validalignLikeC(ri, rai, f.initalign)) {
+        f.initalign = pickAlignWithPick4uFallbackLikeC(ri, rai, gi);
+    }
 }
 
 /**
