@@ -32,7 +32,7 @@ Use this when **`Next steps`** below feels stale or several lanes compete. Order
 
 **Tutorial (Lane E):** Scaffolding exists (`tutorial_prompt.js`, `maybeDoTutorialLikeC`, `tutorial_branch.js` stubs). **Do not** take tutorial slices until [`docs/plans/tutorial-port-gate.md`](../../docs/plans/tutorial-port-gate.md) **MD-1 … MD-7** are checked; then **Lane E becomes step 1** (see [10-tutorial.md](../plans/nethack-port/10-tutorial.md)). While advancing Lanes A–D, prefer slices that close an open MD-* item. **`LIVELOGFILE`** / full **`dokick`**/**`dothrow`** vs **`leaving_tutorial`** are Lane E long tail, not gate blockers.
 
-**Last slice:** Wizard D:1 east tail — **`wizD1EastDoorMklevMonLikeC`** + **`fmon`** near→distant; **`set_apparxy`** **`rn2(3)`** via **`mCanSeeHero`**-gated **`mcansee`** (no pre-**`m_move`** **`distfleeck`**); **`mfndpos`** **`cnt=4`** at **(63,7)** during **`LPostEastTail`**; **`primeWizD1EastDoorMtrackLikeC`**. **`mfndpos_mon.js`**, **`fmon_iter.js`**, **`m_move_mon.js`**. **`seed0006`** **2798/6736** (diag **2710–2718**; **~2719+** **`m_move`** pick chain). **`seed0077`/`seed8000`:** **PASS**. **2/44**.
+**Last slice:** Wizard D:1 east-door **`m_move`** **(63,7)** — after first **`mtrack[1]`** **`rn2(12)`** reject, C still draws **`rn2(1)`** chcnt + second **`rn2(12)`** before ~915 **`distfleeck`**; east-tail post-loop in **`mMovePositionSelectLikeC`**. **`m_move_mon.js`**. **`seed0006`** **2802/6736** (diag **2714–2722**; **~2723+**). **`seed0077`/`seed8000`:** **PASS**. **2/44**.
 
 **Handoff refresh:** **Priority matrix** (lanes A–D) + **Next steps** aligned to it; **`c-to-js-port-remaining.md`** / **`c-to-js-port-dashboard.md`** / **`nhl-port-notes.md`** / **`continue-nethack-port.md`** updated for post-`load_lua` reality and NHL ordering.
 
@@ -42,7 +42,7 @@ Pick **one** primary lane per slice; refresh this list after each merge.
 
 **First:** open [`docs/plans/tutorial-port-gate.md`](../../docs/plans/tutorial-port-gate.md) — if **all MD-1 … MD-7** are checked, do **Lane E** step 1 from [10-tutorial.md](../plans/nethack-port/10-tutorial.md) instead of the list below.
 
-1. **Lane C — `seed0006` ~2719+** — east-door **`m_move`** at **(63,7)**: **`rn2(1)`** chcnt / second **`rn2(12)`** before post-**`m_move`** **`distfleeck`** (~2721); full **`m_move`** loop vs C **`mon.c`**. Lane A: **`chargen_tty.js`** when rc omits identity.
+1. **Lane C — `seed0006` ~2723+** — post-east-door **`m_move`** / moveloop tail (**`rn2(20)`** vs **`rn2(4)`** ~2723); fold east-door pick-loop into full C **`m_move`** iteration (not post-loop) when **`appr`/`mtrack`** state is clear. Lane A: **`chargen_tty.js`** when rc omits identity.
 2. **Lane A — Chargen / init + early moveloop** — tty / **`role.c`** pickers when rc omits identity.
 3. **Lane B — NHL** — next **`lspo_*`** + **`nhl_lua.js`** allowlist per [`nhl-port-notes.md`](nhl-port-notes.md) (**advances MD-3 / MD-4**).
 4. **Lane D — `objects_nums` / mkobj** — audit other **`const.js`** otyps vs NH5 **`objects_nums`** after AoY fix (**advances MD-1**).

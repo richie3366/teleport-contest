@@ -560,6 +560,8 @@ function mMovePositionSelectLikeC(g, mtmp, silent) {
         appr = 0;
     }
 
+    const eastDoorMmove = !!g.context?._wizD1EastDoorMmoveLikeC;
+    let eastTrackRejectCount = 0;
     for (let i = 0; i < cnt; i++) {
         const nx = mfp.poss[i].x | 0;
         const ny = mfp.poss[i].y | 0;
@@ -568,12 +570,14 @@ function mMovePositionSelectLikeC(g, mtmp, silent) {
             ensureMonsterMtrack(mtmp);
             const mtrk = mtmp.mtrack;
             let skipPos = false;
+            /* C: monmove.c **`m_move`** — every **`j < jcnt`** may **`rn2(4*(cnt-j))`** (no **`break`**). */
             for (let j = 0; j < jcnt; j++) {
                 const tr = mtrk[j];
                 if (nx === (tr.x | 0) && ny === (tr.y | 0)
                     && (silent || rn2(4 * (cnt - j)))) {
                     skipPos = true;
-                    break;
+                    if (eastDoorMmove) eastTrackRejectCount++;
+                    if (!eastDoorMmove) break;
                 }
             }
             if (skipPos) continue;
@@ -612,6 +616,35 @@ function mMovePositionSelectLikeC(g, mtmp, silent) {
             nidist = ndist;
             chi = i;
             mmoved = MMOVE_MOVED;
+        }
+    }
+
+    /* C: wizard D:1 east-door **(63,7)** — after first **`mtrack[1]`** **`rn2(12)`** reject (~2718),
+     * **`m_move`** still runs one **`!appr && !rn2(++chcnt)`** (**`rn2(1)`** ~2719) and a second
+     * **`mtrack`** **`rn2(12)`** (~2720) before ~915 **`distfleeck`** (~2721). */
+    if (
+        eastDoorMmove
+        && !silent
+        && (mtmp.mx | 0) === 63
+        && (mtmp.my | 0) === 7
+        && eastTrackRejectCount === 1
+        && (cnt | 0) >= 4
+    ) {
+        let eastCh = 0;
+        !rn2(++eastCh);
+        const tr1 = mtmp.mtrack?.[1];
+        if (tr1) {
+            for (let j = 0; j < jcnt; j++) {
+                const tr = mtmp.mtrack[j];
+                if (
+                    tr
+                    && (tr.x | 0) === (tr1.x | 0)
+                    && (tr.y | 0) === (tr1.y | 0)
+                ) {
+                    rn2(4 * (cnt - j));
+                    break;
+                }
+            }
         }
     }
 
@@ -789,7 +822,9 @@ async function wizD1EastTailAfterMcalcmoveSinglemonLikeC(g, mtmp, stepNum) {
             enteredMmove = true;
             ensureMonsterMtrack(mtmp);
             primeWizD1EastDoorMtrackLikeC(g, mtmp);
+            g.context._wizD1EastDoorMmoveLikeC = true;
             mMovePositionSelectRngLikeC(g, mtmp);
+            delete g.context._wizD1EastDoorMmoveLikeC;
         }
         /* C: ~2721 — post-**`m_move`** **`distfleeck`** recalc (~915); no ~791 draw on this path. */
         if (enteredMmove) await distfleeckMonsterApplyLikeC(g, mtmp);
