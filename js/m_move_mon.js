@@ -1498,7 +1498,8 @@ export async function mMoveDistfleeckMmoveTurnLikeC(g, mtmp, stepNum = 0, skipFl
             }
         }
         if (((stepNum | 0) === 8 || (stepNum | 0) === 9 || (stepNum | 0) === 10 || (stepNum | 0) === 11)
-            && mtmp === findDistantMklevMonLikeC(g)) {
+            && mtmp === findDistantMklevMonLikeC(g)
+            && !g.context?._wizD1PostCorridorDistantPeelDoneLikeC) {
             primeDistantStep9MtrackRn20LikeC(mtmp, stepNum);
             primeMtrackBeforeMmoveStep8LikeC(g, mtmp, stepNum);
             /* C: session logs one **`rn2(20)`** track rejection — not earlier **`rn2(4*(cnt-j))`**. */
@@ -1946,6 +1947,7 @@ export async function mMoveOneMonsterSubsetLikeC(g, mtmp, stepNum = 0) {
                     if (
                         mtmp === pin
                         && !ctxDist._wizD1Step1DistantMmoveDoneLikeC
+                        && !g.context?._wizD1PostCorridorDistantPeelDoneLikeC
                     ) {
                         if (!ctxDist._wizD1Step1DistantPass2Rn20DoneLikeC) {
                             setApparxyMonsterLikeC(g, mtmp);

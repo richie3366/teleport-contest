@@ -58,6 +58,7 @@ import {
     dogMoveGoalAndPickLikeC,
     dogMoveLPetMfndposAfterEastTailPeelLikeC,
     dogMoveLPetTailPostPeelLikeC,
+    dogMoveLikeC,
     dogMoveWizardD1FourthMovemonPetLikeC,
     dogMoveInventOnlyLikeC,
     dogMoveSearchPassNearHeroLikeC,
@@ -537,6 +538,37 @@ export async function movemon(stepNum) {
                     './moveloop_turn_advance.js',
                 );
                 await runWizEastTailPostCorridorNewTurnLikeC(g);
+                /* C: post-corridor — near **`distfleeck`** then pet **`dog_move`** (~2735+). */
+                const nearAfterCorridor =
+                    g.context._wizD1EastTailNearMklevMtmpLikeC
+                    ?? nearMklev
+                    ?? wizD1EastDoorMklevMonLikeC(g);
+                if (nearAfterCorridor) {
+                    setApparxyMonsterLikeC(g, nearAfterCorridor);
+                    await distfleeckMonsterApplyLikeC(g, nearAfterCorridor);
+                }
+                if (petEast) {
+                    g.context._wizD1AfterLPostMfndposOnlyLikeC = true;
+                    g.context._wizD1PostCorridorPetMfndposLikeC = true;
+                    try {
+                        dogMoveLikeC(g, petEast);
+                    } finally {
+                        delete g.context._wizD1AfterLPostMfndposOnlyLikeC;
+                        delete g.context._wizD1PostCorridorPetMfndposLikeC;
+                    }
+                    g.context._wizD1PostCorridorPetTailDoneLikeC = true;
+                }
+                /* C: post-corridor pet — distant 2× **`distfleeck`** + peel **`rn2(20)`** (~2743+). */
+                if (peelDistant) {
+                    setApparxyMonsterLikeC(g, peelDistant);
+                    await distfleeckMonsterApplyLikeC(g, peelDistant);
+                    await distfleeckMonsterApplyLikeC(g, peelDistant);
+                    primeDistantMtrackRn20LikeC(peelDistant);
+                    rn2(20);
+                    await distfleeckMonsterApplyLikeC(g, peelDistant);
+                    await distfleeckMonsterApplyLikeC(g, peelDistant);
+                    g.context._wizD1PostCorridorDistantPeelDoneLikeC = true;
+                }
                 g.context._wizD1EastTailCorridorTurnDoneLikeC = true;
                 g.context._wizD1LPostOuterLoopDoneLikeC = true;
             } else {

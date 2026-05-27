@@ -541,6 +541,7 @@ function dogGoalFollowGxGyApprLikeC(
         !g.context?._wizD1LPostFourthPetDogGoalLikeC
         && !g.context?._wizD1LSecondRunEastPetMfndposLikeC
         && !g.context?._wizD1AfterLPostMfndposOnlyLikeC
+        && !g.context?._wizD1PostCorridorPetTailDoneLikeC
         && !g.context?._wizD1LPetMfndposAfterEastTailPeelLikeC
         && (
             (udist > 1 && !g.context?._wizD1Step1DogGoalInventLikeC)
@@ -1167,7 +1168,7 @@ export function dogMoveLikeC(g, mtmp) {
                 gy: goal.gy | 0,
                 appr: goal.appr | 0,
             };
-            ctx._wizD1LPickRngBudget = 10;
+            ctx._wizD1LPickRngBudget = ctx._wizD1PostCorridorPetMfndposLikeC ? 4 : 10;
             dogMoveMfndposPickLikeC(
                 g,
                 mtmp,
@@ -1178,7 +1179,10 @@ export function dogMoveLikeC(g, mtmp) {
             );
             /* C: second **`L`** east — one near **`distfleeck`** (~2716) then distant **`m_move`**
              * (~2717+); not two near **`distfleeck`** in one **`fmon`** pass. */
-            if (!ctx._wizD1LPostFourthPetDogGoalLikeC) {
+            if (
+                !ctx._wizD1LPostFourthPetDogGoalLikeC
+                && !ctx._wizD1PostCorridorPetMfndposLikeC
+            ) {
                 ctx._wizD1LPostEastSingleNearDfLikeC = true;
             }
             return MMOVE_NOTHING;
