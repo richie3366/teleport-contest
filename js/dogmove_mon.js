@@ -541,6 +541,7 @@ function dogGoalFollowGxGyApprLikeC(
         !g.context?._wizD1LPostFourthPetDogGoalLikeC
         && !g.context?._wizD1LSecondRunEastPetMfndposLikeC
         && !g.context?._wizD1AfterLPostMfndposOnlyLikeC
+        && !g.context?._wizD1LPetMfndposAfterEastTailPeelLikeC
         && (
             (udist > 1 && !g.context?._wizD1Step1DogGoalInventLikeC)
             || g.context?._wizD1Step1LPetTailDogGoalLikeC
@@ -1324,7 +1325,9 @@ export function dogMoveLPetMfndposAfterEastTailPeelLikeC(g, mtmp) {
         mov = NORMAL_SPEED;
     }
     mtmp.movement = mov - NORMAL_SPEED;
-    ctx._wizD1Step1CachedDogGoalLikeC = { gx: hx, gy: hy, appr: 0 };
+    const omx = mtmp.mx | 0;
+    const omy = mtmp.my | 0;
+    const udist = dist2(omx, omy, hx, hy);
     ctx._wizD1LPetMfndposAfterEastTailPeelLikeC = true;
     ctx._wizD1LPetEastTailMfndposLikeC = true;
     delete ctx._wizD1Step1PetMfndposPickDoneLikeC;
@@ -1332,9 +1335,12 @@ export function dogMoveLPetMfndposAfterEastTailPeelLikeC(g, mtmp) {
     const whappr = edog
         ? (g.moves | 0) - (edog.whistletime | 0) < 5
         : false;
+    /* C: **`dog_goal`** follow **`appr`** (no **`rn2(4)`** when hero-adjacent) then **`mfndpos`**. */
+    const { appr } = dogGoalFollowGxGyApprLikeC(
+        g, mtmp, UNDEF, hx, hy, udist, whappr, edog,
+    );
     try {
-        /* C: no **`dog_goal`** **`rn2(4)`** — **`mfndpos`** **`chcnt`** + **`mtrack`** (~2726–2727). */
-        dogMoveMfndposPickLikeC(g, mtmp, hx, hy, 0, whappr);
+        dogMoveMfndposPickLikeC(g, mtmp, hx, hy, appr | 0, whappr);
     } finally {
         delete ctx._wizD1LPetMfndposAfterEastTailPeelLikeC;
         delete ctx._wizD1LPetEastTailMfndposLikeC;
