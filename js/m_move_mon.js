@@ -805,6 +805,22 @@ async function wizD1EastTailAfterMcalcmoveSinglemonLikeC(g, mtmp, stepNum) {
     ) {
         return false;
     }
+    /* C: post-corridor second **`mcalcmove`** — near **`distfleeck`** only; pet/distant in moveloop. */
+    if (g.context?._wizD1EastTailSecondPostCorridorNewTurnDoneLikeC) {
+        if ((mtmp.mtame | 0) && has_edog(mtmp)) return true;
+        const nearMon =
+            wizD1EastDoorMklevMonLikeC(g)
+            ?? wizD1NearMklevMonLikeC(g);
+        if (nearMon && mtmp === nearMon) {
+            await distfleeckMonsterApplyLikeC(g, mtmp);
+            g.context._wizD1EastTailNearMklevMtmpLikeC = mtmp;
+            return true;
+        }
+        const peelPin = wizD1PeelDistantMklevMonLikeC(g);
+        /* C: post-mcalcmove — distant **`m_move`** **`mfndpos`** (~2762+), not peel skip. */
+        if (peelPin && mtmp === peelPin) return false;
+        return false;
+    }
     if ((mtmp.mtame | 0) && has_edog(mtmp)) return true;
     const peelPin = wizD1PeelDistantMtmpLikeC(g);
     const distantMon = peelPin;
@@ -2045,6 +2061,18 @@ export async function mMoveOneMonsterSubsetLikeC(g, mtmp, stepNum = 0) {
                 && has_edog(mtmp)
                 && isWizardD1Step1PeelLikeC(g, stepNum)
             ) {
+                /* C: east-tail corridor — pet deferred to **`monmove.js`** / moveloop post-**`mcalcmove`**. */
+                if (
+                    g.context?._wizD1EastTailMovemonPetMfndposPendingLikeC
+                    || g.context?._wizD1EastTailPostMcalcmovePetPendingLikeC
+                    || g.context?._wizD1EastTailSecondPostCorridorNewTurnDoneLikeC
+                    || (
+                        g.context?._wizD1PostCorridorPetTailDoneLikeC
+                        && !g.context?._wizD1EastTailPostCorridorMovemonAfterMcalcmoveDoneLikeC
+                    )
+                ) {
+                    return;
+                }
                 /* C: wizard step-1 — pet **`dog_goal`** only in peel; invent after mklev **`m_move`**. */
                 let mov = mtmp.movement | 0;
                 if (mov < NORMAL_SPEED) {

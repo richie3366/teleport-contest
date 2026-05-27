@@ -239,6 +239,12 @@ function dogfoodRankLikeC(obj) {
  * @param {Record<string, unknown>} mtmp
  */
 function dogGoalWizardD1Step1ObjResistsPrescanLikeC(g, mtmp) {
+    /* C: post-corridor **`mcalcmove`** pet — one invent **`obj_resists`** (~2758). */
+    if (g.context?._wizD1EastTailPostMcalcmovePetLikeC) {
+        const o0 = g.invent;
+        if (o0) dogfoodRankLikeC(o0);
+        return;
+    }
     const omx = mtmp.mx | 0;
     const omy = mtmp.my | 0;
     const minX = Math.max(1, omx - SQSRCHRADIUS);
@@ -965,25 +971,7 @@ function dogMoveMfndposPickLikeC(g, mtmp, ggx, ggy, appr, whappr) {
         const j = (ndist - nidist) * appr;
         let pickTake = false;
         let postCorridorSecondPetAwayDoneLikeC = false;
-        if (
-            g.context?._wizD1LPetEastTailMfndposLikeC
-            && g.context?._wizD1PostCorridorPetSecondMfndposLikeC
-        ) {
-            /* C: post-corridor second pet — **`dogmove.c:1257`** OR (~2748–2749). */
-            if (j < 0) {
-                pickTake = true;
-            } else if (j > 0 && !whappr) {
-                let take = false;
-                if (omx === nix && omy === niy && !rn2(3)) {
-                    take = true;
-                }
-                if (!take && !rn2(12)) {
-                    take = true;
-                }
-                if (take) pickTake = true;
-                postCorridorSecondPetAwayDoneLikeC = true;
-            }
-        } else if (g.context?._wizD1LPetEastTailMfndposLikeC) {
+        if (g.context?._wizD1LPetEastTailMfndposLikeC) {
             /* C: dogmove.c ~1254–1257 — **`appr==0`** pick (chcnt / away / mtrack). */
             if (
                 (j === 0 && !rn2(++chcnt))
@@ -998,6 +986,13 @@ function dogMoveMfndposPickLikeC(g, mtmp, ggx, ggy, appr, whappr) {
                 )
             ) {
                 pickTake = true;
+            }
+            if (
+                g.context?._wizD1PostCorridorPetSecondMfndposLikeC
+                && j > 0
+                && !whappr
+            ) {
+                postCorridorSecondPetAwayDoneLikeC = true;
             }
         } else if (g.context?._wizD1LPetInventAfterNewturnChcntOnlyLikeC) {
             if (j === 0 && !rn2(++chcnt)) {
@@ -1271,6 +1266,32 @@ export function dogMoveGoalOnlyNoPickLikeC(g, mtmp) {
  * @param {import('./gstate.js').game} g
  * @param {Record<string, unknown>} mtmp
  */
+/**
+ * C: wizard second **`L`** — after post-corridor **`mcalcmove`**, one invent **`obj_resists`**
+ * (~2758) then **`dogmove.c:1257`** away **`mfndpos`** (~2759+).
+ *
+ * @param {import('./gstate.js').game} g
+ * @param {Record<string, unknown>} mtmp
+ */
+export function dogMoveEastTailPostMcalcmovePetLikeC(g, mtmp) {
+    if (!(mtmp.mtame | 0) || !has_edog(mtmp)) return MMOVE_NOTHING;
+    if ((mtmp.mhp | 0) <= 0) return MMOVE_DIED;
+    const ctx = g.context || (g.context = {});
+    const goal = ctx._wizD1PostCorridorSavedPetGoalLikeC;
+    if (!goal) return MMOVE_NOTHING;
+    ctx._wizD1EastTailPostMcalcmovePetLikeC = true;
+    ctx._wizD1Step1ObjResistsPrescanLikeC = true;
+    try {
+        dogGoalWizardD1Step1ObjResistsPrescanLikeC(g, mtmp);
+    } finally {
+        delete ctx._wizD1EastTailPostMcalcmovePetLikeC;
+        delete ctx._wizD1Step1ObjResistsPrescanLikeC;
+        delete ctx._dogfoodRankCacheLikeC;
+    }
+    /* C: prescan (~2758) then **`mfndpos`** (~2759+) — no **`Step1ObjResistsPrescan`** during pick. */
+    return dogMovePostCorridorSecondPetMfndposLikeC(g, mtmp);
+}
+
 export function dogMovePostCorridorSecondPetMfndposLikeC(g, mtmp) {
     if (!(mtmp.mtame | 0) || !has_edog(mtmp)) return MMOVE_NOTHING;
     if ((mtmp.mhp | 0) <= 0) return MMOVE_DIED;

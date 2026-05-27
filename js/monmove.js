@@ -514,7 +514,23 @@ export async function movemon(stepNum) {
                 await distfleeckMonsterApplyLikeC(g, postBumpDistant);
             }
         } else {
-            for (const m of mons) await movemonSinglemonLikeC(g, m, effStepNum);
+            for (const m of mons) {
+                /* C: second **`L`** east-tail — pet **`dog_move`** only after corridor peel block. */
+                if (
+                    g.context?._wizD1EastTailMovemonPetMfndposPendingLikeC
+                    && (m.mtame | 0)
+                ) {
+                    continue;
+                }
+                if (
+                    (m.mtame | 0)
+                    && g.context?._wizD1PostCorridorPetTailDoneLikeC
+                    && !g.context?._wizD1EastTailPostCorridorMovemonAfterMcalcmoveDoneLikeC
+                ) {
+                    continue;
+                }
+                await movemonSinglemonLikeC(g, m, effStepNum);
+            }
         }
         /* C: wizard D:1 second **`L`** — pet **`mfndpos`** after east-tail peel (~2726+). */
         if (g.context?._wizD1EastTailMovemonPetMfndposPendingLikeC) {
@@ -579,7 +595,42 @@ export async function movemon(stepNum) {
                     setApparxyMonsterLikeC(g, nearAfterCorridor);
                     await distfleeckMonsterApplyLikeC(g, nearAfterCorridor);
                 }
+                /* C: second new-turn **`mcalcmove`** on same post (~2751+). */
+                const {
+                    runWizEastTailPostCorridorMcalcmoveNewTurnLikeC,
+                    runNewTurnSetupAndTailLikeC,
+                } = await import('./moveloop_turn_advance.js');
+                const { dogMoveEastTailPostMcalcmovePetLikeC } = await import(
+                    './dogmove_mon.js',
+                );
+                await runWizEastTailPostCorridorMcalcmoveNewTurnLikeC(g);
                 g.context._wizD1EastTailCorridorTurnDoneLikeC = true;
+                /* C: post-**`mcalcmove`** — near **`distfleeck`**, pet prescan + **`mfndpos`**, near (~2757–2761). */
+                const nearAfterMcalcmove =
+                    nearAfterCorridor ?? wizD1EastDoorMklevMonLikeC(g);
+                if (nearAfterMcalcmove) {
+                    setApparxyMonsterLikeC(g, nearAfterMcalcmove);
+                    await distfleeckMonsterApplyLikeC(g, nearAfterMcalcmove);
+                }
+                if (petEast) {
+                    dogMoveEastTailPostMcalcmovePetLikeC(g, petEast);
+                }
+                if (nearAfterMcalcmove) {
+                    setApparxyMonsterLikeC(g, nearAfterMcalcmove);
+                    await distfleeckMonsterApplyLikeC(g, nearAfterMcalcmove);
+                }
+                /* C: distant **`m_move`** **`mfndpos`** (~2762–2764) then third new-turn (~2765+). */
+                if (peelDistant) {
+                    g.context._wizD1LPostEastTailAfterMcalcmoveLikeC = true;
+                    try {
+                        await movemonSinglemonLikeC(g, peelDistant, effStepNum);
+                    } finally {
+                        delete g.context._wizD1LPostEastTailAfterMcalcmoveLikeC;
+                    }
+                }
+                await runNewTurnSetupAndTailLikeC(g, (g.moves | 0) - 1);
+                g.context._wizD1EastTailPostCorridorMovemonAfterMcalcmoveDoneLikeC = true;
+                delete g.context._wizD1EastTailPostMcalcmovePetPendingLikeC;
                 g.context._wizD1LPostOuterLoopDoneLikeC = true;
             } else {
                 const handled = new Set(
