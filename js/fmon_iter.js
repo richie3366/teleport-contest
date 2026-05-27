@@ -114,9 +114,9 @@ export function fmonListForMovemonLikeC(g, stepNum = 0) {
         && (g.u?.uz?.dnum | 0) === 0
         && (g.u?.uz?.dlevel | 0) === 1
     ) {
+        /* C: east-door **`m_move`** finished before **`mcalcmove`** — peel **`rn2(20)`** is ~915 mon **~(23,13)**. */
         const distant =
-            wizD1EastDoorMklevMonLikeC(g)
-            ?? g.context._wizD1Step1DistantPeelMtmpLikeC
+            g.context._wizD1Step1DistantPeelMtmpLikeC
             ?? findDistantMklevMonLikeC(g);
         const nearMklev = mons.find(
             (m) =>

@@ -753,16 +753,6 @@ function mMovePetOrPositionSelectLikeC(g, mtmp) {
 /** C: wizard D:1 peel — pinned distant **`mtmp`** (coord lookup can drift after **`m_move`**). */
 function wizD1PeelDistantMtmpLikeC(g) {
     const pin = g.context?._wizD1Step1DistantPeelMtmpLikeC;
-    if (
-        g.context?._wizD1LPostEastTailAfterMcalcmoveLikeC
-        && g.urole?.abbr === 'Wiz'
-        && (g.u?.uz?.dnum | 0) === 0
-        && (g.u?.uz?.dlevel | 0) === 1
-        && g.context?._wizD1Step1InventPostDoneLikeC
-    ) {
-        const eastDoor = wizD1EastDoorMklevMonLikeC(g);
-        if (eastDoor) return eastDoor;
-    }
     return pin ?? findDistantMklevMonLikeC(g);
 }
 
@@ -810,24 +800,13 @@ async function wizD1EastTailAfterMcalcmoveSinglemonLikeC(g, mtmp, stepNum) {
          * **`distfleeck`** (~2716) arms **`_wizD1SkipDistantDochugRn4LikeC`. */
         if (!g.context._wizD1SkipDistantDochugRn4LikeC) return true;
         if (!g.context._wizD1Step1DistantMmoveDoneLikeC) return true;
-        /* C: dochug ~777 — **`set_apparxy`** (**`rn2(3)`** when notseen); no leading **`distfleeck`**
-         * (near mklev **`distfleeck`** was ~2716 in same **`fmon`** pass). */
-        const saveMcansee = mtmp.mcansee;
-        const blindedForApparxy = !mCanSeeHeroMonsterLikeC(mtmp);
-        if (blindedForApparxy) mtmp.mcansee = 0;
-        setApparxyMonsterLikeC(g, mtmp);
-        if (blindedForApparxy) mtmp.mcansee = saveMcansee;
-        let enteredMmove = false;
-        if (dochugEntersMmoveBlockLikeC(g, mtmp, 0, 0, stepNum)) {
-            enteredMmove = true;
-            ensureMonsterMtrack(mtmp);
-            primeWizD1EastDoorMtrackLikeC(g, mtmp);
-            g.context._wizD1EastDoorMmoveLikeC = true;
-            mMovePositionSelectRngLikeC(g, mtmp);
-            delete g.context._wizD1EastDoorMmoveLikeC;
-        }
-        /* C: ~2721 — post-**`m_move`** **`distfleeck`** recalc (~915); no ~791 draw on this path. */
-        if (enteredMmove) await distfleeckMonsterApplyLikeC(g, mtmp);
+        /* C: ~2723 — peel **`m_move`** track **`rn2(20)`** then 2× **`distfleeck`** (~915); east-door
+         * **`m_move`** already ran pre-**`mcalcmove`**. */
+        primeDistantMtrackRn20LikeC(mtmp);
+        rn2(20);
+        await distfleeckMonsterApplyLikeC(g, mtmp);
+        await distfleeckMonsterApplyLikeC(g, mtmp);
+        g.context._wizD1LPostEastTailDistantPeelDoneLikeC = true;
         delete g.context._wizD1SkipDistantDochugRn4LikeC;
         delete g.context._wizD1LPostEastTailAfterMcalcmoveLikeC;
         return true;
@@ -1814,16 +1793,19 @@ export async function mMoveOneMonsterSubsetLikeC(g, mtmp, stepNum = 0) {
                     return;
                 }
                 const wizLPostEastNearDfTailLikeC =
-                    !!g.context?._wizD1LPostEastSingleNearDfLikeC
-                    || (
-                        isWizardD1Step1PeelLikeC(g, stepNum)
-                        && g.context?._wizD1Step1InventPostDoneLikeC
-                        && g.context?._wizD1Step1LPetInventAfterNewturnDoneLikeC
-                        && ctxDist._wizD1Step1DistantMmoveDoneLikeC
-                        && peelDistMtmp
-                        && mtmp !== peelDistMtmp
-                        && mklevDfOnly <= 0
-                        && !g.context?._wizD1LPostEastTailAfterMcalcmoveLikeC
+                    !g.context?._wizD1LPostEastTailDistantPeelDoneLikeC
+                    && (
+                        !!g.context?._wizD1LPostEastSingleNearDfLikeC
+                        || (
+                            isWizardD1Step1PeelLikeC(g, stepNum)
+                            && g.context?._wizD1Step1InventPostDoneLikeC
+                            && g.context?._wizD1Step1LPetInventAfterNewturnDoneLikeC
+                            && ctxDist._wizD1Step1DistantMmoveDoneLikeC
+                            && peelDistMtmp
+                            && mtmp !== peelDistMtmp
+                            && mklevDfOnly <= 0
+                            && !g.context?._wizD1LPostEastTailAfterMcalcmoveLikeC
+                        )
                     );
                 if (wizLPostEastNearDfTailLikeC) {
                     await distfleeckMonsterApplyLikeC(g, mtmp);
@@ -1920,6 +1902,13 @@ export async function mMoveOneMonsterSubsetLikeC(g, mtmp, stepNum = 0) {
                     return;
                 }
                 const peelDistantMtmp = wizD1PeelDistantMtmpLikeC(g);
+                if (
+                    g.context?._wizD1LPostEastTailDistantPeelDoneLikeC
+                    && peelDistantMtmp
+                    && mtmp === peelDistantMtmp
+                ) {
+                    return;
+                }
                 if (
                     g.context?._wizD1LPostEastTailAfterMcalcmoveLikeC
                     && peelDistantMtmp

@@ -571,11 +571,14 @@ export async function movemon(stepNum) {
                     setApparxyMonsterLikeC(g, peelDistant);
                     await distfleeckMonsterApplyLikeC(g, peelDistant);
                     await distfleeckMonsterApplyLikeC(g, peelDistant);
-                    primeDistantMtrackRn20LikeC(peelDistant);
-                    rn2(20);
+                    if (!g.context?._wizD1LPostPeelRn20MoveloopDoneLikeC) {
+                        primeDistantMtrackRn20LikeC(peelDistant);
+                        rn2(20);
+                    }
                     await distfleeckMonsterApplyLikeC(g, peelDistant);
                     g.context._wizD1Step1DistantMmoveDoneLikeC = true;
                 }
+                delete g.context._wizD1LPostPeelRn20MoveloopDoneLikeC;
                 delete g.context._wizD1Step1LPostSecondMovemonPendingLikeC;
                 delete g.context._wizD1Step1PendingLPostPeelLikeC;
             }

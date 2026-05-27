@@ -31,6 +31,26 @@ import { setApparxyMonsterLikeC } from './set_apparxy_mon.js';
 import { distfleeckMonsterApplyLikeC } from './distfleeck_mon.js';
 import { dogMoveLPetInventAfterNewturnLikeC } from './dogmove_mon.js';
 import { findDistantMklevMonLikeC } from './mfndpos_mon.js';
+import { primeDistantMtrackRn20LikeC } from './m_move_mon.js';
+
+/**
+ * C: wizard D:1 second **`L`** post — after east-tail near **`distfleeck`** (~2722), peel
+ * distant **`rn2(20)`** (~2723) before pet **`dog_goal`** / invent (**`rn2(4)`** ~2724+).
+ *
+ * @param {import('./gstate.js').game} g
+ */
+function wizD1LPostPeelRn20BeforePetInventLikeC(g) {
+    if (g.context?._wizD1LPostPeelRn20MoveloopDoneLikeC) return;
+    const peelDistant =
+        g.context?._wizD1Step1DistantPeelMtmpLikeC
+        ?? findDistantMklevMonLikeC(g);
+    if (!peelDistant) return;
+    /* C: ~2723 — distant **`m_move`** track **`rn2(20)`** only; **`set_apparxy`** **`rn2(3)`** is later. */
+    primeDistantMtrackRn20LikeC(peelDistant);
+    rn2(20);
+    const ctx = g.context || (g.context = {});
+    ctx._wizD1LPostPeelRn20MoveloopDoneLikeC = true;
+}
 
 /**
  * C: rogue D:1 with only gate + pet — first **`movemon`** peel at **`stepNum` 1** waits for
@@ -354,6 +374,7 @@ export async function runPostCommandTurnAdvanceLikeC(g) {
                             setApparxyMonsterLikeC(g, nearMklev);
                             await distfleeckMonsterApplyLikeC(g, nearMklev);
                         }
+                        wizD1LPostPeelRn20BeforePetInventLikeC(g);
                         if (pet) {
                             dogMoveLPetInventAfterNewturnLikeC(g, pet);
                         }
@@ -425,6 +446,8 @@ export async function runPostCommandTurnAdvanceLikeC(g) {
         delete g.context._movemonStep7Passes;
         delete g.context._movemonStep8Passes;
         delete g.context._wizD1LPostOuterLoopDoneLikeC;
+        delete g.context._wizD1LPostPeelRn20MoveloopDoneLikeC;
+        delete g.context._wizD1LPostEastTailDistantPeelDoneLikeC;
     }
 }
 
