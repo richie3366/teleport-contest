@@ -32,7 +32,7 @@ Use this when **`Next steps`** below feels stale or several lanes compete. Order
 
 **Tutorial (Lane E):** Gated on [tutorial port gate](../../docs/plans/tutorial-port-gate.md) **MD-1 … MD-7**.
 
-**Last slice:** Wizard D:1 post-east-tail walk post — **`_wizD1PostEastTailWalkFmonLikeC`** survives east-tail **`runPost`**; **`fmon_iter`** near→pet order; peel path near **`distfleeck`** + pet **`obj_resists`** + **`dog_move`** (**`dogmove_mon.js`** **`dogMovePostEastTailWalkObjResistsLikeC`**); distant **`distfleeck`** + **`m_move`** tail stub. **`seed0006`** **2785/6736** RNG (was 2797); diag **2770–2774** aligned; **2775+** distant **`mfndpos`** **`rn2(12)`** chain. **2/44**.
+**Last slice:** Post-east-tail walk distant **`m_move`** — **`fmon`** near+pet only; corridor-style **`rn2(12)`×3** + **`monTrackClear`**; in-**`movemon`** **`runWizEastTailPostCorridorNewTurnLikeC`** + near **`distfleeck`** + **`dogMoveEastTailPostMcalcmovePetLikeC`** after **`mintrap`**; moveloop **`_wizD1PostEastTailWalkNewTurnDoneLikeC`**. **`seed0006`** **2802/6736** RNG (diag **2775–2782**); **2783+** pet **`rn2(4)`** / tail of same **`l`**. **2/44**.
 
 **Handoff refresh:** **Priority matrix** (lanes A–D) + **Next steps** aligned to it.
 
@@ -42,7 +42,7 @@ Pick **one** primary lane per slice; refresh this list after each merge.
 
 **First:** open [`docs/plans/tutorial-port-gate.md`](../../docs/plans/tutorial-port-gate.md) — if **all MD-1 … MD-7** are checked, do **Lane E** step 1 from [10-tutorial.md](../plans/nethack-port/10-tutorial.md) instead of the list below.
 
-1. **Lane C — `seed0006` ~2775** — step 47 **`l`** walk post: distant **`m_move`** after second **`distfleeck`** (**`rn2(12)`×3**, new-turn **2778+**); wire **`_wizD1PostEastTailWalkDistantMmoveLikeC`** so sleeping distant gets **`movement ≥ NORMAL_SPEED`** and subset **`m_move`** runs (no trailing **`dochug`** **`distfleeck`**). Global first mismatch still **~2630**.
+1. **Lane C — `seed0006` ~2783** — same **`l`** post: pet **`mfndpos`** **`rn2(4)`** + invent tail (**`dogmove_mon.js`** pick budget / **`dogMovePostCorridorSecondPetMfndposLikeC`**); then **2800+** second distant **`m_move`** / next **`l`** (**`2804+`**). Global first mismatch still **~2630**.
 2. **Lane A — Chargen / init** — tty / **`role.c`** pickers when rc omits identity.
 3. **Lane B — NHL** — next **`lspo_*`** per [`nhl-port-notes.md`](nhl-port-notes.md).
 4. **Lane D — `objects_nums` / mkobj** — audit **`const.js`** vs NH5.
