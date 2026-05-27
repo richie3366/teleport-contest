@@ -747,7 +747,14 @@ function dogMoveMfndposPickLikeC(g, mtmp, ggx, ggy, appr, whappr) {
     const mfp = mfndposMonsterLikeC(g, mtmp, monAllowflagsMonsterLikeC(g, mtmp));
     let cnt = mfp.cnt | 0;
     if (cnt <= 0) return;
-    if (g.context?._wizD1Step1DogGoalInventLikeC && appr === 0 && cnt > 7) {
+    if (
+        (
+            g.context?._wizD1Step1DogGoalInventLikeC
+            || g.context?._wizD1LPetMfndposAfterEastTailPeelLikeC
+        )
+        && appr === 0
+        && cnt > 7
+    ) {
         /* C: wizard **`n`** pet **`mfndpos`** — seven **`chcnt`** ties, not eight (extra JS slot). */
         cnt = 7;
     }
@@ -768,7 +775,12 @@ function dogMoveMfndposPickLikeC(g, mtmp, ggx, ggy, appr, whappr) {
         uncursedcnt++;
     }
 
-    if (appr === 0 && (g.context?._searchStep11Passes | 0) === 1) {
+    if (
+        appr === 0
+        && (g.context?._searchStep11Passes | 0) === 1
+        && !g.context?._wizD1LPetInventAfterNewturnChcntOnlyLikeC
+        && !g.context?._wizD1LPetEastTailMfndposLikeC
+    ) {
         /* C: **`appr==0`** — one **`rn2(1)`** on the closest-to-goal **`mfndpos`** slot
          * (recorder **`seed0077`** ~3208 onto APPORT towel; avoids **`rn2(2..)`** when extra
          * neighbor slots exist in JS but not C). */
@@ -939,7 +951,23 @@ function dogMoveMfndposPickLikeC(g, mtmp, ggx, ggy, appr, whappr) {
         const ndist = dist2(nx, ny, ggx, ggy);
         const j = (ndist - nidist) * appr;
         let pickTake = false;
-        if (g.context?._wizD1LPetInventAfterNewturnChcntOnlyLikeC) {
+        if (g.context?._wizD1LPetEastTailMfndposLikeC) {
+            /* C: dogmove.c ~1254–1257 — **`appr==0`** pick (chcnt / away / mtrack). */
+            if (
+                (j === 0 && !rn2(++chcnt))
+                || j < 0
+                || (
+                    j > 0
+                    && !whappr
+                    && (
+                        (omx === nix && omy === niy && !rn2(3))
+                        || !rn2(12)
+                    )
+                )
+            ) {
+                pickTake = true;
+            }
+        } else if (g.context?._wizD1LPetInventAfterNewturnChcntOnlyLikeC) {
             if (j === 0 && !rn2(++chcnt)) {
                 pickTake = true;
             } else if (j < 0) {
@@ -1268,6 +1296,48 @@ export function dogMoveLPetTailPostPeelLikeC(g, mtmp) {
         delete ctx._wizD1Step1LPetTailDogGoalLikeC;
         delete ctx._wizD1LPickRngBudget;
         delete ctx._wizD1LPetTailRn1DoneLikeC;
+    }
+    return MMOVE_NOTHING;
+}
+
+/**
+ * C: wizard D:1 second **`L`** — after post-**`mcalcmove`** peel **`rn2(20)`**, pet **`mfndpos`**
+ * **`chcnt`** only (**`appr==0`**, no **`dog_goal`** **`rn2(4)`**) (~2726–2727).
+ *
+ * @param {import('./gstate.js').game} g
+ * @param {Record<string, unknown>} mtmp
+ */
+export function dogMoveLPetMfndposAfterEastTailPeelLikeC(g, mtmp) {
+    if (!(mtmp.mtame | 0) || !has_edog(mtmp)) return MMOVE_NOTHING;
+    if ((mtmp.mhp | 0) <= 0) return MMOVE_DIED;
+    const u = g.u;
+    if (!u) return MMOVE_NOTHING;
+    const ctx = g.context || (g.context = {});
+    const pin = ctx._wizD1Step1DogGoalHeroXYLikeC;
+    const hx = pin ? (pin.ux | 0) : (u.ux | 0);
+    const hy = pin ? (pin.uy | 0) : (u.uy | 0);
+    mtmp.mux = hx;
+    mtmp.muy = hy;
+    let mov = mtmp.movement | 0;
+    if (mov < NORMAL_SPEED) {
+        mtmp.movement = NORMAL_SPEED;
+        mov = NORMAL_SPEED;
+    }
+    mtmp.movement = mov - NORMAL_SPEED;
+    ctx._wizD1Step1CachedDogGoalLikeC = { gx: hx, gy: hy, appr: 0 };
+    ctx._wizD1LPetMfndposAfterEastTailPeelLikeC = true;
+    ctx._wizD1LPetEastTailMfndposLikeC = true;
+    delete ctx._wizD1Step1PetMfndposPickDoneLikeC;
+    const edog = EDOG(mtmp);
+    const whappr = edog
+        ? (g.moves | 0) - (edog.whistletime | 0) < 5
+        : false;
+    try {
+        /* C: no **`dog_goal`** **`rn2(4)`** — **`mfndpos`** **`chcnt`** + **`mtrack`** (~2726–2727). */
+        dogMoveMfndposPickLikeC(g, mtmp, hx, hy, 0, whappr);
+    } finally {
+        delete ctx._wizD1LPetMfndposAfterEastTailPeelLikeC;
+        delete ctx._wizD1LPetEastTailMfndposLikeC;
     }
     return MMOVE_NOTHING;
 }

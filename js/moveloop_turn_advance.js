@@ -347,6 +347,7 @@ export async function runPostCommandTurnAdvanceLikeC(g) {
                         delete g.context._wizD1MovemonRanThisPostLikeC;
                         g.context._movemonHarnessConsumed = false;
                         await movemon(1);
+                        g.context._wizD1MovemonRanThisPostLikeC = true;
                     }
                     newTurnDone = true;
                     if (
