@@ -1698,15 +1698,29 @@ export async function mMoveOneMonsterSubsetLikeC(g, mtmp, stepNum = 0) {
                         mtmp === pin
                         && !ctxDist._wizD1Step1DistantMmoveDoneLikeC
                     ) {
-                        setApparxyMonsterLikeC(g, mtmp);
-                        primeDistantMtrackRn20LikeC(mtmp);
-                        rn2(20);
-                        await distfleeckMonsterApplyLikeC(g, mtmp);
+                        if (!ctxDist._wizD1Step1DistantPass2Rn20DoneLikeC) {
+                            setApparxyMonsterLikeC(g, mtmp);
+                            primeDistantMtrackRn20LikeC(mtmp);
+                            rn2(20);
+                            await distfleeckMonsterApplyLikeC(g, mtmp);
+                            ctxDist._wizD1Step1DistantPass2Rn20DoneLikeC = true;
+                            if (g.context?._wizD1Step1LPetInventAfterNewturnDoneLikeC) {
+                                ctxDist._wizD1DistantPass2AwaitMcalcmoveLikeC = true;
+                            }
+                        } else if (ctxDist._wizD1DistantPass2AwaitMcalcmoveLikeC) {
+                            /* C: prior post ended after pass-2 first **`distfleeck`**; next draw is
+                             * new-turn **`mcalcmove`**, not another pass-1 / **`rn2(20)`** peel. */
+                            ctxDist._wizD1Step1DistantMmoveDoneLikeC = true;
+                            ctxDist._wizD1Step1DistantFmonPass2DoneLikeC = true;
+                            delete ctxDist._wizD1Step1DistantPass2Rn20DoneLikeC;
+                            return;
+                        }
                         if (!g.context?._wizD1Step1LPetInventAfterNewturnDoneLikeC) {
                             await distfleeckMonsterApplyLikeC(g, mtmp);
                         }
                         ctxDist._wizD1Step1DistantMmoveDoneLikeC = true;
                         ctxDist._wizD1Step1DistantFmonPass2DoneLikeC = true;
+                        delete ctxDist._wizD1Step1DistantPass2Rn20DoneLikeC;
                         return;
                     }
                     if (

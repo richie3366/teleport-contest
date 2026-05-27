@@ -185,16 +185,21 @@ export async function runPostCommandTurnAdvanceLikeC(g) {
         && (g.u?.uz?.dnum | 0) === 0
         && (g.u?.uz?.dlevel | 0) === 1;
     if (wizD1MovemonOnceLikeC && g.context?._wizD1Step1InventPostDoneLikeC) {
-        delete g.context._wizD1Step1DistantFirstDfDoneLikeC;
-        delete g.context._wizD1Step1DistantMmoveDoneLikeC;
-        delete g.context._wizD1Step1DistantPeelMtmpLikeC;
+        /* C: second **`L`** — pass-2 **`rn2(20)`** + one **`distfleeck`** can end a post; keep peel
+         * pin until the next post's **`mcalcmove`** (~2709), not a replayed pass-1 **`distfleeck`**. */
+        if (!g.context?._wizD1DistantPass2AwaitMcalcmoveLikeC) {
+            delete g.context._wizD1Step1DistantFirstDfDoneLikeC;
+            delete g.context._wizD1Step1DistantMmoveDoneLikeC;
+            delete g.context._wizD1Step1DistantPeelMtmpLikeC;
+            delete g.context._wizD1Step1DistantFmonPass2DoneLikeC;
+            delete g.context._wizD1Step1DistantPass2Rn20DoneLikeC;
+        }
         delete g.context._wizD1Step1LPetFirstPassDoneLikeC;
         delete g.context._wizD1Step1LPetTailDoneLikeC;
         /* Keep **`_wizD1Step1LPetInventAfterNewturnDoneLikeC`** after first **`L`** chain (second **`L`** fmon). */
         /* Keep **`_wizD1Step1PendingLPostPeelLikeC`** until **`L`** post consumes it (set on **`n`** invent). */
         delete g.context._wizD1Step1PetMfndposPickDoneLikeC;
         delete g.context._wizD1LPostOuterLoopDoneLikeC;
-        delete g.context._wizD1Step1DistantFmonPass2DoneLikeC;
     }
     g.context.monMoving = true;
     try {
@@ -296,6 +301,10 @@ export async function runPostCommandTurnAdvanceLikeC(g) {
                 } else {
                     await runNewTurnSetupAndTailLikeC(g, tailStepNum);
                     delete g.context._deferredNewTurnLikeC;
+                    if (g.context?._wizD1DistantPass2AwaitMcalcmoveLikeC) {
+                        delete g.context._wizD1DistantPass2AwaitMcalcmoveLikeC;
+                        delete g.context._wizD1Step1DistantPass2Rn20DoneLikeC;
+                    }
                     newTurnDone = true;
                     if (
                         wizD1MovemonOnceLikeC
@@ -340,6 +349,12 @@ export async function runPostCommandTurnAdvanceLikeC(g) {
                         g.context._wizD1Step1LPetInventAfterNewturnDoneLikeC = true;
                         delete g.context._wizD1Step1CachedDogGoalLikeC;
                         /* C: second **`movemon`** peel (~2660–2672) then third new-turn (~2673+). */
+                        delete g.context._wizD1DistantPass2AwaitMcalcmoveLikeC;
+                        delete g.context._wizD1Step1DistantFirstDfDoneLikeC;
+                        delete g.context._wizD1Step1DistantMmoveDoneLikeC;
+                        delete g.context._wizD1Step1DistantPeelMtmpLikeC;
+                        delete g.context._wizD1Step1DistantFmonPass2DoneLikeC;
+                        delete g.context._wizD1Step1DistantPass2Rn20DoneLikeC;
                         g.context._wizD1Step1LPostSecondMovemonPendingLikeC = true;
                         g.context._movemonHarnessConsumed = false;
                         await movemon(1);
@@ -351,6 +366,12 @@ export async function runPostCommandTurnAdvanceLikeC(g) {
                         }
                         /* C: fourth **`movemon`** in same post (~2679+); keep **`MovemonRan`** so
                          * outer loop does not re-enter peel before fourth new-turn (~2688+). */
+                        delete g.context._wizD1DistantPass2AwaitMcalcmoveLikeC;
+                        delete g.context._wizD1Step1DistantFirstDfDoneLikeC;
+                        delete g.context._wizD1Step1DistantMmoveDoneLikeC;
+                        delete g.context._wizD1Step1DistantPeelMtmpLikeC;
+                        delete g.context._wizD1Step1DistantFmonPass2DoneLikeC;
+                        delete g.context._wizD1Step1DistantPass2Rn20DoneLikeC;
                         g.context._wizD1LPostFourthMovemonLikeC = true;
                         g.context._movemonHarnessConsumed = false;
                         try {
