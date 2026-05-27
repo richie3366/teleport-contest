@@ -205,6 +205,9 @@ export async function rhack(key) {
     if (isMovementKey(ch)) {
         const moved = await domoveHeroDirLikeC(DIR_DX[ch], DIR_DY[ch]);
         game.context.move = moved || game.context?.door_opened ? 1 : 0;
+        if (game.context?.door_opened) {
+            delete game.context._wizD1BlockedRunNoTimeLikeC;
+        }
     } else if (isRunMovementKey(ch)) {
         /* C: cmd.c DOMOVE_RUSH — set_move_cmd + gm.multi=COLNO + context.mv; first domove here. */
         const lower = ch.toLowerCase();

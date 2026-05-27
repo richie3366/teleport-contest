@@ -634,6 +634,7 @@ export async function movemon(stepNum) {
                 g.context._wizD1LPostOuterLoopDoneLikeC = true;
                 /* C: east-tail post consumed step 44 **`L`** time — next **`l`** is autoopen only. */
                 g.context.move = 0;
+                g.context._wizD1BlockedRunNoTimeLikeC = true;
                 return false;
             } else {
                 const handled = new Set(
