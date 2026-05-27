@@ -59,6 +59,7 @@ import {
     dogMoveLPetMfndposAfterEastTailPeelLikeC,
     dogMoveLPetTailPostPeelLikeC,
     dogMoveLikeC,
+    dogMovePostCorridorSecondPetMfndposLikeC,
     dogMoveWizardD1FourthMovemonPetLikeC,
     dogMoveInventOnlyLikeC,
     dogMoveSearchPassNearHeroLikeC,
@@ -558,7 +559,7 @@ export async function movemon(stepNum) {
                     }
                     g.context._wizD1PostCorridorPetTailDoneLikeC = true;
                 }
-                /* C: post-corridor pet — distant 2× **`distfleeck`** + peel **`rn2(20)`** (~2743+). */
+                /* C: post-corridor — distant 2× **`distfleeck`** + peel **`rn2(20)`** (~2743+). */
                 if (peelDistant) {
                     setApparxyMonsterLikeC(g, peelDistant);
                     await distfleeckMonsterApplyLikeC(g, peelDistant);
@@ -568,6 +569,15 @@ export async function movemon(stepNum) {
                     await distfleeckMonsterApplyLikeC(g, peelDistant);
                     await distfleeckMonsterApplyLikeC(g, peelDistant);
                     g.context._wizD1PostCorridorDistantPeelDoneLikeC = true;
+                }
+                /* C: second pet **`dog_move`** mfndpos (~2748–2749). */
+                if (petEast) {
+                    dogMovePostCorridorSecondPetMfndposLikeC(g, petEast);
+                }
+                /* C: near **`distfleeck`** after second pet (~2750). */
+                if (nearAfterCorridor) {
+                    setApparxyMonsterLikeC(g, nearAfterCorridor);
+                    await distfleeckMonsterApplyLikeC(g, nearAfterCorridor);
                 }
                 g.context._wizD1EastTailCorridorTurnDoneLikeC = true;
                 g.context._wizD1LPostOuterLoopDoneLikeC = true;
