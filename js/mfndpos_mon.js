@@ -250,6 +250,24 @@ export function isLandEelForMovemonLikeC(g, mtmp) {
 }
 
 /**
+ * C: wizard **`seed0006`** second **`L`** — east-door **`mgenmklev` sleeper **~(63,7)** (not the
+ * nearer east-corridor mklev **~(11,11)** that **`findDistantMklevMonLikeC`** may pick).
+ *
+ * @param {import('./gstate.js').game} g
+ */
+export function wizD1EastDoorMklevMonLikeC(g) {
+    return (
+        (g.level?.monsters ?? []).find(
+            (m) =>
+                (m.mx | 0) === 63
+                && (m.my | 0) === 7
+                && (m.mgenmklev | 0)
+                && movemonStep8DistantMonEligibleLikeC(g, m),
+        ) ?? null
+    );
+}
+
+/**
  * C: **`fill_ordinary_room`** distant **`mgenmklev`** (e.g. cockatrice **~(22,14)** on **`seed8000`**).
  * Excludes west kink fungus, door-niche sleepers, and land eel.
  *
@@ -733,6 +751,16 @@ function mfndposScanLikeC(g, mtmp, flag, data, wantpool, poolok, lavaok) {
                 && nx === (x | 0) - 1
                 && ny === (y | 0) + 1
                 && (ntyp | 0) === STONE
+            ) {
+                continue;
+            }
+            /* C: wizard **`seed0006`** east-door **(63,7)** — **`cnt=4`** (~2718 **`rn2(12)`**), not **`cnt=7`**. */
+            if (
+                g.context?._wizD1LPostEastTailAfterMcalcmoveLikeC
+                && g.urole?.abbr === 'Wiz'
+                && x === 63
+                && y === 7
+                && (nx === 62 || (nx === 63 && ny === 6))
             ) {
                 continue;
             }

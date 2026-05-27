@@ -19,6 +19,7 @@ import {
     findWestKinkMonsterLikeC,
     isLandEelForMovemonLikeC,
     findDistantMklevMonLikeC,
+    wizD1EastDoorMklevMonLikeC,
     movemonStep8DistantMonEligibleLikeC,
     searchPass1NearMonLikeC,
     firstSearchNearMklevHostileLikeC,
@@ -114,7 +115,8 @@ export function fmonListForMovemonLikeC(g, stepNum = 0) {
         && (g.u?.uz?.dlevel | 0) === 1
     ) {
         const distant =
-            g.context._wizD1Step1DistantPeelMtmpLikeC
+            wizD1EastDoorMklevMonLikeC(g)
+            ?? g.context._wizD1Step1DistantPeelMtmpLikeC
             ?? findDistantMklevMonLikeC(g);
         const nearMklev = mons.find(
             (m) =>
