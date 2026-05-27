@@ -1682,6 +1682,12 @@ export async function mMoveOneMonsterSubsetLikeC(g, mtmp, stepNum = 0) {
                 ) {
                     const pin = ctxDist._wizD1Step1DistantPeelMtmpLikeC;
                     if (!pin) {
+                        if (
+                            ctxDist._wizD1Step1DistantFmonPass2DoneLikeC
+                            || ctxDist._wizD1Step1DistantFirstDfDoneLikeC
+                        ) {
+                            return;
+                        }
                         ctxDist._wizD1Step1DistantPeelMtmpLikeC = mtmp;
                         setApparxyMonsterLikeC(g, mtmp);
                         await distfleeckMonsterApplyLikeC(g, mtmp);
@@ -1696,8 +1702,11 @@ export async function mMoveOneMonsterSubsetLikeC(g, mtmp, stepNum = 0) {
                         primeDistantMtrackRn20LikeC(mtmp);
                         rn2(20);
                         await distfleeckMonsterApplyLikeC(g, mtmp);
-                        await distfleeckMonsterApplyLikeC(g, mtmp);
+                        if (!g.context?._wizD1Step1LPetInventAfterNewturnDoneLikeC) {
+                            await distfleeckMonsterApplyLikeC(g, mtmp);
+                        }
                         ctxDist._wizD1Step1DistantMmoveDoneLikeC = true;
+                        ctxDist._wizD1Step1DistantFmonPass2DoneLikeC = true;
                         return;
                     }
                     if (
@@ -1705,6 +1714,9 @@ export async function mMoveOneMonsterSubsetLikeC(g, mtmp, stepNum = 0) {
                         && !ctxDist._wizD1Step1DistantMmoveDoneLikeC
                         && mtmp !== pin
                     ) {
+                        return;
+                    }
+                    if (mtmp === pin && ctxDist._wizD1Step1DistantMmoveDoneLikeC) {
                         return;
                     }
                 }

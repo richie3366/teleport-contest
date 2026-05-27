@@ -190,10 +190,11 @@ export async function runPostCommandTurnAdvanceLikeC(g) {
         delete g.context._wizD1Step1DistantPeelMtmpLikeC;
         delete g.context._wizD1Step1LPetFirstPassDoneLikeC;
         delete g.context._wizD1Step1LPetTailDoneLikeC;
-        delete g.context._wizD1Step1LPetInventAfterNewturnDoneLikeC;
+        /* Keep **`_wizD1Step1LPetInventAfterNewturnDoneLikeC`** after first **`L`** chain (second **`L`** fmon). */
         /* Keep **`_wizD1Step1PendingLPostPeelLikeC`** until **`L`** post consumes it (set on **`n`** invent). */
         delete g.context._wizD1Step1PetMfndposPickDoneLikeC;
         delete g.context._wizD1LPostOuterLoopDoneLikeC;
+        delete g.context._wizD1Step1DistantFmonPass2DoneLikeC;
     }
     g.context.monMoving = true;
     try {
