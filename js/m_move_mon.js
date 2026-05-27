@@ -530,6 +530,11 @@ function mMovePositionSelectLikeC(g, mtmp, silent) {
 
         appr = mBalksAtApproachingLikeC(appr, mtmp);
 
+        if (g.context?._wizD1EastCorridorRestMmoveLikeC) {
+            /* C: corridor rest ~2732+ — sleeping mklev **`mfndpos`** chcnt, no **`mtrack`** rejects. */
+            appr = 0;
+        }
+
         if (!shouldSee && canTrackPtrLikeC(ptr)) {
             const cp = gettrack(omx, omy);
             if (cp) {
@@ -604,7 +609,11 @@ function mMovePositionSelectLikeC(g, mtmp, silent) {
             || (
                 !appr
                 && !(mtmp._eelStep8ChcntBase | 0)
-                && (silent ? mmoved === MMOVE_NOTHING : !rn2(++chcnt))
+                && (
+                    g.context?._wizD1EastCorridorRestMmoveLikeC
+                        ? !rn2(12)
+                        : (silent ? mmoved === MMOVE_NOTHING : !rn2(++chcnt))
+                )
             )
             || (eelStep8SingleChcnt && !rn2(++chcnt))
             || (
@@ -1645,25 +1654,13 @@ export async function mMoveWizardD1EastTailCorridorRestLikeC(g, mtmp, stepNum = 
         mtmp.muy = u.uy | 0;
     }
     const ctx = g.context || (g.context = {});
-    setApparxyMonsterLikeC(g, mtmp);
-    const flee1 = await distfleeckMonsterApplyLikeC(g, mtmp);
-    const nearbyGate = nearbyForDochugGateLikeC(g, mtmp, flee1);
     ctx._wizD1EastCorridorRestMmoveLikeC = true;
+    ctx._wizD1Step1RestDochugLikeC = true;
     try {
-        if (
-            dochugEntersMmoveBlockLikeC(
-                g,
-                mtmp,
-                nearbyGate,
-                flee1.scared | 0,
-                stepNum,
-            )
-        ) {
-            ensureMonsterMtrack(mtmp);
-            mMovePositionSelectSilentLikeC(g, mtmp);
-        }
+        await movemonSinglemonLikeC(g, mtmp, stepNum);
     } finally {
         delete ctx._wizD1EastCorridorRestMmoveLikeC;
+        delete ctx._wizD1Step1RestDochugLikeC;
     }
 }
 
@@ -1701,6 +1698,7 @@ export async function mMoveOneMonsterSubsetLikeC(g, mtmp, stepNum = 0) {
         && !(mtmp.mtame | 0)
     ) {
         /* C: wizard **`L`** deferred **`fmon`** rest — corridor **`distfleeck`** then **`m_move`** (~2731+). */
+        const corridorRest = !!g.context?._wizD1EastCorridorRestMmoveLikeC;
         setApparxyMonsterLikeC(g, mtmp);
         const flee1 = await distfleeckMonsterApplyLikeC(g, mtmp);
         const nearbyGate = nearbyForDochugGateLikeC(g, mtmp, flee1);
@@ -1716,9 +1714,18 @@ export async function mMoveOneMonsterSubsetLikeC(g, mtmp, stepNum = 0) {
             )
         ) {
             ensureMonsterMtrack(mtmp);
-            mMovePositionSelectSilentLikeC(g, mtmp);
+            if (corridorRest) {
+                /* C: corridor ~2732+ — three **`rn2(12)`** chcnt picks, then new-turn (~2735+). */
+                if (!(ctxRest._wizD1EastCorridorMmoveDoneLikeC | 0)) {
+                    mMovePositionSelectRngLikeC(g, mtmp);
+                    ctxRest._wizD1EastCorridorMmoveDoneLikeC = 1;
+                }
+            } else {
+                mMovePositionSelectSilentLikeC(g, mtmp);
+            }
             if (
-                recalcBudget < 2
+                !corridorRest
+                && recalcBudget < 2
                 && !skipDistfleeckRecalcAfterMmoveLikeC(g, mtmp, nearbyGate)
             ) {
                 ctxRest._mklevDistfleeckRecalcBudgetLikeC = recalcBudget + 1;

@@ -912,6 +912,14 @@ export function mfndposMonsterLikeC(g, mtmp, flag) {
         wantpool = false;
         mfndposScanLikeC(g, mtmp, flag, data, wantpool, poolok, lavaok);
     }
+    if (
+        g.context?._wizD1EastCorridorRestMmoveLikeC
+        && mtmp === wizD1CorridorMklevMonLikeC(g)
+        && (data.cnt | 0) > 3
+    ) {
+        /* C: corridor **~(10–11,10–11)** — three **`!appr`** **`rn2(12)`** picks (~2732–2734), not four. */
+        data.cnt = 3;
+    }
     return data;
 }
 

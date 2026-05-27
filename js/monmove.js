@@ -533,6 +533,12 @@ export async function movemon(stepNum) {
             const corridor = wizD1CorridorMklevMonLikeC(g);
             if (corridor) {
                 await mMoveWizardD1EastTailCorridorRestLikeC(g, corridor, effStepNum);
+                const { runWizEastTailPostCorridorNewTurnLikeC } = await import(
+                    './moveloop_turn_advance.js',
+                );
+                await runWizEastTailPostCorridorNewTurnLikeC(g);
+                g.context._wizD1EastTailCorridorTurnDoneLikeC = true;
+                g.context._wizD1LPostOuterLoopDoneLikeC = true;
             } else {
                 const handled = new Set(
                     [peelDistant, petEast, nearMklev].filter(Boolean),
@@ -554,7 +560,6 @@ export async function movemon(stepNum) {
                     }
                 }
             }
-            g.context._wizD1LPostOuterLoopDoneLikeC = true;
         }
         /* C: wizard D:1 step-1 — post-peel distant **`m_move`** + pet **`dog_invent`** (~2572–2597). */
         if (
@@ -597,6 +602,7 @@ export async function movemon(stepNum) {
             if (
                 !wizInventPost
                 && g.context?._wizD1Step1LPostSecondMovemonPendingLikeC
+                && !g.context?._wizD1EastTailCorridorTurnDoneLikeC
             ) {
                 const peelDistant =
                     g.context._wizD1Step1DistantPeelMtmpLikeC ?? distant;
@@ -634,6 +640,7 @@ export async function movemon(stepNum) {
             if (
                 !wizInventPost
                 && g.context?._wizD1LPostFourthMovemonLikeC
+                && !g.context?._wizD1EastTailCorridorTurnDoneLikeC
             ) {
                 if (nearMklev) {
                     setApparxyMonsterLikeC(g, nearMklev);
@@ -660,6 +667,7 @@ export async function movemon(stepNum) {
                 !wizInventPost
                 && g.context?._wizD1Step1PendingLPostPeelLikeC
                 && !g.context?._wizD1Step1LPetInventAfterNewturnDoneLikeC
+                && !g.context?._wizD1EastTailCorridorTurnDoneLikeC
             ) {
                 if (
                     g.context?._wizD1Step1DistantFirstDfDoneLikeC

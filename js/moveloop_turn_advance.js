@@ -15,6 +15,25 @@ import { encumberMsg } from './pickup.js';
 import { nearCapacity, ENC } from './encumbr.js';
 import { raceptr } from './mondata.js';
 import { rn2 } from './rng.js';
+
+/** C: objects.h **`RIN_TELEPORTATION`**. */
+const OTYP_RIN_TELEPORTATION = 194;
+
+/** C: youprop.h **`Teleportation`** — intrinsic or teleportation ring (RNG draw only until **`tele()`** ported). */
+function heroHasTeleportationLikeC(g) {
+    const u = g.u;
+    if (!u) return false;
+    if ((u.HTeleportation | 0) || (u.ETeleportation | 0)) return true;
+    const ring = (o) => o && (o.otyp | 0) === OTYP_RIN_TELEPORTATION;
+    return !!(ring(u.uleft) || ring(u.uright));
+}
+
+/** C: allmain.c moveloop_core — **`if (Teleportation && !rn2(85)) tele();`**. */
+function maybeHeroTeleportRngLikeC(g) {
+    const u = g.u;
+    if (!u || (u.uinvulnerable | 0)) return;
+    if (heroHasTeleportationLikeC(g)) rn2(85);
+}
 import { collectNewuhsPlines } from './hunger.js';
 import { settrack } from './track.js';
 import { pullDueMeltIceAwayTimers } from './level_timers.js';
@@ -140,6 +159,13 @@ export async function runMoveloopPreambleBeforeRhackLikeC(g) {
  * @param {import('./gstate.js').game} g
  * @param {number} stepNum
  */
+/** C: wizard second **`L`** — post-corridor **`mcalcmove`** + moveloop tail (~2735+). */
+export async function runWizEastTailPostCorridorNewTurnLikeC(g) {
+    await runNewTurnSetupAndTailLikeC(g, (g.moves | 0) - 1);
+    g.context = g.context || {};
+    g.context._wizD1LPostOuterLoopDoneLikeC = true;
+}
+
 async function runNewTurnSetupAndTailLikeC(g, stepNum) {
     const mons = fmonListForMcalcmoveLikeC(g);
     for (const m of mons) {
@@ -165,6 +191,8 @@ async function runNewTurnSetupAndTailLikeC(g, stepNum) {
     runDueNhObjTimers(g);
     for (const line of collectNewuhsPlines(true)) await pline(line);
 
+    /* C: allmain.c — after regen, before **`dosounds`** / **`gethungry`**. */
+    maybeHeroTeleportRngLikeC(g);
     await end_of_turn_rng(stepNum);
 }
 
@@ -453,6 +481,7 @@ export async function runPostCommandTurnAdvanceLikeC(g) {
         delete g.context._wizD1EastTailMovemonPetMfndposPendingLikeC;
         delete g.context._wizD1EastTailNearMklevMtmpLikeC;
         delete g.context._wizD1EastTailPeelMtmpLikeC;
+        delete g.context._wizD1EastTailCorridorTurnDoneLikeC;
     }
 }
 
