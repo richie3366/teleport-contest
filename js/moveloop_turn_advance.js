@@ -159,17 +159,26 @@ export async function runMoveloopPreambleBeforeRhackLikeC(g) {
  * @param {import('./gstate.js').game} g
  * @param {number} stepNum
  */
-/** C: wizard second **`L`** — post-corridor **`mcalcmove`** + moveloop tail (~2735+). */
+/** C: wizard second **`L`** — post-corridor moveloop tail (~2735+). */
 export async function runWizEastTailPostCorridorNewTurnLikeC(g) {
-    await runNewTurnSetupAndTailLikeC(g, (g.moves | 0) - 1);
     g.context = g.context || {};
+    g.context._wizD1PostCorridorNewTurnLikeC = true;
+    try {
+        await runNewTurnSetupAndTailLikeC(g, (g.moves | 0) - 1);
+    } finally {
+        delete g.context._wizD1PostCorridorNewTurnLikeC;
+    }
     g.context._wizD1LPostOuterLoopDoneLikeC = true;
 }
 
 async function runNewTurnSetupAndTailLikeC(g, stepNum) {
-    const mons = fmonListForMcalcmoveLikeC(g);
-    for (const m of mons) {
-        m.movement = (m.movement | 0) + mcalcMoveLikeC(m, true, g);
+    /* C: second **`L`** post-corridor new-turn — **`movemon`** pass-2 already refreshed
+     * **`movement`**; tail starts at **`maybe_generate_rnd_mon`** (~2735 **`rn2(70)`**). */
+    if (!g.context?._wizD1PostCorridorNewTurnLikeC) {
+        const mons = fmonListForMcalcmoveLikeC(g);
+        for (const m of mons) {
+            m.movement = (m.movement | 0) + mcalcMoveLikeC(m, true, g);
+        }
     }
     maybe_generate_rnd_mon();
     /* C: allmain.c — **`u_calc_moveamt`** before **`settrack`/`moves++`/tail RNG. */

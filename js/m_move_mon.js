@@ -546,7 +546,10 @@ function mMovePositionSelectLikeC(g, mtmp, silent) {
 
     const flag = monAllowflagsMonsterLikeC(g, mtmp);
     const mfp = mfndposMonsterLikeC(g, mtmp, flag);
-    const cnt = mfp.cnt | 0;
+    const corridorRestPick = !!g.context?._wizD1EastCorridorRestMmoveLikeC;
+    const cnt = corridorRestPick
+        ? Math.min(mfp.cnt | 0, 3)
+        : (mfp.cnt | 0);
     if (cnt === 0) return MMOVE_NOTHING;
 
     if ((g.context?.movemonStepNum | 0) === 8 && (mtmp._eelStep8ChcntBase | 0) > 0) {
@@ -1656,6 +1659,7 @@ export async function mMoveWizardD1EastTailCorridorRestLikeC(g, mtmp, stepNum = 
     const ctx = g.context || (g.context = {});
     ctx._wizD1EastCorridorRestMmoveLikeC = true;
     ctx._wizD1Step1RestDochugLikeC = true;
+    delete ctx._wizD1EastCorridorMmoveDoneLikeC;
     try {
         await movemonSinglemonLikeC(g, mtmp, stepNum);
     } finally {
