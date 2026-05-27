@@ -32,7 +32,7 @@ Use this when **`Next steps`** below feels stale or several lanes compete. Order
 
 **Tutorial (Lane E):** Scaffolding exists (`tutorial_prompt.js`, `maybeDoTutorialLikeC`, `tutorial_branch.js` stubs). **Do not** take tutorial slices until [`docs/plans/tutorial-port-gate.md`](../../docs/plans/tutorial-port-gate.md) **MD-1 … MD-7** are checked; then **Lane E becomes step 1** (see [10-tutorial.md](../plans/nethack-port/10-tutorial.md)). While advancing Lanes A–D, prefer slices that close an open MD-* item. **`LIVELOGFILE`** / full **`dokick`**/**`dothrow`** vs **`leaving_tutorial`** are Lane E long tail, not gate blockers.
 
-**Last slice:** Wizard D:1 east-tail → autoopen — **`allmain.c`**-style **`move=0`** / skip **`runPost`** when **`_wizD1BlockedRunNoTimeLikeC`** (arm at east-tail inline end in **`monmove.js`**; **`skipPostForBlockedRunLikeC`** before post; blocked before east-tail skip; end-of-moveloop re-arm); **`cmd.js`** clear blocked flag after autoopen. **`seed0006`** **2797/6736** (+13) — diag **2765–2767** aligned; **2768** still **`distfleeck`** before **`doopen_indir`**. **2/44**.
+**Last slice:** Wizard D:1 step 45 autoopen — **`hack.c` `test_move`** autoopen on D:1 (**`move=0`**, **`_wizD1AutoopenNoMoveLikeC`**) + wizard-only **`rhack`** **`move=moved`**; **`allmain.js`** re-read **`_wizD1BlockedRunNoTimeLikeC`** after **`runPost`**, end-of-moveloop **`move=0`** latch. **`seed0006`** **2797/6736** — diag **2768–2770** **`doopen_indir`** aligned; **2771+** extra **`distfleeck`** before **`fmon`**. **2/44**.
 
 **Handoff refresh:** **Priority matrix** (lanes A–D) + **Next steps** aligned to it; **`c-to-js-port-remaining.md`** / **`c-to-js-port-dashboard.md`** / **`nhl-port-notes.md`** / **`continue-nethack-port.md`** updated for post-`load_lua` reality and NHL ordering.
 
@@ -42,7 +42,7 @@ Pick **one** primary lane per slice; refresh this list after each merge.
 
 **First:** open [`docs/plans/tutorial-port-gate.md`](../../docs/plans/tutorial-port-gate.md) — if **all MD-1 … MD-7** are checked, do **Lane E** step 1 from [10-tutorial.md](../plans/nethack-port/10-tutorial.md) instead of the list below.
 
-1. **Lane C — `seed0006` ~2768** — finish **`hack.c` `domove`** after failed **`test_move`** on run into closed door so capital **`L`** leaves **`context.move=0`** (session step 45 is only **`doopen_indir`** `rn2(38)`+`rnl(20)`; step 46 is **`fmon`**). Trace: **`runPost@2768`** today; **`_wizD1BlockedRunNoTimeLikeC`** not armed because **`domove`** still returns “moved” for rush. Lane A: **`chargen_tty.js`** when rc omits identity.
+1. **Lane C — `seed0006` ~2771** — step 46 **`l`** **`fmon`**: drop extra **`distfleeck`** before combat **`rn2(100)`** (step 45 autoopen **2768–2770** OK). Likely **`runPost`** on step 46 when step 45 walk should leave **`move=0`**, or duplicate peel in **`domove`/`attack`**. Lane A: **`chargen_tty.js`** when rc omits identity.
 2. **Lane A — Chargen / init + early moveloop** — tty / **`role.c`** pickers when rc omits identity.
 3. **Lane B — NHL** — next **`lspo_*`** + **`nhl_lua.js`** allowlist per [`nhl-port-notes.md`](nhl-port-notes.md) (**advances MD-3 / MD-4**).
 4. **Lane D — `objects_nums` / mkobj** — audit other **`const.js`** otyps vs NH5 **`objects_nums`** after AoY fix (**advances MD-1**).

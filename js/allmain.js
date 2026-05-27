@@ -279,8 +279,9 @@ export async function moveloop_core() {
 
     await runMoveloopPreambleBeforeRhackLikeC(g);
 
-    /* C: hack.c domove — rush into closed door leaves move=0; next step is autoopen only. */
-    const skipPostForBlockedRunLikeC = !!g.context._wizD1BlockedRunNoTimeLikeC;
+    /* C: hack.c domove — rush into closed door leaves move=0; next step is autoopen only.
+     * Flag may be armed during this iteration's **`runPost`** (east-tail inline), so re-read after post. */
+    let skipPostForBlockedRunLikeC = !!g.context._wizD1BlockedRunNoTimeLikeC;
 
     /* C: allmain.c — **`if (svc.context.move)`** at top: spend hero time + **`movemon`**
        for the *previous* command before reading the next one. */
@@ -301,6 +302,8 @@ export async function moveloop_core() {
             await runPostCommandTurnAdvanceLikeC(g);
         }
     }
+
+    skipPostForBlockedRunLikeC = !!g.context._wizD1BlockedRunNoTimeLikeC;
 
     /* C: allmain.c — default assume next command costs time; rhack may clear it. */
     if (skipPostForBlockedRunLikeC) {
@@ -351,6 +354,16 @@ export async function moveloop_core() {
         g.context._wizD1BlockedRunNoTimeLikeC = true;
         g.context.move = 0;
         delete g.context._wizD1EastTailPostCorridorMovemonAfterMcalcmoveDoneLikeC;
+    }
+
+    /* C: hack.c — blocked run / east-tail defer: next command must not spend hero time. */
+    if (g.context._wizD1BlockedRunNoTimeLikeC) {
+        g.context.move = 0;
+    }
+
+    if (g.context._wizD1AutoopenNoMoveLikeC) {
+        g.context.move = 0;
+        delete g.context._wizD1AutoopenNoMoveLikeC;
     }
 
     g._prevMoveTick = g.context?.move ? 1 : 0;
