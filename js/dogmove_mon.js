@@ -1008,6 +1008,10 @@ function dogMoveMfndposPickLikeC(g, mtmp, ggx, ggy, appr, whappr) {
             niy = ny;
             nidist = ndist;
             if (j < 0) chcnt = 0;
+            /* C: east-tail pick — stop after **`j==0`** **`chcnt`** tie (~2730); no extra **`rn2(12)`**. */
+            if (g.context?._wizD1LPetEastTailMfndposLikeC && j === 0) {
+                break;
+            }
         }
     }
     if (nix !== omx || niy !== omy) {

@@ -30,7 +30,10 @@ import { peekReplayMoves } from './input.js';
 import { setApparxyMonsterLikeC } from './set_apparxy_mon.js';
 import { distfleeckMonsterApplyLikeC } from './distfleeck_mon.js';
 import { dogMoveLPetInventAfterNewturnLikeC } from './dogmove_mon.js';
-import { findDistantMklevMonLikeC } from './mfndpos_mon.js';
+import {
+    findDistantMklevMonLikeC,
+    wizD1PeelDistantMklevMonLikeC,
+} from './mfndpos_mon.js';
 import { primeDistantMtrackRn20LikeC } from './m_move_mon.js';
 
 /**
@@ -336,9 +339,7 @@ export async function runPostCommandTurnAdvanceLikeC(g) {
                          * **`distfleeck`** (~2716) then distant **`m_move`** (~2717+). */
                         g.context._wizD1Step1DistantMmoveDoneLikeC = true;
                         g.context._wizD1LPostEastTailAfterMcalcmoveLikeC = true;
-                        const peelDistant =
-                            g.context._wizD1Step1DistantPeelMtmpLikeC
-                            ?? findDistantMklevMonLikeC(g);
+                        const peelDistant = wizD1PeelDistantMklevMonLikeC(g);
                         if (peelDistant) {
                             g.context._wizD1Step1DistantPeelMtmpLikeC = peelDistant;
                         }
@@ -450,6 +451,8 @@ export async function runPostCommandTurnAdvanceLikeC(g) {
         delete g.context._wizD1LPostPeelRn20MoveloopDoneLikeC;
         delete g.context._wizD1LPostEastTailDistantPeelDoneLikeC;
         delete g.context._wizD1EastTailMovemonPetMfndposPendingLikeC;
+        delete g.context._wizD1EastTailNearMklevMtmpLikeC;
+        delete g.context._wizD1EastTailPeelMtmpLikeC;
     }
 }
 
