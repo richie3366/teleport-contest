@@ -105,6 +105,29 @@ export function fmonListForMovemonLikeC(g, stepNum = 0) {
         if (pet) ordered.push(pet);
         return [...ordered, ...rest];
     }
+    /* C: wizard second **`L`** post-**`mcalcmove`** — near **`distfleeck`** (~2716) then distant **`m_move`** (~2717+). */
+    if (
+        g.context?._wizD1LPostEastTailAfterMcalcmoveLikeC
+        && (stepNum | 0) === 1
+        && g.urole?.abbr === 'Wiz'
+        && (g.u?.uz?.dnum | 0) === 0
+        && (g.u?.uz?.dlevel | 0) === 1
+    ) {
+        const distant =
+            g.context._wizD1Step1DistantPeelMtmpLikeC
+            ?? findDistantMklevMonLikeC(g);
+        const nearMklev = mons.find(
+            (m) =>
+                m !== distant
+                && !(m.mtame | 0)
+                && (m.mgenmklev | 0),
+        );
+        /** @type {typeof mons} */
+        const ordered = [];
+        if (nearMklev) ordered.push(nearMklev);
+        if (distant) ordered.push(distant);
+        return ordered;
+    }
     /* C: wizard step-1 peel — distant **`distfleeck`**, pet **`dog_goal`**, then mklev (**`seed0006`** **`n`**). */
     if (
         g.context?._postBumpInlineDoneLikeC
