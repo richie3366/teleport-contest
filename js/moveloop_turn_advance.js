@@ -30,6 +30,7 @@ import { peekReplayMoves } from './input.js';
 import { setApparxyMonsterLikeC } from './set_apparxy_mon.js';
 import { distfleeckMonsterApplyLikeC } from './distfleeck_mon.js';
 import { dogMoveLPetInventAfterNewturnLikeC } from './dogmove_mon.js';
+import { findDistantMklevMonLikeC } from './mfndpos_mon.js';
 
 /**
  * C: rogue D:1 with only gate + pet — first **`movemon`** peel at **`stepNum` 1** waits for
@@ -187,7 +188,10 @@ export async function runPostCommandTurnAdvanceLikeC(g) {
     if (wizD1MovemonOnceLikeC && g.context?._wizD1Step1InventPostDoneLikeC) {
         /* C: second **`L`** — pass-2 **`rn2(20)`** + one **`distfleeck`** can end a post; keep peel
          * pin until the next post's **`mcalcmove`** (~2709), not a replayed pass-1 **`distfleeck`**. */
-        if (!g.context?._wizD1DistantPass2AwaitMcalcmoveLikeC) {
+        if (
+            !g.context?._wizD1DistantPass2AwaitMcalcmoveLikeC
+            && !g.context?._wizD1LPostEastTailAfterMcalcmoveLikeC
+        ) {
             delete g.context._wizD1Step1DistantFirstDfDoneLikeC;
             delete g.context._wizD1Step1DistantMmoveDoneLikeC;
             delete g.context._wizD1Step1DistantPeelMtmpLikeC;
@@ -200,6 +204,10 @@ export async function runPostCommandTurnAdvanceLikeC(g) {
         /* Keep **`_wizD1Step1PendingLPostPeelLikeC`** until **`L`** post consumes it (set on **`n`** invent). */
         delete g.context._wizD1Step1PetMfndposPickDoneLikeC;
         delete g.context._wizD1LPostOuterLoopDoneLikeC;
+        delete g.context._wizD1LPostEastSingleNearDfLikeC;
+        delete g.context._wizD1SkipDistantDochugRn4LikeC;
+        delete g.context._wizD1Step1NearMklevDistfleeckOnlyLikeC;
+        delete g.context._wizD1EastDistantMmoveTailDoneLikeC;
     }
     g.context.monMoving = true;
     try {
@@ -304,6 +312,21 @@ export async function runPostCommandTurnAdvanceLikeC(g) {
                     if (g.context?._wizD1DistantPass2AwaitMcalcmoveLikeC) {
                         delete g.context._wizD1DistantPass2AwaitMcalcmoveLikeC;
                         delete g.context._wizD1Step1DistantPass2Rn20DoneLikeC;
+                        /* C: pass-2 peel finished across **`mcalcmove`** — next **`fmon`** is near
+                         * **`distfleeck`** (~2716) then distant **`m_move`** (~2717+). */
+                        g.context._wizD1Step1DistantMmoveDoneLikeC = true;
+                        g.context._wizD1LPostEastTailAfterMcalcmoveLikeC = true;
+                        const peelDistant =
+                            g.context._wizD1Step1DistantPeelMtmpLikeC
+                            ?? findDistantMklevMonLikeC(g);
+                        if (peelDistant) {
+                            g.context._wizD1Step1DistantPeelMtmpLikeC = peelDistant;
+                        }
+                        /* C: same post — near **`distfleeck`** + distant **`m_move`** (~2716+) after
+                         * **`mcalcmove`**, not on the next hero command. */
+                        delete g.context._wizD1MovemonRanThisPostLikeC;
+                        g.context._movemonHarnessConsumed = false;
+                        await movemon(1);
                     }
                     newTurnDone = true;
                     if (

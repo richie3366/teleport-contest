@@ -32,7 +32,7 @@ Use this when **`Next steps`** below feels stale or several lanes compete. Order
 
 **Tutorial (Lane E):** Scaffolding exists (`tutorial_prompt.js`, `maybeDoTutorialLikeC`, `tutorial_branch.js` stubs). **Do not** take tutorial slices until [`docs/plans/tutorial-port-gate.md`](../../docs/plans/tutorial-port-gate.md) **MD-1 … MD-7** are checked; then **Lane E becomes step 1** (see [10-tutorial.md](../plans/nethack-port/10-tutorial.md)). While advancing Lanes A–D, prefer slices that close an open MD-* item. **`LIVELOGFILE`** / full **`dokick`**/**`dothrow`** vs **`leaving_tutorial`** are Lane E long tail, not gate blockers.
 
-**Last slice:** Wizard D:1 second **`L`** — **`_wizD1DistantPass2AwaitMcalcmoveLikeC`** keeps distant peel pin across posts after pass-2 **`rn2(20)`** + one **`distfleeck`** so the next post runs **`mcalcmove`** (~2709) instead of replaying pass-1; resume pass-2 without duplicate **`rn2(20)`**; clear await/peel before first-**`L`** chain extra **`movemon`** calls. **`m_move_mon.js`**, **`moveloop_turn_advance.js`**; removed debug **`__dfTrace`** from **`distfleeck_mon.js`**. **`seed0006`** **2819/6736** (diag **~2695–2716**; first gap **~2717**). **`seed0077`/`seed8000`:** **PASS**. **2/44**.
+**Last slice:** Wizard D:1 second **`L`** post-**`mcalcmove`** east tail — preserve peel state across **`mcalcmove`** (`_wizD1LPostEastTailAfterMcalcmoveLikeC`, **`MmoveDone`** at new-turn); same-post **`movemon(1)`** after pass-2 await; **`wizD1EastTailAfterMcalcmoveSinglemonLikeC`** (near **`distfleeck`** without leading **`set_apparxy`**, defer distant **`fmon`** until skip flag); do not let peel **`pin && MmoveDone`** return skip distant **`m_move`**. **`m_move_mon.js`**, **`moveloop_turn_advance.js`**, **`dogmove_mon.js`**. **`seed0006`** **2825/6736** (diag **~2695–2716**; first gap **~2717** distant **`m_move`** vs extra **`distfleeck`/`rn2(4)`**). **`seed0077`/`seed8000`:** **PASS**. **2/44**.
 
 **Handoff refresh:** **Priority matrix** (lanes A–D) + **Next steps** aligned to it; **`c-to-js-port-remaining.md`** / **`c-to-js-port-dashboard.md`** / **`nhl-port-notes.md`** / **`continue-nethack-port.md`** updated for post-`load_lua` reality and NHL ordering.
 
@@ -42,7 +42,7 @@ Pick **one** primary lane per slice; refresh this list after each merge.
 
 **First:** open [`docs/plans/tutorial-port-gate.md`](../../docs/plans/tutorial-port-gate.md) — if **all MD-1 … MD-7** are checked, do **Lane E** step 1 from [10-tutorial.md](../plans/nethack-port/10-tutorial.md) instead of the list below.
 
-1. **Lane C — `seed0006` ~2717+** — post-pass-2 tail after **`mcalcmove`** block (~2717–2720); trace **`rn2(3)`/`rn2(12)`** vs extra peel draws. Lane A: **`chargen_tty.js`** when rc omits identity.
+1. **Lane C — `seed0006` ~2717+** — east-tail distant **`m_move`** (`rn2(3)`/`rn2(12)`/`rn2(1)`); kill extra pre-**`m_move`** **`distfleeck`** / **`dochug:886`** **`rn2(4)`** on peel subset fallthrough; then ~2721+ second **`distfleeck`**. Lane A: **`chargen_tty.js`** when rc omits identity.
 2. **Lane A — Chargen / init + early moveloop** — tty / **`role.c`** pickers when rc omits identity.
 3. **Lane B — NHL** — next **`lspo_*`** + **`nhl_lua.js`** allowlist per [`nhl-port-notes.md`](nhl-port-notes.md) (**advances MD-3 / MD-4**).
 4. **Lane D — `objects_nums` / mkobj** — audit other **`const.js`** otyps vs NH5 **`objects_nums`** after AoY fix (**advances MD-1**).
@@ -80,5 +80,5 @@ Continue NetHack 5.0 C→JS: read .cursor/reports/c-to-js-port-current.md first 
 Shorter variant:
 
 ```
-Continue port: read .cursor/reports/c-to-js-port-current.md, top next step, C upstream only, frozen js/* harness untouched, then refresh current + one changelog row + score if needed + git commit the slice.
+Continue port: read .cursor/reports/c-to-js-port-current.md, do top next step from C upstream, update handoff + changelog, npm run score, git commit.
 ```
