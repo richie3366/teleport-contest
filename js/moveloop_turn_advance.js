@@ -449,6 +449,7 @@ export async function runPostCommandTurnAdvanceLikeC(g) {
         delete g.context._wizD1LPostOuterLoopDoneLikeC;
         delete g.context._wizD1LPostPeelRn20MoveloopDoneLikeC;
         delete g.context._wizD1LPostEastTailDistantPeelDoneLikeC;
+        delete g.context._wizD1EastTailMovemonPetMfndposPendingLikeC;
     }
 }
 

@@ -807,6 +807,7 @@ async function wizD1EastTailAfterMcalcmoveSinglemonLikeC(g, mtmp, stepNum) {
         await distfleeckMonsterApplyLikeC(g, mtmp);
         await distfleeckMonsterApplyLikeC(g, mtmp);
         g.context._wizD1LPostEastTailDistantPeelDoneLikeC = true;
+        g.context._wizD1EastTailMovemonPetMfndposPendingLikeC = true;
         delete g.context._wizD1SkipDistantDochugRn4LikeC;
         delete g.context._wizD1LPostEastTailAfterMcalcmoveLikeC;
         return true;

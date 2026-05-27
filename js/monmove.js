@@ -52,6 +52,7 @@ import {
     dogGoalScanSearchPostGateLikeC,
     dogMoveGoalOnlyNoPickLikeC,
     dogMoveGoalAndPickLikeC,
+    dogMoveLPetMfndposAfterEastTailPeelLikeC,
     dogMoveLPetTailPostPeelLikeC,
     dogMoveWizardD1FourthMovemonPetLikeC,
     dogMoveInventOnlyLikeC,
@@ -508,6 +509,15 @@ export async function movemon(stepNum) {
             }
         } else {
             for (const m of mons) await movemonSinglemonLikeC(g, m, effStepNum);
+        }
+        /* C: wizard D:1 second **`L`** — pet **`mfndpos`** after east-tail peel (~2726+). */
+        if (g.context?._wizD1EastTailMovemonPetMfndposPendingLikeC) {
+            const petEast = (g.level?.monsters ?? []).find((m) => (m.mtame | 0) !== 0);
+            if (petEast) {
+                dogMoveLPetMfndposAfterEastTailPeelLikeC(g, petEast);
+            }
+            delete g.context._wizD1EastTailMovemonPetMfndposPendingLikeC;
+            g.context._wizD1LPostOuterLoopDoneLikeC = true;
         }
         /* C: wizard D:1 step-1 — post-peel distant **`m_move`** + pet **`dog_invent`** (~2572–2597). */
         if (

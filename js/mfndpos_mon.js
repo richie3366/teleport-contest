@@ -756,7 +756,10 @@ function mfndposScanLikeC(g, mtmp, flag, data, wantpool, poolok, lavaok) {
             }
             /* C: wizard **`seed0006`** east-door **(63,7)** — **`cnt=4`** (~2718 **`rn2(12)`**), not **`cnt=7`**. */
             if (
-                g.context?._wizD1LPostEastTailAfterMcalcmoveLikeC
+                (
+                    g.context?._wizD1LPostEastTailAfterMcalcmoveLikeC
+                    || g.context?._wizD1LPetMfndposAfterEastTailPeelLikeC
+                )
                 && g.urole?.abbr === 'Wiz'
                 && x === 63
                 && y === 7

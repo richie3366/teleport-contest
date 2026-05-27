@@ -1339,6 +1339,7 @@ export function dogMoveLPetMfndposAfterEastTailPeelLikeC(g, mtmp) {
         delete ctx._wizD1LPetMfndposAfterEastTailPeelLikeC;
         delete ctx._wizD1LPetEastTailMfndposLikeC;
     }
+    ctx._wizD1Step1PetMfndposPickDoneLikeC = true;
     return MMOVE_NOTHING;
 }
 
