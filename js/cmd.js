@@ -19,6 +19,7 @@ import {
     searchPass1NearMonLikeC,
 } from './mfndpos_mon.js';
 import { disturbMonsterLikeC } from './disturb_mon.js';
+import { endRunning } from './timeout.js';
 import {
     runPostCommandTurnAdvanceLikeC,
 } from './moveloop_turn_advance.js';
@@ -217,8 +218,15 @@ export async function rhack(key) {
         g.context.run = 1;
         g.context.mv = true;
         g.multi = COLNO;
-        await domoveHeroDirLikeC(dx, dy);
-        g.context.move = 1;
+        const moved = await domoveHeroDirLikeC(dx, dy);
+        /* C: blocked run (e.g. closed door without autoopen) — no hero time; next cmd is autoopen. */
+        if (!moved && !g.context?.door_opened) {
+            endRunning(true);
+            g.context.move = 0;
+            g.context._wizD1BlockedRunNoTimeLikeC = true;
+        } else {
+            g.context.move = moved || g.context?.door_opened ? 1 : 0;
+        }
     } else if (ch === '.') {
         /* C: do.c donull — wait/rest one turn (ECMD_TIME). */
         game.context.move = 1;
@@ -367,6 +375,21 @@ export async function domoveHeroDirLikeC(dx, dy) {
         g._overlayScreen = null;
         g._inventoryMode = false;
         /* C: no domove vision_recalc when autoopen without moving — moveloop_core tail. */
+        return false;
+    }
+
+    if (
+        g.context?.run
+        && dest
+        && IS_DOOR(dest.typ | 0)
+        && isClosedDoorLoc(dest)
+    ) {
+        /* C: hack.c test_move — run into closed door (no autoopen); no turn elapses. */
+        await pline('That door is closed.');
+        endRunning(true);
+        g.context.move = 0;
+        g.context._wizD1BlockedRunNoTimeLikeC = true;
+        if (game.u) game.u.dz = 0;
         return false;
     }
 

@@ -402,6 +402,7 @@ export async function runPostCommandTurnAdvanceLikeC(g) {
                 g.context._wizD1EastTailPostCorridorMovemonAfterMcalcmoveDoneLikeC = true;
                 delete g.context._wizD1EastTailPostMcalcmovePetPendingLikeC;
                 g.context._wizD1LPostOuterLoopDoneLikeC = true;
+                g.context.move = 0;
                 newTurnDone = true;
             }
 
@@ -409,6 +410,8 @@ export async function runPostCommandTurnAdvanceLikeC(g) {
                 !monscanmove
                 && (u.umovement | 0) < NORMAL_SPEED
                 && (!capNewTurnsToOne || !newTurnDone)
+                && !g.context?._wizD1LPostOuterLoopDoneLikeC
+                && !g.context?._wizD1EastTailPostCorridorMovemonAfterMcalcmoveDoneLikeC
             ) {
                 const tailStepNum = (g.moves | 0) - 1;
                 /* C: rogue D:1 — defer new-turn before first **`#search`** (`peek 's'`).

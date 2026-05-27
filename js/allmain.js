@@ -284,6 +284,13 @@ export async function moveloop_core() {
     if (g.context.move) {
         if (g.context._searchInlinePostDoneLikeC) {
             /* C: inline **`#search`** post already ran in cmd.js — do not run moveloop post again. */
+        } else if (g.context._wizD1EastTailPostCorridorMovemonAfterMcalcmoveDoneLikeC) {
+            /* C: east-tail **`L`** post-corridor — **`movemon`** + new-turn already ran inside **`movemon`**;
+             * next command (**`seed0006`** step 45 **`l`** autoopen) must not duplicate **`distfleeck`**. */
+            delete g.context._wizD1EastTailPostCorridorMovemonAfterMcalcmoveDoneLikeC;
+        } else if (g.context._wizD1BlockedRunNoTimeLikeC) {
+            /* C: run into closed door (no autoopen) — no monster post before lowercase move/autoopen. */
+            delete g.context._wizD1BlockedRunNoTimeLikeC;
         } else {
             await runPostCommandTurnAdvanceLikeC(g);
         }
