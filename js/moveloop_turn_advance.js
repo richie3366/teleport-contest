@@ -336,8 +336,11 @@ export async function runPostCommandTurnAdvanceLikeC(g) {
                     && colonStep == null
                     && !isRogueColonMovemonActiveLikeC(g)
                     && (searchPass | 0) === 0
+                    && (
+                        g.context?._postBumpInlineDoneLikeC
+                        || g.context?._wizD1PostEastTailWalkFmonLikeC
+                    )
                     && !g.context?._postBumpKillDochugGateLikeC
-                    && g.context?._postBumpInlineDoneLikeC
                 ) {
                     stepForMovemon = 1;
                 }
@@ -546,6 +549,7 @@ export async function runPostCommandTurnAdvanceLikeC(g) {
         delete g.context._wizD1EastTailNearMklevMtmpLikeC;
         delete g.context._wizD1EastTailPeelMtmpLikeC;
         delete g.context._wizD1EastTailCorridorTurnDoneLikeC;
+        /* **`_wizD1PostEastTailWalkFmonLikeC`** cleared in **`movemon`** after the walk post consumes it. */
     }
 }
 

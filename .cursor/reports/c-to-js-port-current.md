@@ -23,18 +23,18 @@ Use this when **`Next steps`** below feels stale or several lanes compete. Order
 ## Contract (non-negotiable)
 
 - Port from **C semantics** in `nethack-c/upstream/` (init submodule if empty). Do **not** derive behavior from binaries or memorize the 44 public sessions.
-- **Finding C sources:** `nethack-c/upstream` is a **nested git repo** (submodule). Some IDE / Cursor **code search** (e.g. workspace **Glob** or default ripgrep scope) **skips or under-indexes** that tree even when it is checked out. Use **`read_file`**, terminal **`rg`/`grep`** with an explicit path under `nethack-c/upstream/`, or **`rg --no-ignore-vcs`**, and run **`git submodule update --init nethack-c/upstream`** on clones where the directory is empty.
+- **Finding C sources:** `nethack-c/upstream` is a **nested git repo** (submodule). Some IDE / Cursor **code search** skips that tree — use **`read_file`**, terminal **`rg`/`grep`** with an explicit path, or **`rg --no-ignore-vcs`**.
 - **Frozen** (do not edit): `js/isaac64.js`, `js/terminal.js`, `js/storage.js`.
 - **Plain ES modules**, no build/WASM/network in contest code; RNG via `js/rng.js`; match **clang** evaluation order for multi-call expressions.
 - API: [`docs/API.md`](../../docs/API.md); overview: [`README.md`](../../README.md).
 
-**Strategic priority (dual track):** **Lane A** — port **tty startup + interactive chargen** toward C **`wintty.c` / `role.c`** (**`chargen_tty.js`**, **`chargen_rigid.js`**). **Lane B** — expand NHL / des-file levels when specials matter (**`nhl-port-notes.md`**). **Eleven** public sessions ship **`nethackrc` without** embedded `OPTIONS=name:` / `role:` (and similar); C runs **“Who are you?”**, **[ynaq]**, and role/race/gender/align pickers with real **RNG**. Sessions that already set identity in **OPTIONS** must keep the **C fast path** (skip full menus when rc fixes role/race/gender/align).
+**Strategic priority (dual track):** **Lane A** — tty startup + interactive chargen. **Lane B** — NHL / des-file levels. **Eleven** public sessions ship **`nethackrc` without** embedded `OPTIONS=name:` / `role:`.
 
-**Tutorial (Lane E):** Scaffolding exists (`tutorial_prompt.js`, `maybeDoTutorialLikeC`, `tutorial_branch.js` stubs). **Do not** take tutorial slices until [`docs/plans/tutorial-port-gate.md`](../../docs/plans/tutorial-port-gate.md) **MD-1 … MD-7** are checked; then **Lane E becomes step 1** (see [10-tutorial.md](../plans/nethack-port/10-tutorial.md)). While advancing Lanes A–D, prefer slices that close an open MD-* item. **`LIVELOGFILE`** / full **`dokick`**/**`dothrow`** vs **`leaving_tutorial`** are Lane E long tail, not gate blockers.
+**Tutorial (Lane E):** Gated on [tutorial port gate](../../docs/plans/tutorial-port-gate.md) **MD-1 … MD-7**.
 
-**Last slice:** Wizard D:1 step 45 autoopen — **`hack.c` `test_move`** autoopen on D:1 (**`move=0`**, **`_wizD1AutoopenNoMoveLikeC`**) + wizard-only **`rhack`** **`move=moved`**; **`allmain.js`** re-read **`_wizD1BlockedRunNoTimeLikeC`** after **`runPost`**, end-of-moveloop **`move=0`** latch. **`seed0006`** **2797/6736** — diag **2768–2770** **`doopen_indir`** aligned; **2771+** extra **`distfleeck`** before **`fmon`**. **2/44**.
+**Last slice:** Wizard D:1 post-east-tail walk post — **`_wizD1PostEastTailWalkFmonLikeC`** survives east-tail **`runPost`**; **`fmon_iter`** near→pet order; peel path near **`distfleeck`** + pet **`obj_resists`** + **`dog_move`** (**`dogmove_mon.js`** **`dogMovePostEastTailWalkObjResistsLikeC`**); distant **`distfleeck`** + **`m_move`** tail stub. **`seed0006`** **2785/6736** RNG (was 2797); diag **2770–2774** aligned; **2775+** distant **`mfndpos`** **`rn2(12)`** chain. **2/44**.
 
-**Handoff refresh:** **Priority matrix** (lanes A–D) + **Next steps** aligned to it; **`c-to-js-port-remaining.md`** / **`c-to-js-port-dashboard.md`** / **`nhl-port-notes.md`** / **`continue-nethack-port.md`** updated for post-`load_lua` reality and NHL ordering.
+**Handoff refresh:** **Priority matrix** (lanes A–D) + **Next steps** aligned to it.
 
 ## Next steps (aligned with matrix)
 
@@ -42,43 +42,37 @@ Pick **one** primary lane per slice; refresh this list after each merge.
 
 **First:** open [`docs/plans/tutorial-port-gate.md`](../../docs/plans/tutorial-port-gate.md) — if **all MD-1 … MD-7** are checked, do **Lane E** step 1 from [10-tutorial.md](../plans/nethack-port/10-tutorial.md) instead of the list below.
 
-1. **Lane C — `seed0006` ~2771** — step 46 **`l`** **`fmon`**: drop extra **`distfleeck`** before combat **`rn2(100)`** (step 45 autoopen **2768–2770** OK). Likely **`runPost`** on step 46 when step 45 walk should leave **`move=0`**, or duplicate peel in **`domove`/`attack`**. Lane A: **`chargen_tty.js`** when rc omits identity.
-2. **Lane A — Chargen / init + early moveloop** — tty / **`role.c`** pickers when rc omits identity.
-3. **Lane B — NHL** — next **`lspo_*`** + **`nhl_lua.js`** allowlist per [`nhl-port-notes.md`](nhl-port-notes.md) (**advances MD-3 / MD-4**).
-4. **Lane D — `objects_nums` / mkobj** — audit other **`const.js`** otyps vs NH5 **`objects_nums`** after AoY fix (**advances MD-1**).
+1. **Lane C — `seed0006` ~2775** — step 47 **`l`** walk post: distant **`m_move`** after second **`distfleeck`** (**`rn2(12)`×3**, new-turn **2778+**); wire **`_wizD1PostEastTailWalkDistantMmoveLikeC`** so sleeping distant gets **`movement ≥ NORMAL_SPEED`** and subset **`m_move`** runs (no trailing **`dochug`** **`distfleeck`**). Global first mismatch still **~2630**.
+2. **Lane A — Chargen / init** — tty / **`role.c`** pickers when rc omits identity.
+3. **Lane B — NHL** — next **`lspo_*`** per [`nhl-port-notes.md`](nhl-port-notes.md).
+4. **Lane D — `objects_nums` / mkobj** — audit **`const.js`** vs NH5.
 
 ### Extended backlog (unchanged lanes)
 
-- **`mklev` / `mfndpos`:** `setgemprobs`, mineralize drift, legacy floor **`otyp`** vs NH5 when replaying C **`mkobj`** (see **`mklev.js`** audit comments).
-- **`pray.c` / `sit.c` / `angrygods` / `read.c` / scroll & trap long tail:** prior handoff bullets — see [`c-to-js-port-remaining.md`](c-to-js-port-remaining.md) §3–§4 and `TODO`s under `js/`.
+- **`mklev` / `mfndpos`:** `setgemprobs`, mineralize drift, legacy floor **`otyp`** vs NH5 when replaying C **`mkobj`**.
+- **`pray.c` / `sit.c` / `angrygods` / `read.c` / scroll & trap long tail:** see [`c-to-js-port-remaining.md`](c-to-js-port-remaining.md) §3–§4 and `TODO`s under `js/`.
 
-### Lane E backlog — tutorial (gated; see [`docs/plans/tutorial-port-gate.md`](../../docs/plans/tutorial-port-gate.md))
+### Lane E backlog — tutorial (gated)
 
-Mandatory dependencies **MD-1 … MD-7** (inventory, in-memory **`goto_level`/`savelev`**, Lua RNG, **`tut-*.lua`** bindings, **`nh.eckey`**, **`tutorial()`/`free_tutorial()`**). Execution checklist: [10-tutorial.md](../plans/nethack-port/10-tutorial.md). Already stubbed: **`maybe_do_tutorial`**, **`ask_do_tutorial`**, **`tutorial_branch.js`** hooks, **`leaving_tutorial`** shop/invent skips.
+Mandatory dependencies **MD-1 … MD-7**. Execution checklist: [10-tutorial.md](../plans/nethack-port/10-tutorial.md).
 
-### Deferred backlog (moveloop / traps / fire — resume after chargen milestone)
+### Deferred backlog (moveloop / traps / fire)
 
-Extend **`distfleeck`** to further moveloop steps — match **`monmove.c`** **`dochug`** (**`distfleeck`** ~791, **`m_move`**/**`m_throw`**, **`distfleeck`** recalc ~915) per monster; peel harness only when per-path draw counts match C (step **3** row is interleaved **`rn2(5)`**/**`rn2(32)`**, not N× first-**`distfleeck`** only); grid **`domove`**, **`attack`**, …; remainder **`flooreffects`** (**`hmon`/`mondied`** full, teeter); fuller **`sellobj`** (**`ynaq`**, **`dropped_container`**, bones **`robbed`**); then wire full **`dig()`** / **`dighole`** (non-wizard path) and remaining shop pit / full **`digactualhole`/`maketrap`**; **`zap_dig`** **`uswallow`**/**`pit_flow`**/**`dighole`** from pit; shop **`PASSED_DESTROY_TRAP`**; call **`spotChecksLikeC`** from **`apply.c`** **`do_break_wand`** / **`music.c`** **`do_earthquake`** when those paths change terrain; **`trap.c`** **`blow_up_landmine`** still needs C **`scatter`** and real **`recalc_block_point`** vs full-grid **`vision_recalc`**; hero landmine still missing C **`steed_mid`/`saddle`/`keep_saddle_with_steedcorpse`**; **`dozap`** **`getobj`**/**cursed `backfire`**/**`zapyourself`**/**`zapnodir`**; **`SPE_DIG`**; fuller **`setmangry`**; **`zombie_form`** / **`ZOMBIFY_MON`**; fuller **`revive`** / egg **`TIMER_OBJECT`**; full **`digactualhole`** / **`placebc`**; **`mbuzzOffensiveWandFromMonsterTowardMux`** from real **`monmove`** + **`find_offensive`**; full **`rloc`** / **`usteed`**; hero fountain **`dryup`** (**`in_town`** / wizard **`y_n`**); full **`mondied`/`xkilled`** so pool survivor tail consumes RNG like C; **`spoteffects`**: full pooleffects / **`set_uinwater`**, **`meltIceAt`** alignment, sink+Levitation / float_down / **`in_steed_dismounting`**; **`switch_terrain`**: steed/**`dismount`**, **`classify`** / **`drawbridge`** parity; **`steed.c`**-style **`steedVsStealthLikeC`** on mount/dismount when **`usteed`** is ported; **`repair_damage`** remainder (**`picking_at`**, ball&chain **`litter_scatter`**, bill **`subfrombill`**); **`kick.js`** **`bhit`** remainder (**`thitmonst`**, **`ship_object`**, **`scatter`**, shop **`costly`**) / secret doors / full **`attack_checks`** / poly **`AT_KICK`**; full **`dungeon.c`** **`init_dungeons`**/**`place_level`** so **`sp_levchn`** + minetn **`dlevel`** match C (**`bootstrapSpLevchnMinesMinetnFromBranchStubLikeC`** activates); wire real **`dig()`** occupation to **`setHeroDiggingOccupationLikeC`** (not only wizard **`#D`**); **`angry_guards`**: worm **`worm_known`** / full **`u.uprops`** telepathy property names vs **`HTelepat`** stubs; populate **`context.warntype`** from **`artifact.c`**/**`doapply`** when warn-of rings are ported; **`zap_dig`** / **`objnam`**: full **`xname`** string + **`discover_object`** **`mark_as_known`** / **`disco[]`** class order / Samurai **`Japanese_item_name`** / **`gem_learned`**; **`destroy_drawbridge`** **`e_died`/`scatter`** full parity; **`dig_up_grave`** **`mkclass`**/**`tt_oname`** full parity.
+Extend **`distfleeck`** to further moveloop steps; full **`domove`**, **`attack`**, …; remainder **`flooreffects`**; fuller **`sellobj`**; **`dig()`** / **`dighole`**; **`trap.c`** **`blow_up_landmine`**; **`zap_dig`**; **`zombie_form`**; full **`mondied`/`xkilled`**; **`spoteffects`**; **`switch_terrain`**; **`steed.c`**; **`repair_damage`**; **`kick.js`** **`bhit`**; full **`dungeon.c`** **`init_dungeons`**; wire **`dig()`** occupation; **`angry_guards`**; **`context.warntype`**; **`zap_dig`** / **`objnam`**; **`destroy_drawbridge`**; **`dig_up_grave`**.
 
 ## After you ship a slice
 
-1. Append **one table row** to [`c-to-js-port-changelog-archive.md`](c-to-js-port-changelog-archive.md) (same columns as existing rows).
+1. Append **one table row** to [`c-to-js-port-changelog-archive.md`](c-to-js-port-changelog-archive.md).
 2. Refresh **this file** (next steps + one-line “last slice”).
 3. Run **`npm run score`** when the change touches RNG-visible behavior.
-4. **`git commit`** — one commit per meaningful slice (see [`.cursor/prompts/continue-nethack-port.md`](../prompts/continue-nethack-port.md)); conventional message (`feat(js):` / `fix(js):` / `docs(port):`, …).
+4. **`git commit`** — one commit per meaningful slice.
 
 ---
 
 ## Copy-paste: continue the port
 
-Prefer the **canonical** text in [`.cursor/prompts/continue-nethack-port.md`](../prompts/continue-nethack-port.md) (includes `c-to-js-port-remaining.md` skim + **git commit per slice**). Legacy one-liners:
+Prefer [`.cursor/prompts/continue-nethack-port.md`](../prompts/continue-nethack-port.md).
 
 ```
 Continue NetHack 5.0 C→JS: read .cursor/reports/c-to-js-port-current.md first (not the full progress doc). Do the top next step; port from nethack-c/upstream C semantics; do not edit js/isaac64.js, js/terminal.js, js/storage.js. When done: update c-to-js-port-current.md, append one row to c-to-js-port-changelog-archive.md, npm run score if relevant, git commit this slice.
-```
-
-Shorter variant:
-
-```
-Continue port: .cursor/reports/c-to-js-port-current.md → top step → C upstream → update handoff + changelog → score → commit.
 ```

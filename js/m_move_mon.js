@@ -74,6 +74,8 @@ import {
     dogMoveMfndposPickOnlyWizD1LikeC,
     dogMoveLikeC,
     dogMoveOntoApportTowelLikeC,
+    dogMovePostCorridorSecondPetMfndposLikeC,
+    dogMovePostEastTailWalkObjResistsLikeC,
     dogMoveSearchPassNearHeroLikeC,
 } from './dogmove_mon.js';
 import { fmonListForMovemonLikeC } from './fmon_iter.js';
@@ -1101,6 +1103,13 @@ export async function movemonSinglemonLikeC(g, mtmp, stepNum = 0) {
         !!g.context?._wizD1Step1RestDochugLikeC
         && (mtmp.mgenmklev | 0)
         && !(mtmp.mtame | 0);
+    if (
+        (mov | 0) < NORMAL_SPEED
+        && g.context?._wizD1PostEastTailWalkDistantMmoveLikeC
+    ) {
+        mtmp.movement = NORMAL_SPEED;
+        mov = NORMAL_SPEED;
+    }
     if (mov < NORMAL_SPEED) {
         if ((stepNum | 0) === 6) {
             if (mtmp !== findEastMklevSecondHLikeC(g)) {
@@ -1130,6 +1139,11 @@ export async function movemonSinglemonLikeC(g, mtmp, stepNum = 0) {
             && !wizStep1NearPostPeelDochugLikeC
             && !wizD1DistantPeelLowMovLikeC
             && !wizD1RestDochugLowMovLikeC
+            && !(
+                g.context?._wizD1PostEastTailWalkFmonLikeC
+                && ((mtmp.mtame | 0) || (mtmp.mgenmklev | 0))
+            )
+            && !g.context?._wizD1PostEastTailWalkDistantMmoveLikeC
             && !((stepNum | 0) === 6 && mtmp === findEastMklevSecondHLikeC(g))
             && !firstSearchNearMklevHostileLikeC(g, mtmp)
             && !isRogPeelMklevDistfleeckCandidateLikeC(g, mtmp, stepNum)
@@ -1217,6 +1231,10 @@ export async function movemonSinglemonLikeC(g, mtmp, stepNum = 0) {
     }
 
     await mMoveOneMonsterSubsetLikeC(g, mtmp, stepNum);
+    if (g.context?._wizD1PostEastTailWalkDistantMmoveDoneLikeC) {
+        delete g.context._wizD1PostEastTailWalkDistantMmoveDoneLikeC;
+        return;
+    }
     const peelPin = wizD1PeelDistantMtmpLikeC(g);
     if (g.context?._wizD1SkipDistantDochugRn4LikeC && peelPin && mtmp !== peelPin) {
         /* C: near **`distfleeck`** (~2716) armed distant **`m_move`** — no post-peel **`rn2(4)`**. */
@@ -1714,6 +1732,20 @@ export async function mMoveOneMonsterSubsetLikeC(g, mtmp, stepNum = 0) {
     if ((mtmp.mhp | 0) <= 0) return;
 
     if (
+        g.context?._wizD1PostEastTailWalkDistantMmoveLikeC
+        && movemonStep8DistantMonEligibleLikeC(g, mtmp)
+    ) {
+        setApparxyMonsterLikeC(g, mtmp);
+        ensureMonsterMtrack(mtmp);
+        primeDistantMtrackRn20LikeC(mtmp);
+        if (dochugEntersMmoveBlockLikeC(g, mtmp, 1, 0, stepNum)) {
+            mMovePositionSelectRngLikeC(g, mtmp);
+        }
+        g.context._wizD1PostEastTailWalkDistantMmoveDoneLikeC = true;
+        return;
+    }
+
+    if (
         g.context?._wizD1Step1RestDochugLikeC
         && (mtmp.mgenmklev | 0)
         && !(mtmp.mtame | 0)
@@ -1813,6 +1845,38 @@ export async function mMoveOneMonsterSubsetLikeC(g, mtmp, stepNum = 0) {
         isMovemonStepOnePeelLikeC(g, stepNum)
         && !g.context?._wizD1Step1GateDochugLikeC
     ) {
+        /* C: post-east-tail walk — near one **`distfleeck`**, pet **`dog_move`** / **`obj_resists`**. */
+        if (g.context?._wizD1PostEastTailWalkFmonLikeC) {
+            const nearWalk =
+                wizD1EastDoorMklevMonLikeC(g)
+                ?? wizD1NearMklevMonLikeC(g);
+            const distantWalk =
+                wizD1PeelDistantMklevMonLikeC(g)
+                ?? findDistantMklevMonLikeC(g);
+            if (nearWalk && mtmp === nearWalk) {
+                setApparxyMonsterLikeC(g, mtmp);
+                await distfleeckMonsterApplyLikeC(g, mtmp);
+                return;
+            }
+            if ((mtmp.mtame | 0) && has_edog(mtmp)) {
+                let mov = mtmp.movement | 0;
+                if (mov < NORMAL_SPEED) {
+                    mtmp.movement = NORMAL_SPEED;
+                    mov = NORMAL_SPEED;
+                }
+                mtmp.movement = mov - NORMAL_SPEED;
+                dogMovePostEastTailWalkObjResistsLikeC(g, mtmp);
+                if (g.context?._wizD1PostCorridorSavedPetGoalLikeC) {
+                    dogMovePostCorridorSecondPetMfndposLikeC(g, mtmp);
+                } else {
+                    dogMoveLikeC(g, mtmp);
+                }
+                return;
+            }
+            /* C: distant **`m_move`** runs after **`fmon`** in **`monmove.js`** (~2775+). */
+            if (distantWalk && mtmp === distantWalk) return;
+            return;
+        }
         /* C: post-bump **`l`** tail **`fmon`** — **`distfleeck`** only (~2556+); distant/pet already peeled. */
         if (g.context?._postBumpKillDochugGateLikeC) {
             if ((mtmp.mgenmklev | 0) && !(mtmp.mtame | 0)) {
@@ -1899,7 +1963,8 @@ export async function mMoveOneMonsterSubsetLikeC(g, mtmp, stepNum = 0) {
                     return;
                 }
                 const wizLPostEastNearDfTailLikeC =
-                    !g.context?._wizD1LPostEastTailDistantPeelDoneLikeC
+                    !g.context?._wizD1PostEastTailWalkFmonLikeC
+                    && !g.context?._wizD1LPostEastTailDistantPeelDoneLikeC
                     && (
                         !!g.context?._wizD1LPostEastSingleNearDfLikeC
                         || (
@@ -2061,6 +2126,18 @@ export async function mMoveOneMonsterSubsetLikeC(g, mtmp, stepNum = 0) {
                 && has_edog(mtmp)
                 && isWizardD1Step1PeelLikeC(g, stepNum)
             ) {
+                /* C: post-east-tail walk — near **`distfleeck`** then pet **`dog_move`** / **`obj_resists`**. */
+                if (g.context?._wizD1PostEastTailWalkFmonLikeC) {
+                    let mov = mtmp.movement | 0;
+                    if (mov < NORMAL_SPEED) {
+                        mtmp.movement = NORMAL_SPEED;
+                        mov = NORMAL_SPEED;
+                    }
+                    mtmp.movement = mov - NORMAL_SPEED;
+                    dogMovePostEastTailWalkObjResistsLikeC(g, mtmp);
+                    dogMoveLikeC(g, mtmp);
+                    return;
+                }
                 /* C: east-tail corridor — pet deferred to **`monmove.js`** / moveloop post-**`mcalcmove`**. */
                 if (
                     g.context?._wizD1EastTailMovemonPetMfndposPendingLikeC

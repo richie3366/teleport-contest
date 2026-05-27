@@ -1273,6 +1273,21 @@ export function dogMoveGoalOnlyNoPickLikeC(g, mtmp) {
  * @param {import('./gstate.js').game} g
  * @param {Record<string, unknown>} mtmp
  */
+/** C: post-east-tail walk — one **`gi.invent`** **`obj_resists`** before **`dog_move`** (~2768). */
+export function dogMovePostEastTailWalkObjResistsLikeC(g, mtmp) {
+    if (!(mtmp.mtame | 0) || !has_edog(mtmp)) return;
+    const ctx = g.context || (g.context = {});
+    ctx._wizD1EastTailPostMcalcmovePetLikeC = true;
+    ctx._wizD1Step1ObjResistsPrescanLikeC = true;
+    try {
+        dogGoalWizardD1Step1ObjResistsPrescanLikeC(g, mtmp);
+    } finally {
+        delete ctx._wizD1EastTailPostMcalcmovePetLikeC;
+        delete ctx._wizD1Step1ObjResistsPrescanLikeC;
+        delete ctx._dogfoodRankCacheLikeC;
+    }
+}
+
 export function dogMoveEastTailPostMcalcmovePetLikeC(g, mtmp) {
     if (!(mtmp.mtame | 0) || !has_edog(mtmp)) return MMOVE_NOTHING;
     if ((mtmp.mhp | 0) <= 0) return MMOVE_DIED;

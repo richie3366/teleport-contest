@@ -297,6 +297,7 @@ export async function moveloop_core() {
             /* C: east-tail **`L`** post-corridor — **`movemon`** + new-turn already ran inside **`movemon`**;
              * next command (**`seed0006`** step 45 **`l`** autoopen) must not duplicate **`distfleeck`**. */
             delete g.context._wizD1EastTailPostCorridorMovemonAfterMcalcmoveDoneLikeC;
+            g.context._wizD1PostEastTailWalkFmonLikeC = true;
             g.context.move = 0;
         } else {
             await runPostCommandTurnAdvanceLikeC(g);
@@ -352,6 +353,7 @@ export async function moveloop_core() {
     /* C: east-tail **`L`** post already ran — defer **`movemon`** until after autoopen **`l`**. */
     if (g.context._wizD1EastTailPostCorridorMovemonAfterMcalcmoveDoneLikeC) {
         g.context._wizD1BlockedRunNoTimeLikeC = true;
+        g.context._wizD1PostEastTailWalkFmonLikeC = true;
         g.context.move = 0;
         delete g.context._wizD1EastTailPostCorridorMovemonAfterMcalcmoveDoneLikeC;
     }

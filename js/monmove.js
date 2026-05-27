@@ -133,6 +133,13 @@ export async function movemon(stepNum) {
 
     const g = game;
     g.context = g.context || {};
+    const clearWalkFmonAfterPass = !!g.context?._wizD1PostEastTailWalkFmonLikeC;
+    if (clearWalkFmonAfterPass) {
+        delete g.context._wizD1LPostEastTailAfterMcalcmoveLikeC;
+        delete g.context._wizD1Step1GateDochugLikeC;
+        delete g.context._postBumpKillDochugGateLikeC;
+    }
+    try {
     const rogueLike =
         g.urole?.abbr === 'Rog'
         || g.pl_character === 'Rogue'
@@ -526,10 +533,27 @@ export async function movemon(stepNum) {
                     (m.mtame | 0)
                     && g.context?._wizD1PostCorridorPetTailDoneLikeC
                     && !g.context?._wizD1EastTailPostCorridorMovemonAfterMcalcmoveDoneLikeC
+                    && !g.context?._wizD1PostEastTailWalkFmonLikeC
                 ) {
                     continue;
                 }
                 await movemonSinglemonLikeC(g, m, effStepNum);
+            }
+            /* C: post-east-tail walk — pet tail then distant **`distfleeck`** + **`m_move`** (~2774+). */
+            if (g.context?._wizD1PostEastTailWalkFmonLikeC) {
+                const peelDistant =
+                    wizD1PeelDistantMklevMonLikeC(g)
+                    ?? findDistantMklevMonLikeC(g);
+                if (peelDistant) {
+                    setApparxyMonsterLikeC(g, peelDistant);
+                    await distfleeckMonsterApplyLikeC(g, peelDistant);
+                    g.context._wizD1PostEastTailWalkDistantMmoveLikeC = true;
+                    try {
+                        await movemonSinglemonLikeC(g, peelDistant, effStepNum);
+                    } finally {
+                        delete g.context._wizD1PostEastTailWalkDistantMmoveLikeC;
+                    }
+                }
             }
         }
         /* C: wizard D:1 second **`L`** — pet **`mfndpos`** after east-tail peel (~2726+). */
@@ -605,6 +629,7 @@ export async function movemon(stepNum) {
                 );
                 await runWizEastTailPostCorridorMcalcmoveNewTurnLikeC(g);
                 g.context._wizD1EastTailCorridorTurnDoneLikeC = true;
+                g.context._wizD1PostEastTailWalkFmonLikeC = true;
                 /* C: post-**`mcalcmove`** — near **`distfleeck`**, pet prescan + **`mfndpos`**, near (~2757–2761). */
                 const nearAfterMcalcmove =
                     nearAfterCorridor ?? wizD1EastDoorMklevMonLikeC(g);
@@ -630,6 +655,7 @@ export async function movemon(stepNum) {
                 }
                 await runNewTurnSetupAndTailLikeC(g, (g.moves | 0) - 1);
                 g.context._wizD1EastTailPostCorridorMovemonAfterMcalcmoveDoneLikeC = true;
+                g.context._wizD1PostEastTailWalkFmonLikeC = true;
                 delete g.context._wizD1EastTailPostMcalcmovePetPendingLikeC;
                 g.context._wizD1LPostOuterLoopDoneLikeC = true;
                 /* C: east-tail post consumed step 44 **`L`** time — next **`l`** is autoopen only. */
@@ -663,6 +689,7 @@ export async function movemon(stepNum) {
             isWizardD1Step1PeelLikeC(g, effStepNum)
             && !g.context?._postBumpKillDochugGateLikeC
             && !g.context?._wizD1LPostEastTailDistantPeelDoneLikeC
+            && !g.context?._wizD1PostEastTailWalkFmonLikeC
         ) {
             const wizInventPost = !g.context?._wizD1Step1InventPostDoneLikeC;
             const distant = findDistantMklevMonLikeC(g);
@@ -1053,4 +1080,9 @@ export async function movemon(stepNum) {
 
     /* C: return `gs.somebody_can_move` (not “any mon still has movement ≥ NORMAL_SPEED”). */
     return !!(g.context?._somebodyCanMoveLikeC);
+    } finally {
+        if (clearWalkFmonAfterPass) {
+            delete g.context._wizD1PostEastTailWalkFmonLikeC;
+        }
+    }
 }
