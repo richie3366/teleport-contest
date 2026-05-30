@@ -32,7 +32,7 @@ Use this when **`Next steps`** below feels stale or several lanes compete. Order
 
 **Tutorial (Lane E):** Gated on [tutorial port gate](../../docs/plans/tutorial-port-gate.md) **MD-1 … MD-7**.
 
-**Last slice:** **Lane A mkobj/mklev** — **`mksobj_init` ROCK/STATUE**: return **`corpsenm`**, C **`verysmall`** gate + **`level_difficulty()/2+10`** nested **`SPBOOK_no_NOVEL`**; gender **`spe`** via **`consumeMksobjCorpseSpeRngLikeC`** (not duplicate **`mksobjPostInitStatue`**); **`mksobjTailConsumeRngLikeC`** erosion→spe order in **`mkobjMklevConsumeRngLikeC`** / **`mksobj`**. **`seed0900`:** **1425–1445/2983** match (next **~2431** `rn2(17)` vs erosion). **`seed8000`/`seed0077`:** **PASS**. **2/44**.
+**Last slice:** **Lane A u_init** — C **`u_init_inventory_attrs`**: explore **`discover`** → **`ini_inv(Wishing)`** (wand **`blessorcurse(17)`**) before **`ini_inv(Money)`**; **`consumeIniInvWishingDiscoverRngIfLikeC`** / **`consumeIniInvMoneyRngIfLikeC`** in **`u_init_post_mklev.js`**. **`seed0900`:** **2598/2983** RNG (was **~2431**; **2431–2450** match). **`seed8000`/`seed0077`:** **PASS**. **2/44**.
 
 ## Next steps (aligned with matrix)
 
@@ -40,7 +40,7 @@ Pick **one** primary lane per **batch** (several related C functions — see che
 
 **First:** open [`docs/plans/tutorial-port-gate.md`](../../docs/plans/tutorial-port-gate.md) — if **all MD-1 … MD-7** are checked, do **Lane E** step 1 from [10-tutorial.md](../plans/nethack-port/10-tutorial.md) instead of the list below.
 
-1. **Lane A — `seed0900` ~2431** — **`mktrap_victim`** / **`mksobj_init`** vs **`mkobj_erosions`** (`rn2(17)` vs `rn2(100)`); then **`mktrap_victim`** (**~2350+** was stale — re-locate); **`seed0102`** D:1 map + botl.
+1. **Lane A — `seed0900` ~2473** — re-locate post-**`init_attr`** / early moveloop; **`mktrap_victim`** / floor **`mkobj`** if fork in mklev band; **`seed0102`** D:1 map + botl.
 2. **Lane A — `seed0102` screen 0** — D:1 map + botl after mklev parity.
 3. **Lane C — `seed0006` ~2892** — capital **`K`** moveloop tail; screen **35** botl (**`find_ac`** / time).
 4. **Lane B — NHL** — next **`lspo_*`** per [`nhl-port-notes.md`](nhl-port-notes.md).

@@ -82,7 +82,8 @@ Align batches with [`c-to-js-port-remaining.md`](c-to-js-port-remaining.md) §5:
 
 | C symbol / area | JS module | Status | Notes |
 |-----------------|-----------|--------|-------|
-| `u_init` / role identity | `chargen*.js`, `u_init_*.js` | partial | |
+| `u_init` / role identity | `chargen*.js`, `u_init_*.js` | partial | discover **`ini_inv(Wishing)`** before Money |
+| `ini_inv(Wishing)` / `Money` | `u_init_role_rng.js`, `u_init_post_mklev.js` | partial | explore **`program_state.discover`** |
 | `ini_inv` | `ini_inv_stub.js`, role packs | stub | Real invent graph + ordering |
 | `u_init_role` RNG tail | `u_init_role_rng.js`, `u_init_post_mklev.js` | partial | |
 | `wintty.c` pickers | `chargen_tty.js` | partial | `seed0077` PASS; others partial |
