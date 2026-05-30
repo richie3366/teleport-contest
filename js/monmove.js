@@ -48,6 +48,7 @@ import {
     movemonSinglemonLikeC,
     mMoveDistfleeckOnlyTurnLikeC,
     mMoveCapitalKPostNewturnNearLikeC,
+    mMoveCapitalKPostNearEastMmoveRngLikeC,
     mMoveWizardD1Step1DistantAfterPeelLikeC,
     mMoveWizardD1EastTailCorridorRestLikeC,
     mMoveWizardD1LPostTailDistantLikeC,
@@ -67,6 +68,7 @@ import {
     dogMoveInventOnlyLikeC,
     dogMoveSearchPassNearHeroLikeC,
     dogMoveCapitalKPostDistantPeelPetLikeC,
+    dogMoveCapitalKPostNearPetLikeC,
     dogMoveCapitalKPostNewturnPetLikeC,
 } from './dogmove_mon.js';
 import {
@@ -757,6 +759,29 @@ export async function movemon(stepNum) {
                         delete g.context._wizD1CapitalKNearMmoveLikeC;
                     }
                     g.context._wizD1CapitalKPostNewturnNearDoneLikeC = true;
+                }
+                /* C: capital **`K`** — post-near pet **`dochug:886`** **`rn2(4)`**, invent, **`mfndpos`**
+                 * (~2869–2873); no leading **`distfleeck`**. */
+                if (petCapitalK) {
+                    g.context._wizD1CapitalKPostNearPetPendingLikeC = true;
+                    try {
+                        setApparxyMonsterLikeC(g, petCapitalK);
+                        rn2(4);
+                        dogMoveCapitalKPostNearPetLikeC(g, petCapitalK);
+                        /* C: pet **`distfleeck`** after **`dog_move`** (~2878). */
+                        await distfleeckMonsterApplyLikeC(g, petCapitalK);
+                    } finally {
+                        delete g.context._wizD1CapitalKPostNearPetPendingLikeC;
+                        g.context._wizD1CapitalKPostNearPetDoneLikeC = true;
+                    }
+                }
+                /* C: capital **`K`** — near **`m_move`** **`rn2(12)`**×3 (~2879–2881) in same post. */
+                if (
+                    nearWalk
+                    && !g.context?._wizD1CapitalKPostNearShortLMmoveDoneLikeC
+                ) {
+                    mMoveCapitalKPostNearEastMmoveRngLikeC(g, nearWalk);
+                    g.context._wizD1CapitalKPostNearShortLMmoveDoneLikeC = true;
                 }
                 g.context._wizD1SkipLPostInventMoveloopLikeC = true;
                 g.context._wizD1PostEastTailWalkCompleteLikeC = true;
