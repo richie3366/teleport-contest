@@ -304,7 +304,6 @@ export async function distfleeckMonsterApplyLikeC(g, mtmp) {
         if (n >= 1) return out;
         g.context._wizD1CapitalKPostNewturnTailDistfleeckBudgetLikeC = n + 1;
     }
-
     const bravegremlin = rn2(5) === 0;
 
     const u = g?.u;

@@ -734,9 +734,11 @@ export async function movemon(stepNum) {
                     await distfleeckMonsterApplyLikeC(g, peelDistant);
                     g.context._wizD1CapitalKPostNewturnDistantRn20LikeC = true;
                     g.context._wizD1PostEastTailWalkDistantMmoveLikeC = true;
+                    g.context._wizD1CapitalKPostNewturnDistantTailLikeC = true;
                     try {
                         await movemonSinglemonLikeC(g, peelDistant, effStepNum);
                     } finally {
+                        delete g.context._wizD1CapitalKPostNewturnDistantTailLikeC;
                         delete g.context._wizD1CapitalKPostNewturnDistantRn20LikeC;
                         delete g.context._wizD1PostEastTailWalkDistantMmoveLikeC;
                     }

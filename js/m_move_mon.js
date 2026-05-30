@@ -263,6 +263,8 @@ function evaluateRogFirstSearchGateMmoveLikeC(mtmp) {
  */
 function skipDistfleeckRecalcAfterMmoveLikeC(g, mtmp, nearby) {
     if (monOffmapLikeC(mtmp)) return true;
+    /* C: capital **`K`** — explicit ~915 recalc + second **`rn2(20)`** in **`monmove.js`**. */
+    if (g.context?._wizD1CapitalKPostNewturnDistantTailLikeC) return true;
     /* C: tame **`dog_move`** path — no post-**`m_move`** **`distfleeck`** recalc on bump turn. */
     if ((mtmp.mtame | 0) && has_edog(mtmp)) return true;
     /* C: post-bump **`l`** distant — skip ~915 recalc before pet / floor tail (**`seed0006`** ~2531).
@@ -1275,6 +1277,15 @@ export async function movemonSinglemonLikeC(g, mtmp, stepNum = 0) {
     }
 
     await mMoveOneMonsterSubsetLikeC(g, mtmp, stepNum);
+    if (g.context?._wizD1CapitalKPostNewturnDistantRn20LikeC) {
+        /* C: ~915 recalc then second track **`rn2(20)`** (~2863–2865). */
+        await distfleeckMonsterApplyLikeC(g, mtmp);
+        await distfleeckMonsterApplyLikeC(g, mtmp);
+        primeDistantMtrackRn20LikeC(mtmp);
+        rn2(20);
+        g.context._wizD1PostEastTailWalkDistantMmoveDoneLikeC = true;
+        return;
+    }
     if (
         g.context?._wizD1EastTailShortLPetDoneLikeC
         && (mtmp.mtame | 0)
@@ -1840,14 +1851,14 @@ export async function mMoveOneMonsterSubsetLikeC(g, mtmp, stepNum = 0) {
         if (g.context?._wizD1CapitalKPostNewturnDistantRn20LikeC) {
             primeDistantMtrackRn20LikeC(mtmp);
             if (dochugEntersMmoveBlockLikeC(g, mtmp, 1, 0, stepNum)) {
-                /* C: capital **`K`** — one **`rn2(20)`** track rejection (~2862). */
+                /* C: capital **`K`** — first track **`rn2(20)`** (~2862); tail in **`movemonSinglemon`**. */
                 rn2(20);
             }
-        } else {
-            monTrackClear(mtmp);
-            if (dochugEntersMmoveBlockLikeC(g, mtmp, 1, 0, stepNum)) {
-                mMovePositionSelectRngLikeC(g, mtmp);
-            }
+            return;
+        }
+        monTrackClear(mtmp);
+        if (dochugEntersMmoveBlockLikeC(g, mtmp, 1, 0, stepNum)) {
+            mMovePositionSelectRngLikeC(g, mtmp);
         }
         g.context._wizD1PostEastTailWalkDistantMmoveDoneLikeC = true;
         return;
@@ -2013,7 +2024,13 @@ export async function mMoveOneMonsterSubsetLikeC(g, mtmp, stepNum = 0) {
                 return;
             }
             /* C: distant **`m_move`** runs after **`fmon`** in **`monmove.js`** (~2775+). */
-            if (distantWalk && mtmp === distantWalk) return;
+            if (
+                distantWalk
+                && mtmp === distantWalk
+                && !g.context?._wizD1PostEastTailWalkDistantMmoveLikeC
+            ) {
+                return;
+            }
             return;
         }
         /* C: post-bump **`l`** tail **`fmon`** — **`distfleeck`** only (~2556+); distant/pet already peeled. */
