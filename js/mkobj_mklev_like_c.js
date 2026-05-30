@@ -3,6 +3,7 @@
 
 import { game } from './gstate.js';
 import { depth as depth_of_level } from './hacklib.js';
+import { objectOcMaterial } from './obj_oc_material_data.js';
 import { rndmonstLikeC } from './makemon_rndmonst.js';
 import { P_BOW, P_SHURIKEN, OTYP_LOADSTONE, OTYP_LUCKSTONE, OTYP_GOLD_PIECE } from './const.js';
 import { OC_SKILL_ROW_BY_OTYP } from './obj_oc_skill_data.js';
@@ -176,11 +177,22 @@ function erosionMattersMklevLikeC(oclass) {
     }
 }
 
+/** C: objclass.h is_damageable — unknown material keeps legacy WEAPON/ARMOR erosion. */
+function mayGenerateErodedMklevLikeC(otyp, oclass) {
+    if (!erosionMattersMklevLikeC(oclass)) return false;
+    const m = objectOcMaterial(otyp) | 0;
+    if (m === 0) return true;
+    if (m === 11 || m === 13) return true;
+    if ((oclass | 0) === NH5_ARMOR_CLASS && m === 19) return true;
+    if (m > 1 && m <= 8) return true;
+    if (m === 10 || m === 18) return true;
+    return false;
+}
+
 /** C: mkobj.c mksobj_init tail — mkobj_erosions (WEAPON/ARMOR in mklev). */
 export function mkobjErosionsMklevLikeC(otyp, oclass) {
     if (!game.in_mklev) return;
-    if (!erosionMattersMklevLikeC(oclass)) return;
-    void otyp;
+    if (!mayGenerateErodedMklevLikeC(otyp, oclass)) return;
     if (!rn2(100)) {
         /* oerodeproof — no further erosion RNG */
         return;

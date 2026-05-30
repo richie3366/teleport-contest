@@ -32,7 +32,7 @@ Use this when **`Next steps`** below feels stale or several lanes compete. Order
 
 **Tutorial (Lane E):** Gated on [tutorial port gate](../../docs/plans/tutorial-port-gate.md) **MD-1 … MD-7**.
 
-**Last slice:** **Lane A mklev/mkobj** — **`mkobj.c`** **`is_poisonable`** before weapon **`rn2(100)`** in **`mksobjInitWeaponLikeC`** (**`mkobj_mklev_like_c.js`**); **`mkgrave`** buried gold uses **`level_difficulty()`** not **`uz.dlevel`**; **`hacklib.depth`** honors **`depth_start === 0`**. **`seed0900`:** **2358/2983** (mkobj erosion chain **1316–1325** aligned; next fork **~1382**). **`seed8000`/`seed0077`:** **PASS**. **2/44**.
+**Last slice:** **Lane A mkobj** — **`mkobj.c`** **`may_generate_eroded`**: **`mkobj_erosions`** gated on **`is_damageable`** via **`objects[].oc_material`** (**`obj_oc_material_data.js`**, **`tools/gen_obj_oc_material.mjs`**); unknown material (**`0`**) keeps legacy WEAPON/ARMOR erosion for NH5 placeholder otyps. **`seed0900`:** **2358/2983** (next fork **~2358** `rn2(6)` vs extra **`rn2(100)`**). **`seed8000`/`seed0077`:** **PASS**. **2/44**.
 
 ## Next steps (aligned with matrix)
 
@@ -40,7 +40,7 @@ Pick **one** primary lane per slice; refresh this list after each merge.
 
 **First:** open [`docs/plans/tutorial-port-gate.md`](../../docs/plans/tutorial-port-gate.md) — if **all MD-1 … MD-7** are checked, do **Lane E** step 1 from [10-tutorial.md](../plans/nethack-port/10-tutorial.md) instead of the list below.
 
-1. **Lane A — `seed0900` ~1382** — **`mklev.c`** fill / mineralize / **`mkobj`** class picks after weapon erosion+poison gate; **`seed0102`** D:1 map + botl; legacy **`com_pager`** row-0 **`ESC[17C`** if a session still fails screen **0** on intro.
+1. **Lane A — `seed0900` ~2358** — **`mkobj.c`** **`may_generate_eroded`** / possession loop vs **`rnd(1000)`** tail (diag **2354+**); complete **`oc_material`** for NH5 armor otyps with mat **0**; **`seed0102`** D:1 map + botl.
 2. **Lane A — `seed0102` screen 0** — D:1 map + botl after mklev parity.
 3. **Lane C — `seed0006` ~2892** — capital **`K`** moveloop tail; screen **35** botl (**`find_ac`** / time).
 4. **Lane B — NHL** — next **`lspo_*`** per [`nhl-port-notes.md`](nhl-port-notes.md).
