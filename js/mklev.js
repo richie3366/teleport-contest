@@ -15,6 +15,7 @@ import {
 } from './mkobj_mklev_like_c.js';
 import {
     NH5_WEAPON_CLASS,
+    NH5_FOOD_CLASS,
     NH5_COIN_CLASS,
     NH5_TOOL_CLASS,
     NH5_GEM_CLASS,
@@ -103,10 +104,7 @@ import {
 import { setWallStateLikeC } from './wall_state.js';
 import { stolenBootyLikeC } from './stolen_booty.js';
 import { baalzFixupLikeC } from './baalz_fixup.js';
-import {
-    consumeMksobjInitCorpseRngLikeC,
-    consumeMksobjCorpseSpeRngLikeC,
-} from './mkobj_corpse.js';
+import { consumeMksobjCorpseSpeRngLikeC } from './mkobj_corpse.js';
 import { startCorpseTimeout } from './obj_rot_timer.js';
 import {
     floorObjKey,
@@ -1137,6 +1135,7 @@ function nh5OclassForOtyp(otyp) {
     if (t >= 365 && t <= 408) return NH5_SPBOOK_CLASS;
     if (t >= 409 && t <= 433) return NH5_WAND_CLASS;
     if (t === OTYP_BOULDER || t === STATUE) return NH5_ROCK_CLASS;
+    if (t === CORPSE) return NH5_FOOD_CLASS;
     /* C: mkobj.c mksobj_init TOOL_CLASS — floor chests/boxes/sacks (fill_ordinary_room mksobj_at). */
     if (t >= 215 && t <= 220) return NH5_TOOL_CLASS;
     return 0;
@@ -1152,9 +1151,10 @@ function mksobj(otyp, init, artif) {
         const oclass = nh5OclassForOtyp(otyp);
         if (oclass) {
             otmp.oclass = oclass;
-            mksobjInitMklevLikeC(otyp, oclass, artif, otmp);
+            const corpsenm = mksobjInitMklevLikeC(otyp, oclass, artif, otmp);
             /* C: mksobj_init() always ends with mkobj_erosions (mktrap_victim ammo, …). */
             mkobjErosionsMklevLikeC(otyp, oclass);
+            if (corpsenm !== null) consumeMksobjCorpseSpeRngLikeC(corpsenm);
         }
         if ((otyp | 0) === STATUE) mksobjPostInitStatueLikeC(otyp);
     }
@@ -1251,28 +1251,16 @@ function add_to_buried(otmp) {
 }
 function sobj_at(otyp, x, y) { return false; }
 
-// mkcorpstat — C: mkobj.c mkcorpstat (mksobj init + spe + ptr override + set_corpsenm)
+// mkcorpstat — C: mkobj.c mkcorpstat (mksobj/mksobj_at + optional ptr override)
 function mkcorpstat(objtyp, mtmp, pm, x, y, flags) {
     void mtmp;
     const init = ((flags | 0) & 8) !== 0; /* CORPSTAT_INIT */
     const otmp = mksobj(objtyp, init, false);
-    otmp.corpsenm = -1;
     const t = objtyp | 0;
-    if (init && t === CORPSE) {
-        otmp.corpsenm = consumeMksobjInitCorpseRngLikeC();
-    } else if (!init && pm === null && (t === CORPSE || t === STATUE)) {
-        otmp.corpsenm = rndmonstLikeC();
-        otmp.owt = weight(otmp);
-    }
-    if (t === CORPSE && (otmp.corpsenm | 0) >= 0) {
-        /* C: mksobj tail spe before mkcorpstat ptr override. */
-        consumeMksobjCorpseSpeRngLikeC(otmp.corpsenm);
-    }
     if (typeof pm === 'number') {
         otmp.corpsenm = pm | 0;
     }
-    const cm = otmp.corpsenm | 0;
-    if (t === CORPSE && cm >= 0) {
+    if (t === CORPSE && (otmp.corpsenm | 0) >= 0) {
         startCorpseTimeout(game, otmp);
     }
     if ((x | 0) !== 0 || (y | 0) !== 0) {
@@ -3227,7 +3215,7 @@ async function fill_ordinary_room(croom, bonus_items) {
                         SCR_ENCHANT_WEAPON, SCR_ENCHANT_ARMOR, SCR_CONFUSE_MONSTER,
                         SCR_SCARE_MONSTER, WAN_DIGGING, SPE_HEALING];
                     if (rn2(2)) otyp = POT_HEALING;
-                    else otyp = supply_items[rn2(supply_items.length)];
+                    else otyp = supply_items[rn2(9)]; /* C: ROLL_FROM(supply_items) */
                     const otmp = mksobj(otyp, true, false);
                     if (otmp && otyp === POT_HEALING && rn2(2)) {
                         otmp.quan = 2;
