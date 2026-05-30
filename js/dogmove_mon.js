@@ -559,6 +559,7 @@ function dogGoalFollowGxGyApprLikeC(
             || g.context?._wizD1PostEastTailWalkPetAfterMintrapLikeC
         )
         && !g.context?._wizD1LPetMfndposAfterEastTailPeelLikeC
+        && !g.context?._wizD1PostEastTailWalkShortLPetLikeC
         && (
             (udist > 1 && !g.context?._wizD1Step1DogGoalInventLikeC)
             || g.context?._wizD1Step1LPetTailDogGoalLikeC
@@ -585,6 +586,7 @@ function dogGoalFollowGxGyApprLikeC(
         && !g.context?._searchPostGateDogGoalInventLikeC
         && !g.context?._wizD1PostCorridorPetSecondMfndposLikeC
         && !g.context?._wizD1PostEastTailWalkPetAfterMintrapLikeC
+        && !g.context?._wizD1PostEastTailWalkShortLPetLikeC
     ) {
         if (stairwayAtInGame(g, gx, gy)) {
             appr = 1;
@@ -1004,6 +1006,14 @@ function dogMoveMfndposPickLikeC(g, mtmp, ggx, ggy, appr, whappr) {
                 && !whappr
             ) {
                 postCorridorSecondPetAwayDoneLikeC = true;
+            }
+            /* C: short **`l`** — one away **`rn2(12)`** draw even when **`!rn2(12)`** (~2810). */
+            if (
+                g.context?._wizD1PostEastTailWalkShortLPetLikeC
+                && j > 0
+                && !whappr
+            ) {
+                break;
             }
         } else if (g.context?._wizD1LPetInventAfterNewturnChcntOnlyLikeC) {
             if (j === 0 && !rn2(++chcnt)) {
@@ -1430,29 +1440,33 @@ export function dogMovePostEastTailWalkShortLPetLikeC(g, mtmp) {
     mtmp.movement = mov - NORMAL_SPEED;
     ctx._wizD1PostEastTailWalkShortLPetLikeC = true;
     ctx._wizD1Step1ObjResistsPrescanLikeC = true;
+    ctx._wizD1ShortLApportRn8DoneLikeC = true;
     try {
         dogGoalWizardD1Step1ObjResistsPrescanLikeC(g, mtmp);
-    } finally {
-        delete ctx._wizD1PostEastTailWalkShortLPetLikeC;
-        delete ctx._wizD1Step1ObjResistsPrescanLikeC;
-        delete ctx._dogfoodRankCacheLikeC;
-    }
-    /* C: dogmove.c ~554 — one apport **`rn2(8)`** before east-tail **`mfndpos`** **`rn2(3)`**. */
-    const omx = mtmp.mx | 0;
-    const omy = mtmp.my | 0;
-    ctx._wizD1ShortLApportRn8DoneLikeC = true;
-    if (
-        couldsee(omx, omy)
-        && !droppablesMtmpLikeC(mtmp)
-        && (edog.apport | 0) > rn2(8)
-    ) {
-        /* draw only — floor scan may still set APPORT from objects */
-    }
-    const goal = dogGoalFloorScanRngLikeC(g, mtmp, true, whappr);
-    delete ctx._wizD1ShortLApportRn8DoneLikeC;
-    if ((goal.appr | 0) === -2) return MMOVE_NOTHING;
-    ctx._wizD1LPetEastTailMfndposLikeC = true;
-    try {
+        /* C: dogmove.c ~554 — one apport **`rn2(8)`** (draw even when branch false). */
+        const omx = mtmp.mx | 0;
+        const omy = mtmp.my | 0;
+        const apportRoll = rn2(8);
+        if (
+            couldsee(omx, omy)
+            && !droppablesMtmpLikeC(mtmp)
+            && (edog.apport | 0) > apportRoll
+        ) {
+            /* draw only */
+        }
+        const udist = dist2(omx, omy, hx, hy);
+        const goal = dogGoalFollowGxGyApprLikeC(
+            g,
+            mtmp,
+            UNDEF,
+            hx,
+            hy,
+            udist,
+            whappr,
+            edog,
+        );
+        if ((goal.appr | 0) === -2) return MMOVE_NOTHING;
+        ctx._wizD1LPetEastTailMfndposLikeC = true;
         dogMoveMfndposPickLikeC(
             g,
             mtmp,
@@ -1462,7 +1476,11 @@ export function dogMovePostEastTailWalkShortLPetLikeC(g, mtmp) {
             whappr,
         );
     } finally {
+        delete ctx._wizD1PostEastTailWalkShortLPetLikeC;
+        delete ctx._wizD1Step1ObjResistsPrescanLikeC;
+        delete ctx._wizD1ShortLApportRn8DoneLikeC;
         delete ctx._wizD1LPetEastTailMfndposLikeC;
+        delete ctx._dogfoodRankCacheLikeC;
     }
     ctx._wizD1EastTailShortLPetDoneLikeC = true;
     return MMOVE_NOTHING;

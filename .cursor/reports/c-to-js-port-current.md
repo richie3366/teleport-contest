@@ -32,7 +32,7 @@ Use this when **`Next steps`** below feels stale or several lanes compete. Order
 
 **Tutorial (Lane E):** Gated on [tutorial port gate](../../docs/plans/tutorial-port-gate.md) **MD-1 … MD-7**.
 
-**Last slice:** East-tail short **`l`** after walk mintrap — arm **`_wizD1PostEastTailWalkCompletePendingLikeC`** after peel+new-turn; allow second wizard **`movemon`** in same post when pending; promote before second pass; **`isWizardD1Step1PeelLikeC`** includes **`Complete`** / **`ShortLInlined`**; route pet via **`dogMovePostEastTailWalkShortLPetLikeC`** (**`mMoveOneMonsterSubset`**, **`mMovePetOrPositionSelect`**, skip duplicate **`movemonSinglemon`**); **`dog_goal`** apport **`rn2(8)`** + east-tail **`mfndpos`** **`rn2(3)`** path. **`seed0006`** **2812/6736** RNG; diag **2804–2806** match C; **2807+** pet **`dog_goal`**. Global first mismatch still **~2630**. **2/44**.
+**Last slice:** East-tail short **`l`** (step 48) — defer to next hero post; **`fmon`** near→pet→near; **`dogMovePostEastTailWalkShortLPetLikeC`** (apport **`rn2(8)`**, **`mfndpos`** away **`rn2(12)`** early break per C); second near **`distfleeck`**; in-**`movemon`** **`runNewTurnSetupAndTailLikeC`** after short-L **`fmon`**; skip generic peel **`distfleeck`** when **`wizD1EastTailShortLActiveLikeC`**. **`seed0006`** **2845/6736** RNG; diag **2804–2818** match C; **2819+** next hero / autoopen. **2/44**.
 
 **Handoff refresh:** **Priority matrix** (lanes A–D) + **Next steps** aligned to it.
 
@@ -42,7 +42,7 @@ Pick **one** primary lane per slice; refresh this list after each merge.
 
 **First:** open [`docs/plans/tutorial-port-gate.md`](../../docs/plans/tutorial-port-gate.md) — if **all MD-1 … MD-7** are checked, do **Lane E** step 1 from [10-tutorial.md](../plans/nethack-port/10-tutorial.md) instead of the list below.
 
-1. **Lane C — `seed0006` ~2807** — short **`l`** pet: **`dogMovePostEastTailWalkShortLPetLikeC`** must run once per post (second **`movemon`** when pending); fix **`rn2(8)`** apport + **`mfndpos`** **`rn2(3)`** vs stray **`distfleeck`**; global first mismatch still **~2630**.
+1. **Lane C — `seed0006` ~2819** — after short-L new-turn (**`2804–2818`** aligned): next hero **`l`** / autoopen / stray **`distfleeck`** vs **`rn2(4)`**; global first mismatch still **~2630** (separate).
 2. **Lane A — Chargen / init** — tty / **`role.c`** pickers when rc omits identity.
 3. **Lane B — NHL** — next **`lspo_*`** per [`nhl-port-notes.md`](nhl-port-notes.md).
 4. **Lane D — `objects_nums` / mkobj** — audit **`const.js`** vs NH5.

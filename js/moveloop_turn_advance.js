@@ -252,30 +252,38 @@ export async function runPostCommandTurnAdvanceLikeC(g) {
     if ((u.umovement | 0) < 0) u.umovement = 0;
 
     g.context = g.context || {};
+    delete g.context._wizD1EastTailShortLDeferToNextPostLikeC;
     delete g.context._wizD1MovemonRanThisPostLikeC;
     const wizD1MovemonOnceLikeC =
         g.urole?.abbr === 'Wiz'
         && (g.u?.uz?.dnum | 0) === 0
         && (g.u?.uz?.dlevel | 0) === 1;
     let wizD1ShortLPostLikeC = false;
-    if (wizD1MovemonOnceLikeC && g.context?._wizD1Step1InventPostDoneLikeC) {
-        /* C: first **`l`** after east-tail walk — arm before post cleanup so **`fmon`** uses short-L peel. */
+    if (wizD1MovemonOnceLikeC) {
+        /* C: first **`l`** after east-tail walk — promote before post cleanup (not gated on invent post). */
         if (g.context?._wizD1PostEastTailWalkCompletePendingLikeC) {
             wizD1ShortLPostLikeC = true;
             delete g.context._wizD1PostEastTailWalkCompletePendingLikeC;
             g.context._wizD1PostEastTailWalkCompleteLikeC = true;
             delete g.context._wizD1PostEastTailWalkShortLNearDfLikeC;
             delete g.context._wizD1PostEastTailWalkFmonLikeC;
+            delete g.context._wizD1EastTailMovemonPetMfndposPendingLikeC;
+            delete g.context._wizD1EastTailShortLPetDoneLikeC;
+            delete g.context._wizD1EastTailShortLSecondNearDfLikeC;
         } else if (
             g.context?._wizD1EastTailShortLPendingArmedLikeC
             && !g.context?._wizD1PostEastTailWalkCompleteLikeC
         ) {
-            /* C: walk mintrap peel armed last post — first short **`l`** (~2806+). */
             wizD1ShortLPostLikeC = true;
             g.context._wizD1PostEastTailWalkCompleteLikeC = true;
             delete g.context._wizD1PostEastTailWalkShortLNearDfLikeC;
             delete g.context._wizD1PostEastTailWalkFmonLikeC;
+            delete g.context._wizD1EastTailMovemonPetMfndposPendingLikeC;
+            delete g.context._wizD1EastTailShortLPetDoneLikeC;
+            delete g.context._wizD1EastTailShortLSecondNearDfLikeC;
         }
+    }
+    if (wizD1MovemonOnceLikeC && g.context?._wizD1Step1InventPostDoneLikeC) {
         /* C: second **`L`** — pass-2 **`rn2(20)`** + one **`distfleeck`** can end a post; keep peel
          * pin until the next post's **`mcalcmove`** (~2709), not a replayed pass-1 **`distfleeck`**. */
         if (
@@ -308,6 +316,8 @@ export async function runPostCommandTurnAdvanceLikeC(g) {
             delete g.context._wizD1PostEastTailWalkMintrapPeelDoneLikeC;
             delete g.context._wizD1PostEastTailWalkCompleteLikeC;
             delete g.context._wizD1PostEastTailWalkShortLNearDfLikeC;
+            delete g.context._wizD1EastTailShortLPetDoneLikeC;
+            delete g.context._wizD1EastTailShortLSecondNearDfLikeC;
         }
     }
     g.context.monMoving = true;
@@ -352,8 +362,13 @@ export async function runPostCommandTurnAdvanceLikeC(g) {
                 runMovemon
                 && !(
                     wizD1MovemonOnceLikeC
-                    && g.context._wizD1MovemonRanThisPostLikeC
-                    && !g.context?._wizD1PostEastTailWalkCompletePendingLikeC
+                    && (
+                        (
+                            g.context._wizD1MovemonRanThisPostLikeC
+                            && !g.context?._wizD1PostEastTailWalkCompletePendingLikeC
+                        )
+                        || g.context?._wizD1EastTailShortLDeferToNextPostLikeC
+                    )
                 )
             ) {
                 let stepForMovemon = movemonStepNum > 0 ? movemonStepNum : 1;
@@ -367,6 +382,9 @@ export async function runPostCommandTurnAdvanceLikeC(g) {
                     && (
                         g.context?._postBumpInlineDoneLikeC
                         || g.context?._wizD1PostEastTailWalkFmonLikeC
+                        || g.context?._wizD1PostEastTailWalkCompleteLikeC
+                        || g.context?._wizD1PostEastTailWalkCompletePendingLikeC
+                        || g.context?._wizD1EastTailShortLPendingArmedLikeC
                     )
                     && !g.context?._postBumpKillDochugGateLikeC
                 ) {
@@ -389,18 +407,6 @@ export async function runPostCommandTurnAdvanceLikeC(g) {
                 if (!skipStep1RogD1) {
                     g.context._movemonHarnessConsumed = false;
                     await encumberMsg();
-                    /* C: walk mintrap peel ended — promote before second **`movemon`** in this post (~2806+). */
-                    if (
-                        wizD1MovemonOnceLikeC
-                        && g.context?._wizD1Step1InventPostDoneLikeC
-                        && g.context?._wizD1PostEastTailWalkCompletePendingLikeC
-                    ) {
-                        delete g.context._wizD1PostEastTailWalkCompletePendingLikeC;
-                        g.context._wizD1PostEastTailWalkCompleteLikeC = true;
-                        delete g.context._wizD1PostEastTailWalkShortLNearDfLikeC;
-                        delete g.context._wizD1PostEastTailWalkFmonLikeC;
-                        delete g.context._wizD1MovemonRanThisPostLikeC;
-                    }
                     let monscanSafety = 0;
                     do {
                         if (++monscanSafety > 50_000) {

@@ -65,7 +65,10 @@ import {
     dogMoveInventOnlyLikeC,
     dogMoveSearchPassNearHeroLikeC,
 } from './dogmove_mon.js';
-import { isWizardD1Step1PeelLikeC } from './monmove_search.js';
+import {
+    isWizardD1Step1PeelLikeC,
+    wizD1EastTailShortLActiveLikeC,
+} from './monmove_search.js';
 import { raceptr, S_EEL } from './mondata.js';
 import { ensureMonsterMtrack } from './monflee.js';
 import { tAt } from './search.js';
@@ -552,6 +555,7 @@ export async function movemon(stepNum) {
                 if (
                     g.context?._wizD1EastTailMovemonPetMfndposPendingLikeC
                     && (m.mtame | 0)
+                    && !wizD1EastTailShortLActiveLikeC(g)
                 ) {
                     continue;
                 }
@@ -560,10 +564,22 @@ export async function movemon(stepNum) {
                     && g.context?._wizD1PostCorridorPetTailDoneLikeC
                     && !g.context?._wizD1EastTailPostCorridorMovemonAfterMcalcmoveDoneLikeC
                     && !g.context?._wizD1PostEastTailWalkFmonLikeC
+                    && !wizD1EastTailShortLActiveLikeC(g)
                 ) {
                     continue;
                 }
                 await movemonSinglemonLikeC(g, m, effStepNum);
+            }
+            /* C: short **`l`** after east-tail walk — new-turn **`mcalcmove`** tail (~2812+). */
+            if (
+                wizD1EastTailShortLActiveLikeC(g)
+                && !g.context?._wizD1PostEastTailWalkNewTurnDoneLikeC
+            ) {
+                const { runNewTurnSetupAndTailLikeC } = await import(
+                    './moveloop_turn_advance.js',
+                );
+                await runNewTurnSetupAndTailLikeC(g, effStepNum);
+                g.context._wizD1PostEastTailWalkNewTurnDoneLikeC = true;
             }
             /* C: post-east-tail walk — pet tail then distant **`distfleeck`** + **`m_move`** (~2774+). */
             if (
@@ -1091,6 +1107,8 @@ export async function movemon(stepNum) {
                 g.context._wizD1EastTailShortLPendingArmedLikeC = true;
                 g.context._wizD1PostEastTailWalkCompletePendingLikeC = true;
             }
+            /* C: short **`l`** **`fmon`** is next hero **`l`** post (~2806+), not second **`movemon`** here. */
+            g.context._wizD1EastTailShortLDeferToNextPostLikeC = true;
             delete g.context._wizD1PostEastTailWalkFmonLikeC;
         }
     } finally {
