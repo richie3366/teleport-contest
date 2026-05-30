@@ -4,7 +4,8 @@
 import { game } from './gstate.js';
 import { depth as depth_of_level } from './hacklib.js';
 import { objectOcMaterial } from './obj_oc_material_data.js';
-import { rndmonstLikeC } from './makemon_rndmonst.js';
+import { NON_PM, rndmonstLikeC } from './makemon_rndmonst.js';
+import { permonstFromMndxLikeC, verysmall } from './mondata.js';
 import { P_BOW, P_SHURIKEN, OTYP_LOADSTONE, OTYP_LUCKSTONE, OTYP_GOLD_PIECE } from './const.js';
 import { OC_SKILL_ROW_BY_OTYP } from './obj_oc_skill_data.js';
 import { rnd, rn2, rn1, rne } from './rng.js';
@@ -610,18 +611,35 @@ function mksobjInitGemLikeC(otyp) {
 
 /** C: mkobj.c mksobj_init ROCK_CLASS STATUE — rndmonnum + optional nested mkobj(SPBOOK). */
 function mksobjInitStatueLikeC(otyp) {
-    if ((otyp | 0) !== OTYP_STATUE) return;
-    rndmonstLikeC(); /* rndmonnum → rndmonst_adj */
-    const ld = depth_of_level(game.u?.uz) | 0;
-    if (rn2(Math.trunc(ld / 2) + 10) > 10) {
-        mkobjMklevConsumeRngLikeC(11, false); /* SPBOOK_no_NOVEL */
+    if ((otyp | 0) !== OTYP_STATUE) return null;
+    const corpsenm = rndmonstLikeC();
+    if ((corpsenm | 0) === NON_PM) return null;
+    const ptr = permonstFromMndxLikeC(corpsenm);
+    if (
+        ptr &&
+        !verysmall(ptr) &&
+        rn2(Math.trunc(levelDifficultyMklevLikeC() / 2) + 10) > 10
+    ) {
+        mkobjMklevConsumeRngLikeC(LET_SPBOOK_NO_NOVEL, false); /* SPBOOK_no_NOVEL */
     }
+    return corpsenm | 0;
 }
 
-/** C: mkobj.c mksobj — STATUE corpsenm spe after mksobj_init. */
+/** C: mkobj.c mksobj — STATUE/FIGURINE gender spe when corpsenm unset (mksobj switch). */
 export function mksobjPostInitStatueLikeC(otyp) {
     if ((otyp | 0) !== OTYP_STATUE) return;
     rn2(2);
+}
+
+/** C: mkobj.c mksobj — after mksobj_init (incl. mkobj_erosions): corpse/statue spe. */
+export function mksobjTailConsumeRngLikeC(otyp, oclass, corpsenm) {
+    mkobjErosionsMklevLikeC(otyp, oclass);
+    if (corpsenm !== null) {
+        consumeMksobjCorpseSpeRngLikeC(corpsenm);
+    } else if ((otyp | 0) === OTYP_STATUE) {
+        /* C: mksobj switch when corpsenm still NON_PM after init */
+        mksobjPostInitStatueLikeC(otyp);
+    }
 }
 
 /**
@@ -648,9 +666,7 @@ export function mkobjMklevConsumeRngLikeC(let_, artif, nh5Oclass = false) {
     }
     rnd(2);
     const corpsenm = mksobjInitMklevLikeC(otyp, oclass, artif);
-    mksobjPostInitStatueLikeC(otyp);
-    mkobjErosionsMklevLikeC(otyp, oclass);
-    if (corpsenm !== null) consumeMksobjCorpseSpeRngLikeC(corpsenm);
+    mksobjTailConsumeRngLikeC(otyp, oclass, corpsenm);
     return otyp | 0;
 }
 
@@ -694,7 +710,7 @@ export function mksobjInitMklevLikeC(otyp, oclass, artif, otmp) {
         mksobjInitGemLikeC(otyp);
         break;
     case NH5_ROCK_CLASS:
-        mksobjInitStatueLikeC(otyp);
+        corpsenm = mksobjInitStatueLikeC(otyp);
         break;
     case NH5_AMULET_CLASS: {
         const t = otyp | 0;

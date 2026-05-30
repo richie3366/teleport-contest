@@ -11,7 +11,7 @@ import {
     mkobjMklevConsumeRngLikeC,
     mkobjErosionsMklevLikeC,
     mksobjInitMklevLikeC,
-    mksobjPostInitStatueLikeC,
+    mksobjTailConsumeRngLikeC,
 } from './mkobj_mklev_like_c.js';
 import {
     NH5_WEAPON_CLASS,
@@ -1152,11 +1152,8 @@ function mksobj(otyp, init, artif) {
         if (oclass) {
             otmp.oclass = oclass;
             const corpsenm = mksobjInitMklevLikeC(otyp, oclass, artif, otmp);
-            /* C: mksobj_init() always ends with mkobj_erosions (mktrap_victim ammo, …). */
-            mkobjErosionsMklevLikeC(otyp, oclass);
-            if (corpsenm !== null) consumeMksobjCorpseSpeRngLikeC(corpsenm);
+            mksobjTailConsumeRngLikeC(otyp, oclass, corpsenm);
         }
-        if ((otyp | 0) === STATUE) mksobjPostInitStatueLikeC(otyp);
     }
     return otmp;
 }

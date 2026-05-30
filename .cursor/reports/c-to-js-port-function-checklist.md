@@ -52,7 +52,8 @@ Align batches with [`c-to-js-port-remaining.md`](c-to-js-port-remaining.md) §5:
 | C symbol / area | JS module | Status | Notes |
 |-----------------|-----------|--------|-------|
 | `mkobj` / `mksobj` / `mksobj_init` | `mkobj_mklev_like_c.js`, `mklev.js` | partial | Class pick, init tails; erosion/poison gates improving |
-| `may_generate_eroded` / `mkobj_erosions` | `mkobj_mklev_like_c.js` | partial | C `is_flammable`/`is_rottable`/… + gated `rn2(80)`; chest `tknown` order; **1425** ice mkbox / supply tail |
+| `may_generate_eroded` / `mkobj_erosions` | `mkobj_mklev_like_c.js` | partial | C `is_flammable`/`is_rottable`/… + gated `rn2(80)`; chest `tknown` order; **2431** trap victim vs erosion |
+| `mksobj_init` ROCK_CLASS STATUE | `mkobj_mklev_like_c.js` | partial | `corpsenm` return + `verysmall` + nested SPBOOK gate; `consumeMksobjCorpseSpeRngLikeC` tail; **1425–1445** match |
 | `mksobj_init` ARMOR_CLASS | `mkobj_mklev_like_c.js` | partial | C otyp curse boots/helm/gauntlets + `!rn2(11)`; blessed `rn2(2)` branch |
 | `mkbox_cnts` | `mkobj_mklev_like_c.js` | partial | ICE_BOX→`mksobj(CORPSE)`; TOOL fallthrough; corpse spe tail order |
 | `mksobj` corpse tail | `mklev.js`, `mkobj_mklev_like_c.js` | partial | `consumeMksobjCorpseSpeRngLikeC` after erosion; `mkcorpstat` no double init |
