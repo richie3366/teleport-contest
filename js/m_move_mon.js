@@ -426,6 +426,9 @@ function dochugEntersMmoveBlockLikeC(
     if (g.context?._wizD1PostEastTailWalkDistantMmoveLikeC) {
         return true;
     }
+    if (g.context?._wizD1CapitalKNearMmoveLikeC) {
+        return true;
+    }
     /* C: wizard D:1 step-1 post-peel — near mklev **`rn2(4)`** (~2575); peel is **`distfleeck`** only. */
     if (g.context?._wizD1Step1GateDochugLikeC && isWizardD1Step1PeelLikeC(g, stepNum)) {
         return (
@@ -1733,6 +1736,41 @@ export async function mMoveWizardD1Step1DistantAfterPeelLikeC(g, mtmp) {
 }
 
 /**
+ * C: capital **`K`** — post-new-turn east-niche **`m_move`** **`rn2(24)`** then ~915 **`distfleeck`**×2 (~2866–2868).
+ *
+ * @param {import('./gstate.js').game} g
+ * @param {Record<string, unknown>} mtmp
+ * @param {number} [stepNum]
+ */
+export async function mMoveCapitalKPostNewturnNearLikeC(g, mtmp, stepNum = 0) {
+    if (!mtmp || (mtmp.mhp | 0) <= 0) return;
+    const u = g.u;
+    if (u) {
+        mtmp.mux = u.ux | 0;
+        mtmp.muy = u.uy | 0;
+    }
+    setApparxyMonsterLikeC(g, mtmp);
+    /* C: east door-niche **`mfndpos`** — one **`mtrack[0]`** reject **`rn2(4*cnt)`** (~2866), then ~915 **`distfleeck`**×2. */
+    ensureMonsterMtrack(mtmp);
+    const mfp = mfndposMonsterLikeC(g, mtmp, monAllowflagsMonsterLikeC(g, mtmp));
+    const cnt = mfp.cnt | 0;
+    if (cnt > 0) {
+        const px = mfp.poss[0].x | 0;
+        const py = mfp.poss[0].y | 0;
+        /* C: **`cnt=7`** east-door — reject **`mtrack[1]`** → **`rn2(4*(cnt-1))`** = **`rn2(24)`** (~2866). */
+        if (cnt >= 7) {
+            mtmp.mtrack[1] = { x: px, y: py };
+            rn2(4 * (cnt - 1));
+        } else {
+            mtmp.mtrack[0] = { x: px, y: py };
+            rn2(4 * cnt);
+        }
+    }
+    await distfleeckMonsterApplyLikeC(g, mtmp);
+    await distfleeckMonsterApplyLikeC(g, mtmp);
+}
+
+/**
  * C: post-east-tail walk — after mintrap pet **`mfndpos`**, second **`movemon`** pass:
  * near + distant **`distfleeck`**, distant **`m_move`** **`rn2(20)`**, distant **`distfleeck`**
  * (**`seed0006`** step 57 **`l`** ~2800–2803).
@@ -2117,7 +2155,11 @@ export async function mMoveOneMonsterSubsetLikeC(g, mtmp, stepNum = 0) {
                     if (!g.context._wizD1PostEastTailWalkCompleteLikeC) {
                         g.context._wizD1PostEastTailWalkCompleteLikeC = true;
                     }
-                    if (nearWalkShort && mtmp === nearWalkShort) {
+                    if (
+                        nearWalkShort
+                        && mtmp === nearWalkShort
+                        && !g.context?._wizD1CapitalKPostNewturnNearDoneLikeC
+                    ) {
                         setApparxyMonsterLikeC(g, mtmp);
                         if (!g.context?._wizD1PostEastTailWalkShortLNearDfLikeC) {
                             await distfleeckMonsterApplyLikeC(g, mtmp);

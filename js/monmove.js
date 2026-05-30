@@ -47,6 +47,7 @@ import { setApparxyMonsterLikeC } from './set_apparxy_mon.js';
 import {
     movemonSinglemonLikeC,
     mMoveDistfleeckOnlyTurnLikeC,
+    mMoveCapitalKPostNewturnNearLikeC,
     mMoveWizardD1Step1DistantAfterPeelLikeC,
     mMoveWizardD1EastTailCorridorRestLikeC,
     mMoveWizardD1LPostTailDistantLikeC,
@@ -742,6 +743,20 @@ export async function movemon(stepNum) {
                         delete g.context._wizD1CapitalKPostNewturnDistantRn20LikeC;
                         delete g.context._wizD1PostEastTailWalkDistantMmoveLikeC;
                     }
+                }
+                /* C: capital **`K`** — east-niche **`m_move`** **`rn2(24)`** + **`distfleeck`**×2 (~2866–2868). */
+                if (nearWalk) {
+                    g.context._wizD1CapitalKNearMmoveLikeC = true;
+                    try {
+                        await mMoveCapitalKPostNewturnNearLikeC(
+                            g,
+                            nearWalk,
+                            effStepNum,
+                        );
+                    } finally {
+                        delete g.context._wizD1CapitalKNearMmoveLikeC;
+                    }
+                    g.context._wizD1CapitalKPostNewturnNearDoneLikeC = true;
                 }
                 g.context._wizD1SkipLPostInventMoveloopLikeC = true;
                 g.context._wizD1PostEastTailWalkCompleteLikeC = true;

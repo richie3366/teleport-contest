@@ -32,7 +32,7 @@ Use this when **`Next steps`** below feels stale or several lanes compete. Order
 
 **Tutorial (Lane E):** Gated on [tutorial port gate](../../docs/plans/tutorial-port-gate.md) **MD-1 … MD-7**.
 
-**Last slice:** Capital **`K`** post-new-turn distant tail — **`movemonSinglemonLikeC`**: **`distfleeck`**×2 + second **`rn2(20)`** (~2863–2865); **`mMoveOneMonsterSubsetLikeC`**: first **`rn2(20)`** only; skip ~915 recalc via **`_wizD1CapitalKPostNewturnDistantTailLikeC`**; walk-**`fmon`** defer only when distant **`m_move`** not armed. **`seed0006`** **2880/6736** (diag **2855–2865**); global first mismatch **~2630**. **2/44**.
+**Last slice:** Capital **`K`** post-new-turn near — **`mMoveCapitalKPostNewturnNearLikeC`**: east-door **`mfndpos`** track reject **`rn2(24)`** (**`mtrack[1]`** when **`cnt≥7`**) + **`distfleeck`**×2 (~2866–2868); **`dochugEnters`** when **`_wizD1CapitalKNearMmoveLikeC`**. **`seed0006`** **2868/6736** (diag **2863–2868**); global first mismatch **~2630**. **2/44**.
 
 ## Next steps (aligned with matrix)
 
@@ -40,7 +40,7 @@ Pick **one** primary lane per slice; refresh this list after each merge.
 
 **First:** open [`docs/plans/tutorial-port-gate.md`](../../docs/plans/tutorial-port-gate.md) — if **all MD-1 … MD-7** are checked, do **Lane E** step 1 from [10-tutorial.md](../plans/nethack-port/10-tutorial.md) instead of the list below.
 
-1. **Lane C — `seed0006` ~2866** — capital **`K`** after second distant **`rn2(20)`** (**`2855–2865`** aligned); next **`rn2(24)`** / moveloop tail; global first mismatch still **~2630** (separate).
+1. **Lane C — `seed0006` ~2869** — capital **`K`** after near **`rn2(24)`** (**`2863–2868`** aligned); next pet **`dochug:886`** **`rn2(4)`** / moveloop tail; global first mismatch still **~2630** (separate).
 2. **Lane A — Chargen / init** — tty / **`role.c`** pickers when rc omits identity.
 3. **Lane B — NHL** — next **`lspo_*`** per [`nhl-port-notes.md`](nhl-port-notes.md).
 4. **Lane D — `objects_nums` / mkobj** — audit **`const.js`** vs NH5.
