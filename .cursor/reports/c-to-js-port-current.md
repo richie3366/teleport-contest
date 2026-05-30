@@ -1,10 +1,10 @@
 # NetHack C→JS port — **current slice** (read this first)
 
-Thin handoff for the next coding session. **Score + milestones:** [`c-to-js-port-dashboard.md`](c-to-js-port-dashboard.md) (regenerate: `node tools/port-score-snapshot.mjs --update-dashboard`). **Gap inventory:** [`c-to-js-port-remaining.md`](c-to-js-port-remaining.md). Deep parity tables and history: [`c-to-js-port-progress.md`](c-to-js-port-progress.md) and [`c-to-js-port-changelog-archive.md`](c-to-js-port-changelog-archive.md). **Repeatable user/agent prompt:** [`.cursor/prompts/continue-nethack-port.md`](../prompts/continue-nethack-port.md).
+Thin handoff for the next coding session. **Workflow:** [**batch port**](c-to-js-port-batch-workflow.md) + [**function checklist**](c-to-js-port-function-checklist.md). **Score + milestones:** [`c-to-js-port-dashboard.md`](c-to-js-port-dashboard.md) (regenerate: `node tools/port-score-snapshot.mjs --update-dashboard`). **Gap inventory:** [`c-to-js-port-remaining.md`](c-to-js-port-remaining.md). Deep parity tables and history: [`c-to-js-port-progress.md`](c-to-js-port-progress.md) and [`c-to-js-port-changelog-archive.md`](c-to-js-port-changelog-archive.md). **Repeatable user/agent prompt:** [`.cursor/prompts/continue-nethack-port.md`](../prompts/continue-nethack-port.md).
 
 ## Working principle (read every session)
 
-**Port from C; score is regression only.** Pick work from C gaps and [`c-to-js-port-remaining.md`](c-to-js-port-remaining.md), not from “what might pass another public session.” Run **`npm run score`** to catch regressions after RNG/screen slices — do not add **`fastforward.js`** / harness bytes without porting the matching C call site. Full rule: [`.cursor/rules/port-from-c-not-score.mdc`](../rules/port-from-c-not-score.mdc).
+**Port from C; score is regression only.** Pick the **next batch** from [`c-to-js-port-function-checklist.md`](c-to-js-port-function-checklist.md) and domain gaps in [`c-to-js-port-remaining.md`](c-to-js-port-remaining.md), not from “what might pass another public session.” **Fast-verify** each batch (`diag_rng_window`, locator session); run **full `npm run score` at milestones** — see [`c-to-js-port-batch-workflow.md`](c-to-js-port-batch-workflow.md). Do not add **`fastforward.js`** / harness bytes without porting the matching C call site. Full rule: [`.cursor/rules/port-from-c-not-score.mdc`](../rules/port-from-c-not-score.mdc).
 
 ## Priority matrix (methodical)
 
@@ -36,7 +36,7 @@ Use this when **`Next steps`** below feels stale or several lanes compete. Order
 
 ## Next steps (aligned with matrix)
 
-Pick **one** primary lane per slice; refresh this list after each merge.
+Pick **one** primary lane per **batch** (several related C functions — see checklist); refresh this list after each merge.
 
 **First:** open [`docs/plans/tutorial-port-gate.md`](../../docs/plans/tutorial-port-gate.md) — if **all MD-1 … MD-7** are checked, do **Lane E** step 1 from [10-tutorial.md](../plans/nethack-port/10-tutorial.md) instead of the list below.
 
@@ -58,12 +58,13 @@ Mandatory dependencies **MD-1 … MD-7**. Execution checklist: [10-tutorial.md](
 
 Extend **`distfleeck`** to further moveloop steps; full **`domove`**, **`attack`**, …; remainder **`flooreffects`**; fuller **`sellobj`**; **`dig()`** / **`dighole`**; **`trap.c`** **`blow_up_landmine`**; **`zap_dig`**; **`zombie_form`**; full **`mondied`/`xkilled`**; **`spoteffects`**; **`switch_terrain`**; **`steed.c`**; **`repair_damage`**; **`kick.js`** **`bhit`**; full **`dungeon.c`** **`init_dungeons`**; wire **`dig()`** occupation; **`angry_guards`**; **`context.warntype`**; **`zap_dig`** / **`objnam`**; **`destroy_drawbridge`**; **`dig_up_grave`**.
 
-## After you ship a slice
+## After you ship a batch
 
-1. Append **one table row** to [`c-to-js-port-changelog-archive.md`](c-to-js-port-changelog-archive.md).
-2. Refresh **this file** (next steps + one-line “last slice”).
-3. Run **`npm run score`** when the change touches RNG-visible behavior.
-4. **`git commit`** — one commit per meaningful slice.
+1. Update [`c-to-js-port-function-checklist.md`](c-to-js-port-function-checklist.md) row statuses.
+2. Append **one table row** to [`c-to-js-port-changelog-archive.md`](c-to-js-port-changelog-archive.md).
+3. Refresh **this file** (next steps + one-line “last slice”).
+4. Run **`npm run score`** at **milestones** or when RNG/screens may have regressed (see [batch workflow](c-to-js-port-batch-workflow.md) §5).
+5. **`git commit`** — one commit per meaningful batch (push optional).
 
 ---
 
@@ -72,5 +73,5 @@ Extend **`distfleeck`** to further moveloop steps; full **`domove`**, **`attack`
 Prefer [`.cursor/prompts/continue-nethack-port.md`](../prompts/continue-nethack-port.md).
 
 ```
-Continue NetHack 5.0 C→JS: read .cursor/reports/c-to-js-port-current.md first (not the full progress doc). Do the top next step; port from nethack-c/upstream C semantics; do not edit js/isaac64.js, js/terminal.js, js/storage.js. When done: update c-to-js-port-current.md, append one row to c-to-js-port-changelog-archive.md, npm run score if relevant, git commit this slice.
+Continue NetHack 5.0 C→JS (batch workflow): read .cursor/reports/c-to-js-port-current.md and .cursor/reports/c-to-js-port-batch-workflow.md; next batch from .cursor/reports/c-to-js-port-function-checklist.md; port from nethack-c/upstream C semantics; do not edit js/isaac64.js, js/terminal.js, js/storage.js. Fast-verify batch (diag_rng_window if RNG); npm run score at milestones or when unsure. When done: update checklist + current.md + changelog row; git commit this batch.
 ```

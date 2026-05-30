@@ -14,9 +14,11 @@ This directory holds **Cursor rules** (`.cursor/rules/*.mdc`) that steer agents 
 
 ## Read first (humans and agents)
 
-- [.cursor/reports/c-to-js-port-current.md](reports/c-to-js-port-current.md) — **default for port work:** next steps, constraints, short “continue” prompt.
+- [.cursor/reports/c-to-js-port-current.md](reports/c-to-js-port-current.md) — **default for port work:** next batch, constraints.
+- [.cursor/reports/c-to-js-port-batch-workflow.md](reports/c-to-js-port-batch-workflow.md) — **batch port workflow** (checklist → C batches → fast verify → milestone `npm run score`).
+- [.cursor/reports/c-to-js-port-function-checklist.md](reports/c-to-js-port-function-checklist.md) — **function-level tracker** (stub / partial / done by C file).
 - [.cursor/reports/c-to-js-port-dashboard.md](reports/c-to-js-port-dashboard.md) — **score table + milestones** (run `node tools/port-score-snapshot.mjs --update-dashboard` to refresh).
-- [.cursor/reports/c-to-js-port-remaining.md](reports/c-to-js-port-remaining.md) — **gap inventory** (what is still stub / harness / missing vs C).
+- [.cursor/reports/c-to-js-port-remaining.md](reports/c-to-js-port-remaining.md) — **gap inventory** (domain narrative; what is still stub / harness / missing vs C).
 - [docs/plans/tutorial-port-gate.md](../docs/plans/tutorial-port-gate.md) — **tutorial gate** (MD-1 … MD-7); when all pass, **Lane E** is primary ([10-tutorial.md](plans/nethack-port/10-tutorial.md)).
 - [.cursor/prompts/continue-nethack-port.md](prompts/continue-nethack-port.md) — **canonical repeatable prompt** + autonomous agent workflow for each session.
 

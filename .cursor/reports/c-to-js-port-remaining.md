@@ -1,10 +1,10 @@
 # NetHack 5.0 C → JS — **remaining port surface**
 
-**Purpose:** Consolidate what is **not yet** faithfully ported from `nethack-c/upstream` into contest `js/`, beyond the narrative in [`c-to-js-port-progress.md`](c-to-js-port-progress.md). Use this for planning slices; for day-to-day handoff, still start at [`c-to-js-port-current.md`](c-to-js-port-current.md).
+**Purpose:** Consolidate what is **not yet** faithfully ported from `nethack-c/upstream` into contest `js/`, beyond the narrative in [`c-to-js-port-progress.md`](c-to-js-port-progress.md). Use this for **domain context** and §5 milestones; for day-to-day work use [**batch workflow**](c-to-js-port-batch-workflow.md) + [**function checklist**](c-to-js-port-function-checklist.md) + [`c-to-js-port-current.md`](c-to-js-port-current.md).
 
 **Reference tree:** `nethack-c/upstream/src/` — **130** `.c` compilation units (NetHack 5.0.0 tag). **Contest rules:** do not edit frozen `js/isaac64.js`, `js/terminal.js`, `js/storage.js`; do not tune logic to memorize the 44 public sessions.
 
-**Working principle:** port **C call sites** first; use **`npm run score`** as a **regression check** only ([`.cursor/rules/port-from-c-not-score.mdc`](../rules/port-from-c-not-score.mdc)). Do not grow **`fastforward.js`** / harness to chase **1/44** without matching upstream logic.
+**Working principle:** port **C call sites** in **batches** (one file / call graph per commit); **fast-verify** with `diag_rng_window` on locator sessions; **`npm run score` at milestones** only ([`c-to-js-port-batch-workflow.md`](c-to-js-port-batch-workflow.md), [`.cursor/rules/port-from-c-not-score.mdc`](../rules/port-from-c-not-score.mdc)). Do not grow **`fastforward.js`** / harness to chase **1/44** without matching upstream logic.
 
 **Scale reminder:** Upstream `.c`+`.h` under `nethack-c/upstream` is on the order of **550k** lines; contestant `js/` is on the order of **35k** lines (including data blobs). Behavioral coverage is far below line-count ratios suggest because large JS files are **constants** and **partial** algorithms.
 
@@ -150,7 +150,9 @@ When a slice closes a comment, **delete or narrow** the comment and adjust **`fa
 
 ## 5. Suggested ordering (C port milestones — not “maximize score”)
 
-Slices should **delete** scaffolding as C lands, not extend replay lists. Score may stay **1/44** for many commits while C depth grows.
+**Batches** (see [`c-to-js-port-function-checklist.md`](c-to-js-port-function-checklist.md)) should **delete** scaffolding as C lands, not extend replay lists. Score may stay **1/44** for many commits while C depth grows. Run **full score** when a milestone row below is closed or when unsure — not after every function.
+
+**Anti-pattern:** port the entire checklist with no integrated RNG checks, then debug 0/44 — use milestone scoring instead ([`c-to-js-port-batch-workflow.md`](c-to-js-port-batch-workflow.md)).
 
 1. **Shrink `fastforward.js`** — **largely achieved** (file is a stub); continue replacing remaining **`u_init_post_mklev`** / **`ini_inv`** / **`mkobj`** draws with real C call order and **delete** harness rows only when RNG counts match.
 2. **Wire `game.invent` + `mkobj` + `ini_inv`** (NH5 **`otyp`/`oclass`**) — unlocks skills, hidden gold, most item-driven traps and combat prep.
@@ -170,7 +172,9 @@ Slices should **delete** scaffolding as C lands, not extend replay lists. Score 
 
 | Document | Role |
 |----------|------|
-| [`c-to-js-port-current.md`](c-to-js-port-current.md) | Thin handoff + immediate next steps |
+| [`c-to-js-port-batch-workflow.md`](c-to-js-port-batch-workflow.md) | **How to port:** batches, fast verify, milestone score |
+| [`c-to-js-port-function-checklist.md`](c-to-js-port-function-checklist.md) | **What to port:** per-function **stub/partial/done** |
+| [`c-to-js-port-current.md`](c-to-js-port-current.md) | Thin handoff + immediate next batch |
 | [`c-to-js-port-progress.md`](c-to-js-port-progress.md) | What *is* ported, changelog pointer, module sizes |
 | [`c-to-js-port-dashboard.md`](c-to-js-port-dashboard.md) | Score table (regenerate via `port-score-snapshot.mjs`), milestone matrix, harness inventory |
 | [`c-to-js-port-changelog-archive.md`](c-to-js-port-changelog-archive.md) | Dated slice history |

@@ -8,9 +8,11 @@ alwaysApply: false
 
 # Port progress docs
 
-- **Start with** [`.cursor/reports/c-to-js-port-current.md`](../reports/c-to-js-port-current.md) — next steps, constraints.
+- **Start with** [`.cursor/reports/c-to-js-port-current.md`](../reports/c-to-js-port-current.md) — next batch, constraints.
+- **[`.cursor/reports/c-to-js-port-batch-workflow.md`](../reports/c-to-js-port-batch-workflow.md)** — batch port, fast verify, milestone scoring.
+- **[`.cursor/reports/c-to-js-port-function-checklist.md`](../reports/c-to-js-port-function-checklist.md)** — per-function stub/partial/done; update when closing a batch.
 - **[`.cursor/reports/c-to-js-port-dashboard.md`](../reports/c-to-js-port-dashboard.md)** — public session score table + milestone matrix (`node tools/port-score-snapshot.mjs --update-dashboard`).
-- Skim [`.cursor/reports/c-to-js-port-remaining.md`](../reports/c-to-js-port-remaining.md) for **unported / stub / harness** surface so slices stay focused.
+- Skim [`.cursor/reports/c-to-js-port-remaining.md`](../reports/c-to-js-port-remaining.md) for **domain gaps** (not the day-to-day checklist).
 - Canonical **continue** prompt + workflow: [`.cursor/prompts/continue-nethack-port.md`](../prompts/continue-nethack-port.md).
 - Use [`.cursor/reports/c-to-js-port-progress.md`](../reports/c-to-js-port-progress.md) for **deep** module tables and long-form analysis only when needed (token-heavy).
 - New dated changelog rows go in [`.cursor/reports/c-to-js-port-changelog-archive.md`](../reports/c-to-js-port-changelog-archive.md); keep the stub in `c-to-js-port-progress.md` short.
