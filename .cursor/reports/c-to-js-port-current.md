@@ -32,9 +32,7 @@ Use this when **`Next steps`** below feels stale or several lanes compete. Order
 
 **Tutorial (Lane E):** Gated on [tutorial port gate](../../docs/plans/tutorial-port-gate.md) **MD-1 … MD-7**.
 
-**Last slice:** Capital **`K`** walk **`fmon`** pet — **`dogMovePostEastTailWalkFmonPetLikeC`** (invent **`obj_resists`**, **`rn2(8)`**, follow **`rn2(4)`**, **`mfndpos`** away pair + **`chcnt`** **`rn2(1)`** per **`dogmove.c:1257`**); **`dog_goal`** follow gate for **`FmonDistantDeferred`**; no **`_postBumpSkipDogGoalRn2LikeC`** on walk post. **`seed0006`** **2831/6736** RNG (diag **2818–2830**); **2831+** deferred distant peel. **2/44**.
-
-**Handoff refresh:** **Priority matrix** (lanes A–D) + **Next steps** aligned to it.
+**Last slice:** Capital **`K`** deferred peel — distant/near **`distfleeck`** + **`rn2(20)`** / east-door **`rn2(12)`**; **`dogMoveCapitalKPostDistantPeelPetLikeC`** (**`dogmove.c:1255`**: failed first away **`rn2(12)`**, **`chcnt`** **`rn2(1)`**, second away; end-of-pick tail when **`j==0`** absent); inline new-turn after pet **`distfleeck`**. **`seed0006`** **2873/6736** (diag **2841–2851**); global first mismatch **~2630**. **2/44**.
 
 ## Next steps (aligned with matrix)
 
@@ -42,7 +40,7 @@ Pick **one** primary lane per slice; refresh this list after each merge.
 
 **First:** open [`docs/plans/tutorial-port-gate.md`](../../docs/plans/tutorial-port-gate.md) — if **all MD-1 … MD-7** are checked, do **Lane E** step 1 from [10-tutorial.md](../plans/nethack-port/10-tutorial.md) instead of the list below.
 
-1. **Lane C — `seed0006` ~2831** — capital **`K`** deferred distant **`distfleeck`** / **`m_move`** after pet **`mfndpos`** (**`2818–2830`** aligned); global first mismatch still **~2630** (separate).
+1. **Lane C — `seed0006` ~2852** — capital **`K`** inline new-turn / post-peel **`dog_goal`** after pet **`distfleeck`** (**`2841–2851`** aligned); global first mismatch still **~2630** (separate).
 2. **Lane A — Chargen / init** — tty / **`role.c`** pickers when rc omits identity.
 3. **Lane B — NHL** — next **`lspo_*`** per [`nhl-port-notes.md`](nhl-port-notes.md).
 4. **Lane D — `objects_nums` / mkobj** — audit **`const.js`** vs NH5.

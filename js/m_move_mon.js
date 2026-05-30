@@ -1654,7 +1654,7 @@ function primeDistantStep9MtrackRn20LikeC(mtmp, stepNum) {
  * @param {import('./gstate.js').game} g
  * @param {Record<string, unknown>} mtmp
  */
-function primeWizD1EastDoorMtrackLikeC(g, mtmp) {
+export function primeWizD1EastDoorMtrackLikeC(g, mtmp) {
     if ((mtmp.mx | 0) !== 63 || (mtmp.my | 0) !== 7) return;
     const mfp = mfndposMonsterLikeC(g, mtmp, monAllowflagsMonsterLikeC(g, mtmp));
     const cnt = mfp.cnt | 0;
@@ -1978,7 +1978,11 @@ export async function mMoveOneMonsterSubsetLikeC(g, mtmp, stepNum = 0) {
             const distantWalk =
                 wizD1PeelDistantMklevMonLikeC(g)
                 ?? findDistantMklevMonLikeC(g);
-            if (nearWalk && mtmp === nearWalk) {
+            if (
+                nearWalk
+                && mtmp === nearWalk
+                && !g.context?._wizD1CapitalKNearMmoveLikeC
+            ) {
                 setApparxyMonsterLikeC(g, mtmp);
                 await distfleeckMonsterApplyLikeC(g, mtmp);
                 return;

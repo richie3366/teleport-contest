@@ -507,6 +507,7 @@ export async function runPostCommandTurnAdvanceLikeC(g) {
                         wizD1MovemonOnceLikeC
                         && g.context?._wizD1Step1LPetTailDoneLikeC
                         && !g.context?._wizD1Step1LPetInventAfterNewturnDoneLikeC
+                        && !g.context?._wizD1SkipLPostInventMoveloopLikeC
                     ) {
                         const pet = (g.level?.monsters ?? []).find(
                             (m) => (m.mtame | 0) !== 0,
@@ -606,6 +607,7 @@ export async function runPostCommandTurnAdvanceLikeC(g) {
         delete g.context._wizD1EastTailNearMklevMtmpLikeC;
         delete g.context._wizD1EastTailPeelMtmpLikeC;
         delete g.context._wizD1EastTailCorridorTurnDoneLikeC;
+        delete g.context._wizD1SkipLPostInventMoveloopLikeC;
         /* **`_wizD1PostEastTailWalkFmonLikeC`** cleared in **`movemon`** after the walk post consumes it. */
     }
 }
