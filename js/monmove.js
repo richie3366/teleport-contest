@@ -1064,10 +1064,10 @@ export async function movemon(stepNum) {
                 (m) => (m.mtame | 0) !== 0,
             );
             if (petWalkPost) {
-                const { dogMoveEastTailPostMcalcmovePetLikeC } = await import(
+                const { dogMoveEastTailWalkPetAfterMintrapLikeC } = await import(
                     './dogmove_mon.js',
                 );
-                dogMoveEastTailPostMcalcmovePetLikeC(g, petWalkPost);
+                dogMoveEastTailWalkPetAfterMintrapLikeC(g, petWalkPost);
             }
             delete g.context._wizD1PostEastTailWalkPetAfterMintrapLikeC;
         }
