@@ -30,6 +30,8 @@ export function isWizardD1Step1PeelLikeC(g, stepNum) {
         (
             !!g.context?._postBumpInlineDoneLikeC
             || !!g.context?._wizD1PostEastTailWalkFmonLikeC
+            || !!g.context?._wizD1PostEastTailWalkCompleteLikeC
+            || !!g.context?._wizD1EastTailShortLInlinedLikeC
         )
         && g.urole?.abbr === 'Wiz'
         && (g.u?.uz?.dnum | 0) === 0

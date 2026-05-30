@@ -239,6 +239,12 @@ function dogfoodRankLikeC(obj) {
  * @param {Record<string, unknown>} mtmp
  */
 function dogGoalWizardD1Step1ObjResistsPrescanLikeC(g, mtmp) {
+    /* C: post-east-tail short **`l`** — one **`gi.invent`** **`obj_resists`** (~2811). */
+    if (g.context?._wizD1PostEastTailWalkShortLPetLikeC) {
+        const o0 = g.invent;
+        if (o0) dogfoodRankLikeC(o0);
+        return;
+    }
     /* C: post-corridor **`mcalcmove`** pet — one invent **`obj_resists`** (~2758). */
     if (g.context?._wizD1EastTailPostMcalcmovePetLikeC) {
         const o0 = g.invent;
@@ -448,6 +454,7 @@ function dogGoalFloorScanRngLikeC(
                 !skipSecondApportRn2LikeC
                 && litOk
                 && (otyp === MANFOOD || mCanseeDogmoveLikeC(g, mtmp, nx, ny))
+                && !g.context?._wizD1ShortLApportRn8DoneLikeC
                 && (edog.apport | 0) > rn2(8)
                 && canCarryMonsterObjDogmoveLikeC(mtmp, obj) > 0
             ) {
@@ -1392,6 +1399,72 @@ export function dogMoveEastTailWalkPetAfterMintrapLikeC(g, mtmp) {
         delete ctx._wizD1Step1ObjResistsPrescanLikeC;
         delete ctx._dogfoodRankCacheLikeC;
     }
+    return MMOVE_NOTHING;
+}
+
+/**
+ * C: first **`l`** after post-east-tail walk — near **`distfleeck`**, one invent prescan,
+ * **`dog_goal`** **`rn2(8)`** apport, **`mfndpos`** (~2810–2814).
+ *
+ * @param {import('./gstate.js').game} g
+ * @param {Record<string, unknown>} mtmp
+ */
+export function dogMovePostEastTailWalkShortLPetLikeC(g, mtmp) {
+    if (!(mtmp.mtame | 0) || !has_edog(mtmp)) return MMOVE_NOTHING;
+    if ((mtmp.mhp | 0) <= 0) return MMOVE_DIED;
+    const u = g.u;
+    const edog = EDOG(mtmp);
+    if (!u || !edog) return MMOVE_NOTHING;
+    const ctx = g.context || (g.context = {});
+    const pin = ctx._wizD1Step1DogGoalHeroXYLikeC;
+    const hx = pin ? (pin.ux | 0) : (u.ux | 0);
+    const hy = pin ? (pin.uy | 0) : (u.uy | 0);
+    mtmp.mux = hx;
+    mtmp.muy = hy;
+    const whappr = (g.moves | 0) - (edog.whistletime | 0) < 5;
+    let mov = mtmp.movement | 0;
+    if (mov < NORMAL_SPEED) {
+        mtmp.movement = NORMAL_SPEED;
+        mov = NORMAL_SPEED;
+    }
+    mtmp.movement = mov - NORMAL_SPEED;
+    ctx._wizD1PostEastTailWalkShortLPetLikeC = true;
+    ctx._wizD1Step1ObjResistsPrescanLikeC = true;
+    try {
+        dogGoalWizardD1Step1ObjResistsPrescanLikeC(g, mtmp);
+    } finally {
+        delete ctx._wizD1PostEastTailWalkShortLPetLikeC;
+        delete ctx._wizD1Step1ObjResistsPrescanLikeC;
+        delete ctx._dogfoodRankCacheLikeC;
+    }
+    /* C: dogmove.c ~554 — one apport **`rn2(8)`** before east-tail **`mfndpos`** **`rn2(3)`**. */
+    const omx = mtmp.mx | 0;
+    const omy = mtmp.my | 0;
+    ctx._wizD1ShortLApportRn8DoneLikeC = true;
+    if (
+        couldsee(omx, omy)
+        && !droppablesMtmpLikeC(mtmp)
+        && (edog.apport | 0) > rn2(8)
+    ) {
+        /* draw only — floor scan may still set APPORT from objects */
+    }
+    const goal = dogGoalFloorScanRngLikeC(g, mtmp, true, whappr);
+    delete ctx._wizD1ShortLApportRn8DoneLikeC;
+    if ((goal.appr | 0) === -2) return MMOVE_NOTHING;
+    ctx._wizD1LPetEastTailMfndposLikeC = true;
+    try {
+        dogMoveMfndposPickLikeC(
+            g,
+            mtmp,
+            goal.gx | 0,
+            goal.gy | 0,
+            goal.appr | 0,
+            whappr,
+        );
+    } finally {
+        delete ctx._wizD1LPetEastTailMfndposLikeC;
+    }
+    ctx._wizD1EastTailShortLPetDoneLikeC = true;
     return MMOVE_NOTHING;
 }
 

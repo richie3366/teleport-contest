@@ -257,7 +257,25 @@ export async function runPostCommandTurnAdvanceLikeC(g) {
         g.urole?.abbr === 'Wiz'
         && (g.u?.uz?.dnum | 0) === 0
         && (g.u?.uz?.dlevel | 0) === 1;
+    let wizD1ShortLPostLikeC = false;
     if (wizD1MovemonOnceLikeC && g.context?._wizD1Step1InventPostDoneLikeC) {
+        /* C: first **`l`** after east-tail walk — arm before post cleanup so **`fmon`** uses short-L peel. */
+        if (g.context?._wizD1PostEastTailWalkCompletePendingLikeC) {
+            wizD1ShortLPostLikeC = true;
+            delete g.context._wizD1PostEastTailWalkCompletePendingLikeC;
+            g.context._wizD1PostEastTailWalkCompleteLikeC = true;
+            delete g.context._wizD1PostEastTailWalkShortLNearDfLikeC;
+            delete g.context._wizD1PostEastTailWalkFmonLikeC;
+        } else if (
+            g.context?._wizD1EastTailShortLPendingArmedLikeC
+            && !g.context?._wizD1PostEastTailWalkCompleteLikeC
+        ) {
+            /* C: walk mintrap peel armed last post — first short **`l`** (~2806+). */
+            wizD1ShortLPostLikeC = true;
+            g.context._wizD1PostEastTailWalkCompleteLikeC = true;
+            delete g.context._wizD1PostEastTailWalkShortLNearDfLikeC;
+            delete g.context._wizD1PostEastTailWalkFmonLikeC;
+        }
         /* C: second **`L`** — pass-2 **`rn2(20)`** + one **`distfleeck`** can end a post; keep peel
          * pin until the next post's **`mcalcmove`** (~2709), not a replayed pass-1 **`distfleeck`**. */
         if (
@@ -286,7 +304,11 @@ export async function runPostCommandTurnAdvanceLikeC(g) {
         delete g.context._wizD1Step1NearMklevDistfleeckOnlyLikeC;
         delete g.context._wizD1EastDistantMmoveTailDoneLikeC;
         delete g.context._wizD1PostEastTailWalkNewTurnDoneLikeC;
-        delete g.context._wizD1PostEastTailWalkMintrapPeelDoneLikeC;
+        if (!wizD1ShortLPostLikeC) {
+            delete g.context._wizD1PostEastTailWalkMintrapPeelDoneLikeC;
+            delete g.context._wizD1PostEastTailWalkCompleteLikeC;
+            delete g.context._wizD1PostEastTailWalkShortLNearDfLikeC;
+        }
     }
     g.context.monMoving = true;
     try {
@@ -328,7 +350,11 @@ export async function runPostCommandTurnAdvanceLikeC(g) {
                 );
             if (
                 runMovemon
-                && !(wizD1MovemonOnceLikeC && g.context._wizD1MovemonRanThisPostLikeC)
+                && !(
+                    wizD1MovemonOnceLikeC
+                    && g.context._wizD1MovemonRanThisPostLikeC
+                    && !g.context?._wizD1PostEastTailWalkCompletePendingLikeC
+                )
             ) {
                 let stepForMovemon = movemonStepNum > 0 ? movemonStepNum : 1;
                 /* C: wizard D:1 — every hero turn uses step-1 **`distfleeck`** peel + pet **`dog_move`**
@@ -363,6 +389,18 @@ export async function runPostCommandTurnAdvanceLikeC(g) {
                 if (!skipStep1RogD1) {
                     g.context._movemonHarnessConsumed = false;
                     await encumberMsg();
+                    /* C: walk mintrap peel ended — promote before second **`movemon`** in this post (~2806+). */
+                    if (
+                        wizD1MovemonOnceLikeC
+                        && g.context?._wizD1Step1InventPostDoneLikeC
+                        && g.context?._wizD1PostEastTailWalkCompletePendingLikeC
+                    ) {
+                        delete g.context._wizD1PostEastTailWalkCompletePendingLikeC;
+                        g.context._wizD1PostEastTailWalkCompleteLikeC = true;
+                        delete g.context._wizD1PostEastTailWalkShortLNearDfLikeC;
+                        delete g.context._wizD1PostEastTailWalkFmonLikeC;
+                        delete g.context._wizD1MovemonRanThisPostLikeC;
+                    }
                     let monscanSafety = 0;
                     do {
                         if (++monscanSafety > 50_000) {
@@ -372,12 +410,14 @@ export async function runPostCommandTurnAdvanceLikeC(g) {
                         monscanmove = await movemon(stepForMovemon);
                         if ((u.umovement | 0) >= NORMAL_SPEED) break;
                     } while (monscanmove);
-                    if (wizD1MovemonOnceLikeC) {
+                    if (
+                        wizD1MovemonOnceLikeC
+                        && !g.context?._wizD1PostEastTailWalkCompletePendingLikeC
+                    ) {
                         g.context._wizD1MovemonRanThisPostLikeC = true;
                     }
                 }
             }
-
             /* C: east-tail post-corridor **`mcalcmove`** already ran inside **`movemon`** (~2751+). */
             if (
                 !monscanmove

@@ -68,6 +68,7 @@ import {
 import { isWizardD1Step1PeelLikeC } from './monmove_search.js';
 import { raceptr, S_EEL } from './mondata.js';
 import { ensureMonsterMtrack } from './monflee.js';
+import { tAt } from './search.js';
 
 export { mthrowAtHeroUxyThituLikeC } from './mthrowu.js';
 
@@ -382,6 +383,12 @@ export async function movemon(stepNum) {
     const postBumpMovemonThisPass = !!g.context?._postBumpKillDochugGateLikeC;
     let mons;
     try {
+        if (g.context?._wizD1PostEastTailWalkCompletePendingLikeC) {
+            delete g.context._wizD1PostEastTailWalkCompletePendingLikeC;
+            g.context._wizD1PostEastTailWalkCompleteLikeC = true;
+            delete g.context._wizD1PostEastTailWalkShortLNearDfLikeC;
+            delete g.context._wizD1PostEastTailWalkFmonLikeC;
+        }
         mons = fmonListForMovemonLikeC(g, effStepNum);
         /* C: wizard **`L`** — second **`movemon`** in one post is peel-only (~2660+). */
         if (
@@ -559,7 +566,10 @@ export async function movemon(stepNum) {
                 await movemonSinglemonLikeC(g, m, effStepNum);
             }
             /* C: post-east-tail walk — pet tail then distant **`distfleeck`** + **`m_move`** (~2774+). */
-            if (g.context?._wizD1PostEastTailWalkFmonLikeC) {
+            if (
+                g.context?._wizD1PostEastTailWalkFmonLikeC
+                && !g.context?._wizD1PostEastTailWalkCompleteLikeC
+            ) {
                 const peelDistant =
                     wizD1PeelDistantMklevMonLikeC(g)
                     ?? findDistantMklevMonLikeC(g);
@@ -732,6 +742,7 @@ export async function movemon(stepNum) {
             && !g.context?._postBumpKillDochugGateLikeC
             && !g.context?._wizD1LPostEastTailDistantPeelDoneLikeC
             && !g.context?._wizD1PostEastTailWalkFmonLikeC
+            && !g.context?._wizD1PostEastTailWalkCompleteLikeC
         ) {
             const wizInventPost = !g.context?._wizD1Step1InventPostDoneLikeC;
             const distant = findDistantMklevMonLikeC(g);
@@ -1076,6 +1087,11 @@ export async function movemon(stepNum) {
             );
             await runNewTurnSetupAndTailLikeC(g, (g.moves | 0) - 1);
             g.context._wizD1PostEastTailWalkNewTurnDoneLikeC = true;
+            if (!g.context._wizD1EastTailShortLPendingArmedLikeC) {
+                g.context._wizD1EastTailShortLPendingArmedLikeC = true;
+                g.context._wizD1PostEastTailWalkCompletePendingLikeC = true;
+            }
+            delete g.context._wizD1PostEastTailWalkFmonLikeC;
         }
     } finally {
         delete g.context.movemonStepNum;
