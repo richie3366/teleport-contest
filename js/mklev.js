@@ -27,6 +27,7 @@ import {
 } from './nh5_objclass.js';
 import { GameMap } from './game.js';
 import { rn2, rnd, rn1 } from './rng.js';
+import { nhlibAlignShuffleRn2LikeC } from './nhlib_align_shuffle.js';
 import { init_rect, rnd_rect, get_rect, split_rects } from './rect.js';
 import {
     depth as depth_of_level,
@@ -1310,20 +1311,18 @@ function in_rooms(x, y, rtype) { return []; }
 // C ref: bones.c getbones()
 function getbones() {
     const flags = game.flags || {};
-    if (flags.explore) return false;
-    if (flags.bones === false) return false;
-    if (rn2(3) && !game.flags?.debug) return false;
+    /* C: discover mode — no bones I/O (bones.c getbones). */
+    if (game.program_state?.discover) return false;
+    /* C: `if (!flags.bones) return 0` — no rn2(3) when bones disabled (default off at newgame). */
+    if (!flags.bones) return false;
+    const wizard = !!(game.wizard || game.u?.wizard || flags.wizard);
+    if (rn2(3) && !wizard) return false;
     return false;
 }
 
-// C ref: allmain.c l_nhcore_init()
+// C ref: allmain.c l_nhcore_init() — Lua core loads nhlib.lua (align shuffle).
 export function l_nhcore_init() {
-    const align = [0, 0, 0]; // A_LAWFUL, A_NEUTRAL, A_CHAOTIC
-    for (let i = align.length; i > 1; i--) {
-        const j = rn2(i);
-        [align[i - 1], align[j]] = [align[j], align[i - 1]];
-    }
-    game.splev_align = align;
+    nhlibAlignShuffleRn2LikeC();
 }
 
 // C ref: mklev.c mklev()
@@ -1424,19 +1423,6 @@ async function makelevel() {
 
     const mazefile = makelevelMazefileLikeC(g);
     const mazePath = mazefile !== null && (await makemazLikeC(g, mazefile));
-
-    // C ref: mklev.c:382-388 — load themerms.lua for themed rooms (inside **`makerooms`** in C)
-    // nhlib.lua shuffle when loading themerms.lua (first level of branch)
-    const dnum = g.u?.uz?.dnum ?? 0;
-    if (!g._luathemes_loaded) g._luathemes_loaded = {};
-    if (!g._luathemes_loaded[dnum]) {
-        const themedAlign = ['law', 'neutral', 'chaos'];
-        for (let i = themedAlign.length; i > 1; i--) {
-            const j = rn2(i);
-            [themedAlign[i - 1], themedAlign[j]] = [themedAlign[j], themedAlign[i - 1]];
-        }
-        g._luathemes_loaded[dnum] = true;
-    }
 
     if (!mazePath) {
         const rogue = Is_rogue_level(g.u?.uz);
@@ -1552,6 +1538,14 @@ async function makerooms() {
     let tried_vault = false;
     const difficulty = depth_of_level(g.u?.uz);
     let themeroom_tries = 0;
+
+    /* C: mklev.c makerooms — first nhl_init(themerms.lua) per branch loads nhlib.lua (align shuffle). */
+    const dnum = g.u?.uz?.dnum ?? 0;
+    if (!g._luathemes_loaded) g._luathemes_loaded = {};
+    if (!g._luathemes_loaded[dnum]) {
+        nhlibAlignShuffleRn2LikeC();
+        g._luathemes_loaded[dnum] = true;
+    }
 
     while (g.level.nroom < (MAXNROFROOMS - 1) && rnd_rect()) {
         if (g.level.nroom >= Math.trunc(MAXNROFROOMS / 6) && rn2(2) && !tried_vault) {

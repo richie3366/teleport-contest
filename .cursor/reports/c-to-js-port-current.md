@@ -32,7 +32,7 @@ Use this when **`Next steps`** below feels stale or several lanes compete. Order
 
 **Tutorial (Lane E):** Gated on [tutorial port gate](../../docs/plans/tutorial-port-gate.md) **MD-1 … MD-7**.
 
-**Last slice:** Capital **`K`** post-near pet — **`dogMoveCapitalKPostNearPetLikeC`** + **`mMoveCapitalKPostNearEastMmoveRngLikeC`**: **`dochug:886`** **`rn2(4)`**, invent **`obj_resists`**×2, **`mfndpos`** away **`rn2(12)`**×5, pet **`distfleeck`**, east-niche **`m_move`** (~2869–2881); **`_wizD1CapitalKPostNearMmoveLikeC`** / **`fmon_iter`** guards. **`seed0006`** **2892/6736** (was **2868**; diag **2869–2891**). **2/44**.
+**Last slice:** **Lane A startup** — C **`init_dungeons`** / **`l_nhcore_init`** / **`getbones`** / **`makelevel`** RNG order: **`nhlibAlignShuffleRn2LikeC`** in **`dungeon_init.js`** + **`l_nhcore_init`**; **`getbones`** respects **`!flags.bones`**, **`playmode:explore`→discover**; themerms shuffle in **`makerooms`** only; legacy intro cols **17/21**, skip welcome map during **`_legacyIntroActive`**; wizard MR cloak **otyp 149**; **`upstartLikeC`** plname. **`seed8000`:** **PASS**. **`seed0900`:** **1325/2983** (mklev **~1316+**). **`seed0006`:** **35/123** screens, **2892/6736** RNG. **`seed0077`:** **32/33** screens. **1/44**.
 
 ## Next steps (aligned with matrix)
 
@@ -40,10 +40,10 @@ Pick **one** primary lane per slice; refresh this list after each merge.
 
 **First:** open [`docs/plans/tutorial-port-gate.md`](../../docs/plans/tutorial-port-gate.md) — if **all MD-1 … MD-7** are checked, do **Lane E** step 1 from [10-tutorial.md](../plans/nethack-port/10-tutorial.md) instead of the list below.
 
-1. **Lane C — `seed0006` ~2892** — capital **`K`** moveloop tail (**`2885+`**); align east **`m_move`** before stray near **`distfleeck`** on second **`movemon`** pass; global first mismatch still **~2630** (separate).
-2. **Lane A — Chargen / init** — tty / **`role.c`** pickers when rc omits identity.
-3. **Lane B — NHL** — next **`lspo_*`** per [`nhl-port-notes.md`](nhl-port-notes.md).
-4. **Lane D — `objects_nums` / mkobj** — audit **`const.js`** vs NH5.
+1. **Lane A — `seed0900` ~1316** — **`mklev.c`** fill / mineralize after aligned themerms; legacy **`com_pager`** row-0 **`ESC[17C`** for **`seed0077`** screen **32** / **`seed0102`** screen **0**.
+2. **Lane A — `seed0102` screen 0** — D:1 map + botl after mklev parity.
+3. **Lane C — `seed0006` ~2892** — capital **`K`** moveloop tail; screen **35** botl (**`find_ac`** / time).
+4. **Lane B — NHL** — next **`lspo_*`** per [`nhl-port-notes.md`](nhl-port-notes.md).
 
 ### Extended backlog (unchanged lanes)
 

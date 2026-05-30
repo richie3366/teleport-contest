@@ -47,7 +47,7 @@ const OTYP_LOCK_PICK = 221;
 const OTYP_POT_SICKNESS = 317;
 /** C Wizard[] — `OBJECTS_ENUM` / `objects.h`. */
 const OTYP_QUARTERSTAFF = 79;
-const OTYP_CLOAK_OF_MAGIC_RESISTANCE = 148;
+const OTYP_CLOAK_OF_MAGIC_RESISTANCE = 149;
 /** C `objects[]` — **`P_WHIP`** / bullwhip at otyp **82**. */
 /** C `objects[]` — **`P_WHIP`** / bullwhip (83 is bow). */
 const OTYP_BULLWHIP_MK = 82;

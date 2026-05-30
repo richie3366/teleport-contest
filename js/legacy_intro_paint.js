@@ -60,14 +60,15 @@ export function paintLegacyIntroIntoDisplay(display) {
     for (const line of rows) {
         if (line.startsWith('After the Creation')) inMoloch = true;
         if (line) {
-            const col = inMoloch ? 27 : 23;
+            /* C tty com_pager("legacy") — col 17 intro/deity lines, col 21 Moloch block. */
+            const col = inMoloch ? 21 : 17;
             display.putstr(col, r, line, NO_COLOR, 0);
         }
         if (line.includes('bides his time.')) inMoloch = false;
         r++;
     }
 
-    display.putstr(23, r, MORE_STR, NO_COLOR, 0);
-    display.setCursor(23 + MORE_STR.length, r);
+    display.putstr(17, r, MORE_STR, NO_COLOR, 0);
+    display.setCursor(17 + MORE_STR.length, r);
     display.cursorVisible = true;
 }
