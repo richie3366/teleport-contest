@@ -24,5 +24,6 @@ export async function awaitLegacyIntroMoreLikeC() {
     g._legacyIntroActive = false;
     delete g._botlLine1PreFindAcBotlLikeC;
     delete g._botlLine2PreFindAcBotlLikeC;
+    delete g._legacyIntroCol;
     await flush_screen(1);
 }
