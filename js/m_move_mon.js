@@ -1260,7 +1260,28 @@ export async function movemonSinglemonLikeC(g, mtmp, stepNum = 0) {
         return;
     }
 
+    if (
+        g.context?._wizD1PostEastTailWalkFmonLikeC
+        && g.context?._wizD1PostEastTailWalkFmonDistantDeferredLikeC
+        && (mtmp.mtame | 0)
+        && has_edog(mtmp)
+        && !g.context?._wizD1WalkFmonPetDochugRn4DoneLikeC
+    ) {
+        setApparxyMonsterLikeC(g, mtmp);
+        rn2(4);
+        g.context._wizD1WalkFmonPetDochugRn4DoneLikeC = true;
+        g.context._postBumpSkipDogGoalRn2LikeC = true;
+    }
+
     await mMoveOneMonsterSubsetLikeC(g, mtmp, stepNum);
+
+    if (
+        g.context?._wizD1PostEastTailWalkFmonLikeC
+        && (mtmp.mtame | 0)
+        && has_edog(mtmp)
+    ) {
+        delete g.context._postBumpSkipDogGoalRn2LikeC;
+    }
     if (
         g.context?._wizD1EastTailShortLPetDoneLikeC
         && (mtmp.mtame | 0)
@@ -2083,6 +2104,7 @@ export async function mMoveOneMonsterSubsetLikeC(g, mtmp, stepNum = 0) {
                         ) {
                             await distfleeckMonsterApplyLikeC(g, mtmp);
                             g.context._wizD1EastTailShortLSecondNearDfLikeC = true;
+                            g.context._wizD1ArmWalkFmonAfterShortLNewTurnLikeC = true;
                         }
                     }
                     return;
@@ -2353,7 +2375,10 @@ export async function mMoveOneMonsterSubsetLikeC(g, mtmp, stepNum = 0) {
                     && (g.u?.uz?.dnum | 0) === 0
                     && (g.u?.uz?.dlevel | 0) === 1
                     && !!g.context?._wizD1AfterLPostMfndposOnlyLikeC;
-                if (!wizPetMfndposOnlyPostL) {
+                if (
+                    !wizPetMfndposOnlyPostL
+                    && !g.context?._wizD1PostEastTailWalkFmonLikeC
+                ) {
                     await mMoveDistfleeckOnlyTurnLikeC(g, mtmp);
                 }
                 /* C: tourist **`seed8000`** peel — **`distfleeck`** only; wizard pet — full
