@@ -98,7 +98,7 @@ Align batches with [`c-to-js-port-remaining.md`](c-to-js-port-remaining.md) §5:
 | `m_move` / `mfndpos` | `m_move_mon.js`, `mfndpos.js` | partial | |
 | `distfleeck` | `distfleeck_mon.js` | partial | |
 | `m_throw` | — | missing | |
-| `dogmove` | `dogmove_mon.js` | partial | Capital `K` slices; tourist D:1 swap peel **`dogGoalObjResistsPrescanLikeC`** + **`dogMoveTouristD1PostSwapPeelLikeC`** (**`seed0900`** **2482–2486**); next **~2487** mfndpos |
+| `dogmove` | `dogmove_mon.js` | partial | Tourist D:1 swap peel prescan **2482–2486**; **~2487** — defer follow invent until **`gg.gtyp`** food / peel defer flag (see current.md) |
 | `dog_goal` / `obj_resists` | `dogmove_mon.js`, `obj_resists.js` | partial | **`zap.c`** **`dogfood`** prescan; **`fobjInDogGoalBoxLikeC`** + **`floorObjHeads`** |
 
 ---

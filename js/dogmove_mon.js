@@ -239,6 +239,7 @@ function dogfoodRankLikeC(obj) {
  * @param {{ scanInvent?: boolean }} [opts]
  */
 function dogGoalObjResistsPrescanLikeC(g, mtmp, opts = {}) {
+    if (g?.context) game.context = g.context;
     const scanInvent = opts.scanInvent !== false;
     /* C: post-east-tail short **`l`** — one **`gi.invent`** **`obj_resists`** (~2811). */
     if (g.context?._wizD1PostEastTailWalkShortLPetLikeC) {
