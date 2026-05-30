@@ -66,6 +66,7 @@ import {
     dogMoveInventOnlyLikeC,
     dogMoveSearchPassNearHeroLikeC,
     dogMoveCapitalKPostDistantPeelPetLikeC,
+    dogMoveCapitalKPostNewturnPetLikeC,
 } from './dogmove_mon.js';
 import {
     isWizardD1Step1PeelLikeC,
@@ -707,6 +708,39 @@ export async function movemon(stepNum) {
                 );
                 await runNewTurnSetupAndTailLikeC(g, (g.moves | 0) - 1);
                 g.context._wizD1PostEastTailWalkNewTurnDoneLikeC = true;
+                /* C: post-new-turn pet — **`distfleeck`**, **`dochug:886`**, **`dog_move`** (~2851–2859). */
+                if (petCapitalK) {
+                    g.context._wizD1CapitalKPostNewturnTailLikeC = true;
+                    try {
+                        setApparxyMonsterLikeC(g, petCapitalK);
+                        g.context._wizD1CapitalKPostNewturnTailDistfleeckBudgetLikeC = 0;
+                        await distfleeckMonsterApplyLikeC(g, petCapitalK);
+                        rn2(4);
+                        dogMoveCapitalKPostNewturnPetLikeC(g, petCapitalK);
+                    } finally {
+                        delete g.context._wizD1CapitalKPostNewturnTailLikeC;
+                        delete g.context._wizD1CapitalKPostNewturnTailDistfleeckBudgetLikeC;
+                    }
+                }
+                /* C: capital **`K`** — distant **`distfleeck`**×2 + **`m_move`** (~2860–2862). */
+                if (peelDistant) {
+                    const u = g.u;
+                    if (u) {
+                        peelDistant.mux = u.ux | 0;
+                        peelDistant.muy = u.uy | 0;
+                    }
+                    setApparxyMonsterLikeC(g, peelDistant);
+                    await distfleeckMonsterApplyLikeC(g, peelDistant);
+                    await distfleeckMonsterApplyLikeC(g, peelDistant);
+                    g.context._wizD1CapitalKPostNewturnDistantRn20LikeC = true;
+                    g.context._wizD1PostEastTailWalkDistantMmoveLikeC = true;
+                    try {
+                        await movemonSinglemonLikeC(g, peelDistant, effStepNum);
+                    } finally {
+                        delete g.context._wizD1CapitalKPostNewturnDistantRn20LikeC;
+                        delete g.context._wizD1PostEastTailWalkDistantMmoveLikeC;
+                    }
+                }
                 g.context._wizD1SkipLPostInventMoveloopLikeC = true;
                 g.context._wizD1PostEastTailWalkCompleteLikeC = true;
             }

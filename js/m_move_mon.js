@@ -1837,9 +1837,17 @@ export async function mMoveOneMonsterSubsetLikeC(g, mtmp, stepNum = 0) {
         }
         setApparxyMonsterLikeC(g, mtmp);
         ensureMonsterMtrack(mtmp);
-        monTrackClear(mtmp);
-        if (dochugEntersMmoveBlockLikeC(g, mtmp, 1, 0, stepNum)) {
-            mMovePositionSelectRngLikeC(g, mtmp);
+        if (g.context?._wizD1CapitalKPostNewturnDistantRn20LikeC) {
+            primeDistantMtrackRn20LikeC(mtmp);
+            if (dochugEntersMmoveBlockLikeC(g, mtmp, 1, 0, stepNum)) {
+                /* C: capital **`K`** — one **`rn2(20)`** track rejection (~2862). */
+                rn2(20);
+            }
+        } else {
+            monTrackClear(mtmp);
+            if (dochugEntersMmoveBlockLikeC(g, mtmp, 1, 0, stepNum)) {
+                mMovePositionSelectRngLikeC(g, mtmp);
+            }
         }
         g.context._wizD1PostEastTailWalkDistantMmoveDoneLikeC = true;
         return;
