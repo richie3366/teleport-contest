@@ -3131,8 +3131,7 @@ function mkgrave_room(croom) {
     if (!find_okay_roompos(croom, pos)) return;
     make_grave(pos.x, pos.y, dobell ? 'Saved by the bell!' : null);
     if (!rn2(3)) {
-        const depth = game.u?.uz?.dlevel ?? 1;
-        mkgold(rnd(20) + depth * rnd(5), pos.x, pos.y);
+        mkgold(rnd(20) + level_difficulty() * rnd(5), pos.x, pos.y);
     }
     for (let tryct = rn2(5); tryct > 0; tryct--) {
         const otmp = mkobjFromMklevCLikeC(RANDOM_CLASS, true);

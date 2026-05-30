@@ -158,6 +158,11 @@ function weaponMultigenMklevLikeC(otyp) {
     return t >= OTYP_FIRST_PROJECTILE && t <= OTYP_LAST_PROJECTILE;
 }
 
+/** C: obj.h is_poisonable — same skill band as multigen (permapoisoned N/A in mklev). */
+function isPoisonableWeaponMklevLikeC(otyp) {
+    return weaponMultigenMklevLikeC(otyp);
+}
+
 /** C: objnam.c erosion_matters — GEM/food/etc. skip mkobj_erosions. */
 function erosionMattersMklevLikeC(oclass) {
     switch (oclass | 0) {
@@ -176,7 +181,10 @@ export function mkobjErosionsMklevLikeC(otyp, oclass) {
     if (!game.in_mklev) return;
     if (!erosionMattersMklevLikeC(oclass)) return;
     void otyp;
-    if (!rn2(100)) return;
+    if (!rn2(100)) {
+        /* oerodeproof — no further erosion RNG */
+        return;
+    }
     if (!rn2(80)) {
         let eroded = 0;
         do {
@@ -353,7 +361,9 @@ function mksobjInitWeaponLikeC(otyp, artif) {
     } else {
         blessorcurseLikeC(10);
     }
-    if (!rn2(100)) { /* is_poisonable — broad stub */ }
+    if (isPoisonableWeaponMklevLikeC(otyp) && !rn2(100)) {
+        /* otmp->opoisoned = 1 */
+    }
     if (artif && !rn2(20)) { /* nartifact_exist() stub 0 */ }
 }
 

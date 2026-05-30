@@ -32,7 +32,7 @@ Use this when **`Next steps`** below feels stale or several lanes compete. Order
 
 **Tutorial (Lane E):** Gated on [tutorial port gate](../../docs/plans/tutorial-port-gate.md) **MD-1 … MD-7**.
 
-**Last slice:** **Lane A startup** — C **`init_dungeons`** / **`l_nhcore_init`** / **`getbones`** / **`makelevel`** RNG order: **`nhlibAlignShuffleRn2LikeC`** in **`dungeon_init.js`** + **`l_nhcore_init`**; **`getbones`** respects **`!flags.bones`**, **`playmode:explore`→discover**; themerms shuffle in **`makerooms`** only; legacy intro cols **17/21**, skip welcome map during **`_legacyIntroActive`**; wizard MR cloak **otyp 149**; **`upstartLikeC`** plname. **`seed8000`:** **PASS**. **`seed0900`:** **1325/2983** (mklev **~1316+**). **`seed0006`:** **35/123** screens, **2892/6736** RNG. **`seed0077`:** **32/33** screens. **1/44**.
+**Last slice:** **Lane A mklev/mkobj** — **`mkobj.c`** **`is_poisonable`** before weapon **`rn2(100)`** in **`mksobjInitWeaponLikeC`** (**`mkobj_mklev_like_c.js`**); **`mkgrave`** buried gold uses **`level_difficulty()`** not **`uz.dlevel`**; **`hacklib.depth`** honors **`depth_start === 0`**. **`seed0900`:** **2358/2983** (mkobj erosion chain **1316–1325** aligned; next fork **~1382**). **`seed8000`/`seed0077`:** **PASS**. **2/44**.
 
 ## Next steps (aligned with matrix)
 
@@ -40,7 +40,7 @@ Pick **one** primary lane per slice; refresh this list after each merge.
 
 **First:** open [`docs/plans/tutorial-port-gate.md`](../../docs/plans/tutorial-port-gate.md) — if **all MD-1 … MD-7** are checked, do **Lane E** step 1 from [10-tutorial.md](../plans/nethack-port/10-tutorial.md) instead of the list below.
 
-1. **Lane A — `seed0900` ~1316** — **`mklev.c`** fill / mineralize after aligned themerms; legacy **`com_pager`** row-0 **`ESC[17C`** for **`seed0077`** screen **32** / **`seed0102`** screen **0**.
+1. **Lane A — `seed0900` ~1382** — **`mklev.c`** fill / mineralize / **`mkobj`** class picks after weapon erosion+poison gate; **`seed0102`** D:1 map + botl; legacy **`com_pager`** row-0 **`ESC[17C`** if a session still fails screen **0** on intro.
 2. **Lane A — `seed0102` screen 0** — D:1 map + botl after mklev parity.
 3. **Lane C — `seed0006` ~2892** — capital **`K`** moveloop tail; screen **35** botl (**`find_ac`** / time).
 4. **Lane B — NHL** — next **`lspo_*`** per [`nhl-port-notes.md`](nhl-port-notes.md).
