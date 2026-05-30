@@ -32,7 +32,7 @@ Use this when **`Next steps`** below feels stale or several lanes compete. Order
 
 **Tutorial (Lane E):** Gated on [tutorial port gate](../../docs/plans/tutorial-port-gate.md) **MD-1 … MD-7**.
 
-**Last slice:** Post-east-tail walk mintrap pet — **`dogMoveEastTailWalkPetAfterMintrapLikeC`** (one invent, **`dog_goal:575`** **`rn2(4)`**, full invent, **`mfndpos`** chcnt×2); **`dogGoalFollowGxGyApprLikeC`** mintrap **`rn2(4)`** when corridor tail done; **`monmove.js`** mintrap calls new helper (not post-**`mcalcmove`** mfndpos). **`seed0006`** **2820/6736** RNG (diag **2783–2801**); **2802+** distant peel **`rn2(20)`**. Global first mismatch still **~2630**. **2/44**.
+**Last slice:** Post-east-tail walk mintrap distant peel — **`mMovePostEastTailWalkMintrapDistantPeelLikeC`** (near + distant **`distfleeck`**, **`rn2(20)`**, distant **`distfleeck`**); in-**`movemon`** second **`runNewTurnSetupAndTailLikeC`** (~2804–2809); skip duplicate moveloop new-turn via **`_wizD1PostEastTailWalkNewTurnDoneLikeC`** after peel; block step-1 distant peel replay. **`seed0006`** **2832/6736** RNG (diag **2800–2809**); **2811+** next **`l`**. Global first mismatch still **~2630**. **2/44**.
 
 **Handoff refresh:** **Priority matrix** (lanes A–D) + **Next steps** aligned to it.
 
@@ -42,7 +42,7 @@ Pick **one** primary lane per slice; refresh this list after each merge.
 
 **First:** open [`docs/plans/tutorial-port-gate.md`](../../docs/plans/tutorial-port-gate.md) — if **all MD-1 … MD-7** are checked, do **Lane E** step 1 from [10-tutorial.md](../plans/nethack-port/10-tutorial.md) instead of the list below.
 
-1. **Lane C — `seed0006` ~2802** — distant **`m_move`** peel **`rn2(20)`** after mintrap pet tail (**`m_move_mon.js`** / **`monmove.js`**); then **2804+** **`mcalcmove`** / next **`l`**. Global first mismatch still **~2630**.
+1. **Lane C — `seed0006` ~2811** — next **`l`** after east-tail walk (step 48 **`dog_goal`** / invent / **`mfndpos`**); global first mismatch still **~2630**.
 2. **Lane A — Chargen / init** — tty / **`role.c`** pickers when rc omits identity.
 3. **Lane B — NHL** — next **`lspo_*`** per [`nhl-port-notes.md`](nhl-port-notes.md).
 4. **Lane D — `objects_nums` / mkobj** — audit **`const.js`** vs NH5.
