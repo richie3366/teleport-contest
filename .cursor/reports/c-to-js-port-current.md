@@ -32,7 +32,7 @@ Use this when **`Next steps`** below feels stale or several lanes compete. Order
 
 **Tutorial (Lane E):** Gated on [tutorial port gate](../../docs/plans/tutorial-port-gate.md) **MD-1 … MD-7**.
 
-**Last slice:** **Lane A combat / moveloop** — C **`uhitm.c` `do_attack`** **`is_safemon`** gate: **`rn2(7)`**, tended-shop, **`rn2(6)`** frozen branch before peaceful swap (**`safemonDoAttackGateLikeC`** in **`uhitm_hero.js`**, **`cmd.js`**); **`tendedShopAtXYLikeC`** (**`shop.js`**). **`seed0900`:** **2481/2983** RNG (was **~2473**; **2473–2481** match). **`seed8000`/`seed0077`:** **PASS**. **2/44**.
+**Last slice:** **Lane A moveloop / pet** — C **`dogmove.c` `dog_goal`** floor **`obj_resists`** after tourist D:1 peaceful swap (**`dogGoalObjResistsPrescanLikeC`**, **`dogMoveTouristD1PostSwapPeelLikeC`**, **`cmd.js`** flag, **`m_move_mon.js`** step-1 peel); **`fobjInDogGoalBoxLikeC`** walks **`floorObjHeads`**. **`seed0900`:** **2487/2983** (was **2482**; **2482–2486** match). **`seed8000`/`seed0077`:** **PASS**. **2/44**.
 
 ## Next steps (aligned with matrix)
 
@@ -40,7 +40,7 @@ Pick **one** primary lane per **batch** (several related C functions — see che
 
 **First:** open [`docs/plans/tutorial-port-gate.md`](../../docs/plans/tutorial-port-gate.md) — if **all MD-1 … MD-7** are checked, do **Lane E** step 1 from [10-tutorial.md](../plans/nethack-port/10-tutorial.md) instead of the list below.
 
-1. **Lane A — `seed0900` ~2482** — C **`zap.c` `obj_resists`** chain after first **`n`** move (**`rn2(100)`**×5); then **`dogmove.c`** / **`distfleeck`** tail; **`seed0102`** D:1 map + botl.
+1. **Lane A — `seed0900` ~2487** — C **`dogmove.c` `dog_move`** **`mfndpos`** **`rn2(1)`/`rn2(2)`** after swap prescan (defer follow-tail invent **`obj_resists`**); **`distfleeck`** tail; **`seed0102`** D:1 map + botl.
 2. **Lane A — `seed0102` screen 0** — D:1 map + botl after mklev parity.
 3. **Lane C — `seed0006` ~2892** — capital **`K`** moveloop tail; screen **35** botl (**`find_ac`** / time).
 4. **Lane B — NHL** — next **`lspo_*`** per [`nhl-port-notes.md`](nhl-port-notes.md).

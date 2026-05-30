@@ -446,6 +446,16 @@ export async function domoveHeroDirLikeC(dx, dy) {
             const ox = u.ux, oy = u.uy;
             const { swapped } = await tryPeacefulSwap(mtmp, ox, oy, newx, newy);
             if (swapped) {
+                /* C: tourist D:1 peaceful swap — step-1 peel runs **`dog_goal`** floor+invent
+                 * **`obj_resists`** then **`dog_move`** **`mfndpos`** (~2482+ on **`seed0900`**). */
+                if (
+                    g.urole?.abbr === 'Tou'
+                    && (u.uz?.dnum | 0) === 0
+                    && (u.uz?.dlevel | 0) === 1
+                ) {
+                    const ctx = g.context || (g.context = {});
+                    ctx._touristD1PostSwapDogGoalPrescanLikeC = true;
+                }
                 u.ux0 = ox;
                 u.uy0 = oy;
                 u.dx = dx;
