@@ -77,6 +77,7 @@ import {
     dogMovePostCorridorSecondPetMfndposLikeC,
     dogMovePostEastTailWalkObjResistsLikeC,
     dogMovePostEastTailWalkShortLPetLikeC,
+    dogMovePostEastTailWalkFmonPetLikeC,
     dogMoveSearchPassNearHeroLikeC,
 } from './dogmove_mon.js';
 import { fmonListForMovemonLikeC } from './fmon_iter.js';
@@ -1270,18 +1271,10 @@ export async function movemonSinglemonLikeC(g, mtmp, stepNum = 0) {
         setApparxyMonsterLikeC(g, mtmp);
         rn2(4);
         g.context._wizD1WalkFmonPetDochugRn4DoneLikeC = true;
-        g.context._postBumpSkipDogGoalRn2LikeC = true;
+        /* C: capital **`K`** — **`dochug:886`** then **`dog_goal`** follow **`rn2(4)`** (~2826). */
     }
 
     await mMoveOneMonsterSubsetLikeC(g, mtmp, stepNum);
-
-    if (
-        g.context?._wizD1PostEastTailWalkFmonLikeC
-        && (mtmp.mtame | 0)
-        && has_edog(mtmp)
-    ) {
-        delete g.context._postBumpSkipDogGoalRn2LikeC;
-    }
     if (
         g.context?._wizD1EastTailShortLPetDoneLikeC
         && (mtmp.mtame | 0)
@@ -1998,7 +1991,9 @@ export async function mMoveOneMonsterSubsetLikeC(g, mtmp, stepNum = 0) {
                 }
                 mtmp.movement = mov - NORMAL_SPEED;
                 dogMovePostEastTailWalkObjResistsLikeC(g, mtmp);
-                if (g.context?._wizD1PostCorridorSavedPetGoalLikeC) {
+                if (g.context?._wizD1PostEastTailWalkFmonDistantDeferredLikeC) {
+                    dogMovePostEastTailWalkFmonPetLikeC(g, mtmp);
+                } else if (g.context?._wizD1PostCorridorSavedPetGoalLikeC) {
                     dogMovePostCorridorSecondPetMfndposLikeC(g, mtmp);
                 } else {
                     dogMoveLikeC(g, mtmp);
@@ -2320,7 +2315,11 @@ export async function mMoveOneMonsterSubsetLikeC(g, mtmp, stepNum = 0) {
                     }
                     mtmp.movement = mov - NORMAL_SPEED;
                     dogMovePostEastTailWalkObjResistsLikeC(g, mtmp);
-                    dogMoveLikeC(g, mtmp);
+                    if (g.context?._wizD1PostEastTailWalkFmonDistantDeferredLikeC) {
+                        dogMovePostEastTailWalkFmonPetLikeC(g, mtmp);
+                    } else {
+                        dogMoveLikeC(g, mtmp);
+                    }
                     return;
                 }
                 /* C: east-tail corridor — pet deferred to **`monmove.js`** / moveloop post-**`mcalcmove`**. */
