@@ -35,6 +35,10 @@ import { doZapCmd } from './dozap.js';
 import { doReadHeroScrollCmdLikeC } from './read_scroll_hero.js';
 import { doBumpMeleeAttack } from './attack.js';
 import { tryPeacefulSwap } from './peaceful_displace.js';
+import {
+    safemonDoAttackGateLikeC,
+    safemonDoAttackBlockPlinesLikeC,
+} from './uhitm_hero.js';
 import { blocksMovementAt, diagonalHeroMoveBlocked, isClosedDoorLoc } from './walkable.js';
 import {
     doopenIndirHeroLikeC,
@@ -428,6 +432,17 @@ export async function domoveHeroDirLikeC(dx, dy) {
     const mtmp = mAt(newx, newy);
     if (mtmp) {
         if (mtmp.mpeaceful | 0) {
+            const gate = safemonDoAttackGateLikeC(g, mtmp);
+            if (gate === 'stop' || gate === 'frozen') {
+                await safemonDoAttackBlockPlinesLikeC(g, mtmp, gate);
+                newsym(newx, newy);
+                if (game.u) game.u.dz = 0;
+                clearPendingMessageAndToplineLikeC();
+                game._overlayScreen = null;
+                game._inventoryMode = false;
+                vision_recalc(1);
+                return true;
+            }
             const ox = u.ux, oy = u.uy;
             const { swapped } = await tryPeacefulSwap(mtmp, ox, oy, newx, newy);
             if (swapped) {
