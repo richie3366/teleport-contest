@@ -23,6 +23,8 @@ import {
     NH5_ROCK_CLASS,
     NH5_AMULET_CLASS,
     NH5_COIN_CLASS,
+    NH5_BALL_CLASS,
+    NH5_CHAIN_CLASS,
 } from './nh5_objclass.js';
 import {
     WEAPON_CLASS_MKOBJ_OC_PROB_ROWS,
@@ -30,6 +32,8 @@ import {
     TOOL_CLASS_MKOBJ_OC_PROB_ROWS,
     GEM_CLASS_MKOBJ_OC_PROB_ROWS,
     RING_CLASS_MKOBJ_OC_PROB_ROWS,
+    AMULET_CLASS_MKOBJ_OC_PROB_ROWS,
+    COIN_CLASS_MKOBJ_OC_PROB_ROWS,
 } from './mkobj_mklev_oc_prob_data.js';
 import {
     POTION_CLASS_MKOBJ_OC_PROB_ROWS,
@@ -131,11 +135,6 @@ const LEGACY_OCLASS_TO_NH5 = new Map([
     [11, NH5_SPBOOK_CLASS],
 ]);
 
-/** C: objects.h AMULET macros (prob 1 each in mkobj walk). */
-const AMULET_CLASS_MKOBJ_OC_PROB_ROWS = Object.freeze([
-    [191, 1], [192, 1], [193, 1], [194, 1], [195, 1], [196, 1], [197, 1], [198, 1],
-]);
-
 /** C `objects.h` **`ROCK("rock")`** — NH5 otyp **473**. */
 const OTYP_ROCK = 473;
 const OTYP_WAN_WISHING = 413;
@@ -164,11 +163,22 @@ function isPoisonableWeaponMklevLikeC(otyp) {
     return weaponMultigenMklevLikeC(otyp);
 }
 
-/** C: objnam.c erosion_matters — GEM/food/etc. skip mkobj_erosions. */
+/** C: objclass.h obj_material_types (subset used by mkobj.c erosion). */
+const MAT_LIQUID = 1;
+const MAT_WOOD = 8;
+const MAT_DRAGON_HIDE = 10;
+const MAT_IRON = 11;
+const MAT_COPPER = 13;
+const MAT_PLASTIC = 18;
+const MAT_GLASS = 19;
+
+/** C: objnam.c erosion_matters — weptool-only for TOOL_CLASS. */
 function erosionMattersMklevLikeC(oclass) {
     switch (oclass | 0) {
     case NH5_WEAPON_CLASS:
     case NH5_ARMOR_CLASS:
+    case NH5_BALL_CLASS:
+    case NH5_CHAIN_CLASS:
         return true;
     case NH5_TOOL_CLASS:
         return false;
@@ -177,33 +187,69 @@ function erosionMattersMklevLikeC(oclass) {
     }
 }
 
-/** C: objclass.h is_damageable — unknown material keeps legacy WEAPON/ARMOR erosion. */
-function mayGenerateErodedMklevLikeC(otyp, oclass) {
-    if (!erosionMattersMklevLikeC(oclass)) return false;
-    const m = objectOcMaterial(otyp) | 0;
-    if (m === 0) return true;
-    if (m === 11 || m === 13) return true;
-    if ((oclass | 0) === NH5_ARMOR_CLASS && m === 19) return true;
-    if (m > 1 && m <= 8) return true;
-    if (m === 10 || m === 18) return true;
-    return false;
+/** C: mkobj.c is_flammable — candles are not flammable for erosion. */
+function isFlammableMklevLikeC(otyp) {
+    const t = otyp | 0;
+    if (t === 219 || t === 220) return false;
+    const omat = objectOcMaterial(t) | 0;
+    return (omat <= MAT_WOOD && omat !== MAT_LIQUID) || omat === MAT_PLASTIC;
 }
 
-/** C: mkobj.c mksobj_init tail — mkobj_erosions (WEAPON/ARMOR in mklev). */
+/** C: mkobj.c is_rottable */
+function isRottableMklevLikeC(otyp) {
+    const omat = objectOcMaterial(otyp) | 0;
+    return (omat <= MAT_WOOD && omat !== MAT_LIQUID) || omat === MAT_DRAGON_HIDE;
+}
+
+/** C: objclass.h is_rustprone / is_corrodeable / is_crackable */
+function isRustproneMklevLikeC(otyp) {
+    return (objectOcMaterial(otyp) | 0) === MAT_IRON;
+}
+
+function isCorrodeableMklevLikeC(otyp) {
+    const m = objectOcMaterial(otyp) | 0;
+    return m === MAT_COPPER || m === MAT_IRON;
+}
+
+function isCrackableMklevLikeC(otyp, oclass) {
+    return (objectOcMaterial(otyp) | 0) === MAT_GLASS && (oclass | 0) === NH5_ARMOR_CLASS;
+}
+
+/** C: objclass.h is_damageable */
+function isDamageableMklevLikeC(otyp, oclass) {
+    return (
+        isRustproneMklevLikeC(otyp) ||
+        isFlammableMklevLikeC(otyp) ||
+        isRottableMklevLikeC(otyp) ||
+        isCorrodeableMklevLikeC(otyp) ||
+        isCrackableMklevLikeC(otyp, oclass)
+    );
+}
+
+/** C: mkobj.c may_generate_eroded */
+function mayGenerateErodedMklevLikeC(otyp, oclass) {
+    if ((game.moves | 0) <= 1 && !game.in_mklev) return false;
+    if (!erosionMattersMklevLikeC(oclass)) return false;
+    if (!isDamageableMklevLikeC(otyp, oclass)) return false;
+    return true;
+}
+
+/** C: mkobj.c mksobj_init tail — mkobj_erosions */
 export function mkobjErosionsMklevLikeC(otyp, oclass) {
-    if (!game.in_mklev) return;
     if (!mayGenerateErodedMklevLikeC(otyp, oclass)) return;
     if (!rn2(100)) {
-        /* oerodeproof — no further erosion RNG */
         return;
     }
-    if (!rn2(80)) {
+    if (
+        !rn2(80) &&
+        (isFlammableMklevLikeC(otyp) || isRustproneMklevLikeC(otyp) || isCrackableMklevLikeC(otyp, oclass))
+    ) {
         let eroded = 0;
         do {
             eroded++;
         } while (eroded < 3 && !rn2(9));
     }
-    if (!rn2(80)) {
+    if (!rn2(80) && (isRottableMklevLikeC(otyp) || isCorrodeableMklevLikeC(otyp))) {
         let eroded2 = 0;
         do {
             eroded2++;
@@ -243,7 +289,8 @@ export function mkobjPickOclassFromMkobjprobsLikeC() {
     return oclass;
 }
 
-function nh5OclassFromLet(let_) {
+/** mklev.js legacy oclass literals only (not NH5 enum indices). */
+function nh5OclassFromLegacyLet(let_) {
     if (LEGACY_OCLASS_TO_NH5.has(let_ | 0)) return LEGACY_OCLASS_TO_NH5.get(let_ | 0);
     return let_ | 0;
 }
@@ -273,7 +320,7 @@ function mkobjPickOtypForClassLikeC(oclass) {
     case NH5_AMULET_CLASS:
         return mkobjOtypFromProbRowsLikeC(AMULET_CLASS_MKOBJ_OC_PROB_ROWS);
     case NH5_COIN_CLASS:
-        return OTYP_GOLD_PIECE;
+        return mkobjOtypFromProbRowsLikeC(COIN_CLASS_MKOBJ_OC_PROB_ROWS);
     default:
         return 0;
     }
@@ -317,7 +364,7 @@ function mkboxCntsMklevLikeC(box) {
     }
     for (n = rn2(n + 1); n > 0; n--) {
         if (t === OTYP_ICE_BOX) {
-            mkobjMklevConsumeRngLikeC(NH5_FOOD_CLASS, false);
+            mkobjMklevConsumeRngLikeC(NH5_FOOD_CLASS, false, true);
             continue;
         }
         let tprob = rnd(100);
@@ -329,7 +376,7 @@ function mkboxCntsMklevLikeC(box) {
                 break;
             }
         }
-        let otyp = mkobjMklevConsumeRngLikeC(oclass, false);
+        let otyp = mkobjMklevConsumeRngLikeC(oclass, false, true);
         if (oclass === NH5_COIN_CLASS) {
             rnd(levelDifficultyMklevLikeC() + 2);
             rnd(75);
@@ -478,7 +525,8 @@ function mksobjInitToolLikeC(otyp, otmp) {
         }
         otmp.olocked = !!rn2(5);
         otmp.otrapped = !rn2(10);
-        if (!rn2(100) && otmp.otrapped) {
+        /* C: otmp->tknown = otmp->otrapped && !rn2(100) — trap check before rn2(100). */
+        if (otmp.otrapped && !rn2(100)) {
             /* tknown when trap obvious */
         }
         mkboxCntsMklevLikeC(otmp);
@@ -541,11 +589,12 @@ export function mksobjPostInitStatueLikeC(otyp) {
 
 /**
  * C: mkobj.c mkobj + mksobj(TRUE) init tail — consumes RNG only (no invent graph).
- * @param {number} let_ oclass (mklev legacy or NH5 index)
+ * @param {number} let_ oclass (mklev legacy let, or NH5 index when `nh5Oclass`)
  * @param {boolean} artif
+ * @param {boolean} [nh5Oclass] when true, `let_` is already NH5 (mkbox_cnts, NH5 fill paths)
  * @returns {number} otyp
  */
-export function mkobjMklevConsumeRngLikeC(let_, artif) {
+export function mkobjMklevConsumeRngLikeC(let_, artif, nh5Oclass = false) {
     const letRaw = let_ | 0;
     let oclass;
     let otyp;
@@ -554,7 +603,7 @@ export function mkobjMklevConsumeRngLikeC(let_, artif) {
         otyp = rndClassMklevOtypLikeC(OTYP_SPBOOK_CLASS_FIRST, OTYP_SPE_BLANK_PAPER);
         oclass = NH5_SPBOOK_CLASS;
     } else {
-        oclass = nh5OclassFromLet(letRaw);
+        oclass = nh5Oclass ? letRaw : nh5OclassFromLegacyLet(letRaw);
         if (oclass === NH5_RANDOM_CLASS) {
             oclass = mkobjPickOclassFromMkobjprobsLikeC();
         }
