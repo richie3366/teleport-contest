@@ -226,6 +226,9 @@ export async function runNewTurnSetupAndTailLikeC(g, stepNum) {
     /* C: allmain.c — after regen, before **`dosounds`** / **`gethungry`**. */
     maybeHeroTeleportRngLikeC(g);
     await end_of_turn_rng(stepNum);
+    if (g.context?._touristD1LPostFmonPeelPendingLikeC) {
+        g.context._touristD1LPostMcalcmoveDoneLikeC = true;
+    }
 }
 
 /**
@@ -297,6 +300,9 @@ async function touristD1LPostPeelBeforeOuterLoopLikeC(g) {
         setApparxyMonsterLikeC(g, nearL);
         await distfleeckMonsterApplyLikeC(g, nearL);
     }
+    /* C: same post — second **`movemon`** pass after new-turn **`mcalcmove`** (~2591+). */
+    g.context._touristD1LPostFmonPeelPendingLikeC = true;
+    g.context._touristD1LPostSkipMoveloop82ExerciseLikeC = true;
     delete g.context._touristD1LPostMovemonPendingLikeC;
 }
 
@@ -428,10 +434,17 @@ export async function runPostCommandTurnAdvanceLikeC(g) {
                 !!g.context?._touristD1PostSwapRestMovemonStep1DoneLikeC;
             const touristD1LPostPendingLikeC =
                 !!g.context?._touristD1LPostMovemonPendingLikeC;
+            const touristD1LPostFmonPeelLikeC =
+                !!g.context?._touristD1LPostFmonPeelPendingLikeC
+                && !!g.context?._touristD1LPostMcalcmoveDoneLikeC;
             if (
                 runMovemon
                 && !touristD1RestMoveloopPendingLikeC
-                && (!touristD1RestMovemonStep1DoneLikeC || touristD1LPostPendingLikeC)
+                && (
+                    !touristD1RestMovemonStep1DoneLikeC
+                    || touristD1LPostPendingLikeC
+                    || touristD1LPostFmonPeelLikeC
+                )
                 && !(
                     wizD1MovemonOnceLikeC
                     && (
@@ -474,7 +487,7 @@ export async function runPostCommandTurnAdvanceLikeC(g) {
                     );
                 }
                 /* C: tourist D:1 first run-east **`L`** — peel at step 1 (~2582–2584). */
-                if (touristD1LPostPendingLikeC) {
+                if (touristD1LPostPendingLikeC || touristD1LPostFmonPeelLikeC) {
                     stepForMovemon = 1;
                 }
                 const skipStep1RogD1 =

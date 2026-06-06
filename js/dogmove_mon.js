@@ -1102,6 +1102,7 @@ function dogMoveMfndposPickLikeC(g, mtmp, ggx, ggy, appr, whappr) {
         && !ctxPick?._wizD1PostCorridorPetSecondMfndposLikeC
         && !ctxPick?._wizD1CapitalKPostNewturnMfndposLikeC
         && !ctxPick?._wizD1CapitalKPostNearMfndposLikeC
+        && !ctxPick?._touristD1LPostMovemonPeelMfndposLikeC
     ) {
         return;
     }
@@ -1317,6 +1318,7 @@ function dogMoveMfndposPickLikeC(g, mtmp, ggx, ggy, appr, whappr) {
             && heroM
             && distmin(omx, omy, heroM.ux, heroM.uy) > 5
             && !g.context?._wizD1CapitalKPostDistantPeelPetLikeC
+            && !g.context?._touristD1LPostMovemonPeelMfndposLikeC
         ) {
             const k = edog ? uncursedcnt : cnt;
             let backtrack = false;
@@ -1486,9 +1488,15 @@ function dogMoveMfndposPickLikeC(g, mtmp, ggx, ggy, appr, whappr) {
             /* C: second post-rest phase-2 — **`mfndpos`** may pick closer slots only (**`j<0`**); no
              * **`chcnt`** / away draws before movemon **`mcalcmove`** (~2538+ on **`seed0900`**). */
             if (j < 0) pickTake = true;
-        } else if (g.context?._touristD1PostRestSecondMovemonPeelMfndposLikeC) {
+        } else if (
+            g.context?._touristD1LPostMovemonPeelMfndposLikeC
+            || g.context?._touristD1PostRestSecondMovemonPeelMfndposLikeC
+        ) {
             const ctxPeel = g.context || (g.context = {});
-            const awayStarted = !!ctxPeel._touristD1PostRestSecondPeelAwayRngLikeC;
+            const awayStarted = !!(
+                ctxPeel._touristD1LPostMovemonPeelAwayRngLikeC
+                || ctxPeel._touristD1PostRestSecondPeelAwayRngLikeC
+            );
             if (!awayStarted && (j < 0 || j === 0)) {
                 continue;
             }
@@ -1498,13 +1506,21 @@ function dogMoveMfndposPickLikeC(g, mtmp, ggx, ggy, appr, whappr) {
                 || (
                     j > 0 && !whappr
                     && (
-                        (omx === nix && omy === niy && !dogMovePickRn2LikeC(g, 3))
+                        (
+                            !ctxPeel._touristD1LPostMovemonPeelMfndposLikeC
+                            && omx === nix && omy === niy
+                            && !dogMovePickRn2LikeC(g, 3)
+                        )
                         || !dogMovePickRn2LikeC(g, 12)
                     )
                 )
             ) {
                 if (j > 0 && !whappr) {
-                    ctxPeel._touristD1PostRestSecondPeelAwayRngLikeC = true;
+                    if (ctxPeel._touristD1LPostMovemonPeelMfndposLikeC) {
+                        ctxPeel._touristD1LPostMovemonPeelAwayRngLikeC = true;
+                    } else {
+                        ctxPeel._touristD1PostRestSecondPeelAwayRngLikeC = true;
+                    }
                 }
                 pickTake = true;
             }
@@ -2047,6 +2063,45 @@ export function dogMoveTouristD1PostRestSecondThirdMovemonPetLikeC(g, mtmp) {
  * @param {import('./gstate.js').game} g
  * @param {Record<string, unknown>} mtmp
  */
+/**
+ * C: tourist D:1 run-east **`L`** — post-**`mcalcmove`** **`movemon`** pet **`dog_move`**
+ * (**`mfndpos`** **`rn2(12)`** ~2592+ on **`seed0900`**); no invent / near mklev **`m_move`**.
+ *
+ * @param {import('./gstate.js').game} g
+ * @param {Record<string, unknown>} mtmp
+ */
+export function dogMoveTouristD1LPostMovemonPeelLikeC(g, mtmp) {
+    if (!(mtmp.mtame | 0) || !has_edog(mtmp)) return;
+    const edog = EDOG(mtmp);
+    const u = g.u;
+    if (!edog || !u) return;
+    if (g?.context) game.context = g.context;
+    const ctx = g.context || (g.context = {});
+    const whappr = (g.moves | 0) - (edog.whistletime | 0) < 5;
+    ctx._touristD1LPostMovemonPeelLikeC = true;
+    ctx._touristD1LPostMovemonPeelMfndposLikeC = true;
+    ctx._touristD1PeelEmptyFloorDogGoalLikeC = true;
+    delete ctx._wizD1Step1PetMfndposPickDoneLikeC;
+    delete ctx._touristD1PostSwapNearRestMmoveTailPendingLikeC;
+    delete ctx._touristD1PostSwapNearRestMmoveRn32DoneLikeC;
+    try {
+        const goal = dogGoalFloorScanRngLikeC(g, mtmp, true, whappr);
+        if ((goal.appr | 0) === -2) return;
+        dogMoveMfndposPickLikeC(
+            g,
+            mtmp,
+            goal.gx | 0,
+            goal.gy | 0,
+            goal.appr | 0,
+            whappr,
+        );
+    } finally {
+        delete ctx._touristD1LPostMovemonPeelLikeC;
+        delete ctx._touristD1LPostMovemonPeelMfndposLikeC;
+        delete ctx._touristD1PeelEmptyFloorDogGoalLikeC;
+    }
+}
+
 export function dogMoveTouristD1LPostPetLikeC(g, mtmp) {
     if (!(mtmp.mtame | 0) || !has_edog(mtmp)) return;
     const mx = mtmp.mx | 0;
