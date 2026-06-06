@@ -2540,7 +2540,10 @@ export async function mMoveOneMonsterSubsetLikeC(g, mtmp, stepNum = 0) {
                         ) {
                             await distfleeckMonsterApplyLikeC(g, mtmp);
                             g.context._wizD1EastTailShortLSecondNearDfLikeC = true;
-                            g.context._wizD1ArmWalkFmonAfterShortLNewTurnLikeC = true;
+                            /* C: arm capital **`K`** peel only after walk done (~2815+). */
+                            if (g.context?._wizD1PostEastTailWalkPeelDoneLikeC) {
+                                g.context._wizD1ArmWalkFmonAfterShortLNewTurnLikeC = true;
+                            }
                         }
                     }
                     return;

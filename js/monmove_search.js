@@ -56,6 +56,16 @@ export function wizD1EastTailShortLActiveLikeC(g) {
 export function isMovemonStepOnePeelLikeC(g, stepNum) {
     if ((stepNum | 0) === 1) return true;
     if (wizD1EastTailShortLActiveLikeC(g)) return true;
+    /* C: post-east-tail walk **`fmon`** peel — not session step 1 (**`seed0006`** ~2781+). */
+    if (
+        g.urole?.abbr === 'Wiz'
+        && (g.u?.uz?.dnum | 0) === 0
+        && (g.u?.uz?.dlevel | 0) === 1
+        && g.context?._wizD1PostEastTailWalkFmonLikeC
+        && !g.context?._wizD1PostEastTailWalkCompleteLikeC
+    ) {
+        return true;
+    }
     return (
         isFirstSearchMovemonPassLikeC(g)
         && !!g.context?._searchPass1NearMonLikeC

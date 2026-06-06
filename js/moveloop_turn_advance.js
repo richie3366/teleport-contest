@@ -569,6 +569,12 @@ export async function runPostCommandTurnAdvanceLikeC(g) {
     g.context = g.context || {};
     delete g.context._wizD1EastTailShortLDeferToNextPostLikeC;
     delete g.context._wizD1MovemonRanThisPostLikeC;
+    if (g.context?._wizD1PostEastTailWalkFmonPendingLikeC) {
+        g.context._wizD1PostEastTailWalkFmonLikeC = true;
+        delete g.context._wizD1PostEastTailWalkFmonPendingLikeC;
+        delete g.context._wizD1PostEastTailWalkCompleteLikeC;
+        delete g.context._wizD1EastTailMovemonPetMfndposPendingLikeC;
+    }
     const wizD1MovemonOnceLikeC =
         g.urole?.abbr === 'Wiz'
         && (g.u?.uz?.dnum | 0) === 0
@@ -579,6 +585,10 @@ export async function runPostCommandTurnAdvanceLikeC(g) {
         if (g.context?._wizD1PostEastTailWalkCompletePendingLikeC) {
             wizD1ShortLPostLikeC = true;
             delete g.context._wizD1PostEastTailWalkCompletePendingLikeC;
+            delete g.context._wizD1EastTailShortLPendingArmedLikeC;
+            /* C: east-tail short **`l`** — leave post-bump **`fmon`** tail; use peel **`else`** branch. */
+            delete g.context._postBumpKillDochugGateLikeC;
+            delete g.context._postBumpInlineDoneLikeC;
             g.context._wizD1PostEastTailWalkCompleteLikeC = true;
             delete g.context._wizD1PostEastTailWalkShortLNearDfLikeC;
             delete g.context._wizD1PostEastTailWalkFmonLikeC;
@@ -588,8 +598,13 @@ export async function runPostCommandTurnAdvanceLikeC(g) {
         } else if (
             g.context?._wizD1EastTailShortLPendingArmedLikeC
             && !g.context?._wizD1PostEastTailWalkCompleteLikeC
+            && !g.context?._wizD1PostEastTailWalkFmonPendingLikeC
+            && !g.context?._wizD1PostEastTailWalkFmonLikeC
         ) {
             wizD1ShortLPostLikeC = true;
+            delete g.context._wizD1EastTailShortLPendingArmedLikeC;
+            delete g.context._postBumpKillDochugGateLikeC;
+            delete g.context._postBumpInlineDoneLikeC;
             g.context._wizD1PostEastTailWalkCompleteLikeC = true;
             delete g.context._wizD1PostEastTailWalkShortLNearDfLikeC;
             delete g.context._wizD1PostEastTailWalkFmonLikeC;

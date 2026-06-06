@@ -32,7 +32,7 @@ Use this when **`Next steps`** below feels stale or several lanes compete. Order
 
 **Tutorial (Lane E):** Gated on [tutorial port gate](../../docs/plans/tutorial-port-gate.md) **MD-1 … MD-7**.
 
-**Last slice:** **Lane C — `seed0006` capital `K` post-near pet + distant order** — C **`dogmove.c`** post-near: invent prescan + five in-loop away **`rn2(12)`** (~2873–2877), no mfndpos pad; C distant **`m_move`**: **`rn2(20)`** → **`distfleeck`**×2 → **`rn2(20)`** (~2862–2865), not leading **`distfleeck`**; post-new-turn pet **`distfleeck`**×2 (~2860–2861) after mfndpos (clear tail budget). **`dogmove_mon.js`** **`game.context`** sync + drop post-near pad; **`monmove.js`** order fixes. **K step** first mismatch still **2818** (pre-inline short-**`l`** **`mcalcmove`**). **`2878`** pet **`distfleeck`** can match when upstream aligned. **`seed8000` 2900–3129:** aligned. **2/44**.
+**Last slice:** **Lane C — `seed0006` east-tail short-`l` / walk `fmon` chain** — C **`monmove.c`** / **`allmain.c`**: first short **`l`** near+pet only → moveloop new-turn (~2775+); **`FmonPending`** → next-post walk **`fmon`** (~2781+); second short **`l`** near+pet+near → inline **`mcalcmove`** (~2816+); capital **`K`** deferred peel not on walk arm. **`fmon_iter.js`**, **`monmove.js`**, **`moveloop_turn_advance.js`**, **`monmove_search.js`**, **`dogmove_mon.js`**, **`m_move_mon.js`**. **`2768–2774`**, **`2816–2817`**, **`2822`** aligned; first fail **2775**. **`seed8000` 2900–3129:** aligned. **2/44**.
 
 ## Next steps (aligned with matrix)
 
@@ -40,7 +40,7 @@ Pick **one** primary lane per **batch** (several related C functions — see che
 
 **First:** open [`docs/plans/tutorial-port-gate.md`](../../docs/plans/tutorial-port-gate.md) — if **all MD-1 … MD-7** are checked, do **Lane E** step 1 from [10-tutorial.md](../plans/nethack-port/10-tutorial.md) instead of the list below.
 
-1. **Lane C — `seed0006` ~2818** — capital **`K`** pre-inline short-**`l`** **`mcalcmove`**×3 + first new-turn (~2816–2821) before **`_wizD1PostEastTailWalkFmonDistantDeferred`** peel.
+1. **Lane C — `seed0006` ~2775** — gate moveloop **`L`**-pet-tail **`distfleeck`** (~1057+) / post-first-short-**`l`** extra draw before **`mcalcmove`**; then walk **`fmon`** ~2781–2809 + second short-**`l`** ~2818.
 2. **Lane B — NHL** — next **`lspo_*`** per [`nhl-port-notes.md`](nhl-port-notes.md).
 3. **Lane A/D — `seed0900`** — screen parity (RNG **0–2982** done); map/botl integration beyond moveloop peel chain.
 4. **Lane A/D — `dogmove.c`** — **`score_targ`** vampshifter **`mtmp_lev`** **`rn2`** tail (~808–817); **`mattackm`** / **`pet_ranged_attk`** when pet breath sessions fail.

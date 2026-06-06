@@ -3506,6 +3506,10 @@ export function dogMovePostEastTailWalkShortLPetLikeC(g, mtmp) {
         delete ctx._dogfoodRankCacheLikeC;
     }
     ctx._wizD1EastTailShortLPetDoneLikeC = true;
+    /* C: first short **`l`** (~2770+) — arm walk **`fmon`** for next post; not second (~2810+). */
+    if (!ctx._wizD1PostEastTailWalkPeelDoneLikeC) {
+        ctx._wizD1ArmWalkFmonAfterShortLNewTurnLikeC = true;
+    }
     return MMOVE_NOTHING;
 }
 
