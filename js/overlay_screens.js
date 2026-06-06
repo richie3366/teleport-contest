@@ -15,6 +15,7 @@ import { A_STR, A_INT, A_WIS, A_DEX, A_CON, A_CHA } from './const.js';
 import { mergeSpellbookObjectDiscoveryIntoGroups } from './spellbook_discovery_lines.js';
 import { mergeScrollDiscoveryIntoGroups } from './scroll_discovery_lines.js';
 import { rankOfRoleLikeC } from './roles.js';
+import { dodiscoveredGroupsLikeC } from './dodiscovered.js';
 
 /** C: o_init.c `dodiscovered` — `* ` when `!oc_encountered`, else two spaces. */
 function discoveryLinePrefixLikeC(g, otyp) {
@@ -49,6 +50,9 @@ function rogueMoveloopDiscoveryGroupsLikeC(g) {
 function discoveryGroupsForOverlayLikeC(g) {
     if (g.urole?.abbr === 'Rog' && g.program_state?.in_moveloop) {
         return rogueMoveloopDiscoveryGroupsLikeC(g);
+    }
+    if (g.discoSlots) {
+        return dodiscoveredGroupsLikeC(g);
     }
     return mergeScrollDiscoveryIntoGroups(
         mergeSpellbookObjectDiscoveryIntoGroups(g.discoveryGroups || [], g),

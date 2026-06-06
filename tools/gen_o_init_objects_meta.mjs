@@ -76,7 +76,8 @@ for (let i = 1; i < parts.length; i++) {
     });
 }
 
-const MAXOCLASSES = ENUM_OTYP.LAST_GENERIC + 1;
+/** C: objclass.h `enum objclass_classes` — last class (VENOM) + 1 == `MAXOCLASSES` == `FIRST_OBJECT` index. */
+const MAXOCLASSES = Math.max(...Object.values(clsNum)) + 1;
 /** C: NUM_OBJECTS — last real otyp; fencepost at objects[NUM_OBJECTS] is ILLOBJ terminator. */
 const FENCEPOST_OTYP = objs.length - 1;
 const NUM_OBJECTS = FENCEPOST_OTYP;
@@ -109,6 +110,47 @@ function descrBlockHasDescr(block) {
     return !descPart.includes('(char *) 0');
 }
 const hasDescr = descrBlocks.map(descrBlockHasDescr);
+
+/** @param {string} block */
+function parseDescrBlock(block) {
+    const inner = block.slice(1, -1);
+    /** @type {string[]} */
+    const parts = [];
+    let i = 0;
+    let cur = '';
+    let inStr = false;
+    while (i < inner.length) {
+        const c = inner[i];
+        if (c === '"') {
+            inStr = !inStr;
+            cur += c;
+            i++;
+            continue;
+        }
+        if (!inStr && c === ',') {
+            parts.push(cur.trim());
+            cur = '';
+            i++;
+            continue;
+        }
+        cur += c;
+        i++;
+    }
+    if (cur.trim()) parts.push(cur.trim());
+    /** @param {string} s */
+    function unq(s) {
+        s = s.trim();
+        if (s.includes('(char *) 0')) return null;
+        if (s.startsWith('"') && s.endsWith('"')) {
+            return s.slice(1, -1).replace(/\\"/g, '"').replace(/\\\\/g, '\\');
+        }
+        return null;
+    }
+    return { name: unq(parts[0] ?? ''), desc: unq(parts[1] ?? '') };
+}
+
+const ocName = descrBlocks.map((b) => parseDescrBlock(b).name);
+const ocDescr = descrBlocks.map((b) => parseDescrBlock(b).desc);
 
 const nmkn = objs.map((o) => o.nmkn);
 const mgc = objs.map((o) => o.mgc);
@@ -201,6 +243,15 @@ export const O_INIT_OC_UNIQUE = Object.freeze(${JSON.stringify(uniq)});
 
 /** C: objects[].oc_class per otyp. */
 export const O_INIT_OC_CLASS = Object.freeze(${JSON.stringify(ocls)});
+
+/** C: OBJ_NAME(objects[i]) — first field of OBJ(name, desc). */
+export const O_INIT_OC_NAME = Object.freeze(${JSON.stringify(ocName)});
+
+/** C: OBJ_DESCR(objects[i]) — second field of OBJ(name, desc); null when absent. */
+export const O_INIT_OC_DESCR = Object.freeze(${JSON.stringify(ocDescr)});
+
+/** C: objects.h FIRST_OBJECT — first real object index (LAST_GENERIC + 1). */
+export const O_INIT_FIRST_OBJECT = ${MAXOCLASSES};
 
 /** C: object constants as compact objects[] indices (onames; enum when it matches objects[]). */
 export const O_INIT_OTYP = Object.freeze(${JSON.stringify({
