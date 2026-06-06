@@ -6,6 +6,7 @@ Historical rows moved from `c-to-js-port-progress.md` so day-to-day work uses **
 
 | When | What changed |
 |------|----------------|
+| **2026-06-06** | **Lane A/D `seed0900` run-east `L` post (~2655–2667)** — fourth **`movemon`** phase-1 **`mfndpos`** (**`pickAppr=1`**, defer **`j<0`** until away draws, **`chcnt`**/away pad); **`dogMoveMfndposPickLikeC`** early-return bypass for third/fourth flags. Diag **2620–2667**; **~2668** open. **`seed8000`:** **PASS**. **2/44**. |
 | **2026-06-06** | **Lane A/D `seed0900` run-east `L` post (~2649–2654)** — fourth **`movemon`** (**`dogMoveTouristD1LPostFourthMovemonPetLikeC`**, capped invent prescan); arm after third-pass new-turn; skip **`mcalcmove`** after fourth pass. Diag **2620–2654**; **~2655** open. **`seed8000`:** **PASS**. **2/44**. |
 | **2026-06-06** | **Lane A/D `seed0900` run-east `L` post (~2627–2648)** — third **`movemon`** (**`dogMoveTouristD1LPostThirdMovemonPetLikeC`** 3-phase **`mfndpos`**); skip next outer **`movemon`** before post-tail new-turn; skip **`mcalcmove`** after third-pass new-turn. Diag **2620–2648**; **~2649** open. **`seed8000`:** **PASS**. **2/44**. |
 | **2026-06-06** | **Lane A/D `seed0900` run-east `L` post (~2608–2626)** — post-peel new-turn skip **`mcalcmove`**; **`dogMoveTouristD1LPostAfterPeelNewturnTailLikeC`** + away **`rn2(12)`** pad; tail **`movemon`** inside **`runNewTurnSetupAndTailLikeC`**; skip **`mcalcmove`** after tail new-turn. Diag **2568–2626**; **~2627** open. **`seed8000`:** **PASS**. **2/44**. |

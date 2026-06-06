@@ -1058,6 +1058,9 @@ function resetTouristPostRestAwayRn12LikeC() {
 function dogMovePickRn2LikeC(g, n) {
     const ctx = g.context;
     const ni = n | 0;
+    if (ctx?._touristD1LPostFourthMfndposPhase1LikeC) {
+        return rn2(ni);
+    }
     if (ctx?._touristD1PostSwapAfterRestPetGoalLikeC && ni === 12) {
         if (_touristPostRestAwayRn12LikeC < 0) {
             _touristPostRestAwayRn12LikeC = 0;
@@ -1128,6 +1131,9 @@ function dogMoveMfndposPickLikeC(g, mtmp, ggx, ggy, appr, whappr) {
         && !ctxPick?._wizD1CapitalKPostNearMfndposLikeC
         && !ctxPick?._touristD1LPostMovemonPeelMfndposLikeC
         && !ctxPick?._touristD1LPostAfterPeelNewturnTailMfndposLikeC
+        && !ctxPick?._touristD1LPostThirdMovemonMfndposLikeC
+        && !ctxPick?._touristD1LPostFourthMfndposPhase1LikeC
+        && !ctxPick?._touristD1LPostFourthMovemonMfndposLikeC
     ) {
         return;
     }
@@ -1180,6 +1186,7 @@ function dogMoveMfndposPickLikeC(g, mtmp, ggx, ggy, appr, whappr) {
         && !g.context?._wizD1LPetEastTailMfndposLikeC
         && !g.context?._touristD1PostSwapAfterRestPetMfndposLikeC
         && !g.context?._touristD1PostRestSecondDogMoveLikeC
+        && !g.context?._touristD1LPostFourthMovemonLikeC
     ) {
         /* C: **`appr==0`** — one **`rn2(1)`** on the closest-to-goal **`mfndpos`** slot
          * (recorder **`seed0077`** ~3208 onto APPORT towel; avoids **`rn2(2..)`** when extra
@@ -1515,7 +1522,7 @@ function dogMoveMfndposPickLikeC(g, mtmp, ggx, ggy, appr, whappr) {
                 if (sameCell && awayN === 0) {
                     awayClause = !rn2(3);
                     ctxAway._touristD1LPostFourthAwayRn12LikeC = 1;
-                } else if (!awayClause && awayN < 4) {
+                } else if (!awayClause && awayN < 5) {
                     awayClause = !rn2(12);
                     ctxAway._touristD1LPostFourthAwayRn12LikeC = awayN + 1;
                 }
@@ -1524,11 +1531,22 @@ function dogMoveMfndposPickLikeC(g, mtmp, ggx, ggy, appr, whappr) {
                 if ((ctxAway._touristD1LPostFourthAwayRn12LikeC | 0) < 2) {
                     continue;
                 }
-                if (chcnt === 0 && !rn2(++chcnt)) pickTake = true;
-            } else if (j < 0 || awayClause) {
+                if (chcnt === 0) {
+                    if (!rn2(++chcnt)) pickTake = true;
+                    ctxAway._touristD1LPostFourthChcntDrawnLikeC = true;
+                }
+            } else if (j < 0) {
+                if ((ctxAway._touristD1LPostFourthAwayRn12LikeC | 0) < 2) {
+                    continue;
+                }
+                pickTake = true;
+            } else if (awayClause) {
                 pickTake = true;
             }
-            if ((ctxAway._touristD1LPostFourthAwayRn12LikeC | 0) >= 4 && chcnt > 0) {
+            if (
+                (ctxAway._touristD1LPostFourthAwayRn12LikeC | 0) >= 5
+                && chcnt > 0
+            ) {
                 break;
             }
         } else if (
@@ -2285,23 +2303,45 @@ export function dogMoveTouristD1LPostFourthMovemonPetLikeC(g, mtmp, phase = 1) {
             };
             ctx._touristD1LPostFourthInventPrescanOnlyLikeC = true;
             ctx._touristD1LPostFourthMfndposPhase1LikeC = true;
+            ctx._touristD1LPostFourthAwayRn12LikeC = 0;
             delete ctx._wizD1Step1PetMfndposPickDoneLikeC;
+            delete ctx._wizD1LPickRngBudget;
+            delete ctx._wizD1Step1LPetTailDogGoalLikeC;
+            delete ctx._wizD1LPostFourthPetDogGoalLikeC;
             try {
                 dogGoalObjResistsPrescanLikeC(g, mtmp, { scanInvent: true });
                 const cached = ctx._touristD1LPostFourthCachedGoalLikeC;
                 if (cached) {
+                    /* C: after capped invent **`obj_resists`**, **`dog_goal`** sets **`appr=1`**
+                     * for away **`mfndpos`** (~2655+ on **`seed0900`**). */
+                    const pickAppr = (cached.appr | 0) !== 0 ? (cached.appr | 0) : 1;
                     dogMoveMfndposPickLikeC(
                         g,
                         mtmp,
                         cached.gx | 0,
                         cached.gy | 0,
-                        0,
+                        pickAppr,
                         whappr,
                     );
+                    /* C: short **`mfndpos`** slot list — pad **`chcnt`** + away budget
+                     * (~2657–2660 on **`seed0900`**). */
+                    if (
+                        !ctx._touristD1LPostFourthChcntDrawnLikeC
+                        && (ctx._touristD1LPostFourthAwayRn12LikeC | 0) >= 2
+                    ) {
+                        rn2(1);
+                        ctx._touristD1LPostFourthChcntDrawnLikeC = true;
+                    }
+                    while ((ctx._touristD1LPostFourthAwayRn12LikeC | 0) < 5) {
+                        rn2(12);
+                        ctx._touristD1LPostFourthAwayRn12LikeC =
+                            (ctx._touristD1LPostFourthAwayRn12LikeC | 0) + 1;
+                    }
                 }
             } finally {
                 delete ctx._touristD1LPostFourthMfndposPhase1LikeC;
                 delete ctx._touristD1LPostFourthAwayRn12LikeC;
+                delete ctx._touristD1LPostFourthChcntDrawnLikeC;
                 delete ctx._touristD1LPostFourthInventPrescanOnlyLikeC;
                 delete ctx._dogfoodRankCacheLikeC;
             }
