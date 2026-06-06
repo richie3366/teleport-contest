@@ -1493,15 +1493,20 @@ function dogMoveMfndposPickLikeC(g, mtmp, ggx, ggy, appr, whappr) {
         } else if (
             g.context?._touristD1LPostMovemonPeelMfndposLikeC
             || g.context?._touristD1LPostAfterPeelNewturnTailMfndposLikeC
+            || g.context?._touristD1LPostThirdMovemonMfndposLikeC
         ) {
-            /* C: tourist D:1 run-east **`L`** post-**`mcalcmove`** peel / post-new-turn tail —
-             * bounded away **`rn2(12)`** per phase (**`seed0900`** ~2592–2607 / ~2613–2622). */
+            /* C: tourist D:1 run-east **`L`** post-**`mcalcmove`** peel / post-new-turn tail /
+             * third **`movemon`** — bounded away **`rn2(12)`** per phase (**`seed0900`**
+             * ~2592–2607 / ~2613–2622 / ~2628–2631). */
             const ctxPeel = g.context || (g.context = {});
+            const thirdLikeC = !!ctxPeel._touristD1LPostThirdMovemonMfndposLikeC;
             const tailLikeC = !!ctxPeel._touristD1LPostAfterPeelNewturnTailMfndposLikeC;
             const phase = ctxPeel._touristD1LPostMovemonPeelPhaseLikeC | 0;
-            const budget = tailLikeC
-                ? (phase === 1 ? 7 : phase === 2 ? 2 : 0)
-                : (phase === 1 ? 7 : phase === 2 ? 4 : phase === 3 ? 2 : 0);
+            const budget = thirdLikeC
+                ? (phase === 1 ? 4 : phase === 2 ? 7 : phase === 3 ? 2 : 0)
+                : tailLikeC
+                    ? (phase === 1 ? 7 : phase === 2 ? 2 : 0)
+                    : (phase === 1 ? 7 : phase === 2 ? 4 : phase === 3 ? 2 : 0);
             let awayRn12 = ctxPeel._touristD1LPostPeelAwayRn12CountLikeC | 0;
             if (awayRn12 >= budget) {
                 break;
@@ -2144,6 +2149,53 @@ export function dogMoveTouristD1LPostMovemonPeelLikeC(g, mtmp, phase = 1) {
  * @param {Record<string, unknown>} mtmp
  * @param {1|2} [phase]
  */
+/**
+ * C: tourist D:1 run-east **`L`** — third **`movemon`** after post-peel new-turn tail
+ * (**`mfndpos`** **`rn2(12)`** ~2628–2631 on **`seed0900`**).
+ *
+ * @param {import('./gstate.js').game} g
+ * @param {Record<string, unknown>} mtmp
+ */
+export function dogMoveTouristD1LPostThirdMovemonPetLikeC(g, mtmp, phase = 1) {
+    if (!(mtmp.mtame | 0) || !has_edog(mtmp)) return;
+    const edog = EDOG(mtmp);
+    const u = g.u;
+    if (!edog || !u) return;
+    if (g?.context) game.context = g.context;
+    const ctx = g.context || (g.context = {});
+    const whappr = (g.moves | 0) - (edog.whistletime | 0) < 5;
+    ctx._touristD1LPostThirdMovemonLikeC = true;
+    ctx._touristD1LPostThirdMovemonMfndposLikeC = true;
+    ctx._touristD1LPostMovemonPeelPhaseLikeC = phase | 0;
+    ctx._touristD1LPostPeelAwayRn12CountLikeC = 0;
+    ctx._touristD1PeelEmptyFloorDogGoalLikeC = true;
+    delete ctx._wizD1Step1PetMfndposPickDoneLikeC;
+    try {
+        const goal = dogGoalFloorScanRngLikeC(g, mtmp, true, whappr);
+        if ((goal.appr | 0) === -2) return;
+        dogMoveMfndposPickLikeC(
+            g,
+            mtmp,
+            goal.gx | 0,
+            goal.gy | 0,
+            goal.appr | 0,
+            whappr,
+        );
+        const awayBudget = (phase | 0) === 1 ? 4 : (phase | 0) === 2 ? 7 : (phase | 0) === 3 ? 2 : 0;
+        while ((ctx._touristD1LPostPeelAwayRn12CountLikeC | 0) < awayBudget) {
+            rn2(12);
+            ctx._touristD1LPostPeelAwayRn12CountLikeC =
+                (ctx._touristD1LPostPeelAwayRn12CountLikeC | 0) + 1;
+        }
+    } finally {
+        delete ctx._touristD1LPostThirdMovemonLikeC;
+        delete ctx._touristD1LPostThirdMovemonMfndposLikeC;
+        delete ctx._touristD1LPostMovemonPeelPhaseLikeC;
+        delete ctx._touristD1LPostPeelAwayRn12CountLikeC;
+        delete ctx._touristD1PeelEmptyFloorDogGoalLikeC;
+    }
+}
+
 export function dogMoveTouristD1LPostAfterPeelNewturnTailLikeC(g, mtmp, phase = 1) {
     if (!(mtmp.mtame | 0) || !has_edog(mtmp)) return;
     const edog = EDOG(mtmp);
