@@ -126,7 +126,7 @@ function shouldPaintInventoryMapCellLikeC(x, y, loc) {
 /** C: topl.c — row-0 text at nhgetch snapshot. */
 export function formatPendingMessageLineLikeC() {
     const base = game._pending_message || '';
-    if (!game._showDefmoreOnTopline || !game._toplineNeedMore) return base;
+    if (!game._showDefmoreOnTopline) return base;
     if (base.endsWith(DEFMORE_STR)) return base;
     const co = ttyCoLikeC();
     if (base.length >= co - DEFMORE_LEN) return `${base}\n${DEFMORE_STR}`;
@@ -187,9 +187,10 @@ export function shouldClearMoveloopToplineLikeC(g) {
 export function latchRetainedToplineLikeC(g) {
     if (g._retainMessageAfterCommand) {
         g._keepToplineUntilNextCommand = true;
-        /* C: retained status plines stay on row 0 without an active `--More--` prompt. */
-        g._toplineNeedMore = false;
-        g._showDefmoreOnTopline = false;
+        /* C: topl.c more() — `--More--` stays until space/ESC; do not clear mid-prompt. */
+        if (!g._showDefmoreOnTopline) {
+            g._toplineNeedMore = false;
+        }
     }
     g._retainMessageAfterCommand = false;
 }

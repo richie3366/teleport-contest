@@ -304,15 +304,27 @@ function ocSkillRowPluralDonameLikeC(phrase, q) {
  * C: **`doname`** / **`minimal_xname`** fallback for **`otyp`** in **`OC_SKILL_ROW_BY_OTYP`** (weapon/tool/gem/rock…).
  * @returns {string|null}
  */
+/** C: objnam.c doname_base WEAPON_CLASS — `Sprintf(prefix, "%+d ", obj->spe)` when known. */
+function weaponSpePrefixDonameLikeC(otmp) {
+    const spe = otmp.spe | 0;
+    if (spe === 0) return '';
+    const known = otmp.known !== false && (otmp.known || otmp.dknown || spe !== 0);
+    if (!known) return '';
+    return `${spe > 0 ? '+' : ''}${spe} `;
+}
+
 function donameFromOcSkillRowLikeC(otmp, q) {
     const row = OC_SKILL_ROW_BY_OTYP.get(otmp.otyp | 0);
     if (!row) return null;
     const phrase = ocSkillRowPhraseFromRow(row);
     if (!phrase) return null;
     const iq = Math.max(1, q | 0);
+    const oc = nh5HeroObjectClass(otmp);
+    const spePre =
+        oc === NH5_WEAPON_CLASS ? weaponSpePrefixDonameLikeC(otmp) : '';
     if (iq === 1) {
         const art = justArticlePrefix(phrase);
-        return `${art}${phrase}`;
+        return `${art}${spePre}${phrase}`;
     }
     return ocSkillRowPluralDonameLikeC(phrase, iq);
 }

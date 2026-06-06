@@ -52,7 +52,8 @@ import { dokickFromCmd } from './kick.js';
 import { snapshotUshops0FromHeroTileLikeC } from './shop.js';
 import { doDropOneAtHeroFeetLikeC } from './drop_hero.js';
 import { throwOneInventAdjacentLikeC } from './throw_hero.js';
-import { doFireFromQuiverCmdLikeC } from './dofire_hero.js';
+import { doFireFromQuiverCmdLikeC, doFireGetdirPhaseLikeC } from './dofire_hero.js';
+import { runGetdirPromptLikeC } from './dir_input.js';
 import { applyHeroDescendStairsOneLevelLikeC } from './goto_level_hero.js';
 import { stairwayAtInGame } from './decor.js';
 
@@ -82,6 +83,25 @@ export async function rhack(key) {
         // Read key from input
         await flush_screen(1);
         key = await nhgetch();
+    }
+
+    /* C: dothrow.c fireassist prinv — one nhgetch per `--More--` dismiss (l/i pass through). */
+    if (game.context?._dofireDefmoreWaitLikeC) {
+        if (key === 32 || key === 27) {
+            delete game.context._dofireDefmoreWaitLikeC;
+            await runGetdirPromptLikeC(game);
+            game.context._dofireGetdirPendingLikeC = true;
+        }
+        game.context.move = 0;
+        await flush_screen(1);
+        return;
+    }
+
+    if (game.context?._dofireGetdirPendingLikeC) {
+        delete game.context._dofireGetdirPendingLikeC;
+        await doFireGetdirPhaseLikeC(game, key | 0);
+        await flush_screen(1);
+        return;
     }
 
     /* C: invent.c display_pickinv — next key dismisses overlay; key is consumed. */
@@ -120,6 +140,16 @@ export async function rhack(key) {
         } else {
             clearPendingMessageAndToplineLikeC();
             await flush_screen(1);
+            /* C: dothrow.c dofire getdir ESC — defer moveloop peel (~seed0102 step 14). */
+            if (game.context?._dofireAwaitEscMoveloopLikeC) {
+                delete game.context._dofireAwaitEscMoveloopLikeC;
+                game.context._dofireEscMoveloopPeelOnlyLikeC = true;
+                try {
+                    await runPostCommandTurnAdvanceLikeC(game);
+                } finally {
+                    delete game.context._dofireEscMoveloopPeelOnlyLikeC;
+                }
+            }
         }
         game.context.move = 0;
         return;
