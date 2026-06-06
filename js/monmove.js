@@ -1070,29 +1070,49 @@ export async function movemon(stepNum) {
         ) {
             const nearMklev = findTouristD1PostSwapNearMklevMonLikeC(g);
             const pet = (g.level?.monsters ?? []).find((m) => (m.mtame | 0) !== 0);
-            /* C: ~915 **`distfleeck`** when near mklev remains; else pet recalc before **`dog_move`**
-             * (~2591 on **`seed0900`** after **`L`** kill) — not distant **`m_move`**. */
-            if (nearMklev) {
-                setApparxyMonsterLikeC(g, nearMklev);
-                await distfleeckMonsterApplyLikeC(g, nearMklev);
-            } else if (pet) {
-                setApparxyMonsterLikeC(g, pet);
-                await distfleeckMonsterApplyLikeC(g, pet);
-            }
-            if (pet) {
-                setApparxyMonsterLikeC(g, pet);
-                let mov = pet.movement | 0;
+            const distfleeckTarget = nearMklev ?? pet;
+            const spendPetMoveLikeC = (mtmp) => {
+                if (!mtmp) return;
+                setApparxyMonsterLikeC(g, mtmp);
+                let mov = mtmp.movement | 0;
                 if (mov < NORMAL_SPEED) {
-                    pet.movement = NORMAL_SPEED;
+                    mtmp.movement = NORMAL_SPEED;
                     mov = NORMAL_SPEED;
                 }
-                pet.movement = mov - NORMAL_SPEED;
-                delete g.context._touristD1LPostMovemonPeelAwayRngLikeC;
-                dogMoveTouristD1LPostMovemonPeelLikeC(g, pet);
+                mtmp.movement = mov - NORMAL_SPEED;
+            };
+            /* C: post-**`mcalcmove`** peel — **`distfleeck`** + **`dog_move`** ×3 phases inlined
+             * (one **`movemon`** pass; **`seed0900`** ~2591–2607) before next new-turn **`mcalcmove`**. */
+            if (distfleeckTarget) {
+                setApparxyMonsterLikeC(g, distfleeckTarget);
+                await distfleeckMonsterApplyLikeC(g, distfleeckTarget);
             }
+            if (pet) {
+                spendPetMoveLikeC(pet);
+                dogMoveTouristD1LPostMovemonPeelLikeC(g, pet, 1);
+            }
+            if (distfleeckTarget) {
+                setApparxyMonsterLikeC(g, distfleeckTarget);
+                await distfleeckMonsterApplyLikeC(g, distfleeckTarget);
+                await distfleeckMonsterApplyLikeC(g, distfleeckTarget);
+            }
+            if (pet) {
+                spendPetMoveLikeC(pet);
+                dogMoveTouristD1LPostMovemonPeelLikeC(g, pet, 2);
+            }
+            if (distfleeckTarget) {
+                setApparxyMonsterLikeC(g, distfleeckTarget);
+                await distfleeckMonsterApplyLikeC(g, distfleeckTarget);
+            }
+            if (pet) {
+                spendPetMoveLikeC(pet);
+                dogMoveTouristD1LPostMovemonPeelLikeC(g, pet, 3);
+                pet.movement = 0;
+            }
+            delete g.context._somebodyCanMoveLikeC;
             delete g.context._touristD1LPostFmonPeelPendingLikeC;
             delete g.context._touristD1LPostMcalcmoveDoneLikeC;
-            delete g.context._touristD1LPostSkipMoveloop82ExerciseLikeC;
+            g.context._touristD1LPostPeelCompleteLikeC = true;
         }
         /* C: wizard D:1 step-1 — post-peel distant **`m_move`** + pet **`dog_invent`** (~2572–2597). */
         if (

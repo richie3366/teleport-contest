@@ -229,6 +229,10 @@ export async function runNewTurnSetupAndTailLikeC(g, stepNum) {
     if (g.context?._touristD1LPostFmonPeelPendingLikeC) {
         g.context._touristD1LPostMcalcmoveDoneLikeC = true;
     }
+    if (g.context?._touristD1LPostPeelCompleteLikeC) {
+        delete g.context._touristD1LPostPeelCompleteLikeC;
+        delete g.context._touristD1LPostSkipMoveloop82ExerciseLikeC;
+    }
 }
 
 /**
