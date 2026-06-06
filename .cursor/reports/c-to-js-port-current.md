@@ -32,7 +32,7 @@ Use this when **`Next steps`** below feels stale or several lanes compete. Order
 
 **Tutorial (Lane E):** Gated on [tutorial port gate](../../docs/plans/tutorial-port-gate.md) **MD-1 … MD-7**.
 
-**Last slice:** **Lane A/D mklev `mkobj_at` + tourist `dog_goal` peel** — C **`mkobj_at`** floor placement for **`makeniche`**; empty-floor peel caps **`dog_goal`** invent **`obj_resists`** at **5** then **`appr=1`** (C **`gg.gtyp`** skip) before **`mfndpos`** **`rn2(1/2)`**. **`seed0900`:** **2491/2983** (was **2487**; **2487–2490** match). Next: **~2491** **`distfleeck`** tail / bbox **`fobj`**. **`seed8000`/`seed0077`:** **PASS**. **2/44**.
+**Last slice:** **Lane A/D tourist D:1 swap `mfndpos` defer + `distfleeck` tail** — C **`dogmove.c`**: **2×** **`chcnt`** then mklev **`distfleeck`**×2 + pet **`dochug`** ~915 recalc before away **`rn2(12)`**; **`dogMoveTouristD1PostSwapMfndposResumeLikeC`** + **`monmove.js`** fmon tail. **`seed0900`:** **2576/2983** (diag **2491–2500**; was **2491**). Next: **~2501** post-mintrap **`distfleeck`** / mklev **`m_move`** **`rn2(24/32)`**. **`seed8000`/`seed0077`:** **PASS**. **2/44**.
 
 ## Next steps (aligned with matrix)
 
@@ -40,7 +40,7 @@ Pick **one** primary lane per **batch** (several related C functions — see che
 
 **First:** open [`docs/plans/tutorial-port-gate.md`](../../docs/plans/tutorial-port-gate.md) — if **all MD-1 … MD-7** are checked, do **Lane E** step 1 from [10-tutorial.md](../plans/nethack-port/10-tutorial.md) instead of the list below.
 
-1. **Lane A/D — `seed0900` ~2491** — post-peel **`distfleeck`** third draw before **`mcalcmove`**; long-term D:1 **`fobj`** in pet **`dog_goal`** bbox (**`mklev`/`makeniche`/`fill_ordinary_room`**) so peel invent cap can drop; **`mfndpos`** **`chcnt`**; **`seed0102`** D:1 map + botl.
+1. **Lane A/D — `seed0900` ~2501** — post-mintrap mklev **`distfleeck`** tail before **`m_move`** **`rn2(24/32)`**; long-term D:1 **`fobj`** in pet **`dog_goal`** bbox (**`mklev`/`makeniche`/`fill_ordinary_room`**) so peel invent cap can drop; **`seed0102`** D:1 map + botl.
 2. **Lane A — `seed0102` screen 0** — D:1 map + botl after mklev parity.
 3. **Lane C — `seed0006` ~2892** — capital **`K`** moveloop tail; screen **35** botl (**`find_ac`** / time).
 4. **Lane B — NHL** — next **`lspo_*`** per [`nhl-port-notes.md`](nhl-port-notes.md).
