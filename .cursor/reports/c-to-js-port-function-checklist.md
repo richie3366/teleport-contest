@@ -102,7 +102,7 @@ Align batches with [`c-to-js-port-remaining.md`](c-to-js-port-remaining.md) §5:
 | `dogmove` | `dogmove_mon.js` | partial | fourth/sixth/seventh/eighth/ninth/tenth/eleventh/thirteenth/fourteenth/seventeenth/eighteenth/nineteenth/twentieth phase-1 **`mfndpos`**; seventh/eighth pair-pad; ninth/eleventh 2× tail; thirteenth **`chcnt`** + 3× tail; fourteenth 2× pair-pad + 3× tail; seventeenth/twentieth 4× pair-pad + tail; eighteenth 2× pair-pad + 2× tail; nineteenth 1× pair-pad + **`chcnt`** + 3× tail; fifteenth/eighteenth/nineteenth fourth phase-2; sixteenth tenth shell; nineteenth third phase-1 ×7; tenth/twelfth/seventeenth/twentieth phase-2 budget 6 + phase-3; **`seed0900`** RNG **0–2982** |
 | `corpse_chance` | `uhitm_hero.js` | partial | Exported **`corpseChanceLikeC`**; tourist **`L`** **`mattackm`** kill tail |
 | `score_targ` / `best_target` / `pet_ranged_attk` | `dogmove_mon.js` | partial | C **`dogmove.c`** ~738–966; moveloop peel + second-pass **`rnd(5)`**/**`rn2(5)`** tail; **`mattackm`** TODO |
-| `dog_goal` / `obj_resists` | `dogmove_mon.js`, `obj_resists.js` | partial | Second post-rest **5×** invent per phase (**`seed0900`** **2520–2524**, **2531–2535**); **`seed0900`** **~2545+** next command drift |
+| `dog_goal` / `obj_resists` | `dogmove_mon.js`, `obj_resists.js`, `dogmove_reach.js` | partial | C **`m_cansee`** → **`vision.c`** **`clear_path`** on **`viz_clear`** (**`clearPathLikeC`**); **`seed0102`** first **`s`** RNG **0–4450**; **~4451** follow **`rn2(4)`** / **`pet_ranged_attk`** order open |
 
 ---
 
