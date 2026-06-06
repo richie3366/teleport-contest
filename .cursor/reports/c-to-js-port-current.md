@@ -32,7 +32,7 @@ Use this when **`Next steps`** below feels stale or several lanes compete. Order
 
 **Tutorial (Lane E):** Gated on [tutorial port gate](../../docs/plans/tutorial-port-gate.md) **MD-1 … MD-7**.
 
-**Last slice:** **Lane A/D `seed0102` — fireassist prinv `--More--` cursor** — C **`topl.c`**: pass-through keys clear **`need_more`** but keep **`defmore`** on row 0; cursor at packed **`--More--`** tail (**`display.js`** **`syncTtyCursorForJudgeLikeC`**). **`seed0102`:** **PASS** (**4485/4485**, **25/25**). **`seed8000` 2900–3129:** aligned. **2/44**.
+**Last slice:** **Lane A/D — `makedog`/`enexto` verify + `score_targ` C tails** — **`collect_coords`** replay @ rng **4334**: candy **[0]=(29,8)** first **`goodpos`** (matches C shuffle **4355–4378**); pet **(29,8)** not **(27,8)** — old west-ray hypothesis withdrawn. **`walkable.js`** **`__diagEnexto*`** hooks; **`dogmove_mon.js`** **`score_targ`** priest/minion coaligned-peaceful + weak-target penalty (**`dogmove.c`** ~771–802). **`seed0102`:** **PASS** (**4485/4485**, **25/25**). **`seed8000` 2900–3129:** aligned. **2/44**.
 
 ## Next steps (aligned with matrix)
 
@@ -40,10 +40,10 @@ Pick **one** primary lane per **batch** (several related C functions — see che
 
 **First:** open [`docs/plans/tutorial-port-gate.md`](../../docs/plans/tutorial-port-gate.md) — if **all MD-1 … MD-7** are checked, do **Lane E** step 1 from [10-tutorial.md](../plans/nethack-port/10-tutorial.md) instead of the list below.
 
-1. **Lane A/D — `makedog` / `dogmove`** — pet **(27,8)** vs JS **(29,8)** @ **`~4453`** **`score_targ`**; C **`goodpos`** **`LR_MONGEN`** exclusion / **`enexto`** order.
-2. **Lane C — `seed0006` ~2892** — capital **`K`** moveloop tail; screen **35** botl (**`find_ac`** / time).
-3. **Lane B — NHL** — next **`lspo_*`** per [`nhl-port-notes.md`](nhl-port-notes.md).
-4. **Lane A/D — `seed0900`** — screen parity (RNG **0–2982** done); map/botl integration beyond moveloop peel chain.
+1. **Lane C — `seed0006` ~2892** — capital **`K`** moveloop tail; screen **35** botl (**`find_ac`** / time).
+2. **Lane B — NHL** — next **`lspo_*`** per [`nhl-port-notes.md`](nhl-port-notes.md).
+3. **Lane A/D — `seed0900`** — screen parity (RNG **0–2982** done); map/botl integration beyond moveloop peel chain.
+4. **Lane A/D — `dogmove.c`** — **`score_targ`** vampshifter **`mtmp_lev`** **`rn2`** tail (~808–817); **`mattackm`** / **`pet_ranged_attk`** when pet breath sessions fail.
 
 ### Extended backlog (unchanged lanes)
 

@@ -23,6 +23,9 @@ import {
     ALLOW_MDISP,
     ALLOW_TRAPS,
     MTSZ,
+    A_NONE,
+    EMIN,
+    EPRI,
 } from './const.js';
 import { EDOG, has_edog } from './const.js';
 import { stairwayAtInGame } from './decor.js';
@@ -301,14 +304,37 @@ function dogHungerDogmoveLikeC(g, mtmp, edog) {
     return false;
 }
 
+function scoreTargAlignLikeC(mtmp) {
+    if (mtmp?.isminion | 0) {
+        const e = EMIN(mtmp);
+        return { faith: true, align: e?.min_align | 0 };
+    }
+    if (mtmp?.ispriest | 0) {
+        const e = EPRI(mtmp);
+        return { faith: true, align: e?.shralign | 0 };
+    }
+    return { faith: false, align: A_NONE };
+}
+
 function scoreTargDogmoveLikeC(g, mtmp, mtarg) {
     let score = 0;
     const u = g.u;
     /* C: quest start only — stub false until quest level port. */
     const isQstart = false;
     if (!((mtmp.mconf | 0)) || !rn2(3) || isQstart) {
+        const petAlign = scoreTargAlignLikeC(mtmp);
+        const targAlign = scoreTargAlignLikeC(mtarg);
         const msound = mtarg.data?.msound | 0;
         if (msound === MS_LEADER || msound === MS_GUARDIAN) return -5000;
+        /* C: dogmove.c — coaligned priest/minion gaze on peaceful same-align target */
+        if (
+            petAlign.faith
+            && targAlign.faith
+            && petAlign.align === targAlign.align
+            && (mtarg.mpeaceful | 0)
+        ) {
+            return -5000;
+        }
         if (
             distmin(mtmp.mx | 0, mtmp.my | 0, mtarg.mx | 0, mtarg.my | 0) <= 1
         ) {
@@ -321,8 +347,19 @@ function scoreTargDogmoveLikeC(g, mtmp, mtarg) {
         if (!(mtarg.mpeaceful | 0)) score += 10;
         const mattk = mtarg.data?.mattk;
         if (mattk && (mattk[0]?.aatyp | 0) === AT_NONE) score -= 1000;
-        const mtmpLev = mtmp.m_lev | 0;
         const mtargLev = mtarg.m_lev | 0;
+        const mtmpLev = mtmp.m_lev | 0;
+        if (
+            (mtargLev < 2 && mtmpLev > 5)
+            || (
+                mtmpLev > 12
+                && mtargLev < mtmpLev - 9
+                && (u?.ulevel | 0) > 8
+                && mtargLev < ((u?.ulevel | 0) - 7)
+            )
+        ) {
+            score -= 25;
+        }
         if (mtargLev > mtmpLev + 4) score -= (mtargLev - mtmpLev) * 20;
         score += mtargLev * 2 + Math.trunc((mtarg.mhp | 0) / 3);
     }
