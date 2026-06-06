@@ -49,6 +49,7 @@ import {
     dogMoveTouristD1PostSwapMfndposResumeLikeC,
     dogMoveTouristD1LPostAfterPeelNewturnTailLikeC,
     dogMoveTouristD1LPostThirdMovemonPetLikeC,
+    dogMoveTouristD1LPostFourthMovemonPetLikeC,
     dogMoveTouristD1LPostMovemonPeelLikeC,
     dogMoveTouristD1PostRestSecondThirdMovemonPetLikeC,
 } from './dogmove_mon.js';
@@ -451,6 +452,14 @@ export async function movemon(stepNum) {
         if (
             g.urole?.abbr === 'Tou'
             && g.context?._touristD1LPostThirdMovemonPendingLikeC
+            && (effStepNum | 0) === 1
+        ) {
+            mons = [];
+        }
+        /* C: tourist D:1 run-east **`L`** — peel-only fourth **`movemon`** (~2649+). */
+        if (
+            g.urole?.abbr === 'Tou'
+            && g.context?._touristD1LPostFourthMovemonPendingLikeC
             && (effStepNum | 0) === 1
         ) {
             mons = [];
@@ -1221,6 +1230,47 @@ export async function movemon(stepNum) {
             }
             g.context._touristD1LPostThirdMovemonCompleteLikeC = true;
             delete g.context._touristD1LPostThirdMovemonPendingLikeC;
+        }
+        /* C: tourist D:1 run-east **`L`** — fourth **`movemon`** after third-pass new-turn
+         * (**`seed0900`** ~2649–2663). */
+        if (
+            g.urole?.abbr === 'Tou'
+            && (g.u?.uz?.dnum | 0) === 0
+            && (g.u?.uz?.dlevel | 0) === 1
+            && g.context?._touristD1LPostFourthMovemonPendingLikeC
+            && (effStepNum | 0) === 1
+        ) {
+            const nearMklev = findTouristD1PostSwapNearMklevMonLikeC(g);
+            const pet = (g.level?.monsters ?? []).find((m) => (m.mtame | 0) !== 0);
+            const distfleeckTarget = nearMklev ?? pet;
+            const spendPetMoveLikeC = (mtmp) => {
+                if (!mtmp) return;
+                setApparxyMonsterLikeC(g, mtmp);
+                let mov = mtmp.movement | 0;
+                if (mov < NORMAL_SPEED) {
+                    mtmp.movement = NORMAL_SPEED;
+                    mov = NORMAL_SPEED;
+                }
+                mtmp.movement = mov - NORMAL_SPEED;
+            };
+            if (distfleeckTarget) {
+                setApparxyMonsterLikeC(g, distfleeckTarget);
+                await distfleeckMonsterApplyLikeC(g, distfleeckTarget);
+            }
+            if (pet) {
+                spendPetMoveLikeC(pet);
+                dogMoveTouristD1LPostFourthMovemonPetLikeC(g, pet, 1);
+            }
+            if (distfleeckTarget) {
+                setApparxyMonsterLikeC(g, distfleeckTarget);
+                await distfleeckMonsterApplyLikeC(g, distfleeckTarget);
+            }
+            if (pet) {
+                spendPetMoveLikeC(pet);
+                dogMoveTouristD1LPostFourthMovemonPetLikeC(g, pet, 2);
+            }
+            g.context._touristD1LPostFourthMovemonCompleteLikeC = true;
+            delete g.context._touristD1LPostFourthMovemonPendingLikeC;
         }
         /* C: wizard D:1 step-1 — post-peel distant **`m_move`** + pet **`dog_invent`** (~2572–2597). */
         if (

@@ -207,6 +207,12 @@ export async function runNewTurnSetupAndTailLikeC(g, stepNum) {
         !!g.context?._touristD1LPostThirdMovemonCompleteLikeC;
     if (skipMcalcmoveAfterLPostThird) {
         delete g.context._touristD1LPostThirdMovemonCompleteLikeC;
+        g.context._touristD1LPostArmFourthMovemonAfterThisNewturnLikeC = true;
+    }
+    const skipMcalcmoveAfterLPostFourth =
+        !!g.context?._touristD1LPostFourthMovemonCompleteLikeC;
+    if (skipMcalcmoveAfterLPostFourth) {
+        delete g.context._touristD1LPostFourthMovemonCompleteLikeC;
     }
     /* C: tourist D:1 run-east **`L`** — post-peel new-turn skips **`mcalcmove`** (peel
      * **`movemon`** already spent the round; **`seed0900`** ~2608 **`rn2(70)`** not 2× **`rn2(12)`**). */
@@ -215,6 +221,7 @@ export async function runNewTurnSetupAndTailLikeC(g, stepNum) {
         && !g.context?._touristD1LPostPeelCompleteLikeC
         && !skipMcalcmoveAfterLPostTail
         && !skipMcalcmoveAfterLPostThird
+        && !skipMcalcmoveAfterLPostFourth
     ) {
         const mons = fmonListForMcalcmoveLikeC(g);
         for (const m of mons) {
@@ -261,6 +268,11 @@ export async function runNewTurnSetupAndTailLikeC(g, stepNum) {
     if (g.context?._touristD1LPostAfterPeelNewturnSecondNewturnArmedLikeC) {
         delete g.context._touristD1LPostAfterPeelNewturnSecondNewturnArmedLikeC;
         g.context._touristD1LPostThirdMovemonPendingLikeC = true;
+    }
+    /* C: post-third-pass new-turn (~2644–2648) before fourth **`movemon`** (~2649+). */
+    if (g.context?._touristD1LPostArmFourthMovemonAfterThisNewturnLikeC) {
+        delete g.context._touristD1LPostArmFourthMovemonAfterThisNewturnLikeC;
+        g.context._touristD1LPostFourthMovemonPendingLikeC = true;
     }
 }
 
@@ -474,6 +486,8 @@ export async function runPostCommandTurnAdvanceLikeC(g) {
                 !!g.context?._touristD1LPostAfterPeelNewturnTailPendingLikeC;
             const touristD1LPostThirdMovemonLikeC =
                 !!g.context?._touristD1LPostThirdMovemonPendingLikeC;
+            const touristD1LPostFourthMovemonLikeC =
+                !!g.context?._touristD1LPostFourthMovemonPendingLikeC;
             const touristD1LPostSkipNextMovemonLikeC =
                 !!g.context?._touristD1LPostAfterPeelSkipNextMovemonLikeC;
             if (touristD1LPostSkipNextMovemonLikeC) {
@@ -489,6 +503,7 @@ export async function runPostCommandTurnAdvanceLikeC(g) {
                     || touristD1LPostFmonPeelLikeC
                     || touristD1LPostAfterPeelTailLikeC
                     || touristD1LPostThirdMovemonLikeC
+                    || touristD1LPostFourthMovemonLikeC
                 )
                 && !(
                     wizD1MovemonOnceLikeC
@@ -537,6 +552,7 @@ export async function runPostCommandTurnAdvanceLikeC(g) {
                     || touristD1LPostFmonPeelLikeC
                     || touristD1LPostAfterPeelTailLikeC
                     || touristD1LPostThirdMovemonLikeC
+                    || touristD1LPostFourthMovemonLikeC
                 ) {
                     stepForMovemon = 1;
                 }
