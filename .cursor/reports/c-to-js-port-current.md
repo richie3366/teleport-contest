@@ -32,7 +32,7 @@ Use this when **`Next steps`** below feels stale or several lanes compete. Order
 
 **Tutorial (Lane E):** Gated on [tutorial port gate](../../docs/plans/tutorial-port-gate.md) **MD-1 … MD-7**.
 
-**Last slice:** **Lane A/D `seed0900` run-east `L` post — twentieth **`movemon`** peel** (seventeenth shell — fourth invent/**`mfndpos`** + double **`distfleeck`** + phase-2 budget 6 + phase-3); arm twentieth after nineteenth new-turn. **`seed0900` RNG:** full match **0–2982** (session end). **Open:** **`seed0102`** D:1 map + botl, or moveloop peel harness trim. **`seed8000`:** **PASS**. **2/44**.
+**Last slice:** **Lane A/D `seed0102` — `makemon.c` `m_initweap` / `m_initinv` RNG** (`fill_ordinary_room` sleeping monster); **`is_armed`** + **`MONS_IS_ARMED`**; **`likes_gold`** = **`M2_GREEDY`** only (NH 5.0). **`seed0102` RNG:** **0–4416** (~session end **4485**). **Open:** screen 0 map objects (**`mkobjFillAtLikeC`** / display) + botl; **`seed0900`** screen parity. **`seed8000`:** **PASS**. **2/44**.
 
 ## Next steps (aligned with matrix)
 
@@ -40,7 +40,7 @@ Pick **one** primary lane per **batch** (several related C functions — see che
 
 **First:** open [`docs/plans/tutorial-port-gate.md`](../../docs/plans/tutorial-port-gate.md) — if **all MD-1 … MD-7** are checked, do **Lane E** step 1 from [10-tutorial.md](../plans/nethack-port/10-tutorial.md) instead of the list below.
 
-1. **Lane A — `seed0102` screen 0** — D:1 map + botl after mklev parity.
+1. **Lane A/D — `seed0102` screen 0** — floor **`fobj`** / **`decgfx`** via **`mkobjFillAtLikeC`** + botl (**`find_ac`** / ranger Dx).
 2. **Lane C — `seed0006` ~2892** — capital **`K`** moveloop tail; screen **35** botl (**`find_ac`** / time).
 3. **Lane B — NHL** — next **`lspo_*`** per [`nhl-port-notes.md`](nhl-port-notes.md).
 4. **Lane A/D — `seed0900`** — screen parity (RNG **0–2982** done); map/botl integration beyond moveloop peel chain.
