@@ -523,6 +523,14 @@ export async function runPostCommandTurnAdvanceLikeC(g) {
                             delete g.context._touristD1PostRestSecondMovemonLikeC;
                             delete g.context._touristD1PostRestSecondNearDistfleeckDoneLikeC;
                         }
+                        /* C: same #search post — second new-turn after peel **`movemon`**
+                         * (**`mcalcmove`** ~2568–2570, tail ~2571+ on **`seed0900`**). */
+                        await runNewTurnSetupAndTailLikeC(g, tailStepNum);
+                        /* C: third **`movemon`** (~2575–2581) then stop outer surplus loop. */
+                        g.context._touristD1PostRestSecondThirdMovemonPendingLikeC = true;
+                        g.context._movemonHarnessConsumed = false;
+                        await movemon(1);
+                        g.context._touristD1PostRestSecondOuterMoveloopDoneLikeC = true;
                         g.context._touristD1PostRestMonsterMovemonDoneLikeC = true;
                         newTurnDone = true;
                     }
@@ -698,6 +706,7 @@ export async function runPostCommandTurnAdvanceLikeC(g) {
             (u.umovement | 0) < NORMAL_SPEED
             && !g.context?._deferredNewTurnLikeC
             && !g.context?._wizD1LPostOuterLoopDoneLikeC
+            && !g.context?._touristD1PostRestSecondOuterMoveloopDoneLikeC
         );
     } finally {
         g.context.monMoving = false;
@@ -718,6 +727,8 @@ export async function runPostCommandTurnAdvanceLikeC(g) {
         delete g.context._wizD1EastTailPeelMtmpLikeC;
         delete g.context._wizD1EastTailCorridorTurnDoneLikeC;
         delete g.context._wizD1SkipLPostInventMoveloopLikeC;
+        delete g.context._touristD1PostRestSecondOuterMoveloopDoneLikeC;
+        delete g.context._touristD1PostRestSecondThirdMovemonPendingLikeC;
         /* **`_wizD1PostEastTailWalkFmonLikeC`** cleared in **`movemon`** after the walk post consumes it. */
     }
 }

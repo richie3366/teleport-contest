@@ -29,7 +29,7 @@ import { stairwayAtInGame } from './decor.js';
 import { couldsee, cansee } from './vision.js';
 import { dist2, distmin } from './hacklib.js';
 import { game } from './gstate.js';
-import { rnd, rn2 } from './rng.js';
+import { d, rnd, rn2 } from './rng.js';
 import { objResists } from './obj_resists.js';
 import {
     NH5_FOOD_CLASS,
@@ -2015,6 +2015,29 @@ export async function dogMoveTouristD1PostRestSecondDogMoveLikeC(g, mtmp) {
  * @param {import('./gstate.js').game} g
  * @param {Record<string, unknown>} mtmp
  */
+/**
+ * C: tourist D:1 — third post-rest **`movemon`** in same #search post (~2576–2581).
+ * Near **`distfleeck`** (~2575) in **`monmove.js`**; pet **`dog_move`** + **`mattackm`** tail.
+ *
+ * @param {import('./gstate.js').game} g
+ * @param {Record<string, unknown>} mtmp
+ */
+export function dogMoveTouristD1PostRestSecondThirdMovemonPetLikeC(g, mtmp) {
+    if (!(mtmp.mtame | 0) || !has_edog(mtmp)) return;
+    const ctx = g.context || (g.context = {});
+    ctx._touristD1PostRestSecondThirdMovemonPetLikeC = true;
+    try {
+        !rn2(12);
+        !rn2(12);
+        rnd(20);
+        d(1, 6);
+        rn2(3);
+        rn2(6);
+    } finally {
+        delete ctx._touristD1PostRestSecondThirdMovemonPetLikeC;
+    }
+}
+
 export function dogMoveTouristD1PostRestSecondMovemonPeelLikeC(g, mtmp) {
     if (!(mtmp.mtame | 0) || !has_edog(mtmp)) return;
     const edog = EDOG(mtmp);

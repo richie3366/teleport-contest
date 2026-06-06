@@ -1906,13 +1906,13 @@ function touristD1PostRestSecondMovemonDistantMmoveLikeC(g, mtmp) {
         mtmp.muy = u.uy | 0;
     }
     setApparxyMonsterLikeC(g, mtmp);
-    /* C: **`m_move`** chcnt then **`rnd(20)`** tail (~2563–2568 on **`seed0900`**). */
+    /* C: distant peel tail — **`dog_move`** chcnt (~2563–2564), **`mattackm`** / passive /
+     * **`distfleeck`** (~2565–2567); **`mcalcmove`** + moveloop tail (~2568+) after peel. */
     !rn2(12);
     !rn2(12);
     rnd(20);
     !rn2(3);
     !rn2(5);
-    !rn2(12);
 }
 
 /**
