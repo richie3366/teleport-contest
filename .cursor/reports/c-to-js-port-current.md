@@ -58,6 +58,10 @@ Mandatory dependencies **MD-1 … MD-7**. Execution checklist: [10-tutorial.md](
 
 Extend **`distfleeck`** to further moveloop steps; full **`domove`**, **`attack`**, …; remainder **`flooreffects`**; fuller **`sellobj`**; **`dig()`** / **`dighole`**; **`trap.c`** **`blow_up_landmine`**; **`zap_dig`**; **`zombie_form`**; full **`mondied`/`xkilled`**; **`spoteffects`**; **`switch_terrain`**; **`steed.c`**; **`repair_damage`**; **`kick.js`** **`bhit`**; full **`dungeon.c`** **`init_dungeons`**; wire **`dig()`** occupation; **`angry_guards`**; **`context.warntype`**; **`zap_dig`** / **`objnam`**; **`destroy_drawbridge`**; **`dig_up_grave`**.
 
+## Agent playbook
+
+Tool choice, moveloop debug loop, known pitfalls (e.g. rogue **`mnum` 7** vs Ranger **8**): [**c-to-js-port-agent-playbook.md**](c-to-js-port-agent-playbook.md).
+
 ## After you ship a batch
 
 1. Update [`c-to-js-port-function-checklist.md`](c-to-js-port-function-checklist.md) row statuses.

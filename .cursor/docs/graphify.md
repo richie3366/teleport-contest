@@ -58,6 +58,8 @@ graphify explain "mkobj" --graph graphify-out/graph.json
 | Map C function/file to JS port | `graphify-out/graph.json` |
 | Architecture skim | `js/…/GRAPH_REPORT.md` or `nethack-c/…/GRAPH_REPORT.md` — not the old 3k-line root report |
 
+**Use something else for:** moveloop peel order, harness `_*LikeC` flags, “RNG index N wrong draw” — see [agent playbook](../reports/c-to-js-port-agent-playbook.md) (`diag_rng_window`, `diag_prefix_rng`, read C).
+
 **Do not** run `graphify update .` on the repo root — it rescans the whole tree and is slow.
 
 ## Size reference (approx.)

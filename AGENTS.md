@@ -6,7 +6,11 @@ This repository is a **Teleport Coding Challenge** fork: port NetHack 5.0 to Jav
 
 **Caveman (default chat):** always-on rule [.cursor/rules/caveman.mdc](.cursor/rules/caveman.mdc) — terse replies unless you say **stop caveman** / **normal mode**. Local install under `.agents/skills/` (gitignored). Details: [.cursor/docs/caveman.md](.cursor/docs/caveman.md).
 
-**Port handoff (agents):** [.cursor/reports/c-to-js-port-current.md](.cursor/reports/c-to-js-port-current.md) — read this first for the next batch; follow [.cursor/reports/c-to-js-port-batch-workflow.md](.cursor/reports/c-to-js-port-batch-workflow.md); track symbols in [.cursor/reports/c-to-js-port-function-checklist.md](.cursor/reports/c-to-js-port-function-checklist.md). Skim [.cursor/reports/c-to-js-port-remaining.md](.cursor/reports/c-to-js-port-remaining.md) for domain gaps; use [.cursor/reports/c-to-js-port-progress.md](.cursor/reports/c-to-js-port-progress.md) only when you need the full parity report.
+**Port handoff (agents):** [.cursor/reports/c-to-js-port-current.md](.cursor/reports/c-to-js-port-current.md) — read this first for the next batch; follow [.cursor/reports/c-to-js-port-batch-workflow.md](.cursor/reports/c-to-js-port-batch-workflow.md); track symbols in [.cursor/reports/c-to-js-port-function-checklist.md](.cursor/reports/c-to-js-port-function-checklist.md). **How to debug (tools, pitfalls):** [.cursor/reports/c-to-js-port-agent-playbook.md](.cursor/reports/c-to-js-port-agent-playbook.md). Skim [.cursor/reports/c-to-js-port-remaining.md](.cursor/reports/c-to-js-port-remaining.md) for domain gaps; use [.cursor/reports/c-to-js-port-progress.md](.cursor/reports/c-to-js-port-progress.md) only when you need the full parity report.
+
+**Session notes:** update **`c-to-js-port-current.md`** + checklist + one changelog row each batch — do **not** grow this file with per-slice debug state.
+
+**Tool choice:** **graphify** for batch pick / C↔JS symbol mapping (`query` / `path` on split graphs); **`diag_rng_window.mjs`** + **`diag_prefix_rng.mjs`** for moveloop RNG order — see playbook.
 
 **Tutorial gate:** [docs/plans/tutorial-port-gate.md](docs/plans/tutorial-port-gate.md) — mandatory dependencies (**MD-1 … MD-7**). When all are satisfied, **Lane E (tutorial)** becomes the primary port lane until [`.cursor/plans/nethack-port/10-tutorial.md`](.cursor/plans/nethack-port/10-tutorial.md) exit criteria.
 
@@ -24,4 +28,4 @@ This repository is a **Teleport Coding Challenge** fork: port NetHack 5.0 to Jav
 
 **Finding C in tools:** `nethack-c/upstream` is a nested repository, so IDE **Glob** / default workspace **code search** may skip it even when present. Prefer **`read_file`** on paths under that directory, **terminal `rg`/`grep`** with an explicit path (e.g. `rg pattern nethack-c/upstream/include`), or `rg --no-ignore-vcs`. Same reminder lives in **`.cursor/rules/teleport-contest.mdc`** (always applied).
 
-**Graphify (code graphs):** use **split graphs** — `npm run graphify:js` after `js/` edits; `npm run graphify:c` when the submodule is new; `npm run graphify:merge` for C↔JS `path` queries. Do **not** `graphify update .` on the repo root. Details: [.cursor/docs/graphify.md](.cursor/docs/graphify.md).
+**Graphify (code graphs):** use **split graphs** — `npm run graphify:js` after `js/` edits; `npm run graphify:c` when the submodule is new; `npm run graphify:merge` for C↔JS `path` queries. Do **not** `graphify update .` on the repo root. Details: [.cursor/docs/graphify.md](.cursor/docs/graphify.md). Rebuild alone ≠ navigation — run **`graphify query` / `path`** when starting an unfamiliar C batch.

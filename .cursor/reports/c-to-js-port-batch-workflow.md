@@ -33,7 +33,8 @@
 ### 2. Port from C
 
 - Open the **C function(s)** in `nethack-c/upstream/src/` (submodule: `git submodule update --init nethack-c/upstream`).
-- Optional navigation: `graphify query "…" --graph nethack-c/graphify-out/graph.json` (see [`.cursor/docs/graphify.md`](../docs/graphify.md); `npm run graphify:c` on first clone).
+- **Navigate (batch start):** `graphify query` / `path` on split graphs — see [agent playbook](c-to-js-port-agent-playbook.md) § Tool picker and [`.cursor/docs/graphify.md`](../docs/graphify.md) (`npm run graphify:c` on first clone).
+- **Debug RNG order (mid-batch):** `diag_rng_window.mjs`, `diag_prefix_rng.mjs`, read C — not graphify.
 - Port **control flow, flags, and RNG order** into existing `js/` modules (extend before inventing parallel files).
 - **Do not edit** frozen: `js/isaac64.js`, `js/terminal.js`, `js/storage.js`.
 - **Do not** grow `fastforward.js` / `monmove.js` harness rows without the matching C call site.
@@ -45,6 +46,8 @@ Use **one or more** of these — in order of usefulness:
 | Check | When | Command / action |
 |-------|------|------------------|
 | **RNG window** | Batch touches `rn2`/`rnd`/`rne` | `node tools/diag_rng_window.mjs sessions/<session>.session.json <start> <end>` — session chosen only to **exercise this subsystem** |
+| **Move prefix** | Moveloop timing (“which key owns index N?”) | `node tools/diag_prefix_rng.mjs sessions/<session>.session.json <movePrefixLen>` |
+| **Canary regression** | Touched `monmove` / moveloop | `node tools/diag_rng_window.mjs sessions/seed8000-tourist-starter.session.json 2900 3129` |
 | **Narrow score** | Optional; same locator session | Run harness for **one** session if cheap in your environment |
 | **Unit-style** | Pure helpers only (`depth`, material macros, parsers) | Small `node --input-type=module -e '…'` or a `tools/` script — **not** a substitute for integrated RNG when the function reads `game` / `in_mklev` |
 | **Lint** | Always cheap | Editor / `read_lints` on touched `js/` files |
@@ -110,6 +113,7 @@ When a milestone score fails, use **`diag_rng_window.mjs`** at the reported inde
 
 | Document | Role |
 |----------|------|
+| [`c-to-js-port-agent-playbook.md`](c-to-js-port-agent-playbook.md) | **Tool picker**, moveloop debug loop, known pitfalls |
 | [`c-to-js-port-function-checklist.md`](c-to-js-port-function-checklist.md) | Function-level **done / partial / stub** tracker |
 | [`c-to-js-port-current.md`](c-to-js-port-current.md) | Thin handoff — **which batch next** |
 | [`c-to-js-port-remaining.md`](c-to-js-port-remaining.md) | Domain gap narrative + §5 milestones |
