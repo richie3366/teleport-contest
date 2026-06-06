@@ -32,7 +32,7 @@ Use this when **`Next steps`** below feels stale or several lanes compete. Order
 
 **Tutorial (Lane E):** Gated on [tutorial port gate](../../docs/plans/tutorial-port-gate.md) **MD-1 … MD-7**.
 
-**Last slice:** **Lane A/D tourist D:1 swap post-new-turn rest `dochug`** — C **`allmain.c`**: near mklev **`distfleeck`** + **`m_move`** **`rn2(32)`** after new-turn tail, not inside **`movemon`** before **`mcalcmove`**; **`moveloop_turn_advance.js`** **`mMoveTouristD1PostSwapRestMklevLikeC`**, **`monmove.js`** fmon skip + **`monscanmove`** guard, **`findTouristD1PostSwapNearMklevMonLikeC`**. **`seed0900`:** **2576/2983** (diag **2492–2501**; was **2491–2500**). Next: **~2502** rest **`m_move`** **`rn2(32)`** (**`mfndpos` `cnt=8`** vs **`rn2(24)`**). **`seed8000`/`seed0077`:** **PASS**. **2/44**.
+**Last slice:** **Lane A/D tourist D:1 swap rest `m_move` `rn2(32)`** — C **`monmove.c`** **`m_move`**: **`mfndpos` `cnt=8`** **`mtrack[0]`** reject **`rn2(4*cnt)`** after post-new-turn tail; **`m_move_mon.js`** **`dochugEntersMmoveBlockLikeC`** defer + **`mmoveMtrackRejectRngLikeC`** (**`rn2(32)`** when JS **`cnt=6`**). **`seed0900`:** **2576/2983** (diag **2492–2503**; was **2492–2501**). Next: **~2504** pet **`dog_goal`** **`rn2(5)`** before invent **`rn2(100)`**. **`seed8000`/`seed0077`:** **PASS**. **2/44**.
 
 ## Next steps (aligned with matrix)
 
@@ -40,7 +40,7 @@ Pick **one** primary lane per **batch** (several related C functions — see che
 
 **First:** open [`docs/plans/tutorial-port-gate.md`](../../docs/plans/tutorial-port-gate.md) — if **all MD-1 … MD-7** are checked, do **Lane E** step 1 from [10-tutorial.md](../plans/nethack-port/10-tutorial.md) instead of the list below.
 
-1. **Lane A/D — `seed0900` ~2502** — post-new-turn rest mklev **`m_move`** track **`rn2(32)`** (**`mfndpos` `cnt=8`** / **`mtrack`** prime); long-term D:1 **`fobj`** in pet **`dog_goal`** bbox (**`mklev`/`makeniche`/`fill_ordinary_room`**) so peel invent cap can drop; **`seed0102`** D:1 map + botl.
+1. **Lane A/D — `seed0900` ~2504** — pet **`dog_goal`** **`rn2(5)`** before floor invent **`rn2(100)`** chain; long-term D:1 **`fobj`** in pet **`dog_goal`** bbox (**`mklev`/`makeniche`/`fill_ordinary_room`**) so peel invent cap can drop; **`seed0102`** D:1 map + botl.
 2. **Lane A — `seed0102` screen 0** — D:1 map + botl after mklev parity.
 3. **Lane C — `seed0006` ~2892** — capital **`K`** moveloop tail; screen **35** botl (**`find_ac`** / time).
 4. **Lane B — NHL** — next **`lspo_*`** per [`nhl-port-notes.md`](nhl-port-notes.md).

@@ -99,7 +99,7 @@ Align batches with [`c-to-js-port-remaining.md`](c-to-js-port-remaining.md) §5:
 | `m_move` / `mfndpos` | `m_move_mon.js`, `mfndpos.js` | partial | |
 | `distfleeck` | `distfleeck_mon.js` | partial | Tourist D:1 swap: defer pet ~915 recalc to **`monmove.js`** fmon tail; post-new-turn rest peel in **`moveloop_turn_advance.js`** (**`seed0900`** **2501**) |
 | `m_throw` | — | missing | |
-| `dogmove` | `dogmove_mon.js` | partial | Tourist D:1 swap peel: defer **`mfndpos`** after **2×** **`chcnt`**; mklev tail **`distfleeck`** + pet ~915 recalc + resume away picks; **`seed0900`** **2576/2983** (diag **2492–2501**); next **~2502** rest **`m_move`** **`rn2(32)`** |
+| `dogmove` | `dogmove_mon.js` | partial | Tourist D:1 swap peel: defer **`mfndpos`** after **2×** **`chcnt`**; mklev tail **`distfleeck`** + pet ~915 recalc + resume away picks; **`seed0900`** **2576/2983** (diag **2492–2503**); next **~2504** pet **`dog_goal`** **`rn2(5)`** before invent **`rn2(100)`** |
 | `dog_goal` / `obj_resists` | `dogmove_mon.js`, `obj_resists.js` | partial | Tourist D:1 peel: **`_touristD1PeelEmptyFloorDogGoalLikeC`** caps invent **`obj_resists`** at **5** + **`appr=1`** until bbox **`fobj`**; **`seed0900`** **2576/2983** |
 
 ---

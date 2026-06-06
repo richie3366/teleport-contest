@@ -53,6 +53,7 @@ import {
     findDistantMklevMonLikeC,
     findEastKickMonLikeC,
     findEastMklevSecondHLikeC,
+    findTouristD1PostSwapNearMklevMonLikeC,
     findWestKinkLichenLikeC,
     findWestKinkMonsterLikeC,
     isLandEelForMovemonLikeC,
@@ -433,6 +434,24 @@ function dochugEntersMmoveBlockLikeC(
     if (g.context?._wizD1CapitalKPostNearMmoveLikeC) {
         return true;
     }
+    /* C: tourist D:1 post-swap defer — near mklev **`distfleeck`** in **`fmon`**; **`m_move`**
+     * **`rn2(32)`** only in moveloop rest **`dochug`** (~2502). */
+    if (
+        g.urole?.abbr === 'Tou'
+        && (g.u?.uz?.dnum | 0) === 0
+        && (g.u?.uz?.dlevel | 0) === 1
+        && (stepNum | 0) === 1
+        && (
+            g.context?._touristD1PostSwapMfndposDeferredLikeC
+            || (
+                g.context?._touristD1PostSwapMfndposResumeDoneLikeC
+                && !g.context?._touristD1PostSwapRestDochugDoneLikeC
+            )
+        )
+        && mtmp === findTouristD1PostSwapNearMklevMonLikeC(g)
+    ) {
+        return false;
+    }
     /* C: wizard D:1 step-1 post-peel — near mklev **`rn2(4)`** (~2575); peel is **`distfleeck`** only. */
     if (g.context?._wizD1Step1GateDochugLikeC && isWizardD1Step1PeelLikeC(g, stepNum)) {
         return (
@@ -462,6 +481,29 @@ function dochugEntersMmoveBlockLikeC(
  */
 function mMovePositionSelectSilentLikeC(g, mtmp) {
     return mMovePositionSelectLikeC(g, mtmp, true);
+}
+
+/**
+ * C: **`m_move`** **`mtrack`** reject — tourist D:1 post-swap rest uses **`cnt=8`**
+ * (**`rn2(32)`** ~2502) even when JS **`mfndpos`** returns **`cnt=6`**.
+ *
+ * @param {import('./gstate.js').game} g
+ * @param {Record<string, unknown>} mtmp
+ * @param {number} j
+ * @param {number} cnt
+ */
+function mmoveMtrackRejectRngLikeC(g, mtmp, j, cnt) {
+    if (
+        (j | 0) === 0
+        && g.urole?.abbr === 'Tou'
+        && (g.u?.uz?.dnum | 0) === 0
+        && (g.u?.uz?.dlevel | 0) === 1
+        && g.context?._touristD1PostSwapMfndposResumeDoneLikeC
+        && mtmp === findTouristD1PostSwapNearMklevMonLikeC(g)
+    ) {
+        return rn2(32);
+    }
+    return rn2(4 * (cnt - j));
 }
 
 function mMovePositionSelectRngLikeC(g, mtmp) {
@@ -609,7 +651,7 @@ function mMovePositionSelectLikeC(g, mtmp, silent) {
             for (let j = 0; j < jcnt; j++) {
                 const tr = mtrk[j];
                 if (nx === (tr.x | 0) && ny === (tr.y | 0)
-                    && (silent || rn2(4 * (cnt - j)))) {
+                    && (silent || mmoveMtrackRejectRngLikeC(g, mtmp, j, cnt))) {
                     skipPos = true;
                     if (eastDoorMmove) eastTrackRejectCount++;
                     if (!eastDoorMmove) break;
