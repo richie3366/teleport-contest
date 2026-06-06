@@ -95,12 +95,12 @@ Align batches with [`c-to-js-port-remaining.md`](c-to-js-port-remaining.md) §5:
 
 | C symbol / area | JS module | Status | Notes |
 |-----------------|-----------|--------|-------|
-| `movemon` / `dochug` | `monmove.js`, `fmon_iter.js` | partial | Tourist D:1 post-rest: fmon skip pet → near mklev **`m_move`** → **`monmove.js`** tail **`dogMoveTouristD1PostSwapAfterRestPetLikeC`** (no **`effStepNum===1`** gate); **`seed0900`** diag **2498–2503** |
-| `m_move` / `mfndpos` | `m_move_mon.js`, `mfndpos.js` | partial | |
-| `distfleeck` | `distfleeck_mon.js` | partial | Tourist D:1 rest: second ~915 recalc when **`m_move`** gated (**`mMoveTouristD1PostSwapRestMklevLikeC`**); moveloop peel (**`seed0900`** **2500–2501**) |
+| `movemon` / `dochug` | `monmove.js`, `fmon_iter.js`, `moveloop_turn_advance.js` | partial | Tourist D:1 post-rest: moveloop **`movemon(1)`** after **`mMoveTouristD1PostSwapRestMklevLikeC`**; fmon early return when tail pending; **`seed0900`** diag **2495–2518** |
+| `m_move` / `mfndpos` | `m_move_mon.js`, `mfndpos.js` | partial | Rest stub **`touristD1PostSwapNearRestMmoveStubLikeC`**; gate blocks full **`mfndpos`**; early return in **`mMoveOneMonsterSubsetLikeC`**; **`seed0900`** **2502–2503** |
+| `distfleeck` | `distfleeck_mon.js` | partial | Peel-only rest **`distfleeck`** (**`_touristD1PostSwapRestDistfleeckPeelLikeC`**); 3× ~915 before stub; **`seed0900`** **2499–2504** |
 | `m_throw` | — | missing | |
-| `dogmove` | `dogmove_mon.js` | partial | Post-rest **`touristD1RunAfterRestPetIfPendingLikeC`** + **`dogMoveTouristD1PostSwapAfterRestPetLikeC`**; C **`droppables`**→**`minvent`**; apport **`rn2(edog->apport)`** polarity; **`seed0900`** **2595/2983** (diag **2498–2503**); next **~2504** |
-| `dog_goal` / `obj_resists` | `dogmove_mon.js`, `obj_resists.js` | partial | **`_touristD1PostSwapAfterRestPetGoalLikeC`** follow gate + empty-floor invent cap; **`seed0900`** **2595/2983** |
+| `dogmove` | `dogmove_mon.js` | partial | Peel **`rnd(5)`**+**`rn2(5)`**+away **`mfndpos`**; skip **`dog_invent`** at post-rest; **`seed0900`** **2624/2983** (diag **2495–2518**); next **~2519** |
+| `dog_goal` / `obj_resists` | `dogmove_mon.js`, `obj_resists.js` | partial | Post-rest capped invent **5×** **`obj_resists`** + peel **`mfndpos`**; **`seed0900`** **2624/2983** |
 
 ---
 

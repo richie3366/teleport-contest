@@ -637,13 +637,18 @@ export async function movemon(stepNum) {
                 delete g.context._touristD1PostSwapMfndposDeferredLikeC;
                 delete g.context._touristD1PostSwapDeferRecalcPetLikeC;
             }
-            /* C: tourist D:1 — pet **`dog_goal`** after post-new-turn rest (~2504–2512). */
+            /* C: tourist D:1 — pet **`dog_goal`** after post-new-turn rest (~2502+). */
             if (
                 g.urole?.abbr === 'Tou'
                 && g.context?._touristD1PostSwapRestDochugDoneLikeC
                 && !g.context?._touristD1PostSwapAfterRestPetDoneLikeC
                 && g.context?._touristD1PostSwapNearRestMmoveTailPendingLikeC
             ) {
+                const restNearMklev = findTouristD1PostSwapNearMklevMonLikeC(g);
+                if (restNearMklev) {
+                    setApparxyMonsterLikeC(g, restNearMklev);
+                    await distfleeckMonsterApplyLikeC(g, restNearMklev);
+                }
                 const petAfterRest = (g.level?.monsters ?? []).find(
                     (m) => (m.mtame | 0) !== 0,
                 );

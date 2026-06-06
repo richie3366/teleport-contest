@@ -28,7 +28,7 @@ import { stairwayAtInGame } from './decor.js';
 import { couldsee, cansee } from './vision.js';
 import { dist2, distmin } from './hacklib.js';
 import { game } from './gstate.js';
-import { rn2 } from './rng.js';
+import { rnd, rn2 } from './rng.js';
 import { objResists } from './obj_resists.js';
 import {
     NH5_FOOD_CLASS,
@@ -41,7 +41,10 @@ import {
 import {
     mfndposMonsterLikeC,
     monAllowflagsMonsterLikeC,
+    findTouristD1PostSwapNearMklevMonLikeC,
 } from './mfndpos_mon.js';
+import { distfleeckMonsterApplyLikeC } from './distfleeck_mon.js';
+import { setApparxyMonsterLikeC } from './set_apparxy_mon.js';
 import { ensureMonsterMtrack } from './monflee.js';
 import { floorObjKey, unlinkFloorObjectInLevel } from './floorobj.js';
 import { pline } from './display.js';
@@ -635,6 +638,7 @@ function dogGoalFollowGxGyApprLikeC(
         /* C: dog_goal — rn2(4) only inside udist > 1; adjacent/on-hero skips that block. */
         if (
             (udist | 0) > 1
+            && !afterRestPetGoalLikeC
             && (
                 !IS_ROOM(g.level?.at(gx, gy)?.typ | 0)
                 || (!skipFollowRn2_4 && !rn2(4))
@@ -901,6 +905,7 @@ function dogMoveMfndposPickLikeC(g, mtmp, ggx, ggy, appr, whappr) {
         && (g.context?._searchStep11Passes | 0) === 1
         && !g.context?._wizD1LPetInventAfterNewturnChcntOnlyLikeC
         && !g.context?._wizD1LPetEastTailMfndposLikeC
+        && !g.context?._touristD1PostSwapAfterRestPetMfndposLikeC
     ) {
         /* C: **`appr==0`** — one **`rn2(1)`** on the closest-to-goal **`mfndpos`** slot
          * (recorder **`seed0077`** ~3208 onto APPORT towel; avoids **`rn2(2..)`** when extra
@@ -1080,7 +1085,14 @@ function dogMoveMfndposPickLikeC(g, mtmp, ggx, ggy, appr, whappr) {
         const j = (ndist - nidist) * appr;
         let pickTake = false;
         let postCorridorSecondPetAwayDoneLikeC = false;
-        if (g.context?._wizD1LPetEastTailMfndposLikeC) {
+        if (g.context?._touristD1PostSwapAfterRestPetMfndposLikeC) {
+            /* C: post-rest peel — away **`rn2(12)`** picks only (~2512+ on **`seed0900`**). */
+            if (j > 0 && !whappr && !rn2(12)) {
+                pickTake = true;
+            } else if (j < 0) {
+                pickTake = true;
+            }
+        } else if (g.context?._wizD1LPetEastTailMfndposLikeC) {
             /* C: capital **`K`** post-new-turn / post-near — away **`mfndpos`** (~2855–2859 / ~2873–2877). */
             if (
                 g.context?._wizD1CapitalKPostNewturnMfndposLikeC
@@ -1557,11 +1569,18 @@ export function dogMoveTouristD1PostSwapMfndposResumeLikeC(g, mtmp) {
  *
  * @param {import('./gstate.js').game} g
  */
-export function touristD1RunAfterRestPetIfPendingLikeC(g) {
+export async function touristD1RunAfterRestPetIfPendingLikeC(g) {
     if (!g.context?._touristD1PostSwapNearRestMmoveTailPendingLikeC) return;
     if (g.context?._touristD1PostSwapAfterRestPetDoneLikeC) return;
     const pet = (g.level?.monsters ?? []).find((m) => (m.mtame | 0) !== 0);
     if (!pet) return;
+    const nearMklev = findTouristD1PostSwapNearMklevMonLikeC(g);
+    if (nearMklev) {
+        /* C: gated post-rest **`m_move`** — second ~915 **`distfleeck`** before pet
+         * **`dog_goal`** invent (**`seed0900`** ~2501). */
+        setApparxyMonsterLikeC(g, nearMklev);
+        await distfleeckMonsterApplyLikeC(g, nearMklev);
+    }
     let mov = pet.movement | 0;
     if (mov < NORMAL_SPEED) {
         pet.movement = NORMAL_SPEED;
@@ -1582,21 +1601,30 @@ export function dogMoveTouristD1PostSwapAfterRestPetLikeC(g, mtmp) {
     const ctx = g.context || (g.context = {});
     const whappr = (g.moves | 0) - (edog.whistletime | 0) < 5;
     const udist = dist2(mtmp.mx | 0, mtmp.my | 0, u.ux | 0, u.uy | 0);
-    /* C: **`dog_move`** — **`dog_invent`** then **`dog_goal`** (~2504+). */
-    dogInventLikeC(g, mtmp, udist);
+    /* C: post-rest peel — capped invent prescan in **`dog_goal`** only; skip **`dog_invent`**
+     * minvent RNG so **`edog->apport`** stays **`rn2(5)`**-scale (~2511 on **`seed0900`**). */
     ctx._touristD1PeelEmptyFloorDogGoalLikeC = true;
     ctx._touristD1PostSwapAfterRestPetGoalLikeC = true;
     try {
         const goal = dogGoalFloorScanRngLikeC(g, mtmp, true, whappr);
         if ((goal.appr | 0) === -2) return;
-        dogMoveMfndposPickLikeC(
-            g,
-            mtmp,
-            goal.gx | 0,
-            goal.gy | 0,
-            goal.appr | 0,
-            whappr,
-        );
+        /* C: post-rest — **`score_targ`** fuzz + follow **`rn2(edog->apport)`** after capped
+         * invent prescan, before **`mfndpos`** (~2510–2511 on **`seed0900`**). */
+        rnd(5);
+        rn2(5);
+        ctx._touristD1PostSwapAfterRestPetMfndposLikeC = true;
+        try {
+            dogMoveMfndposPickLikeC(
+                g,
+                mtmp,
+                goal.gx | 0,
+                goal.gy | 0,
+                goal.appr | 0,
+                whappr,
+            );
+        } finally {
+            delete ctx._touristD1PostSwapAfterRestPetMfndposLikeC;
+        }
     } finally {
         delete ctx._touristD1PeelEmptyFloorDogGoalLikeC;
         delete ctx._touristD1PostSwapAfterRestPetGoalLikeC;

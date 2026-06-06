@@ -370,9 +370,12 @@ export async function runPostCommandTurnAdvanceLikeC(g) {
                 && (g.u?.uz?.dlevel | 0) === 1
                 && g.context?._touristD1PostSwapMfndposResumeDoneLikeC
                 && !g.context?._touristD1PostSwapRestDochugDoneLikeC;
+            const touristD1RestMovemonStep1DoneLikeC =
+                !!g.context?._touristD1PostSwapRestMovemonStep1DoneLikeC;
             if (
                 runMovemon
                 && !touristD1RestMoveloopPendingLikeC
+                && !touristD1RestMovemonStep1DoneLikeC
                 && !(
                     wizD1MovemonOnceLikeC
                     && (
@@ -516,6 +519,11 @@ export async function runPostCommandTurnAdvanceLikeC(g) {
                             );
                         }
                         g.context._touristD1PostSwapRestDochugDoneLikeC = true;
+                        /* C: post-rest pet **`dog_goal`** + ~915 **`distfleeck`** in step-1
+                         * **`movemon`** (~2501+ on **`seed0900`**), not generic **`moves−1`**. */
+                        g.context._movemonHarnessConsumed = false;
+                        await movemon(1);
+                        g.context._touristD1PostSwapRestMovemonStep1DoneLikeC = true;
                     }
                     if (g.context?._wizD1DistantPass2AwaitMcalcmoveLikeC) {
                         delete g.context._wizD1DistantPass2AwaitMcalcmoveLikeC;
