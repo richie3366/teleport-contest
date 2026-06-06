@@ -5,7 +5,8 @@
 
 import { game } from './gstate.js';
 import { NO_COLOR, ATR_INVERSE } from './terminal.js';
-import { enlightMissionLines } from './enlght_patrons.js';
+import { enlightMissionLinesLikeC } from './enlght_patrons.js';
+import { upstartLikeC } from './objnam.js';
 import { newuexp, MAXULEV } from './explevel.js';
 import { enlightHungerLine } from './hunger.js';
 import { enlightEncumbranceLine, nearCapacity } from './encumbr.js';
@@ -76,10 +77,8 @@ export function paintDiscoveriesIntoDisplay(display) {
     display.cursorVisible = true;
 }
 
-function missionPatronLines() {
-    const roleKey = game.urole?.name?.m || game.urole?.name?.f || 'Tourist';
-    const align = game.u?.ualign?.type ?? 0;
-    return enlightMissionLines(roleKey, align);
+function missionPatronLines(g) {
+    return enlightMissionLinesLikeC(g);
 }
 
 function hpLine(u) {
@@ -122,7 +121,7 @@ function experienceLine(u, g) {
 export function paintAttributesIntoDisplay(display, page) {
     const u = game.u || {};
     const g = game;
-    const pl = g.plname || 'Contestant';
+    const pl = upstartLikeC(g.plname || 'Contestant');
     const female = !!g.flags?.female;
     const gender = female ? 'female' : 'male';
     const lev = u.ulevel ?? 1;
@@ -146,7 +145,7 @@ export function paintAttributesIntoDisplay(display, page) {
         row++;
         display.putstr(0, row++, ' Background:', NO_COLOR, 0);
         display.putstr(0, row++, `  You are a ${rank}, a level ${lev} ${gender} ${race} ${roleName}.`, NO_COLOR, 0);
-        for (const ln of missionPatronLines()) display.putstr(0, row++, ln, NO_COLOR, 0);
+        for (const ln of missionPatronLines(g)) display.putstr(0, row++, ln, NO_COLOR, 0);
         display.putstr(0, row++, left, NO_COLOR, 0);
         display.putstr(0, row++, `  You are in ${dnameInSentence}, on level ${dlev}.`, NO_COLOR, 0);
         display.putstr(0, row++, `  You entered the dungeon ${turns} turns ago.`, NO_COLOR, 0);
