@@ -32,7 +32,7 @@ Use this when **`Next steps`** below feels stale or several lanes compete. Order
 
 **Tutorial (Lane E):** Gated on [tutorial port gate](../../docs/plans/tutorial-port-gate.md) **MD-1 … MD-7**.
 
-**Last slice:** **Lane A/D `seed0102` — ranger twin pet `dochug` ~915 recalc** — C **`monmove.c`**: post-**`m_move`** **`distfleeck`** after each pet pass (**`m_move_mon.js`** pass-1 + **`monmove.js`** inline pass-2); twin **`dog_move`** **4448–4459**, **`mcalcmove`** tail **4460–4465**. **`seed0102` RNG:** **0–4465**; **~4466** second **`#search`**. **`seed8000`:** **PASS**. **1/44**.
+**Last slice:** **Lane A/D `seed0102` — ranger second `#search` pet-only peel** — C: ranger D:1 twin **`#search`** not tourist west/east subpasses (**`monmove_search.js`**, **`monmove.js`**, **`fmon_iter.js`**, **`m_move_mon.js`**); **`dogmove.c`** second-pass towel sync before **`udist`** early-out (**`dogmove_mon.js`**). **`seed0102` RNG:** **0–4472**, **4475–4484**; **~4473** two floor **`obj_resists`** vs stray **`rn2(5)`**. **`seed8000`:** **PASS**. **1/44**.
 
 ## Next steps (aligned with matrix)
 
@@ -40,7 +40,7 @@ Pick **one** primary lane per **batch** (several related C functions — see che
 
 **First:** open [`docs/plans/tutorial-port-gate.md`](../../docs/plans/tutorial-port-gate.md) — if **all MD-1 … MD-7** are checked, do **Lane E** step 1 from [10-tutorial.md](../plans/nethack-port/10-tutorial.md) instead of the list below.
 
-1. **Lane A/D — `seed0102` second `#search`** — RNG **~4466** second **`s`** peel (**`obj_resists`**, twin **`:`** screens); optional **`monscanmove`** re-entry vs inline pass-2 long-term.
+1. **Lane A/D — `seed0102` second `#search` pass-2 floor scan** — RNG **~4473–4474** two **`obj_resists`** before towel prescan (stray **`rn2(5)`**); then twin **`:`** screens.
 2. **Lane C — `seed0006` ~2892** — capital **`K`** moveloop tail; screen **35** botl (**`find_ac`** / time).
 3. **Lane B — NHL** — next **`lspo_*`** per [`nhl-port-notes.md`](nhl-port-notes.md).
 4. **Lane A/D — `seed0900`** — screen parity (RNG **0–2982** done); map/botl integration beyond moveloop peel chain.

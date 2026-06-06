@@ -273,8 +273,12 @@ export async function movemon(stepNum) {
             return false;
         }
     }
-    /* C: second **`#search`** — west then east **`m_move`** (two **`movemon`** calls; rogue inline). */
-    if (searchPass === 2 && !rogueSecondSearchFullFmonLikeC(g)) {
+    /* C: second **`#search`** — west then east **`m_move`** (tourist); ranger pet-only (**`seed0102`**). */
+    if (
+        searchPass === 2
+        && !rogueSecondSearchFullFmonLikeC(g)
+        && !rangerD1FirstSearchNoNearMonLikeC(g, stepNum)
+    ) {
         if (!g.context._searchMovemonStarted) {
             g.context._searchMovemonStarted = true;
         }
@@ -824,8 +828,7 @@ export async function movemon(stepNum) {
                 }
                 await movemonSinglemonLikeC(g, m, effStepNum);
             }
-            /* C: ranger D:1 first **`#search`** — twin pet pass 2 before **`mcalcmove`** peel
-             * (**`seed0102`** ~4455; same **`movemon`** when hero surplus skips re-entry). */
+            /* C: ranger D:1 twin **`#search`** — pass 2 inline when **`monscanmove`** false (**`seed0102`**). */
             if (
                 rangerD1FirstSearchNoNearMonLikeC(g, effStepNum)
                 && g.context?._rangerFirstSearchPetFirstPassDoneLikeC
@@ -848,8 +851,15 @@ export async function movemon(stepNum) {
                     }
                     setApparxyMonsterLikeC(g, petSecond);
                     await distfleeckMonsterApplyLikeC(g, petSecond);
-                    dogMoveLikeC(g, petSecond);
-                    /* C: dochug ~915 — pass-2 recalc (~4459) before **`mcalcmove`**. */
+                    if ((g.context?._searchStep11Passes | 0) === 2) {
+                        g.context._rangerSearchPass2InlineDogMoveLikeC = true;
+                    }
+                    try {
+                        dogMoveLikeC(g, petSecond);
+                    } finally {
+                        delete g.context._rangerSearchPass2InlineDogMoveLikeC;
+                    }
+                    /* C: dochug ~915 — pass-2 recalc (~4459 / ~4478) before **`mcalcmove`**. */
                     await distfleeckMonsterApplyLikeC(g, petSecond);
                     g.context._rangerFirstSearchPetSecondPassDoneLikeC = true;
                 }
@@ -2774,6 +2784,7 @@ export async function movemon(stepNum) {
         return false;
     }
     if (isSecondSearchMovemonPassLikeC(g) && !rogueSecondSearchFullFmonLikeC(g)) {
+        if (rangerD1FirstSearchNoNearMonLikeC(g, stepNum)) return false;
         if ((g.context?._movemonSearch11SubPasses | 0) < 2) {
             return true;
         }

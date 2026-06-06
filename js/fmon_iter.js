@@ -428,9 +428,9 @@ export function fmonListForMovemonLikeC(g, stepNum = 0) {
                 ...tail,
             ].filter(Boolean);
         }
-        /* C: ranger D:1 first **`#search`** — pet **`dog_move`** only (no distant/east peel; **`seed0102`**). */
+        /* C: ranger D:1 twin **`#search`** — pet **`dog_move`** only (no distant/east peel; **`seed0102`**). */
         if (
-            isFirstSearchMovemonPassLikeC(g)
+            (isFirstSearchMovemonPassLikeC(g) || isSecondSearchMovemonPassLikeC(g))
             && !nearMon
             && rangerD1FirstSearchNoNearMonLikeC(g, stepNum)
         ) {

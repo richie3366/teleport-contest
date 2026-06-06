@@ -379,8 +379,12 @@ function dochugEntersMmoveBlockLikeC(
         }
         return mtmp === findEastMklevSecondHLikeC(g);
     }
-    /* C: second **`#search`** — pass 1 west **`m_move`**; pass 2 east **`m_move`** (inverse of **`y`**). */
-    if ((g.context?._searchStep11Passes | 0) === 2 && !rogueSecondSearchFullFmonLikeC(g)) {
+    /* C: second **`#search`** — pass 1 west **`m_move`**; pass 2 east **`m_move`** (tourist only). */
+    if (
+        (g.context?._searchStep11Passes | 0) === 2
+        && !rogueSecondSearchFullFmonLikeC(g)
+        && !rangerD1FirstSearchNoNearMonLikeC(g, stepNum)
+    ) {
         if ((g.context?._movemonSearch11SubPass | 0) === 1) {
             return mtmp === findWestKinkMonsterLikeC(g);
         }
@@ -1005,6 +1009,10 @@ export async function movemonSinglemonLikeC(g, mtmp, stepNum = 0) {
             mov = NORMAL_SPEED;
         }
         mtmp.movement = mov - NORMAL_SPEED;
+        if ((mtmp.movement | 0) >= NORMAL_SPEED) {
+            const ctx = g.context || (g.context = {});
+            ctx._somebodyCanMoveLikeC = true;
+        }
         const u = g.u;
         if (u) {
             mtmp.mux = u.ux | 0;
@@ -1236,6 +1244,7 @@ export async function movemonSinglemonLikeC(g, mtmp, stepNum = 0) {
     if (
         (g.context?._searchStep11Passes | 0) === 2
         && !rogueSecondSearchFullFmonLikeC(g)
+        && !rangerD1FirstSearchNoNearMonLikeC(g, stepNum)
         && (g.context?._movemonSearch11SubPass | 0) === 1
     ) {
         if (mtmp !== findWestKinkMonsterLikeC(g)) return;
@@ -3130,8 +3139,12 @@ export async function mMoveOneMonsterSubsetLikeC(g, mtmp, stepNum = 0) {
             return;
         }
     }
-    /* C: second **`#search`** pass 1 — west **(64,12)** only (handled in **`monmove.js`** pass 1). */
-    if ((g.context?._searchStep11Passes | 0) === 2 && !rogueSecondSearchFullFmonLikeC(g)) {
+    /* C: second **`#search`** pass 1 — west **(64,12)** only (tourist; ranger uses pet peel above). */
+    if (
+        (g.context?._searchStep11Passes | 0) === 2
+        && !rogueSecondSearchFullFmonLikeC(g)
+        && !rangerD1FirstSearchNoNearMonLikeC(g, stepNum)
+    ) {
         return;
     }
     /* C: **`y`** pass 1 — west/eel **`distfleeck`**; east fungus **`m_move`** (**`rn2(16)`**). */

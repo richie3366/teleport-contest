@@ -1997,11 +1997,7 @@ export function dogMoveGoalAndPickLikeC(
     const omx = mtmp.mx | 0;
     const omy = mtmp.my | 0;
     let udist = dist2(omx, omy, u.ux | 0, u.uy | 0);
-    if (!udist && !g.context?._wizD1Step1LPetTailDogGoalLikeC) return MMOVE_NOTHING;
-    mtmp.mux = u.ux | 0;
-    mtmp.muy = u.uy | 0;
-    const whappr = (g.moves | 0) - (edog.whistletime | 0) < 5;
-    /* C: second **`#search`** **`dog_invent`** at **~3228** needs **`distu=5`** (towel fill tile). */
+    /* C: second **`#search`** — towel APPORT sync before **`udist`** early-out (**`seed0102`** ~4473). */
     if (
         !skipInventLikeC
         && (g.context?._searchStep11Passes | 0) === 2
@@ -2009,6 +2005,10 @@ export function dogMoveGoalAndPickLikeC(
         dogMoveOntoApportTowelLikeC(g, mtmp, true);
         udist = dist2(mtmp.mx | 0, mtmp.my | 0, u.ux | 0, u.uy | 0);
     }
+    if (!udist && !g.context?._wizD1Step1LPetTailDogGoalLikeC) return MMOVE_NOTHING;
+    mtmp.mux = u.ux | 0;
+    mtmp.muy = u.uy | 0;
+    const whappr = (g.moves | 0) - (edog.whistletime | 0) < 5;
     if (!skipInventLikeC) dogInventLikeC(g, mtmp, udist);
     const goal = dogGoalFloorScanRngLikeC(
         g, mtmp, trackApportGoalLikeC, whappr,
@@ -2047,9 +2047,11 @@ export function dogMoveGoalAndPickLikeC(
         } finally {
             delete ctx._dogmoveDeferNewdogposLikeC;
         }
-        /* C: dogmove.c:1273 — `pet_ranged_attk` after `mfndpos`, before `newdogpos`. */
-        const ranged = petRangedAttkDogmoveLikeC(g, mtmp, false);
-        if (ranged !== MMOVE_NOTHING) return ranged;
+        /* C: ranger second **`#search`** pass-2 peel — no **`pet_ranged_attk`** before floor **`obj_resists`** (~4473). */
+        if (!g.context?._rangerSearchPass2InlineDogMoveLikeC) {
+            const ranged = petRangedAttkDogmoveLikeC(g, mtmp, false);
+            if (ranged !== MMOVE_NOTHING) return ranged;
+        }
         dogMoveApplyPendingNewdogposLikeC(g, mtmp);
     }
     ensureMonsterMtrack(mtmp);

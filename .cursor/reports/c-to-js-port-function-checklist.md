@@ -108,7 +108,7 @@ Align batches with [`c-to-js-port-remaining.md`](c-to-js-port-remaining.md) §5:
 | `dog_goal` / `obj_resists` | `dogmove_mon.js`, `obj_resists.js`, `dogmove_reach.js` | partial | **`seed0102`** RNG **0–4452** (**`On_stairs`** skips invent **`obj_resists`**); **~4453** **`score_targ`** **`rnd(5)`** — JS pet **(29,8)** hits hero early-return; C **(27,8)** west ray → mklev kobold |
 | `u_on_upstairs` / `On_stairs` | `mklev.js`, `allmain.js`, `jsmain.js` | partial | C **`u_on_upstairs`** in **`newgame`** before **`makedog`**; **`syncHeroOnBranchUpstairLikeC`** in **`jsmain`** post-**`newgame`** only; **`dog_goal`** **`stairwayAtInGame`** on hero tile |
 | `dofire` | `dofire_hero.js`, `cmd.js`, `allmain.js`, `moveloop_turn_advance.js` | partial | C **`dothrow.c`** **`dofire()`** — **`getdir`** + invent **ESC** moveloop defer/peel-only (**`seed0102`** esc **4442–4447**); fireassist bow swap |
-| `movemon` / `#search` ranger peel | `monmove.js`, `monmove_search.js`, `m_move_mon.js`, `cmd.js`, `fmon_iter.js` | partial | C **`monmove.c` dochug ~915**: ranger D:1 first **`#search`** — pet **`distfleeck`+`dog_move`+recalc** ×2 (inline pass-2 when **`monscanmove`** false); **`seed0102`** twin pet **4448–4459** + **`mcalcmove`** **4460–4465**; second **`s`** **~4466** |
+| `movemon` / `#search` ranger peel | `monmove.js`, `monmove_search.js`, `m_move_mon.js`, `cmd.js`, `fmon_iter.js`, `dogmove_mon.js` | partial | C: ranger D:1 twin **`#search`** pet-only (not tourist west/east); **`dochug` ~915** recalc; second **`s`** **4466–4484** (gap **~4473** floor **`obj_resists`**); twin **`:`** screens open |
 
 ---
 
