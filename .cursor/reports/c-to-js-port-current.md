@@ -32,7 +32,7 @@ Use this when **`Next steps`** below feels stale or several lanes compete. Order
 
 **Tutorial (Lane E):** Gated on [tutorial port gate](../../docs/plans/tutorial-port-gate.md) **MD-1 … MD-7**.
 
-**Last slice:** **Lane A/D `seed0102` moveloop — `m_cansee` / `clear_path`** — C **`vision.c`** **`clearPathLikeC`** (Bresenham q1–q4 on **`viz_clear`**); **`dogmove_reach.js`** **`mCanseeDogmoveLikeC`** (not 8-way ray). **`seed0102` RNG:** **0–4450** (first **`s`** through **`dog_goal`** **`rn2(8)`**). **~4451** follow **`rn2(4)`** / **`pet_ranged_attk`** order open. **`seed8000`:** **PASS**. **2/44**.
+**Last slice:** **Lane A/D `seed0102` moveloop — `can_carry` + `pet_ranged_attk`** — C **`mon.c`** **`can_carry`** / **`can_touch_safely`** + **`obj_oc_weight_data.js`**; **`dogMoveGoalAndPickLikeC`** **`petRangedAttkDogmoveLikeC`** after **`mfndpos`**; **`syncHeroOnBranchUpstairLikeC`**. **`seed0102` RNG:** **0–4450**, **`rn2(1)`** @ **4452**; **~4451** hero east of up-stair → invent **`obj_resists`** vs C **`rn2(4)`**. **`seed8000`:** **PASS**. **2/44**.
 
 ## Next steps (aligned with matrix)
 
@@ -40,7 +40,7 @@ Pick **one** primary lane per **batch** (several related C functions — see che
 
 **First:** open [`docs/plans/tutorial-port-gate.md`](../../docs/plans/tutorial-port-gate.md) — if **all MD-1 … MD-7** are checked, do **Lane E** step 1 from [10-tutorial.md](../plans/nethack-port/10-tutorial.md) instead of the list below.
 
-1. **Lane A/D — `seed0102` moveloop tail** — RNG **~4451+** (`dog_goal` follow **`rn2(4)`**, **`pet_ranged_attk`** after **`mfndpos`**, **`distfleeck`** order); screens **2+** / cursors open.
+1. **Lane A/D — `seed0102` moveloop tail** — RNG **~4451** (hero on branch up-stair **`(28,7)`** not **`(29,7)`** → **`On_stairs`** skips invent **`obj_resists`**); **`rnd(5)`** **`pet_ranged_attk`** @ **4453**; screens **2+** open.
 2. **Lane C — `seed0006` ~2892** — capital **`K`** moveloop tail; screen **35** botl (**`find_ac`** / time).
 3. **Lane B — NHL** — next **`lspo_*`** per [`nhl-port-notes.md`](nhl-port-notes.md).
 4. **Lane A/D — `seed0900`** — screen parity (RNG **0–2982** done); map/botl integration beyond moveloop peel chain.
