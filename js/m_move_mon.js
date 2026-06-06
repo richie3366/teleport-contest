@@ -1854,6 +1854,29 @@ function touristD1PostSwapNearRestMmoveStubLikeC(g, mtmp) {
     g.context._touristD1PostSwapNearRestMmoveShortCircuitLikeC = true;
 }
 
+/**
+ * C: tourist D:1 post-rest — near mklev **`m_move`** between second **`dog_move`** phases
+ * (**`distfleeck`**×2, **`rn2(32)`** **`mtrack`**, **`distfleeck`**×2; **`seed0900`** ~2526–2530).
+ *
+ * @param {import('./gstate.js').game} g
+ * @param {Record<string, unknown>} mtmp
+ */
+export async function mMoveTouristD1PostRestSecondMklevInterruptLikeC(g, mtmp) {
+    if (!mtmp || (mtmp.mhp | 0) <= 0) return;
+    const u = g.u;
+    if (u) {
+        mtmp.mux = u.ux | 0;
+        mtmp.muy = u.uy | 0;
+    }
+    setApparxyMonsterLikeC(g, mtmp);
+    await distfleeckMonsterApplyLikeC(g, mtmp);
+    await distfleeckMonsterApplyLikeC(g, mtmp);
+    ensureMonsterMtrack(mtmp);
+    rn2(32);
+    await distfleeckMonsterApplyLikeC(g, mtmp);
+    await distfleeckMonsterApplyLikeC(g, mtmp);
+}
+
 export async function mMoveTouristD1PostSwapRestMklevLikeC(g, mtmp, stepNum = 1) {
     if (!mtmp || (mtmp.mhp | 0) <= 0) return;
     const u = g.u;

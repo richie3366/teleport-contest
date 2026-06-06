@@ -96,12 +96,12 @@ Align batches with [`c-to-js-port-remaining.md`](c-to-js-port-remaining.md) §5:
 | C symbol / area | JS module | Status | Notes |
 |-----------------|-----------|--------|-------|
 | `movemon` / `dochug` | `monmove.js`, `fmon_iter.js`, `moveloop_turn_advance.js` | partial | Post-rest peel + second **`dog_move`** + mklev **`movemon(1)`**; skip pet **`fmon`** when second done; **`seed0900`** **2495–2527** |
-| `m_move` / `mfndpos` | `m_move_mon.js`, `mfndpos.js` | partial | Near mklev gated until **`_touristD1PostRestSecondPetDogMoveDoneLikeC`**; rest stub **`rn2(32)`**; **`seed0900`** **~2528+** mfndpos tail |
+| `m_move` / `mfndpos` | `m_move_mon.js`, `mfndpos.js` | partial | Second post-rest mklev interrupt **`mMoveTouristD1PostRestSecondMklevInterruptLikeC`** (**`rn2(32)`** ~2528); **`seed0900`** **~2545** post-**`mcalcmove`** drift |
 | `distfleeck` | `distfleeck_mon.js` | partial | Peel-only rest **`distfleeck`** (**`_touristD1PostSwapRestDistfleeckPeelLikeC`**); 3× ~915 before stub; **`seed0900`** **2499–2504** |
 | `m_throw` | — | missing | |
-| `dogmove` | `dogmove_mon.js` | partial | Post-rest peel + **`dogMoveTouristD1PostRestSecondDogMoveLikeC`** after moveloop **`pet_ranged_attk`**; **`seed0900`** **2510–2527**; **~2528** mfndpos **`mtrack`**/**`chcnt`** |
+| `dogmove` | `dogmove_mon.js` | partial | Second **`dog_move`** split phase1/2 + **`mon_track_add`** on **`mfndpos`** move; silent phase-2 **`mfndpos`**; **`seed0900`** **2520–2544** |
 | `score_targ` / `best_target` / `pet_ranged_attk` | `dogmove_mon.js` | partial | C **`dogmove.c`** ~738–966; moveloop peel + second-pass **`rnd(5)`**/**`rn2(5)`** tail; **`mattackm`** TODO |
-| `dog_goal` / `obj_resists` | `dogmove_mon.js`, `obj_resists.js` | partial | Peel + second post-rest **5×** invent (**`seed0900`** **2505–2509**, **2520–2524**); near mklev gated until second **`dog_move`** |
+| `dog_goal` / `obj_resists` | `dogmove_mon.js`, `obj_resists.js` | partial | Second post-rest **5×** invent per phase (**`seed0900`** **2520–2524**, **2531–2535**); **`seed0900`** **~2545+** next command drift |
 
 ---
 

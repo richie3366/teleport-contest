@@ -46,7 +46,7 @@ import {
 } from './mfndpos_mon.js';
 import { distfleeckMonsterApplyLikeC } from './distfleeck_mon.js';
 import { setApparxyMonsterLikeC } from './set_apparxy_mon.js';
-import { ensureMonsterMtrack } from './monflee.js';
+import { ensureMonsterMtrack, monTrackAdd } from './monflee.js';
 import { floorObjKey, unlinkFloorObjectInLevel } from './floorobj.js';
 import { pline } from './display.js';
 import { newsym } from './display.js';
@@ -862,10 +862,13 @@ function dogGoalFollowGxGyApprLikeC(
             appr = 1;
         } else if (
             g.context?._touristD1PeelEmptyFloorDogGoalLikeC
-            && g.context?._touristD1PostRestSecondDogMoveLikeC
+            && (
+                g.context?._touristD1PostRestSecondPhase1LikeC
+                || g.context?._touristD1PostRestSecondPhase2LikeC
+            )
         ) {
-            /* C: second post-rest **`dog_goal`** — five **`gi.invent`** **`obj_resists`**, keep **`appr`**
-             * unless **`DOGFOOD`** (~2520–2524 on **`seed0900`**). */
+            /* C: second post-rest **`dog_goal`** — five **`gi.invent`** **`obj_resists`** per phase
+             * (~2520–2524 / ~2531–2535 on **`seed0900`**). */
             let invN = 0;
             for (let o = g.invent; o; o = o.nobj) {
                 const rank = dogfoodRankLikeC(o);
@@ -1180,6 +1183,8 @@ function dogMoveMfndposPickLikeC(g, mtmp, ggx, ggy, appr, whappr) {
                         otyp < MANFOOD
                         && (otyp < ACCFOOD || (g.moves | 0) >= hungrytime)
                     ) {
+                        /* C: dogmove.c newdogpos — **`mon_track_add(omx,omy)`** before move. */
+                        monTrackAdd(mtmp, omx, omy);
                         mtmp.mx = nx;
                         mtmp.my = ny;
                         return;
@@ -1231,6 +1236,8 @@ function dogMoveMfndposPickLikeC(g, mtmp, ggx, ggy, appr, whappr) {
             pickY = towel.y | 0;
         }
         if (any && !rn2(1)) {
+            /* C: dogmove.c newdogpos — **`mon_track_add(omx,omy)`** before move. */
+            monTrackAdd(mtmp, omx, omy);
             mtmp.mx = pickX;
             mtmp.my = pickY;
         }
@@ -1277,6 +1284,8 @@ function dogMoveMfndposPickLikeC(g, mtmp, ggx, ggy, appr, whappr) {
                     otyp < MANFOOD
                     && (otyp < ACCFOOD || (g.moves | 0) >= hungrytime)
                 ) {
+                    /* C: dogmove.c newdogpos — **`mon_track_add(omx,omy)`** before move. */
+                    monTrackAdd(mtmp, omx, omy);
                     mtmp.mx = nx;
                     mtmp.my = ny;
                     return;
@@ -1463,6 +1472,10 @@ function dogMoveMfndposPickLikeC(g, mtmp, ggx, ggy, appr, whappr) {
             } else if (j < 0) {
                 pickTake = true;
             }
+        } else if (g.context?._touristD1PostRestSecondMfndposSilentLikeC) {
+            /* C: second post-rest phase-2 — **`mfndpos`** may pick closer slots only (**`j<0`**); no
+             * **`chcnt`** / away draws before movemon **`mcalcmove`** (~2538+ on **`seed0900`**). */
+            if (j < 0) pickTake = true;
         } else if (j === 0) {
             if (resumingTouristPostSwapLikeC) {
                 /* C: **`chcnt`** **`rn2(1)`/`rn2(2)`** already ran before tail **`distfleeck`**. */
@@ -1595,6 +1608,8 @@ function dogMoveMfndposPickLikeC(g, mtmp, ggx, ggy, appr, whappr) {
         }
     }
     if (nix !== omx || niy !== omy) {
+        /* C: dogmove.c:1313 — **`mon_track_add(omx,omy)`** after **`place_monster`**. */
+        monTrackAdd(mtmp, omx, omy);
         mtmp.mx = nix;
         mtmp.my = niy;
     }
@@ -1878,19 +1893,18 @@ export function dogMoveTouristD1PostSwapAfterRestPetLikeC(g, mtmp) {
 }
 
 /**
- * C: tourist D:1 post-rest — second **`dog_move`** after deferred **`pet_ranged_attk`**
- * (**`dog_invent`**, **`dog_goal`** invent **`obj_resists`**, **`mfndpos`**, tail **`pet_ranged_attk`**;
- * **`seed0900`** ~2520–2537 before near mklev **`m_move`** **`rn2(12)`** ~2538+).
+ * C: tourist D:1 post-rest — second **`dog_move`** phase 1 after deferred **`pet_ranged_attk`**
+ * (**`dog_goal`** capped invent **`obj_resists`**, **`score_targ`**; **`seed0900`** ~2520–2525).
  *
  * @param {import('./gstate.js').game} g
  * @param {Record<string, unknown>} mtmp
  */
-export function dogMoveTouristD1PostRestSecondDogMoveLikeC(g, mtmp) {
+export function dogMoveTouristD1PostRestSecondDogMovePhase1LikeC(g, mtmp) {
     if (!(mtmp.mtame | 0) || !has_edog(mtmp)) return;
     const edog = EDOG(mtmp);
     if (!edog) return;
     const ctx = g.context || (g.context = {});
-    ctx._touristD1PostRestSecondDogMoveLikeC = true;
+    ctx._touristD1PostRestSecondPhase1LikeC = true;
     ctx._touristD1PeelEmptyFloorDogGoalLikeC = true;
     try {
         let mov = mtmp.movement | 0;
@@ -1903,13 +1917,52 @@ export function dogMoveTouristD1PostRestSecondDogMoveLikeC(g, mtmp) {
         const whappr = (g.moves | 0) - (edog.whistletime | 0) < 5;
         const goal = dogGoalFloorScanRngLikeC(g, mtmp, true, whappr);
         if ((goal.appr | 0) === -2) return;
-        /* C: peel tail — **`best_target`** / **`rnd(5)`** + **`rn2(edog->apport)`** (~2525–2527). */
+        ctx._touristD1PostRestSecondPhase1GoalLikeC = {
+            gx: goal.gx | 0,
+            gy: goal.gy | 0,
+            appr: goal.appr | 0,
+            whappr,
+        };
+        /* C: phase-1 tail — **`score_targ`** only (~2525); near mklev **`m_move`** follows (~2526+). */
         if (!bestTargetDogmoveLikeC(g, mtmp, false)) {
             rnd(5);
         }
-        rn2(5);
-        rn2(5);
-        ctx._touristD1PostRestSecondMfndposLikeC = true;
+    } finally {
+        delete ctx._touristD1PostRestSecondPhase1LikeC;
+        delete ctx._touristD1PeelEmptyFloorDogGoalLikeC;
+    }
+}
+
+/**
+ * C: tourist D:1 post-rest — second **`dog_move`** phase 2 after near mklev **`m_move`**
+ * (**`dog_goal`** invent, **`score_targ`**, silent **`mfndpos`**; **`seed0900`** ~2531–2537).
+ *
+ * @param {import('./gstate.js').game} g
+ * @param {Record<string, unknown>} mtmp
+ */
+export function dogMoveTouristD1PostRestSecondDogMovePhase2LikeC(g, mtmp) {
+    if (!(mtmp.mtame | 0) || !has_edog(mtmp)) return;
+    const edog = EDOG(mtmp);
+    if (!edog) return;
+    const ctx = g.context || (g.context = {});
+    const st = ctx._touristD1PostRestSecondPhase1GoalLikeC;
+    const whappr = st?.whappr
+        ?? ((g.moves | 0) - (edog.whistletime | 0) < 5);
+    const udist = dist2(mtmp.mx | 0, mtmp.my | 0, g.u?.ux | 0, g.u?.uy | 0);
+    ctx._touristD1PostRestSecondPhase2LikeC = true;
+    ctx._touristD1PeelEmptyFloorDogGoalLikeC = true;
+    try {
+        /* C: **`dog_invent`** then **`dog_goal`** (~2531+ invent **`obj_resists`**). */
+        dogInventLikeC(g, mtmp, udist);
+        const goal = dogGoalFloorScanRngLikeC(g, mtmp, true, whappr);
+        if ((goal.appr | 0) === -2) return;
+        /* C: phase-2 **`score_targ`** (~2536). */
+        if (!bestTargetDogmoveLikeC(g, mtmp, false)) {
+            rnd(5);
+        }
+        /* C: one **`distfleeck`** before silent **`mfndpos`** (~2537). */
+        setApparxyMonsterLikeC(g, mtmp);
+        ctx._touristD1PostRestSecondMfndposSilentLikeC = true;
         try {
             dogMoveMfndposPickLikeC(
                 g,
@@ -1920,15 +1973,20 @@ export function dogMoveTouristD1PostRestSecondDogMoveLikeC(g, mtmp) {
                 whappr,
             );
         } finally {
-            delete ctx._touristD1PostRestSecondMfndposLikeC;
+            delete ctx._touristD1PostRestSecondMfndposSilentLikeC;
         }
-        petRangedAttkDogmoveLikeC(g, mtmp, false, null);
     } finally {
-        delete ctx._touristD1PostRestSecondDogMoveLikeC;
+        delete ctx._touristD1PostRestSecondPhase2LikeC;
         delete ctx._touristD1PeelEmptyFloorDogGoalLikeC;
-        delete ctx._touristD1PostRestSecondMfndposLikeC;
+        delete ctx._touristD1PostRestSecondPhase1GoalLikeC;
         ctx._touristD1PostRestSecondPetDogMoveDoneLikeC = true;
     }
+}
+
+/** @deprecated use phase1 + mklev interrupt + phase2 */
+export function dogMoveTouristD1PostRestSecondDogMoveLikeC(g, mtmp) {
+    dogMoveTouristD1PostRestSecondDogMovePhase1LikeC(g, mtmp);
+    dogMoveTouristD1PostRestSecondDogMovePhase2LikeC(g, mtmp);
 }
 
 export function dogMoveLikeC(g, mtmp) {

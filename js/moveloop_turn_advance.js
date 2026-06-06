@@ -51,7 +51,8 @@ import { distfleeckMonsterApplyLikeC } from './distfleeck_mon.js';
 import {
     dogMoveEastTailPostMcalcmovePetLikeC,
     dogMoveLPetInventAfterNewturnLikeC,
-    dogMoveTouristD1PostRestSecondDogMoveLikeC,
+    dogMoveTouristD1PostRestSecondDogMovePhase1LikeC,
+    dogMoveTouristD1PostRestSecondDogMovePhase2LikeC,
     petRangedAttkDogmoveLikeC,
 } from './dogmove_mon.js';
 import {
@@ -61,6 +62,7 @@ import {
     wizD1PeelDistantMklevMonLikeC,
 } from './mfndpos_mon.js';
 import {
+    mMoveTouristD1PostRestSecondMklevInterruptLikeC,
     mMoveTouristD1PostSwapRestMklevLikeC,
     primeDistantMtrackRn20LikeC,
 } from './m_move_mon.js';
@@ -542,9 +544,21 @@ export async function runPostCommandTurnAdvanceLikeC(g) {
                                     false,
                                     null,
                                 );
-                                /* C: second post-rest **`dog_move`** (~2520+ invent) before near mklev
-                                 * **`m_move`** **`mfndpos`** on outer-loop **`movemon`** pass. */
-                                dogMoveTouristD1PostRestSecondDogMoveLikeC(
+                                /* C: second post-rest **`dog_move`** phase-1 (~2520–2525), near mklev
+                                 * **`m_move`** (~2526–2530), phase-2 (~2531–2537), then **`movemon`**
+                                 * **`mcalcmove`** (~2538+). */
+                                dogMoveTouristD1PostRestSecondDogMovePhase1LikeC(
+                                    g,
+                                    petPostRestRanged,
+                                );
+                                const nearMklevSecond = findTouristD1PostSwapNearMklevMonLikeC(g);
+                                if (nearMklevSecond) {
+                                    await mMoveTouristD1PostRestSecondMklevInterruptLikeC(
+                                        g,
+                                        nearMklevSecond,
+                                    );
+                                }
+                                dogMoveTouristD1PostRestSecondDogMovePhase2LikeC(
                                     g,
                                     petPostRestRanged,
                                 );
