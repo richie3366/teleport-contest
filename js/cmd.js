@@ -137,6 +137,21 @@ export async function rhack(key) {
             clearPendingMessageAndToplineLikeC();
             await docrt_flags(docrtRefresh);
             await flush_screen(1);
+        } else if (game._getdirHelpOverlayLikeC) {
+            closeGetdirHelpOverlayLikeC(game);
+            clearPendingMessageAndToplineLikeC();
+            await docrt_flags(docrtRefresh);
+            await flush_screen(1);
+            /* C: post-invalid-getdir ESC — moveloop peel (~seed0102 after `+`). */
+            if (game.context?._dofireAwaitEscMoveloopLikeC) {
+                delete game.context._dofireAwaitEscMoveloopLikeC;
+                game.context._dofireEscMoveloopPeelOnlyLikeC = true;
+                try {
+                    await runPostCommandTurnAdvanceLikeC(game);
+                } finally {
+                    delete game.context._dofireEscMoveloopPeelOnlyLikeC;
+                }
+            }
         } else {
             clearPendingMessageAndToplineLikeC();
             await flush_screen(1);

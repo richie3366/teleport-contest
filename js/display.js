@@ -62,6 +62,7 @@ import {
 } from './terminal.js';
 import { paintInventoryIntoDisplay, paintInventoryOverlayLikeC, updateInventory } from './invent.js';
 import { paintOverlayScreen } from './overlay_screens.js';
+import { paintGetdirHelpOverlayLikeC } from './help_dir.js';
 import { isHumanRogueChargenLikeC } from './u_init_link_rogue_invent.js';
 import { paintLegacyIntroIntoDisplay } from './legacy_intro_paint.js';
 import {
@@ -1818,6 +1819,25 @@ function _buildScreenOutput() {
         paintStatusRowsForLegacyIntro(display);
         game._screen_output = serializeDisplayGridWithDecSoSiLikeC(
             display, legacyWestStripDecgfxAtJudgeCellLikeC);
+        return;
+    }
+
+    if (game._getdirHelpOverlayLikeC) {
+        if (display.grid) {
+            display.clearScreen();
+            const msg = messageLine0ForJudgeGridLikeC();
+            for (let c = 0; c < Math.min(msg.length, display.cols); c++)
+                display.setCell(c, 0, msg[c], NO_COLOR, 0);
+            paintGetdirHelpOverlayLikeC(display);
+            const more = '--More--';
+            for (let c = 0; c < more.length; c++)
+                display.setCell(c, 23, more[c], NO_COLOR, 0);
+            display.setCursor(8, 23);
+            display.cursorVisible = true;
+            game._screen_output = display.terminal?.serialize
+                ? display.terminal.serialize()
+                : '';
+        }
         return;
     }
 

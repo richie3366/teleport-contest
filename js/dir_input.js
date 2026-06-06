@@ -4,6 +4,7 @@ import { DIRECTION_KEYS, RUN_KEYS } from './const.js';
 import { game } from './gstate.js';
 import { nhgetch } from './input.js';
 import { flush_screen } from './display.js';
+import { openGetdirHelpOverlayLikeC } from './help_dir.js';
 
 /** C: cmd.c getdir — yn_function prompt on WIN_MESSAGE row 0. */
 export async function runGetdirPromptLikeC(g = game) {
@@ -49,12 +50,9 @@ export async function readDirIntoU(g, firstKey = 0) {
     let vec = DIRECTION_KEYS[ch];
     if (!vec) vec = RUN_KEYS[ch];
     if (!vec) {
-        /* C: cmd.c getdir — help_dir cmdassist pline on invalid direction key. */
+        /* C: cmd.c getdir — help_dir NHW_TEXT when cmdassist. */
         if (g.iflags?.cmdassist !== false) {
-            g._pending_message = 'cmdassist: Invalid direction key!';
-            g._toplineNeedMore = false;
-            g._showDefmoreOnTopline = false;
-            g._retainMessageAfterCommand = true;
+            openGetdirHelpOverlayLikeC(g);
             await flush_screen(1);
         }
         return false;
