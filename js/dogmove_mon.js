@@ -2066,15 +2066,7 @@ function dogMoveMfndposPickLikeC(g, mtmp, ggx, ggy, appr, whappr) {
             break;
         }
     }
-    /* C: capital **`K`** post-near — five away **`rn2(12)`** (~2873–2877) when **`mfndpos`** short. */
-    if (ctxPick?._wizD1CapitalKPostNearMfndposLikeC) {
-        const ctxPad = g.context || (g.context = {});
-        while ((ctxPad._wizD1CapitalKPostNearAwayRn12LikeC | 0) < 5) {
-            rn2(12);
-            ctxPad._wizD1CapitalKPostNearAwayRn12LikeC =
-                (ctxPad._wizD1CapitalKPostNearAwayRn12LikeC | 0) + 1;
-        }
-    }
+    /* C: capital **`K`** post-near — five away **`rn2(12)`** (~2873–2877) in **`mfndpos`** loop only. */
     if (g.context?._wizD1CapitalKPostDistantPeelPetLikeC) {
         const ctxKt = g.context || (g.context = {});
         if (
@@ -3374,6 +3366,7 @@ export function dogMoveCapitalKPostNearPetLikeC(g, mtmp) {
     const edog = EDOG(mtmp);
     if (!u || !edog) return MMOVE_NOTHING;
     const ctx = g.context || (g.context = {});
+    if (ctx) game.context = ctx;
     const pin = ctx._wizD1Step1DogGoalHeroXYLikeC;
     const hx = pin ? (pin.ux | 0) : (u.ux | 0);
     const hy = pin ? (pin.uy | 0) : (u.uy | 0);

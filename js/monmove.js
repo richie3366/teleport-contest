@@ -1050,12 +1050,18 @@ export async function movemon(stepNum) {
                         await distfleeckMonsterApplyLikeC(g, petCapitalK);
                         rn2(4);
                         dogMoveCapitalKPostNewturnPetLikeC(g, petCapitalK);
+                        /* C: post-new-turn pet **`distfleeck`**×2 (~2860–2861); tail budget only gates ~2851. */
+                        delete g.context._wizD1CapitalKPostNewturnTailLikeC;
+                        delete g.context._wizD1CapitalKPostNewturnTailDistfleeckBudgetLikeC;
+                        await distfleeckMonsterApplyLikeC(g, petCapitalK);
+                        await distfleeckMonsterApplyLikeC(g, petCapitalK);
                     } finally {
                         delete g.context._wizD1CapitalKPostNewturnTailLikeC;
                         delete g.context._wizD1CapitalKPostNewturnTailDistfleeckBudgetLikeC;
                     }
                 }
-                /* C: capital **`K`** — distant **`distfleeck`**×2 + **`m_move`** (~2860–2862). */
+                /* C: capital **`K`** — distant **`m_move`** **`rn2(20)`**, **`distfleeck`**×2, **`rn2(20)`**
+                 * (~2862–2865); no leading **`distfleeck`** before first **`rn2(20)`**. */
                 if (peelDistant) {
                     const u = g.u;
                     if (u) {
@@ -1063,8 +1069,6 @@ export async function movemon(stepNum) {
                         peelDistant.muy = u.uy | 0;
                     }
                     setApparxyMonsterLikeC(g, peelDistant);
-                    await distfleeckMonsterApplyLikeC(g, peelDistant);
-                    await distfleeckMonsterApplyLikeC(g, peelDistant);
                     g.context._wizD1CapitalKPostNewturnDistantRn20LikeC = true;
                     g.context._wizD1PostEastTailWalkDistantMmoveLikeC = true;
                     g.context._wizD1CapitalKPostNewturnDistantTailLikeC = true;
