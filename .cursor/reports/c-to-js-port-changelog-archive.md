@@ -6,6 +6,7 @@ Historical rows moved from `c-to-js-port-progress.md` so day-to-day work uses **
 
 | When | What changed |
 |------|----------------|
+| **2026-06-06** | **Lane A/D `seed0900` run-east `L` post (~2730–2752)** — eighth **`movemon`** (fourth invent/**`mfndpos`** shell, eighth phase-1 pair-pad); arm/skip after seventh new-turn. Diag **2730–2752**; **~2753** open. **`seed8000`:** **PASS**. **2/44**. |
 | **2026-06-06** | **Lane A/D `seed0900` run-east `L` post (~2707–2729)** — seventh **`movemon`** (fourth shell + seventh phase-1 dual-draw/pair-pad); arm/skip after sixth new-turn. Diag **2620–2729**; **~2730** open. **`seed8000`:** **PASS**. **2/44**. |
 | **2026-06-06** | **Lane A/D `seed0900` run-east `L` post (~2680–2706)** — sixth **`movemon`** (fourth invent/**`mfndpos`** ×2, 4× inter **`distfleeck`**, tail away pad); sixth phase-1 **`(sameCell\|\|away)`** **`mfndpos`**; arm/skip after fifth new-turn. Diag **2620–2706**; **~2707** open. **`seed8000`:** **PASS**. **2/44**. |
 | **2026-06-06** | **Lane A/D `seed0900` run-east `L` post (~2668–2679)** — fifth **`movemon`** peel-only inline block (**`distfleeck`** + third-phase **`mfndpos`** 4+2 away); arm after fourth-pass new-turn; skip **`mcalcmove`** after fifth. Diag **2620–2679**; **~2680** open. **`seed8000`:** **PASS**. **2/44**. |
