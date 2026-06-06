@@ -152,7 +152,8 @@ Align batches with [`c-to-js-port-remaining.md`](c-to-js-port-remaining.md) §5:
 |-----------------|-----------|--------|-------|
 | `do_attack` safemon gate | `uhitm_hero.js`, `cmd.js` | partial | C **`is_safemon`** → **`rn2(7)`** / shop / **`rn2(6)`** before displace; **`seed0900`** **2473–2481** |
 | `uhitm` / `mhitu` | `attack.js`, `uhitm_hero.js` | partial | Bump kill subset; full **`hitum`**/`hmon` gaps remain |
-| `find_ac` / to-hit | `display.js`, … | partial | Botl on some sessions |
+| `find_ac` / to-hit | `u_init_find_ac.js`, `display.js`, `u_init_link_*.js` | partial | **`find_ac`** only after first **`bot()`** (removed from role invent linkers); legacy **`com_pager`** map strip **`seed0102`** partial |
+| `com_pager` / legacy intro | `legacy_intro.js`, `legacy_intro_paint.js`, `display.js` | partial | Overlay on docrt map; west strip + east bleed clear; DEC IBM bytes on legacy grid |
 
 ---
 

@@ -532,7 +532,8 @@ function terrainGlyphsEqual(a, b) {
  */
 function mapDispChForJudgeGridLikeC(loc) {
     const ch = loc?.disp_ch ?? ' ';
-    /* C tty on rogue D:1 records IBM wall bytes (`l`, `q`, …), not DEC→Unicode. */
+    /* C com_pager legacy map uses IBM wall bytes; welcome rogue D:1 uses DEC→Unicode elsewhere. */
+    if (game._legacyIntroActive) return ch;
     const decHandler = gs.symset[PRIMARYSET].handling === H_DEC;
     if (loc?.disp_decgfx && decHandler && !Is_rogue_level(game.u?.uz))
         return DEC_TO_UNICODE[ch] || ch;
@@ -1528,13 +1529,54 @@ export function serialize_terminal_grid(display) {
     return output;
 }
 
+/**
+ * C: com_pager leaves the west wall strip from docrt; docrt hero_memory can leave
+ * IN_SIGHT bleed east of the quest text column — clear before overlay (seed0102).
+ */
+function clearLegacyMapBleedEastOfQuestStripLikeC(display) {
+    if (!display?.grid) return;
+    for (let y = 0; y < ROWNO; y++) {
+        for (let x = 22; x < COLNO; x++) {
+            display.setCell(x - 1, y + 1, ' ', NO_COLOR, 0);
+        }
+    }
+}
+
+/** Reapply west wall strip glyphs from `lev->disp_ch` after bleed clear (cols 20–21). */
+function paintLegacyQuestWestStripFromDispLikeC(display) {
+    if (!display?.grid || !game.level) return;
+    for (let y = 0; y < ROWNO; y++) {
+        for (let x = 20; x <= 21; x++) {
+            const loc = game.level.at(x, y);
+            if (!loc?.disp_ch || loc.disp_ch === ' ') continue;
+            display.setCell(x - 1, y + 1, mapDispChForJudgeGridLikeC(loc),
+                loc.disp_color ?? NO_COLOR, loc.disp_attr ?? 0);
+        }
+    }
+}
+
+/** Paint map cells from `lev->disp_ch` into judge grid (legacy intro / tutorial paths). */
+function paintMapGridFromLevelDispLikeC(display) {
+    if (!display?.grid || !game.level) return;
+    for (let y = 0; y < ROWNO; y++) {
+        for (let x = 1; x < COLNO; x++) {
+            const loc = game.level.at(x, y);
+            if (!loc?.disp_ch || loc.disp_ch === ' ') continue;
+            display.setCell(x - 1, y + 1, mapDispChForJudgeGridLikeC(loc),
+                loc.disp_color ?? NO_COLOR, loc.disp_attr ?? 0);
+        }
+    }
+}
+
 // ── Build screen output ──
 function _buildScreenOutput() {
     const display = game?.nhDisplay;
     if (!display) return;
 
-    /* C allmain.c newgame: `com_pager("legacy")` full-screen menu before `welcome(TRUE)`. */
+    /* C: com_pager("legacy") overlays quest text on the docrt map — do not cls/repaint full map. */
     if (game._legacyIntroActive) {
+        clearLegacyMapBleedEastOfQuestStripLikeC(display);
+        paintLegacyQuestWestStripFromDispLikeC(display);
         paintLegacyIntroIntoDisplay(display);
         paintStatusRowsForLegacyIntro(display);
         game._screen_output = display.terminal?.serialize ? display.terminal.serialize() : '';
@@ -1632,15 +1674,7 @@ function _buildScreenOutput() {
         const msg = messageLine0ForJudgeGridLikeC();
         for (let c = 0; c < Math.min(msg.length, display.cols); c++)
             display.setCell(c, 0, msg[c], NO_COLOR, 0);
-        // Map — judge grid matches C recorder bytes (no DEC → Unicode conversion)
-        for (let y = 0; y < ROWNO; y++) {
-            for (let x = 1; x < COLNO; x++) {
-                const loc = game.level?.at(x, y);
-                if (!loc?.disp_ch || loc.disp_ch === ' ') continue;
-                display.setCell(x - 1, y + 1, mapDispChForJudgeGridLikeC(loc),
-                    loc.disp_color ?? NO_COLOR, loc.disp_attr ?? 0);
-            }
-        }
+        paintMapGridFromLevelDispLikeC(display);
         // Status lines
         const s1 = statusLine1ForPaintLikeC();
         for (let c = 0; c < Math.min(s1.length, display.cols); c++)
