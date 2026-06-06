@@ -84,7 +84,7 @@ Align batches with [`c-to-js-port-remaining.md`](c-to-js-port-remaining.md) §5:
 |-----------------|-----------|--------|-------|
 | `u_init` / role identity | `chargen*.js`, `u_init_*.js` | partial | discover **`ini_inv(Wishing)`** before Money |
 | `ini_inv(Wishing)` / `Money` | `u_init_role_rng.js`, `u_init_post_mklev.js` | partial | explore **`program_state.discover`** |
-| `ini_inv` | `ini_inv_stub.js`, role packs | stub | Real invent graph + ordering |
+| `ini_inv` | `ini_inv_stub.js`, role packs | partial | Human Tourist linked **`g.invent`** (**`u_init_link_tourist_invent.js`**) — C **`addinv`** order, **10×** food **`otyp`**, **`Wishing`**, **`Money`**; other roles still stub/display |
 | `u_init_role` RNG tail | `u_init_role_rng.js`, `u_init_post_mklev.js` | partial | |
 | `wintty.c` pickers | `chargen_tty.js` | partial | `seed0077` PASS; others partial |
 
@@ -98,7 +98,7 @@ Align batches with [`c-to-js-port-remaining.md`](c-to-js-port-remaining.md) §5:
 | `m_move` / `mfndpos` | `m_move_mon.js`, `mfndpos.js` | partial | |
 | `distfleeck` | `distfleeck_mon.js` | partial | |
 | `m_throw` | — | missing | |
-| `dogmove` | `dogmove_mon.js` | partial | Tourist D:1 peel: single **`dog_goal`** floor pass + follow invent; **`skipFollowInventLikeC`** on empty-floor early return; peel **`mfndpos`** skips floor **`dogfood`**; **~2487** — C **5×** floor **`obj_resists`**, JS **10×** follow invent (empty bbox + full Tourist chain) |
+| `dogmove` | `dogmove_mon.js` | partial | Tourist D:1 peel: **`dog_invent`** + **`dog_goal`**; **~2487** — C **5×** floor **`obj_resists`** then **`mfndpos`**; JS empty **`fobjInDogGoalBoxLikeC`** → **6th** follow-invent **`obj_resists`** (needs D:1 floor objects in pet bbox / mklev) |
 | `dog_goal` / `obj_resists` | `dogmove_mon.js`, `obj_resists.js` | partial | **`dogfoodRankLikeC(ctx)`** + **`game.context`** sync in floor/follow; **`fobjInDogGoalBoxLikeC`** + **`floorObjHeads`** |
 
 ---

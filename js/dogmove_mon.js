@@ -1414,8 +1414,10 @@ export function dogMoveTouristD1PostSwapPeelLikeC(g, mtmp) {
     const whappr = (g.moves | 0) - (edog.whistletime | 0) < 5;
     if (g?.context) game.context = g.context;
     try {
-        /* C: **`dog_goal`** floor + follow invent when **`gg.gtyp==UNDEF`** (~2482–2486);
-         * peel **`mfndpos`** next (~2487 **`rn2(1)`** on **`seed0900`**). */
+        /* C: **`dog_move`** — **`dog_invent`** then **`dog_goal`** (~2482–2486 floor **`obj_resists`**
+         * on **`seed0900`**); peel **`mfndpos`** next (~2487 **`rn2(1)`**). */
+        const udist = dist2(mtmp.mx | 0, mtmp.my | 0, u.ux | 0, u.uy | 0);
+        dogInventLikeC(g, mtmp, udist);
         const goal = dogGoalFloorScanRngLikeC(g, mtmp, true, whappr, false);
         if ((goal.appr | 0) === -2) return;
         ctx._wizD1LPickRngBudget = 3;

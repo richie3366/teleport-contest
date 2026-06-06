@@ -32,7 +32,7 @@ Use this when **`Next steps`** below feels stale or several lanes compete. Order
 
 **Tutorial (Lane E):** Gated on [tutorial port gate](../../docs/plans/tutorial-port-gate.md) **MD-1 … MD-7**.
 
-**Last slice:** **Lane A `dog_goal` tourist D:1 peel** — C **`dogmove.c:1255`** **`mfndpos`** at **2487** after **5×** floor **`obj_resists`**; JS empty **`fobjInDogGoalBoxLikeC`** at pet **(71,5)** → follow scans **10** Tourist **`gi.invent`** items (**2487–2491** extra). Peel: drop duplicate prescan; pass **`skipFollowInventLikeC`** on empty-floor early return; peel **`mfndpos`** skips floor **`dogfood`**; **`dogfoodRankLikeC(ctx)`** + **`game.context`** sync. **`seed0900`:** still **2487/2983** (**2482–2486**). **`seed8000`/`seed0077`:** **PASS**. **2/44**.
+**Last slice:** **Lane D/A Human Tourist `ini_inv` linked invent** — C **`u_init.c`** **`Tourist[]`** + optional extra + discover **`Wishing[]`** + **`Money[]`** **`addinv`** order in **`u_init_link_tourist_invent.js`**; **`_touristIniFoodOtyps[]`** from **`iniInvOneMkobjFoodUndefDrawLikeC`**; peel adds **`dog_invent`** before **`dog_goal`**. **`seed0900`:** still **2487/2983** (C **5×** floor **`obj_resists`** at peel; JS **0** bbox **`fobj`** → **6th** invent resist). **`seed8000`/`seed0077`:** **PASS**. **2/44**.
 
 ## Next steps (aligned with matrix)
 
@@ -40,7 +40,7 @@ Pick **one** primary lane per **batch** (several related C functions — see che
 
 **First:** open [`docs/plans/tutorial-port-gate.md`](../../docs/plans/tutorial-port-gate.md) — if **all MD-1 … MD-7** are checked, do **Lane E** step 1 from [10-tutorial.md](../plans/nethack-port/10-tutorial.md) instead of the list below.
 
-1. **Lane A — `seed0900` ~2487** — C **5×** floor **`dogfood`** in pet bbox (or **`gg.gtyp`** food → skip follow invent); align D:1 floor objects near peel / full **`ini_inv`** invent chain vs display-only food rows; then **`mfndpos`** **`chcnt`**; **`distfleeck`** tail; **`seed0102`** D:1 map + botl.
+1. **Lane A/D — `seed0900` ~2487** — D:1 **`fobj`** in pet **`dog_goal`** bbox (**`mklev`/`fill_ordinary_room`** or **`place_object`** parity near **(71,5)**) so C **`gg.gtyp`** skips follow invent; then **`mfndpos`** **`chcnt`**; **`distfleeck`** tail; **`seed0102`** D:1 map + botl.
 2. **Lane A — `seed0102` screen 0** — D:1 map + botl after mklev parity.
 3. **Lane C — `seed0006` ~2892** — capital **`K`** moveloop tail; screen **35** botl (**`find_ac`** / time).
 4. **Lane B — NHL** — next **`lspo_*`** per [`nhl-port-notes.md`](nhl-port-notes.md).
