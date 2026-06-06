@@ -6,6 +6,7 @@ Historical rows moved from `c-to-js-port-progress.md` so day-to-day work uses **
 
 | When | What changed |
 |------|----------------|
+| **2026-06-06** | **Lane A/D `seed0900` run-east `L` post (~2772–2791)** — tenth **`movemon`** (third phase-1/3 **`mfndpos`**, double **`distfleeck`**, fourth phase-2 budget 6, skip-floor **`dog_goal`**); arm tenth after ninth new-turn. Diag **2772–2791**; **~2792** open. **`seed8000`:** **PASS**. **2/44**. |
 | **2026-06-06** | **Lane A/D `seed0900` run-east `L` post (~2753–2771)** — ninth **`movemon`** (fourth shell; awayN==3 loop exit + 2× **`rn2(12)`** tail); arm ninth after eighth new-turn. Diag **2753–2771**; **~2772** open. **`seed8000`:** **PASS**. **2/44**. |
 | **2026-06-06** | **Lane A/D `seed0900` run-east `L` post (~2730–2752)** — eighth **`movemon`** (fourth invent/**`mfndpos`** shell, eighth phase-1 pair-pad); arm/skip after seventh new-turn. Diag **2730–2752**; **~2753** open. **`seed8000`:** **PASS**. **2/44**. |
 | **2026-06-06** | **Lane A/D `seed0900` run-east `L` post (~2707–2729)** — seventh **`movemon`** (fourth shell + seventh phase-1 dual-draw/pair-pad); arm/skip after sixth new-turn. Diag **2620–2729**; **~2730** open. **`seed8000`:** **PASS**. **2/44**. |
