@@ -71,7 +71,8 @@ Align batches with [`c-to-js-port-remaining.md`](c-to-js-port-remaining.md) §5:
 |-----------------|-----------|--------|-------|
 | `mklev` / `makelevel` | `mklev.js` | partial | |
 | `mkobj_at` / `makeniche` niche loot | `mklev.js` | partial | **`mkobjFillAtLikeC`** (was shallow **`mkobj`** stub); **`seed0900`** bbox **`fobj`** still **0** at peel |
-| `fill_ordinary_room` | `mklev.js` | partial | |
+| `fill_ordinary_room` | `mklev.js` | partial | C: sleeper stays at **`somexyspace`** coords — no **`anchorWestApportSleeperLikeC`** post-**`level_finalize_topology`**; fungus door niches only |
+| `level_finalize_topology` | `mklev.js` | partial | C: no generic **`mgenmklev`** relocate; **`preferSleepingLichenDoorNichesLikeC`** fungus-only |
 | `mktrap` / `traptype_rnd` | `mklev.js` | partial | |
 | `mktrap_victim` | `mklev.js` | partial | possession loop, corpse; RNG fork ~2358 on `seed0900` |
 | `mkgrave` / `mkfount` | `mklev.js` | partial | `level_difficulty` for grave gold |
