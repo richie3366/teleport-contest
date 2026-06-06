@@ -105,7 +105,7 @@ Align batches with [`c-to-js-port-remaining.md`](c-to-js-port-remaining.md) §5:
 | `dog_hunger` | `dogmove_mon.js` | partial | C **`dogmove.c`** **`dog_hunger`** / **`DOG_WEAK`**/**`DOG_STARVE`** — **`mconf`**, **`mhpmax_penalty`** at **`dogMoveGoalAndPickLikeC`** entry; **`dog_starve`** stub; display tails skipped |
 | `can_carry` / `can_touch_safely` | `dogmove_mon.js`, `obj_oc_weight_data.js` | partial | C **`mon.c`** — **`objectStackWeightLikeC`** (NH5 **`oc_weight`**); **`canTouchSafelyMonsterObjDogmoveLikeC`** stub; APPORT when **`can_carry > 0`** only |
 | `dog_goal` / `obj_resists` | `dogmove_mon.js`, `obj_resists.js`, `dogmove_reach.js` | partial | **`seed0102`** RNG **0–4452** (**`On_stairs`** skips invent **`obj_resists`**); **~4453** **`score_targ`** **`rnd(5)`** — JS pet **(29,8)** hits hero early-return; C **(27,8)** west ray → mklev kobold |
-| `u_on_upstairs` / `On_stairs` | `mklev.js`, `allmain.js`, `jsmain.js` | partial | **`syncHeroOnBranchUpstairLikeC`** after **`makedog`**; **`dog_goal`** **`stairwayAtInGame`** on hero tile |
+| `u_on_upstairs` / `On_stairs` | `mklev.js`, `allmain.js`, `jsmain.js` | partial | C **`u_on_upstairs`** in **`newgame`** before **`makedog`**; **`syncHeroOnBranchUpstairLikeC`** in **`jsmain`** post-**`newgame`** only; **`dog_goal`** **`stairwayAtInGame`** on hero tile |
 | `dofire` | `dofire_hero.js`, `cmd.js` | partial | C **`dothrow.c`** **`dofire()`** — **`getdir`** consumes next key; fireassist bow swap; moveloop tail on invent **ESC** (**`seed0102`** **`f`/`l`**) |
 
 ---
@@ -114,7 +114,9 @@ Align batches with [`c-to-js-port-remaining.md`](c-to-js-port-remaining.md) §5:
 
 | C symbol / area | JS module | Status | Notes |
 |-----------------|-----------|--------|-------|
-| `makemon` / `rndmonst` | `makemon.js`, `makemon_rndmonst.js` | partial | `adj_lev` / `newmonhp` / gender / mklev sleep gate |
+| `makemon` / `rndmonst` | `makemon.js`, `makemon_rndmonst.js` | partial | `adj_lev` / `newmonhp` / gender / mklev sleep gate; **`enexto_core`** + **`GP_AVOID_MONPOS`** via **`goodposMakemonLikeC`** / **`isExclusionZoneLikeC`** |
+| `makedog` / `newgame` MON_AT | `makedog.js`, `allmain.js`, `spoteffects.js` | partial | C **`allmain.c`**: **`MON_AT`** → **`mnextoNearHeroSyncLikeC`** before **`makedog()`**; **`seed0102`** pet still **(29,8)** vs C **(27,8)** — **`~4453`** **`score_targ`** open |
+| `goodpos` / `is_exclusion_zone` | `walkable.js`, `exclusion_zone.js` | partial | C **`teleport.c`** **`GP_AVOID_MONPOS`** + **`mkmaze.c`** **`is_exclusion_zone(LR_MONGEN)`**; **`g.exclusion_zones`** load TBD |
 | `m_initweap` | `makemon_m_initweap_inv_like_c.js` | partial | RNG-only **`mlet`** switch + **`rn2(75)`** tail; **`is_armed`** via **`MONS_IS_ARMED`**; **`seed0102`** **0–4416** |
 | `m_initinv` | `makemon_m_initweap_inv_like_c.js` | partial | Mercenary / gnome candle / soldier gate / **`rn2(50/100)`** / **`likes_gold`** (**`M2_GREEDY`** only); **`seed0102`** **1243+** |
 | `grow_up` | `makemon.js` | partial | Victim-kill HP subset |
