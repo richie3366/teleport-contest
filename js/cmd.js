@@ -308,7 +308,9 @@ export async function rhack(key) {
             game.context._searchPass1NearMonLikeC =
                 !rangerLike
                 && (rogueLike || searchPass1NearMonLikeC(game) || !!nearHostile);
-            if (nearHostile) {
+            /* C: ranger D:1 first `#search` — no rogue gate peel; skip `disturb` on mklev sleeper
+             * (`seed0102` ~4448 `rn2(7)` before pet `distfleeck` `rn2(5)`). */
+            if (game.context._searchPass1NearMonLikeC && nearHostile) {
                 disturbMonsterLikeC(game, nearHostile);
                 if ((nearHostile.msleeping | 0)) nearHostile.msleeping = 0;
             }

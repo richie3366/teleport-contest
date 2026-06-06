@@ -997,7 +997,7 @@ export async function movemonSinglemonLikeC(g, mtmp, stepNum = 0) {
         rangerD1FirstSearchNoNearMonLikeC(g, stepNum)
         && (mtmp.mtame | 0)
         && has_edog(mtmp)
-        && !g.context?._rangerFirstSearchPetSecondPassDoneLikeC
+        && !g.context?._rangerFirstSearchPetFirstPassDoneLikeC
     ) {
         let mov = mtmp.movement | 0;
         if (mov < NORMAL_SPEED) {
@@ -1013,6 +1013,7 @@ export async function movemonSinglemonLikeC(g, mtmp, stepNum = 0) {
         setApparxyMonsterLikeC(g, mtmp);
         await distfleeckMonsterApplyLikeC(g, mtmp);
         dogMoveLikeC(g, mtmp);
+        (g.context || (g.context = {}))._rangerFirstSearchPetFirstPassDoneLikeC = true;
         return;
     }
     if (

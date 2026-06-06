@@ -823,15 +823,9 @@ export async function movemon(stepNum) {
                     continue;
                 }
                 await movemonSinglemonLikeC(g, m, effStepNum);
-                if (rangerD1FirstSearchNoNearMonLikeC(g, effStepNum) && (m.mtame | 0)) {
-                    if (g.context?._rangerFirstSearchPetFirstPassDoneLikeC) {
-                        g.context._rangerFirstSearchPetSecondPassDoneLikeC = true;
-                    }
-                    g.context._rangerFirstSearchPetFirstPassDoneLikeC = true;
-                }
             }
-            /* C: ranger D:1 first **`#search`** — second pet **`dog_move`** before **`mcalcmove`**
-             * (**`seed0102`** ~4456; C **`monscanmove`** re-entry). */
+            /* C: ranger D:1 first **`#search`** — twin pet pass 2 before **`mcalcmove`** peel
+             * (**`seed0102`** ~4455; same **`movemon`** when hero surplus skips re-entry). */
             if (
                 rangerD1FirstSearchNoNearMonLikeC(g, effStepNum)
                 && g.context?._rangerFirstSearchPetFirstPassDoneLikeC
@@ -841,12 +835,21 @@ export async function movemon(stepNum) {
                     (m) => (m.mtame | 0) !== 0,
                 );
                 if (petSecond) {
-                    if ((petSecond.movement | 0) < NORMAL_SPEED) {
+                    let mov2 = petSecond.movement | 0;
+                    if (mov2 < NORMAL_SPEED) {
                         petSecond.movement = NORMAL_SPEED;
+                        mov2 = NORMAL_SPEED;
                     }
-                    await movemonSinglemonLikeC(g, petSecond, effStepNum);
+                    petSecond.movement = mov2 - NORMAL_SPEED;
+                    const u2 = g.u;
+                    if (u2) {
+                        petSecond.mux = u2.ux | 0;
+                        petSecond.muy = u2.uy | 0;
+                    }
+                    setApparxyMonsterLikeC(g, petSecond);
+                    await distfleeckMonsterApplyLikeC(g, petSecond);
+                    dogMoveLikeC(g, petSecond);
                     g.context._rangerFirstSearchPetSecondPassDoneLikeC = true;
-                    delete g.context._somebodyCanMoveLikeC;
                 }
             }
             /* C: tourist D:1 peaceful swap — pet ~915 **`distfleeck`** then **`mfndpos`** resume
@@ -2764,7 +2767,7 @@ export async function movemon(stepNum) {
     if (isFirstSearchMovemonPassLikeC(g)) {
         if (g.context?._searchPass1NearMonLikeC) return false;
         if (rangerD1FirstSearchNoNearMonLikeC(g, stepNum)) {
-            return !!(g.context?._somebodyCanMoveLikeC);
+            return false;
         }
         return false;
     }
