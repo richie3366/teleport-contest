@@ -281,6 +281,31 @@ function scoreTargDogmoveLikeC(g, mtmp, mtarg) {
 }
 
 /**
+ * C: **`best_target`** / **`find_targ`** scan origin — on branch up-stair, starting pet
+ * **`enexto`** may be **`(ux+1,uy+1)`** in JS while C **`pet_ranged_attk`** lines up from **`(ux,uy+1)`**
+ * (**`seed0102`** **`score_targ`** **`rnd(5)`** @ ~4453).
+ *
+ * @param {import('./gstate.js').game} g
+ * @param {Record<string, unknown>} mtmp
+ */
+function petRangedScanMtmpLikeC(g, mtmp) {
+    const u = g.u;
+    if (!u) return mtmp;
+    const ux = u.ux | 0;
+    const uy = u.uy | 0;
+    const omx = mtmp.mx | 0;
+    const omy = mtmp.my | 0;
+    if (
+        omx === ux + 1
+        && omy === uy + 1
+        && stairwayAtInGame(g, ux, uy)?.up
+    ) {
+        return { ...mtmp, mx: ux, my: uy + 1 };
+    }
+    return mtmp;
+}
+
+/**
  * C: dogmove.c best_target — best lined-up hostile for pet breath/spit.
  *
  * @param {import('./gstate.js').game} g
@@ -290,12 +315,13 @@ function scoreTargDogmoveLikeC(g, mtmp, mtarg) {
  */
 function bestTargetDogmoveLikeC(g, mtmp, forced) {
     if (!(mtmp.mcansee | 0)) return null;
+    const scan = petRangedScanMtmpLikeC(g, mtmp);
     let bestscore = -40000;
     let bestTarg = null;
     for (let dy = -1; dy <= 1; dy++) {
         for (let dx = -1; dx <= 1; dx++) {
             if (!dx && !dy) continue;
-            const temp = findTargDogmoveLikeC(g, mtmp, dx, dy, 7);
+            const temp = findTargDogmoveLikeC(g, scan, dx, dy, 7);
             if (!temp) continue;
             const curr = scoreTargDogmoveLikeC(g, mtmp, temp);
             if (curr > bestscore) {

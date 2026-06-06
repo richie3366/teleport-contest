@@ -103,8 +103,9 @@ Align batches with [`c-to-js-port-remaining.md`](c-to-js-port-remaining.md) §5:
 | `corpse_chance` | `uhitm_hero.js` | partial | Exported **`corpseChanceLikeC`**; tourist **`L`** **`mattackm`** kill tail |
 | `score_targ` / `best_target` / `pet_ranged_attk` | `dogmove_mon.js` | partial | C **`dogmove.c`** ~738–966; **`dogMoveGoalAndPickLikeC`** calls **`petRangedAttkDogmoveLikeC`** after **`mfndpos`**; moveloop peel tails; **`mattackm`** TODO |
 | `can_carry` / `can_touch_safely` | `dogmove_mon.js`, `obj_oc_weight_data.js` | partial | C **`mon.c`** — **`objectStackWeightLikeC`** (NH5 **`oc_weight`**); **`canTouchSafelyMonsterObjDogmoveLikeC`** stub; APPORT when **`can_carry > 0`** only |
-| `dog_goal` / `obj_resists` | `dogmove_mon.js`, `obj_resists.js`, `dogmove_reach.js` | partial | **`seed0102`** RNG **0–4450** + **`mfndpos`** **`rn2(1)`** @ **4452**; **~4451** hero off up-stair **`(28,7)`** → invent **`obj_resists`** vs C **`rn2(4)`**; **`syncHeroOnBranchUpstairLikeC`** |
-| `u_on_upstairs` / `On_stairs` | `mklev.js`, `allmain.js`, `jsmain.js` | partial | **`syncHeroOnBranchUpstairLikeC`** after **`makedog`**; **`seed0102`** hero **`(29,7)`** vs branch up **`(28,7)`** still open |
+| `dog_goal` / `obj_resists` | `dogmove_mon.js`, `obj_resists.js`, `dogmove_reach.js` | partial | **`seed0102`** RNG **0–4452** (**`On_stairs`** skips invent **`obj_resists`**); **~4453** **`score_targ`** **`rnd(5)`** / **`best_target`** **`clear_path`** open |
+| `u_on_upstairs` / `On_stairs` | `mklev.js`, `allmain.js`, `jsmain.js` | partial | **`syncHeroOnBranchUpstairLikeC`** after **`makedog`**; **`dog_goal`** **`stairwayAtInGame`** on hero tile |
+| `dofire` | `dofire_hero.js`, `cmd.js` | partial | C **`dothrow.c`** **`dofire()`** — **`getdir`** consumes next key; fireassist bow swap; moveloop tail on invent **ESC** (**`seed0102`** **`f`/`l`**) |
 
 ---
 

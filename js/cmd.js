@@ -52,6 +52,7 @@ import { dokickFromCmd } from './kick.js';
 import { snapshotUshops0FromHeroTileLikeC } from './shop.js';
 import { doDropOneAtHeroFeetLikeC } from './drop_hero.js';
 import { throwOneInventAdjacentLikeC } from './throw_hero.js';
+import { doFireFromQuiverCmdLikeC } from './dofire_hero.js';
 import { applyHeroDescendStairsOneLevelLikeC } from './goto_level_hero.js';
 import { stairwayAtInGame } from './decor.js';
 
@@ -101,6 +102,11 @@ export async function rhack(key) {
             clearPendingMessageAndToplineLikeC();
             await docrt_flags(docrtRefresh);
             await flush_screen(1);
+            /* C: post-`dofire` getdir — moveloop tail on inventory ESC nhgetch (~seed0102 step 14). */
+            if (game.context?._dofireAwaitEscMoveloopLikeC) {
+                delete game.context._dofireAwaitEscMoveloopLikeC;
+                await runPostCommandTurnAdvanceLikeC(game);
+            }
         } else if (game._overlayScreen) {
             game._overlayScreen = null;
             clearPendingMessageAndToplineLikeC();
@@ -170,6 +176,12 @@ export async function rhack(key) {
     if (ch === 't') {
         // C: cmd.c → dothrow.c throwit (subset: one tile, horizontal)
         await throwOneInventAdjacentLikeC(game);
+        return;
+    }
+
+    if (ch === 'f') {
+        /* C: cmd.c → dothrow.c dofire — getdir consumes next key (not domove). */
+        await doFireFromQuiverCmdLikeC(game);
         return;
     }
 
