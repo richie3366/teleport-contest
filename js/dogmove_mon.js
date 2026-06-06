@@ -217,9 +217,9 @@ function dogfoodRankComputeLikeC(obj) {
  * @param {Record<string, unknown>} obj
  * @returns {number}
  */
-function dogfoodRankLikeC(obj) {
+function dogfoodRankLikeC(obj, ctxIn = null) {
     if (!obj) return UNDEF;
-    const ctx = game.context;
+    const ctx = ctxIn ?? game.context;
     if (ctx?._wizD1Step1ObjResistsPrescanLikeC) {
         const cache =
             ctx._dogfoodRankCacheLikeC ?? (ctx._dogfoodRankCacheLikeC = new WeakMap());
@@ -389,6 +389,8 @@ function dogGoalFloorScanRngLikeC(
     whappr = false,
     skipFollowInventLikeC = false,
 ) {
+    if (g?.context) game.context = g.context;
+    const rankCtx = g.context;
     const edog = EDOG(mtmp);
     const u = g.u;
     if (!edog || !u) return { gx: 0, gy: 0, appr: 0 };
@@ -412,7 +414,7 @@ function dogGoalFloorScanRngLikeC(
     if (!trackApportGoalLikeC) {
         for (const obj of floor) {
             if (!obj) continue;
-            dogfoodRankLikeC(obj);
+            dogfoodRankLikeC(obj, rankCtx);
             if (
                 inSight
                 && !hasMinvent
@@ -425,12 +427,12 @@ function dogGoalFloorScanRngLikeC(
     }
     if (g.context?._wizD1LPetInventAfterNewturnSkipFloorResistsLikeC) {
         return dogGoalFollowGxGyApprLikeC(
-            g, mtmp, UNDEF, ux, uy, udist, whappr, edog,
+            g, mtmp, UNDEF, ux, uy, udist, whappr, edog, skipFollowInventLikeC,
         );
     }
     if (!floor.length) {
         return dogGoalFollowGxGyApprLikeC(
-            g, mtmp, UNDEF, ux, uy, udist, whappr, edog,
+            g, mtmp, UNDEF, ux, uy, udist, whappr, edog, skipFollowInventLikeC,
         );
     }
     let gtyp = UNDEF;
@@ -450,7 +452,7 @@ function dogGoalFloorScanRngLikeC(
         if (!obj) continue;
         const nx = obj.ox | 0;
         const ny = obj.oy | 0;
-        const otyp = dogfoodRankLikeC(obj);
+        const otyp = dogfoodRankLikeC(obj, rankCtx);
         if (otyp > gtyp || otyp === UNDEF) continue;
         if (
             cursedObjectAtDogmoveLikeC(g, nx, ny)
@@ -559,6 +561,7 @@ function dogGoalFollowGxGyApprLikeC(
     edog,
     skipFollowInventLikeC = false,
 ) {
+    if (g?.context) game.context = g.context;
     const u = g.u;
     if (!u) return { gx, gy, appr: 1 };
     const pin = g.context?._wizD1Step1DogGoalHeroXYLikeC;
@@ -834,7 +837,9 @@ function dogMoveMfndposPickLikeC(g, mtmp, ggx, ggy, appr, whappr) {
         cnt = 7;
     }
 
-    const skipMfndposFloorFoodLikeC = !!ctxPick?._wizD1PostCorridorPetSecondMfndposLikeC;
+    const skipMfndposFloorFoodLikeC =
+        !!ctxPick?._wizD1PostCorridorPetSecondMfndposLikeC
+        || !!ctxPick?._touristD1PostSwapDogGoalPrescanLikeC;
 
     let uncursedcnt = 0;
     if (!skipMfndposFloorFoodLikeC) {
@@ -1407,12 +1412,11 @@ export function dogMoveTouristD1PostSwapPeelLikeC(g, mtmp) {
     const u = g.u;
     if (!edog || !u) return;
     const whappr = (g.moves | 0) - (edog.whistletime | 0) < 5;
-    ctx._wizD1Step1ObjResistsPrescanLikeC = true;
+    if (g?.context) game.context = g.context;
     try {
-        /* C: tourist D:1 swap peel — floor **`fobj`** only (~2482–2486); **`mfndpos`** **`rn2(1/2)`**
-         * before follow-tail invent **`obj_resists`**. */
-        dogGoalObjResistsPrescanLikeC(g, mtmp, { scanInvent: false });
-        const goal = dogGoalFloorScanRngLikeC(g, mtmp, true, whappr, true);
+        /* C: **`dog_goal`** floor + follow invent when **`gg.gtyp==UNDEF`** (~2482–2486);
+         * peel **`mfndpos`** next (~2487 **`rn2(1)`** on **`seed0900`**). */
+        const goal = dogGoalFloorScanRngLikeC(g, mtmp, true, whappr, false);
         if ((goal.appr | 0) === -2) return;
         ctx._wizD1LPickRngBudget = 3;
         try {
@@ -1428,7 +1432,6 @@ export function dogMoveTouristD1PostSwapPeelLikeC(g, mtmp) {
             delete ctx._wizD1LPickRngBudget;
         }
     } finally {
-        delete ctx._wizD1Step1ObjResistsPrescanLikeC;
         delete ctx._touristD1PostSwapDogGoalPrescanLikeC;
     }
 }
