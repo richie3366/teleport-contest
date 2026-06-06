@@ -947,11 +947,11 @@ export async function movemon(stepNum) {
                         delete g.context._wizD1PostEastTailWalkDistantMmoveLikeC;
                     }
                     await distfleeckMonsterApplyLikeC(g, peelDistant);
-                    /* C: post-walk distant **`m_move`** — new-turn tail (~2804+ **`rn2(70)`**). */
-                    const { runWizEastTailPostCorridorNewTurnLikeC } = await import(
+                    /* C: walk-**`fmon`** post — full new-turn **`mcalcmove`** then tail (~2722+). */
+                    const { runNewTurnSetupAndTailLikeC } = await import(
                         './moveloop_turn_advance.js',
                     );
-                    await runWizEastTailPostCorridorNewTurnLikeC(g);
+                    await runNewTurnSetupAndTailLikeC(g, effStepNum);
                     g.context._wizD1PostEastTailWalkPeelDoneLikeC = true;
                     g.context._wizD1PostEastTailWalkCompleteLikeC = true;
                     g.context._wizD1PostEastTailWalkNewTurnDoneLikeC = true;

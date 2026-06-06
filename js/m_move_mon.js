@@ -623,11 +623,8 @@ function mMovePositionSelectLikeC(g, mtmp, silent) {
 
         appr = mBalksAtApproachingLikeC(appr, mtmp);
 
-        if (
-            g.context?._wizD1EastCorridorRestMmoveLikeC
-            || g.context?._wizD1PostEastTailWalkDistantMmoveLikeC
-        ) {
-            /* C: corridor / post-walk distant — **`mfndpos`** **`!appr`** **`rn2(12)`** chcnt picks. */
+        if (g.context?._wizD1EastCorridorRestMmoveLikeC) {
+            /* C: corridor **~(10–11,10–11)** — **`mfndpos`** **`!appr`** **`rn2(12)`** chcnt picks. */
             appr = 0;
         }
 
@@ -642,9 +639,7 @@ function mMovePositionSelectLikeC(g, mtmp, silent) {
 
     const flag = monAllowflagsMonsterLikeC(g, mtmp);
     const mfp = mfndposMonsterLikeC(g, mtmp, flag);
-    const corridorRestPick =
-        !!g.context?._wizD1EastCorridorRestMmoveLikeC
-        || !!g.context?._wizD1PostEastTailWalkDistantMmoveLikeC;
+    const corridorRestPick = !!g.context?._wizD1EastCorridorRestMmoveLikeC;
     const cnt = corridorRestPick
         ? Math.min(mfp.cnt | 0, 3)
         : (mfp.cnt | 0);
@@ -711,10 +706,7 @@ function mMovePositionSelectLikeC(g, mtmp, silent) {
                 !appr
                 && !(mtmp._eelStep8ChcntBase | 0)
                 && (
-                    (
-                        g.context?._wizD1EastCorridorRestMmoveLikeC
-                        || g.context?._wizD1PostEastTailWalkDistantMmoveLikeC
-                    )
+                    g.context?._wizD1EastCorridorRestMmoveLikeC
                         ? !rn2(12)
                         : (silent ? mmoved === MMOVE_NOTHING : (
                             g.urole?.abbr === 'Tou'
@@ -2231,8 +2223,10 @@ export async function mMoveOneMonsterSubsetLikeC(g, mtmp, stepNum = 0) {
             return;
         }
         monTrackClear(mtmp);
-        if (dochugEntersMmoveBlockLikeC(g, mtmp, 1, 0, stepNum)) {
-            mMovePositionSelectRngLikeC(g, mtmp);
+        primeDistantMtrackRn20LikeC(mtmp);
+        if (dochugEntersMmoveBlockLikeC(g, mtmp, 0, 0, stepNum)) {
+            /* C: one **`rn2(20)`** track rejection — no position step (**`monmove.c`** ~1963). */
+            rn2(20);
         }
         g.context._wizD1PostEastTailWalkDistantMmoveDoneLikeC = true;
         return;
