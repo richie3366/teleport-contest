@@ -422,7 +422,6 @@ function shopInteriorRoomSeenvGlyphLikeC(x, y, loc) {
         if (
             west && (west.typ | 0) === ROOM && (west.seenv | 0) === SV2
             && doorWest && (doorWest.typ | 0) === DOOR && doorWest.edge
-            && (doorWest.y | 0) === ((y | 0) + 1)
         ) {
             return { ch: 'k', color: CLR_BROWN, dec: false };
         }
@@ -554,6 +553,26 @@ function paintCellGlyph(x, y, loc, gl, show) {
 /** C: `back_to_glyph` terrain at (x,y) — `mapTerrainGlyph` until full glyph ids exist. */
 function backToTerrainGlyphLikeC(loc, x, y) {
     return mapTerrainGlyph(loc, x, y);
+}
+
+/** C: tty wire — `disp_ch` may lag `mapTerrainGlyph` (shop interior brown `k`). */
+function judgeMapCellColorLikeC(loc, x, y, ch) {
+    const gl = backToTerrainGlyphLikeC(loc, x, y);
+    return gl.ch === ch ? gl.color : (loc.disp_color ?? NO_COLOR);
+}
+
+/** C: before tty flush — align stale `disp_color` with `mapTerrainGlyph` (hero_memory repaint). */
+function syncMapDispColorsFromTerrainLikeC() {
+    const map = game.level;
+    if (!map) return;
+    for (let y = 0; y < ROWNO; y++) {
+        for (let x = 1; x < COLNO; x++) {
+            const loc = map.at(x, y);
+            if (!loc?.disp_ch || loc.disp_ch === ' ') continue;
+            const gl = backToTerrainGlyphLikeC(loc, x, y);
+            if (gl.ch === loc.disp_ch) loc.disp_color = gl.color;
+        }
+    }
 }
 
 /**
@@ -712,6 +731,8 @@ export function mapTerrainGlyph(loc, x, y, skipApportMon = false) {
                 return mapMonsterGlyphLikeC(sleeper);
             }
         }
+        const shopInteriorCorr = shopInteriorRoomSeenvGlyphLikeC(x, y, loc);
+        if (shopInteriorCorr) return shopInteriorCorr;
         /* C: west-door row shows `q` on corridor cells that share wall `seenv` (typ may stay CORR). */
         if (loc.seenv) {
             const cmap = wallAngleCmapLikeC({
@@ -1501,7 +1522,7 @@ function render_map_row(y) {
     for (let x = firstCol; x <= lastCol; x++) {
         const loc = game.level.at(x, y);
         const ch = loc?.disp_ch ?? ' ';
-        const color = loc?.disp_color ?? NO_COLOR;
+        const color = judgeMapCellColorLikeC(loc, x, y, ch);
         const dec = !!loc?.disp_decgfx;
 
         if (ch === ' ') {
@@ -1770,8 +1791,9 @@ function paintMapGridFromLevelDispLikeC(display) {
         for (let x = 1; x < COLNO; x++) {
             const loc = game.level.at(x, y);
             if (!loc?.disp_ch || loc.disp_ch === ' ') continue;
+            const ch = loc.disp_ch;
             display.setCell(x - 1, y + 1, mapDispChForJudgeGridLikeC(loc),
-                loc.disp_color ?? NO_COLOR, loc.disp_attr ?? 0);
+                judgeMapCellColorLikeC(loc, x, y, ch), loc.disp_attr ?? 0);
         }
     }
 }
@@ -1900,7 +1922,7 @@ function _buildScreenOutput() {
                     const loc = game.level?.at(x, y);
                     if (!loc?.disp_ch || loc.disp_ch === ' ') continue;
                     display.setCell(x - 1, y + 1, mapDispChForJudgeGridLikeC(loc),
-                        loc.disp_color ?? NO_COLOR, loc.disp_attr ?? 0);
+                        judgeMapCellColorLikeC(loc, x, y, loc.disp_ch), loc.disp_attr ?? 0);
                 }
             }
         } else {
@@ -1946,6 +1968,7 @@ export async function flush_screen(mode) {
     const skipBotForLegacyIntro = game._legacyIntroActive;
     if ((game.disp?.botl || game.disp?.botlx) && !skipBotForWelcomeMore && !skipBotForLegacyIntro)
         await bot();
+    syncMapDispColorsFromTerrainLikeC();
     _buildScreenOutput();
 }
 
