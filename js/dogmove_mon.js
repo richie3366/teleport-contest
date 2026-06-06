@@ -844,6 +844,7 @@ function dogGoalFollowGxGyApprLikeC(
         && !g.context?._touristD1LPostNinthMovemonLikeC
         && !g.context?._touristD1LPostTenthMovemonLikeC
         && !g.context?._touristD1LPostFourteenthMovemonThirdLikeC
+        && !g.context?._touristD1LPostFifteenthMovemonThirdLikeC
         && !g.context?._touristD1LPostEleventhMovemonLikeC
         && !g.context?._touristD1LPostThirteenthMovemonLikeC
         && !g.context?._touristD1LPostFourteenthMovemonLikeC
@@ -1202,6 +1203,7 @@ function dogMoveMfndposPickLikeC(g, mtmp, ggx, ggy, appr, whappr) {
         && !g.context?._touristD1LPostNinthMovemonLikeC
         && !g.context?._touristD1LPostTenthMovemonLikeC
         && !g.context?._touristD1LPostFourteenthMovemonThirdLikeC
+        && !g.context?._touristD1LPostFifteenthMovemonThirdLikeC
         && !g.context?._touristD1LPostEleventhMovemonLikeC
         && !g.context?._touristD1LPostThirteenthMovemonLikeC
         && !g.context?._touristD1LPostFourteenthMovemonLikeC
