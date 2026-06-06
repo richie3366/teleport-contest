@@ -849,6 +849,8 @@ export async function movemon(stepNum) {
                     setApparxyMonsterLikeC(g, petSecond);
                     await distfleeckMonsterApplyLikeC(g, petSecond);
                     dogMoveLikeC(g, petSecond);
+                    /* C: dochug ~915 — pass-2 recalc (~4459) before **`mcalcmove`**. */
+                    await distfleeckMonsterApplyLikeC(g, petSecond);
                     g.context._rangerFirstSearchPetSecondPassDoneLikeC = true;
                 }
             }

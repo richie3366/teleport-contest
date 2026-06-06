@@ -32,7 +32,7 @@ Use this when **`Next steps`** below feels stale or several lanes compete. Order
 
 **Tutorial (Lane E):** Gated on [tutorial port gate](../../docs/plans/tutorial-port-gate.md) **MD-1 … MD-7**.
 
-**Last slice:** **Lane A/D `seed0102` — ranger first `#search` `disturb` gate** — C **`cmd.c`/`detect.c`**: gate **`disturb_mon`** on **`_searchPass1NearMonLikeC`** only (**`cmd.js`**); ranger skips rogue near-mklev peel + sleeper **`distfleeck`** **`rn2(7)`** before pet **`distfleeck`**; first pet pass **`distfleeck`/`dog_goal`** **4448–4454** match; inline twin pet pass 2 before **`mcalcmove`** (**`monmove.js`/`m_move_mon.js`**). **`seed0102` RNG:** **0–4454**; **~4455** second **`distfleeck`** (pet **`pet_ranged_attk`** **`!rn2(5)`** slot vs inline). **`seed8000`:** **PASS**. **1/44**.
+**Last slice:** **Lane A/D `seed0102` — ranger twin pet `dochug` ~915 recalc** — C **`monmove.c`**: post-**`m_move`** **`distfleeck`** after each pet pass (**`m_move_mon.js`** pass-1 + **`monmove.js`** inline pass-2); twin **`dog_move`** **4448–4459**, **`mcalcmove`** tail **4460–4465**. **`seed0102` RNG:** **0–4465**; **~4466** second **`#search`**. **`seed8000`:** **PASS**. **1/44**.
 
 ## Next steps (aligned with matrix)
 
@@ -40,7 +40,7 @@ Pick **one** primary lane per **batch** (several related C functions — see che
 
 **First:** open [`docs/plans/tutorial-port-gate.md`](../../docs/plans/tutorial-port-gate.md) — if **all MD-1 … MD-7** are checked, do **Lane E** step 1 from [10-tutorial.md](../plans/nethack-port/10-tutorial.md) instead of the list below.
 
-1. **Lane A/D — `seed0102` first `#search`** — RNG **~4455** twin pet pass 2: **`pet_ranged_attk`** hungry **`!rn2(5)`** before second **`distfleeck`** (inline steals slot when hungry gate skipped); then second **`s`** **`obj_resists`** + twin **`:`** screens.
+1. **Lane A/D — `seed0102` second `#search`** — RNG **~4466** second **`s`** peel (**`obj_resists`**, twin **`:`** screens); optional **`monscanmove`** re-entry vs inline pass-2 long-term.
 2. **Lane C — `seed0006` ~2892** — capital **`K`** moveloop tail; screen **35** botl (**`find_ac`** / time).
 3. **Lane B — NHL** — next **`lspo_*`** per [`nhl-port-notes.md`](nhl-port-notes.md).
 4. **Lane A/D — `seed0900`** — screen parity (RNG **0–2982** done); map/botl integration beyond moveloop peel chain.

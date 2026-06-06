@@ -1013,6 +1013,8 @@ export async function movemonSinglemonLikeC(g, mtmp, stepNum = 0) {
         setApparxyMonsterLikeC(g, mtmp);
         await distfleeckMonsterApplyLikeC(g, mtmp);
         dogMoveLikeC(g, mtmp);
+        /* C: dochug ~915 — post-**`m_move`** **`distfleeck`** recalc before twin pass 2 (~4454). */
+        await distfleeckMonsterApplyLikeC(g, mtmp);
         (g.context || (g.context = {}))._rangerFirstSearchPetFirstPassDoneLikeC = true;
         return;
     }
