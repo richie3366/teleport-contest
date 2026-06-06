@@ -1576,11 +1576,19 @@ function dogMoveMfndposPickLikeC(g, mtmp, ggx, ggy, appr, whappr) {
         let pickTake = false;
         let postCorridorSecondPetAwayDoneLikeC = false;
         if (g.context?._rangerPass2InlinePreMfndposDistfleeckDoneLikeC) {
-            /* C: ranger second **`#search`** pass-2 — bounded away **`rn2(12)`** via **`dogMovePickRn2LikeC`**. */
-            if (j === 0 || (j > 0 && !whappr)) {
-                if (!dogMovePickRn2LikeC(g, 12)) pickTake = true;
-            } else if (j < 0) {
+            /* C: dogmove.c ~1255 — **`chcnt`** ties; away **`rn2(12)`** only when **`!whappr`**
+             * (twin **`#search`** moveloop tail owns **`rn2(12)`**×2 — **`seed0102`** ~4479–4480). */
+            if (j < 0) {
                 pickTake = true;
+            } else if (j === 0) {
+                if (!rn2(++chcnt)) pickTake = true;
+            } else if (j > 0 && !whappr) {
+                const sameCell = omx === nix && omy === niy;
+                if (sameCell && !rn2(3)) {
+                    pickTake = true;
+                } else if (!dogMovePickRn2LikeC(g, 12)) {
+                    pickTake = true;
+                }
             }
         } else if (g.context?._touristD1PostSwapAfterRestPetMfndposLikeC) {
             /* C: post-rest — three away rn2(12) via dogMovePickRn2LikeC, mfndpos tail,
@@ -2164,21 +2172,22 @@ export function dogMoveGoalAndPickLikeC(
         }
         const whappr = (g.moves | 0) - (edog.whistletime | 0) < 5;
         const pickAppr = mfndposApprLikeC ?? goal.appr;
-        const ctx = g.context || (g.context = {});
-        ctx._dogmoveDeferNewdogposLikeC = true;
-        try {
-            dogMoveMfndposPickLikeC(
-                g, mtmp, goal.gx, goal.gy, pickAppr, whappr,
-            );
-        } finally {
-            delete ctx._dogmoveDeferNewdogposLikeC;
-        }
-        /* C: ranger second **`#search`** pass-2 peel — no **`pet_ranged_attk`** before floor **`obj_resists`** (~4473). */
-        if (!g.context?._rangerSearchPass2InlineDogMoveLikeC) {
+        const rangerPass2InlineSilentMfndposLikeC =
+            !!g.context?._rangerSearchPass2InlineDogMoveLikeC;
+        if (!rangerPass2InlineSilentMfndposLikeC) {
+            const ctx = g.context || (g.context = {});
+            ctx._dogmoveDeferNewdogposLikeC = true;
+            try {
+                dogMoveMfndposPickLikeC(
+                    g, mtmp, goal.gx, goal.gy, pickAppr, whappr,
+                );
+            } finally {
+                delete ctx._dogmoveDeferNewdogposLikeC;
+            }
             const ranged = petRangedAttkDogmoveLikeC(g, mtmp, false);
             if (ranged !== MMOVE_NOTHING) return ranged;
+            dogMoveApplyPendingNewdogposLikeC(g, mtmp);
         }
-        dogMoveApplyPendingNewdogposLikeC(g, mtmp);
     }
     ensureMonsterMtrack(mtmp);
     if (mtmp.mx !== preMx || mtmp.my !== preMy) {

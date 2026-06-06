@@ -95,6 +95,7 @@ export { mthrowAtHeroUxyThituLikeC } from './mthrowu.js';
 export {
     effectiveMovemonStepNumLikeC,
     isFirstSearchMovemonPassLikeC,
+    isRangerLikeC,
     isSecondSearchMovemonPassLikeC,
     rangerD1FirstSearchNoNearMonLikeC,
     rogueSecondSearchFullFmonLikeC,
@@ -867,6 +868,10 @@ export async function movemon(stepNum) {
                         await distfleeckMonsterApplyLikeC(g, petSecond);
                     }
                     g.context._rangerFirstSearchPetSecondPassDoneLikeC = true;
+                    /* C: ranger D:1 twin **`#search`** — moveloop new-turn tail two **`rn2(12)`**
+                     * before **`maybe_generate_rnd_mon`** (~4460–4461 / ~4479–4480). */
+                    rn2(12);
+                    rn2(12);
                 }
             }
             /* C: tourist D:1 peaceful swap — pet ~915 **`distfleeck`** then **`mfndpos`** resume

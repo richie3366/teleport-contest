@@ -7,7 +7,10 @@ import {
 } from './display.js';
 import { vision_recalc } from './vision.js';
 import { movemon } from './monmove.js';
-import { rangerD1FirstSearchNoNearMonLikeC } from './monmove_search.js';
+import {
+    isRangerLikeC,
+    rangerD1FirstSearchNoNearMonLikeC,
+} from './monmove_search.js';
 import { fmonListForMcalcmoveLikeC } from './fmon_iter.js';
 import { mcalcMoveLikeC } from './mcalc_move.js';
 import { NORMAL_SPEED } from './const.js';
@@ -311,10 +314,20 @@ export async function runNewTurnSetupAndTailLikeC(g, stepNum) {
     if (skipMcalcmoveAfterLPostTwentieth) {
         delete g.context._touristD1LPostTwentiethMovemonCompleteLikeC;
     }
+    /* C: ranger D:1 inline **`#search`** — twin pet peel already drew moveloop **`rn2(12)`**×2;
+     * skip **`mcalcmove`** rounding before **`maybe_generate_rnd_mon`** (~4479–4481). */
+    const skipMcalcmoveRangerSearchInlineLikeC =
+        !!g.context?._searchInlinePostDoneLikeC
+        && isRangerLikeC(g)
+        && (
+            (g.context?._searchStep11Passes | 0) === 1
+            || (g.context?._searchStep11Passes | 0) === 2
+        );
     /* C: tourist D:1 run-east **`L`** — post-peel new-turn skips **`mcalcmove`** (peel
      * **`movemon`** already spent the round; **`seed0900`** ~2608 **`rn2(70)`** not 2× **`rn2(12)`**). */
     if (
-        !g.context?._wizD1PostCorridorNewTurnLikeC
+        !skipMcalcmoveRangerSearchInlineLikeC
+        && !g.context?._wizD1PostCorridorNewTurnLikeC
         && !g.context?._touristD1LPostPeelCompleteLikeC
         && !skipMcalcmoveAfterLPostTail
         && !skipMcalcmoveAfterLPostThird
