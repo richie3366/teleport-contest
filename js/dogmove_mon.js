@@ -323,7 +323,7 @@ function bestTargetDogmoveLikeC(g, mtmp, forced) {
  * @param {Record<string, unknown> | null} [cachedMtarg] reuse best_target from dog_goal tail
  * @returns {number} MMOVE_* subset
  */
-function petRangedAttkDogmoveLikeC(
+export function petRangedAttkDogmoveLikeC(
     g,
     mtmp,
     forced,
@@ -337,12 +337,25 @@ function petRangedAttkDogmoveLikeC(
     }
     const mtarg =
         cachedMtarg ?? bestTargetDogmoveLikeC(g, mtmp, forced);
-    const tryAttk = mtarg || peelHungryLikeC;
-    const hungryRoll =
-        peelHungryLikeC ? !rn2(5) : (!hungry || !rn2(5));
-    if (tryAttk && hungryRoll) {
+    const touristPostRestPeel =
+        !!g.context?._touristD1PostRestMoveloopPeelLikeC;
+    if (touristPostRestPeel) {
+        delete g.context._touristD1PostRestMoveloopPeelLikeC;
+    }
+    if (!mtarg && !peelHungryLikeC && !touristPostRestPeel) {
+        return MMOVE_NOTHING;
+    }
+    const hungryRoll = peelHungryLikeC
+        ? !rn2(5)
+        : (mtarg && (!hungry || !rn2(5)));
+    if (mtarg && hungryRoll) {
         /* C: mattackm / counterattack tails — RNG only on exercised paths for now. */
         return MMOVE_NOTHING;
+    }
+    /* C: tourist D:1 post-rest — **`pet_ranged_attk`** hungry gate (~2519 **`seed0900`**) after
+     * deferred new-turn when **`best_target`** is empty on exercised hero-adjacent peel. */
+    if (touristPostRestPeel && !mtarg) {
+        rn2(5);
     }
     return MMOVE_NOTHING;
 }
@@ -1000,11 +1013,6 @@ function dogMovePickRn2LikeC(g, n) {
             _touristPostRestAwayRn12LikeC++;
             return rn2(12);
         }
-        if (!ctx?._touristD1PostRestPetRangedRngDoneLikeC) {
-            ctx._touristD1PostRestPetRangedRngDoneLikeC = true;
-            _touristPostRestAwayRn12LikeC = -1;
-            return rn2(5);
-        }
         return ni;
     }
     if (ctx?._wizD1LPickRngBudget != null) {
@@ -1299,9 +1307,6 @@ function dogMoveMfndposPickLikeC(g, mtmp, ggx, ggy, appr, whappr) {
                 pickTake = true;
             } else if (j < 0) {
                 pickTake = true;
-            }
-            if (g.context?._touristD1PostRestPetRangedRngDoneLikeC) {
-                return;
             }
         } else if (g.context?._wizD1LPetEastTailMfndposLikeC) {
             /* C: capital **`K`** post-new-turn / post-near — away **`mfndpos`** (~2855–2859 / ~2873–2877). */
@@ -1840,11 +1845,11 @@ export function dogMoveTouristD1PostSwapAfterRestPetLikeC(g, mtmp) {
                 whappr,
             );
             ctx._touristD1PostSwapSkipPetFmonAfterRestPeelLikeC = true;
+            /* C: **`pet_ranged_attk`** after next post new-turn tail (~2519 on **`seed0900`**). */
+            ctx._touristD1PostRestPetRangedPendingLikeC = true;
         } finally {
             delete ctx._touristD1PostSwapAfterRestPetMfndposLikeC;
             delete ctx._touristD1PostRestAwayRn12LikeC;
-            delete ctx._touristD1PostRestPetRangedRngDoneLikeC;
-            delete ctx._touristD1PostRestPetRangedTargLikeC;
         }
     } finally {
         delete ctx._touristD1PeelEmptyFloorDogGoalLikeC;

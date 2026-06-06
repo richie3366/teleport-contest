@@ -149,7 +149,10 @@ export async function movemon(stepNum) {
 
     const g = game;
     g.context = g.context || {};
-    if (g.context?._touristD1PostSwapRestMovemonStep1DoneLikeC) {
+    if (
+        g.context?._touristD1PostSwapRestMovemonStep1DoneLikeC
+        && !g.context?._touristD1PostRestPetRangedPendingLikeC
+    ) {
         delete g.context._touristD1PostSwapSkipPetFmonAfterRestPeelLikeC;
     }
     if (g.context?._wizD1PostEastTailWalkFmonPendingLikeC) {

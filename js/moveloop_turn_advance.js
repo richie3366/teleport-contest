@@ -51,6 +51,7 @@ import { distfleeckMonsterApplyLikeC } from './distfleeck_mon.js';
 import {
     dogMoveEastTailPostMcalcmovePetLikeC,
     dogMoveLPetInventAfterNewturnLikeC,
+    petRangedAttkDogmoveLikeC,
 } from './dogmove_mon.js';
 import {
     findDistantMklevMonLikeC,
@@ -524,6 +525,26 @@ export async function runPostCommandTurnAdvanceLikeC(g) {
                         g.context._movemonHarnessConsumed = false;
                         await movemon(1);
                         g.context._touristD1PostSwapRestMovemonStep1DoneLikeC = true;
+                        /* C: post-rest **`dog_move`** mfndpos (~2512–2514), new-turn tail
+                         * (~2515–2518), **`pet_ranged_attk`** (~2519) — same post. */
+                        if (g.context?._touristD1PostRestPetRangedPendingLikeC) {
+                            await runNewTurnSetupAndTailLikeC(g, tailStepNum);
+                            const petPostRestRanged = (g.level?.monsters ?? []).find(
+                                (m) => (m.mtame | 0) !== 0,
+                            );
+                            if (petPostRestRanged) {
+                                g.context._touristD1PostRestMoveloopPeelLikeC = true;
+                                setApparxyMonsterLikeC(g, petPostRestRanged);
+                                petRangedAttkDogmoveLikeC(
+                                    g,
+                                    petPostRestRanged,
+                                    false,
+                                    null,
+                                );
+                            }
+                            delete g.context._touristD1PostRestPetRangedPendingLikeC;
+                            delete g.context._touristD1PostRestPetRangedTargLikeC;
+                        }
                     }
                     if (g.context?._wizD1DistantPass2AwaitMcalcmoveLikeC) {
                         delete g.context._wizD1DistantPass2AwaitMcalcmoveLikeC;
