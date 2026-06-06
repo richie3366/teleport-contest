@@ -32,7 +32,7 @@ Use this when **`Next steps`** below feels stale or several lanes compete. Order
 
 **Tutorial (Lane E):** Gated on [tutorial port gate](../../docs/plans/tutorial-port-gate.md) **MD-1 … MD-7**.
 
-**Last slice:** **Lane A/D `seed0102` screen 0 — Ranger `ini_inv` RNG + legacy west strip** — C **`u_init.c` `ini_inv(Ranger[])`**: drop spurious **`rn2(1)`** after cloak / per-cram (ARMOR no **`trquan`** replay; fixed **`CRAM_RATION`** has no per-item tail); **`init_attr`/`vary_init_attr`** RNG **4425–4439** match. **`display.js`**: west strip cols **20–22**, bleed clear from **23**; legacy serialize DEC **SO/SI**; **`jsmain.js`** capture uses **`_screen_output`** after **`flush_screen`**. **`seed0102` screen 0:** **PASS** (**0** diffs). **`seed8000`:** **PASS**. **2/44**.
+**Last slice:** **Lane A/D `seed0102` welcome `--More--` / post-legacy map** — C **`display.c`/`topl.c`**: **`legacy_intro.js`** **`docrt()`** after com_pager dismiss; **`display.js`** **`mapYRangeForTtyWireLikeC`** (row-1 **`--More--`** → skip lev **y=0**, **20** map rows / **24** wire lines); tourist welcome wire omits literal **`--More--`**; **`jsmain.js`** welcome capture flush for legacy roles (tourist-only **`docrtPaint`**). **`seed0102` screen 1:** **3** diffs (door/shop glyphs). **`seed8000`:** **PASS**. **2/44**.
 
 ## Next steps (aligned with matrix)
 
@@ -40,7 +40,7 @@ Pick **one** primary lane per **batch** (several related C functions — see che
 
 **First:** open [`docs/plans/tutorial-port-gate.md`](../../docs/plans/tutorial-port-gate.md) — if **all MD-1 … MD-7** are checked, do **Lane E** step 1 from [10-tutorial.md](../plans/nethack-port/10-tutorial.md) instead of the list below.
 
-1. **Lane A/D — `seed0102` screen 1+** — welcome **`--More--`** / post-legacy map repaint; screens **1+** still open.
+1. **Lane A/D — `seed0102` screen 1 tail + moveloop** — welcome map **3** glyph diffs + RNG **~4450+**; screens **2+** / cursors open.
 2. **Lane C — `seed0006` ~2892** — capital **`K`** moveloop tail; screen **35** botl (**`find_ac`** / time).
 3. **Lane B — NHL** — next **`lspo_*`** per [`nhl-port-notes.md`](nhl-port-notes.md).
 4. **Lane A/D — `seed0900`** — screen parity (RNG **0–2982** done); map/botl integration beyond moveloop peel chain.

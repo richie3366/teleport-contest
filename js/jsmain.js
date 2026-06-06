@@ -189,17 +189,20 @@ export class NethackGame {
         const slice = fullLog.slice(this._lastRngIdx);
         this._lastRngIdx = fullLog.length;
 
-        /* C: welcome `--More--` — paint IN_SIGHT map before first tourist input snapshot.
-         * Skip during legacy com_pager `--More--` (seed0900 screen 0 is intro text, not map). */
+        /* C: welcome `--More--` — repaint IN_SIGHT map before nhgetch snapshot (tourist screen 0;
+         * legacy roles: screen 1 after com_pager). Skip during legacy com_pager `--More--`. */
         const welcomeMoreCapture =
             bump
-            && this._nhgetchCount === 1
-            && game.urole?.abbr === 'Tou'
-            && !game._legacyIntroActive;
-        if (welcomeMoreCapture) await docrtPaintVisibleForWelcomeLikeC();
+            && !game._legacyIntroActive
+            && game._showDefmoreOnTopline
+            && game._toplineNeedMore
+            && (game._pending_message || '').includes('welcome to NetHack');
+        /* C: tourist welcome (screen 0) — IN_SIGHT paint; legacy roles already got full docrt at com_pager dismiss. */
+        if (welcomeMoreCapture && game.urole?.abbr === 'Tou')
+            await docrtPaintVisibleForWelcomeLikeC();
 
         /* C: tty refresh before input boundaries; also when find_ac flagged botl but moveloop not started.
-         * Welcome `--More--` must flush after docrtPaint even when disp.botl was cleared (botl false,
+         * Welcome `--More--` must flush after docrt even when disp.botl was cleared (botl false,
          * cached status still present) — otherwise screen 0 keeps a stale pre-paint grid (seed8000). */
         const needFlush =
             welcomeMoreCapture

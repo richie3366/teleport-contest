@@ -140,6 +140,21 @@ function touristWelcomeMoreSnapLikeC() {
 }
 
 /**
+ * C: tty 24×80 — when `--More--` is on row 1, only **ROWNO−1** map rows fit (y=1..20).
+ * Tourist welcome keeps all ROWNO rows (more packed on row 0 or absent from wire).
+ * @returns {{ y0: number, y1: number, moreOnRow1: boolean }}
+ */
+function mapYRangeForTtyWireLikeC() {
+    if (touristWelcomeMoreSnapLikeC()) return { y0: 0, y1: ROWNO, moreOnRow1: false };
+    const g = game;
+    if (g._showDefmoreOnTopline && g._toplineNeedMore) {
+        const fmt = formatPendingMessageLineLikeC();
+        if (fmt.includes('\n')) return { y0: 1, y1: ROWNO, moreOnRow1: true };
+    }
+    return { y0: 0, y1: ROWNO, moreOnRow1: false };
+}
+
+/**
  * Row-0 pline for `terminal.serialize()` grid — C welcome `--More--` snapshots
  * (e.g. seed8000 screen 0) keep the welcome pline on WIN_MESSAGE only; the
  * recorder wire has no literal `--More--` bytes and no embedded `\n` before map rows.
@@ -1744,11 +1759,14 @@ function _buildScreenOutput() {
 
     const g = game;
     let output = '';
-    // Row 0: message (C tty WIN_MESSAGE; `update_topl` may concatenate short plines)
-    output += formatPendingMessageLineLikeC() + '\n';
+    // Row 0: message (C tty WIN_MESSAGE; tourist welcome wire omits literal `--More--`)
+    output += (touristWelcomeMoreSnapLikeC()
+        ? (g._pending_message || '')
+        : formatPendingMessageLineLikeC()) + '\n';
 
-    // Rows 1-21: map (rendered with DEC + ANSI, per-row SO/SI)
-    for (let y = 0; y < ROWNO; y++) {
+    // Map rows — skip lev y=0 when `--More--` occupies row 1 (24-line tty budget).
+    const mapRange = mapYRangeForTtyWireLikeC();
+    for (let y = mapRange.y0; y < mapRange.y1; y++) {
         output += render_map_row(y) + '\n';
     }
 
@@ -1761,11 +1779,32 @@ function _buildScreenOutput() {
     // Also write to grid for serialize_terminal_grid
     if (display.grid) {
         display.clearScreen();
-        // Message line
-        const msg = messageLine0ForJudgeGridLikeC();
-        for (let c = 0; c < Math.min(msg.length, display.cols); c++)
-            display.setCell(c, 0, msg[c], NO_COLOR, 0);
-        paintMapGridFromLevelDispLikeC(display);
+        const mapRange = mapYRangeForTtyWireLikeC();
+        const fmt = formatPendingMessageLineLikeC();
+        const nl = fmt.indexOf('\n');
+        const msg = (mapRange.moreOnRow1 && nl >= 0)
+            ? fmt.slice(0, nl)
+            : messageLine0ForJudgeGridLikeC();
+        if (mapRange.moreOnRow1 && nl >= 0) {
+            const head = fmt.slice(0, nl);
+            for (let c = 0; c < Math.min(head.length, display.cols); c++)
+                display.setCell(c, 0, head[c], NO_COLOR, 0);
+            const tail = fmt.slice(nl + 1);
+            for (let c = 0; c < Math.min(tail.length, display.cols); c++)
+                display.setCell(c, 1, tail[c], NO_COLOR, 0);
+            for (let y = mapRange.y0; y < mapRange.y1; y++) {
+                for (let x = 1; x < COLNO; x++) {
+                    const loc = game.level?.at(x, y);
+                    if (!loc?.disp_ch || loc.disp_ch === ' ') continue;
+                    display.setCell(x - 1, y + 1, mapDispChForJudgeGridLikeC(loc),
+                        loc.disp_color ?? NO_COLOR, loc.disp_attr ?? 0);
+                }
+            }
+        } else {
+            for (let c = 0; c < Math.min(msg.length, display.cols); c++)
+                display.setCell(c, 0, msg[c], NO_COLOR, 0);
+            paintMapGridFromLevelDispLikeC(display);
+        }
         // Status lines
         const s1 = statusLine1ForPaintLikeC();
         for (let c = 0; c < Math.min(s1.length, display.cols); c++)
@@ -1780,6 +1819,10 @@ function _buildScreenOutput() {
             || msg.includes('Press a key to continue');
         if (touristWelcomeMoreSnapLikeC() && g.u?.ux > 0) {
             display.setCursor(g.u.ux - 1, g.u.uy + 1);
+            display.cursorVisible = true;
+        } else if (mapRange.moreOnRow1 && g._showDefmoreOnTopline && g._toplineNeedMore) {
+            const tail = nl >= 0 ? fmt.slice(nl + 1) : DEFMORE_STR;
+            display.setCursor(Math.min(tail.length, display.cols - 1), 1);
             display.cursorVisible = true;
         } else if (g._showDefmoreOnTopline || g._toplineNeedMore || (msg.length > 0 && queryTopl)) {
             syncTtyCursorForJudgeLikeC(display);
