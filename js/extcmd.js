@@ -55,6 +55,7 @@ import {
 import { runDoprayExtcmdFlowLikeC } from './pray_hero.js';
 import { runDochatExtcmdFlowLikeC } from './priest_talk_hero.js';
 import { runDositExtcmdFlowLikeC } from './sit_hero.js';
+import { runDocallcmdExtcmdFlowLikeC } from './do_name_call.js';
 import { extCmdGetlinHookLikeC, extcmdsMatchLikeC } from './extcmd_list.js';
 
 const ECM_IGNOREAC = 0x01;
@@ -161,6 +162,10 @@ export async function runExtcmdFromHashPrefix() {
     }
     if (w === 'sit') {
         await runDositExtcmdFlowLikeC(game);
+        return;
+    }
+    if (w === 'name') {
+        await runDocallcmdExtcmdFlowLikeC(game);
         return;
     }
     if (w === 'version' || w === 'v') {

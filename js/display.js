@@ -69,6 +69,7 @@ import {
     tutorialMenuOffxLikeC,
     tutorialMenuBlankRowsLikeC,
 } from './tutorial_prompt.js';
+import { paintDocallMenuOverlayLikeC, DOCALL_MENU_COL, DOCALL_PROMPT } from './do_name_call.js';
 
 // C ref: win/tty/topl.c — `update_topl` same-line append (`n0 + strlen(gt.toplines) + 3 < CO - 8`).
 const DEFMORE_LEN = 8;
@@ -227,6 +228,11 @@ export function syncTtyCursorForJudgeLikeC(display) {
     }
     if (g._tutorialMenuActive) {
         display.setCursor(27, 6);
+        display.cursorVisible = true;
+        return;
+    }
+    if (g._docallMenuActive) {
+        display.setCursor(DOCALL_MENU_COL + DOCALL_PROMPT.length, 0);
         display.cursorVisible = true;
         return;
     }
@@ -1838,6 +1844,32 @@ function _buildScreenOutput() {
             }
             blankTutorialMenuTailOnDisplay(display);
             paintTutorialMenuOverlayLikeC(display, game._tutorialMenuPass | 0);
+            const s1 = statusLine1ForPaintLikeC();
+            for (let c = 0; c < Math.min(s1.length, display.cols); c++)
+                display.setCell(c, 22, s1[c], NO_COLOR, 0);
+            const s2 = statusLine2ForPaintLikeC();
+            for (let c = 0; c < Math.min(s2.length, display.cols); c++)
+                display.setCell(c, 23, s2[c], NO_COLOR, 0);
+            syncTtyCursorForJudgeLikeC(display);
+            game._screen_output = display.terminal?.serialize
+                ? display.terminal.serialize()
+                : '';
+        }
+        return;
+    }
+
+    if (game._docallMenuActive) {
+        if (display.grid) {
+            display.clearScreen();
+            for (let y = 0; y < ROWNO; y++) {
+                for (let x = 1; x < COLNO; x++) {
+                    const loc = game.level?.at(x, y);
+                    if (!loc?.disp_ch || loc.disp_ch === ' ') continue;
+                    display.setCell(x - 1, y + 1, mapDispChForJudgeGridLikeC(loc),
+                        loc.disp_color ?? NO_COLOR, loc.disp_attr ?? 0);
+                }
+            }
+            paintDocallMenuOverlayLikeC(display);
             const s1 = statusLine1ForPaintLikeC();
             for (let c = 0; c < Math.min(s1.length, display.cols); c++)
                 display.setCell(c, 22, s1[c], NO_COLOR, 0);
