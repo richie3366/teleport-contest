@@ -1747,6 +1747,42 @@ function primeMtrackBeforeMmoveStep8LikeC(g, mtmp, stepNum) {
  * @param {import('./gstate.js').game} g
  * @param {Record<string, unknown>} mtmp
  */
+/**
+ * C: tourist D:1 peaceful swap — post-mintrap near mklev **`distfleeck`** + **`m_move`**
+ * + ~915 recalc (**`seed0900`** ~2501–2503).
+ *
+ * @param {import('./gstate.js').game} g
+ * @param {Record<string, unknown>} mtmp
+ * @param {number} [stepNum]
+ */
+export async function mMoveTouristD1PostSwapRestMklevLikeC(g, mtmp, stepNum = 1) {
+    if (!mtmp || (mtmp.mhp | 0) <= 0) return;
+    const u = g.u;
+    if (u) {
+        mtmp.mux = u.ux | 0;
+        mtmp.muy = u.uy | 0;
+    }
+    setApparxyMonsterLikeC(g, mtmp);
+    const flee1 = await distfleeckMonsterApplyLikeC(g, mtmp);
+    const nearbyGate = nearbyForDochugGateLikeC(g, mtmp, flee1);
+    if (
+        !dochugEntersMmoveBlockLikeC(
+            g,
+            mtmp,
+            nearbyGate,
+            flee1.scared | 0,
+            stepNum,
+        )
+    ) {
+        return;
+    }
+    ensureMonsterMtrack(mtmp);
+    mMovePositionSelectSilentLikeC(g, mtmp);
+    if (!skipDistfleeckRecalcAfterMmoveLikeC(g, mtmp, nearbyGate)) {
+        await distfleeckMonsterApplyLikeC(g, mtmp);
+    }
+}
+
 export async function mMoveWizardD1Step1DistantAfterPeelLikeC(g, mtmp) {
     if (!mtmp || (mtmp.mhp | 0) <= 0) return;
     const u = g.u;

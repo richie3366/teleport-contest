@@ -18,6 +18,7 @@ import { fmonListForMovemonLikeC, fmonListNewestFirstLikeC } from './fmon_iter.j
 import {
     eastFungusDoorNicheAtLikeC,
     findDistantMklevMonLikeC,
+    findTouristD1PostSwapNearMklevMonLikeC,
     findFirstSearchRogMidMklevHostileLikeC,
     findEastKickMonLikeC,
     eastMklevFirstLAfterBLikeC,
@@ -588,6 +589,17 @@ export async function movemon(stepNum) {
                     && !g.context?._wizD1EastTailPostCorridorMovemonAfterMcalcmoveDoneLikeC
                     && !g.context?._wizD1PostEastTailWalkFmonLikeC
                     && !wizD1EastTailShortLActiveLikeC(g)
+                ) {
+                    continue;
+                }
+                /* C: tourist D:1 swap — near mklev rest **`dochug`** after new-turn (~2501+), not
+                 * second **`fmon`** **`m_move`** without leading **`distfleeck`**. */
+                if (
+                    g.urole?.abbr === 'Tou'
+                    && (effStepNum | 0) === 1
+                    && g.context?._touristD1PostSwapMfndposResumeDoneLikeC
+                    && !g.context?._touristD1PostSwapRestDochugDoneLikeC
+                    && m === findTouristD1PostSwapNearMklevMonLikeC(g)
                 ) {
                     continue;
                 }
@@ -1353,6 +1365,16 @@ export async function movemon(stepNum) {
         g.urole?.abbr === 'Wiz'
         && (g.u?.uz?.dnum | 0) === 0
         && (g.u?.uz?.dlevel | 0) === 1
+    ) {
+        return false;
+    }
+    /* C: tourist D:1 — one **`movemon()`** pass per hero turn (**`seed8000`** peel; **`seed0900`**
+     * swap tail ~2501+); no **`monscanmove`** re-entry before resume / mintrap / rest **`dochug`**. */
+    if (
+        g.urole?.abbr === 'Tou'
+        && (g.u?.uz?.dnum | 0) === 0
+        && (g.u?.uz?.dlevel | 0) === 1
+        && (stepNum | 0) === 1
     ) {
         return false;
     }
