@@ -32,7 +32,7 @@ Use this when **`Next steps`** below feels stale or several lanes compete. Order
 
 **Tutorial (Lane E):** Gated on [tutorial port gate](../../docs/plans/tutorial-port-gate.md) **MD-1 … MD-7**.
 
-**Last slice:** **Lane A/D `seed0102` — `#attributes` enlightenment plname + pantheon** — C **`insight.c` `background_enlightenment`** + **`enlightenment` title `highc(plname)`**; **`pray.c` `u_gname`/`align_gname`** via **`enlightMissionLinesLikeC`** (**`enlght_patrons.js`**); **`overlay_screens.js` `upstartLikeC`**. **`seed0102` RNG:** **4485/4485**; **Screens 23/25** (was **18/25**); first fail **screen 23** map **(26,10)/(25,11)**. **`seed8000`:** **PASS**. **1/44**.
+**Last slice:** **Lane A/D `seed0102` — shop hdoor `(26,10)` + twin `#search` defer/repaint** — C **`display.c`** rogue D:1 ROOM **seenv** hdoor; first **`s`** defer **`d`** (step 22 **`~`**); second **`s`** post-**`movemon`** **`mapBackgroundLikeC`** repaint (**`display.js`**, **`cmd.js`**). **`seed0102` RNG:** **4485/4485**; **Screens 25/25**; **Cursors 17/25** (first fail **4**). **`seed8000` 2900–3129:** aligned. **1/44**.
 
 ## Next steps (aligned with matrix)
 
@@ -40,7 +40,7 @@ Pick **one** primary lane per **batch** (several related C functions — see che
 
 **First:** open [`docs/plans/tutorial-port-gate.md`](../../docs/plans/tutorial-port-gate.md) — if **all MD-1 … MD-7** are checked, do **Lane E** step 1 from [10-tutorial.md](../plans/nethack-port/10-tutorial.md) instead of the list below.
 
-1. **Lane A/D — `seed0102` screen 23+** — map **`~`/`d`** **(26,10)/(25,11)**; twin **`:`** **(26,11)** hdoor + **`dolook`**; **`dogmove`** pet **(28,10)**; **`makedog`** **(27,8)** @ **`~4453`**.
+1. **Lane A/D — `seed0102` cursors + moveloop** — cursor **4**; twin **`:`** **`dolook`**; **`dogmove`** pet **(28,10)**; **`makedog`** **(27,8)** @ **`~4453`**.
 2. **Lane C — `seed0006` ~2892** — capital **`K`** moveloop tail; screen **35** botl (**`find_ac`** / time).
 3. **Lane B — NHL** — next **`lspo_*`** per [`nhl-port-notes.md`](nhl-port-notes.md).
 4. **Lane A/D — `seed0900`** — screen parity (RNG **0–2982** done); map/botl integration beyond moveloop peel chain.

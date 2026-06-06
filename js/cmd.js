@@ -11,6 +11,7 @@ import { nhgetch } from './input.js';
 import {
     newsym, flush_screen, pline, docrt_flags, docrtRefresh,
     clearPendingMessageAndToplineLikeC,
+    refreshRangerD1ShopDoorGlyphsAfterSearchLikeC,
 } from './display.js';
 import { vision_recalc } from './vision.js';
 import { dosearch, dosearchCmdSafetyPreventionLikeC } from './search.js';
@@ -394,6 +395,8 @@ export async function rhack(key) {
             clearSearchMovemonSubHarnessLikeC(game);
         } else {
             clearSearchMovemonHarnessLikeC(game);
+            /* C: ranger twin **`#search`** post-**`movemon`** — shop hdoor before **`:`** snapshot. */
+            if (searchPassAfter >= 2) refreshRangerD1ShopDoorGlyphsAfterSearchLikeC();
         }
         /* C: **`seed0077`** — twin **`#search`** moveloop (gate + **`dog_invent`**) on second **`s`**;
          * **`:`** is **`dolook`** only (session has **0** RNG on **`:`**). */

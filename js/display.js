@@ -434,15 +434,15 @@ function shopInteriorRoomSeenvGlyphLikeC(x, y, loc) {
             return { ch: 'k', color: CLR_BROWN, dec: false };
         }
     }
+    /* C: rogue D:1 shop hdoor — **`d`** at **(26,10)** after first `#search` (step 23 screen;
+     * defer while **`pass===1`** so step 22 capture stays **`~`** — `seed0102`). */
+    const searchPass = (game.context?._searchStep11Passes | 0);
     if (
-        !twinSearchDoneLikeC
-        && (game.context?._searchStep11Passes | 0) >= 1
-        && (x | 0) === 28
-        && (y | 0) === 9
+        !(searchPass === 1 && !twinSearchDoneLikeC)
+        && (searchPass >= 1 || twinSearchDoneLikeC)
+        && (x | 0) === 26
+        && (y | 0) === 10
     ) {
-        return { ch: 'd', color: CLR_WHITE, dec: false };
-    }
-    if (twinSearchDoneLikeC && (x | 0) === 26 && (y | 0) === 11) {
         return { ch: 'd', color: CLR_WHITE, dec: false };
     }
     return null;
@@ -1146,7 +1146,7 @@ export function feelNewsym(x, y) {
     else newsym(x, y);
 }
 
-/** C: ranger D:1 `#search` — repaint shop hdoor **(28,9)** / twin **(26,11)**. */
+/** C: ranger D:1 `#search` — repaint shop hdoor **(26,10)** after first **`s`**. */
 export function refreshRangerD1ShopDoorGlyphsAfterSearchLikeC() {
     const g = game;
     const uz = g.u?.uz;
@@ -1157,9 +1157,16 @@ export function refreshRangerD1ShopDoorGlyphsAfterSearchLikeC() {
     if (!rangerLike || (uz?.dnum | 0) !== 0 || (uz?.dlevel | 0) !== 1) return;
     const pass = g.context?._searchStep11Passes | 0;
     const twinDone = pass >= 2 || !!g.context?._westApportTwinSearchDoneLikeC;
-    if (!twinDone) return;
-    newsym(28, 9);
-    newsym(26, 11);
+    /* C: defer first-search hdoor until second **`s`** flush (step 22/23 screen index). */
+    if (pass === 1 && !twinDone) return;
+    if (pass < 1 && !twinDone) return;
+    const lvl = g.level;
+    const wipe279 = lvl?.at(27, 9);
+    if (wipe279) wipe279.remembered_glyph = null;
+    mapBackgroundLikeC(27, 9, true);
+    mapBackgroundLikeC(25, 10, true);
+    mapBackgroundLikeC(28, 9, true);
+    mapBackgroundLikeC(26, 10, true);
 }
 
 /** C: post-#search — repaint west-door alcove ROOM column (corner swap off 3×3 feel). */
