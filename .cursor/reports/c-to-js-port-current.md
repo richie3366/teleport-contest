@@ -32,7 +32,7 @@ Use this when **`Next steps`** below feels stale or several lanes compete. Order
 
 **Tutorial (Lane E):** Gated on [tutorial port gate](../../docs/plans/tutorial-port-gate.md) **MD-1 … MD-7**.
 
-**Last slice:** **Lane A/D `seed0900` run-east `L` post (~2591–2607)** — diag **2568–2607** match. Post-**`mcalcmove`** peel: 3-phase **`distfleeck`**/**`dog_move`** inline; **`mfndpos`** away budget counts **`rn2(12)`** draws (not winning picks); drain pet movement; defer **`SkipMoveloop82`** until post-peel new-turn. **Open:** **~2608** — two surplus **`rn2(12)`** before new-turn **`rn2(70)`**. **`seed8000`:** **PASS**. **2/44**.
+**Last slice:** **Lane A/D `seed0900` run-east `L` post (~2608–2626)** — diag **2568–2626** match. Post-peel new-turn skips **`mcalcmove`** (**`allmain.c`** peel round spent); inline tail **`movemon`** (**`distfleeck`** + 2-phase pet **`mfndpos`**, away pad); skip **`mcalcmove`** after tail new-turn. **Open:** **~2627** — post-tail **`distfleeck`**/**`dog_move`**. **`seed8000`:** **PASS**. **2/44**.
 
 ## Next steps (aligned with matrix)
 
@@ -40,7 +40,7 @@ Pick **one** primary lane per **batch** (several related C functions — see che
 
 **First:** open [`docs/plans/tutorial-port-gate.md`](../../docs/plans/tutorial-port-gate.md) — if **all MD-1 … MD-7** are checked, do **Lane E** step 1 from [10-tutorial.md](../plans/nethack-port/10-tutorial.md) instead of the list below.
 
-1. **Lane A/D — `seed0900` ~2608** — post-**`L`** peel complete; surplus **`rn2(12)`**×2 before new-turn **`mcalcmove`** tail. Diag **2605–2625**; read C **`dogmove.c`** phase-3 tail + moveloop **`monscanmove`** exit.
+1. **Lane A/D — `seed0900` ~2627** — post-tail new-turn **`distfleeck`**/**`dog_move`** after run-east **`L`**. Diag **2620–2650**; read C **`monmove.c`**/**`allmain.c`** third **`movemon`** pass.
 2. **Lane A — `seed0102` screen 0** — D:1 map + botl after mklev parity.
 3. **Lane C — `seed0006` ~2892** — capital **`K`** moveloop tail; screen **35** botl (**`find_ac`** / time).
 4. **Lane B — NHL** — next **`lspo_*`** per [`nhl-port-notes.md`](nhl-port-notes.md).
