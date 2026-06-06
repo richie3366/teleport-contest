@@ -32,7 +32,7 @@ Use this when **`Next steps`** below feels stale or several lanes compete. Order
 
 **Tutorial (Lane E):** Gated on [tutorial port gate](../../docs/plans/tutorial-port-gate.md) **MD-1 … MD-7**.
 
-**Last slice:** **Lane A/D tourist post-rest `pet_ranged_attk` moveloop peel** — C **`dogmove.c`** **`pet_ranged_attk`** after deferred **`runNewTurnSetupAndTailLikeC`** (**`moveloop_turn_advance.js`**: mfndpos → new-turn **2515–2518** → **`petRangedAttkDogmoveLikeC`**); **`_touristD1PostRestMoveloopPeelLikeC`** + **`set_apparxy`** before **`best_target`**; **`monmove.js`** keep **`_touristD1PostSwapSkipPetFmonAfterRestPeelLikeC`** until peel done. **`seed0900`:** diag **2510–2519** match; **~2520** invent **`rn2(100)`** vs extra **`mfndpos`**. **`seed8000`/`seed0077`:** **PASS**. **2/44**.
+**Last slice:** **Lane A/D tourist post-rest second `dog_move`** — C **`dogmove.c`**: moveloop **`pet_ranged_attk`** then full second **`dog_move`** (**`dogMoveTouristD1PostRestSecondDogMoveLikeC`**: **5×** invent, **`best_target`**/**`rnd(5)`**/**`rn2(5)`**×2, **`mfndpos`**) before near mklev **`m_move`**; **`m_move_mon.js`** gate mklev until second pet done; **`movemon(1)`** after second **`dog_move`**. **`seed0900`:** diag **2510–2527**; **~2528** mfndpos **`rn2(32)`** vs **`chcnt`**. **`seed8000`/`seed0077`:** **PASS**. **2/44**.
 
 ## Next steps (aligned with matrix)
 
@@ -40,7 +40,7 @@ Pick **one** primary lane per **batch** (several related C functions — see che
 
 **First:** open [`docs/plans/tutorial-port-gate.md`](../../docs/plans/tutorial-port-gate.md) — if **all MD-1 … MD-7** are checked, do **Lane E** step 1 from [10-tutorial.md](../plans/nethack-port/10-tutorial.md) instead of the list below.
 
-1. **Lane A/D — `seed0900` ~2520** — diag **2510–2519** match; **~2520** C **`dog_goal`**/**`obj_resists`** **`rn2(100)`**×5 vs JS extra **`mfndpos`** **`rn2(12)`** — block second post-peel **`dog_move`** or wire post-new-turn invent prescan. **`seed0102`** D:1 map + botl.
+1. **Lane A/D — `seed0900` ~2528** — diag **2510–2527** match; **~2528** C **`mtrack`** **`rn2(32)`** vs JS **`mfndpos`** **`chcnt`** **`rn2(1)`** — second post-rest **`mfndpos`** pick / floor **`dogfood`** tail (**`dogmove.c`** ~1255–1274). **`seed0102`** D:1 map + botl.
 2. **Lane A — `seed0102` screen 0** — D:1 map + botl after mklev parity.
 3. **Lane C — `seed0006` ~2892** — capital **`K`** moveloop tail; screen **35** botl (**`find_ac`** / time).
 4. **Lane B — NHL** — next **`lspo_*`** per [`nhl-port-notes.md`](nhl-port-notes.md).

@@ -862,6 +862,22 @@ function dogGoalFollowGxGyApprLikeC(
             appr = 1;
         } else if (
             g.context?._touristD1PeelEmptyFloorDogGoalLikeC
+            && g.context?._touristD1PostRestSecondDogMoveLikeC
+        ) {
+            /* C: second post-rest **`dog_goal`** — five **`gi.invent`** **`obj_resists`**, keep **`appr`**
+             * unless **`DOGFOOD`** (~2520–2524 on **`seed0900`**). */
+            let invN = 0;
+            for (let o = g.invent; o; o = o.nobj) {
+                const rank = dogfoodRankLikeC(o);
+                invN++;
+                if (rank === DOGFOOD) {
+                    appr = 1;
+                    break;
+                }
+                if (invN >= 5) break;
+            }
+        } else if (
+            g.context?._touristD1PeelEmptyFloorDogGoalLikeC
             && (
                 g.context?._touristD1PostSwapDogGoalPrescanLikeC
                 || g.context?._touristD1PostSwapAfterRestPetGoalLikeC
@@ -1063,6 +1079,9 @@ function dogMoveMtrackHeroXYLikeC(g) {
  * @param {boolean} whappr
  */
 function dogMoveMfndposPickLikeC(g, mtmp, ggx, ggy, appr, whappr) {
+    if (typeof globalThis.__diagDogMoveMfndpos === 'function') {
+        globalThis.__diagDogMoveMfndpos(g, mtmp);
+    }
     const ctxPick = g.context;
     if (
         ctxPick?._wizD1Step1PetMfndposPickDoneLikeC
@@ -1121,6 +1140,7 @@ function dogMoveMfndposPickLikeC(g, mtmp, ggx, ggy, appr, whappr) {
         && !g.context?._wizD1LPetInventAfterNewturnChcntOnlyLikeC
         && !g.context?._wizD1LPetEastTailMfndposLikeC
         && !g.context?._touristD1PostSwapAfterRestPetMfndposLikeC
+        && !g.context?._touristD1PostRestSecondDogMoveLikeC
     ) {
         /* C: **`appr==0`** — one **`rn2(1)`** on the closest-to-goal **`mfndpos`** slot
          * (recorder **`seed0077`** ~3208 onto APPORT towel; avoids **`rn2(2..)`** when extra
@@ -1854,6 +1874,60 @@ export function dogMoveTouristD1PostSwapAfterRestPetLikeC(g, mtmp) {
     } finally {
         delete ctx._touristD1PeelEmptyFloorDogGoalLikeC;
         delete ctx._touristD1PostSwapAfterRestPetGoalLikeC;
+    }
+}
+
+/**
+ * C: tourist D:1 post-rest — second **`dog_move`** after deferred **`pet_ranged_attk`**
+ * (**`dog_invent`**, **`dog_goal`** invent **`obj_resists`**, **`mfndpos`**, tail **`pet_ranged_attk`**;
+ * **`seed0900`** ~2520–2537 before near mklev **`m_move`** **`rn2(12)`** ~2538+).
+ *
+ * @param {import('./gstate.js').game} g
+ * @param {Record<string, unknown>} mtmp
+ */
+export function dogMoveTouristD1PostRestSecondDogMoveLikeC(g, mtmp) {
+    if (!(mtmp.mtame | 0) || !has_edog(mtmp)) return;
+    const edog = EDOG(mtmp);
+    if (!edog) return;
+    const ctx = g.context || (g.context = {});
+    ctx._touristD1PostRestSecondDogMoveLikeC = true;
+    ctx._touristD1PeelEmptyFloorDogGoalLikeC = true;
+    try {
+        let mov = mtmp.movement | 0;
+        if (mov < NORMAL_SPEED) {
+            mtmp.movement = NORMAL_SPEED;
+            mov = NORMAL_SPEED;
+        }
+        mtmp.movement = mov - NORMAL_SPEED;
+        setApparxyMonsterLikeC(g, mtmp);
+        const whappr = (g.moves | 0) - (edog.whistletime | 0) < 5;
+        const goal = dogGoalFloorScanRngLikeC(g, mtmp, true, whappr);
+        if ((goal.appr | 0) === -2) return;
+        /* C: peel tail — **`best_target`** / **`rnd(5)`** + **`rn2(edog->apport)`** (~2525–2527). */
+        if (!bestTargetDogmoveLikeC(g, mtmp, false)) {
+            rnd(5);
+        }
+        rn2(5);
+        rn2(5);
+        ctx._touristD1PostRestSecondMfndposLikeC = true;
+        try {
+            dogMoveMfndposPickLikeC(
+                g,
+                mtmp,
+                goal.gx | 0,
+                goal.gy | 0,
+                goal.appr | 0,
+                whappr,
+            );
+        } finally {
+            delete ctx._touristD1PostRestSecondMfndposLikeC;
+        }
+        petRangedAttkDogmoveLikeC(g, mtmp, false, null);
+    } finally {
+        delete ctx._touristD1PostRestSecondDogMoveLikeC;
+        delete ctx._touristD1PeelEmptyFloorDogGoalLikeC;
+        delete ctx._touristD1PostRestSecondMfndposLikeC;
+        ctx._touristD1PostRestSecondPetDogMoveDoneLikeC = true;
     }
 }
 

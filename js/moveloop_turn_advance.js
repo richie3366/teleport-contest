@@ -51,6 +51,7 @@ import { distfleeckMonsterApplyLikeC } from './distfleeck_mon.js';
 import {
     dogMoveEastTailPostMcalcmovePetLikeC,
     dogMoveLPetInventAfterNewturnLikeC,
+    dogMoveTouristD1PostRestSecondDogMoveLikeC,
     petRangedAttkDogmoveLikeC,
 } from './dogmove_mon.js';
 import {
@@ -541,6 +542,15 @@ export async function runPostCommandTurnAdvanceLikeC(g) {
                                     false,
                                     null,
                                 );
+                                /* C: second post-rest **`dog_move`** (~2520+ invent) before near mklev
+                                 * **`m_move`** **`mfndpos`** on outer-loop **`movemon`** pass. */
+                                dogMoveTouristD1PostRestSecondDogMoveLikeC(
+                                    g,
+                                    petPostRestRanged,
+                                );
+                                g.context._movemonHarnessConsumed = false;
+                                await movemon(1);
+                                g.context._touristD1PostRestMonsterMovemonDoneLikeC = true;
                             }
                             delete g.context._touristD1PostRestPetRangedPendingLikeC;
                             delete g.context._touristD1PostRestPetRangedTargLikeC;

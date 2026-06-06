@@ -452,6 +452,10 @@ function dochugEntersMmoveBlockLikeC(
                 g.context?._touristD1PostSwapRestDochugDoneLikeC
                 && !g.context?._touristD1PostSwapAfterRestPetDoneLikeC
             )
+            || (
+                g.context?._touristD1PostSwapAfterRestPetDoneLikeC
+                && !g.context?._touristD1PostRestSecondPetDogMoveDoneLikeC
+            )
         )
     ) {
         return false;

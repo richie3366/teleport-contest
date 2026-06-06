@@ -630,6 +630,15 @@ export async function movemon(stepNum) {
                 ) {
                     continue;
                 }
+                /* C: post-rest second **`dog_move`** — moveloop inline (~2520+); skip **`fmon`**. */
+                if (
+                    g.urole?.abbr === 'Tou'
+                    && (effStepNum | 0) === 1
+                    && g.context?._touristD1PostRestSecondPetDogMoveDoneLikeC
+                    && (m.mtame | 0)
+                ) {
+                    continue;
+                }
                 await movemonSinglemonLikeC(g, m, effStepNum);
             }
             /* C: tourist D:1 peaceful swap — pet ~915 **`distfleeck`** then **`mfndpos`** resume

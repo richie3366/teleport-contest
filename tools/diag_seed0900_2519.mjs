@@ -16,9 +16,9 @@ const mark = (label) => {
 };
 
 globalThis.__diagMaybeGen = (stack) => mark(`maybe ${stack}`);
-globalThis.__diagDogMovePickRn2 = (g, n, phase) => {
-    mark(`dogMovePickRn2 n=${n} phase=${phase}`);
-};
+globalThis.__diagDogMoveLikeC = () => mark('dogMoveLikeC');
+globalThis.__diagDogMoveMfndpos = () => mark('dogMoveMfndposPick');
+globalThis.__diagDogGoalFloor = () => mark('dogGoalFloorScan');
 
 const sessionData = JSON.parse(
     readFileSync(join(ROOT, 'sessions/seed0900-tourist-explore-actions.session.json'), 'utf8'),
