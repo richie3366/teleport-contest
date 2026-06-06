@@ -6,6 +6,7 @@ Historical rows moved from `c-to-js-port-progress.md` so day-to-day work uses **
 
 | When | What changed |
 |------|----------------|
+| **2026-06-06** | **Lane A/D `seed0900` run-east `L` post (~2888–2905)** — sixteenth **`movemon`** (tenth shell; fourth phase-2 budget 4 + third phase-3); arm sixteenth after fifteenth new-turn; **`SixteenthMovemonPhase2BudgetLikeC`** in **`dogmove_mon`**. Diag **2888–2905**; **~2906** open. **`seed8000`:** **PASS**. **2/44**. |
 | **2026-06-06** | **Lane A/D `seed0900` run-east `L` post (~2876–2887)** — fifteenth **`movemon`** (third phase-1 ×4 + single **`distfleeck`** + fourth phase-2); arm fifteenth after fourteenth new-turn (fix missing arm hook). Diag **2876–2887**; **~2888** open. **`seed8000`:** **PASS**. **2/44**. |
 | **2026-06-06** | **Lane A/D `seed0900` run-east `L` post (~2850–2875)** — fourteenth **`movemon`** (tenth opening third phase-1 ×4 + double **`distfleeck`**; fourth invent/**`mfndpos`** 2× pair-pad + 3× tail + phase-2); arm fourteenth after thirteenth new-turn; **`dogmove_mon`** fourteenth post-**`mfndpos`** fixed tail. Diag **2850–2875**; **~2876** open. **`seed8000`:** **PASS**. **2/44**. |
 | **2026-06-06** | **Lane A/D `seed0900` run-east `L` post (~2828–2849)** — thirteenth **`movemon`** (fourth shell + **`chcnt`** + 3× away tail; double **`distfleeck`** + distant **`m_move`** **`rn2(20)`** + phase-2); arm thirteenth after twelfth new-turn; **`dogmove_mon`** thirteenth **`mfndpos`** one-away break + post-loop **`chcnt`**. Diag **2828–2849**; **~2850** open. **`seed8000`:** **PASS**. **2/44**. |

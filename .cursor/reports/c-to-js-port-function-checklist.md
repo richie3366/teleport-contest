@@ -95,11 +95,11 @@ Align batches with [`c-to-js-port-remaining.md`](c-to-js-port-remaining.md) §5:
 
 | C symbol / area | JS module | Status | Notes |
 |-----------------|-----------|--------|-------|
-| `movemon` / `dochug` | `monmove.js`, `fmon_iter.js`, `moveloop_turn_advance.js` | partial | **`L`** peel + tail + third … fifteenth **`movemon`**; skip **`mcalcmove`** after peel passes; **`seed0900`** **2620–2887**; **~2888** open |
+| `movemon` / `dochug` | `monmove.js`, `fmon_iter.js`, `moveloop_turn_advance.js` | partial | **`L`** peel + tail + third … sixteenth **`movemon`**; skip **`mcalcmove`** after peel passes; **`seed0900`** **2620–2905**; **~2906** open |
 | `m_move` / `mfndpos` | `m_move_mon.js`, `mfndpos.js` | partial | Second post-rest mklev interrupt **`mMoveTouristD1PostRestSecondMklevInterruptLikeC`** (**`rn2(32)`** ~2528); **`seed0900`** **~2545** post-**`mcalcmove`** drift |
 | `distfleeck` | `distfleeck_mon.js` | partial | Peel-only rest **`distfleeck`** (**`_touristD1PostSwapRestDistfleeckPeelLikeC`**); 3× ~915 before stub; **`seed0900`** **2499–2504** |
 | `m_throw` | — | missing | |
-| `dogmove` | `dogmove_mon.js` | partial | fourth/sixth/seventh/eighth/ninth/tenth/eleventh/thirteenth/fourteenth phase-1 **`mfndpos`**; seventh/eighth pair-pad; ninth/eleventh 2× tail; thirteenth **`chcnt`** + 3× tail; fourteenth 2× pair-pad + 3× tail; fifteenth third phase-1 + fourth phase-2; tenth/twelfth phase-2 budget 6 + phase-3; **`seed0900`** **2620–2887**; **~2888** open |
+| `dogmove` | `dogmove_mon.js` | partial | fourth/sixth/seventh/eighth/ninth/tenth/eleventh/thirteenth/fourteenth phase-1 **`mfndpos`**; seventh/eighth pair-pad; ninth/eleventh 2× tail; thirteenth **`chcnt`** + 3× tail; fourteenth 2× pair-pad + 3× tail; fifteenth third phase-1 + fourth phase-2; sixteenth tenth shell phase-2 budget 4 + phase-3; tenth/twelfth phase-2 budget 6; **`seed0900`** **2620–2905**; **~2906** open |
 | `grow_up` | `makemon.js` | partial | Victim-kill HP subset (**`rnd(victim.m_lev+1)`**, **`rn2`** gain); tourist **`L`** peel |
 | `corpse_chance` | `uhitm_hero.js` | partial | Exported **`corpseChanceLikeC`**; tourist **`L`** **`mattackm`** kill tail |
 | `score_targ` / `best_target` / `pet_ranged_attk` | `dogmove_mon.js` | partial | C **`dogmove.c`** ~738–966; moveloop peel + second-pass **`rnd(5)`**/**`rn2(5)`** tail; **`mattackm`** TODO |
