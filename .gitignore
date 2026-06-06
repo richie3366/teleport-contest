@@ -7,3 +7,9 @@ js/graphify-out/
 nethack-c/graphify-out/
 nethack-c/upstream/src/graphify-out/
 nethack-c/upstream/include/graphify-out/
+
+# Caveman (local install; see .cursor/docs/caveman.md)
+.agents/skills/caveman/
+.agents/skills/caveman-*/
+.agents/skills/cavecrew/
+skills-lock.json

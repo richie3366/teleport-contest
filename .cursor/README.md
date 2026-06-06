@@ -6,6 +6,7 @@ This directory holds **Cursor rules** (`.cursor/rules/*.mdc`) that steer agents 
 
 | Rule | When it applies |
 |------|-----------------|
+| `caveman.mdc` | Always — default **caveman** chat (`full`); off on “stop caveman” / “normal mode” ([caveman.md](docs/caveman.md)). |
 | `teleport-contest.mdc` | Always (`alwaysApply: true`) — contest contract, ethics, frozen files, sandbox. |
 | `graphify.mdc` | Always — split JS / C / merged graphs; `npm run graphify:js` after port edits ([graphify.md](docs/graphify.md)). |
 | `port-from-c-not-score.mdc` | Always — **port C first**; `npm run score` is regression-only; anti fastforward/harness score-chasing. |

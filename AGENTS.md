@@ -4,6 +4,8 @@ This repository is a **Teleport Coding Challenge** fork: port NetHack 5.0 to Jav
 
 **Start here:** [.cursor/README.md](.cursor/README.md) lists Cursor rules under `.cursor/rules/` and links to canonical docs.
 
+**Caveman (default chat):** always-on rule [.cursor/rules/caveman.mdc](.cursor/rules/caveman.mdc) — terse replies unless you say **stop caveman** / **normal mode**. Local install under `.agents/skills/` (gitignored). Details: [.cursor/docs/caveman.md](.cursor/docs/caveman.md).
+
 **Port handoff (agents):** [.cursor/reports/c-to-js-port-current.md](.cursor/reports/c-to-js-port-current.md) — read this first for the next batch; follow [.cursor/reports/c-to-js-port-batch-workflow.md](.cursor/reports/c-to-js-port-batch-workflow.md); track symbols in [.cursor/reports/c-to-js-port-function-checklist.md](.cursor/reports/c-to-js-port-function-checklist.md). Skim [.cursor/reports/c-to-js-port-remaining.md](.cursor/reports/c-to-js-port-remaining.md) for domain gaps; use [.cursor/reports/c-to-js-port-progress.md](.cursor/reports/c-to-js-port-progress.md) only when you need the full parity report.
 
 **Tutorial gate:** [docs/plans/tutorial-port-gate.md](docs/plans/tutorial-port-gate.md) — mandatory dependencies (**MD-1 … MD-7**). When all are satisfied, **Lane E (tutorial)** becomes the primary port lane until [`.cursor/plans/nethack-port/10-tutorial.md`](.cursor/plans/nethack-port/10-tutorial.md) exit criteria.

@@ -1,0 +1,12 @@
+---
+alwaysApply: true
+---
+# Caveman (default communication)
+
+Use **caveman** mode for all user-facing replies unless the user says **stop caveman** or **normal mode**.
+
+Follow [.agents/skills/caveman/SKILL.md](../../.agents/skills/caveman/SKILL.md): default intensity **full**; switch with `/caveman lite|full|ultra` (or wenyan variants).
+
+When relevant, use sibling skills under `.agents/skills/`: **caveman-commit** (commit messages), **caveman-review** (PR comments), **cavecrew** (compressed subagent delegation). Quick reference: [.cursor/docs/caveman.md](../docs/caveman.md).
+
+**Exception:** code, commit messages, and PR bodies stay normal prose (see skill boundaries). User-facing chat stays caveman.
