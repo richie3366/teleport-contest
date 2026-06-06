@@ -161,7 +161,7 @@ Align batches with [`c-to-js-port-remaining.md`](c-to-js-port-remaining.md) §5:
 | `do_attack` safemon gate | `uhitm_hero.js`, `cmd.js` | partial | C **`is_safemon`** → **`rn2(7)`** / shop / **`rn2(6)`** before displace; **`seed0900`** **2473–2481** |
 | `uhitm` / `mhitu` | `attack.js`, `uhitm_hero.js` | partial | Bump kill subset; full **`hitum`**/`hmon` gaps remain |
 | `find_ac` / to-hit | `u_init_find_ac.js`, `display.js`, `u_init_link_*.js` | partial | **`find_ac`** only after first **`bot()`** (removed from role invent linkers); legacy **`com_pager`** map strip **`seed0102`** partial |
-| `com_pager` / legacy intro | `legacy_intro.js`, `legacy_intro_paint.js`, `display.js` | partial | **`docrt`** after com_pager dismiss; welcome **`--More--`** row-1 → **20** map rows; **`shopInteriorRoomSeenvGlyphLikeC`** + **`obj_to_glyph`** oclass/color (**`OC_CLASS_BY_OTYP`**); **`seed0102` screen 1** **0** diffs; RNG **~4480+** open |
+| `com_pager` / legacy intro | `legacy_intro.js`, `legacy_intro_paint.js`, `display.js` | partial | **`docrt`** after com_pager dismiss; welcome **`--More--`** row-1 → **20** map rows; **`shopInteriorRoomSeenvGlyphLikeC`** north trcorn **(23,9)** + hdoor **(28,9)**/**(26,11)**; **`refreshRangerD1ShopDoorGlyphsAfterSearchLikeC`**; **`k`** brown wire open; **`seed0102` screen 1** **1** diff |
 
 ---
 

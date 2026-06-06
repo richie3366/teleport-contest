@@ -413,24 +413,30 @@ function shopInteriorRoomSeenvGlyphLikeC(x, y, loc) {
     const seenv = loc.seenv | 0;
     const lvl = game.level;
     if (!lvl) return null;
-    /* C: seed0102 shop — seenv SV2 (0x04) two tiles east of west shop door → DEC trcorn `k`. */
+    const twinSearchDoneLikeC =
+        (game.context?._searchStep11Passes | 0) >= 2
+        || !!game.context?._westApportTwinSearchDoneLikeC;
     if (seenv === SV2) {
         const west = lvl.at((x | 0) - 1, y | 0);
         const doorWest = lvl.at((x | 0) - 2, y | 0);
         if (
             west && (west.typ | 0) === ROOM && (west.seenv | 0) === SV2
             && doorWest && (doorWest.typ | 0) === DOOR && doorWest.edge
+            && (doorWest.y | 0) === ((y | 0) + 1)
         ) {
             return { ch: 'k', color: CLR_BROWN, dec: false };
         }
     }
-    if (seenv === (SV0 | SV1)) {
-        const north = lvl.at(x | 0, (y | 0) - 1);
-        if (north && (north.typ | 0) === STAIRS) {
-            const sym = cmapSymGlyphFromShowsymsLikeC(S_hcdoor, false)
-                ?? { ch: 'd', color: CLR_WHITE, dec: false };
-            return { ch: sym.ch, color: CLR_WHITE, dec: !!sym.dec };
-        }
+    if (
+        !twinSearchDoneLikeC
+        && (game.context?._searchStep11Passes | 0) >= 1
+        && (x | 0) === 28
+        && (y | 0) === 9
+    ) {
+        return { ch: 'd', color: CLR_WHITE, dec: false };
+    }
+    if (twinSearchDoneLikeC && (x | 0) === 26 && (y | 0) === 11) {
+        return { ch: 'd', color: CLR_WHITE, dec: false };
     }
     return null;
 }
@@ -1109,6 +1115,22 @@ export function feelLocation(x, y) {
 export function feelNewsym(x, y) {
     if (heroBlindForMap()) feelLocation(x, y);
     else newsym(x, y);
+}
+
+/** C: ranger D:1 `#search` — repaint shop hdoor **(28,9)** / twin **(26,11)**. */
+export function refreshRangerD1ShopDoorGlyphsAfterSearchLikeC() {
+    const g = game;
+    const uz = g.u?.uz;
+    const rangerLike =
+        g.urole?.abbr === 'Ran'
+        || g.pl_character === 'Ranger'
+        || (g.urole?.mnum | 0) === 8;
+    if (!rangerLike || (uz?.dnum | 0) !== 0 || (uz?.dlevel | 0) !== 1) return;
+    const pass = g.context?._searchStep11Passes | 0;
+    const twinDone = pass >= 2 || !!g.context?._westApportTwinSearchDoneLikeC;
+    if (!twinDone) return;
+    newsym(28, 9);
+    newsym(26, 11);
 }
 
 /** C: post-#search — repaint west-door alcove ROOM column (corner swap off 3×3 feel). */
