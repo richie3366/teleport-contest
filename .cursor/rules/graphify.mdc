@@ -1,0 +1,24 @@
+---
+alwaysApply: true
+---
+This project uses **split graphify graphs** (not `graphify update .` on repo root). Full guide: [.cursor/docs/graphify.md](../docs/graphify.md).
+
+## Graphs
+
+| Graph | `--graph` path | Use when |
+|-------|----------------|----------|
+| JS port | `js/graphify-out/graph.json` | Wiring inside `js/` |
+| C reference | `nethack-c/graphify-out/graph.json` | `nethack-c/upstream/{src,include}` semantics |
+| Merged | `graphify-out/graph.json` | C↔JS `path`, cross-tree `query` / `explain` |
+
+## After code changes
+
+- Edited **`js/`** → `npm run graphify:js` (or `bash tools/graphify-update.sh js`)
+- Submodule / **C reference** work → `npm run graphify:c`
+- Need merged graph after either side changed → `npm run graphify:merge`
+
+## Query discipline
+
+When a graph exists, prefer `graphify query` / `path` / `explain` with the **smallest** graph above and `--graph <path>`. Read per-tree `GRAPH_REPORT.md` only for broad review — not the deprecated monolithic root scan.
+
+**Never** `graphify update .` on the repo root (slow; indexes tools/sessions/docs).

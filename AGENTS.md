@@ -21,3 +21,5 @@ This repository is a **Teleport Coding Challenge** fork: port NetHack 5.0 to Jav
 **C reference** lives in the submodule `nethack-c/upstream/` (NetHack 5.0.0 release tag). Initialize it with `git submodule update --init nethack-c/upstream` before deep work in that tree.
 
 **Finding C in tools:** `nethack-c/upstream` is a nested repository, so IDE **Glob** / default workspace **code search** may skip it even when present. Prefer **`read_file`** on paths under that directory, **terminal `rg`/`grep`** with an explicit path (e.g. `rg pattern nethack-c/upstream/include`), or `rg --no-ignore-vcs`. Same reminder lives in **`.cursor/rules/teleport-contest.mdc`** (always applied).
+
+**Graphify (code graphs):** use **split graphs** — `npm run graphify:js` after `js/` edits; `npm run graphify:c` when the submodule is new; `npm run graphify:merge` for C↔JS `path` queries. Do **not** `graphify update .` on the repo root. Details: [.cursor/docs/graphify.md](.cursor/docs/graphify.md).

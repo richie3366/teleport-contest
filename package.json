@@ -5,7 +5,11 @@
   "type": "module",
   "scripts": {
     "score": "bash frozen/score.sh",
-    "play": "echo 'Open index.html in a browser to play'"
+    "play": "echo 'Open index.html in a browser to play'",
+    "graphify:js": "bash tools/graphify-update.sh js",
+    "graphify:c": "bash tools/graphify-update.sh c",
+    "graphify:merge": "bash tools/graphify-update.sh merge",
+    "graphify:all": "bash tools/graphify-update.sh all"
   },
   "engines": {
     "node": ">=22.0.0"

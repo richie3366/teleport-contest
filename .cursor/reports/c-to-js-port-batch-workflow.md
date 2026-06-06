@@ -33,6 +33,7 @@
 ### 2. Port from C
 
 - Open the **C function(s)** in `nethack-c/upstream/src/` (submodule: `git submodule update --init nethack-c/upstream`).
+- Optional navigation: `graphify query "…" --graph nethack-c/graphify-out/graph.json` (see [`.cursor/docs/graphify.md`](../docs/graphify.md); `npm run graphify:c` on first clone).
 - Port **control flow, flags, and RNG order** into existing `js/` modules (extend before inventing parallel files).
 - **Do not edit** frozen: `js/isaac64.js`, `js/terminal.js`, `js/storage.js`.
 - **Do not** grow `fastforward.js` / `monmove.js` harness rows without the matching C call site.
@@ -57,6 +58,7 @@ Use **one or more** of these — in order of usefulness:
 3. Append **one row** to **`c-to-js-port-changelog-archive.md`**.
 4. **`git commit`** — one commit per meaningful batch (conventional message; **why** = C parity).
 5. **Push** when you want CI / shared backup — not required every batch.
+6. Optional: `npm run graphify:js` after `js/` edits (local cache; gitignored).
 
 ### 5. Milestone: full regression
 

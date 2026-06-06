@@ -1,2 +1,9 @@
 node_modules/
 .cache/
+
+# graphify (local agent cache; see .cursor/docs/graphify.md)
+graphify-out/
+js/graphify-out/
+nethack-c/graphify-out/
+nethack-c/upstream/src/graphify-out/
+nethack-c/upstream/include/graphify-out/

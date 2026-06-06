@@ -11,8 +11,8 @@ Use this file when you want a **new agent session** to continue the port without
 1. Read **[`.cursor/reports/c-to-js-port-current.md`](../reports/c-to-js-port-current.md)** — authoritative **next batch / milestone**, **last slice**, and contest constraints.
 2. Check **[`docs/plans/tutorial-port-gate.md`](../../docs/plans/tutorial-port-gate.md)** — if **all MD-1 … MD-7** are satisfied, **Lane E (tutorial)** is the primary lane ([`10-tutorial.md`](../plans/nethack-port/10-tutorial.md)); otherwise follow `current` next steps.
 3. Open **[`.cursor/reports/c-to-js-port-function-checklist.md`](../reports/c-to-js-port-function-checklist.md)** — pick the **next batch** (rows in one C file or call graph; status **stub** / **partial**). Skim **[`.cursor/reports/c-to-js-port-remaining.md`](../reports/c-to-js-port-remaining.md)** for domain context. Follow **[`c-to-js-port-batch-workflow.md`](../reports/c-to-js-port-batch-workflow.md)** for verify/commit/score cadence.
-4. Open the relevant **C** under `nethack-c/upstream/` (init submodule if empty: `git submodule update --init nethack-c/upstream`). Port **semantics and call/RNG order** for the **whole batch**, not public session JSON. See **`.cursor/rules/port-from-c-not-score.mdc`** — score is regression-only; do not add fastforward/harness rows to chase 1/44.
-5. Implement the batch in `js/` (respect **`teleport-js-port.mdc`**: ES modules, `rng.js`, clang evaluation order).
+4. Open the relevant **C** under `nethack-c/upstream/` (init submodule if empty: `git submodule update --init nethack-c/upstream`). Use **graphify** to navigate call graphs when helpful: `graphify query "…" --graph nethack-c/graphify-out/graph.json` (run `npm run graphify:c` once if that graph is missing). Port **semantics and call/RNG order** for the **whole batch**, not public session JSON. See **`.cursor/rules/port-from-c-not-score.mdc`** — score is regression-only; do not add fastforward/harness rows to chase 1/44.
+5. Implement the batch in `js/` (respect **`teleport-js-port.mdc`**: ES modules, `rng.js`, clang evaluation order). For JS wiring / C↔JS mapping, prefer `graphify query` / `path` with `--graph` per **[`.cursor/docs/graphify.md`](../docs/graphify.md)** (split JS / C / merged graphs — never `graphify update .` on repo root).
 6. **Never edit** frozen harness files: `js/isaac64.js`, `js/terminal.js`, `js/storage.js`.
 7. **Fast verify (before commit):** `node tools/diag_rng_window.mjs sessions/<locator>.session.json <start> <end>` when the batch touches RNG; optional narrow checks per [**batch workflow** §3](../reports/c-to-js-port-batch-workflow.md). **Full `npm run score`** at **milestones** (RNG/screens unsure, milestone closed, or user asked) — not after every single function.
 8. **Ship the batch:**
@@ -20,14 +20,15 @@ Use this file when you want a **new agent session** to continue the port without
    - Append **one row** to **[`c-to-js-port-changelog-archive.md`](../reports/c-to-js-port-changelog-archive.md)**.
    - Refresh **`c-to-js-port-current.md`** (last slice + next batch).
    - Optionally refresh **[`c-to-js-port-dashboard.md`](../reports/c-to-js-port-dashboard.md)** after a milestone score: `node tools/port-score-snapshot.mjs --update-dashboard`.
-9. **`git commit` (required every batch — do not wait for the user to ask)** — `git add` + `git commit` before ending the session. One commit per meaningful batch; include `js/`, `.cursor/reports/`, `tools/` as needed. Conventional message; focus on **why** (C parity). Push when the user wants CI — not required every batch.
+9. **Refresh local code graph (optional, cheap):** `npm run graphify:js` after `js/` edits (~5–15s). See **[`.cursor/docs/graphify.md`](../docs/graphify.md)**.
+10. **`git commit` (required every batch — do not wait for the user to ask)** — `git add` + `git commit` before ending the session. One commit per meaningful batch; include `js/`, `.cursor/reports/`, `tools/` as needed. Conventional message; focus on **why** (C parity). Push when the user wants CI — not required every batch. Do **not** commit `graphify-out/` trees (gitignored).
 
 ---
 
 ## Canonical prompt — **batch workflow** (preferred)
 
 ```
-Continue NetHack 5.0 C→JS using the batch port workflow: read .cursor/reports/c-to-js-port-current.md and .cursor/reports/c-to-js-port-batch-workflow.md; pick the next batch from .cursor/reports/c-to-js-port-function-checklist.md (port from nethack-c/upstream C only; follow port-from-c-not-score.mdc; do not edit js/isaac64.js, js/terminal.js, js/storage.js). Fast-verify the batch (diag_rng_window when RNG changes); npm run score only at milestones or when unsure. When done: update checklist + c-to-js-port-current.md + one changelog row; git commit this batch (no push unless asked).
+Continue NetHack 5.0 C→JS using the batch port workflow: read .cursor/reports/c-to-js-port-current.md and .cursor/reports/c-to-js-port-batch-workflow.md; pick the next batch from .cursor/reports/c-to-js-port-function-checklist.md (port from nethack-c/upstream C only; follow port-from-c-not-score.mdc; do not edit js/isaac64.js, js/terminal.js, js/storage.js). Use graphify (--graph per .cursor/docs/graphify.md) for C/JS call-graph navigation; npm run graphify:js after js edits. Fast-verify the batch (diag_rng_window when RNG changes); npm run score only at milestones or when unsure. When done: update checklist + c-to-js-port-current.md + one changelog row; git commit this batch (no push unless asked).
 ```
 
 ---
@@ -43,7 +44,7 @@ Continue the NetHack 5.0 C→JS port: read .cursor/reports/c-to-js-port-current.
 ## Shorter variant (batch)
 
 ```
-Continue port (batch workflow): current.md + function-checklist.md next batch; C upstream only; frozen isaac64/terminal/storage untouched; diag_rng_window if RNG; milestone npm run score; commit batch; update checklist + current + changelog.
+Continue port (batch workflow): current.md + function-checklist.md next batch; C upstream only; graphify per .cursor/docs/graphify.md; frozen isaac64/terminal/storage untouched; diag_rng_window if RNG; milestone npm run score; graphify:js if js changed; commit batch; update checklist + current + changelog.
 ```
 
 ---
@@ -56,3 +57,4 @@ Continue port (batch workflow): current.md + function-checklist.md next batch; C
 - Gap narrative **§5** in [`c-to-js-port-remaining.md`](../reports/c-to-js-port-remaining.md) — C milestones (chargen → mkobj → movemon → …).
 - NHL-only ordering: [`nhl-port-notes.md`](../reports/nhl-port-notes.md).
 - Harness peels: only when **measured** per-path RNG matches C; see **`port-from-c-not-score.mdc`**.
+- **Code graphs:** [`.cursor/docs/graphify.md`](../docs/graphify.md) — `graphify query` / `path` on `js/graphify-out/`, `nethack-c/graphify-out/`, or merged `graphify-out/`; `npm run graphify:js` / `graphify:c` / `graphify:all`.
