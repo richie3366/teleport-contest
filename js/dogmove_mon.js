@@ -844,6 +844,7 @@ function dogGoalFollowGxGyApprLikeC(
         && !g.context?._touristD1LPostNinthMovemonLikeC
         && !g.context?._touristD1LPostTenthMovemonLikeC
         && !g.context?._touristD1LPostSixteenthMovemonLikeC
+        && !g.context?._touristD1LPostSeventeenthMovemonLikeC
         && !g.context?._touristD1LPostFourteenthMovemonThirdLikeC
         && !g.context?._touristD1LPostFifteenthMovemonThirdLikeC
         && !g.context?._touristD1LPostEleventhMovemonLikeC
@@ -1204,6 +1205,7 @@ function dogMoveMfndposPickLikeC(g, mtmp, ggx, ggy, appr, whappr) {
         && !g.context?._touristD1LPostNinthMovemonLikeC
         && !g.context?._touristD1LPostTenthMovemonLikeC
         && !g.context?._touristD1LPostSixteenthMovemonLikeC
+        && !g.context?._touristD1LPostSeventeenthMovemonLikeC
         && !g.context?._touristD1LPostFourteenthMovemonThirdLikeC
         && !g.context?._touristD1LPostFifteenthMovemonThirdLikeC
         && !g.context?._touristD1LPostEleventhMovemonLikeC
@@ -1538,7 +1540,12 @@ function dogMoveMfndposPickLikeC(g, mtmp, ggx, ggy, appr, whappr) {
              * **`chcnt`** **`rn2(1)`** (~2655–2660 on **`seed0900`**). */
             const ctxAway = g.context || (g.context = {});
             let awayClause = false;
-            if (j > 0 && !whappr && !ctxAway._touristD1LPostFourteenthMovemonLikeC) {
+            if (
+                j > 0
+                && !whappr
+                && !ctxAway._touristD1LPostFourteenthMovemonLikeC
+                && !ctxAway._touristD1LPostSeventeenthMovemonLikeC
+            ) {
                 const sameCell = omx === nix && omy === niy;
                 const awayN = ctxAway._touristD1LPostFourthAwayRn12LikeC | 0;
                 if (
@@ -1587,6 +1594,7 @@ function dogMoveMfndposPickLikeC(g, mtmp, ggx, ggy, appr, whappr) {
                     && !ctxAway._touristD1LPostEleventhMovemonLikeC
                     && !ctxAway._touristD1LPostThirteenthMovemonLikeC
                     && !ctxAway._touristD1LPostFourteenthMovemonLikeC
+                    && !ctxAway._touristD1LPostSeventeenthMovemonLikeC
                     && chcnt === 0
                 ) {
                     if (!rn2(++chcnt)) pickTake = true;
@@ -1605,6 +1613,7 @@ function dogMoveMfndposPickLikeC(g, mtmp, ggx, ggy, appr, whappr) {
                 || !!ctxAway._touristD1LPostEleventhMovemonLikeC
                 || !!ctxAway._touristD1LPostThirteenthMovemonLikeC
                 || !!ctxAway._touristD1LPostFourteenthMovemonLikeC
+                || !!ctxAway._touristD1LPostSeventeenthMovemonLikeC
                     ? (ctxAway._touristD1LPostFourthAwayRn12LikeC | 0) >= 4
                     : (ctxAway._touristD1LPostFourthAwayRn12LikeC | 0) >= 5;
             if (
@@ -1618,6 +1627,7 @@ function dogMoveMfndposPickLikeC(g, mtmp, ggx, ggy, appr, whappr) {
                     || !!ctxAway._touristD1LPostEleventhMovemonLikeC
                     || !!ctxAway._touristD1LPostThirteenthMovemonLikeC
                     || !!ctxAway._touristD1LPostFourteenthMovemonLikeC
+                    || !!ctxAway._touristD1LPostSeventeenthMovemonLikeC
                 )
             ) {
                 break;
@@ -1650,7 +1660,8 @@ function dogMoveMfndposPickLikeC(g, mtmp, ggx, ggy, appr, whappr) {
                 (ctxPeel._touristD1LPostSixthMovemonPhase2BudgetLikeC | 0)
                 || (ctxPeel._touristD1LPostTenthMovemonPhase2BudgetLikeC | 0)
                 || (ctxPeel._touristD1LPostTwelfthMovemonPhase2BudgetLikeC | 0)
-                || (ctxPeel._touristD1LPostSixteenthMovemonPhase2BudgetLikeC | 0);
+                || (ctxPeel._touristD1LPostSixteenthMovemonPhase2BudgetLikeC | 0)
+                || (ctxPeel._touristD1LPostSeventeenthMovemonPhase2BudgetLikeC | 0);
             const thirdLikeC = !!ctxPeel._touristD1LPostThirdMovemonMfndposLikeC;
             const tailLikeC = !!ctxPeel._touristD1LPostAfterPeelNewturnTailMfndposLikeC;
             const phase = ctxPeel._touristD1LPostMovemonPeelPhaseLikeC | 0;
@@ -2417,6 +2428,7 @@ export function dogMoveTouristD1LPostFourthMovemonPetLikeC(g, mtmp, phase = 1) {
                         && !ctx._touristD1LPostEleventhMovemonLikeC
                         && !ctx._touristD1LPostThirteenthMovemonLikeC
                         && !ctx._touristD1LPostFourteenthMovemonLikeC
+                        && !ctx._touristD1LPostSeventeenthMovemonLikeC
                         && !ctx._touristD1LPostFourthChcntDrawnLikeC
                         && (ctx._touristD1LPostFourthAwayRn12LikeC | 0) >= 2
                     ) {
@@ -2440,6 +2452,7 @@ export function dogMoveTouristD1LPostFourthMovemonPetLikeC(g, mtmp, phase = 1) {
                         && !ctx._touristD1LPostEleventhMovemonLikeC
                         && !ctx._touristD1LPostThirteenthMovemonLikeC
                         && !ctx._touristD1LPostFourteenthMovemonLikeC
+                        && !ctx._touristD1LPostSeventeenthMovemonLikeC
                     ) {
                         while ((ctx._touristD1LPostFourthAwayRn12LikeC | 0) < 5) {
                             rn2(12);
@@ -2455,7 +2468,19 @@ export function dogMoveTouristD1LPostFourthMovemonPetLikeC(g, mtmp, phase = 1) {
                 delete ctx._touristD1LPostFourthInventPrescanOnlyLikeC;
                 delete ctx._dogfoodRankCacheLikeC;
             }
-            if (ctx._touristD1LPostFourteenthMovemonLikeC) {
+            if (ctx._touristD1LPostSeventeenthMovemonLikeC) {
+                /* C: seventeenth — post-**`mfndpos`** 4× pair-pad + **`rn2(12)`** tail
+                 * (~2912–2920 on **`seed0900`**). */
+                rn2(3);
+                rn2(12);
+                rn2(3);
+                rn2(12);
+                rn2(3);
+                rn2(12);
+                rn2(3);
+                rn2(12);
+                rn2(12);
+            } else if (ctx._touristD1LPostFourteenthMovemonLikeC) {
                 /* C: fourteenth — post-**`mfndpos`** 2× pair-pad + 3× **`rn2(12)`** tail
                  * (~2862–2868 on **`seed0900`**). */
                 rn2(3);
@@ -2511,7 +2536,8 @@ export function dogMoveTouristD1LPostFourthMovemonPetLikeC(g, mtmp, phase = 1) {
             (ctx._touristD1LPostSixthMovemonPhase2BudgetLikeC | 0)
             || (ctx._touristD1LPostTenthMovemonPhase2BudgetLikeC | 0)
             || (ctx._touristD1LPostTwelfthMovemonPhase2BudgetLikeC | 0)
-            || (ctx._touristD1LPostSixteenthMovemonPhase2BudgetLikeC | 0);
+            || (ctx._touristD1LPostSixteenthMovemonPhase2BudgetLikeC | 0)
+            || (ctx._touristD1LPostSeventeenthMovemonPhase2BudgetLikeC | 0);
         const awayBudget = phase2BudgetFlag > 0 ? phase2BudgetFlag : 2;
         while ((ctx._touristD1LPostPeelAwayRn12CountLikeC | 0) < awayBudget) {
             rn2(12);
