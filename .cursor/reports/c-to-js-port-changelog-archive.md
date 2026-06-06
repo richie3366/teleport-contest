@@ -6,6 +6,7 @@ Historical rows moved from `c-to-js-port-progress.md` so day-to-day work uses **
 
 | When | What changed |
 |------|----------------|
+| **2026-06-06** | **Lane A/D `seed0900` run-east `L` post (~2814–2827)** — twelfth **`movemon`** (fourth phase-2 budget 6 + third phase-3 shell only); arm twelfth after eleventh new-turn. Diag **2814–2827**; **~2828** open. **`seed8000`:** **PASS**. **2/44**. |
 | **2026-06-06** | **Lane A/D `seed0900` run-east `L` post (~2792–2813)** — eleventh **`movemon`** (fourth shell, double inter-phase **`distfleeck`**, distant **`m_move`** **`rn2(20)`** + **`distfleeck`**, phase-2); arm eleventh after tenth new-turn; **`dogmove_mon`** ninth/eleventh shared **`mfndpos`** flags. Diag **2792–2813**; **~2814** open. **`seed8000`:** **PASS**. **2/44**. |
 | **2026-06-06** | **Lane A/D `seed0900` run-east `L` post (~2772–2791)** — tenth **`movemon`** (third phase-1/3 **`mfndpos`**, double **`distfleeck`**, fourth phase-2 budget 6, skip-floor **`dog_goal`**); arm tenth after ninth new-turn. Diag **2772–2791**; **~2792** open. **`seed8000`:** **PASS**. **2/44**. |
 | **2026-06-06** | **Lane A/D `seed0900` run-east `L` post (~2753–2771)** — ninth **`movemon`** (fourth shell; awayN==3 loop exit + 2× **`rn2(12)`** tail); arm ninth after eighth new-turn. Diag **2753–2771**; **~2772** open. **`seed8000`:** **PASS**. **2/44**. |
