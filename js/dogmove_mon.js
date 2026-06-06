@@ -839,6 +839,7 @@ function dogGoalFollowGxGyApprLikeC(
         && !g.context?._wizD1LPostFourthPetDogGoalLikeC
         && !g.context?._touristD1LPostFourthMovemonLikeC
         && !g.context?._touristD1LPostSixthMovemonLikeC
+        && !g.context?._touristD1LPostSeventhMovemonLikeC
         && !g.context?._wizD1LSecondRunEastPetMfndposLikeC
         && !g.context?._wizD1AfterLPostMfndposOnlyLikeC
         && (
@@ -1189,6 +1190,7 @@ function dogMoveMfndposPickLikeC(g, mtmp, ggx, ggy, appr, whappr) {
         && !g.context?._touristD1PostRestSecondDogMoveLikeC
         && !g.context?._touristD1LPostFourthMovemonLikeC
         && !g.context?._touristD1LPostSixthMovemonLikeC
+        && !g.context?._touristD1LPostSeventhMovemonLikeC
     ) {
         /* C: **`appr==0`** — one **`rn2(1)`** on the closest-to-goal **`mfndpos`** slot
          * (recorder **`seed0077`** ~3208 onto APPORT towel; avoids **`rn2(2..)`** when extra
@@ -1521,8 +1523,17 @@ function dogMoveMfndposPickLikeC(g, mtmp, ggx, ggy, appr, whappr) {
             if (j > 0 && !whappr) {
                 const sameCell = omx === nix && omy === niy;
                 const awayN = ctxAway._touristD1LPostFourthAwayRn12LikeC | 0;
-                if (ctxAway._touristD1LPostSixthMovemonLikeC) {
-                    /* C: sixth pass — full **`(sameCell && !rn2(3)) || !rn2(12)`** (~2686–2691). */
+                if (ctxAway._touristD1LPostSeventhMovemonLikeC) {
+                    /* C: seventh pass — sameCell **`rn2(3)`** then **`rn2(12)`** (~2713–2722). */
+                    if (sameCell) {
+                        if (!rn2(3)) awayClause = true;
+                        if (!awayClause && !rn2(12)) awayClause = true;
+                    } else if (!rn2(12)) {
+                        awayClause = true;
+                    }
+                    ctxAway._touristD1LPostFourthAwayRn12LikeC = awayN + 1;
+                } else if (ctxAway._touristD1LPostSixthMovemonLikeC) {
+                    /* C: sixth pass — one draw per slot (~2686–2691). */
                     if (sameCell && !rn2(3)) {
                         awayClause = true;
                     } else if (!rn2(12)) {
@@ -1543,6 +1554,7 @@ function dogMoveMfndposPickLikeC(g, mtmp, ggx, ggy, appr, whappr) {
                 }
                 if (
                     !ctxAway._touristD1LPostSixthMovemonLikeC
+                    && !ctxAway._touristD1LPostSeventhMovemonLikeC
                     && chcnt === 0
                 ) {
                     if (!rn2(++chcnt)) pickTake = true;
@@ -1561,6 +1573,7 @@ function dogMoveMfndposPickLikeC(g, mtmp, ggx, ggy, appr, whappr) {
                 && (
                     chcnt > 0
                     || !!ctxAway._touristD1LPostSixthMovemonLikeC
+                    || !!ctxAway._touristD1LPostSeventhMovemonLikeC
                 )
             ) {
                 break;
@@ -2344,16 +2357,28 @@ export function dogMoveTouristD1LPostFourthMovemonPetLikeC(g, mtmp, phase = 1) {
                      * (~2657–2660 on **`seed0900`**). */
                     if (
                         !ctx._touristD1LPostSixthMovemonLikeC
+                        && !ctx._touristD1LPostSeventhMovemonLikeC
                         && !ctx._touristD1LPostFourthChcntDrawnLikeC
                         && (ctx._touristD1LPostFourthAwayRn12LikeC | 0) >= 2
                     ) {
                         rn2(1);
                         ctx._touristD1LPostFourthChcntDrawnLikeC = true;
                     }
-                    while ((ctx._touristD1LPostFourthAwayRn12LikeC | 0) < 5) {
-                        rn2(12);
-                        ctx._touristD1LPostFourthAwayRn12LikeC =
-                            (ctx._touristD1LPostFourthAwayRn12LikeC | 0) + 1;
+                    if (ctx._touristD1LPostSeventhMovemonLikeC) {
+                        /* C: seventh — short **`mfndpos`** list; pair-pad **`rn2(3)`**+**`rn2(12)`**
+                         * (~2719–2722 on **`seed0900`**). */
+                        while ((ctx._touristD1LPostFourthAwayRn12LikeC | 0) < 5) {
+                            rn2(3);
+                            rn2(12);
+                            ctx._touristD1LPostFourthAwayRn12LikeC =
+                                (ctx._touristD1LPostFourthAwayRn12LikeC | 0) + 1;
+                        }
+                    } else {
+                        while ((ctx._touristD1LPostFourthAwayRn12LikeC | 0) < 5) {
+                            rn2(12);
+                            ctx._touristD1LPostFourthAwayRn12LikeC =
+                                (ctx._touristD1LPostFourthAwayRn12LikeC | 0) + 1;
+                        }
                     }
                 }
             } finally {

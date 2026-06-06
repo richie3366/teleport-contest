@@ -32,7 +32,7 @@ Use this when **`Next steps`** below feels stale or several lanes compete. Order
 
 **Tutorial (Lane E):** Gated on [tutorial port gate](../../docs/plans/tutorial-port-gate.md) **MD-1 … MD-7**.
 
-**Last slice:** **Lane A/D `seed0900` run-east `L` post (~2680–2706)** — diag **2620–2706** match. Sixth **`movemon`** (invent + 2-phase **`mfndpos`**, 4× inter-phase **`distfleeck`**, tail away pad); sixth-specific phase-1 **`mfndpos`** branch; arm after fifth-pass new-turn. **Open:** **~2707** — seventh **`movemon`** (invent + **`mfndpos`**). **`seed8000`:** **PASS**. **2/44**.
+**Last slice:** **Lane A/D `seed0900` run-east `L` post (~2707–2729)** — diag **2620–2729** match. Seventh **`movemon`** (fourth invent/**`mfndpos`** shell, seventh phase-1 pair-pad); arm/skip after sixth new-turn. **Open:** **~2730** — eighth **`movemon`** (same shell). **`seed8000`:** **PASS**. **2/44**.
 
 ## Next steps (aligned with matrix)
 
@@ -40,7 +40,7 @@ Pick **one** primary lane per **batch** (several related C functions — see che
 
 **First:** open [`docs/plans/tutorial-port-gate.md`](../../docs/plans/tutorial-port-gate.md) — if **all MD-1 … MD-7** are checked, do **Lane E** step 1 from [10-tutorial.md](../plans/nethack-port/10-tutorial.md) instead of the list below.
 
-1. **Lane A/D — `seed0900` ~2707** — seventh **`movemon`** ( **`distfleeck`** + 5× invent + **`mfndpos`** ~2707–2723). Diag **2707–2750**; mirror sixth-pass arm/skip pattern.
+1. **Lane A/D — `seed0900` ~2730** — eighth **`movemon`** (**`distfleeck`** + 5× invent + **`mfndpos`** ~2730–2748). Diag **2730–2770**; mirror seventh arm/skip pattern.
 2. **Lane A — `seed0102` screen 0** — D:1 map + botl after mklev parity.
 3. **Lane C — `seed0006` ~2892** — capital **`K`** moveloop tail; screen **35** botl (**`find_ac`** / time).
 4. **Lane B — NHL** — next **`lspo_*`** per [`nhl-port-notes.md`](nhl-port-notes.md).
