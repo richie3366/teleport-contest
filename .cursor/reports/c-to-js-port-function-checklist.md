@@ -95,11 +95,11 @@ Align batches with [`c-to-js-port-remaining.md`](c-to-js-port-remaining.md) §5:
 
 | C symbol / area | JS module | Status | Notes |
 |-----------------|-----------|--------|-------|
-| `movemon` / `dochug` | `monmove.js`, `fmon_iter.js`, `moveloop_turn_advance.js` | partial | Third post-rest **`movemon`** peel (~2575–2581); tourist **`L`** post scaffold; **`seed0900`** **2568–2581**; **~2582** surplus **`mcalcmove`** |
+| `movemon` / `dochug` | `monmove.js`, `fmon_iter.js`, `moveloop_turn_advance.js` | partial | Tourist **`L`** post peel before outer **`mcalcmove`**; **`seed0900`** **2568–2590**; **~2591** post-**`L`** **`distfleeck`** |
 | `m_move` / `mfndpos` | `m_move_mon.js`, `mfndpos.js` | partial | Second post-rest mklev interrupt **`mMoveTouristD1PostRestSecondMklevInterruptLikeC`** (**`rn2(32)`** ~2528); **`seed0900`** **~2545** post-**`mcalcmove`** drift |
 | `distfleeck` | `distfleeck_mon.js` | partial | Peel-only rest **`distfleeck`** (**`_touristD1PostSwapRestDistfleeckPeelLikeC`**); 3× ~915 before stub; **`seed0900`** **2499–2504** |
 | `m_throw` | — | missing | |
-| `dogmove` | `dogmove_mon.js` | partial | **`dogMoveTouristD1LPostPetLikeC`** (**`corpse_chance`**/**`grow_up`** peel); third **`movemon`** stub (~2576–2581); **`seed0900`** **~2582** open |
+| `dogmove` | `dogmove_mon.js` | partial | **`touristD1LPostPeelBeforeOuterLoopLikeC`** (**`corpse_chance`**/**`grow_up`**/**`distfleeck`** ~2582–2584); **`seed0900`** **2568–2590**; **~2591** **`movemon`** peel |
 | `grow_up` | `makemon.js` | partial | Victim-kill HP subset (**`rnd(victim.m_lev+1)`**, **`rn2`** gain); tourist **`L`** peel |
 | `corpse_chance` | `uhitm_hero.js` | partial | Exported **`corpseChanceLikeC`**; tourist **`L`** **`mattackm`** kill tail |
 | `score_targ` / `best_target` / `pet_ranged_attk` | `dogmove_mon.js` | partial | C **`dogmove.c`** ~738–966; moveloop peel + second-pass **`rnd(5)`**/**`rn2(5)`** tail; **`mattackm`** TODO |
@@ -111,7 +111,7 @@ Align batches with [`c-to-js-port-remaining.md`](c-to-js-port-remaining.md) §5:
 
 | C symbol / area | JS module | Status | Notes |
 |-----------------|-----------|--------|-------|
-| `moveloop` / post-hero `movemon` | `moveloop_turn_advance.js`, `moveloop_aux.js` | partial | **`touristD1LPostPeelBeforeOuterLoopLikeC`**; **`_touristD1PostRestSecondOuterMoveloopDoneLikeC`** new-turn guard; **`seed0900`** **2568–2581** |
+| `moveloop` / post-hero `movemon` | `moveloop_turn_advance.js`, `moveloop_aux.js` | partial | **`allmain`** promote **`_touristD1LPostArmedLikeC`→pending** before post; **`seed0900`** **2568–2590**; **~2591** **`distfleeck`** |
 | `dosounds` / exercise hooks | `moveloop_aux.js` | stub | |
 
 ---

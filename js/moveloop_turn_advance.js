@@ -262,6 +262,13 @@ function shouldDeferNewTurnAfterMovemonLikeC(g) {
  * @param {import('./gstate.js').game} g
  */
 async function touristD1LPostPeelBeforeOuterLoopLikeC(g) {
+    if (
+        g.context?._touristD1LPostArmedLikeC
+        && !g.context?._touristD1LPostMovemonPendingLikeC
+    ) {
+        g.context._touristD1LPostMovemonPendingLikeC = true;
+        delete g.context._touristD1LPostArmedLikeC;
+    }
     if (!g.context?._touristD1LPostMovemonPendingLikeC) return;
     const pet = (g.level?.monsters ?? []).find((m) => (m.mtame | 0) !== 0);
     const victim = (g.level?.monsters ?? []).find(
