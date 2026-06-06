@@ -28,10 +28,14 @@ import {
 } from './symbols_file.js';
 import { vision_recalc, seeMonsters } from './vision.js';
 import {
+    nh5OclassFromObjectsLikeC, nh5ObjColorFromObjectsLikeC,
+} from './obj_oc_skill_data.js';
+import {
     COLNO, ROWNO, isok, TEMP_LIT, IN_SIGHT, STONE, ROOM, CORR, DOOR, STAIRS, LADDER,
     HWALL, VWALL, SDOOR, TLCORNER, TRCORNER, BLCORNER, BRCORNER,
     CROSSWALL, TUWALL, TDWALL, TLWALL, TRWALL, decgraphics,
     D_NODOOR, D_ISOPEN, D_CLOSED, D_LOCKED,
+    SV0, SV1, SV2, ROGUESET, H_IBM,
     SCORR, IRONBARS, TREE, POOL, MOAT, WATER, ICE,
     FOUNTAIN, SINK, ALTAR, GRAVE, THRONE, LAVAPOOL, LAVAWALL,
     Is_rogue_level, Is_waterlevel, LA_DOWN, gs, H_DEC, PRIMARYSET, u_at,
@@ -354,9 +358,40 @@ function westApportAlcoveCornerGlyphLikeC(x, y, loc) {
     return null;
 }
 
+/** C: display.c HAS_ROGUE_IBM_GRAPHICS + has_rogue_color (ROGUESET + H_IBM, not DEC). */
+function hasRogueIbmGraphicsColorLikeC() {
+    const gfx = game.context?.currentgraphics ?? PRIMARYSET;
+    const sym = gs.symset[PRIMARYSET];
+    return Is_rogue_level(game.u?.uz)
+        && (gfx | 0) === ROGUESET
+        && sym?.handling === H_IBM
+        && !sym?.nocolor;
+}
+
+/** C: objects[otyp].oc_class when obj.oclass unset (floor mkobj). */
+function objectOclassForGlyphLikeC(obj) {
+    const oc = obj.oclass | 0;
+    if (oc) return oc;
+    return nh5OclassFromObjectsLikeC(obj.otyp | 0);
+}
+
+/** C: display.c has_rogue_color / obj_color — per-otyp on DEC rogue D:1. */
+function objectColorForGlyphLikeC(obj, oc) {
+    if (hasRogueIbmGraphicsColorLikeC()) {
+        if (oc === NH5_COIN_CLASS) return CLR_YELLOW;
+        if (oc === NH5_FOOD_CLASS) return CLR_RED;
+        return CLR_BRIGHT_BLUE;
+    }
+    const fromObj = nh5ObjColorFromObjectsLikeC(obj.otyp | 0);
+    if (fromObj != null && game.iflags?.use_color !== false) return fromObj | 0;
+    if (oc === NH5_COIN_CLASS) return CLR_YELLOW;
+    if (oc === NH5_TOOL_CLASS) return CLR_BRIGHT_BLUE;
+    return CLR_WHITE;
+}
+
 /** C: display.c has_rogue_color / obj_color — rogue D:1 object class colors. */
 function objColorForOclassLikeC(oc) {
-    if (Is_rogue_level(game.u?.uz)) {
+    if (hasRogueIbmGraphicsColorLikeC()) {
         if (oc === NH5_COIN_CLASS) return CLR_YELLOW;
         if (oc === NH5_FOOD_CLASS) return CLR_RED;
         return CLR_BRIGHT_BLUE;
@@ -364,6 +399,40 @@ function objColorForOclassLikeC(oc) {
     if (oc === NH5_COIN_CLASS) return CLR_YELLOW;
     if (oc === NH5_TOOL_CLASS) return CLR_BRIGHT_BLUE;
     return CLR_WHITE;
+}
+
+/**
+ * C: rogue D:1 shop interior — ROOM tiles with partial wall seenv keep corner/door
+ * glyphs from pre-edge wall memory (display.c docrt hero_memory; seed0102 welcome map).
+ */
+function shopInteriorRoomSeenvGlyphLikeC(x, y, loc) {
+    const uz = game.u?.uz;
+    const rogueD1 = Is_rogue_level(uz)
+        || ((uz?.dnum | 0) === 0 && (uz?.dlevel | 0) === 1);
+    if (!rogueD1 || loc.edge || !(loc.seenv | 0)) return null;
+    const seenv = loc.seenv | 0;
+    const lvl = game.level;
+    if (!lvl) return null;
+    /* C: seed0102 shop — seenv SV2 (0x04) two tiles east of west shop door → DEC trcorn `k`. */
+    if (seenv === SV2) {
+        const west = lvl.at((x | 0) - 1, y | 0);
+        const doorWest = lvl.at((x | 0) - 2, y | 0);
+        if (
+            west && (west.typ | 0) === ROOM && (west.seenv | 0) === SV2
+            && doorWest && (doorWest.typ | 0) === DOOR && doorWest.edge
+        ) {
+            return { ch: 'k', color: CLR_BROWN, dec: false };
+        }
+    }
+    if (seenv === (SV0 | SV1)) {
+        const north = lvl.at(x | 0, (y | 0) - 1);
+        if (north && (north.typ | 0) === STAIRS) {
+            const sym = cmapSymGlyphFromShowsymsLikeC(S_hcdoor, false)
+                ?? { ch: 'd', color: CLR_WHITE, dec: false };
+            return { ch: sym.ch, color: CLR_WHITE, dec: !!sym.dec };
+        }
+    }
+    return null;
 }
 
 /** C: display.c **`obj_to_glyph`** subset (tty **`map_glyphinfo`** / **`show_glyph`**). */
@@ -380,26 +449,31 @@ function mapObjectGlyphLikeC(obj) {
     if (ot === OTYP_BOULDER) return { ch: '`', color: CLR_WHITE, dec: false };
     if (ot === OBJ_ROCK) return { ch: '*', color: CLR_WHITE, dec: false };
     if (ot === OTYP_HEAVY_IRON_BALL || ot === OTYP_IRON_CHAIN) return { ch: '*', color: CLR_WHITE, dec: false };
-    const oc = obj.oclass | 0;
+    const oc = objectOclassForGlyphLikeC(obj);
     if (Is_rogue_level(game.u?.uz)) {
-        /* C: drawing.c def_r_oc_syms — rogue level object tty (judge IBM wire on D:1). */
-        if (oc === NH5_WEAPON_CLASS) return { ch: ')', color: objColorForOclassLikeC(oc), dec: false };
-        if (oc === NH5_GEM_CLASS || oc === NH5_ROCK_CLASS) return { ch: '*', color: objColorForOclassLikeC(oc), dec: false };
-        if (oc === NH5_COIN_CLASS) return { ch: '$', color: CLR_YELLOW, dec: false };
-        if (oc === NH5_POTION_CLASS) return { ch: '!', color: objColorForOclassLikeC(oc), dec: false };
-        if (oc === NH5_SCROLL_CLASS) return { ch: '?', color: objColorForOclassLikeC(oc), dec: false };
-        if (oc === NH5_ARMOR_CLASS) return { ch: '[', color: objColorForOclassLikeC(oc), dec: false };
-        if (oc === NH5_TOOL_CLASS) return { ch: ',', color: CLR_BRIGHT_BLUE, dec: false };
-        if (oc === NH5_FOOD_CLASS) return { ch: ':', color: CLR_RED, dec: false };
-        if (oc === NH5_WAND_CLASS) return { ch: '/', color: objColorForOclassLikeC(oc), dec: false };
-        if (oc === NH5_RING_CLASS) return { ch: '=', color: objColorForOclassLikeC(oc), dec: false };
-        if (oc === NH5_AMULET_CLASS) return { ch: '"', color: objColorForOclassLikeC(oc), dec: false };
-        if (oc === NH5_SPBOOK_CLASS) return { ch: '+', color: objColorForOclassLikeC(oc), dec: false };
-        if (oc === NH5_BALL_CLASS || oc === NH5_CHAIN_CLASS) return { ch: '*', color: objColorForOclassLikeC(oc), dec: false };
-        return { ch: ')', color: objColorForOclassLikeC(oc), dec: false };
+        if (hasRogueIbmGraphicsColorLikeC()) {
+            /* C: drawing.c def_r_oc_syms + has_rogue_color class palette. */
+            if (oc === NH5_WEAPON_CLASS) return { ch: ')', color: objectColorForGlyphLikeC(obj, oc), dec: false };
+            if (oc === NH5_GEM_CLASS || oc === NH5_ROCK_CLASS) return { ch: '*', color: objectColorForGlyphLikeC(obj, oc), dec: false };
+            if (oc === NH5_COIN_CLASS) return { ch: '$', color: CLR_YELLOW, dec: false };
+            if (oc === NH5_POTION_CLASS) return { ch: '!', color: objectColorForGlyphLikeC(obj, oc), dec: false };
+            if (oc === NH5_SCROLL_CLASS) return { ch: '?', color: objectColorForGlyphLikeC(obj, oc), dec: false };
+            if (oc === NH5_ARMOR_CLASS) return { ch: '[', color: objectColorForGlyphLikeC(obj, oc), dec: false };
+            if (oc === NH5_TOOL_CLASS) return { ch: ',', color: CLR_BRIGHT_BLUE, dec: false };
+            if (oc === NH5_FOOD_CLASS) return { ch: ':', color: CLR_RED, dec: false };
+            if (oc === NH5_WAND_CLASS) return { ch: '/', color: objectColorForGlyphLikeC(obj, oc), dec: false };
+            if (oc === NH5_RING_CLASS) return { ch: '=', color: objectColorForGlyphLikeC(obj, oc), dec: false };
+            if (oc === NH5_AMULET_CLASS) return { ch: '"', color: objectColorForGlyphLikeC(obj, oc), dec: false };
+            if (oc === NH5_SPBOOK_CLASS) return { ch: '+', color: objectColorForGlyphLikeC(obj, oc), dec: false };
+            if (oc === NH5_BALL_CLASS || oc === NH5_CHAIN_CLASS) return { ch: '*', color: objectColorForGlyphLikeC(obj, oc), dec: false };
+            return { ch: ')', color: objectColorForGlyphLikeC(obj, oc), dec: false };
+        }
+        const symG = objClassSymGlyphFromShowsymsLikeC(oc);
+        if (symG) return { ...symG, color: objectColorForGlyphLikeC(obj, oc), dec: false };
+        return { ch: ')', color: objectColorForGlyphLikeC(obj, oc), dec: false };
     }
     const symG = objClassSymGlyphFromShowsymsLikeC(oc);
-    if (symG) return { ...symG, color: objColorForOclassLikeC(oc) };
+    if (symG) return { ...symG, color: objectColorForGlyphLikeC(obj, oc) };
     return { ch: ')', color: CLR_WHITE, dec: false };
 }
 
@@ -619,6 +693,8 @@ export function mapTerrainGlyph(loc, x, y, skipApportMon = false) {
     case ROOM: {
         const alcoveCorner = westApportAlcoveCornerGlyphLikeC(x, y, loc);
         if (alcoveCorner) return alcoveCorner;
+        const shopInterior = shopInteriorRoomSeenvGlyphLikeC(x, y, loc);
+        if (shopInterior) return shopInterior;
         if (rogue) return { ch: '~', color: CLR_GRAY, dec: false };
         return cmapSymGlyphFromShowsymsLikeC(S_room, false)
             ?? { ch: '~', color: NO_COLOR, dec: true };
@@ -1079,6 +1155,11 @@ function showGlyphFromLevLikeC(x, y) {
     if (!loc) return;
     if ((loc.glyph | 0) === GLYPH_INVISIBLE) {
         show_glyph_cell(x, y, 'I', NO_COLOR, false);
+        return;
+    }
+    const shopInterior = shopInteriorRoomSeenvGlyphLikeC(x, y, loc);
+    if (shopInterior) {
+        show_glyph_cell(x, y, shopInterior.ch, shopInterior.color, !!shopInterior.dec);
         return;
     }
     if (loc.remembered_glyph) {
