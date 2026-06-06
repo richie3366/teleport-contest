@@ -83,6 +83,7 @@ import {
 } from './dogmove_mon.js';
 import {
     isWizardD1Step1PeelLikeC,
+    rangerD1FirstSearchNoNearMonLikeC,
     wizD1EastTailShortLActiveLikeC,
 } from './monmove_search.js';
 import { raceptr, S_EEL } from './mondata.js';
@@ -95,6 +96,7 @@ export {
     effectiveMovemonStepNumLikeC,
     isFirstSearchMovemonPassLikeC,
     isSecondSearchMovemonPassLikeC,
+    rangerD1FirstSearchNoNearMonLikeC,
     rogueSecondSearchFullFmonLikeC,
 } from './monmove_search.js';
 
@@ -178,12 +180,17 @@ export async function movemon(stepNum) {
     const rogueLike =
         g.urole?.abbr === 'Rog'
         || g.pl_character === 'Rogue'
-        || (g.urole?.mnum | 0) === 8;
+        || (g.urole?.mnum | 0) === 7;
     /* C: rogue near mklev peel — only on **`#search`** passes (cmd sets flags; do not arm on every movemon). */
     if (isFirstSearchMovemonPassLikeC(g)) {
         const nearHostile = findFirstSearchRogMidMklevHostileLikeC(g);
+        const rangerLike =
+            g.urole?.abbr === 'Ran'
+            || g.pl_character === 'Ranger'
+            || (g.urole?.mnum | 0) === 8;
         g.context._searchPass1NearMonLikeC =
-            rogueLike || searchPass1NearMonLikeC(g) || !!nearHostile;
+            !rangerLike
+            && (rogueLike || searchPass1NearMonLikeC(g) || !!nearHostile);
     } else if (rogueLike && !(g.context?._searchStep11Passes | 0)) {
         delete g.context._searchPass1NearMonLikeC;
     }
@@ -816,6 +823,31 @@ export async function movemon(stepNum) {
                     continue;
                 }
                 await movemonSinglemonLikeC(g, m, effStepNum);
+                if (rangerD1FirstSearchNoNearMonLikeC(g, effStepNum) && (m.mtame | 0)) {
+                    if (g.context?._rangerFirstSearchPetFirstPassDoneLikeC) {
+                        g.context._rangerFirstSearchPetSecondPassDoneLikeC = true;
+                    }
+                    g.context._rangerFirstSearchPetFirstPassDoneLikeC = true;
+                }
+            }
+            /* C: ranger D:1 first **`#search`** — second pet **`dog_move`** before **`mcalcmove`**
+             * (**`seed0102`** ~4456; C **`monscanmove`** re-entry). */
+            if (
+                rangerD1FirstSearchNoNearMonLikeC(g, effStepNum)
+                && g.context?._rangerFirstSearchPetFirstPassDoneLikeC
+                && !g.context?._rangerFirstSearchPetSecondPassDoneLikeC
+            ) {
+                const petSecond = (g.level?.monsters ?? []).find(
+                    (m) => (m.mtame | 0) !== 0,
+                );
+                if (petSecond) {
+                    if ((petSecond.movement | 0) < NORMAL_SPEED) {
+                        petSecond.movement = NORMAL_SPEED;
+                    }
+                    await movemonSinglemonLikeC(g, petSecond, effStepNum);
+                    g.context._rangerFirstSearchPetSecondPassDoneLikeC = true;
+                    delete g.context._somebodyCanMoveLikeC;
+                }
             }
             /* C: tourist D:1 peaceful swap — pet ~915 **`distfleeck`** then **`mfndpos`** resume
              * after mklev tail (**`seed0900`** ~2491–2492). */
@@ -2728,8 +2760,12 @@ export async function movemon(stepNum) {
     if ((stepNum | 0) === 1 && g.context?._searchPass1NearMonLikeC) {
         return false;
     }
-    /* C: one **`fmon`** pass per **`#search`** (no **`monscanmove`** re-entry on low **`movemonStepNum`**). */
+    /* C: ranger D:1 first **`#search`** (no near peel) — **`monscanmove`** re-entry for twin pet **`dog_move`**. */
     if (isFirstSearchMovemonPassLikeC(g)) {
+        if (g.context?._searchPass1NearMonLikeC) return false;
+        if (rangerD1FirstSearchNoNearMonLikeC(g, stepNum)) {
+            return !!(g.context?._somebodyCanMoveLikeC);
+        }
         return false;
     }
     if (isSecondSearchMovemonPassLikeC(g) && !rogueSecondSearchFullFmonLikeC(g)) {

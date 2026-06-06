@@ -94,6 +94,7 @@ import {
     isRogFirstSearchStepOnePeelLikeC,
     isRogueColonMovemonActiveLikeC,
     isSecondSearchMovemonPassLikeC,
+    rangerD1FirstSearchNoNearMonLikeC,
     rogueSecondSearchFullFmonLikeC,
 } from './monmove_search.js';
 
@@ -991,6 +992,29 @@ async function wizD1EastTailAfterMcalcmoveSinglemonLikeC(g, mtmp, stepNum) {
 
 export async function movemonSinglemonLikeC(g, mtmp, stepNum = 0) {
     if (!mtmp || (mtmp.mhp | 0) <= 0) return;
+    /* C: ranger D:1 first **`#search`** — pet **`distfleeck`** + **`dog_move`** before any peel path. */
+    if (
+        rangerD1FirstSearchNoNearMonLikeC(g, stepNum)
+        && (mtmp.mtame | 0)
+        && has_edog(mtmp)
+        && !g.context?._rangerFirstSearchPetSecondPassDoneLikeC
+    ) {
+        let mov = mtmp.movement | 0;
+        if (mov < NORMAL_SPEED) {
+            mtmp.movement = NORMAL_SPEED;
+            mov = NORMAL_SPEED;
+        }
+        mtmp.movement = mov - NORMAL_SPEED;
+        const u = g.u;
+        if (u) {
+            mtmp.mux = u.ux | 0;
+            mtmp.muy = u.uy | 0;
+        }
+        setApparxyMonsterLikeC(g, mtmp);
+        await distfleeckMonsterApplyLikeC(g, mtmp);
+        dogMoveLikeC(g, mtmp);
+        return;
+    }
     if (
         g.urole?.abbr === 'Tou'
         && g.context?._touristD1PostRestSecondMovemonLikeC
@@ -1202,7 +1226,9 @@ export async function movemonSinglemonLikeC(g, mtmp, stepNum = 0) {
         const peelMon =
             eastMklevFirstLAfterBLikeC(g, mtmp) || mtmp === findDistantMklevMonLikeC(g);
         const midMklevHostile = firstSearchNearMklevHostileLikeC(g, mtmp);
-        if (!peelMon && !midMklevHostile) return;
+        const rangerPet =
+            rangerD1FirstSearchNoNearMonLikeC(g, stepNum) && (mtmp.mtame | 0);
+        if (!peelMon && !midMklevHostile && !rangerPet) return;
     }
     if (
         (g.context?._searchStep11Passes | 0) === 2
@@ -3079,6 +3105,7 @@ export async function mMoveOneMonsterSubsetLikeC(g, mtmp, stepNum = 0) {
     } else if (
         isFirstSearchMovemonPassLikeC(g)
         && !g.context?._postBumpKillDochugGateLikeC
+        && !rangerD1FirstSearchNoNearMonLikeC(g, stepNum)
     ) {
         if (!g.context?._searchPass1NearMonLikeC) {
             if (mtmp === findDistantMklevMonLikeC(g)) {

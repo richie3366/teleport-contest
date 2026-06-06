@@ -105,7 +105,12 @@ export async function rhack(key) {
             /* C: post-`dofire` getdir — moveloop tail on inventory ESC nhgetch (~seed0102 step 14). */
             if (game.context?._dofireAwaitEscMoveloopLikeC) {
                 delete game.context._dofireAwaitEscMoveloopLikeC;
-                await runPostCommandTurnAdvanceLikeC(game);
+                game.context._dofireEscMoveloopPeelOnlyLikeC = true;
+                try {
+                    await runPostCommandTurnAdvanceLikeC(game);
+                } finally {
+                    delete game.context._dofireEscMoveloopPeelOnlyLikeC;
+                }
             }
         } else if (game._overlayScreen) {
             game._overlayScreen = null;
@@ -294,10 +299,15 @@ export async function rhack(key) {
             const rogueLike =
                 game.urole?.abbr === 'Rog'
                 || game.pl_character === 'Rogue'
-                || (game.urole?.mnum | 0) === 8;
+                || (game.urole?.mnum | 0) === 7;
             const nearHostile = findFirstSearchRogMidMklevHostileLikeC(game);
+            const rangerLike =
+                game.urole?.abbr === 'Ran'
+                || game.pl_character === 'Ranger'
+                || (game.urole?.mnum | 0) === 8;
             game.context._searchPass1NearMonLikeC =
-                rogueLike || searchPass1NearMonLikeC(game) || !!nearHostile;
+                !rangerLike
+                && (rogueLike || searchPass1NearMonLikeC(game) || !!nearHostile);
             if (nearHostile) {
                 disturbMonsterLikeC(game, nearHostile);
                 if ((nearHostile.msleeping | 0)) nearHostile.msleeping = 0;
@@ -310,7 +320,7 @@ export async function rhack(key) {
         const rogueLike =
             game.urole?.abbr === 'Rog'
             || game.pl_character === 'Rogue'
-            || (game.urole?.mnum | 0) === 8;
+            || (game.urole?.mnum | 0) === 7;
         /* C: twin `#search` — blank topline before second search; single search retains trap msg. */
         if (nextCh === 's') {
             clearPendingMessageAndToplineLikeC();

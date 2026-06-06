@@ -314,6 +314,8 @@ export async function moveloop_core() {
                 await runPostCommandTurnAdvanceLikeC(g);
             }
             delete g.context._touristD1SearchInlinePostCompleteLikeC;
+        } else if (g.context._dofireAwaitEscMoveloopLikeC) {
+            /* C: dothrow.c dofire — defer moveloop until getdir ESC nhgetch (~seed0102 step 14). */
         } else if (skipPostForBlockedRunLikeC) {
             /* C: run into closed door (no autoopen) — no monster post before lowercase move/autoopen. */
             delete g.context._wizD1BlockedRunNoTimeLikeC;
