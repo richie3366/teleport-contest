@@ -2196,7 +2196,8 @@ export async function movemon(stepNum) {
             delete g.context._touristD1LPostEighteenthMovemonPendingLikeC;
         }
         /* C: tourist D:1 run-east **`L`** — nineteenth **`movemon`** after eighteenth-pass new-turn
-         * (**`seed0900`** ~2955–2960). Sixteenth opening — **`distfleeck`** + third phase-1 ×5. */
+         * (**`seed0900`** ~2955–2978). Fourteenth-style shell — third phase-1 ×7 + double
+         * **`distfleeck`**; fourth invent/**`mfndpos`** (1× pair-pad + **`chcnt`** + 3× tail) + phase-2. */
         if (
             g.urole?.abbr === 'Tou'
             && (g.u?.uz?.dnum | 0) === 0
@@ -2224,7 +2225,7 @@ export async function movemon(stepNum) {
             if (pet) {
                 spendPetMoveLikeC(pet);
                 g.context._touristD1LPostNineteenthMovemonThirdLikeC = true;
-                g.context._touristD1LPostNineteenthMovemonThirdPhase1BudgetLikeC = 5;
+                g.context._touristD1LPostNineteenthMovemonThirdPhase1BudgetLikeC = 7;
                 g.context._touristD1LPostFourthSkipFloorResistsLikeC = true;
                 try {
                     dogMoveTouristD1LPostThirdMovemonPetLikeC(g, pet, 1);
@@ -2232,6 +2233,33 @@ export async function movemon(stepNum) {
                     delete g.context._touristD1LPostFourthSkipFloorResistsLikeC;
                     delete g.context._touristD1LPostNineteenthMovemonThirdLikeC;
                     delete g.context._touristD1LPostNineteenthMovemonThirdPhase1BudgetLikeC;
+                }
+            }
+            if (distfleeckTarget) {
+                setApparxyMonsterLikeC(g, distfleeckTarget);
+                await distfleeckMonsterApplyLikeC(g, distfleeckTarget);
+                await distfleeckMonsterApplyLikeC(g, distfleeckTarget);
+            }
+            if (pet) {
+                spendPetMoveLikeC(pet);
+                g.context._touristD1LPostNineteenthMovemonLikeC = true;
+                try {
+                    dogMoveTouristD1LPostFourthMovemonPetLikeC(g, pet, 1);
+                } finally {
+                    delete g.context._touristD1LPostNineteenthMovemonLikeC;
+                }
+            }
+            if (distfleeckTarget) {
+                setApparxyMonsterLikeC(g, distfleeckTarget);
+                await distfleeckMonsterApplyLikeC(g, distfleeckTarget);
+            }
+            if (pet) {
+                spendPetMoveLikeC(pet);
+                g.context._touristD1LPostFourthSkipFloorResistsLikeC = true;
+                try {
+                    dogMoveTouristD1LPostFourthMovemonPetLikeC(g, pet, 2);
+                } finally {
+                    delete g.context._touristD1LPostFourthSkipFloorResistsLikeC;
                 }
             }
             g.context._touristD1LPostNineteenthMovemonCompleteLikeC = true;

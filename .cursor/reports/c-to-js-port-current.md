@@ -32,7 +32,7 @@ Use this when **`Next steps`** below feels stale or several lanes compete. Order
 
 **Tutorial (Lane E):** Gated on [tutorial port gate](../../docs/plans/tutorial-port-gate.md) **MD-1 … MD-7**.
 
-**Last slice:** **Lane A/D `seed0900` run-east `L` post (~2936–2960)** — diag **2936–2960** match. Eighteenth **`movemon`** (fifteenth shell — fourth invent/**`mfndpos`** 2× pair-pad + 2× tail + single **`distfleeck`** + fourth phase-2); arm eighteenth after seventeenth new-turn; partial nineteenth opening (**`distfleeck`** + third phase-1 ×5) through **2960**. **Open:** **~2961** — nineteenth **`movemon`** tail. **`seed8000`:** **PASS**. **2/44**.
+**Last slice:** **Lane A/D `seed0900` run-east `L` post (~2955–2978)** — diag **2961–2982** match. Nineteenth **`movemon`** (fourteenth-style shell — third phase-1 ×7 + double **`distfleeck`**; fourth invent/**`mfndpos`** 1× pair-pad + **`chcnt`** + 3× tail + fourth phase-2). **Open:** **~2983** — twentieth **`movemon`**. **`seed8000`:** **PASS**. **2/44**.
 
 ## Next steps (aligned with matrix)
 
@@ -40,7 +40,7 @@ Pick **one** primary lane per **batch** (several related C functions — see che
 
 **First:** open [`docs/plans/tutorial-port-gate.md`](../../docs/plans/tutorial-port-gate.md) — if **all MD-1 … MD-7** are checked, do **Lane E** step 1 from [10-tutorial.md](../plans/nethack-port/10-tutorial.md) instead of the list below.
 
-1. **Lane A/D — `seed0900` ~2961** — nineteenth **`movemon`** peel (sixteenth shell tail after opening ×5; double **`distfleeck`** + fourth phase-2 budget 4 + third phase-3). Diag **2961–2985**.
+1. **Lane A/D — `seed0900` ~2983** — twentieth **`movemon`** peel (seventeenth shell — fourth invent/**`mfndpos`** + double **`distfleeck`** + phase-2 budget 6 + phase-3). Diag **2983–3010**.
 2. **Lane A — `seed0102` screen 0** — D:1 map + botl after mklev parity.
 3. **Lane C — `seed0006` ~2892** — capital **`K`** moveloop tail; screen **35** botl (**`find_ac`** / time).
 4. **Lane B — NHL** — next **`lspo_*`** per [`nhl-port-notes.md`](nhl-port-notes.md).
