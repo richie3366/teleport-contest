@@ -1076,30 +1076,6 @@ export async function movemonSinglemonLikeC(g, mtmp, stepNum = 0) {
         dogMoveLikeC(g, mtmp);
         return;
     }
-    /* C: capital **`K`** post-near tail — near **`m_move`** **`rn2(12)`**×3 (~2879–2881), no **`distfleeck`**. */
-    {
-        const nearCapitalK =
-            wizD1EastDoorMklevMonLikeC(g)
-            ?? (g.level?.monsters ?? []).find(
-                (m) => !(m.mtame | 0) && (m.mgenmklev | 0),
-            );
-        if (
-            g.context?._wizD1CapitalKPostNearPetDoneLikeC
-            && nearCapitalK
-            && mtmp === nearCapitalK
-            && !g.context?._wizD1CapitalKPostNearShortLMmoveDoneLikeC
-        ) {
-            setApparxyMonsterLikeC(g, mtmp);
-            g.context._wizD1CapitalKNearMmoveLikeC = true;
-            try {
-                await mMoveOneMonsterSubsetLikeC(g, mtmp, stepNum);
-            } finally {
-                delete g.context._wizD1CapitalKNearMmoveLikeC;
-            }
-            g.context._wizD1CapitalKPostNearShortLMmoveDoneLikeC = true;
-            return;
-        }
-    }
     /* C: rogue second **`#search`** — gate **`distfleeck`** in main **`fmon`**; post-pet **`dochug`**. */
     if (
         isSecondSearchMovemonPassLikeC(g)
@@ -2548,17 +2524,11 @@ export async function mMoveOneMonsterSubsetLikeC(g, mtmp, stepNum = 0) {
                         && !g.context?._wizD1CapitalKPostNewturnNearDoneLikeC
                     ) {
                         setApparxyMonsterLikeC(g, mtmp);
-                        /* C: capital **`K`** post-near — near **`m_move`** **`rn2(12)`**×3 (~2879–2881), no peel **`distfleeck`**. */
-                        if (g.context?._wizD1CapitalKPostNearPetDoneLikeC) {
-                            if (!g.context?._wizD1CapitalKPostNearShortLMmoveDoneLikeC) {
-                                g.context._wizD1CapitalKNearMmoveLikeC = true;
-                                try {
-                                    await mMoveOneMonsterSubsetLikeC(g, mtmp, stepNum);
-                                } finally {
-                                    delete g.context._wizD1CapitalKNearMmoveLikeC;
-                                }
-                                g.context._wizD1CapitalKPostNearShortLMmoveDoneLikeC = true;
-                            }
+                        /* C: capital **`K`** post-near — second new-turn in **`monmove.js`**, not **`m_move`**. */
+                        if (
+                            g.context?._wizD1CapitalKPostNearPetDoneLikeC
+                            && !g.context?._wizD1CapitalKPostNearSecondNewTurnDoneLikeC
+                        ) {
                             return;
                         }
                         if (!g.context?._wizD1PostEastTailWalkShortLNearDfLikeC) {

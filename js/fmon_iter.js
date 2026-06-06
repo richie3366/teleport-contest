@@ -183,14 +183,12 @@ export function fmonListForMovemonLikeC(g, stepNum = 0) {
                     && !(m.mtame | 0)
                     && (m.mgenmklev | 0),
             );
-        /* C: capital **`K`** post-near — near **`m_move`** only (~2879–2881), no peel **`distfleeck`**. */
-        if (g.context?._wizD1CapitalKPostNearPetDoneLikeC) {
-            if (
-                nearMklev
-                && !g.context?._wizD1CapitalKPostNearShortLMmoveDoneLikeC
-            ) {
-                return [nearMklev];
-            }
+        /* C: capital **`K`** post-near — inline **`monmove.js`** runs second new-turn **`mcalcmove`**
+         * (~2879–2882); no near **`m_move`** in **`fmon`**. */
+        if (
+            g.context?._wizD1CapitalKPostNearPetDoneLikeC
+            || g.context?._wizD1CapitalKPostNearSecondNewTurnDoneLikeC
+        ) {
             return [];
         }
         /** @type {typeof mons} */

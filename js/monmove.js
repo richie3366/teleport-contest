@@ -58,7 +58,6 @@ import {
     movemonSinglemonLikeC,
     mMoveDistfleeckOnlyTurnLikeC,
     mMoveCapitalKPostNewturnNearLikeC,
-    mMoveCapitalKPostNearEastMmoveRngLikeC,
     mMoveWizardD1Step1DistantAfterPeelLikeC,
     mMoveWizardD1EastTailCorridorRestLikeC,
     mMoveWizardD1LPostTailDistantLikeC,
@@ -1106,12 +1105,19 @@ export async function movemon(stepNum) {
                         g.context._wizD1CapitalKPostNearPetDoneLikeC = true;
                     }
                 }
-                /* C: capital **`K`** — near **`m_move`** **`rn2(12)`**×3 (~2879–2881) in same post. */
-                if (
-                    nearWalk
-                    && !g.context?._wizD1CapitalKPostNearShortLMmoveDoneLikeC
-                ) {
-                    mMoveCapitalKPostNearEastMmoveRngLikeC(g, nearWalk);
+                /* C: capital **`K`** — post-near pet **`distfleeck`** then new-turn **`mcalcmove`**
+                 * **`rn2(12)`**×3 (~2879–2881) + **`maybe_generate_rnd_mon`** (~2882), not near **`m_move`**. */
+                if (!g.context?._wizD1CapitalKPostNearSecondNewTurnDoneLikeC) {
+                    g.context._wizD1CapitalKPostNearSecondNewTurnLikeC = true;
+                    try {
+                        const { runNewTurnSetupAndTailLikeC } = await import(
+                            './moveloop_turn_advance.js',
+                        );
+                        await runNewTurnSetupAndTailLikeC(g, (g.moves | 0) - 1);
+                    } finally {
+                        delete g.context._wizD1CapitalKPostNearSecondNewTurnLikeC;
+                    }
+                    g.context._wizD1CapitalKPostNearSecondNewTurnDoneLikeC = true;
                     g.context._wizD1CapitalKPostNearShortLMmoveDoneLikeC = true;
                 }
                 g.context._wizD1SkipLPostInventMoveloopLikeC = true;
