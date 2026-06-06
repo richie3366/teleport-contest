@@ -1003,8 +1003,14 @@ function dogGoalFollowGxGyApprLikeC(
         !!g.context?._touristD1PostRestSecondMovemonPeelLikeC;
     /* C: post-rest pet — still run follow **`rn2(edog->apport)`** + capped invent when **`udist≥9`**
      * would otherwise set **`appr=1`** early (~2504–2509 on **`seed0900`**). */
+    const walkFmonPostMoveloopPetLikeC =
+        !!g.context?._wizD1WalkFmonPostMoveloopLikeC
+        && !!g.context?._wizD1PostEastTailWalkFmonPetLikeC;
     let appr =
-        udist >= 9 && !afterRestPetGoalLikeC && !postRestSecondMovemonPeelLikeC
+        udist >= 9
+            && !afterRestPetGoalLikeC
+            && !postRestSecondMovemonPeelLikeC
+            && !walkFmonPostMoveloopPetLikeC
             ? 1
             : (mtmp.mflee | 0)
                 ? -1
@@ -2022,7 +2028,12 @@ function dogMoveMfndposPickLikeC(g, mtmp, ggx, ggy, appr, whappr) {
                     && !ctxBr._wizD1CapitalKAway2DoneLikeC
                 ) {
                     /* keep scanning: first away, **`chcnt`**, second away */
-                } else if (!ctxBr?._wizD1WalkFmonPostMoveloopLikeC) {
+                } else if (ctxBr?._wizD1WalkFmonPostMoveloopLikeC) {
+                    /* C: walk **`fmon`** post — one **`j==0`** slot; tail **`rn2(2)`** (~2717). */
+                    ctxBr._wizD1WalkFmonPostMfndposChcntSlotsLikeC =
+                        (ctxBr._wizD1WalkFmonPostMfndposChcntSlotsLikeC | 0) + 1;
+                    break;
+                } else {
                     /* C: east-tail pick — stop after **`j==0`** **`chcnt`** tie (~2730). */
                     break;
                 }
@@ -2093,6 +2104,15 @@ function dogMoveMfndposPickLikeC(g, mtmp, ggx, ggy, appr, whappr) {
             }
             ctxKt._wizD1CapitalKAway2DoneLikeC = true;
         }
+    }
+    if (
+        g.context?._wizD1WalkFmonPostMoveloopLikeC
+        && g.context?._wizD1PostEastTailWalkFmonPetLikeC
+        && (g.context._wizD1WalkFmonPostMfndposChcntSlotsLikeC | 0) === 1
+    ) {
+        /* C: dogmove.c:1255 — second **`chcnt`** when one **`j==0`** tie (~2717). */
+        rn2(2);
+        g.context._wizD1WalkFmonPostMfndposChcntSlotsLikeC = 2;
     }
     dogMoveCommitOrStageNewdogposLikeC(g, mtmp, omx, omy, nix, niy);
     if (
@@ -3560,7 +3580,7 @@ export function dogMovePostEastTailWalkFmonPetLikeC(g, mtmp) {
             }
         }
         const goal = ctx._wizD1WalkFmonPostMoveloopLikeC
-            ? dogGoalFloorScanRngLikeC(g, mtmp, true, whappr, true)
+            ? dogGoalFloorScanRngLikeC(g, mtmp, true, whappr, false)
             : dogGoalFollowGxGyApprLikeC(
                 g,
                 mtmp,
@@ -3593,6 +3613,7 @@ export function dogMovePostEastTailWalkFmonPetLikeC(g, mtmp) {
         delete ctx._wizD1WalkFmonPetAwayDoneLikeC;
         delete ctx._wizD1WalkFmonPetAwayRngCountLikeC;
         delete ctx._wizD1WalkFmonPetChcntRn1LikeC;
+        delete ctx._wizD1WalkFmonPostMfndposChcntSlotsLikeC;
         delete ctx._wizD1LPetEastTailMfndposLikeC;
     }
     return MMOVE_NOTHING;

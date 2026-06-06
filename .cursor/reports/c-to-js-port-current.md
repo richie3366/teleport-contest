@@ -32,7 +32,7 @@ Use this when **`Next steps`** below feels stale or several lanes compete. Order
 
 **Tutorial (Lane E):** Gated on [tutorial port gate](../../docs/plans/tutorial-port-gate.md) **MD-1 … MD-7**.
 
-**Last slice:** **Lane C — `seed0006` walk `fmon` pet `dog_goal` follow** — C **`dogmove.c` `dog_goal`**: walk **`fmon`** post-moveloop runs follow **`rn2(4)`** even when **`PostCorridorPetTailDone`**; **`dogGoalFloorScanRngLikeC`** + standard **`mfndpos`** pick (not custom peel branch). **`dogmove_mon.js`**. **`2775–2783`**, **`2803–2810`**, **`2816–2817`** aligned; first fail **2784**. **`seed8000` 2900–3129:** aligned. **2/44**.
+**Last slice:** **Lane C — `seed0006` walk `fmon` post `dog_goal` invent + mfndpos chcnt** — C **`dogmove.c` `dog_goal`**: walk-**`fmon`** post runs full **`gi.invent`** **`obj_resists`** after **`rn2(4)`** (skip **`udist≥9`** early **`appr=1`** on peel); **`mfndpos`** one **`j==0`** **`chcnt`** + tail **`rn2(2)`**. **`dogmove_mon.js`**. **`2702–2719`** aligned; first fail **2720**. **`seed8000` 2900–3129:** aligned. **2/44**.
 
 ## Next steps (aligned with matrix)
 
@@ -40,7 +40,7 @@ Pick **one** primary lane per **batch** (several related C functions — see che
 
 **First:** open [`docs/plans/tutorial-port-gate.md`](../../docs/plans/tutorial-port-gate.md) — if **all MD-1 … MD-7** are checked, do **Lane E** step 1 from [10-tutorial.md](../plans/nethack-port/10-tutorial.md) instead of the list below.
 
-1. **Lane C — `seed0006` ~2784** — walk **`fmon`** **`dog_goal`** floor **`fobj`** prescan before **`mfndpos`** (C **`rn2(100)`** chain); then second short-**`l`** ~2811+.
+1. **Lane C — `seed0006` ~2720** — walk **`fmon`** post distant **`m_move`** **`rn2(20)`** + moveloop tail; then second short-**`l`** ~2728+.
 2. **Lane B — NHL** — next **`lspo_*`** per [`nhl-port-notes.md`](nhl-port-notes.md).
 3. **Lane A/D — `seed0900`** — screen parity (RNG **0–2982** done); map/botl integration beyond moveloop peel chain.
 4. **Lane A/D — `dogmove.c`** — **`score_targ`** vampshifter **`mtmp_lev`** **`rn2`** tail (~808–817); **`mattackm`** / **`pet_ranged_attk`** when pet breath sessions fail.
