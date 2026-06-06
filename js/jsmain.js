@@ -209,7 +209,11 @@ export class NethackGame {
 
         const disp = game?.nhDisplay;
         const term = disp?.terminal || disp;
-        this._screens.push(term?.serialize ? term.serialize() : '');
+        /* C tty wire — after `flush_screen`, `_buildScreenOutput` may carry DEC SO/SI missing from grid serialize. */
+        let screenOut = term?.serialize ? term.serialize() : '';
+        if (needFlush && game._screen_output != null && game._screen_output !== '')
+            screenOut = game._screen_output;
+        this._screens.push(screenOut);
         this._rngSlices.push(slice);
 
         const cursor = disp ? [disp.cursorCol ?? 0, disp.cursorRow ?? 0, 1] : null;

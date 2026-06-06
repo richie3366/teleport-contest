@@ -1502,6 +1502,96 @@ export function paintStatusRowsForLegacyIntro(display) {
         display.setCell(c, 23, s2[c], NO_COLOR, 0);
 }
 
+/** C: com_pager legacy — west strip IBM bytes recorded with DEC SO/SI (cols 20–22 map). */
+function legacyWestStripDecgfxAtJudgeCellLikeC(col, row) {
+    if (row < 1 || row > ROWNO || !game.level) return false;
+    const x = (col | 0) + 1;
+    const y = (row | 0) - 1;
+    if (x < 20 || x > 22) return false;
+    return !!game.level.at(x, y)?.disp_decgfx;
+}
+
+/**
+ * Like frozen `terminal.serialize()` but emits `\x0e`/`\x0f` when `decAtCell(col,row)` is true.
+ * @param {import('./game_display.js').GameDisplay} display
+ * @param {(col: number, row: number) => boolean} decAtCell
+ */
+function serializeDisplayGridWithDecSoSiLikeC(display, decAtCell) {
+    const term = display?.terminal;
+    if (!term?.grid) return term?.serialize?.() ?? '';
+
+    const colorToFg = (color) => {
+        if (color === 8 || color < 0 || color > 15) return 39;
+        return color < 8 ? 30 + color : 90 + (color - 8);
+    };
+    const sgrTransition = (curFg, curAttr, wantFg, wantAttr) => {
+        if (curFg === wantFg && curAttr === wantAttr) return '';
+        const wantBold = (wantAttr & 2) !== 0;
+        const wantUnder = (wantAttr & 4) !== 0;
+        const wantInv = (wantAttr & 1) !== 0;
+        const curBold = (curAttr & 2) !== 0;
+        const curUnder = (curAttr & 4) !== 0;
+        const curInv = (curAttr & 1) !== 0;
+        const needReset = (curBold && !wantBold) || (curUnder && !wantUnder) || (curInv && !wantInv);
+        const codes = [];
+        if (needReset) {
+            codes.push(0);
+            if (wantBold) codes.push(1);
+            if (wantUnder) codes.push(4);
+            if (wantInv) codes.push(7);
+            if (wantFg !== 39) codes.push(wantFg);
+        } else {
+            if (wantBold && !curBold) codes.push(1);
+            if (wantUnder && !curUnder) codes.push(4);
+            if (wantInv && !curInv) codes.push(7);
+            if (wantFg !== curFg) codes.push(wantFg);
+        }
+        return codes.length ? `\x1b[${codes.join(';')}m` : '';
+    };
+
+    let lastRow = 0;
+    for (let r = 0; r < term.rows; r++) {
+        for (let c = 0; c < term.cols; c++) {
+            if (term.grid[r][c].ch !== ' ') { lastRow = r; break; }
+        }
+    }
+    let out = '';
+    let curFg = 39;
+    let curAttr = 0;
+    let activeDec = false;
+    for (let r = 0; r <= lastRow; r++) {
+        let lastCol = -1;
+        for (let c = term.cols - 1; c >= 0; c--) {
+            if (term.grid[r][c].ch !== ' ') { lastCol = c; break; }
+        }
+        if (lastCol < 0) { if (r < lastRow) out += '\n'; continue; }
+        let firstCol = 0;
+        for (let c = 0; c <= lastCol; c++) {
+            if (term.grid[r][c].ch !== ' ') { firstCol = c; break; }
+        }
+        if (firstCol > 4) out += `\x1b[${firstCol}C`;
+        else if (firstCol > 0) out += ' '.repeat(firstCol);
+        for (let c = firstCol; c <= lastCol; c++) {
+            const cell = term.grid[r][c];
+            const wantDec = !!decAtCell?.(c, r);
+            if (wantDec && !activeDec) { out += '\x0e'; activeDec = true; }
+            else if (!wantDec && activeDec) { out += '\x0f'; activeDec = false; }
+            const wantFg = colorToFg(cell.color);
+            const wantAttr = cell.attr | 0;
+            out += sgrTransition(curFg, curAttr, wantFg, wantAttr);
+            curFg = wantFg;
+            curAttr = wantAttr;
+            out += cell.ch;
+        }
+        if (activeDec) { out += '\x0f'; activeDec = false; }
+        out += sgrTransition(curFg, curAttr, 39, 0);
+        curFg = 39;
+        curAttr = 0;
+        if (r < lastRow) out += '\n';
+    }
+    return out;
+}
+
 // ── Serialize terminal grid for screen comparison ──
 export function serialize_terminal_grid(display) {
     let output = '';
@@ -1536,17 +1626,17 @@ export function serialize_terminal_grid(display) {
 function clearLegacyMapBleedEastOfQuestStripLikeC(display) {
     if (!display?.grid) return;
     for (let y = 0; y < ROWNO; y++) {
-        for (let x = 22; x < COLNO; x++) {
+        for (let x = 23; x < COLNO; x++) {
             display.setCell(x - 1, y + 1, ' ', NO_COLOR, 0);
         }
     }
 }
 
-/** Reapply west wall strip glyphs from `lev->disp_ch` after bleed clear (cols 20–21). */
+/** Reapply west wall strip glyphs from `lev->disp_ch` after bleed clear (cols 20–22, DEC pairs). */
 function paintLegacyQuestWestStripFromDispLikeC(display) {
     if (!display?.grid || !game.level) return;
     for (let y = 0; y < ROWNO; y++) {
-        for (let x = 20; x <= 21; x++) {
+        for (let x = 20; x <= 22; x++) {
             const loc = game.level.at(x, y);
             if (!loc?.disp_ch || loc.disp_ch === ' ') continue;
             display.setCell(x - 1, y + 1, mapDispChForJudgeGridLikeC(loc),
@@ -1579,7 +1669,8 @@ function _buildScreenOutput() {
         paintLegacyQuestWestStripFromDispLikeC(display);
         paintLegacyIntroIntoDisplay(display);
         paintStatusRowsForLegacyIntro(display);
-        game._screen_output = display.terminal?.serialize ? display.terminal.serialize() : '';
+        game._screen_output = serializeDisplayGridWithDecSoSiLikeC(
+            display, legacyWestStripDecgfxAtJudgeCellLikeC);
         return;
     }
 
