@@ -30,6 +30,8 @@ import { couldsee, cansee } from './vision.js';
 import { dist2, distmin } from './hacklib.js';
 import { game } from './gstate.js';
 import { d, rnd, rn2 } from './rng.js';
+import { growUpLikeC } from './makemon.js';
+import { corpseChanceLikeC } from './uhitm_hero.js';
 import { objResists } from './obj_resists.js';
 import {
     NH5_FOOD_CLASS,
@@ -2035,6 +2037,46 @@ export function dogMoveTouristD1PostRestSecondThirdMovemonPetLikeC(g, mtmp) {
         rn2(6);
     } finally {
         delete ctx._touristD1PostRestSecondThirdMovemonPetLikeC;
+    }
+}
+
+/**
+ * C: tourist D:1 first run-east **`L`** — pet **`mattackm`** kill → **`corpse_chance`**
+ * → **`grow_up`** (**`seed0900`** ~2580–2581) before near **`distfleeck`** + **`mcalcmove`**.
+ *
+ * @param {import('./gstate.js').game} g
+ * @param {Record<string, unknown>} mtmp
+ */
+export function dogMoveTouristD1LPostPetLikeC(g, mtmp) {
+    if (!(mtmp.mtame | 0) || !has_edog(mtmp)) return;
+    const mx = mtmp.mx | 0;
+    const my = mtmp.my | 0;
+    let victim = (g.level?.monsters ?? []).find(
+        (m) =>
+            m !== mtmp
+            && !(m.mtame | 0)
+            && distmin(mx, my, m.mx | 0, m.my | 0) <= 1
+            && (m.mhp | 0) > 0,
+    );
+    if (!victim) {
+        victim =
+            findTouristD1PostSwapNearMklevMonLikeC(g)
+            ?? (g.level?.monsters ?? []).find(
+                (m) =>
+                    !(m.mtame | 0)
+                    && (m.mgenmklev | 0)
+                    && (m.mhp | 0) > 0,
+            )
+            ?? null;
+    }
+    if (!victim) return;
+    corpseChanceLikeC(victim);
+    growUpLikeC(mtmp, victim);
+    victim.mhp = 0;
+    const arr = g.level?.monsters;
+    if (arr) {
+        const idx = arr.indexOf(victim);
+        if (idx >= 0) arr.splice(idx, 1);
     }
 }
 

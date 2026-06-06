@@ -286,6 +286,13 @@ export async function moveloop_core() {
     if (g.context.move) {
         if (g.context._searchInlinePostDoneLikeC) {
             /* C: inline **`#search`** post already ran in cmd.js — do not run moveloop post again. */
+        } else if (g.context._touristD1SearchInlinePostCompleteLikeC) {
+            /* C: tourist third **`#search`** post-rest tail already advanced inline (~2575–2581);
+             * run-east **`L`** still needs its own moveloop post (~2582+). */
+            if (g.context._touristD1LPostMovemonPendingLikeC) {
+                await runPostCommandTurnAdvanceLikeC(g);
+            }
+            delete g.context._touristD1SearchInlinePostCompleteLikeC;
         } else if (skipPostForBlockedRunLikeC) {
             /* C: run into closed door (no autoopen) — no monster post before lowercase move/autoopen. */
             delete g.context._wizD1BlockedRunNoTimeLikeC;

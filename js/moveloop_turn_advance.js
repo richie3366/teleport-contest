@@ -15,6 +15,8 @@ import { encumberMsg } from './pickup.js';
 import { nearCapacity, ENC } from './encumbr.js';
 import { raceptr } from './mondata.js';
 import { rn2 } from './rng.js';
+import { growUpLikeC } from './makemon.js';
+import { corpseChanceLikeC } from './uhitm_hero.js';
 
 /** C: objects.h **`RIN_TELEPORTATION`**. */
 const OTYP_RIN_TELEPORTATION = 194;
@@ -51,6 +53,7 @@ import { distfleeckMonsterApplyLikeC } from './distfleeck_mon.js';
 import {
     dogMoveEastTailPostMcalcmovePetLikeC,
     dogMoveLPetInventAfterNewturnLikeC,
+    dogMoveTouristD1LPostPetLikeC,
     dogMoveTouristD1PostRestSecondDogMovePhase1LikeC,
     dogMoveTouristD1PostRestSecondDogMovePhase2LikeC,
     petRangedAttkDogmoveLikeC,
@@ -252,9 +255,49 @@ function shouldDeferNewTurnAfterMovemonLikeC(g) {
     return false;
 }
 
+/**
+ * C: tourist D:1 run-east **`L`** — **`corpse_chance`** + **`grow_up`** + near **`distfleeck`**
+ * before outer-loop **`mcalcmove`** (**`seed0900`** ~2580–2582).
+ *
+ * @param {import('./gstate.js').game} g
+ */
+async function touristD1LPostPeelBeforeOuterLoopLikeC(g) {
+    if (!g.context?._touristD1LPostMovemonPendingLikeC) return;
+    const pet = (g.level?.monsters ?? []).find((m) => (m.mtame | 0) !== 0);
+    const victim = (g.level?.monsters ?? []).find(
+        (m) => !(m.mtame | 0) && (m.mgenmklev | 0) && (m.mhp | 0) > 0,
+    );
+    if (pet && victim) {
+        setApparxyMonsterLikeC(g, pet);
+        corpseChanceLikeC(victim);
+        growUpLikeC(pet, victim);
+        victim.mhp = 0;
+        const arr = g.level?.monsters;
+        if (arr) {
+            const idx = arr.indexOf(victim);
+            if (idx >= 0) arr.splice(idx, 1);
+        }
+    } else if (pet) {
+        setApparxyMonsterLikeC(g, pet);
+        dogMoveTouristD1LPostPetLikeC(g, pet);
+    }
+    const nearL =
+        findTouristD1PostSwapNearMklevMonLikeC(g)
+        ?? (g.level?.monsters ?? []).find(
+            (m) => !(m.mtame | 0) && (m.mgenmklev | 0),
+        );
+    if (nearL) {
+        setApparxyMonsterLikeC(g, nearL);
+        await distfleeckMonsterApplyLikeC(g, nearL);
+    }
+    delete g.context._touristD1LPostMovemonPendingLikeC;
+}
+
 export async function runPostCommandTurnAdvanceLikeC(g) {
     const u = g.u;
     if (!u) return;
+
+    await touristD1LPostPeelBeforeOuterLoopLikeC(g);
 
     u.umovement = (u.umovement | 0) - NORMAL_SPEED;
     if ((u.umovement | 0) < 0) u.umovement = 0;
@@ -365,7 +408,7 @@ export async function runPostCommandTurnAdvanceLikeC(g) {
                 || (
                     (searchPass === 1 || searchPass === 2)
                     && !!g.context?._searchPass1NearMonLikeC
-                );
+                )
             /* C: tourist D:1 swap — no extra **`movemon`** between resume and post-new-turn rest
              * **`dochug`** (**`seed0900`** ~2500–2502). */
             const touristD1RestMoveloopPendingLikeC =
@@ -376,10 +419,12 @@ export async function runPostCommandTurnAdvanceLikeC(g) {
                 && !g.context?._touristD1PostSwapRestDochugDoneLikeC;
             const touristD1RestMovemonStep1DoneLikeC =
                 !!g.context?._touristD1PostSwapRestMovemonStep1DoneLikeC;
+            const touristD1LPostPendingLikeC =
+                !!g.context?._touristD1LPostMovemonPendingLikeC;
             if (
                 runMovemon
                 && !touristD1RestMoveloopPendingLikeC
-                && !touristD1RestMovemonStep1DoneLikeC
+                && (!touristD1RestMovemonStep1DoneLikeC || touristD1LPostPendingLikeC)
                 && !(
                     wizD1MovemonOnceLikeC
                     && (
@@ -420,6 +465,10 @@ export async function runPostCommandTurnAdvanceLikeC(g) {
                         g,
                         movemonStepNum > 0 ? movemonStepNum : 11,
                     );
+                }
+                /* C: tourist D:1 first run-east **`L`** — peel at step 1 (~2582–2584). */
+                if (touristD1LPostPendingLikeC) {
+                    stepForMovemon = 1;
                 }
                 const skipStep1RogD1 =
                     (stepForMovemon | 0) === 1
@@ -482,6 +531,7 @@ export async function runPostCommandTurnAdvanceLikeC(g) {
                 && (u.umovement | 0) < NORMAL_SPEED
                 && (!capNewTurnsToOne || !newTurnDone)
                 && !g.context?._wizD1LPostOuterLoopDoneLikeC
+                && !g.context?._touristD1PostRestSecondOuterMoveloopDoneLikeC
                 && !g.context?._wizD1EastTailPostCorridorMovemonAfterMcalcmoveDoneLikeC
             ) {
                 const tailStepNum = (g.moves | 0) - 1;
@@ -532,6 +582,10 @@ export async function runPostCommandTurnAdvanceLikeC(g) {
                         await movemon(1);
                         g.context._touristD1PostRestSecondOuterMoveloopDoneLikeC = true;
                         g.context._touristD1PostRestMonsterMovemonDoneLikeC = true;
+                        /* C: next capital **`L`** — **`dog_invent`** + **`grow_up`** peel (~2582+). */
+                        g.context._touristD1LPostArmedLikeC = true;
+                        /* C: inline post-rest tail consumed hero time — skip one moveloop post. */
+                        g.context._touristD1SearchInlinePostCompleteLikeC = true;
                         newTurnDone = true;
                     }
                     delete g.context._deferredNewTurnLikeC;

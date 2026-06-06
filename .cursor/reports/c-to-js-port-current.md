@@ -32,7 +32,7 @@ Use this when **`Next steps`** below feels stale or several lanes compete. Order
 
 **Tutorial (Lane E):** Gated on [tutorial port gate](../../docs/plans/tutorial-port-gate.md) **MD-1 … MD-7**.
 
-**Last slice:** **Lane A/D `seed0900` third `#search` post-rest tail (~2571–2581)** — diag **2568–2581** match. **Second new-turn** after peel **`movemon`** (`runNewTurnSetupAndTailLikeC`); trim distant stub fake **`mcalcmove`**; **third `movemon`** peel (~2575 distfleeck + pet **`mattackm`** stub) + **`_touristD1PostRestSecondOuterMoveloopDoneLikeC`** stops surplus outer loop. **Open:** **`L`** key ~**2582** (`corpse_chance` / grow_up / third new-turn). **`seed8000`:** **PASS**. **2/44**.
+**Last slice:** **Lane A/D `seed0900` `#search` post-rest + run-east `L` scaffold (~2568–2581)** — diag **2568–2581** match. **`growUpLikeC`** (`makemon.c`); export **`corpseChanceLikeC`**; **`touristD1LPost*`** arming (`cmd.js` peek-`L`, blocked-run **`ECMD_TIME`**); inline peel hook **`touristD1LPostPeelBeforeOuterLoopLikeC`**; **`allmain`** run **`L`** post when **`_touristD1SearchInlinePostCompleteLikeC`**. **Open:** **~2582** — search inline post still runs surplus **`mcalcmove`** before **`L`**; near mklev **m14** gone pre-**`L`** vs C **`corpse_chance`**. **`seed8000`:** **PASS**. **2/44**.
 
 ## Next steps (aligned with matrix)
 
@@ -40,7 +40,7 @@ Pick **one** primary lane per **batch** (several related C functions — see che
 
 **First:** open [`docs/plans/tutorial-port-gate.md`](../../docs/plans/tutorial-port-gate.md) — if **all MD-1 … MD-7** are checked, do **Lane E** step 1 from [10-tutorial.md](../plans/nethack-port/10-tutorial.md) instead of the list below.
 
-1. **Lane A/D — `seed0900` ~2582** — **`L`** post-#search: **`corpse_chance`**, **`grow_up`**, **`mcalcmove`** + moveloop tail; read C **`mon.c`/`allmain.c`** moveloop outer loop on capital **`L`**. Diag **2580–2620**.
+1. **Lane A/D — `seed0900` ~2582** — stop surplus **`mcalcmove`** at end of inline **`#search`** post (defer to **`L`**); **`corpse_chance`** + **`grow_up`** + near **`distfleeck`** before third new-turn; preserve near mklev through search peel. Diag **2580–2620**.
 2. **Lane A — `seed0102` screen 0** — D:1 map + botl after mklev parity.
 3. **Lane C — `seed0006` ~2892** — capital **`K`** moveloop tail; screen **35** botl (**`find_ac`** / time).
 4. **Lane B — NHL** — next **`lspo_*`** per [`nhl-port-notes.md`](nhl-port-notes.md).
