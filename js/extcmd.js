@@ -63,15 +63,22 @@ const ECM_EXACTMATCH = 0x02;
 
 /** C: win/tty/getline.c hooked_tty_getlin + tty_get_ext_cmd — row-0 `#` / `# name` echo. */
 async function readExtcmdLineFromHashLikeC() {
+    game._extcmdGetlinActiveLikeC = true;
     const query = '#';
     let line = '';
+    /** Chars echoed on row 0 (C NEWAUTOCOMP backspaces over hook tail). */
+    let lineVisibleLen = 0;
     /** Suffix auto-filled by ext_cmd_getlin_hook (session still sends those keys). */
     let pendingSuffix = '';
     const wizard = !!game.flags?.wizard;
 
     const showTop = async () => {
         game._keepToplineUntilNextCommand = true;
-        game._pending_message = line.length ? `${query} ${line}` : query;
+        /* C: row-0 wire — lone `#` before input; then `# ` + full obufp; cursor past implicit space. */
+        game._extcmdVisibleLenLikeC = lineVisibleLen;
+        game._pending_message = (line.length === 0 && lineVisibleLen === 0)
+            ? query
+            : `${query} ${line}`;
         await flush_screen(1);
     };
 
@@ -80,21 +87,25 @@ async function readExtcmdLineFromHashLikeC() {
     for (;;) {
         const c = await nhgetch();
         if (c === 27) {
-            if (line.length) {
+            if (lineVisibleLen > 0 || line.length > 0) {
                 line = '';
+                lineVisibleLen = 0;
                 pendingSuffix = '';
                 await showTop();
                 continue;
             }
             clearPendingMessageAndToplineLikeC();
             game._keepToplineUntilNextCommand = false;
+            delete game._extcmdVisibleLenLikeC;
+            game._extcmdGetlinActiveLikeC = false;
             await flush_screen(1);
             return null;
         }
         if (c === 10 || c === 13) break;
         if (c === 8 || c === 127) {
-            if (line.length) {
-                line = line.slice(0, -1);
+            if (lineVisibleLen > 0) {
+                lineVisibleLen--;
+                line = line.slice(0, lineVisibleLen);
                 pendingSuffix = '';
                 await showTop();
             }
@@ -105,23 +116,29 @@ async function readExtcmdLineFromHashLikeC() {
         const ch = String.fromCharCode(c);
         if (pendingSuffix.length && ch === pendingSuffix[0]) {
             pendingSuffix = pendingSuffix.slice(1);
+            lineVisibleLen++;
             await showTop();
             continue;
         }
         pendingSuffix = '';
-        line += ch;
+        line = line.slice(0, lineVisibleLen) + ch;
+        lineVisibleLen = line.length;
         const hooked = extCmdGetlinHookLikeC(line, wizard);
         if (hooked && hooked.length > line.length) {
             pendingSuffix = hooked.slice(line.length);
             line = hooked;
+            /* visible length stays — hook tail is not echoed (getline.c putsyms \b). */
         } else if (hooked) {
             line = hooked;
+            lineVisibleLen = line.length;
         }
         await showTop();
     }
 
     clearPendingMessageAndToplineLikeC();
     game._keepToplineUntilNextCommand = false;
+    delete game._extcmdVisibleLenLikeC;
+    game._extcmdGetlinActiveLikeC = false;
     await flush_screen(1);
     return line.trim();
 }

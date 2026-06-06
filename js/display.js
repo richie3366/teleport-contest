@@ -234,7 +234,14 @@ export function syncTtyCursorForJudgeLikeC(display) {
         return;
     }
     if (g._docallMenuActive) {
-        display.setCursor(DOCALL_MENU_COL + DOCALL_PROMPT.length, 0);
+        /* C: do_name.c docallcmd — cursor past `(end)` on row 8 (seed0102 col 38). */
+        display.setCursor(DOCALL_MENU_COL + '(end)'.length + 1, 8);
+        display.cursorVisible = true;
+        return;
+    }
+    if (g._keepToplineUntilNextCommand && g._extcmdGetlinActiveLikeC) {
+        const visLen = 2 + (g._extcmdVisibleLenLikeC | 0);
+        display.setCursor(Math.min(visLen, COLNO - 1), 0);
         display.cursorVisible = true;
         return;
     }
@@ -2009,7 +2016,12 @@ function _buildScreenOutput() {
             const tail = nl >= 0 ? fmt.slice(nl + 1) : DEFMORE_STR;
             display.setCursor(Math.min(tail.length, display.cols - 1), 1);
             display.cursorVisible = true;
-        } else if (g._showDefmoreOnTopline || g._toplineNeedMore || (msg.length > 0 && queryTopl)) {
+        } else if (
+            g._showDefmoreOnTopline
+            || g._toplineNeedMore
+            || (g._keepToplineUntilNextCommand && g._extcmdGetlinActiveLikeC)
+            || (msg.length > 0 && queryTopl)
+        ) {
             syncTtyCursorForJudgeLikeC(display);
         } else if (g.u?.ux > 0) {
             display.setCursor(g.u.ux - 1, g.u.uy + 1);

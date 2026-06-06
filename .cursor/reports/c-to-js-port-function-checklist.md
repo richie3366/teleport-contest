@@ -149,7 +149,7 @@ Align batches with [`c-to-js-port-remaining.md`](c-to-js-port-remaining.md) §5:
 | C symbol / area | JS module | Status | Notes |
 |-----------------|-----------|--------|-------|
 | Movement / `domove` | `cmd.js`, `domove_hero.js` | partial | |
-| `#` extcmd subset | `extcmd.js`, `extcmd_list.js`, `do_name_call.js` | partial | **`tty_get_ext_cmd`** topline; **`docallcmd`** menu + ESC cancel |
+| `#` extcmd subset | `extcmd.js`, `extcmd_list.js`, `do_name_call.js` | partial | C **`getline.c`** NEWAUTOCOMP wire vs cursor; **`docallcmd`** **(end)** row **8**; **`seed0102`** cursors **23/25** |
 | General `do` / apply / read / … | scattered | missing | |
 
 ---
@@ -161,7 +161,7 @@ Align batches with [`c-to-js-port-remaining.md`](c-to-js-port-remaining.md) §5:
 | `do_attack` safemon gate | `uhitm_hero.js`, `cmd.js` | partial | C **`is_safemon`** → **`rn2(7)`** / shop / **`rn2(6)`** before displace; **`seed0900`** **2473–2481** |
 | `uhitm` / `mhitu` | `attack.js`, `uhitm_hero.js` | partial | Bump kill subset; full **`hitum`**/`hmon` gaps remain |
 | `find_ac` / to-hit | `u_init_find_ac.js`, `display.js`, `u_init_link_*.js` | partial | **`find_ac`** only after first **`bot()`** (removed from role invent linkers); legacy **`com_pager`** map strip **`seed0102`** partial |
-| `com_pager` / legacy intro | `legacy_intro.js`, `legacy_intro_paint.js`, `display.js` | partial | brown **`k`**; hdoor **(26,10)** defer + post-**`movemon`** repaint; **`seed0102` screens 25/25**; cursors **17/25** |
+| `com_pager` / legacy intro | `legacy_intro.js`, `legacy_intro_paint.js`, `display.js` | partial | brown **`k`**; hdoor **(26,10)** defer + post-**`movemon`** repaint; **`seed0102` screens 22/25**; cursors **23/25** |
 
 ---
 
