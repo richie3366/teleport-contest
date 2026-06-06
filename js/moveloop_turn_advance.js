@@ -569,12 +569,6 @@ export async function runPostCommandTurnAdvanceLikeC(g) {
     g.context = g.context || {};
     delete g.context._wizD1EastTailShortLDeferToNextPostLikeC;
     delete g.context._wizD1MovemonRanThisPostLikeC;
-    if (g.context?._wizD1PostEastTailWalkFmonPendingLikeC) {
-        g.context._wizD1PostEastTailWalkFmonLikeC = true;
-        delete g.context._wizD1PostEastTailWalkFmonPendingLikeC;
-        delete g.context._wizD1PostEastTailWalkCompleteLikeC;
-        delete g.context._wizD1EastTailMovemonPetMfndposPendingLikeC;
-    }
     const wizD1MovemonOnceLikeC =
         g.urole?.abbr === 'Wiz'
         && (g.u?.uz?.dnum | 0) === 0
@@ -611,7 +605,38 @@ export async function runPostCommandTurnAdvanceLikeC(g) {
             delete g.context._wizD1EastTailMovemonPetMfndposPendingLikeC;
             delete g.context._wizD1EastTailShortLPetDoneLikeC;
             delete g.context._wizD1EastTailShortLSecondNearDfLikeC;
+        } else if (
+            g.context?._wizD1PostEastTailWalkCompleteLikeC
+            && !g.context?._wizD1PostEastTailWalkFmonPendingLikeC
+        ) {
+            /* C: zero-time autoopen **`l`** may leave stale walk **`fmon`** — short **`l`** uses **`Complete`**. */
+            wizD1ShortLPostLikeC = true;
+            delete g.context._wizD1PostEastTailWalkFmonLikeC;
+        } else if (
+            g.context?._wizD1PostEastTailWalkFmonLikeC
+            && !g.context?._wizD1WalkFmonPostMoveloopLikeC
+            && !g.context?._wizD1PostEastTailWalkCompleteLikeC
+            && !g.context?._wizD1PostEastTailWalkFmonPendingLikeC
+        ) {
+            /* C: **`allmain`** autoopen after east-tail **`L`** — first hero **`l`** is short peel (~2770+). */
+            wizD1ShortLPostLikeC = true;
+            delete g.context._postBumpKillDochugGateLikeC;
+            delete g.context._postBumpInlineDoneLikeC;
+            g.context._wizD1PostEastTailWalkCompleteLikeC = true;
+            delete g.context._wizD1PostEastTailWalkShortLNearDfLikeC;
+            delete g.context._wizD1PostEastTailWalkFmonLikeC;
+            delete g.context._wizD1EastTailMovemonPetMfndposPendingLikeC;
+            delete g.context._wizD1EastTailShortLPetDoneLikeC;
+            delete g.context._wizD1EastTailShortLSecondNearDfLikeC;
         }
+    }
+    if (g.context?._wizD1PostEastTailWalkFmonPendingLikeC && !g.context?._wizD1PostEastTailWalkCompleteLikeC) {
+        g.context._wizD1PostEastTailWalkFmonLikeC = true;
+        g.context._wizD1WalkFmonPostMoveloopLikeC = true;
+        delete g.context._wizD1PostEastTailWalkFmonPendingLikeC;
+        delete g.context._wizD1PostEastTailWalkCompleteLikeC;
+        delete g.context._wizD1EastTailMovemonPetMfndposPendingLikeC;
+        delete g.context._wizD1FirstShortLFmonNearPetDoneLikeC;
     }
     if (wizD1MovemonOnceLikeC && g.context?._wizD1Step1InventPostDoneLikeC) {
         /* C: second **`L`** — pass-2 **`rn2(20)`** + one **`distfleeck`** can end a post; keep peel
@@ -642,7 +667,13 @@ export async function runPostCommandTurnAdvanceLikeC(g) {
         delete g.context._wizD1Step1NearMklevDistfleeckOnlyLikeC;
         delete g.context._wizD1EastDistantMmoveTailDoneLikeC;
         delete g.context._wizD1PostEastTailWalkNewTurnDoneLikeC;
-        if (!wizD1ShortLPostLikeC) {
+        delete g.context._wizD1FirstShortLFmonNearPetDoneLikeC;
+        if (
+            !wizD1ShortLPostLikeC
+            && !g.context?._wizD1PostEastTailWalkCompletePendingLikeC
+            && !g.context?._wizD1EastTailShortLPendingArmedLikeC
+            && !g.context?._wizD1PostEastTailWalkFmonPendingLikeC
+        ) {
             delete g.context._wizD1PostEastTailWalkMintrapPeelDoneLikeC;
             delete g.context._wizD1PostEastTailWalkCompleteLikeC;
             delete g.context._wizD1PostEastTailWalkShortLNearDfLikeC;
@@ -1059,6 +1090,10 @@ export async function runPostCommandTurnAdvanceLikeC(g) {
                         && g.context?._wizD1Step1LPetTailDoneLikeC
                         && !g.context?._wizD1Step1LPetInventAfterNewturnDoneLikeC
                         && !g.context?._wizD1SkipLPostInventMoveloopLikeC
+                        && !g.context?._wizD1PostEastTailWalkFmonPendingLikeC
+                        && !g.context?._wizD1PostEastTailWalkCompleteLikeC
+                        && !g.context?._wizD1EastTailShortLPetDoneLikeC
+                        && !g.context?._wizD1FirstShortLFmonNearPetDoneLikeC
                     ) {
                         const pet = (g.level?.monsters ?? []).find(
                             (m) => (m.mtame | 0) !== 0,

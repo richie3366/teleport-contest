@@ -926,9 +926,10 @@ export async function movemon(stepNum) {
                 g.context._touristD1PostSwapAfterRestPetDoneLikeC = true;
                 delete g.context._touristD1PostSwapNearRestMmoveTailPendingLikeC;
             }
-            /* C: post-east-tail walk — pet tail then distant **`distfleeck`** + **`m_move`** (~2774+). */
+            /* C: post-east-tail walk — pet tail then distant **`distfleeck`** + **`m_move`** (~2781+). */
             if (
                 g.context?._wizD1PostEastTailWalkFmonLikeC
+                && g.context?._wizD1WalkFmonPostMoveloopLikeC
                 && !g.context?._wizD1PostEastTailWalkCompleteLikeC
                 && !g.context?._wizD1PostEastTailWalkFmonDistantDeferredLikeC
             ) {
@@ -1118,14 +1119,27 @@ export async function movemon(stepNum) {
                 g.context._wizD1PostEastTailWalkFmonDistantDeferredLikeC = true;
                 delete g.context._wizD1PostEastTailWalkCompleteLikeC;
             } else {
-                /* C: first short **`l`** — next post is walk **`fmon`**; new-turn in moveloop (~2775+). */
+                /* C: first short **`l`** — **`mcalcmove`** (~2775+) then arm walk **`fmon`** for next post. */
+                await runNewTurnSetupAndTailLikeC(g, effStepNum);
+                g.context._wizD1PostEastTailWalkNewTurnDoneLikeC = true;
                 g.context._wizD1PostEastTailWalkFmonPendingLikeC = true;
                 delete g.context._wizD1EastTailShortLPendingArmedLikeC;
                 delete g.context._wizD1PostEastTailWalkCompleteLikeC;
+                delete g.context._wizD1EastTailMovemonPetMfndposPendingLikeC;
             }
         }
+        if (
+            g.context?._wizD1FirstShortLFmonNearPetDoneLikeC
+            && !g.context?._wizD1PostEastTailWalkPeelDoneLikeC
+            && g.context?._wizD1PostEastTailWalkNewTurnDoneLikeC
+        ) {
+            return false;
+        }
         /* C: wizard D:1 second **`L`** — pet **`mfndpos`** after east-tail peel (~2726+). */
-        if (g.context?._wizD1EastTailMovemonPetMfndposPendingLikeC) {
+        if (
+            g.context?._wizD1EastTailMovemonPetMfndposPendingLikeC
+            && !g.context?._wizD1PostEastTailWalkFmonPendingLikeC
+        ) {
             const petEast = (g.level?.monsters ?? []).find((m) => (m.mtame | 0) !== 0);
             const peelDistant =
                 g.context._wizD1EastTailPeelMtmpLikeC
@@ -2411,6 +2425,7 @@ export async function movemon(stepNum) {
             && !g.context?._wizD1LPostEastTailDistantPeelDoneLikeC
             && !g.context?._wizD1PostEastTailWalkFmonLikeC
             && !g.context?._wizD1PostEastTailWalkCompleteLikeC
+            && !g.context?._wizD1PostEastTailWalkFmonPendingLikeC
         ) {
             const wizInventPost = !g.context?._wizD1Step1InventPostDoneLikeC;
             const distant = findDistantMklevMonLikeC(g);
@@ -2513,6 +2528,8 @@ export async function movemon(stepNum) {
                 && g.context?._wizD1Step1PendingLPostPeelLikeC
                 && !g.context?._wizD1Step1LPetInventAfterNewturnDoneLikeC
                 && !g.context?._wizD1EastTailCorridorTurnDoneLikeC
+                && !g.context?._wizD1PostEastTailWalkFmonPendingLikeC
+                && !g.context?._wizD1EastTailShortLPetDoneLikeC
             ) {
                 if (
                     g.context?._wizD1Step1DistantFirstDfDoneLikeC
@@ -2763,6 +2780,12 @@ export async function movemon(stepNum) {
             g.context._wizD1EastTailShortLDeferToNextPostLikeC = true;
             delete g.context._wizD1PostEastTailWalkFmonLikeC;
         }
+        if (
+            g.context?._wizD1FirstShortLFmonNearPetDoneLikeC
+            && !g.context?._wizD1PostEastTailWalkPeelDoneLikeC
+        ) {
+            return false;
+        }
     } finally {
         delete g.context.movemonStepNum;
         delete g.context._wizD1PostEastTailWalkPetAfterMintrapLikeC;
@@ -2779,6 +2802,14 @@ export async function movemon(stepNum) {
 
     /* C: hero **`b`** — one **`fmon`** pass for distant mon only (no **`monscanmove`** re-entry). */
     if ((stepNum | 0) === 5) return false;
+    /* C: wizard D:1 — one **`movemon()`** pass per hero turn before search **`monscanmove`** re-entry. */
+    if (
+        g.urole?.abbr === 'Wiz'
+        && (g.u?.uz?.dnum | 0) === 0
+        && (g.u?.uz?.dlevel | 0) === 1
+    ) {
+        return false;
+    }
     /* C: **`y`** — two **`movemon`** passes (pass 1 west/east/eel; pass 2 eel recalc, west **`m_move`**, distant **`distfleeck`**). */
     if ((stepNum | 0) === 6 && (g.context?._movemonStep6Pass | 0) === 1) {
         return true;
@@ -2818,15 +2849,6 @@ export async function movemon(stepNum) {
         return false;
     }
     if ((stepNum | 0) === 11 || (stepNum | 0) === 12) {
-        return false;
-    }
-    /* C: wizard D:1 — one **`movemon()`** pass per hero turn (any **`stepNum`**); no
-     * **`monscanmove`** re-entry before new-turn **`gethungry`** (**`seed0006`** ~2523 / ~2558). */
-    if (
-        g.urole?.abbr === 'Wiz'
-        && (g.u?.uz?.dnum | 0) === 0
-        && (g.u?.uz?.dlevel | 0) === 1
-    ) {
         return false;
     }
     /* C: tourist D:1 — one **`movemon()`** pass per hero turn (**`seed8000`** peel; **`seed0900`**

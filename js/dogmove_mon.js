@@ -3545,13 +3545,15 @@ export function dogMovePostEastTailWalkFmonPetLikeC(g, mtmp) {
     ctx._wizD1PostEastTailWalkFmonPetLikeC = true;
     ctx._wizD1LPetEastTailMfndposLikeC = true;
     try {
-        const apportRoll = rn2(8);
-        if (
-            couldsee(omx, omy)
-            && !droppablesMtmpLikeC(mtmp)
-            && (edog.apport | 0) > apportRoll
-        ) {
-            /* C: draw only — **`gg`** stays follow hero. */
+        if (!ctx._wizD1WalkFmonPostMoveloopLikeC) {
+            const apportRoll = rn2(8);
+            if (
+                couldsee(omx, omy)
+                && !droppablesMtmpLikeC(mtmp)
+                && (edog.apport | 0) > apportRoll
+            ) {
+                /* C: draw only — **`gg`** stays follow hero. */
+            }
         }
         const goal = dogGoalFollowGxGyApprLikeC(
             g,
