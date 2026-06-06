@@ -1026,6 +1026,19 @@ export async function movemonSinglemonLikeC(g, mtmp, stepNum = 0) {
         (g.context || (g.context = {}))._rangerFirstSearchPetFirstPassDoneLikeC = true;
         return;
     }
+    /* C: ranger D:1 second **`#search`** — one mklev tail **`distfleeck`** only (no **`m_move`**
+     * ~915 recalc) before pass-2 **`dog_goal`** (**`seed0102`** ~4472–4473). */
+    if (
+        rangerD1FirstSearchNoNearMonLikeC(g, stepNum)
+        && (g.context?._searchStep11Passes | 0) === 2
+        && !(mtmp.mtame | 0)
+        && (mtmp.mgenmklev | 0)
+    ) {
+        if (g.context?._rangerSecondSearchMklevPeelDoneLikeC) return;
+        await mMoveDistfleeckOnlyTurnLikeC(g, mtmp);
+        (g.context || (g.context = {}))._rangerSecondSearchMklevPeelDoneLikeC = true;
+        return;
+    }
     if (
         g.urole?.abbr === 'Tou'
         && g.context?._touristD1PostRestSecondMovemonLikeC

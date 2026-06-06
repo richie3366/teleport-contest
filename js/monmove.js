@@ -850,9 +850,12 @@ export async function movemon(stepNum) {
                         petSecond.muy = u2.uy | 0;
                     }
                     setApparxyMonsterLikeC(g, petSecond);
-                    await distfleeckMonsterApplyLikeC(g, petSecond);
+                    /* C: second **`#search`** pass-2 — mklev tail **`distfleeck`** already ran; no extra
+                     * pre-**`dog_move`** **`distfleeck`** (**`seed0102`** ~4473 **`dog_goal`**). */
                     if ((g.context?._searchStep11Passes | 0) === 2) {
                         g.context._rangerSearchPass2InlineDogMoveLikeC = true;
+                    } else {
+                        await distfleeckMonsterApplyLikeC(g, petSecond);
                     }
                     try {
                         dogMoveLikeC(g, petSecond);
@@ -860,7 +863,9 @@ export async function movemon(stepNum) {
                         delete g.context._rangerSearchPass2InlineDogMoveLikeC;
                     }
                     /* C: dochug ~915 — pass-2 recalc (~4459 / ~4478) before **`mcalcmove`**. */
-                    await distfleeckMonsterApplyLikeC(g, petSecond);
+                    if (!g.context?._rangerPass2InlinePreMfndposDistfleeckDoneLikeC) {
+                        await distfleeckMonsterApplyLikeC(g, petSecond);
+                    }
                     g.context._rangerFirstSearchPetSecondPassDoneLikeC = true;
                 }
             }

@@ -97,6 +97,22 @@ export function fmonListForMcalcmoveLikeC(g) {
  */
 export function fmonListForMovemonLikeC(g, stepNum = 0) {
     const mons = fmonListNewestFirstLikeC(g);
+    /* C: ranger D:1 second **`#search`** — pet pass 1 then one mklev tail **`distfleeck`**
+     * before pass-2 **`dog_goal`** (**`seed0102`** ~4471–4473); not full **`fmon`** peel. */
+    if (
+        isSecondSearchMovemonPassLikeC(g)
+        && rangerD1FirstSearchNoNearMonLikeC(g, stepNum)
+    ) {
+        const pet = mons.find((m) => (m.mtame | 0) !== 0);
+        const mklevPeel = mons.find(
+            (m) => !(m.mtame | 0) && (m.mgenmklev | 0),
+        );
+        /** @type {typeof mons} */
+        const ordered = [];
+        if (pet) ordered.push(pet);
+        if (mklevPeel) ordered.push(mklevPeel);
+        return ordered;
+    }
     /* C: tourist second post-rest peel — pet invent + **`mfndpos`** before other **`m_move`**
      * (**`seed0900`** ~2546+). */
     if (

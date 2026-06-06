@@ -148,6 +148,15 @@ export function clearSearchMovemonSubHarnessLikeC(g) {
     delete g.context._movemonSearch11SubPass;
     delete g.context._rangerFirstSearchPetFirstPassDoneLikeC;
     delete g.context._rangerFirstSearchPetSecondPassDoneLikeC;
+    delete g.context._rangerSecondSearchMklevPeelDoneLikeC;
+    delete g.context._rangerPass2InlineApportRn8DeferLikeC;
+    delete g.context._rangerPass2InlineInventPrescanDoneLikeC;
+    delete g.context._rangerPass2InlineSecondInventPrescanDoneLikeC;
+    delete g.context._rangerPass2InlineDeferredApportRn8DoneLikeC;
+    delete g.context._rangerPass2InlineDeferredApportObjLikeC;
+    delete g.context._rangerPass2InlineFloorRankCacheLikeC;
+    delete g.context._rangerPass2InlinePreMfndposDistfleeckDoneLikeC;
+    delete g.context._rangerPass2InlineMfndposAwayRn12CountLikeC;
 }
 
 /** Drop all `#search` harness state before a non-search command (C **`:`** after **`s`**). */
