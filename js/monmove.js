@@ -630,11 +630,13 @@ export async function movemon(stepNum) {
                 ) {
                     continue;
                 }
-                /* C: post-rest second **`dog_move`** — moveloop inline (~2520+); skip **`fmon`**. */
+                /* C: post-rest second **`dog_move`** — moveloop inline (~2520+); skip **`fmon`**
+                 * except post-new-turn peel pass (~2546+ invent **`obj_resists`**). */
                 if (
                     g.urole?.abbr === 'Tou'
                     && (effStepNum | 0) === 1
                     && g.context?._touristD1PostRestSecondPetDogMoveDoneLikeC
+                    && !g.context?._touristD1PostRestSecondMovemonLikeC
                     && (m.mtame | 0)
                 ) {
                     continue;

@@ -32,7 +32,7 @@ Use this when **`Next steps`** below feels stale or several lanes compete. Order
 
 **Tutorial (Lane E):** Gated on [tutorial port gate](../../docs/plans/tutorial-port-gate.md) **MD-1 … MD-7**.
 
-**Last slice:** **Lane A/D second post-rest `dog_move` + mklev interrupt** — C order: phase-1 **`dog_goal`**/**`score_targ`** → near mklev **`distfleeck`**×2 + **`m_move`** **`rn2(32)`** + **`distfleeck`**×2 → phase-2 invent/**`score_targ`**/silent **`mfndpos`**; **`dogmove_mon.js`** **`mon_track_add`** on **`mfndpos`** move; **`mMoveTouristD1PostRestSecondMklevInterruptLikeC`**. **`seed0900`:** diag **2520–2544**; **~2545** post-**`mcalcmove`**. **`seed8000`/`seed0077`:** **PASS**. **2/44** (**2632**/2983 on **`seed0900`**).
+**Last slice:** **Lane A/D `seed0900` post-rest second `movemon` peel (~2545–2570)** — diag **2540–2570** match. **Hook:** moveloop near **`distfleeck`** + deferred **`movemon(1)`** (`moveloop_turn_advance.js`); pet peel invent + away-first **`mfndpos`** (`dogMoveTouristD1PostRestSecondMovemonPeelLikeC`); near **`rn2(28)`** + distant **`rnd(20)`** tail via **`_touristD1PostRestSecondAwaitDistantMmoveLikeC`** (`movemonSinglemonLikeC`); phase-2 silent **`mfndpos`** RNG deferred to peel; **`fmon`** order pet → near → distant. **Open:** **~2571** **`rn2(70)`** (likely mklev **`mineralize`** / next command). **`seed8000`:** **PASS**. **2/44**.
 
 ## Next steps (aligned with matrix)
 
@@ -40,7 +40,7 @@ Pick **one** primary lane per **batch** (several related C functions — see che
 
 **First:** open [`docs/plans/tutorial-port-gate.md`](../../docs/plans/tutorial-port-gate.md) — if **all MD-1 … MD-7** are checked, do **Lane E** step 1 from [10-tutorial.md](../plans/nethack-port/10-tutorial.md) instead of the list below.
 
-1. **Lane A/D — `seed0900` ~2545** — diag **2520–2544** match; **~2545** C **`distfleeck`** vs JS extra **`mcalcmove`**/**`m_move`** — post-second-**`dog_move`** **`movemon`** / next command peel. **`seed0102`** D:1 map + botl.
+1. **Lane A/D — `seed0900` ~2571** — post-peel **`rn2(70)`** / next command boundary after distant **`m_move`** tail (**2570**); read C **`mklev`/`mineralize`** or moveloop **`newTurnDone`** exit. Diag **2570–2600**. **`seed0102`** D:1 map + botl.
 2. **Lane A — `seed0102` screen 0** — D:1 map + botl after mklev parity.
 3. **Lane C — `seed0006` ~2892** — capital **`K`** moveloop tail; screen **35** botl (**`find_ac`** / time).
 4. **Lane B — NHL** — next **`lspo_*`** per [`nhl-port-notes.md`](nhl-port-notes.md).

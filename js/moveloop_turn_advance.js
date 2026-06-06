@@ -503,6 +503,29 @@ export async function runPostCommandTurnAdvanceLikeC(g) {
                     && !g.context?._wizD1EastTailSecondPostCorridorNewTurnDoneLikeC
                 ) {
                     await runNewTurnSetupAndTailLikeC(g, tailStepNum);
+                    /* C: tourist D:1 second post-rest — after leading new-turn (~2538–2544),
+                     * near mklev **`distfleeck`** (~2545) then **`movemon`** peel; blocks another
+                     * leading **`runNewTurnSetupAndTailLikeC`** at ~2545. */
+                    if (g.context?._touristD1PostRestSecondAwaitNearDistfleeckLikeC) {
+                        delete g.context._touristD1PostRestSecondAwaitNearDistfleeckLikeC;
+                        const nearMklevPostNewturn =
+                            findTouristD1PostSwapNearMklevMonLikeC(g);
+                        if (nearMklevPostNewturn) {
+                            setApparxyMonsterLikeC(g, nearMklevPostNewturn);
+                            await distfleeckMonsterApplyLikeC(g, nearMklevPostNewturn);
+                            g.context._touristD1PostRestSecondNearDistfleeckDoneLikeC = true;
+                        }
+                        g.context._touristD1PostRestSecondMovemonLikeC = true;
+                        g.context._movemonHarnessConsumed = false;
+                        try {
+                            await movemon(1);
+                        } finally {
+                            delete g.context._touristD1PostRestSecondMovemonLikeC;
+                            delete g.context._touristD1PostRestSecondNearDistfleeckDoneLikeC;
+                        }
+                        g.context._touristD1PostRestMonsterMovemonDoneLikeC = true;
+                        newTurnDone = true;
+                    }
                     delete g.context._deferredNewTurnLikeC;
                     /* C: tourist D:1 peaceful swap — near mklev **`distfleeck`** + **`m_move`**
                      * after new-turn tail (**`seed0900`** ~2501–2503), not inside **`movemon`**
@@ -558,13 +581,12 @@ export async function runPostCommandTurnAdvanceLikeC(g) {
                                         nearMklevSecond,
                                     );
                                 }
-                                dogMoveTouristD1PostRestSecondDogMovePhase2LikeC(
+                                await dogMoveTouristD1PostRestSecondDogMovePhase2LikeC(
                                     g,
                                     petPostRestRanged,
                                 );
-                                g.context._movemonHarnessConsumed = false;
-                                await movemon(1);
-                                g.context._touristD1PostRestMonsterMovemonDoneLikeC = true;
+                                /* C: defer peel until next moveloop leading new-turn (~2538–2544). */
+                                g.context._touristD1PostRestSecondAwaitNearDistfleeckLikeC = true;
                             }
                             delete g.context._touristD1PostRestPetRangedPendingLikeC;
                             delete g.context._touristD1PostRestPetRangedTargLikeC;
@@ -588,7 +610,9 @@ export async function runPostCommandTurnAdvanceLikeC(g) {
                         await movemon(1);
                         g.context._wizD1MovemonRanThisPostLikeC = true;
                     }
-                    newTurnDone = true;
+                    if (!g.context?._touristD1PostRestSecondAwaitNearDistfleeckLikeC) {
+                        newTurnDone = true;
+                    }
                     if (
                         wizD1MovemonOnceLikeC
                         && g.context?._wizD1Step1LPetTailDoneLikeC

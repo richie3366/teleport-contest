@@ -109,7 +109,7 @@ Align batches with [`c-to-js-port-remaining.md`](c-to-js-port-remaining.md) §5:
 
 | C symbol / area | JS module | Status | Notes |
 |-----------------|-----------|--------|-------|
-| `moveloop` / post-hero `movemon` | `moveloop_turn_advance.js`, `moveloop_aux.js` | partial | Tourist post-rest: **`movemon(1)`** → new-turn → **`pet_ranged_attk`** → second **`dog_move`** → **`movemon(1)`** mklev (**`seed0900`** **2515–2527**) |
+| `moveloop` / post-hero `movemon` | `moveloop_turn_advance.js`, `moveloop_aux.js` | partial | Post-rest chain **2515–2544**; **~2545** leading **`runNewTurnSetupAndTailLikeC`** repeats — need **`distfleeck`** + peel between new-turns (C **`allmain.c`**; wizard **`L`** ~2654 model) |
 | `dosounds` / exercise hooks | `moveloop_aux.js` | stub | |
 
 ---
