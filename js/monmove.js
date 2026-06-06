@@ -149,6 +149,9 @@ export async function movemon(stepNum) {
 
     const g = game;
     g.context = g.context || {};
+    if (g.context?._touristD1PostSwapRestMovemonStep1DoneLikeC) {
+        delete g.context._touristD1PostSwapSkipPetFmonAfterRestPeelLikeC;
+    }
     if (g.context?._wizD1PostEastTailWalkFmonPendingLikeC) {
         g.context._wizD1PostEastTailWalkFmonLikeC = true;
         delete g.context._wizD1PostEastTailWalkFmonPendingLikeC;
@@ -611,6 +614,15 @@ export async function movemon(stepNum) {
                     g.urole?.abbr === 'Tou'
                     && g.context?._touristD1PostSwapRestDochugDoneLikeC
                     && !g.context?._touristD1PostSwapAfterRestPetDoneLikeC
+                    && (m.mtame | 0)
+                ) {
+                    continue;
+                }
+                /* C: post-rest peel — one **`dog_move`** this movemon pass (~2510–2519). */
+                if (
+                    g.urole?.abbr === 'Tou'
+                    && (effStepNum | 0) === 1
+                    && g.context?._touristD1PostSwapSkipPetFmonAfterRestPeelLikeC
                     && (m.mtame | 0)
                 ) {
                     continue;

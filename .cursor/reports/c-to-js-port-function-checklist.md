@@ -99,8 +99,9 @@ Align batches with [`c-to-js-port-remaining.md`](c-to-js-port-remaining.md) §5:
 | `m_move` / `mfndpos` | `m_move_mon.js`, `mfndpos.js` | partial | Rest stub **`touristD1PostSwapNearRestMmoveStubLikeC`**; gate blocks full **`mfndpos`**; early return in **`mMoveOneMonsterSubsetLikeC`**; **`seed0900`** **2502–2503** |
 | `distfleeck` | `distfleeck_mon.js` | partial | Peel-only rest **`distfleeck`** (**`_touristD1PostSwapRestDistfleeckPeelLikeC`**); 3× ~915 before stub; **`seed0900`** **2499–2504** |
 | `m_throw` | — | missing | |
-| `dogmove` | `dogmove_mon.js` | partial | Peel **`rnd(5)`**+**`rn2(5)`**+away **`mfndpos`**; skip **`dog_invent`** at post-rest; **`seed0900`** **2624/2983** (diag **2495–2518**); next **~2519** |
-| `dog_goal` / `obj_resists` | `dogmove_mon.js`, `obj_resists.js` | partial | Post-rest capped invent **5×** **`obj_resists`** + peel **`mfndpos`**; **`seed0900`** **2624/2983** |
+| `dogmove` | `dogmove_mon.js` | partial | C **`score_targ`**/**`best_target`**/**`pet_ranged_attk`** started; away **`rn2(12)`** cap in **`dogMovePickRn2LikeC`**; post-rest fmon skip; **`seed0900`** diag **2510–2518** match, **~2519** **`pet_ranged`** **`!rn2(5)`** vs extra **`mfndpos`** |
+| `score_targ` / `best_target` / `pet_ranged_attk` | `dogmove_mon.js` | partial | C **`dogmove.c`** ~738–966; post-rest peel uses cached target + **`dogMovePickRn2LikeC`** 4th **`rn2(12)`**→**`rn2(5)`**; **`mattackm`** tail TODO |
+| `dog_goal` / `obj_resists` | `dogmove_mon.js`, `obj_resists.js` | partial | Post-rest capped invent **5×** **`obj_resists`** + peel **`mfndpos`**; **`seed0900`** **2510–2518** |
 
 ---
 

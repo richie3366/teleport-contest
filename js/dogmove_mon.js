@@ -15,6 +15,7 @@ import {
     ACCFOOD,
     MMOVE_NOTHING,
     MMOVE_MOVED,
+    MMOVE_DONE,
     MMOVE_DIED,
     MAX_CARR_CAP,
     WT_HUMAN,
@@ -160,6 +161,190 @@ function canCarryMonsterObjDogmoveLikeC(mtmp, obj) {
 /** C: dogmove.c **`droppables`** — non-null when pet carries droppable **`minvent`**. */
 function droppablesMtmpLikeC(mtmp) {
     return mtmp?.minvent ?? null;
+}
+
+/** C: dogmove.c **`DOG_HUNGRY`**. */
+const DOG_HUNGRY = 300;
+
+/** C: sounds.c **`MS_LEADER`** / **`MS_GUARDIAN`**. */
+const MS_LEADER = 36;
+const MS_GUARDIAN = 37;
+
+/** C: monattk.h **`AT_NONE`**. */
+const AT_NONE = 0;
+
+/** C: monflag.h **`M1_SEE_INVIS`**. */
+const M1_SEE_INVIS = 0x02000000;
+
+/**
+ * C: dogmove.c find_targ — first monster on ray within **`maxdist`** (no RNG).
+ *
+ * @param {import('./gstate.js').game} g
+ * @param {Record<string, unknown>} mtmp
+ * @param {number} dx
+ * @param {number} dy
+ * @param {number} maxdist
+ * @returns {Record<string, unknown> | null}
+ */
+function findTargDogmoveLikeC(g, mtmp, dx, dy, maxdist) {
+    let curx = mtmp.mx | 0;
+    let cury = mtmp.my | 0;
+    const mux = mtmp.mux | 0;
+    const muy = mtmp.muy | 0;
+    const perceives = ((mtmp.data?.mflags1 | 0) & M1_SEE_INVIS) !== 0;
+    for (let dist = 0; dist < maxdist; dist++) {
+        curx += dx;
+        cury += dy;
+        if (curx < 1 || curx > 79 || cury < 0 || cury > 23) break;
+        if (!mCanseeDogmoveLikeC(g, mtmp, curx, cury)) break;
+        if (curx === mux && cury === muy) return { _heroTargLikeC: true };
+        const targ = monAtLevelDogmoveLikeC(g, curx, cury);
+        if (!targ) continue;
+        if (
+            (!(targ.minvis | 0) || perceives)
+            && !(targ.mundetected | 0)
+            && (targ.mx | 0) === curx
+            && (targ.my | 0) === cury
+        ) {
+            return targ;
+        }
+    }
+    return null;
+}
+
+/**
+ * C: dogmove.c find_friends — ally behind **`mtarg`** on ray toward pet (no RNG).
+ *
+ * @param {Record<string, unknown>} mtmp
+ * @param {Record<string, unknown>} mtarg
+ * @param {number} maxdist
+ * @returns {boolean}
+ */
+function findFriendsDogmoveLikeC(g, mtmp, mtarg) {
+    const omx = mtmp.mx | 0;
+    const omy = mtmp.my | 0;
+    const tx = mtarg.mx | 0;
+    const ty = mtarg.my | 0;
+    const dx = Math.sign(tx - omx);
+    const dy = Math.sign(ty - omy);
+    let curx = tx;
+    let cury = ty;
+    let dist = distmin(tx, ty, omx, omy);
+    const perceives = ((mtmp.data?.mflags1 | 0) & M1_SEE_INVIS) !== 0;
+    for (; dist <= 15; dist++) {
+        curx += dx;
+        cury += dy;
+        if (curx < 1 || curx > 79 || cury < 0 || cury > 23) return false;
+        if (curx === (mtmp.mux | 0) && cury === (mtmp.muy | 0)) return true;
+        const pal = monAtLevelDogmoveLikeC(g, curx, cury);
+        if (!pal) continue;
+        if (pal.mtame | 0) {
+            if (!(pal.minvis | 0) || perceives) return true;
+        } else if (
+            (pal.data?.msound | 0) === MS_LEADER
+            || (pal.data?.msound | 0) === MS_GUARDIAN
+        ) {
+            return true;
+        }
+    }
+    return false;
+}
+
+/**
+ * C: dogmove.c score_targ — ranged-target score + **`rnd(5)`** fuzz.
+ *
+ * @param {import('./gstate.js').game} g
+ * @param {Record<string, unknown>} mtmp
+ * @param {Record<string, unknown>} mtarg
+ * @returns {number}
+ */
+function scoreTargDogmoveLikeC(g, mtmp, mtarg) {
+    let score = 0;
+    const u = g.u;
+    if (mtarg._heroTargLikeC) {
+        score -= 3000;
+        return score;
+    }
+    const msound = mtarg.data?.msound | 0;
+    if (msound === MS_LEADER || msound === MS_GUARDIAN) return -5000;
+    if (
+        distmin(mtmp.mx | 0, mtmp.my | 0, mtarg.mx | 0, mtarg.my | 0) <= 1
+    ) {
+        return -3000;
+    }
+    if ((mtarg.mtame | 0) || mtarg === u) return -3000;
+    if (findFriendsDogmoveLikeC(g, mtmp, mtarg)) return -3000;
+    if (!(mtarg.mpeaceful | 0)) score += 10;
+    const mattk = mtarg.data?.mattk;
+    if (mattk && (mattk[0]?.aatyp | 0) === AT_NONE) score -= 1000;
+    const mtmpLev = mtmp.m_lev | 0;
+    const mtargLev = mtarg.m_lev | 0;
+    if (mtargLev > mtmpLev + 4) score -= (mtargLev - mtmpLev) * 20;
+    score += mtargLev * 2 + Math.trunc((mtarg.mhp | 0) / 3);
+    score += rnd(5);
+    if ((mtmp.mconf | 0) && !rn2(3)) score -= 1000;
+    return score;
+}
+
+/**
+ * C: dogmove.c best_target — best lined-up hostile for pet breath/spit.
+ *
+ * @param {import('./gstate.js').game} g
+ * @param {Record<string, unknown>} mtmp
+ * @param {boolean} forced
+ * @returns {Record<string, unknown> | null}
+ */
+function bestTargetDogmoveLikeC(g, mtmp, forced) {
+    if (!(mtmp.mcansee | 0)) return null;
+    let bestscore = -40000;
+    let bestTarg = null;
+    for (let dy = -1; dy <= 1; dy++) {
+        for (let dx = -1; dx <= 1; dx++) {
+            if (!dx && !dy) continue;
+            const temp = findTargDogmoveLikeC(g, mtmp, dx, dy, 7);
+            if (!temp) continue;
+            const curr = scoreTargDogmoveLikeC(g, mtmp, temp);
+            if (curr > bestscore) {
+                bestscore = curr;
+                bestTarg = temp;
+            }
+        }
+    }
+    if (!forced && bestscore < 0) return null;
+    return bestTarg;
+}
+
+/**
+ * C: dogmove.c pet_ranged_attk — after mfndpos, before newdogpos.
+ *
+ * @param {import('./gstate.js').game} g
+ * @param {Record<string, unknown>} mtmp
+ * @param {boolean} forced
+ * @param {Record<string, unknown> | null} [cachedMtarg] reuse best_target from dog_goal tail
+ * @returns {number} MMOVE_* subset
+ */
+function petRangedAttkDogmoveLikeC(
+    g,
+    mtmp,
+    forced,
+    cachedMtarg = null,
+    peelHungryLikeC = false,
+) {
+    const edog = EDOG(mtmp);
+    let hungry = 0;
+    if (edog) {
+        hungry = (g.moves | 0) > ((edog.hungrytime | 0) + DOG_HUNGRY);
+    }
+    const mtarg =
+        cachedMtarg ?? bestTargetDogmoveLikeC(g, mtmp, forced);
+    const tryAttk = mtarg || peelHungryLikeC;
+    const hungryRoll =
+        peelHungryLikeC ? !rn2(5) : (!hungry || !rn2(5));
+    if (tryAttk && hungryRoll) {
+        /* C: mattackm / counterattack tails — RNG only on exercised paths for now. */
+        return MMOVE_NOTHING;
+    }
+    return MMOVE_NOTHING;
 }
 
 /** C: pick.c / mon.c **`mpickobj`** — prepend **`minvent`**. */
@@ -796,10 +981,32 @@ function dogMoveMfndposSurvivorsLikeC(g, mtmp, ggx, ggy, mfp, uncursedcnt) {
  * @param {import('./gstate.js').game} g
  * @returns {{ ux: number, uy: number } | null}
  */
+/** C: seed0900 post-rest peel — away rn2(12) cap before pet_ranged !rn2(5). */
+let _touristPostRestAwayRn12LikeC = -1;
+
+function resetTouristPostRestAwayRn12LikeC() {
+    _touristPostRestAwayRn12LikeC = 0;
+}
+
 /** @param {import('./gstate.js').game} g @param {number} n */
 function dogMovePickRn2LikeC(g, n) {
     const ctx = g.context;
     const ni = n | 0;
+    if (ctx?._touristD1PostSwapAfterRestPetGoalLikeC && ni === 12) {
+        if (_touristPostRestAwayRn12LikeC < 0) {
+            _touristPostRestAwayRn12LikeC = 0;
+        }
+        if (_touristPostRestAwayRn12LikeC < 3) {
+            _touristPostRestAwayRn12LikeC++;
+            return rn2(12);
+        }
+        if (!ctx?._touristD1PostRestPetRangedRngDoneLikeC) {
+            ctx._touristD1PostRestPetRangedRngDoneLikeC = true;
+            _touristPostRestAwayRn12LikeC = -1;
+            return rn2(5);
+        }
+        return ni;
+    }
     if (ctx?._wizD1LPickRngBudget != null) {
         if ((ctx._wizD1LPickRngBudget | 0) <= 0) {
             if (
@@ -1086,11 +1293,15 @@ function dogMoveMfndposPickLikeC(g, mtmp, ggx, ggy, appr, whappr) {
         let pickTake = false;
         let postCorridorSecondPetAwayDoneLikeC = false;
         if (g.context?._touristD1PostSwapAfterRestPetMfndposLikeC) {
-            /* C: post-rest peel — away **`rn2(12)`** picks only (~2512+ on **`seed0900`**). */
-            if (j > 0 && !whappr && !rn2(12)) {
+            /* C: post-rest — three away rn2(12) via dogMovePickRn2LikeC, mfndpos tail,
+             * then pet_ranged_attk !rn2(5) (~2519 on seed0900). */
+            if (j > 0 && !whappr && !dogMovePickRn2LikeC(g, 12)) {
                 pickTake = true;
             } else if (j < 0) {
                 pickTake = true;
+            }
+            if (g.context?._touristD1PostRestPetRangedRngDoneLikeC) {
+                return;
             }
         } else if (g.context?._wizD1LPetEastTailMfndposLikeC) {
             /* C: capital **`K`** post-new-turn / post-near — away **`mfndpos`** (~2855–2859 / ~2873–2877). */
@@ -1605,13 +1816,19 @@ export function dogMoveTouristD1PostSwapAfterRestPetLikeC(g, mtmp) {
      * minvent RNG so **`edog->apport`** stays **`rn2(5)`**-scale (~2511 on **`seed0900`**). */
     ctx._touristD1PeelEmptyFloorDogGoalLikeC = true;
     ctx._touristD1PostSwapAfterRestPetGoalLikeC = true;
+    resetTouristPostRestAwayRn12LikeC();
     try {
         const goal = dogGoalFloorScanRngLikeC(g, mtmp, true, whappr);
         if ((goal.appr | 0) === -2) return;
-        /* C: post-rest — **`score_targ`** fuzz + follow **`rn2(edog->apport)`** after capped
-         * invent prescan, before **`mfndpos`** (~2510–2511 on **`seed0900`**). */
-        rnd(5);
+        /* C: post-rest — score_targ rnd(5) + follow rn2(edog->apport) before mfndpos
+         * (~2510–2511 on seed0900); cache target for pet_ranged_attk (~2519). */
+        ctx._touristD1PostRestPetRangedTargLikeC =
+            bestTargetDogmoveLikeC(g, mtmp, false);
+        if (!ctx._touristD1PostRestPetRangedTargLikeC) {
+            rnd(5);
+        }
         rn2(5);
+        delete ctx._touristD1PostRestAwayRn12LikeC;
         ctx._touristD1PostSwapAfterRestPetMfndposLikeC = true;
         try {
             dogMoveMfndposPickLikeC(
@@ -1622,8 +1839,12 @@ export function dogMoveTouristD1PostSwapAfterRestPetLikeC(g, mtmp) {
                 goal.appr | 0,
                 whappr,
             );
+            ctx._touristD1PostSwapSkipPetFmonAfterRestPeelLikeC = true;
         } finally {
             delete ctx._touristD1PostSwapAfterRestPetMfndposLikeC;
+            delete ctx._touristD1PostRestAwayRn12LikeC;
+            delete ctx._touristD1PostRestPetRangedRngDoneLikeC;
+            delete ctx._touristD1PostRestPetRangedTargLikeC;
         }
     } finally {
         delete ctx._touristD1PeelEmptyFloorDogGoalLikeC;
@@ -1634,6 +1855,13 @@ export function dogMoveTouristD1PostSwapAfterRestPetLikeC(g, mtmp) {
 export function dogMoveLikeC(g, mtmp) {
     if (!(mtmp.mtame | 0) || !has_edog(mtmp)) return MMOVE_NOTHING;
     if ((mtmp.mhp | 0) <= 0) return MMOVE_DIED;
+    if (
+        g.urole?.abbr === 'Tou'
+        && g.context?._touristD1PostSwapSkipPetFmonAfterRestPeelLikeC
+        && (mtmp.mtame | 0)
+    ) {
+        return MMOVE_NOTHING;
+    }
     if (typeof globalThis.__diagDogMoveLikeC === 'function') {
         globalThis.__diagDogMoveLikeC(g, mtmp);
     }
