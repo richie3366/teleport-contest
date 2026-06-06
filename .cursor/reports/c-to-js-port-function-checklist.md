@@ -107,7 +107,7 @@ Align batches with [`c-to-js-port-remaining.md`](c-to-js-port-remaining.md) §5:
 | `can_carry` / `can_touch_safely` | `dogmove_mon.js`, `obj_oc_weight_data.js` | partial | C **`mon.c`** — **`objectStackWeightLikeC`** (NH5 **`oc_weight`**); **`canTouchSafelyMonsterObjDogmoveLikeC`** stub; APPORT when **`can_carry > 0`** only |
 | `dog_goal` / `obj_resists` | `dogmove_mon.js`, `obj_resists.js`, `dogmove_reach.js` | partial | **`seed0102`** RNG **0–4452** (**`On_stairs`** skips invent **`obj_resists`**); **~4453** **`score_targ`** **`rnd(5)`** — JS pet **(29,8)** hits hero early-return; C **(27,8)** west ray → mklev kobold |
 | `u_on_upstairs` / `On_stairs` | `mklev.js`, `allmain.js`, `jsmain.js` | partial | C **`u_on_upstairs`** in **`newgame`** before **`makedog`**; **`syncHeroOnBranchUpstairLikeC`** in **`jsmain`** post-**`newgame`** only; **`dog_goal`** **`stairwayAtInGame`** on hero tile |
-| `dofire` / `getdir` / `help_dir` / `dodiscovered` / enlightenment | `overlay_screens.js`, `enlght_patrons.js`, `pray_align_gname_like_c.js`, … | partial | C **`insight.c` `background_enlightenment`** + title **`highc(plname)`**; **screen 23** map **`~`/`d`** **(26,10)** |
+| `dofire` / `getdir` / `help_dir` / `dodiscovered` / enlightenment | `dofire_hero.js`, `invent_prinv.js`, `overlay_screens.js`, … | partial | C **`dothrow.c`** fireassist **`prinv`** **`--More--`** pass-through cursor row 0; **`seed0102` PASS** |
 | `movemon` / `#search` ranger peel | `monmove.js`, `monmove_search.js`, `m_move_mon.js`, `cmd.js`, `fmon_iter.js`, `dogmove_mon.js`, `moveloop_turn_advance.js` | partial | C: ranger D:1 twin **`#search`** pet-only; **`whappr`** silent mfndpos away picks; moveloop peel **`rn2(12)×2`** + skip inline **`mcalcmove`**; **`seed0102` RNG 4485/4485**; **screens 25/25**; twin **`:`** / **`~4453`** open |
 
 ---
@@ -161,7 +161,7 @@ Align batches with [`c-to-js-port-remaining.md`](c-to-js-port-remaining.md) §5:
 | `do_attack` safemon gate | `uhitm_hero.js`, `cmd.js` | partial | C **`is_safemon`** → **`rn2(7)`** / shop / **`rn2(6)`** before displace; **`seed0900`** **2473–2481** |
 | `uhitm` / `mhitu` | `attack.js`, `uhitm_hero.js` | partial | Bump kill subset; full **`hitum`**/`hmon` gaps remain |
 | `find_ac` / to-hit | `u_init_find_ac.js`, `display.js`, `u_init_link_*.js` | partial | **`find_ac`** only after first **`bot()`** (removed from role invent linkers); legacy **`com_pager`** map strip **`seed0102`** partial |
-| `com_pager` / legacy intro | `legacy_intro.js`, `legacy_intro_paint.js`, `display.js` | partial | brown **`k`**; hdoor **(26,10)** defer + post-**`movemon`** repaint; **`seed0102` screens 22/25**; cursors **23/25** |
+| `com_pager` / legacy intro | `legacy_intro.js`, `legacy_intro_paint.js`, `display.js` | partial | brown **`k`**; hdoor **(26,10)** defer + post-**`movemon`** repaint; **`seed0102` PASS** |
 
 ---
 

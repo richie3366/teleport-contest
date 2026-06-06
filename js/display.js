@@ -245,6 +245,15 @@ export function syncTtyCursorForJudgeLikeC(display) {
         display.cursorVisible = true;
         return;
     }
+    /* C: topl.c — `--More--` on row 0; pass-through keys clear need_more, keep defmore visible. */
+    if (g._showDefmoreOnTopline && !touristWelcomeMoreSnapLikeC()) {
+        const line0 = messageLine0ForJudgeGridLikeC();
+        if (line0.length > 0) {
+            display.setCursor(Math.min(line0.length, COLNO - 1), 0);
+            display.cursorVisible = true;
+            return;
+        }
+    }
     const msg = formatPendingMessageLineLikeC();
     const queryTopl =
         g._toplineNeedMore
