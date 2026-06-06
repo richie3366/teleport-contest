@@ -32,7 +32,7 @@ Use this when **`Next steps`** below feels stale or several lanes compete. Order
 
 **Tutorial (Lane E):** Gated on [tutorial port gate](../../docs/plans/tutorial-port-gate.md) **MD-1 … MD-7**.
 
-**Last slice:** **Lane A/D `seed0102` — shop interior brown `k` tty wire** — C **`display.c`**: **`shopInteriorRoomSeenvGlyphLikeC`** SV2 trcorn **(23,8)** **`CLR_BROWN`**; revert erroneous **`doorWest.y === y+1`** gate; **`judgeMapCellColorLikeC`** + **`syncMapDispColorsFromTerrainLikeC`** + **`render_map_row`** align stale **`disp_color`** with **`mapTerrainGlyph`**. **`seed0102` RNG:** **4485/4485**; **Screens 10/25** (was **2/25**); first fail **screen 5** **`#name`** row-0. **`seed8000`:** **PASS**. **1/44**.
+**Last slice:** **Lane A/D `seed0102` — `#name` extcmd topline echo** — C **`win/tty/getline.c`**: **`readExtcmdLineFromHashLikeC`** row-0 **`#`/`# name`**; **`extcmd_list.js`** **`extcmds_match`** + **`ext_cmd_getlin_hook`** autocomplete. **`seed0102` RNG:** **4485/4485**; **Screens 15/25** (was **10/25**); first fail **screen 9** **`docallcmd`** “What do you want to name?”. **`seed8000`:** **PASS**. **1/44**.
 
 ## Next steps (aligned with matrix)
 
@@ -40,7 +40,7 @@ Pick **one** primary lane per **batch** (several related C functions — see che
 
 **First:** open [`docs/plans/tutorial-port-gate.md`](../../docs/plans/tutorial-port-gate.md) — if **all MD-1 … MD-7** are checked, do **Lane E** step 1 from [10-tutorial.md](../plans/nethack-port/10-tutorial.md) instead of the list below.
 
-1. **Lane A/D — `seed0102` screen 5+** — first fail **screen 5** row-0 **`#name`** cancel topline; then twin **`:`** **(26,11)** hdoor + **`dolook`** row-0; **`dogmove`** pet **(28,10)**; **`makedog`** pet **(27,8)** @ **`~4453`** **`score_targ`**.
+1. **Lane A/D — `seed0102` screen 9+** — **`docallcmd`** / **`#name`** “What do you want to name?” + ESC cancel; then twin **`:`** **(26,11)** hdoor + **`dolook`** row-0; **`dogmove`** pet **(28,10)**; **`makedog`** pet **(27,8)** @ **`~4453`** **`score_targ`**.
 2. **Lane C — `seed0006` ~2892** — capital **`K`** moveloop tail; screen **35** botl (**`find_ac`** / time).
 3. **Lane B — NHL** — next **`lspo_*`** per [`nhl-port-notes.md`](nhl-port-notes.md).
 4. **Lane A/D — `seed0900`** — screen parity (RNG **0–2982** done); map/botl integration beyond moveloop peel chain.

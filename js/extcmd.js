@@ -55,6 +55,75 @@ import {
 import { runDoprayExtcmdFlowLikeC } from './pray_hero.js';
 import { runDochatExtcmdFlowLikeC } from './priest_talk_hero.js';
 import { runDositExtcmdFlowLikeC } from './sit_hero.js';
+import { extCmdGetlinHookLikeC, extcmdsMatchLikeC } from './extcmd_list.js';
+
+const ECM_IGNOREAC = 0x01;
+const ECM_EXACTMATCH = 0x02;
+
+/** C: win/tty/getline.c hooked_tty_getlin + tty_get_ext_cmd — row-0 `#` / `# name` echo. */
+async function readExtcmdLineFromHashLikeC() {
+    const query = '#';
+    let line = '';
+    /** Suffix auto-filled by ext_cmd_getlin_hook (session still sends those keys). */
+    let pendingSuffix = '';
+    const wizard = !!game.flags?.wizard;
+
+    const showTop = async () => {
+        game._keepToplineUntilNextCommand = true;
+        game._pending_message = line.length ? `${query} ${line}` : query;
+        await flush_screen(1);
+    };
+
+    await showTop();
+
+    for (;;) {
+        const c = await nhgetch();
+        if (c === 27) {
+            if (line.length) {
+                line = '';
+                pendingSuffix = '';
+                await showTop();
+                continue;
+            }
+            clearPendingMessageAndToplineLikeC();
+            game._keepToplineUntilNextCommand = false;
+            await flush_screen(1);
+            return null;
+        }
+        if (c === 10 || c === 13) break;
+        if (c === 8 || c === 127) {
+            if (line.length) {
+                line = line.slice(0, -1);
+                pendingSuffix = '';
+                await showTop();
+            }
+            continue;
+        }
+        if (c < 32 || c === 127 || line.length >= 200) continue;
+
+        const ch = String.fromCharCode(c);
+        if (pendingSuffix.length && ch === pendingSuffix[0]) {
+            pendingSuffix = pendingSuffix.slice(1);
+            await showTop();
+            continue;
+        }
+        pendingSuffix = '';
+        line += ch;
+        const hooked = extCmdGetlinHookLikeC(line, wizard);
+        if (hooked && hooked.length > line.length) {
+            pendingSuffix = hooked.slice(line.length);
+            line = hooked;
+        } else if (hooked) {
+            line = hooked;
+        }
+        await showTop();
+    }
+
+    clearPendingMessageAndToplineLikeC();
+    game._keepToplineUntilNextCommand = false;
+    await flush_screen(1);
+    return line.trim();
+}
 
 /** C: doextcmd — echo '#' on the top line, then read extcmd name until tty newline (`\n`/`\r`). */
 export async function runExtcmdFromHashPrefix() {
@@ -64,32 +133,22 @@ export async function runExtcmdFromHashPrefix() {
         game._inventoryMode = false;
         await docrt_flags(docrtRefresh);
     }
-    game._pending_message = '#';
-    await flush_screen(1);
-    const k = await nhgetch();
-    clearPendingMessageAndToplineLikeC();
-    if (k === 27) {
-        await flush_screen(1);
-        return;
-    }
-    if (k === 10 || k === 13) {
+    const line = await readExtcmdLineFromHashLikeC();
+    if (line == null) return;
+    if (!line) {
         await pline('Unknown extended command.');
         game._retainMessageAfterCommand = true;
         await flush_screen(1);
         return;
     }
-    let line = String.fromCharCode(k);
-    for (;;) {
-        const c = await nhgetch();
-        if (c === 27) {
-            await flush_screen(1);
-            return;
-        }
-        if (c === 10 || c === 13) break;
-        line += String.fromCharCode(c);
-        if (line.length > 200) break;
+    const exact = extcmdsMatchLikeC(line, ECM_IGNOREAC | ECM_EXACTMATCH, !!game.flags?.wizard);
+    if (exact.length !== 1) {
+        await pline(`${String.fromCharCode(35)}${line}: unknown extended command.`);
+        game._retainMessageAfterCommand = true;
+        await flush_screen(1);
+        return;
     }
-    const raw = line.trim();
+    const raw = line;
     const w = raw.toLowerCase();
 
     if (w === 'pray') {
