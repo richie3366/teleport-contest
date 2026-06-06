@@ -95,11 +95,11 @@ Align batches with [`c-to-js-port-remaining.md`](c-to-js-port-remaining.md) §5:
 
 | C symbol / area | JS module | Status | Notes |
 |-----------------|-----------|--------|-------|
-| `movemon` / `dochug` | `monmove.js`, `fmon_iter.js`, `moveloop_turn_advance.js` | partial | **`L`** peel + tail + third + fourth + fifth **`movemon`**; skip **`mcalcmove`** after third/fourth/fifth passes; **`seed0900`** **2620–2679**; **~2680** open |
+| `movemon` / `dochug` | `monmove.js`, `fmon_iter.js`, `moveloop_turn_advance.js` | partial | **`L`** peel + tail + third … sixth **`movemon`**; skip **`mcalcmove`** after peel passes; **`seed0900`** **2620–2706**; **~2707** open |
 | `m_move` / `mfndpos` | `m_move_mon.js`, `mfndpos.js` | partial | Second post-rest mklev interrupt **`mMoveTouristD1PostRestSecondMklevInterruptLikeC`** (**`rn2(32)`** ~2528); **`seed0900`** **~2545** post-**`mcalcmove`** drift |
 | `distfleeck` | `distfleeck_mon.js` | partial | Peel-only rest **`distfleeck`** (**`_touristD1PostSwapRestDistfleeckPeelLikeC`**); 3× ~915 before stub; **`seed0900`** **2499–2504** |
 | `m_throw` | — | missing | |
-| `dogmove` | `dogmove_mon.js` | partial | **`dogMoveTouristD1LPostFourthMovemonPetLikeC`** (phase-1 **`mfndpos`** away/`chcnt` pad + phase-2 peel); **`mfndpos`** early-return bypass; **`seed0900`** **2620–2667**; **~2668** open |
+| `dogmove` | `dogmove_mon.js` | partial | **`dogMoveTouristD1LPostFourthMovemonPetLikeC`** + sixth phase-1 **`mfndpos`** branch; phase-2 budget 4; **`seed0900`** **2620–2706**; **~2707** open |
 | `grow_up` | `makemon.js` | partial | Victim-kill HP subset (**`rnd(victim.m_lev+1)`**, **`rn2`** gain); tourist **`L`** peel |
 | `corpse_chance` | `uhitm_hero.js` | partial | Exported **`corpseChanceLikeC`**; tourist **`L`** **`mattackm`** kill tail |
 | `score_targ` / `best_target` / `pet_ranged_attk` | `dogmove_mon.js` | partial | C **`dogmove.c`** ~738–966; moveloop peel + second-pass **`rnd(5)`**/**`rn2(5)`** tail; **`mattackm`** TODO |
