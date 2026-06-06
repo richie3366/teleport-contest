@@ -95,12 +95,12 @@ Align batches with [`c-to-js-port-remaining.md`](c-to-js-port-remaining.md) §5:
 
 | C symbol / area | JS module | Status | Notes |
 |-----------------|-----------|--------|-------|
-| `movemon` / `dochug` | `monmove.js`, `fmon_iter.js` | partial | Tourist D:1 swap: **`monscanmove`** once + fmon skip rest mklev until moveloop peel (**`seed0900`** **2492–2501**) |
+| `movemon` / `dochug` | `monmove.js`, `fmon_iter.js` | partial | Tourist D:1 post-rest: fmon skip pet → near mklev **`m_move`** → **`monmove.js`** tail **`dogMoveTouristD1PostSwapAfterRestPetLikeC`** (no **`effStepNum===1`** gate); **`seed0900`** diag **2498–2503** |
 | `m_move` / `mfndpos` | `m_move_mon.js`, `mfndpos.js` | partial | |
-| `distfleeck` | `distfleeck_mon.js` | partial | Tourist D:1 swap: defer pet ~915 recalc to **`monmove.js`** fmon tail; post-new-turn rest peel in **`moveloop_turn_advance.js`** (**`seed0900`** **2501**) |
+| `distfleeck` | `distfleeck_mon.js` | partial | Tourist D:1 rest: second ~915 recalc when **`m_move`** gated (**`mMoveTouristD1PostSwapRestMklevLikeC`**); moveloop peel (**`seed0900`** **2500–2501**) |
 | `m_throw` | — | missing | |
-| `dogmove` | `dogmove_mon.js` | partial | Tourist D:1 swap peel: defer **`mfndpos`** after **2×** **`chcnt`**; mklev tail **`distfleeck`** + pet ~915 recalc + resume away picks; **`seed0900`** **2576/2983** (diag **2492–2503**); next **~2504** pet **`dog_goal`** **`rn2(5)`** before invent **`rn2(100)`** |
-| `dog_goal` / `obj_resists` | `dogmove_mon.js`, `obj_resists.js` | partial | Tourist D:1 peel: **`_touristD1PeelEmptyFloorDogGoalLikeC`** caps invent **`obj_resists`** at **5** + **`appr=1`** until bbox **`fobj`**; **`seed0900`** **2576/2983** |
+| `dogmove` | `dogmove_mon.js` | partial | Post-rest **`touristD1RunAfterRestPetIfPendingLikeC`** + **`dogMoveTouristD1PostSwapAfterRestPetLikeC`**; C **`droppables`**→**`minvent`**; apport **`rn2(edog->apport)`** polarity; **`seed0900`** **2595/2983** (diag **2498–2503**); next **~2504** |
+| `dog_goal` / `obj_resists` | `dogmove_mon.js`, `obj_resists.js` | partial | **`_touristD1PostSwapAfterRestPetGoalLikeC`** follow gate + empty-floor invent cap; **`seed0900`** **2595/2983** |
 
 ---
 

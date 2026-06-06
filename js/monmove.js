@@ -44,7 +44,10 @@ import {
 } from './monmove_search.js';
 import { searchPass1NearMonLikeC } from './mfndpos_mon.js';
 import { distfleeckMonsterApplyLikeC } from './distfleeck_mon.js';
-import { dogMoveTouristD1PostSwapMfndposResumeLikeC } from './dogmove_mon.js';
+import {
+    dogMoveTouristD1PostSwapAfterRestPetLikeC,
+    dogMoveTouristD1PostSwapMfndposResumeLikeC,
+} from './dogmove_mon.js';
 import { setApparxyMonsterLikeC } from './set_apparxy_mon.js';
 import {
     movemonSinglemonLikeC,
@@ -603,6 +606,15 @@ export async function movemon(stepNum) {
                 ) {
                     continue;
                 }
+                /* C: post-rest pet **`dog_goal`** — fmon tail after near mklev rest (~2504+). */
+                if (
+                    g.urole?.abbr === 'Tou'
+                    && g.context?._touristD1PostSwapRestDochugDoneLikeC
+                    && !g.context?._touristD1PostSwapAfterRestPetDoneLikeC
+                    && (m.mtame | 0)
+                ) {
+                    continue;
+                }
                 await movemonSinglemonLikeC(g, m, effStepNum);
             }
             /* C: tourist D:1 peaceful swap — pet ~915 **`distfleeck`** then **`mfndpos`** resume
@@ -624,6 +636,29 @@ export async function movemon(stepNum) {
                 g.context._touristD1PostSwapMfndposResumeDoneLikeC = true;
                 delete g.context._touristD1PostSwapMfndposDeferredLikeC;
                 delete g.context._touristD1PostSwapDeferRecalcPetLikeC;
+            }
+            /* C: tourist D:1 — pet **`dog_goal`** after post-new-turn rest (~2504–2512). */
+            if (
+                g.urole?.abbr === 'Tou'
+                && g.context?._touristD1PostSwapRestDochugDoneLikeC
+                && !g.context?._touristD1PostSwapAfterRestPetDoneLikeC
+                && g.context?._touristD1PostSwapNearRestMmoveTailPendingLikeC
+            ) {
+                const petAfterRest = (g.level?.monsters ?? []).find(
+                    (m) => (m.mtame | 0) !== 0,
+                );
+                if (petAfterRest) {
+                    setApparxyMonsterLikeC(g, petAfterRest);
+                    let mov = petAfterRest.movement | 0;
+                    if (mov < NORMAL_SPEED) {
+                        petAfterRest.movement = NORMAL_SPEED;
+                        mov = NORMAL_SPEED;
+                    }
+                    petAfterRest.movement = mov - NORMAL_SPEED;
+                    dogMoveTouristD1PostSwapAfterRestPetLikeC(g, petAfterRest);
+                }
+                g.context._touristD1PostSwapAfterRestPetDoneLikeC = true;
+                delete g.context._touristD1PostSwapNearRestMmoveTailPendingLikeC;
             }
             /* C: short **`l`** after east-tail walk — new-turn **`mcalcmove`** tail (~2812+). */
             if (

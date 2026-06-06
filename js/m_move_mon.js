@@ -74,6 +74,7 @@ import {
     dogMoveGoalOnlyNoPickLikeC,
     dogMoveMfndposPickOnlyWizD1LikeC,
     dogMoveTouristD1PostSwapPeelLikeC,
+    touristD1RunAfterRestPetIfPendingLikeC,
     dogMoveLikeC,
     dogMoveOntoApportTowelLikeC,
     dogMovePostCorridorSecondPetMfndposLikeC,
@@ -501,6 +502,12 @@ function mmoveMtrackRejectRngLikeC(g, mtmp, j, cnt) {
         && g.context?._touristD1PostSwapMfndposResumeDoneLikeC
         && mtmp === findTouristD1PostSwapNearMklevMonLikeC(g)
     ) {
+        if (
+            g.context?._touristD1PostSwapRestDochugDoneLikeC
+            && !g.context?._touristD1PostSwapAfterRestPetDoneLikeC
+        ) {
+            g.context._touristD1PostSwapNearRestMmoveRn32DoneLikeC = true;
+        }
         return rn2(32);
     }
     return rn2(4 * (cnt - j));
@@ -682,7 +689,19 @@ function mMovePositionSelectLikeC(g, mtmp, silent) {
                         || g.context?._wizD1PostEastTailWalkDistantMmoveLikeC
                     )
                         ? !rn2(12)
-                        : (silent ? mmoved === MMOVE_NOTHING : !rn2(++chcnt))
+                        : (silent ? mmoved === MMOVE_NOTHING : (
+                            g.urole?.abbr === 'Tou'
+                            && g.context?._touristD1PostSwapNearRestMmoveRn32DoneLikeC
+                            && mtmp === findTouristD1PostSwapNearMklevMonLikeC(g)
+                                ? (() => {
+                                    const drew = !rn2(++chcnt);
+                                    g.context._touristD1PostSwapNearRestMmoveTailPendingLikeC = true;
+                                    g.context._touristD1PostSwapNearRestMmoveShortCircuitLikeC = true;
+                                    delete g.context._touristD1PostSwapNearRestMmoveRn32DoneLikeC;
+                                    return drew;
+                                })()
+                                : !rn2(++chcnt)
+                        ))
                 )
             )
             || (eelStep8SingleChcnt && !rn2(++chcnt))
@@ -701,6 +720,14 @@ function mMovePositionSelectLikeC(g, mtmp, silent) {
             chi = i;
             mmoved = MMOVE_MOVED;
         }
+        if (g.context?._touristD1PostSwapNearRestMmoveShortCircuitLikeC) {
+            break;
+        }
+    }
+
+    if (g.context?._touristD1PostSwapNearRestMmoveShortCircuitLikeC) {
+        delete g.context._touristD1PostSwapNearRestMmoveShortCircuitLikeC;
+        return mmoved !== MMOVE_NOTHING ? mmoved : MMOVE_MOVED;
     }
 
     /* C: wizard D:1 east-door **(63,7)** — after first **`mtrack[1]`** **`rn2(12)`** reject (~2718),
@@ -1350,6 +1377,12 @@ export async function movemonSinglemonLikeC(g, mtmp, stepNum = 0) {
     }
 
     await mMoveOneMonsterSubsetLikeC(g, mtmp, stepNum);
+    if (
+        g.urole?.abbr === 'Tou'
+        && mtmp === findTouristD1PostSwapNearMklevMonLikeC(g)
+    ) {
+        touristD1RunAfterRestPetIfPendingLikeC(g);
+    }
     if (g.context?._wizD1CapitalKPostNewturnDistantRn20LikeC) {
         /* C: ~915 recalc then second track **`rn2(20)`** (~2863–2865). */
         await distfleeckMonsterApplyLikeC(g, mtmp);
@@ -1808,7 +1841,7 @@ export async function mMoveTouristD1PostSwapRestMklevLikeC(g, mtmp, stepNum = 1)
     const flee1 = await distfleeckMonsterApplyLikeC(g, mtmp);
     const nearbyGate = nearbyForDochugGateLikeC(g, mtmp, flee1);
     if (
-        !dochugEntersMmoveBlockLikeC(
+        dochugEntersMmoveBlockLikeC(
             g,
             mtmp,
             nearbyGate,
@@ -1816,13 +1849,15 @@ export async function mMoveTouristD1PostSwapRestMklevLikeC(g, mtmp, stepNum = 1)
             stepNum,
         )
     ) {
-        return;
+        ensureMonsterMtrack(mtmp);
+        mMovePositionSelectSilentLikeC(g, mtmp);
+        if (!skipDistfleeckRecalcAfterMmoveLikeC(g, mtmp, nearbyGate)) {
+            await distfleeckMonsterApplyLikeC(g, mtmp);
+            return;
+        }
     }
-    ensureMonsterMtrack(mtmp);
-    mMovePositionSelectSilentLikeC(g, mtmp);
-    if (!skipDistfleeckRecalcAfterMmoveLikeC(g, mtmp, nearbyGate)) {
-        await distfleeckMonsterApplyLikeC(g, mtmp);
-    }
+    /* C: gated **`m_move`** — still emit second ~915 **`distfleeck`** (~2501 on **`seed0900`**). */
+    await distfleeckMonsterApplyLikeC(g, mtmp);
 }
 
 export async function mMoveWizardD1Step1DistantAfterPeelLikeC(g, mtmp) {
@@ -2629,6 +2664,21 @@ export async function mMoveOneMonsterSubsetLikeC(g, mtmp, stepNum = 0) {
                     && (g.u?.uz?.dlevel | 0) === 1
                     && !!g.context?._wizD1AfterLPostMfndposOnlyLikeC;
                 if (
+                    g.urole?.abbr === 'Tou'
+                    && g.context?._touristD1PostSwapRestDochugDoneLikeC
+                    && !g.context?._touristD1PostSwapAfterRestPetDoneLikeC
+                    && mtmp === findTouristD1PostSwapNearMklevMonLikeC(g)
+                ) {
+                    /* C: post-new-turn rest **`m_move`** RNG (~2502–2503) on second **`movemon`**
+                     * pass after moveloop **`distfleeck`** (~2500–2501). */
+                    setApparxyMonsterLikeC(g, mtmp);
+                    ensureMonsterMtrack(mtmp);
+                    rn2(32);
+                    let restChcnt = 4;
+                    !rn2(++restChcnt);
+                    g.context._touristD1PostSwapNearRestMmoveTailPendingLikeC = true;
+                    g.context._touristD1PostSwapNearRestMmoveShortCircuitLikeC = true;
+                } else if (
                     !wizPetMfndposOnlyPostL
                     && !g.context?._wizD1PostEastTailWalkFmonLikeC
                 ) {
@@ -2649,6 +2699,15 @@ export async function mMoveOneMonsterSubsetLikeC(g, mtmp, stepNum = 0) {
                     }
                     mtmp.movement = mov - NORMAL_SPEED;
                     dogMoveTouristD1PostSwapPeelLikeC(g, mtmp);
+                } else if (
+                    (mtmp.mtame | 0)
+                    && has_edog(mtmp)
+                    && g.urole?.abbr === 'Tou'
+                    && g.context?._touristD1PostSwapRestDochugDoneLikeC
+                    && !g.context?._touristD1PostSwapAfterRestPetDoneLikeC
+                ) {
+                    /* C: post-new-turn rest — **`dog_goal`** in **`monmove.js`** fmon tail (~2504+). */
+                    return;
                 } else if (
                     (mtmp.mtame | 0)
                     && has_edog(mtmp)
