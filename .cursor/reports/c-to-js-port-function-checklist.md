@@ -95,7 +95,7 @@ Align batches with [`c-to-js-port-remaining.md`](c-to-js-port-remaining.md) §5:
 
 | C symbol / area | JS module | Status | Notes |
 |-----------------|-----------|--------|-------|
-| `movemon` / `dochug` | `monmove.js`, `fmon_iter.js`, `moveloop_turn_advance.js` | partial | **`L`** peel + tail + third + fourth **`movemon`**; skip **`mcalcmove`** after third/fourth passes; **`seed0900`** **2620–2667**; **~2668** open |
+| `movemon` / `dochug` | `monmove.js`, `fmon_iter.js`, `moveloop_turn_advance.js` | partial | **`L`** peel + tail + third + fourth + fifth **`movemon`**; skip **`mcalcmove`** after third/fourth/fifth passes; **`seed0900`** **2620–2679**; **~2680** open |
 | `m_move` / `mfndpos` | `m_move_mon.js`, `mfndpos.js` | partial | Second post-rest mklev interrupt **`mMoveTouristD1PostRestSecondMklevInterruptLikeC`** (**`rn2(32)`** ~2528); **`seed0900`** **~2545** post-**`mcalcmove`** drift |
 | `distfleeck` | `distfleeck_mon.js` | partial | Peel-only rest **`distfleeck`** (**`_touristD1PostSwapRestDistfleeckPeelLikeC`**); 3× ~915 before stub; **`seed0900`** **2499–2504** |
 | `m_throw` | — | missing | |
