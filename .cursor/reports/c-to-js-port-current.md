@@ -32,7 +32,7 @@ Use this when **`Next steps`** below feels stale or several lanes compete. Order
 
 **Tutorial (Lane E):** Gated on [tutorial port gate](../../docs/plans/tutorial-port-gate.md) **MD-1 … MD-7**.
 
-**Last slice:** **Lane D/A Human Tourist `ini_inv` linked invent** — C **`u_init.c`** **`Tourist[]`** + optional extra + discover **`Wishing[]`** + **`Money[]`** **`addinv`** order in **`u_init_link_tourist_invent.js`**; **`_touristIniFoodOtyps[]`** from **`iniInvOneMkobjFoodUndefDrawLikeC`**; peel adds **`dog_invent`** before **`dog_goal`**. **`seed0900`:** still **2487/2983** (C **5×** floor **`obj_resists`** at peel; JS **0** bbox **`fobj`** → **6th** invent resist). **`seed8000`/`seed0077`:** **PASS**. **2/44**.
+**Last slice:** **Lane A/D mklev `mkobj_at` + tourist `dog_goal` peel** — C **`mkobj_at`** floor placement for **`makeniche`**; empty-floor peel caps **`dog_goal`** invent **`obj_resists`** at **5** then **`appr=1`** (C **`gg.gtyp`** skip) before **`mfndpos`** **`rn2(1/2)`**. **`seed0900`:** **2491/2983** (was **2487**; **2487–2490** match). Next: **~2491** **`distfleeck`** tail / bbox **`fobj`**. **`seed8000`/`seed0077`:** **PASS**. **2/44**.
 
 ## Next steps (aligned with matrix)
 
@@ -40,7 +40,7 @@ Pick **one** primary lane per **batch** (several related C functions — see che
 
 **First:** open [`docs/plans/tutorial-port-gate.md`](../../docs/plans/tutorial-port-gate.md) — if **all MD-1 … MD-7** are checked, do **Lane E** step 1 from [10-tutorial.md](../plans/nethack-port/10-tutorial.md) instead of the list below.
 
-1. **Lane A/D — `seed0900` ~2487** — D:1 **`fobj`** in pet **`dog_goal`** bbox (**`mklev`/`fill_ordinary_room`** or **`place_object`** parity near **(71,5)**) so C **`gg.gtyp`** skips follow invent; then **`mfndpos`** **`chcnt`**; **`distfleeck`** tail; **`seed0102`** D:1 map + botl.
+1. **Lane A/D — `seed0900` ~2491** — post-peel **`distfleeck`** third draw before **`mcalcmove`**; long-term D:1 **`fobj`** in pet **`dog_goal`** bbox (**`mklev`/`makeniche`/`fill_ordinary_room`**) so peel invent cap can drop; **`mfndpos`** **`chcnt`**; **`seed0102`** D:1 map + botl.
 2. **Lane A — `seed0102` screen 0** — D:1 map + botl after mklev parity.
 3. **Lane C — `seed0006` ~2892** — capital **`K`** moveloop tail; screen **35** botl (**`find_ac`** / time).
 4. **Lane B — NHL** — next **`lspo_*`** per [`nhl-port-notes.md`](nhl-port-notes.md).

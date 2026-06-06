@@ -70,6 +70,7 @@ Align batches with [`c-to-js-port-remaining.md`](c-to-js-port-remaining.md) §5:
 | C symbol / area | JS module | Status | Notes |
 |-----------------|-----------|--------|-------|
 | `mklev` / `makelevel` | `mklev.js` | partial | |
+| `mkobj_at` / `makeniche` niche loot | `mklev.js` | partial | **`mkobjFillAtLikeC`** (was shallow **`mkobj`** stub); **`seed0900`** bbox **`fobj`** still **0** at peel |
 | `fill_ordinary_room` | `mklev.js` | partial | |
 | `mktrap` / `traptype_rnd` | `mklev.js` | partial | |
 | `mktrap_victim` | `mklev.js` | partial | possession loop, corpse; RNG fork ~2358 on `seed0900` |
@@ -98,8 +99,8 @@ Align batches with [`c-to-js-port-remaining.md`](c-to-js-port-remaining.md) §5:
 | `m_move` / `mfndpos` | `m_move_mon.js`, `mfndpos.js` | partial | |
 | `distfleeck` | `distfleeck_mon.js` | partial | |
 | `m_throw` | — | missing | |
-| `dogmove` | `dogmove_mon.js` | partial | Tourist D:1 peel: **`dog_invent`** + **`dog_goal`**; **~2487** — C **5×** floor **`obj_resists`** then **`mfndpos`**; JS empty **`fobjInDogGoalBoxLikeC`** → **6th** follow-invent **`obj_resists`** (needs D:1 floor objects in pet bbox / mklev) |
-| `dog_goal` / `obj_resists` | `dogmove_mon.js`, `obj_resists.js` | partial | **`dogfoodRankLikeC(ctx)`** + **`game.context`** sync in floor/follow; **`fobjInDogGoalBoxLikeC`** + **`floorObjHeads`** |
+| `dogmove` | `dogmove_mon.js` | partial | Tourist D:1 peel: **`dog_invent`** + **`dog_goal`**; **`seed0900`** **2491/2983** (was **2487**); next **`distfleeck`** before **`mcalcmove`** |
+| `dog_goal` / `obj_resists` | `dogmove_mon.js`, `obj_resists.js` | partial | Tourist D:1 peel: **`_touristD1PeelEmptyFloorDogGoalLikeC`** caps invent **`obj_resists`** at **5** + **`appr=1`** until bbox **`fobj`**; **`seed0900`** **2491/2983** |
 
 ---
 

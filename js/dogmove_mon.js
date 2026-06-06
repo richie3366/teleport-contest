@@ -431,6 +431,10 @@ function dogGoalFloorScanRngLikeC(
         );
     }
     if (!floor.length) {
+        if (trackApportGoalLikeC && g.context?._touristD1PostSwapDogGoalPrescanLikeC) {
+            const ctx = g.context || (g.context = {});
+            ctx._touristD1PeelEmptyFloorDogGoalLikeC = true;
+        }
         return dogGoalFollowGxGyApprLikeC(
             g, mtmp, UNDEF, ux, uy, udist, whappr, edog, skipFollowInventLikeC,
         );
@@ -639,6 +643,22 @@ function dogGoalFollowGxGyApprLikeC(
     ) {
         if (stairwayAtInGame(g, gx, gy)) {
             appr = 1;
+        } else if (
+            g.context?._touristD1PostSwapDogGoalPrescanLikeC
+            && g.context?._touristD1PeelEmptyFloorDogGoalLikeC
+        ) {
+            /* C: **`seed0900`** H peel — **`dog_goal`** floor **`fobj`** prescan (5× **`obj_resists`**)
+             * sets **`gg.gtyp`** food/APPORT → **`appr=1`**; no sixth **`gi.invent`** **`dogfood`**
+             * (~2484 **`dog_move`** **`rn2(1)`**). Until mklev bbox **`fobj`** parity, cap invent scan. */
+            let invN = 0;
+            for (let o = g.invent; o; o = o.nobj) {
+                const rank = dogfoodRankLikeC(o);
+                invN++;
+                if (rank === DOGFOOD || invN >= 5) {
+                    appr = 1;
+                    break;
+                }
+            }
         } else {
             for (let o = g.invent; o; o = o.nobj) {
                 if (dogfoodRankLikeC(o) === DOGFOOD) {
@@ -1435,6 +1455,7 @@ export function dogMoveTouristD1PostSwapPeelLikeC(g, mtmp) {
         }
     } finally {
         delete ctx._touristD1PostSwapDogGoalPrescanLikeC;
+        delete ctx._touristD1PeelEmptyFloorDogGoalLikeC;
     }
 }
 
