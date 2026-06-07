@@ -1144,6 +1144,9 @@ export async function runPostCommandTurnAdvanceLikeC(g) {
                 ) {
                     delete g.context._wizD1PostEastTailWalkNewTurnDoneLikeC;
                     newTurnDone = true;
+                } else if (g.context?._wizD1CommaUPostCorridorInlineNewturnDoneLikeC) {
+                    delete g.context._wizD1CommaUPostCorridorInlineNewturnDoneLikeC;
+                    newTurnDone = true;
                 } else if (g.context?._wizD1CapitalKPostNearSecondNewTurnDoneLikeC) {
                     newTurnDone = true;
                 } else if (commaMoveloopPeelLikeC) {

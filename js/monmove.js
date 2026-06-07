@@ -130,7 +130,10 @@ import {
 } from './monmove_search.js';
 import { raceptr, S_EEL } from './mondata.js';
 import { ensureMonsterMtrack } from './monflee.js';
-import { maybe_generate_rnd_mon } from './moveloop_aux.js';
+import {
+    maybe_generate_rnd_mon,
+    runCommaUPostCorridorInlineNewturnLikeC,
+} from './moveloop_aux.js';
 import { tAt } from './search.js';
 
 export { mthrowAtHeroUxyThituLikeC } from './mthrowu.js';
@@ -304,6 +307,14 @@ export async function movemon(stepNum) {
             );
             if (peeled) {
                 g.context._wizD1CommaUInventPostCorridorDoneLikeC = true;
+                /* C: comma-**`U`** — **`maybe_generate_rnd_mon`** + partial tail (~2983–2985),
+                 * then near **`distfleeck`** (~2986) before **`fmon`** pet **`mfndpos`**. */
+                await runCommaUPostCorridorInlineNewturnLikeC(g);
+                const nearPostCorridor = wizD1CommaLFirstUNearMklevMonLikeC(g);
+                if (nearPostCorridor) {
+                    setApparxyMonsterLikeC(g, nearPostCorridor);
+                    await distfleeckMonsterApplyLikeC(g, nearPostCorridor);
+                }
             }
         }
     }
@@ -1160,6 +1171,11 @@ export async function movemon(stepNum) {
                     && g.context?._wizD1FirstLAfterCommaPetDoneLikeC
                     && wizD1CommaLFirstUAfterCommaLLikeC(g)
                     && !g.context?._wizD1CommaLFirstUTailDoneLikeC
+                    && !(
+                        g.context?._wizD1CommaUInventPostCorridorDoneLikeC
+                        && g.context?._wizD1CommaUPostCorridorInlineNewturnConsumedLikeC
+                        && !g.context?._wizD1CommaLFirstUPetDogMoveDoneLikeC
+                    )
                 ) {
                     continue;
                 }

@@ -1168,6 +1168,28 @@ export async function movemonSinglemonLikeC(g, mtmp, stepNum = 0) {
     ) {
         return;
     }
+    /* C: comma-**`U`** post-corridor — pet **`mfndpos`** (~2987–2992) after inline new-turn. */
+    if (
+        (mtmp.mtame | 0)
+        && has_edog(mtmp)
+        && wizD1CommaLFirstUAfterCommaLLikeC(g)
+        && g.context?._wizD1CommaUInventPostCorridorDoneLikeC
+        && g.context?._wizD1CommaUPostCorridorInlineNewturnConsumedLikeC
+        && g.context?._wizD1CommaLFirstUNearDfDoneLikeC
+        && !g.context?._wizD1CommaLFirstUPetDogMoveDoneLikeC
+        && !g.context?._wizD1CommaLFirstUTailDoneLikeC
+    ) {
+        let movCommaUPet = mtmp.movement | 0;
+        if (movCommaUPet < NORMAL_SPEED) {
+            mtmp.movement = NORMAL_SPEED;
+            movCommaUPet = NORMAL_SPEED;
+        }
+        mtmp.movement = movCommaUPet - NORMAL_SPEED;
+        const ctxCommaUPet = g.context || (g.context = {});
+        dogMoveCommaLFirstUPetLikeC(g, mtmp);
+        ctxCommaUPet._wizD1CommaLFirstUPetDogMoveDoneLikeC = true;
+        return;
+    }
     /* C: comma-**`l`** → first **`U`** — one hostile **`dochug`** **`rn2(20)`** before new-turn tail. */
     if (
         wizD1CommaLFirstUAfterCommaLLikeC(g)

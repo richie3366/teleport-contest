@@ -32,7 +32,7 @@ Use this when **`Next steps`** below feels stale or several lanes compete. Order
 
 **Tutorial (Lane E):** Gated on [tutorial port gate](../../docs/plans/tutorial-port-gate.md) **MD-1 … MD-7**.
 
-**Last slice:** **Lane C — `seed0006` comma post-first-`l` → first `U` corridor hostile peel (~2974–2982)** — pet **`pet_ranged_attk`** hungry **`rn2(5)`** guard (~2973); inline **`mMoveCommaUInventPostCorridorHostileLikeC`** (**`distfleeck`**, **`mtrack`**, ~915 recalc, explicit away **`rn2(12)`**×3 debt); **`movemonSinglemonLikeC`** skip corridor when peel done. **Verified:** prefix **75** through **2982** (corridor window); fail **2983+** comma-**`U`** tail / **`maybe_generate_rnd_mon`**; **`seed8000` 2900–3129** canary.
+**Last slice:** **Lane C — `seed0006` comma-`U` post-corridor inline new-turn (~2983–3038)** — **`runCommaUPostCorridorInlineNewturnLikeC`** after corridor peel (**`maybe_generate_rnd_mon`**, **`gethungry`**, **`rn2(85)`**); near **`distfleeck`** (~2986); pet **`dogMoveCommaLFirstUPetLikeC`** via early **`movemonSinglemonLikeC`** + fmon un-skip; moveloop skip duplicate new-turn. **Verified:** prefix **75** through **3038**; fail **3039+** fmon tail second mklev **`rn2(12)`** vs pet **`rn2(3)`**; **`seed8000` 2900–3129** canary.
 
 ## Next steps (aligned with matrix)
 
@@ -40,7 +40,7 @@ Pick **one** primary lane per **batch** (several related C functions — see che
 
 **First:** open [`docs/plans/tutorial-port-gate.md`](../../docs/plans/tutorial-port-gate.md) — if **all MD-1 … MD-7** are checked, do **Lane E** step 1 from [10-tutorial.md](../plans/nethack-port/10-tutorial.md) instead of the list below.
 
-1. **Lane C — `seed0006` comma-`U` tail (~2983+)** — **`maybe_generate_rnd_mon`** **`rn2(70)`** vs surplus **`distfleeck`** / near **`mfndpos`**; comma-**`U`** near **`distfleeck`**×2 + distant **`m_move`** (~2993+); **`fmon`** tail **~3040** when window green.
+1. **Lane C — `seed0006` comma-`U` fmon tail (~3039+)** — second surplus mklev **`mMoveCommaUFmonTailSlotMklevLikeC`** **`rn2(12)`** before pet **`dogMoveCommaUFmonTailPostPeelPetLikeC`** sameCell **`rn2(3)`**; **`fmon`** hostiles order / count at third peel.
 2. **Lane B — NHL** — next **`lspo_*`** per [`nhl-port-notes.md`](nhl-port-notes.md).
 3. **Lane A/D — `seed0900`** — screen parity (RNG **0–2982** done); map/botl integration beyond moveloop peel chain.
 4. **Lane A/D — `dogmove.c`** — **`score_targ`** vampshifter **`mtmp_lev`** **`rn2`** tail (~808–817); **`mattackm`** / **`pet_ranged_attk`** when pet breath sessions fail.
