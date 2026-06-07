@@ -3095,6 +3095,7 @@ export async function mMoveOneMonsterSubsetLikeC(g, mtmp, stepNum = 0) {
                 /* C: post-east-tail walk complete — short **`l`**: pet only in **`fmon`**. */
                 if (
                     g.context?._wizD1PostEastTailWalkCompleteLikeC
+                    && !g.context?._wizD1CommaLFirstUTailDoneLikeC
                     && !g.context?._wizD1CommaLFirstUNearDfPendingLikeC
                     && !g.context?._wizD1CommaLFirstUNearDfDoneLikeC
                 ) {

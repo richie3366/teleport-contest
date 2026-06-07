@@ -1041,20 +1041,20 @@ export async function movemon(stepNum) {
                     setApparxyMonsterLikeC(g, commaUPetTail);
                     rn2(4);
                     dogMoveCommaLFirstUPostTailPetLikeC(g, commaUPetTail);
+                    /* C: post phase-1 **`mfndpos`** — near **`distfleeck`** (~3006); **`mcalcmove`**
+                     * **`rn2(12)`**×3 (~3007–3009) runs in moveloop **`runNewTurnSetupAndTailLikeC`**. */
                     if (commaUTailNear) {
                         setApparxyMonsterLikeC(g, commaUTailNear);
                         await distfleeckMonsterApplyLikeC(g, commaUTailNear);
                     }
-                    const ctxPetTail2 = g.context || (g.context = {});
-                    ctxPetTail2._wizD1CommaLFirstUPostTailPhase2LikeC = true;
-                    dogMoveCommaLFirstUPostTailPetLikeC(g, commaUPetTail);
-                    delete ctxPetTail2._wizD1CommaLFirstUPostTailPhase2LikeC;
-                    delete ctxPetTail2._wizD1CommaLFirstUPostTailAwayRn12LikeC;
                 }
                 g.context._wizD1CommaLFirstUTailDoneLikeC = true;
                 delete g.context._wizD1CommaLFirstUPetDogMoveDoneLikeC;
                 delete g.context._wizD1CommaLFirstUNearDfDoneLikeC;
                 delete g.context._wizD1CommaLFirstUNearFmonSkipDoneLikeC;
+                delete g.context._wizD1EastTailMovemonPetMfndposPendingLikeC;
+                /* C: moveloop post-**`movemon`** new-turn + pet invent (~3010+). */
+                g.context._wizD1CommaLFirstUPostTailNewturnPendingLikeC = true;
             }
             /* C: first hero l after comma — distant distfleeck x2 + dochug m_move (~2973+);
              * deferred from fmon loop (near+pet handled in head). */
@@ -1501,6 +1501,7 @@ export async function movemon(stepNum) {
             g.context?._wizD1FirstShortLFmonNearPetDoneLikeC
             && !g.context?._wizD1PostEastTailWalkPeelDoneLikeC
             && g.context?._wizD1PostEastTailWalkNewTurnDoneLikeC
+            && !g.context?._wizD1CommaLFirstUPostTailNewturnPendingLikeC
         ) {
             return false;
         }
@@ -1508,6 +1509,8 @@ export async function movemon(stepNum) {
         if (
             g.context?._wizD1EastTailMovemonPetMfndposPendingLikeC
             && !g.context?._wizD1PostEastTailWalkFmonPendingLikeC
+            && !g.context?._wizD1CommaLFirstUTailDoneLikeC
+            && !g.context?._wizD1CommaLFirstUPostTailNewturnPendingLikeC
         ) {
             const petEast = (g.level?.monsters ?? []).find((m) => (m.mtame | 0) !== 0);
             const peelDistant =
@@ -3152,6 +3155,7 @@ export async function movemon(stepNum) {
         if (
             g.context?._wizD1FirstShortLFmonNearPetDoneLikeC
             && !g.context?._wizD1PostEastTailWalkPeelDoneLikeC
+            && !g.context?._wizD1CommaLFirstUPostTailNewturnPendingLikeC
         ) {
             return false;
         }
