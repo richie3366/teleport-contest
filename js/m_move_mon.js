@@ -81,6 +81,7 @@ import {
     dogMovePostCorridorSecondPetMfndposLikeC,
     dogMovePostEastTailWalkObjResistsLikeC,
     dogMoveCapitalKPostCommaPetLikeC,
+    dogMoveCommaLFirstUPetLikeC,
     dogMoveFirstLAfterCommaPetLikeC,
     dogMovePostEastTailWalkShortLPetLikeC,
     dogMovePostEastTailWalkFmonPetLikeC,
@@ -891,6 +892,14 @@ function mMovePetOrPositionSelectLikeC(g, mtmp) {
             && isWizardD1Step1PeelLikeC(g, stepNum)
         ) {
             return dogMoveCapitalKPostCommaPetLikeC(g, mtmp);
+        }
+        if (
+            g.context?._wizD1CommaLFirstUNearDfDoneLikeC
+            && !g.context?._wizD1CommaLFirstUPetDogMoveDoneLikeC
+            && !g.context?._wizD1CommaLFirstUTailDoneLikeC
+            && isWizardD1Step1PeelLikeC(g, stepNum)
+        ) {
+            return dogMoveCommaLFirstUPetLikeC(g, mtmp);
         }
         if (
             (
@@ -2130,6 +2139,30 @@ export async function wizD1CommaLFirstUNearDistfleeckBeforePetLikeC(g) {
     delete ctx._wizD1PostEastTailWalkCompleteLikeC;
 }
 
+/** C: comma-**`l`** → first **`U`** — distant **`m_move`** **`mtrack`** **`rn2(8)`** (~2995). */
+export async function mMoveCommaLFirstUDistantLikeC(g, mtmp) {
+    if (!mtmp || (mtmp.mhp | 0) <= 0) return;
+    ensureMonsterMtrack(mtmp);
+    const omx = mtmp.mx | 0;
+    const omy = mtmp.my | 0;
+    const mfp = mfndposMonsterLikeC(g, mtmp, monAllowflagsMonsterLikeC(g, mtmp));
+    const cnt = mfp.cnt | 0;
+    if (cnt > 0) {
+        if (!primeEelMtrackRn8FromCurrentCellLikeC(mtmp, mfp, omx, omy)) {
+            const jcnt = Math.min(MTSZ, cnt - 1);
+            for (let j = 0; j < jcnt; j++) {
+                if (4 * (cnt - j) !== 8) continue;
+                monTrackClear(mtmp);
+                ensureMonsterMtrack(mtmp);
+                mtmp.mtrack[j] = { x: omx, y: omy };
+                break;
+            }
+        }
+        rn2(8);
+    }
+    mMovePositionSelectRngLikeC(g, mtmp);
+}
+
 export async function mMoveFirstLAfterCommaDistantLikeC(g, mtmp) {
     if (!mtmp || (mtmp.mhp | 0) <= 0) return;
     ensureMonsterMtrack(mtmp);
@@ -2473,6 +2506,25 @@ export async function mMoveOneMonsterSubsetLikeC(g, mtmp, stepNum = 0) {
             g.context?._wizD1FirstShortLFmonNearPetDoneLikeC
             && !g.context?._wizD1PostEastTailWalkPeelDoneLikeC
         ) {
+            return;
+        }
+        /* C: comma-**`l`** → first **`U`** — pet **`mfndpos`** before short-**`l`** peel (~2987+). */
+        if (
+            (mtmp.mtame | 0)
+            && has_edog(mtmp)
+            && g.context?._wizD1CommaLFirstUNearDfDoneLikeC
+            && !g.context?._wizD1CommaLFirstUPetDogMoveDoneLikeC
+            && !g.context?._wizD1CommaLFirstUTailDoneLikeC
+        ) {
+            let movCommaUPeel = mtmp.movement | 0;
+            if (movCommaUPeel < NORMAL_SPEED) {
+                mtmp.movement = NORMAL_SPEED;
+                movCommaUPeel = NORMAL_SPEED;
+            }
+            mtmp.movement = movCommaUPeel - NORMAL_SPEED;
+            const ctxCommaUPeel = g.context || (g.context = {});
+            dogMoveCommaLFirstUPetLikeC(g, mtmp);
+            ctxCommaUPeel._wizD1CommaLFirstUPetDogMoveDoneLikeC = true;
             return;
         }
         /* C: post-east-tail walk — short **`l`** pet (**`seed0006`** ~2807+). */
@@ -2958,10 +3010,29 @@ export async function mMoveOneMonsterSubsetLikeC(g, mtmp, stepNum = 0) {
                 ) {
                     await wizD1CommaLFirstUNearDistfleeckBeforePetLikeC(g);
                 }
+                /* C: comma-**`l`** → first **`U`** — full pet **`dog_move`** **`mfndpos`** (~2987–2992),
+                 * not short-**`l`** one-away peel. */
+                if (
+                    g.context?._wizD1CommaLFirstUNearDfDoneLikeC
+                    && !g.context?._wizD1CommaLFirstUPetDogMoveDoneLikeC
+                    && !g.context?._wizD1CommaLFirstUTailDoneLikeC
+                ) {
+                    let movCommaU = mtmp.movement | 0;
+                    if (movCommaU < NORMAL_SPEED) {
+                        mtmp.movement = NORMAL_SPEED;
+                        movCommaU = NORMAL_SPEED;
+                    }
+                    mtmp.movement = movCommaU - NORMAL_SPEED;
+                    const ctxCommaU = g.context || (g.context = {});
+                    dogMoveCommaLFirstUPetLikeC(g, mtmp);
+                    ctxCommaU._wizD1CommaLFirstUPetDogMoveDoneLikeC = true;
+                    return;
+                }
                 /* C: post-east-tail walk complete — short **`l`**: pet only in **`fmon`**. */
                 if (
                     g.context?._wizD1PostEastTailWalkCompleteLikeC
                     && !g.context?._wizD1CommaLFirstUNearDfPendingLikeC
+                    && !g.context?._wizD1CommaLFirstUNearDfDoneLikeC
                 ) {
                     let mov = mtmp.movement | 0;
                     if (mov < NORMAL_SPEED) {

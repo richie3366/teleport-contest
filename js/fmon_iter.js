@@ -104,8 +104,17 @@ export function fmonListForMovemonLikeC(g, stepNum = 0) {
         g.urole?.abbr === 'Wiz'
         && (g.u?.uz?.dnum | 0) === 0
         && (g.u?.uz?.dlevel | 0) === 1
-        && !g.context?._wizD1CommaLFirstUNearDfDoneLikeC
-        && g.context?._wizD1CommaLFirstUNearDfPendingLikeC
+        && (
+            (
+                !g.context?._wizD1CommaLFirstUNearDfDoneLikeC
+                && g.context?._wizD1CommaLFirstUNearDfPendingLikeC
+            )
+            || (
+                g.context?._wizD1CommaLFirstUNearDfDoneLikeC
+                && !g.context?._wizD1CommaLFirstUPetDogMoveDoneLikeC
+                && !g.context?._wizD1CommaLFirstUTailDoneLikeC
+            )
+        )
     ) {
         const pet = mons.find((m) => (m.mtame | 0) !== 0);
         const nearMklev = wizD1CommaLFirstUNearMklevMonLikeC(g);
