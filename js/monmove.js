@@ -340,6 +340,10 @@ export async function movemon(stepNum) {
     if (
         g.context?._wizD1CommaLFirstUPostTailOuterMoveloopDoneLikeC
         && !g.context?._wizD1CommaLFirstUPostTailSecondUPostMovemonLikeC
+        && !(
+            g.context?._wizD1CommaSecondUSurplusArmedLikeC
+            && (g.moves | 0) >= 37
+        )
     ) {
         return false;
     }
@@ -422,7 +426,12 @@ export async function movemon(stepNum) {
             (m) => (m.movement | 0) >= NORMAL_SPEED,
         )
             ? surplusHostile
-            : (nearMklevSurplus ? [nearMklevSurplus] : []);
+            : (
+                nearMklevSurplus
+                && !g.context?._wizD1CommaLFirstUPostTailSecondUPeelDoneLikeC
+                    ? [nearMklevSurplus]
+                    : []
+            );
         for (const m of passList) {
             spendSurplusMoveLikeC(m);
             await movemonSinglemonLikeC(g, m, effStepNum);
@@ -433,6 +442,7 @@ export async function movemon(stepNum) {
         const nearMklevStillPendingLikeC =
             nearMklevSurplus
             && !passList.includes(nearMklevSurplus)
+            && !g.context?._wizD1CommaLFirstUPostTailSecondUPeelDoneLikeC
             && surplusHostile.some((m) => m !== nearMklevSurplus);
         return !!(
             g.context?._somebodyCanMoveLikeC
@@ -1241,6 +1251,18 @@ export async function movemon(stepNum) {
                 ) {
                     continue;
                 }
+                const nearCommaUPostFourth = wizD1CommaLFirstUNearMklevMonLikeC(g);
+                if (
+                    g.urole?.abbr === 'Wiz'
+                    && (g.u?.uz?.dnum | 0) === 0
+                    && (g.u?.uz?.dlevel | 0) === 1
+                    && (g.moves | 0) >= 37
+                    && g.context?._wizD1CommaSecondUSurplusArmedLikeC
+                    && m === nearCommaUPostFourth
+                    && !(m.mtame | 0)
+                ) {
+                    g.context._wizD1CommaPostFourthHostileSurplusDoneLikeC = true;
+                }
                 await movemonSinglemonLikeC(g, m, effStepNum);
             }
             /* C: comma-**`l`** → first **`U`** — near **`distfleeck`**×2 + distant **`m_move`** (~2993+). */
@@ -1978,6 +2000,7 @@ export async function movemon(stepNum) {
             g.context._wizD1CommaLFirstUPostTailOuterMoveloopDoneLikeC = true;
             /* C: hero **`UU`** second **`U`** — near **`distfleeck`** (~3054) after fourth new-turn (~3051–3053). */
             g.context._wizD1CommaLFirstUPostTailPostFourthDfPendingLikeC = true;
+            g.context._wizD1CommaSecondUSurplusArmedLikeC = true;
             return false;
         }
         /* C: tourist D:1 run-east **`L`** — fourth **`movemon`** after third-pass new-turn

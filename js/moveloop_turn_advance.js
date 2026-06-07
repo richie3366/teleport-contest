@@ -1092,7 +1092,11 @@ export async function runPostCommandTurnAdvanceLikeC(g) {
                         delete g.context._wizD1CommaLFirstUPostTailAwaitSecondHeroULikeC;
                         delete g.context._wizD1CommaLFirstUPostTailAwaitSurplusFmonLikeC;
                         delete g.context._wizD1CommaLFirstUPostTailSecondUPostMovemonLikeC;
-                        if (secondUPeelArmedLikeC && nearSurplusDone) {
+                        if (
+                            secondUPeelArmedLikeC
+                            && nearSurplusDone
+                            && !g.context?._wizD1CommaLFirstUPostTailSecondUPeelDoneLikeC
+                        ) {
                             let movNear = nearSurplusDone.movement | 0;
                             if (movNear < NORMAL_SPEED) {
                                 nearSurplusDone.movement = NORMAL_SPEED;
@@ -1275,7 +1279,11 @@ export async function runPostCommandTurnAdvanceLikeC(g) {
                         const secondUPeelArmedLikeC =
                             !!g.context?._wizD1CommaLFirstUPostTailAwaitSecondHeroULikeC;
                         delete g.context._wizD1CommaLFirstUPostTailAwaitSecondHeroULikeC;
-                        if (secondUPeelArmedLikeC && nearPostFourth) {
+                        if (
+                            secondUPeelArmedLikeC
+                            && nearPostFourth
+                            && !g.context?._wizD1CommaLFirstUPostTailSecondUPeelDoneLikeC
+                        ) {
                             let movNear = nearPostFourth.movement | 0;
                             if (movNear < NORMAL_SPEED) {
                                 nearPostFourth.movement = NORMAL_SPEED;

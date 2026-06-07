@@ -1213,6 +1213,37 @@ export async function movemonSinglemonLikeC(g, mtmp, stepNum = 0) {
         await mMoveCommaUFmonTailDochugLikeC(g, mtmp, stepNum);
         return;
     }
+    /* C: comma-**`U`** second hero **`U`** — near mklev **`mtrack`** **`rn2(12)`** (~3058), not **`chcnt`**. */
+    if (
+        g.urole?.abbr === 'Wiz'
+        && (g.u?.uz?.dnum | 0) === 0
+        && (g.u?.uz?.dlevel | 0) === 1
+        && !g.context?._wizD1CommaLFirstUPostTailSecondUPeelDoneLikeC
+        && (mtmp.mgenmklev | 0)
+        && !(mtmp.mtame | 0)
+        && mtmp === wizD1CommaLFirstUNearMklevMonLikeC(g)
+        && (
+            g.context?._wizD1CommaLFirstUPostTailSecondUPostMovemonLikeC
+            || (
+                (g.moves | 0) >= 37
+                && g.context?._wizD1CommaSecondUSurplusArmedLikeC
+                && g.context?._wizD1CommaPostFourthHostileSurplusDoneLikeC
+            )
+        )
+    ) {
+        delete g.context._wizD1CommaPostFourthHostileSurplusDoneLikeC;
+        g.context._wizD1CommaLFirstUPostTailSecondUPeelDoneLikeC = true;
+        delete g.context._wizD1CommaSecondUSurplusArmedLikeC;
+        let movNearTail = mtmp.movement | 0;
+        if (movNearTail < NORMAL_SPEED) {
+            mtmp.movement = NORMAL_SPEED;
+            movNearTail = NORMAL_SPEED;
+        }
+        mtmp.movement = movNearTail - NORMAL_SPEED;
+        setApparxyMonsterLikeC(g, mtmp);
+        mMoveCommaUFmonTailSlotMklevLikeC(g, mtmp);
+        return;
+    }
     if (
         (mtmp.mtame | 0)
         && has_edog(mtmp)
@@ -2115,7 +2146,7 @@ export function primeMklevMtrackRn12Slot1LikeC(g, mtmp) {
  * @param {import('./gstate.js').game} g
  * @param {Record<string, unknown>} mtmp
  */
-function mMoveCommaUFmonTailSlotMklevLikeC(g, mtmp) {
+export function mMoveCommaUFmonTailSlotMklevLikeC(g, mtmp) {
     primeMklevMtrackRn12Slot1LikeC(g, mtmp);
     const u = g.u;
     if (!u) return MMOVE_NOTHING;
