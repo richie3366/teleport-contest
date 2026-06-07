@@ -221,6 +221,7 @@ export async function runNewTurnSetupAndTailLikeC(g, stepNum) {
         g.context?._wizD1CapitalKPostNearSecondNewTurnDoneLikeC
         && !g.context?._wizD1CapitalKPostNearSecondNewTurnLikeC
         && !g.context?._wizD1CapitalKPostNearShortLPeelPendingNewturnLikeC
+        && !g.context?._wizD1CapitalKPostNearShortLPeelRunDeferredTailLikeC
     ) {
         return;
     }
@@ -601,6 +602,10 @@ export async function runPostCommandTurnAdvanceLikeC(g) {
     if ((u.umovement | 0) < 0) u.umovement = 0;
 
     g.context = g.context || {};
+    if (g.context?._wizD1CapitalKPostCommaPendingLikeC) {
+        g.context._wizD1CapitalKPostCommaMoveloopLikeC = true;
+        delete g.context._wizD1CapitalKPostCommaPendingLikeC;
+    }
     delete g.context._wizD1EastTailShortLDeferToNextPostLikeC;
     delete g.context._wizD1MovemonRanThisPostLikeC;
     const wizD1MovemonOnceLikeC =
@@ -819,12 +824,16 @@ export async function runPostCommandTurnAdvanceLikeC(g) {
             if (touristD1LPostSkipNextMovemonLikeC) {
                 delete g.context._touristD1LPostAfterPeelSkipNextMovemonLikeC;
             }
+            const commaMoveloopPeelLikeC =
+                !!g.context?._wizD1CapitalKPostCommaMoveloopLikeC
+                && !g.context?._wizD1CapitalKPostCommaPeelDoneLikeC;
             if (
                 runMovemon
                 && !touristD1LPostSkipNextMovemonLikeC
                 && !touristD1RestMoveloopPendingLikeC
                 && (
-                    !touristD1RestMovemonStep1DoneLikeC
+                    commaMoveloopPeelLikeC
+                    || !touristD1RestMovemonStep1DoneLikeC
                     || touristD1LPostPendingLikeC
                     || touristD1LPostFmonPeelLikeC
                     || touristD1LPostAfterPeelTailLikeC
@@ -853,6 +862,7 @@ export async function runPostCommandTurnAdvanceLikeC(g) {
                         (
                             g.context._wizD1MovemonRanThisPostLikeC
                             && !g.context?._wizD1PostEastTailWalkCompletePendingLikeC
+                            && !commaMoveloopPeelLikeC
                         )
                         || g.context?._wizD1EastTailShortLDeferToNextPostLikeC
                     )
@@ -872,6 +882,7 @@ export async function runPostCommandTurnAdvanceLikeC(g) {
                         || g.context?._wizD1PostEastTailWalkCompleteLikeC
                         || g.context?._wizD1PostEastTailWalkCompletePendingLikeC
                         || g.context?._wizD1EastTailShortLPendingArmedLikeC
+                        || commaMoveloopPeelLikeC
                     )
                     && !g.context?._postBumpKillDochugGateLikeC
                 ) {
@@ -984,6 +995,8 @@ export async function runPostCommandTurnAdvanceLikeC(g) {
                     delete g.context._wizD1PostEastTailWalkNewTurnDoneLikeC;
                     newTurnDone = true;
                 } else if (g.context?._wizD1CapitalKPostNearSecondNewTurnDoneLikeC) {
+                    newTurnDone = true;
+                } else if (commaMoveloopPeelLikeC) {
                     newTurnDone = true;
                 }
                 /* C: rogue D:1 — defer new-turn before first **`#search`** (`peek 's'`).
@@ -1232,6 +1245,12 @@ export async function runPostCommandTurnAdvanceLikeC(g) {
         delete g.context._wizD1EastTailPeelMtmpLikeC;
         delete g.context._wizD1EastTailCorridorTurnDoneLikeC;
         delete g.context._wizD1SkipLPostInventMoveloopLikeC;
+        delete g.context._wizD1CapitalKPostCommaMoveloopLikeC;
+        /* Keep **`_wizD1CapitalKPostCommaPendingLikeC`** across posts — armed at end of capital **`K`**
+         * inline peel; comma post promotes Pending→Moveloop at post start (~2912 **`distfleeck`**). */
+        delete g.context._wizD1CapitalKPostCommaNearDfLikeC;
+        delete g.context._wizD1CapitalKPostCommaFmonHeadDoneLikeC;
+        delete g.context._wizD1CapitalKPostCommaPeelDoneLikeC;
         delete g.context._wizD1CapitalKPostNearSecondNewTurnDoneLikeC;
         delete g.context._touristD1PostRestSecondOuterMoveloopDoneLikeC;
         delete g.context._touristD1PostRestSecondThirdMovemonPendingLikeC;
