@@ -13,3 +13,13 @@ nethack-c/upstream/include/graphify-out/
 .agents/skills/caveman-*/
 .agents/skills/cavecrew/
 skills-lock.json
+
+# Port loop (local cursor-agent supervisor; see .cursor/prompts/continue-nethack-port.md)
+tools/loop-nethack-port-agent.sh
+tools/port-loop-extract-usage.mjs
+tools/port-loop-format-agent-stream.mjs
+.cursor/port-loop-logs/
+.cursor/port-loop.stop
+.cursor/port-loop.pid
+.cursor/port-loop-tokens.json
+.cursor/port-loop-supervisor.log

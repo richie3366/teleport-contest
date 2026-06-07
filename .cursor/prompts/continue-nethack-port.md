@@ -29,8 +29,10 @@ Use this file when you want a **new agent session** to continue the port without
 ## Canonical prompt — **batch workflow** (preferred)
 
 ```
-Continue NetHack 5.0 C→JS using the batch port workflow: read .cursor/reports/c-to-js-port-current.md and .cursor/reports/c-to-js-port-batch-workflow.md; pick the next batch from .cursor/reports/c-to-js-port-function-checklist.md (port from nethack-c/upstream C only; follow port-from-c-not-score.mdc; do not edit js/isaac64.js, js/terminal.js, js/storage.js). Use graphify (--graph per .cursor/docs/graphify.md) for C/JS call-graph navigation; npm run graphify:js after js edits. Fast-verify the batch (diag_rng_window when RNG changes); npm run score only at milestones or when unsure. When done: update checklist + c-to-js-port-current.md + one changelog row; git commit this batch (no push unless asked).
+Continue NetHack 5.0 C→JS using the batch port workflow: read .cursor/reports/c-to-js-port-current.md and .cursor/reports/c-to-js-port-batch-workflow.md; pick the next batch from .cursor/reports/c-to-js-port-function-checklist.md (port from nethack-c/upstream C only; follow port-from-c-not-score.mdc; do not edit js/isaac64.js, js/terminal.js, js/storage.js). Use graphify (--graph per .cursor/docs/graphify.md) for C/JS call-graph navigation; npm run graphify:js after js edits. Fast-verify the batch (diag_rng_window when RNG changes); npm run score only at milestones or when unsure. When done: update checklist + c-to-js-port-current.md + one changelog row. You MUST run verify commands and git commit yourself in this session — never defer shell work to the user. Commit this batch before finishing (no push unless asked).
 ```
+
+**Headless loop:** [`tools/loop-nethack-port-agent.sh`](../../tools/loop-nethack-port-agent.sh) runs `cursor-agent --print --trust --force --sandbox disabled` with **`--output-format stream-json` by default** (thinking + tool calls in `.cursor/port-loop-logs/iteration-*.log`, raw NDJSON in `iteration-*.jsonl`). `--quiet` for final-reply-only. Token budget: `--max-tokens 250_000_000` (stops after cumulative input+output+cache usage; current run always finishes). Graceful stop: `./tools/loop-nethack-port-agent.sh stop`.
 
 ---
 
