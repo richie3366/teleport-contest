@@ -756,12 +756,10 @@ export async function runPostCommandTurnAdvanceLikeC(g) {
         delete g.context._wizD1EastTailSecondPostCorridorNewTurnDoneLikeC;
         delete g.context._wizD1EastTailPostCorridorMovemonAfterMcalcmoveDoneLikeC;
         delete g.context._wizD1EastTailPostMcalcmovePetPendingLikeC;
+        /* C: run-**`K`** deferred comma — pass counter owns exit; do not clear safety **`OuterLoopDone`**. */
         if (
             wizMultiPassOuterLikeC
-            && !(
-                g.context?._wizD1PostEastTailWalkFmonDistantDeferredLikeC
-                && (g.context._wizD1DeferredRunKNewTurnPassesLikeC | 0) >= 3
-            )
+            && !g.context?._wizD1PostEastTailWalkFmonDistantDeferredLikeC
         ) {
             delete g.context._wizD1LPostOuterLoopDoneLikeC;
         }

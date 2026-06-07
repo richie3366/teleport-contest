@@ -32,7 +32,7 @@ Use this when **`Next steps`** below feels stale or several lanes compete. Order
 
 **Tutorial (Lane E):** Gated on [tutorial port gate](../../docs/plans/tutorial-port-gate.md) **MD-1 … MD-7**.
 
-**Last slice:** **Lane C — `seed0006` deferred run-`K` / comma pickup peel (WIP)** — arm **`_wizD1DeferredRunKPendingLikeC`** at east-tail walk **`fmon`** peel-done (~2818); comma **`rhack`** promotes deferred (C move **72 `K`** = 0 RNG); moveloop promote + 3-pass new-turn path + comma cap skips empty **`fmon`** when deferred; **`movemon`** keeps **`fmon`** during deferred; block inline **`runNewTurn`** in **`movemon`** during deferred. **Locator:** prefix **72** **2818** aligned; prefix **73** still **~10769** (C **2908**) — tail **`runPost`** outer loop spins (~736× **`g.moves`**) after promote; first semantic fail **2823** (`distfleeck` **`rn2(5)`** vs invent **`rn2(100)`**). **`seed8000` 2900–3129:** aligned. **2/44**.
+**Last slice:** **Lane C — `seed0006` comma move 73 deferred peel (~2822+)** — **`moveloop_turn_advance.js`**: stop clearing **`_wizD1LPostOuterLoopDoneLikeC`** during deferred run-**`K`** (fixes ~736× **`runPost`** spin); **`monmove.js`**: deferred comma **`fmon`** head = capital-**`K`** comma near **`distfleeck`** then pet invent, distant tail on pass 0, peel-only **`movemon`** passes 1–2; **`m_move_mon.js`**: skip duplicate near/pet when head done, **`dogMoveCapitalKPostCommaPetLikeC`** not prescan-first walk pet. **Verified:** **2810–2821** aligned; first fail **2822** (**`rn2(100)`** vs C **`rn2(5)`** near **`distfleeck`**); prefix **73** **~10794** (C **2908**). **`seed8000` 2900–3129:** aligned (canary). **2/44**.
 
 ## Next steps (aligned with matrix)
 
@@ -40,7 +40,7 @@ Pick **one** primary lane per **batch** (several related C functions — see che
 
 **First:** open [`docs/plans/tutorial-port-gate.md`](../../docs/plans/tutorial-port-gate.md) — if **all MD-1 … MD-7** are checked, do **Lane E** step 1 from [10-tutorial.md](../plans/nethack-port/10-tutorial.md) instead of the list below.
 
-1. **Lane C — `seed0006` comma move 73 deferred peel (~2823+)** — prefix **72** RNG OK; comma tail **`runPost`** must run 3× (**`movemon`** + **`runNewTurnSetupAndTailLikeC`**) without ~736× spin. Fix: **`allmain.c`** post-after-**`rhack`** ordering vs jsmain tail; near **`distfleeck`** before pet **`dochug:886`** in deferred **`fmon`**. Then comma-**`U`** **~3054**.
+1. **Lane C — `seed0006` comma move 73+ / comma-`U` ~3054** — first fail **2822**: pet **`obj_resists`** before comma **`fmon`** near **`distfleeck`** (deferred promote → **`movemon`** head ordering / moveloop pass-0 vs **`mcalcmove`**); then prefix **73** toward C **2908**; comma-**`U`** from **~3054** when window green.
 2. **Lane B — NHL** — next **`lspo_*`** per [`nhl-port-notes.md`](nhl-port-notes.md).
 3. **Lane A/D — `seed0900`** — screen parity (RNG **0–2982** done); map/botl integration beyond moveloop peel chain.
 4. **Lane A/D — `dogmove.c`** — **`score_targ`** vampshifter **`mtmp_lev`** **`rn2`** tail (~808–817); **`mattackm`** / **`pet_ranged_attk`** when pet breath sessions fail.

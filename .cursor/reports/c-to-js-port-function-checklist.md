@@ -96,7 +96,7 @@ Align batches with [`c-to-js-port-remaining.md`](c-to-js-port-remaining.md) §5:
 
 | C symbol / area | JS module | Status | Notes |
 |-----------------|-----------|--------|-------|
-| `movemon` / `dochug` | `monmove.js`, `fmon_iter.js`, `moveloop_turn_advance.js`, `moveloop_aux.js`, `dogmove_mon.js`, `m_move_mon.js`, `monmove_search.js`, `mfndpos_mon.js` | partial | **Deferred run-`K` / comma (~2823+, WIP):** pending at peel-done; comma promotes deferred; moveloop 3-pass + comma cap; **`movemon`** inline new-turn gated. Prefix **72** **2818** OK; **73** **~10769** (C **2908**) — tail **`runPost`** spin + **`rn2(100)`** before **`dochug:886`**. **`seed8000` 2900–3129:** aligned |
+| `movemon` / `dochug` | `monmove.js`, `fmon_iter.js`, `moveloop_turn_advance.js`, `moveloop_aux.js`, `dogmove_mon.js`, `m_move_mon.js`, `monmove_search.js`, `mfndpos_mon.js` | partial | **Deferred run-`K` / comma (~2822+):** comma promote + **`fmon`** head (near **`distfleeck`** then **`dogMoveCapitalKPostCommaPetLikeC`**); moveloop 3-pass without clearing **`OuterLoopDone`**; pass 0 distant tail; passes 1–2 peel-only **`movemon`**. **2810–2821** OK; fail **2822**; prefix **73** **~10794** (C **2908**). **`seed8000` 2900–3129:** aligned |
 | `m_move` / `mfndpos` | `m_move_mon.js`, `mfndpos.js` | partial | Second post-rest mklev interrupt **`mMoveTouristD1PostRestSecondMklevInterruptLikeC`** (**`rn2(32)`** ~2528); **`seed0900`** **~2545** post-**`mcalcmove`** drift |
 | `distfleeck` | `distfleeck_mon.js` | partial | Peel-only rest **`distfleeck`** (**`_touristD1PostSwapRestDistfleeckPeelLikeC`**); 3× ~915 before stub; **`seed0900`** **2499–2504** |
 | `m_throw` | — | missing | |
