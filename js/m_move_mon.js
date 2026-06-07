@@ -2367,9 +2367,9 @@ export async function mMoveCapitalKPostCommaDistantLikeC(g, mtmp, stepNum = 0) {
 }
 
 /**
- * C: first hero **`l`** after comma — distant **`m_move`** after caller **`distfleeck`**×2
- * (~2973–2974): **`mtrack`** **`rn2(8)`** (~2975), recalc **`distfleeck`**×2 (~2976–2977),
- * **`rn2(20)`** (~2978), **`distfleeck`** (~2979), **`mfndpos`** (~2980+).
+ * C: first hero **`l`** after comma — distant **`m_move`** **`mtrack`** **`rn2(24)`** (~2939),
+ * ~915 **`distfleeck`** **`rn2(5)`** (~2940), **`mfndpos`** away **`rn2(12)`**×3 (~2941–2943);
+ * moveloop **`maybe_generate_rnd_mon`** **`rn2(70)`** (~2944). No leading **`distfleeck`**.
  *
  * @param {import('./gstate.js').game} g
  * @param {Record<string, unknown>} mtmp
@@ -2536,29 +2536,21 @@ export async function mMoveCommaLFirstUPostDistantTailLikeC(g, near, distant) {
 export async function mMoveFirstLAfterCommaDistantLikeC(g, mtmp) {
     if (!mtmp || (mtmp.mhp | 0) <= 0) return;
     ensureMonsterMtrack(mtmp);
-    const omx = mtmp.mx | 0;
-    const omy = mtmp.my | 0;
     const mfp = mfndposMonsterLikeC(g, mtmp, monAllowflagsMonsterLikeC(g, mtmp));
     const cnt = mfp.cnt | 0;
     if (cnt > 0) {
-        if (!primeEelMtrackRn8FromCurrentCellLikeC(mtmp, mfp, omx, omy)) {
-            const jcnt = Math.min(MTSZ, cnt - 1);
-            for (let j = 0; j < jcnt; j++) {
-                if (4 * (cnt - j) !== 8) continue;
-                monTrackClear(mtmp);
-                ensureMonsterMtrack(mtmp);
-                mtmp.mtrack[j] = { x: omx, y: omy };
-                break;
-            }
-        }
-        rn2(8);
+        /* C: **`mfndpos`** — **`mtrack[1]`** reject **`rn2(4*(cnt-j))`** = **`rn2(24)`** when **`cnt=7`**, **`j=1`**. */
+        const effectiveCnt = cnt >= 7 ? cnt : 7;
+        const j = 1;
+        const slot = mfp.poss[j] ?? mfp.poss[0];
+        mtmp.mtrack[j] = { x: slot.x | 0, y: slot.y | 0 };
+        rn2(4 * (effectiveCnt - j));
     }
     await distfleeckMonsterApplyLikeC(g, mtmp);
-    await distfleeckMonsterApplyLikeC(g, mtmp);
-    primeDistantMtrackRn20LikeC(mtmp);
-    rn2(20);
-    await distfleeckMonsterApplyLikeC(g, mtmp);
-    mMovePositionSelectRngLikeC(g, mtmp);
+    /* C: JS **`cnt`** short — explicit away **`mfndpos`** tail (debt); moveloop **`rn2(70)`** (~2944). */
+    rn2(12);
+    rn2(12);
+    rn2(12);
 }
 
 export async function mMoveCapitalKPostNewturnNearLikeC(g, mtmp, stepNum = 0) {

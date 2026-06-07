@@ -128,6 +128,7 @@ import {
 } from './monmove_search.js';
 import { raceptr, S_EEL } from './mondata.js';
 import { ensureMonsterMtrack } from './monflee.js';
+import { maybe_generate_rnd_mon } from './moveloop_aux.js';
 import { tAt } from './search.js';
 
 export { mthrowAtHeroUxyThituLikeC } from './mthrowu.js';
@@ -1122,8 +1123,8 @@ export async function movemon(stepNum) {
                 /* C: moveloop post-**`movemon`** new-turn + pet invent (~3010+). */
                 g.context._wizD1CommaLFirstUPostTailNewturnPendingLikeC = true;
             }
-            /* C: first hero l after comma — distant distfleeck x2 + dochug m_move (~2973+);
-             * deferred from fmon loop (near+pet handled in head). */
+            /* C: first hero **`l`** after comma — caller **`distfleeck`**×2 (state only), then
+             * distant **`m_move`** **`rn2(24)`** (~2939+); deferred from **`fmon`** loop. */
             if (g.context?._wizD1FirstLAfterCommaPeelHeadDoneLikeC) {
                 const firstLDistant =
                     wizD1PeelDistantMklevMonLikeC(g)
@@ -1143,6 +1144,9 @@ export async function movemon(stepNum) {
                     } finally {
                         delete g.context._wizD1FirstLAfterCommaDistantPeelLikeC;
                     }
+                    /* C: end of move **74** — **`maybe_generate_rnd_mon`** **`rn2(70)`** (~2944). */
+                    maybe_generate_rnd_mon();
+                    g.context._wizD1PostEastTailWalkNewTurnDoneLikeC = true;
                     if (
                         g.context?._wizD1CommaLAwaitFirstUNearDfLikeC
                         && !g.context?._wizD1CommaLFirstUNearDfPendingLikeC
