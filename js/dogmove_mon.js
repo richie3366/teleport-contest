@@ -3488,6 +3488,13 @@ export function dogMoveCapitalKPostCommaPetLikeC(g, mtmp) {
         delete ctx._dogfoodRankCacheLikeC;
         ctx._wizD1Step1ObjResistsPrescanLikeC = true;
         dogGoalWizardD1Step1ObjResistsPrescanLikeC(g, mtmp);
+        /* C: **`dog_move`** — one **`fobj`** **`dogfood`** after invent prescan (~2928). */
+        for (let o = g.level?.fobj; o; o = o.nobj) {
+            dogfoodRankComputeLikeC(o);
+            break;
+        }
+        delete ctx._wizD1Step1ObjResistsPrescanLikeC;
+        delete ctx._dogfoodRankCacheLikeC;
         ctx._wizD1Step1CachedDogGoalLikeC = {
             gx: goal.gx | 0,
             gy: goal.gy | 0,
