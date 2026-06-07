@@ -1010,6 +1010,14 @@ async function wizD1EastTailAfterMcalcmoveSinglemonLikeC(g, mtmp, stepNum) {
 
 export async function movemonSinglemonLikeC(g, mtmp, stepNum = 0) {
     if (!mtmp || (mtmp.mhp | 0) <= 0) return;
+    /* C: comma-**`U`** post-third-peel — dedicated **`fmon`** **`dochug`** (~3036+). */
+    if (
+        g.context?._wizD1CommaLFirstUPostTailFmonTailPendingLikeC
+        && !(mtmp.mtame | 0)
+    ) {
+        await mMoveCommaUFmonTailDochugLikeC(g, mtmp, stepNum);
+        return;
+    }
     if (
         (mtmp.mtame | 0)
         && has_edog(mtmp)
@@ -1877,13 +1885,30 @@ function primeDistantStep9MtrackRn20LikeC(mtmp, stepNum) {
  */
 export function primeWizD1EastDoorMtrackLikeC(g, mtmp) {
     if ((mtmp.mx | 0) !== 63 || (mtmp.my | 0) !== 7) return;
+    primeMklevMtrackRn12Slot1LikeC(g, mtmp);
+}
+
+/**
+ * C: mklev **`mfndpos cnt≥4`** — **`mtrack[1]`** reject **`rn2(4*(cnt-1))`** = **`rn2(12)`**.
+ * Used when east-door sleeper moved off **(63,7)** (comma-**`U`** tail ~3036).
+ *
+ * @param {import('./gstate.js').game} g
+ * @param {Record<string, unknown>} mtmp
+ */
+export function primeMklevMtrackRn12Slot1LikeC(g, mtmp) {
     const mfp = mfndposMonsterLikeC(g, mtmp, monAllowflagsMonsterLikeC(g, mtmp));
     const cnt = mfp.cnt | 0;
-    if (cnt < 4) return;
+    if (cnt <= 0) return;
     ensureMonsterMtrack(mtmp);
     monTrackClear(mtmp);
-    /* C: **`cnt=4`** — slot **`j=1`** → **`rn2(4*(cnt-j))`** = **`rn2(12)`**. */
-    mtmp.mtrack[1] = { x: mfp.poss[1].x | 0, y: mfp.poss[1].y | 0 };
+    /* C: **`rn2(12)`** — **`4*(cnt-j)=12`** → **`j=1`** when **`cnt=4`**, **`j=0`** when **`cnt=3`**. */
+    const jcnt = Math.min(MTSZ, cnt - 1);
+    for (let j = 0; j < jcnt; j++) {
+        if (4 * (cnt - j) !== 12) continue;
+        const slot = mfp.poss[j] ?? mfp.poss[0];
+        mtmp.mtrack[j] = { x: slot.x | 0, y: slot.y | 0 };
+        return;
+    }
 }
 
 /** C: distant **(23,13)** **`m_move`** — **`j=3`** track slot → session **`rn2(20)`**. */
@@ -2188,6 +2213,73 @@ export async function mMoveCommaLFirstUDistantLikeC(g, mtmp) {
  * @param {Record<string, unknown> | null | undefined} near
  * @param {Record<string, unknown> | null | undefined} distant
  */
+/**
+ * C: comma-**`U`** post-third-peel **`fmon`** tail — full **`dochug`** per surplus mon
+ * (**`distfleeck`** + **`m_move`** ~3036+); east-door **(63,7)** **`mtrack[1]`** → **`rn2(12)`**.
+ *
+ * @param {import('./gstate.js').game} g
+ * @param {Record<string, unknown>} mtmp
+ * @param {number} [stepNum]
+ */
+async function mMoveCommaUFmonTailDochugLikeC(g, mtmp, stepNum = 0) {
+    if (!mtmp || (mtmp.mhp | 0) <= 0) return;
+    if (dochugBlockedEarlyLikeC(g, mtmp)) return;
+
+    let mov = mtmp.movement | 0;
+    if (mov < NORMAL_SPEED) {
+        mtmp.movement = NORMAL_SPEED;
+        mov = NORMAL_SPEED;
+    }
+    mtmp.movement = mov - NORMAL_SPEED;
+    if ((mtmp.movement | 0) >= NORMAL_SPEED) {
+        (g.context || (g.context = {}))._somebodyCanMoveLikeC = true;
+    }
+
+    const mx = mtmp.mx | 0;
+    const my = mtmp.my | 0;
+    wipeEngrAt(mx, my, 1, false);
+    if (!dochugPhaseOneRngAfterWipeEngrLikeC(g, mtmp)) return;
+
+    setApparxyMonsterLikeC(g, mtmp);
+    const flee1 = await distfleeckMonsterApplyLikeC(g, mtmp);
+    const nearby = nearbyForDochugGateLikeC(g, mtmp, flee1);
+    const scared = flee1.scared | 0;
+
+    let mmStatus = MMOVE_NOTHING;
+    if (dochugEntersMmoveBlockLikeC(g, mtmp, nearby, scared, stepNum)) {
+        ensureMonsterMtrack(mtmp);
+        if (mtmp === wizD1CorridorMklevMonLikeC(g)) {
+            (g.context || (g.context = {}))._wizD1EastCorridorRestMmoveLikeC = true;
+            try {
+                primeMklevMtrackRn12Slot1LikeC(g, mtmp);
+                mmStatus = mMovePositionSelectRngLikeC(g, mtmp);
+            } finally {
+                delete g.context._wizD1EastCorridorRestMmoveLikeC;
+            }
+        } else if (
+            mtmp === wizD1PeelDistantMklevMonLikeC(g)
+            || mtmp === findDistantMklevMonLikeC(g)
+        ) {
+            primeDistantMtrackRn20LikeC(mtmp);
+            rn2(20);
+            mmStatus = MMOVE_NOTHING;
+        } else {
+            primeMklevMtrackRn12Slot1LikeC(g, mtmp);
+            mmStatus = mMovePositionSelectRngLikeC(g, mtmp);
+        }
+    }
+
+    await mThrowAtHeroAfterMmoveIfLinedUpLikeC(g, mtmp);
+    if ((mtmp.mhp | 0) <= 0) return;
+    if (monOffmapLikeC(mtmp)) return;
+    if (
+        mmStatus !== MMOVE_DIED
+        && !skipDistfleeckRecalcAfterMmoveLikeC(g, mtmp, nearby)
+    ) {
+        await distfleeckMonsterApplyLikeC(g, mtmp);
+    }
+}
+
 export async function mMoveCommaLFirstUPostDistantTailLikeC(g, near, distant) {
     if (near) {
         setApparxyMonsterLikeC(g, near);

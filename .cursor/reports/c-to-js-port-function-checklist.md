@@ -96,7 +96,7 @@ Align batches with [`c-to-js-port-remaining.md`](c-to-js-port-remaining.md) §5:
 
 | C symbol / area | JS module | Status | Notes |
 |-----------------|-----------|--------|-------|
-| `movemon` / `dochug` | `monmove.js`, `fmon_iter.js`, `moveloop_turn_advance.js`, `moveloop_aux.js`, `dogmove_mon.js`, `m_move_mon.js`, `monmove_search.js`, `mfndpos_mon.js` | partial | Comma-**`U`** third peel + inline post-peel **`fmon`** tail (**`FmonTailPending`**, **`isMovemonStep1PeelLikeC`** bypass); peel **`rn2(12)`**×3/×2 + pet **`distfleeck`** (~3029–3034); full-list **`movemonSinglemon`** tail (~3035+). **`2888–3035`** aligned; first fail **3036**. **`seed8000` 2900–3129:** aligned |
+| `movemon` / `dochug` | `monmove.js`, `fmon_iter.js`, `moveloop_turn_advance.js`, `moveloop_aux.js`, `dogmove_mon.js`, `m_move_mon.js`, `monmove_search.js`, `mfndpos_mon.js` | partial | Comma-**`U`** post-third-peel **`fmon`** tail — **`mMoveCommaUFmonTailDochugLikeC`**, **`primeMklevMtrackRn12Slot1LikeC`** (moved east-door **`mtrack`** ~3036), **`fmon_iter`** near→corridor→distant order. **`2888–3039`** aligned; first fail **3040**. **`seed8000` 2900–3129:** aligned |
 | `m_move` / `mfndpos` | `m_move_mon.js`, `mfndpos.js` | partial | Second post-rest mklev interrupt **`mMoveTouristD1PostRestSecondMklevInterruptLikeC`** (**`rn2(32)`** ~2528); **`seed0900`** **~2545** post-**`mcalcmove`** drift |
 | `distfleeck` | `distfleeck_mon.js` | partial | Peel-only rest **`distfleeck`** (**`_touristD1PostSwapRestDistfleeckPeelLikeC`**); 3× ~915 before stub; **`seed0900`** **2499–2504** |
 | `m_throw` | — | missing | |
