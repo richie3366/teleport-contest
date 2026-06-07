@@ -89,6 +89,7 @@ import {
     dogMoveCapitalKPostCommaPetLikeC,
     dogMoveCommaLFirstUPostTailPetLikeC,
     dogMoveCommaLFirstUPostTailInventAfterNewturnLikeC,
+    dogMoveCommaLFirstUPostTailThirdMovemonPetLikeC,
     dogMoveFirstLAfterCommaPetLikeC,
     dogMoveLPetInventAfterNewturnLikeC,
     dogMovePostEastTailWalkShortLPetLikeC,
@@ -224,6 +225,10 @@ export async function movemon(stepNum) {
         && !g.context?._wizD1CommaLFirstUPostTailSecondNewturnDoneLikeC
         && !g.context?._wizD1CommaLFirstUPostTailInventPendingLikeC
     ) {
+        return false;
+    }
+    /* C: comma-**`U`** — third peel done; no surplus **`fmon`** / fourth new-turn in same post. */
+    if (g.context?._wizD1CommaLFirstUPostTailThirdMovemonDoneLikeC) {
         return false;
     }
     if (
@@ -548,6 +553,14 @@ export async function movemon(stepNum) {
         if (
             g.urole?.abbr === 'Tou'
             && g.context?._touristD1LPostThirdMovemonPendingLikeC
+            && (effStepNum | 0) === 1
+        ) {
+            mons = [];
+        }
+        /* C: comma-**`l`** → first **`U`** — peel-only third **`movemon`** (~3029+). */
+        if (
+            g.urole?.abbr === 'Wiz'
+            && g.context?._wizD1CommaLFirstUPostTailThirdMovemonPendingLikeC
             && (effStepNum | 0) === 1
         ) {
             mons = [];
@@ -1529,7 +1542,12 @@ export async function movemon(stepNum) {
             && !g.context?._wizD1PostEastTailWalkPeelDoneLikeC
             && g.context?._wizD1PostEastTailWalkNewTurnDoneLikeC
             && !g.context?._wizD1CommaLFirstUPostTailNewturnPendingLikeC
+            && !g.context?._wizD1CommaLFirstUPostTailThirdMovemonPendingLikeC
+            && !g.context?._wizD1CommaLFirstUPostTailThirdMovemonDoneLikeC
         ) {
+            return false;
+        }
+        if (g.context?._wizD1CommaLFirstUPostTailThirdMovemonDoneLikeC) {
             return false;
         }
         /* C: wizard D:1 second **`L`** — pet **`mfndpos`** after east-tail peel (~2726+). */
@@ -1834,6 +1852,32 @@ export async function movemon(stepNum) {
             }
             g.context._touristD1LPostThirdMovemonCompleteLikeC = true;
             delete g.context._touristD1LPostThirdMovemonPendingLikeC;
+        }
+        /* C: comma-**`l`** → first **`U`** — third **`movemon`** after post-second-new-turn
+         * **`distfleeck`** — pet **`mfndpos`** **`rn2(12)`**×3 (~3029–3031), surplus **`fmon`**
+         * **`rn2(12)`**×2 (~3032–3033), pet **`distfleeck`** (~3034). */
+        if (
+            g.urole?.abbr === 'Wiz'
+            && (g.u?.uz?.dnum | 0) === 0
+            && (g.u?.uz?.dlevel | 0) === 1
+            && g.context?._wizD1CommaLFirstUPostTailThirdMovemonPendingLikeC
+            && (effStepNum | 0) === 1
+        ) {
+            const petCommaUThird = (g.level?.monsters ?? []).find(
+                (m) => (m.mtame | 0) !== 0,
+            );
+            if (petCommaUThird) {
+                setApparxyMonsterLikeC(g, petCommaUThird);
+                dogMoveCommaLFirstUPostTailThirdMovemonPetLikeC(g, petCommaUThird);
+                /* C: surplus **`fmon`** **`rn2(12)`**×2 before next **`distfleeck`**. */
+                rn2(12);
+                rn2(12);
+                setApparxyMonsterLikeC(g, petCommaUThird);
+                await distfleeckMonsterApplyLikeC(g, petCommaUThird);
+            }
+            delete g.context._wizD1CommaLFirstUPostTailThirdMovemonPendingLikeC;
+            g.context._wizD1CommaLFirstUPostTailThirdMovemonDoneLikeC = true;
+            g.context._wizD1CommaLFirstUPostTailOuterMoveloopDoneLikeC = true;
         }
         /* C: tourist D:1 run-east **`L`** — fourth **`movemon`** after third-pass new-turn
          * (**`seed0900`** ~2649–2663). */

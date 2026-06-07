@@ -4230,6 +4230,36 @@ export function dogMoveCommaLFirstUPostTailPetLikeC(g, mtmp) {
  * @param {import('./gstate.js').game} g
  * @param {Record<string, unknown>} mtmp
  */
+/**
+ * C: comma-**`l`** → first **`U`** — third **`movemon`** peel after post-second-new-turn
+ * **`distfleeck`** — pet away **`mfndpos`** **`rn2(12)`**×3 (~3029–3031).
+ *
+ * @param {import('./gstate.js').game} g
+ * @param {Record<string, unknown>} mtmp
+ */
+export function dogMoveCommaLFirstUPostTailThirdMovemonPetLikeC(g, mtmp) {
+    if (!(mtmp.mtame | 0) || !has_edog(mtmp)) return MMOVE_NOTHING;
+    if ((mtmp.mhp | 0) <= 0) return MMOVE_DIED;
+    const u = g.u;
+    if (!u) return MMOVE_NOTHING;
+    const pin = g.context?._wizD1Step1DogGoalHeroXYLikeC;
+    const hx = pin ? (pin.ux | 0) : (u.ux | 0);
+    const hy = pin ? (pin.uy | 0) : (u.uy | 0);
+    mtmp.mux = hx;
+    mtmp.muy = hy;
+    let mov = mtmp.movement | 0;
+    if (mov < NORMAL_SPEED) {
+        mtmp.movement = NORMAL_SPEED;
+        mov = NORMAL_SPEED;
+    }
+    mtmp.movement = mov - NORMAL_SPEED;
+    /* C: third peel — away **`mfndpos`** **`rn2(12)`**×3 only (~3029–3031); no **`chcnt`**. */
+    rn2(12);
+    rn2(12);
+    rn2(12);
+    return MMOVE_NOTHING;
+}
+
 export function dogMoveCommaLFirstUPostTailInventAfterNewturnLikeC(g, mtmp) {
     if (!(mtmp.mtame | 0) || !has_edog(mtmp)) return MMOVE_NOTHING;
     if ((mtmp.mhp | 0) <= 0) return MMOVE_DIED;

@@ -66,6 +66,10 @@ export function maybe_generate_rnd_mon() {
     ) {
         return;
     }
+    /* C: comma-**`U`** — defer fourth new-turn **`maybe_generate`** during third peel (~3029+). */
+    if (game.context?._wizD1CommaLFirstUPostTailThirdMovemonPendingLikeC) {
+        return;
+    }
     rn2(70);
 }
 

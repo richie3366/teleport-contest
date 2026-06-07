@@ -823,6 +823,8 @@ export async function runPostCommandTurnAdvanceLikeC(g) {
                 !!g.context?._touristD1LPostNineteenthMovemonPendingLikeC;
             const touristD1LPostTwentiethMovemonLikeC =
                 !!g.context?._touristD1LPostTwentiethMovemonPendingLikeC;
+            const wizD1CommaUThirdMovemonLikeC =
+                !!g.context?._wizD1CommaLFirstUPostTailThirdMovemonPendingLikeC;
             const touristD1LPostSkipNextMovemonLikeC =
                 !!g.context?._touristD1LPostAfterPeelSkipNextMovemonLikeC;
             if (touristD1LPostSkipNextMovemonLikeC) {
@@ -859,6 +861,7 @@ export async function runPostCommandTurnAdvanceLikeC(g) {
                     || touristD1LPostEighteenthMovemonLikeC
                     || touristD1LPostNineteenthMovemonLikeC
                     || touristD1LPostTwentiethMovemonLikeC
+                    || wizD1CommaUThirdMovemonLikeC
                 )
                 && !(
                     wizD1MovemonOnceLikeC
@@ -868,6 +871,7 @@ export async function runPostCommandTurnAdvanceLikeC(g) {
                             && !g.context?._wizD1PostEastTailWalkCompletePendingLikeC
                             && !commaMoveloopPeelLikeC
                             && !g.context?._wizD1CommaLFirstUPostTailInventPendingLikeC
+                            && !g.context?._wizD1CommaLFirstUPostTailThirdMovemonPendingLikeC
                         )
                         || g.context?._wizD1EastTailShortLDeferToNextPostLikeC
                     )
@@ -927,6 +931,7 @@ export async function runPostCommandTurnAdvanceLikeC(g) {
                     || touristD1LPostEighteenthMovemonLikeC
                     || touristD1LPostNineteenthMovemonLikeC
                     || touristD1LPostTwentiethMovemonLikeC
+                    || wizD1CommaUThirdMovemonLikeC
                 ) {
                     stepForMovemon = 1;
                 }
@@ -991,6 +996,7 @@ export async function runPostCommandTurnAdvanceLikeC(g) {
                 && (!capNewTurnsToOne || !newTurnDone)
                 && !g.context?._wizD1LPostOuterLoopDoneLikeC
                 && !g.context?._touristD1PostRestSecondOuterMoveloopDoneLikeC
+                && !g.context?._wizD1CommaLFirstUPostTailOuterMoveloopDoneLikeC
                 && !g.context?._wizD1EastTailPostCorridorMovemonAfterMcalcmoveDoneLikeC
             ) {
                 const tailStepNum = (g.moves | 0) - 1;
@@ -1304,6 +1310,9 @@ export async function runPostCommandTurnAdvanceLikeC(g) {
         delete g.context._wizD1CapitalKPostNearSecondNewTurnDoneLikeC;
         delete g.context._touristD1PostRestSecondOuterMoveloopDoneLikeC;
         delete g.context._touristD1PostRestSecondThirdMovemonPendingLikeC;
+        delete g.context._wizD1CommaLFirstUPostTailOuterMoveloopDoneLikeC;
+        delete g.context._wizD1CommaLFirstUPostTailThirdMovemonDoneLikeC;
+        delete g.context._wizD1CommaLFirstUPostTailThirdMovemonPendingLikeC;
         /* **`_wizD1PostEastTailWalkFmonLikeC`** cleared in **`movemon`** after the walk post consumes it. */
     }
 }
