@@ -1132,26 +1132,32 @@ export async function movemon(stepNum) {
                         delete g.context._wizD1CapitalKPostNearShortLPeelLikeC;
                     }
                 }
-                /* C: capital **`K`** — post-peel new-turn **`mcalcmove`** (~2891–2893) + near **`distfleeck`**×2
-                 * (~2894–2895). */
+                /* C: capital **`K`** — post-peel **`mcalcmove`** only (~2891–2893); tail deferred;
+                 * near **`distfleeck`**×2 (~2894–2895). */
                 g.context._wizD1CapitalKPostNearShortLPeelPendingNewturnLikeC = true;
                 delete g.context._wizD1CapitalKPostNearSecondNewTurnDoneLikeC;
                 try {
-                    const { runNewTurnSetupAndTailLikeC } = await import(
+                    const { runMcalcmoveOnlyLikeC } = await import(
                         './moveloop_turn_advance.js',
                     );
-                    await runNewTurnSetupAndTailLikeC(g, (g.moves | 0) - 1);
+                    runMcalcmoveOnlyLikeC(g);
                 } finally {
                     delete g.context._wizD1CapitalKPostNearShortLPeelPendingNewturnLikeC;
                 }
+                g.context._wizD1CapitalKPostNearShortLPeelDeferredTailLikeC = true;
                 g.context._wizD1CapitalKPostNearSecondNewTurnDoneLikeC = true;
                 g.context._wizD1PostEastTailWalkNewTurnDoneLikeC = true;
                 if (nearAfterCapitalK) {
                     setApparxyMonsterLikeC(g, nearAfterCapitalK);
+                    ensureMonsterMtrack(nearAfterCapitalK);
+                    /* C: post-peel near **`mtrack[1]`** **`rn2(12)`** (~2893) before **`distfleeck`**×2. */
+                    primeWizD1EastDoorMtrackLikeC(g, nearAfterCapitalK);
+                    rn2(12);
                     await distfleeckMonsterApplyLikeC(g, nearAfterCapitalK);
                     await distfleeckMonsterApplyLikeC(g, nearAfterCapitalK);
                 }
                 g.context._wizD1SkipLPostInventMoveloopLikeC = true;
+                g.context._wizD1LPostOuterLoopDoneLikeC = true;
                 g.context._wizD1PostEastTailWalkCompleteLikeC = true;
             }
         }
