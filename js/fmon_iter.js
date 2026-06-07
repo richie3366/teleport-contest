@@ -225,6 +225,33 @@ export function fmonListForMovemonLikeC(g, stepNum = 0) {
         if (distant) ordered.push(distant);
         return ordered;
     }
+    /* C: comma promotes deferred run-**`K`** — pet **`dog_move`** only in **`fmon`** (~2811+);
+     * near **`distfleeck`** / distant tail run in **`monmove.js`** peel block. */
+    if (
+        g.context?._wizD1PostEastTailWalkFmonDistantDeferredLikeC
+        && (g.context._wizD1DeferredRunKNewTurnPassesLikeC | 0) === 0
+        && (
+            g.context?._wizD1CapitalKPostCommaMoveloopLikeC
+            || g.context?._wizD1CommaPickupCapOuterLikeC
+        )
+        && g.urole?.abbr === 'Wiz'
+        && (g.u?.uz?.dnum | 0) === 0
+        && (g.u?.uz?.dlevel | 0) === 1
+    ) {
+        const pet = mons.find((m) => (m.mtame | 0) !== 0);
+        const nearMklev =
+            wizD1EastDoorMklevMonLikeC(g)
+            ?? mons.find(
+                (m) =>
+                    !(m.mtame | 0)
+                    && (m.mgenmklev | 0),
+            );
+        /** @type {typeof mons} */
+        const ordered = [];
+        if (nearMklev) ordered.push(nearMklev);
+        if (pet) ordered.push(pet);
+        return ordered;
+    }
     /* C: post-east-tail walk **`fmon`** peel — near + pet only (~2781+); before short **`l`**
      * when **`_wizD1PostEastTailWalkFmonLikeC`** is armed for the walk post. */
     if (

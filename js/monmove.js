@@ -895,47 +895,6 @@ export async function movemon(stepNum) {
                     (mm) => (mm.mtame | 0) !== 0,
                 );
             }
-            /* C: comma after capital **`K`** / deferred run-**`K`** promote — near **`distfleeck`**
-             * before pet invent/**`dog_goal`** (~2823 / ~2912+). */
-            const deferredCommaFmonHeadLikeC =
-                !!g.context?._wizD1PostEastTailWalkFmonDistantDeferredLikeC
-                && !!g.context?._wizD1WalkFmonPostMoveloopLikeC
-                && (g.context._wizD1DeferredRunKNewTurnPassesLikeC | 0) === 0;
-            if (
-                (
-                    g.context?._wizD1CapitalKPostCommaMoveloopLikeC
-                    || deferredCommaFmonHeadLikeC
-                )
-                && !g.context?._wizD1CapitalKPostCommaPeelDoneLikeC
-                && !g.context?._wizD1CapitalKPostCommaFmonHeadDoneLikeC
-            ) {
-                const commaNearHead =
-                    wizD1EastDoorMklevMonLikeC(g)
-                    ?? (g.level?.monsters ?? []).find(
-                        (mm) =>
-                            !(mm.mtame | 0)
-                            && (mm.mgenmklev | 0),
-                    );
-                const commaPetHead = (g.level?.monsters ?? []).find(
-                    (mm) => (mm.mtame | 0) !== 0,
-                );
-                if (commaNearHead) {
-                    setApparxyMonsterLikeC(g, commaNearHead);
-                    await distfleeckMonsterApplyLikeC(g, commaNearHead);
-                    g.context._wizD1CapitalKPostCommaNearDfLikeC = true;
-                }
-                if (commaPetHead) {
-                    setApparxyMonsterLikeC(g, commaPetHead);
-                    let movH = commaPetHead.movement | 0;
-                    if (movH < NORMAL_SPEED) {
-                        commaPetHead.movement = NORMAL_SPEED;
-                        movH = NORMAL_SPEED;
-                    }
-                    commaPetHead.movement = movH - NORMAL_SPEED;
-                    dogMoveCapitalKPostCommaPetLikeC(g, commaPetHead);
-                }
-                g.context._wizD1CapitalKPostCommaFmonHeadDoneLikeC = true;
-            }
             /* C: first hero **`l`** after comma — near **`distfleeck`** (~2948), pet **`rn2(4)`**
              * + short-**`l`** **`dog_move`** (~2949+); same as capital **`K`** short-**`l`** peel. */
             if (

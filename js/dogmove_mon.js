@@ -1823,8 +1823,11 @@ function dogMoveMfndposPickLikeC(g, mtmp, ggx, ggy, appr, whappr) {
                     ctxK._wizD1CapitalKAwayAttemptedLikeC = true;
                 }
             } else if (
-                g.context?._wizD1PostEastTailWalkFmonPetLikeC
-                && !g.context?._wizD1WalkFmonPostMoveloopLikeC
+                (
+                    g.context?._wizD1PostEastTailWalkFmonPetLikeC
+                    && !g.context?._wizD1WalkFmonPostMoveloopLikeC
+                )
+                || g.context?._wizD1CommaPromoteShortLPetPhaseLikeC
             ) {
                 const blockFmonAway = !!g.context._wizD1WalkFmonPetAwayDoneLikeC;
                 let awayClause = false;
@@ -2157,11 +2160,18 @@ function dogMoveMfndposPickLikeC(g, mtmp, ggx, ggy, appr, whappr) {
                     && !ctxBr._wizD1CapitalKAway2DoneLikeC
                 ) {
                     /* keep scanning: first away, **`chcnt`**, second away */
-                } else if (ctxBr?._wizD1WalkFmonPostMoveloopLikeC) {
+                } else if (
+                    ctxBr?._wizD1WalkFmonPostMoveloopLikeC
+                    && !ctxBr?._wizD1CommaPromoteShortLPetPhaseLikeC
+                ) {
                     /* C: walk **`fmon`** post — one **`j==0`** slot; tail **`rn2(2)`** (~2717). */
                     ctxBr._wizD1WalkFmonPostMfndposChcntSlotsLikeC =
                         (ctxBr._wizD1WalkFmonPostMfndposChcntSlotsLikeC | 0) + 1;
                     break;
+                } else if (ctxBr?._wizD1CommaPromoteShortLPetPhaseLikeC) {
+                    /* C: comma promote — keep **`mfndpos`** through ~2821 before **`pet_ranged`**. */
+                    ctxBr._wizD1WalkFmonPostMfndposChcntSlotsLikeC =
+                        (ctxBr._wizD1WalkFmonPostMfndposChcntSlotsLikeC | 0) + 1;
                 } else {
                     /* C: east-tail pick — stop after **`j==0`** **`chcnt`** tie (~2730). */
                     break;
@@ -3565,19 +3575,26 @@ export function dogMoveCapitalKPostCommaPetLikeC(g, mtmp) {
     const omx = mtmp.mx | 0;
     const omy = mtmp.my | 0;
     const udist = dist2(omx, omy, hx, hy);
-    ctx._wizD1CapitalKPostCommaPetLikeC = true;
-    ctx._wizD1LPetInventAfterNewturnChcntOnlyLikeC = true;
-    ctx._wizD1Step1ObjResistsPrescanLikeC = true;
     if (ctx) game.context = ctx;
     delete ctx._wizD1Step1PetMfndposPickDoneLikeC;
     try {
-        /* C: deferred comma **`fmon`** head — **`pet_ranged_attk`** **`!rn2(5)`** (~2822), then
-         * **`dochug:886`** **`rn2(4)`** (~2823), invent **`obj_resists`** (~2824+). */
+        /* C: comma promote — short-**`l`** peel (~2811–2814); mfndpos/mcalcmove tail ~2815+ next batch. */
+        ctx._wizD1CommaPromoteShortLPetPhaseLikeC = true;
+        dogMovePostEastTailWalkShortLPetLikeC(g, mtmp);
+        delete ctx._wizD1CommaPromoteShortLPetPhaseLikeC;
+        delete ctx._wizD1EastTailShortLPetDoneLikeC;
+
+        /* C: **`dochug`** — **`pet_ranged_attk`** **`!rn2(5)`** (~2822), **`rn2(4)`** (~2823). */
         petRangedAttkDogmoveLikeC(g, mtmp, false);
         if (!ctx._wizD1WalkFmonPetDochugRn4DoneLikeC) {
             rn2(4);
             ctx._wizD1WalkFmonPetDochugRn4DoneLikeC = true;
         }
+
+        /* C: invent **`obj_resists`** tail + **`chcnt`** **`mfndpos`** (~2824+). */
+        ctx._wizD1CapitalKPostCommaPetLikeC = true;
+        ctx._wizD1LPetInventAfterNewturnChcntOnlyLikeC = true;
+        ctx._wizD1Step1ObjResistsPrescanLikeC = true;
         ctx._postBumpSkipDogGoalRn2LikeC = true;
         dogGoalWizardD1Step1ObjResistsPrescanLikeC(g, mtmp);
         const apportRoll = rn2(8);
@@ -3616,6 +3633,8 @@ export function dogMoveCapitalKPostCommaPetLikeC(g, mtmp) {
         delete ctx._wizD1LPetInventAfterNewturnChcntOnlyLikeC;
         delete ctx._wizD1Step1ObjResistsPrescanLikeC;
         delete ctx._postBumpSkipDogGoalRn2LikeC;
+        delete ctx._wizD1PostEastTailWalkShortLPetLikeC;
+        delete ctx._wizD1LPetEastTailMfndposLikeC;
         delete ctx._dogfoodRankCacheLikeC;
     }
     return MMOVE_NOTHING;
@@ -3904,7 +3923,8 @@ export function dogMovePostEastTailWalkShortLPetLikeC(g, mtmp) {
         /* C: comma rest — **`PeelDone`** without **`Complete`** → follow **`rn2(4)`** (~2744);
          * capital **`K`** post-near peel — caller drew **`dochug:886`** **`rn2(4)`** (~2886). */
         const commaRestShortLPetFollowRn4LikeC =
-            !ctx._wizD1CapitalKPostNearShortLPeelLikeC
+            !ctx._wizD1CommaPromoteShortLPetPhaseLikeC
+            && !ctx._wizD1CapitalKPostNearShortLPeelLikeC
             && !!ctx._wizD1PostEastTailWalkPeelDoneLikeC
             && !ctx._wizD1PostEastTailWalkCompleteLikeC;
         if (commaRestShortLPetFollowRn4LikeC) {

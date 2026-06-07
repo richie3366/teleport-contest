@@ -1480,11 +1480,12 @@ export async function movemonSinglemonLikeC(g, mtmp, stepNum = 0) {
         && (mtmp.mtame | 0)
         && has_edog(mtmp)
         && !g.context?._wizD1WalkFmonPetDochugRn4DoneLikeC
+        && (g.context._wizD1DeferredRunKNewTurnPassesLikeC | 0) !== 0
     ) {
         setApparxyMonsterLikeC(g, mtmp);
         rn2(4);
         g.context._wizD1WalkFmonPetDochugRn4DoneLikeC = true;
-        /* C: capital **`K`** — **`dochug:886`** then **`dog_goal`** follow **`rn2(4)`** (~2826). */
+        /* C: deferred pass 0 — **`dogMoveCapitalKPostCommaPetLikeC`** owns **`dochug:886`** order (~2823). */
     }
 
     await mMoveOneMonsterSubsetLikeC(g, mtmp, stepNum);
@@ -2745,6 +2746,14 @@ export async function mMoveOneMonsterSubsetLikeC(g, mtmp, stepNum = 0) {
                 g.context?._wizD1PostEastTailWalkCompleteLikeC
                 || g.context?._wizD1PostEastTailWalkPeelDoneLikeC
             )
+            && !(
+                g.context?._wizD1PostEastTailWalkFmonDistantDeferredLikeC
+                && (g.context._wizD1DeferredRunKNewTurnPassesLikeC | 0) === 0
+                && (
+                    g.context?._wizD1CommaPickupCapOuterLikeC
+                    || g.context?._wizD1CapitalKPostCommaMoveloopLikeC
+                )
+            )
         ) {
             /* C: capital **`K`** alone — 0 RNG; comma promotes deferred peel (~2818+). */
             if (
@@ -2830,6 +2839,7 @@ export async function mMoveOneMonsterSubsetLikeC(g, mtmp, stepNum = 0) {
                 mtmp.movement = mov - NORMAL_SPEED;
                 if (g.context?._wizD1PostEastTailWalkFmonDistantDeferredLikeC) {
                     dogMoveCapitalKPostCommaPetLikeC(g, mtmp);
+                    g.context._wizD1CapitalKPostCommaFmonHeadDoneLikeC = true;
                 } else {
                     dogMovePostEastTailWalkObjResistsLikeC(g, mtmp);
                     if (
@@ -3275,6 +3285,7 @@ export async function mMoveOneMonsterSubsetLikeC(g, mtmp, stepNum = 0) {
                     mtmp.movement = mov - NORMAL_SPEED;
                     if (g.context?._wizD1CapitalKPostCommaMoveloopLikeC) {
                         dogMoveCapitalKPostCommaPetLikeC(g, mtmp);
+                        g.context._wizD1CapitalKPostCommaFmonHeadDoneLikeC = true;
                     } else if (g.context?._wizD1FirstLAfterCommaPeelLikeC) {
                         setApparxyMonsterLikeC(g, mtmp);
                         rn2(4);
@@ -3301,6 +3312,7 @@ export async function mMoveOneMonsterSubsetLikeC(g, mtmp, stepNum = 0) {
                     mtmp.movement = mov - NORMAL_SPEED;
                     if (g.context?._wizD1PostEastTailWalkFmonDistantDeferredLikeC) {
                         dogMoveCapitalKPostCommaPetLikeC(g, mtmp);
+                        g.context._wizD1CapitalKPostCommaFmonHeadDoneLikeC = true;
                     } else {
                         dogMovePostEastTailWalkObjResistsLikeC(g, mtmp);
                         dogMoveLikeC(g, mtmp);
