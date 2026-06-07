@@ -2633,6 +2633,7 @@ export async function mMoveOneMonsterSubsetLikeC(g, mtmp, stepNum = 0) {
                 if (
                     g.context?._wizD1PostEastTailWalkCompleteLikeC
                     && !distantFirstLPeel
+                    && !g.context?._wizD1CommaLFirstLDistantMmoveDoneLikeC
                 ) {
                     if (!g.context._wizD1PostEastTailWalkCompleteLikeC) {
                         g.context._wizD1PostEastTailWalkCompleteLikeC = true;

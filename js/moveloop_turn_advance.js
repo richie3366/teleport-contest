@@ -1251,6 +1251,8 @@ export async function runPostCommandTurnAdvanceLikeC(g) {
         delete g.context._wizD1CapitalKPostCommaNearDfLikeC;
         delete g.context._wizD1CapitalKPostCommaFmonHeadDoneLikeC;
         delete g.context._wizD1CapitalKPostCommaPeelDoneLikeC;
+        delete g.context._wizD1CommaLFirstLDistantMmoveDoneLikeC;
+        delete g.context._wizD1CommaLFirstUNearDfDoneLikeC;
         delete g.context._wizD1CapitalKPostNearSecondNewTurnDoneLikeC;
         delete g.context._touristD1PostRestSecondOuterMoveloopDoneLikeC;
         delete g.context._touristD1PostRestSecondThirdMovemonPendingLikeC;

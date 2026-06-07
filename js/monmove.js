@@ -161,6 +161,23 @@ export async function movemon(stepNum) {
 
     const g = game;
     g.context = g.context || {};
+    g.context._wizD1GlobalMovemonCountLikeC =
+        (g.context._wizD1GlobalMovemonCountLikeC | 0) + 1;
+    const commaLResumeHold = g.context._wizD1CommaLResumeHoldMovemonLikeC | 0;
+    if (commaLResumeHold > 0) {
+        g.context._wizD1CommaLResumeHoldMovemonLikeC = commaLResumeHold - 1;
+    } else {
+        const commaLResumeAfter = g.context._wizD1CommaLResumeAfterMovemonCountLikeC;
+        if (
+            commaLResumeAfter != null
+            && (g.context._wizD1GlobalMovemonCountLikeC | 0)
+                > (commaLResumeAfter | 0)
+            && !g.context?._wizD1CommaLFirstLDistantMmoveDoneLikeC
+        ) {
+            g.context._wizD1CommaLFirstLDistantMmoveDoneLikeC = true;
+            delete g.context._wizD1CommaLResumeAfterMovemonCountLikeC;
+        }
+    }
     if (
         g.context?._wizD1PostEastTailWalkFmonPendingLikeC
         && g.context?._wizD1MovemonRanThisPostLikeC
@@ -952,6 +969,9 @@ export async function movemon(stepNum) {
                     } finally {
                         delete g.context._wizD1FirstLAfterCommaDistantPeelLikeC;
                     }
+                    g.context._wizD1CommaLResumeAfterMovemonCountLikeC =
+                        g.context._wizD1GlobalMovemonCountLikeC | 0;
+                    g.context._wizD1CommaLResumeHoldMovemonLikeC = 1;
                 }
                 delete g.context._wizD1FirstLAfterCommaPeelHeadDoneLikeC;
             }
