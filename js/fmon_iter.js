@@ -244,13 +244,18 @@ export function fmonListForMovemonLikeC(g, stepNum = 0) {
                     && (m.mgenmklev | 0),
             );
         const distant = findDistantMklevMonLikeC(g);
-        const handled = new Set([pet, nearMklev, distant].filter(Boolean));
-        const rest = mons.filter((m) => !handled.has(m));
         /** @type {typeof mons} */
         const ordered = [];
         if (nearMklev) ordered.push(nearMklev);
         if (pet) ordered.push(pet);
-        return [...ordered, ...rest];
+        if (
+            g.context?._wizD1PostEastTailWalkFmonDistantDeferredLikeC
+            && distant
+        ) {
+            ordered.push(distant);
+        }
+        /* C: walk **`fmon`** peel — near + pet (+ distant when deferred); not full **`fmon`**. */
+        return ordered;
     }
     /* C: post-east-tail walk — next short **`l`**: near **`distfleeck`**, pet **`dog_move`**, near **`distfleeck`**. */
     if (wizD1EastTailShortLActiveLikeC(g)) {

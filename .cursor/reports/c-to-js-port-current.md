@@ -32,7 +32,7 @@ Use this when **`Next steps`** below feels stale or several lanes compete. Order
 
 **Tutorial (Lane E):** Gated on [tutorial port gate](../../docs/plans/tutorial-port-gate.md) **MD-1 … MD-7**.
 
-**Last slice:** **Lane C — `seed0006` comma-`U` post-fmon-tail peel** — second peel mklev surplus **`distfleeck`** (~3041); **`dogMoveCommaUFmonTailPostPeelPetLikeC`** (**`rn2(3)`** + away **`rn2(12)`**×3, **`score_targ`** **`rnd(5)`**, pet **`distfleeck`** ~3042–3047). **`3035–3053`** aligned; first fail **3054** (corridor **`distfleeck`** vs extra **`m_move`** **`rn2(12)`**). **`seed8000` 2900–3129:** aligned. **2/44** (`seed0006` **3000/6736** RNG).
+**Last slice:** **Lane C — `seed0006` run-`K` / east-tail walk `fmon` peel** — removed inline capital-**`K`** peel (~210 lines in **`monmove.js`**); walk **`fmon`** peel-only list in **`fmon_iter.js`**; moveloop comma-pickup outer cap + deferred-run-**`K`** outer-loop guards. **Locator:** prefix **73** still **~7440** JS vs C **~2912** — drift starts **move 72 `K`** (options-menu run-north), not comma; first semantic fail **2823** (`dochug:886` **`rn2(4)`** vs invent **`rn2(100)`**). Coincidental **`3048–3053`** window; **3054** blocked until **K** fixed. **`seed8000` 2900–3129:** aligned. **2/44**.
 
 ## Next steps (aligned with matrix)
 
@@ -40,7 +40,7 @@ Pick **one** primary lane per **batch** (several related C functions — see che
 
 **First:** open [`docs/plans/tutorial-port-gate.md`](../../docs/plans/tutorial-port-gate.md) — if **all MD-1 … MD-7** are checked, do **Lane E** step 1 from [10-tutorial.md](../plans/nethack-port/10-tutorial.md) instead of the list below.
 
-1. **Lane C — `seed0006` ~3054** — comma-**`U`** post-peel moveloop: corridor mklev **`distfleeck`** (~3054) vs extra **`m_move`** **`rn2(12)`**; distant + **`dochug`** through **`U`** keystroke end (~3102).
+1. **Lane C — `seed0006` move 72 run-`K` (~2823+)** — C **`allmain.c`** ~3 outer passes (~90 RNG); JS moveloop spins ~733× **`maybe_generate_rnd_mon`** when stale **`_wizD1PostEastTailWalkFmon*`** + **`wizMultiPassOuter`**. Port C order: near **`distfleeck`** → **`dochug:886`** → pet invent; clear/consume deferred at options **`K`**; then comma-**`U`** **~3054** corridor **`distfleeck`**.
 2. **Lane B — NHL** — next **`lspo_*`** per [`nhl-port-notes.md`](nhl-port-notes.md).
 3. **Lane A/D — `seed0900`** — screen parity (RNG **0–2982** done); map/botl integration beyond moveloop peel chain.
 4. **Lane A/D — `dogmove.c`** — **`score_targ`** vampshifter **`mtmp_lev`** **`rn2`** tail (~808–817); **`mattackm`** / **`pet_ranged_attk`** when pet breath sessions fail.
