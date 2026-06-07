@@ -4157,7 +4157,12 @@ export async function mMoveOneMonsterSubsetLikeC(g, mtmp, stepNum = 0) {
         && !(mtmp.mtame | 0)
         && mtmp !== findDistantMklevMonLikeC(g)
     );
+    const commaUStrayPostFourthDfDone = !!(
+        g.context?._wizD1CommaLFirstUPostTailStrayPostFourthLikeC
+        && !(mtmp.mtame | 0)
+    );
     let flee1 = (gateMonPeek && gatePassN >= 1) || secondRogGateDochug || wizD1Step1PostPeelDochug
+        || commaUStrayPostFourthDfDone
         ? { inrange: 1, nearby: 1, scared: 0 }
         : await distfleeckMonsterApplyLikeC(g, mtmp);
     flee1 = (await dochugWatchMindFlayerAfterDistfleeckLikeC(g, mtmp, flee1)) ?? flee1;

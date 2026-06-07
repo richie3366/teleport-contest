@@ -67,10 +67,12 @@ import {
     findTouristD1PostSwapNearMklevMonLikeC,
     wizD1EastDoorMklevMonLikeC,
     wizD1PeelDistantMklevMonLikeC,
+    wizD1CommaLFirstUNearMklevMonLikeC,
 } from './mfndpos_mon.js';
 import {
     mMoveTouristD1PostRestSecondMklevInterruptLikeC,
     mMoveTouristD1PostSwapRestMklevLikeC,
+    movemonSinglemonLikeC,
     primeDistantMtrackRn20LikeC,
     wizD1CommaLFirstUNearDistfleeckBeforePetLikeC,
 } from './m_move_mon.js';
@@ -208,6 +210,10 @@ export function runMcalcmoveOnlyLikeC(g) {
 }
 
 export async function runNewTurnSetupAndTailLikeC(g, stepNum) {
+    /* C: comma-**`U`** second-**`U`** post-fourth — surplus **`fmon`** only (~3055+), no inline new-turn (~3058). */
+    if (g.context?._wizD1CommaLFirstUPostTailSecondUPostMovemonLikeC) {
+        return;
+    }
     /* C: capital **`K`** post-peel — pet tail + second **`mcalcmove`** inline in **`monmove.js`**
      * (~2896–2908) before deferred **`maybe_generate_rnd_mon`** (~2909). */
     if (
@@ -363,6 +369,10 @@ export async function runNewTurnSetupAndTailLikeC(g, stepNum) {
     if (skipMcalcmoveCapitalKCommaDeferredFirstNewturn) {
         delete g.context._wizD1CapitalKPostCommaDeferredSkipMcalcmoveLikeC;
     }
+    /* C: comma-**`U`** post-fmon-tail — fourth new-turn tail only (~3047–3049); third peel spent
+     * **`movement`**. */
+    const skipMcalcmoveCommaUPostTailFourth =
+        !!g.context?._wizD1CommaLFirstUPostTailStrayDistfleeckPendingLikeC;
     /* C: tourist D:1 run-east **`L`** — post-peel new-turn skips **`mcalcmove`** (peel
      * **`movemon`** already spent the round; **`seed0900`** ~2608 **`rn2(70)`** not 2× **`rn2(12)`**). */
     if (
@@ -370,6 +380,7 @@ export async function runNewTurnSetupAndTailLikeC(g, stepNum) {
         && !g.context?._wizD1PostCorridorNewTurnLikeC
         && !skipMcalcmoveCapitalKPostPeelDeferredTail
         && !skipMcalcmoveCapitalKCommaDeferredFirstNewturn
+        && !skipMcalcmoveCommaUPostTailFourth
         && !g.context?._touristD1LPostPeelCompleteLikeC
         && !skipMcalcmoveAfterLPostTail
         && !skipMcalcmoveAfterLPostThird
@@ -773,6 +784,7 @@ export async function runPostCommandTurnAdvanceLikeC(g) {
         if (
             wizMultiPassOuterLikeC
             && !g.context?._wizD1PostEastTailWalkFmonDistantDeferredLikeC
+            && !g.context?._wizD1CommaLFirstUPostTailSecondUPeelDoneLikeC
         ) {
             delete g.context._wizD1LPostOuterLoopDoneLikeC;
         }
@@ -1134,6 +1146,7 @@ export async function runPostCommandTurnAdvanceLikeC(g) {
                 && !g.context?._wizD1LPostOuterLoopDoneLikeC
                 && !g.context?._touristD1PostRestSecondOuterMoveloopDoneLikeC
                 && !g.context?._wizD1CommaLFirstUPostTailOuterMoveloopDoneLikeC
+                && !g.context?._wizD1CommaUPostFmonTailInlineNewturnConsumedLikeC
                 && !g.context?._wizD1EastTailPostCorridorMovemonAfterMcalcmoveDoneLikeC
             ) {
                 const tailStepNum = (g.moves | 0) - 1;
@@ -1146,6 +1159,36 @@ export async function runPostCommandTurnAdvanceLikeC(g) {
                     newTurnDone = true;
                 } else if (g.context?._wizD1CommaUPostCorridorInlineNewturnDoneLikeC) {
                     delete g.context._wizD1CommaUPostCorridorInlineNewturnDoneLikeC;
+                    newTurnDone = true;
+                } else if (
+                    g.context?._wizD1CommaLFirstUPostTailStrayDistfleeckPendingLikeC
+                ) {
+                    delete g.context._wizD1CommaLFirstUPostTailStrayDistfleeckPendingLikeC;
+                    const petCommaUStray = (g.level?.monsters ?? []).find(
+                        (m) => (m.mtame | 0) !== 0,
+                    );
+                    const strayCommaUPostFourth = (g.level?.monsters ?? []).find(
+                        (m) =>
+                            (m.mgenmklev | 0)
+                            && !(m.mtame | 0)
+                            && m !== petCommaUStray,
+                    );
+                    if (strayCommaUPostFourth) {
+                        setApparxyMonsterLikeC(g, strayCommaUPostFourth);
+                        await distfleeckMonsterApplyLikeC(g, strayCommaUPostFourth);
+                        g.context._wizD1CommaLFirstUPostTailStrayPostFourthLikeC = true;
+                        try {
+                            await movemonSinglemonLikeC(
+                                g,
+                                strayCommaUPostFourth,
+                                tailStepNum,
+                            );
+                        } finally {
+                            delete g.context._wizD1CommaLFirstUPostTailStrayPostFourthLikeC;
+                        }
+                    }
+                    g.context._wizD1CommaLFirstUPostTailOuterMoveloopDoneLikeC = true;
+                    g.context._wizD1LPostOuterLoopDoneLikeC = true;
                     newTurnDone = true;
                 } else if (g.context?._wizD1CapitalKPostNearSecondNewTurnDoneLikeC) {
                     newTurnDone = true;
@@ -1165,8 +1208,34 @@ export async function runPostCommandTurnAdvanceLikeC(g) {
                     && !g.context?._wizD1EastTailFirstPostCorridorNewTurnDoneLikeC
                     && !g.context?._wizD1EastTailSecondPostCorridorNewTurnDoneLikeC
                     && !g.context?._wizD1CapitalKPostNearSecondNewTurnDoneLikeC
+                    && !g.context?._wizD1CommaLFirstUPostTailSecondUPeelDoneLikeC
                 ) {
                     await runNewTurnSetupAndTailLikeC(g, tailStepNum);
+                    /* C: comma-**`U`** post-fmon-tail — near **`distfleeck`** (~3054) after fourth new-turn. */
+                    if (
+                        wizD1MovemonOnceLikeC
+                        && g.context?._wizD1CommaLFirstUPostTailPostFourthDfPendingLikeC
+                    ) {
+                        delete g.context._wizD1CommaLFirstUPostTailPostFourthDfPendingLikeC;
+                        const nearPostFourth = wizD1CommaLFirstUNearMklevMonLikeC(g);
+                        if (nearPostFourth) {
+                            setApparxyMonsterLikeC(g, nearPostFourth);
+                            await distfleeckMonsterApplyLikeC(g, nearPostFourth);
+                        }
+                        /* C: surplus **`fmon`** **`rn2(12)`**×N (~3055+) then block fifth new-turn (~3058). */
+                        delete g.context._wizD1MovemonRanThisPostLikeC;
+                        g.context._movemonHarnessConsumed = false;
+                        g.context._wizD1CommaLFirstUPostTailSecondUPostMovemonLikeC = true;
+                        try {
+                            await movemon(1);
+                        } finally {
+                            delete g.context._wizD1CommaLFirstUPostTailSecondUPostMovemonLikeC;
+                        }
+                        g.context._wizD1MovemonRanThisPostLikeC = true;
+                        g.context._wizD1CommaLFirstUPostTailSecondUPeelDoneLikeC = true;
+                        g.context._wizD1LPostOuterLoopDoneLikeC = true;
+                        newTurnDone = true;
+                    }
                     /* C: comma-**`l`** → first **`U`** — near **`distfleeck`** (~2948) after new-turn
                      * **`rn2(85)`** (~2947), then pet **`dog_move`** (~2949+). */
                     if (
@@ -1191,6 +1260,8 @@ export async function runPostCommandTurnAdvanceLikeC(g) {
                     } else if (
                         wizD1MovemonOnceLikeC
                         && !wizMultiPassOuterLikeC
+                        && !g.context?._wizD1CommaLFirstUPostTailStrayDistfleeckPendingLikeC
+                        && !g.context?._wizD1CommaLFirstUPostTailSecondUPeelDoneLikeC
                     ) {
                         /* C: wizard D:1 — **`movemon`** returns false; one new-turn per post unless
                          * a multi-pass peel is armed (**`seed0006`** run-**`K`** ~2912 uses deferred). */
@@ -1453,6 +1524,7 @@ export async function runPostCommandTurnAdvanceLikeC(g) {
                 && outerSafety > 6
                 && !g.context?._wizD1CommaLFirstUPostTailThirdMovemonPendingLikeC
                 && !g.context?._wizD1CommaLFirstUPostTailFmonTailPendingLikeC
+                && !g.context?._wizD1CommaLFirstUPostTailOuterMoveloopDoneLikeC
             ) {
                 g.context._wizD1LPostOuterLoopDoneLikeC = true;
             }
@@ -1513,6 +1585,11 @@ export async function runPostCommandTurnAdvanceLikeC(g) {
         delete g.context._wizD1CommaLFirstUPostTailThirdMovemonDoneLikeC;
         delete g.context._wizD1CommaLFirstUPostTailThirdMovemonPendingLikeC;
         delete g.context._wizD1CommaLFirstUPostTailFmonTailPendingLikeC;
+        delete g.context._wizD1CommaUPostFmonTailInlineNewturnConsumedLikeC;
+        delete g.context._wizD1CommaLFirstUPostTailStrayDistfleeckPendingLikeC;
+        delete g.context._wizD1CommaLFirstUPostTailStrayPostFourthLikeC;
+        delete g.context._wizD1CommaLFirstUPostTailSecondUPeelDoneLikeC;
+        /* Keep **`PostFourthDfPending`** until second **`U`** moveloop consumes it (~3054). */
         /* **`_wizD1PostEastTailWalkFmonLikeC`** cleared in **`movemon`** after the walk post consumes it. */
     }
 }

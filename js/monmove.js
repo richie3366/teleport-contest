@@ -18,6 +18,9 @@ import { game } from './gstate.js';
 
 /** C: run-**`K`** deferred peel — moveloop owns new-turn passes (~2908–2912). */
 async function runInlineNewTurnUnlessDeferredPeelLikeC(g, stepNum) {
+    if (g.context?._wizD1CommaLFirstUPostTailSecondUPostMovemonLikeC) {
+        return;
+    }
     const commaPeelNewTurnLikeC =
         !!g.context?._wizD1CapitalKPostCommaFmonHeadDoneLikeC
         && !g.context?._wizD1CapitalKPostCommaPeelDoneLikeC
@@ -1894,7 +1897,25 @@ export async function movemon(stepNum) {
                 setApparxyMonsterLikeC(g, petCommaUThird);
                 await distfleeckMonsterApplyLikeC(g, petCommaUThird);
             }
+            /* C: post-pet **`distfleeck`** (~3047) — stray **`m_move`** **`rn2(12)`**×N (~3048+); no
+             * fourth new-turn before hero **`UU`** continuation. */
+            const strayCommaUPostPet = (g.level?.monsters ?? []).find(
+                (m) =>
+                    (m.mgenmklev | 0)
+                    && !(m.mtame | 0)
+                    && m !== petCommaUThird,
+            );
+            if (strayCommaUPostPet) {
+                g.context._wizD1CommaLFirstUPostTailStrayPostFourthLikeC = true;
+                try {
+                    await movemonSinglemonLikeC(g, strayCommaUPostPet, effStepNum);
+                } finally {
+                    delete g.context._wizD1CommaLFirstUPostTailStrayPostFourthLikeC;
+                }
+            }
             g.context._wizD1CommaLFirstUPostTailOuterMoveloopDoneLikeC = true;
+            /* C: hero **`UU`** second **`U`** — near **`distfleeck`** (~3054) after fourth new-turn (~3051–3053). */
+            g.context._wizD1CommaLFirstUPostTailPostFourthDfPendingLikeC = true;
             return false;
         }
         /* C: tourist D:1 run-east **`L`** — fourth **`movemon`** after third-pass new-turn
