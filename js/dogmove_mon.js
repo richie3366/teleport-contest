@@ -475,6 +475,9 @@ export function petRangedAttkDogmoveLikeC(
         ? !rn2(5)
         : (mtarg && (!hungry || !rn2(5)));
     if (mtarg && hungryRoll) {
+        if (g.context?._wizD1FirstLAfterCommaPetLikeC) {
+            (g.context || (g.context = {}))._wizD1CommaLPetRangedRn5LikeC = true;
+        }
         /* C: mattackm / counterattack tails — RNG only on exercised paths for now. */
         return MMOVE_NOTHING;
     }
@@ -3741,7 +3744,7 @@ export function dogMoveFirstLAfterCommaPetLikeC(g, mtmp) {
         } finally {
             delete ctx._dogmoveDeferNewdogposLikeC;
         }
-        /* C: dogmove.c — **`pet_ranged_attk`** after **`mfndpos`**, before **`newdogpos`** (~2974+). */
+        /* C: dogmove.c — **`pet_ranged_attk`** after **`mfndpos`**, before **`newdogpos`** (~2973+). */
         const ranged = petRangedAttkDogmoveLikeC(g, mtmp, false);
         if (ranged !== MMOVE_NOTHING) return ranged;
         dogMoveApplyPendingNewdogposLikeC(g, mtmp);

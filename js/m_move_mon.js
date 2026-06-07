@@ -878,9 +878,11 @@ async function dochugWatchMindFlayerAfterDistfleeckLikeC(g, mtmp, fleeState) {
  * @param {number} [stepNum]
  */
 export async function mMoveCommaUInventPostCorridorHostileLikeC(g, mtmp, stepNum = 1) {
-    if (!mtmp || (mtmp.mhp | 0) <= 0) return;
-    if (dochugBlockedEarlyLikeC(g, mtmp)) return;
+    if (!mtmp || (mtmp.mhp | 0) <= 0) return false;
+    if (dochugBlockedEarlyLikeC(g, mtmp)) return false;
     const ctx = g.context || (g.context = {});
+    /* C: second **`L`** corridor rest may have set this; comma-**`U`** peel needs fresh **`rn2(12)`**×3. */
+    delete ctx._wizD1EastCorridorMmoveDoneLikeC;
     ctx._wizD1CommaUInventPostCorridorHostileLikeC = true;
     try {
         const u = g.u;
@@ -892,9 +894,18 @@ export async function mMoveCommaUInventPostCorridorHostileLikeC(g, mtmp, stepNum
         const my = mtmp.my | 0;
         wipeEngrAt(mx, my, 1, false);
         setApparxyMonsterLikeC(g, mtmp);
-        await distfleeckMonsterApplyLikeC(g, mtmp);
-        if (!dochugEntersMmoveBlockLikeC(g, mtmp, 0, 0, stepNum)) {
-            return;
+        const flee1 = await distfleeckMonsterApplyLikeC(g, mtmp);
+        const nearbyGate = nearbyForDochugGateLikeC(g, mtmp, flee1);
+        if (
+            !dochugEntersMmoveBlockLikeC(
+                g,
+                mtmp,
+                nearbyGate,
+                flee1.scared | 0,
+                stepNum,
+            )
+        ) {
+            return false;
         }
         ensureMonsterMtrack(mtmp);
         const mfp = mfndposMonsterLikeC(
@@ -903,24 +914,48 @@ export async function mMoveCommaUInventPostCorridorHostileLikeC(g, mtmp, stepNum
             monAllowflagsMonsterLikeC(g, mtmp),
         );
         const cnt = mfp.cnt | 0;
-        rn2(8);
-        await distfleeckMonsterApplyLikeC(g, mtmp);
-        await distfleeckMonsterApplyLikeC(g, mtmp);
+        const jcnt = Math.min(MTSZ, cnt - 1);
+        for (let j = 0; j < jcnt; j++) {
+            if (4 * (cnt - j) !== 8) continue;
+            mmoveMtrackRejectRngLikeC(g, mtmp, j, cnt);
+            break;
+        }
+        let recalcBudget = ctx._mklevDistfleeckRecalcBudgetLikeC | 0;
+        if (
+            recalcBudget < 2
+            && !skipDistfleeckRecalcAfterMmoveLikeC(g, mtmp, nearbyGate)
+        ) {
+            await distfleeckMonsterApplyLikeC(g, mtmp);
+            recalcBudget++;
+            ctx._mklevDistfleeckRecalcBudgetLikeC = recalcBudget;
+        }
+        if (
+            recalcBudget < 2
+            && !skipDistfleeckRecalcAfterMmoveLikeC(g, mtmp, nearbyGate)
+        ) {
+            await distfleeckMonsterApplyLikeC(g, mtmp);
+            ctx._mklevDistfleeckRecalcBudgetLikeC = recalcBudget + 1;
+        }
         if (cnt >= 5) {
             monTrackClear(mtmp);
             ensureMonsterMtrack(mtmp);
             mtmp.mtrack[0] = { x: mx, y: my };
             rn2(20);
         }
-        await distfleeckMonsterApplyLikeC(g, mtmp);
+        if (!skipDistfleeckRecalcAfterMmoveLikeC(g, mtmp, nearbyGate)) {
+            await distfleeckMonsterApplyLikeC(g, mtmp);
+        }
+        /* C: corridor away **`!appr`** **`rn2(12)`**×3 (~2980–2982); explicit order (debt). */
         ctx._wizD1EastCorridorRestMmoveLikeC = true;
         try {
             rn2(12);
             rn2(12);
             rn2(12);
+            ctx._wizD1EastCorridorMmoveDoneLikeC = 1;
         } finally {
             delete ctx._wizD1EastCorridorRestMmoveLikeC;
         }
+        return true;
     } finally {
         delete ctx._wizD1CommaUInventPostCorridorHostileLikeC;
     }
@@ -1126,6 +1161,13 @@ async function wizD1EastTailAfterMcalcmoveSinglemonLikeC(g, mtmp, stepNum) {
 
 export async function movemonSinglemonLikeC(g, mtmp, stepNum = 0) {
     if (!mtmp || (mtmp.mhp | 0) <= 0) return;
+    /* C: comma-**`U`** invent peel — corridor **`dochug`** already inline at **`movemon`** head. */
+    if (
+        g.context?._wizD1CommaUInventPostCorridorDoneLikeC
+        && mtmp === wizD1CorridorMklevMonLikeC(g)
+    ) {
+        return;
+    }
     /* C: comma-**`l`** → first **`U`** — one hostile **`dochug`** **`rn2(20)`** before new-turn tail. */
     if (
         wizD1CommaLFirstUAfterCommaLLikeC(g)

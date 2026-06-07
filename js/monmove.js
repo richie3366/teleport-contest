@@ -271,6 +271,41 @@ export async function movemon(stepNum) {
         }
         delete g.context._wizD1FirstLAfterCommaPetPendingLikeC;
         g.context._wizD1FirstLAfterCommaPetDoneLikeC = true;
+        /* C: **`pet_ranged_attk`** hungry **`rn2(5)`** (~2973) when **`best_target`** stub skipped draw. */
+        if (!g.context._wizD1CommaLPetRangedRn5LikeC) {
+            rn2(5);
+            g.context._wizD1CommaLPetRangedRn5LikeC = true;
+        }
+    }
+    /* C: comma post-first-**`l`** — corridor hostile **`dochug`** immediately after invent peel
+     * (~2974–2982); must run before post early-**`return`** / **`fmon`** (~2975+). */
+    if (
+        g.context?._wizD1FirstLAfterCommaPetDoneLikeC
+        && !g.context?._wizD1CommaUInventPostCorridorDoneLikeC
+        && wizD1CommaLFirstUAfterCommaLLikeC(g)
+    ) {
+        const commaCorridorStep = effectiveMovemonStepNumLikeC(g, stepNum);
+        if ((commaCorridorStep | 0) === 1 && g.urole?.abbr !== 'Tou') {
+            g.context._mklevDistfleeckRecalcBudgetLikeC = 0;
+        }
+        const corridorInline = wizD1CorridorMklevMonLikeC(g);
+        if (corridorInline) {
+            let movCor = corridorInline.movement | 0;
+            if (movCor < NORMAL_SPEED) {
+                corridorInline.movement = NORMAL_SPEED;
+                movCor = NORMAL_SPEED;
+            }
+            corridorInline.movement = movCor - NORMAL_SPEED;
+            g.context.movemonStepNum = commaCorridorStep;
+            const peeled = await mMoveCommaUInventPostCorridorHostileLikeC(
+                g,
+                corridorInline,
+                commaCorridorStep,
+            );
+            if (peeled) {
+                g.context._wizD1CommaUInventPostCorridorDoneLikeC = true;
+            }
+        }
     }
     if (
         g.context?._wizD1PostEastTailWalkFmonPendingLikeC
@@ -350,28 +385,6 @@ export async function movemon(stepNum) {
         g.context._mklevDistfleeckRecalcBudgetLikeC = 0;
     }
     g.context.movemonStepNum = effStepNum;
-    /* C: comma post-first-**`l`** invent peel (~2950–2973) then corridor **`dochug`** (~2974–2982). */
-    if (
-        g.context?._wizD1FirstLAfterCommaPetDoneLikeC
-        && !g.context?._wizD1CommaUInventPostCorridorDoneLikeC
-        && wizD1CommaLFirstUAfterCommaLLikeC(g)
-    ) {
-        const corridorInline = wizD1CorridorMklevMonLikeC(g);
-        if (corridorInline) {
-            let movCor = corridorInline.movement | 0;
-            if (movCor < NORMAL_SPEED) {
-                corridorInline.movement = NORMAL_SPEED;
-                movCor = NORMAL_SPEED;
-            }
-            corridorInline.movement = movCor - NORMAL_SPEED;
-            await mMoveCommaUInventPostCorridorHostileLikeC(
-                g,
-                corridorInline,
-                effStepNum,
-            );
-        }
-        g.context._wizD1CommaUInventPostCorridorDoneLikeC = true;
-    }
     /* Do not clear an active **`#search`** pass on low **`movemonStepNum`** (e.g. 2–3 on **`seed0077`**). */
     if ((stepNum | 0) < 10 && !(g.context?._searchStep11Passes | 0)) {
         delete g.context._searchStep11Passes;

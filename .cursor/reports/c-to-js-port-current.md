@@ -32,7 +32,7 @@ Use this when **`Next steps`** below feels stale or several lanes compete. Order
 
 **Tutorial (Lane E):** Gated on [tutorial port gate](../../docs/plans/tutorial-port-gate.md) **MD-1 … MD-7**.
 
-**Last slice:** **Lane C — `seed0006` comma post-first-`l` → first `U` corridor hostile peel (~2974–2982)** — inline **`mMoveCommaUInventPostCorridorHostileLikeC`** at **`movemon`** head after invent peel; **`distfleeck`** + explicit **`mtrack`**/**`~915`**/**away `rn2(12)`**×3 (debt); **`fmon`** skip corridor when peel done/in-progress; **`distfleeck`** skip **`monflee`** during peel. **Verified:** prefix **75** **2973**; **2980–2981** + **2986** + **2993–2994** + **3007–3008**; fail **2974+** leading **`distfleeck`**/**`rn2(8)`** vs **`m_move`** **`rn2(16)`**; **`seed8000` 2900–3129** canary.
+**Last slice:** **Lane C — `seed0006` comma post-first-`l` → first `U` corridor hostile peel (~2974–2982)** — pet **`pet_ranged_attk`** hungry **`rn2(5)`** guard (~2973); inline **`mMoveCommaUInventPostCorridorHostileLikeC`** (**`distfleeck`**, **`mtrack`**, ~915 recalc, explicit away **`rn2(12)`**×3 debt); **`movemonSinglemonLikeC`** skip corridor when peel done. **Verified:** prefix **75** through **2982** (corridor window); fail **2983+** comma-**`U`** tail / **`maybe_generate_rnd_mon`**; **`seed8000` 2900–3129** canary.
 
 ## Next steps (aligned with matrix)
 
@@ -40,7 +40,7 @@ Pick **one** primary lane per **batch** (several related C functions — see che
 
 **First:** open [`docs/plans/tutorial-port-gate.md`](../../docs/plans/tutorial-port-gate.md) — if **all MD-1 … MD-7** are checked, do **Lane E** step 1 from [10-tutorial.md](../plans/nethack-port/10-tutorial.md) instead of the list below.
 
-1. **Lane C — `seed0006` move 75 `U` corridor `m_move` tail (~2974–2987)** — first fail **2974**/**2975** **`distfleeck`** vs **`mtrack rn2(8)`** (same roll, wrong modulus); pet away **`mfndpos`** **~2987+**; comma-**`U`** **~3054** when window green.
+1. **Lane C — `seed0006` comma-`U` tail (~2983+)** — **`maybe_generate_rnd_mon`** **`rn2(70)`** vs surplus **`distfleeck`** / near **`mfndpos`**; comma-**`U`** near **`distfleeck`**×2 + distant **`m_move`** (~2993+); **`fmon`** tail **~3040** when window green.
 2. **Lane B — NHL** — next **`lspo_*`** per [`nhl-port-notes.md`](nhl-port-notes.md).
 3. **Lane A/D — `seed0900`** — screen parity (RNG **0–2982** done); map/botl integration beyond moveloop peel chain.
 4. **Lane A/D — `dogmove.c`** — **`score_targ`** vampshifter **`mtmp_lev`** **`rn2`** tail (~808–817); **`mattackm`** / **`pet_ranged_attk`** when pet breath sessions fail.
