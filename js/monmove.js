@@ -92,6 +92,7 @@ import {
     primeDistantMtrackRn20LikeC,
     primeWizD1EastDoorMtrackLikeC,
     wizD1CommaLFirstUNearDistfleeckBeforePetLikeC,
+    runCommaPostFirstLMaybeGenTailLikeC,
     mMoveCommaLFirstUDistantLikeC,
     mMoveCommaLFirstUPostDistantTailLikeC,
 } from './m_move_mon.js';
@@ -221,6 +222,12 @@ export async function movemon(stepNum) {
         g.context._wizD1CommaLFirstUNearDfPendingLikeC = true;
         delete g.context._wizD1CommaLArmPendingAfterMovemonLikeC;
         delete g.context._wizD1CommaLArmPendingHeroMoveLikeC;
+        /* C: comma-**`U`** — drop stale capital-**`K`** / east-tail deferred peels. */
+        delete g.context._wizD1PostEastTailWalkFmonDistantDeferredLikeC;
+        delete g.context._wizD1WalkFmonPostMoveloopLikeC;
+        delete g.context._wizD1DeferredRunKNewTurnPassesLikeC;
+        delete g.context._wizD1CapitalKPostCommaMoveloopLikeC;
+        delete g.context._wizD1PostEastTailWalkCompleteLikeC;
     }
     if (
         g.context?._wizD1CommaLResumeArmedLikeC
@@ -237,6 +244,7 @@ export async function movemon(stepNum) {
     if (
         !g.context?._wizD1CommaLFirstUNearDfDoneLikeC
         && g.context?._wizD1CommaLFirstUNearDfPendingLikeC
+        && !wizD1CommaLFirstUAfterCommaLLikeC(g)
     ) {
         await wizD1CommaLFirstUNearDistfleeckBeforePetLikeC(g);
     }
@@ -1049,8 +1057,21 @@ export async function movemon(stepNum) {
                     (m.mtame | 0)
                     && !g.context?._wizD1CommaLFirstUNearDfDoneLikeC
                     && g.context?._wizD1CommaLFirstUNearDfPendingLikeC
+                    && !wizD1CommaLFirstUAfterCommaLLikeC(g)
                 ) {
                     await wizD1CommaLFirstUNearDistfleeckBeforePetLikeC(g);
+                }
+                /* C: comma-**`U`** — defer near/pet until post-new-turn near **`distfleeck`**. */
+                if (
+                    wizD1CommaLFirstUAfterCommaLLikeC(g)
+                    && g.context?._wizD1CommaLFirstUNearDfPendingLikeC
+                    && !g.context?._wizD1CommaLFirstUNearDfDoneLikeC
+                ) {
+                    const commaUNearDefer =
+                        wizD1CommaLFirstUNearMklevMonLikeC(g);
+                    if (m === commaUNearDefer || (m.mtame | 0)) {
+                        continue;
+                    }
                 }
                 /* C: comma-**`U`** — near entry **`distfleeck`** already at **`movemon`** head (~2986). */
                 const commaUNear =
@@ -1116,6 +1137,7 @@ export async function movemon(stepNum) {
                     }
                 }
                 g.context._wizD1CommaLFirstUTailDoneLikeC = true;
+                delete g.context._wizD1CommaLFirstUActiveLikeC;
                 delete g.context._wizD1CommaLFirstUPetDogMoveDoneLikeC;
                 delete g.context._wizD1CommaLFirstUNearDfDoneLikeC;
                 delete g.context._wizD1CommaLFirstUNearFmonSkipDoneLikeC;
@@ -1144,17 +1166,12 @@ export async function movemon(stepNum) {
                     } finally {
                         delete g.context._wizD1FirstLAfterCommaDistantPeelLikeC;
                     }
-                    /* C: end of move **74** — **`maybe_generate_rnd_mon`** **`rn2(70)`** (~2944). */
+                    /* C: end of move **74** — **`maybe_generate_rnd_mon`** **`rn2(70)`** (~2944),
+                     * then comma post-**`l`** tail (~2945–2949) before **`l`** step castmu (~2950+). */
                     maybe_generate_rnd_mon();
                     g.context._wizD1PostEastTailWalkNewTurnDoneLikeC = true;
-                    if (
-                        g.context?._wizD1CommaLAwaitFirstUNearDfLikeC
-                        && !g.context?._wizD1CommaLFirstUNearDfPendingLikeC
-                        && !g.context?._wizD1CommaLFirstUNearDfDoneLikeC
-                    ) {
-                        g.context._wizD1CommaLArmPendingAfterMovemonLikeC = true;
-                        g.context._wizD1CommaLArmPendingHeroMoveLikeC = g.moves | 0;
-                        delete g.context._wizD1CommaLAwaitFirstUNearDfLikeC;
+                    if (g.context?._wizD1CommaLAwaitFirstUNearDfLikeC) {
+                        await runCommaPostFirstLMaybeGenTailLikeC(g, effStepNum);
                     }
                 }
                 delete g.context._wizD1FirstLAfterCommaPeelHeadDoneLikeC;
@@ -1291,7 +1308,8 @@ export async function movemon(stepNum) {
              * (~2812–2817), pet **`distfleeck`** + **`dochug:886`** (~2818–2819), invent **`mfndpos`**
              * (~2820+); distant **`m_move`** later in **`dochug`** (~2828+). */
             if (
-                (
+                !wizD1CommaLFirstUAfterCommaLLikeC(g)
+                && (
                     g.context?._wizD1CapitalKPostCommaMoveloopLikeC
                     || (
                         g.context?._wizD1PostEastTailWalkFmonDistantDeferredLikeC

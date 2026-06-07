@@ -21,7 +21,6 @@ import { raceptr } from './mondata.js';
 import { rn2 } from './rng.js';
 import { growUpLikeC } from './makemon.js';
 import { corpseChanceLikeC } from './uhitm_hero.js';
-
 /** C: objects.h **`RIN_TELEPORTATION`**. */
 const OTYP_RIN_TELEPORTATION = 194;
 
@@ -50,6 +49,7 @@ import {
     consumeRogueColonMovemonPendingLikeC,
     effectiveMovemonStepNumLikeC,
     isRogueColonMovemonActiveLikeC,
+    wizD1CommaLFirstUAfterCommaLLikeC,
 } from './monmove_search.js';
 import { peekReplayMoves } from './input.js';
 import { setApparxyMonsterLikeC } from './set_apparxy_mon.js';
@@ -72,6 +72,7 @@ import {
     mMoveTouristD1PostRestSecondMklevInterruptLikeC,
     mMoveTouristD1PostSwapRestMklevLikeC,
     primeDistantMtrackRn20LikeC,
+    wizD1CommaLFirstUNearDistfleeckBeforePetLikeC,
 } from './m_move_mon.js';
 
 /**
@@ -420,8 +421,14 @@ export async function runNewTurnSetupAndTailLikeC(g, stepNum) {
         !g.context?._wizD1CommaLFirstUPostTailInventPendingLikeC
         || g.context?._wizD1CommaLFirstUPostTailInventDoneLikeC
     ) {
-        maybeHeroTeleportRngLikeC(g);
-        await end_of_turn_rng(stepNum);
+        /* C: comma post-first-**`l`** tail — session **`rn2(19)`** (~2946) before **`rn2(85)`** (~2947). */
+        if (g.context?._wizD1CommaPostFirstLExerBeforeTeleLikeC) {
+            await end_of_turn_rng(stepNum);
+            maybeHeroTeleportRngLikeC(g);
+        } else {
+            maybeHeroTeleportRngLikeC(g);
+            await end_of_turn_rng(stepNum);
+        }
     }
     if (g.context?._touristD1LPostFmonPeelPendingLikeC) {
         g.context._touristD1LPostMcalcmoveDoneLikeC = true;
@@ -1157,6 +1164,20 @@ export async function runPostCommandTurnAdvanceLikeC(g) {
                     && !g.context?._wizD1CapitalKPostNearSecondNewTurnDoneLikeC
                 ) {
                     await runNewTurnSetupAndTailLikeC(g, tailStepNum);
+                    /* C: comma-**`l`** → first **`U`** — near **`distfleeck`** (~2948) after new-turn
+                     * **`rn2(85)`** (~2947), then pet **`dog_move`** (~2949+). */
+                    if (
+                        wizD1MovemonOnceLikeC
+                        && wizD1CommaLFirstUAfterCommaLLikeC(g)
+                        && g.context?._wizD1CommaLFirstUNearDfPendingLikeC
+                        && !g.context?._wizD1CommaLFirstUNearDfDoneLikeC
+                    ) {
+                        await wizD1CommaLFirstUNearDistfleeckBeforePetLikeC(g);
+                        delete g.context._wizD1MovemonRanThisPostLikeC;
+                        g.context._movemonHarnessConsumed = false;
+                        await movemon(1);
+                        g.context._wizD1MovemonRanThisPostLikeC = true;
+                    }
                     if (g.context?._wizD1PostEastTailWalkFmonDistantDeferredLikeC) {
                         const runKPasses =
                             (g.context._wizD1DeferredRunKNewTurnPassesLikeC | 0) + 1;
