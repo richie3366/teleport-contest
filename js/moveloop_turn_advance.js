@@ -214,6 +214,10 @@ export async function runNewTurnSetupAndTailLikeC(g, stepNum) {
     if (
         g.context?._wizD1CommaLFirstUPostTailSecondUPostMovemonLikeC
         || g.context?._wizD1CommaLFirstUPostTailAwaitSurplusFmonLikeC
+        || (
+            g.context?._wizD1CommaSecondUSurplusArmedLikeC
+            && (g.moves | 0) >= 37
+        )
     ) {
         return;
     }
@@ -1079,7 +1083,19 @@ export async function runPostCommandTurnAdvanceLikeC(g) {
                             monscanmove = false;
                             break;
                         }
-                        if ((u.umovement | 0) >= NORMAL_SPEED) break;
+                        const commaUPostFourthSurplusMonscanLikeC =
+                            g.urole?.abbr === 'Wiz'
+                            && (g.u?.uz?.dnum | 0) === 0
+                            && (g.u?.uz?.dlevel | 0) === 1
+                            && g.context?._wizD1CommaSecondUSurplusArmedLikeC
+                            && (g.moves | 0) >= 37
+                            && !g.context?._wizD1CommaPostFourthSurplusTailDoneLikeC;
+                        if (
+                            (u.umovement | 0) >= NORMAL_SPEED
+                            && !commaUPostFourthSurplusMonscanLikeC
+                        ) {
+                            break;
+                        }
                     } while (monscanmove);
                     if (
                         g.context?._wizD1CommaLFirstUPostTailAwaitSurplusFmonLikeC
@@ -1111,6 +1127,22 @@ export async function runPostCommandTurnAdvanceLikeC(g) {
                             );
                             g.context._wizD1CommaLFirstUPostTailSecondUPeelDoneLikeC = true;
                         }
+                    }
+                    /* C: comma-**`U`** — surplus **`fmon`** tail done (~3073); arm fifth new-turn (~3074). */
+                    if (
+                        wizD1MovemonOnceLikeC
+                        && g.context?._wizD1CommaSecondUSurplusArmedLikeC
+                        && (g.moves | 0) >= 37
+                        && g.context?._wizD1CommaLFirstUPostTailSecondUPeelDoneLikeC
+                        && !monscanmove
+                        && !g.context?._wizD1CommaSurplusScanMoreLikeC
+                        && !g.context?._wizD1CommaPostFourthSurplusTailDoneLikeC
+                    ) {
+                        g.context._wizD1CommaPostFourthSurplusTailDoneLikeC = true;
+                        delete g.context._wizD1CommaSecondUSurplusArmedLikeC;
+                        delete g.context._wizD1CommaLFirstUPostTailPostFourthDfPendingLikeC;
+                        delete g.context._wizD1CommaSurplusStrayTailDoneSetLikeC;
+                        delete g.context._wizD1CommaSurplusNonMklevDoneSetLikeC;
                     }
                     if (
                         wizD1MovemonOnceLikeC
@@ -1250,14 +1282,26 @@ export async function runPostCommandTurnAdvanceLikeC(g) {
                     && (
                         !g.context?._wizD1CommaLFirstUPostTailSecondUPeelDoneLikeC
                         || g.context?._wizD1CommaSurplusTailPendingLikeC
+                        || (
+                            g.context?._wizD1CommaSecondUSurplusArmedLikeC
+                            && (g.moves | 0) >= 37
+                            && !g.context?._wizD1CommaPostFourthSurplusTailDoneLikeC
+                        )
                     )
                 ) {
                     const commaUSurplusTailResumeLikeC =
                         wizD1MovemonOnceLikeC
                         && g.context?._wizD1CommaSurplusTailPendingLikeC
+                        && g.context?._wizD1CommaSecondUSurplusArmedLikeC;
+                    /* C: second hero **`U`** — defer fifth new-turn (~3074) while post-fourth surplus armed. */
+                    const commaUPostFourthSurplusDeferNewturnLikeC =
+                        wizD1MovemonOnceLikeC
                         && g.context?._wizD1CommaSecondUSurplusArmedLikeC
-                        && !g.context?._wizD1CommaLFirstUPostTailOuterMoveloopDoneLikeC;
-                    if (!commaUSurplusTailResumeLikeC) {
+                        && (g.moves | 0) >= 37;
+                    if (
+                        !commaUSurplusTailResumeLikeC
+                        && !commaUPostFourthSurplusDeferNewturnLikeC
+                    ) {
                         await runNewTurnSetupAndTailLikeC(g, tailStepNum);
                     }
                     /* C: comma-**`U`** second hero **`U`** — resume surplus **`fmon`** (~3059–3073). */

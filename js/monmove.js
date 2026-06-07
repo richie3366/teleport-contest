@@ -405,14 +405,23 @@ export async function movemon(stepNum) {
         delete g.context._searchPass1NearMonLikeC;
     }
     const effStepNum = effectiveMovemonStepNumLikeC(g, stepNum);
-    /* C: comma-**`U`** — post-fourth surplus **`fmon`** **`m_move`** (~3058+). */
+    /* C: comma-**`U`** — post-fourth surplus **`fmon`** **`m_move`** (~3055+). */
     if (
         g.urole?.abbr === 'Wiz'
         && (g.u?.uz?.dnum | 0) === 0
         && (g.u?.uz?.dlevel | 0) === 1
-        && g.context?._wizD1CommaLFirstUPostTailSecondUPostMovemonLikeC
         && (effStepNum | 0) === 1
+        && !g.context?._wizD1CommaPostFourthSurplusTailDoneLikeC
+        && (
+            g.context?._wizD1CommaLFirstUPostTailSecondUPostMovemonLikeC
+            || (
+                g.context?._wizD1CommaSecondUSurplusArmedLikeC
+                && (g.moves | 0) >= 37
+            )
+        )
     ) {
+        /* C: mon.c **`movemon`** — clear **`somebody_can_move`** each **`fmon`** scan pass. */
+        g.context._somebodyCanMoveLikeC = false;
         const petSurplus = (g.level?.monsters ?? []).find(
             (m) => (m.mtame | 0) !== 0,
         );
@@ -439,7 +448,13 @@ export async function movemon(stepNum) {
         let passList = surplusHostile.some(
             (m) => (m.movement | 0) >= NORMAL_SPEED,
         )
-            ? surplusHostile
+            ? surplusHostile.filter(
+                (m) =>
+                    !(
+                        g.context?._wizD1CommaLFirstUPostTailSecondUPeelDoneLikeC
+                        && m === nearMklevSurplus
+                    ),
+            )
             : [];
         /* C: surplus tail — stray mklev before near peel (~3055–3057), near last (~3058). */
         if (passList.length === 0) {

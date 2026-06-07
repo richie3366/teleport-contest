@@ -1215,11 +1215,44 @@ export async function movemonSinglemonLikeC(g, mtmp, stepNum = 0) {
     }
     /* C: comma-**`U`** post-fourth surplus — stray mklev one **`mtrack`** **`rn2(12)`**, no **`dochug`**. */
     if (
-        g.context?._wizD1CommaLFirstUPostTailSecondUPostMovemonLikeC
-        && !(mtmp.mtame | 0)
+        !(mtmp.mtame | 0)
         && (mtmp.mgenmklev | 0)
         && mtmp !== wizD1CommaLFirstUNearMklevMonLikeC(g)
+        && (
+            g.context?._wizD1CommaLFirstUPostTailSecondUPostMovemonLikeC
+            || (
+                g.urole?.abbr === 'Wiz'
+                && (g.u?.uz?.dnum | 0) === 0
+                && (g.u?.uz?.dlevel | 0) === 1
+                && (g.moves | 0) >= 37
+                && g.context?._wizD1CommaSecondUSurplusArmedLikeC
+            )
+        )
     ) {
+        mMoveCommaUFmonTailSlotMklevLikeC(g, mtmp);
+        return;
+    }
+    /* C: comma-**`U`** post-fourth — after near peel, surplus hostiles slot-only (~3059+). */
+    if (
+        g.urole?.abbr === 'Wiz'
+        && (g.u?.uz?.dnum | 0) === 0
+        && (g.u?.uz?.dlevel | 0) === 1
+        && (g.moves | 0) >= 37
+        && g.context?._wizD1CommaSecondUSurplusArmedLikeC
+        && g.context?._wizD1CommaLFirstUPostTailSecondUPeelDoneLikeC
+        && !(mtmp.mtame | 0)
+        && mtmp !== wizD1CommaLFirstUNearMklevMonLikeC(g)
+    ) {
+        let movSurplus = mtmp.movement | 0;
+        if (movSurplus < NORMAL_SPEED) {
+            mtmp.movement = NORMAL_SPEED;
+            movSurplus = NORMAL_SPEED;
+        }
+        mtmp.movement = movSurplus - NORMAL_SPEED;
+        if ((mtmp.movement | 0) >= NORMAL_SPEED) {
+            (g.context || (g.context = {}))._somebodyCanMoveLikeC = true;
+        }
+        setApparxyMonsterLikeC(g, mtmp);
         mMoveCommaUFmonTailSlotMklevLikeC(g, mtmp);
         return;
     }
@@ -1243,7 +1276,6 @@ export async function movemonSinglemonLikeC(g, mtmp, stepNum = 0) {
     ) {
         delete g.context._wizD1CommaPostFourthHostileSurplusDoneLikeC;
         g.context._wizD1CommaLFirstUPostTailSecondUPeelDoneLikeC = true;
-        delete g.context._wizD1CommaSecondUSurplusArmedLikeC;
         let movNearTail = mtmp.movement | 0;
         if (movNearTail < NORMAL_SPEED) {
             mtmp.movement = NORMAL_SPEED;

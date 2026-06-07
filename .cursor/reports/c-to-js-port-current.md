@@ -32,7 +32,7 @@ Use this when **`Next steps`** below feels stale or several lanes compete. Order
 
 **Tutorial (Lane E):** Gated on [tutorial port gate](../../docs/plans/tutorial-port-gate.md) **MD-1 … MD-7**.
 
-**Last slice:** **Lane C — `seed0006` comma-`U` post-fourth surplus tail (~3059+ WIP)** — **`monmove.js`**: surplus **`passList`** stray-before-near order, **`strayMklevStillPending`/`nonMklevStillPending`**, **`SurplusScanMore`/`SurplusTailPending`** resume debt; **`m_move_mon.js`**: stray mklev slot-only **`rn2(12)`** (no **`dochug`**); **`moveloop_turn_advance.js`**: second-**`U`** surplus resume + **`SecondUPeelDone`** gate fix; **`cmd.js`**: arm on **`SurplusTailPending`**. **Verified:** **3054–3058**; fail **3059+** (fifth new-turn fires before surplus tail completes); **`seed8000` 2900–3129** canary; score **2/44**.
+**Last slice:** **Lane C — `seed0006` comma-`U` fifth-new-turn defer + surplus monscan (~3059+ WIP)** — **`moveloop_turn_advance.js`**: defer fifth new-turn while **`SecondUSurplusArmed`**; extend new-turn block until **`PostFourthSurplusTailDone`**; monscan no early break during surplus; **`monmove.js`**: route **`SecondUSurplusArmed`** through surplus **`passList`** handler + **`somebodyCanMove`** clear; **`m_move_mon.js`**: keep **`SecondUSurplusArmed`** through near peel; stray slot gate on armed path. **Verified:** **3054–3058**; fail **3059+** (hostile **`dochug`** **`rn2(70)`** vs C **`rn2(12)`** — post-peel non-mklev tail); **`seed8000` 2900–3129** canary.
 
 ## Next steps (aligned with matrix)
 
@@ -40,7 +40,7 @@ Pick **one** primary lane per **batch** (several related C functions — see che
 
 **First:** open [`docs/plans/tutorial-port-gate.md`](../../docs/plans/tutorial-port-gate.md) — if **all MD-1 … MD-7** are checked, do **Lane E** step 1 from [10-tutorial.md](../plans/nethack-port/10-tutorial.md) instead of the list below.
 
-1. **Lane C — `seed0006` comma-`U` post-fourth surplus fmon (~3059+)** — second hero **`U`** **`SurplusTailPending`** resume moveloop must run before fifth new-turn; non-mklev hostile **`m_move`** + stray mklev slot tail through ~3073.
+1. **Lane C — `seed0006` comma-`U` post-peel non-mklev surplus tail (~3059–3073)** — after near peel (**`3058`**), surplus **`monscanmove`** must continue (no fifth new-turn **`rn2(70)`**); port C **`m_move`** for non-mklev hostiles post-**`SecondUPeelDone`** (mixed **`rn2(12)`** / **`rn2(5)`** / **`rnd(5)`** through ~3073); fifth new-turn ~**`3074`**.
 2. **Lane B — NHL** — next **`lspo_*`** per [`nhl-port-notes.md`](nhl-port-notes.md).
 3. **Lane A/D — `seed0900`** — screen parity (RNG **0–2982** done); map/botl integration beyond moveloop peel chain.
 4. **Lane A/D — `dogmove.c`** — **`score_targ`** vampshifter **`mtmp_lev`** **`rn2`** tail (~808–817); **`mattackm`** / **`pet_ranged_attk`** when pet breath sessions fail.
