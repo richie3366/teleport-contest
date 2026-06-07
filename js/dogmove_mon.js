@@ -1616,7 +1616,10 @@ function dogMoveMfndposPickLikeC(g, mtmp, ggx, ggy, appr, whappr) {
             && !g.context?._touristD1LPostAfterPeelNewturnTailMfndposLikeC
             && !(
                 g.context?._wizD1LPetInventAfterNewturnChcntOnlyLikeC
-                && g.context?._wizD1CapitalKPostCommaPetLikeC
+                && (
+                    g.context?._wizD1CapitalKPostCommaPetLikeC
+                    || g.context?._wizD1FirstLAfterCommaPetLikeC
+                )
             )
         ) {
             const k = edog ? uncursedcnt : cnt;

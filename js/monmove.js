@@ -840,7 +840,16 @@ export async function movemon(stepNum) {
                                 !(mm.mtame | 0)
                                 && (mm.mgenmklev | 0),
                         );
-                    if (m === nearSkipAfterComma || (m.mtame | 0)) continue;
+                    const distantSkipAfterComma =
+                        wizD1PeelDistantMklevMonLikeC(g)
+                        ?? findDistantMklevMonLikeC(g);
+                    if (
+                        m === nearSkipAfterComma
+                        || (m.mtame | 0)
+                        || m === distantSkipAfterComma
+                    ) {
+                        continue;
+                    }
                 }
                 if (
                     g.context?._wizD1CapitalKPostCommaFmonHeadDoneLikeC
@@ -921,6 +930,30 @@ export async function movemon(stepNum) {
                     continue;
                 }
                 await movemonSinglemonLikeC(g, m, effStepNum);
+            }
+            /* C: first hero l after comma — distant distfleeck x2 + dochug m_move (~2973+);
+             * deferred from fmon loop (near+pet handled in head). */
+            if (g.context?._wizD1FirstLAfterCommaPeelHeadDoneLikeC) {
+                const firstLDistant =
+                    wizD1PeelDistantMklevMonLikeC(g)
+                    ?? findDistantMklevMonLikeC(g);
+                if (firstLDistant) {
+                    const u = g.u;
+                    if (u) {
+                        firstLDistant.mux = u.ux | 0;
+                        firstLDistant.muy = u.uy | 0;
+                    }
+                    setApparxyMonsterLikeC(g, firstLDistant);
+                    await distfleeckMonsterApplyLikeC(g, firstLDistant);
+                    await distfleeckMonsterApplyLikeC(g, firstLDistant);
+                    g.context._wizD1FirstLAfterCommaDistantPeelLikeC = true;
+                    try {
+                        await movemonSinglemonLikeC(g, firstLDistant, effStepNum);
+                    } finally {
+                        delete g.context._wizD1FirstLAfterCommaDistantPeelLikeC;
+                    }
+                }
+                delete g.context._wizD1FirstLAfterCommaPeelHeadDoneLikeC;
             }
             /* C: ranger D:1 twin **`#search`** — pass 2 inline when **`monscanmove`** false (**`seed0102`**). */
             if (

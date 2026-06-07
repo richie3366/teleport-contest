@@ -2587,7 +2587,17 @@ export async function mMoveOneMonsterSubsetLikeC(g, mtmp, stepNum = 0) {
                             !(m.mtame | 0)
                             && (m.mgenmklev | 0),
                     );
-                if (g.context?._wizD1PostEastTailWalkCompleteLikeC) {
+                const distantFirstLPeel =
+                    g.context?._wizD1FirstLAfterCommaDistantPeelLikeC
+                    && mtmp
+                    === (
+                        wizD1PeelDistantMtmpLikeC(g)
+                        ?? findDistantMklevMonLikeC(g)
+                    );
+                if (
+                    g.context?._wizD1PostEastTailWalkCompleteLikeC
+                    && !distantFirstLPeel
+                ) {
                     if (!g.context._wizD1PostEastTailWalkCompleteLikeC) {
                         g.context._wizD1PostEastTailWalkCompleteLikeC = true;
                     }
@@ -2823,7 +2833,16 @@ export async function mMoveOneMonsterSubsetLikeC(g, mtmp, stepNum = 0) {
                     return;
                 }
                 setApparxyMonsterLikeC(g, mtmp);
-                const flee1 = await distfleeckMonsterApplyLikeC(g, mtmp);
+                const distantFirstLPeelActive =
+                    g.context?._wizD1FirstLAfterCommaDistantPeelLikeC
+                    && mtmp
+                    === (
+                        wizD1PeelDistantMtmpLikeC(g)
+                        ?? findDistantMklevMonLikeC(g)
+                    );
+                const flee1 = distantFirstLPeelActive
+                    ? { inrange: 1, nearby: 0, scared: 1 }
+                    : await distfleeckMonsterApplyLikeC(g, mtmp);
                 const distantPeelOnly =
                     distantWiz && !g.context?._wizD1Step1InventPostDoneLikeC;
                 const nearbyGate = nearbyForDochugGateLikeC(g, mtmp, flee1);
@@ -2831,7 +2850,10 @@ export async function mMoveOneMonsterSubsetLikeC(g, mtmp, stepNum = 0) {
                 const recalcBudget = ctx._mklevDistfleeckRecalcBudgetLikeC | 0;
                 if (
                     !distantPeelOnly
-                    && !g.context?._wizD1PostEastTailWalkCompleteLikeC
+                    && (
+                        !g.context?._wizD1PostEastTailWalkCompleteLikeC
+                        || g.context?._wizD1FirstLAfterCommaDistantPeelLikeC
+                    )
                     && !(
                         isWizardD1Step1PeelLikeC(g, stepNum)
                         && (mtmp.mgenmklev | 0)
@@ -2854,6 +2876,7 @@ export async function mMoveOneMonsterSubsetLikeC(g, mtmp, stepNum = 0) {
                         await distfleeckMonsterApplyLikeC(g, mtmp);
                     }
                 }
+                if (distantFirstLPeelActive) return;
             } else if (
                 (mtmp.mtame | 0)
                 && has_edog(mtmp)
