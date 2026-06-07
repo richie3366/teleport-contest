@@ -80,6 +80,7 @@ import {
     dogMovePostCorridorSecondPetMfndposLikeC,
     dogMovePostEastTailWalkObjResistsLikeC,
     dogMoveCapitalKPostCommaPetLikeC,
+    dogMoveFirstLAfterCommaPetLikeC,
     dogMovePostEastTailWalkShortLPetLikeC,
     dogMovePostEastTailWalkFmonPetLikeC,
     dogMoveSearchPassNearHeroLikeC,
@@ -2868,6 +2869,11 @@ export async function mMoveOneMonsterSubsetLikeC(g, mtmp, stepNum = 0) {
                     mtmp.movement = mov - NORMAL_SPEED;
                     if (g.context?._wizD1CapitalKPostCommaMoveloopLikeC) {
                         dogMoveCapitalKPostCommaPetLikeC(g, mtmp);
+                    } else if (g.context?._wizD1FirstLAfterCommaPeelLikeC) {
+                        setApparxyMonsterLikeC(g, mtmp);
+                        rn2(4);
+                        dogMoveFirstLAfterCommaPetLikeC(g, mtmp);
+                        delete g.context._wizD1FirstLAfterCommaPeelLikeC;
                     } else {
                         dogMovePostEastTailWalkShortLPetLikeC(g, mtmp);
                     }

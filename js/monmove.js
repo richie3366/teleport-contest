@@ -82,6 +82,7 @@ import {
     dogMoveCapitalKPostNewturnPetLikeC,
     dogMoveCapitalKPostPeelPetLikeC,
     dogMoveCapitalKPostCommaPetLikeC,
+    dogMoveFirstLAfterCommaPetLikeC,
     dogMovePostEastTailWalkShortLPetLikeC,
 } from './dogmove_mon.js';
 import {
@@ -801,7 +802,46 @@ export async function movemon(stepNum) {
                 }
                 g.context._wizD1CapitalKPostCommaFmonHeadDoneLikeC = true;
             }
+            /* C: first hero **`l`** after comma — near **`distfleeck`** (~2948), pet **`rn2(4)`**
+             * + short-**`l`** **`dog_move`** (~2949+); same as capital **`K`** short-**`l`** peel. */
+            if (
+                g.context?._wizD1FirstLAfterCommaPeelLikeC
+                && isWizardD1Step1PeelLikeC(g, effStepNum)
+            ) {
+                const nearAfterComma =
+                    wizD1EastDoorMklevMonLikeC(g)
+                    ?? (g.level?.monsters ?? []).find(
+                        (mm) =>
+                            !(mm.mtame | 0)
+                            && (mm.mgenmklev | 0),
+                    );
+                if (nearAfterComma) {
+                    setApparxyMonsterLikeC(g, nearAfterComma);
+                    await distfleeckMonsterApplyLikeC(g, nearAfterComma);
+                    g.context._wizD1PostEastTailWalkShortLNearDfLikeC = true;
+                }
+                const petAfterComma = (g.level?.monsters ?? []).find(
+                    (m) => (m.mtame | 0) !== 0,
+                );
+                if (petAfterComma) {
+                    setApparxyMonsterLikeC(g, petAfterComma);
+                    rn2(4);
+                    dogMoveFirstLAfterCommaPetLikeC(g, petAfterComma);
+                }
+                delete g.context._wizD1FirstLAfterCommaPeelLikeC;
+                g.context._wizD1FirstLAfterCommaPeelHeadDoneLikeC = true;
+            }
             for (const m of mons) {
+                if (g.context?._wizD1FirstLAfterCommaPeelHeadDoneLikeC) {
+                    const nearSkipAfterComma =
+                        wizD1EastDoorMklevMonLikeC(g)
+                        ?? (g.level?.monsters ?? []).find(
+                            (mm) =>
+                                !(mm.mtame | 0)
+                                && (mm.mgenmklev | 0),
+                        );
+                    if (m === nearSkipAfterComma || (m.mtame | 0)) continue;
+                }
                 if (
                     g.context?._wizD1CapitalKPostCommaFmonHeadDoneLikeC
                     && !g.context?._wizD1CapitalKPostCommaPeelDoneLikeC
@@ -1247,6 +1287,10 @@ export async function movemon(stepNum) {
                 }
                 await runNewTurnSetupAndTailLikeC(g, (g.moves | 0) - 1);
                 g.context._wizD1CapitalKPostCommaPeelDoneLikeC = true;
+                /* C: first hero **`l`** after comma — replay capital **`K`** short-**`l`** near
+                 * **`distfleeck`** (~2948) + pet **`dochug:886`** **`rn2(4)`** (~2949). */
+                delete g.context._wizD1PostEastTailWalkShortLNearDfLikeC;
+                g.context._wizD1FirstLAfterCommaPeelLikeC = true;
                 delete g.context._wizD1CapitalKPostCommaMoveloopLikeC;
                 delete g.context._wizD1CapitalKPostCommaFmonHeadDoneLikeC;
                 g.context._wizD1PostEastTailWalkNewTurnDoneLikeC = true;

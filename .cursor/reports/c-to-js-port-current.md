@@ -32,7 +32,7 @@ Use this when **`Next steps`** below feels stale or several lanes compete. Order
 
 **Tutorial (Lane E):** Gated on [tutorial port gate](../../docs/plans/tutorial-port-gate.md) **MD-1 … MD-7**.
 
-**Last slice:** **Lane C — `seed0006` comma distant `m_move` `rn2(24)`** — C **`monmove.c`** inline peel after pet **`distfleeck`**×2: **`mMoveCapitalKPostCommaDistantLikeC`** (**`mtrack[1]`** **`rn2(24)`** ~2939), no leading distant **`distfleeck`**; **`monmove.js`** peel calls dedicated fn + post-**`m_move`** ~915 **`distfleeck`** (~2940). **`2888–2947`** aligned; first fail **2948** (tail **`rn2(5)`** vs extra **`rn2(12)`**). **`seed8000` 2900–3129:** aligned. **2/44**.
+**Last slice:** **Lane C — `seed0006` first `l` after comma pet invent prescan** — C **`dogmove.c`**: caller **`dochug:886`** **`rn2(4)`** (~2949), full **`gi.invent`** **`obj_resists`** + **`chcnt`** **`mfndpos`** (~2950–2970); **`dogMoveFirstLAfterCommaPetLikeC`** + fmon head peel (not short-**`l`** one-item prescan). **`2888–2970`** aligned; first fail **2971** (**`rn2(7)`** vs **`rn2(32)`**). **`seed8000` 2900–3129:** aligned. **2/44**.
 
 ## Next steps (aligned with matrix)
 
@@ -40,7 +40,7 @@ Pick **one** primary lane per **batch** (several related C functions — see che
 
 **First:** open [`docs/plans/tutorial-port-gate.md`](../../docs/plans/tutorial-port-gate.md) — if **all MD-1 … MD-7** are checked, do **Lane E** step 1 from [10-tutorial.md](../plans/nethack-port/10-tutorial.md) instead of the list below.
 
-1. **Lane C — `seed0006` ~2948** — comma peel tail after distant **`distfleeck`** (~2940): extra **`rn2(12)`** vs C **`rn2(5)`**/**`rn2(4)`**; **`runNewTurnSetupAndTailLikeC`** / moveloop comma post.
+1. **Lane C — `seed0006` ~2971** — first **`l`** after comma pet **`mfndpos`** tail / rest **`fmon`**: **`rn2(7)`** vs **`rn2(32)`**; **`dogmove.c`** **`chcnt`** break vs away **`rn2(12)`** or next mon **`dochug`**.
 2. **Lane B — NHL** — next **`lspo_*`** per [`nhl-port-notes.md`](nhl-port-notes.md).
 3. **Lane A/D — `seed0900`** — screen parity (RNG **0–2982** done); map/botl integration beyond moveloop peel chain.
 4. **Lane A/D — `dogmove.c`** — **`score_targ`** vampshifter **`mtmp_lev`** **`rn2`** tail (~808–817); **`mattackm`** / **`pet_ranged_attk`** when pet breath sessions fail.
