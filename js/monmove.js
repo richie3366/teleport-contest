@@ -90,6 +90,7 @@ import {
     dogMoveCommaLFirstUPostTailPetLikeC,
     dogMoveCommaLFirstUPostTailInventAfterNewturnLikeC,
     dogMoveCommaLFirstUPostTailThirdMovemonPetLikeC,
+    dogMoveCommaUFmonTailPostPeelPetLikeC,
     dogMoveFirstLAfterCommaPetLikeC,
     dogMoveLPetInventAfterNewturnLikeC,
     dogMovePostEastTailWalkShortLPetLikeC,
@@ -1882,11 +1883,25 @@ export async function movemon(stepNum) {
             /* C: post-third-peel fmon tail — distfleeck + m_move (~3035+) before post ends. */
             g.context._wizD1CommaLFirstUPostTailFmonTailPendingLikeC = true;
             const commaUFmonTail = fmonListForMovemonLikeC(g, effStepNum);
-            for (const m of commaUFmonTail) {
-                if ((m.mtame | 0)) continue;
+            const commaUHostileTail = commaUFmonTail.filter(
+                (m) => !(m.mtame | 0),
+            );
+            for (let ti = 0; ti < commaUHostileTail.length && ti < 2; ti++) {
+                const m = commaUHostileTail[ti];
                 await movemonSinglemonLikeC(g, m, effStepNum);
+                /* C: second peel mklev — second ~915 **`distfleeck`** (~3041) before pet **`dog_move`**. */
+                if (ti === 1) {
+                    setApparxyMonsterLikeC(g, m);
+                    await distfleeckMonsterApplyLikeC(g, m);
+                }
             }
             delete g.context._wizD1CommaLFirstUPostTailFmonTailPendingLikeC;
+            if (petCommaUThird) {
+                setApparxyMonsterLikeC(g, petCommaUThird);
+                dogMoveCommaUFmonTailPostPeelPetLikeC(g, petCommaUThird);
+                setApparxyMonsterLikeC(g, petCommaUThird);
+                await distfleeckMonsterApplyLikeC(g, petCommaUThird);
+            }
             g.context._wizD1CommaLFirstUPostTailOuterMoveloopDoneLikeC = true;
             return false;
         }
