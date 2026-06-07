@@ -2509,10 +2509,12 @@ export async function runCommaPostFirstLMaybeGenTailLikeC(g, stepNum = 1) {
     );
     await runCommaPostFirstLPartialNewturnLikeC(g);
     await wizD1CommaLFirstUNearDistfleeckBeforePetLikeC(g);
-    /* C: pet **`dochug:886`** gate only (~2949); **`mfndpos`** / castmu (~2950+) is next peel. */
+    /* C: pet **`dochug:886`** gate only (~2949); invent + **`mfndpos`** (~2950+) deferred to
+     * first hero **`U`** **`movemon`** head via **`_wizD1FirstLAfterCommaPetPendingLikeC`**. */
     if (pet) {
         setApparxyMonsterLikeC(g, pet);
         rn2(4);
+        ctx._wizD1FirstLAfterCommaPetPendingLikeC = true;
     }
     ctx._wizD1CommaPostFirstLMaybeGenTailDoneLikeC = true;
     delete ctx._wizD1CommaLArmPendingAfterMovemonLikeC;

@@ -248,6 +248,29 @@ export async function movemon(stepNum) {
     ) {
         await wizD1CommaLFirstUNearDistfleeckBeforePetLikeC(g);
     }
+    /* C: comma post-first-**`l`** tail drew pet **`rn2(4)`** (~2949); invent + **`mfndpos`** (~2950+)
+     * on first hero **`U`** **`movemon`** before **`fmon`**. */
+    if (
+        g.context?._wizD1FirstLAfterCommaPetPendingLikeC
+        && !g.context?._wizD1FirstLAfterCommaPetDoneLikeC
+        && wizD1CommaLFirstUAfterCommaLLikeC(g)
+    ) {
+        const petDeferred = (g.level?.monsters ?? []).find(
+            (m) => (m.mtame | 0) !== 0,
+        );
+        if (petDeferred) {
+            let movDef = petDeferred.movement | 0;
+            if (movDef < NORMAL_SPEED) {
+                petDeferred.movement = NORMAL_SPEED;
+                movDef = NORMAL_SPEED;
+            }
+            petDeferred.movement = movDef - NORMAL_SPEED;
+            setApparxyMonsterLikeC(g, petDeferred);
+            dogMoveFirstLAfterCommaPetLikeC(g, petDeferred);
+        }
+        delete g.context._wizD1FirstLAfterCommaPetPendingLikeC;
+        g.context._wizD1FirstLAfterCommaPetDoneLikeC = true;
+    }
     if (
         g.context?._wizD1PostEastTailWalkFmonPendingLikeC
         && g.context?._wizD1MovemonRanThisPostLikeC
@@ -1084,6 +1107,15 @@ export async function movemon(stepNum) {
                     && !g.context?._wizD1CommaLFirstUNearFmonSkipDoneLikeC
                 ) {
                     g.context._wizD1CommaLFirstUNearFmonSkipDoneLikeC = true;
+                    continue;
+                }
+                /* C: comma post-first-**`l`** invent peel ran at **`movemon`** head (~2950–2973). */
+                if (
+                    (m.mtame | 0)
+                    && g.context?._wizD1FirstLAfterCommaPetDoneLikeC
+                    && wizD1CommaLFirstUAfterCommaLLikeC(g)
+                    && !g.context?._wizD1CommaLFirstUTailDoneLikeC
+                ) {
                     continue;
                 }
                 await movemonSinglemonLikeC(g, m, effStepNum);
