@@ -2746,6 +2746,14 @@ export async function mMoveOneMonsterSubsetLikeC(g, mtmp, stepNum = 0) {
                 || g.context?._wizD1PostEastTailWalkPeelDoneLikeC
             )
         ) {
+            /* C: capital **`K`** alone — 0 RNG; comma promotes deferred peel (~2818+). */
+            if (
+                g.context?._wizD1DeferredRunKPendingLikeC
+                && !g.context?._wizD1PromoteDeferredRunKLikeC
+                && !g.context?._wizD1PostEastTailWalkFmonDistantDeferredLikeC
+            ) {
+                return;
+            }
             if (
                 !g.context?._wizD1PostEastTailWalkPeelDoneLikeC
                 && g.context?._wizD1FirstShortLFmonNearPetDoneLikeC

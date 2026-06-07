@@ -301,7 +301,17 @@ export async function rhack(key) {
             && (g.u?.uz?.dnum | 0) === 0
             && (g.u?.uz?.dlevel | 0) === 1
             && !!g.context?._touristD1LPostArmedLikeC;
+        const wizD1DeferRunKLikeC =
+            g.urole?.abbr === 'Wiz'
+            && (g.u?.uz?.dnum | 0) === 0
+            && (g.u?.uz?.dlevel | 0) === 1
+            && !!g.context?._wizD1DeferredRunKPendingLikeC;
         const moved = await domoveHeroDirLikeC(dx, dy);
+        if (wizD1DeferRunKLikeC) {
+            /* C: capital **`K`** alone — one domove, 0 monster RNG; comma promotes peel (~2818+). */
+            endRunning(true);
+            g.multi = 0;
+        }
         const promoteTouD1LPostLikeC = () => {
             g.context._touristD1LPostMovemonPendingLikeC = true;
             delete g.context._touristD1LPostArmedLikeC;

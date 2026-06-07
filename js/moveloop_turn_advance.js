@@ -903,8 +903,19 @@ export async function runPostCommandTurnAdvanceLikeC(g) {
             const commaMoveloopPeelLikeC =
                 !!g.context?._wizD1CapitalKPostCommaMoveloopLikeC
                 && !g.context?._wizD1CapitalKPostCommaPeelDoneLikeC;
+            /* C: capital **`K`** alone — 0 RNG; comma promotes deferred peel (~2818+). */
+            const deferRunKZeroRngPostLikeC =
+                wizD1MovemonOnceLikeC
+                && g.context?._wizD1DeferredRunKPendingLikeC
+                && !g.context?._wizD1PromoteDeferredRunKLikeC
+                && !g.context?._wizD1PostEastTailWalkFmonDistantDeferredLikeC;
+            if (deferRunKZeroRngPostLikeC) {
+                g.context._wizD1LPostOuterLoopDoneLikeC = true;
+                newTurnDone = true;
+            }
             if (
                 runMovemon
+                && !deferRunKZeroRngPostLikeC
                 && !touristD1LPostSkipNextMovemonLikeC
                 && !touristD1RestMoveloopPendingLikeC
                 && (
@@ -933,6 +944,10 @@ export async function runPostCommandTurnAdvanceLikeC(g) {
                     || touristD1LPostTwentiethMovemonLikeC
                     || wizD1CommaUThirdMovemonLikeC
                     || wizD1CommaUFmonTailLikeC
+                    || (
+                        g.context?._wizD1PostEastTailWalkFmonDistantDeferredLikeC
+                        && (g.context._wizD1DeferredRunKNewTurnPassesLikeC | 0) < 3
+                    )
                 )
                 && !(
                     wizD1MovemonOnceLikeC
@@ -1130,6 +1145,7 @@ export async function runPostCommandTurnAdvanceLikeC(g) {
                     g.context._deferredNewTurnLikeC = true;
                 } else if (
                     !newTurnDone
+                    && !deferRunKZeroRngPostLikeC
                     && !g.context?._wizD1EastTailFirstPostCorridorNewTurnDoneLikeC
                     && !g.context?._wizD1EastTailSecondPostCorridorNewTurnDoneLikeC
                     && !g.context?._wizD1CapitalKPostNearSecondNewTurnDoneLikeC
