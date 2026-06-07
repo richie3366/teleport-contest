@@ -69,6 +69,7 @@ import {
     primeWizD1EastDoorMtrackLikeC,
     wizD1CommaLFirstUNearDistfleeckBeforePetLikeC,
     mMoveCommaLFirstUDistantLikeC,
+    mMoveCommaLFirstUPostDistantTailLikeC,
 } from './m_move_mon.js';
 import {
     dogGoalScanSearchPostGateLikeC,
@@ -86,6 +87,7 @@ import {
     dogMoveCapitalKPostNewturnPetLikeC,
     dogMoveCapitalKPostPeelPetLikeC,
     dogMoveCapitalKPostCommaPetLikeC,
+    dogMoveCommaLFirstUPostTailPetLikeC,
     dogMoveFirstLAfterCommaPetLikeC,
     dogMovePostEastTailWalkShortLPetLikeC,
 } from './dogmove_mon.js';
@@ -1020,6 +1022,34 @@ export async function movemon(stepNum) {
                     }
                     setApparxyMonsterLikeC(g, commaUDistant);
                     await mMoveCommaLFirstUDistantLikeC(g, commaUDistant);
+                    await mMoveCommaLFirstUPostDistantTailLikeC(
+                        g,
+                        commaUTailNear,
+                        commaUDistant,
+                    );
+                }
+                const commaUPetTail = (g.level?.monsters ?? []).find(
+                    (m) => (m.mtame | 0) !== 0,
+                );
+                if (commaUPetTail) {
+                    let movPetTail = commaUPetTail.movement | 0;
+                    if (movPetTail < NORMAL_SPEED) {
+                        commaUPetTail.movement = NORMAL_SPEED;
+                        movPetTail = NORMAL_SPEED;
+                    }
+                    commaUPetTail.movement = movPetTail - NORMAL_SPEED;
+                    setApparxyMonsterLikeC(g, commaUPetTail);
+                    rn2(4);
+                    dogMoveCommaLFirstUPostTailPetLikeC(g, commaUPetTail);
+                    if (commaUTailNear) {
+                        setApparxyMonsterLikeC(g, commaUTailNear);
+                        await distfleeckMonsterApplyLikeC(g, commaUTailNear);
+                    }
+                    const ctxPetTail2 = g.context || (g.context = {});
+                    ctxPetTail2._wizD1CommaLFirstUPostTailPhase2LikeC = true;
+                    dogMoveCommaLFirstUPostTailPetLikeC(g, commaUPetTail);
+                    delete ctxPetTail2._wizD1CommaLFirstUPostTailPhase2LikeC;
+                    delete ctxPetTail2._wizD1CommaLFirstUPostTailAwayRn12LikeC;
                 }
                 g.context._wizD1CommaLFirstUTailDoneLikeC = true;
                 delete g.context._wizD1CommaLFirstUPetDogMoveDoneLikeC;

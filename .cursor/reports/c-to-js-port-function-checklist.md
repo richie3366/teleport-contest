@@ -96,7 +96,7 @@ Align batches with [`c-to-js-port-remaining.md`](c-to-js-port-remaining.md) §5:
 
 | C symbol / area | JS module | Status | Notes |
 |-----------------|-----------|--------|-------|
-| `movemon` / `dochug` | `monmove.js`, `fmon_iter.js`, `moveloop_turn_advance.js`, `dogmove_mon.js`, `m_move_mon.js`, `monmove_search.js`, `mfndpos_mon.js` | partial | Comma-**`l`** → first **`U`**: **`dogMoveCommaLFirstUPetLikeC`** (mfndpos-only, six away **`rn2(12)`**); short-**`l`** peel bypass; **`monmove.js`** tail near **`distfleeck`**×2 + **`mMoveCommaLFirstUDistantLikeC`** **`rn2(8)`**. **`2888–2995`** aligned; first fail **2996** (post-distant **`distfleeck`** / **`dochug`**). **`seed8000` 2900–3129:** aligned |
+| `movemon` / `dochug` | `monmove.js`, `fmon_iter.js`, `moveloop_turn_advance.js`, `dogmove_mon.js`, `m_move_mon.js`, `monmove_search.js`, `mfndpos_mon.js` | partial | Comma-**`U`** post-distant: **`mMoveCommaLFirstUPostDistantTailLikeC`** (near **`distfleeck`**×2, **`rn2(16)`**, near ×2); **`dogMoveCommaLFirstUPostTailPetLikeC`** split **`mfndpos`** + near **`distfleeck`**. **`2888–3009`** aligned; first fail **3010** (moveloop new-turn pet invent). **`seed8000` 2900–3129:** aligned |
 | `m_move` / `mfndpos` | `m_move_mon.js`, `mfndpos.js` | partial | Second post-rest mklev interrupt **`mMoveTouristD1PostRestSecondMklevInterruptLikeC`** (**`rn2(32)`** ~2528); **`seed0900`** **~2545** post-**`mcalcmove`** drift |
 | `distfleeck` | `distfleeck_mon.js` | partial | Peel-only rest **`distfleeck`** (**`_touristD1PostSwapRestDistfleeckPeelLikeC`**); 3× ~915 before stub; **`seed0900`** **2499–2504** |
 | `m_throw` | — | missing | |
