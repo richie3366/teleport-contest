@@ -66,6 +66,7 @@ import {
     mMovePostEastTailWalkMintrapDistantPeelLikeC,
     primeDistantMtrackRn20LikeC,
     primeWizD1EastDoorMtrackLikeC,
+    wizD1CommaLFirstUNearDistfleeckBeforePetLikeC,
 } from './m_move_mon.js';
 import {
     dogGoalScanSearchPostGateLikeC,
@@ -947,6 +948,13 @@ export async function movemon(stepNum) {
                     && (m.mtame | 0)
                 ) {
                     continue;
+                }
+                if (
+                    (m.mtame | 0)
+                    && g.context?._wizD1CommaLFirstUNearDfPendingLikeC
+                    && !g.context?._wizD1CommaLFirstUNearDfDoneLikeC
+                ) {
+                    await wizD1CommaLFirstUNearDistfleeckBeforePetLikeC(g);
                 }
                 await movemonSinglemonLikeC(g, m, effStepNum);
             }

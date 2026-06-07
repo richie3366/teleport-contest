@@ -218,6 +218,10 @@ export function fmonListForMovemonLikeC(g, stepNum = 0) {
                 g.context?._wizD1CapitalKPostNearPetDoneLikeC
                 || g.context?._wizD1CapitalKPostNearSecondNewTurnDoneLikeC
             )
+            && !(
+                g.context?._wizD1CommaLFirstUNearDfPendingLikeC
+                && !g.context?._wizD1CommaLFirstUNearDfDoneLikeC
+            )
         ) {
             return [];
         }

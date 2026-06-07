@@ -32,7 +32,7 @@ Use this when **`Next steps`** below feels stale or several lanes compete. Order
 
 **Tutorial (Lane E):** Gated on [tutorial port gate](../../docs/plans/tutorial-port-gate.md) **MD-1 … MD-7**.
 
-**Last slice:** **Lane C — `seed0006` comma-`l` → first `U` near `distfleeck`** — **`AwaitFirstUNearDf`** at capital-**`K`** comma peel; tail **`pending`** when next replay key **`U`**; **`wizD1CommaLFirstUNearDistfleeckBeforePetLikeC`** in **`m_move_mon`** (both wiz peel pet paths); skip short-**`l`** **`PostEastTailWalkComplete`** when pending; moveloop **`finally`** no longer clears pending/done; promote **`gcc > peelPass`** (2980–2981 live inside distant peel — not **`+1`**). **`2888–2985`** aligned; **2986** still **`rn2(5)`** vs **`rn2(12)`** (pending/hook not firing on move-73 comma-**`l`** peel — tail vs **`mMoveFirstLAfterCommaDistant`** path). **`seed8000` 2900–3129:** aligned. **2/44**.
+**Last slice:** **Lane C — `seed0006` comma-`l` → first `U` `fmon` path** — **`fmon_iter`**: when **`_wizD1CommaLFirstUNearDfPendingLikeC`**, do not return empty **`fmon`** (stale **`CapitalKPostNearPetDone`** blocked pet); **`monmove.js`** fmon hook **`wizD1CommaLFirstUNearDistfleeckBeforePetLikeC`** before pet **`movemonSinglemon`**; **`monmove_search`**: drop **`shortLActive`** pending guard. **`2888–2985`** aligned; **2986** still **`rn2(5)`** vs **`rn2(12)`** (`pending` not consumed on U — arm/peek timing). **`seed8000` 2900–3129:** aligned. **2/44**.
 
 ## Next steps (aligned with matrix)
 
@@ -40,7 +40,7 @@ Pick **one** primary lane per **batch** (several related C functions — see che
 
 **First:** open [`docs/plans/tutorial-port-gate.md`](../../docs/plans/tutorial-port-gate.md) — if **all MD-1 … MD-7** are checked, do **Lane E** step 1 from [10-tutorial.md](../plans/nethack-port/10-tutorial.md) instead of the list below.
 
-1. **Lane C — `seed0006` ~2986** — first **`U`** after comma **`l`**: arm **`pending`** on move-73 distant peel (capital-**`K`** comma → **`l`** → **`U`**); confirm **`monmove.js`** peel tail runs at ~2978 (not only early ~2898 **`mMoveFirstLAfterCommaDistant`**); **`wizD1CommaLFirstUNearDistfleeckBeforePetLikeC`** before pet **`mfndpos`** on **`U`** **`movemon`** — no **`fmon`** reorder (2982–2985 pre-draws).
+1. **Lane C — `seed0006` ~2986** — first **`U`** after comma **`l`**: confirm **`pending`** arms on move-73 peel tail (**`AwaitFirstUNearDf`**); U-post **`movemon`** must run **`fmon`** near+pet (not empty list) then **`wizD1CommaLFirstUNearDistfleeckBeforePetLikeC`** before pet **`mfndpos`**; C ref **`monmove.c`** **`distfleeck`** ~538 / pet **`dochug`** order.
 2. **Lane B — NHL** — next **`lspo_*`** per [`nhl-port-notes.md`](nhl-port-notes.md).
 3. **Lane A/D — `seed0900`** — screen parity (RNG **0–2982** done); map/botl integration beyond moveloop peel chain.
 4. **Lane A/D — `dogmove.c`** — **`score_targ`** vampshifter **`mtmp_lev`** **`rn2`** tail (~808–817); **`mattackm`** / **`pet_ranged_attk`** when pet breath sessions fail.

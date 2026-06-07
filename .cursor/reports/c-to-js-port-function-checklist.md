@@ -96,7 +96,7 @@ Align batches with [`c-to-js-port-remaining.md`](c-to-js-port-remaining.md) §5:
 
 | C symbol / area | JS module | Status | Notes |
 |-----------------|-----------|--------|-------|
-| `movemon` / `dochug` | `monmove.js`, `fmon_iter.js`, `moveloop_turn_advance.js`, `dogmove_mon.js`, `m_move_mon.js`, `monmove_search.js` | partial | Comma-**`l`** → first **`U`**: **`AwaitFirstUNearDf`** at capital-**`K`** comma peel; tail **`pending`** when **`peekReplayMoves(0)==='U'`**; **`wizD1CommaLFirstUNearDistfleeckBeforePetLikeC`** before pet **`dog_move`**; moveloop **`finally`** keep pending; promote **`gcc > peelPass`** (2980–2981 same distant peel). **`2888–2985`** aligned; first fail **2986** |
+| `movemon` / `dochug` | `monmove.js`, `fmon_iter.js`, `moveloop_turn_advance.js`, `dogmove_mon.js`, `m_move_mon.js`, `monmove_search.js` | partial | Comma-**`l`** → first **`U`**: **`fmon_iter`** keep near+pet when **`pending`** (stale **`CapitalKPostNearPetDone`** emptied **`fmon`**); **`monmove`** fmon hook **`wizD1CommaLFirstUNearDistfleeckBeforePetLikeC`**; drop **`shortLActive`** pending guard. **`2888–2985`** aligned; first fail **2986** (`pending` arm / U **`fmon`** path) |
 | `m_move` / `mfndpos` | `m_move_mon.js`, `mfndpos.js` | partial | Second post-rest mklev interrupt **`mMoveTouristD1PostRestSecondMklevInterruptLikeC`** (**`rn2(32)`** ~2528); **`seed0900`** **~2545** post-**`mcalcmove`** drift |
 | `distfleeck` | `distfleeck_mon.js` | partial | Peel-only rest **`distfleeck`** (**`_touristD1PostSwapRestDistfleeckPeelLikeC`**); 3× ~915 before stub; **`seed0900`** **2499–2504** |
 | `m_throw` | — | missing | |
