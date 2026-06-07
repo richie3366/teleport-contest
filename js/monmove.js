@@ -212,24 +212,6 @@ export async function movemon(stepNum) {
     ) {
         await wizD1CommaLFirstUNearDistfleeckBeforePetLikeC(g);
     }
-    /* C: comma-**`l`** → first **`U`** — pet invent after post-new-turn **`distfleeck`** (~3014+). */
-    if (
-        g.context?._wizD1CommaLFirstUPostTailInventPendingLikeC
-        && g.context?._wizD1MovemonRanThisPostLikeC
-        && !g.context?._wizD1CommaLFirstUPostTailInventDoneLikeC
-    ) {
-        const commaUPetInvent = (g.level?.monsters ?? []).find(
-            (m) => (m.mtame | 0) !== 0,
-        );
-        if (commaUPetInvent) {
-            dogMoveCommaLFirstUPostTailInventAfterNewturnLikeC(g, commaUPetInvent);
-        }
-        delete g.context._wizD1CommaLFirstUPostTailInventPendingLikeC;
-        delete g.context._wizD1SkipLPostInventMoveloopLikeC;
-        g.context._wizD1CommaLFirstUPostTailInventDoneLikeC = true;
-        g.context._wizD1LPostOuterLoopDoneLikeC = true;
-        return false;
-    }
     if (
         g.context?._wizD1PostEastTailWalkFmonPendingLikeC
         && g.context?._wizD1MovemonRanThisPostLikeC
@@ -251,6 +233,23 @@ export async function movemon(stepNum) {
         delete g.context._postBumpKillDochugGateLikeC;
     }
     try {
+    /* C: comma-**`l`** → first **`U`** — invent peel inside **`try`** (~3014–3020). */
+    if (
+        g.context?._wizD1CommaLFirstUPostTailInventPendingLikeC
+        && g.context?._wizD1MovemonRanThisPostLikeC
+        && !g.context?._wizD1CommaLFirstUPostTailInventDoneLikeC
+    ) {
+        const commaUPetInvent = (g.level?.monsters ?? []).find(
+            (m) => (m.mtame | 0) !== 0,
+        );
+        if (commaUPetInvent) {
+            dogMoveCommaLFirstUPostTailInventAfterNewturnLikeC(g, commaUPetInvent);
+        }
+        delete g.context._wizD1CommaLFirstUPostTailInventPendingLikeC;
+        delete g.context._wizD1SkipLPostInventMoveloopLikeC;
+        g.context._wizD1CommaLFirstUPostTailInventDoneLikeC = true;
+        return false;
+    }
     const rogueLike =
         g.urole?.abbr === 'Rog'
         || g.pl_character === 'Rogue'

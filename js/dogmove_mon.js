@@ -4254,8 +4254,8 @@ export function dogMoveCommaLFirstUPostTailInventAfterNewturnLikeC(g, mtmp) {
     ctx._wizD1CommaLFirstUPostTailInventMfndposLikeC = true;
     ctx._wizD1CommaLFirstUPostTailInventAwayBudgetLikeC = 7;
     try {
-        const appr = (mtmp.mflee | 0) ? -1 : 1;
-        dogMoveMfndposPickLikeC(g, mtmp, hx, hy, appr, whappr);
+        /* C: post-new-turn **`distfleeck`** sets **`mflee`** — away invent uses appr>0. */
+        dogMoveMfndposPickLikeC(g, mtmp, hx, hy, 1, whappr);
         let awayInvent = ctx._wizD1CommaLFirstUPostTailInventAwayRn12LikeC | 0;
         while (awayInvent < 7) {
             rn2(12);

@@ -32,7 +32,7 @@ Use this when **`Next steps`** below feels stale or several lanes compete. Order
 
 **Tutorial (Lane E):** Gated on [tutorial port gate](../../docs/plans/tutorial-port-gate.md) **MD-1 … MD-7**.
 
-**Last slice:** **Lane C — `seed0006` comma-`U` post-new-turn invent peel** — moveloop pet **`distfleeck`** (~3013); **`dogMoveCommaLFirstUPostTailInventAfterNewturnLikeC`** (away-only **`mfndpos`**, not **`dogMoveLPetInventAfterNewturnLikeC`**); second **`movemon`** peel + **`SkipLPostInventMoveloop`** / block-1137 comma guards. **`2888–3016`** aligned; first fail **3017**. **`seed8000` 2900–3129:** aligned. **2/44**.
+**Last slice:** **Lane C — `seed0006` comma-`U` post-new-turn invent peel** — defer **`maybe_generate`** / **`end_of_turn_rng`** while **`InventPending`**; invent handler inside **`movemon`** **`try`**; **`dogMoveCommaLFirstUPostTailInventAfterNewturnLikeC`** away **`mfndpos`** **`appr=1`**. **`2888–3020`** aligned; first fail **3021** (pet **`distfleeck`**). **`seed8000` 2900–3129:** aligned. **2/44**.
 
 ## Next steps (aligned with matrix)
 
@@ -40,7 +40,7 @@ Pick **one** primary lane per **batch** (several related C functions — see che
 
 **First:** open [`docs/plans/tutorial-port-gate.md`](../../docs/plans/tutorial-port-gate.md) — if **all MD-1 … MD-7** are checked, do **Lane E** step 1 from [10-tutorial.md](../plans/nethack-port/10-tutorial.md) instead of the list below.
 
-1. **Lane C — `seed0006` ~3017** — complete comma-**`U`** post-new-turn invent **`mfndpos`** (**`3017–3020`** **`rn2(12)`**×4 + tail pad to 7); block premature second **`runNewTurn`** / **`maybe_generate`** (~3017 **`rn2(70)`**) before invent peel finishes; then **~3021** pet **`distfleeck`** + **`mcalcmove`** tail per C labels.
+1. **Lane C — `seed0006` ~3021** — comma-**`U`** post-invent pet **`distfleeck`** (**`rn2(5)`** ~3021) + second **`mcalcmove`** / deferred **`runNewTurn`** tail (~3025 **`rn2(70)`**); surplus **`fmon`** must not draw extra **`rn2(12)`** before **`distfleeck`**.
 2. **Lane B — NHL** — next **`lspo_*`** per [`nhl-port-notes.md`](nhl-port-notes.md).
 3. **Lane A/D — `seed0900`** — screen parity (RNG **0–2982** done); map/botl integration beyond moveloop peel chain.
 4. **Lane A/D — `dogmove.c`** — **`score_targ`** vampshifter **`mtmp_lev`** **`rn2`** tail (~808–817); **`mattackm`** / **`pet_ranged_attk`** when pet breath sessions fail.

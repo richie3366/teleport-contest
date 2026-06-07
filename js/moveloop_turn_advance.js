@@ -410,8 +410,13 @@ export async function runNewTurnSetupAndTailLikeC(g, stepNum) {
     for (const line of collectNewuhsPlines(true)) await pline(line);
 
     /* C: allmain.c — after regen, before **`dosounds`** / **`gethungry`**. */
-    maybeHeroTeleportRngLikeC(g);
-    await end_of_turn_rng(stepNum);
+    if (
+        !g.context?._wizD1CommaLFirstUPostTailInventPendingLikeC
+        || g.context?._wizD1CommaLFirstUPostTailInventDoneLikeC
+    ) {
+        maybeHeroTeleportRngLikeC(g);
+        await end_of_turn_rng(stepNum);
+    }
     if (g.context?._touristD1LPostFmonPeelPendingLikeC) {
         g.context._touristD1LPostMcalcmoveDoneLikeC = true;
     }
@@ -1030,6 +1035,7 @@ export async function runPostCommandTurnAdvanceLikeC(g) {
                             setApparxyMonsterLikeC(g, commaUPetInvent);
                             await distfleeckMonsterApplyLikeC(g, commaUPetInvent);
                             g.context._wizD1SkipLPostInventMoveloopLikeC = true;
+                            g.context._wizD1MovemonRanThisPostLikeC = true;
                             g.context._wizD1CommaLFirstUPostTailInventPendingLikeC = true;
                         }
                     }
