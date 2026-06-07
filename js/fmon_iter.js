@@ -99,6 +99,10 @@ export function fmonListForMcalcmoveLikeC(g) {
  */
 export function fmonListForMovemonLikeC(g, stepNum = 0) {
     const mons = fmonListNewestFirstLikeC(g);
+    /* C: comma-U post-third-peel — full fmon tail (~3035+), no step-1 reorder. */
+    if (g.context?._wizD1CommaLFirstUPostTailFmonTailPendingLikeC) {
+        return mons;
+    }
     /* C: comma-**`l`** → first **`U`** — near **`distfleeck`** then pet **`dog_move`** (~2986+). */
     if (
         g.urole?.abbr === 'Wiz'

@@ -852,7 +852,7 @@ function dochugPhaseOneRngAfterWipeEngrLikeC(g, mtmp) {
  * @param {*} mtmp
  * @param {number} [stepNum]
  */
-async function mMoveMmoveOnlyTurnLikeC(g, mtmp, stepNum = 0) {
+export async function mMoveMmoveOnlyTurnLikeC(g, mtmp, stepNum = 0) {
     if (!mtmp) return;
     if ((mtmp.mhp | 0) <= 0) return;
     if (dochugBlockedEarlyLikeC(g, mtmp)) return;

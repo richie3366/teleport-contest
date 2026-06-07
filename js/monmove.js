@@ -227,8 +227,8 @@ export async function movemon(stepNum) {
     ) {
         return false;
     }
-    /* C: comma-**`U`** — third peel done; no surplus **`fmon`** / fourth new-turn in same post. */
-    if (g.context?._wizD1CommaLFirstUPostTailThirdMovemonDoneLikeC) {
+    /* C: comma-**`U`** — outer moveloop tail done; block surplus **`fmon`** / fourth new-turn. */
+    if (g.context?._wizD1CommaLFirstUPostTailOuterMoveloopDoneLikeC) {
         return false;
     }
     if (
@@ -561,6 +561,7 @@ export async function movemon(stepNum) {
         if (
             g.urole?.abbr === 'Wiz'
             && g.context?._wizD1CommaLFirstUPostTailThirdMovemonPendingLikeC
+            && !g.context?._wizD1CommaLFirstUPostTailFmonTailPendingLikeC
             && (effStepNum | 0) === 1
         ) {
             mons = [];
@@ -1543,11 +1544,12 @@ export async function movemon(stepNum) {
             && g.context?._wizD1PostEastTailWalkNewTurnDoneLikeC
             && !g.context?._wizD1CommaLFirstUPostTailNewturnPendingLikeC
             && !g.context?._wizD1CommaLFirstUPostTailThirdMovemonPendingLikeC
-            && !g.context?._wizD1CommaLFirstUPostTailThirdMovemonDoneLikeC
+            && !g.context?._wizD1CommaLFirstUPostTailFmonTailPendingLikeC
+            && !g.context?._wizD1CommaLFirstUPostTailOuterMoveloopDoneLikeC
         ) {
             return false;
         }
-        if (g.context?._wizD1CommaLFirstUPostTailThirdMovemonDoneLikeC) {
+        if (g.context?._wizD1CommaLFirstUPostTailOuterMoveloopDoneLikeC) {
             return false;
         }
         /* C: wizard D:1 second **`L`** — pet **`mfndpos`** after east-tail peel (~2726+). */
@@ -1877,6 +1879,14 @@ export async function movemon(stepNum) {
             }
             delete g.context._wizD1CommaLFirstUPostTailThirdMovemonPendingLikeC;
             g.context._wizD1CommaLFirstUPostTailThirdMovemonDoneLikeC = true;
+            /* C: post-third-peel fmon tail — distfleeck + m_move (~3035+) before post ends. */
+            g.context._wizD1CommaLFirstUPostTailFmonTailPendingLikeC = true;
+            const commaUFmonTail = fmonListForMovemonLikeC(g, effStepNum);
+            for (const m of commaUFmonTail) {
+                if ((m.mtame | 0)) continue;
+                await movemonSinglemonLikeC(g, m, effStepNum);
+            }
+            delete g.context._wizD1CommaLFirstUPostTailFmonTailPendingLikeC;
             g.context._wizD1CommaLFirstUPostTailOuterMoveloopDoneLikeC = true;
         }
         /* C: tourist D:1 run-east **`L`** — fourth **`movemon`** after third-pass new-turn
@@ -2869,6 +2879,8 @@ export async function movemon(stepNum) {
             && !g.context?._wizD1PostEastTailWalkFmonLikeC
             && !g.context?._wizD1PostEastTailWalkCompleteLikeC
             && !g.context?._wizD1PostEastTailWalkFmonPendingLikeC
+            && !g.context?._wizD1CommaLFirstUPostTailThirdMovemonDoneLikeC
+            && !g.context?._wizD1CommaLFirstUPostTailFmonTailPendingLikeC
         ) {
             const wizInventPost = !g.context?._wizD1Step1InventPostDoneLikeC;
             const distant = findDistantMklevMonLikeC(g);

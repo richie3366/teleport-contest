@@ -825,6 +825,8 @@ export async function runPostCommandTurnAdvanceLikeC(g) {
                 !!g.context?._touristD1LPostTwentiethMovemonPendingLikeC;
             const wizD1CommaUThirdMovemonLikeC =
                 !!g.context?._wizD1CommaLFirstUPostTailThirdMovemonPendingLikeC;
+            const wizD1CommaUFmonTailLikeC =
+                !!g.context?._wizD1CommaLFirstUPostTailFmonTailPendingLikeC;
             const touristD1LPostSkipNextMovemonLikeC =
                 !!g.context?._touristD1LPostAfterPeelSkipNextMovemonLikeC;
             if (touristD1LPostSkipNextMovemonLikeC) {
@@ -862,6 +864,7 @@ export async function runPostCommandTurnAdvanceLikeC(g) {
                     || touristD1LPostNineteenthMovemonLikeC
                     || touristD1LPostTwentiethMovemonLikeC
                     || wizD1CommaUThirdMovemonLikeC
+                    || wizD1CommaUFmonTailLikeC
                 )
                 && !(
                     wizD1MovemonOnceLikeC
@@ -872,6 +875,7 @@ export async function runPostCommandTurnAdvanceLikeC(g) {
                             && !commaMoveloopPeelLikeC
                             && !g.context?._wizD1CommaLFirstUPostTailInventPendingLikeC
                             && !g.context?._wizD1CommaLFirstUPostTailThirdMovemonPendingLikeC
+                            && !g.context?._wizD1CommaLFirstUPostTailFmonTailPendingLikeC
                         )
                         || g.context?._wizD1EastTailShortLDeferToNextPostLikeC
                     )
@@ -932,6 +936,7 @@ export async function runPostCommandTurnAdvanceLikeC(g) {
                     || touristD1LPostNineteenthMovemonLikeC
                     || touristD1LPostTwentiethMovemonLikeC
                     || wizD1CommaUThirdMovemonLikeC
+                    || wizD1CommaUFmonTailLikeC
                 ) {
                     stepForMovemon = 1;
                 }
@@ -1313,6 +1318,7 @@ export async function runPostCommandTurnAdvanceLikeC(g) {
         delete g.context._wizD1CommaLFirstUPostTailOuterMoveloopDoneLikeC;
         delete g.context._wizD1CommaLFirstUPostTailThirdMovemonDoneLikeC;
         delete g.context._wizD1CommaLFirstUPostTailThirdMovemonPendingLikeC;
+        delete g.context._wizD1CommaLFirstUPostTailFmonTailPendingLikeC;
         /* **`_wizD1PostEastTailWalkFmonLikeC`** cleared in **`movemon`** after the walk post consumes it. */
     }
 }
