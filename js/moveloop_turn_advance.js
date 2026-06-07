@@ -595,7 +595,6 @@ async function touristD1LPostPeelBeforeOuterLoopLikeC(g) {
 export async function runPostCommandTurnAdvanceLikeC(g) {
     const u = g.u;
     if (!u) return;
-
     await touristD1LPostPeelBeforeOuterLoopLikeC(g);
 
     u.umovement = (u.umovement | 0) - NORMAL_SPEED;

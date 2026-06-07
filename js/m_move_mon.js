@@ -58,6 +58,7 @@ import {
     findWestKinkMonsterLikeC,
     isLandEelForMovemonLikeC,
     movemonStep8DistantMonEligibleLikeC,
+    wizD1CommaLFirstUNearMklevMonLikeC,
     wizD1CorridorMklevMonLikeC,
     wizD1EastDoorMklevMonLikeC,
     wizD1PeelDistantMklevMonLikeC,
@@ -999,6 +1000,15 @@ async function wizD1EastTailAfterMcalcmoveSinglemonLikeC(g, mtmp, stepNum) {
 
 export async function movemonSinglemonLikeC(g, mtmp, stepNum = 0) {
     if (!mtmp || (mtmp.mhp | 0) <= 0) return;
+    if (
+        (mtmp.mtame | 0)
+        && has_edog(mtmp)
+        && g.urole?.abbr === 'Wiz'
+        && !g.context?._wizD1CommaLFirstUNearDfDoneLikeC
+        && g.context?._wizD1CommaLFirstUNearDfPendingLikeC
+    ) {
+        await wizD1CommaLFirstUNearDistfleeckBeforePetLikeC(g);
+    }
     /* C: ranger D:1 first **`#search`** — pet **`distfleeck`** + **`dog_move`** before any peel path. */
     if (
         rangerD1FirstSearchNoNearMonLikeC(g, stepNum)
@@ -2105,16 +2115,13 @@ export async function mMoveCapitalKPostCommaDistantLikeC(g, mtmp, stepNum = 0) {
 /** C: first **`U`** after comma **`l`** — near **`distfleeck`** (`rn2(5)`) before pet **`mfndpos`**. */
 export async function wizD1CommaLFirstUNearDistfleeckBeforePetLikeC(g) {
     const ctx = g.context;
-    if (!ctx?._wizD1CommaLFirstUNearDfPendingLikeC || ctx?._wizD1CommaLFirstUNearDfDoneLikeC) {
+    if (ctx?._wizD1CommaLFirstUNearDfDoneLikeC) {
         return;
     }
-    const near =
-        wizD1EastDoorMklevMonLikeC(g)
-        ?? (g.level?.monsters ?? []).find(
-            (m) =>
-                !(m.mtame | 0)
-                && (m.mgenmklev | 0),
-        );
+    if (!ctx?._wizD1CommaLFirstUNearDfPendingLikeC) {
+        return;
+    }
+    const near = wizD1CommaLFirstUNearMklevMonLikeC(g);
     if (!near) return;
     setApparxyMonsterLikeC(g, near);
     await distfleeckMonsterApplyLikeC(g, near);
@@ -2946,8 +2953,8 @@ export async function mMoveOneMonsterSubsetLikeC(g, mtmp, stepNum = 0) {
                 && isWizardD1Step1PeelLikeC(g, stepNum)
             ) {
                 if (
-                    g.context?._wizD1CommaLFirstUNearDfPendingLikeC
-                    && !g.context?._wizD1CommaLFirstUNearDfDoneLikeC
+                    !g.context?._wizD1CommaLFirstUNearDfDoneLikeC
+                    && g.context?._wizD1CommaLFirstUNearDfPendingLikeC
                 ) {
                     await wizD1CommaLFirstUNearDistfleeckBeforePetLikeC(g);
                 }
@@ -3152,8 +3159,8 @@ export async function mMoveOneMonsterSubsetLikeC(g, mtmp, stepNum = 0) {
                     mtmp.movement = mov - NORMAL_SPEED;
                     if (
                         g.urole?.abbr === 'Wiz'
-                        && g.context?._wizD1CommaLFirstUNearDfPendingLikeC
                         && !g.context?._wizD1CommaLFirstUNearDfDoneLikeC
+                        && g.context?._wizD1CommaLFirstUNearDfPendingLikeC
                     ) {
                         await wizD1CommaLFirstUNearDistfleeckBeforePetLikeC(g);
                     }

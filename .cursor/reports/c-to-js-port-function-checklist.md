@@ -96,7 +96,7 @@ Align batches with [`c-to-js-port-remaining.md`](c-to-js-port-remaining.md) §5:
 
 | C symbol / area | JS module | Status | Notes |
 |-----------------|-----------|--------|-------|
-| `movemon` / `dochug` | `monmove.js`, `fmon_iter.js`, `moveloop_turn_advance.js`, `dogmove_mon.js`, `m_move_mon.js`, `monmove_search.js` | partial | Comma-**`l`** → first **`U`**: **`fmon_iter`** keep near+pet when **`pending`** (stale **`CapitalKPostNearPetDone`** emptied **`fmon`**); **`monmove`** fmon hook **`wizD1CommaLFirstUNearDistfleeckBeforePetLikeC`**; drop **`shortLActive`** pending guard. **`2888–2985`** aligned; first fail **2986** (`pending` arm / U **`fmon`** path) |
+| `movemon` / `dochug` | `monmove.js`, `fmon_iter.js`, `moveloop_turn_advance.js`, `dogmove_mon.js`, `m_move_mon.js`, `monmove_search.js`, `mfndpos_mon.js` | partial | Comma-**`l`** → first **`U`**: **`ArmPendingAfterMovemon`** + **`g.moves`** defer (not **`peekReplayMoves`** — replay index lags); **`wizD1CommaLFirstUNearMklevMonLikeC`**; **`fmon_iter`** comma-**`U`** near+pet order. **`2888–2989`** aligned; first fail **2990** (pet **`mfndpos`** / distant **`m_move`** tail). **`seed8000` 2900–3129:** aligned |
 | `m_move` / `mfndpos` | `m_move_mon.js`, `mfndpos.js` | partial | Second post-rest mklev interrupt **`mMoveTouristD1PostRestSecondMklevInterruptLikeC`** (**`rn2(32)`** ~2528); **`seed0900`** **~2545** post-**`mcalcmove`** drift |
 | `distfleeck` | `distfleeck_mon.js` | partial | Peel-only rest **`distfleeck`** (**`_touristD1PostSwapRestDistfleeckPeelLikeC`**); 3× ~915 before stub; **`seed0900`** **2499–2504** |
 | `m_throw` | — | missing | |

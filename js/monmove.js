@@ -90,6 +90,7 @@ import {
 import {
     isWizardD1Step1PeelLikeC,
     rangerD1FirstSearchNoNearMonLikeC,
+    wizD1CommaLFirstUAfterCommaLLikeC,
     wizD1EastTailShortLActiveLikeC,
 } from './monmove_search.js';
 import { raceptr, S_EEL } from './mondata.js';
@@ -169,6 +170,24 @@ export async function movemon(stepNum) {
     if (commaLResumeSkip > 0) {
         g.context._wizD1CommaLResumeSkipMovemonLikeC = commaLResumeSkip - 1;
     }
+    /* C: comma **`l`** → first **`U`** — comma moveloop peel may not run; arm at capital **`K`** tail. */
+    if (
+        g.context?._wizD1CommaLAwaitFirstUNearDfLikeC
+        && peekReplayMoves(-1) === 'l'.charCodeAt(0)
+        && !g.context?._wizD1FirstLAfterCommaPeelHeadDoneLikeC
+        && !g.context?._wizD1FirstLAfterCommaPeelLikeC
+    ) {
+        g.context._wizD1FirstLAfterCommaPeelLikeC = true;
+    }
+    if (
+        g.context?._wizD1CommaLArmPendingAfterMovemonLikeC
+        && g.context?._wizD1CommaLArmPendingHeroMoveLikeC != null
+        && (g.moves | 0) > (g.context._wizD1CommaLArmPendingHeroMoveLikeC | 0)
+    ) {
+        g.context._wizD1CommaLFirstUNearDfPendingLikeC = true;
+        delete g.context._wizD1CommaLArmPendingAfterMovemonLikeC;
+        delete g.context._wizD1CommaLArmPendingHeroMoveLikeC;
+    }
     if (
         g.context?._wizD1CommaLResumeArmedLikeC
         && (g.context._wizD1CommaLResumeSkipMovemonLikeC | 0) === 0
@@ -180,6 +199,12 @@ export async function movemon(stepNum) {
         g.context._wizD1CommaLFirstUNearDfPendingLikeC = true;
         delete g.context._wizD1CommaLResumeArmedLikeC;
         delete g.context._wizD1CommaLPeelMovemonPassLikeC;
+    }
+    if (
+        !g.context?._wizD1CommaLFirstUNearDfDoneLikeC
+        && g.context?._wizD1CommaLFirstUNearDfPendingLikeC
+    ) {
+        await wizD1CommaLFirstUNearDistfleeckBeforePetLikeC(g);
     }
     if (
         g.context?._wizD1PostEastTailWalkFmonPendingLikeC
@@ -951,8 +976,8 @@ export async function movemon(stepNum) {
                 }
                 if (
                     (m.mtame | 0)
-                    && g.context?._wizD1CommaLFirstUNearDfPendingLikeC
                     && !g.context?._wizD1CommaLFirstUNearDfDoneLikeC
+                    && g.context?._wizD1CommaLFirstUNearDfPendingLikeC
                 ) {
                     await wizD1CommaLFirstUNearDistfleeckBeforePetLikeC(g);
                 }
@@ -981,9 +1006,11 @@ export async function movemon(stepNum) {
                     }
                     if (
                         g.context?._wizD1CommaLAwaitFirstUNearDfLikeC
-                        && peekReplayMoves(0) === 'U'.charCodeAt(0)
+                        && !g.context?._wizD1CommaLFirstUNearDfPendingLikeC
+                        && !g.context?._wizD1CommaLFirstUNearDfDoneLikeC
                     ) {
-                        g.context._wizD1CommaLFirstUNearDfPendingLikeC = true;
+                        g.context._wizD1CommaLArmPendingAfterMovemonLikeC = true;
+                        g.context._wizD1CommaLArmPendingHeroMoveLikeC = g.moves | 0;
                         delete g.context._wizD1CommaLAwaitFirstUNearDfLikeC;
                     }
                 }
@@ -1320,6 +1347,9 @@ export async function movemon(stepNum) {
                 await runNewTurnSetupAndTailLikeC(g, (g.moves | 0) - 1);
                 g.context._wizD1SkipLPostInventMoveloopLikeC = true;
                 g.context._wizD1CapitalKPostCommaPendingLikeC = true;
+                delete g.context._wizD1CommaLFirstUNearDfPendingLikeC;
+                delete g.context._wizD1CommaLFirstUNearDfDoneLikeC;
+                g.context._wizD1CommaLAwaitFirstUNearDfLikeC = true;
                 g.context._wizD1LPostOuterLoopDoneLikeC = true;
                 g.context._wizD1PostEastTailWalkCompleteLikeC = true;
             }
@@ -1358,6 +1388,8 @@ export async function movemon(stepNum) {
                  * **`distfleeck`** (~2948) + pet **`dochug:886`** **`rn2(4)`** (~2949). */
                 delete g.context._wizD1PostEastTailWalkShortLNearDfLikeC;
                 g.context._wizD1FirstLAfterCommaPeelLikeC = true;
+                delete g.context._wizD1CommaLFirstUNearDfPendingLikeC;
+                delete g.context._wizD1CommaLFirstUNearDfDoneLikeC;
                 g.context._wizD1CommaLAwaitFirstUNearDfLikeC = true;
                 delete g.context._wizD1CapitalKPostCommaMoveloopLikeC;
                 delete g.context._wizD1CapitalKPostCommaFmonHeadDoneLikeC;
