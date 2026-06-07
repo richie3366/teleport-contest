@@ -22,3 +22,17 @@ Contest integrity: port from **C** in `nethack-c/upstream/`; no session trace me
 **Prioritize C port over score:** pick slices from `current.md` / C gaps, not from “what might pass another public session.” Run `npm run score` to catch regressions — see [`.cursor/rules/port-from-c-not-score.mdc`](../rules/port-from-c-not-score.mdc).
 
 After each meaningful slice: **`git commit`** (one commit; conventional message) per [`.cursor/prompts/continue-nethack-port.md`](../prompts/continue-nethack-port.md).
+
+## Batch handoff (write before ending a port session)
+
+When a **port batch** lands (`js/` and/or handoff docs changed), update **only** these shelves — do not create new note files or grow `AGENTS.md`:
+
+| File | Write |
+|------|--------|
+| **`c-to-js-port-current.md`** | One-line last slice; top **Next step**; **first fail RNG index** + locator session if known |
+| **`c-to-js-port-function-checklist.md`** | Row **partial** / **done**; if batch added peel flag, explicit RNG, or harness: note **debt** in Notes column |
+| **`c-to-js-port-changelog-archive.md`** | **One** new table row (batch summary + index window + canary) |
+
+**Do not** put long debug narrative, strategy essays, or killed-hypothesis threads in `current.md` — one wrong-hypothesis phrase in changelog/current is enough. Stable methodology lives in [**batch-workflow.md** § Strategy](../reports/c-to-js-port-batch-workflow.md).
+
+**Do not** duplicate session JSON into code or `fastforward.js`. Chat/transcript is ephemeral; the three files above are the handoff.

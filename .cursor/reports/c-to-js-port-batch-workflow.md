@@ -86,6 +86,32 @@ After large checklist areas move to **`done`**, expect a dedicated phase:
 
 ---
 
+## Strategy: peel debt vs general C
+
+**“Perfect” here** = bit-exact PRNG + 24×80 screens on **all 88** sessions (44 held-out). That requires matching **C call order**, not public session JSON. Local RNG windows (e.g. `seed0006` 3035–3053) are milestones, not the finish line.
+
+| Approach | Good for | Bad as end state |
+|----------|----------|------------------|
+| **C batch + `diag_rng_window`** (this workflow) | Integrity, held-out sessions, finding drift | — |
+| **Path-first peels** (`_*LikeC` flags, comma-`U` geometry) | Narrowing moveloop RNG when `fmon`/`dochug` still stubby | Permanent architecture |
+| **Explicit RNG draws** (e.g. `rn2(3); rn2(12)×3` without full `mfndpos`) | C-faithful draw **order** when neighbor loop order differs | Unmarked debt — note in changelog |
+| **Session memorization / fat `fastforward`** | Short-term public score | Held-out failure; contest rules forbid |
+| **Big-bang port + score once** | Writing lots of code fast | Blind RNG binary search |
+| **Transpilation** (contest “transpiled” category) | Coverage | Bit-exact PRNG order still hard; different tradeoff |
+
+**Efficiency lever (after early moveloop):** prefer batches that **delete** harness surface, not add it.
+
+- **Favor:** general `dochug` / `fmon` order, one C file done right, peel removed when real path consumes same draws.
+- **Accept temporarily:** path-shaped batches when locator shows peel is the only honest next slice — but log **debt** in checklist notes.
+- **Shift away from peels when:** the next 3+ batches would only add `g.context._…` flags or explicit draws; invest in the **subsystem** (`dogmove.c` pick loop, `monmove.c` `movemon`, `mkobj`, chargen) instead.
+
+**Scaffolding rules** (also in [`.cursor/rules/teleport-js-port.mdc`](../rules/teleport-js-port.mdc)):
+
+- `fastforward.js`, `monmove.js` `_HARNESS`, and peel flags are **bridges** — grow only with a mapped C call site; shrink when `diag_rng_window` passes without them.
+- A batch that widens a locator window but adds **no** general C semantics is a **last resort**, not the default pick from checklist.
+
+---
+
 ## Anti-patterns
 
 - **Big bang:** port 50 files, run score once, debug blind.

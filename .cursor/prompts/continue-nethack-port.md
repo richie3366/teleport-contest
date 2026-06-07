@@ -15,10 +15,11 @@ Use this file when you want a **new agent session** to continue the port without
 5. Implement the batch in `js/` (respect **`teleport-js-port.mdc`**: ES modules, `rng.js`, clang evaluation order). For JS wiring / C↔JS mapping, prefer `graphify query` / `path` with `--graph` per **[`.cursor/docs/graphify.md`](../docs/graphify.md)** (split JS / C / merged graphs — never `graphify update .` on repo root). For **RNG/moveloop order** bugs, use **[agent playbook](../reports/c-to-js-port-agent-playbook.md)** (`diag_rng_window`, `diag_prefix_rng`, read C) — not graphify.
 6. **Never edit** frozen harness files: `js/isaac64.js`, `js/terminal.js`, `js/storage.js`.
 7. **Fast verify (before commit):** `node tools/diag_rng_window.mjs sessions/<locator>.session.json <start> <end>` when the batch touches RNG; `diag_prefix_rng.mjs` for moveloop timing; canary `seed8000` 2900–3129 after `monmove` edits. **Full `npm run score`** at **milestones** — not after every function. See [**batch workflow** §3](../reports/c-to-js-port-batch-workflow.md).
-8. **Ship the batch:**
-   - Update **`c-to-js-port-function-checklist.md`** row statuses.
+8. **Ship the batch** (handoff ritual — see **`nethack-port-progress.mdc`** § Batch handoff):
+   - Update **`c-to-js-port-function-checklist.md`** row statuses; note **peel/harness debt** in Notes if the batch added `_*LikeC` flags or explicit RNG without general C.
    - Append **one row** to **[`c-to-js-port-changelog-archive.md`](../reports/c-to-js-port-changelog-archive.md)**.
-   - Refresh **`c-to-js-port-current.md`** (last slice + next batch).
+   - Refresh **`c-to-js-port-current.md`** (last slice + next batch + first fail index).
+   - **Do not** create new note files or append strategy/debug essays to `current.md` / `AGENTS.md`.
    - Optionally refresh **[`c-to-js-port-dashboard.md`](../reports/c-to-js-port-dashboard.md)** after a milestone score: `node tools/port-score-snapshot.mjs --update-dashboard`.
 9. **Refresh local code graph (optional, cheap):** `npm run graphify:js` after `js/` edits (~5–15s). See **[`.cursor/docs/graphify.md`](../docs/graphify.md)**.
 10. **`git commit` (required every batch — do not wait for the user to ask)** — `git add` + `git commit` before ending the session. One commit per meaningful batch; include `js/`, `.cursor/reports/`, `tools/` as needed. Conventional message; focus on **why** (C parity). Push when the user wants CI — not required every batch. Do **not** commit `graphify-out/` trees (gitignored).

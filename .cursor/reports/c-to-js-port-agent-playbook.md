@@ -8,10 +8,11 @@ Short reference for **how to work** in this repo. **Session state** (next batch,
 
 | Write here | Not here |
 |------------|----------|
-| [`c-to-js-port-current.md`](c-to-js-port-current.md) — last slice, next step, locator RNG window | `AGENTS.md` (stable router only) |
-| [`c-to-js-port-function-checklist.md`](c-to-js-port-function-checklist.md) — row status | Long debug narrative in rules |
+| [`c-to-js-port-current.md`](c-to-js-port-current.md) — last slice, next step, first fail index | `AGENTS.md` (stable router only) |
+| [`c-to-js-port-function-checklist.md`](c-to-js-port-function-checklist.md) — row status + **peel debt** in Notes | Long debug narrative in rules |
 | [`c-to-js-port-changelog-archive.md`](c-to-js-port-changelog-archive.md) — one row per batch | Duplicating `c-to-js-port-progress.md` |
-| Killed wrong hypotheses in **current** “last slice” or changelog | Agent transcript (ephemeral) |
+| Killed wrong hypotheses — one phrase in changelog or current | Agent transcript (ephemeral) |
+| Strategy / peel-vs-general-C — [`batch-workflow.md`](c-to-js-port-batch-workflow.md) § Strategy | New `notes-*.md` or per-session agent files |
 
 ---
 
