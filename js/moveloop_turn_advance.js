@@ -985,7 +985,6 @@ export async function runPostCommandTurnAdvanceLikeC(g) {
                 g.context.move = 0;
                 newTurnDone = true;
             }
-
             if (
                 !monscanmove
                 && (u.umovement | 0) < NORMAL_SPEED
@@ -996,10 +995,7 @@ export async function runPostCommandTurnAdvanceLikeC(g) {
             ) {
                 const tailStepNum = (g.moves | 0) - 1;
                 /* C: post-east-tail walk — new-turn already ran inside **`movemon`** (~2778+). */
-                if (
-                    g.context?._wizD1PostEastTailWalkNewTurnDoneLikeC
-                    || g.context?._wizD1CommaLFirstUPostTailInventDoneLikeC
-                ) {
+                if (g.context?._wizD1PostEastTailWalkNewTurnDoneLikeC) {
                     delete g.context._wizD1PostEastTailWalkNewTurnDoneLikeC;
                     newTurnDone = true;
                 } else if (g.context?._wizD1CapitalKPostNearSecondNewTurnDoneLikeC) {
@@ -1037,6 +1033,29 @@ export async function runPostCommandTurnAdvanceLikeC(g) {
                             g.context._wizD1SkipLPostInventMoveloopLikeC = true;
                             g.context._wizD1MovemonRanThisPostLikeC = true;
                             g.context._wizD1CommaLFirstUPostTailInventPendingLikeC = true;
+                            /* C: invent peel (~3014–3020) then post-invent **`distfleeck`** (~3021)
+                             * + second **`runNewTurnSetupAndTailLikeC`** (~3022+). */
+                            g.context._movemonHarnessConsumed = false;
+                            await movemon(1);
+                            if (
+                                g.context?._wizD1CommaLFirstUPostTailInventDoneLikeC
+                                && !g.context?._wizD1CommaLFirstUPostTailSecondNewturnDoneLikeC
+                            ) {
+                                setApparxyMonsterLikeC(g, commaUPetInvent);
+                                await distfleeckMonsterApplyLikeC(g, commaUPetInvent);
+                                await runNewTurnSetupAndTailLikeC(g, tailStepNum);
+                                g.context._wizD1CommaLFirstUPostTailSecondNewturnDoneLikeC = true;
+                                /* C: post-second-new-turn pet **`distfleeck`** (~3028) then peel
+                                 * **`movemon`** (~3029+); surplus **`fmon`** must not lead. */
+                                setApparxyMonsterLikeC(g, commaUPetInvent);
+                                await distfleeckMonsterApplyLikeC(g, commaUPetInvent);
+                                g.context._wizD1CommaLFirstUPostTailThirdMovemonPendingLikeC = true;
+                                delete g.context._wizD1MovemonRanThisPostLikeC;
+                                g.context._movemonHarnessConsumed = false;
+                                await movemon(1);
+                                delete g.context._wizD1CommaLFirstUPostTailThirdMovemonPendingLikeC;
+                                newTurnDone = true;
+                            }
                         }
                     }
                     /* C: tourist D:1 second post-rest — after leading new-turn (~2538–2544),

@@ -218,6 +218,14 @@ export async function movemon(stepNum) {
     ) {
         return false;
     }
+    /* C: comma-**`U`** — block surplus **`fmon`** between invent and second new-turn (~3021). */
+    if (
+        g.context?._wizD1CommaLFirstUPostTailInventDoneLikeC
+        && !g.context?._wizD1CommaLFirstUPostTailSecondNewturnDoneLikeC
+        && !g.context?._wizD1CommaLFirstUPostTailInventPendingLikeC
+    ) {
+        return false;
+    }
     if (
         g.context?._touristD1PostSwapRestMovemonStep1DoneLikeC
         && !g.context?._touristD1PostRestPetRangedPendingLikeC
