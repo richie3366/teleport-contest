@@ -414,14 +414,31 @@ export async function movemon(stepNum) {
             }
             mtmp.movement = mov - NORMAL_SPEED;
         };
+        const nearMklevSurplus = wizD1CommaLFirstUNearMklevMonLikeC(g);
         const surplusHostile = fmonListForMovemonLikeC(g, effStepNum).filter(
             (m) => !(m.mtame | 0) && m !== petSurplus,
         );
-        for (const m of surplusHostile) {
+        const passList = surplusHostile.some(
+            (m) => (m.movement | 0) >= NORMAL_SPEED,
+        )
+            ? surplusHostile
+            : (nearMklevSurplus ? [nearMklevSurplus] : []);
+        for (const m of passList) {
             spendSurplusMoveLikeC(m);
             await movemonSinglemonLikeC(g, m, effStepNum);
         }
-        return false;
+        const hostilesLeft = (g.level?.monsters ?? []).filter(
+            (m) => !(m.mtame | 0) && m !== petSurplus,
+        );
+        const nearMklevStillPendingLikeC =
+            nearMklevSurplus
+            && !passList.includes(nearMklevSurplus)
+            && surplusHostile.some((m) => m !== nearMklevSurplus);
+        return !!(
+            g.context?._somebodyCanMoveLikeC
+            || hostilesLeft.some((m) => (m.movement | 0) >= NORMAL_SPEED)
+            || nearMklevStillPendingLikeC
+        );
     }
     if (g.context?._wizD1Step1InventPostDoneLikeC) {
         delete g.context._wizD1Step1GateDochugLikeC;
@@ -3334,11 +3351,14 @@ export async function movemon(stepNum) {
 
     /* C: hero **`b`** — one **`fmon`** pass for distant mon only (no **`monscanmove`** re-entry). */
     if ((stepNum | 0) === 5) return false;
-    /* C: wizard D:1 — one **`movemon()`** pass per hero turn before search **`monscanmove`** re-entry. */
+    /* C: wizard D:1 — one **`movemon()`** pass per hero turn before search **`monscanmove`** re-entry;
+     * comma-**`U`** post-fourth surplus **`fmon`** may re-enter until near mklev peel done (~3074). */
     if (
         g.urole?.abbr === 'Wiz'
         && (g.u?.uz?.dnum | 0) === 0
         && (g.u?.uz?.dlevel | 0) === 1
+        && !g.context?._wizD1CommaLFirstUPostTailSecondUPostMovemonLikeC
+        && !g.context?._wizD1CommaLFirstUPostTailAwaitSurplusFmonLikeC
     ) {
         return false;
     }

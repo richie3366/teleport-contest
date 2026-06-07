@@ -32,7 +32,7 @@ Use this when **`Next steps`** below feels stale or several lanes compete. Order
 
 **Tutorial (Lane E):** Gated on [tutorial port gate](../../docs/plans/tutorial-port-gate.md) **MD-1 … MD-7**.
 
-**Last slice:** **Lane C — `seed0006` comma-`U` second-`U` surplus `fmon` peel (~3058)** — **`cmd.js`** arms **`AwaitSecondHeroU`** on second hero **`U`**; **`SecondUPeelDone`** only when armed; near mklev **`movemonSinglemon`** after surplus **`movemon`**; peel still runs without armed gate (armed-only gate breaks **3054** **`distfleeck`**). **Verified:** peel **3048–3057**; fail **3058+** (C surplus **`rn2(12)`** vs JS fifth **`maybe_generate`** **`rn2(70)`**); **`seed8000` 2900–3129** canary.
+**Last slice:** **Lane C — `seed0006` comma-`U` post-fourth surplus `monscanmove` two-pass (~3055–3057)** — C **`allmain.c`** **`do { movemon(); } while (monscanmove)`** after fourth new-turn: **`passList`** hostile then near mklev fallback (**`nearMklevStillPendingLikeC`**); inline peel **`do/while`**; wiz D:1 **`monscanmove`** re-entry when surplus flags set. **Verified:** peel **3048–3057**; fail **3058+** (near mklev needs **`mMoveCommaUFmonTailDochugLikeC`** without shifting **3055–3057**; fifth new-turn ~3074); **`seed8000` 2900–3129** canary.
 
 ## Next steps (aligned with matrix)
 
@@ -40,7 +40,7 @@ Pick **one** primary lane per **batch** (several related C functions — see che
 
 **First:** open [`docs/plans/tutorial-port-gate.md`](../../docs/plans/tutorial-port-gate.md) — if **all MD-1 … MD-7** are checked, do **Lane E** step 1 from [10-tutorial.md](../plans/nethack-port/10-tutorial.md) instead of the list below.
 
-1. **Lane C — `seed0006` comma-`U` second-`U` surplus `fmon` (~3058+)** — C **`allmain.c`**: **`do { movemon(); } while (monscanmove)`** after fourth new-turn (surplus hostiles through ~3073); block spurious fifth **`maybe_generate`** at **3058**; near mklev **`m_move`** after 3 surplus hostiles; do **not** gate full peel on **`AwaitSecondHeroU`** alone (breaks **3054**).
+1. **Lane C — `seed0006` comma-`U` post-fourth surplus fmon (~3058+)** — near mklev pass-2 **`mMoveCommaUFmonTailDochugLikeC`** (or export) without **3055–3057** drift; continue **`monscanmove`** through ~3073; fifth new-turn **`maybe_generate`** ~3074 not ~3058.
 2. **Lane B — NHL** — next **`lspo_*`** per [`nhl-port-notes.md`](nhl-port-notes.md).
 3. **Lane A/D — `seed0900`** — screen parity (RNG **0–2982** done); map/botl integration beyond moveloop peel chain.
 4. **Lane A/D — `dogmove.c`** — **`score_targ`** vampshifter **`mtmp_lev`** **`rn2`** tail (~808–817); **`mattackm`** / **`pet_ranged_attk`** when pet breath sessions fail.
