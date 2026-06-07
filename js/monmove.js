@@ -1326,6 +1326,39 @@ export async function movemon(stepNum) {
                             effStepNum,
                         );
                     }
+                    /* C: post-deferred distant — pet **`dog_goal`** / **`dog_move`**
+                     * (~2836–2839), **`distfleeck`** (~2840), then second new-turn (~2841+). */
+                    if (commaPet) {
+                        g.context._wizD1CapitalKPostCommaDeferredPetSkipObjResistsLikeC =
+                            true;
+                        try {
+                            dogMoveCapitalKPostDistantPeelPetLikeC(g, commaPet);
+                        } finally {
+                            delete g.context
+                                ._wizD1CapitalKPostCommaDeferredPetSkipObjResistsLikeC;
+                        }
+                        setApparxyMonsterLikeC(g, commaPet);
+                        await distfleeckMonsterApplyLikeC(g, commaPet);
+                    }
+                    await runInlineNewTurnUnlessDeferredPeelLikeC(
+                        g,
+                        (g.moves | 0) - 1,
+                    );
+                    /* C: post-second new-turn — pet **`distfleeck`**, **`dochug:886`**, one invent
+                     * **`obj_resists`**, **`dog_goal`** / **`mfndpos`** (~2847–2859). */
+                    if (commaPet) {
+                        g.context._wizD1CapitalKPostNewturnTailLikeC = true;
+                        delete g.context
+                            ._wizD1CapitalKPostNewturnTailDistfleeckBudgetLikeC;
+                        setApparxyMonsterLikeC(g, commaPet);
+                        await distfleeckMonsterApplyLikeC(g, commaPet);
+                        delete g.context._wizD1CapitalKPostNewturnTailLikeC;
+                        rn2(4);
+                        dogMoveCapitalKPostNewturnPetLikeC(g, commaPet);
+                        /* C: post-new-turn pet **`mfndpos`** fifth away **`rn2(12)`** (~2859); JS
+                         * **`cnt`** short — one explicit draw (debt). */
+                        rn2(12);
+                    }
                 }
                 g.context._wizD1CapitalKPostCommaPeelDoneLikeC = true;
                 g.context._wizD1PostEastTailWalkNewTurnDoneLikeC = true;

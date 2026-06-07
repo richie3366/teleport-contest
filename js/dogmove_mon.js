@@ -3460,7 +3460,9 @@ export function dogMoveCapitalKPostDistantPeelPetLikeC(g, mtmp) {
     delete ctx._wizD1CapitalKAway2DoneLikeC;
     delete ctx._wizD1CapitalKAway2PendingLikeC;
     try {
-        dogMovePostEastTailWalkObjResistsLikeC(g, mtmp);
+        if (!ctx._wizD1CapitalKPostCommaDeferredPetSkipObjResistsLikeC) {
+            dogMovePostEastTailWalkObjResistsLikeC(g, mtmp);
+        }
         const apportRoll = rn2(8);
         if (
             couldsee(omx, omy)
