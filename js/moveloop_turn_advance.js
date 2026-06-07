@@ -207,6 +207,14 @@ export function runMcalcmoveOnlyLikeC(g) {
 }
 
 export async function runNewTurnSetupAndTailLikeC(g, stepNum) {
+    /* C: capital **`K`** post-peel — pet tail + second **`mcalcmove`** inline in **`monmove.js`**
+     * (~2896–2908) before deferred **`maybe_generate_rnd_mon`** (~2909). */
+    if (
+        g.context?._wizD1CapitalKPostNearShortLPeelDeferredTailLikeC
+        && !g.context?._wizD1CapitalKPostNearShortLPeelRunDeferredTailLikeC
+    ) {
+        return;
+    }
     /* C: capital **`K`** post-near — inline second new-turn in **`monmove.js`** (~2879+); block
      * a trailing duplicate **`mcalcmove`** on the same post (~2885+). */
     if (
@@ -340,10 +348,12 @@ export async function runNewTurnSetupAndTailLikeC(g, stepNum) {
             (g.context?._searchStep11Passes | 0) === 1
             || (g.context?._searchStep11Passes | 0) === 2
         );
-    /* C: capital **`K`** post-peel — inline **`mcalcmove`** (~2891–2893); defer tail to moveloop (~2909+). */
+    /* C: capital **`K`** post-peel — second inline **`mcalcmove`** (~2906–2908) already ran; tail is
+     * **`maybe_generate_rnd_mon`** + **`moves++`** only (~2909+). */
     const skipMcalcmoveCapitalKPostPeelDeferredTail =
-        !!g.context?._wizD1CapitalKPostNearShortLPeelDeferredTailLikeC;
+        !!g.context?._wizD1CapitalKPostNearShortLPeelRunDeferredTailLikeC;
     if (skipMcalcmoveCapitalKPostPeelDeferredTail) {
+        delete g.context._wizD1CapitalKPostNearShortLPeelRunDeferredTailLikeC;
         delete g.context._wizD1CapitalKPostNearShortLPeelDeferredTailLikeC;
     }
     /* C: tourist D:1 run-east **`L`** — post-peel new-turn skips **`mcalcmove`** (peel

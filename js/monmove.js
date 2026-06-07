@@ -79,6 +79,7 @@ import {
     dogMoveCapitalKPostDistantPeelPetLikeC,
     dogMoveCapitalKPostNearPetLikeC,
     dogMoveCapitalKPostNewturnPetLikeC,
+    dogMoveCapitalKPostPeelPetLikeC,
     dogMovePostEastTailWalkShortLPetLikeC,
 } from './dogmove_mon.js';
 import {
@@ -966,6 +967,10 @@ export async function movemon(stepNum) {
                 && !g.context?._wizD1PostEastTailWalkCompleteLikeC
                 && g.context?._wizD1PostEastTailWalkFmonDistantDeferredLikeC
             ) {
+                const {
+                    runMcalcmoveOnlyLikeC,
+                    runNewTurnSetupAndTailLikeC,
+                } = await import('./moveloop_turn_advance.js');
                 const peelDistant =
                     wizD1PeelDistantMklevMonLikeC(g)
                     ?? findDistantMklevMonLikeC(g);
@@ -1013,9 +1018,6 @@ export async function movemon(stepNum) {
                     dogMoveCapitalKPostDistantPeelPetLikeC(g, petCapitalK);
                     await distfleeckMonsterApplyLikeC(g, petCapitalK);
                 }
-                const { runNewTurnSetupAndTailLikeC } = await import(
-                    './moveloop_turn_advance.js',
-                );
                 await runNewTurnSetupAndTailLikeC(g, (g.moves | 0) - 1);
                 g.context._wizD1PostEastTailWalkNewTurnDoneLikeC = true;
                 /* C: post-new-turn pet — **`distfleeck`**, **`dochug:886`**, **`dog_move`** (~2851–2859). */
@@ -1091,9 +1093,6 @@ export async function movemon(stepNum) {
                 if (!g.context?._wizD1CapitalKPostNearSecondNewTurnDoneLikeC) {
                     g.context._wizD1CapitalKPostNearSecondNewTurnLikeC = true;
                     try {
-                        const { runNewTurnSetupAndTailLikeC } = await import(
-                            './moveloop_turn_advance.js',
-                        );
                         await runNewTurnSetupAndTailLikeC(g, (g.moves | 0) - 1);
                     } finally {
                         delete g.context._wizD1CapitalKPostNearSecondNewTurnLikeC;
@@ -1137,9 +1136,6 @@ export async function movemon(stepNum) {
                 g.context._wizD1CapitalKPostNearShortLPeelPendingNewturnLikeC = true;
                 delete g.context._wizD1CapitalKPostNearSecondNewTurnDoneLikeC;
                 try {
-                    const { runMcalcmoveOnlyLikeC } = await import(
-                        './moveloop_turn_advance.js',
-                    );
                     runMcalcmoveOnlyLikeC(g);
                 } finally {
                     delete g.context._wizD1CapitalKPostNearShortLPeelPendingNewturnLikeC;
@@ -1156,6 +1152,17 @@ export async function movemon(stepNum) {
                     await distfleeckMonsterApplyLikeC(g, nearAfterCapitalK);
                     await distfleeckMonsterApplyLikeC(g, nearAfterCapitalK);
                 }
+                /* C: post-peel pet — **`dochug:886`** **`rn2(4)`**, invent/**`dog_goal`**, **`mfndpos`**
+                 * (~2896–2904), **`distfleeck`** (~2905), second **`mcalcmove`** (~2906–2908), tail (~2909+). */
+                if (petAfterCapitalK) {
+                    setApparxyMonsterLikeC(g, petAfterCapitalK);
+                    rn2(4);
+                    dogMoveCapitalKPostPeelPetLikeC(g, petAfterCapitalK);
+                    await distfleeckMonsterApplyLikeC(g, petAfterCapitalK);
+                }
+                runMcalcmoveOnlyLikeC(g);
+                g.context._wizD1CapitalKPostNearShortLPeelRunDeferredTailLikeC = true;
+                await runNewTurnSetupAndTailLikeC(g, (g.moves | 0) - 1);
                 g.context._wizD1SkipLPostInventMoveloopLikeC = true;
                 g.context._wizD1LPostOuterLoopDoneLikeC = true;
                 g.context._wizD1PostEastTailWalkCompleteLikeC = true;
