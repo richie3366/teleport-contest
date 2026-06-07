@@ -1480,12 +1480,12 @@ export async function movemonSinglemonLikeC(g, mtmp, stepNum = 0) {
         && (mtmp.mtame | 0)
         && has_edog(mtmp)
         && !g.context?._wizD1WalkFmonPetDochugRn4DoneLikeC
+        && !g.context?._wizD1CapitalKPostCommaPeelDoneLikeC
         && (g.context._wizD1DeferredRunKNewTurnPassesLikeC | 0) !== 0
     ) {
         setApparxyMonsterLikeC(g, mtmp);
         rn2(4);
         g.context._wizD1WalkFmonPetDochugRn4DoneLikeC = true;
-        /* C: deferred pass 0 — **`dogMoveCapitalKPostCommaPetLikeC`** owns **`dochug:886`** order (~2823). */
     }
 
     await mMoveOneMonsterSubsetLikeC(g, mtmp, stepNum);

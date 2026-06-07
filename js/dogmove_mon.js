@@ -596,6 +596,12 @@ function dogGoalObjResistsPrescanLikeC(g, mtmp, opts = {}) {
         if (o0) dogfoodRankLikeC(o0);
         return;
     }
+    /* C: comma peel invent tail — one **`gi.invent`** **`obj_resists`** (~2824); full chain ~2910+. */
+    if (g.context?._wizD1CapitalKPostCommaPeelInventTailLikeC) {
+        const o0 = g.invent;
+        if (o0) dogfoodRankLikeC(o0);
+        return;
+    }
     /* C: comma after capital **`K`** — full **`gi.invent`** **`obj_resists`** (~2914+). */
     if (g.context?._wizD1CapitalKPostCommaPetLikeC) {
         for (let o = g.invent; o; o = o.nobj) dogfoodRankLikeC(o);
@@ -1111,6 +1117,7 @@ function dogGoalFollowGxGyApprLikeC(
         && !g.context?._wizD1CapitalKPostNearPetLikeC
         && !g.context?._wizD1CapitalKPostPeelPetLikeC
         && !g.context?._wizD1CapitalKPostCommaPetLikeC
+        && !g.context?._wizD1CapitalKPostCommaPeelInventTailLikeC
         && !g.context?._wizD1CommaLFirstUPetMfndposLikeC
     ) {
         if (stairwayAtInGame(g, gx, gy)) {
@@ -1822,6 +1829,20 @@ function dogMoveMfndposPickLikeC(g, mtmp, ggx, ggy, appr, whappr) {
                     if (!rn2(12)) pickTake = true;
                     ctxK._wizD1CapitalKAwayAttemptedLikeC = true;
                 }
+            } else if (g.context?._wizD1CapitalKPostCommaPeelMfndposLikeC) {
+                /* C: comma peel invent tail — slot visit order differs in JS; draw order fixed
+                 * (~2827–2829) then pick without extra RNG. */
+                const ctxCommaM = g.context || (g.context = {});
+                if (!ctxCommaM._wizD1CommaPeelMfndposRngDoneLikeC) {
+                    rn2(3);
+                    rn2(12);
+                    rn2(1);
+                    ctxCommaM._wizD1CommaPeelMfndposRngDoneLikeC = true;
+                }
+                if (j < 0 || j === 0 || (j > 0 && !whappr)) {
+                    pickTake = true;
+                }
+                if (j === 0) break;
             } else if (
                 (
                     g.context?._wizD1PostEastTailWalkFmonPetLikeC
@@ -3553,13 +3574,43 @@ export function dogMoveCapitalKPostPeelPetLikeC(g, mtmp) {
 }
 
 /**
- * C: comma after capital **`K`** — **`dog_goal`** **`rn2(4)`**, invent **`obj_resists`**, **`mfndpos`**
- * **`chcnt`** ladder (~2913–2937 on **`seed0006`**).
+ * C: comma after capital **`K`** — **`fmon`** head short-**`l`** **`dog_move`** only (~2806–2810).
  *
  * @param {import('./gstate.js').game} g
  * @param {Record<string, unknown>} mtmp
  */
-export function dogMoveCapitalKPostCommaPetLikeC(g, mtmp) {
+export function dogMoveCapitalKPostCommaPetHeadLikeC(g, mtmp) {
+    if (!(mtmp.mtame | 0) || !has_edog(mtmp)) return MMOVE_NOTHING;
+    if ((mtmp.mhp | 0) <= 0) return MMOVE_DIED;
+    const u = g.u;
+    const edog = EDOG(mtmp);
+    if (!u || !edog) return MMOVE_NOTHING;
+    const ctx = g.context || (g.context = {});
+    const pin = ctx._wizD1Step1DogGoalHeroXYLikeC;
+    const hx = pin ? (pin.ux | 0) : (u.ux | 0);
+    const hy = pin ? (pin.uy | 0) : (u.uy | 0);
+    mtmp.mux = hx;
+    mtmp.muy = hy;
+    if (ctx) game.context = ctx;
+    delete ctx._wizD1Step1PetMfndposPickDoneLikeC;
+    ctx._wizD1CommaPromoteShortLPetPhaseLikeC = true;
+    try {
+        dogMovePostEastTailWalkShortLPetLikeC(g, mtmp);
+    } finally {
+        delete ctx._wizD1CommaPromoteShortLPetPhaseLikeC;
+        delete ctx._wizD1EastTailShortLPetDoneLikeC;
+    }
+    return MMOVE_NOTHING;
+}
+
+/**
+ * C: comma peel tail — after **`distfleeck`** / **`mcalcmove`** / **`dochug:886`** **`rn2(4)`**
+ * (~2818–2819): invent **`obj_resists`**, **`dog_goal`**, **`mfndpos`** **`chcnt`** (~2820+).
+ *
+ * @param {import('./gstate.js').game} g
+ * @param {Record<string, unknown>} mtmp
+ */
+export function dogMoveCapitalKPostCommaPetTailLikeC(g, mtmp) {
     if (!(mtmp.mtame | 0) || !has_edog(mtmp)) return MMOVE_NOTHING;
     if ((mtmp.mhp | 0) <= 0) return MMOVE_DIED;
     const u = g.u;
@@ -3578,25 +3629,12 @@ export function dogMoveCapitalKPostCommaPetLikeC(g, mtmp) {
     if (ctx) game.context = ctx;
     delete ctx._wizD1Step1PetMfndposPickDoneLikeC;
     try {
-        /* C: comma promote — short-**`l`** peel (~2811–2814); mfndpos/mcalcmove tail ~2815+ next batch. */
-        ctx._wizD1CommaPromoteShortLPetPhaseLikeC = true;
-        dogMovePostEastTailWalkShortLPetLikeC(g, mtmp);
-        delete ctx._wizD1CommaPromoteShortLPetPhaseLikeC;
-        delete ctx._wizD1EastTailShortLPetDoneLikeC;
-
-        /* C: **`dochug`** — **`pet_ranged_attk`** **`!rn2(5)`** (~2822), **`rn2(4)`** (~2823). */
-        petRangedAttkDogmoveLikeC(g, mtmp, false);
-        if (!ctx._wizD1WalkFmonPetDochugRn4DoneLikeC) {
-            rn2(4);
-            ctx._wizD1WalkFmonPetDochugRn4DoneLikeC = true;
-        }
-
-        /* C: invent **`obj_resists`** tail + **`chcnt`** **`mfndpos`** (~2824+). */
-        ctx._wizD1CapitalKPostCommaPetLikeC = true;
+        ctx._wizD1CapitalKPostCommaPeelInventTailLikeC = true;
         ctx._wizD1LPetInventAfterNewturnChcntOnlyLikeC = true;
+        ctx._wizD1LPetEastTailMfndposLikeC = true;
         ctx._wizD1Step1ObjResistsPrescanLikeC = true;
-        ctx._postBumpSkipDogGoalRn2LikeC = true;
         dogGoalWizardD1Step1ObjResistsPrescanLikeC(g, mtmp);
+        delete ctx._wizD1Step1ObjResistsPrescanLikeC;
         const apportRoll = rn2(8);
         if (
             couldsee(omx, omy)
@@ -3616,28 +3654,30 @@ export function dogMoveCapitalKPostCommaPetLikeC(g, mtmp) {
             edog,
         );
         if ((goal.appr | 0) === -2) return MMOVE_NOTHING;
-        /* C: **`dog_move`** — one **`fobj`** **`dogfood`** after invent prescan (~2928). */
-        for (let o = g.level?.fobj; o; o = o.nobj) {
-            dogfoodRankComputeLikeC(o);
-            break;
-        }
         delete ctx._dogfoodRankCacheLikeC;
         ctx._wizD1Step1CachedDogGoalLikeC = {
             gx: goal.gx | 0,
             gy: goal.gy | 0,
             appr: goal.appr | 0,
         };
+        ctx._wizD1CapitalKPostCommaPeelMfndposLikeC = true;
         dogMoveMfndposPickFromCachedGoalWizD1LikeC(g, mtmp);
+        delete ctx._wizD1CapitalKPostCommaPeelMfndposLikeC;
+        delete ctx._wizD1CommaPeelMfndposRngDoneLikeC;
     } finally {
-        delete ctx._wizD1CapitalKPostCommaPetLikeC;
+        delete ctx._wizD1CapitalKPostCommaPeelInventTailLikeC;
         delete ctx._wizD1LPetInventAfterNewturnChcntOnlyLikeC;
         delete ctx._wizD1Step1ObjResistsPrescanLikeC;
-        delete ctx._postBumpSkipDogGoalRn2LikeC;
         delete ctx._wizD1PostEastTailWalkShortLPetLikeC;
         delete ctx._wizD1LPetEastTailMfndposLikeC;
         delete ctx._dogfoodRankCacheLikeC;
     }
     return MMOVE_NOTHING;
+}
+
+/** C: comma **`fmon`** head — short-**`l`** only; peel owns tail (~2811+). */
+export function dogMoveCapitalKPostCommaPetLikeC(g, mtmp) {
+    return dogMoveCapitalKPostCommaPetHeadLikeC(g, mtmp);
 }
 
 /**
