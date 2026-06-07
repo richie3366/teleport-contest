@@ -11,6 +11,7 @@
 // C **`allmain.c`** **`do { movemon(); … } while (monscanmove)`** — one **`fmon`** pass per **`movemon()`**; outer loop in **`moveloop_turn_advance.js`**.
 
 import { rn2 } from './rng.js';
+import { peekReplayMoves } from './input.js';
 import { NORMAL_SPEED, PM_LICHEN } from './const.js';
 import { mintrapMoveloopTail } from './trap.js';
 import { game } from './gstate.js';
@@ -163,20 +164,21 @@ export async function movemon(stepNum) {
     g.context = g.context || {};
     g.context._wizD1GlobalMovemonCountLikeC =
         (g.context._wizD1GlobalMovemonCountLikeC | 0) + 1;
-    const commaLResumeHold = g.context._wizD1CommaLResumeHoldMovemonLikeC | 0;
-    if (commaLResumeHold > 0) {
-        g.context._wizD1CommaLResumeHoldMovemonLikeC = commaLResumeHold - 1;
-    } else {
-        const commaLResumeAfter = g.context._wizD1CommaLResumeAfterMovemonCountLikeC;
-        if (
-            commaLResumeAfter != null
-            && (g.context._wizD1GlobalMovemonCountLikeC | 0)
-                > (commaLResumeAfter | 0)
-            && !g.context?._wizD1CommaLFirstLDistantMmoveDoneLikeC
-        ) {
-            g.context._wizD1CommaLFirstLDistantMmoveDoneLikeC = true;
-            delete g.context._wizD1CommaLResumeAfterMovemonCountLikeC;
-        }
+    const commaLResumeSkip = g.context._wizD1CommaLResumeSkipMovemonLikeC | 0;
+    if (commaLResumeSkip > 0) {
+        g.context._wizD1CommaLResumeSkipMovemonLikeC = commaLResumeSkip - 1;
+    }
+    if (
+        g.context?._wizD1CommaLResumeArmedLikeC
+        && (g.context._wizD1CommaLResumeSkipMovemonLikeC | 0) === 0
+        && g.context?._wizD1CommaLPeelMovemonPassLikeC != null
+        && (g.context._wizD1GlobalMovemonCountLikeC | 0)
+            > (g.context._wizD1CommaLPeelMovemonPassLikeC | 0)
+        && !g.context?._wizD1CommaLFirstUNearDfPendingLikeC
+    ) {
+        g.context._wizD1CommaLFirstUNearDfPendingLikeC = true;
+        delete g.context._wizD1CommaLResumeArmedLikeC;
+        delete g.context._wizD1CommaLPeelMovemonPassLikeC;
     }
     if (
         g.context?._wizD1PostEastTailWalkFmonPendingLikeC
@@ -969,9 +971,13 @@ export async function movemon(stepNum) {
                     } finally {
                         delete g.context._wizD1FirstLAfterCommaDistantPeelLikeC;
                     }
-                    g.context._wizD1CommaLResumeAfterMovemonCountLikeC =
-                        g.context._wizD1GlobalMovemonCountLikeC | 0;
-                    g.context._wizD1CommaLResumeHoldMovemonLikeC = 1;
+                    if (
+                        g.context?._wizD1CommaLAwaitFirstUNearDfLikeC
+                        && peekReplayMoves(0) === 'U'.charCodeAt(0)
+                    ) {
+                        g.context._wizD1CommaLFirstUNearDfPendingLikeC = true;
+                        delete g.context._wizD1CommaLAwaitFirstUNearDfLikeC;
+                    }
                 }
                 delete g.context._wizD1FirstLAfterCommaPeelHeadDoneLikeC;
             }
@@ -1344,6 +1350,7 @@ export async function movemon(stepNum) {
                  * **`distfleeck`** (~2948) + pet **`dochug:886`** **`rn2(4)`** (~2949). */
                 delete g.context._wizD1PostEastTailWalkShortLNearDfLikeC;
                 g.context._wizD1FirstLAfterCommaPeelLikeC = true;
+                g.context._wizD1CommaLAwaitFirstUNearDfLikeC = true;
                 delete g.context._wizD1CapitalKPostCommaMoveloopLikeC;
                 delete g.context._wizD1CapitalKPostCommaFmonHeadDoneLikeC;
                 g.context._wizD1PostEastTailWalkNewTurnDoneLikeC = true;

@@ -199,23 +199,6 @@ export function fmonListForMovemonLikeC(g, stepNum = 0) {
         if (pet) ordered.push(pet);
         return [...ordered, ...rest];
     }
-    /* C: first **`U`** after comma **`l`** — near **`distfleeck`** (`rn2(5)`) before pet **`mfndpos`**. */
-    if (g.context?._wizD1CommaLFirstLDistantMmoveDoneLikeC) {
-        const pet = mons.find((m) => (m.mtame | 0) !== 0);
-        const nearMklev =
-            wizD1EastDoorMklevMonLikeC(g)
-            ?? mons.find(
-                (m) =>
-                    !(m.mtame | 0)
-                    && (m.mgenmklev | 0),
-            );
-        /** @type {typeof mons} */
-        const ordered = [];
-        if (nearMklev) ordered.push(nearMklev);
-        if (pet) ordered.push(pet);
-        const handled = new Set(ordered);
-        return [...ordered, ...mons.filter((m) => !handled.has(m))];
-    }
     /* C: post-east-tail walk — next short **`l`**: near **`distfleeck`**, pet **`dog_move`**, near **`distfleeck`**. */
     if (wizD1EastTailShortLActiveLikeC(g)) {
         const pet = mons.find((m) => (m.mtame | 0) !== 0);

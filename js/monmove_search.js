@@ -37,7 +37,7 @@ export function rangerD1FirstSearchNoNearMonLikeC(g, stepNum = 0) {
 
 /** C: wizard D:1 — short **`l`** **`fmon`** after east-tail walk mintrap (~2806+). */
 export function wizD1EastTailShortLActiveLikeC(g) {
-    if (g.context?._wizD1CommaLFirstLDistantMmoveDoneLikeC) return false;
+    if (g.context?._wizD1CommaLFirstUNearDfPendingLikeC) return false;
     return (
         g.urole?.abbr === 'Wiz'
         && (g.u?.uz?.dnum | 0) === 0
