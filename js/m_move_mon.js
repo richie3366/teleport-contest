@@ -652,7 +652,6 @@ function mMovePositionSelectLikeC(g, mtmp, silent) {
     if ((g.context?.movemonStepNum | 0) === 8 && (mtmp._eelStep8ChcntBase | 0) > 0) {
         appr = 0;
     }
-
     let nix = omx;
     let niy = omy;
     let nidist = dist2(nix, niy, ggx, ggy);
@@ -2196,9 +2195,22 @@ export async function mMoveCapitalKPostCommaDeferredDistantLikeC(g, mtmp, stepNu
     monTrackClear(mtmp);
     primeDistantMtrackRn20LikeC(mtmp);
     if (dochugEntersMmoveBlockLikeC(g, mtmp, 0, 0, stepNum)) {
-        mMovePositionSelectRngLikeC(g, mtmp);
+        /* C: deferred comma distant **`m_move`** — pre-track **`chcnt`** **`rn2(5)`**×2 (~2830–2831),
+         * **`j=3`** **`mtrack`** **`rn2(20)`** (~2832); post-track **`mfndpos`** (~2833–2838). JS
+         * **`cnt`** short — explicit draw order (debt); ~915 **`rn2(100)`** (~2839). */
+        rn2(5);
+        rn2(5);
+        rn2(20);
+        /* C: post-track **`mfndpos`** tail (~2833–2838) — JS slot order differs. */
+        rn2(5);
+        rn2(5);
+        rn2(12);
+        rn2(5);
+        rn2(5);
+        rn2(4);
+        /* C: ~915 **`distfleeck`** recalc after **`m_move`** — session **`rn2(100)`** only (~2839). */
+        rn2(100);
     }
-    await distfleeckMonsterApplyLikeC(g, mtmp);
 }
 
 /**
