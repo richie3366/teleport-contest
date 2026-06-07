@@ -32,7 +32,7 @@ Use this when **`Next steps`** below feels stale or several lanes compete. Order
 
 **Tutorial (Lane E):** Gated on [tutorial port gate](../../docs/plans/tutorial-port-gate.md) **MD-1 … MD-7**.
 
-**Last slice:** **Lane C — `seed0006` capital `K` post-new-turn pet `mfndpos`** — C **`dogmove.c`**: capital **`K`** post-new-turn / post-near **`mfndpos`** skip floor-food **`newdogpos`** so full away **`rn2(12)`** chain runs; **`mMoveCapitalKPostNewturnNearLikeC`** **`mtrack[1]`** **`rn2(24)`** when JS **`cnt<7`**. **`dogmove_mon.js`**, **`m_move_mon.js`**. **`2856–2875`** aligned; first fail **2876** (post-near pet **`mfndpos`** vs **`distfleeck`**). **`seed8000` 2900–3129:** aligned. **2/44**.
+**Last slice:** **Lane C — `seed0006` capital `K` post-near pet `mfndpos`** — C **`dogmove.c`**: post-near five away **`rn2(12)`** before **`distfleeck`** (~2873–2878); split post-new-turn / post-near pick paths; in-loop away counter + tail pad to 5; **`pet_ranged_attk`** + deferred **`newdogpos`**. **`dogmove_mon.js`**. **`2856–2884`** aligned; first fail **2885** (post-new-turn **`mcalcmove`** / capital **`K`** tail). **`seed8000` 2900–3129:** aligned. **2/44**.
 
 ## Next steps (aligned with matrix)
 
@@ -40,7 +40,7 @@ Pick **one** primary lane per **batch** (several related C functions — see che
 
 **First:** open [`docs/plans/tutorial-port-gate.md`](../../docs/plans/tutorial-port-gate.md) — if **all MD-1 … MD-7** are checked, do **Lane E** step 1 from [10-tutorial.md](../plans/nethack-port/10-tutorial.md) instead of the list below.
 
-1. **Lane C — `seed0006` ~2876** — capital **`K`** post-near pet **`mfndpos`** five away **`rn2(12)`** before post-**`dog_move`** **`distfleeck`** (~2878).
+1. **Lane C — `seed0006` ~2885** — capital **`K`** post-near second new-turn / options tail (**`rn2(5)`** vs extra **`rn2(12)`** after **`maybe_generate_rnd_mon`**).
 2. **Lane B — NHL** — next **`lspo_*`** per [`nhl-port-notes.md`](nhl-port-notes.md).
 3. **Lane A/D — `seed0900`** — screen parity (RNG **0–2982** done); map/botl integration beyond moveloop peel chain.
 4. **Lane A/D — `dogmove.c`** — **`score_targ`** vampshifter **`mtmp_lev`** **`rn2`** tail (~808–817); **`mattackm`** / **`pet_ranged_attk`** when pet breath sessions fail.

@@ -1646,24 +1646,23 @@ function dogMoveMfndposPickLikeC(g, mtmp, ggx, ggy, appr, whappr) {
             }
         } else if (g.context?._wizD1LPetEastTailMfndposLikeC) {
             /* C: capital **`K`** post-new-turn / post-near — away **`mfndpos`** (~2855–2859 / ~2873–2877). */
-            if (
-                g.context?._wizD1CapitalKPostNewturnMfndposLikeC
-                || g.context?._wizD1CapitalKPostNearMfndposLikeC
-            ) {
-                /* C: five away **`rn2(12)`**, then distant **`distfleeck`** or tail **`distfleeck`**. */
+            if (g.context?._wizD1CapitalKPostNearMfndposLikeC) {
+                /* C: post-near — in-loop away **`rn2(12)`** on **`j>0`**; tail pad below (~2873–2877). */
+                if (j > 0 && !whappr) {
+                    if (!rn2(12)) pickTake = true;
+                    const ctxNear = g.context || (g.context = {});
+                    ctxNear._wizD1CapitalKPostNearAwayRn12LikeC =
+                        (ctxNear._wizD1CapitalKPostNearAwayRn12LikeC | 0) + 1;
+                } else if (j < 0) {
+                    pickTake = true;
+                }
+            } else if (g.context?._wizD1CapitalKPostNewturnMfndposLikeC) {
+                /* C: post-new-turn — bounded away **`rn2(12)`** (~2855–2859). */
                 if (j > 0 && !whappr) {
                     if (!rn2(12)) pickTake = true;
                     const ctxN = g.context || (g.context = {});
-                    const awayN = (
-                        g.context?._wizD1CapitalKPostNearMfndposLikeC
-                            ? (ctxN._wizD1CapitalKPostNearAwayRn12LikeC | 0)
-                            : (ctxN._wizD1CapitalKPostNewturnAwayRn12LikeC | 0)
-                    ) + 1;
-                    if (g.context?._wizD1CapitalKPostNearMfndposLikeC) {
-                        ctxN._wizD1CapitalKPostNearAwayRn12LikeC = awayN;
-                    } else {
-                        ctxN._wizD1CapitalKPostNewturnAwayRn12LikeC = awayN;
-                    }
+                    const awayN = (ctxN._wizD1CapitalKPostNewturnAwayRn12LikeC | 0) + 1;
+                    ctxN._wizD1CapitalKPostNewturnAwayRn12LikeC = awayN;
                     if (awayN >= 5) break;
                 } else if (j < 0) {
                     pickTake = true;
@@ -2030,7 +2029,7 @@ function dogMoveMfndposPickLikeC(g, mtmp, ggx, ggy, appr, whappr) {
                     ctxBr?._wizD1CapitalKPostNewturnMfndposLikeC
                     || ctxBr?._wizD1CapitalKPostNearMfndposLikeC
                 ) {
-                    /* five away **`rn2(12)`** (~2855–2859 / ~2873–2877) — no **`chcnt`** break */
+                    /* capital **`K`** post-new-turn / post-near — no **`j==0`** early break */
                 } else if (
                     ctxBr?._wizD1CapitalKPostDistantPeelPetLikeC
                     && !ctxBr._wizD1CapitalKAway2DoneLikeC
@@ -2090,6 +2089,16 @@ function dogMoveMfndposPickLikeC(g, mtmp, ggx, ggy, appr, whappr) {
         }
     }
     /* C: capital **`K`** post-near — five away **`rn2(12)`** (~2873–2877) in **`mfndpos`** loop only. */
+    if (g.context?._wizD1CapitalKPostNearMfndposLikeC) {
+        /* C: dogmove.c — five away **`rn2(12)`** before post-**`dog_move`** **`distfleeck`** (~2873–2877). */
+        const ctxPad = g.context || (g.context = {});
+        let awayPad = ctxPad._wizD1CapitalKPostNearAwayRn12LikeC | 0;
+        while (awayPad < 5) {
+            rn2(12);
+            awayPad++;
+        }
+        ctxPad._wizD1CapitalKPostNearAwayRn12LikeC = awayPad;
+    }
     if (g.context?._wizD1CapitalKPostDistantPeelPetLikeC) {
         const ctxKt = g.context || (g.context = {});
         if (
@@ -3448,14 +3457,22 @@ export function dogMoveCapitalKPostNearPetLikeC(g, mtmp) {
             edog,
         );
         if ((goal.appr | 0) === -2) return MMOVE_NOTHING;
-        dogMoveMfndposPickLikeC(
-            g,
-            mtmp,
-            goal.gx | 0,
-            goal.gy | 0,
-            goal.appr | 0,
-            whappr,
-        );
+        ctx._dogmoveDeferNewdogposLikeC = true;
+        try {
+            dogMoveMfndposPickLikeC(
+                g,
+                mtmp,
+                goal.gx | 0,
+                goal.gy | 0,
+                goal.appr | 0,
+                whappr,
+            );
+            const ranged = petRangedAttkDogmoveLikeC(g, mtmp, false);
+            if (ranged !== MMOVE_NOTHING) return ranged;
+            dogMoveApplyPendingNewdogposLikeC(g, mtmp);
+        } finally {
+            delete ctx._dogmoveDeferNewdogposLikeC;
+        }
     } finally {
         delete ctx._wizD1CapitalKPostNearAwayRn12LikeC;
         delete ctx._wizD1CapitalKPostNearPetLikeC;
