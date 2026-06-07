@@ -862,6 +862,7 @@ export async function runPostCommandTurnAdvanceLikeC(g) {
                             g.context._wizD1MovemonRanThisPostLikeC
                             && !g.context?._wizD1PostEastTailWalkCompletePendingLikeC
                             && !commaMoveloopPeelLikeC
+                            && !g.context?._wizD1CommaLFirstUPostTailInventPendingLikeC
                         )
                         || g.context?._wizD1EastTailShortLDeferToNextPostLikeC
                     )
@@ -990,7 +991,10 @@ export async function runPostCommandTurnAdvanceLikeC(g) {
             ) {
                 const tailStepNum = (g.moves | 0) - 1;
                 /* C: post-east-tail walk — new-turn already ran inside **`movemon`** (~2778+). */
-                if (g.context?._wizD1PostEastTailWalkNewTurnDoneLikeC) {
+                if (
+                    g.context?._wizD1PostEastTailWalkNewTurnDoneLikeC
+                    || g.context?._wizD1CommaLFirstUPostTailInventDoneLikeC
+                ) {
                     delete g.context._wizD1PostEastTailWalkNewTurnDoneLikeC;
                     newTurnDone = true;
                 } else if (g.context?._wizD1CapitalKPostNearSecondNewTurnDoneLikeC) {
@@ -1012,6 +1016,23 @@ export async function runPostCommandTurnAdvanceLikeC(g) {
                     && !g.context?._wizD1CapitalKPostNearSecondNewTurnDoneLikeC
                 ) {
                     await runNewTurnSetupAndTailLikeC(g, tailStepNum);
+                    /* C: comma-**`l`** → first **`U`** — pet **`distfleeck`** (~3013) then invent (~3014+). */
+                    if (
+                        wizD1MovemonOnceLikeC
+                        && g.context?._wizD1CommaLFirstUPostTailNewturnPendingLikeC
+                        && !g.context?._wizD1CommaLFirstUPostTailInventDoneLikeC
+                    ) {
+                        delete g.context._wizD1CommaLFirstUPostTailNewturnPendingLikeC;
+                        const commaUPetInvent = (g.level?.monsters ?? []).find(
+                            (m) => (m.mtame | 0) !== 0,
+                        );
+                        if (commaUPetInvent) {
+                            setApparxyMonsterLikeC(g, commaUPetInvent);
+                            await distfleeckMonsterApplyLikeC(g, commaUPetInvent);
+                            g.context._wizD1SkipLPostInventMoveloopLikeC = true;
+                            g.context._wizD1CommaLFirstUPostTailInventPendingLikeC = true;
+                        }
+                    }
                     /* C: tourist D:1 second post-rest — after leading new-turn (~2538–2544),
                      * near mklev **`distfleeck`** (~2545) then **`movemon`** peel; blocks another
                      * leading **`runNewTurnSetupAndTailLikeC`** at ~2545. */
@@ -1143,6 +1164,10 @@ export async function runPostCommandTurnAdvanceLikeC(g) {
                         && !g.context?._wizD1PostEastTailWalkCompleteLikeC
                         && !g.context?._wizD1EastTailShortLPetDoneLikeC
                         && !g.context?._wizD1FirstShortLFmonNearPetDoneLikeC
+                        && !g.context?._wizD1CommaLFirstUPostTailInventDoneLikeC
+                        && !g.context?._wizD1CommaLFirstUPostTailInventPendingLikeC
+                        && !g.context?._wizD1CommaLFirstUPostTailNewturnPendingLikeC
+                        && !g.context?._wizD1CommaLFirstUTailDoneLikeC
                     ) {
                         const pet = (g.level?.monsters ?? []).find(
                             (m) => (m.mtame | 0) !== 0,

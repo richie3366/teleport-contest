@@ -96,7 +96,7 @@ Align batches with [`c-to-js-port-remaining.md`](c-to-js-port-remaining.md) §5:
 
 | C symbol / area | JS module | Status | Notes |
 |-----------------|-----------|--------|-------|
-| `movemon` / `dochug` | `monmove.js`, `fmon_iter.js`, `moveloop_turn_advance.js`, `dogmove_mon.js`, `m_move_mon.js`, `monmove_search.js`, `mfndpos_mon.js` | partial | Comma-**`U`** post-tail: phase-1 **`dog_move`** **`mfndpos`** only (~3002–3005); **`mcalcmove`** **`rn2(12)`**×3 (~3007–3009) via moveloop **`runNewTurnSetupAndTailLikeC`** (not phase-2 **`dog_move`**); **`maybe_generate`** (~3010–3012) aligned. **`2888–3012`** aligned; first fail **3013** (pet **`distfleeck`** + post-new-turn invent). **`seed8000` 2900–3129:** aligned |
+| `movemon` / `dochug` | `monmove.js`, `fmon_iter.js`, `moveloop_turn_advance.js`, `dogmove_mon.js`, `m_move_mon.js`, `monmove_search.js`, `mfndpos_mon.js` | partial | Comma-**`U`** post-new-turn: moveloop pet **`distfleeck`** (~3013) + **`dogMoveCommaLFirstUPostTailInventAfterNewturnLikeC`** (away-only **`mfndpos`**, not **`L`** **`chcnt`** invent) via second **`movemon`** peel; **`SkipLPostInventMoveloop`** + block-1137 comma guards. **`2888–3016`** aligned; first fail **3017** (premature **`runNewTurn`** before invent **`mfndpos`** tail). **`seed8000` 2900–3129:** aligned |
 | `m_move` / `mfndpos` | `m_move_mon.js`, `mfndpos.js` | partial | Second post-rest mklev interrupt **`mMoveTouristD1PostRestSecondMklevInterruptLikeC`** (**`rn2(32)`** ~2528); **`seed0900`** **~2545** post-**`mcalcmove`** drift |
 | `distfleeck` | `distfleeck_mon.js` | partial | Peel-only rest **`distfleeck`** (**`_touristD1PostSwapRestDistfleeckPeelLikeC`**); 3× ~915 before stub; **`seed0900`** **2499–2504** |
 | `m_throw` | — | missing | |

@@ -88,7 +88,9 @@ import {
     dogMoveCapitalKPostPeelPetLikeC,
     dogMoveCapitalKPostCommaPetLikeC,
     dogMoveCommaLFirstUPostTailPetLikeC,
+    dogMoveCommaLFirstUPostTailInventAfterNewturnLikeC,
     dogMoveFirstLAfterCommaPetLikeC,
+    dogMoveLPetInventAfterNewturnLikeC,
     dogMovePostEastTailWalkShortLPetLikeC,
 } from './dogmove_mon.js';
 import {
@@ -209,6 +211,24 @@ export async function movemon(stepNum) {
         && g.context?._wizD1CommaLFirstUNearDfPendingLikeC
     ) {
         await wizD1CommaLFirstUNearDistfleeckBeforePetLikeC(g);
+    }
+    /* C: comma-**`l`** → first **`U`** — pet invent after post-new-turn **`distfleeck`** (~3014+). */
+    if (
+        g.context?._wizD1CommaLFirstUPostTailInventPendingLikeC
+        && g.context?._wizD1MovemonRanThisPostLikeC
+        && !g.context?._wizD1CommaLFirstUPostTailInventDoneLikeC
+    ) {
+        const commaUPetInvent = (g.level?.monsters ?? []).find(
+            (m) => (m.mtame | 0) !== 0,
+        );
+        if (commaUPetInvent) {
+            dogMoveCommaLFirstUPostTailInventAfterNewturnLikeC(g, commaUPetInvent);
+        }
+        delete g.context._wizD1CommaLFirstUPostTailInventPendingLikeC;
+        delete g.context._wizD1SkipLPostInventMoveloopLikeC;
+        g.context._wizD1CommaLFirstUPostTailInventDoneLikeC = true;
+        g.context._wizD1LPostOuterLoopDoneLikeC = true;
+        return false;
     }
     if (
         g.context?._wizD1PostEastTailWalkFmonPendingLikeC
@@ -2902,6 +2922,8 @@ export async function movemon(stepNum) {
                 && !g.context?._wizD1EastTailCorridorTurnDoneLikeC
                 && !g.context?._wizD1PostEastTailWalkFmonPendingLikeC
                 && !g.context?._wizD1EastTailShortLPetDoneLikeC
+                && !g.context?._wizD1CommaLFirstUTailDoneLikeC
+                && !g.context?._wizD1CommaLFirstUPostTailNewturnPendingLikeC
             ) {
                 if (
                     g.context?._wizD1Step1DistantFirstDfDoneLikeC
