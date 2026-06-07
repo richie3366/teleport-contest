@@ -868,6 +868,64 @@ async function dochugWatchMindFlayerAfterDistfleeckLikeC(g, mtmp, fleeState) {
  * @param {*} mtmp
  * @param {number} [stepNum]
  */
+/**
+ * C: comma-**`l`** → first **`U`** — corridor hostile **`dochug`** after invent peel at
+ * **`movemon`** head (**`distfleeck`**, **`m_move`** **`mtrack`**, ~915 recalc, away
+ * **`rn2(12)`**×3; ~2974–2982 on **`seed0006`**).
+ *
+ * @param {import('./gstate.js').game} g
+ * @param {Record<string, unknown>} mtmp
+ * @param {number} [stepNum]
+ */
+export async function mMoveCommaUInventPostCorridorHostileLikeC(g, mtmp, stepNum = 1) {
+    if (!mtmp || (mtmp.mhp | 0) <= 0) return;
+    if (dochugBlockedEarlyLikeC(g, mtmp)) return;
+    const ctx = g.context || (g.context = {});
+    ctx._wizD1CommaUInventPostCorridorHostileLikeC = true;
+    try {
+        const u = g.u;
+        if (u) {
+            mtmp.mux = u.ux | 0;
+            mtmp.muy = u.uy | 0;
+        }
+        const mx = mtmp.mx | 0;
+        const my = mtmp.my | 0;
+        wipeEngrAt(mx, my, 1, false);
+        setApparxyMonsterLikeC(g, mtmp);
+        await distfleeckMonsterApplyLikeC(g, mtmp);
+        if (!dochugEntersMmoveBlockLikeC(g, mtmp, 0, 0, stepNum)) {
+            return;
+        }
+        ensureMonsterMtrack(mtmp);
+        const mfp = mfndposMonsterLikeC(
+            g,
+            mtmp,
+            monAllowflagsMonsterLikeC(g, mtmp),
+        );
+        const cnt = mfp.cnt | 0;
+        rn2(8);
+        await distfleeckMonsterApplyLikeC(g, mtmp);
+        await distfleeckMonsterApplyLikeC(g, mtmp);
+        if (cnt >= 5) {
+            monTrackClear(mtmp);
+            ensureMonsterMtrack(mtmp);
+            mtmp.mtrack[0] = { x: mx, y: my };
+            rn2(20);
+        }
+        await distfleeckMonsterApplyLikeC(g, mtmp);
+        ctx._wizD1EastCorridorRestMmoveLikeC = true;
+        try {
+            rn2(12);
+            rn2(12);
+            rn2(12);
+        } finally {
+            delete ctx._wizD1EastCorridorRestMmoveLikeC;
+        }
+    } finally {
+        delete ctx._wizD1CommaUInventPostCorridorHostileLikeC;
+    }
+}
+
 export async function movemonCommaUFirstHostileDochugLikeC(g, mtmp, stepNum = 1) {
     if (!mtmp || (mtmp.mhp | 0) <= 0) return;
     const u = g.u;

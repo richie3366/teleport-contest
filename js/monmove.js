@@ -87,6 +87,7 @@ import {
     runCapitalKPostCommaDeferredFmonTailLikeC,
     mMoveWizardD1Step1DistantAfterPeelLikeC,
     mMoveWizardD1EastTailCorridorRestLikeC,
+    mMoveCommaUInventPostCorridorHostileLikeC,
     mMoveWizardD1LPostTailDistantLikeC,
     mMovePostEastTailWalkMintrapDistantPeelLikeC,
     primeDistantMtrackRn20LikeC,
@@ -349,6 +350,28 @@ export async function movemon(stepNum) {
         g.context._mklevDistfleeckRecalcBudgetLikeC = 0;
     }
     g.context.movemonStepNum = effStepNum;
+    /* C: comma post-first-**`l`** invent peel (~2950–2973) then corridor **`dochug`** (~2974–2982). */
+    if (
+        g.context?._wizD1FirstLAfterCommaPetDoneLikeC
+        && !g.context?._wizD1CommaUInventPostCorridorDoneLikeC
+        && wizD1CommaLFirstUAfterCommaLLikeC(g)
+    ) {
+        const corridorInline = wizD1CorridorMklevMonLikeC(g);
+        if (corridorInline) {
+            let movCor = corridorInline.movement | 0;
+            if (movCor < NORMAL_SPEED) {
+                corridorInline.movement = NORMAL_SPEED;
+                movCor = NORMAL_SPEED;
+            }
+            corridorInline.movement = movCor - NORMAL_SPEED;
+            await mMoveCommaUInventPostCorridorHostileLikeC(
+                g,
+                corridorInline,
+                effStepNum,
+            );
+        }
+        g.context._wizD1CommaUInventPostCorridorDoneLikeC = true;
+    }
     /* Do not clear an active **`#search`** pass on low **`movemonStepNum`** (e.g. 2–3 on **`seed0077`**). */
     if ((stepNum | 0) < 10 && !(g.context?._searchStep11Passes | 0)) {
         delete g.context._searchStep11Passes;
@@ -1109,7 +1132,16 @@ export async function movemon(stepNum) {
                     g.context._wizD1CommaLFirstUNearFmonSkipDoneLikeC = true;
                     continue;
                 }
-                /* C: comma post-first-**`l`** invent peel ran at **`movemon`** head (~2950–2973). */
+                /* C: comma post-first-**`l`** — corridor hostile peeled inline (~2974–2982). */
+                if (
+                    (
+                        g.context?._wizD1CommaUInventPostCorridorDoneLikeC
+                        || g.context?._wizD1CommaUInventPostCorridorHostileLikeC
+                    )
+                    && m === wizD1CorridorMklevMonLikeC(g)
+                ) {
+                    continue;
+                }
                 if (
                     (m.mtame | 0)
                     && g.context?._wizD1FirstLAfterCommaPetDoneLikeC
