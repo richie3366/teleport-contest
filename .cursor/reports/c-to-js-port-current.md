@@ -32,7 +32,7 @@ Use this when **`Next steps`** below feels stale or several lanes compete. Order
 
 **Tutorial (Lane E):** Gated on [tutorial port gate](../../docs/plans/tutorial-port-gate.md) **MD-1 … MD-7**.
 
-**Last slice:** **Lane C — `seed0006` comma peel head/tail (~2811–2830)** — split **`dogMoveCapitalKPostCommaPetHeadLikeC`** / **`TailLikeC`**; **`monmove.js`** peel **`distfleeck`**→inline **`mcalcmove`**+tail→**`dochug:886`**→one invent **`mfndpos`** (no **`pet_ranged`** on path); deferred newturn guard + block duplicate pass loop. **Verified:** prefix **72** **2810**; **73** **2830**; **2810–2830** aligned; fail **2831+** distant **`distfleeck`**/**`m_move`**; **`seed8000` 2900–3129** canary. **2/44**.
+**Last slice:** **Lane C — `seed0006` deferred comma distant `m_move` start (~2830–2831)** — **`mMoveCapitalKPostCommaDeferredDistantLikeC`** in inline comma peel after pet invent tail; no leading distant **`distfleeck`**; ~915 recalc (~2839). **Verified:** **2810–2831**; prefix **73** **2830**; first fail **2832** distant **`mfndpos`** tail **`rn2(20)`** + chcnt (**2832–2838**); **`seed8000` 2900–3129** canary. **2/44**.
 
 ## Next steps (aligned with matrix)
 
@@ -40,7 +40,7 @@ Pick **one** primary lane per **batch** (several related C functions — see che
 
 **First:** open [`docs/plans/tutorial-port-gate.md`](../../docs/plans/tutorial-port-gate.md) — if **all MD-1 … MD-7** are checked, do **Lane E** step 1 from [10-tutorial.md](../plans/nethack-port/10-tutorial.md) instead of the list below.
 
-1. **Lane C — `seed0006` comma move 73+** — distant **`distfleeck`**/**`m_move`** tail **2831–2838** after peel invent **`mfndpos`**; second inline **`mcalcmove`** block **2841–2847**; full invent **`obj_resists`** **~2910+**; comma peel toward C **2908**; then comma-**`U`** **~3054** when window green.
+1. **Lane C — `seed0006` comma move 73+** — finish deferred distant **`m_move`** **`mfndpos`** tail **2832–2838** ( **`mtrack`** **`rn2(20)`** + chcnt debt); second inline **`mcalcmove`** **2840–2847**; full invent **`obj_resists`** **~2910+**; comma peel toward C **2908**; comma-**`U`** **~3054** when window green.
 2. **Lane B — NHL** — next **`lspo_*`** per [`nhl-port-notes.md`](nhl-port-notes.md).
 3. **Lane A/D — `seed0900`** — screen parity (RNG **0–2982** done); map/botl integration beyond moveloop peel chain.
 4. **Lane A/D — `dogmove.c`** — **`score_targ`** vampshifter **`mtmp_lev`** **`rn2`** tail (~808–817); **`mattackm`** / **`pet_ranged_attk`** when pet breath sessions fail.

@@ -83,6 +83,7 @@ import {
     mMoveDistfleeckOnlyTurnLikeC,
     mMoveCapitalKPostNewturnNearLikeC,
     mMoveCapitalKPostCommaDistantLikeC,
+    mMoveCapitalKPostCommaDeferredDistantLikeC,
     mMoveWizardD1Step1DistantAfterPeelLikeC,
     mMoveWizardD1EastTailCorridorRestLikeC,
     mMoveWizardD1LPostTailDistantLikeC,
@@ -1314,6 +1315,18 @@ export async function movemon(stepNum) {
                 }
                 const deferredCommaTailLikeC =
                     !!g.context?._wizD1PostEastTailWalkFmonDistantDeferredLikeC;
+                if (deferredCommaTailLikeC) {
+                    const commaDeferDist =
+                        wizD1PeelDistantMklevMonLikeC(g)
+                        ?? findDistantMklevMonLikeC(g);
+                    if (commaDeferDist) {
+                        await mMoveCapitalKPostCommaDeferredDistantLikeC(
+                            g,
+                            commaDeferDist,
+                            effStepNum,
+                        );
+                    }
+                }
                 g.context._wizD1CapitalKPostCommaPeelDoneLikeC = true;
                 g.context._wizD1PostEastTailWalkNewTurnDoneLikeC = true;
                 if (deferredCommaTailLikeC) {

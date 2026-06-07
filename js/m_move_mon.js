@@ -2177,6 +2177,31 @@ export function mMoveCapitalKPostNearEastMmoveRngLikeC(g, mtmp) {
 }
 
 /**
+ * C: deferred comma promote — distant **`dochug`** **`m_move`** before short-**`l`** **`fmon`**
+ * (~2831–2838); no leading **`distfleeck`**; ~915 recalc (~2839) in caller.
+ *
+ * @param {import('./gstate.js').game} g
+ * @param {Record<string, unknown>} mtmp
+ * @param {number} [stepNum]
+ */
+export async function mMoveCapitalKPostCommaDeferredDistantLikeC(g, mtmp, stepNum = 0) {
+    if (!mtmp || (mtmp.mhp | 0) <= 0) return;
+    const u = g.u;
+    if (u) {
+        mtmp.mux = u.ux | 0;
+        mtmp.muy = u.uy | 0;
+    }
+    setApparxyMonsterLikeC(g, mtmp);
+    ensureMonsterMtrack(mtmp);
+    monTrackClear(mtmp);
+    primeDistantMtrackRn20LikeC(mtmp);
+    if (dochugEntersMmoveBlockLikeC(g, mtmp, 0, 0, stepNum)) {
+        mMovePositionSelectRngLikeC(g, mtmp);
+    }
+    await distfleeckMonsterApplyLikeC(g, mtmp);
+}
+
+/**
  * C: comma after capital **`K`** peel — distant **`m_move`** **`rn2(24)`** (~2939);
  * no leading **`distfleeck`** (pet **`distfleeck`**×2 in **`monmove.js`** fmon head ~2937–2938).
  * Post-**`m_move`** ~915 **`distfleeck`** is **`monmove.js`** comma peel caller (~2940).
