@@ -669,7 +669,6 @@ function mMovePositionSelectLikeC(g, mtmp, silent) {
     ) {
         appr = 0;
     }
-
     const eastDoorMmove = !!g.context?._wizD1EastDoorMmoveLikeC;
     let eastTrackRejectCount = 0;
     for (let i = 0; i < cnt; i++) {
@@ -1911,6 +1910,73 @@ export function primeMklevMtrackRn12Slot1LikeC(g, mtmp) {
     }
 }
 
+/**
+ * C: comma-**`U`** fmon tail slot-2 mklev — one **`mtrack`** **`rn2(12)`** (~3039), nearer pick, no **`chcnt`**.
+ *
+ * @param {import('./gstate.js').game} g
+ * @param {Record<string, unknown>} mtmp
+ */
+function mMoveCommaUFmonTailSlotMklevLikeC(g, mtmp) {
+    primeMklevMtrackRn12Slot1LikeC(g, mtmp);
+    const u = g.u;
+    if (!u) return MMOVE_NOTHING;
+    const omx = mtmp.mx | 0;
+    const omy = mtmp.my | 0;
+    const ggx = mtmp.mux | 0;
+    const ggy = mtmp.muy | 0;
+    const mfp = mfndposMonsterLikeC(g, mtmp, monAllowflagsMonsterLikeC(g, mtmp));
+    const cnt = mfp.cnt | 0;
+    if (cnt === 0) return MMOVE_NOTHING;
+    const jcnt = Math.min(MTSZ, cnt - 1);
+    ensureMonsterMtrack(mtmp);
+    const tracked = new Set();
+    for (let j = 0; j < jcnt; j++) {
+        const tr = mtmp.mtrack[j];
+        if ((tr.x | 0) >= 0 && (tr.y | 0) >= 0) {
+            tracked.add(`${tr.x | 0},${tr.y | 0}`);
+        }
+    }
+    let mtrackDrew = false;
+    for (let i = 0; i < cnt; i++) {
+        const nx = mfp.poss[i].x | 0;
+        const ny = mfp.poss[i].y | 0;
+        if (!tracked.has(`${nx},${ny}`)) continue;
+        for (let j = 0; j < jcnt; j++) {
+            const tr = mtmp.mtrack[j];
+            if (nx !== (tr.x | 0) || ny !== (tr.y | 0)) continue;
+            if (!mtrackDrew) rn2(4 * (cnt - j));
+            mtrackDrew = true;
+            break;
+        }
+        break;
+    }
+    let nix = omx;
+    let niy = omy;
+    let nidist = dist2(nix, niy, ggx, ggy);
+    let chi = -1;
+    let mmoved = MMOVE_NOTHING;
+    for (let i = 0; i < cnt; i++) {
+        const nx = mfp.poss[i].x | 0;
+        const ny = mfp.poss[i].y | 0;
+        if (tracked.has(`${nx},${ny}`)) continue;
+        const ndist = dist2(nx, ny, ggx, ggy);
+        const nearer = ndist < nidist;
+        if (nearer || mmoved === MMOVE_NOTHING) {
+            nix = nx;
+            niy = ny;
+            nidist = ndist;
+            chi = i;
+            mmoved = MMOVE_MOVED;
+        }
+    }
+    if (mmoved === MMOVE_MOVED && chi >= 0 && (nix !== omx || niy !== omy)) {
+        monTrackAdd(mtmp, omx, omy);
+        mtmp.mx = nix;
+        mtmp.my = niy;
+    }
+    return mmoved;
+}
+
 /** C: distant **(23,13)** **`m_move`** — **`j=3`** track slot → session **`rn2(20)`**. */
 export function primeDistantMtrackRn20LikeC(mtmp) {
     ensureMonsterMtrack(mtmp);
@@ -2248,23 +2314,11 @@ async function mMoveCommaUFmonTailDochugLikeC(g, mtmp, stepNum = 0) {
     let mmStatus = MMOVE_NOTHING;
     if (dochugEntersMmoveBlockLikeC(g, mtmp, nearby, scared, stepNum)) {
         ensureMonsterMtrack(mtmp);
-        if (mtmp === wizD1CorridorMklevMonLikeC(g)) {
-            (g.context || (g.context = {}))._wizD1EastCorridorRestMmoveLikeC = true;
-            try {
-                primeMklevMtrackRn12Slot1LikeC(g, mtmp);
-                mmStatus = mMovePositionSelectRngLikeC(g, mtmp);
-            } finally {
-                delete g.context._wizD1EastCorridorRestMmoveLikeC;
-            }
-        } else if (
-            mtmp === wizD1PeelDistantMklevMonLikeC(g)
-            || mtmp === findDistantMklevMonLikeC(g)
-        ) {
-            primeDistantMtrackRn20LikeC(mtmp);
-            rn2(20);
-            mmStatus = MMOVE_NOTHING;
+        if ((mtmp.mgenmklev | 0) && !(mtmp.mtame | 0)) {
+            /* C: comma-**`U`** fmon tail — every surplus mklev one **`mtrack`** **`rn2(12)`** (~3036+);
+             * not peel distant **`rn2(20)`** nor full **`chcnt`** loop. */
+            mmStatus = mMoveCommaUFmonTailSlotMklevLikeC(g, mtmp);
         } else {
-            primeMklevMtrackRn12Slot1LikeC(g, mtmp);
             mmStatus = mMovePositionSelectRngLikeC(g, mtmp);
         }
     }

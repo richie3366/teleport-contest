@@ -1888,6 +1888,7 @@ export async function movemon(stepNum) {
             }
             delete g.context._wizD1CommaLFirstUPostTailFmonTailPendingLikeC;
             g.context._wizD1CommaLFirstUPostTailOuterMoveloopDoneLikeC = true;
+            return false;
         }
         /* C: tourist D:1 run-east **`L`** — fourth **`movemon`** after third-pass new-turn
          * (**`seed0900`** ~2649–2663). */
@@ -3024,7 +3025,10 @@ export async function movemon(stepNum) {
                         );
                     }
                 }
-                if (g.context?._wizD1Step1LPetTailDoneLikeC) {
+                if (
+                    g.context?._wizD1Step1LPetTailDoneLikeC
+                    && !g.context?._wizD1CommaLFirstUPostTailOuterMoveloopDoneLikeC
+                ) {
                     const peelDistant =
                         g.context._wizD1Step1DistantPeelMtmpLikeC
                         ?? distant;
