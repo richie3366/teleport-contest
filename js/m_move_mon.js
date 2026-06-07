@@ -2094,6 +2094,42 @@ export async function mMoveCapitalKPostCommaDistantLikeC(g, mtmp, stepNum = 0) {
     }
 }
 
+/**
+ * C: first hero **`l`** after comma — distant **`m_move`** after caller **`distfleeck`**×2
+ * (~2973–2974): **`mtrack`** **`rn2(8)`** (~2975), recalc **`distfleeck`**×2 (~2976–2977),
+ * **`rn2(20)`** (~2978), **`distfleeck`** (~2979), **`mfndpos`** (~2980+).
+ *
+ * @param {import('./gstate.js').game} g
+ * @param {Record<string, unknown>} mtmp
+ */
+export async function mMoveFirstLAfterCommaDistantLikeC(g, mtmp) {
+    if (!mtmp || (mtmp.mhp | 0) <= 0) return;
+    ensureMonsterMtrack(mtmp);
+    const omx = mtmp.mx | 0;
+    const omy = mtmp.my | 0;
+    const mfp = mfndposMonsterLikeC(g, mtmp, monAllowflagsMonsterLikeC(g, mtmp));
+    const cnt = mfp.cnt | 0;
+    if (cnt > 0) {
+        if (!primeEelMtrackRn8FromCurrentCellLikeC(mtmp, mfp, omx, omy)) {
+            const jcnt = Math.min(MTSZ, cnt - 1);
+            for (let j = 0; j < jcnt; j++) {
+                if (4 * (cnt - j) !== 8) continue;
+                monTrackClear(mtmp);
+                ensureMonsterMtrack(mtmp);
+                mtmp.mtrack[j] = { x: omx, y: omy };
+                break;
+            }
+        }
+        rn2(8);
+    }
+    await distfleeckMonsterApplyLikeC(g, mtmp);
+    await distfleeckMonsterApplyLikeC(g, mtmp);
+    primeDistantMtrackRn20LikeC(mtmp);
+    rn2(20);
+    await distfleeckMonsterApplyLikeC(g, mtmp);
+    mMovePositionSelectRngLikeC(g, mtmp);
+}
+
 export async function mMoveCapitalKPostNewturnNearLikeC(g, mtmp, stepNum = 0) {
     if (!mtmp || (mtmp.mhp | 0) <= 0) return;
     const u = g.u;
@@ -2857,6 +2893,7 @@ export async function mMoveOneMonsterSubsetLikeC(g, mtmp, stepNum = 0) {
                     && !(
                         isWizardD1Step1PeelLikeC(g, stepNum)
                         && (mtmp.mgenmklev | 0)
+                        && !distantFirstLPeelActive
                     )
                     && dochugEntersMmoveBlockLikeC(
                         g,
@@ -2867,6 +2904,10 @@ export async function mMoveOneMonsterSubsetLikeC(g, mtmp, stepNum = 0) {
                     )
                 ) {
                     ensureMonsterMtrack(mtmp);
+                    if (distantFirstLPeelActive) {
+                        await mMoveFirstLAfterCommaDistantLikeC(g, mtmp);
+                        return;
+                    }
                     mMovePositionSelectSilentLikeC(g, mtmp);
                     if (
                         recalcBudget < 2
