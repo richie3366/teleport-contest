@@ -1161,9 +1161,11 @@ async function wizD1EastTailAfterMcalcmoveSinglemonLikeC(g, mtmp, stepNum) {
 
 export async function movemonSinglemonLikeC(g, mtmp, stepNum = 0) {
     if (!mtmp || (mtmp.mhp | 0) <= 0) return;
-    /* C: comma-**`U`** invent peel — corridor **`dochug`** already inline at **`movemon`** head. */
+    /* C: comma-**`U`** invent peel — corridor **`dochug`** already inline at **`movemon`** head;
+     * post-third-peel **`fmon`** tail (~3035+) runs corridor **`dochug`** again. */
     if (
         g.context?._wizD1CommaUInventPostCorridorDoneLikeC
+        && !g.context?._wizD1CommaLFirstUPostTailFmonTailPendingLikeC
         && mtmp === wizD1CorridorMklevMonLikeC(g)
     ) {
         return;

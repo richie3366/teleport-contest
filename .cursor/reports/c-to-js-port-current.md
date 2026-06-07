@@ -32,7 +32,7 @@ Use this when **`Next steps`** below feels stale or several lanes compete. Order
 
 **Tutorial (Lane E):** Gated on [tutorial port gate](../../docs/plans/tutorial-port-gate.md) **MD-1 … MD-7**.
 
-**Last slice:** **Lane C — `seed0006` comma-`U` post-corridor inline new-turn (~2983–3038)** — **`runCommaUPostCorridorInlineNewturnLikeC`** after corridor peel (**`maybe_generate_rnd_mon`**, **`gethungry`**, **`rn2(85)`**); near **`distfleeck`** (~2986); pet **`dogMoveCommaLFirstUPetLikeC`** via early **`movemonSinglemonLikeC`** + fmon un-skip; moveloop skip duplicate new-turn. **Verified:** prefix **75** through **3038**; fail **3039+** fmon tail second mklev **`rn2(12)`** vs pet **`rn2(3)`**; **`seed8000` 2900–3129** canary.
+**Last slice:** **Lane C — `seed0006` comma-`U` fmon tail corridor hostile (~3035–3049)** — **`movemonSinglemonLikeC`** un-skip corridor **`wizD1CorridorMklevMonLikeC`** when **`FmonTailPending`** (invent peel skip blocked second **`mMoveCommaUFmonTailDochugLikeC`** **`rn2(12)`**); pet **`dogMoveCommaUFmonTailPostPeelPetLikeC`** order restored. **Verified:** peel **2888–3049**; fail **3050+** post-pet **`distfleeck`** / moveloop tail; **`seed8000` 2900–3129** canary.
 
 ## Next steps (aligned with matrix)
 
@@ -40,7 +40,7 @@ Pick **one** primary lane per **batch** (several related C functions — see che
 
 **First:** open [`docs/plans/tutorial-port-gate.md`](../../docs/plans/tutorial-port-gate.md) — if **all MD-1 … MD-7** are checked, do **Lane E** step 1 from [10-tutorial.md](../plans/nethack-port/10-tutorial.md) instead of the list below.
 
-1. **Lane C — `seed0006` comma-`U` fmon tail (~3039+)** — second surplus mklev **`mMoveCommaUFmonTailSlotMklevLikeC`** **`rn2(12)`** before pet **`dogMoveCommaUFmonTailPostPeelPetLikeC`** sameCell **`rn2(3)`**; **`fmon`** hostiles order / count at third peel.
+1. **Lane C — `seed0006` comma-`U` post-fmon-tail moveloop (~3050+)** — post-pet **`distfleeck`** **`rn2(5)`** vs stray **`rn2(12)`**; **`OuterMoveloopDone`** tail / fourth new-turn before hero **`UU`** continuation.
 2. **Lane B — NHL** — next **`lspo_*`** per [`nhl-port-notes.md`](nhl-port-notes.md).
 3. **Lane A/D — `seed0900`** — screen parity (RNG **0–2982** done); map/botl integration beyond moveloop peel chain.
 4. **Lane A/D — `dogmove.c`** — **`score_targ`** vampshifter **`mtmp_lev`** **`rn2`** tail (~808–817); **`mattackm`** / **`pet_ranged_attk`** when pet breath sessions fail.
