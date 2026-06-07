@@ -1383,7 +1383,9 @@ function dogMoveMfndposPickLikeC(g, mtmp, ggx, ggy, appr, whappr) {
 
     const skipMfndposFloorFoodLikeC =
         !!ctxPick?._wizD1PostCorridorPetSecondMfndposLikeC
-        || !!ctxPick?._touristD1PostSwapDogGoalPrescanLikeC;
+        || !!ctxPick?._touristD1PostSwapDogGoalPrescanLikeC
+        || !!ctxPick?._wizD1CapitalKPostNewturnMfndposLikeC
+        || !!ctxPick?._wizD1CapitalKPostNearMfndposLikeC;
 
     let uncursedcnt = 0;
     if (!skipMfndposFloorFoodLikeC) {
@@ -3338,6 +3340,7 @@ export function dogMoveCapitalKPostNewturnPetLikeC(g, mtmp) {
     ctx._wizD1LPetEastTailMfndposLikeC = true;
     ctx._postBumpSkipDogGoalRn2LikeC = true;
     ctx._wizD1Step1ObjResistsPrescanLikeC = true;
+    if (ctx) game.context = ctx;
     delete ctx._wizD1Step1PetMfndposPickDoneLikeC;
     delete ctx._wizD1CapitalKPostNewturnAwayRn12LikeC;
     try {
