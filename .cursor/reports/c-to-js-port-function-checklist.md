@@ -96,11 +96,11 @@ Align batches with [`c-to-js-port-remaining.md`](c-to-js-port-remaining.md) §5:
 
 | C symbol / area | JS module | Status | Notes |
 |-----------------|-----------|--------|-------|
-| `movemon` / `dochug` | `monmove.js`, `fmon_iter.js`, `moveloop_turn_advance.js`, `dogmove_mon.js`, `m_move_mon.js`, `monmove_search.js` | partial | Capital **`K`** post-near pet **`mfndpos`** five away **`rn2(12)`** + **`distfleeck`**; **`seed0006`** **2856–2884** aligned; first fail **2885** |
+| `movemon` / `dochug` | `monmove.js`, `fmon_iter.js`, `moveloop_turn_advance.js`, `dogmove_mon.js`, `m_move_mon.js`, `monmove_search.js` | partial | Capital **`K`** post-near second new-turn + short-**`l`** peel inline; block duplicate **`runNewTurnSetup`**; **`seed0006`** **2878–2892** aligned; first fail **2893** |
 | `m_move` / `mfndpos` | `m_move_mon.js`, `mfndpos.js` | partial | Second post-rest mklev interrupt **`mMoveTouristD1PostRestSecondMklevInterruptLikeC`** (**`rn2(32)`** ~2528); **`seed0900`** **~2545** post-**`mcalcmove`** drift |
 | `distfleeck` | `distfleeck_mon.js` | partial | Peel-only rest **`distfleeck`** (**`_touristD1PostSwapRestDistfleeckPeelLikeC`**); 3× ~915 before stub; **`seed0900`** **2499–2504** |
 | `m_throw` | — | missing | |
-| `dogmove` | `dogmove_mon.js` | partial | Capital **`K`** post-near **`mfndpos`** in-loop away + tail pad to five **`rn2(12)`**; **`pet_ranged_attk`** + deferred **`newdogpos`**; post-new-turn bounded away cap unchanged; **`seed0006`** **2885** capital **`K`** tail; **`seed0900`** RNG **0–2982** |
+| `dogmove` | `dogmove_mon.js` | partial | Capital **`K`** post-near short-**`l`** peel **`chcnt`**/**`away`** mfndpos; duplicate new-turn guard in **`moveloop_turn_advance.js`**; **`seed0006`** **2893** post-peel **`mcalcmove`** tail; **`seed0900`** RNG **0–2982** |
 | `corpse_chance` | `uhitm_hero.js` | partial | Exported **`corpseChanceLikeC`**; tourist **`L`** **`mattackm`** kill tail |
 | `score_targ` / `best_target` / `pet_ranged_attk` | `dogmove_mon.js` | partial | C **`dogmove.c`** ~738–966; **`petRangedAttkDogmoveLikeC`** after **`mfndpos`**, **`newdogpos`** deferred; **`scoreTargDogmoveLikeC`** priest/minion coaligned-peaceful + weak-target penalty; vampshifter **`mtmp_lev`** **`rn2`** tail TODO; **`mattackm`** TODO; **`seed0102` ~4453** **`rnd(5)`** aligned |
 | `dog_hunger` | `dogmove_mon.js` | partial | C **`dogmove.c`** **`dog_hunger`** / **`DOG_WEAK`**/**`DOG_STARVE`** — **`mconf`**, **`mhpmax_penalty`** at **`dogMoveGoalAndPickLikeC`** entry; **`dog_starve`** stub; display tails skipped |

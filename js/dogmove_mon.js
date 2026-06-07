@@ -1645,8 +1645,16 @@ function dogMoveMfndposPickLikeC(g, mtmp, ggx, ggy, appr, whappr) {
                 pickTake = true;
             }
         } else if (g.context?._wizD1LPetEastTailMfndposLikeC) {
-            /* C: capital **`K`** post-new-turn / post-near — away **`mfndpos`** (~2855–2859 / ~2873–2877). */
-            if (g.context?._wizD1CapitalKPostNearMfndposLikeC) {
+            /* C: capital **`K`** post-near short-**`l`** peel — **`chcnt`** **`rn2(1)`** then away **`rn2(12)`**
+             * (~2889–2890). */
+            if (g.context?._wizD1CapitalKPostNearShortLMfndposLikeC) {
+                if (j > 0 && !whappr) {
+                    if (!rn2(12)) pickTake = true;
+                    break;
+                } else if (j < 0) {
+                    pickTake = true;
+                }
+            } else if (g.context?._wizD1CapitalKPostNearMfndposLikeC) {
                 /* C: post-near — in-loop away **`rn2(12)`** on **`j>0`**; tail pad below (~2873–2877). */
                 if (j > 0 && !whappr) {
                     if (!rn2(12)) pickTake = true;
@@ -1764,6 +1772,7 @@ function dogMoveMfndposPickLikeC(g, mtmp, ggx, ggy, appr, whappr) {
             /* C: short **`l`** — stop after one away **`rn2(12)`** (~2810). */
             if (
                 g.context?._wizD1PostEastTailWalkShortLPetLikeC
+                && !g.context?._wizD1CapitalKPostNearShortLMfndposLikeC
                 && j > 0
                 && !whappr
             ) {
@@ -2028,6 +2037,7 @@ function dogMoveMfndposPickLikeC(g, mtmp, ggx, ggy, appr, whappr) {
                 if (
                     ctxBr?._wizD1CapitalKPostNewturnMfndposLikeC
                     || ctxBr?._wizD1CapitalKPostNearMfndposLikeC
+                    || ctxBr?._wizD1CapitalKPostNearShortLMfndposLikeC
                 ) {
                     /* capital **`K`** post-new-turn / post-near — no **`j==0`** early break */
                 } else if (
@@ -3527,9 +3537,11 @@ export function dogMovePostEastTailWalkShortLPetLikeC(g, mtmp) {
         ) {
             /* draw only */
         }
-        /* C: comma rest — **`PeelDone`** without **`Complete`** → follow **`rn2(4)`** (~2744). */
+        /* C: comma rest — **`PeelDone`** without **`Complete`** → follow **`rn2(4)`** (~2744);
+         * capital **`K`** post-near peel — caller drew **`dochug:886`** **`rn2(4)`** (~2886). */
         const commaRestShortLPetFollowRn4LikeC =
-            !!ctx._wizD1PostEastTailWalkPeelDoneLikeC
+            !ctx._wizD1CapitalKPostNearShortLPeelLikeC
+            && !!ctx._wizD1PostEastTailWalkPeelDoneLikeC
             && !ctx._wizD1PostEastTailWalkCompleteLikeC;
         if (commaRestShortLPetFollowRn4LikeC) {
             delete ctx._wizD1PostEastTailWalkShortLPetLikeC;
@@ -3550,6 +3562,13 @@ export function dogMovePostEastTailWalkShortLPetLikeC(g, mtmp) {
             ctx._wizD1PostEastTailWalkShortLPetLikeC = true;
         }
         ctx._wizD1LPetEastTailMfndposLikeC = true;
+        if (ctx._wizD1CapitalKPostNearShortLPeelLikeC) {
+            /* C: **`chcnt`** **`rn2(1)`** before away **`rn2(12)`** (~2889–2890). */
+            if (!rn2(1)) {
+                /* draw only */
+            }
+            ctx._wizD1CapitalKPostNearShortLMfndposLikeC = true;
+        }
         dogMoveMfndposPickLikeC(
             g,
             mtmp,
@@ -3572,12 +3591,16 @@ export function dogMovePostEastTailWalkShortLPetLikeC(g, mtmp) {
         delete ctx._wizD1Step1ObjResistsPrescanLikeC;
         delete ctx._wizD1ShortLApportRn8DoneLikeC;
         delete ctx._wizD1LPetEastTailMfndposLikeC;
+        delete ctx._wizD1CapitalKPostNearShortLMfndposLikeC;
         delete ctx._wizD1CommaRestShortLBrokeAfterAwayLikeC;
         delete ctx._dogfoodRankCacheLikeC;
     }
     ctx._wizD1EastTailShortLPetDoneLikeC = true;
     /* C: first short **`l`** (~2770+) — arm walk **`fmon`** for next post; not second (~2810+). */
-    if (!ctx._wizD1PostEastTailWalkPeelDoneLikeC) {
+    if (
+        !ctx._wizD1PostEastTailWalkPeelDoneLikeC
+        && !ctx._wizD1CapitalKPostNearShortLPeelLikeC
+    ) {
         ctx._wizD1ArmWalkFmonAfterShortLNewTurnLikeC = true;
     }
     return MMOVE_NOTHING;

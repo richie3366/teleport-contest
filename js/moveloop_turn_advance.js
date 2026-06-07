@@ -199,6 +199,15 @@ export async function runWizEastTailPostCorridorMcalcmoveNewTurnLikeC(g) {
 }
 
 export async function runNewTurnSetupAndTailLikeC(g, stepNum) {
+    /* C: capital **`K`** post-near — inline second new-turn in **`monmove.js`** (~2879+); block
+     * a trailing duplicate **`mcalcmove`** on the same post (~2885+). */
+    if (
+        g.context?._wizD1CapitalKPostNearSecondNewTurnDoneLikeC
+        && !g.context?._wizD1CapitalKPostNearSecondNewTurnLikeC
+        && !g.context?._wizD1CapitalKPostNearShortLPeelPendingNewturnLikeC
+    ) {
+        return;
+    }
     /* C: second **`L`** post-corridor new-turn — **`movemon`** pass-2 already refreshed
      * **`movement`**; tail starts at **`maybe_generate_rnd_mon`** (~2735 **`rn2(70)`**). */
     const skipMcalcmoveAfterLPostTail =
@@ -949,6 +958,8 @@ export async function runPostCommandTurnAdvanceLikeC(g) {
                 if (g.context?._wizD1PostEastTailWalkNewTurnDoneLikeC) {
                     delete g.context._wizD1PostEastTailWalkNewTurnDoneLikeC;
                     newTurnDone = true;
+                } else if (g.context?._wizD1CapitalKPostNearSecondNewTurnDoneLikeC) {
+                    newTurnDone = true;
                 }
                 /* C: rogue D:1 — defer new-turn before first **`#search`** (`peek 's'`).
                  * Inline **`#search`** post always runs the tail here (no double defer+flush). */
@@ -961,6 +972,7 @@ export async function runPostCommandTurnAdvanceLikeC(g) {
                     !newTurnDone
                     && !g.context?._wizD1EastTailFirstPostCorridorNewTurnDoneLikeC
                     && !g.context?._wizD1EastTailSecondPostCorridorNewTurnDoneLikeC
+                    && !g.context?._wizD1CapitalKPostNearSecondNewTurnDoneLikeC
                 ) {
                     await runNewTurnSetupAndTailLikeC(g, tailStepNum);
                     /* C: tourist D:1 second post-rest — after leading new-turn (~2538–2544),
@@ -1195,6 +1207,7 @@ export async function runPostCommandTurnAdvanceLikeC(g) {
         delete g.context._wizD1EastTailPeelMtmpLikeC;
         delete g.context._wizD1EastTailCorridorTurnDoneLikeC;
         delete g.context._wizD1SkipLPostInventMoveloopLikeC;
+        delete g.context._wizD1CapitalKPostNearSecondNewTurnDoneLikeC;
         delete g.context._touristD1PostRestSecondOuterMoveloopDoneLikeC;
         delete g.context._touristD1PostRestSecondThirdMovemonPendingLikeC;
         /* **`_wizD1PostEastTailWalkFmonLikeC`** cleared in **`movemon`** after the walk post consumes it. */

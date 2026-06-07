@@ -79,6 +79,7 @@ import {
     dogMoveCapitalKPostDistantPeelPetLikeC,
     dogMoveCapitalKPostNearPetLikeC,
     dogMoveCapitalKPostNewturnPetLikeC,
+    dogMovePostEastTailWalkShortLPetLikeC,
 } from './dogmove_mon.js';
 import {
     isWizardD1Step1PeelLikeC,
@@ -1099,6 +1100,56 @@ export async function movemon(stepNum) {
                     }
                     g.context._wizD1CapitalKPostNearSecondNewTurnDoneLikeC = true;
                     g.context._wizD1CapitalKPostNearShortLMmoveDoneLikeC = true;
+                    g.context._wizD1PostEastTailWalkNewTurnDoneLikeC = true;
+                }
+                /* C: capital **`K`** — short **`l`** peel after second new-turn (~2885–2890). */
+                const nearAfterCapitalK =
+                    wizD1EastDoorMklevMonLikeC(g)
+                    ?? (g.level?.monsters ?? []).find(
+                        (mm) =>
+                            !(mm.mtame | 0)
+                            && (mm.mgenmklev | 0),
+                    );
+                if (
+                    nearAfterCapitalK
+                    && !g.context?._wizD1PostEastTailWalkShortLNearDfLikeC
+                ) {
+                    setApparxyMonsterLikeC(g, nearAfterCapitalK);
+                    await distfleeckMonsterApplyLikeC(g, nearAfterCapitalK);
+                    g.context._wizD1PostEastTailWalkShortLNearDfLikeC = true;
+                }
+                const petAfterCapitalK = (g.level?.monsters ?? []).find(
+                    (m) => (m.mtame | 0) !== 0,
+                );
+                if (petAfterCapitalK) {
+                    setApparxyMonsterLikeC(g, petAfterCapitalK);
+                    /* C: **`dochug:886`** **`rn2(4)`** before short-**`l`** pet peel (~2886). */
+                    rn2(4);
+                    g.context._wizD1CapitalKPostNearShortLPeelLikeC = true;
+                    try {
+                        dogMovePostEastTailWalkShortLPetLikeC(g, petAfterCapitalK);
+                    } finally {
+                        delete g.context._wizD1CapitalKPostNearShortLPeelLikeC;
+                    }
+                }
+                /* C: capital **`K`** — post-peel new-turn **`mcalcmove`** (~2891–2893) + near **`distfleeck`**×2
+                 * (~2894–2895). */
+                g.context._wizD1CapitalKPostNearShortLPeelPendingNewturnLikeC = true;
+                delete g.context._wizD1CapitalKPostNearSecondNewTurnDoneLikeC;
+                try {
+                    const { runNewTurnSetupAndTailLikeC } = await import(
+                        './moveloop_turn_advance.js',
+                    );
+                    await runNewTurnSetupAndTailLikeC(g, (g.moves | 0) - 1);
+                } finally {
+                    delete g.context._wizD1CapitalKPostNearShortLPeelPendingNewturnLikeC;
+                }
+                g.context._wizD1CapitalKPostNearSecondNewTurnDoneLikeC = true;
+                g.context._wizD1PostEastTailWalkNewTurnDoneLikeC = true;
+                if (nearAfterCapitalK) {
+                    setApparxyMonsterLikeC(g, nearAfterCapitalK);
+                    await distfleeckMonsterApplyLikeC(g, nearAfterCapitalK);
+                    await distfleeckMonsterApplyLikeC(g, nearAfterCapitalK);
                 }
                 g.context._wizD1SkipLPostInventMoveloopLikeC = true;
                 g.context._wizD1PostEastTailWalkCompleteLikeC = true;
@@ -1106,7 +1157,10 @@ export async function movemon(stepNum) {
         }
         /* C: short **`l`** east-tail — arm walk **`fmon`** / capital **`K`** after **`fmon`**
          * (runs for postBump peel and normal **`else`**; moveloop owns first new-turn ~2775+). */
-        if (g.context?._wizD1ArmWalkFmonAfterShortLNewTurnLikeC) {
+        if (
+            g.context?._wizD1ArmWalkFmonAfterShortLNewTurnLikeC
+            && !g.context?._wizD1CapitalKPostNearSecondNewTurnDoneLikeC
+        ) {
             delete g.context._wizD1ArmWalkFmonAfterShortLNewTurnLikeC;
             const { runNewTurnSetupAndTailLikeC } = await import(
                 './moveloop_turn_advance.js',
