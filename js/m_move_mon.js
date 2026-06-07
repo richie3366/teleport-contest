@@ -1213,6 +1213,16 @@ export async function movemonSinglemonLikeC(g, mtmp, stepNum = 0) {
         await mMoveCommaUFmonTailDochugLikeC(g, mtmp, stepNum);
         return;
     }
+    /* C: comma-**`U`** post-fourth surplus — stray mklev one **`mtrack`** **`rn2(12)`**, no **`dochug`**. */
+    if (
+        g.context?._wizD1CommaLFirstUPostTailSecondUPostMovemonLikeC
+        && !(mtmp.mtame | 0)
+        && (mtmp.mgenmklev | 0)
+        && mtmp !== wizD1CommaLFirstUNearMklevMonLikeC(g)
+    ) {
+        mMoveCommaUFmonTailSlotMklevLikeC(g, mtmp);
+        return;
+    }
     /* C: comma-**`U`** second hero **`U`** — near mklev **`mtrack`** **`rn2(12)`** (~3058), not **`chcnt`**. */
     if (
         g.urole?.abbr === 'Wiz'

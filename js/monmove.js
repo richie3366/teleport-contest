@@ -335,6 +335,14 @@ export async function movemon(stepNum) {
     ) {
         return false;
     }
+    /* C: comma-**`U`** — defer **`fmon`** until moveloop surplus tail resume (~3059+). */
+    if (
+        g.context?._wizD1CommaSurplusTailPendingLikeC
+        && g.context?._wizD1CommaSecondUSurplusArmedLikeC
+        && !g.context?._wizD1CommaLFirstUPostTailSecondUPostMovemonLikeC
+    ) {
+        return false;
+    }
     /* C: comma-**`U`** — outer moveloop tail done; block surplus **`fmon`** unless post-fourth
      * peel is armed (~3058+). */
     if (
@@ -422,19 +430,50 @@ export async function movemon(stepNum) {
         const surplusHostile = fmonListForMovemonLikeC(g, effStepNum).filter(
             (m) => !(m.mtame | 0) && m !== petSurplus,
         );
-        const passList = surplusHostile.some(
+        const strayTailDone =
+            g.context._wizD1CommaSurplusStrayTailDoneSetLikeC
+            ?? (g.context._wizD1CommaSurplusStrayTailDoneSetLikeC = new WeakSet());
+        const nonMklevSurplusDone =
+            g.context._wizD1CommaSurplusNonMklevDoneSetLikeC
+            ?? (g.context._wizD1CommaSurplusNonMklevDoneSetLikeC = new WeakSet());
+        let passList = surplusHostile.some(
             (m) => (m.movement | 0) >= NORMAL_SPEED,
         )
             ? surplusHostile
-            : (
+            : [];
+        /* C: surplus tail — stray mklev before near peel (~3055–3057), near last (~3058). */
+        if (passList.length === 0) {
+            const strayMklev = surplusHostile.find(
+                (m) =>
+                    (m.mgenmklev | 0)
+                    && m !== nearMklevSurplus
+                    && !strayTailDone.has(m),
+            );
+            if (strayMklev) {
+                passList = [strayMklev];
+            } else if (
                 nearMklevSurplus
                 && !g.context?._wizD1CommaLFirstUPostTailSecondUPeelDoneLikeC
-                    ? [nearMklevSurplus]
-                    : []
-            );
+            ) {
+                passList = [nearMklevSurplus];
+            } else if (g.context?._wizD1CommaLFirstUPostTailSecondUPeelDoneLikeC) {
+                const nonMklev = surplusHostile.find(
+                    (m) => !(m.mgenmklev | 0) && !nonMklevSurplusDone.has(m),
+                );
+                if (nonMklev) passList = [nonMklev];
+            }
+        }
         for (const m of passList) {
             spendSurplusMoveLikeC(m);
             await movemonSinglemonLikeC(g, m, effStepNum);
+            if (
+                (m.mgenmklev | 0)
+                && m !== nearMklevSurplus
+            ) {
+                strayTailDone.add(m);
+            } else if (!(m.mgenmklev | 0)) {
+                nonMklevSurplusDone.add(m);
+            }
         }
         const hostilesLeft = (g.level?.monsters ?? []).filter(
             (m) => !(m.mtame | 0) && m !== petSurplus,
@@ -444,11 +483,28 @@ export async function movemon(stepNum) {
             && !passList.includes(nearMklevSurplus)
             && !g.context?._wizD1CommaLFirstUPostTailSecondUPeelDoneLikeC
             && surplusHostile.some((m) => m !== nearMklevSurplus);
-        return !!(
+        const strayMklevStillPendingLikeC = surplusHostile.some(
+            (m) =>
+                (m.mgenmklev | 0)
+                && m !== nearMklevSurplus
+                && !strayTailDone.has(m),
+        );
+        const nonMklevStillPendingLikeC =
+            g.context?._wizD1CommaLFirstUPostTailSecondUPeelDoneLikeC
+            && surplusHostile.some(
+                (m) => !(m.mgenmklev | 0) && !nonMklevSurplusDone.has(m),
+            );
+        const surplusScanMoreLikeC = !!(
             g.context?._somebodyCanMoveLikeC
             || hostilesLeft.some((m) => (m.movement | 0) >= NORMAL_SPEED)
             || nearMklevStillPendingLikeC
+            || strayMklevStillPendingLikeC
+            || nonMklevStillPendingLikeC
         );
+        if (g.context?._wizD1CommaLFirstUPostTailSecondUPostMovemonLikeC) {
+            g.context._wizD1CommaSurplusScanMoreLikeC = surplusScanMoreLikeC;
+        }
+        return surplusScanMoreLikeC;
     }
     if (g.context?._wizD1Step1InventPostDoneLikeC) {
         delete g.context._wizD1Step1GateDochugLikeC;

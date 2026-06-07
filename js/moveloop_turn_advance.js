@@ -1247,9 +1247,47 @@ export async function runPostCommandTurnAdvanceLikeC(g) {
                     && !g.context?._wizD1EastTailSecondPostCorridorNewTurnDoneLikeC
                     && !g.context?._wizD1CapitalKPostNearSecondNewTurnDoneLikeC
                     && !g.context?._wizD1CommaLFirstUPostTailAwaitSurplusFmonLikeC
-                    && !g.context?._wizD1CommaLFirstUPostTailSecondUPeelDoneLikeC
+                    && (
+                        !g.context?._wizD1CommaLFirstUPostTailSecondUPeelDoneLikeC
+                        || g.context?._wizD1CommaSurplusTailPendingLikeC
+                    )
                 ) {
-                    await runNewTurnSetupAndTailLikeC(g, tailStepNum);
+                    const commaUSurplusTailResumeLikeC =
+                        wizD1MovemonOnceLikeC
+                        && g.context?._wizD1CommaSurplusTailPendingLikeC
+                        && g.context?._wizD1CommaSecondUSurplusArmedLikeC
+                        && !g.context?._wizD1CommaLFirstUPostTailOuterMoveloopDoneLikeC;
+                    if (!commaUSurplusTailResumeLikeC) {
+                        await runNewTurnSetupAndTailLikeC(g, tailStepNum);
+                    }
+                    /* C: comma-**`U`** second hero **`U`** — resume surplus **`fmon`** (~3059–3073). */
+                    if (commaUSurplusTailResumeLikeC) {
+                        delete g.context._wizD1CommaLFirstUPostTailAwaitSecondHeroULikeC;
+                        g.context._wizD1CommaLFirstUPostTailAwaitSurplusFmonLikeC = true;
+                        g.context._wizD1CommaLFirstUPostTailSecondUPostMovemonLikeC = true;
+                        delete g.context._wizD1MovemonRanThisPostLikeC;
+                        g.context._movemonHarnessConsumed = false;
+                        let surplusScanLikeC = false;
+                        try {
+                            do {
+                                surplusScanLikeC = await movemon(1);
+                            } while (surplusScanLikeC);
+                        } finally {
+                            delete g.context._wizD1CommaLFirstUPostTailSecondUPostMovemonLikeC;
+                            delete g.context._wizD1CommaLFirstUPostTailAwaitSurplusFmonLikeC;
+                        }
+                        delete g.context._wizD1CommaSurplusStrayTailDoneSetLikeC;
+                        delete g.context._wizD1CommaSurplusNonMklevDoneSetLikeC;
+                        if (!g.context?._wizD1CommaSurplusScanMoreLikeC) {
+                            await runNewTurnSetupAndTailLikeC(g, tailStepNum);
+                        }
+                        delete g.context._wizD1CommaSurplusScanMoreLikeC;
+                        delete g.context._wizD1CommaSurplusTailPendingLikeC;
+                        delete g.context._wizD1CommaSecondUSurplusArmedLikeC;
+                        g.context._wizD1MovemonRanThisPostLikeC = true;
+                        g.context._wizD1LPostOuterLoopDoneLikeC = true;
+                        newTurnDone = true;
+                    }
                     /* C: comma-**`U`** post-fmon-tail — near **`distfleeck`** (~3054) after fourth new-turn. */
                     if (
                         wizD1MovemonOnceLikeC
@@ -1276,6 +1314,13 @@ export async function runPostCommandTurnAdvanceLikeC(g) {
                             delete g.context._wizD1CommaLFirstUPostTailSecondUPostMovemonLikeC;
                             delete g.context._wizD1CommaLFirstUPostTailAwaitSurplusFmonLikeC;
                         }
+                        if (
+                            g.context?._wizD1CommaSecondUSurplusArmedLikeC
+                            && g.context?._wizD1CommaSurplusScanMoreLikeC
+                        ) {
+                            g.context._wizD1CommaSurplusTailPendingLikeC = true;
+                        }
+                        delete g.context._wizD1CommaSurplusScanMoreLikeC;
                         const secondUPeelArmedLikeC =
                             !!g.context?._wizD1CommaLFirstUPostTailAwaitSecondHeroULikeC;
                         delete g.context._wizD1CommaLFirstUPostTailAwaitSecondHeroULikeC;
@@ -1656,7 +1701,9 @@ export async function runPostCommandTurnAdvanceLikeC(g) {
         delete g.context._wizD1CommaLFirstUPostTailStrayDistfleeckPendingLikeC;
         delete g.context._wizD1CommaLFirstUPostTailStrayPostFourthLikeC;
         delete g.context._wizD1CommaLFirstUPostTailSecondUPeelDoneLikeC;
-        /* Keep **`PostFourthDfPending`** until second **`U`** moveloop consumes it (~3054). */
+        delete g.context._wizD1CommaSurplusStrayTailDoneSetLikeC;
+        delete g.context._wizD1CommaSurplusNonMklevDoneSetLikeC;
+        /* Keep **`PostFourthDfPending`** / **`SurplusTailPending`** until second **`U`** (~3059). */
         /* **`_wizD1PostEastTailWalkFmonLikeC`** cleared in **`movemon`** after the walk post consumes it. */
     }
 }
