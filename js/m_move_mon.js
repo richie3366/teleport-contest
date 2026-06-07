@@ -884,7 +884,10 @@ function mMovePetOrPositionSelectLikeC(g, mtmp) {
     if ((mtmp.mtame | 0) && has_edog(mtmp)) {
         const stepNum = g.context?.movemonStepNum | 0;
         if (
-            g.context?._wizD1PostEastTailWalkCompleteLikeC
+            (
+                g.context?._wizD1PostEastTailWalkCompleteLikeC
+                || g.context?._wizD1PostEastTailWalkPeelDoneLikeC
+            )
             && isWizardD1Step1PeelLikeC(g, stepNum)
         ) {
             return dogMovePostEastTailWalkShortLPetLikeC(g, mtmp);
@@ -2364,7 +2367,10 @@ export async function mMoveOneMonsterSubsetLikeC(g, mtmp, stepNum = 0) {
         if (
             (mtmp.mtame | 0)
             && has_edog(mtmp)
-            && g.context?._wizD1PostEastTailWalkCompleteLikeC
+            && (
+                g.context?._wizD1PostEastTailWalkCompleteLikeC
+                || g.context?._wizD1PostEastTailWalkPeelDoneLikeC
+            )
         ) {
             if (
                 !g.context?._wizD1PostEastTailWalkPeelDoneLikeC

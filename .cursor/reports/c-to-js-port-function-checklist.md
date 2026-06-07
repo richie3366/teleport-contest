@@ -96,7 +96,7 @@ Align batches with [`c-to-js-port-remaining.md`](c-to-js-port-remaining.md) §5:
 
 | C symbol / area | JS module | Status | Notes |
 |-----------------|-----------|--------|-------|
-| `movemon` / `dochug` | `monmove.js`, `fmon_iter.js`, `moveloop_turn_advance.js`, `dogmove_mon.js`, `m_move_mon.js` | partial | Walk **`fmon`** post distant peel: C **`monmove.c` `m_move`** **`primeDistantMtrackRn20LikeC`** + one track **`rn2(20)`** (not corridor **`rn2(12)`** chcnt); full new-turn **`mcalcmove`** tail (~2722+); **`seed0006`** **2720–2739** aligned; first fail **2743** (step **48** **`O`** pet **`dog_goal`**) |
+| `movemon` / `dochug` | `monmove.js`, `fmon_iter.js`, `moveloop_turn_advance.js`, `dogmove_mon.js`, `m_move_mon.js`, `monmove_search.js` | partial | Comma rest pet **`dog_goal`**: **`wizD1EastTailShortLActiveLikeC`** stays on **`PeelDone`** after moveloop clears **`Complete`**; **`dogMovePostEastTailWalkShortLPetLikeC`** apport **`rn2(8)`** + follow **`rn2(4)`** when **`PeelDone && !Complete`**; **`seed0006`** **2743–2746** aligned; first fail **2747** (pet **`mfndpos`** **`rn2(1)`**) |
 | `m_move` / `mfndpos` | `m_move_mon.js`, `mfndpos.js` | partial | Second post-rest mklev interrupt **`mMoveTouristD1PostRestSecondMklevInterruptLikeC`** (**`rn2(32)`** ~2528); **`seed0900`** **~2545** post-**`mcalcmove`** drift |
 | `distfleeck` | `distfleeck_mon.js` | partial | Peel-only rest **`distfleeck`** (**`_touristD1PostSwapRestDistfleeckPeelLikeC`**); 3× ~915 before stub; **`seed0900`** **2499–2504** |
 | `m_throw` | — | missing | |

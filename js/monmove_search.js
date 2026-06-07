@@ -41,7 +41,10 @@ export function wizD1EastTailShortLActiveLikeC(g) {
         g.urole?.abbr === 'Wiz'
         && (g.u?.uz?.dnum | 0) === 0
         && (g.u?.uz?.dlevel | 0) === 1
-        && !!g.context?._wizD1PostEastTailWalkCompleteLikeC
+        && (
+            !!g.context?._wizD1PostEastTailWalkCompleteLikeC
+            || !!g.context?._wizD1PostEastTailWalkPeelDoneLikeC
+        )
     );
 }
 

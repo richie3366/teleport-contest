@@ -3501,6 +3501,13 @@ export function dogMovePostEastTailWalkShortLPetLikeC(g, mtmp) {
         ) {
             /* draw only */
         }
+        /* C: comma rest — **`PeelDone`** without **`Complete`** → follow **`rn2(4)`** (~2744). */
+        const commaRestShortLPetFollowRn4LikeC =
+            !!ctx._wizD1PostEastTailWalkPeelDoneLikeC
+            && !ctx._wizD1PostEastTailWalkCompleteLikeC;
+        if (commaRestShortLPetFollowRn4LikeC) {
+            delete ctx._wizD1PostEastTailWalkShortLPetLikeC;
+        }
         const udist = dist2(omx, omy, hx, hy);
         const goal = dogGoalFollowGxGyApprLikeC(
             g,
@@ -3513,6 +3520,9 @@ export function dogMovePostEastTailWalkShortLPetLikeC(g, mtmp) {
             edog,
         );
         if ((goal.appr | 0) === -2) return MMOVE_NOTHING;
+        if (commaRestShortLPetFollowRn4LikeC) {
+            ctx._wizD1PostEastTailWalkShortLPetLikeC = true;
+        }
         ctx._wizD1LPetEastTailMfndposLikeC = true;
         dogMoveMfndposPickLikeC(
             g,

@@ -32,7 +32,7 @@ Use this when **`Next steps`** below feels stale or several lanes compete. Order
 
 **Tutorial (Lane E):** Gated on [tutorial port gate](../../docs/plans/tutorial-port-gate.md) **MD-1 … MD-7**.
 
-**Last slice:** **Lane C — `seed0006` walk `fmon` post distant `m_move` + moveloop tail** — C **`monmove.c` `m_move`**: decouple post-walk distant from corridor-rest **`rn2(12)`** peel; **`primeDistantMtrackRn20LikeC`** + one track **`rn2(20)`** stub; walk-**`fmon`** inline **`runNewTurnSetupAndTailLikeC`** (full **`mcalcmove`**, not skip-corridor new-turn). **`m_move_mon.js`**, **`mfndpos_mon.js`**, **`monmove.js`**. **`2720–2739`** aligned; first fail **2743**. **`seed8000` 2900–3129:** aligned. **2/44**.
+**Last slice:** **Lane C — `seed0006` comma rest pet `dog_goal` apport/follow** — C **`dogmove.c` ~554/575`**: keep east-tail short-**`l`** peel when moveloop clears **`Complete`** but **`PeelDone`** remains; **`dogMovePostEastTailWalkShortLPetLikeC`** draws apport **`rn2(8)`** then follow **`rn2(4)`** on comma rest. **`monmove_search.js`**, **`m_move_mon.js`**, **`dogmove_mon.js`**. **`2743–2746`** aligned; first fail **2747**. **`seed8000` 2900–3129:** aligned. **2/44**.
 
 ## Next steps (aligned with matrix)
 
@@ -40,7 +40,7 @@ Pick **one** primary lane per **batch** (several related C functions — see che
 
 **First:** open [`docs/plans/tutorial-port-gate.md`](../../docs/plans/tutorial-port-gate.md) — if **all MD-1 … MD-7** are checked, do **Lane E** step 1 from [10-tutorial.md](../plans/nethack-port/10-tutorial.md) instead of the list below.
 
-1. **Lane C — `seed0006` ~2743** — step **48** **`O`** pet **`dog_goal`** / **`obj_resists`**; then second short-**`l`** ~2770+.
+1. **Lane C — `seed0006` ~2747** — comma rest pet **`mfndpos`** **`rn2(1)`** chcnt; second short-**`l`** ~2770+.
 2. **Lane B — NHL** — next **`lspo_*`** per [`nhl-port-notes.md`](nhl-port-notes.md).
 3. **Lane A/D — `seed0900`** — screen parity (RNG **0–2982** done); map/botl integration beyond moveloop peel chain.
 4. **Lane A/D — `dogmove.c`** — **`score_targ`** vampshifter **`mtmp_lev`** **`rn2`** tail (~808–817); **`mattackm`** / **`pet_ranged_attk`** when pet breath sessions fail.
