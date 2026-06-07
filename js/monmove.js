@@ -335,8 +335,12 @@ export async function movemon(stepNum) {
     ) {
         return false;
     }
-    /* C: comma-**`U`** — outer moveloop tail done; block surplus **`fmon`** / fourth new-turn. */
-    if (g.context?._wizD1CommaLFirstUPostTailOuterMoveloopDoneLikeC) {
+    /* C: comma-**`U`** — outer moveloop tail done; block surplus **`fmon`** unless post-fourth
+     * peel is armed (~3058+). */
+    if (
+        g.context?._wizD1CommaLFirstUPostTailOuterMoveloopDoneLikeC
+        && !g.context?._wizD1CommaLFirstUPostTailSecondUPostMovemonLikeC
+    ) {
         return false;
     }
     if (
@@ -389,6 +393,36 @@ export async function movemon(stepNum) {
         delete g.context._searchPass1NearMonLikeC;
     }
     const effStepNum = effectiveMovemonStepNumLikeC(g, stepNum);
+    /* C: comma-**`U`** — post-fourth surplus **`fmon`** **`m_move`** (~3058+). */
+    if (
+        g.urole?.abbr === 'Wiz'
+        && (g.u?.uz?.dnum | 0) === 0
+        && (g.u?.uz?.dlevel | 0) === 1
+        && g.context?._wizD1CommaLFirstUPostTailSecondUPostMovemonLikeC
+        && (effStepNum | 0) === 1
+    ) {
+        const petSurplus = (g.level?.monsters ?? []).find(
+            (m) => (m.mtame | 0) !== 0,
+        );
+        const spendSurplusMoveLikeC = (mtmp) => {
+            if (!mtmp) return;
+            setApparxyMonsterLikeC(g, mtmp);
+            let mov = mtmp.movement | 0;
+            if (mov < NORMAL_SPEED) {
+                mtmp.movement = NORMAL_SPEED;
+                mov = NORMAL_SPEED;
+            }
+            mtmp.movement = mov - NORMAL_SPEED;
+        };
+        const surplusHostile = fmonListForMovemonLikeC(g, effStepNum).filter(
+            (m) => !(m.mtame | 0) && m !== petSurplus,
+        );
+        for (const m of surplusHostile) {
+            spendSurplusMoveLikeC(m);
+            await movemonSinglemonLikeC(g, m, effStepNum);
+        }
+        return false;
+    }
     if (g.context?._wizD1Step1InventPostDoneLikeC) {
         delete g.context._wizD1Step1GateDochugLikeC;
     }
@@ -691,6 +725,14 @@ export async function movemon(stepNum) {
             g.urole?.abbr === 'Wiz'
             && g.context?._wizD1CommaLFirstUPostTailThirdMovemonPendingLikeC
             && !g.context?._wizD1CommaLFirstUPostTailFmonTailPendingLikeC
+            && (effStepNum | 0) === 1
+        ) {
+            mons = [];
+        }
+        /* C: comma-**`U`** — peel-only post-fourth surplus **`fmon`** (~3058+). */
+        if (
+            g.urole?.abbr === 'Wiz'
+            && g.context?._wizD1CommaLFirstUPostTailSecondUPostMovemonLikeC
             && (effStepNum | 0) === 1
         ) {
             mons = [];
@@ -1543,7 +1585,10 @@ export async function movemon(stepNum) {
         ) {
             return false;
         }
-        if (g.context?._wizD1CommaLFirstUPostTailOuterMoveloopDoneLikeC) {
+        if (
+            g.context?._wizD1CommaLFirstUPostTailOuterMoveloopDoneLikeC
+            && !g.context?._wizD1CommaLFirstUPostTailSecondUPostMovemonLikeC
+        ) {
             return false;
         }
         /* C: wizard D:1 second **`L`** — pet **`mfndpos`** after east-tail peel (~2726+). */

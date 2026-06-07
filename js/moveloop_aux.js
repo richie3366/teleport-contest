@@ -73,6 +73,14 @@ export function maybe_generate_rnd_mon() {
     ) {
         return;
     }
+    /* C: comma-**`U`** — defer fifth new-turn **`maybe_generate`** during post-fourth surplus
+     * **`fmon`** (~3058+). */
+    if (
+        game.context?._wizD1CommaLFirstUPostTailSecondUPostMovemonLikeC
+        || game.context?._wizD1CommaLFirstUPostTailAwaitSurplusFmonLikeC
+    ) {
+        return;
+    }
     rn2(70);
 }
 

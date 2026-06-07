@@ -211,7 +211,10 @@ export function runMcalcmoveOnlyLikeC(g) {
 
 export async function runNewTurnSetupAndTailLikeC(g, stepNum) {
     /* C: comma-**`U`** second-**`U`** post-fourth — surplus **`fmon`** only (~3055+), no inline new-turn (~3058). */
-    if (g.context?._wizD1CommaLFirstUPostTailSecondUPostMovemonLikeC) {
+    if (
+        g.context?._wizD1CommaLFirstUPostTailSecondUPostMovemonLikeC
+        || g.context?._wizD1CommaLFirstUPostTailAwaitSurplusFmonLikeC
+    ) {
         return;
     }
     /* C: capital **`K`** post-peel — pet tail + second **`mcalcmove`** inline in **`monmove.js`**
@@ -1215,6 +1218,7 @@ export async function runPostCommandTurnAdvanceLikeC(g) {
                     if (
                         wizD1MovemonOnceLikeC
                         && g.context?._wizD1CommaLFirstUPostTailPostFourthDfPendingLikeC
+                        && !g.context?._wizD1CommaLFirstUPostTailOuterMoveloopDoneLikeC
                     ) {
                         delete g.context._wizD1CommaLFirstUPostTailPostFourthDfPendingLikeC;
                         const nearPostFourth = wizD1CommaLFirstUNearMklevMonLikeC(g);
@@ -1222,7 +1226,8 @@ export async function runPostCommandTurnAdvanceLikeC(g) {
                             setApparxyMonsterLikeC(g, nearPostFourth);
                             await distfleeckMonsterApplyLikeC(g, nearPostFourth);
                         }
-                        /* C: surplus **`fmon`** **`rn2(12)`**×N (~3055+) then block fifth new-turn (~3058). */
+                        /* C: surplus **`fmon`** **`rn2(12)`**×N (~3058+) then block fifth new-turn. */
+                        g.context._wizD1CommaLFirstUPostTailAwaitSurplusFmonLikeC = true;
                         delete g.context._wizD1MovemonRanThisPostLikeC;
                         g.context._movemonHarnessConsumed = false;
                         g.context._wizD1CommaLFirstUPostTailSecondUPostMovemonLikeC = true;
@@ -1230,6 +1235,7 @@ export async function runPostCommandTurnAdvanceLikeC(g) {
                             await movemon(1);
                         } finally {
                             delete g.context._wizD1CommaLFirstUPostTailSecondUPostMovemonLikeC;
+                            delete g.context._wizD1CommaLFirstUPostTailAwaitSurplusFmonLikeC;
                         }
                         g.context._wizD1MovemonRanThisPostLikeC = true;
                         g.context._wizD1CommaLFirstUPostTailSecondUPeelDoneLikeC = true;
