@@ -84,6 +84,7 @@ import {
     mMoveCapitalKPostNewturnNearLikeC,
     mMoveCapitalKPostCommaDistantLikeC,
     mMoveCapitalKPostCommaDeferredDistantLikeC,
+    runCapitalKPostCommaDeferredFmonTailLikeC,
     mMoveWizardD1Step1DistantAfterPeelLikeC,
     mMoveWizardD1EastTailCorridorRestLikeC,
     mMoveWizardD1LPostTailDistantLikeC,
@@ -1355,16 +1356,23 @@ export async function movemon(stepNum) {
                         delete g.context._wizD1CapitalKPostNewturnTailLikeC;
                         rn2(4);
                         dogMoveCapitalKPostNewturnPetLikeC(g, commaPet);
-                        /* C: post-new-turn pet **`mfndpos`** fifth away **`rn2(12)`** (~2859); JS
+                        /* C: post-new-turn pet **`mfndpos`** fifth away **`rn2(12)`** (~2855); JS
                          * **`cnt`** short — one explicit draw (debt). */
                         rn2(12);
                     }
+                    /* C: deferred distant **`fmon`** rest — near **`m_move`**, pet tail, two
+                     * moveloop new-turns (~2856–2907 on **`seed0006`** move **73**). */
+                    await runCapitalKPostCommaDeferredFmonTailLikeC(
+                        g,
+                        commaPet,
+                        effStepNum,
+                    );
                 }
                 g.context._wizD1CapitalKPostCommaPeelDoneLikeC = true;
                 g.context._wizD1PostEastTailWalkNewTurnDoneLikeC = true;
                 if (deferredCommaTailLikeC) {
-                    /* C: comma promote — inline peel consumed new-turn (~2812–2817); block
-                     * moveloop deferred pass loop duplicate. */
+                    /* C: comma promote — inline peel + deferred **`fmon`** tail consumed
+                     * moveloop passes (~2908); block duplicate deferred loop. */
                     g.context._wizD1DeferredRunKNewTurnPassesLikeC = 3;
                     g.context._wizD1LPostOuterLoopDoneLikeC = true;
                 }

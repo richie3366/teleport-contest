@@ -357,12 +357,18 @@ export async function runNewTurnSetupAndTailLikeC(g, stepNum) {
         delete g.context._wizD1CapitalKPostNearShortLPeelRunDeferredTailLikeC;
         delete g.context._wizD1CapitalKPostNearShortLPeelDeferredTailLikeC;
     }
+    const skipMcalcmoveCapitalKCommaDeferredFirstNewturn =
+        !!g.context?._wizD1CapitalKPostCommaDeferredSkipMcalcmoveLikeC;
+    if (skipMcalcmoveCapitalKCommaDeferredFirstNewturn) {
+        delete g.context._wizD1CapitalKPostCommaDeferredSkipMcalcmoveLikeC;
+    }
     /* C: tourist D:1 run-east **`L`** — post-peel new-turn skips **`mcalcmove`** (peel
      * **`movemon`** already spent the round; **`seed0900`** ~2608 **`rn2(70)`** not 2× **`rn2(12)`**). */
     if (
         !skipMcalcmoveRangerSearchInlineLikeC
         && !g.context?._wizD1PostCorridorNewTurnLikeC
         && !skipMcalcmoveCapitalKPostPeelDeferredTail
+        && !skipMcalcmoveCapitalKCommaDeferredFirstNewturn
         && !g.context?._touristD1LPostPeelCompleteLikeC
         && !skipMcalcmoveAfterLPostTail
         && !skipMcalcmoveAfterLPostThird

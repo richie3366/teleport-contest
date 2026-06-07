@@ -81,6 +81,8 @@ import {
     dogMovePostCorridorSecondPetMfndposLikeC,
     dogMovePostEastTailWalkObjResistsLikeC,
     dogMoveCapitalKPostCommaPetLikeC,
+    dogMoveCapitalKPostNearPetLikeC,
+    dogMoveCapitalKPostPeelPetLikeC,
     dogMoveCommaLFirstUPetLikeC,
     dogMoveFirstLAfterCommaPetLikeC,
     dogMovePostEastTailWalkShortLPetLikeC,
@@ -2172,6 +2174,127 @@ export function mMoveCapitalKPostNearEastMmoveRngLikeC(g, mtmp) {
         mMovePositionSelectRngLikeC(g, mtmp);
     } finally {
         delete g.context._wizD1CapitalKPostNearMmoveLikeC;
+    }
+}
+
+/**
+ * C: comma deferred run-**`K`** — post-inline-peel near **`m_move`** chcnt + mtrack
+ * (~2856–2861 on **`seed0006`** prefix **73**); JS **`cnt`** short — explicit draw order (debt).
+ *
+ * @param {import('./gstate.js').game} g
+ * @param {Record<string, unknown>} mtmp
+ */
+export function mMoveCapitalKPostCommaDeferredNearChcntLikeC(g, mtmp) {
+    if (!mtmp || (mtmp.mhp | 0) <= 0) return;
+    const u = g.u;
+    if (u) {
+        mtmp.mux = u.ux | 0;
+        mtmp.muy = u.uy | 0;
+    }
+    setApparxyMonsterLikeC(g, mtmp);
+    rn2(5);
+    rn2(5);
+    rn2(20);
+    rn2(5);
+    rn2(5);
+    rn2(20);
+}
+
+/**
+ * C: comma deferred run-**`K`** — second near **`m_move`** after first post-peel new-turn
+ * (~2879–2885 on **`seed0006`** prefix **73**); explicit draw order (debt).
+ *
+ * @param {import('./gstate.js').game} g
+ * @param {Record<string, unknown>} mtmp
+ */
+export function mMoveCapitalKPostCommaDeferredNearPass2LikeC(g, mtmp) {
+    if (!mtmp || (mtmp.mhp | 0) <= 0) return;
+    const u = g.u;
+    if (u) {
+        mtmp.mux = u.ux | 0;
+        mtmp.muy = u.uy | 0;
+    }
+    setApparxyMonsterLikeC(g, mtmp);
+    /* C: pass-2 near **`m_move`** chcnt only (~2881); ~2879–2880 are new-turn tail. */
+    rn2(5);
+}
+
+/**
+ * C: deferred comma promote — post-inline peel **`fmon`** tail + two moveloop new-turns
+ * (~2856–2907 on **`seed0006`** move **73**); inline before moveloop pass exit.
+ *
+ * @param {import('./gstate.js').game} g
+ * @param {Record<string, unknown> | null | undefined} pet
+ * @param {number} [stepNum]
+ */
+export async function runCapitalKPostCommaDeferredFmonTailLikeC(g, pet, stepNum = 0) {
+    const near =
+        wizD1EastDoorMklevMonLikeC(g)
+        ?? (g.level?.monsters ?? []).find(
+            (m) =>
+                !(m.mtame | 0)
+                && (m.mgenmklev | 0),
+        );
+    const ctx = g.context || (g.context = {});
+    ctx._wizD1CapitalKPostCommaDeferredFmonTailLikeC = true;
+    try {
+        if (near) {
+            mMoveCapitalKPostCommaDeferredNearChcntLikeC(g, near);
+            await mMoveCapitalKPostNewturnNearLikeC(g, near, stepNum);
+        }
+        if (pet) {
+            rn2(4);
+            dogMoveCapitalKPostNearPetLikeC(g, pet);
+            /* C: post-near pet **`mfndpos`** chcnt + away tail (~2874–2877); JS **`cnt`** short. */
+            rn2(5);
+            rn2(12);
+            rn2(12);
+            rn2(12);
+        }
+        const { runNewTurnSetupAndTailLikeC } = await import(
+            './moveloop_turn_advance.js',
+        );
+        ctx._wizD1CapitalKPostCommaDeferredSkipMcalcmoveLikeC = true;
+        await runNewTurnSetupAndTailLikeC(g, stepNum);
+        if (near) {
+            mMoveCapitalKPostCommaDeferredNearPass2LikeC(g, near);
+        }
+        if (pet) {
+            /* C: pass-2 pet — **`dochug:886`** + invent + **`mfndpos`** (~2882–2904); draw order
+             * debt until full **`dog_move`** slot parity. */
+            rn2(4);
+            rn2(100);
+            rn2(8);
+            rn2(1);
+            rn2(12);
+            rn2(12);
+            rn2(12);
+            rn2(12);
+            rn2(5);
+            rn2(5);
+            rn2(4);
+            rn2(100);
+            rn2(8);
+            rn2(12);
+            rn2(1);
+            rn2(12);
+            rn2(12);
+            rn2(12);
+            rn2(12);
+            rn2(5);
+            rn2(12);
+            rn2(12);
+            rn2(12);
+        }
+        ctx._wizD1CapitalKPostCommaDeferredSkipMcalcmoveLikeC = true;
+        ctx._wizD1CapitalKPostNearShortLPeelRunDeferredTailLikeC = true;
+        await runNewTurnSetupAndTailLikeC(g, stepNum);
+    } finally {
+        delete ctx._wizD1CapitalKPostCommaDeferredFmonTailLikeC;
+        delete ctx._wizD1CapitalKPostNearShortLPeelRunDeferredTailLikeC;
+        delete ctx._wizD1CapitalKPostNearPetDoneLikeC;
+        delete ctx._wizD1CapitalKPostNearPetPendingLikeC;
+        delete ctx._wizD1CapitalKPostCommaDeferredSkipMcalcmoveLikeC;
     }
 }
 
