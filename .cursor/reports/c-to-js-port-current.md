@@ -1,6 +1,15 @@
 # NetHack C→JS port — **current slice** (read this first)
 
-Thin handoff for the next coding session. **Canonical strategy:** [**`c-to-js-port-strategy.md`**](c-to-js-port-strategy.md) (read once; agents obey §5 moratorium). **C oracles:** [`c-oracles/`](c-oracles/). **Harness debt:** [`c-to-js-port-harness-debt.md`](c-to-js-port-harness-debt.md). **Workflow:** [**batch port**](c-to-js-port-batch-workflow.md) + [**function checklist**](c-to-js-port-function-checklist.md). **Pre-commit:** `bash tools/port-batch-gate.sh`. **Score + milestones:** [`c-to-js-port-dashboard.md`](c-to-js-port-dashboard.md). **Repeatable prompt:** [`.cursor/prompts/continue-nethack-port.md`](../prompts/continue-nethack-port.md).
+Thin handoff for the next coding session. **Canonical strategy:** [**`c-to-js-port-strategy.md`**](c-to-js-port-strategy.md) (read once; agents obey §0 operator model + §5 moratorium). **C oracles:** [`c-oracles/`](c-oracles/). **Harness debt:** [`c-to-js-port-harness-debt.md`](c-to-js-port-harness-debt.md). **Workflow:** [**batch port**](c-to-js-port-batch-workflow.md) + [**function checklist**](c-to-js-port-function-checklist.md). **Pre-commit:** `bash tools/port-batch-gate.sh`. **Score + milestones:** [`c-to-js-port-dashboard.md`](c-to-js-port-dashboard.md). **Repeatable prompt:** [`.cursor/prompts/continue-nethack-port.md`](../prompts/continue-nethack-port.md).
+
+## Operator model (human runs loop only)
+
+**Human:** `./tools/loop-nethack-port-agent.sh start|stop` — nothing else required.  
+**Agent:** read this file → do next step #1 → C + oracle → `diag_rng_window` (+ `diag_c_rng_callers` if moveloop) → canaries → gate → commit → update shelves. **Do not** bounce shell work to human.
+
+**Interleave trigger (active):** batches **1–10** deleted PostSeventh…PostSixteenth peels. **Next loop iteration must NOT be PostSeventeenth** — do **#1 P1 mkobj** below (or #3 dog_goal). Resume PostSeventeenth…PostTwentyFourth only after one P1/P2-general batch.
+
+**Reflection:** [`c-to-js-port-reflection.md`](c-to-js-port-reflection.md) — last meta-review **2026-06-08**; next due after **5** more commits or milestone score (strategy §10). Not every batch.
 
 ## Working principle (read every session)
 
@@ -80,9 +89,9 @@ Use when **`Next steps`** feels stale. Order: **(1)** reliability phase **P1–P
 
 **First:** tutorial gate — if **all MD-1 … MD-7**, Lane E from [10-tutorial.md](../plans/nethack-port/10-tutorial.md).
 
-1. **P2 — PostSeventeenth peel** — same pattern as batches 1–10; delete `_wizD1CommaPostSeventeenth*` inline peel + `mons=[]` when `seed0006` ~3426–3448 + canaries pass. Oracle: [`c-oracles/monmove.c.md`](c-oracles/monmove.c.md).
-2. **P1 — `mkobj` / `ini_inv` → `game.invent`** — one checklist row (`mkobj_mklev_like_c.js` / role linker). Oracle: [`c-oracles/mkobj.c.md`](c-oracles/mkobj.c.md). Locator: `seed0900` ~302+.
-3. **P2 — `dog_goal` / first `#search` (C, not peel)** — `seed0077` ~3205–3207 invent/apport order per [`c-oracles/dogmove.c.md`](c-oracles/dogmove.c.md); **no** new `PendingLikeC`.
+1. **P1 — `mkobj` / `ini_inv` → `game.invent`** (**mandatory interleave** after peel batches 1–10). One checklist row (`mkobj_mklev_like_c.js` / role linker). Oracle: [`c-oracles/mkobj.c.md`](c-oracles/mkobj.c.md). Locator: `seed0900` ~302+. **Loop: do this next.**
+2. **P2 — `dog_goal` / first `#search` (C, not peel)** — `seed0077` ~3205–3207 per [`c-oracles/dogmove.c.md`](c-oracles/dogmove.c.md); **no** new `PendingLikeC`.
+3. **P2 — PostSeventeenth peel** — **deferred** until after (1) or (2); same delete pattern as batches 1–10. Oracle: [`c-oracles/monmove.c.md`](c-oracles/monmove.c.md). Locator: `seed0006` ~3426–3448.
 4. **Lane B — NHL** — one `lspo_*` per [`nhl-port-notes.md`](nhl-port-notes.md).
 5. ~~**seed0006 @ 3610+ twenty-fifth peel**~~ — **forbidden** until harness debt net −5 (see ledger).
 

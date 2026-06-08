@@ -6,6 +6,8 @@ Historical rows moved from `c-to-js-port-progress.md` so day-to-day work uses **
 
 | When | What changed |
 |------|----------------|
+| **2026-06-08** | **Reflect:** peel batches 1–10 lane drift → P1 mkobj mandatory; added strategy §10 + `c-to-js-port-reflection.md` shelf (~every 5 batches). |
+| **2026-06-08** | **Handoff — operator model + interleave** — strategy §0 (human = loop only; agent owns port); `current.md` **P1 mkobj mandatory** after peel batches 1–10; loop `PROMPT` + continue-port prompt updated. |
 | **2026-06-08** | **Dev tooling — C RNG caller map** — `tools/diag_c_rng_callers.mjs`, `tools/parse_c_rng_log.mjs`; `record-session.mjs --save-rng-log`; playbook + strategy §1 (recorder `@ file:line` for phase B). |
 | **2026-06-08** | **Batch 10 — delete PostSixteenth comma-`U` peel (`mon.c` `movemon_singlemon`)** — **`monmove.js`**: removed `mons=[]` + inline peel; post-sixteenth pass via **`movemonSinglemonLikeC`**. **`m_move_mon.js`**: PostSixteenth branch (pet **`dog_move`** explicit `rn2`, surplus explicit `rn2` until full `dochug`). Verified: **`seed0006` 3391–3422**; **`seed8000` 2900–3129**, **`seed0077` 3180–3242**, **`seed0102` 0–4485**. |
 | **2026-06-08** | **Batch 9 — delete PostFifteenth comma-`U` peel (`mon.c` `movemon_singlemon`)** — **`monmove.js`**: removed `mons=[]` + inline peel; post-fifteenth pass via **`movemonSinglemonLikeC`**. **`m_move_mon.js`**: PostFifteenth branch (pet **`dog_move`** explicit `rn2`, surplus explicit `rn2` until full `dochug`). Verified: **`seed0006` 3340–3390**; **`seed8000` 2900–3129**, **`seed0077` 3180–3242**, **`seed0102` 0–4485**. |

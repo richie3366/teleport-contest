@@ -64,6 +64,17 @@ Use **one or more** of these — in order of usefulness:
 6. **Push** when you want CI / shared backup — not required every batch.
 7. Optional: `npm run graphify:js` after `js/` edits (local cache; gitignored).
 
+### 4b. Periodic self-reflection (every ~5 batches)
+
+**Not every commit.** When [`c-to-js-port-reflection.md`](c-to-js-port-reflection.md) is stale (≥5 commits since “Last run”) or a pivot trigger fired — see [strategy §10](c-to-js-port-strategy.md#10-periodic-self-reflection-not-every-batch):
+
+1. Skim last 5 changelog rows + harness debt counts.
+2. Ask the §10 checklist (lane, debt, handoff, score, oracles).
+3. Overwrite **`c-to-js-port-reflection.md`**; revise **`current.md`** next steps if needed.
+4. Optional: `npm run score` on the same cadence as milestone (~5 batches).
+
+One loop iteration may be **reflection-only** (handoff commit, no `js/`).
+
 ### 5. Milestone: full regression
 
 Run **`npm run score`** when:

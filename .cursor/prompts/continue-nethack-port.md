@@ -24,10 +24,10 @@ Use this file when you want a **new agent session** to continue the port without
 ## Canonical prompt — **batch workflow** (preferred; use for `loop-nethack-port-agent.sh`)
 
 ```
-Continue NetHack 5.0 C→JS per .cursor/reports/c-to-js-port-strategy.md. Read c-to-js-port-current.md (next step #1) and c-oracles/<c-file>.md. Port ONE C function from nethack-c/upstream — NOT the next seed0006 comma-U peel index. FORBIDDEN: new _wizD1CommaPostTwentyFifth+ peels. Before commit: bash tools/port-batch-gate.sh; moveloop canaries if applicable. Update checklist, oracle, harness-debt, current.md, changelog. git commit. Never defer shell to user.
+Continue NetHack 5.0 C→JS per .cursor/reports/c-to-js-port-strategy.md §0. Human runs loop only. If c-to-js-port-reflection.md stale (≥5 commits): §10 reflection pass first. Else: obey current.md next step #1; c-oracles/<c-file>.md; port ONE C function. FORBIDDEN: new _wizD1CommaPostTwentyFifth+ peels. diag_rng_window (+ diag_c_rng_callers). port-batch-gate.sh; canaries if moveloop. Update checklist, oracle, harness-debt, reflection (when due), current.md, changelog. git commit. Never ask human to run shell.
 ```
 
-**Headless loop:** [`tools/loop-nethack-port-agent.sh`](../../tools/loop-nethack-port-agent.sh) runs `cursor-agent --print --trust --force --sandbox disabled` with **`--output-format stream-json` by default** (thinking + tool calls in `.cursor/port-loop-logs/iteration-*.log`, raw NDJSON in `iteration-*.jsonl`). `--quiet` for final-reply-only. Token budget: `--max-tokens 250_000_000` (stops after cumulative input+output+cache usage; current run always finishes). Graceful stop: `./tools/loop-nethack-port-agent.sh stop`.
+**Headless loop:** [`tools/loop-nethack-port-agent.sh`](../../tools/loop-nethack-port-agent.sh) — operator runs `start` / `stop` only; agent reads handoff and commits each iteration. **`--output-format stream-json` by default** (logs in `.cursor/port-loop-logs/`). Token budget: `--max-tokens 250_000_000`. Graceful stop: `./tools/loop-nethack-port-agent.sh stop`.
 
 ---
 

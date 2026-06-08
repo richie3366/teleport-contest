@@ -6,6 +6,25 @@
 
 ---
 
+## 0. Human operator vs autonomous agent
+
+**Operator (human) does only:**
+
+- Run / stop [`tools/loop-nethack-port-agent.sh`](../../tools/loop-nethack-port-agent.sh) (or paste [`continue-nethack-port.md`](../prompts/continue-nethack-port.md) in chat).
+- Occasional milestone `npm run score` or `node tools/port-score-snapshot.mjs --update-dashboard` when asked in handoff.
+- **Not** expected to pick batches, read C, edit `js/`, or maintain peel/oracle docs.
+
+**Agent (loop or chat) owns everything else:**
+
+- Read **`c-to-js-port-current.md` next step #1** — obey it over habit.
+- Port from **`nethack-c/upstream/`**; persist learning in **oracles**, **harness debt**, **checklist**, **changelog**.
+- **Never** ask operator to run shell commands you can run (`diag_rng_window`, `port-batch-gate.sh`, `git commit`).
+- **Never** recommend restarting the whole `js/` port — peel debt is localized; delete bands or interleave **P1 mkobj**.
+
+**Loop contract:** each iteration = one batch, one commit, update handoff shelves. If last **3** commits were all comma-`U` peel deletes, **next must be P1 mkobj or dog_goal (C)** — see §9.
+
+---
+
 ## 1. Thesis
 
 | Do | Don't |
@@ -89,6 +108,7 @@ Chat and agent sessions are ephemeral. **Durable memory** lives only in these fi
 | Shelf | Path | What to store |
 |-------|------|----------------|
 | **Next batch** | [`c-to-js-port-current.md`](c-to-js-port-current.md) | One-line last slice; **one** top next step; first fail index |
+| **Reflection** | [`c-to-js-port-reflection.md`](c-to-js-port-reflection.md) | Last meta-review date; lane drift; next 3 batches (~every 5 commits) |
 | **C oracles** | [`c-oracles/*.md`](c-oracles/) | Call order, RNG sites, peels-to-delete, wrong hypotheses |
 | **Harness debt** | [`c-to-js-port-harness-debt.md`](c-to-js-port-harness-debt.md) | Peel counts, moratorium, deletion queue |
 | **Symbol status** | [`c-to-js-port-function-checklist.md`](c-to-js-port-function-checklist.md) | stub / partial / done per C symbol |
@@ -206,7 +226,44 @@ Do **not** moveloop-only until `monmove.js` debt drops. Suggested rhythm:
 
 ---
 
-## 10. Agent loop contract
+## 10. Periodic self-reflection (not every batch)
+
+**Purpose:** catch lane drift (peel marathon, score-chase, stale `current.md`) before it burns another 10 iterations. Chat is ephemeral — **write conclusions to the reflection shelf**.
+
+**Shelf:** [`c-to-js-port-reflection.md`](c-to-js-port-reflection.md) (overwrite each pass; keep ≤1 screen).
+
+### When to run
+
+| Trigger | Run reflection? |
+|---------|-----------------|
+| Normal batch | **Skip** — port only |
+| **≥5 commits** since `reflection.md` “Last run” date | **Yes** — before picking next batch |
+| **Milestone score** (`npm run score` or dashboard refresh) | **Yes** — fold results into reflection |
+| §5 **pivot trigger** (3 peel-only commits, debt up, stale PostNth step) | **Yes** — revise `current.md` next steps |
+| Phase switch (e.g. P2 moveloop → P1 mkobj) | **Yes** — short pass |
+| Gate fails twice / loop “stuck” | **Yes** — human may still only run `stop`; agent diagnoses |
+
+**Do not** reflect every loop iteration — reflection is **~every 5 batches** or on triggers above.
+
+### Checklist (agent asks itself)
+
+1. **Lane:** Last 5 changelog rows — same subsystem? Peel-only? Checklist rows **done**?
+2. **Debt:** `rg -c 'LikeC' js/monmove.js …` — net up or down vs last reflection?
+3. **Handoff:** Is `current.md` #1 still the best C slice, or habit?
+4. **Score:** Canaries vs full score — regression or anchor gain?
+5. **Oracles:** Wrong hypotheses to delete? Missing card for next batch?
+6. **Next 3 batches:** Write explicit order in `reflection.md`; **update `current.md`** if order changes.
+
+### Outputs
+
+1. Overwrite **`c-to-js-port-reflection.md`** (date + table + decisions).
+2. Adjust **`current.md`** next steps if needed.
+3. One changelog row prefixed **`Reflect:`** when reflection changed priorities (optional if only confirmatory).
+4. Then proceed with **one** normal port batch (unless reflection concluded “fix handoff only”).
+
+---
+
+## 11. Agent loop contract
 
 [`continue-nethack-port.md`](../prompts/continue-nethack-port.md) and `loop-nethack-port-agent.sh` embed this strategy.
 
@@ -220,12 +277,15 @@ Do **not** moveloop-only until `monmove.js` debt drops. Suggested rhythm:
 
 **Stop the loop for human review if:** gate script fails twice; or ledger shows 5 consecutive peel-only commits.
 
+**Every ~5 iterations:** read [`c-to-js-port-reflection.md`](c-to-js-port-reflection.md) date — if due, run **§10** **instead of** a port batch that iteration (still commit handoff updates).
+
 ---
 
-## 11. Related docs
+## 12. Related docs
 
 | Doc | Role |
 |-----|------|
+| [`c-to-js-port-reflection.md`](c-to-js-port-reflection.md) | Last meta-review; next 3 batches (~every 5 commits) |
 | [`c-to-js-port-batch-workflow.md`](c-to-js-port-batch-workflow.md) | Commit ritual, anti-patterns |
 | [`c-to-js-port-agent-playbook.md`](c-to-js-port-agent-playbook.md) | Tools, pitfalls |
 | [`c-oracles/README.md`](c-oracles/README.md) | Oracle card format |
