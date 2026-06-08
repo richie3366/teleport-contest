@@ -52,10 +52,11 @@ Align batches with [`c-to-js-port-remaining.md`](c-to-js-port-remaining.md) §5:
 | C symbol / area | JS module | Status | Notes |
 |-----------------|-----------|--------|-------|
 | `mkobj` / `mksobj` / `mksobj_init` | `mkobj_mklev_like_c.js`, `mklev.js` | partial | Class pick, init tails; erosion/poison gates improving |
-| `rndmonnum` / `rndmonnum_adj` | `mkobj_mklev_like_c.js` | partial | Plan A `rndmonstAdjLikeC` + Plan B `rn1` loop; used by FIGURINE |
+| `rndmonnum` / `rndmonnum_adj` | `mkobj_mklev_like_c.js`, `makemon.js` | partial | Plan A/B; FIGURINE + STATUE + `makemon.rndmonnum` rerolls |
 | `mksobj_init` TOOL FIGURINE | `mkobj_mklev_like_c.js` | partial | `rndmonnum_adj(5,10)` + `is_human` retry + `blessorcurse(4)`; corpsenm → spe tail |
+| `mksobj_init` TOOL BELL_OF_OPENING | `mkobj_mklev_like_c.js` | partial | `spe=3` when `otmp` passed; no RNG |
 | `may_generate_eroded` / `mkobj_erosions` | `mkobj_mklev_like_c.js` | partial | C `is_flammable`/`is_rottable`/… + gated `rn2(80)`; chest `tknown` order; **2431** trap victim vs erosion |
-| `mksobj_init` ROCK_CLASS STATUE | `mkobj_mklev_like_c.js` | partial | `corpsenm` return + `verysmall` + nested SPBOOK gate; `consumeMksobjCorpseSpeRngLikeC` tail; **1425–1445** match |
+| `mksobj_init` ROCK_CLASS STATUE | `mkobj_mklev_like_c.js` | partial | `rndmonnumMklevLikeC` + `verysmall` + nested SPBOOK; spe tail; **1400–1460** match |
 | `mksobj_init` ARMOR_CLASS | `mkobj_mklev_like_c.js` | partial | C otyp curse boots/helm/gauntlets + `!rn2(11)`; blessed `rn2(2)` branch |
 | `mkbox_cnts` | `mkobj_mklev_like_c.js` | partial | ICE_BOX→`mksobj(CORPSE)`; TOOL fallthrough; corpse spe tail order |
 | `mksobj` corpse tail | `mklev.js`, `mkobj_mklev_like_c.js` | partial | `consumeMksobjCorpseSpeRngLikeC` after erosion; `mkcorpstat` no double init |

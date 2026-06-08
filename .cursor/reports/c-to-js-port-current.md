@@ -83,13 +83,13 @@ Use when **`Next steps`** feels stale. Order: **(1)** reliability phase **P1–P
 
 **Tutorial (Lane E):** Gated on [tutorial port gate](../../docs/plans/tutorial-port-gate.md) **MD-1 … MD-7**.
 
-**Last slice:** **P1 mkobj** — C `rndmonnum_adj` + `mksobj_init` FIGURINE (`mkobj_mklev_like_c.js`). `seed0900` startup **302+** + `seed8000` **2900–3129** aligned; first fail **`seed0900` ~2512** (moveloop, not mkobj).
+**Last slice:** **P1 mkobj** — C `mksobj_init` ROCK **STATUE** `rndmonnum()` + TOOL **BELL_OF_OPENING** `spe=3`; `makemon.rndmonnum` → Plan B. Verified: **`seed0900` 1400–1460**, **`seed8000` 2900–3129**, **`seed0102` 4400–4485**. First fail **`seed0900` ~2512** (moveloop).
 
 ## Next steps (**strategy order** — pick **one**)
 
 **First:** tutorial gate — if **all MD-1 … MD-7**, Lane E from [10-tutorial.md](../plans/nethack-port/10-tutorial.md).
 
-1. **P1 — `ini_inv` / more `mksobj_init` TOOL gaps** — Ranger cram `trquan` / per-cram `rn2(1)` (`seed0102` **4425+**); or `ini_inv` role linker. Oracle: [`c-oracles/mkobj.c.md`](c-oracles/mkobj.c.md). Locator: `seed0900` ~302+ startup ok; moveloop fail **~2512**. **Loop: continue P1.**
+1. **P1 — `ini_inv` linker / `mkobj_erosions` / floor `otyp` audit** — `game.invent` still partial vs C `addinv`; or `may_generate_eroded` worm tooth / artifact guards. Oracle: [`c-oracles/mkobj.c.md`](c-oracles/mkobj.c.md). Locator: `seed0900` startup + **1400–1460** ok; moveloop **~2512**. **Loop: continue P1 or P2 dog_goal.**
 2. **P2 — `dog_goal` / first `#search` (C, not peel)** — `seed0077` ~3205–3207 per [`c-oracles/dogmove.c.md`](c-oracles/dogmove.c.md); **no** new `PendingLikeC`.
 3. **P2 — PostSeventeenth peel** — **deferred** until after (1) or (2); same delete pattern as batches 1–10. Oracle: [`c-oracles/monmove.c.md`](c-oracles/monmove.c.md). Locator: `seed0006` ~3426–3448.
 4. **Lane B — NHL** — one `lspo_*` per [`nhl-port-notes.md`](nhl-port-notes.md).

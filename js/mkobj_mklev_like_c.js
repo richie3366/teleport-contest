@@ -4,7 +4,7 @@
 import { game } from './gstate.js';
 import { depth as depth_of_level } from './hacklib.js';
 import { objectOcMaterial } from './obj_oc_material_data.js';
-import { NON_PM, rndmonstAdjLikeC, rndmonstLikeC } from './makemon_rndmonst.js';
+import { NON_PM, rndmonstAdjLikeC } from './makemon_rndmonst.js';
 import { permonstFromMndxLikeC, verysmall, isHumanPtrLikeC } from './mondata.js';
 import { P_BOW, P_SHURIKEN, OTYP_LOADSTONE, OTYP_LUCKSTONE, OTYP_GOLD_PIECE, In_hell, LOW_PM } from './const.js';
 import { MONS_GENO_PLAN_B } from './mons_rndmonst_ini_inv_data.js';
@@ -77,6 +77,8 @@ const OTYP_AMULET_OF_CHANGE = 206;
 const OTYP_CORPSE = 265;
 /** C: objects.h — FIGURINE (NH5 otyp **257**). */
 const OTYP_FIGURINE = 257;
+/** C: objects.h — BELL_OF_OPENING (objects_nums **263**; mksobj_init sets **`spe=3`** only). */
+const OTYP_BELL_OF_OPENING = 263;
 
 const G_UNIQ = 0x1000;
 const G_NOHELL = 0x0800;
@@ -634,6 +636,9 @@ function mksobjInitToolLikeC(otyp, otmp) {
         break;
     case OTYP_FIGURINE:
         return mksobjInitFigurineLikeC(otmp);
+    case OTYP_BELL_OF_OPENING:
+        if (otmp) otmp.spe = 3;
+        break;
     case 252: /* MAGIC_FLUTE */
     case 253: /* MAGIC_HARP */
     case 254: /* FROST_HORN */
@@ -661,7 +666,7 @@ function mksobjInitGemLikeC(otyp) {
 /** C: mkobj.c mksobj_init ROCK_CLASS STATUE — rndmonnum + optional nested mkobj(SPBOOK). */
 function mksobjInitStatueLikeC(otyp) {
     if ((otyp | 0) !== OTYP_STATUE) return null;
-    const corpsenm = rndmonstLikeC();
+    const corpsenm = rndmonnumMklevLikeC();
     if ((corpsenm | 0) === NON_PM) return null;
     const ptr = permonstFromMndxLikeC(corpsenm);
     if (
