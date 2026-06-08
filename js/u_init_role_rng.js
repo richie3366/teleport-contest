@@ -7,14 +7,16 @@ import { game } from './gstate.js';
 import { rnd, rn2, rne, rn1 } from './rng.js';
 import { OTYP_LEATHER_ARMOR, P_BOW, P_SHURIKEN } from './const.js';
 import { OC_SKILL_ROW_BY_OTYP } from './obj_oc_skill_data.js';
-import { iniInvMkobjFilterScrollClassMonkLikeC } from './mkobj_scroll_class_rng_like_c.js';
 import { iniInvOneMkobjFoodUndefDrawLikeC } from './mkobj_food_class_rng_like_c.js';
 import {
     gnIniInvFreshLikeC,
     iniInvAdjustObjRingSpeUndefTropLikeC,
     iniInvGnAfterUndefAcceptLikeC,
+    iniInvMkobjFilterLikeC,
     iniInvMkobjFilterPriestHumanLikeC,
+    iniInvMkobjFilterScrollClassMonkLikeC,
     iniInvMkobjFilterWizardHumanLikeC,
+    restrictedSpellDisciplineForRoleLikeC,
     takeLastIniInvRingMksobjSpeLikeC,
 } from './mkobj_wizard_ini_inv_filter_like_c.js';
 import {
@@ -652,7 +654,12 @@ export function consumeHealerHumanIniInvUinitRoleRngLikeC() {
 
     const gn = gnIniInvFreshLikeC();
     trquanMinMaxLikeC(1, 1);
-    game._healerIniWandOtyp = iniInvMkobjFilterWizardHumanLikeC(NH5_WAND_CLASS, false, gn, false);
+    game._healerIniWandOtyp = iniInvMkobjFilterLikeC(NH5_WAND_CLASS, false, gn, {
+        roleWizard: false,
+        roleMonk: false,
+        raceOrc: false,
+        restrictedSpellDiscipline: (otyp) => restrictedSpellDisciplineForRoleLikeC(otyp, 'Hea'),
+    });
     iniInvGnAfterUndefAcceptLikeC(NH5_WAND_CLASS, game._healerIniWandOtyp | 0, gn);
     rn2(1);
 

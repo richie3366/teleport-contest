@@ -3,7 +3,7 @@
 **JS modules:** `mkobj_mklev_like_c.js`, `mklev.js`, `u_init_post_mklev.js`, role `u_init_link_*_invent.js`  
 **Phase:** P1  
 **C path:** `nethack-c/upstream/src/mkobj.c`  
-**Last C read:** 2026-06-08 — `u_init.c` `ini_inv_mkobj_filter` while-loop (`gn.nocreate*`, role/race rejects, pancake fallback); role-specific arms exist — **next: unify** one function.
+**Last C read:** 2026-06-08 — `u_init.c` `ini_inv_mkobj_filter` unified in JS (`iniInvMkobjFilterLikeC`); `gn.nocreate*`, `Role_if`/`Race_if`, `restricted_spell_discipline` via `DEF_SKILLS_BY_ABBR`.
 
 ## Why P1 matters
 
@@ -32,7 +32,7 @@ Most mid-game RNG divergence is **object creation order** (`mkobj`, `ini_inv`, f
 
 ## Open gaps
 
-- **`ini_inv_mkobj_filter`** — JS has Wizard/Priest/Monk-scroll arms; C is **one** function with `gn.nocreate*` + `Role_if`/`Race_if` in while-body.
+- **`ini_inv_mkobj_filter`** — unified; remaining: wire **all roles** with `iniInvMkobjFilterLikeC` + correct `roleAbbr` (orc `raceOrc`, tourist UNDEF rows, …).
 - `game.invent` not fully driven by `ini_inv` + `mkobj` for all roles (Knight linker now accepts 10–11 apple/carrot stacks).
 - NH5 `otyp` vs legacy floor indices in `mklev.js`.
 - `makemon.js` `rndmonnum()` must stay aliased to **`rndmonnumMklevLikeC`** (medusa `mkcorpstat` rerolls).

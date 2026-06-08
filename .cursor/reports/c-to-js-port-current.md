@@ -32,7 +32,7 @@ Authoritative milestone ordering: [`c-to-js-port-remaining.md`](c-to-js-port-rem
 | **P7** | `dat/tut-*.lua`, nhcore | **Lane E** after [tutorial gate](../../docs/plans/tutorial-port-gate.md) **MD-1 … MD-7** | tutorial vertical |
 | **P8** | `save.c`, quest/endgame | persistence semantics vs API | long-run continuity |
 
-**Checklist today:** **49 partial, 3 stub, 0 done** — no row is closed until exercised paths have **no known wrong RNG**. **Score:** **3/44** (`seed0077`, `seed0102`, `seed8000`).
+**Checklist today:** **50 partial, 3 stub, 0 done** — no row is closed until exercised paths have **no known wrong RNG**. **Score:** **3/44** (`seed0077`, `seed0102`, `seed8000`).
 
 ## Peel moratorium (**enforced** — [`c-to-js-port-strategy.md`](c-to-js-port-strategy.md) §5)
 
@@ -83,14 +83,14 @@ Use when **`Next steps`** feels stale. Order: **(1)** reliability phase **P1–P
 
 **Tutorial (Lane E):** Gated on [tutorial port gate](../../docs/plans/tutorial-port-gate.md) **MD-1 … MD-7**.
 
-**Last slice:** **Reflect pass 2** — 5× P1 mkobj/ini_inv since peel interleave; **`seed0102` PASS**; **`seed0900` ~2960** moveloop locator. No code change this batch.
+**Last slice:** **P1 `ini_inv_mkobj_filter`** — unified C while-loop (`iniInvMkobjFilterLikeC`); Monk scroll + Healer wand on general path. **`seed0102` full**; startup **`seed0900` 200–450**, **`seed0012` 80–200**. Moveloop fail **`seed0900` ~2512** unchanged.
 
 ## Next steps (**strategy order** — pick **one**)
 
 **First:** tutorial gate — if **all MD-1 … MD-7**, Lane E from [10-tutorial.md](../plans/nethack-port/10-tutorial.md).
 
-1. **P1 — general `ini_inv_mkobj_filter`** — unify C `u_init.c` while-loop (`gn.nocreate*`, orc poison, monk scroll, spell level/restricted) beyond role-specific Wizard/Priest/Monk arms. Oracle: [`c-oracles/mkobj.c.md`](c-oracles/mkobj.c.md). Locator: `seed0900` startup ok; moveloop **~2960**. Alt: **`seed0012`** monk vault.
-2. **P2 — moveloop @ `seed0900` ~2960** — `diag_c_rng_callers` on fail window; **not** peel.
+1. **P2 — moveloop @ `seed0900` ~2512 / ~2960** — `diag_c_rng_callers` on fail window; **not** peel. Oracle: [`c-oracles/monmove.c.md`](c-oracles/monmove.c.md).
+2. **P1 — wire remaining roles through `iniInvMkobjFilterLikeC`** — Tourist UNDEF food/scroll, orc `raceOrc`, Ranger/Val/Kni … Oracle: [`c-oracles/mkobj.c.md`](c-oracles/mkobj.c.md). Locator: **`seed0012`** monk vault **1244+**.
 3. **P2 — `dog_goal` / first `#search` (C, not peel)** — `seed0077` ~3205–3207 per [`c-oracles/dogmove.c.md`](c-oracles/dogmove.c.md); **no** new `PendingLikeC`.
 4. **P2 — PostSeventeenth peel** — **deferred** until after (1) or (2); same delete pattern as batches 1–10. Oracle: [`c-oracles/monmove.c.md`](c-oracles/monmove.c.md). Locator: `seed0006` ~3426–3448.
 5. **Lane B — NHL** — one `lspo_*` per [`nhl-port-notes.md`](nhl-port-notes.md).
