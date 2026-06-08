@@ -101,6 +101,15 @@
 
 **Batch 9 (2026-06-08):** delete inline PostFifteenth peel block + `mons=[]` guard; route through `movemonSinglemonLikeC`.
 
+### Post-sixteenth comma-`U` pass (`seed0006` ~3391–3422)
+
+| Step | C / session | JS target |
+|------|-------------|-----------|
+| 1 | Pet **`dog_move`** gate + invent tail ~3391–3412 | `movemonSinglemonLikeC` → pet branch (explicit `rn2` until general `dog_move`) |
+| 2 | Surplus mklev **`dochug`** explicit ~3413–3422 | `movemonSinglemonLikeC` surplus branch (not inline peel `rn2`) |
+
+**Batch 10 (2026-06-08):** delete inline PostSixteenth peel block + `mons=[]` guard; route through `movemonSinglemonLikeC`.
+
 ## Generalization targets (replace comma-`U` peels)
 
 | C concept | JS debt today | Notes |
@@ -123,6 +132,7 @@
 | `_wizD1CommaPostThirteenth*` inline peel + `mons=[]` | `movemon_singlemon` + surplus `dochug` | `seed0006` 3296–3306 | **deleted** batch 7 |
 | `_wizD1CommaPostFourteenth*` inline peel + `mons=[]` | `movemon_singlemon` + surplus `dochug` | `seed0006` 3310–3336 | **deleted** batch 8 |
 | `_wizD1CommaPostFifteenth*` inline peel + `mons=[]` | `movemon_singlemon` + pet `dog_move` + surplus `dochug` | `seed0006` 3340–3387 | **deleted** batch 9 |
+| `_wizD1CommaPostSixteenth*` inline peel + `mons=[]` | `movemon_singlemon` + pet `dog_move` + surplus `dochug` | `seed0006` 3391–3422 | **deleted** batch 10 |
 | `_wizD1CommaPostFirst` … `PostTwentyFourth*` (rest) | `movemon` + `allmain` post-hero interleave | `seed0006` 2888–3609 | **open** — moratorium on N+1 |
 | `_touristD1LPostFourth*` etc. | tourist `L` moveloop tail | `seed0900` | partial generalization exists |
 | Role `abbr === 'Wiz' && dlevel === 1` guards | level/branch checks only where C has them | — | **smell** — shrink |
@@ -141,7 +151,7 @@
 - Full `dochug` dispatch not faithful — peels patch single arms.
 - `fmon` iteration order vs C `monmove` passes not unified.
 - `effectiveMovemonStepNum` / peel step numbers are harness — not in C.
-- PostSixteenth+ comma-`U` still use inline peel blocks.
+- PostSeventeenth+ comma-`U` still use inline peel blocks.
 
 ## Wrong hypotheses (do not retry)
 
