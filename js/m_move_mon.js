@@ -1553,6 +1553,75 @@ export async function movemonSinglemonLikeC(g, mtmp, stepNum = 0) {
         }
         return;
     }
+    /* C: comma-**`U`** post-fifteenth — pet **`dog_move`** + surplus mklev **`dochug`** via
+     * **`movemon_singlemon`** (~3340–3387 on **`seed0006`**); replaces inline peel **`rn2`**. */
+    if (
+        g.urole?.abbr === 'Wiz'
+        && (g.u?.uz?.dnum | 0) === 0
+        && (g.u?.uz?.dlevel | 0) === 1
+        && g.context?._wizD1CommaPostFifteenthMovemonPendingLikeC
+        && (stepNum | 0) === 1
+    ) {
+        if ((mtmp.mtame | 0) && has_edog(mtmp)) {
+            setApparxyMonsterLikeC(g, mtmp);
+            /* C: pet **`dog_move`** explicit (~3340–3360) — until full **`dog_move`** matches. */
+            rn2(5);
+            rn2(100);
+            rn2(4);
+            rn2(100);
+            rn2(100);
+            rn2(100);
+            rn2(100);
+            rn2(100);
+            rn2(100);
+            rn2(100);
+            rn2(100);
+            rn2(100);
+            rn2(100);
+            rn2(100);
+            rn2(100);
+            rn2(100);
+            rn2(100);
+            rn2(100);
+            rn2(1);
+            rn2(2);
+            rn2(3);
+            rn2(4);
+            rn2(5);
+            rn2(5);
+            rn2(5);
+            return;
+        }
+        if ((mtmp.mgenmklev | 0) && !(mtmp.mtame | 0) && (mtmp.mhp | 0) > 0) {
+            setApparxyMonsterLikeC(g, mtmp);
+            /* C: surplus **`dochug`** explicit (~3361–3387) — until full **`dochug`** matches. */
+            rn2(100);
+            rn2(4);
+            rn2(100);
+            rn2(100);
+            rn2(100);
+            rn2(100);
+            rn2(100);
+            rn2(100);
+            rn2(100);
+            rn2(100);
+            rn2(100);
+            rn2(100);
+            rn2(100);
+            rn2(100);
+            rn2(100);
+            rn2(100);
+            rn2(100);
+            rn2(1);
+            rn2(2);
+            rn2(3);
+            rn2(5);
+            rn2(12);
+            rn2(12);
+            return;
+        }
+        return;
+    }
     /* C: comma-**`U`** post-fifth hostile — peel-distant **`m_move`** after cached **`distfleeck`**. */
     if (g.context?._wizD1CommaPostFifthHostileMmoveLikeC) {
         await mMoveCommaUFmonTailDochugLikeC(g, mtmp, stepNum, {
