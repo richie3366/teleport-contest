@@ -1416,7 +1416,19 @@ export async function runPostCommandTurnAdvanceLikeC(g) {
                             delete g.context._wizD1CommaSecondUSurplusArmedLikeC;
                             delete g.context._wizD1CommaSurplusStrayTailDoneSetLikeC;
                             delete g.context._wizD1CommaSurplusNonMklevDoneSetLikeC;
+                            const postFifthHostileCorridorSaveLikeC =
+                                g.context?._wizD1CommaPostPeelCorridorPinnedLikeC ?? null;
+                            const postFifthHostileDistantSaveLikeC =
+                                g.context?._wizD1CommaPostPeelDistantPinnedLikeC ?? null;
                             wizD1CommaSurplusScanClearLikeC(g);
+                            if (postFifthHostileCorridorSaveLikeC) {
+                                g.context._wizD1CommaPostFifthHostileCorridorLikeC =
+                                    postFifthHostileCorridorSaveLikeC;
+                            }
+                            if (postFifthHostileDistantSaveLikeC) {
+                                g.context._wizD1CommaPostFifthHostileDistantLikeC =
+                                    postFifthHostileDistantSaveLikeC;
+                            }
                             await runNewTurnSetupAndTailLikeC(g, tailStepNum);
                             /* C: fifth new-turn done (~3074–3076) — pet **`distfleeck`** + **`dog_move`** (~3077+). */
                             g.context._wizD1CommaPostFifthMovemonPendingLikeC = true;
@@ -1424,6 +1436,11 @@ export async function runPostCommandTurnAdvanceLikeC(g) {
                             g.context._movemonHarnessConsumed = false;
                             await movemon(1);
                             g.context._wizD1MovemonRanThisPostLikeC = true;
+                        }
+                        /* C: post-fifth pet done (~3081) — peel pins saved; hostile tail next slice. */
+                        if (g.context?._wizD1CommaPostFifthHostileTailPendingLikeC) {
+                            delete g.context._wizD1CommaPostFifthHostileTailPendingLikeC;
+                            g.context._wizD1CommaPostFifthHostileTailCompleteLikeC = true;
                         }
                         g.context._wizD1MovemonRanThisPostLikeC = true;
                         if (

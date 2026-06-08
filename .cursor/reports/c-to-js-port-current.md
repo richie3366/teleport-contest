@@ -32,7 +32,7 @@ Use this when **`Next steps`** below feels stale or several lanes compete. Order
 
 **Tutorial (Lane E):** Gated on [tutorial port gate](../../docs/plans/tutorial-port-gate.md) **MD-1 … MD-7**.
 
-**Last slice:** **Lane C — `seed0006` comma-`U` post-fifth pet `dog_move` (~3077–3081)** — **`dogmove_mon.js`**: **`dogMoveCommaPostFifthNewturnPetLikeC`** (`distfleeck` **`rn2(5)`** + away **`rn2(3)`**/**`rn2(12)`**); **`monmove.js`** peel block + **`moveloop_turn_advance.js`** inline **`movemon`** after fifth new-turn. **Verified:** **3054–3081**; fail **3082+** surplus hostile tail (**`distfleeck`**×2 + **`m_move`**); **`seed8000` 2900–3129** canary.
+**Last slice:** **Lane C — `seed0006` comma-`U` post-fifth hostile tail prep (~3082+ WIP)** — **`moveloop_turn_advance.js`**: save post-peel corridor/distant pins before fifth **`ScanClear`**; **`HostileTailPending`** stub; **`m_move_mon.js`**: **`_wizD1CommaPostFifthHostileMmoveLikeC`** → **`mMoveCommaUFmonTailDochugLikeC`** (cached flee). **Verified:** **3054–3081**; fail **3082+** (`rn2(5)`×2 + peel-distant **`m_move`**); **`seed8000` 2900–3129** canary. **Next:** moveloop inline hostile tail using saved pins — **not** separate **`movemon`** early block (breaks **3081** when combined with peel-active **`m_move_mon`**).
 
 ## Next steps (aligned with matrix)
 

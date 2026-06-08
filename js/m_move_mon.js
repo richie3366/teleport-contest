@@ -1169,6 +1169,13 @@ async function wizD1EastTailAfterMcalcmoveSinglemonLikeC(g, mtmp, stepNum) {
 
 export async function movemonSinglemonLikeC(g, mtmp, stepNum = 0) {
     if (!mtmp || (mtmp.mhp | 0) <= 0) return;
+    /* C: comma-**`U`** post-fifth hostile — peel-distant **`m_move`** after cached **`distfleeck`**. */
+    if (g.context?._wizD1CommaPostFifthHostileMmoveLikeC) {
+        await mMoveCommaUFmonTailDochugLikeC(g, mtmp, stepNum, {
+            skipInitialDistfleeckLikeC: !!mtmp._commaPostPeelCachedFleeLikeC,
+        });
+        return;
+    }
     /* C: comma-**`U`** invent peel — corridor **`dochug`** already inline at **`movemon`** head;
      * post-third-peel **`fmon`** tail (~3035+) runs corridor **`dochug`** again.
      * Post-fourth surplus post-peel (~3060+) still needs full **`dochug`** on corridor. */

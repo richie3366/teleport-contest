@@ -96,7 +96,7 @@ Align batches with [`c-to-js-port-remaining.md`](c-to-js-port-remaining.md) §5:
 
 | C symbol / area | JS module | Status | Notes |
 |-----------------|-----------|--------|-------|
-| `movemon` / `dochug` | `monmove.js`, `fmon_iter.js`, `moveloop_turn_advance.js`, `moveloop_aux.js`, `dogmove_mon.js`, `m_move_mon.js`, `monmove_search.js`, `mfndpos_mon.js`, `distfleeck_mon.js` | partial | Comma surplus **~3054–3081**: post-peel pet + fifth new-turn **`dogMoveCommaPostFifthNewturnPetLikeC`** after **`distfleeck`** (~3077–3081). **3054–3081** ok; fail **3082+** surplus hostile tail (**`distfleeck`**×2 + **`m_move`**). **`seed8000` 2900–3129:** aligned |
+| `movemon` / `dochug` | `monmove.js`, `fmon_iter.js`, `moveloop_turn_advance.js`, `moveloop_aux.js`, `dogmove_mon.js`, `m_move_mon.js`, `monmove_search.js`, `mfndpos_mon.js`, `distfleeck_mon.js` | partial | Comma surplus **~3054–3081**: post-peel pet + fifth new-turn **`dogMoveCommaPostFifthNewturnPetLikeC`** (~3077–3081). **3054–3081** ok; fail **3082+** hostile tail — **`_wizD1CommaPostFifthHostileMmoveLikeC`** gate in **`m_move_mon.js`**; peel pins saved pre-fifth-new-turn; **do not** extend post-fourth **`m_move_mon`** peel with hostile surplus flag (steals **3081**). **`seed8000` 2900–3129:** aligned |
 | `m_move` / `mfndpos` | `m_move_mon.js`, `mfndpos.js` | partial | Second post-rest mklev interrupt **`mMoveTouristD1PostRestSecondMklevInterruptLikeC`** (**`rn2(32)`** ~2528); **`seed0900`** **~2545** post-**`mcalcmove`** drift |
 | `distfleeck` | `distfleeck_mon.js` | partial | Peel-only rest **`distfleeck`** (**`_touristD1PostSwapRestDistfleeckPeelLikeC`**); 3× ~915 before stub; **`seed0900`** **2499–2504** |
 | `m_throw` | — | missing | |
@@ -129,7 +129,7 @@ Align batches with [`c-to-js-port-remaining.md`](c-to-js-port-remaining.md) §5:
 
 | C symbol / area | JS module | Status | Notes |
 |-----------------|-----------|--------|-------|
-| `moveloop` / post-hero `movemon` | `moveloop_turn_advance.js`, `moveloop_aux.js` | partial | **`seed0006`** comma-**`U`**: fifth new-turn **~3074–3076** then inline post-fifth **`movemon`** pet peel (~3077–3081); fail **3082+** hostile surplus tail. **`seed8000` 2900–3129:** aligned |
+| `moveloop` / post-hero `movemon` | `moveloop_turn_advance.js`, `moveloop_aux.js` | partial | **`seed0006`** comma-**`U`**: fifth new-turn **~3074–3076** + post-fifth pet peel (~3077–3081); **`HostileTailPending`** → stub complete; save **`PostPeelCorridor/Distant`** pins before fifth **`ScanClear`** for **3082+** tail. Fail **3082+**. **`seed8000` 2900–3129:** aligned |
 | `dosounds` / exercise hooks | `moveloop_aux.js` | stub | |
 
 ---
