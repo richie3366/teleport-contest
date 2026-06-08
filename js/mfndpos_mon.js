@@ -267,6 +267,41 @@ export function wizD1EastDoorMklevMonLikeC(g) {
     );
 }
 
+/** C: comma-**`U`** surplus — pin near mklev at ~3054 so **`fmon`** stray/near split stays stable. */
+export function wizD1CommaSurplusNearMklevLikeC(g) {
+    return (
+        g.context?._wizD1CommaSurplusNearMklevPinnedLikeC
+        ?? wizD1CommaLFirstUNearMklevMonLikeC(g)
+    );
+}
+
+/** Prime pinned near + reset pre-peel slot counter for one surplus scan (~3054). */
+export function wizD1CommaSurplusScanPrimeLikeC(g, opts = null) {
+    const ctx = g.context || (g.context = {});
+    const force = !!(opts && opts.force);
+    if (!force && ctx._wizD1CommaSurplusNearMklevPinnedLikeC) return;
+    const near = wizD1CommaLFirstUNearMklevMonLikeC(g);
+    if (near) ctx._wizD1CommaSurplusNearMklevPinnedLikeC = near;
+    ctx._wizD1CommaSurplusPrePeelSlotPassesLikeC = 0;
+    delete ctx._wizD1CommaSurplusPostPeelActiveLikeC;
+    delete ctx._wizD1CommaLFirstUPostTailSecondUPeelDoneLikeC;
+}
+
+export function wizD1CommaSurplusScanClearLikeC(g) {
+    if (!g.context) return;
+    delete g.context._wizD1CommaSurplusNearMklevPinnedLikeC;
+    delete g.context._wizD1CommaSurplusPrePeelSlotPassesLikeC;
+    delete g.context._wizD1CommaSurplusPostPeelActiveLikeC;
+}
+
+/** C: five pre-peel **`rn2(12)`** slot passes (~3055–3059) then post-peel **`dochug`**. */
+export function wizD1CommaSurplusPostPeelActiveLikeC(g) {
+    return !!(
+        g.context?._wizD1CommaSurplusPostPeelActiveLikeC
+        || (g.context?._wizD1CommaSurplusPrePeelSlotPassesLikeC | 0) >= 5
+    );
+}
+
 /** C: comma-**`l`** → first **`U`** — near **`distfleeck`** target before pet **`mfndpos`** (~2986). */
 export function wizD1CommaLFirstUNearMklevMonLikeC(g) {
     const mons = g.level?.monsters ?? [];

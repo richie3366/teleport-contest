@@ -61,6 +61,8 @@ import {
     isLandEelForMovemonLikeC,
     movemonStep8DistantMonEligibleLikeC,
     wizD1CommaLFirstUNearMklevMonLikeC,
+    wizD1CommaSurplusNearMklevLikeC,
+    wizD1CommaSurplusPostPeelActiveLikeC,
     wizD1CorridorMklevMonLikeC,
     wizD1EastDoorMklevMonLikeC,
     wizD1PeelDistantMklevMonLikeC,
@@ -1208,6 +1210,7 @@ export async function movemonSinglemonLikeC(g, mtmp, stepNum = 0) {
     /* C: comma-**`U`** post-third-peel — dedicated **`fmon`** **`dochug`** (~3036+). */
     if (
         g.context?._wizD1CommaLFirstUPostTailFmonTailPendingLikeC
+        && !g.context?._wizD1CommaLFirstUPostTailSecondUPostMovemonLikeC
         && !(mtmp.mtame | 0)
     ) {
         await mMoveCommaUFmonTailDochugLikeC(g, mtmp, stepNum);
@@ -1217,8 +1220,8 @@ export async function movemonSinglemonLikeC(g, mtmp, stepNum = 0) {
     if (
         !(mtmp.mtame | 0)
         && (mtmp.mgenmklev | 0)
-        && mtmp !== wizD1CommaLFirstUNearMklevMonLikeC(g)
-        && !g.context?._wizD1CommaLFirstUPostTailSecondUPeelDoneLikeC
+        && mtmp !== wizD1CommaSurplusNearMklevLikeC(g)
+        && !wizD1CommaSurplusPostPeelActiveLikeC(g)
         && (
             g.context?._wizD1CommaLFirstUPostTailSecondUPostMovemonLikeC
             || (
@@ -1238,19 +1241,17 @@ export async function movemonSinglemonLikeC(g, mtmp, stepNum = 0) {
         g.urole?.abbr === 'Wiz'
         && (g.u?.uz?.dnum | 0) === 0
         && (g.u?.uz?.dlevel | 0) === 1
-        && g.context?._wizD1CommaLFirstUPostTailSecondUPeelDoneLikeC
+        && wizD1CommaSurplusPostPeelActiveLikeC(g)
         && (
             g.context?._wizD1CommaLFirstUPostTailSecondUPostMovemonLikeC
             || g.context?._wizD1CommaSecondUSurplusArmedLikeC
         )
         && !(mtmp.mtame | 0)
-        && mtmp !== wizD1CommaLFirstUNearMklevMonLikeC(g)
+        && mtmp !== wizD1CommaSurplusNearMklevLikeC(g)
     ) {
-        if ((mtmp.mgenmklev | 0)) {
-            mMoveCommaUFmonTailSlotMklevLikeC(g, mtmp);
-        } else {
-            await mMoveCommaUFmonTailDochugLikeC(g, mtmp, stepNum);
-        }
+        /* C: post-peel surplus — **`dochug`** (**`distfleeck`** **`rn2(5)`** before **`m_move`**
+         * **`rn2(12)`**); slot-only mklev was wrong ~3060–3070 on **`seed0006`**. */
+        await mMoveCommaUFmonTailDochugLikeC(g, mtmp, stepNum);
         return;
     }
     /* C: comma-**`U`** second hero **`U`** — near mklev **`mtrack`** **`rn2(12)`** (~3058), not **`chcnt`**. */
@@ -1258,10 +1259,10 @@ export async function movemonSinglemonLikeC(g, mtmp, stepNum = 0) {
         g.urole?.abbr === 'Wiz'
         && (g.u?.uz?.dnum | 0) === 0
         && (g.u?.uz?.dlevel | 0) === 1
-        && !g.context?._wizD1CommaLFirstUPostTailSecondUPeelDoneLikeC
+        && !wizD1CommaSurplusPostPeelActiveLikeC(g)
         && (mtmp.mgenmklev | 0)
         && !(mtmp.mtame | 0)
-        && mtmp === wizD1CommaLFirstUNearMklevMonLikeC(g)
+        && mtmp === wizD1CommaSurplusNearMklevLikeC(g)
         && (
             g.context?._wizD1CommaLFirstUPostTailSecondUPostMovemonLikeC
             || (

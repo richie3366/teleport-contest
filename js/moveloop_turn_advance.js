@@ -68,6 +68,8 @@ import {
     wizD1EastDoorMklevMonLikeC,
     wizD1PeelDistantMklevMonLikeC,
     wizD1CommaLFirstUNearMklevMonLikeC,
+    wizD1CommaSurplusScanClearLikeC,
+    wizD1CommaSurplusScanPrimeLikeC,
 } from './mfndpos_mon.js';
 import {
     mMoveTouristD1PostRestSecondMklevInterruptLikeC,
@@ -1296,6 +1298,7 @@ export async function runPostCommandTurnAdvanceLikeC(g) {
                     }
                     /* C: comma-**`U`** second hero **`U`** — resume surplus **`fmon`** (~3059–3073). */
                     if (commaUSurplusTailResumeLikeC) {
+                        wizD1CommaSurplusScanPrimeLikeC(g, { force: true });
                         delete g.context._wizD1CommaLFirstUPostTailAwaitSecondHeroULikeC;
                         g.context._wizD1CommaLFirstUPostTailAwaitSurplusFmonLikeC = true;
                         g.context._wizD1CommaLFirstUPostTailSecondUPostMovemonLikeC = true;
@@ -1328,6 +1331,7 @@ export async function runPostCommandTurnAdvanceLikeC(g) {
                             delete g.context._wizD1CommaSecondUSurplusArmedLikeC;
                             delete g.context._wizD1CommaPostPeelPassDoneSetLikeC;
                             delete g.context._wizD1CommaPostPeelSurplusRoundLikeC;
+                            wizD1CommaSurplusScanClearLikeC(g);
                             await runNewTurnSetupAndTailLikeC(g, tailStepNum);
                         } else if (
                             !surplusResumeScanMoreLikeC
@@ -1352,6 +1356,7 @@ export async function runPostCommandTurnAdvanceLikeC(g) {
                             await distfleeckMonsterApplyLikeC(g, nearPostFourth);
                             g.context._wizD1CommaDeferFifthNewturnLikeC = true;
                         }
+                        wizD1CommaSurplusScanPrimeLikeC(g, { force: true });
                         /* C: surplus **`fmon`** **`monscanmove`** loop (~3055–3073); fifth new-turn ~3074. */
                         g.context._wizD1CommaLFirstUPostTailAwaitSurplusFmonLikeC = true;
                         g.context._wizD1CommaLFirstUPostTailSecondUPostMovemonLikeC = true;
@@ -1417,6 +1422,7 @@ export async function runPostCommandTurnAdvanceLikeC(g) {
                             delete g.context._wizD1CommaSecondUSurplusArmedLikeC;
                             delete g.context._wizD1CommaSurplusStrayTailDoneSetLikeC;
                             delete g.context._wizD1CommaSurplusNonMklevDoneSetLikeC;
+                            wizD1CommaSurplusScanClearLikeC(g);
                             await runNewTurnSetupAndTailLikeC(g, tailStepNum);
                         }
                         g.context._wizD1MovemonRanThisPostLikeC = true;
