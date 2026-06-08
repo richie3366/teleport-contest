@@ -1128,22 +1128,7 @@ export async function runPostCommandTurnAdvanceLikeC(g) {
                             g.context._wizD1CommaLFirstUPostTailSecondUPeelDoneLikeC = true;
                         }
                     }
-                    /* C: comma-**`U`** — surplus **`fmon`** tail done (~3073); arm fifth new-turn (~3074). */
-                    if (
-                        wizD1MovemonOnceLikeC
-                        && g.context?._wizD1CommaSecondUSurplusArmedLikeC
-                        && (g.moves | 0) >= 37
-                        && g.context?._wizD1CommaLFirstUPostTailSecondUPeelDoneLikeC
-                        && !monscanmove
-                        && !g.context?._wizD1CommaSurplusScanMoreLikeC
-                        && !g.context?._wizD1CommaPostFourthSurplusTailDoneLikeC
-                    ) {
-                        g.context._wizD1CommaPostFourthSurplusTailDoneLikeC = true;
-                        delete g.context._wizD1CommaSecondUSurplusArmedLikeC;
-                        delete g.context._wizD1CommaLFirstUPostTailPostFourthDfPendingLikeC;
-                        delete g.context._wizD1CommaSurplusStrayTailDoneSetLikeC;
-                        delete g.context._wizD1CommaSurplusNonMklevDoneSetLikeC;
-                    }
+                    /* C: surplus completion + fifth new-turn live in post-fourth block (~3073–3074). */
                     if (
                         wizD1MovemonOnceLikeC
                         && !g.context?._wizD1PostEastTailWalkCompletePendingLikeC

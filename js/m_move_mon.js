@@ -1232,28 +1232,21 @@ export async function movemonSinglemonLikeC(g, mtmp, stepNum = 0) {
         mMoveCommaUFmonTailSlotMklevLikeC(g, mtmp);
         return;
     }
-    /* C: comma-**`U`** post-fourth — after near peel, surplus hostiles slot-only (~3059+). */
+    /* C: comma-**`U`** post-fourth — after near peel, remaining surplus **`dochug`** (~3059+). */
     if (
         g.urole?.abbr === 'Wiz'
         && (g.u?.uz?.dnum | 0) === 0
         && (g.u?.uz?.dlevel | 0) === 1
-        && (g.moves | 0) >= 37
-        && g.context?._wizD1CommaSecondUSurplusArmedLikeC
         && g.context?._wizD1CommaLFirstUPostTailSecondUPeelDoneLikeC
+        && g.context?._wizD1CommaLFirstUPostTailSecondUPostMovemonLikeC
         && !(mtmp.mtame | 0)
         && mtmp !== wizD1CommaLFirstUNearMklevMonLikeC(g)
     ) {
-        let movSurplus = mtmp.movement | 0;
-        if (movSurplus < NORMAL_SPEED) {
-            mtmp.movement = NORMAL_SPEED;
-            movSurplus = NORMAL_SPEED;
+        if ((mtmp.mgenmklev | 0)) {
+            mMoveCommaUFmonTailSlotMklevLikeC(g, mtmp);
+        } else {
+            await mMoveCommaUFmonTailDochugLikeC(g, mtmp, stepNum);
         }
-        mtmp.movement = movSurplus - NORMAL_SPEED;
-        if ((mtmp.movement | 0) >= NORMAL_SPEED) {
-            (g.context || (g.context = {}))._somebodyCanMoveLikeC = true;
-        }
-        setApparxyMonsterLikeC(g, mtmp);
-        mMoveCommaUFmonTailSlotMklevLikeC(g, mtmp);
         return;
     }
     /* C: comma-**`U`** second hero **`U`** — near mklev **`mtrack`** **`rn2(12)`** (~3058), not **`chcnt`**. */
