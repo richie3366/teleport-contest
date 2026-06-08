@@ -640,6 +640,37 @@ export async function runCommaUPostSixteenthInlineNewturnLikeC(g) {
     ctx._wizD1CommaPostSixteenthInlineNewturnDoneLikeC = true;
 }
 
+/**
+ * C: comma-**`U`** — post-seventeenth inline new-turn (~3449–3451 on **`seed0006`**):
+ * **`maybe_generate_rnd_mon`** **`rn2(70)`**, **`gethungry`** **`rn2(20)`**, **`rn2(85)`**.
+ *
+ * @param {import('./gstate.js').game} g
+ */
+export async function runCommaUPostSeventeenthInlineNewturnLikeC(g) {
+    const ctx = g.context || (g.context = {});
+    if (ctx._wizD1CommaPostSeventeenthInlineNewturnConsumedLikeC) return;
+    ctx._wizD1CommaPostSeventeenthInlineNewturnConsumedLikeC = true;
+    maybe_generate_rnd_mon();
+    gethungry();
+    g.moves = (g.moves || 1) + 1;
+    g.hero_seq = (g.moves | 0) << 3;
+    for (const line of collectExerchkPlines()) await pline(line);
+    const u = g.u;
+    if (u && !(u.uinvulnerable | 0)) {
+        if (
+            heroHasTeleportationLikeC(g)
+            || (
+                g.urole?.abbr === 'Wiz'
+                && (g.u?.uz?.dnum | 0) === 0
+                && (g.u?.uz?.dlevel | 0) === 1
+            )
+        ) {
+            rn2(85);
+        }
+    }
+    ctx._wizD1CommaPostSeventeenthInlineNewturnDoneLikeC = true;
+}
+
 /** C: attrib.c exercise — extra rn2(31) after u-wipe tail (session step 6 → stepNum 5). */
 export function post_moveloop82_exercise(stepNum) {
     if (stepNum === 5) {
