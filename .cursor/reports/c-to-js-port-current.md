@@ -74,13 +74,13 @@ Use when **`Next steps`** feels stale. Order: **(1)** reliability phase **P1–P
 
 **Tutorial (Lane E):** Gated on [tutorial port gate](../../docs/plans/tutorial-port-gate.md) **MD-1 … MD-7**.
 
-**Last slice:** **Batch 7** — deleted `_wizD1CommaPostThirteenth*` inline peel; post-thirteenth pass via `movemonSinglemonLikeC` (`mon.c`). `seed0006` 3290–3310 + three canaries aligned.
+**Last slice:** **Batch 8** — deleted `_wizD1CommaPostFourteenth*` inline peel; post-fourteenth pass via `movemonSinglemonLikeC` (`mon.c`). `seed0006` 3290–3340 + three canaries aligned.
 
 ## Next steps (**strategy order** — pick **one**)
 
 **First:** tutorial gate — if **all MD-1 … MD-7**, Lane E from [10-tutorial.md](../plans/nethack-port/10-tutorial.md).
 
-1. **P2 — PostFourteenth peel** — same pattern as batches 1–7; delete `_wizD1CommaPostFourteenth*` inline peel + `mons=[]` when `seed0006` ~3310–3336 + canaries pass. Oracle: [`c-oracles/monmove.c.md`](c-oracles/monmove.c.md).
+1. **P2 — PostFifteenth peel** — same pattern as batches 1–8; delete `_wizD1CommaPostFifteenth*` inline peel + `mons=[]` when `seed0006` ~3340–3387 + canaries pass. Oracle: [`c-oracles/monmove.c.md`](c-oracles/monmove.c.md).
 2. **P1 — `mkobj` / `ini_inv` → `game.invent`** — one checklist row (`mkobj_mklev_like_c.js` / role linker). Oracle: [`c-oracles/mkobj.c.md`](c-oracles/mkobj.c.md). Locator: `seed0900` ~302+.
 3. **P2 — `dog_goal` / first `#search` (C, not peel)** — `seed0077` ~3205–3207 invent/apport order per [`c-oracles/dogmove.c.md`](c-oracles/dogmove.c.md); **no** new `PendingLikeC`.
 4. **Lane B — NHL** — one `lspo_*` per [`nhl-port-notes.md`](nhl-port-notes.md).
