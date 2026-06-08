@@ -88,7 +88,7 @@ Align batches with [`c-to-js-port-remaining.md`](c-to-js-port-remaining.md) §5:
 | `ini_inv(Wishing)` / `Money` | `u_init_role_rng.js`, `u_init_post_mklev.js` | partial | explore **`program_state.discover`** |
 | `ini_inv` | `ini_inv_stub.js`, role packs | partial | Human Tourist linked **`g.invent`**; **Ranger** cram loop — no cloak **`trquan`** tail / per-cram **`rn2(1)`** (**`seed0102`** **`init_attr`** **4425+**); other roles partial |
 | `u_init_role` RNG tail | `u_init_role_rng.js`, `u_init_post_mklev.js` | partial | |
-| `wintty.c` pickers | `chargen_tty.js` | partial | Chargen RNG largely aligned on `seed0077`; full session **FAIL** (screen **17**, RNG **~3207**) — restore per `current.md` |
+| `wintty.c` pickers | `chargen_tty.js` | partial | Chargen RNG largely aligned on `seed0077`; moveloop RNG **3180–3242** restored; screen **17** west apport still **FAIL** |
 
 ---
 
@@ -105,7 +105,7 @@ Align batches with [`c-to-js-port-remaining.md`](c-to-js-port-remaining.md) §5:
 | `score_targ` / `best_target` / `pet_ranged_attk` | `dogmove_mon.js` | partial | C **`dogmove.c`** ~738–966; **`petRangedAttkDogmoveLikeC`** after **`mfndpos`**, **`newdogpos`** deferred; **`scoreTargDogmoveLikeC`** priest/minion coaligned-peaceful + weak-target penalty; vampshifter **`mtmp_lev`** **`rn2`** tail TODO; **`mattackm`** TODO; **`seed0102` ~4453** **`rnd(5)`** aligned |
 | `dog_hunger` | `dogmove_mon.js` | partial | C **`dogmove.c`** **`dog_hunger`** / **`DOG_WEAK`**/**`DOG_STARVE`** — **`mconf`**, **`mhpmax_penalty`** at **`dogMoveGoalAndPickLikeC`** entry; **`dog_starve`** stub; display tails skipped |
 | `can_carry` / `can_touch_safely` | `dogmove_mon.js`, `obj_oc_weight_data.js` | partial | C **`mon.c`** — **`objectStackWeightLikeC`** (NH5 **`oc_weight`**); **`canTouchSafelyMonsterObjDogmoveLikeC`** stub; APPORT when **`can_carry > 0`** only |
-| `dog_goal` / `obj_resists` | `dogmove_mon.js`, `obj_resists.js`, `dogmove_reach.js` | partial | **`dogMoveCommaPostFifthNewturnPetLikeC`** (~3077–3081); **`dogMoveCommaPostSixthNewturnPetLikeC`** post-sixth **`rn2(3)`** only (~3096). Fail **3107+** post-seventh **`rn2(4)`**. **`seed0102`** **0–4485** PASS |
+| `dog_goal` / `obj_resists` | `dogmove_mon.js`, `obj_resists.js`, `dogmove_reach.js` | partial | C **`fobj`** chain only in floor scan; **`rogueFirstSearchCoinApportDefersToTowelLikeC`** peel (~3205–3207 **`seed0077`**) until **`can_reach_location`**; **`seed0077`** **3180–3242** + **`seed0102`** **0–4485** canaries |
 | `u_on_upstairs` / `On_stairs` | `mklev.js`, `allmain.js`, `jsmain.js` | partial | C **`u_on_upstairs`** in **`newgame`** before **`makedog`**; **`syncHeroOnBranchUpstairLikeC`** in **`jsmain`** post-**`newgame`** only; **`dog_goal`** **`stairwayAtInGame`** on hero tile |
 | `dofire` / `getdir` / `help_dir` / `dodiscovered` / enlightenment | `dofire_hero.js`, `invent_prinv.js`, `overlay_screens.js`, … | partial | C **`dothrow.c`** fireassist **`prinv`** **`--More--`** pass-through cursor row 0; **`seed0102` PASS** |
 | `movemon` / `#search` ranger peel | `monmove.js`, `monmove_search.js`, `m_move_mon.js`, `cmd.js`, `fmon_iter.js`, `dogmove_mon.js`, `moveloop_turn_advance.js` | partial | C: ranger D:1 twin **`#search`** pet-only; **`whappr`** silent mfndpos away picks; moveloop peel **`rn2(12)×2`** + skip inline **`mcalcmove`**; **`seed0102` PASS** (**4485/4485**, **25/25** screens/cursors) |

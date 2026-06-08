@@ -33,7 +33,7 @@ Moveloop work (`seed0006` comma-`U`, **3054–3106**) is valid **P2** locator wo
 |--------|--------|
 | Next **3+** batches would only add peel flags / explicit draws | **Pivot** to **P1** (`mkobj`/`ini_inv`) or **P2 general** (`monmove.c` `movemon` loop, one `dochug` case) |
 | Moveloop batch lands | **Mandatory** regression window on **all three** canaries below — not `seed8000` alone |
-| `seed0077` was **3242/3242** RNG + **33/33** screens (May); now **3211/3242**, screen **17** | **Restore anchor** before more comma-`U` peels (west-apport display + `#search` pet tail ~**3207**) |
+| `seed0077` RNG **3180–3242** restored; screen **17** west apport **`#` vs blank** still open | Next: **`display.c`** west-apport corridor glyph; replace coin-defer peel with **`can_reach_location`** |
 | Peel batch merges | Log **debt** in checklist Notes; aim **net flag count ↓** over next milestone |
 
 ## Moveloop regression canaries (mandatory)
@@ -74,13 +74,13 @@ Use when **`Next steps`** feels stale. Order: **(1)** reliability phase **P1–P
 
 **Tutorial (Lane E):** Gated on [tutorial port gate](../../docs/plans/tutorial-port-gate.md) **MD-1 … MD-7**.
 
-**Last slice:** **Lane C — `seed0006` comma-`U` post-sixth new-turn `movemon` (~3095–3106)** — peel debt; **`seed8000` 2900–3129** verified; **`seed0077`** / **`seed0102`** **not** re-checked (regression risk).
+**Last slice:** **P2 — `seed0077` moveloop anchor RNG** — **`dog_goal`** global **`fobj`** only + rogue first-**`#search`** coin APPORT defer (peel debt); **3180–3242** + three canaries **PASS**; screen step **17** still **`#` vs blank** `(34,9)`.
 
 ## Next steps (reliability order)
 
 Pick **one** primary batch per commit. **First:** tutorial gate — if **all MD-1 … MD-7**, do Lane E from [10-tutorial.md](../plans/nethack-port/10-tutorial.md).
 
-1. **P2 — restore `seed0077` moveloop anchor (before more comma-`U` peels)** — screen fail **step 17** west apport **`#` vs blank** `(34,9)` (likely `seed0102` mklev removed **`anchorWestApportSleeperLikeC`**); RNG fork **~3207** (`rn2(8)` vs `rn2(1)` — first `#search` pet **`dog_goal`**). C: `display.c` west apport + `dogmove.c` invent/apport order. Fast-verify: `diag_first_screen_fail.mjs seed0077-rogue-chargen.session.json`; `diag_rng_window.mjs sessions/seed0077-rogue-chargen.session.json 3180 3242`. Then run **three canaries**.
+1. **P2 — `seed0077` screen step 17** — west apport **`#` vs blank** `(34,9)` after RNG anchor restored; C: `display.c` west-apport sleeper corridor + `can_reach_location` (replace **`rogueFirstSearchCoinApportDefersToTowelLikeC`** peel). Fast-verify: `diag_first_screen_fail.mjs seed0077-rogue-chargen.session.json`.
 2. **P2 — general `monmove.c` / `dochug` batch** (preferred over peel #4 below when peel debt high) — one upstream function or dispatch arm; delete peel flags when `diag_rng_window` passes on **8000 + 0077 + 0102**.
 3. **P1 — `mkobj` / `ini_inv` → `game.invent`** — next checklist rows in `mkobj_mklev_like_c.js` / role linkers; advances tutorial **MD-1** and most item-driven sessions.
 4. **P2 locator — `seed0006` comma-`U` @ ~3107+** — only if batch **generalizes** `fmon` / post-Nth new-turn (not flag-only). Locator: `diag_rng_window.mjs sessions/seed0006-wizard-water-demon.session.json 3100 3130`.
@@ -119,5 +119,5 @@ Tool choice, moveloop debug loop, known pitfalls (e.g. rogue **`mnum` 7** vs Ran
 Prefer [`.cursor/prompts/continue-nethack-port.md`](../prompts/continue-nethack-port.md).
 
 ```
-Continue NetHack 5.0 C→JS (batch workflow): read .cursor/reports/c-to-js-port-current.md and .cursor/reports/c-to-js-port-batch-workflow.md; next batch from .cursor/reports/c-to-js-port-function-checklist.md; port from nethack-c/upstream C semantics; do not edit js/isaac64.js, js/terminal.js, js/storage.js. Fast-verify batch (diag_rng_window if RNG); npm run score at milestones or when unsure. When done: update checklist + current.md + changelog row; git commit this batch.
+Continue NetHack 5.0 C→JS (reliability-first batch workflow). Read .cursor/reports/c-to-js-port-current.md first — Reliability phases, Course correction, Next steps #1–N. Also batch-workflow.md + function-checklist.md. C upstream only; frozen isaac64/terminal/storage; peel-pivot per current.md. Moveloop edits: three canaries (seed8000 2900–3129, seed0077 3180–3242 + screen 17, seed0102 full). diag_rng_window on locator; npm run score at milestones. Update checklist + current.md + changelog; git commit (push if asked).
 ```
