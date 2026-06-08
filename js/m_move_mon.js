@@ -210,6 +210,12 @@ const MTSZ = 4;
  * @param {*} mtmp
  */
 function dochugBlockedEarlyLikeC(g, mtmp) {
+    if (
+        g.context?._wizD1CommaPostFifthHostileMmoveLikeC
+        && mtmp === g.context._wizD1CommaPostFifthHostileDistantMtmpLikeC
+    ) {
+        return false;
+    }
     if (!(mtmp.mcanmove | 0)) return true;
     if ((mtmp.mstrategy | 0) & STRAT_WAITMASK) return true;
     if ((mtmp.msleeping | 0) && !disturbMonsterLikeC(g, mtmp)) return true;
@@ -452,6 +458,13 @@ function dochugEntersMmoveBlockLikeC(
         return true;
     }
     if (g.context?._wizD1CapitalKPostNearMmoveLikeC) {
+        return true;
+    }
+    /* C: comma-**`U`** post-fifth peel-distant **`m_move`** (~3084) — always after cached flee. */
+    if (
+        g.context?._wizD1CommaPostFifthHostileMmoveLikeC
+        && mtmp === g.context._wizD1CommaPostFifthHostileDistantMtmpLikeC
+    ) {
         return true;
     }
     /* C: tourist D:1 run-east **`L`** — block mklev **`m_move`** during post-**`mcalcmove`** peel. */
@@ -1173,6 +1186,7 @@ export async function movemonSinglemonLikeC(g, mtmp, stepNum = 0) {
     if (g.context?._wizD1CommaPostFifthHostileMmoveLikeC) {
         await mMoveCommaUFmonTailDochugLikeC(g, mtmp, stepNum, {
             skipInitialDistfleeckLikeC: !!mtmp._commaPostPeelCachedFleeLikeC,
+            cachedFleeLikeC: mtmp._commaPostPeelCachedFleeLikeC ?? undefined,
         });
         return;
     }
@@ -2695,6 +2709,98 @@ export async function mMoveCapitalKPostCommaDistantLikeC(g, mtmp, stepNum = 0) {
  * @param {import('./gstate.js').game} g
  * @param {Record<string, unknown>} mtmp
  */
+/**
+ * C: comma-**`U`** — post-fifth pet done (~3081); peel corridor/distant **`distfleeck`**
+ * + distant **`m_move`** (~3082–3085), corridor **`dochug`** (~3086–3088), surplus **`fmon`**
+ * (~3089–3091), sixth new-turn (~3092+). Moveloop inline only — not generic **`movemon`**.
+ *
+ * @param {import('./gstate.js').game} g
+ * @param {number} [stepNum]
+ */
+export async function wizD1CommaPostFifthHostileTailInlineLikeC(g, stepNum = 1) {
+    const ctx = g.context || (g.context = {});
+    if (ctx._wizD1CommaPostFifthHostileTailCompleteLikeC) return;
+    const corridor = ctx._wizD1CommaPostFifthHostileCorridorLikeC ?? null;
+    const distant = ctx._wizD1CommaPostFifthHostileDistantLikeC ?? null;
+    const pet = (g.level?.monsters ?? []).find((m) => (m.mtame | 0) !== 0);
+    const spendMoveLikeC = (mtmp) => {
+        if (!mtmp) return;
+        let mov = mtmp.movement | 0;
+        if (mov < NORMAL_SPEED) {
+            mtmp.movement = NORMAL_SPEED;
+            mov = NORMAL_SPEED;
+        }
+        mtmp.movement = mov - NORMAL_SPEED;
+    };
+    ctx._wizD1CommaPostFifthHostileInlineActiveLikeC = true;
+    try {
+        /* C: post-peel — west-corridor then peel-distant **`distfleeck`** (~3082–3083). */
+        if (corridor) {
+            spendMoveLikeC(corridor);
+            setApparxyMonsterLikeC(g, corridor);
+            await distfleeckMonsterApplyLikeC(g, corridor);
+        }
+        if (distant) {
+            spendMoveLikeC(distant);
+            setApparxyMonsterLikeC(g, distant);
+            await distfleeckMonsterApplyLikeC(g, distant);
+        }
+        /* C: peel-distant **`m_move`** (~3084–3085) — slot **`rn2(12)`** + post **`distfleeck`**. */
+        if (distant) {
+            spendMoveLikeC(distant);
+            rn2(12);
+            setApparxyMonsterLikeC(g, distant);
+            await distfleeckMonsterApplyLikeC(g, distant);
+        }
+        /* C: corridor **`distfleeck`** + **`m_move`** **`rn2(8)`** + post **`distfleeck`** (~3086–3088). */
+        if (corridor) {
+            spendMoveLikeC(corridor);
+            setApparxyMonsterLikeC(g, corridor);
+            await distfleeckMonsterApplyLikeC(g, corridor);
+            ensureMonsterMtrack(corridor);
+            const omx = corridor.mx | 0;
+            const omy = corridor.my | 0;
+            const mfp = mfndposMonsterLikeC(
+                g,
+                corridor,
+                monAllowflagsMonsterLikeC(g, corridor),
+            );
+            if (!primeEelMtrackRn8FromCurrentCellLikeC(corridor, mfp, omx, omy)) {
+                const cnt = mfp.cnt | 0;
+                const jcnt = Math.min(MTSZ, cnt - 1);
+                for (let j = 0; j < jcnt; j++) {
+                    if (4 * (cnt - j) !== 8) continue;
+                    monTrackClear(corridor);
+                    ensureMonsterMtrack(corridor);
+                    corridor.mtrack[j] = { x: omx, y: omy };
+                    break;
+                }
+            }
+            rn2(8);
+            await distfleeckMonsterApplyLikeC(g, corridor);
+        }
+        const peelDone = new Set();
+        if (corridor) peelDone.add(corridor);
+        if (distant) peelDone.add(distant);
+        if (pet) peelDone.add(pet);
+        const tailHostiles = fmonListForMovemonLikeC(g, stepNum).filter(
+            (m) => !peelDone.has(m),
+        );
+        /* C: one surplus mklev — three slot **`rn2(12)`** (~3089–3091); not full **`fmon`** scan. */
+        if (tailHostiles.length > 0) {
+            spendMoveLikeC(tailHostiles[0]);
+            rn2(12);
+            rn2(12);
+            rn2(12);
+        }
+    } finally {
+        delete ctx._wizD1CommaPostFifthHostileInlineActiveLikeC;
+        delete ctx._wizD1CommaPostFifthHostileCorridorLikeC;
+        delete ctx._wizD1CommaPostFifthHostileDistantLikeC;
+        ctx._wizD1CommaPostFifthHostileTailCompleteLikeC = true;
+    }
+}
+
 /** C: first **`U`** after comma **`l`** — near **`distfleeck`** (`rn2(5)`) before pet **`mfndpos`**. */
 export async function wizD1CommaLFirstUNearDistfleeckBeforePetLikeC(g) {
     const ctx = g.context;
@@ -2825,7 +2931,7 @@ export async function mMoveCommaLFirstUDistantLikeC(g, mtmp) {
  * @param {import('./gstate.js').game} g
  * @param {Record<string, unknown>} mtmp
  * @param {number} [stepNum]
- * @param {{ skipInitialDistfleeckLikeC?: boolean, skipPostMmoveDistfleeckLikeC?: boolean }} [opts]
+ * @param {{ skipInitialDistfleeckLikeC?: boolean, skipPostMmoveDistfleeckLikeC?: boolean, cachedFleeLikeC?: { nearby: number, scared: number } }} [opts]
  */
 async function mMoveCommaUFmonTailDochugLikeC(g, mtmp, stepNum = 0, opts = null) {
     if (!mtmp || (mtmp.mhp | 0) <= 0) return;
@@ -2848,7 +2954,9 @@ async function mMoveCommaUFmonTailDochugLikeC(g, mtmp, stepNum = 0, opts = null)
 
     setApparxyMonsterLikeC(g, mtmp);
     let flee1;
-    if (opts?.skipInitialDistfleeckLikeC && mtmp._commaPostPeelCachedFleeLikeC) {
+    if (opts?.cachedFleeLikeC) {
+        flee1 = opts.cachedFleeLikeC;
+    } else if (opts?.skipInitialDistfleeckLikeC && mtmp._commaPostPeelCachedFleeLikeC) {
         flee1 = mtmp._commaPostPeelCachedFleeLikeC;
         delete mtmp._commaPostPeelCachedFleeLikeC;
     } else {

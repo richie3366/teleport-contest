@@ -1704,10 +1704,11 @@ function dogMoveMfndposPickLikeC(g, mtmp, ggx, ggy, appr, whappr) {
                 const sameCell = omx === nix && omy === niy;
                 if (sameCell && !rn2(3)) {
                     awayClause = true;
-                } else if (!rn2(12)) {
+                } else {
+                    /* C: consume **`rn2(12)`** every away slot — pick only when draw is 0. */
+                    if (!rn2(12)) awayClause = true;
                     awayRn12++;
                     ctxFifth._wizD1CommaPostFifthAwayRn12LikeC = awayRn12;
-                    awayClause = true;
                 }
             }
             if (awayClause || j < 0) {
@@ -4410,19 +4411,12 @@ export function dogMoveCommaPostFifthNewturnPetLikeC(g, mtmp) {
     const hy = pin ? (pin.uy | 0) : (u.uy | 0);
     mtmp.mux = hx;
     mtmp.muy = hy;
-    const whappr = (g.moves | 0) - (edog.whistletime | 0) < 5;
-    delete ctx._wizD1Step1PetMfndposPickDoneLikeC;
-    delete ctx._wizD1CommaPostFifthAwayRn12LikeC;
-    ctx._wizD1CommaPostFifthPetMfndposLikeC = true;
-    ctx._wizD1CommaPostFifthAwayBudgetLikeC = 2;
-    try {
-        const appr = (mtmp.mflee | 0) ? -1 : 1;
-        dogMoveMfndposPickLikeC(g, mtmp, hx, hy, appr, whappr);
-    } finally {
-        delete ctx._wizD1CommaPostFifthPetMfndposLikeC;
-        delete ctx._wizD1CommaPostFifthAwayBudgetLikeC;
-        delete ctx._wizD1CommaPostFifthAwayRn12LikeC;
-    }
+    /* C: caller **`distfleeck`** (~3077); away **`rn2(3)`** / **`rn2(12)`**×2 (~3078–3081).
+     * Explicit draws — JS **`mfndpos cnt`** may short the **`chcnt`** loop (debt: no step). */
+    rn2(3);
+    rn2(12);
+    rn2(3);
+    rn2(12);
     return MMOVE_NOTHING;
 }
 

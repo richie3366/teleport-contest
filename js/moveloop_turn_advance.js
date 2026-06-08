@@ -78,6 +78,7 @@ import {
     movemonSinglemonLikeC,
     primeDistantMtrackRn20LikeC,
     wizD1CommaLFirstUNearDistfleeckBeforePetLikeC,
+    wizD1CommaPostFifthHostileTailInlineLikeC,
 } from './m_move_mon.js';
 
 /**
@@ -1437,10 +1438,15 @@ export async function runPostCommandTurnAdvanceLikeC(g) {
                             await movemon(1);
                             g.context._wizD1MovemonRanThisPostLikeC = true;
                         }
-                        /* C: post-fifth pet done (~3081) — peel pins saved; hostile tail next slice. */
+                        /* C: post-fifth pet done (~3081) — peel + surplus **`fmon`** (~3082–3091). */
                         if (g.context?._wizD1CommaPostFifthHostileTailPendingLikeC) {
                             delete g.context._wizD1CommaPostFifthHostileTailPendingLikeC;
-                            g.context._wizD1CommaPostFifthHostileTailCompleteLikeC = true;
+                            await wizD1CommaPostFifthHostileTailInlineLikeC(
+                                g,
+                                tailStepNum,
+                            );
+                            await runNewTurnSetupAndTailLikeC(g, tailStepNum);
+                            g.context._wizD1LPostOuterLoopDoneLikeC = true;
                         }
                         g.context._wizD1MovemonRanThisPostLikeC = true;
                         if (

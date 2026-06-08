@@ -362,6 +362,14 @@ export async function movemon(stepNum) {
     ) {
         return false;
     }
+    /* C: comma-**`U`** — post-fifth pet done; hostile peel tail runs inline in moveloop (~3082+). */
+    if (
+        g.context?._wizD1CommaPostFifthMovemonCompleteLikeC
+        && !g.context?._wizD1CommaPostFifthHostileTailCompleteLikeC
+        && !g.context?._wizD1CommaPostFifthHostileInlineActiveLikeC
+    ) {
+        return false;
+    }
     /* C: comma-**`U`** — outer moveloop tail done; block surplus **`fmon`** unless post-fourth
      * peel is armed (~3058+). */
     if (
@@ -2271,6 +2279,7 @@ export async function movemon(stepNum) {
             delete g.context._wizD1CommaPostFifthMovemonPendingLikeC;
             g.context._wizD1CommaPostFifthMovemonCompleteLikeC = true;
             g.context._wizD1CommaPostFifthHostileTailPendingLikeC = true;
+            return false;
         }
         /* C: tourist D:1 run-east **`L`** — fourth **`movemon`** after third-pass new-turn
          * (**`seed0900`** ~2649–2663). */
