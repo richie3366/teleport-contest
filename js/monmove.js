@@ -21,6 +21,13 @@ async function runInlineNewTurnUnlessDeferredPeelLikeC(g, stepNum) {
     if (g.context?._wizD1CommaLFirstUPostTailSecondUPostMovemonLikeC) {
         return;
     }
+    if (
+        g.context?._wizD1CommaSecondUSurplusArmedLikeC
+        && g.context?._wizD1CommaLFirstUPostTailSecondUPeelDoneLikeC
+        && !g.context?._wizD1CommaPostFourthSurplusTailDoneLikeC
+    ) {
+        return;
+    }
     const commaPeelNewTurnLikeC =
         !!g.context?._wizD1CapitalKPostCommaFmonHeadDoneLikeC
         && !g.context?._wizD1CapitalKPostCommaPeelDoneLikeC

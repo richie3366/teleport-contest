@@ -216,7 +216,8 @@ export async function runNewTurnSetupAndTailLikeC(g, stepNum) {
         || g.context?._wizD1CommaLFirstUPostTailAwaitSurplusFmonLikeC
         || (
             g.context?._wizD1CommaSecondUSurplusArmedLikeC
-            && (g.moves | 0) >= 37
+            && g.context?._wizD1CommaLFirstUPostTailSecondUPeelDoneLikeC
+            && !g.context?._wizD1CommaPostFourthSurplusTailDoneLikeC
         )
     ) {
         return;
@@ -1282,7 +1283,8 @@ export async function runPostCommandTurnAdvanceLikeC(g) {
                     const commaUPostFourthSurplusDeferNewturnLikeC =
                         wizD1MovemonOnceLikeC
                         && g.context?._wizD1CommaSecondUSurplusArmedLikeC
-                        && (g.moves | 0) >= 37;
+                        && g.context?._wizD1CommaLFirstUPostTailSecondUPeelDoneLikeC
+                        && !g.context?._wizD1CommaPostFourthSurplusTailDoneLikeC;
                     if (
                         !commaUSurplusTailResumeLikeC
                         && !commaUPostFourthSurplusDeferNewturnLikeC
@@ -1322,6 +1324,7 @@ export async function runPostCommandTurnAdvanceLikeC(g) {
                         wizD1MovemonOnceLikeC
                         && g.context?._wizD1CommaLFirstUPostTailPostFourthDfPendingLikeC
                         && !g.context?._wizD1CommaLFirstUPostTailOuterMoveloopDoneLikeC
+                        && !g.context?._wizD1CommaLFirstUPostTailSecondUPeelDoneLikeC
                     ) {
                         delete g.context._wizD1CommaLFirstUPostTailPostFourthDfPendingLikeC;
                         const nearPostFourth = wizD1CommaLFirstUNearMklevMonLikeC(g);

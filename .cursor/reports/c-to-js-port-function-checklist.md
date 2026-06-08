@@ -96,7 +96,7 @@ Align batches with [`c-to-js-port-remaining.md`](c-to-js-port-remaining.md) §5:
 
 | C symbol / area | JS module | Status | Notes |
 |-----------------|-----------|--------|-------|
-| `movemon` / `dochug` | `monmove.js`, `fmon_iter.js`, `moveloop_turn_advance.js`, `moveloop_aux.js`, `dogmove_mon.js`, `m_move_mon.js`, `monmove_search.js`, `mfndpos_mon.js`, `distfleeck_mon.js` | partial | Comma post-first-**`l`** invent + corridor **~2950–2982**; post-corridor inline new-turn **~2983–3038**; fmon tail **~3035–3049**; post-fourth surplus **`passList`** + near peel **~3054–3058**; **`m_move_mon`** post-peel non-mklev **`dochug`** path; moveloop no early **`PostFourthSurplusTailDone`** without fifth RNG; fail **3059+** (premature fifth new-turn **`rn2(70)`** vs C **`rn2(12)`**; peel state lost across posts). **`seed8000` 2900–3129:** aligned |
+| `movemon` / `dochug` | `monmove.js`, `fmon_iter.js`, `moveloop_turn_advance.js`, `moveloop_aux.js`, `dogmove_mon.js`, `m_move_mon.js`, `monmove_search.js`, `mfndpos_mon.js`, `distfleeck_mon.js` | partial | Comma post-fourth surplus **~3054–3058**; fifth defer when **`SecondUPeelDone`** (`moveloop`/`monmove`/`moveloop_aux`); **`m_move_mon`** post-peel **`dochug`** when armed; fail **3059+** (fifth before peel flag / tail **`runNewTurnSetup`**). **`seed8000` 2900–3129:** aligned |
 | `m_move` / `mfndpos` | `m_move_mon.js`, `mfndpos.js` | partial | Second post-rest mklev interrupt **`mMoveTouristD1PostRestSecondMklevInterruptLikeC`** (**`rn2(32)`** ~2528); **`seed0900`** **~2545** post-**`mcalcmove`** drift |
 | `distfleeck` | `distfleeck_mon.js` | partial | Peel-only rest **`distfleeck`** (**`_touristD1PostSwapRestDistfleeckPeelLikeC`**); 3× ~915 before stub; **`seed0900`** **2499–2504** |
 | `m_throw` | — | missing | |
@@ -129,7 +129,7 @@ Align batches with [`c-to-js-port-remaining.md`](c-to-js-port-remaining.md) §5:
 
 | C symbol / area | JS module | Status | Notes |
 |-----------------|-----------|--------|-------|
-| `moveloop` / post-hero `movemon` | `moveloop_turn_advance.js`, `moveloop_aux.js` | partial | Post-peel new-turn skip **`mcalcmove`** + inline tail **`movemon`**; skip **`mcalcmove`** after tail; **`seed0900`** **2568–2626** |
+| `moveloop` / post-hero `movemon` | `moveloop_turn_advance.js`, `moveloop_aux.js` | partial | **`seed0006`** comma-**`U`**: fifth new-turn defer when **`SecondUPeelDone`** + armed; post-fourth block gated !peel-done; **3054–3058** ok, **3059+** WIP (~3074) |
 | `dosounds` / exercise hooks | `moveloop_aux.js` | stub | |
 
 ---

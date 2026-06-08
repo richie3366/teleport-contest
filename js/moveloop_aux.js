@@ -78,6 +78,11 @@ export function maybe_generate_rnd_mon() {
     if (
         game.context?._wizD1CommaLFirstUPostTailSecondUPostMovemonLikeC
         || game.context?._wizD1CommaLFirstUPostTailAwaitSurplusFmonLikeC
+        || (
+            game.context?._wizD1CommaSecondUSurplusArmedLikeC
+            && game.context?._wizD1CommaLFirstUPostTailSecondUPeelDoneLikeC
+            && !game.context?._wizD1CommaPostFourthSurplusTailDoneLikeC
+        )
     ) {
         return;
     }

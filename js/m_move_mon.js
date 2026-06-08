@@ -1238,7 +1238,10 @@ export async function movemonSinglemonLikeC(g, mtmp, stepNum = 0) {
         && (g.u?.uz?.dnum | 0) === 0
         && (g.u?.uz?.dlevel | 0) === 1
         && g.context?._wizD1CommaLFirstUPostTailSecondUPeelDoneLikeC
-        && g.context?._wizD1CommaLFirstUPostTailSecondUPostMovemonLikeC
+        && (
+            g.context?._wizD1CommaLFirstUPostTailSecondUPostMovemonLikeC
+            || g.context?._wizD1CommaSecondUSurplusArmedLikeC
+        )
         && !(mtmp.mtame | 0)
         && mtmp !== wizD1CommaLFirstUNearMklevMonLikeC(g)
     ) {
