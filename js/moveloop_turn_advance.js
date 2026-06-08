@@ -70,6 +70,7 @@ import {
     wizD1CommaLFirstUNearMklevMonLikeC,
     wizD1CommaSurplusScanClearLikeC,
     wizD1CommaSurplusScanPrimeLikeC,
+    wizD1CommaSurplusPostPeelActiveLikeC,
 } from './mfndpos_mon.js';
 import {
     mMoveTouristD1PostRestSecondMklevInterruptLikeC,
@@ -1381,6 +1382,11 @@ export async function runPostCommandTurnAdvanceLikeC(g) {
                                     g.context?._wizD1CommaDeferFifthNewturnLikeC
                                     && g.context?._wizD1CommaLFirstUPostTailSecondUPeelDoneLikeC
                                     && !g.context?._wizD1CommaPostFourthSurplusTailDoneLikeC
+                                )
+                                || (
+                                    wizD1CommaSurplusPostPeelActiveLikeC(g)
+                                    && !g.context?._wizD1CommaPostFourthSurplusTailDoneLikeC
+                                    && !g.context?._wizD1CommaLFirstUPostTailSecondUPeelDoneLikeC
                                 )
                             )
                         ) {

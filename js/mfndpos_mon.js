@@ -279,12 +279,16 @@ export function wizD1CommaSurplusNearMklevLikeC(g) {
 export function wizD1CommaSurplusScanPrimeLikeC(g, opts = null) {
     const ctx = g.context || (g.context = {});
     const force = !!(opts && opts.force);
+    /* C: moveloop may call **`force`** prime each surplus resume (~3055–3073); only the
+     * first prime in a tail starts the five-slot counter — re-prime must not zero it. */
+    if (force && ctx._wizD1CommaSurplusScanPrimedLikeC) return;
     if (!force && ctx._wizD1CommaSurplusNearMklevPinnedLikeC) return;
     const near = wizD1CommaLFirstUNearMklevMonLikeC(g);
     if (near) ctx._wizD1CommaSurplusNearMklevPinnedLikeC = near;
     ctx._wizD1CommaSurplusPrePeelSlotPassesLikeC = 0;
     delete ctx._wizD1CommaSurplusPostPeelActiveLikeC;
     delete ctx._wizD1CommaLFirstUPostTailSecondUPeelDoneLikeC;
+    if (force) ctx._wizD1CommaSurplusScanPrimedLikeC = true;
 }
 
 export function wizD1CommaSurplusScanClearLikeC(g) {
@@ -292,6 +296,7 @@ export function wizD1CommaSurplusScanClearLikeC(g) {
     delete g.context._wizD1CommaSurplusNearMklevPinnedLikeC;
     delete g.context._wizD1CommaSurplusPrePeelSlotPassesLikeC;
     delete g.context._wizD1CommaSurplusPostPeelActiveLikeC;
+    delete g.context._wizD1CommaSurplusScanPrimedLikeC;
 }
 
 /** C: five pre-peel **`rn2(12)`** slot passes (~3055–3059) then post-peel **`dochug`**. */

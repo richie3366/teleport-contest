@@ -1273,7 +1273,6 @@ export async function movemonSinglemonLikeC(g, mtmp, stepNum = 0) {
         )
     ) {
         delete g.context._wizD1CommaPostFourthHostileSurplusDoneLikeC;
-        g.context._wizD1CommaLFirstUPostTailSecondUPeelDoneLikeC = true;
         let movNearTail = mtmp.movement | 0;
         if (movNearTail < NORMAL_SPEED) {
             mtmp.movement = NORMAL_SPEED;

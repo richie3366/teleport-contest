@@ -484,60 +484,51 @@ export async function movemon(stepNum) {
             } else if (nearMklevSurplus) {
                 passList = [nearMklevSurplus];
             }
-        } else if (
-            surplusHostile.some((m) => (m.movement | 0) >= NORMAL_SPEED)
-        ) {
-            const moving = surplusHostile.filter(
-                (m) => (m.movement | 0) >= NORMAL_SPEED,
-            );
-            passList = moving.length > 0 ? [moving[0]] : [];
-        }
-        if (
-            passList.length === 0
-            && wizD1CommaSurplusPostPeelActiveLikeC(g)
-        ) {
+        } else {
             const postPeelPending = surplusHostile.filter(
                 (m) =>
                     m !== nearMklevSurplus
                     && !postPeelPassDone.has(m),
             );
             if (postPeelPending.length > 0) {
+                const moving = postPeelPending.filter(
+                    (m) => (m.movement | 0) >= NORMAL_SPEED,
+                );
                 const nonMklev = postPeelPending.find(
                     (m) => !(m.mgenmklev | 0),
                 );
-                passList = [nonMklev ?? postPeelPending[0]];
+                passList = [
+                    moving[0]
+                    ?? nonMklev
+                    ?? postPeelPending[0],
+                ];
             }
         }
         for (const m of passList) {
+            const postPeelAtPassStartLikeC =
+                wizD1CommaSurplusPostPeelActiveLikeC(g);
             spendSurplusMoveLikeC(m);
             await movemonSinglemonLikeC(g, m, effStepNum);
-            if (!wizD1CommaSurplusPostPeelActiveLikeC(g)) {
+            if (!postPeelAtPassStartLikeC) {
                 const prePeelSlots =
                     (g.context._wizD1CommaSurplusPrePeelSlotPassesLikeC | 0) + 1;
                 g.context._wizD1CommaSurplusPrePeelSlotPassesLikeC = prePeelSlots;
                 /* C: five surplus slot passes (~3055–3059) then post-peel **`dochug`** (~3060+). */
                 if (prePeelSlots >= 5) {
                     g.context._wizD1CommaSurplusPostPeelActiveLikeC = true;
-                    g.context._wizD1CommaLFirstUPostTailSecondUPeelDoneLikeC = true;
                 }
             }
             if (
-                m === nearMklevSurplus
-                && !wizD1CommaSurplusPostPeelActiveLikeC(g)
-            ) {
-                g.context._wizD1CommaSurplusPostPeelActiveLikeC = true;
-                g.context._wizD1CommaLFirstUPostTailSecondUPeelDoneLikeC = true;
-            } else if (
                 (m.mgenmklev | 0)
                 && m !== nearMklevSurplus
                 && m !== corridorSurplusMklev
-                && !wizD1CommaSurplusPostPeelActiveLikeC(g)
+                && !postPeelAtPassStartLikeC
             ) {
                 strayTailDone.add(m);
             } else if (!(m.mgenmklev | 0)) {
                 nonMklevSurplusDone.add(m);
             } else if (
-                wizD1CommaSurplusPostPeelActiveLikeC(g)
+                postPeelAtPassStartLikeC
                 && m !== nearMklevSurplus
             ) {
                 postPeelPassDone.add(m);
@@ -571,7 +562,6 @@ export async function movemon(stepNum) {
         const postPeelRoundLikeC = g.context._wizD1CommaPostPeelSurplusRoundLikeC | 0;
         if (
             wizD1CommaSurplusPostPeelActiveLikeC(g)
-            && g.context?._wizD1CommaDeferFifthNewturnLikeC
             && !g.context?._wizD1CommaPostFourthSurplusTailDoneLikeC
             && passList.length > 0
             && !postPeelPassStillPendingLikeC
@@ -591,6 +581,14 @@ export async function movemon(stepNum) {
             || nonMklevStillPendingLikeC
             || postPeelPassStillPendingLikeC
         );
+        if (
+            !surplusScanMoreLikeC
+            && wizD1CommaSurplusPostPeelActiveLikeC(g)
+            && g.context?._wizD1CommaDeferFifthNewturnLikeC
+        ) {
+            /* C: post-peel surplus **`fmon`** done (~3073) — arm fifth new-turn (~3074). */
+            g.context._wizD1CommaLFirstUPostTailSecondUPeelDoneLikeC = true;
+        }
         if (g.context?._wizD1CommaLFirstUPostTailSecondUPostMovemonLikeC) {
             g.context._wizD1CommaSurplusScanMoreLikeC = surplusScanMoreLikeC;
         }
