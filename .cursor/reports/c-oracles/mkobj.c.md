@@ -35,7 +35,8 @@ Most mid-game RNG divergence is **object creation order** (`mkobj`, `ini_inv`, f
 
 ## Open gaps
 
-- **`ini_inv_mkobj_filter`** — **unified** (`iniInvMkobjFilterLikeC` + `iniInvMkobjFilterCtxForRoleLikeC`); monk scroll / healer wand / tourist food on general path.
+- **`ini_inv_mkobj_filter`** — **unified** (`iniInvMkobjFilterLikeC` + `iniInvMkobjFilterCtxForRoleLikeC`); monk scroll / tourist food on general path; **Healer `WAN_SLEEP` is fixed trotyp** (`mksobj` only — not filter/`rnd(1000)`).
+- **`ini_inv` quan loop** — one **`trquan` per trobj**; quan>1 replays **`mksobj`** only (no per-item **`trquan`** on potion/spellbook rows); WEAPON/TOOL still get second **`trquan`** in **`ini_inv_adjust_obj`**.
 - **`u_init_race`** — PM_ORC **`Xtra_food`** + PM_ELF **`Instrument[]`** invent prepend wired (`applyOrcXtraFoodInventTailLikeC` / **`applyElfInstrumentInventTailLikeC`**); dwarf/gnome `knows_object` tails still no-RNG stubs.
 - **Non-human `u_init_role`** — **closed 2026-06-08 pass 4**: all roles dispatch in `u_init_post_mklev.js` (no `humanIdx`); subs in **`ini_inv_obj_substitution`** + **`u_init_race`** tails. Linker gates **role-only** (`is*ChargenLikeC`; legacy `isHuman*` names = role abbr only).
 - Elf **Pri/Wiz** — Priest pack linker all-race (`isPriestChargenLikeC`); Wizard role-only; **`applyElfInstrumentInventTailLikeC`** prepends after role pack. Hea/Bar/Val linkers all-race; Bar **`iniInvSubstOtypForChargenLikeC`** on ring mail + short sword (pack 1).

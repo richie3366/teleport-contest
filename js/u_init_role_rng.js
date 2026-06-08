@@ -39,6 +39,8 @@ import {
 
 /** C `objects_nums` — **`WAN_WISHING`** (`u_init.c` **`Wishing[]`**). */
 const OTYP_WAN_WISHING = 413;
+/** C `objects.h` — **`WAN_SLEEP`** (`Healer[]` fixed trotyp, not `UNDEF_TYP`). */
+const OTYP_WAN_SLEEP = 412;
 
 /** C objects_nums — OBJECTS_ENUM (nethack-c/upstream/include/objects.h). */
 const OTYP_DAGGER = 35;
@@ -227,6 +229,12 @@ function mksobjInitScrollIniInvLikeC() {
 
 /** C: mkobj.c mksobj_init — SPBOOK_CLASS blessorcurse(otmp, 17) */
 function mksobjInitSpellbookIniInvLikeC() {
+    blessorcurseLikeC(17);
+}
+
+/** C: mkobj.c mksobj_init — `WAN_SLEEP` directional `spe = rn1(5, 4)` + blessorcurse(17). */
+function mksobjInitWandSleepHealerLikeC() {
+    rn1(5, 4);
     blessorcurseLikeC(17);
 }
 
@@ -649,46 +657,39 @@ export function consumeHealerHumanIniInvUinitRoleRngLikeC() {
     nextIdentLikeC();
     rn2(1);
 
-    const healQ = 4 + rn2(1);
+    /* C: ini_inv — one trquan per trobj; quan loop replays mksobj only (no per-item trquan). */
+    const healQ = trquanMinMaxLikeC(4, 4);
     for (let i = 0; i < healQ; i++) {
         nextIdentLikeC();
         mksobjInitPotionLikeC();
-        rn2(1);
     }
 
-    const extraHealQ = 4 + rn2(1);
+    const extraHealQ = trquanMinMaxLikeC(4, 4);
     for (let i = 0; i < extraHealQ; i++) {
         nextIdentLikeC();
         mksobjInitPotionLikeC();
-        rn2(1);
     }
 
-    const gn = gnIniInvFreshLikeC();
-    const raceMnum = game.urace?.mnum ?? races[game.initrace | 0]?.mnum ?? 0;
-    const heaCtx = iniInvMkobjFilterCtxForRoleLikeC('Hea', raceMnum);
+    /* C: `Healer[]` `{ WAN_SLEEP, … }` — fixed otyp `mksobj`, not `ini_inv_mkobj_filter`. */
     trquanMinMaxLikeC(1, 1);
-    game._healerIniWandOtyp = iniInvMkobjFilterLikeC(NH5_WAND_CLASS, false, gn, heaCtx);
-    iniInvGnAfterUndefAcceptLikeC(NH5_WAND_CLASS, game._healerIniWandOtyp | 0, gn);
-    rn2(1);
+    nextIdentLikeC();
+    mksobjInitWandSleepHealerLikeC();
+    game._healerIniWandOtyp = OTYP_WAN_SLEEP;
 
     trquanMinMaxLikeC(1, 1);
     nextIdentLikeC();
     mksobjInitSpellbookIniInvLikeC();
-    rn2(1);
 
     trquanMinMaxLikeC(1, 1);
     nextIdentLikeC();
     mksobjInitSpellbookIniInvLikeC();
-    rn2(1);
 
     trquanMinMaxLikeC(1, 1);
     nextIdentLikeC();
     mksobjInitSpellbookIniInvLikeC();
-    rn2(1);
 
-    rn2(1);
     game._healerIniAppleQuans = [];
-    const appleQ = 5 + rn2(1);
+    const appleQ = trquanMinMaxLikeC(5, 5);
     for (let i = 0; i < appleQ; i++) {
         nextIdentLikeC();
         game._healerIniAppleQuans.push(mksobjInitDefaultFoodQuanMaybeDoubleLikeC());
