@@ -81,3 +81,7 @@ rg -c 'LikeC' js/monmove.js js/moveloop_turn_advance.js js/dogmove_mon.js js/mov
 ```
 
 Record totals in changelog row when moveloop harness changes.
+
+## P1 mkobj batches (2026-06-08)
+
+**No harness change** — `may_generate_eroded` / `mksobj_init` artif→`oartifact` in `mkobj_mklev_like_c.js` only; peel moratorium unchanged.

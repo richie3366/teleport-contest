@@ -3,7 +3,7 @@
 **JS modules:** `mkobj_mklev_like_c.js`, `mklev.js`, `u_init_post_mklev.js`, role `u_init_link_*_invent.js`  
 **Phase:** P1  
 **C path:** `nethack-c/upstream/src/mkobj.c`  
-**Last C read:** 2026-06-08 — `may_generate_eroded` + `mkobj_erosions` grease on oerodeproof path
+**Last C read:** 2026-06-08 — `may_generate_eroded` `otmp->oartifact` / `oerodeproof` on object (not `artif` flag)
 
 ## Why P1 matters
 
@@ -12,7 +12,7 @@ Most mid-game RNG divergence is **object creation order** (`mkobj`, `ini_inv`, f
 ## Call order (partial)
 
 1. `mkobj` / `mksobj` — class walk, `mksobj_init` per class, erosion `rn2(80)` gates.
-2. `may_generate_eroded` — skip when `moves<=1 && !in_mklev`; **WORM_TOOTH** (42) / **UNICORN_HORN** (261); `oartifact` (defer until `otmp.oartifact` wired).
+2. `may_generate_eroded` — `struct obj *otmp`: `moves<=1 && !in_mklev`; `oerodeproof`; **WORM_TOOTH** (42) / **UNICORN_HORN** (261); **`oartifact`** (set in `mksobj_init` when `artif && !rn2(20|40)` before `mkobj_erosions`).
 3. `mkobj_erosions` — `!rn2(100)` → oerodeproof only, still **`rn2(1000)`** grease; else erosion loops + grease.
 4. `rndmonnum_adj(min,max)` — Plan A `rndmonst_adj`, else Plan B `rn1` + `G_UNIQ|G_NOGEN|hell` mask (`mkobj.c:395`).
 5. `mksobj_init` TOOL **FIGURINE** — `rndmonnum_adj(5,10)` loop `is_human` ≤30, `blessorcurse(4)`; `corpsenm` → `mksobj` gender `spe` tail.
@@ -38,4 +38,4 @@ Most mid-game RNG divergence is **object creation order** (`mkobj`, `ini_inv`, f
 ## Wrong hypotheses
 
 - Session JSON draw list in `fastforward.js` — forbidden; use C call order.
-- **`artif` param on `mksobjTailConsumeRngLikeC`** — breaks **`seed8000` ~1420**; need **`otmp.oartifact`** state, not ctor flag alone.
+- **`artif` boolean alone for erosion skip** — breaks **`seed8000` ~1420**; use **`otmp.oartifact`** after `mk_artifact` gate (fixed 2026-06-08).

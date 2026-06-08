@@ -258,20 +258,31 @@ function isDamageableMklevLikeC(otyp, oclass) {
 const OTYP_WORM_TOOTH = 42;
 const OTYP_UNICORN_HORN = 261;
 
-/** C: mkobj.c may_generate_eroded */
-function mayGenerateErodedMklevLikeC(otyp, oclass) {
+/** @returns {{ otyp: number, oclass: number, oartifact: number, oerodeproof: number }} */
+function mkobjErosionOtmpLikeC(otyp, oclass) {
+    return { otyp: otyp | 0, oclass: oclass | 0, oartifact: 0, oerodeproof: 0 };
+}
+
+/** C: mkobj.c may_generate_eroded — `struct obj *otmp` (oartifact / oerodeproof on object, not artif flag). */
+function mayGenerateErodedMklevLikeC(otmp) {
     if ((game.moves | 0) <= 1 && !game.in_mklev) return false;
+    if (otmp.oerodeproof) return false;
+    const oclass = otmp.oclass | 0;
+    const otyp = otmp.otyp | 0;
     if (!erosionMattersMklevLikeC(oclass)) return false;
     if (!isDamageableMklevLikeC(otyp, oclass)) return false;
-    const t = otyp | 0;
-    if (t === OTYP_WORM_TOOTH || t === OTYP_UNICORN_HORN) return false;
+    if (otyp === OTYP_WORM_TOOTH || otyp === OTYP_UNICORN_HORN) return false;
+    if (otmp.oartifact | 0) return false;
     return true;
 }
 
 /** C: mkobj.c mksobj_init tail — mkobj_erosions */
-export function mkobjErosionsMklevLikeC(otyp, oclass) {
-    if (!mayGenerateErodedMklevLikeC(otyp, oclass)) return;
+export function mkobjErosionsMklevLikeC(otmp) {
+    if (!mayGenerateErodedMklevLikeC(otmp)) return;
+    const otyp = otmp.otyp | 0;
+    const oclass = otmp.oclass | 0;
     if (!rn2(100)) {
+        otmp.oerodeproof = 1;
         rn2(1000);
         return;
     }
@@ -400,7 +411,7 @@ function mkboxCntsMklevLikeC(box) {
             /* C: mkobj.c mkbox_cnts — mksobj(CORPSE, TRUE, FALSE); age=0 (no RNG). */
             rnd(2);
             const corpsenm = mksobjInitCorpseConsumeRngLikeC();
-            mkobjErosionsMklevLikeC(OTYP_CORPSE, NH5_FOOD_CLASS);
+            mkobjErosionsMklevLikeC(mkobjErosionOtmpLikeC(OTYP_CORPSE, NH5_FOOD_CLASS));
             consumeMksobjCorpseSpeRngLikeC(corpsenm);
             continue;
         }
@@ -471,7 +482,7 @@ function blessorcurseLikeC(chance, otmp) {
     }
 }
 
-function mksobjInitWeaponLikeC(otyp, artif) {
+function mksobjInitWeaponLikeC(otyp, artif, otmp) {
     if (weaponMultigenMklevLikeC(otyp)) rn1(6, 6);
     if (!rn2(11)) {
         rne(3);
@@ -484,11 +495,12 @@ function mksobjInitWeaponLikeC(otyp, artif) {
     if (isPoisonableWeaponMklevLikeC(otyp) && !rn2(100)) {
         /* otmp->opoisoned = 1 */
     }
-    if (artif && !rn2(20)) { /* nartifact_exist() stub 0 */ }
+    /* C: mk_artifact(…, TRUE) when `!rn2(20 + 10*nartifact_exist())`; stub nartifact_exist → 0 */
+    if (artif && !rn2(20) && otmp) otmp.oartifact = 1;
 }
 
 /** C: mkobj.c mksobj_init — ARMOR_CLASS (full otyp guards; not ini_inv leather-only path). */
-function mksobjInitArmorLikeC(otyp, artif) {
+function mksobjInitArmorLikeC(otyp, artif, otmp) {
     const t = otyp | 0;
     if (
         rn2(10) &&
@@ -506,7 +518,8 @@ function mksobjInitArmorLikeC(otyp, artif) {
     } else {
         blessorcurseLikeC(10);
     }
-    if (artif && !rn2(40)) { /* mk_artifact stub */ }
+    /* C: mk_artifact(…, TRUE) when `!rn2(40 + 10*nartifact_exist())`; stub nartifact_exist → 0 */
+    if (artif && !rn2(40) && otmp) otmp.oartifact = 1;
 }
 
 function mksobjInitWandLikeC(otyp, otmp) {
@@ -691,8 +704,8 @@ export function mksobjPostInitStatueLikeC(otyp) {
 }
 
 /** C: mkobj.c mksobj — after mksobj_init (incl. mkobj_erosions): corpse/statue spe. */
-export function mksobjTailConsumeRngLikeC(otyp, oclass, corpsenm) {
-    mkobjErosionsMklevLikeC(otyp, oclass);
+export function mksobjTailConsumeRngLikeC(otyp, oclass, corpsenm, otmp) {
+    mkobjErosionsMklevLikeC(otmp ?? mkobjErosionOtmpLikeC(otyp, oclass));
     if (corpsenm !== null) {
         consumeMksobjCorpseSpeRngLikeC(corpsenm);
     } else if ((otyp | 0) === OTYP_STATUE) {
@@ -724,8 +737,9 @@ export function mkobjMklevConsumeRngLikeC(let_, artif, nh5Oclass = false) {
         otyp = mkobjPickOtypForClassLikeC(oclass);
     }
     rnd(2);
-    const corpsenm = mksobjInitMklevLikeC(otyp, oclass, artif);
-    mksobjTailConsumeRngLikeC(otyp, oclass, corpsenm);
+    const otmp = mkobjErosionOtmpLikeC(otyp, oclass);
+    const corpsenm = mksobjInitMklevLikeC(otyp, oclass, artif, otmp);
+    mksobjTailConsumeRngLikeC(otyp, oclass, corpsenm, otmp);
     return otyp | 0;
 }
 
@@ -760,10 +774,10 @@ export function mksobjInitMklevLikeC(otyp, oclass, artif, otmp) {
         }
         break;
     case NH5_WEAPON_CLASS:
-        mksobjInitWeaponLikeC(otyp, artif);
+        mksobjInitWeaponLikeC(otyp, artif, otmp);
         break;
     case NH5_ARMOR_CLASS:
-        mksobjInitArmorLikeC(otyp, artif);
+        mksobjInitArmorLikeC(otyp, artif, otmp);
         break;
     case NH5_GEM_CLASS:
         mksobjInitGemLikeC(otyp);
