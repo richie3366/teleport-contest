@@ -1258,7 +1258,7 @@ export async function movemonSinglemonLikeC(g, mtmp, stepNum = 0) {
         && mtmp !== (g.context?._wizD1CommaSurplusNearMklevPinnedLikeC ?? null)
     ) {
         /* C: post-peel — west-corridor then peel-distant each **`distfleeck`** only (~3060–3061),
-         * then peel-distant **`m_move`** **`rn2(12)`** without a second leading **`distfleeck`** (~3062). */
+         * then peel-distant **`m_move`** **`rn2(12)`** + ~915 **`distfleeck`** (~3062–3063). */
         const ctx = g.context || (g.context = {});
         const peelDistant = wizD1CommaPostPeelDistantMklevMonLikeC(g);
         const corridor = wizD1CommaPostPeelCorridorMklevMonLikeC(g);
@@ -1275,9 +1275,8 @@ export async function movemonSinglemonLikeC(g, mtmp, stepNum = 0) {
             mmovePending.delete(mtmp);
             const peelDistantMmoveLikeC = mtmp === peelDistant;
             await mMoveCommaUFmonTailDochugLikeC(g, mtmp, stepNum, {
-                /* C: peel-distant **`m_move`** @ ~3062 — cached flee, no ~915 recalc. */
+                /* C: peel-distant **`m_move`** @ ~3062 — cached flee; ~915 **`distfleeck`** @ ~3063. */
                 skipInitialDistfleeckLikeC: peelDistantMmoveLikeC,
-                skipPostMmoveDistfleeckLikeC: peelDistantMmoveLikeC,
             });
             postPeelMmoveDone.add(mtmp);
             return;

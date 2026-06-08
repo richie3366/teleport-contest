@@ -416,6 +416,7 @@ export function wizD1CommaSurplusScanClearLikeC(g) {
     delete g.context._wizD1CommaPostPeelDistantPinnedLikeC;
     delete g.context._wizD1CommaPostPeelDfDoneSetLikeC;
     delete g.context._wizD1CommaPostPeelMmoveDoneSetLikeC;
+    delete g.context._wizD1CommaSecondUPostPeelPetDoneLikeC;
 }
 
 /** C: five pre-peel **`rn2(12)`** slot passes (~3055–3059) then post-peel **`dochug`**. */

@@ -32,7 +32,7 @@ Use this when **`Next steps`** below feels stale or several lanes compete. Order
 
 **Tutorial (Lane E):** Gated on [tutorial port gate](../../docs/plans/tutorial-port-gate.md) **MD-1 … MD-7**.
 
-**Last slice:** **Lane C — `seed0006` comma-`U` post-peel two-pass `distfleeck`→`m_move` (~3060–3074 WIP)** — **`mfndpos_mon.js`**: peel-distant/corridor pins + resolve; **`fmon_iter.js`**: pin-only near exclusion (stray stays in surplus pool); **`monmove.js`** / **`m_move_mon.js`**: df→mmove phase sets, peel **`m_move`** skip initial + ~915 recalc, corridor peel-block bypass. **Verified:** **3054–3063**, **3066**, **3071–3072**; fail **3064+** (corridor **`dochug:886`** **`rn2(3)`** before slot); fifth **~3074** WIP; **`seed8000` 2900–3129** canary.
+**Last slice:** **Lane C — `seed0006` comma-`U` post-peel pet `dog_move` (~3064–3076)** — **`monmove.js`**: after peel-distant **`m_move`** + ~915 **`distfleeck`**, surplus pet **`distfleeck`** + **`dogMoveCommaUFmonTailPostPeelPetLikeC`** before corridor/hostile tail; **`m_move_mon.js`**: peel-distant ~915 recalc restored. **Verified:** **3054–3076**; fail **3077+** (post-fifth-new-turn pet **`dog_move`** @ ~3077–3081); **`seed8000` 2900–3129** canary.
 
 ## Next steps (aligned with matrix)
 
@@ -40,7 +40,7 @@ Pick **one** primary lane per **batch** (several related C functions — see che
 
 **First:** open [`docs/plans/tutorial-port-gate.md`](../../docs/plans/tutorial-port-gate.md) — if **all MD-1 … MD-7** are checked, do **Lane E** step 1 from [10-tutorial.md](../plans/nethack-port/10-tutorial.md) instead of the list below.
 
-1. **Lane C — `seed0006` comma-`U` post-peel corridor `dochug:886` @ ~3064–3066 + fifth @ ~3074** — **3054–3063**, **3066**, **3071–3072** aligned; **3064+** corridor **`rn2(3)`** gate before **`rn2(12)`** slot ( **`nearby`** / peel-block bypass done). Next: C-order corridor mmove tail + fifth new-turn @ **3074**. Locator: `node tools/diag_rng_window.mjs sessions/seed0006-wizard-water-demon.session.json 3054 3080`.
+1. **Lane C — `seed0006` comma-`U` post-fifth-new-turn pet `dog_move` @ ~3077–3081** — fifth new-turn **~3074–3076** aligned; surplus hostile tail **~3082+** (`distfleeck`×2 + **`m_move`**). Locator: `node tools/diag_rng_window.mjs sessions/seed0006-wizard-water-demon.session.json 3070 3090`.
 2. **Lane B — NHL** — next **`lspo_*`** per [`nhl-port-notes.md`](nhl-port-notes.md).
 3. **Lane A/D — `seed0900`** — screen parity (RNG **0–2982** done); map/botl integration beyond moveloop peel chain.
 4. **Lane A/D — `dogmove.c`** — **`score_targ`** vampshifter **`mtmp_lev`** **`rn2`** tail (~808–817); **`mattackm`** / **`pet_ranged_attk`** when pet breath sessions fail.
