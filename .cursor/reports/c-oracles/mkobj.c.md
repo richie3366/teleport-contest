@@ -3,7 +3,7 @@
 **JS modules:** `mkobj_mklev_like_c.js`, `mklev.js`, `u_init_post_mklev.js`, role `u_init_link_*_invent.js`  
 **Phase:** P1  
 **C path:** `nethack-c/upstream/src/mkobj.c`  
-**Last C read:** 2026-06-08 — `u_init.c` `u_init_race` PM_ORC **`ini_inv(Xtra_food[])`** (UNDEF FOOD ×2); Val/Ran/Kni linkers apply **`iniInvSubstOtypForChargenLikeC`** on fixed trobj rows.
+**Last C read:** 2026-06-08 — `u_init.c` `u_init_race` PM_ELF **`ROLL_FROM` + `ini_inv(Instrument[])`** (Cleric/Wizard only; plain TOOL `next_ident` only); PM_ORC **`Xtra_food`**; Val/Ran/Kni **`iniInvSubstOtypForChargenLikeC`**.
 
 ## Why P1 matters
 
@@ -21,9 +21,10 @@ Most mid-game RNG divergence is **object creation order** (`mkobj`, `ini_inv`, f
 8. `ini_inv` — role tables → `addinv` chain; explore mode `Wishing` before `Money`.
 9. `ini_inv_mkobj_filter` — `mkobj(oclass,FALSE)` + while reject (`WAN_WISHING`, `gn.nocreate*`, useless pots/scrolls, orc `RIN_POISON_RESISTANCE`, monk `SCR_ENCHANT_WEAPON`, wizard `SPE_FORCE_BOLT`, spell level/restricted, `SPE_NOVEL`); pancake fallback `trycnt>1000`; **`FOOD_CLASS`** uses `mkobjOtypFoodClassIniInvLikeC` + `mksobjInitFoodClassIniInvAfterOtypLikeC`.
 10. `ini_inv_obj_substitution` — after filter/fixed `mksobj`, `gu.urace.mnum != PM_HUMAN` → `inv_subs[]` otyp swap (UNDEF food included); Val/Ran/Kni linkers substitute fixed weapons/armor/food.
-11. `u_init_race` PM_ORC — `!Role_if(PM_WIZARD)` → `ini_inv(Xtra_food)` (UNDEF FOOD `trquan` 2..2, filter + subst); runs after `u_init_role` in `u_init_inventory_attrs`.
-12. `trquan` / `ini_inv_adjust_obj` — `WEAPON_CLASS`/`TOOL_CLASS`: `obj->quan = trquan(trop)` (second draw per row); FOOD trobj row count from first `trquan` only (`Knight` apple/carrot `10+rn2(1)`); Ranger cram `4+rn2(1)` objects each `!rn2(6)` stack quan.
-13. Post-mklev mineralize / gem probs — ordering with `u_init_role` tail.
+11. `u_init_race` PM_ELF — `Role_if(PM_CLERIC) || Role_if(PM_WIZARD)` → `ROLL_FROM(trotyp)` `rn2(6)` then `ini_inv(Instrument[])` (`trquan`×2 + `next_ident`; no `mksobj_init` for non-magic tools); `knows_object` elven gear = no RNG.
+12. `u_init_race` PM_ORC — `!Role_if(PM_WIZARD)` → `ini_inv(Xtra_food)` (UNDEF FOOD `trquan` 2..2, filter + subst); runs after `u_init_role` in `u_init_inventory_attrs`.
+13. `trquan` / `ini_inv_adjust_obj` — `WEAPON_CLASS`/`TOOL_CLASS`: `obj->quan = trquan(trop)` (second draw per row); FOOD trobj row count from first `trquan` only (`Knight` apple/carrot `10+rn2(1)`); Ranger cram `4+rn2(1)` objects each `!rn2(6)` stack quan.
+14. Post-mklev mineralize / gem probs — ordering with `u_init_role` tail.
 
 ## Locator sessions
 
@@ -34,8 +35,8 @@ Most mid-game RNG divergence is **object creation order** (`mkobj`, `ini_inv`, f
 
 ## Open gaps
 
-- **`u_init_race`** — PM_ORC **`Xtra_food`** wired; PM_ELF **`Instrument[]`** (`ROLL_FROM`) + `knows_object` tails still open.
-- **Non-human `u_init_role`** — orc/elf/dwarf/gnome role packs still generic-stub except human gates; **`Xtra_food`** RNG runs after stub today.
+- **`u_init_race`** — PM_ELF **`Instrument[]`** wired (`consumeUInitRaceElfInstrumentIniInvLikeC`); PM_ORC **`Xtra_food`** wired; dwarf/gnome `knows_object` tails still no-RNG stubs.
+- **Non-human `u_init_role`** — elf Priest / orc Bar / dwarf Val / … still generic-stub except human gates; elf Wizard uses real **`ini_inv(Wizard[])`** + race instrument.
 - `game.invent` not fully driven by `ini_inv` + `mkobj` for all roles (Knight linker now accepts 10–11 apple/carrot stacks).
 - NH5 `otyp` vs legacy floor indices in `mklev.js`.
 - `makemon.js` `rndmonnum()` must stay aliased to **`rndmonnumMklevLikeC`** (medusa `mkcorpstat` rerolls).

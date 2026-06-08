@@ -83,14 +83,14 @@ Use when **`Next steps`** feels stale. Order: **(1)** reliability phase **P1–P
 
 **Tutorial (Lane E):** Gated on [tutorial port gate](../../docs/plans/tutorial-port-gate.md) **MD-1 … MD-7**.
 
-**Last slice:** **P1 `u_init_race` PM_ORC `Xtra_food`** — C `ini_inv(Xtra_food[])` UNDEF FOOD ×2 after `u_init_role`; Val/Ran/Kni linkers **`iniInvSubstOtypForChargenLikeC`**. **`seed8000`/`seed0102` full**; **`seed0900` 200–450**, **`seed0012` 80–200**. Moveloop fail **`seed0900` ~2512** unchanged.
+**Last slice:** **P1 `u_init_race` PM_ELF `Instrument[]`** — C `ROLL_FROM(trotyp)` `rn2(6)` + `ini_inv` fixed TOOL (`trquan`×2 + `next_ident`) for Cleric/Wizard elf after `u_init_role`. **`seed8000`/`seed0102` full**; **`seed0900` 200–450**; moveloop canaries PASS. Fail **`seed0900` ~2512** unchanged.
 
 ## Next steps (**strategy order** — pick **one**)
 
 **First:** tutorial gate — if **all MD-1 … MD-7**, Lane E from [10-tutorial.md](../plans/nethack-port/10-tutorial.md).
 
-1. **P2 — moveloop @ `seed0900` ~2512 / ~2960** — `diag_c_rng_callers` on fail window; **not** peel. Oracle: [`c-oracles/monmove.c.md`](c-oracles/monmove.c.md).
-2. **P1 — `u_init_race` PM_ELF `Instrument[]`** + non-human role `ini_inv` gates (orc ranger/bar, dwarf val, …). Oracle: [`c-oracles/mkobj.c.md`](c-oracles/mkobj.c.md). Locator: **`seed0012`** monk vault **1244+**.
+1. **P1 — non-human `u_init_role` `ini_inv`** — elf Priest / orc Bar / dwarf Val / gnome Hea (replace generic stub). Oracle: [`c-oracles/mkobj.c.md`](c-oracles/mkobj.c.md). Locator: **`seed0030`** elf Wizard seg3 **`u_init_race` ~2215** (blocked earlier @ mklev **~1272** until role+racial subs align).
+2. **P2 — moveloop @ `seed0900` ~2512 / ~2960** — `diag_c_rng_callers` on fail window; **not** peel. Oracle: [`c-oracles/monmove.c.md`](c-oracles/monmove.c.md).
 3. **P2 — `dog_goal` / first `#search` (C, not peel)** — `seed0077` ~3205–3207 per [`c-oracles/dogmove.c.md`](c-oracles/dogmove.c.md); **no** new `PendingLikeC`.
 4. **P2 — PostSeventeenth peel** — **deferred** until after (1) or (2); same delete pattern as batches 1–10. Oracle: [`c-oracles/monmove.c.md`](c-oracles/monmove.c.md). Locator: `seed0006` ~3426–3448.
 5. **Lane B — NHL** — one `lspo_*` per [`nhl-port-notes.md`](nhl-port-notes.md).

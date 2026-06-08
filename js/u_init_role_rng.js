@@ -116,6 +116,15 @@ const OTYP_POT_WATER = 321;
 /** C `objects.h` FOOD after **`CARROT`** — **`SPRIG_OF_WOLFSBANE`**, **`CLOVE_OF_GARLIC`**. */
 const OTYP_SPRIG_WOLFSBANE = 283;
 const OTYP_CLOVE_GARLIC = 284;
+/** C `u_init.c` `u_init_race` PM_ELF `Instrument[]` — `ROLL_FROM(trotyp)` non-magic tools (`objects.h`). */
+const ELF_INSTRUMENT_OTYPS = Object.freeze([
+    247, /* WOODEN_FLUTE */
+    249, /* TOOLED_HORN */
+    253, /* WOODEN_HARP */
+    255, /* BELL */
+    256, /* BUGLE */
+    257, /* LEATHER_DRUM */
+]);
 
 /** C `obj.h` **`is_multigen`** / **`is_poisonable`** (WEAPON + **`oc_skill`** in **`-P_SHURIKEN`..`-P_BOW`**), extended when **`OC_SKILL_ROW_BY_OTYP`** lacks projectiles **19–24**. */
 function weaponAmmoMultigenOrPoisonableLikeC(otyp) {
@@ -1071,6 +1080,27 @@ export function consumeMonkHumanIniInvUinitRoleRngLikeC() {
 }
 
 /**
+ * C: u_init.c `u_init_race` PM_ELF — `Role_if(PM_CLERIC) || Role_if(PM_WIZARD)` →
+ * `ROLL_FROM(trotyp)` then `ini_inv(Instrument[])` (fixed TOOL, no `mksobj_init` branch).
+ * `knows_object` elven gear tails are no-RNG (`discover_object` only).
+ * @param {import('./gstate.js').game} [g]
+ */
+export function consumeUInitRaceElfInstrumentIniInvLikeC(g = game) {
+    const elfIdx = races.findIndex((r) => r.name === 'elf');
+    if ((g.initrace | 0) !== elfIdx) return;
+    const abbr = g.urole?.abbr ?? '';
+    if (abbr !== 'Pri' && abbr !== 'Wiz') return;
+
+    const pick = rn2(ELF_INSTRUMENT_OTYPS.length);
+    g._elfIniInstrumentOtyp = ELF_INSTRUMENT_OTYPS[pick];
+
+    /* ini_inv(Instrument[]): trquan → mksobj(next_ident) → ini_inv_adjust_obj trquan */
+    trquanTrobjLikeC(1, 1);
+    nextIdentLikeC();
+    iniInvAdjustObjWeaponToolTrquanLikeC(1, 1);
+}
+
+/**
  * C: u_init.c `u_init_race` PM_ORC — `if (!Role_if(PM_WIZARD)) ini_inv(Xtra_food)`.
  * `Xtra_food[]`: UNDEF FOOD × `trquan` 2..2 via `ini_inv_mkobj_filter` + `ini_inv_obj_substitution`.
  * @param {import('./gstate.js').game} [g]
@@ -1096,5 +1126,6 @@ export function consumeUInitRaceOrcXtraFoodIniInvLikeC(g = game) {
  * @param {import('./gstate.js').game} [g]
  */
 export function consumeUInitRaceIniInvAfterRoleLikeC(g = game) {
+    consumeUInitRaceElfInstrumentIniInvLikeC(g);
     consumeUInitRaceOrcXtraFoodIniInvLikeC(g);
 }
