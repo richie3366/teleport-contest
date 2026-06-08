@@ -44,6 +44,7 @@ import {
 } from './mkobj_wizard_ini_inv_data.js';
 import { SCROLL_CLASS_MKOBJ_OC_PROB_ROWS } from './mkobj_scroll_class_rng_like_c.js';
 import { consumeMksobjCorpseSpeRngLikeC } from './mkobj_corpse.js';
+import { mkobjPickGemOtypMklevLikeC } from './o_init.js';
 import {
     mkobjOtypFoodClassIniInvLikeC,
     mksobjInitCorpseConsumeRngLikeC,
@@ -719,9 +720,10 @@ export function mksobjTailConsumeRngLikeC(otyp, oclass, corpsenm, otmp) {
  * @param {number} let_ oclass (mklev legacy let, or NH5 index when `nh5Oclass`)
  * @param {boolean} artif
  * @param {boolean} [nh5Oclass] when true, `let_` is already NH5 (mkbox_cnts, NH5 fill paths)
+ * @param {boolean} [mineralizeGem] C: mklev.c mineralize `mkobj(GEM_CLASS)` after setgemprobs
  * @returns {number} otyp
  */
-export function mkobjMklevConsumeRngLikeC(let_, artif, nh5Oclass = false) {
+export function mkobjMklevConsumeRngLikeC(let_, artif, nh5Oclass = false, mineralizeGem = false) {
     const letRaw = let_ | 0;
     let oclass;
     let otyp;
@@ -734,7 +736,11 @@ export function mkobjMklevConsumeRngLikeC(let_, artif, nh5Oclass = false) {
         if (oclass === NH5_RANDOM_CLASS) {
             oclass = mkobjPickOclassFromMkobjprobsLikeC();
         }
-        otyp = mkobjPickOtypForClassLikeC(oclass);
+        if (mineralizeGem && oclass === NH5_GEM_CLASS) {
+            otyp = mkobjPickGemOtypMklevLikeC();
+        } else {
+            otyp = mkobjPickOtypForClassLikeC(oclass);
+        }
     }
     rnd(2);
     const otmp = mkobjErosionOtmpLikeC(otyp, oclass);

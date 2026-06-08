@@ -1256,6 +1256,23 @@ function mkobj_shallow(oclass, artif) {
     };
 }
 
+/** C: mklev.c mineralize — `mkobj(GEM_CLASS)` uses setgemprobs `oc_prob` walk. */
+function mkobjFromMklevMineralizeGemLikeC(artif) {
+    const otyp = mkobjMklevConsumeRngLikeC(GEM_CLASS, artif, false, true);
+    return {
+        otyp,
+        oclass: GEM_CLASS,
+        ox: -1,
+        oy: -1,
+        quan: 1,
+        owt: 1,
+        cursed: false,
+        blessed: false,
+        olocked: false,
+        spe: 0,
+    };
+}
+
 /** C: mkobj.c mkobj + mksobj init — fill_ordinary_room / mktrap_victim only. */
 function mkobjFromMklevCLikeC(oclass, artif) {
     const otyp = mkobjMklevConsumeRngLikeC(oclass, artif);
@@ -3887,7 +3904,7 @@ function mineralize(kelp_pool, kelp_moat, goldprob, gemprob, skip_lvl_checks) {
                 if (rn2(1000) < gemprob) {
                     let cnt = rnd(2 + Math.trunc(dunLevel / 3));
                     while (cnt-- > 0) {
-                        const otmp = mkobjFromMklevCLikeC(GEM_CLASS, false);
+                        const otmp = mkobjFromMklevMineralizeGemLikeC(false);
                         if ((otmp.otyp | 0) === OTYP_GEM_ROCK) { /* C: GEM_CLASS ROCK — dealloc, no bury RNG */
                             dealloc_obj(otmp);
                         } else {

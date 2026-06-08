@@ -82,7 +82,7 @@ Align batches with [`c-to-js-port-remaining.md`](c-to-js-port-remaining.md) §5:
 | `mktrap` / `traptype_rnd` | `mklev.js` | partial | **`hole_destination`** via **`holeDestinationLikeC`** in **`maketrap`** — **`seed0016` 1335–1420** aligned |
 | `mktrap_victim` | `mklev.js` | partial | possession loop, corpse; RNG fork ~2358 on `seed0900` |
 | `mkgrave` / `mkfount` | `mklev.js` | partial | `level_difficulty` for grave gold |
-| `mineralize` / `setgemprobs` | `mklev.js`, `o_init.js` | partial | **`setgemprobsLikeC`** + **`oinitLikeC`** wired (`makelevel`); **`mkobjPickGemOtypMklevLikeC`** ready — **not** wired (`oclass_prob_total` **923** vs C **1000** on D:1; keep static gem walk until totals match) |
+| `mineralize` / `setgemprobs` | `mklev.js`, `o_init.js` | partial | **`mkobjPickGemOtypMklevLikeC`** wired **mineralize-only** (`mkobjFromMklevMineralizeGemLikeC`; `rnd(1000)` + setgemprobs walk); mktrap/mkbox still static **`GEM_CLASS`** rows — **`seed0016` 1675–1690**, **`seed0102` 3320–3500** |
 
 ---
 

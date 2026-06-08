@@ -83,19 +83,18 @@ Use when **`Next steps`** feels stale. Order: **(1)** reliability phase **P1–P
 
 **Tutorial (Lane E):** Gated on [tutorial port gate](../../docs/plans/tutorial-port-gate.md) **MD-1 … MD-7**.
 
-**Last slice:** **P1 `mkroom.c` `fill_zoo`** — court throne + zoo gold + morgue/barracks/beehive/cocknest/anthole (`fillZooLikeC`); **`stock_room`** still stub. Canaries OK; **`seed0016` ~2493** moveloop eat unchanged. Score **3/44**. Next: **mineralize** (#2) or **`stock_room`** / P2 eat.
+**Last slice:** **P1 `mkobj.c` mineralize `mkobj(GEM_CLASS)`** — **`mkobjPickGemOtypMklevLikeC`** mineralize-only (`rnd(1000)` + setgemprobs walk); mktrap/mkbox keep static gem rows. Canaries OK; **`seed0016` ~2493** moveloop eat unchanged. Score **3/44**. Next: **`stock_room`** (#2) or P2 eat.
 
 ## Next steps (**strategy order** — pick **one**)
 
 **First:** tutorial gate — if **all MD-1 … MD-7**, Lane E from [10-tutorial.md](../plans/nethack-port/10-tutorial.md).
 
-1. **P1 — mineralize** — wire **`mkobjPickGemOtypMklevLikeC`** when gem total **923**→**1000** aligned. Oracle: [`c-oracles/mkobj.c.md`](c-oracles/mkobj.c.md).
-2. **P1 — `stock_room`** — `stockRoomLikeC` stub (`shknam.c`). Oracle: [`c-oracles/sp_lev.c.md`](c-oracles/sp_lev.c.md).
-3. **P2 — moveloop @ `seed0016` ~2493** — eat apple **`next_ident`** / `mcalcmove`; then **`seed0900` ~2960** — `diag_c_rng_callers`; **not** peel. Oracle: [`c-oracles/monmove.c.md`](c-oracles/monmove.c.md).
-4. **P2 — `dog_goal` / first `#search` (C, not peel)** — `seed0077` ~3205–3207 per [`c-oracles/dogmove.c.md`](c-oracles/dogmove.c.md); **no** new `PendingLikeC`.
-5. **P2 — PostSeventeenth peel** — **deferred** until after (1)–(2); same delete pattern as batches 1–10. Oracle: [`c-oracles/monmove.c.md`](c-oracles/monmove.c.md). Locator: `seed0006` ~3426–3448.
-6. **Lane B — NHL** — one `lspo_*` per [`nhl-port-notes.md`](nhl-port-notes.md).
-7. ~~**seed0006 @ 3610+ twenty-fifth peel**~~ — **forbidden** until harness debt net −5 (see ledger).
+1. **P1 — `stock_room`** — `stockRoomLikeC` stub (`shknam.c`). Oracle: [`c-oracles/sp_lev.c.md`](c-oracles/sp_lev.c.md).
+2. **P2 — moveloop @ `seed0016` ~2493** — eat apple **`next_ident`** / `mcalcmove`; then **`seed0900` ~2960** — `diag_c_rng_callers`; **not** peel. Oracle: [`c-oracles/monmove.c.md`](c-oracles/monmove.c.md).
+3. **P2 — `dog_goal` / first `#search` (C, not peel)** — `seed0077` ~3205–3207 per [`c-oracles/dogmove.c.md`](c-oracles/dogmove.c.md); **no** new `PendingLikeC`.
+4. **P2 — PostSeventeenth peel** — **deferred** until after (1)–(2); same delete pattern as batches 1–10. Oracle: [`c-oracles/monmove.c.md`](c-oracles/monmove.c.md). Locator: `seed0006` ~3426–3448.
+5. **Lane B — NHL** — one `lspo_*` per [`nhl-port-notes.md`](nhl-port-notes.md).
+6. ~~**seed0006 @ 3610+ twenty-fifth peel**~~ — **forbidden** until harness debt net −5 (see ledger).
 
 **`seed0006` 3610+** remains a **locator** for testing after (1), not the next batch.
 

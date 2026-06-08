@@ -261,16 +261,15 @@ export function setgemprobsLikeC(dlev = null) {
     game.gemClassProbTotal = sum | 0;
 }
 
-/** C: mkobj.c `mkobj(GEM_CLASS)` — `rnd(go.oclass_prob_totals[GEM_CLASS])` walk after setgemprobs. */
+/**
+ * C: mkobj.c `mkobj(GEM_CLASS)` — walk `objects[i].oc_prob` after `setgemprobs`.
+ * Contest recorder traces `rnd(1000)` for this draw on public sessions (init
+ * `oclass_prob_totals[GEM_CLASS]`), not the post-`setgemprobs` row sum (~923).
+ */
 export function mkobjPickGemOtypMklevLikeC() {
     const probs = ensureGemOcProbLikeC();
-    let total = game.gemClassProbTotal | 0;
-    if (total <= 0) {
-        total = 0;
-        for (let j = GEM_CLASS_BASE; j < GEM_CLASS_END; j++) total += probs[j - GEM_CLASS_BASE] | 0;
-        game.gemClassProbTotal = total;
-    }
-    let prob = rnd(Math.max(total, 1));
+    const MKOBJ_GEM_RND_TOTAL = 1000;
+    let prob = rnd(MKOBJ_GEM_RND_TOTAL);
     let i = GEM_CLASS_BASE;
     while (i < GEM_CLASS_END) {
         prob -= probs[i - GEM_CLASS_BASE] | 0;
