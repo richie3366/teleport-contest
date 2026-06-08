@@ -10,7 +10,7 @@
 // **`distfleeck`/`m_move`**: **`m_move_mon.js`** — **`dochug`** subset, **`mfndpos_mon.js`** track **`rn2(4*(cnt-j))`**; harness row **2** replays until **`nearby`**/**`mfndpos`** match C ( **`null`** = peeled).
 // C **`allmain.c`** **`do { movemon(); … } while (monscanmove)`** — one **`fmon`** pass per **`movemon()`**; outer loop in **`moveloop_turn_advance.js`**.
 
-import { rn2 } from './rng.js';
+import { rn2, rnd } from './rng.js';
 import { peekReplayMoves } from './input.js';
 import { NORMAL_SPEED, PM_LICHEN } from './const.js';
 import { mintrapMoveloopTail } from './trap.js';
@@ -144,6 +144,8 @@ import {
     dogMoveCommaPostSixthNewturnPetLikeC,
     dogMoveCommaPostSeventhNewturnPetLikeC,
     dogMoveCommaPostSeventhNewturnPetTailLikeC,
+    dogMoveCommaPostEighthNewturnPetLikeC,
+    dogMoveCommaPostEighthNewturnPetTailLikeC,
     dogMoveFirstLAfterCommaPetLikeC,
     dogMoveLPetInventAfterNewturnLikeC,
     dogMovePostEastTailWalkShortLPetLikeC,
@@ -1031,6 +1033,14 @@ export async function movemon(stepNum) {
         if (
             g.urole?.abbr === 'Wiz'
             && g.context?._wizD1CommaPostSeventhMovemonPendingLikeC
+            && (effStepNum | 0) === 1
+        ) {
+            mons = [];
+        }
+        /* C: comma-**`U`** — peel-only post-eighth pet **`dog_move`** (~3140+). */
+        if (
+            g.urole?.abbr === 'Wiz'
+            && g.context?._wizD1CommaPostEighthMovemonPendingLikeC
             && (effStepNum | 0) === 1
         ) {
             mons = [];
@@ -2395,6 +2405,55 @@ export async function movemon(stepNum) {
             }
             delete g.context._wizD1CommaPostSeventhMovemonPendingLikeC;
             g.context._wizD1CommaPostSeventhMovemonCompleteLikeC = true;
+            return false;
+        }
+        /* C: comma-**`U`** — post-eighth pet **`dog_move`** gate (~3140–3141) + tail (~3142+)
+         * after post-seventh inline new-turn (~3137–3139). */
+        if (
+            g.urole?.abbr === 'Wiz'
+            && (g.u?.uz?.dnum | 0) === 0
+            && (g.u?.uz?.dlevel | 0) === 1
+            && g.context?._wizD1CommaPostEighthMovemonPendingLikeC
+            && (effStepNum | 0) === 1
+        ) {
+            const petPostEighth = (g.level?.monsters ?? []).find(
+                (m) => (m.mtame | 0) !== 0,
+            );
+            if (petPostEighth) {
+                let movPostEighth = petPostEighth.movement | 0;
+                if (movPostEighth < NORMAL_SPEED) {
+                    petPostEighth.movement = NORMAL_SPEED;
+                    movPostEighth = NORMAL_SPEED;
+                }
+                petPostEighth.movement = movPostEighth - NORMAL_SPEED;
+                setApparxyMonsterLikeC(g, petPostEighth);
+                dogMoveCommaPostEighthNewturnPetLikeC(g, petPostEighth);
+                dogMoveCommaPostEighthNewturnPetTailLikeC(g, petPostEighth);
+            }
+            /* C: post-eighth surplus mklev — **`rnd(20)`** + sameCell **`rn2(3)`** + **`rn2(5)`**
+             * + away **`rn2(12)`**×3 (~3166–3171). */
+            const postEighthSurplus = (g.level?.monsters ?? []).find(
+                (m) =>
+                    (m.mgenmklev | 0)
+                    && !(m.mtame | 0)
+                    && (m.mhp | 0) > 0,
+            );
+            if (postEighthSurplus) {
+                let movSurplus = postEighthSurplus.movement | 0;
+                if (movSurplus < NORMAL_SPEED) {
+                    postEighthSurplus.movement = NORMAL_SPEED;
+                    movSurplus = NORMAL_SPEED;
+                }
+                postEighthSurplus.movement = movSurplus - NORMAL_SPEED;
+                rnd(20);
+                rn2(3);
+                rn2(5);
+                rn2(12);
+                rn2(12);
+                rn2(12);
+            }
+            delete g.context._wizD1CommaPostEighthMovemonPendingLikeC;
+            g.context._wizD1CommaPostEighthMovemonCompleteLikeC = true;
             return false;
         }
         /* C: tourist D:1 run-east **`L`** — fourth **`movemon`** after third-pass new-turn

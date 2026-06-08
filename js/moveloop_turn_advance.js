@@ -18,6 +18,7 @@ import {
     end_of_turn_rng,
     maybe_generate_rnd_mon,
     runCommaUPostSeventhInlineNewturnLikeC,
+    runCommaUPostEighthInlineNewturnLikeC,
 } from './moveloop_aux.js';
 import { encumberMsg } from './pickup.js';
 import { nearCapacity, ENC } from './encumbr.js';
@@ -1227,7 +1228,11 @@ export async function runPostCommandTurnAdvanceLikeC(g) {
                 } else if (g.context?._wizD1CommaUPostCorridorInlineNewturnDoneLikeC) {
                     delete g.context._wizD1CommaUPostCorridorInlineNewturnDoneLikeC;
                     newTurnDone = true;
-                } else if (g.context?._wizD1CommaPostSeventhInlineNewturnDoneLikeC) {
+                } else if (
+                    g.context?._wizD1CommaPostSeventhInlineNewturnDoneLikeC
+                    && !g.context?._wizD1CommaPostEighthMovemonPendingLikeC
+                    && !g.context?._wizD1CommaPostEighthMovemonCompleteLikeC
+                ) {
                     delete g.context._wizD1CommaPostSeventhInlineNewturnDoneLikeC;
                     newTurnDone = true;
                 } else if (
@@ -1311,12 +1316,23 @@ export async function runPostCommandTurnAdvanceLikeC(g) {
                             g.context._movemonHarnessConsumed = false;
                             await movemon(1);
                             g.context._wizD1MovemonRanThisPostLikeC = true;
-                            /* C: post-seventh pet done (~3136) — inline new-turn (~3137–3139). */
+                            /* C: post-seventh pet done (~3136) — inline new-turn (~3137–3139)
+                             * then eighth **`movemon`** (~3140+). */
                             if (g.context?._wizD1CommaPostSeventhMovemonCompleteLikeC) {
                                 delete g.context._wizD1CommaPostSeventhMovemonCompleteLikeC;
                                 await runCommaUPostSeventhInlineNewturnLikeC(g);
-                                g.context._wizD1LPostOuterLoopDoneLikeC = true;
-                                newTurnDone = true;
+                                delete g.context._wizD1CommaPostSeventhInlineNewturnDoneLikeC;
+                                g.context._wizD1CommaPostEighthMovemonPendingLikeC = true;
+                                delete g.context._wizD1MovemonRanThisPostLikeC;
+                                g.context._movemonHarnessConsumed = false;
+                                await movemon(1);
+                                g.context._wizD1MovemonRanThisPostLikeC = true;
+                                if (g.context?._wizD1CommaPostEighthMovemonCompleteLikeC) {
+                                    delete g.context._wizD1CommaPostEighthMovemonCompleteLikeC;
+                                    await runCommaUPostEighthInlineNewturnLikeC(g);
+                                    g.context._wizD1LPostOuterLoopDoneLikeC = true;
+                                    newTurnDone = true;
+                                }
                             }
                         }
                     }
