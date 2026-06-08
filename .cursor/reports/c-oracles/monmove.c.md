@@ -37,6 +37,16 @@
 
 **Batch 2 (2026-06-08):** delete inline PostEighth peel block + `mons=[]` guard; route through `movemonSinglemonLikeC`.
 
+### Post-ninth comma-`U` pass (`seed0006` ~3175–3219)
+
+| Step | C / session | JS target |
+|------|-------------|-----------|
+| 1 | Pet `dog_move` gate `rn2(5)`, `rn2(4)` | `movemonSinglemonLikeC` → pet branch |
+| 2 | Pet invent / `obj_resists` tail ~3177–3191 | `dogMoveCommaPostNinthNewturnPetTailLikeC` (until general `dogMoveLikeC`) |
+| 3 | Surplus mklev `rnd(20)` + floor chain + `rnz(10)` + away `rn2(12)`×3 | `movemonSinglemonLikeC` surplus branch (not inline peel) |
+
+**Batch 3 (2026-06-08):** delete inline PostNinth peel block + `mons=[]` guard; route through `movemonSinglemonLikeC`.
+
 ## Generalization targets (replace comma-`U` peels)
 
 | C concept | JS debt today | Notes |
@@ -52,7 +62,8 @@
 |----------------|--------------|----------------|--------|
 | `_wizD1CommaPostSeventh*` inline peel + `mons=[]` | `movemon_singlemon` + `dog_move` + surplus `dochug` | `seed0006` 3107–3136 | **deleted** batch 1 |
 | `_wizD1CommaPostEighth*` inline peel + `mons=[]` | `movemon_singlemon` + `dog_move` + surplus `dochug` | `seed0006` 3140–3171 | **deleted** batch 2 |
-| `_wizD1CommaPostNinth` … `PostTwelfth` | same pattern | `seed0006` 3175–3291 | **open** |
+| `_wizD1CommaPostNinth*` inline peel + `mons=[]` | `movemon_singlemon` + `dog_move` + surplus `dochug` | `seed0006` 3175–3219 | **deleted** batch 3 |
+| `_wizD1CommaPostTenth` … `PostTwelfth` | same pattern | `seed0006` 3224–3291 | **open** |
 | `_wizD1CommaPostFirst` … `PostTwentyFourth*` (rest) | `movemon` + `allmain` post-hero interleave | `seed0006` 2888–3609 | **open** — moratorium on N+1 |
 | `_touristD1LPostFourth*` etc. | tourist `L` moveloop tail | `seed0900` | partial generalization exists |
 | Role `abbr === 'Wiz' && dlevel === 1` guards | level/branch checks only where C has them | — | **smell** — shrink |
@@ -71,7 +82,7 @@
 - Full `dochug` dispatch not faithful — peels patch single arms.
 - `fmon` iteration order vs C `monmove` passes not unified.
 - `effectiveMovemonStepNum` / peel step numbers are harness — not in C.
-- PostNinth+ comma-`U` still use inline peel blocks.
+- PostTenth+ comma-`U` still use inline peel blocks.
 
 ## Wrong hypotheses (do not retry)
 

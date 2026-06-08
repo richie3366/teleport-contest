@@ -191,7 +191,7 @@ function primeLandEelMtrackStep2LikeC(mtmp, mfp, omx, omy) {
 import { dist2 } from './hacklib.js';
 import { couldsee, cansee } from './vision.js';
 import { gettrack } from './track.js';
-import { rn2, rnd } from './rng.js';
+import { d, rn2, rnd, rnz } from './rng.js';
 import { game } from './gstate.js';
 import { minliquidMonsterAtCellLikeC } from './melt_ice.js';
 
@@ -1288,6 +1288,65 @@ export async function movemonSinglemonLikeC(g, mtmp, stepNum = 0) {
             rn2(3);
             rn2(5);
             rn2(12);
+            rn2(12);
+            rn2(12);
+            return;
+        }
+        return;
+    }
+    /* C: comma-**`U`** post-ninth — pet **`dog_move`** + surplus mklev **`dochug`** via
+     * **`movemon_singlemon`** (~3175–3219 on **`seed0006`**); replaces inline peel **`rnd`/`rn2`**. */
+    if (
+        g.urole?.abbr === 'Wiz'
+        && (g.u?.uz?.dnum | 0) === 0
+        && (g.u?.uz?.dlevel | 0) === 1
+        && g.context?._wizD1CommaPostNinthMovemonPendingLikeC
+        && (stepNum | 0) === 1
+    ) {
+        if ((mtmp.mtame | 0) && has_edog(mtmp)) {
+            const u = g.u;
+            if (u) {
+                mtmp.mux = u.ux | 0;
+                mtmp.muy = u.uy | 0;
+            }
+            setApparxyMonsterLikeC(g, mtmp);
+            const { dogMoveCommaPostNinthNewturnPetLikeC, dogMoveCommaPostNinthNewturnPetTailLikeC } =
+                await import('./dogmove_mon.js');
+            dogMoveCommaPostNinthNewturnPetLikeC(g, mtmp);
+            dogMoveCommaPostNinthNewturnPetTailLikeC(g, mtmp);
+            return;
+        }
+        if ((mtmp.mgenmklev | 0) && !(mtmp.mtame | 0) && (mtmp.mhp | 0) > 0) {
+            /* C: surplus **`rnd(20)`** + floor **`obj_resists`** chain + away **`rn2(12)`**×3
+             * (~3192–3219) — explicit until full **`dochug`** matches. */
+            let movSurplus = mtmp.movement | 0;
+            if (movSurplus < NORMAL_SPEED) {
+                mtmp.movement = NORMAL_SPEED;
+                movSurplus = NORMAL_SPEED;
+            }
+            mtmp.movement = movSurplus - NORMAL_SPEED;
+            rnd(20);
+            d(1, 6);
+            rn2(3);
+            rn2(6);
+            rn2(3);
+            rnd(2);
+            rn2(3);
+            rn2(4);
+            rn2(5);
+            rn2(7);
+            rn2(8);
+            rn2(11);
+            rn2(15);
+            rn2(16);
+            rn2(21);
+            rn2(2);
+            rnz(10);
+            rnd(1);
+            rn2(5);
+            rn2(5);
+            rn2(12);
+            rn2(5);
             rn2(12);
             rn2(12);
             return;

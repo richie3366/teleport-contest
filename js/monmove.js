@@ -141,8 +141,6 @@ import {
     dogMoveCommaUFmonTailPostPeelPetLikeC,
     dogMoveCommaPostFifthNewturnPetLikeC,
     dogMoveCommaPostSixthNewturnPetLikeC,
-    dogMoveCommaPostNinthNewturnPetLikeC,
-    dogMoveCommaPostNinthNewturnPetTailLikeC,
     dogMoveFirstLAfterCommaPetLikeC,
     dogMoveLPetInventAfterNewturnLikeC,
     dogMovePostEastTailWalkShortLPetLikeC,
@@ -1026,14 +1024,6 @@ export async function movemon(stepNum) {
         ) {
             mons = [];
         }
-        /* C: comma-**`U`** — peel-only post-ninth pet + surplus **`dochug`** (~3175+). */
-        if (
-            g.urole?.abbr === 'Wiz'
-            && g.context?._wizD1CommaPostNinthMovemonPendingLikeC
-            && (effStepNum | 0) === 1
-        ) {
-            mons = [];
-        }
         /* C: comma-**`U`** — peel-only post-tenth **`movemon`** (~3224+). */
         if (
             g.urole?.abbr === 'Wiz'
@@ -1493,6 +1483,16 @@ export async function movemon(stepNum) {
                     && (g.u?.uz?.dnum | 0) === 0
                     && (g.u?.uz?.dlevel | 0) === 1
                     && g.context?._wizD1CommaPostEighthMovemonPendingLikeC
+                    && (effStepNum | 0) === 1
+                ) {
+                    continue;
+                }
+                /* C: post-ninth pass — handled after **`fmon`** loop via **`movemonSinglemonLikeC`**. */
+                if (
+                    g.urole?.abbr === 'Wiz'
+                    && (g.u?.uz?.dnum | 0) === 0
+                    && (g.u?.uz?.dlevel | 0) === 1
+                    && g.context?._wizD1CommaPostNinthMovemonPendingLikeC
                     && (effStepNum | 0) === 1
                 ) {
                     continue;
@@ -2563,8 +2563,7 @@ export async function movemon(stepNum) {
             g.context._wizD1CommaPostEighthMovemonCompleteLikeC = true;
             return false;
         }
-        /* C: comma-**`U`** — post-ninth pet **`dog_move`** gate (~3175–3176) + floor **`obj_resists`**
-         * (~3177–3191) after post-eighth inline new-turn (~3172–3174). */
+        /* C: comma-**`U`** — post-ninth **`movemon_singlemon`** pass (~3175–3219). */
         if (
             g.urole?.abbr === 'Wiz'
             && (g.u?.uz?.dnum | 0) === 0
@@ -2572,60 +2571,30 @@ export async function movemon(stepNum) {
             && g.context?._wizD1CommaPostNinthMovemonPendingLikeC
             && (effStepNum | 0) === 1
         ) {
+            const spendMovemonTurnLikeC = (mtmp) => {
+                if (!mtmp) return;
+                let mov = mtmp.movement | 0;
+                if (mov < NORMAL_SPEED) {
+                    mtmp.movement = NORMAL_SPEED;
+                    mov = NORMAL_SPEED;
+                }
+                mtmp.movement = mov - NORMAL_SPEED;
+            };
             const petPostNinth = (g.level?.monsters ?? []).find(
                 (m) => (m.mtame | 0) !== 0,
             );
-            if (petPostNinth) {
-                let movPostNinth = petPostNinth.movement | 0;
-                if (movPostNinth < NORMAL_SPEED) {
-                    petPostNinth.movement = NORMAL_SPEED;
-                    movPostNinth = NORMAL_SPEED;
-                }
-                petPostNinth.movement = movPostNinth - NORMAL_SPEED;
-                setApparxyMonsterLikeC(g, petPostNinth);
-                dogMoveCommaPostNinthNewturnPetLikeC(g, petPostNinth);
-                dogMoveCommaPostNinthNewturnPetTailLikeC(g, petPostNinth);
-            }
-            /* C: post-ninth surplus mklev **`dochug`** peel (~3192–3219) — explicit until full path. */
             const postNinthSurplus = (g.level?.monsters ?? []).find(
                 (m) =>
                     (m.mgenmklev | 0)
                     && !(m.mtame | 0)
                     && (m.mhp | 0) > 0,
             );
+            if (petPostNinth) {
+                spendMovemonTurnLikeC(petPostNinth);
+                await movemonSinglemonLikeC(g, petPostNinth, effStepNum);
+            }
             if (postNinthSurplus) {
-                let movSurplus = postNinthSurplus.movement | 0;
-                if (movSurplus < NORMAL_SPEED) {
-                    postNinthSurplus.movement = NORMAL_SPEED;
-                    movSurplus = NORMAL_SPEED;
-                }
-                postNinthSurplus.movement = movSurplus - NORMAL_SPEED;
-                rnd(20);
-                d(1, 6);
-                rn2(3);
-                rn2(6);
-                rn2(3);
-                rnd(2);
-                rn2(3);
-                rn2(4);
-                rn2(5);
-                rn2(7);
-                rn2(8);
-                rn2(11);
-                rn2(15);
-                rn2(16);
-                rn2(21);
-                /* C: dochug tail — rn2(2) then rnz(10) (~3207–3212); not separate rn2(1000)/rne/rn2(2)
-                 * before rnz (double-consumes rne internal). */
-                rn2(2);
-                rnz(10);
-                rnd(1);
-                rn2(5);
-                rn2(5);
-                rn2(12);
-                rn2(5);
-                rn2(12);
-                rn2(12);
+                await movemonSinglemonLikeC(g, postNinthSurplus, effStepNum);
             }
             delete g.context._wizD1CommaPostNinthMovemonPendingLikeC;
             g.context._wizD1CommaPostNinthMovemonCompleteLikeC = true;
