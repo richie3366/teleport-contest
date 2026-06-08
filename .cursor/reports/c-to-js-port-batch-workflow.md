@@ -72,7 +72,7 @@ Run **`npm run score`** when:
 - Before declaring a lane “stable” or updating the dashboard,
 - The user explicitly asks for a score check.
 
-On regression: **fix or revert** the batch that broke anchors (e.g. `seed8000`, `seed0077`); do not “fix” by session memorization.
+On regression: **fix or revert** the batch that broke anchors; do not “fix” by session memorization. **Moveloop edits:** always fast-verify **all three** regression canaries in [`c-to-js-port-current.md`](c-to-js-port-current.md) § Moveloop regression canaries — not `seed8000` alone.
 
 Refresh dashboard optionally: `node tools/port-score-snapshot.mjs --update-dashboard`.
 
@@ -122,14 +122,22 @@ After large checklist areas move to **`done`**, expect a dedicated phase:
 
 ---
 
-## Canary sessions (locators, not targets)
+## Canary sessions
+
+### Moveloop regression (mandatory after `monmove` / `dogmove` / `moveloop_*` edits)
+
+| Session | Fast-verify window |
+|---------|-------------------|
+| `seed8000-tourist-starter` | RNG **2900–3129** |
+| `seed0077-rogue-chargen` | RNG **3180–3242**; screen step **17** (`diag_first_screen_fail.mjs`) |
+| `seed0102-ranger-name-cancel` | full session (PASS anchor) |
+
+### Locators (pick batch; not required every commit)
 
 | Session | Typical use |
 |---------|-------------|
-| `seed8000-tourist-starter` | Short startup / moveloop / OPTIONS fast path |
-| `seed0077-rogue-chargen` | Chargen / tty |
-| `seed0900-tourist-explore-actions` | mklev / mkobj / early explore |
-| `seed0006-wizard-water-demon` | moveloop / `dochug` / capital `K` |
+| `seed0006-wizard-water-demon` | Deep moveloop / comma-`U` / `dochug` geometry |
+| `seed0900-tourist-explore-actions` | mklev / mkobj / early explore + pet moveloop |
 
 When a milestone score fails, use **`diag_rng_window.mjs`** at the reported index, then **`rg` in upstream** for that draw shape (`rn2(100)`, `rnd(1000)`, …).
 

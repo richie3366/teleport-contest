@@ -4,15 +4,57 @@ Thin handoff for the next coding session. **Workflow:** [**batch port**](c-to-js
 
 ## Working principle (read every session)
 
-**Port from C; score is regression only.** Pick the **next batch** from [`c-to-js-port-function-checklist.md`](c-to-js-port-function-checklist.md) and domain gaps in [`c-to-js-port-remaining.md`](c-to-js-port-remaining.md), not from “what might pass another public session.” **Fast-verify** each batch (`diag_rng_window`, locator session); run **full `npm run score` at milestones** — see [`c-to-js-port-batch-workflow.md`](c-to-js-port-batch-workflow.md). Do not add **`fastforward.js`** / harness bytes without porting the matching C call site. Full rule: [`.cursor/rules/port-from-c-not-score.mdc`](../rules/port-from-c-not-score.mdc).
+**Port from C; score is regression only.** Pick batches from the **reliability phase** below and [`c-to-js-port-function-checklist.md`](c-to-js-port-function-checklist.md) — not from “what might pass another public session.” **Fast-verify** each batch (`diag_rng_window`, locator session); run **full `npm run score` at milestones** — see [`c-to-js-port-batch-workflow.md`](c-to-js-port-batch-workflow.md). Do not add **`fastforward.js`** / harness bytes without porting the matching C call site. Full rule: [`.cursor/rules/port-from-c-not-score.mdc`](../rules/port-from-c-not-score.mdc).
+
+**Motto:** complete port = **C dependency order + delete scaffolding**, not nearest PASS or longest peel chain. Token budget is irrelevant; **regression net + subsystem closure** matter.
+
+## Reliability phases (complete-port order)
+
+Authoritative milestone ordering: [`c-to-js-port-remaining.md`](c-to-js-port-remaining.md) §5. Use this when lanes compete.
+
+| Phase | C anchor | JS focus | Unlocks |
+|-------|----------|----------|---------|
+| **P1** | `mkobj.c`, `u_init.c` `ini_inv`, `invent.c` | **`game.invent`**, NH5 **`otyp`**, real **`ini_inv`** | items, skills, tutorial **MD-1**, most mid-game RNG |
+| **P2** | `monmove.c`, `dogmove.c` | **General** `movemon` / `dochug` / `fmon` / `dog_goal` — **peel flags are debt** | moveloop truth; shrink `monmove.js` harness |
+| **P3** | `allmain.c` post-hero tail | `moveloop_aux.js` → real end-of-turn (`dosounds`, exercise hooks) | per-turn RNG after hero move |
+| **P4** | `cmd.c`, `do.c`, menus | throw, wear, pray, read, `getobj`, … | most session inputs after moveloop |
+| **P5** | `uhitm.c`, `mhitu.c`, `weapon.c` | AC, to-hit, real damage, death | combat sessions |
+| **P6** | `dungeon.c`, `sp_lev.c`, `nhlua.c` | `place_level`, `lspo_*`, Lua RNG (**MD-3**) | branches, mines, tours |
+| **P7** | `dat/tut-*.lua`, nhcore | **Lane E** after [tutorial gate](../../docs/plans/tutorial-port-gate.md) **MD-1 … MD-7** | tutorial vertical |
+| **P8** | `save.c`, quest/endgame | persistence semantics vs API | long-run continuity |
+
+**Checklist today:** **49 partial, 3 stub, 0 done** — no row is closed until exercised paths have **no known wrong RNG**.
+
+## Course correction (2026-06-08)
+
+Moveloop work (`seed0006` comma-`U`, **3054–3106**) is valid **P2** locator work — but **peel-only** batches that add `g.context._*LikeC` without general C semantics are **last resort** ([batch workflow](c-to-js-port-batch-workflow.md) § Strategy).
+
+| Signal | Action |
+|--------|--------|
+| Next **3+** batches would only add peel flags / explicit draws | **Pivot** to **P1** (`mkobj`/`ini_inv`) or **P2 general** (`monmove.c` `movemon` loop, one `dochug` case) |
+| Moveloop batch lands | **Mandatory** regression window on **all three** canaries below — not `seed8000` alone |
+| `seed0077` was **3242/3242** RNG + **33/33** screens (May); now **3211/3242**, screen **17** | **Restore anchor** before more comma-`U` peels (west-apport display + `#search` pet tail ~**3207**) |
+| Peel batch merges | Log **debt** in checklist Notes; aim **net flag count ↓** over next milestone |
+
+## Moveloop regression canaries (mandatory)
+
+After **any** edit to `monmove.js`, `m_move_mon.js`, `dogmove_mon.js`, `moveloop_turn_advance.js`, or `moveloop_aux.js`:
+
+| Session | Fast-verify window | Role |
+|---------|-------------------|------|
+| `seed8000-tourist-starter` | RNG **2900–3129** | short OPTIONS moveloop |
+| `seed0077-rogue-chargen` | RNG **3180–3242**; screen step **17** | rogue tutorial `#search` / west apport |
+| `seed0102-ranger-name-cancel` | full session (**4485** RNG) | twin `#search` + extcmd (full PASS anchor) |
+
+Locator-only (not regression-required every batch): `seed0006` **3054–3130**, `seed0900` **2480–2990**.
 
 ## Priority matrix (methodical)
 
-Use this when **`Next steps`** below feels stale or several lanes compete. Order by **(1)** failing session only as a **locator** → **(2)** one C function / call graph → **(3)** dependencies → **(4)** score vs C-depth tradeoff for this sprint.
+Use when **`Next steps`** feels stale. Order: **(1)** reliability phase **P1–P2** debt → **(2)** failing session as **locator** only → **(3)** one C function / call graph → **(4)** never score-chase.
 
 | Lane | Goal | Typical C / JS | When to favor |
 |------|------|----------------|----------------|
-| **A — Chargen / TTY** | More sessions with real identity pickers | `wintty.c`, `role.c` → **`chargen_tty.js`**, **`chargen_rigid.js`** | Short-term **score ROI**; rc without embedded `OPTIONS` identity |
+| **A — Chargen / TTY** | More sessions with real identity pickers | `wintty.c`, `role.c` → **`chargen_tty.js`**, **`chargen_rigid.js`** | rc without embedded `OPTIONS` identity; **not** the main blocker once chargen RNG aligns |
 | **B — NHL / des** | C-faithful `.lua` specials when `makemaz` resolves a protofile | `nhlua.c`, `sp_lev.c` `lspo_*` → **`nhl_lua.js`**, **`des_api.js`**, **`nhl_des_runtime.js`** | Mines / branch specials; extend one **`dat/*.lua`** + bindings per slice |
 | **C — Travel / dogs** | Orthogonal moveloop prep | `dog.c`, `goto_level` → **`mon_arrive.js`**, **`goto_level_hero.js`** | Good interleave when pausing Lua; bounded C surfaces |
 | **D — Objects / mkobj** | Floor + invent parity | `mkobj.c`, `u_init.c` → **`mklev.js`**, `nh5*` maps | After chargen milestone or when sessions diverge on items |
@@ -28,22 +70,22 @@ Use this when **`Next steps`** below feels stale or several lanes compete. Order
 - **Plain ES modules**, no build/WASM/network in contest code; RNG via `js/rng.js`; match **clang** evaluation order for multi-call expressions.
 - API: [`docs/API.md`](../../docs/API.md); overview: [`README.md`](../../README.md).
 
-**Strategic priority (dual track):** **Lane A** — tty startup + interactive chargen. **Lane B** — NHL / des-file levels. **Eleven** public sessions ship **`nethackrc` without** embedded `OPTIONS=name:` / `role:`.
+**Strategic priority:** **P1** (`mkobj` / `ini_inv`) and **P2** (general `monmove` / `dogmove`) interleaved — **P2 peel chains only while they generalize C**. **Lane B** (NHL) when pausing moveloop. **Lane A** when a batch is explicitly `wintty.c` / `role.c`. **Lane E** only after tutorial gate.
 
 **Tutorial (Lane E):** Gated on [tutorial port gate](../../docs/plans/tutorial-port-gate.md) **MD-1 … MD-7**.
 
-**Last slice:** **Lane C — `seed0006` comma-`U` post-sixth new-turn `movemon` (~3095–3106)** — **`dogMoveCommaPostSixthNewturnPetLikeC`** + **`monmove.js`** post-sixth peel (pet **`distfleeck`** + **`rn2(3)`**, corridor/distant **`distfleeck`** + distant explicit **`rn2(12)`** debt); **`moveloop_turn_advance.js`** inline **`movemon`** after sixth hostile tail + seventh new-turn surplus **`fmon`**. **Verified:** **3054–3106**; fail **3107+** (post-seventh **`movemon`** pet **`rn2(4)`** + hostile **`dochug`** **`rn2(100)`** tail); **`seed8000` 2900–3129** canary. **Next:** **3107+** post-seventh **`movemon`** after seventh new-turn — arm via **`runNewTurnSetupAndTailLikeC`** tourist pattern.
+**Last slice:** **Lane C — `seed0006` comma-`U` post-sixth new-turn `movemon` (~3095–3106)** — peel debt; **`seed8000` 2900–3129** verified; **`seed0077`** / **`seed0102`** **not** re-checked (regression risk).
 
-## Next steps (aligned with matrix)
+## Next steps (reliability order)
 
-Pick **one** primary lane per **batch** (several related C functions — see checklist); refresh this list after each merge.
+Pick **one** primary batch per commit. **First:** tutorial gate — if **all MD-1 … MD-7**, do Lane E from [10-tutorial.md](../plans/nethack-port/10-tutorial.md).
 
-**First:** open [`docs/plans/tutorial-port-gate.md`](../../docs/plans/tutorial-port-gate.md) — if **all MD-1 … MD-7** are checked, do **Lane E** step 1 from [10-tutorial.md](../plans/nethack-port/10-tutorial.md) instead of the list below.
-
-1. **Lane C — `seed0006` comma-`U` post-seventh `movemon` @ ~3107+** — post-sixth peel **~3095–3106** aligned; seventh new-turn surplus **`fmon`** OK; next pet **`distfleeck`** + **`rn2(4)`** + hostile **`dochug`** **`rn2(100)`**×12. Locator: `node tools/diag_rng_window.mjs sessions/seed0006-wizard-water-demon.session.json 3100 3130`.
-2. **Lane B — NHL** — next **`lspo_*`** per [`nhl-port-notes.md`](nhl-port-notes.md).
-3. **Lane A/D — `seed0900`** — screen parity (RNG **0–2982** done); map/botl integration beyond moveloop peel chain.
-4. **Lane A/D — `dogmove.c`** — **`score_targ`** vampshifter **`mtmp_lev`** **`rn2`** tail (~808–817); **`mattackm`** / **`pet_ranged_attk`** when pet breath sessions fail.
+1. **P2 — restore `seed0077` moveloop anchor (before more comma-`U` peels)** — screen fail **step 17** west apport **`#` vs blank** `(34,9)` (likely `seed0102` mklev removed **`anchorWestApportSleeperLikeC`**); RNG fork **~3207** (`rn2(8)` vs `rn2(1)` — first `#search` pet **`dog_goal`**). C: `display.c` west apport + `dogmove.c` invent/apport order. Fast-verify: `diag_first_screen_fail.mjs seed0077-rogue-chargen.session.json`; `diag_rng_window.mjs sessions/seed0077-rogue-chargen.session.json 3180 3242`. Then run **three canaries**.
+2. **P2 — general `monmove.c` / `dochug` batch** (preferred over peel #4 below when peel debt high) — one upstream function or dispatch arm; delete peel flags when `diag_rng_window` passes on **8000 + 0077 + 0102**.
+3. **P1 — `mkobj` / `ini_inv` → `game.invent`** — next checklist rows in `mkobj_mklev_like_c.js` / role linkers; advances tutorial **MD-1** and most item-driven sessions.
+4. **P2 locator — `seed0006` comma-`U` @ ~3107+** — only if batch **generalizes** `fmon` / post-Nth new-turn (not flag-only). Locator: `diag_rng_window.mjs sessions/seed0006-wizard-water-demon.session.json 3100 3130`.
+5. **Lane B — NHL** — next **`lspo_*`** per [`nhl-port-notes.md`](nhl-port-notes.md) (supports **P6** / **MD-3**).
+6. **Lane A/D — `seed0900`** — screen 0 / botl after RNG **~2982** aligned.
 
 ### Extended backlog (unchanged lanes)
 

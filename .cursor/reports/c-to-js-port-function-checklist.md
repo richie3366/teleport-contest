@@ -88,7 +88,7 @@ Align batches with [`c-to-js-port-remaining.md`](c-to-js-port-remaining.md) §5:
 | `ini_inv(Wishing)` / `Money` | `u_init_role_rng.js`, `u_init_post_mklev.js` | partial | explore **`program_state.discover`** |
 | `ini_inv` | `ini_inv_stub.js`, role packs | partial | Human Tourist linked **`g.invent`**; **Ranger** cram loop — no cloak **`trquan`** tail / per-cram **`rn2(1)`** (**`seed0102`** **`init_attr`** **4425+**); other roles partial |
 | `u_init_role` RNG tail | `u_init_role_rng.js`, `u_init_post_mklev.js` | partial | |
-| `wintty.c` pickers | `chargen_tty.js` | partial | `seed0077` PASS; others partial |
+| `wintty.c` pickers | `chargen_tty.js` | partial | Chargen RNG largely aligned on `seed0077`; full session **FAIL** (screen **17**, RNG **~3207**) — restore per `current.md` |
 
 ---
 

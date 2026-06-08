@@ -6,7 +6,7 @@
 
 **Working principle:** port **C call sites** in **batches** (one file / call graph per commit); **fast-verify** with `diag_rng_window` on locator sessions; **`npm run score` at milestones** only ([`c-to-js-port-batch-workflow.md`](c-to-js-port-batch-workflow.md), [`.cursor/rules/port-from-c-not-score.mdc`](../rules/port-from-c-not-score.mdc)). Do not grow **`fastforward.js`** / harness to chase **1/44** without matching upstream logic.
 
-**Scale reminder:** Upstream `.c`+`.h` under `nethack-c/upstream` is on the order of **550k** lines; contestant `js/` is on the order of **35k** lines (including data blobs). Behavioral coverage is far below line-count ratios suggest because large JS files are **constants** and **partial** algorithms.
+**Scale reminder:** Upstream `src/*.c` is ~**250k** lines; contestant `js/` is ~**85k** lines (excluding frozen harness and large data blobs). Behavioral coverage is far below line-count ratios suggest because large JS files are **constants**, **peel/harness** code, and **partial** algorithms. Checklist: **49 partial, 3 stub, 0 done** (2026-06).
 
 ---
 
