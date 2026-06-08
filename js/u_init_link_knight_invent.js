@@ -4,6 +4,7 @@
 
 import { game } from './gstate.js';
 import { races } from './roles.js';
+import { iniInvSubstOtypForChargenLikeC } from './u_init_ini_inv_obj_substitution_like_c.js';
 import { NH5_WEAPON_CLASS, NH5_ARMOR_CLASS, NH5_FOOD_CLASS } from './nh5_objclass.js';
 
 /** NH5 `objects_nums` — cpp **`OBJECTS_ENUM`** list index **277** (`obj_oc_cost_data.js` / FOOD `apple`). */
@@ -69,11 +70,12 @@ export function applyKnightHumanLinkedInventAndWieldLikeC(g) {
         };
     }
 
-    const longSword = mk(OTYP_LONG_SWORD_MK, NH5_WEAPON_CLASS, 1, 1);
-    const lance = mk(OTYP_LANCE_MK, NH5_WEAPON_CLASS, 1, 1);
-    const ringMail = mk(OTYP_RING_MAIL, NH5_ARMOR_CLASS, 1, 1);
-    const helmet = mk(OTYP_HELMET, NH5_ARMOR_CLASS, 1, 0);
-    const shield = mk(OTYP_SMALL_SHIELD, NH5_ARMOR_CLASS, 1, 0);
+    const sub = (otyp) => iniInvSubstOtypForChargenLikeC(otyp, g);
+    const longSword = mk(sub(OTYP_LONG_SWORD_MK), NH5_WEAPON_CLASS, 1, 1);
+    const lance = mk(sub(OTYP_LANCE_MK), NH5_WEAPON_CLASS, 1, 1);
+    const ringMail = mk(sub(OTYP_RING_MAIL), NH5_ARMOR_CLASS, 1, 1);
+    const helmet = mk(sub(OTYP_HELMET), NH5_ARMOR_CLASS, 1, 0);
+    const shield = mk(sub(OTYP_SMALL_SHIELD), NH5_ARMOR_CLASS, 1, 0);
     const gloves = mk(OTYP_LEATHER_GLOVES, NH5_ARMOR_CLASS, 1, 0);
 
     /** @type {typeof longSword[]} */

@@ -4,6 +4,7 @@
 //         mkbox_cnts (SACK empty at moves<=1), blessorcurse().
 
 import { game } from './gstate.js';
+import { races } from './roles.js';
 import { rnd, rn2, rne, rn1 } from './rng.js';
 import { OTYP_LEATHER_ARMOR, P_BOW, P_SHURIKEN } from './const.js';
 import { OC_SKILL_ROW_BY_OTYP } from './obj_oc_skill_data.js';
@@ -1067,4 +1068,33 @@ export function consumeMonkHumanIniInvUinitRoleRngLikeC() {
             rn2(1);
         }
     }
+}
+
+/**
+ * C: u_init.c `u_init_race` PM_ORC — `if (!Role_if(PM_WIZARD)) ini_inv(Xtra_food)`.
+ * `Xtra_food[]`: UNDEF FOOD × `trquan` 2..2 via `ini_inv_mkobj_filter` + `ini_inv_obj_substitution`.
+ * @param {import('./gstate.js').game} [g]
+ */
+export function consumeUInitRaceOrcXtraFoodIniInvLikeC(g = game) {
+    const orcIdx = races.findIndex((r) => r.name === 'orc');
+    if ((g.initrace | 0) !== orcIdx) return;
+    if (g.urole?.abbr === 'Wiz') return;
+
+    const foodN = trquanTrobjLikeC(2, 2);
+    g._orcXtraFoodOtyps = [];
+    const foodGn = gnIniInvFreshLikeC();
+    const raceMnum = races[orcIdx]?.mnum ?? 4;
+    const foodCtx = iniInvMkobjFilterCtxForRoleLikeC(g.urole?.abbr ?? '', raceMnum);
+    for (let i = 0; i < foodN; i++) {
+        const otyp = iniInvMkobjFilterLikeC(NH5_FOOD_CLASS, false, foodGn, foodCtx);
+        g._orcXtraFoodOtyps.push(iniInvObjSubstitutionLikeC(otyp, raceMnum));
+    }
+}
+
+/**
+ * C: u_init.c `u_init_race()` invent RNG tail — after `u_init_role()`, before Wishing/Money.
+ * @param {import('./gstate.js').game} [g]
+ */
+export function consumeUInitRaceIniInvAfterRoleLikeC(g = game) {
+    consumeUInitRaceOrcXtraFoodIniInvLikeC(g);
 }

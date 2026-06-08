@@ -25,78 +25,76 @@ import {
     consumeTouristHumanIniInvUinitRoleRngLikeC,
     consumeIniInvWishingDiscoverRngIfLikeC,
     consumeIniInvMoneyRngIfLikeC,
+    consumeUInitRaceIniInvAfterRoleLikeC,
 } from './u_init_role_rng.js';
 
 /**
- * C: u_init_role + ini_inv PRNG (inside u_init_inventory_attrs after makedog).
- * @param {import('./gstate.js').game} [g]
+ * C: u_init.c `u_init_role()` — role `ini_inv` PRNG only (race tail is separate).
+ * @param {import('./gstate.js').game} g
  */
-export function runUInitRoleRngAfterMklevLikeC(g = game) {
-    void g;
-    /* C: u_init.c u_init_role — svm.moves = 1L before ini_inv (invent init boundary). */
-    g.moves = 1;
+function consumeUInitRoleIniInvCoreLikeC(g) {
     const humanIdx = races.findIndex((r) => r.name === 'human');
-    const rog = game.urole?.abbr === 'Rog' && (game.initrace | 0) === humanIdx;
+    const rog = g.urole?.abbr === 'Rog' && (g.initrace | 0) === humanIdx;
     if (rog) {
         consumeRogueHumanIniInvUinitRoleRngLikeC();
         return;
     }
-    const sam = game.urole?.abbr === 'Sam' && (game.initrace | 0) === humanIdx;
+    const sam = g.urole?.abbr === 'Sam' && (g.initrace | 0) === humanIdx;
     if (sam) {
         consumeSamuraiHumanIniInvUinitRoleRngLikeC();
         return;
     }
-    const val = game.urole?.abbr === 'Val' && (game.initrace | 0) === humanIdx;
+    const val = g.urole?.abbr === 'Val' && (g.initrace | 0) === humanIdx;
     if (val) {
         consumeValkyrieHumanIniInvUinitRoleRngLikeC();
         return;
     }
-    const kni = game.urole?.abbr === 'Kni' && (game.initrace | 0) === humanIdx;
+    const kni = g.urole?.abbr === 'Kni' && (g.initrace | 0) === humanIdx;
     if (kni) {
         consumeKnightHumanIniInvUinitRoleRngLikeC();
         return;
     }
-    const mon = game.urole?.abbr === 'Mon' && (game.initrace | 0) === humanIdx;
+    const mon = g.urole?.abbr === 'Mon' && (g.initrace | 0) === humanIdx;
     if (mon) {
         consumeMonkHumanIniInvUinitRoleRngLikeC();
         return;
     }
     /* C: u_init_role PM_WIZARD — ini_inv(Wizard[]) same for all races (race extras in u_init_race). */
-    if (game.urole?.abbr === 'Wiz') {
+    if (g.urole?.abbr === 'Wiz') {
         consumeWizardHumanIniInvUinitRoleRngLikeC();
         return;
     }
-    const arc = game.urole?.abbr === 'Arc' && (game.initrace | 0) === humanIdx;
+    const arc = g.urole?.abbr === 'Arc' && (g.initrace | 0) === humanIdx;
     if (arc) {
         consumeArcheologistHumanIniInvUinitRoleRngLikeC();
         return;
     }
-    const hea = game.urole?.abbr === 'Hea' && (game.initrace | 0) === humanIdx;
+    const hea = g.urole?.abbr === 'Hea' && (g.initrace | 0) === humanIdx;
     if (hea) {
         consumeHealerHumanIniInvUinitRoleRngLikeC();
         return;
     }
-    const pri = game.urole?.abbr === 'Pri' && (game.initrace | 0) === humanIdx;
+    const pri = g.urole?.abbr === 'Pri' && (g.initrace | 0) === humanIdx;
     if (pri) {
         consumePriestHumanIniInvUinitRoleRngLikeC();
         return;
     }
-    const bar = game.urole?.abbr === 'Bar' && (game.initrace | 0) === humanIdx;
+    const bar = g.urole?.abbr === 'Bar' && (g.initrace | 0) === humanIdx;
     if (bar) {
         consumeBarbarianHumanIniInvUinitRoleRngLikeC();
         return;
     }
-    const ran = game.urole?.abbr === 'Ran' && (game.initrace | 0) === humanIdx;
+    const ran = g.urole?.abbr === 'Ran' && (g.initrace | 0) === humanIdx;
     if (ran) {
         consumeRangerHumanIniInvUinitRoleRngLikeC();
         return;
     }
-    const tou = game.urole?.abbr === 'Tou' && (game.initrace | 0) === humanIdx;
+    const tou = g.urole?.abbr === 'Tou' && (g.initrace | 0) === humanIdx;
     if (tou) {
         consumeTouristHumanIniInvUinitRoleRngLikeC();
         return;
     }
-    const cav = game.urole?.abbr === 'Cav' && (game.initrace | 0) === humanIdx;
+    const cav = g.urole?.abbr === 'Cav' && (g.initrace | 0) === humanIdx;
     if (cav) {
         consumeCaveDwellerHumanIniInvUinitRoleRngLikeC();
         return;
@@ -111,6 +109,17 @@ export function runUInitRoleRngAfterMklevLikeC(g = game) {
     rnd(2); rn2(4); rnd(2); rn2(4); rnd(2); rn2(4); rn2(1); rnd(2); rn2(10); rn2(11); rn2(10);
     rn2(10); rn2(1); rnd(2); rn2(70); rn2(1); rn2(1); rnd(2); rn2(1); rn2(25); rn2(25); rn2(25);
     rn2(20); rn2(1); rnd(2);
+}
+
+/**
+ * C: u_init_role + u_init_race ini_inv PRNG (inside u_init_inventory_attrs after makedog).
+ * @param {import('./gstate.js').game} [g]
+ */
+export function runUInitRoleRngAfterMklevLikeC(g = game) {
+    /* C: u_init.c u_init_role — svm.moves = 1L before ini_inv (invent init boundary). */
+    g.moves = 1;
+    consumeUInitRoleIniInvCoreLikeC(g);
+    consumeUInitRaceIniInvAfterRoleLikeC(g);
 }
 
 /**

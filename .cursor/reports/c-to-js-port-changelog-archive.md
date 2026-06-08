@@ -6,6 +6,7 @@ Historical rows moved from `c-to-js-port-progress.md` so day-to-day work uses **
 
 | When | What changed |
 |------|----------------|
+| **2026-06-08** | **P1 u_init — `u_init_race` PM_ORC `Xtra_food` + Val/Ran/Kni subst linkers** — C `u_init.c` `ini_inv(Xtra_food[])` UNDEF FOOD ×2 (`consumeUInitRaceOrcXtraFoodIniInvLikeC` after `u_init_role`); **`iniInvSubstOtypForChargenLikeC`** on Ranger/Valkyrie/Knight fixed trobj rows. Verified: **`seed8000` full**, **`seed0102` full**, **`seed0900` 200–450**, **`seed0012` 80–200**. Fail **`seed0900` ~2512** (moveloop). |
 | **2026-06-08** | **P1 u_init — `ini_inv_obj_substitution` + Tourist FOOD filter** — C `u_init.c` `inv_subs[]` → **`iniInvObjSubstitutionLikeC`**; Tourist UNDEF food ×10 via **`iniInvMkobjFilterLikeC`** (`FOOD_CLASS` pick/init + **`iniInvMkobjFilterCtxForRoleLikeC`**). Verified: **`seed8000` full**, **`seed0102` full**, **`seed0900` 200–450**, **`seed0012` 80–200**. Fail **`seed0900` ~2512** (moveloop). |
 | **2026-06-08** | **P1 u_init — unified `ini_inv_mkobj_filter`** — C `u_init.c` one while-loop → **`iniInvMkobjFilterLikeC`** (`gn.nocreate*`, `Role_if` monk/wizard, `Race_if` orc, **`restrictedSpellDisciplineForRoleLikeC`**); Monk scroll + Healer wand use general path. Verified: **`seed0102` full**, **`seed0900` 200–450**, **`seed0012` 80–200**. Fail **`seed0900` ~2512** (moveloop). |
 | **2026-06-08** | **Reflect pass 2** — 5× P1 mkobj/ini_inv since peel interleave; score **3/44** (`seed0102` PASS); **`seed0900` ~2960** moveloop locator; next **general `ini_inv_mkobj_filter`**. |

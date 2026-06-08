@@ -4,6 +4,7 @@
 
 import { game } from './gstate.js';
 import { races } from './roles.js';
+import { iniInvSubstOtypForChargenLikeC } from './u_init_ini_inv_obj_substitution_like_c.js';
 import {
     NH5_WEAPON_CLASS,
     NH5_ARMOR_CLASS,
@@ -64,9 +65,10 @@ export function applyValkyrieHumanLinkedInventAndWieldLikeC(g) {
         };
     }
 
-    const spear = mk(OTYP_SPEAR, NH5_WEAPON_CLASS, 1, 1);
-    const dagger = mk(OTYP_DAGGER, NH5_WEAPON_CLASS, 1, 0);
-    const shield = mk(OTYP_SMALL_SHIELD, NH5_ARMOR_CLASS, 1, 3);
+    const sub = (otyp) => iniInvSubstOtypForChargenLikeC(otyp, g);
+    const spear = mk(sub(OTYP_SPEAR), NH5_WEAPON_CLASS, 1, 1);
+    const dagger = mk(sub(OTYP_DAGGER), NH5_WEAPON_CLASS, 1, 0);
+    const shield = mk(sub(OTYP_SMALL_SHIELD), NH5_ARMOR_CLASS, 1, 3);
     const food = mk(OTYP_FOOD_RATION, NH5_FOOD_CLASS, foodQuan, 0);
 
     const order = [spear, dagger, shield, food];

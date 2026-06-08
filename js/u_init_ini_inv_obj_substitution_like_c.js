@@ -62,3 +62,14 @@ export function iniInvObjSubstitutionLikeC(otyp, raceMnum) {
     }
     return t;
 }
+
+/**
+ * C: `ini_inv_obj_substitution` using chargen race index.
+ * @param {number} otyp
+ * @param {import('./gstate.js').game} g
+ * @returns {number}
+ */
+export function iniInvSubstOtypForChargenLikeC(otyp, g) {
+    const rm = g.urace?.mnum ?? g.initraceMnum ?? 0;
+    return iniInvObjSubstitutionLikeC(otyp | 0, rm | 0);
+}
