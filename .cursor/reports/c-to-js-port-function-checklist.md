@@ -55,7 +55,7 @@ Align batches with [`c-to-js-port-remaining.md`](c-to-js-port-remaining.md) §5:
 | `rndmonnum` / `rndmonnum_adj` | `mkobj_mklev_like_c.js`, `makemon.js` | partial | Plan A/B; FIGURINE + STATUE + `makemon.rndmonnum` rerolls |
 | `mksobj_init` TOOL FIGURINE | `mkobj_mklev_like_c.js` | partial | `rndmonnum_adj(5,10)` + `is_human` retry + `blessorcurse(4)`; corpsenm → spe tail |
 | `mksobj_init` TOOL BELL_OF_OPENING | `mkobj_mklev_like_c.js` | partial | `spe=3` when `otmp` passed; no RNG |
-| `may_generate_eroded` / `mkobj_erosions` | `mkobj_mklev_like_c.js` | partial | C `is_flammable`/`is_rottable`/… + gated `rn2(80)`; chest `tknown` order; **2431** trap victim vs erosion |
+| `may_generate_eroded` / `mkobj_erosions` | `mkobj_mklev_like_c.js` | partial | WORM_TOOTH/UNICORN_HORN skip; oerodeproof path still `rn2(1000)`; **`oartifact`** defer; chest `tknown` order |
 | `mksobj_init` ROCK_CLASS STATUE | `mkobj_mklev_like_c.js` | partial | `rndmonnumMklevLikeC` + `verysmall` + nested SPBOOK; spe tail; **1400–1460** match |
 | `mksobj_init` ARMOR_CLASS | `mkobj_mklev_like_c.js` | partial | C otyp curse boots/helm/gauntlets + `!rn2(11)`; blessed `rn2(2)` branch |
 | `mkbox_cnts` | `mkobj_mklev_like_c.js` | partial | ICE_BOX→`mksobj(CORPSE)`; TOOL fallthrough; corpse spe tail order |

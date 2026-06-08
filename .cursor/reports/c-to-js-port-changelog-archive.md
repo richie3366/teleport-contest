@@ -6,6 +6,7 @@ Historical rows moved from `c-to-js-port-progress.md` so day-to-day work uses **
 
 | When | What changed |
 |------|----------------|
+| **2026-06-08** | **P1 mkobj — `may_generate_eroded` + `mkobj_erosions` grease** — C WORM_TOOTH (42) / UNICORN_HORN (261) skip; oerodeproof branch still **`rn2(1000)`**; **`oartifact`** deferred (artif param breaks **`seed8000` ~1420**). Verified: **`seed0900` 1400–1460**, **`seed8000` 2900–3129**, **`seed0102` 4400–4485**. Fail **`seed0900` ~2512** (moveloop). |
 | **2026-06-08** | **P1 mkobj — STATUE `rndmonnum` + BELL `mksobj_init`** — C **`mksobj_init` ROCK_CLASS STATUE** uses **`rndmonnum()`** (Plan B); TOOL **BELL_OF_OPENING** `spe=3`; **`makemon.js` `rndmonnum`** → **`rndmonnumMklevLikeC`**. Verified: **`seed0900` 1400–1460**, **`seed8000` 2900–3129**, **`seed0102` 4400–4485**. Fail **`seed0900` ~2512** (moveloop). |
 | **2026-06-08** | **P1 mkobj — `rndmonnum_adj` + FIGURINE `mksobj_init`** — C **`mkobj.c` `rndmonnum_adj`** (Plan A/B) + TOOL **FIGURINE** (`rndmonnum_adj(5,10)`, `is_human` retry, `blessorcurse(4)`, corpsenm spe tail) in **`mkobj_mklev_like_c.js`**. Verified: **`seed0900` 290–320**; **`seed8000` 2900–3129**. First fail **`seed0900` ~2512** (moveloop). |
 | **2026-06-08** | **Reflect:** peel batches 1–10 lane drift → P1 mkobj mandatory; added strategy §10 + `c-to-js-port-reflection.md` shelf (~every 5 batches). |

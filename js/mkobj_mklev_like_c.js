@@ -254,11 +254,17 @@ function isDamageableMklevLikeC(otyp, oclass) {
     );
 }
 
+/** C: objects.h WORM_TOOTH / UNICORN_HORN — no erosion on body parts. */
+const OTYP_WORM_TOOTH = 42;
+const OTYP_UNICORN_HORN = 261;
+
 /** C: mkobj.c may_generate_eroded */
 function mayGenerateErodedMklevLikeC(otyp, oclass) {
     if ((game.moves | 0) <= 1 && !game.in_mklev) return false;
     if (!erosionMattersMklevLikeC(oclass)) return false;
     if (!isDamageableMklevLikeC(otyp, oclass)) return false;
+    const t = otyp | 0;
+    if (t === OTYP_WORM_TOOTH || t === OTYP_UNICORN_HORN) return false;
     return true;
 }
 
@@ -266,6 +272,7 @@ function mayGenerateErodedMklevLikeC(otyp, oclass) {
 export function mkobjErosionsMklevLikeC(otyp, oclass) {
     if (!mayGenerateErodedMklevLikeC(otyp, oclass)) return;
     if (!rn2(100)) {
+        rn2(1000);
         return;
     }
     if (
@@ -283,9 +290,7 @@ export function mkobjErosionsMklevLikeC(otyp, oclass) {
             eroded2++;
         } while (eroded2 < 3 && !rn2(9));
     }
-    if (!rn2(1000)) {
-        /* greased */
-    }
+    rn2(1000);
 }
 
 /** @param {readonly (readonly [number, number])[]} rows */
