@@ -65,6 +65,15 @@
 
 **Batch 5 (2026-06-08):** delete inline PostEleventh peel block + `mons=[]` guard; route through `movemonSinglemonLikeC`.
 
+### Post-twelfth comma-`U` pass (`seed0006` ~3263–3291)
+
+| Step | C / session | JS target |
+|------|-------------|-----------|
+| 1 | Pet **`set_apparxy`** only (no **`dog_move`** gate this pass) | `movemonSinglemonLikeC` → pet branch |
+| 2 | Surplus mklev **`dochug`** explicit ~3263–3291 | `movemonSinglemonLikeC` surplus branch (not inline peel `rn2`) |
+
+**Batch 6 (2026-06-08):** delete inline PostTwelfth peel block + `mons=[]` guard; route through `movemonSinglemonLikeC`.
+
 ## Generalization targets (replace comma-`U` peels)
 
 | C concept | JS debt today | Notes |
@@ -83,7 +92,7 @@
 | `_wizD1CommaPostNinth*` inline peel + `mons=[]` | `movemon_singlemon` + `dog_move` + surplus `dochug` | `seed0006` 3175–3219 | **deleted** batch 3 |
 | `_wizD1CommaPostTenth*` inline peel + `mons=[]` | `movemon_singlemon` + surplus `dochug` | `seed0006` 3224–3242 | **deleted** batch 4 |
 | `_wizD1CommaPostEleventh*` inline peel + `mons=[]` | `movemon_singlemon` + surplus `dochug` | `seed0006` 3246–3259 | **deleted** batch 5 |
-| `_wizD1CommaPostTwelfth` … | same pattern | `seed0006` 3263–3291 | **open** |
+| `_wizD1CommaPostTwelfth*` inline peel + `mons=[]` | `movemon_singlemon` + surplus `dochug` | `seed0006` 3263–3291 | **deleted** batch 6 |
 | `_wizD1CommaPostFirst` … `PostTwentyFourth*` (rest) | `movemon` + `allmain` post-hero interleave | `seed0006` 2888–3609 | **open** — moratorium on N+1 |
 | `_touristD1LPostFourth*` etc. | tourist `L` moveloop tail | `seed0900` | partial generalization exists |
 | Role `abbr === 'Wiz' && dlevel === 1` guards | level/branch checks only where C has them | — | **smell** — shrink |
@@ -102,7 +111,7 @@
 - Full `dochug` dispatch not faithful — peels patch single arms.
 - `fmon` iteration order vs C `monmove` passes not unified.
 - `effectiveMovemonStepNum` / peel step numbers are harness — not in C.
-- PostTwelfth+ comma-`U` still use inline peel blocks.
+- PostThirteenth+ comma-`U` still use inline peel blocks.
 
 ## Wrong hypotheses (do not retry)
 
