@@ -3,7 +3,6 @@
 //        ini_inv_use_obj — uwep long sword, uswapwep lance, uarm ring mail, uarmh, uarms, uarmg.
 
 import { game } from './gstate.js';
-import { races } from './roles.js';
 import { iniInvSubstOtypForChargenLikeC } from './u_init_ini_inv_obj_substitution_like_c.js';
 import { NH5_WEAPON_CLASS, NH5_ARMOR_CLASS, NH5_FOOD_CLASS } from './nh5_objclass.js';
 
@@ -35,8 +34,7 @@ const BASE_WT = {
 
 /** @param {import('./gstate.js').game} [g] */
 export function isHumanKnightChargenLikeC(g = game) {
-    const humanIdx = races.findIndex((r) => r.name === 'human');
-    return g.urole?.abbr === 'Kni' && (g.initrace | 0) === humanIdx;
+    return g.urole?.abbr === 'Kni';
 }
 
 /**

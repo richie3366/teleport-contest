@@ -4,7 +4,6 @@
 
 import { rn2, rnd } from './rng.js';
 import { game } from './gstate.js';
-import { races } from './roles.js';
 import { applyRoleStartingUmoney0 } from './u_init_money.js';
 import { initIniInvStub } from './ini_inv_stub.js';
 import { applyHiddenGoldToUmoney0 } from './u_init_hidden_gold.js';
@@ -33,14 +32,12 @@ import {
  * @param {import('./gstate.js').game} g
  */
 function consumeUInitRoleIniInvCoreLikeC(g) {
-    const humanIdx = races.findIndex((r) => r.name === 'human');
-    const rog = g.urole?.abbr === 'Rog' && (g.initrace | 0) === humanIdx;
-    if (rog) {
+    /* C: u_init_role — same ini_inv[] all races; subs in ini_inv_obj_substitution / u_init_race. */
+    if (g.urole?.abbr === 'Rog') {
         consumeRogueHumanIniInvUinitRoleRngLikeC();
         return;
     }
-    const sam = g.urole?.abbr === 'Sam' && (g.initrace | 0) === humanIdx;
-    if (sam) {
+    if (g.urole?.abbr === 'Sam') {
         consumeSamuraiHumanIniInvUinitRoleRngLikeC();
         return;
     }
@@ -49,13 +46,11 @@ function consumeUInitRoleIniInvCoreLikeC(g) {
         consumeValkyrieHumanIniInvUinitRoleRngLikeC();
         return;
     }
-    const kni = g.urole?.abbr === 'Kni' && (g.initrace | 0) === humanIdx;
-    if (kni) {
+    if (g.urole?.abbr === 'Kni') {
         consumeKnightHumanIniInvUinitRoleRngLikeC();
         return;
     }
-    const mon = g.urole?.abbr === 'Mon' && (g.initrace | 0) === humanIdx;
-    if (mon) {
+    if (g.urole?.abbr === 'Mon') {
         consumeMonkHumanIniInvUinitRoleRngLikeC();
         return;
     }
@@ -64,8 +59,7 @@ function consumeUInitRoleIniInvCoreLikeC(g) {
         consumeWizardHumanIniInvUinitRoleRngLikeC();
         return;
     }
-    const arc = g.urole?.abbr === 'Arc' && (g.initrace | 0) === humanIdx;
-    if (arc) {
+    if (g.urole?.abbr === 'Arc') {
         consumeArcheologistHumanIniInvUinitRoleRngLikeC();
         return;
     }
@@ -82,18 +76,15 @@ function consumeUInitRoleIniInvCoreLikeC(g) {
         consumeBarbarianHumanIniInvUinitRoleRngLikeC();
         return;
     }
-    const ran = g.urole?.abbr === 'Ran' && (g.initrace | 0) === humanIdx;
-    if (ran) {
+    if (g.urole?.abbr === 'Ran') {
         consumeRangerHumanIniInvUinitRoleRngLikeC();
         return;
     }
-    const tou = g.urole?.abbr === 'Tou' && (g.initrace | 0) === humanIdx;
-    if (tou) {
+    if (g.urole?.abbr === 'Tou') {
         consumeTouristHumanIniInvUinitRoleRngLikeC();
         return;
     }
-    const cav = g.urole?.abbr === 'Cav' && (g.initrace | 0) === humanIdx;
-    if (cav) {
+    if (g.urole?.abbr === 'Cav') {
         consumeCaveDwellerHumanIniInvUinitRoleRngLikeC();
         return;
     }

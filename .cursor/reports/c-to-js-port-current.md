@@ -83,13 +83,13 @@ Use when **`Next steps`** feels stale. Order: **(1)** reliability phase **P1–P
 
 **Tutorial (Lane E):** Gated on [tutorial port gate](../../docs/plans/tutorial-port-gate.md) **MD-1 … MD-7**.
 
-**Last slice:** **Reflect pass 3** — 5× P1 u_init since pass 2; filter unified; **`seed0900` moveloop fail ~2960** (+448 vs ~2512). Score **3/44** stable. Next port: **#1 human-gate peel Rog…Cav**.
+**Last slice:** **P1 `u_init_role` Rog/Sam/Kni/Mon/Arc/Ran/Tou/Cav** — dropped `humanIdx` gates in `u_init_post_mklev.js` + role-only linker gates; Rogue **`iniInvSubstOtypForChargenLikeC`**. Score **3/44** stable. Fail **`seed0060` ~1036** (moveloop); **`seed0900` ~2960** (moveloop).
 
 ## Next steps (**strategy order** — pick **one**)
 
 **First:** tutorial gate — if **all MD-1 … MD-7**, Lane E from [10-tutorial.md](../plans/nethack-port/10-tutorial.md).
 
-1. **P1 — non-human `u_init_role` `ini_inv`** — Rog/Sam/Kni/Mon/Arc/Ran/Tou/Cav (remove `humanIdx` gate in `u_init_post_mklev.js`; same C `ini_inv` + **`ini_inv_obj_substitution`**). Oracle: [`c-oracles/mkobj.c.md`](c-oracles/mkobj.c.md). Locator: **`seed0060`** orc Rogue; **`seed0700`** samurai startup.
+1. **P1 — orc `Xtra_food` invent link** — wire **`g._orcXtraFoodOtyps`** into invent chain after role pack (`u_init_race` PM_ORC). Oracle: [`c-oracles/mkobj.c.md`](c-oracles/mkobj.c.md). Locator: **`seed0060`** orc Rogue invent screen.
 2. **P2 — moveloop @ `seed0900` ~2960** — `diag_c_rng_callers` on fail window; **not** peel. Oracle: [`c-oracles/monmove.c.md`](c-oracles/monmove.c.md).
 3. **P2 — `dog_goal` / first `#search` (C, not peel)** — `seed0077` ~3205–3207 per [`c-oracles/dogmove.c.md`](c-oracles/dogmove.c.md); **no** new `PendingLikeC`.
 4. **P2 — PostSeventeenth peel** — **deferred** until after (1) or (2); same delete pattern as batches 1–10. Oracle: [`c-oracles/monmove.c.md`](c-oracles/monmove.c.md). Locator: `seed0006` ~3426–3448.
