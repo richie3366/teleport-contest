@@ -93,7 +93,7 @@ Align batches with [`c-to-js-port-remaining.md`](c-to-js-port-remaining.md) §5:
 | `ini_inv_obj_substitution` | `u_init_ini_inv_obj_substitution_like_c.js`, role linkers | partial | C **`inv_subs[]`**; Tourist UNDEF food; Val/Ran/Kni fixed trobj via **`iniInvSubstOtypForChargenLikeC`** |
 | `u_init_race` PM_ELF `Instrument` / PM_ORC `Xtra_food` | `u_init_role_rng.js`, `u_init_post_mklev.js` | partial | **`consumeUInitRaceElfInstrumentIniInvLikeC`** (Pri/Wiz `ROLL_FROM` + `ini_inv`); **`consumeUInitRaceOrcXtraFoodIniInvLikeC`** (orc non-Wiz); dwarf/gnome `knows_object` open |
 | `ini_inv` / `trquan` / `ini_inv_adjust_obj` | `ini_inv_adjust_like_c.js`, `u_init_role_rng.js`, role linkers | partial | **`trquanTrobjLikeC`** + **`iniInvAdjustObjWeaponToolTrquanLikeC`**; Ranger weapon second **`trquan`**; Knight apple/carrot **`10+rn2(1)`** trobj count; other roles partial |
-| `u_init_role` RNG tail | `u_init_role_rng.js`, `u_init_post_mklev.js` | partial | |
+| `u_init_role` RNG tail | `u_init_role_rng.js`, `u_init_post_mklev.js` | partial | **Pri/Bar/Val/Hea** all races (no human gate); Rog/Sam/Kni/Mon/Arc/Ran/Tou/Cav still human-only |
 | `wintty.c` pickers | `chargen_tty.js` | partial | Chargen RNG largely aligned on `seed0077`; moveloop RNG **3180–3242**; screens **0–32** **PASS** on `seed0077-rogue-chargen` |
 
 ---

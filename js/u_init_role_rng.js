@@ -15,7 +15,6 @@ import {
     iniInvGnAfterUndefAcceptLikeC,
     iniInvMkobjFilterCtxForRoleLikeC,
     iniInvMkobjFilterLikeC,
-    iniInvMkobjFilterPriestHumanLikeC,
     iniInvMkobjFilterScrollClassMonkLikeC,
     iniInvMkobjFilterWizardHumanLikeC,
     restrictedSpellDisciplineForRoleLikeC,
@@ -429,7 +428,7 @@ export function consumeKnightHumanIniInvUinitRoleRngLikeC() {
 }
 
 /**
- * C: u_init.c **`PM_VALKYRIE`** **`ini_inv(Valkyrie[])`** for human + optional **`!rn2(6)`** **`ini_inv(Lamp)`**.
+ * C: u_init.c **`PM_VALKYRIE`** **`ini_inv(Valkyrie[])`** + optional **`!rn2(6)`** **`ini_inv(Lamp)`** (all races).
  */
 export function consumeValkyrieHumanIniInvUinitRoleRngLikeC() {
     /* SPEAR +1 */
@@ -629,7 +628,7 @@ export function consumeArcheologistHumanIniInvUinitRoleRngLikeC() {
 
 /**
  * C: u_init.c **`PM_HEALER`** **`u_init_role`** — **`u.umoney0 = rn1(1000,1001)`** then **`ini_inv(Healer[])`**,
- * **`if (!rn2(25)) ini_inv(Lamp)`** (human; no race subs). Money **`rn1`** must precede pack draws (see **`u_init_money.js`**).
+ * **`if (!rn2(25)) ini_inv(Lamp)`** (all races; otyp subs only). Money **`rn1`** precedes pack (see **`u_init_money.js`**).
  */
 export function consumeHealerHumanIniInvUinitRoleRngLikeC() {
     game._healerIniUmoney0Rn1 = rn1(1000, 1001);
@@ -665,13 +664,10 @@ export function consumeHealerHumanIniInvUinitRoleRngLikeC() {
     }
 
     const gn = gnIniInvFreshLikeC();
+    const raceMnum = game.urace?.mnum ?? races[game.initrace | 0]?.mnum ?? 0;
+    const heaCtx = iniInvMkobjFilterCtxForRoleLikeC('Hea', raceMnum);
     trquanMinMaxLikeC(1, 1);
-    game._healerIniWandOtyp = iniInvMkobjFilterLikeC(NH5_WAND_CLASS, false, gn, {
-        roleWizard: false,
-        roleMonk: false,
-        raceOrc: false,
-        restrictedSpellDiscipline: (otyp) => restrictedSpellDisciplineForRoleLikeC(otyp, 'Hea'),
-    });
+    game._healerIniWandOtyp = iniInvMkobjFilterLikeC(NH5_WAND_CLASS, false, gn, heaCtx);
     iniInvGnAfterUndefAcceptLikeC(NH5_WAND_CLASS, game._healerIniWandOtyp | 0, gn);
     rn2(1);
 
@@ -709,7 +705,7 @@ export function consumeHealerHumanIniInvUinitRoleRngLikeC() {
 
 /**
  * C: u_init.c **`PM_BARBARIAN`** — **`if (rn2(100) >= 50) ini_inv(Barbarian_0); else ini_inv(Barbarian_1);`**
- * then **`if (!rn2(6)) ini_inv(Lamp)`** (human; no race subs).
+ * then **`if (!rn2(6)) ini_inv(Lamp)`** (all races; orc **`Xtra_food`** in **`u_init_race`**).
  */
 export function consumeBarbarianHumanIniInvUinitRoleRngLikeC() {
     const pack0 = rn2(100) >= 50;
@@ -845,8 +841,8 @@ export function consumeRangerHumanIniInvUinitRoleRngLikeC() {
 }
 
 /**
- * C: u_init.c **`PM_CLERIC`** — **`ini_inv(Priest[])`** for human (no race subs) + **`!rn2(5)`** **`Magicmarker`**
- * **`else if (!rn2(10))`** **`Lamp`** (**strict** **`else if`** — lamp gate only when marker misses).
+ * C: u_init.c **`PM_CLERIC`** — **`ini_inv(Priest[])`** (all races) + **`!rn2(5)`** **`Magicmarker`**
+ * **`else if (!rn2(10))`** **`Lamp`** (**strict** **`else if`** — lamp only when marker misses).
  */
 export function consumePriestHumanIniInvUinitRoleRngLikeC() {
     /* MACE +1 (blessed from **`trobj.trbless`**) */
@@ -888,11 +884,13 @@ export function consumePriestHumanIniInvUinitRoleRngLikeC() {
     rn2(1);
 
     const gn = gnIniInvFreshLikeC();
+    const raceMnum = game.urace?.mnum ?? races[game.initrace | 0]?.mnum ?? 0;
+    const priCtx = iniInvMkobjFilterCtxForRoleLikeC('Pri', raceMnum);
     const sbQ = trquanMinMaxLikeC(2, 2);
     game._priestIniSpellbookOtyps = [];
     let gotSp1 = false;
     for (let i = 0; i < sbQ; i++) {
-        const otyp = iniInvMkobjFilterPriestHumanLikeC(NH5_SPBOOK_CLASS, gotSp1, gn, false);
+        const otyp = iniInvMkobjFilterLikeC(NH5_SPBOOK_CLASS, gotSp1, gn, priCtx);
         game._priestIniSpellbookOtyps.push(otyp);
         iniInvGnAfterUndefAcceptLikeC(NH5_SPBOOK_CLASS, otyp, gn);
         if ((SPELLBOOK_OTYP_LEVEL.get(otyp) ?? 99) === 1) gotSp1 = true;

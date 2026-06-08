@@ -3,7 +3,7 @@
 **JS modules:** `mkobj_mklev_like_c.js`, `mklev.js`, `u_init_post_mklev.js`, role `u_init_link_*_invent.js`  
 **Phase:** P1  
 **C path:** `nethack-c/upstream/src/mkobj.c`  
-**Last C read:** 2026-06-08 — `u_init.c` `u_init_race` PM_ELF **`ROLL_FROM` + `ini_inv(Instrument[])`** (Cleric/Wizard only; plain TOOL `next_ident` only); PM_ORC **`Xtra_food`**; Val/Ran/Kni **`iniInvSubstOtypForChargenLikeC`**.
+**Last C read:** 2026-06-08 — `u_init.c` **`u_init_role`** PM_HEALER/CLERIC/BARBARIAN/VALKYRIE — same **`ini_inv`** all races; Priest/Healer filter **`iniInvMkobjFilterCtxForRoleLikeC`** (`raceOrc`).
 
 ## Why P1 matters
 
@@ -36,7 +36,7 @@ Most mid-game RNG divergence is **object creation order** (`mkobj`, `ini_inv`, f
 ## Open gaps
 
 - **`u_init_race`** — PM_ELF **`Instrument[]`** wired (`consumeUInitRaceElfInstrumentIniInvLikeC`); PM_ORC **`Xtra_food`** wired; dwarf/gnome `knows_object` tails still no-RNG stubs.
-- **Non-human `u_init_role`** — elf Priest / orc Bar / dwarf Val / … still generic-stub except human gates; elf Wizard uses real **`ini_inv(Wizard[])`** + race instrument.
+- **Non-human `u_init_role`** — **Pri / Bar / Val / Hea** dispatch all races (C `ini_inv` same; subs in **`ini_inv_obj_substitution`**); orc Bar + **`Xtra_food`** race tail. Still human-gated: Rog/Sam/Kni/Mon/Arc/Ran/Tou/Cav.
 - `game.invent` not fully driven by `ini_inv` + `mkobj` for all roles (Knight linker now accepts 10–11 apple/carrot stacks).
 - NH5 `otyp` vs legacy floor indices in `mklev.js`.
 - `makemon.js` `rndmonnum()` must stay aliased to **`rndmonnumMklevLikeC`** (medusa `mkcorpstat` rerolls).

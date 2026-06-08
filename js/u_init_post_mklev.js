@@ -44,8 +44,8 @@ function consumeUInitRoleIniInvCoreLikeC(g) {
         consumeSamuraiHumanIniInvUinitRoleRngLikeC();
         return;
     }
-    const val = g.urole?.abbr === 'Val' && (g.initrace | 0) === humanIdx;
-    if (val) {
+    /* C: u_init_role PM_VALKYRIE — same ini_inv(Valkyrie[]) all races (subs in ini_inv_obj_substitution). */
+    if (g.urole?.abbr === 'Val') {
         consumeValkyrieHumanIniInvUinitRoleRngLikeC();
         return;
     }
@@ -69,18 +69,16 @@ function consumeUInitRoleIniInvCoreLikeC(g) {
         consumeArcheologistHumanIniInvUinitRoleRngLikeC();
         return;
     }
-    const hea = g.urole?.abbr === 'Hea' && (g.initrace | 0) === humanIdx;
-    if (hea) {
+    /* C: u_init_role PM_HEALER / PM_CLERIC / PM_BARBARIAN — race-independent ini_inv (subs in ini_inv). */
+    if (g.urole?.abbr === 'Hea') {
         consumeHealerHumanIniInvUinitRoleRngLikeC();
         return;
     }
-    const pri = g.urole?.abbr === 'Pri' && (g.initrace | 0) === humanIdx;
-    if (pri) {
+    if (g.urole?.abbr === 'Pri') {
         consumePriestHumanIniInvUinitRoleRngLikeC();
         return;
     }
-    const bar = g.urole?.abbr === 'Bar' && (g.initrace | 0) === humanIdx;
-    if (bar) {
+    if (g.urole?.abbr === 'Bar') {
         consumeBarbarianHumanIniInvUinitRoleRngLikeC();
         return;
     }
