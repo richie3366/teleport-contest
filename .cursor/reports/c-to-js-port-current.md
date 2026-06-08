@@ -83,13 +83,13 @@ Use when **`Next steps`** feels stale. Order: **(1)** reliability phase **P1–P
 
 **Tutorial (Lane E):** Gated on [tutorial port gate](../../docs/plans/tutorial-port-gate.md) **MD-1 … MD-7**.
 
-**Last slice:** **P1 `u_init.c` `ini_inv(Healer[])`** — quan-loop replay (drop per-potion/spellbook **`trquan`**); fixed **`WAN_SLEEP`** **`mksobj`** (not **`ini_inv_mkobj_filter`**). Score **3/44** stable. Fail **`seed0016` ~2493** (moveloop eat/`next_ident`); **`seed0900` ~2960** (moveloop).
+**Last slice:** **P1 `mkobj.c` `add_to_container`** — supply-chest **`fill_ordinary_room`** (`cobj` chain, SPBOOK **`oc_level`** bias, **`weight`**). Score **3/44** stable. Fail **`seed0016` ~2493** (moveloop eat); **`seed0900` ~2960** (moveloop).
 
 ## Next steps (**strategy order** — pick **one**)
 
 **First:** tutorial gate — if **all MD-1 … MD-7**, Lane E from [10-tutorial.md](../plans/nethack-port/10-tutorial.md).
 
-1. **P1 — `fill_ordinary_room` supply chest** — `add_to_container` + SPBOOK bias loop (`mklev.js`); then **`fill_zoo` / `stock_room`**. Oracle: [`c-oracles/sp_lev.c.md`](c-oracles/sp_lev.c.md).
+1. **P1 — `fill_zoo` / `stock_room`** — `fillSpecialRoomLikeC` stubs (`mklev.js`). Oracle: [`c-oracles/sp_lev.c.md`](c-oracles/sp_lev.c.md).
 2. **P1 — mineralize** — wire **`mkobjPickGemOtypMklevLikeC`** when gem total **923**→**1000** aligned.
 3. **P2 — moveloop @ `seed0016` ~2493** — eat apple **`next_ident`** / `mcalcmove`; then **`seed0900` ~2960** — `diag_c_rng_callers`; **not** peel. Oracle: [`c-oracles/monmove.c.md`](c-oracles/monmove.c.md).
 4. **P2 — `dog_goal` / first `#search` (C, not peel)** — `seed0077` ~3205–3207 per [`c-oracles/dogmove.c.md`](c-oracles/dogmove.c.md); **no** new `PendingLikeC`.

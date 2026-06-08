@@ -44,7 +44,7 @@ Most mid-game RNG divergence is **object creation order** (`mkobj`, `ini_inv`, f
 - NH5 `otyp` vs legacy floor indices in `mklev.js`.
 - **`setgemprobs`** — **`o_init.js`** `setgemprobsLikeC` + **`mklev.js`** `oinit()` → **`oinitLikeC`** (no RNG); D:1 **`oclass_prob_total[GEM_CLASS]`** = **923** (C-faithful after `setgemprobs`); static row sum **1000** — wire **`mkobjPickGemOtypMklevLikeC`** for mineralize when next on **`seed0016`** mineralize tail.
 - **`fill_special_room` VAULT** — early vault gold uses **`mkgold`→`mksobj`** (`rn2(100)` erosion + **`next_ident`** `rnd(2)`); see [`sp_lev.c.md`](sp_lev.c.md); **`seed0016` ~1281–1420** mklev aligned after vault + **`hole_destination`**.
-- **Supply chest `add_to_container`** — **`fill_ordinary_room`** creates **`mksobj`** but stub container; SPBOOK bias loop incomplete.
+- ~~**Supply chest `add_to_container`**~~ — wired **`mklev.c` `fill_ordinary_room`** bonus chest (`add_to_container`, SPBOOK **`oc_level`** reroll, **`weight(supply_chest)`**); **`seed0016` 1305–1420** aligned.
 - `makemon.js` `rndmonnum()` must stay aliased to **`rndmonnumMklevLikeC`** (medusa `mkcorpstat` rerolls).
 - Other TOOL `default` otyps — `break` only (no extra RNG).
 

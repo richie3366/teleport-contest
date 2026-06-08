@@ -28,6 +28,7 @@
 
 ## Open gaps
 
+- **`fill_ordinary_room` supply chest** — **`add_to_container`** + SPBOOK bias in **`mklev.js`** (2026-06-09); see [`mkobj.c.md`](mkobj.c.md).
 - **`fill_zoo`** — stub (`fillZooLikeC`); zoo/court/morgue/barracks RNG not ported.
 - **`stock_room`** — stub (`stockRoomLikeC`); shop levels diverge until `shknam.c` port.
 - Vault gold **`rn2(100)`** — C recorder tags `fill_special_room`; draws are **`mksobj`/`mkobj_erosions`** on new **`GOLD_PIECE`** piles (`gi.in_mklev`).

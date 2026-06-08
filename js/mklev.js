@@ -77,6 +77,7 @@ import {
     CORPSTAT_NONE,
     MKTRAP_MAZEFLAG,
     LEV_EXT,
+    OBJ_FREE, OBJ_FLOOR, OBJ_CONTAINED,
 } from './const.js';
 import { isPoolOrLavaCellLikeC } from './fillholetyp.js';
 import { makeEngrAt, ENGR_HEADSTONE, ENGR_MARK, ENGR_DUST, randomEngraving, getRndEpitaphText, wipeEngrAt } from './engrave.js';
@@ -115,7 +116,11 @@ import {
     placeFloorObject,
     placeFloorObjectInLevel,
     refreshFobjHeadInLevel,
+    unlinkFloorObjectInLevel,
 } from './floorobj.js';
+import { objectOcWeight } from './obj_oc_weight_data.js';
+import { SPELLBOOK_OTYP_LEVEL } from './mkobj_wizard_ini_inv_data.js';
+import { isContainerOtyp } from './water_damage.js';
 import { fixWallSpinesRect } from './wall_spine.js';
 import { setLevltypLikeC } from './set_levltyp.js';
 import {
@@ -1369,10 +1374,71 @@ function fillAllSpecialRoomsLikeC(g = game) {
     }
 }
 
-function dealloc_obj(otmp) { /* stub */ }
+function dealloc_obj(otmp) { void otmp; /* RNG already consumed; no heap */ }
+
 function curse(otmp) { if (otmp) otmp.cursed = true; }
-function weight(otmp) { return otmp?.owt || 1; }
-function add_to_container(container, otmp) { /* stub */ }
+
+/** C: mkobj.c weight — container shell + recursive contents. */
+function weight(obj) {
+    if (!obj) return 0;
+    const quan = obj.quan | 0;
+    if (quan < 1) return 0;
+    if (obj.globby) return obj.owt | 0;
+    let wt = objectOcWeight(obj.otyp | 0);
+    if (isContainerOtyp(obj.otyp | 0)) {
+        let cwt = 0;
+        for (let c = obj.cobj; c; c = c.nobj) cwt += weight(c);
+        wt += cwt;
+    }
+    return wt * quan;
+}
+
+/** C: invent.c mergable — subset for contained merge. */
+function mergableContainedLikeC(otmp, obj) {
+    if (!otmp || !obj || otmp === obj) return false;
+    if ((otmp.otyp | 0) !== (obj.otyp | 0)) return false;
+    if ((otmp.nomerge | 0) || (obj.nomerge | 0)) return false;
+    if ((otmp.cursed | 0) !== (obj.cursed | 0) || (otmp.blessed | 0) !== (obj.blessed | 0)) return false;
+    if ((otmp.spe | 0) !== (obj.spe | 0)) return false;
+    return true;
+}
+
+/** C: obj.h obj_extract_self — floor unlink before contain. */
+function objExtractSelfLikeC(g, obj) {
+    if (!obj) return;
+    if (obj.ox >= 0 && obj.oy >= 0) unlinkFloorObjectInLevel(g, obj);
+    obj.where = OBJ_FREE;
+    obj.nexthere = null;
+    obj.ocontainer = null;
+}
+
+/** C: invent.c merged — absorb mergable obj into otmp. */
+function mergedContainedLikeC(otmp, obj) {
+    if (!mergableContainedLikeC(otmp, obj)) return false;
+    otmp.quan = (otmp.quan | 0) + (obj.quan | 0);
+    otmp.owt = weight(otmp);
+    objExtractSelfLikeC(game, obj);
+    return true;
+}
+
+/** C: mkobj.c add_to_container */
+function add_to_container(container, obj) {
+    if (!container || !obj) return null;
+    const g = game;
+    const onFloor = obj.ox >= 0 && obj.oy >= 0;
+    if (onFloor) objExtractSelfLikeC(g, obj);
+    for (let otmp = container.cobj; otmp; otmp = otmp.nobj) {
+        if (mergedContainedLikeC(otmp, obj)) return otmp;
+    }
+    obj.where = OBJ_CONTAINED;
+    obj.ocontainer = container;
+    obj.nobj = container.cobj ?? null;
+    container.cobj = obj;
+    obj.ox = -1;
+    obj.oy = -1;
+    obj.nexthere = null;
+    return obj;
+}
 /** C: mkobj.c add_to_buried — mineralize uses rn2(3) vs place_object; floor chain stub for now. */
 function add_to_buried(otmp) {
     if (!otmp) return;
@@ -3367,8 +3433,10 @@ async function fill_ordinary_room(croom, bonus_items) {
                     const otmp = mksobj(otyp, true, false);
                     if (otmp && otyp === POT_HEALING && rn2(2)) {
                         otmp.quan = 2;
+                        otmp.owt = weight(otmp);
                     }
                     cursed_item = otmp?.cursed ?? false;
+                    add_to_container(supply_chest, otmp);
                     if (++tryct2 >= 50) break;
                 } while (cursed_item || !rn2(5));
                 if (rn2(3)) {
@@ -3378,13 +3446,23 @@ async function fill_ordinary_room(croom, bonus_items) {
                     const oclass = extra_classes[rn2(extra_classes.length)];
                     let otmp = mkobjFromMklevCLikeC(oclass, false);
                     if (oclass === SPBOOK_no_NOVEL && otmp) {
-                        const depth = g.u?.uz?.dlevel ?? 1;
-                        const maxpass = (depth > 2) ? 2 : 3;
+                        const dlev = g.u?.uz?.dlevel ?? 1;
+                        const maxpass = (dlev > 2) ? 2 : 3;
                         for (let pass = 1; pass <= maxpass; pass++) {
-                            mkobjFromMklevCLikeC(oclass, false);
+                            const otmp2 = mkobjFromMklevCLikeC(oclass, false);
+                            const lv1 = SPELLBOOK_OTYP_LEVEL.get(otmp.otyp) ?? 99;
+                            const lv2 = SPELLBOOK_OTYP_LEVEL.get(otmp2.otyp) ?? 99;
+                            if (lv1 <= lv2) {
+                                dealloc_obj(otmp2);
+                            } else {
+                                dealloc_obj(otmp);
+                                otmp = otmp2;
+                            }
                         }
                     }
+                    if (otmp) add_to_container(supply_chest, otmp);
                 }
+                supply_chest.owt = weight(supply_chest);
             }
             skip_chests = true;
         }
