@@ -4,9 +4,10 @@
 import { game } from './gstate.js';
 import { depth as depth_of_level } from './hacklib.js';
 import { objectOcMaterial } from './obj_oc_material_data.js';
-import { NON_PM, rndmonstLikeC } from './makemon_rndmonst.js';
-import { permonstFromMndxLikeC, verysmall } from './mondata.js';
-import { P_BOW, P_SHURIKEN, OTYP_LOADSTONE, OTYP_LUCKSTONE, OTYP_GOLD_PIECE } from './const.js';
+import { NON_PM, rndmonstAdjLikeC, rndmonstLikeC } from './makemon_rndmonst.js';
+import { permonstFromMndxLikeC, verysmall, isHumanPtrLikeC } from './mondata.js';
+import { P_BOW, P_SHURIKEN, OTYP_LOADSTONE, OTYP_LUCKSTONE, OTYP_GOLD_PIECE, In_hell, LOW_PM } from './const.js';
+import { MONS_GENO_PLAN_B } from './mons_rndmonst_ini_inv_data.js';
 import { OC_SKILL_ROW_BY_OTYP } from './obj_oc_skill_data.js';
 import { rnd, rn2, rn1, rne } from './rng.js';
 import {
@@ -74,6 +75,15 @@ const OTYP_AMULET_OF_CHANGE = 206;
 
 /** C: objects.h — `CORPSE` (NH5 otyp **265**; ICE_BOX mkbox_cnts uses mksobj). */
 const OTYP_CORPSE = 265;
+/** C: objects.h — FIGURINE (NH5 otyp **257**). */
+const OTYP_FIGURINE = 257;
+
+const G_UNIQ = 0x1000;
+const G_NOHELL = 0x0800;
+const G_HELL = 0x0400;
+const G_NOGEN = 0x0200;
+/** C: monst.h SPECIAL_PM */
+const SPECIAL_PM = 338;
 
 /** C: objects.h — floor containers (mksobj_init TOOL + mkbox_cnts). */
 const OTYP_LARGE_BOX = 215;
@@ -419,6 +429,30 @@ function mkboxCntsMklevLikeC(box) {
     }
 }
 
+/**
+ * C: mkobj.c rndmonnum_adj(minadj, maxadj) — Plan A rndmonst_adj, else Plan B rn1 loop.
+ * @param {number} [minadj]
+ * @param {number} [maxadj]
+ * @returns {number} mndx
+ */
+export function rndmonnumAdjMklevLikeC(minadj = 0, maxadj = 0) {
+    const planA = rndmonstAdjLikeC(minadj | 0, maxadj | 0);
+    if (planA !== NON_PM) return planA | 0;
+
+    const inhell = In_hell(game.u?.uz);
+    const excludeflags = G_UNIQ | G_NOGEN | (inhell ? G_NOHELL : G_HELL);
+    let i;
+    do {
+        i = rn1(SPECIAL_PM - LOW_PM, LOW_PM);
+    } while ((MONS_GENO_PLAN_B[i] & excludeflags) !== 0);
+    return i | 0;
+}
+
+/** C: mkobj.c rndmonnum() — `rndmonnum_adj(0, 0)`. */
+export function rndmonnumMklevLikeC() {
+    return rndmonnumAdjMklevLikeC(0, 0);
+}
+
 function blessorcurseLikeC(chance, otmp) {
     if (otmp && (otmp.blessed || otmp.cursed)) return;
     if (!rn2(chance)) {
@@ -531,7 +565,19 @@ function mksobjInitRingLikeC(otyp) {
     }
 }
 
+/** C: mkobj.c mksobj_init — TOOL_CLASS FIGURINE (`rndmonnum_adj(5,10)` + `is_human` retry). */
+function mksobjInitFigurineLikeC(otmp) {
+    let tryct = 0;
+    let corpsenm;
+    do {
+        corpsenm = rndmonnumAdjMklevLikeC(5, 10);
+    } while (isHumanPtrLikeC(permonstFromMndxLikeC(corpsenm)) && tryct++ < 30);
+    blessorcurseLikeC(4, otmp);
+    return corpsenm | 0;
+}
+
 /** C: mkobj.c mksobj_init — TOOL_CLASS (per-otyp; default is `break` only). */
+/** @returns {number|null} corpsenm when FIGURINE init ran */
 function mksobjInitToolLikeC(otyp, otmp) {
     const t = otyp | 0;
     switch (t) {
@@ -586,6 +632,8 @@ function mksobjInitToolLikeC(otyp, otmp) {
     case 251: /* BAG_OF_TRICKS */
         rn1(18, 3);
         break;
+    case OTYP_FIGURINE:
+        return mksobjInitFigurineLikeC(otmp);
     case 252: /* MAGIC_FLUTE */
     case 253: /* MAGIC_HARP */
     case 254: /* FROST_HORN */
@@ -596,6 +644,7 @@ function mksobjInitToolLikeC(otyp, otmp) {
     default:
         break;
     }
+    return null;
 }
 
 function mksobjInitGemLikeC(otyp) {
@@ -726,9 +775,11 @@ export function mksobjInitMklevLikeC(otyp, oclass, artif, otmp) {
         }
         break;
     }
-    case NH5_TOOL_CLASS:
-        mksobjInitToolLikeC(otyp, otmp);
+    case NH5_TOOL_CLASS: {
+        const toolCorpsenm = mksobjInitToolLikeC(otyp, otmp);
+        if (toolCorpsenm !== null) corpsenm = toolCorpsenm;
         break;
+    }
     default:
         break;
     }

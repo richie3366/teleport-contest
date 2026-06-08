@@ -6,6 +6,7 @@ Historical rows moved from `c-to-js-port-progress.md` so day-to-day work uses **
 
 | When | What changed |
 |------|----------------|
+| **2026-06-08** | **P1 mkobj — `rndmonnum_adj` + FIGURINE `mksobj_init`** — C **`mkobj.c` `rndmonnum_adj`** (Plan A/B) + TOOL **FIGURINE** (`rndmonnum_adj(5,10)`, `is_human` retry, `blessorcurse(4)`, corpsenm spe tail) in **`mkobj_mklev_like_c.js`**. Verified: **`seed0900` 290–320**; **`seed8000` 2900–3129**. First fail **`seed0900` ~2512** (moveloop). |
 | **2026-06-08** | **Reflect:** peel batches 1–10 lane drift → P1 mkobj mandatory; added strategy §10 + `c-to-js-port-reflection.md` shelf (~every 5 batches). |
 | **2026-06-08** | **Handoff — operator model + interleave** — strategy §0 (human = loop only; agent owns port); `current.md` **P1 mkobj mandatory** after peel batches 1–10; loop `PROMPT` + continue-port prompt updated. |
 | **2026-06-08** | **Dev tooling — C RNG caller map** — `tools/diag_c_rng_callers.mjs`, `tools/parse_c_rng_log.mjs`; `record-session.mjs --save-rng-log`; playbook + strategy §1 (recorder `@ file:line` for phase B). |
