@@ -74,13 +74,13 @@ Use when **`Next steps`** feels stale. Order: **(1)** reliability phase **P1–P
 
 **Tutorial (Lane E):** Gated on [tutorial port gate](../../docs/plans/tutorial-port-gate.md) **MD-1 … MD-7**.
 
-**Last slice:** **P2 — comma-`U` twenty-first `movemon` + inline new-turn (`seed0006`)** — **`moveloop_turn_advance.js`**: post-twentieth inline → twenty-first **`movemon`**; **`monmove.js`**: twenty-first peel explicit (~3508–3524); **`moveloop_aux.js`**: **`runCommaUPostTwentyFirstInlineNewturnLikeC`**. Locator **`seed0006` 3500–3527**; fail **3528+** twenty-second **`movemon`**. Canaries **PASS**.
+**Last slice:** **P2 — comma-`U` twenty-second `movemon` + inline new-turn (`seed0006`)** — **`moveloop_turn_advance.js`**: post-twenty-first inline → twenty-second **`movemon`** (fix premature outer-loop done after twenty-first); **`monmove.js`**: twenty-second peel explicit (~3528–3544); **`moveloop_aux.js`**: **`runCommaUPostTwentySecondInlineNewturnLikeC`**. Locator **`seed0006` 3520–3547**; fail **3548+** twenty-third **`movemon`**. Canaries **PASS**.
 
 ## Next steps (reliability order)
 
 Pick **one** primary batch per commit. **First:** tutorial gate — if **all MD-1 … MD-7**, do Lane E from [10-tutorial.md](../plans/nethack-port/10-tutorial.md).
 
-1. **P2 — `seed0006` comma-`U` @ ~3528+** — post-twenty-first tail / twenty-second **`movemon`** (~3528+); locator **3528–3550+**.
+1. **P2 — `seed0006` comma-`U` @ ~3548+** — post-twenty-second tail / twenty-third **`movemon`** (~3548+); locator **3548–3570+**.
 2. **P2 — west north-fill coin peel** — delete **`rogueFirstSearchCoinApportDefersToTowelLikeC`** when **`fobj`** order / north-fill alcove geometry matches C (**`seed0077` ~3205–3207**); tried towel-head **`fobj`** — still needs reach or C **`dog_goal`** order fix.
 3. **P2 — general `monmove.c` / `dochug` batch** (broader) — one upstream function or dispatch arm; delete peel flags when canaries hold.
 3. **P1 — `mkobj` / `ini_inv` → `game.invent`** — next checklist rows in `mkobj_mklev_like_c.js` / role linkers; advances tutorial **MD-1** and most item-driven sessions.

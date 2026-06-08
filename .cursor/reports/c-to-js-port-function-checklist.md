@@ -96,7 +96,7 @@ Align batches with [`c-to-js-port-remaining.md`](c-to-js-port-remaining.md) §5:
 
 | C symbol / area | JS module | Status | Notes |
 |-----------------|-----------|--------|-------|
-| `movemon` / `dochug` | `monmove.js`, `fmon_iter.js`, `moveloop_turn_advance.js`, `moveloop_aux.js`, `dogmove_mon.js`, `m_move_mon.js`, `monmove_search.js`, `mfndpos_mon.js`, `distfleeck_mon.js` | partial | Comma surplus **~3054–3527**: twelfth peel (~3263–3291 debt); thirteenth peel (~3296–3306 debt); fourteenth peel (~3310–3336 debt); fifteenth peel (~3340–3387 debt); sixteenth peel (~3391–3422 debt); seventeenth peel (~3426–3448 debt); eighteenth peel (~3452–3472 debt); nineteenth peel (~3476–3485 debt); twentieth peel (~3490–3504 debt); twenty-first peel (~3508–3524 debt); **`runCommaUPostTwelfthInlineNewturnLikeC`** … **`runCommaUPostTwentyFirstInlineNewturnLikeC`**; **`post_moveloop82_exercise(5)`** before thirteenth. Fail **3528+** twenty-second **`movemon`**. **`seed8000` 2900–3129** + canaries aligned |
+| `movemon` / `dochug` | `monmove.js`, `fmon_iter.js`, `moveloop_turn_advance.js`, `moveloop_aux.js`, `dogmove_mon.js`, `m_move_mon.js`, `monmove_search.js`, `mfndpos_mon.js`, `distfleeck_mon.js` | partial | Comma surplus **~3054–3547**: twelfth peel (~3263–3291 debt); thirteenth peel (~3296–3306 debt); fourteenth peel (~3310–3336 debt); fifteenth peel (~3340–3387 debt); sixteenth peel (~3391–3422 debt); seventeenth peel (~3426–3448 debt); eighteenth peel (~3452–3472 debt); nineteenth peel (~3476–3485 debt); twentieth peel (~3490–3504 debt); twenty-first peel (~3508–3524 debt); twenty-second peel (~3528–3544 debt); **`runCommaUPostTwelfthInlineNewturnLikeC`** … **`runCommaUPostTwentySecondInlineNewturnLikeC`**; **`post_moveloop82_exercise(5)`** before thirteenth. Fail **3548+** twenty-third **`movemon`**. **`seed8000` 2900–3129** + canaries aligned |
 | `m_move` / `mfndpos` | `m_move_mon.js`, `mfndpos.js` | partial | Second post-rest mklev interrupt **`mMoveTouristD1PostRestSecondMklevInterruptLikeC`** (**`rn2(32)`** ~2528); **`seed0900`** **~2545** post-**`mcalcmove`** drift |
 | `distfleeck` | `distfleeck_mon.js` | partial | Peel-only rest **`distfleeck`** (**`_touristD1PostSwapRestDistfleeckPeelLikeC`**); 3× ~915 before stub; **`seed0900`** **2499–2504** |
 | `m_throw` | — | missing | |
@@ -129,7 +129,7 @@ Align batches with [`c-to-js-port-remaining.md`](c-to-js-port-remaining.md) §5:
 
 | C symbol / area | JS module | Status | Notes |
 |-----------------|-----------|--------|-------|
-| `moveloop` / post-hero `movemon` | `moveloop_turn_advance.js`, `moveloop_aux.js` | partial | **`seed0006`** comma-**`U`**: twelfth…twenty-first inline new-turns + chained twenty-first **`movemon`**. Fail **3528+**. **`seed8000` 2900–3129:** aligned |
+| `moveloop` / post-hero `movemon` | `moveloop_turn_advance.js`, `moveloop_aux.js` | partial | **`seed0006`** comma-**`U`**: twelfth…twenty-second inline new-turns + chained twenty-second **`movemon`**. Fail **3548+**. **`seed8000` 2900–3129:** aligned |
 | `dosounds` / exercise hooks | `moveloop_aux.js` | stub | |
 
 ---
