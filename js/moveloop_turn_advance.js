@@ -34,6 +34,7 @@ import {
     runCommaUPostTwentyFirstInlineNewturnLikeC,
     runCommaUPostTwentySecondInlineNewturnLikeC,
     runCommaUPostTwentyThirdInlineNewturnLikeC,
+    runCommaUPostTwentyFourthInlineNewturnLikeC,
     post_moveloop82_exercise,
 } from './moveloop_aux.js';
 import { encumberMsg } from './pickup.js';
@@ -1358,8 +1359,15 @@ export async function runPostCommandTurnAdvanceLikeC(g) {
                     newTurnDone = true;
                 } else if (
                     g.context?._wizD1CommaPostTwentyThirdInlineNewturnDoneLikeC
+                    && !g.context?._wizD1CommaPostTwentyFourthMovemonPendingLikeC
+                    && !g.context?._wizD1CommaPostTwentyFourthMovemonCompleteLikeC
                 ) {
                     delete g.context._wizD1CommaPostTwentyThirdInlineNewturnDoneLikeC;
+                    newTurnDone = true;
+                } else if (
+                    g.context?._wizD1CommaPostTwentyFourthInlineNewturnDoneLikeC
+                ) {
+                    delete g.context._wizD1CommaPostTwentyFourthInlineNewturnDoneLikeC;
                     newTurnDone = true;
                 } else if (
                     g.context?._wizD1CommaLFirstUPostTailStrayDistfleeckPendingLikeC
@@ -1592,7 +1600,17 @@ export async function runPostCommandTurnAdvanceLikeC(g) {
                                                                                             if (g.context?._wizD1CommaPostTwentyThirdMovemonCompleteLikeC) {
                                                                                                 delete g.context._wizD1CommaPostTwentyThirdMovemonCompleteLikeC;
                                                                                                 await runCommaUPostTwentyThirdInlineNewturnLikeC(g);
-                                                                                                /* C: twenty-fourth **`movemon`** peel (~3584+) — next batch. */
+                                                                                                delete g.context._wizD1CommaPostTwentyThirdInlineNewturnDoneLikeC;
+                                                                                                g.context._wizD1CommaPostTwentyFourthMovemonPendingLikeC = true;
+                                                                                                delete g.context._wizD1MovemonRanThisPostLikeC;
+                                                                                                g.context._movemonHarnessConsumed = false;
+                                                                                                await movemon(1);
+                                                                                                g.context._wizD1MovemonRanThisPostLikeC = true;
+                                                                                                if (g.context?._wizD1CommaPostTwentyFourthMovemonCompleteLikeC) {
+                                                                                                    delete g.context._wizD1CommaPostTwentyFourthMovemonCompleteLikeC;
+                                                                                                    await runCommaUPostTwentyFourthInlineNewturnLikeC(g);
+                                                                                                    /* C: twenty-fifth **`movemon`** peel (~3610+) — next batch. */
+                                                                                                }
                                                                                             }
                                                                                         }
                                                                                     }
