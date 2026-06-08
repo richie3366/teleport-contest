@@ -74,13 +74,13 @@ Use when **`Next steps`** feels stale. Order: **(1)** reliability phase **P1–P
 
 **Tutorial (Lane E):** Gated on [tutorial port gate](../../docs/plans/tutorial-port-gate.md) **MD-1 … MD-7**.
 
-**Last slice:** **P2 — comma-`U` nineteenth `movemon` + inline new-turn (`seed0006`)** — **`moveloop_turn_advance.js`**: post-eighteenth inline → nineteenth **`movemon`**; **`monmove.js`**: nineteenth peel explicit (~3476–3485); **`moveloop_aux.js`**: **`runCommaUPostNineteenthInlineNewturnLikeC`**. Locator **`seed0006` 3476–3489**; fail **3490+** twentieth **`movemon`**. Canaries **PASS**.
+**Last slice:** **P2 — comma-`U` twentieth `movemon` + inline new-turn (`seed0006`)** — **`moveloop_turn_advance.js`**: post-nineteenth inline → twentieth **`movemon`**; **`monmove.js`**: twentieth peel explicit (~3490–3504); **`moveloop_aux.js`**: **`runCommaUPostTwentiethInlineNewturnLikeC`**. Locator **`seed0006` 3476–3507**; fail **3508+** twenty-first **`movemon`**. Canaries **PASS**.
 
 ## Next steps (reliability order)
 
 Pick **one** primary batch per commit. **First:** tutorial gate — if **all MD-1 … MD-7**, do Lane E from [10-tutorial.md](../plans/nethack-port/10-tutorial.md).
 
-1. **P2 — `seed0006` comma-`U` @ ~3490+** — post-nineteenth tail / twentieth **`movemon`** (~3490+); locator **3490–3520+**.
+1. **P2 — `seed0006` comma-`U` @ ~3508+** — post-twentieth tail / twenty-first **`movemon`** (~3508+); locator **3508–3530+**.
 2. **P2 — west north-fill coin peel** — delete **`rogueFirstSearchCoinApportDefersToTowelLikeC`** when **`fobj`** order / north-fill alcove geometry matches C (**`seed0077` ~3205–3207**); tried towel-head **`fobj`** — still needs reach or C **`dog_goal`** order fix.
 3. **P2 — general `monmove.c` / `dochug` batch** (broader) — one upstream function or dispatch arm; delete peel flags when canaries hold.
 3. **P1 — `mkobj` / `ini_inv` → `game.invent`** — next checklist rows in `mkobj_mklev_like_c.js` / role linkers; advances tutorial **MD-1** and most item-driven sessions.
