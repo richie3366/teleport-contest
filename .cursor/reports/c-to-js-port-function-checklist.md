@@ -96,7 +96,7 @@ Align batches with [`c-to-js-port-remaining.md`](c-to-js-port-remaining.md) §5:
 
 | C symbol / area | JS module | Status | Notes |
 |-----------------|-----------|--------|-------|
-| `movemon` / `dochug` | `monmove.js`, `fmon_iter.js`, `moveloop_turn_advance.js`, `moveloop_aux.js`, `dogmove_mon.js`, `m_move_mon.js`, `monmove_search.js`, `mfndpos_mon.js`, `distfleeck_mon.js` | partial | Comma surplus **~3054–3074** WIP: post-peel corridor **`dochug`** (no invent early return); **`~915`** recalc gated on slot **`rn2`** draw; post-peel **`passList`** corridor/distant first. **3054–3061**, **3063–3067**, **3071–3076** ok; **3062+** peel-distant **`m_move`** WIP. **`seed8000` 2900–3129:** aligned |
+| `movemon` / `dochug` | `monmove.js`, `fmon_iter.js`, `moveloop_turn_advance.js`, `moveloop_aux.js`, `dogmove_mon.js`, `m_move_mon.js`, `monmove_search.js`, `mfndpos_mon.js`, `distfleeck_mon.js` | partial | Comma surplus **~3054–3074** WIP: post-peel two-pass **`distfleeck`**→**`m_move`** (peel skip ~915); pin-only near in **`fmon_iter`** / **`passList`**; peel-distant + corridor pins **`mfndpos_mon`**. **3054–3063**, **3066**, **3071–3072** ok; **3064+** corridor gate **`rn2(3)`** / fifth @ **~3074** WIP. **`seed8000` 2900–3129:** aligned |
 | `m_move` / `mfndpos` | `m_move_mon.js`, `mfndpos.js` | partial | Second post-rest mklev interrupt **`mMoveTouristD1PostRestSecondMklevInterruptLikeC`** (**`rn2(32)`** ~2528); **`seed0900`** **~2545** post-**`mcalcmove`** drift |
 | `distfleeck` | `distfleeck_mon.js` | partial | Peel-only rest **`distfleeck`** (**`_touristD1PostSwapRestDistfleeckPeelLikeC`**); 3× ~915 before stub; **`seed0900`** **2499–2504** |
 | `m_throw` | — | missing | |
@@ -129,7 +129,7 @@ Align batches with [`c-to-js-port-remaining.md`](c-to-js-port-remaining.md) §5:
 
 | C symbol / area | JS module | Status | Notes |
 |-----------------|-----------|--------|-------|
-| `moveloop` / post-hero `movemon` | `moveloop_turn_advance.js`, `moveloop_aux.js` | partial | **`seed0006`** comma-**`U`**: **`DeferFifthNewturn`** @ ~3054; monscan surplus only **`AwaitSurplusFmon`**; **`ScanClear`** before post-fourth prime; fifth @ ~3074 WIP. **3054–3061**, **3063–3067**, **3071–3076** ok; **3062+** peel-distant **`m_move`** WIP. **`seed8000` 2900–3129:** aligned |
+| `moveloop` / post-hero `movemon` | `moveloop_turn_advance.js`, `moveloop_aux.js` | partial | **`seed0006`** comma-**`U`**: **`DeferFifthNewturn`** @ ~3054; monscan surplus only **`AwaitSurplusFmon`**; **`ScanClear`** before post-fourth prime; fifth @ ~3074 WIP. **3054–3063**, **3066**, **3071–3072** ok; **3064+** corridor **`dochug:886`** / fifth WIP. **`seed8000` 2900–3129:** aligned |
 | `dosounds` / exercise hooks | `moveloop_aux.js` | stub | |
 
 ---
