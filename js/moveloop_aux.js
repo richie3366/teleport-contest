@@ -485,6 +485,68 @@ export async function runCommaUPostEleventhInlineNewturnLikeC(g) {
     ctx._wizD1CommaPostEleventhInlineNewturnDoneLikeC = true;
 }
 
+/**
+ * C: comma-**`U`** — post-twelfth inline new-turn (~3292–3294 on **`seed0006`**):
+ * **`maybe_generate_rnd_mon`** **`rn2(70)`**, **`gethungry`** **`rn2(20)`**, **`rn2(85)`**.
+ *
+ * @param {import('./gstate.js').game} g
+ */
+export async function runCommaUPostTwelfthInlineNewturnLikeC(g) {
+    const ctx = g.context || (g.context = {});
+    if (ctx._wizD1CommaPostTwelfthInlineNewturnConsumedLikeC) return;
+    ctx._wizD1CommaPostTwelfthInlineNewturnConsumedLikeC = true;
+    maybe_generate_rnd_mon();
+    gethungry();
+    g.moves = (g.moves || 1) + 1;
+    g.hero_seq = (g.moves | 0) << 3;
+    for (const line of collectExerchkPlines()) await pline(line);
+    const u = g.u;
+    if (u && !(u.uinvulnerable | 0)) {
+        if (
+            heroHasTeleportationLikeC(g)
+            || (
+                g.urole?.abbr === 'Wiz'
+                && (g.u?.uz?.dnum | 0) === 0
+                && (g.u?.uz?.dlevel | 0) === 1
+            )
+        ) {
+            rn2(85);
+        }
+    }
+    ctx._wizD1CommaPostTwelfthInlineNewturnDoneLikeC = true;
+}
+
+/**
+ * C: comma-**`U`** — post-thirteenth inline new-turn (~3307–3309 on **`seed0006`**):
+ * **`maybe_generate_rnd_mon`** **`rn2(70)`**, **`gethungry`** **`rn2(20)`**, **`rn2(85)`**.
+ *
+ * @param {import('./gstate.js').game} g
+ */
+export async function runCommaUPostThirteenthInlineNewturnLikeC(g) {
+    const ctx = g.context || (g.context = {});
+    if (ctx._wizD1CommaPostThirteenthInlineNewturnConsumedLikeC) return;
+    ctx._wizD1CommaPostThirteenthInlineNewturnConsumedLikeC = true;
+    maybe_generate_rnd_mon();
+    gethungry();
+    g.moves = (g.moves || 1) + 1;
+    g.hero_seq = (g.moves | 0) << 3;
+    for (const line of collectExerchkPlines()) await pline(line);
+    const u = g.u;
+    if (u && !(u.uinvulnerable | 0)) {
+        if (
+            heroHasTeleportationLikeC(g)
+            || (
+                g.urole?.abbr === 'Wiz'
+                && (g.u?.uz?.dnum | 0) === 0
+                && (g.u?.uz?.dlevel | 0) === 1
+            )
+        ) {
+            rn2(85);
+        }
+    }
+    ctx._wizD1CommaPostThirteenthInlineNewturnDoneLikeC = true;
+}
+
 /** C: attrib.c exercise — extra rn2(31) after u-wipe tail (session step 6 → stepNum 5). */
 export function post_moveloop82_exercise(stepNum) {
     if (stepNum === 5) {

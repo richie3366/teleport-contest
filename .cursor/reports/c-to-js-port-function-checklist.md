@@ -96,7 +96,7 @@ Align batches with [`c-to-js-port-remaining.md`](c-to-js-port-remaining.md) §5:
 
 | C symbol / area | JS module | Status | Notes |
 |-----------------|-----------|--------|-------|
-| `movemon` / `dochug` | `monmove.js`, `fmon_iter.js`, `moveloop_turn_advance.js`, `moveloop_aux.js`, `dogmove_mon.js`, `m_move_mon.js`, `monmove_search.js`, `mfndpos_mon.js`, `distfleeck_mon.js` | partial | Comma surplus **~3054–3262**: tenth peel (~3224–3242); eleventh peel explicit (~3246–3259 debt); **`runCommaUPostTenthInlineNewturnLikeC`** + **`runCommaUPostEleventhInlineNewturnLikeC`**. Fail **3263+** twelfth **`movemon`**. **`seed8000` 2900–3129** + canaries aligned |
+| `movemon` / `dochug` | `monmove.js`, `fmon_iter.js`, `moveloop_turn_advance.js`, `moveloop_aux.js`, `dogmove_mon.js`, `m_move_mon.js`, `monmove_search.js`, `mfndpos_mon.js`, `distfleeck_mon.js` | partial | Comma surplus **~3054–3309**: twelfth peel (~3263–3291 debt); thirteenth peel (~3296–3306 debt); **`runCommaUPostTwelfthInlineNewturnLikeC`** + **`runCommaUPostThirteenthInlineNewturnLikeC`**; **`post_moveloop82_exercise(5)`** before thirteenth. Fail **3310+** fourteenth **`movemon`**. **`seed8000` 2900–3129** + canaries aligned |
 | `m_move` / `mfndpos` | `m_move_mon.js`, `mfndpos.js` | partial | Second post-rest mklev interrupt **`mMoveTouristD1PostRestSecondMklevInterruptLikeC`** (**`rn2(32)`** ~2528); **`seed0900`** **~2545** post-**`mcalcmove`** drift |
 | `distfleeck` | `distfleeck_mon.js` | partial | Peel-only rest **`distfleeck`** (**`_touristD1PostSwapRestDistfleeckPeelLikeC`**); 3× ~915 before stub; **`seed0900`** **2499–2504** |
 | `m_throw` | — | missing | |
@@ -129,7 +129,7 @@ Align batches with [`c-to-js-port-remaining.md`](c-to-js-port-remaining.md) §5:
 
 | C symbol / area | JS module | Status | Notes |
 |-----------------|-----------|--------|-------|
-| `moveloop` / post-hero `movemon` | `moveloop_turn_advance.js`, `moveloop_aux.js` | partial | **`seed0006`** comma-**`U`**: tenth/eleventh inline new-turns + chained eleventh **`movemon`**. Fail **3263+**. **`seed8000` 2900–3129:** aligned |
+| `moveloop` / post-hero `movemon` | `moveloop_turn_advance.js`, `moveloop_aux.js` | partial | **`seed0006`** comma-**`U`**: twelfth/thirteenth inline new-turns + chained thirteenth **`movemon`**. Fail **3310+**. **`seed8000` 2900–3129:** aligned |
 | `dosounds` / exercise hooks | `moveloop_aux.js` | stub | |
 
 ---
