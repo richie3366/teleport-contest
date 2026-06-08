@@ -700,9 +700,9 @@ function dogInventLikeC(g, mtmp, udist) {
 }
 
 /**
- * C: rogue first **`#search`** west apport — alcove gold may pass **`rn2(8)`** but
+ * C: rogue first **`#search`** west apport — north-fill gold may pass **`rn2(8)`** but
  * **`can_reach_location`** to **`ROOM`** north fill fails before towel APPORT (**`seed0077` ~3205–3207**).
- * Peel debt until **`canReachLocationDogmoveLikeC`** matches C door-mask geometry.
+ * Peel debt until west north-fill reach matches C (**`openWestDoorColumnNorthCorrLikeC`** geometry).
  * @param {import('./gstate.js').game} g
  * @param {Record<string, unknown>[]} floor
  * @param {Record<string, unknown>} obj

@@ -74,13 +74,13 @@ Use when **`Next steps`** feels stale. Order: **(1)** reliability phase **P1–P
 
 **Tutorial (Lane E):** Gated on [tutorial port gate](../../docs/plans/tutorial-port-gate.md) **MD-1 … MD-7**.
 
-**Last slice:** **P2 — `seed0077` screen step 30** — west apport sleeper row DEC **`~`**, door-row **`q`**, cap **`$`** (**`display.js`** **`render_map_row`** span + flush sync + **`monVisibleForNewsymLikeC`** mklev south-of-door); **`seed0077` screens 0–32 PASS**; moveloop canaries **PASS**.
+**Last slice:** **P2 — `dogmove.c` `can_reach_location`** — **`dogmove_reach.js`**: C **`IS_OBSTRUCTED(typ)`** (was broken `typ < IS_DOOR` fn compare); closed-door gate **`D_CLOSED|D_LOCKED`** (was inverted **`& 3`**). Peel **`rogueFirstSearchCoinApportDefersToTowelLikeC`** kept — north-fill gold still reachable at **(35,2)** from pet **(35,7)** until **`mklev`** west-column geometry closes. Moveloop canaries **PASS**; **`seed0077` screens 0–32 PASS**.
 
 ## Next steps (reliability order)
 
 Pick **one** primary batch per commit. **First:** tutorial gate — if **all MD-1 … MD-7**, do Lane E from [10-tutorial.md](../plans/nethack-port/10-tutorial.md).
 
-1. **P2 — `rogueFirstSearchCoinApportDefersToTowelLikeC`** — wire **`canReachLocationDogmoveLikeC`** door-mask geometry (~**3205–3207**); `seed0077` chargen screens **PASS** — use next failing session as locator.
+1. **P2 — west north-fill coin `can_reach_location`** — delete **`rogueFirstSearchCoinApportDefersToTowelLikeC`** when **`openWestDoorColumnNorthCorrLikeC`** / north-fill **`ROOM`** blocks alcove gold **~3205–3207** (`seed0077`); or **general `monmove.c` `dochug`** batch (#2).
 2. **P2 — general `monmove.c` / `dochug` batch** (preferred over peel-only `#4` below when peel debt high) — one upstream function or dispatch arm; delete peel flags when `diag_rng_window` passes on **8000 + 0077 + 0102**.
 3. **P1 — `mkobj` / `ini_inv` → `game.invent`** — next checklist rows in `mkobj_mklev_like_c.js` / role linkers; advances tutorial **MD-1** and most item-driven sessions.
 4. **P2 locator — `seed0006` comma-`U` @ ~3107+** — only if batch **generalizes** `fmon` / post-Nth new-turn (not flag-only). Locator: `diag_rng_window.mjs sessions/seed0006-wizard-water-demon.session.json 3100 3130`.
