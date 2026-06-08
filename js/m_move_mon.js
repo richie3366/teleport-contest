@@ -1253,6 +1253,47 @@ export async function movemonSinglemonLikeC(g, mtmp, stepNum = 0) {
         }
         return;
     }
+    /* C: comma-**`U`** post-eighth — pet **`dog_move`** + surplus mklev **`dochug`** via
+     * **`movemon_singlemon`** (~3140–3171 on **`seed0006`**); replaces inline peel **`rnd`/`rn2`**. */
+    if (
+        g.urole?.abbr === 'Wiz'
+        && (g.u?.uz?.dnum | 0) === 0
+        && (g.u?.uz?.dlevel | 0) === 1
+        && g.context?._wizD1CommaPostEighthMovemonPendingLikeC
+        && (stepNum | 0) === 1
+    ) {
+        if ((mtmp.mtame | 0) && has_edog(mtmp)) {
+            const u = g.u;
+            if (u) {
+                mtmp.mux = u.ux | 0;
+                mtmp.muy = u.uy | 0;
+            }
+            setApparxyMonsterLikeC(g, mtmp);
+            const { dogMoveCommaPostEighthNewturnPetLikeC, dogMoveCommaPostEighthNewturnPetTailLikeC } =
+                await import('./dogmove_mon.js');
+            dogMoveCommaPostEighthNewturnPetLikeC(g, mtmp);
+            dogMoveCommaPostEighthNewturnPetTailLikeC(g, mtmp);
+            return;
+        }
+        if ((mtmp.mgenmklev | 0) && !(mtmp.mtame | 0) && (mtmp.mhp | 0) > 0) {
+            /* C: surplus **`rnd(20)`** + sameCell **`rn2(3)`** + **`rn2(5)`** + away **`rn2(12)`**×3
+             * (~3166–3171) — explicit until full **`dochug`** matches. */
+            let movSurplus = mtmp.movement | 0;
+            if (movSurplus < NORMAL_SPEED) {
+                mtmp.movement = NORMAL_SPEED;
+                movSurplus = NORMAL_SPEED;
+            }
+            mtmp.movement = movSurplus - NORMAL_SPEED;
+            rnd(20);
+            rn2(3);
+            rn2(5);
+            rn2(12);
+            rn2(12);
+            rn2(12);
+            return;
+        }
+        return;
+    }
     /* C: comma-**`U`** post-fifth hostile — peel-distant **`m_move`** after cached **`distfleeck`**. */
     if (g.context?._wizD1CommaPostFifthHostileMmoveLikeC) {
         await mMoveCommaUFmonTailDochugLikeC(g, mtmp, stepNum, {

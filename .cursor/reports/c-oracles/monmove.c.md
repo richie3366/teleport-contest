@@ -27,6 +27,16 @@
 
 **Batch 1 (2026-06-08):** delete inline PostSeventh peel block + `mons=[]` guard; route through `movemonSinglemonLikeC`.
 
+### Post-eighth comma-`U` pass (`seed0006` ~3140–3171)
+
+| Step | C / session | JS target |
+|------|-------------|-----------|
+| 1 | Pet `dog_move` gate `rn2(5)`, `rn2(4)` | `movemonSinglemonLikeC` → pet branch |
+| 2 | Pet invent / goal / mfndpos tail ~3142–3165 | `dogMoveCommaPostEighthNewturnPetTailLikeC` (until general `dogMoveLikeC`) |
+| 3 | Surplus mklev `rnd(20)` + sameCell `rn2(3)` + `rn2(5)` + away `rn2(12)`×3 | `movemonSinglemonLikeC` surplus branch (not inline peel) |
+
+**Batch 2 (2026-06-08):** delete inline PostEighth peel block + `mons=[]` guard; route through `movemonSinglemonLikeC`.
+
 ## Generalization targets (replace comma-`U` peels)
 
 | C concept | JS debt today | Notes |
@@ -41,7 +51,8 @@
 | JS flag / band | C equivalent | Locator window | Status |
 |----------------|--------------|----------------|--------|
 | `_wizD1CommaPostSeventh*` inline peel + `mons=[]` | `movemon_singlemon` + `dog_move` + surplus `dochug` | `seed0006` 3107–3136 | **deleted** batch 1 |
-| `_wizD1CommaPostEighth` … `PostTwelfth` | same pattern | `seed0006` 3140–3291 | **open** |
+| `_wizD1CommaPostEighth*` inline peel + `mons=[]` | `movemon_singlemon` + `dog_move` + surplus `dochug` | `seed0006` 3140–3171 | **deleted** batch 2 |
+| `_wizD1CommaPostNinth` … `PostTwelfth` | same pattern | `seed0006` 3175–3291 | **open** |
 | `_wizD1CommaPostFirst` … `PostTwentyFourth*` (rest) | `movemon` + `allmain` post-hero interleave | `seed0006` 2888–3609 | **open** — moratorium on N+1 |
 | `_touristD1LPostFourth*` etc. | tourist `L` moveloop tail | `seed0900` | partial generalization exists |
 | Role `abbr === 'Wiz' && dlevel === 1` guards | level/branch checks only where C has them | — | **smell** — shrink |
@@ -60,7 +71,7 @@
 - Full `dochug` dispatch not faithful — peels patch single arms.
 - `fmon` iteration order vs C `monmove` passes not unified.
 - `effectiveMovemonStepNum` / peel step numbers are harness — not in C.
-- PostEighth+ comma-`U` still use inline peel blocks.
+- PostNinth+ comma-`U` still use inline peel blocks.
 
 ## Wrong hypotheses (do not retry)
 
