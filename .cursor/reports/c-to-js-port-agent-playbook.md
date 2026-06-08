@@ -1,6 +1,6 @@
 # NetHack C→JS port — **agent playbook**
 
-Short reference for **how to work** in this repo. **Session state** (next batch, RNG anchors) lives in [`c-to-js-port-current.md`](c-to-js-port-current.md) — update that every batch, not this file.
+Short reference for **how to work** in this repo. **Methodology:** [`c-to-js-port-strategy.md`](c-to-js-port-strategy.md). **Next batch:** [`c-to-js-port-current.md`](c-to-js-port-current.md). **C memory:** [`c-oracles/`](c-oracles/).
 
 ---
 
@@ -9,10 +9,11 @@ Short reference for **how to work** in this repo. **Session state** (next batch,
 | Write here | Not here |
 |------------|----------|
 | [`c-to-js-port-current.md`](c-to-js-port-current.md) — last slice, next step, first fail index | `AGENTS.md` (stable router only) |
-| [`c-to-js-port-function-checklist.md`](c-to-js-port-function-checklist.md) — row status + **peel debt** in Notes | Long debug narrative in rules |
+| [`c-oracles/<file>.md`](c-oracles/) — C call order, peels-to-delete, wrong hypotheses | Re-deriving C in chat each session |
+| [`c-to-js-port-harness-debt.md`](c-to-js-port-harness-debt.md) — peel counts, moratorium | Ad-hoc peel without ledger |
+| [`c-to-js-port-function-checklist.md`](c-to-js-port-function-checklist.md) — row status | Long debug narrative in rules |
 | [`c-to-js-port-changelog-archive.md`](c-to-js-port-changelog-archive.md) — one row per batch | Duplicating `c-to-js-port-progress.md` |
-| Killed wrong hypotheses — one phrase in changelog or current | Agent transcript (ephemeral) |
-| Strategy / peel-vs-general-C — [`batch-workflow.md`](c-to-js-port-batch-workflow.md) § Strategy | New `notes-*.md` or per-session agent files |
+| Strategy — [`c-to-js-port-strategy.md`](c-to-js-port-strategy.md) | New `notes-*.md` or per-session agent files |
 
 ---
 
@@ -35,12 +36,12 @@ Short reference for **how to work** in this repo. **Session state** (next batch,
 
 ## Moveloop / RNG debug loop
 
-1. **Locate** — failing session + first mismatch index (`diag_rng_window` or milestone score).
-2. **Map key → RNG** — `diag_rng_step_map.mjs` or binary search with `diag_prefix_rng.mjs` on `moves.slice(0, n)`.
-3. **Read C** — same hero command in `cmd.c` / `allmain.c` / `mon.c` / subsystem (e.g. `dothrow.c`, `dogmove.c`).
-4. **Port call order** — flags and deferrals, not extra harness draws.
-5. **Fast-verify** — narrow window + canary `seed8000` 2900–3129 when touching `monmove` / moveloop.
-6. **Document** — update `current.md` with index + wrong hypothesis if any.
+1. **Read oracle** — [`c-oracles/monmove.c.md`](c-oracles/monmove.c.md) (or `dogmove.c.md`).
+2. **Locate** — `diag_rng_window` on locator session (20–40 indices).
+3. **Read C** — named function in upstream `.c` **before** editing `monmove.js`.
+4. **Port or delete** — general call order **or** remove a peel band; **do not** add PostTwentyFifth+.
+5. **Gate + canaries** — `bash tools/port-batch-gate.sh`; three canaries if moveloop touched.
+6. **Persist** — oracle + harness debt + `current.md`.
 
 ---
 

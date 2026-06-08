@@ -13,10 +13,12 @@ This directory holds **Cursor rules** (`.cursor/rules/*.mdc`) that steer agents 
 | `teleport-js-port.mdc` | When editing files under `js/` — ES modules, RNG order, porting style. |
 | `nethack-upstream-c.mdc` | When editing files under `nethack-c/upstream/` — C reference tree, tag, patches vs vanilla. |
 | `nethack-port-progress.mdc` | When editing `js/` or `.cursor/reports/` — read `c-to-js-port-current.md` first; full progress + changelog archive when needed. |
+| `port-strategy.mdc` | When editing `js/` or port reports — **canonical strategy**, oracle cards, peel moratorium. |
 
 ## Read first (humans and agents)
 
-- [.cursor/reports/c-to-js-port-current.md](reports/c-to-js-port-current.md) — **default for port work:** next batch, constraints.
+- [.cursor/reports/c-to-js-port-strategy.md](reports/c-to-js-port-strategy.md) — **canonical methodology** (subsystem-first, oracles, token economics, peel moratorium).
+- [.cursor/reports/c-to-js-port-current.md](reports/c-to-js-port-current.md) — **next batch only** (thin handoff).
 - [.cursor/reports/c-to-js-port-batch-workflow.md](reports/c-to-js-port-batch-workflow.md) — **batch port workflow** (checklist → C batches → fast verify → milestone `npm run score`).
 - [.cursor/reports/c-to-js-port-function-checklist.md](reports/c-to-js-port-function-checklist.md) — **function-level tracker** (stub / partial / done by C file).
 - [.cursor/reports/c-to-js-port-dashboard.md](reports/c-to-js-port-dashboard.md) — **score table + milestones** (run `node tools/port-score-snapshot.mjs --update-dashboard` to refresh).

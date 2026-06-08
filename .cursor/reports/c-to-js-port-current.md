@@ -1,6 +1,6 @@
 # NetHack C→JS port — **current slice** (read this first)
 
-Thin handoff for the next coding session. **Workflow:** [**batch port**](c-to-js-port-batch-workflow.md) + [**function checklist**](c-to-js-port-function-checklist.md). **Score + milestones:** [`c-to-js-port-dashboard.md`](c-to-js-port-dashboard.md) (regenerate: `node tools/port-score-snapshot.mjs --update-dashboard`). **Gap inventory:** [`c-to-js-port-remaining.md`](c-to-js-port-remaining.md). Deep parity tables and history: [`c-to-js-port-progress.md`](c-to-js-port-progress.md) and [`c-to-js-port-changelog-archive.md`](c-to-js-port-changelog-archive.md). **Repeatable user/agent prompt:** [`.cursor/prompts/continue-nethack-port.md`](../prompts/continue-nethack-port.md).
+Thin handoff for the next coding session. **Canonical strategy:** [**`c-to-js-port-strategy.md`**](c-to-js-port-strategy.md) (read once; agents obey §5 moratorium). **C oracles:** [`c-oracles/`](c-oracles/). **Harness debt:** [`c-to-js-port-harness-debt.md`](c-to-js-port-harness-debt.md). **Workflow:** [**batch port**](c-to-js-port-batch-workflow.md) + [**function checklist**](c-to-js-port-function-checklist.md). **Pre-commit:** `bash tools/port-batch-gate.sh`. **Score + milestones:** [`c-to-js-port-dashboard.md`](c-to-js-port-dashboard.md). **Repeatable prompt:** [`.cursor/prompts/continue-nethack-port.md`](../prompts/continue-nethack-port.md).
 
 ## Working principle (read every session)
 
@@ -25,16 +25,16 @@ Authoritative milestone ordering: [`c-to-js-port-remaining.md`](c-to-js-port-rem
 
 **Checklist today:** **49 partial, 3 stub, 0 done** — no row is closed until exercised paths have **no known wrong RNG**.
 
-## Course correction (2026-06-08)
+## Peel moratorium (**enforced** — [`c-to-js-port-strategy.md`](c-to-js-port-strategy.md) §5)
 
-Moveloop work (`seed0006` comma-`U`, **3054–3106**) is valid **P2** locator work — but **peel-only** batches that add `g.context._*LikeC` without general C semantics are **last resort** ([batch workflow](c-to-js-port-batch-workflow.md) § Strategy).
+**STOP:** no new `_wizD1CommaPostTwentyFifth*` (or higher) / numbered comma-`U` peels. `tools/port-batch-gate.sh` fails the commit.
 
 | Signal | Action |
 |--------|--------|
-| Next **3+** batches would only add peel flags / explicit draws | **Pivot** to **P1** (`mkobj`/`ini_inv`) or **P2 general** (`monmove.c` `movemon` loop, one `dochug` case) |
-| Moveloop batch lands | **Mandatory** regression window on **all three** canaries below — not `seed8000` alone |
-| `seed0077` RNG **3180–3242** restored; screen **30** west apport **`~` vs `y`** still open | **Done** — DEC **`S_room`** sleeper row + mklev mon not tty-visible until niche; next fail screen **31+** or **P2 dog_goal** peel |
-| Peel batch merges | Log **debt** in checklist Notes; aim **net flag count ↓** over next milestone |
+| Tempted to widen `seed0006` with peel N+1 | **Read** [`c-oracles/monmove.c.md`](c-oracles/monmove.c.md); port **`movemon()`** loop or **delete** one PostSeventh…PostTwelfth band |
+| Next **3+** batches would only add peel flags | **P1** `mkobj`/`ini_inv` **or** P2 general `dochug` arm — not locator peel |
+| Moveloop batch lands | **Three canaries** + update **harness debt** if flags changed |
+| Learned C ordering | **Oracle card first**, peel code second (or skip peel) |
 
 ## Moveloop regression canaries (mandatory)
 
@@ -74,19 +74,19 @@ Use when **`Next steps`** feels stale. Order: **(1)** reliability phase **P1–P
 
 **Tutorial (Lane E):** Gated on [tutorial port gate](../../docs/plans/tutorial-port-gate.md) **MD-1 … MD-7**.
 
-**Last slice:** **P2 — comma-`U` twenty-fourth `movemon` + inline new-turn (`seed0006`)** — **`moveloop_turn_advance.js`**: post-twenty-third inline → twenty-fourth **`movemon`**; **`monmove.js`**: twenty-fourth peel explicit (~3584–3606); **`moveloop_aux.js`**: **`runCommaUPostTwentyFourthInlineNewturnLikeC`**. Locator **`seed0006` 3581–3609**; fail **3610+** twenty-fifth **`movemon`**. Canaries **PASS**.
+**Last slice:** comma-`U` peel chain hit **PostTwentyFourth** — **moratorium now**. Strategy + oracles + batch gate landed **2026-06-08**.
 
-## Next steps (reliability order)
+## Next steps (**strategy order** — pick **one**)
 
-Pick **one** primary batch per commit. **First:** tutorial gate — if **all MD-1 … MD-7**, do Lane E from [10-tutorial.md](../plans/nethack-port/10-tutorial.md).
+**First:** tutorial gate — if **all MD-1 … MD-7**, Lane E from [10-tutorial.md](../plans/nethack-port/10-tutorial.md).
 
-1. **P2 — `seed0006` comma-`U` @ ~3610+** — post-twenty-fourth tail / twenty-fifth **`movemon`** (~3610+); locator **3610–3640+**.
-2. **P2 — west north-fill coin peel** — delete **`rogueFirstSearchCoinApportDefersToTowelLikeC`** when **`fobj`** order / north-fill alcove geometry matches C (**`seed0077` ~3205–3207**); tried towel-head **`fobj`** — still needs reach or C **`dog_goal`** order fix.
-3. **P2 — general `monmove.c` / `dochug` batch** (broader) — one upstream function or dispatch arm; delete peel flags when canaries hold.
-3. **P1 — `mkobj` / `ini_inv` → `game.invent`** — next checklist rows in `mkobj_mklev_like_c.js` / role linkers; advances tutorial **MD-1** and most item-driven sessions.
-4. **P2 locator — `seed0006` comma-`U` @ ~3107+** — only if batch **generalizes** `fmon` / post-Nth new-turn (not flag-only). Locator: `diag_rng_window.mjs sessions/seed0006-wizard-water-demon.session.json 3100 3130`.
-5. **Lane B — NHL** — next **`lspo_*`** per [`nhl-port-notes.md`](nhl-port-notes.md) (supports **P6** / **MD-3**).
-6. **Lane A/D — `seed0900`** — screen 0 / botl after RNG **~2982** aligned.
+1. **P2 — general `movemon()` from C** — read `nethack-c/upstream/src/monmove.c` `movemon`; unify `fmon` pass order; **delete** one `_wizD1CommaPostSeventh`…`PostTwelfth` band when `seed0006` 3054–3120 + canaries pass. Oracle: [`c-oracles/monmove.c.md`](c-oracles/monmove.c.md).
+2. **P1 — `mkobj` / `ini_inv` → `game.invent`** — one checklist row (`mkobj_mklev_like_c.js` / role linker). Oracle: [`c-oracles/mkobj.c.md`](c-oracles/mkobj.c.md). Locator: `seed0900` ~302+.
+3. **P2 — `dog_goal` / first `#search` (C, not peel)** — `seed0077` ~3205–3207 invent/apport order per [`c-oracles/dogmove.c.md`](c-oracles/dogmove.c.md); **no** new `PendingLikeC`.
+4. **Lane B — NHL** — one `lspo_*` per [`nhl-port-notes.md`](nhl-port-notes.md).
+5. ~~**seed0006 @ 3610+ twenty-fifth peel**~~ — **forbidden** until harness debt net −5 (see ledger).
+
+**`seed0006` 3610+** remains a **locator** for testing after (1), not the next batch.
 
 ### Extended backlog (unchanged lanes)
 
@@ -107,11 +107,13 @@ Tool choice, moveloop debug loop, known pitfalls (e.g. rogue **`mnum` 7** vs Ran
 
 ## After you ship a batch
 
-1. Update [`c-to-js-port-function-checklist.md`](c-to-js-port-function-checklist.md) row statuses.
-2. Append **one table row** to [`c-to-js-port-changelog-archive.md`](c-to-js-port-changelog-archive.md).
-3. Refresh **this file** (next steps + one-line “last slice”).
-4. Run **`npm run score`** at **milestones** or when RNG/screens may have regressed (see [batch workflow](c-to-js-port-batch-workflow.md) §5).
-5. **`git commit`** — one commit per meaningful batch (push optional).
+1. **`bash tools/port-batch-gate.sh`** — must pass before commit.
+2. Update [`c-to-js-port-function-checklist.md`](c-to-js-port-function-checklist.md) row statuses.
+3. Update **oracle** + [**harness debt**](c-to-js-port-harness-debt.md) if moveloop flags changed.
+4. Append **one row** to [`c-to-js-port-changelog-archive.md`](c-to-js-port-changelog-archive.md).
+5. Refresh **this file** (next step + last slice).
+6. **`npm run score`** at **milestones** only.
+7. **`git commit`** — one batch per commit.
 
 ---
 
@@ -120,5 +122,5 @@ Tool choice, moveloop debug loop, known pitfalls (e.g. rogue **`mnum` 7** vs Ran
 Prefer [`.cursor/prompts/continue-nethack-port.md`](../prompts/continue-nethack-port.md).
 
 ```
-Continue NetHack 5.0 C→JS (reliability-first batch workflow). Read .cursor/reports/c-to-js-port-current.md first — Reliability phases, Course correction, Next steps #1–N. Also batch-workflow.md + function-checklist.md. C upstream only; frozen isaac64/terminal/storage; peel-pivot per current.md. Moveloop edits: three canaries (seed8000 2900–3129, seed0077 3180–3242 + screen 17, seed0102 full). diag_rng_window on locator; npm run score at milestones. Update checklist + current.md + changelog; git commit (push if asked).
+Continue NetHack 5.0 C→JS per .cursor/reports/c-to-js-port-strategy.md: read c-to-js-port-current.md (next step #1 only); read c-oracles/<c-file>.md for this batch; port one C function from nethack-c/upstream — NO new comma-U PostTwentyFifth+ peels (port-batch-gate.sh). Before commit: gate script + three moveloop canaries if applicable; update checklist, oracle, harness-debt, current.md, changelog; git commit.
 ```

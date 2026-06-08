@@ -8,7 +8,8 @@ alwaysApply: false
 
 # Port progress docs
 
-- **Start with** [`.cursor/reports/c-to-js-port-current.md`](../reports/c-to-js-port-current.md) — next batch, constraints.
+- **Strategy:** [`.cursor/reports/c-to-js-port-strategy.md`](../reports/c-to-js-port-strategy.md) — canonical methodology; **oracles** [`.cursor/reports/c-oracles/`](../reports/c-oracles/).
+- **Start with** [`.cursor/reports/c-to-js-port-current.md`](../reports/c-to-js-port-current.md) — next batch only.
 - **[`.cursor/reports/c-to-js-port-batch-workflow.md`](../reports/c-to-js-port-batch-workflow.md)** — batch port, fast verify, milestone scoring.
 - **[`.cursor/reports/c-to-js-port-function-checklist.md`](../reports/c-to-js-port-function-checklist.md)** — per-function stub/partial/done; update when closing a batch.
 - **[`.cursor/reports/c-to-js-port-dashboard.md`](../reports/c-to-js-port-dashboard.md)** — public session score table + milestone matrix (`node tools/port-score-snapshot.mjs --update-dashboard`).
@@ -30,7 +31,9 @@ When a **port batch** lands (`js/` and/or handoff docs changed), update **only**
 | File | Write |
 |------|--------|
 | **`c-to-js-port-current.md`** | One-line last slice; top **Next step**; **first fail RNG index** + locator session if known |
-| **`c-to-js-port-function-checklist.md`** | Row **partial** / **done**; if batch added peel flag, explicit RNG, or harness: note **debt** in Notes column |
+| **`c-oracles/<c-file>.md`** | C facts learned; peels-to-delete; wrong hypotheses |
+| **`c-to-js-port-harness-debt.md`** | Peel counts if harness ± |
+| **`c-to-js-port-function-checklist.md`** | Row **partial** / **done**; peel debt in Notes |
 | **`c-to-js-port-changelog-archive.md`** | **One** new table row (batch summary + index window + canary) |
 
 **Do not** put long debug narrative, strategy essays, or killed-hypothesis threads in `current.md` — one wrong-hypothesis phrase in changelog/current is enough. Stable methodology lives in [**batch-workflow.md** § Strategy](../reports/c-to-js-port-batch-workflow.md).

@@ -2,7 +2,7 @@
 
 **Purpose:** Faster iteration without **score-chasing** or **full `npm run score` after every line change. This complements (does not replace) [`.cursor/rules/port-from-c-not-score.mdc`](../rules/port-from-c-not-score.mdc).
 
-**Read first each session:** [`.cursor/reports/c-to-js-port-current.md`](c-to-js-port-current.md) (next C milestone). **Inventory:** [`.cursor/reports/c-to-js-port-function-checklist.md`](c-to-js-port-function-checklist.md). **Domain gaps:** [`.cursor/reports/c-to-js-port-remaining.md`](c-to-js-port-remaining.md).
+**Strategy:** [`.cursor/reports/c-to-js-port-strategy.md`](c-to-js-port-strategy.md). **Next batch:** [`.cursor/reports/c-to-js-port-current.md`](c-to-js-port-current.md). **Oracles:** [`c-oracles/`](c-oracles/). **Gate:** `bash tools/port-batch-gate.sh`. **Checklist:** [`.cursor/reports/c-to-js-port-function-checklist.md`](c-to-js-port-function-checklist.md).
 
 ---
 
@@ -59,9 +59,10 @@ Use **one or more** of these — in order of usefulness:
 1. Mark batch rows **`partial`** or **`done`** in **`c-to-js-port-function-checklist.md`**.
 2. Refresh **`c-to-js-port-current.md`** (last slice + next batch).
 3. Append **one row** to **`c-to-js-port-changelog-archive.md`**.
-4. **`git commit`** — one commit per meaningful batch (conventional message; **why** = C parity).
-5. **Push** when you want CI / shared backup — not required every batch.
-6. Optional: `npm run graphify:js` after `js/` edits (local cache; gitignored).
+4. **`bash tools/port-batch-gate.sh`** — peel moratorium (required if `js/` changed).
+5. **`git commit`** — one commit per meaningful batch (conventional message; **why** = C parity).
+6. **Push** when you want CI / shared backup — not required every batch.
+7. Optional: `npm run graphify:js` after `js/` edits (local cache; gitignored).
 
 ### 5. Milestone: full regression
 

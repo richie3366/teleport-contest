@@ -1,0 +1,24 @@
+---
+description: Canonical C→JS port strategy — subsystem-first, oracle cards, peel moratorium
+globs:
+  - js/**/*.js
+  - .cursor/reports/**/*.md
+  - tools/port-batch-gate.sh
+alwaysApply: false
+---
+
+# Port strategy (canonical)
+
+**Read:** [`.cursor/reports/c-to-js-port-strategy.md`](../reports/c-to-js-port-strategy.md)
+
+**Handoff:** [`.cursor/reports/c-to-js-port-current.md`](../reports/c-to-js-port-current.md) — next batch only.
+
+## Non-negotiable
+
+1. **One batch = one C function / call graph** — not the next N RNG indices on a locator session.
+2. **Oracle before peel** — update [`c-oracles/`](../reports/c-oracles/) before adding `_*LikeC` flags.
+3. **Peel moratorium** — no new `_wizD1CommaPostTwentyFifth+` peels; run `bash tools/port-batch-gate.sh` before commit.
+4. **Shrink harness** — prefer deleting peel bands over adding PostNth arms.
+5. **Moveloop canaries** — `seed8000` 2900–3129, `seed0077` 3180–3242, `seed0102` full after `monmove`/`moveloop_*` edits.
+
+Score is regression only — [port-from-c-not-score.mdc](port-from-c-not-score.mdc).
