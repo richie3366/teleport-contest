@@ -41,7 +41,8 @@ Most mid-game RNG divergence is **object creation order** (`mkobj`, `ini_inv`, f
 - Elf **Pri/Wiz** — Priest pack linker all-race (`isPriestChargenLikeC`); Wizard role-only; **`applyElfInstrumentInventTailLikeC`** prepends after role pack. Hea/Bar/Val linkers all-race; Bar **`iniInvSubstOtypForChargenLikeC`** on ring mail + short sword (pack 1).
 - `game.invent` not fully driven by `ini_inv` + `mkobj` for all roles (Knight linker now accepts 10–11 apple/carrot stacks).
 - NH5 `otyp` vs legacy floor indices in `mklev.js`.
-- **`setgemprobs`** — **`o_init.js`** `setgemprobsLikeC` + **`mklev.js`** `oinit()` → **`oinitLikeC`** (no RNG); **`svb.bases[GEM_CLASS]`** = **`O_INIT_OCLASS_BASES[13]`** (438), not [14]; post-lev-1 sum **923** vs session **`rnd(1000)`** @ **`seed8000` ~1452** — wire **`mkobjPickGemOtypMklevLikeC`** only after total parity.
+- **`setgemprobs`** — **`o_init.js`** `setgemprobsLikeC` + **`mklev.js`** `oinit()` → **`oinitLikeC`** (no RNG); D:1 **`oclass_prob_total[GEM_CLASS]`** = **923** (C-faithful after `setgemprobs`); static row sum **1000** — wire **`mkobjPickGemOtypMklevLikeC`** for mineralize when next on **`seed0016`** mineralize tail.
+- **`fill_special_room` VAULT** — early vault gold uses **`mkgold`→`mksobj`** (`rn2(100)` erosion + **`next_ident`** `rnd(2)`); see [`sp_lev.c.md`](sp_lev.c.md); **`seed0016` ~1281–1305** aligned after port.
 - `makemon.js` `rndmonnum()` must stay aliased to **`rndmonnumMklevLikeC`** (medusa `mkcorpstat` rerolls).
 - Other TOOL `default` otyps — `break` only (no extra RNG).
 

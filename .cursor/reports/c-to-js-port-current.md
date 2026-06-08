@@ -83,14 +83,14 @@ Use when **`Next steps`** feels stale. Order: **(1)** reliability phase **P1–P
 
 **Tutorial (Lane E):** Gated on [tutorial port gate](../../docs/plans/tutorial-port-gate.md) **MD-1 … MD-7**.
 
-**Last slice:** **P1 `o_init.c` `setgemprobs`** — `setgemprobsLikeC` + `oinitLikeC` at `makelevel`; gem `mkobj` walk still static (`oclass_prob_total` 923 vs C 1000 — next wire). Score **3/44** stable. Fail **`seed0016` ~1281** (mklev fill/mkobj tail); **`seed0900` ~2960** (moveloop).
+**Last slice:** **P1 `sp_lev.c` `fill_special_room`** — VAULT `mkgold` loop + early `fill_vault` + post-`fill_ordinary` sweep (`fillSpecialRoomLikeC`); `fill_zoo`/`stock_room` stubs. Score **3/44** stable. Fail **`seed0016` ~1341** (mklev fill_ordinary/mkobj); **`seed0900` ~2960** (moveloop).
 
 ## Next steps (**strategy order** — pick **one**)
 
 **First:** tutorial gate — if **all MD-1 … MD-7**, Lane E from [10-tutorial.md](../plans/nethack-port/10-tutorial.md).
 
-1. **P1 — mklev @ `seed0016` ~1281** — JS `rn2(3)` vs C `rn2(100)` after aligned `rn2(5)` — fill/mktrap `mkobj` tail or wire gem pick after **`setgemprobs` total parity**. Oracle: [`c-oracles/mkobj.c.md`](c-oracles/mkobj.c.md).
-2. **P1 — `mkobjPickGemOtypMklevLikeC` wire** — match C **`go.oclass_prob_totals[GEM_CLASS]`** (**1000** @ **`seed8000` ~1452**); then mineralize gem walks.
+1. **P1 — mklev @ `seed0016` ~1341** — `fill_ordinary_room` / supply-chest `mkobj` tail (`rn2(4)` vs `rnd(4)` after aligned `rn2(5)`). Oracle: [`c-oracles/mkobj.c.md`](c-oracles/mkobj.c.md), [`c-oracles/sp_lev.c.md`](c-oracles/sp_lev.c.md).
+2. **P1 — `fill_zoo` / `stock_room`** — `mkroom.c` + `shknam.c` stubs inside `fill_special_room`; then **`mkobjPickGemOtypMklevLikeC`** wire for mineralize (**923** total).
 3. **P2 — moveloop @ `seed0900` ~2960** — `diag_c_rng_callers` on fail window; **not** peel. Oracle: [`c-oracles/monmove.c.md`](c-oracles/monmove.c.md).
 4. **P2 — `dog_goal` / first `#search` (C, not peel)** — `seed0077` ~3205–3207 per [`c-oracles/dogmove.c.md`](c-oracles/dogmove.c.md); **no** new `PendingLikeC`.
 5. **P2 — PostSeventeenth peel** — **deferred** until after (1) or (2); same delete pattern as batches 1–10. Oracle: [`c-oracles/monmove.c.md`](c-oracles/monmove.c.md). Locator: `seed0006` ~3426–3448.

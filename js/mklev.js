@@ -51,7 +51,9 @@ import {
     SDOOR, SCORR, IRONBARS, FOUNTAIN, SINK, ALTAR, GRAVE,
     DIR_N, DIR_S, DIR_E, DIR_W, DIR_180,
     IS_WALL, IS_STWALL, IS_DOOR, IS_OBSTRUCTED, IS_FURNITURE, IS_POOL, IS_LAVA, ACCESSIBLE,
-    SPACE_POS, isok, W_NONDIGGABLE, FILL_NORMAL,
+    SPACE_POS, isok, W_NONDIGGABLE, FILL_NONE, FILL_NORMAL,
+    COURT, ZOO, BEEHIVE, ANTHOLE, COCKNEST, LEPREHALL, MORGUE, BARRACKS, TEMPLE, SWAMP,
+    SHOPBASE,
     XL_UP, XL_DOWN, XL_LEFT, XL_RIGHT,
     ICE, MOAT, POOL, WATER, LAVAPOOL, LAVAWALL, DBWALL,
     A_LAWFUL, Align2amask,
@@ -1260,6 +1262,113 @@ function mkgold(amount, x, y) {
     return gold;
 }
 
+/** C: mkroom.c fill_zoo — zoo/court/morgue/… interior (called from fill_special_room only). */
+function fillZooLikeC(croom) {
+    void croom;
+    /* TODO: port mkroom.c fill_zoo (court throne, zoo gold, morgue corpses, …). */
+}
+
+/** C: shknam.c stock_room — shop inventory (called from fill_special_room only). */
+function stockRoomLikeC(shpIndx, croom) {
+    void shpIndx;
+    void croom;
+    /* TODO: port shknam.c stock_room. */
+}
+
+/**
+ * C: sp_lev.c fill_special_room — vault gold, shops, zoos; recurse subrooms first.
+ * @param {object} croom
+ */
+function fillSpecialRoomLikeC(croom) {
+    const g = game;
+    if (!croom) return;
+
+    for (let i = 0; i < (croom.nsubrooms | 0); i++) {
+        fillSpecialRoomLikeC(croom.sbrooms?.[i]);
+    }
+
+    if (
+        (croom.rtype | 0) === OROOM ||
+        (croom.rtype | 0) === THEMEROOM ||
+        (croom.needfill | 0) === FILL_NONE
+    ) {
+        return;
+    }
+
+    if ((croom.needfill | 0) === FILL_NORMAL) {
+        const rtype = croom.rtype | 0;
+        if (rtype >= SHOPBASE) {
+            stockRoomLikeC(rtype - SHOPBASE, croom);
+            if (g.level?.flags) g.level.flags.has_shop = true;
+            return;
+        }
+        switch (rtype) {
+        case VAULT:
+            for (let x = croom.lx | 0; x <= (croom.hx | 0); x++) {
+                for (let y = croom.ly | 0; y <= (croom.hy | 0); y++) {
+                    mkgold(
+                        rn1(Math.abs(depth_of_level(g.u?.uz)) * 100, 51),
+                        x,
+                        y,
+                    );
+                }
+            }
+            break;
+        case COURT:
+        case ZOO:
+        case BEEHIVE:
+        case ANTHOLE:
+        case COCKNEST:
+        case LEPREHALL:
+        case MORGUE:
+        case BARRACKS:
+            fillZooLikeC(croom);
+            break;
+        default:
+            break;
+        }
+    }
+
+    const lf = g.level?.flags;
+    if (!lf) return;
+    switch (croom.rtype | 0) {
+    case VAULT:
+        lf.has_vault = true;
+        break;
+    case ZOO:
+        lf.has_zoo = true;
+        break;
+    case COURT:
+        lf.has_court = true;
+        break;
+    case MORGUE:
+        lf.has_morgue = true;
+        break;
+    case BEEHIVE:
+        lf.has_beehive = true;
+        break;
+    case BARRACKS:
+        lf.has_barracks = true;
+        break;
+    case TEMPLE:
+        lf.has_temple = true;
+        break;
+    case SWAMP:
+        lf.has_swamp = true;
+        break;
+    default:
+        break;
+    }
+}
+
+/** C: mklev.c makelevel — fill_special_room for every room after fill_ordinary_room. */
+function fillAllSpecialRoomsLikeC(g = game) {
+    const rooms = g.level?.rooms ?? [];
+    for (let i = 0; i < rooms.length; i++) {
+        fillSpecialRoomLikeC(rooms[i]);
+    }
+}
+
 function dealloc_obj(otmp) { /* stub */ }
 function curse(otmp) { if (otmp) otmp.cursed = true; }
 function weight(otmp) { return otmp?.owt || 1; }
@@ -1465,6 +1574,8 @@ async function makelevel() {
             g.level.flags.has_vault = true;
             const vaultRoom = g.level.rooms[g.level.nroom - 1];
             if (vaultRoom) vaultRoom.needfill = FILL_NORMAL;
+            /* C: mklev.c makelevel fill_vault — fill_special_room before knox portal. */
+            fillSpecialRoomLikeC(vaultRoom);
             if (!is_branchlev()) rn2(3);
             if (!rn2(3)) await makeniche(TELEP_TRAP);
         };
@@ -1509,6 +1620,9 @@ async function makelevel() {
 
     /* C: mklev.c makelevel tail — fill ordinary rooms (regular branch only). */
     if (!mazePath) await fillAllOrdinaryRoomsLikeC(g);
+
+    /* C: mklev.c makelevel — fill_special_room every room (maze + regular). */
+    fillAllSpecialRoomsLikeC(g);
 }
 
 /**
