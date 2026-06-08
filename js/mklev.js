@@ -81,7 +81,7 @@ import {
 import { isPoolOrLavaCellLikeC } from './fillholetyp.js';
 import { makeEngrAt, ENGR_HEADSTONE, ENGR_MARK, ENGR_DUST, randomEngraving, getRndEpitaphText, wipeEngrAt } from './engrave.js';
 import { tAt } from './search.js';
-import { canFallThruDlevelLikeC } from './trap.js';
+import { canFallThruDlevelLikeC, holeDestinationLikeC } from './trap.js';
 import { breaktestLikeC } from './obj_break_dothrow.js';
 import { makemon } from './makemon.js';
 import { rndmonstLikeC } from './makemon_rndmonst.js';
@@ -1398,9 +1398,18 @@ function mkcorpstat(objtyp, mtmp, pm, x, y, flags) {
     return otmp;
 }
 
-// maketrap stub
+/** C: trap.c `maketrap` — mklev subset: hole `dst` + trap list. */
 async function maketrap(x, y, typ) {
-    const trap = { ttyp: typ, tx: x, ty: y, tseen: false, once: false, launch: { x: 0, y: 0 } };
+    const trap = {
+        ttyp: typ,
+        tx: x,
+        ty: y,
+        tseen: false,
+        once: false,
+        launch: { x: 0, y: 0 },
+        dst: { dnum: -1, dlevel: -1 },
+    };
+    if (is_hole(typ)) holeDestinationLikeC(game, trap.dst);
     if (!game.level) return trap;
     if (!game.level.traps) game.level.traps = [];
     game.level.traps.push(trap);

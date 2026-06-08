@@ -83,19 +83,20 @@ Use when **`Next steps`** feels stale. Order: **(1)** reliability phase **P1–P
 
 **Tutorial (Lane E):** Gated on [tutorial port gate](../../docs/plans/tutorial-port-gate.md) **MD-1 … MD-7**.
 
-**Last slice:** **P1 `sp_lev.c` `fill_special_room`** — VAULT `mkgold` loop + early `fill_vault` + post-`fill_ordinary` sweep (`fillSpecialRoomLikeC`); `fill_zoo`/`stock_room` stubs. Score **3/44** stable. Fail **`seed0016` ~1341** (mklev fill_ordinary/mkobj); **`seed0900` ~2960** (moveloop).
+**Last slice:** **P1 `trap.c` `hole_destination`** — `holeDestinationLikeC` + `dngBottomLikeC` (`trap.js`); `maketrap` HOLE/TRAPDOOR `dst` (`mklev.js`). Score **3/44** stable. Fail **`seed0016` ~2426** (u_init `blessorcurse`/`next_ident`); **`seed0900` ~2960** (moveloop).
 
 ## Next steps (**strategy order** — pick **one**)
 
 **First:** tutorial gate — if **all MD-1 … MD-7**, Lane E from [10-tutorial.md](../plans/nethack-port/10-tutorial.md).
 
-1. **P1 — mklev @ `seed0016` ~1341** — `fill_ordinary_room` / supply-chest `mkobj` tail (`rn2(4)` vs `rnd(4)` after aligned `rn2(5)`). Oracle: [`c-oracles/mkobj.c.md`](c-oracles/mkobj.c.md), [`c-oracles/sp_lev.c.md`](c-oracles/sp_lev.c.md).
-2. **P1 — `fill_zoo` / `stock_room`** — `mkroom.c` + `shknam.c` stubs inside `fill_special_room`; then **`mkobjPickGemOtypMklevLikeC`** wire for mineralize (**923** total).
-3. **P2 — moveloop @ `seed0900` ~2960** — `diag_c_rng_callers` on fail window; **not** peel. Oracle: [`c-oracles/monmove.c.md`](c-oracles/monmove.c.md).
-4. **P2 — `dog_goal` / first `#search` (C, not peel)** — `seed0077` ~3205–3207 per [`c-oracles/dogmove.c.md`](c-oracles/dogmove.c.md); **no** new `PendingLikeC`.
-5. **P2 — PostSeventeenth peel** — **deferred** until after (1) or (2); same delete pattern as batches 1–10. Oracle: [`c-oracles/monmove.c.md`](c-oracles/monmove.c.md). Locator: `seed0006` ~3426–3448.
-6. **Lane B — NHL** — one `lspo_*` per [`nhl-port-notes.md`](nhl-port-notes.md).
-7. ~~**seed0006 @ 3610+ twenty-fifth peel**~~ — **forbidden** until harness debt net −5 (see ledger).
+1. **P1 — u_init @ `seed0016` ~2426** — Healer `ini_inv` `blessorcurse`/`next_ident` tail after mklev closed. Oracle: [`c-oracles/mkobj.c.md`](c-oracles/mkobj.c.md).
+2. **P1 — `fill_ordinary_room` supply chest** — `add_to_container` + SPBOOK bias loop (`mklev.js`); then **`fill_zoo` / `stock_room`**. Oracle: [`c-oracles/sp_lev.c.md`](c-oracles/sp_lev.c.md).
+3. **P1 — mineralize** — wire **`mkobjPickGemOtypMklevLikeC`** when gem total **923**→**1000** aligned.
+4. **P2 — moveloop @ `seed0900` ~2960** — `diag_c_rng_callers` on fail window; **not** peel. Oracle: [`c-oracles/monmove.c.md`](c-oracles/monmove.c.md).
+5. **P2 — `dog_goal` / first `#search` (C, not peel)** — `seed0077` ~3205–3207 per [`c-oracles/dogmove.c.md`](c-oracles/dogmove.c.md); **no** new `PendingLikeC`.
+6. **P2 — PostSeventeenth peel** — **deferred** until after (1)–(3); same delete pattern as batches 1–10. Oracle: [`c-oracles/monmove.c.md`](c-oracles/monmove.c.md). Locator: `seed0006` ~3426–3448.
+7. **Lane B — NHL** — one `lspo_*` per [`nhl-port-notes.md`](nhl-port-notes.md).
+8. ~~**seed0006 @ 3610+ twenty-fifth peel**~~ — **forbidden** until harness debt net −5 (see ledger).
 
 **`seed0006` 3610+** remains a **locator** for testing after (1), not the next batch.
 

@@ -75,12 +75,21 @@ Align batches with [`c-to-js-port-remaining.md`](c-to-js-port-remaining.md) §5:
 | `mklev` / `makelevel` | `mklev.js` | partial | |
 | `mkobj_at` / `makeniche` niche loot | `mklev.js` | partial | **`mkobjFillAtLikeC`** (was shallow **`mkobj`** stub); **`seed0900`** bbox **`fobj`** still **0** at peel |
 | `fill_ordinary_room` | `mklev.js` | partial | C: sleeper stays at **`somexyspace`** coords — no **`anchorWestApportSleeperLikeC`** post-**`level_finalize_topology`**; fungus door niches only |
-| `fill_special_room` | `mklev.js` | partial | **VAULT** `mkgold` loop + early **`fill_vault`** call; **`fill_zoo`** / **`stock_room`** stubs — oracle [`sp_lev.c.md`](c-oracles/sp_lev.c.md); **`seed0016` ~1341** next |
+| `fill_special_room` | `mklev.js` | partial | **VAULT** `mkgold` loop + early **`fill_vault`** call; **`fill_zoo`** / **`stock_room`** stubs — oracle [`sp_lev.c.md`](c-oracles/sp_lev.c.md) |
 | `level_finalize_topology` | `mklev.js` | partial | C: no generic **`mgenmklev`** relocate; **`preferSleepingLichenDoorNichesLikeC`** fungus-only |
-| `mktrap` / `traptype_rnd` | `mklev.js` | partial | |
+| `mktrap` / `traptype_rnd` | `mklev.js` | partial | **`hole_destination`** via **`holeDestinationLikeC`** in **`maketrap`** — **`seed0016` 1335–1420** aligned |
 | `mktrap_victim` | `mklev.js` | partial | possession loop, corpse; RNG fork ~2358 on `seed0900` |
 | `mkgrave` / `mkfount` | `mklev.js` | partial | `level_difficulty` for grave gold |
 | `mineralize` / `setgemprobs` | `mklev.js`, `o_init.js` | partial | **`setgemprobsLikeC`** + **`oinitLikeC`** wired (`makelevel`); **`mkobjPickGemOtypMklevLikeC`** ready — **not** wired (`oclass_prob_total` **923** vs C **1000** on D:1; keep static gem walk until totals match) |
+
+---
+
+## `trap.c` (mklev subset)
+
+| C symbol / area | JS module | Status | Notes |
+|-----------------|-----------|--------|-------|
+| `hole_destination` / `dng_bottom` | `trap.js` | partial | **`holeDestinationLikeC`** + **`dngBottomLikeC`**; wired from **`maketrap`** HOLE/TRAPDOOR; quest/hell caps stubbed on **`qlocate_level`** / **`uevent.invoked`** |
+| `maketrap` (full) | `mklev.js` | partial | mklev subset — trap list + hole **`dst`** only |
 
 ---
 
