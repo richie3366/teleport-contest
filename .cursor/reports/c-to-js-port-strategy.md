@@ -35,6 +35,10 @@
 
 **When phase A can skip phase B until a later batch:** tables and plumbing with **no** `rn2`/`rnd`/`rne` on the exercised path (e.g. `otyp` maps, struct wiring). Anything that touches moveloop, `mkobj`, chargen menus, or `mklev` fill → **always** run phase B before commit.
 
+**Phase B+ — C call sites (optional, high leverage):** the patched C recorder logs every PRNG draw with `@ caller(file:line)` in `NETHACK_RNGLOG` (stripped from public sessions). Tools: `scripts/record-session.mjs --save-rng-log`, `tools/diag_c_rng_callers.mjs`. Use to open the right upstream `.c` lines — **not** to replay RNG into JS.
+
+**Do not** restart the whole `js/` port from scratch; moveloop debt is localized (peel deletion + optional strangler `movemon` core later).
+
 ---
 
 ## 2. The three layers (never confuse them)

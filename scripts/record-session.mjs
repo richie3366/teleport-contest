@@ -576,9 +576,25 @@ async function exists(p) {
 }
 
 async function main() {
-    const argv = process.argv.slice(2);
-    if (argv.length < 1 || argv[0] === '-h' || argv[0] === '--help') {
-        console.error('Usage: node scripts/record-session.mjs <input.session.json> [output.session.json]');
+    const rawArgv = process.argv.slice(2);
+    if (rawArgv.length < 1 || rawArgv[0] === '-h' || rawArgv[0] === '--help') {
+        console.error(
+            'Usage: node scripts/record-session.mjs [--save-rng-log <path>] <input.session.json> [output.session.json]',
+        );
+        process.exit(2);
+    }
+    let saveRngLogPath = null;
+    const argv = [];
+    for (let i = 0; i < rawArgv.length; i++) {
+        const a = rawArgv[i];
+        if (a === '--save-rng-log') {
+            saveRngLogPath = path.resolve(rawArgv[++i]);
+            continue;
+        }
+        argv.push(a);
+    }
+    if (argv.length < 1) {
+        console.error('missing input.session.json');
         process.exit(2);
     }
     const inputPath = path.resolve(argv[0]);
@@ -639,6 +655,10 @@ async function main() {
 
         await fs.writeFile(outputPath, JSON.stringify(outDoc));
         console.error(`[ok] wrote ${outputPath}`);
+        if (saveRngLogPath) {
+            await fs.copyFile(rngLogPath, saveRngLogPath);
+            console.error(`[ok] saved C rng log (with callers) → ${saveRngLogPath}`);
+        }
     } finally {
         await fs.rm(tmpDir, { recursive: true, force: true }).catch(() => {});
     }

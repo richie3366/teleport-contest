@@ -23,10 +23,11 @@ Short reference for **how to work** in this repo. **Methodology:** [`c-to-js-por
 |----------|------|---------|
 | **Which batch / where is X ported?** | **graphify** `query` / `path` | `graphify path "movemon" "movemon" --graph graphify-out/graph.json` |
 | **RNG diverged at index N?** | **`diag_rng_window.mjs`** | `node tools/diag_rng_window.mjs sessions/seed0102-ranger-name-cancel.session.json 4440 4485` |
+| **Which C function drew index N?** | **`diag_c_rng_callers.mjs`** | `node tools/diag_c_rng_callers.mjs --record sessions/seed0006….json 3100 3145` (needs [recorder build](../../nethack-c/README.md)) |
 | **Which keystroke owns index N?** | **`diag_rng_step_map.mjs`** (C steps) | `node tools/diag_rng_step_map.mjs sessions/seed0102….json 4440` |
 | **When did JS first draw after key K?** | **`diag_prefix_rng.mjs`** | `node tools/diag_prefix_rng.mjs sessions/seed0102….json 22` |
 | **Regression from last batch?** | **`git stash`** isolate + `seed8000` window | stash `js/monmove.js`, diag 2900–3129 |
-| **C call order / flags** | **Read C** in `nethack-c/upstream/` | `rg` with explicit path (IDE search may skip submodule) |
+| **C call order / flags** | **Read C** at `file:line` from caller log, then upstream | `rg` with explicit path (IDE search may skip submodule) |
 
 **Graphify:** best at **batch pick** and C↔JS symbol mapping. **`npm run graphify:js`** after `js/` edits is cache hygiene; value is **`query` / `path` / `explain`**, not the rebuild alone.
 
@@ -38,10 +39,22 @@ Short reference for **how to work** in this repo. **Methodology:** [`c-to-js-por
 
 1. **Read oracle** — [`c-oracles/monmove.c.md`](c-oracles/monmove.c.md) (or `dogmove.c.md`).
 2. **Locate** — `diag_rng_window` on locator session (20–40 indices).
-3. **Read C** — named function in upstream `.c` **before** editing `monmove.js`.
-4. **Port or delete** — general call order **or** remove a peel band; **do not** add PostTwentyFifth+.
-5. **Gate + canaries** — `bash tools/port-batch-gate.sh`; three canaries if moveloop touched.
-6. **Persist** — oracle + harness debt + `current.md`.
+3. **Map to C** — `diag_c_rng_callers` on same window (recorder `NETHACK_RNGLOG` has `@ file:line`; public sessions do not).
+4. **Read C** — open the cited `.c` lines **before** editing `monmove.js`.
+5. **Port or delete** — general call order **or** remove a peel band; **do not** add PostTwentyFifth+.
+6. **Gate + canaries** — `bash tools/port-batch-gate.sh`; three canaries if moveloop touched.
+7. **Persist** — oracle + harness debt + `current.md`.
+
+**C caller log (dev only):** public `sessions/*.session.json` strip `@ caller` annotations. Re-record once per locator:
+
+```bash
+bash nethack-c/build-recorder.sh   # once
+node scripts/record-session.mjs --save-rng-log /tmp/seed0006.rng.log \
+  sessions/seed0006-wizard-water-demon.session.json /tmp/out.json
+node tools/diag_c_rng_callers.mjs /tmp/seed0006.rng.log 3100 3145
+```
+
+Use callers to **find** C to port — never paste draw sequences into `js/` as logic.
 
 ---
 

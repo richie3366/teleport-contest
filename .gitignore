@@ -7,6 +7,10 @@ js/*.db
 js/*.diagbak
 js/*.bakhook
 
+# Dev C rng logs (record-session --save-rng-log)
+*.c-rng.log
+/tmp/*.rng.log
+
 # graphify (local agent cache; see .cursor/docs/graphify.md)
 graphify-out/
 js/graphify-out/
