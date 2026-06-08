@@ -1418,11 +1418,18 @@ export async function runPostCommandTurnAdvanceLikeC(g) {
                             delete g.context._wizD1CommaSurplusNonMklevDoneSetLikeC;
                             wizD1CommaSurplusScanClearLikeC(g);
                             await runNewTurnSetupAndTailLikeC(g, tailStepNum);
+                            /* C: fifth new-turn done (~3074–3076) — pet **`distfleeck`** + **`dog_move`** (~3077+). */
+                            g.context._wizD1CommaPostFifthMovemonPendingLikeC = true;
+                            delete g.context._wizD1MovemonRanThisPostLikeC;
+                            g.context._movemonHarnessConsumed = false;
+                            await movemon(1);
+                            g.context._wizD1MovemonRanThisPostLikeC = true;
                         }
                         g.context._wizD1MovemonRanThisPostLikeC = true;
                         if (
                             !surplusScanMoreAfterLoopLikeC
                             && !g.context?._wizD1CommaSurplusTailPendingLikeC
+                            && !g.context?._wizD1CommaPostFifthHostileTailPendingLikeC
                         ) {
                             g.context._wizD1LPostOuterLoopDoneLikeC = true;
                         }
