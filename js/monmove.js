@@ -484,17 +484,34 @@ export async function movemon(stepNum) {
                     && !postPeelPassDone.has(m),
             );
             if (postPeelPending.length > 0) {
-                const moving = postPeelPending.filter(
-                    (m) => (m.movement | 0) >= NORMAL_SPEED,
-                );
-                const nonMklev = postPeelPending.find(
-                    (m) => !(m.mgenmklev | 0),
-                );
-                passList = [
-                    moving[0]
-                    ?? nonMklev
-                    ?? postPeelPending[0],
-                ];
+                /* C: post-peel — west-corridor then peel-distant before generic **`fmon`** tail. */
+                const corridorPostPeel = corridorSurplusMklev;
+                const distantPostPeel = wizD1PeelDistantMklevMonLikeC(g);
+                let postPeelPick = null;
+                if (
+                    corridorPostPeel
+                    && postPeelPending.includes(corridorPostPeel)
+                ) {
+                    postPeelPick = corridorPostPeel;
+                } else if (
+                    distantPostPeel
+                    && postPeelPending.includes(distantPostPeel)
+                ) {
+                    postPeelPick = distantPostPeel;
+                }
+                if (!postPeelPick) {
+                    const moving = postPeelPending.filter(
+                        (m) => (m.movement | 0) >= NORMAL_SPEED,
+                    );
+                    const nonMklev = postPeelPending.find(
+                        (m) => !(m.mgenmklev | 0),
+                    );
+                    postPeelPick =
+                        moving[0]
+                        ?? nonMklev
+                        ?? postPeelPending[0];
+                }
+                passList = postPeelPick ? [postPeelPick] : [];
             }
         }
         if (

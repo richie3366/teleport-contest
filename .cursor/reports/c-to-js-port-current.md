@@ -32,7 +32,7 @@ Use this when **`Next steps`** below feels stale or several lanes compete. Order
 
 **Tutorial (Lane E):** Gated on [tutorial port gate](../../docs/plans/tutorial-port-gate.md) **MD-1 … MD-7**.
 
-**Last slice:** **Lane C — `seed0006` comma-`U` surplus scan gate + post-peel continuation (~3054–3074 WIP)** — surplus **`fmon`** only when **`AwaitSurplusFmon`** / **`SecondUPostMovemon`** (not bare **`SurplusArmed`**); **`ScanClear`** before post-fourth prime; peel flag explicit only; slot/post-peel pending scan (no **`somebodyCanMove`** spin); post-peel **`passList`** retry + same-turn continuation (no false **`SurplusTailPending`**). **Verified:** **3054–3059**; fail **3060+** (`rn2(5)` vs extra **`rn2(12)`** — post-peel **`dochug`** **`distfleeck`** before **`m_move`**); **`seed8000` 2900–3129** canary.
+**Last slice:** **Lane C — `seed0006` comma-`U` post-peel corridor `dochug` + distfleeck recalc gate (~3060–3074 WIP)** — **`m_move_mon.js`**: surplus post-peel runs west-corridor **`mMoveCommaUFmonTailDochugLikeC`** (was invent-peel early return); **`~915`** **`distfleeck`** recalc only when comma-tail slot drew **`rn2`**; **`monmove.js`**: post-peel **`passList`** corridor/distant before generic **`fmon`**. **Verified:** **3054–3061**, **3063–3067**, **3071–3076**; fail **3062+** (`rn2(12)` vs extra **`rn2(5)`** — peel-distant **`m_move`** / **`dochugEntersMmoveBlock`**); fifth new-turn **~3074** WIP; **`seed8000` 2900–3129** canary.
 
 ## Next steps (aligned with matrix)
 
@@ -40,7 +40,7 @@ Pick **one** primary lane per **batch** (several related C functions — see che
 
 **First:** open [`docs/plans/tutorial-port-gate.md`](../../docs/plans/tutorial-port-gate.md) — if **all MD-1 … MD-7** are checked, do **Lane E** step 1 from [10-tutorial.md](../plans/nethack-port/10-tutorial.md) instead of the list below.
 
-1. **Lane C — `seed0006` comma-`U` post-peel `dochug` @ ~3060 + fifth @ ~3074** — **3054–3059** aligned; **3060+** post-peel runs but first draws are slot **`rn2(12)`** not **`distfleeck`** **`rn2(5)`** ( **`mMoveCommaUFmonTailDochugLikeC`** path vs stray slot). Next: C-order **`distfleeck`** then **`m_move`** on first post-peel hostile; fifth new-turn @ **3074**. Locator: `node tools/diag_rng_window.mjs sessions/seed0006-wizard-water-demon.session.json 3054 3080`.
+1. **Lane C — `seed0006` comma-`U` post-peel peel-distant `m_move` @ ~3062 + fifth @ ~3074** — **3054–3061** aligned; **3062+** extra **`distfleeck`** before first post-peel **`rn2(12)`** (surplus **`passList`** / **`dochugEntersMmoveBlock`** on peel-distant). Next: C-order first full **`dochug`** **`m_move`** after two distfleeck-only passes; fifth new-turn @ **3074**. Locator: `node tools/diag_rng_window.mjs sessions/seed0006-wizard-water-demon.session.json 3054 3080`.
 2. **Lane B — NHL** — next **`lspo_*`** per [`nhl-port-notes.md`](nhl-port-notes.md).
 3. **Lane A/D — `seed0900`** — screen parity (RNG **0–2982** done); map/botl integration beyond moveloop peel chain.
 4. **Lane A/D — `dogmove.c`** — **`score_targ`** vampshifter **`mtmp_lev`** **`rn2`** tail (~808–817); **`mattackm`** / **`pet_ranged_attk`** when pet breath sessions fail.

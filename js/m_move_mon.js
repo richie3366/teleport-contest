@@ -1164,11 +1164,19 @@ async function wizD1EastTailAfterMcalcmoveSinglemonLikeC(g, mtmp, stepNum) {
 export async function movemonSinglemonLikeC(g, mtmp, stepNum = 0) {
     if (!mtmp || (mtmp.mhp | 0) <= 0) return;
     /* C: comma-**`U`** invent peel — corridor **`dochug`** already inline at **`movemon`** head;
-     * post-third-peel **`fmon`** tail (~3035+) runs corridor **`dochug`** again. */
+     * post-third-peel **`fmon`** tail (~3035+) runs corridor **`dochug`** again.
+     * Post-fourth surplus post-peel (~3060+) still needs full **`dochug`** on corridor. */
     if (
         g.context?._wizD1CommaUInventPostCorridorDoneLikeC
         && !g.context?._wizD1CommaLFirstUPostTailFmonTailPendingLikeC
         && mtmp === wizD1CorridorMklevMonLikeC(g)
+        && !(
+            wizD1CommaSurplusPostPeelActiveLikeC(g)
+            && (
+                g.context?._wizD1CommaLFirstUPostTailSecondUPostMovemonLikeC
+                || g.context?._wizD1CommaLFirstUPostTailAwaitSurplusFmonLikeC
+            )
+        )
     ) {
         return;
     }
@@ -2233,6 +2241,7 @@ export function mMoveCommaUFmonTailSlotMklevLikeC(g, mtmp) {
         mtmp.mx = nix;
         mtmp.my = niy;
     }
+    mtmp._commaUTailSlotDrewRnLikeC = mtrackDrew;
     return mmoved;
 }
 
@@ -2787,22 +2796,31 @@ async function mMoveCommaUFmonTailDochugLikeC(g, mtmp, stepNum = 0) {
     const scared = flee1.scared | 0;
 
     let mmStatus = MMOVE_NOTHING;
+    let enteredMmoveBlockLikeC = false;
+    let commaTailSlotDrewRnLikeC = false;
     if (dochugEntersMmoveBlockLikeC(g, mtmp, nearby, scared, stepNum)) {
+        enteredMmoveBlockLikeC = true;
         ensureMonsterMtrack(mtmp);
         if ((mtmp.mgenmklev | 0) && !(mtmp.mtame | 0)) {
             /* C: comma-**`U`** fmon tail — every surplus mklev one **`mtrack`** **`rn2(12)`** (~3036+);
              * not peel distant **`rn2(20)`** nor full **`chcnt`** loop. */
             mmStatus = mMoveCommaUFmonTailSlotMklevLikeC(g, mtmp);
+            commaTailSlotDrewRnLikeC = !!mtmp._commaUTailSlotDrewRnLikeC;
+            delete mtmp._commaUTailSlotDrewRnLikeC;
         } else {
             mmStatus = mMovePositionSelectRngLikeC(g, mtmp);
+            commaTailSlotDrewRnLikeC = true;
         }
     }
 
     await mThrowAtHeroAfterMmoveIfLinedUpLikeC(g, mtmp);
     if ((mtmp.mhp | 0) <= 0) return;
     if (monOffmapLikeC(mtmp)) return;
+    /* C: monmove.c ~915 — post-**`m_move`** **`distfleeck`** only after **`m_move`** drew **`rn2`**. */
     if (
-        mmStatus !== MMOVE_DIED
+        enteredMmoveBlockLikeC
+        && commaTailSlotDrewRnLikeC
+        && mmStatus !== MMOVE_DIED
         && !skipDistfleeckRecalcAfterMmoveLikeC(g, mtmp, nearby)
     ) {
         await distfleeckMonsterApplyLikeC(g, mtmp);
