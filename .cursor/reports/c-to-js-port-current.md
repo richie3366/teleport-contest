@@ -9,7 +9,7 @@ Thin handoff for the next coding session. **Canonical strategy:** [**`c-to-js-po
 
 **Interleave trigger (active):** batches **1–10** deleted PostSeventh…PostSixteenth peels. **Next loop iteration must NOT be PostSeventeenth** — do **#1 P1 mkobj** below (or #3 dog_goal). Resume PostSeventeenth…PostTwentyFourth only after one P1/P2-general batch.
 
-**Reflection:** [`c-to-js-port-reflection.md`](c-to-js-port-reflection.md) — last meta-review **2026-06-08**; next due after **5** more commits or milestone score (strategy §10). Not every batch.
+**Reflection:** [`c-to-js-port-reflection.md`](c-to-js-port-reflection.md) — last meta-review **2026-06-08 pass 2** (5× P1 batches); next due after **5** more commits or milestone score (strategy §10). Not every batch.
 
 ## Working principle (read every session)
 
@@ -32,7 +32,7 @@ Authoritative milestone ordering: [`c-to-js-port-remaining.md`](c-to-js-port-rem
 | **P7** | `dat/tut-*.lua`, nhcore | **Lane E** after [tutorial gate](../../docs/plans/tutorial-port-gate.md) **MD-1 … MD-7** | tutorial vertical |
 | **P8** | `save.c`, quest/endgame | persistence semantics vs API | long-run continuity |
 
-**Checklist today:** **49 partial, 3 stub, 0 done** — no row is closed until exercised paths have **no known wrong RNG**.
+**Checklist today:** **49 partial, 3 stub, 0 done** — no row is closed until exercised paths have **no known wrong RNG**. **Score:** **3/44** (`seed0077`, `seed0102`, `seed8000`).
 
 ## Peel moratorium (**enforced** — [`c-to-js-port-strategy.md`](c-to-js-port-strategy.md) §5)
 
@@ -83,17 +83,18 @@ Use when **`Next steps`** feels stale. Order: **(1)** reliability phase **P1–P
 
 **Tutorial (Lane E):** Gated on [tutorial port gate](../../docs/plans/tutorial-port-gate.md) **MD-1 … MD-7**.
 
-**Last slice:** **P1 ini_inv** — C `u_init.c` **`trquan`** + **`ini_inv_adjust_obj`** WEAPON/TOOL second **`trquan`** (`ini_inv_adjust_like_c.js`); Ranger rows + Knight apple/carrot **`10+rn2(1)`** trobj loop. Verified: **`seed0102` 4380–4485**, **`seed0900` 1400–1460**, **`seed8000` 2900–3129**. First fail **`seed0900` ~2512** (moveloop).
+**Last slice:** **Reflect pass 2** — 5× P1 mkobj/ini_inv since peel interleave; **`seed0102` PASS**; **`seed0900` ~2960** moveloop locator. No code change this batch.
 
 ## Next steps (**strategy order** — pick **one**)
 
 **First:** tutorial gate — if **all MD-1 … MD-7**, Lane E from [10-tutorial.md](../plans/nethack-port/10-tutorial.md).
 
-1. **P1 — `ini_inv` / floor `otyp` / role `g.invent` audit** — more roles linked invent; **`ini_inv_mkobj_filter`** UNDEF rows; Monk/Priest spellbook filter tails. Oracle: [`c-oracles/mkobj.c.md`](c-oracles/mkobj.c.md). Locator: `seed0900` **1400–1460** ok; moveloop **~2512**. **Loop: continue P1 or P2 dog_goal.**
-2. **P2 — `dog_goal` / first `#search` (C, not peel)** — `seed0077` ~3205–3207 per [`c-oracles/dogmove.c.md`](c-oracles/dogmove.c.md); **no** new `PendingLikeC`.
-3. **P2 — PostSeventeenth peel** — **deferred** until after (1) or (2); same delete pattern as batches 1–10. Oracle: [`c-oracles/monmove.c.md`](c-oracles/monmove.c.md). Locator: `seed0006` ~3426–3448.
-4. **Lane B — NHL** — one `lspo_*` per [`nhl-port-notes.md`](nhl-port-notes.md).
-5. ~~**seed0006 @ 3610+ twenty-fifth peel**~~ — **forbidden** until harness debt net −5 (see ledger).
+1. **P1 — general `ini_inv_mkobj_filter`** — unify C `u_init.c` while-loop (`gn.nocreate*`, orc poison, monk scroll, spell level/restricted) beyond role-specific Wizard/Priest/Monk arms. Oracle: [`c-oracles/mkobj.c.md`](c-oracles/mkobj.c.md). Locator: `seed0900` startup ok; moveloop **~2960**. Alt: **`seed0012`** monk vault.
+2. **P2 — moveloop @ `seed0900` ~2960** — `diag_c_rng_callers` on fail window; **not** peel.
+3. **P2 — `dog_goal` / first `#search` (C, not peel)** — `seed0077` ~3205–3207 per [`c-oracles/dogmove.c.md`](c-oracles/dogmove.c.md); **no** new `PendingLikeC`.
+4. **P2 — PostSeventeenth peel** — **deferred** until after (1) or (2); same delete pattern as batches 1–10. Oracle: [`c-oracles/monmove.c.md`](c-oracles/monmove.c.md). Locator: `seed0006` ~3426–3448.
+5. **Lane B — NHL** — one `lspo_*` per [`nhl-port-notes.md`](nhl-port-notes.md).
+6. ~~**seed0006 @ 3610+ twenty-fifth peel**~~ — **forbidden** until harness debt net −5 (see ledger).
 
 **`seed0006` 3610+** remains a **locator** for testing after (1), not the next batch.
 

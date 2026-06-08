@@ -1,47 +1,47 @@
 # Port self-reflection (overwrite each pass)
 
-**Last run:** 2026-06-08  
-**Trigger:** operator asked for reflection cadence; peel batches 1–10 completed; interleave rule activated.
+**Last run:** 2026-06-08 (pass 2)  
+**Trigger:** ≥5 commits since pass 1 (5× P1 mkobj/ini_inv batches).
 
-## Signals (last ~10 batches)
+## Signals (last ~5 batches)
 
 | Signal | Reading |
 |--------|---------|
-| Changelog | Batches 1–10 = same pattern (PostSeventh…PostSixteenth peel **deletes**) — good C template, **bad lane monotony** |
-| Harness debt | Net **−10** peel bands; `LikeC` refs **moved** to `m_move_mon.js` — monmove.js not much smaller in spirit |
-| Checklist | **49 partial, 0 done** — no row closed; peel work does not advance P1 |
-| Score | ~**2/44** — peel deletes preserved canaries; no broad gain expected |
-| Strategy drift | Loop kept doing peels past §9 interleave (3-batch rule); **fixed** in handoff 2026-06-08 |
+| Changelog | **5× P1** — `rndmonnum_adj`, STATUE/BELL, `mkobj_erosions`, `oartifact`, `trquan`/`ini_inv_adjust_obj` — **interleave rule obeyed** |
+| Harness debt | **Unchanged** — no new peels; `LikeC`: monmove **1471**, `m_move_mon` **1354**, dogmove **1340** |
+| Checklist | **49 partial, 0 done** — P1 slices land but rows not closed |
+| Score | **2/44 → 3/44** — **`seed0102` PASS** (4485 RNG); canaries **`seed8000`**, **`seed0077`** still PASS |
+| Locator | **`seed0900` ~2512 → ~2960** (+448 RNG) — fail still **moveloop**, not startup |
 
 ## What worked
 
-- Peel-**delete** template (`movemonSinglemonLikeC` + oracle) is repeatable and canary-safe.
-- Operator model + handoff shelves survive context loss.
-- `diag_c_rng_callers` gives C file:line without custom binaries.
+- **P1 interleave** after peel batches 1–10 — lane drift fixed.
+- **`oartifact`** on `struct obj` vs `artif` param — oracle wrong-hypothesis caught early.
+- **`seed0102` full PASS** — ranger chargen + invent anchor stable.
 
 ## What drifted
 
-- **10 peel commits in a row** without P1 mkobj — violated §9 rhythm; next batch must be **P1**.
-- Surplus `rn2` tails in `m_move_mon.js` still grow — deletion without full `dochug` is half-measure (acceptable short-term).
-- Reflection was chat-only until now — no shelf file.
+- P1 work still **role-scoped** (`Wizard`/`Priest`/`Monk` filters) — C has **one** `ini_inv_mkobj_filter()`; unify next.
+- **`gn.nocreate*`** reject arms in filter while-loop not fully wired for all roles.
+- Checklist rows never flip **done** — need explicit “exercised path” criterion per batch.
 
 ## Decisions (next ~3 batches)
 
-1. **P1 mkobj / ini_inv** — one checklist row; locator `seed0900` ~302+.
-2. **P2 dog_goal** or **PostSeventeenth peel delete** — only after (1).
-3. **Milestone score** + dashboard refresh after batch (1) or every **5** batches.
+1. **P1 — general `ini_inv_mkobj_filter`** — one C function, `gn` nocreate + orc poison + monk scroll + spell level/restricted; locator **`seed0900`** startup + **`seed0012`** monk.
+2. **P2 — moveloop @ `seed0900` ~2960** — `diag_c_rng_callers` on fail window (not peel).
+3. **PostSeventeenth peel delete** — only after (1) or (2) lands; harness net −5 goal unchanged.
 
 ## Drop / defer
 
-- ~~Another peel-only batch before P1~~ — forbidden until interleave done.
-- ~~Full `js/` restart~~ — still wrong; localized debt only.
-- Deep `seed0006` 3610+ locator — still forbidden until harness net −5 **and** P1 slice landed.
+- ~~Peel before P1~~ — still forbidden.
+- ~~Score milestone dashboard~~ — defer until batch (1) or **10** total P1 slices.
+- **`seed0006` 3610+** — still forbidden until harness net −5 **and** P1 filter unified.
 
 ## Oracle hygiene
 
-- Confirm `c-oracles/monmove.c.md` anchor stays **`mon.c`** `movemon` / `movemon_singlemon` (not `monmove.c` loop body only).
-- Start **`c-oracles/mkobj.c.md`** rows for whatever P1 batch touches.
+- **`c-oracles/mkobj.c.md`** — add `ini_inv_mkobj_filter` while-loop + `gn.nocreate*` as next row.
+- **`monmove.c.md`** — unchanged; moveloop fail is locator for batch (2).
 
 ---
 
-**Next reflection due:** after **5** more commits **or** pivot trigger (§5) **or** milestone score — whichever comes first. Template: strategy §10.
+**Next reflection due:** after **5** more commits **or** milestone score — whichever comes first. Template: strategy §10.

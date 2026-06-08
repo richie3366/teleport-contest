@@ -3,7 +3,7 @@
 **JS modules:** `mkobj_mklev_like_c.js`, `mklev.js`, `u_init_post_mklev.js`, role `u_init_link_*_invent.js`  
 **Phase:** P1  
 **C path:** `nethack-c/upstream/src/mkobj.c`  
-**Last C read:** 2026-06-08 — `u_init.c` `ini_inv_adjust_obj` WEAPON/TOOL `trquan` + `trquan()` trobj loop (`ini_inv_adjust_like_c.js`)
+**Last C read:** 2026-06-08 — `u_init.c` `ini_inv_mkobj_filter` while-loop (`gn.nocreate*`, role/race rejects, pancake fallback); role-specific arms exist — **next: unify** one function.
 
 ## Why P1 matters
 
@@ -19,8 +19,9 @@ Most mid-game RNG divergence is **object creation order** (`mkobj`, `ini_inv`, f
 6. `mksobj_init` ROCK **STATUE** — `rndmonnum()` (not Plan-A-only `rndmonst`); nested `mkobj(SPBOOK_no_NOVEL)` gate.
 7. `mksobj_init` TOOL **BELL_OF_OPENING** — `spe=3` only (no RNG).
 8. `ini_inv` — role tables → `addinv` chain; explore mode `Wishing` before `Money`.
-9. `trquan` / `ini_inv_adjust_obj` — `WEAPON_CLASS`/`TOOL_CLASS`: `obj->quan = trquan(trop)` (second draw per row); FOOD trobj row count from first `trquan` only (`Knight` apple/carrot `10+rn2(1)`); Ranger cram `4+rn2(1)` objects each `!rn2(6)` stack quan.
-9. Post-mklev mineralize / gem probs — ordering with `u_init_role` tail.
+9. `ini_inv_mkobj_filter` — `mkobj(oclass,FALSE)` + while reject (`WAN_WISHING`, `gn.nocreate*`, useless pots/scrolls, orc `RIN_POISON_RESISTANCE`, monk `SCR_ENCHANT_WEAPON`, wizard `SPE_FORCE_BOLT`, spell level/restricted, `SPE_NOVEL`); pancake fallback `trycnt>1000`.
+10. `trquan` / `ini_inv_adjust_obj` — `WEAPON_CLASS`/`TOOL_CLASS`: `obj->quan = trquan(trop)` (second draw per row); FOOD trobj row count from first `trquan` only (`Knight` apple/carrot `10+rn2(1)`); Ranger cram `4+rn2(1)` objects each `!rn2(6)` stack quan.
+11. Post-mklev mineralize / gem probs — ordering with `u_init_role` tail.
 
 ## Locator sessions
 
@@ -31,6 +32,7 @@ Most mid-game RNG divergence is **object creation order** (`mkobj`, `ini_inv`, f
 
 ## Open gaps
 
+- **`ini_inv_mkobj_filter`** — JS has Wizard/Priest/Monk-scroll arms; C is **one** function with `gn.nocreate*` + `Role_if`/`Race_if` in while-body.
 - `game.invent` not fully driven by `ini_inv` + `mkobj` for all roles (Knight linker now accepts 10–11 apple/carrot stacks).
 - NH5 `otyp` vs legacy floor indices in `mklev.js`.
 - `makemon.js` `rndmonnum()` must stay aliased to **`rndmonnumMklevLikeC`** (medusa `mkcorpstat` rerolls).
