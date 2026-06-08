@@ -18,6 +18,23 @@
 
 **Complete port** = upstream call order in plain JS, not a replay state machine per role/D:1/comma-`U`.
 
+### Structure-first within batch (not big-bang)
+
+**Good strategy:** port **C structure and call order** into JS **without** running full `npm run score` on every edit — then **debug that slice** using public recorded runs as **locators**, not as the implementation spec.
+
+| Phase | What | Score? |
+|-------|------|--------|
+| **A — Port** | Read C; wire control flow, flags, data; update oracle | **No** full score |
+| **B — Locate** | Pick **one** public session + RNG window that exercises this slice (`diag_rng_window`, `diag_prefix_rng`) | **No** full score |
+| **C — Fix** | Align RNG at **named C call sites** until window passes; moveloop canaries if applicable | **No** full score |
+| **D — Milestone** | `npm run score` (~every 5 batches or phase done) | **Yes** |
+
+**Why not “translate everything, debug once at the end”:** RNG is a **single global chain**. A wrong draw in `mkobj` or chargen can surface hundreds of indices later in `movemon`. Late integration turns one upstream mistake into a whole-repo hunt — the peel-chain failure mode at scale.
+
+**Public sessions are for phase B only:** they answer *where* parity broke (subsystem + index range), not *what* JS should do. Ground truth stays `nethack-c/upstream/`.
+
+**When phase A can skip phase B until a later batch:** tables and plumbing with **no** `rn2`/`rnd`/`rne` on the exercised path (e.g. `otyp` maps, struct wiring). Anything that touches moveloop, `mkobj`, chargen menus, or `mklev` fill → **always** run phase B before commit.
+
 ---
 
 ## 2. The three layers (never confuse them)
