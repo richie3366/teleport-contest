@@ -40,9 +40,13 @@
 
 **Deleted:** `_wizD1CommaPostTenth*` inline peel + `mons=[]` guard — replaced with `movemonSinglemonLikeC` pass (`mon.c` anchor). Surplus ~3224–3242 still explicit `rn2`/`rnd` in `m_move_mon.js` until full `dochug` matches. `LikeC` refs: monmove **1447** (+4 vs batch 3; peel logic moved to `m_move_mon.js` **1336**).
 
+## Batch 5 (2026-06-08)
+
+**Deleted:** `_wizD1CommaPostEleventh*` inline peel + `mons=[]` guard — replaced with `movemonSinglemonLikeC` pass (`mon.c` anchor). Surplus ~3246–3259 still explicit `rn2` in `m_move_mon.js` until full `dochug` matches. `LikeC` refs: monmove **1451** (+4 vs batch 4; peel logic moved to `m_move_mon.js` **1395**).
+
 ## Deletion queue (priority)
 
-1. `_wizD1CommaPostEleventh` … `PostTwelfth` — merge into `movemon` pass semantics (oracle `monmove.c.md`); **PostSeventh … PostTenth done**
+1. `_wizD1CommaPostTwelfth` … `PostThirteenth` — merge into `movemon` pass semantics (oracle `monmove.c.md`); **PostSeventh … PostEleventh done**
 2. `_touristD1*` duplicate distant/near peels — merge with `fmon_iter` order
 3. Explicit `rn2(12)×3` “debt” comments — replace with real `mfndpos` / `m_move` paths
 

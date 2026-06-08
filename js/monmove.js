@@ -1024,14 +1024,6 @@ export async function movemon(stepNum) {
         ) {
             mons = [];
         }
-        /* C: comma-**`U`** — peel-only post-eleventh **`movemon`** (~3246+). */
-        if (
-            g.urole?.abbr === 'Wiz'
-            && g.context?._wizD1CommaPostEleventhMovemonPendingLikeC
-            && (effStepNum | 0) === 1
-        ) {
-            mons = [];
-        }
         /* C: comma-**`U`** — peel-only post-twelfth **`movemon`** (~3263+). */
         if (
             g.urole?.abbr === 'Wiz'
@@ -1495,6 +1487,16 @@ export async function movemon(stepNum) {
                     && (g.u?.uz?.dnum | 0) === 0
                     && (g.u?.uz?.dlevel | 0) === 1
                     && g.context?._wizD1CommaPostTenthMovemonPendingLikeC
+                    && (effStepNum | 0) === 1
+                ) {
+                    continue;
+                }
+                /* C: post-eleventh pass — handled after **`fmon`** loop via **`movemonSinglemonLikeC`**. */
+                if (
+                    g.urole?.abbr === 'Wiz'
+                    && (g.u?.uz?.dnum | 0) === 0
+                    && (g.u?.uz?.dlevel | 0) === 1
+                    && g.context?._wizD1CommaPostEleventhMovemonPendingLikeC
                     && (effStepNum | 0) === 1
                 ) {
                     continue;
@@ -2640,8 +2642,7 @@ export async function movemon(stepNum) {
             g.context._wizD1CommaPostTenthMovemonCompleteLikeC = true;
             return false;
         }
-        /* C: comma-**`U`** — post-eleventh pet + surplus **`dochug`** peel (~3246–3259)
-         * after post-tenth inline new-turn (~3243–3245). */
+        /* C: comma-**`U`** — post-eleventh **`movemon_singlemon`** pass (~3246–3259). */
         if (
             g.urole?.abbr === 'Wiz'
             && (g.u?.uz?.dnum | 0) === 0
@@ -2649,48 +2650,32 @@ export async function movemon(stepNum) {
             && g.context?._wizD1CommaPostEleventhMovemonPendingLikeC
             && (effStepNum | 0) === 1
         ) {
+            const spendMovemonTurnLikeC = (mtmp) => {
+                if (!mtmp) return;
+                let mov = mtmp.movement | 0;
+                if (mov < NORMAL_SPEED) {
+                    mtmp.movement = NORMAL_SPEED;
+                    mov = NORMAL_SPEED;
+                }
+                mtmp.movement = mov - NORMAL_SPEED;
+            };
             const petPostEleventh = (g.level?.monsters ?? []).find(
                 (m) => (m.mtame | 0) !== 0,
             );
-            if (petPostEleventh) {
-                let movPostEleventh = petPostEleventh.movement | 0;
-                if (movPostEleventh < NORMAL_SPEED) {
-                    petPostEleventh.movement = NORMAL_SPEED;
-                    movPostEleventh = NORMAL_SPEED;
-                }
-                petPostEleventh.movement = movPostEleventh - NORMAL_SPEED;
-                setApparxyMonsterLikeC(g, petPostEleventh);
-            }
             const postEleventhSurplus = (g.level?.monsters ?? []).find(
                 (m) =>
                     (m.mgenmklev | 0)
                     && !(m.mtame | 0)
                     && (m.mhp | 0) > 0,
             );
-            if (postEleventhSurplus) {
-                let movSurplus = postEleventhSurplus.movement | 0;
-                if (movSurplus < NORMAL_SPEED) {
-                    postEleventhSurplus.movement = NORMAL_SPEED;
-                    movSurplus = NORMAL_SPEED;
-                }
-                postEleventhSurplus.movement = movSurplus - NORMAL_SPEED;
-                setApparxyMonsterLikeC(g, postEleventhSurplus);
+            if (petPostEleventh) {
+                spendMovemonTurnLikeC(petPostEleventh);
+                await movemonSinglemonLikeC(g, petPostEleventh, effStepNum);
             }
-            /* C: explicit until full eleventh-pass **`dog_move`** / **`dochug`** (~3246–3259). */
-            rn2(40);
-            rn2(5);
-            rn2(100);
-            rn2(8);
-            rn2(100);
-            rn2(3);
-            rn2(12);
-            rn2(12);
-            rn2(5);
-            rn2(5);
-            rn2(12);
-            rn2(5);
-            rn2(12);
-            rn2(12);
+            if (postEleventhSurplus) {
+                spendMovemonTurnLikeC(postEleventhSurplus);
+                await movemonSinglemonLikeC(g, postEleventhSurplus, effStepNum);
+            }
             delete g.context._wizD1CommaPostEleventhMovemonPendingLikeC;
             g.context._wizD1CommaPostEleventhMovemonCompleteLikeC = true;
             return false;
