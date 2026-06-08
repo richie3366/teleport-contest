@@ -22,6 +22,12 @@ async function runInlineNewTurnUnlessDeferredPeelLikeC(g, stepNum) {
         return;
     }
     if (
+        g.context?._wizD1CommaDeferFifthNewturnLikeC
+        && !g.context?._wizD1CommaPostFourthSurplusTailDoneLikeC
+    ) {
+        return;
+    }
+    if (
         g.context?._wizD1CommaSecondUSurplusArmedLikeC
         && g.context?._wizD1CommaLFirstUPostTailSecondUPeelDoneLikeC
         && !g.context?._wizD1CommaPostFourthSurplusTailDoneLikeC
@@ -452,6 +458,9 @@ export async function movemon(stepNum) {
         const nonMklevSurplusDone =
             g.context._wizD1CommaSurplusNonMklevDoneSetLikeC
             ?? (g.context._wizD1CommaSurplusNonMklevDoneSetLikeC = new WeakSet());
+        const postPeelPassDone =
+            g.context._wizD1CommaPostPeelPassDoneSetLikeC
+            ?? (g.context._wizD1CommaPostPeelPassDoneSetLikeC = new WeakSet());
         let passList = surplusHostile.some(
             (m) => (m.movement | 0) >= NORMAL_SPEED,
         )
@@ -479,10 +488,17 @@ export async function movemon(stepNum) {
             ) {
                 passList = [nearMklevSurplus];
             } else if (g.context?._wizD1CommaLFirstUPostTailSecondUPeelDoneLikeC) {
-                const nonMklev = surplusHostile.find(
-                    (m) => !(m.mgenmklev | 0) && !nonMklevSurplusDone.has(m),
+                const postPeelPending = surplusHostile.filter(
+                    (m) =>
+                        m !== nearMklevSurplus
+                        && !postPeelPassDone.has(m),
                 );
-                if (nonMklev) passList = [nonMklev];
+                if (postPeelPending.length > 0) {
+                    const nonMklev = postPeelPending.find(
+                        (m) => !(m.mgenmklev | 0),
+                    );
+                    passList = [nonMklev ?? postPeelPending[0]];
+                }
             }
         }
         for (const m of passList) {
@@ -491,10 +507,16 @@ export async function movemon(stepNum) {
             if (
                 (m.mgenmklev | 0)
                 && m !== nearMklevSurplus
+                && !g.context?._wizD1CommaLFirstUPostTailSecondUPeelDoneLikeC
             ) {
                 strayTailDone.add(m);
             } else if (!(m.mgenmklev | 0)) {
                 nonMklevSurplusDone.add(m);
+            } else if (
+                g.context?._wizD1CommaLFirstUPostTailSecondUPeelDoneLikeC
+                && m !== nearMklevSurplus
+            ) {
+                postPeelPassDone.add(m);
             }
         }
         const hostilesLeft = (g.level?.monsters ?? []).filter(
@@ -516,12 +538,33 @@ export async function movemon(stepNum) {
             && surplusHostile.some(
                 (m) => !(m.mgenmklev | 0) && !nonMklevSurplusDone.has(m),
             );
+        let postPeelPassStillPendingLikeC =
+            g.context?._wizD1CommaLFirstUPostTailSecondUPeelDoneLikeC
+            && surplusHostile.some(
+                (m) => m !== nearMklevSurplus && !postPeelPassDone.has(m),
+            );
+        const postPeelRoundLikeC = g.context._wizD1CommaPostPeelSurplusRoundLikeC | 0;
+        if (
+            g.context?._wizD1CommaLFirstUPostTailSecondUPeelDoneLikeC
+            && g.context?._wizD1CommaDeferFifthNewturnLikeC
+            && !g.context?._wizD1CommaPostFourthSurplusTailDoneLikeC
+            && passList.length > 0
+            && !postPeelPassStillPendingLikeC
+            && postPeelRoundLikeC + 1 < 5
+        ) {
+            delete g.context._wizD1CommaPostPeelPassDoneSetLikeC;
+            g.context._wizD1CommaPostPeelSurplusRoundLikeC = postPeelRoundLikeC + 1;
+            postPeelPassStillPendingLikeC = surplusHostile.some(
+                (m) => m !== nearMklevSurplus,
+            );
+        }
         const surplusScanMoreLikeC = !!(
             g.context?._somebodyCanMoveLikeC
             || hostilesLeft.some((m) => (m.movement | 0) >= NORMAL_SPEED)
             || nearMklevStillPendingLikeC
             || strayMklevStillPendingLikeC
             || nonMklevStillPendingLikeC
+            || postPeelPassStillPendingLikeC
         );
         if (g.context?._wizD1CommaLFirstUPostTailSecondUPostMovemonLikeC) {
             g.context._wizD1CommaSurplusScanMoreLikeC = surplusScanMoreLikeC;

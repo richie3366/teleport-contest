@@ -1213,11 +1213,12 @@ export async function movemonSinglemonLikeC(g, mtmp, stepNum = 0) {
         await mMoveCommaUFmonTailDochugLikeC(g, mtmp, stepNum);
         return;
     }
-    /* C: comma-**`U`** post-fourth surplus — stray mklev one **`mtrack`** **`rn2(12)`**, no **`dochug`**. */
+    /* C: comma-**`U`** post-fourth surplus — stray mklev one **`mtrack`** **`rn2(12)`** before peel (~3055–3057). */
     if (
         !(mtmp.mtame | 0)
         && (mtmp.mgenmklev | 0)
         && mtmp !== wizD1CommaLFirstUNearMklevMonLikeC(g)
+        && !g.context?._wizD1CommaLFirstUPostTailSecondUPeelDoneLikeC
         && (
             g.context?._wizD1CommaLFirstUPostTailSecondUPostMovemonLikeC
             || (

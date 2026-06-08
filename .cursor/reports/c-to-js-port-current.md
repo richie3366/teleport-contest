@@ -32,7 +32,7 @@ Use this when **`Next steps`** below feels stale or several lanes compete. Order
 
 **Tutorial (Lane E):** Gated on [tutorial port gate](../../docs/plans/tutorial-port-gate.md) **MD-1 … MD-7**.
 
-**Last slice:** **Lane C — `seed0006` comma-`U` fifth-new-turn defer by peel-done (~3059+ WIP)** — defer fifth **`maybe_generate`** / inline new-turn while **`SecondUPeelDone`** + armed + !**`PostFourthSurplusTailDone`** (`moveloop_turn_advance.js`, `moveloop_aux.js`, `monmove.js`); gate post-fourth moveloop block on !**`SecondUPeelDone`**; **`m_move_mon.js`** post-peel non-mklev **`dochug`** when armed (not only **`SecondUPostMovemon`**). **Verified:** **3054–3058**; fail **3059+** (fifth still via tail path before peel flag visible to defer); **`seed8000` 2900–3129** canary.
+**Last slice:** **Lane C — `seed0006` comma-`U` `DeferFifthNewturn` + post-peel surplus (~3054–3073 WIP)** — arm fifth defer on ~**3054** **`distfleeck`**; defer fifth **`maybe_generate`** / **`runNewTurnSetup`** / inline new-turn; post-fourth surplus **`passList`** post-peel rounds + **`SurplusTailPending`** resume; **`m_move_mon`**: stray mklev slot only pre-peel. **Verified:** **3054–3059**, **3062**, **3066–3068**, **3071–3073**; fail **3060–3061**, **3063–3065**, **3069–3070** (`rn2(5)` vs `rn2(12)`), fifth @ **3074**; **`seed8000` 2900–3129** canary.
 
 ## Next steps (aligned with matrix)
 
@@ -40,7 +40,7 @@ Pick **one** primary lane per **batch** (several related C functions — see che
 
 **First:** open [`docs/plans/tutorial-port-gate.md`](../../docs/plans/tutorial-port-gate.md) — if **all MD-1 … MD-7** are checked, do **Lane E** step 1 from [10-tutorial.md](../plans/nethack-port/10-tutorial.md) instead of the list below.
 
-1. **Lane C — `seed0006` comma-`U` fifth-new-turn @ ~3074 (~3059–3073 surplus)** — root cause: **`SecondUPeelDone`** not set until ~**3058** near-slot path; fifth at **3059** bypasses defer via moveloop tail **`runNewTurnSetup`** (not **`runInlineNewTurn`**). Next: arm peel-done on **3054** **`rn2(5)`** peel path in **`m_move_mon.js`** / **`distfleeck`**; fifth completion @ **3074** via **`PostFourthSurplusTailDone`** + surplus resume without truncating monscan (avoid blanket tail defer before **3058** — truncates session). Locator: `node tools/diag_rng_window.mjs sessions/seed0006-wizard-water-demon.session.json 3054 3080`.
+1. **Lane C — `seed0006` comma-`U` post-peel surplus + fifth @ ~3074 (~3060–3074)** — C wants **`distfleeck`/`dochug` `rn2(5)`** and **`rnd(5)`** mixed with mklev **`mtrack`** ~3060–3070; JS still slot-only mklev post-peel. Next: **`m_move_mon.js`** post-peel **`mMoveCommaUFmonTailDochugLikeC`** distfleeck-before-slot ordering per C **`dochug`**; terminate surplus scan @ **3073** (no extra **`rn2(12)`** @ **3074**); fifth completion when !**`SurplusTailPending`**. Locator: `node tools/diag_rng_window.mjs sessions/seed0006-wizard-water-demon.session.json 3054 3080`.
 2. **Lane B — NHL** — next **`lspo_*`** per [`nhl-port-notes.md`](nhl-port-notes.md).
 3. **Lane A/D — `seed0900`** — screen parity (RNG **0–2982** done); map/botl integration beyond moveloop peel chain.
 4. **Lane A/D — `dogmove.c`** — **`score_targ`** vampshifter **`mtmp_lev`** **`rn2`** tail (~808–817); **`mattackm`** / **`pet_ranged_attk`** when pet breath sessions fail.

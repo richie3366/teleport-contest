@@ -96,7 +96,7 @@ Align batches with [`c-to-js-port-remaining.md`](c-to-js-port-remaining.md) §5:
 
 | C symbol / area | JS module | Status | Notes |
 |-----------------|-----------|--------|-------|
-| `movemon` / `dochug` | `monmove.js`, `fmon_iter.js`, `moveloop_turn_advance.js`, `moveloop_aux.js`, `dogmove_mon.js`, `m_move_mon.js`, `monmove_search.js`, `mfndpos_mon.js`, `distfleeck_mon.js` | partial | Comma post-fourth surplus **~3054–3058**; fifth defer when **`SecondUPeelDone`** (`moveloop`/`monmove`/`moveloop_aux`); **`m_move_mon`** post-peel **`dochug`** when armed; fail **3059+** (fifth before peel flag / tail **`runNewTurnSetup`**). **`seed8000` 2900–3129:** aligned |
+| `movemon` / `dochug` | `monmove.js`, `fmon_iter.js`, `moveloop_turn_advance.js`, `moveloop_aux.js`, `dogmove_mon.js`, `m_move_mon.js`, `monmove_search.js`, `mfndpos_mon.js`, `distfleeck_mon.js` | partial | Comma post-fourth surplus **~3054–3073** ( **`DeferFifthNewturn`** @ ~3054 peel, post-peel **`passList`** rounds, surplus resume); fifth @ **~3074** WIP (**`rn2(5)`** vs **`rn2(12)`** ~3060–3070). **`m_move_mon`**: stray mklev slot only pre-peel. **`seed8000` 2900–3129:** aligned |
 | `m_move` / `mfndpos` | `m_move_mon.js`, `mfndpos.js` | partial | Second post-rest mklev interrupt **`mMoveTouristD1PostRestSecondMklevInterruptLikeC`** (**`rn2(32)`** ~2528); **`seed0900`** **~2545** post-**`mcalcmove`** drift |
 | `distfleeck` | `distfleeck_mon.js` | partial | Peel-only rest **`distfleeck`** (**`_touristD1PostSwapRestDistfleeckPeelLikeC`**); 3× ~915 before stub; **`seed0900`** **2499–2504** |
 | `m_throw` | — | missing | |
@@ -129,7 +129,7 @@ Align batches with [`c-to-js-port-remaining.md`](c-to-js-port-remaining.md) §5:
 
 | C symbol / area | JS module | Status | Notes |
 |-----------------|-----------|--------|-------|
-| `moveloop` / post-hero `movemon` | `moveloop_turn_advance.js`, `moveloop_aux.js` | partial | **`seed0006`** comma-**`U`**: fifth new-turn defer when **`SecondUPeelDone`** + armed; post-fourth block gated !peel-done; **3054–3058** ok, **3059+** WIP (~3074) |
+| `moveloop` / post-hero `movemon` | `moveloop_turn_advance.js`, `moveloop_aux.js` | partial | **`seed0006`** comma-**`U`**: **`DeferFifthNewturn`** @ ~3054; fifth defer + surplus resume / completion @ ~3074; **3054–3059** + **3062/3066–3068/3071–3073** ok; **3060–3070** + fifth timing WIP. **`seed8000` 2900–3129:** aligned |
 | `dosounds` / exercise hooks | `moveloop_aux.js` | stub | |
 
 ---
