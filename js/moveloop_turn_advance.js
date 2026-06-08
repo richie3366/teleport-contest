@@ -14,7 +14,11 @@ import {
 import { fmonListForMcalcmoveLikeC } from './fmon_iter.js';
 import { mcalcMoveLikeC } from './mcalc_move.js';
 import { NORMAL_SPEED } from './const.js';
-import { end_of_turn_rng, maybe_generate_rnd_mon } from './moveloop_aux.js';
+import {
+    end_of_turn_rng,
+    maybe_generate_rnd_mon,
+    runCommaUPostSeventhInlineNewturnLikeC,
+} from './moveloop_aux.js';
 import { encumberMsg } from './pickup.js';
 import { nearCapacity, ENC } from './encumbr.js';
 import { raceptr } from './mondata.js';
@@ -1223,6 +1227,9 @@ export async function runPostCommandTurnAdvanceLikeC(g) {
                 } else if (g.context?._wizD1CommaUPostCorridorInlineNewturnDoneLikeC) {
                     delete g.context._wizD1CommaUPostCorridorInlineNewturnDoneLikeC;
                     newTurnDone = true;
+                } else if (g.context?._wizD1CommaPostSeventhInlineNewturnDoneLikeC) {
+                    delete g.context._wizD1CommaPostSeventhInlineNewturnDoneLikeC;
+                    newTurnDone = true;
                 } else if (
                     g.context?._wizD1CommaLFirstUPostTailStrayDistfleeckPendingLikeC
                 ) {
@@ -1304,6 +1311,13 @@ export async function runPostCommandTurnAdvanceLikeC(g) {
                             g.context._movemonHarnessConsumed = false;
                             await movemon(1);
                             g.context._wizD1MovemonRanThisPostLikeC = true;
+                            /* C: post-seventh pet done (~3136) — inline new-turn (~3137–3139). */
+                            if (g.context?._wizD1CommaPostSeventhMovemonCompleteLikeC) {
+                                delete g.context._wizD1CommaPostSeventhMovemonCompleteLikeC;
+                                await runCommaUPostSeventhInlineNewturnLikeC(g);
+                                g.context._wizD1LPostOuterLoopDoneLikeC = true;
+                                newTurnDone = true;
+                            }
                         }
                     }
                     /* C: comma-**`U`** second hero **`U`** — resume surplus **`fmon`** (~3059–3073). */

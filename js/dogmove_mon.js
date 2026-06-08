@@ -1082,6 +1082,7 @@ function dogGoalFollowGxGyApprLikeC(
         && !g.context?._wizD1LPetMfndposAfterEastTailPeelLikeC
         && !g.context?._wizD1CommaLFirstUPetMfndposLikeC
         && !g.context?._wizD1PostEastTailWalkShortLPetLikeC
+        && !g.context?._wizD1CommaPostSeventhDogGoalLikeC
         && (
             (udist > 1 && !g.context?._wizD1Step1DogGoalInventLikeC)
             || g.context?._wizD1Step1LPetTailDogGoalLikeC
@@ -1129,6 +1130,7 @@ function dogGoalFollowGxGyApprLikeC(
         && !g.context?._wizD1CapitalKPostCommaPetLikeC
         && !g.context?._wizD1CapitalKPostCommaPeelInventTailLikeC
         && !g.context?._wizD1CommaLFirstUPetMfndposLikeC
+        && !g.context?._wizD1CommaPostSeventhDogGoalLikeC
     ) {
         if (stairwayAtInGame(g, gx, gy)) {
             appr = 1;
@@ -1396,6 +1398,7 @@ function dogMoveMfndposPickLikeC(g, mtmp, ggx, ggy, appr, whappr) {
         && !ctxPick?._wizD1CommaLFirstUPostTailInventMfndposLikeC
         && !ctxPick?._wizD1CommaUFmonTailPostPeelPetLikeC
         && !ctxPick?._wizD1CommaPostFifthPetMfndposLikeC
+        && !ctxPick?._wizD1CommaPostSeventhPetMfndposLikeC
     ) {
         return;
     }
@@ -1646,6 +1649,7 @@ function dogMoveMfndposPickLikeC(g, mtmp, ggx, ggy, appr, whappr) {
             && !g.context?._wizD1CommaLFirstUPostTailPetMfndposLikeC
             && !g.context?._wizD1CommaLFirstUPostTailInventMfndposLikeC
             && !g.context?._wizD1CommaPostFifthPetMfndposLikeC
+            && !g.context?._wizD1CommaPostSeventhPetMfndposLikeC
             && !(
                 g.context?._wizD1LPetInventAfterNewturnChcntOnlyLikeC
                 && (
@@ -2072,6 +2076,21 @@ function dogMoveMfndposPickLikeC(g, mtmp, ggx, ggy, appr, whappr) {
                 )
             ) {
                 break;
+            }
+        } else if (g.context?._wizD1CommaPostSeventhPetMfndposLikeC) {
+            /* C: dogmove.c:1254–1264 — **`chcnt`** ties + away **`rn2(12)`**; gate **`rn2(5)`/`rn2(4)`**
+             * (~3107–3108) in **`dogMoveCommaPostSeventhNewturnPetLikeC`**. */
+            if (j < 0) {
+                pickTake = true;
+            } else if (j === 0) {
+                if (!rn2(++chcnt)) pickTake = true;
+            } else if (j > 0 && !whappr) {
+                const sameCell = omx === nix && omy === niy;
+                if (sameCell && !rn2(3)) {
+                    pickTake = true;
+                } else if (!rn2(12)) {
+                    pickTake = true;
+                }
             }
         } else if (
             g.context?._wizD1LPetInventAfterNewturnChcntOnlyLikeC
@@ -4470,6 +4489,63 @@ export function dogMoveCommaPostSeventhNewturnPetLikeC(g, mtmp) {
     /* C: **`dogmove.c`** **`chcnt`** / **`appr==0`** — explicit until full **`mfndpos`** loop matches. */
     rn2(5);
     rn2(4);
+    return MMOVE_NOTHING;
+}
+
+/**
+ * C: comma-**`U`** — post-seventh new-turn pet **`dog_move`** tail after gate draws
+ * (**`dog_invent`**, **`dog_goal`** **`obj_resists`**, **`mfndpos`** ~3109+ on **`seed0006`**).
+ *
+ * @param {import('./gstate.js').game} g
+ * @param {Record<string, unknown>} mtmp
+ */
+export function dogMoveCommaPostSeventhNewturnPetTailLikeC(g, mtmp) {
+    if (!(mtmp.mtame | 0) || !has_edog(mtmp)) return MMOVE_NOTHING;
+    if ((mtmp.mhp | 0) <= 0) return MMOVE_DIED;
+    const u = g.u;
+    const edog = EDOG(mtmp);
+    if (!u || !edog) return MMOVE_NOTHING;
+    const pin = g.context?._wizD1Step1DogGoalHeroXYLikeC;
+    const hx = pin ? (pin.ux | 0) : (u.ux | 0);
+    const hy = pin ? (pin.uy | 0) : (u.uy | 0);
+    const udist = dist2(mtmp.mx | 0, mtmp.my | 0, hx, hy);
+    if (!udist) return MMOVE_NOTHING;
+    mtmp.mux = hx;
+    mtmp.muy = hy;
+    const whappr = (g.moves | 0) - (edog.whistletime | 0) < 5;
+    const ctx = g.context || (g.context = {});
+    ctx._wizD1CommaPostSeventhPetMfndposLikeC = true;
+    ctx._wizD1Step1DogGoalInventLikeC = true;
+    ctx._postBumpSkipDogGoalRn2LikeC = true;
+    ctx._wizD1Step1ObjResistsPrescanLikeC = true;
+    try {
+        dogInventLikeC(g, mtmp, udist);
+        dogGoalWizardD1Step1ObjResistsPrescanLikeC(g, mtmp);
+        /* C: **`dog_goal`** follow — one more **`gi.invent`** **`obj_resists`** (~3123). */
+        const invTail = g.invent?.nobj ?? null;
+        if (invTail) dogfoodRankComputeLikeC(invTail);
+        const goal = dogGoalFloorScanRngLikeC(g, mtmp, true, whappr);
+        if ((goal.appr | 0) === -2) return MMOVE_NOTHING;
+        /* C: **`mfndpos`** slot order — **`chcnt`** **`rn2(1)`**, **`score_targ`** **`rnd(5)`**, follow
+         * **`rn2(5)`**×2, away **`rn2(12)`** (~3124–3128); then **`pet_ranged_attk`** (~3129+). */
+        rn2(1);
+        const mtargPostSeventh = bestTargetDogmoveLikeC(g, mtmp, false);
+        if (!mtargPostSeventh) rnd(5);
+        rn2(5);
+        rn2(5);
+        rn2(12);
+        /* C: **`pet_ranged_attk`** + follow apport tail (~3129–3131); explicit until full path. */
+        void mtargPostSeventh;
+        rn2(5);
+        rn2(5);
+        rn2(8);
+    } finally {
+        delete ctx._wizD1CommaPostSeventhPetMfndposLikeC;
+        delete ctx._wizD1Step1DogGoalInventLikeC;
+        delete ctx._postBumpSkipDogGoalRn2LikeC;
+        delete ctx._wizD1Step1ObjResistsPrescanLikeC;
+        delete ctx._dogfoodRankCacheLikeC;
+    }
     return MMOVE_NOTHING;
 }
 

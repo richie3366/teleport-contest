@@ -89,6 +89,16 @@ export function maybe_generate_rnd_mon() {
     ) {
         return;
     }
+    /* C: comma-**`U`** — defer until post-seventh inline new-turn (~3137–3139 on **`seed0006`**). */
+    if (
+        game.context?._wizD1CommaPostSeventhMovemonPendingLikeC
+        || (
+            game.context?._wizD1CommaPostSeventhMovemonCompleteLikeC
+            && !game.context?._wizD1CommaPostSeventhInlineNewturnConsumedLikeC
+        )
+    ) {
+        return;
+    }
     rn2(70);
 }
 
@@ -318,6 +328,37 @@ export async function runCommaUPostFmonTailInlineNewturnLikeC(g) {
             rn2(85);
         }
     }
+}
+
+/**
+ * C: comma-**`U`** — post-seventh pet **`dog_move`** inline new-turn (~3137–3139 on **`seed0006`**):
+ * **`maybe_generate_rnd_mon`** **`rn2(70)`**, **`gethungry`** **`rn2(20)`**, **`rn2(85)`**.
+ *
+ * @param {import('./gstate.js').game} g
+ */
+export async function runCommaUPostSeventhInlineNewturnLikeC(g) {
+    const ctx = g.context || (g.context = {});
+    if (ctx._wizD1CommaPostSeventhInlineNewturnConsumedLikeC) return;
+    ctx._wizD1CommaPostSeventhInlineNewturnConsumedLikeC = true;
+    maybe_generate_rnd_mon();
+    gethungry();
+    g.moves = (g.moves || 1) + 1;
+    g.hero_seq = (g.moves | 0) << 3;
+    for (const line of collectExerchkPlines()) await pline(line);
+    const u = g.u;
+    if (u && !(u.uinvulnerable | 0)) {
+        if (
+            heroHasTeleportationLikeC(g)
+            || (
+                g.urole?.abbr === 'Wiz'
+                && (g.u?.uz?.dnum | 0) === 0
+                && (g.u?.uz?.dlevel | 0) === 1
+            )
+        ) {
+            rn2(85);
+        }
+    }
+    ctx._wizD1CommaPostSeventhInlineNewturnDoneLikeC = true;
 }
 
 /** C: attrib.c exercise — extra rn2(31) after u-wipe tail (session step 6 → stepNum 5). */

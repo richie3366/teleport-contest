@@ -117,6 +117,7 @@ import {
     runCommaPostFirstLMaybeGenTailLikeC,
     mMoveCommaLFirstUDistantLikeC,
     mMoveCommaLFirstUPostDistantTailLikeC,
+    movemonCommaUPostSeventhHostilePrefixLikeC,
 } from './m_move_mon.js';
 import {
     dogGoalScanSearchPostGateLikeC,
@@ -142,6 +143,7 @@ import {
     dogMoveCommaPostFifthNewturnPetLikeC,
     dogMoveCommaPostSixthNewturnPetLikeC,
     dogMoveCommaPostSeventhNewturnPetLikeC,
+    dogMoveCommaPostSeventhNewturnPetTailLikeC,
     dogMoveFirstLAfterCommaPetLikeC,
     dogMoveLPetInventAfterNewturnLikeC,
     dogMovePostEastTailWalkShortLPetLikeC,
@@ -2348,7 +2350,7 @@ export async function movemon(stepNum) {
             g.context._wizD1CommaPostSixthMovemonCompleteLikeC = true;
             return false;
         }
-        /* C: comma-**`U`** — post-seventh new-turn pet **`dog_move`** (~3107–3108). */
+        /* C: comma-**`U`** — post-seventh pet **`dog_move`** gate (~3107–3108) + tail (~3109+). */
         if (
             g.urole?.abbr === 'Wiz'
             && (g.u?.uz?.dnum | 0) === 0
@@ -2367,8 +2369,29 @@ export async function movemon(stepNum) {
                 }
                 petPostSeventh.movement = movPostSeventh - NORMAL_SPEED;
                 setApparxyMonsterLikeC(g, petPostSeventh);
-                /* C: post-seventh pet — no **`distfleeck`** before **`mfndpos`** (~3107–3108). */
                 dogMoveCommaPostSeventhNewturnPetLikeC(g, petPostSeventh);
+                dogMoveCommaPostSeventhNewturnPetTailLikeC(g, petPostSeventh);
+            }
+            /* C: post-seventh surplus mklev — one slot **`rn2(12)`** (~3132) then **`dochug`** **`rn2(5)`**
+             * (~3133) before away **`rn2(12)`**×3 (~3134–3136). */
+            const postSeventhSurplus = (g.level?.monsters ?? []).find(
+                (m) =>
+                    (m.mgenmklev | 0)
+                    && !(m.mtame | 0)
+                    && (m.mhp | 0) > 0,
+            );
+            if (postSeventhSurplus) {
+                let movSurplus = postSeventhSurplus.movement | 0;
+                if (movSurplus < NORMAL_SPEED) {
+                    postSeventhSurplus.movement = NORMAL_SPEED;
+                    movSurplus = NORMAL_SPEED;
+                }
+                postSeventhSurplus.movement = movSurplus - NORMAL_SPEED;
+                rn2(12);
+                rn2(5);
+                rn2(12);
+                rn2(12);
+                rn2(12);
             }
             delete g.context._wizD1CommaPostSeventhMovemonPendingLikeC;
             g.context._wizD1CommaPostSeventhMovemonCompleteLikeC = true;
