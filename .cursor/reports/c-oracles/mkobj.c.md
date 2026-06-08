@@ -35,8 +35,9 @@ Most mid-game RNG divergence is **object creation order** (`mkobj`, `ini_inv`, f
 
 ## Open gaps
 
-- **`u_init_race`** — PM_ELF **`Instrument[]`** wired (`consumeUInitRaceElfInstrumentIniInvLikeC`); PM_ORC **`Xtra_food`** wired; dwarf/gnome `knows_object` tails still no-RNG stubs.
-- **Non-human `u_init_role`** — **Pri / Bar / Val / Hea** dispatch all races (C `ini_inv` same; subs in **`ini_inv_obj_substitution`**); orc Bar + **`Xtra_food`** race tail. Still human-gated: Rog/Sam/Kni/Mon/Arc/Ran/Tou/Cav.
+- **`ini_inv_mkobj_filter`** — **unified** (`iniInvMkobjFilterLikeC` + `iniInvMkobjFilterCtxForRoleLikeC`); monk scroll / healer wand / tourist food on general path.
+- **`u_init_race`** — PM_ELF **`Instrument[]`** wired; PM_ORC **`Xtra_food`** wired; dwarf/gnome `knows_object` tails still no-RNG stubs.
+- **Non-human `u_init_role`** — **Pri / Bar / Val / Hea / Wiz** dispatch all races. **Still human-gated:** Rog/Sam/Kni/Mon/Arc/Ran/Tou/Cav in `u_init_post_mklev.js` (`humanIdx` check) — C has no such gate; subs only in **`ini_inv_obj_substitution`**.
 - `game.invent` not fully driven by `ini_inv` + `mkobj` for all roles (Knight linker now accepts 10–11 apple/carrot stacks).
 - NH5 `otyp` vs legacy floor indices in `mklev.js`.
 - `makemon.js` `rndmonnum()` must stay aliased to **`rndmonnumMklevLikeC`** (medusa `mkcorpstat` rerolls).

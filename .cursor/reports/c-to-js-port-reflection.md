@@ -1,46 +1,46 @@
 # Port self-reflection (overwrite each pass)
 
-**Last run:** 2026-06-08 (pass 2)  
-**Trigger:** ≥5 commits since pass 1 (5× P1 mkobj/ini_inv batches).
+**Last run:** 2026-06-08 (pass 3)  
+**Trigger:** ≥5 commits since pass 2 (5× P1 u_init filter/race/role batches).
 
 ## Signals (last ~5 batches)
 
 | Signal | Reading |
 |--------|---------|
-| Changelog | **5× P1** — `rndmonnum_adj`, STATUE/BELL, `mkobj_erosions`, `oartifact`, `trquan`/`ini_inv_adjust_obj` — **interleave rule obeyed** |
+| Changelog | **5× P1 u_init** — unified `ini_inv_mkobj_filter`, `ini_inv_obj_substitution`, PM_ORC `Xtra_food`, PM_ELF `Instrument[]`, Pri/Bar/Val/Hea all-race dispatch — **interleave rule still obeyed** |
 | Harness debt | **Unchanged** — no new peels; `LikeC`: monmove **1471**, `m_move_mon` **1354**, dogmove **1340** |
-| Checklist | **49 partial, 0 done** — P1 slices land but rows not closed |
-| Score | **2/44 → 3/44** — **`seed0102` PASS** (4485 RNG); canaries **`seed8000`**, **`seed0077`** still PASS |
-| Locator | **`seed0900` ~2512 → ~2960** (+448 RNG) — fail still **moveloop**, not startup |
+| Checklist | **50 partial, 3 stub, 0 done** — P1 slices land; rows not closed (no “exercised path” criterion yet) |
+| Score | **3/44 stable** — **`seed8000`**, **`seed0077`**, **`seed0102`** PASS; full score run 2026-06-08 |
+| Locator | **`seed0900` ~2512 → ~2960** (+448 RNG) — fail still **moveloop**, not startup; P1 work not blocking moveloop yet |
 
 ## What worked
 
-- **P1 interleave** after peel batches 1–10 — lane drift fixed.
-- **`oartifact`** on `struct obj` vs `artif` param — oracle wrong-hypothesis caught early.
-- **`seed0102` full PASS** — ranger chargen + invent anchor stable.
+- **`ini_inv_mkobj_filter` unified** — pass 2 “role-scoped filter” debt closed in batch 1 of this window.
+- **Race tails wired** — PM_ORC `Xtra_food`, PM_ELF `Instrument[]`, Val/Ran/Kni subst linkers; C order preserved.
+- **Pri/Bar/Val/Hea all-race** — human gate removed; same pattern as Wiz/Hea/Pri from prior slices.
 
 ## What drifted
 
-- P1 work still **role-scoped** (`Wizard`/`Priest`/`Monk` filters) — C has **one** `ini_inv_mkobj_filter()`; unify next.
-- **`gn.nocreate*`** reject arms in filter while-loop not fully wired for all roles.
-- Checklist rows never flip **done** — need explicit “exercised path” criterion per batch.
+- **8 roles still human-gated** in `u_init_post_mklev.js`: Rog/Sam/Kni/Mon/Arc/Ran/Tou/Cav — C `u_init_role` has **no** human-only `ini_inv` (subs only in `ini_inv_obj_substitution`).
+- **Linker `isHuman*ChargenLikeC`** gates may block non-human invent wiring even after RNG dispatch opens.
+- Checklist **0 done** — need per-batch “exercised locator + canaries” before flipping rows.
 
 ## Decisions (next ~3 batches)
 
-1. **P1 — general `ini_inv_mkobj_filter`** — one C function, `gn` nocreate + orc poison + monk scroll + spell level/restricted; locator **`seed0900`** startup + **`seed0012`** monk.
+1. **P1 — drop human gates Rog/Sam/Kni/Mon/Arc/Ran/Tou/Cav** — one batch per role group or all eight; locator **`seed0060`** orc Rogue, **`seed0700`** samurai.
 2. **P2 — moveloop @ `seed0900` ~2960** — `diag_c_rng_callers` on fail window (not peel).
-3. **PostSeventeenth peel delete** — only after (1) or (2) lands; harness net −5 goal unchanged.
+3. **PostSeventeenth peel delete** — only after (1) or (2); harness net −5 goal unchanged.
 
 ## Drop / defer
 
-- ~~Peel before P1~~ — still forbidden.
-- ~~Score milestone dashboard~~ — defer until batch (1) or **10** total P1 slices.
-- **`seed0006` 3610+** — still forbidden until harness net −5 **and** P1 filter unified.
+- ~~Unified filter~~ — done pass 3 window.
+- ~~Score milestone dashboard~~ — defer until batch (1) lands or **15** total P1 slices.
+- **`seed0006` 3610+** — still forbidden until harness net −5 **and** human gates cleared.
 
 ## Oracle hygiene
 
-- **`c-oracles/mkobj.c.md`** — add `ini_inv_mkobj_filter` while-loop + `gn.nocreate*` as next row.
-- **`monmove.c.md`** — unchanged; moveloop fail is locator for batch (2).
+- **`c-oracles/mkobj.c.md`** — mark filter unified; human-gate list is next row.
+- **`monmove.c.md`** — moveloop @ ~2960 is locator for batch (2).
 
 ---
 

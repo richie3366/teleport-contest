@@ -9,7 +9,7 @@ Thin handoff for the next coding session. **Canonical strategy:** [**`c-to-js-po
 
 **Interleave trigger (active):** batches **1–10** deleted PostSeventh…PostSixteenth peels. **Next loop iteration must NOT be PostSeventeenth** — do **#1 P1 mkobj** below (or #3 dog_goal). Resume PostSeventeenth…PostTwentyFourth only after one P1/P2-general batch.
 
-**Reflection:** [`c-to-js-port-reflection.md`](c-to-js-port-reflection.md) — last meta-review **2026-06-08 pass 2** (5× P1 batches); next due after **5** more commits or milestone score (strategy §10). Not every batch.
+**Reflection:** [`c-to-js-port-reflection.md`](c-to-js-port-reflection.md) — last meta-review **2026-06-08 pass 3** (5× P1 u_init batches; filter unified; **`seed0900` ~2960**); next due after **5** more commits or milestone score (strategy §10). Not every batch.
 
 ## Working principle (read every session)
 
@@ -83,14 +83,14 @@ Use when **`Next steps`** feels stale. Order: **(1)** reliability phase **P1–P
 
 **Tutorial (Lane E):** Gated on [tutorial port gate](../../docs/plans/tutorial-port-gate.md) **MD-1 … MD-7**.
 
-**Last slice:** **P1 `u_init_role` Pri/Bar/Val/Hea all races** — C `u_init.c` same `ini_inv` per role (human gate removed); Priest/Healer filter via **`iniInvMkobjFilterCtxForRoleLikeC`**. **`seed8000`/`seed0102`/`seed0077` canaries**; **`seed0900` 200–450**; gnome Healer **`seed0016`** u_init @ JS **~2430** (mklev drift **~1281** unchanged).
+**Last slice:** **Reflect pass 3** — 5× P1 u_init since pass 2; filter unified; **`seed0900` moveloop fail ~2960** (+448 vs ~2512). Score **3/44** stable. Next port: **#1 human-gate peel Rog…Cav**.
 
 ## Next steps (**strategy order** — pick **one**)
 
 **First:** tutorial gate — if **all MD-1 … MD-7**, Lane E from [10-tutorial.md](../plans/nethack-port/10-tutorial.md).
 
-1. **P1 — non-human `u_init_role` `ini_inv`** — Rog/Sam/Kni/Mon/Arc/Ran/Tou/Cav (remove human gate; same C `ini_inv` + subs). Oracle: [`c-oracles/mkobj.c.md`](c-oracles/mkobj.c.md). Locator: **`seed0060`** orc Rogue; **`seed0030`** elf Wizard **`u_init_race` ~2215** (mklev **~1272** still blocks).
-2. **P2 — moveloop @ `seed0900` ~2512 / ~2960** — `diag_c_rng_callers` on fail window; **not** peel. Oracle: [`c-oracles/monmove.c.md`](c-oracles/monmove.c.md).
+1. **P1 — non-human `u_init_role` `ini_inv`** — Rog/Sam/Kni/Mon/Arc/Ran/Tou/Cav (remove `humanIdx` gate in `u_init_post_mklev.js`; same C `ini_inv` + **`ini_inv_obj_substitution`**). Oracle: [`c-oracles/mkobj.c.md`](c-oracles/mkobj.c.md). Locator: **`seed0060`** orc Rogue; **`seed0700`** samurai startup.
+2. **P2 — moveloop @ `seed0900` ~2960** — `diag_c_rng_callers` on fail window; **not** peel. Oracle: [`c-oracles/monmove.c.md`](c-oracles/monmove.c.md).
 3. **P2 — `dog_goal` / first `#search` (C, not peel)** — `seed0077` ~3205–3207 per [`c-oracles/dogmove.c.md`](c-oracles/dogmove.c.md); **no** new `PendingLikeC`.
 4. **P2 — PostSeventeenth peel** — **deferred** until after (1) or (2); same delete pattern as batches 1–10. Oracle: [`c-oracles/monmove.c.md`](c-oracles/monmove.c.md). Locator: `seed0006` ~3426–3448.
 5. **Lane B — NHL** — one `lspo_*` per [`nhl-port-notes.md`](nhl-port-notes.md).
