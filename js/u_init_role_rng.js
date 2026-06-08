@@ -17,6 +17,10 @@ import {
     iniInvMkobjFilterWizardHumanLikeC,
     takeLastIniInvRingMksobjSpeLikeC,
 } from './mkobj_wizard_ini_inv_filter_like_c.js';
+import {
+    iniInvAdjustObjWeaponToolTrquanLikeC,
+    trquanTrobjLikeC,
+} from './ini_inv_adjust_like_c.js';
 import { SPELLBOOK_OTYP_LEVEL } from './mkobj_wizard_ini_inv_data.js';
 import {
     NH5_ARMOR_CLASS,
@@ -396,15 +400,15 @@ export function consumeKnightHumanIniInvUinitRoleRngLikeC() {
     rn2(1);
 
     game._knightIniAppleQuans = [];
-    rn2(1);
-    for (let i = 0; i < 10; i++) {
+    const appleN = trquanTrobjLikeC(10, 10);
+    for (let i = 0; i < appleN; i++) {
         nextIdentLikeC();
         game._knightIniAppleQuans.push(mksobjInitDefaultFoodQuanMaybeDoubleLikeC());
     }
 
     game._knightIniCarrotQuans = [];
-    rn2(1);
-    for (let i = 0; i < 10; i++) {
+    const carrotN = trquanTrobjLikeC(10, 10);
+    for (let i = 0; i < carrotN; i++) {
         nextIdentLikeC();
         game._knightIniCarrotQuans.push(mksobjInitDefaultFoodQuanMaybeDoubleLikeC());
     }
@@ -453,10 +457,9 @@ const OTYP_MONK_MSPELL_BOOKS = /** @type {const} */ ([373, 402, 376]);
  * C: u_init.c **`PM_MONK`** **`u_init_role`** — **`ini_inv(Monk[])`**, **`M_spell[rn2(90)/30]`**,
  * **`!rn2(4)`** **`Magicmarker`**, **`else if (!rn2(10))`** **`Lamp`** (human; no race subs).
  */
-/** C: `trquan()` when `trquan_min` non-zero — `min + rn2(max - min + 1)`. */
+/** @deprecated local alias — use `trquanTrobjLikeC` from `ini_inv_adjust_like_c.js`. */
 function trquanMinMaxLikeC(min, max) {
-    if (!min) return 1;
-    return min + rn2(max - min + 1);
+    return trquanTrobjLikeC(min, max);
 }
 
 /**
@@ -785,35 +788,35 @@ export function consumeCaveDwellerHumanIniInvUinitRoleRngLikeC() {
  */
 export function consumeRangerHumanIniInvUinitRoleRngLikeC() {
     /* DAGGER +1 */
-    rn2(1);
+    trquanTrobjLikeC(1, 1);
     nextIdentLikeC();
     mksobjInitWeaponLikeC(OTYP_DAGGER, false);
-    rn2(1);
+    iniInvAdjustObjWeaponToolTrquanLikeC(1, 1);
 
     /* BOW +1 */
-    rn2(1);
+    trquanTrobjLikeC(1, 1);
     nextIdentLikeC();
     mksobjInitWeaponLikeC(OTYP_BOW, false);
-    rn2(1);
+    iniInvAdjustObjWeaponToolTrquanLikeC(1, 1);
 
-    /* ARROW +2 — first **`trquan`** then stack from second **`trquan`** */
-    50 + rn2(10);
+    /* ARROW +2 — first **`trquan`** then stack from **`ini_inv_adjust_obj`** second **`trquan`** */
+    trquanTrobjLikeC(50, 59);
     nextIdentLikeC();
     mksobjInitWeaponLikeC(OTYP_ARROW, false);
-    game._rangerIniArrow1Quan = 50 + rn2(10);
+    game._rangerIniArrow1Quan = iniInvAdjustObjWeaponToolTrquanLikeC(50, 59);
 
     /* ARROW +0 */
-    30 + rn2(10);
+    trquanTrobjLikeC(30, 39);
     nextIdentLikeC();
     mksobjInitWeaponLikeC(OTYP_ARROW, false);
-    game._rangerIniArrow2Quan = 30 + rn2(10);
+    game._rangerIniArrow2Quan = iniInvAdjustObjWeaponToolTrquanLikeC(30, 39);
 
     /* CLOAK_OF_DISPLACEMENT +2 — ARMOR **`ini_inv_adjust_obj`** does not replay **`trquan`**. */
-    rn2(1);
+    trquanTrobjLikeC(1, 1);
     nextIdentLikeC();
     mksobjInitArmorLikeC(false);
 
-    const nc = 4 + rn2(1);
+    const nc = trquanTrobjLikeC(4, 4);
     game._rangerIniCramN = nc;
     game._rangerIniCramQuans = [];
     for (let i = 0; i < nc; i++) {

@@ -83,13 +83,13 @@ Use when **`Next steps`** feels stale. Order: **(1)** reliability phase **P1–P
 
 **Tutorial (Lane E):** Gated on [tutorial port gate](../../docs/plans/tutorial-port-gate.md) **MD-1 … MD-7**.
 
-**Last slice:** **P1 mkobj** — C `may_generate_eroded(otmp)` **`oartifact`** / **`oerodeproof`** on object; `mksobj_init` artif gate sets `oartifact` before `mkobj_erosions` (not `artif` flag alone). Verified: **`seed0900` 1400–1460**, **`seed8000` 1410–1430 + 2900–3129**, **`seed0102` 4400–4485**. First fail **`seed0900` ~2512** (moveloop).
+**Last slice:** **P1 ini_inv** — C `u_init.c` **`trquan`** + **`ini_inv_adjust_obj`** WEAPON/TOOL second **`trquan`** (`ini_inv_adjust_like_c.js`); Ranger rows + Knight apple/carrot **`10+rn2(1)`** trobj loop. Verified: **`seed0102` 4380–4485**, **`seed0900` 1400–1460**, **`seed8000` 2900–3129**. First fail **`seed0900` ~2512** (moveloop).
 
 ## Next steps (**strategy order** — pick **one**)
 
 **First:** tutorial gate — if **all MD-1 … MD-7**, Lane E from [10-tutorial.md](../plans/nethack-port/10-tutorial.md).
 
-1. **P1 — `ini_inv` / `trquan` / Ranger cram / floor `otyp` audit** — `game.invent` partial vs C `addinv`; **`ini_inv_adjust_obj`** WEAPON second `trquan`; Ranger cloak tail + cram `trquan(4,4)`. Oracle: [`c-oracles/mkobj.c.md`](c-oracles/mkobj.c.md). Locator: `seed0900` **1400–1460** ok; **`seed0102` `init_attr` ~4425+**; moveloop **~2512**. **Loop: continue P1 or P2 dog_goal.**
+1. **P1 — `ini_inv` / floor `otyp` / role `g.invent` audit** — more roles linked invent; **`ini_inv_mkobj_filter`** UNDEF rows; Monk/Priest spellbook filter tails. Oracle: [`c-oracles/mkobj.c.md`](c-oracles/mkobj.c.md). Locator: `seed0900` **1400–1460** ok; moveloop **~2512**. **Loop: continue P1 or P2 dog_goal.**
 2. **P2 — `dog_goal` / first `#search` (C, not peel)** — `seed0077` ~3205–3207 per [`c-oracles/dogmove.c.md`](c-oracles/dogmove.c.md); **no** new `PendingLikeC`.
 3. **P2 — PostSeventeenth peel** — **deferred** until after (1) or (2); same delete pattern as batches 1–10. Oracle: [`c-oracles/monmove.c.md`](c-oracles/monmove.c.md). Locator: `seed0006` ~3426–3448.
 4. **Lane B — NHL** — one `lspo_*` per [`nhl-port-notes.md`](nhl-port-notes.md).

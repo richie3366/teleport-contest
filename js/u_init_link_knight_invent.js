@@ -46,7 +46,9 @@ export function applyKnightHumanLinkedInventAndWieldLikeC(g) {
     if (!isHumanKnightChargenLikeC(g)) return;
     const aq = g._knightIniAppleQuans;
     const cq = g._knightIniCarrotQuans;
-    if (!Array.isArray(aq) || aq.length !== 10 || !Array.isArray(cq) || cq.length !== 10) return;
+    if (!Array.isArray(aq) || aq.length < 10 || aq.length > 11
+        || !Array.isArray(cq) || cq.length < 10 || cq.length > 11
+        || aq.length !== cq.length) return;
 
     g.invent = null;
 
@@ -76,11 +78,11 @@ export function applyKnightHumanLinkedInventAndWieldLikeC(g) {
 
     /** @type {typeof longSword[]} */
     const order = [longSword, lance, ringMail, helmet, shield, gloves];
-    for (let i = 0; i < 10; i++) {
+    for (let i = 0; i < aq.length; i++) {
         const q = aq[i] | 0;
         order.push(mk(OTYP_APPLE, NH5_FOOD_CLASS, q >= 1 && q <= 2 ? q : 1, 0));
     }
-    for (let i = 0; i < 10; i++) {
+    for (let i = 0; i < cq.length; i++) {
         const q = cq[i] | 0;
         order.push(mk(OTYP_CARROT, NH5_FOOD_CLASS, q >= 1 && q <= 2 ? q : 1, 0));
     }
