@@ -1214,6 +1214,45 @@ async function wizD1EastTailAfterMcalcmoveSinglemonLikeC(g, mtmp, stepNum) {
 
 export async function movemonSinglemonLikeC(g, mtmp, stepNum = 0) {
     if (!mtmp || (mtmp.mhp | 0) <= 0) return;
+    /* C: comma-**`U`** post-seventh — pet **`dog_move`** + surplus mklev **`dochug`** via
+     * **`movemon_singlemon`** (~3107–3136 on **`seed0006`**); replaces inline peel **`rn2`**. */
+    if (
+        g.urole?.abbr === 'Wiz'
+        && (g.u?.uz?.dnum | 0) === 0
+        && (g.u?.uz?.dlevel | 0) === 1
+        && g.context?._wizD1CommaPostSeventhMovemonPendingLikeC
+        && (stepNum | 0) === 1
+    ) {
+        if ((mtmp.mtame | 0) && has_edog(mtmp)) {
+            const u = g.u;
+            if (u) {
+                mtmp.mux = u.ux | 0;
+                mtmp.muy = u.uy | 0;
+            }
+            setApparxyMonsterLikeC(g, mtmp);
+            const { dogMoveCommaPostSeventhNewturnPetLikeC, dogMoveCommaPostSeventhNewturnPetTailLikeC } =
+                await import('./dogmove_mon.js');
+            dogMoveCommaPostSeventhNewturnPetLikeC(g, mtmp);
+            dogMoveCommaPostSeventhNewturnPetTailLikeC(g, mtmp);
+            return;
+        }
+        if ((mtmp.mgenmklev | 0) && !(mtmp.mtame | 0) && (mtmp.mhp | 0) > 0) {
+            /* C: surplus slot + away picks — explicit until full **`dochug`** matches ~3132–3136. */
+            let movSurplus = mtmp.movement | 0;
+            if (movSurplus < NORMAL_SPEED) {
+                mtmp.movement = NORMAL_SPEED;
+                movSurplus = NORMAL_SPEED;
+            }
+            mtmp.movement = movSurplus - NORMAL_SPEED;
+            rn2(12);
+            rn2(5);
+            rn2(12);
+            rn2(12);
+            rn2(12);
+            return;
+        }
+        return;
+    }
     /* C: comma-**`U`** post-fifth hostile — peel-distant **`m_move`** after cached **`distfleeck`**. */
     if (g.context?._wizD1CommaPostFifthHostileMmoveLikeC) {
         await mMoveCommaUFmonTailDochugLikeC(g, mtmp, stepNum, {

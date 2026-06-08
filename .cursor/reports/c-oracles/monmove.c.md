@@ -1,18 +1,31 @@
-# C oracle: monmove.c
+# C oracle: monmove / movemon
 
 **JS modules:** `monmove.js`, `m_move_mon.js`, `mfndpos_mon.js`, `fmon_iter.js`, `monmove_search.js`  
 **Phase:** P2  
-**C path:** `nethack-c/upstream/src/monmove.c`  
-**Last C read:** 2026-06-08 — `movemon()` (agent: read `movemon` + `dochug` entry before next peel)
+**C paths:**
+- **`nethack-c/upstream/src/mon.c`** — `movemon()`, `movemon_singlemon()` (iter_mons_safe)
+- **`nethack-c/upstream/src/monmove.c`** — `dochug`, `m_move`, `distfleeck`
+- **`nethack-c/upstream/src/dogmove.c`** — pet `dog_move` inside `dochugw`
+
+**Last C read:** 2026-06-08 — `mon.c` `movemon_singlemon` + post-seventh comma-`U` locator
 
 ## Call order (ground truth)
 
-*Fill while porting — start from C `movemon()`:*
-
 1. Hero turn consumes movement; `allmain.c` may call `movemon()` zero or more times before/after new-turn setup.
-2. `movemon` walks monsters (order matters — see `fmon` / level list vs peel pass lists in JS).
-3. Per monster: `dochug` → may include `distfleeck`, `m_move`, `mcalcmove` recalc (~915), pet `dog_move` (delegates to `dogmove.c`).
-4. **Inline** `movemon` passes vs **deferred** tail are controlled by `allmain.c` / moveloop state — not by `urole.abbr === 'Wiz'` alone.
+2. `movemon()` → `iter_mons_safe(movemon_singlemon)` — fmon newest-first in JS via `fmonListForMovemonLikeC`.
+3. `movemon_singlemon`: skip if `movement < NORMAL_SPEED`; spend `NORMAL_SPEED`; gates (`minliquid`, hider, conflict); `dochugw(mtmp, TRUE)`.
+4. Pets delegate to `dog_move` from `dochug`; surplus mklev uses `m_move` + ~915 `distfleeck` recalc.
+5. **Inline** `movemon` passes vs **deferred** tail are controlled by `allmain.c` / moveloop state — not by `urole.abbr === 'Wiz'` alone.
+
+### Post-seventh comma-`U` pass (`seed0006` ~3107–3136)
+
+| Step | C / session | JS target |
+|------|-------------|-----------|
+| 1 | Pet `dog_move` gate `rn2(5)`, `rn2(4)` | `movemonSinglemonLikeC` → pet branch |
+| 2 | Pet invent / goal / mfndpos tail ~3109–3131 | `dogMoveCommaPostSeventhNewturnPetTailLikeC` (until general `dogMoveLikeC`) |
+| 3 | Surplus mklev `m_move` `rn2(12)` + `distfleeck` `rn2(5)` + away `rn2(12)`×3 | `mMoveCommaUFmonTailDochugLikeC` (not inline peel `rn2`) |
+
+**Batch 1 (2026-06-08):** delete inline PostSeventh peel block + `mons=[]` guard; route through `movemonSinglemonLikeC`.
 
 ## Generalization targets (replace comma-`U` peels)
 
@@ -27,7 +40,9 @@
 
 | JS flag / band | C equivalent | Locator window | Status |
 |----------------|--------------|----------------|--------|
-| `_wizD1CommaPostFirst` … `PostTwentyFourth*` | `movemon` + `allmain` post-hero interleave | `seed0006` 2888–3609 | **open** — moratorium on N+1 |
+| `_wizD1CommaPostSeventh*` inline peel + `mons=[]` | `movemon_singlemon` + `dog_move` + surplus `dochug` | `seed0006` 3107–3136 | **deleted** batch 1 |
+| `_wizD1CommaPostEighth` … `PostTwelfth` | same pattern | `seed0006` 3140–3291 | **open** |
+| `_wizD1CommaPostFirst` … `PostTwentyFourth*` (rest) | `movemon` + `allmain` post-hero interleave | `seed0006` 2888–3609 | **open** — moratorium on N+1 |
 | `_touristD1LPostFourth*` etc. | tourist `L` moveloop tail | `seed0900` | partial generalization exists |
 | Role `abbr === 'Wiz' && dlevel === 1` guards | level/branch checks only where C has them | — | **smell** — shrink |
 
@@ -45,6 +60,7 @@
 - Full `dochug` dispatch not faithful — peels patch single arms.
 - `fmon` iteration order vs C `monmove` passes not unified.
 - `effectiveMovemonStepNum` / peel step numbers are harness — not in C.
+- PostEighth+ comma-`U` still use inline peel blocks.
 
 ## Wrong hypotheses (do not retry)
 

@@ -1,6 +1,12 @@
 node_modules/
 .cache/
 
+# Agent diag scratch (do not commit)
+js/.diag_*
+js/*.db
+js/*.diagbak
+js/*.bakhook
+
 # graphify (local agent cache; see .cursor/docs/graphify.md)
 graphify-out/
 js/graphify-out/
