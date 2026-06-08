@@ -363,10 +363,6 @@ export async function movemon(stepNum) {
     if (
         g.context?._wizD1CommaLFirstUPostTailOuterMoveloopDoneLikeC
         && !g.context?._wizD1CommaLFirstUPostTailSecondUPostMovemonLikeC
-        && !(
-            g.context?._wizD1CommaSecondUSurplusArmedLikeC
-            && (g.moves | 0) >= 37
-        )
     ) {
         return false;
     }
@@ -429,10 +425,7 @@ export async function movemon(stepNum) {
         && !g.context?._wizD1CommaPostFourthSurplusTailDoneLikeC
         && (
             g.context?._wizD1CommaLFirstUPostTailSecondUPostMovemonLikeC
-            || (
-                g.context?._wizD1CommaSecondUSurplusArmedLikeC
-                && (g.moves | 0) >= 37
-            )
+            || g.context?._wizD1CommaLFirstUPostTailAwaitSurplusFmonLikeC
         )
     ) {
         /* C: mon.c **`movemon`** — clear **`somebody_can_move`** each **`fmon`** scan pass. */
@@ -504,6 +497,17 @@ export async function movemon(stepNum) {
                 ];
             }
         }
+        if (
+            passList.length === 0
+            && wizD1CommaSurplusPostPeelActiveLikeC(g)
+        ) {
+            const peelRetry = surplusHostile.find(
+                (m) =>
+                    m !== nearMklevSurplus
+                    && !postPeelPassDone.has(m),
+            );
+            if (peelRetry) passList = [peelRetry];
+        }
         for (const m of passList) {
             const postPeelAtPassStartLikeC =
                 wizD1CommaSurplusPostPeelActiveLikeC(g);
@@ -573,14 +577,29 @@ export async function movemon(stepNum) {
                 (m) => m !== nearMklevSurplus,
             );
         }
-        const surplusScanMoreLikeC = !!(
-            g.context?._somebodyCanMoveLikeC
-            || hostilesLeft.some((m) => (m.movement | 0) >= NORMAL_SPEED)
+        const prePeelSlotsLikeC =
+            g.context._wizD1CommaSurplusPrePeelSlotPassesLikeC | 0;
+        const prePeelSlotsRemainLikeC =
+            !wizD1CommaSurplusPostPeelActiveLikeC(g)
+            && prePeelSlotsLikeC < 5;
+        /* C: surplus tail — five pre-peel slots then post-peel **`dochug`**; not generic
+         * **`somebody_can_move`** / residual **`movement`** (spin ~3060+ on **`seed0006`**). */
+        let surplusScanMoreLikeC = !!(
+            prePeelSlotsRemainLikeC
             || nearMklevStillPendingLikeC
             || strayMklevStillPendingLikeC
             || nonMklevStillPendingLikeC
             || postPeelPassStillPendingLikeC
         );
+        if (
+            !surplusScanMoreLikeC
+            && g.context?._wizD1CommaSurplusPostPeelActiveLikeC
+            && surplusHostile.some(
+                (m) => m !== nearMklevSurplus && !postPeelPassDone.has(m),
+            )
+        ) {
+            surplusScanMoreLikeC = true;
+        }
         if (
             !surplusScanMoreLikeC
             && wizD1CommaSurplusPostPeelActiveLikeC(g)

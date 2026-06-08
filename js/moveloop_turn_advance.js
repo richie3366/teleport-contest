@@ -1095,8 +1095,7 @@ export async function runPostCommandTurnAdvanceLikeC(g) {
                             g.urole?.abbr === 'Wiz'
                             && (g.u?.uz?.dnum | 0) === 0
                             && (g.u?.uz?.dlevel | 0) === 1
-                            && g.context?._wizD1CommaSecondUSurplusArmedLikeC
-                            && (g.moves | 0) >= 37
+                            && g.context?._wizD1CommaLFirstUPostTailAwaitSurplusFmonLikeC
                             && !g.context?._wizD1CommaPostFourthSurplusTailDoneLikeC;
                         if (
                             (u.umovement | 0) >= NORMAL_SPEED
@@ -1357,6 +1356,7 @@ export async function runPostCommandTurnAdvanceLikeC(g) {
                             await distfleeckMonsterApplyLikeC(g, nearPostFourth);
                             g.context._wizD1CommaDeferFifthNewturnLikeC = true;
                         }
+                        wizD1CommaSurplusScanClearLikeC(g);
                         wizD1CommaSurplusScanPrimeLikeC(g, { force: true });
                         /* C: surplus **`fmon`** **`monscanmove`** loop (~3055–3073); fifth new-turn ~3074. */
                         g.context._wizD1CommaLFirstUPostTailAwaitSurplusFmonLikeC = true;
@@ -1376,19 +1376,7 @@ export async function runPostCommandTurnAdvanceLikeC(g) {
                             !!g.context?._wizD1CommaSurplusScanMoreLikeC;
                         if (
                             g.context?._wizD1CommaSecondUSurplusArmedLikeC
-                            && (
-                                surplusScanMoreAfterLoopLikeC
-                                || (
-                                    g.context?._wizD1CommaDeferFifthNewturnLikeC
-                                    && g.context?._wizD1CommaLFirstUPostTailSecondUPeelDoneLikeC
-                                    && !g.context?._wizD1CommaPostFourthSurplusTailDoneLikeC
-                                )
-                                || (
-                                    wizD1CommaSurplusPostPeelActiveLikeC(g)
-                                    && !g.context?._wizD1CommaPostFourthSurplusTailDoneLikeC
-                                    && !g.context?._wizD1CommaLFirstUPostTailSecondUPeelDoneLikeC
-                                )
-                            )
+                            && surplusScanMoreAfterLoopLikeC
                         ) {
                             g.context._wizD1CommaSurplusTailPendingLikeC = true;
                         }

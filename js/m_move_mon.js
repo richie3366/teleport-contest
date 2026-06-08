@@ -1224,13 +1224,7 @@ export async function movemonSinglemonLikeC(g, mtmp, stepNum = 0) {
         && !wizD1CommaSurplusPostPeelActiveLikeC(g)
         && (
             g.context?._wizD1CommaLFirstUPostTailSecondUPostMovemonLikeC
-            || (
-                g.urole?.abbr === 'Wiz'
-                && (g.u?.uz?.dnum | 0) === 0
-                && (g.u?.uz?.dlevel | 0) === 1
-                && (g.moves | 0) >= 37
-                && g.context?._wizD1CommaSecondUSurplusArmedLikeC
-            )
+            || g.context?._wizD1CommaLFirstUPostTailAwaitSurplusFmonLikeC
         )
     ) {
         mMoveCommaUFmonTailSlotMklevLikeC(g, mtmp);
@@ -1244,7 +1238,7 @@ export async function movemonSinglemonLikeC(g, mtmp, stepNum = 0) {
         && wizD1CommaSurplusPostPeelActiveLikeC(g)
         && (
             g.context?._wizD1CommaLFirstUPostTailSecondUPostMovemonLikeC
-            || g.context?._wizD1CommaSecondUSurplusArmedLikeC
+            || g.context?._wizD1CommaLFirstUPostTailAwaitSurplusFmonLikeC
         )
         && !(mtmp.mtame | 0)
         && mtmp !== wizD1CommaSurplusNearMklevLikeC(g)
@@ -1265,11 +1259,7 @@ export async function movemonSinglemonLikeC(g, mtmp, stepNum = 0) {
         && mtmp === wizD1CommaSurplusNearMklevLikeC(g)
         && (
             g.context?._wizD1CommaLFirstUPostTailSecondUPostMovemonLikeC
-            || (
-                (g.moves | 0) >= 37
-                && g.context?._wizD1CommaSecondUSurplusArmedLikeC
-                && g.context?._wizD1CommaPostFourthHostileSurplusDoneLikeC
-            )
+            || g.context?._wizD1CommaLFirstUPostTailAwaitSurplusFmonLikeC
         )
     ) {
         delete g.context._wizD1CommaPostFourthHostileSurplusDoneLikeC;

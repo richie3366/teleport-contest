@@ -301,10 +301,7 @@ export function wizD1CommaSurplusScanClearLikeC(g) {
 
 /** C: five pre-peel **`rn2(12)`** slot passes (~3055–3059) then post-peel **`dochug`**. */
 export function wizD1CommaSurplusPostPeelActiveLikeC(g) {
-    return !!(
-        g.context?._wizD1CommaSurplusPostPeelActiveLikeC
-        || (g.context?._wizD1CommaSurplusPrePeelSlotPassesLikeC | 0) >= 5
-    );
+    return !!g.context?._wizD1CommaSurplusPostPeelActiveLikeC;
 }
 
 /** C: comma-**`l`** → first **`U`** — near **`distfleeck`** target before pet **`mfndpos`** (~2986). */
