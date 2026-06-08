@@ -3,6 +3,10 @@
 
 import { rnd, rn2, rn1, rne } from './rng.js';
 import { P_NONE } from './const.js';
+import {
+    mkobjOtypFoodClassIniInvLikeC,
+    mksobjInitFoodClassIniInvAfterOtypLikeC,
+} from './mkobj_food_class_rng_like_c.js';
 import { mkobjScrollOtypLeafDrawLikeC } from './mkobj_scroll_class_rng_like_c.js';
 import {
     WAND_CLASS_MKOBJ_OC_PROB_ROWS,
@@ -13,7 +17,14 @@ import {
     SPELLBOOK_OTYP_OC_SKILL,
     STRANGE_OBJECT_OTYP,
 } from './mkobj_wizard_ini_inv_data.js';
-import { NH5_POTION_CLASS, NH5_RING_CLASS, NH5_SCROLL_CLASS, NH5_SPBOOK_CLASS, NH5_WAND_CLASS } from './nh5_objclass.js';
+import {
+    NH5_FOOD_CLASS,
+    NH5_POTION_CLASS,
+    NH5_RING_CLASS,
+    NH5_SCROLL_CLASS,
+    NH5_SPBOOK_CLASS,
+    NH5_WAND_CLASS,
+} from './nh5_objclass.js';
 import { DEF_SKILLS_BY_ABBR } from './u_init_skill_defs.js';
 
 const RING_OC_CHARGED = new Map(RING_CLASS_MKOBJ_ROWS);
@@ -179,6 +190,21 @@ function mksobjInitSpellbookIniInvLikeC() {
  * @param {number} otyp
  * @param {string} roleAbbr C role table key (`Wiz`, `Pri`, `Mon`, `Hea`, …)
  */
+/**
+ * C: `Role_if` / `Race_if` + `restricted_spell_discipline` for one role table.
+ * @param {string} roleAbbr C role abbr (`Tou`, `Ran`, `Val`, `Kni`, …)
+ * @param {number} raceMnum C `gu.urace.mnum`
+ * @returns {IniInvMkobjFilterCtx}
+ */
+export function iniInvMkobjFilterCtxForRoleLikeC(roleAbbr, raceMnum) {
+    return {
+        roleWizard: roleAbbr === 'Wiz',
+        roleMonk: roleAbbr === 'Mon',
+        raceOrc: (raceMnum | 0) === 4,
+        restrictedSpellDiscipline: (otyp) => restrictedSpellDisciplineForRoleLikeC(otyp, roleAbbr),
+    };
+}
+
 export function restrictedSpellDisciplineForRoleLikeC(otyp, roleAbbr) {
     const sk = SPELLBOOK_OTYP_OC_SKILL.get(otyp);
     if (sk === undefined) return true;
@@ -285,6 +311,9 @@ function mksobjInitForOclassLikeC(oclassNH5, otyp) {
     } else if (oclassNH5 === NH5_SPBOOK_CLASS) {
         lastIniInvRingMksobjSpe = undefined;
         mksobjInitSpellbookIniInvLikeC();
+    } else if (oclassNH5 === NH5_FOOD_CLASS) {
+        lastIniInvRingMksobjSpe = undefined;
+        mksobjInitFoodClassIniInvAfterOtypLikeC(otyp);
     } else {
         lastIniInvRingMksobjSpe = undefined;
     }
@@ -308,6 +337,7 @@ function mkobjOtypPickOnlyLikeC(oclassNH5) {
     if (oclassNH5 === NH5_POTION_CLASS) return mkobjOtypFromProbRowsLikeC(POTION_CLASS_MKOBJ_OC_PROB_ROWS);
     if (oclassNH5 === NH5_SCROLL_CLASS) return mkobjScrollOtypLeafDrawLikeC();
     if (oclassNH5 === NH5_SPBOOK_CLASS) return mkobjOtypFromProbRowsLikeC(SPBOOK_CLASS_MKOBJ_OC_PROB_ROWS);
+    if (oclassNH5 === NH5_FOOD_CLASS) return mkobjOtypFoodClassIniInvLikeC();
     return OTYP_PANCAKE;
 }
 

@@ -89,7 +89,8 @@ Align batches with [`c-to-js-port-remaining.md`](c-to-js-port-remaining.md) §5:
 |-----------------|-----------|--------|-------|
 | `u_init` / role identity | `chargen*.js`, `u_init_*.js` | partial | discover **`ini_inv(Wishing)`** before Money |
 | `ini_inv(Wishing)` / `Money` | `u_init_role_rng.js`, `u_init_post_mklev.js` | partial | explore **`program_state.discover`** |
-| `ini_inv_mkobj_filter` | `mkobj_wizard_ini_inv_filter_like_c.js` | partial | **`iniInvMkobjFilterLikeC`** — one C while-loop (`gn.nocreate*`, monk scroll, wizard bolt, orc poison, **`restrictedSpellDisciplineForRoleLikeC`**); Wiz/Pri/Mon/Hea wired |
+| `ini_inv_mkobj_filter` | `mkobj_wizard_ini_inv_filter_like_c.js` | partial | **`iniInvMkobjFilterLikeC`** + **`FOOD_CLASS`** pick/init; **`iniInvMkobjFilterCtxForRoleLikeC`**; Tourist UNDEF food ×10; Wiz/Pri/Mon/Hea |
+| `ini_inv_obj_substitution` | `u_init_ini_inv_obj_substitution_like_c.js` | partial | C **`inv_subs[]`** elf/orc/dwarf/gnome; Tourist food post-filter; Val/Ran/Kni fixed rows TODO |
 | `ini_inv` / `trquan` / `ini_inv_adjust_obj` | `ini_inv_adjust_like_c.js`, `u_init_role_rng.js`, role linkers | partial | **`trquanTrobjLikeC`** + **`iniInvAdjustObjWeaponToolTrquanLikeC`**; Ranger weapon second **`trquan`**; Knight apple/carrot **`10+rn2(1)`** trobj count; other roles partial |
 | `u_init_role` RNG tail | `u_init_role_rng.js`, `u_init_post_mklev.js` | partial | |
 | `wintty.c` pickers | `chargen_tty.js` | partial | Chargen RNG largely aligned on `seed0077`; moveloop RNG **3180–3242**; screens **0–32** **PASS** on `seed0077-rogue-chargen` |

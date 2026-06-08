@@ -6,6 +6,7 @@ Historical rows moved from `c-to-js-port-progress.md` so day-to-day work uses **
 
 | When | What changed |
 |------|----------------|
+| **2026-06-08** | **P1 u_init — `ini_inv_obj_substitution` + Tourist FOOD filter** — C `u_init.c` `inv_subs[]` → **`iniInvObjSubstitutionLikeC`**; Tourist UNDEF food ×10 via **`iniInvMkobjFilterLikeC`** (`FOOD_CLASS` pick/init + **`iniInvMkobjFilterCtxForRoleLikeC`**). Verified: **`seed8000` full**, **`seed0102` full**, **`seed0900` 200–450**, **`seed0012` 80–200**. Fail **`seed0900` ~2512** (moveloop). |
 | **2026-06-08** | **P1 u_init — unified `ini_inv_mkobj_filter`** — C `u_init.c` one while-loop → **`iniInvMkobjFilterLikeC`** (`gn.nocreate*`, `Role_if` monk/wizard, `Race_if` orc, **`restrictedSpellDisciplineForRoleLikeC`**); Monk scroll + Healer wand use general path. Verified: **`seed0102` full**, **`seed0900` 200–450**, **`seed0012` 80–200**. Fail **`seed0900` ~2512** (moveloop). |
 | **2026-06-08** | **Reflect pass 2** — 5× P1 mkobj/ini_inv since peel interleave; score **3/44** (`seed0102` PASS); **`seed0900` ~2960** moveloop locator; next **general `ini_inv_mkobj_filter`**. |
 | **2026-06-08** | **P1 ini_inv — `trquan` + `ini_inv_adjust_obj` weapon/tool quan** — C `u_init.c` `trquan()` + second `trquan` on WEAPON/TOOL adjust (`ini_inv_adjust_like_c.js`); Ranger rows; Knight apple/carrot `10+rn2(1)` trobj count + linker 10–11 stacks. Verified: **`seed0102` 4380–4485**, **`seed0900` 1400–1460**, **`seed8000` 2900–3129**. Fail **`seed0900` ~2512** (moveloop). |

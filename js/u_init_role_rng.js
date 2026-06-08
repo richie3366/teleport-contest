@@ -7,11 +7,12 @@ import { game } from './gstate.js';
 import { rnd, rn2, rne, rn1 } from './rng.js';
 import { OTYP_LEATHER_ARMOR, P_BOW, P_SHURIKEN } from './const.js';
 import { OC_SKILL_ROW_BY_OTYP } from './obj_oc_skill_data.js';
-import { iniInvOneMkobjFoodUndefDrawLikeC } from './mkobj_food_class_rng_like_c.js';
+import { iniInvObjSubstitutionLikeC } from './u_init_ini_inv_obj_substitution_like_c.js';
 import {
     gnIniInvFreshLikeC,
     iniInvAdjustObjRingSpeUndefTropLikeC,
     iniInvGnAfterUndefAcceptLikeC,
+    iniInvMkobjFilterCtxForRoleLikeC,
     iniInvMkobjFilterLikeC,
     iniInvMkobjFilterPriestHumanLikeC,
     iniInvMkobjFilterScrollClassMonkLikeC,
@@ -26,6 +27,7 @@ import {
 import { SPELLBOOK_OTYP_LEVEL } from './mkobj_wizard_ini_inv_data.js';
 import {
     NH5_ARMOR_CLASS,
+    NH5_FOOD_CLASS,
     NH5_POTION_CLASS,
     NH5_RING_CLASS,
     NH5_SCROLL_CLASS,
@@ -921,8 +923,11 @@ export function consumeTouristHumanIniInvUinitRoleRngLikeC() {
 
     game._touristIniFoodOtyps = [];
     const foodN = trquanMinMaxLikeC(10, 10);
+    const foodGn = gnIniInvFreshLikeC();
+    const foodCtx = iniInvMkobjFilterCtxForRoleLikeC('Tou', game.urace?.mnum ?? 0);
     for (let i = 0; i < foodN; i++) {
-        game._touristIniFoodOtyps.push(iniInvOneMkobjFoodUndefDrawLikeC());
+        const otyp = iniInvMkobjFilterLikeC(NH5_FOOD_CLASS, false, foodGn, foodCtx);
+        game._touristIniFoodOtyps.push(iniInvObjSubstitutionLikeC(otyp, game.urace?.mnum ?? 0));
     }
 
     const potN = trquanMinMaxLikeC(2, 2);
