@@ -74,6 +74,15 @@
 
 **Batch 6 (2026-06-08):** delete inline PostTwelfth peel block + `mons=[]` guard; route through `movemonSinglemonLikeC`.
 
+### Post-thirteenth comma-`U` pass (`seed0006` ~3296–3306)
+
+| Step | C / session | JS target |
+|------|-------------|-----------|
+| 1 | Pet **`set_apparxy`** only (no **`dog_move`** gate this pass) | `movemonSinglemonLikeC` → pet branch |
+| 2 | Surplus mklev **`dochug`** explicit ~3296–3306 | `movemonSinglemonLikeC` surplus branch (not inline peel `rn2`) |
+
+**Batch 7 (2026-06-08):** delete inline PostThirteenth peel block + `mons=[]` guard; route through `movemonSinglemonLikeC`.
+
 ## Generalization targets (replace comma-`U` peels)
 
 | C concept | JS debt today | Notes |
@@ -93,6 +102,7 @@
 | `_wizD1CommaPostTenth*` inline peel + `mons=[]` | `movemon_singlemon` + surplus `dochug` | `seed0006` 3224–3242 | **deleted** batch 4 |
 | `_wizD1CommaPostEleventh*` inline peel + `mons=[]` | `movemon_singlemon` + surplus `dochug` | `seed0006` 3246–3259 | **deleted** batch 5 |
 | `_wizD1CommaPostTwelfth*` inline peel + `mons=[]` | `movemon_singlemon` + surplus `dochug` | `seed0006` 3263–3291 | **deleted** batch 6 |
+| `_wizD1CommaPostThirteenth*` inline peel + `mons=[]` | `movemon_singlemon` + surplus `dochug` | `seed0006` 3296–3306 | **deleted** batch 7 |
 | `_wizD1CommaPostFirst` … `PostTwentyFourth*` (rest) | `movemon` + `allmain` post-hero interleave | `seed0006` 2888–3609 | **open** — moratorium on N+1 |
 | `_touristD1LPostFourth*` etc. | tourist `L` moveloop tail | `seed0900` | partial generalization exists |
 | Role `abbr === 'Wiz' && dlevel === 1` guards | level/branch checks only where C has them | — | **smell** — shrink |
@@ -111,7 +121,7 @@
 - Full `dochug` dispatch not faithful — peels patch single arms.
 - `fmon` iteration order vs C `monmove` passes not unified.
 - `effectiveMovemonStepNum` / peel step numbers are harness — not in C.
-- PostThirteenth+ comma-`U` still use inline peel blocks.
+- PostFourteenth+ comma-`U` still use inline peel blocks.
 
 ## Wrong hypotheses (do not retry)
 
