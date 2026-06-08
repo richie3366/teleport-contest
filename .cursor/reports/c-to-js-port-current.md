@@ -9,7 +9,7 @@ Thin handoff for the next coding session. **Canonical strategy:** [**`c-to-js-po
 
 **Interleave trigger (active):** batches **1–10** deleted PostSeventh…PostSixteenth peels. **Next loop iteration must NOT be PostSeventeenth** — do **#1 P2 moveloop** below (or #2 mklev / #3 dog_goal). Resume PostSeventeenth…PostTwentyFourth only after one P1/P2-general batch.
 
-**Reflection:** [`c-to-js-port-reflection.md`](c-to-js-port-reflection.md) — last meta-review **2026-06-08 pass 4** (human-gate + linker window closed; pivot P2 moveloop); next due after **5** more commits or milestone score (strategy §10). Not every batch.
+**Reflection:** [`c-to-js-port-reflection.md`](c-to-js-port-reflection.md) — last meta-review **2026-06-09 pass 5** (5× P1 mklev chain; `seed0016` **~1281→~2493**); next due after **5** more commits or milestone score (strategy §10). Not every batch.
 
 ## Working principle (read every session)
 
@@ -83,7 +83,7 @@ Use when **`Next steps`** feels stale. Order: **(1)** reliability phase **P1–P
 
 **Tutorial (Lane E):** Gated on [tutorial port gate](../../docs/plans/tutorial-port-gate.md) **MD-1 … MD-7**.
 
-**Last slice:** **P1 `mkobj.c` `add_to_container`** — supply-chest **`fill_ordinary_room`** (`cobj` chain, SPBOOK **`oc_level`** bias, **`weight`**). Score **3/44** stable. Fail **`seed0016` ~2493** (moveloop eat); **`seed0900` ~2960** (moveloop).
+**Last slice:** **Reflect pass 5** — 5× P1 since pass 4 (mklev/u_init/trap); locator **`seed0016` crossed mklev** → **~2493** moveloop eat. Score **3/44** stable. Next port: **`fill_zoo`** / **`stock_room`** (#1 below).
 
 ## Next steps (**strategy order** — pick **one**)
 
