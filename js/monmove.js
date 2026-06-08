@@ -141,6 +141,7 @@ import {
     dogMoveCommaUFmonTailPostPeelPetLikeC,
     dogMoveCommaPostFifthNewturnPetLikeC,
     dogMoveCommaPostSixthNewturnPetLikeC,
+    dogMoveCommaPostSeventhNewturnPetLikeC,
     dogMoveFirstLAfterCommaPetLikeC,
     dogMoveLPetInventAfterNewturnLikeC,
     dogMovePostEastTailWalkShortLPetLikeC,
@@ -1020,6 +1021,14 @@ export async function movemon(stepNum) {
         if (
             g.urole?.abbr === 'Wiz'
             && g.context?._wizD1CommaPostSixthMovemonPendingLikeC
+            && (effStepNum | 0) === 1
+        ) {
+            mons = [];
+        }
+        /* C: comma-**`U`** — peel-only post-seventh pet **`dog_move`** (~3107+). */
+        if (
+            g.urole?.abbr === 'Wiz'
+            && g.context?._wizD1CommaPostSeventhMovemonPendingLikeC
             && (effStepNum | 0) === 1
         ) {
             mons = [];
@@ -2337,6 +2346,32 @@ export async function movemon(stepNum) {
             delete g.context._wizD1CommaPostSixthHostileCorridorLikeC;
             delete g.context._wizD1CommaPostSixthHostileDistantLikeC;
             g.context._wizD1CommaPostSixthMovemonCompleteLikeC = true;
+            return false;
+        }
+        /* C: comma-**`U`** — post-seventh new-turn pet **`dog_move`** (~3107–3108). */
+        if (
+            g.urole?.abbr === 'Wiz'
+            && (g.u?.uz?.dnum | 0) === 0
+            && (g.u?.uz?.dlevel | 0) === 1
+            && g.context?._wizD1CommaPostSeventhMovemonPendingLikeC
+            && (effStepNum | 0) === 1
+        ) {
+            const petPostSeventh = (g.level?.monsters ?? []).find(
+                (m) => (m.mtame | 0) !== 0,
+            );
+            if (petPostSeventh) {
+                let movPostSeventh = petPostSeventh.movement | 0;
+                if (movPostSeventh < NORMAL_SPEED) {
+                    petPostSeventh.movement = NORMAL_SPEED;
+                    movPostSeventh = NORMAL_SPEED;
+                }
+                petPostSeventh.movement = movPostSeventh - NORMAL_SPEED;
+                setApparxyMonsterLikeC(g, petPostSeventh);
+                /* C: post-seventh pet — no **`distfleeck`** before **`mfndpos`** (~3107–3108). */
+                dogMoveCommaPostSeventhNewturnPetLikeC(g, petPostSeventh);
+            }
+            delete g.context._wizD1CommaPostSeventhMovemonPendingLikeC;
+            g.context._wizD1CommaPostSeventhMovemonCompleteLikeC = true;
             return false;
         }
         /* C: tourist D:1 run-east **`L`** — fourth **`movemon`** after third-pass new-turn

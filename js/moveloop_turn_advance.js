@@ -1296,6 +1296,15 @@ export async function runPostCommandTurnAdvanceLikeC(g) {
                         && !commaUPostFourthSurplusDeferNewturnLikeC
                     ) {
                         await runNewTurnSetupAndTailLikeC(g, tailStepNum);
+                        /* C: comma-**`U`** — seventh new-turn tail done (~3104–3106) → pet **`dog_move`** (~3107+). */
+                        if (g.context?._wizD1CommaPostSixthMovemonCompleteLikeC) {
+                            delete g.context._wizD1CommaPostSixthMovemonCompleteLikeC;
+                            g.context._wizD1CommaPostSeventhMovemonPendingLikeC = true;
+                            delete g.context._wizD1MovemonRanThisPostLikeC;
+                            g.context._movemonHarnessConsumed = false;
+                            await movemon(1);
+                            g.context._wizD1MovemonRanThisPostLikeC = true;
+                        }
                     }
                     /* C: comma-**`U`** second hero **`U`** — resume surplus **`fmon`** (~3059–3073). */
                     if (commaUSurplusTailResumeLikeC) {

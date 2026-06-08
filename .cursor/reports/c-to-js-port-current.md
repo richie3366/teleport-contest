@@ -74,14 +74,15 @@ Use when **`Next steps`** feels stale. Order: **(1)** reliability phase **P1–P
 
 **Tutorial (Lane E):** Gated on [tutorial port gate](../../docs/plans/tutorial-port-gate.md) **MD-1 … MD-7**.
 
-**Last slice:** **P2 — `dogmove.c` `can_reach_location`** — **`dogmove_reach.js`**: C **`IS_OBSTRUCTED(typ)`** (was broken `typ < IS_DOOR` fn compare); closed-door gate **`D_CLOSED|D_LOCKED`** (was inverted **`& 3`**). Peel **`rogueFirstSearchCoinApportDefersToTowelLikeC`** kept — north-fill gold still reachable at **(35,2)** from pet **(35,7)** until **`mklev`** west-column geometry closes. Moveloop canaries **PASS**; **`seed0077` screens 0–32 PASS**.
+**Last slice:** **P2 — comma-`U` post-seventh `movemon` pet** — **`moveloop_turn_advance.js`**: seventh new-turn tail (~3104–3106) → **`_wizD1CommaPostSeventhMovemonPendingLikeC`** inline **`movemon`**; **`monmove.js`** + **`dogMoveCommaPostSeventhNewturnPetLikeC`** (**`rn2(5)`/`rn2(4)`** ~3107–3108, no pre-**`distfleeck`**). Locator **`seed0006` 3054–3108** aligned; fail **3109+** **`dochug`** **`rn2(100)`** vs peel **`rn2(12)`**. Canaries **PASS**.
 
 ## Next steps (reliability order)
 
 Pick **one** primary batch per commit. **First:** tutorial gate — if **all MD-1 … MD-7**, do Lane E from [10-tutorial.md](../plans/nethack-port/10-tutorial.md).
 
-1. **P2 — west north-fill coin `can_reach_location`** — delete **`rogueFirstSearchCoinApportDefersToTowelLikeC`** when **`openWestDoorColumnNorthCorrLikeC`** / north-fill **`ROOM`** blocks alcove gold **~3205–3207** (`seed0077`); or **general `monmove.c` `dochug`** batch (#2).
-2. **P2 — general `monmove.c` / `dochug` batch** (preferred over peel-only `#4` below when peel debt high) — one upstream function or dispatch arm; delete peel flags when `diag_rng_window` passes on **8000 + 0077 + 0102**.
+1. **P2 — `seed0006` comma-`U` @ ~3109+** — general **`monmove.c` `dochug`** / **`m_move`** (replace post-seventh peel **`rn2(12)`** with **`rn2(100)`** hostile tail); locator **3109–3125+**.
+2. **P2 — west north-fill coin peel** — delete **`rogueFirstSearchCoinApportDefersToTowelLikeC`** when **`fobj`** order / north-fill alcove geometry matches C (**`seed0077` ~3205–3207**); tried towel-head **`fobj`** — still needs reach or C **`dog_goal`** order fix.
+3. **P2 — general `monmove.c` / `dochug` batch** (broader) — one upstream function or dispatch arm; delete peel flags when canaries hold.
 3. **P1 — `mkobj` / `ini_inv` → `game.invent`** — next checklist rows in `mkobj_mklev_like_c.js` / role linkers; advances tutorial **MD-1** and most item-driven sessions.
 4. **P2 locator — `seed0006` comma-`U` @ ~3107+** — only if batch **generalizes** `fmon` / post-Nth new-turn (not flag-only). Locator: `diag_rng_window.mjs sessions/seed0006-wizard-water-demon.session.json 3100 3130`.
 5. **Lane B — NHL** — next **`lspo_*`** per [`nhl-port-notes.md`](nhl-port-notes.md) (supports **P6** / **MD-3**).
