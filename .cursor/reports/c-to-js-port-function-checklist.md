@@ -76,7 +76,8 @@ Align batches with [`c-to-js-port-remaining.md`](c-to-js-port-remaining.md) §5:
 | `mklev` / `makelevel` | `mklev.js` | partial | |
 | `mkobj_at` / `makeniche` niche loot | `mklev.js` | partial | **`mkobjFillAtLikeC`** (was shallow **`mkobj`** stub); **`seed0900`** bbox **`fobj`** still **0** at peel |
 | `fill_ordinary_room` | `mklev.js` | partial | Oracle supply chest: **`add_to_container`** + SPBOOK **`oc_level`** bias loop; sleeper at **`somexyspace`** — no post-topology relocate |
-| `fill_special_room` | `mklev.js` | partial | **VAULT** `mkgold` loop + early **`fill_vault`** call; **`fill_zoo`** / **`stock_room`** stubs — oracle [`sp_lev.c.md`](c-oracles/sp_lev.c.md) |
+| `fill_special_room` | `mklev.js` | partial | **VAULT** `mkgold` + **`fill_zoo`** wired; **`stock_room`** stub — oracle [`sp_lev.c.md`](c-oracles/sp_lev.c.md), [`mkroom.c.md`](c-oracles/mkroom.c.md) |
+| `fill_zoo` | `mklev.js` | partial | court/zoo/morgue/barracks/beehive/cocknest/anthole grid + flags — oracle [`mkroom.c.md`](c-oracles/mkroom.c.md) |
 | `level_finalize_topology` | `mklev.js` | partial | C: no generic **`mgenmklev`** relocate; **`preferSleepingLichenDoorNichesLikeC`** fungus-only |
 | `mktrap` / `traptype_rnd` | `mklev.js` | partial | **`hole_destination`** via **`holeDestinationLikeC`** in **`maketrap`** — **`seed0016` 1335–1420** aligned |
 | `mktrap_victim` | `mklev.js` | partial | possession loop, corpse; RNG fork ~2358 on `seed0900` |

@@ -59,8 +59,15 @@ import {
     A_LAWFUL, Align2amask,
     LR_DOWNSTAIR, LR_UPSTAIR, LR_PORTAL, LR_BRANCH, LR_TELE, LR_UPTELE, LR_DOWNTELE,
     onWTowerLevelLikeC,
+    MM_ASLEEP,
     MM_NOGRP,
     NO_MM_FLAGS,
+    NON_PM,
+    A_NONE,
+    G_GONE,
+    IS_THRONE,
+    THRONE,
+    S_DRAGON,
     NO_TRAP, TRAPNUM,
     PM_GIANT_SPIDER,
     PM_LICHEN,
@@ -108,6 +115,10 @@ import {
 } from './mondata.js';
 import { setWallStateLikeC } from './wall_state.js';
 import { stolenBootyLikeC } from './stolen_booty.js';
+import {
+    mkclassAlignedMndxHeroLikeC,
+    ndemonMndxHeroLikeC,
+} from './mkclass_aligned_hero.js';
 import { baalzFixupLikeC } from './baalz_fixup.js';
 import { consumeMksobjCorpseSpeRngLikeC } from './mkobj_corpse.js';
 import { startCorpseTimeout } from './obj_rot_timer.js';
@@ -185,7 +196,37 @@ const CHEST = 216;
 const FOOD_RATION = 143;
 /** C: `mons[PM_GHOST]` — NH5 permonst index (S_GHOST). */
 const PM_GHOST = 289;
+/** C: mkroom.c fill_zoo — `mons[]` anchors (NH5 MON order). */
+const PM_GIANT_ANT = 0;
+const PM_KILLER_BEE = 1;
+const PM_SOLDIER_ANT = 2;
+const PM_FIRE_ANT = 3;
+const PM_QUEEN_BEE = 5;
+const PM_COCKATRICE = 10;
+const PM_BUGBEAR = 47;
+const PM_DWARF_RULER = 51;
+const PM_LEPRECHAUN = 65;
+const PM_HOBGOBLIN = 73;
+const PM_GNOME_RULER = 174;
+const PM_ELVEN_MONARCH = 275;
+const PM_OGRE_TYRANT = 210;
+const PM_WRAITH = 235;
+const PM_SOLDIER = 283;
+const PM_SERGEANT = 284;
+const PM_LIEUTENANT = 286;
+const PM_CAPTAIN = 287;
+const LUMP_OF_ROYAL_JELLY = 286;
 const MACE = 74;
+/** C `mons[].mlet` — mkroom.c courtmon / morguemon mkclass. */
+const S_GIANT = MONS_MLET[178] | 0;
+const S_TROLL = MONS_MLET[225] | 0;
+const S_CENTAUR = MONS_MLET[133] | 0;
+const S_ORC = MONS_MLET[72] | 0;
+const S_GNOME = MONS_MLET[169] | 0;
+const S_KOBOLD = MONS_MLET[61] | 0;
+const S_VAMPIRE = 48;
+const S_ZOMBIE = MONS_MLET[245] | 0;
+const S_DEMON = MONS_MLET[309] | 0;
 const TWO_HANDED_SWORD = 55;
 const BOW = 84;
 const RING_MAIL = 133;
@@ -1267,10 +1308,292 @@ function mkgold(amount, x, y) {
     return gold;
 }
 
+/** C: mkroom.c sq(x) — square (gold dist weighting). */
+function sqLikeC(x) {
+    const v = x | 0;
+    return v * v;
+}
+
+/** C: makemon.c set_malign — hostile mklev zoo/court tail (no extra RNG on typical path). */
+function setMalignMklevLikeC(mtmp) {
+    mtmp.malign = 20;
+}
+
+/** C: mkobj.c mk_tt_object(CORPSE, x, y) — morgue fill; tt_oname not ported. */
+function mkTtObjectCorpseLikeC(x, y) {
+    const otmp = mksobj_at(CORPSE, x, y, true, false);
+    const pm = rn1(PM_WIZARD - PM_ARCHEOLOGIST + 1, PM_ARCHEOLOGIST);
+    set_corpsenm(otmp, pm);
+    startCorpseTimeout(game, otmp);
+    return otmp;
+}
+
+/** C: mkroom.c mk_zoo_thronemon — court ruler + sceptre. */
+function mkZooThronemonLikeC(x, y) {
+    const i = rnd(level_difficulty());
+    const pm = i > 9 ? PM_OGRE_TYRANT
+        : i > 5 ? PM_ELVEN_MONARCH
+            : i > 2 ? PM_DWARF_RULER
+                : PM_GNOME_RULER;
+    const mon = makemon({ mnum: pm }, x, y, NO_MM_FLAGS);
+    if (mon) {
+        mon.msleeping = 1;
+        mon.mpeaceful = 0;
+        setMalignMklevLikeC(mon);
+        mksobj(MACE, true, false); /* C: mongets(mon, MACE) */
+    }
+}
+
+/** C: mkroom.c courtmon — returns permonst*; JS returns mndx or NON_PM. */
+function courtmonMndxLikeC(g) {
+    const i = rn2(60) + rn2(3 * level_difficulty());
+    if (i > 100) return mkclassAlignedMndxHeroLikeC(g, S_DRAGON, 0, A_NONE);
+    if (i > 95) return mkclassAlignedMndxHeroLikeC(g, S_GIANT, 0, A_NONE);
+    if (i > 85) return mkclassAlignedMndxHeroLikeC(g, S_TROLL, 0, A_NONE);
+    if (i > 75) return mkclassAlignedMndxHeroLikeC(g, S_CENTAUR, 0, A_NONE);
+    if (i > 60) return mkclassAlignedMndxHeroLikeC(g, S_ORC, 0, A_NONE);
+    if (i > 45) return PM_BUGBEAR;
+    if (i > 30) return PM_HOBGOBLIN;
+    if (i > 15) return mkclassAlignedMndxHeroLikeC(g, S_GNOME, 0, A_NONE);
+    return mkclassAlignedMndxHeroLikeC(g, S_KOBOLD, 0, A_NONE);
+}
+
+/** C: mkroom.c squadmon — barracks soldier type. */
+function squadmonMndxLikeC(g) {
+    const squadprob = [
+        [PM_SOLDIER, 80],
+        [PM_SERGEANT, 15],
+        [PM_LIEUTENANT, 4],
+        [PM_CAPTAIN, 1],
+    ];
+    const selProb = rnd(80 + level_difficulty());
+    let cpro = 0;
+    for (let i = 0; i < squadprob.length; i++) {
+        cpro += squadprob[i][1];
+        if (cpro > selProb) {
+            const mndx = squadprob[i][0] | 0;
+            if (!((g.mvitals?.[mndx]?.mvflags | 0) & G_GONE)) return mndx;
+            return NON_PM;
+        }
+    }
+    const mndx = squadprob[squadprob.length - 1][0] | 0;
+    if (!((g.mvitals?.[mndx]?.mvflags | 0) & G_GONE)) return mndx;
+    return NON_PM;
+}
+
+/** C: mkroom.c morguemon — morgue sleeper type. */
+function morguemonMndxLikeC(g) {
+    const i = rn2(100);
+    const hd = rn2(level_difficulty());
+    if (hd > 10 && i < 10) {
+        if (In_hell(g.u?.uz) || In_endgame(g.u?.uz)) {
+            return mkclassAlignedMndxHeroLikeC(g, S_DEMON, 0, A_NONE);
+        }
+        const nd = ndemonMndxHeroLikeC(g, A_NONE);
+        if (nd !== NON_PM) return nd;
+    }
+    if (hd > 8 && i > 85) return mkclassAlignedMndxHeroLikeC(g, S_VAMPIRE, 0, A_NONE);
+    if (i < 20) return PM_GHOST;
+    if (i < 40) return PM_WRAITH;
+    return mkclassAlignedMndxHeroLikeC(g, S_ZOMBIE, 0, A_NONE);
+}
+
+/** C: mkroom.c antholemon — ant type from birth day + depth. */
+function antholemonMndxLikeC(g) {
+    const indx = ((g.u?.ubirthday >>> 0) % 3) + level_difficulty();
+    const types = [PM_SOLDIER_ANT, PM_FIRE_ANT, PM_GIANT_ANT];
+    let tryct = 0;
+    do {
+        const mtyp = types[(indx + tryct) % 3] | 0;
+        if (!((g.mvitals?.[mtyp]?.mvflags | 0) & G_GONE)) return mtyp;
+    } while (++tryct < 3);
+    return NON_PM;
+}
+
 /** C: mkroom.c fill_zoo — zoo/court/morgue/… interior (called from fill_special_room only). */
 function fillZooLikeC(croom) {
-    void croom;
-    /* TODO: port mkroom.c fill_zoo (court throne, zoo gold, morgue corpses, …). */
+    const g = game;
+    if (!croom || !g.level) return;
+
+    const type = croom.rtype | 0;
+    const rmno = (croom.roomnoidx | 0) + ROOMOFFSET;
+    const sh = croom.fdoor | 0;
+    let tx = 0;
+    let ty = 0;
+    let goldlim = 0;
+
+    switch (type) {
+    case COURT: {
+        let thronePlaced = false;
+        if (g.level.flags?.is_maze_lev) {
+            for (let x = croom.lx | 0; x <= (croom.hx | 0); x++) {
+                for (let y = croom.ly | 0; y <= (croom.hy | 0); y++) {
+                    const loc = g.level.at(x, y);
+                    if (loc && IS_THRONE(loc.typ | 0)) {
+                        tx = x;
+                        ty = y;
+                        thronePlaced = true;
+                        break;
+                    }
+                }
+                if (thronePlaced) break;
+            }
+        }
+        if (!thronePlaced) {
+            let tryi = 100;
+            const mm = { x: 0, y: 0 };
+            do {
+                somexyspace(croom, mm);
+                tx = mm.x;
+                ty = mm.y;
+            } while (occupied(tx, ty) && --tryi > 0);
+        }
+        mkZooThronemonLikeC(tx, ty);
+        break;
+    }
+    case BEEHIVE:
+        tx = (croom.lx | 0) + Math.trunc(((croom.hx | 0) - (croom.lx | 0) + 1) / 2);
+        ty = (croom.ly | 0) + Math.trunc(((croom.hy | 0) - (croom.ly | 0) + 1) / 2);
+        if (croom.irregular) {
+            const loc = g.level.at(tx, ty);
+            if (!loc || (loc.roomno | 0) !== rmno || loc.edge) {
+                const mm = { x: 0, y: 0 };
+                somexyspace(croom, mm);
+                tx = mm.x;
+                ty = mm.y;
+            }
+        }
+        break;
+    case ZOO:
+    case LEPREHALL:
+        goldlim = 500 * level_difficulty();
+        break;
+    default:
+        break;
+    }
+
+    const mmFlags = MM_ASLEEP | MM_NOGRP;
+    for (let sx = croom.lx | 0; sx <= (croom.hx | 0); sx++) {
+        for (let sy = croom.ly | 0; sy <= (croom.hy | 0); sy++) {
+            const loc = g.level.at(sx, sy);
+            if (!loc) continue;
+            if (croom.irregular) {
+                if ((loc.roomno | 0) !== rmno || loc.edge
+                    || ((croom.doorct | 0) > 0
+                        && distmin(sx, sy, g.level.doors[sh].x, g.level.doors[sh].y) <= 1)) {
+                    continue;
+                }
+            } else if (!SPACE_POS(loc.typ | 0)
+                || ((croom.doorct | 0) > 0
+                    && ((sx === (croom.lx | 0) && g.level.doors[sh].x === sx - 1)
+                        || (sx === (croom.hx | 0) && g.level.doors[sh].x === sx + 1)
+                        || (sy === (croom.ly | 0) && g.level.doors[sh].y === sy - 1)
+                        || (sy === (croom.hy | 0) && g.level.doors[sh].y === sy + 1)))) {
+                continue;
+            }
+            if (type === COURT && IS_THRONE(loc.typ | 0)) continue;
+
+            let mndx = NON_PM;
+            if (type === COURT) mndx = courtmonMndxLikeC(g);
+            else if (type === BARRACKS) mndx = squadmonMndxLikeC(g);
+            else if (type === MORGUE) mndx = morguemonMndxLikeC(g);
+            else if (type === BEEHIVE) {
+                mndx = (sx === tx && sy === ty) ? PM_QUEEN_BEE : PM_KILLER_BEE;
+            } else if (type === LEPREHALL) mndx = PM_LEPRECHAUN;
+            else if (type === COCKNEST) mndx = PM_COCKATRICE;
+            else if (type === ANTHOLE) mndx = antholemonMndxLikeC(g);
+
+            const mon = mndx !== NON_PM ? makemon({ mnum: mndx }, sx, sy, mmFlags) : null;
+            if (mon) {
+                mon.msleeping = 1;
+                if (type === COURT && mon.mpeaceful) {
+                    mon.mpeaceful = 0;
+                    setMalignMklevLikeC(mon);
+                }
+            }
+
+            switch (type) {
+            case ZOO:
+            case LEPREHALL: {
+                let gi;
+                if (croom.doorct) {
+                    const distval = dist2(sx, sy, g.level.doors[sh].x, g.level.doors[sh].y);
+                    gi = sqLikeC(distval);
+                } else {
+                    gi = goldlim;
+                }
+                if (gi >= goldlim) gi = 5 * level_difficulty();
+                goldlim -= gi;
+                mkgold(rn1(gi, 10), sx, sy);
+                break;
+            }
+            case MORGUE:
+                if (!rn2(5)) mkTtObjectCorpseLikeC(sx, sy);
+                if (!rn2(10)) mksobj_at(rn2(3) ? LARGE_BOX : CHEST, sx, sy, true, false);
+                if (!rn2(5)) make_grave(sx, sy, null);
+                break;
+            case BEEHIVE:
+                if (!rn2(3)) mksobj_at(LUMP_OF_ROYAL_JELLY, sx, sy, true, false);
+                break;
+            case BARRACKS:
+                if (!rn2(20)) mksobj_at(rn2(3) ? LARGE_BOX : CHEST, sx, sy, true, false);
+                break;
+            case COCKNEST:
+                if (!rn2(3)) {
+                    const sobj = mkTtObjectStatueLikeC(sx, sy);
+                    if (sobj) {
+                        for (let ci = rn2(5); ci; ci--) {
+                            add_to_container(sobj, mkobjFromMklevCLikeC(RANDOM_CLASS, false));
+                        }
+                        sobj.owt = weight(sobj);
+                    }
+                }
+                break;
+            case ANTHOLE:
+                if (!rn2(3)) mkobj_at(FOOD_CLASS, sx, sy, false);
+                break;
+            default:
+                break;
+            }
+        }
+    }
+
+    const lf = g.level.flags;
+    if (!lf) return;
+    switch (type) {
+    case COURT: {
+        const loc = g.level.at(tx, ty);
+        if (loc) loc.typ = THRONE;
+        const mm = { x: 0, y: 0 };
+        somexyspace(croom, mm);
+        const gold = mksobj(GOLD_PIECE, true, false);
+        gold.quan = rn1(50 * level_difficulty(), 10);
+        gold.owt = weight(gold);
+        const chest = mksobj_at(CHEST, mm.x, mm.y, true, false);
+        add_to_container(chest, gold);
+        chest.owt = weight(chest);
+        chest.spe = 2;
+        lf.has_court = true;
+        break;
+    }
+    case BARRACKS:
+        lf.has_barracks = true;
+        break;
+    case ZOO:
+        lf.has_zoo = true;
+        break;
+    case MORGUE:
+        lf.has_morgue = true;
+        break;
+    case SWAMP:
+        lf.has_swamp = true;
+        break;
+    case BEEHIVE:
+        lf.has_beehive = true;
+        break;
+    default:
+        break;
+    }
 }
 
 /** C: shknam.c stock_room — shop inventory (called from fill_special_room only). */

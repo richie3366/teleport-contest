@@ -29,7 +29,7 @@
 ## Open gaps
 
 - **`fill_ordinary_room` supply chest** — **done** (2026-06-09 **`add_to_container`**); see [`mkobj.c.md`](mkobj.c.md).
-- **`fill_zoo`** — **next batch** — stub (`fillZooLikeC`); zoo/court/morgue/barracks RNG not ported (`mkroom.c`).
+- **`fill_zoo`** — **done** (2026-06-09) — `fillZooLikeC` (`mkroom.c`); court throne + `courtmon`/`squadmon`/`morguemon`/`antholemon` via **`mkclassAlignedMndxHeroLikeC`**; zoo gold `sq(dist2)`; morgue `mk_tt_object` corpses. Oracle: [`mkroom.c.md`](mkroom.c.md).
 - **`stock_room`** — stub (`stockRoomLikeC`); shop levels diverge until `shknam.c` port.
 - Vault gold **`rn2(100)`** — C recorder tags `fill_special_room`; draws are **`mksobj`/`mkobj_erosions`** on new **`GOLD_PIECE`** piles (`gi.in_mklev`).
 
