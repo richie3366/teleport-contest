@@ -20,6 +20,7 @@ import {
     runCommaUPostSeventhInlineNewturnLikeC,
     runCommaUPostEighthInlineNewturnLikeC,
     runCommaUPostNinthInlineNewturnLikeC,
+    runCommaUPostTenthInlineNewturnLikeC,
 } from './moveloop_aux.js';
 import { encumberMsg } from './pickup.js';
 import { nearCapacity, ENC } from './encumbr.js';
@@ -1244,6 +1245,13 @@ export async function runPostCommandTurnAdvanceLikeC(g) {
                     delete g.context._wizD1CommaPostEighthInlineNewturnDoneLikeC;
                     newTurnDone = true;
                 } else if (
+                    g.context?._wizD1CommaPostNinthInlineNewturnDoneLikeC
+                    && !g.context?._wizD1CommaPostTenthMovemonPendingLikeC
+                    && !g.context?._wizD1CommaPostTenthMovemonCompleteLikeC
+                ) {
+                    delete g.context._wizD1CommaPostNinthInlineNewturnDoneLikeC;
+                    newTurnDone = true;
+                } else if (
                     g.context?._wizD1CommaLFirstUPostTailStrayDistfleeckPendingLikeC
                 ) {
                     delete g.context._wizD1CommaLFirstUPostTailStrayDistfleeckPendingLikeC;
@@ -1347,8 +1355,18 @@ export async function runPostCommandTurnAdvanceLikeC(g) {
                                     if (g.context?._wizD1CommaPostNinthMovemonCompleteLikeC) {
                                         delete g.context._wizD1CommaPostNinthMovemonCompleteLikeC;
                                         await runCommaUPostNinthInlineNewturnLikeC(g);
-                                        g.context._wizD1LPostOuterLoopDoneLikeC = true;
-                                        newTurnDone = true;
+                                        delete g.context._wizD1CommaPostNinthInlineNewturnDoneLikeC;
+                                        g.context._wizD1CommaPostTenthMovemonPendingLikeC = true;
+                                        delete g.context._wizD1MovemonRanThisPostLikeC;
+                                        g.context._movemonHarnessConsumed = false;
+                                        await movemon(1);
+                                        g.context._wizD1MovemonRanThisPostLikeC = true;
+                                        if (g.context?._wizD1CommaPostTenthMovemonCompleteLikeC) {
+                                            delete g.context._wizD1CommaPostTenthMovemonCompleteLikeC;
+                                            await runCommaUPostTenthInlineNewturnLikeC(g);
+                                            g.context._wizD1LPostOuterLoopDoneLikeC = true;
+                                            newTurnDone = true;
+                                        }
                                     }
                                 }
                             }

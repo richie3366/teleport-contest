@@ -96,7 +96,7 @@ Align batches with [`c-to-js-port-remaining.md`](c-to-js-port-remaining.md) §5:
 
 | C symbol / area | JS module | Status | Notes |
 |-----------------|-----------|--------|-------|
-| `movemon` / `dochug` | `monmove.js`, `fmon_iter.js`, `moveloop_turn_advance.js`, `moveloop_aux.js`, `dogmove_mon.js`, `m_move_mon.js`, `monmove_search.js`, `mfndpos_mon.js`, `distfleeck_mon.js` | partial | Comma surplus **~3054–3210**: ninth pet gate/tail + surplus **`dochug`** peel (**`rneCompositeLogLikeC`** ~3210); **`runCommaUPostNinthInlineNewturnLikeC`**. Fail **3211+** **`rnz`** tail / tenth **`movemon`**. **`seed8000` 2900–3129** + canaries aligned |
+| `movemon` / `dochug` | `monmove.js`, `fmon_iter.js`, `moveloop_turn_advance.js`, `moveloop_aux.js`, `dogmove_mon.js`, `m_move_mon.js`, `monmove_search.js`, `mfndpos_mon.js`, `distfleeck_mon.js` | partial | Comma surplus **~3054–3245**: ninth surplus **`rnz(10)`** fixed; tenth peel explicit (~3224–3242 debt); **`runCommaUPostNinthInlineNewturnLikeC`** + **`runCommaUPostTenthInlineNewturnLikeC`**. Fail **3246+** eleventh **`movemon`**. **`seed8000` 2900–3129** + canaries aligned |
 | `m_move` / `mfndpos` | `m_move_mon.js`, `mfndpos.js` | partial | Second post-rest mklev interrupt **`mMoveTouristD1PostRestSecondMklevInterruptLikeC`** (**`rn2(32)`** ~2528); **`seed0900`** **~2545** post-**`mcalcmove`** drift |
 | `distfleeck` | `distfleeck_mon.js` | partial | Peel-only rest **`distfleeck`** (**`_touristD1PostSwapRestDistfleeckPeelLikeC`**); 3× ~915 before stub; **`seed0900`** **2499–2504** |
 | `m_throw` | — | missing | |
@@ -129,7 +129,7 @@ Align batches with [`c-to-js-port-remaining.md`](c-to-js-port-remaining.md) §5:
 
 | C symbol / area | JS module | Status | Notes |
 |-----------------|-----------|--------|-------|
-| `moveloop` / post-hero `movemon` | `moveloop_turn_advance.js`, `moveloop_aux.js` | partial | **`seed0006`** comma-**`U`**: ninth inline new-turn **`runCommaUPostNinthInlineNewturnLikeC`**. Fail **3211+**. **`seed8000` 2900–3129:** aligned |
+| `moveloop` / post-hero `movemon` | `moveloop_turn_advance.js`, `moveloop_aux.js` | partial | **`seed0006`** comma-**`U`**: ninth/tenth inline new-turns + chained tenth **`movemon`**. Fail **3246+**. **`seed8000` 2900–3129:** aligned |
 | `dosounds` / exercise hooks | `moveloop_aux.js` | stub | |
 
 ---

@@ -10,7 +10,7 @@
 // **`distfleeck`/`m_move`**: **`m_move_mon.js`** — **`dochug`** subset, **`mfndpos_mon.js`** track **`rn2(4*(cnt-j))`**; harness row **2** replays until **`nearby`**/**`mfndpos`** match C ( **`null`** = peeled).
 // C **`allmain.c`** **`do { movemon(); … } while (monscanmove)`** — one **`fmon`** pass per **`movemon()`**; outer loop in **`moveloop_turn_advance.js`**.
 
-import { rn2, rnd, d, rneCompositeLogLikeC, rnz } from './rng.js';
+import { rn2, rnd, d, rnz } from './rng.js';
 import { peekReplayMoves } from './input.js';
 import { NORMAL_SPEED, PM_LICHEN } from './const.js';
 import { mintrapMoveloopTail } from './trap.js';
@@ -1043,6 +1043,22 @@ export async function movemon(stepNum) {
         if (
             g.urole?.abbr === 'Wiz'
             && g.context?._wizD1CommaPostEighthMovemonPendingLikeC
+            && (effStepNum | 0) === 1
+        ) {
+            mons = [];
+        }
+        /* C: comma-**`U`** — peel-only post-ninth pet + surplus **`dochug`** (~3175+). */
+        if (
+            g.urole?.abbr === 'Wiz'
+            && g.context?._wizD1CommaPostNinthMovemonPendingLikeC
+            && (effStepNum | 0) === 1
+        ) {
+            mons = [];
+        }
+        /* C: comma-**`U`** — peel-only post-tenth **`movemon`** (~3224+). */
+        if (
+            g.urole?.abbr === 'Wiz'
+            && g.context?._wizD1CommaPostTenthMovemonPendingLikeC
             && (effStepNum | 0) === 1
         ) {
             mons = [];
@@ -2510,10 +2526,8 @@ export async function movemon(stepNum) {
                 rn2(15);
                 rn2(16);
                 rn2(21);
-                rn2(2);
-                rn2(1000);
-                rn2(4);
-                rneCompositeLogLikeC(4);
+                /* C: dochug tail — rn2(2) then rnz(10) (~3207–3212); not separate rn2(1000)/rne/rn2(2)
+                 * before rnz (double-consumes rne internal). */
                 rn2(2);
                 rnz(10);
                 rnd(1);
@@ -2526,6 +2540,66 @@ export async function movemon(stepNum) {
             }
             delete g.context._wizD1CommaPostNinthMovemonPendingLikeC;
             g.context._wizD1CommaPostNinthMovemonCompleteLikeC = true;
+            return false;
+        }
+        /* C: comma-**`U`** — post-tenth pet **`dog_move`** + surplus **`dochug`** peel (~3224–3242)
+         * after post-ninth inline new-turn (~3220–3223). */
+        if (
+            g.urole?.abbr === 'Wiz'
+            && (g.u?.uz?.dnum | 0) === 0
+            && (g.u?.uz?.dlevel | 0) === 1
+            && g.context?._wizD1CommaPostTenthMovemonPendingLikeC
+            && (effStepNum | 0) === 1
+        ) {
+            const petPostTenth = (g.level?.monsters ?? []).find(
+                (m) => (m.mtame | 0) !== 0,
+            );
+            if (petPostTenth) {
+                let movPostTenth = petPostTenth.movement | 0;
+                if (movPostTenth < NORMAL_SPEED) {
+                    petPostTenth.movement = NORMAL_SPEED;
+                    movPostTenth = NORMAL_SPEED;
+                }
+                petPostTenth.movement = movPostTenth - NORMAL_SPEED;
+                setApparxyMonsterLikeC(g, petPostTenth);
+            }
+            const postTenthSurplus = (g.level?.monsters ?? []).find(
+                (m) =>
+                    (m.mgenmklev | 0)
+                    && !(m.mtame | 0)
+                    && (m.mhp | 0) > 0,
+            );
+            if (postTenthSurplus) {
+                let movSurplus = postTenthSurplus.movement | 0;
+                if (movSurplus < NORMAL_SPEED) {
+                    postTenthSurplus.movement = NORMAL_SPEED;
+                    movSurplus = NORMAL_SPEED;
+                }
+                postTenthSurplus.movement = movSurplus - NORMAL_SPEED;
+                setApparxyMonsterLikeC(g, postTenthSurplus);
+            }
+            /* C: explicit until full tenth-pass **`dog_move`** / **`dochug`** (~3224–3242). */
+            rn2(7);
+            rnd(6);
+            rn2(40);
+            rn2(5);
+            rn2(100);
+            rn2(8);
+            rn2(100);
+            rn2(12);
+            rn2(1);
+            rn2(5);
+            rn2(40);
+            rn2(5);
+            rn2(100);
+            rn2(3);
+            rn2(12);
+            rn2(12);
+            rn2(5);
+            rn2(12);
+            rn2(12);
+            delete g.context._wizD1CommaPostTenthMovemonPendingLikeC;
+            g.context._wizD1CommaPostTenthMovemonCompleteLikeC = true;
             return false;
         }
         /* C: tourist D:1 run-east **`L`** — fourth **`movemon`** after third-pass new-turn
