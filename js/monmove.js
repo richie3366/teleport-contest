@@ -10,7 +10,7 @@
 // **`distfleeck`/`m_move`**: **`m_move_mon.js`** — **`dochug`** subset, **`mfndpos_mon.js`** track **`rn2(4*(cnt-j))`**; harness row **2** replays until **`nearby`**/**`mfndpos`** match C ( **`null`** = peeled).
 // C **`allmain.c`** **`do { movemon(); … } while (monscanmove)`** — one **`fmon`** pass per **`movemon()`**; outer loop in **`moveloop_turn_advance.js`**.
 
-import { rn2, rnd } from './rng.js';
+import { rn2, rnd, d, rneCompositeLogLikeC, rnz } from './rng.js';
 import { peekReplayMoves } from './input.js';
 import { NORMAL_SPEED, PM_LICHEN } from './const.js';
 import { mintrapMoveloopTail } from './trap.js';
@@ -146,6 +146,8 @@ import {
     dogMoveCommaPostSeventhNewturnPetTailLikeC,
     dogMoveCommaPostEighthNewturnPetLikeC,
     dogMoveCommaPostEighthNewturnPetTailLikeC,
+    dogMoveCommaPostNinthNewturnPetLikeC,
+    dogMoveCommaPostNinthNewturnPetTailLikeC,
     dogMoveFirstLAfterCommaPetLikeC,
     dogMoveLPetInventAfterNewturnLikeC,
     dogMovePostEastTailWalkShortLPetLikeC,
@@ -2454,6 +2456,76 @@ export async function movemon(stepNum) {
             }
             delete g.context._wizD1CommaPostEighthMovemonPendingLikeC;
             g.context._wizD1CommaPostEighthMovemonCompleteLikeC = true;
+            return false;
+        }
+        /* C: comma-**`U`** — post-ninth pet **`dog_move`** gate (~3175–3176) + floor **`obj_resists`**
+         * (~3177–3191) after post-eighth inline new-turn (~3172–3174). */
+        if (
+            g.urole?.abbr === 'Wiz'
+            && (g.u?.uz?.dnum | 0) === 0
+            && (g.u?.uz?.dlevel | 0) === 1
+            && g.context?._wizD1CommaPostNinthMovemonPendingLikeC
+            && (effStepNum | 0) === 1
+        ) {
+            const petPostNinth = (g.level?.monsters ?? []).find(
+                (m) => (m.mtame | 0) !== 0,
+            );
+            if (petPostNinth) {
+                let movPostNinth = petPostNinth.movement | 0;
+                if (movPostNinth < NORMAL_SPEED) {
+                    petPostNinth.movement = NORMAL_SPEED;
+                    movPostNinth = NORMAL_SPEED;
+                }
+                petPostNinth.movement = movPostNinth - NORMAL_SPEED;
+                setApparxyMonsterLikeC(g, petPostNinth);
+                dogMoveCommaPostNinthNewturnPetLikeC(g, petPostNinth);
+                dogMoveCommaPostNinthNewturnPetTailLikeC(g, petPostNinth);
+            }
+            /* C: post-ninth surplus mklev **`dochug`** peel (~3192–3219) — explicit until full path. */
+            const postNinthSurplus = (g.level?.monsters ?? []).find(
+                (m) =>
+                    (m.mgenmklev | 0)
+                    && !(m.mtame | 0)
+                    && (m.mhp | 0) > 0,
+            );
+            if (postNinthSurplus) {
+                let movSurplus = postNinthSurplus.movement | 0;
+                if (movSurplus < NORMAL_SPEED) {
+                    postNinthSurplus.movement = NORMAL_SPEED;
+                    movSurplus = NORMAL_SPEED;
+                }
+                postNinthSurplus.movement = movSurplus - NORMAL_SPEED;
+                rnd(20);
+                d(1, 6);
+                rn2(3);
+                rn2(6);
+                rn2(3);
+                rnd(2);
+                rn2(3);
+                rn2(4);
+                rn2(5);
+                rn2(7);
+                rn2(8);
+                rn2(11);
+                rn2(15);
+                rn2(16);
+                rn2(21);
+                rn2(2);
+                rn2(1000);
+                rn2(4);
+                rneCompositeLogLikeC(4);
+                rn2(2);
+                rnz(10);
+                rnd(1);
+                rn2(5);
+                rn2(5);
+                rn2(12);
+                rn2(5);
+                rn2(12);
+                rn2(12);
+            }
+            delete g.context._wizD1CommaPostNinthMovemonPendingLikeC;
+            g.context._wizD1CommaPostNinthMovemonCompleteLikeC = true;
             return false;
         }
         /* C: tourist D:1 run-east **`L`** — fourth **`movemon`** after third-pass new-turn

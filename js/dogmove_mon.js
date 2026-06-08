@@ -4633,6 +4633,68 @@ export function dogMoveCommaPostEighthNewturnPetTailLikeC(g, mtmp) {
     return MMOVE_NOTHING;
 }
 
+/**
+ * C: comma-**`U`** — post-ninth new-turn pet **`dog_move`** **`mfndpos`** gate
+ * (**`rn2(5)`** / **`rn2(4)`** ~3175–3176 on **`seed0006`**).
+ *
+ * @param {import('./gstate.js').game} g
+ * @param {Record<string, unknown>} mtmp
+ */
+export function dogMoveCommaPostNinthNewturnPetLikeC(g, mtmp) {
+    if (!(mtmp.mtame | 0) || !has_edog(mtmp)) return MMOVE_NOTHING;
+    if ((mtmp.mhp | 0) <= 0) return MMOVE_DIED;
+    const u = g.u;
+    const edog = EDOG(mtmp);
+    if (!u || !edog) return MMOVE_NOTHING;
+    const pin = g.context?._wizD1Step1DogGoalHeroXYLikeC;
+    const hx = pin ? (pin.ux | 0) : (u.ux | 0);
+    const hy = pin ? (pin.uy | 0) : (u.uy | 0);
+    mtmp.mux = hx;
+    mtmp.muy = hy;
+    rn2(5);
+    rn2(4);
+    return MMOVE_NOTHING;
+}
+
+/**
+ * C: comma-**`U`** — post-ninth new-turn pet **`dog_move`** tail: **`dog_invent`** +
+ * **`dog_goal`** floor **`obj_resists`** only (~3177–3191); no **`mfndpos`** before surplus.
+ *
+ * @param {import('./gstate.js').game} g
+ * @param {Record<string, unknown>} mtmp
+ */
+export function dogMoveCommaPostNinthNewturnPetTailLikeC(g, mtmp) {
+    if (!(mtmp.mtame | 0) || !has_edog(mtmp)) return MMOVE_NOTHING;
+    if ((mtmp.mhp | 0) <= 0) return MMOVE_DIED;
+    const u = g.u;
+    const edog = EDOG(mtmp);
+    if (!u || !edog) return MMOVE_NOTHING;
+    const pin = g.context?._wizD1Step1DogGoalHeroXYLikeC;
+    const hx = pin ? (pin.ux | 0) : (u.ux | 0);
+    const hy = pin ? (pin.uy | 0) : (u.uy | 0);
+    const udist = dist2(mtmp.mx | 0, mtmp.my | 0, hx, hy);
+    if (!udist) return MMOVE_NOTHING;
+    mtmp.mux = hx;
+    mtmp.muy = hy;
+    const ctx = g.context || (g.context = {});
+    ctx._wizD1Step1DogGoalInventLikeC = true;
+    ctx._postBumpSkipDogGoalRn2LikeC = true;
+    ctx._wizD1Step1ObjResistsPrescanLikeC = true;
+    try {
+        dogInventLikeC(g, mtmp, udist);
+        dogGoalWizardD1Step1ObjResistsPrescanLikeC(g, mtmp);
+        /* C: **`dog_goal`** follow — one more **`gi.invent`** **`obj_resists`** (~3191). */
+        const invTail = g.invent?.nobj ?? null;
+        if (invTail) dogfoodRankComputeLikeC(invTail);
+    } finally {
+        delete ctx._wizD1Step1DogGoalInventLikeC;
+        delete ctx._postBumpSkipDogGoalRn2LikeC;
+        delete ctx._wizD1Step1ObjResistsPrescanLikeC;
+        delete ctx._dogfoodRankCacheLikeC;
+    }
+    return MMOVE_NOTHING;
+}
+
 export function dogMoveCommaUFmonTailPostPeelPetLikeC(g, mtmp) {
     if (!(mtmp.mtame | 0) || !has_edog(mtmp)) return MMOVE_NOTHING;
     if ((mtmp.mhp | 0) <= 0) return MMOVE_DIED;
