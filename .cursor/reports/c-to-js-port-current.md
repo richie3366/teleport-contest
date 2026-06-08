@@ -74,13 +74,13 @@ Use when **`Next steps`** feels stale. Order: **(1)** reliability phase **P1–P
 
 **Tutorial (Lane E):** Gated on [tutorial port gate](../../docs/plans/tutorial-port-gate.md) **MD-1 … MD-7**.
 
-**Last slice:** **P2 — comma-`U` ninth `rnz` tail + tenth `movemon` + inline new-turns (`seed0006`)** — **`monmove.js`**: fix surplus **`rnz(10)`** (one **`rnz`**, not split **`rne`**); tenth peel explicit draws (~3224–3242); **`moveloop_aux.js`**: **`runCommaUPostTenthInlineNewturnLikeC`**, drop duplicate **`rn2(19)`** in post-ninth inline ( **`exerper`** owns it); **`moveloop_turn_advance.js`**: chain ninth → tenth **`movemon`**. Locator **`seed0006` 3211–3245**; fail **3246+** eleventh **`movemon`** / post-tenth tail. Canaries **PASS**.
+**Last slice:** **P2 — comma-`U` eleventh `movemon` + post-eleventh inline new-turn (`seed0006`)** — **`moveloop_turn_advance.js`**: chain post-tenth inline → eleventh **`movemon`** (was premature **`_wizD1LPostOuterLoopDoneLikeC`**); **`monmove.js`**: eleventh peel explicit (~3246–3259); **`moveloop_aux.js`**: **`runCommaUPostEleventhInlineNewturnLikeC`**. Locator **`seed0006` 3246–3262**; fail **3263+** twelfth **`movemon`**. Canaries **PASS**.
 
 ## Next steps (reliability order)
 
 Pick **one** primary batch per commit. **First:** tutorial gate — if **all MD-1 … MD-7**, do Lane E from [10-tutorial.md](../plans/nethack-port/10-tutorial.md).
 
-1. **P2 — `seed0006` comma-`U` @ ~3246+** — post-tenth tail / eleventh **`movemon`** (~3246+); locator **3246–3270+**.
+1. **P2 — `seed0006` comma-`U` @ ~3263+** — post-eleventh tail / twelfth **`movemon`** (~3263+); locator **3263–3290+**.
 2. **P2 — west north-fill coin peel** — delete **`rogueFirstSearchCoinApportDefersToTowelLikeC`** when **`fobj`** order / north-fill alcove geometry matches C (**`seed0077` ~3205–3207**); tried towel-head **`fobj`** — still needs reach or C **`dog_goal`** order fix.
 3. **P2 — general `monmove.c` / `dochug` batch** (broader) — one upstream function or dispatch arm; delete peel flags when canaries hold.
 3. **P1 — `mkobj` / `ini_inv` → `game.invent`** — next checklist rows in `mkobj_mklev_like_c.js` / role linkers; advances tutorial **MD-1** and most item-driven sessions.
