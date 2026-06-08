@@ -7,9 +7,9 @@ Thin handoff for the next coding session. **Canonical strategy:** [**`c-to-js-po
 **Human:** `./tools/loop-nethack-port-agent.sh start|stop` — nothing else required.  
 **Agent:** read this file → do next step #1 → C + oracle → `diag_rng_window` (+ `diag_c_rng_callers` if moveloop) → canaries → gate → commit → update shelves. **Do not** bounce shell work to human.
 
-**Interleave trigger (active):** batches **1–10** deleted PostSeventh…PostSixteenth peels. **Next loop iteration must NOT be PostSeventeenth** — do **#1 P1 mkobj** below (or #3 dog_goal). Resume PostSeventeenth…PostTwentyFourth only after one P1/P2-general batch.
+**Interleave trigger (active):** batches **1–10** deleted PostSeventh…PostSixteenth peels. **Next loop iteration must NOT be PostSeventeenth** — do **#1 P2 moveloop** below (or #2 mklev / #3 dog_goal). Resume PostSeventeenth…PostTwentyFourth only after one P1/P2-general batch.
 
-**Reflection:** [`c-to-js-port-reflection.md`](c-to-js-port-reflection.md) — last meta-review **2026-06-08 pass 3** (5× P1 u_init batches; filter unified; **`seed0900` ~2960**); next due after **5** more commits or milestone score (strategy §10). Not every batch.
+**Reflection:** [`c-to-js-port-reflection.md`](c-to-js-port-reflection.md) — last meta-review **2026-06-08 pass 4** (human-gate + linker window closed; pivot P2 moveloop); next due after **5** more commits or milestone score (strategy §10). Not every batch.
 
 ## Working principle (read every session)
 
@@ -83,7 +83,7 @@ Use when **`Next steps`** feels stale. Order: **(1)** reliability phase **P1–P
 
 **Tutorial (Lane E):** Gated on [tutorial port gate](../../docs/plans/tutorial-port-gate.md) **MD-1 … MD-7**.
 
-**Last slice:** **P1 Hea/Bar/Val linker all races** — C `ini_inv` race-independent for Healer/Barbarian/Valkyrie; **`isHealerChargenLikeC`**, **`isBarbarianChargenLikeC`**, **`isValkyrieChargenLikeC`** drop `humanIdx`; Bar **`iniInvSubstOtypForChargenLikeC`** on ring mail + short sword. Score **3/44** stable. Fail **`seed0060` ~1036** (moveloop); **`seed0900` ~2960** (moveloop); **`seed0016` ~1281** (mklev).
+**Last slice:** **Reflect pass 4** — 5× P1 u_init since pass 3 (human-gate Rog…Cav, orc/elf race tails, Priest/Hea/Bar/Val linkers); P1 u_init largely closed; pivot **P2 moveloop @ `seed0900` ~2960**. Score **3/44** stable. Fail **`seed0060` ~1036** (moveloop); **`seed0900` ~2960** (moveloop); **`seed0016` ~1281** (mklev).
 
 ## Next steps (**strategy order** — pick **one**)
 
