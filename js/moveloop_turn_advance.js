@@ -1441,11 +1441,31 @@ export async function runPostCommandTurnAdvanceLikeC(g) {
                         /* C: post-fifth pet done (~3081) — peel + surplus **`fmon`** (~3082–3091). */
                         if (g.context?._wizD1CommaPostFifthHostileTailPendingLikeC) {
                             delete g.context._wizD1CommaPostFifthHostileTailPendingLikeC;
+                            const postSixthCorridorSaveLikeC =
+                                g.context?._wizD1CommaPostFifthHostileCorridorLikeC
+                                ?? null;
+                            const postSixthDistantSaveLikeC =
+                                g.context?._wizD1CommaPostFifthHostileDistantLikeC
+                                ?? null;
                             await wizD1CommaPostFifthHostileTailInlineLikeC(
                                 g,
                                 tailStepNum,
                             );
                             await runNewTurnSetupAndTailLikeC(g, tailStepNum);
+                            if (postSixthCorridorSaveLikeC) {
+                                g.context._wizD1CommaPostSixthHostileCorridorLikeC =
+                                    postSixthCorridorSaveLikeC;
+                            }
+                            if (postSixthDistantSaveLikeC) {
+                                g.context._wizD1CommaPostSixthHostileDistantLikeC =
+                                    postSixthDistantSaveLikeC;
+                            }
+                            /* C: sixth new-turn done (~3092–3094) — pet + hostiles (~3095+). */
+                            g.context._wizD1CommaPostSixthMovemonPendingLikeC = true;
+                            delete g.context._wizD1MovemonRanThisPostLikeC;
+                            g.context._movemonHarnessConsumed = false;
+                            await movemon(1);
+                            g.context._wizD1MovemonRanThisPostLikeC = true;
                             g.context._wizD1LPostOuterLoopDoneLikeC = true;
                         }
                         g.context._wizD1MovemonRanThisPostLikeC = true;

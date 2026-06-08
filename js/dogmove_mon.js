@@ -4420,6 +4420,28 @@ export function dogMoveCommaPostFifthNewturnPetLikeC(g, mtmp) {
     return MMOVE_NOTHING;
 }
 
+/**
+ * C: comma-**`U`** — post-sixth new-turn pet **`dog_move`** after **`distfleeck`**
+ * (**`rn2(3)`** ~3096 only; corridor/distant hostiles follow in **`movemon`** peel).
+ *
+ * @param {import('./gstate.js').game} g
+ * @param {Record<string, unknown>} mtmp
+ */
+export function dogMoveCommaPostSixthNewturnPetLikeC(g, mtmp) {
+    if (!(mtmp.mtame | 0) || !has_edog(mtmp)) return MMOVE_NOTHING;
+    if ((mtmp.mhp | 0) <= 0) return MMOVE_DIED;
+    const u = g.u;
+    const edog = EDOG(mtmp);
+    if (!u || !edog) return MMOVE_NOTHING;
+    const pin = g.context?._wizD1Step1DogGoalHeroXYLikeC;
+    const hx = pin ? (pin.ux | 0) : (u.ux | 0);
+    const hy = pin ? (pin.uy | 0) : (u.uy | 0);
+    mtmp.mux = hx;
+    mtmp.muy = hy;
+    rn2(3);
+    return MMOVE_NOTHING;
+}
+
 export function dogMoveCommaUFmonTailPostPeelPetLikeC(g, mtmp) {
     if (!(mtmp.mtame | 0) || !has_edog(mtmp)) return MMOVE_NOTHING;
     if ((mtmp.mhp | 0) <= 0) return MMOVE_DIED;

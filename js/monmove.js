@@ -140,6 +140,7 @@ import {
     dogMoveCommaLFirstUPostTailThirdMovemonPetLikeC,
     dogMoveCommaUFmonTailPostPeelPetLikeC,
     dogMoveCommaPostFifthNewturnPetLikeC,
+    dogMoveCommaPostSixthNewturnPetLikeC,
     dogMoveFirstLAfterCommaPetLikeC,
     dogMoveLPetInventAfterNewturnLikeC,
     dogMovePostEastTailWalkShortLPetLikeC,
@@ -1011,6 +1012,14 @@ export async function movemon(stepNum) {
         if (
             g.urole?.abbr === 'Wiz'
             && g.context?._wizD1CommaPostFifthMovemonPendingLikeC
+            && (effStepNum | 0) === 1
+        ) {
+            mons = [];
+        }
+        /* C: comma-**`U`** — peel-only post-sixth pet + hostiles (~3095+). */
+        if (
+            g.urole?.abbr === 'Wiz'
+            && g.context?._wizD1CommaPostSixthMovemonPendingLikeC
             && (effStepNum | 0) === 1
         ) {
             mons = [];
@@ -2279,6 +2288,55 @@ export async function movemon(stepNum) {
             delete g.context._wizD1CommaPostFifthMovemonPendingLikeC;
             g.context._wizD1CommaPostFifthMovemonCompleteLikeC = true;
             g.context._wizD1CommaPostFifthHostileTailPendingLikeC = true;
+            return false;
+        }
+        /* C: comma-**`U`** — post-sixth new-turn pet + corridor/distant hostiles (~3095–3100). */
+        if (
+            g.urole?.abbr === 'Wiz'
+            && (g.u?.uz?.dnum | 0) === 0
+            && (g.u?.uz?.dlevel | 0) === 1
+            && g.context?._wizD1CommaPostSixthMovemonPendingLikeC
+            && (effStepNum | 0) === 1
+        ) {
+            const spendMoveLikeC = (mtmp) => {
+                if (!mtmp) return;
+                let mov = mtmp.movement | 0;
+                if (mov < NORMAL_SPEED) {
+                    mtmp.movement = NORMAL_SPEED;
+                    mov = NORMAL_SPEED;
+                }
+                mtmp.movement = mov - NORMAL_SPEED;
+            };
+            const petPostSixth = (g.level?.monsters ?? []).find(
+                (m) => (m.mtame | 0) !== 0,
+            );
+            const corridorPostSixth =
+                g.context._wizD1CommaPostSixthHostileCorridorLikeC ?? null;
+            const distantPostSixth =
+                g.context._wizD1CommaPostSixthHostileDistantLikeC ?? null;
+            if (petPostSixth) {
+                spendMoveLikeC(petPostSixth);
+                setApparxyMonsterLikeC(g, petPostSixth);
+                await distfleeckMonsterApplyLikeC(g, petPostSixth);
+                dogMoveCommaPostSixthNewturnPetLikeC(g, petPostSixth);
+            }
+            if (corridorPostSixth) {
+                spendMoveLikeC(corridorPostSixth);
+                setApparxyMonsterLikeC(g, corridorPostSixth);
+                await distfleeckMonsterApplyLikeC(g, corridorPostSixth);
+            }
+            if (distantPostSixth) {
+                spendMoveLikeC(distantPostSixth);
+                setApparxyMonsterLikeC(g, distantPostSixth);
+                await distfleeckMonsterApplyLikeC(g, distantPostSixth);
+                /* C: distant **`m_move`** slot **`rn2(12)`** (~3099) — explicit until full peel. */
+                rn2(12);
+                await distfleeckMonsterApplyLikeC(g, distantPostSixth);
+            }
+            delete g.context._wizD1CommaPostSixthMovemonPendingLikeC;
+            delete g.context._wizD1CommaPostSixthHostileCorridorLikeC;
+            delete g.context._wizD1CommaPostSixthHostileDistantLikeC;
+            g.context._wizD1CommaPostSixthMovemonCompleteLikeC = true;
             return false;
         }
         /* C: tourist D:1 run-east **`L`** — fourth **`movemon`** after third-pass new-turn

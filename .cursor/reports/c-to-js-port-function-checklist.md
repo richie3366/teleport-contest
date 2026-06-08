@@ -96,7 +96,7 @@ Align batches with [`c-to-js-port-remaining.md`](c-to-js-port-remaining.md) §5:
 
 | C symbol / area | JS module | Status | Notes |
 |-----------------|-----------|--------|-------|
-| `movemon` / `dochug` | `monmove.js`, `fmon_iter.js`, `moveloop_turn_advance.js`, `moveloop_aux.js`, `dogmove_mon.js`, `m_move_mon.js`, `monmove_search.js`, `mfndpos_mon.js`, `distfleeck_mon.js` | partial | Comma surplus **~3054–3094**: post-fifth **`wizD1CommaPostFifthHostileTailInlineLikeC`** moveloop peel (explicit **`rn2(12)`/`rn2(8)`** debt ~3084–3091) + sixth new-turn; **`dogMoveCommaPostFifthNewturnPetLikeC`** explicit away ~3078–3081. Fail **3095+** post-sixth **`fmon`**. **`seed8000` 2900–3129:** aligned |
+| `movemon` / `dochug` | `monmove.js`, `fmon_iter.js`, `moveloop_turn_advance.js`, `moveloop_aux.js`, `dogmove_mon.js`, `m_move_mon.js`, `monmove_search.js`, `mfndpos_mon.js`, `distfleeck_mon.js` | partial | Comma surplus **~3054–3106**: post-fifth hostile inline peel + post-sixth **`dogMoveCommaPostSixthNewturnPetLikeC`** / corridor-distant df (~3095–3100); seventh new-turn surplus **`fmon`** ~3101–3106. Fail **3107+** post-seventh **`movemon`** (**`rn2(4)`** pet + **`dochug`** **`rn2(100)`** debt). **`seed8000` 2900–3129:** aligned |
 | `m_move` / `mfndpos` | `m_move_mon.js`, `mfndpos.js` | partial | Second post-rest mklev interrupt **`mMoveTouristD1PostRestSecondMklevInterruptLikeC`** (**`rn2(32)`** ~2528); **`seed0900`** **~2545** post-**`mcalcmove`** drift |
 | `distfleeck` | `distfleeck_mon.js` | partial | Peel-only rest **`distfleeck`** (**`_touristD1PostSwapRestDistfleeckPeelLikeC`**); 3× ~915 before stub; **`seed0900`** **2499–2504** |
 | `m_throw` | — | missing | |
@@ -105,7 +105,7 @@ Align batches with [`c-to-js-port-remaining.md`](c-to-js-port-remaining.md) §5:
 | `score_targ` / `best_target` / `pet_ranged_attk` | `dogmove_mon.js` | partial | C **`dogmove.c`** ~738–966; **`petRangedAttkDogmoveLikeC`** after **`mfndpos`**, **`newdogpos`** deferred; **`scoreTargDogmoveLikeC`** priest/minion coaligned-peaceful + weak-target penalty; vampshifter **`mtmp_lev`** **`rn2`** tail TODO; **`mattackm`** TODO; **`seed0102` ~4453** **`rnd(5)`** aligned |
 | `dog_hunger` | `dogmove_mon.js` | partial | C **`dogmove.c`** **`dog_hunger`** / **`DOG_WEAK`**/**`DOG_STARVE`** — **`mconf`**, **`mhpmax_penalty`** at **`dogMoveGoalAndPickLikeC`** entry; **`dog_starve`** stub; display tails skipped |
 | `can_carry` / `can_touch_safely` | `dogmove_mon.js`, `obj_oc_weight_data.js` | partial | C **`mon.c`** — **`objectStackWeightLikeC`** (NH5 **`oc_weight`**); **`canTouchSafelyMonsterObjDogmoveLikeC`** stub; APPORT when **`can_carry > 0`** only |
-| `dog_goal` / `obj_resists` | `dogmove_mon.js`, `obj_resists.js`, `dogmove_reach.js` | partial | **`dogMoveFirstLAfterCommaPetLikeC`**: full invent prescan → **`dog_goal`** → **`mfndpos`** **`chcnt`** → **`pet_ranged_attk`** on first **`U`** (~2950–2973). **`dogMoveCommaUFmonTailPostPeelPetLikeC`**: second-**`U`** surplus post-peel (~3064–3069). **`dogMoveCommaPostFifthNewturnPetLikeC`**: post-fifth **`distfleeck`** + away **`rn2(3)`**/**`rn2(12)`** (~3077–3081). Fail **3082+** hostile tail. **`seed0102`** **0–4485** PASS |
+| `dog_goal` / `obj_resists` | `dogmove_mon.js`, `obj_resists.js`, `dogmove_reach.js` | partial | **`dogMoveCommaPostFifthNewturnPetLikeC`** (~3077–3081); **`dogMoveCommaPostSixthNewturnPetLikeC`** post-sixth **`rn2(3)`** only (~3096). Fail **3107+** post-seventh **`rn2(4)`**. **`seed0102`** **0–4485** PASS |
 | `u_on_upstairs` / `On_stairs` | `mklev.js`, `allmain.js`, `jsmain.js` | partial | C **`u_on_upstairs`** in **`newgame`** before **`makedog`**; **`syncHeroOnBranchUpstairLikeC`** in **`jsmain`** post-**`newgame`** only; **`dog_goal`** **`stairwayAtInGame`** on hero tile |
 | `dofire` / `getdir` / `help_dir` / `dodiscovered` / enlightenment | `dofire_hero.js`, `invent_prinv.js`, `overlay_screens.js`, … | partial | C **`dothrow.c`** fireassist **`prinv`** **`--More--`** pass-through cursor row 0; **`seed0102` PASS** |
 | `movemon` / `#search` ranger peel | `monmove.js`, `monmove_search.js`, `m_move_mon.js`, `cmd.js`, `fmon_iter.js`, `dogmove_mon.js`, `moveloop_turn_advance.js` | partial | C: ranger D:1 twin **`#search`** pet-only; **`whappr`** silent mfndpos away picks; moveloop peel **`rn2(12)×2`** + skip inline **`mcalcmove`**; **`seed0102` PASS** (**4485/4485**, **25/25** screens/cursors) |
@@ -129,7 +129,7 @@ Align batches with [`c-to-js-port-remaining.md`](c-to-js-port-remaining.md) §5:
 
 | C symbol / area | JS module | Status | Notes |
 |-----------------|-----------|--------|-------|
-| `moveloop` / post-hero `movemon` | `moveloop_turn_advance.js`, `moveloop_aux.js` | partial | **`seed0006`** comma-**`U`**: **`wizD1CommaPostFifthHostileTailInlineLikeC`** after post-fifth pet (~3082–3094 incl. sixth new-turn). Fail **3095+** moveloop **`fmon`**. **`seed8000` 2900–3129:** aligned |
+| `moveloop` / post-hero `movemon` | `moveloop_turn_advance.js`, `moveloop_aux.js` | partial | **`seed0006`** comma-**`U`**: hostile inline peel + inline post-sixth **`movemon`** (~3082–3106). Fail **3107+** post-seventh **`movemon`**. **`seed8000` 2900–3129:** aligned |
 | `dosounds` / exercise hooks | `moveloop_aux.js` | stub | |
 
 ---
