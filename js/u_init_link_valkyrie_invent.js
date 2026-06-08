@@ -3,7 +3,6 @@
 //        ini_inv_use_obj — uwep spear, uswapwep dagger, uarms small shield.
 
 import { game } from './gstate.js';
-import { races } from './roles.js';
 import { iniInvSubstOtypForChargenLikeC } from './u_init_ini_inv_obj_substitution_like_c.js';
 import {
     NH5_WEAPON_CLASS,
@@ -32,9 +31,13 @@ const BASE_WT = {
 };
 
 /** @param {import('./gstate.js').game} [g] */
+export function isValkyrieChargenLikeC(g = game) {
+    return g.urole?.abbr === 'Val';
+}
+
+/** @deprecated use {@link isValkyrieChargenLikeC} */
 export function isHumanValkyrieChargenLikeC(g = game) {
-    const humanIdx = races.findIndex((r) => r.name === 'human');
-    return g.urole?.abbr === 'Val' && (g.initrace | 0) === humanIdx;
+    return isValkyrieChargenLikeC(g);
 }
 
 /**
@@ -42,7 +45,7 @@ export function isHumanValkyrieChargenLikeC(g = game) {
  * @param {import('./gstate.js').game} g
  */
 export function applyValkyrieHumanLinkedInventAndWieldLikeC(g) {
-    if (!isHumanValkyrieChargenLikeC(g)) return;
+    if (!isValkyrieChargenLikeC(g)) return;
     const fq = g._valkyrieIniFoodQuan | 0;
     const foodQuan = fq >= 1 && fq <= 2 ? fq : 1;
 

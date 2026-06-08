@@ -37,8 +37,8 @@ Most mid-game RNG divergence is **object creation order** (`mkobj`, `ini_inv`, f
 
 - **`ini_inv_mkobj_filter`** — **unified** (`iniInvMkobjFilterLikeC` + `iniInvMkobjFilterCtxForRoleLikeC`); monk scroll / healer wand / tourist food on general path.
 - **`u_init_race`** — PM_ORC **`Xtra_food`** + PM_ELF **`Instrument[]`** invent prepend wired (`applyOrcXtraFoodInventTailLikeC` / **`applyElfInstrumentInventTailLikeC`**); dwarf/gnome `knows_object` tails still no-RNG stubs.
-- **Non-human `u_init_role`** — **all roles** dispatch in `u_init_post_mklev.js` (no `humanIdx` gate); subs in **`ini_inv_obj_substitution`** + **`u_init_race`** tails. Linker **`isHuman*ChargenLikeC`** role-only: Rog/Sam/Kni/Mon/Arc/Ran/Tou/Cav, **Pri**, **Wiz**; still **`humanIdx`**: Hea/Bar/Val.
-- Elf **Pri/Wiz** — Priest pack linker all-race (`isPriestChargenLikeC`); Wizard was already role-only; **`applyElfInstrumentInventTailLikeC`** prepends after role pack. Hea/Bar/Val linker gates remain.
+- **Non-human `u_init_role`** — **all roles** dispatch in `u_init_post_mklev.js` (no `humanIdx` gate); subs in **`ini_inv_obj_substitution`** + **`u_init_race`** tails. Linker gates **role-only** (`is*ChargenLikeC`); **`humanIdx` removed** from all `u_init_link_*_invent.js`.
+- Elf **Pri/Wiz** — Priest pack linker all-race (`isPriestChargenLikeC`); Wizard role-only; **`applyElfInstrumentInventTailLikeC`** prepends after role pack. Hea/Bar/Val linkers all-race; Bar **`iniInvSubstOtypForChargenLikeC`** on ring mail + short sword (pack 1).
 - `game.invent` not fully driven by `ini_inv` + `mkobj` for all roles (Knight linker now accepts 10–11 apple/carrot stacks).
 - NH5 `otyp` vs legacy floor indices in `mklev.js`.
 - `makemon.js` `rndmonnum()` must stay aliased to **`rndmonnumMklevLikeC`** (medusa `mkcorpstat` rerolls).

@@ -83,14 +83,14 @@ Use when **`Next steps`** feels stale. Order: **(1)** reliability phase **P1–P
 
 **Tutorial (Lane E):** Gated on [tutorial port gate](../../docs/plans/tutorial-port-gate.md) **MD-1 … MD-7**.
 
-**Last slice:** **P1 Priest linker all races** — C `ini_inv(Priest[])` race-independent; **`isPriestChargenLikeC`** drops `humanIdx` gate (`u_init_link_priest_invent.js`); elf Cleric pack + **`applyElfInstrumentInventTailLikeC`**. Score **3/44** stable. Fail **`seed0060` ~1036** (moveloop); **`seed0900` ~2960** (moveloop).
+**Last slice:** **P1 Hea/Bar/Val linker all races** — C `ini_inv` race-independent for Healer/Barbarian/Valkyrie; **`isHealerChargenLikeC`**, **`isBarbarianChargenLikeC`**, **`isValkyrieChargenLikeC`** drop `humanIdx`; Bar **`iniInvSubstOtypForChargenLikeC`** on ring mail + short sword. Score **3/44** stable. Fail **`seed0060` ~1036** (moveloop); **`seed0900` ~2960** (moveloop); **`seed0016` ~1281** (mklev).
 
 ## Next steps (**strategy order** — pick **one**)
 
 **First:** tutorial gate — if **all MD-1 … MD-7**, Lane E from [10-tutorial.md](../plans/nethack-port/10-tutorial.md).
 
 1. **P2 — moveloop @ `seed0900` ~2960** — `diag_c_rng_callers` on fail window; **not** peel. Oracle: [`c-oracles/monmove.c.md`](c-oracles/monmove.c.md).
-2. **P1 — Hea/Bar/Val linker gates** — drop remaining **`humanIdx`** in **`u_init_link_healer_invent.js`**, **`u_init_link_barbarian_invent.js`**, **`u_init_link_valkyrie_invent.js`** (Val may need **`iniInvSubstOtypForChargenLikeC`** on weapons). Oracle: [`c-oracles/mkobj.c.md`](c-oracles/mkobj.c.md). Locator: **`seed0016`** gnome Healer @ **~2430** (mklev **~1281**).
+2. **P1 — mklev / `mfndpos`** — **`seed0016`** gnome Healer first fail **~1281** (`rn2(100)` mineralize / floor fill). Oracle: [`c-oracles/mkobj.c.md`](c-oracles/mkobj.c.md).
 3. **P2 — `dog_goal` / first `#search` (C, not peel)** — `seed0077` ~3205–3207 per [`c-oracles/dogmove.c.md`](c-oracles/dogmove.c.md); **no** new `PendingLikeC`.
 4. **P2 — PostSeventeenth peel** — **deferred** until after (1) or (2); same delete pattern as batches 1–10. Oracle: [`c-oracles/monmove.c.md`](c-oracles/monmove.c.md). Locator: `seed0006` ~3426–3448.
 5. **Lane B — NHL** — one `lspo_*` per [`nhl-port-notes.md`](nhl-port-notes.md).
