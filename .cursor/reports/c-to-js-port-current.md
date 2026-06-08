@@ -83,18 +83,19 @@ Use when **`Next steps`** feels stale. Order: **(1)** reliability phase **P1–P
 
 **Tutorial (Lane E):** Gated on [tutorial port gate](../../docs/plans/tutorial-port-gate.md) **MD-1 … MD-7**.
 
-**Last slice:** **Reflect pass 4** — 5× P1 u_init since pass 3 (human-gate Rog…Cav, orc/elf race tails, Priest/Hea/Bar/Val linkers); P1 u_init largely closed; pivot **P2 moveloop @ `seed0900` ~2960**. Score **3/44** stable. Fail **`seed0060` ~1036** (moveloop); **`seed0900` ~2960** (moveloop); **`seed0016` ~1281** (mklev).
+**Last slice:** **P1 `o_init.c` `setgemprobs`** — `setgemprobsLikeC` + `oinitLikeC` at `makelevel`; gem `mkobj` walk still static (`oclass_prob_total` 923 vs C 1000 — next wire). Score **3/44** stable. Fail **`seed0016` ~1281** (mklev fill/mkobj tail); **`seed0900` ~2960** (moveloop).
 
 ## Next steps (**strategy order** — pick **one**)
 
 **First:** tutorial gate — if **all MD-1 … MD-7**, Lane E from [10-tutorial.md](../plans/nethack-port/10-tutorial.md).
 
-1. **P2 — moveloop @ `seed0900` ~2960** — `diag_c_rng_callers` on fail window; **not** peel. Oracle: [`c-oracles/monmove.c.md`](c-oracles/monmove.c.md).
-2. **P1 — mklev / `mfndpos`** — **`seed0016`** gnome Healer first fail **~1281** (`rn2(100)` mineralize / floor fill). Oracle: [`c-oracles/mkobj.c.md`](c-oracles/mkobj.c.md).
-3. **P2 — `dog_goal` / first `#search` (C, not peel)** — `seed0077` ~3205–3207 per [`c-oracles/dogmove.c.md`](c-oracles/dogmove.c.md); **no** new `PendingLikeC`.
-4. **P2 — PostSeventeenth peel** — **deferred** until after (1) or (2); same delete pattern as batches 1–10. Oracle: [`c-oracles/monmove.c.md`](c-oracles/monmove.c.md). Locator: `seed0006` ~3426–3448.
-5. **Lane B — NHL** — one `lspo_*` per [`nhl-port-notes.md`](nhl-port-notes.md).
-6. ~~**seed0006 @ 3610+ twenty-fifth peel**~~ — **forbidden** until harness debt net −5 (see ledger).
+1. **P1 — mklev @ `seed0016` ~1281** — JS `rn2(3)` vs C `rn2(100)` after aligned `rn2(5)` — fill/mktrap `mkobj` tail or wire gem pick after **`setgemprobs` total parity**. Oracle: [`c-oracles/mkobj.c.md`](c-oracles/mkobj.c.md).
+2. **P1 — `mkobjPickGemOtypMklevLikeC` wire** — match C **`go.oclass_prob_totals[GEM_CLASS]`** (**1000** @ **`seed8000` ~1452**); then mineralize gem walks.
+3. **P2 — moveloop @ `seed0900` ~2960** — `diag_c_rng_callers` on fail window; **not** peel. Oracle: [`c-oracles/monmove.c.md`](c-oracles/monmove.c.md).
+4. **P2 — `dog_goal` / first `#search` (C, not peel)** — `seed0077` ~3205–3207 per [`c-oracles/dogmove.c.md`](c-oracles/dogmove.c.md); **no** new `PendingLikeC`.
+5. **P2 — PostSeventeenth peel** — **deferred** until after (1) or (2); same delete pattern as batches 1–10. Oracle: [`c-oracles/monmove.c.md`](c-oracles/monmove.c.md). Locator: `seed0006` ~3426–3448.
+6. **Lane B — NHL** — one `lspo_*` per [`nhl-port-notes.md`](nhl-port-notes.md).
+7. ~~**seed0006 @ 3610+ twenty-fifth peel**~~ — **forbidden** until harness debt net −5 (see ledger).
 
 **`seed0006` 3610+** remains a **locator** for testing after (1), not the next batch.
 

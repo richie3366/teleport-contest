@@ -6,6 +6,7 @@
 // Uses the real game PRNG (not a separate layout PRNG) for bit-exact parity.
 
 import { game } from './gstate.js';
+import { oinitLikeC } from './o_init.js';
 import { insideRoomLikeC } from './hacklib.js';
 import { stairwayAtInGame } from './decor.js';
 import {
@@ -1122,8 +1123,10 @@ export function syncHeroOnBranchUpstairLikeC(g) {
     if (up) u_on_newpos(up.x | 0, up.y | 0);
 }
 
-// oinit stub (level-dependent object probability reset)
-function oinit() { /* no-op for contest */ }
+/** C: mklev.c makelevel — `oinit()` before fill (setgemprobs). */
+function oinit() {
+    oinitLikeC();
+}
 
 // level_difficulty stub
 function level_difficulty() {
