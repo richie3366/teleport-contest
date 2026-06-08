@@ -749,11 +749,9 @@ export function mapTerrainGlyph(loc, x, y, skipApportMon = false) {
             ?? { ch: '~', color: NO_COLOR, dec: true };
     }
     case CORR: {
-        if (!skipApportMon) {
-            const sleeper = monAtCellLikeC(x, y);
-            if (sleeper && (sleeper.mgenmklev | 0) && westApportSleeperNicheAtLikeC(game, x, y)) {
-                return mapMonsterGlyphLikeC(sleeper);
-            }
+        /* C: west apport niche — tty keeps CORR blank; mklev sleeper glyph on door east. */
+        if (westApportSleeperNicheAtLikeC(game, x, y)) {
+            return { ch: ' ', color: NO_COLOR, dec: false };
         }
         const shopInteriorCorr = shopInteriorRoomSeenvGlyphLikeC(x, y, loc);
         if (shopInteriorCorr) return shopInteriorCorr;
@@ -1057,6 +1055,30 @@ export function newsym(x, y) {
         show_glyph_cell(x, y, '@', CLR_WHITE, false);
         const tg = mapTerrainGlyph(loc, x, y);
         rememberCellGlyph(loc, tg);
+        return;
+    }
+
+    if (westApportSleeperNicheAtLikeC(game, x, y)) {
+        if (cansee(x, y) || apportSleeperSeenViaTempLitLikeC(x, y)) {
+            const mon = monAtCellLikeC(x, y);
+            show_glyph_cell(x, y, ' ', NO_COLOR, false);
+            rememberCellGlyph(loc, { ch: ' ', color: NO_COLOR, dec: false });
+            if (mon && (mon.mgenmklev | 0) && monVisibleForNewsymLikeC(mon)) {
+                const doorCell = westApportDoorCellForSleeperLikeC(x, y);
+                if (doorCell) {
+                    const doorLoc = game.level?.at(doorCell.x, doorCell.y);
+                    if (doorLoc) {
+                        paintCellGlyph(
+                            doorCell.x, doorCell.y, doorLoc,
+                            mapMonsterGlyphLikeC(mon), true,
+                        );
+                    }
+                }
+            }
+        } else if (loc.disp_ch === '#' || loc.remembered_glyph?.ch === '#') {
+            show_glyph_cell(x, y, ' ', NO_COLOR, false);
+            rememberCellGlyph(loc, { ch: ' ', color: NO_COLOR, dec: false });
+        }
         return;
     }
 

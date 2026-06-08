@@ -88,7 +88,7 @@ Align batches with [`c-to-js-port-remaining.md`](c-to-js-port-remaining.md) §5:
 | `ini_inv(Wishing)` / `Money` | `u_init_role_rng.js`, `u_init_post_mklev.js` | partial | explore **`program_state.discover`** |
 | `ini_inv` | `ini_inv_stub.js`, role packs | partial | Human Tourist linked **`g.invent`**; **Ranger** cram loop — no cloak **`trquan`** tail / per-cram **`rn2(1)`** (**`seed0102`** **`init_attr`** **4425+**); other roles partial |
 | `u_init_role` RNG tail | `u_init_role_rng.js`, `u_init_post_mklev.js` | partial | |
-| `wintty.c` pickers | `chargen_tty.js` | partial | Chargen RNG largely aligned on `seed0077`; moveloop RNG **3180–3242** restored; screen **17** west apport still **FAIL** |
+| `wintty.c` pickers | `chargen_tty.js` | partial | Chargen RNG largely aligned on `seed0077`; moveloop RNG **3180–3242**; screen **17** niche CORR **PASS**; screen **30** alcove cap **`~` vs `y`** open |
 
 ---
 
@@ -161,7 +161,7 @@ Align batches with [`c-to-js-port-remaining.md`](c-to-js-port-remaining.md) §5:
 | `do_attack` safemon gate | `uhitm_hero.js`, `cmd.js` | partial | C **`is_safemon`** → **`rn2(7)`** / shop / **`rn2(6)`** before displace; **`seed0900`** **2473–2481** |
 | `uhitm` / `mhitu` | `attack.js`, `uhitm_hero.js` | partial | Bump kill subset; full **`hitum`**/`hmon` gaps remain |
 | `find_ac` / to-hit | `u_init_find_ac.js`, `display.js`, `u_init_link_*.js` | partial | **`find_ac`** only after first **`bot()`** (removed from role invent linkers); legacy **`com_pager`** map strip **`seed0102`** partial |
-| `com_pager` / legacy intro | `legacy_intro.js`, `legacy_intro_paint.js`, `display.js` | partial | brown **`k`**; hdoor **(26,10)** defer + post-**`movemon`** repaint; **`seed0102` PASS** |
+| `com_pager` / legacy intro | `legacy_intro.js`, `legacy_intro_paint.js`, `display.js` | partial | brown **`k`**; hdoor **(26,10)** defer + post-**`movemon`** repaint; west apport niche CORR blank tty (**`seed0077`** screen **17**); **`seed0102` PASS** |
 
 ---
 

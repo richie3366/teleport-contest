@@ -33,7 +33,7 @@ Moveloop work (`seed0006` comma-`U`, **3054–3106**) is valid **P2** locator wo
 |--------|--------|
 | Next **3+** batches would only add peel flags / explicit draws | **Pivot** to **P1** (`mkobj`/`ini_inv`) or **P2 general** (`monmove.c` `movemon` loop, one `dochug` case) |
 | Moveloop batch lands | **Mandatory** regression window on **all three** canaries below — not `seed8000` alone |
-| `seed0077` RNG **3180–3242** restored; screen **17** west apport **`#` vs blank** still open | Next: **`display.c`** west-apport corridor glyph; replace coin-defer peel with **`can_reach_location`** |
+| `seed0077` RNG **3180–3242** restored; screen **17** west apport **`#` vs blank** still open | **Done** — niche CORR blank in **`display.c`** path; next screen fail **30** `(33,2)` **`~` vs `y`** |
 | Peel batch merges | Log **debt** in checklist Notes; aim **net flag count ↓** over next milestone |
 
 ## Moveloop regression canaries (mandatory)
@@ -74,18 +74,19 @@ Use when **`Next steps`** feels stale. Order: **(1)** reliability phase **P1–P
 
 **Tutorial (Lane E):** Gated on [tutorial port gate](../../docs/plans/tutorial-port-gate.md) **MD-1 … MD-7**.
 
-**Last slice:** **P2 — `seed0077` moveloop anchor RNG** — **`dog_goal`** global **`fobj`** only + rogue first-**`#search`** coin APPORT defer (peel debt); **3180–3242** + three canaries **PASS**; screen step **17** still **`#` vs blank** `(34,9)`.
+**Last slice:** **P2 — `seed0077` screen step 17** — west apport niche CORR blank on tty (**`display.js`** **`mapTerrainGlyph`** + **`newsym`**; **`vision.js`** clear on out-of-sight); first fail now screen **30** `(33,2)` **`~` vs `y`**; moveloop canaries **PASS**.
 
 ## Next steps (reliability order)
 
 Pick **one** primary batch per commit. **First:** tutorial gate — if **all MD-1 … MD-7**, do Lane E from [10-tutorial.md](../plans/nethack-port/10-tutorial.md).
 
-1. **P2 — `seed0077` screen step 17** — west apport **`#` vs blank** `(34,9)` after RNG anchor restored; C: `display.c` west-apport sleeper corridor + `can_reach_location` (replace **`rogueFirstSearchCoinApportDefersToTowelLikeC`** peel). Fast-verify: `diag_first_screen_fail.mjs seed0077-rogue-chargen.session.json`.
-2. **P2 — general `monmove.c` / `dochug` batch** (preferred over peel #4 below when peel debt high) — one upstream function or dispatch arm; delete peel flags when `diag_rng_window` passes on **8000 + 0077 + 0102**.
-3. **P1 — `mkobj` / `ini_inv` → `game.invent`** — next checklist rows in `mkobj_mklev_like_c.js` / role linkers; advances tutorial **MD-1** and most item-driven sessions.
-4. **P2 locator — `seed0006` comma-`U` @ ~3107+** — only if batch **generalizes** `fmon` / post-Nth new-turn (not flag-only). Locator: `diag_rng_window.mjs sessions/seed0006-wizard-water-demon.session.json 3100 3130`.
-5. **Lane B — NHL** — next **`lspo_*`** per [`nhl-port-notes.md`](nhl-port-notes.md) (supports **P6** / **MD-3**).
-6. **Lane A/D — `seed0900`** — screen 0 / botl after RNG **~2982** aligned.
+1. **P2 — `seed0077` screen step 30** — west apport alcove cap **`~` vs `y`** `(33,2)` after step **17** fixed; C: **`display.c`** rogue ROOM/`westApportAlcoveCornerGlyph` post-first-**`#search`**. Fast-verify: `diag_first_screen_fail.mjs seed0077-rogue-chargen.session.json`.
+2. **P2 — replace `rogueFirstSearchCoinApportDefersToTowelLikeC`** — wire **`canReachLocationDogmoveLikeC`** door-mask geometry (~**3205–3207**); delete peel when **`diag_rng_window`** holds on **8000 + 0077 + 0102**.
+3. **P2 — general `monmove.c` / `dochug` batch** (preferred over peel-only `#4` below when peel debt high) — one upstream function or dispatch arm; delete peel flags when `diag_rng_window` passes on **8000 + 0077 + 0102**.
+4. **P1 — `mkobj` / `ini_inv` → `game.invent`** — next checklist rows in `mkobj_mklev_like_c.js` / role linkers; advances tutorial **MD-1** and most item-driven sessions.
+5. **P2 locator — `seed0006` comma-`U` @ ~3107+** — only if batch **generalizes** `fmon` / post-Nth new-turn (not flag-only). Locator: `diag_rng_window.mjs sessions/seed0006-wizard-water-demon.session.json 3100 3130`.
+6. **Lane B — NHL** — next **`lspo_*`** per [`nhl-port-notes.md`](nhl-port-notes.md) (supports **P6** / **MD-3**).
+7. **Lane A/D — `seed0900`** — screen 0 / botl after RNG **~2982** aligned.
 
 ### Extended backlog (unchanged lanes)
 
