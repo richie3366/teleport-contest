@@ -19,6 +19,20 @@ Use this shape:
 
 ---
 
+## 2026-07-13 00:01 — seed0060 gold doname + mondied newsym (D-0037)
+- C locus: `objnam.c:doname_base` (COIN article); `mon.c:mondied`/
+  `mondead`/`mon_leaving_level` (`newsym`)
+- Result: **verified faithful change** — idx 5 was `"1 gold piece"` vs
+  `"a gold piece"` plus stale newt `:` (no `newsym` after kill). Ported
+  coin `doname` article path + `mondead` refresh. Incomplete
+  `make_corpse`/`mkcorpstat` A/B cut aggregate RNG ~900 — reverted;
+  keep as named omission.
+- Verification: seed0060 Scr **6**/41 (idx 0–5), RNG **3626**/3626;
+  green + seed1500/1800 PASS + strict; full **4/44**, screens
+  **185**/11405, RNG **28511**/792838.
+- Next: `node frozen/ps_test_runner.mjs sessions/seed0060-orc-rogue-kick-search.session.json`
+  — diagnose screen idx 6 (drop re-pickup pline / premature wall `┌`).
+
 ## 2026-07-13 00:00 — seed0060 orc hpadv + mon_glyph mcolor (D-0036)
 - C locus: `role.c` races[] orc/elf/dwarf/gnome `hpadv`/`enadv`;
   `attrib.c:newhp`; `display.c` / `mon_color(monsndx)`

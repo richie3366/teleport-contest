@@ -7,31 +7,35 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 
 ## Active
 
-- **Current unit:** seed0060 — RNG **3626/3626**; screens **5/41**
-  (D-0036; idx 0–4 match), cursors **41/41**. First fail idx 5.
-- **Hypothesis:** idx 5 is not HP/newt-color — remaining cells include
-  invent/menu letter (`1` vs `a`) and/or map glyph (newt still `:` while
-  C shows floor `·`; later frames extra wall `┌` + downstairs color).
+- **Current unit:** seed0060 — RNG **3626/3626**; screens **6/41**
+  (D-0037; idx 0–5 match), cursors **41/41**. First fail idx 6.
+- **Hypothesis:** idx 6 has two independent cell classes: (1) topline
+  extra "The kitten picks up a gold piece." after a drop (C only drops);
+  (2) premature wall `┌` at map (16,15) where C is still blank; later
+  frames also downstairs `>` color yellow vs gray.
 - **Falsifier / next probe:**
   ```bash
   node frozen/ps_test_runner.mjs sessions/seed0060-orc-rogue-kick-search.session.json
-  # Diff JS vs C screen[5] cells (topline/invent letter, map at newt cell).
+  # Diff JS vs C screen[6]: topline after drop; wall at col 16 row 15.
   ```
-  Expect: cellsOnly stays 5 until idx 5's C cause is ported.
+  Expect: cellsOnly stays 6 until drop-re-pickup and/or wall vision cause
+  is ported.
 - **Parked deep canary:** D-0006 pet movement — do not implement until C
   state/candidate capture exists.
-- **Also deferred:** dokick monster/object/closed-door/SDOOR/furniture;
-  `martial()`; `wake_nearby`/`u_wipe_engr`; `set_wounded_legs` body;
-  `kickstr` terrain-specific killer names; `showdamage`/`maybe_wail`/
-  `done(DIED)`; Upolyd eel-out-of-water `regen_hp` loss rolls;
-  `regen_pw` / Teleportation / Polymorph once-per-turn RNG;
-  Regeneration/Sleepy/Half_physical props; `dog_goal` gettrack/FARAWAY;
-  `throw_gold`; eat getobj single-shot; Blind/`look_here`; trap glyphs;
-  full `wall_angle`; `ini_inv_mkobj_filter`; `u_init_carry_attr_boost`;
-  mfndpos `bad_rock` squeeze / boulder `ALLOW_ROCK`; Sokoban
+- **Also deferred:** `make_corpse` body after `corpse_chance` (dragon/
+  undead/golem specials + stackobj); dokick monster/object/closed-door/
+  SDOOR/furniture; `martial()`; `wake_nearby`/`u_wipe_engr`;
+  `set_wounded_legs` body; `kickstr` terrain-specific killer names;
+  `showdamage`/`maybe_wail`/`done(DIED)`; Upolyd eel-out-of-water
+  `regen_hp` loss rolls; `regen_pw` / Teleportation / Polymorph
+  once-per-turn RNG; Regeneration/Sleepy/Half_physical props;
+  `dog_goal` gettrack/FARAWAY; `throw_gold`; eat getobj single-shot;
+  Blind/`look_here`; trap glyphs; full `wall_angle`;
+  `ini_inv_mkobj_filter`; `u_init_carry_attr_boost`; mfndpos
+  `bad_rock` squeeze / boulder `ALLOW_ROCK`; Sokoban
   `m_avoid_soko_push_loc` body; `donull` `cmd_safety_prevention`;
-  dog_move `mtrack` skip (`goto nxti`); `makemon` `throws_rocks` Sokoban
-  reject; `m_initinv` body; `set_malign`; Blind prop for
+  dog_move `mtrack` skip (`goto nxti`); `makemon` `throws_rocks`
+  Sokoban reject; `m_initinv` body; `set_malign`; Blind prop for
   `makemon_rnd_goodpos` exhaustive pass; downstairs remembered color
   (NO_COLOR vs yellow); MLET_CH letter table beyond early dlvl subset.
 
@@ -123,6 +127,10 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   `hpadv` made botl `HP:12` on every frame; newt used mlet green not
   `mcolors[PM_NEWT]` yellow (D-0036). Do not change ordinary stairs to
   defsym `CLR_GRAY` — C recordings use yellow for `<`.
+- seed0060 idx 5 was **not** invent lettering: topline "1 gold piece" vs
+  "a gold piece" (`doname` COIN) + stale newt `:` because `mondied` never
+  `newsym`'d after remove (D-0037). Incomplete `make_corpse` via
+  `mkcorpstat` regressed aggregate RNG (~900) — do not ship until C-faithful.
 
 ## Landmarks
 
@@ -138,4 +146,4 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 - seed1500: D-0024 → screens **40/40** PASS; CORPSE map color = `mon_color(corpsenm)`
   (orc → CLR_RED), not `objects[CORPSE].oc_color`.
 - seed1800: D-0026 → screens **26/26** PASS (legacy corner map + staircase look).
-- seed0060: D-0036 → screens **5**/41 (idx 0–4); RNG **3626**/3626; cursors **41**/41.
+- seed0060: D-0037 → screens **6**/41 (idx 0–5); RNG **3626**/3626; cursors **41**/41.

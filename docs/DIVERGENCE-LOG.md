@@ -58,6 +58,7 @@ Do not record a guessed cause as fixed merely because an RNG prefix moved.
 | D-0034 | fixed | makemon/rnd | seed0060 @ 3105: stubbed `makemon(NULL,0,0)` skipped placement RNG |
 | D-0035 | fixed | losehp/regen_hp | seed0060 @ 3536: wall kick must `losehp` + EOT `regen_hp` |
 | D-0036 | fixed | race hpadv + mon_color | orc `hpadv` + `mon_glyph` mcolors; seed0060 Scr 0→5 |
+| D-0037 | fixed | doname COIN + mondied newsym | "a gold piece" + death `newsym`; Scr 5→6 |
 
 D-0001 through D-0005 predate the strict-length/cohort runbook. Their focused
 causes are preserved, but generic "green sessions held" is historical evidence,
@@ -855,3 +856,29 @@ cohort gates if those functions are touched again.
   botl on every frame; mlet-only monster colors fail as soon as two
   species share a letter.
 - **Next:** seed0060 idx 5+ (invent letter / map wall / downstairs color).
+
+## D-0037 — seed0060 gold doname + mondied newsym (screen 5)
+
+- **Status:** fixed (verified 2026-07-13).
+- **Observed:** seed0060 RNG **3626**/3626, screens **5**/41. Idx 5 had
+  two cell diffs: topline `"1 gold piece"` vs `"a gold piece"`, and map
+  newt cell still `:` (yellow) while C showed floor `·`.
+- **Cause/evidence:** (1) `doname` short-circuited `COIN_CLASS` to
+  `` `${quan} gold piece` ``; C `doname_base` uses quan==1 article `"a "`
+  + xname `"gold piece"`. (2) `mondied` removed the monster from `fmon`
+  and zeroed `mx`/`my` without `newsym`, leaving a stale live glyph; C
+  `mondead`→`mon_leaving_level` refreshes the cell (newt
+  `corpse_chance` was false → floor, not `%`).
+- **C locus:** `objnam.c:doname_base`; `mon.c:mondied`/`mondead`/
+  `mon_leaving_level`.
+- **Change:** `js/objnam.js` coin path uses the shared quan/article
+  prefix; `js/mhitm.js` `mondead` keeps coords and calls `newsym`.
+  Incomplete `make_corpse` via `mkcorpstat` was tried and **reverted** —
+  it cut aggregate RNG by ~900 without a faithful special-case body.
+- **Verification:** seed0060 Scr **6**/41 (idx 0–5), RNG **3626**/3626;
+  green + seed1500/1800 PASS + strict; full **4/44**, screens
+  **185**/11405 (+1), RNG **28511**/792838.
+- **Lesson:** idx-5 `"1"` vs `"a"` was gold English, not invent letters;
+  death without `newsym` looks like a lingering live monster. Do not ship
+  a partial `make_corpse` that invents `mksobj` RNG.
+- **Next:** seed0060 idx 6+ (drop then re-pickup pline / premature wall).

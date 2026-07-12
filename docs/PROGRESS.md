@@ -38,7 +38,7 @@ frozen-file overlay):
 | Metric | Value |
 |--------|------:|
 | Sessions passing | **4 / 44** |
-| Screens matched | **184 / 11,405** (1.61%) |
+| Screens matched | **185 / 11,405** (1.62%) |
 | Positional RNG calls matched | **28,511 / 792,838** (3.60%) |
 | Speed label | `13+0.02/turn` (R² 0.07) |
 | Working-tree base | `8b71735` + committed port (see `main`) |
@@ -56,13 +56,13 @@ shared blockers, and semantic coverage together—not one vanity metric.
 | `seed0900-tourist-explore-actions` | **2983 / 2983** | **84 / 84** |
 | `seed1500-rogue-explore-move` | **2768 / 2768** | **40 / 40** |
 | `seed1800-tourist-eat-throw` | **2458 / 2458** | **26 / 26** |
-| `seed0060-orc-rogue-kick-search` | **3626 / 3626** | 5 / 41 |
+| `seed0060-orc-rogue-kick-search` | **3626 / 3626** | 6 / 41 |
 | `seed0013-rogue-friday13-combat` | **519 / 4838** | 1 / 59 |
 
 seed8000 + seed0900 + seed1500 + seed1800 pass end-to-end. seed0060 clears
-RNG (D-0035) and first five screens (D-0036 orc `hpadv` + newt `mcolor`);
-screens **5/41** (cursors 41/41) — next idx 5+. seed0013 still breaks
-earlier in Lua/`sp_lev` map.
+RNG (D-0035) and screens 0–5 (D-0036 hpadv/mcolor; D-0037 gold `doname` +
+`mondied` `newsym`); screens **6/41** (cursors 41/41) — next idx 6+.
+seed0013 still breaks earlier in Lua/`sp_lev` map.
 
 ### Green gate
 
@@ -86,29 +86,31 @@ complete or blocked on a prerequisite you document with a falsifier. The
 seed1800 deep canary (`D-0006`) is **parked** — do not implement pet-movement
 fixes until C state/candidate capture exists (`GROK-PLAYBOOK.md` §2).
 
-#### Primary foundation frontier — seed0060 screens (idx 5+)
+#### Primary foundation frontier — seed0060 screens (idx 6+)
 
 **Code status:** empty-space `#kick` (D-0031), `m_avoid_kicked_loc` (D-0032),
 `.`/`donull` (D-0033), `makemon(NULL,0,0)` (D-0034), wall-kick
-`losehp` + once-per-turn `regen_hp` (D-0035), and orc `hpadv` +
-`mon_glyph` `mcolors` (D-0036) cleared. RNG **3626/3626**; screens
-**5/41** (idx 0–4); four public sessions pass end-to-end.
+`losehp` + once-per-turn `regen_hp` (D-0035), orc `hpadv` +
+`mon_glyph` `mcolors` (D-0036), and gold `doname` + `mondied`/`newsym`
+(D-0037) cleared. RNG **3626/3626**; screens **6/41** (idx 0–5); four
+public sessions pass end-to-end.
 
-- **Bounded unit:** first failing screen after legacy (idx 5 cells —
-  invent/menu letter and/or map newt/floor / later wall `┌`).
-- **C:** invent lettering / display `newsym` / wall glyph path as
-  indicated by idx 5 dump.
-- **JS:** `js/invent.js` / `js/display.js` / related.
-- **Named omissions:** dokick monster/object/closed-door/SDOOR/furniture;
-  `martial()`; wake/engraving; `set_wounded_legs` body; `showdamage`/
-  death `done`; Upolyd eel `regen_hp` loss; `regen_pw`/Teleport/Poly
-  once-per-turn; other roles still throw; `dog_goal` gettrack/FARAWAY;
-  `throw_gold`; eat getobj single-shot; Blind/`look_here`; trap glyphs;
-  full `wall_angle`; `ini_inv_mkobj_filter`; `u_init_carry_attr_boost`;
-  mfndpos `bad_rock` squeeze; Sokoban push-avoid; `donull`
-  `cmd_safety_prevention`; dog_move `mtrack` skip; `makemon` Sokoban
-  `throws_rocks`; `m_initinv` body; `set_malign`; downstairs remembered
-  color; MLET_CH beyond early subset; …
+- **Bounded unit:** first failing screen (idx 6) — extra pet pickup
+  pline after drop and/or premature wall `┌` / later downstairs color.
+- **C:** `dog_invent` drop-vs-pickup / vision-`newsym` wall path as
+  indicated by idx 6 dump.
+- **JS:** `js/dogmove.js` / `js/display.js` / related.
+- **Named omissions:** `make_corpse` after `corpse_chance`; dokick
+  monster/object/closed-door/SDOOR/furniture; `martial()`; wake/
+  engraving; `set_wounded_legs` body; `showdamage`/death `done`; Upolyd
+  eel `regen_hp` loss; `regen_pw`/Teleport/Poly once-per-turn; other
+  roles still throw; `dog_goal` gettrack/FARAWAY; `throw_gold`; eat
+  getobj single-shot; Blind/`look_here`; trap glyphs; full `wall_angle`;
+  `ini_inv_mkobj_filter`; `u_init_carry_attr_boost`; mfndpos `bad_rock`
+  squeeze; Sokoban push-avoid; `donull` `cmd_safety_prevention`;
+  dog_move `mtrack` skip; `makemon` Sokoban `throws_rocks`; `m_initinv`
+  body; `set_malign`; downstairs remembered color; MLET_CH beyond early
+  subset; …
 - **Cohort:** green gate + seed1500 + seed1800 (must stay PASS) + strict
   lengths.
 - **Alternate shared peel:** next unported role, or seed0013 Lua/`sp_lev`
@@ -166,7 +168,9 @@ Module status, constitutional debt, and named omissions live in
 20. seed0060 `losehp` + `regen_hp` (D-0035) — RNG **3626/3626**; next
     screen idx 0 cells (legacy/botl)
 21. seed0060 orc `hpadv` + `mon_glyph` mcolors (D-0036) — Scr **0→5**/41;
-    next idx 5+ (invent letter / map wall)
+    next idx 5 (gold `doname` + death `newsym`)
+22. seed0060 gold `doname` + `mondied` `newsym` (D-0037) — Scr **5→6**/41;
+    next idx 6+ (drop re-pickup pline / premature wall `┌`)
 
 Next work is selected from the active objectives above using
 `PORTING-RUNBOOK.md`, not by extending this historical list.

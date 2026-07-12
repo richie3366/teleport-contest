@@ -5,7 +5,7 @@
 import { rn2, rnd, d } from './rng.js';
 import { distmin, m_at } from './mon.js';
 import { game } from './gstate.js';
-import { pline } from './display.js';
+import { pline, newsym } from './display.js';
 import {
     M_ATTK_MISS,
     M_ATTK_HIT,
@@ -168,18 +168,28 @@ function corpse_chance(mon) {
     return !rn2(tmp);
 }
 
-// C ref: mon.c mondied() → mondead + maybe corpse
-async function mondied(mdef) {
-    // C ref: monkilled — pline before corpse_chance (triggers --More-- if needed)
-    await pline(`${Monnam(mdef)} is killed!`);
-    mdef.mhp = 0;
+// C ref: mon.c mondead() — remove from fmon + newsym; keep mx/my (C does)
+function mondead(mtmp) {
+    mtmp.mhp = 0;
+    const mx = mtmp.mx, my = mtmp.my;
     if (game.fmon) {
-        const i = game.fmon.indexOf(mdef);
+        const i = game.fmon.indexOf(mtmp);
         if (i >= 0) game.fmon.splice(i, 1);
     }
-    mdef.mx = 0;
-    mdef.my = 0;
-    corpse_chance(mdef);
+    // C mon_leaving_level keeps mx/my for make_corpse; do not zero here
+    if (mx > 0) newsym(mx, my);
+}
+
+// C ref: mon.c mondied() → mondead + maybe corpse
+async function mondied(mdef) {
+    // C ref: monkilled — pline before mondead (triggers --More-- if needed)
+    await pline(`${Monnam(mdef)} is killed!`);
+    mondead(mdef);
+    // C: if (corpse_chance && (accessible || is_pool)) make_corpse(...)
+    // Burn corpse_chance RNG to match C call site; make_corpse body deferred
+    // (named omission). seed0060 newt roll was false → floor via newsym alone.
+    if (mdef.mhp == null || mdef.mhp < 1)
+        corpse_chance(mdef);
 }
 
 // C ref: makemon.c grow_up() — HP gain from kill; transform later

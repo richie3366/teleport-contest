@@ -171,9 +171,9 @@ export function doname(obj) {
     let base = pretty_base(obj);
     if (quan !== 1) base = makeplural(base);
 
-    if (oclass === COIN_CLASS)
-        return `${quan} gold piece${quan === 1 ? '' : 's'}`;
-
+    // C ref: objnam.c doname_base — COIN_CLASS uses the same quan/article
+    // path as other objects ("a gold piece", "25 gold pieces"), not a bare
+    // numeric string. xname for coins is just "gold piece".
     // Build prefix like C: start with "a "/count, then empty, then BUC, then +spe;
     // finally recompute a/an from the remainder (so "an empty uncursed …").
     let prefix = '';
