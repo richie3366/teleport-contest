@@ -38,11 +38,11 @@ frozen-file overlay):
 | Metric | Value |
 |--------|------:|
 | Sessions passing | **5 / 44** |
-| Screens matched | **240 / 11,405** (2.10%) |
-| Positional RNG calls matched | **50,470 / 792,838** (6.37%) |
-| Speed label | `16+0.05/turn` (R² 0.38) |
+| Screens matched | **243 / 11,405** (2.13%) |
+| Positional RNG calls matched | **58,004 / 792,838** (7.32%) |
+| Speed label | `11+0.09/turn` (R² 0.87) |
 | Working-tree base | `8b71735` + committed port (see `main`) |
-| Role-init throws | **17 / 44** (`u_init_role: role not ported`) |
+| Role-init throws | **13 / 44** (`u_init_role: role not ported`) |
 
 The RNG aggregate can decrease while the port improves if a former fake path
 is replaced or more sessions execute farther. Use first divergence, screens,
@@ -57,14 +57,17 @@ shared blockers, and semantic coverage together—not one vanity metric.
 | `seed1500-rogue-explore-move` | **2768 / 2768** | **40 / 40** |
 | `seed1800-tourist-eat-throw` | **2458 / 2458** | **26 / 26** |
 | `seed0060-orc-rogue-kick-search` | **3626 / 3626** | **41 / 41** |
+| `seed0103-knight-ride-pony` | **2126 / 2640** | 0 / 60 |
+| `seed0104-knight-ride-combat` | **2401 / 3223** | 1 / 43 |
 | `seed0106-priest-extcmd-sweep` | **2576 / 4194** | 1 / 267 |
 | `seed2200-wizard-quaff-zap-read` | **2756 / 3018** | 1 / 230 |
 | `seed0013-rogue-friday13-combat` | **519 / 4838** | 1 / 59 |
 
 seed8000 + seed0900 + seed1500 + seed1800 + seed0060 pass end-to-end.
-Priest init (D-0043) clears Priest role throws; seed0501 breaks in mklev
-(`wipeout_text`). Wizard seed2200 still breaks at `choose_trapnote`.
-seed0013 still breaks earlier in Lua/`sp_lev`.
+Knight init (D-0044) clears Knight role throws; seed0103 breaks in mklev
+(`mkclass_aligned`). Priest seed0501 still breaks at `wipeout_text`.
+Wizard seed2200 still breaks at `choose_trapnote`. seed0013 still breaks
+earlier in Lua/`sp_lev`.
 
 ### Green gate
 
@@ -90,20 +93,21 @@ fixes until C state/candidate capture exists (`GROK-PLAYBOOK.md` §2).
 
 #### Primary foundation frontier — next unported role / seed2200 mklev
 
-**Code status:** Priest `u_init_role` + pantheon **ported** (D-0043). Five
-public sessions still pass end-to-end. **17/44** still throw at `u_init_role`
-(Knight 5; Samurai 3; Valkyrie/Ranger 2 each; …).
+**Code status:** Knight `u_init_role` + knows_class + helm/gloves **ported**
+(D-0044). Five public sessions still pass end-to-end. **13/44** still throw
+at `u_init_role` (Samurai 4; Valkyrie/Ranger 2 each; …).
 
-- **Bounded unit:** next role kit (**Knight** preferred — 5 throws), **or**
-  seed2200 `choose_trapnote` / seed0501 `wipeout_text` mklev peel.
+- **Bounded unit:** next role kit (**Samurai** preferred — 4 throws), **or**
+  seed0103 `mkclass_aligned` / seed2200 `choose_trapnote` / seed0501
+  `wipeout_text` mklev peel.
 - **Prefer:** a role that clears many `role not ported` throwers over
-  polishing one late Tourist/Wizard/Priest path.
-- **Named omissions:** Wizard/Priest `initialspell`; full `role_init` beyond
-  pantheon/SPE_LIGHT/nemesis gender; `make_corpse` after `corpse_chance`; dokick
-  monster/object/closed-door/SDOOR/furniture; `martial()`; wake/
-  engraving; `set_wounded_legs` body; `showdamage`/death `done`; Upolyd
-  eel `regen_hp` loss; `regen_pw`/Teleport/Poly once-per-turn; other
-  roles still throw; `dog_goal` gettrack/FARAWAY; `throw_gold`; eat
+  polishing one late Tourist/Wizard/Priest/Knight path.
+- **Named omissions:** Wizard/Priest `initialspell`; Knight `skill_init`;
+  full `role_init` beyond pantheon/SPE_LIGHT/nemesis gender; `make_corpse`
+  after `corpse_chance`; dokick monster/object/closed-door/SDOOR/furniture;
+  `martial()`; wake/engraving; `set_wounded_legs` body; `showdamage`/death
+  `done`; Upolyd eel `regen_hp` loss; `regen_pw`/Teleport/Poly once-per-turn;
+  other roles still throw; `dog_goal` gettrack/FARAWAY; `throw_gold`; eat
   getobj single-shot; Blind/`look_here`; trap glyphs; hallucination/
   `see_objects`; `u_init_carry_attr_boost`; mfndpos `bad_rock` squeeze;
   Sokoban push-avoid; `donull` `cmd_safety_prevention`; dog_move
@@ -113,7 +117,7 @@ public sessions still pass end-to-end. **17/44** still throw at `u_init_role`
   P_SKILL/odd P_NAME; shop `costly_spot` autopickup; `obj_typename`
   armor pair-of/set-of + GemStone; MLET_CH beyond early subset; …
 - **Cohort:** green gate + seed1500 + seed1800 + seed0060 (must stay
-  PASS) + strict lengths; Priest focus seed0501/seed0106 when on that peel.
+  PASS) + strict lengths; Knight focus seed0103/seed0104 when on that peel.
 
 Focused survey:
 
@@ -184,6 +188,9 @@ Module status, constitutional debt, and named omissions live in
 28. Priest `u_init_role` + pantheon `randrole` + `Skill_P` + shield
     (D-0043) — role throws **20→17**/44; screens **239→240**; RNG
     **44848→50470**; seed0501 next `wipeout_text` @ 1153
+29. Knight `u_init_role` + knows_class + helm/gloves + HJumping
+    (D-0044) — role throws **17→13**/44; screens **240→243**; RNG
+    **50470→58004**; seed0103 next `mkclass_aligned` @ 1185
 
 Next work is selected from the active objectives above using
 `PORTING-RUNBOOK.md`, not by extending this historical list.

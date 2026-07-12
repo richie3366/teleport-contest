@@ -19,6 +19,19 @@ Use this shape:
 
 ---
 
+## 2026-07-13 00:50 — Knight u_init_role (D-0044)
+- C locus: `u_init.c` Knight/`Skill_K`/`knows_class`/`ini_inv_use_obj`
+  helm/gloves; `role.c` Knight attrs; `youprop.h` `HJumping`
+- Result: **verified faithful change** — Knight kit + full
+  weapon/armor `knows_class` + helm/gloves/boots wear +
+  `HJumping|=FROMOUTSIDE`. Role throws **17→13**/44.
+- Verification: green + seed1500/1800/0060 PASS + strict; full **5/44**,
+  screens **243**/11405, RNG **58004**/792838; seed0103 prefix
+  **1185** (`mkclass_aligned`); seed0104 RNG **2401**/3223.
+- Next: Samurai `u_init_role` (4 throws), or peel seed0103
+  `mkclass_aligned` / seed2200 `choose_trapnote` / seed0501
+  `wipeout_text`.
+
 ## 2026-07-13 00:40 — Priest u_init_role + pantheon (D-0043)
 - C locus: `u_init.c` Priest/`Lamp`/`Skill_P`/`ini_inv_use_obj` shield;
   `role.c` pantheon `randrole` + SPE_LIGHT + roles[] order

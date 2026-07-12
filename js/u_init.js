@@ -2,7 +2,8 @@
 // C ref: u_init.c — u_init_role, u_init_race, trquan, ini_inv,
 //        ini_inv_mkobj_filter, ini_inv_obj_substitution,
 //        u_init_inventory_attrs
-//        (Tourist + Rogue + Wizard + Priest; human/orc race kits; elf/dwarf/gnome partial).
+//        (Tourist + Rogue + Wizard + Priest + Knight; human/orc race kits;
+//         elf/dwarf/gnome partial).
 
 import { game } from './gstate.js';
 import { rn2, rnd } from './rng.js';
@@ -26,22 +27,26 @@ import { roles, races, aligns, findRole, findRace, findAlign } from './roles.js'
 import { discover_object } from './invent.js';
 import { otyp_uses_known } from './objnam.js';
 import {
-    W_ARMU, W_ARM, W_ARMC, W_ARMS, W_WEP, W_SWAPWEP, W_QUIVER,
+    W_ARMU, W_ARM, W_ARMC, W_ARMS, W_ARMH, W_ARMG, W_ARMF,
+    W_WEP, W_SWAPWEP, W_QUIVER,
     RIGHT_HANDED, LEFT_HANDED,
     A_NEUTRAL,
     Is_container,
+    FROMOUTSIDE,
     P_NONE,
-    P_DAGGER, P_KNIFE, P_AXE, P_SHORT_SWORD, P_CLUB, P_MACE,
-    P_MORNING_STAR, P_FLAIL, P_HAMMER, P_QUARTERSTAFF, P_POLEARMS,
-    P_SPEAR, P_TRIDENT, P_LANCE, P_BOW, P_SLING, P_CROSSBOW, P_DART,
-    P_SHURIKEN, P_BOOMERANG, P_UNICORN_HORN,
+    P_DAGGER, P_KNIFE, P_AXE, P_PICK_AXE, P_SHORT_SWORD,
+    P_BROAD_SWORD, P_LONG_SWORD, P_TWO_HANDED_SWORD, P_SABER,
+    P_CLUB, P_MACE, P_MORNING_STAR, P_FLAIL, P_HAMMER, P_QUARTERSTAFF,
+    P_POLEARMS, P_SPEAR, P_TRIDENT, P_LANCE, P_BOW, P_SLING, P_CROSSBOW,
+    P_DART, P_SHURIKEN, P_BOOMERANG, P_UNICORN_HORN,
     P_ATTACK_SPELL, P_HEALING_SPELL, P_DIVINATION_SPELL,
     P_ENCHANTMENT_SPELL, P_CLERIC_SPELL, P_ESCAPE_SPELL, P_MATTER_SPELL,
-    P_RIDING, P_BARE_HANDED_COMBAT,
+    P_RIDING, P_TWO_WEAPON_COMBAT, P_BARE_HANDED_COMBAT,
     P_BASIC, P_SKILLED, P_EXPERT,
 } from './const.js';
 import {
-    PM_TOURIST, PM_ROGUE, PM_CLERIC, PM_WIZARD, PM_MONK,
+    PM_TOURIST, PM_ROGUE, PM_CLERIC, PM_WIZARD, PM_MONK, PM_KNIGHT,
+    PM_SAMURAI,
     PM_HUMAN, PM_ELF, PM_DWARF, PM_ORC, PM_GNOME,
     NON_PM,
 } from './generated/monsters_data.js';
@@ -50,6 +55,9 @@ import { mons, is_male, is_female, is_neuter } from './monsters.js';
 // C ref: objclass.h ARM_* — oc_skill / oc_subtyp / oc_armcat for armor
 const ARM_SUIT = 0;
 const ARM_SHIELD = 1;
+const ARM_HELM = 2;
+const ARM_GLOVES = 3;
+const ARM_BOOTS = 4;
 const ARM_CLOAK = 5;
 const ARM_SHIRT = 6;
 
@@ -113,6 +121,19 @@ const Priest = [
     { trotyp: () => 0, trspe: 0, trclass: 0, trquan_min: 0, trquan_max: 0, trbless: 0 },
 ];
 
+// C ref: u_init.c Knight[]
+const Knight = [
+    { trotyp: () => otypByName('LONG_SWORD'), trspe: 1, trclass: WEAPON_CLASS, trquan_min: 1, trquan_max: 1, trbless: UNDEF_BLESS },
+    { trotyp: () => otypByName('LANCE'), trspe: 1, trclass: WEAPON_CLASS, trquan_min: 1, trquan_max: 1, trbless: UNDEF_BLESS },
+    { trotyp: () => otypByName('RING_MAIL'), trspe: 1, trclass: ARMOR_CLASS, trquan_min: 1, trquan_max: 1, trbless: UNDEF_BLESS },
+    { trotyp: () => otypByName('HELMET'), trspe: 0, trclass: ARMOR_CLASS, trquan_min: 1, trquan_max: 1, trbless: UNDEF_BLESS },
+    { trotyp: () => otypByName('SMALL_SHIELD'), trspe: 0, trclass: ARMOR_CLASS, trquan_min: 1, trquan_max: 1, trbless: UNDEF_BLESS },
+    { trotyp: () => otypByName('LEATHER_GLOVES'), trspe: 0, trclass: ARMOR_CLASS, trquan_min: 1, trquan_max: 1, trbless: UNDEF_BLESS },
+    { trotyp: () => otypByName('APPLE'), trspe: 0, trclass: FOOD_CLASS, trquan_min: 10, trquan_max: 10, trbless: 0 },
+    { trotyp: () => otypByName('CARROT'), trspe: 0, trclass: FOOD_CLASS, trquan_min: 10, trquan_max: 10, trbless: 0 },
+    { trotyp: () => 0, trspe: 0, trclass: 0, trquan_min: 0, trquan_max: 0, trbless: 0 },
+];
+
 // C ref: u_init.c Skill_W[] — needed for restricted_spell_discipline in filter
 const Skill_W = [
     { skill: P_DAGGER, max: P_EXPERT },
@@ -162,6 +183,36 @@ const Skill_P = [
     { skill: P_DIVINATION_SPELL, max: P_EXPERT },
     { skill: P_CLERIC_SPELL, max: P_EXPERT },
     { skill: P_BARE_HANDED_COMBAT, max: P_BASIC },
+];
+
+// C ref: u_init.c Skill_K[] — Knight (skills_init still stubbed; filter-ready)
+const Skill_K = [
+    { skill: P_DAGGER, max: P_BASIC },
+    { skill: P_KNIFE, max: P_BASIC },
+    { skill: P_AXE, max: P_SKILLED },
+    { skill: P_PICK_AXE, max: P_BASIC },
+    { skill: P_SHORT_SWORD, max: P_SKILLED },
+    { skill: P_BROAD_SWORD, max: P_SKILLED },
+    { skill: P_LONG_SWORD, max: P_EXPERT },
+    { skill: P_TWO_HANDED_SWORD, max: P_SKILLED },
+    { skill: P_SABER, max: P_SKILLED },
+    { skill: P_CLUB, max: P_BASIC },
+    { skill: P_MACE, max: P_SKILLED },
+    { skill: P_MORNING_STAR, max: P_SKILLED },
+    { skill: P_FLAIL, max: P_BASIC },
+    { skill: P_HAMMER, max: P_BASIC },
+    { skill: P_POLEARMS, max: P_SKILLED },
+    { skill: P_SPEAR, max: P_SKILLED },
+    { skill: P_TRIDENT, max: P_BASIC },
+    { skill: P_LANCE, max: P_EXPERT },
+    { skill: P_BOW, max: P_BASIC },
+    { skill: P_CROSSBOW, max: P_SKILLED },
+    { skill: P_ATTACK_SPELL, max: P_SKILLED },
+    { skill: P_HEALING_SPELL, max: P_SKILLED },
+    { skill: P_CLERIC_SPELL, max: P_SKILLED },
+    { skill: P_RIDING, max: P_EXPERT },
+    { skill: P_TWO_WEAPON_COMBAT, max: P_SKILLED },
+    { skill: P_BARE_HANDED_COMBAT, max: P_EXPERT },
 ];
 
 function strangeObject() {
@@ -247,10 +298,11 @@ function trquan(trop) {
     return trop.trquan_min + rn2(trop.trquan_max - trop.trquan_min + 1);
 }
 
-// C ref: u_init.c skills_for_role() — Wizard + Priest (others deferred)
+// C ref: u_init.c skills_for_role() — Wizard + Priest + Knight (others deferred)
 function skills_for_role() {
     if (game.urole?.mnum === PM_WIZARD) return Skill_W;
     if (game.urole?.mnum === PM_CLERIC) return Skill_P;
+    if (game.urole?.mnum === PM_KNIGHT) return Skill_K;
     return null;
 }
 
@@ -470,6 +522,26 @@ function is_shield(obj) {
     return (game.objects?.[obj.otyp]?.oc_skill ?? -1) === ARM_SHIELD;
 }
 
+function is_helmet(obj) {
+    return obj.oclass === ARMOR_CLASS
+        && (game.objects?.[obj.otyp]?.oc_skill ?? -1) === ARM_HELM;
+}
+
+function is_gloves(obj) {
+    return obj.oclass === ARMOR_CLASS
+        && (game.objects?.[obj.otyp]?.oc_skill ?? -1) === ARM_GLOVES;
+}
+
+function is_boots(obj) {
+    return obj.oclass === ARMOR_CLASS
+        && (game.objects?.[obj.otyp]?.oc_skill ?? -1) === ARM_BOOTS;
+}
+
+// C ref: obj.h is_pole() — P_POLEARMS / P_LANCE (artifact Snickersnee omitted)
+function is_pole_skill(oc_skill) {
+    return oc_skill === P_POLEARMS || oc_skill === P_LANCE;
+}
+
 function is_missile(obj) {
     const n = objectNames[obj.otyp];
     return n === 'DART' || n === 'SHURIKEN' || n === 'BOOMERANG';
@@ -489,18 +561,46 @@ function knows_object(otyp, _override_pauper) {
     discover_object(otyp, true, false);
 }
 
-// C ref: u_init.c knows_class() — Rogue WEAPON_CLASS (daggers only).
-// Full class walk needs oc_skill in objects_data; Rogue uses P_DAGGER names.
+// C ref: u_init.c knows_class() — ordinary non-magic objects of a class.
+// Rogue keeps dagger-name walk; Knight walks bases[] like C (all weapons +
+// armor, including polearms/lances; skip CORNUTHAUM/DUNCE_CAP/SMALL_SHIELD).
 function knows_class(sym) {
-    if (sym !== WEAPON_CLASS) return;
     const roleMnum = game.urole?.mnum;
+    const objects = game.objects;
+    if (!objects) return;
+
     if (roleMnum === PM_ROGUE) {
+        if (sym !== WEAPON_CLASS) return;
         for (const ct of DAGGER_SKILL_OTYPS) {
-            const obj = game.objects?.[ct];
+            const obj = objects[ct];
             if (obj && obj.oc_class === WEAPON_CLASS && !obj.oc_magic)
                 knows_object(ct, false);
         }
         return;
+    }
+
+    if (roleMnum !== PM_KNIGHT) return;
+
+    const bases = game.bases || [];
+    const start = bases[sym] || 0;
+    const end = bases[sym + 1] || objects.length;
+    const skip = new Set([
+        otypByName('CORNUTHAUM'),
+        otypByName('DUNCE_CAP'),
+        otypByName('SMALL_SHIELD'),
+    ]);
+    for (let ct = start; ct < end; ct++) {
+        if (skip.has(ct)) continue;
+        const oc = objects[ct];
+        if (!oc || oc.oc_class !== sym || oc.oc_magic) continue;
+        if (sym === WEAPON_CLASS) {
+            // C: only knights and samurai recognize polearms/lances
+            if (is_pole_skill(oc.oc_skill ?? P_NONE)
+                && roleMnum !== PM_KNIGHT && roleMnum !== PM_SAMURAI) {
+                continue;
+            }
+        }
+        knows_object(ct, false);
     }
 }
 
@@ -513,15 +613,25 @@ function ini_inv_use_obj(obj) {
         discover_object(otypByName('POT_OIL'), true, true);
 
     if (obj.oclass === ARMOR_CLASS) {
+        // C ref: u_init.c ini_inv_use_obj armor wear order
         if (is_shield(obj) && !game.u.uarms) {
             obj.owornmask = (obj.owornmask || 0) | W_ARMS;
             game.u.uarms = obj;
+        } else if (is_helmet(obj) && !game.u.uarmh) {
+            obj.owornmask = (obj.owornmask || 0) | W_ARMH;
+            game.u.uarmh = obj;
+        } else if (is_gloves(obj) && !game.u.uarmg) {
+            obj.owornmask = (obj.owornmask || 0) | W_ARMG;
+            game.u.uarmg = obj;
         } else if (is_shirt(obj) && !game.u.uarmu) {
             obj.owornmask = (obj.owornmask || 0) | W_ARMU;
             game.u.uarmu = obj;
         } else if (is_cloak(obj) && !game.u.uarmc) {
             obj.owornmask = (obj.owornmask || 0) | W_ARMC;
             game.u.uarmc = obj;
+        } else if (is_boots(obj) && !game.u.uarmf) {
+            obj.owornmask = (obj.owornmask || 0) | W_ARMF;
+            game.u.uarmf = obj;
         } else if (is_suit(obj) && !game.u.uarm) {
             obj.owornmask = (obj.owornmask || 0) | W_ARM;
             game.u.uarm = obj;
@@ -601,7 +711,7 @@ function ini_inv(tropArr) {
     }
 }
 
-// C ref: u_init.c u_init_role() — Tourist + Rogue + Wizard + Priest cases
+// C ref: u_init.c u_init_role() — Tourist + Rogue + Wizard + Priest + Knight
 function u_init_role() {
     const role = game.urole;
     const mnum = role?.mnum;
@@ -656,6 +766,19 @@ function u_init_role() {
         if (!rn2(5)) ini_inv(Magicmarker);
         else if (!rn2(10)) ini_inv(Lamp);
         knows_object(otypByName('POT_WATER'), true);
+        game.nocreate = strange;
+        game.nocreate2 = strange;
+        game.nocreate3 = strange;
+        game.nocreate4 = strange;
+        return;
+    }
+    if (mnum === PM_KNIGHT) {
+        game.u.umoney0 = 0;
+        ini_inv(Knight);
+        knows_class(WEAPON_CLASS); // all weapons (incl. polearms)
+        knows_class(ARMOR_CLASS);
+        // C: HJumping |= FROMOUTSIDE — chess-like mobility
+        game.u.HJumping = (game.u.HJumping || 0) | FROMOUTSIDE;
         game.nocreate = strange;
         game.nocreate2 = strange;
         game.nocreate3 = strange;
@@ -912,7 +1035,10 @@ export function u_init_inventory_attrs() {
     game.u.uarmu = null;
     game.u.uarm = null;
     game.u.uarmc = null;
+    game.u.uarmh = null;
     game.u.uarms = null;
+    game.u.uarmg = null;
+    game.u.uarmf = null;
     game.u.uquiver = null;
     game.u.uwep = null;
     game.u.uswapwep = null;

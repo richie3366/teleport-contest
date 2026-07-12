@@ -7,20 +7,20 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 
 ## Active
 
-- **Current unit:** Priest `u_init_role` + pantheon cleared (D-0043). Role
-  throws **17**/44 (was 20). seed0501 prefix **1153** (`wipeout_text`);
-  seed0106 prefix **2566** (`dog_move`).
-- **Hypothesis / next peel:** port next high-throw role (**Knight**, 5
+- **Current unit:** Knight `u_init_role` cleared (D-0044). Role throws
+  **13**/44 (was 17). seed0103 prefix **1185** (`mkclass_aligned`).
+- **Hypothesis / next peel:** port next high-throw role (**Samurai**, 4
   throws), or seed2200 `choose_trapnote` @ 1283, or seed0501
-  `wipeout_text` makeniche engraving.
+  `wipeout_text` makeniche engraving, or seed0103 `mkclass_aligned`.
 - **Falsifier / next probe:**
   ```bash
   node frozen/ps_test_runner.mjs sessions 2>&1 | rg 'role not ported|PASS|FAIL' | head -40
-  # Or: node scripts/rng-diff.mjs sessions/seed0501-priest-cast-read-turn.session.json
+  # Or: node scripts/rng-diff.mjs sessions/seed0103-knight-ride-pony.session.json
   ```
 - **Parked deep canary:** D-0006 pet movement — do not implement until C
   state/candidate capture exists.
-- **Also deferred:** Wizard/Priest `initialspell`; full `role_init` beyond
+- **Also deferred:** Wizard/Priest `initialspell`; Knight `skill_init`
+  (Skill_K table present for filter only); full `role_init` beyond
   pantheon + SPE_LIGHT + nemesis gender; `make_corpse` body after
   `corpse_chance`; dokick monster/object/closed-door/SDOOR/furniture;
   `martial()`; wake/engraving; `set_wounded_legs` body; `showdamage`/
@@ -153,12 +153,16 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 - seed0501 idx 199 was **not** invent: Priest needs `role_init` pantheon
   `randrole` until a role with gods is chosen, plus **all roles' gods**
   and C roles[] order (Rogue before Ranger) — D-0043.
+- seed0103 throw was **not** missing pony pet alone: Knight needed
+  `Knight[]` kit + attrs/`hpadv` + full `knows_class` + helm/gloves wear
+  + `HJumping|=FROMOUTSIDE` — D-0044.
 
 ## Landmarks
 
 - Rogue+human init HP = **12**; Rogue+orc = **11** (role 10 + race 1).
 - Wizard+human init HP = **12**, Pw ≈ **8**, AC **9** (cloak of MR `a_ac` 1).
 - Priest+human init HP = **14** (role 12 + race 2); robe is ARM_CLOAK.
+- Knight+human init HP = **16** (role 14 + race 2); initrecord **10**.
 - Rogue legacy offx = `max(10, 80 - maxcol - 1)` (Kos → 23; The Lady → 17).
 - Tutorial menu offx = 20 (OPTIONS `.nethackrc` line → maxcol 59); cursor
   `[27,6]` on `(end) `.
@@ -176,3 +180,5 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 - seed0501: D-0043 → role throw cleared; rng-diff prefix **1153**; next
   `wipeout_text` (makeniche engraving).
 - seed0106: D-0043 → prefix **2566**; next `dog_move` `rn2(1)`.
+- seed0103: D-0044 → role throw cleared; rng-diff prefix **1185**; next
+  `mkclass_aligned`.

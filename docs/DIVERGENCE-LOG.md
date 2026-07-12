@@ -1063,3 +1063,38 @@ cohort gates if those functions are touched again.
   over-consume `randrole`.
 - **Next:** Knight `u_init_role` (5 throws), or seed2200
   `choose_trapnote`, or seed0501 makeniche engraving.
+
+## D-0044 — Knight `u_init_role` + knows_class + helm/gloves wear
+
+- **Status:** fixed (verified 2026-07-13) for role-init throw clearance;
+  Knight sessions still diverge later in mklev (`mkclass_aligned`).
+- **Observed:** **17/44** role throws after D-0043; 5 Knight sessions
+  threw (seed0103/0104/4500/5006 + seed0030 at Knight). After port,
+  **13/44** remain (no Knight). seed0103 rng-diff prefix **1185**
+  (`mkclass_aligned` vs `rn2(398)`); seed0030 advances past Knight into
+  Samurai throw.
+- **Cause/evidence:** Knight kit absent; scaffold lacked attrs/`hpadv`/
+  `enadv`/`initrecord=10`. C `knows_class(WEAPON/ARMOR)` walks
+  `bases[]` (all non-magic, incl. polearms for Knight; skip
+  CORNUTHAUM/DUNCE_CAP/SMALL_SHIELD). Helmet/gloves needed
+  `ini_inv_use_obj` `W_ARMH`/`W_ARMG` wear (also boots path). Intrinsic
+  `HJumping |= FROMOUTSIDE` for chess-like mobility.
+- **C locus:** `u_init.c` `Knight[]` / `Skill_K` / `u_init_role` /
+  `knows_class` / `ini_inv_use_obj` helm/gloves/boots; `role.c` Knight
+  entry; `youprop.h` `HJumping`.
+- **Change:** Knight roles attrs/`hpadv`/`enadv`/`initrecord`; Knight
+  inventory; `Skill_K` in `skills_for_role`; bases[] `knows_class` for
+  Knight; helm/gloves/boots wear + `uarmh`/`uarmg`/`uarmf` clear;
+  `HJumping |= FROMOUTSIDE`.
+- **Verification:** green + seed1500/1800/0060 PASS + strict; full
+  **5/44**, screens **243**/11405 (+3), RNG **58004**/792838; role
+  throws **13**/44; seed0103 RNG **2126**/2640 Scr **0**/60 (prefix
+  **1185**); seed0104 **2401**/3223 Scr **1**/43.
+- **Omissions named:** `skill_init` still stubbed (Skill_K table only);
+  `initialspell`; other role kits; seed0103 `mkclass_aligned`; seed2200
+  `choose_trapnote`; seed0501 `wipeout_text`.
+- **Lesson:** Knight unlock needs full-class discovery + armor-slot wear
+  beyond suit/shield/cloak — helm/gloves were already a named Priest
+  omission and block correct AC.
+- **Next:** Samurai `u_init_role` (4 throws), or seed0103
+  `mkclass_aligned`, or seed2200/seed0501 mklev peels.

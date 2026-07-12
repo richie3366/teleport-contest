@@ -85,9 +85,20 @@ export const roles = [
         mnum: PM_KNIGHT,
         petnum: pm('PM_PONY'),
         neminum: pm('PM_IXOTH'),
+        title: [
+            { m: 'Gallant', f: 'Gallant' },
+            { m: 'Esquire', f: 'Esquire' },
+        ],
         lgod: 'Lugh',
         ngod: '_Brigit',
         cgod: 'Manannan Mac Lir',
+        // C: { 13, 7, 14, 8, 10, 17 } / { 30, 15, 15, 10, 20, 10 }
+        attrbase: [13, 7, 14, 8, 10, 17],
+        attrdist: [30, 15, 15, 10, 20, 10],
+        initrecord: 10,
+        // C: { 14, 0, 0, 8, 2, 0 } / { 1, 4, 0, 1, 0, 2 }
+        hpadv: adv(14, 0, 0, 8, 2, 0),
+        enadv: adv(1, 4, 0, 1, 0, 2),
     },
     {
         name: { m: 'Monk', f: 'Monk' },
