@@ -1132,3 +1132,34 @@ cohort gates if those functions are touched again.
   unwielded and skew invent/AC screens.
 - **Next:** Valkyrie/Healer/Ranger (2 throws each; Healer also seed0030),
   or shared `mkclass_aligned`, or seed2200/0501 mklev peels.
+
+## D-0046 — Healer `u_init_role` + gold `rn1` + Lamp + full-healing know
+
+- **Status:** fixed (verified 2026-07-13) for role-init throw clearance;
+  Healer sessions still diverge later (mklev trap peels).
+- **Observed:** **10/44** role throws after D-0045; 2 dedicated Healer
+  throws (seed0016 + seed0030). After port, **8/44** remain (no Healer).
+  seed0016 rng-diff prefix **1341** (`hole_destination`); seed0030
+  **5127** (`choose_trapnote`). seed0002 already past init (prefix
+  unchanged at 1652).
+- **Cause/evidence:** Healer kit absent; scaffold lacked attrs/`hpadv`/
+  `enadv`/`initrecord=10`. C sets `u.umoney0 = rn1(1000, 1001)`, optional
+  Lamp `!rn2(25)`, and `knows_object(POT_FULL_HEALING)`. Kit uses typed
+  spellbooks (no UNDEF SPBOOK filter path); gloves `+1` via `trspe`.
+- **C locus:** `u_init.c` `Healer[]` / `Skill_H` / `u_init_role`
+  `PM_HEALER`; `role.c` Healer entry.
+- **Change:** Healer roles attrs/`hpadv`/`enadv`/`initrecord`; Healer
+  inventory + Lamp + gold `rn1` + `POT_FULL_HEALING` know; `Skill_H` in
+  `skills_for_role`.
+- **Verification:** green + seed1500/1800/0060 PASS + strict; full
+  **5/44**, screens **251**/11405 (+6), RNG **67533**/792838; role
+  throws **8**/44; seed0016 RNG **2258**/3656 Scr **0**/36.
+- **Omissions named:** `skill_init` / `initialspell` still stubbed;
+  other role kits; seed0016 `hole_destination`; seed0030/2200
+  `choose_trapnote`; seed0700/0103 `mkclass_aligned`; seed0501
+  `wipeout_text`.
+- **Lesson:** Healer unlock is mostly kit + money RNG; do not invent
+  Tourist-shaped inventory or skip `rn1(1000,1001)` gold.
+- **Next:** Valkyrie/Ranger (2 throws each), or remaining 1-throw roles,
+  or shared mklev peels (`mkclass_aligned` / `choose_trapnote` /
+  `hole_destination` / `wipeout_text`).

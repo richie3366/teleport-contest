@@ -19,6 +19,19 @@ Use this shape:
 
 ---
 
+## 2026-07-13 00:53 — Healer u_init_role (D-0046)
+- C locus: `u_init.c` Healer/`Skill_H`/`u_init_role` PM_HEALER;
+  `role.c` Healer attrs
+- Result: **verified faithful change** — Healer kit + `umoney0=rn1(1000,1001)`
+  + optional Lamp + `knows_object(POT_FULL_HEALING)` + attrs/`hpadv`.
+  Role throws **10→8**/44.
+- Verification: green + seed1500/1800/0060 PASS + strict; full **5/44**,
+  screens **251**/11405, RNG **67533**/792838; seed0016 prefix
+  **1341** (`hole_destination`); seed0030 **5127** (`choose_trapnote`).
+- Next: Valkyrie/Ranger `u_init_role` (2 throws each), or remaining
+  1-throw roles, or peel shared `mkclass_aligned` / `choose_trapnote` /
+  `hole_destination` / `wipeout_text`.
+
 ## 2026-07-13 00:55 — Samurai u_init_role (D-0045)
 - C locus: `u_init.c` Samurai/`Skill_S`/`knows_class`/`ini_inv_use_obj`
   ammo; `objnam.c` `Japanese_item_name`; `role.c` Samurai attrs

@@ -76,9 +76,20 @@ export const roles = [
         mnum: PM_HEALER,
         petnum: NON_PM,
         neminum: pm('PM_CYCLOPS'),
+        title: [
+            { m: 'Rhizotomist', f: 'Rhizotomist' },
+            { m: 'Empiric', f: 'Empiric' },
+        ],
         lgod: '_Athena',
         ngod: 'Hermes',
         cgod: 'Poseidon',
+        // C: { 7, 7, 13, 7, 11, 16 } / { 15, 20, 20, 15, 25, 5 }
+        attrbase: [7, 7, 13, 7, 11, 16],
+        attrdist: [15, 20, 20, 15, 25, 5],
+        initrecord: 10,
+        // C: { 11, 0, 0, 8, 1, 0 } / { 1, 4, 0, 1, 0, 2 }
+        hpadv: adv(11, 0, 0, 8, 1, 0),
+        enadv: adv(1, 4, 0, 1, 0, 2),
     },
     {
         name: { m: 'Knight', f: 'Knight' },

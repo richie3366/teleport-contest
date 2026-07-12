@@ -7,22 +7,22 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 
 ## Active
 
-- **Current unit:** Samurai `u_init_role` cleared (D-0045). Role throws
-  **10**/44 (was 13). seed0700 prefix **1718** (`mkclass_aligned`);
-  seed0017/0107 reach moveloop (`u_calc_moveamt`).
+- **Current unit:** Healer `u_init_role` cleared (D-0046). Role throws
+  **8**/44 (was 10). seed0016 prefix **1341** (`hole_destination`);
+  seed0030 prefix **5127** (`choose_trapnote`).
 - **Hypothesis / next peel:** port next high-throw role (**Valkyrie /
-  Healer / Ranger**, 2 throws each — Healer also blocks seed0030), or
-  shared `mkclass_aligned` (seed0700/0103), or seed2200 `choose_trapnote`
-  / seed0501 `wipeout_text`.
+  Ranger**, 2 throws each), or Monk/Archeologist/Barbarian/Caveman (1),
+  or shared `mkclass_aligned` / `choose_trapnote` / `hole_destination` /
+  `wipeout_text`.
 - **Falsifier / next probe:**
   ```bash
   node frozen/ps_test_runner.mjs sessions 2>&1 | rg 'role not ported|PASS|FAIL' | head -40
-  # Or: node scripts/rng-diff.mjs sessions/seed0700-samurai-explore-descend.session.json
+  # Or: node scripts/rng-diff.mjs sessions/seed0016-healer-newmoon-eat-zap.session.json
   ```
 - **Parked deep canary:** D-0006 pet movement — do not implement until C
   state/candidate capture exists.
-- **Also deferred:** Wizard/Priest `initialspell`; Knight/Samurai
-  `skill_init` (Skill_* tables present for filter only); display-path
+- **Also deferred:** Wizard/Priest/Healer `initialspell`; Knight/Samurai/
+  Healer `skill_init` (Skill_* tables present for filter only); display-path
   Japanese names in `obj_typename`/`doname`; full `role_init` beyond
   pantheon + SPE_LIGHT + nemesis gender; `make_corpse` body after
   `corpse_chance`; dokick monster/object/closed-door/SDOOR/furniture;
@@ -162,6 +162,10 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 - seed0700 throw was **not** YA quiver alone: Samurai needed `Samurai[]` +
   attrs/`hpadv` + Blindfold + `knows_class` + `Japanese_item_name`
   pre-discovery + `is_ammo` quiver for YA — D-0045.
+- seed0016 throw was **not** spellbook filter alone: Healer needed
+  `Healer[]` + attrs/`hpadv` + `umoney0=rn1(1000,1001)` + optional Lamp
+  + `knows_object(POT_FULL_HEALING)` — D-0046. Typed spellbooks need no
+  UNDEF filter; `initialspell` still deferred.
 
 ## Landmarks
 
@@ -170,6 +174,8 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 - Priest+human init HP = **14** (role 12 + race 2); robe is ARM_CLOAK.
 - Knight+human init HP = **16** (role 14 + race 2); initrecord **10**.
 - Samurai+human init HP = **15** (role 13 + race 2); initrecord **10**.
+- Healer+human init HP = **13** (role 11 + race 2); initrecord **10**;
+  gold `rn1(1000,1001)` → **1001..2000**.
 - Rogue legacy offx = `max(10, 80 - maxcol - 1)` (Kos → 23; The Lady → 17).
 - Tutorial menu offx = 20 (OPTIONS `.nethackrc` line → maxcol 59); cursor
   `[27,6]` on `(end) `.
@@ -193,3 +199,7 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   `mkclass_aligned` (same as seed0103).
 - seed0017: D-0045 → prefix **2672** (`u_calc_moveamt`); seed0107 **2652**
   (same).
+- seed0016: D-0046 → role throw cleared; rng-diff prefix **1341**; next
+  `hole_destination`.
+- seed0030: D-0046 → past Healer; rng-diff prefix **5127**; next
+  `choose_trapnote`.

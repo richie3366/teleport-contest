@@ -2,11 +2,11 @@
 // C ref: u_init.c — u_init_role, u_init_race, trquan, ini_inv,
 //        ini_inv_mkobj_filter, ini_inv_obj_substitution,
 //        u_init_inventory_attrs
-//        (Tourist + Rogue + Wizard + Priest + Knight + Samurai; human/orc
-//         race kits; elf/dwarf/gnome partial).
+//        (Tourist + Rogue + Wizard + Priest + Knight + Samurai + Healer;
+//         human/orc race kits; elf/dwarf/gnome partial).
 
 import { game } from './gstate.js';
-import { rn2, rnd } from './rng.js';
+import { rn2, rnd, rn1 } from './rng.js';
 import { mksobj, mkobj, weight } from './mkobj.js';
 import {
     WEAPON_CLASS,
@@ -49,7 +49,7 @@ import {
 } from './const.js';
 import {
     PM_TOURIST, PM_ROGUE, PM_CLERIC, PM_WIZARD, PM_MONK, PM_KNIGHT,
-    PM_SAMURAI,
+    PM_SAMURAI, PM_HEALER,
     PM_HUMAN, PM_ELF, PM_DWARF, PM_ORC, PM_GNOME,
     NON_PM,
 } from './generated/monsters_data.js';
@@ -144,6 +144,21 @@ const Samurai = [
     { trotyp: () => otypByName('YUMI'), trspe: 0, trclass: WEAPON_CLASS, trquan_min: 1, trquan_max: 1, trbless: UNDEF_BLESS },
     { trotyp: () => otypByName('YA'), trspe: 0, trclass: WEAPON_CLASS, trquan_min: 26, trquan_max: 45, trbless: UNDEF_BLESS },
     { trotyp: () => otypByName('SPLINT_MAIL'), trspe: 0, trclass: ARMOR_CLASS, trquan_min: 1, trquan_max: 1, trbless: UNDEF_BLESS },
+    { trotyp: () => 0, trspe: 0, trclass: 0, trquan_min: 0, trquan_max: 0, trbless: 0 },
+];
+
+// C ref: u_init.c Healer[]
+const Healer = [
+    { trotyp: () => otypByName('SCALPEL'), trspe: 0, trclass: WEAPON_CLASS, trquan_min: 1, trquan_max: 1, trbless: UNDEF_BLESS },
+    { trotyp: () => otypByName('LEATHER_GLOVES'), trspe: 1, trclass: ARMOR_CLASS, trquan_min: 1, trquan_max: 1, trbless: UNDEF_BLESS },
+    { trotyp: () => otypByName('STETHOSCOPE'), trspe: 0, trclass: TOOL_CLASS, trquan_min: 1, trquan_max: 1, trbless: 0 },
+    { trotyp: () => otypByName('POT_HEALING'), trspe: 0, trclass: POTION_CLASS, trquan_min: 4, trquan_max: 4, trbless: UNDEF_BLESS },
+    { trotyp: () => otypByName('POT_EXTRA_HEALING'), trspe: 0, trclass: POTION_CLASS, trquan_min: 4, trquan_max: 4, trbless: UNDEF_BLESS },
+    { trotyp: () => otypByName('WAN_SLEEP'), trspe: UNDEF_SPE, trclass: WAND_CLASS, trquan_min: 1, trquan_max: 1, trbless: UNDEF_BLESS },
+    { trotyp: () => otypByName('SPE_HEALING'), trspe: 0, trclass: SPBOOK_CLASS, trquan_min: 1, trquan_max: 1, trbless: 1 },
+    { trotyp: () => otypByName('SPE_EXTRA_HEALING'), trspe: 0, trclass: SPBOOK_CLASS, trquan_min: 1, trquan_max: 1, trbless: 1 },
+    { trotyp: () => otypByName('SPE_STONE_TO_FLESH'), trspe: 0, trclass: SPBOOK_CLASS, trquan_min: 1, trquan_max: 1, trbless: 1 },
+    { trotyp: () => otypByName('APPLE'), trspe: 0, trclass: FOOD_CLASS, trquan_min: 5, trquan_max: 5, trbless: 0 },
     { trotyp: () => 0, trspe: 0, trclass: 0, trquan_min: 0, trquan_max: 0, trbless: 0 },
 ];
 
@@ -252,6 +267,26 @@ const Skill_S = [
     { skill: P_MARTIAL_ARTS, max: P_MASTER },
 ];
 
+// C ref: u_init.c Skill_H[] — Healer (skills_init still stubbed; filter-ready)
+const Skill_H = [
+    { skill: P_DAGGER, max: P_SKILLED },
+    { skill: P_KNIFE, max: P_EXPERT },
+    { skill: P_SHORT_SWORD, max: P_SKILLED },
+    { skill: P_SABER, max: P_BASIC },
+    { skill: P_CLUB, max: P_SKILLED },
+    { skill: P_MACE, max: P_BASIC },
+    { skill: P_QUARTERSTAFF, max: P_EXPERT },
+    { skill: P_POLEARMS, max: P_BASIC },
+    { skill: P_SPEAR, max: P_BASIC },
+    { skill: P_TRIDENT, max: P_BASIC },
+    { skill: P_SLING, max: P_SKILLED },
+    { skill: P_DART, max: P_EXPERT },
+    { skill: P_SHURIKEN, max: P_SKILLED },
+    { skill: P_UNICORN_HORN, max: P_EXPERT },
+    { skill: P_HEALING_SPELL, max: P_EXPERT },
+    { skill: P_BARE_HANDED_COMBAT, max: P_BASIC },
+];
+
 function strangeObject() {
     return otypByName('STRANGE_OBJECT') || 0;
 }
@@ -335,12 +370,13 @@ function trquan(trop) {
     return trop.trquan_min + rn2(trop.trquan_max - trop.trquan_min + 1);
 }
 
-// C ref: u_init.c skills_for_role() — Wizard + Priest + Knight + Samurai
+// C ref: u_init.c skills_for_role() — Wizard + Priest + Knight + Samurai + Healer
 function skills_for_role() {
     if (game.urole?.mnum === PM_WIZARD) return Skill_W;
     if (game.urole?.mnum === PM_CLERIC) return Skill_P;
     if (game.urole?.mnum === PM_KNIGHT) return Skill_K;
     if (game.urole?.mnum === PM_SAMURAI) return Skill_S;
+    if (game.urole?.mnum === PM_HEALER) return Skill_H;
     return null;
 }
 
@@ -759,7 +795,7 @@ function ini_inv(tropArr) {
     }
 }
 
-// C ref: u_init.c u_init_role() — Tourist + Rogue + Wizard + Priest + Knight + Samurai
+// C ref: u_init.c u_init_role() — Tourist + Rogue + Wizard + Priest + Knight + Samurai + Healer
 function u_init_role() {
     const role = game.urole;
     const mnum = role?.mnum;
@@ -845,6 +881,18 @@ function u_init_role() {
             if (objects[i]?.oc_magic) continue;
             if (Japanese_item_name(i, null)) knows_object(i, false);
         }
+        game.nocreate = strange;
+        game.nocreate2 = strange;
+        game.nocreate3 = strange;
+        game.nocreate4 = strange;
+        return;
+    }
+    if (mnum === PM_HEALER) {
+        // C: u.umoney0 = rn1(1000, 1001);
+        game.u.umoney0 = rn1(1000, 1001);
+        ini_inv(Healer);
+        if (!rn2(25)) ini_inv(Lamp);
+        knows_object(otypByName('POT_FULL_HEALING'), false);
         game.nocreate = strange;
         game.nocreate2 = strange;
         game.nocreate3 = strange;
