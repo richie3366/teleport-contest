@@ -7,17 +7,18 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 
 ## Active
 
-- **Current unit:** `mkclass`/`mkclass_aligned` ported (D-0053) + Wizard
-  `LVL(..., A_NONE)` extractor fix. seed0700 prefix **1888**
-  (`rndmonst_adj`); seed0103 **2337** (`next_ident` vs JS `trquan`).
-- **Hypothesis / next peel:** shared `choose_trapnote` /
-  `hole_destination` / `wipeout_text` / `lspo_map` / `next_ident` /
-  `rndmonst_adj` (seed0700 @ 1888 / seed0102), seed0103 pony/makemon
-  invent after mkclass, or GEM prob-total off-by-one (seed1150 @ 1118).
+- **Current unit:** `choose_trapnote` + `hole_destination` + `maketrap`
+  wiring (D-0054) and `mkobj(SPBOOK_no_NOVEL)` → `rnd_class` through
+  `SPE_BLANK_PAPER` (D-0055) ported. Misdiagnosed “GEM 999 vs 1000” was
+  the novel-excluded spellbook sum.
+- **Hypothesis / next peel:** seed0700 `rndmonst_adj` @ 1888; seed0103
+  `next_ident`/`trquan` @ 2337; seed2200 `exercise` @ 2724; seed0016
+  `next_ident` @ 2493; seed1150 `peace_minded` @ 2301; seed0015/0200
+  `lspo_map`; seed0501/0105 `wipeout_text`.
 - **Falsifier / next probe:**
   ```bash
   node scripts/rng-diff.mjs sessions/seed0700-samurai-explore-descend.session.json
-  # Or: node scripts/rng-diff.mjs sessions/seed0103-knight-ride-pony.session.json
+  # Or: node scripts/rng-diff.mjs sessions/seed2200-wizard-quaff-zap-read.session.json
   # Or: node scripts/rng-diff.mjs sessions/seed1150-caveman-explore-move.session.json
   ```
 - **Parked deep canary:** D-0006 pet movement — do not implement until C
@@ -38,7 +39,8 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   `newsym`; full `set_uasmon`/uprops; full `weapon_insight` (enhance /
   P_SKILL table / odd-skill P_NAME); `obj_typename` armor pair-of/
   set-of + GemStone; MLET_CH beyond early subset; shop `costly_spot`
-  autopickup disable; `apelist` exceptions; …
+  autopickup disable; `apelist` exceptions; maketrap overwrite/
+  furniture/statue/boulder/shop-damage/terrain morph; …
 
 ## Don’t re-check
 
@@ -196,6 +198,14 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   `montoostrong` `rn2(2)` break — D-0053. Follow-on: Wizard
   `LVL(..., A_NONE)` must parse in the monster extractor or
   `mongen_order` puts WoY at difficulty 0 and desyncs the break.
+- seed1150/0030 `rnd(999)` vs `rnd(1000)` was **not** GEM
+  `oclass_prob_totals`: supply-chest `SPBOOK_no_NOVEL` uses
+  `rnd_class(..., SPE_BLANK_PAPER)` (sum 999; novel has prob 1). JS
+  remapped to `SPBOOK_CLASS` / full total 1000 — D-0055.
+- seed2200/0030/0373 `rn2(12)` gap was **not** traptype arity: missing
+  `maketrap` → `choose_trapnote` for `SQKY_BOARD` — D-0054.
+- seed0016/0361 `rn2(4)` gap was **not** mktrap victim `rnd(4)`: missing
+  `hole_destination` for HOLE/TRAPDOOR — D-0054.
 
 ## Landmarks
 
@@ -234,37 +244,20 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   (orc → CLR_RED), not `objects[CORPSE].oc_color`.
 - seed1800: D-0026 → screens **26/26** PASS (legacy corner map + staircase look).
 - seed0060: D-0041 → screens **41**/41 PASS; RNG **3626**/3626.
-- seed2200: D-0042 → role throw cleared; rng-diff prefix **1283**; next
-  `choose_trapnote`.
-- seed0501: D-0043 → role throw cleared; rng-diff prefix **1153**; next
-  `wipeout_text` (makeniche engraving).
-- seed0106: D-0043 → prefix **2566**; next `dog_move` `rn2(1)`.
-- seed0103: D-0044 → role throw cleared; rng-diff prefix **1185**; next
-  `mkclass_aligned`.
-- seed0700: D-0045 → role throw cleared; rng-diff prefix **1718**; next
-  `mkclass_aligned` (same as seed0103).
-- seed0017: D-0045 → prefix **2672** (`u_calc_moveamt`); seed0107 **2652**
-  (same).
-- seed0016: D-0046 → role throw cleared; rng-diff prefix **1341**; next
-  `hole_destination`.
-- seed0030: D-0046 → past Healer; rng-diff prefix **5127**; next
-  `choose_trapnote`.
-- seed0015: D-0047 → role throw cleared; rng-diff prefix **337**; next
-  `lspo_map`.
-- seed0105: D-0047 → role throw cleared; rng-diff prefix **974**; next
-  `wipeout_text` (same as seed0501).
-- seed0101: D-0048 → role throw cleared; rng-diff prefix **2293**; next
-  `next_ident`.
-- seed0102: D-0048 → role throw cleared; rng-diff prefix **1281**; next
-  `rndmonst_adj`.
-- seed0200: D-0049 → role throw cleared; rng-diff prefix **377**; next
-  `lspo_map` (same as seed0015).
-- seed0361: D-0050 → role throw cleared; rng-diff prefix **1280**; next
-  `hole_destination` (same as seed0016).
-- seed0373: D-0051 → role throw cleared; rng-diff prefix **1327**; next
-  `choose_trapnote` (same as seed2200/0030).
-- seed1150: D-0052 → role throw cleared; rng-diff prefix **1118**; next
-  GEM `rnd_class` / `oclass_prob_totals` (999 vs 1000).
+- seed2200: D-0054 → past `choose_trapnote`; rng-diff prefix **2724**
+  (`exercise`); positional **2772**/3018.
+- seed0016: D-0054 → past `hole_destination`; prefix **2493**
+  (`next_ident`); positional **2538**/3656 Scr **5**/36.
+- seed0030: D-0054/55 → past trap+SPBOOK; prefix **6305** (`rnl`/`doopen`);
+  positional **6658**/105529 Scr **35**/1953.
+- seed0373: D-0054/55 → past trap+SPBOOK; prefix **2512** (`newhp`);
+  positional **2582**/35386.
+- seed0361: D-0054 → past `hole_destination`; prefix **1432**
+  (`rndmonst_adj`); positional **2942**/53865.
+- seed1150: D-0055 → past SPBOOK_no_NOVEL; prefix **2301**
+  (`peace_minded`); positional **2941**/3137 Scr **22**/51.
 - seed0700: D-0053 → past `mkclass_aligned`; rng-diff prefix **1888**;
   next `rndmonst_adj` (arity drift). seed0103 → prefix **2337**;
   next `next_ident` vs JS `trquan` (pony/makemon invent).
+- `SPBOOK_no_NOVEL` ≡ `-SPBOOK_CLASS` (−10); `rnd_class` to
+  `SPE_BLANK_PAPER` sums **999** (novel prob 1 excluded).

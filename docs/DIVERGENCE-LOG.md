@@ -1388,10 +1388,60 @@ cohort gates if those functions are touched again.
   seed0103 **2344**/2640.
 - **Omissions named:** `mkclass` alignment/`G_IGNORE` callers beyond
   niche (e.g. `ndemon`); `m_initinv` body; seed0700 `rndmonst_adj`
-  weight arity; seed0103 pony/makemon invent; GEM sum 999 vs 1000;
-  `choose_trapnote` / `hole_destination` / `wipeout_text` / `lspo_map`.
+  weight arity; seed0103 pony/makemon invent; `choose_trapnote` /
+  `hole_destination` / `wipeout_text` / `lspo_map`; SPBOOK_no_NOVEL
+  (later D-0055).
 - **Lesson:** a wrong extracted difficulty is enough to desync
   `mkclass` even when the control-flow port looks right — falsify
   table data early when `rn2(9)` count before `rn2(2)` is short.
 - **Next:** peel `rndmonst_adj` (seed0700) or pony invent
   (seed0103), or other shared mklev blockers.
+
+## D-0054 — `maketrap` `choose_trapnote` + `hole_destination`
+
+- **Status:** fixed (verified 2026-07-13) for SQKY_BOARD note pick and
+  HOLE/TRAPDOOR destination RNG; fuller `maketrap` still partial.
+- **Observed:** seed2200/0030/0373 first mismatch C `rn2(12)` @
+  `choose_trapnote` vs JS skipping to mktrap victim `rnd(4)`.
+  seed0016/0361 C `rn2(4)` @ `hole_destination` vs same JS `rnd(4)`.
+- **Cause/evidence:** JS `maketrap` was a push-only stub — never set
+  `tnote` or `dst`, so squeaky-board and hole traps omitted C RNG.
+- **C locus:** `trap.c` `choose_trapnote` / `hole_destination` /
+  `dng_bottom` / `maketrap` switch for `SQKY_BOARD` and
+  `HOLE`/`TRAPDOOR`.
+- **Change:** port helpers into `js/trap.js`; export real `maketrap`;
+  `mklev` imports it. Quest/Gehennom `dng_bottom` cutoffs included;
+  overwrite/furniture/statue/boulder/shop/terrain morph named omissions.
+- **Verification:** green + seed1500/1800/0060 PASS + strict; seed2200
+  prefix **1283→2724**; seed0016 **1341→2493**; seed0373 **1327→1401**
+  (pre-D-0055); seed0361 **1280→1432**.
+- **Lesson:** missing `maketrap` switch arms look like “wrong next
+  call” arity drift at the victim gate — check trap-type RNG before
+  fill_ordinary_room.
+- **Next:** D-0055 cleared the follow-on SPBOOK misread; peel
+  moveloop/`rndmonst_adj`/`peace_minded` next.
+
+## D-0055 — `mkobj(SPBOOK_no_NOVEL)` → `rnd_class` through blank paper
+
+- **Status:** fixed (verified 2026-07-13).
+- **Observed:** seed1150/0030 (and post-D-0054 seed0373) showed
+  C `rnd(999)` @ `rnd_class` vs JS `rnd(1000)`. Notes wrongly called
+  this GEM `oclass_prob_totals`.
+- **Cause/evidence:** C `SPBOOK_no_NOVEL` is `-SPBOOK_CLASS`; `mkobj`
+  uses `rnd_class(bases[SPBOOK], SPE_BLANK_PAPER)` (sum **999**, novel
+  prob 1 excluded). JS used fake class `11`, remapped to
+  `SPBOOK_CLASS`, and rolled the full class total **1000**. Statue
+  book path also used bare `SPBOOK_CLASS`.
+- **C locus:** `objclass.h` `SPBOOK_no_NOVEL`; `mkobj.c` `mkobj`;
+  `objnam.c` `rnd_class`; `mklev.c` supply-chest `extra_classes`.
+- **Change:** `mkobj` honors `SPBOOK_no_NOVEL`; mklev uses
+  `0 - SPBOOK_CLASS` and passes it through; statue path matches.
+- **Verification:** green + cohort PASS; full **5/44**, screens
+  **290**/11405, RNG **85043**/792838; seed1150 prefix **1118→2301**
+  (`peace_minded`), positional **2941**/3137; seed0030 **5127→6305**;
+  seed0373 **1327→2512**; seed2200 positional **2772**/3018.
+- **Lesson:** provenance `rnd_class` + arity 999 is spellbook-without-
+  novel, not gem totals — check `mkobj` fake-class branches before
+  retuning `setgemprobs`.
+- **Next:** seed0700 `rndmonst_adj` @ 1888, seed2200 `exercise` @
+  2724, or seed1150 `peace_minded` @ 2301.

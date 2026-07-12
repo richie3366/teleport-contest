@@ -96,14 +96,15 @@ SACK/TOUCHSTONE knows (D-0050) → role throws **2**/44; seed0361 prefix
 role throws **1**/44; seed0373 prefix **1327** (`choose_trapnote`,
 same as seed2200/0030). Caveman init + `Cave_man[]` + FLINT/ROCK
 quiver + graystone quan (D-0052) → role throws **0**/44; seed1150
-rng-diff prefix **1118** (`rnd_class` GEM sum 999 vs 1000);
-positional RNG **2937**/3137 Scr **22**/51. `mkclass`/`mkclass_aligned`
+rng-diff prefix **1118** (then D-0055). `mkclass`/`mkclass_aligned`
 + Wizard `A_NONE` extractor (D-0053) → seed0700 prefix **1888**
-(`rndmonst_adj`); seed0103 **2337** (`next_ident`/`trquan`). Next peel:
-shared `choose_trapnote` / `hole_destination` / `wipeout_text` /
-`lspo_map` / `next_ident` / `rndmonst_adj`, or GEM
-`oclass_prob_totals` off-by-one. `make_corpse` body and
-`m_initinv` body still absent (named omissions).
+(`rndmonst_adj`); seed0103 **2337** (`next_ident`/`trquan`).
+`maketrap` `choose_trapnote`/`hole_destination` (D-0054) +
+`SPBOOK_no_NOVEL` `rnd_class` (D-0055) → screens **290**/11405, RNG
+**85043**/792838; seed2200 prefix **2724**; seed1150 **2301**;
+seed0030 **6305**. Next peel: `rndmonst_adj` / `peace_minded` /
+`exercise` / `wipeout_text` / `lspo_map` / pony `next_ident`.
+`make_corpse` body and `m_initinv` body still absent (named omissions).
 
 ## Data and world generation
 
@@ -112,11 +113,11 @@ shared `choose_trapnote` / `hole_destination` / `wipeout_text` /
 | `include/objects.h` | extractor + `js/generated/objects_data.js` | partial | Reproducible table; **`objectDescrs`/`objectNameStrs`** (D-0040); **`oc_skill`/`oc_subtyp`** (D-0041); **`a_ac`/`oc_level`** (D-0042); still no `oc_charged` (`is_multigen`/`is_poisonable`/doname charged name-list stand-ins) |
 | `include/monsters.h` | extractor + `js/generated/monsters_data.js` | partial | `has_at_weaps` from AT_WEAP; `mflags1` extracted (D-0020 `nohands`); **`mcolors` extracted** (D-0022 corpse `mon_color`); **`mflags3` extracted** (D-0039 INFRAVISION/VISIBLE); **`LVL(..., A_NONE)` parsed** (D-0053 Wizard difficulty); poisonous/acidic/carnivore predicates still underused; full mattk still underused |
 | rumor sources | extractor + generated rumors | partial | Fortune path exercised |
-| `src/mkobj.c` | `js/mkobj.js` | partial | Creation/merge/weight subsets; `add_to_buried` (D-0014); `start_corpse_timeout` + `mkcorpstat` `special_corpse` restart (D-0011); `is_poisonable`≡missiles (D-0012); starting SACK/`mkbox_cnts` (D-0013); **`splitobj`** quan/owt + floor chain + `next_ident` (D-0028); **`obj_extract_self` MINVENT** (D-0029); omit `nextoid` shop-price search, unpaid/`splitbill`, timers/light/`copy_oextra`, invent/contained extract, `zombie_form`/zombify, CORPSE `undead_to_corpse`+`G_NOCORPSE` retry, timer fire, `permapoisoned` |
+| `src/mkobj.c` | `js/mkobj.js` | partial | Creation/merge/weight subsets; `add_to_buried` (D-0014); `start_corpse_timeout` + `mkcorpstat` `special_corpse` restart (D-0011); `is_poisonable`≡missiles (D-0012); starting SACK/`mkbox_cnts` (D-0013); **`splitobj`** quan/owt + floor chain + `next_ident` (D-0028); **`obj_extract_self` MINVENT** (D-0029); **`SPBOOK_no_NOVEL` → `rnd_class`…`SPE_BLANK_PAPER`** (D-0055); omit `nextoid` shop-price search, unpaid/`splitbill`, timers/light/`copy_oextra`, invent/contained extract, `zombie_form`/zombify, CORPSE `undead_to_corpse`+`G_NOCORPSE` retry, timer fire, `permapoisoned` |
 | `src/makemon.c` | `js/makemon.js` | partial | Ordinary `is_armed`/`m_initweap`/`mongets`/`m_initthrow` (S_KOBOLD/S_ORC/S_OGRE/S_GIANT/S_CENTAUR/S_WRAITH/S_ZOMBIE/S_HUMANOID + default); **`add_to_minv` uses `OBJ_MINVENT`** (D-0029); **`makemon_rnd_goodpos` + null-ptr `rndmonst` order + `m_initgrp`/`G_SGROUP`** (D-0034); **`mkclass`/`mkclass_aligned`/`init_mongen_order`/`mk_gen_ok`/`is_placeholder`** (D-0053); **`m_initinv` body absent** (tail-only); omit `throws_rocks` Sokoban first-try, S_HUMAN/S_ANGEL/S_KOP/S_DEMON/S_TROLL/S_LIZARD specials, `add_to_minv` merge, demon→default FALLTHROUGH, `set_malign`; `ndemon`/aligned `mkclass` callers unaudited |
-| `src/mklev.c` | `js/mklev.js` | partial | Ordinary level path substantial; mineralize bury-vs-place (D-0014); `mktrap_victim` place_object ammo/possessions (D-0016); **`set_wall_state`/`xy_set_wall_state`** (D-0038); **`makeniche` → real `mkclass(S_HUMAN)`** (D-0053); omit `mkgrave_room` bury, `begin_burn`, special rooms/edge cases; seed0060 @ 2997 was **not** corridor typ (D-0032) |
+| `src/mklev.c` | `js/mklev.js` | partial | Ordinary level path substantial; mineralize bury-vs-place (D-0014); `mktrap_victim` place_object ammo/possessions (D-0016); **`set_wall_state`/`xy_set_wall_state`** (D-0038); **`makeniche` → real `mkclass(S_HUMAN)`** (D-0053); supply-chest **`SPBOOK_no_NOVEL`** (D-0055); omit `mkgrave_room` bury, `begin_burn`, special rooms/edge cases; seed0060 @ 2997 was **not** corridor typ (D-0032) |
 | `src/vision.c` | `js/vision.js` | partial | Algorithm subset; `clear_path`/`m_cansee` exported for pet rays (D-0018); **`couldsee` wired into `dog_goal`** (D-0030); **`cansee` used by `makemon_rnd_goodpos`** (D-0034); broad FOV/detection states unaudited |
-| `src/trap.c` | `js/trap.js` | partial | Monster dart path: `t_at`/`t_missile`/`thitm` miss pline/`mintrap`/`seetrap` (D-0018–D-0019); omit other trap types, hero `dotrap`, hit/`dmgval` |
+| `src/trap.c` | `js/trap.js` | partial | Monster dart path: `t_at`/`t_missile`/`thitm` miss pline/`mintrap`/`seetrap` (D-0018–D-0019); **`maketrap` + `choose_trapnote` + `hole_destination`/`dng_bottom`** (D-0054); omit overwrite/furniture/statue/boulder/shop/terrain morph, other trap types, hero `dotrap`, hit/`dmgval` |
 | runtime `dat/*.lua` + `nhlua.c`/`sp_lev.c` | — | absent | Production requirement; generated dungeon structure is only a scaffold |
 
 ## Turns, commands, and display

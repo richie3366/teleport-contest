@@ -303,6 +303,10 @@ function rnd_class(first, last) {
     return first;
 }
 
+// C: objclass.h — SPBOOK_no_NOVEL = -SPBOOK_CLASS (mkobj excludes novel/BotD)
+const SPBOOK_no_NOVEL = 0 - SPBOOK_CLASS;
+const SPE_BLANK_PAPER = objectNames.indexOf('SPE_BLANK_PAPER');
+
 // C ref: mkobj.c mkbox_cnts
 function mkbox_cnts(box) {
     let n;
@@ -596,8 +600,8 @@ function mksobj_init(otmp, artif) {
             const ptr = mons(otmp.corpsenm);
             const thr = Math.trunc(level_difficulty() / 2) + 10;
             if (ptr && !verysmall(ptr) && rn2(thr) > 10) {
-                // C: SPBOOK_no_NOVEL — novels excluded; SPBOOK_CLASS approx for RNG
-                mkobj(SPBOOK_CLASS, false);
+                // C: mkobj(SPBOOK_no_NOVEL) — novels excluded via rnd_class
+                mkobj(SPBOOK_no_NOVEL, false);
             }
         }
         break;
@@ -673,16 +677,23 @@ export function mkobj(oclass, artif) {
     const objects = objs();
     const b = bases();
     let oclass_ = oclass;
+    let i;
     if (oclass_ === RANDOM_CLASS) {
         let tprob = rnd(100);
         let ip = 0;
         for (; (tprob -= MKOBJ_PROBS[ip].iprob) > 0; ip++) /* advance */;
         oclass_ = MKOBJ_PROBS[ip].iclass;
     }
-    const total = game.oclass_prob_totals[oclass_] || 1;
-    let prob = rnd(total);
-    let i = b[oclass_] || 0;
-    while ((prob -= (objects[i]?.oc_prob || 0)) > 0) i++;
+    if (oclass_ === SPBOOK_no_NOVEL) {
+        // C: rnd_class(bases[SPBOOK], SPE_BLANK_PAPER) — excludes SPE_NOVEL
+        i = rnd_class(b[SPBOOK_CLASS], SPE_BLANK_PAPER);
+        oclass_ = SPBOOK_CLASS;
+    } else {
+        const total = game.oclass_prob_totals[oclass_] || 1;
+        let prob = rnd(total);
+        i = b[oclass_] || 0;
+        while ((prob -= (objects[i]?.oc_prob || 0)) > 0) i++;
+    }
     return mksobj(i, true, artif);
 }
 

@@ -38,9 +38,9 @@ frozen-file overlay):
 | Metric | Value |
 |--------|------:|
 | Sessions passing | **5 / 44** |
-| Screens matched | **279 / 11,405** (2.45%) |
-| Positional RNG calls matched | **82,967 / 792,838** (10.46%) |
-| Speed label | `16+0.08/turn` (R² 0.926) |
+| Screens matched | **290 / 11,405** (2.54%) |
+| Positional RNG calls matched | **85,043 / 792,838** (10.73%) |
+| Speed label | `16+0.08/turn` (R² 0.930) |
 | Working-tree base | `8b71735` + committed port (see `main`) |
 | Role-init throws | **0 / 44** (`u_init_role: role not ported`) |
 
@@ -57,41 +57,36 @@ shared blockers, and semantic coverage together—not one vanity metric.
 | `seed1500-rogue-explore-move` | **2768 / 2768** | **40 / 40** |
 | `seed1800-tourist-eat-throw` | **2458 / 2458** | **26 / 26** |
 | `seed0060-orc-rogue-kick-search` | **3626 / 3626** | **41 / 41** |
-| `seed1150-caveman-explore-move` | **2937 / 3137** | **22 / 51** |
+| `seed1150-caveman-explore-move` | **2941 / 3137** | **22 / 51** |
 | `seed0700-samurai-explore-descend` | **2769 / 3230** | 1 / 51 |
 | `seed0103-knight-ride-pony` | **2344 / 2640** | 1 / 60 |
 | `seed0200-monk-north-search` | **1545 / 3822** | 0 / 40 |
 | `seed0101-ranger-quiver-throw-travel-engrave` | **2304 / 2371** | 3 / 27 |
-| `seed0016-healer-newmoon-eat-zap` | **2258 / 3656** | 0 / 36 |
+| `seed0016-healer-newmoon-eat-zap` | **2538 / 3656** | **5 / 36** |
 | `seed0017-samurai-altar-pray` | **2788 / 3465** | 1 / 67 |
 | `seed0107-samurai-twoweapon-enhance` | **2681 / 2902** | 0 / 98 |
 | `seed0104-knight-ride-combat` | **2401 / 3223** | 1 / 43 |
 | `seed0106-priest-extcmd-sweep` | **2576 / 4194** | 1 / 267 |
-| `seed2200-wizard-quaff-zap-read` | **2756 / 3018** | 1 / 230 |
-| `seed0361-archeologist-tour` | **2478 / 53865** | 0 / 366 |
-| `seed0373-barbarian-quest-tour` | **2277 / 35386** | 0 / 124 |
+| `seed2200-wizard-quaff-zap-read` | **2772 / 3018** | 1 / 230 |
+| `seed0361-archeologist-tour` | **2942 / 53865** | 0 / 366 |
+| `seed0373-barbarian-quest-tour` | **2582 / 35386** | 0 / 124 |
 | `seed0105-valk-chat-lamp-ration` | **988 / 2499** | 0 / 30 |
 | `seed0102-ranger-name-cancel` | **1285 / 4485** | 1 / 25 |
 | `seed0015-valk-level2-pit-dog-wait` | **364 / 8563** | 1 / 44 |
 | `seed0013-rogue-friday13-combat` | **519 / 4838** | 1 / 59 |
-| `seed0030-ten-diverse-deaths` | **6648 / 105529** | 29 / 1953 |
+| `seed0030-ten-diverse-deaths` | **6658 / 105529** | **35 / 1953** |
 
 seed8000 + seed0900 + seed1500 + seed1800 + seed0060 pass end-to-end.
-Samurai init (D-0045) clears Samurai role throws; Healer init (D-0046)
-clears Healer throws; Valkyrie init (D-0047) clears Valkyrie throws;
-Ranger init (D-0048) clears Ranger throws; Monk init (D-0049) clears
-Monk throws; Archeologist init (D-0050) clears Archeologist throws;
-Barbarian init (D-0051) clears Barbarian throws; Caveman init (D-0052)
-clears the last role throw (**0**/44). `mkclass_aligned` (D-0053)
-clears makeniche iron-bars corpse selection; seed0700 next
+`choose_trapnote`/`hole_destination` (D-0054) and `SPBOOK_no_NOVEL`
+(D-0055) clear shared mklev trap/spellbook peels. seed0700 next
 `rndmonst_adj` @ 1888; seed0103 next `next_ident`/`trquan` @ 2337.
-Priest seed0501 still `wipeout_text`. Wizard seed2200 and Barbarian
-seed0373 still `choose_trapnote`. Healer seed0016 and Archeologist
-seed0361 next `hole_destination`; seed0030 next `choose_trapnote`.
-seed0105 next `wipeout_text`; seed0015/0200 next `lspo_map`. seed0101
-next `next_ident`; seed0102 next `rndmonst_adj`. seed0013 still breaks
-earlier in Lua/`sp_lev`. seed1150 next GEM `rnd_class` sum
-(999 vs 1000) @ 1118.
+Wizard seed2200 next `exercise` @ 2724; Healer seed0016 next
+`next_ident` @ 2493; Caveman seed1150 next `peace_minded` @ 2301;
+Barbarian seed0373 next `newhp` @ 2512; seed0030 next `rnl`/`doopen`
+@ 6305. Priest seed0501 still `wipeout_text`. seed0015/0200 next
+`lspo_map`. seed0101 next `next_ident`; seed0102 next `rndmonst_adj`.
+seed0013 still breaks earlier in Lua/`sp_lev`. Archeologist seed0361
+next `rndmonst_adj` @ 1432.
 
 ### Green gate
 
@@ -117,17 +112,17 @@ fixes until C state/candidate capture exists (`GROK-PLAYBOOK.md` §2).
 
 #### Primary foundation frontier — shared mklev / moveloop peels
 
-**Code status:** `mkclass`/`mkclass_aligned` + Wizard `A_NONE` extractor
-fix **ported** (D-0053). Five public sessions still pass end-to-end.
-**0/44** throw at `u_init_role`.
+**Code status:** `choose_trapnote`/`hole_destination` (D-0054) +
+`mkobj(SPBOOK_no_NOVEL)` (D-0055) **ported**. Five public sessions
+still pass end-to-end. **0/44** throw at `u_init_role`.
 
 - **Bounded unit:** seed0700 `rndmonst_adj` / seed0103
-  `next_ident`/`trquan` / seed2200/0030/0373 `choose_trapnote` /
-  seed0016/0361 `hole_destination` / seed0501/0105 `wipeout_text` /
-  seed0015/0200 `lspo_map` / seed0101 `next_ident` / seed0102
-  `rndmonst_adj` / seed1150 GEM `oclass_prob_totals` (C 999 vs JS 1000).
-- **Prefer:** highest-leverage shared mklev peel over polishing one
-  late path.
+  `next_ident`/`trquan` / seed2200 `exercise` / seed0016 `next_ident` /
+  seed1150 `peace_minded` / seed0373 `newhp` / seed0030 `rnl`/`doopen` /
+  seed0501/0105 `wipeout_text` / seed0015/0200 `lspo_map` / seed0101
+  `next_ident` / seed0102 `rndmonst_adj` / seed0361 `rndmonst_adj`.
+- **Prefer:** highest-leverage shared mklev/moveloop peel over polishing
+  one late path.
 - **Named omissions:** Wizard/Priest/Healer `initialspell`; Knight/
   Samurai/Healer/Valkyrie/Ranger/Monk/Archeologist/Barbarian/Caveman
   `skill_init`; display-path Japanese names; full `role_init` beyond
@@ -252,6 +247,12 @@ Module status, constitutional debt, and named omissions live in
     (D-0053) — screens **278→279**; RNG **81711→82967**; seed0700
     prefix **1718→1888** (`rndmonst_adj`); seed0103 **1185→2337**
     (`next_ident`/`trquan`)
+39. `maketrap` `choose_trapnote` + `hole_destination` (D-0054) —
+    screens **279→290**; RNG **82967→85043**; seed2200 prefix
+    **1283→2724**; seed0016 **1341→2493**; seed0361 **1280→1432**
+40. `mkobj(SPBOOK_no_NOVEL)` → `rnd_class`…`SPE_BLANK_PAPER` (D-0055)
+    — clears misread “GEM 999”; seed1150 prefix **1118→2301**;
+    seed0030 **5127→6305**; seed0373 **1327→2512**
 
 Next work is selected from the active objectives above using
 `PORTING-RUNBOOK.md`, not by extending this historical list.

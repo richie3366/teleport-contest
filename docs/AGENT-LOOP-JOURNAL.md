@@ -19,6 +19,19 @@ Use this shape:
 
 ---
 
+## 2026-07-13 01:28 — maketrap notes/holes + SPBOOK_no_NOVEL (D-0054/55)
+- C locus: `trap.c` choose_trapnote/hole_destination/dng_bottom/maketrap;
+  `mkobj.c` SPBOOK_no_NOVEL; `objnam.c` rnd_class; `objclass.h`
+- Result: **verified faithful change** — wired SQKY_BOARD `tnote` and
+  HOLE/TRAPDOOR `dst` RNG; fixed `mkobj(-SPBOOK_CLASS)` to
+  `rnd_class`…`SPE_BLANK_PAPER` (999). Misread “GEM 999” was novel
+  exclusion. seed2200 **1283→2724**; seed1150 **1118→2301**;
+  seed0030 **5127→6305**.
+- Verification: green + seed1500/1800/0060 PASS + strict; full **5/44**,
+  screens **290**/11405, RNG **85043**/792838.
+- Next: peel seed0700 `rndmonst_adj` @ 1888 or seed2200 `exercise` @
+  2724 (`node scripts/rng-diff.mjs sessions/seed0700-samurai-explore-descend.session.json`).
+
 ## 2026-07-13 01:22 — mkclass_aligned + Wizard A_NONE extractor (D-0053)
 - C locus: `makemon.c` mkclass/mkclass_aligned/mk_gen_ok/init_mongen_order;
   `mklev.c` makeniche; `mondata.h` is_placeholder; extractor LVL A_NONE
