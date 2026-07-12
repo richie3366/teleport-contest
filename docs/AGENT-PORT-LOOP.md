@@ -75,7 +75,7 @@ MODEL=grok-4.5-high ./scripts/agent-port-loop.sh
 │  ./scripts/agent-port-loop.sh                           │
 │                                                         │
 │  1. acquire one-loop lock; reset STOP to 0              │
-│  2. hash protected authority; run exact green gate      │
+│  2. read/update global iteration-count; green gate      │
 │  3. loop until human STOP or token-exhaustion streak:   │
 │       if STOP_AGENT_LOOP.md == 1 → exit                 │
 │       snapshot js/; run model with finite timeout       │
@@ -127,9 +127,13 @@ iteration appends a short journal entry.
 
 Under `.agent-port-loop-logs/` (gitignored):
 
-- `loop-<stamp>.log` — full concatenated stream
-- `iter-NNNN-<stamp>.log` — human-readable extract per iteration
+- `loop-<stamp>.log` — full concatenated stream for one process run
+- `iter-NNNN-<stamp>.log` — human-readable extract per iteration (`NNNN` is
+  global and monotonic across restarts)
 - `iter-NNNN-<stamp>.raw` — full CLI output (`stream-json` tool events when enabled)
+- `iteration-count` — total claimed global iterations (survives restarts).
+  Bootstraps from the **count** of `iter-*.log` files if higher than the
+  stored value (not max `NNNN`, because early runs reused 0001…)
 ### Environment knobs
 
 | Variable | Default | Meaning |
@@ -145,6 +149,7 @@ Under `.agent-port-loop-logs/` (gitignored):
 | `LOOP_PREFLIGHT_ONLY` | `0` | Set `1` to test lock/model/green gates, then exit |
 | `LOOP_SLEEP_SEC` | `2` | Pause between iterations |
 | `STOP_FILE` | `$ROOT/STOP_AGENT_LOOP.md` | Stop latch path |
+| `ITER_COUNT_FILE` | `$LOG_DIR/iteration-count` | Monotonic global iteration counter |
 | `PROMPT_FILE` | `$ROOT/scripts/agent-port-loop.prompt.md` | Prompt body |
 | `LOG_DIR` | `$ROOT/.agent-port-loop-logs` | Log directory |
 

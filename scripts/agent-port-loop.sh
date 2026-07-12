@@ -14,6 +14,8 @@ cd "$ROOT"
 STOP_FILE="${STOP_FILE:-$ROOT/STOP_AGENT_LOOP.md}"
 LOG_DIR="${LOG_DIR:-$ROOT/.agent-port-loop-logs}"
 mkdir -p "$LOG_DIR"
+# Global monotonic iteration counter (survives loop restarts).
+ITER_COUNT_FILE="${ITER_COUNT_FILE:-$LOG_DIR/iteration-count}"
 
 # Only one loop may mutate this checkout. Acquire the lock before resetting the
 # stop latch so a mistaken second launch cannot restart an existing loop.
@@ -77,6 +79,46 @@ should_stop() {
 
 now_epoch() {
   date +%s
+}
+
+# How many iteration artifacts already exist (each past run reused 0001…).
+count_iters_from_logs() {
+  local n=0
+  shopt -s nullglob
+  # Prefer .log; fall back to .raw basenames so a raw-only attempt still counts.
+  local -a logs=( "$LOG_DIR"/iter-[0-9][0-9][0-9][0-9]-*.log )
+  if (( ${#logs[@]} > 0 )); then
+    n=${#logs[@]}
+  else
+    local -a raws=( "$LOG_DIR"/iter-[0-9][0-9][0-9][0-9]-*.raw )
+    n=${#raws[@]}
+  fi
+  shopt -u nullglob
+  echo "$n"
+}
+
+# Last completed/claimed global iteration number (0 if never run).
+# Uses max(counter file, total historical iter logs) so restarted runs that
+# reused 0001..N still contribute to the global total.
+read_iter_count() {
+  local v=0 from_file=0 from_logs
+  if [[ -f "$ITER_COUNT_FILE" ]]; then
+    v="$(tr -d '[:space:]' <"$ITER_COUNT_FILE" 2>/dev/null || echo 0)"
+    [[ "$v" =~ ^[0-9]+$ ]] || v=0
+    from_file=$v
+  fi
+  from_logs="$(count_iters_from_logs)"
+  if (( from_logs > from_file )); then
+    v=$from_logs
+  else
+    v=$from_file
+  fi
+  echo "$v"
+}
+
+write_iter_count() {
+  local n="$1"
+  printf '%s\n' "$n" >"$ITER_COUNT_FILE"
 }
 
 protected_fingerprint() {
@@ -209,6 +251,7 @@ fi
 echo "timeout: ${ITERATION_TIMEOUT_SEC}s per iteration"
 echo "halt:   ${SHORT_STREAK_LIMIT}× agent runs <${SHORT_ITER_SEC}s (likely out of tokens)"
 echo "stop:   $STOP_FILE  (write 1 to halt before next iteration)"
+echo "count:  $ITER_COUNT_FILE  (monotonic global iteration number)"
 echo "log:    $MASTER_LOG"
 echo "prompt: $PROMPT_FILE"
 echo
@@ -224,21 +267,25 @@ if [[ "${LOOP_PREFLIGHT_ONLY:-0}" == "1" ]]; then
   exit 0
 fi
 
-iter=0
+iter="$(read_iter_count)"
+write_iter_count "$iter"
+echo "$(date -Iseconds) === iteration counter: last completed=$iter; next will be $((iter + 1)) ===" \
+  | tee -a "$MASTER_LOG"
 short_streak=0
 while true; do
   if should_stop; then
     echo "$(date -Iseconds) STOP: $STOP_FILE is 1 — exiting before iteration $((iter + 1))"
-    echo "$(date -Iseconds) STOP" >>"$MASTER_LOG"
+    echo "$(date -Iseconds) STOP (last completed=$iter)" >>"$MASTER_LOG"
     exit 0
   fi
 
   iter=$((iter + 1))
+  write_iter_count "$iter"
   iter_log="$LOG_DIR/iter-$(printf '%04d' "$iter")-$STAMP.log"
   iter_raw="$LOG_DIR/iter-$(printf '%04d' "$iter")-$STAMP.raw"
   snapshot="$(mktemp -d "$LOG_DIR/.snapshot-$STAMP-$iter.XXXXXX")"
   cp -R "$ROOT/js" "$snapshot/js"
-  echo "$(date -Iseconds) === iteration $iter starting ===" | tee -a "$MASTER_LOG"
+  echo "$(date -Iseconds) === iteration $iter starting (global #$iter) ===" | tee -a "$MASTER_LOG"
   echo "log: $iter_log" | tee -a "$MASTER_LOG"
   echo "cli: $AGENT_BIN -p --model $MODEL --output-format $OUTPUT_FORMAT ${TRUST_ARGS[*]+${TRUST_ARGS[*]}} ${FORCE_ARGS[*]+${FORCE_ARGS[*]}}" \
     | tee -a "$MASTER_LOG"
