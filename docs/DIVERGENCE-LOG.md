@@ -1471,3 +1471,37 @@ cohort gates if those functions are touched again.
 - **Next:** seed0700 `rndmonst_adj` @ 1888 (likely `align_shift`);
   seed2200 `exercise` @ 2724; seed1150 `dog_move` @ 2915;
   seed0103 `next_ident`/`trquan` @ 2337.
+
+## D-0057 — CORPSE `mksobj_init` `undead_to_corpse` + `G_NOCORPSE` retry
+
+- **Status:** fixed (verified 2026-07-13).
+- **Observed:** seed0700/0361 first mismatch after a complete z1
+  `rndmonst_adj` ending at `rn2(21)`: C `rn2(3)` (new `rndmonst_adj`)
+  vs JS `rn2(2)` (`mksobj` gender). NOTES guessed `align_shift`.
+- **Cause/evidence:** DoD is `alignment = "unaligned"` → `align_shift`
+  returns 0; z1 pool freq-only totals are 3…21 for both. C
+  `mksobj_init` CORPSE does
+  `do { corpsenm = undead_to_corpse(rndmonnum()); } while (mvitals &
+  G_NOCORPSE)` (tryct 50). Grid bug is in the z1 eligible set with
+  `G_NOCORPSE`; when reservoir picks it, C burns a second full
+  `rndmonst_adj`. JS took one `rndmonnum()` and fell through to
+  gender `rn2(2)`. Also missing `allmain` mvitals init
+  (`mvflags = geno & G_NOCORPSE`).
+- **Rejected:** `align_shift` / `temperature_shift` as the seed0700
+  arity gap on ordinary DoD dlvl1 (AM_NONE, temperature 0).
+- **C locus:** `mkobj.c` `mksobj_init` FOOD/CORPSE; `mon.c`
+  `undead_to_corpse`; `allmain.c` mvitals init.
+- **Change:** `js/mon.js` `undead_to_corpse`; `js/allmain.js` mvitals
+  init; `js/mkobj.js` CORPSE retry + TIN `undead_to_corpse`/`mvitals`
+  check.
+- **Verification:** green + seed1500/1800/0060 PASS + strict; full
+  **5/44** screens **290** RNG **85090**/792838; seed0700 prefix
+  **1888→2733** (`u_calc_moveamt`); seed0361 **1432→2924** (`newhp`);
+  positional seed0700 **2796**/3230, seed0361 **2972**/53865.
+- **Lesson:** after a matching `rndmonst_adj` that ends at newt/`rn2(21)`,
+  the next `rn2(3)` vs `rn2(2)` is often a **second** `rndmonnum` from
+  CORPSE retry — not dungeon align. seed0102 @ 1281 after egg
+  `!rn2(3)` is still the EGG `can_be_hatched` multi-retry peel.
+- **Next:** seed0700 `u_calc_moveamt` @ 2733; seed0361 `newhp` @
+  2924; seed0102 egg `can_be_hatched`; seed2200 `exercise` @ 2724;
+  seed1150 `dog_move` @ 2915.

@@ -25,13 +25,16 @@ import {
 } from './objects.js';
 // objectNames used for known-flag heuristic (oc_uses_known not in table yet)
 import { rndmonnum } from './makemon.js';
+import { undead_to_corpse } from './mon.js';
 import {
     mons, is_male, is_female, is_neuter, verysmall, PM_LICHEN, monsterNames,
+    G_NOCORPSE,
 } from './monsters.js';
 import {
     ROT_AGE, TAINT_AGE, TROLL_REVIVE_CHANCE,
     ROT_CORPSE, REVIVE_MON, TIMER_OBJECT,
     OBJ_FREE, OBJ_FLOOR, OBJ_BURIED, OBJ_MINVENT,
+    G_GONE,
 } from './const.js';
 
 const GOLD_PIECE = objectNames.indexOf('GOLD_PIECE');
@@ -450,7 +453,13 @@ function mksobj_init(otmp, artif) {
     case FOOD_CLASS: {
         const name = otypName(otmp.otyp);
         if (name === 'CORPSE') {
-            otmp.corpsenm = rndmonnum();
+            // C ref: mkobj.c mksobj_init FOOD CORPSE — undead_to_corpse + G_NOCORPSE retry
+            let tryct = 50;
+            do {
+                otmp.corpsenm = undead_to_corpse(rndmonnum());
+            } while (((game.mvitals?.[otmp.corpsenm]?.mvflags ?? 0) & G_NOCORPSE)
+                && (--tryct > 0));
+            if (tryct === 0) otmp.corpsenm = monsterNames.indexOf('PM_HUMAN');
         } else if (name === 'EGG') {
             otmp.corpsenm = -1;
             if (!rn2(3)) {
@@ -470,11 +479,12 @@ function mksobj_init(otmp, artif) {
                 otmp.corpsenm = -1; // SPINACH_TIN
                 otmp.spe = 1;
             } else {
-                // undead_to_corpse(rndmonnum()); accept first edible pick
+                // C ref: mkobj.c TIN — undead_to_corpse(rndmonnum()) until edible
                 for (let tryct = 200; tryct > 0; --tryct) {
-                    const mndx = rndmonnum();
+                    const mndx = undead_to_corpse(rndmonnum());
                     const ptr = mons(mndx);
-                    if (ptr && !(ptr.geno & 0x0100 /* G_NOCORPSE */)) {
+                    const mv = game.mvitals?.[mndx]?.mvflags ?? 0;
+                    if (ptr && !(mv & G_NOCORPSE)) {
                         otmp.corpsenm = mndx;
                         // set_tin_variety(RANDOM_TIN): rn2(TTSZ-1) with TTSZ=16
                         const r = rn2(15);
@@ -646,9 +656,18 @@ export function mksobj(otyp, init, artif) {
     if (init) mksobj_init(otmp, artif);
 
     // Post-init regardless: CORPSE/STATUE gender + timer
+    // C ref: mkobj.c mksobj after mksobj_init
     const name = otypName(otyp);
     if (name === 'CORPSE' || name === 'STATUE' || name === 'FIGURINE') {
-        if (otmp.corpsenm < 0) otmp.corpsenm = rndmonnum();
+        if (name === 'CORPSE' && otmp.corpsenm < 0) {
+            otmp.corpsenm = undead_to_corpse(rndmonnum());
+            const mv = game.mvitals?.[otmp.corpsenm]?.mvflags ?? 0;
+            if (mv & (G_NOCORPSE | G_GONE)) {
+                otmp.corpsenm = game.urole?.mnum ?? monsterNames.indexOf('PM_HUMAN');
+            }
+        } else if (otmp.corpsenm < 0) {
+            otmp.corpsenm = rndmonnum();
+        }
         const ptr = mons(otmp.corpsenm);
         if (ptr) {
             if (is_neuter(ptr) || is_female(ptr) || is_male(ptr)) {

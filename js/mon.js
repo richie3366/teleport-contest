@@ -8,9 +8,47 @@ import {
     COLNO, ROWNO, IS_OBSTRUCTED, IS_DOOR, D_CLOSED, D_LOCKED, D_BROKEN,
 } from './const.js';
 import { t_at } from './trap.js';
-import { nohands, verysmall } from './monsters.js';
+import { nohands, verysmall, monsterNames } from './monsters.js';
 
 export const NORMAL_SPEED = 12;
+
+function pm(name) {
+    return monsterNames.indexOf(`PM_${name}`);
+}
+
+// C ref: mon.c undead_to_corpse — zombie/mummy/vampire → living species for corpses
+export function undead_to_corpse(mndx) {
+    switch (mndx) {
+    case pm('KOBOLD_ZOMBIE'):
+    case pm('KOBOLD_MUMMY'):
+        return pm('KOBOLD');
+    case pm('DWARF_ZOMBIE'):
+    case pm('DWARF_MUMMY'):
+        return pm('DWARF');
+    case pm('GNOME_ZOMBIE'):
+    case pm('GNOME_MUMMY'):
+        return pm('GNOME');
+    case pm('ORC_ZOMBIE'):
+    case pm('ORC_MUMMY'):
+        return pm('ORC');
+    case pm('ELF_ZOMBIE'):
+    case pm('ELF_MUMMY'):
+        return pm('ELF');
+    case pm('VAMPIRE'):
+    case pm('VAMPIRE_LEADER'):
+    case pm('HUMAN_ZOMBIE'):
+    case pm('HUMAN_MUMMY'):
+        return pm('HUMAN');
+    case pm('GIANT_ZOMBIE'):
+    case pm('GIANT_MUMMY'):
+        return pm('GIANT');
+    case pm('ETTIN_ZOMBIE'):
+    case pm('ETTIN_MUMMY'):
+        return pm('ETTIN');
+    default:
+        return mndx;
+    }
+}
 
 export const ALLOW_U = 0x00040000;
 export const ALLOW_M = 0x00080000;

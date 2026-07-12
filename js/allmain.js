@@ -14,6 +14,7 @@ import { setup_role_race_from_rc, u_init_misc, u_init_inventory_attrs, u_init_sk
 import { makedog } from './dog.js';
 import { makemon } from './makemon.js';
 import { mcalcmove, movemon, NORMAL_SPEED } from './mon.js';
+import { LOW_PM, NUMMONS, mons, G_NOCORPSE } from './monsters.js';
 import { A_DEX, A_STR, A_CON, acurr, exercise, change_luck } from './attrib.js';
 import { nhgetch } from './input.js';
 import { near_capacity, paint_corner_nhw_menu } from './invent.js';
@@ -237,6 +238,18 @@ async function welcome(new_game) {
 // C ref: allmain.c newgame()
 export async function newgame() {
     const g = game;
+
+    // C ref: allmain.c — mvitals.mvflags = geno & G_NOCORPSE (before init_objects)
+    if (!g.mvitals) g.mvitals = [];
+    for (let i = LOW_PM; i < NUMMONS; i++) {
+        const ptr = mons(i);
+        g.mvitals[i] = {
+            ...(g.mvitals[i] || {}),
+            mvflags: (ptr?.geno ?? 0) & G_NOCORPSE,
+            born: g.mvitals[i]?.born ?? 0,
+            died: g.mvitals[i]?.died ?? 0,
+        };
+    }
 
     // C ref: allmain.c → init_objects() (o_init.c)
     init_objects();

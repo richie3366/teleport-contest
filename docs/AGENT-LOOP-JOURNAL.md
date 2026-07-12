@@ -632,3 +632,16 @@ Use this shape:
   prefix 2301→2915 (`dog_move`); full 5/44 screens 290 RNG 85042.
 - Next: `node scripts/rng-diff.mjs sessions/seed0700-samurai-explore-descend.session.json`
   — port `align_shift` (or diagnose first weight rn2(3) vs rn2(2)).
+
+## 2026-07-13 01:38 — CORPSE G_NOCORPSE retry (D-0057)
+- C locus: `mkobj.c` `mksobj_init` FOOD/CORPSE; `mon.c` `undead_to_corpse`;
+  `allmain.c` mvitals init
+- Result: falsified NOTES `align_shift` theory for seed0700 (DoD AM_NONE).
+  Ported `undead_to_corpse`, mvitals `G_NOCORPSE` init, and CORPSE retry
+  loop so a grid-bug `rndmonnum` burns a second `rndmonst_adj` like C.
+- Verification: green + seed1500/1800/0060 PASS + strict; full 5/44
+  screens 290 RNG 85090; seed0700 prefix 1888→2733 (`u_calc_moveamt`);
+  seed0361 1432→2924 (`newhp`). seed0102 @ 1281 remains egg
+  `can_be_hatched` (not this peel).
+- Next: `node scripts/rng-diff.mjs sessions/seed0700-samurai-explore-descend.session.json`
+  — peel `u_calc_moveamt` @ 2733 (or egg `can_be_hatched` on seed0102).

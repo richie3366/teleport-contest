@@ -7,19 +7,18 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 
 ## Active
 
-- **Current unit:** D-0056 fixed Caveman/Valkyrie/Rogue `initrecord`
-  (Caveman/Valk 0, Rogue 10). seed1150 past `peace_minded`.
-- **Hypothesis / next peel:** seed0700 `rndmonst_adj` @ 1888 — after
-  matching through totalweight 21, next call’s first weight is C
-  `rn2(3)` vs JS `rn2(2)` (seed0102: JS `rn2(6)`). Likely missing
-  `align_shift` (JS stubbed 0; C uses dungeon/level align) and/or
-  quest/`upper`/`Inhell` filters. Also seed2200 `exercise` @ 2724;
-  seed1150 `dog_move` @ 2915; seed0103 `next_ident`/`trquan` @ 2337.
+- **Current unit:** D-0057 fixed CORPSE `mksobj_init` `undead_to_corpse` +
+  `G_NOCORPSE` retry (+ `mvitals` init). seed0700 past mklev corpse peels.
+- **Hypothesis / next peel:** seed0700 `u_calc_moveamt` @ 2733 — C
+  `rn2(3)` vs JS `rn2(200)` (dosounds). Shared moveloop order after
+  `maybe_generate_rnd_mon`. Also seed0361 `newhp` @ 2924; seed0102
+  egg `can_be_hatched` retry @ 1281 (not align_shift); seed2200
+  `exercise` @ 2724; seed1150 `dog_move` @ 2915.
 - **Falsifier / next probe:**
   ```bash
   node scripts/rng-diff.mjs sessions/seed0700-samurai-explore-descend.session.json
-  # Or: node scripts/rng-diff.mjs sessions/seed2200-wizard-quaff-zap-read.session.json
-  # Or: node scripts/rng-diff.mjs sessions/seed1150-caveman-explore-move.session.json
+  # Or: node scripts/rng-diff.mjs sessions/seed0102-ranger-name-cancel.session.json
+  # Or: node scripts/rng-diff.mjs sessions/seed0361-archeologist-tour.session.json
   ```
 - **Parked deep canary:** D-0006 pet movement — do not implement until C
   state/candidate capture exists.
@@ -42,7 +41,9 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   autopickup disable; `apelist` exceptions; maketrap overwrite/
   furniture/statue/boulder/shop-damage/terrain morph; `peace_minded`
   MS_LEADER/GUARDIAN/NEMESIS/ERINYS/`race_*`/`is_minion`/amulet arms;
-  `align_shift` / `temperature_shift` real bodies; …
+  `align_shift` / `temperature_shift` real bodies; EGG
+  `can_be_hatched` loop (JS breaks after one `rndmonnum`); TIN
+  `cnutrit` gate; …
 
 ## Don’t re-check
 
@@ -211,6 +212,13 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 - seed1150 `rn2(16)` vs `rn2(26)` @ `peace_minded` was **not** a formula
   bug: Caveman C `initrecord` is **0** (field after xlev/`/* Energy */`),
   JS had 10; also Valkyrie C=0 JS=10, Rogue C=10 JS=0 — D-0056.
+- seed0700/0361 `rn2(3)` vs `rn2(2)` after a z1 `rndmonst_adj` ending
+  at `rn2(21)` was **not** `align_shift` (DoD is AM_NONE → shift 0):
+  C `mksobj_init` CORPSE retries `undead_to_corpse(rndmonnum())` while
+  `mvitals.mvflags & G_NOCORPSE` (grid bug in the z1 pool); JS took one
+  `rndmonnum` and jumped to gender `rn2(2)` — D-0057. seed0102 @ 1281
+  after egg `!rn2(3)` is a **different** peel: EGG `can_be_hatched`
+  loop, not CORPSE retry.
 
 ## Landmarks
 
@@ -258,14 +266,17 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   positional **6658**/105529 Scr **35**/1953.
 - seed0373: D-0054/55 → past trap+SPBOOK; prefix **2512** (`newhp`);
   positional **2582**/35386.
-- seed0361: D-0054 → past `hole_destination`; prefix **1432**
-  (`rndmonst_adj`); positional **2942**/53865.
+- seed0361: D-0057 → past CORPSE retry; prefix **2924** (`newhp`);
+  positional **2972**/53865.
 - seed1150: D-0056 → past `peace_minded`; prefix **2915** (`dog_move`);
   positional **2942**/3137 Scr **22**/51.
-- seed0700: D-0053 → past `mkclass_aligned`; rng-diff prefix **1888**;
-  next `rndmonst_adj` (arity drift). seed0103 → prefix **2337**;
-  next `next_ident` vs JS `trquan` (pony/makemon invent).
+- seed0700: D-0057 → past CORPSE `G_NOCORPSE` retry; rng-diff prefix
+  **2733** (`u_calc_moveamt`); positional **2796**/3230 Scr 1/51.
+  seed0102 still **1281** — EGG `can_be_hatched` multi-`rndmonnum`.
 - `SPBOOK_no_NOVEL` ≡ `-SPBOOK_CLASS` (−10); `rnd_class` to
   `SPE_BLANK_PAPER` sums **999** (novel prob 1 excluded).
 - C `initrecord` after xlev: Caveman/Priest/Tourist/Valkyrie/Wizard **0**;
   Archeologist/Barbarian/Healer/Knight/Monk/Ranger/Rogue/Samurai **10**.
+- z1/ul1 `rndmonst_adj` weight totals (freq only, AM_NONE): 3,4,5,7,8,11,
+  15,16,21 (jackal…newt); eligible `G_NOCORPSE` in that pool: grid bug
+  (+ kobold zombie → kobold via `undead_to_corpse`, so no retry).
