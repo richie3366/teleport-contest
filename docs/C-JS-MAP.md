@@ -32,9 +32,9 @@ When changing a subsystem:
 | C source | JS | Status | Evidence / known omissions |
 |---|---|---|---|
 | `src/options.c` | `js/options.js` | partial | Enough options for current Tourist paths; full rc/keybind/symset semantics incomplete |
-| `src/role.c` | `js/roles.js` | partial | Tourist + Rogue + Wizard + Priest + Knight + Samurai + Healer + Valkyrie + Ranger + Monk + **Archeologist** identity/attrs/`hpadv`/`enadv`/`neminum`/`initrecord` (D-0042/43/44/45/46/47/48/49/50); **all roles pantheon gods** + C roles[] order (Rogue before Ranger) for `randrole`; `role_init` pantheon + SPE_LIGHT + nemesis gender; `Hello`/`align_*`; **all races `hpadv`/`enadv` + attrmin/attrmax** (D-0036); Barbarian/Caveman still scaffold (gods+mnum only); full `role_init` beyond pantheon/SPE_LIGHT/nemgend deferred |
-| `src/u_init.c:u_init_role` | `js/u_init.js` | partial | Tourist + Rogue + Wizard + Priest + Knight + Samurai + Healer + Valkyrie + Ranger + Monk + **Archeologist** cases (D-0050); Barbarian/Caveman still throw; Rogue `knows_class` still uses named P_DAGGER otyps; Knight/Samurai/Valkyrie/Ranger/Monk `knows_class` walks `bases[]` (Valk excludes polearms; Ranger: launchers/ammo/spears; Monk: armor only + SHURIKEN); Samurai `Japanese_item_name` pre-discovery; Healer `umoney0=rn1(1000,1001)` + `POT_FULL_HEALING` know; Valkyrie Lamp `!rn2(6)`; Monk `M_spell[rn2(90)/30]` + Magicmarker/`!rn2(4)` else Lamp; Archeologist Tinopener/`!rn2(10)` else Lamp/`!rn2(4)` else Magicmarker/`!rn2(5)` + SACK/TOUCHSTONE knows; `Skill_W`/`Skill_P`/`Skill_K`/`Skill_S`/`Skill_H`/`Skill_V`/`Skill_Ran`/`Skill_Mon`/`Skill_A` for filter; `skill_init` / `initialspell` / other `Skill_*` deferred |
-| `src/u_init.c:u_init_race` | `js/u_init.js` | partial | Human no-op; orc `Xtra_food` + knows; elf instrument+knows; dwarf knows; gnome no-op (D-0027); `ini_inv_obj_substitution`/`inv_subs` ported; **`ini_inv_mkobj_filter` reject list + `oc_level`/`Skill_W`/`Skill_P`/`Skill_K`/`Skill_S`/`Skill_H`/`Skill_V`/`Skill_Ran`/`Skill_Mon`/`Skill_A`** (D-0042/43/44/45/46/47/48/49/50) |
+| `src/role.c` | `js/roles.js` | partial | Tourist + Rogue + Wizard + Priest + Knight + Samurai + Healer + Valkyrie + Ranger + Monk + Archeologist + **Barbarian** identity/attrs/`hpadv`/`enadv`/`neminum`/`initrecord` (D-0042/43/44/45/46/47/48/49/50/51); **all roles pantheon gods** + C roles[] order (Rogue before Ranger) for `randrole`; `role_init` pantheon + SPE_LIGHT + nemesis gender; `Hello`/`align_*`; **all races `hpadv`/`enadv` + attrmin/attrmax** (D-0036); Caveman still scaffold (gods+mnum only); full `role_init` beyond pantheon/SPE_LIGHT/nemgend deferred |
+| `src/u_init.c:u_init_role` | `js/u_init.js` | partial | Tourist + Rogue + Wizard + Priest + Knight + Samurai + Healer + Valkyrie + Ranger + Monk + Archeologist + **Barbarian** cases (D-0051); Caveman still throw; Rogue `knows_class` still uses named P_DAGGER otyps; Barbarian/Knight/Samurai/Valkyrie/Ranger/Monk `knows_class` walks `bases[]` (Barb/Valk exclude polearms; Ranger: launchers/ammo/spears; Monk: armor only + SHURIKEN); Samurai `Japanese_item_name` pre-discovery; Healer `umoney0=rn1(1000,1001)` + `POT_FULL_HEALING` know; Valkyrie/Barbarian Lamp `!rn2(6)`; Monk `M_spell[rn2(90)/30]` + Magicmarker/`!rn2(4)` else Lamp; Archeologist Tinopener/`!rn2(10)` else Lamp/`!rn2(4)` else Magicmarker/`!rn2(5)` + SACK/TOUCHSTONE knows; Barbarian `rn2(100)>=50` kit pick; `Skill_W`/`Skill_P`/`Skill_K`/`Skill_S`/`Skill_H`/`Skill_V`/`Skill_Ran`/`Skill_Mon`/`Skill_A`/`Skill_B` for filter; `skill_init` / `initialspell` / other `Skill_*` deferred |
+| `src/u_init.c:u_init_race` | `js/u_init.js` | partial | Human no-op; orc `Xtra_food` + knows; elf instrument+knows; dwarf knows; gnome no-op (D-0027); `ini_inv_obj_substitution`/`inv_subs` ported; **`ini_inv_mkobj_filter` reject list + `oc_level`/`Skill_W`/`Skill_P`/`Skill_K`/`Skill_S`/`Skill_H`/`Skill_V`/`Skill_Ran`/`Skill_Mon`/`Skill_A`/`Skill_B`** (D-0042/43/44/45/46/47/48/49/50/51) |
 | `src/u_init.c:u_init_misc` | `js/u_init.js` | partial | `newhp`/`newpw` at ulevel 0; rc align → `ualign`; handedness RNG; many u fields still absent |
 | `src/attrib.c:newhp` / `src/exper.c:newpw` | `js/attrib.js` | partial | Init (`ulevel==0`) path only; level-up / Con bonus deferred |
 | `src/attrib.c` (attrs) | `js/attrib.js` | partial | Initial Tourist/Rogue/Wizard attribute paths; `change_luck` clamp; `u_init_carry_attr_boost` still stubbed |
@@ -46,9 +46,9 @@ When changing a subsystem:
 | `src/insight.c` enlightenment | `js/invent.js` | partial | Autopickup from flags + race attr limits + `weapon_descr`/`skill_name` via `oc_skill` (D-0041); pantheon/wallet/handedness (D-0024); shop `costly_spot` disable / `apelist` / enhance / P_SKILL table / odd-skill P_NAME deferred |
 | `src/calendar.c` / botl flags | `js/calendar.js`, `js/display.js` | partial | Fixed-datetime moon/friday; botl `showexp`/`time` + plname capitalize |
 
-**Shared blocker:** **2/44 sessions** throw `u_init_role: role not ported`
-(Barbarian/Caveman; Wizard/Priest/Knight/Samurai/Healer/Valkyrie/Ranger/Monk/
-Archeologist D-0042/43/44/45/46/47/48/49/50 cleared). Rogue invent + mineralize bury +
+**Shared blocker:** **1/44 sessions** throw `u_init_role: role not ported`
+(Caveman; Wizard/Priest/Knight/Samurai/Healer/Valkyrie/Ranger/Monk/
+Archeologist/Barbarian D-0042/43/44/45/46/47/48/49/50/51 cleared). Rogue invent + mineralize bury +
 corpse-age POISON + `mktrap_victim` place + `dog_move` cursed-square +
 dart-trap `mintrap` + cursemsg/`--More--` + `dog_invent` pickup + tseen
 trap skip + `OPENDOOR` `nohands`/`verysmall` + `doapply`/`pick_lock`
@@ -90,10 +90,12 @@ Ranger init + launcher/ammo/spear `knows_class` (D-0048) → role throws
 `knows_class` (D-0049) → role throws **3**/44; seed0200 prefix **377**
 (`lspo_map`). Archeologist init + tin opener/lamp/marker chain +
 SACK/TOUCHSTONE knows (D-0050) → role throws **2**/44; seed0361 prefix
-**1280** (`hole_destination`, same as seed0016). Next peel:
-Barbarian/Caveman (1 each) or seed0700/0103/2200/0501/0016/0361/0015/
-0200/0101/0102 mklev or moveloop peels. `make_corpse` body and
-`m_initinv` body still absent (named omissions).
+**1280** (`hole_destination`, same as seed0016). Barbarian init +
+`rn2(100)>=50` kit + Lamp + weapon/armor `knows_class` (D-0051) →
+role throws **1**/44; seed0373 prefix **1327** (`choose_trapnote`,
+same as seed2200/0030). Next peel: Caveman or seed0700/0103/2200/
+0373/0501/0016/0361/0015/0200/0101/0102 mklev or moveloop peels.
+`make_corpse` body and `m_initinv` body still absent (named omissions).
 
 ## Data and world generation
 
@@ -144,7 +146,7 @@ These are not protected merely because the two green sessions exercise them:
 | `js/display.js` message paths | Contains scenario-derived cursor/layout special cases rather than complete window/message policy |
 | `js/eat.js` | Allowed-letter formatting, menu fallback, and eating are narrow subsets |
 | `js/invent.js` | Corner invent + disco `*`/encounter + `obj_typename` (D-0040); ^X autopickup/limits/`weapon_descr` (D-0041); fullscreen invent and magic enlightenment deferred |
-| `js/u_init.js` / `js/roles.js` | Rogue/Tourist/Wizard/Priest/Knight/Samurai/Healer/Valkyrie/Ranger/Monk/**Archeologist** + human/orc(/elf/dwarf/gnome) race kits (D-0027/D-0042/43/44/45/46/47/48/49/50); pantheon gods + C roles[] order; **race `hpadv`/`enadv` table** (D-0036); helm/gloves/boots/shield wear + Knight/Samurai/Valkyrie/Ranger/Monk `knows_class`/`HJumping`/`Japanese_item_name`/`is_ammo`/`is_launcher`/`is_spear`; Barbarian/Caveman throw; **`oc_skill`/`a_ac`/`oc_level` extracted**; dagger `knows_class` can migrate; `skill_init` / `initialspell` / other `Skill_*` / `oc_charged` deferred |
+| `js/u_init.js` / `js/roles.js` | Rogue/Tourist/Wizard/Priest/Knight/Samurai/Healer/Valkyrie/Ranger/Monk/Archeologist/**Barbarian** + human/orc(/elf/dwarf/gnome) race kits (D-0027/D-0042/43/44/45/46/47/48/49/50/51); pantheon gods + C roles[] order; **race `hpadv`/`enadv` table** (D-0036); helm/gloves/boots/shield wear + Barbarian/Knight/Samurai/Valkyrie/Ranger/Monk `knows_class`/`HJumping`/`Japanese_item_name`/`is_ammo`/`is_launcher`/`is_spear`; Caveman throw; **`oc_skill`/`a_ac`/`oc_level` extracted**; dagger `knows_class` can migrate; `skill_init` / `initialspell` / other `Skill_*` / `oc_charged` deferred |
 | `js/allmain.js` | Welcome/HP/align no longer Tourist-literal; **`regen_hp` once-per-turn** (D-0035); tutorial, hunger, sound, and attribute checks still have deferred branches |
 | `js/mon.js` / `js/monmove.js` / `js/dogmove.js` | Monster flags, movement predicates, targeting, carrying, and combat have named stubs/defaults |
 | `js/mklev.js` / `js/mkobj.js` / `js/makemon.js` | Many terrain/object/monster-type branches remain scenario-limited |

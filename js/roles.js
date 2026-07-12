@@ -69,9 +69,20 @@ export const roles = [
         mnum: PM_BARBARIAN,
         petnum: NON_PM,
         neminum: pm('PM_THOTH_AMON'),
+        title: [
+            { m: 'Plunderer', f: 'Plunderess' },
+            { m: 'Pillager', f: 'Pillager' },
+        ],
         lgod: 'Mitra',
         ngod: 'Crom',
         cgod: 'Set',
+        // C: { 16, 7, 7, 15, 16, 6 } / { 30, 6, 7, 20, 30, 7 }
+        attrbase: [16, 7, 7, 15, 16, 6],
+        attrdist: [30, 6, 7, 20, 30, 7],
+        initrecord: 10,
+        // C: { 14, 0, 0, 10, 2, 0 } / { 1, 0, 0, 1, 0, 1 }
+        hpadv: adv(14, 0, 0, 10, 2, 0),
+        enadv: adv(1, 0, 0, 1, 0, 1),
     },
     {
         name: { m: 'Caveman', f: 'Cavewoman' },

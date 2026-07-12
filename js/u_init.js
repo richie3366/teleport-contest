@@ -3,8 +3,8 @@
 //        ini_inv_mkobj_filter, ini_inv_obj_substitution,
 //        u_init_inventory_attrs
 //        (Tourist + Rogue + Wizard + Priest + Knight + Samurai + Healer +
-//         Valkyrie + Ranger + Monk + Archeologist; human/orc race kits;
-//         elf/dwarf/gnome partial).
+//         Valkyrie + Ranger + Monk + Archeologist + Barbarian; human/orc
+//         race kits; elf/dwarf/gnome partial).
 
 import { game } from './gstate.js';
 import { rn2, rnd, rn1 } from './rng.js';
@@ -51,6 +51,7 @@ import {
 import {
     PM_TOURIST, PM_ROGUE, PM_CLERIC, PM_WIZARD, PM_MONK, PM_KNIGHT,
     PM_SAMURAI, PM_HEALER, PM_VALKYRIE, PM_RANGER, PM_ARCHEOLOGIST,
+    PM_BARBARIAN,
     PM_HUMAN, PM_ELF, PM_DWARF, PM_ORC, PM_GNOME,
     NON_PM,
 } from './generated/monsters_data.js';
@@ -206,6 +207,22 @@ const Archeologist = [
     { trotyp: () => otypByName('TINNING_KIT'), trspe: UNDEF_SPE, trclass: TOOL_CLASS, trquan_min: 1, trquan_max: 1, trbless: UNDEF_BLESS },
     { trotyp: () => otypByName('TOUCHSTONE'), trspe: 0, trclass: GEM_CLASS, trquan_min: 1, trquan_max: 1, trbless: 0 },
     { trotyp: () => otypByName('SACK'), trspe: 0, trclass: TOOL_CLASS, trquan_min: 1, trquan_max: 1, trbless: 0 },
+    { trotyp: () => 0, trspe: 0, trclass: 0, trquan_min: 0, trquan_max: 0, trbless: 0 },
+];
+
+// C ref: u_init.c Barbarian_0[] / Barbarian_1[]
+const Barbarian_0 = [
+    { trotyp: () => otypByName('TWO_HANDED_SWORD'), trspe: 0, trclass: WEAPON_CLASS, trquan_min: 1, trquan_max: 1, trbless: UNDEF_BLESS },
+    { trotyp: () => otypByName('AXE'), trspe: 0, trclass: WEAPON_CLASS, trquan_min: 1, trquan_max: 1, trbless: UNDEF_BLESS },
+    { trotyp: () => otypByName('RING_MAIL'), trspe: 0, trclass: ARMOR_CLASS, trquan_min: 1, trquan_max: 1, trbless: UNDEF_BLESS },
+    { trotyp: () => otypByName('FOOD_RATION'), trspe: 0, trclass: FOOD_CLASS, trquan_min: 1, trquan_max: 1, trbless: 0 },
+    { trotyp: () => 0, trspe: 0, trclass: 0, trquan_min: 0, trquan_max: 0, trbless: 0 },
+];
+const Barbarian_1 = [
+    { trotyp: () => otypByName('BATTLE_AXE'), trspe: 0, trclass: WEAPON_CLASS, trquan_min: 1, trquan_max: 1, trbless: UNDEF_BLESS },
+    { trotyp: () => otypByName('SHORT_SWORD'), trspe: 0, trclass: WEAPON_CLASS, trquan_min: 1, trquan_max: 1, trbless: UNDEF_BLESS },
+    { trotyp: () => otypByName('RING_MAIL'), trspe: 0, trclass: ARMOR_CLASS, trquan_min: 1, trquan_max: 1, trbless: UNDEF_BLESS },
+    { trotyp: () => otypByName('FOOD_RATION'), trspe: 0, trclass: FOOD_CLASS, trquan_min: 1, trquan_max: 1, trbless: 0 },
     { trotyp: () => 0, trspe: 0, trclass: 0, trquan_min: 0, trquan_max: 0, trbless: 0 },
 ];
 
@@ -439,6 +456,32 @@ const Skill_A = [
     { skill: P_BARE_HANDED_COMBAT, max: P_EXPERT },
 ];
 
+// C ref: u_init.c Skill_B[] — Barbarian (skills_init still stubbed; filter-ready)
+const Skill_B = [
+    { skill: P_DAGGER, max: P_BASIC },
+    { skill: P_AXE, max: P_EXPERT },
+    { skill: P_PICK_AXE, max: P_SKILLED },
+    { skill: P_SHORT_SWORD, max: P_EXPERT },
+    { skill: P_BROAD_SWORD, max: P_SKILLED },
+    { skill: P_LONG_SWORD, max: P_SKILLED },
+    { skill: P_TWO_HANDED_SWORD, max: P_EXPERT },
+    { skill: P_SABER, max: P_SKILLED },
+    { skill: P_CLUB, max: P_SKILLED },
+    { skill: P_MACE, max: P_SKILLED },
+    { skill: P_MORNING_STAR, max: P_SKILLED },
+    { skill: P_FLAIL, max: P_BASIC },
+    { skill: P_HAMMER, max: P_EXPERT },
+    { skill: P_QUARTERSTAFF, max: P_BASIC },
+    { skill: P_SPEAR, max: P_SKILLED },
+    { skill: P_TRIDENT, max: P_SKILLED },
+    { skill: P_BOW, max: P_BASIC },
+    { skill: P_ATTACK_SPELL, max: P_BASIC },
+    { skill: P_ESCAPE_SPELL, max: P_BASIC },
+    { skill: P_RIDING, max: P_BASIC },
+    { skill: P_TWO_WEAPON_COMBAT, max: P_BASIC },
+    { skill: P_BARE_HANDED_COMBAT, max: P_MASTER },
+];
+
 function strangeObject() {
     return otypByName('STRANGE_OBJECT') || 0;
 }
@@ -522,7 +565,7 @@ function trquan(trop) {
     return trop.trquan_min + rn2(trop.trquan_max - trop.trquan_min + 1);
 }
 
-// C ref: u_init.c skills_for_role() — Wizard + Priest + Knight + Samurai + Healer + Valkyrie + Ranger + Monk + Archeologist
+// C ref: u_init.c skills_for_role() — Wizard + Priest + Knight + Samurai + Healer + Valkyrie + Ranger + Monk + Archeologist + Barbarian
 function skills_for_role() {
     if (game.urole?.mnum === PM_WIZARD) return Skill_W;
     if (game.urole?.mnum === PM_CLERIC) return Skill_P;
@@ -533,6 +576,7 @@ function skills_for_role() {
     if (game.urole?.mnum === PM_RANGER) return Skill_Ran;
     if (game.urole?.mnum === PM_MONK) return Skill_Mon;
     if (game.urole?.mnum === PM_ARCHEOLOGIST) return Skill_A;
+    if (game.urole?.mnum === PM_BARBARIAN) return Skill_B;
     return null;
 }
 
@@ -814,8 +858,8 @@ function knows_object(otyp, _override_pauper) {
 }
 
 // C ref: u_init.c knows_class() — ordinary non-magic objects of a class.
-// Rogue keeps dagger-name walk; Knight/Samurai/Valkyrie/Ranger/Monk walk
-// bases[] like C (weapons + armor; skip CORNUTHAUM/DUNCE_CAP/SMALL_SHIELD;
+// Rogue keeps dagger-name walk; Barbarian/Knight/Samurai/Valkyrie/Ranger/Monk
+// walk bases[] like C (weapons + armor; skip CORNUTHAUM/DUNCE_CAP/SMALL_SHIELD;
 // non-Knight/Samurai skip polearms/lances; Ranger: launchers/ammo/spears).
 function knows_class(sym) {
     const roleMnum = game.urole?.mnum;
@@ -836,7 +880,7 @@ function knows_class(sym) {
     // Valkyrie. Only ported roles that call knows_class are enabled here.
     if (roleMnum !== PM_KNIGHT && roleMnum !== PM_SAMURAI
         && roleMnum !== PM_VALKYRIE && roleMnum !== PM_RANGER
-        && roleMnum !== PM_MONK) {
+        && roleMnum !== PM_MONK && roleMnum !== PM_BARBARIAN) {
         return;
     }
 
@@ -976,7 +1020,7 @@ function ini_inv(tropArr) {
     }
 }
 
-// C ref: u_init.c u_init_role() — Tourist + Rogue + Wizard + Priest + Knight + Samurai + Healer + Valkyrie + Ranger + Monk + Archeologist
+// C ref: u_init.c u_init_role() — Tourist + Rogue + Wizard + Priest + Knight + Samurai + Healer + Valkyrie + Ranger + Monk + Archeologist + Barbarian
 function u_init_role() {
     const role = game.urole;
     const mnum = role?.mnum;
@@ -996,6 +1040,20 @@ function u_init_role() {
         else if (!rn2(5)) ini_inv(Magicmarker);
         knows_object(otypByName('SACK'), false);
         knows_object(otypByName('TOUCHSTONE'), false);
+        game.nocreate = strange;
+        game.nocreate2 = strange;
+        game.nocreate3 = strange;
+        game.nocreate4 = strange;
+        return;
+    }
+    if (mnum === PM_BARBARIAN) {
+        // C: rn2(100) >= 50 → Barbarian_0 else Barbarian_1 (avoid rn2(2) skew)
+        game.u.umoney0 = 0;
+        if (rn2(100) >= 50) ini_inv(Barbarian_0);
+        else ini_inv(Barbarian_1);
+        if (!rn2(6)) ini_inv(Lamp);
+        knows_class(WEAPON_CLASS); // excludes polearms
+        knows_class(ARMOR_CLASS);
         game.nocreate = strange;
         game.nocreate2 = strange;
         game.nocreate3 = strange;

@@ -19,6 +19,19 @@ Use this shape:
 
 ---
 
+## 2026-07-13 01:15 — Barbarian u_init_role (D-0051)
+- C locus: `u_init.c` Barbarian_0/1/`Skill_B`/`u_init_role` PM_BARBARIAN
+  (`rn2(100)>=50` kit + Lamp/`!rn2(6)` + weapon/armor `knows_class`
+  excl. polearms); `role.c` Barbarian attrs
+- Result: **verified faithful change** — Barbarian kits + Lamp +
+  attrs/`hpadv` + `knows_class` enable. Role throws **2→1**/44.
+- Verification: green + seed1500/1800/0060 PASS + strict; full **5/44**,
+  screens **256**/11405, RNG **78774**/792838; seed0373 prefix **1327**
+  (`choose_trapnote`); seed0373 positional **2277**/35386.
+- Next: port Caveman `u_init_role` (last role throw), or peel shared
+  `choose_trapnote` / `hole_destination` / `mkclass_aligned` /
+  `lspo_map` / `wipeout_text`.
+
 ## 2026-07-13 01:10 — Archeologist u_init_role (D-0050)
 - C locus: `u_init.c` Archeologist/`Skill_A`/`u_init_role` PM_ARCHEOLOGIST
   (Tinopener/`!rn2(10)` else Lamp/`!rn2(4)` else Magicmarker/`!rn2(5)` +

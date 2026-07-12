@@ -7,27 +7,27 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 
 ## Active
 
-- **Current unit:** Archeologist `u_init_role` cleared (D-0050). Role throws
-  **2**/44 (was 3). seed0361 prefix **1280** (`hole_destination`); same
-  peel as seed0016.
-- **Hypothesis / next peel:** port next unported role (**Barbarian**
-  or Caveman — 1 throw each), or shared `mkclass_aligned` /
-  `choose_trapnote` / `hole_destination` / `wipeout_text` / `lspo_map` /
-  `next_ident` / `rndmonst_adj`.
+- **Current unit:** Barbarian `u_init_role` cleared (D-0051). Role throws
+  **1**/44 (was 2). seed0373 prefix **1327** (`choose_trapnote`); same
+  peel as seed2200/0030.
+- **Hypothesis / next peel:** port last unported role (**Caveman** —
+  1 throw), or shared `mkclass_aligned` / `choose_trapnote` /
+  `hole_destination` / `wipeout_text` / `lspo_map` / `next_ident` /
+  `rndmonst_adj`.
 - **Falsifier / next probe:**
   ```bash
   node frozen/ps_test_runner.mjs sessions 2>&1 | rg 'role not ported|PASS|FAIL' | head -40
-  # Or: node scripts/rng-diff.mjs sessions/seed0373-barbarian-quest-tour.session.json
+  # Or: node scripts/rng-diff.mjs sessions/seed1150-caveman-explore-move.session.json
   ```
 - **Parked deep canary:** D-0006 pet movement — do not implement until C
   state/candidate capture exists.
 - **Also deferred:** Wizard/Priest/Healer `initialspell`; Knight/Samurai/
-  Healer/Valkyrie/Ranger/Monk/Archeologist `skill_init`; display-path
-  Japanese names; full `role_init` beyond pantheon + SPE_LIGHT + nemesis
-  gender; `make_corpse` after `corpse_chance`; dokick monster/object/
-  closed-door/SDOOR/furniture; `martial()`; wake/engraving;
-  `set_wounded_legs` body; `showdamage`/death `done`; Upolyd eel
-  `regen_hp` loss; `regen_pw`/Teleport/Poly once-per-turn; Barbarian/
+  Healer/Valkyrie/Ranger/Monk/Archeologist/Barbarian `skill_init`;
+  display-path Japanese names; full `role_init` beyond pantheon +
+  SPE_LIGHT + nemesis gender; `make_corpse` after `corpse_chance`;
+  dokick monster/object/closed-door/SDOOR/furniture; `martial()`;
+  wake/engraving; `set_wounded_legs` body; `showdamage`/death `done`;
+  Upolyd eel `regen_hp` loss; `regen_pw`/Teleport/Poly once-per-turn;
   Caveman still throw; `dog_goal` gettrack/FARAWAY; `throw_gold`; eat
   getobj single-shot; Blind/`look_here`; trap glyphs; hallucination/
   `see_objects`; `u_init_carry_attr_boost`; mfndpos `bad_rock` squeeze;
@@ -180,6 +180,11 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   `Archeologist[]` + attrs/`hpadv` + Tinopener/`!rn2(10)` else Lamp/
   `!rn2(4)` else Magicmarker/`!rn2(5)` + `knows_object(SACK/TOUCHSTONE)` —
   D-0050. No `knows_class` walk. `skill_init` still deferred.
+- seed0373 throw was **not** missing pet alone: Barbarian needed
+  `Barbarian_0`/`Barbarian_1` via `rn2(100)>=50` + Lamp/`!rn2(6)` +
+  weapon/armor `knows_class` (excludes polearms) + attrs/`hpadv` —
+  D-0051. Prefer `rn2(100)>=50` over `rn2(2)` (C comment). `skill_init`
+  still deferred.
 
 ## Landmarks
 
@@ -200,6 +205,9 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 - Archeologist+human init HP = **13** (role 11 + race 2); initrecord **10**;
   whip `+2`; pick-axe/tinning kit `UNDEF_SPE`; Tinopener `!rn2(10)` else
   Lamp `!rn2(4)` else Magicmarker `!rn2(5)`.
+- Barbarian+human init HP = **16** (role 14 + race 2); initrecord **10**;
+  kit via `rn2(100)>=50` → two-handed sword+axe else battle-axe+short
+  sword; ring mail; optional Lamp `!rn2(6)`.
 - Rogue legacy offx = `max(10, 80 - maxcol - 1)` (Kos → 23; The Lady → 17).
 - Tutorial menu offx = 20 (OPTIONS `.nethackrc` line → maxcol 59); cursor
   `[27,6]` on `(end) `.
@@ -239,3 +247,5 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   `lspo_map` (same as seed0015).
 - seed0361: D-0050 → role throw cleared; rng-diff prefix **1280**; next
   `hole_destination` (same as seed0016).
+- seed0373: D-0051 → role throw cleared; rng-diff prefix **1327**; next
+  `choose_trapnote` (same as seed2200/0030).

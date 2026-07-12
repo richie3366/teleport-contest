@@ -1295,3 +1295,35 @@ cohort gates if those functions are touched again.
   object-specific, not a class walk.
 - **Next:** Barbarian/Caveman (1 throw each), or shared mklev/moveloop
   peels.
+
+## D-0051 — Barbarian `u_init_role` + kit RNG + Lamp + weapon/armor `knows_class`
+
+- **Status:** fixed (verified 2026-07-13) for role-init throw clearance;
+  Barbarian session still diverges later (`choose_trapnote`).
+- **Observed:** **2/44** role throws after D-0050; 1 dedicated
+  Barbarian throw (seed0373). After port, **1/44** remains (Caveman).
+  seed0373 rng-diff prefix **1327** (`choose_trapnote`); positional
+  RNG **2277**/35386.
+- **Cause/evidence:** Barbarian kit absent; scaffold lacked attrs/
+  `hpadv`/`enadv`/`initrecord=10`. C `rn2(100)>=50` →
+  `ini_inv(Barbarian_0)` (two-handed sword, axe, ring mail, ration)
+  else `Barbarian_1` (battle-axe, short sword, ring mail, ration),
+  then Lamp `!rn2(6)`, `knows_class(WEAPON)` excluding polearms +
+  `knows_class(ARMOR)`.
+- **C locus:** `u_init.c` `Barbarian_0`/`Barbarian_1` / `Skill_B` /
+  `u_init_role` `PM_BARBARIAN`; `role.c` Barbarian entry.
+- **Change:** Barbarian roles attrs/`hpadv`/`enadv`/`initrecord`/
+  titles; both kit tables + Lamp; enable `PM_BARBARIAN` in
+  `knows_class` bases[] walk; `Skill_B` in `skills_for_role`.
+- **Verification:** green + seed1500/1800/0060 PASS + strict; full
+  **5/44**, screens **256**/11405, RNG **78774**/792838; role throws
+  **1**/44; seed0373 RNG **2277**/35386 Scr **0**/124.
+- **Omissions named:** `skill_init` still stubbed; Caveman kit;
+  seed0373/2200/0030 `choose_trapnote`; seed0361/0016
+  `hole_destination`; seed0200/0015 `lspo_map`; seed0105/0501
+  `wipeout_text`; seed0700/0103 `mkclass_aligned`; seed0101
+  `next_ident`; seed0102 `rndmonst_adj`.
+- **Lesson:** Barbarian weapon kit uses `rn2(100)>=50` (not `rn2(2)`)
+  per C comment about skewed generators; polearm exclusion matches
+  Valkyrie `knows_class` path.
+- **Next:** Caveman (last role throw), or shared mklev/moveloop peels.
