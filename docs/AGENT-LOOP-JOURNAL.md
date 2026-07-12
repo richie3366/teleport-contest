@@ -19,6 +19,21 @@ Use this shape:
 
 ---
 
+## 2026-07-13 01:16 — Caveman u_init_role (D-0052)
+- C locus: `u_init.c` Cave_man[]/`Skill_C`/`u_init_role` PM_CAVE_DWELLER
+  + `ini_inv_use_obj` FLINT/ROCK quiver + `ini_inv_adjust_obj` graystone
+  quan; `role.c` Caveman attrs
+- Result: **verified faithful change** — last public role kit. Role
+  throws **1→0**/44. seed1150 reaches mklev; next GEM `rnd_class`
+  sum 999 vs 1000 @ 1118.
+- Verification: green + seed1500/1800/0060 PASS + strict; full **5/44**,
+  screens **278**/11405, RNG **81711**/792838; seed1150 prefix **1118**,
+  positional **2937**/3137 Scr **22**/51.
+- Next: peel shared `mkclass_aligned` / `choose_trapnote` /
+  `hole_destination` / `wipeout_text` / `lspo_map`, or diagnose GEM
+  `oclass_prob_totals` off-by-one via
+  `node scripts/rng-diff.mjs sessions/seed1150-caveman-explore-move.session.json`.
+
 ## 2026-07-13 01:15 — Barbarian u_init_role (D-0051)
 - C locus: `u_init.c` Barbarian_0/1/`Skill_B`/`u_init_role` PM_BARBARIAN
   (`rn2(100)>=50` kit + Lamp/`!rn2(6)` + weapon/armor `knows_class`

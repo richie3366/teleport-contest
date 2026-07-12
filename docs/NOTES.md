@@ -7,29 +7,30 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 
 ## Active
 
-- **Current unit:** Barbarian `u_init_role` cleared (D-0051). Role throws
-  **1**/44 (was 2). seed0373 prefix **1327** (`choose_trapnote`); same
-  peel as seed2200/0030.
-- **Hypothesis / next peel:** port last unported role (**Caveman** —
-  1 throw), or shared `mkclass_aligned` / `choose_trapnote` /
-  `hole_destination` / `wipeout_text` / `lspo_map` / `next_ident` /
-  `rndmonst_adj`.
+- **Current unit:** Caveman `u_init_role` cleared (D-0052). Role throws
+  **0**/44. seed1150 rng-diff prefix **1118** (`rnd_class` / GEM
+  `oclass_prob_totals`: C `rnd(999)` vs JS `rnd(1000)`); positional
+  RNG **2937**/3137 Scr **22**/51.
+- **Hypothesis / next peel:** shared `mkclass_aligned` /
+  `choose_trapnote` / `hole_destination` / `wipeout_text` / `lspo_map`
+  / `next_ident` / `rndmonst_adj`, or GEM prob-total off-by-one after
+  `setgemprobs` (seed1150 @ 1118).
 - **Falsifier / next probe:**
   ```bash
-  node frozen/ps_test_runner.mjs sessions 2>&1 | rg 'role not ported|PASS|FAIL' | head -40
-  # Or: node scripts/rng-diff.mjs sessions/seed1150-caveman-explore-move.session.json
+  node scripts/rng-diff.mjs sessions/seed1150-caveman-explore-move.session.json
+  # Or: node scripts/rng-diff.mjs sessions/seed0700-samurai-explore-descend.session.json
   ```
 - **Parked deep canary:** D-0006 pet movement — do not implement until C
   state/candidate capture exists.
 - **Also deferred:** Wizard/Priest/Healer `initialspell`; Knight/Samurai/
-  Healer/Valkyrie/Ranger/Monk/Archeologist/Barbarian `skill_init`;
-  display-path Japanese names; full `role_init` beyond pantheon +
-  SPE_LIGHT + nemesis gender; `make_corpse` after `corpse_chance`;
-  dokick monster/object/closed-door/SDOOR/furniture; `martial()`;
-  wake/engraving; `set_wounded_legs` body; `showdamage`/death `done`;
-  Upolyd eel `regen_hp` loss; `regen_pw`/Teleport/Poly once-per-turn;
-  Caveman still throw; `dog_goal` gettrack/FARAWAY; `throw_gold`; eat
-  getobj single-shot; Blind/`look_here`; trap glyphs; hallucination/
+  Healer/Valkyrie/Ranger/Monk/Archeologist/Barbarian/Caveman
+  `skill_init`; display-path Japanese names; full `role_init` beyond
+  pantheon + SPE_LIGHT + nemesis gender; `make_corpse` after
+  `corpse_chance`; dokick monster/object/closed-door/SDOOR/furniture;
+  `martial()`; wake/engraving; `set_wounded_legs` body; `showdamage`/
+  death `done`; Upolyd eel `regen_hp` loss; `regen_pw`/Teleport/Poly
+  once-per-turn; `dog_goal` gettrack/FARAWAY; `throw_gold`; eat getobj
+  single-shot; Blind/`look_here`; trap glyphs; hallucination/
   `see_objects`; `u_init_carry_attr_boost`; mfndpos `bad_rock` squeeze;
   Sokoban push-avoid; `donull` `cmd_safety_prevention`; dog_move
   `mtrack` skip; `makemon` Sokoban `throws_rocks`; `m_initinv` body;
@@ -185,6 +186,10 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   weapon/armor `knows_class` (excludes polearms) + attrs/`hpadv` —
   D-0051. Prefer `rn2(100)>=50` over `rn2(2)` (C comment). `skill_init`
   still deferred.
+- seed1150 throw was **not** missing pet alone: Caveman needed
+  `Cave_man[]` (club+1, sling+2, flint 10–20 stacks, rock ×3 → 18..33,
+  leather) + attrs/`hpadv`; C has **no** `knows_class`/Lamp; FLINT/ROCK
+  must quiver via `ini_inv_use_obj` — D-0052. `skill_init` still deferred.
 
 ## Landmarks
 
@@ -208,6 +213,9 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 - Barbarian+human init HP = **16** (role 14 + race 2); initrecord **10**;
   kit via `rn2(100)>=50` → two-handed sword+axe else battle-axe+short
   sword; ring mail; optional Lamp `!rn2(6)`.
+- Caveman+human init HP = **16** (role 14 + race 2); initrecord **10**;
+  club `+1`, sling `+2`; flint trop 10–20; rock trop 3×`rn1(6,6)` → 18..33;
+  leather armor; little dog pet.
 - Rogue legacy offx = `max(10, 80 - maxcol - 1)` (Kos → 23; The Lady → 17).
 - Tutorial menu offx = 20 (OPTIONS `.nethackrc` line → maxcol 59); cursor
   `[27,6]` on `(end) `.
@@ -249,3 +257,5 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   `hole_destination` (same as seed0016).
 - seed0373: D-0051 → role throw cleared; rng-diff prefix **1327**; next
   `choose_trapnote` (same as seed2200/0030).
+- seed1150: D-0052 → role throw cleared; rng-diff prefix **1118**; next
+  GEM `rnd_class` / `oclass_prob_totals` (999 vs 1000).

@@ -38,11 +38,11 @@ frozen-file overlay):
 | Metric | Value |
 |--------|------:|
 | Sessions passing | **5 / 44** |
-| Screens matched | **256 / 11,405** (2.24%) |
-| Positional RNG calls matched | **78,774 / 792,838** (9.94%) |
-| Speed label | `16+0.08/turn` (R² 0.940) |
+| Screens matched | **278 / 11,405** (2.44%) |
+| Positional RNG calls matched | **81,711 / 792,838** (10.31%) |
+| Speed label | `17+0.09/turn` (R² 0.932) |
 | Working-tree base | `8b71735` + committed port (see `main`) |
-| Role-init throws | **1 / 44** (`u_init_role: role not ported`) |
+| Role-init throws | **0 / 44** (`u_init_role: role not ported`) |
 
 The RNG aggregate can decrease while the port improves if a former fake path
 is replaced or more sessions execute farther. Use first divergence, screens,
@@ -57,6 +57,7 @@ shared blockers, and semantic coverage together—not one vanity metric.
 | `seed1500-rogue-explore-move` | **2768 / 2768** | **40 / 40** |
 | `seed1800-tourist-eat-throw` | **2458 / 2458** | **26 / 26** |
 | `seed0060-orc-rogue-kick-search` | **3626 / 3626** | **41 / 41** |
+| `seed1150-caveman-explore-move` | **2937 / 3137** | **22 / 51** |
 | `seed0200-monk-north-search` | **1545 / 3822** | 0 / 40 |
 | `seed0101-ranger-quiver-throw-travel-engrave` | **2304 / 2371** | 3 / 27 |
 | `seed0016-healer-newmoon-eat-zap` | **2258 / 3656** | 0 / 36 |
@@ -80,15 +81,17 @@ Samurai init (D-0045) clears Samurai role throws; Healer init (D-0046)
 clears Healer throws; Valkyrie init (D-0047) clears Valkyrie throws;
 Ranger init (D-0048) clears Ranger throws; Monk init (D-0049) clears
 Monk throws; Archeologist init (D-0050) clears Archeologist throws;
-Barbarian init (D-0051) clears Barbarian throws. seed0700 breaks in
-mklev (`mkclass_aligned`); seed0017/0107 reach moveloop
-(`u_calc_moveamt`). Knight seed0103 still `mkclass_aligned`. Priest
-seed0501 still `wipeout_text`. Wizard seed2200 and Barbarian seed0373
-still `choose_trapnote`. Healer seed0016 and Archeologist seed0361 next
+Barbarian init (D-0051) clears Barbarian throws; Caveman init (D-0052)
+clears the last role throw (**0**/44). seed0700 breaks in mklev
+(`mkclass_aligned`); seed0017/0107 reach moveloop (`u_calc_moveamt`).
+Knight seed0103 still `mkclass_aligned`. Priest seed0501 still
+`wipeout_text`. Wizard seed2200 and Barbarian seed0373 still
+`choose_trapnote`. Healer seed0016 and Archeologist seed0361 next
 `hole_destination`; seed0030 next `choose_trapnote`. seed0105 next
 `wipeout_text`; seed0015/0200 next `lspo_map`. seed0101 next
 `next_ident`; seed0102 next `rndmonst_adj`. seed0013 still breaks
-earlier in Lua/`sp_lev`. Caveman seed1150 still throws at role init.
+earlier in Lua/`sp_lev`. seed1150 next GEM `rnd_class` sum
+(999 vs 1000) @ 1118.
 
 ### Green gate
 
@@ -112,39 +115,38 @@ complete or blocked on a prerequisite you document with a falsifier. The
 seed1800 deep canary (`D-0006`) is **parked** — do not implement pet-movement
 fixes until C state/candidate capture exists (`GROK-PLAYBOOK.md` §2).
 
-#### Primary foundation frontier — next unported role / shared mklev peels
+#### Primary foundation frontier — shared mklev / moveloop peels
 
-**Code status:** Barbarian `u_init_role` + `rn2(100)>=50` kit pick +
-Lamp + weapon/armor `knows_class` **ported** (D-0051). Five public
-sessions still pass end-to-end. **1/44** still throw at `u_init_role`
-(Caveman).
+**Code status:** Caveman `u_init_role` + `Cave_man[]` + FLINT/ROCK
+quiver + graystone quan **ported** (D-0052). Five public sessions
+still pass end-to-end. **0/44** throw at `u_init_role` (all public
+roles cleared).
 
-- **Bounded unit:** last role kit (**Caveman** — `Cave_man[]` club/
-  sling/flint/rock/leather), **or** shared `mkclass_aligned`
-  (seed0700/0103) / seed2200/0030/0373 `choose_trapnote` / seed0016/0361
+- **Bounded unit:** shared `mkclass_aligned` (seed0700/0103) /
+  seed2200/0030/0373 `choose_trapnote` / seed0016/0361
   `hole_destination` / seed0501/0105 `wipeout_text` / seed0015/0200
-  `lspo_map` / seed0101 `next_ident` / seed0102 `rndmonst_adj`.
-- **Prefer:** clearing the last `role not ported` thrower (Caveman)
-  over polishing one late path.
+  `lspo_map` / seed0101 `next_ident` / seed0102 `rndmonst_adj` /
+  seed1150 GEM `oclass_prob_totals` (C 999 vs JS 1000).
+- **Prefer:** highest-leverage shared mklev peel over polishing one
+  late path.
 - **Named omissions:** Wizard/Priest/Healer `initialspell`; Knight/
-  Samurai/Healer/Valkyrie/Ranger/Monk/Archeologist/Barbarian
+  Samurai/Healer/Valkyrie/Ranger/Monk/Archeologist/Barbarian/Caveman
   `skill_init`; display-path Japanese names; full `role_init` beyond
   pantheon/SPE_LIGHT/nemesis gender; `make_corpse` after
   `corpse_chance`; dokick monster/object/closed-door/SDOOR/furniture;
   `martial()`; wake/engraving; `set_wounded_legs` body; `showdamage`/
   death `done`; Upolyd eel `regen_hp` loss; `regen_pw`/Teleport/Poly
-  once-per-turn; Caveman still throw; `dog_goal` gettrack/FARAWAY;
-  `throw_gold`; eat getobj single-shot; Blind/`look_here`; trap
-  glyphs; hallucination/`see_objects`; `u_init_carry_attr_boost`;
-  mfndpos `bad_rock` squeeze; Sokoban push-avoid; `donull`
-  `cmd_safety_prevention`; dog_move `mtrack` skip; `makemon` Sokoban
-  `throws_rocks`; `m_initinv` body; `set_malign`; telepathy/
-  `Detect_monsters`/`MATCH_WARN_OF_MON` in `newsym`; full
-  `set_uasmon`/uprops; full `weapon_insight` enhance/P_SKILL/odd
-  P_NAME; shop `costly_spot` autopickup; `obj_typename` armor
-  pair-of/set-of + GemStone; MLET_CH beyond early subset; …
+  once-per-turn; `dog_goal` gettrack/FARAWAY; `throw_gold`; eat getobj
+  single-shot; Blind/`look_here`; trap glyphs; hallucination/
+  `see_objects`; `u_init_carry_attr_boost`; mfndpos `bad_rock` squeeze;
+  Sokoban push-avoid; `donull` `cmd_safety_prevention`; dog_move
+  `mtrack` skip; `makemon` Sokoban `throws_rocks`; `m_initinv` body;
+  `set_malign`; telepathy/`Detect_monsters`/`MATCH_WARN_OF_MON` in
+  `newsym`; full `set_uasmon`/uprops; full `weapon_insight` enhance/
+  P_SKILL/odd P_NAME; shop `costly_spot` autopickup; `obj_typename`
+  armor pair-of/set-of + GemStone; MLET_CH beyond early subset; …
 - **Cohort:** green gate + seed1500 + seed1800 + seed0060 (must stay
-  PASS) + strict lengths; Barbarian focus seed0373 when on that peel.
+  PASS) + strict lengths; Caveman focus seed1150 when on that peel.
 
 Focused survey:
 
@@ -243,6 +245,10 @@ Module status, constitutional debt, and named omissions live in
 36. Barbarian `u_init_role` + kit RNG + Lamp + weapon/armor
     `knows_class` (D-0051) — role throws **2→1**/44; screens **256**;
     RNG **76497→78774**; seed0373 next `choose_trapnote` @ 1327
+37. Caveman `u_init_role` + `Cave_man[]` + FLINT/ROCK quiver +
+    graystone quan (D-0052) — role throws **1→0**/44; screens
+    **256→278**; RNG **78774→81711**; seed1150 next GEM `rnd_class`
+    sum @ 1118
 
 Next work is selected from the active objectives above using
 `PORTING-RUNBOOK.md`, not by extending this historical list.

@@ -89,9 +89,20 @@ export const roles = [
         mnum: PM_CAVE_DWELLER,
         petnum: pm('PM_LITTLE_DOG'),
         neminum: pm('PM_CHROMATIC_DRAGON'),
+        title: [
+            { m: 'Troglodyte', f: 'Troglodyte' },
+            { m: 'Aborigine', f: 'Aborigine' },
+        ],
         lgod: 'Anu',
         ngod: '_Ishtar',
         cgod: 'Anshar',
+        // C: { 10, 7, 7, 7, 8, 6 } / { 30, 6, 7, 20, 30, 7 }
+        attrbase: [10, 7, 7, 7, 8, 6],
+        attrdist: [30, 6, 7, 20, 30, 7],
+        initrecord: 10,
+        // C: { 14, 0, 0, 8, 2, 0 } / { 1, 0, 0, 1, 0, 1 }
+        hpadv: adv(14, 0, 0, 8, 2, 0),
+        enadv: adv(1, 0, 0, 1, 0, 1),
     },
     {
         name: { m: 'Healer', f: 'Healer' },

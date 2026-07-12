@@ -1327,3 +1327,36 @@ cohort gates if those functions are touched again.
   per C comment about skewed generators; polearm exclusion matches
   Valkyrie `knows_class` path.
 - **Next:** Caveman (last role throw), or shared mklev/moveloop peels.
+
+## D-0052 — Caveman `u_init_role` + `Cave_man[]` + FLINT/ROCK quiver
+
+- **Status:** fixed (verified 2026-07-13) for role-init throw clearance;
+  Caveman session still diverges later (GEM `rnd_class` sum).
+- **Observed:** **1/44** role throws after D-0051; 1 dedicated
+  Caveman throw (seed1150). After port, **0/44** remain.
+  seed1150 rng-diff prefix **1118** (`rnd_class` C `rnd(999)` vs JS
+  `rnd(1000)`); positional RNG **2937**/3137 Scr **22**/51.
+- **Cause/evidence:** Caveman kit absent; scaffold lacked attrs/
+  `hpadv`/`enadv`/`initrecord=10`. C `ini_inv(Cave_man)` only (club+1,
+  sling+2, flint 10–20 stacks, rock ×3 merges to 18..33, leather);
+  **no** `knows_class`/Lamp. Also needed `ini_inv_use_obj` to quiver
+  FLINT/ROCK (C includes them beside WEAPON/`is_weptool`) and
+  graystone quan=1 except FLINT in `ini_inv_adjust_obj`.
+- **C locus:** `u_init.c` `Cave_man[]` / `Skill_C` / `u_init_role`
+  `PM_CAVE_DWELLER` / `ini_inv_use_obj` / `ini_inv_adjust_obj`;
+  `role.c` Caveman entry.
+- **Change:** Caveman roles attrs/`hpadv`/`enadv`/`initrecord`/titles;
+  `Cave_man` trop table; `Skill_C` in `skills_for_role`; FLINT/ROCK
+  quiver + graystone quan fix in shared `ini_inv_*` helpers.
+- **Verification:** green + seed1500/1800/0060 PASS + strict; full
+  **5/44**, screens **278**/11405, RNG **81711**/792838; role throws
+  **0**/44; seed1150 RNG **2937**/3137 Scr **22**/51.
+- **Omissions named:** `skill_init` still stubbed; seed1150 GEM
+  `oclass_prob_totals` off-by-one; seed0373/2200/0030
+  `choose_trapnote`; seed0361/0016 `hole_destination`; seed0200/0015
+  `lspo_map`; seed0105/0501 `wipeout_text`; seed0700/0103
+  `mkclass_aligned`; seed0101 `next_ident`; seed0102 `rndmonst_adj`.
+- **Lesson:** Caveman flint/rock are GEM ammo that must still enter
+  the quiver path; rock quantity comes from outer trop count ×
+  `mksobj` `rn1(6,6)`, not a single trop quan range.
+- **Next:** shared mklev/moveloop peels, or GEM prob-total 999 vs 1000.
