@@ -24,6 +24,10 @@ import {
     A_LAWFUL, Align2amask,
     LR_UPTELE,
     TAINT_AGE,
+    WM_MASK, WM_C_OUTER, WM_C_INNER,
+    WM_W_LEFT, WM_W_RIGHT, WM_W_TOP, WM_W_BOTTOM,
+    WM_T_LONG, WM_T_BL, WM_T_BR,
+    WM_X_TL, WM_X_TR, WM_X_BL, WM_X_BR, WM_X_TLBR, WM_X_BLTR,
 } from './const.js';
 import {
     RANDOM_CLASS, WEAPON_CLASS, ARMOR_CLASS, RING_CLASS,
@@ -1990,7 +1994,124 @@ function bound_digging() {
         }
 }
 
-function set_wall_state() { /* no-op for contest */ }
+// C ref: display.c check_pos / set_wall / set_corn / set_twall /
+// set_crosswall / xy_set_wall_state / set_wall_state — unfinished
+// exterior walls get WM_* modes so wall_angle can hide them as stone
+// until enough seenv octants are seen.
+
+function check_pos(x, y, which) {
+    if (!isok(x, y)) return which;
+    const type = game.level?.at(x, y)?.typ ?? STONE;
+    if (IS_STWALL(type) || type === CORR || type === SCORR || type === SDOOR)
+        return which;
+    return 0;
+}
+
+function more_than_one(a, b, c) {
+    return !!((a && (b | c)) || (b && (a | c)) || (c && (a | b)));
+}
+
+function set_twall(x1, y1, x2, y2, x3, y3) {
+    const is_1 = check_pos(x1, y1, WM_T_LONG);
+    const is_2 = check_pos(x2, y2, WM_T_BL);
+    const is_3 = check_pos(x3, y3, WM_T_BR);
+    if (more_than_one(is_1, is_2, is_3)) return 0;
+    return is_1 + is_2 + is_3;
+}
+
+function set_wall_mode(x, y, horiz) {
+    let is_1, is_2;
+    if (horiz) {
+        is_1 = check_pos(x, y - 1, WM_W_TOP);
+        is_2 = check_pos(x, y + 1, WM_W_BOTTOM);
+    } else {
+        is_1 = check_pos(x - 1, y, WM_W_LEFT);
+        is_2 = check_pos(x + 1, y, WM_W_RIGHT);
+    }
+    if (more_than_one(is_1, is_2, 0)) return 0;
+    return is_1 + is_2;
+}
+
+function set_corn(x1, y1, x2, y2, x3, y3, x4, y4) {
+    const is_1 = check_pos(x1, y1, 1);
+    const is_2 = check_pos(x2, y2, 1);
+    const is_3 = check_pos(x3, y3, 1);
+    const is_4 = check_pos(x4, y4, 1);
+    if (is_4) return WM_C_INNER;
+    if (is_1 && is_2 && is_3) return WM_C_OUTER;
+    return 0;
+}
+
+function set_crosswall(x, y) {
+    const is_1 = check_pos(x - 1, y - 1, 1);
+    const is_2 = check_pos(x + 1, y - 1, 1);
+    const is_3 = check_pos(x + 1, y + 1, 1);
+    const is_4 = check_pos(x - 1, y + 1, 1);
+    let wmode = is_1 + is_2 + is_3 + is_4;
+    if (wmode > 1) {
+        if (is_1 && is_3 && (is_2 + is_4 === 0)) return WM_X_TLBR;
+        if (is_2 && is_4 && (is_1 + is_3 === 0)) return WM_X_BLTR;
+        return 0;
+    }
+    if (is_1) return WM_X_TL;
+    if (is_2) return WM_X_TR;
+    if (is_3) return WM_X_BR;
+    if (is_4) return WM_X_BL;
+    return wmode;
+}
+
+function xy_set_wall_state(x, y) {
+    const lev = game.level?.at(x, y);
+    if (!lev) return;
+    let wmode;
+    switch (lev.typ) {
+    case SDOOR:
+        wmode = set_wall_mode(x, y, lev.horizontal ? 1 : 0);
+        break;
+    case VWALL:
+        wmode = set_wall_mode(x, y, 0);
+        break;
+    case HWALL:
+        wmode = set_wall_mode(x, y, 1);
+        break;
+    case TDWALL:
+        wmode = set_twall(x, y - 1, x - 1, y + 1, x + 1, y + 1);
+        break;
+    case TUWALL:
+        wmode = set_twall(x, y + 1, x + 1, y - 1, x - 1, y - 1);
+        break;
+    case TLWALL:
+        wmode = set_twall(x + 1, y, x - 1, y - 1, x - 1, y + 1);
+        break;
+    case TRWALL:
+        wmode = set_twall(x - 1, y, x + 1, y + 1, x + 1, y - 1);
+        break;
+    case TLCORNER:
+        wmode = set_corn(x - 1, y - 1, x, y - 1, x - 1, y, x + 1, y + 1);
+        break;
+    case TRCORNER:
+        wmode = set_corn(x, y - 1, x + 1, y - 1, x + 1, y, x - 1, y + 1);
+        break;
+    case BLCORNER:
+        wmode = set_corn(x, y + 1, x - 1, y + 1, x - 1, y, x + 1, y - 1);
+        break;
+    case BRCORNER:
+        wmode = set_corn(x + 1, y, x + 1, y + 1, x, y + 1, x - 1, y - 1);
+        break;
+    case CROSSWALL:
+        wmode = set_crosswall(x, y);
+        break;
+    default:
+        return;
+    }
+    lev.wall_info = ((lev.wall_info || 0) & ~WM_MASK) | wmode;
+}
+
+function set_wall_state() {
+    for (let x = 0; x < COLNO; x++)
+        for (let y = 0; y < ROWNO; y++)
+            xy_set_wall_state(x, y);
+}
 
 function level_finalize_topology() {
     bound_digging();

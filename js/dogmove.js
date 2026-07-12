@@ -22,7 +22,7 @@ import {
 } from './const.js';
 import { FOOD_CLASS, BALL_CLASS, CHAIN_CLASS, ROCK_CLASS, objectNames } from './objects.js';
 import { monsterNames } from './monsters.js';
-import { m_cansee, couldsee } from './vision.js';
+import { m_cansee, couldsee, cansee } from './vision.js';
 
 const PM_FLOATING_EYE = monsterNames.indexOf('PM_FLOATING_EYE');
 const PM_GELATINOUS_CUBE = monsterNames.indexOf('PM_GELATINOUS_CUBE');
@@ -313,7 +313,8 @@ async function mdrop_obj(mon, obj, verbosely) {
     // C: extract_from_minvent(mon, obj, FALSE, TRUE) → core is obj_extract_self
     obj_extract_self(obj);
     if (obj.owornmask) obj.owornmask = 0;
-    if (verbosely) {
+    // C: if (verbosely && cansee(omx, omy)) pline_mon(...)
+    if (verbosely && cansee(omx, omy)) {
         await pline(`${Monnam(mon)} drops ${obj_name}.`);
     }
     // flooreffects omitted — ordinary missiles/items place on floor
@@ -328,7 +329,8 @@ async function relobj(mtmp, show, is_pet) {
     while ((otmp = (is_pet ? droppables(mtmp) : mtmp.minvent)) != null) {
         await mdrop_obj(mtmp, otmp, !!(is_pet && game.flags?.verbose !== false));
     }
-    if (show) newsym(omx, omy);
+    // C: if (show && cansee(omx, omy)) newsym(...)
+    if (show && cansee(omx, omy)) newsym(omx, omy);
 }
 
 // C ref: dogmove.c dog_invent — udist is squared dist2 (same as dog_move)
@@ -367,9 +369,17 @@ async function dog_invent(mtmp, edog, udist) {
                 if (carryamt !== (obj.quan || 1)) {
                     otmp = splitobj(obj, carryamt) || obj;
                 }
-                await pline(`${Monnam(mtmp)} picks up ${doname(otmp)}.`);
+                const omx = mtmp.mx, omy = mtmp.my;
+                // C: distant_name/doname side-effects only when cansee; then
+                // flags.verbose pline — silent pickup when out of sight
+                if (cansee(omx, omy)) {
+                    const otmpname = doname(otmp);
+                    if (game.flags?.verbose !== false) {
+                        await pline(`${Monnam(mtmp)} picks up ${otmpname}.`);
+                    }
+                }
                 obj_extract_self(otmp);
-                newsym(mtmp.mx, mtmp.my);
+                newsym(omx, omy);
                 mpickobj(mtmp, otmp);
                 // mon_wield_item / check_gear_next_turn omitted (no AT_WEAP pet)
             }

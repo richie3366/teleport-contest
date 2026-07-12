@@ -59,6 +59,7 @@ Do not record a guessed cause as fixed merely because an RNG prefix moved.
 | D-0035 | fixed | losehp/regen_hp | seed0060 @ 3536: wall kick must `losehp` + EOT `regen_hp` |
 | D-0036 | fixed | race hpadv + mon_color | orc `hpadv` + `mon_glyph` mcolors; seed0060 Scr 0→5 |
 | D-0037 | fixed | doname COIN + mondied newsym | "a gold piece" + death `newsym`; Scr 5→6 |
+| D-0038 | fixed | cansee pline + wall_angle + `>` color | seed0060 Scr 6→37 (silent pickup; unfinished corner; dnstair) |
 
 D-0001 through D-0005 predate the strict-length/cohort runbook. Their focused
 causes are preserved, but generic "green sessions held" is historical evidence,
@@ -882,3 +883,33 @@ cohort gates if those functions are touched again.
   death without `newsym` looks like a lingering live monster. Do not ship
   a partial `make_corpse` that invents `mksobj` RNG.
 - **Next:** seed0060 idx 6+ (drop then re-pickup pline / premature wall).
+
+## D-0038 — seed0060 cansee invent pline + wall_angle + downstairs color
+
+- **Status:** fixed (verified 2026-07-13).
+- **Observed:** seed0060 RNG **3626**/3626, screens **6**/41. Idx 6 had
+  (1) topline extra "The kitten picks up a gold piece." after a drop,
+  (2) premature wall `┌` at map (17,14) / screen (16,15), and later
+  (3) downstairs `>` yellow vs C NO_COLOR.
+- **Cause/evidence:** (1) C `mdrop_obj`/`dog_invent` gate drop/pickup
+  plines on `cansee`; a second invent after an extra pet move picks up
+  at (13,13) with `cansee=false` — C silent, JS always printed.
+  (2) `set_wall_state` was a no-op and `terrain_glyph` mapped wall
+  `typ` straight to DEC corners; C `back_to_glyph` uses
+  `wall_angle(seenv)` — TLCORNER with `WM_C_OUTER` and seenv=SV0 alone
+  yields `S_stone` (blank) until more octants are seen.
+  (3) Public recordings paint upstairs `<` CLR_YELLOW and downstairs
+  `>` NO_COLOR (not defsym gray for either).
+- **C locus:** `steal.c:mdrop_obj`; `dogmove.c:dog_invent`;
+  `display.c:set_wall_state`/`xy_set_wall_state`/`wall_angle`/
+  `back_to_glyph`.
+- **Change:** gate pet drop/pickup plines on `cansee`; port
+  `set_wall_state` cluster in `mklev.js`; port `wall_angle` into
+  `display.js` terrain glyphs; downstairs `>` uses `NO_COLOR`.
+- **Verification:** seed0060 Scr **37**/41 (idx 22/33/35/36 remain),
+  RNG **3626**/3626; green + seed1500/1800 PASS + strict; full
+  **4/44**, screens **216**/11405 (+31), RNG **28511**/792838.
+- **Lesson:** silent out-of-sight invent still mutates state; unfinished
+  exterior corners must stay stone until seenv warrants a glyph; do not
+  force downstairs to match upstairs yellow.
+- **Next:** seed0060 idx 22 (pet `f` vs corridor `#`).

@@ -7,19 +7,18 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 
 ## Active
 
-- **Current unit:** seed0060 — RNG **3626/3626**; screens **6/41**
-  (D-0037; idx 0–5 match), cursors **41/41**. First fail idx 6.
-- **Hypothesis:** idx 6 has two independent cell classes: (1) topline
-  extra "The kitten picks up a gold piece." after a drop (C only drops);
-  (2) premature wall `┌` at map (16,15) where C is still blank; later
-  frames also downstairs `>` color yellow vs gray.
+- **Current unit:** seed0060 — RNG **3626/3626**; screens **37/41**
+  (D-0038; idx 0–21,23–32,34 match), cursors **41/41**. First fail idx 22.
+- **Hypothesis:** idx 22 shows corridor `#` where C has pet `f` (white) —
+  pet glyph missing on that frame (visibility/`newsym`/`canseemon` or
+  position). Later fails are UI: idx 33 disco class layout; idx 35–36
+  ^X attributes (“nof…” overlay + wisdom limit text).
 - **Falsifier / next probe:**
   ```bash
   node frozen/ps_test_runner.mjs sessions/seed0060-orc-rogue-kick-search.session.json
-  # Diff JS vs C screen[6]: topline after drop; wall at col 16 row 15.
+  # Diff JS vs C screen[22]: map cell with C pet `f` vs JS `#`.
   ```
-  Expect: cellsOnly stays 6 until drop-re-pickup and/or wall vision cause
-  is ported.
+  Expect: cellsOnly stays 37 until pet display cause is ported.
 - **Parked deep canary:** D-0006 pet movement — do not implement until C
   state/candidate capture exists.
 - **Also deferred:** `make_corpse` body after `corpse_chance` (dragon/
@@ -30,14 +29,14 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   `regen_hp` loss rolls; `regen_pw` / Teleportation / Polymorph
   once-per-turn RNG; Regeneration/Sleepy/Half_physical props;
   `dog_goal` gettrack/FARAWAY; `throw_gold`; eat getobj single-shot;
-  Blind/`look_here`; trap glyphs; full `wall_angle`;
+  Blind/`look_here`; trap glyphs; hallucination/`see_objects`;
   `ini_inv_mkobj_filter`; `u_init_carry_attr_boost`; mfndpos
   `bad_rock` squeeze / boulder `ALLOW_ROCK`; Sokoban
   `m_avoid_soko_push_loc` body; `donull` `cmd_safety_prevention`;
   dog_move `mtrack` skip (`goto nxti`); `makemon` `throws_rocks`
   Sokoban reject; `m_initinv` body; `set_malign`; Blind prop for
-  `makemon_rnd_goodpos` exhaustive pass; downstairs remembered color
-  (NO_COLOR vs yellow); MLET_CH letter table beyond early dlvl subset.
+  `makemon_rnd_goodpos` exhaustive pass; MLET_CH letter table beyond
+  early dlvl subset; disco/enlightenment screen polish (idx 33/35–36).
 
 ## Don’t re-check
 
@@ -64,8 +63,6 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   `rn2(8)` — D-0014.
 - Tainted mklev corpses (`age -= TAINT_AGE+1`) are POISON via
   `age+50 <= moves`, not CADAVER — D-0015. Do not let them overwrite APPORT.
-- seed1500 idx 2300 was **not** missing room-fill gems: `mktrap_victim` created
-  dart+possessions but never `place_object` — D-0016.
 - seed1500 idx 2517 was **not** approach `rn2(1)`: missing `uncursedcnt` skip
   + `cursemsg`/`rn2(13*uncursedcnt)` — D-0017.
 - seed1500 idx 2522 was **not** `m_initweap`/`mongets`: C
@@ -131,6 +128,11 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   "a gold piece" (`doname` COIN) + stale newt `:` because `mondied` never
   `newsym`'d after remove (D-0037). Incomplete `make_corpse` via
   `mkcorpstat` regressed aggregate RNG (~900) — do not ship until C-faithful.
+- seed0060 idx 6 was **not** same-call drop+pickup: second `dog_invent` after
+  an extra pet move picks up out of sight — C silent (`cansee` false), JS
+  always plined (D-0038). Premature `┌` was missing `set_wall_state` +
+  `wall_angle` (WM_C_OUTER + partial seenv → S_stone). Downstairs `>` in
+  recordings is NO_COLOR, not yellow (upstairs `<` stays yellow).
 
 ## Landmarks
 
@@ -146,4 +148,5 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 - seed1500: D-0024 → screens **40/40** PASS; CORPSE map color = `mon_color(corpsenm)`
   (orc → CLR_RED), not `objects[CORPSE].oc_color`.
 - seed1800: D-0026 → screens **26/26** PASS (legacy corner map + staircase look).
-- seed0060: D-0037 → screens **6**/41 (idx 0–5); RNG **3626**/3626; cursors **41**/41.
+- seed0060: D-0038 → screens **37**/41 (idx 0–21/23–32/34); RNG **3626**/3626;
+  cursors **41**/41. Next fail idx 22 (pet `f` vs `#`).

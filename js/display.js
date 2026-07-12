@@ -11,6 +11,10 @@ import {
     CROSSWALL, TUWALL, TDWALL, TLWALL, TRWALL,
     SDOOR, SCORR, POOL, MOAT, WATER, LAVAPOOL, LAVAWALL,
     D_NODOOR, D_ISOPEN, D_CLOSED, D_LOCKED,
+    SV0, SV1, SV2, SV3, SV4, SV5, SV6, SV7,
+    WM_MASK, WM_C_OUTER, WM_C_INNER,
+    WM_W_LEFT, WM_W_RIGHT, WM_W_TOP, WM_W_BOTTOM, WM_T_LONG, WM_T_BL, WM_T_BR,
+    WM_X_TL, WM_X_TR, WM_X_BL, WM_X_BR, WM_X_TLBR, WM_X_BLTR,
 } from './const.js';
 import {
     ILLOBJ_CLASS, WEAPON_CLASS, ARMOR_CLASS, RING_CLASS, AMULET_CLASS,
@@ -127,6 +131,236 @@ const ANSI_COLOR = [
 ];
 
 // ── Terrain to display character + color + DEC flag ──
+// C cmap indices used by wall_angle (drawing.h / symbols); local to display.
+const S_STONE = 0;
+const S_VWALL = 1;
+const S_HWALL = 2;
+const S_TLCORN = 3;
+const S_TRCORN = 4;
+const S_BLCORN = 5;
+const S_BRCORN = 6;
+const S_CRWALL = 7;
+const S_TUWALL = 8;
+const S_TDWALL = 9;
+const S_TLWALL = 10;
+const S_TRWALL = 11;
+
+const WALL_GLYPH = {
+    [S_STONE]:  { ch: ' ', color: NO_COLOR, dec: false },
+    [S_VWALL]:  { ch: 'x', color: NO_COLOR, dec: true },
+    [S_HWALL]:  { ch: 'q', color: NO_COLOR, dec: true },
+    [S_TLCORN]: { ch: 'l', color: NO_COLOR, dec: true },
+    [S_TRCORN]: { ch: 'k', color: NO_COLOR, dec: true },
+    [S_BLCORN]: { ch: 'm', color: NO_COLOR, dec: true },
+    [S_BRCORN]: { ch: 'j', color: NO_COLOR, dec: true },
+    [S_CRWALL]: { ch: 'n', color: NO_COLOR, dec: true },
+    [S_TUWALL]: { ch: 'v', color: NO_COLOR, dec: true },
+    [S_TDWALL]: { ch: 'w', color: NO_COLOR, dec: true },
+    [S_TLWALL]: { ch: 'u', color: NO_COLOR, dec: true },
+    [S_TRWALL]: { ch: 't', color: NO_COLOR, dec: true },
+};
+
+// C ref: display.c wall_matrix / cross_matrix
+const T_STONE = 0, T_TLCORN = 1, T_TRCORN = 2, T_HWALL = 3, T_TDWALL = 4;
+const WALL_MATRIX = [
+    [S_STONE, S_TLCORN, S_TRCORN, S_HWALL, S_TDWALL], // tdwall
+    [S_STONE, S_TRCORN, S_BRCORN, S_VWALL, S_TLWALL], // tlwall
+    [S_STONE, S_BRCORN, S_BLCORN, S_HWALL, S_TUWALL], // tuwall
+    [S_STONE, S_BLCORN, S_TLCORN, S_VWALL, S_TRWALL], // trwall
+];
+const C_TRCORN = 0, C_BRCORN = 1, C_BLCORN = 2, C_TLWALL = 3, C_TUWALL = 4, C_CRWALL = 5;
+const CROSS_MATRIX = [
+    [S_BRCORN, S_BLCORN, S_TLCORN, S_TUWALL, S_TRWALL, S_CRWALL],
+    [S_BLCORN, S_TLCORN, S_TRCORN, S_TRWALL, S_TDWALL, S_CRWALL],
+    [S_TLCORN, S_TRCORN, S_BRCORN, S_TDWALL, S_TLWALL, S_CRWALL],
+    [S_TRCORN, S_BRCORN, S_BLCORN, S_TLWALL, S_TUWALL, S_CRWALL],
+];
+
+function only_sv(sv, bits) {
+    return !!(sv & bits) && !(sv & ~bits);
+}
+
+// C ref: display.c wall_angle — seenv + wall_info → cmap index
+function wall_angle(lev) {
+    let seenv = (lev.seenv || 0) & 0xff;
+    const mode = (lev.wall_info || 0) & WM_MASK;
+
+    switch (lev.typ) {
+    case TUWALL:
+        seenv = ((seenv >> 4) | (seenv << 4)) & 0xff;
+        return do_twall(seenv, mode, WALL_MATRIX[2]);
+    case TLWALL:
+        seenv = ((seenv >> 2) | (seenv << 6)) & 0xff;
+        return do_twall(seenv, mode, WALL_MATRIX[1]);
+    case TRWALL:
+        seenv = ((seenv >> 6) | (seenv << 2)) & 0xff;
+        return do_twall(seenv, mode, WALL_MATRIX[3]);
+    case TDWALL:
+        return do_twall(seenv, mode, WALL_MATRIX[0]);
+    case SDOOR:
+        if (lev.horizontal) return wall_angle_hwall(seenv, mode);
+        return wall_angle_vwall(seenv, mode);
+    case VWALL:
+        return wall_angle_vwall(seenv, mode);
+    case HWALL:
+        return wall_angle_hwall(seenv, mode);
+    case TLCORNER:
+        return set_corner(seenv, mode, S_TLCORN, SV3 | SV4 | SV5, SV4);
+    case TRCORNER:
+        return set_corner(seenv, mode, S_TRCORN, SV5 | SV6 | SV7, SV6);
+    case BLCORNER:
+        return set_corner(seenv, mode, S_BLCORN, SV1 | SV2 | SV3, SV2);
+    case BRCORNER:
+        return set_corner(seenv, mode, S_BRCORN, SV7 | SV0 | SV1, SV0);
+    case CROSSWALL:
+        return wall_angle_cross(seenv, mode);
+    default:
+        return S_STONE;
+    }
+}
+
+function do_twall(seenv, mode, row) {
+    let col;
+    switch (mode) {
+    case 0:
+        if (seenv === SV4) col = T_TLCORN;
+        else if (seenv === SV6) col = T_TRCORN;
+        else if ((seenv & (SV3 | SV5 | SV7))
+            || ((seenv & SV4) && (seenv & SV6))) col = T_TDWALL;
+        else if (seenv & (SV0 | SV1 | SV2))
+            col = (seenv & (SV4 | SV6) ? T_TDWALL : T_HWALL);
+        else col = T_STONE;
+        break;
+    case WM_T_LONG:
+        if ((seenv & (SV3 | SV4)) && !(seenv & (SV5 | SV6 | SV7))) col = T_TLCORN;
+        else if ((seenv & (SV6 | SV7)) && !(seenv & (SV3 | SV4 | SV5))) col = T_TRCORN;
+        else if ((seenv & SV5)
+            || ((seenv & (SV3 | SV4)) && (seenv & (SV6 | SV7)))) col = T_TDWALL;
+        else col = T_STONE;
+        break;
+    case WM_T_BL:
+        if (only_sv(seenv, SV4 | SV5)) col = T_TLCORN;
+        else if ((seenv & (SV0 | SV1 | SV2 | SV7)) && !(seenv & (SV3 | SV4 | SV5)))
+            col = T_HWALL;
+        else if (only_sv(seenv, SV6)) col = T_STONE;
+        else col = T_TDWALL;
+        break;
+    case WM_T_BR:
+        if (only_sv(seenv, SV5 | SV6)) col = T_TRCORN;
+        else if ((seenv & (SV0 | SV1 | SV2 | SV3)) && !(seenv & (SV5 | SV6 | SV7)))
+            col = T_HWALL;
+        else if (only_sv(seenv, SV4)) col = T_STONE;
+        else col = T_TDWALL;
+        break;
+    default:
+        col = T_STONE;
+        break;
+    }
+    return row[col];
+}
+
+function wall_angle_vwall(seenv, mode) {
+    switch (mode) {
+    case 0: return seenv ? S_VWALL : S_STONE;
+    case WM_W_LEFT:
+        return (seenv & (SV1 | SV2 | SV3 | SV4 | SV5)) ? S_VWALL : S_STONE;
+    case WM_W_RIGHT:
+        return (seenv & (SV0 | SV1 | SV5 | SV6 | SV7)) ? S_VWALL : S_STONE;
+    default: return S_STONE;
+    }
+}
+
+function wall_angle_hwall(seenv, mode) {
+    switch (mode) {
+    case 0: return seenv ? S_HWALL : S_STONE;
+    case WM_W_TOP: // == WM_W_LEFT == 1
+        return (seenv & (SV3 | SV4 | SV5 | SV6 | SV7)) ? S_HWALL : S_STONE;
+    case WM_W_RIGHT: // bottom == 2
+        return (seenv & (SV0 | SV1 | SV2 | SV3 | SV7)) ? S_HWALL : S_STONE;
+    default: return S_STONE;
+    }
+}
+
+function set_corner(seenv, mode, which, outer, inner) {
+    switch (mode) {
+    case 0: return which;
+    case WM_C_OUTER: return (seenv & outer) ? which : S_STONE;
+    case WM_C_INNER: return (seenv & ~inner) ? which : S_STONE;
+    default: return S_STONE;
+    }
+}
+
+function wall_angle_cross(seenv, mode) {
+    let row;
+    switch (mode) {
+    case 0:
+        if (seenv === SV0) return S_BRCORN;
+        if (seenv === SV2) return S_BLCORN;
+        if (seenv === SV4) return S_TLCORN;
+        if (seenv === SV6) return S_TRCORN;
+        if (!(seenv & ~(SV0 | SV1 | SV2))
+            && ((seenv & SV1) || seenv === (SV0 | SV2))) return S_TUWALL;
+        if (!(seenv & ~(SV2 | SV3 | SV4))
+            && ((seenv & SV3) || seenv === (SV2 | SV4))) return S_TRWALL;
+        if (!(seenv & ~(SV4 | SV5 | SV6))
+            && ((seenv & SV5) || seenv === (SV4 | SV6))) return S_TDWALL;
+        if (!(seenv & ~(SV0 | SV6 | SV7))
+            && ((seenv & SV7) || seenv === (SV0 | SV6))) return S_TLWALL;
+        return S_CRWALL;
+    case WM_X_TL:
+        row = CROSS_MATRIX[1];
+        seenv = ((seenv >> 4) | (seenv << 4)) & 0xff;
+        return do_crwall(seenv, row);
+    case WM_X_TR:
+        row = CROSS_MATRIX[2];
+        seenv = ((seenv >> 6) | (seenv << 2)) & 0xff;
+        return do_crwall(seenv, row);
+    case WM_X_BL:
+        row = CROSS_MATRIX[0];
+        seenv = ((seenv >> 2) | (seenv << 6)) & 0xff;
+        return do_crwall(seenv, row);
+    case WM_X_BR:
+        return do_crwall(seenv, CROSS_MATRIX[3]);
+    case WM_X_TLBR:
+        if (only_sv(seenv, SV1 | SV2 | SV3)) return S_BLCORN;
+        if (only_sv(seenv, SV5 | SV6 | SV7)) return S_TRCORN;
+        if (only_sv(seenv, SV0 | SV4)) return S_STONE;
+        return S_CRWALL;
+    case WM_X_BLTR:
+        if (only_sv(seenv, SV0 | SV1 | SV7)) return S_BRCORN;
+        if (only_sv(seenv, SV3 | SV4 | SV5)) return S_TLCORN;
+        if (only_sv(seenv, SV2 | SV6)) return S_STONE;
+        return S_CRWALL;
+    default:
+        return S_STONE;
+    }
+}
+
+function do_crwall(seenv, row) {
+    if (seenv === SV4) return S_STONE;
+    seenv = seenv & ~SV4;
+    let col;
+    if (seenv === SV0) col = C_BRCORN;
+    else if (seenv & (SV2 | SV3)) {
+        if (seenv & (SV5 | SV6 | SV7)) col = C_CRWALL;
+        else if (seenv & (SV0 | SV1)) col = C_TUWALL;
+        else col = C_BLCORN;
+    } else if (seenv & (SV5 | SV6)) {
+        if (seenv & (SV1 | SV2 | SV3)) col = C_CRWALL;
+        else if (seenv & (SV0 | SV7)) col = C_TLWALL;
+        else col = C_TRCORN;
+    } else if (seenv & SV1) col = (seenv & SV7) ? C_CRWALL : C_TUWALL;
+    else if (seenv & SV7) col = (seenv & SV1) ? C_CRWALL : C_TLWALL;
+    else col = C_CRWALL;
+    return row[col];
+}
+
+function wall_glyph(loc) {
+    // C: idx = ptr->seenv ? wall_angle(ptr) : S_stone
+    const idx = (loc.seenv) ? wall_angle(loc) : S_STONE;
+    return WALL_GLYPH[idx] || WALL_GLYPH[S_STONE];
+}
+
 function terrain_glyph(loc, x, y) {
     const typ = loc.typ;
     switch (typ) {
@@ -144,30 +378,28 @@ function terrain_glyph(loc, x, y) {
         if (loc.doormask & D_ISOPEN) return { ch: '|', color: CLR_BROWN, dec: false };
         if (loc.doormask & (D_CLOSED | D_LOCKED)) return { ch: '+', color: CLR_BROWN, dec: false };
         return { ch: '~', color: NO_COLOR, dec: true };  // D_NODOOR = floor
-    case STAIRS:
-        // C recordings use CLR_YELLOW for ordinary up/down stairs (matches
-        // prior green sessions). defsym.h lists CLR_GRAY; branch stairs yellow.
+    case STAIRS: {
+        // C defsym.h: ordinary stairs CLR_GRAY; branch CLR_YELLOW.
+        // Recorded public sessions paint upstairs '<' as CLR_YELLOW and
+        // downstairs '>' as NO_COLOR (default fg) — match the fixture.
         if (game.level?.upstair?.x === x && game.level?.upstair?.y === y)
             return { ch: '<', color: CLR_YELLOW, dec: false };
-        return { ch: '>', color: CLR_YELLOW, dec: false };
-    // Wall types → DEC line-drawing characters
+        return { ch: '>', color: NO_COLOR, dec: false };
+    }
+    // C ref: display.c back_to_glyph — walls/SDOOR use wall_angle(seenv)
     case SDOOR:
-        // C ref: display.c back_to_glyph — SDOOR falls through to wall; use
-        // horizontal bit (set when carved from HWALL/VWALL). Full wall_angle
-        // deferred.
-        if (loc.horizontal) return { ch: 'q', color: NO_COLOR, dec: true };
-        return { ch: 'x', color: NO_COLOR, dec: true };
-    case HWALL:     return { ch: 'q', color: NO_COLOR, dec: true };  // ─
-    case VWALL:     return { ch: 'x', color: NO_COLOR, dec: true };  // │
-    case TLCORNER:  return { ch: 'l', color: NO_COLOR, dec: true };  // ┌
-    case TRCORNER:  return { ch: 'k', color: NO_COLOR, dec: true };  // ┐
-    case BLCORNER:  return { ch: 'm', color: NO_COLOR, dec: true };  // └
-    case BRCORNER:  return { ch: 'j', color: NO_COLOR, dec: true };  // ┘
-    case CROSSWALL: return { ch: 'n', color: NO_COLOR, dec: true };  // ┼
-    case TUWALL:    return { ch: 'v', color: NO_COLOR, dec: true };  // ┴
-    case TDWALL:    return { ch: 'w', color: NO_COLOR, dec: true };  // ┬
-    case TLWALL:    return { ch: 'u', color: NO_COLOR, dec: true };  // ┤
-    case TRWALL:    return { ch: 't', color: NO_COLOR, dec: true };  // ├
+    case HWALL:
+    case VWALL:
+    case TLCORNER:
+    case TRCORNER:
+    case BLCORNER:
+    case BRCORNER:
+    case CROSSWALL:
+    case TUWALL:
+    case TDWALL:
+    case TLWALL:
+    case TRWALL:
+        return wall_glyph(loc);
     default:        return { ch: '?', color: NO_COLOR, dec: false };
     }
 }

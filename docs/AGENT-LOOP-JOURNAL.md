@@ -19,6 +19,19 @@ Use this shape:
 
 ---
 
+## 2026-07-13 00:10 — seed0060 cansee pline + wall_angle + `>` color (D-0038)
+- C locus: `steal.c:mdrop_obj`; `dogmove.c:dog_invent`;
+  `display.c:set_wall_state`/`wall_angle`/`back_to_glyph`
+- Result: **verified faithful change** — idx 6 extra pickup pline was
+  out-of-sight invent (C silent); premature `┌` was unfinished
+  WM_C_OUTER corner without `wall_angle`; downstairs `>` is NO_COLOR
+  in recordings (keep `<` yellow).
+- Verification: seed0060 Scr **37**/41, RNG **3626**/3626; green +
+  seed1500/1800 PASS + strict; full **4/44**, screens **216**/11405
+  (+31), RNG **28511**/792838.
+- Next: `node frozen/ps_test_runner.mjs sessions/seed0060-orc-rogue-kick-search.session.json`
+  — diagnose screen idx 22 (pet `f` vs corridor `#`).
+
 ## 2026-07-13 00:01 — seed0060 gold doname + mondied newsym (D-0037)
 - C locus: `objnam.c:doname_base` (COIN article); `mon.c:mondied`/
   `mondead`/`mon_leaving_level` (`newsym`)
