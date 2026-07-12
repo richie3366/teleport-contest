@@ -7,18 +7,17 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 
 ## Active
 
-- **Current unit:** seed0060 — RNG **3626/3626** (D-0035); screens **0/41**,
-  cursors **41/41**. First cell-grid fail from screen idx 0.
-- **Hypothesis:** idx 0 is legacy Book of Kos / status snapshot (C shows
-  `AC:0` pre-wear on frame 0; later frames `AC:7`). Map/glyph or corner-menu
-  cells may also diverge — diagnose before patching.
+- **Current unit:** seed0060 — RNG **3626/3626**; screens **5/41**
+  (D-0036; idx 0–4 match), cursors **41/41**. First fail idx 5.
+- **Hypothesis:** idx 5 is not HP/newt-color — remaining cells include
+  invent/menu letter (`1` vs `a`) and/or map glyph (newt still `:` while
+  C shows floor `·`; later frames extra wall `┌` + downstairs color).
 - **Falsifier / next probe:**
   ```bash
   node frozen/ps_test_runner.mjs sessions/seed0060-orc-rogue-kick-search.session.json
-  # Diff JS vs C screen[0] cells (legacy text, botl AC, map glyphs).
-  # Compare to D-0026 seed1800 legacy corner (no clearScreen) + D-0023 offx.
+  # Diff JS vs C screen[5] cells (topline/invent letter, map at newt cell).
   ```
-  Expect: cellsOnly stays 0 until legacy/botl/map cells match frame 0.
+  Expect: cellsOnly stays 5 until idx 5's C cause is ported.
 - **Parked deep canary:** D-0006 pet movement — do not implement until C
   state/candidate capture exists.
 - **Also deferred:** dokick monster/object/closed-door/SDOOR/furniture;
@@ -33,7 +32,8 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   `m_avoid_soko_push_loc` body; `donull` `cmd_safety_prevention`;
   dog_move `mtrack` skip (`goto nxti`); `makemon` `throws_rocks` Sokoban
   reject; `m_initinv` body; `set_malign`; Blind prop for
-  `makemon_rnd_goodpos` exhaustive pass.
+  `makemon_rnd_goodpos` exhaustive pass; downstairs remembered color
+  (NO_COLOR vs yellow); MLET_CH letter table beyond early dlvl subset.
 
 ## Don’t re-check
 
@@ -119,10 +119,14 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 - seed0060 idx 3536 was **not** regen alone: wall `kick_ouch` must
   `losehp` so `uhp < uhpmax`, else `regen_hp` never rolls (D-0035). Post-ouch
   screens can still show HP:11(11) when dmg==heal same turn.
+- seed0060 Scr 0/41 was **not** legacy AC snapshot alone: missing orc
+  `hpadv` made botl `HP:12` on every frame; newt used mlet green not
+  `mcolors[PM_NEWT]` yellow (D-0036). Do not change ordinary stairs to
+  defsym `CLR_GRAY` — C recordings use yellow for `<`.
 
 ## Landmarks
 
-- Rogue+human init HP = **12**; welcome `Hello` + rc chaotic.
+- Rogue+human init HP = **12**; Rogue+orc = **11** (role 10 + race 1).
 - Rogue legacy offx = `max(10, 80 - maxcol - 1)` (Kos → 23; The Lady → 17).
 - Tutorial menu offx = 20 (OPTIONS `.nethackrc` line → maxcol 59); cursor
   `[27,6]` on `(end) `.
@@ -134,5 +138,4 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 - seed1500: D-0024 → screens **40/40** PASS; CORPSE map color = `mon_color(corpsenm)`
   (orc → CLR_RED), not `objects[CORPSE].oc_color`.
 - seed1800: D-0026 → screens **26/26** PASS (legacy corner map + staircase look).
-- seed0060: D-0035 → RNG **3626**/3626; cursors **41**/41; screens **0**/41;
-  wall kick @ step 28 → `losehp` + EOT `regen_hp` `rn2(100)=2`.
+- seed0060: D-0036 → screens **5**/41 (idx 0–4); RNG **3626**/3626; cursors **41**/41.

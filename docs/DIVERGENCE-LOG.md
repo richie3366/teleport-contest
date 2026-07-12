@@ -57,6 +57,7 @@ Do not record a guessed cause as fixed merely because an RNG prefix moved.
 | D-0033 | fixed | cmd/donull | seed0060 @ 3016: `.` wait missing → skipped turns |
 | D-0034 | fixed | makemon/rnd | seed0060 @ 3105: stubbed `makemon(NULL,0,0)` skipped placement RNG |
 | D-0035 | fixed | losehp/regen_hp | seed0060 @ 3536: wall kick must `losehp` + EOT `regen_hp` |
+| D-0036 | fixed | race hpadv + mon_color | orc `hpadv` + `mon_glyph` mcolors; seed0060 Scr 0→5 |
 
 D-0001 through D-0005 predate the strict-length/cohort runbook. Their focused
 causes are preserved, but generic "green sessions held" is historical evidence,
@@ -831,3 +832,26 @@ cohort gates if those functions are touched again.
 - **Lesson:** a missing HP mutation can look like a missing EOT RNG call;
   check whether the regen *gate* (`uhp < uhpmax`) can ever be true.
 - **Next:** seed0060 screen idx 0 cells (legacy/botl); cursors already match.
+
+## D-0036 — seed0060 orc hpadv + mon_glyph mcolor (screens 0–4)
+
+- **Status:** fixed (verified 2026-07-12).
+- **Observed:** seed0060 RNG **3626**/3626, screens **0**/41 (cursors
+  41/41). Idx 0 had three cell diffs: botl `HP:12(12)` vs C `HP:11(11)`,
+  and newt `:` color green vs yellow.
+- **Cause/evidence:** (1) `roles.js` orc (and elf/dwarf/gnome) lacked
+  `hpadv`/`enadv`, so `setup_role_race_from_rc` fell back to human
+  `{infix:2}` → Rogue+orc HP **12**; C `role.c` orc is `{1,0,0,1,0,0}` →
+  HP **11**. (2) `mon_glyph` used mlet-only `S_LIZARD→CLR_GREEN`; C
+  `mons[PM_NEWT].mcolor` is `CLR_YELLOW` (11).
+- **C locus:** `role.c` `races[]` orc/elf/dwarf/gnome `hpadv`/`enadv`;
+  `attrib.c:newhp`; `display.c` / `mon_color(monsndx)`.
+- **Change:** ported race `hpadv`/`enadv` (+ attrmin/attrmax) in
+  `js/roles.js`; `mon_glyph` uses `mcolors[mnum]` (pets `CLR_WHITE`).
+- **Verification:** seed0060 Scr **5**/41 (idx 0–4 match), RNG still
+  **3626**/3626; green + seed1500/1800 PASS + strict; full **4/44**,
+  screens **184**/11405 (+5), RNG **28511**/792838.
+- **Lesson:** race table stubs that silently inherit human `hpadv` corrupt
+  botl on every frame; mlet-only monster colors fail as soon as two
+  species share a letter.
+- **Next:** seed0060 idx 5+ (invent letter / map wall / downstairs color).

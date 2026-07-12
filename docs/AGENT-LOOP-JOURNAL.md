@@ -19,6 +19,19 @@ Use this shape:
 
 ---
 
+## 2026-07-13 00:00 — seed0060 orc hpadv + mon_glyph mcolor (D-0036)
+- C locus: `role.c` races[] orc/elf/dwarf/gnome `hpadv`/`enadv`;
+  `attrib.c:newhp`; `display.c` / `mon_color(monsndx)`
+- Result: **verified faithful change** — orc missing `hpadv` fell back
+  to human infix 2 → botl `HP:12` vs C `HP:11`; newt used mlet green
+  not `mcolors[PM_NEWT]` yellow. Ported race advances + `mon_glyph`
+  mcolors.
+- Verification: seed0060 Scr **5**/41 (idx 0–4), RNG **3626**/3626;
+  green + seed1500/1800 PASS + strict; full **4/44**, screens
+  **184**/11405, RNG **28511**/792838.
+- Next: `node frozen/ps_test_runner.mjs sessions/seed0060-orc-rogue-kick-search.session.json`
+  — diagnose screen idx 5 cells (invent letter / map wall).
+
 ## 2026-07-12 23:58 — seed0060 losehp + regen_hp (D-0035)
 - C locus: `dokick.c:kick_ouch` → `hack.c:losehp`; `allmain.c:regen_hp`
   (once-per-turn before `dosounds`)

@@ -26,8 +26,9 @@ import {
 } from './generated/monsters_data.js';
 import { A_CHAOTIC, A_NEUTRAL, A_LAWFUL } from './const.js';
 
-// STR18(100) encoding used as human racial Str max (attrib.h / role.c).
+// STR18(n) encoding used as racial Str max (attrib.h / role.c).
 const STR18_100 = 18 + 100;
+const STR18_50 = 18 + 50;
 
 // C ref: you.h RoleAdvance — { infix, inrnd, lofix, lornd, hifix, hirnd }
 function adv(infix, inrnd, lofix, lornd, hifix, hirnd) {
@@ -88,7 +89,7 @@ export const roles = [
 ];
 
 export const races = [
-    // C ref: role.c races[] human
+    // C ref: role.c races[] — hpadv/enadv Init columns feed newhp()/newpw() at ulevel==0
     {
         name: 'human',
         adj: 'human',
@@ -100,10 +101,51 @@ export const races = [
         hpadv: adv(2, 0, 0, 2, 1, 0),
         enadv: adv(1, 0, 2, 0, 2, 0),
     },
-    { name: 'elf', adj: 'elven', mnum: PM_ELF },
-    { name: 'dwarf', adj: 'dwarven', mnum: PM_DWARF },
-    { name: 'gnome', adj: 'gnomish', mnum: PM_GNOME },
-    { name: 'orc', adj: 'orcish', mnum: PM_ORC },
+    {
+        name: 'elf',
+        adj: 'elven',
+        noun: 'elf',
+        mnum: PM_ELF,
+        attrmin: [3, 3, 3, 3, 3, 3],
+        attrmax: [18, 20, 20, 18, 16, 18],
+        // C: { 1, 0, 0, 1, 1, 0 } / { 2, 0, 3, 0, 3, 0 }
+        hpadv: adv(1, 0, 0, 1, 1, 0),
+        enadv: adv(2, 0, 3, 0, 3, 0),
+    },
+    {
+        name: 'dwarf',
+        adj: 'dwarven',
+        noun: 'dwarf',
+        mnum: PM_DWARF,
+        attrmin: [3, 3, 3, 3, 3, 3],
+        attrmax: [STR18_100, 16, 16, 20, 20, 16],
+        // C: { 4, 0, 0, 3, 2, 0 } / { 0, 0, 0, 0, 0, 0 }
+        hpadv: adv(4, 0, 0, 3, 2, 0),
+        enadv: adv(0, 0, 0, 0, 0, 0),
+    },
+    {
+        name: 'gnome',
+        adj: 'gnomish',
+        noun: 'gnome',
+        mnum: PM_GNOME,
+        attrmin: [3, 3, 3, 3, 3, 3],
+        attrmax: [STR18_50, 19, 18, 18, 18, 18],
+        // C: { 1, 0, 0, 1, 0, 0 } / { 2, 0, 2, 0, 2, 0 }
+        hpadv: adv(1, 0, 0, 1, 0, 0),
+        enadv: adv(2, 0, 2, 0, 2, 0),
+    },
+    {
+        name: 'orc',
+        adj: 'orcish',
+        noun: 'orc',
+        mnum: PM_ORC,
+        attrmin: [3, 3, 3, 3, 3, 3],
+        attrmax: [STR18_50, 16, 16, 18, 18, 16],
+        // C: { 1, 0, 0, 1, 0, 0 } / { 1, 0, 1, 0, 1, 0 }
+        // Rogue+orc init HP = 10+1 = 11 (not human fallback 10+2 = 12)
+        hpadv: adv(1, 0, 0, 1, 0, 0),
+        enadv: adv(1, 0, 1, 0, 1, 0),
+    },
 ];
 
 export const aligns = [

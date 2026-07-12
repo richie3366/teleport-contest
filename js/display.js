@@ -18,7 +18,7 @@ import {
     WAND_CLASS, COIN_CLASS, GEM_CLASS, ROCK_CLASS, BALL_CLASS, CHAIN_CLASS,
     VENOM_CLASS, objectNames,
 } from './objects.js';
-import { NO_COLOR, CLR_GRAY, CLR_BROWN, CLR_WHITE, CLR_YELLOW, CLR_GREEN, DEC_TO_UNICODE } from './terminal.js';
+import { NO_COLOR, CLR_GRAY, CLR_BROWN, CLR_WHITE, CLR_YELLOW, DEC_TO_UNICODE } from './terminal.js';
 
 const CORPSE_OTYP = objectNames.indexOf('CORPSE');
 
@@ -43,13 +43,14 @@ const DEF_OC_SYM = {
     [VENOM_CLASS]: '.',
 };
 
-// C ref: defsym.h MONSYM / color.h HI_DOMESTIC — subset for early dlvl
-const MLET_GLYPH = {
-    S_DOG: { ch: 'd', hostile: CLR_BROWN, pet: CLR_WHITE },
-    S_FELINE: { ch: 'f', hostile: CLR_BROWN, pet: CLR_WHITE },
-    S_RODENT: { ch: 'r', hostile: CLR_BROWN, pet: CLR_WHITE },
-    S_LIZARD: { ch: ':', hostile: CLR_GREEN, pet: CLR_WHITE },
-    S_HUMAN: { ch: '@', hostile: CLR_WHITE, pet: CLR_WHITE },
+// C ref: defsym.h MONSYM — letter from mlet; color from mons[].mcolor (not mlet).
+// HI_DOMESTIC (CLR_WHITE) for pets — color.h.
+const MLET_CH = {
+    S_DOG: 'd',
+    S_FELINE: 'f',
+    S_RODENT: 'r',
+    S_LIZARD: ':',
+    S_HUMAN: '@',
 };
 
 function mon_at_display(x, y) {
@@ -60,11 +61,17 @@ function mon_at_display(x, y) {
     return null;
 }
 
+// C ref: display.c map_glyph / mon_color(monsndx) — per-species mcolor.
+// Newt is CLR_YELLOW; gecko/lizard are CLR_GREEN — mlet-only color is wrong.
 function mon_glyph(mtmp) {
     const mlet = mtmp.data?.mlet || mtmp.mlet;
-    const g = MLET_GLYPH[mlet] || { ch: '?', hostile: CLR_GRAY, pet: CLR_WHITE };
-    const color = mtmp.mtame ? g.pet : g.hostile;
-    return { ch: g.ch, color };
+    const ch = MLET_CH[mlet] || '?';
+    if (mtmp.mtame) return { ch, color: CLR_WHITE };
+    const mnum = mtmp.mnum ?? mtmp.data?.mndx;
+    const color = (mnum != null && mnum >= 0)
+        ? (mcolors[mnum] ?? CLR_GRAY)
+        : CLR_GRAY;
+    return { ch, color };
 }
 
 // C ref: display.h covers_objects
@@ -138,7 +145,8 @@ function terrain_glyph(loc, x, y) {
         if (loc.doormask & (D_CLOSED | D_LOCKED)) return { ch: '+', color: CLR_BROWN, dec: false };
         return { ch: '~', color: NO_COLOR, dec: true };  // D_NODOOR = floor
     case STAIRS:
-        // Check upstair vs downstair
+        // C recordings use CLR_YELLOW for ordinary up/down stairs (matches
+        // prior green sessions). defsym.h lists CLR_GRAY; branch stairs yellow.
         if (game.level?.upstair?.x === x && game.level?.upstair?.y === y)
             return { ch: '<', color: CLR_YELLOW, dec: false };
         return { ch: '>', color: CLR_YELLOW, dec: false };
