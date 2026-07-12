@@ -1032,3 +1032,34 @@ cohort gates if those functions are touched again.
   role_init RNG the nemesis gender path consumes — not kit tables alone.
 - **Next:** peel seed2200 idx 1283 `choose_trapnote`, or next unported
   role (Priest/Knight clear 4 throws each).
+
+## D-0043 — Priest `u_init_role` + pantheon `randrole` + shield wear
+
+- **Status:** fixed (verified 2026-07-13) for role-init throw clearance;
+  Priest sessions still diverge later in mklev/moveloop.
+- **Observed:** **20/44** role throws after D-0042; 4 Priest sessions
+  threw. After port, **17/44** remain (no Priest). seed0501 rng-diff
+  prefix **1153** (`wipeout_text`); seed0106 **2566** (`dog_move`);
+  seed0030 advances past Priest into Knight throw.
+- **Cause/evidence:** Priest kit absent; Priest has no fixed deities →
+  `role_init` pantheon loop `randrole` until a role with `lgod`; JS
+  roles[] had Ranger before Rogue (wrong pantheon indices) and lacked
+  gods on scaffold roles; random SPBOOK needed `Skill_P`; SMALL_SHIELD
+  needed `is_shield`/`W_ARMS` wear for AC.
+- **C locus:** `u_init.c` `Priest[]` / `Lamp[]` / `Skill_P` /
+  `u_init_role` / `ini_inv_use_obj` shield; `role.c` Priest entry +
+  pantheon selection + `SPE_LIGHT`→`P_CLERIC_SPELL`; roles[] order.
+- **Change:** C-ordered roles[] + pantheon gods on all roles; Priest
+  attrs/`hpadv`/`enadv`/`neminum`; `role_init_pantheon` + SPE_LIGHT
+  override; Priest inventory + Magicmarker/Lamp + `knows_object(POT_WATER)`;
+  `Skill_P` in filter; shield wear + `uarms`.
+- **Verification:** green + seed1500/1800/0060 PASS + strict; seed2200
+  prefix still **1283**; full **5/44**, screens **240**/11405 (+1),
+  RNG **50470**/792838; role throws **17**/44.
+- **Omissions named:** `initialspell`; helm/gloves/boots wear paths;
+  other role kits; seed0501 `wipeout_text`; seed0106 dog_move.
+- **Lesson:** Priest unlock is pantheon RNG + correct roles[] indices/
+  gods, not inventory alone — missing gods on other roles would
+  over-consume `randrole`.
+- **Next:** Knight `u_init_role` (5 throws), or seed2200
+  `choose_trapnote`, or seed0501 makeniche engraving.

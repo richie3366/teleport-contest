@@ -7,30 +7,30 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 
 ## Active
 
-- **Current unit:** Wizard `u_init_role` cleared (D-0042). Role throws
-  **20**/44 (was 29). seed2200 RNG **2756**/3018, Scr **1**/230.
-- **Hypothesis / next peel:** seed2200 first rng-diff mismatch idx
-  **1283** — C `choose_trapnote` `rn2(12)` vs JS `rnd(4)` during
-  mklev trap placement (after matching room/traptype RNG). Or port
-  next high-throw role (Priest/Knight, 4 each).
+- **Current unit:** Priest `u_init_role` + pantheon cleared (D-0043). Role
+  throws **17**/44 (was 20). seed0501 prefix **1153** (`wipeout_text`);
+  seed0106 prefix **2566** (`dog_move`).
+- **Hypothesis / next peel:** port next high-throw role (**Knight**, 5
+  throws), or seed2200 `choose_trapnote` @ 1283, or seed0501
+  `wipeout_text` makeniche engraving.
 - **Falsifier / next probe:**
   ```bash
-  node scripts/rng-diff.mjs sessions/seed2200-wizard-quaff-zap-read.session.json
-  # Or: node frozen/ps_test_runner.mjs sessions 2>&1 | rg 'role not ported|PASS|FAIL' | head -40
+  node frozen/ps_test_runner.mjs sessions 2>&1 | rg 'role not ported|PASS|FAIL' | head -40
+  # Or: node scripts/rng-diff.mjs sessions/seed0501-priest-cast-read-turn.session.json
   ```
 - **Parked deep canary:** D-0006 pet movement — do not implement until C
   state/candidate capture exists.
-- **Also deferred:** Wizard `initialspell`; full `role_init` beyond
-  nemesis gender; `make_corpse` body after `corpse_chance`; dokick
-  monster/object/closed-door/SDOOR/furniture; `martial()`; wake/
-  engraving; `set_wounded_legs` body; `showdamage`/death `done`; Upolyd
-  eel `regen_hp` loss; `regen_pw`/Teleport/Poly once-per-turn; other
-  roles still throw; `dog_goal` gettrack/FARAWAY; `throw_gold`; eat
-  getobj single-shot; Blind/`look_here`; trap glyphs; hallucination/
-  `see_objects`; `u_init_carry_attr_boost`; mfndpos `bad_rock` squeeze;
-  Sokoban push-avoid; `donull` `cmd_safety_prevention`; dog_move
-  `mtrack` skip; `makemon` Sokoban `throws_rocks`; `m_initinv` body;
-  `set_malign`; telepathy/`Detect_monsters`/`MATCH_WARN_OF_MON` in
+- **Also deferred:** Wizard/Priest `initialspell`; full `role_init` beyond
+  pantheon + SPE_LIGHT + nemesis gender; `make_corpse` body after
+  `corpse_chance`; dokick monster/object/closed-door/SDOOR/furniture;
+  `martial()`; wake/engraving; `set_wounded_legs` body; `showdamage`/
+  death `done`; Upolyd eel `regen_hp` loss; `regen_pw`/Teleport/Poly
+  once-per-turn; other roles still throw; `dog_goal` gettrack/FARAWAY;
+  `throw_gold`; eat getobj single-shot; Blind/`look_here`; trap glyphs;
+  hallucination/`see_objects`; `u_init_carry_attr_boost`; mfndpos
+  `bad_rock` squeeze; Sokoban push-avoid; `donull` `cmd_safety_prevention`;
+  dog_move `mtrack` skip; `makemon` Sokoban `throws_rocks`; `m_initinv`
+  body; `set_malign`; telepathy/`Detect_monsters`/`MATCH_WARN_OF_MON` in
   `newsym`; full `set_uasmon`/uprops; full `weapon_insight` (enhance /
   P_SKILL table / odd-skill P_NAME); `obj_typename` armor pair-of/
   set-of + GemStone; MLET_CH beyond early subset; shop `costly_spot`
@@ -42,6 +42,8 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 - Do not treat `LOST_THROWN` as a carry rejection; C does not.
 - Do not gate on raw RNG index/coordinates.
 - Role `mnum` must be monster-table IDs (`PM_ROGUE=338`), never roles[] index.
+- **roles[] order must match C** (Rogue before Ranger) — pantheon
+  `randrole` uses roles[] indices.
 - Do not hardcode Tourist `Aloha` / `neutral` / `HP:10` in `allmain`.
 - Legacy deity is `%d` = `align_gname(ualignbase original)` (Kos for chaotic),
   not `ngod`; goddess via leading `_` on god name (`_The Lady`).
@@ -148,11 +150,15 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 - seed2200 idx 199 was **not** inventory filter alone: Dark One has no
   fixed gender → `role_init` must `rn2(100)<50` for `nemgend` (D-0042).
   Tourist/Rogue Master-of-Thieves/Assassin are `M2_MALE` (no RNG).
+- seed0501 idx 199 was **not** invent: Priest needs `role_init` pantheon
+  `randrole` until a role with gods is chosen, plus **all roles' gods**
+  and C roles[] order (Rogue before Ranger) — D-0043.
 
 ## Landmarks
 
 - Rogue+human init HP = **12**; Rogue+orc = **11** (role 10 + race 1).
 - Wizard+human init HP = **12**, Pw ≈ **8**, AC **9** (cloak of MR `a_ac` 1).
+- Priest+human init HP = **14** (role 12 + race 2); robe is ARM_CLOAK.
 - Rogue legacy offx = `max(10, 80 - maxcol - 1)` (Kos → 23; The Lady → 17).
 - Tutorial menu offx = 20 (OPTIONS `.nethackrc` line → maxcol 59); cursor
   `[27,6]` on `(end) `.
@@ -167,3 +173,6 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 - seed0060: D-0041 → screens **41**/41 PASS; RNG **3626**/3626.
 - seed2200: D-0042 → role throw cleared; rng-diff prefix **1283**; next
   `choose_trapnote`.
+- seed0501: D-0043 → role throw cleared; rng-diff prefix **1153**; next
+  `wipeout_text` (makeniche engraving).
+- seed0106: D-0043 → prefix **2566**; next `dog_move` `rn2(1)`.

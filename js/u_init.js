@@ -2,7 +2,7 @@
 // C ref: u_init.c — u_init_role, u_init_race, trquan, ini_inv,
 //        ini_inv_mkobj_filter, ini_inv_obj_substitution,
 //        u_init_inventory_attrs
-//        (Tourist + Rogue + Wizard; human/orc race kits; elf/dwarf/gnome partial).
+//        (Tourist + Rogue + Wizard + Priest; human/orc race kits; elf/dwarf/gnome partial).
 
 import { game } from './gstate.js';
 import { rn2, rnd } from './rng.js';
@@ -26,14 +26,16 @@ import { roles, races, aligns, findRole, findRace, findAlign } from './roles.js'
 import { discover_object } from './invent.js';
 import { otyp_uses_known } from './objnam.js';
 import {
-    W_ARMU, W_ARM, W_ARMC, W_WEP, W_SWAPWEP, W_QUIVER,
+    W_ARMU, W_ARM, W_ARMC, W_ARMS, W_WEP, W_SWAPWEP, W_QUIVER,
     RIGHT_HANDED, LEFT_HANDED,
     A_NEUTRAL,
     Is_container,
     P_NONE,
     P_DAGGER, P_KNIFE, P_AXE, P_SHORT_SWORD, P_CLUB, P_MACE,
-    P_QUARTERSTAFF, P_POLEARMS, P_SPEAR, P_TRIDENT, P_SLING, P_DART,
-    P_SHURIKEN, P_ATTACK_SPELL, P_HEALING_SPELL, P_DIVINATION_SPELL,
+    P_MORNING_STAR, P_FLAIL, P_HAMMER, P_QUARTERSTAFF, P_POLEARMS,
+    P_SPEAR, P_TRIDENT, P_LANCE, P_BOW, P_SLING, P_CROSSBOW, P_DART,
+    P_SHURIKEN, P_BOOMERANG, P_UNICORN_HORN,
+    P_ATTACK_SPELL, P_HEALING_SPELL, P_DIVINATION_SPELL,
     P_ENCHANTMENT_SPELL, P_CLERIC_SPELL, P_ESCAPE_SPELL, P_MATTER_SPELL,
     P_RIDING, P_BARE_HANDED_COMBAT,
     P_BASIC, P_SKILLED, P_EXPERT,
@@ -45,8 +47,9 @@ import {
 } from './generated/monsters_data.js';
 import { mons, is_male, is_female, is_neuter } from './monsters.js';
 
-// C ref: objclass.h ARM_* — oc_skill / oc_subtyp for armor
+// C ref: objclass.h ARM_* — oc_skill / oc_subtyp / oc_armcat for armor
 const ARM_SUIT = 0;
+const ARM_SHIELD = 1;
 const ARM_CLOAK = 5;
 const ARM_SHIRT = 6;
 
@@ -98,6 +101,18 @@ const Wizard = [
     { trotyp: () => 0, trspe: 0, trclass: 0, trquan_min: 0, trquan_max: 0, trbless: 0 },
 ];
 
+// C ref: u_init.c Priest[]
+const Priest = [
+    { trotyp: () => otypByName('MACE'), trspe: 1, trclass: WEAPON_CLASS, trquan_min: 1, trquan_max: 1, trbless: 1 },
+    { trotyp: () => otypByName('ROBE'), trspe: 0, trclass: ARMOR_CLASS, trquan_min: 1, trquan_max: 1, trbless: UNDEF_BLESS },
+    { trotyp: () => otypByName('SMALL_SHIELD'), trspe: 0, trclass: ARMOR_CLASS, trquan_min: 1, trquan_max: 1, trbless: UNDEF_BLESS },
+    { trotyp: () => otypByName('POT_WATER'), trspe: 0, trclass: POTION_CLASS, trquan_min: 4, trquan_max: 4, trbless: 1 },
+    { trotyp: () => otypByName('CLOVE_OF_GARLIC'), trspe: 0, trclass: FOOD_CLASS, trquan_min: 1, trquan_max: 1, trbless: 0 },
+    { trotyp: () => otypByName('SPRIG_OF_WOLFSBANE'), trspe: 0, trclass: FOOD_CLASS, trquan_min: 1, trquan_max: 1, trbless: 0 },
+    { trotyp: () => UNDEF_TYP, trspe: UNDEF_SPE, trclass: SPBOOK_CLASS, trquan_min: 2, trquan_max: 2, trbless: UNDEF_BLESS },
+    { trotyp: () => 0, trspe: 0, trclass: 0, trquan_min: 0, trquan_max: 0, trbless: 0 },
+];
+
 // C ref: u_init.c Skill_W[] — needed for restricted_spell_discipline in filter
 const Skill_W = [
     { skill: P_DAGGER, max: P_EXPERT },
@@ -124,6 +139,31 @@ const Skill_W = [
     { skill: P_BARE_HANDED_COMBAT, max: P_BASIC },
 ];
 
+// C ref: u_init.c Skill_P[] — Priest filter discipline
+const Skill_P = [
+    { skill: P_CLUB, max: P_EXPERT },
+    { skill: P_MACE, max: P_EXPERT },
+    { skill: P_MORNING_STAR, max: P_EXPERT },
+    { skill: P_FLAIL, max: P_EXPERT },
+    { skill: P_HAMMER, max: P_EXPERT },
+    { skill: P_QUARTERSTAFF, max: P_EXPERT },
+    { skill: P_POLEARMS, max: P_SKILLED },
+    { skill: P_SPEAR, max: P_SKILLED },
+    { skill: P_TRIDENT, max: P_SKILLED },
+    { skill: P_LANCE, max: P_BASIC },
+    { skill: P_BOW, max: P_BASIC },
+    { skill: P_SLING, max: P_BASIC },
+    { skill: P_CROSSBOW, max: P_BASIC },
+    { skill: P_DART, max: P_BASIC },
+    { skill: P_SHURIKEN, max: P_BASIC },
+    { skill: P_BOOMERANG, max: P_BASIC },
+    { skill: P_UNICORN_HORN, max: P_SKILLED },
+    { skill: P_HEALING_SPELL, max: P_EXPERT },
+    { skill: P_DIVINATION_SPELL, max: P_EXPERT },
+    { skill: P_CLERIC_SPELL, max: P_EXPERT },
+    { skill: P_BARE_HANDED_COMBAT, max: P_BASIC },
+];
+
 function strangeObject() {
     return otypByName('STRANGE_OBJECT') || 0;
 }
@@ -146,6 +186,11 @@ const Magicmarker = [
 ];
 const Blindfold = [
     { trotyp: () => otypByName('BLINDFOLD'), trspe: 0, trclass: TOOL_CLASS, trquan_min: 1, trquan_max: 1, trbless: 0 },
+    { trotyp: () => 0, trspe: 0, trclass: 0, trquan_min: 0, trquan_max: 0, trbless: 0 },
+];
+// C ref: u_init.c Lamp[]
+const Lamp = [
+    { trotyp: () => otypByName('OIL_LAMP'), trspe: 1, trclass: TOOL_CLASS, trquan_min: 1, trquan_max: 1, trbless: 0 },
     { trotyp: () => 0, trspe: 0, trclass: 0, trquan_min: 0, trquan_max: 0, trbless: 0 },
 ];
 const Wishing = [
@@ -202,9 +247,10 @@ function trquan(trop) {
     return trop.trquan_min + rn2(trop.trquan_max - trop.trquan_min + 1);
 }
 
-// C ref: u_init.c skills_for_role() — Wizard Skill_W only (others deferred)
+// C ref: u_init.c skills_for_role() — Wizard + Priest (others deferred)
 function skills_for_role() {
     if (game.urole?.mnum === PM_WIZARD) return Skill_W;
+    if (game.urole?.mnum === PM_CLERIC) return Skill_P;
     return null;
 }
 
@@ -420,6 +466,10 @@ function is_cloak(obj) {
     return (game.objects?.[obj.otyp]?.oc_skill ?? -1) === ARM_CLOAK;
 }
 
+function is_shield(obj) {
+    return (game.objects?.[obj.otyp]?.oc_skill ?? -1) === ARM_SHIELD;
+}
+
 function is_missile(obj) {
     const n = objectNames[obj.otyp];
     return n === 'DART' || n === 'SHURIKEN' || n === 'BOOMERANG';
@@ -458,9 +508,15 @@ function knows_class(sym) {
 function ini_inv_use_obj(obj) {
     if (has_descr(obj.otyp) && obj.known)
         discover_object(obj.otyp, true, true);
+    // C: OIL_LAMP also discovers POT_OIL
+    if (objectNames[obj.otyp] === 'OIL_LAMP')
+        discover_object(otypByName('POT_OIL'), true, true);
 
     if (obj.oclass === ARMOR_CLASS) {
-        if (is_shirt(obj) && !game.u.uarmu) {
+        if (is_shield(obj) && !game.u.uarms) {
+            obj.owornmask = (obj.owornmask || 0) | W_ARMS;
+            game.u.uarms = obj;
+        } else if (is_shirt(obj) && !game.u.uarmu) {
             obj.owornmask = (obj.owornmask || 0) | W_ARMU;
             game.u.uarmu = obj;
         } else if (is_cloak(obj) && !game.u.uarmc) {
@@ -545,7 +601,7 @@ function ini_inv(tropArr) {
     }
 }
 
-// C ref: u_init.c u_init_role() — Tourist + Rogue + Wizard cases
+// C ref: u_init.c u_init_role() — Tourist + Rogue + Wizard + Priest cases
 function u_init_role() {
     const role = game.urole;
     const mnum = role?.mnum;
@@ -588,6 +644,18 @@ function u_init_role() {
         game.u.umoney0 = 0;
         ini_inv(Wizard);
         if (!rn2(5)) ini_inv(Blindfold);
+        game.nocreate = strange;
+        game.nocreate2 = strange;
+        game.nocreate3 = strange;
+        game.nocreate4 = strange;
+        return;
+    }
+    if (mnum === PM_CLERIC) {
+        game.u.umoney0 = 0;
+        ini_inv(Priest);
+        if (!rn2(5)) ini_inv(Magicmarker);
+        else if (!rn2(10)) ini_inv(Lamp);
+        knows_object(otypByName('POT_WATER'), true);
         game.nocreate = strange;
         game.nocreate2 = strange;
         game.nocreate3 = strange;
@@ -710,9 +778,10 @@ export function setup_role_race_from_rc(opts = {}) {
         attrbase: role.attrbase,
         attrdist: role.attrdist,
         initrecord: role.initrecord ?? 0,
-        lgod: role.lgod || 'Blind Io',
-        ngod: role.ngod || 'The Lady',
-        cgod: role.cgod || 'Offler',
+        // Priest starts with null gods; role_init_pantheon fills from randrole
+        lgod: role.lgod ?? null,
+        ngod: role.ngod ?? null,
+        cgod: role.cgod ?? null,
         hpadv: role.hpadv || { infix: 8, inrnd: 0, lofix: 0, lornd: 8, hifix: 0, hirnd: 0 },
         enadv: role.enadv || { infix: 1, inrnd: 0, lofix: 0, lornd: 1, hifix: 0, hirnd: 1 },
     };
@@ -734,8 +803,54 @@ export function setup_role_race_from_rc(opts = {}) {
     game.flags.initalign = alignIdx >= 0 ? alignIdx : 1;
     if (opts.name) game.plname = opts.name;
 
-    // C ref: role.c role_init() — quest nemesis gender when not fixed
+    // C ref: role.c role_init() — pantheon (Priest) then nemesis gender
+    const initrole = roles.indexOf(role);
+    game.flags.initrole = initrole >= 0 ? initrole : 0;
+    // setup_role_race_from_rc is newgame-only; pantheon always starts unset
+    game.flags.pantheon = -1;
+    role_init_pantheon();
+    role_init_cleric_spe_light();
     role_init_nemesis_gender();
+}
+
+// C ref: role.c role_init() pantheon selection (role.c:2064-2083)
+function role_init_pantheon() {
+    // C: if (flags.pantheon == -1) { new game }
+    if (game.flags.pantheon != null && game.flags.pantheon !== -1) {
+        // restore path already chose pantheon; still copy gods if missing
+    } else {
+        let pantheon = game.flags.initrole ?? 0;
+        let trycnt = 0;
+        // C: while (!roles[flags.pantheon].lgod && ++trycnt < 100)
+        while (!roles[pantheon]?.lgod && ++trycnt < 100) {
+            // C: randrole(FALSE) → rn2(SIZE(roles)-1); JS has no terminator
+            pantheon = rn2(roles.length);
+        }
+        if (!roles[pantheon]?.lgod) {
+            for (let i = 0; i < roles.length; i++) {
+                if (roles[i].lgod) {
+                    pantheon = i;
+                    break;
+                }
+            }
+        }
+        game.flags.pantheon = pantheon;
+    }
+    if (!game.urole.lgod) {
+        const src = roles[game.flags.pantheon] || {};
+        game.urole.lgod = src.lgod;
+        game.urole.ngod = src.ngod;
+        game.urole.cgod = src.cgod;
+    }
+}
+
+// C ref: role.c role_init() — SPE_LIGHT becomes P_CLERIC_SPELL for priests
+function role_init_cleric_spe_light() {
+    if (game.urole?.mnum !== PM_CLERIC) return;
+    const otyp = otypByName('SPE_LIGHT');
+    if (otyp && game.objects?.[otyp]) {
+        game.objects[otyp].oc_skill = P_CLERIC_SPELL;
+    }
 }
 
 // C ref: role.c role_init() nemesis gender pick (role.c:2050-2060)
@@ -797,6 +912,7 @@ export function u_init_inventory_attrs() {
     game.u.uarmu = null;
     game.u.uarm = null;
     game.u.uarmc = null;
+    game.u.uarms = null;
     game.u.uquiver = null;
     game.u.uwep = null;
     game.u.uswapwep = null;

@@ -38,11 +38,11 @@ frozen-file overlay):
 | Metric | Value |
 |--------|------:|
 | Sessions passing | **5 / 44** |
-| Screens matched | **239 / 11,405** (2.10%) |
-| Positional RNG calls matched | **44,848 / 792,838** (5.66%) |
-| Speed label | `16+0.04/turn` (R² 0.28) |
+| Screens matched | **240 / 11,405** (2.10%) |
+| Positional RNG calls matched | **50,470 / 792,838** (6.37%) |
+| Speed label | `16+0.05/turn` (R² 0.38) |
 | Working-tree base | `8b71735` + committed port (see `main`) |
-| Role-init throws | **20 / 44** (`u_init_role: role not ported`) |
+| Role-init throws | **17 / 44** (`u_init_role: role not ported`) |
 
 The RNG aggregate can decrease while the port improves if a former fake path
 is replaced or more sessions execute farther. Use first divergence, screens,
@@ -57,12 +57,14 @@ shared blockers, and semantic coverage together—not one vanity metric.
 | `seed1500-rogue-explore-move` | **2768 / 2768** | **40 / 40** |
 | `seed1800-tourist-eat-throw` | **2458 / 2458** | **26 / 26** |
 | `seed0060-orc-rogue-kick-search` | **3626 / 3626** | **41 / 41** |
+| `seed0106-priest-extcmd-sweep` | **2576 / 4194** | 1 / 267 |
 | `seed2200-wizard-quaff-zap-read` | **2756 / 3018** | 1 / 230 |
 | `seed0013-rogue-friday13-combat` | **519 / 4838** | 1 / 59 |
 
 seed8000 + seed0900 + seed1500 + seed1800 + seed0060 pass end-to-end.
-Wizard init (D-0042) clears all Wizard role throws; seed2200 still breaks
-in mklev (`choose_trapnote`). seed0013 still breaks earlier in Lua/`sp_lev`.
+Priest init (D-0043) clears Priest role throws; seed0501 breaks in mklev
+(`wipeout_text`). Wizard seed2200 still breaks at `choose_trapnote`.
+seed0013 still breaks earlier in Lua/`sp_lev`.
 
 ### Green gate
 
@@ -88,16 +90,16 @@ fixes until C state/candidate capture exists (`GROK-PLAYBOOK.md` §2).
 
 #### Primary foundation frontier — next unported role / seed2200 mklev
 
-**Code status:** Wizard `u_init_role` **ported** (D-0042). Five public
-sessions still pass end-to-end. **20/44** still throw at `u_init_role`
-(Priest/Knight 4 each; Samurai 3; …).
+**Code status:** Priest `u_init_role` + pantheon **ported** (D-0043). Five
+public sessions still pass end-to-end. **17/44** still throw at `u_init_role`
+(Knight 5; Samurai 3; Valkyrie/Ranger 2 each; …).
 
-- **Bounded unit:** next role kit (Priest or Knight preferred), **or**
-  seed2200 `choose_trapnote` mklev peel (rng-diff idx 1283).
+- **Bounded unit:** next role kit (**Knight** preferred — 5 throws), **or**
+  seed2200 `choose_trapnote` / seed0501 `wipeout_text` mklev peel.
 - **Prefer:** a role that clears many `role not ported` throwers over
-  polishing one late Tourist/Wizard path.
-- **Named omissions:** Wizard `initialspell`; full `role_init` beyond
-  nemesis gender; `make_corpse` after `corpse_chance`; dokick
+  polishing one late Tourist/Wizard/Priest path.
+- **Named omissions:** Wizard/Priest `initialspell`; full `role_init` beyond
+  pantheon/SPE_LIGHT/nemesis gender; `make_corpse` after `corpse_chance`; dokick
   monster/object/closed-door/SDOOR/furniture; `martial()`; wake/
   engraving; `set_wounded_legs` body; `showdamage`/death `done`; Upolyd
   eel `regen_hp` loss; `regen_pw`/Teleport/Poly once-per-turn; other
@@ -111,7 +113,7 @@ sessions still pass end-to-end. **20/44** still throw at `u_init_role`
   P_SKILL/odd P_NAME; shop `costly_spot` autopickup; `obj_typename`
   armor pair-of/set-of + GemStone; MLET_CH beyond early subset; …
 - **Cohort:** green gate + seed1500 + seed1800 + seed0060 (must stay
-  PASS) + strict lengths; Wizard focus seed2200 when on that peel.
+  PASS) + strict lengths; Priest focus seed0501/seed0106 when on that peel.
 
 Focused survey:
 
@@ -179,6 +181,9 @@ Module status, constitutional debt, and named omissions live in
 27. Wizard `u_init_role` + `ini_inv_mkobj_filter` + Dark One gender
     (D-0042) — role throws **29→20**/44; screens **220→239**; RNG
     **28511→44848**; seed2200 next `choose_trapnote` @ 1283
+28. Priest `u_init_role` + pantheon `randrole` + `Skill_P` + shield
+    (D-0043) — role throws **20→17**/44; screens **239→240**; RNG
+    **44848→50470**; seed0501 next `wipeout_text` @ 1153
 
 Next work is selected from the active objectives above using
 `PORTING-RUNBOOK.md`, not by extending this historical list.

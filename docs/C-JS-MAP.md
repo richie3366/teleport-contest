@@ -32,9 +32,9 @@ When changing a subsystem:
 | C source | JS | Status | Evidence / known omissions |
 |---|---|---|---|
 | `src/options.c` | `js/options.js` | partial | Enough options for current Tourist paths; full rc/keybind/symset semantics incomplete |
-| `src/role.c` | `js/roles.js` | partial | Tourist + Rogue + **Wizard** identity/attrs/gods/`hpadv`/`enadv`/`neminum`/`petnum` (D-0042); `Hello`/`align_str`/`align_gname`/`align_gtitle`; **all races `hpadv`/`enadv` + attrmin/attrmax** (D-0036); other roles still scaffold (name+mnum only); full `role_init` beyond nemesis gender deferred |
-| `src/u_init.c:u_init_role` | `js/u_init.js` | partial | Tourist + Rogue + **Wizard** cases (D-0042); other roles still throw; Rogue `knows_class` still uses named P_DAGGER otyps (can migrate to extracted `oc_skill`); `Skill_W` for filter only; `initialspell` / other `Skill_*` deferred |
-| `src/u_init.c:u_init_race` | `js/u_init.js` | partial | Human no-op; orc `Xtra_food` + knows; elf instrument+knows; dwarf knows; gnome no-op (D-0027); `ini_inv_obj_substitution`/`inv_subs` ported; **`ini_inv_mkobj_filter` reject list + `oc_level`/`Skill_W`** (D-0042) |
+| `src/role.c` | `js/roles.js` | partial | Tourist + Rogue + Wizard + **Priest** identity/attrs/`hpadv`/`enadv`/`neminum` (D-0042/43); **all roles pantheon gods** + C roles[] order (Rogue before Ranger) for `randrole`; `role_init` pantheon + SPE_LIGHT + nemesis gender; `Hello`/`align_*`; **all races `hpadv`/`enadv` + attrmin/attrmax** (D-0036); other roles still scaffold (gods+mnum only); full `role_init` beyond pantheon/SPE_LIGHT/nemgend deferred |
+| `src/u_init.c:u_init_role` | `js/u_init.js` | partial | Tourist + Rogue + Wizard + **Priest** cases (D-0043); other roles still throw; Rogue `knows_class` still uses named P_DAGGER otyps; `Skill_W`/`Skill_P` for filter; `initialspell` / other `Skill_*` deferred |
+| `src/u_init.c:u_init_race` | `js/u_init.js` | partial | Human no-op; orc `Xtra_food` + knows; elf instrument+knows; dwarf knows; gnome no-op (D-0027); `ini_inv_obj_substitution`/`inv_subs` ported; **`ini_inv_mkobj_filter` reject list + `oc_level`/`Skill_W`/`Skill_P`** (D-0042/43) |
 | `src/u_init.c:u_init_misc` | `js/u_init.js` | partial | `newhp`/`newpw` at ulevel 0; rc align → `ualign`; handedness RNG; many u fields still absent |
 | `src/attrib.c:newhp` / `src/exper.c:newpw` | `js/attrib.js` | partial | Init (`ulevel==0`) path only; level-up / Con bonus deferred |
 | `src/attrib.c` (attrs) | `js/attrib.js` | partial | Initial Tourist/Rogue/Wizard attribute paths; `change_luck` clamp; `u_init_carry_attr_boost` still stubbed |
@@ -46,8 +46,8 @@ When changing a subsystem:
 | `src/insight.c` enlightenment | `js/invent.js` | partial | Autopickup from flags + race attr limits + `weapon_descr`/`skill_name` via `oc_skill` (D-0041); pantheon/wallet/handedness (D-0024); shop `costly_spot` disable / `apelist` / enhance / P_SKILL table / odd-skill P_NAME deferred |
 | `src/calendar.c` / botl flags | `js/calendar.js`, `js/display.js` | partial | Fixed-datetime moon/friday; botl `showexp`/`time` + plname capitalize |
 
-**Shared blocker:** **20/44 sessions** throw `u_init_role: role not ported`
-(other roles; Wizard cleared D-0042). Rogue invent + mineralize bury +
+**Shared blocker:** **17/44 sessions** throw `u_init_role: role not ported`
+(other roles; Wizard D-0042 + Priest D-0043 cleared). Rogue invent + mineralize bury +
 corpse-age POISON + `mktrap_victim` place + `dog_move` cursed-square +
 dart-trap `mintrap` + cursemsg/`--More--` + `dog_invent` pickup + tseen
 trap skip + `OPENDOOR` `nohands`/`verysmall` + `doapply`/`pick_lock`
@@ -70,9 +70,12 @@ Orc infravision `newsym` + `postmov` newsym (D-0039) → screens
 **39/41**. ^X enlightenment autopickup/limits/`weapon_descr` (D-0041)
 → screens **41/41** — seed0060 **PASS**. Wizard init + filter + Dark
 One gender (D-0042) → role throws **20**/44; seed2200 Scr **1**/230,
-rng-diff prefix **1283** (`choose_trapnote` next). Next peel: next
-unported role (Priest/Knight) or seed2200 mklev trap note.
-`make_corpse` body and `m_initinv` body still absent (named omissions).
+rng-diff prefix **1283** (`choose_trapnote`). Priest init + pantheon
+`randrole` + shield wear (D-0043) → role throws **17**/44; seed0501
+prefix **1153** (`wipeout_text`); seed0106 **2566** (`dog_move`).
+Next peel: Knight (5 throws) or seed2200 mklev trap note or seed0501
+engraving. `make_corpse` body and `m_initinv` body still absent
+(named omissions).
 
 ## Data and world generation
 
@@ -123,7 +126,7 @@ These are not protected merely because the two green sessions exercise them:
 | `js/display.js` message paths | Contains scenario-derived cursor/layout special cases rather than complete window/message policy |
 | `js/eat.js` | Allowed-letter formatting, menu fallback, and eating are narrow subsets |
 | `js/invent.js` | Corner invent + disco `*`/encounter + `obj_typename` (D-0040); ^X autopickup/limits/`weapon_descr` (D-0041); fullscreen invent and magic enlightenment deferred |
-| `js/u_init.js` / `js/roles.js` | Rogue/Tourist/**Wizard** + human/orc(/elf/dwarf/gnome) race kits (D-0027/D-0042); **race `hpadv`/`enadv` table** (D-0036); other roles throw; **`oc_skill`/`a_ac`/`oc_level` extracted**; dagger `knows_class` can migrate; `initialspell` / other `Skill_*` / `oc_charged` deferred |
+| `js/u_init.js` / `js/roles.js` | Rogue/Tourist/Wizard/**Priest** + human/orc(/elf/dwarf/gnome) race kits (D-0027/D-0042/43); pantheon gods + C roles[] order; **race `hpadv`/`enadv` table** (D-0036); other roles throw; **`oc_skill`/`a_ac`/`oc_level` extracted**; dagger `knows_class` can migrate; `initialspell` / other `Skill_*` / `oc_charged` deferred |
 | `js/allmain.js` | Welcome/HP/align no longer Tourist-literal; **`regen_hp` once-per-turn** (D-0035); tutorial, hunger, sound, and attribute checks still have deferred branches |
 | `js/mon.js` / `js/monmove.js` / `js/dogmove.js` | Monster flags, movement predicates, targeting, carrying, and combat have named stubs/defaults |
 | `js/mklev.js` / `js/mkobj.js` / `js/makemon.js` | Many terrain/object/monster-type branches remain scenario-limited |

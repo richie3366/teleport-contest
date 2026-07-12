@@ -19,6 +19,19 @@ Use this shape:
 
 ---
 
+## 2026-07-13 00:40 — Priest u_init_role + pantheon (D-0043)
+- C locus: `u_init.c` Priest/`Lamp`/`Skill_P`/`ini_inv_use_obj` shield;
+  `role.c` pantheon `randrole` + SPE_LIGHT + roles[] order
+- Result: **verified faithful change** — Priest kit + pantheon gods on
+  all roles + C Rogue-before-Ranger order + shield wear. Role throws
+  **20→17**/44.
+- Verification: green + seed1500/1800/0060 PASS + strict; full **5/44**,
+  screens **240**/11405, RNG **50470**/792838; seed0501 prefix
+  **1153** (`wipeout_text`); seed0106 **2566** (`dog_move`); seed2200
+  still **1283**.
+- Next: Knight `u_init_role` (5 throws), or peel seed2200
+  `choose_trapnote` / seed0501 `wipeout_text`.
+
 ## 2026-07-13 00:45 — Wizard u_init_role (D-0042)
 - C locus: `u_init.c` Wizard/`ini_inv_mkobj_filter`/`Skill_W`;
   `role.c` Wizard + `role_init` nemesis gender; `objclass.h`
