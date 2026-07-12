@@ -53,7 +53,7 @@ Do not record a guessed cause as fixed merely because an RNG prefix moved.
 | D-0029 | fixed | dog_invent/relobj | pet `relobj`/`mdrop_obj` clears minvent for APPORT |
 | D-0030 | fixed | dog_goal/couldsee | `in_masters_sight` must use real `couldsee`, not stub true |
 | D-0031 | fixed | dokick/kick_dumb | Ctrl-D empty-space kick → `exercise(A_DEX,FALSE)` before monmove |
-| D-0032 | open | mklev/terrain | seed0060 @ 2997: JS extra CORR west of pet → dog_move cnt 4 vs C 3 |
+| D-0032 | fixed | dogmove/dokick | seed0060 @ 2997: missing m_avoid_kicked_loc after kick |
 
 D-0001 through D-0005 predate the strict-length/cohort runbook. Their focused
 causes are preserved, but generic "green sessions held" is historical evidence,
@@ -716,33 +716,34 @@ cohort gates if those functions are touched again.
 - **Named omission:** `kick_monster`/`kick_object`/closed-door Whammm/
   SDOOR-SCORR open rolls/furniture; `martial()`; `wake_nearby`/
   `u_wipe_engr` effects; `losehp`/`set_wounded_legs` bodies; next peel
-  @ 2997 diagnosed as terrain (D-0032), not missing `distfleeck`.
+  @ 2997 diagnosed as missing kick-avoid (D-0032), not missing `distfleeck`.
 
-## D-0032 — seed0060 dog_move cnt 4 vs 3 (extra JS CORR west of pet)
+## D-0032 — seed0060 dog_move cnt 4 vs 3 (missing kick-avoid)
 
-- **Status:** open (diagnosed 2026-07-12; no production change).
+- **Status:** fixed (verified 2026-07-12).
 - **Observed:** seed0060 first mismatch @ **2997**: C `rn2(5)`
-  `distfleeck(monmove.c:538)` vs JS `rn2(4)`. Matched through kick
-  `exercise` and dog_move `rn2(1/2/3)` @ `dogmove.c:1255`.
-- **Rejected:** post-kick fleeck/ALLOW_*/missing `distfleeck` body —
-  C line 538 is always-on `bravegremlin=rn2(5)`; JS already rolls it.
-  DIAG calling `dogfood` mid-turn burns `obj_resists` RNG (do not).
-- **Cause/evidence:** at rngLen 2994, pet `(23,12)` hero `(24,12)`
-  `appr=0` `gtyp=UNDEF` (12 prior `obj_resists` = invent+fobj scan, no
-  APPORT/`rn2(8)`). With `appr=0`, every candidate hits
-  `!rn2(++chcnt)`. JS `mfndpos` **cnt=4**: `(22,12),(23,13),(24,11),(24,13)`
-  all `CORR`, no floor objs. C screen same turn: `######f@` on that row
-  — game `(22,12)` is `#` (wall), so C cnt=3 → three chcnt then
-  post-move `distfleeck`. JS strip y=12 is `.....f@` (false west corridor).
-  Diagonal squeeze/`bad_rock` cannot explain it: only one corner rock on
-  `(24,11)`, none on `(24,13)`; kitten `msize=1` squeezes anyway.
-- **C locus:** `mklev.c` corridor/`join`/`dig_corridor` (terrain); symptom
-  surfaces in `dogmove.c:dog_move` selection then `monmove.c:distfleeck`.
-- **Change:** none — prerequisite is mklev map parity west of that alcove.
-- **Verification:** focused rng-diff still 2997; green + strict held;
-  DIAG removed (no production edit).
-- **Lesson:** when `appr=0`, `rn2(N)` with incrementing N is `mfndpos`
-  cardinality, not a wrong `distfleeck` arity; compare C screen glyphs
-  to JS `levl[].typ` before patching monmove.
-- **Next:** find which `dig_corridor`/`join`/`makecorridors` step opens
-  JS `(18..22,12)` that C leaves stone/wall.
+  `distfleeck` vs JS `rn2(4)`. Matched through kick `exercise` and
+  dog_move `rn2(1/2/3)`.
+- **Rejected:** post-kick fleeck/ALLOW_*/missing `distfleeck` body;
+  mklev “extra CORR west of pet” / reading C `#` as wall — NetHack `#` is
+  corridor; JS and C both have `CORR` at `(22,12)` (screen `#######f@`).
+  Diagonal `bad_rock` squeeze does not drop any of the four open
+  candidates for a kitten.
+- **Cause/evidence:** C `dokick` sets `gk.kickedloc` to the kicked cell
+  before resolution; `dog_move` / `m_move` call `m_avoid_kicked_loc` so
+  peaceful/tame monsters skip that adjacent cell. Hero kicked south →
+  `(24,13)`. JS never set or consulted `kickedloc`, so `mfndpos` kept
+  four `appr=0` slots → extra `rn2(4)` before `distfleeck`.
+- **C locus:** `dokick.c` (`kickedloc =`); `monmove.c:m_avoid_kicked_loc`;
+  `dogmove.c` candidate loop; clear on `hack.c:domove` /
+  `cmd.c` non-`dokick` timed commands.
+- **Change:** `game.kickedloc` in `dokick`; `m_avoid_kicked_loc` (+ Sokoban
+  stub) in `mon.js`; wire into `dog_move`; clear on successful `domove` and
+  other timed non-kick commands in `cmd.js`.
+- **Verification:** rng-diff first mismatch **2997 → 3016**; seed0060
+  runner **3064 → 3086**/3626; green + seed1500 + seed1800 PASS + strict;
+  full suite **4/44**, RNG **27787**/792838, screens **179**/11405.
+- **Lesson:** after a kick, compare pet candidate skips to `kickedloc`
+  before blaming terrain glyphs; `#` in tty is corridor, not wall.
+- **Next:** peel @ **3016** (C `distfleeck` `rn2(5)` vs JS `rn2(2)`);
+  confirm post-kick pet cell vs C step-16 `f` at `(23,13)`.

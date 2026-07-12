@@ -39,8 +39,8 @@ frozen-file overlay):
 |--------|------:|
 | Sessions passing | **4 / 44** |
 | Screens matched | **179 / 11,405** (1.57%) |
-| Positional RNG calls matched | **27,765 / 792,838** (3.50%) |
-| Speed label | `14+0.02/turn` (R² 0.07) |
+| Positional RNG calls matched | **27,787 / 792,838** (3.50%) |
+| Speed label | `13+0.02/turn` (R² 0.07) |
 | Working-tree base | `8b71735` + committed port (see `main`) |
 | Role-init throws | **29 / 44** (`u_init_role: role not ported`) |
 
@@ -56,12 +56,12 @@ shared blockers, and semantic coverage together—not one vanity metric.
 | `seed0900-tourist-explore-actions` | **2983 / 2983** | **84 / 84** |
 | `seed1500-rogue-explore-move` | **2768 / 2768** | **40 / 40** |
 | `seed1800-tourist-eat-throw` | **2458 / 2458** | **26 / 26** |
-| `seed0060-orc-rogue-kick-search` | **3064 / 3626** | 0 / 41 |
+| `seed0060-orc-rogue-kick-search` | **3086 / 3626** | 0 / 41 |
 | `seed0013-rogue-friday13-combat` | **519 / 4838** | 1 / 59 |
 
 seed8000 + seed0900 + seed1500 + seed1800 pass end-to-end. seed0060 clears
-empty-space `#kick` (D-0031); first mismatch is C `distfleeck` `rn2(5)` @
-2997 vs JS `rn2(4)`. seed0013 still breaks earlier in Lua/`sp_lev` map.
+kick-avoid (D-0032); first mismatch is C `distfleeck` `rn2(5)` @ 3016 vs
+JS `rn2(2)`. seed0013 still breaks earlier in Lua/`sp_lev` map.
 
 ### Green gate
 
@@ -85,26 +85,27 @@ complete or blocked on a prerequisite you document with a falsifier. The
 seed1800 deep canary (`D-0006`) is **parked** — do not implement pet-movement
 fixes until C state/candidate capture exists (`GROK-PLAYBOOK.md` §2).
 
-#### Primary foundation frontier — mklev corridor west of pet (seed0060 @ 2997)
+#### Primary foundation frontier — post-kick pet path (seed0060 @ 3016)
 
-**Code status:** empty-space `#kick` / `kick_dumb` cleared (D-0031).
-Four public sessions pass end-to-end. D-0032 diagnosed: mismatch is not
-`distfleeck` arity.
+**Code status:** empty-space `#kick` / `kick_dumb` (D-0031) and
+`m_avoid_kicked_loc` (D-0032) cleared. Four public sessions pass
+end-to-end.
 
-- **Bounded unit:** why JS has `CORR` along y=12 west of pet (`.....f@`)
-  while C’s screen shows wall (`######f@`) at game `(22,12)`. That extra
-  tile makes adjacent `appr=0` dog_move `mfndpos` cnt 4 vs C 3 → JS
-  `rn2(4)` vs C post-move `distfleeck` `rn2(5)`.
-- **C:** `mklev.c` `makecorridors` / `join` / `dig_corridor` (and any
-  door/room attachment that should leave stone west of the alcove).
-- **JS:** `js/mklev.js` same functions; dump/compare typ at `(18..24,12)`
-  after levelgen vs C screen at kick turn.
+- **Bounded unit:** why after kick-avoid JS still diverges at 3016
+  (`distfleeck` `rn2(5)` vs `rn2(2)`). Compare pet cell after the kick
+  turn to C step-16 `f` at `(23,13)`; check `mtrack` candidate-skip and
+  whether `.` should clear `kickedloc` like C `donull`.
+- **C:** `dogmove.c` / `monmove.c` post-kick path; `cmd.c` timed clear of
+  `kickedloc`.
+- **JS:** `js/dogmove.js`, `js/mon.js` avoid helpers, `js/cmd.js` `.` wait
+  if missing.
 - **Named omissions:** dokick monster/object/closed-door/SDOOR/furniture;
   `martial()`; wake/engraving side effects; `losehp`/`set_wounded_legs`
   bodies; other roles still throw; `dog_goal` gettrack/FARAWAY;
   `throw_gold`; eat getobj single-shot; Blind/`look_here`; trap glyphs;
   full `wall_angle`; `ini_inv_mkobj_filter`; `u_init_carry_attr_boost`;
-  mfndpos `bad_rock` squeeze / boulder `ALLOW_ROCK`; …
+  mfndpos `bad_rock` squeeze / boulder `ALLOW_ROCK`; Sokoban
+  `m_avoid_soko_push_loc` body; …
 - **Cohort:** green gate + seed1500 + seed1800 (must stay PASS) + strict
   lengths.
 - **Alternate shared peel:** next unported role, or seed0013 Lua/`sp_lev`
@@ -155,6 +156,8 @@ Module status, constitutional debt, and named omissions live in
     2663→2979; next C `exercise` vs JS `distfleeck`
 16. seed0060 `#kick` / `kick_dumb` (D-0031) — mismatch 2979→2997;
     next C `distfleeck` `rn2(5)` vs JS `rn2(4)`
+17. seed0060 `m_avoid_kicked_loc` (D-0032) — mismatch 2997→3016;
+    next C `distfleeck` `rn2(5)` vs JS `rn2(2)`
 
 Next work is selected from the active objectives above using
 `PORTING-RUNBOOK.md`, not by extending this historical list.

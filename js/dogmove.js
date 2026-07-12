@@ -5,7 +5,7 @@ import { game } from './gstate.js';
 import { rn2, rnd } from './rng.js';
 import {
     dist2, distmin, mon_allowflags, mfndpos, m_at, monnear, ALLOW_M,
-    ALLOW_TRAPS,
+    ALLOW_TRAPS, m_avoid_kicked_loc, m_avoid_soko_push_loc,
 } from './mon.js';
 import { objects_at, obj_extract_self, place_object, splitobj } from './mkobj.js';
 import { mattackm, max_passive_dmg } from './mhitm.js';
@@ -605,6 +605,10 @@ export async function dog_move(mtmp, after) {
             }
             return MMOVE_DONE;
         }
+
+        // C ref: dogmove.c / monmove.c — avoid square hero just kicked
+        if (m_avoid_kicked_loc(mtmp, nx, ny)) continue;
+        if (m_avoid_soko_push_loc(mtmp, nx, ny)) continue;
 
         // C: pets may step on known traps with 1/40; else skip
         if ((mfp.info[i] & ALLOW_TRAPS)) {

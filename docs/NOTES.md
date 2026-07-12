@@ -7,20 +7,20 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 
 ## Active
 
-- **Current unit:** seed0060 @ RNG 2997 — C `distfleeck` `rn2(5)` vs JS
-  `rn2(4)` after matching kick + dog_move `rn2(1/2/3)`.
-- **Hypothesis (D-0032):** not fleeck/ALLOW_* — adjacent pet `appr=0` makes
-  every `mfndpos` slot roll `rn2(++chcnt)`. JS `cnt=4` includes west
-  `(22,12)` as `CORR`; C screen at that turn shows `#` there → C `cnt=3`
-  then post-move `distfleeck`. Extra JS corridor tile(s) west of pet.
+- **Current unit:** seed0060 @ RNG **3016** — C `distfleeck` `rn2(5)` vs JS
+  `rn2(2)` after kick-avoid cleared 2997.
+- **Hypothesis:** post-kick pet path diverges (JS may sit west while C ends
+  south on step-16 screen `(23,13)`), so later `mfndpos` arity differs. Or
+  another missing dog_move skip (`mtrack` `continue`→should be candidate
+  skip; `.` wait not clearing `kickedloc` like C `donull`).
 - **Falsifier / next probe:**
   ```bash
-  # Compare JS typ at (22,12) vs C glyph after mklev (before monmove),
-  # or diff dig_corridor/join path that opened x=18..22 y=12.
   node scripts/rng-diff.mjs sessions/seed0060-orc-rogue-kick-search.session.json
+  # Dump pet (mx,my) at rngLen ~3010 vs C step-16 f glyph; check mtrack[0]
+  # and whether JS `.` should clear game.kickedloc.
   ```
-  Expect: first mismatch stays 2997 until mklev terrain matches; fixing
-  west wall should make idx 2997 `rn2(5)` for both.
+  Expect: first mismatch stays 3016 until pet cell after kick-turn movemon
+  matches C `(23,13)` (or proven equivalent chcnt set).
 - **Parked deep canary:** D-0006 pet movement — do not implement until C
   state/candidate capture exists.
 - **Also deferred:** dokick monster/object/closed-door/SDOOR/furniture;
@@ -28,7 +28,8 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   `dog_goal` gettrack/FARAWAY; `throw_gold`; eat getobj single-shot;
   Blind/`look_here`; trap glyphs; full `wall_angle`;
   `ini_inv_mkobj_filter`; `u_init_carry_attr_boost`; mfndpos
-  `bad_rock` diagonal squeeze / boulder `ALLOW_ROCK` (named, not this peel).
+  `bad_rock` diagonal squeeze / boulder `ALLOW_ROCK`; Sokoban
+  `m_avoid_soko_push_loc` body; `.`/`donull` command.
 
 ## Don’t re-check
 
@@ -101,11 +102,10 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 - seed0060 idx 2979 was **not** `exerper`/`moves%10`: session key map is
   Ctrl-D then `j` with screen "You kick at empty space." — missing
   `dokick`→`kick_dumb` `exercise(A_DEX,FALSE)` (D-0031).
-- seed0060 idx 2997 was **not** missing `distfleeck` / post-kick ALLOW_*:
-  C provenance `distfleeck` is post-pet recalc; JS extra `rn2(4)` is
-  dog_move `++chcnt` with `appr=0` and `mfndpos` cnt 4 vs C 3 because
-  JS `CORR` at `(22,12)` where C glyph is `#` (D-0032). Do not “fix”
-  by shrinking candidates without fixing mklev terrain.
+- seed0060 idx 2997 was **not** mklev extra CORR / `#`=wall: NetHack `#` is
+  corridor; JS/C terrain at `(22,12)` both CORR. Real gap was missing
+  `m_avoid_kicked_loc` after empty-space kick (D-0032). Do not shrink
+  `mfndpos` by inventing walls.
 
 ## Landmarks
 
@@ -121,6 +121,5 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 - seed1500: D-0024 → screens **40/40** PASS; CORPSE map color = `mon_color(corpsenm)`
   (orc → CLR_RED), not `objects[CORPSE].oc_color`.
 - seed1800: D-0026 → screens **26/26** PASS (legacy corner map + staircase look).
-- seed0060: D-0031 → first mismatch **2997**; D-0032 → JS strip y=12
-  `.....f@` vs C `######f@` (wall west of pet); runner RNG **3064**/3626;
-  cursors **41**/41.
+- seed0060: D-0032 → first mismatch **3016**; runner RNG **3086**/3626;
+  cursors **41**/41; kick sets `game.kickedloc`.

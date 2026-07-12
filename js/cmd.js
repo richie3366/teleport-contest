@@ -164,10 +164,12 @@ export async function rhack(key) {
         // C ref: apply.c doapply
         const tookTime = await doapply();
         game.context.move = tookTime ? 1 : 0;
+        if (tookTime) game.kickedloc = { x: 0, y: 0 };
     } else if (key === 4) { // Ctrl-D
         // C ref: dokick.c dokick — #kick
         const tookTime = await dokick();
         game.context.move = tookTime ? 1 : 0;
+        // C: do NOT clear kickedloc after dokick — pets avoid it this turn
     } else if (ch === 's') {
         // C ref: search.c dosearch — takes a turn; count from digit prefix
         const n = game.context?.command_count || 0;
@@ -179,6 +181,7 @@ export async function rhack(key) {
             game._repeat_search = true;
         }
         game.context.move = 1;
+        game.kickedloc = { x: 0, y: 0 };
     } else if (ch === 'i') {
         // C ref: invent.c ddoinv / display_inventory
         await ddoinv();
@@ -187,10 +190,12 @@ export async function rhack(key) {
         // C ref: eat.c doeat
         const tookTime = await doeat();
         game.context.move = tookTime ? 1 : 0;
+        if (tookTime) game.kickedloc = { x: 0, y: 0 };
     } else if (ch === 't') {
         // C ref: dothrow.c dothrow
         const tookTime = await dothrow();
         game.context.move = tookTime ? 1 : 0;
+        if (tookTime) game.kickedloc = { x: 0, y: 0 };
     } else if (ch === '+') {
         // C ref: spell.c dovspell
         await dovspell();
@@ -269,6 +274,9 @@ async function domove(dx, dy) {
     // Move the hero
     u.ux = newx;
     u.uy = newy;
+
+    // C ref: hack.c domove — clear kickedloc after a successful move
+    game.kickedloc = { x: 0, y: 0 };
 
     // C: running stops on door / obstructed / furniture
     if (game.context?.run && game.context.run < 8) {

@@ -19,6 +19,20 @@ Use this shape:
 
 ---
 
+## 2026-07-12 23:35 — seed0060 m_avoid_kicked_loc (D-0032)
+- C locus: `dokick.c` (`kickedloc`); `monmove.c:m_avoid_kicked_loc`;
+  `dogmove.c` candidate loop; clear in `hack.c:domove` / non-kick timed cmds
+- Result: **verified faithful change** — falsified mklev/`#`=wall theory
+  (both sides `CORR` at `(22,12)`). Missing pet skip of kicked cell
+  `(24,13)` made `appr=0` chcnt 4 vs C 3. Ported `game.kickedloc` + avoid
+  helper; Sokoban push-avoid stubbed false.
+- Verification: rng-diff **2997→3016**; seed0060 **3086**/3626; green +
+  seed1500/1800 PASS + strict; full **4/44**, RNG **27787**/792838,
+  screens **179**/11405.
+- Next: `node scripts/rng-diff.mjs sessions/seed0060-orc-rogue-kick-search.session.json`
+  — diagnose @ 3016 (pet cell after kick turn vs C `(23,13)`; `.`/
+  `kickedloc` clear; `mtrack` continue-vs-nxti).
+
 ## 2026-07-12 23:20 — seed0060 @ 2997 distfleeck vs rn2(4) diagnosis
 - C locus: symptom `monmove.c:distfleeck` / `dogmove.c:dog_move`; root
   `mklev.c` corridor/`join`/`dig_corridor`

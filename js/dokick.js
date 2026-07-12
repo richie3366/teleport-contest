@@ -150,6 +150,8 @@ export async function dokick() {
 
     const x = (u.ux || 0) + (u.dx || 0);
     const y = (u.uy || 0) + (u.dy || 0);
+    // C ref: dokick.c — gk.kickedloc set before kick resolution; pets avoid it
+    game.kickedloc = { x, y };
 
     const avrg_attrib = Math.trunc(
         (acurr(A_STR) + acurr(A_DEX) + acurr(A_CON)) / 3,

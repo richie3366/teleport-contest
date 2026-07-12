@@ -57,10 +57,9 @@ corner map + look `:` staircase (D-0026) verified.
 seed1500 **PASS** RNG/Scr **2768/2768**, **40/40**. seed1800 **PASS**
 **2458/2458**, **26/26**. Orc race kit (D-0027) + `splitobj` (D-0028) +
 `relobj` (D-0029) + `dog_goal` real `couldsee` (D-0030) + empty-space
-`#kick` (D-0031) clear through 2996. Next peel: seed0060 @ 2997 — JS
-extra west `CORR` vs C wall (D-0032); symptom is dog_move cnt 4→`rn2(4)`
-vs C cnt 3→`distfleeck` `rn2(5)`. `m_initinv` body still absent
-(named omission).
+`#kick` (D-0031) + `m_avoid_kicked_loc` (D-0032) clear through 3015. Next
+peel: seed0060 @ 3016 — C `distfleeck` `rn2(5)` vs JS `rn2(2)` (post-kick
+pet path). `m_initinv` body still absent (named omission).
 
 ## Data and world generation
 
@@ -71,7 +70,7 @@ vs C cnt 3→`distfleeck` `rn2(5)`. `m_initinv` body still absent
 | rumor sources | extractor + generated rumors | partial | Fortune path exercised |
 | `src/mkobj.c` | `js/mkobj.js` | partial | Creation/merge/weight subsets; `add_to_buried` (D-0014); `start_corpse_timeout` + `mkcorpstat` `special_corpse` restart (D-0011); `is_poisonable`≡missiles (D-0012); starting SACK/`mkbox_cnts` (D-0013); **`splitobj`** quan/owt + floor chain + `next_ident` (D-0028); **`obj_extract_self` MINVENT** (D-0029); omit `nextoid` shop-price search, unpaid/`splitbill`, timers/light/`copy_oextra`, invent/contained extract, `zombie_form`/zombify, CORPSE `undead_to_corpse`+`G_NOCORPSE` retry, timer fire, `permapoisoned` |
 | `src/makemon.c` | `js/makemon.js` | partial | Ordinary `is_armed`/`m_initweap`/`mongets`/`m_initthrow` (S_KOBOLD/S_ORC/S_OGRE/S_GIANT/S_CENTAUR/S_WRAITH/S_ZOMBIE/S_HUMANOID + default); **`add_to_minv` uses `OBJ_MINVENT`** (D-0029); **`m_initinv` body absent** (tail-only; not seed1500's current peel); omit S_HUMAN/S_ANGEL/S_KOP/S_DEMON/S_TROLL/S_LIZARD specials, `add_to_minv` merge, demon→default FALLTHROUGH |
-| `src/mklev.c` | `js/mklev.js` | partial | Ordinary level path substantial; mineralize bury-vs-place (D-0014); `mktrap_victim` place_object ammo/possessions (D-0016); **seed0060 corridor west of pet too open** (D-0032: JS `CORR` @ `(22,12)` vs C `#`); omit `mkgrave_room` bury, `begin_burn`, special rooms/edge cases; audit `dig_corridor`/`join`/`makecorridors` |
+| `src/mklev.c` | `js/mklev.js` | partial | Ordinary level path substantial; mineralize bury-vs-place (D-0014); `mktrap_victim` place_object ammo/possessions (D-0016); omit `mkgrave_room` bury, `begin_burn`, special rooms/edge cases; seed0060 @ 2997 was **not** corridor typ (D-0032) |
 | `src/vision.c` | `js/vision.js` | partial | Algorithm subset; `clear_path`/`m_cansee` exported for pet rays (D-0018); **`couldsee` wired into `dog_goal`** (D-0030); broad FOV/detection states unaudited |
 | `src/trap.c` | `js/trap.js` | partial | Monster dart path: `t_at`/`t_missile`/`thitm` miss pline/`mintrap`/`seetrap` (D-0018–D-0019); omit other trap types, hero `dotrap`, hit/`dmgval` |
 | runtime `dat/*.lua` + `nhlua.c`/`sp_lev.c` | — | absent | Production requirement; generated dungeon structure is only a scaffold |
@@ -82,7 +81,7 @@ vs C cnt 3→`distfleeck` `rn2(5)`. `m_initinv` body still absent
 |---|---|---|---|
 | `src/allmain.c` | `js/allmain.js` | partial | Basic move loop and hunger/sound subsets |
 | `src/cmd.c` | `js/cmd.js` | partial | Movement/search/apply/kick and selected UI/item commands; Ctrl-D → `dokick` (D-0031) |
-| `src/dokick.c` | `js/dokick.js` | partial | `dokick` + `kick_dumb` empty-space/open-door (D-0031); wall `kick_ouch` rolls; omit `kick_monster`/`kick_object`/closed-door Whammm/SDOOR-SCORR open/furniture/`martial`/`wake_nearby`/`u_wipe_engr`/`losehp`/`set_wounded_legs` bodies |
+| `src/dokick.c` | `js/dokick.js` | partial | `dokick` + `kick_dumb` empty-space/open-door (D-0031); sets `game.kickedloc` (D-0032); wall `kick_ouch` rolls; omit `kick_monster`/`kick_object`/closed-door Whammm/SDOOR-SCORR open/furniture/`martial`/`wake_nearby`/`u_wipe_engr`/`losehp`/`set_wounded_legs` bodies |
 | `src/apply.c` / `src/lock.c` | `js/apply.js`, `js/lock.js` | partial | `doapply` + `pick_lock` (D-0021); exported `getdir` for kick/apply; getobj missing-letter `continue`+`flush_topl_more` (D-0025); omit sack/other tools, real door occupation, `feel_location` mapseen gating, container-at-feet |
 | `src/display.c` `newsym` / map | `js/display.js` | partial | Floor `vobj_at` + class symbols + CORPSE `mon_color` (D-0022); SDOOR/SCORR terrain; omit traps/engravings/`wall_angle`/hallucination/`see_objects` |
 | `src/invent.c` `look_here` / `dfeature_at` | `js/invent.js`, `js/mklev.js` | partial | Stairs via `stairs_description` + Dlvl1 `u_traversed` (D-0026); doors/fountain/sink stubs; Blind feel, engraving, multi-object menu, `doname_with_price` deferred |
@@ -91,8 +90,8 @@ vs C cnt 3→`distfleeck` `rn2(5)`. `m_initinv` body still absent
 | `src/objnam.c` | `js/objnam.js` | partial | doname empty/wield/swapwep/potion/implicit-uncursed (D-0024); CORPSE `corpsenm` (D-0019); full erosion/artifact/Japanese deferred |
 | `src/eat.c` | `js/eat.js` | partial | Cookie/reject subset; getobj still single-shot (no missing-letter `continue`); ordinary eating/nutrition incomplete |
 | `src/dothrow.c`, `src/zap.c:bhit` | `js/dothrow.js` | partial | Dart split/flight/landing; `throw_ok` SUGGEST coins+weapons + getobj loop (D-0025); **`throw_gold` body absent**; combat/object interactions incomplete |
-| `src/mon.c`, `src/monmove.c` | `js/mon.js`, `js/monmove.js` | partial | Early ordinary movement; pet `postmov`→`mintrap` (D-0018); mfndpos `ALLOW_TRAPS` (D-0019); `OPENDOOR` gated on `nohands`/`verysmall` (D-0020); non-pet postmov / `mon_knows_traps` / `bad_rock` squeeze deferred |
-| `src/dog.c`, `src/dogmove.c` (+ `steal.c` relobj) | `js/dog.js`, `js/dogmove.js` | partial | Starting-pet subset; CORPSE age→POISON + `cursed_object_at` in `dog_goal` (D-0015); `dog_move` uncursedcnt/`cursemsg` pline (D-0017/D-0019); `m_cansee` in `find_targ` (D-0018); `dog_invent` `mpickobj`+drop RNG + tseen `rn2(40)` (D-0019); `splitobj` when `carryamt != quan` (D-0028); **pet `relobj`/`mdrop_obj`** (D-0029); **`in_masters_sight = couldsee`** (D-0030); omit food `newdogpos` eat, gettrack/FARAWAY when `!in_masters_sight`, `flooreffects`/`stackobj` merge, vault-guard gold, worn/saddle/shop extrinsics; seed1500 RNG complete (D-0021); seed0060 @ 2997 is mklev terrain (D-0032), not dog_move selection logic |
+| `src/mon.c`, `src/monmove.c` | `js/mon.js`, `js/monmove.js` | partial | Early ordinary movement; pet `postmov`→`mintrap` (D-0018); mfndpos `ALLOW_TRAPS` (D-0019); `OPENDOOR` gated on `nohands`/`verysmall` (D-0020); **`m_avoid_kicked_loc`** in `mon.js` (D-0032; not yet wired into hostile `m_move`); non-pet postmov / `mon_knows_traps` / `bad_rock` squeeze / Sokoban push-avoid body deferred |
+| `src/dog.c`, `src/dogmove.c` (+ `steal.c` relobj) | `js/dog.js`, `js/dogmove.js` | partial | Starting-pet subset; CORPSE age→POISON + `cursed_object_at` in `dog_goal` (D-0015); `dog_move` uncursedcnt/`cursemsg` pline (D-0017/D-0019); `m_cansee` in `find_targ` (D-0018); `dog_invent` `mpickobj`+drop RNG + tseen `rn2(40)` (D-0019); `splitobj` when `carryamt != quan` (D-0028); **pet `relobj`/`mdrop_obj`** (D-0029); **`in_masters_sight = couldsee`** (D-0030); **`m_avoid_kicked_loc`** (D-0032); omit food `newdogpos` eat, gettrack/FARAWAY when `!in_masters_sight`, `flooreffects`/`stackobj` merge, vault-guard gold, worn/saddle/shop extrinsics; seed1500 RNG complete (D-0021); seed0060 next @ 3016 |
 | `src/uhitm.c`, `src/mhitm.c` | `js/uhitm.js`, `js/mhitm.js` | partial | Narrow pet combat paths; general combat absent |
 | `src/teleport.c` | `js/teleport.js` | partial | Placement helpers, not complete teleport system |
 

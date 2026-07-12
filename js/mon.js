@@ -48,6 +48,36 @@ export function monnear(mtmp, x, y) {
     return distmin(mtmp.mx, mtmp.my, x, y) <= 1;
 }
 
+/** C ref: you.h next2u — squared dist to hero ≤ 2. */
+function next2u(x, y) {
+    return dist2(x, y, game.u.ux, game.u.uy) <= 2;
+}
+
+function isok_xy(x, y) {
+    return x >= 1 && x < COLNO && y >= 0 && y < ROWNO;
+}
+
+/**
+ * C ref: monmove.c m_avoid_kicked_loc — peaceful/tame skip hero's kicked square.
+ */
+export function m_avoid_kicked_loc(mtmp, nx, ny) {
+    const kl = game.kickedloc;
+    if (!kl || !isok_xy(kl.x, kl.y)) return false;
+    if (!(mtmp.mpeaceful || mtmp.mtame)) return false;
+    if (!mtmp.mcansee || mtmp.mconf || mtmp.mstun) return false;
+    if (game.Conflict || game.flags?.Conflict) return false;
+    if (nx !== kl.x || ny !== kl.y) return false;
+    return next2u(nx, ny);
+}
+
+/**
+ * C ref: monmove.c m_avoid_soko_push_loc — Sokoban boulder-line skip.
+ * Deferred until Sokoban; always false for now.
+ */
+export function m_avoid_soko_push_loc(_mtmp, _nx, _ny) {
+    return false;
+}
+
 export function m_at(x, y) {
     const list = game.fmon || [];
     for (const m of list) {
