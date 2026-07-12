@@ -116,9 +116,20 @@ export const roles = [
         mnum: PM_MONK,
         petnum: NON_PM,
         neminum: pm('PM_MASTER_KAEN'),
+        title: [
+            { m: 'Candidate', f: 'Candidate' },
+            { m: 'Novice', f: 'Novice' },
+        ],
         lgod: 'Shan Lai Ching',
         ngod: 'Chih Sung-tzu',
         cgod: 'Huan Ti',
+        // C: { 10, 7, 8, 8, 7, 7 } / { 25, 10, 20, 20, 15, 10 }
+        attrbase: [10, 7, 8, 8, 7, 7],
+        attrdist: [25, 10, 20, 20, 15, 10],
+        initrecord: 10,
+        // C: { 12, 0, 0, 8, 1, 0 } / { 2, 2, 0, 2, 0, 2 }
+        hpadv: adv(12, 0, 0, 8, 1, 0),
+        enadv: adv(2, 2, 0, 2, 0, 2),
     },
     // C ref: role.c Priest — no fixed deities; pantheon via randrole
     {

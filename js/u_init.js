@@ -3,7 +3,7 @@
 //        ini_inv_mkobj_filter, ini_inv_obj_substitution,
 //        u_init_inventory_attrs
 //        (Tourist + Rogue + Wizard + Priest + Knight + Samurai + Healer +
-//         Valkyrie + Ranger; human/orc race kits; elf/dwarf/gnome partial).
+//         Valkyrie + Ranger + Monk; human/orc race kits; elf/dwarf/gnome partial).
 
 import { game } from './gstate.js';
 import { rn2, rnd, rn1 } from './rng.js';
@@ -45,7 +45,7 @@ import {
     P_ATTACK_SPELL, P_HEALING_SPELL, P_DIVINATION_SPELL,
     P_ENCHANTMENT_SPELL, P_CLERIC_SPELL, P_ESCAPE_SPELL, P_MATTER_SPELL,
     P_RIDING, P_TWO_WEAPON_COMBAT, P_BARE_HANDED_COMBAT, P_MARTIAL_ARTS,
-    P_BASIC, P_SKILLED, P_EXPERT, P_MASTER,
+    P_BASIC, P_SKILLED, P_EXPERT, P_MASTER, P_GRAND_MASTER,
 } from './const.js';
 import {
     PM_TOURIST, PM_ROGUE, PM_CLERIC, PM_WIZARD, PM_MONK, PM_KNIGHT,
@@ -179,6 +179,33 @@ const Ranger = [
     { trotyp: () => otypByName('ARROW'), trspe: 0, trclass: WEAPON_CLASS, trquan_min: 30, trquan_max: 39, trbless: UNDEF_BLESS },
     { trotyp: () => otypByName('CLOAK_OF_DISPLACEMENT'), trspe: 2, trclass: ARMOR_CLASS, trquan_min: 1, trquan_max: 1, trbless: UNDEF_BLESS },
     { trotyp: () => otypByName('CRAM_RATION'), trspe: 0, trclass: FOOD_CLASS, trquan_min: 4, trquan_max: 4, trbless: 0 },
+    { trotyp: () => 0, trspe: 0, trclass: 0, trquan_min: 0, trquan_max: 0, trbless: 0 },
+];
+
+// C ref: u_init.c Monk[]
+const Monk = [
+    { trotyp: () => otypByName('LEATHER_GLOVES'), trspe: 2, trclass: ARMOR_CLASS, trquan_min: 1, trquan_max: 1, trbless: UNDEF_BLESS },
+    { trotyp: () => otypByName('ROBE'), trspe: 1, trclass: ARMOR_CLASS, trquan_min: 1, trquan_max: 1, trbless: UNDEF_BLESS },
+    { trotyp: () => UNDEF_TYP, trspe: UNDEF_SPE, trclass: SCROLL_CLASS, trquan_min: 1, trquan_max: 1, trbless: UNDEF_BLESS },
+    { trotyp: () => otypByName('POT_HEALING'), trspe: 0, trclass: POTION_CLASS, trquan_min: 3, trquan_max: 3, trbless: UNDEF_BLESS },
+    { trotyp: () => otypByName('FOOD_RATION'), trspe: 0, trclass: FOOD_CLASS, trquan_min: 3, trquan_max: 3, trbless: 0 },
+    { trotyp: () => otypByName('APPLE'), trspe: 0, trclass: FOOD_CLASS, trquan_min: 5, trquan_max: 5, trbless: UNDEF_BLESS },
+    { trotyp: () => otypByName('ORANGE'), trspe: 0, trclass: FOOD_CLASS, trquan_min: 5, trquan_max: 5, trbless: UNDEF_BLESS },
+    { trotyp: () => otypByName('FORTUNE_COOKIE'), trspe: 0, trclass: FOOD_CLASS, trquan_min: 3, trquan_max: 3, trbless: UNDEF_BLESS },
+    { trotyp: () => 0, trspe: 0, trclass: 0, trquan_min: 0, trquan_max: 0, trbless: 0 },
+];
+
+// C ref: u_init.c Healing_book / Protection_book / Confuse_monster_book
+const Healing_book = [
+    { trotyp: () => otypByName('SPE_HEALING'), trspe: UNDEF_SPE, trclass: SPBOOK_CLASS, trquan_min: 1, trquan_max: 1, trbless: 1 },
+    { trotyp: () => 0, trspe: 0, trclass: 0, trquan_min: 0, trquan_max: 0, trbless: 0 },
+];
+const Protection_book = [
+    { trotyp: () => otypByName('SPE_PROTECTION'), trspe: UNDEF_SPE, trclass: SPBOOK_CLASS, trquan_min: 1, trquan_max: 1, trbless: 1 },
+    { trotyp: () => 0, trspe: 0, trclass: 0, trquan_min: 0, trquan_max: 0, trbless: 0 },
+];
+const Confuse_monster_book = [
+    { trotyp: () => otypByName('SPE_CONFUSE_MONSTER'), trspe: UNDEF_SPE, trclass: SPBOOK_CLASS, trquan_min: 1, trquan_max: 1, trbless: 1 },
     { trotyp: () => 0, trspe: 0, trclass: 0, trquan_min: 0, trquan_max: 0, trbless: 0 },
 ];
 
@@ -359,6 +386,22 @@ const Skill_Ran = [
     { skill: P_BARE_HANDED_COMBAT, max: P_BASIC },
 ];
 
+// C ref: u_init.c Skill_Mon[] — Monk (skills_init still stubbed; filter-ready)
+const Skill_Mon = [
+    { skill: P_QUARTERSTAFF, max: P_BASIC },
+    { skill: P_SPEAR, max: P_BASIC },
+    { skill: P_CROSSBOW, max: P_BASIC },
+    { skill: P_SHURIKEN, max: P_BASIC },
+    { skill: P_ATTACK_SPELL, max: P_BASIC },
+    { skill: P_HEALING_SPELL, max: P_EXPERT },
+    { skill: P_DIVINATION_SPELL, max: P_BASIC },
+    { skill: P_ENCHANTMENT_SPELL, max: P_BASIC },
+    { skill: P_CLERIC_SPELL, max: P_SKILLED },
+    { skill: P_ESCAPE_SPELL, max: P_SKILLED },
+    { skill: P_MATTER_SPELL, max: P_BASIC },
+    { skill: P_MARTIAL_ARTS, max: P_GRAND_MASTER },
+];
+
 function strangeObject() {
     return otypByName('STRANGE_OBJECT') || 0;
 }
@@ -442,7 +485,7 @@ function trquan(trop) {
     return trop.trquan_min + rn2(trop.trquan_max - trop.trquan_min + 1);
 }
 
-// C ref: u_init.c skills_for_role() — Wizard + Priest + Knight + Samurai + Healer + Valkyrie + Ranger
+// C ref: u_init.c skills_for_role() — Wizard + Priest + Knight + Samurai + Healer + Valkyrie + Ranger + Monk
 function skills_for_role() {
     if (game.urole?.mnum === PM_WIZARD) return Skill_W;
     if (game.urole?.mnum === PM_CLERIC) return Skill_P;
@@ -451,6 +494,7 @@ function skills_for_role() {
     if (game.urole?.mnum === PM_HEALER) return Skill_H;
     if (game.urole?.mnum === PM_VALKYRIE) return Skill_V;
     if (game.urole?.mnum === PM_RANGER) return Skill_Ran;
+    if (game.urole?.mnum === PM_MONK) return Skill_Mon;
     return null;
 }
 
@@ -732,8 +776,8 @@ function knows_object(otyp, _override_pauper) {
 }
 
 // C ref: u_init.c knows_class() — ordinary non-magic objects of a class.
-// Rogue keeps dagger-name walk; Knight/Samurai/Valkyrie/Ranger walk bases[]
-// like C (weapons + armor; skip CORNUTHAUM/DUNCE_CAP/SMALL_SHIELD;
+// Rogue keeps dagger-name walk; Knight/Samurai/Valkyrie/Ranger/Monk walk
+// bases[] like C (weapons + armor; skip CORNUTHAUM/DUNCE_CAP/SMALL_SHIELD;
 // non-Knight/Samurai skip polearms/lances; Ranger: launchers/ammo/spears).
 function knows_class(sym) {
     const roleMnum = game.urole?.mnum;
@@ -753,7 +797,8 @@ function knows_class(sym) {
     // C callers that walk bases[]: Barbarian, Knight, Monk, Ranger, Samurai,
     // Valkyrie. Only ported roles that call knows_class are enabled here.
     if (roleMnum !== PM_KNIGHT && roleMnum !== PM_SAMURAI
-        && roleMnum !== PM_VALKYRIE && roleMnum !== PM_RANGER) {
+        && roleMnum !== PM_VALKYRIE && roleMnum !== PM_RANGER
+        && roleMnum !== PM_MONK) {
         return;
     }
 
@@ -893,7 +938,7 @@ function ini_inv(tropArr) {
     }
 }
 
-// C ref: u_init.c u_init_role() — Tourist + Rogue + Wizard + Priest + Knight + Samurai + Healer + Valkyrie + Ranger
+// C ref: u_init.c u_init_role() — Tourist + Rogue + Wizard + Priest + Knight + Samurai + Healer + Valkyrie + Ranger + Monk
 function u_init_role() {
     const role = game.urole;
     const mnum = role?.mnum;
@@ -1013,6 +1058,22 @@ function u_init_role() {
         game.u.umoney0 = 0;
         ini_inv(Ranger);
         knows_class(WEAPON_CLASS); // bows, arrows, spears only
+        game.nocreate = strange;
+        game.nocreate2 = strange;
+        game.nocreate3 = strange;
+        game.nocreate4 = strange;
+        return;
+    }
+    if (mnum === PM_MONK) {
+        // C: M_spell[rn2(90) / 30] — Healing / Protection / Confuse Monster
+        const M_spell = [Healing_book, Protection_book, Confuse_monster_book];
+        game.u.umoney0 = 0;
+        ini_inv(Monk);
+        ini_inv(M_spell[Math.floor(rn2(90) / 30)]);
+        if (!rn2(4)) ini_inv(Magicmarker);
+        else if (!rn2(10)) ini_inv(Lamp);
+        knows_class(ARMOR_CLASS);
+        knows_object(otypByName('SHURIKEN'), false);
         game.nocreate = strange;
         game.nocreate2 = strange;
         game.nocreate3 = strange;

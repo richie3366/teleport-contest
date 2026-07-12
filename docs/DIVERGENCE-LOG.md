@@ -1231,3 +1231,35 @@ cohort gates if those functions are touched again.
   broader walk.
 - **Next:** Monk/Archeologist/Barbarian/Caveman (1 throw each), or
   shared mklev/moveloop peels.
+
+## D-0049 — Monk `u_init_role` + spellbook RNG + armor `knows_class`
+
+- **Status:** fixed (verified 2026-07-13) for role-init throw clearance;
+  Monk sessions still diverge later (`lspo_map` / early peels).
+- **Observed:** **4/44** role throws after D-0048; 1 dedicated Monk
+  throw (seed0200). After port, **3/44** remain (Archeologist/
+  Barbarian/Caveman). seed0200 rng-diff prefix **377** (`lspo_map`);
+  positional RNG **1545**/3822.
+- **Cause/evidence:** Monk kit absent; scaffold lacked attrs/`hpadv`/
+  `enadv`/`initrecord=10`. C `ini_inv(Monk)` (gloves+2, robe+1, random
+  scroll, healing×3, rations/fruit/cookies) then
+  `ini_inv(M_spell[rn2(90)/30])` (Healing/Protection/Confuse Monster),
+  Magicmarker `!rn2(4)` else Lamp `!rn2(10)`, `knows_class(ARMOR)`,
+  `knows_object(SHURIKEN)`.
+- **C locus:** `u_init.c` `Monk[]` / `M_spell` / `Skill_Mon` /
+  `u_init_role` `PM_MONK` / `knows_class`; `role.c` Monk entry.
+- **Change:** Monk roles attrs/`hpadv`/`enadv`/`initrecord`/titles;
+  Monk inventory + spellbook extras; `Skill_Mon` in `skills_for_role`;
+  `knows_class` admits `PM_MONK` for armor walk.
+- **Verification:** green + seed1500/1800/0060 PASS + strict; full
+  **5/44**, screens **256**/11405, RNG **74019**/792838; role throws
+  **3**/44; seed0200 RNG **1545**/3822 Scr **0**/40.
+- **Omissions named:** `skill_init` / `initialspell` still stubbed;
+  Archeologist/Barbarian/Caveman kits; seed0200/0015 `lspo_map`;
+  seed0105/0501 `wipeout_text`; seed0700/0103 `mkclass_aligned`;
+  seed2200/0030 `choose_trapnote`; seed0016 `hole_destination`;
+  seed0101 `next_ident`; seed0102 `rndmonst_adj`.
+- **Lesson:** Monk spell choice is `rn2(90)/30` (three books), not a
+  free `rn2(3)`; Magicmarker precedes Lamp with distinct odds.
+- **Next:** Archeologist/Barbarian/Caveman (1 throw each), or shared
+  mklev/moveloop peels.

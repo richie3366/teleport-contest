@@ -7,22 +7,22 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 
 ## Active
 
-- **Current unit:** Ranger `u_init_role` cleared (D-0048). Role throws
-  **4**/44 (was 6). seed0101 prefix **2293** (`next_ident`); seed0102
-  prefix **1281** (`rndmonst_adj`).
-- **Hypothesis / next peel:** port next unported role (**Monk**,
-  Archeologist, Barbarian, or Caveman — 1 throw each), or shared
+- **Current unit:** Monk `u_init_role` cleared (D-0049). Role throws
+  **3**/44 (was 4). seed0200 prefix **377** (`lspo_map`); seed0012
+  still **541** (pre-existing early peel).
+- **Hypothesis / next peel:** port next unported role
+  (**Archeologist**, Barbarian, or Caveman — 1 throw each), or shared
   `mkclass_aligned` / `choose_trapnote` / `hole_destination` /
   `wipeout_text` / `lspo_map` / `next_ident` / `rndmonst_adj`.
 - **Falsifier / next probe:**
   ```bash
   node frozen/ps_test_runner.mjs sessions 2>&1 | rg 'role not ported|PASS|FAIL' | head -40
-  # Or: node scripts/rng-diff.mjs sessions/seed0200-monk-north-search.session.json
+  # Or: node scripts/rng-diff.mjs sessions/seed0361-archeologist-tour.session.json
   ```
 - **Parked deep canary:** D-0006 pet movement — do not implement until C
   state/candidate capture exists.
 - **Also deferred:** Wizard/Priest/Healer `initialspell`; Knight/Samurai/
-  Healer/Valkyrie/Ranger `skill_init`; display-path Japanese names; full
+  Healer/Valkyrie/Ranger/Monk `skill_init`; display-path Japanese names; full
   `role_init` beyond pantheon + SPE_LIGHT + nemesis gender; `make_corpse`
   after `corpse_chance`; dokick monster/object/closed-door/SDOOR/furniture;
   `martial()`; wake/engraving; `set_wounded_legs` body; `showdamage`/
@@ -171,6 +171,10 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 - seed0101/0102 throws were **not** missing pet alone: Ranger needed
   `Ranger[]` + attrs/`hpadv` + `knows_class(WEAPON)` filtered to
   launchers/ammo/spears (`is_launcher`/`is_ammo`/`is_spear`) — D-0048.
+- seed0200 throw was **not** missing pet alone: Monk needed `Monk[]` +
+  attrs/`hpadv` + `M_spell[rn2(90)/30]` + Magicmarker/`!rn2(4)` else
+  Lamp/`!rn2(10)` + armor `knows_class` + `knows_object(SHURIKEN)` —
+  D-0049. `skill_init` / `initialspell` still deferred.
 
 ## Landmarks
 
@@ -185,6 +189,9 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   shield `+3`; optional Lamp `!rn2(6)`.
 - Ranger+human init HP = **15** (role 13 + race 2); initrecord **10**;
   cloak of displacement `+2`; arrow stacks `rn2` quan 50–59 and 30–39.
+- Monk+human init HP = **14** (role 12 + race 2); initrecord **10**;
+  gloves `+2`, robe `+1`; spellbook via `rn2(90)/30` → Healing /
+  Protection / Confuse Monster; Magicmarker `!rn2(4)` else Lamp `!rn2(10)`.
 - Rogue legacy offx = `max(10, 80 - maxcol - 1)` (Kos → 23; The Lady → 17).
 - Tutorial menu offx = 20 (OPTIONS `.nethackrc` line → maxcol 59); cursor
   `[27,6]` on `(end) `.
@@ -220,3 +227,5 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   `next_ident`.
 - seed0102: D-0048 → role throw cleared; rng-diff prefix **1281**; next
   `rndmonst_adj`.
+- seed0200: D-0049 → role throw cleared; rng-diff prefix **377**; next
+  `lspo_map` (same as seed0015).

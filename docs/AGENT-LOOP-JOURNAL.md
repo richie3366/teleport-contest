@@ -19,6 +19,19 @@ Use this shape:
 
 ---
 
+## 2026-07-13 01:05 — Monk u_init_role (D-0049)
+- C locus: `u_init.c` Monk/`M_spell`/`Skill_Mon`/`u_init_role` PM_MONK /
+  `knows_class(ARMOR)` + `knows_object(SHURIKEN)`; `role.c` Monk attrs
+- Result: **verified faithful change** — Monk kit + `rn2(90)/30`
+  spellbook + Magicmarker/`!rn2(4)` else Lamp/`!rn2(10)` + armor
+  `knows_class` + attrs/`hpadv`. Role throws **4→3**/44.
+- Verification: green + seed1500/1800/0060 PASS + strict; full **5/44**,
+  screens **256**/11405, RNG **74019**/792838; seed0200 prefix **377**
+  (`lspo_map`); seed0200 positional **1545**/3822.
+- Next: port Archeologist (or Barbarian/Caveman) `u_init_role`, or peel
+  shared `lspo_map` / `mkclass_aligned` / `choose_trapnote` /
+  `hole_destination` / `wipeout_text`.
+
 ## 2026-07-13 01:00 — Ranger u_init_role (D-0048)
 - C locus: `u_init.c` Ranger/`Skill_Ran`/`u_init_role` PM_RANGER /
   `knows_class` (launcher/ammo/spear); `obj.h` is_launcher/is_ammo/
