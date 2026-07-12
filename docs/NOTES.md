@@ -7,32 +7,33 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 
 ## Active
 
-- **Current unit:** Monk `u_init_role` cleared (D-0049). Role throws
-  **3**/44 (was 4). seed0200 prefix **377** (`lspo_map`); seed0012
-  still **541** (pre-existing early peel).
-- **Hypothesis / next peel:** port next unported role
-  (**Archeologist**, Barbarian, or Caveman — 1 throw each), or shared
-  `mkclass_aligned` / `choose_trapnote` / `hole_destination` /
-  `wipeout_text` / `lspo_map` / `next_ident` / `rndmonst_adj`.
+- **Current unit:** Archeologist `u_init_role` cleared (D-0050). Role throws
+  **2**/44 (was 3). seed0361 prefix **1280** (`hole_destination`); same
+  peel as seed0016.
+- **Hypothesis / next peel:** port next unported role (**Barbarian**
+  or Caveman — 1 throw each), or shared `mkclass_aligned` /
+  `choose_trapnote` / `hole_destination` / `wipeout_text` / `lspo_map` /
+  `next_ident` / `rndmonst_adj`.
 - **Falsifier / next probe:**
   ```bash
   node frozen/ps_test_runner.mjs sessions 2>&1 | rg 'role not ported|PASS|FAIL' | head -40
-  # Or: node scripts/rng-diff.mjs sessions/seed0361-archeologist-tour.session.json
+  # Or: node scripts/rng-diff.mjs sessions/seed0373-barbarian-quest-tour.session.json
   ```
 - **Parked deep canary:** D-0006 pet movement — do not implement until C
   state/candidate capture exists.
 - **Also deferred:** Wizard/Priest/Healer `initialspell`; Knight/Samurai/
-  Healer/Valkyrie/Ranger/Monk `skill_init`; display-path Japanese names; full
-  `role_init` beyond pantheon + SPE_LIGHT + nemesis gender; `make_corpse`
-  after `corpse_chance`; dokick monster/object/closed-door/SDOOR/furniture;
-  `martial()`; wake/engraving; `set_wounded_legs` body; `showdamage`/
-  death `done`; Upolyd eel `regen_hp` loss; `regen_pw`/Teleport/Poly
-  once-per-turn; other roles still throw; `dog_goal` gettrack/FARAWAY;
-  `throw_gold`; eat getobj single-shot; Blind/`look_here`; trap glyphs;
-  hallucination/`see_objects`; `u_init_carry_attr_boost`; mfndpos
-  `bad_rock` squeeze; Sokoban push-avoid; `donull` `cmd_safety_prevention`;
-  dog_move `mtrack` skip; `makemon` Sokoban `throws_rocks`; `m_initinv`
-  body; `set_malign`; telepathy/`Detect_monsters`/`MATCH_WARN_OF_MON` in
+  Healer/Valkyrie/Ranger/Monk/Archeologist `skill_init`; display-path
+  Japanese names; full `role_init` beyond pantheon + SPE_LIGHT + nemesis
+  gender; `make_corpse` after `corpse_chance`; dokick monster/object/
+  closed-door/SDOOR/furniture; `martial()`; wake/engraving;
+  `set_wounded_legs` body; `showdamage`/death `done`; Upolyd eel
+  `regen_hp` loss; `regen_pw`/Teleport/Poly once-per-turn; Barbarian/
+  Caveman still throw; `dog_goal` gettrack/FARAWAY; `throw_gold`; eat
+  getobj single-shot; Blind/`look_here`; trap glyphs; hallucination/
+  `see_objects`; `u_init_carry_attr_boost`; mfndpos `bad_rock` squeeze;
+  Sokoban push-avoid; `donull` `cmd_safety_prevention`; dog_move
+  `mtrack` skip; `makemon` Sokoban `throws_rocks`; `m_initinv` body;
+  `set_malign`; telepathy/`Detect_monsters`/`MATCH_WARN_OF_MON` in
   `newsym`; full `set_uasmon`/uprops; full `weapon_insight` (enhance /
   P_SKILL table / odd-skill P_NAME); `obj_typename` armor pair-of/
   set-of + GemStone; MLET_CH beyond early subset; shop `costly_spot`
@@ -175,6 +176,10 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   attrs/`hpadv` + `M_spell[rn2(90)/30]` + Magicmarker/`!rn2(4)` else
   Lamp/`!rn2(10)` + armor `knows_class` + `knows_object(SHURIKEN)` —
   D-0049. `skill_init` / `initialspell` still deferred.
+- seed0361 throw was **not** missing pet alone: Archeologist needed
+  `Archeologist[]` + attrs/`hpadv` + Tinopener/`!rn2(10)` else Lamp/
+  `!rn2(4)` else Magicmarker/`!rn2(5)` + `knows_object(SACK/TOUCHSTONE)` —
+  D-0050. No `knows_class` walk. `skill_init` still deferred.
 
 ## Landmarks
 
@@ -192,6 +197,9 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 - Monk+human init HP = **14** (role 12 + race 2); initrecord **10**;
   gloves `+2`, robe `+1`; spellbook via `rn2(90)/30` → Healing /
   Protection / Confuse Monster; Magicmarker `!rn2(4)` else Lamp `!rn2(10)`.
+- Archeologist+human init HP = **13** (role 11 + race 2); initrecord **10**;
+  whip `+2`; pick-axe/tinning kit `UNDEF_SPE`; Tinopener `!rn2(10)` else
+  Lamp `!rn2(4)` else Magicmarker `!rn2(5)`.
 - Rogue legacy offx = `max(10, 80 - maxcol - 1)` (Kos → 23; The Lady → 17).
 - Tutorial menu offx = 20 (OPTIONS `.nethackrc` line → maxcol 59); cursor
   `[27,6]` on `(end) `.
@@ -229,3 +237,5 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   `rndmonst_adj`.
 - seed0200: D-0049 → role throw cleared; rng-diff prefix **377**; next
   `lspo_map` (same as seed0015).
+- seed0361: D-0050 → role throw cleared; rng-diff prefix **1280**; next
+  `hole_destination` (same as seed0016).

@@ -3,7 +3,8 @@
 //        ini_inv_mkobj_filter, ini_inv_obj_substitution,
 //        u_init_inventory_attrs
 //        (Tourist + Rogue + Wizard + Priest + Knight + Samurai + Healer +
-//         Valkyrie + Ranger + Monk; human/orc race kits; elf/dwarf/gnome partial).
+//         Valkyrie + Ranger + Monk + Archeologist; human/orc race kits;
+//         elf/dwarf/gnome partial).
 
 import { game } from './gstate.js';
 import { rn2, rnd, rn1 } from './rng.js';
@@ -49,7 +50,7 @@ import {
 } from './const.js';
 import {
     PM_TOURIST, PM_ROGUE, PM_CLERIC, PM_WIZARD, PM_MONK, PM_KNIGHT,
-    PM_SAMURAI, PM_HEALER, PM_VALKYRIE, PM_RANGER,
+    PM_SAMURAI, PM_HEALER, PM_VALKYRIE, PM_RANGER, PM_ARCHEOLOGIST,
     PM_HUMAN, PM_ELF, PM_DWARF, PM_ORC, PM_GNOME,
     NON_PM,
 } from './generated/monsters_data.js';
@@ -192,6 +193,19 @@ const Monk = [
     { trotyp: () => otypByName('APPLE'), trspe: 0, trclass: FOOD_CLASS, trquan_min: 5, trquan_max: 5, trbless: UNDEF_BLESS },
     { trotyp: () => otypByName('ORANGE'), trspe: 0, trclass: FOOD_CLASS, trquan_min: 5, trquan_max: 5, trbless: UNDEF_BLESS },
     { trotyp: () => otypByName('FORTUNE_COOKIE'), trspe: 0, trclass: FOOD_CLASS, trquan_min: 3, trquan_max: 3, trbless: UNDEF_BLESS },
+    { trotyp: () => 0, trspe: 0, trclass: 0, trquan_min: 0, trquan_max: 0, trbless: 0 },
+];
+
+// C ref: u_init.c Archeologist[]
+const Archeologist = [
+    { trotyp: () => otypByName('BULLWHIP'), trspe: 2, trclass: WEAPON_CLASS, trquan_min: 1, trquan_max: 1, trbless: UNDEF_BLESS },
+    { trotyp: () => otypByName('LEATHER_JACKET'), trspe: 0, trclass: ARMOR_CLASS, trquan_min: 1, trquan_max: 1, trbless: UNDEF_BLESS },
+    { trotyp: () => otypByName('FEDORA'), trspe: 0, trclass: ARMOR_CLASS, trquan_min: 1, trquan_max: 1, trbless: UNDEF_BLESS },
+    { trotyp: () => otypByName('FOOD_RATION'), trspe: 0, trclass: FOOD_CLASS, trquan_min: 3, trquan_max: 3, trbless: 0 },
+    { trotyp: () => otypByName('PICK_AXE'), trspe: UNDEF_SPE, trclass: TOOL_CLASS, trquan_min: 1, trquan_max: 1, trbless: UNDEF_BLESS },
+    { trotyp: () => otypByName('TINNING_KIT'), trspe: UNDEF_SPE, trclass: TOOL_CLASS, trquan_min: 1, trquan_max: 1, trbless: UNDEF_BLESS },
+    { trotyp: () => otypByName('TOUCHSTONE'), trspe: 0, trclass: GEM_CLASS, trquan_min: 1, trquan_max: 1, trbless: 0 },
+    { trotyp: () => otypByName('SACK'), trspe: 0, trclass: TOOL_CLASS, trquan_min: 1, trquan_max: 1, trbless: 0 },
     { trotyp: () => 0, trspe: 0, trclass: 0, trquan_min: 0, trquan_max: 0, trbless: 0 },
 ];
 
@@ -402,6 +416,29 @@ const Skill_Mon = [
     { skill: P_MARTIAL_ARTS, max: P_GRAND_MASTER },
 ];
 
+// C ref: u_init.c Skill_A[] — Archeologist (skills_init still stubbed; filter-ready)
+const Skill_A = [
+    { skill: P_DAGGER, max: P_BASIC },
+    { skill: P_KNIFE, max: P_BASIC },
+    { skill: P_PICK_AXE, max: P_EXPERT },
+    { skill: P_SHORT_SWORD, max: P_BASIC },
+    { skill: P_SABER, max: P_EXPERT },
+    { skill: P_CLUB, max: P_SKILLED },
+    { skill: P_QUARTERSTAFF, max: P_SKILLED },
+    { skill: P_SLING, max: P_SKILLED },
+    { skill: P_DART, max: P_BASIC },
+    { skill: P_BOOMERANG, max: P_EXPERT },
+    { skill: P_WHIP, max: P_EXPERT },
+    { skill: P_UNICORN_HORN, max: P_SKILLED },
+    { skill: P_ATTACK_SPELL, max: P_BASIC },
+    { skill: P_HEALING_SPELL, max: P_BASIC },
+    { skill: P_DIVINATION_SPELL, max: P_EXPERT },
+    { skill: P_MATTER_SPELL, max: P_BASIC },
+    { skill: P_RIDING, max: P_BASIC },
+    { skill: P_TWO_WEAPON_COMBAT, max: P_BASIC },
+    { skill: P_BARE_HANDED_COMBAT, max: P_EXPERT },
+];
+
 function strangeObject() {
     return otypByName('STRANGE_OBJECT') || 0;
 }
@@ -485,7 +522,7 @@ function trquan(trop) {
     return trop.trquan_min + rn2(trop.trquan_max - trop.trquan_min + 1);
 }
 
-// C ref: u_init.c skills_for_role() — Wizard + Priest + Knight + Samurai + Healer + Valkyrie + Ranger + Monk
+// C ref: u_init.c skills_for_role() — Wizard + Priest + Knight + Samurai + Healer + Valkyrie + Ranger + Monk + Archeologist
 function skills_for_role() {
     if (game.urole?.mnum === PM_WIZARD) return Skill_W;
     if (game.urole?.mnum === PM_CLERIC) return Skill_P;
@@ -495,6 +532,7 @@ function skills_for_role() {
     if (game.urole?.mnum === PM_VALKYRIE) return Skill_V;
     if (game.urole?.mnum === PM_RANGER) return Skill_Ran;
     if (game.urole?.mnum === PM_MONK) return Skill_Mon;
+    if (game.urole?.mnum === PM_ARCHEOLOGIST) return Skill_A;
     return null;
 }
 
@@ -938,7 +976,7 @@ function ini_inv(tropArr) {
     }
 }
 
-// C ref: u_init.c u_init_role() — Tourist + Rogue + Wizard + Priest + Knight + Samurai + Healer + Valkyrie + Ranger + Monk
+// C ref: u_init.c u_init_role() — Tourist + Rogue + Wizard + Priest + Knight + Samurai + Healer + Valkyrie + Ranger + Monk + Archeologist
 function u_init_role() {
     const role = game.urole;
     const mnum = role?.mnum;
@@ -950,6 +988,20 @@ function u_init_role() {
     game.nocreate3 = strange;
     game.nocreate4 = strange;
 
+    if (mnum === PM_ARCHEOLOGIST) {
+        game.u.umoney0 = 0;
+        ini_inv(Archeologist);
+        if (!rn2(10)) ini_inv(Tinopener);
+        else if (!rn2(4)) ini_inv(Lamp);
+        else if (!rn2(5)) ini_inv(Magicmarker);
+        knows_object(otypByName('SACK'), false);
+        knows_object(otypByName('TOUCHSTONE'), false);
+        game.nocreate = strange;
+        game.nocreate2 = strange;
+        game.nocreate3 = strange;
+        game.nocreate4 = strange;
+        return;
+    }
     if (mnum === PM_TOURIST) {
         game.u.umoney0 = rnd(1000);
         ini_inv(Tourist);

@@ -49,9 +49,20 @@ export const roles = [
         mnum: PM_ARCHEOLOGIST,
         petnum: NON_PM,
         neminum: pm('PM_MINION_OF_HUHETOTL'),
+        title: [
+            { m: 'Digger', f: 'Digger' },
+            { m: 'Field Worker', f: 'Field Worker' },
+        ],
         lgod: 'Quetzalcoatl',
         ngod: 'Camaxtli',
         cgod: 'Huhetotl',
+        // C: { 7, 10, 10, 7, 7, 7 } / { 20, 20, 20, 10, 20, 10 }
+        attrbase: [7, 10, 10, 7, 7, 7],
+        attrdist: [20, 20, 20, 10, 20, 10],
+        initrecord: 10,
+        // C: { 11, 0, 0, 8, 1, 0 } / { 1, 0, 0, 1, 0, 1 }
+        hpadv: adv(11, 0, 0, 8, 1, 0),
+        enadv: adv(1, 0, 0, 1, 0, 1),
     },
     {
         name: { m: 'Barbarian', f: 'Barbarian' },

@@ -19,6 +19,19 @@ Use this shape:
 
 ---
 
+## 2026-07-13 01:10 — Archeologist u_init_role (D-0050)
+- C locus: `u_init.c` Archeologist/`Skill_A`/`u_init_role` PM_ARCHEOLOGIST
+  (Tinopener/`!rn2(10)` else Lamp/`!rn2(4)` else Magicmarker/`!rn2(5)` +
+  SACK/TOUCHSTONE knows); `role.c` Archeologist attrs
+- Result: **verified faithful change** — Archeologist kit + optional
+  tool chain + attrs/`hpadv`. Role throws **3→2**/44.
+- Verification: green + seed1500/1800/0060 PASS + strict; full **5/44**,
+  screens **256**/11405, RNG **76497**/792838; seed0361 prefix **1280**
+  (`hole_destination`); seed0361 positional **2478**/53865.
+- Next: port Barbarian (or Caveman) `u_init_role`, or peel shared
+  `hole_destination` / `mkclass_aligned` / `choose_trapnote` /
+  `lspo_map` / `wipeout_text`.
+
 ## 2026-07-13 01:05 — Monk u_init_role (D-0049)
 - C locus: `u_init.c` Monk/`M_spell`/`Skill_Mon`/`u_init_role` PM_MONK /
   `knows_class(ARMOR)` + `knows_object(SHURIKEN)`; `role.c` Monk attrs

@@ -1263,3 +1263,35 @@ cohort gates if those functions are touched again.
   free `rn2(3)`; Magicmarker precedes Lamp with distinct odds.
 - **Next:** Archeologist/Barbarian/Caveman (1 throw each), or shared
   mklev/moveloop peels.
+
+## D-0050 — Archeologist `u_init_role` + tin opener/lamp/marker + SACK/TOUCHSTONE
+
+- **Status:** fixed (verified 2026-07-13) for role-init throw clearance;
+  Archeologist session still diverges later (`hole_destination`).
+- **Observed:** **3/44** role throws after D-0049; 1 dedicated
+  Archeologist throw (seed0361). After port, **2/44** remain
+  (Barbarian/Caveman). seed0361 rng-diff prefix **1280**
+  (`hole_destination`); positional RNG **2478**/53865.
+- **Cause/evidence:** Archeologist kit absent; scaffold lacked attrs/
+  `hpadv`/`enadv`/`initrecord=10`. C `ini_inv(Archeologist)` (whip+2,
+  leather jacket, fedora, rations×3, pick-axe, tinning kit, touchstone,
+  sack) then Tinopener `!rn2(10)` else Lamp `!rn2(4)` else Magicmarker
+  `!rn2(5)`, `knows_object(SACK/TOUCHSTONE)` — no `knows_class`.
+- **C locus:** `u_init.c` `Archeologist[]` / `Skill_A` / `u_init_role`
+  `PM_ARCHEOLOGIST`; `role.c` Archeologist entry.
+- **Change:** Archeologist roles attrs/`hpadv`/`enadv`/`initrecord`/
+  titles; Archeologist inventory + optional tool chain; `Skill_A` in
+  `skills_for_role`.
+- **Verification:** green + seed1500/1800/0060 PASS + strict; full
+  **5/44**, screens **256**/11405, RNG **76497**/792838; role throws
+  **2**/44; seed0361 RNG **2478**/53865 Scr **0**/366.
+- **Omissions named:** `skill_init` still stubbed; Barbarian/Caveman
+  kits; seed0361/0016 `hole_destination`; seed0200/0015 `lspo_map`;
+  seed0105/0501 `wipeout_text`; seed0700/0103 `mkclass_aligned`;
+  seed2200/0030 `choose_trapnote`; seed0101 `next_ident`; seed0102
+  `rndmonst_adj`.
+- **Lesson:** Archeologist optional extras are a three-way else-if chain
+  (tin opener → lamp → marker), not independent rolls; discovery is
+  object-specific, not a class walk.
+- **Next:** Barbarian/Caveman (1 throw each), or shared mklev/moveloop
+  peels.
