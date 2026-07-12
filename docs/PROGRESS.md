@@ -37,10 +37,10 @@ frozen-file overlay):
 
 | Metric | Value |
 |--------|------:|
-| Sessions passing | **4 / 44** |
-| Screens matched | **218 / 11,405** (1.91%) |
+| Sessions passing | **5 / 44** |
+| Screens matched | **220 / 11,405** (1.93%) |
 | Positional RNG calls matched | **28,511 / 792,838** (3.60%) |
-| Speed label | `13+0.02/turn` (R² 0.07) |
+| Speed label | `14+0.02/turn` (R² 0.07) |
 | Working-tree base | `8b71735` + committed port (see `main`) |
 | Role-init throws | **29 / 44** (`u_init_role: role not ported`) |
 
@@ -56,13 +56,11 @@ shared blockers, and semantic coverage together—not one vanity metric.
 | `seed0900-tourist-explore-actions` | **2983 / 2983** | **84 / 84** |
 | `seed1500-rogue-explore-move` | **2768 / 2768** | **40 / 40** |
 | `seed1800-tourist-eat-throw` | **2458 / 2458** | **26 / 26** |
-| `seed0060-orc-rogue-kick-search` | **3626 / 3626** | **39 / 41** |
+| `seed0060-orc-rogue-kick-search` | **3626 / 3626** | **41 / 41** |
 | `seed0013-rogue-friday13-combat` | **519 / 4838** | 1 / 59 |
 
-seed8000 + seed0900 + seed1500 + seed1800 pass end-to-end. seed0060 clears
-RNG (D-0035) and screens through idx 0–34 (D-0040); screens
-**39/41** (cursors 41/41) — next idx 35 (^X). seed0013 still
-breaks earlier in Lua/`sp_lev` map.
+seed8000 + seed0900 + seed1500 + seed1800 + seed0060 pass end-to-end.
+seed0013 still breaks earlier in Lua/`sp_lev` map.
 
 ### Green gate
 
@@ -86,23 +84,17 @@ complete or blocked on a prerequisite you document with a falsifier. The
 seed1800 deep canary (`D-0006`) is **parked** — do not implement pet-movement
 fixes until C state/candidate capture exists (`GROK-PLAYBOOK.md` §2).
 
-#### Primary foundation frontier — seed0060 screens (idx 35+)
+#### Primary foundation frontier — next unported role / seed0013
 
-**Code status:** empty-space `#kick` (D-0031), `m_avoid_kicked_loc` (D-0032),
-`.`/`donull` (D-0033), `makemon(NULL,0,0)` (D-0034), wall-kick
-`losehp` + once-per-turn `regen_hp` (D-0035), orc `hpadv` +
-`mon_glyph` `mcolors` (D-0036), gold `doname` + `mondied`/`newsym`
-(D-0037), cansee invent pline + `wall_angle`/`set_wall_state` +
-downstairs `>` NO_COLOR (D-0038), orc infravision `newsym` +
-`postmov` newsym (D-0039), and disco `OBJ_DESCR`/`obj_typename`
-(D-0040) cleared. RNG **3626/3626**; screens **39/41**; four public
-sessions pass end-to-end.
+**Code status:** seed0060 orc Rogue session **PASS** (D-0041 ^X
+enlightenment). Five public sessions pass end-to-end. **29/44** still
+throw at `u_init_role`.
 
-- **Bounded unit:** first failing screen (idx 35) — ^X enlightenment
-  autopickup / attr-limit / weapon lines vs C.
-- **C:** `insight.c` enlightenment (BASICENLIGHTENMENT) + related
-  weapon_descr / skill naming (then idx 36 page 2).
-- **JS:** `invent.js` `doattributes` / insight paths.
+- **Bounded unit:** next role `u_init_role` / race kit from C
+  (`u_init.c` + `role.c`), **or** seed0013 Lua/`sp_lev` map peel if
+  staying on Rogue combat.
+- **Prefer:** a role that clears many `role not ported` throwers over
+  polishing one late Tourist path.
 - **Named omissions:** `make_corpse` after `corpse_chance`; dokick
   monster/object/closed-door/SDOOR/furniture; `martial()`; wake/
   engraving; `set_wounded_legs` body; `showdamage`/death `done`; Upolyd
@@ -114,18 +106,16 @@ sessions pass end-to-end.
   `cmd_safety_prevention`; dog_move `mtrack` skip; `makemon` Sokoban
   `throws_rocks`; `m_initinv` body; `set_malign`; telepathy/
   `Detect_monsters`/`MATCH_WARN_OF_MON` in `newsym`; full
-  `set_uasmon`/uprops; ^X polish (idx 35–36); `obj_typename` armor
+  `set_uasmon`/uprops; full `weapon_insight` enhance/P_SKILL/odd
+  P_NAME; shop `costly_spot` autopickup; `obj_typename` armor
   pair-of/set-of + GemStone; MLET_CH beyond early subset; …
-- **Cohort:** green gate + seed1500 + seed1800 (must stay PASS) + strict
-  lengths.
-- **Alternate shared peel:** next unported role, or seed0013 Lua/`sp_lev`
-  map.
+- **Cohort:** green gate + seed1500 + seed1800 + seed0060 (must stay
+  PASS) + strict lengths.
 
-Focused command:
+Focused survey:
 
 ```bash
-node frozen/ps_test_runner.mjs \
-  sessions/seed0060-orc-rogue-kick-search.session.json
+node frozen/ps_test_runner.mjs sessions 2>&1 | rg 'role not ported|PASS|FAIL' | head -40
 ```
 
 #### Deep canary frontier — seed1800 pet movement
@@ -183,6 +173,8 @@ Module status, constitutional debt, and named omissions live in
     Scr **37→38**/41; next idx 33 (disco UI)
 25. seed0060 disco `OBJ_DESCR`/`obj_typename` (D-0040) — Scr **38→39**/41;
     next idx 35 (^X enlightenment)
+26. seed0060 ^X enlightenment autopickup/limits/`weapon_descr` (D-0041)
+    — Scr **39→41**/41; session **PASS**; public **5/44**
 
 Next work is selected from the active objectives above using
 `PORTING-RUNBOOK.md`, not by extending this historical list.

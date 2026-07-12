@@ -24,15 +24,25 @@ import {
     BALL_CLASS,
     CHAIN_CLASS,
     objectNames,
+    objectNameStrs,
     objectDescrs,
+    objects,
 } from './objects.js';
 import { ATR_INVERSE, NO_COLOR } from './terminal.js';
-import { acurr, A_STR, A_CON } from './attrib.js';
+import {
+    acurr, A_STR, A_INT, A_WIS, A_DEX, A_CON, A_CHA,
+} from './attrib.js';
 import {
     DOOR, STAIRS, FOUNTAIN, SINK, ALTAR, GRAVE, TREE, IRONBARS,
     D_NODOOR, D_ISOPEN, D_BROKEN,
     A_LAWFUL, A_NEUTRAL, A_CHAOTIC,
     IS_DOOR,
+    P_NONE, P_DAGGER, P_KNIFE, P_AXE, P_PICK_AXE, P_SHORT_SWORD,
+    P_BROAD_SWORD, P_LONG_SWORD, P_TWO_HANDED_SWORD,
+    P_CLUB, P_MACE, P_MORNING_STAR, P_FLAIL, P_QUARTERSTAFF,
+    P_SPEAR, P_TRIDENT, P_LANCE, P_BOW, P_SLING, P_CROSSBOW,
+    P_DART, P_SHURIKEN, P_BOOMERANG, P_UNICORN_HORN,
+    P_BARE_HANDED_COMBAT,
 } from './const.js';
 import { align_str, align_gname, u_gname } from './roles.js';
 import {
@@ -393,22 +403,150 @@ export async function dodiscovered() {
     await flush_screen(1);
 }
 
+// C ref: attrib.c attrname[]
+const ATTR_NAMES = [
+    'strength', 'intelligence', 'wisdom', 'dexterity', 'constitution', 'charisma',
+];
+// C: STR18(100) — human strength ceiling used by interesting_alimit
+const STR18_100 = 18 + 100;
+
 /**
- * C ref: insight.c weapon_descr / an() — enough for starter weapons.
+ * C ref: insight.c attrval — Strength 18/xx encoding.
  */
-function pretty_weapon_descr(obj) {
-    const n = objectNames[obj.otyp];
-    const base = n ? n.toLowerCase().replace(/_/g, ' ') : 'weapon';
-    const quan = obj.quan || 1;
-    if (quan !== 1) return `${quan} ${base}s`;
-    const article = 'aeiou'.includes((base[0] || 'x').toLowerCase()) ? 'an' : 'a';
-    return `${article} ${base}`;
+function attrval(attrindx, attrvalue) {
+    if (attrindx !== A_STR || attrvalue <= 18) return String(attrvalue);
+    if (attrvalue > STR18_100) return String(attrvalue - 100);
+    return `18/${String(attrvalue - 18).padStart(2, '0')}`;
 }
 
-/** C ref: insight.c skill noun via weapon_type — starter weapons use otyp name. */
-function weapon_skill_noun(obj) {
-    const n = objectNames[obj.otyp];
-    return n ? n.toLowerCase().replace(/_/g, ' ') : 'weapon';
+/**
+ * C ref: insight.c one_characteristic — current; limit when race ≠ human 18.
+ * Branch envelope: no poly / Fixed_abil / cursed gauntlets hide path;
+ * base/peak suffixes deferred until acurr≠abase cases appear.
+ */
+function one_characteristic_line(attrindx) {
+    const u = game.u || {};
+    const acurrent = acurr(attrindx);
+    let valubuf = attrval(attrindx, acurrent);
+    const abase = u.acurr?.a?.[attrindx] ?? acurrent;
+    const apeak = u.amax?.a?.[attrindx] ?? abase;
+    const alimit = game.urace?.attrmax?.[attrindx]
+        ?? (attrindx === A_STR ? STR18_100 : 18);
+    const interesting_alimit = alimit !== (attrindx !== A_STR ? 18 : STR18_100);
+    let paren_pfx = ' (current; ';
+    if (acurrent !== abase) {
+        valubuf += `${paren_pfx}base:${attrval(attrindx, abase)}`;
+        paren_pfx = ', ';
+    }
+    if (abase !== apeak) {
+        valubuf += `${paren_pfx}peak:${attrval(attrindx, apeak)}`;
+        paren_pfx = ', ';
+    }
+    if (interesting_alimit) {
+        const innate = acurrent > alimit ? 'innate ' : '';
+        valubuf += `${paren_pfx}${innate}limit:${attrval(attrindx, alimit)}`;
+    }
+    if (acurrent !== abase || abase !== apeak || interesting_alimit) {
+        valubuf += ')';
+    }
+    return `  Your ${ATTR_NAMES[attrindx]} is ${valubuf}.`;
+}
+
+/**
+ * C ref: insight.c basics_enlightenment autopickup line.
+ * pickup_types in JS is already the symbol string from .nethackrc
+ * (C stores class indices and uses oc_to_str).
+ */
+function autopickup_enlightenment_line() {
+    const flags = game.flags || {};
+    let buf;
+    if (flags.pickup) {
+        const ocl = String(flags.pickup_types || '');
+        buf = 'on';
+        // costly_spot shop disable deferred
+        buf += ` for ${ocl ? `'${ocl}'` : 'all types'}`;
+        // C default pickup_thrown is On
+        if ((flags.pickup_thrown !== false) && ocl) buf += ' plus thrown';
+        // ga.apelist exceptions deferred
+    } else {
+        buf = 'off';
+    }
+    return `  Autopickup is ${buf}.`;
+}
+
+// C ref: weapon.c skill_names_indices — positive entries are object otyps
+const SKILL_NAME_OTYP = (() => {
+    const idx = (n) => objectNames.indexOf(n);
+    return {
+        [P_DAGGER]: idx('DAGGER'),
+        [P_KNIFE]: idx('KNIFE'),
+        [P_AXE]: idx('AXE'),
+        [P_PICK_AXE]: idx('PICK_AXE'),
+        [P_SHORT_SWORD]: idx('SHORT_SWORD'),
+        [P_BROAD_SWORD]: idx('BROADSWORD'),
+        [P_LONG_SWORD]: idx('LONG_SWORD'),
+        [P_TWO_HANDED_SWORD]: idx('TWO_HANDED_SWORD'),
+        [P_CLUB]: idx('CLUB'),
+        [P_MACE]: idx('MACE'),
+        [P_MORNING_STAR]: idx('MORNING_STAR'),
+        [P_FLAIL]: idx('FLAIL'),
+        [P_QUARTERSTAFF]: idx('QUARTERSTAFF'),
+        [P_SPEAR]: idx('SPEAR'),
+        [P_TRIDENT]: idx('TRIDENT'),
+        [P_LANCE]: idx('LANCE'),
+        [P_BOW]: idx('BOW'),
+        [P_SLING]: idx('SLING'),
+        [P_CROSSBOW]: idx('CROSSBOW'),
+        [P_DART]: idx('DART'),
+        [P_SHURIKEN]: idx('SHURIKEN'),
+        [P_BOOMERANG]: idx('BOOMERANG'),
+        [P_UNICORN_HORN]: idx('UNICORN_HORN'),
+    };
+})();
+
+/** C ref: weapon.c weapon_type — objects[].oc_skill (absolute value). */
+function weapon_type(obj) {
+    if (!obj) return P_BARE_HANDED_COMBAT;
+    const o = objects()?.[obj.otyp];
+    if (!o) return P_NONE;
+    if (o.oc_class !== WEAPON_CLASS && o.oc_class !== TOOL_CLASS
+        && o.oc_class !== GEM_CLASS) {
+        return P_NONE;
+    }
+    const type = o.oc_skill | 0;
+    return type < 0 ? -type : type;
+}
+
+/** C ref: weapon.c skill_name / P_NAME — skill category, not otyp racial name. */
+function skill_name(skill) {
+    if (skill === P_BARE_HANDED_COMBAT) return 'bare handed combat';
+    const otyp = SKILL_NAME_OTYP[skill];
+    if (otyp != null && otyp >= 0) {
+        const s = objectNameStrs[otyp];
+        if (s) return s;
+    }
+    // Odd skills (saber/hammer/whip/spells/…) deferred
+    return 'weapon';
+}
+
+/**
+ * C ref: weapon.c weapon_descr — P_NAME(weapon_type); special cases deferred
+ * (ammo, mattock, wet towel, shield of reflection).
+ */
+function weapon_descr(obj) {
+    const skill = weapon_type(obj);
+    return skill_name(skill);
+}
+
+/**
+ * C ref: insight.c weapon_insight wield line — an(weapon_descr(uwep)).
+ */
+function pretty_weapon_descr(obj) {
+    const what = weapon_descr(obj);
+    const quan = obj.quan || 1;
+    if (quan !== 1) return `${quan} ${what}s`;
+    const article = 'aeiou'.includes((what[0] || 'x').toLowerCase()) ? 'an' : 'a';
+    return `${article} ${what}`;
 }
 
 /**
@@ -416,7 +554,6 @@ function weapon_skill_noun(obj) {
  */
 export async function doattributes() {
     const u = game.u || {};
-    const a = u.acurr?.a || [];
     let name = game.plname || 'Hero';
     // C ref: insight.c / botl — capitalize first letter of plname for display
     if (name.length && name.charCodeAt(0) >= 97 && name.charCodeAt(0) <= 122) {
@@ -467,13 +604,14 @@ export async function doattributes() {
         '  You have both energy points (spell power).',
         `  Your armor class is ${u.uac ?? 10}.`,
         wallet,
-        '  Autopickup is off.',
+        autopickup_enlightenment_line(),
         '',
         ' Characteristics:',
-        `  Your strength is ${a[0] ?? '?'}.`,
-        `  Your dexterity is ${a[3] ?? '?'}.`,
-        `  Your constitution is ${a[4] ?? '?'}.`,
-        `  Your intelligence is ${a[1] ?? '?'}.`,
+        // C: bottom-line order STR DEX CON INT (WIS CHA on page 2)
+        one_characteristic_line(A_STR),
+        one_characteristic_line(A_DEX),
+        one_characteristic_line(A_CON),
+        one_characteristic_line(A_INT),
         ' (1 of 2)',
     ];
 
@@ -482,8 +620,8 @@ export async function doattributes() {
     await nhgetch(); // space → page 2
 
     const page2 = [
-        `  Your wisdom is ${a[2] ?? '?'}.`,
-        `  Your charisma is ${a[5] ?? '?'}.`,
+        one_characteristic_line(A_WIS),
+        one_characteristic_line(A_CHA),
         '',
         ' Status:',
         "  You aren't hungry.",
@@ -497,7 +635,9 @@ export async function doattributes() {
     } else {
         const wname = pretty_weapon_descr(uwep);
         page2.push(`  You are wielding ${wname}.`);
-        page2.push(`  You have basic skill with ${weapon_skill_noun(uwep)}.`);
+        // C: P_BASIC → "have basic skill with <skill_name>"; enhance suffix deferred
+        const wtype = weapon_type(uwep);
+        page2.push(`  You have basic skill with ${skill_name(wtype)}.`);
     }
     page2.push('');
     // C: explore mode adds Attributes + explore/bones notes before misc.

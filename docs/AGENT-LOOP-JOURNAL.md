@@ -19,6 +19,20 @@ Use this shape:
 
 ---
 
+## 2026-07-13 00:30 — seed0060 idx 35–36 ^X enlightenment (D-0041)
+- C locus: `insight.c` autopickup/`one_characteristic`/`weapon_insight`;
+  `weapon.c` `weapon_descr`/`weapon_type`/`skill_name`; objects
+  `oc_skill`
+- Result: **verified faithful change** — Autopickup from
+  `flags.pickup`/`pickup_types` (+ thrown); race `ATTRMAX` limit
+  paren; skill-category weapon naming. Extracted `oc_skill`.
+  seed0060 session **PASS**.
+- Verification: seed0060 Scr **41**/41, RNG **3626**/3626; green +
+  seed1500/1800 PASS + strict; full **5/44**, screens **220**/11405
+  (+2), RNG **28511**/792838.
+- Next: survey `role not ported` throwers and port next `u_init_role`
+  (or peel seed0013 Lua/`sp_lev`).
+
 ## 2026-07-13 00:25 — seed0060 idx 33 disco OBJ_DESCR / obj_typename (D-0040)
 - C locus: `objclass.h:OBJ_DESCR`/`OBJ_NAME`; `objects.c` DESCR_INIT;
   `o_init.c:interesting_to_discover`/`dodiscovered`; `objnam.c:obj_typename`

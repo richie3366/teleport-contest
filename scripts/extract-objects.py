@@ -100,10 +100,10 @@ int main(void) {
     printf("{\"maxoclasses\":%d,\"count\":%d,\"rows\":[\n", MAXOCLASSES, n);
     for (int i = 0; i < n; i++) {
         struct objclass *o = &objects[i];
-        printf("%s{\"i\":%d,\"class\":%d,\"name_known\":%d,\"magic\":%d,\"unique\":%d,\"tough\":%d,\"dir\":%d,\"material\":%d,\"color\":%d,\"prob\":%d,\"weight\":%d}",
+        printf("%s{\"i\":%d,\"class\":%d,\"name_known\":%d,\"magic\":%d,\"unique\":%d,\"tough\":%d,\"dir\":%d,\"material\":%d,\"subtyp\":%d,\"color\":%d,\"prob\":%d,\"weight\":%d}",
             i?",\n":"", i, (int)o->oc_class, (int)o->oc_name_known, (int)o->oc_magic,
             (int)o->oc_unique, (int)o->oc_tough, (int)o->oc_dir, (int)o->oc_material,
-            (int)o->oc_color, (int)o->oc_prob, (int)o->oc_weight);
+            (int)o->oc_subtyp, (int)o->oc_color, (int)o->oc_prob, (int)o->oc_weight);
     }
     printf("\n]}\n");
     return 0;
@@ -252,7 +252,7 @@ int main(void) {
     lines.append("export const objectDescrs = " + json.dumps(descrs) + ";")
     rows = [
         [r["class"], r["name_known"], r["magic"], r["unique"], r["tough"],
-         r["dir"], r["material"], r["color"], r["prob"], r["weight"]]
+         r["dir"], r["material"], r["subtyp"], r["color"], r["prob"], r["weight"]]
         for r in rows_raw
     ]
     lines.append("export function createObjectsArray() {")
@@ -266,9 +266,10 @@ int main(void) {
     oc_tough: r[4],
     oc_dir: r[5],
     oc_material: r[6],
-    oc_color: r[7],
-    oc_prob: r[8],
-    oc_weight: r[9],
+    oc_skill: r[7], /* also oc_subtyp / oc_armcat */
+    oc_color: r[8],
+    oc_prob: r[9],
+    oc_weight: r[10],
     oc_name_idx: i,
     oc_descr_idx: i,
   }));

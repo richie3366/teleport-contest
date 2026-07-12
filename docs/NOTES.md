@@ -7,40 +7,34 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 
 ## Active
 
-- **Current unit:** seed0060 — RNG **3626/3626**; screens **39/41**
-  (D-0040; idx 0–34 match), cursors **41/41**. First fail idx 35.
-- **Hypothesis:** idx 35–36 are ^X enlightenment polish — autopickup
-  line (`on for '$' plus thrown` vs `off`), race attr limits
-  (`(current; limit:…)`), and weapon_descr/skill using plain
-  `short sword` not `orcish short sword`.
+- **Current unit:** seed0060 **PASS** (D-0041; Scr **41**/41, RNG
+  **3626**/3626). Five public sessions pass end-to-end.
+- **Hypothesis / next peel:** shared startup — next unported role
+  (`u_init_role: role not ported`) or seed0013 Lua/`sp_lev` map
+  (still Scr 1/59). Prefer a role that unlocks many throwers over a
+  late Tourist deep canary.
 - **Falsifier / next probe:**
   ```bash
-  node frozen/ps_test_runner.mjs sessions/seed0060-orc-rogue-kick-search.session.json
-  # Diff JS vs C screen[35]/ Autopickup / Characteristics limit text.
-  # Diff screen[36]: wisdom/charisma limits + wield/skill naming.
+  node frozen/ps_test_runner.mjs sessions 2>&1 | rg 'role not ported|PASS|FAIL' | head -40
+  # Or focused: seed0013-rogue-friday13-combat / seed1150-caveman / …
   ```
-  Expect: cellsOnly stays 39 until insight.c enlightenment lines match.
 - **Parked deep canary:** D-0006 pet movement — do not implement until C
   state/candidate capture exists.
-- **Also deferred:** `make_corpse` body after `corpse_chance` (dragon/
-  undead/golem specials + stackobj); dokick monster/object/closed-door/
-  SDOOR/furniture; `martial()`; `wake_nearby`/`u_wipe_engr`;
-  `set_wounded_legs` body; `kickstr` terrain-specific killer names;
-  `showdamage`/`maybe_wail`/`done(DIED)`; Upolyd eel-out-of-water
-  `regen_hp` loss rolls; `regen_pw` / Teleportation / Polymorph
-  once-per-turn RNG; Regeneration/Sleepy/Half_physical props;
-  `dog_goal` gettrack/FARAWAY; `throw_gold`; eat getobj single-shot;
-  Blind/`look_here`; trap glyphs; hallucination/`see_objects`;
-  `ini_inv_mkobj_filter`; `u_init_carry_attr_boost`; mfndpos
-  `bad_rock` squeeze / boulder `ALLOW_ROCK`; Sokoban
-  `m_avoid_soko_push_loc` body; `donull` `cmd_safety_prevention`;
-  dog_move `mtrack` skip (`goto nxti`); `makemon` `throws_rocks`
-  Sokoban reject; `m_initinv` body; `set_malign`; Blind prop for
-  `makemon_rnd_goodpos` exhaustive pass; MLET_CH letter table beyond
-  early dlvl subset; telepathy/`Detect_monsters`/`MATCH_WARN_OF_MON`
-  in `newsym` (!cansee); full `set_uasmon`/uprops for Infravision;
-  ^X enlightenment polish (idx 35–36); `obj_typename` armor
-  pair-of/set-of + GemStone suffix.
+- **Also deferred:** `make_corpse` body after `corpse_chance`; dokick
+  monster/object/closed-door/SDOOR/furniture; `martial()`; wake/
+  engraving; `set_wounded_legs` body; `showdamage`/death `done`; Upolyd
+  eel `regen_hp` loss; `regen_pw`/Teleport/Poly once-per-turn; other
+  roles still throw; `dog_goal` gettrack/FARAWAY; `throw_gold`; eat
+  getobj single-shot; Blind/`look_here`; trap glyphs; hallucination/
+  `see_objects`; `ini_inv_mkobj_filter`; `u_init_carry_attr_boost`;
+  mfndpos `bad_rock` squeeze; Sokoban push-avoid; `donull`
+  `cmd_safety_prevention`; dog_move `mtrack` skip; `makemon` Sokoban
+  `throws_rocks`; `m_initinv` body; `set_malign`; telepathy/
+  `Detect_monsters`/`MATCH_WARN_OF_MON` in `newsym`; full
+  `set_uasmon`/uprops; full `weapon_insight` (enhance / P_SKILL table /
+  odd-skill P_NAME); `obj_typename` armor pair-of/set-of + GemStone;
+  MLET_CH beyond early subset; shop `costly_spot` autopickup disable;
+  `apelist` exceptions; …
 
 ## Don’t re-check
 
@@ -147,6 +141,10 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   them because JS lacked `OBJ_DESCR` (only a tiny FIXED_DESCRS map).
   Fix is extracted `objectDescrs`/`objectNameStrs` + `obj_typename`
   (D-0040). Do not add per-item appearance hardcodes.
+- seed0060 idx 35–36 was **not** missing invent pages: Autopickup must
+  read `flags.pickup`/`pickup_types` (+ thrown); race `ATTRMAX` shows
+  `(current; limit:…)`; `weapon_descr` uses skill category (`short sword`)
+  not racial otyp (`orcish short sword`) — D-0041. Extract `oc_skill`.
 
 ## Landmarks
 
@@ -162,5 +160,4 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 - seed1500: D-0024 → screens **40/40** PASS; CORPSE map color = `mon_color(corpsenm)`
   (orc → CLR_RED), not `objects[CORPSE].oc_color`.
 - seed1800: D-0026 → screens **26/26** PASS (legacy corner map + staircase look).
-- seed0060: D-0040 → screens **39**/41 (idx 0–34); RNG **3626**/3626;
-  cursors **41**/41. Next fail idx 35 (^X enlightenment).
+- seed0060: D-0041 → screens **41**/41 PASS; RNG **3626**/3626.

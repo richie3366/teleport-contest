@@ -62,6 +62,7 @@ Do not record a guessed cause as fixed merely because an RNG prefix moved.
 | D-0038 | fixed | cansee pline + wall_angle + `>` color | seed0060 Scr 6→37 (silent pickup; unfinished corner; dnstair) |
 | D-0039 | fixed | newsym infrared + postmov | orc Infravision shows pet in dark; Scr 37→38 |
 | D-0040 | fixed | disco OBJ_DESCR + obj_typename | extracted descr/name strs; Scr 38→39 |
+| D-0041 | fixed | ^X enlightenment | autopickup/limits/weapon_descr; Scr 39→41 PASS |
 
 D-0001 through D-0005 predate the strict-length/cohort runbook. Their focused
 causes are preserved, but generic "green sessions held" is historical evidence,
@@ -973,3 +974,29 @@ cohort gates if those functions are touched again.
   hand lists.
 - **Next:** seed0060 idx 35–36 enlightenment (autopickup, attr
   limits, weapon_descr skill naming).
+
+## D-0041 — seed0060 idx 35–36 ^X enlightenment
+
+- **Status:** fixed (verified 2026-07-13).
+- **Observed:** seed0060 RNG **3626**/3626, screens **39**/41. idx 35–
+  36 (^X) mismatched Autopickup (`off` vs `on for '$' plus thrown`),
+  race attr limits (`(current; limit:18/50)` etc.), and weapon lines
+  (`orcish short sword` vs skill `short sword`).
+- **Cause/evidence:** `doattributes` hard-coded Autopickup off and
+  plain attr numbers; `weapon_descr` used otyp display name instead of
+  C `P_NAME(weapon_type(uwep))`. Session rc has
+  `autopickup,pickup_types:$`; orc `ATTRMAX` differs from human 18 /
+  `STR18(100)`.
+- **C locus:** `insight.c` `basics_enlightenment` autopickup /
+  `one_characteristic` / `weapon_insight`; `weapon.c` `weapon_descr` /
+  `weapon_type` / `skill_name`; `attrib.h` `ATTRMAX`.
+- **Change:** extract `oc_skill` in objects table; invent.js
+  autopickup from flags, attr limit paren, `weapon_type`/`skill_name`
+  /`weapon_descr` via skill category.
+- **Verification:** seed0060 Scr **41**/41 PASS, RNG **3626**/3626;
+  green + seed1500/1800 PASS + strict; full **5/44**, screens
+  **220**/11405 (+2), RNG **28511**/792838.
+- **Lesson:** enlightenment text is option/race/skill semantics, not
+  invent layout. Prefer `oc_skill` + `P_NAME` over otyp strings for
+  wield descriptions.
+- **Next:** next unported role `u_init_role`, or seed0013 Lua/`sp_lev`.
