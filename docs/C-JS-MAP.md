@@ -22,7 +22,7 @@ When changing a subsystem:
 | terminal grid/serialization | `js/terminal.js` | frozen | Judge-owned; cursor is scored with screen |
 | persistence VFS | `js/storage.js` | frozen | Contract exists; gameplay save/bones users mostly absent |
 | `tty_nhgetch` boundary | `js/input.js`, `js/jsmain.js` | partial | Boundary capture passes two Tourist sessions; capture hook still repairs Count/`--More--` cursor instead of deriving it entirely from display semantics |
-| core RNG wrappers | `js/rng.js` | partial | Green paths match; `rnl` is absent despite 155 public calls; `rn1` is a macro over logged `rn2` |
+| core RNG wrappers | `js/rng.js` | partial | Green paths match; **`rnl` ported** (D-0059; Luck bias + internal `rn2` log); `rn1` is a macro over logged `rn2`; display-stream wrappers still absent |
 | Lua RNG bindings/provenance | — | absent | `nh.rn2`/`nh.random` must consume core; patch 004 adds Lua callsite provenance, not a third ISAAC stream |
 | display/hallucination RNG | — | absent | No hallucination parity |
 | per-segment contestant API | `js/jsmain.js` | partial | Fresh game and shared storage binding implemented; save/bones gameplay users are absent |
@@ -37,7 +37,7 @@ When changing a subsystem:
 | `src/u_init.c:u_init_race` | `js/u_init.js` | partial | Human no-op; orc `Xtra_food` + knows; elf instrument+knows; dwarf knows; gnome no-op (D-0027); `ini_inv_obj_substitution`/`inv_subs` ported; **`ini_inv_mkobj_filter` reject list + `oc_level`/`Skill_*` incl. `Skill_C`** (D-0042…/52) |
 | `src/u_init.c:u_init_misc` | `js/u_init.js` | partial | `newhp`/`newpw` at ulevel 0; **`adjabil(0,1)`** role/race L1 intrinsics (D-0058); rc align → `ualign`; handedness RNG; many u fields still absent |
 | `src/attrib.c:newhp` / `src/exper.c:newpw` | `js/attrib.js` | partial | Init (`ulevel==0`) path only; level-up / Con bonus deferred |
-| `src/attrib.c` (attrs) | `js/attrib.js` | partial | Initial attr paths; `change_luck` clamp; **`adjabil`/`role_abil` + Fast/Very_fast** (D-0058); omit gain/lose plines, `postadjabil`, `add_weapon_skill`; `u_init_carry_attr_boost` stubbed |
+| `src/attrib.c` (attrs) | `js/attrib.js` | partial | Initial attr paths; `change_luck` clamp; **`adjabil`/`role_abil` + Fast/Very_fast** (D-0058); **`acurrstr` exported** (D-0059); omit gain/lose plines, `postadjabil`, `add_weapon_skill`; `u_init_carry_attr_boost` stubbed |
 | `src/allmain.c:welcome` / `role.c:Hello` | `js/allmain.js` | partial | New-game welcome from Hello+align+gender+race+role; `flush_topl_more` before tutorial; restore path deferred |
 | `src/allmain.c:moveloop_preamble` | `js/allmain.js` + `js/calendar.js` | partial | Moon/friday plines + `change_luck`; pickup/encumber/engraving deferred |
 | `src/o_init.c` | `js/o_init.js` | partial | Green-session shuffle/discovery evidence; `discover_object` encounter flag + `interesting_to_discover` via extracted `objectDescrs` (D-0040); not audited across all classes |
@@ -109,7 +109,9 @@ seed0700 prefix **2733** (`u_calc_moveamt`); seed0361 **2924**
 (`newhp`); RNG **85090**/792838. `adjabil` L1 + `u_calc_moveamt`
 Fast/Very_fast (D-0058) → seed0700 prefix **3141** (`rnl`/
 `doopen_indir`); screens **291**/11405; RNG **85494**/792838.
-Next peel: `rnl`/`doopen` / `newhp` / egg `can_be_hatched` /
+`rnl` + autoopen `doopen_indir` (D-0059) → seed0700 prefix **3207**
+(`m_move`); positional **3229**/3230; screens **295**/11405; RNG
+**85803**/792838. Next peel: `m_move` / `newhp` / egg `can_be_hatched` /
 `exercise` / `dog_move` / `wipeout_text` / `lspo_map` / pony
 `next_ident`. `make_corpse` body and `m_initinv` body still absent
 (named omissions).
@@ -134,10 +136,10 @@ Next peel: `rnl`/`doopen` / `newhp` / egg `can_be_hatched` /
 | C source | JS | Status | Evidence / known omissions |
 |---|---|---|---|
 | `src/allmain.c` | `js/allmain.js` | partial | Basic move loop and hunger/sound subsets; **`mvitals.mvflags = geno & G_NOCORPSE` at newgame** (D-0057); **`maybe_generate_rnd_mon` → real `makemon(NULL,0,0)`** (D-0034); **`regen_hp` + once-per-turn call** (D-0035); **`u_calc_moveamt` Fast/Very_fast `rn2(3)`** (D-0058); omit steed `mcalcmove` path / full `youmonst.data->mmove` via `set_uasmon`; `regen_pw`/Teleport/Poly once-per-turn RNG; Upolyd eel hp-loss rolls; Regeneration/Sleepy props |
-| `src/cmd.c` / `src/do.c` | `js/cmd.js`, `js/do.js` | partial | Movement/search/apply/kick/wait and selected UI/item commands; Ctrl-D → `dokick` (D-0031); **`.` → `donull`** (D-0033); omit `cmd_safety_prevention`, `rest_on_space` |
+| `src/cmd.c` / `src/do.c` | `js/cmd.js`, `js/do.js` | partial | Movement/search/apply/kick/wait and selected UI/item commands; Ctrl-D → `dokick` (D-0031); **`.` → `donull`** (D-0033); **autoopen walk-into → `doopen_indir`** (D-0059); omit `cmd_safety_prevention`, `rest_on_space`, interactive `o` |
 | `src/dokick.c` | `js/dokick.js` | partial | `dokick` + `kick_dumb` (D-0031); `kickedloc` (D-0032); **`kick_ouch` → `losehp`** (D-0035); omit `kick_monster`/`kick_object`/closed-door Whammm/SDOOR-SCORR open/furniture/`martial`/`wake_nearby`/`u_wipe_engr`/`set_wounded_legs`/`kickstr` terrain names |
 | `src/hack.c` `losehp` | `js/hack.js` | partial | **`losehp` !Upolyd / Upolyd mh subtract** (D-0035); `maybe_half_phys` identity until Half_physical prop; omit `showdamage`/`maybe_wail`/`done(DIED)` bodies |
-| `src/apply.c` / `src/lock.c` | `js/apply.js`, `js/lock.js` | partial | `doapply` + `pick_lock` (D-0021); exported `getdir` for kick/apply; getobj missing-letter `continue`+`flush_topl_more` (D-0025); omit sack/other tools, real door occupation, `feel_location` mapseen gating, container-at-feet |
+| `src/apply.c` / `src/lock.c` | `js/apply.js`, `js/lock.js` | partial | `doapply` + `pick_lock` (D-0021); exported `getdir` for kick/apply; getobj missing-letter `continue`+`flush_topl_more` (D-0025); **`doopen_indir` CLOSED autoopen** (D-0059); omit sack/other tools, real door occupation, interactive `o` getdir, `b_trapped`/autounlock, `feel_location` mapseen gating, container-at-feet |
 | `src/display.c` `newsym` / map | `js/display.js` | partial | Floor `vobj_at` + class symbols + CORPSE `mon_color` (D-0022); **live `mon_glyph` uses `mcolors[mnum]`** (D-0036; newt yellow); **`wall_angle` + seenv** (D-0038); upstairs `<` yellow / downstairs `>` NO_COLOR (D-0038); **`see_with_infrared`/`mon_visible` when `!cansee`** (D-0039; race Infravision via `mons[urace]`); omit traps/engravings/hallucination/`see_objects`; telepathy/`Detect_monsters`/`MATCH_WARN_OF_MON`; full `set_uasmon`/uprops; MLET_CH letter subset only |
 | `src/invent.c` `look_here` / `dfeature_at` | `js/invent.js`, `js/mklev.js` | partial | Stairs via `stairs_description` + Dlvl1 `u_traversed` (D-0026); doors/fountain/sink stubs; Blind feel, engraving, multi-object menu, `doname_with_price` deferred |
 | `src/pline.c` / tty message behavior | `js/display.js`, `js/input.js` | partial | `--More--` works for green paths + getobj re-prompt (D-0025); full message/window policy incomplete |

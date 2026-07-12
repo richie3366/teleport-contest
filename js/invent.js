@@ -30,7 +30,7 @@ import {
 } from './objects.js';
 import { ATR_INVERSE, NO_COLOR } from './terminal.js';
 import {
-    acurr, A_STR, A_INT, A_WIS, A_DEX, A_CON, A_CHA,
+    acurr, acurrstr, A_STR, A_INT, A_WIS, A_DEX, A_CON, A_CHA,
 } from './attrib.js';
 import {
     DOOR, STAIRS, FOUNTAIN, SINK, ALTAR, GRAVE, TREE, IRONBARS,
@@ -51,14 +51,6 @@ import {
 } from './const.js';
 import { stairway_at, stairs_description } from './mklev.js';
 import { objects_at } from './mkobj.js';
-
-// C ref: attrib.c acurrstr() — Tourist STR is ≤18 so equals ACURR(A_STR)
-function acurrstr() {
-    const str = acurr(A_STR);
-    if (str <= 18) return Math.max(str, 3);
-    if (str <= 121) return 19 + Math.trunc(str / 50);
-    return Math.min(str, 125) - 100;
-}
 
 // C ref: hack.c weight_cap()
 export function weight_cap() {

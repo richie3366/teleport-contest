@@ -62,6 +62,14 @@ export function acurr(i) {
     return tmp;
 }
 
+// C ref: attrib.c acurrstr() — map encoded STR to 3..25 for formulas
+export function acurrstr() {
+    const str = acurr(A_STR);
+    if (str <= 18) return Math.max(str, 3);
+    if (str <= 121) return 19 + Math.trunc(str / 50);
+    return Math.min(str, 125) - 100;
+}
+
 // C ref: attrib.c exercise()
 export function exercise(i, inc_or_dec) {
     if (i === A_INT || i === A_CHA) return;

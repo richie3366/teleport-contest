@@ -1534,3 +1534,33 @@ cohort gates if those functions are touched again.
 - **Next:** seed0700 `rnl`/`doopen_indir` @ 3141; seed0361 `newhp` @
   2924; seed0102 egg `can_be_hatched`; seed2200 `exercise` @ 2724;
   seed1150 `dog_move` @ 2915.
+
+## D-0059 — `rnl` + autoopen `doopen_indir`
+
+- **Symptom:** seed0700 rng-diff @ **3141**: C `rnl(20)` @
+  `doopen_indir` vs JS `rn2(7)`.
+- **Cause/evidence:** Walking into a CLOSED door with default
+  `flags.autoopen` runs `hack.c` → `doopen_indir` → `rnl(20)` then
+  (on resist) `exercise(A_STR)`. JS `domove` only treated closed doors
+  as blocked (`move=0`) with no open attempt, so the next unrelated
+  call (`rn2(7)`) sat at 3141. Three consecutive `l` resists in the
+  session each emit only `rnl`+`exercise` and do **not** advance T.
+- **Rejected:** treating the arity gap as pet/`distfleeck` reorder
+  before the door bump; inventing a turn-consuming open on resist.
+- **C locus:** `rnd.c` `rnl`; `lock.c` `doopen_indir`; `hack.c`
+  `test_move` autoopen; `attrib.c` `acurrstr`/`exercise`.
+- **Change:** `js/rng.js` `rnl` (Luck bias + logged internal `rn2`);
+  `js/attrib.js` exported `acurrstr`; `js/lock.js` `doopen_indir`
+  CLOSED success/resist; `js/cmd.js` autoopen wiring in `domove`.
+- **Verification:** green + seed1500/1800/0060 PASS + strict; full
+  **5/44** screens **295** RNG **85803**/792838; seed0700 prefix
+  **3141→3207** (`m_move`); positional **3229**/3230 Scr **2**/51;
+  seed0030 **6876**/105529 Scr **39**/1953.
+- **Omissions named:** interactive `o`/`doopen` getdir; `b_trapped`/
+  autounlock/mapseen/`feel_newsym` detail; display-stream RNG still
+  absent.
+- **Lesson:** missing shared wrappers (`rnl`) look like late combat
+  arity bugs when walk-into-door never consumes the open RNG.
+- **Next:** seed0700 `m_move` @ 3207; seed0361 `newhp` @ 2924;
+  seed0102 egg `can_be_hatched`; seed2200 `exercise` @ 2724;
+  seed1150 `dog_move` @ 2915.

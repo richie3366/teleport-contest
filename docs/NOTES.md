@@ -7,12 +7,11 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 
 ## Active
 
-- **Current unit:** D-0058 fixed `adjabil(0,1)` role/race L1 intrinsics +
-  `u_calc_moveamt` Fast/Very_fast `rn2(3)`. Samurai/Monk get HFast at init.
-- **Hypothesis / next peel:** seed0700 `rnl(20)` @ 3141 —
-  `doopen_indir` (lock.c:904) vs JS `rn2(7)`. Shared open/lock path after
-  Fast-correct EOT. Also seed0361 `newhp` @ 2924; seed0102 egg
-  `can_be_hatched` @ 1281; seed2200 `exercise` @ 2724; seed1150
+- **Current unit:** D-0059 fixed `rnl` + autoopen `doopen_indir` (CLOSED
+  door walk-into). Samurai seed0700 past three resist peels.
+- **Hypothesis / next peel:** seed0700 `m_move` @ 3207 — C `rn2(16)` vs
+  JS `rn2(20)` (monmove.c:1963). Also seed0361 `newhp` @ 2924; seed0102
+  egg `can_be_hatched` @ 1281; seed2200 `exercise` @ 2724; seed1150
   `dog_move` @ 2915; seed0017 `m_move` @ 2711.
 - **Falsifier / next probe:**
   ```bash
@@ -41,7 +40,8 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   MLET_CH beyond early subset; shop `costly_spot` autopickup; `apelist`
   exceptions; maketrap overwrite/furniture/statue/boulder; `peace_minded`
   MS_*/race_*/minion arms; `align_shift`/`temperature_shift` bodies;
-  EGG `can_be_hatched` multi-retry; TIN `cnutrit` gate; …
+  EGG `can_be_hatched` multi-retry; TIN `cnutrit` gate; interactive
+  `o`/`doopen` getdir; `doopen_indir` `b_trapped`/autounlock/mapseen; …
 
 ## Don’t re-check
 
@@ -221,6 +221,11 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   reorder: Samurai (and Monk) get `HFast` via `adjabil(0,1)` at u_init;
   JS skipped `adjabil` and omitted `u_calc_moveamt` Fast/Very_fast
   `rn2(3)` — D-0058. Tourist green stays PASS (no L1 Fast).
+- seed0700 `rn2(7)` @ 3141 was **not** a stray pet/combat arity: C
+  autoopen walk-into-CLOSED-door runs `doopen_indir` → `rnl(20)` (+
+  `exercise` on resist). JS `domove` only blocked with `move=0` and
+  emitted no open RNG — D-0059. Autoopen default On; resist does **not**
+  consume a turn (T stays put; only rnl+exercise in the segment).
 
 ## Landmarks
 
@@ -267,17 +272,17 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   (`exercise`); positional **2772**/3018.
 - seed0016: D-0054 → past `hole_destination`; prefix **2493**
   (`next_ident`); positional **2538**/3656 Scr **5**/36.
-- seed0030: D-0058 → past Fast; prefix still mid-session; positional
-  **6670**/105529 Scr **35**/1953.
+- seed0030: D-0059 → positional **6876**/105529 Scr **39**/1953.
 - seed0373: D-0054/55 → past trap+SPBOOK; prefix **2512** (`newhp`);
   positional **2582**/35386.
 - seed0361: D-0057 → past CORPSE retry; prefix **2924** (`newhp`);
   positional **2972**/53865.
 - seed1150: D-0056 → past `peace_minded`; prefix **2915** (`dog_move`);
   positional **2942**/3137 Scr **22**/51.
-- seed0700: D-0058 → past `u_calc_moveamt` Fast; rng-diff prefix
-  **3141** (`rnl`/`doopen_indir`); positional **3146**/3230 Scr **2**/51.
-  seed0102 still **1281** — EGG `can_be_hatched` multi-`rndmonnum`.
+- seed0700: D-0059 → past `rnl`/`doopen_indir`; rng-diff prefix
+  **3207** (`m_move` `rn2(16)` vs JS `rn2(20)`); positional **3229**/3230
+  Scr **2**/51. seed0102 still **1281** — EGG `can_be_hatched`
+  multi-`rndmonnum`.
 - seed0017: D-0058 → prefix **2711** (`m_move`); positional **2831**/3465.
 - `SPBOOK_no_NOVEL` ≡ `-SPBOOK_CLASS` (−10); `rnd_class` to
   `SPE_BLANK_PAPER` sums **999** (novel prob 1 excluded).
@@ -290,3 +295,6 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   Ranger/Archeologist `HSearching`; Barbarian/Healer `HPoison_resistance`;
   Valkyrie `HCold_resistance`; orc race `HInfravision`+`HPoison_resistance`
   (elf sleep at 4). Dwarf/gnome infra via form/`set_uasmon`, not adjabil.
+- Door autoopen: CLOSED walk-into → `rnl(20) < (ACURRSTR+DEX+CON)/3`;
+  resist → `exercise(A_STR)` + no turn; success → `D_ISOPEN` + no hero
+  step (C leaves `context.move` false for both).

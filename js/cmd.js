@@ -20,6 +20,7 @@ import { doapply } from './apply.js';
 import { dokick } from './dokick.js';
 import { donull } from './do.js';
 import { do_attack, mon_at, is_safemon } from './uhitm.js';
+import { doopen_indir } from './lock.js';
 
 
 // Direction deltas: y u k
@@ -44,6 +45,12 @@ function blocksMove(x, y) {
     if (IS_WALL(loc.typ)) return true;
     if (loc.typ === DOOR && (loc.doormask & (D_CLOSED | D_LOCKED))) return true;
     return false;
+}
+
+function closed_door_at(x, y) {
+    const loc = game.level?.at(x, y);
+    return !!(loc && loc.typ === DOOR
+        && (loc.doormask & (D_CLOSED | D_LOCKED)));
 }
 
 // C ref: hack.c end_running()
@@ -246,6 +253,23 @@ async function domove(dx, dy) {
     u.dy = dy;
     u.ux0 = u.ux;
     u.uy0 = u.uy;
+
+    // C ref: hack.c test_move — closed_door + flags.autoopen → doopen_indir
+    if (closed_door_at(newx, newy)) {
+        if (game.context?.run) end_running();
+        // C: autoopen default On; skip when run / Confusion / Stunned / Fumbling
+        const autoopen = game.flags?.autoopen !== false;
+        const impaired = !!(u.Confusion || u.Stunned || u.Fumbling);
+        if (autoopen && !game.context?.run && !impaired) {
+            await doopen_indir(newx, newy);
+            // C: door_opened = !closed_door; move = (pos changed) → usually 0.
+            // Both open and resist leave context.move false for autoopen.
+            game.context.move = 0;
+            return;
+        }
+        game.context.move = 0;
+        return;
+    }
 
     if (blocksMove(newx, newy)) {
         // Can't move there — end a run so lookaround/continue_run don't

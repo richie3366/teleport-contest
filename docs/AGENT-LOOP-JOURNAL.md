@@ -19,6 +19,18 @@ Use this shape:
 
 ---
 
+## 2026-07-13 01:48 — rnl + autoopen doopen_indir (D-0059)
+- C locus: `rnd.c` rnl; `lock.c` doopen_indir; `hack.c` test_move
+  autoopen; `attrib.c` acurrstr/exercise
+- Result: **verified faithful change** — ported `rnl` and CLOSED-door
+  autoopen; resist path exercises STR without consuming a turn.
+  seed0700 **3141→3207** (`m_move`); positional **3229**/3230;
+  seed0030 Scr **35→39**.
+- Verification: green + seed1500/1800/0060 PASS + strict; full
+  **5/44**, screens **295**/11405, RNG **85803**/792838.
+- Next: peel seed0700 `m_move` @ 3207 (`rn2(16)` vs `rn2(20)`) via
+  `node scripts/rng-diff.mjs sessions/seed0700-samurai-explore-descend.session.json`.
+
 ## 2026-07-13 01:28 — maketrap notes/holes + SPBOOK_no_NOVEL (D-0054/55)
 - C locus: `trap.c` choose_trapnote/hole_destination/dng_bottom/maketrap;
   `mkobj.c` SPBOOK_no_NOVEL; `objnam.c` rnd_class; `objclass.h`
