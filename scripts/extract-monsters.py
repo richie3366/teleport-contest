@@ -189,9 +189,19 @@ def main() -> int:
             parts[12].strip(),
             parts[13].strip(),
         )
+        # C ref: align.h — LVL maligntyp may be A_NONE / A_CHAOTIC / …
+        align_map = {
+            "A_NONE": -128,
+            "A_CHAOTIC": -1,
+            "A_NEUTRAL": 0,
+            "A_LAWFUL": 1,
+        }
+        lvl_norm = lvl
+        for name, val in align_map.items():
+            lvl_norm = re.sub(rf"\b{name}\b", str(val), lvl_norm)
         lm = re.match(
             r"LVL\s*\(\s*(-?\d+)\s*,\s*(-?\d+)\s*,\s*(-?\d+)\s*,\s*(-?\d+)\s*,\s*(-?\d+)\s*\)",
-            lvl,
+            lvl_norm,
         )
         if not lm:
             continue

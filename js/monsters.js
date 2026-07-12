@@ -57,6 +57,8 @@ export const G_NOCORPSE = 0x0100;
 export const G_SGROUP = 0x0080; /* appear in small groups normally */
 export const G_LGROUP = 0x0040; /* appear in large groups normally */
 export const G_FREQ = 0x0007;
+/* monflag.h — mkclass may ignore G_GENOD|G_EXTINCT via this non-geno bit */
+export const G_IGNORE = 0x8000;
 
 export const M2_MALE = 0x00010000;
 export const M2_FEMALE = 0x00020000;
@@ -184,4 +186,12 @@ export function montoostrong(mndx, lev) {
 }
 export function montooweak(mndx, lev) {
     return difficulties[mndx] < lev;
+}
+
+// C ref: mondata.h is_placeholder — corpse stand-ins for races
+const PM_GIANT = monsterNames.indexOf('PM_GIANT');
+export function is_placeholder(ptr) {
+    const mndx = ptr?.mndx;
+    return mndx === PM_ORC || mndx === PM_GIANT
+        || mndx === PM_ELF || mndx === PM_HUMAN;
 }

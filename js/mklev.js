@@ -39,7 +39,7 @@ import {
     mkobj, mksobj, mksobj_at, mkobj_at, mkgold, mkcorpstat, next_ident,
     curse, blessorcurse, place_object, add_to_buried, weight, OBJ,
 } from './mkobj.js';
-import { makemon, MM_NOGRP } from './makemon.js';
+import { makemon, mkclass, MM_NOGRP } from './makemon.js';
 import {
     PM_ELF, PM_DWARF, PM_ORC, PM_GNOME, PM_HUMAN,
     PM_ARCHEOLOGIST, PM_WIZARD, PM_GIANT_SPIDER,
@@ -1411,9 +1411,9 @@ async function makeniche(trap_type) {
                 if (!rn2(5) && loc && IS_WALL(loc.typ)) {
                     loc.typ = IRONBARS;
                     if (rn2(3)) {
-                        // human corpse — consume rn2 for mkclass + mkcorpstat
-                        rn2(398); // mkclass(S_HUMAN)
-                        mkcorpstat(CORPSE, null, 0, xx, yy + dy, 1);
+                        // C ref: mklev.c makeniche → mkcorpstat(..., mkclass(S_HUMAN,0), ..., TRUE)
+                        const ptr = mkclass('S_HUMAN', 0);
+                        mkcorpstat(CORPSE, null, ptr, xx, yy + dy, 1);
                     }
                 }
                 if (!g.level.flags.noteleport) {

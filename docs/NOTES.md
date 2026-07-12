@@ -7,18 +7,18 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 
 ## Active
 
-- **Current unit:** Caveman `u_init_role` cleared (D-0052). Role throws
-  **0**/44. seed1150 rng-diff prefix **1118** (`rnd_class` / GEM
-  `oclass_prob_totals`: C `rnd(999)` vs JS `rnd(1000)`); positional
-  RNG **2937**/3137 Scr **22**/51.
-- **Hypothesis / next peel:** shared `mkclass_aligned` /
-  `choose_trapnote` / `hole_destination` / `wipeout_text` / `lspo_map`
-  / `next_ident` / `rndmonst_adj`, or GEM prob-total off-by-one after
-  `setgemprobs` (seed1150 @ 1118).
+- **Current unit:** `mkclass`/`mkclass_aligned` ported (D-0053) + Wizard
+  `LVL(..., A_NONE)` extractor fix. seed0700 prefix **1888**
+  (`rndmonst_adj`); seed0103 **2337** (`next_ident` vs JS `trquan`).
+- **Hypothesis / next peel:** shared `choose_trapnote` /
+  `hole_destination` / `wipeout_text` / `lspo_map` / `next_ident` /
+  `rndmonst_adj` (seed0700 @ 1888 / seed0102), seed0103 pony/makemon
+  invent after mkclass, or GEM prob-total off-by-one (seed1150 @ 1118).
 - **Falsifier / next probe:**
   ```bash
-  node scripts/rng-diff.mjs sessions/seed1150-caveman-explore-move.session.json
-  # Or: node scripts/rng-diff.mjs sessions/seed0700-samurai-explore-descend.session.json
+  node scripts/rng-diff.mjs sessions/seed0700-samurai-explore-descend.session.json
+  # Or: node scripts/rng-diff.mjs sessions/seed0103-knight-ride-pony.session.json
+  # Or: node scripts/rng-diff.mjs sessions/seed1150-caveman-explore-move.session.json
   ```
 - **Parked deep canary:** D-0006 pet movement — do not implement until C
   state/candidate capture exists.
@@ -190,6 +190,12 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   `Cave_man[]` (club+1, sling+2, flint 10–20 stacks, rock ×3 → 18..33,
   leather) + attrs/`hpadv`; C has **no** `knows_class`/Lamp; FLINT/ROCK
   must quiver via `ini_inv_use_obj` — D-0052. `skill_init` still deferred.
+- seed0700/0103 `mkclass_aligned` was **not** a niche-layout bug: JS
+  stubbed `rn2(398)` for `mkclass(S_HUMAN)`; real port needs
+  `init_mongen_order` + per-candidate `rn2(9)` hell mask +
+  `montoostrong` `rn2(2)` break — D-0053. Follow-on: Wizard
+  `LVL(..., A_NONE)` must parse in the monster extractor or
+  `mongen_order` puts WoY at difficulty 0 and desyncs the break.
 
 ## Landmarks
 
@@ -259,3 +265,6 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   `choose_trapnote` (same as seed2200/0030).
 - seed1150: D-0052 → role throw cleared; rng-diff prefix **1118**; next
   GEM `rnd_class` / `oclass_prob_totals` (999 vs 1000).
+- seed0700: D-0053 → past `mkclass_aligned`; rng-diff prefix **1888**;
+  next `rndmonst_adj` (arity drift). seed0103 → prefix **2337**;
+  next `next_ident` vs JS `trquan` (pony/makemon invent).

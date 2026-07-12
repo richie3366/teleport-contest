@@ -1360,3 +1360,38 @@ cohort gates if those functions are touched again.
   the quiver path; rock quantity comes from outer trop count ×
   `mksobj` `rn1(6,6)`, not a single trop quan range.
 - **Next:** shared mklev/moveloop peels, or GEM prob-total 999 vs 1000.
+
+## D-0053 — `mkclass`/`mkclass_aligned` + Wizard `A_NONE` extractor
+
+- **Status:** fixed (verified 2026-07-13) for makeniche iron-bars
+  human-corpse selection; later peels remain.
+- **Observed:** seed0700/0103 first mismatch was C `rn2(9)` @
+  `mkclass_aligned` vs JS `rn2(398)` stub in `makeniche`. After real
+  `mkclass` alone, prefix stuck at ~1723 because Wizard of Yendor had
+  extractor fallback difficulty **0**, scrambling `mongen_order`.
+- **Cause/evidence:** (1) JS burned a single `rn2(398)` instead of
+  C `mkclass(S_HUMAN,0)` → `mkclass_aligned` (per-candidate `rn2(9)`
+  hell/nohell mask, `montoostrong` `rn2(2)` break, weighted `rnd(num)`).
+  (2) `extract-monsters.py` LVL regex rejected `A_NONE`, so WoY used
+  the zeroed fallback and sorted first among humans.
+- **C locus:** `makemon.c` `mkclass`/`mkclass_aligned`/`mk_gen_ok`/
+  `init_mongen_order`; `mklev.c` `makeniche`; `mondata.h`
+  `is_placeholder`; `monsters.h` Wizard `LVL(..., A_NONE)`.
+- **Change:** port `mkclass`/`mkclass_aligned` (+ mongen_order,
+  `mk_gen_ok`, `is_placeholder`, `G_IGNORE`); wire `makeniche`; parse
+  `A_NONE`/`A_*` in monster extractor and regenerate
+  `monsters_data.js`.
+- **Verification:** green + seed1500/1800/0060 PASS + strict; full
+  **5/44**, screens **279**/11405, RNG **82967**/792838; seed0700
+  prefix **1888** (`rndmonst_adj`); seed0103 **2337**
+  (`next_ident`/`trquan`); positional seed0700 **2769**/3230,
+  seed0103 **2344**/2640.
+- **Omissions named:** `mkclass` alignment/`G_IGNORE` callers beyond
+  niche (e.g. `ndemon`); `m_initinv` body; seed0700 `rndmonst_adj`
+  weight arity; seed0103 pony/makemon invent; GEM sum 999 vs 1000;
+  `choose_trapnote` / `hole_destination` / `wipeout_text` / `lspo_map`.
+- **Lesson:** a wrong extracted difficulty is enough to desync
+  `mkclass` even when the control-flow port looks right — falsify
+  table data early when `rn2(9)` count before `rn2(2)` is short.
+- **Next:** peel `rndmonst_adj` (seed0700) or pony invent
+  (seed0103), or other shared mklev blockers.

@@ -19,6 +19,20 @@ Use this shape:
 
 ---
 
+## 2026-07-13 01:22 — mkclass_aligned + Wizard A_NONE extractor (D-0053)
+- C locus: `makemon.c` mkclass/mkclass_aligned/mk_gen_ok/init_mongen_order;
+  `mklev.c` makeniche; `mondata.h` is_placeholder; extractor LVL A_NONE
+- Result: **verified faithful change** — replaced `rn2(398)` stub with
+  real `mkclass(S_HUMAN)`; fixed WoY difficulty 0 fallback so
+  `mongen_order` matches C. seed0700 **1718→1888**; seed0103
+  **1185→2337**.
+- Verification: green + seed1500/1800/0060 PASS + strict; full **5/44**,
+  screens **279**/11405, RNG **82967**/792838; seed0700 positional
+  **2769**/3230; seed0103 **2344**/2640.
+- Next: peel `rndmonst_adj` via
+  `node scripts/rng-diff.mjs sessions/seed0700-samurai-explore-descend.session.json`
+  or pony invent via seed0103; GEM sum still @ seed1150 1118.
+
 ## 2026-07-13 01:16 — Caveman u_init_role (D-0052)
 - C locus: `u_init.c` Cave_man[]/`Skill_C`/`u_init_role` PM_CAVE_DWELLER
   + `ini_inv_use_obj` FLINT/ROCK quiver + `ini_inv_adjust_obj` graystone
