@@ -19,6 +19,19 @@ Use this shape:
 
 ---
 
+## 2026-07-13 00:45 — Wizard u_init_role (D-0042)
+- C locus: `u_init.c` Wizard/`ini_inv_mkobj_filter`/`Skill_W`;
+  `role.c` Wizard + `role_init` nemesis gender; `objclass.h`
+  `oc_level`/`a_ac`
+- Result: **verified faithful change** — Wizard kit + filter + cloak
+  AC + Dark One `rn2(100)` gender. Role throws **29→20**/44. seed2200
+  no longer throws; rng-diff prefix **1283** (`choose_trapnote` next).
+- Verification: green + seed1500/1800/0060 PASS + strict; full **5/44**,
+  screens **239**/11405 (+19), RNG **44848**/792838; seed2200 RNG
+  **2756**/3018 Scr **1**/230.
+- Next: `node scripts/rng-diff.mjs sessions/seed2200-wizard-quaff-zap-read.session.json`
+  — peel `choose_trapnote`, or port Priest/Knight `u_init_role`.
+
 ## 2026-07-13 00:30 — seed0060 idx 35–36 ^X enlightenment (D-0041)
 - C locus: `insight.c` autopickup/`one_characteristic`/`weapon_insight`;
   `weapon.c` `weapon_descr`/`weapon_type`/`skill_name`; objects

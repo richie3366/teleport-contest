@@ -7,34 +7,34 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 
 ## Active
 
-- **Current unit:** seed0060 **PASS** (D-0041; Scr **41**/41, RNG
-  **3626**/3626). Five public sessions pass end-to-end.
-- **Hypothesis / next peel:** shared startup — next unported role
-  (`u_init_role: role not ported`) or seed0013 Lua/`sp_lev` map
-  (still Scr 1/59). Prefer a role that unlocks many throwers over a
-  late Tourist deep canary.
+- **Current unit:** Wizard `u_init_role` cleared (D-0042). Role throws
+  **20**/44 (was 29). seed2200 RNG **2756**/3018, Scr **1**/230.
+- **Hypothesis / next peel:** seed2200 first rng-diff mismatch idx
+  **1283** — C `choose_trapnote` `rn2(12)` vs JS `rnd(4)` during
+  mklev trap placement (after matching room/traptype RNG). Or port
+  next high-throw role (Priest/Knight, 4 each).
 - **Falsifier / next probe:**
   ```bash
-  node frozen/ps_test_runner.mjs sessions 2>&1 | rg 'role not ported|PASS|FAIL' | head -40
-  # Or focused: seed0013-rogue-friday13-combat / seed1150-caveman / …
+  node scripts/rng-diff.mjs sessions/seed2200-wizard-quaff-zap-read.session.json
+  # Or: node frozen/ps_test_runner.mjs sessions 2>&1 | rg 'role not ported|PASS|FAIL' | head -40
   ```
 - **Parked deep canary:** D-0006 pet movement — do not implement until C
   state/candidate capture exists.
-- **Also deferred:** `make_corpse` body after `corpse_chance`; dokick
+- **Also deferred:** Wizard `initialspell`; full `role_init` beyond
+  nemesis gender; `make_corpse` body after `corpse_chance`; dokick
   monster/object/closed-door/SDOOR/furniture; `martial()`; wake/
   engraving; `set_wounded_legs` body; `showdamage`/death `done`; Upolyd
   eel `regen_hp` loss; `regen_pw`/Teleport/Poly once-per-turn; other
   roles still throw; `dog_goal` gettrack/FARAWAY; `throw_gold`; eat
   getobj single-shot; Blind/`look_here`; trap glyphs; hallucination/
-  `see_objects`; `ini_inv_mkobj_filter`; `u_init_carry_attr_boost`;
-  mfndpos `bad_rock` squeeze; Sokoban push-avoid; `donull`
-  `cmd_safety_prevention`; dog_move `mtrack` skip; `makemon` Sokoban
-  `throws_rocks`; `m_initinv` body; `set_malign`; telepathy/
-  `Detect_monsters`/`MATCH_WARN_OF_MON` in `newsym`; full
-  `set_uasmon`/uprops; full `weapon_insight` (enhance / P_SKILL table /
-  odd-skill P_NAME); `obj_typename` armor pair-of/set-of + GemStone;
-  MLET_CH beyond early subset; shop `costly_spot` autopickup disable;
-  `apelist` exceptions; …
+  `see_objects`; `u_init_carry_attr_boost`; mfndpos `bad_rock` squeeze;
+  Sokoban push-avoid; `donull` `cmd_safety_prevention`; dog_move
+  `mtrack` skip; `makemon` Sokoban `throws_rocks`; `m_initinv` body;
+  `set_malign`; telepathy/`Detect_monsters`/`MATCH_WARN_OF_MON` in
+  `newsym`; full `set_uasmon`/uprops; full `weapon_insight` (enhance /
+  P_SKILL table / odd-skill P_NAME); `obj_typename` armor pair-of/
+  set-of + GemStone; MLET_CH beyond early subset; shop `costly_spot`
+  autopickup disable; `apelist` exceptions; …
 
 ## Don’t re-check
 
@@ -145,10 +145,14 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   read `flags.pickup`/`pickup_types` (+ thrown); race `ATTRMAX` shows
   `(current; limit:…)`; `weapon_descr` uses skill category (`short sword`)
   not racial otyp (`orcish short sword`) — D-0041. Extract `oc_skill`.
+- seed2200 idx 199 was **not** inventory filter alone: Dark One has no
+  fixed gender → `role_init` must `rn2(100)<50` for `nemgend` (D-0042).
+  Tourist/Rogue Master-of-Thieves/Assassin are `M2_MALE` (no RNG).
 
 ## Landmarks
 
 - Rogue+human init HP = **12**; Rogue+orc = **11** (role 10 + race 1).
+- Wizard+human init HP = **12**, Pw ≈ **8**, AC **9** (cloak of MR `a_ac` 1).
 - Rogue legacy offx = `max(10, 80 - maxcol - 1)` (Kos → 23; The Lady → 17).
 - Tutorial menu offx = 20 (OPTIONS `.nethackrc` line → maxcol 59); cursor
   `[27,6]` on `(end) `.
@@ -161,3 +165,5 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   (orc → CLR_RED), not `objects[CORPSE].oc_color`.
 - seed1800: D-0026 → screens **26/26** PASS (legacy corner map + staircase look).
 - seed0060: D-0041 → screens **41**/41 PASS; RNG **3626**/3626.
+- seed2200: D-0042 → role throw cleared; rng-diff prefix **1283**; next
+  `choose_trapnote`.

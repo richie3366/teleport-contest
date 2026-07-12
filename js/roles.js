@@ -23,8 +23,14 @@ import {
     PM_GNOME,
     PM_ORC,
     NON_PM,
+    monsterNames,
 } from './generated/monsters_data.js';
 import { A_CHAOTIC, A_NEUTRAL, A_LAWFUL } from './const.js';
+
+function pm(name) {
+    const i = monsterNames.indexOf(name);
+    return i >= 0 ? i : NON_PM;
+}
 
 // STR18(n) encoding used as racial Str max (attrib.h / role.c).
 const STR18_100 = 18 + 100;
@@ -49,6 +55,7 @@ export const roles = [
         name: { m: 'Rogue', f: 'Rogue' },
         mnum: PM_ROGUE,
         petnum: NON_PM,
+        neminum: pm('PM_MASTER_ASSASSIN'),
         title: [
             { m: 'Footpad', f: 'Footpad' },
             { m: 'Cutpurse', f: 'Cutpurse' },
@@ -69,6 +76,7 @@ export const roles = [
         name: { m: 'Tourist', f: 'Tourist' },
         mnum: PM_TOURIST,
         petnum: NON_PM,
+        neminum: pm('PM_MASTER_OF_THIEVES'),
         title: [
             { m: 'Rambler', f: 'Rambler' },
             { m: 'Sightseer', f: 'Sightseer' },
@@ -85,7 +93,26 @@ export const roles = [
         enadv: adv(1, 0, 0, 1, 0, 1),
     },
     { name: { m: 'Valkyrie', f: 'Valkyrie' }, mnum: PM_VALKYRIE, petnum: NON_PM },
-    { name: { m: 'Wizard', f: 'Wizard' }, mnum: PM_WIZARD, petnum: NON_PM },
+    // C ref: role.c Wizard — Egyptian pantheon; Dark One nemesis (gender RNG)
+    {
+        name: { m: 'Wizard', f: 'Wizard' },
+        mnum: PM_WIZARD,
+        petnum: pm('PM_KITTEN'),
+        neminum: pm('PM_DARK_ONE'),
+        title: [
+            { m: 'Evoker', f: 'Evoker' },
+            { m: 'Conjurer', f: 'Conjurer' },
+        ],
+        lgod: 'Ptah',
+        ngod: 'Thoth',
+        cgod: 'Anhur',
+        attrbase: [7, 10, 7, 7, 7, 7],
+        attrdist: [10, 30, 10, 20, 20, 10],
+        initrecord: 0,
+        // C: { 10, 0, 0, 8, 1, 0 } / { 4, 3, 0, 2, 0, 3 }
+        hpadv: adv(10, 0, 0, 8, 1, 0),
+        enadv: adv(4, 3, 0, 2, 0, 3),
+    },
 ];
 
 export const races = [

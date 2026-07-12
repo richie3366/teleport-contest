@@ -1,7 +1,8 @@
 // u_init.js — Player initialization (inventory + attrs).
 // C ref: u_init.c — u_init_role, u_init_race, trquan, ini_inv,
-//        ini_inv_obj_substitution, u_init_inventory_attrs
-//        (Tourist + Rogue; human/orc race kits; elf/dwarf/gnome partial).
+//        ini_inv_mkobj_filter, ini_inv_obj_substitution,
+//        u_init_inventory_attrs
+//        (Tourist + Rogue + Wizard; human/orc race kits; elf/dwarf/gnome partial).
 
 import { game } from './gstate.js';
 import { rn2, rnd } from './rng.js';
@@ -14,6 +15,8 @@ import {
     POTION_CLASS,
     SCROLL_CLASS,
     WAND_CLASS,
+    RING_CLASS,
+    SPBOOK_CLASS,
     COIN_CLASS,
     objectNames,
     objectDescrs,
@@ -23,16 +26,29 @@ import { roles, races, aligns, findRole, findRace, findAlign } from './roles.js'
 import { discover_object } from './invent.js';
 import { otyp_uses_known } from './objnam.js';
 import {
-    W_ARMU, W_ARM, W_WEP, W_SWAPWEP, W_QUIVER,
+    W_ARMU, W_ARM, W_ARMC, W_WEP, W_SWAPWEP, W_QUIVER,
     RIGHT_HANDED, LEFT_HANDED,
     A_NEUTRAL,
     Is_container,
+    P_NONE,
+    P_DAGGER, P_KNIFE, P_AXE, P_SHORT_SWORD, P_CLUB, P_MACE,
+    P_QUARTERSTAFF, P_POLEARMS, P_SPEAR, P_TRIDENT, P_SLING, P_DART,
+    P_SHURIKEN, P_ATTACK_SPELL, P_HEALING_SPELL, P_DIVINATION_SPELL,
+    P_ENCHANTMENT_SPELL, P_CLERIC_SPELL, P_ESCAPE_SPELL, P_MATTER_SPELL,
+    P_RIDING, P_BARE_HANDED_COMBAT,
+    P_BASIC, P_SKILLED, P_EXPERT,
 } from './const.js';
 import {
-    PM_TOURIST, PM_ROGUE, PM_CLERIC, PM_WIZARD,
+    PM_TOURIST, PM_ROGUE, PM_CLERIC, PM_WIZARD, PM_MONK,
     PM_HUMAN, PM_ELF, PM_DWARF, PM_ORC, PM_GNOME,
     NON_PM,
 } from './generated/monsters_data.js';
+import { mons, is_male, is_female, is_neuter } from './monsters.js';
+
+// C ref: objclass.h ARM_* — oc_skill / oc_subtyp for armor
+const ARM_SUIT = 0;
+const ARM_CLOAK = 5;
+const ARM_SHIRT = 6;
 
 const UNDEF_TYP = 0;
 const UNDEF_SPE = 127; // '\177'
@@ -67,6 +83,50 @@ const Rogue = [
     { trotyp: () => otypByName('SACK'), trspe: 0, trclass: TOOL_CLASS, trquan_min: 1, trquan_max: 1, trbless: 0 },
     { trotyp: () => 0, trspe: 0, trclass: 0, trquan_min: 0, trquan_max: 0, trbless: 0 },
 ];
+
+// C ref: u_init.c Wizard[]
+const Wizard = [
+    { trotyp: () => otypByName('QUARTERSTAFF'), trspe: 1, trclass: WEAPON_CLASS, trquan_min: 1, trquan_max: 1, trbless: 1 },
+    { trotyp: () => otypByName('CLOAK_OF_MAGIC_RESISTANCE'), trspe: 0, trclass: ARMOR_CLASS, trquan_min: 1, trquan_max: 1, trbless: UNDEF_BLESS },
+    { trotyp: () => UNDEF_TYP, trspe: UNDEF_SPE, trclass: WAND_CLASS, trquan_min: 1, trquan_max: 1, trbless: UNDEF_BLESS },
+    { trotyp: () => UNDEF_TYP, trspe: UNDEF_SPE, trclass: RING_CLASS, trquan_min: 2, trquan_max: 2, trbless: UNDEF_BLESS },
+    { trotyp: () => UNDEF_TYP, trspe: UNDEF_SPE, trclass: POTION_CLASS, trquan_min: 3, trquan_max: 3, trbless: UNDEF_BLESS },
+    { trotyp: () => UNDEF_TYP, trspe: UNDEF_SPE, trclass: SCROLL_CLASS, trquan_min: 3, trquan_max: 3, trbless: UNDEF_BLESS },
+    { trotyp: () => otypByName('SPE_FORCE_BOLT'), trspe: 0, trclass: SPBOOK_CLASS, trquan_min: 1, trquan_max: 1, trbless: 1 },
+    { trotyp: () => UNDEF_TYP, trspe: UNDEF_SPE, trclass: SPBOOK_CLASS, trquan_min: 1, trquan_max: 1, trbless: UNDEF_BLESS },
+    { trotyp: () => otypByName('MAGIC_MARKER'), trspe: 19, trclass: TOOL_CLASS, trquan_min: 1, trquan_max: 1, trbless: 0 },
+    { trotyp: () => 0, trspe: 0, trclass: 0, trquan_min: 0, trquan_max: 0, trbless: 0 },
+];
+
+// C ref: u_init.c Skill_W[] — needed for restricted_spell_discipline in filter
+const Skill_W = [
+    { skill: P_DAGGER, max: P_EXPERT },
+    { skill: P_KNIFE, max: P_SKILLED },
+    { skill: P_AXE, max: P_SKILLED },
+    { skill: P_SHORT_SWORD, max: P_BASIC },
+    { skill: P_CLUB, max: P_SKILLED },
+    { skill: P_MACE, max: P_BASIC },
+    { skill: P_QUARTERSTAFF, max: P_EXPERT },
+    { skill: P_POLEARMS, max: P_SKILLED },
+    { skill: P_SPEAR, max: P_BASIC },
+    { skill: P_TRIDENT, max: P_BASIC },
+    { skill: P_SLING, max: P_SKILLED },
+    { skill: P_DART, max: P_EXPERT },
+    { skill: P_SHURIKEN, max: P_BASIC },
+    { skill: P_ATTACK_SPELL, max: P_EXPERT },
+    { skill: P_HEALING_SPELL, max: P_SKILLED },
+    { skill: P_DIVINATION_SPELL, max: P_EXPERT },
+    { skill: P_ENCHANTMENT_SPELL, max: P_SKILLED },
+    { skill: P_CLERIC_SPELL, max: P_SKILLED },
+    { skill: P_ESCAPE_SPELL, max: P_EXPERT },
+    { skill: P_MATTER_SPELL, max: P_EXPERT },
+    { skill: P_RIDING, max: P_BASIC },
+    { skill: P_BARE_HANDED_COMBAT, max: P_BASIC },
+];
+
+function strangeObject() {
+    return otypByName('STRANGE_OBJECT') || 0;
+}
 
 const Tinopener = [
     { trotyp: () => otypByName('TIN_OPENER'), trspe: 0, trclass: TOOL_CLASS, trquan_min: 1, trquan_max: 1, trbless: 0 },
@@ -142,10 +202,73 @@ function trquan(trop) {
     return trop.trquan_min + rn2(trop.trquan_max - trop.trquan_min + 1);
 }
 
-// C ref: u_init.c ini_inv_mkobj_filter() — Tourist/orc race food rolls;
-// full reject list deferred (retries rare on current kits).
-function ini_inv_mkobj_filter(oclass) {
-    return mkobj(oclass, false);
+// C ref: u_init.c skills_for_role() — Wizard Skill_W only (others deferred)
+function skills_for_role() {
+    if (game.urole?.mnum === PM_WIZARD) return Skill_W;
+    return null;
+}
+
+// C ref: spell.c spell_skilltype() — objects[].oc_skill
+function spell_skilltype(otyp) {
+    return game.objects?.[otyp]?.oc_skill ?? P_NONE;
+}
+
+// C ref: u_init.c restricted_spell_discipline()
+function restricted_spell_discipline(otyp) {
+    const skills = skills_for_role();
+    const thisSkill = spell_skilltype(otyp);
+    if (!skills) return true;
+    for (const s of skills) {
+        if (s.skill === thisSkill) return false;
+    }
+    return true;
+}
+
+// C ref: u_init.c ini_inv_mkobj_filter()
+function ini_inv_mkobj_filter(oclass, got_level1_spellbook) {
+    let obj = mkobj(oclass, false);
+    let otyp = obj.otyp;
+    let trycnt = 0;
+    const nocreate = game.nocreate ?? strangeObject();
+    const nocreate2 = game.nocreate2 ?? strangeObject();
+    const nocreate3 = game.nocreate3 ?? strangeObject();
+    const nocreate4 = game.nocreate4 ?? strangeObject();
+    const rolePm = game.urole?.mnum;
+    const racePm = game.urace?.mnum;
+
+    while (
+        otyp === otypByName('WAN_WISHING')
+        || otyp === nocreate
+        || otyp === nocreate2
+        || otyp === nocreate3
+        || otyp === nocreate4
+        || otyp === otypByName('RIN_LEVITATION')
+        || otyp === otypByName('POT_HALLUCINATION')
+        || otyp === otypByName('POT_ACID')
+        || otyp === otypByName('SCR_AMNESIA')
+        || otyp === otypByName('SCR_FIRE')
+        || otyp === otypByName('SCR_BLANK_PAPER')
+        || otyp === otypByName('SPE_BLANK_PAPER')
+        || otyp === otypByName('RIN_AGGRAVATE_MONSTER')
+        || otyp === otypByName('RIN_HUNGER')
+        || otyp === otypByName('WAN_NOTHING')
+        || (otyp === otypByName('RIN_POISON_RESISTANCE') && racePm === PM_ORC)
+        || (otyp === otypByName('SCR_ENCHANT_WEAPON') && rolePm === PM_MONK)
+        || (otyp === otypByName('SPE_FORCE_BOLT') && rolePm === PM_WIZARD)
+        || (obj.oclass === SPBOOK_CLASS
+            && ((game.objects?.[otyp]?.oc_level ?? 0)
+                > (got_level1_spellbook ? 3 : 1)
+                || restricted_spell_discipline(otyp)))
+        || otyp === otypByName('SPE_NOVEL')
+    ) {
+        if (++trycnt > 1000) {
+            obj = mksobj(otypByName('PANCAKE'), true, false);
+            break;
+        }
+        obj = mkobj(oclass, false);
+        otyp = obj.otyp;
+    }
+    return obj;
 }
 
 // C ref: u_init.c ini_inv_obj_substitution()
@@ -286,22 +409,15 @@ function addinv(obj) {
 }
 
 function is_shirt(obj) {
-    const n = objectNames[obj.otyp];
-    return n === 'HAWAIIAN_SHIRT' || n === 'T_SHIRT';
+    return (game.objects?.[obj.otyp]?.oc_skill ?? -1) === ARM_SHIRT;
 }
 
 function is_suit(obj) {
-    // C ref: obj.h is_suit() — ARM_SUIT; named body armor until oc_armcat extracted.
-    const n = objectNames[obj.otyp] || '';
-    return n === 'LEATHER_ARMOR' || n === 'LEATHER_JACKET'
-        || n === 'PLATE_MAIL' || n === 'CRYSTAL_PLATE_MAIL'
-        || n === 'BRONZE_PLATE_MAIL' || n === 'SPLINT_MAIL'
-        || n === 'BANDED_MAIL' || n === 'DWARVISH_MITHRIL_COAT'
-        || n === 'ELVEN_MITHRIL_COAT' || n === 'CHAIN_MAIL'
-        || n === 'ORCISH_CHAIN_MAIL' || n === 'SCALE_MAIL'
-        || n === 'STUDDED_LEATHER_ARMOR' || n === 'RING_MAIL'
-        || n === 'ORCISH_RING_MAIL'
-        || n.endsWith('_SCALE_MAIL') || n.endsWith('_SCALES');
+    return (game.objects?.[obj.otyp]?.oc_skill ?? -1) === ARM_SUIT;
+}
+
+function is_cloak(obj) {
+    return (game.objects?.[obj.otyp]?.oc_skill ?? -1) === ARM_CLOAK;
 }
 
 function is_missile(obj) {
@@ -347,6 +463,9 @@ function ini_inv_use_obj(obj) {
         if (is_shirt(obj) && !game.u.uarmu) {
             obj.owornmask = (obj.owornmask || 0) | W_ARMU;
             game.u.uarmu = obj;
+        } else if (is_cloak(obj) && !game.u.uarmc) {
+            obj.owornmask = (obj.owornmask || 0) | W_ARMC;
+            game.u.uarmc = obj;
         } else if (is_suit(obj) && !game.u.uarm) {
             obj.owornmask = (obj.owornmask || 0) | W_ARM;
             game.u.uarm = obj;
@@ -368,20 +487,14 @@ function ini_inv_use_obj(obj) {
     }
 }
 
-// C ref: do_wear.c find_ac() — base human AC 10; armor bonuses via a_ac (= 10 - listed ac)
+// C ref: do_wear.c find_ac() — base human AC 10; ARM_BONUS via objects[].a_ac
 export function find_ac() {
     let uac = 10; // mons[PM_HUMAN].ac
     const pieces = [game.u?.uarm, game.u?.uarmc, game.u?.uarmh, game.u?.uarmf,
         game.u?.uarms, game.u?.uarmg, game.u?.uarmu];
     for (const obj of pieces) {
         if (!obj) continue;
-        const n = objectNames[obj.otyp] || '';
-        let a_ac = 0;
-        // C: objects[].a_ac = 10 - listed_ac in objects.h ARMOR()
-        if (n === 'LEATHER_ARMOR') a_ac = 2; // listed ac 8
-        else if (n === 'LEATHER_JACKET') a_ac = 1; // listed ac 9
-        else if (n === 'FEDORA') a_ac = 0;
-        else if (n === 'HAWAIIAN_SHIRT' || n === 'T_SHIRT') a_ac = 0;
+        const a_ac = game.objects?.[obj.otyp]?.a_ac ?? 0;
         uac -= a_ac + (obj.spe || 0);
     }
     if (Math.abs(uac) > 99) uac = Math.sign(uac) * 99;
@@ -395,17 +508,36 @@ function ini_inv(tropArr) {
     let ti = 0;
     let trop = tropArr[ti];
     let quan = trquan(trop);
+    let got_sp1 = false;
     while (trop.trclass) {
-        const otyp = typeof trop.trotyp === 'function' ? trop.trotyp() : trop.trotyp;
+        let otyp = typeof trop.trotyp === 'function' ? trop.trotyp() : trop.trotyp;
         let obj;
         if (otyp !== UNDEF_TYP) {
             obj = mksobj(otyp, true, false);
         } else {
-            obj = ini_inv_mkobj_filter(trop.trclass);
+            obj = ini_inv_mkobj_filter(trop.trclass, got_sp1);
+            otyp = obj.otyp;
+            // C: poly / poly-control nocreate wiring (wand before ring before book)
+            if (otyp === otypByName('WAN_POLYMORPH')
+                || otyp === otypByName('RIN_POLYMORPH')
+                || otyp === otypByName('POT_POLYMORPH')) {
+                game.nocreate = otypByName('RIN_POLYMORPH_CONTROL');
+            } else if (otyp === otypByName('RIN_POLYMORPH_CONTROL')) {
+                game.nocreate = otypByName('RIN_POLYMORPH');
+                game.nocreate2 = otypByName('SPE_POLYMORPH');
+                game.nocreate3 = otypByName('POT_POLYMORPH');
+            }
+            if (obj.oclass === RING_CLASS || obj.oclass === SPBOOK_CLASS) {
+                game.nocreate4 = otyp;
+            }
         }
         ini_inv_obj_substitution(trop, obj);
         if (ini_inv_adjust_obj(trop, obj)) quan = 1;
         addinv(obj);
+        if (obj.oclass === SPBOOK_CLASS
+            && (game.objects?.[obj.otyp]?.oc_level ?? 0) === 1) {
+            got_sp1 = true;
+        }
         if (--quan) continue;
         ti++;
         trop = tropArr[ti];
@@ -413,10 +545,17 @@ function ini_inv(tropArr) {
     }
 }
 
-// C ref: u_init.c u_init_role() — Tourist + Rogue cases
+// C ref: u_init.c u_init_role() — Tourist + Rogue + Wizard cases
 function u_init_role() {
     const role = game.urole;
     const mnum = role?.mnum;
+
+    // C: reset nocreate before role kit
+    const strange = strangeObject();
+    game.nocreate = strange;
+    game.nocreate2 = strange;
+    game.nocreate3 = strange;
+    game.nocreate4 = strange;
 
     if (mnum === PM_TOURIST) {
         game.u.umoney0 = rnd(1000);
@@ -425,6 +564,11 @@ function u_init_role() {
         else if (!rn2(25)) ini_inv(Leash);
         else if (!rn2(25)) ini_inv(Towel);
         else if (!rn2(20)) ini_inv(Magicmarker);
+        // C resets nocreate after role switch
+        game.nocreate = strange;
+        game.nocreate2 = strange;
+        game.nocreate3 = strange;
+        game.nocreate4 = strange;
         return;
     }
     if (mnum === PM_ROGUE) {
@@ -434,6 +578,20 @@ function u_init_role() {
         if (!rn2(5)) ini_inv(Blindfold);
         knows_object(otypByName('SACK'), false);
         knows_class(WEAPON_CLASS); // daggers only
+        game.nocreate = strange;
+        game.nocreate2 = strange;
+        game.nocreate3 = strange;
+        game.nocreate4 = strange;
+        return;
+    }
+    if (mnum === PM_WIZARD) {
+        game.u.umoney0 = 0;
+        ini_inv(Wizard);
+        if (!rn2(5)) ini_inv(Blindfold);
+        game.nocreate = strange;
+        game.nocreate2 = strange;
+        game.nocreate3 = strange;
+        game.nocreate4 = strange;
         return;
     }
     throw new Error(`u_init_role: role not ported (${role?.name?.m})`);
@@ -547,6 +705,7 @@ export function setup_role_race_from_rc(opts = {}) {
         rank: role.title?.[0] || { m: role.name.m, f: role.name.f },
         mnum: role.mnum,
         petnum: role.petnum ?? NON_PM,
+        neminum: role.neminum ?? NON_PM,
         filecode: ROLE_FILECODE[role.name.m] || 'Tou',
         attrbase: role.attrbase,
         attrdist: role.attrdist,
@@ -574,6 +733,23 @@ export function setup_role_race_from_rc(opts = {}) {
     const alignIdx = aligns.indexOf(align);
     game.flags.initalign = alignIdx >= 0 ? alignIdx : 1;
     if (opts.name) game.plname = opts.name;
+
+    // C ref: role.c role_init() — quest nemesis gender when not fixed
+    role_init_nemesis_gender();
+}
+
+// C ref: role.c role_init() nemesis gender pick (role.c:2050-2060)
+function role_init_nemesis_gender() {
+    const neminum = game.urole?.neminum ?? NON_PM;
+    if (neminum === NON_PM || neminum == null) return;
+    const pm = mons(neminum);
+    if (!pm) return;
+    if (!game.quest_status) game.quest_status = {};
+    // C: is_neuter ? 2 : is_female ? 1 : is_male ? 0 : (rn2(100) < 50)
+    game.quest_status.nemgend = is_neuter(pm) ? 2
+        : is_female(pm) ? 1
+            : is_male(pm) ? 0
+                : (rn2(100) < 50 ? 1 : 0);
 }
 
 // C ref: u_init.c u_init_misc() — pre-mklev; newhp/newpw at ulevel==0.
@@ -620,6 +796,7 @@ export function u_init_inventory_attrs() {
     game.u.umoney0 = 0;
     game.u.uarmu = null;
     game.u.uarm = null;
+    game.u.uarmc = null;
     game.u.uquiver = null;
     game.u.uwep = null;
     game.u.uswapwep = null;

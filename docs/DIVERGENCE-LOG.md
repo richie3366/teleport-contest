@@ -1000,3 +1000,35 @@ cohort gates if those functions are touched again.
   invent layout. Prefer `oc_skill` + `P_NAME` over otyp strings for
   wield descriptions.
 - **Next:** next unported role `u_init_role`, or seed0013 Lua/`sp_lev`.
+
+## D-0042 — Wizard `u_init_role` + `ini_inv_mkobj_filter` + Dark One gender
+
+- **Status:** fixed (verified 2026-07-13) for role-init throw clearance;
+  seed2200 still diverges later in mklev.
+- **Observed:** **29/44** sessions threw `u_init_role: role not ported
+  (Wizard)` (≈10 Wizard sessions). After port, **20/44** role throws
+  remain (no Wizard). seed2200 rng-diff first mismatch moved from throw
+  → idx **199** (missing Dark One `rn2(100)`) → idx **1283**
+  (`choose_trapnote` vs `rnd(4)`).
+- **Cause/evidence:** Wizard kit was absent; scaffold lacked pantheon/
+  attrs/`hpadv`/`enadv`/`neminum`. Random UNDEF wand/ring/potion/scroll/
+  book needed C `ini_inv_mkobj_filter` (reject list + `oc_level` +
+  `Skill_W` discipline). Dark One has no fixed gender →
+  `role_init` `rn2(100)<50`. Cloak wear/`a_ac` needed for AC:9.
+- **C locus:** `u_init.c` `Wizard[]` / `u_init_role` / `ini_inv` /
+  `ini_inv_mkobj_filter` / `Skill_W` / `restricted_spell_discipline`;
+  `role.c` Wizard entry + `role_init` nemesis gender; `objclass.h`
+  `oc_level`/`a_ac`.
+- **Change:** extract `a_ac`/`oc_level`; Wizard roles + inventory +
+  filter + `Skill_W`; cloak wear + `find_ac` via `a_ac`;
+  `role_init_nemesis_gender` for random-gender nemeses.
+- **Verification:** green + seed1500/1800/0060 PASS + strict; seed2200
+  RNG **2756**/3018 Scr **1**/230 (prefix **1283**); full **5/44**,
+  screens **239**/11405 (+19), RNG **44848**/792838; role throws
+  **20**/44.
+- **Omissions named:** `initialspell`; full `role_init` beyond nemesis
+  gender; other role kits; seed2200 `choose_trapnote` (next peel).
+- **Lesson:** unlocking a role is identity + inventory filter + any
+  role_init RNG the nemesis gender path consumes — not kit tables alone.
+- **Next:** peel seed2200 idx 1283 `choose_trapnote`, or next unported
+  role (Priest/Knight clear 4 throws each).

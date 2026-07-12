@@ -38,11 +38,11 @@ frozen-file overlay):
 | Metric | Value |
 |--------|------:|
 | Sessions passing | **5 / 44** |
-| Screens matched | **220 / 11,405** (1.93%) |
-| Positional RNG calls matched | **28,511 / 792,838** (3.60%) |
-| Speed label | `14+0.02/turn` (R² 0.07) |
+| Screens matched | **239 / 11,405** (2.10%) |
+| Positional RNG calls matched | **44,848 / 792,838** (5.66%) |
+| Speed label | `16+0.04/turn` (R² 0.28) |
 | Working-tree base | `8b71735` + committed port (see `main`) |
-| Role-init throws | **29 / 44** (`u_init_role: role not ported`) |
+| Role-init throws | **20 / 44** (`u_init_role: role not ported`) |
 
 The RNG aggregate can decrease while the port improves if a former fake path
 is replaced or more sessions execute farther. Use first divergence, screens,
@@ -57,10 +57,12 @@ shared blockers, and semantic coverage together—not one vanity metric.
 | `seed1500-rogue-explore-move` | **2768 / 2768** | **40 / 40** |
 | `seed1800-tourist-eat-throw` | **2458 / 2458** | **26 / 26** |
 | `seed0060-orc-rogue-kick-search` | **3626 / 3626** | **41 / 41** |
+| `seed2200-wizard-quaff-zap-read` | **2756 / 3018** | 1 / 230 |
 | `seed0013-rogue-friday13-combat` | **519 / 4838** | 1 / 59 |
 
 seed8000 + seed0900 + seed1500 + seed1800 + seed0060 pass end-to-end.
-seed0013 still breaks earlier in Lua/`sp_lev` map.
+Wizard init (D-0042) clears all Wizard role throws; seed2200 still breaks
+in mklev (`choose_trapnote`). seed0013 still breaks earlier in Lua/`sp_lev`.
 
 ### Green gate
 
@@ -84,33 +86,32 @@ complete or blocked on a prerequisite you document with a falsifier. The
 seed1800 deep canary (`D-0006`) is **parked** — do not implement pet-movement
 fixes until C state/candidate capture exists (`GROK-PLAYBOOK.md` §2).
 
-#### Primary foundation frontier — next unported role / seed0013
+#### Primary foundation frontier — next unported role / seed2200 mklev
 
-**Code status:** seed0060 orc Rogue session **PASS** (D-0041 ^X
-enlightenment). Five public sessions pass end-to-end. **29/44** still
-throw at `u_init_role`.
+**Code status:** Wizard `u_init_role` **ported** (D-0042). Five public
+sessions still pass end-to-end. **20/44** still throw at `u_init_role`
+(Priest/Knight 4 each; Samurai 3; …).
 
-- **Bounded unit:** next role `u_init_role` / race kit from C
-  (`u_init.c` + `role.c`), **or** seed0013 Lua/`sp_lev` map peel if
-  staying on Rogue combat.
+- **Bounded unit:** next role kit (Priest or Knight preferred), **or**
+  seed2200 `choose_trapnote` mklev peel (rng-diff idx 1283).
 - **Prefer:** a role that clears many `role not ported` throwers over
-  polishing one late Tourist path.
-- **Named omissions:** `make_corpse` after `corpse_chance`; dokick
+  polishing one late Tourist/Wizard path.
+- **Named omissions:** Wizard `initialspell`; full `role_init` beyond
+  nemesis gender; `make_corpse` after `corpse_chance`; dokick
   monster/object/closed-door/SDOOR/furniture; `martial()`; wake/
   engraving; `set_wounded_legs` body; `showdamage`/death `done`; Upolyd
   eel `regen_hp` loss; `regen_pw`/Teleport/Poly once-per-turn; other
   roles still throw; `dog_goal` gettrack/FARAWAY; `throw_gold`; eat
   getobj single-shot; Blind/`look_here`; trap glyphs; hallucination/
-  `see_objects`; `ini_inv_mkobj_filter`; `u_init_carry_attr_boost`;
-  mfndpos `bad_rock` squeeze; Sokoban push-avoid; `donull`
-  `cmd_safety_prevention`; dog_move `mtrack` skip; `makemon` Sokoban
-  `throws_rocks`; `m_initinv` body; `set_malign`; telepathy/
-  `Detect_monsters`/`MATCH_WARN_OF_MON` in `newsym`; full
-  `set_uasmon`/uprops; full `weapon_insight` enhance/P_SKILL/odd
-  P_NAME; shop `costly_spot` autopickup; `obj_typename` armor
-  pair-of/set-of + GemStone; MLET_CH beyond early subset; …
+  `see_objects`; `u_init_carry_attr_boost`; mfndpos `bad_rock` squeeze;
+  Sokoban push-avoid; `donull` `cmd_safety_prevention`; dog_move
+  `mtrack` skip; `makemon` Sokoban `throws_rocks`; `m_initinv` body;
+  `set_malign`; telepathy/`Detect_monsters`/`MATCH_WARN_OF_MON` in
+  `newsym`; full `set_uasmon`/uprops; full `weapon_insight` enhance/
+  P_SKILL/odd P_NAME; shop `costly_spot` autopickup; `obj_typename`
+  armor pair-of/set-of + GemStone; MLET_CH beyond early subset; …
 - **Cohort:** green gate + seed1500 + seed1800 + seed0060 (must stay
-  PASS) + strict lengths.
+  PASS) + strict lengths; Wizard focus seed2200 when on that peel.
 
 Focused survey:
 
@@ -175,6 +176,9 @@ Module status, constitutional debt, and named omissions live in
     next idx 35 (^X enlightenment)
 26. seed0060 ^X enlightenment autopickup/limits/`weapon_descr` (D-0041)
     — Scr **39→41**/41; session **PASS**; public **5/44**
+27. Wizard `u_init_role` + `ini_inv_mkobj_filter` + Dark One gender
+    (D-0042) — role throws **29→20**/44; screens **220→239**; RNG
+    **28511→44848**; seed2200 next `choose_trapnote` @ 1283
 
 Next work is selected from the active objectives above using
 `PORTING-RUNBOOK.md`, not by extending this historical list.
