@@ -218,6 +218,22 @@ function q4_path(srow, scol, y2, x2) {
     return 1;
 }
 
+// C ref: vision.c clear_path(col1,row1,col2,row2) — LOS for m_cansee
+export function clear_path(col1, row1, col2, row2) {
+    if (col1 < col2) {
+        if (row1 > row2) return q1_path(row1, col1, row2, col2);
+        return q4_path(row1, col1, row2, col2);
+    }
+    if (row1 > row2) return q2_path(row1, col1, row2, col2);
+    if (row1 === row2 && col1 === col2) return 1;
+    return q3_path(row1, col1, row2, col2);
+}
+
+// C ref: vision.h m_cansee — clear_path from monster to location
+export function m_cansee(mtmp, x2, y2) {
+    return !!clear_path(mtmp.mx, mtmp.my, x2, y2);
+}
+
 // C ref: vision.c right_side()
 function right_side(row, left, right_mark, limitsIdx) {
     const nrow = row + game.vis_step;

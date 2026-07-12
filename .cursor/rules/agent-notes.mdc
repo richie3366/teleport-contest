@@ -1,0 +1,39 @@
+---
+description: Working-hypothesis NOTES.md practice — avoid long wrong peels
+alwaysApply: true
+---
+
+# Agent notes (self-evolve)
+
+`docs/NOTES.md` is the live unresolved scratchpad. Keep it tiny.
+Measured objectives/scores live in `PROGRESS.md`, fixed causes in
+`DIVERGENCE-LOG.md`, structural omissions in `C-JS-MAP.md`, and loop chronology
+in `AGENT-LOOP-JOURNAL.md`.
+
+## What belongs in NOTES.md
+
+- Active hypothesis + one command that would falsify it
+- Current expensive dead ends labeled “don’t re-check” with the counterexample
+- Session landmarks (e.g. 0-RNG keys at `--More--`; key attribution ≠ RNG order)
+- Open questions only — not peel chronology (journal) or resolved causes
+  (divergence log)
+
+## What does not
+
+Constitution, strategy essays, resolved peel chronology, baseline scores, and
+module status — those have other owners.
+
+## When to write
+
+After any diagnosis that burned a long wrong path, add 3–5 lines to
+`docs/NOTES.md` **before** the next peel. Once resolved, move the evidence to
+`DIVERGENCE-LOG.md` and remove stale detail from Notes. Prefer falsifying
+against session **screens + key/RNG maps** early (not only `rng-diff` call
+sites).
+
+## Self-reflect
+
+Update Notes when evidence shows the working theory is wrong. Ordinary loop
+porters must not rewrite this rule, the Constitution, or the runbook; propose
+process changes in the journal for human/auditor review. Drop the theory—do
+not invent alignment machinery to save it.

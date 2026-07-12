@@ -232,11 +232,22 @@ async function loadAndCompute(sessionData, name) {
     }
 
     const segments = [];
-    let prevGame = null;
-    // The same NethackGame instance is reused across segments, so its
-    // getScreens()/getCursors()/getRngSlices() return CUMULATIVE arrays.
-    // We track an offset so each segment reads only its own slice.
-    let priorCaptureCount = 0;
+    // Match frozen/ps_test_runner.mjs: one fresh game per segment, one shared
+    // Web-Storage-shaped handle for save/bones/record persistence.
+    const storageData = new Map();
+    const storage = {
+        getItem(k) { return storageData.has(k) ? storageData.get(k) : null; },
+        setItem(k, v) { storageData.set(k, String(v)); },
+        removeItem(k) { storageData.delete(k); },
+        get length() { return storageData.size; },
+        key(i) {
+            let n = 0;
+            for (const k of storageData.keys()) {
+                if (n++ === i) return k;
+            }
+            return null;
+        },
+    };
     for (let s = 0; s < sessionData.segments.length; s++) {
         const seg = sessionData.segments[s];
         const input = {
@@ -244,22 +255,25 @@ async function loadAndCompute(sessionData, name) {
             datetime: seg.datetime,
             nethackrc: seg.nethackrc,
             moves: seg.moves,
+            storage,
         };
         let game;
         try {
-            game = await runSegment(input, prevGame);
+            game = await runSegment(input);
         } catch (err) {
             status(`seg ${s}: JS port threw: ${err.message}`, 'error');
             return;
         }
         const allJsScreens = game.getScreens?.() || [];
         const allJsCursors = game.getCursors?.() || [];
+        // Honest per-boundary attribution requires an implementation hook.
+        // Do not evenly distribute a flat log; that invents a timeline.
         const allJsRngSlices = game.getRngSlices?.()
-            || sliceRng(game.getRngLog?.() || [], allJsScreens.length);
+            || Array.from({ length: allJsScreens.length }, () => []);
         const stepsOut = [];
         for (let i = 0; i < seg.steps.length; i++) {
             const canonStep = seg.steps[i];
-            const j = priorCaptureCount + i;
+            const j = i;
             stepsOut.push({
                 key: canonStep.key,
                 canonScreen: canonStep.screen || '',
@@ -271,8 +285,6 @@ async function loadAndCompute(sessionData, name) {
             });
         }
         segments.push({ seg, steps: stepsOut });
-        priorCaptureCount = allJsScreens.length;
-        prevGame = game;
     }
 
     CURRENT = { sessionData, name, segments };
@@ -301,7 +313,8 @@ function classifyScreenDiffs() {
             }
             const cursorDiff = !(st.canonCursor && st.jsCursor &&
                 st.canonCursor[0] === st.jsCursor[0] &&
-                st.canonCursor[1] === st.jsCursor[1]);
+                st.canonCursor[1] === st.jsCursor[1] &&
+                st.canonCursor[2] === st.jsCursor[2]);
             st._diff = { char: charDiff, attr: attrDiff, cursor: cursorDiff };
         }
     }
@@ -329,14 +342,6 @@ function buildStatusSummary(name) {
     return `${name} — ${totalSteps()} steps · `
         + `PRNG ${prngMatch}/${prngTotal}`
         + ` · screens ${screenMatch}/${screenTotal}`;
-}
-
-function sliceRng(log, n) {
-    // Naive even split. Used only when getRngSlices isn't implemented.
-    const out = [];
-    const each = Math.ceil(log.length / Math.max(1, n));
-    for (let i = 0; i < n; i++) out.push(log.slice(i * each, (i + 1) * each));
-    return out;
 }
 
 function totalSteps() {

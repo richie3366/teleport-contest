@@ -1,5 +1,10 @@
 # The Teleport Coding Challenge
 
+> **Fork status:** this README describes the original contest template and is
+> intentionally broad. The live port is far beyond the skeleton snapshot
+> below. Agents should read `docs/CONSTITUTION.md`,
+> `docs/PORTING-RUNBOOK.md`, and `docs/PROGRESS.md` before editing.
+
 *A guide to porting the Mazes of Menace from C to JavaScript, for
 adventurers traveling with a small swarm of LLM coding assistants.
 [Fork it now.](https://github.com/davidbau/teleport-contest/fork)*
@@ -75,21 +80,21 @@ bash frozen/set-category.sh <CATEGORY>
 bash frozen/score.sh
 ```
 
-Out of the box, the skeleton scores partial credit on
+The original template scored partial credit on
 `seed8000-tourist-starter` — its `fastforward.js` replay nails most
 of the early-game PRNG and the first dozen-or-so screens. That's
-your hello world: getting it from "partial" to "full pass," and
-then taking on the other 87 sessions.
+the historical hello world. This fork has since removed all replay entries;
+see `docs/PROGRESS.md` for current results.
 
 ## What's in this repo
 
 Three things, layered like the Dungeons of Doom themselves.
 
-### 1. A skeleton port of NetHack 5.0
+### 1. Original skeleton port of NetHack 5.0 (historical snapshot)
 
-A minimal JavaScript implementation that runs through the first short
+A minimal JavaScript implementation originally ran through the first short
 tourist game (`seed8000-tourist-starter`) far enough to render a few
-recognizable screens. It does NOT pass that session yet — chargen is
+recognizable screens. At template time it did not pass that session—chargen was
 unimplemented, and the skeleton "fakes" the early game by replaying a
 hardcoded sequence of PRNG draws read out of the recorded session
 (see `js/fastforward.js`). It's enough scaffolding to see the engine
@@ -106,8 +111,7 @@ js/
 ├── terminal.js        ← FROZEN: 24×80 grid + serialize(). Don't touch.
 ├── storage.js         ← FROZEN: VFS for save/restore + bones. Don't touch.
 ├── rng.js             ← PRNG wrappers (rn2, rnd, d, …). Edit freely.
-├── fastforward.js     ← Hardcoded RNG-replay scaffolding for seed8000.
-│                        A trap to escape — see below.
+├── fastforward.js     ← Historical replay hooks; empty in this fork.
 ├── nethack.js         ← top-level NetHack class. Mostly a stub.
 ├── const.js           ← 2,000+ constants imported from upstream headers.
 ├── allmain.js         ← the move loop. Currently very polite.
@@ -173,23 +177,23 @@ The C source is organized like this:
 nethack-c/
 ├── upstream/                   ← git submodule pinned to NetHack 5.0.0_Release
 │                                 (clean upstream from github.com/NetHack/NetHack)
-├── patches/                    ← the eight deterministic-build patches:
+├── patches/                    ← six deterministic/logging/capture patches:
 │   ├── 001-deterministic-runtime.patch        — NETHACK_SEED + NETHACK_FIXED_DATETIME
 │   ├── 002-deterministic-qsort.patch          — stable sort
 │   ├── 003-rng-log-core.patch                 — log core PRNG calls
 │   ├── 004-rng-log-lua-context.patch          — tag Lua-side PRNG calls
 │   ├── 005-rng-display-logging.patch          — log the display PRNG (hallucination)
-│   └── 006-008-nomux-*.patch                  — capture 24×80 terminal stream
+│   └── 006-nomux-capture.patch                — capture 24×80 terminal stream
 ├── build-recorder.sh           ← clones submodule, applies patches, builds binary
 ├── macosx-minimal              ← macOS hints file (upstream doesn't ship one)
 ├── README.md                   ← deeper notes on each patch
 └── recorder/                   ← gitignored — built source tree + binary appears here
 ```
 
-Yes, NetHack has **three independent PRNG contexts** — core gameplay,
-Lua-script (for special levels), and display (for hallucination
-effects). Patches 003-005 instrument all three. Your JS port has to
-reproduce all three, in the right order, with the right values. PRNG
+NetHack has **two ISAAC64 streams** — core gameplay and display
+(hallucination effects). Lua `nh.rn2`/`nh.random` calls use the core stream;
+patch 004 annotates those calls with Lua source provenance. Your JS port has to
+reproduce both streams and Lua binding/load order. PRNG
 parity is the foundation: a single off-by-one RNG call cascades through
 the entire dungeon and nothing else can match. But getting the random
 numbers right doesn't get you the screens — that's a separate, harder
@@ -206,7 +210,7 @@ bash nethack-c/build-recorder.sh
 ```
 
 This clones the submodule (NetHack 5.0.0_Release source from
-github.com/NetHack/NetHack), applies the eight patches into
+github.com/NetHack/NetHack), applies the six patches into
 `nethack-c/recorder/`, and builds the binary at
 `nethack-c/recorder/install/games/lib/nethackdir/nethack`. The
 `recorder/` directory is gitignored — it's built artifact, not source.
@@ -215,7 +219,7 @@ You do NOT need to do this to enter the contest. The 44 sessions in
 `sessions/` were recorded with this build and ship ready to score
 against. Build the recorder only if you want to record your own
 debugging sessions or generate supplemental coverage (see
-`PROMPT.md` Parts 2 and 4).
+`scripts/record-session.mjs` and `docs/PORTING-RUNBOOK.md`).
 
 Requires: `clang` (not gcc — see below), `make`, `bison`, `flex`.
 
@@ -259,7 +263,7 @@ seed0007-rogue-snake-swamp      FAIL  RNG: 391/3706 (10.5%)   div@392
 keystrokes (the recorded input across the 44 public sessions). For
 every one of those keystrokes, can your JS port render the exact
 same 24×80 terminal screen the C reference produced? Each matching
-screen is one point. Public corpus has 11,284 screens — that's your
+screen is one point. Public corpus has 11,405 screens — that's your
 public maximum.
 
 A session that diverges at step 50 still earns 50 screen points;
@@ -304,7 +308,7 @@ button, no email to send. The dungeon notices when you arrive.
 
 ### Scoring API
 
-Your fork must export `runSegment(input, prevGame=null)` from
+Your fork must export `runSegment(input)` from
 `js/jsmain.js`. The full contract is in [`docs/API.md`](docs/API.md);
 the short version is that for each game segment, you receive a seed,
 a datetime, an `OPTIONS=…` rc-text blob, and a string of keys. You
@@ -325,8 +329,8 @@ Two channels are scored, both required:
 **Scoring is per-step, screens-only.** Your score is the count of
 steps where the captured 24×80 grid matches C's exactly (character +
 color + attribute + cursor position). The 44 public sessions contain
-11,284 steps (max 11,284 points). The 44 held-out pool adds 10,538
-more steps (max 10,538 more) for a global maximum of 21,822 points.
+11,405 steps (max 11,405 points). The held-out count is judge-owned and
+documented separately in `docs/API.md`.
 
 PRNG match is the structural prerequisite — if your PRNG diverges
 from C's, the game state diverges and screens can't match — but
@@ -335,7 +339,7 @@ your PRNG match percentage as advisory progress.
 
 ### What's frozen
 
-Two files in your fork are overlaid from the canonical copy before
+Three files in your fork are overlaid from the canonical copy before
 every scoring run:
 
 | File | Why frozen |
@@ -359,7 +363,8 @@ ascended.)
   Phase 2.
 - **Submissions must be plain JavaScript.** ES6 modules, runnable
   as-is in both Node 22+ and modern Chrome. No build step required.
-  No WASM, no internet or filesystem or threads, no native addons.
+  No WASM, network, filesystem writes, or threads; read-only access to shipped
+  fork assets is allowed by the scorer whitelist. No native addons.
   Persistent state goes through the frozen `js/storage.js` VFS;
   everything else stays in-process.
 - **Frozen files cannot be modified.** The judge overlays them on

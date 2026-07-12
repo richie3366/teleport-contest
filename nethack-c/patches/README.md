@@ -1,6 +1,6 @@
 # NetHack 5.0 recorder patches
 
-Eight patches that turn upstream NetHack 5.0 into a deterministic,
+Six patch files that turn upstream NetHack 5.0 into a deterministic,
 reproducible "recorder" build whose run-to-run behavior is exactly
 what the JS port has to match.
 
@@ -8,12 +8,10 @@ what the JS port has to match.
 |---|---|---|---|
 | 001 | `deterministic-runtime` | Pin date/time and RNG seed via env vars (`NETHACK_FIXED_DATETIME`, `NETHACK_SEED`) | Time-of-day affects moon phase, shopkeeper greetings, hire date — non-determinism unless pinned |
 | 002 | `deterministic-qsort` | Replace `qsort` with a stable sort | Tie-breaking order in standard `qsort` varies by libc implementation |
-| 003 | `rng-log-core` | Log every `rn2/rnd/rne/rnz/rnl/rn1/d` call to `NETHACK_RNGLOG` | Core PRNG — first of three contexts the port has to reproduce |
+| 003 | `rng-log-core` | Log `rn2/rnd/rne/rnz/rnl/d` calls to `NETHACK_RNGLOG` (`rn1` is a macro over logged `rn2`) | Core ISAAC64 stream |
 | 004 | `rng-log-lua-context` | Tag Lua-side PRNG calls with their `<file>:<line>` source location | Lua scripts (special levels) use the same PRNG; need to know which call is which |
-| 005 | `rng-display-logging` | Log the third PRNG context (display/hallucination) to `NETHACK_RNGLOG_DISP` | Hallucination uses a separate stream so it doesn't perturb gameplay RNG |
-| 006 | `nomux-capture` | Replace `tty` curses output with a deterministic 24×80 frame capture | Need exact terminal contents at every input boundary |
-| 007 | `nomux-raw-print` | Route `raw_print` (early errors, banners) through nomux too | Otherwise startup banners aren't captured |
-| 008 | `nomux-deterministic-capture` | Snapshot the screen exactly when C blocks for the next key | Pins frame boundaries to `tty_nhgetch` calls |
+| 005 | `rng-display-logging` | Log the display/hallucination ISAAC64 stream to `NETHACK_RNGLOG_DISP` | Hallucination uses a separate stream so it doesn't perturb gameplay RNG |
+| 006 | `nomux-capture` | Deterministic 24×80 capture, including raw output and snapshots at input boundaries | Captures exact visible state when `tty_nhgetch` blocks |
 
 ## Apply
 

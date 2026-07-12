@@ -6,7 +6,7 @@ returns, and compares against the recorded ground truth.
 
 ```js
 // js/jsmain.js
-export async function runSegment(input, prevGame = null) {
+export async function runSegment(input) {
     // ... your code: launch a game, replay the keys, capture frames ...
     return game;
 }
@@ -23,13 +23,12 @@ recorded C reference 100%, end to end.
 For each session, scoring runs:
 
 ```
-game = null
 for segment in session.segments:
-    game = await runSegment(segment, game)
+    game = await runSegment({ ...segment, storage: sharedSessionStorage })
 
-screens  = game.getScreens()    // collected across all segments
-rngLog   = game.getRngLog()     // collected across all segments
-cursors  = game.getCursors()    // collected across all segments
+    screens += game.getScreens() // harness concatenates per-segment output
+    rngLog  += game.getRngLog()
+    cursors += game.getCursors()
 ```
 
 Then it compares positionally:
@@ -38,14 +37,14 @@ Then it compares positionally:
 |---|---|
 | **PRNG** | Every entry in `rngLog` is positionally checked against the C trace. Format and ordering are exact. |
 | **Screen** | Every entry in `screens` is decoded into a 24×80 cell grid and cell-compared against the recorded C frame. Two encodings that produce the same pixels match. |
-| **Cursor** | Tiebreaker only — match if you can. |
+| **Cursor** | Compared positionally with each boundary screen; a wrong cursor makes that screen miss when canonical cursor data exists. |
 | **Animation frames** | **Supplemental, not part of ranking.** If your port calls `await game.animationFrame()` between intermediate display states (zap beams, thrown objects, hurtle steps, runmode-walk travel), each captured frame is positionally checked against C's. Reported on the leaderboard as a separate `Anim%` column. See "Animation frames" below. |
 
 **Partial credit:** your score is the number of steps where the
 rendered screen matches C, summed across all sessions. A session
 that diverges at step 50 still earns 50 screen points; you don't
 need to pass the whole session. Across the public corpus
-(44 sessions, 11,284 steps) and the held-out pool (44 sessions,
+(44 sessions, 11,405 steps) and the held-out pool (44 sessions,
 10,538 steps), your headline metric is the *total fraction of
 matched screens*. PRNG matching is reported alongside as advisory
 progress — it's the structural prerequisite for screens to match,
@@ -68,14 +67,16 @@ tiebreaker.
                             //   first keystroke. Includes startup
                             //   prompts (chargen, lore --More--, …)
                             //   AND in-game keys.
+    storage:   <object>,    // Web-Storage-shaped handle shared by all
+                            //   segments in this session.
 }
 ```
 
-That's all. **The recorded screens, cursors, and RNG calls are not
+Those are the only inputs. **The recorded screens, cursors, and RNG calls are not
 passed in** — you can't peek at the answer key. You have to actually
 port the game.
 
-## `opts.storage` — cross-segment persistence
+## `input.storage` — cross-segment persistence
 
 Save files, bones, the record/scoreboard file, and any other game
 state that must survive across segments of a session — or across a
@@ -93,7 +94,7 @@ save state written during segment 1 is readable during segment 2.
 The browser at `/play/<owner>/` passes a `localStorage`-backed view
 namespaced to `vfs:<owner>:` so save files written from the page
 survive a reload (and don't collide with other forks' saves). Both
-contexts use the same shape, so a port that honors `opts.storage`
+contexts use the same shape, so a port that honors `input.storage`
 gets correct multi-segment scoring and browser save/restore from one
 implementation.
 
@@ -113,7 +114,7 @@ for (const segment of session.segments) {
 }
 ```
 
-Each call returns a self-contained game. `getScreens()`,
+Each call creates and returns a self-contained game. `getScreens()`,
 `getRngLog()`, `getCursors()`, and `getAnimationFramesByStep()`
 should cover **only that segment** — the harness concatenates them
 itself. Persistent C-side state (save file, bones, record) lives in
@@ -188,8 +189,8 @@ C-side recordings carry).
 
 ### `getCursors()`
 
-Currently scored as a tiebreaker only — match it if you can; not
-required for a session to pass.
+Compared alongside each boundary screen. When the canonical recording has a
+cursor, wrong column/row/visibility makes that screen miss.
 
 ### Animation frames — supplemental, optional
 
@@ -243,10 +244,12 @@ credit, but a session passes or fails purely on RNG + screen match
 at input boundaries. Sessions with no animation activity have empty
 inner arrays at every step. If you never call `animationFrame()`,
 every step's entry is empty and your official score is unaffected.
+The current frozen runner compares animation-frame cell grids but not their
+cursor triples; boundary-screen cursors are still part of normal screen match.
 
 ## What's frozen
 
-Two files in your fork are overlaid from the canonical copy before
+Three files in your fork are overlaid from the canonical copy before
 every scoring run:
 
 | File | Why frozen |
@@ -318,6 +321,10 @@ node frozen/ps_test_runner.mjs sessions/seed8000-tourist-starter.session.json
 
 # Score everything
 bash frozen/score.sh
+
+# Reject trailing RNG/screens/cursors hidden by canonical-prefix comparison
+node scripts/strict-output-check.mjs \
+  sessions/seed8000-tourist-starter.session.json
 ```
 
 Same comparator, same input shape as the official scoring run. The
@@ -327,6 +334,9 @@ only differences:
   debug freely).
 - Local self-test only sees the 44 public sessions. The official run
   also scores against 44 held-out sessions you never see.
+- The current frozen runner counts matches over canonical output lengths and
+  does not reject trailing JS output. Use `scripts/strict-output-check.mjs`
+  before treating a local PASS as exact scored-output parity.
 
 ## Worked example — minimal `runSegment`
 
@@ -337,8 +347,8 @@ only differences:
 import { initRng, enableRngLog, getRngLog } from './rng.js';
 import { Terminal } from './terminal.js';
 
-export async function runSegment(input, prevGame = null) {
-    const game = prevGame || createFreshGame();
+export async function runSegment(input) {
+    const game = createFreshGame();
 
     initRng(input.seed);
     enableRngLog();
@@ -396,13 +406,15 @@ Just make sure they compare equal (after canonicalization) to C's.
 `frozen/`, `nethack-c/upstream/` (read-only reference), and node
 built-ins. The sandbox blocks anything else.
 
-**Does `runSegment` get a fresh process per call?** Per *session*,
-yes. Per *segment* within a session, no — you get the previous
-segment's `game` as `prevGame`.
+**Does `runSegment` get a fresh process per call?** The scorer worker process
+is shared for all segments of one session, but every `runSegment(input)` call
+creates a fresh game and returns per-segment outputs. The previous game is not
+passed back. Only the shared `input.storage` handle carries save/bones/record
+state across segments.
 
 **What if my code throws?** That session is marked errored and the
 message is reported. Errors don't break other sessions.
 
-**What if my code runs forever?** Each session has a 900-second
-wall-clock limit. After that, the runner kills the process and
-records a timeout.
+**What if my code runs forever?** The contest budget is 900 seconds per
+session. The checked-in local runner defaults to 45 seconds per session
+(`SESSION_REPLAY_TIMEOUT_MS` can override it) so local hangs fail faster.

@@ -1,6 +1,7 @@
 // rng.js — PRNG wrappers around ISAAC64.
-// C ref: rng.c — three RNG contexts: core, display, lua.
-// Contest: only core context is used for parity.
+// C ref: rnd.c — two ISAAC64 streams: core and display.
+// Lua nh.rn2/nh.random uses core; the recorder adds Lua caller provenance.
+// Current port only implements the core stream and remains partial (no rnl).
 
 import { isaac64_init, isaac64_next_uint64 } from './isaac64.js';
 import { game } from './gstate.js';
@@ -52,7 +53,11 @@ export function rn1(x, y) { return rn2(x) + y; }
 // C ref: d(n, x) — roll n dice of x sides
 export function d(n, x) {
     let sum = 0;
-    for (let i = 0; i < n; i++) sum += rnd(x);
+    for (let i = 0; i < n; i++) {
+        // Use RND directly so only the outer d() is logged (matches C PRNG log)
+        sum += 1 + RND(x);
+    }
+    if (_rngLogEnabled) _rngLog.push(`d(${n},${x})=${sum}`);
     return sum;
 }
 

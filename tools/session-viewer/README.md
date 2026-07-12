@@ -97,8 +97,9 @@ shared link lands on the same place:
 ## Notes
 
 - All work happens at session-load time; scrubbing is pure DOM.
-- The viewer reads `getScreens()`, `getCursors()`, and (optionally)
-  `getRngSlices()` off your `NethackGame` instance, so all three
-  must accumulate cumulatively across segments.
+- The viewer calls `runSegment(input)` once per segment, reads that segment's
+  `getScreens()`, `getCursors()`, and optional RNG slices, then concatenates
+  them viewer-side. A shared storage handle—not the prior game object—carries
+  cross-segment save/bones state.
 - Sessions live under `sessions/`; `manifest.json` lists what the
   dropdown should offer. The file picker still works without one.

@@ -39,6 +39,25 @@ bash nethack-c/build-recorder.sh
 
 Requires: `clang` (not gcc — see below), `make`, `bison`, `flex`.
 
+## Recorder provenance gate
+
+A local recorder is an oracle only when it is the same target. Before using a
+new build to overturn canonical evidence, record and verify:
+
+```bash
+git -C nethack-c/upstream rev-parse HEAD
+# expected by this checkout: 16ff59115315917b93185d026aeefea06db9b0f4
+
+shasum -a 256 nethack-c/patches/*.patch
+clang --version
+```
+
+Also record build flags, `NETHACK_FIXED_DATETIME`, `NETHACK_SEED`, and timezone.
+`scripts/record-session.mjs` defaults `RERECORD_TZ` to
+`America/New_York`. A run with unknown upstream SHA, incomplete patches,
+different compiler semantics, or timezone is diagnostic data—not higher
+authority than canonical sessions.
+
 ## Why clang specifically
 
 C's argument-evaluation order is officially undefined. In practice,
@@ -55,8 +74,9 @@ See `patches/README.md` for a per-patch table. The short version:
 
 - **Determinism**: pin date/time, pin seed, replace `qsort` with
   a stable sort.
-- **Observability**: log every PRNG call (three contexts: core, Lua,
-  display) and capture the 24×80 terminal at every input boundary.
+- **Observability**: log the core and display ISAAC64 streams, annotate
+  core-stream calls made through Lua bindings with Lua source provenance, and
+  capture the 24×80 terminal at every input boundary.
 
 That's the entire delta from upstream NetHack 5.0. No internal
 debugging machinery, no porting hints.
@@ -77,8 +97,8 @@ env vars and writes a few files.
 The patched tty driver writes 24×80 ANSI frames to stdout at every
 input boundary; pipe stdout to a file to capture the visual stream.
 
-Stitching these into the same `.session.json` format the judge
-consumes is left as an exercise — the format is documented in
-`docs/API.md`. Most contestants don't need to: they play the public
-sessions in `sessions/` and watch where their JS port diverges
-from the recorded screens.
+Use `node scripts/record-session.mjs <recipe.session.json> [output]` to drive
+the patched binary and stitch RNG/screens/cursors into canonical session
+format. `scripts/verify-rerecord.mjs` audits reproducibility. Most port
+iterations can still use the shipped public sessions directly; custom recorder
+runs are for state/control-flow questions the public outputs cannot resolve.

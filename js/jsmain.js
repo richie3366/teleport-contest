@@ -3,14 +3,16 @@
 //
 // Contest contract: the judge orchestrates sessions (load JSON,
 // normalize v4/v5, loop segments, aggregate scores). It calls
-// runSegment(segment, prevGame) for each game segment and reads back
+// runSegment(input) for each game segment and reads back
 // game.getScreens() / getRngLog() / getCursors() to compare with
-// C-recorded session data.
+// C-recorded session data. Cross-segment state flows only through
+// input.storage; prior game objects are not passed back.
 //
 // For browser play, see nethack.js (uses NethackGame directly).
 
 import { game, resetGame } from './gstate.js';
 import { initRng, enableRngLog, getRngLog } from './rng.js';
+import { setStorageForTesting } from './storage.js';
 import { pushKey, nhgetch } from './input.js';
 import { newgame, moveloop_core } from './allmain.js';
 import { parseNethackrc } from './options.js';
@@ -73,7 +75,12 @@ export class NethackGame {
         const term = disp?.terminal || disp;
         this._pendingAnimFrames.push({
             screen: term?.serialize ? term.serialize() : '',
-            cursor: disp ? [disp.cursorCol ?? 0, disp.cursorRow ?? 0, 1] : null,
+            cursor: term?.getCursor
+                ? term.getCursor()
+                : (disp
+                    ? [disp.cursorCol ?? 0, disp.cursorRow ?? 0,
+                        disp.cursorVisible ?? 1]
+                    : null),
         });
         if (typeof requestAnimationFrame === 'function') {
             await new Promise((resolve) => requestAnimationFrame(resolve));
@@ -84,6 +91,10 @@ export class NethackGame {
 
     async start() {
         const g = resetGame();
+        // Frozen VFS contract: the harness shares this handle across segments.
+        setStorageForTesting(this._storage);
+        // Stored now for future C time predicates; consumers remain incomplete.
+        g.datetime = this._datetime;
 
         // Parse nethackrc
         const opts = parseNethackrc(this._nethackrc);
@@ -92,6 +103,9 @@ export class NethackGame {
         g.iflags = { ...opts.iflags };
         if (opts.preferred_pet) g.preferred_pet = opts.preferred_pet;
         if (opts.tutorial_set) g.tutorial_set_in_config = true;
+        g._parsed_rc = opts;
+        if (opts.gender === 'female' || opts.gender === 'f') g.flags.female = true;
+        else if (opts.gender === 'male' || opts.gender === 'm') g.flags.female = false;
 
         // Initialize hero struct
         g.u = { ux: 0, uy: 0, ux0: 0, uy0: 0 };
@@ -99,8 +113,8 @@ export class NethackGame {
         g.program_state = {};
         g.moves = 1;
 
-        // TODO: Map role/race/gender/align from opts to role data
-        g.urole = { name: { m: 'Rambler', f: 'Rambler' } };
+        // Role/race filled by setup_role_race_from_rc in newgame
+        g.urole = { name: { m: 'Tourist', f: 'Tourist' } };
         g.urace = { adj: 'human' };
 
         // Initialize PRNG
@@ -136,10 +150,25 @@ export class NethackGame {
             // and compares to the C session's recorded screen.
             const disp = game?.nhDisplay;
             const term = disp?.terminal || disp;
+            // Count / --More-- prompts: keep cursor on topline even if a
+            // later flush reset it to the hero (C get_count / more()).
+            if (disp?.grid && disp.setCursor) {
+                let row0 = '';
+                for (let c = 0; c < (disp.cols || 80); c++)
+                    row0 += disp.grid[0][c]?.ch || ' ';
+                const t = row0.trimEnd();
+                if (t.startsWith('Count:') || t.endsWith('--More--'))
+                    disp.setCursor(t.length, 0);
+            }
             nhGame._screens.push(term?.serialize ? term.serialize() : '');
             nhGame._rngSlices.push(slice);
 
-            const cursor = disp ? [disp.cursorCol ?? 0, disp.cursorRow ?? 0, 1] : null;
+            const cursor = term?.getCursor
+                ? term.getCursor()
+                : (disp
+                    ? [disp.cursorCol ?? 0, disp.cursorRow ?? 0,
+                        disp.cursorVisible ?? 1]
+                    : null);
             nhGame._cursors.push(cursor);
 
             // Commit animation frames accumulated since the previous
@@ -190,10 +219,14 @@ export class NethackGame {
 // this segment. The harness concatenates them itself. Cross-segment
 // C-side state (bones, record file, save) lives in `input.storage`.
 export async function runSegment(input) {
-    const { seed, nethackrc, storage } = input;
+    const {
+        seed, datetime, nethackrc, storage,
+    } = input;
     const moves = input.moves || '';
 
-    const nhGame = new NethackGame({ seed, nethackrc, storage });
+    const nhGame = new NethackGame({
+        seed, datetime, nethackrc, storage,
+    });
 
     const display = new GameDisplay(null);
     display.onEmptyQueue = () => { throw new Error('Input queue empty - test may be missing keystrokes'); };

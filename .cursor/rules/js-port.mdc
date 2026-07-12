@@ -1,0 +1,46 @@
+---
+description: Conventions when editing the JS NetHack port
+globs: js/**/*.js
+alwaysApply: false
+---
+
+# JS port conventions
+
+## Layout
+
+- Prefer `nethack-c/upstream/src/foo.c` → `js/foo.js` (1:1).
+- Prefer C function/field names on `game` / `game.u` for greppability.
+- Keep imports acyclic; put X-macro / table dumps in `js/generated/` if codegen’d.
+
+## Parity
+
+- All gameplay RNG via `js/rng.js` → frozen ISAAC64; keep log strings judge-compatible.
+- Stable sort where C uses `qsort`. Match clang left-to-right arg eval for nested RNG.
+- Preserve C short-circuit order, integer division/width, linked-list order,
+  object ownership, zero-initialized fields, and mutation timing.
+- Drive frozen `Terminal` / display; cursor counts for screen match.
+- Persist save/bones only through `storage.js` VFS.
+- Honor `datetime` and `nethackrc` when touching time/chargen/options — no new Tourist-only hardcodes.
+- Cite the C file/function. Session traces are observations, not specifications.
+
+## Stubs vs fastforward
+
+- Temporary stubs that consume the **same RNG calls as C** at those call sites are OK.
+- Session-wide RNG replay lists belong only in shrinking `fastforward.js`, never new seeds.
+- Public seed names, recorded coordinates/values/screens, and raw RNG-index
+  conditions do not belong in production logic.
+- If a function remains partial, put semantic omissions in
+  `docs/C-JS-MAP.md`; do not use "not needed for seedXXXX" as design.
+
+## Handoff
+
+- Remove DIAG/FORCE/debug code.
+- Run focused + green-gate + relevant cohort checks from
+  `docs/PORTING-RUNBOOK.md`.
+- Root causes go to `DIVERGENCE-LOG.md`; unresolved theory stays tiny in
+  `NOTES.md`.
+
+## Lua
+
+- Long-term: run upstream `dat/*.lua` via pure-JS Lua **5.4**-capable VM + `nhlua`-style bindings.
+- Do not make prebaked levels the production path.

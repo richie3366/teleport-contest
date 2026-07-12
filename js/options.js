@@ -34,7 +34,13 @@ export function parseNethackrc(rc) {
                 else if (key === 'race') result.race = val;
                 else if (key === 'gender') result.gender = val;
                 else if (key === 'align') result.align = val;
-                else if (key === 'playmode' && val === 'debug') result.flags.debug = true;
+                else if (key === 'playmode') {
+                    // C ref: options.c playmode — explore skips bones RNG (getbones)
+                    const mode = val.toLowerCase();
+                    if (mode === 'debug' || mode === 'wizard') result.flags.debug = true;
+                    else if (mode === 'explore' || mode === 'discover') result.flags.explore = true;
+                    else result.flags.playmode = mode;
+                }
                 else if (key === 'pettype' || key === 'pet') {
                     result.flags.pettype = val;
                     if (val === 'none' || val === 'n') result.preferred_pet = 'n';

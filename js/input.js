@@ -3,6 +3,7 @@
 
 import { game } from './gstate.js';
 import { KEY_BINDINGS } from './terminal.js';
+import { clear_win_stop, mark_topline_seen } from './display.js';
 
 const _inputQueue = [];
 
@@ -18,21 +19,29 @@ export function pushKeys(keys) {
 // In replay mode, reads from the input queue.
 // In browser mode, waits for a real keypress.
 export async function nhgetch() {
+    // C: wins[WIN_MESSAGE]->flags &= ~WIN_STOP before blocking
+    clear_win_stop();
+
     // Fire the capture hook before reading the next key
     const hook = game._preNhgetchHook;
     if (hook) await hook();
 
+    let key;
     if (_inputQueue.length > 0) {
-        return _inputQueue.shift();
+        key = _inputQueue.shift();
+    } else {
+        // Browser mode: wait for keypress from the display
+        const display = game?.nhDisplay;
+        if (display?.readKey) {
+            key = await display.readKey({ bindings: KEY_BINDINGS.VI_KEYS });
+        } else {
+            throw new Error('Input queue empty - test may be missing keystrokes');
+        }
     }
 
-    // Browser mode: wait for keypress from the display
-    const display = game?.nhDisplay;
-    if (display?.readKey) {
-        return await display.readKey({ bindings: KEY_BINDINGS.VI_KEYS });
-    }
-
-    throw new Error('Input queue empty - test may be missing keystrokes');
+    // C: topline has been seen — NEED_MORE → NON_EMPTY
+    mark_topline_seen();
+    return key;
 }
 
 // Reset input state
