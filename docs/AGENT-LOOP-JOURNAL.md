@@ -19,6 +19,20 @@ Use this shape:
 
 ---
 
+## 2026-07-13 00:20 — seed0060 idx 22 orc infravision newsym (D-0039)
+- C locus: `display.h:_see_with_infrared`/`_mon_visible`; `display.c:newsym`
+  (!cansee); `monmove.c:postmov`; `monflag.h` M3_INFRA*; race via
+  `mons[urace.mnum]`
+- Result: **verified faithful change** — pet was at correct (22,12) with
+  `couldsee` true but `cansee` false in dark corridor; JS drew terrain
+  only. Ported infrared monster display + `mflags3` extract +
+  `postmov` final newsym.
+- Verification: seed0060 Scr **38**/41 (idx 22 OK; 33/35/36 remain),
+  RNG **3626**/3626; green + seed1500/1800 PASS + strict; full
+  **4/44**, screens **217**/11405 (+1), RNG **28511**/792838.
+- Next: `node frozen/ps_test_runner.mjs sessions/seed0060-orc-rogue-kick-search.session.json`
+  — diagnose screen idx 33 (disco class layout).
+
 ## 2026-07-13 00:10 — seed0060 cansee pline + wall_angle + `>` color (D-0038)
 - C locus: `steal.c:mdrop_obj`; `dogmove.c:dog_invent`;
   `display.c:set_wall_state`/`wall_angle`/`back_to_glyph`

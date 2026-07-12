@@ -38,7 +38,7 @@ frozen-file overlay):
 | Metric | Value |
 |--------|------:|
 | Sessions passing | **4 / 44** |
-| Screens matched | **216 / 11,405** (1.89%) |
+| Screens matched | **217 / 11,405** (1.90%) |
 | Positional RNG calls matched | **28,511 / 792,838** (3.60%) |
 | Speed label | `13+0.02/turn` (R² 0.07) |
 | Working-tree base | `8b71735` + committed port (see `main`) |
@@ -56,12 +56,12 @@ shared blockers, and semantic coverage together—not one vanity metric.
 | `seed0900-tourist-explore-actions` | **2983 / 2983** | **84 / 84** |
 | `seed1500-rogue-explore-move` | **2768 / 2768** | **40 / 40** |
 | `seed1800-tourist-eat-throw` | **2458 / 2458** | **26 / 26** |
-| `seed0060-orc-rogue-kick-search` | **3626 / 3626** | **37 / 41** |
+| `seed0060-orc-rogue-kick-search` | **3626 / 3626** | **38 / 41** |
 | `seed0013-rogue-friday13-combat` | **519 / 4838** | 1 / 59 |
 
 seed8000 + seed0900 + seed1500 + seed1800 pass end-to-end. seed0060 clears
-RNG (D-0035) and screens through idx 21/23–32/34 (D-0038); screens
-**37/41** (cursors 41/41) — next idx 22 (pet glyph). seed0013 still
+RNG (D-0035) and screens through idx 0–32/34 (D-0039); screens
+**38/41** (cursors 41/41) — next idx 33 (disco). seed0013 still
 breaks earlier in Lua/`sp_lev` map.
 
 ### Green gate
@@ -86,20 +86,22 @@ complete or blocked on a prerequisite you document with a falsifier. The
 seed1800 deep canary (`D-0006`) is **parked** — do not implement pet-movement
 fixes until C state/candidate capture exists (`GROK-PLAYBOOK.md` §2).
 
-#### Primary foundation frontier — seed0060 screens (idx 22+)
+#### Primary foundation frontier — seed0060 screens (idx 33+)
 
 **Code status:** empty-space `#kick` (D-0031), `m_avoid_kicked_loc` (D-0032),
 `.`/`donull` (D-0033), `makemon(NULL,0,0)` (D-0034), wall-kick
 `losehp` + once-per-turn `regen_hp` (D-0035), orc `hpadv` +
 `mon_glyph` `mcolors` (D-0036), gold `doname` + `mondied`/`newsym`
-(D-0037), and cansee invent pline + `wall_angle`/`set_wall_state` +
-downstairs `>` NO_COLOR (D-0038) cleared. RNG **3626/3626**; screens
-**37/41**; four public sessions pass end-to-end.
+(D-0037), cansee invent pline + `wall_angle`/`set_wall_state` +
+downstairs `>` NO_COLOR (D-0038), and orc infravision `newsym` +
+`postmov` newsym (D-0039) cleared. RNG **3626/3626**; screens
+**38/41**; four public sessions pass end-to-end.
 
-- **Bounded unit:** first failing screen (idx 22) — C shows pet `f`
-  where JS shows corridor `#`.
-- **C:** pet `newsym` / `canseemon` / display path as indicated by idx 22.
-- **JS:** `js/display.js` / `js/dogmove.js` / related.
+- **Bounded unit:** first failing screen (idx 33) — discovery-menu
+  class layout vs C.
+- **C:** disco / enlightenment UI as indicated by idx 33 (then ^X
+  idx 35–36).
+- **JS:** invent/disco/^X display paths.
 - **Named omissions:** `make_corpse` after `corpse_chance`; dokick
   monster/object/closed-door/SDOOR/furniture; `martial()`; wake/
   engraving; `set_wounded_legs` body; `showdamage`/death `done`; Upolyd
@@ -109,8 +111,10 @@ downstairs `>` NO_COLOR (D-0038) cleared. RNG **3626/3626**; screens
   `see_objects`; `ini_inv_mkobj_filter`; `u_init_carry_attr_boost`;
   mfndpos `bad_rock` squeeze; Sokoban push-avoid; `donull`
   `cmd_safety_prevention`; dog_move `mtrack` skip; `makemon` Sokoban
-  `throws_rocks`; `m_initinv` body; `set_malign`; disco/^X polish
-  (idx 33/35–36); MLET_CH beyond early subset; …
+  `throws_rocks`; `m_initinv` body; `set_malign`; telepathy/
+  `Detect_monsters`/`MATCH_WARN_OF_MON` in `newsym`; full
+  `set_uasmon`/uprops; disco/^X polish (idx 33/35–36); MLET_CH beyond
+  early subset; …
 - **Cohort:** green gate + seed1500 + seed1800 (must stay PASS) + strict
   lengths.
 - **Alternate shared peel:** next unported role, or seed0013 Lua/`sp_lev`
@@ -174,6 +178,8 @@ Module status, constitutional debt, and named omissions live in
 23. seed0060 cansee invent pline + `wall_angle`/`set_wall_state` +
     downstairs `>` NO_COLOR (D-0038) — Scr **6→37**/41; next idx 22
     (pet `f` vs `#`)
+24. seed0060 orc infravision `newsym` + `postmov` newsym (D-0039) —
+    Scr **37→38**/41; next idx 33 (disco UI)
 
 Next work is selected from the active objectives above using
 `PORTING-RUNBOOK.md`, not by extending this historical list.

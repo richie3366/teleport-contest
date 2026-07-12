@@ -60,6 +60,7 @@ Do not record a guessed cause as fixed merely because an RNG prefix moved.
 | D-0036 | fixed | race hpadv + mon_color | orc `hpadv` + `mon_glyph` mcolors; seed0060 Scr 0→5 |
 | D-0037 | fixed | doname COIN + mondied newsym | "a gold piece" + death `newsym`; Scr 5→6 |
 | D-0038 | fixed | cansee pline + wall_angle + `>` color | seed0060 Scr 6→37 (silent pickup; unfinished corner; dnstair) |
+| D-0039 | fixed | newsym infrared + postmov | orc Infravision shows pet in dark; Scr 37→38 |
 
 D-0001 through D-0005 predate the strict-length/cohort runbook. Their focused
 causes are preserved, but generic "green sessions held" is historical evidence,
@@ -913,3 +914,33 @@ cohort gates if those functions are touched again.
   exterior corners must stay stone until seenv warrants a glyph; do not
   force downstairs to match upstairs yellow.
 - **Next:** seed0060 idx 22 (pet `f` vs corridor `#`).
+
+## D-0039 — seed0060 idx 22 pet via orc infravision
+
+- **Status:** fixed (verified 2026-07-13).
+- **Observed:** seed0060 RNG **3626**/3626, screens **37**/41. Sole map
+  miss at idx 22: C white pet `f` at map (22,12) / term (21,13); JS
+  corridor `#`. Pet position and RNG matched; glyph missing.
+- **Cause/evidence:** hero at (24,12) in a dark corridor — `cansee(22,12)`
+  false (only adjacent night-vision IN_SIGHT), but `couldsee` true.
+  Orc race has `M3_INFRAVISION`; kitten has `M3_INFRAVISIBLE`. C
+  `newsym` still `display_monster` when `!cansee` via
+  `see_with_infrared && mon_visible`. JS `newsym` only drew monsters
+  under `cansee`. Also `postmov` omitted C's final
+  `newsym(mtmp->mx, mtmp->my)` after `mintrap`.
+- **C locus:** `display.h:_see_with_infrared` / `_mon_visible`;
+  `display.c:newsym` (!cansee branch); `monmove.c:postmov`;
+  `monflag.h` M3_INFRA*; `polyself.c` race Infravision via
+  `mons[urace.mnum]`.
+- **Change:** extract `mflags3` (`scripts/extract-monsters.py`);
+  `infravision`/`infravisible` in `monsters.js`; `newsym` infrared
+  path + race Infravision in `display.js`; `postmov` newsym of new
+  cell in `monmove.js`.
+- **Verification:** seed0060 Scr **38**/41 (idx 22 cleared; 33/35/36
+  disco/^X remain), RNG **3626**/3626; green + seed1500/1800 PASS +
+  strict; full **4/44**, screens **217**/11405 (+1), RNG
+  **28511**/792838.
+- **Lesson:** dark-corridor pet glyphs for orcs are infrared, not FOV;
+  do not treat `!cansee` as “draw terrain only” when sensing macros
+  exist. Extract full M3 flags before inventing race hardcodes.
+- **Next:** seed0060 idx 33 disco class layout (then ^X idx 35–36).

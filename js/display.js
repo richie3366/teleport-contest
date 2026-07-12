@@ -2,9 +2,9 @@
 // C ref: display.c — newsym, show_glyph, docrt, cls, flush_screen.
 
 import { game } from './gstate.js';
-import { cansee } from './vision.js';
+import { cansee, couldsee } from './vision.js';
 import { objects_at } from './mkobj.js';
-import { mcolors } from './monsters.js';
+import { mcolors, mons, infravision, infravisible } from './monsters.js';
 import {
     COLNO, ROWNO, STONE, ROOM, CORR, DOOR, STAIRS,
     HWALL, VWALL, TLCORNER, TRCORNER, BLCORNER, BRCORNER,
@@ -63,6 +63,33 @@ function mon_at_display(x, y) {
             return m;
     }
     return null;
+}
+
+// C ref: display.h _mon_visible — invis/undetected only (caller handles sight)
+function mon_visible(mon) {
+    if (!mon) return false;
+    if (mon.minvis && !game.u?.See_invisible) return false;
+    if (mon.mundetected) return false;
+    return true;
+}
+
+// C ref: youprop.h Infravision — race intrinsic via set_uasmon/mons[urace]
+function hero_has_infravision() {
+    if (game.u?.HInfravision || game.u?.EInfravision) return true;
+    // Non-polyd race default (C polyself set_uasmon → mons[urace.mnum])
+    const racePm = game.urace?.mnum;
+    if (racePm == null) return false;
+    return infravision(mons(racePm));
+}
+
+// C ref: display.h _see_with_infrared
+function see_with_infrared(mon) {
+    if (!mon) return false;
+    if (game.u?.Blind || game.u?.ublind) return false;
+    if (!hero_has_infravision()) return false;
+    const ptr = mon.data || mons(mon.mnum);
+    if (!infravisible(ptr)) return false;
+    return couldsee(mon.mx, mon.my);
 }
 
 // C ref: display.c map_glyph / mon_color(monsndx) — per-species mcolor.
@@ -428,20 +455,19 @@ export function newsym(x, y) {
         return;
     }
 
-    // C ref: display.c newsym — visible monster overrides object/terrain
+    // C ref: display.c newsym — monster via cansee+mon_visible, or infrared
     const mtmp = mon_at_display(x, y);
-    if (mtmp && cansee(x, y)) {
-        const mg = mon_glyph(mtmp);
-        show_glyph_cell(x, y, mg.ch, mg.color, false);
-        const tg = terrain_glyph(loc, x, y);
-        if (game.level?.flags?.hero_memory) {
-            loc.remembered_glyph = { ch: tg.ch, color: tg.color, decgfx: tg.dec };
-        }
-        return;
-    }
-
-    // C ref: display.c _map_location — vobj_at before trap/background
     if (cansee(x, y)) {
+        if (mtmp && mon_visible(mtmp)) {
+            const mg = mon_glyph(mtmp);
+            show_glyph_cell(x, y, mg.ch, mg.color, false);
+            const tg = terrain_glyph(loc, x, y);
+            if (game.level?.flags?.hero_memory) {
+                loc.remembered_glyph = { ch: tg.ch, color: tg.color, decgfx: tg.dec };
+            }
+            return;
+        }
+        // C ref: display.c _map_location — vobj_at before trap/background
         const obj = objects_at(x, y);
         if (obj && !covers_objects(x, y)) {
             const og = obj_glyph(obj);
@@ -456,7 +482,17 @@ export function newsym(x, y) {
         if (game.level?.flags?.hero_memory) {
             loc.remembered_glyph = { ch: tg.ch, color: tg.color, decgfx: tg.dec };
         }
-    } else if (loc.remembered_glyph) {
+        return;
+    }
+
+    // C: !cansee — still show sensed monsters (infrared / telepathy / detect)
+    if (mtmp && mon_visible(mtmp) && see_with_infrared(mtmp)) {
+        const mg = mon_glyph(mtmp);
+        show_glyph_cell(x, y, mg.ch, mg.color, false);
+        return;
+    }
+
+    if (loc.remembered_glyph) {
         // Out of sight but remembered — show remembered glyph
         show_glyph_cell(x, y, loc.remembered_glyph.ch,
             loc.remembered_glyph.color, loc.remembered_glyph.decgfx);

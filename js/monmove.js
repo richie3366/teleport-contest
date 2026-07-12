@@ -67,13 +67,15 @@ export function distfleeck(mtmp) {
 // C ref: monmove.c postmov() — after a successful step, trigger traps
 async function postmov(mtmp, omx, omy, mmoved) {
     if (mmoved === MMOVE_MOVED) {
-        newsym(omx, omy);
+        newsym(omx, omy); // update the old position
         const trapret = await mintrap(mtmp, NO_TRAP_FLAGS);
         if (trapret === Trap_Killed_Mon || trapret === Trap_Moved_Mon) {
             if (mtmp.mx) newsym(mtmp.mx, mtmp.my);
             return MMOVE_DIED;
         }
-        // door open / tunnel / notice_mon omitted
+        // door open / tunnel / notice_mon / engulf deferred
+        // C: else of engulfing_u — always newsym new position after mintrap
+        if (mtmp.mx) newsym(mtmp.mx, mtmp.my);
     }
     return mmoved;
 }

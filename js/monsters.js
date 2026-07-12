@@ -14,6 +14,7 @@ import {
     difficulties,
     mflags1s,
     mflags2s,
+    mflags3s,
     msizes,
     mlets,
     has_at_weaps,
@@ -80,6 +81,10 @@ export const M1_CARNIVORE = 0x20000000;
 export const M1_HERBIVORE = 0x40000000;
 export const M1_OMNIVORE = 0x60000000;
 
+// C ref: monflag.h M3_*
+export const M3_INFRAVISION = 0x0100;
+export const M3_INFRAVISIBLE = 0x0200;
+
 export const CORPSTAT_INIT = 8;
 
 export function mons(mndx) {
@@ -94,11 +99,20 @@ export function mons(mndx) {
         difficulty: difficulties[mndx],
         mflags1: mflags1s[mndx],
         mflags2: mflags2s[mndx],
+        mflags3: mflags3s[mndx],
         msize: msizes[mndx],
         mlet: mlets[mndx],
         mcolor: mcolors[mndx],
         name: monsterNames[mndx],
     };
+}
+
+// C ref: mondata.h infravision / infravisible
+export function infravision(ptr) {
+    return !!((ptr?.mflags3 ?? 0) & M3_INFRAVISION);
+}
+export function infravisible(ptr) {
+    return !!((ptr?.mflags3 ?? 0) & M3_INFRAVISIBLE);
 }
 
 // C ref: mondata.h / monflag.h — verysmall = msize < MZ_SMALL

@@ -7,18 +7,16 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 
 ## Active
 
-- **Current unit:** seed0060 — RNG **3626/3626**; screens **37/41**
-  (D-0038; idx 0–21,23–32,34 match), cursors **41/41**. First fail idx 22.
-- **Hypothesis:** idx 22 shows corridor `#` where C has pet `f` (white) —
-  pet glyph missing on that frame (visibility/`newsym`/`canseemon` or
-  position). Later fails are UI: idx 33 disco class layout; idx 35–36
-  ^X attributes (“nof…” overlay + wisdom limit text).
+- **Current unit:** seed0060 — RNG **3626/3626**; screens **38/41**
+  (D-0039; idx 0–32/34 match), cursors **41/41**. First fail idx 33.
+- **Hypothesis:** idx 33 is discovery-menu class layout (not map); idx
+  35–36 are ^X attributes (“nof…” overlay + wisdom limit text).
 - **Falsifier / next probe:**
   ```bash
   node frozen/ps_test_runner.mjs sessions/seed0060-orc-rogue-kick-search.session.json
-  # Diff JS vs C screen[22]: map cell with C pet `f` vs JS `#`.
+  # Diff JS vs C screen[33]: disco class columns / spacing.
   ```
-  Expect: cellsOnly stays 37 until pet display cause is ported.
+  Expect: cellsOnly stays 38 until disco/^X UI is ported.
 - **Parked deep canary:** D-0006 pet movement — do not implement until C
   state/candidate capture exists.
 - **Also deferred:** `make_corpse` body after `corpse_chance` (dragon/
@@ -36,7 +34,9 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   dog_move `mtrack` skip (`goto nxti`); `makemon` `throws_rocks`
   Sokoban reject; `m_initinv` body; `set_malign`; Blind prop for
   `makemon_rnd_goodpos` exhaustive pass; MLET_CH letter table beyond
-  early dlvl subset; disco/enlightenment screen polish (idx 33/35–36).
+  early dlvl subset; telepathy/`Detect_monsters`/`MATCH_WARN_OF_MON`
+  in `newsym` (!cansee); full `set_uasmon`/uprops for Infravision;
+  disco/enlightenment screen polish (idx 33/35–36).
 
 ## Don’t re-check
 
@@ -133,6 +133,11 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   always plined (D-0038). Premature `┌` was missing `set_wall_state` +
   `wall_angle` (WM_C_OUTER + partial seenv → S_stone). Downstairs `>` in
   recordings is NO_COLOR, not yellow (upstairs `<` stays yellow).
+- seed0060 idx 22 was **not** wrong pet position / missing dog_move newsym:
+  pet at (22,12) matched C; `cansee` false in dark corridor while
+  `couldsee` true — orc Infravision + kitten INFRAVISIBLE must draw via
+  `see_with_infrared` (D-0039). Also `postmov` needed final newsym of
+  new cell.
 
 ## Landmarks
 
@@ -148,5 +153,5 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 - seed1500: D-0024 → screens **40/40** PASS; CORPSE map color = `mon_color(corpsenm)`
   (orc → CLR_RED), not `objects[CORPSE].oc_color`.
 - seed1800: D-0026 → screens **26/26** PASS (legacy corner map + staircase look).
-- seed0060: D-0038 → screens **37**/41 (idx 0–21/23–32/34); RNG **3626**/3626;
-  cursors **41**/41. Next fail idx 22 (pet `f` vs `#`).
+- seed0060: D-0039 → screens **38**/41 (idx 0–32/34); RNG **3626**/3626;
+  cursors **41**/41. Next fail idx 33 (disco UI).

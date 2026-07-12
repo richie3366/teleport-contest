@@ -54,6 +54,23 @@ M2_FLAGS = {
     "M2_MAGIC": 0x80000000,
 }
 
+M3_FLAGS = {
+    # C ref: include/monflag.h — subset used by ported predicates
+    "M3_WANTSAMUL": 0x0001,
+    "M3_WANTSBELL": 0x0002,
+    "M3_WANTSBOOK": 0x0004,
+    "M3_WANTSCAND": 0x0008,
+    "M3_WANTSARTI": 0x0010,
+    "M3_WANTSALL": 0x001f,
+    "M3_WAITFORU": 0x0040,
+    "M3_CLOSE": 0x0080,
+    "M3_COVETOUS": 0x001f,
+    "M3_WAITMASK": 0x00c0,
+    "M3_INFRAVISION": 0x0100,
+    "M3_INFRAVISIBLE": 0x0200,
+    "M3_DISPLACES": 0x0400,
+}
+
 M1_FLAGS = {
     # C ref: include/monflag.h — subset used by ported predicates
     "M1_FLY": 0x00000001,
@@ -162,11 +179,12 @@ def main() -> int:
         parts = split_top_commas(body)
         if len(parts) < 14:
             continue
-        lvl, gen, flg1, flg2, diff, col, bn = (
+        lvl, gen, flg1, flg2, flg3, diff, col, bn = (
             parts[2],
             parts[3],
             parts[8],
             parts[9],
+            parts[10],
             parts[11],
             parts[12].strip(),
             parts[13].strip(),
@@ -239,6 +257,7 @@ def main() -> int:
             "difficulty": int(diff.strip()),
             "mflags1": eval_flags(flg1, M1_FLAGS),
             "mflags2": eval_flags(flg2, M2_FLAGS),
+            "mflags3": eval_flags(flg3, M3_FLAGS),
             "sym": parts[1].strip(),
             "msize": msize,
             "has_at_weap": "AT_WEAP" in atks,
@@ -261,6 +280,7 @@ def main() -> int:
                     "difficulty": 0,
                     "mflags1": 0,
                     "mflags2": 0,
+                    "mflags3": 0,
                     "sym": "S_HUMAN",
                     "msize": 2,
                     "has_at_weap": False,
@@ -324,6 +344,7 @@ def main() -> int:
     lines.append("export const difficulties = " + json.dumps([m["difficulty"] for m in mons]) + ";")
     lines.append("export const mflags1s = " + json.dumps([m.get("mflags1", 0) for m in mons]) + ";")
     lines.append("export const mflags2s = " + json.dumps([m["mflags2"] for m in mons]) + ";")
+    lines.append("export const mflags3s = " + json.dumps([m.get("mflags3", 0) for m in mons]) + ";")
     lines.append("export const msizes = " + json.dumps([m["msize"] for m in mons]) + ";")
     lines.append("export const mlets = " + json.dumps([m["sym"] for m in mons]) + ";")
     lines.append(
