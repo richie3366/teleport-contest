@@ -38,9 +38,9 @@ frozen-file overlay):
 | Metric | Value |
 |--------|------:|
 | Sessions passing | **5 / 44** |
-| Screens matched | **290 / 11,405** (2.54%) |
-| Positional RNG calls matched | **85,090 / 792,838** (10.73%) |
-| Speed label | `18+0.09/turn` (R² 0.906) |
+| Screens matched | **291 / 11,405** (2.55%) |
+| Positional RNG calls matched | **85,494 / 792,838** (10.78%) |
+| Speed label | `17+0.08/turn` (R² 0.928) |
 | Working-tree base | `8b71735` + committed port (see `main`) |
 | Role-init throws | **0 / 44** (`u_init_role: role not ported`) |
 
@@ -58,13 +58,13 @@ shared blockers, and semantic coverage together—not one vanity metric.
 | `seed1800-tourist-eat-throw` | **2458 / 2458** | **26 / 26** |
 | `seed0060-orc-rogue-kick-search` | **3626 / 3626** | **41 / 41** |
 | `seed1150-caveman-explore-move` | **2942 / 3137** | **22 / 51** |
-| `seed0700-samurai-explore-descend` | **2796 / 3230** | 1 / 51 |
+| `seed0700-samurai-explore-descend` | **3146 / 3230** | **2 / 51** |
 | `seed0103-knight-ride-pony` | **2344 / 2640** | 1 / 60 |
-| `seed0200-monk-north-search` | **1545 / 3822** | 0 / 40 |
+| `seed0200-monk-north-search` | **1548 / 3822** | 0 / 40 |
 | `seed0101-ranger-quiver-throw-travel-engrave` | **2304 / 2371** | 3 / 27 |
 | `seed0016-healer-newmoon-eat-zap` | **2538 / 3656** | **5 / 36** |
-| `seed0017-samurai-altar-pray` | **2788 / 3465** | 1 / 67 |
-| `seed0107-samurai-twoweapon-enhance` | **2681 / 2902** | 0 / 98 |
+| `seed0017-samurai-altar-pray` | **2831 / 3465** | 1 / 67 |
+| `seed0107-samurai-twoweapon-enhance` | **2677 / 2902** | 0 / 98 |
 | `seed0104-knight-ride-combat` | **2401 / 3223** | 1 / 43 |
 | `seed0106-priest-extcmd-sweep` | **2576 / 4194** | 1 / 267 |
 | `seed2200-wizard-quaff-zap-read` | **2772 / 3018** | 1 / 230 |
@@ -74,19 +74,20 @@ shared blockers, and semantic coverage together—not one vanity metric.
 | `seed0102-ranger-name-cancel` | **1285 / 4485** | 1 / 25 |
 | `seed0015-valk-level2-pit-dog-wait` | **364 / 8563** | 1 / 44 |
 | `seed0013-rogue-friday13-combat` | **521 / 4838** | 1 / 59 |
-| `seed0030-ten-diverse-deaths` | **6658 / 105529** | **35 / 1953** |
+| `seed0030-ten-diverse-deaths` | **6670 / 105529** | **35 / 1953** |
 
 seed8000 + seed0900 + seed1500 + seed1800 + seed0060 pass end-to-end.
 `choose_trapnote`/`hole_destination` (D-0054), `SPBOOK_no_NOVEL`
-(D-0055), roles `initrecord` (D-0056), and CORPSE `G_NOCORPSE` retry
-(D-0057) clear shared peels. seed0700 next `u_calc_moveamt` @ 2733;
-seed0361 next `newhp` @ 2924; seed0102 next egg `can_be_hatched` @
-1281; seed0103 next `next_ident`/`trquan` @ 2337. Wizard seed2200
-next `exercise` @ 2724; Healer seed0016 next `next_ident` @ 2493;
-Caveman seed1150 next `dog_move` @ 2915; Barbarian seed0373 next
-`newhp` @ 2512; seed0030 next `rnl`/`doopen` @ 6305. Priest seed0501
-still `wipeout_text`. seed0015/0200 next `lspo_map`. seed0101 next
-`next_ident`. seed0013 still breaks earlier in Lua/`sp_lev`.
+(D-0055), roles `initrecord` (D-0056), CORPSE `G_NOCORPSE` retry
+(D-0057), and `adjabil`/`u_calc_moveamt` Fast (D-0058) clear shared
+peels. seed0700 next `rnl`/`doopen_indir` @ 3141; seed0361 next
+`newhp` @ 2924; seed0102 next egg `can_be_hatched` @ 1281; seed0103
+next `next_ident`/`trquan` @ 2337. Wizard seed2200 next `exercise` @
+2724; Healer seed0016 next `next_ident` @ 2493; Caveman seed1150 next
+`dog_move` @ 2915; Barbarian seed0373 next `newhp` @ 2512; seed0030
+positional **6670**; Priest seed0501 still `wipeout_text`.
+seed0015/0200 next `lspo_map`. seed0101 next `next_ident`. seed0013
+still breaks earlier in Lua/`sp_lev`. seed0017 next `m_move` @ 2711.
 
 ### Green gate
 
@@ -114,29 +115,33 @@ fixes until C state/candidate capture exists (`GROK-PLAYBOOK.md` §2).
 
 **Code status:** `choose_trapnote`/`hole_destination` (D-0054) +
 `mkobj(SPBOOK_no_NOVEL)` (D-0055) + roles `initrecord` (D-0056) +
-CORPSE `undead_to_corpse`/`G_NOCORPSE` retry (D-0057) **ported**.
+CORPSE `undead_to_corpse`/`G_NOCORPSE` retry (D-0057) + **`adjabil`
+L1 intrinsics + `u_calc_moveamt` Fast/Very_fast** (D-0058) **ported**.
 Five public sessions still pass end-to-end. **0/44** throw at
 `u_init_role`.
 
-- **Bounded unit:** seed0700 `u_calc_moveamt` / seed0361 `newhp` /
+- **Bounded unit:** seed0700 `rnl`/`doopen_indir` / seed0361 `newhp` /
   seed0102 egg `can_be_hatched` / seed2200 `exercise` / seed0016
-  `next_ident` / seed1150 `dog_move` / seed0373 `newhp` / seed0030
-  `rnl`/`doopen` / seed0501/0105 `wipeout_text` / seed0015/0200
-  `lspo_map` / seed0101 `next_ident` / seed0103 `next_ident`/`trquan`.
-- **Prefer:** highest-leverage shared moveloop/`u_calc_moveamt` or
-  egg hatch retry over polishing one late path.
+  `next_ident` / seed1150 `dog_move` / seed0373 `newhp` /
+  seed0501/0105 `wipeout_text` / seed0015/0200 `lspo_map` /
+  seed0101 `next_ident` / seed0103 `next_ident`/`trquan` /
+  seed0017 `m_move`.
+- **Prefer:** highest-leverage shared open/`rnl` or egg hatch retry
+  over polishing one late path.
 - **Named omissions:** Wizard/Priest/Healer `initialspell`; Knight/
   Samurai/Healer/Valkyrie/Ranger/Monk/Archeologist/Barbarian/Caveman
   `skill_init`; display-path Japanese names; full `role_init` beyond
-  pantheon/SPE_LIGHT/nemesis gender; `make_corpse` after
-  `corpse_chance`; dokick monster/object/closed-door/SDOOR/furniture;
-  `martial()`; wake/engraving; `set_wounded_legs` body; `showdamage`/
-  death `done`; Upolyd eel `regen_hp` loss; `regen_pw`/Teleport/Poly
-  once-per-turn; `dog_goal` gettrack/FARAWAY; `throw_gold`; eat getobj
-  single-shot; Blind/`look_here`; trap glyphs; hallucination/
-  `see_objects`; `u_init_carry_attr_boost`; mfndpos `bad_rock` squeeze;
-  Sokoban push-avoid; `donull` `cmd_safety_prevention`; dog_move
-  `mtrack` skip; `makemon` Sokoban `throws_rocks`; `m_initinv` body;
+  pantheon/SPE_LIGHT/nemesis gender; `adjabil` messages/`postadjabil`/
+  weapon-skill delta; steed `u_calc_moveamt`; full `set_uasmon`
+  youmonst.mmove; `make_corpse` after `corpse_chance`; dokick
+  monster/object/closed-door/SDOOR/furniture; `martial()`;
+  wake/engraving; `set_wounded_legs` body; `showdamage`/death `done`;
+  Upolyd eel `regen_hp` loss; `regen_pw`/Teleport/Poly once-per-turn;
+  `dog_goal` gettrack/FARAWAY; `throw_gold`; eat getobj single-shot;
+  Blind/`look_here`; trap glyphs; hallucination/`see_objects`;
+  `u_init_carry_attr_boost`; mfndpos `bad_rock` squeeze; Sokoban
+  push-avoid; `donull` `cmd_safety_prevention`; dog_move `mtrack`
+  skip; `makemon` Sokoban `throws_rocks`; `m_initinv` body;
   `set_malign`; telepathy/`Detect_monsters`/`MATCH_WARN_OF_MON` in
   `newsym`; full `set_uasmon`/uprops; full `weapon_insight` enhance/
   P_SKILL/odd P_NAME; shop `costly_spot` autopickup; `obj_typename`
@@ -144,7 +149,7 @@ Five public sessions still pass end-to-end. **0/44** throw at
   `align_shift`/`temperature_shift`; `peace_minded` MS_*/race_*/minion
   arms; EGG `can_be_hatched`; TIN `cnutrit`; …
 - **Cohort:** green gate + seed1500 + seed1800 + seed0060 (must stay
-  PASS) + strict lengths; Caveman focus seed1150 when on that peel.
+  PASS) + strict lengths; Samurai focus seed0700 when on that peel.
 
 Focused survey:
 
@@ -265,6 +270,10 @@ Module status, constitutional debt, and named omissions live in
     (D-0057) — seed0700 prefix **1888→2733** (`u_calc_moveamt`);
     seed0361 **1432→2924** (`newhp`); aggregate RNG
     **85042→85090**; screens **290** (unchanged)
+43. `adjabil(0,1)` role/race L1 + `u_calc_moveamt` Fast/Very_fast
+    (D-0058) — seed0700 prefix **2733→3141** (`rnl`/`doopen_indir`);
+    seed0017 **2788→2831**; aggregate RNG **85090→85494**; screens
+    **290→291**; Scr seed0700 **1→2**/51
 
 Next work is selected from the active objectives above using
 `PORTING-RUNBOOK.md`, not by extending this historical list.

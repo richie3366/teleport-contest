@@ -15,7 +15,7 @@ import { makedog } from './dog.js';
 import { makemon } from './makemon.js';
 import { mcalcmove, movemon, NORMAL_SPEED } from './mon.js';
 import { LOW_PM, NUMMONS, mons, G_NOCORPSE } from './monsters.js';
-import { A_DEX, A_STR, A_CON, acurr, exercise, change_luck } from './attrib.js';
+import { A_DEX, A_STR, A_CON, acurr, exercise, change_luck, Fast, Very_fast } from './attrib.js';
 import { nhgetch } from './input.js';
 import { near_capacity, paint_corner_nhw_menu } from './invent.js';
 import { com_pager_legacy } from './questpgr.js';
@@ -58,7 +58,23 @@ async function moveloop_preamble(_resuming) {
 
 // C ref: allmain.c u_calc_moveamt()
 function u_calc_moveamt(wtcap) {
-    let moveamt = NORMAL_SPEED; // human mmove; Fast/Very_fast omitted
+    let moveamt = 0;
+    // Steed path (mcalcmove) deferred until riding is live.
+    if (game.u?.usteed && game.u?.umoved) {
+        moveamt = mcalcmove(game.u.usteed, true);
+    } else {
+        // C: gy.youmonst.data->mmove — non-poly role form is NORMAL_SPEED.
+        const youData = game.youmonst?.data;
+        moveamt = youData?.mmove ?? NORMAL_SPEED;
+
+        if (Very_fast()) {
+            // gain a free action on 2/3 of turns
+            if (rn2(3) !== 0) moveamt += NORMAL_SPEED;
+        } else if (Fast()) {
+            // gain a free action on 1/3 of turns
+            if (rn2(3) === 0) moveamt += NORMAL_SPEED;
+        }
+    }
     switch (wtcap) {
         case SLT_ENCUMBER:
             moveamt -= Math.trunc(moveamt / 4);

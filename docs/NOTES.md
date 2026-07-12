@@ -7,13 +7,13 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 
 ## Active
 
-- **Current unit:** D-0057 fixed CORPSE `mksobj_init` `undead_to_corpse` +
-  `G_NOCORPSE` retry (+ `mvitals` init). seed0700 past mklev corpse peels.
-- **Hypothesis / next peel:** seed0700 `u_calc_moveamt` @ 2733 — C
-  `rn2(3)` vs JS `rn2(200)` (dosounds). Shared moveloop order after
-  `maybe_generate_rnd_mon`. Also seed0361 `newhp` @ 2924; seed0102
-  egg `can_be_hatched` retry @ 1281 (not align_shift); seed2200
-  `exercise` @ 2724; seed1150 `dog_move` @ 2915.
+- **Current unit:** D-0058 fixed `adjabil(0,1)` role/race L1 intrinsics +
+  `u_calc_moveamt` Fast/Very_fast `rn2(3)`. Samurai/Monk get HFast at init.
+- **Hypothesis / next peel:** seed0700 `rnl(20)` @ 3141 —
+  `doopen_indir` (lock.c:904) vs JS `rn2(7)`. Shared open/lock path after
+  Fast-correct EOT. Also seed0361 `newhp` @ 2924; seed0102 egg
+  `can_be_hatched` @ 1281; seed2200 `exercise` @ 2724; seed1150
+  `dog_move` @ 2915; seed0017 `m_move` @ 2711.
 - **Falsifier / next probe:**
   ```bash
   node scripts/rng-diff.mjs sessions/seed0700-samurai-explore-descend.session.json
@@ -25,25 +25,23 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 - **Also deferred:** Wizard/Priest/Healer `initialspell`; Knight/Samurai/
   Healer/Valkyrie/Ranger/Monk/Archeologist/Barbarian/Caveman
   `skill_init`; display-path Japanese names; full `role_init` beyond
-  pantheon + SPE_LIGHT + nemesis gender; `make_corpse` after
-  `corpse_chance`; dokick monster/object/closed-door/SDOOR/furniture;
-  `martial()`; wake/engraving; `set_wounded_legs` body; `showdamage`/
-  death `done`; Upolyd eel `regen_hp` loss; `regen_pw`/Teleport/Poly
-  once-per-turn; `dog_goal` gettrack/FARAWAY; `throw_gold`; eat getobj
-  single-shot; Blind/`look_here`; trap glyphs; hallucination/
-  `see_objects`; `u_init_carry_attr_boost`; mfndpos `bad_rock` squeeze;
-  Sokoban push-avoid; `donull` `cmd_safety_prevention`; dog_move
-  `mtrack` skip; `makemon` Sokoban `throws_rocks`; `m_initinv` body;
-  `set_malign`; telepathy/`Detect_monsters`/`MATCH_WARN_OF_MON` in
-  `newsym`; full `set_uasmon`/uprops; full `weapon_insight` (enhance /
-  P_SKILL table / odd-skill P_NAME); `obj_typename` armor pair-of/
-  set-of + GemStone; MLET_CH beyond early subset; shop `costly_spot`
-  autopickup disable; `apelist` exceptions; maketrap overwrite/
-  furniture/statue/boulder/shop-damage/terrain morph; `peace_minded`
-  MS_LEADER/GUARDIAN/NEMESIS/ERINYS/`race_*`/`is_minion`/amulet arms;
-  `align_shift` / `temperature_shift` real bodies; EGG
-  `can_be_hatched` loop (JS breaks after one `rndmonnum`); TIN
-  `cnutrit` gate; …
+  pantheon + SPE_LIGHT + nemesis gender; `adjabil` gain/lose plines +
+  `postadjabil`/`add_weapon_skill`; steed `u_calc_moveamt` path; full
+  `set_uasmon` youmonst.mmove; `make_corpse` after `corpse_chance`;
+  dokick monster/object/closed-door/SDOOR/furniture; `martial()`;
+  wake/engraving; `set_wounded_legs` body; `showdamage`/death `done`;
+  Upolyd eel `regen_hp` loss; `regen_pw`/Teleport/Poly once-per-turn;
+  `dog_goal` gettrack/FARAWAY; `throw_gold`; eat getobj single-shot;
+  Blind/`look_here`; trap glyphs; hallucination/`see_objects`;
+  `u_init_carry_attr_boost`; mfndpos `bad_rock` squeeze; Sokoban
+  push-avoid; `donull` `cmd_safety_prevention`; dog_move `mtrack` skip;
+  `makemon` Sokoban `throws_rocks`; `m_initinv` body; `set_malign`;
+  telepathy/`Detect_monsters`/`MATCH_WARN_OF_MON` in `newsym`; full
+  `weapon_insight`; `obj_typename` armor pair-of/set-of + GemStone;
+  MLET_CH beyond early subset; shop `costly_spot` autopickup; `apelist`
+  exceptions; maketrap overwrite/furniture/statue/boulder; `peace_minded`
+  MS_*/race_*/minion arms; `align_shift`/`temperature_shift` bodies;
+  EGG `can_be_hatched` multi-retry; TIN `cnutrit` gate; …
 
 ## Don’t re-check
 
@@ -219,6 +217,10 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   `rndmonnum` and jumped to gender `rn2(2)` — D-0057. seed0102 @ 1281
   after egg `!rn2(3)` is a **different** peel: EGG `can_be_hatched`
   loop, not CORPSE retry.
+- seed0700 `rn2(3)` vs `rn2(200)` @ 2733 was **not** a dosounds arity
+  reorder: Samurai (and Monk) get `HFast` via `adjabil(0,1)` at u_init;
+  JS skipped `adjabil` and omitted `u_calc_moveamt` Fast/Very_fast
+  `rn2(3)` — D-0058. Tourist green stays PASS (no L1 Fast).
 
 ## Landmarks
 
@@ -226,26 +228,29 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 - Wizard+human init HP = **12**, Pw ≈ **8**, AC **9** (cloak of MR `a_ac` 1).
 - Priest+human init HP = **14** (role 12 + race 2); robe is ARM_CLOAK.
 - Knight+human init HP = **16** (role 14 + race 2); initrecord **10**.
-- Samurai+human init HP = **15** (role 13 + race 2); initrecord **10**.
+- Samurai+human init HP = **15** (role 13 + race 2); initrecord **10**;
+  **HFast** via `adjabil` L1 (FROMEXPER|FROMOUTSIDE) → Fast not Very_fast.
 - Healer+human init HP = **13** (role 11 + race 2); initrecord **10**;
   gold `rn1(1000,1001)` → **1001..2000**.
 - Valkyrie+human init HP = **16** (role 14 + race 2); initrecord **0**
-  (C; not 10); shield `+3`; optional Lamp `!rn2(6)`.
+  (C; not 10); shield `+3`; optional Lamp `!rn2(6)`; L1 `HCold_resistance`.
 - Ranger+human init HP = **15** (role 13 + race 2); initrecord **10**;
-  cloak of displacement `+2`; arrow stacks `rn2` quan 50–59 and 30–39.
+  cloak of displacement `+2`; arrow stacks `rn2` quan 50–59 and 30–39;
+  L1 `HSearching`.
 - Monk+human init HP = **14** (role 12 + race 2); initrecord **10**;
   gloves `+2`, robe `+1`; spellbook via `rn2(90)/30` → Healing /
-  Protection / Confuse Monster; Magicmarker `!rn2(4)` else Lamp `!rn2(10)`.
+  Protection / Confuse Monster; Magicmarker `!rn2(4)` else Lamp `!rn2(10)`;
+  L1 `HFast` + `HSleep_resistance` + `HSee_invisible`.
 - Archeologist+human init HP = **13** (role 11 + race 2); initrecord **10**;
   whip `+2`; pick-axe/tinning kit `UNDEF_SPE`; Tinopener `!rn2(10)` else
-  Lamp `!rn2(4)` else Magicmarker `!rn2(5)`.
+  Lamp `!rn2(4)` else Magicmarker `!rn2(5)`; L1 `HSearching`.
 - Barbarian+human init HP = **16** (role 14 + race 2); initrecord **10**;
   kit via `rn2(100)>=50` → two-handed sword+axe else battle-axe+short
-  sword; ring mail; optional Lamp `!rn2(6)`.
+  sword; ring mail; optional Lamp `!rn2(6)`; L1 `HPoison_resistance`.
 - Caveman+human init HP = **16** (role 14 + race 2); initrecord **0**
   (C; not 10); club `+1`, sling `+2`; flint trop 10–20; rock trop
   3×`rn1(6,6)` → 18..33; leather armor; little dog pet.
-- Rogue initrecord **10** (C; JS had wrongly 0 until D-0056).
+- Rogue initrecord **10** (C; JS had wrongly 0 until D-0056); L1 `HStealth`.
 - Rogue legacy offx = `max(10, 80 - maxcol - 1)` (Kos → 23; The Lady → 17).
 - Tutorial menu offx = 20 (OPTIONS `.nethackrc` line → maxcol 59); cursor
   `[27,6]` on `(end) `.
@@ -262,17 +267,18 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   (`exercise`); positional **2772**/3018.
 - seed0016: D-0054 → past `hole_destination`; prefix **2493**
   (`next_ident`); positional **2538**/3656 Scr **5**/36.
-- seed0030: D-0054/55 → past trap+SPBOOK; prefix **6305** (`rnl`/`doopen`);
-  positional **6658**/105529 Scr **35**/1953.
+- seed0030: D-0058 → past Fast; prefix still mid-session; positional
+  **6670**/105529 Scr **35**/1953.
 - seed0373: D-0054/55 → past trap+SPBOOK; prefix **2512** (`newhp`);
   positional **2582**/35386.
 - seed0361: D-0057 → past CORPSE retry; prefix **2924** (`newhp`);
   positional **2972**/53865.
 - seed1150: D-0056 → past `peace_minded`; prefix **2915** (`dog_move`);
   positional **2942**/3137 Scr **22**/51.
-- seed0700: D-0057 → past CORPSE `G_NOCORPSE` retry; rng-diff prefix
-  **2733** (`u_calc_moveamt`); positional **2796**/3230 Scr 1/51.
+- seed0700: D-0058 → past `u_calc_moveamt` Fast; rng-diff prefix
+  **3141** (`rnl`/`doopen_indir`); positional **3146**/3230 Scr **2**/51.
   seed0102 still **1281** — EGG `can_be_hatched` multi-`rndmonnum`.
+- seed0017: D-0058 → prefix **2711** (`m_move`); positional **2831**/3465.
 - `SPBOOK_no_NOVEL` ≡ `-SPBOOK_CLASS` (−10); `rnd_class` to
   `SPE_BLANK_PAPER` sums **999** (novel prob 1 excluded).
 - C `initrecord` after xlev: Caveman/Priest/Tourist/Valkyrie/Wizard **0**;
@@ -280,3 +286,7 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 - z1/ul1 `rndmonst_adj` weight totals (freq only, AM_NONE): 3,4,5,7,8,11,
   15,16,21 (jackal…newt); eligible `G_NOCORPSE` in that pool: grid bug
   (+ kobold zombie → kobold via `undead_to_corpse`, so no retry).
+- Role L1 intrinsics via `adjabil`: Samurai/Monk `HFast`; Rogue `HStealth`;
+  Ranger/Archeologist `HSearching`; Barbarian/Healer `HPoison_resistance`;
+  Valkyrie `HCold_resistance`; orc race `HInfravision`+`HPoison_resistance`
+  (elf sleep at 4). Dwarf/gnome infra via form/`set_uasmon`, not adjabil.

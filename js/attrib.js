@@ -1,8 +1,32 @@
 // attrib.js — Hero attributes.
-// C ref: attrib.c — rnd_attr, init_attr, vary_init_attr, adjattrib (partial).
+// C ref: attrib.c — rnd_attr, init_attr, vary_init_attr, adjattrib,
+//        adjabil / role_abil (partial).
 
 import { game } from './gstate.js';
 import { rn2, rnd } from './rng.js';
+import {
+    FROMEXPER,
+    FROMRACE,
+    FROMOUTSIDE,
+    INTRINSIC,
+} from './const.js';
+import {
+    PM_ARCHEOLOGIST,
+    PM_BARBARIAN,
+    PM_CAVE_DWELLER,
+    PM_HEALER,
+    PM_KNIGHT,
+    PM_MONK,
+    PM_CLERIC,
+    PM_RANGER,
+    PM_ROGUE,
+    PM_SAMURAI,
+    PM_TOURIST,
+    PM_VALKYRIE,
+    PM_WIZARD,
+    PM_ELF,
+    PM_ORC,
+} from './generated/monsters_data.js';
 
 export const A_STR = 0;
 export const A_INT = 1;
@@ -191,4 +215,169 @@ export function change_luck(n) {
     if (luck > 10) luck = 10;
     if (luck < -10) luck = -10;
     u.uluck = luck;
+}
+
+/*
+ * C ref: attrib.c innate tables + role_abil() / adjabil().
+ * Prop names match the H* macros that C stores via long* ability.
+ * Level-up add_weapon_skill / lose_weapon_skill deferred (oldlevel>0).
+ * postadjabil see_monsters deferred (init path has u.ulevel==0 → no-op).
+ */
+const arc_abil = [
+    { ulevel: 1, prop: 'HSearching', gainstr: '', losestr: '' },
+    { ulevel: 5, prop: 'HStealth', gainstr: 'stealthy', losestr: '' },
+    { ulevel: 10, prop: 'HFast', gainstr: 'quick', losestr: 'slow' },
+];
+const bar_abil = [
+    { ulevel: 1, prop: 'HPoison_resistance', gainstr: '', losestr: '' },
+    { ulevel: 7, prop: 'HFast', gainstr: 'quick', losestr: 'slow' },
+    { ulevel: 15, prop: 'HStealth', gainstr: 'stealthy', losestr: '' },
+];
+const cav_abil = [
+    { ulevel: 7, prop: 'HFast', gainstr: 'quick', losestr: 'slow' },
+    { ulevel: 15, prop: 'HWarning', gainstr: 'sensitive', losestr: '' },
+];
+const hea_abil = [
+    { ulevel: 1, prop: 'HPoison_resistance', gainstr: '', losestr: '' },
+    { ulevel: 15, prop: 'HWarning', gainstr: 'sensitive', losestr: '' },
+];
+const kni_abil = [
+    { ulevel: 7, prop: 'HFast', gainstr: 'quick', losestr: 'slow' },
+];
+const mon_abil = [
+    { ulevel: 1, prop: 'HFast', gainstr: '', losestr: '' },
+    { ulevel: 1, prop: 'HSleep_resistance', gainstr: '', losestr: '' },
+    { ulevel: 1, prop: 'HSee_invisible', gainstr: '', losestr: '' },
+    { ulevel: 3, prop: 'HPoison_resistance', gainstr: 'healthy', losestr: '' },
+    { ulevel: 5, prop: 'HStealth', gainstr: 'stealthy', losestr: '' },
+    { ulevel: 7, prop: 'HWarning', gainstr: 'sensitive', losestr: '' },
+    { ulevel: 9, prop: 'HSearching', gainstr: 'perceptive', losestr: 'unaware' },
+    { ulevel: 11, prop: 'HFire_resistance', gainstr: 'cool', losestr: 'warmer' },
+    { ulevel: 13, prop: 'HCold_resistance', gainstr: 'warm', losestr: 'cooler' },
+    { ulevel: 15, prop: 'HShock_resistance', gainstr: 'insulated', losestr: 'conductive' },
+    { ulevel: 17, prop: 'HTeleport_control', gainstr: 'controlled', losestr: 'uncontrolled' },
+];
+const pri_abil = [
+    { ulevel: 15, prop: 'HWarning', gainstr: 'sensitive', losestr: '' },
+    { ulevel: 20, prop: 'HFire_resistance', gainstr: 'cool', losestr: 'warmer' },
+];
+const ran_abil = [
+    { ulevel: 1, prop: 'HSearching', gainstr: '', losestr: '' },
+    { ulevel: 7, prop: 'HStealth', gainstr: 'stealthy', losestr: '' },
+    { ulevel: 15, prop: 'HSee_invisible', gainstr: '', losestr: '' },
+];
+const rog_abil = [
+    { ulevel: 1, prop: 'HStealth', gainstr: '', losestr: '' },
+    { ulevel: 10, prop: 'HSearching', gainstr: 'perceptive', losestr: '' },
+];
+const sam_abil = [
+    { ulevel: 1, prop: 'HFast', gainstr: '', losestr: '' },
+    { ulevel: 15, prop: 'HStealth', gainstr: 'stealthy', losestr: '' },
+];
+const tou_abil = [
+    { ulevel: 10, prop: 'HSearching', gainstr: 'perceptive', losestr: '' },
+    { ulevel: 20, prop: 'HPoison_resistance', gainstr: 'hardy', losestr: '' },
+];
+const val_abil = [
+    { ulevel: 1, prop: 'HCold_resistance', gainstr: '', losestr: '' },
+    { ulevel: 3, prop: 'HStealth', gainstr: 'stealthy', losestr: '' },
+    { ulevel: 7, prop: 'HFast', gainstr: 'quick', losestr: 'slow' },
+];
+const wiz_abil = [
+    { ulevel: 15, prop: 'HWarning', gainstr: 'sensitive', losestr: '' },
+    { ulevel: 17, prop: 'HTeleport_control', gainstr: 'controlled', losestr: 'uncontrolled' },
+];
+const elf_abil = [
+    { ulevel: 1, prop: 'HInfravision', gainstr: '', losestr: '' },
+    { ulevel: 4, prop: 'HSleep_resistance', gainstr: 'awake', losestr: 'tired' },
+];
+const orc_abil = [
+    { ulevel: 1, prop: 'HInfravision', gainstr: '', losestr: '' },
+    { ulevel: 1, prop: 'HPoison_resistance', gainstr: '', losestr: '' },
+];
+
+// C ref: attrib.c role_abil()
+function role_abil(rolePm) {
+    switch (rolePm) {
+        case PM_ARCHEOLOGIST: return arc_abil;
+        case PM_BARBARIAN: return bar_abil;
+        case PM_CAVE_DWELLER: return cav_abil;
+        case PM_HEALER: return hea_abil;
+        case PM_KNIGHT: return kni_abil;
+        case PM_MONK: return mon_abil;
+        case PM_CLERIC: return pri_abil;
+        case PM_RANGER: return ran_abil;
+        case PM_ROGUE: return rog_abil;
+        case PM_SAMURAI: return sam_abil;
+        case PM_TOURIST: return tou_abil;
+        case PM_VALKYRIE: return val_abil;
+        case PM_WIZARD: return wiz_abil;
+        default: return null;
+    }
+}
+
+/**
+ * C ref: attrib.c adjabil(oldlevel, newlevel)
+ * Grants/revokes role and (elf/orc) race intrinsics by level thresholds.
+ * Messages / see_monsters / weapon-skill delta deferred.
+ */
+export function adjabil(oldlevel, newlevel) {
+    const u = game.u || (game.u = {});
+    let abil = role_abil(game.urole?.mnum);
+    let rabil = null;
+    let mask = FROMEXPER;
+    const racePm = game.urace?.mnum;
+    // C: only ELF and ORC use rabil here; dwarf/gnome infra via set_uasmon.
+    if (racePm === PM_ELF) rabil = elf_abil;
+    else if (racePm === PM_ORC) rabil = orc_abil;
+
+    let abilIdx = 0;
+    let rabilIdx = 0;
+    let usingRace = false;
+
+    while (true) {
+        let entry = null;
+        if (!usingRace) {
+            if (abil && abilIdx < abil.length) {
+                entry = abil[abilIdx++];
+            } else if (rabil && rabilIdx < rabil.length) {
+                usingRace = true;
+                mask = FROMRACE;
+                entry = rabil[rabilIdx++];
+            } else {
+                break;
+            }
+        } else if (rabil && rabilIdx < rabil.length) {
+            entry = rabil[rabilIdx++];
+        } else {
+            break;
+        }
+
+        const prop = entry.prop;
+        const prev = u[prop] || 0;
+        if (oldlevel < entry.ulevel && newlevel >= entry.ulevel) {
+            // Level-1 abilities also set FROMOUTSIDE so outside sources
+            // cannot "gain" a meaningless duplicate (C adjabil).
+            if (entry.ulevel === 1) u[prop] = prev | (mask | FROMOUTSIDE);
+            else u[prop] = prev | mask;
+            // gainstr pline deferred (silent at u.ulevel==0 init anyway)
+        } else if (oldlevel >= entry.ulevel && newlevel < entry.ulevel) {
+            u[prop] = prev & ~mask;
+            // losestr pline deferred
+        }
+        // postadjabil deferred
+    }
+    // C: if (oldlevel > 0) add/lose_weapon_skill — deferred
+}
+
+/** C ref: youprop.h Fast */
+export function Fast() {
+    const u = game.u || {};
+    return !!(u.HFast || u.EFast);
+}
+
+/** C ref: youprop.h Very_fast — timeout bits or extrinsic */
+export function Very_fast() {
+    const u = game.u || {};
+    return !!(((u.HFast || 0) & ~INTRINSIC) || u.EFast);
 }

@@ -645,3 +645,16 @@ Use this shape:
   `can_be_hatched` (not this peel).
 - Next: `node scripts/rng-diff.mjs sessions/seed0700-samurai-explore-descend.session.json`
   — peel `u_calc_moveamt` @ 2733 (or egg `can_be_hatched` on seed0102).
+
+## 2026-07-13 01:45 — adjabil L1 Fast + u_calc_moveamt (D-0058)
+- C locus: `attrib.c` `adjabil`/`role_abil`/`sam_abil`; `u_init.c`
+  `u_init_misc`; `allmain.c` `u_calc_moveamt`; `youprop.h` Fast
+- Result: ported role/race innate tables + `adjabil(0,1)` and
+  Fast/Very_fast `rn2(3)` in `u_calc_moveamt`. Cleared seed0700
+  `rn2(3)` vs `rn2(200)` at first post-spawn EOT.
+- Verification: green + seed1500/1800/0060 PASS + strict; full 5/44
+  screens 291 RNG 85494; seed0700 prefix 2733→3141 (`rnl`/
+  `doopen_indir`).
+- Next: `node scripts/rng-diff.mjs sessions/seed0700-samurai-explore-descend.session.json`
+  — peel `rnl`/`doopen_indir` @ 3141 (or egg `can_be_hatched` on
+  seed0102 / `newhp` on seed0361).

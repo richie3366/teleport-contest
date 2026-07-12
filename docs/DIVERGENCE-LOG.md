@@ -1505,3 +1505,32 @@ cohort gates if those functions are touched again.
 - **Next:** seed0700 `u_calc_moveamt` @ 2733; seed0361 `newhp` @
   2924; seed0102 egg `can_be_hatched`; seed2200 `exercise` @ 2724;
   seed1150 `dog_move` @ 2915.
+
+## D-0058 — `adjabil` L1 Fast + `u_calc_moveamt` `rn2(3)`
+
+- **Symptom:** seed0700 rng-diff @ **2733**: C `rn2(3)` @
+  `u_calc_moveamt` vs JS `rn2(200)` @ `dosounds`.
+- **Cause/evidence:** Samurai `sam_abil[]` grants `HFast` at level 1
+  via `adjabil(0,1)` in `u_init_misc` (also Monk L1 Fast; Rogue
+  Stealth; etc.). JS never called `adjabil` and omitted the
+  Fast/Very_fast branches in `u_calc_moveamt`, so the first EOT after
+  matching `maybe_generate_rnd_mon` jumped straight to dosounds.
+  Tourist has no L1 Fast → green sessions unaffected.
+- **Rejected:** dosounds arity reorder / missing fountain rolls as the
+  primary gap at 2733 (C provenance is explicitly `u_calc_moveamt`).
+- **C locus:** `attrib.c` `adjabil`/`role_abil`/`sam_abil`;
+  `u_init.c` `u_init_misc`; `allmain.c` `u_calc_moveamt`;
+  `youprop.h` Fast/Very_fast.
+- **Change:** `js/attrib.js` innate tables + `adjabil`/`Fast`/
+  `Very_fast`; `js/u_init.js` `adjabil(0,1)` before `ulevel=1`;
+  `js/allmain.js` Fast/Very_fast `rn2(3)` in `u_calc_moveamt`.
+- **Verification:** green + seed1500/1800/0060 PASS + strict; full
+  **5/44** screens **291** RNG **85494**/792838; seed0700 prefix
+  **2733→3141** (`rnl`/`doopen_indir`); positional **3146**/3230
+  Scr **2**/51; seed0017 **2831**/3465 prefix **2711** (`m_move`).
+- **Lesson:** role L1 intrinsics are not optional flavor — Fast changes
+  every EOT RNG for Samurai/Monk. Port `adjabil` with the full innate
+  tables, not a Samurai-only HFast hardcode.
+- **Next:** seed0700 `rnl`/`doopen_indir` @ 3141; seed0361 `newhp` @
+  2924; seed0102 egg `can_be_hatched`; seed2200 `exercise` @ 2724;
+  seed1150 `dog_move` @ 2915.
