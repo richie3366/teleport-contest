@@ -39,8 +39,8 @@ frozen-file overlay):
 |--------|------:|
 | Sessions passing | **5 / 44** |
 | Screens matched | **295 / 11,405** (2.59%) |
-| Positional RNG calls matched | **85,803 / 792,838** (10.82%) |
-| Speed label | `17+0.09/turn` (R² 0.918) |
+| Positional RNG calls matched | **86,026 / 792,838** (10.85%) |
+| Speed label | `16+0.09/turn` (R² 0.944) |
 | Working-tree base | `8b71735` + committed port (see `main`) |
 | Role-init throws | **0 / 44** (`u_init_role: role not ported`) |
 
@@ -57,14 +57,14 @@ shared blockers, and semantic coverage together—not one vanity metric.
 | `seed1500-rogue-explore-move` | **2768 / 2768** | **40 / 40** |
 | `seed1800-tourist-eat-throw` | **2458 / 2458** | **26 / 26** |
 | `seed0060-orc-rogue-kick-search` | **3626 / 3626** | **41 / 41** |
-| `seed0700-samurai-explore-descend` | **3229 / 3230** | **2 / 51** |
+| `seed0700-samurai-explore-descend` | **3230 / 3230** | **2 / 51** |
 | `seed1150-caveman-explore-move` | **2942 / 3137** | **22 / 51** |
-| `seed0030-ten-diverse-deaths` | **6876 / 105529** | **39 / 1953** |
+| `seed0030-ten-diverse-deaths` | **7021 / 105529** | **39 / 1953** |
 | `seed0103-knight-ride-pony` | **2344 / 2640** | 1 / 60 |
 | `seed0200-monk-north-search` | **1548 / 3822** | 0 / 40 |
 | `seed0101-ranger-quiver-throw-travel-engrave` | **2304 / 2371** | 3 / 27 |
 | `seed0016-healer-newmoon-eat-zap` | **2538 / 3656** | **5 / 36** |
-| `seed0017-samurai-altar-pray` | **2831 / 3465** | 1 / 67 |
+| `seed0017-samurai-altar-pray` | **2840 / 3465** | 1 / 67 |
 | `seed0107-samurai-twoweapon-enhance` | **2677 / 2902** | 0 / 98 |
 | `seed0104-knight-ride-combat` | **2401 / 3223** | 1 / 43 |
 | `seed0106-priest-extcmd-sweep` | **2576 / 4194** | 1 / 267 |
@@ -79,16 +79,17 @@ shared blockers, and semantic coverage together—not one vanity metric.
 seed8000 + seed0900 + seed1500 + seed1800 + seed0060 pass end-to-end.
 `choose_trapnote`/`hole_destination` (D-0054), `SPBOOK_no_NOVEL`
 (D-0055), roles `initrecord` (D-0056), CORPSE `G_NOCORPSE` retry
-(D-0057), `adjabil`/`u_calc_moveamt` Fast (D-0058), and **`rnl` +
-autoopen `doopen_indir`** (D-0059) clear shared peels. seed0700 next
-`m_move` @ 3207 (`rn2(16)` vs JS `rn2(20)`); seed0361 next `newhp` @
-2924; seed0102 next egg `can_be_hatched` @ 1281; seed0103 next
-`next_ident`/`trquan` @ 2337. Wizard seed2200 next `exercise` @ 2724;
+(D-0057), `adjabil`/`u_calc_moveamt` Fast (D-0058), `rnl` +
+autoopen `doopen_indir` (D-0059), and **`mfndpos` BOULDER/`NODIAG`**
+(D-0060) clear shared peels. seed0700 RNG **full**; next is screen
+peel (Scr 2/51). seed0361 next `newhp` @ 2924; seed0102 next egg
+`can_be_hatched` @ 1281; seed0017 next @ 2775; seed0030 next
+`maybe_smudge_engr` @ 6732. Wizard seed2200 next `exercise` @ 2724;
 Healer seed0016 next `next_ident` @ 2493; Caveman seed1150 next
-`dog_move` @ 2915; Barbarian seed0373 next `newhp` @ 2512; seed0030
-positional **6876**; Priest seed0501 still `wipeout_text`.
-seed0015/0200 next `lspo_map`. seed0101 next `next_ident`. seed0013
-still breaks earlier in Lua/`sp_lev`. seed0017 next `m_move` @ 2711.
+`dog_move` @ 2915; Barbarian seed0373 next `newhp` @ 2512; Priest
+seed0501 still `wipeout_text`. seed0015/0200 next `lspo_map`.
+seed0101 next `next_ident`. seed0013 still breaks earlier in
+Lua/`sp_lev`. seed0103 next `next_ident`/`trquan` @ 2337.
 
 ### Green gate
 
@@ -117,18 +118,20 @@ fixes until C state/candidate capture exists (`GROK-PLAYBOOK.md` §2).
 **Code status:** `choose_trapnote`/`hole_destination` (D-0054) +
 `mkobj(SPBOOK_no_NOVEL)` (D-0055) + roles `initrecord` (D-0056) +
 CORPSE `undead_to_corpse`/`G_NOCORPSE` retry (D-0057) + `adjabil`
-L1 intrinsics + `u_calc_moveamt` Fast/Very_fast (D-0058) + **`rnl` +
-autoopen `doopen_indir`** (D-0059) **ported**. Five public sessions
-still pass end-to-end. **0/44** throw at `u_init_role`.
+L1 intrinsics + `u_calc_moveamt` Fast/Very_fast (D-0058) + `rnl` +
+autoopen `doopen_indir` (D-0059) + **`mfndpos` BOULDER/`ALLOW_ROCK` +
+`NODIAG`** (D-0060) **ported**. Five public sessions still pass
+end-to-end. **0/44** throw at `u_init_role`. seed0700 RNG full.
 
-- **Bounded unit:** seed0700 `m_move` / seed0361 `newhp` /
-  seed0102 egg `can_be_hatched` / seed2200 `exercise` / seed0016
-  `next_ident` / seed1150 `dog_move` / seed0373 `newhp` /
+- **Bounded unit:** seed0361 `newhp` / seed0017 post-NODIAG @ 2775 /
+  seed0700 **screen** peel / seed0102 egg `can_be_hatched` /
+  seed2200 `exercise` / seed1150 `dog_move` / seed0373 `newhp` /
   seed0501/0105 `wipeout_text` / seed0015/0200 `lspo_map` /
   seed0101 `next_ident` / seed0103 `next_ident`/`trquan` /
-  seed0017 `m_move`.
-- **Prefer:** highest-leverage shared `m_move`/`newhp`/egg hatch over
-  polishing one late path.
+  seed0030 `maybe_smudge_engr`.
+- **Prefer:** highest-leverage shared `newhp`/egg hatch / engraving
+  over polishing one late path; seed0700 screens only when diagnosing
+  display.
 - **Named omissions:** Wizard/Priest/Healer `initialspell`; Knight/
   Samurai/Healer/Valkyrie/Ranger/Monk/Archeologist/Barbarian/Caveman
   `skill_init`; display-path Japanese names; full `role_init` beyond
@@ -140,16 +143,18 @@ still pass end-to-end. **0/44** throw at `u_init_role`.
   Upolyd eel `regen_hp` loss; `regen_pw`/Teleport/Poly once-per-turn;
   `dog_goal` gettrack/FARAWAY; `throw_gold`; eat getobj single-shot;
   Blind/`look_here`; trap glyphs; hallucination/`see_objects`;
-  `u_init_carry_attr_boost`; mfndpos `bad_rock` squeeze; Sokoban
-  push-avoid; `donull` `cmd_safety_prevention`; dog_move `mtrack`
-  skip; `makemon` Sokoban `throws_rocks`; `m_initinv` body;
-  `set_malign`; telepathy/`Detect_monsters`/`MATCH_WARN_OF_MON` in
-  `newsym`; full `set_uasmon`/uprops; full `weapon_insight` enhance/
-  P_SKILL/odd P_NAME; shop `costly_spot` autopickup; `obj_typename`
-  armor pair-of/set-of + GemStone; MLET_CH beyond early subset;
-  `align_shift`/`temperature_shift`; `peace_minded` MS_*/race_*/minion
-  arms; EGG `can_be_hatched`; TIN `cnutrit`; interactive `o`/`doopen`
-  getdir; `doopen_indir` `b_trapped`/autounlock/mapseen; …
+  `u_init_carry_attr_boost`; mfndpos pool/lava/garlic/`bad_rock`
+  squeeze / temple / iron bars; `m_can_break_boulder`; `ALLOW_WALL`;
+  hostile `m_avoid_kicked_loc` wiring; Sokoban push-avoid; `donull`
+  `cmd_safety_prevention`; dog_move `mtrack` skip; `makemon` Sokoban
+  `throws_rocks`; `m_initinv` body; `set_malign`; telepathy/
+  `Detect_monsters`/`MATCH_WARN_OF_MON` in `newsym`; full
+  `weapon_insight` enhance/P_SKILL/odd P_NAME; shop `costly_spot`
+  autopickup; `obj_typename` armor pair-of/set-of + GemStone;
+  MLET_CH beyond early subset; `align_shift`/`temperature_shift`;
+  `peace_minded` MS_*/race_*/minion arms; EGG `can_be_hatched`;
+  TIN `cnutrit`; interactive `o`/`doopen` getdir; `doopen_indir`
+  `b_trapped`/autounlock/mapseen; …
 - **Cohort:** green gate + seed1500 + seed1800 + seed0060 (must stay
   PASS) + strict lengths; Samurai focus seed0700 when on that peel.
 
@@ -280,6 +285,9 @@ Module status, constitutional debt, and named omissions live in
     **3141→3207** (`m_move`); positional **3229**/3230; aggregate
     RNG **85494→85803**; screens **291→295**; seed0030 **6670→6876**
     Scr **35→39**
+45. `mfndpos` BOULDER/`ALLOW_ROCK` + `NODIAG` (D-0060) — seed0700
+    RNG **3230**/3230 Scr **2**/51; seed0017 prefix **2711→2775**;
+    aggregate RNG **85803→86026**; seed0030 **6876→7021**
 
 Next work is selected from the active objectives above using
 `PORTING-RUNBOOK.md`, not by extending this historical list.

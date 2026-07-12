@@ -67,12 +67,14 @@ export const M2_HOSTILE = 0x00100000;
 export const M2_PEACEFUL = 0x00200000;
 export const M2_DOMESTIC = 0x00400000;
 export const M2_WANDER = 0x00800000;
+export const M2_ROCKTHROW = 0x08000000;
 export const M2_LORD = 0x00000400;
 export const M2_PRINCE = 0x00000800;
 export const M2_NASTY = 0x02000000;
 export const M2_STRONG = 0x04000000;
 export const M2_MERC = 0x00000200;
 
+export const M1_WALLWALK = 0x00000008;
 export const M1_NOHANDS = 0x00002000;
 export const M1_NOEYES = 0x00001000;
 export const M1_MINDLESS = 0x00010000;
@@ -127,6 +129,15 @@ export function verysmall(ptr) {
 // C ref: mondata.h nohands()
 export function nohands(ptr) {
     return !!((ptr?.mflags1 ?? 0) & M1_NOHANDS);
+}
+
+// C ref: mondata.h passes_walls / throws_rocks
+export function passes_walls(ptr) {
+    return !!((ptr?.mflags1 ?? 0) & M1_WALLWALK);
+}
+
+export function throws_rocks(ptr) {
+    return !!((ptr?.mflags2 ?? 0) & M2_ROCKTHROW);
 }
 
 export function always_hostile(ptr) {

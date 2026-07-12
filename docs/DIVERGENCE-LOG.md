@@ -63,6 +63,7 @@ Do not record a guessed cause as fixed merely because an RNG prefix moved.
 | D-0039 | fixed | newsym infrared + postmov | orc Infravision shows pet in dark; Scr 37→38 |
 | D-0040 | fixed | disco OBJ_DESCR + obj_typename | extracted descr/name strs; Scr 38→39 |
 | D-0041 | fixed | ^X enlightenment | autopickup/limits/weapon_descr; Scr 39→41 PASS |
+| D-0060 | fixed | mfndpos | BOULDER/`ALLOW_ROCK` + `NODIAG` (grid bug); seed0700 RNG full |
 
 D-0001 through D-0005 predate the strict-length/cohort runbook. Their focused
 causes are preserved, but generic "green sessions held" is historical evidence,
@@ -1564,3 +1565,35 @@ cohort gates if those functions are touched again.
 - **Next:** seed0700 `m_move` @ 3207; seed0361 `newhp` @ 2924;
   seed0102 egg `can_be_hatched`; seed2200 `exercise` @ 2724;
   seed1150 `dog_move` @ 2915.
+
+## D-0060 — `mfndpos` BOULDER + `NODIAG`
+
+- **Symptom:** seed0700 rng-diff @ **3207**: C `rn2(16)` @
+  `m_move` track skip vs JS `rn2(20)` (same site). seed0017 @ **2711**:
+  C `rn2(16)` vs JS `rn2(32)`.
+- **Cause/evidence:** (1) Newt at (65,4) had a corridor boulder neighbor;
+  C `mfndpos` skips `sobj_at(BOULDER)` without `ALLOW_ROCK`, so
+  `cnt=4` → `rn2(4*(cnt-j))=rn2(16)`. JS included the boulder cell
+  (`cnt=5` → `rn2(20)`). (2) Grid bugs use `NODIAG(PM_GRID_BUG)` —
+  C omits diagonals (`cnt=4`); JS allowed all 8 neighbors (`cnt=8` →
+  `rn2(32)`).
+- **Rejected:** inventing `appr`/`mtrack` order hacks; treating arity as
+  a dog_move/`distfleeck` reorder (prefix through pet + fleeck matched).
+- **C locus:** `mon.c` `mfndpos` / `mon_allowflags`; `hack.h` `NODIAG`;
+  `mondata.h` `throws_rocks`/`passes_walls`.
+- **Change:** `js/mon.js` boulder skip + `ALLOW_ROCK` bit; `NODIAG`
+  diagonal reject; `mon_allowflags` sets `ALLOW_ROCK` for
+  `throws_rocks`/`passes_walls`. `js/monsters.js` helpers + flags.
+- **Verification:** green + seed1500/1800/0060 PASS + strict; full
+  **5/44** screens **295** RNG **86026**/792838; seed0700 RNG
+  **3230**/3230 Scr **2**/51; seed0017 prefix **2711→2775**
+  positional **2840**/3465; seed0030 **7021**/105529.
+- **Omissions named:** `m_can_break_boulder`; mfndpos pool/lava/garlic/
+  `bad_rock` squeeze / temple / iron bars; `ALLOW_WALL`; hostile
+  `m_avoid_kicked_loc` wiring.
+- **Lesson:** `m_move` track `rn2(4*(cnt-j))` arity is an `mfndpos`
+  candidate-count bug — dump `cnt`/`j`/neighbor objects before
+  rewriting approach logic.
+- **Next:** seed0700 screen peel (RNG full); seed0361 `newhp` @ 2924;
+  seed0017 @ 2775; seed0102 egg; seed2200 `exercise`; seed1150
+  `dog_move`.

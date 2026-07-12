@@ -111,10 +111,12 @@ Fast/Very_fast (D-0058) → seed0700 prefix **3141** (`rnl`/
 `doopen_indir`); screens **291**/11405; RNG **85494**/792838.
 `rnl` + autoopen `doopen_indir` (D-0059) → seed0700 prefix **3207**
 (`m_move`); positional **3229**/3230; screens **295**/11405; RNG
-**85803**/792838. Next peel: `m_move` / `newhp` / egg `can_be_hatched` /
-`exercise` / `dog_move` / `wipeout_text` / `lspo_map` / pony
-`next_ident`. `make_corpse` body and `m_initinv` body still absent
-(named omissions).
+**85803**/792838. `mfndpos` BOULDER/`ALLOW_ROCK` + `NODIAG` (D-0060)
+→ seed0700 RNG **3230**/3230 Scr **2**/51; seed0017 prefix **2775**;
+screens **295**/11405; RNG **86026**/792838. Next peel: `newhp` /
+seed0700 **screen** / egg `can_be_hatched` / `exercise` / `dog_move` /
+`wipeout_text` / `lspo_map` / pony `next_ident` / `maybe_smudge_engr`.
+`make_corpse` body and `m_initinv` body still absent (named omissions).
 
 ## Data and world generation
 
@@ -147,7 +149,7 @@ Fast/Very_fast (D-0058) → seed0700 prefix **3141** (`rnl`/
 | `src/objnam.c` | `js/objnam.js` | partial | doname empty/wield/swapwep/potion/implicit-uncursed (D-0024); CORPSE `corpsenm` (D-0019); **COIN quan=1 `"a gold piece"`** (D-0037); **`Japanese_item_name` table** for Samurai discovery (D-0045); display-path Japanese in `obj_typename`/`doname` + full erosion/artifact deferred |
 | `src/eat.c` | `js/eat.js` | partial | Cookie/reject subset; getobj still single-shot (no missing-letter `continue`); ordinary eating/nutrition incomplete |
 | `src/dothrow.c`, `src/zap.c:bhit` | `js/dothrow.js` | partial | Dart split/flight/landing; `throw_ok` SUGGEST coins+weapons + getobj loop (D-0025); **`throw_gold` body absent**; combat/object interactions incomplete |
-| `src/mon.c`, `src/monmove.c` | `js/mon.js`, `js/monmove.js` | partial | Early ordinary movement; pet `postmov`→`mintrap` (D-0018); mfndpos `ALLOW_TRAPS` (D-0019); `OPENDOOR` gated on `nohands`/`verysmall` (D-0020); **`m_avoid_kicked_loc`** in `mon.js` (D-0032; not yet wired into hostile `m_move`); **`postmov` final `newsym(mx,my)`** (D-0039); non-pet postmov / `mon_knows_traps` / `bad_rock` squeeze / Sokoban push-avoid body deferred |
+| `src/mon.c`, `src/monmove.c` | `js/mon.js`, `js/monmove.js` | partial | Early ordinary movement; pet `postmov`→`mintrap` (D-0018); mfndpos `ALLOW_TRAPS` (D-0019); `OPENDOOR` gated on `nohands`/`verysmall` (D-0020); **`m_avoid_kicked_loc`** in `mon.js` (D-0032; not yet wired into hostile `m_move`); **`postmov` final `newsym(mx,my)`** (D-0039); **`mfndpos` BOULDER/`ALLOW_ROCK` + `NODIAG`** (D-0060); `throws_rocks`/`passes_walls` helpers; omit `m_can_break_boulder`, pool/lava/garlic/`bad_rock` squeeze/temple/iron bars/`ALLOW_WALL`, non-pet postmov / `mon_knows_traps` / Sokoban push-avoid body |
 | `src/dog.c`, `src/dogmove.c` (+ `steal.c` relobj) | `js/dog.js`, `js/dogmove.js` | partial | Starting-pet subset; CORPSE age→POISON + `cursed_object_at` in `dog_goal` (D-0015); `dog_move` uncursedcnt/`cursemsg` pline (D-0017/D-0019); `m_cansee` in `find_targ` (D-0018); `dog_invent` `mpickobj`+drop RNG + tseen `rn2(40)` (D-0019); `splitobj` when `carryamt != quan` (D-0028); **pet `relobj`/`mdrop_obj`** (D-0029); **`in_masters_sight = couldsee`** (D-0030); **`m_avoid_kicked_loc`** (D-0032); **drop/pickup plines gated on `cansee`** (D-0038); omit food `newdogpos` eat, gettrack/FARAWAY when `!in_masters_sight`, `flooreffects`/`stackobj` merge, vault-guard gold, worn/saddle/shop extrinsics; **`mtrack` skip uses inner `continue` (should be candidate skip / C `goto nxti`)**; seed1500 RNG complete (D-0021); seed0060 **PASS** (D-0041) |
 | `src/uhitm.c`, `src/mhitm.c` | `js/uhitm.js`, `js/mhitm.js` | partial | Narrow pet combat paths; **`mondead`/`newsym` on kill** (D-0037); **`make_corpse` body deferred** (still burns `corpse_chance`); general combat absent |
 | `src/teleport.c` | `js/teleport.js` | partial | Placement helpers + **`enexto_gpflags`** (D-0034); not complete teleport system |

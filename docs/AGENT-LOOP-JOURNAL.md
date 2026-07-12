@@ -19,6 +19,22 @@ Use this shape:
 
 ---
 
+---
+
+## 2026-07-13 01:53 — mfndpos BOULDER + NODIAG (D-0060)
+- C locus: `mon.c` `mfndpos`/`mon_allowflags`; `hack.h` `NODIAG`;
+  `mondata.h` `throws_rocks`/`passes_walls`
+- Result: **verified faithful change** — skip boulder cells without
+  `ALLOW_ROCK`; reject diagonal neighbors for grid bugs. Cleared
+  seed0700 `rn2(16)` vs `rn2(20)` track arity (newt+boulder) and
+  seed0017 `rn2(16)` vs `rn2(32)` (grid bug diagonals). seed0700
+  RNG **3230**/3230; Scr still **2**/51.
+- Verification: green + seed1500/1800/0060 PASS + strict; full
+  **5/44**, screens **295**/11405, RNG **86026**/792838; seed0017
+  prefix **2711→2775**; seed0030 **7021**/105529.
+- Next: prefer `node scripts/rng-diff.mjs sessions/seed0361-archeologist-tour.session.json`
+  (`newhp` @ 2924) or seed0017 @ 2775; seed0700 is a screen peel.
+
 ## 2026-07-13 01:48 — rnl + autoopen doopen_indir (D-0059)
 - C locus: `rnd.c` rnl; `lock.c` doopen_indir; `hack.c` test_move
   autoopen; `attrib.c` acurrstr/exercise

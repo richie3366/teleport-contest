@@ -7,17 +7,19 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 
 ## Active
 
-- **Current unit:** D-0059 fixed `rnl` + autoopen `doopen_indir` (CLOSED
-  door walk-into). Samurai seed0700 past three resist peels.
-- **Hypothesis / next peel:** seed0700 `m_move` @ 3207 — C `rn2(16)` vs
-  JS `rn2(20)` (monmove.c:1963). Also seed0361 `newhp` @ 2924; seed0102
-  egg `can_be_hatched` @ 1281; seed2200 `exercise` @ 2724; seed1150
-  `dog_move` @ 2915; seed0017 `m_move` @ 2711.
+- **Current unit:** D-0060 fixed `mfndpos` BOULDER/`ALLOW_ROCK` + `NODIAG`
+  (grid bug). seed0700 RNG **3230**/3230; Scr still **2**/51.
+- **Hypothesis / next peel:** Prefer shared `newhp` (seed0361 @ 2924:
+  C `rnd(8)` vs JS `rn2(12)`) or seed0017 @ 2775 (C `rn2(5)`
+  `distfleeck` vs JS `rn2(7)`). seed0700 next is a **screen** peel
+  (RNG already full). Also seed0102 egg `can_be_hatched` @ 1281;
+  seed2200 `exercise` @ 2724; seed1150 `dog_move` @ 2915;
+  seed0030 @ 6732 `maybe_smudge_engr`.
 - **Falsifier / next probe:**
   ```bash
-  node scripts/rng-diff.mjs sessions/seed0700-samurai-explore-descend.session.json
+  node scripts/rng-diff.mjs sessions/seed0361-archeologist-tour.session.json
+  # Or: node scripts/rng-diff.mjs sessions/seed0017-samurai-altar-pray.session.json
   # Or: node scripts/rng-diff.mjs sessions/seed0102-ranger-name-cancel.session.json
-  # Or: node scripts/rng-diff.mjs sessions/seed0361-archeologist-tour.session.json
   ```
 - **Parked deep canary:** D-0006 pet movement — do not implement until C
   state/candidate capture exists.
@@ -32,10 +34,12 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   Upolyd eel `regen_hp` loss; `regen_pw`/Teleport/Poly once-per-turn;
   `dog_goal` gettrack/FARAWAY; `throw_gold`; eat getobj single-shot;
   Blind/`look_here`; trap glyphs; hallucination/`see_objects`;
-  `u_init_carry_attr_boost`; mfndpos `bad_rock` squeeze; Sokoban
-  push-avoid; `donull` `cmd_safety_prevention`; dog_move `mtrack` skip;
-  `makemon` Sokoban `throws_rocks`; `m_initinv` body; `set_malign`;
-  telepathy/`Detect_monsters`/`MATCH_WARN_OF_MON` in `newsym`; full
+  `u_init_carry_attr_boost`; mfndpos pool/lava/garlic/`bad_rock`
+  squeeze / temple / iron bars; `m_can_break_boulder`; `ALLOW_WALL`;
+  hostile `m_avoid_kicked_loc` wiring; Sokoban push-avoid; `donull`
+  `cmd_safety_prevention`; dog_move `mtrack` skip; `makemon` Sokoban
+  `throws_rocks`; `m_initinv` body; `set_malign`; telepathy/
+  `Detect_monsters`/`MATCH_WARN_OF_MON` in `newsym`; full
   `weapon_insight`; `obj_typename` armor pair-of/set-of + GemStone;
   MLET_CH beyond early subset; shop `costly_spot` autopickup; `apelist`
   exceptions; maketrap overwrite/furniture/statue/boulder; `peace_minded`
@@ -226,6 +230,11 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   `exercise` on resist). JS `domove` only blocked with `move=0` and
   emitted no open RNG — D-0059. Autoopen default On; resist does **not**
   consume a turn (T stays put; only rnl+exercise in the segment).
+- seed0700 `rn2(16)` vs `rn2(20)` @ 3207 was **not** approach/`mtrack`
+  order: DIAG showed newt `mfndpos` `cnt=5` with one boulder neighbor;
+  C skips boulder without `ALLOW_ROCK` (`cnt=4`) — D-0060. seed0017
+  `rn2(16)` vs `rn2(32)` was grid-bug diagonals (`NODIAG`); not a
+  second boulder.
 
 ## Landmarks
 
@@ -272,18 +281,17 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   (`exercise`); positional **2772**/3018.
 - seed0016: D-0054 → past `hole_destination`; prefix **2493**
   (`next_ident`); positional **2538**/3656 Scr **5**/36.
-- seed0030: D-0059 → positional **6876**/105529 Scr **39**/1953.
+- seed0030: D-0060 → positional **7021**/105529 Scr **39**/1953;
+  next prefix **6732** (`maybe_smudge_engr`).
 - seed0373: D-0054/55 → past trap+SPBOOK; prefix **2512** (`newhp`);
   positional **2582**/35386.
 - seed0361: D-0057 → past CORPSE retry; prefix **2924** (`newhp`);
   positional **2972**/53865.
 - seed1150: D-0056 → past `peace_minded`; prefix **2915** (`dog_move`);
   positional **2942**/3137 Scr **22**/51.
-- seed0700: D-0059 → past `rnl`/`doopen_indir`; rng-diff prefix
-  **3207** (`m_move` `rn2(16)` vs JS `rn2(20)`); positional **3229**/3230
-  Scr **2**/51. seed0102 still **1281** — EGG `can_be_hatched`
-  multi-`rndmonnum`.
-- seed0017: D-0058 → prefix **2711** (`m_move`); positional **2831**/3465.
+- seed0700: D-0060 → RNG **3230**/3230 Scr **2**/51 (screen peel next).
+  seed0017: D-0060 → prefix **2775**; positional **2840**/3465.
+- seed0102 still **1281** — EGG `can_be_hatched` multi-`rndmonnum`.
 - `SPBOOK_no_NOVEL` ≡ `-SPBOOK_CLASS` (−10); `rnd_class` to
   `SPE_BLANK_PAPER` sums **999** (novel prob 1 excluded).
 - C `initrecord` after xlev: Caveman/Priest/Tourist/Valkyrie/Wizard **0**;
@@ -298,3 +306,5 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 - Door autoopen: CLOSED walk-into → `rnl(20) < (ACURRSTR+DEX+CON)/3`;
   resist → `exercise(A_STR)` + no turn; success → `D_ISOPEN` + no hero
   step (C leaves `context.move` false for both).
+- `mfndpos` track arity `rn2(4*(cnt-j))`: boulder without `ALLOW_ROCK`
+  and grid-bug `NODIAG` both change `cnt` (D-0060).
