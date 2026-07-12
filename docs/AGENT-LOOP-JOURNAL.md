@@ -19,6 +19,19 @@ Use this shape:
 
 ---
 
+## 2026-07-12 23:55 — seed0060 makemon(NULL,0,0) (D-0034)
+- C locus: `allmain.c:maybe_generate_rnd_mon`; `makemon.c:makemon` /
+  `makemon_rnd_goodpos` / `m_initgrp`; `teleport.c:enexto_gpflags`
+- Result: **verified faithful change** — JS stubbed spawn body after
+  `rn2(70)`; C runs placement (`rn1(77)`/`rn2(21)`), `rndmonst`, group.
+  Ported placement-before-select, `makemon_rnd_goodpos`, `m_initgrp`,
+  `enexto_gpflags`; fixed `MM_NOGRP` to C `0x2000`.
+- Verification: rng-diff **3105→3536**; seed0060 **3562**/3626; green +
+  seed1500/1800 PASS + strict; full **4/44**, RNG **28497**/792838,
+  screens **179**/11405.
+- Next: `node scripts/rng-diff.mjs sessions/seed0060-orc-rogue-kick-search.session.json`
+  — port `regen_hp` (`allmain.c`) before `dosounds` (C @ 3536).
+
 ## 2026-07-12 23:45 — seed0060 donull / `.` wait (D-0033)
 - C locus: `do.c:donull`; `cmd.c` (`.` → wait; clear `kickedloc` when
   timed && `func != dokick`)

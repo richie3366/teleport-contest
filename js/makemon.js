@@ -13,6 +13,8 @@ import {
     G_NOGEN,
     G_HELL,
     G_FREQ,
+    G_SGROUP,
+    G_LGROUP,
     mons,
     always_hostile,
     always_peaceful,
@@ -30,15 +32,16 @@ import {
     monmax_difficulty,
     montooweak,
     montoostrong,
-    MM_NOGRP,
     monsterNames,
 } from './monsters.js';
 import {
-    NO_MINVENT, GP_CHECKSCARY, GP_AVOID_MONPOS, Is_rogue_level, OBJ_MINVENT,
+    NO_MINVENT, MM_NOGRP, GP_CHECKSCARY, GP_AVOID_MONPOS, Is_rogue_level,
+    OBJ_MINVENT, COLNO, ROWNO,
 } from './const.js';
-import { enexto_core } from './teleport.js';
+import { enexto_core, enexto_gpflags, goodpos } from './teleport.js';
 import { mksobj, weight } from './mkobj.js';
 import { objectNames, WEAPON_CLASS, ARMOR_CLASS } from './objects.js';
+import { cansee } from './vision.js';
 
 function otyp(name) {
     const i = objectNames.indexOf(name);
@@ -393,24 +396,117 @@ function m_initinv_tail(mtmp) {
     }
 }
 
+// C ref: makemon.c makemon_rnd_goodpos()
+function makemon_rnd_goodpos(mon, gpflags, cc) {
+    let tryct = 0;
+    let nx = 0;
+    let ny = 0;
+    let good = false;
+
+    gpflags |= GP_AVOID_MONPOS;
+    do {
+        nx = rn1(COLNO - 3, 2);
+        ny = rn2(ROWNO);
+        good = (!game.in_mklev && cansee(nx, ny))
+            ? false
+            : goodpos(nx, ny, mon, gpflags);
+    } while ((++tryct < 50) && !good);
+
+    if (!good) {
+        // Exhaustive scan: first pass skip cansee (unless Blind/in_mklev)
+        const xofs = nx;
+        const yofs = ny;
+        const Blind = !!(game.u?.ublind || game.u?.Blind);
+        let bl = (game.in_mklev || Blind) ? 1 : 0;
+
+        for (; bl < 2; bl++) {
+            let gp = gpflags;
+            if (!bl) gp &= ~GP_CHECKSCARY;
+            for (let dx = 0; dx < COLNO; dx++) {
+                for (let dy = 0; dy < ROWNO; dy++) {
+                    nx = ((dx + xofs) % (COLNO - 1)) + 1;
+                    ny = ((dy + yofs) % (ROWNO - 1)) + 1;
+                    if (bl === 0 && cansee(nx, ny)) continue;
+                    if (goodpos(nx, ny, mon, gp)) {
+                        cc.x = nx;
+                        cc.y = ny;
+                        return true;
+                    }
+                }
+            }
+            if (bl === 0 && (!mon || (mon.data?.mmove ?? 0))) {
+                for (let stway = game.stairs; stway; stway = stway.next) {
+                    if (stway.tolev?.dnum === game.u?.uz?.dnum && !rn2(2)) {
+                        nx = stway.sx;
+                        ny = stway.sy;
+                        break;
+                    }
+                }
+                if (goodpos(nx, ny, mon, gpflags)) {
+                    cc.x = nx;
+                    cc.y = ny;
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+    cc.x = nx;
+    cc.y = ny;
+    return true;
+}
+
+// C ref: makemon.c m_initgrp / m_initsgrp / m_initlgrp
+function m_initgrp(mtmp, x, y, n, mmflags) {
+    let cnt = rnd(n);
+    const ulevel = game.u?.ulevel ?? 1;
+    cnt = Math.trunc(cnt / (ulevel < 3 ? 4 : ulevel < 5 ? 2 : 1));
+    if (!cnt) cnt = 1;
+
+    const mm = { x, y };
+    while (cnt--) {
+        if (peace_minded(mtmp.data)) continue;
+        if (enexto_gpflags(mm, mm.x, mm.y, mtmp.data, mmflags)) {
+            const mon = makemon(mtmp.data, mm.x, mm.y, mmflags | MM_NOGRP);
+            if (mon) {
+                mon.mpeaceful = 0;
+                mon.mavenge = 0;
+                // set_malign deferred (no RNG on ordinary commons)
+            }
+        }
+    }
+}
+
+function m_initsgrp(mtmp, x, y, mmf) {
+    m_initgrp(mtmp, x, y, 3, mmf);
+}
+
+function m_initlgrp(mtmp, x, y, mmf) {
+    m_initgrp(mtmp, x, y, 10, mmf);
+}
+
 /**
- * Minimal makemon for fill_ordinary_room(makemon(NULL,...,MM_NOGRP))
- * and makedog(MM_EDOG|NO_MINVENT).
+ * makemon for fill_ordinary_room(makemon(NULL,...,MM_NOGRP)),
+ * makedog(MM_EDOG|NO_MINVENT), and maybe_generate_rnd_mon(NULL,0,0).
  * C ref: makemon.c makemon()
  */
 export function makemon(mdat, x, y, mmflags = 0) {
     let ptr = mdat;
-    if (!ptr) {
-        ptr = rndmonst();
-        if (!ptr) return null;
-    }
-
+    const anymon = !ptr;
     const allow_minvent = (mmflags & NO_MINVENT) === 0;
     const byyou = !!(game.u && x === game.u.ux && y === game.u.uy);
     const gpflags = GP_CHECKSCARY | GP_AVOID_MONPOS;
 
-    // C: byyou && !in_mklev → enexto near hero
-    if (byyou && !game.in_mklev) {
+    if (!game.level?.flags?.rndmongen && !ptr) return null;
+
+    // C: x==0 && y==0 → random location via makemon_rnd_goodpos
+    if (x === 0 && y === 0) {
+        const fakemon = ptr ? { data: ptr } : null;
+        const cc = { x: 0, y: 0 };
+        if (!makemon_rnd_goodpos(fakemon, gpflags, cc)) return null;
+        x = cc.x;
+        y = cc.y;
+    } else if (byyou && !game.in_mklev) {
         const cc = { x: 0, y: 0 };
         if (!enexto_core(cc, game.u.ux, game.u.uy, ptr, gpflags)
             && !enexto_core(cc, game.u.ux, game.u.uy, ptr, gpflags & ~GP_CHECKSCARY)) {
@@ -418,6 +514,24 @@ export function makemon(mdat, x, y, mmflags = 0) {
         }
         x = cc.x;
         y = cc.y;
+    }
+
+    // Does monster already exist at the position?
+    if (game.fmon) {
+        for (const m of game.fmon) {
+            if (m.mx === x && m.my === y) return null;
+        }
+    }
+
+    if (!ptr) {
+        // random common monster that can survive here
+        let tryct = 0;
+        do {
+            ptr = rndmonst();
+            if (!ptr) return null;
+        } while (++tryct <= 50
+            // throws_rocks(ptr) && In_sokoban deferred — not on ordinary dlvl1
+            && !goodpos(x, y, { data: ptr }, gpflags));
     }
 
     const mtmp = {
@@ -443,6 +557,7 @@ export function makemon(mdat, x, y, mmflags = 0) {
         minvis: 0,
         mtame: 0,
         m_id: 0,
+        mavenge: 0,
         mtrack: [
             { x: 0, y: 0 },
             { x: 0, y: 0 },
@@ -463,8 +578,19 @@ export function makemon(mdat, x, y, mmflags = 0) {
 
     mtmp.mpeaceful = peace_minded(ptr) ? 1 : 0;
 
-    // MM_NOGRP → skip group init
-    void mmflags;
+    // C: link onto fmon before group/invent
+    if (!game.fmon) game.fmon = [];
+    game.fmon.unshift(mtmp);
+
+    // C: anymon && !(mmflags & MM_NOGRP) → small/large group
+    if (anymon && (mmflags & MM_NOGRP) === 0) {
+        if ((ptr.geno & G_SGROUP) && rn2(2)) {
+            m_initsgrp(mtmp, mtmp.mx, mtmp.my, mmflags);
+        } else if (ptr.geno & G_LGROUP) {
+            if (rn2(3)) m_initlgrp(mtmp, mtmp.mx, mtmp.my, mmflags);
+            else m_initsgrp(mtmp, mtmp.mx, mtmp.my, mmflags);
+        }
+    }
 
     // C: allow_minvent → is_armed? m_initweap; m_initinv; domestic saddle
     if (allow_minvent) {
@@ -475,9 +601,6 @@ export function makemon(mdat, x, y, mmflags = 0) {
         }
     }
 
-    if (!game.fmon) game.fmon = [];
-    // C ref: makemon.c — mtmp->nmon = fmon; fmon = mtmp; (newest first)
-    game.fmon.unshift(mtmp);
     return mtmp;
 }
 

@@ -7,20 +7,18 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 
 ## Active
 
-- **Current unit:** seed0060 @ RNG **3105** — C `makemon_rnd_goodpos`
-  `rn2(77)` vs JS `rn2(300)` `dosounds` after `maybe_generate_rnd_mon`
-  `rn2(70)=0`.
-- **Hypothesis:** JS `maybe_generate_rnd_mon` consumes the gate `rn2(70)` but
-  stubs the `makemon(NULL,0,0)` body, so C's placement/`rndmonst` rolls never
-  run and the stream jumps to `dosounds`.
+- **Current unit:** seed0060 @ RNG **3536** — C `regen_hp` `rn2(100)` vs JS
+  `rn2(300)` `dosounds` after `maybe_generate_rnd_mon` (gate miss `rn2(70)=64`).
+- **Hypothesis:** JS `moveloop_core` never calls `regen_hp`; C runs it in the
+  once-per-turn block before `dosounds` when `uhp < uhpmax`.
 - **Falsifier / next probe:**
   ```bash
   node scripts/rng-diff.mjs sessions/seed0060-orc-rogue-kick-search.session.json
-  # Read allmain.c maybe_generate_rnd_mon + makemon(NULL,0,0) / enexto path;
-  # port enough of makemon_rnd_goodpos to emit rn2(77)/rn2(21) pairs.
+  # Read allmain.c regen_hp + moveloop once-per-turn order; port regen_hp
+  # (ulevel+ACURR(A_CON) > rn2(100)) when uhp < uhpmax.
   ```
-  Expect: first mismatch stays 3105 until makemon body runs (or proven
-  equivalent NO_MM_FLAGS early exit that still matches C rolls).
+  Expect: first mismatch stays 3536 until `regen_hp` runs (or hero is already
+  at full HP so C would skip the roll — then re-check uhp/uhpmax state).
 - **Parked deep canary:** D-0006 pet movement — do not implement until C
   state/candidate capture exists.
 - **Also deferred:** dokick monster/object/closed-door/SDOOR/furniture;
@@ -31,7 +29,9 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   `bad_rock` diagonal squeeze / boulder `ALLOW_ROCK`; Sokoban
   `m_avoid_soko_push_loc` body; `donull` `cmd_safety_prevention`;
   dog_move `mtrack` skip uses inner-loop `continue` (should skip candidate
-  like C `goto nxti`) when `distmin>5`.
+  like C `goto nxti`) when `distmin>5`; `makemon` `throws_rocks` Sokoban
+  first-try reject; `m_initinv` body; `set_malign`; Blind prop for
+  `makemon_rnd_goodpos` exhaustive pass.
 
 ## Don’t re-check
 
@@ -111,6 +111,9 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 - seed0060 idx 3016 was **not** post-kick pet cell / `mtrack` / fleeck arity:
   JS treated `.` as unknown (no turn), so wait-turn `distfleeck` never ran and
   the next kick's `exercise` `rn2(2)` sat at 3016 (D-0033).
+- seed0060 idx 3105 was **not** a dosounds arity bug: JS stubbed
+  `makemon(NULL,0,0)` after the `rn2(70)` gate; C runs `makemon_rnd_goodpos`
+  `rn1(COLNO-3,2)`/`rn2(ROWNO)` then `rndmonst`/`m_initgrp` (D-0034).
 
 ## Landmarks
 
@@ -126,5 +129,5 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 - seed1500: D-0024 → screens **40/40** PASS; CORPSE map color = `mon_color(corpsenm)`
   (orc → CLR_RED), not `objects[CORPSE].oc_color`.
 - seed1800: D-0026 → screens **26/26** PASS (legacy corner map + staircase look).
-- seed0060: D-0033 → first mismatch **3105**; runner RNG **3151**/3626;
-  cursors **41**/41; `.` → `donull` takes time + clears `kickedloc`.
+- seed0060: D-0034 → first mismatch **3536**; runner RNG **3562**/3626;
+  cursors **41**/41; `makemon(NULL,0,0)` placement+group works.

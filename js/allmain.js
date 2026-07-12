@@ -12,6 +12,7 @@ import { init_objects } from './o_init.js';
 import { init_dungeons } from './dungeon.js';
 import { setup_role_race_from_rc, u_init_misc, u_init_inventory_attrs, u_init_skills_discoveries } from './u_init.js';
 import { makedog } from './dog.js';
+import { makemon } from './makemon.js';
 import { mcalcmove, movemon, NORMAL_SPEED } from './mon.js';
 import { A_DEX, A_STR, A_CON, acurr, exercise, change_luck } from './attrib.js';
 import { nhgetch } from './input.js';
@@ -23,6 +24,7 @@ import { phase_of_the_moon, friday_13th, FULL_MOON, NEW_MOON } from './calendar.
 import { ATR_INVERSE } from './terminal.js';
 import {
     UNENCUMBERED, SLT_ENCUMBER, MOD_ENCUMBER, HVY_ENCUMBER, EXT_ENCUMBER,
+    NO_MM_FLAGS,
 } from './const.js';
 
 // C ref: allmain.c moveloop_preamble() — moon/friday + new-game RNG leaves
@@ -81,7 +83,7 @@ function u_calc_moveamt(wtcap) {
 function maybe_generate_rnd_mon() {
     // depth 1, not udemigod, not past stronghold → rn2(70)
     if (!rn2(70)) {
-        // makemon(NULL,0,0) — would create; skip body for now (roll already consumed)
+        makemon(null, 0, 0, NO_MM_FLAGS);
     }
 }
 

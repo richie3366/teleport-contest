@@ -152,3 +152,9 @@ export function enexto(cc, xx, yy, mdat) {
     return enexto_core(cc, xx, yy, mdat, GP_CHECKSCARY)
         || enexto_core(cc, xx, yy, mdat, 0);
 }
+
+// C ref: teleport.c enexto_gpflags()
+export function enexto_gpflags(cc, xx, yy, mdat, entflags) {
+    return enexto_core(cc, xx, yy, mdat, GP_CHECKSCARY | entflags)
+        || enexto_core(cc, xx, yy, mdat, entflags);
+}

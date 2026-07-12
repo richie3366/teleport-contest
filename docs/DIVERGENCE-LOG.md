@@ -55,6 +55,7 @@ Do not record a guessed cause as fixed merely because an RNG prefix moved.
 | D-0031 | fixed | dokick/kick_dumb | Ctrl-D empty-space kick → `exercise(A_DEX,FALSE)` before monmove |
 | D-0032 | fixed | dogmove/dokick | seed0060 @ 2997: missing m_avoid_kicked_loc after kick |
 | D-0033 | fixed | cmd/donull | seed0060 @ 3016: `.` wait missing → skipped turns |
+| D-0034 | fixed | makemon/rnd | seed0060 @ 3105: stubbed `makemon(NULL,0,0)` skipped placement RNG |
 
 D-0001 through D-0005 predate the strict-length/cohort runbook. Their focused
 causes are preserved, but generic "green sessions held" is historical evidence,
@@ -776,3 +777,29 @@ cohort gates if those functions are touched again.
   timed command key (`.` wait) was dropped as unknown.
 - **Next:** peel @ **3105** — port `maybe_generate_rnd_mon`’s
   `makemon(NULL,0,0)` path (`makemon_rnd_goodpos` / `rndmonst`).
+
+## D-0034 — seed0060 makemon(NULL,0,0) / makemon_rnd_goodpos
+
+- **Status:** fixed (verified 2026-07-12).
+- **Observed:** seed0060 first mismatch @ **3105**: C `rn2(77)`
+  `makemon_rnd_goodpos` vs JS `rn2(300)` `dosounds`. Matched through
+  `maybe_generate_rnd_mon` gate (3104 = `rn2(70)=0`).
+- **Cause/evidence:** JS consumed the gate roll then stubbed the body.
+  C calls `makemon(NULL,0,0)` → `makemon_rnd_goodpos` (`rn1(COLNO-3,2)` /
+  `rn2(ROWNO)`, reject `cansee` when `!in_mklev`) → `rndmonst` → create →
+  `G_SGROUP`/`m_initgrp` → invent. Also fixed wrong `MM_NOGRP=2` in
+  `monsters.js` (C/`const.js` is `0x2000`) so group suppression matches.
+- **C locus:** `allmain.c:maybe_generate_rnd_mon`; `makemon.c:makemon`,
+  `makemon_rnd_goodpos`, `m_initgrp`; `teleport.c:enexto_gpflags`.
+- **Change:** `js/makemon.js` placement-before-`rndmonst`,
+  `makemon_rnd_goodpos`, `m_initgrp`/`G_SGROUP`/`G_LGROUP`, early `fmon`
+  link; `js/teleport.js` `enexto_gpflags`; `js/allmain.js` real
+  `makemon(null,0,0)`; `js/monsters.js` `G_SGROUP`/`G_LGROUP`, drop fake
+  `MM_NOGRP`.
+- **Verification:** rng-diff first mismatch **3105 → 3536**; seed0060
+  runner **3151 → 3562**/3626; green + seed1500 + seed1800 PASS + strict;
+  full suite **4/44**, RNG **28497**/792838, screens **179**/11405.
+- **Lesson:** for `makemon(NULL,0,0)`, C picks coordinates *before*
+  `rndmonst`; stubbing after the spawn gate is not RNG-equivalent.
+- **Next:** peel @ **3536** — port `regen_hp` in the once-per-turn block
+  before `dosounds`.

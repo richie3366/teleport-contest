@@ -53,6 +53,8 @@ export const G_NOHELL = 0x0800;
 export const G_HELL = 0x0400;
 export const G_NOGEN = 0x0200;
 export const G_NOCORPSE = 0x0100;
+export const G_SGROUP = 0x0080; /* appear in small groups normally */
+export const G_LGROUP = 0x0040; /* appear in large groups normally */
 export const G_FREQ = 0x0007;
 
 export const M2_MALE = 0x00010000;
@@ -78,7 +80,6 @@ export const M1_CARNIVORE = 0x20000000;
 export const M1_HERBIVORE = 0x40000000;
 export const M1_OMNIVORE = 0x60000000;
 
-export const MM_NOGRP = 2;
 export const CORPSTAT_INIT = 8;
 
 export function mons(mndx) {
