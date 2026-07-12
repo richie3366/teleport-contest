@@ -19,6 +19,18 @@ Use this shape:
 
 ---
 
+## 2026-07-13 00:25 — seed0060 idx 33 disco OBJ_DESCR / obj_typename (D-0040)
+- C locus: `objclass.h:OBJ_DESCR`/`OBJ_NAME`; `objects.c` DESCR_INIT;
+  `o_init.c:interesting_to_discover`/`dodiscovered`; `objnam.c:obj_typename`
+- Result: **verified faithful change** — orc `knows_object` entries were
+  present but filtered by incomplete appearance map. Extracted
+  `objectDescrs`/`objectNameStrs`; disco uses `obj_typename`.
+- Verification: seed0060 Scr **39**/41 (idx 33 OK; 35–36 ^X remain),
+  RNG **3626**/3626; green + seed1500/1800 PASS + strict; full
+  **4/44**, screens **218**/11405 (+1), RNG **28511**/792838.
+- Next: `node frozen/ps_test_runner.mjs sessions/seed0060-orc-rogue-kick-search.session.json`
+  — diagnose screen idx 35 (^X autopickup / attr limits / weapon naming).
+
 ## 2026-07-13 00:20 — seed0060 idx 22 orc infravision newsym (D-0039)
 - C locus: `display.h:_see_with_infrared`/`_mon_visible`; `display.c:newsym`
   (!cansee); `monmove.c:postmov`; `monflag.h` M3_INFRA*; race via

@@ -16,6 +16,7 @@ import {
     WAND_CLASS,
     COIN_CLASS,
     objectNames,
+    objectDescrs,
 } from './objects.js';
 import { init_attr, vary_init_attr, A_STR, A_CON, newhp, newpw } from './attrib.js';
 import { roles, races, aligns, findRole, findRace, findAlign } from './roles.js';
@@ -309,14 +310,11 @@ function is_missile(obj) {
 }
 
 function has_descr(otyp) {
-    // C: OBJ_DESCR(objects[otyp]) != NULL
-    const n = objectNames[otyp] || '';
-    if (n.startsWith('SCR_') || n.startsWith('POT_')
-        || n.startsWith('RIN_') || n.startsWith('WAN_') || n.startsWith('SPE_'))
-        return true;
-    return n === 'ELVEN_DAGGER' || n === 'ORCISH_DAGGER'
-        || n === 'SACK' || n === 'OILSKIN_SACK'
-        || n === 'BAG_OF_HOLDING' || n === 'BAG_OF_TRICKS';
+    // C: OBJ_DESCR(objects[otyp]) != NULL — uses oc_descr_idx (pre-shuffle
+    // for starting invent this equals otyp's own descr slot).
+    const oc = game.objects?.[otyp];
+    const idx = oc?.oc_descr_idx ?? otyp;
+    return objectDescrs[idx] != null;
 }
 
 // C ref: u_init.c knows_object()

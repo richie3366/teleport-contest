@@ -7,16 +7,19 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 
 ## Active
 
-- **Current unit:** seed0060 — RNG **3626/3626**; screens **38/41**
-  (D-0039; idx 0–32/34 match), cursors **41/41**. First fail idx 33.
-- **Hypothesis:** idx 33 is discovery-menu class layout (not map); idx
-  35–36 are ^X attributes (“nof…” overlay + wisdom limit text).
+- **Current unit:** seed0060 — RNG **3626/3626**; screens **39/41**
+  (D-0040; idx 0–34 match), cursors **41/41**. First fail idx 35.
+- **Hypothesis:** idx 35–36 are ^X enlightenment polish — autopickup
+  line (`on for '$' plus thrown` vs `off`), race attr limits
+  (`(current; limit:…)`), and weapon_descr/skill using plain
+  `short sword` not `orcish short sword`.
 - **Falsifier / next probe:**
   ```bash
   node frozen/ps_test_runner.mjs sessions/seed0060-orc-rogue-kick-search.session.json
-  # Diff JS vs C screen[33]: disco class columns / spacing.
+  # Diff JS vs C screen[35]/ Autopickup / Characteristics limit text.
+  # Diff screen[36]: wisdom/charisma limits + wield/skill naming.
   ```
-  Expect: cellsOnly stays 38 until disco/^X UI is ported.
+  Expect: cellsOnly stays 39 until insight.c enlightenment lines match.
 - **Parked deep canary:** D-0006 pet movement — do not implement until C
   state/candidate capture exists.
 - **Also deferred:** `make_corpse` body after `corpse_chance` (dragon/
@@ -36,7 +39,8 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   `makemon_rnd_goodpos` exhaustive pass; MLET_CH letter table beyond
   early dlvl subset; telepathy/`Detect_monsters`/`MATCH_WARN_OF_MON`
   in `newsym` (!cansee); full `set_uasmon`/uprops for Infravision;
-  disco/enlightenment screen polish (idx 33/35–36).
+  ^X enlightenment polish (idx 35–36); `obj_typename` armor
+  pair-of/set-of + GemStone suffix.
 
 ## Don’t re-check
 
@@ -138,6 +142,11 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   `couldsee` true — orc Infravision + kitten INFRAVISIBLE must draw via
   `see_with_infrared` (D-0039). Also `postmov` needed final newsym of
   new cell.
+- seed0060 idx 33 was **not** missing disco entries from `knows_object`:
+  orc racial knowledge was registered; `interesting_to_discover` filtered
+  them because JS lacked `OBJ_DESCR` (only a tiny FIXED_DESCRS map).
+  Fix is extracted `objectDescrs`/`objectNameStrs` + `obj_typename`
+  (D-0040). Do not add per-item appearance hardcodes.
 
 ## Landmarks
 
@@ -153,5 +162,5 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 - seed1500: D-0024 → screens **40/40** PASS; CORPSE map color = `mon_color(corpsenm)`
   (orc → CLR_RED), not `objects[CORPSE].oc_color`.
 - seed1800: D-0026 → screens **26/26** PASS (legacy corner map + staircase look).
-- seed0060: D-0039 → screens **38**/41 (idx 0–32/34); RNG **3626**/3626;
-  cursors **41**/41. Next fail idx 33 (disco UI).
+- seed0060: D-0040 → screens **39**/41 (idx 0–34); RNG **3626**/3626;
+  cursors **41**/41. Next fail idx 35 (^X enlightenment).

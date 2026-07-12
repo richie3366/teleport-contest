@@ -164,6 +164,56 @@ int main(void) {
         print("count mismatch", len(rows_raw), len(enum_names), enums["NUM_OBJECTS"], file=sys.stderr)
         return 1
 
+    # C ref: objects.c OBJECTS_DESCR_INIT → obj_descr[].oc_name / oc_descr
+    descr_c = TMP / "print_descr.c"
+    descr_c.write_text(
+        r"""
+#include <stdio.h>
+enum objects_nums {
+#define OBJECTS_ENUM
+#include "objects.h"
+#undef OBJECTS_ENUM
+    NUM_OBJECTS
+};
+struct objdescr { const char *oc_name; const char *oc_descr; };
+static const struct objdescr obj_descr_init[NUM_OBJECTS + 1] = {
+#define OBJECTS_DESCR_INIT
+#include "objects.h"
+#undef OBJECTS_DESCR_INIT
+};
+int main(void) {
+    for (int i = 0; i < NUM_OBJECTS; i++) {
+        const char *n = obj_descr_init[i].oc_name;
+        const char *d = obj_descr_init[i].oc_descr;
+        printf("%d\t%s\t%s\n", i,
+               n ? n : "",
+               d ? d : "");
+    }
+    return 0;
+}
+"""
+    )
+    r = subprocess.run(
+        ["clang", "-std=c11", "-I", str(INC), "-Wno-everything",
+         "-o", str(TMP / "print_descr"), str(descr_c)],
+        capture_output=True,
+        text=True,
+    )
+    if r.returncode:
+        print(r.stderr, file=sys.stderr)
+        return 1
+    descrs = [None] * enums["NUM_OBJECTS"]
+    name_strs = [None] * enums["NUM_OBJECTS"]
+    for line in subprocess.check_output([str(TMP / "print_descr")], text=True).splitlines():
+        if not line.strip():
+            continue
+        idx_s, name, descr = line.split("\t", 2)
+        i = int(idx_s)
+        if name:
+            name_strs[i] = name
+        if descr:
+            descrs[i] = descr
+
     lines = [
         "// AUTO-GENERATED from nethack-c/upstream/include/objects.h — do not edit.",
         "// Regenerate: python3 scripts/extract-objects.py",
@@ -197,6 +247,9 @@ int main(void) {
         lines.append(f"export const {c} = {i};")
     lines += ["export const NODIR = 1;", "export const IMMEDIATE = 2;", "export const RAY = 3;"]
     lines.append("export const objectNames = " + json.dumps(enum_names) + ";")
+    # C: obj_descr[].oc_name (OBJ_NAME) and oc_descr (OBJ_DESCR).
+    lines.append("export const objectNameStrs = " + json.dumps(name_strs) + ";")
+    lines.append("export const objectDescrs = " + json.dumps(descrs) + ";")
     rows = [
         [r["class"], r["name_known"], r["magic"], r["unique"], r["tough"],
          r["dir"], r["material"], r["color"], r["prob"], r["weight"]]

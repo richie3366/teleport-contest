@@ -61,6 +61,7 @@ Do not record a guessed cause as fixed merely because an RNG prefix moved.
 | D-0037 | fixed | doname COIN + mondied newsym | "a gold piece" + death `newsym`; Scr 5→6 |
 | D-0038 | fixed | cansee pline + wall_angle + `>` color | seed0060 Scr 6→37 (silent pickup; unfinished corner; dnstair) |
 | D-0039 | fixed | newsym infrared + postmov | orc Infravision shows pet in dark; Scr 37→38 |
+| D-0040 | fixed | disco OBJ_DESCR + obj_typename | extracted descr/name strs; Scr 38→39 |
 
 D-0001 through D-0005 predate the strict-length/cohort runbook. Their focused
 causes are preserved, but generic "green sessions held" is historical evidence,
@@ -944,3 +945,31 @@ cohort gates if those functions are touched again.
   do not treat `!cansee` as “draw terrain only” when sensing macros
   exist. Extract full M3 flags before inventing race hardcodes.
 - **Next:** seed0060 idx 33 disco class layout (then ^X idx 35–36).
+
+## D-0040 — seed0060 idx 33 disco OBJ_DESCR / obj_typename
+
+- **Status:** fixed (verified 2026-07-13).
+- **Observed:** seed0060 RNG **3626**/3626, screens **38**/41. idx 33
+  disco menu showed only elven/orcish dagger + potion + sack; C listed
+  full orc racial knowledge (short sword, arrow, bow, spear, armor).
+- **Cause/evidence:** `knows_object` already registered the orcish
+  types. `interesting_to_discover` requires `OBJ_DESCR != NULL`; JS
+  only knew a tiny FIXED_DESCRS / scroll-potion-wand map, so most
+  orcish weapons/armor were filtered out. After extracting descrs,
+  naming still mismatched (`uruk hai` / bare `sickness`) until
+  `obj_typename` used `OBJ_NAME` + class prefixes.
+- **C locus:** `objclass.h:OBJ_DESCR`/`OBJ_NAME`; `objects.c`
+  `OBJECTS_DESCR_INIT`; `o_init.c:interesting_to_discover` /
+  `dodiscovered`; `objnam.c:obj_typename`.
+- **Change:** `scripts/extract-objects.py` emits `objectDescrs` +
+  `objectNameStrs`; `invent.js` disco uses real descr gate +
+  `obj_typename`; `u_init.js:has_descr` uses `objectDescrs`.
+- **Verification:** seed0060 Scr **39**/41 (idx 33 cleared; 35–36
+  ^X remain), RNG **3626**/3626; green + seed1500/1800 PASS +
+  strict; full **4/44**, screens **218**/11405 (+1), RNG
+  **28511**/792838.
+- **Lesson:** discovery UI needs the full `obj_descr[]` table, not
+  seed-shaped appearance maps. Prefer extractor fields over FIXED_*
+  hand lists.
+- **Next:** seed0060 idx 35–36 enlightenment (autopickup, attr
+  limits, weapon_descr skill naming).

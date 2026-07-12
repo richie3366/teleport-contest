@@ -6,7 +6,7 @@
 import { game } from './gstate.js';
 import { nhgetch } from './input.js';
 import { flush_screen, pline, docrt, status_line_2 } from './display.js';
-import { xprname, an, vtense, doname } from './objnam.js';
+import { xprname, an, vtense, doname, obj_typename } from './objnam.js';
 import {
     WEAPON_CLASS,
     ARMOR_CLASS,
@@ -24,6 +24,7 @@ import {
     BALL_CLASS,
     CHAIN_CLASS,
     objectNames,
+    objectDescrs,
 } from './objects.js';
 import { ATR_INVERSE, NO_COLOR } from './terminal.js';
 import { acurr, A_STR, A_CON } from './attrib.js';
@@ -113,86 +114,16 @@ const CLASS_NAMES = {
 
 const GOLD_SYM = '$';
 
-// Appearance strings from objects.h SCROLL() second arg + XTRA_SCROLL_LABEL,
-// keyed by otyp (pre-shuffle); appearance_of() remaps via oc_descr_idx.
-const SCROLL_DESCS = (() => {
-    const texts = [
-        // Real scrolls (enchant armor … stinking cloud)
-        'ZELGO MER', 'JUYED AWK YACC', 'NR 9', 'XIXAXA XOXAXA XUXAXA',
-        'PRATYAVAYAH', 'DAIYEN FOOELS', 'LEP GEX VEN ZEA', 'PRIRUTSENIE',
-        'ELBIB YLOH', 'VERR YED HORRE', 'VENZAR BORGAVVE', 'THARR',
-        'YUM YUM', 'KERNOD WEL', 'ELAM EBOW', 'DUAM XNAHT',
-        'ANDOVA BEGARIN', 'KIRJE', 'VE FORBRYDERNE', 'HACKEM MUCHE',
-        'VELOX NEB',
-        // XTRA_SCROLL_LABEL
-        'FOOBIE BLETCH', 'TEMOV', 'GARVEN DEH', 'READ ME',
-        'ETAOIN SHRDLU', 'LOREM IPSUM', 'FNORD', 'KO BATE',
-        'ABRA KA DABRA', 'ASHPD SODALG', 'ZLORFIK', 'GNIK SISI VLE',
-        'HAPAX LEGOMENON', 'EIRIS SAZUN IDISI', 'PHOL ENDE WODAN', 'GHOTI',
-        'MAPIRO MAHAMA DIROMAT', 'VAS CORP BET MANI', 'XOR OTA',
-        'STRC PRST SKRZ KRK',
-    ];
-    const first = objectNames.indexOf('SCR_ENCHANT_ARMOR');
-    const m = {};
-    texts.forEach((t, i) => { m[first + i] = t; });
-    return m;
-})();
-
-const POTION_DESCS = (() => {
-    const texts = [
-        'ruby', 'pink', 'orange', 'yellow', 'emerald', 'dark green', 'cyan',
-        'sky blue', 'brilliant blue', 'magenta', 'purple-red', 'puce',
-        'milky', 'swirly', 'bubbly', 'smoky', 'cloudy', 'effervescent',
-        'black', 'golden', 'brown', 'fizzy', 'dark', 'white', 'murky', 'clear',
-    ];
-    const first = objectNames.indexOf('POT_GAIN_ABILITY');
-    const m = {};
-    texts.forEach((t, i) => { m[first + i] = t; });
-    return m;
-})();
-
-const WAND_DESCS = (() => {
-    // C ref: objects.h WAND() typ strings in enum order (incl. extras)
-    const texts = [
-        'glass', 'balsa', 'crystal', 'maple', 'pine', 'redwood', 'oak', 'ebony',
-        'marble', 'tin', 'brass', 'copper', 'silver', 'platinum', 'iridium',
-        'zinc', 'aluminum', 'uranium', 'iron', 'steel', 'hexagonal', 'short',
-        'runed', 'long', 'curved', 'forked', 'spiked', 'jeweled',
-    ];
-    const first = objectNames.indexOf('WAN_LIGHT');
-    const m = {};
-    texts.forEach((t, i) => { m[first + i] = t; });
-    return m;
-})();
-
-/** C ref: objects.h fixed description strings for disco display. */
-const FIXED_DESCRS = {
-    ELVEN_DAGGER: 'runed dagger',
-    ORCISH_DAGGER: 'crude dagger',
-    SACK: 'bag',
-    OILSKIN_SACK: 'bag',
-    BAG_OF_HOLDING: 'bag',
-    BAG_OF_TRICKS: 'bag',
-};
-
+/**
+ * C ref: objclass.h OBJ_DESCR(objects[otyp]) —
+ * obj_descr[objects[otyp].oc_descr_idx].oc_descr (post-shuffle for
+ * potions/scrolls/wands).
+ */
 function appearance_of(otyp) {
-    const idx = game.objects?.[otyp]?.oc_descr_idx ?? otyp;
-    const shuffled = SCROLL_DESCS[idx] || POTION_DESCS[idx] || WAND_DESCS[idx];
-    if (shuffled) return shuffled;
-    // Fixed OBJ_DESCR strings (not shuffled) — C interesting_to_discover gate
-    const n = objectNames[otyp] || '';
-    return FIXED_DESCRS[n] || null;
-}
-
-function pretty_known_name(otyp) {
-    const n = objectNames[otyp] || '';
-    if (n.startsWith('SCR_'))
-        return 'scroll of ' + n.slice(4).toLowerCase().replace(/_/g, ' ');
-    if (n.startsWith('POT_'))
-        return 'potion of ' + n.slice(4).toLowerCase().replace(/_/g, ' ');
-    if (n.startsWith('WAN_'))
-        return 'wand of ' + n.slice(4).toLowerCase().replace(/_/g, ' ');
-    return n.toLowerCase().replace(/_/g, ' ');
+    const oc = game.objects?.[otyp];
+    if (!oc) return null;
+    const idx = oc.oc_descr_idx ?? otyp;
+    return objectDescrs[idx] ?? null;
 }
 
 /** C ref: o_init.c interesting_to_discover — needs OBJ_DESCR (or uname). */
@@ -446,10 +377,8 @@ export async function dodiscovered() {
         for (const otyp of found) {
             const enc = !!game.objects?.[otyp]?.oc_encountered;
             const prefix = enc ? '  ' : '* ';
-            const app = appearance_of(otyp);
-            const nm = pretty_known_name(otyp);
-            const text = app ? `${prefix}${nm} (${app})` : `${prefix}${nm}`;
-            lines.push({ text, attr: 0 });
+            // C: disco_append_typename → obj_typename (includes " (descr)")
+            lines.push({ text: prefix + obj_typename(otyp), attr: 0 });
         }
     }
     // Pad so --More-- lands on row 23 like C tty text window.

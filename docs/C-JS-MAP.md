@@ -40,10 +40,10 @@ When changing a subsystem:
 | `src/attrib.c` (attrs) | `js/attrib.js` | partial | Initial Tourist/Rogue attribute paths; `change_luck` clamp; `u_init_carry_attr_boost` still stubbed |
 | `src/allmain.c:welcome` / `role.c:Hello` | `js/allmain.js` | partial | New-game welcome from Hello+align+gender+race+role; `flush_topl_more` before tutorial; restore path deferred |
 | `src/allmain.c:moveloop_preamble` | `js/allmain.js` + `js/calendar.js` | partial | Moon/friday plines + `change_luck`; pickup/encumber/engraving deferred |
-| `src/o_init.c` | `js/o_init.js` | partial | Green-session shuffle/discovery evidence; `discover_object` encounter flag + `interesting_to_discover` (D-0024); not audited across all classes |
+| `src/o_init.c` | `js/o_init.js` | partial | Green-session shuffle/discovery evidence; `discover_object` encounter flag + `interesting_to_discover` via extracted `objectDescrs` (D-0040); not audited across all classes |
 | `src/dungeon.c`, `dat/dungeon.lua` | `js/dungeon.js`, generated dungeon data | partial | Topology subset; not a replacement for executing upstream Lua |
 | tutorial / quest pager | `js/allmain.js`, `js/questpgr.js`, `js/invent.js` | partial | Legacy `%d`/`%G` + corner NHW_MENU without `clearScreen` (D-0026); tutorial corner (D-0023); invent corner (D-0024); yes-path / fullscreen legacy deferred |
-| `src/insight.c` enlightenment | `js/invent.js` | partial | Pantheon/wallet/handedness + plname capitalize + wield/skill starter lines (D-0024); many sections deferred |
+| `src/insight.c` enlightenment | `js/invent.js` | partial | Pantheon/wallet/handedness + plname capitalize + wield/skill starter lines (D-0024); autopickup / race attr limits / plain weapon_descr deferred (seed0060 idx 35–36) |
 | `src/calendar.c` / botl flags | `js/calendar.js`, `js/display.js` | partial | Fixed-datetime moon/friday; botl `showexp`/`time` + plname capitalize |
 
 **Shared blocker:** **29/44 sessions** throw `u_init_role: role not ported`
@@ -65,14 +65,15 @@ screens **5/41** (idx 0–4). Gold `doname` + `mondied`/`newsym` (D-0037)
 → screens **6/41** (idx 0–5). cansee invent pline + `set_wall_state`/
 `wall_angle` + downstairs `>` NO_COLOR (D-0038) → screens **37/41**.
 Orc infravision `newsym` + `postmov` newsym (D-0039) → screens
-**38/41**. Next peel: seed0060 idx **33** (disco layout; then ^X).
+**38/41**. Disco `OBJ_DESCR`/`obj_typename` (D-0040) → screens
+**39/41**. Next peel: seed0060 idx **35** (^X enlightenment; then 36).
 `make_corpse` body and `m_initinv` body still absent (named omissions).
 
 ## Data and world generation
 
 | C source | JS | Status | Evidence / known omissions |
 |---|---|---|---|
-| `include/objects.h` | extractor + `js/generated/objects_data.js` | partial | Reproducible table, but behavior remains in partial object modules; **no `oc_skill`/`oc_charged`** yet (`is_multigen`/`is_poisonable`/doname charged name-list stand-ins) |
+| `include/objects.h` | extractor + `js/generated/objects_data.js` | partial | Reproducible table; **`objectDescrs`/`objectNameStrs`** (D-0040 OBJ_DESCR/NAME); still no `oc_skill`/`oc_charged` (`is_multigen`/`is_poisonable`/doname charged name-list stand-ins) |
 | `include/monsters.h` | extractor + `js/generated/monsters_data.js` | partial | `has_at_weaps` from AT_WEAP; `mflags1` extracted (D-0020 `nohands`); **`mcolors` extracted** (D-0022 corpse `mon_color`); **`mflags3` extracted** (D-0039 INFRAVISION/VISIBLE); poisonous/acidic/carnivore predicates still underused; full mattk still underused |
 | rumor sources | extractor + generated rumors | partial | Fortune path exercised |
 | `src/mkobj.c` | `js/mkobj.js` | partial | Creation/merge/weight subsets; `add_to_buried` (D-0014); `start_corpse_timeout` + `mkcorpstat` `special_corpse` restart (D-0011); `is_poisonable`≡missiles (D-0012); starting SACK/`mkbox_cnts` (D-0013); **`splitobj`** quan/owt + floor chain + `next_ident` (D-0028); **`obj_extract_self` MINVENT** (D-0029); omit `nextoid` shop-price search, unpaid/`splitbill`, timers/light/`copy_oextra`, invent/contained extract, `zombie_form`/zombify, CORPSE `undead_to_corpse`+`G_NOCORPSE` retry, timer fire, `permapoisoned` |
@@ -94,12 +95,12 @@ Orc infravision `newsym` + `postmov` newsym (D-0039) → screens
 | `src/display.c` `newsym` / map | `js/display.js` | partial | Floor `vobj_at` + class symbols + CORPSE `mon_color` (D-0022); **live `mon_glyph` uses `mcolors[mnum]`** (D-0036; newt yellow); **`wall_angle` + seenv** (D-0038); upstairs `<` yellow / downstairs `>` NO_COLOR (D-0038); **`see_with_infrared`/`mon_visible` when `!cansee`** (D-0039; race Infravision via `mons[urace]`); omit traps/engravings/hallucination/`see_objects`; telepathy/`Detect_monsters`/`MATCH_WARN_OF_MON`; full `set_uasmon`/uprops; MLET_CH letter subset only |
 | `src/invent.c` `look_here` / `dfeature_at` | `js/invent.js`, `js/mklev.js` | partial | Stairs via `stairs_description` + Dlvl1 `u_traversed` (D-0026); doors/fountain/sink stubs; Blind feel, engraving, multi-object menu, `doname_with_price` deferred |
 | `src/pline.c` / tty message behavior | `js/display.js`, `js/input.js` | partial | `--More--` works for green paths + getobj re-prompt (D-0025); full message/window policy incomplete |
-| `src/invent.c` | `js/invent.js` | partial | Corner NHW_MENU invent (D-0024); disco inv_order + `*`/encounter; fullscreen invent path deferred |
+| `src/invent.c` | `js/invent.js` | partial | Corner NHW_MENU invent (D-0024); disco inv_order + `*`/encounter + `OBJ_DESCR`/`obj_typename` (D-0040); fullscreen invent path deferred |
 | `src/objnam.c` | `js/objnam.js` | partial | doname empty/wield/swapwep/potion/implicit-uncursed (D-0024); CORPSE `corpsenm` (D-0019); **COIN quan=1 `"a gold piece"`** (D-0037); full erosion/artifact/Japanese deferred |
 | `src/eat.c` | `js/eat.js` | partial | Cookie/reject subset; getobj still single-shot (no missing-letter `continue`); ordinary eating/nutrition incomplete |
 | `src/dothrow.c`, `src/zap.c:bhit` | `js/dothrow.js` | partial | Dart split/flight/landing; `throw_ok` SUGGEST coins+weapons + getobj loop (D-0025); **`throw_gold` body absent**; combat/object interactions incomplete |
 | `src/mon.c`, `src/monmove.c` | `js/mon.js`, `js/monmove.js` | partial | Early ordinary movement; pet `postmov`→`mintrap` (D-0018); mfndpos `ALLOW_TRAPS` (D-0019); `OPENDOOR` gated on `nohands`/`verysmall` (D-0020); **`m_avoid_kicked_loc`** in `mon.js` (D-0032; not yet wired into hostile `m_move`); **`postmov` final `newsym(mx,my)`** (D-0039); non-pet postmov / `mon_knows_traps` / `bad_rock` squeeze / Sokoban push-avoid body deferred |
-| `src/dog.c`, `src/dogmove.c` (+ `steal.c` relobj) | `js/dog.js`, `js/dogmove.js` | partial | Starting-pet subset; CORPSE age→POISON + `cursed_object_at` in `dog_goal` (D-0015); `dog_move` uncursedcnt/`cursemsg` pline (D-0017/D-0019); `m_cansee` in `find_targ` (D-0018); `dog_invent` `mpickobj`+drop RNG + tseen `rn2(40)` (D-0019); `splitobj` when `carryamt != quan` (D-0028); **pet `relobj`/`mdrop_obj`** (D-0029); **`in_masters_sight = couldsee`** (D-0030); **`m_avoid_kicked_loc`** (D-0032); **drop/pickup plines gated on `cansee`** (D-0038); omit food `newdogpos` eat, gettrack/FARAWAY when `!in_masters_sight`, `flooreffects`/`stackobj` merge, vault-guard gold, worn/saddle/shop extrinsics; **`mtrack` skip uses inner `continue` (should be candidate skip / C `goto nxti`)**; seed1500 RNG complete (D-0021); seed0060 Scr **38**/41 (idx 33 next) |
+| `src/dog.c`, `src/dogmove.c` (+ `steal.c` relobj) | `js/dog.js`, `js/dogmove.js` | partial | Starting-pet subset; CORPSE age→POISON + `cursed_object_at` in `dog_goal` (D-0015); `dog_move` uncursedcnt/`cursemsg` pline (D-0017/D-0019); `m_cansee` in `find_targ` (D-0018); `dog_invent` `mpickobj`+drop RNG + tseen `rn2(40)` (D-0019); `splitobj` when `carryamt != quan` (D-0028); **pet `relobj`/`mdrop_obj`** (D-0029); **`in_masters_sight = couldsee`** (D-0030); **`m_avoid_kicked_loc`** (D-0032); **drop/pickup plines gated on `cansee`** (D-0038); omit food `newdogpos` eat, gettrack/FARAWAY when `!in_masters_sight`, `flooreffects`/`stackobj` merge, vault-guard gold, worn/saddle/shop extrinsics; **`mtrack` skip uses inner `continue` (should be candidate skip / C `goto nxti`)**; seed1500 RNG complete (D-0021); seed0060 Scr **39**/41 (idx 35 next) |
 | `src/uhitm.c`, `src/mhitm.c` | `js/uhitm.js`, `js/mhitm.js` | partial | Narrow pet combat paths; **`mondead`/`newsym` on kill** (D-0037); **`make_corpse` body deferred** (still burns `corpse_chance`); general combat absent |
 | `src/teleport.c` | `js/teleport.js` | partial | Placement helpers + **`enexto_gpflags`** (D-0034); not complete teleport system |
 
@@ -116,7 +117,7 @@ These are not protected merely because the two green sessions exercise them:
 | `js/jsmain.js` capture hook | Detects Count/`--More--` text and repairs cursor at capture time; cursor semantics belong in input/display code |
 | `js/display.js` message paths | Contains scenario-derived cursor/layout special cases rather than complete window/message policy |
 | `js/eat.js` | Allowed-letter formatting, menu fallback, and eating are narrow subsets |
-| `js/invent.js` | Corner invent + disco `*`/encounter + ^X wield subset (D-0024); fullscreen invent and full enlightenment deferred |
+| `js/invent.js` | Corner invent + disco `*`/encounter + `obj_typename` (D-0040); ^X wield subset (D-0024); fullscreen invent and full enlightenment deferred |
 | `js/u_init.js` / `js/roles.js` | Rogue/Tourist + human/orc(/elf/dwarf/gnome) race kits (D-0027); **race `hpadv`/`enadv` table** (D-0036); other roles throw; `oc_armcat`/`oc_skill` not in objects extractor (suit/dagger filters are named-otyp stand-ins); skills tables deferred |
 | `js/allmain.js` | Welcome/HP/align no longer Tourist-literal; **`regen_hp` once-per-turn** (D-0035); tutorial, hunger, sound, and attribute checks still have deferred branches |
 | `js/mon.js` / `js/monmove.js` / `js/dogmove.js` | Monster flags, movement predicates, targeting, carrying, and combat have named stubs/defaults |
