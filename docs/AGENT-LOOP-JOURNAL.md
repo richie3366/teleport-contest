@@ -19,6 +19,20 @@ Use this shape:
 
 ---
 
+## 2026-07-13 00:55 — Samurai u_init_role (D-0045)
+- C locus: `u_init.c` Samurai/`Skill_S`/`knows_class`/`ini_inv_use_obj`
+  ammo; `objnam.c` `Japanese_item_name`; `role.c` Samurai attrs
+- Result: **verified faithful change** — Samurai kit + Blindfold +
+  weapon/armor `knows_class` + Japanese pre-discovery + `is_ammo`
+  quiver for YA. Role throws **13→10**/44.
+- Verification: green + seed1500/1800/0060 PASS + strict; full **5/44**,
+  screens **245**/11405, RNG **65208**/792838; seed0700 prefix
+  **1718** (`mkclass_aligned`); seed0017 **2672** / seed0107 **2652**
+  (`u_calc_moveamt`).
+- Next: Valkyrie/Healer/Ranger `u_init_role` (2 throws each; Healer
+  also seed0030), or peel shared `mkclass_aligned` / seed2200
+  `choose_trapnote` / seed0501 `wipeout_text`.
+
 ## 2026-07-13 00:50 — Knight u_init_role (D-0044)
 - C locus: `u_init.c` Knight/`Skill_K`/`knows_class`/`ini_inv_use_obj`
   helm/gloves; `role.c` Knight attrs; `youprop.h` `HJumping`

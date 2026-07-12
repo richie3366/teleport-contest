@@ -257,9 +257,43 @@ export function xprname(obj, let_) {
     return `${ilet} - ${doname(obj)}`;
 }
 
+// C ref: objnam.c Japanese_items[] / Japanese_item_name()
+const JAPANESE_ITEMS = [
+    ['SHORT_SWORD', 'wakizashi'],
+    ['BROADSWORD', 'ninja-to'],
+    ['FLAIL', 'nunchaku'],
+    ['GLAIVE', 'naginata'],
+    ['LOCK_PICK', 'osaku'],
+    ['WOODEN_HARP', 'koto'],
+    ['MAGIC_HARP', 'magic koto'],
+    ['KNIFE', 'shito'],
+    ['PLATE_MAIL', 'tanko'],
+    ['HELMET', 'kabuto'],
+    ['LEATHER_GLOVES', 'yugake'],
+    ['FOOD_RATION', 'gunyoki'],
+    ['POT_BOOZE', 'sake'],
+];
+let _japaneseByOtyp = null;
+function japaneseByOtyp() {
+    if (_japaneseByOtyp) return _japaneseByOtyp;
+    _japaneseByOtyp = new Map();
+    for (const [name, jn] of JAPANESE_ITEMS) {
+        const otyp = objectNames.indexOf(name);
+        if (otyp >= 0) _japaneseByOtyp.set(otyp, jn);
+    }
+    return _japaneseByOtyp;
+}
+
+/** C ref: objnam.c Japanese_item_name — null ordinaryname → truthy iff mapped. */
+export function Japanese_item_name(otyp, ordinaryname = null) {
+    const jn = japaneseByOtyp().get(otyp);
+    if (jn) return jn;
+    return ordinaryname;
+}
+
 /**
  * C ref: objnam.c obj_typename(otyp) — disco / identify class names.
- * Covers known + description append; Samurai Japanese names deferred.
+ * Covers known + description append; display-path Japanese names deferred.
  */
 export function obj_typename(otyp) {
     const ocl = game.objects?.[otyp];

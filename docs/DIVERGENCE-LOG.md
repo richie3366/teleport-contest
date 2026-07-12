@@ -1098,3 +1098,37 @@ cohort gates if those functions are touched again.
   omission and block correct AC.
 - **Next:** Samurai `u_init_role` (4 throws), or seed0103
   `mkclass_aligned`, or seed2200/seed0501 mklev peels.
+
+## D-0045 — Samurai `u_init_role` + Japanese discovery + ammo quiver
+
+- **Status:** fixed (verified 2026-07-13) for role-init throw clearance;
+  Samurai sessions still diverge later (mklev / moveloop).
+- **Observed:** **13/44** role throws after D-0044; 4 Samurai throws
+  (seed0017/0107/0700 + seed0030 at Samurai). After port, **10/44**
+  remain (no Samurai). seed0700 rng-diff prefix **1718**
+  (`mkclass_aligned`); seed0017 **2672** / seed0107 **2652**
+  (`u_calc_moveamt`); seed0030 advances past Samurai into Healer throw.
+- **Cause/evidence:** Samurai kit absent; scaffold lacked attrs/`hpadv`/
+  `enadv`/`initrecord=10`. C `knows_class` for Samurai matches Knight
+  (bases[] weapons+armor, incl. polearms). Optional Blindfold `!rn2(5)`.
+  Japanese-name items pre-discovered via `Japanese_item_name` loop
+  (skip `oc_magic`). YA ammo needed `is_ammo` quiver path (not dart-only
+  `is_missile` name list).
+- **C locus:** `u_init.c` `Samurai[]` / `Skill_S` / `u_init_role` /
+  `knows_class` / `ini_inv_use_obj` ammo; `objnam.c` `Japanese_items` /
+  `Japanese_item_name`; `role.c` Samurai entry; `obj.h` `is_ammo`.
+- **Change:** Samurai roles attrs/`hpadv`/`enadv`/`initrecord`; Samurai
+  inventory + Blindfold; `Skill_S` in `skills_for_role`; bases[]
+  `knows_class` for Samurai; `Japanese_item_name` + discovery loop;
+  `is_ammo`/`is_missile` via `oc_skill` for quiver.
+- **Verification:** green + seed1500/1800/0060 PASS + strict; full
+  **5/44**, screens **245**/11405 (+2), RNG **65208**/792838; role
+  throws **10**/44; seed0700 RNG **1731**/3230 Scr **1**/51.
+- **Omissions named:** `skill_init` still stubbed; display-path Japanese
+  names in `obj_typename`/`doname`; other role kits; seed0700/0103
+  `mkclass_aligned`; seed2200 `choose_trapnote`; seed0501 `wipeout_text`.
+- **Lesson:** Samurai unlock needs Japanese pre-discovery + real ammo
+  quiver semantics, not kit tables alone — YA would otherwise sit
+  unwielded and skew invent/AC screens.
+- **Next:** Valkyrie/Healer/Ranger (2 throws each; Healer also seed0030),
+  or shared `mkclass_aligned`, or seed2200/0501 mklev peels.

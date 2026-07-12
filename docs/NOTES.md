@@ -7,20 +7,23 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 
 ## Active
 
-- **Current unit:** Knight `u_init_role` cleared (D-0044). Role throws
-  **13**/44 (was 17). seed0103 prefix **1185** (`mkclass_aligned`).
-- **Hypothesis / next peel:** port next high-throw role (**Samurai**, 4
-  throws), or seed2200 `choose_trapnote` @ 1283, or seed0501
-  `wipeout_text` makeniche engraving, or seed0103 `mkclass_aligned`.
+- **Current unit:** Samurai `u_init_role` cleared (D-0045). Role throws
+  **10**/44 (was 13). seed0700 prefix **1718** (`mkclass_aligned`);
+  seed0017/0107 reach moveloop (`u_calc_moveamt`).
+- **Hypothesis / next peel:** port next high-throw role (**Valkyrie /
+  Healer / Ranger**, 2 throws each — Healer also blocks seed0030), or
+  shared `mkclass_aligned` (seed0700/0103), or seed2200 `choose_trapnote`
+  / seed0501 `wipeout_text`.
 - **Falsifier / next probe:**
   ```bash
   node frozen/ps_test_runner.mjs sessions 2>&1 | rg 'role not ported|PASS|FAIL' | head -40
-  # Or: node scripts/rng-diff.mjs sessions/seed0103-knight-ride-pony.session.json
+  # Or: node scripts/rng-diff.mjs sessions/seed0700-samurai-explore-descend.session.json
   ```
 - **Parked deep canary:** D-0006 pet movement — do not implement until C
   state/candidate capture exists.
-- **Also deferred:** Wizard/Priest `initialspell`; Knight `skill_init`
-  (Skill_K table present for filter only); full `role_init` beyond
+- **Also deferred:** Wizard/Priest `initialspell`; Knight/Samurai
+  `skill_init` (Skill_* tables present for filter only); display-path
+  Japanese names in `obj_typename`/`doname`; full `role_init` beyond
   pantheon + SPE_LIGHT + nemesis gender; `make_corpse` body after
   `corpse_chance`; dokick monster/object/closed-door/SDOOR/furniture;
   `martial()`; wake/engraving; `set_wounded_legs` body; `showdamage`/
@@ -156,6 +159,9 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 - seed0103 throw was **not** missing pony pet alone: Knight needed
   `Knight[]` kit + attrs/`hpadv` + full `knows_class` + helm/gloves wear
   + `HJumping|=FROMOUTSIDE` — D-0044.
+- seed0700 throw was **not** YA quiver alone: Samurai needed `Samurai[]` +
+  attrs/`hpadv` + Blindfold + `knows_class` + `Japanese_item_name`
+  pre-discovery + `is_ammo` quiver for YA — D-0045.
 
 ## Landmarks
 
@@ -163,6 +169,7 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 - Wizard+human init HP = **12**, Pw ≈ **8**, AC **9** (cloak of MR `a_ac` 1).
 - Priest+human init HP = **14** (role 12 + race 2); robe is ARM_CLOAK.
 - Knight+human init HP = **16** (role 14 + race 2); initrecord **10**.
+- Samurai+human init HP = **15** (role 13 + race 2); initrecord **10**.
 - Rogue legacy offx = `max(10, 80 - maxcol - 1)` (Kos → 23; The Lady → 17).
 - Tutorial menu offx = 20 (OPTIONS `.nethackrc` line → maxcol 59); cursor
   `[27,6]` on `(end) `.
@@ -182,3 +189,7 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 - seed0106: D-0043 → prefix **2566**; next `dog_move` `rn2(1)`.
 - seed0103: D-0044 → role throw cleared; rng-diff prefix **1185**; next
   `mkclass_aligned`.
+- seed0700: D-0045 → role throw cleared; rng-diff prefix **1718**; next
+  `mkclass_aligned` (same as seed0103).
+- seed0017: D-0045 → prefix **2672** (`u_calc_moveamt`); seed0107 **2652**
+  (same).

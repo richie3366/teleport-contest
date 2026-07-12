@@ -2,8 +2,8 @@
 // C ref: u_init.c — u_init_role, u_init_race, trquan, ini_inv,
 //        ini_inv_mkobj_filter, ini_inv_obj_substitution,
 //        u_init_inventory_attrs
-//        (Tourist + Rogue + Wizard + Priest + Knight; human/orc race kits;
-//         elf/dwarf/gnome partial).
+//        (Tourist + Rogue + Wizard + Priest + Knight + Samurai; human/orc
+//         race kits; elf/dwarf/gnome partial).
 
 import { game } from './gstate.js';
 import { rn2, rnd } from './rng.js';
@@ -19,13 +19,16 @@ import {
     RING_CLASS,
     SPBOOK_CLASS,
     COIN_CLASS,
+    GEM_CLASS,
+    MAXOCLASSES,
+    NUM_OBJECTS,
     objectNames,
     objectDescrs,
 } from './objects.js';
 import { init_attr, vary_init_attr, A_STR, A_CON, newhp, newpw } from './attrib.js';
 import { roles, races, aligns, findRole, findRace, findAlign } from './roles.js';
 import { discover_object } from './invent.js';
-import { otyp_uses_known } from './objnam.js';
+import { otyp_uses_known, Japanese_item_name } from './objnam.js';
 import {
     W_ARMU, W_ARM, W_ARMC, W_ARMS, W_ARMH, W_ARMG, W_ARMF,
     W_WEP, W_SWAPWEP, W_QUIVER,
@@ -41,8 +44,8 @@ import {
     P_DART, P_SHURIKEN, P_BOOMERANG, P_UNICORN_HORN,
     P_ATTACK_SPELL, P_HEALING_SPELL, P_DIVINATION_SPELL,
     P_ENCHANTMENT_SPELL, P_CLERIC_SPELL, P_ESCAPE_SPELL, P_MATTER_SPELL,
-    P_RIDING, P_TWO_WEAPON_COMBAT, P_BARE_HANDED_COMBAT,
-    P_BASIC, P_SKILLED, P_EXPERT,
+    P_RIDING, P_TWO_WEAPON_COMBAT, P_BARE_HANDED_COMBAT, P_MARTIAL_ARTS,
+    P_BASIC, P_SKILLED, P_EXPERT, P_MASTER,
 } from './const.js';
 import {
     PM_TOURIST, PM_ROGUE, PM_CLERIC, PM_WIZARD, PM_MONK, PM_KNIGHT,
@@ -134,6 +137,16 @@ const Knight = [
     { trotyp: () => 0, trspe: 0, trclass: 0, trquan_min: 0, trquan_max: 0, trbless: 0 },
 ];
 
+// C ref: u_init.c Samurai[]
+const Samurai = [
+    { trotyp: () => otypByName('KATANA'), trspe: 0, trclass: WEAPON_CLASS, trquan_min: 1, trquan_max: 1, trbless: UNDEF_BLESS },
+    { trotyp: () => otypByName('SHORT_SWORD'), trspe: 0, trclass: WEAPON_CLASS, trquan_min: 1, trquan_max: 1, trbless: UNDEF_BLESS },
+    { trotyp: () => otypByName('YUMI'), trspe: 0, trclass: WEAPON_CLASS, trquan_min: 1, trquan_max: 1, trbless: UNDEF_BLESS },
+    { trotyp: () => otypByName('YA'), trspe: 0, trclass: WEAPON_CLASS, trquan_min: 26, trquan_max: 45, trbless: UNDEF_BLESS },
+    { trotyp: () => otypByName('SPLINT_MAIL'), trspe: 0, trclass: ARMOR_CLASS, trquan_min: 1, trquan_max: 1, trbless: UNDEF_BLESS },
+    { trotyp: () => 0, trspe: 0, trclass: 0, trquan_min: 0, trquan_max: 0, trbless: 0 },
+];
+
 // C ref: u_init.c Skill_W[] — needed for restricted_spell_discipline in filter
 const Skill_W = [
     { skill: P_DAGGER, max: P_EXPERT },
@@ -213,6 +226,30 @@ const Skill_K = [
     { skill: P_RIDING, max: P_EXPERT },
     { skill: P_TWO_WEAPON_COMBAT, max: P_SKILLED },
     { skill: P_BARE_HANDED_COMBAT, max: P_EXPERT },
+];
+
+// C ref: u_init.c Skill_S[] — Samurai (skills_init still stubbed; filter-ready)
+const Skill_S = [
+    { skill: P_DAGGER, max: P_BASIC },
+    { skill: P_KNIFE, max: P_SKILLED },
+    { skill: P_SHORT_SWORD, max: P_EXPERT },
+    { skill: P_BROAD_SWORD, max: P_SKILLED },
+    { skill: P_LONG_SWORD, max: P_EXPERT },
+    { skill: P_TWO_HANDED_SWORD, max: P_EXPERT },
+    { skill: P_SABER, max: P_BASIC },
+    { skill: P_FLAIL, max: P_SKILLED },
+    { skill: P_QUARTERSTAFF, max: P_BASIC },
+    { skill: P_POLEARMS, max: P_SKILLED },
+    { skill: P_SPEAR, max: P_SKILLED },
+    { skill: P_LANCE, max: P_SKILLED },
+    { skill: P_BOW, max: P_EXPERT },
+    { skill: P_SHURIKEN, max: P_EXPERT },
+    { skill: P_ATTACK_SPELL, max: P_BASIC },
+    { skill: P_DIVINATION_SPELL, max: P_BASIC },
+    { skill: P_CLERIC_SPELL, max: P_SKILLED },
+    { skill: P_RIDING, max: P_SKILLED },
+    { skill: P_TWO_WEAPON_COMBAT, max: P_EXPERT },
+    { skill: P_MARTIAL_ARTS, max: P_MASTER },
 ];
 
 function strangeObject() {
@@ -298,11 +335,12 @@ function trquan(trop) {
     return trop.trquan_min + rn2(trop.trquan_max - trop.trquan_min + 1);
 }
 
-// C ref: u_init.c skills_for_role() — Wizard + Priest + Knight (others deferred)
+// C ref: u_init.c skills_for_role() — Wizard + Priest + Knight + Samurai
 function skills_for_role() {
     if (game.urole?.mnum === PM_WIZARD) return Skill_W;
     if (game.urole?.mnum === PM_CLERIC) return Skill_P;
     if (game.urole?.mnum === PM_KNIGHT) return Skill_K;
+    if (game.urole?.mnum === PM_SAMURAI) return Skill_S;
     return null;
 }
 
@@ -542,9 +580,18 @@ function is_pole_skill(oc_skill) {
     return oc_skill === P_POLEARMS || oc_skill === P_LANCE;
 }
 
+// C ref: obj.h is_ammo() — WEAPON/GEM with oc_skill in -P_CROSSBOW..-P_BOW
+function is_ammo(obj) {
+    if (obj.oclass !== WEAPON_CLASS && obj.oclass !== GEM_CLASS) return false;
+    const sk = game.objects?.[obj.otyp]?.oc_skill ?? 0;
+    return sk >= -P_CROSSBOW && sk <= -P_BOW;
+}
+
+// C ref: obj.h is_missile() — WEAPON/TOOL with oc_skill in -P_BOOMERANG..-P_DART
 function is_missile(obj) {
-    const n = objectNames[obj.otyp];
-    return n === 'DART' || n === 'SHURIKEN' || n === 'BOOMERANG';
+    if (obj.oclass !== WEAPON_CLASS && obj.oclass !== TOOL_CLASS) return false;
+    const sk = game.objects?.[obj.otyp]?.oc_skill ?? 0;
+    return sk >= -P_BOOMERANG && sk <= -P_DART;
 }
 
 function has_descr(otyp) {
@@ -562,8 +609,9 @@ function knows_object(otyp, _override_pauper) {
 }
 
 // C ref: u_init.c knows_class() — ordinary non-magic objects of a class.
-// Rogue keeps dagger-name walk; Knight walks bases[] like C (all weapons +
-// armor, including polearms/lances; skip CORNUTHAUM/DUNCE_CAP/SMALL_SHIELD).
+// Rogue keeps dagger-name walk; Knight/Samurai walk bases[] like C (all
+// weapons + armor, including polearms/lances; skip CORNUTHAUM/DUNCE_CAP/
+// SMALL_SHIELD).
 function knows_class(sym) {
     const roleMnum = game.urole?.mnum;
     const objects = game.objects;
@@ -579,7 +627,7 @@ function knows_class(sym) {
         return;
     }
 
-    if (roleMnum !== PM_KNIGHT) return;
+    if (roleMnum !== PM_KNIGHT && roleMnum !== PM_SAMURAI) return;
 
     const bases = game.bases || [];
     const start = bases[sym] || 0;
@@ -638,7 +686,7 @@ function ini_inv_use_obj(obj) {
         }
     }
     if (obj.oclass === WEAPON_CLASS || is_missile(obj)) {
-        if (is_missile(obj)) {
+        if (is_ammo(obj) || is_missile(obj)) {
             if (!game.u.uquiver) {
                 obj.owornmask = (obj.owornmask || 0) | W_QUIVER;
                 game.u.uquiver = obj;
@@ -711,7 +759,7 @@ function ini_inv(tropArr) {
     }
 }
 
-// C ref: u_init.c u_init_role() — Tourist + Rogue + Wizard + Priest + Knight
+// C ref: u_init.c u_init_role() — Tourist + Rogue + Wizard + Priest + Knight + Samurai
 function u_init_role() {
     const role = game.urole;
     const mnum = role?.mnum;
@@ -779,6 +827,24 @@ function u_init_role() {
         knows_class(ARMOR_CLASS);
         // C: HJumping |= FROMOUTSIDE — chess-like mobility
         game.u.HJumping = (game.u.HJumping || 0) | FROMOUTSIDE;
+        game.nocreate = strange;
+        game.nocreate2 = strange;
+        game.nocreate3 = strange;
+        game.nocreate4 = strange;
+        return;
+    }
+    if (mnum === PM_SAMURAI) {
+        game.u.umoney0 = 0;
+        ini_inv(Samurai);
+        if (!rn2(5)) ini_inv(Blindfold);
+        knows_class(WEAPON_CLASS); // all weapons (incl. polearms)
+        knows_class(ARMOR_CLASS);
+        // C: pre-discover Japanese_item_name types (skip oc_magic)
+        const objects = game.objects || [];
+        for (let i = MAXOCLASSES; i < NUM_OBJECTS; i++) {
+            if (objects[i]?.oc_magic) continue;
+            if (Japanese_item_name(i, null)) knows_object(i, false);
+        }
         game.nocreate = strange;
         game.nocreate2 = strange;
         game.nocreate3 = strange;

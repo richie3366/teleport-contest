@@ -162,9 +162,20 @@ export const roles = [
         mnum: PM_SAMURAI,
         petnum: pm('PM_LITTLE_DOG'),
         neminum: pm('PM_ASHIKAGA_TAKAUJI'),
+        title: [
+            { m: 'Hatamoto', f: 'Hatamoto' },
+            { m: 'Ronin', f: 'Ronin' },
+        ],
         lgod: '_Amaterasu Omikami',
         ngod: 'Raijin',
         cgod: 'Susanowo',
+        // C: { 10, 8, 7, 10, 17, 6 } / { 30, 10, 8, 30, 14, 8 }
+        attrbase: [10, 8, 7, 10, 17, 6],
+        attrdist: [30, 10, 8, 30, 14, 8],
+        initrecord: 10,
+        // C: { 13, 0, 0, 8, 1, 0 } / { 1, 0, 0, 1, 0, 1 }
+        hpadv: adv(13, 0, 0, 8, 1, 0),
+        enadv: adv(1, 0, 0, 1, 0, 1),
     },
     {
         name: { m: 'Tourist', f: 'Tourist' },

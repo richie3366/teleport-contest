@@ -32,9 +32,9 @@ When changing a subsystem:
 | C source | JS | Status | Evidence / known omissions |
 |---|---|---|---|
 | `src/options.c` | `js/options.js` | partial | Enough options for current Tourist paths; full rc/keybind/symset semantics incomplete |
-| `src/role.c` | `js/roles.js` | partial | Tourist + Rogue + Wizard + Priest + **Knight** identity/attrs/`hpadv`/`enadv`/`neminum`/`initrecord` (D-0042/43/44); **all roles pantheon gods** + C roles[] order (Rogue before Ranger) for `randrole`; `role_init` pantheon + SPE_LIGHT + nemesis gender; `Hello`/`align_*`; **all races `hpadv`/`enadv` + attrmin/attrmax** (D-0036); other roles still scaffold (gods+mnum only); full `role_init` beyond pantheon/SPE_LIGHT/nemgend deferred |
-| `src/u_init.c:u_init_role` | `js/u_init.js` | partial | Tourist + Rogue + Wizard + Priest + **Knight** cases (D-0044); other roles still throw; Rogue `knows_class` still uses named P_DAGGER otyps; Knight `knows_class` walks `bases[]`; `Skill_W`/`Skill_P`/`Skill_K` for filter; `skill_init` / `initialspell` / other `Skill_*` deferred |
-| `src/u_init.c:u_init_race` | `js/u_init.js` | partial | Human no-op; orc `Xtra_food` + knows; elf instrument+knows; dwarf knows; gnome no-op (D-0027); `ini_inv_obj_substitution`/`inv_subs` ported; **`ini_inv_mkobj_filter` reject list + `oc_level`/`Skill_W`/`Skill_P`/`Skill_K`** (D-0042/43/44) |
+| `src/role.c` | `js/roles.js` | partial | Tourist + Rogue + Wizard + Priest + Knight + **Samurai** identity/attrs/`hpadv`/`enadv`/`neminum`/`initrecord` (D-0042/43/44/45); **all roles pantheon gods** + C roles[] order (Rogue before Ranger) for `randrole`; `role_init` pantheon + SPE_LIGHT + nemesis gender; `Hello`/`align_*`; **all races `hpadv`/`enadv` + attrmin/attrmax** (D-0036); other roles still scaffold (gods+mnum only); full `role_init` beyond pantheon/SPE_LIGHT/nemgend deferred |
+| `src/u_init.c:u_init_role` | `js/u_init.js` | partial | Tourist + Rogue + Wizard + Priest + Knight + **Samurai** cases (D-0045); other roles still throw; Rogue `knows_class` still uses named P_DAGGER otyps; Knight/Samurai `knows_class` walks `bases[]`; Samurai `Japanese_item_name` pre-discovery; `Skill_W`/`Skill_P`/`Skill_K`/`Skill_S` for filter; `skill_init` / `initialspell` / other `Skill_*` deferred |
+| `src/u_init.c:u_init_race` | `js/u_init.js` | partial | Human no-op; orc `Xtra_food` + knows; elf instrument+knows; dwarf knows; gnome no-op (D-0027); `ini_inv_obj_substitution`/`inv_subs` ported; **`ini_inv_mkobj_filter` reject list + `oc_level`/`Skill_W`/`Skill_P`/`Skill_K`/`Skill_S`** (D-0042/43/44/45) |
 | `src/u_init.c:u_init_misc` | `js/u_init.js` | partial | `newhp`/`newpw` at ulevel 0; rc align → `ualign`; handedness RNG; many u fields still absent |
 | `src/attrib.c:newhp` / `src/exper.c:newpw` | `js/attrib.js` | partial | Init (`ulevel==0`) path only; level-up / Con bonus deferred |
 | `src/attrib.c` (attrs) | `js/attrib.js` | partial | Initial Tourist/Rogue/Wizard attribute paths; `change_luck` clamp; `u_init_carry_attr_boost` still stubbed |
@@ -46,8 +46,8 @@ When changing a subsystem:
 | `src/insight.c` enlightenment | `js/invent.js` | partial | Autopickup from flags + race attr limits + `weapon_descr`/`skill_name` via `oc_skill` (D-0041); pantheon/wallet/handedness (D-0024); shop `costly_spot` disable / `apelist` / enhance / P_SKILL table / odd-skill P_NAME deferred |
 | `src/calendar.c` / botl flags | `js/calendar.js`, `js/display.js` | partial | Fixed-datetime moon/friday; botl `showexp`/`time` + plname capitalize |
 
-**Shared blocker:** **13/44 sessions** throw `u_init_role: role not ported`
-(other roles; Wizard/Priest/Knight D-0042/43/44 cleared). Rogue invent + mineralize bury +
+**Shared blocker:** **10/44 sessions** throw `u_init_role: role not ported`
+(other roles; Wizard/Priest/Knight/Samurai D-0042/43/44/45 cleared). Rogue invent + mineralize bury +
 corpse-age POISON + `mktrap_victim` place + `dog_move` cursed-square +
 dart-trap `mintrap` + cursemsg/`--More--` + `dog_invent` pickup + tseen
 trap skip + `OPENDOOR` `nohands`/`verysmall` + `doapply`/`pick_lock`
@@ -75,8 +75,11 @@ rng-diff prefix **1283** (`choose_trapnote`). Priest init + pantheon
 prefix **1153** (`wipeout_text`); seed0106 **2566** (`dog_move`).
 Knight init + knows_class + helm/gloves + HJumping (D-0044) → role
 throws **13**/44; seed0103 prefix **1185** (`mkclass_aligned`);
-seed0104 RNG **2401**/3223. Next peel: Samurai (4 throws) or
-seed0103/2200/0501 mklev. `make_corpse` body and `m_initinv` body
+seed0104 RNG **2401**/3223. Samurai init + Japanese discovery +
+`is_ammo` quiver (D-0045) → role throws **10**/44; seed0700 prefix
+**1718** (`mkclass_aligned`); seed0017/0107 reach `u_calc_moveamt`.
+Next peel: Valkyrie/Healer/Ranger (2 throws each) or
+seed0700/0103/2200/0501 mklev. `make_corpse` body and `m_initinv` body
 still absent (named omissions).
 
 ## Data and world generation
@@ -106,7 +109,7 @@ still absent (named omissions).
 | `src/invent.c` `look_here` / `dfeature_at` | `js/invent.js`, `js/mklev.js` | partial | Stairs via `stairs_description` + Dlvl1 `u_traversed` (D-0026); doors/fountain/sink stubs; Blind feel, engraving, multi-object menu, `doname_with_price` deferred |
 | `src/pline.c` / tty message behavior | `js/display.js`, `js/input.js` | partial | `--More--` works for green paths + getobj re-prompt (D-0025); full message/window policy incomplete |
 | `src/invent.c` | `js/invent.js` | partial | Corner NHW_MENU invent (D-0024); disco inv_order + `*`/encounter + `OBJ_DESCR`/`obj_typename` (D-0040); fullscreen invent path deferred |
-| `src/objnam.c` | `js/objnam.js` | partial | doname empty/wield/swapwep/potion/implicit-uncursed (D-0024); CORPSE `corpsenm` (D-0019); **COIN quan=1 `"a gold piece"`** (D-0037); full erosion/artifact/Japanese deferred |
+| `src/objnam.c` | `js/objnam.js` | partial | doname empty/wield/swapwep/potion/implicit-uncursed (D-0024); CORPSE `corpsenm` (D-0019); **COIN quan=1 `"a gold piece"`** (D-0037); **`Japanese_item_name` table** for Samurai discovery (D-0045); display-path Japanese in `obj_typename`/`doname` + full erosion/artifact deferred |
 | `src/eat.c` | `js/eat.js` | partial | Cookie/reject subset; getobj still single-shot (no missing-letter `continue`); ordinary eating/nutrition incomplete |
 | `src/dothrow.c`, `src/zap.c:bhit` | `js/dothrow.js` | partial | Dart split/flight/landing; `throw_ok` SUGGEST coins+weapons + getobj loop (D-0025); **`throw_gold` body absent**; combat/object interactions incomplete |
 | `src/mon.c`, `src/monmove.c` | `js/mon.js`, `js/monmove.js` | partial | Early ordinary movement; pet `postmov`→`mintrap` (D-0018); mfndpos `ALLOW_TRAPS` (D-0019); `OPENDOOR` gated on `nohands`/`verysmall` (D-0020); **`m_avoid_kicked_loc`** in `mon.js` (D-0032; not yet wired into hostile `m_move`); **`postmov` final `newsym(mx,my)`** (D-0039); non-pet postmov / `mon_knows_traps` / `bad_rock` squeeze / Sokoban push-avoid body deferred |
@@ -128,7 +131,7 @@ These are not protected merely because the two green sessions exercise them:
 | `js/display.js` message paths | Contains scenario-derived cursor/layout special cases rather than complete window/message policy |
 | `js/eat.js` | Allowed-letter formatting, menu fallback, and eating are narrow subsets |
 | `js/invent.js` | Corner invent + disco `*`/encounter + `obj_typename` (D-0040); ^X autopickup/limits/`weapon_descr` (D-0041); fullscreen invent and magic enlightenment deferred |
-| `js/u_init.js` / `js/roles.js` | Rogue/Tourist/Wizard/Priest/**Knight** + human/orc(/elf/dwarf/gnome) race kits (D-0027/D-0042/43/44); pantheon gods + C roles[] order; **race `hpadv`/`enadv` table** (D-0036); helm/gloves/boots wear + Knight `knows_class`/`HJumping`; other roles throw; **`oc_skill`/`a_ac`/`oc_level` extracted**; dagger `knows_class` can migrate; `skill_init` / `initialspell` / other `Skill_*` / `oc_charged` deferred |
+| `js/u_init.js` / `js/roles.js` | Rogue/Tourist/Wizard/Priest/Knight/**Samurai** + human/orc(/elf/dwarf/gnome) race kits (D-0027/D-0042/43/44/45); pantheon gods + C roles[] order; **race `hpadv`/`enadv` table** (D-0036); helm/gloves/boots wear + Knight/Samurai `knows_class`/`HJumping`/`Japanese_item_name`/`is_ammo`; other roles throw; **`oc_skill`/`a_ac`/`oc_level` extracted**; dagger `knows_class` can migrate; `skill_init` / `initialspell` / other `Skill_*` / `oc_charged` deferred |
 | `js/allmain.js` | Welcome/HP/align no longer Tourist-literal; **`regen_hp` once-per-turn** (D-0035); tutorial, hunger, sound, and attribute checks still have deferred branches |
 | `js/mon.js` / `js/monmove.js` / `js/dogmove.js` | Monster flags, movement predicates, targeting, carrying, and combat have named stubs/defaults |
 | `js/mklev.js` / `js/mkobj.js` / `js/makemon.js` | Many terrain/object/monster-type branches remain scenario-limited |
