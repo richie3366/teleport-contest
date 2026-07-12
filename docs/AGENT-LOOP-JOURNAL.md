@@ -19,6 +19,19 @@ Use this shape:
 
 ---
 
+## 2026-07-13 00:56 — Valkyrie u_init_role (D-0047)
+- C locus: `u_init.c` Valkyrie/`Skill_V`/`u_init_role` PM_VALKYRIE /
+  `knows_class`; `role.c` Valkyrie attrs
+- Result: **verified faithful change** — Valkyrie kit + optional Lamp
+  `!rn2(6)` + weapon/armor `knows_class` (excludes polearms) +
+  attrs/`hpadv`. Role throws **8→6**/44.
+- Verification: green + seed1500/1800/0060 PASS + strict; full **5/44**,
+  screens **252**/11405, RNG **68885**/792838; seed0015 prefix **337**
+  (`lspo_map`); seed0105 **974** (`wipeout_text`).
+- Next: Ranger `u_init_role` (2 throws), or remaining 1-throw roles, or
+  peel shared `mkclass_aligned` / `choose_trapnote` / `hole_destination`
+  / `wipeout_text` / `lspo_map`.
+
 ## 2026-07-13 00:53 — Healer u_init_role (D-0046)
 - C locus: `u_init.c` Healer/`Skill_H`/`u_init_role` PM_HEALER;
   `role.c` Healer attrs

@@ -211,9 +211,20 @@ export const roles = [
         mnum: PM_VALKYRIE,
         petnum: NON_PM,
         neminum: pm('PM_LORD_SURTUR'),
+        title: [
+            { m: 'Stripling', f: 'Stripling' },
+            { m: 'Skirmisher', f: 'Skirmisher' },
+        ],
         lgod: 'Tyr',
         ngod: 'Odin',
         cgod: 'Loki',
+        // C: { 10, 7, 7, 7, 10, 7 } / { 30, 6, 7, 20, 30, 7 }
+        attrbase: [10, 7, 7, 7, 10, 7],
+        attrdist: [30, 6, 7, 20, 30, 7],
+        initrecord: 10,
+        // C: { 14, 0, 0, 8, 2, 0 } / { 1, 0, 0, 1, 0, 1 }
+        hpadv: adv(14, 0, 0, 8, 2, 0),
+        enadv: adv(1, 0, 0, 1, 0, 1),
     },
     {
         name: { m: 'Wizard', f: 'Wizard' },

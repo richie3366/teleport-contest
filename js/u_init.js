@@ -2,8 +2,8 @@
 // C ref: u_init.c — u_init_role, u_init_race, trquan, ini_inv,
 //        ini_inv_mkobj_filter, ini_inv_obj_substitution,
 //        u_init_inventory_attrs
-//        (Tourist + Rogue + Wizard + Priest + Knight + Samurai + Healer;
-//         human/orc race kits; elf/dwarf/gnome partial).
+//        (Tourist + Rogue + Wizard + Priest + Knight + Samurai + Healer +
+//         Valkyrie; human/orc race kits; elf/dwarf/gnome partial).
 
 import { game } from './gstate.js';
 import { rn2, rnd, rn1 } from './rng.js';
@@ -49,7 +49,7 @@ import {
 } from './const.js';
 import {
     PM_TOURIST, PM_ROGUE, PM_CLERIC, PM_WIZARD, PM_MONK, PM_KNIGHT,
-    PM_SAMURAI, PM_HEALER,
+    PM_SAMURAI, PM_HEALER, PM_VALKYRIE,
     PM_HUMAN, PM_ELF, PM_DWARF, PM_ORC, PM_GNOME,
     NON_PM,
 } from './generated/monsters_data.js';
@@ -159,6 +159,15 @@ const Healer = [
     { trotyp: () => otypByName('SPE_EXTRA_HEALING'), trspe: 0, trclass: SPBOOK_CLASS, trquan_min: 1, trquan_max: 1, trbless: 1 },
     { trotyp: () => otypByName('SPE_STONE_TO_FLESH'), trspe: 0, trclass: SPBOOK_CLASS, trquan_min: 1, trquan_max: 1, trbless: 1 },
     { trotyp: () => otypByName('APPLE'), trspe: 0, trclass: FOOD_CLASS, trquan_min: 5, trquan_max: 5, trbless: 0 },
+    { trotyp: () => 0, trspe: 0, trclass: 0, trquan_min: 0, trquan_max: 0, trbless: 0 },
+];
+
+// C ref: u_init.c Valkyrie[]
+const Valkyrie = [
+    { trotyp: () => otypByName('SPEAR'), trspe: 1, trclass: WEAPON_CLASS, trquan_min: 1, trquan_max: 1, trbless: UNDEF_BLESS },
+    { trotyp: () => otypByName('DAGGER'), trspe: 0, trclass: WEAPON_CLASS, trquan_min: 1, trquan_max: 1, trbless: UNDEF_BLESS },
+    { trotyp: () => otypByName('SMALL_SHIELD'), trspe: 3, trclass: ARMOR_CLASS, trquan_min: 1, trquan_max: 1, trbless: UNDEF_BLESS },
+    { trotyp: () => otypByName('FOOD_RATION'), trspe: 0, trclass: FOOD_CLASS, trquan_min: 1, trquan_max: 1, trbless: 0 },
     { trotyp: () => 0, trspe: 0, trclass: 0, trquan_min: 0, trquan_max: 0, trbless: 0 },
 ];
 
@@ -287,6 +296,30 @@ const Skill_H = [
     { skill: P_BARE_HANDED_COMBAT, max: P_BASIC },
 ];
 
+// C ref: u_init.c Skill_V[] — Valkyrie (skills_init still stubbed; filter-ready)
+const Skill_V = [
+    { skill: P_DAGGER, max: P_EXPERT },
+    { skill: P_AXE, max: P_EXPERT },
+    { skill: P_PICK_AXE, max: P_SKILLED },
+    { skill: P_SHORT_SWORD, max: P_SKILLED },
+    { skill: P_BROAD_SWORD, max: P_SKILLED },
+    { skill: P_LONG_SWORD, max: P_EXPERT },
+    { skill: P_TWO_HANDED_SWORD, max: P_EXPERT },
+    { skill: P_SABER, max: P_BASIC },
+    { skill: P_HAMMER, max: P_EXPERT },
+    { skill: P_QUARTERSTAFF, max: P_BASIC },
+    { skill: P_POLEARMS, max: P_SKILLED },
+    { skill: P_SPEAR, max: P_EXPERT },
+    { skill: P_TRIDENT, max: P_BASIC },
+    { skill: P_LANCE, max: P_SKILLED },
+    { skill: P_SLING, max: P_BASIC },
+    { skill: P_ATTACK_SPELL, max: P_BASIC },
+    { skill: P_ESCAPE_SPELL, max: P_BASIC },
+    { skill: P_RIDING, max: P_SKILLED },
+    { skill: P_TWO_WEAPON_COMBAT, max: P_SKILLED },
+    { skill: P_BARE_HANDED_COMBAT, max: P_EXPERT },
+];
+
 function strangeObject() {
     return otypByName('STRANGE_OBJECT') || 0;
 }
@@ -370,13 +403,14 @@ function trquan(trop) {
     return trop.trquan_min + rn2(trop.trquan_max - trop.trquan_min + 1);
 }
 
-// C ref: u_init.c skills_for_role() — Wizard + Priest + Knight + Samurai + Healer
+// C ref: u_init.c skills_for_role() — Wizard + Priest + Knight + Samurai + Healer + Valkyrie
 function skills_for_role() {
     if (game.urole?.mnum === PM_WIZARD) return Skill_W;
     if (game.urole?.mnum === PM_CLERIC) return Skill_P;
     if (game.urole?.mnum === PM_KNIGHT) return Skill_K;
     if (game.urole?.mnum === PM_SAMURAI) return Skill_S;
     if (game.urole?.mnum === PM_HEALER) return Skill_H;
+    if (game.urole?.mnum === PM_VALKYRIE) return Skill_V;
     return null;
 }
 
@@ -645,9 +679,9 @@ function knows_object(otyp, _override_pauper) {
 }
 
 // C ref: u_init.c knows_class() — ordinary non-magic objects of a class.
-// Rogue keeps dagger-name walk; Knight/Samurai walk bases[] like C (all
-// weapons + armor, including polearms/lances; skip CORNUTHAUM/DUNCE_CAP/
-// SMALL_SHIELD).
+// Rogue keeps dagger-name walk; Knight/Samurai/Valkyrie walk bases[] like C
+// (weapons + armor; skip CORNUTHAUM/DUNCE_CAP/SMALL_SHIELD; non-Knight/
+// Samurai skip polearms/lances).
 function knows_class(sym) {
     const roleMnum = game.urole?.mnum;
     const objects = game.objects;
@@ -663,7 +697,12 @@ function knows_class(sym) {
         return;
     }
 
-    if (roleMnum !== PM_KNIGHT && roleMnum !== PM_SAMURAI) return;
+    // C callers that walk bases[]: Barbarian, Knight, Monk, Ranger, Samurai,
+    // Valkyrie. Only ported roles that call knows_class are enabled here.
+    if (roleMnum !== PM_KNIGHT && roleMnum !== PM_SAMURAI
+        && roleMnum !== PM_VALKYRIE) {
+        return;
+    }
 
     const bases = game.bases || [];
     const start = bases[sym] || 0;
@@ -795,7 +834,7 @@ function ini_inv(tropArr) {
     }
 }
 
-// C ref: u_init.c u_init_role() — Tourist + Rogue + Wizard + Priest + Knight + Samurai + Healer
+// C ref: u_init.c u_init_role() — Tourist + Rogue + Wizard + Priest + Knight + Samurai + Healer + Valkyrie
 function u_init_role() {
     const role = game.urole;
     const mnum = role?.mnum;
@@ -893,6 +932,18 @@ function u_init_role() {
         ini_inv(Healer);
         if (!rn2(25)) ini_inv(Lamp);
         knows_object(otypByName('POT_FULL_HEALING'), false);
+        game.nocreate = strange;
+        game.nocreate2 = strange;
+        game.nocreate3 = strange;
+        game.nocreate4 = strange;
+        return;
+    }
+    if (mnum === PM_VALKYRIE) {
+        game.u.umoney0 = 0;
+        ini_inv(Valkyrie);
+        if (!rn2(6)) ini_inv(Lamp);
+        knows_class(WEAPON_CLASS); // excludes polearms
+        knows_class(ARMOR_CLASS);
         game.nocreate = strange;
         game.nocreate2 = strange;
         game.nocreate3 = strange;

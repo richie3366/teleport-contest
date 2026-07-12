@@ -7,25 +7,24 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 
 ## Active
 
-- **Current unit:** Healer `u_init_role` cleared (D-0046). Role throws
-  **8**/44 (was 10). seed0016 prefix **1341** (`hole_destination`);
-  seed0030 prefix **5127** (`choose_trapnote`).
-- **Hypothesis / next peel:** port next high-throw role (**Valkyrie /
-  Ranger**, 2 throws each), or Monk/Archeologist/Barbarian/Caveman (1),
-  or shared `mkclass_aligned` / `choose_trapnote` / `hole_destination` /
-  `wipeout_text`.
+- **Current unit:** Valkyrie `u_init_role` cleared (D-0047). Role throws
+  **6**/44 (was 8). seed0015 prefix **337** (`lspo_map`); seed0105
+  prefix **974** (`wipeout_text`).
+- **Hypothesis / next peel:** port next high-throw role (**Ranger**, 2
+  throws), or Monk/Archeologist/Barbarian/Caveman (1), or shared
+  `mkclass_aligned` / `choose_trapnote` / `hole_destination` /
+  `wipeout_text` / `lspo_map`.
 - **Falsifier / next probe:**
   ```bash
   node frozen/ps_test_runner.mjs sessions 2>&1 | rg 'role not ported|PASS|FAIL' | head -40
-  # Or: node scripts/rng-diff.mjs sessions/seed0016-healer-newmoon-eat-zap.session.json
+  # Or: node scripts/rng-diff.mjs sessions/seed0101-ranger-quiver-throw-travel-engrave.session.json
   ```
 - **Parked deep canary:** D-0006 pet movement — do not implement until C
   state/candidate capture exists.
 - **Also deferred:** Wizard/Priest/Healer `initialspell`; Knight/Samurai/
-  Healer `skill_init` (Skill_* tables present for filter only); display-path
-  Japanese names in `obj_typename`/`doname`; full `role_init` beyond
-  pantheon + SPE_LIGHT + nemesis gender; `make_corpse` body after
-  `corpse_chance`; dokick monster/object/closed-door/SDOOR/furniture;
+  Healer/Valkyrie `skill_init`; display-path Japanese names; full
+  `role_init` beyond pantheon + SPE_LIGHT + nemesis gender; `make_corpse`
+  after `corpse_chance`; dokick monster/object/closed-door/SDOOR/furniture;
   `martial()`; wake/engraving; `set_wounded_legs` body; `showdamage`/
   death `done`; Upolyd eel `regen_hp` loss; `regen_pw`/Teleport/Poly
   once-per-turn; other roles still throw; `dog_goal` gettrack/FARAWAY;
@@ -166,6 +165,9 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   `Healer[]` + attrs/`hpadv` + `umoney0=rn1(1000,1001)` + optional Lamp
   + `knows_object(POT_FULL_HEALING)` — D-0046. Typed spellbooks need no
   UNDEF filter; `initialspell` still deferred.
+- seed0015/0105 throws were **not** missing pet alone: Valkyrie needed
+  `Valkyrie[]` + attrs/`hpadv` + optional Lamp `!rn2(6)` + weapon/armor
+  `knows_class` (excludes polearms) — D-0047.
 
 ## Landmarks
 
@@ -176,6 +178,8 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 - Samurai+human init HP = **15** (role 13 + race 2); initrecord **10**.
 - Healer+human init HP = **13** (role 11 + race 2); initrecord **10**;
   gold `rn1(1000,1001)` → **1001..2000**.
+- Valkyrie+human init HP = **16** (role 14 + race 2); initrecord **10**;
+  shield `+3`; optional Lamp `!rn2(6)`.
 - Rogue legacy offx = `max(10, 80 - maxcol - 1)` (Kos → 23; The Lady → 17).
 - Tutorial menu offx = 20 (OPTIONS `.nethackrc` line → maxcol 59); cursor
   `[27,6]` on `(end) `.
@@ -203,3 +207,7 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   `hole_destination`.
 - seed0030: D-0046 → past Healer; rng-diff prefix **5127**; next
   `choose_trapnote`.
+- seed0015: D-0047 → role throw cleared; rng-diff prefix **337**; next
+  `lspo_map`.
+- seed0105: D-0047 → role throw cleared; rng-diff prefix **974**; next
+  `wipeout_text` (same as seed0501).

@@ -1163,3 +1163,36 @@ cohort gates if those functions are touched again.
 - **Next:** Valkyrie/Ranger (2 throws each), or remaining 1-throw roles,
   or shared mklev peels (`mkclass_aligned` / `choose_trapnote` /
   `hole_destination` / `wipeout_text`).
+
+## D-0047 — Valkyrie `u_init_role` + Lamp + weapon/armor `knows_class`
+
+- **Status:** fixed (verified 2026-07-13) for role-init throw clearance;
+  Valkyrie sessions still diverge later (mklev peels).
+- **Observed:** **8/44** role throws after D-0046; 2 dedicated Valkyrie
+  throws (seed0015 + seed0105). After port, **6/44** remain (no Valkyrie).
+  seed0015 rng-diff prefix **337** (`lspo_map`); seed0105 **974**
+  (`wipeout_text`).
+- **Cause/evidence:** Valkyrie kit absent; scaffold lacked attrs/`hpadv`/
+  `enadv`/`initrecord=10`. C `ini_inv(Valkyrie)` (spear+1, dagger,
+  small shield+3, food ration), optional Lamp `!rn2(6)`, and
+  `knows_class(WEAPON_CLASS)` (excludes polearms) + `knows_class(ARMOR_CLASS)`.
+  JS `knows_class` bases[] walk had to admit Valkyrie (was Knight/Samurai
+  only).
+- **C locus:** `u_init.c` `Valkyrie[]` / `Skill_V` / `u_init_role`
+  `PM_VALKYRIE` / `knows_class`; `role.c` Valkyrie entry.
+- **Change:** Valkyrie roles attrs/`hpadv`/`enadv`/`initrecord`/titles;
+  Valkyrie inventory + Lamp + weapon/armor `knows_class`; `Skill_V` in
+  `skills_for_role`; `knows_class` gate includes `PM_VALKYRIE`.
+- **Verification:** green + seed1500/1800/0060 PASS + strict; full
+  **5/44**, screens **252**/11405 (+1), RNG **68885**/792838; role
+  throws **6**/44; seed0015 RNG **364**/8563 Scr **1**/44; seed0105
+  RNG **988**/2499 Scr **0**/30.
+- **Omissions named:** `skill_init` still stubbed; Ranger/Monk/
+  Archeologist/Barbarian/Caveman kits; seed0015 `lspo_map`; seed0105/
+  0501 `wipeout_text`; seed0700/0103 `mkclass_aligned`; seed2200/0030
+  `choose_trapnote`; seed0016 `hole_destination`.
+- **Lesson:** Valkyrie unlock needs bases[] `knows_class` with polearm
+  skip — do not leave the Knight/Samurai-only gate or skip the Lamp
+  `rn2(6)` branch.
+- **Next:** Ranger (2 throws), or remaining 1-throw roles, or shared
+  mklev peels.
