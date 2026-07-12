@@ -7,20 +7,20 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 
 ## Active
 
-- **Current unit:** seed0060 @ RNG **3016** — C `distfleeck` `rn2(5)` vs JS
-  `rn2(2)` after kick-avoid cleared 2997.
-- **Hypothesis:** post-kick pet path diverges (JS may sit west while C ends
-  south on step-16 screen `(23,13)`), so later `mfndpos` arity differs. Or
-  another missing dog_move skip (`mtrack` `continue`→should be candidate
-  skip; `.` wait not clearing `kickedloc` like C `donull`).
+- **Current unit:** seed0060 @ RNG **3105** — C `makemon_rnd_goodpos`
+  `rn2(77)` vs JS `rn2(300)` `dosounds` after `maybe_generate_rnd_mon`
+  `rn2(70)=0`.
+- **Hypothesis:** JS `maybe_generate_rnd_mon` consumes the gate `rn2(70)` but
+  stubs the `makemon(NULL,0,0)` body, so C's placement/`rndmonst` rolls never
+  run and the stream jumps to `dosounds`.
 - **Falsifier / next probe:**
   ```bash
   node scripts/rng-diff.mjs sessions/seed0060-orc-rogue-kick-search.session.json
-  # Dump pet (mx,my) at rngLen ~3010 vs C step-16 f glyph; check mtrack[0]
-  # and whether JS `.` should clear game.kickedloc.
+  # Read allmain.c maybe_generate_rnd_mon + makemon(NULL,0,0) / enexto path;
+  # port enough of makemon_rnd_goodpos to emit rn2(77)/rn2(21) pairs.
   ```
-  Expect: first mismatch stays 3016 until pet cell after kick-turn movemon
-  matches C `(23,13)` (or proven equivalent chcnt set).
+  Expect: first mismatch stays 3105 until makemon body runs (or proven
+  equivalent NO_MM_FLAGS early exit that still matches C rolls).
 - **Parked deep canary:** D-0006 pet movement — do not implement until C
   state/candidate capture exists.
 - **Also deferred:** dokick monster/object/closed-door/SDOOR/furniture;
@@ -29,7 +29,9 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   Blind/`look_here`; trap glyphs; full `wall_angle`;
   `ini_inv_mkobj_filter`; `u_init_carry_attr_boost`; mfndpos
   `bad_rock` diagonal squeeze / boulder `ALLOW_ROCK`; Sokoban
-  `m_avoid_soko_push_loc` body; `.`/`donull` command.
+  `m_avoid_soko_push_loc` body; `donull` `cmd_safety_prevention`;
+  dog_move `mtrack` skip uses inner-loop `continue` (should skip candidate
+  like C `goto nxti`) when `distmin>5`.
 
 ## Don’t re-check
 
@@ -106,6 +108,9 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   corridor; JS/C terrain at `(22,12)` both CORR. Real gap was missing
   `m_avoid_kicked_loc` after empty-space kick (D-0032). Do not shrink
   `mfndpos` by inventing walls.
+- seed0060 idx 3016 was **not** post-kick pet cell / `mtrack` / fleeck arity:
+  JS treated `.` as unknown (no turn), so wait-turn `distfleeck` never ran and
+  the next kick's `exercise` `rn2(2)` sat at 3016 (D-0033).
 
 ## Landmarks
 
@@ -121,5 +126,5 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 - seed1500: D-0024 → screens **40/40** PASS; CORPSE map color = `mon_color(corpsenm)`
   (orc → CLR_RED), not `objects[CORPSE].oc_color`.
 - seed1800: D-0026 → screens **26/26** PASS (legacy corner map + staircase look).
-- seed0060: D-0032 → first mismatch **3016**; runner RNG **3086**/3626;
-  cursors **41**/41; kick sets `game.kickedloc`.
+- seed0060: D-0033 → first mismatch **3105**; runner RNG **3151**/3626;
+  cursors **41**/41; `.` → `donull` takes time + clears `kickedloc`.

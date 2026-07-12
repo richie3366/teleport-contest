@@ -54,6 +54,7 @@ Do not record a guessed cause as fixed merely because an RNG prefix moved.
 | D-0030 | fixed | dog_goal/couldsee | `in_masters_sight` must use real `couldsee`, not stub true |
 | D-0031 | fixed | dokick/kick_dumb | Ctrl-D empty-space kick → `exercise(A_DEX,FALSE)` before monmove |
 | D-0032 | fixed | dogmove/dokick | seed0060 @ 2997: missing m_avoid_kicked_loc after kick |
+| D-0033 | fixed | cmd/donull | seed0060 @ 3016: `.` wait missing → skipped turns |
 
 D-0001 through D-0005 predate the strict-length/cohort runbook. Their focused
 causes are preserved, but generic "green sessions held" is historical evidence,
@@ -745,5 +746,33 @@ cohort gates if those functions are touched again.
   full suite **4/44**, RNG **27787**/792838, screens **179**/11405.
 - **Lesson:** after a kick, compare pet candidate skips to `kickedloc`
   before blaming terrain glyphs; `#` in tty is corridor, not wall.
-- **Next:** peel @ **3016** (C `distfleeck` `rn2(5)` vs JS `rn2(2)`);
-  confirm post-kick pet cell vs C step-16 `f` at `(23,13)`.
+- **Next:** peel @ **3105** (`maybe_generate_rnd_mon` → `makemon(NULL,0,0)`
+  body; C `makemon_rnd_goodpos` vs JS stub falling through to `dosounds`).
+
+## D-0033 — seed0060 missing donull (`.` wait)
+
+- **Status:** fixed (verified 2026-07-12).
+- **Observed:** seed0060 first mismatch @ **3016**: C `rn2(5)`
+  `distfleeck` vs JS `rn2(2)`. Matched through kick-avoid turn end
+  (3015 = moveloop `rn2(94)`).
+- **Rejected:** post-kick pet cell west-vs-south / `mtrack` candidate-skip /
+  fleeck arity as the 3016 cause — kick-turn dog_move RNG already matched
+  C through 3015; JS’s next call was `exercise` arity 2 (second kick), not
+  a wrong `distfleeck` arity.
+- **Cause/evidence:** moves include `\u0004j..`; JS `rhack` had no `.`
+  branch so wait was “Unknown command” with `context.move=0`. C `donull`
+  returns `ECMD_TIME` → monster turns start with `distfleeck` `rn2(5)`.
+  Skipping both `.` waits made the next kick’s `exercise` `rn2(2)` land at
+  3016. Timed non-kick commands also clear `gk.kickedloc` (`cmd.c`).
+- **C locus:** `do.c:donull`; `cmd.c` (`.` → wait; clear `kickedloc` when
+  `ECMD_TIME && func != dokick`).
+- **Change:** `js/do.js` `donull`; `js/cmd.js` `.` → timed wait + clear
+  `kickedloc`. Omit `cmd_safety_prevention` (named in C-JS-MAP).
+- **Verification:** rng-diff first mismatch **3016 → 3105**; seed0060
+  runner **3086 → 3151**/3626; green + seed1500 + seed1800 PASS + strict;
+  full suite **4/44**, RNG **27922**/792838, screens **179**/11405.
+- **Lesson:** when C’s next call is `distfleeck` and JS shows a *different
+  function’s* arity (here `exercise`/`rn2(2)`), check whether an intervening
+  timed command key (`.` wait) was dropped as unknown.
+- **Next:** peel @ **3105** — port `maybe_generate_rnd_mon`’s
+  `makemon(NULL,0,0)` path (`makemon_rnd_goodpos` / `rndmonst`).

@@ -19,6 +19,20 @@ Use this shape:
 
 ---
 
+## 2026-07-12 23:45 — seed0060 donull / `.` wait (D-0033)
+- C locus: `do.c:donull`; `cmd.c` (`.` → wait; clear `kickedloc` when
+  timed && `func != dokick`)
+- Result: **verified faithful change** — falsified post-kick pet/`mtrack`
+  as the 3016 cause. JS treated `.` as unknown (`move=0`), so wait turns
+  never ran; next kick’s `exercise` `rn2(2)` sat where C had `distfleeck`
+  `rn2(5)`. Ported `js/do.js` `donull` + `cmd.js` `.` branch.
+- Verification: rng-diff **3016→3105**; seed0060 **3151**/3626; green +
+  seed1500/1800 PASS + strict; full **4/44**, RNG **27922**/792838,
+  screens **179**/11405.
+- Next: `node scripts/rng-diff.mjs sessions/seed0060-orc-rogue-kick-search.session.json`
+  — port `maybe_generate_rnd_mon` → `makemon(NULL,0,0)` /
+  `makemon_rnd_goodpos` (C @ 3105).
+
 ## 2026-07-12 23:35 — seed0060 m_avoid_kicked_loc (D-0032)
 - C locus: `dokick.c` (`kickedloc`); `monmove.c:m_avoid_kicked_loc`;
   `dogmove.c` candidate loop; clear in `hack.c:domove` / non-kick timed cmds

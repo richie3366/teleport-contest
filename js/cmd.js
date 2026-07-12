@@ -18,6 +18,7 @@ import { doeat } from './eat.js';
 import { dothrow } from './dothrow.js';
 import { doapply } from './apply.js';
 import { dokick } from './dokick.js';
+import { donull } from './do.js';
 import { do_attack, mon_at, is_safemon } from './uhitm.js';
 
 
@@ -170,6 +171,11 @@ export async function rhack(key) {
         const tookTime = await dokick();
         game.context.move = tookTime ? 1 : 0;
         // C: do NOT clear kickedloc after dokick — pets avoid it this turn
+    } else if (ch === '.') {
+        // C ref: do.c donull / cmd.c — wait; timed non-kick clears kickedloc
+        const tookTime = donull();
+        game.context.move = tookTime ? 1 : 0;
+        if (tookTime) game.kickedloc = { x: 0, y: 0 };
     } else if (ch === 's') {
         // C ref: search.c dosearch — takes a turn; count from digit prefix
         const n = game.context?.command_count || 0;
