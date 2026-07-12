@@ -7,14 +7,14 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 
 ## Active
 
-- **Current unit:** `choose_trapnote` + `hole_destination` + `maketrap`
-  wiring (D-0054) and `mkobj(SPBOOK_no_NOVEL)` → `rnd_class` through
-  `SPE_BLANK_PAPER` (D-0055) ported. Misdiagnosed “GEM 999 vs 1000” was
-  the novel-excluded spellbook sum.
-- **Hypothesis / next peel:** seed0700 `rndmonst_adj` @ 1888; seed0103
-  `next_ident`/`trquan` @ 2337; seed2200 `exercise` @ 2724; seed0016
-  `next_ident` @ 2493; seed1150 `peace_minded` @ 2301; seed0015/0200
-  `lspo_map`; seed0501/0105 `wipeout_text`.
+- **Current unit:** D-0056 fixed Caveman/Valkyrie/Rogue `initrecord`
+  (Caveman/Valk 0, Rogue 10). seed1150 past `peace_minded`.
+- **Hypothesis / next peel:** seed0700 `rndmonst_adj` @ 1888 — after
+  matching through totalweight 21, next call’s first weight is C
+  `rn2(3)` vs JS `rn2(2)` (seed0102: JS `rn2(6)`). Likely missing
+  `align_shift` (JS stubbed 0; C uses dungeon/level align) and/or
+  quest/`upper`/`Inhell` filters. Also seed2200 `exercise` @ 2724;
+  seed1150 `dog_move` @ 2915; seed0103 `next_ident`/`trquan` @ 2337.
 - **Falsifier / next probe:**
   ```bash
   node scripts/rng-diff.mjs sessions/seed0700-samurai-explore-descend.session.json
@@ -40,7 +40,9 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   P_SKILL table / odd-skill P_NAME); `obj_typename` armor pair-of/
   set-of + GemStone; MLET_CH beyond early subset; shop `costly_spot`
   autopickup disable; `apelist` exceptions; maketrap overwrite/
-  furniture/statue/boulder/shop-damage/terrain morph; …
+  furniture/statue/boulder/shop-damage/terrain morph; `peace_minded`
+  MS_LEADER/GUARDIAN/NEMESIS/ERINYS/`race_*`/`is_minion`/amulet arms;
+  `align_shift` / `temperature_shift` real bodies; …
 
 ## Don’t re-check
 
@@ -206,6 +208,9 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   `maketrap` → `choose_trapnote` for `SQKY_BOARD` — D-0054.
 - seed0016/0361 `rn2(4)` gap was **not** mktrap victim `rnd(4)`: missing
   `hole_destination` for HOLE/TRAPDOOR — D-0054.
+- seed1150 `rn2(16)` vs `rn2(26)` @ `peace_minded` was **not** a formula
+  bug: Caveman C `initrecord` is **0** (field after xlev/`/* Energy */`),
+  JS had 10; also Valkyrie C=0 JS=10, Rogue C=10 JS=0 — D-0056.
 
 ## Landmarks
 
@@ -216,8 +221,8 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 - Samurai+human init HP = **15** (role 13 + race 2); initrecord **10**.
 - Healer+human init HP = **13** (role 11 + race 2); initrecord **10**;
   gold `rn1(1000,1001)` → **1001..2000**.
-- Valkyrie+human init HP = **16** (role 14 + race 2); initrecord **10**;
-  shield `+3`; optional Lamp `!rn2(6)`.
+- Valkyrie+human init HP = **16** (role 14 + race 2); initrecord **0**
+  (C; not 10); shield `+3`; optional Lamp `!rn2(6)`.
 - Ranger+human init HP = **15** (role 13 + race 2); initrecord **10**;
   cloak of displacement `+2`; arrow stacks `rn2` quan 50–59 and 30–39.
 - Monk+human init HP = **14** (role 12 + race 2); initrecord **10**;
@@ -229,9 +234,10 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 - Barbarian+human init HP = **16** (role 14 + race 2); initrecord **10**;
   kit via `rn2(100)>=50` → two-handed sword+axe else battle-axe+short
   sword; ring mail; optional Lamp `!rn2(6)`.
-- Caveman+human init HP = **16** (role 14 + race 2); initrecord **10**;
-  club `+1`, sling `+2`; flint trop 10–20; rock trop 3×`rn1(6,6)` → 18..33;
-  leather armor; little dog pet.
+- Caveman+human init HP = **16** (role 14 + race 2); initrecord **0**
+  (C; not 10); club `+1`, sling `+2`; flint trop 10–20; rock trop
+  3×`rn1(6,6)` → 18..33; leather armor; little dog pet.
+- Rogue initrecord **10** (C; JS had wrongly 0 until D-0056).
 - Rogue legacy offx = `max(10, 80 - maxcol - 1)` (Kos → 23; The Lady → 17).
 - Tutorial menu offx = 20 (OPTIONS `.nethackrc` line → maxcol 59); cursor
   `[27,6]` on `(end) `.
@@ -254,10 +260,12 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   positional **2582**/35386.
 - seed0361: D-0054 → past `hole_destination`; prefix **1432**
   (`rndmonst_adj`); positional **2942**/53865.
-- seed1150: D-0055 → past SPBOOK_no_NOVEL; prefix **2301**
-  (`peace_minded`); positional **2941**/3137 Scr **22**/51.
+- seed1150: D-0056 → past `peace_minded`; prefix **2915** (`dog_move`);
+  positional **2942**/3137 Scr **22**/51.
 - seed0700: D-0053 → past `mkclass_aligned`; rng-diff prefix **1888**;
   next `rndmonst_adj` (arity drift). seed0103 → prefix **2337**;
   next `next_ident` vs JS `trquan` (pony/makemon invent).
 - `SPBOOK_no_NOVEL` ≡ `-SPBOOK_CLASS` (−10); `rnd_class` to
   `SPE_BLANK_PAPER` sums **999** (novel prob 1 excluded).
+- C `initrecord` after xlev: Caveman/Priest/Tourist/Valkyrie/Wizard **0**;
+  Archeologist/Barbarian/Healer/Knight/Monk/Ranger/Rogue/Samurai **10**.

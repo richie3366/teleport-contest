@@ -99,7 +99,8 @@ export const roles = [
         // C: { 10, 7, 7, 7, 8, 6 } / { 30, 6, 7, 20, 30, 7 }
         attrbase: [10, 7, 7, 7, 8, 6],
         attrdist: [30, 6, 7, 20, 30, 7],
-        initrecord: 10,
+        // C: xlev 10, initrecord 0 (role.c after enadv)
+        initrecord: 0,
         // C: { 14, 0, 0, 8, 2, 0 } / { 1, 0, 0, 1, 0, 1 }
         hpadv: adv(14, 0, 0, 8, 2, 0),
         enadv: adv(1, 0, 0, 1, 0, 1),
@@ -199,7 +200,8 @@ export const roles = [
         cgod: 'Kos',
         attrbase: [7, 7, 7, 10, 7, 6],
         attrdist: [20, 10, 10, 30, 20, 10],
-        initrecord: 0,
+        // C: xlev 11, initrecord 10
+        initrecord: 10,
         hpadv: adv(10, 0, 0, 8, 1, 0),
         enadv: adv(1, 0, 0, 1, 0, 1),
     },
@@ -276,7 +278,8 @@ export const roles = [
         // C: { 10, 7, 7, 7, 10, 7 } / { 30, 6, 7, 20, 30, 7 }
         attrbase: [10, 7, 7, 7, 10, 7],
         attrdist: [30, 6, 7, 20, 30, 7],
-        initrecord: 10,
+        // C: xlev 10, initrecord 0
+        initrecord: 0,
         // C: { 14, 0, 0, 8, 2, 0 } / { 1, 0, 0, 1, 0, 1 }
         hpadv: adv(14, 0, 0, 8, 2, 0),
         enadv: adv(1, 0, 0, 1, 0, 1),

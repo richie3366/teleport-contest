@@ -621,3 +621,14 @@ Use this shape:
 - Next: run the four commands listed in D-0007; if Rogue clears the throw,
   peel first post-init divergence; if green regresses, bisect `mnum`/wield
   changes against Tourist.
+
+## 2026-07-13 01:32 — roles initrecord → peace_minded (D-0056)
+- C locus: `role.c` roles[] `initrecord`; `makemon.c:peace_minded`;
+  `u_init.c` ualign.record init
+- Result: Caveman/Valkyrie initrecord 10→0, Rogue 0→10 to match C.
+  Cleared seed1150 `rn2(16)` vs `rn2(26)` at peace_minded (was wrong
+  `ualign.record`, not formula).
+- Verification: green + seed1500/1800/0060 PASS + strict; seed1150
+  prefix 2301→2915 (`dog_move`); full 5/44 screens 290 RNG 85042.
+- Next: `node scripts/rng-diff.mjs sessions/seed0700-samurai-explore-descend.session.json`
+  — port `align_shift` (or diagnose first weight rn2(3) vs rn2(2)).

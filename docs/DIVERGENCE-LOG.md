@@ -1443,5 +1443,31 @@ cohort gates if those functions are touched again.
 - **Lesson:** provenance `rnd_class` + arity 999 is spellbook-without-
   novel, not gem totals — check `mkobj` fake-class branches before
   retuning `setgemprobs`.
-- **Next:** seed0700 `rndmonst_adj` @ 1888, seed2200 `exercise` @
-  2724, or seed1150 `peace_minded` @ 2301.
+- **Next:** D-0056 cleared Caveman `peace_minded` arity; peel
+  seed0700 `rndmonst_adj` / seed2200 `exercise` / seed1150
+  `dog_move` @ 2915.
+
+## D-0056 — roles[] `initrecord` match C (Caveman/Valkyrie/Rogue)
+
+- **Status:** fixed (verified 2026-07-13).
+- **Observed:** seed1150 first mismatch C `rn2(16)` @
+  `peace_minded` vs JS `rn2(26)` — same call site, wrong arity.
+- **Cause/evidence:** C `role.c` `initrecord` after `xlev`: Caveman
+  **0**, Valkyrie **0**, Rogue **10**. JS had Caveman/Valkyrie **10**
+  and Rogue **0**. `u_init` copies `urole.initrecord` into
+  `u.ualign.record`; `peace_minded` rolls `rn2(16 + record)`.
+- **C locus:** `role.c` roles[] `initrecord`; `makemon.c`
+  `peace_minded`; `u_init.c` ualign init.
+- **Change:** `js/roles.js` initrecord: Caveman 10→0, Valkyrie
+  10→0, Rogue 0→10.
+- **Verification:** green + seed1500/1800/0060 PASS + strict;
+  seed1150 rng-diff prefix **2301→2915** (`dog_move`); positional
+  **2941→2942**/3137 Scr 22/51; full **5/44**, screens **290**,
+  RNG **85042**/792838. Rogue cohort still PASS (paths rarely hit
+  co-aligned `peace_minded` with the bad Rogue record).
+- **Lesson:** landmarks that say “initrecord 10” for every combat
+  role are wrong — read the field after `/* Energy */` (=xlev) in
+  `role.c`. Wrong record looks like a `peace_minded` formula bug.
+- **Next:** seed0700 `rndmonst_adj` @ 1888 (likely `align_shift`);
+  seed2200 `exercise` @ 2724; seed1150 `dog_move` @ 2915;
+  seed0103 `next_ident`/`trquan` @ 2337.
