@@ -11,12 +11,13 @@ import { getdir } from './lock.js';
 import { near_capacity } from './invent.js';
 import { objects_at } from './mkobj.js';
 import { mon_at } from './uhitm.js';
+import { losehp, maybe_half_phys } from './hack.js';
 import {
     COLNO, ROWNO,
     SDOOR, SCORR, STAIRS, LADDER, IRONBARS, LAVAWALL,
     D_ISOPEN, D_BROKEN, D_NODOOR, LA_DOWN, SLT_ENCUMBER,
     IS_DOOR, IS_STWALL, IS_POOL, IS_THRONE, IS_FOUNTAIN, IS_SINK, IS_GRAVE,
-    IS_TREE,
+    IS_TREE, KILLED_BY,
 } from './const.js';
 
 function isok(x, y) {
@@ -52,10 +53,11 @@ async function kick_dumb(x, y) {
 
 /**
  * C ref: dokick.c kick_ouch — solid terrain / failed impact (partial).
- * Enough for wall kicks: DEX+STR abuse. Wounded-legs / losehp / hurtle named
- * omissions beyond the rolls that must stay ordered with C.
+ * Blind feel_location / wake_nearto / drawbridge / set_wounded_legs body /
+ * airlevel hurtle deferred. losehp applies the damage roll (regen_hp needs
+ * uhp < uhpmax).
  */
-async function kick_ouch(x, y) {
+async function kick_ouch(x, y, kickobjnam = '') {
     await pline('Ouch!  That hurts!');
     exercise(A_DEX, false);
     exercise(A_STR, false);
@@ -64,8 +66,12 @@ async function kick_ouch(x, y) {
         // set_wounded_legs(RIGHT_SIDE, 5 + rnd(5))
         rnd(5);
     }
-    // losehp(Maybe_Half_Phys(rnd(...))) — consume the damage roll
-    rnd(acurr(A_CON) > 15 ? 3 : 5);
+    // C: dmg = rnd(ACURR(A_CON) > 15 ? 3 : 5);
+    //     losehp(Maybe_Half_Phys(dmg), kickstr(...), KILLED_BY);
+    const dmg = rnd(acurr(A_CON) > 15 ? 3 : 5);
+    const what = kickobjnam || 'a wall';
+    losehp(maybe_half_phys(dmg), what, KILLED_BY);
+    // Is_airlevel / Levitation hurtle deferred
     void x;
     void y;
 }

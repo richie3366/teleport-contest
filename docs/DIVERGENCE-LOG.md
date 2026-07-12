@@ -56,6 +56,7 @@ Do not record a guessed cause as fixed merely because an RNG prefix moved.
 | D-0032 | fixed | dogmove/dokick | seed0060 @ 2997: missing m_avoid_kicked_loc after kick |
 | D-0033 | fixed | cmd/donull | seed0060 @ 3016: `.` wait missing → skipped turns |
 | D-0034 | fixed | makemon/rnd | seed0060 @ 3105: stubbed `makemon(NULL,0,0)` skipped placement RNG |
+| D-0035 | fixed | losehp/regen_hp | seed0060 @ 3536: wall kick must `losehp` + EOT `regen_hp` |
 
 D-0001 through D-0005 predate the strict-length/cohort runbook. Their focused
 causes are preserved, but generic "green sessions held" is historical evidence,
@@ -803,3 +804,30 @@ cohort gates if those functions are touched again.
   `rndmonst`; stubbing after the spawn gate is not RNG-equivalent.
 - **Next:** peel @ **3536** — port `regen_hp` in the once-per-turn block
   before `dosounds`.
+
+## D-0035 — seed0060 losehp + regen_hp (wall kick turn)
+
+- **Status:** fixed (verified 2026-07-12).
+- **Observed:** seed0060 first mismatch @ **3536**: C `rn2(100)`
+  `regen_hp` vs JS `rn2(300)` `dosounds`. Step 28 is wall kick
+  ("Ouch!  That hurts!") after empty-space kicks; RNG OK through 3535
+  (`maybe_generate_rnd_mon` miss).
+- **Cause/evidence:** Two coupled gaps. (1) JS `kick_ouch` burned
+  `rnd(CON?3:5)` but never applied `losehp`, so `uhp` stayed at max and
+  C's `regen_hp` gate never opened. (2) JS once-per-turn block skipped
+  `regen_hp` entirely before `dosounds`. Post-ouch session screens can
+  still show `HP:11(11)` when same-turn heal equals damage — not proof
+  that `losehp` was absent in C.
+- **C locus:** `dokick.c:kick_ouch` → `losehp(Maybe_Half_Phys(dmg),…)`;
+  `hack.c:losehp`; `allmain.c:regen_hp` / once-per-turn call before
+  `dosounds`.
+- **Change:** new `js/hack.js` `losehp`/`maybe_half_phys`; `dokick.js`
+  applies damage; `allmain.js` `regen_hp` + `interrupt_multi` + call
+  site when `uhp < uhpmax` (or mh when Upolyd).
+- **Verification:** rng-diff **RNG OK 3626**; seed0060 runner
+  **3626**/3626 RNG, Scr **0**/41, cursors **41**/41; green + seed1500
+  + seed1800 PASS + strict; full suite **4/44**, RNG **28511**/792838,
+  screens **179**/11405.
+- **Lesson:** a missing HP mutation can look like a missing EOT RNG call;
+  check whether the regen *gate* (`uhp < uhpmax`) can ever be true.
+- **Next:** seed0060 screen idx 0 cells (legacy/botl); cursors already match.

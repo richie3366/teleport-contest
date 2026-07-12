@@ -19,6 +19,19 @@ Use this shape:
 
 ---
 
+## 2026-07-12 23:58 — seed0060 losehp + regen_hp (D-0035)
+- C locus: `dokick.c:kick_ouch` → `hack.c:losehp`; `allmain.c:regen_hp`
+  (once-per-turn before `dosounds`)
+- Result: **verified faithful change** — wall kick burned damage RNG but
+  never subtracted HP, so `regen_hp` never ran; also missing the EOT call.
+  Ported `js/hack.js` `losehp`/`maybe_half_phys`, wired `kick_ouch`, and
+  `regen_hp` when `uhp < uhpmax`.
+- Verification: rng-diff **RNG OK 3626**; seed0060 **3626**/3626 RNG,
+  Scr **0**/41; green + seed1500/1800 PASS + strict; full **4/44**,
+  RNG **28511**/792838, screens **179**/11405.
+- Next: `node frozen/ps_test_runner.mjs sessions/seed0060-orc-rogue-kick-search.session.json`
+  — diagnose screen idx 0 cells (legacy/botl; cursors already 41/41).
+
 ## 2026-07-12 23:55 — seed0060 makemon(NULL,0,0) (D-0034)
 - C locus: `allmain.c:maybe_generate_rnd_mon`; `makemon.c:makemon` /
   `makemon_rnd_goodpos` / `m_initgrp`; `teleport.c:enexto_gpflags`

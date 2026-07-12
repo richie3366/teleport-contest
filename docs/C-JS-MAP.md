@@ -58,9 +58,11 @@ seed1500 **PASS** RNG/Scr **2768/2768**, **40/40**. seed1800 **PASS**
 **2458/2458**, **26/26**. Orc race kit (D-0027) + `splitobj` (D-0028) +
 `relobj` (D-0029) + `dog_goal` real `couldsee` (D-0030) + empty-space
 `#kick` (D-0031) + `m_avoid_kicked_loc` (D-0032) + `.`/`donull` (D-0033) +
-`makemon(NULL,0,0)` / `makemon_rnd_goodpos` / `m_initgrp` (D-0034) clear
-through 3535. Next peel: seed0060 @ 3536 — C `regen_hp` before `dosounds`
-(JS never calls it). `m_initinv` body still absent (named omission).
+`makemon(NULL,0,0)` / `makemon_rnd_goodpos` / `m_initgrp` (D-0034) + wall
+`kick_ouch` `losehp` + once-per-turn `regen_hp` (D-0035) clear RNG
+**3626/3626**. Next peel: seed0060 screens **0/41** (cursors 41/41) —
+idx 0 cell grid (legacy Book of Kos / botl AC snapshot). `m_initinv`
+body still absent (named omission).
 
 ## Data and world generation
 
@@ -80,9 +82,10 @@ through 3535. Next peel: seed0060 @ 3536 — C `regen_hp` before `dosounds`
 
 | C source | JS | Status | Evidence / known omissions |
 |---|---|---|---|
-| `src/allmain.c` | `js/allmain.js` | partial | Basic move loop and hunger/sound subsets; **`maybe_generate_rnd_mon` → real `makemon(NULL,0,0)`** (D-0034); **`regen_hp` absent** (seed0060 @ 3536) |
+| `src/allmain.c` | `js/allmain.js` | partial | Basic move loop and hunger/sound subsets; **`maybe_generate_rnd_mon` → real `makemon(NULL,0,0)`** (D-0034); **`regen_hp` + once-per-turn call** (D-0035); omit `regen_pw`/Teleport/Poly once-per-turn RNG; Upolyd eel hp-loss rolls; Regeneration/Sleepy props |
 | `src/cmd.c` / `src/do.c` | `js/cmd.js`, `js/do.js` | partial | Movement/search/apply/kick/wait and selected UI/item commands; Ctrl-D → `dokick` (D-0031); **`.` → `donull`** (D-0033); omit `cmd_safety_prevention`, `rest_on_space` |
-| `src/dokick.c` | `js/dokick.js` | partial | `dokick` + `kick_dumb` empty-space/open-door (D-0031); sets `game.kickedloc` (D-0032); wall `kick_ouch` rolls; omit `kick_monster`/`kick_object`/closed-door Whammm/SDOOR-SCORR open/furniture/`martial`/`wake_nearby`/`u_wipe_engr`/`losehp`/`set_wounded_legs` bodies |
+| `src/dokick.c` | `js/dokick.js` | partial | `dokick` + `kick_dumb` (D-0031); `kickedloc` (D-0032); **`kick_ouch` → `losehp`** (D-0035); omit `kick_monster`/`kick_object`/closed-door Whammm/SDOOR-SCORR open/furniture/`martial`/`wake_nearby`/`u_wipe_engr`/`set_wounded_legs`/`kickstr` terrain names |
+| `src/hack.c` `losehp` | `js/hack.js` | partial | **`losehp` !Upolyd / Upolyd mh subtract** (D-0035); `maybe_half_phys` identity until Half_physical prop; omit `showdamage`/`maybe_wail`/`done(DIED)` bodies |
 | `src/apply.c` / `src/lock.c` | `js/apply.js`, `js/lock.js` | partial | `doapply` + `pick_lock` (D-0021); exported `getdir` for kick/apply; getobj missing-letter `continue`+`flush_topl_more` (D-0025); omit sack/other tools, real door occupation, `feel_location` mapseen gating, container-at-feet |
 | `src/display.c` `newsym` / map | `js/display.js` | partial | Floor `vobj_at` + class symbols + CORPSE `mon_color` (D-0022); SDOOR/SCORR terrain; omit traps/engravings/`wall_angle`/hallucination/`see_objects` |
 | `src/invent.c` `look_here` / `dfeature_at` | `js/invent.js`, `js/mklev.js` | partial | Stairs via `stairs_description` + Dlvl1 `u_traversed` (D-0026); doors/fountain/sink stubs; Blind feel, engraving, multi-object menu, `doname_with_price` deferred |
@@ -111,7 +114,7 @@ These are not protected merely because the two green sessions exercise them:
 | `js/eat.js` | Allowed-letter formatting, menu fallback, and eating are narrow subsets |
 | `js/invent.js` | Corner invent + disco `*`/encounter + ^X wield subset (D-0024); fullscreen invent and full enlightenment deferred |
 | `js/u_init.js` / `js/roles.js` | Rogue/Tourist + human/orc(/elf/dwarf/gnome) race kits (D-0027); other roles throw; `oc_armcat`/`oc_skill` not in objects extractor (suit/dagger filters are named-otyp stand-ins); skills tables deferred |
-| `js/allmain.js` | Welcome/HP/align no longer Tourist-literal; tutorial, hunger, sound, and attribute checks still have deferred branches |
+| `js/allmain.js` | Welcome/HP/align no longer Tourist-literal; **`regen_hp` once-per-turn** (D-0035); tutorial, hunger, sound, and attribute checks still have deferred branches |
 | `js/mon.js` / `js/monmove.js` / `js/dogmove.js` | Monster flags, movement predicates, targeting, carrying, and combat have named stubs/defaults |
 | `js/mklev.js` / `js/mkobj.js` / `js/makemon.js` | Many terrain/object/monster-type branches remain scenario-limited |
 

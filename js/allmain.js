@@ -24,7 +24,7 @@ import { phase_of_the_moon, friday_13th, FULL_MOON, NEW_MOON } from './calendar.
 import { ATR_INVERSE } from './terminal.js';
 import {
     UNENCUMBERED, SLT_ENCUMBER, MOD_ENCUMBER, HVY_ENCUMBER, EXT_ENCUMBER,
-    NO_MM_FLAGS,
+    NO_MM_FLAGS, Upolyd,
 } from './const.js';
 
 // C ref: allmain.c moveloop_preamble() — moon/friday + new-game RNG leaves
@@ -85,6 +85,70 @@ function maybe_generate_rnd_mon() {
     if (!rn2(70)) {
         makemon(null, 0, 0, NO_MM_FLAGS);
     }
+}
+
+/** C: U_CAN_REGEN() — Regeneration || (Sleepy && u.usleep). Props deferred. */
+function u_can_regen() {
+    const u = game.u || {};
+    const regen = !!(u.HRegeneration || u.ERegeneration);
+    const sleepy = !!(u.HSleepy || u.ESleepy);
+    return regen || (sleepy && !!u.usleep);
+}
+
+/**
+ * C ref: allmain.c interrupt_multi() — stop voluntary multi-turn activity.
+ * Norep message deferred; only clears multi when not travel/run.
+ */
+function interrupt_multi(_msg) {
+    const ctx = game.context || {};
+    if ((game.multi || 0) > 0 && !ctx.travel && !ctx.run) {
+        game.multi = 0;
+    }
+}
+
+/**
+ * C ref: allmain.c regen_hp(wtcap) — maybe recover HP once/turn.
+ * Upolyd eel-out-of-water hp-loss rolls (rn2(mh)/rn2(8)) deferred until poly
+ * eel forms are live; Breathless / Half_physical_damage props deferred.
+ */
+function regen_hp(wtcap) {
+    const u = game.u || (game.u = {});
+    let heal = 0;
+    let reached_full = false;
+    const encumbrance_ok = (wtcap < MOD_ENCUMBER || !u.umoved);
+
+    if (Upolyd(u)) {
+        if ((u.mh || 0) < 1) {
+            // rehumanize deferred
+        } else if ((u.mh || 0) < (u.mhmax || 0)) {
+            if (u_can_regen() || (encumbrance_ok && !((game.moves || 0) % 20))) {
+                heal = 1;
+            }
+        }
+        if (heal) {
+            if (!game.flags) game.flags = {};
+            game.flags.botl = true;
+            u.mh = (u.mh || 0) + heal;
+            reached_full = (u.mh === u.mhmax);
+        }
+    } else if (
+        (u.uhp || 0) < (u.uhpmax || 0) && (encumbrance_ok || u_can_regen())
+    ) {
+        // C: heal = (u.ulevel + (int)ACURR(A_CON)) > rn2(100);
+        heal = ((u.ulevel || 1) + acurr(A_CON)) > rn2(100) ? 1 : 0;
+        if (u_can_regen()) heal += 1;
+        if ((u.HSleepy || u.ESleepy) && u.usleep) heal++;
+
+        if (heal) {
+            if (!game.flags) game.flags = {};
+            game.flags.botl = true;
+            u.uhp = (u.uhp || 0) + heal;
+            if (u.uhp > u.uhpmax) u.uhp = u.uhpmax;
+            reached_full = (u.uhp === u.uhpmax);
+        }
+    }
+
+    if (reached_full) interrupt_multi('You are in full health.');
 }
 
 // C ref: sounds.c dosounds() — feature rolls; vault matters once has_vault
@@ -338,10 +402,22 @@ export async function moveloop_core() {
                     mtmp.movement = (mtmp.movement || 0) + mcalcmove(mtmp, true);
                 }
                 maybe_generate_rnd_mon();
-                u_calc_moveamt(near_capacity());
+                // C: mvl_wtcap = near_capacity() earlier; reuse for regen_hp/pw
+                let mvl_wtcap = near_capacity();
+                u_calc_moveamt(mvl_wtcap);
                 g.moves = (g.moves || 1) + 1;
 
-                // once-per-turn
+                // once-per-turn — C: regen_hp before dosounds when HP below max
+                if (g.u.uinvulnerable) {
+                    mvl_wtcap = UNENCUMBERED;
+                } else if (
+                    !Upolyd(g.u)
+                        ? ((g.u.uhp || 0) < (g.u.uhpmax || 0))
+                        : ((g.u.mh || 0) < (g.u.mhmax || 0))
+                ) {
+                    regen_hp(mvl_wtcap);
+                }
+                // regen_pw / Teleportation / Polymorph deferred (no early RNG)
                 dosounds();
                 gethungry();
                 exerchk();

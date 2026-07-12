@@ -39,7 +39,7 @@ frozen-file overlay):
 |--------|------:|
 | Sessions passing | **4 / 44** |
 | Screens matched | **179 / 11,405** (1.57%) |
-| Positional RNG calls matched | **28,497 / 792,838** (3.59%) |
+| Positional RNG calls matched | **28,511 / 792,838** (3.60%) |
 | Speed label | `13+0.02/turn` (R² 0.07) |
 | Working-tree base | `8b71735` + committed port (see `main`) |
 | Role-init throws | **29 / 44** (`u_init_role: role not ported`) |
@@ -56,13 +56,12 @@ shared blockers, and semantic coverage together—not one vanity metric.
 | `seed0900-tourist-explore-actions` | **2983 / 2983** | **84 / 84** |
 | `seed1500-rogue-explore-move` | **2768 / 2768** | **40 / 40** |
 | `seed1800-tourist-eat-throw` | **2458 / 2458** | **26 / 26** |
-| `seed0060-orc-rogue-kick-search` | **3562 / 3626** | 0 / 41 |
+| `seed0060-orc-rogue-kick-search` | **3626 / 3626** | 0 / 41 |
 | `seed0013-rogue-friday13-combat` | **519 / 4838** | 1 / 59 |
 
 seed8000 + seed0900 + seed1500 + seed1800 pass end-to-end. seed0060 clears
-`makemon(NULL,0,0)` (D-0034); first mismatch is C `regen_hp` `rn2(100)` @
-3536 vs JS `rn2(300)` `dosounds`. seed0013 still breaks earlier in Lua/`sp_lev`
-map.
+RNG (D-0035 `losehp`+`regen_hp`); screens still **0/41** (cursors 41/41) from
+idx 0 cells. seed0013 still breaks earlier in Lua/`sp_lev` map.
 
 ### Green gate
 
@@ -86,27 +85,27 @@ complete or blocked on a prerequisite you document with a falsifier. The
 seed1800 deep canary (`D-0006`) is **parked** — do not implement pet-movement
 fixes until C state/candidate capture exists (`GROK-PLAYBOOK.md` §2).
 
-#### Primary foundation frontier — regen_hp (seed0060 @ 3536)
+#### Primary foundation frontier — seed0060 screens (idx 0 cells)
 
-**Code status:** empty-space `#kick` / `kick_dumb` (D-0031),
-`m_avoid_kicked_loc` (D-0032), `.`/`donull` (D-0033), and
-`makemon(NULL,0,0)` / `makemon_rnd_goodpos` (D-0034) cleared. Four public
-sessions pass end-to-end.
+**Code status:** empty-space `#kick` (D-0031), `m_avoid_kicked_loc` (D-0032),
+`.`/`donull` (D-0033), `makemon(NULL,0,0)` (D-0034), and wall-kick
+`losehp` + once-per-turn `regen_hp` (D-0035) cleared. RNG **3626/3626**;
+four public sessions pass end-to-end; seed0060 screens still **0/41**.
 
-- **Bounded unit:** once-per-turn, C calls `regen_hp` before `dosounds` when
-  `uhp < uhpmax`; JS never calls it, so the stream jumps to `dosounds`
-  `rn2(300)`.
-- **C:** `allmain.c:regen_hp` (`(ulevel + ACURR(A_CON)) > rn2(100)`).
-- **JS:** `js/allmain.js` once-per-turn block (after `maybe_generate_rnd_mon`).
+- **Bounded unit:** first failing screen cells (idx 0 = Book of Kos legacy
+  + botl). Cursors already match; cellsOnly 0/41.
+- **C:** legacy `com_pager` / tty NHW_MENU; botl snapshot timing (AC:0 on
+  frame 0 vs AC:7 later).
+- **JS:** `js/allmain.js` / `js/questpgr.js` / `js/display.js` legacy + botl.
 - **Named omissions:** dokick monster/object/closed-door/SDOOR/furniture;
-  `martial()`; wake/engraving side effects; `losehp`/`set_wounded_legs`
-  bodies; other roles still throw; `dog_goal` gettrack/FARAWAY;
+  `martial()`; wake/engraving; `set_wounded_legs` body; `showdamage`/
+  death `done`; Upolyd eel `regen_hp` loss; `regen_pw`/Teleport/Poly
+  once-per-turn; other roles still throw; `dog_goal` gettrack/FARAWAY;
   `throw_gold`; eat getobj single-shot; Blind/`look_here`; trap glyphs;
   full `wall_angle`; `ini_inv_mkobj_filter`; `u_init_carry_attr_boost`;
-  mfndpos `bad_rock` squeeze / boulder `ALLOW_ROCK`; Sokoban
-  `m_avoid_soko_push_loc` body; `donull` `cmd_safety_prevention`; dog_move
-  `mtrack` candidate skip (`goto nxti`); `makemon` `throws_rocks` Sokoban
-  reject; `m_initinv` body; `set_malign`; …
+  mfndpos `bad_rock` squeeze; Sokoban push-avoid; `donull`
+  `cmd_safety_prevention`; dog_move `mtrack` skip; `makemon` Sokoban
+  `throws_rocks`; `m_initinv` body; `set_malign`; …
 - **Cohort:** green gate + seed1500 + seed1800 (must stay PASS) + strict
   lengths.
 - **Alternate shared peel:** next unported role, or seed0013 Lua/`sp_lev`
@@ -116,8 +115,6 @@ Focused command:
 
 ```bash
 node frozen/ps_test_runner.mjs \
-  sessions/seed0060-orc-rogue-kick-search.session.json
-node scripts/rng-diff.mjs \
   sessions/seed0060-orc-rogue-kick-search.session.json
 ```
 
@@ -163,6 +160,8 @@ Module status, constitutional debt, and named omissions live in
     next C `makemon_rnd_goodpos` vs JS stub/`dosounds`
 19. seed0060 `makemon(NULL,0,0)` / `makemon_rnd_goodpos` (D-0034) —
     mismatch 3105→3536; next C `regen_hp` vs JS `dosounds`
+20. seed0060 `losehp` + `regen_hp` (D-0035) — RNG **3626/3626**; next
+    screen idx 0 cells (legacy/botl)
 
 Next work is selected from the active objectives above using
 `PORTING-RUNBOOK.md`, not by extending this historical list.

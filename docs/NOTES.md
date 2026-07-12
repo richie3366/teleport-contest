@@ -7,30 +7,32 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 
 ## Active
 
-- **Current unit:** seed0060 @ RNG **3536** — C `regen_hp` `rn2(100)` vs JS
-  `rn2(300)` `dosounds` after `maybe_generate_rnd_mon` (gate miss `rn2(70)=64`).
-- **Hypothesis:** JS `moveloop_core` never calls `regen_hp`; C runs it in the
-  once-per-turn block before `dosounds` when `uhp < uhpmax`.
+- **Current unit:** seed0060 — RNG **3626/3626** (D-0035); screens **0/41**,
+  cursors **41/41**. First cell-grid fail from screen idx 0.
+- **Hypothesis:** idx 0 is legacy Book of Kos / status snapshot (C shows
+  `AC:0` pre-wear on frame 0; later frames `AC:7`). Map/glyph or corner-menu
+  cells may also diverge — diagnose before patching.
 - **Falsifier / next probe:**
   ```bash
-  node scripts/rng-diff.mjs sessions/seed0060-orc-rogue-kick-search.session.json
-  # Read allmain.c regen_hp + moveloop once-per-turn order; port regen_hp
-  # (ulevel+ACURR(A_CON) > rn2(100)) when uhp < uhpmax.
+  node frozen/ps_test_runner.mjs sessions/seed0060-orc-rogue-kick-search.session.json
+  # Diff JS vs C screen[0] cells (legacy text, botl AC, map glyphs).
+  # Compare to D-0026 seed1800 legacy corner (no clearScreen) + D-0023 offx.
   ```
-  Expect: first mismatch stays 3536 until `regen_hp` runs (or hero is already
-  at full HP so C would skip the roll — then re-check uhp/uhpmax state).
+  Expect: cellsOnly stays 0 until legacy/botl/map cells match frame 0.
 - **Parked deep canary:** D-0006 pet movement — do not implement until C
   state/candidate capture exists.
 - **Also deferred:** dokick monster/object/closed-door/SDOOR/furniture;
-  `martial()`; `wake_nearby`/`u_wipe_engr`; `losehp`/`set_wounded_legs`;
-  `dog_goal` gettrack/FARAWAY; `throw_gold`; eat getobj single-shot;
-  Blind/`look_here`; trap glyphs; full `wall_angle`;
-  `ini_inv_mkobj_filter`; `u_init_carry_attr_boost`; mfndpos
-  `bad_rock` diagonal squeeze / boulder `ALLOW_ROCK`; Sokoban
+  `martial()`; `wake_nearby`/`u_wipe_engr`; `set_wounded_legs` body;
+  `kickstr` terrain-specific killer names; `showdamage`/`maybe_wail`/
+  `done(DIED)`; Upolyd eel-out-of-water `regen_hp` loss rolls;
+  `regen_pw` / Teleportation / Polymorph once-per-turn RNG;
+  Regeneration/Sleepy/Half_physical props; `dog_goal` gettrack/FARAWAY;
+  `throw_gold`; eat getobj single-shot; Blind/`look_here`; trap glyphs;
+  full `wall_angle`; `ini_inv_mkobj_filter`; `u_init_carry_attr_boost`;
+  mfndpos `bad_rock` squeeze / boulder `ALLOW_ROCK`; Sokoban
   `m_avoid_soko_push_loc` body; `donull` `cmd_safety_prevention`;
-  dog_move `mtrack` skip uses inner-loop `continue` (should skip candidate
-  like C `goto nxti`) when `distmin>5`; `makemon` `throws_rocks` Sokoban
-  first-try reject; `m_initinv` body; `set_malign`; Blind prop for
+  dog_move `mtrack` skip (`goto nxti`); `makemon` `throws_rocks` Sokoban
+  reject; `m_initinv` body; `set_malign`; Blind prop for
   `makemon_rnd_goodpos` exhaustive pass.
 
 ## Don’t re-check
@@ -114,6 +116,9 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 - seed0060 idx 3105 was **not** a dosounds arity bug: JS stubbed
   `makemon(NULL,0,0)` after the `rn2(70)` gate; C runs `makemon_rnd_goodpos`
   `rn1(COLNO-3,2)`/`rn2(ROWNO)` then `rndmonst`/`m_initgrp` (D-0034).
+- seed0060 idx 3536 was **not** regen alone: wall `kick_ouch` must
+  `losehp` so `uhp < uhpmax`, else `regen_hp` never rolls (D-0035). Post-ouch
+  screens can still show HP:11(11) when dmg==heal same turn.
 
 ## Landmarks
 
@@ -129,5 +134,5 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 - seed1500: D-0024 → screens **40/40** PASS; CORPSE map color = `mon_color(corpsenm)`
   (orc → CLR_RED), not `objects[CORPSE].oc_color`.
 - seed1800: D-0026 → screens **26/26** PASS (legacy corner map + staircase look).
-- seed0060: D-0034 → first mismatch **3536**; runner RNG **3562**/3626;
-  cursors **41**/41; `makemon(NULL,0,0)` placement+group works.
+- seed0060: D-0035 → RNG **3626**/3626; cursors **41**/41; screens **0**/41;
+  wall kick @ step 28 → `losehp` + EOT `regen_hp` `rn2(100)=2`.
