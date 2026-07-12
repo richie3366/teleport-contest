@@ -38,11 +38,11 @@ frozen-file overlay):
 | Metric | Value |
 |--------|------:|
 | Sessions passing | **5 / 44** |
-| Screens matched | **252 / 11,405** (2.21%) |
-| Positional RNG calls matched | **68,885 / 792,838** (8.69%) |
-| Speed label | `13+0.08/turn` (R² 0.90) |
+| Screens matched | **256 / 11,405** (2.24%) |
+| Positional RNG calls matched | **72,474 / 792,838** (9.14%) |
+| Speed label | `14+0.08/turn` (R² 0.89) |
 | Working-tree base | `8b71735` + committed port (see `main`) |
-| Role-init throws | **6 / 44** (`u_init_role: role not ported`) |
+| Role-init throws | **4 / 44** (`u_init_role: role not ported`) |
 
 The RNG aggregate can decrease while the port improves if a former fake path
 is replaced or more sessions execute farther. Use first divergence, screens,
@@ -57,6 +57,7 @@ shared blockers, and semantic coverage together—not one vanity metric.
 | `seed1500-rogue-explore-move` | **2768 / 2768** | **40 / 40** |
 | `seed1800-tourist-eat-throw` | **2458 / 2458** | **26 / 26** |
 | `seed0060-orc-rogue-kick-search` | **3626 / 3626** | **41 / 41** |
+| `seed0101-ranger-quiver-throw-travel-engrave` | **2304 / 2371** | 3 / 27 |
 | `seed0016-healer-newmoon-eat-zap` | **2258 / 3656** | 0 / 36 |
 | `seed0017-samurai-altar-pray` | **2788 / 3465** | 1 / 67 |
 | `seed0107-samurai-twoweapon-enhance` | **2681 / 2902** | 0 / 98 |
@@ -66,20 +67,22 @@ shared blockers, and semantic coverage together—not one vanity metric.
 | `seed2200-wizard-quaff-zap-read` | **2756 / 3018** | 1 / 230 |
 | `seed0700-samurai-explore-descend` | **1731 / 3230** | 1 / 51 |
 | `seed0105-valk-chat-lamp-ration` | **988 / 2499** | 0 / 30 |
+| `seed0102-ranger-name-cancel` | **1285 / 4485** | 1 / 25 |
 | `seed0015-valk-level2-pit-dog-wait` | **364 / 8563** | 1 / 44 |
 | `seed0013-rogue-friday13-combat` | **519 / 4838** | 1 / 59 |
 | `seed0030-ten-diverse-deaths` | **6648 / 105529** | 29 / 1953 |
 
 seed8000 + seed0900 + seed1500 + seed1800 + seed0060 pass end-to-end.
 Samurai init (D-0045) clears Samurai role throws; Healer init (D-0046)
-clears Healer throws; Valkyrie init (D-0047) clears Valkyrie throws.
-seed0700 breaks in mklev (`mkclass_aligned`);
-seed0017/0107 reach moveloop (`u_calc_moveamt`). Knight seed0103 still
-`mkclass_aligned`. Priest seed0501 still `wipeout_text`. Wizard
-seed2200 still `choose_trapnote`. Healer seed0016 next
-`hole_destination`; seed0030 next `choose_trapnote`. seed0105 next
-`wipeout_text`; seed0015 next `lspo_map`. seed0013 still
-breaks earlier in Lua/`sp_lev`.
+clears Healer throws; Valkyrie init (D-0047) clears Valkyrie throws;
+Ranger init (D-0048) clears Ranger throws. seed0700 breaks in mklev
+(`mkclass_aligned`); seed0017/0107 reach moveloop (`u_calc_moveamt`).
+Knight seed0103 still `mkclass_aligned`. Priest seed0501 still
+`wipeout_text`. Wizard seed2200 still `choose_trapnote`. Healer
+seed0016 next `hole_destination`; seed0030 next `choose_trapnote`.
+seed0105 next `wipeout_text`; seed0015 next `lspo_map`. seed0101 next
+`next_ident`; seed0102 next `rndmonst_adj`. seed0013 still breaks
+earlier in Lua/`sp_lev`.
 
 ### Green gate
 
@@ -105,21 +108,20 @@ fixes until C state/candidate capture exists (`GROK-PLAYBOOK.md` §2).
 
 #### Primary foundation frontier — next unported role / seed2200 mklev
 
-**Code status:** Valkyrie `u_init_role` + Lamp + weapon/armor
-`knows_class` **ported** (D-0047). Five public sessions still pass
-end-to-end. **6/44** still throw at `u_init_role` (Ranger 2;
-Monk/Archeologist/Barbarian/Caveman 1 each).
+**Code status:** Ranger `u_init_role` + launcher/ammo/spear
+`knows_class` **ported** (D-0048). Five public sessions still pass
+end-to-end. **4/44** still throw at `u_init_role` (Monk/Archeologist/
+Barbarian/Caveman 1 each).
 
-- **Bounded unit:** next role kit (**Ranger** — 2 throws), **or**
-  Monk/Archeologist/Barbarian/Caveman (1 each), **or** shared
+- **Bounded unit:** next role kit (**Monk** — spellbook RNG + armor
+  knows + shuriken, or Archeologist/Barbarian/Caveman), **or** shared
   `mkclass_aligned` (seed0700/0103) / seed2200/0030 `choose_trapnote` /
   seed0016 `hole_destination` / seed0501/0105 `wipeout_text` /
-  seed0015 `lspo_map` mklev peel.
-- **Prefer:** a role that clears many `role not ported` throwers over
-  polishing one late Tourist/Wizard/Priest/Knight/Samurai/Healer/Valk
-  path.
+  seed0015 `lspo_map` / seed0101 `next_ident` / seed0102 `rndmonst_adj`.
+- **Prefer:** a role that clears remaining `role not ported` throwers
+  over polishing one late path.
 - **Named omissions:** Wizard/Priest/Healer `initialspell`; Knight/
-  Samurai/Healer/Valkyrie `skill_init`; display-path Japanese names; full
+  Samurai/Healer/Valkyrie/Ranger `skill_init`; display-path Japanese names; full
   `role_init` beyond pantheon/SPE_LIGHT/nemesis gender; `make_corpse`
   after `corpse_chance`; dokick monster/object/closed-door/SDOOR/furniture;
   `martial()`; wake/engraving; `set_wounded_legs` body; `showdamage`/death
@@ -134,7 +136,7 @@ Monk/Archeologist/Barbarian/Caveman 1 each).
   P_SKILL/odd P_NAME; shop `costly_spot` autopickup; `obj_typename`
   armor pair-of/set-of + GemStone; MLET_CH beyond early subset; …
 - **Cohort:** green gate + seed1500 + seed1800 + seed0060 (must stay
-  PASS) + strict lengths; Valkyrie focus seed0015/0105 when on that peel.
+  PASS) + strict lengths; Ranger focus seed0101/0102 when on that peel.
 
 Focused survey:
 
@@ -219,6 +221,10 @@ Module status, constitutional debt, and named omissions live in
     (D-0047) — role throws **8→6**/44; screens **251→252**; RNG
     **67533→68885**; seed0015 next `lspo_map` @ 337; seed0105 next
     `wipeout_text` @ 974
+33. Ranger `u_init_role` + launcher/ammo/spear `knows_class`
+    (D-0048) — role throws **6→4**/44; screens **252→256**; RNG
+    **68885→72474**; seed0101 next `next_ident` @ 2293; seed0102 next
+    `rndmonst_adj` @ 1281
 
 Next work is selected from the active objectives above using
 `PORTING-RUNBOOK.md`, not by extending this historical list.

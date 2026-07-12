@@ -164,9 +164,20 @@ export const roles = [
         mnum: PM_RANGER,
         petnum: pm('PM_LITTLE_DOG'),
         neminum: pm('PM_SCORPIUS'),
+        title: [
+            { m: 'Tenderfoot', f: 'Tenderfoot' },
+            { m: 'Lookout', f: 'Lookout' },
+        ],
         lgod: 'Mercury',
         ngod: '_Venus',
         cgod: 'Mars',
+        // C: { 13, 13, 13, 9, 13, 7 } / { 30, 10, 10, 20, 20, 10 }
+        attrbase: [13, 13, 13, 9, 13, 7],
+        attrdist: [30, 10, 10, 20, 20, 10],
+        initrecord: 10,
+        // C: { 13, 0, 0, 6, 1, 0 } / { 1, 0, 0, 1, 0, 1 }
+        hpadv: adv(13, 0, 0, 6, 1, 0),
+        enadv: adv(1, 0, 0, 1, 0, 1),
     },
     {
         name: { m: 'Samurai', f: 'Samurai' },

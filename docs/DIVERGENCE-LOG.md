@@ -1196,3 +1196,38 @@ cohort gates if those functions are touched again.
   `rn2(6)` branch.
 - **Next:** Ranger (2 throws), or remaining 1-throw roles, or shared
   mklev peels.
+
+## D-0048 — Ranger `u_init_role` + launcher/ammo/spear `knows_class`
+
+- **Status:** fixed (verified 2026-07-13) for role-init throw clearance;
+  Ranger sessions still diverge later (moveloop / mklev peels).
+- **Observed:** **6/44** role throws after D-0047; 2 dedicated Ranger
+  throws (seed0101 + seed0102). After port, **4/44** remain (no Ranger:
+  Monk/Archeologist/Barbarian/Caveman). seed0101 rng-diff prefix
+  **2293** (`next_ident`); seed0102 **1281** (`rndmonst_adj`).
+- **Cause/evidence:** Ranger kit absent; scaffold lacked attrs/`hpadv`/
+  `enadv`/`initrecord=10`. C `ini_inv(Ranger)` (dagger+1, bow+1, two
+  arrow stacks, cloak of displacement+2, cram×4) and
+  `knows_class(WEAPON_CLASS)` filtered to launchers/ammo/spears via
+  `is_launcher`/`is_ammo`/`is_spear` (not full weapon class).
+- **C locus:** `u_init.c` `Ranger[]` / `Skill_Ran` / `u_init_role`
+  `PM_RANGER` / `knows_class`; `obj.h` launcher/ammo/spear macros;
+  `role.c` Ranger entry.
+- **Change:** Ranger roles attrs/`hpadv`/`enadv`/`initrecord`/titles;
+  Ranger inventory; `Skill_Ran` in `skills_for_role`; `knows_class`
+  admits `PM_RANGER` with launcher/ammo/spear filter; added
+  `is_launcher`/`is_spear` helpers.
+- **Verification:** green + seed1500/1800/0060 PASS + strict; full
+  **5/44**, screens **256**/11405 (+4), RNG **72474**/792838; role
+  throws **4**/44; seed0101 RNG **2304**/2371 Scr **3**/27; seed0102
+  RNG **1285**/4485 Scr **1**/25.
+- **Omissions named:** `skill_init` still stubbed; Monk/Archeologist/
+  Barbarian/Caveman kits; seed0101 `next_ident`; seed0102
+  `rndmonst_adj`; seed0015 `lspo_map`; seed0105/0501 `wipeout_text`;
+  seed0700/0103 `mkclass_aligned`; seed2200/0030 `choose_trapnote`;
+  seed0016 `hole_destination`.
+- **Lesson:** Ranger `knows_class` is not full-weapon discovery — port
+  the launcher/ammo/spear filter; do not reuse Valkyrie/Knight's
+  broader walk.
+- **Next:** Monk/Archeologist/Barbarian/Caveman (1 throw each), or
+  shared mklev/moveloop peels.

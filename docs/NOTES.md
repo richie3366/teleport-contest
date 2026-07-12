@@ -7,22 +7,22 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 
 ## Active
 
-- **Current unit:** Valkyrie `u_init_role` cleared (D-0047). Role throws
-  **6**/44 (was 8). seed0015 prefix **337** (`lspo_map`); seed0105
-  prefix **974** (`wipeout_text`).
-- **Hypothesis / next peel:** port next high-throw role (**Ranger**, 2
-  throws), or Monk/Archeologist/Barbarian/Caveman (1), or shared
+- **Current unit:** Ranger `u_init_role` cleared (D-0048). Role throws
+  **4**/44 (was 6). seed0101 prefix **2293** (`next_ident`); seed0102
+  prefix **1281** (`rndmonst_adj`).
+- **Hypothesis / next peel:** port next unported role (**Monk**,
+  Archeologist, Barbarian, or Caveman — 1 throw each), or shared
   `mkclass_aligned` / `choose_trapnote` / `hole_destination` /
-  `wipeout_text` / `lspo_map`.
+  `wipeout_text` / `lspo_map` / `next_ident` / `rndmonst_adj`.
 - **Falsifier / next probe:**
   ```bash
   node frozen/ps_test_runner.mjs sessions 2>&1 | rg 'role not ported|PASS|FAIL' | head -40
-  # Or: node scripts/rng-diff.mjs sessions/seed0101-ranger-quiver-throw-travel-engrave.session.json
+  # Or: node scripts/rng-diff.mjs sessions/seed0200-monk-north-search.session.json
   ```
 - **Parked deep canary:** D-0006 pet movement — do not implement until C
   state/candidate capture exists.
 - **Also deferred:** Wizard/Priest/Healer `initialspell`; Knight/Samurai/
-  Healer/Valkyrie `skill_init`; display-path Japanese names; full
+  Healer/Valkyrie/Ranger `skill_init`; display-path Japanese names; full
   `role_init` beyond pantheon + SPE_LIGHT + nemesis gender; `make_corpse`
   after `corpse_chance`; dokick monster/object/closed-door/SDOOR/furniture;
   `martial()`; wake/engraving; `set_wounded_legs` body; `showdamage`/
@@ -168,6 +168,9 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 - seed0015/0105 throws were **not** missing pet alone: Valkyrie needed
   `Valkyrie[]` + attrs/`hpadv` + optional Lamp `!rn2(6)` + weapon/armor
   `knows_class` (excludes polearms) — D-0047.
+- seed0101/0102 throws were **not** missing pet alone: Ranger needed
+  `Ranger[]` + attrs/`hpadv` + `knows_class(WEAPON)` filtered to
+  launchers/ammo/spears (`is_launcher`/`is_ammo`/`is_spear`) — D-0048.
 
 ## Landmarks
 
@@ -180,6 +183,8 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   gold `rn1(1000,1001)` → **1001..2000**.
 - Valkyrie+human init HP = **16** (role 14 + race 2); initrecord **10**;
   shield `+3`; optional Lamp `!rn2(6)`.
+- Ranger+human init HP = **15** (role 13 + race 2); initrecord **10**;
+  cloak of displacement `+2`; arrow stacks `rn2` quan 50–59 and 30–39.
 - Rogue legacy offx = `max(10, 80 - maxcol - 1)` (Kos → 23; The Lady → 17).
 - Tutorial menu offx = 20 (OPTIONS `.nethackrc` line → maxcol 59); cursor
   `[27,6]` on `(end) `.
@@ -211,3 +216,7 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   `lspo_map`.
 - seed0105: D-0047 → role throw cleared; rng-diff prefix **974**; next
   `wipeout_text` (same as seed0501).
+- seed0101: D-0048 → role throw cleared; rng-diff prefix **2293**; next
+  `next_ident`.
+- seed0102: D-0048 → role throw cleared; rng-diff prefix **1281**; next
+  `rndmonst_adj`.

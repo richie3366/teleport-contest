@@ -3,7 +3,7 @@
 //        ini_inv_mkobj_filter, ini_inv_obj_substitution,
 //        u_init_inventory_attrs
 //        (Tourist + Rogue + Wizard + Priest + Knight + Samurai + Healer +
-//         Valkyrie; human/orc race kits; elf/dwarf/gnome partial).
+//         Valkyrie + Ranger; human/orc race kits; elf/dwarf/gnome partial).
 
 import { game } from './gstate.js';
 import { rn2, rnd, rn1 } from './rng.js';
@@ -41,7 +41,7 @@ import {
     P_BROAD_SWORD, P_LONG_SWORD, P_TWO_HANDED_SWORD, P_SABER,
     P_CLUB, P_MACE, P_MORNING_STAR, P_FLAIL, P_HAMMER, P_QUARTERSTAFF,
     P_POLEARMS, P_SPEAR, P_TRIDENT, P_LANCE, P_BOW, P_SLING, P_CROSSBOW,
-    P_DART, P_SHURIKEN, P_BOOMERANG, P_UNICORN_HORN,
+    P_DART, P_SHURIKEN, P_BOOMERANG, P_WHIP, P_UNICORN_HORN,
     P_ATTACK_SPELL, P_HEALING_SPELL, P_DIVINATION_SPELL,
     P_ENCHANTMENT_SPELL, P_CLERIC_SPELL, P_ESCAPE_SPELL, P_MATTER_SPELL,
     P_RIDING, P_TWO_WEAPON_COMBAT, P_BARE_HANDED_COMBAT, P_MARTIAL_ARTS,
@@ -49,7 +49,7 @@ import {
 } from './const.js';
 import {
     PM_TOURIST, PM_ROGUE, PM_CLERIC, PM_WIZARD, PM_MONK, PM_KNIGHT,
-    PM_SAMURAI, PM_HEALER, PM_VALKYRIE,
+    PM_SAMURAI, PM_HEALER, PM_VALKYRIE, PM_RANGER,
     PM_HUMAN, PM_ELF, PM_DWARF, PM_ORC, PM_GNOME,
     NON_PM,
 } from './generated/monsters_data.js';
@@ -168,6 +168,17 @@ const Valkyrie = [
     { trotyp: () => otypByName('DAGGER'), trspe: 0, trclass: WEAPON_CLASS, trquan_min: 1, trquan_max: 1, trbless: UNDEF_BLESS },
     { trotyp: () => otypByName('SMALL_SHIELD'), trspe: 3, trclass: ARMOR_CLASS, trquan_min: 1, trquan_max: 1, trbless: UNDEF_BLESS },
     { trotyp: () => otypByName('FOOD_RATION'), trspe: 0, trclass: FOOD_CLASS, trquan_min: 1, trquan_max: 1, trbless: 0 },
+    { trotyp: () => 0, trspe: 0, trclass: 0, trquan_min: 0, trquan_max: 0, trbless: 0 },
+];
+
+// C ref: u_init.c Ranger[]
+const Ranger = [
+    { trotyp: () => otypByName('DAGGER'), trspe: 1, trclass: WEAPON_CLASS, trquan_min: 1, trquan_max: 1, trbless: UNDEF_BLESS },
+    { trotyp: () => otypByName('BOW'), trspe: 1, trclass: WEAPON_CLASS, trquan_min: 1, trquan_max: 1, trbless: UNDEF_BLESS },
+    { trotyp: () => otypByName('ARROW'), trspe: 2, trclass: WEAPON_CLASS, trquan_min: 50, trquan_max: 59, trbless: UNDEF_BLESS },
+    { trotyp: () => otypByName('ARROW'), trspe: 0, trclass: WEAPON_CLASS, trquan_min: 30, trquan_max: 39, trbless: UNDEF_BLESS },
+    { trotyp: () => otypByName('CLOAK_OF_DISPLACEMENT'), trspe: 2, trclass: ARMOR_CLASS, trquan_min: 1, trquan_max: 1, trbless: UNDEF_BLESS },
+    { trotyp: () => otypByName('CRAM_RATION'), trspe: 0, trclass: FOOD_CLASS, trquan_min: 4, trquan_max: 4, trbless: 0 },
     { trotyp: () => 0, trspe: 0, trclass: 0, trquan_min: 0, trquan_max: 0, trbless: 0 },
 ];
 
@@ -320,6 +331,34 @@ const Skill_V = [
     { skill: P_BARE_HANDED_COMBAT, max: P_EXPERT },
 ];
 
+// C ref: u_init.c Skill_Ran[] — Ranger (skills_init still stubbed; filter-ready)
+const Skill_Ran = [
+    { skill: P_DAGGER, max: P_EXPERT },
+    { skill: P_KNIFE, max: P_SKILLED },
+    { skill: P_AXE, max: P_SKILLED },
+    { skill: P_PICK_AXE, max: P_BASIC },
+    { skill: P_SHORT_SWORD, max: P_BASIC },
+    { skill: P_MORNING_STAR, max: P_BASIC },
+    { skill: P_FLAIL, max: P_SKILLED },
+    { skill: P_HAMMER, max: P_BASIC },
+    { skill: P_QUARTERSTAFF, max: P_BASIC },
+    { skill: P_POLEARMS, max: P_SKILLED },
+    { skill: P_SPEAR, max: P_EXPERT },
+    { skill: P_TRIDENT, max: P_BASIC },
+    { skill: P_BOW, max: P_EXPERT },
+    { skill: P_SLING, max: P_EXPERT },
+    { skill: P_CROSSBOW, max: P_EXPERT },
+    { skill: P_DART, max: P_EXPERT },
+    { skill: P_SHURIKEN, max: P_SKILLED },
+    { skill: P_BOOMERANG, max: P_EXPERT },
+    { skill: P_WHIP, max: P_BASIC },
+    { skill: P_HEALING_SPELL, max: P_BASIC },
+    { skill: P_DIVINATION_SPELL, max: P_EXPERT },
+    { skill: P_ESCAPE_SPELL, max: P_BASIC },
+    { skill: P_RIDING, max: P_BASIC },
+    { skill: P_BARE_HANDED_COMBAT, max: P_BASIC },
+];
+
 function strangeObject() {
     return otypByName('STRANGE_OBJECT') || 0;
 }
@@ -403,7 +442,7 @@ function trquan(trop) {
     return trop.trquan_min + rn2(trop.trquan_max - trop.trquan_min + 1);
 }
 
-// C ref: u_init.c skills_for_role() — Wizard + Priest + Knight + Samurai + Healer + Valkyrie
+// C ref: u_init.c skills_for_role() — Wizard + Priest + Knight + Samurai + Healer + Valkyrie + Ranger
 function skills_for_role() {
     if (game.urole?.mnum === PM_WIZARD) return Skill_W;
     if (game.urole?.mnum === PM_CLERIC) return Skill_P;
@@ -411,6 +450,7 @@ function skills_for_role() {
     if (game.urole?.mnum === PM_SAMURAI) return Skill_S;
     if (game.urole?.mnum === PM_HEALER) return Skill_H;
     if (game.urole?.mnum === PM_VALKYRIE) return Skill_V;
+    if (game.urole?.mnum === PM_RANGER) return Skill_Ran;
     return null;
 }
 
@@ -650,6 +690,19 @@ function is_pole_skill(oc_skill) {
     return oc_skill === P_POLEARMS || oc_skill === P_LANCE;
 }
 
+// C ref: obj.h is_launcher() — WEAPON with oc_skill in P_BOW..P_CROSSBOW
+function is_launcher(obj) {
+    if (obj.oclass !== WEAPON_CLASS) return false;
+    const sk = game.objects?.[obj.otyp]?.oc_skill ?? 0;
+    return sk >= P_BOW && sk <= P_CROSSBOW;
+}
+
+// C ref: obj.h is_spear() — WEAPON with oc_skill == P_SPEAR
+function is_spear(obj) {
+    if (obj.oclass !== WEAPON_CLASS) return false;
+    return (game.objects?.[obj.otyp]?.oc_skill ?? 0) === P_SPEAR;
+}
+
 // C ref: obj.h is_ammo() — WEAPON/GEM with oc_skill in -P_CROSSBOW..-P_BOW
 function is_ammo(obj) {
     if (obj.oclass !== WEAPON_CLASS && obj.oclass !== GEM_CLASS) return false;
@@ -679,9 +732,9 @@ function knows_object(otyp, _override_pauper) {
 }
 
 // C ref: u_init.c knows_class() — ordinary non-magic objects of a class.
-// Rogue keeps dagger-name walk; Knight/Samurai/Valkyrie walk bases[] like C
-// (weapons + armor; skip CORNUTHAUM/DUNCE_CAP/SMALL_SHIELD; non-Knight/
-// Samurai skip polearms/lances).
+// Rogue keeps dagger-name walk; Knight/Samurai/Valkyrie/Ranger walk bases[]
+// like C (weapons + armor; skip CORNUTHAUM/DUNCE_CAP/SMALL_SHIELD;
+// non-Knight/Samurai skip polearms/lances; Ranger: launchers/ammo/spears).
 function knows_class(sym) {
     const roleMnum = game.urole?.mnum;
     const objects = game.objects;
@@ -700,7 +753,7 @@ function knows_class(sym) {
     // C callers that walk bases[]: Barbarian, Knight, Monk, Ranger, Samurai,
     // Valkyrie. Only ported roles that call knows_class are enabled here.
     if (roleMnum !== PM_KNIGHT && roleMnum !== PM_SAMURAI
-        && roleMnum !== PM_VALKYRIE) {
+        && roleMnum !== PM_VALKYRIE && roleMnum !== PM_RANGER) {
         return;
     }
 
@@ -721,6 +774,12 @@ function knows_class(sym) {
             if (is_pole_skill(oc.oc_skill ?? P_NONE)
                 && roleMnum !== PM_KNIGHT && roleMnum !== PM_SAMURAI) {
                 continue;
+            }
+            // C: rangers know launchers, ammo, and spears only
+            if (roleMnum === PM_RANGER) {
+                const dummy = { oclass: WEAPON_CLASS, otyp: ct };
+                if (!is_launcher(dummy) && !is_ammo(dummy) && !is_spear(dummy))
+                    continue;
             }
         }
         knows_object(ct, false);
@@ -834,7 +893,7 @@ function ini_inv(tropArr) {
     }
 }
 
-// C ref: u_init.c u_init_role() — Tourist + Rogue + Wizard + Priest + Knight + Samurai + Healer + Valkyrie
+// C ref: u_init.c u_init_role() — Tourist + Rogue + Wizard + Priest + Knight + Samurai + Healer + Valkyrie + Ranger
 function u_init_role() {
     const role = game.urole;
     const mnum = role?.mnum;
@@ -944,6 +1003,16 @@ function u_init_role() {
         if (!rn2(6)) ini_inv(Lamp);
         knows_class(WEAPON_CLASS); // excludes polearms
         knows_class(ARMOR_CLASS);
+        game.nocreate = strange;
+        game.nocreate2 = strange;
+        game.nocreate3 = strange;
+        game.nocreate4 = strange;
+        return;
+    }
+    if (mnum === PM_RANGER) {
+        game.u.umoney0 = 0;
+        ini_inv(Ranger);
+        knows_class(WEAPON_CLASS); // bows, arrows, spears only
         game.nocreate = strange;
         game.nocreate2 = strange;
         game.nocreate3 = strange;

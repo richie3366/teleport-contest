@@ -19,6 +19,20 @@ Use this shape:
 
 ---
 
+## 2026-07-13 01:00 — Ranger u_init_role (D-0048)
+- C locus: `u_init.c` Ranger/`Skill_Ran`/`u_init_role` PM_RANGER /
+  `knows_class` (launcher/ammo/spear); `obj.h` is_launcher/is_ammo/
+  is_spear; `role.c` Ranger attrs
+- Result: **verified faithful change** — Ranger kit + weapon
+  `knows_class` filtered to launchers/ammo/spears + attrs/`hpadv`.
+  Role throws **6→4**/44.
+- Verification: green + seed1500/1800/0060 PASS + strict; full **5/44**,
+  screens **256**/11405, RNG **72474**/792838; seed0101 prefix **2293**
+  (`next_ident`); seed0102 **1281** (`rndmonst_adj`).
+- Next: port Monk (or Archeologist/Barbarian/Caveman) `u_init_role`,
+  or peel shared `mkclass_aligned` / `choose_trapnote` /
+  `hole_destination` / `wipeout_text` / `lspo_map`.
+
 ## 2026-07-13 00:56 — Valkyrie u_init_role (D-0047)
 - C locus: `u_init.c` Valkyrie/`Skill_V`/`u_init_role` PM_VALKYRIE /
   `knows_class`; `role.c` Valkyrie attrs
