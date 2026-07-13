@@ -33,6 +33,7 @@ import {
 } from './attrib.js';
 
 const CORPSE_OTYP = objectNames.indexOf('CORPSE');
+const STATUE_OTYP = objectNames.indexOf('STATUE');
 
 // C ref: defsym.h OBJCLASS_DRAWING — default object-class map symbols
 const DEF_OC_SYM = {
@@ -177,9 +178,17 @@ function covers_objects(x, y) {
 }
 
 // C ref: display.c map_object / display.h obj_to_glyph + mon_color for corpses
+// C ref: display.h statue_to_glyph — statues use mons[corpsenm].mlet + obj_color(STATUE)
 function obj_glyph(obj) {
     const def = game.objects?.[obj.otyp];
     const oclass = obj.oclass ?? def?.oc_class ?? ILLOBJ_CLASS;
+    // C: STATUE → monster letter (not ROCK_CLASS '`'); color is statue white
+    if (obj.otyp === STATUE_OTYP && obj.corpsenm != null && obj.corpsenm >= 0) {
+        const ptr = mons(obj.corpsenm);
+        const ch = MLET_CH[ptr?.mlet] || '?';
+        const color = def?.oc_color ?? CLR_WHITE;
+        return { ch, color, dec: false };
+    }
     const ch = DEF_OC_SYM[oclass] || ']';
     // C: body glyphs use mon_color(corpsenm), not objects[CORPSE].oc_color
     if (obj.otyp === CORPSE_OTYP && obj.corpsenm != null && obj.corpsenm >= 0) {

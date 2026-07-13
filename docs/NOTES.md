@@ -7,17 +7,18 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 
 ## Active
 
-- **Current unit:** after D-0079 seed0700 **PASS** (public **7/44**).
-  Prefer seed2200 map `` ` `` vs ASCII `x` / seed0017 @ 3132
-  terrain / seed1150 `dog_move` / seed0016 `next_ident`.
-- **Hypothesis (seed2200 Scr 1/230):** first screen one cell —
-  JS ROCK_CLASS `` ` `` vs C ASCII `x` (decgfx=0, not DEC wall)
-  at (11,16).
+- **Current unit:** after D-0080 seed2200 Scr **1→11**/230 (statue
+  glyph). Prefer seed2200 @ screen 10 overlay / seed0017 @ 3132
+  terrain / seed1150 `dog_move`.
+- **Hypothesis (seed2200 Scr 11/230):** screen 10+ — C room `·`
+  (NO_COLOR) vs JS blank with CLR_GRAY (7) across a wide band
+  (~row 3+). Likely `/` whatis or NHW overlay clear painting
+  default-fg blanks over remembered map instead of leaving floor.
 - **Falsifier / next probe:**
   ```bash
   node frozen/ps_test_runner.mjs sessions/seed2200-wizard-quaff-zap-read.session.json
   ```
-  Diff first screen cell at (11,16); cite C glyph/terrain path.
+  Diff screen 10; cite C pager/wintty clear vs map restore path.
 - **Parked seed0017 @ 3132:** JS `mfndpos` cnt=4 at pet (30,5); C emits
   3× `rn2(12)`. Adding walkable `(30,4)` yields exactly 3× `rn2(12)`.
   JS has VWALL at (30,4); C screen shows floor. Diagnose join/
@@ -74,6 +75,10 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   `makedog` christen `Hachi`, Japanese doname/disco, lacquer
   `SPLINT_MAIL`, and invent `observe_object` for wakizashi encounter
   (D-0079). Invent offx drift was a maxcol side-effect of English names.
+- seed2200 Scr 1 `` ` `` vs `x` was **not** ROCK_CLASS remapping /
+  DECgraphics — it was STATUE of grid bug; C `statue_to_glyph` uses
+  `mons[corpsenm].mlet` + `obj_color(STATUE)` white (D-0080).
+  Coords are (col=16,row=11), not (11,16).
 
 ## Landmarks
 
@@ -110,3 +115,5 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   `obj_typename`/`doname` + `disco_typename` brackets; lacquer
   `SPLINT_MAIL` when `moves<=1`; invent `observe_object` before
   `xprname` (D-0079).
+- STATUE map: `statue_to_glyph` → monster letter + white (D-0080);
+  boulder still ROCK_CLASS `` ` `` / `S_boulder`.

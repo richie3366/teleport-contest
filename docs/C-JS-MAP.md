@@ -154,8 +154,10 @@ RNG **91280**/792838. H2344 NHW_MENU `offx` + `get_strength_str`
 (D-0078) → seed0700 Scr **2→44**/51; screens **361**/11405;
 RNG **91280**/792838. Samurai `Hachi` + Japanese invent/disco
 (D-0079) → seed0700 **PASS**; public **7/44**; screens
-**370**/11405; RNG **91380**/792838.
-Next peel: seed2200 map `` ` `` vs `x` / seed0017 @ 3132
+**370**/11405; RNG **91380**/792838. STATUE `obj_glyph`
+mons[corpsenm].mlet + white (D-0080) → seed2200 Scr **1→11**/230;
+screens **380**/11405; RNG **91380**/792838.
+Next peel: seed2200 whatis/overlay @ screen 10 / seed0017 @ 3132
 `dog_move` (terrain at (30,4)) / seed1150 `dog_move` /
 `getbones` (blocked on `^V`/`makemaz`) / `wipeout_text` /
 `lspo_map` / pony `next_ident` / `maybe_smudge_engr`.
@@ -201,7 +203,7 @@ Next peel: seed2200 map `` ` `` vs `x` / seed0017 @ 3132
 | `src/dokick.c` | `js/dokick.js` | partial | `dokick` + `kick_dumb` (D-0031); `kickedloc` (D-0032); **`kick_ouch` → `losehp`** (D-0035); omit `kick_monster`/`kick_object`/closed-door Whammm/SDOOR-SCORR open/furniture/`martial`/`wake_nearby`/`u_wipe_engr`/`set_wounded_legs`/`kickstr` terrain names |
 | `src/hack.c` `losehp`/`nomul` | `js/hack.js` | partial | **`losehp` !Upolyd / Upolyd mh subtract** (D-0035); **`nomul`/`unmul` + afternmv** (D-0066); `maybe_half_phys` identity until Half_physical prop; omit `showdamage`/`maybe_wail`/`done(DIED)` bodies; full `end_running`/`cmdq_clear` |
 | `src/apply.c` / `src/lock.c` | `js/apply.js`, `js/lock.js` | partial | `doapply` + `pick_lock` (D-0021); exported `getdir` for kick/apply; getobj missing-letter `continue`+`flush_topl_more` (D-0025); **`doopen_indir` CLOSED autoopen** (D-0059); omit sack/other tools, real door occupation, interactive `o` getdir, `b_trapped`/autounlock, `feel_location` mapseen gating, container-at-feet |
-| `src/display.c` `newsym` / map | `js/display.js` | partial | Floor `vobj_at` + class symbols + CORPSE `mon_color` (D-0022); **live `mon_glyph` uses `mcolors[mnum]`** (D-0036; newt yellow); **`wall_angle` + seenv** (D-0038); upstairs `<` yellow / downstairs `>` NO_COLOR (D-0038); **`see_with_infrared`/`mon_visible` when `!cansee`** (D-0039; race Infravision via `mons[urace]`); **full MONSYM `MLET_CH` + FOUNTAIN/SINK/THRONE/ALTAR/GRAVE terrain** (D-0070); **`magic_map_background`** (D-0075); omit traps/engravings/hallucination/`see_objects`; telepathy/`Detect_monsters`/`MATCH_WARN_OF_MON`; full `set_uasmon`/uprops; pool/lava/ice/air/cloud terrain |
+| `src/display.c` `newsym` / map | `js/display.js` | partial | Floor `vobj_at` + class symbols + CORPSE `mon_color` (D-0022); **live `mon_glyph` uses `mcolors[mnum]`** (D-0036; newt yellow); **`wall_angle` + seenv** (D-0038); upstairs `<` yellow / downstairs `>` NO_COLOR (D-0038); **`see_with_infrared`/`mon_visible` when `!cansee`** (D-0039; race Infravision via `mons[urace]`); **full MONSYM `MLET_CH` + FOUNTAIN/SINK/THRONE/ALTAR/GRAVE terrain** (D-0070); **`magic_map_background`** (D-0075); **STATUE `obj_glyph` → mons[corpsenm].mlet + `obj_color(STATUE)`** (D-0080); omit traps/engravings/hallucination/`see_objects`; hallu/`random_monster` statue; pile-top/gender statue offsets; telepathy/`Detect_monsters`/`MATCH_WARN_OF_MON`; full `set_uasmon`/uprops; pool/lava/ice/air/cloud terrain |
 | `src/questpgr.c` / tty menu | `js/questpgr.js` | partial | **legacy corner NHW_MENU `maxcol=strlen+1` + leading pad** (D-0071); **H2344_BROKEN offx** (D-0078); omit other pager outputs / pauper_legacy |
 | `src/invent.c` `look_here` / `dfeature_at` | `js/invent.js`, `js/mklev.js` | partial | Stairs via `stairs_description` + Dlvl1 `u_traversed` (D-0026); doors/fountain/sink stubs; Blind feel, engraving, multi-object menu, `doname_with_price` deferred |
 | `src/pline.c` / tty message behavior | `js/display.js`, `js/input.js` | partial | `--More--` works for green paths + getobj re-prompt (D-0025); full message/window policy incomplete |

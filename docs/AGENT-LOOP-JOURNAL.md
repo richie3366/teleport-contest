@@ -959,3 +959,17 @@ Use this shape:
 - Next: seed2200 map `` ` `` vs `x` —
   `node frozen/ps_test_runner.mjs sessions/seed2200-wizard-quaff-zap-read.session.json`
   — or seed0017 @ 3132 terrain / seed1150 `dog_move`.
+
+## 2026-07-13 — STATUE obj_glyph mons[corpsenm].mlet (D-0080)
+- Objective: seed2200 Scr 1/230 map `` ` `` vs ASCII `x`
+  (PROGRESS primary after D-0079).
+- C locus: `display.h` `obj_to_glyph`/`statue_to_glyph`;
+  `display.c` mapglyph statue → `mons[].mlet` + `obj_color(STATUE)`.
+- Result: **verified** — floor STATUE of grid bug was ROCK_CLASS
+  `` ` ``; C shows monster letter `x` in white. Coords (16,11).
+- Verification: green + seed1500/1800/0060/0102/0700 PASS +
+  strict; full **7/44**, screens **370→380**/11405, RNG
+  **91380**/792838; seed2200 Scr **1→11**/230.
+- Next: seed2200 whatis/overlay @ screen 10 (room `·` vs gray
+  blank) — same focused runner — or seed0017 @ 3132 terrain /
+  seed1150 `dog_move`.

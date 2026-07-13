@@ -83,6 +83,7 @@ Do not record a guessed cause as fixed merely because an RNG prefix moved.
 | D-0077 | fixed | whatis/help | `/`/`dowhatis` + `?`/`dohelp`/`get_lua_version`; seed2200 RNG full |
 | D-0078 | fixed | tty/botl | H2344 NHW_MENU offx + `get_strength_str`; seed0700 Scr 2→44 |
 | D-0079 | fixed | Samurai invent | `makedog` Hachi + Japanese display + lacquer + observe; seed0700 PASS |
+| D-0080 | fixed | display/statue | `obj_glyph` STATUE → mons[corpsenm].mlet + `obj_color(STATUE)`; seed2200 Scr 1→11 |
 
 D-0001 through D-0005 predate the strict-length/cohort runbook. Their focused
 causes are preserved, but generic "green sessions held" is historical evidence,
@@ -2178,6 +2179,28 @@ cohort gates if those functions are touched again.
 - **Named omission:** full `x_monnam` (hallu/invis/saddle/shk);
   pony saddle/`see_monster_closeup`; other erosion proofs;
   `In_quest` lacquer path; xname-path `observe_object` beyond
-  invent_lines; seed2200 map `` ` `` vs `x`.
+  invent_lines.
 - **Next:** seed2200 map cell / seed0017 @ 3132 terrain /
   seed1150 `dog_move` / seed0016 `next_ident`.
+
+## D-0080 — seed2200 STATUE map glyph (not ROCK_CLASS)
+
+- **Status:** fixed
+- **Observed:** seed2200 Scr **1**/230 (RNG full). First cell
+  (16,11): C ASCII `x` CLR_WHITE vs JS ROCK_CLASS `` ` ``.
+  Session has a floor STATUE of grid bug (`corpsenm` PM_GRID_BUG,
+  mlet `S_XAN`).
+- **C locus:** `display.h` `obj_to_glyph` → `statue_to_glyph`;
+  `display.c` mapglyph statue branch uses `mons[offset].mlet` +
+  `obj_color(STATUE)` (CLR_WHITE), not `S_rock`/ROCK_CLASS.
+- **Cause:** JS `obj_glyph` always used `DEF_OC_SYM[ROCK_CLASS]`
+  for statues; C since 3.6 shows the depicted monster letter.
+- **Change:** `js/display.js` `obj_glyph` STATUE → `MLET_CH[mlet]`
+  + statue `oc_color` (omit hallu/`random_monster` statue path).
+- **Verification:** green + seed1500/1800/0060/0102/0700 PASS +
+  strict; full **7/44**, screens **370→380**/11405, RNG
+  **91380**/792838; seed2200 Scr **1→11**/230.
+- **Named omission:** hallucination statue `random_monster`;
+  pile-top statue glyph flags; gender FEM statue offset.
+- **Next:** seed2200 @ screen 10 whatis/overlay (room `·` vs
+  gray blank) / seed0017 @ 3132 terrain / seed1150 `dog_move`.
