@@ -139,6 +139,8 @@ Do not record a guessed cause as fixed merely because an RNG prefix moved.
 | D-0133 | fixed | engrave/look | `read_engr_at` from `look_here`/`check_here`; seed2200 Elbereth `:` @229 |
 | D-0134 | fixed | mklev/engrave | `makeniche` trap `make_engr_at`+`wipe_engr_at`/`wipeout_text`; seed0105 RNG full |
 | D-0135 | fixed | spell/cast | `Z`/`docast`/`spelleffects_check` + SPE_HEALING self-zap; seed0501 @2205 |
+| D-0136 | fixed | spell/read | `study_book` known-refresh `--More--`/yn; seed0501 key leak @2217 |
+| D-0137 | fixed | insight/^X | female `urole.name.f`/`rank.f`; seed0501 **PASS** |
 
 D-0001 through D-0005 predate the strict-length/cohort runbook. Their focused
 causes are preserved, but generic "green sessions held" is historical evidence,
@@ -3655,3 +3657,38 @@ cohort gates if those functions are touched again.
 - **Next:** seed0501 `dog_move` @ 2217 / seed0105 Scr / `lspo_map` /
   `next_ident`.
 
+
+## D-0136 — study_book known-refresh (false dog_move peel)
+
+- **Status:** fixed
+- **Observed:** seed0501 @ **2217**: C `rn2(1)` @ `dog_move`; JS `rn2(5)`.
+  Screens showed JS hero/pet drifted NW after keys `rgy` while C stayed put.
+- **Cause/evidence:** JS `doread` stubbed SPBOOK with "not implemented" and
+  returned; C called `study_book` → `You know "healing" quite well already.`
+  + `more()` (eats `y#turn\rn`) + `Refresh your memory anyway? [yn] (n)`.
+  Leaked `y` became a diagonal move → `udist`/`appr` diverged before search.
+  Rejected: dog_move `chcnt`/`mtrack`/`appr` as the 2217 cause.
+- **C locus:** `spell.c` `study_book`; `read.c` `doread` SPBOOK branch
+  (literate bump before study).
+- **Change:** `js/spell.js` `study_book` (blank + known-refresh yn + delay/
+  too_hard gate + begin-memorize); `js/read.js` wires SPBOOK → study_book
+  with C literate order.
+- **Verification:** seed0501 RNG **2238**/2238 Scr **27→28**/28 (with
+  D-0137); green+strict PASS; cohort + seed0501 PASS; full **12/44**
+  Scr **1198** RNG **107134**/792838.
+- **Named omission:** occupation/`learn`; novel/tribute; dull sleep;
+  `cursed_book`/`confused_book` bodies.
+- **Next:** seed0105 Scr / `lspo_map` / `next_ident`.
+
+## D-0137 — ^X attributes female role/rank titles
+
+- **Status:** fixed
+- **Observed:** seed0501 Scr @22 (^X): C `Priestess` / JS `Priest`.
+- **Cause/evidence:** `doattributes` always used `urole.name.m` /
+  `rank.m`. C `insight.c` uses `name.f` / `rank_of(..., innategend)` when
+  female.
+- **C locus:** `insight.c` title + `background_enlightenment` role_titl.
+- **Change:** `js/invent.js` `doattributes` selects `.f` when
+  `flags.female` and female name/rank present.
+- **Verification:** with D-0136, seed0501 **PASS**; green+cohort held.
+- **Next:** seed0105 Scr / `lspo_map` / `next_ident`.

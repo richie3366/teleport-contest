@@ -7,17 +7,14 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 
 ## Active
 
-- **Current unit:** D-0135 cleared: `Z`/`docast` → `spelleffects_check` +
-  SPE_HEALING self-zap (seed0501 prefix **2205→2217**).
-- **Hypothesis:** seed0501 next @ 2217 is `dog_move` candidate pick
-  (`rn2(++chcnt)` when `j==0`) — C `rn2(1)` means `chcnt==1`; JS hits
-  `rn2(5)` (different branch / earlier chcnt). Prefer diagnose pet goal
-  vs mtrack skip over parked D-0006. Alternates: seed0105 Scr /
-  seed0015 `lspo_map` / seed0101 `next_ident`.
+- **Current unit:** D-0136/37 cleared: `study_book` known-refresh + ^X
+  female role/rank → seed0501 **PASS** (was false `dog_move` peel).
+- **Hypothesis / next:** prefer seed0105 Scr / seed0015 `lspo_map` /
+  seed0101 `next_ident` / seed0103 `next_ident`/`trquan` over parked
+  D-0006. seed2200 sole miss remains parked RC @158.
 - **Falsifier / next:**
   ```bash
-  node scripts/rng-diff.mjs sessions/seed0501-priest-cast-read-turn.session.json
-  # expect first mismatch beyond dog_move @ 2217
+  node frozen/ps_test_runner.mjs sessions/seed0105-valk-chat-lamp-ration.session.json
   # or seed0015 lspo_map / seed0101 next_ident
   ```
 - **Parked deep canary:** D-0006 pet movement — do not implement until C
@@ -147,6 +144,13 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 - **seed0501 @2205 was unbound `Z`/`docast`** — not percent_success math;
   C `spelleffects_check` `rnd(100)` then SPE_HEALING `getdir`+`zapyourself`
   (D-0135). Spell getdir: `.` is self (success), not cancel.
+- **seed0501 @2217 was NOT dog_move candidate/`appr`** — JS stubbed
+  `study_book` so `r`/`g` returned early; `y#turn\rn` leaked as movement
+  and pet/`udist` diverged before search. C kept `--More--` then
+  `Refresh your memory anyway?` (D-0136). Do not “fix” dog_move from
+  rng-diff arity alone when keys leaked earlier.
+- **seed0501 ^X Priest vs Priestess was always `.m`** — C uses
+  `urole.name.f` / `rank.f` when female (D-0137).
 
 ## Landmarks
 
@@ -226,3 +230,7 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 - Cast: `SPELL_LEV_PW(lev)=lev*5`; fail `rnd(100)>chance`; SPE_HEALING
   `mksobj(FALSE)` → `getdir` → self `zapyourself` `healup(d(6,4),…)`
   (D-0135).
+- Known spellbook: `You know "…" quite well already.` → `more()` eats
+  non-space/return → `Refresh your memory anyway? [yn] (n)` (D-0136).
+- ^X title/background: female + `urole.name.f` → Priestess; omit
+  `"female "` when name.f set (D-0137).

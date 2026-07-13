@@ -1723,3 +1723,15 @@ Use this shape:
   full **11/44** Scr **1180** RNG **107116**/792838.
 - Next: seed0501 `dog_move` @ 2217 / seed0105 Scr / `lspo_map` /
   `next_ident`.
+
+## 2026-07-13 — study_book known-refresh + ^X Priestess (D-0136/37)
+- Objective: seed0501 @ 2217 looked like `dog_move` (PROGRESS primary).
+- C locus: `spell.c` `study_book`; `read.c` `doread`; `insight.c`
+  attributes title/role_titl.
+- Result: **verified** — stubbed SPBOOK `doread` leaked `y#turn\rn` as
+  movement (false dog_move peel). Ported known-refresh `--More--`/yn;
+  ^X uses female `name.f`/`rank.f`.
+- Verification: seed0501 **PASS** (RNG 2238/2238 Scr 28/28); green+strict
+  PASS; cohort 1500/1800/0060/0102/0700/1150/0017/0077/0106/0501 PASS;
+  full **12/44** Scr **1198** RNG **107134**/792838.
+- Next: seed0105 Scr / seed0015 `lspo_map` / seed0101 `next_ident`.

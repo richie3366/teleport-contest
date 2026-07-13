@@ -37,10 +37,10 @@ frozen-file overlay):
 
 | Metric | Value |
 |--------|------:|
-| Sessions passing | **11 / 44** |
-| Screens matched | **1180 / 11,405** (10.35%) |
-| Positional RNG calls matched | **107,116 / 792,838** (13.51%) |
-| Speed label | `18+0.08/turn` |
+| Sessions passing | **12 / 44** |
+| Screens matched | **1198 / 11,405** (10.50%) |
+| Positional RNG calls matched | **107,134 / 792,838** (13.51%) |
+| Speed label | `19+0.09/turn` |
 | Working-tree base | `8b71735` + committed port (see `main`) |
 | Role-init throws | **0 / 44** (`u_init_role: role not ported`) |
 
@@ -61,6 +61,7 @@ shared blockers, and semantic coverage together—not one vanity metric.
 | `seed0700-samurai-explore-descend` | **3230 / 3230** | **51 / 51** |
 | `seed1150-caveman-explore-move` | **3137 / 3137** | **51 / 51** |
 | `seed0106-priest-extcmd-sweep` | **4194 / 4194** | **267 / 267** |
+| `seed0501-priest-cast-read-turn` | **2238 / 2238** | **28 / 28** |
 | `seed2200-wizard-quaff-zap-read` | **3018 / 3018** | **229 / 230** |
 | `seed0017-samurai-altar-pray` | **3465 / 3465** | **67 / 67** |
 | `seed0030-ten-diverse-deaths` | **7085 / 105529** | **97 / 1953** |
@@ -76,10 +77,10 @@ shared blockers, and semantic coverage together—not one vanity metric.
 | `seed0015-valk-level2-pit-dog-wait` | **363 / 8563** | 1 / 44 |
 | `seed0077-rogue-chargen` | **3242 / 3242** | **33 / 33** |
 | `seed0013-rogue-friday13-combat` | **522 / 4838** | 1 / 59 |
-| `seed0501-priest-cast-read-turn` | **2220 / 2238** | **10 / 28** |
 
 seed8000 + seed0900 + seed1500 + seed1800 + seed0060 + seed0102 +
-seed0700 + seed1150 + seed0017 + seed0077 + seed0106 pass end-to-end.
+seed0700 + seed1150 + seed0017 + seed0077 + seed0106 + seed0501 pass
+end-to-end.
 `choose_trapnote`/`hole_destination` (D-0054), `SPBOOK_no_NOVEL`
 (D-0055), roles `initrecord` (D-0056), CORPSE `G_NOCORPSE` retry
 (D-0057), `adjabil`/`u_calc_moveamt` Fast (D-0058), `rnl` +
@@ -127,7 +128,7 @@ autoopen `doopen_indir` (D-0059), `mfndpos` BOULDER/`NODIAG`
 clear shared peels. seed2200 RNG **full**; Scr **229**/230 (sole miss:
 parked RC path @158). seed0106 **PASS**.
 Healer seed0016 next `next_ident` @ 2493.
-Priest seed0501 next `spelleffects_check` @ 2205. seed0015/0200 next `lspo_map`.
+seed0015/0200 next `lspo_map`.
 seed0101 next `next_ident`. seed0013 still breaks earlier in
 Lua/`sp_lev`. seed0103 next `next_ident`/`trquan` @ 2337.
 seed0361/0373 `getbones` blocked on unbound `^V`/`goto_level`/
@@ -174,6 +175,9 @@ seed0501 prefix **1153→2205** (`spelleffects_check`).
 **`Z`/`docast`/`spelleffects_check` + SPE_HEALING self-zap** (D-0135)
 → Scr **1176→1180**; RNG **107102→107116**; seed0501 prefix
 **2205→2217** (`dog_move`); Scr **6→10**/28.
+**`r`/`study_book` known-refresh + ^X female role/rank** (D-0136/37)
+→ Scr **1180→1198**; RNG **107116→107134**; seed0501 **PASS**;
+public **12/44**.
 
 ### Green gate
 
@@ -281,20 +285,22 @@ autoopen `doopen_indir` (D-0059) + `mfndpos` BOULDER/`ALLOW_ROCK` +
 **Wizard `skill_based_spellbook_id` + `read_engr_at`** (D-0132/33)
 **`makeniche` trap `wipe_engr_at`/`wipeout_text`** (D-0134)
 **`Z`/`docast`/`spelleffects_check` + SPE_HEALING self-zap** (D-0135)
-**ported**. Eleven public sessions pass end-to-end. **0/44** throw at
-`u_init_role`. seed0700 + seed1150 + seed0017 + seed0077 + seed0106
-**PASS**. seed2200 RNG **full** (Scr **229**/230; sole miss parked RC
-@158). seed0105 RNG **full** (Scr **0**/30). seed0501 next
-`dog_move` @ 2217.
+**`r`/`study_book` known-refresh yn** (D-0136)
+**^X female `urole.name.f`/`rank.f`** (D-0137)
+**ported**. Twelve public sessions pass end-to-end. **0/44** throw at
+`u_init_role`. seed0700 + seed1150 + seed0017 + seed0077 + seed0106 +
+seed0501 **PASS**. seed2200 RNG **full** (Scr **229**/230; sole miss
+parked RC @158). seed0105 RNG **full** (Scr **0**/30).
 
-- **Bounded unit:** seed0501 `dog_move` / seed0105 screens /
-  seed0015/0200 `lspo_map` / seed0101 `next_ident` /
-  seed0103 `next_ident`/`trquan` / seed0030 `maybe_smudge_engr` /
-  seed0361/0373 **`getbones`** (blocked: need `^V`→`goto_level`→
-  `makemaz` first).
-- **Prefer:** seed0501 pet move / seed0105 Scr / `lspo_map` / `next_ident`
-  over parked D-0006 and over baking seed2200 RC paths.
-- **Named omissions:** spell swap/sort / other `spelleffects` otyps /
+- **Bounded unit:** seed0105 Scr / seed0015/0200 `lspo_map` /
+  seed0101 `next_ident` / seed0103 `next_ident`/`trquan` /
+  seed0030 `maybe_smudge_engr` / seed0361/0373 **`getbones`**
+  (blocked: need `^V`→`goto_level`→`makemaz` first).
+- **Prefer:** seed0105 Scr / `lspo_map` / `next_ident` over parked
+  D-0006 and over baking seed2200 RC paths.
+- **Named omissions:** study_book occupation/`learn` / novel/tribute /
+  dull sleep / `cursed_book`/`confused_book`; spell swap/sort / other
+  `spelleffects` otyps /
   directional `weffects`;
   enhance `can_advance`/`skill_advance`→`skill_based_spellbook_id` /
   wizard speedy; full `x_monnam`
@@ -339,7 +345,7 @@ autoopen `doopen_indir` (D-0059) + `mfndpos` BOULDER/`ALLOW_ROCK` +
   `setworn` oc_oprop; dragon_armor_handling; touch blast `d()`/`losehp`;
   artifact wield intrinsics; wield poly/corpse/bimanual/weld-pline/
   swap/quiver ynq; other `peffect_*` / IMMEDIATE·RAY `dozap` /
-  other `seffect_*` / `study_book` / non-hands `doengrave` stylus /
+  other `seffect_*` / non-hands `doengrave` stylus /
   engraving glyphs / multi-turn dulling; prayer `in_trouble` body /
   `pleased`/crown/fix-trouble / angrygods 4+ /
   sacrifice / `#turn`;
@@ -357,8 +363,8 @@ autoopen `doopen_indir` (D-0059) + `mfndpos` BOULDER/`ALLOW_ROCK` +
   eel AD_WRAP Amphibious XP; `get_mattk` still FIRST_ATTK compact;
   wizard ^X next-level XP line; …
 - **Cohort:** green gate + seed1500 + seed1800 + seed0060 + seed0102
-  + seed0700 + seed1150 + seed0017 + seed0077 + seed0106 (must stay
-  PASS) + strict lengths.
+  + seed0700 + seed1150 + seed0017 + seed0077 + seed0106 + seed0501
+  (must stay PASS) + strict lengths.
 
 Focused survey:
 
@@ -782,6 +788,10 @@ Module status, constitutional debt, and named omissions live in
     — seed0501 prefix **2205→2217** (`dog_move`); Scr **6→10**/28;
     screens **1176→1180**; RNG **107102→107116**; green cohort PASS;
     next seed0501 `dog_move` / seed0105 Scr / `lspo_map` / `next_ident`
+117. `r`/`study_book` known-refresh + ^X female role/rank (D-0136/37)
+    — seed0501 **PASS**; public **12/44**; screens **1180→1198**;
+    RNG **107116→107134**; green cohort + seed0501 PASS; next
+    seed0105 Scr / `lspo_map` / `next_ident` / `getbones`
 
 Next work is selected from the active objectives above using
 `PORTING-RUNBOOK.md`, not by extending this historical list.
