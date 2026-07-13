@@ -1958,3 +1958,29 @@ cohort gates if those functions are touched again.
   geometry.
 - **Next:** seed0017 @ 2775 / seed0700 Scr 2/51 / seed2200
   `exercise`.
+
+## D-0072 — seed0017 lookaround corridor-turn (run==1)
+
+- **Status:** fixed
+- **Observed:** seed0017 rng-diff @ **2775**: C `rn2(5)` @
+  `distfleeck` vs JS `rn2(7)` @ `do_attack` (safemon bump). JS ended
+  capital-`L` rush early, getch'd later keys (`j` into pet) while C
+  kept running/monster phase.
+- **C locus:** `hack.c` `lookaround` — STONE/IS_OBSTRUCTED are
+  uninteresting (`continue`); run==1/3/8 corridor-follow updates
+  `u.dx`/`u.dy` toward adjacent CORR when `corrct`/`i0` allow.
+- **Cause:** JS `lookaround` called `end_running()` on
+  `blocksMove(ahead)` (STONE typ=0 at dead-end). C does not stop for
+  walls; it turns into the corridor. Premature run abort + Fast
+  `umovement` left hero free to consume the next input mid-turn.
+- **Change:** `js/cmd.js` `lookaround` — monster stop rules + run==1
+  corridor-turn (`last_str_turn`, `corrct`/`i0`/`noturn`/`m0`).
+- **Verification:** green + seed1500/1800/0060/0102 PASS + strict;
+  full **6/44**, screens **320**/11405, RNG **91263**/792838;
+  seed0017 prefix **2775→3132** positional **3169**/3465; seed0700
+  RNG still full Scr **2**/51.
+- **Named omission:** Blind early-return; traps/pools/NODIAG;
+  `mon_visible`/M_AP furniture-object skip; AIR/ICE as uninteresting;
+  run==2 corridor-widen stop; mention_walls plines.
+- **Next:** seed0017 @ 3132 `dog_move`; seed0700 screen peel;
+  seed2200 `exercise`.

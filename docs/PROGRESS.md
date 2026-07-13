@@ -39,7 +39,7 @@ frozen-file overlay):
 |--------|------:|
 | Sessions passing | **6 / 44** |
 | Screens matched | **320 / 11,405** (2.81%) |
-| Positional RNG calls matched | **90,863 / 792,838** (11.46%) |
+| Positional RNG calls matched | **91,263 / 792,838** (11.51%) |
 | Speed label | `17+0.08/turn` |
 | Working-tree base | `8b71735` + committed port (see `main`) |
 | Role-init throws | **0 / 44** (`u_init_role: role not ported`) |
@@ -65,7 +65,7 @@ shared blockers, and semantic coverage together—not one vanity metric.
 | `seed0200-monk-north-search` | **1548 / 3822** | 0 / 40 |
 | `seed0101-ranger-quiver-throw-travel-engrave` | **2304 / 2371** | 4 / 27 |
 | `seed0016-healer-newmoon-eat-zap` | **2538 / 3656** | **5 / 36** |
-| `seed0017-samurai-altar-pray` | **2840 / 3465** | 1 / 67 |
+| `seed0017-samurai-altar-pray` | **3169 / 3465** | 1 / 67 |
 | `seed0107-samurai-twoweapon-enhance` | **2677 / 2902** | 0 / 98 |
 | `seed0104-knight-ride-combat` | **2401 / 3223** | 1 / 43 |
 | `seed0106-priest-extcmd-sweep` | **2576 / 4194** | 1 / 267 |
@@ -91,8 +91,8 @@ autoopen `doopen_indir` (D-0059), `mfndpos` BOULDER/`NODIAG`
 **`help_dir`/Book offx** (D-0071)
 clear shared peels. seed0700
 RNG **full**; next is screen peel (Scr 2/51). seed0361/0373 `getbones` blocked on unbound
-`^V`/`goto_level`/`makemaz` (Quest `y`). seed0017 next @ 2775;
-seed0030 next `maybe_smudge_engr` @ 6732. Wizard seed2200 next
+`^V`/`goto_level`/`makemaz` (Quest `y`). seed0017 next @ 3132
+`dog_move`; seed0030 next `maybe_smudge_engr` @ 6732. Wizard seed2200 next
 `exercise` @ 2724; Healer seed0016 next `next_ident` @ 2493;
 Caveman seed1150 next `dog_move` @ 2915; Priest seed0501 still
 `wipeout_text`. seed0015/0200 next `lspo_map`. seed0101 next
@@ -138,18 +138,20 @@ autoopen `doopen_indir` (D-0059) + `mfndpos` BOULDER/`ALLOW_ROCK` +
 **`f`/`dofire` fireassist/`doswapweapon`/cmdq** (D-0069) +
 **MONSYM `MLET_CH` + furniture `terrain_glyph` + `xprname` `dot`**
 (D-0070) +
-**`help_dir` NHW_TEXT + Book NHW_MENU offx** (D-0071)
+**`help_dir` NHW_TEXT + Book NHW_MENU offx** (D-0071) +
+**`lookaround` run==1 corridor-turn** (D-0072)
 **ported**. Six public sessions pass end-to-end. **0/44**
 throw at `u_init_role`. seed0700 RNG full. seed0102 **PASS**.
+seed0017 prefix **3132** (`dog_move`).
 
-- **Bounded unit:** seed0017 @ 2775 / seed0700 **screen** peel /
+- **Bounded unit:** seed0017 @ 3132 / seed0700 **screen** peel /
   seed2200 `exercise` / seed1150 `dog_move` /
   seed0501/0105 `wipeout_text` / seed0015/0200 `lspo_map` /
   seed0101 `next_ident` / seed0103 `next_ident`/`trquan` /
   seed0030 `maybe_smudge_engr` /
   seed0361/0373 **`getbones`** (blocked: need `^V`→`goto_level`→
   `makemaz` first).
-- **Prefer:** seed0017 / seed0700 screens / seed2200 `exercise`
+- **Prefer:** seed0017 @ 3132 / seed0700 screens / seed2200 `exercise`
   over parked D-0006.
 - **Named omissions:** Wizard/Priest/Healer `initialspell`; Knight/
   Samurai/Healer/Valkyrie/Ranger/Monk/Archeologist/Barbarian/Caveman
@@ -362,6 +364,10 @@ Module status, constitutional debt, and named omissions live in
 56. `help_dir` NHW_TEXT + Book NHW_MENU offx (D-0071) — seed0102
     **PASS**; public **6/44**; screens **311→320**; RNG **90863**
     unchanged; green + seed1500/1800/0060/0102 PASS
+57. `lookaround` run==1 corridor-turn (D-0072) — seed0017 prefix
+    **2775→3132** positional **3169**/3465; aggregate RNG
+    **90863→91263**; screens **320** unchanged; green cohort PASS;
+    seed0700 RNG still full
 
 Next work is selected from the active objectives above using
 `PORTING-RUNBOOK.md`, not by extending this historical list.

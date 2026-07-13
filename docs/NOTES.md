@@ -7,18 +7,15 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 
 ## Active
 
-- **Current unit:** after D-0071 seed0102 **PASS** (6/44). Prefer
-  seed0017 @ 2775 / seed0700 Scr 2/51 / seed2200 `exercise` /
-  seed1150 `dog_move` / seed0501/0105 `wipeout_text` /
-  seed0015/0200 `lspo_map` / seed0101 `next_ident` /
-  seed0103 `next_ident`/`trquan` / seed0030 `maybe_smudge_engr` /
-  seed0361/0373 `getbones` (needs `^V`→`goto_level`→`makemaz`).
-- **Hypothesis:** next peel is whichever focused command shows first
-  shared/call-order divergence — start with seed0017 or seed0700 screens.
+- **Current unit:** after D-0072 seed0017 prefix **2775→3132** (pos
+  **3169**/3465). Prefer seed0017 @ 3132 `dog_move` / seed0700 Scr 2/51 /
+  seed2200 `exercise` / seed1150 `dog_move` / wipeout_text / lspo_map /
+  next_ident / maybe_smudge_engr / getbones (needs `^V`→`makemaz`).
+- **Hypothesis:** seed0017 @ 3132 C `dog_move` `rn2(12)` vs JS `rn2(5)` —
+  pet candidate/`appr` path after corridor-run turn, not lookaround abort.
 - **Falsifier / next probe:**
   ```bash
   node scripts/rng-diff.mjs sessions/seed0017-samurai-altar-pray.session.json
-  # or screen-diff seed0700 after Scr 2
   ```
 - **Parked deep canary:** D-0006 pet movement — do not implement until C
   state/candidate capture exists.
@@ -45,6 +42,8 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   topline pline+`--More--` is wrong — need NHW_TEXT (D-0071).
 - Legacy Book overlay: `maxcol = strlen+1` (tty_putstr), not bare strlen;
   NHW_MENU paints leading pad then text at `offx+1` (D-0071).
+- **lookaround must not `end_running` on ahead STONE/wall** — C treats
+  IS_OBSTRUCTED as uninteresting and may corridor-turn for run==1 (D-0072).
 
 ## Landmarks
 
@@ -55,3 +54,5 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   `y` = Quest start (`*-strt`); needs `goto_level` + `makemaz`/`splev`.
 - C sink/fountain both `'{'`; sink CLR_WHITE, fountain CLR_BRIGHT_BLUE
   (`defsym.h` PCHAR).
+- Samurai L1 `HFast` → `u_calc_moveamt` `rn2(3)`; capital-letter rush
+  `context.run==1` corridor-follows at dead ends (D-0072).

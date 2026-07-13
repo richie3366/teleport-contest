@@ -9,8 +9,9 @@ import { game } from './gstate.js';
 import { nhgetch } from './input.js';
 import { newsym, flush_screen, pline } from './display.js';
 import { vision_recalc } from './vision.js';
-import { COLNO, ROWNO, STONE, DOOR, D_CLOSED, D_LOCKED,
-         IS_WALL, IS_OBSTRUCTED, IS_FURNITURE } from './const.js';
+import { COLNO, ROWNO, STONE, DOOR, CORR, ROOM, D_CLOSED, D_LOCKED,
+         IS_WALL, IS_OBSTRUCTED, IS_FURNITURE, isok } from './const.js';
+import { dist2 } from './mon.js';
 import {
     ddoinv, dodiscovered, doattributes, dovspell, dolook,
 } from './invent.js';
@@ -78,22 +79,113 @@ function end_running() {
     game.multi = 0;
 }
 
-// C ref: hack.c lookaround() — minimal: stop for monster ahead or blocked path
+/**
+ * C ref: hack.c lookaround()
+ * Blind / traps / pools / NODIAG / mention_walls deferred.
+ * Ported: monster stop rules + run==1/3/8 corridor-follow turn (capital rush).
+ */
 function lookaround() {
-    if (!game.context?.run) return;
+    const ctx = game.context;
     const u = game.u;
-    const nx = u.ux + (u.dx || 0);
-    const ny = u.uy + (u.dy || 0);
-    // Monster in the square we're about to enter
-    const mtmp = mon_at(nx, ny);
-    if (mtmp) {
-        // C: (run != 1 && !safemon) || (infront && !travel)
-        // infront is true here; travel omitted → always stop
+    if (!ctx?.run) return;
+
+    let corrct = 0;
+    let noturn = 0;
+    let x0 = 0;
+    let y0 = 0;
+    let m0 = 1;
+    let i0 = 9;
+
+    for (let x = u.ux - 1; x <= u.ux + 1; x++) {
+        for (let y = u.uy - 1; y <= u.uy + 1; y++) {
+            const infront = (x === u.ux + (u.dx || 0) && y === u.uy + (u.dy || 0));
+            if (!isok(x, y) || (x === u.ux && y === u.uy)) continue;
+
+            const mtmp = mon_at(x, y);
+            if (mtmp) {
+                // C: skip M_AP furniture/object; mon_visible deferred → assume seen
+                if ((ctx.run !== 1 && !is_safemon(mtmp))
+                    || (infront && !ctx.travel)) {
+                    end_running();
+                    return;
+                }
+            }
+
+            const loc = game.level?.at(x, y);
+            const typ = loc?.typ ?? STONE;
+            if (typ === STONE) continue;
+            if (x === u.ux - (u.dx || 0) && y === u.uy - (u.dy || 0)) continue;
+
+            // traps deferred (avoid_moving_on_trap)
+
+            if (IS_OBSTRUCTED(typ) || typ === ROOM) {
+                continue;
+            }
+
+            let asCorr = false;
+            if (closed_door_at(x, y)) {
+                if (x !== u.ux && y !== u.uy) continue;
+                if (ctx.run !== 1 && !ctx.travel) {
+                    end_running();
+                    return;
+                }
+                asCorr = true; // bcorr
+            } else if (typ === CORR) {
+                asCorr = true;
+            } else {
+                // pool/lava/objects/stairs: run==1 → bcorr; run==8 continue; else stop
+                if (ctx.run === 1) asCorr = true;
+                else if (ctx.run === 8) continue;
+                else {
+                    end_running();
+                    return;
+                }
+            }
+
+            if (asCorr) {
+                const here = game.level?.at(u.ux, u.uy);
+                if (here && here.typ !== ROOM) {
+                    if (ctx.run === 1 || ctx.run === 3 || ctx.run === 8) {
+                        const i = dist2(x, y, u.ux + (u.dx || 0), u.uy + (u.dy || 0));
+                        if (i > 2) continue;
+                        if (corrct === 1 && dist2(x, y, x0, y0) !== 1) noturn = 1;
+                        if (i < i0) {
+                            i0 = i;
+                            x0 = x;
+                            y0 = y;
+                            m0 = mtmp ? 1 : 0;
+                        }
+                    }
+                    corrct++;
+                }
+            }
+        }
+    }
+
+    if (corrct > 1 && ctx.run === 2) {
         end_running();
         return;
     }
-    if (blocksMove(nx, ny)) {
-        end_running();
+
+    if ((ctx.run === 1 || ctx.run === 3 || ctx.run === 8)
+        && !noturn && !m0 && i0
+        && (corrct === 1 || (corrct === 2 && i0 === 1))) {
+        let turn;
+        if (i0 === 2) {
+            turn = ((u.dx || 0) === y0 - u.uy && (u.dy || 0) === u.ux - x0) ? 2 : -2;
+        } else if ((u.dx || 0) && (u.dy || 0)) {
+            turn = (((u.dx || 0) === (u.dy || 0) && y0 === u.uy)
+                || ((u.dx || 0) !== (u.dy || 0) && y0 !== u.uy)) ? -1 : 1;
+        } else {
+            turn = ((x0 - u.ux === y0 - u.uy && !(u.dy || 0))
+                || (x0 - u.ux !== y0 - u.uy && (u.dy || 0))) ? 1 : -1;
+        }
+        turn += (u.last_str_turn || 0);
+        if (turn <= 2 && turn >= -2) {
+            u.last_str_turn = turn;
+            u.dx = x0 - u.ux;
+            u.dy = y0 - u.uy;
+        }
     }
 }
 

@@ -841,3 +841,17 @@ Use this shape:
   **5/44**, RNG **90863**/792838, Scr **311**/11405.
 - Next: `node frozen/ps_test_runner.mjs sessions/seed0102-ranger-name-cancel.session.json`
   — cmdassist getdir help UI (Scr 15) or Book overlay blanking.
+
+## 2026-07-13 — lookaround run==1 corridor-turn (D-0072)
+- Objective: seed0017 @ 2775 (PROGRESS primary after D-0071).
+- C locus: `hack.c` `lookaround` — IS_OBSTRUCTED uninteresting;
+  run==1/3/8 corridor-follow updates `u.dx`/`u.dy`.
+- Result: **verified** — JS aborted capital-`L` rush on ahead STONE
+  (`blocksMove`); C turns into adjacent CORR. Premature getch bumped
+  pet (`do_attack` `rn2(7)`) while C still in `distfleeck`. Ported
+  lookaround monster stops + corridor-turn.
+- Verification: green + seed1500/1800/0060/0102 PASS + strict; full
+  **6/44**, RNG **91263**/792838, Scr **320**/11405; seed0017 prefix
+  **2775→3132** positional **3169**/3465; seed0700 RNG full Scr 2/51.
+- Next: `node scripts/rng-diff.mjs sessions/seed0017-samurai-altar-pray.session.json`
+  — peel `dog_move` @ 3132 (or seed0700 screen / seed2200 `exercise`).
