@@ -72,6 +72,7 @@ Do not record a guessed cause as fixed merely because an RNG prefix moved.
 | D-0066 | fixed | wear | `W`/`dowear`/`canwearobj`/`setworn`/`oc_delay`/`nomul`; seed0361 past SDSM dress |
 | D-0067 | fixed | puton | `P`/`doputon`/`Amulet_on` + accessory path; seed0361 past ALS; next `getbones` |
 | D-0068 | fixed | mkobj/egg | EGG `can_be_hatched` retry + growth helpers; seed0102 1281→4451 |
+| D-0069 | fixed | fire/`f` | fireassist swap+cmdq; seed0102 RNG full (udist via no leaked `l`) |
 
 D-0001 through D-0005 predate the strict-length/cohort runbook. Their focused
 causes are preserved, but generic "green sessions held" is historical evidence,
@@ -1873,3 +1874,35 @@ cohort gates if those functions are touched again.
   before patching the stub that already matches.
 - **Next:** seed0102 `dog_goal` @ 4451, or other shared peels;
   getbones waits on level-tele + special levels.
+
+## D-0069 — seed0102 dog_goal udist / fireassist `f` key ownership
+
+- **Status:** fixed
+- **Observed:** seed0102 first mismatch @ **4451**: C `rn2(4)` @
+  `dog_goal:575`; JS `rn2(100)` (invent `dogfood`/`obj_resists`).
+- **Rejected:** APPORT/`can_carry` on LARGE_BOX; rewriting `dog_goal`
+  appr; auto-submit unique `#` extcmds (broke seed0361); naïve
+  `'f'`→`dofire` without fireassist (made `l` a real shot ~4442).
+- **C locus:** `dothrow.c` `dofire` fireassist → `cmdq` `doswapweapon`
+  + `dofire`; `wield.c` `ready_weapon`/`prinv` → `--More--` eats
+  `l`/`i`; Esc ends More; swap `ECMD_TIME` then canned getdir;
+  `dogmove.c` `dog_goal` `udist>1` → `rn2(4)` once hero stays put.
+- **Cause:** Ranger starts with dagger wielded / bow in swap / arrows
+  quivered. C `f` queues swap+retry; swap `prinv` shows
+  `b - a +1 bow (weapon in right hand).--More--`; `l`/`i` bell in
+  `more()`; Esc continues; turn passes; getdir then `+`/Esc cancel.
+  JS treated unbound `f` as unknown then `l` as east move →
+  `udist==1` → skipped `rn2(4)`.
+- **Change:** `js/wield.js` `doswapweapon`/`setuswapwep`/
+  `ammo_and_launcher`; `js/dothrow.js` fireassist `cmdq`;
+  `js/cmd.js` `'f'`→`dofire` + canned `rhack` pop; `#name`/
+  `docallcmd` stubs kept from prior peel.
+- **Verification:** seed0102 RNG **4485/4485** (screen 0/25);
+  green + seed1500/1800/0060 PASS + strict; full **5/44**,
+  RNG **90863**/792838, screens **294**/11405.
+- **Lesson:** fireassist swap More owns direction letters before
+  getdir; do not bind bare `dofire` when launcher is only in
+  `uswapwep`. Late `dog_goal` `udist` often means an earlier leaked
+  movement key.
+- **Next:** seed0102 **screen** peel (More/prinv display), or
+  seed0017 @ 2775 / seed0700 screens.

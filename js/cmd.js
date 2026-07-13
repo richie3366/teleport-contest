@@ -15,7 +15,7 @@ import {
     ddoinv, dodiscovered, doattributes, dovspell, dolook,
 } from './invent.js';
 import { doeat } from './eat.js';
-import { dothrow } from './dothrow.js';
+import { dothrow, dofire } from './dothrow.js';
 import { doapply } from './apply.js';
 import { dokick } from './dokick.js';
 import { donull } from './do.js';
@@ -26,6 +26,18 @@ import { dosearch } from './detect.js';
 import { dotakeoff, dowear, doputon } from './do_wear.js';
 import { wiz_wish } from './wizcmds.js';
 import { dowield } from './wield.js';
+
+/** C ref: cmd.c cmdq_clear(CQ_CANNED) */
+function cmdq_clear() {
+    game._cmdq_canned = [];
+}
+
+/** C ref: cmd.c cmdq_pop(CQ_CANNED) — next canned async command or null */
+function cmdq_pop() {
+    const q = game._cmdq_canned;
+    if (!q || !q.length) return null;
+    return q.shift();
+}
 
 
 // Direction deltas: y u k
@@ -136,6 +148,21 @@ export async function continue_search() {
 
 // C ref: cmd.c rhack — main command dispatcher
 export async function rhack(key) {
+    // C: cmdq_pop before parse — fireassist swap/retry lives here
+    const canned = (key === 0) ? cmdq_pop() : null;
+    if (canned) {
+        const res = await canned();
+        // C: ECMD_TIME keeps remaining CQ_CANNED; cancel clears queue.
+        if (res === 1) {
+            game.context.move = 1;
+            game.kickedloc = { x: 0, y: 0 };
+        } else {
+            if (res !== 0) cmdq_clear(); // cancel/fail
+            game.context.move = 0;
+        }
+        return;
+    }
+
     if (key === 0) {
         // Read key from input
         await flush_screen(1);
@@ -236,6 +263,12 @@ export async function rhack(key) {
     } else if (ch === 't') {
         // C ref: dothrow.c dothrow
         const tookTime = await dothrow();
+        game.context.move = tookTime ? 1 : 0;
+        if (tookTime) game.kickedloc = { x: 0, y: 0 };
+    } else if (ch === 'f') {
+        // C ref: dothrow.c dofire — #fire / quiver shoot
+        const tookTime = await dofire();
+        // C: ECMD_OK after queueing fireassist keeps CQ_CANNED
         game.context.move = tookTime ? 1 : 0;
         if (tookTime) game.kickedloc = { x: 0, y: 0 };
     } else if (ch === '+') {

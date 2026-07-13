@@ -11,6 +11,15 @@ import {
     COLNO, ROWNO, IS_SOFT, LOST_THROWN, ZAP_POS, IS_DOOR, D_CLOSED, D_LOCKED,
 } from './const.js';
 import { obj_resists } from './dogmove.js';
+import {
+    ammo_and_launcher, is_ammo, doswapweapon,
+} from './wield.js';
+
+/** C ref: cmd.c cmdq_add_ec(CQ_CANNED, …) — shared with rhack via game._cmdq_canned */
+function cmdq_add_ec(fn) {
+    if (!game._cmdq_canned) game._cmdq_canned = [];
+    game._cmdq_canned.push(fn);
+}
 
 
 
@@ -187,9 +196,63 @@ async function throwit(obj) {
 
 
 /**
- * C ref: dothrow.c dothrow()
- * @returns {number} 0 no turn, 1 took time
+ * C ref: cmd.c getdir via yn_function — invalid keys show cmdassist and retry.
+ * Esc / self / space cancel. Returns {dx,dy} or null.
  */
+async function getdir_cmdassist(prompt) {
+    const msg = prompt || 'In what direction?';
+    for (;;) {
+        game._pending_message = msg;
+        await flush_screen(1);
+        const disp = game.nhDisplay;
+        if (disp?.setCursor) disp.setCursor(msg.length, 0);
+        const key = await nhgetch();
+        const ch = String.fromCharCode(key);
+        game._pending_message = '';
+        if (key === 27 || ch === '.' || ch === ' ' || ch === '\n' || ch === '\r')
+            return null;
+        if (ch in DIR_DX) return { dx: DIR_DX[ch], dy: DIR_DY[ch] };
+        // C: iflags.cmdassist → "cmdassist: Invalid direction key!" + help
+        await pline('cmdassist: Invalid direction key!');
+        await flush_topl_more();
+    }
+}
+
+/**
+ * C ref: dothrow.c dofire — quivered ammo; fireassist swap; getdir.
+ * Autoquiver / doquiver_core / polearm / find_launcher canned wield deferred.
+ * @returns {number} 0 no turn (OK/cancel), 1 took time
+ */
+export async function dofire() {
+    let obj = game.u?.uquiver || null;
+
+    // C: iflags.fireassist default On — swap launcher from uswapwep then retry
+    if (obj && is_ammo(obj) && game.flags?.fireassist !== false) {
+        const uwep = game.u?.uwep || null;
+        const uswap = game.u?.uswapwep || null;
+        if (ammo_and_launcher(obj, uwep)) {
+            // ready to fire
+        } else if (ammo_and_launcher(obj, uswap)) {
+            cmdq_add_ec(doswapweapon);
+            cmdq_add_ec(dofire);
+            return 0; // ECMD_OK — canned swap+fire; no time yet
+        }
+        // find_launcher / polearm fireassist deferred
+    }
+
+    if (!obj) {
+        // C: You("have no ammunition readied.") then doquiver_core("fire")
+        await pline('You have no ammunition readied.');
+        return 0;
+    }
+    const dir = await getdir_cmdassist('In what direction?');
+    if (!dir) return 0;
+    game.u.dx = dir.dx;
+    game.u.dy = dir.dy;
+    game.u.dz = 0;
+    return await throw_obj(obj, 0);
+}
+
 export async function dothrow() {
     const obj = await getobj_throw();
     if (!obj) return 0;

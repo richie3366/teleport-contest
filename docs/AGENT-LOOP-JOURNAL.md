@@ -787,3 +787,30 @@ Use this shape:
   seed0700 RNG full.
 - Next: `node scripts/rng-diff.mjs sessions/seed0102-ranger-name-cancel.session.json`
   — peel `dog_goal` @ 4451 (or seed0017/seed0700 screen/`exercise`).
+
+## 2026-07-13 — seed0102 dog_goal udist / #name (D-0069)
+- Objective: seed0102 `dog_goal` @ 4451 (PROGRESS primary).
+- C locus: `dogmove.c` `dog_goal` `udist>1`→`rn2(4)`; input
+  `do_name.c` `docallcmd` / `dothrow.c` `dofire` (session `fli`).
+- Result: gap is geometry — JS `udist==1` after leaked `l` move; C
+  keeps diagonal start. FORCE `udist>1` matched through `rn2(4)`+
+  `rn2(1)`. Ported `#name`/`docallcmd` menu stubs + `dofire` helper
+  (not bound to `'f'` yet). Auto-submit unique `#` rejected (broke
+  seed0361). dog_goal prefix unchanged at 4451.
+- Verification: green + seed1500/1800/0060 PASS + strict; seed0361
+  positional 3295 restored.
+- Next: consume `fli` inside naming/fire/getobj/getpos so hero stays
+  put; `node scripts/rng-diff.mjs sessions/seed0102-ranger-name-cancel.session.json`
+  — expect `rn2(4)` @ dog_goal once `udist>1`.
+
+## 2026-07-13 — fireassist `f` / doswapweapon (D-0069 fixed)
+- Objective: seed0102 `dog_goal` @ 4451 via key ownership (PROGRESS).
+- C locus: `dothrow.c` `dofire` fireassist; `wield.c` `doswapweapon`/
+  `ready_weapon` prinv `--More--`; `cmd.c` CQ_CANNED.
+- Result: **verified** — `'f'` queues swap+retry; More eats `l`/`i`;
+  Esc → EOT → getdir cancel; hero stays diagonal → `dog_goal` `rn2(4)`.
+  seed0102 RNG **4485/4485** (Scr 0/25).
+- Verification: green + cohort PASS + strict; full **5/44**,
+  RNG **90863**/792838, Scr **294**/11405.
+- Next: `node frozen/ps_test_runner.mjs sessions/seed0102-ranger-name-cancel.session.json`
+  — screen peel, or seed0017 @ 2775 / seed0700 screens.

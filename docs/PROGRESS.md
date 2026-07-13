@@ -38,9 +38,9 @@ frozen-file overlay):
 | Metric | Value |
 |--------|------:|
 | Sessions passing | **5 / 44** |
-| Screens matched | **296 / 11,405** (2.60%) |
-| Positional RNG calls matched | **90,837 / 792,838** (11.46%) |
-| Speed label | `16+0.08/turn` |
+| Screens matched | **294 / 11,405** (2.58%) |
+| Positional RNG calls matched | **90,863 / 792,838** (11.46%) |
+| Speed label | `17+0.08/turn` |
 | Working-tree base | `8b71735` + committed port (see `main`) |
 | Role-init throws | **0 / 44** (`u_init_role: role not ported`) |
 
@@ -72,7 +72,7 @@ shared blockers, and semantic coverage together—not one vanity metric.
 | `seed0361-archeologist-tour` | **3295 / 53865** | 0 / 366 |
 | `seed0373-barbarian-quest-tour` | **2573 / 35386** | 0 / 124 |
 | `seed0105-valk-chat-lamp-ration` | **987 / 2499** | 0 / 30 |
-| `seed0102-ranger-name-cancel` | **4459 / 4485** | 2 / 25 |
+| `seed0102-ranger-name-cancel` | **4485 / 4485** | 0 / 25 |
 | `seed0015-valk-level2-pit-dog-wait` | **364 / 8563** | 1 / 44 |
 | `seed0013-rogue-friday13-combat` | **521 / 4838** | 1 / 59 |
 
@@ -85,9 +85,10 @@ autoopen `doopen_indir` (D-0059), `mfndpos` BOULDER/`NODIAG`
 `dosearch0`/Searching EOT (D-0062), `T`/`dotakeoff` (D-0063),
 `^W`/`makewish`/`readobjnam` (D-0064), `w`/`dowield`
 (D-0065), **`W`/`dowear`** (D-0066), **`P`/`doputon`** (D-0067), and
-**EGG `can_be_hatched`** (D-0068) clear shared peels. seed0700
-RNG **full**; next is screen peel (Scr 2/51). seed0102 next
-`dog_goal` @ 4451. seed0361/0373 `getbones` blocked on unbound
+**EGG `can_be_hatched`** (D-0068) and **`f`/fireassist** (D-0069)
+clear shared peels. seed0700
+RNG **full**; next is screen peel (Scr 2/51). seed0102 RNG **full**;
+next screen peel (Scr 0/25). seed0361/0373 `getbones` blocked on unbound
 `^V`/`goto_level`/`makemaz` (Quest `y`). seed0017 next @ 2775;
 seed0030 next `maybe_smudge_engr` @ 6732. Wizard seed2200 next
 `exercise` @ 2724; Healer seed0016 next `next_ident` @ 2493;
@@ -131,21 +132,20 @@ autoopen `doopen_indir` (D-0059) + `mfndpos` BOULDER/`ALLOW_ROCK` +
 `w`/`dowield`/`setuwep`/`retouch_object` (D-0065) +
 `W`/`dowear`/`oc_delay`/`nomul` (D-0066) +
 `P`/`doputon`/`Amulet_on` (D-0067) +
-**EGG `can_be_hatched`/`dead_species`/`little_to_big`** (D-0068)
+**EGG `can_be_hatched`/`dead_species`/`little_to_big`** (D-0068) +
+**`f`/`dofire` fireassist/`doswapweapon`/cmdq** (D-0069)
 **ported**. Five public sessions still pass end-to-end. **0/44**
-throw at `u_init_role`. seed0700 RNG full. seed0102 near end
-(RNG 4459/4485).
+throw at `u_init_role`. seed0700 RNG full. seed0102 RNG **full**.
 
-- **Bounded unit:** seed0102 **`dog_goal`** @ 4451 / seed0017 @
-  2775 / seed0700 **screen** peel / seed2200 `exercise` /
+- **Bounded unit:** seed0102 **screen** peel / seed0017 @ 2775 /
+  seed0700 **screen** peel / seed2200 `exercise` /
   seed1150 `dog_move` / seed0501/0105 `wipeout_text` /
   seed0015/0200 `lspo_map` / seed0101 `next_ident` /
   seed0103 `next_ident`/`trquan` / seed0030 `maybe_smudge_engr` /
   seed0361/0373 **`getbones`** (blocked: need `^V`→`goto_level`→
   `makemaz` first).
-- **Prefer:** finish seed0102 dog_goal / shared dogmove over
-  level-tele until special levels exist; seed0700 screens only when
-  diagnosing display.
+- **Prefer:** seed0102 screen / seed0017 / seed0700 screens over
+  parked D-0006.
 - **Named omissions:** Wizard/Priest/Healer `initialspell`; Knight/
   Samurai/Healer/Valkyrie/Ranger/Monk/Archeologist/Barbarian/Caveman
   `skill_init`; display-path Japanese names; full `role_init` beyond
