@@ -101,6 +101,8 @@ Do not record a guessed cause as fixed merely because an RNG prefix moved.
 | D-0095 | fixed | pickup/Monnam | `spoteffects`/`check_here` + given-name Monnam; seed1150 Scr 22→27 |
 | D-0096 | fixed | display/newsym | out-of-sight litcorr→corr; seed1150 Scr 27→46 |
 | D-0097 | fixed | objnam/throw/^X | GemStone xname + volley + gender/MC; seed1150 PASS |
+| D-0098 | fixed | dog_move mtrack | `goto nxti` candidate skip (was inner `continue`) |
+| D-0099 | open | seed0017 mfndpos | Missing walkable map (30,4); JS VWALL through mklev |
 
 D-0001 through D-0005 predate the strict-length/cohort runbook. Their focused
 causes are preserved, but generic "green sessions held" is historical evidence,
@@ -2610,3 +2612,44 @@ cohort gates if those functions are touched again.
   full `xname` GEM unknown/called paths; armor pair-of in
   `obj_typename`.
 - **Next:** seed0017 @ 3132 mfndpos / seed2200 Scr 199 / getbones.
+
+## D-0098 — dog_move mtrack uses C `goto nxti`
+
+- **Status:** fixed
+- **Observed:** JS `dog_move` mtrack backtrack `continue` only advanced
+  the inner `mtrack[]` loop; C `goto nxti` skips the candidate.
+- **C locus:** `dogmove.c` `dog_move` mtrack loop → `goto nxti`.
+- **Change:** `js/dogmove.js` labeled `candloop` + `continue candloop`
+  when `rn2(MTSZ*(k-j))` says skip.
+- **Verification:** green + strict PASS; cohort seed1500/1800/0060/
+  0102/0700/1150 PASS; full **8/44**, screens **598**/11405, RNG
+  **91410**/792838. seed0017 still @ **3132** (`distminU=3`, mtrack
+  inactive on that peel).
+- **Next:** seed0017 (30,4) terrain (D-0099).
+
+## D-0099 — seed0017 missing mfndpos neighbour (30,4)
+
+- **Status:** open (diagnosed; terrain writer unknown)
+- **Observed:** seed0017 @ **3132**: C 3× `rn2(12)` @ `dog_move:1257`
+  vs JS 2× then `rn2(5)` `distfleeck`. Pet map **(30,5)** D_NODOOR,
+  hero **(29,8)**, `appr=1`, `mfndpos` cnt=4:
+  `(29,5)(29,6)(31,4)(31,5)`. C needs a fifth candidate in scan order
+  between the corridor cells and the room cells.
+- **Probe:** treating map **(30,4)** as walkable in `mfndpos` only →
+  cnt=5, prefix **3132→3142** (then `dog_goal` `rn2(8)` vs `rn2(3)`).
+  Probing **(29,4)** instead → worse (early `rn2(3)` at origin).
+- **Geometry:** room `lx=31,hx=35,ly=3,hy=5` matches C `create_room`
+  RNG (`xabs=31`). West door only at **(30,5)**; **(30,4)** stays
+  VWALL through makerooms/corridors/niches/fill/finalize. No second
+  `dosdoor(30,4)`. Display `setCell(x-1)`: C screen fountain col 31
+  ≡ JS map (32,3). Prior “room x-shift” / “C east door 35” readings
+  were screen cols, not map (D-0092/93).
+- **Rejected:** room x-shift; pool at (30,4); mtrack/nxti on this peel
+  (`distminU=3`); missing `(29,4)` CORR; `in_mk_themerooms` alone.
+- **C implication:** map (30,4) is non-`IS_OBSTRUCTED` in C (DOOR/
+  ROOM/CORR). Screen stays blank even with hero at (29,5) — diagonal
+  vision blocked by stone (29,4) is consistent with an unseen doorway.
+- **Next falsifier:** find C writer of (30,4) typ (compare
+  dig_corridor cell path / join door picks vs JS, or instrument
+  recorder). Do not ship map-coordinate probes.
+

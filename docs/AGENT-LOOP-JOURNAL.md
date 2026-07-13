@@ -27,6 +27,19 @@ Use this shape:
 
 ---
 
+## 2026-07-13 06:58 — dog_move mtrack nxti + seed0017 (30,4) diag
+- C locus: `dogmove.c` `dog_move` mtrack → `goto nxti`; symptom
+  seed0017 @ 3132 `mfndpos` cnt
+- Result: **verified faithful change** (D-0098) — labeled `candloop`
+  so mtrack skip continues the candidate loop like C. **Also**
+  diagnosed D-0099: missing walkable map (30,4); room lx=31 matches
+  C create_room; probe-only (30,4) → prefix 3142 (do not ship).
+- Verification: green+strict PASS; cohort seed1500/1800/0060/0102/
+  0700/1150 PASS; full **8/44** Scr **598** RNG **91410**; seed0017
+  still **3132**.
+- Next: `node scripts/rng-diff.mjs sessions/seed0017-samurai-altar-pray.session.json`
+  — find C writer of map (30,4) typ (dig/join path vs JS).
+
 ## 2026-07-13 06:40 — seed1150 out-of-sight lit corridor (D-0096)
 - Objective: seed1150 Scr 27/51 corridor `#` color (PROGRESS primary).
 - C locus: `display.c:newsym` waslit + `S_litcorr`→`S_corr`;

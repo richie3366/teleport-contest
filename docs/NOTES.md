@@ -7,16 +7,17 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 
 ## Active
 
-- **Current unit:** seed0017 @ 3132 mfndpos / seed2200 Scr 199/230
-  post-help / seed0501 `wipeout_text` / getbones (`^V` blocked).
-- **Hypothesis (seed0017 @ 3132):** pet (30,5) D_NODOOR, `mfndpos`
-  cnt=4 vs C needing 5 for 3×`rn2(12)`. Display `setCell(x-1)`; not a
-  room x-shift (D-0092/93).
+- **Current unit:** seed0017 @ 3132 — missing walkable map **(30,4)**
+  (D-0099). D-0098 mtrack `nxti` fixed (inactive here: `distminU=3`).
+- **Hypothesis:** C has non-obstructed typ at (30,4) (likely DOOR/
+  ROOM/CORR); JS keeps VWALL from `do_room` through finalize. Pet on
+  west door (30,5); room lx=31 matches C create_room RNG.
 - **Falsifier:**
   ```bash
   node scripts/rng-diff.mjs sessions/seed0017-samurai-altar-pray.session.json
   ```
-  (cite mfndpos candidate set / door flags at first mismatch).
+  Find C writer of (30,4); probe-only walkable (30,4) moved prefix to
+  3142 — do not ship probes.
 - **Parked deep canary:** D-0006 pet movement — do not implement until C
   state/candidate capture exists.
 
@@ -111,11 +112,14 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   recording absolute paths. Over-long `%-20s` compounds (glyph /
   whatis_filter) display unpadded to fit CO.
 - seed0017 DEC `~` is **room floor** (`screen-decode` maps DEC `~`→`·`),
-  not pool. D_NODOOR also paints as `~`. (30,4) walkable in C vs JS
-  VWALL; `in_mk_themerooms` alone does not fix (D-0092).
-- **seed0017 room x-shift theory falsified** — display paints map at
-  `x-1`; C screen fountain col 31 ≡ JS level fountain x=32 (D-0093
-  side note). Peel remains mfndpos neighbour count.
+  not pool. D_NODOOR also paints as `~`. (D-0092).
+- **seed0017 room x-shift falsified** — `create_room` first room
+  `xabs=31` matches C RNG; display `setCell(x-1)`; C screen fountain
+  col 31 ≡ JS map (32,3); “east door col 35” is screen for map 36
+  (D-0092/93/99).
+- **seed0017 (30,4) is the missing mfndpos neighbour** — probe-only
+  walkable extends 3132→3142; (29,4) probe regresses (D-0099). JS
+  never `dosdoor(30,4)`; typ stays VWALL all mklev.
 - seed1150 @ 3032 was **not** missing `f` binding — getdir saw a
   space that C used for pet-drop `--More--` because JS
   `getdir`/`yn_function` skipped `more()` on `TOPLINE_NEED_MORE`
@@ -226,3 +230,5 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   `GemStone` appends `" stone"` (FLINT → flint stone[s]) (D-0097).
   ^X: omit gender when `name.f` distinct from `name.m`; MC
   `"warded"` via worn armor `a_can` (`oc_level`) under Attributes.
+- seed0017 @3132: pet (30,5) door, goal hero, appr=1, cnt=4 vs C 5;
+  missing (30,4); create_room lx=31 matches C (D-0099).

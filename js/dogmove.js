@@ -556,7 +556,7 @@ export async function dog_move(mtmp, after) {
     let nidist = dist2(nix, niy, gg.gx, gg.gy);
     const cursemsg = new Array(cnt).fill(false);
 
-    for (let i = 0; i < cnt; i++) {
+    candloop: for (let i = 0; i < cnt; i++) {
         const nx = mfp.poss[i].x;
         const ny = mfp.poss[i].y;
         cursemsg[i] = false;
@@ -647,12 +647,13 @@ export async function dog_move(mtmp, after) {
             && rn2(13 * uncursedcnt))
             continue;
 
+        // C: dogmove.c — mtrack backtrack skip uses goto nxti (candidate continue)
         if (!mtmp.mleashed && distmin(mtmp.mx, mtmp.my, game.u.ux, game.u.uy) > 5) {
             const k = edog ? uncursedcnt : cnt;
             for (let j = 0; j < MTSZ && j < k - 1; j++) {
                 if (mtmp.mtrack?.[j]
                     && nx === mtmp.mtrack[j].x && ny === mtmp.mtrack[j].y) {
-                    if (rn2(MTSZ * (k - j))) continue;
+                    if (rn2(MTSZ * (k - j))) continue candloop;
                 }
             }
         }
