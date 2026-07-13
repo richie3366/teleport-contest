@@ -491,11 +491,18 @@ export async function moveloop_core() {
     await bot();
     await flush_screen(1);
 
-    // C: svc.context.move = 1; then rhack(0) — or continue DOMOVE_RUSH / counted s
+    // C: svc.context.move = 1; then occupation or rhack(0)
     // When multi < 0 (dressing etc.), skip input; leave move=1 for next turn.
     g.context.move = 1;
+    if ((g.multi || 0) >= 0 && typeof g.occupation === 'function') {
+        // C ref: allmain.c go.occupation — runs before rhack; return ends this tick
+        const cont = g.occupation();
+        if (!cont) g.occupation = null;
+        // monster_nearby stop_occupation deferred
+        return;
+    }
     if ((g.multi || 0) < 0) {
-        // occupation continues without nhgetch
+        // multi-turn inactivity continues without nhgetch
     } else if (run_active()) {
         await continue_run();
     } else if (search_repeat_active()) {

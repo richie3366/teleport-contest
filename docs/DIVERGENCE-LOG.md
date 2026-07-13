@@ -75,6 +75,11 @@ Do not record a guessed cause as fixed merely because an RNG prefix moved.
 | D-0069 | fixed | fire/`f` | fireassist swap+cmdq; seed0102 RNG full (udist via no leaked `l`) |
 | D-0070 | fixed | display/xprname | full MLET_CH + furniture terrain + prinv `dot`; seed0102 Scr 0→17 |
 | D-0071 | fixed | getdir/legacy | `help_dir` NHW_TEXT + no-retry; Book `maxcol=strlen+1`/pad; seed0102 PASS |
+| D-0072 | fixed | lookaround | run==1 corridor-turn; seed0017 prefix 2775→3132 |
+| D-0073 | fixed | potion/quaff | `q`/`dodrink`/`peffect_oil`; seed2200 2724→2733 |
+| D-0074 | fixed | zap/findit | `z`/`dozap` NODIR secret-door/`findit`; seed2200 2733→2772 |
+| D-0075 | fixed | read/mapping | `r`/`doread` SCR_MAGIC_MAPPING + `do_mapping`; seed2200 2772→2925 |
+| D-0076 | fixed | engrave | `E`/`doengrave` fingertip DUST Elbereth + occupation; seed2200 2925→2979 |
 
 D-0001 through D-0005 predate the strict-length/cohort runbook. Their focused
 causes are preserved, but generic "green sessions held" is historical evidence,
@@ -2062,3 +2067,29 @@ cohort gates if those functions are touched again.
   restore after furniture in `show_map_spot`; SPE_MAGIC_MAPPING.
 - **Next:** seed2200 @ 2925 `E`/`doengrave`; seed0017 @ 3132 terrain;
   seed0700 screens.
+
+## D-0076 — seed2200 `E`/`doengrave` fingertip Elbereth
+
+- **Status:** fixed
+- **Observed:** seed2200 rng-diff @ **2925**: C `rn2(25)` @
+  `doengrave(engrave.c:1223)` vs JS `rn2(5)`. Session keys `E` `-`
+  (More) `Elbereth` Enter; C screen `"What do you want to write with?
+  [- acden or ?*]`" then dust fingertip + getlin.
+- **C locus:** `engrave.c` `doengrave` (DUST mix-up `!rn2(25)` per
+  non-space) → `set_occupation(engrave)` → `make_engr_at` Elbereth
+  `exercise(A_WIS,TRUE)`; `allmain.c` runs occupation before next
+  `rhack`.
+- **Cause:** `'E'` unbound → Unknown / movement; no engraving path.
+- **Change:** `js/engrave.js` (`doengrave`/getobj-stylus/`make_engr_at`/
+  occupation); `js/cmd.js` bind `'E'`; `js/allmain.js` occupation tick
+  before `rhack`.
+- **Verification:** green + seed1500/1800/0060/0102 PASS + strict;
+  full **6/44**, screens **318**/11405, RNG **91443**/792838;
+  seed2200 prefix **2925→2979** positional **2993**/3018; seed0700
+  RNG still full Scr **2**/51.
+- **Named omission:** wand/weapon/marker/towel/gem/ring stylus sfx;
+  grave/altar/jello/swallow; add-to/overwrite yn; multi-turn dulling;
+  del_engr/rloc beyond replace; engraving glyphs in `newsym`;
+  `u_wipe_engr` body; livelog; demon/vampire blood default.
+- **Next:** seed2200 post-Elbereth 0-RNG `/` UI then Lua shuffle @
+  2979; seed0017 @ 3132 terrain; seed0700 screens.

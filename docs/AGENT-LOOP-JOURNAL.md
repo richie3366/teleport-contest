@@ -899,3 +899,18 @@ Use this shape:
   **2772→2925** positional **2940**/3018; seed0700 RNG full Scr 2/51.
 - Next: `node scripts/rng-diff.mjs sessions/seed2200-wizard-quaff-zap-read.session.json`
   — peel `E`/`doengrave` @ 2925.
+
+## 2026-07-13 — doengrave fingertip Elbereth (D-0076)
+- Objective: seed2200 @ 2925 (PROGRESS preferred after D-0075).
+- C locus: `engrave.c` `doengrave`/`make_engr_at` + `allmain.c`
+  occupation — `E`+`-`+Elbereth; DUST mix-up `rn2(25)` then
+  occupation Elbereth `exercise(A_WIS,TRUE)`.
+- Result: **verified** — JS unbound `E`. Ported fingertip DUST
+  getobj/getlin/mix-up + `set_occupation`/`make_engr_at`; wired
+  `'E'` and occupation tick before `rhack`.
+- Verification: green + seed1500/1800/0060/0102 PASS + strict; full
+  **6/44**, RNG **91443**/792838, Scr **318**/11405; seed2200 prefix
+  **2925→2979** positional **2993**/3018; seed0700 RNG full Scr 2/51.
+- Next: `node scripts/rng-diff.mjs sessions/seed2200-wizard-quaff-zap-read.session.json`
+  — peel post-Elbereth 0-RNG `/` UI (JS emits RNG @ 2979; C waits
+  until step 109 Lua shuffle).

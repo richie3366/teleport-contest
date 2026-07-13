@@ -7,17 +7,19 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 
 ## Active
 
-- **Current unit:** after D-0075 seed2200 prefix **2772→2925** (pos
-  **2940**/3018). Prefer seed2200 @ 2925 `E`/`doengrave` /
-  seed0017 @ 3132 `dog_move` terrain / seed0700 Scr 2/51 /
-  wipeout_text / lspo_map / next_ident / maybe_smudge_engr /
-  getbones (needs `^V`→`makemaz`).
-- **Hypothesis (seed2200):** @ 2925 C `rn2(25)` @ `doengrave` —
-  JS has no `doengrave` (`E` unbound → movement/`Unknown`).
+- **Current unit:** after D-0076 seed2200 prefix **2925→2979** (pos
+  **2993**/3018). Prefer seed2200 post-Elbereth 0-RNG UI (`/` whatis
+  through step 108) then @ 2979 Lua `shuffle` on `a` / seed0017 @ 3132
+  `dog_move` terrain / seed0700 Scr 2/51 / wipeout_text / lspo_map /
+  next_ident / maybe_smudge_engr / getbones (needs `^V`→`makemaz`).
+- **Hypothesis (seed2200):** after Elbereth turn, C emits no RNG until
+  step 109 `a` → Lua `shuffle`; JS already emits `rn2(5)` @ 2979
+  (likely treating `/` UI as a timed action / monster turn).
 - **Falsifier / next probe:**
   ```bash
   node scripts/rng-diff.mjs sessions/seed2200-wizard-quaff-zap-read.session.json
   ```
+  Inspect JS path for keys `/`… before first post-2978 RNG.
 - **Parked seed0017 @ 3132:** JS `mfndpos` cnt=4 at pet (30,5); C emits
   3× `rn2(12)`. Adding walkable `(30,4)` yields exactly 3× `rn2(12)`.
   JS has VWALL at (30,4); C screen shows floor. Diagnose join/
@@ -59,6 +61,9 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 - seed2200 @ 2772 was **not** moveloop exercise — `r`+`j` SCR_MAGIC_MAPPING
   → `seffects` + `do_mapping` dual `exercise(A_WIS,TRUE)` (D-0075).
   Second `r`+`j` is missing-letter getobj re-prompt (letter `j` used up).
+- seed2200 @ 2925 was **not** movement/`Unknown` — `E`+`-`+Elbereth
+  → `doengrave` DUST mix-up `rn2(25)` then occupation `make_engr_at`
+  Elbereth `exercise(A_WIS,TRUE)` (D-0076).
 
 ## Landmarks
 
@@ -78,3 +83,7 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 - SCR_MAGIC_MAPPING: `seffects` `exercise` then `do_mapping` `exercise`;
   `"A map coalesces in your mind!"`; getobj invent-order + missing-letter
   continue (D-0075).
+- `E`/`doengrave` fingertip DUST: getobj `-` (space after `-` in prompt),
+  `"You write in the dust with your fingertip."` `--More--`, getlin
+  Elbereth, 8× `rn2(25)` mix-up, `set_occupation` → `make_engr_at`
+  Elbereth exercises WIS; setup returns ECMD_OK (D-0076).
