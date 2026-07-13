@@ -3,7 +3,7 @@
 
 import { game } from './gstate.js';
 import { rn2, rnd } from './rng.js';
-import { dog_move } from './dogmove.js';
+import { dog_move, finish_meating } from './dogmove.js';
 import { newsym, pline } from './display.js';
 import {
     dist2,
@@ -385,19 +385,10 @@ export async function m_move(mtmp, after) {
     const can_unlock = (can_open && monhaskey(mtmp, true))
         || !!mtmp.iswiz;
     // is_rider deferred
-
-    // C: if (mtmp->mtame) return postmov(..., dog_move(...), ...)
-    if (mtmp.mtame) {
-        const omx = mtmp.mx;
-        const omy = mtmp.my;
-        const mmoved = await dog_move(mtmp, after);
-        return postmov(mtmp, omx, omy, mmoved, can_tunnel, can_unlock, can_open);
-    }
-
     const omx = mtmp.mx;
     const omy = mtmp.my;
 
-    // C: m_move starts with mtrapped → mintrap; still-caught → no move
+    // C: mtrapped → mintrap before meating / dog_move (pets included)
     if (mtmp.mtrapped) {
         const i = await mintrap(mtmp, NO_TRAP_FLAGS);
         if (i === Trap_Killed_Mon) {
@@ -406,6 +397,22 @@ export async function m_move(mtmp, after) {
         }
         if (i === Trap_Caught_Mon) return MMOVE_NOTHING;
     }
+
+    // C: meating countdown — still eating skips dog_move / approach
+    if (mtmp.meating) {
+        mtmp.meating--;
+        if ((mtmp.meating | 0) <= 0) finish_meating(mtmp);
+        return MMOVE_DONE;
+    }
+
+    // C: if (mtmp->mtame) return postmov(..., dog_move(...), ...)
+    if (mtmp.mtame) {
+        const mmoved = await dog_move(mtmp, after);
+        return postmov(mtmp, omx, omy, mmoved, can_tunnel, can_unlock, can_open);
+    }
+
+    // C: m_move starts with mtrapped → mintrap; still-caught → no move
+    // (already handled above for all monsters)
 
     set_apparxy(mtmp);
 

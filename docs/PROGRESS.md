@@ -38,9 +38,9 @@ frozen-file overlay):
 | Metric | Value |
 |--------|------:|
 | Sessions passing | **15 / 44** |
-| Screens matched | **1357 / 11,405** (11.90%) |
-| Positional RNG calls matched | **132,086 / 792,838** (16.66%) |
-| Speed label | `19+0.09/turn` |
+| Screens matched | **1405 / 11,405** (12.32%) |
+| Positional RNG calls matched | **132,144 / 792,838** (16.67%) |
+| Speed label | `19+0.08/turn` |
 | Working-tree base | `8b71735` + committed port (see `main`) |
 | Role-init throws | **0 / 44** (`u_init_role: role not ported`) |
 
@@ -64,7 +64,7 @@ shared blockers, and semantic coverage together—not one vanity metric.
 | `seed0501-priest-cast-read-turn` | **2238 / 2238** | **28 / 28** |
 | `seed2200-wizard-quaff-zap-read` | **3018 / 3018** | **229 / 230** |
 | `seed0017-samurai-altar-pray` | **3465 / 3465** | **67 / 67** |
-| `seed0030-ten-diverse-deaths` | **11005 / 105529** | **120 / 1953** |
+| `seed0030-ten-diverse-deaths` | **11133 / 105529** | **168 / 1953** |
 | `seed0103-knight-ride-pony` | **2344 / 2640** | 2 / 60 |
 | `seed0200-monk-north-search` | **3385 / 3822** | **15 / 40** |
 | `seed0101-ranger-quiver-throw-travel-engrave` | **2371 / 2371** | **21 / 27** |
@@ -216,12 +216,15 @@ seed0030 prefix **10584→10608** positional **10939**/105529 Scr
 **`dog_eat` after edible `newdogpos`** (D-0168) →
 seed0030 prefix **10608→10620** positional **11005**/105529 Scr
 **120**/1953; Scr **1347→1357**; RNG **131959→132086**.
+**`m_move` meating before `dog_move`** (D-0169) →
+seed0030 prefix **10620→10803** positional **11133**/105529 Scr
+**168**/1953; Scr **1357→1405**; RNG **132086→132144**.
 Healer seed0016 **PASS**.
 seed0015 **PASS**. seed0101 next Scr residual (RNG full). seed0013 still breaks earlier in
 Lua/`sp_lev`. seed0103 next `next_ident`/`trquan` @ 2337.
 seed0361/0373 `getbones` blocked on unbound `^V`/`goto_level`/
 `makemaz`. seed0077 chargen + vault fallback + door vision/pick_lock/DEC
-open-door (D-0111/D-0112/D-0113) → **PASS**. seed0030 **11005**/105529.
+open-door (D-0111/D-0112/D-0113) → **PASS**. seed0030 **11133**/105529.
 seed0105 RNG **full** (Scr **30**/30).
 
 ### Green gate
@@ -363,19 +366,20 @@ autoopen `doopen_indir` (D-0059) + `mfndpos` BOULDER/`ALLOW_ROCK` +
 **Teleportation hub fill + `make_a_trap` postprocess** (D-0166)
 **mhitm `mondied`→`make_corpse` ordinary** (D-0167)
 **`dog_eat` after edible `newdogpos`** (D-0168)
+**`m_move` meating before `dog_move`** (D-0169)
 **ported**. Fifteen public sessions pass end-to-end. **0/44** throw at
 `u_init_role`. seed0700 + seed1150 + seed0017 + seed0077 + seed0106 +
 seed0501 + seed0105 + seed0016 + seed0015 **PASS**. seed2200 RNG **full**
 (Scr **229**/230; sole miss parked RC @158).
 seed0101 RNG **full** Scr **21**/27.
 
-- **Bounded unit:** seed0030 @10620 (distfleeck vs `rn2(4)`) /
+- **Bounded unit:** seed0030 @10803 (`hmon_hitmon_stagger`) /
   seed0101 Scr residual /
   seed0103 `next_ident`/`trquan` /
   seed0200 combat `@3382` (lower priority) /
   seed0361/0373 **quest `getbones`** (blocked: need `^V`→`goto_level`→
   `makemaz` first — ordinary `goto_level` now exists for stairs).
-- **Prefer:** seed0030 @10620 / seed0101 Scr
+- **Prefer:** seed0030 @10803 / seed0101 Scr
   over parked D-0006 and over baking seed2200 RC paths.
   Hero `dotrap` deferred until monster pit peel is clear.
   Hero `xkilled` `make_corpse` still deferred (mhitm path done D-0167).
@@ -1010,6 +1014,11 @@ Module status, constitutional debt, and named omissions live in
     positional **11005**/105529 Scr **120**/1953; screens
     **1347→1357**; RNG **131959→132086**; green cohort PASS; next
     seed0030 @10620 / seed0101 Scr residual / seed0200 @3382
+146. `m_move` meating before `dog_move` (D-0169)
+    — seed0030 prefix **10620→10803** (`hmon_hitmon_stagger`);
+    positional **11133**/105529 Scr **168**/1953; screens
+    **1357→1405**; RNG **132086→132144**; green cohort PASS; next
+    seed0030 @10803 / seed0101 Scr residual / seed0200 @3382
 
 Next work is selected from the active objectives above using
 `PORTING-RUNBOOK.md`, not by extending this historical list.

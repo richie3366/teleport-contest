@@ -2094,3 +2094,18 @@ Use this shape:
   RNG **131959**/792838.
 - Next: seed0030 `obj_resists` @10608 / seed0101 Scr residual /
   seed0200 combat @3382.
+
+## 2026-07-13 — m_move meating before dog_move (D-0169)
+- Objective: seed0030 @10620 distfleeck vs `rn2(4)` (PROGRESS primary).
+- C locus: `monmove.c` `m_move` meating countdown; `dogmove.c`
+  `finish_meating`.
+- Result: **verified** — after `dog_eat` set `meating`, C returns
+  `MMOVE_DONE` before `dog_move` (two `distfleeck` only). JS skipped
+  the gate and hit `dog_goal` follow `!rn2(4)`. Ported meating + moved
+  `mtrapped` before pet path.
+- Verification: seed0030 prefix **10620→10803**; positional
+  **11133**/105529 Scr **168**/1953; green+strict PASS; cohort
+  1500/1800/0060/0015 PASS; full **15/44** Scr **1405** RNG
+  **132144**/792838.
+- Next: seed0030 @10803 (`hmon_hitmon_stagger`) / seed0101 Scr residual /
+  seed0200 combat @3382.

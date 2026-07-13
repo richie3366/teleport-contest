@@ -172,6 +172,7 @@ Do not record a guessed cause as fixed merely because an RNG prefix moved.
 | D-0166 | fixed | themerms/telehub | Teleportation hub fill + `make_a_trap` teledest + `mktrap` `rnd(4)` |
 | D-0167 | fixed | mhitm/corpse | mhitm `mondied`→`make_corpse`/`next_ident` (not grow_up `rnd(1)`) |
 | D-0168 | fixed | dogmove/eat | `dog_eat` after edible `newdogpos` (2nd dogfood + delobj) |
+| D-0169 | fixed | monmove/meating | `m_move` meating countdown before `dog_move` |
 
 D-0001 through D-0005 predate the strict-length/cohort runbook. Their focused
 causes are preserved, but generic "green sessions held" is historical evidence,
@@ -4544,4 +4545,35 @@ cohort gates if those functions are touched again.
 - **Lesson:** edible `newdogpos` is not “move and return” — C’s
   `dog_eat` still burns `obj_resists` twice after the find.
 - **Next:** seed0030 @10620 (distfleeck vs `rn2(4)`) / seed0101 Scr /
+  seed0200 @3382.
+
+## D-0169 — m_move meating before dog_move (seed0030)
+
+- **Status:** fixed
+- **Observed:** seed0030 first RNG mismatch @10620 — C second
+  `distfleeck` `rn2(5)`; JS `rn2(4)` (looked like `dog_goal` follow /
+  wanderer `dochug`).
+- **Rejected:** wanderer `dochug` `rn2(4)` short-circuit; hero
+  `IS_ROOM` vs corridor; pet position/`udist` divergence; missing
+  `dog_goal` DOGFOOD branch.
+- **C locus:** `monmove.c` `m_move` — after `mtrapped`, if
+  `mtmp->meating` then `--meating` / `finish_meating` and
+  `return MMOVE_DONE` **before** `dog_move`; `dochug` still recalcs
+  `distfleeck`.
+- **Cause:** prior turn’s `dog_eat` set `meating` via `dog_nutrition`.
+  C spent the next pet turn digesting (two `distfleeck` only). JS
+  skipped the gate and entered `dog_goal` follow `!rn2(4)`.
+- **Change:** `m_move` runs `mtrapped` then meating countdown for all
+  monsters; pets only reach `dog_move` when not eating. Export
+  `finish_meating` stub from `dogmove.js`.
+- **Verification:** seed0030 prefix **10620→10803** positional
+  **11133**/105529 Scr **168**/1953; green+strict PASS; cohort
+  1500/1800/0060/0015 PASS; full **15/44** Scr **1405** RNG
+  **132144**.
+- **Named omission:** `finish_meating` mimic `M_AP` reset /
+  `quickmimic`; `hides_under` `rn2(10)` before approach; full
+  `dog_nutrition` cwt tables (meating length may still drift).
+- **Lesson:** post-eat `distfleeck` vs `rn2(4)` is often meating, not
+  dog_goal — check `m_move` gates before follow-player RNG.
+- **Next:** seed0030 @10803 (`hmon_hitmon_stagger`) / seed0101 Scr /
   seed0200 @3382.

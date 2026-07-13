@@ -856,3 +856,12 @@ export async function dog_move(mtmp, after) {
     void chi;
     return MMOVE_MOVED;
 }
+
+/**
+ * C ref: dogmove.c finish_meating — clear meal timer; mimic AP reset deferred.
+ */
+export function finish_meating(mtmp) {
+    if (!mtmp) return;
+    mtmp.meating = 0;
+    // M_AP_NOTHING / mappearance reset for non-mimic quickmimic deferred
+}

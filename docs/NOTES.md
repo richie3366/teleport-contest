@@ -7,17 +7,17 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 
 ## Active
 
-- **Current unit:** D-0168 cleared seed0030 `dog_eat` after edible
-  `newdogpos` (second `dogfood`/`obj_resists` + `delobj`). Prefix
-  **10608→10620**; positional **11005**/105529; Scr **120**/1953;
-  public Scr **1357**, RNG **132086**; still **15/44**.
-- **Hypothesis / next:** seed0030 @10620 — C second `distfleeck` `rn2(5)`
-  vs JS `rn2(4)` (post-eat monster turn), or seed0101 Scr residual
+- **Current unit:** D-0169 cleared seed0030 `m_move` meating early-return
+  (skip `dog_move` while digesting). Prefix **10620→10803**; positional
+  **11133**/105529; Scr **168**/1953; public Scr **1405**, RNG **132144**;
+  still **15/44**.
+- **Hypothesis / next:** seed0030 @10803 — C `hmon_hitmon_stagger`
+  `rnd(100)` vs JS `rn2(6)` after barehands hit, or seed0101 Scr residual
   (RNG full), or seed0200 combat `@3382`.
 - **Falsifier / next:**
   ```bash
   node scripts/rng-diff.mjs sessions/seed0030-ten-diverse-deaths.session.json
-  # expect first mismatch past 10620 if distfleeck/dochug peel advances
+  # expect first mismatch past 10803 if stagger/hitum peel advances
   node frozen/ps_test_runner.mjs sessions/seed0101-ranger-quiver-throw-travel-engrave.session.json
   # expect Scr >21/27 if residual display peel advances
   ```
@@ -275,6 +275,11 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   JS early-returned from edible `newdogpos` without `dog_eat`; C
   `dog_eat` re-rolls `dogfood`/`obj_resists` then `delobj`/`obj_resists(0,0)`
   (D-0168). Do not invent extra `fobj` scans from arity alone.
+- **seed0030 @10620 was NOT wanderer `dochug` `rn2(4)` / IS_ROOM** —
+  pet was `meating` after prior `dog_eat`; C `m_move` decrements and
+  returns `MMOVE_DONE` before `dog_move`; JS skipped that gate and hit
+  `dog_goal` follow `!rn2(4)` (D-0169). Do not “fix” dog_goal from
+  distfleeck arity alone when the pet just ate.
 
 ## Landmarks
 
@@ -353,3 +358,5 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 - Edible `newdogpos`: set `do_eat` + break (C `goto`); after move call
   `dog_eat` (re-`dogfood` + `m_consume_obj`/`delobj`); do **not**
   early-return from the candidate loop alone (D-0168).
+- `m_move` meating: after `mtrapped`, before pet/`dog_move` — decrement
+  and `return MMOVE_DONE` (dochug still recalcs `distfleeck`) (D-0169).
