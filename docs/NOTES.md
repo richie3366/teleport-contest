@@ -7,18 +7,16 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 
 ## Active
 
-- **Current unit:** D-0061 fixed `newhp`/`newpw` level-up + `pluslvl` +
-  `#levelchange` (wizard tours). seed0361 prefix **2924→2975**
-  (`dosearch0`); seed0373 **2512→2549** (`getbones`).
-- **Hypothesis / next peel:** Prefer shared `dosearch0`/`rnl` (seed0361 @
-  2975: C `rnl(8)` vs JS `rn2(300)` dosounds) or seed0700 **screen**
-  peel (RNG already full). Also seed0017 @ 2775; seed0102 egg
-  `can_be_hatched` @ 1281; seed2200 `exercise` @ 2724; seed1150
-  `dog_move` @ 2915; seed0030 @ 6732 `maybe_smudge_engr`.
+- **Current unit:** D-0062 fixed `dosearch0` + Searching EOT. seed0361
+  prefix **2975→2979**; next is wish-text leak (`^W` unported).
+- **Hypothesis / next peel:** Prefer wizard `^W` / `dowish` getlin
+  (seed0361 @ 2979: JS rhack reads `blessed` as `e`/`s`) or shared
+  `getbones` (seed0373 @ 2549) / egg `can_be_hatched` (seed0102 @
+  1281) / seed0700 screen / seed0017 @ 2775.
 - **Falsifier / next probe:**
   ```bash
   node scripts/rng-diff.mjs sessions/seed0361-archeologist-tour.session.json
-  # Or: node scripts/rng-diff.mjs sessions/seed0017-samurai-altar-pray.session.json
+  # Or: node scripts/rng-diff.mjs sessions/seed0373-barbarian-quest-tour.session.json
   # Or: node scripts/rng-diff.mjs sessions/seed0102-ranger-name-cancel.session.json
   ```
 - **Parked deep canary:** D-0006 pet movement — do not implement until C
@@ -47,7 +45,10 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   EGG `can_be_hatched` multi-retry; TIN `cnutrit` gate; interactive
   `o`/`doopen` getdir; `doopen_indir` `b_trapped`/autounlock/mapseen;
   `#levelchange` `losexp` drain path; full `extcmdlist` beyond
-  `levelchange`; `pluslvl` achievements/livelog/`newuexp`; …
+  `levelchange`; `pluslvl` achievements/livelog/`newuexp`; feel_location/
+  Blind/unmap_invisible in `dosearch0`; mfind0 body; Hallucination
+  find_trap wait; activate_statue_trap; artifact SPFX_SEARCH fund;
+  `^W` wizard wish; …
 
 ## Don’t re-check
 
@@ -243,6 +244,11 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   `game.urole.xlev` must be copied from `roles[]` (default 14 hid the
   Barbarian xlev=10 bug until seed0373) — D-0061. Autocomplete must
   truncate-at-cursor like C NEWAUTOCOMP, not append after expand.
+- seed0361 `rnl(8)` @ 2975 was **not** dosounds: Archeologist
+  `HSearching` → EOT `dosearch0(1)` on adjacent unseen trap; JS never
+  called `dosearch0` — D-0062. Follow-on @ 2979 is **not** another
+  dosearch bug: missing `^W` wish so `"blessed"` leaks into rhack as
+  `e`/`s`.
 
 ## Landmarks
 
@@ -295,8 +301,8 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   next prefix **6732** (`maybe_smudge_engr`).
 - seed0373: D-0061 → past `#levelchange`/`newhp`; prefix **2549**
   (`getbones`); positional **2573**/35386.
-- seed0361: D-0061 → past `#levelchange`/`newhp`; prefix **2975**
-  (`dosearch0`); positional **3044**/53865.
+- seed0361: D-0062 → past `dosearch0` EOT; prefix **2979** (wish-text
+  `s`); positional **3051**/53865.
 - seed1150: D-0056 → past `peace_minded`; prefix **2915** (`dog_move`);
   positional **2942**/3137 Scr **22**/51.
 - seed0700: D-0060 → RNG **3230**/3230 Scr **2**/51 (screen peel next).
@@ -320,3 +326,5 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   and grid-bug `NODIAG` both change `cnt` (D-0060).
 - `#levelchange` to N: `pluslvl(FALSE)` N−1 times; each `newhp` then
   `newpw`; adjabil gainstr can interleave `--More--` (stealthy/quick).
+- Searching EOT: `dosearch0(1)` only emits RNG when adjacent SDOOR/SCORR/
+  unseen trap; silent otherwise (D-0062).

@@ -398,6 +398,12 @@ export function Fast() {
     return !!(u.HFast || u.EFast);
 }
 
+/** C ref: youprop.h Searching */
+export function Searching() {
+    const u = game.u || {};
+    return !!(u.HSearching || u.ESearching);
+}
+
 /** C ref: youprop.h Very_fast — timeout bits or extrinsic */
 export function Very_fast() {
     const u = game.u || {};

@@ -698,3 +698,14 @@ Use this shape:
   seed0373 2512→2549 (`getbones`).
 - Next: `node scripts/rng-diff.mjs sessions/seed0361-archeologist-tour.session.json`
   — peel `dosearch0`/`rnl` @ 2975 (or seed0700 screen / egg hatch).
+
+## 2026-07-13 02:10 — dosearch0 + Searching EOT (D-0062)
+- C locus: `detect.c` `dosearch0`/`find_trap`/`cvt_sdoor_to_door`;
+  `allmain.c` Searching EOT; `youprop.h` Searching
+- Result: Archeologist L1 `HSearching` never ran `dosearch0`; ported
+  trap/SDOOR/SCORR find + EOT/`s` callers. Cleared C `rnl(8)` @ 2975.
+  Follow-on @ 2979 is missing `^W` wish (rhack eats `"blessed"`).
+- Verification: green + seed1500/1800/0060 PASS + strict; full 5/44
+  screens 295 RNG 86037; seed0361 prefix 2975→2979; seed0700 RNG full.
+- Next: `node scripts/rng-diff.mjs sessions/seed0361-archeologist-tour.session.json`
+  — port `^W`/`dowish` (or peel `getbones`/egg/`seed0700` screen).

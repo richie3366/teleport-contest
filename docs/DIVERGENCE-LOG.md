@@ -65,6 +65,7 @@ Do not record a guessed cause as fixed merely because an RNG prefix moved.
 | D-0041 | fixed | ^X enlightenment | autopickup/limits/weapon_descr; Scr 39→41 PASS |
 | D-0060 | fixed | mfndpos | BOULDER/`ALLOW_ROCK` + `NODIAG` (grid bug); seed0700 RNG full |
 | D-0061 | fixed | exper/levelup | `newhp`/`newpw` level-up + `pluslvl` + `#levelchange`; roles `xlev` |
+| D-0062 | fixed | detect/search | `dosearch0` + Searching EOT; next seed0361 needs `^W` wish |
 
 D-0001 through D-0005 predate the strict-length/cohort runbook. Their focused
 causes are preserved, but generic "green sessions held" is historical evidence,
@@ -1634,3 +1635,36 @@ cohort gates if those functions are touched again.
   (`xlev`) when building `game.urole`.
 - **Next:** seed0361 `dosearch0`/`rnl` @ 2975; seed0700 screen peel;
   seed0373 `getbones` @ 2549; seed0017 @ 2775; egg `can_be_hatched`.
+
+## D-0062 — `dosearch0` + Searching autosearch
+
+- **Symptom:** seed0361 rng-diff @ **2975**: C `rnl(8)` @
+  `dosearch0(detect.c:2079)` vs JS `rn2(300)` dosounds.
+- **Cause/evidence:** Archeologist L1 `HSearching` (via `adjabil`) makes
+  C call `dosearch0(1)` every EOT when an adjacent unseen trap exists
+  (`!rnl(8)`). JS never called `dosearch0` (search `s` only burned a
+  turn; moveloop omitted Searching).
+- **Rejected:** treating 2975 as a dosounds arity bug; seed-specific
+  trap coordinates; implementing only the `s` command without EOT
+  Searching.
+- **Follow-on (not this unit):** after matching through wipe @ 2978,
+  JS rhack reads wish-text `…blessed…` as commands (`e`/`s`) because
+  **`^W` / wizard wish is unported** — next seed0361 peel is wish
+  getlin, not another dosearch bug.
+- **C locus:** `detect.c` `dosearch0`/`find_trap`/`cvt_sdoor_to_door`;
+  `allmain.c` Searching EOT; `youprop.h` Searching; `cmd.c`/`detect.c`
+  `dosearch`.
+- **Change:** new `js/detect.js`; `Searching()` in `attrib.js`; EOT
+  call in `allmain.js`; `s` + `continue_search` → `dosearch`.
+- **Verification:** green + seed1500/1800/0060 PASS + strict; full
+  **5/44** screens **295** RNG **86037**/792838; seed0361 prefix
+  **2975→2979** (wish-text `s`) positional **3051**/53865; seed0700
+  RNG still full; seed0102 still egg @ 1281.
+- **Omissions named:** feel_location/Blind/unmap_invisible; mfind0
+  body; Hallucination/cls map_trap wait; activate_statue_trap; artifact
+  SPFX_SEARCH fund; cmd_safety_prevention; warnreveal; `^W` wish.
+- **Lesson:** L1 Searching roles (Arc/Ran) need EOT `dosearch0` even
+  when the player never presses `s`; silent when no adjacent
+  SDOOR/SCORR/unseen trap.
+- **Next:** wizard `^W` wish / getlin for seed0361; or shared
+  `getbones` / egg `can_be_hatched` / seed0700 screen / seed0017.

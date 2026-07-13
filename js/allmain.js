@@ -15,7 +15,8 @@ import { makedog } from './dog.js';
 import { makemon } from './makemon.js';
 import { mcalcmove, movemon, NORMAL_SPEED } from './mon.js';
 import { LOW_PM, NUMMONS, mons, G_NOCORPSE } from './monsters.js';
-import { A_DEX, A_STR, A_CON, acurr, exercise, change_luck, Fast, Very_fast } from './attrib.js';
+import { A_DEX, A_STR, A_CON, acurr, exercise, change_luck, Fast, Very_fast, Searching } from './attrib.js';
+import { dosearch0 } from './detect.js';
 import { nhgetch } from './input.js';
 import { near_capacity, paint_corner_nhw_menu } from './invent.js';
 import { com_pager_legacy } from './questpgr.js';
@@ -447,6 +448,15 @@ export async function moveloop_core() {
                     regen_hp(mvl_wtcap);
                 }
                 // regen_pw / Teleportation / Polymorph deferred (no early RNG)
+                // C: Searching && !noautosearch && multi >= 0 → dosearch0(1)
+                if (
+                    Searching()
+                    && !game.level?.flags?.noautosearch
+                    && (game.multi == null || game.multi >= 0)
+                ) {
+                    await dosearch0(1);
+                }
+                // warnreveal deferred
                 dosounds();
                 gethungry();
                 exerchk();

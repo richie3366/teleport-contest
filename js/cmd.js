@@ -22,6 +22,7 @@ import { donull } from './do.js';
 import { do_attack, mon_at, is_safemon } from './uhitm.js';
 import { doopen_indir } from './lock.js';
 import { doextcmd } from './getline.js';
+import { dosearch } from './detect.js';
 
 
 // Direction deltas: y u k
@@ -123,7 +124,10 @@ export async function continue_search() {
         game._repeat_search = false;
         game.multi = 0;
     }
+    // C: counted `Ns` re-invokes dosearch each multi tick
+    await dosearch();
     game.context.move = 1;
+    game.kickedloc = { x: 0, y: 0 };
     return true;
 }
 
@@ -185,7 +189,7 @@ export async function rhack(key) {
         game.context.move = tookTime ? 1 : 0;
         if (tookTime) game.kickedloc = { x: 0, y: 0 };
     } else if (ch === 's') {
-        // C ref: search.c dosearch — takes a turn; count from digit prefix
+        // C ref: detect.c dosearch — takes a turn; count from digit prefix
         const n = game.context?.command_count || 0;
         if (game.context) game.context.command_count = 0;
         if (n > 1) {
@@ -194,6 +198,7 @@ export async function rhack(key) {
             game.context.mv = 0;
             game._repeat_search = true;
         }
+        await dosearch();
         game.context.move = 1;
         game.kickedloc = { x: 0, y: 0 };
     } else if (ch === 'i') {

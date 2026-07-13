@@ -37,7 +37,7 @@ When changing a subsystem:
 | `src/u_init.c:u_init_race` | `js/u_init.js` | partial | Human no-op; orc `Xtra_food` + knows; elf instrument+knows; dwarf knows; gnome no-op (D-0027); `ini_inv_obj_substitution`/`inv_subs` ported; **`ini_inv_mkobj_filter` reject list + `oc_level`/`Skill_*` incl. `Skill_C`** (D-0042…/52) |
 | `src/u_init.c:u_init_misc` | `js/u_init.js` | partial | `newhp`/`newpw` at ulevel 0; **`adjabil(0,1)`** role/race L1 intrinsics (D-0058); rc align → `ualign`; handedness RNG; many u fields still absent |
 | `src/attrib.c:newhp` / `src/exper.c:newpw` | `js/attrib.js`, `js/exper.js` | partial | **Init + level-up** (lornd/hirnd + Con; `enermod`/`rn1`) (D-0061); `pluslvl` HP/EN/level/`adjabil` (omit achievements/`newuexp`/Upolyd); `uhpinc`/`ueninc` stored |
-| `src/attrib.c` (attrs) | `js/attrib.js` | partial | Initial attr paths; `change_luck` clamp; **`adjabil`/`role_abil` + Fast/Very_fast** (D-0058); **gainstr You_feel on level-up** (D-0061); **`acurrstr` exported** (D-0059); omit lose plines, `postadjabil`, `add_weapon_skill`; `u_init_carry_attr_boost` stubbed |
+| `src/attrib.c` (attrs) | `js/attrib.js` | partial | Initial attr paths; `change_luck` clamp; **`adjabil`/`role_abil` + Fast/Very_fast** (D-0058); **`Searching()`** (D-0062); **gainstr You_feel on level-up** (D-0061); **`acurrstr` exported** (D-0059); omit lose plines, `postadjabil`, `add_weapon_skill`; `u_init_carry_attr_boost` stubbed |
 | `src/allmain.c:welcome` / `role.c:Hello` | `js/allmain.js` | partial | New-game welcome from Hello+align+gender+race+role; `flush_topl_more` before tutorial; restore path deferred |
 | `src/allmain.c:moveloop_preamble` | `js/allmain.js` + `js/calendar.js` | partial | Moon/friday plines + `change_luck`; pickup/encumber/engraving deferred |
 | `src/o_init.c` | `js/o_init.js` | partial | Green-session shuffle/discovery evidence; `discover_object` encounter flag + `interesting_to_discover` via extracted `objectDescrs` (D-0040); not audited across all classes |
@@ -116,10 +116,11 @@ Fast/Very_fast (D-0058) → seed0700 prefix **3141** (`rnl`/
 screens **295**/11405; RNG **86026**/792838. `newhp`/`newpw` level-up
 + `pluslvl` + `#levelchange` (D-0061) → seed0361 prefix **2975**
 (`dosearch0`); seed0373 **2549** (`getbones`); screens **295**/11405;
-RNG **86020**/792838. Next peel: `dosearch0`/`rnl` / seed0700
-**screen** / egg `can_be_hatched` / `exercise` / `dog_move` /
-`wipeout_text` / `lspo_map` / pony `next_ident` / `maybe_smudge_engr` /
-`getbones`.
+RNG **86020**/792838. `dosearch0` + Searching EOT (D-0062) →
+seed0361 prefix **2979** (`^W` wish-text); screens **295**/11405;
+RNG **86037**/792838. Next peel: `^W` wish / seed0700 **screen** /
+egg `can_be_hatched` / `exercise` / `dog_move` / `wipeout_text` /
+`lspo_map` / pony `next_ident` / `maybe_smudge_engr` / `getbones`.
 `make_corpse` body and `m_initinv` body still absent (named omissions).
 
 ## Data and world generation
@@ -141,8 +142,9 @@ RNG **86020**/792838. Next peel: `dosearch0`/`rnl` / seed0700
 
 | C source | JS | Status | Evidence / known omissions |
 |---|---|---|---|
-| `src/allmain.c` | `js/allmain.js` | partial | Basic move loop and hunger/sound subsets; **`mvitals.mvflags = geno & G_NOCORPSE` at newgame** (D-0057); **`maybe_generate_rnd_mon` → real `makemon(NULL,0,0)`** (D-0034); **`regen_hp` + once-per-turn call** (D-0035); **`u_calc_moveamt` Fast/Very_fast `rn2(3)`** (D-0058); omit steed `mcalcmove` path / full `youmonst.data->mmove` via `set_uasmon`; `regen_pw`/Teleport/Poly once-per-turn RNG; Upolyd eel hp-loss rolls; Regeneration/Sleepy props |
-| `src/cmd.c` / `src/do.c` | `js/cmd.js`, `js/do.js`, `js/getline.js`, `js/wizcmds.js` | partial | Movement/search/apply/kick/wait and selected UI/item commands; Ctrl-D → `dokick` (D-0031); **`.` → `donull`** (D-0033); **autoopen walk-into → `doopen_indir`** (D-0059); **`#` → `doextcmd`/`#levelchange`** (D-0061); omit full `extcmdlist`, `losexp` drain, `cmd_safety_prevention`, `rest_on_space`, interactive `o` |
+| `src/allmain.c` | `js/allmain.js` | partial | Basic move loop and hunger/sound subsets; **`mvitals.mvflags = geno & G_NOCORPSE` at newgame** (D-0057); **`maybe_generate_rnd_mon` → real `makemon(NULL,0,0)`** (D-0034); **`regen_hp` + once-per-turn call** (D-0035); **`u_calc_moveamt` Fast/Very_fast `rn2(3)`** (D-0058); **Searching EOT → `dosearch0(1)`** (D-0062); omit steed `mcalcmove` path / full `youmonst.data->mmove` via `set_uasmon`; `regen_pw`/Teleport/Poly once-per-turn RNG; Upolyd eel hp-loss rolls; Regeneration/Sleepy props; warnreveal |
+| `src/detect.c` `dosearch0` | `js/detect.js` | partial | **8-neighbour SDOOR/SCORR/trap find + fund (lenses)** + `find_trap` message (D-0062); omit feel_location/Blind/unmap_invisible, mfind0 body, Hallucination/cls wait, activate_statue_trap, artifact SPFX_SEARCH, cmd_safety_prevention |
+| `src/cmd.c` / `src/do.c` | `js/cmd.js`, `js/do.js`, `js/getline.js`, `js/wizcmds.js` | partial | Movement/search/apply/kick/wait and selected UI/item commands; Ctrl-D → `dokick` (D-0031); **`.` → `donull`** (D-0033); **autoopen walk-into → `doopen_indir`** (D-0059); **`#` → `doextcmd`/`#levelchange`** (D-0061); **`s`/`continue_search` → `dosearch`** (D-0062); omit full `extcmdlist`, `losexp` drain, `cmd_safety_prevention`, `rest_on_space`, interactive `o`, **`^W` wish** |
 | `src/dokick.c` | `js/dokick.js` | partial | `dokick` + `kick_dumb` (D-0031); `kickedloc` (D-0032); **`kick_ouch` → `losehp`** (D-0035); omit `kick_monster`/`kick_object`/closed-door Whammm/SDOOR-SCORR open/furniture/`martial`/`wake_nearby`/`u_wipe_engr`/`set_wounded_legs`/`kickstr` terrain names |
 | `src/hack.c` `losehp` | `js/hack.js` | partial | **`losehp` !Upolyd / Upolyd mh subtract** (D-0035); `maybe_half_phys` identity until Half_physical prop; omit `showdamage`/`maybe_wail`/`done(DIED)` bodies |
 | `src/apply.c` / `src/lock.c` | `js/apply.js`, `js/lock.js` | partial | `doapply` + `pick_lock` (D-0021); exported `getdir` for kick/apply; getobj missing-letter `continue`+`flush_topl_more` (D-0025); **`doopen_indir` CLOSED autoopen** (D-0059); omit sack/other tools, real door occupation, interactive `o` getdir, `b_trapped`/autounlock, `feel_location` mapseen gating, container-at-feet |
