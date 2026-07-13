@@ -39,7 +39,7 @@ frozen-file overlay):
 |--------|------:|
 | Sessions passing | **17 / 44** |
 | Screens matched | **1313 / 11,405** (11.51%) |
-| Positional RNG calls matched | **144,336 / 792,838** (18.21%) |
+| Positional RNG calls matched | **146,740 / 792,838** (18.51%) |
 | Speed label | `20+0.08/turn` |
 | Working-tree base | `8b71735` + committed port (see `main`) |
 | Role-init throws | **0 / 44** (`u_init_role: role not ported`) |
@@ -64,7 +64,7 @@ shared blockers, and semantic coverage together—not one vanity metric.
 | `seed0501-priest-cast-read-turn` | **2238 / 2238** | **28 / 28** |
 | `seed2200-wizard-quaff-zap-read` | **3018 / 3018** | **229 / 230** |
 | `seed0017-samurai-altar-pray` | **3465 / 3465** | **67 / 67** |
-| `seed0030-ten-diverse-deaths` | **21760 / 105529** | **45 / 1953** |
+| `seed0030-ten-diverse-deaths` | **24164 / 105529** | **45 / 1953** |
 | `seed0103-knight-ride-pony` | **2344 / 2640** | 2 / 60 |
 | `seed0200-monk-north-search` | **3822 / 3822** | **40 / 40** |
 | `seed0101-ranger-quiver-throw-travel-engrave` | **2371 / 2371** | **27 / 27** |
@@ -265,6 +265,10 @@ seed0030 seg1 prefix **6568→7007** positional **21693**/105529 Scr
 **`stumble_onto_mimic`/`object_from_map` next_ident** (D-0207) →
 seed0030 seg1 prefix **7007→7189** positional **21760**/105529 Scr
 **45**/1953; full **17/44** Scr **1313** RNG **144336**.
+**vault `gd_sound`/`rn2(2)+hallu`** (D-0208) →
+seed0030 seg1 **7189→7640 FULL**; seg2 continuous **1272**/6221
+(`somey`); positional **24164**/105529 Scr **45**/1953; full **17/44**
+Scr **1313** RNG **146740**.
 
 ### Green gate
 
@@ -448,18 +452,19 @@ autoopen `doopen_indir` (D-0059) + `mfndpos` BOULDER/`ALLOW_ROCK` +
 **`shk_move` isshk before getitems** (D-0205)
 **`movemon_singlemon` hider/`M_AP_*` skip dochug** (D-0206)
 **`stumble_onto_mimic`/`object_from_map` next_ident** (D-0207)
+**vault `gd_sound`/`rn2(2)+hallu`** (D-0208)
 **ported**. Seventeen public sessions pass end-to-end. **0/44** throw at
 `u_init_role`. seed0700 + seed1150 + seed0017 + seed0077 + seed0106 +
 seed0501 + seed0105 + seed0016 + seed0015 + seed0200 + seed0101 **PASS**. seed2200 RNG **full**
 (Scr **229**/230; sole miss parked RC @158).
 seed0101 RNG **full** Scr **27**/27.
 
-- **Bounded unit:** seed0030 seg1 @7189 (vault `gd_sound` after D-0207) /
+- **Bounded unit:** seed0030 seg2 @1272 (`somey` after D-0208 clears seg1) /
   seed0103 `next_ident`/`trquan` /
   seed0361/0373 **quest `getbones`** (blocked: need `^V`→`goto_level`→
   `makemaz` first — ordinary `goto_level` now exists for stairs; Mines
   `fill_lvl` path exists D-0171).
-- **Prefer:** seed0030 seg1 peel after D-0207 over parked
+- **Prefer:** seed0030 seg2 peel after D-0208 over parked
   D-0006 and over baking seed2200 RC paths.
   Hero `dotrap` deferred until monster pit peel is clear.
   Hero `xkilled` treasure `mkobj` still deferred (ordinary `make_corpse`
@@ -556,15 +561,17 @@ seed0101 RNG **full** Scr **27**/27.
   Pillars/nested `des.room` + other themerms fills beyond Ghost/
   Teleportation hub/Storeroom (D-0200); `set_mimic_sym` shop/
   maze arms; **`shkveg`/`mkveggy_at` + Izchak + wizard SHOPTYPE**
-  (`stock_room`/`shkinit`/`mkshobj_at` done D-0203); **You_hear/
-  `gd_sound`/temple_priest/oracle canseemon** (`dosounds` gates done
-  D-0204); **`gd_move`/`pri_move` bodies + `shk_fixes_damage`/
-  following/`after_shk_move`** (`shk_move` dispatch done D-0205);
+  (`stock_room`/`shkinit`/`mkshobj_at` done D-0203); **You_hear
+  plines / temple_priest / oracle canseemon** (`dosounds` gates done
+  D-0204; vault `gd_sound`/`rn2(2)` done D-0208); **`gd_move`/`pri_move`
+  bodies + `shk_fixes_damage`/following/`after_shk_move`** (`shk_move`
+  dispatch done D-0205);
   **`restrap`/`hideunder`/`minliquid` before dochug** (`is_hider`
   `M_AP_*` skip done D-0206); **`attack_checks` Blind/hallu/invis/
   peaceful yn / furniture defsyms** (`stumble_onto_mimic` object
-  path done D-0207); **`gd_sound` vault body `rn2(2)`** (vault gate
-  early-return still D-0204 omission; next @7189); …
+  path done D-0207); **vault You_hear / gold_in_vault / urooms /
+  findgd migrating** (RNG gate done D-0208);
+  …
 - **Cohort:** green gate + seed1500 + seed1800 + seed0060 + seed0102
   + seed0700 + seed1150 + seed0017 + seed0077 + seed0106 + seed0501
   + seed0105 + seed0016 + seed0015 + seed0200 + seed0101 (must stay PASS)
@@ -1307,6 +1314,11 @@ Module status, constitutional debt, and named omissions live in
     positional **21760**/105529 Scr **45**/1953; full **17/44** Scr
     **1313** RNG **144336**; next seed0030 seg1 @7189 / seed0103
     `next_ident`
+185. vault `gd_sound` / `rn2(2)+hallu` (D-0208)
+    — seed0030 seg1 **7189→7640 FULL**; seg2 continuous **1272**/6221
+    (`somey`); positional **24164**/105529 Scr **45**/1953; full
+    **17/44** Scr **1313** RNG **146740**; next seed0030 seg2 @1272 /
+    seed0103 `next_ident`
 
 Next work is selected from the active objectives above using
 `PORTING-RUNBOOK.md`, not by extending this historical list.

@@ -2692,3 +2692,10 @@ Use this shape:
   **144336**.
 - Next: seed0030 seg1 @7189 vault `gd_sound`→`rn2(2)`; or seed0103
   `next_ident`/`trquan`.
+
+## 2026-07-14 00:40 — D-0208 vault gd_sound rn2(2)
+- Objective: seed0030 seg1 @7189 C `rn2(2) @ dosounds` vault body (PROGRESS primary).
+- C locus: `sounds.c` `dosounds` vault gate; `vault.c` `gd_sound`/`findgd`/`vault_occupied`.
+- Result: **fixed** — vault `!rn2(200)` early-returned without `gd_sound`→`rn2(2)+hallu`; ported search_special(VAULT)+gd_sound message roll (You_hear deferred).
+- Verification: seg1 **7189→7640/7640 FULL**; seg2 cont **1272**/6221 (`somey`); seed0030 positional **24164**/105529 Scr **45**/1953; green+strict+cohort PASS; full **17/44** Scr **1313** RNG **146740**.
+- Next: seed0030 seg2 @1272 `somey`/`create_room`; or seed0103 `next_ident`/`trquan`.

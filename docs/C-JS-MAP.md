@@ -420,7 +420,7 @@ gettrack redirect falsified (no adjacent track).
 **underfoot `m_search_items` + peaceful `can_carry`** (D-0183) →
 seed0030 prefix **14026→14056** positional **14375**/105529 Scr
 **168**/1953; full **15/44** Scr **1405** RNG **135825**.
-Next peel: seed0030 seg1 @7189 (vault `gd_sound` `rn2(2)` after D-0207) /
+Next peel: seed0030 seg2 @1272 (`somey` after D-0208 clears seg1) /
 quest `makemaz` / parked seed2200 RC @158.
 Hero `dotrap`/`trapeffect_pit` still deferred; `xkilled` ordinary
 `make_corpse` done (D-0191; treasure `mkobj` still deferred); `,`
@@ -451,7 +451,9 @@ seg1 **3870→5220**);
 **`movemon_singlemon` hider/`M_AP_*` skip dochug** done (D-0206; seg1
 **6568→7007**);
 **`stumble_onto_mimic`/`object_from_map` next_ident** done (D-0207;
-seg1 **7007→7189**; next vault `gd_sound`);
+seg1 **7007→7189**);
+**vault `gd_sound`/`rn2(2)+hallu`** done (D-0208; seg1 **7189→7640 FULL**;
+next seg2 @1272 `somey`);
 other `m_initinv` bodies + soldier early-return still deferred;
 dog_move digweapon / iron bars / shop dig-damage deferred;
 underfoot `m_search_items`→`MMOVE_DONE` still deferred (D-0183);
@@ -552,7 +554,7 @@ This is a planning list, not an exhaustive C file inventory:
 - hero-versus-monster and monster-versus-hero combat;
 - traps, riding, travel partial (`_` cancel + adjacent/greedy; full
   TEST_TRAV/GUESS/travelmap deferred); prayer partial (`#pray` p_type 0 + angrygods 0–3);
-  chat partial (`#chat` wall/SDOOR/statue + MS_BARK; **`dosounds` feature gates + shop envelope** D-0204; You_hear plines / gd_sound / temple_priest / oracle canseemon / other MS_* deferred);
+  chat partial (`#chat` wall/SDOOR/statue + MS_BARK; **`dosounds` feature gates + shop envelope** D-0204 + **vault `gd_sound`/`rn2(2)`** D-0208; You_hear plines / gold_in_vault / urooms / findgd migrating / temple_priest / oracle canseemon / other MS_* deferred);
 - kicking beyond empty-space/`kick_dumb`/`kick_door` CLOSED bust
   (monsters, objects, SDOOR/SCORR, furniture, martial/shop-town);
 - apply beyond lock-pick no-door (containers, other tools);

@@ -210,6 +210,8 @@ Do not record a guessed cause as fixed merely because an RNG prefix moved.
 | D-0204 | fixed | dosounds | shop/`has_*` feature gates after vault; seg1 6561→6565 |
 | D-0205 | fixed | shk_move | isshk before getitems; seg1 6565→6568 |
 | D-0206 | fixed | movemon hider | disguised mimic skip dochug; seg1 6568→7007 |
+| D-0207 | fixed | mimic attack | stumble_onto_mimic object_from_map next_ident; seg1 7007→7189 |
+| D-0208 | fixed | dosounds vault | gd_sound rn2(2)+hallu; seg1 7189→full 7640; next seg2 somey |
 
 D-0001 through D-0005 predate the strict-length/cohort runbook. Their focused
 causes are preserved, but generic "green sessions held" is historical evidence,
@@ -5621,3 +5623,27 @@ cohort gates if those functions are touched again.
   full `object_from_map` (buried/hallu/observe_object).
 - **Next:** seed0030 seg1 @7189 vault `gd_sound`→`rn2(2)`; or
   seed0103 `next_ident`/`trquan`.
+
+## D-0208 — dosounds vault gd_sound rn2(2) (seed0030 seg1 @7189)
+
+- **Symptom:** seed0030 seg1 @7189 C `rn2(2) @ dosounds(sounds.c:245)`
+  vs JS continuing without the vault message roll after matched
+  `has_vault && !rn2(200)`.
+- **Rejected:** missing shop/`gethungry` after vault gate; beehive
+  order drift (vault branch `return`s in C).
+- **Cause/evidence:** C vault gate calls `search_special(VAULT)` then
+  `gd_sound()` (`!(vault_occupied(urooms)||findgd())`) and, when true,
+  `switch (rn2(2)+hallu)` before return. JS early-returned on the gate
+  without burning `rn2(2)`.
+- **Change:** `js/sounds.js` — `vault_occupied`/`findgd`/`gd_sound` +
+  vault body `search_special`+`gd_sound`→`rn2(2)+hallu` (You_hear /
+  gold_in_vault plines deferred).
+- **Verification:** seg1 **7189→7640/7640 FULL**; seg2 continuous
+  **1272**/6221 (`somey`); seed0030 positional **24164**/105529 Scr
+  **45**/1953; green+strict+cohort PASS; full **17/44** Scr **1313**
+  RNG **146740**.
+- **Named omissions:** You_hear vault plines; gold_in_vault scan;
+  `urooms` maintenance for `vault_occupied`; `findgd` migrating_mons
+  park-at-`<0,0>`; fountain/sink Hallu index still deferred.
+- **Next:** seed0030 seg2 @1272 `somey`/`create_room`; or seed0103
+  `next_ident`/`trquan`.

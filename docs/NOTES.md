@@ -7,12 +7,12 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 
 ## Active
 
-- **Current unit:** seed0030 seg1 @7189 / seed0103 `next_ident`/`trquan`.
-- **Hypothesis (seed0030 seg1):** @7189 C `rn2(2) @ dosounds` vault
-  `gd_sound` body (sounds.c:245) after matched vault `rn2(200)=0`; JS
-  early-returns on `has_vault` without the vault message roll.
-- **Falsifier:** port/stub `gd_sound` true path that burns `rn2(2)+hallu`
-  like C when a vault room exists; expect prefix past 7189.
+- **Current unit:** seed0030 seg2 @1272 / seed0103 `next_ident`/`trquan`.
+- **Hypothesis (seed0030 seg2):** @1272 C `rn2(24075) @ somey(mkroom.c:674)`
+  (logged `rn1` room-height draw) vs JS `rn2(3)` — level/room gen after
+  seg1 completed; JS still on a shorter create_room / somexy path.
+- **Falsifier:** reproduce seg2 continuous prefix; identify which C
+  `somexy`/`create_room` caller burns that arity while JS burns `rn2(3)`.
 - **Parked deep canary:** D-0006 pet movement — do not implement until C
   state/candidate capture exists.
 - **Parked seed2200 @158:** RC config path — harness `$HOME`, not a port bug.
@@ -164,6 +164,10 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   `object_from_map`/`mksobj(FALSE)` `next_ident` before overexertion;
   JS went straight to `overexertion`→`gethungry` (D-0207). Do not
   re-chase gethungry/wipe after matched EOT for that index.
+- **seed0030 seg1 @7189 was NOT missing shop/`gethungry`** — vault gate
+  `rn2(200)=0` requires `gd_sound`→`rn2(2)+hallu` before return; JS
+  early-returned without the message roll (D-0208). Do not re-chase
+  beehive/shop order for that index.
 - **`monattk.h`: AT_WEAP=254, AT_MAGC=255, AT_SPIT=10** — never use 10 for
   weapon (D-0179).
 - Hostile `m_move`: before place, `m_digweapon_check` may return
@@ -247,8 +251,8 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   `shkveg`/health-food and Izchak still deferred.
 - **`dosounds`:** after vault, roll beehive/morgue/barracks/zoo/**shop**/
   temple/oracle gates; shop always `return`s when gate hits (D-0204).
-  Vault gate hit also returns (gd_sound body still deferred) — until
-  vault `rn2(200)=0` needs `gd_sound`→`rn2(2)` (next @7189).
+  **Vault gate hit:** `search_special(VAULT)` + `gd_sound`→`rn2(2)+hallu`
+  then return (D-0208); You_hear plines / gold_in_vault still deferred.
 - **`m_move` isshk/isgd/ispriest:** call `shk_move`/`gd_move`/`pri_move`
   before getitems; peaceful shk near home often returns 0 with no RNG
   (D-0205). `gd_move`/`pri_move` bodies still stubbed.
@@ -258,3 +262,5 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 - **`do_attack` disguised mimic:** `attack_checks`→`stumble_onto_mimic`
   →`that_is_a_mimic`/`object_from_map` `mksobj(FALSE)` `next_ident`
   **before** `overexertion` (D-0207).
+- **`gd_sound`:** `!(vault_occupied(urooms) || findgd())`; `urooms`
+  maintenance and `findgd` migrating_mons still deferred (D-0208).
