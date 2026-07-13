@@ -7,18 +7,16 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 
 ## Active
 
-- **Current unit:** D-0181 — hostile `should_see`+`gettrack` + `goto_level`
-  `initrack` wired; seed0030 still @13987 (dwarf dig vs rocktrap).
-- **Hypothesis / next:** Dwarf (27,7) ROCKTRAP at (27,6); mux=(33,5)
-  nearer pick is (28,6) dig. **gettrack cannot redirect** — ring has no
-  adjacent track (only 3 post-descend cells (30,8)/(31,7)/(32,6); even
-  full prior-level stale ring has none near 27,7). Next: why C hits
-  rocktrap without an adjacent track (mfndpos exclude (28,6)/(28,7),
-  different actor/order, or non-gettrack gg redirect).
+- **Current unit:** D-0182 — `m_search_items` cleared dwarf rocktrap @13987;
+  seed0030 now @14026.
+- **Hypothesis / next:** @14026 C `rn2(28)` mtrack skip vs JS `rn2(5)`
+  distfleeck — different actor `cnt`/turn order after loot-redirect moves
+  (or mfndpos candidate-count drift). Diagnose which monster moves and
+  whether JS skipped a mon that C moved (or vice versa).
 - **Falsifier / next:**
   ```bash
   node scripts/rng-diff.mjs sessions/seed0030-ten-diverse-deaths.session.json
-  # expect first mismatch past 13987 once dwarf pick is (27,6)
+  # expect first mismatch past 14026 once actor/cnt matches
   node frozen/ps_test_runner.mjs sessions/seed0101-ranger-quiver-throw-travel-engrave.session.json
   # expect Scr >21/27 if residual display peel advances
   ```
@@ -71,6 +69,9 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   `initrack` clears on leave (D-0181).
 - **Dwarf @13987 is NOT missing gettrack redirect** — no adjacent track
   in current-level ring (3 cells) nor in full stale ring (D-0181).
+- **Dwarf @13987 was missing `m_search_items`** — ROCKTRAP (27,6) pile
+  (CORPSE/SLIME_MOLD/glass) redirects gg; mux-nearer dig (28,6) loses
+  (D-0182). Do not re-chase mfndpos exclude of (28,6).
 - **`monattk.h`: AT_WEAP=254, AT_MAGC=255, AT_SPIT=10** — never use 10 for
   weapon (D-0179).
 - Hostile `m_move`: before place, `m_digweapon_check` may return
@@ -91,6 +92,8 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   (D-0181).
 - `goto_level` must `initrack` like C savelev release (D-0181).
 - `can_track` ≡ `haseyes` (Excalibur named omission) (D-0181).
+- Hostile getitems: `(!peaceful || !rn2(10))` + `!Rogue` →
+  `m_search_items` may redirect gg to floor loot (D-0182).
 - Digger postmov: `tunnels` && !Rogue → `can_tunnel`; `ALLOW_DIG` in
   mfndpos; every moved digger with `may_dig` calls `mdig_tunnel` which
   **always** burns `rnd(12)` first (D-0178).

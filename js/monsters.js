@@ -79,6 +79,9 @@ export const M2_DOMESTIC = 0x00400000;
 export const M2_WANDER = 0x00800000;
 export const M2_ROCKTHROW = 0x08000000;
 export const M2_GREEDY = 0x10000000; /* monflag.h — likes gold */
+export const M2_JEWELS = 0x20000000; /* monflag.h — likes gems */
+export const M2_COLLECT = 0x40000000; /* monflag.h — picks up weapons/food */
+export const M2_MAGIC = 0x80000000; /* monflag.h — picks up magic items */
 export const M2_LORD = 0x00000400;
 export const M2_PRINCE = 0x00000800;
 export const M2_NASTY = 0x02000000;
@@ -238,6 +241,36 @@ export function likes_gold(ptr) {
     return !!((ptr?.mflags2 ?? 0) & M2_GREEDY);
 }
 
+/** C ref: mondata.h likes_gems */
+export function likes_gems(ptr) {
+    return !!((ptr?.mflags2 ?? 0) & M2_JEWELS);
+}
+
+/** C ref: mondata.h likes_objs — COLLECT or is_armed */
+export function likes_objs(ptr) {
+    return !!((ptr?.mflags2 ?? 0) & M2_COLLECT) || is_armed(ptr);
+}
+
+/** C ref: mondata.h likes_magic */
+export function likes_magic(ptr) {
+    return !!((ptr?.mflags2 ?? 0) & M2_MAGIC);
+}
+
+/** C ref: mondata.h mindless */
+export function mindless(ptr) {
+    return !!((ptr?.mflags1 ?? 0) & M1_MINDLESS);
+}
+
+/** C ref: mondata.h is_animal */
+export function is_animal(ptr) {
+    return !!((ptr?.mflags1 ?? 0) & M1_ANIMAL);
+}
+
+/** C ref: mondata.h strongmonst */
+export function strongmonst(ptr) {
+    return !!((ptr?.mflags2 ?? 0) & M2_STRONG);
+}
+
 export function always_hostile(ptr) {
     return !!(ptr.mflags2 & M2_HOSTILE);
 }
@@ -272,9 +305,6 @@ export function is_prince(ptr) {
 }
 export function extra_nasty(ptr) {
     return !!(ptr?.mflags2 & M2_NASTY);
-}
-export function strongmonst(ptr) {
-    return !!(ptr?.mflags2 & M2_STRONG);
 }
 export function is_mercenary(ptr) {
     return !!(ptr?.mflags2 & M2_MERC);

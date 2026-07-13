@@ -39,8 +39,8 @@ frozen-file overlay):
 |--------|------:|
 | Sessions passing | **15 / 44** |
 | Screens matched | **1405 / 11,405** (12.32%) |
-| Positional RNG calls matched | **135,795 / 792,838** (17.13%) |
-| Speed label | `19+0.08/turn` |
+| Positional RNG calls matched | **135,801 / 792,838** (17.13%) |
+| Speed label | `20+0.09/turn` |
 | Working-tree base | `8b71735` + committed port (see `main`) |
 | Role-init throws | **0 / 44** (`u_init_role: role not ported`) |
 
@@ -64,7 +64,7 @@ shared blockers, and semantic coverage together—not one vanity metric.
 | `seed0501-priest-cast-read-turn` | **2238 / 2238** | **28 / 28** |
 | `seed2200-wizard-quaff-zap-read` | **3018 / 3018** | **229 / 230** |
 | `seed0017-samurai-altar-pray` | **3465 / 3465** | **67 / 67** |
-| `seed0030-ten-diverse-deaths` | **14345 / 105529** | **168 / 1953** |
+| `seed0030-ten-diverse-deaths` | **14351 / 105529** | **168 / 1953** |
 | `seed0103-knight-ride-pony` | **2344 / 2640** | 2 / 60 |
 | `seed0200-monk-north-search` | **3385 / 3822** | **15 / 40** |
 | `seed0101-ranger-quiver-throw-travel-engrave` | **2371 / 2371** | **21 / 27** |
@@ -227,7 +227,7 @@ seed0015 **PASS**. seed0101 next Scr residual (RNG full). seed0013 still breaks 
 Lua/`sp_lev`. seed0103 next `next_ident`/`trquan` @ 2337.
 seed0361/0373 `getbones` blocked on unbound `^V`/`goto_level`/
 `makemaz`. seed0077 chargen + vault fallback + door vision/pick_lock/DEC
-open-door (D-0111/D-0112/D-0113) → **PASS**. seed0030 **14345**/105529.
+open-door (D-0111/D-0112/D-0113) → **PASS**. seed0030 **14351**/105529.
 seed0105 RNG **full** (Scr **30**/30).
 **hostile `should_see`/`gettrack` + `goto_level` `initrack`** (D-0181)
 → gettrack wired; dwarf @13987 gettrack theory falsified.
@@ -385,21 +385,22 @@ autoopen `doopen_indir` (D-0059) + `mfndpos` BOULDER/`ALLOW_ROCK` +
 **`m_digweapon_check` + pick/axe wield** (D-0180)
 **monster `trapeffect_rocktrap` + hostile `should_see`/`gettrack` +
 `goto_level` `initrack`** (D-0181)
+**`m_search_items`/`mon_would_take_item` getitems loot gg** (D-0182)
 **ported**. Fifteen public sessions pass end-to-end. **0/44** throw at
 `u_init_role`. seed0700 + seed1150 + seed0017 + seed0077 + seed0106 +
 seed0501 + seed0105 + seed0016 + seed0015 **PASS**. seed2200 RNG **full**
 (Scr **229**/230; sole miss parked RC @158).
 seed0101 RNG **full** Scr **21**/27.
 
-- **Bounded unit:** seed0030 dwarf @13987 rocktrap pick (gettrack
-  falsified — no adjacent track; next mfndpos/actor/gg) /
+- **Bounded unit:** seed0030 @14026 (C `rn2(28)` mtrack vs JS `rn2(5)`
+  distfleeck — actor/cnt after loot moves) /
   seed0101 Scr residual /
   seed0103 `next_ident`/`trquan` /
   seed0200 combat `@3382` (lower priority) /
   seed0361/0373 **quest `getbones`** (blocked: need `^V`→`goto_level`→
   `makemaz` first — ordinary `goto_level` now exists for stairs; Mines
   `fill_lvl` path exists D-0171).
-- **Prefer:** seed0030 dwarf pick diagnosis / seed0101 Scr
+- **Prefer:** seed0030 @14026 actor/cnt diagnosis / seed0101 Scr
   over parked D-0006 and over baking seed2200 RC paths.
   Hero `dotrap` deferred until monster pit peel is clear.
   Hero `xkilled` `make_corpse` still deferred (mhitm path done D-0167).
@@ -479,7 +480,7 @@ seed0101 RNG **full** Scr **21**/27.
   wizard ^X next-level XP line; hero SQKY `dotrap`;
   `mons_see_trap`; HOLE `!mindless` already_seen; full
   `m_harmless_trap` flyer/resist immunities; hostile balks/
-  shortsighted/`m_search_items`; mtrapped escape `rn2(40)`;
+  shortsighted; `m_search_items` body omissions (D-0182); mtrapped escape `rn2(40)`;
   full `alt_spl`/rank titles in `name_to_monplus` (NAMS done D-0173);
   per-level `rest_track` on return visits; …
 - **Cohort:** green gate + seed1500 + seed1800 + seed0060 + seed0102
@@ -1101,6 +1102,11 @@ Module status, constitutional debt, and named omissions live in
     diverges; dwarf @13987 gettrack redirect **falsified** (no adjacent
     track); prefix still **13987**; full **15/44** Scr **1405** RNG
     **135795**; next dwarf pick / seed0101 Scr / seed0200 @3382
+159. `m_search_items`/`mon_would_take_item` getitems loot gg (D-0182)
+    — dwarf ROCKTRAP pile redirects gg; seed0030 prefix **13987→14026**
+    positional **14351**/105529 Scr **168**/1953; full **15/44** Scr
+    **1405** RNG **135801**; next seed0030 @14026 actor/cnt /
+    seed0101 Scr / seed0200 @3382
 
 Next work is selected from the active objectives above using
 `PORTING-RUNBOOK.md`, not by extending this historical list.

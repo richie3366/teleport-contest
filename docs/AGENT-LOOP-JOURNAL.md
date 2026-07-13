@@ -2276,3 +2276,17 @@ Use this shape:
   PASS; full **15/44** Scr **1405** RNG **135795**.
 - Next: why C steps on ROCKTRAP without adjacent track (mfndpos exclude
   (28,6)/(28,7), actor order, or other gg); or peel seed0101 Scr.
+
+## 2026-07-13 20:30 — m_search_items loot gg (D-0182)
+- Objective: seed0030 dwarf rocktrap @13987 (PROGRESS primary; gettrack
+  falsified).
+- C locus: `monmove.c` `m_move` getitems + `m_search_items` /
+  `mon_would_take_item`.
+- Result: **verified fix** — DIAG showed ROCKTRAP (27,6) pile
+  (CORPSE/SLIME_MOLD/glass); dwarf `M2_JEWELS|M2_COLLECT` redirects gg
+  so rocktrap beats mux-nearer dig (28,6). Ported getitems +
+  `m_search_items` + take/carry helpers + likes_gems/objs/magic.
+- Verification: seed0030 prefix **13987→14026**; green+strict PASS;
+  full PASS cohort held; full **15/44** Scr **1405** RNG **135801**.
+- Next: seed0030 @14026 (C `rn2(28)` mtrack vs JS `rn2(5)` distfleeck);
+  or seed0101 Scr residual.

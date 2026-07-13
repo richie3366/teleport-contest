@@ -184,7 +184,8 @@ Do not record a guessed cause as fixed merely because an RNG prefix moved.
 | D-0178 | fixed | dig/mdig_tunnel | tunnels/`ALLOW_DIG`/`mdig_tunnel` postmov rnd(12) |
 | D-0179 | fixed | mhitm/get_mattk | extracted mattk[] + AT_WEAP=254 (not AT_SPIT=10) |
 | D-0180 | fixed | monmove/digweapon | `m_digweapon_check` + pick/axe `mon_wield_item` |
-| D-0181 | partial | trap/rocktrap + gettrack | rocktrap + should_see/gettrack/initrack; dwarf pick open |
+| D-0181 | partial | trap/rocktrap + gettrack | rocktrap + should_see/gettrack/initrack; dwarf pick → D-0182 |
+| D-0182 | fixed | monmove/m_search_items | getitems + loot gg redirect; dwarf rocktrap @13987 |
 
 D-0001 through D-0005 predate the strict-length/cohort runbook. Their focused
 causes are preserved, but generic "green sessions held" is historical evidence,
@@ -4939,4 +4940,32 @@ cohort gates if those functions are touched again.
   presence before attributing a nearer-trap miss to gettrack.
 - **Next:** why C steps on ROCKTRAP without adjacent track (mfndpos /
   actor order / other gg); or peel seed0101 Scr.
+
+## D-0182 — m_search_items loot gg redirect (seed0030 dwarf rocktrap)
+
+- **Status:** fixed (partial helpers; named omissions below)
+- **Observed:** seed0030 @13987 — C `next_ident` rocktrap; JS `rnd(12)` dig
+  toward mux-nearer (28,6). gettrack redirect falsified (D-0181).
+- **C locus:** `monmove.c` `m_move` getitems gate + `m_search_items` /
+  `mon_would_take_item` / `can_carry`.
+- **Cause:** JS hostile `m_move` omitted floor-loot search. DIAG at dwarf
+  (27,7): ROCKTRAP (27,6) pile CORPSE/SLIME_MOLD/ROCK/WORTHLESS_WHITE_GLASS;
+  dwarf `M2_JEWELS|M2_COLLECT` → `likes_objs`/`likes_gems` redirects gg to
+  (27,6), so rocktrap is nearer than dig (28,6).
+- **Change:** `js/monmove.js` getitems + `m_search_items` +
+  `mon_would_take_item`/`can_carry`/`curr_mon_load`/`max_mon_load`;
+  `js/monsters.js` `likes_gems`/`likes_objs`/`likes_magic`/`mindless`/
+  `is_animal`/`strongmonst` + `M2_JEWELS`/`M2_COLLECT`/`M2_MAGIC`.
+- **Named omission:** `searches_for_item`; shop `in_rooms`+`rn2(25)`;
+  `hides_under`/`onscary`/`costly_spot`; mines/soko prizes;
+  `can_touch_safely` petrify/silver/artifact; `mon_would_consume_item`
+  body; Invis/balks/shortsighted still deferred.
+- **Verification:** seed0030 prefix **13987→14026**; positional
+  **14351**/105529 Scr **168**/1953; full **15/44** Scr **1405** RNG
+  **135801**; green+strict PASS; PASS cohort held.
+- **Rejected / falsified:** mfndpos excluding (28,6)/(28,7); actor-order
+  before loot gg (loot was the writer).
+- **Next:** seed0030 @14026 (C `rn2(28)` mtrack vs JS `rn2(5)`
+  distfleeck — actor/cnt); or seed0101 Scr / seed0200 @3382.
+
 
