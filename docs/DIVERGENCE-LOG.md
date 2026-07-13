@@ -2007,3 +2007,29 @@ cohort gates if those functions are touched again.
   worn-stack split; `more_experienced` on discover; getobj `?`/`*` menus.
 - **Next:** seed2200 @ 2733 `z`/`dozap`; seed0017 @ 3132 terrain;
   seed0700 screens.
+
+## D-0074 — seed2200 `z`/`dozap` NODIR secret-door detect
+
+- **Status:** fixed
+- **Observed:** seed2200 rng-diff @ **2733**: C `rn2(19)` @
+  `exercise(attrib.c:509)` vs JS `rn2(5)` @ `distfleeck`. Session keys
+  `z` then `c`; C screen `"You don't find anything."` / zap prompt
+  `[c or ?*]`. JS unbound `z`, so `c` ran as SE move.
+- **C locus:** `zap.c` `dozap` → `zappable` → `weffects` (always
+  `exercise(A_WIS,TRUE)`) → `zapnodir` `WAN_SECRET_DOOR_DETECTION` →
+  `detect.c` `findit` empty path.
+- **Cause:** no zap path; movement key swallowed the wand letter.
+- **Change:** `js/zap.js` (`dozap`/`zappable`/`weffects`/`zapnodir`/
+  `learnwand` + zap getobj); `js/detect.js` `findit`/`findone`/
+  hero-centered `do_clear_area`; `js/cmd.js` bind `'z'`.
+- **Verification:** green + seed1500/1800/0060/0102 PASS + strict;
+  full **6/44**, screens **320**/11405, RNG **91222**/792838;
+  seed2200 prefix **2733→2772** positional **2794**/3018; seed0700
+  RNG still full Scr **2**/51.
+- **Named omission:** IMMEDIATE/RAY `weffects` (`bhit`/`ubuzz`/
+  `zap_dig`); `zapyourself`; `backfire` body; other NODIR (light/
+  create/wish/enlighten/stasis); wrest pline; `check_capacity`/
+  `nohands`; `check_unpaid`; `more_experienced`; `update_inventory`;
+  findone flash/mimic/hider/invis/chest-trap/trapped-door.
+- **Next:** seed2200 @ 2772 `r`/`doread`; seed0017 @ 3132 terrain;
+  seed0700 screens.

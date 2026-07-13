@@ -870,3 +870,17 @@ Use this shape:
   vs C floor) for third `rn2(12)` — join/wallification, not mtrack.
 - Next: `node scripts/rng-diff.mjs sessions/seed2200-wizard-quaff-zap-read.session.json`
   — peel `z`/`dozap` @ 2733.
+
+## 2026-07-13 — dozap NODIR secret-door / findit (D-0074)
+- Objective: seed2200 @ 2733 (PROGRESS preferred after D-0073).
+- C locus: `zap.c` `dozap`/`weffects`/`zapnodir` + `detect.c` `findit`
+  — `z`+`c` WAN_SECRET_DOOR_DETECTION; `exercise(A_WIS,TRUE)` then
+  empty `"You don't find anything."`.
+- Result: **verified** — JS unbound `z` so `c` was a SE move. Ported
+  zap getobj + zappable + NODIR weffects/zapnodir + findit clear-area;
+  wired `'z'`.
+- Verification: green + seed1500/1800/0060/0102 PASS + strict; full
+  **6/44**, RNG **91222**/792838, Scr **320**/11405; seed2200 prefix
+  **2733→2772** positional **2794**/3018; seed0700 RNG full Scr 2/51.
+- Next: `node scripts/rng-diff.mjs sessions/seed2200-wizard-quaff-zap-read.session.json`
+  — peel `r`/`doread` @ 2772 (SCR_MAGIC_MAPPING dual exercise).

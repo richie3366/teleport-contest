@@ -7,12 +7,13 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 
 ## Active
 
-- **Current unit:** after D-0073 seed2200 prefix **2724→2733** (pos
-  **2790**/3018). Prefer seed2200 @ 2733 `z`/`dozap` / seed0017 @ 3132
-  `dog_move` terrain / seed0700 Scr 2/51 / wipeout_text / lspo_map /
-  next_ident / maybe_smudge_engr / getbones (needs `^V`→`makemaz`).
-- **Hypothesis (seed2200):** @ 2733 C `rn2(19)` @ `exercise` during
-  `z`+`c` wand zap (“You don't find anything.”) — JS has no `dozap`.
+- **Current unit:** after D-0074 seed2200 prefix **2733→2772** (pos
+  **2794**/3018). Prefer seed2200 @ 2772 `r`/`doread` SCR_MAGIC_MAPPING /
+  seed0017 @ 3132 `dog_move` terrain / seed0700 Scr 2/51 / wipeout_text /
+  lspo_map / next_ident / maybe_smudge_engr / getbones (needs `^V`→`makemaz`).
+- **Hypothesis (seed2200):** @ 2772 C `rn2(19)` @ `exercise` during
+  `r`+`j` scroll read (“A map coalesces in your mind!”) — JS has no
+  `doread`.
 - **Falsifier / next probe:**
   ```bash
   node scripts/rng-diff.mjs sessions/seed2200-wizard-quaff-zap-read.session.json
@@ -52,6 +53,9 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 - seed2200 @ 2724 was **not** moveloop `exercise`/exerper — it was
   `q`+`h` quaff oil → `peffect_oil` `exercise(A_WIS,FALSE)` (D-0073).
   JS treated `h` as move because `q` was unbound.
+- seed2200 @ 2733 was **not** directional zap — `z`+`c` NODIR
+  WAN_SECRET_DOOR_DETECTION → `weffects` `exercise(A_WIS,TRUE)` +
+  `findit` empty (D-0074).
 
 ## Landmarks
 
@@ -66,3 +70,5 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   `context.run==1` corridor-follows at dead ends (D-0072).
 - Uncursed unlit `POT_OIL` → `"That was smooth!"` + `exercise(A_WIS,FALSE)`
   → `rn2(2)` (D-0073).
+- NODIR secret-door wand: `weffects` always `exercise(A_WIS,TRUE)` before
+  `zapnodir`/`findit`; empty find → `"You don't find anything."` (D-0074).
