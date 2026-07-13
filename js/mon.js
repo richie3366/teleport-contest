@@ -7,11 +7,13 @@ import { dochugw } from './monmove.js';
 import {
     COLNO, ROWNO, IS_OBSTRUCTED, IS_DOOR, IS_TREE, D_CLOSED, D_LOCKED, D_BROKEN,
     ALLOW_ROCK, ALLOW_DIG, Is_rogue_level,
+    M_AP_OBJECT, M_AP_FURNITURE, M_AP_TYPE,
 } from './const.js';
 import { t_at } from './trap.js';
 import {
     nohands, verysmall, throws_rocks, passes_walls, lays_eggs, mons,
     monsterNames, NON_PM, LOW_PM, mon_knows_traps, tunnels, needspick,
+    is_hider,
 } from './monsters.js';
 import { m_harmless_trap } from './trap.js';
 import { little_to_big, big_to_little } from './mondata.js';
@@ -382,6 +384,14 @@ async function movemon_singlemon(mtmp) {
 
     mtmp.movement -= NORMAL_SPEED;
     if (mtmp.movement >= NORMAL_SPEED) game._somebody_can_move = true;
+
+    // C: is_hider — disguised mimics spend the turn without dochug
+    // (restrap / eel hideunder / minliquid / equip I_SPECIAL deferred)
+    if (is_hider(mtmp.data)) {
+        const ap = M_AP_TYPE(mtmp);
+        if (ap === M_AP_FURNITURE || ap === M_AP_OBJECT) return false;
+        if (mtmp.mundetected) return false;
+    }
 
     await dochugw(mtmp, true);
     return false;

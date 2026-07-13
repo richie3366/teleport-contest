@@ -209,6 +209,7 @@ Do not record a guessed cause as fixed merely because an RNG prefix moved.
 | D-0203 | fixed | shops | `stock_room`/`shkinit`/`mkshobj_at` + shopkeeper invent |
 | D-0204 | fixed | dosounds | shop/`has_*` feature gates after vault; seg1 6561→6565 |
 | D-0205 | fixed | shk_move | isshk before getitems; seg1 6565→6568 |
+| D-0206 | fixed | movemon hider | disguised mimic skip dochug; seg1 6568→7007 |
 
 D-0001 through D-0005 predate the strict-length/cohort runbook. Their focused
 causes are preserved, but generic "green sessions held" is historical evidence,
@@ -5569,4 +5570,28 @@ cohort gates if those functions are touched again.
 - **Next:** seed0030 seg1 @6568 C `mcalcmove` vs JS extra hostile fleeck
   (movement rations / which ants still have `movement>=NORMAL_SPEED`);
   or seed0103 `next_ident`/`trquan`.
+
+## D-0206 — movemon_singlemon hider skip dochug (seed0030 seg1 @6568)
+
+- **Symptom:** seed0030 seg1 @6568 C `rn2(12) @ mcalcmove` vs JS
+  `rn2(5) @ distfleeck` — JS still in monster pass after C entered EOT.
+- **Rejected:** leftover ant movement allotment / wrong mcalcmove assignment
+  to shopkeeper (fmon order); DIAG showed shk mmove=16 correctly got +24
+  from first rn2(12)=2, leftovers before EOT were 0.
+- **Cause/evidence:** C `movemon_singlemon` deducts NORMAL_SPEED then, for
+  `is_hider` with `M_AP_OBJECT`/`M_AP_FURNITURE` (or `mundetected`), returns
+  without `dochugw`. Storeroom mimics appear as objects (mappearance 215).
+  C: only shopkeeper dochugs — two passes × two fleecks = 4 fleecks then
+  EOT. JS: dochug'd mimics too → extra fleecks while C already at
+  mcalcmove.
+- **Change:** `js/monsters.js` `M1_HIDE`/`is_hider`; `js/mon.js`
+  `movemon_singlemon` hider gate after movement deduct.
+- **Verification:** seg1 prefix **6568→7007** (`next_ident` vs JS
+  `rn2(20)`); seed0030 positional **21693**/105529 Scr **45**/1953;
+  green+strict+cohort PASS; full **17/44** Scr **1313** RNG **144269**.
+- **Named omissions:** `restrap` body (`rn2(3)` re-hide); eel
+  `hideunder`; `minliquid` before dochug; equipping `I_SPECIAL`;
+  Conflict `fightm`; `m_everyturn_effect`.
+- **Next:** seed0030 seg1 @7007 C `next_ident` vs JS `rn2(20)`; or
+  seed0103 `next_ident`/`trquan`.
 

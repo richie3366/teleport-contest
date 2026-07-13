@@ -7,13 +7,12 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 
 ## Active
 
-- **Current unit:** seed0030 seg1 @6568 / seed0103 `next_ident`/`trquan`.
-- **Hypothesis (seed0030 seg1):** after D-0205 `shk_move`, @6568 C finishes
-  the monster pass → `mcalcmove` `rn2(12)` while JS still `dochug`s another
-  hostile (mnum 64) — leftover `movement >= NORMAL_SPEED` on ants C already
-  exhausted (allotment drift earlier in the turn/segment).
-- **Falsifier:** dump JS vs expected C movement for fmon after the first ant
-  acts (post fleeck 6567); find which prior peel left extra movement.
+- **Current unit:** seed0030 seg1 @7007 / seed0103 `next_ident`/`trquan`.
+- **Hypothesis (seed0030 seg1):** @7007 C `next_ident` (makemon/mkobj) while
+  JS still on `rn2(20)` (likely `gethungry`/accessorytime or similar) —
+  missing spawn/object after a matched EOT wipe-engraving turn.
+- **Falsifier:** dump JS stack at seg1 rngLen≈7007; compare C caller after
+  `moveloop_core` `rn2(76)` (allmain.c:360).
 - **Parked deep canary:** D-0006 pet movement — do not implement until C
   state/candidate capture exists.
 - **Parked seed2200 @158:** RC config path — harness `$HOME`, not a port bug.
@@ -155,6 +154,11 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   `m_move`→`shk_move` for isshk (return 0, no RNG) then second fleeck;
   JS burned peaceful getitems `rn2(10)` (D-0205). Do not re-chase
   meating/`dog_goal` apport for that index.
+- **seed0030 seg1 @6568 was NOT leftover ant movement allotment** — C
+  shopkeeper mmove=16 got +24 and acted twice (2 fleecks×2); disguised
+  mimics (`is_hider`+`M_AP_OBJECT`) deduct movement **without** `dochug`.
+  JS called `dochug` on mimics → extra fleecks before EOT (D-0206).
+  Do not re-chase fmon-order / mcalcmove assignment for that index.
 - **`monattk.h`: AT_WEAP=254, AT_MAGC=255, AT_SPIT=10** — never use 10 for
   weapon (D-0179).
 - Hostile `m_move`: before place, `m_digweapon_check` may return
@@ -242,3 +246,6 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 - **`m_move` isshk/isgd/ispriest:** call `shk_move`/`gd_move`/`pri_move`
   before getitems; peaceful shk near home often returns 0 with no RNG
   (D-0205). `gd_move`/`pri_move` bodies still stubbed.
+- **`movemon_singlemon` hiders:** after deducting NORMAL_SPEED, if
+  `is_hider` and (`M_AP_OBJECT`/`M_AP_FURNITURE` or `mundetected`),
+  skip `dochug` (D-0206). `restrap`/`hideunder`/`minliquid` still deferred.

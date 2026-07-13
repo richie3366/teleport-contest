@@ -2668,3 +2668,10 @@ Use this shape:
   **17/44** Scr **1313** RNG **143774**.
 - Next: seed0030 seg1 @6568 C `mcalcmove` vs JS extra ant fleeck
   (movement rations); or seed0103 `next_ident`/`trquan`.
+
+## 2026-07-14 00:45 — D-0206 movemon hider skip dochug
+- Objective: seed0030 seg1 @6568 C `mcalcmove` vs JS extra fleeck (PROGRESS primary).
+- C locus: `mon.c` `movemon_singlemon` is_hider / M_AP_OBJECT|FURNITURE / mundetected.
+- Result: **fixed** — disguised Storeroom mimics deducted movement but still `dochug`d in JS; C skips dochug so only shopkeeper (mmove=16 → +24) acts twice (4 fleecks) then EOT. Added `M1_HIDE`/`is_hider` + hider gate in `movemon_singlemon`.
+- Verification: seg1 **6568→7007** (`next_ident`); seed0030 positional **21693**/105529 Scr **45**/1953; green+strict+cohort PASS; full **17/44** Scr **1313** RNG **144269**.
+- Next: seed0030 seg1 @7007 C `next_ident` vs JS `rn2(20)`; or seed0103 `next_ident`/`trquan`.
