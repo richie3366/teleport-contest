@@ -19,6 +19,18 @@ Use this shape:
 
 ---
 
+## 2026-07-13 17:40 — postmov monster door open (D-0159)
+- Objective: seed0015 Scr @13 blank vs `You hear a door open.`
+  (PROGRESS primary).
+- C locus: `monmove.c` `postmov` door block; `monhaskey`/`mb_trapped`;
+  `m_move` can_open/can_unlock.
+- Result: **verified** — JS deferred door after OPENDOOR step. Ported
+  open/unlock/smash + UnblockDoor vision. Scr **21→22**/44.
+- Verification: green+strict PASS; cohort 12 PASS; full **14/44**
+  Scr **1324** RNG **128111**.
+- Next: seed0015 descend `--More--` @19, or seed0030
+  `maybe_smudge_engr` @6732, or seed0101 Scr residual.
+
 ## 2026-07-13 16:45 — armor pair of + ^X new moon (D-0158)
 - Objective: seed0016 invent @24 / disco / ^X (PROGRESS primary).
 - C locus: `objnam.c` `obj_typename`/`xname`; `insight.c` moon + paging.

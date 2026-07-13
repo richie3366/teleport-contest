@@ -7,14 +7,16 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 
 ## Active
 
-- **Current unit:** D-0158 cleared seed0016 — `pair of`/`set of` gloves +
-  ^X new-moon line + continuous 23-row paging. Session **PASS**.
-- **Hypothesis / next:** seed0015 Scr @21 / seed0030 `maybe_smudge_engr`
-  @6732 / seed0101 Scr residual / seed0200 combat @3382.
+- **Current unit:** D-0159 cleared seed0015 door topline — `postmov` open/
+  unlock/smash. Scr **21→22**/44.
+- **Hypothesis / next:** seed0015 Scr @19 descend `"You descend the
+  stairs.--More--"` while C still shows Dlvl:1 + corner menu; JS already
+  Dlvl:2 without More (space then leaks as Unknown command). Or
+  seed0030 `maybe_smudge_engr` @6732 / seed0101 Scr residual.
 - **Falsifier / next:**
   ```bash
   node frozen/ps_test_runner.mjs sessions/seed0015-valk-level2-pit-dog-wait.session.json
-  # expect Scr >21 or named first cell mismatch
+  # expect Scr >22 or named first cell mismatch past descend --More--
   node scripts/rng-diff.mjs sessions/seed0030-ten-diverse-deaths.session.json
   # expect first mismatch past maybe_smudge_engr @6732 if that peel advances
   ```
@@ -234,9 +236,16 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 - **seed0016 ^X missing INT page was NOT wrong attr order** — missing
   `There is a new moon in effect.` before XP; continuous 23-row paging
   then puts INT on page 2 (D-0158). Do not hardcode INT→page2 always.
+- **seed0015 Scr @13 blank vs "You hear a door open." was deferred
+  `postmov` door** — not dosounds; C opens CLOSED doors after step
+  (D-0159). Do not invent a fake hear without UnblockDoor.
 
 ## Landmarks
 
+- `postmov` door: amorphous squeeze msg; LOCKED+key unlock; exact
+  `doormask == D_CLOSED` open; else smash (`rn2(2)` locked→NODOOR);
+  UnblockDoor = doormask+newsym+recalc_block_point+vision_recalc(0)
+  (D-0159).
 - Armor gloves/boots: `oc_armcat`/`oc_skill` → `pair of ` in
   `obj_typename`/`xname`; dragon scales window → `set of `; LENSES →
   `pair of `; makeplural keeps singular `pair of` (D-0158).

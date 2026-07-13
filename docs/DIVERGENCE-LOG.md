@@ -4253,3 +4253,30 @@ cohort gates if those functions are touched again.
   ^X page breaks follow content length, not hardcoded attribute index.
 - **Next:** seed0015 Scr @21 / seed0030 `maybe_smudge_engr` /
   seed0101 Scr residual.
+
+## D-0159 — postmov monster door open/unlock/smash (seed0015 Scr)
+
+- **Status:** fixed
+- **Observed:** seed0015 Scr @13 blank topline vs C
+  `You hear a door open.`; RNG already full.
+- **Rejected:** dosounds feature hear; missing `>` stairs alone (later
+  screen 19).
+- **C locus:** `monmove.c` `postmov` door block after `mintrap`;
+  `m_move` `can_open`/`can_unlock`/`can_tunnel`; `monhaskey`;
+  `mb_trapped`.
+- **Cause:** JS `postmov` deferred door handling after stepping onto
+  CLOSED/LOCKED; mfndpos already allowed OPENDOOR so monsters reached
+  the cell without opening it or printing hear/see messages.
+- **Change:** Port door open/unlock/smash + UnblockDoor vision refresh
+  + monhaskey + mb_trapped envelope; wire can_open/can_unlock into
+  postmov from m_move (pets and hostiles).
+- **Verification:** seed0015 Scr **21→22**/44 (RNG full); green+strict
+  PASS; cohort 12 PASS; full **14/44** Scr **1324** RNG **128111**.
+- **Named omission:** vampshift fog sequencing; iron bars; mdig_tunnel;
+  engulfing_u; shop add_damage; has_magic_key disarm; is_rider unlock;
+  tunnels(); full mondied/wake_nearto/mon_learns_traps from mb_trapped;
+  YMonnam/fog-cloud wording on amorphous squeeze.
+- **Lesson:** OPENDOOR in mfndpos is not enough — postmov must change
+  doormask and emit verbose hear/see after the step.
+- **Next:** seed0015 descend `--More--` @19 / `maybe_smudge_engr` /
+  seed0101 Scr residual.
