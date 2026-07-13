@@ -7,18 +7,18 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 
 ## Active
 
-- **Current unit:** D-0173 cleared seed0030 @12907 — `"gnome lord"` lacked
-  NAMS `pmnames`, so `name_to_monplus` matched `"gnome"` and burned
-  `find_montype` `rn2(2)` before C `induced_align` `rn2(3)`. Prefix
-  **12907→12968**; positional **13313**/105529; Scr **168**/1953;
-  public Scr **1405**, RNG **134770**; still **15/44**.
-- **Hypothesis / next:** seed0030 @12968 — C `m_initinv` `likes_gold`
-  `!rn2(5)`/`mkmonmoney` (dwarf GREEDY) vs JS skip → peace_minded; or
+- **Current unit:** D-0174 cleared seed0030 @12968 — `m_initinv` skipped
+  `likes_gold`/`!rn2(5)`/`mkmonmoney` so JS hit `peace_minded` while C
+  burned `rn2(5)` (dwarf GREEDY). Prefix **12968→13007**; positional
+  **13339**/105529; Scr **168**/1953; public Scr **1405**, RNG **134796**;
+  still **15/44**.
+- **Hypothesis / next:** seed0030 @13007 — C `induced_align` `rn2(3)` vs
+  JS `rn2(9)` (mkclass-shaped arity) on the next minefill spawn; or
   seed0101 Scr residual (RNG full), or seed0200 combat `@3382`.
 - **Falsifier / next:**
   ```bash
   node scripts/rng-diff.mjs sessions/seed0030-ten-diverse-deaths.session.json
-  # expect first mismatch past 12968 if likes_gold/mkmonmoney advances
+  # expect first mismatch past 13007 if induced_align/create_monster order advances
   node frozen/ps_test_runner.mjs sessions/seed0101-ranger-quiver-throw-travel-engrave.session.json
   # expect Scr >21/27 if residual display peel advances
   ```
@@ -300,6 +300,11 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   C went straight to `rn2(3)` for gnome lord; JS burned `find_montype`
   `rn2(2)` because `"gnome lord"` prefix-matched `"gnome"` without NAMS
   `pmnames[MALE]` (D-0173). Do not “fix” induced_align from arity alone.
+- **seed0030 @12968 was NOT peace_minded/`rn2(100)` first** — C
+  `m_initinv` trailing `likes_gold`/`!rn2(5)` then optional
+  `mkmonmoney`/`d(level_difficulty(),…)`; dwarves have `M2_GREEDY`,
+  ordinary gnomes do not (D-0174). Do not skip gold just because
+  S_GNOME candle path has no GREEDY.
 
 ## Landmarks
 
@@ -383,10 +388,7 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 - Unarmed melee: `unarmed && dmg > 1 && !thrown && !obj && !Upolyd` →
   `hmon_hitmon_stagger` always `rnd(100)` before `mhp -= dmg` /
   `killed` (D-0170). Stun pline/`mhurtle_to_doom` only if skill gate.
-- Mines branch `>` → `fill_lvl` `minefill` → nhlib shuffle +
-  SOLIDFILL lit `rn2(2)` + MINES lit `rn2(2)` + `mkmap` `init_fill`
-  `rn2(77)`/`rnd(19)` loop; dungeon `flags.align = dgn_align & 7`
-  (D-0171).
+- Mines `fill_lvl`/`makemaz(minefill)` + dungeon align `&7` (D-0171).
 - Human hates gnome/orc (`hatemask`); extractor must keep M2_HUMAN…
   M2_ORC in `mflags2s` or `race_hostile` is a no-op (D-0172).
 - Mines `m_initinv` S_GNOME: `rn2(20)` candle (else `rn2(60)`); then
@@ -394,3 +396,6 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 - `name_to_monplus` matches `pmnames[MALE/FEMALE/NEUTRAL]` (NAM/NAMS);
   `"gnome lord"` → PM_GNOME_LEADER + MALE without `rn2(2)` (D-0173).
   Enum-token `"gnome leader"` alone is not enough for NAMS male/female.
+- `m_initinv` after defensive/misc: `likes_gold` → `!findgold(minvent)`
+  → `!rn2(5)` → `mkmonmoney`/`d(level_difficulty(), minvent?5:10)`
+  (D-0174). Gnomes lack GREEDY; dwarves/orcs have it.

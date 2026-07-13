@@ -78,6 +78,7 @@ export const M2_PEACEFUL = 0x00200000;
 export const M2_DOMESTIC = 0x00400000;
 export const M2_WANDER = 0x00800000;
 export const M2_ROCKTHROW = 0x08000000;
+export const M2_GREEDY = 0x10000000; /* monflag.h — likes gold */
 export const M2_LORD = 0x00000400;
 export const M2_PRINCE = 0x00000800;
 export const M2_NASTY = 0x02000000;
@@ -208,6 +209,11 @@ export function mon_learns_traps(mtmp, ttyp) {
 
 export function throws_rocks(ptr) {
     return !!((ptr?.mflags2 ?? 0) & M2_ROCKTHROW);
+}
+
+/** C ref: mondata.h likes_gold */
+export function likes_gold(ptr) {
+    return !!((ptr?.mflags2 ?? 0) & M2_GREEDY);
 }
 
 export function always_hostile(ptr) {

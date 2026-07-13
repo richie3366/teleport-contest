@@ -177,6 +177,7 @@ Do not record a guessed cause as fixed merely because an RNG prefix moved.
 | D-0171 | fixed | mklev/mines | `fill_lvl`→`makemaz(minefill)` + mkmap; dungeon align 3-bit |
 | D-0172 | fixed | peace_minded/m_initinv | race hatemask + M2 race bits; S_GNOME candle |
 | D-0173 | fixed | name_to_monplus/NAMS | pmnames gender; gnome lord no rn2(2) |
+| D-0174 | fixed | m_initinv/likes_gold | likes_gold + findgold + mkmonmoney rn2(5) |
 
 D-0001 through D-0005 predate the strict-length/cohort runbook. Their focused
 causes are preserved, but generic "green sessions held" is historical evidence,
@@ -4707,10 +4708,38 @@ cohort gates if those functions are touched again.
 - **Verification:** seed0030 prefix **12907→12968** positional
   **13313**/105529 Scr **168**/1953; green+strict PASS; cohort PASS;
   full **15/44** Scr **1405** RNG **134770**.
-- **Named omission:** full `alt_spl` table / rank titles; `likes_gold`
-  / `mkmonmoney` `rn2(5)` (next @12968); other `m_initinv` bodies.
+- **Named omission:** full `alt_spl` table / rank titles; other
+  `m_initinv` bodies; `likes_gold` cleared by D-0174.
 - **Lesson:** `rn2(2)` immediately before `induced_align` in minefill
   is `find_montype` gender — check NAMS male/female names, not
   `induced_align` first.
-- **Next:** seed0030 @12968 (`likes_gold`/`mkmonmoney`) / seed0101 Scr /
-  seed0200 @3382.
+- **Next:** seed0030 @12968 cleared by D-0174; see D-0174 next.
+
+## D-0174 — m_initinv likes_gold / mkmonmoney
+
+- **Status:** fixed
+- **Observed:** seed0030 first RNG mismatch @12968 — C
+  `rn2(5) @ m_initinv(makemon.c:830)`; JS `rn2(100)` (`peace_minded`).
+- **Rejected:** peace_minded / gnome candle order wrong — prior
+  defensive `rn2(50)`/`rn2(100)` matched; only the trailing gold gate
+  was missing. Also not “ordinary gnomes need gold” — gnomes lack
+  `M2_GREEDY`; the peel is dwarf/orc GREEDY.
+- **C locus:** `mondata.h` `likes_gold`; `steal.c` `findgold`;
+  `makemon.c` `mkmonmoney` / `m_initinv` trailing gold; `monflag.h`
+  `M2_GREEDY`.
+- **Cause:** JS `m_initinv` deferred `likes_gold`/`mkmonmoney` after
+  the defensive/misc rolls, so GREEDY monsters skipped `!rn2(5)` and
+  jumped to `peace_minded`.
+- **Change:** `likes_gold` + `M2_GREEDY`; `findgold`; `mkmonmoney`
+  (`mksobj(GOLD_PIECE)` + `add_to_minv`); wire
+  `likes_gold && !findgold && !rn2(5)` → `d(level_difficulty(), …)`.
+- **Verification:** seed0030 prefix **12968→13007** positional
+  **13339**/105529 Scr **168**/1953; green+strict PASS; cohort PASS;
+  full **15/44** Scr **1405** RNG **134796**.
+- **Named omission:** PM_SOLDIER `rn2(13)` early return; other
+  `m_initinv` bodies (mercenary/nymph/…); `findgold` container walk;
+  `begin_burn` on failed candle `mpickobj`.
+- **Lesson:** trailing `m_initinv` gold is shared across GREEDY mlets
+  (dwarf/orc/…), not part of the S_GNOME candle case.
+- **Next:** seed0030 @13007 (`induced_align` rn2(3) vs JS rn2(9)) /
+  seed0101 Scr / seed0200 @3382.

@@ -36,6 +36,7 @@ import {
     monmax_difficulty,
     montooweak,
     montoostrong,
+    likes_gold,
     monsterNames,
 } from './monsters.js';
 import {
@@ -548,7 +549,25 @@ function m_initweap(mtmp) {
     if (mtmp.m_lev > rn2(75)) mongets(mtmp, rnd_offensive_item(mtmp));
 }
 
-// C ref: makemon.c m_initinv — S_GNOME candle + trailing defensive/misc rolls
+// C ref: steal.c findgold — first GOLD_PIECE on chain (no container walk)
+function findgold(argchain) {
+    let chain = argchain;
+    const gold = otyp('GOLD_PIECE');
+    while (chain && chain.otyp !== gold) chain = chain.nobj;
+    return chain || null;
+}
+
+// C ref: makemon.c mkmonmoney
+function mkmonmoney(mtmp, amount) {
+    if (amount > 0) {
+        const gold = mksobj(otyp('GOLD_PIECE'), false, false);
+        gold.quan = amount;
+        gold.owt = weight(gold);
+        add_to_minv(mtmp, gold);
+    }
+}
+
+// C ref: makemon.c m_initinv — S_GNOME candle + trailing defensive/misc/gold
 function m_initinv(mtmp) {
     const ptr = mtmp.data;
     if (Is_rogue_level(game.u?.uz)) return;
@@ -573,14 +592,17 @@ function m_initinv(mtmp) {
         break;
     }
 
-    // C: soldier magic gate — not reached for ordinary commons this peel
+    // C: PM_SOLDIER && rn2(13) early return — deferred (mercenary m_initinv)
     if (mtmp.m_lev > rn2(50)) {
         /* rnd_defensive_item */
     }
     if (mtmp.m_lev > rn2(100)) {
         /* rnd_misc_item */
     }
-    // likes_gold / mkmonmoney deferred (no GREEDY on ordinary gnomes)
+    // C: likes_gold && !findgold(minvent) && !rn2(5) → mkmonmoney
+    if (likes_gold(ptr) && !findgold(mtmp.minvent) && !rn2(5)) {
+        mkmonmoney(mtmp, d(level_difficulty(), mtmp.minvent ? 5 : 10));
+    }
 }
 
 // C ref: makemon.c m_initinv trailing defensive/misc rolls (compat alias)

@@ -2171,3 +2171,17 @@ Use this shape:
   full **15/44** Scr **1405** RNG **134770**/792838.
 - Next: seed0030 @12968 (`likes_gold`/`mkmonmoney` rn2(5)) /
   seed0101 Scr residual / seed0200 combat @3382.
+
+## 2026-07-13 — likes_gold / mkmonmoney m_initinv (D-0174)
+- Objective: seed0030 @12968 C `rn2(5) @ m_initinv` vs JS `rn2(100)`
+  (PROGRESS primary).
+- C locus: `mondata.h` likes_gold; `steal.c` findgold; `makemon.c`
+  mkmonmoney / m_initinv trailing gold; `monflag.h` M2_GREEDY.
+- Result: **verified** — not peace_minded. GREEDY dwarves need
+  `!rn2(5)` after defensive/misc; JS deferred likes_gold. Ported
+  likes_gold + findgold + mkmonmoney.
+- Verification: seed0030 prefix **12968→13007**; positional
+  **13339**/105529 Scr **168**/1953; green+strict PASS; cohort PASS;
+  full **15/44** Scr **1405** RNG **134796**/792838.
+- Next: seed0030 @13007 (`induced_align` rn2(3) vs rn2(9)) /
+  seed0101 Scr residual / seed0200 combat @3382.
