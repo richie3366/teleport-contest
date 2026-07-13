@@ -162,6 +162,18 @@ export function nohands(ptr) {
     return !!((ptr?.mflags1 ?? 0) & M1_NOHANDS);
 }
 
+/** C ref: mondata.h haseyes — !(M1_NOEYES) */
+export function haseyes(ptr) {
+    return !((ptr?.mflags1 ?? 0) & M1_NOEYES);
+}
+
+/**
+ * C ref: mondata.c can_track — haseyes; ART_EXCALIBUR wield named omission.
+ */
+export function can_track(ptr) {
+    return haseyes(ptr);
+}
+
 /** C ref: mondata.h lays_eggs() */
 export function lays_eggs(ptr) {
     return !!((ptr?.mflags1 ?? 0) & M1_OVIPAROUS);

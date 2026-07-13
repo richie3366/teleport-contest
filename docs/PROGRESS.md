@@ -381,20 +381,22 @@ autoopen `doopen_indir` (D-0059) + `mfndpos` BOULDER/`ALLOW_ROCK` +
 **`tunnels`/`ALLOW_DIG`/`mdig_tunnel`** (D-0178)
 **`get_mattk` extracted mattk / AT_WEAP=254** (D-0179)
 **`m_digweapon_check` + pick/axe wield** (D-0180)
+**monster `trapeffect_rocktrap`** (D-0181 partial; gettrack pending)
 **ported**. Fifteen public sessions pass end-to-end. **0/44** throw at
 `u_init_role`. seed0700 + seed1150 + seed0017 + seed0077 + seed0106 +
 seed0501 + seed0105 + seed0016 + seed0015 **PASS**. seed2200 RNG **full**
 (Scr **229**/230; sole miss parked RC @158).
 seed0101 RNG **full** Scr **21**/27.
 
-- **Bounded unit:** seed0030 @13987 (`next_ident` vs dig) /
+- **Bounded unit:** seed0030 hostile `m_move` gettrack (D-0181 @10676
+  newt track-vs-mux before dwarf rocktrap @13987) /
   seed0101 Scr residual /
   seed0103 `next_ident`/`trquan` /
   seed0200 combat `@3382` (lower priority) /
   seed0361/0373 **quest `getbones`** (blocked: need `^V`→`goto_level`→
   `makemaz` first — ordinary `goto_level` now exists for stairs; Mines
   `fill_lvl` path exists D-0171).
-- **Prefer:** seed0030 @13987 / seed0101 Scr
+- **Prefer:** seed0030 gettrack diagnosis / seed0101 Scr
   over parked D-0006 and over baking seed2200 RC paths.
   Hero `dotrap` deferred until monster pit peel is clear.
   Hero `xkilled` `make_corpse` still deferred (mhitm path done D-0167).
@@ -1086,6 +1088,10 @@ Module status, constitutional debt, and named omissions live in
     **14343**/105529 Scr **168**/1953; screens **1405**;
     RNG **135713→135799**; green cohort PASS; next seed0030 @13987 /
     seed0101 Scr residual / seed0200 @3382
+157. monster `trapeffect_rocktrap` + gettrack prerequisite (D-0181)
+    — rocktrap monster branch ported; seed0030 still **13987** (hostile
+    gettrack deferred: newt @10676 track vs mux); green cohort PASS;
+    next gettrack diagnosis @10676 / seed0101 Scr / seed0200 @3382
 
 Next work is selected from the active objectives above using
 `PORTING-RUNBOOK.md`, not by extending this historical list.

@@ -2246,3 +2246,17 @@ Use this shape:
   full **15/44** Scr **1405** RNG **135799**/792838.
 - Next: seed0030 @13987 (`next_ident` vs dig) /
   seed0101 Scr residual / seed0200 combat @3382.
+
+## 2026-07-13 20:10 — trapeffect_rocktrap + gettrack prerequisite (D-0181)
+- Objective: seed0030 @13987 C `next_ident` rocktrap vs JS dig.
+- C locus: `trap.c:trapeffect_rocktrap`; `monmove.c` should_see/gettrack;
+  `mondata.c:can_track`.
+- Result: **partial** — monster `trapeffect_rocktrap` ported
+  (`t_missile(ROCK)`+`thitm(d(2,6))`); `haseyes`/`can_track` helpers.
+  Hostile gettrack **not** wired: `tooFar && gettrack` first diverges
+  newt @10676 (track (56,5) vs mux (56,6)) → @10701 rn2(24) vs C rn2(20).
+  Prefix still **13987** (dwarf mux nearer (28,6) dig vs ROCKTRAP (27,6)).
+- Verification: green+strict PASS; cohort PASS (8000/0900/1500/1800/0060
+  +0102/0700/1150/0017/0015/0016); seed0030 still 13987.
+- Next: diagnose C vs JS gettrack at newt @10676 before wiring hostile
+  gettrack; or peel seed0101 Scr residual.

@@ -488,8 +488,11 @@ export async function m_move(mtmp, after) {
         appr = 0;
     }
 
-    // Hostiles keep appr=1; peaceful wander uses !rn2(++chcnt) instead of track.
-    // Named omission: gettrack goal, shortsighted, m_search_items, balks.
+    // Hostiles keep appr=1 toward mux/muy.
+    // Named omission: should_see + gettrack (can_track/haseyes exist);
+    // shortsighted; m_search_items; balks; Invis rn2(11); stalker/bat rn2(3).
+    // seed0030 @13987: dwarf needs gettrack so nearer is ROCKTRAP (27,6)
+    // not (28,6); enabling gettrack first diverges newt @10676 (see D-0181).
 
     // C: don't tunnel if hostile and close enough to prefer a weapon
     if (can_tunnel && needspick(ptr)
