@@ -7,18 +7,17 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 
 ## Active
 
-- **Current unit:** D-0170 cleared seed0030 unarmed `hmon_hitmon_stagger`
-  `rnd(100)` before kill. Prefix **10803→10861**; positional
-  **11206**/105529; Scr **168**/1953; public Scr **1405**, RNG **132236**;
+- **Current unit:** D-0171 cleared seed0030 Mines `fill_lvl`→`makemaz(minefill)`
+  + dungeon align 3-bit. Prefix **10861→12757**; positional
+  **13100**/105529; Scr **168**/1953; public Scr **1405**, RNG **134130**;
   still **15/44**.
-- **Hypothesis / next:** seed0030 @10861 — C `getbones` then
-  `nhlib.lua` `shuffle`/`rn2(3)` vs JS `rn2(5)` (special-level / Lua
-  path after bones), or seed0101 Scr residual (RNG full), or seed0200
-  combat `@3382`.
+- **Hypothesis / next:** seed0030 @12757 — C `m_initweap` `rnd(14)` for
+  gnome vs JS `rn2(16)` (armed-mlet envelope / S_GNOME branch), or
+  seed0101 Scr residual (RNG full), or seed0200 combat `@3382`.
 - **Falsifier / next:**
   ```bash
   node scripts/rng-diff.mjs sessions/seed0030-ten-diverse-deaths.session.json
-  # expect first mismatch past 10861 if bones/Lua peel advances
+  # expect first mismatch past 12757 if gnome m_initweap advances
   node frozen/ps_test_runner.mjs sessions/seed0101-ranger-quiver-throw-travel-engrave.session.json
   # expect Scr >21/27 if residual display peel advances
   ```
@@ -285,6 +284,12 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   `rnd(2)=2` (`dmg > 1`), C `hmon_hitmon_stagger` always burns
   `rnd(100)` before damage/kill (D-0170). Do not jump from barehands
   to `xkilled`.
+- **seed0030 @10861 was NOT ordinary Medusa `rn2(5)` / themerms reload**
+  — hero took Mines branch stairs; C `fill_lvl`→`makemaz(minefill)` →
+  nhlib shuffle + `splev_initlev` + `mkmap` `init_fill`. JS ignored
+  `fill_lvl` (D-0171). Also dungeon `flags.align` must be `dgn_align&7`
+  (C 3-bit truncates `D_ALIGN_LAWFUL=0x40`→0) or `induced_align` burns
+  `rn2(100)` instead of `rn2(3)`.
 
 ## Landmarks
 
@@ -368,3 +373,7 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 - Unarmed melee: `unarmed && dmg > 1 && !thrown && !obj && !Upolyd` →
   `hmon_hitmon_stagger` always `rnd(100)` before `mhp -= dmg` /
   `killed` (D-0170). Stun pline/`mhurtle_to_doom` only if skill gate.
+- Mines branch `>` → `fill_lvl` `minefill` → nhlib shuffle +
+  SOLIDFILL lit `rn2(2)` + MINES lit `rn2(2)` + `mkmap` `init_fill`
+  `rn2(77)`/`rnd(19)` loop; dungeon `flags.align = dgn_align & 7`
+  (D-0171).

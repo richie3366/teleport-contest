@@ -174,6 +174,7 @@ Do not record a guessed cause as fixed merely because an RNG prefix moved.
 | D-0168 | fixed | dogmove/eat | `dog_eat` after edible `newdogpos` (2nd dogfood + delobj) |
 | D-0169 | fixed | monmove/meating | `m_move` meating countdown before `dog_move` |
 | D-0170 | fixed | uhitm/stagger | unarmed `hmon_hitmon_stagger` `rnd(100)` before kill |
+| D-0171 | fixed | mklev/mines | `fill_lvl`→`makemaz(minefill)` + mkmap; dungeon align 3-bit |
 
 D-0001 through D-0005 predate the strict-length/cohort runbook. Their focused
 causes are preserved, but generic "green sessions held" is historical evidence,
@@ -4608,3 +4609,39 @@ cohort gates if those functions are touched again.
   kill RNG — do not jump from barehands `rnd(2)` to `xkilled`.
 - **Next:** seed0030 @10861 (`nhlib.lua` shuffle after `getbones`) /
   seed0101 Scr / seed0200 @3382.
+
+## D-0171 — Mines fill_lvl / makemaz(minefill) + dungeon align 3-bit
+
+- **Status:** fixed
+- **Observed:** seed0030 first RNG mismatch @10861 after `>`/`getbones`
+  — C `nhlib.lua` shuffle `rn2(3)`; JS ordinary `makelevel` Medusa
+  `rn2(5)`.
+- **Rejected:** wrong getbones arity; themerms reload; Medusa check
+  always-first as C order (C only evaluates `rn2(5)` after special/
+  fill_lvl branches fail).
+- **C locus:** `mklev.c` `makelevel` `fill_lvl` → `makemaz` →
+  `load_special(minefill)` → `splev_initlev` SOLIDFILL+MINES →
+  `mkmap.c` `init_fill`/passes/`join_map`; `dungeon.c`
+  `flags.align` 3-bit bitfield truncates `D_ALIGN_*`.
+- **Cause:** JS correctly set `uz` to Mines (`dnum=2`) on branch
+  stairs but `makelevel` ignored `dungeons[].fill_lvl` and always ran
+  ordinary rooms (burning Medusa `rn2(5)` first). Separately, JS stored
+  dungeon `flags.align = D_ALIGN_LAWFUL (0x40)` full-width so
+  `induced_align` took the `rn2(100)` dungeon path; C’s 3-bit field
+  truncates 0x40→0 and falls through to `rn2(3)`.
+- **Change:** `makelevel` dispatches `fill_lvl` → `makemaz` → JS
+  `minefill.lua` body (`mkmap` + stairs/objects/monsters/traps);
+  dungeon `flags.align = dgn_align & 7`.
+- **Verification:** seed0030 prefix **10861→12757** positional
+  **13100**/105529 Scr **168**/1953; green+strict PASS; cohort
+  1500/1800/0060/0015 PASS; full **15/44** Scr **1405** RNG
+  **134130**.
+- **Named omission:** `m_initweap` gnome envelope @12757; full
+  `create_trap`/`mktrap_victim` on des.trap; `fixup_special`/
+  `place_lregion`; hellfill/other protos; empty `makemaz("")` maze;
+  Is_special / quest fill branches.
+- **Lesson:** after `getbones` on a branch dungeon, check
+  `fill_lvl`/`makemaz` before ordinary Medusa `rn2(5)`; dungeon align
+  must match C’s 3-bit truncation.
+- **Next:** seed0030 @12757 (`m_initweap` gnome) / seed0101 Scr /
+  seed0200 @3382.

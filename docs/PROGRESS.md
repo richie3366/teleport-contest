@@ -39,8 +39,8 @@ frozen-file overlay):
 |--------|------:|
 | Sessions passing | **15 / 44** |
 | Screens matched | **1405 / 11,405** (12.32%) |
-| Positional RNG calls matched | **132,236 / 792,838** (16.68%) |
-| Speed label | `19+0.08/turn` |
+| Positional RNG calls matched | **134,130 / 792,838** (16.92%) |
+| Speed label | `19+0.09/turn` |
 | Working-tree base | `8b71735` + committed port (see `main`) |
 | Role-init throws | **0 / 44** (`u_init_role: role not ported`) |
 
@@ -64,7 +64,7 @@ shared blockers, and semantic coverage together—not one vanity metric.
 | `seed0501-priest-cast-read-turn` | **2238 / 2238** | **28 / 28** |
 | `seed2200-wizard-quaff-zap-read` | **3018 / 3018** | **229 / 230** |
 | `seed0017-samurai-altar-pray` | **3465 / 3465** | **67 / 67** |
-| `seed0030-ten-diverse-deaths` | **11206 / 105529** | **168 / 1953** |
+| `seed0030-ten-diverse-deaths` | **13100 / 105529** | **168 / 1953** |
 | `seed0103-knight-ride-pony` | **2344 / 2640** | 2 / 60 |
 | `seed0200-monk-north-search` | **3385 / 3822** | **15 / 40** |
 | `seed0101-ranger-quiver-throw-travel-engrave` | **2371 / 2371** | **21 / 27** |
@@ -227,7 +227,7 @@ seed0015 **PASS**. seed0101 next Scr residual (RNG full). seed0013 still breaks 
 Lua/`sp_lev`. seed0103 next `next_ident`/`trquan` @ 2337.
 seed0361/0373 `getbones` blocked on unbound `^V`/`goto_level`/
 `makemaz`. seed0077 chargen + vault fallback + door vision/pick_lock/DEC
-open-door (D-0111/D-0112/D-0113) → **PASS**. seed0030 **11206**/105529.
+open-door (D-0111/D-0112/D-0113) → **PASS**. seed0030 **13100**/105529.
 seed0105 RNG **full** (Scr **30**/30).
 
 ### Green gate
@@ -371,20 +371,21 @@ autoopen `doopen_indir` (D-0059) + `mfndpos` BOULDER/`ALLOW_ROCK` +
 **`dog_eat` after edible `newdogpos`** (D-0168)
 **`m_move` meating before `dog_move`** (D-0169)
 **`hmon_hitmon_stagger` unarmed `rnd(100)`** (D-0170)
+**`fill_lvl`/`makemaz(minefill)` + dungeon align `&7`** (D-0171)
 **ported**. Fifteen public sessions pass end-to-end. **0/44** throw at
 `u_init_role`. seed0700 + seed1150 + seed0017 + seed0077 + seed0106 +
 seed0501 + seed0105 + seed0016 + seed0015 **PASS**. seed2200 RNG **full**
 (Scr **229**/230; sole miss parked RC @158).
 seed0101 RNG **full** Scr **21**/27.
 
-- **Bounded unit:** seed0030 @10861 (`nhlib.lua` shuffle after
-  `getbones`) /
+- **Bounded unit:** seed0030 @12757 (`m_initweap` gnome after minefill) /
   seed0101 Scr residual /
   seed0103 `next_ident`/`trquan` /
   seed0200 combat `@3382` (lower priority) /
   seed0361/0373 **quest `getbones`** (blocked: need `^V`→`goto_level`→
-  `makemaz` first — ordinary `goto_level` now exists for stairs).
-- **Prefer:** seed0030 @10861 / seed0101 Scr
+  `makemaz` first — ordinary `goto_level` now exists for stairs; Mines
+  `fill_lvl` path exists D-0171).
+- **Prefer:** seed0030 @12757 / seed0101 Scr
   over parked D-0006 and over baking seed2200 RC paths.
   Hero `dotrap` deferred until monster pit peel is clear.
   Hero `xkilled` `make_corpse` still deferred (mhitm path done D-0167).
@@ -429,7 +430,9 @@ seed0101 RNG **full** Scr **21**/27.
   `^letter`/nodiag; cmdassist getdir beyond fire path; `align_shift`/
   `temperature_shift`;
   `peace_minded` MS_*/race_*/minion arms; egg hatch timers /
-  `egg_type_from_parent`; `^V`/`level_tele`/`goto_level`/`makemaz`;
+  `egg_type_from_parent`; `^V`/`level_tele`/`goto_level`/`makemaz` beyond
+  Mines `minefill` (D-0171); hellfill/other protos; empty maze
+  `makemaz("")`; Is_special / quest fill; gnome `m_initweap` envelope;
   TIN `cnutrit`; interactive `o`/`doopen` getdir; `doopen_indir`
   `b_trapped`/autounlock/mapseen; `#levelchange` `losexp`; remaining
   `extcmdlist` (beyond `#terrain`); overview shop/temple/`shop_string`/altar-god /
@@ -1029,6 +1032,11 @@ Module status, constitutional debt, and named omissions live in
     `getbones`); positional **11206**/105529 Scr **168**/1953;
     screens **1405**; RNG **132144→132236**; green cohort PASS; next
     seed0030 @10861 / seed0101 Scr residual / seed0200 @3382
+148. Mines `fill_lvl`/`makemaz(minefill)` + dungeon align `&7` (D-0171)
+    — seed0030 prefix **10861→12757** (`m_initweap` gnome);
+    positional **13100**/105529 Scr **168**/1953; screens **1405**;
+    RNG **132236→134130**; green cohort PASS; next seed0030 @12757 /
+    seed0101 Scr residual / seed0200 @3382
 
 Next work is selected from the active objectives above using
 `PORTING-RUNBOOK.md`, not by extending this historical list.

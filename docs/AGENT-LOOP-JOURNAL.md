@@ -2124,3 +2124,18 @@ Use this shape:
   **132236**/792838.
 - Next: seed0030 @10861 (`nhlib.lua` shuffle after `getbones`) /
   seed0101 Scr residual / seed0200 combat @3382.
+
+## 2026-07-13 — Mines fill_lvl / makemaz(minefill) (D-0171)
+- Objective: seed0030 @10861 nhlib shuffle after getbones (PROGRESS primary).
+- C locus: `mklev.c` `makelevel` fill_lvl → `makemaz` → `minefill.lua`
+  / `splev_initlev` / `mkmap.c`; `dungeon.c` `flags.align` 3-bit.
+- Result: **verified** — JS entered Mines (`dnum=2`) but ignored
+  `fill_lvl`, burning ordinary Medusa `rn2(5)`. Ported makelevel
+  dispatch + JS minefill (`mkmap` + stairs/objects/monsters/traps) and
+  `flags.align = dgn_align & 7` (C truncates `D_ALIGN_LAWFUL=0x40`→0).
+- Verification: seed0030 prefix **10861→12757**; positional
+  **13100**/105529 Scr **168**/1953; green+strict PASS; cohort
+  1500/1800/0060/0015 PASS; full **15/44** Scr **1405** RNG
+  **134130**/792838.
+- Next: seed0030 @12757 (`m_initweap` gnome) / seed0101 Scr residual /
+  seed0200 combat @3382.
