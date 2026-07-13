@@ -2411,3 +2411,15 @@ Use this shape:
 - Verification: seed0030 prefix **14118→14151**; positional **14489**/105529;
   full **15/44** Scr **1405** RNG **135939**; green+cohort+strict PASS.
 - Next: seed0030 @14151 (`distfleeck` `rn2(5)` vs `rnd(2)`); or seed0101 Scr.
+
+## 2026-07-13 22:25 — D-0186 can_carry quan>1 / M1_NOHANDS fixed
+- Objective: seed0030 @14151 C `distfleeck` `rn2(5)` vs JS `rnd(2)`.
+- C locus: `mon.c` `can_carry` (quan>1 → 1 only for `M1_NOHANDS` non-glomper).
+- Result: **fixed** — DIAG: PM_GNOME hands @(49,19) on WORTHLESS_VIOLET_GLASS
+  quan=2; JS always `return 1` for stacks → `splitobj`/`next_ident`. C takes
+  full `iquan`. Ported C quan/nohands/glomper/peaceful/boulder/nymph/weight
+  order; export `M1_NOTAKE`.
+- Verification: seed0030 prefix **14151→14231**; positional **14536**/105529;
+  full **15/44** Scr **1405** RNG **135986**; green+cohort+strict PASS.
+- Next: seed0030 @14231 (`hitum`/`exercise` `rn2(19)` vs JS `rn2(5)`); or
+  seed0101 Scr / seed0200 @3382.

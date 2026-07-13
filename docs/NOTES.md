@@ -7,9 +7,11 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 
 ## Active
 
-- **Current unit:** seed0030 @14151 (after D-0185 `mpickstuff`).
-- **Hypothesis:** C `rn2(5)` `@distfleeck` vs JS `rnd(2)` — different call
-  site / actor after mpickstuff path; reconstruct C caller at 14151.
+- **Current unit:** seed0030 @14231 (after D-0186 `can_carry` quan>1).
+- **Hypothesis:** C continues `hitum`/`known_hitum` with second `exercise`
+  `rn2(19)` then barehands `rnd(2)` + stagger; JS leaves combat after first
+  `hitum` `rnd(20)` into `distfleeck` `rn2(5)` — missing post-hit `exercise`
+  and/or barehands damage path.
 - **Falsifier:**
   ```bash
   node scripts/rng-diff.mjs sessions/seed0030-ten-diverse-deaths.session.json
@@ -83,6 +85,9 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   is at `(57,10)`. Real split: silent gg after `(59,8)` — C `gg=(59,12)`
   vs JS `gg=(57,11)` because JS never `mpickstuff`’d floor glass
   (D-0185). Do not FORCE-open walls or re-peel mkmap.
+- **@14151 was NOT missing distfleeck** — PM_GNOME hands + quan=2
+  WORTHLESS_VIOLET_GLASS: JS `can_carry` always returned 1 for quan>1 →
+  `splitobj`/`next_ident`; C only returns 1 for `M1_NOHANDS` (D-0186).
 - **`monattk.h`: AT_WEAP=254, AT_MAGC=255, AT_SPIT=10** — never use 10 for
   weapon (D-0179).
 - Hostile `m_move`: before place, `m_digweapon_check` may return
@@ -107,7 +112,9 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   `m_search_items` may redirect gg to floor loot (D-0182).
 - Underfoot loot claim in `m_search_items` deferred until
   postmov `mpickstuff` (D-0183); distant redirects still set gg.
-- `can_carry`: peaceful non-pets return 0 (D-0183).
+- `can_carry`: peaceful non-pets return 0 (D-0183); **quan>1 → 1 only
+  for `M1_NOHANDS` non-glomper** — hands monsters take full stack
+  (D-0186).
 - Offensive potions: `mattacku`→`find_offensive`/`use_offensive` before
   AT_WEAP; `m_throw` POTION→`potionhit` (not `thitu`); vapor
   `makeknown` needs flight `observe_object` (D-0184).

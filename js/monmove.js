@@ -15,7 +15,7 @@ import {
 } from './mon.js';
 import {
     is_wanderer, is_armed, passes_walls, nohands, verysmall,
-    monsterNames, M1_SEE_INVIS, M1_AMORPHOUS, tunnels, needspick,
+    monsterNames, M1_SEE_INVIS, M1_AMORPHOUS, M1_NOTAKE, tunnels, needspick,
     can_track, likes_gold, likes_gems, likes_objs, likes_magic,
     throws_rocks, mindless, is_animal, strongmonst, is_mercenary,
     mon_knows_traps,
@@ -37,7 +37,7 @@ import {
     D_CLOSED, D_LOCKED, D_ISOPEN, D_NODOOR,
     D_BROKEN, D_TRAPPED, u_at, DISPLACED, Is_rogue_level,
     NEED_PICK_AXE, NEED_AXE, NEED_PICK_OR_AXE,
-    P_AXE, P_PICK_AXE, W_WEP, SQSRCHRADIUS, COLNO, ROWNO,
+    P_AXE, P_PICK_AXE, W_WEP, SQSRCHRADIUS, COLNO, ROWNO, NATTK,
 } from './const.js';
 import {
     CLOAK_OF_DISPLACEMENT, COIN_CLASS, WEAPON_CLASS, ARMOR_CLASS,
@@ -71,6 +71,7 @@ const MMOVE_MOVED = 1;
 const MMOVE_DIED = 2;
 const MMOVE_DONE = 3;
 const MMOVE_NOMOVES = 4;
+const AT_ENGL = 11; // monattk.h
 
 // C ref: monmove.c practical[] / magical[] for mon_would_take_item
 const PRACTICAL_CLASSES = [WEAPON_CLASS, ARMOR_CLASS, GEM_CLASS, FOOD_CLASS];
@@ -117,16 +118,49 @@ function can_touch_safely(_mtmp, otmp) {
     return true;
 }
 
-/** C ref: mon.c can_carry — weight + touch; notake/quan specials partial. */
+/**
+ * C ref: mon.c can_carry — returns max quan the monster may take.
+ * quan>1 → return 1 only for M1_NOHANDS non-glompers (dragons gold/gems
+ * and AT_ENGL engulfer exceptions). Hands monsters take the full stack
+ * when weight allows (D-0186).
+ */
 function can_carry(mtmp, otmp) {
     if (!mtmp || !otmp) return 0;
+    const mdat = mtmp.data;
+    if ((mdat?.mflags1 ?? 0) & M1_NOTAKE) return 0;
     if (!can_touch_safely(mtmp, otmp)) return 0;
-    // C ref: mon.c can_carry — peaceful non-pets refuse loot
-    if (mtmp.mpeaceful && !mtmp.mtame) return 0;
+
+    // C: huge quan clamp via rn2 deferred; ordinary stacks fit in int
     const iquan = otmp.quan || 1;
-    if (iquan > 1) return 1;
-    if ((otmp.owt || 0) > max_mon_load(mtmp)) return 0;
-    if (curr_mon_load(mtmp) + (otmp.owt || 0) > max_mon_load(mtmp)) return 0;
+    if (iquan > 1) {
+        let glomper = false;
+        if (mdat?.mlet === 'S_DRAGON'
+            && (otmp.oclass === COIN_CLASS || otmp.oclass === GEM_CLASS)) {
+            glomper = true;
+        } else {
+            const mattk = mdat?.mattk || [];
+            for (let nattk = 0; nattk < NATTK; nattk++) {
+                if (mattk[nattk]?.aatyp === AT_ENGL) {
+                    glomper = true;
+                    break;
+                }
+            }
+        }
+        if (nohands(mdat) && !glomper) return 1;
+    }
+
+    if (mtmp === game.u?.usteed) return 0;
+    if (mtmp.isshk) return iquan;
+    // C: peaceful non-pets refuse loot
+    if (mtmp.mpeaceful && !mtmp.mtame) return 0;
+
+    if (throws_rocks(mdat) && otmp.otyp === BOULDER) return iquan;
+    if (mdat?.mlet === 'S_NYMPH') {
+        return otmp.oclass === ROCK_CLASS ? 0 : iquan;
+    }
+
+    const newload = otmp.owt || 0;
+    if (curr_mon_load(mtmp) + newload > max_mon_load(mtmp)) return 0;
     return iquan;
 }
 

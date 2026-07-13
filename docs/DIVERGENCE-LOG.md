@@ -189,6 +189,7 @@ Do not record a guessed cause as fixed merely because an RNG prefix moved.
 | D-0183 | partial | monmove/underfoot loot | skip underfoot MMOVE_DONE until mpickstuff; can_carry peaceful |
 | D-0184 | partial | muse/potionhit | MUSE_POT_* throw + hero potionhit/breathe/makeknown |
 | D-0185 | fixed | postmov mpickstuff | seed0030 @14118: missing `mpickstuff` left floor glass → silent `m_search_items` gg split |
+| D-0186 | fixed | mon.c can_carry | quan>1 → 1 only for M1_NOHANDS; hands take full stack |
 
 D-0001 through D-0005 predate the strict-length/cohort runbook. Their focused
 causes are preserved, but generic "green sessions held" is historical evidence,
@@ -5060,4 +5061,28 @@ cohort gates if those functions are touched again.
 - **Named omissions:** underfoot `m_search_items`→`MMOVE_DONE` still
   deferred (D-0183); shop/`inhishop`; meatmetal/cube/corpse_eater;
   `check_gear_next_turn`; `distant_name` side-effects.
+
+## D-0186 — can_carry quan>1 only for M1_NOHANDS (seed0030 @14151)
+
+- **Status:** fixed
+- **Observed:** seed0030 @14151 — C `rn2(5)` `@distfleeck`; JS `rnd(2)`
+  via `next_ident`←`splitobj`←`mpickstuff`←`postmov`.
+- **DIAG:** PM_GNOME (hands) @(49,19) on WORTHLESS_VIOLET_GLASS quan=2
+  owt=2; JS `carryamt=1` forced split; `nohands=false`; load 1/166.
+- **C locus:** `mon.c` `can_carry` — `iquan>1` returns 1 only when
+  `M1_NOHANDS && !glomper` (dragon gold/gems / AT_ENGL exceptions);
+  otherwise weight-check then return full `iquan`.
+- **Cause:** JS `can_carry` always `return 1` for any stack, so hands
+  gnomes split every multi-quan gem and burned `next_ident` while C
+  took the whole stack with no RNG.
+- **Fix:** port C quan/nohands/glomper/peaceful/boulder/nymph/weight
+  order in `js/monmove.js` `can_carry`; export `M1_NOTAKE`.
+- **Verification:** seed0030 prefix **14151→14231**; positional
+  **14536**/105529 Scr **168**/1953; full **15/44** Scr **1405** RNG
+  **135986**; green+cohort+strict PASS.
+- **Named omissions:** huge-quan `rn2(LARGEST_INT)` clamp; `can_touch_safely`
+  petrify/silver/artifact; dogmove.js still uses simplified quan→1
+  (pets are nohands — coincidentally OK).
+- **Next:** seed0030 @14231 (`hitum`/`exercise` vs `rn2(5)`); or
+  seed0101 Scr / seed0200 @3382.
 
