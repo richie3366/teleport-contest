@@ -178,8 +178,11 @@ seed2200 Scr **167→176**/230; screens **545**/11405; RNG
 **568**/11405; RNG **91371**/792838 (screen 158 RC path residual).
 **`in_mk_themerooms`** (D-0092) → green/cohort held; seed0017 still
 **3132** (room x vs C east-door 35).
-Next peel: seed0017 @ 3132 `dog_move` (terrain / room geometry) /
-seed1150 `throw_obj` @ 3032 / seed2200 post-help / `getbones` (blocked on
+**getdir `flush_topl_more` + `throw_obj` multishot** (D-0093) →
+seed1150 prefix **3032→3042** positional **3070**/3137 Scr **22**/51;
+screens **568**/11405; RNG **91398**/792838.
+Next peel: seed1150 @ 3042 post-throw `obj_resists` /
+seed0017 @ 3132 `mfndpos` / seed2200 post-help / `getbones` (blocked on
 `^V`/`makemaz`) / `wipeout_text` / `lspo_map` / pony `next_ident` /
 `maybe_smudge_engr`.
 `make_corpse` body and `m_initinv` body still absent (named omissions).
@@ -230,7 +233,7 @@ seed1150 `throw_obj` @ 3032 / seed2200 post-help / `getbones` (blocked on
 | `src/pline.c` / tty message behavior | `js/display.js`, `js/input.js` | partial | `--More--` works for green paths + getobj re-prompt (D-0025); full message/window policy incomplete |
 | `src/invent.c` | `js/invent.js` | partial | Corner NHW_MENU invent (D-0024); disco inv_order + `*`/encounter + `OBJ_DESCR`/`obj_typename` (D-0040); **Samurai `interesting_to_discover`/`disco_typename`/`discover_object` gate** (D-0079); fullscreen invent path deferred |
 | `src/eat.c` | `js/eat.js` | partial | Cookie/reject subset; getobj still single-shot (no missing-letter `continue`); ordinary eating/nutrition incomplete |
-| `src/dothrow.c`, `src/zap.c:bhit` | `js/dothrow.js` | partial | Dart split/flight/landing; `throw_ok` SUGGEST coins+weapons + getobj loop (D-0025); **`dofire` + fireassist uswapwep swap via cmdq** (D-0069); **`getdir`/`help_dir` NHW_TEXT** (D-0071); **`throw_gold` body absent**; `doquiver_core`/find_launcher/polearm incomplete |
+| `src/dothrow.c`, `src/zap.c:bhit` | `js/dothrow.js` | partial | Dart split/flight/landing; `throw_ok` SUGGEST coins+weapons + getobj loop (D-0025); **`dofire` + fireassist uswapwep swap via cmdq** (D-0069); **`getdir`/`help_dir` NHW_TEXT** (D-0071); **`getdir_cmdassist` `flush_topl_more` before prompt** (D-0093); **`throw_obj` multishot + `multishot_class_bonus` + `rnd(multishot)`** (D-0093); **`throw_gold` body absent**; `doquiver_core`/find_launcher/polearm incomplete; xname/singular volley text / ACURRSTR crossbow / quest-artifact launcher / full `weapon_skills` |
 | `src/mon.c`, `src/monmove.c` | `js/mon.js`, `js/monmove.js` | partial | Early ordinary movement; pet `postmov`→`mintrap` (D-0018); mfndpos `ALLOW_TRAPS` (D-0019); `OPENDOOR` gated on `nohands`/`verysmall` (D-0020); **`m_avoid_kicked_loc`** in `mon.js` (D-0032; not yet wired into hostile `m_move`); **`postmov` final `newsym(mx,my)`** (D-0039); **`mfndpos` BOULDER/`ALLOW_ROCK` + `NODIAG`** (D-0060); `throws_rocks`/`passes_walls` helpers; omit `m_can_break_boulder`, pool/lava/garlic/`bad_rock` squeeze/temple/iron bars/`ALLOW_WALL`, non-pet postmov / `mon_knows_traps` / Sokoban push-avoid body |
 | `src/dog.c`, `src/dogmove.c` (+ `steal.c` relobj) | `js/dog.js`, `js/dogmove.js` | partial | Starting-pet subset; **`makedog` role petnames + `christen_monst`** (D-0079); CORPSE age→POISON + `cursed_object_at` in `dog_goal` (D-0015); `dog_move` uncursedcnt/`cursemsg` pline (D-0017/D-0019); `m_cansee` in `find_targ` (D-0018); `dog_invent` `mpickobj`+drop RNG + tseen `rn2(40)` (D-0019); `splitobj` when `carryamt != quan` (D-0028); **pet `relobj`/`mdrop_obj`** (D-0029); **`in_masters_sight = couldsee`** (D-0030); **`m_avoid_kicked_loc`** (D-0032); **drop/pickup plines gated on `cansee`** (D-0038); omit food `newdogpos` eat, gettrack/FARAWAY when `!in_masters_sight`, `flooreffects`/`stackobj` merge, vault-guard gold, worn/saddle/shop extrinsics; pony `put_saddle_on_mon`/`see_monster_closeup`; **`mtrack` skip uses inner `continue` (should be candidate skip / C `goto nxti`)**; seed1500 RNG complete (D-0021); seed0060 **PASS** (D-0041); seed0700 **PASS** (D-0079) |
 | `src/uhitm.c`, `src/mhitm.c` | `js/uhitm.js`, `js/mhitm.js` | partial | Narrow pet combat paths; **`mondead`/`newsym` on kill** (D-0037); **`make_corpse` body deferred** (still burns `corpse_chance`); general combat absent |

@@ -96,6 +96,7 @@ Do not record a guessed cause as fixed merely because an RNG prefix moved.
 | D-0090 | fixed | pager/dowhatdoes | tip+`What command?`+`key2extcmddesc`; seed2200 Scr 167→176 |
 | D-0091 | fixed | options/help | `option_help`/`next_opt` + optlist extract; seed2200 Scr 176→199 |
 | D-0092 | fixed | mklev/themerooms | `in_mk_themerooms` for `check_room` abort; seed0017 still @3132 |
+| D-0093 | fixed | dothrow/getdir | flush `--More--` before getdir + Caveman multishot; seed1150 3032→3042 |
 
 D-0001 through D-0005 predate the strict-length/cohort runbook. Their focused
 causes are preserved, but generic "green sessions held" is historical evidence,
@@ -2479,3 +2480,30 @@ cohort gates if those functions are touched again.
   inactive (`distminU=3`).
 - **Next:** compare first-room `dx`/`xabs` / `split_rects` vs C map
   east-door x; or seed1150 @ 3032 `throw_obj`.
+
+## D-0093 — getdir flush `--More--` + throw_obj multishot
+
+- **Status:** fixed
+- **Observed:** seed1150 @ **3032**: C `rnd(2)` @ `throw_obj` vs JS
+  `rn2(5)` `distfleeck`. C sequence: fireassist swap `--More--`s,
+  pet-drop `--More--`, getdir, `l` → “You shoot 2 flint stones.”
+  JS skipped `more()` before getdir so the pet-drop space cancelled
+  getdir and `l` walked.
+- **C locus:** `cmd.c` `yn_function`/`tty_yn_function` (more when
+  `TOPLINE_NEED_MORE`); `dothrow.c` `throw_obj` multishot +
+  `multishot_class_bonus` (PM_CAVE_DWELLER −P_SLING/P_SPEAR).
+- **Change:** `js/dothrow.js` `getdir_cmdassist` → `flush_topl_more()`
+  before prompt; `throw_obj` ports volley calc + class bonus +
+  `rnd(multishot)` + shoot pline.
+- **Verification:** green + cohort PASS + strict; seed1800 PASS;
+  seed1150 prefix **3032→3042** (rng-diff), positional **3070**/3137
+  Scr **22**/51; full **7/44**, screens **568**/11405, RNG
+  **91398**/792838.
+- **Rejected:** “seed0017 room x-shift” — display `setCell(x-1)`;
+  C screen fountain col 31 ≡ JS map x 32. seed0017 still @ 3132
+  (`mfndpos` cnt).
+- **Named omission:** full `xname`/`singular` for volley pline
+  (doname stand-in); ACURRSTR crossbow gate; quest-artifact launcher
+  bonus; `weapon_skills` init beyond defaults.
+- **Next:** seed1150 @ 3042 extra `obj_resists` before `dog_move`;
+  seed0017 mfndpos neighbour; seed2200 post-help.

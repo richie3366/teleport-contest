@@ -7,21 +7,20 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 
 ## Active
 
-- **Current unit:** seed0017 @ 3132 terrain (D-0092 set
-  `in_mk_themerooms` but did **not** move the peel). Prefer seed0017
-  room geometry / seed1150 `throw_obj` @ 3032 / seed2200 post-help.
-- **Hypothesis (seed0017 @ 3132):** JS room at creation-order[0] is
-  `lx=31,hx=35` (east door 36, fountain 32, west VWALL @30,4). C map
-  (DEC `~`≡room floor) has east door **35**, fountain **31**, walkable
-  **(30,4)** — same relative fill, absolute x shifted/narrower. Not
-  mtrack; not `in_mk_themerooms` shrink (no effect this seed). Find
-  non-RNG or earlier create_room/`split_rects` geometry cause.
-- **Falsifier / next probe:**
+- **Current unit:** seed1150 @ 3042 post-throw (extra JS `obj_resists`
+  before C `dog_move`). Prefer that / seed0017 mfndpos / seed2200
+  post-help.
+- **Hypothesis (seed1150 @ 3042):** after fire volley, JS dog_goal (or
+  throw aftermath) burns one more `obj_resists` than C before
+  `dog_move` rn2(12). Compare fobj walk / could_reach after flint land.
+- **Falsifier:**
   ```bash
-  node scripts/rng-diff.mjs sessions/seed0017-samurai-altar-pray.session.json
+  node scripts/rng-diff.mjs sessions/seed1150-caveman-explore-move.session.json
   ```
-  Dump C-vs-JS first-room `dx`/`xabs` (or compare east-door x after
-  `makecorridors`). Or peel seed1150 @ 3032 `throw_obj` vs JS `rn2(5)`.
+- **seed0017 @ 3132 (parked this iter):** pet (30,5) D_NODOOR,
+  `mfndpos` cnt=4 vs C needing 5 for 3×`rn2(12)`. Screen col = map_x−1
+  (display `setCell(x-1)`); C fountain screen 31 ≡ map 32 — **not** a
+  room x-shift. Likely missing passable neighbour (30,4) or equivalent.
 - **Parked deep canary:** D-0006 pet movement — do not implement until C
   state/candidate capture exists.
 
@@ -118,6 +117,13 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 - seed0017 DEC `~` is **room floor** (`screen-decode` maps DEC `~`→`·`),
   not pool. D_NODOOR also paints as `~`. (30,4) walkable in C vs JS
   VWALL; `in_mk_themerooms` alone does not fix (D-0092).
+- **seed0017 room x-shift theory falsified** — display paints map at
+  `x-1`; C screen fountain col 31 ≡ JS level fountain x=32 (D-0093
+  side note). Peel remains mfndpos neighbour count.
+- seed1150 @ 3032 was **not** missing `f` binding — getdir saw a
+  space that C used for pet-drop `--More--` because JS
+  `getdir`/`yn_function` skipped `more()` on `TOPLINE_NEED_MORE`
+  (D-0093). Also needed Caveman `multishot_class_bonus` + `rnd(multishot)`.
 - `more()` word-wrap of message text must only fire when len≥CO —
   wrapping at CO-8 breaks welcome `--More--` (seed0900).
 
@@ -192,3 +198,7 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 - `gi.in_mk_themerooms` must be true for the whole themerms
   `themerooms_generate` call so `check_room` aborts (no shrink) on
   non-STONE (D-0092).
+- C `tty_yn_function` / getdir: if `toplin == TOPLINE_NEED_MORE`,
+  call `more()` **before** printing the direction prompt (D-0093).
+- Caveman sling flint: `multishot_class_bonus` +1 for `-P_SLING` /
+  `P_SPEAR`; then `multishot = rnd(multishot)` (D-0093).

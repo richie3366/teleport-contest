@@ -23,6 +23,20 @@ Use this shape:
 
 ---
 
+---
+
+## 2026-07-13 06:25 — seed1150 getdir more + multishot (D-0093)
+- C locus: `cmd.c`/`topl.c` yn_function more-before-prompt;
+  `dothrow.c` `throw_obj` / `multishot_class_bonus`
+- Result: **verified faithful change** — `flush_topl_more` before
+  getdir; Caveman sling volley `rnd(multishot)`. seed0017 room-shift
+  theory falsified (display x−1).
+- Verification: green+strict PASS; cohort seed1500/1800/0060/0102/0700
+  PASS; seed1150 prefix 3032→3042 / pos 3070; full 7/44 Scr 568 RNG
+  91398
+- Next: `node scripts/rng-diff.mjs sessions/seed1150-caveman-explore-move.session.json`
+  (extra obj_resists @ 3042)
+
 ## 2026-07-13 06:05 — seed0017 terrain + in_mk_themerooms (D-0092)
 - C locus: `mklev.c` `makerooms` / `sp_lev.c` `check_room`
   (`gi.in_mk_themerooms`); symptom `dogmove.c` `dog_move` @ 3132
