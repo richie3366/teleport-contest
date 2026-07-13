@@ -38,8 +38,8 @@ frozen-file overlay):
 | Metric | Value |
 |--------|------:|
 | Sessions passing | **8 / 44** |
-| Screens matched | **598 / 11,405** (5.24%) |
-| Positional RNG calls matched | **91,540 / 792,838** (11.55%) |
+| Screens matched | **599 / 11,405** (5.25%) |
+| Positional RNG calls matched | **91,965 / 792,838** (11.60%) |
 | Speed label | `18+0.08/turn` |
 | Working-tree base | `8b71735` + committed port (see `main`) |
 | Role-init throws | **0 / 44** (`u_init_role: role not ported`) |
@@ -61,7 +61,7 @@ shared blockers, and semantic coverage together—not one vanity metric.
 | `seed0700-samurai-explore-descend` | **3230 / 3230** | **51 / 51** |
 | `seed1150-caveman-explore-move` | **3137 / 3137** | **51 / 51** |
 | `seed2200-wizard-quaff-zap-read` | **3018 / 3018** | **199 / 230** |
-| `seed0017-samurai-altar-pray` | **3327 / 3465** | **2 / 67** |
+| `seed0017-samurai-altar-pray` | **3465 / 3465** | **2 / 67** |
 | `seed0030-ten-diverse-deaths` | **7036 / 105529** | **40 / 1953** |
 | `seed0103-knight-ride-pony` | **2344 / 2640** | 1 / 60 |
 | `seed0200-monk-north-search` | **1548 / 3822** | 0 / 40 |
@@ -69,7 +69,7 @@ shared blockers, and semantic coverage together—not one vanity metric.
 | `seed0016-healer-newmoon-eat-zap` | **2544 / 3656** | **5 / 36** |
 | `seed0107-samurai-twoweapon-enhance` | **2679 / 2902** | 1 / 98 |
 | `seed0104-knight-ride-combat` | **2401 / 3223** | 1 / 43 |
-| `seed0106-priest-extcmd-sweep` | **2580 / 4194** | 2 / 267 |
+| `seed0106-priest-extcmd-sweep` | **2865 / 4194** | 3 / 267 |
 | `seed0361-archeologist-tour` | **3297 / 53865** | 0 / 366 |
 | `seed0373-barbarian-quest-tour` | **2555 / 35386** | 0 / 124 |
 | `seed0105-valk-chat-lamp-ration` | **987 / 2499** | 0 / 30 |
@@ -111,16 +111,17 @@ autoopen `doopen_indir` (D-0059), `mfndpos` BOULDER/`NODIAG`
 **`stackobj` after throw/drop** (D-0094), and
 **`spoteffects`/`check_here`/`look_here` + Monnam** (D-0095), and
 **`newsym` waslit + out-of-sight `S_litcorr`→`S_corr`** (D-0096), and
-**GemStone `xname` + throw volley + ^X gender/MC** (D-0097)
+**GemStone `xname` + throw volley + ^X gender/MC** (D-0097), and
+**`#pray`/`prayer_done`/`angrygods`** (D-0101)
 clear shared peels. seed2200 RNG **full**; Scr **199**/230 (next:
-seed0017 mfndpos; screen 158 RC path residual).
-seed0017 next @ 3327 `prayer_done`; seed0030 next
-`maybe_smudge_engr` @ 6732. Healer seed0016 next `next_ident` @
-2493. Priest seed0501 still `wipeout_text`. seed0015/0200 next
-`lspo_map`. seed0101 next `next_ident`. seed0013 still breaks
-earlier in Lua/`sp_lev`. seed0103 next `next_ident`/`trquan` @
-2337. seed0361/0373 `getbones` blocked on unbound `^V`/
-`goto_level`/`makemaz`.
+seed0017 Scr / screen 158 RC path residual).
+seed0017 RNG **full**; Scr **2**/67 (legacy/Book). seed0106 next
+`do_attack` @ 2639. seed0030 next `maybe_smudge_engr`. Healer
+seed0016 next `next_ident` @ 2493. Priest seed0501 still
+`wipeout_text`. seed0015/0200 next `lspo_map`. seed0101 next
+`next_ident`. seed0013 still breaks earlier in Lua/`sp_lev`.
+seed0103 next `next_ident`/`trquan` @ 2337. seed0361/0373
+`getbones` blocked on unbound `^V`/`goto_level`/`makemaz`.
 
 ### Green gate
 
@@ -190,20 +191,21 @@ autoopen `doopen_indir` (D-0059) + `mfndpos` BOULDER/`ALLOW_ROCK` +
 **GemStone `xname` + throw volley + ^X gender/MC** (D-0097) +
 **dog_move mtrack `goto nxti`** (D-0098) +
 **post-fill `wallification`** (D-0100) +
-**dog_goal `gettrack`** (D-0099)
+**dog_goal `gettrack`** (D-0099) +
+**`#pray`/`dopray`/`prayer_done`/`angrygods` 0–3** (D-0101)
 **ported**. Eight public sessions pass end-to-end. **0/44** throw at
-`u_init_role`. seed0700 + seed1150 **PASS**. seed0017 prefix
-**3327** (`prayer_done`); C recorder falsified (30,4) terrain —
-real cause was `!couldsee`→`gettrack`. seed2200 RNG **full** (Scr
-**199**/230 — next residual help RC / seed0017 pray).
+`u_init_role`. seed0700 + seed1150 **PASS**. seed0017 RNG **full**
+(Scr **2**/67 — legacy/Book); seed0106 prefix **2639** (`do_attack`);
+seed2200 RNG **full** (Scr **199**/230).
 
-- **Bounded unit:** seed0017 @ 3327 — `#pray` / `prayer_done`
-  (`pray.c`). Then seed2200 post-help / seed0501/0105 `wipeout_text` /
-  seed0015/0200 `lspo_map` / seed0101 `next_ident` / seed0103
-  `next_ident`/`trquan` / seed0030 `maybe_smudge_engr` / seed0361/0373
-  **`getbones`** (blocked: need `^V`→`goto_level`→`makemaz` first).
-- **Prefer:** seed0017 `prayer_done` over parked D-0006 and over
-  hardcoding recording RC paths.
+- **Bounded unit:** seed0017 Scr (legacy/Book/`questpgr`) or
+  seed2200 post-help Scr 199 / seed0106 @ 2639 `do_attack` /
+  seed0501/0105 `wipeout_text` / seed0015/0200 `lspo_map` /
+  seed0101 `next_ident` / seed0103 `next_ident`/`trquan` /
+  seed0030 `maybe_smudge_engr` / seed0361/0373 **`getbones`**
+  (blocked: need `^V`→`goto_level`→`makemaz` first).
+- **Prefer:** seed0017 screen peel or seed2200 Scr residual over
+  parked D-0006.
 - **Named omissions:** Wizard/Priest/Healer `initialspell`; Knight/
   Samurai/Healer/Valkyrie/Ranger/Monk/Archeologist/Barbarian/Caveman
   `skill_init`; full `x_monnam` hallu/invis/saddle/shk; pony saddle/
@@ -244,7 +246,9 @@ real cause was `!couldsee`→`gettrack`. seed2200 RNG **full** (Scr
   artifact wield intrinsics; wield poly/corpse/bimanual/weld-pline/
   swap/quiver ynq; other `peffect_*` / IMMEDIATE·RAY `dozap` /
   other `seffect_*` / `study_book` / non-hands `doengrave` stylus /
-  engraving glyphs / multi-turn dulling; …
+  engraving glyphs / multi-turn dulling; prayer `in_trouble` body /
+  `pleased`/crown/fix-trouble / angrygods 4+ / sacrifice / `#turn`;
+  …
 - **Cohort:** green gate + seed1500 + seed1800 + seed0060 + seed0102
   + seed0700 + seed1150 (must stay PASS) + strict lengths.
 
@@ -525,6 +529,10 @@ Module status, constitutional debt, and named omissions live in
     `!couldsee`→gettrack `gg=(29,5)`; seed0017 prefix **3132→3327**;
     aggregate RNG **91410→91540**; screens **598**; green cohort PASS;
     next seed0017 `prayer_done` @ 3327
+83. `#pray`/`prayer_done`/`angrygods` 0–3 (D-0101) — seed0017 RNG
+    **3465**/3465 Scr **2**/67; seed0106 prefix **2639** (`do_attack`);
+    aggregate RNG **91540→91965**; screens **598→599**; green cohort
+    PASS; next seed0017 Scr / seed2200 Scr 199 / seed0106 @ 2639
 
 Next work is selected from the active objectives above using
 `PORTING-RUNBOOK.md`, not by extending this historical list.

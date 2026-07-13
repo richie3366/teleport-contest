@@ -65,6 +65,15 @@ const EXT_CMDS = [
         },
     },
     {
+        name: 'pray',
+        wiz: false,
+        autocomplete: true,
+        run: async () => {
+            const { dopray } = await import('./pray.js');
+            return dopray();
+        },
+    },
+    {
         name: 'levelchange',
         wiz: true,
         autocomplete: true,
@@ -157,15 +166,16 @@ export async function get_ext_cmd() {
     return idx;
 }
 
-/** C ref: cmd.c doextcmd */
+/** C ref: cmd.c doextcmd — returns callee ECMD_* (pray → ECMD_TIME). */
 export async function doextcmd() {
     const idx = await get_ext_cmd();
-    if (idx < 0) return;
+    if (idx < 0) return 0; // ECMD_OK
     const ec = availableExtCmds()[idx];
-    if (!ec) return;
+    if (!ec) return 0;
     if (ec.wiz && !wizardMode()) {
         await pline(`That is a wizard-mode command.`);
-        return;
+        return 0;
     }
-    await ec.run();
+    const res = await ec.run();
+    return res | 0;
 }

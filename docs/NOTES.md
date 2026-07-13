@@ -7,15 +7,16 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 
 ## Active
 
-- **Current unit:** seed0017 @ **3327** — C `prayer_done` (`pray.c`)
-  `rn2(1000)` after altar pray; JS emits nothing (unbound/`#pray` body).
-- **Hypothesis:** session keys reach `#pray` / altar prayer completion; JS
-  lacks `prayer_done` RNG (and likely `dopray`/`prayer_done` port).
+- **Current unit:** seed0017 RNG **full** after `#pray`/`prayer_done` (D-0101).
+  Session still FAIL on screens (**2**/67). First cell mismatch is early
+  Book/legacy (idx 0), not the pray topline — need a real screen-diff peel.
+- **Hypothesis:** seed0017 Scr gap is legacy/Book/`questpgr` (or early
+  map), not missing `prayer_done` RNG.
 - **Falsifier / next:**
   ```bash
-  node scripts/rng-diff.mjs sessions/seed0017-samurai-altar-pray.session.json
+  node frozen/ps_test_runner.mjs sessions/seed0017-samurai-altar-pray.session.json
   ```
-  Confirm C caller stack around 3327 and whether JS binds `#pray`.
+  Or pivot: seed2200 Scr 199 / seed0106 @ 2639 `do_attack` after pray.
 - **Parked deep canary:** D-0006 pet movement — do not implement until C
   state/candidate capture exists.
 
@@ -120,6 +121,9 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   `gettrack` → `gg=(29,5)` → 3× `rn2(12)` after nidist update (D-0099).
   Probe CORR@(30,4)→3142 was a false positive (extra farther cell).
 - **Post-fill `wallification` is not the (30,4) writer** (D-0100).
+- **seed0017 @3327 was unbound `#pray`** — C `prayer_done` `rnz(250)`
+  (p_type 0 too-soon) → `gods_upset`/`angrygods` (D-0101).
+  `doextcmd` must return callee `ECMD_TIME` so `#pray` keeps `move`.
 - seed1150 @ 3032 was **not** missing `f` binding — getdir saw a
   space that C used for pet-drop `--More--` because JS
   `getdir`/`yn_function` skipped `more()` on `TOPLINE_NEED_MORE`
@@ -237,3 +241,8 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   `gettrack` redirects `gg` to an adjacent track cell (D-0099).
   After selecting a closer cell, former equal-distance cells become
   farther → extra `rn2(12)`.
+- `#pray` / `ublesscnt=300` → `can_pray` p_type **0** (too soon) even
+  on coaligned altar; `prayer_done` → `rnz(250)` + `change_luck(-3)` +
+  `gods_upset` → `angrygods` (D-0101). With `initrecord>=STRIDENT(4)`
+  and Luck=-3 after change, `maxanger=4`. Cases 0/1 displeased; 2/3
+  `godvoice` `rn2(4)` then relearn/`losexp` (no RNG) then `rnz(300)`.

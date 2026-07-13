@@ -104,6 +104,7 @@ Do not record a guessed cause as fixed merely because an RNG prefix moved.
 | D-0098 | fixed | dog_move mtrack | `goto nxti` candidate skip (was inner `continue`) |
 | D-0099 | fixed | dog_goal gettrack | `!couldsee` → gettrack gg; not missing (30,4) terrain |
 | D-0100 | fixed | mklev wallification | post-fill full-map `wallification` like C `themerooms_post`; not (30,4) |
+| D-0101 | fixed | `#pray` / prayer_done | unbound extcmd; p_type 0 → rnz(250)+angrygods |
 
 D-0001 through D-0005 predate the strict-length/cohort runbook. Their focused
 causes are preserved, but generic "green sessions held" is historical evidence,
@@ -2669,4 +2670,28 @@ cohort gates if those functions are touched again.
   0700/1150 PASS; full **8/44** Scr **598** RNG **91410**; seed0017
   still **3132** — wallification is not the (30,4) writer.
 - **Next:** seed0017 @ 3327 `prayer_done` (D-0099 gettrack cleared 3132).
+
+## D-0101 — seed0017 `#pray` / `prayer_done` / `angrygods`
+
+- **Status:** fixed
+- **Observed:** seed0017 @ **3327**: C `rn2(1000)` @ `prayer_done`
+  (`rnz(250)`) vs JS missing. Moves `#pray\n` after altar approach.
+- **C locus:** `pray.c` `dopray` / `can_pray` / `prayer_done` /
+  `gods_upset` / `angrygods` / `godvoice`; `cmd.c` `doextcmd` returns
+  callee `ECMD_*`.
+- **Cause:** JS had no `#pray` extcmd and no `pray.js`. With
+  `ublesscnt=300`, `can_pray` sets `p_type=0` (too soon) even on a
+  coaligned altar → `prayer_done` does `rnz(250)` + `change_luck(-3)`
+  + `gods_upset` → `angrygods`. Samurai `initrecord>=STRIDENT` +
+  Luck=-3 → `maxanger=4`; case 0 displeased then `rnz(300)`.
+- **Change:** new `js/pray.js` (`can_pray`/`dopray`/`prayer_done`/
+  `water_prayer`/`gods_upset`/`angrygods` cases 0–3/`godvoice`);
+  `getline.js` `#pray`; `doextcmd` returns ECMD; `cmd.js` `#` keeps
+  `move` on `ECMD_TIME`.
+- **Verification:** seed0017 RNG **3465**/3465 Scr **2**/67; seed0106
+  prefix **→2639** (`do_attack`); green+strict PASS; cohort
+  1500/1800/0060/0102/0700/1150 PASS; full **8/44** Scr **599** RNG
+  **91965**.
+- **Next:** seed0017 Scr (legacy/Book) / seed2200 Scr 199 / seed0106
+  @ 2639 `do_attack`.
 

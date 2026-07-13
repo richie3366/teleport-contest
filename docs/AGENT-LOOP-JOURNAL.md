@@ -21,6 +21,20 @@ Use this shape:
 
 ---
 
+## 2026-07-13 07:45 — #pray / prayer_done / angrygods (D-0101)
+- Objective: seed0017 @ 3327 `prayer_done` (PROGRESS primary).
+- C locus: `pray.c` `dopray`/`can_pray`/`prayer_done`/`gods_upset`/
+  `angrygods`/`godvoice`; `cmd.c` `doextcmd` ECMD return.
+- Result: **verified** — unbound `#pray`; `ublesscnt=300` → p_type 0
+  → `rnz(250)`+`gods_upset`. Ported `js/pray.js` + `#pray` +
+  `doextcmd` TIME; angrygods cases 0–3 (seed0106 case 2 godvoice).
+- Verification: seed0017 RNG **3465**/3465 Scr **2**/67; seed0106
+  **→2639**; green+strict PASS; cohort 1500/1800/0060/0102/0700/1150
+  PASS; full **8/44** Scr **599** RNG **91965**.
+- Next: seed0017 Scr peel or
+  `node scripts/rng-diff.mjs sessions/seed0106-priest-extcmd-sweep.session.json`
+  @ 2639 `do_attack` / seed2200 Scr 199.
+
 ## 2026-07-13 07:40 — dog_goal gettrack (D-0099)
 - Objective: seed0017 @ 3132 (PROGRESS primary); C typ dump first.
 - C locus: `dogmove.c:dog_goal` gettrack; `track.c`; recorder dump
