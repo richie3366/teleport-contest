@@ -7,17 +7,14 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 
 ## Active
 
-- **Current unit:** D-0139 cleared seed0105 map `` ` `` (`S_engroom`).
-  Scr **0→22**/30; RNG still **full**.
-- **Hypothesis / next:** remaining seed0105 misses are topline/cmd:
-  Scr @10 C `"It's like talking to a wall."` (chat into wall) blank in
-  JS; later screens eat `[d or ?*]` vs apply `[*]` prompt desync.
-  Prefer `#chat` wall pline, else eat/apply getobj, else `lspo_map` /
-  `next_ident`.
+- **Current unit:** D-0140/41/42 cleared seed0105 (**PASS** Scr 30/30).
+- **Hypothesis / next:** prefer `lspo_map` (seed0015/0200) or `next_ident`
+  (seed0101/0103) / seed0030 `maybe_smudge_engr`; `getbones` still blocked
+  on `^V`→`goto_level`→`makemaz`. Parked seed2200 RC @158.
 - **Falsifier / next:**
   ```bash
-  node frozen/ps_test_runner.mjs sessions/seed0105-valk-chat-lamp-ration.session.json
-  # expect Scr >22 once chat wall pline matches; or peel lspo_map/next_ident
+  node scripts/rng-diff.mjs sessions/seed0015-valk-level2-pit-dog-wait.session.json
+  # or seed0200 / seed0101 — expect first mismatch name; peel that C site
   ```
 - **Parked deep canary:** D-0006 pet movement — do not implement until C
   state/candidate capture exists.
@@ -163,6 +160,13 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 - **seed0105 bright-blue `` ` `` was NOT a gem/boulder** — vault niche
   engraving `S_engroom` (`` ` `` + CLR_BRIGHT_BLUE); set `erevealed` on
   cansee then map_engraving (D-0139). Do not invent floor objects.
+- **seed0105 Scr @10 blank was deferred wall chat** — C `dochat` wall/
+  SDOOR pline when no mon (D-0140). Do not invent a fake floor talker.
+- **seed0105 apply `[*]` vs "don't have anything"** — empty SUGGEST must
+  early-return like C `getobj` (D-0141); do not prompt `[*]`.
+- **seed0105 eat missing-letter must `continue`** — C loops; next
+  `yn_function` flushes NEED_MORE → `--More--` (D-0142). Do not return
+  null on first bad letter.
 
 ## Landmarks
 
@@ -251,3 +255,10 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 - `S_engroom` = ASCII `` ` `` + CLR_BRIGHT_BLUE; `S_engrcorr` = `#` +
   same; need `erevealed` (set on cansee) before `_map_location` paints
   (D-0139).
+- `#chat` wall: `!Deaf && (IS_WALL||SDOOR)` → `"It's like talking to a
+  wall."`; Blind needs `IS_WALL(lastseentyp)`; Hallu `rn2(10)` walltalk
+  (D-0140).
+- `getobj` empty SUGGEST + !forceprompt + !allownone → `You don't have
+  anything to <word>.` (D-0141).
+- `getobj` missing letter: `You("don't have…")` + `continue`; next
+  `yn_function` calls `more()` when NEED_MORE (D-0142).

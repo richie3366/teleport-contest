@@ -143,6 +143,9 @@ Do not record a guessed cause as fixed merely because an RNG prefix moved.
 | D-0137 | fixed | insight/^X | female `urole.name.f`/`rank.f`; seed0501 **PASS** |
 | D-0138 | fixed | roles/welcome | C `name.f=0` + welcome gender gate; Valkyrie no `female` |
 | D-0139 | fixed | display/engrave | `S_engroom`/`S_engrcorr` in `newsym`; seed0105 Scr 0→22 |
+| D-0140 | fixed | sounds/dochat | wall/SDOOR + statue talk; seed0105 wall pline |
+| D-0141 | fixed | invent/apply getobj | empty SUGGEST → "don't have anything to use or apply" |
+| D-0142 | fixed | invent/eat getobj | missing-letter `continue` + NEED_MORE `--More--`; seed0105 **PASS** |
 
 D-0001 through D-0005 predate the strict-length/cohort runbook. Their focused
 causes are preserved, but generic "green sessions held" is historical evidence,
@@ -3738,3 +3741,57 @@ cohort gates if those functions are touched again.
   cohort PASS; full **12/44** Scr **1198→1231** RNG **107134**.
 - **Next:** seed0105 `#chat` `"It's like talking to a wall."` / eat·apply
   getobj, or `lspo_map` / `next_ident`.
+
+## D-0140 — dochat wall / SDOOR / statue talk
+
+- **Status:** fixed
+- **Observed:** seed0105 Scr @10 blank vs C `"It's like talking to a
+  wall."` after `#chat` + direction into wall.
+- **Cause/evidence:** JS `dochat` returned `ECMD_OK` silently when
+  `!mtmp`; C ports statue then `!Deaf && (IS_WALL||SDOOR)` pline
+  (Blind `lastseentyp` gate; Hallu `rn2(10)` walltalk).
+- **C locus:** `sounds.c` `dochat`.
+- **Change:** `js/sounds.js` — statue notice; wall/SDOOR envelope with
+  Blind/`lastseentyp` + non-hallu pline + hallu walltalk.
+- **Verification:** seed0105 Scr **22→23**/30 (wall matched); green
+  held; next peel was empty apply getobj.
+- **Named omission:** shop `price_quote`; usteed; is_silent/Strangled/
+  uswallow/Underwater; Hallu statue `rndmonnam`; other MS_*.
+- **Next:** apply empty getobj (D-0141).
+
+## D-0141 — getobj apply empty SUGGEST early return
+
+- **Status:** fixed
+- **Observed:** seed0105 after wall: C `"You don't have anything to use
+  or apply."` vs JS `"What do you want to use or apply? [*]"`.
+- **Cause/evidence:** C `getobj` when `suggested==0 && !forceprompt &&
+  !allownone` early-returns; JS prompted `[*]` with empty TOOL_CLASS
+  lets (no lamp this seed) and ate following `e` as invent letter.
+- **C locus:** `invent.c` `getobj`; `apply.c` `apply_ok`/`doapply`.
+- **Change:** `js/apply.js` — empty `apply_lets` → pline + null (no
+  prompt).
+- **Verification:** seed0105 apply screen matched; eat prompt then
+  desynced on missing-letter (D-0142).
+- **Named omission:** full `apply_ok` DOWNPLAY (coins/unknown potions)
+  that would set `forceprompt` and allow `[*]`.
+- **Next:** eat getobj missing-letter loop (D-0142).
+
+## D-0142 — getobj eat missing-letter continue + --More--
+
+- **Status:** fixed
+- **Observed:** seed0105 after apply: C `"You don't have that
+  object.--More--"` (getobj loop) vs JS single-shot return then key leak
+  (`Unknown command 'd'`).
+- **Cause/evidence:** C `getobj` `continue`s after missing letter;
+  `You()` sets NEED_MORE; next `yn_function` calls `more()`. JS
+  returned null on first bad letter.
+- **C locus:** `invent.c` `getobj`; `topl.c` `tty_yn_function`/`more`.
+- **Change:** `js/eat.js` — `yn_function` free-letter loop; missing
+  letter pline + continue; empty edibles early-return.
+- **Verification:** seed0105 **PASS** (RNG 2499/2499 Scr 30/30);
+  green+strict PASS; cohort 1500/1800/0060/0102/0700/1150/0017/0077/
+  0106/0501/0105 PASS; full **13/44** Scr **1231→1239** RNG
+  **107134→106907**.
+- **Named omission:** ordinary food nutrition/occupation; eat `?`/`*`
+  menu; full `is_edible`.
+- **Next:** `lspo_map` / `next_ident` / `maybe_smudge_engr`.

@@ -37,10 +37,10 @@ frozen-file overlay):
 
 | Metric | Value |
 |--------|------:|
-| Sessions passing | **12 / 44** |
-| Screens matched | **1231 / 11,405** (10.79%) |
-| Positional RNG calls matched | **107,134 / 792,838** (13.51%) |
-| Speed label | `19+0.09/turn` |
+| Sessions passing | **13 / 44** |
+| Screens matched | **1239 / 11,405** (10.86%) |
+| Positional RNG calls matched | **106,907 / 792,838** (13.48%) |
+| Speed label | `18+0.08/turn` |
 | Working-tree base | `8b71735` + committed port (see `main`) |
 | Role-init throws | **0 / 44** (`u_init_role: role not ported`) |
 
@@ -64,7 +64,7 @@ shared blockers, and semantic coverage together—not one vanity metric.
 | `seed0501-priest-cast-read-turn` | **2238 / 2238** | **28 / 28** |
 | `seed2200-wizard-quaff-zap-read` | **3018 / 3018** | **229 / 230** |
 | `seed0017-samurai-altar-pray` | **3465 / 3465** | **67 / 67** |
-| `seed0030-ten-diverse-deaths` | **7085 / 105529** | **97 / 1953** |
+| `seed0030-ten-diverse-deaths` | **7054 / 105529** | **109 / 1953** |
 | `seed0103-knight-ride-pony` | **2344 / 2640** | 2 / 60 |
 | `seed0200-monk-north-search` | **1540 / 3822** | 0 / 40 |
 | `seed0101-ranger-quiver-throw-travel-engrave` | **2306 / 2371** | 4 / 27 |
@@ -73,14 +73,14 @@ shared blockers, and semantic coverage together—not one vanity metric.
 | `seed0104-knight-ride-combat` | **2394 / 3223** | 1 / 43 |
 | `seed0361-archeologist-tour` | **3293 / 53865** | 0 / 366 |
 | `seed0373-barbarian-quest-tour` | **2555 / 35386** | 0 / 124 |
-| `seed0105-valk-chat-lamp-ration` | **2499 / 2499** | **22 / 30** |
+| `seed0105-valk-chat-lamp-ration` | **2499 / 2499** | **30 / 30** |
 | `seed0015-valk-level2-pit-dog-wait` | **363 / 8563** | 1 / 44 |
 | `seed0077-rogue-chargen` | **3242 / 3242** | **33 / 33** |
 | `seed0013-rogue-friday13-combat` | **522 / 4838** | 1 / 59 |
 
 seed8000 + seed0900 + seed1500 + seed1800 + seed0060 + seed0102 +
-seed0700 + seed1150 + seed0017 + seed0077 + seed0106 + seed0501 pass
-end-to-end.
+seed0700 + seed1150 + seed0017 + seed0077 + seed0106 + seed0501 +
+seed0105 pass end-to-end.
 `choose_trapnote`/`hole_destination` (D-0054), `SPBOOK_no_NOVEL`
 (D-0055), roles `initrecord` (D-0056), CORPSE `G_NOCORPSE` retry
 (D-0057), `adjabil`/`u_calc_moveamt` Fast (D-0058), `rnl` +
@@ -181,7 +181,9 @@ public **12/44**.
 **roles `name.f=null` + welcome gender gate** (D-0138) → seed0105
 welcome matches C; Scr still **0**/30 (map `` ` ``); scores unchanged.
 **`newsym` `S_engroom`/`S_engrcorr`** (D-0139) → seed0105 Scr
-**0→22**/30; Scr **1198→1231**; RNG unchanged; remaining chat/eat.
+**0→22**/30; screens **1198→1231**; RNG unchanged; remaining chat/eat.
+**`#chat` wall + apply/eat getobj** (D-0140/41/42) → seed0105 **PASS**;
+public **13/44**; Scr **1231→1239**; RNG **107134→106907**.
 
 ### Green gate
 
@@ -293,18 +295,20 @@ autoopen `doopen_indir` (D-0059) + `mfndpos` BOULDER/`ALLOW_ROCK` +
 **^X female `urole.name.f`/`rank.f`** (D-0137)
 **roles `name.f=null` + welcome `!name.f`+both-genders** (D-0138)
 **`newsym` `S_engroom`/`S_engrcorr`** (D-0139)
-**ported**. Twelve public sessions pass end-to-end. **0/44** throw at
+**`#chat` wall/SDOOR/statue** (D-0140)
+**apply getobj empty SUGGEST** (D-0141)
+**eat getobj missing-letter loop** (D-0142)
+**ported**. Thirteen public sessions pass end-to-end. **0/44** throw at
 `u_init_role`. seed0700 + seed1150 + seed0017 + seed0077 + seed0106 +
-seed0501 **PASS**. seed2200 RNG **full** (Scr **229**/230; sole miss
-parked RC @158). seed0105 RNG **full** (Scr **22**/30; next chat wall /
-eat·apply).
+seed0501 + seed0105 **PASS**. seed2200 RNG **full** (Scr **229**/230; sole
+miss parked RC @158).
 
-- **Bounded unit:** seed0105 `#chat` wall / eat·apply / seed0015/0200
-  `lspo_map` / seed0101 `next_ident` / seed0103 `next_ident`/`trquan` /
-  seed0030 `maybe_smudge_engr` / seed0361/0373 **`getbones`**
-  (blocked: need `^V`→`goto_level`→`makemaz` first).
-- **Prefer:** seed0105 chat/eat / `lspo_map` / `next_ident` over parked
-  D-0006 and over baking seed2200 RC paths.
+- **Bounded unit:** seed0015/0200 `lspo_map` / seed0101 `next_ident` /
+  seed0103 `next_ident`/`trquan` / seed0030 `maybe_smudge_engr` /
+  seed0361/0373 **`getbones`** (blocked: need `^V`→`goto_level`→
+  `makemaz` first).
+- **Prefer:** `lspo_map` / `next_ident` over parked D-0006 and over
+  baking seed2200 RC paths.
 - **Named omissions:** study_book occupation/`learn` / novel/tribute /
   dull sleep / `cursed_book`/`confused_book`; spell swap/sort / other
   `spelleffects` otyps /
@@ -323,8 +327,9 @@ eat·apply).
   dokick monster/object/SDOOR/furniture/`martial`/shop-town/
   `b_trapped`; `set_wounded_legs` body; `showdamage`/death `done`;
   Upolyd eel `regen_hp` loss; `regen_pw`/Teleport/Poly once-per-turn;
-  `dog_goal` wantdoor `view_from` do_clear_area; `throw_gold`; eat getobj single-shot;
-  Blind/`look_here`; trap glyphs; hallucination/`see_objects`;
+  `dog_goal` wantdoor `view_from` do_clear_area; `throw_gold`; eat getobj
+  `?`/`*` menu; ordinary food nutrition/occupation; Blind/`look_here`;
+  trap glyphs; hallucination/`see_objects`;
   `u_init_carry_attr_boost`; mfndpos pool/lava/garlic/`bad_rock`
   squeeze / temple / iron bars; `m_can_break_boulder`; `ALLOW_WALL`;
   hostile `m_avoid_kicked_loc` wiring; Sokoban push-avoid; `donull`
@@ -357,8 +362,8 @@ eat·apply).
   `pleased`/crown/fix-trouble / angrygods 4+ /
   sacrifice / `#turn`;
   ParanoidConfirm "yes" getlin; interactive chargen rename-in-confirm /
-  filter UI; `#chat` other MS_*/shop/wall/priest/
-  `night()` howl; `hitval`/`mswings`/HTH `mon_wield`; full hero
+  filter UI; `#chat` other MS_*/shop/priest/`night()` howl; full
+  `apply_ok` DOWNPLAY; `hitval`/`mswings`/HTH `mon_wield`; full hero
   `attack_checks`/Cleaver/twoweapon/`weapon_hit_bonus`/`P_SKILL`/
   `dbon`/passive/knockback-on-live; `pick_lock` CLOSED/LOCKED
   occupation/autounlock; incremental `dig_point`; full `load_symset`
@@ -371,7 +376,7 @@ eat·apply).
   wizard ^X next-level XP line; …
 - **Cohort:** green gate + seed1500 + seed1800 + seed0060 + seed0102
   + seed0700 + seed1150 + seed0017 + seed0077 + seed0106 + seed0501
-  (must stay PASS) + strict lengths.
+  + seed0105 (must stay PASS) + strict lengths.
 
 Focused survey:
 
@@ -807,6 +812,10 @@ Module status, constitutional debt, and named omissions live in
     — seed0105 Scr **0→22**/30; screens **1198→1231**; RNG **107134**;
     green cohort PASS; next seed0105 `#chat` wall / eat·apply /
     `lspo_map` / `next_ident`
+120. `#chat` wall + apply/eat getobj (D-0140/41/42)
+    — seed0105 **PASS**; public **13/44**; screens **1231→1239**;
+    RNG **107134→106907**; green cohort + seed0105 PASS; next
+    `lspo_map` / `next_ident` / `maybe_smudge_engr` / `getbones`
 
 Next work is selected from the active objectives above using
 `PORTING-RUNBOOK.md`, not by extending this historical list.

@@ -23,6 +23,19 @@ Use this shape:
 
 ---
 
+## 2026-07-13 14:16 — dochat wall + apply/eat getobj (D-0140/41/42)
+- Objective: seed0105 Scr after D-0139 (PROGRESS primary).
+- C locus: `sounds.c` `dochat`; `invent.c` `getobj`; `apply.c`
+  `doapply`; `topl.c` `tty_yn_function`/`more`.
+- Result: **verified** — wall/SDOOR talk pline; empty apply SUGGEST
+  early-return; eat getobj missing-letter `continue` + NEED_MORE
+  `--More--`. seed0105 **PASS**.
+- Verification: seed0105 RNG 2499/2499 Scr 30/30; green+strict PASS;
+  cohort 1500/1800/0060/0102/0700/1150/0017/0077/0106/0501/0105 PASS;
+  full **13/44** Scr **1239** RNG **106907**/792838.
+- Next: `lspo_map` (seed0015/0200) or `next_ident` (seed0101/0103);
+  else `maybe_smudge_engr` / `getbones` prerequisite.
+
 ## 2026-07-13 14:10 — newsym S_engroom/S_engrcorr (D-0139)
 - Objective: seed0105 bright-blue ASCII `` ` `` (PROGRESS primary).
 - C locus: `display.c` `newsym`/`map_engraving`/`_map_location`;

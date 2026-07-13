@@ -308,9 +308,11 @@ welcome text matches; Scr still **0**/30 (bright-blue ASCII `` ` ``);
 full **12/44** Scr **1198** RNG **107134**/792838.
 **`newsym` `S_engroom`/`S_engrcorr`** (D-0139) → seed0105 Scr
 **0→22**/30; full **12/44** Scr **1231** RNG **107134**/792838.
-Next peel: seed0105 `#chat` wall / eat·apply / seed0015/0200 `lspo_map` /
-seed0101/0103 `next_ident` / seed0030 `maybe_smudge_engr` /
-`getbones` (blocked on `^V`/`makemaz`) / parked seed2200 RC @158.
+**`#chat` wall + apply/eat getobj** (D-0140/41/42) → seed0105 **PASS**;
+full **13/44** Scr **1239** RNG **106907**/792838.
+Next peel: seed0015/0200 `lspo_map` / seed0101/0103 `next_ident` /
+seed0030 `maybe_smudge_engr` / `getbones` (blocked on `^V`/`makemaz`) /
+parked seed2200 RC @158.
 `make_corpse` body and `m_initinv` body still absent (named omissions).
 
 ## Data and world generation
@@ -355,8 +357,8 @@ seed0101/0103 `next_ident` / seed0030 `maybe_smudge_engr` /
 | `src/do_name.c` `oname` / `docallcmd` | `js/do_name.js` | partial | **artifact oname/`artifact_exists`** (D-0064); **`docallcmd` menu + cancel/floor stubs** (D-0069); **`christen_monst` + tame `x_monnam` subset** (D-0079); **`Monnam`/`noit_Monnam` MGIVENNAME→bare** (D-0095); omit invent/floor getobj/getpos bodies, full x_monnam hallu/invis/saddle/priest/shk, literate/shop/intrinsic side-effects |
 | `src/dokick.c` | `js/dokick.js` | partial | `dokick` + `kick_dumb` (D-0031); `kickedloc` (D-0032); **`kick_ouch` → `losehp`** (D-0035); **`kick_door` CLOSED/LOCKED `rnl(35)` bust** (D-0104); omit `kick_monster`/`kick_object`/SDOOR-SCORR open/furniture/`martial`/shop-town watchman/`b_trapped`/`wake_nearby`/`u_wipe_engr`/`set_wounded_legs`/`kickstr` terrain names |
 | `src/hack.c` `losehp`/`nomul`/`spoteffects`/`overexertion` | `js/hack.js`, `js/pickup.js`, `js/cmd.js` | partial | **`losehp` !Upolyd / Upolyd mh subtract** (D-0035); **`nomul`/`unmul` + afternmv** (D-0066); **`overexertion`→`gethungry`** (D-0107); **`domove`→`spoteffects`→`pickup`/`check_here` when `!flags.pickup`** (D-0095); `maybe_half_phys` identity until Half_physical prop; omit `showdamage`/`maybe_wail`/`done(DIED)` bodies; full `end_running`/`cmdq_clear`; encumber `overexert_hp`; pool/trap/sink/`mention_decor`/`autopick` arms |
-| `src/eat.c` | `js/eat.js` | partial | Cookie/reject subset; **`gethungry` accessorytime `rn2(20)`** (D-0107); getobj still single-shot (no missing-letter `continue`); ordinary eating/nutrition incomplete |
-| `src/apply.c` / `src/lock.c` | `js/apply.js`, `js/lock.js` | partial | `doapply` + `pick_lock` (D-0021); exported `getdir` for kick/apply; getobj missing-letter `continue`+`flush_topl_more` (D-0025); **`doopen_indir` CLOSED autoopen** (D-0059); **`doopen_indir`/`kick_door` `recalc_block_point`; `pick_lock` NODOOR/ISOPEN/BROKEN** (D-0113); omit sack/other tools, CLOSED/LOCKED lock occupation, interactive `o` getdir, `b_trapped`/autounlock, `feel_location` mapseen gating, container-at-feet |
+| `src/eat.c` | `js/eat.js` | partial | Cookie/reject subset; **`gethungry` accessorytime `rn2(20)`** (D-0107); **getobj missing-letter `continue` + empty early-return** (D-0142); ordinary food nutrition/occupation + `?`/`*` menu deferred |
+| `src/apply.c` / `src/lock.c` | `js/apply.js`, `js/lock.js` | partial | `doapply` + `pick_lock` (D-0021); exported `getdir` for kick/apply; getobj missing-letter `continue`+`flush_topl_more` (D-0025); **empty SUGGEST → "don't have anything"** (D-0141); **`doopen_indir` CLOSED autoopen** (D-0059); **`doopen_indir`/`kick_door` `recalc_block_point`; `pick_lock` NODOOR/ISOPEN/BROKEN** (D-0113); omit full `apply_ok` DOWNPLAY/wand/spbook/weapon/potion/food/graystone, sack/other tools, CLOSED/LOCKED lock occupation, interactive `o` getdir, `b_trapped`/autounlock, `feel_location` mapseen gating, container-at-feet |
 | `src/display.c` `newsym` / map | `js/display.js` | partial | Floor `vobj_at` + class symbols + CORPSE `mon_color` (D-0022); **live `mon_glyph` uses `mcolors[mnum]`** (D-0036; newt yellow); **`wall_angle` + seenv** (D-0038); upstairs `<` yellow / downstairs `>` NO_COLOR (D-0038); **`see_with_infrared`/`mon_visible` when `!cansee`** (D-0039; race Infravision via `mons[urace]`); **full MONSYM `MLET_CH` + FOUNTAIN/SINK/THRONE/ALTAR/GRAVE terrain** (D-0070); **`magic_map_background` + dark_room DARKROOMSYM≡S_room** (D-0075/D-0081); **STATUE `obj_glyph` → mons[corpsenm].mlet + `obj_color(STATUE)`** (D-0080); **`more()` word-wrap only when len≥CO** (D-0083); **`look_shown_at` for look_all glyph filter** (D-0087); **`waslit=(lit!=0)` + out-of-sight `S_litcorr`→`S_corr`** (D-0096); **DECgraphics open door meta-a / CLR_BROWN** (D-0113); **Primary ASCII vs `symset:DECgraphics` walls/floors/ndoor/open-door `horizontal`** (D-0115); **`obj_is_generic` + tty CLR_GRAY/BLACK→NO_COLOR** (D-0118); **`map_location_memory` under cansee+visible monster** (D-0120); **`update_lastseentyp` on cansee/`magic_map_background`** (D-0123); **`S_engroom`/`S_engrcorr` + `erevealed` on cansee** (D-0139); omit hero-underfoot `_map_location` (seed0060-sensitive), infrared `_map_location`, traps/hallucination/`see_objects`; hallu/`random_monster` statue; pile-top/gender statue offsets; telepathy/`Detect_monsters`/`MATCH_WARN_OF_MON`; full `set_uasmon`/uprops; pool/lava/ice/air/cloud terrain; ASCII `|`/`-` open-door when not DEC; ROOM→DARKROOMSYM memory arm in `newsym`; floor-see `dknown` timing for colored potions; DRAWBRIDGE_UP/furniture-mimic lastseentyp |
 | `src/questpgr.c` / tty menu | `js/questpgr.js` | partial | **legacy corner NHW_MENU `maxcol=strlen+1` + leading pad** (D-0071); **H2344_BROKEN offx** (D-0078); omit other pager outputs / pauper_legacy |
 | `src/invent.c` `look_here` / `dfeature_at` | `js/invent.js`, `js/mklev.js`, `js/pickup.js` | partial | Stairs via `stairs_description` + Dlvl1 `u_traversed` (D-0026); doors/fountain/sink stubs; **`check_here`→`look_here` after move when `!autopickup`** (D-0095); **`read_engr_at` from look_here / check_here ct==0** (D-0133); Blind feel, multi-object menu, `doname_with_price`, pile_limit skip deferred |
@@ -383,7 +385,7 @@ These are not protected merely because the two green sessions exercise them:
 |---|---|
 | `js/jsmain.js` capture hook | Detects Count/`--More--` text and repairs cursor at capture time; cursor semantics belong in input/display code |
 | `js/display.js` message paths | Contains scenario-derived cursor/layout special cases rather than complete window/message policy |
-| `js/eat.js` | Allowed-letter formatting, menu fallback, and eating are narrow subsets |
+| `js/eat.js` | Cookie + getobj missing-letter loop (D-0142); ordinary food nutrition/occupation still deferred |
 | `js/invent.js` | Corner invent + disco `*`/encounter + `obj_typename` (D-0040); ^X autopickup/limits/`weapon_descr` (D-0041); **Samurai disco + invent `observe_object`** (D-0079); **^X gender omit + Attributes MC warded** (D-0097); fullscreen invent and full magic enlightenment deferred |
 | `js/u_init.js` / `js/roles.js` | Rogue/Tourist/Wizard/Priest/Knight/Samurai/Healer/Valkyrie/Ranger/Monk/Archeologist/Barbarian/**Caveman** + human/orc(/elf/dwarf/gnome) race kits (D-0027/D-0042…/52); pantheon gods + C roles[] order; **race `hpadv`/`enadv` table** (D-0036); **roles `xlev` copied to `game.urole`** (D-0061); helm/gloves/boots/shield wear + Barbarian/Knight/Samurai/Valkyrie/Ranger/Monk `knows_class`/`HJumping`/`Japanese_item_name`/`is_ammo`/`is_launcher`/`is_spear`; Caveman FLINT/ROCK quiver; **`oc_skill`/`a_ac`/`oc_level` extracted**; dagger `knows_class` can migrate; **`skill_init` via `u_init_skills_discoveries`** (D-0122; Skill_T/R + all roles); **roles `spel*` + `initialspell`/`age_spells`/`dovspell` VIEW** (D-0129); **`skill_based_spellbook_id` + spelspec unrestrict** (D-0132); **`docast` SPE_HEALING** (D-0135); omit swap/sort/other cast otyps/`oc_charged` |
 | `js/allmain.js` | Welcome/HP/align no longer Tourist-literal; **`regen_hp` once-per-turn** (D-0035); tutorial, hunger, sound, and attribute checks still have deferred branches |
@@ -401,7 +403,7 @@ This is a planning list, not an exhaustive C file inventory:
 - complete role/race/gender/alignment initialization and skills;
 - hero-versus-monster and monster-versus-hero combat;
 - traps, riding, travel; prayer partial (`#pray` p_type 0 + angrygods 0–3);
-  chat partial (`#chat` empty + MS_BARK);
+  chat partial (`#chat` wall/SDOOR/statue + MS_BARK; other MS_*/shop/priest deferred);
 - kicking beyond empty-space/`kick_dumb`/`kick_door` CLOSED bust
   (monsters, objects, SDOOR/SCORR, furniture, martial/shop-town);
 - apply beyond lock-pick no-door (containers, other tools);
