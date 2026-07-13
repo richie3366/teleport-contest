@@ -337,7 +337,11 @@ function clear_level_structures() {
     const g = game;
     g.fmon = null;
     g.fobj = null;
+    // C: svl.level.objects[x][y] = 0 for all cells — JS spatial index
+    g._objects_at = new Map();
     g.ftrap = null;
+    // C savelev release_data clears head_engr when leaving a level
+    g.head_engr = null;
     g.level = new GameMap();
     g.level.nroom = 0;
     g.level.rooms = [];

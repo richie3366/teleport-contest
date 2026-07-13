@@ -19,6 +19,20 @@ Use this shape:
 
 ---
 
+## 2026-07-13 18:05 — clear _objects_at on level rebuild (D-0161)
+- Objective: seed0015 Scr @20 gold `$` on wall vs C DEC wall
+  (PROGRESS primary).
+- C locus: `mklev.c` `clear_level_structures` zeroes
+  `level.objects[][]`; `savelev` clears `head_engr`.
+- Result: **verified** — dlvl1 `mkgold` left ghost entry in
+  `game._objects_at`; dlvl2 HWALL at same coords painted `$`.
+  Clear `_objects_at` + `head_engr` with `fobj` in clear/goto_level.
+  Scr **23→24**/44; screen 20 match.
+- Verification: green+strict PASS; cohort 12 PASS; full **14/44**
+  Scr **1327** RNG **128105**.
+- Next: seed0015 upstairs `<` color @21, or seed0030
+  `maybe_smudge_engr` @6732, or seed0101 Scr residual.
+
 ## 2026-07-13 17:55 — goto_level descend --More-- (D-0160)
 - Objective: seed0015 Scr @19 descend without More / early Dlvl:2
   (PROGRESS primary).

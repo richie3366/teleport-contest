@@ -126,7 +126,9 @@ export async function goto_level(newlevel, at_stairs, falling, portal) {
     // Detach live map pointers; mklev/clear rebuilds them.
     game.fmon = null;
     game.fobj = null;
+    game._objects_at = new Map();
     game.ftrap = null;
+    game.head_engr = null;
     game.level = null;
 
     const info = game.level_info[new_ledger];

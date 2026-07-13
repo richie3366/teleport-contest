@@ -4314,3 +4314,32 @@ cohort gates if those functions are touched again.
   from the new `game.level` during that more().
 - **Next:** seed0015 Dlvl:2 gold `$` vs wall @ screen 20 /
   `maybe_smudge_engr` / seed0101 Scr residual.
+
+## D-0161 — clear `_objects_at` / `head_engr` on level rebuild (seed0015 Scr)
+
+- **Status:** fixed
+- **Observed:** seed0015 Scr @20 JS yellow `$` on top wall vs C DEC
+  horizontal wall; RNG already full. Cell was HWALL with
+  `remembered_glyph`/`disp_ch` `$` from `objects_at(63,6)`.
+- **Rejected:** mineralize placing gold on HWALL; display preferring
+  objects over walls (`covers_objects` matches C pool/lava only).
+- **C locus:** `mklev.c` `clear_level_structures` zeroes
+  `svl.level.objects[x][y]` and objlist; `savelev` release clears
+  `head_engr`.
+- **Cause:** dlvl1 `fill_ordinary_room`→`mkgold` placed GOLD_PIECE on
+  ROOM (63,6). `goto_level`/`clear_level_structures` nullled `fobj` but
+  left `game._objects_at` (and `head_engr`) intact, so dlvl2 HWALL at
+  the same coordinates still returned the ghost floor object to
+  `newsym`.
+- **Change:** Clear `_objects_at` and `head_engr` in
+  `clear_level_structures` and when `goto_level` detaches the live map.
+- **Verification:** seed0015 Scr **23→24**/44 (screen 20 match);
+  green+strict PASS; cohort 12 PASS; full **14/44** Scr **1327** RNG
+  **128105**.
+- **Named omission:** full savelev/getlev object/engraving restore;
+  upstairs `<` color still diverges @ screen 21 (JS yellow vs C
+  NO_COLOR).
+- **Lesson:** spatial indexes must be wiped with the level lists —
+  nulling `fobj` alone leaves ghost `objects_at` hits across depths.
+- **Next:** seed0015 upstairs `<` color @21 / `maybe_smudge_engr` /
+  seed0101 Scr residual.

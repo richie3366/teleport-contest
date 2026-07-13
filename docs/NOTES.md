@@ -7,16 +7,15 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 
 ## Active
 
-- **Current unit:** D-0160 cleared seed0015 descend `--More--` (Scr **22→23**/44;
-  screen 19 cells+cursors match).
-- **Hypothesis / next:** seed0015 Scr @20 one cell — JS gold `$` (bright)
-  on top wall vs C DEC wall `q` at map ~(63,6). RNG already full so
-  placement/display of that gold vs wall glyph, not mklev arity. Or
-  seed0030 `maybe_smudge_engr` @6732 / seed0101 Scr residual.
+- **Current unit:** D-0161 cleared seed0015 Dlvl:2 gold `$` on wall (Scr
+  **23→24**/44; screen 20 match). Cause was stale `_objects_at` from dlvl1.
+- **Hypothesis / next:** seed0015 Scr @21 one cell — upstairs `<` color
+  JS yellow (11) vs C NO_COLOR (8) at hero stairs. Or seed0030
+  `maybe_smudge_engr` @6732 / seed0101 Scr residual.
 - **Falsifier / next:**
   ```bash
   node frozen/ps_test_runner.mjs sessions/seed0015-valk-level2-pit-dog-wait.session.json
-  # expect Scr >23 or first cell miss past the wall `$`
+  # expect Scr >24 or first cell miss past upstairs '<' color
   node scripts/rng-diff.mjs sessions/seed0030-ten-diverse-deaths.session.json
   # expect first mismatch past maybe_smudge_engr @6732 if that peel advances
   ```
@@ -243,9 +242,15 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   descend text** — C `flush_screen(-1)` + `docrt`→`cls` forces more on
   the stale map before redraw (D-0160). Do not rebuild from new
   `game.level` during that more(); reset topline state per runSegment.
+- **seed0015 Scr @20 gold `$` on wall was NOT mineralize-on-HWALL** —
+  dlvl1 `mkgold` at ROOM (63,6) left a stale `_objects_at` entry; dlvl2
+  HWALL at same coords painted that ghost gold (D-0161). Clearing
+  `fobj` alone is not enough — must clear `_objects_at` (+ `head_engr`).
 
 ## Landmarks
 
+- `clear_level_structures` / `goto_level`: clear `fobj` **and**
+  `_objects_at` (C `level.objects[][]=0`) and `head_engr` (D-0161).
 - `goto_level` descend: `flush_screen(-1)` postpone → You/pline NEED_MORE →
   losedogs → `docrt`→`cls`→`more()` on stale Dlvl:N → clear/redraw →
   `flush_screen(-1)` un-postpone (D-0160).
