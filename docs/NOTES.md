@@ -7,19 +7,19 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 
 ## Active
 
-- **Current unit:** D-0175/D-0176 cleared seed0030 @13007–13127 — minefill
-  class-letter `splev_create_monster` called `mkclass` before `induced_align`
-  (C `create_monster` does amask first); then `splev_create_trap` skipped
-  `traptype_rnd` NO_TRAP retry and `mktrap` victim `rnd(4)`. Prefix
-  **13007→13226**; positional **14148**/105529; Scr **168**/1953; public
-  Scr **1405**, RNG **135605**; still **15/44**.
-- **Hypothesis / next:** seed0030 @13226 — C `place_lregion` `rn2(79)` vs
-  JS `rn2(1000)` (stock/fixup after minefill traps); or seed0101 Scr
+- **Current unit:** D-0177 cleared seed0030 @13226 — minefill skipped
+  `fixup_special`/`place_lregion(LR_BRANCH)` (post-`join_map_cleanup`
+  `nroom==0` → full-level `rn2(79)`/`rn2(21)`), then mineralize lacked
+  Mines `goldprob*=2`/`gemprob*=3`. Prefix **13226→13906**; positional
+  **14344**/105529; Scr **168**/1953; public Scr **1405**, RNG **135801**;
+  still **15/44**.
+- **Hypothesis / next:** seed0030 @13906 — C `mdig_tunnel` `rnd(12)` vs
+  JS `distfleeck` `rn2(5)` (hostile dig after Mines load); or seed0101 Scr
   residual (RNG full), or seed0200 combat `@3382`.
 - **Falsifier / next:**
   ```bash
   node scripts/rng-diff.mjs sessions/seed0030-ten-diverse-deaths.session.json
-  # expect first mismatch past 13226 if place_lregion / stock advances
+  # expect first mismatch past 13906 if mdig_tunnel / dig advances
   node frozen/ps_test_runner.mjs sessions/seed0101-ranger-quiver-throw-travel-engrave.session.json
   # expect Scr >21/27 if residual display peel advances
   ```
@@ -314,6 +314,12 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   `traptype_rnd` returned NO_TRAP, C `mktrap` retries; JS skipped and
   advanced to the next trap’s location. Also need victim `rnd(4)`
   (D-0176). Do not “fix” by inventing a second get_location.
+- **seed0030 @13226 was NOT mineralize/`rn2(1000)` first** — C
+  `load_special` → `fixup_special` → `place_lregion(LR_BRANCH)` after
+  minefill; `join_map_cleanup` leaves `nroom==0` so full-map
+  `rn2(79)`/`rn2(21)` (not room `place_branch`). Then Mines mineralize
+  doubles gold/triples gem probs (D-0177). Do not skip fixup because
+  minefill.lua has no explicit lregion.
 
 ## Landmarks
 
@@ -412,3 +418,7 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   `mkclass` (D-0175); named monsters: find_montype gender then amask.
 - minefill `des.trap`: `do { traptype_rnd } while NO_TRAP` then
   hole→ROCKTRAP then `mktrap` victim `rnd(4)` (D-0176).
+- After minefill: `fixup_special` → if `Is_branchlev` && !made_branch →
+  `place_lregion(0,…,LR_BRANCH)`; with `nroom==0` (post cleanup) use
+  full-map rn1 search → `place_branch(br,x,y)` (D-0177).
+- Mines mineralize: `goldprob*=2`, `gemprob*=3` (D-0177).

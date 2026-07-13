@@ -26,7 +26,9 @@ import {
     AIR, CLOUD, THRONE, TREE, DRAWBRIDGE_UP,
     MAX_TYPE, INVALID_TYPE, MATCH_WALL,
     A_LAWFUL, Align2amask, STRAT_WAITFORU, NON_PM,
-    LR_UPTELE,
+    LR_DOWNSTAIR, LR_UPSTAIR, LR_PORTAL, LR_BRANCH,
+    LR_TELE, LR_UPTELE, LR_DOWNTELE,
+    BR_PORTAL, BR_NO_END1, BR_NO_END2,
     TAINT_AGE,
     WM_MASK, WM_C_OUTER, WM_C_INNER,
     WM_W_LEFT, WM_W_RIGHT, WM_W_TOP, WM_W_BOTTOM,
@@ -34,6 +36,7 @@ import {
     WM_X_TL, WM_X_TR, WM_X_BL, WM_X_BR, WM_X_TLBR, WM_X_BLTR,
     BOOL_RANDOM,
     LVLINIT_SOLIDFILL, LVLINIT_MINES,
+    In_mines,
 } from './const.js';
 import {
     RANDOM_CLASS, WEAPON_CLASS, ARMOR_CLASS, RING_CLASS,
@@ -201,44 +204,100 @@ function u_on_newpos(x, y) {
     game.u.uy = y;
 }
 
-// C ref: mkmaze.c bad_location — simplified for skeleton
+// C ref: dungeon.h within_bounded_area
+function within_bounded_area(x, y, lx, ly, hx, hy) {
+    return x >= lx && x <= hx && y >= ly && y <= hy;
+}
+
+// C ref: mkmaze.c bad_location
 function bad_location(x, y, nlx, nly, nhx, nhy) {
     const loc = game.level?.at(x, y);
     if (!loc) return true;
-    // Excluded region
-    if (nlx && x >= nlx && x <= nhx && y >= nly && y <= nhy) return true;
-    // Must be ROOM or (CORR in maze)
-    if (loc.typ !== ROOM && !(loc.typ === CORR && game.level?.flags?.is_maze_lev))
-        return true;
-    return false;
+    if (occupied(x, y)) return true;
+    if (within_bounded_area(x, y, nlx, nly, nhx, nhy)) return true;
+    const okTyp = (loc.typ === CORR && game.level?.flags?.is_maze_lev)
+        || loc.typ === ROOM
+        || loc.typ === AIR;
+    return !okTyp;
 }
 
-// C ref: mkmaze.c place_lregion — place hero (LR_UPTELE/LR_DOWNTELE)
+// C ref: mkmaze.c put_lregion_here — place stair/branch/tele at (x,y)
+function put_lregion_here(x, y, nlx, nly, nhx, nhy, rtype, oneshot, lev) {
+    if (bad_location(x, y, nlx, nly, nhx, nhy)) {
+        if (!oneshot) return false;
+        // C: deltrap undestroyable-safe then retry bad_location; exclusion
+        // zones deferred (minefill has none).
+        const t = t_at(x, y);
+        if (t) {
+            // Remove ordinary trap so oneshot placement can proceed
+            let prev = null;
+            for (let cur = game.ftrap; cur; prev = cur, cur = cur.ntrap) {
+                if (cur === t) {
+                    if (prev) prev.ntrap = cur.ntrap;
+                    else game.ftrap = cur.ntrap;
+                    break;
+                }
+            }
+        }
+        if (bad_location(x, y, nlx, nly, nhx, nhy)) return false;
+    }
+    switch (rtype) {
+    case LR_TELE:
+    case LR_UPTELE:
+    case LR_DOWNTELE:
+        u_on_newpos(x, y);
+        break;
+    case LR_PORTAL:
+        // mkportal deferred — named in C-JS-MAP
+        break;
+    case LR_DOWNSTAIR:
+    case LR_UPSTAIR:
+        mkstairs(x, y, rtype === LR_UPSTAIR ? 1 : 0, null);
+        break;
+    case LR_BRANCH:
+        place_branch(is_branchlev(), x, y);
+        break;
+    }
+    return true;
+}
+
+// C ref: mkmaze.c place_lregion
 export function place_lregion(lx, ly, hx, hy, nlx, nly, nhx, nhy, rtype, lev) {
     if (!lx) {
-        lx = 1; hx = COLNO - 1; ly = 0; hy = ROWNO - 1;
+        // When rooms exist, let place_branch pick (avoid corridor branches)
+        if (rtype === LR_BRANCH && (game.level?.nroom | 0)) {
+            place_branch(is_branchlev(), 0, 0);
+            return;
+        }
+        lx = 1;
+        hx = COLNO - 1;
+        ly = 0;
+        hy = ROWNO - 1;
     }
     if (lx < 1) lx = 1;
     if (hx > COLNO - 1) hx = COLNO - 1;
     if (ly < 0) ly = 0;
     if (hy > ROWNO - 1) hy = ROWNO - 1;
 
-    // Probabilistic search
+    const oneshot = (lx === hx && ly === hy);
     for (let trycnt = 0; trycnt < 200; trycnt++) {
         const x = rn1((hx - lx) + 1, lx);
         const y = rn1((hy - ly) + 1, ly);
-        if (!bad_location(x, y, nlx, nly, nhx, nhy)) {
-            u_on_newpos(x, y);
+        if (put_lregion_here(x, y, nlx, nly, nhx, nhy, rtype, oneshot, lev))
             return;
-        }
     }
-    // Deterministic fallback
     for (let x = lx; x <= hx; x++)
         for (let y = ly; y <= hy; y++)
-            if (!bad_location(x, y, nlx, nly, nhx, nhy)) {
-                u_on_newpos(x, y);
+            if (put_lregion_here(x, y, nlx, nly, nhx, nhy, rtype, true, lev))
                 return;
-            }
+}
+
+// C ref: mkmaze.c fixup_special — post-special-level branch/lregion placement
+function fixup_special() {
+    // lev_region[] from level compiler deferred (minefill has none / noflip)
+    if (!game.made_branch && is_branchlev()) {
+        place_lregion(0, 0, 0, 0, 0, 0, 0, 0, LR_BRANCH, null);
+    }
 }
 
 // C ref: stairs.c u_on_upstairs — place hero on upstairs or fallback
@@ -991,6 +1050,9 @@ function load_minefill() {
 
     if (!g.level.flags.corrmaze)
         wallification(1, 0, COLNO - 1, ROWNO - 1);
+
+    // C ref: sp_lev.c load_special — fixup_special after wallify/noflip
+    fixup_special();
 }
 
 
@@ -2906,23 +2968,43 @@ function find_branch_room(mp) {
     return croom;
 }
 
-function place_branch(branchp) {
+function place_branch(branchp, x = 0, y = 0) {
     const g = game;
-    const mp = { x: 0, y: 0 };
-    const croom = find_branch_room(mp);
-    if (croom && mp.x > 0) {
-        const on_end1 = (branchp.end1?.dnum === g.u?.uz?.dnum
-            && branchp.end1?.dlevel === g.u?.uz?.dlevel);
-        const dest = on_end1 ? branchp.end2 : branchp.end1;
+    // C ref: mklev.c place_branch — early-out if none or already placed
+    if (!branchp || g.made_branch) return;
+
+    if (!x) {
+        const mp = { x: 0, y: 0 };
+        const croom = find_branch_room(mp);
+        if (croom && mp.x > 0) {
+            x = mp.x;
+            y = mp.y;
+        } else {
+            g.made_branch = true;
+            return;
+        }
+    }
+
+    const on_end1 = (branchp.end1?.dnum === g.u?.uz?.dnum
+        && branchp.end1?.dlevel === g.u?.uz?.dlevel);
+    const dest = on_end1 ? branchp.end2 : branchp.end1;
+    const brType = branchp.type ?? 0;
+    let make_stairs = true;
+    if (on_end1) make_stairs = brType !== BR_NO_END1;
+    else make_stairs = brType !== BR_NO_END2;
+
+    if (brType === BR_PORTAL) {
+        // mkportal deferred — still mark placed (C made_branch)
+    } else if (make_stairs) {
         const goes_up = on_end1 ? !!branchp.end1_up : !branchp.end1_up;
-        const loc = g.level?.at(mp.x, mp.y);
+        const loc = g.level?.at(x, y);
         if (loc) {
             loc.typ = STAIRS;
             loc.ladder = goes_up ? 1 : 2;
         }
-        stairway_add(mp.x, mp.y, goes_up, false, dest || { dnum: 0, dlevel: 0 });
-        if (goes_up) g.level.upstair = { x: mp.x, y: mp.y };
-        else g.level.dnstair = { x: mp.x, y: mp.y };
+        stairway_add(x, y, goes_up, false, dest || { dnum: 0, dlevel: 0 });
+        if (goes_up) g.level.upstair = { x, y };
+        else g.level.dnstair = { x, y };
     }
     g.made_branch = true;
 }
@@ -3333,11 +3415,20 @@ function mineralize_kelp(kelp_pool, kelp_moat) {
 function mineralize(kelp_pool, kelp_moat, goldprob, gemprob, skip_lvl_checks) {
     const map = game.level;
     mineralize_kelp(kelp_pool, kelp_moat);
-    // Endgame / hell / special-level skips not applicable for DoD dlvl1
+    // C ref: mklev.c mineralize — hell / V_tower / rogue / arboreal / most
+    // specials skip rock deposits (deferred beyond mines boost).
     const absDepth = depth_of_level(game.u?.uz);
     const dunLevel = game.u?.uz?.dlevel ?? 1;
     if (goldprob < 0) goldprob = 20 + Math.trunc(absDepth / 3);
     if (gemprob < 0) gemprob = Math.trunc(goldprob / 4);
+    // C: mines have ***MORE*** goodies
+    if (!skip_lvl_checks) {
+        if (In_mines(game.u?.uz)) {
+            goldprob *= 2;
+            gemprob *= 3;
+        }
+        // In_quest goldprob/=4 gemprob/=6 deferred until quest fill
+    }
     for (let x = 2; x < COLNO - 2; x++) {
         for (let y = 1; y < ROWNO - 1; y++) {
             const loc = map.at(x, y);
@@ -3366,7 +3457,7 @@ function mineralize(kelp_pool, kelp_moat, goldprob, gemprob, skip_lvl_checks) {
                     const cnt = rnd(2 + Math.trunc(dunLevel / 3));
                     for (let i = 0; i < cnt; i++) {
                         const otmp = mkobj(GEM_CLASS, false);
-                        if (otmp && otmp.otyp === objectNames.indexOf('ROCK')) {
+                        if (otmp && otmp.otyp === ROCK) {
                             /* dealloc — not placed */
                         } else if (otmp) {
                             otmp.ox = x;

@@ -4793,5 +4793,38 @@ cohort gates if those functions are touched again.
   `place_lregion` / stock after minefill traps.
 - **Lesson:** special-level random traps still use ordinary `mktrap`
   retry+victim unless Lua sets `novictim`.
-- **Next:** seed0030 @13226 (`place_lregion` vs rn2(1000)) /
+- **Next:** seed0030 @13226 cleared by D-0177; see D-0177 next.
+
+## D-0177 — minefill fixup_special place_lregion + Mines mineralize
+
+- **Status:** fixed
+- **Observed:** seed0030 first RNG mismatch @13226 — C `rn2(79)` /
+  `rn2(21)` @ `place_lregion`; JS `rn2(1000)` @ `mineralize`. After
+  fixup, @13261 C `next_ident` (gold `mksobj`) vs JS still bare
+  `rn2(1000)` until Mines gold/gem boost.
+- **Rejected:** stock_room / ordinary mineralize-first — C provenance is
+  `fixup_special` after `load_special`; minefill.lua has `noflip` and
+  no lev_regions, so the only `place_lregion` is the Is_branchlev
+  fallback. Room-based `place_branch(0,0)` is wrong here because
+  `join_map_cleanup` leaves `nroom==0`.
+- **C locus:** `sp_lev.c` `load_special` → `fixup_special` /
+  `place_lregion` / `put_lregion_here` (`mkmaze.c`); `place_branch`
+  (`mklev.c`); `mineralize` Mines `goldprob*=2` / `gemprob*=3`.
+- **Cause:** JS `load_minefill` never called `fixup_special`; hero-only
+  `place_lregion` stub lacked LR_BRANCH; mineralize omitted Mines boost.
+- **Change:** port `bad_location`/`put_lregion_here`/`place_lregion`
+  (branch short-circuit when `nroom`); `fixup_special` after minefill
+  wallify; `place_branch(br,x,y)` coords; Mines mineralize multipliers.
+- **Verification:** seed0030 prefix **13226→13906** positional
+  **14344**/105529 Scr **168**/1953; green+strict PASS; cohort PASS;
+  full **15/44** Scr **1405** RNG **135801**.
+- **Named omission:** lev_region[] compiler path; `mkportal`;
+  `is_exclusion_zone`; oneshot `undestroyable_trap`/`rloc` tele; hell /
+  V_tower / rogue / arboreal / Is_special mineralize skips; In_quest
+  gold/gem slash; `mdig_tunnel` after Mines load.
+- **Lesson:** after mkmap cleanup `nroom==0`, branch placement uses
+  full-map `place_lregion` RNG — not the ordinary-room `place_branch`
+  path. Mines mineralize probs are doubled/tripled.
+- **Next:** seed0030 @13906 (`mdig_tunnel` vs distfleeck) /
   seed0101 Scr / seed0200 @3382.
+

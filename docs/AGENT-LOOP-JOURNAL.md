@@ -2200,3 +2200,18 @@ Use this shape:
   full **15/44** Scr **1405** RNG **135605**/792838.
 - Next: seed0030 @13226 (`place_lregion` vs rn2(1000)) /
   seed0101 Scr residual / seed0200 combat @3382.
+
+## 2026-07-13 — minefill fixup_special / place_lregion + Mines mineralize (D-0177)
+- Objective: seed0030 @13226 C `place_lregion` rn2(79) vs JS rn2(1000)
+  (PROGRESS primary).
+- C locus: `sp_lev.c` `load_special` → `fixup_special` / `place_lregion`
+  (`mkmaze.c`); `mineralize` Mines boost (`mklev.c`).
+- Result: **verified** — not mineralize-first. Missing post-minefill
+  `fixup_special` (nroom==0 → full-map LR_BRANCH rn1); then Mines
+  gold×2/gem×3. Ported place_lregion/put_lregion_here/fixup_special +
+  place_branch(x,y) + mineralize Mines multipliers.
+- Verification: seed0030 prefix **13226→13906**; positional
+  **14344**/105529 Scr **168**/1953; green+strict PASS; cohort PASS;
+  full **15/44** Scr **1405** RNG **135801**/792838.
+- Next: seed0030 @13906 (`mdig_tunnel` vs distfleeck) /
+  seed0101 Scr residual / seed0200 combat @3382.
