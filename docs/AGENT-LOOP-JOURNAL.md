@@ -929,3 +929,17 @@ Use this shape:
   **3018**/3018 Scr **1**/230; seed0700 RNG full Scr 2/51.
 - Next: seed2200 screen peel / seed0017 @ 3132 terrain / seed0700
   screens — `node frozen/ps_test_runner.mjs sessions/seed2200-wizard-quaff-zap-read.session.json`.
+
+## 2026-07-13 — H2344 offx + get_strength_str (D-0078)
+- Objective: seed0700 screen peel (PROGRESS preferred after D-0077).
+- C locus: `wintty.c` `#define H2344_BROKEN` NHW_MENU offx;
+  `botl.c` `get_strength_str`.
+- Result: **verified** — long Amaterasu Book forced stock
+  fullscreen (`offx==10`); C keeps corner offx=7 via H2344
+  `min(cols/2, cols-maxcol-1)`. Also raw Str 19 → `18/01`.
+- Verification: green + seed1500/1800/0060/0102 PASS + strict; full
+  **6/44**, screens **318→361**/11405, RNG **91280**/792838;
+  seed0700 Scr **2→44**/51; seed2200 Scr still 1/230.
+- Next: seed0700 pet `Hachi` / invent offx / Japanese disco —
+  `node frozen/ps_test_runner.mjs sessions/seed0700-samurai-explore-descend.session.json`
+  — or seed2200 map `` ` `` vs `x` / seed0017 terrain.

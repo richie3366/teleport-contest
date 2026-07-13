@@ -42,8 +42,9 @@ When changing a subsystem:
 | `src/allmain.c:moveloop_preamble` | `js/allmain.js` + `js/calendar.js` | partial | Moon/friday plines + `change_luck`; pickup/encumber/engraving deferred |
 | `src/o_init.c` | `js/o_init.js` | partial | Green-session shuffle/discovery evidence; `discover_object` encounter flag + `interesting_to_discover` via extracted `objectDescrs` (D-0040); not audited across all classes |
 | `src/dungeon.c`, `dat/dungeon.lua` | `js/dungeon.js`, generated dungeon data | partial | Topology subset; not a replacement for executing upstream Lua |
-| tutorial / quest pager | `js/allmain.js`, `js/questpgr.js`, `js/invent.js` | partial | Legacy `%d`/`%G` + corner NHW_MENU without `clearScreen` (D-0026); **`maxcol=strlen+1` + leading pad / text at offx+1** (D-0071); tutorial corner (D-0023); invent corner (D-0024); yes-path / fullscreen legacy deferred |
+| tutorial / quest pager | `js/allmain.js`, `js/questpgr.js`, `js/invent.js` | partial | Legacy `%d`/`%G` + corner NHW_MENU without `clearScreen` (D-0026); **`maxcol=strlen+1` + leading pad / text at offx+1** (D-0071); **H2344_BROKEN offx** (D-0078); tutorial corner (D-0023); invent corner (D-0024); yes-path / pauper_legacy deferred; invent 2-col drift on long Japanese lines |
 | `src/insight.c` enlightenment | `js/invent.js` | partial | Autopickup from flags + race attr limits + `weapon_descr`/`skill_name` via `oc_skill` (D-0041); pantheon/wallet/handedness (D-0024); shop `costly_spot` disable / `apelist` / enhance / P_SKILL table / odd-skill P_NAME deferred |
+| `src/botl.c` status | `js/display.js`, `js/attrib.js` | partial | **`get_strength_str` 18/xx** (D-0078); botl `showexp`/`time` + plname capitalize; full blstats/conditions deferred |
 | `src/calendar.c` / botl flags | `js/calendar.js`, `js/display.js` | partial | Fixed-datetime moon/friday; botl `showexp`/`time` + plname capitalize |
 
 **Shared blocker:** **0/44 sessions** throw `u_init_role: role not ported`
@@ -149,10 +150,13 @@ Elbereth (D-0076) → seed2200 prefix **2925→2979** positional
 **2993**/3018; screens **318**/11405; RNG **91443**/792838.
 `/`/`dowhatis` + `?`/`dohelp`/`get_lua_version` (D-0077) →
 seed2200 RNG **3018**/3018 Scr **1**/230; screens **318**/11405;
+RNG **91280**/792838. H2344 NHW_MENU `offx` + `get_strength_str`
+(D-0078) → seed0700 Scr **2→44**/51; screens **361**/11405;
 RNG **91280**/792838.
-Next peel: seed2200 **screens** / seed0017 @ 3132 `dog_move`
-(terrain at (30,4)) / seed0700 **screen** / `getbones` (blocked on
-`^V`/`makemaz`) / `wipeout_text` / `lspo_map` / pony `next_ident` /
+Next peel: seed0700 pet `Hachi` / invent offx / Japanese disco /
+seed2200 map `` ` `` vs `x` / seed0017 @ 3132 `dog_move`
+(terrain at (30,4)) / `getbones` (blocked on `^V`/`makemaz`) /
+`wipeout_text` / `lspo_map` / pony `next_ident` /
 `maybe_smudge_engr`.
 `make_corpse` body and `m_initinv` body still absent (named omissions).
 
@@ -197,7 +201,7 @@ Next peel: seed2200 **screens** / seed0017 @ 3132 `dog_move`
 | `src/hack.c` `losehp`/`nomul` | `js/hack.js` | partial | **`losehp` !Upolyd / Upolyd mh subtract** (D-0035); **`nomul`/`unmul` + afternmv** (D-0066); `maybe_half_phys` identity until Half_physical prop; omit `showdamage`/`maybe_wail`/`done(DIED)` bodies; full `end_running`/`cmdq_clear` |
 | `src/apply.c` / `src/lock.c` | `js/apply.js`, `js/lock.js` | partial | `doapply` + `pick_lock` (D-0021); exported `getdir` for kick/apply; getobj missing-letter `continue`+`flush_topl_more` (D-0025); **`doopen_indir` CLOSED autoopen** (D-0059); omit sack/other tools, real door occupation, interactive `o` getdir, `b_trapped`/autounlock, `feel_location` mapseen gating, container-at-feet |
 | `src/display.c` `newsym` / map | `js/display.js` | partial | Floor `vobj_at` + class symbols + CORPSE `mon_color` (D-0022); **live `mon_glyph` uses `mcolors[mnum]`** (D-0036; newt yellow); **`wall_angle` + seenv** (D-0038); upstairs `<` yellow / downstairs `>` NO_COLOR (D-0038); **`see_with_infrared`/`mon_visible` when `!cansee`** (D-0039; race Infravision via `mons[urace]`); **full MONSYM `MLET_CH` + FOUNTAIN/SINK/THRONE/ALTAR/GRAVE terrain** (D-0070); **`magic_map_background`** (D-0075); omit traps/engravings/hallucination/`see_objects`; telepathy/`Detect_monsters`/`MATCH_WARN_OF_MON`; full `set_uasmon`/uprops; pool/lava/ice/air/cloud terrain |
-| `src/questpgr.c` / tty menu | `js/questpgr.js` | partial | **legacy corner NHW_MENU `maxcol=strlen+1` + leading pad** (D-0071); omit other pager outputs / pauper_legacy |
+| `src/questpgr.c` / tty menu | `js/questpgr.js` | partial | **legacy corner NHW_MENU `maxcol=strlen+1` + leading pad** (D-0071); **H2344_BROKEN offx** (D-0078); omit other pager outputs / pauper_legacy |
 | `src/invent.c` `look_here` / `dfeature_at` | `js/invent.js`, `js/mklev.js` | partial | Stairs via `stairs_description` + Dlvl1 `u_traversed` (D-0026); doors/fountain/sink stubs; Blind feel, engraving, multi-object menu, `doname_with_price` deferred |
 | `src/pline.c` / tty message behavior | `js/display.js`, `js/input.js` | partial | `--More--` works for green paths + getobj re-prompt (D-0025); full message/window policy incomplete |
 | `src/invent.c` | `js/invent.js` | partial | Corner NHW_MENU invent (D-0024); disco inv_order + `*`/encounter + `OBJ_DESCR`/`obj_typename` (D-0040); fullscreen invent path deferred |

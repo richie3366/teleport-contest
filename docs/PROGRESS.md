@@ -38,9 +38,9 @@ frozen-file overlay):
 | Metric | Value |
 |--------|------:|
 | Sessions passing | **6 / 44** |
-| Screens matched | **318 / 11,405** (2.79%) |
+| Screens matched | **361 / 11,405** (3.17%) |
 | Positional RNG calls matched | **91,280 / 792,838** (11.51%) |
-| Speed label | `16+0.09/turn` |
+| Speed label | `17+0.08/turn` |
 | Working-tree base | `8b71735` + committed port (see `main`) |
 | Role-init throws | **0 / 44** (`u_init_role: role not ported`) |
 
@@ -58,7 +58,7 @@ shared blockers, and semantic coverage together—not one vanity metric.
 | `seed1800-tourist-eat-throw` | **2458 / 2458** | **26 / 26** |
 | `seed0060-orc-rogue-kick-search` | **3626 / 3626** | **41 / 41** |
 | `seed0102-ranger-name-cancel` | **4485 / 4485** | **25 / 25** |
-| `seed0700-samurai-explore-descend` | **3230 / 3230** | **2 / 51** |
+| `seed0700-samurai-explore-descend` | **3230 / 3230** | **44 / 51** |
 | `seed1150-caveman-explore-move` | **2942 / 3137** | **22 / 51** |
 | `seed0030-ten-diverse-deaths` | **7030 / 105529** | **39 / 1953** |
 | `seed0103-knight-ride-pony` | **2344 / 2640** | 1 / 60 |
@@ -93,12 +93,15 @@ autoopen `doopen_indir` (D-0059), `mfndpos` BOULDER/`NODIAG`
 **`z`/`dozap` NODIR/`findit`** (D-0074),
 **`r`/`doread` SCR_MAGIC_MAPPING/`do_mapping`** (D-0075),
 **`E`/`doengrave` fingertip Elbereth** (D-0076), and
-**`/`/`dowhatis` + `?`/`dohelp`/`get_lua_version`** (D-0077)
+**`/`/`dowhatis` + `?`/`dohelp`/`get_lua_version`** (D-0077), and
+**H2344 `offx` + `get_strength_str`** (D-0078)
 clear shared peels. seed0700
-RNG **full**; next is screen peel (Scr 2/51). seed0361/0373 `getbones` blocked on unbound
+RNG **full**; Scr **44**/51 (next: pet name `Hachi`, invent offx,
+Japanese disco). seed0361/0373 `getbones` blocked on unbound
 `^V`/`goto_level`/`makemaz` (Quest `y`). seed0017 next @ 3132
 `dog_move` (terrain); seed0030 next `maybe_smudge_engr` @ 6732.
-Wizard seed2200 RNG **full**; next screen peel (Scr 1/230). Healer seed0016 next
+Wizard seed2200 RNG **full**; next screen peel (Scr 1/230 — map
+`` ` `` vs ASCII `x`). Healer seed0016 next
 `next_ident` @ 2493; Caveman seed1150 next `dog_move` @ 2915;
 Priest seed0501 still `wipeout_text`. seed0015/0200 next `lspo_map`.
 seed0101 next `next_ident`. seed0013 still breaks earlier in
@@ -149,21 +152,23 @@ autoopen `doopen_indir` (D-0059) + `mfndpos` BOULDER/`ALLOW_ROCK` +
 **`z`/`dozap` NODIR secret-door/`findit`** (D-0074) +
 **`r`/`doread` SCR_MAGIC_MAPPING/`do_mapping`** (D-0075) +
 **`E`/`doengrave` fingertip DUST/Elbereth** (D-0076) +
-**`/`/`dowhatis`/`do_look` + `?`/`dohelp`/`get_lua_version`** (D-0077)
+**`/`/`dowhatis`/`do_look` + `?`/`dohelp`/`get_lua_version`** (D-0077) +
+**H2344 NHW_MENU `offx` + botl `get_strength_str`** (D-0078)
 **ported**. Six public sessions pass end-to-end. **0/44**
-throw at `u_init_role`. seed0700 RNG full. seed0102 **PASS**.
+throw at `u_init_role`. seed0700 RNG full Scr **44**/51.
+seed0102 **PASS**.
 seed0017 prefix **3132** (`dog_move`). seed2200 RNG **full**
-(Scr **1**/230 — UI geometry).
+(Scr **1**/230 — map cell `` ` `` vs `x`).
 
-- **Bounded unit:** seed2200 **screen** peel / seed0017 @ 3132
-  `dog_move` terrain / seed0700 **screen** peel /
-  seed1150 `dog_move` / seed0501/0105 `wipeout_text` /
-  seed0015/0200 `lspo_map` / seed0101 `next_ident` /
+- **Bounded unit:** seed0700 remaining (pet `Hachi` / invent offx /
+  Japanese disco) / seed2200 **screen** peel / seed0017 @ 3132
+  `dog_move` terrain / seed1150 `dog_move` / seed0501/0105
+  `wipeout_text` / seed0015/0200 `lspo_map` / seed0101 `next_ident` /
   seed0103 `next_ident`/`trquan` / seed0030 `maybe_smudge_engr` /
   seed0361/0373 **`getbones`** (blocked: need `^V`→`goto_level`→
   `makemaz` first).
-- **Prefer:** seed2200 screens / seed0017 terrain /
-  seed0700 screens over parked D-0006.
+- **Prefer:** seed0700 pet-name / seed2200 screens / seed0017 terrain
+  over parked D-0006.
 - **Named omissions:** Wizard/Priest/Healer `initialspell`; Knight/
   Samurai/Healer/Valkyrie/Ranger/Monk/Archeologist/Barbarian/Caveman
   `skill_init`; display-path Japanese names; full `role_init` beyond
@@ -200,7 +205,9 @@ seed0017 prefix **3132** (`dog_move`). seed2200 RNG **full**
   artifact wield intrinsics; wield poly/corpse/bimanual/weld-pline/
   swap/quiver ynq; other `peffect_*` / IMMEDIATE·RAY `dozap` /
   other `seffect_*` / `study_book` / non-hands `doengrave` stylus /
-  engraving glyphs / multi-turn dulling; …
+  engraving glyphs / multi-turn dulling; Samurai starting-pet
+  `Hachi` christen; invent NHW_MENU offx 2-col drift on long
+  Japanese names; …
 - **Cohort:** green gate + seed1500 + seed1800 + seed0060 + seed0102
   (must stay PASS) + strict lengths; Samurai focus seed0700 when on
   that peel.
@@ -402,6 +409,11 @@ Module status, constitutional debt, and named omissions live in
     **91443→91280**; screens **318** unchanged; green cohort PASS;
     seed0700 RNG still full; next seed2200 screens / seed0017
     terrain / seed0700 screens
+63. H2344 NHW_MENU `offx` + `get_strength_str` (D-0078) —
+    seed0700 Scr **2→44**/51; aggregate screens **318→361**;
+    RNG **91280** unchanged; green cohort PASS; next seed0700
+    pet `Hachi` / invent offx / Japanese disco, or seed2200
+    map `` ` `` vs `x`, or seed0017 terrain
 
 Next work is selected from the active objectives above using
 `PORTING-RUNBOOK.md`, not by extending this historical list.

@@ -365,8 +365,8 @@ export async function newgame() {
 /**
  * C ref: options.c ask_do_tutorial() — NHW_MENU y/n unless OPTIONS=tutorial set.
  * C ref: wintty.c tty_end_menu / tty_display_nhwindow / process_menu_window
- *        corner offx = max(10, 80 - maxcol - 1); title uses menu_headings
- *        (ATR_INVERSE) after adjust_menu_promptstyle(WIN_INVEN).
+ *        H2344_BROKEN corner offx = min(min(82, cols/2), cols-maxcol-1);
+ *        title uses menu_headings (ATR_INVERSE) after adjust_menu_promptstyle.
  */
 async function ask_do_tutorial() {
     if (game.tutorial_set_in_config) return !!game.flags.tutorial;

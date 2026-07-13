@@ -2120,3 +2120,30 @@ cohort gates if those functions are touched again.
   accelerators.
 - **Next:** seed2200 screen peel / seed0017 @ 3132 terrain /
   seed0700 screens.
+
+## D-0078 — H2344 NHW_MENU offx + botl get_strength_str
+
+- **Status:** fixed
+- **Observed:** seed0700 Scr **2**/51 with RNG full. First screen:
+  Book of Amaterasu left-aligned (JS) vs pad-8 corner (C); botl
+  `St:19` vs C `St:18/01`.
+- **C locus:** `win/tty/wintty.c` `#define H2344_BROKEN` +
+  `tty_display_nhwindow` NHW_MENU offx =
+  `min(min(82, cols/2), cols-maxcol-1)` (fullscreen only when
+  `maxrow>=rows || !menu_overlay`); `botl.c` `get_strength_str`.
+- **Cause:** JS used stock `max(10, cols-maxcol-1)` then
+  `offx==10 → fullscreen`, so long Amaterasu lines collapsed to
+  col 0. Botl printed raw `acurr.a[A_STR]` (19) instead of
+  `18/01`.
+- **Change:** `js/questpgr.js` + `js/invent.js` `nhw_menu_geometry`
+  H2344 offx; `js/attrib.js` `get_strength_str`; wired into
+  `display.js` / `invent.js` / `questpgr.js` status lines.
+- **Verification:** green + seed1500/1800/0060/0102 PASS + strict;
+  full **6/44**, screens **318→361**/11405, RNG **91280**/792838;
+  seed0700 Scr **2→44**/51; seed2200 still Scr **1**/230.
+- **Named omission:** Samurai starting-pet christen (`Hachi`);
+  invent Weapons header still ~2 cols left on Japanese-name
+  invent; display-path Japanese disco names; seed2200 map
+  `` ` `` vs ASCII `x`.
+- **Next:** seed0700 pet `Hachi` / invent offx / Japanese disco;
+  or seed2200 map cell; or seed0017 @ 3132 terrain.

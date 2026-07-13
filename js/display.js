@@ -28,6 +28,9 @@ import {
     NO_COLOR, CLR_GRAY, CLR_BROWN, CLR_WHITE, CLR_YELLOW, CLR_BRIGHT_BLUE,
     DEC_TO_UNICODE,
 } from './terminal.js';
+import {
+    A_INT, A_WIS, A_DEX, A_CON, A_CHA, acurr, get_strength_str,
+} from './attrib.js';
 
 const CORPSE_OTYP = objectNames.indexOf('CORPSE');
 
@@ -678,10 +681,9 @@ function _statusLine1() {
     }
     const role = game.urole?.rank?.m || game.urole?.name?.m || 'Adventurer';
     const title = `${name} the ${role}`;
-    // C botl order: St/Dx/Co/In/Wi/Ch ← STR/DEX/CON/INT/WIS/CHA (attrib.h)
-    const a = u.acurr?.a;
-    const stats = a
-        ? `St:${a[0]} Dx:${a[3]} Co:${a[4]} In:${a[1]} Wi:${a[2]} Ch:${a[5]}`
+    // C ref: botl.c do_statusline1 — get_strength_str + ACURR order
+    const stats = u.acurr?.a
+        ? `St:${get_strength_str()} Dx:${acurr(A_DEX)} Co:${acurr(A_CON)} In:${acurr(A_INT)} Wi:${acurr(A_WIS)} Ch:${acurr(A_CHA)}`
         : 'St:? Dx:? Co:? In:? Wi:? Ch:?';
     const align = u.ualign?.type === 0 ? 'Neutral' : u.ualign?.type > 0 ? 'Lawful' : 'Chaotic';
     // C uses cursor-forward for gap between title and stats

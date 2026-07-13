@@ -7,24 +7,24 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 
 ## Active
 
-- **Current unit:** after D-0077 seed2200 RNG **3018**/3018 (Scr still
-  **1**/230 — UI glyphs/paging). Prefer seed2200 **screen** peel /
-  seed0017 @ 3132 `dog_move` terrain / seed0700 Scr 2/51 /
-  wipeout_text / lspo_map / next_ident / maybe_smudge_engr /
-  getbones (needs `^V`→`makemaz`).
-- **Hypothesis (seed2200 screens):** whatis/help/getpos text geometry
-  and `do_screen_description`/`checkfile` page layout diverge from C
-  tty — RNG path is faithful; screen peel is display fidelity.
+- **Current unit:** after D-0078 seed0700 Scr **44**/51 (RNG full).
+  Prefer seed0700 pet `Hachi` / invent offx / Japanese disco /
+  seed2200 map `` ` `` vs ASCII `x` / seed0017 @ 3132 terrain.
+- **Hypothesis (seed0700 remaining):** swap-place pline uses generic
+  "your little dog" because starting pet was never christened
+  `Hachi` (Samurai); invent Weapons header is 2 cols left of C.
 - **Falsifier / next probe:**
   ```bash
-  node frozen/ps_test_runner.mjs sessions/seed2200-wizard-quaff-zap-read.session.json
+  node frozen/ps_test_runner.mjs sessions/seed0700-samurai-explore-descend.session.json
   ```
-  Compare first mismatched screen after Elbereth `/` menu.
+  Compare screens #10 (Hachi) and #37 (Weapons offx).
 - **Parked seed0017 @ 3132:** JS `mfndpos` cnt=4 at pet (30,5); C emits
   3× `rn2(12)`. Adding walkable `(30,4)` yields exactly 3× `rn2(12)`.
   JS has VWALL at (30,4); C screen shows floor. Diagnose join/
   wallification — do not patch coordinates. `mtrack`/`nxti` inactive
   (`distminU=3`).
+- **Parked seed2200 Scr 1/230:** first screen one cell — JS ROCK_CLASS
+  `` ` `` vs C ASCII `x` (decgfx=0, not DEC wall) at (11,16).
 - **Parked deep canary:** D-0006 pet movement — do not implement until C
   state/candidate capture exists.
 
@@ -68,6 +68,10 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   `.` become `donull` (timed). C 0-RNG `/` whatis through step 108;
   step 109 `?`/`a` About → `get_lua_version` nhlib `shuffle(align)`
   (D-0077).
+- seed0700 Scr 0 was **not** botl-only — stock `max(10,cols-maxcol-1)`
+  forced fullscreen for long Amaterasu lines; C `#define H2344_BROKEN`
+  uses `min(cols/2, cols-maxcol-1)` so offx=7 stays corner (D-0078).
+  Also `St:19` must be `get_strength_str` → `18/01`.
 
 ## Landmarks
 
@@ -94,3 +98,8 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 - `/` whatis is ECMD_OK (no turn). First getpos shows nhcore tip.
   About NetHack calls `get_lua_version` → `nhl_init` → nhlib
   `shuffle(align)` once (`rn2(3)`+`rn2(2)`) (D-0077).
+- `wintty.c` **`#define H2344_BROKEN`** (always on): NHW_MENU
+  `offx = min(min(82, cols/2), cols-maxcol-1)`; fullscreen only on
+  `maxrow>=rows || !menu_overlay` — **not** `offx==10` (D-0078).
+- botl `get_strength_str`: st>18 → `18/%02d` / `18/**` / `%2d`
+  (st-100); Samurai Str 19 displays `18/01` (D-0078).

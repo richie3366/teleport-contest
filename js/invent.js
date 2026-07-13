@@ -30,7 +30,7 @@ import {
 } from './objects.js';
 import { ATR_INVERSE, NO_COLOR } from './terminal.js';
 import {
-    acurr, acurrstr, A_STR, A_INT, A_WIS, A_DEX, A_CON, A_CHA,
+    acurr, acurrstr, get_strength_str, A_STR, A_INT, A_WIS, A_DEX, A_CON, A_CHA,
 } from './attrib.js';
 import {
     DOOR, STAIRS, FOUNTAIN, SINK, ALTAR, GRAVE, TREE, IRONBARS,
@@ -163,9 +163,9 @@ function statusLine1() {
     }
     const role = game.urole?.rank?.m || game.urole?.name?.m || 'Adventurer';
     const title = `${name} the ${role}`;
-    const a = u.acurr?.a;
-    const stats = a
-        ? `St:${a[0]} Dx:${a[3]} Co:${a[4]} In:${a[1]} Wi:${a[2]} Ch:${a[5]}`
+    // C ref: botl.c do_statusline1 — get_strength_str + ACURR
+    const stats = u.acurr?.a
+        ? `St:${get_strength_str()} Dx:${acurr(A_DEX)} Co:${acurr(A_CON)} In:${acurr(A_INT)} Wi:${acurr(A_WIS)} Ch:${acurr(A_CHA)}`
         : 'St:? Dx:? Co:? In:? Wi:? Ch:?';
     const align = u.ualign?.type === 0 ? 'Neutral' : u.ualign?.type > 0 ? 'Lawful' : 'Chaotic';
     const gap = Math.max(1, 31 - title.length);
@@ -209,7 +209,9 @@ function clear_overlay() {
 
 /**
  * C ref: wintty.c tty_end_menu — cols = max(strlen(str)+2, morestr);
- *        tty_display_nhwindow(NHW_MENU) offx = max(10, cols - maxcol - 1).
+ *        tty_display_nhwindow(NHW_MENU) with H2344_BROKEN:
+ *        offx = min(min(82, cols/2), cols - maxcol - 1).
+ *        Fullscreen only when maxrow>=rows || !menu_overlay.
  * Returns { offx, maxcol }; offx===0 means fullscreen fallback.
  */
 export function nhw_menu_geometry(entries, morestr = '(end) ') {
@@ -219,9 +221,12 @@ export function nhw_menu_geometry(entries, morestr = '(end) ') {
         const len = text.length + 2; // leading + trailing pad
         if (len > maxcol) maxcol = len;
     }
-    let offx = Math.max(10, 80 - maxcol - 1);
-    // C: offx==10 || maxrow>=rows || !menu_overlay → fullscreen (offx=0)
-    if (offx === 10) offx = 0;
+    const cols = 80;
+    let offx = Math.min(Math.min(82, Math.floor(cols / 2)), cols - maxcol - 1);
+    if (offx < 0) offx = 0;
+    // C H2344: no offx==10 → fullscreen; only tall menus / !menu_overlay
+    const maxrow = entries.length + 1; // items + morestr row (approx)
+    if (maxrow >= 24 || game.flags?.menu_overlay === false) offx = 0;
     return { offx, maxcol };
 }
 
