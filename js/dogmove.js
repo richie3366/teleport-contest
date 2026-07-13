@@ -320,6 +320,9 @@ async function dog_eat(mtmp, obj, x, y, devour) {
 
 // C ref: dogmove.c dog_goal()
 function dog_goal(mtmp, edog, after, udist, whappr) {
+    // C: Steeds don't move on their own will
+    if (mtmp === game.u?.usteed) return -2;
+
     const omx = mtmp.mx, omy = mtmp.my;
     // C: in_masters_sight = couldsee(omx, omy) — viz_array COULD_SEE
     const in_masters_sight = couldsee(omx, omy);
@@ -676,7 +679,12 @@ export async function dog_move(mtmp, after) {
 
     const omx = mtmp.mx, omy = mtmp.my;
     let udist = dist2(omx, omy, game.u.ux, game.u.uy);
-    if (!udist) return MMOVE_NOTHING;
+    // C: steeds don't move on their own; Conflict throw deferred
+    if (mtmp === game.u?.usteed) {
+        udist = 1;
+    } else if (!udist) {
+        return MMOVE_NOTHING;
+    }
 
     let nix = omx, niy = omy;
     let whappr = 0;

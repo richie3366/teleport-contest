@@ -216,6 +216,7 @@ Do not record a guessed cause as fixed merely because an RNG prefix moved.
 | D-0210 | fixed | elf Instrument | eager ROLL_FROM before trquan; seg2 2217→2408 |
 | D-0211 | open | dog_move mfndpos | extra rn2(12); C skips SW diagonal; gas falsified |
 | D-0212 | fixed | pony saddle | makedog put_saddle_on_mon; seed0103 2337→2440 |
+| D-0213 | fixed | #ride mount | doride/mount_steed/dismount; seed0103 RNG full |
 
 D-0001 through D-0005 predate the strict-length/cohort runbook. Their focused
 causes are preserved, but generic "green sessions held" is historical evidence,
@@ -5752,3 +5753,29 @@ cohort gates if those functions are touched again.
 - **Named omissions:** `doride`/`mount_steed` body; whirly/unsolid in
   `can_saddle`; full `which_armor`; `see_monster_closeup`.
 - **Next:** seed0103 @2440 `mount_steed`; or D-0211 C typ dump.
+
+## D-0213 — Knight `#ride` / `mount_steed` (seed0103 @2440)
+
+- **Status:** fixed
+- **Symptom:** seed0103 @2440 C `rnd(20) @ mount_steed` vs JS `rn2(7)`
+  after matched pony saddle (D-0212).
+- **Cause/evidence:** `#ride` was autocomplete-only; no `EXT_CMDS` body.
+  C `doride`→`getdir`→`mount_steed` burns `rnd(MAXULEV/2+5)` slip gate
+  and on fail `rn1(5,10)` via `losehp`; success sets `u.usteed`.
+  Remount EOT also needed `u.umoved=FALSE` before rhack (else steed
+  `u_calc_moveamt` double-`mcalcmove`); `dog_goal` must return -2 for
+  `usteed`; fatal slip must `done`→`can_make_bones`.
+- **C locus:** `steed.c` `doride`/`mount_steed`/`landing_spot`/
+  `dismount_steed`; `allmain.c` umoved clear; `dogmove.c` steed
+  `dog_goal`/`dog_move`; `hack.c` `losehp`→`done`.
+- **Change:** `js/steed.js` mount/dismount BYCHOICE + landing_spot;
+  wire `#ride` in `getline.js`; `cmd.js` syncs steed coords on move;
+  `allmain.js` clears `umoved`; `dogmove.js` steed early exits;
+  fatal slip calls `done(DIED)`.
+- **Verification:** seed0103 RNG **2640**/2640 Scr **2**/60; seed0104
+  **2968**/3223; green+strict+cohort PASS; full **17/44** Scr **1316**
+  RNG **148875**.
+- **Named omissions:** riding display/botl/map (Scr residual); thrown/
+  fell dismount damage; full `test_move` squeeze; `float_down` body;
+  `use_saddle`; Hallu/Wounded_legs mount arms; wake pline.
+- **Next:** seed0103 Scr / seed0104 @2841 `mattacku`; or D-0211 typ dump.

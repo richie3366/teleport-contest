@@ -2754,3 +2754,17 @@ Use this shape:
   cohort PASS; full **17/44** Scr **1315** RNG **148366**.
 - Next: seed0103 @2440 `mount_steed` (`rnd(20)`/`rn2(5)`); or D-0211
   C typ dump for `(72,8)`.
+
+## 2026-07-14 01:25 — D-0213 Knight #ride / mount_steed
+- Objective: PROGRESS primary — seed0103 @2440 `mount_steed`.
+- C locus: `steed.c:doride`/`mount_steed`/`landing_spot`/
+  `dismount_steed`; `allmain.c` `u.umoved=FALSE`; `dogmove.c` steed
+  `dog_goal` -2; `hack.c` `losehp`→`done`.
+- Result: **verified** — wired `#ride`; ported mount slip/success +
+  BYCHOICE dismount; clear `umoved` before rhack; steed `dog_goal`
+  early exit; fatal slip → `done`/`can_make_bones`.
+- Verification: seed0103 RNG **2640**/2640 Scr **2**/60; seed0104
+  **2968**/3223; green+strict+cohort PASS; full **17/44** Scr **1316**
+  RNG **148875**.
+- Next: seed0103 Scr (riding display) / seed0104 @2841 `mattacku` /
+  D-0211 C typ dump.

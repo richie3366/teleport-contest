@@ -689,9 +689,13 @@ async function domove(dx, dy) {
         }
     }
 
-    // Move the hero
+    // Move the hero (C u_on_newpos also updates usteed mx/my)
     u.ux = newx;
     u.uy = newy;
+    if (u.usteed) {
+        u.usteed.mx = newx;
+        u.usteed.my = newy;
+    }
 
     // C ref: hack.c domove — clear kickedloc after a successful move
     game.kickedloc = { x: 0, y: 0 };

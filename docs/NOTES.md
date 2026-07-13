@@ -7,16 +7,15 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 
 ## Active
 
-- **Current unit:** seed0103 @2440 `mount_steed` / seed0030 seg2 @2408 (D-0211).
-- **Hypothesis (D-0212 next):** Knight `#ride` needs `mount_steed` body
-  (`rnd(20)`/`rn2(5)` at steed.c:341/354) after pony saddle is worn.
-- **Hypothesis (D-0211):** kitten `dog_move` — JS `mfndpos` cnt=8 includes
-  SW `(72,8)` that C skips → extra `rn2(12)`. JS state: empty ROOM, no
-  trap/obj/mon/engraving/kickedloc; dmin=5 so mtrack N/A; **no gas/cloud
-  RNG in seg2** (poison-gas region falsified for this peel). Need C
-  `poss[]`/`levl[].typ` dump or another non-RNG typ gate.
-- **Falsifier (D-0211):** C dump of `mfndpos` poss / `levl[72][8].typ` at
-  this dog_move.
+- **Current unit:** seed0103 Scr residual after D-0213 RNG-full ride; or
+  seed0104 @2841 `mattacku` while mounted; or D-0211 typ dump.
+- **Hypothesis (seed0103 Scr):** riding display/botl/map under `usteed`
+  (RNG **2640**/2640; Scr **2**/60; strict short 58 vs 60 screens).
+- **Hypothesis (seed0104 @2841):** C `mattacku` `rn2(2)` vs JS extra
+  `mcalcmove`/`dog_move` while mounted — check steed movement skip /
+  hero-under-steed attack path after D-0213.
+- **Hypothesis (D-0211):** kitten `dog_move` — JS `mfndpos` includes SW
+  that C skips; poison-gas falsified; need C typ dump.
 - **Parked deep canary:** D-0006 pet movement — do not implement until C
   state/candidate capture exists.
 - **Parked seed2200 @158:** RC config path — harness `$HOME`, not a port bug.
@@ -193,6 +192,10 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 - **seed0103 @2337 was NOT `trquan` order / lazy trotyp** — missing
   Knight pony `put_saddle_on_mon`→`mksobj(SADDLE)` `next_ident` after
   `makedog`/`NO_MINVENT` (D-0212).
+- **seed0103 @2440 was NOT missing saddle alone** — unbound `#ride` →
+  need `doride`/`mount_steed` (`rnd(20)` slip + `rn2(5)` losehp) and
+  `dismount_steed`/`landing_spot`; also clear `u.umoved` before rhack
+  so steed `u_calc_moveamt` does not double-`mcalcmove` (D-0213).
 - **`monattk.h`: AT_WEAP=254, AT_MAGC=255, AT_SPIT=10** — never use 10 for
   weapon (D-0179).
 - Hostile `m_move`: before place, `m_digweapon_check` may return
@@ -298,3 +301,6 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   with `appr!=0 && !whappr` (D-0211). Extra candidate ⇒ fleeck arity split.
 - **Knight pony:** `makedog` `NO_MINVENT` then `put_saddle_on_mon(NULL)`
   → `mksobj(SADDLE)` (D-0212); domestic `!rn2(100)` in `makemon` same helper.
+- **`#ride`/`doride`/`mount_steed`:** slip gate `ulevel+mtame < rnd(20)`;
+  fatal slip → `done`/`can_make_bones`; clear `umoved` before rhack
+  (D-0213). `dog_goal` returns -2 for `usteed`.

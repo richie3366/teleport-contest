@@ -30,7 +30,7 @@ JS editing rule: `.cursor/rules/js-port.mdc` (`js/**`).
 | Speed label | `9+0.06/turn` (R² 0.984) |
 | Commit | `8b71735` |
 
-### Current public score — 2026-07-13
+### Current public score — 2026-07-14
 
 Measured with `node frozen/ps_test_runner.mjs sessions` (direct runner; no
 frozen-file overlay):
@@ -38,8 +38,8 @@ frozen-file overlay):
 | Metric | Value |
 |--------|------:|
 | Sessions passing | **17 / 44** |
-| Screens matched | **1315 / 11,405** (11.53%) |
-| Positional RNG calls matched | **148,366 / 792,838** (18.71%) |
+| Screens matched | **1316 / 11,405** (11.54%) |
+| Positional RNG calls matched | **148,875 / 792,838** (18.78%) |
 | Speed label | `19+0.09/turn` |
 | Working-tree base | `8b71735` + committed port (see `main`) |
 | Role-init throws | **0 / 44** (`u_init_role: role not ported`) |
@@ -64,13 +64,13 @@ shared blockers, and semantic coverage together—not one vanity metric.
 | `seed0501-priest-cast-read-turn` | **2238 / 2238** | **28 / 28** |
 | `seed2200-wizard-quaff-zap-read` | **3018 / 3018** | **229 / 230** |
 | `seed0017-samurai-altar-pray` | **3465 / 3465** | **67 / 67** |
-| `seed0030-ten-diverse-deaths` | **24703 / 105529** | **45 / 1953** |
-| `seed0103-knight-ride-pony` | **2461 / 2640** | 2 / 60 |
+| `seed0030-ten-diverse-deaths` | **24713 / 105529** | **45 / 1953** |
+| `seed0103-knight-ride-pony` | **2640 / 2640** | 2 / 60 |
 | `seed0200-monk-north-search` | **3822 / 3822** | **40 / 40** |
 | `seed0101-ranger-quiver-throw-travel-engrave` | **2371 / 2371** | **27 / 27** |
 | `seed0016-healer-newmoon-eat-zap` | **3656 / 3656** | **36 / 36** |
 | `seed0107-samurai-twoweapon-enhance` | **2684 / 2902** | **36 / 98** |
-| `seed0104-knight-ride-combat` | **2638 / 3223** | 2 / 43 |
+| `seed0104-knight-ride-combat` | **2968 / 3223** | 3 / 43 |
 | `seed0361-archeologist-tour` | **3293 / 53865** | 0 / 366 |
 | `seed0373-barbarian-quest-tour` | **2555 / 35386** | 0 / 124 |
 | `seed0105-valk-chat-lamp-ration` | **2499 / 2499** | **30 / 30** |
@@ -281,6 +281,9 @@ seed0030 seg2 **2217→2408** (`distfleeck`); positional
 seed0103 prefix **2337→2440** (`mount_steed`); positional
 **2461**/2640 Scr **2**/60; seed0104 **2638**/3223; full **17/44**
 Scr **1315** RNG **148366**.
+**`#ride`/`doride`/`mount_steed`/`dismount`** (D-0213) →
+seed0103 RNG **2640**/2640 Scr **2**/60; seed0104 **2968**/3223;
+full **17/44** Scr **1316** RNG **148875**.
 
 ### Green gate
 
@@ -468,21 +471,23 @@ autoopen `doopen_indir` (D-0059) + `mfndpos` BOULDER/`ALLOW_ROCK` +
 **`make_grave`/`get_rnd_text(EPITAPHFILE)`** (D-0209)
 **elf Instrument eager `ROLL_FROM`** (D-0210)
 **Knight pony `put_saddle_on_mon`** (D-0212)
+**`#ride`/`doride`/`mount_steed`/`dismount_steed` BYCHOICE** (D-0213)
 **ported**; **dog_move extra mfndpos candidate** (D-0211) **open**. Seventeen
 public sessions pass end-to-end. **0/44** throw at
 `u_init_role`. seed0700 + seed1150 + seed0017 + seed0077 + seed0106 +
 seed0501 + seed0105 + seed0016 + seed0015 + seed0200 + seed0101 **PASS**. seed2200 RNG **full**
 (Scr **229**/230; sole miss parked RC @158).
-seed0101 RNG **full** Scr **27**/27.
+seed0101 RNG **full** Scr **27**/27. seed0103 RNG **full** Scr **2**/60.
 
-- **Bounded unit:** seed0103 @2440 **`mount_steed`** (after D-0212 saddle) /
-  seed0030 seg2 @2408 (D-0211: C excludes SW diagonal — poison-gas
-  falsified; need C typ dump) / seed0361/0373 **quest `getbones`**
+- **Bounded unit:** seed0103 Scr residual (riding display/botl) /
+  seed0104 @2841 `mattacku` while mounted / seed0030 seg2 @2408
+  (D-0211: C excludes SW diagonal — poison-gas falsified; need C typ
+  dump) / seed0361/0373 **quest `getbones`**
   (blocked: need `^V`→`goto_level`→`makemaz` first — ordinary
   `goto_level` now exists for stairs; Mines `fill_lvl` path exists
   D-0171).
-- **Prefer:** seed0103 `mount_steed` (clear C locus) or D-0211 C-state
-  typ falsifier over parked D-0006 and over baking seed2200 RC paths.
+- **Prefer:** seed0103 Scr or seed0104 mounted combat peel over
+  parked D-0006 and over baking seed2200 RC paths.
   Hero `dotrap` deferred until monster pit peel is clear.
   Hero `xkilled` treasure `mkobj` still deferred (ordinary `make_corpse`
   done D-0191; mhitm path done D-0167; `done_in_by` bones gate done
@@ -593,7 +598,7 @@ seed0101 RNG **full** Scr **27**/27.
   done D-0210);
   **`mfndpos` SW-diagonal skip @ pet dog_move** (D-0211 open — poison-gas
   falsified for seg2; need C typ dump);
-  **`doride`/`mount_steed`** (saddle create done D-0212);
+  **`doride`/`mount_steed`** (done D-0213; Scr residual);
   …
 - **Cohort:** green gate + seed1500 + seed1800 + seed0060 + seed0102
   + seed0700 + seed1150 + seed0017 + seed0077 + seed0106 + seed0501
@@ -1355,6 +1360,10 @@ Module status, constitutional debt, and named omissions live in
     — seed0103 prefix **2337→2440** (`mount_steed`); positional
     **2461**/2640 Scr **2**/60; seed0104 **2638**/3223; full **17/44**
     Scr **1315** RNG **148366**; next seed0103 @2440 / D-0211 typ dump
+189. `#ride`/`doride`/`mount_steed`/`dismount` (D-0213)
+    — seed0103 RNG **2640**/2640 Scr **2**/60; seed0104 **2968**/3223;
+    full **17/44** Scr **1316** RNG **148875**; next seed0103 Scr /
+    seed0104 @2841 / D-0211 typ dump
 
 Next work is selected from the active objectives above using
 `PORTING-RUNBOOK.md`, not by extending this historical list.

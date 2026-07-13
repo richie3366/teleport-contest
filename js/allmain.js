@@ -67,7 +67,7 @@ async function moveloop_preamble(_resuming) {
 // C ref: allmain.c u_calc_moveamt()
 function u_calc_moveamt(wtcap) {
     let moveamt = 0;
-    // Steed path (mcalcmove) deferred until riding is live.
+    // Steed path when riding and hero actually moved this turn
     if (game.u?.usteed && game.u?.umoved) {
         moveamt = mcalcmove(game.u.usteed, true);
     } else {
@@ -484,6 +484,9 @@ export async function moveloop_core() {
     }
     await bot();
     await flush_screen(1);
+
+    // C: u.umoved = FALSE before occupation / rhack (allmain.c)
+    g.u.umoved = false;
 
     // C: svc.context.move = 1; then occupation or rhack(0)
     // When multi < 0 (dressing etc.), skip input; leave move=1 for next turn.
