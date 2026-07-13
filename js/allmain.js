@@ -18,6 +18,7 @@ import { LOW_PM, NUMMONS, mons, G_NOCORPSE } from './monsters.js';
 import { A_DEX, A_STR, A_CON, acurr, exercise, change_luck, Fast, Very_fast, Searching } from './attrib.js';
 import { dosearch0 } from './detect.js';
 import { nhgetch } from './input.js';
+import { unmul } from './hack.js';
 import { near_capacity, paint_corner_nhw_menu } from './invent.js';
 import { com_pager_legacy } from './questpgr.js';
 import { snapshot_status_lines } from './display.js';
@@ -470,6 +471,14 @@ export async function moveloop_core() {
                 if ((g.moves || 0) >= (g.context.seer_turn || 0)) {
                     g.context.seer_turn = g.moves + rn1(31, 15);
                 }
+
+                // C: when immobile, count is in turns — multi < 0 occupation
+                if ((g.multi || 0) < 0) {
+                    g.multi++;
+                    if (g.multi === 0) {
+                        await unmul(null);
+                    }
+                }
             }
         } while ((g.u.umovement || 0) < NORMAL_SPEED);
     }
@@ -483,8 +492,11 @@ export async function moveloop_core() {
     await flush_screen(1);
 
     // C: svc.context.move = 1; then rhack(0) — or continue DOMOVE_RUSH / counted s
+    // When multi < 0 (dressing etc.), skip input; leave move=1 for next turn.
     g.context.move = 1;
-    if (run_active()) {
+    if ((g.multi || 0) < 0) {
+        // occupation continues without nhgetch
+    } else if (run_active()) {
         await continue_run();
     } else if (search_repeat_active()) {
         await continue_search();

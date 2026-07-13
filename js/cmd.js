@@ -23,7 +23,7 @@ import { do_attack, mon_at, is_safemon } from './uhitm.js';
 import { doopen_indir } from './lock.js';
 import { doextcmd } from './getline.js';
 import { dosearch } from './detect.js';
-import { dotakeoff } from './do_wear.js';
+import { dotakeoff, dowear } from './do_wear.js';
 import { wiz_wish } from './wizcmds.js';
 import { dowield } from './wield.js';
 
@@ -212,6 +212,11 @@ export async function rhack(key) {
     } else if (ch === 'w') {
         // C ref: wield.c dowield — wield a weapon
         const tookTime = await dowield();
+        game.context.move = tookTime ? 1 : 0;
+        if (tookTime) game.kickedloc = { x: 0, y: 0 };
+    } else if (ch === 'W') {
+        // C ref: do_wear.c dowear — wear armor
+        const tookTime = await dowear();
         game.context.move = tookTime ? 1 : 0;
         if (tookTime) game.kickedloc = { x: 0, y: 0 };
     } else if (ch === 'i') {

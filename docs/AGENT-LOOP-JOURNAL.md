@@ -749,3 +749,16 @@ Use this shape:
   positional 3103; seed0700 RNG full.
 - Next: `node scripts/rng-diff.mjs sessions/seed0361-archeologist-tour.session.json`
   — peel `W`/`dowear` SDSM @ 3073 (or getbones/egg/seed0700 screen).
+
+## 2026-07-13 02:45 — W/dowear SDSM nomul (D-0066)
+- C locus: `do_wear.c` `dowear`/`canwearobj`/`accessory_or_armor_on`/
+  `Armor_on`; `worn.c` `setworn`; `hack.c` `nomul`/`unmul`;
+  `allmain.c` `multi < 0`; `objects.h` `oc_delay`; `cmd.c` `'W'`
+- Result: seed0361 @ 3073 was missing wear. SDSM `oc_delay=5` needs
+  `nomul(-5)` + moveloop occupation (no keys during dress). Extracted
+  `oc_delay`; ported wear + setworn + unmul/afternmv.
+- Verification: green + seed1500/1800/0060 PASS + strict; full 5/44
+  screens 295 RNG 85752; seed0361 prefix 3073→3259 (`P` puton)
+  positional 3262; seed0700 RNG full.
+- Next: `node scripts/rng-diff.mjs sessions/seed0361-archeologist-tour.session.json`
+  — peel `P`/`doputon` ALS @ 3259 (or getbones/egg/seed0700 screen).

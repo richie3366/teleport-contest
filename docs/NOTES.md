@@ -7,15 +7,16 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 
 ## Active
 
-- **Current unit:** D-0065 fixed `w`/`dowield`. seed0361 prefix
-  **3035→3073**; next is `W` wear SDSM (`j`).
-- **Hypothesis / next peel:** Prefer `W`/`dowear` (seed0361 @ 3073)
+- **Current unit:** D-0066 fixed `W`/`dowear` + `oc_delay` + `nomul`
+  occupation. seed0361 prefix **3073→3259**; next is `P`/`doputon` ALS
+  (`k`).
+- **Hypothesis / next peel:** Prefer `P`/`doputon` (seed0361 @ 3259)
   or shared `getbones` via `^V` (seed0373 @ 2549) / egg
   `can_be_hatched` (seed0102 @ 1281) / seed0700 screen.
 - **Falsifier / next probe:**
   ```bash
   node scripts/rng-diff.mjs sessions/seed0361-archeologist-tour.session.json
-  # Expect first gap at 3073 distfleeck until Wear ported
+  # Expect first gap at 3259 dog_move until Puton ported
   ```
 - **Parked deep canary:** D-0006 pet movement — do not implement until C
   state/candidate capture exists.
@@ -46,11 +47,12 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   `levelchange`; `pluslvl` achievements/livelog/`newuexp`; feel_location/
   Blind/unmap_invisible in `dosearch0`; mfind0 body; Hallucination
   find_trap wait; activate_statue_trap; artifact SPFX_SEARCH fund;
-  `oc_delay`/occupation takeoff; magic helm `Helmet_off` beyond fedora
-  luck; dragon armor/`setworn` props; `A` takeoffall; full `readobjnam`
-  (fruits/traps/terrain/random/`o_ranges`); `#wizwish` extcmd;
-  `W`/`dowear`/`P` puton; touch blast `d()`/`losehp`; artifact wield
-  intrinsics; `cantwield`/corpse/bimanual/weld pline/swap/quiver ynq; …
+  `oc_delay` doff occupation; magic helm `Helmet_off` beyond fedora
+  luck; dragon armor/`setworn` oc_oprop props; `A` takeoffall; full
+  `readobjnam` (fruits/traps/terrain/random/`o_ranges`); `#wizwish`
+  extcmd; `P`/`doputon` accessory path; touch blast `d()`/`losehp`;
+  artifact wield intrinsics; `cantwield`/corpse/bimanual/weld pline/
+  swap/quiver ynq; …
 
 ## Don’t re-check
 
@@ -260,7 +262,11 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 - seed0361 `rn2(4)` @ 3035 was **not** a moveloop arity bug: missing
   `w`/`dowield`. Neutral + Grayswandir `SPFX_RESTR` (no INTEL) rolls
   `rn2(4)` again on retouch after wish-time touch @ 3017 — D-0065.
-  Next is `W`/`j` wear SDSM @ **3073**.
+  Next was `W`/`j` wear SDSM @ **3073**.
+- seed0361 `rn2(5)` @ 3073 was **not** a fleeck formula bug: missing
+  `W`/`dowear`. SDSM `oc_delay=5` → `nomul(-5)` multi-turn dressing
+  without further keys; all 5 turns attribute to the `j` selection
+  keystroke (D-0066). Next is `P`/`doputon` ALS @ **3259**.
 
 ## Landmarks
 
@@ -313,8 +319,8 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   next prefix **6732** (`maybe_smudge_engr`).
 - seed0373: D-0061 → past `#levelchange`/`newhp`; prefix **2549**
   (`getbones`); positional **2573**/35386.
-- seed0361: D-0065 → past Grayswandir wield; prefix **3073** (`W` wear);
-  positional **3103**/53865.
+- seed0361: D-0066 → past SDSM wear (delay-5 occupation); prefix **3259**
+  (`P` puton); positional **3262**/53865.
 - seed1150: D-0056 → past `peace_minded`; prefix **2915** (`dog_move`);
   positional **2942**/3137 Scr **22**/51.
 - seed0700: D-0060 → RNG **3230**/3230 Scr **2**/51 (screen peel next).
@@ -344,8 +350,10 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   `T` auto (`Narmorpieces==1`); fedora off → `change_luck(-1)` (D-0063).
 - seed0361 wishes: Grayswandir (artifact_name), SDSM (mon-strip +
   `scale mail` `rn2(67)` + remap), ALS (`rn2(76)`); then `w` wield
-  then `W` wear SDSM (D-0064/D-0065).
+  then `W` wear SDSM then `P` puton ALS (D-0064/65/66).
 - Wish `rn2(nartifact_exist())` runs even in wizard mode (C `||`
   left-to-right); wizard only skips the destroy body.
 - Grayswandir touch: `SPFX_RESTR|SPFX_HALRES` (no INTEL); neutral hero
   → `badalign` → `rn2(4)` on wish **and** wield retouch (D-0065).
+- SDSM `oc_delay=5` → `nomul(-5)`; moveloop skips `nhgetch` while
+  `multi < 0` and increments until `unmul` → `Armor_on` (D-0066).

@@ -69,6 +69,7 @@ Do not record a guessed cause as fixed merely because an RNG prefix moved.
 | D-0063 | fixed | do_wear/takeoff | `T`/`dotakeoff` + delay-0 `armoroff`; seed0361 past `TcTd` |
 | D-0064 | fixed | wish/readobjnam | `^W`/`makewish`/`readobjnam` + artifacts; seed0361 past 3 wishes |
 | D-0065 | fixed | wield | `w`/`dowield`/`ready_weapon`/`setuwep`/`retouch_object`; seed0361 past Grayswandir wield |
+| D-0066 | fixed | wear | `W`/`dowear`/`canwearobj`/`setworn`/`oc_delay`/`nomul`; seed0361 past SDSM dress |
 
 D-0001 through D-0005 predate the strict-length/cohort runbook. Their focused
 causes are preserved, but generic "green sessions held" is historical evidence,
@@ -1773,4 +1774,37 @@ cohort gates if those functions are touched again.
 - **Lesson:** alignment-restricted non-intelligent artifacts still
   roll `rn2(4)` on every retouch (wish and wield), not only once.
 - **Next:** `W`/`dowear` (seed0361 @ 3073 SDSM) or shared
+  `getbones`/`^V` / egg / seed0700 screen.
+
+## D-0066 — `W`/`dowear` SDSM delay occupation (seed0361)
+
+- **Symptom:** seed0361 rng-diff @ **3073**: C `rn2(5)`
+  `distfleeck` vs JS `rn2(7)` (unknown-`W` then `j` as move).
+- **Cause/evidence:** Session keys `Wj` after wield. C `dowear` →
+  getobj `j` (SDSM) → `accessory_or_armor_on` → `setworn` +
+  `nomul(-oc_delay)` with SDSM `oc_delay=5`. Moveloop skips
+  `nhgetch` while `multi < 0`, attributing all 5 dressing turns
+  (+ pet fleeck) to the `j` keystroke. JS lacked `'W'` and
+  negative-`multi` occupation.
+- **Rejected:** fleeck arity / pet geometry as the first cause —
+  without wear, `j` was a south move with different pet path.
+- **C locus:** `do_wear.c` `dowear`/`canwearobj`/
+  `accessory_or_armor_on`/`Armor_on`; `worn.c` `setworn`;
+  `hack.c` `nomul`/`unmul`; `allmain.c` `multi < 0`;
+  `objects.h` `oc_delay`; `cmd.c` `'W'`.
+- **Change:** extractor `oc_delay`; `js/do_wear.js` wear path;
+  `js/hack.js` `nomul`/`unmul`; `js/allmain.js` occupation;
+  `cmd.js` `'W'`.
+- **Verification:** green + seed1500/1800/0060 PASS + strict; full
+  **5/44** screens **295** RNG **85752**/792838; seed0361 prefix
+  **3073→3259** (`P` puton) positional **3262**/53865; seed0700
+  RNG still full.
+- **Omissions named:** `P`/`doputon` accessory bodies; `setworn`
+  oc_oprop/extrinsic props; `dragon_armor_handling`; doff
+  `oc_delay` occupation; poly/weld/trap `canwearobj` gates;
+  `A` takeoffall; ring hand yn.
+- **Lesson:** armor `oc_delay` is not optional for parity —
+  delayed donning consumes multiple turns without further keys,
+  and those turns share the selection keystroke's RNG segment.
+- **Next:** `P`/`doputon` (seed0361 @ 3259 ALS) or shared
   `getbones`/`^V` / egg / seed0700 screen.
