@@ -2319,3 +2319,16 @@ Use this shape:
 - Verification: seed0030 prefix **14056→14118**; positional **14487**/105529;
   full **15/44** Scr **1405** RNG **135937**; green+strict PASS; cohort held.
 - Next: seed0030 @14118 (C `rn2(32)` vs JS `rn2(24)` `m_move`); or seed0101 Scr.
+
+## 2026-07-13 21:15 — seed0030 @14118 cnt diagnosis (D-0185)
+- Objective: seed0030 @14118 C `rn2(32)` vs JS `rn2(24)` `m_move`
+  (PROGRESS primary).
+- C locus: `monmove.c` `m_move` mtrack `rn2(4*(cnt-j))`; `mon.c`
+  `mfndpos`; mines `mkmap`/`join_map`/`wallify_map`.
+- Result: **falsified** sleep/allowflags theory — no production change.
+  DIAG: PM_GNOME @`(57,10)` `cnt=6` missing wall neigh `(56,9)`/
+  `(56,10)` (STONE→wallify; join never carved; no dig). C needs
+  `cnt=8`. Next step is C map vs actor-identity falsifier.
+- Verification: green+strict PASS (preflight); DIAG removed; tree clean.
+- Next: resolve D-0185 (C typ at those cells or drifted actor); or
+  seed0101 Scr.

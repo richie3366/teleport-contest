@@ -7,17 +7,18 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 
 ## Active
 
-- **Current unit:** D-0184 — muse potion throw + potionhit/breathe/makeknown
-  cleared @14056; seed0030 now @14118.
-- **Hypothesis / next:** @14118 C `rn2(32)` vs JS `rn2(24)` `m_move` —
-  mfndpos candidate-count drift after hero sleep multi from potion vapor
-  (or another mon's allowflags).
+- **Current unit:** D-0185 — seed0030 @14118 `m_move` cnt (after D-0184).
+- **Hypothesis / next:** JS PM_GNOME @`(57,10)` has `cnt=6` because
+  `(56,9)`/`(56,10)` are minefill wallified STONE→corners (never join-
+  carved; no dig). C `rn2(32)` needs `cnt=8` — either C map differs
+  there or C’s actor/position at this index differs (deterministic
+  `appr=1` drift without earlier RNG mismatch).
 - **Falsifier / next:**
   ```bash
   node scripts/rng-diff.mjs sessions/seed0030-ten-diverse-deaths.session.json
-  # expect first mismatch past 14118 once cnt/allowflags match
-  node frozen/ps_test_runner.mjs sessions/seed0101-ranger-quiver-throw-travel-engrave.session.json
-  # expect Scr >21/27 if residual display peel advances
+  # past 14118 once C actor+typ at (56,9)/(56,10) explained
+  # Prefer: dump JS fmon order + cnt around 14115–14121; compare to C
+  # recorder/screen if available; do not “open” walls from the trace.
   ```
 - **Parked deep canary:** D-0006 pet movement — do not implement until C
   state/candidate capture exists.
@@ -83,6 +84,9 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   `obj_resists` `rn2(100)`; C `obfree` does not (D-0184).
 - **`makeknown` after vapor needs flight `observe_object`** — thrower
   `!cansee` still IDs potion when missile crosses visible cells (D-0184).
+- **@14118 is NOT sleep/allowflags/`mtrapseen`** — JS gnome cnt=6 from
+  walls at (56,9)/(56,10) since minefill wallify; gnome has no tunnels;
+  no dig opened them (D-0185). Do not force-open walls from the trace.
 - **`monattk.h`: AT_WEAP=254, AT_MAGC=255, AT_SPIT=10** — never use 10 for
   weapon (D-0179).
 - Hostile `m_move`: before place, `m_digweapon_check` may return
@@ -115,3 +119,5 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   mfndpos; every moved digger with `may_dig` calls `mdig_tunnel` which
   **always** burns `rnd(12)` first (D-0178).
 - Mines `fill_lvl`/`makemaz(minefill)` + dungeon align `&7` (D-0171).
+- seed0030 @14118: JS gnome @`(57,10)` missing wall neigh `(56,9)`/
+  `(56,10)`; C wants cnt=8 (D-0185).

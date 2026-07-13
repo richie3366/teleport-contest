@@ -187,6 +187,8 @@ Do not record a guessed cause as fixed merely because an RNG prefix moved.
 | D-0181 | partial | trap/rocktrap + gettrack | rocktrap + should_see/gettrack/initrack; dwarf pick → D-0182 |
 | D-0182 | fixed | monmove/m_search_items | getitems + loot gg redirect; dwarf rocktrap @13987 |
 | D-0183 | partial | monmove/underfoot loot | skip underfoot MMOVE_DONE until mpickstuff; can_carry peaceful |
+| D-0184 | partial | muse/potionhit | MUSE_POT_* throw + hero potionhit/breathe/makeknown |
+| D-0185 | open | m_move/mfndpos cnt | seed0030 @14118: JS gnome walls vs C rn2(32) |
 
 D-0001 through D-0005 predate the strict-length/cohort runbook. Their focused
 causes are preserved, but generic "green sessions held" is historical evidence,
@@ -5028,5 +5030,36 @@ cohort gates if those functions are touched again.
   flight `observe_object` when thrower `!cansee`.
 - **Next:** seed0030 @14118 (C `rn2(32)` vs JS `rn2(24)` `m_move`);
   or seed0101 Scr / seed0200 @3382.
+
+## D-0185 — seed0030 @14118 m_move cnt (gnome walls)
+
+- **Status:** open (diagnosis; no production change this iteration)
+- **Observed:** seed0030 @14118 — C `rn2(32)` @ `m_move` mtrack skip
+  (`4*(cnt-j)`); JS `rn2(24)`. Prior calls matched including
+  `rn2(32)` @14115 and two `distfleeck` `rn2(5)`.
+- **JS state at mismatch:** PM_GNOME @`(57,10)`, `appr=1`,
+  `flag=ALLOW_U|OPENDOOR`, `mtrapseen=0`, `cnt=6`, first mtrack hit
+  `j=0` → `rn2(24)` on `(58,9)`. Missing neighbors `(56,9)=TRCORNER`,
+  `(56,10)=BRCORNER`. Hero `multi=-1` @`(34,4)`; gg redirected to
+  loot @`(57,11)`. Next mon @14121 also `cnt=5`→`rn2(20)` matching C.
+- **Map evidence:** after mines `mkmap`+`join_map`, those cells are
+  still STONE (join carved ROOM along y=11 e.g. `(54,11)`/`(55,11)`,
+  never `(56,9)`/`(56,10)`); `wallify`→corners. No JS `mdig_tunnel`
+  ever opened them (wall digs only near x=23–26). Gnome `tunnels=false`.
+- **C locus:** `monmove.c` `m_move` `rn2(4*(cnt-j))`; `mon.c` `mfndpos`;
+  mines `mkmap`/`join_map`/`wallify_map` (`mkmap.c`/`sp_lev.c`).
+- **Cause (partial):** JS cnt shortfall is the two wall cells — not
+  allowflags, traps, sleep vapor, or `mtrapseen`. C `rn2(32)` requires
+  `cnt=8` (`j=0`), so either C has those cells open (mkmap/join
+  divergence without RNG mismatch) or C’s actor at this index is not
+  this gnome at `(57,10)` (earlier deterministic `appr=1` path drift).
+- **Rejected / falsified:** hero-sleep/`Unaware` allowflags drift;
+  `ALLOW_DIG` missing on gnome; known-trap skip; boulder/mon occupancy
+  on the missing cells; dig-open of `(56,*)` in JS.
+- **Next falsifier:** identify C actor (same fmon slot vs drifted
+  position) and/or C typ at `(56,9)`/`(56,10)` on Mines at this turn —
+  recorder or screen if hero vision reaches; else bisect first
+  deterministic gnome/`mfndpos` path split after D-0184.
+- **Verification:** green+strict PASS (preflight); no JS production edit.
 
 

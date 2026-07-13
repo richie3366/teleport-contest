@@ -396,14 +396,15 @@ seed0501 + seed0105 + seed0016 + seed0015 **PASS**. seed2200 RNG **full**
 (Scr **229**/230; sole miss parked RC @158).
 seed0101 RNG **full** Scr **21**/27.
 
-- **Bounded unit:** seed0030 @14118 (C `rn2(32)` vs JS `rn2(24)` `m_move`) /
+- **Bounded unit:** seed0030 @14118 / D-0185 (JS gnome walls vs C
+  `rn2(32)` — map or actor identity) /
   seed0101 Scr residual /
   seed0103 `next_ident`/`trquan` /
   seed0200 combat `@3382` (lower priority) /
   seed0361/0373 **quest `getbones`** (blocked: need `^V`→`goto_level`→
   `makemaz` first — ordinary `goto_level` now exists for stairs; Mines
   `fill_lvl` path exists D-0171).
-- **Prefer:** seed0030 @14118 `m_move` cnt / seed0101 Scr
+- **Prefer:** seed0030 @14118 D-0185 (C typ/actor falsifier) / seed0101 Scr
   over parked D-0006 and over baking seed2200 RC paths.
   Hero `dotrap` deferred until monster pit peel is clear.
   Hero `xkilled` `make_corpse` still deferred (mhitm path done D-0167).
