@@ -5398,3 +5398,23 @@ cohort gates if those functions are touched again.
 - **Next:** seed0030 seg1 @3497 C `m_move` vs JS `mattacku` (position);
   or seed0103 `next_ident`/`trquan`.
 
+## D-0199 — `monnear` NODIAG diagonal (seed0030 seg1 @3497)
+
+- **Symptom:** seed0030 seg1 @3497 C `rn2(12) @ m_move` vs JS
+  `rnd(20) @ mattacku` after grid-bug zap (D-0198).
+- **Rejected:** hero/mux coordinate drift or wrong actor order — DIAG
+  showed same grid bug (mid73) diagonal to hero in JS; C end screens
+  also show diagonal adjacency after `l`.
+- **Cause/evidence:** C `mon.c` `monnear`: `dist2==2 && NODIAG` → 0 so
+  grid bugs are not "nearby" on diagonals → `dochug` `want_move` →
+  `m_move`. JS `monnear` used `distmin<=1` (diagonal counts) → attack.
+- **Change:** `js/mon.js` `monnear` matches C (`dist2<3` + NODIAG
+  diagonal reject).
+- **Verification:** seg1 prefix **3497→3870**; seed0030 positional
+  **18437**/105529 Scr **44**/1953; green+strict+cohort PASS; full
+  **17/44** Scr **1312**/11405 RNG **141923**/792838.
+- **Named omissions:** none new for `monnear`; themerms descend peel
+  next.
+- **Next:** seed0030 seg1 @3870 themerms.lua `room`/`nh.rn2`; or
+  seed0103 `next_ident`/`trquan`.
+

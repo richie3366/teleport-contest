@@ -7,12 +7,12 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 
 ## Active
 
-- **Current unit:** seed0030 seg1 @3497 / seed0103 `next_ident`/`trquan`.
-- **Hypothesis (seed0030 seg1):** after D-0198 grid-bug `mhitm_ad_elec`, first
-  mismatch @3497 C `rn2(12) @ m_move` vs JS `rnd(20) @ mattacku` — a monster
-  is adjacent in JS (attacks) while C still pathfinds (mfndpos/position drift).
-- **Falsifier:** dump actors near hero at seg1 step after the zap (C screen
-  "The grid bug bites!  You get zapped!"); compare mx/my vs JS `m_at`/mux.
+- **Current unit:** seed0030 seg1 @3870 / seed0103 `next_ident`/`trquan`.
+- **Hypothesis (seed0030 seg1):** after D-0199 `monnear` NODIAG, first mismatch
+  @3870 on descend `>` — C `nh.rn2` themerms.lua:1039 `room()` shuffle vs JS
+  `rn2(3)` (wrong Lua/fill path or earlier room args).
+- **Falsifier:** compare JS Lua provenance / `create_room` args at seg1 step
+  with key `>` just before 3870; check whether themerms `room` body runs.
 - **Parked deep canary:** D-0006 pet movement — do not implement until C
   state/candidate capture exists.
 - **Parked seed2200 @158:** RC config path — harness `$HOME`, not a port bug.
@@ -126,6 +126,11 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   AD_ELEC: C `mhitm_adtyping`→`mhitm_ad_elec` burns `mhitm_mgc_atk_negated`
   `rn2(10)` then destroy_items gate `rn2(20)`; JS `hitmu` only did PHYS
   (D-0198). Do not re-chase knockback-before-adtyping.
+- **seed0030 seg1 @3497 was NOT position drift / wrong actor order** —
+  grid bug diagonal to hero: JS `monnear` used `distmin<=1` so nearby→
+  `mattacku`; C `monnear` returns 0 when `dist2==2 && NODIAG` so
+  want_move→`m_move` (D-0199). Do not re-chase mux/hero coord theories
+  for that index.
 - **`monattk.h`: AT_WEAP=254, AT_MAGC=255, AT_SPIT=10** — never use 10 for
   weapon (D-0179).
 - Hostile `m_move`: before place, `m_digweapon_check` may return
@@ -191,3 +196,5 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 - **`hitmu` must `mhitm_adtyping`** — AD_ELEC → `mhitm_mgc_atk_negated`
   `rn2(10)` + destroy_items gate `rn2(20)`; PHYS keeps prior path
   (D-0198). Other adtyps still zero-out.
+- **`monnear`:** `dist2<3`, but `dist2==2 && NODIAG(PM_GRID_BUG)` →
+  false (D-0199). Do not use bare `distmin<=1` for grid bugs.

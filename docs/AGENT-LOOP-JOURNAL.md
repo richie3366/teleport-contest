@@ -2577,3 +2577,13 @@ Use this shape:
   full **17/44** Scr **1312** RNG **141570**; green+strict+cohort PASS.
 - Next: seed0030 seg1 @3497 C `m_move` vs JS `mattacku`; or seed0103
   `next_ident`/`trquan`.
+
+## 2026-07-14 00:00 — D-0199 monnear NODIAG diagonal fixed
+- Objective: seed0030 seg1 @3497 C `rn2(12) @ m_move` vs JS `rnd(20) @ mattacku` (PROGRESS primary).
+- C locus: `mon.c` `monnear` (`dist2==2 && NODIAG` → 0).
+- Result: **fixed** — grid bug diagonal to hero: JS `monnear` used `distmin<=1`
+  so nearby→attack; C rejects NODIAG diagonals so want_move→`m_move`.
+- Verification: seg1 **3497→3870**; seed0030 positional **18437**/105529;
+  full **17/44** Scr **1312** RNG **141923**; green+strict+cohort PASS.
+- Next: seed0030 seg1 @3870 themerms.lua `room`/`nh.rn2`; or seed0103
+  `next_ident`/`trquan`.
