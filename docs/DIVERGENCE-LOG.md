@@ -158,6 +158,7 @@ Do not record a guessed cause as fixed merely because an RNG prefix moved.
 | D-0152 | fixed | wield/quiver | `Q`/`doquiver_core` uswapwep ready + hand-throw; seed0101 @2293 |
 | D-0153 | fixed | cmd/travel | `_`/`dotravel` cancel + tip PICK_NONE; seed0101 @2302 |
 | D-0154 | fixed | monmove/apparxy | `set_apparxy` Displacement `rn2(4)`; seed0101 RNG full |
+| D-0155 | fixed | apply/eat | STETHOSCOPE self + touchfood split; seed0016 @2493→2551 |
 
 D-0001 through D-0005 predate the strict-length/cohort runbook. Their focused
 causes are preserved, but generic "green sessions held" is historical evidence,
@@ -4134,4 +4135,37 @@ cohort gates if those functions are touched again.
 - **Lesson:** arity `rn2(4)` next to `distfleeck` `rn2(5)` is often
   Displacement/Invis `set_apparxy`, not a 4-dir mfndpos bug.
 - **Next:** seed0016 eat `next_ident` @2493 / seed0015 Scr @21 /
+  seed0030 `maybe_smudge_engr` / seed0101 Scr residual.
+
+## D-0155 — STETHOSCOPE self + eat touchfood split (seed0016)
+
+- **Status:** fixed
+- **Observed:** seed0016 @2493 C `rnd(2)` @ `next_ident` (eat split) vs
+  JS `rn2(12)` (`mcalcmove`).
+- **Rejected:** missing eat/`splitobj` alone as the first peel — DIAG
+  showed JS did eventually split the apple, but only *after* a premature
+  monster turn. Keys `a`/`c`/`.` were stethoscope; JS rejected the tool so
+  `.` became `donull` and burned `mcalcmove` before `e`/`j`.
+- **C locus:** `apply.c` `use_stethoscope` / `doapply`; `insight.c`
+  `ustatusline`/`piousness`; `cmd.c` getdir `.`=self; `eat.c`
+  `touchfood`/`doeat`/`fprefx`/`start_eating`/`lesshungry`;
+  `mkobj.c` `splitobj`/`next_ident`.
+- **Cause:** (1) Unbound STETHOSCOPE → key desync before eat.
+  First stethoscope use is free when `hero_seq != stethoscope_seq`.
+  (2) After timing matched, invent apple stack still needed
+  `touchfood`→`splitobj(1)`→`next_ident` and reqtime-1 finish
+  (Macintosh APPLE joke on contest MACOS build).
+- **Change:** `use_stethoscope` + getdir self-ok + `ustatusline`/
+  `piousness`; `doeat` food-class reqtime-1 path with `touchfood`/
+  `fprefx`/`lesshungry`/`useup`. Multi-turn occupation / adjacent
+  stethoscope / oc_nutrition extractor deferred.
+- **Verification:** seed0016 prefix **2493→2551** (`zapyourself`);
+  Scr **6→15**/36; green+strict PASS; cohort 1500/1800/0060/0105 PASS;
+  full **13/44** Scr **1302** RNG **127080**/792838.
+- **Named omission:** adjacent/`dz`/cursed stethoscope arms; multi-turn
+  eat occupation; rotten `rn2(7)`; floorfood floor; `freeinv`+
+  `addinv_nomerge`; `oc_nutrition` in objects extract; UNIX Core dumped.
+- **Lesson:** when rng-diff shows eat `next_ident` vs `mcalcmove`, check
+  whether an earlier apply/getdir ate the self-key as `donull` first.
+- **Next:** seed0016 `zapyourself` @2551 / seed0015 Scr @21 /
   seed0030 `maybe_smudge_engr` / seed0101 Scr residual.

@@ -1,15 +1,20 @@
 // apply.js — Apply / use tool command.
-// C ref: apply.c doapply (LOCK_PICK / key subset).
+// C ref: apply.c doapply (LOCK_PICK / key / STETHOSCOPE subset).
 
 import { game } from './gstate.js';
 import { nhgetch } from './input.js';
 import { flush_screen, flush_topl_more, pline } from './display.js';
 import { TOOL_CLASS, objectNames } from './objects.js';
 import { pick_lock } from './lock.js';
+import { ustatusline } from './insight.js';
 
 const LOCK_PICK = objectNames.indexOf('LOCK_PICK');
 const SKELETON_KEY = objectNames.indexOf('SKELETON_KEY');
 const CREDIT_CARD = objectNames.indexOf('CREDIT_CARD');
+const STETHOSCOPE = objectNames.indexOf('STETHOSCOPE');
+
+const DIR_DX = { h: -1, l: 1, j: 0, k: 0, y: -1, u: 1, b: -1, n: 1 };
+const DIR_DY = { h: 0, l: 0, j: 1, k: -1, y: -1, u: -1, b: 1, n: 1 };
 
 /** C ref: apply.c apply_ok — TOOL_CLASS SUGGEST subset; other classes deferred. */
 function apply_ok(obj) {
@@ -80,7 +85,63 @@ async function getobj_apply() {
 }
 
 /**
- * C ref: apply.c doapply() — TOOL_CLASS getobj; LOCK_PICK/key body.
+ * C ref: cmd.c getdir — '.' is self (dx=dy=dz=0, success), not cancel.
+ * Used by use_stethoscope; lock.js getdir still treats '.' as cancel.
+ */
+async function getdir_self_ok(prompt) {
+    const msg = prompt || 'In what direction?';
+    game._pending_message = `${msg} `;
+    await flush_screen(1);
+    const disp = game.nhDisplay;
+    if (disp?.setCursor) disp.setCursor(game._pending_message.length, 0);
+    const key = await nhgetch();
+    const ch = String.fromCharCode(key);
+    game._pending_message = '';
+    if (!game.u) game.u = {};
+    if (ch === '.') {
+        game.u.dx = game.u.dy = game.u.dz = 0;
+        return true;
+    }
+    if (key === 27 || ch === ' ' || ch === '\n' || ch === '\r') {
+        return false;
+    }
+    if (!(ch in DIR_DX)) return false;
+    game.u.dx = DIR_DX[ch];
+    game.u.dy = DIR_DY[ch];
+    game.u.dz = 0;
+    return true;
+}
+
+/**
+ * C ref: apply.c use_stethoscope — one free use per hero_seq; '.' → ustatusline.
+ * Branch envelope: self (dx=dy=0) only. Deferred: swallow/steed/dz/cursed
+ * heartbeat rn2(2), adjacent mstatusline/SDOOR/SCORR, confdir, Deaf/nohands.
+ * @returns {number} 1 = ECMD_TIME, 0 = ECMD_OK, -1 = ECMD_CANCEL
+ */
+async function use_stethoscope(_obj) {
+    if (!(await getdir_self_ok(null))) return -1; // ECMD_CANCEL
+
+    // C: first use this hero_seq is free; another use costs the turn
+    if (!game.context) game.context = {};
+    if (game.hero_seq == null) game.hero_seq = (game.moves || 1) << 3;
+    const seq = game.hero_seq;
+    const tookTime = seq === (game.context.stethoscope_seq ?? 0) ? 1 : 0;
+    game.context.stethoscope_seq = seq;
+
+    // confdir deferred (not Confused at starter)
+    const dx = game.u.dx | 0;
+    const dy = game.u.dy | 0;
+    if (!dx && !dy) {
+        await ustatusline();
+        return tookTime;
+    }
+    // Adjacent monster / terrain stethoscope deferred
+    await pline("You hear a faint typing noise.");
+    return 0; // ECMD_OK — match C isok-fail path rather than invent TIME
+}
+
+/**
+ * C ref: apply.c doapply() — TOOL_CLASS getobj; LOCK_PICK/key/STETHOSCOPE body.
  * Named omissions: full apply_ok (wand/spbook/coin/weapon/potion/
  * food/graystone); nohands/capacity; retouch; most otyp cases.
  * @returns {boolean} true if the command took time (ECMD_TIME)
@@ -94,6 +155,11 @@ export async function doapply() {
         // C: res = (pick_lock(...) != 0) ? ECMD_TIME : ECMD_OK
         const pl = await pick_lock(obj);
         return pl !== 0;
+    }
+
+    if (obj.otyp === STETHOSCOPE) {
+        const res = await use_stethoscope(obj);
+        return res > 0; // ECMD_TIME only
     }
 
     // Other tools (sack, etc.) deferred

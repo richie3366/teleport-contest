@@ -1929,3 +1929,17 @@ Use this shape:
   **12/44** Scr **1198** RNG **107134**/792838.
 - Next: seed0105 `` ` `` glyph / seed0015 `lspo_map` /
   seed0101 `next_ident`.
+
+## 2026-07-13 — STETHOSCOPE + eat touchfood split (D-0155)
+- Objective: seed0016 eat `next_ident` @2493 (PROGRESS primary).
+- C locus: `apply.c` `use_stethoscope`; `insight.c` `ustatusline`/
+  `piousness`; `eat.c` `touchfood`/`doeat`/`fprefx`/`lesshungry`.
+- Result: **verified** — rng-diff looked like missing eat split, but JS
+  rejected STETHOSCOPE so `.` became `donull` and burned `mcalcmove`
+  before `e`/`j`. Ported free first-use stethoscope self→`ustatusline`
+  plus reqtime-1 `touchfood`→`splitobj`→`next_ident` (Macintosh APPLE).
+- Verification: seed0016 prefix **2493→2551** (`zapyourself`); Scr
+  **6→15**/36; green+strict PASS; cohort 1500/1800/0060/0105 PASS;
+  full **13/44** Scr **1302** RNG **127080**/792838.
+- Next: seed0016 `zapyourself` @2551 / seed0015 Scr @21 /
+  seed0030 `maybe_smudge_engr` / seed0101 Scr residual.

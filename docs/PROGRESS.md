@@ -38,8 +38,8 @@ frozen-file overlay):
 | Metric | Value |
 |--------|------:|
 | Sessions passing | **13 / 44** |
-| Screens matched | **1293 / 11,405** (11.34%) |
-| Positional RNG calls matched | **127,004 / 792,838** (16.02%) |
+| Screens matched | **1302 / 11,405** (11.42%) |
+| Positional RNG calls matched | **127,080 / 792,838** (16.03%) |
 | Speed label | `19+0.08/turn` |
 | Working-tree base | `8b71735` + committed port (see `main`) |
 | Role-init throws | **0 / 44** (`u_init_role: role not ported`) |
@@ -68,7 +68,7 @@ shared blockers, and semantic coverage together—not one vanity metric.
 | `seed0103-knight-ride-pony` | **2344 / 2640** | 2 / 60 |
 | `seed0200-monk-north-search` | **3385 / 3822** | **14 / 40** |
 | `seed0101-ranger-quiver-throw-travel-engrave` | **2371 / 2371** | **21 / 27** |
-| `seed0016-healer-newmoon-eat-zap` | **2544 / 3656** | **6 / 36** |
+| `seed0016-healer-newmoon-eat-zap` | **2597 / 3656** | **15 / 36** |
 | `seed0107-samurai-twoweapon-enhance` | **2684 / 2902** | **36 / 98** |
 | `seed0104-knight-ride-combat` | **2394 / 3223** | 1 / 43 |
 | `seed0361-archeologist-tour` | **3293 / 53865** | 0 / 366 |
@@ -127,10 +127,10 @@ autoopen `doopen_indir` (D-0059), `mfndpos` BOULDER/`NODIAG`
 **`#offer`/`#enhance`/`#annotate`/`#overview`/`#version`** (D-0110)
 clear shared peels. seed2200 RNG **full**; Scr **229**/230 (sole miss:
 parked RC path @158). seed0106 **PASS**.
-Healer seed0016 next `next_ident` @ 2493.
+Healer seed0016 next `zapyourself` @ 2551.
 seed0015 next Scr @21 (RNG full);
 seed0200 next `hitum`/`exercise` @ 3382.
-seed0101 next `set_apparxy` @ 2309. seed0013 still breaks earlier in
+seed0101 next Scr residual (RNG full). seed0013 still breaks earlier in
 Lua/`sp_lev`. seed0103 next `next_ident`/`trquan` @ 2337.
 seed0361/0373 `getbones` blocked on unbound `^V`/`goto_level`/
 `makemaz`. seed0077 chargen + vault fallback + door vision/pick_lock/DEC
@@ -311,13 +311,14 @@ autoopen `doopen_indir` (D-0059) + `mfndpos` BOULDER/`ALLOW_ROCK` +
 **`Q`/`doquiver_core` uswapwep ready + hand-throw** (D-0152)
 **`_`/`dotravel` cancel + tip PICK_NONE** (D-0153)
 **`set_apparxy` Displacement/`Invis`** (D-0154)
+**STETHOSCOPE `use_stethoscope`/`ustatusline` + eat `touchfood`** (D-0155)
 **ported**. Thirteen public sessions pass end-to-end. **0/44** throw at
 `u_init_role`. seed0700 + seed1150 + seed0017 + seed0077 + seed0106 +
 seed0501 + seed0105 **PASS**. seed2200 RNG **full** (Scr **229**/230; sole
 miss parked RC @158). seed0015 RNG **full** (Scr **21**/44).
-seed0101 RNG **full** Scr **21**/27.
+seed0101 RNG **full** Scr **21**/27. seed0016 prefix **2551** Scr **15**/36.
 
-- **Bounded unit:** seed0016 eat `next_ident` @2493 /
+- **Bounded unit:** seed0016 `zapyourself` @2551 /
   seed0015 Scr @21 /
   seed0030 `maybe_smudge_engr` @6732 /
   seed0101 Scr residual /
@@ -325,7 +326,7 @@ seed0101 RNG **full** Scr **21**/27.
   seed0200 combat `@3382` (lower priority) /
   seed0361/0373 **quest `getbones`** (blocked: need `^V`→`goto_level`→
   `makemaz` first — ordinary `goto_level` now exists for stairs).
-- **Prefer:** eat-stack `next_ident` / seed0015 Scr / `maybe_smudge_engr`
+- **Prefer:** zap-self / seed0015 Scr / `maybe_smudge_engr`
   over parked D-0006 and over baking seed2200 RC paths.
   Hero `dotrap` deferred until monster pit peel is clear.
 - **Named omissions:** full `findtravelpath` TEST_TRAV/GUESS/travelmap/
@@ -901,6 +902,10 @@ Module status, constitutional debt, and named omissions live in
     — seed0101 RNG **2371**/2371 Scr **21**/27; screens **1293**;
     RNG **126947→127004**; green cohort PASS; next seed0016 eat
     `next_ident` / seed0015 Scr / `maybe_smudge_engr`
+133. STETHOSCOPE + eat `touchfood`/`splitobj` (D-0155)
+    — seed0016 prefix **2493→2551** (`zapyourself`); Scr **6→15**/36;
+    screens **1293→1302**; RNG **127004→127080**; green cohort PASS;
+    next seed0016 `zapyourself` / seed0015 Scr / `maybe_smudge_engr`
 
 Next work is selected from the active objectives above using
 `PORTING-RUNBOOK.md`, not by extending this historical list.

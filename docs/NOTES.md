@@ -7,18 +7,17 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 
 ## Active
 
-- **Current unit:** D-0154 cleared seed0101 `set_apparxy` Displacement —
-  C `rn2(4)` vs stub that skipped RNG. seed0101 RNG **full** (2371/2371);
-  Scr still **21**/27.
-- **Hypothesis / next:** seed0016 eat-stack `next_ident` @2493 (C
-  `rnd(2)` vs JS `rn2(12)` `mcalcmove`) / seed0015 Scr @21 /
-  seed0030 `maybe_smudge_engr` @6732 / seed0101 Scr residual.
-  Prefer eat-split `next_ident` or seed0015 screen peel over parked
-  D-0006 and over baking seed0101 Scr alone.
+- **Current unit:** D-0155 cleared seed0016 eat `next_ident` @2493 —
+  real blocker was unbound STETHOSCOPE so `.` became `donull` before `e`.
+  Prefix **2493→2551**; Scr **6→15**/36. Next C `zapyourself` @2551.
+- **Hypothesis / next:** seed0016 `z`/`zapyourself` sleep ray @2551 /
+  seed0015 Scr @21 / seed0030 `maybe_smudge_engr` @6732 /
+  seed0101 Scr residual. Prefer zap-self or seed0015 Scr over parked
+  D-0006.
 - **Falsifier / next:**
   ```bash
   node scripts/rng-diff.mjs sessions/seed0016-healer-newmoon-eat-zap.session.json
-  # expect next_ident match (or prove JS eats/split before mcalcmove)
+  # expect zapyourself match (or prove getdir/dozap order)
   node frozen/ps_test_runner.mjs sessions/seed0015-valk-level2-pit-dog-wait.session.json
   # expect Scr >21 or named first cell mismatch
   ```
@@ -220,9 +219,22 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   Displacement `!rn2(4)` (Ranger cloak); JS stub always set mux=hero
   with no RNG so next call was `distfleeck` `rn2(5)` (D-0154). Do not
   invent 4-dir movement from arity alone.
+- **seed0016 @2493 was NOT missing eat alone** — JS rejected
+  STETHOSCOPE so `.` became `donull` and burned `mcalcmove` before
+  `e`/`j`; C `use_stethoscope` first use is free (`hero_seq` gate) and
+  `.` is self→`ustatusline` (D-0155). Eat still needed `touchfood`→
+  `splitobj`→`next_ident` for the apple stack.
 
 ## Landmarks
 
+- STETHOSCOPE: getdir `.` = self (not cancel); first use/hero_seq free
+  (`ECMD_OK`); `ustatusline` → `Status of N (fervently Neutral): …`
+  (D-0155).
+- `touchfood` quan>1 invent → `splitobj(1)` → `next_ident`; reqtime-1
+  food finishes in `start_eating` without occupation (D-0155).
+- Contest MACOS APPLE joke: `Delicious!  Must be a Macintosh!`
+- Healer APPLE stack can be quan>5: `mksobj_init` `!rn2(6)`→quan=2 on
+  one of the five `ini_inv` creates, then merge.
 - `set_apparxy`: pet/ustuck/`u_at(mux,muy)` early-exit; else
   Displaced→`rn2(4)` / Invis→`rn2(3)` then optional displace loop
   `rn2(2*displ+1)` (D-0154). Cloak otyp stands in for EDisplaced until
