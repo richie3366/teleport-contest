@@ -1,7 +1,7 @@
 // eat.js — Eat command (getobj / doeat; fortune cookie + reqtime-1 food).
 // C ref: eat.c doeat / touchfood / fprefx / start_eating / bite / done_eating /
-//         lesshungry / obj_nutrition / floorfood / is_edible / gethungry;
-//         invent.c getobj.
+//         lesshungry / obj_nutrition / floorfood / is_edible / gethungry
+//         (Unaware rn2(10) + accessorytime rn2(20)); invent.c getobj.
 
 import { game } from './gstate.js';
 import { rn2 } from './rng.js';
@@ -52,10 +52,42 @@ const FOOD_NUTRITION = {
 };
 
 /**
- * C ref: eat.c gethungry — accessorytime = rn2(20); hunger side-effects
- * beyond the roll deferred (ring/amulet nutrition, faint, etc.).
+ * C ref: trap.c unconscious — multi < 0 and (usleep or wake-msg prefixes).
+ */
+function unconscious() {
+    if ((game.multi || 0) >= 0) return false;
+    const u = game.u || {};
+    if (u.usleep) return true;
+    const msg = game.nomovemsg || '';
+    return msg.startsWith('You awake')
+        || msg.startsWith('You regain con')
+        || msg.startsWith('You are consci');
+}
+
+/**
+ * C ref: youprop.h Unaware — multi < 0 && (unconscious || fainted).
+ * Fainted (uhs == FAINTED) deferred as always-false until newuhs ports it.
+ */
+function Unaware() {
+    return (game.multi || 0) < 0 && unconscious();
+}
+
+/**
+ * C ref: eat.c gethungry — Unaware metabolic rn2(10) then accessorytime rn2(20).
+ * Hunger side-effects beyond the rolls deferred (ring/amulet nutrition, faint).
  */
 export function gethungry() {
+    if (game.u?.uinvulnerable) return;
+
+    // C: (!Unaware || !rn2(10)) && eats && !Slow_digestion → uhunger--
+    // rn2(10) is evaluated whenever Unaware (|| short-circuit); food checks
+    // after that are deferred — RNG order only needs the Unaware roll.
+    if (Unaware()) {
+        rn2(10);
+        // uhunger-- when !rn2(10) && carnivorous/… deferred
+    }
+    // else non-Unaware: no rn2(10); ordinary uhunger-- deferred
+
     const accessorytime = rn2(20);
     void accessorytime;
 }

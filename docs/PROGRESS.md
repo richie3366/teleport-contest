@@ -38,8 +38,8 @@ frozen-file overlay):
 | Metric | Value |
 |--------|------:|
 | Sessions passing | **13 / 44** |
-| Screens matched | **1302 / 11,405** (11.42%) |
-| Positional RNG calls matched | **127,080 / 792,838** (16.03%) |
+| Screens matched | **1318 / 11,405** (11.56%) |
+| Positional RNG calls matched | **128,139 / 792,838** (16.16%) |
 | Speed label | `19+0.08/turn` |
 | Working-tree base | `8b71735` + committed port (see `main`) |
 | Role-init throws | **0 / 44** (`u_init_role: role not ported`) |
@@ -68,7 +68,7 @@ shared blockers, and semantic coverage together—not one vanity metric.
 | `seed0103-knight-ride-pony` | **2344 / 2640** | 2 / 60 |
 | `seed0200-monk-north-search` | **3385 / 3822** | **14 / 40** |
 | `seed0101-ranger-quiver-throw-travel-engrave` | **2371 / 2371** | **21 / 27** |
-| `seed0016-healer-newmoon-eat-zap` | **2597 / 3656** | **15 / 36** |
+| `seed0016-healer-newmoon-eat-zap` | **3656 / 3656** | **31 / 36** |
 | `seed0107-samurai-twoweapon-enhance` | **2684 / 2902** | **36 / 98** |
 | `seed0104-knight-ride-combat` | **2394 / 3223** | 1 / 43 |
 | `seed0361-archeologist-tour` | **3293 / 53865** | 0 / 366 |
@@ -127,7 +127,7 @@ autoopen `doopen_indir` (D-0059), `mfndpos` BOULDER/`NODIAG`
 **`#offer`/`#enhance`/`#annotate`/`#overview`/`#version`** (D-0110)
 clear shared peels. seed2200 RNG **full**; Scr **229**/230 (sole miss:
 parked RC path @158). seed0106 **PASS**.
-Healer seed0016 next `zapyourself` @ 2551.
+Healer seed0016 next Scr residual @31 (RNG full).
 seed0015 next Scr @21 (RNG full);
 seed0200 next `hitum`/`exercise` @ 3382.
 seed0101 next Scr residual (RNG full). seed0013 still breaks earlier in
@@ -185,6 +185,9 @@ welcome matches C; Scr still **0**/30 (map `` ` ``); scores unchanged.
 **0→22**/30; screens **1198→1231**; RNG unchanged; remaining chat/eat.
 **`#chat` wall + apply/eat getobj** (D-0140/41/42) → seed0105 **PASS**;
 public **13/44**; Scr **1231→1239**; RNG **107134→106907**.
+**WAN_SLEEP `zapyourself` + Unaware `gethungry`** (D-0156) →
+seed0016 RNG **full** Scr **15→31**/36; Scr **1302→1318**;
+RNG **127080→128139**.
 
 ### Green gate
 
@@ -312,13 +315,14 @@ autoopen `doopen_indir` (D-0059) + `mfndpos` BOULDER/`ALLOW_ROCK` +
 **`_`/`dotravel` cancel + tip PICK_NONE** (D-0153)
 **`set_apparxy` Displacement/`Invis`** (D-0154)
 **STETHOSCOPE `use_stethoscope`/`ustatusline` + eat `touchfood`** (D-0155)
+**WAN_SLEEP `zapyourself`/`fall_asleep` + Unaware `gethungry`** (D-0156)
 **ported**. Thirteen public sessions pass end-to-end. **0/44** throw at
 `u_init_role`. seed0700 + seed1150 + seed0017 + seed0077 + seed0106 +
 seed0501 + seed0105 **PASS**. seed2200 RNG **full** (Scr **229**/230; sole
 miss parked RC @158). seed0015 RNG **full** (Scr **21**/44).
-seed0101 RNG **full** Scr **21**/27. seed0016 prefix **2551** Scr **15**/36.
+seed0101 RNG **full** Scr **21**/27. seed0016 RNG **full** Scr **31**/36.
 
-- **Bounded unit:** seed0016 `zapyourself` @2551 /
+- **Bounded unit:** seed0016 Scr residual @31 /
   seed0015 Scr @21 /
   seed0030 `maybe_smudge_engr` @6732 /
   seed0101 Scr residual /
@@ -326,7 +330,7 @@ seed0101 RNG **full** Scr **21**/27. seed0016 prefix **2551** Scr **15**/36.
   seed0200 combat `@3382` (lower priority) /
   seed0361/0373 **quest `getbones`** (blocked: need `^V`→`goto_level`→
   `makemaz` first — ordinary `goto_level` now exists for stairs).
-- **Prefer:** zap-self / seed0015 Scr / `maybe_smudge_engr`
+- **Prefer:** seed0016/0015 Scr / `maybe_smudge_engr`
   over parked D-0006 and over baking seed2200 RC paths.
   Hero `dotrap` deferred until monster pit peel is clear.
 - **Named omissions:** full `findtravelpath` TEST_TRAV/GUESS/travelmap/
@@ -906,6 +910,10 @@ Module status, constitutional debt, and named omissions live in
     — seed0016 prefix **2493→2551** (`zapyourself`); Scr **6→15**/36;
     screens **1293→1302**; RNG **127004→127080**; green cohort PASS;
     next seed0016 `zapyourself` / seed0015 Scr / `maybe_smudge_engr`
+134. WAN_SLEEP `zapyourself`/`fall_asleep` + Unaware `gethungry`
+    (D-0156) — seed0016 RNG **3656**/3656 Scr **15→31**/36; screens
+    **1302→1318**; RNG **127080→128139**; green cohort PASS; next
+    seed0016 Scr @31 / seed0015 Scr / `maybe_smudge_engr`
 
 Next work is selected from the active objectives above using
 `PORTING-RUNBOOK.md`, not by extending this historical list.

@@ -19,6 +19,20 @@ Use this shape:
 
 ---
 
+## 2026-07-13 16:25 — WAN_SLEEP zapyourself (D-0156)
+- Objective: seed0016 @2551 C `rnd(50)` @ `zapyourself` vs JS
+  `rn2(5)` (PROGRESS primary).
+- C locus: `zap.c` `dozap`/`zapyourself` WAN_SLEEP; `timeout.c`
+  `fall_asleep`; `eat.c` `gethungry` Unaware `rn2(10)`.
+- Result: **verified** — directional zap was stubbed; Healer `z`/`.`
+  is self sleep ray. Ported getdir self, WAN_SLEEP/SPE_SLEEP
+  zapyourself, fall_asleep, Unaware gethungry rn2(10).
+- Verification: seed0016 RNG **3656**/3656 Scr **15→31**/36;
+  green+strict PASS; cohort 1500/1800/0060/0105/0501 PASS; full
+  **13/44** Scr **1318** RNG **128139**/792838.
+- Next: seed0016 Scr residual @31, or seed0015 Scr @21 /
+  seed0030 `maybe_smudge_engr` @6732 / seed0101 Scr residual.
+
 ## 2026-07-13 16:08 — set_apparxy Displacement (D-0154)
 - Objective: seed0101 @2309 C `set_apparxy` `rn2(4)` vs JS `rn2(5)`
   (PROGRESS primary).

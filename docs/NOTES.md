@@ -7,17 +7,16 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 
 ## Active
 
-- **Current unit:** D-0155 cleared seed0016 eat `next_ident` @2493 —
-  real blocker was unbound STETHOSCOPE so `.` became `donull` before `e`.
-  Prefix **2493→2551**; Scr **6→15**/36. Next C `zapyourself` @2551.
-- **Hypothesis / next:** seed0016 `z`/`zapyourself` sleep ray @2551 /
-  seed0015 Scr @21 / seed0030 `maybe_smudge_engr` @6732 /
-  seed0101 Scr residual. Prefer zap-self or seed0015 Scr over parked
-  D-0006.
+- **Current unit:** D-0156 cleared seed0016 `zapyourself` @2551 —
+  WAN_SLEEP self-zap + Unaware `gethungry` `rn2(10)`. RNG **full**;
+  Scr **15→31**/36.
+- **Hypothesis / next:** seed0016 Scr residual @31 / seed0015 Scr @21 /
+  seed0030 `maybe_smudge_engr` @6732 / seed0101 Scr residual.
+  Prefer screen peels or smudge over parked D-0006.
 - **Falsifier / next:**
   ```bash
-  node scripts/rng-diff.mjs sessions/seed0016-healer-newmoon-eat-zap.session.json
-  # expect zapyourself match (or prove getdir/dozap order)
+  node frozen/ps_test_runner.mjs sessions/seed0016-healer-newmoon-eat-zap.session.json
+  # expect Scr >31 or named first cell mismatch
   node frozen/ps_test_runner.mjs sessions/seed0015-valk-level2-pit-dog-wait.session.json
   # expect Scr >21 or named first cell mismatch
   ```
@@ -224,9 +223,17 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   `e`/`j`; C `use_stethoscope` first use is free (`hero_seq` gate) and
   `.` is self→`ustatusline` (D-0155). Eat still needed `touchfood`→
   `splitobj`→`next_ident` for the apple stack.
+- **seed0016 @2551 was NOT missing RAY weffects/`buzz`** — Healer
+  `z`/`WAN_SLEEP`/`.` is self `zapyourself` → `fall_asleep(-rnd(50))`
+  (D-0156). After sleep, Unaware `gethungry` burns `rn2(10)` before
+  `rn2(20)` — do not “fix” by inventing hungrier accessory rolls.
 
 ## Landmarks
 
+- WAN_SLEEP self-zap: getdir `.` → `zapyourself` →
+  `The sleep ray hits you!` → `fall_asleep(-rnd(50), TRUE)` (D-0156).
+- Unaware (`multi < 0 && usleep`): `gethungry` always evaluates
+  `!rn2(10)` before accessorytime `rn2(20)` (D-0156).
 - STETHOSCOPE: getdir `.` = self (not cancel); first use/hero_seq free
   (`ECMD_OK`); `ustatusline` → `Status of N (fervently Neutral): …`
   (D-0155).

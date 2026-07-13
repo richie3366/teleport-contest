@@ -159,6 +159,7 @@ Do not record a guessed cause as fixed merely because an RNG prefix moved.
 | D-0153 | fixed | cmd/travel | `_`/`dotravel` cancel + tip PICK_NONE; seed0101 @2302 |
 | D-0154 | fixed | monmove/apparxy | `set_apparxy` Displacement `rn2(4)`; seed0101 RNG full |
 | D-0155 | fixed | apply/eat | STETHOSCOPE self + touchfood split; seed0016 @2493→2551 |
+| D-0156 | fixed | zap/sleep | WAN_SLEEP self-zap + Unaware gethungry; seed0016 RNG full |
 
 D-0001 through D-0005 predate the strict-length/cohort runbook. Their focused
 causes are preserved, but generic "green sessions held" is historical evidence,
@@ -4168,4 +4169,32 @@ cohort gates if those functions are touched again.
 - **Lesson:** when rng-diff shows eat `next_ident` vs `mcalcmove`, check
   whether an earlier apply/getdir ate the self-key as `donull` first.
 - **Next:** seed0016 `zapyourself` @2551 / seed0015 Scr @21 /
+  seed0030 `maybe_smudge_engr` / seed0101 Scr residual.
+
+## D-0156 — WAN_SLEEP zapyourself + Unaware gethungry (seed0016)
+
+- **Status:** fixed
+- **Observed:** seed0016 @2551 C `rnd(50)` @ `zapyourself` vs JS
+  `rn2(5)` (`distfleeck`) — directional zap stubbed as nothing_happens.
+- **Rejected:** missing RAY `weffects`/`buzz` first — C path is getdir
+  `.` → self → `zapyourself` sleep, not a directed ray.
+- **C locus:** `zap.c` `dozap`/`zapyourself` WAN_SLEEP; `timeout.c`
+  `fall_asleep`; `eat.c` `gethungry` Unaware `rn2(10)`; `trap.c`
+  `unconscious`; `youprop.h` Unaware.
+- **Cause:** (1) `dozap` never called getdir/zapyourself for RAY wands.
+  (2) After sleep matched, asleep turns need Unaware metabolic
+  `rn2(10)` before accessorytime `rn2(20)`.
+- **Change:** getdir `.`=self; `zapyourself` WAN_SLEEP/SPE_SLEEP +
+  Sleep_resistance branch; `fall_asleep`/`usleep`/`nomovemsg`;
+  `gethungry` Unaware gate. IMMEDIATE/RAY `weffects`, other
+  zapyourself otyps, shieldeff/monstunseesu deferred.
+- **Verification:** seed0016 RNG **3656**/3656 Scr **15→31**/36;
+  green+strict PASS; cohort 1500/1800/0060/0105/0501 PASS; full
+  **13/44** Scr **1318** RNG **128139**/792838.
+- **Named omission:** RAY/`bhit`/`ubuzz`; other zapyourself cases;
+  backfire; uhunger-- body; fainted Unaware arm; The(xname) article
+  edge cases.
+- **Lesson:** sleep/multi turns change gethungry RNG arity via Unaware
+  before any hunger side-effect ports.
+- **Next:** seed0016 Scr residual @31 / seed0015 Scr @21 /
   seed0030 `maybe_smudge_engr` / seed0101 Scr residual.
