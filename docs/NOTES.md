@@ -7,16 +7,18 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 
 ## Active
 
-- **Current unit:** seed1150 Scr **22**/51 (RNG full after D-0094) /
-  seed0017 @ 3132 mfndpos / seed2200 post-help.
-- **Hypothesis (seed1150 screens):** first Scr miss after full RNG —
-  display/glyph/topline residual (not another dogfood count). Decode
-  first mismatched screen vs C.
+- **Current unit:** seed1150 Scr **27**/51 (RNG full; D-0095 look_here +
+  Monnam) / seed0017 @ 3132 mfndpos / seed2200 post-help.
+- **Hypothesis (seed1150 Scr @27):** corridor `#` attr — JS
+  `lit_corridor`→`CLR_WHITE`(15), C fixture `NO_COLOR`(8). Blind
+  “always NO_COLOR” **breaks seed0900** (C wants 15 there). Need
+  C path that yields gray/default for this cell without regressing
+  tourist lit corridors (waslit / remembered / tty CLR_GRAY).
 - **Falsifier:**
   ```bash
-  node frozen/ps_test_runner.mjs sessions/seed1150-caveman-explore-move.session.json
+  node frozen/ps_test_runner.mjs sessions/seed1150-caveman-explore-move.session.json sessions/seed0900-tourist-explore-actions.session.json
   ```
-  (Scr still 22/51 → dig first mismatched frame; if Scr rises, update.)
+  (both Scr must hold; seed1150 rise without seed0900 drop).
 - **seed0017 @ 3132:** pet (30,5) D_NODOOR, `mfndpos` cnt=4 vs C needing
   5 for 3×`rn2(12)`. Display `setCell(x-1)`; not a room x-shift.
 - **Parked deep canary:** D-0006 pet movement — do not implement until C
@@ -125,6 +127,12 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 - seed1150 @ 3042 was **not** pet position / gold@(54,16) bbox —
   two unmerged FLINT `fobj` nodes after volley; C `throwit`→`stackobj`
   (D-0094).
+- seed1150 Scr 22 blank topline was **not** glyph — `!autopickup`
+  needs `domove`→`spoteffects`→`pickup`→`check_here`→`look_here`
+  (D-0095). Pet was already christened `Slasher`; dogmove `Monnam`
+  ignored `MGIVENNAME` (D-0095).
+- **Do not** force corridor `#` to `NO_COLOR` under `lit_corridor` —
+  raises seed1150 Scr but drops seed0900 (C wants CLR_WHITE there).
 - `more()` word-wrap of message text must only fire when len≥CO —
   wrapping at CO-8 breaks welcome `--More--` (seed0900).
 
@@ -205,3 +213,6 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   `P_SPEAR`; then `multishot = rnd(multishot)` (D-0093).
 - `throwit` must `stackobj` after `place_object` — multishot ammo
   merges so `dog_goal` `dogfood`s once per pile (D-0094).
+- `!autopickup` move: `spoteffects`→`pickup(1)`→`check_here`→
+  `look_here` `"You see here …"` (D-0095). `Monnam`/`noit_Monnam`
+  use bare `MGIVENNAME` when set (Caveman `Slasher`).

@@ -23,6 +23,7 @@ import {
 import { FOOD_CLASS, BALL_CLASS, CHAIN_CLASS, ROCK_CLASS, objectNames } from './objects.js';
 import { monsterNames } from './monsters.js';
 import { m_cansee, couldsee, cansee } from './vision.js';
+import { Monnam, noit_Monnam } from './do_name.js';
 
 const PM_FLOATING_EYE = monsterNames.indexOf('PM_FLOATING_EYE');
 const PM_GELATINOUS_CUBE = monsterNames.indexOf('PM_GELATINOUS_CUBE');
@@ -500,23 +501,7 @@ function pet_ranged_attk(mtmp, forced) {
     return MMOVE_NOTHING;
 }
 
-function mon_plain_name(m) {
-    const raw = m?.data?.name || monsterNames[m?.mnum] || 'monster';
-    return String(raw).replace(/^PM_/, '').replace(/_/g, ' ').toLowerCase();
-}
-
-// C ref: monnam.c Monnam — observed pet form in thitm/pickup is "The <type>"
-function Monnam(mtmp) {
-    return `The ${mon_plain_name(mtmp)}`;
-}
-
-// C ref: monnam.c noit_Monnam — cursemsg uses "Your <type>" for pets
-function noit_Monnam(mtmp) {
-    if (mtmp?.mtame) return `Your ${mon_plain_name(mtmp)}`;
-    return Monnam(mtmp);
-}
-
-// C: canseemon stub — visible pets in early sessions
+// canseemon stub — visible pets in early sessions
 function canseemon(mtmp) {
     return !!(mtmp && !mtmp.minvis && !mtmp.mundetected);
 }

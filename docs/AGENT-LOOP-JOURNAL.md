@@ -25,6 +25,20 @@ Use this shape:
 
 ---
 
+## 2026-07-13 06:30 — seed1150 look_here + Monnam (D-0095)
+- Objective: seed1150 Scr 22/51 first miss (PROGRESS primary).
+- C locus: `hack.c:spoteffects` → `pickup.c:pickup`/`check_here` →
+  `invent.c:look_here`; `do_name.c:Monnam`/`MGIVENNAME`.
+- Result: **verified faithful change** — `domove` never called
+  `spoteffects`; `!autopickup` needs `check_here`→`look_here`.
+  Pet already `Slasher`; dogmove `Monnam` ignored given name.
+  Rejected: corridor `#`→`NO_COLOR` (breaks seed0900).
+- Verification: green+strict PASS; cohort seed1500/1800/0060/0102/
+  0700 PASS; seed1150 Scr 22→27/51 RNG full; full 7/44 Scr 574
+  RNG 91471.
+- Next: seed1150 corridor `#` color without regressing seed0900,
+  or `node scripts/rng-diff.mjs sessions/seed0017-samurai-altar-pray.session.json`
+
 ## 2026-07-13 06:26 — seed1150 stackobj after throw (D-0094)
 - C locus: `invent.c:stackobj`/`merged`/`mergable`; `dothrow.c:throwit`
 - Result: **verified faithful change** — multishot flints merge on

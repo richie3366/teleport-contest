@@ -98,6 +98,7 @@ Do not record a guessed cause as fixed merely because an RNG prefix moved.
 | D-0092 | fixed | mklev/themerooms | `in_mk_themerooms` for `check_room` abort; seed0017 still @3132 |
 | D-0093 | fixed | dothrow/getdir | flush `--More--` before getdir + Caveman multishot; seed1150 3032→3042 |
 | D-0094 | fixed | invent/stackobj | throw landing `stackobj` merge; seed1150 RNG full |
+| D-0095 | fixed | pickup/Monnam | `spoteffects`/`check_here` + given-name Monnam; seed1150 Scr 22→27 |
 
 D-0001 through D-0005 predate the strict-length/cohort runbook. Their focused
 causes are preserved, but generic "green sessions held" is historical evidence,
@@ -2532,3 +2533,29 @@ cohort gates if those functions are touched again.
   shop/mail/globby/candle/erosion arms deferred.
 - **Next:** seed1150 screen peel (Scr 22/51) / seed0017 @ 3132
   `mfndpos` / seed2200 post-help.
+
+## D-0095 — seed1150 look_here + Monnam MGIVENNAME
+
+- **Observed:** seed1150 Scr **22**/51 (RNG full): screen 6 C topline
+  `"You see here a food ration."` vs JS blank; then pet plines
+  `"The little dog picks/drops…"` vs C `"Slasher …"`.
+- **C locus:** `hack.c` `spoteffects` → `pickup.c` `pickup`/
+  `check_here` → `invent.c` `look_here`; `do_name.c` `Monnam`/
+  `mon_nam` / `x_monnam` `MGIVENNAME` → `ARTICLE_NONE`.
+- **Cause:** (1) JS `domove` never called `spoteffects`; with
+  `!autopickup`, C always `check_here`→`look_here` on floor objects.
+  (2) Caveman pet already christened `Slasher`, but dogmove `Monnam`
+  hard-coded `"The <type>"`.
+- **Change:** `js/pickup.js` `check_here`/`pickup`/`spoteffects`;
+  `cmd.js` `domove` → `spoteffects(true)` after move; `do_name.js`
+  export `Monnam`/`noit_Monnam`; dogmove imports them.
+- **Verification:** green + strict PASS; cohort seed1500/1800/0060/
+  0102/0700 PASS; seed1150 Scr **22→27**/51 RNG full; full **7/44**,
+  screens **568→574**/11405, RNG **91465→91471**/792838.
+- **Named omission:** autopick body / `,` menus; `mention_decor`/
+  `describe_decor`; pool/trap/sink arms of `spoteffects`; full
+  `x_monnam` hallu/invis/saddle/priest/shk.
+- **Rejected:** forcing corridor `#` to `NO_COLOR` under
+  `lit_corridor` (raises seed1150 Scr, drops seed0900 to 12/84).
+- **Next:** seed1150 corridor `#` color (C 8 vs JS 15) without
+  regressing seed0900; or seed0017 mfndpos / invent Scr 38+.
