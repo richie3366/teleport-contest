@@ -84,6 +84,7 @@ Do not record a guessed cause as fixed merely because an RNG prefix moved.
 | D-0078 | fixed | tty/botl | H2344 NHW_MENU offx + `get_strength_str`; seed0700 Scr 2→44 |
 | D-0079 | fixed | Samurai invent | `makedog` Hachi + Japanese display + lacquer + observe; seed0700 PASS |
 | D-0080 | fixed | display/statue | `obj_glyph` STATUE → mons[corpsenm].mlet + `obj_color(STATUE)`; seed2200 Scr 1→11 |
+| D-0081 | fixed | display/map | `magic_map_background` dark_room → keep floor · (not blank); seed2200 Scr 11→89 |
 
 D-0001 through D-0005 predate the strict-length/cohort runbook. Their focused
 causes are preserved, but generic "green sessions held" is historical evidence,
@@ -2204,3 +2205,28 @@ cohort gates if those functions are touched again.
   pile-top statue glyph flags; gender FEM statue offset.
 - **Next:** seed2200 @ screen 10 whatis/overlay (room `·` vs
   gray blank) / seed0017 @ 3132 terrain / seed1150 `dog_move`.
+
+## D-0081 — seed2200 magic_map dark_room floors
+
+- **Status:** fixed
+- **Observed:** seed2200 Scr **11**/230 (RNG full). Screen 10 after
+  `r`+`j` SCR_MAGIC_MAPPING: 118 cells — C DEC floor `~`/NO_COLOR
+  vs JS blank/`CLR_GRAY` in distant rooms (not hero room).
+- **C locus:** `display.c` `magic_map_background`;
+  `reglyph_darkroom` (`showsyms[S_darkroom]=showsyms[S_room]`);
+  `detect.c` `show_map_spot`/`do_mapping`.
+- **Cause:** JS always rewrote out-of-sight `!waslit` ROOM floors to
+  GLYPH_NOTHING blank. C with default `dark_room`+color uses
+  `DARKROOMSYM`, which paints as the room-floor glyph.
+- **Falsified:** whatis/NHW overlay clear painting blanks over map
+  (screen 10 is post-mapping before `/`).
+- **Change:** `js/display.js` `magic_map_background` — blank only when
+  `!(dark_room && use_color)`; else keep floor ·/NO_COLOR.
+- **Verification:** green + seed1500/1800/0060/0102/0700 PASS +
+  strict; full **7/44**, screens **380→458**/11405, RNG
+  **91380**/792838; seed2200 Scr **11→89**/230.
+- **Named omission:** `newsym` still omits `waslit=(lit!=0)` on
+  cansee; full S_darkroom/CLR_BLACK vs showsym equate; getpos tip
+  geometry (next @ screen 36).
+- **Next:** seed2200 getpos tip @ screen 36 / seed0017 @ 3132
+  terrain / seed1150 `dog_move`.

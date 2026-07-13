@@ -7,18 +7,18 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 
 ## Active
 
-- **Current unit:** after D-0080 seed2200 Scr **1→11**/230 (statue
-  glyph). Prefer seed2200 @ screen 10 overlay / seed0017 @ 3132
-  terrain / seed1150 `dog_move`.
-- **Hypothesis (seed2200 Scr 11/230):** screen 10+ — C room `·`
-  (NO_COLOR) vs JS blank with CLR_GRAY (7) across a wide band
-  (~row 3+). Likely `/` whatis or NHW overlay clear painting
-  default-fg blanks over remembered map instead of leaving floor.
+- **Current unit:** after D-0081 seed2200 Scr **11→89**/230
+  (`magic_map_background` dark_room floors). Prefer seed2200 @
+  screen 36 getpos tip / seed0017 @ 3132 terrain / seed1150
+  `dog_move`.
+- **Hypothesis (seed2200 Scr 89/230):** screen 36 — `/` whatis
+  getpos tip. C tip text indented (~col 10) over intact map; JS tip
+  at col 0 and blanks map under tip. Cursor C `[16,8]` vs JS `[5,8]`.
 - **Falsifier / next probe:**
   ```bash
   node frozen/ps_test_runner.mjs sessions/seed2200-wizard-quaff-zap-read.session.json
   ```
-  Diff screen 10; cite C pager/wintty clear vs map restore path.
+  Diff screen 36; cite C `getpos` / tip pline / map restore path.
 - **Parked seed0017 @ 3132:** JS `mfndpos` cnt=4 at pet (30,5); C emits
   3× `rn2(12)`. Adding walkable `(30,4)` yields exactly 3× `rn2(12)`.
   JS has VWALL at (30,4); C screen shows floor. Diagnose join/
@@ -79,6 +79,9 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   DECgraphics — it was STATUE of grid bug; C `statue_to_glyph` uses
   `mons[corpsenm].mlet` + `obj_color(STATUE)` white (D-0080).
   Coords are (col=16,row=11), not (11,16).
+- seed2200 Scr 11 @ screen 10 was **not** whatis/overlay clear —
+  `magic_map_background` blanked `!waslit` ROOM floors; C
+  `dark_room`+color keeps DARKROOMSYM≡S_room floor (D-0081).
 
 ## Landmarks
 
@@ -117,3 +120,5 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   `xprname` (D-0079).
 - STATUE map: `statue_to_glyph` → monster letter + white (D-0080);
   boulder still ROCK_CLASS `` ` `` / `S_boulder`.
+- Magic map out-of-sight `!waslit` ROOM: `dark_room`+color →
+  DARKROOMSYM painted as S_room floor ·; else GLYPH_NOTHING (D-0081).

@@ -523,8 +523,9 @@ export function show_glyph_cell(x, y, ch, color = NO_COLOR, decgfx = false, attr
 /**
  * C ref: display.c magic_map_background(x, y, show)
  * Remembers real background under hero_memory; show==0 is mapping path.
- * Dark unlit ROOM → blank; unlit lit-corr glyph → dark corr. Trap/object
- * overlay after furniture is handled by show_map_spot caller.
+ * Out-of-sight ROOM the hero does not remember as lit: with dark_room+color
+ * → DARKROOMSYM (showsyms[S_darkroom]=showsyms[S_room], floor ·); else
+ * GLYPH_NOTHING blank. Unlit lit-corr glyph → dark corr.
  */
 export function magic_map_background(x, y, show) {
     const lev = game.level?.at(x, y);
@@ -535,8 +536,16 @@ export function magic_map_background(x, y, show) {
     // C: out-of-sight lit rooms/corridors the hero does not remember as lit
     if (!cansee(x, y) && !lev.waslit) {
         if (lev.typ === ROOM && tg.ch === '~' && tg.dec) {
-            // dark_room / GLYPH_NOTHING → blank cell
-            tg = { ch: ' ', color: NO_COLOR, dec: false };
+            // C: (flags.dark_room && iflags.use_color) ? DARKROOMSYM
+            //    : GLYPH_NOTHING. Defaults On; showsyms equate darkroom to
+            //    room floor (reglyph_darkroom). Keep ·/NO_COLOR like S_room.
+            const darkRoom = game.flags?.dark_room !== false;
+            const useColor = game.flags?.color !== false
+                && game.iflags?.use_color !== false;
+            if (!(darkRoom && useColor)) {
+                tg = { ch: ' ', color: NO_COLOR, dec: false };
+            }
+            // else: leave floor glyph (S_darkroom paints as S_room)
         } else if (lev.typ === CORR && tg.ch === '#'
             && game.flags?.lit_corridor) {
             tg = { ch: '#', color: NO_COLOR, dec: false };

@@ -973,3 +973,18 @@ Use this shape:
 - Next: seed2200 whatis/overlay @ screen 10 (room `·` vs gray
   blank) — same focused runner — or seed0017 @ 3132 terrain /
   seed1150 `dog_move`.
+
+## 2026-07-13 — magic_map dark_room floors (D-0081)
+- Objective: seed2200 Scr 11/230 screen 10 room · vs gray blank
+  (PROGRESS primary after D-0080).
+- C locus: `display.c` `magic_map_background` + `reglyph_darkroom`;
+  `detect.c` `show_map_spot`/`do_mapping`.
+- Result: **verified** — JS blanked `!waslit` ROOM floors as
+  GLYPH_NOTHING; C `dark_room`+color keeps DARKROOMSYM≡S_room
+  floor. Falsified whatis/overlay-clear theory for screen 10.
+- Verification: green + seed1500/1800/0060/0102/0700 PASS +
+  strict; full **7/44**, screens **380→458**/11405, RNG
+  **91380**/792838; seed2200 Scr **11→89**/230.
+- Next: seed2200 getpos tip @ screen 36 —
+  `node frozen/ps_test_runner.mjs sessions/seed2200-wizard-quaff-zap-read.session.json`
+  — or seed0017 @ 3132 terrain / seed1150 `dog_move`.

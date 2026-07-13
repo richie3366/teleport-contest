@@ -38,7 +38,7 @@ frozen-file overlay):
 | Metric | Value |
 |--------|------:|
 | Sessions passing | **7 / 44** |
-| Screens matched | **380 / 11,405** (3.33%) |
+| Screens matched | **458 / 11,405** (4.02%) |
 | Positional RNG calls matched | **91,380 / 792,838** (11.53%) |
 | Speed label | `17+0.08/turn` |
 | Working-tree base | `8b71735` + committed port (see `main`) |
@@ -59,7 +59,7 @@ shared blockers, and semantic coverage together—not one vanity metric.
 | `seed0060-orc-rogue-kick-search` | **3626 / 3626** | **41 / 41** |
 | `seed0102-ranger-name-cancel` | **4485 / 4485** | **25 / 25** |
 | `seed0700-samurai-explore-descend` | **3230 / 3230** | **51 / 51** |
-| `seed2200-wizard-quaff-zap-read` | **3018 / 3018** | **11 / 230** |
+| `seed2200-wizard-quaff-zap-read` | **3018 / 3018** | **89 / 230** |
 | `seed0017-samurai-altar-pray` | **3169 / 3465** | **2 / 67** |
 | `seed1150-caveman-explore-move` | **3042 / 3137** | **22 / 51** |
 | `seed0030-ten-diverse-deaths` | **7036 / 105529** | **39 / 1953** |
@@ -96,9 +96,10 @@ autoopen `doopen_indir` (D-0059), `mfndpos` BOULDER/`NODIAG`
 **`/`/`dowhatis` + `?`/`dohelp`/`get_lua_version`** (D-0077), and
 **H2344 `offx` + `get_strength_str`** (D-0078), and
 **Samurai `Hachi` + Japanese invent/disco** (D-0079), and
-**STATUE `obj_glyph` mons[corpsenm].mlet** (D-0080)
-clear shared peels. seed2200 RNG **full**; Scr **11**/230 (next:
-whatis/overlay room `·` vs gray blank @ screen 10). seed0017 next @ 3132 `dog_move`
+**STATUE `obj_glyph` mons[corpsenm].mlet** (D-0080), and
+**`magic_map_background` dark_room floors** (D-0081)
+clear shared peels. seed2200 RNG **full**; Scr **89**/230 (next:
+getpos tip @ screen 36). seed0017 next @ 3132 `dog_move`
 (terrain); seed0030 next `maybe_smudge_engr` @ 6732.
 Healer seed0016 next `next_ident` @ 2493; Caveman seed1150
 prefix **3042** (`dog_move`); Priest seed0501 still
@@ -155,13 +156,14 @@ autoopen `doopen_indir` (D-0059) + `mfndpos` BOULDER/`ALLOW_ROCK` +
 **`/`/`dowhatis`/`do_look` + `?`/`dohelp`/`get_lua_version`** (D-0077) +
 **H2344 NHW_MENU `offx` + botl `get_strength_str`** (D-0078) +
 **Samurai `makedog` Hachi + Japanese invent/disco** (D-0079) +
-**STATUE `obj_glyph` → mons[corpsenm].mlet + white** (D-0080)
+**STATUE `obj_glyph` → mons[corpsenm].mlet + white** (D-0080) +
+**`magic_map_background` dark_room floors** (D-0081)
 **ported**. Seven public sessions pass end-to-end. **0/44**
 throw at `u_init_role`. seed0700 **PASS**. seed0017 prefix
-**3132** (`dog_move`). seed2200 RNG **full** (Scr **11**/230 —
-next whatis/overlay `·` vs gray blank).
+**3132** (`dog_move`). seed2200 RNG **full** (Scr **89**/230 —
+next getpos tip @ screen 36).
 
-- **Bounded unit:** seed2200 **screen** peel (whatis/overlay @ 10) /
+- **Bounded unit:** seed2200 **screen** peel (getpos tip @ 36) /
   seed0017 @ 3132 `dog_move` terrain / seed1150 `dog_move` /
   seed0501/0105 `wipeout_text` / seed0015/0200 `lspo_map` /
   seed0101 `next_ident` / seed0103 `next_ident`/`trquan` /
@@ -421,6 +423,10 @@ Module status, constitutional debt, and named omissions live in
     seed2200 Scr **1→11**/230; screens **370→380**; RNG
     **91380** unchanged; green cohort PASS; next seed2200
     whatis/overlay @ screen 10 / seed0017 terrain / seed1150
+66. `magic_map_background` dark_room floors (D-0081) —
+    seed2200 Scr **11→89**/230; screens **380→458**; RNG
+    **91380** unchanged; green cohort PASS; next seed2200
+    getpos tip @ screen 36 / seed0017 terrain / seed1150
 
 Next work is selected from the active objectives above using
 `PORTING-RUNBOOK.md`, not by extending this historical list.
