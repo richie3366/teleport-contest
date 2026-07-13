@@ -23,6 +23,19 @@ Use this shape:
 
 ---
 
+## 2026-07-13 14:10 — newsym S_engroom/S_engrcorr (D-0139)
+- Objective: seed0105 bright-blue ASCII `` ` `` (PROGRESS primary).
+- C locus: `display.c` `newsym`/`map_engraving`/`_map_location`;
+  `engrave.h` `engraving_to_defsym`/`spot_shows_engravings`;
+  `defsym.h` `S_engroom` (`` ` `` + CLR_BRIGHT_BLUE).
+- Result: **verified** — vault niche engraving at (26,17); JS deferred
+  glyphs and never set `erevealed` on cansee.
+- Verification: seed0105 Scr **0→22**/30 (RNG full); remaining chat/eat;
+  green+strict PASS; cohort PASS; full **12/44** Scr **1231** RNG
+  **107134**.
+- Next: seed0105 `#chat` `"It's like talking to a wall."` or eat/apply
+  getobj desync; else `lspo_map` / `next_ident`.
+
 ## 2026-07-13 11:35 — skill_init + #enhance add_skills_to_menu (D-0122)
 - Objective: seed0106 `#enhance` Scr @133 (PROGRESS primary; not offx).
 - C locus: `weapon.c` `skill_init`/`add_skills_to_menu`/`enhance_weapon_skill`;

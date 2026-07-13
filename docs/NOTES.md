@@ -7,18 +7,17 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 
 ## Active
 
-- **Current unit:** D-0138 cleared Valkyrie welcome (`name.f=0` + allow
-  gender gate). seed0105 RNG still **full**; Scr still **0**/30.
-- **Hypothesis / next:** seed0105 systematic miss is bright-blue ASCII
-  `` ` `` at screen (25,18) ≈ map (26,17): C raw
-  `<SO>x~~~~~<ESC>[94m<SI>`…` — ROCK_CLASS object glyph, color 12.
-  JS cell is ROOM floor with **no** object/pool/fountain there (and
-  full RNG match). Prefer diagnosing that glyph, else `lspo_map` /
+- **Current unit:** D-0139 cleared seed0105 map `` ` `` (`S_engroom`).
+  Scr **0→22**/30; RNG still **full**.
+- **Hypothesis / next:** remaining seed0105 misses are topline/cmd:
+  Scr @10 C `"It's like talking to a wall."` (chat into wall) blank in
+  JS; later screens eat `[d or ?*]` vs apply `[*]` prompt desync.
+  Prefer `#chat` wall pline, else eat/apply getobj, else `lspo_map` /
   `next_ident`.
 - **Falsifier / next:**
   ```bash
   node frozen/ps_test_runner.mjs sessions/seed0105-valk-chat-lamp-ration.session.json
-  # expect Scr >0 once `` ` `` cell matches; or peel lspo_map/next_ident
+  # expect Scr >22 once chat wall pline matches; or peel lspo_map/next_ident
   ```
 - **Parked deep canary:** D-0006 pet movement — do not implement until C
   state/candidate capture exists.
@@ -161,6 +160,9 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   `name.f='Valkyrie'` (C has 0) and used `f===m` ⇒ add gender; C adds
   gender only for `!name.f` + both-genders roles (D-0138). Copy
   `urole.allow` from roles[].
+- **seed0105 bright-blue `` ` `` was NOT a gem/boulder** — vault niche
+  engraving `S_engroom` (`` ` `` + CLR_BRIGHT_BLUE); set `erevealed` on
+  cansee then map_engraving (D-0139). Do not invent floor objects.
 
 ## Landmarks
 
@@ -246,5 +248,6 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   `"female "` when name.f set (D-0137).
 - Welcome: `!urole.name.f` && both genders → `" female"`/`" male"`;
   Valkyrie `name.f=0` + female-only allow → no gender word (D-0138).
-  seed0105 map `` ` ``: ANSI 94 + ASCII backtick (not DEC diamond
-  span); JS (26,17) empty ROOM; no fobj/pool/fountain there.
+- `S_engroom` = ASCII `` ` `` + CLR_BRIGHT_BLUE; `S_engrcorr` = `#` +
+  same; need `erevealed` (set on cansee) before `_map_location` paints
+  (D-0139).

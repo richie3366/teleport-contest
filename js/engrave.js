@@ -10,10 +10,11 @@
 // via wipe_engr_at → wipeout_text (seed==0 RNG path).
 // Named omissions: wand/weapon/marker/towel/gem/ring stylus sfx;
 // grave/altar/jello/swallow/lava/pool; add-to/overwrite yn; multi-turn
-// dulling occupation; del_engr/rloc_engr; engraving glyphs in newsym;
-// u_wipe_engr body; livelog; demon/vampire blood default beyond type;
-// Blind feel path for engrave/burn; full surface()/is_ice nouns;
-// wipeout_text seeded (non-zero) path; maybe_smudge_engr.
+// dulling occupation; del_engr/rloc_engr; u_wipe_engr body; livelog;
+// demon/vampire blood default beyond type; Blind feel path for
+// engrave/burn; full surface()/is_ice nouns; wipeout_text seeded
+// (non-zero) path; maybe_smudge_engr.
+// Engraving map glyphs (S_engroom/S_engrcorr) live in display.js newsym.
 
 import { game } from './gstate.js';
 import { rn2, rnd } from './rng.js';

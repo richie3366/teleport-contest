@@ -142,6 +142,7 @@ Do not record a guessed cause as fixed merely because an RNG prefix moved.
 | D-0136 | fixed | spell/read | `study_book` known-refresh `--More--`/yn; seed0501 key leak @2217 |
 | D-0137 | fixed | insight/^X | female `urole.name.f`/`rank.f`; seed0501 **PASS** |
 | D-0138 | fixed | roles/welcome | C `name.f=0` + welcome gender gate; Valkyrie no `female` |
+| D-0139 | fixed | display/engrave | `S_engroom`/`S_engrcorr` in `newsym`; seed0105 Scr 0→22 |
 
 D-0001 through D-0005 predate the strict-length/cohort runbook. Their focused
 causes are preserved, but generic "green sessions held" is historical evidence,
@@ -3714,3 +3715,26 @@ cohort gates if those functions are touched again.
   full **12/44** Scr **1198** RNG **107134**.
 - **Next:** seed0105 bright-blue ASCII `` ` `` map cell / `lspo_map` /
   `next_ident`.
+
+## D-0139 — newsym S_engroom / S_engrcorr engraving glyphs
+
+- **Status:** fixed
+- **Observed:** seed0105 Scr **0**/30 with full RNG; systematic miss was
+  bright-blue ASCII `` ` `` at map (26,17) among DEC room floors.
+- **Cause/evidence:** Vault niche `ad aerarium` engraving exists at
+  (26,17) (`erevealed` never set). C `defsym` `S_engroom` is `` ` `` +
+  `CLR_BRIGHT_BLUE` (DECgraphics does not remap). C `newsym` sets
+  `erevealed` when `cansee`, then `_map_location` → `map_engraving`.
+  JS deferred engravings and painted ROOM floor.
+- **Rejected:** ROCK_CLASS/boulder/gem object — no floor object there;
+  boulder is gray; gem class symbol is `*`.
+- **C locus:** `display.c` `newsym`/`map_engraving`/`_map_location`;
+  `engrave.h` `engraving_to_defsym`/`spot_shows_engravings`;
+  `defsym.h` `S_engroom`/`S_engrcorr`.
+- **Change:** `js/display.js` — `erevealed` on cansee; engraving branch
+  in `newsym`/`map_location_memory` (ROOM `` ` `` / CORR `#`, bright blue).
+- **Verification:** seed0105 Scr **0→22**/30 (RNG still full); remaining
+  8 are `#chat` wall pline / apply·eat prompts; green+strict PASS;
+  cohort PASS; full **12/44** Scr **1198→1231** RNG **107134**.
+- **Next:** seed0105 `#chat` `"It's like talking to a wall."` / eat·apply
+  getobj, or `lspo_map` / `next_ident`.
