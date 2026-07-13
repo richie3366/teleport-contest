@@ -27,6 +27,21 @@ Use this shape:
 
 ---
 
+---
+
+## 2026-07-13 15:05 — random_engraving get_rnd_text ENGRAVEFILE (D-0148)
+- Objective: seed0200 @1768 (PROGRESS primary `get_rnd_text`).
+- C locus: `engrave.c` `random_engraving`; `rumors.c` `get_rnd_text`/
+  `get_rnd_line`; `makedefs.c` `do_rnd_access_file`.
+- Result: **verified** — `!rn2(4)` short-circuits past getrumor into
+  ENGRAVEFILE chunk draw `rn2(2894)`; JS stub had re-called getrumor.
+  Added `scripts/extract-engrave.py` (MAIL=1) + `get_rnd_text` export.
+- Verification: seed0200 1768→3382; Scr 9→14/40; green+strict PASS;
+  cohort 11/11 PASS; full **13/44** Scr **1275** RNG **121154**/792838.
+- Next: seed0015 `getbones` @2918 (`rn2(3)` then makelevel) — prefer
+  over seed0200 combat @3382 / seed0101 `next_ident` @2293 /
+  seed0030 `maybe_smudge_engr` @6732.
+
 ## 2026-07-13 14:55 — occupied t_at + irregular somexy (D-0147)
 - Objective: seed0200 @1672 (PROGRESS primary; NOTES said irregular
   somexy).

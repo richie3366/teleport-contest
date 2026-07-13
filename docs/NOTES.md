@@ -7,19 +7,19 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 
 ## Active
 
-- **Current unit:** D-0147 cleared `occupied` `t_at` + irregular `somexy`
-  (seed0200 1672→1768).
-- **Hypothesis / next:** Prefer seed0200 `random_engraving` @1768 —
-  C `!rn2(4)` then `getrumor` fails → `get_rnd_text(ENGRAVEFILE,…,rn2)`
-  burns `rn2(2894)`; JS stub re-calls `getrumor`/`rn2(2)`. Else
-  seed0015 `getbones` @2918 / `next_ident` / `maybe_smudge_engr`.
-  Quest `getbones` still blocked on `^V`→`goto_level`→`makemaz`.
+- **Current unit:** D-0148 cleared `get_rnd_text(ENGRAVEFILE)` in
+  `random_engraving` (seed0200 1768→3382).
+- **Hypothesis / next:** Prefer seed0015 ordinary `getbones` @2918 —
+  C `rn2(3)` then continue makelevel; JS stub returns false after wrong
+  arity/order so next call is `makelevel` `rn2(5)`. Else seed0101
+  `next_ident` @2293 / seed0030 `maybe_smudge_engr` @6732. Quest
+  `getbones` still blocked on `^V`→`goto_level`→`makemaz`.
 - **Falsifier / next:**
   ```bash
-  node scripts/rng-diff.mjs sessions/seed0200-monk-north-search.session.json
-  # expect get_rnd_text / engrave-file draw — not getrumor rn2(2)
   node scripts/rng-diff.mjs sessions/seed0015-valk-level2-pit-dog-wait.session.json
-  # expect getbones rn2(3) match — not makelevel rn2(5) first
+  # expect getbones rn2(3) then makelevel rn2(5) — not JS rn2(5) first
+  node scripts/rng-diff.mjs sessions/seed0101-ranger-quiver-throw-travel-engrave.session.json
+  # expect next_ident rnd(2) match
   ```
 - **Parked deep canary:** D-0006 pet movement — do not implement until C
   state/candidate capture exists.
@@ -192,6 +192,10 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   ordinary `irreg=false`; C `somexyspace` retried after `occupied` saw
   a trap via `t_at`; JS `occupied` omitted traps (D-0147). Irregular
   `somexy`/`inside_room` still needed for flood-fill rooms.
+- **seed0200 @1768 was NOT getrumor empty** — `!rn2(4)` short-circuits
+  past getrumor into `get_rnd_text(ENGRAVEFILE)` `rn2(2894)`; JS stub
+  re-called getrumor/`rn2(2)` (D-0148). Do not burn rumor as engrave
+  fallback.
 
 ## Landmarks
 
@@ -307,3 +311,7 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   (D-0147). `somexyspace` retries `somexy` when occupied; looks like
   irregular retry in rng-diff. `invocation_pos` still always-false
   until `inv_pos`/`Invocation_lev` exist.
+- ENGRAVEFILE chunk = 2894 after don't-edit; `!rn2(4)` skips getrumor;
+  `get_rnd_text` → `rn2(2894)` then wipeout on drawn line (D-0148).
+  Default line `"No matter where you go, there you are."`; MAIL=1 keeps
+  `"You've got mail!"`; `^?MAIL`/`^.` are grep controls not content.

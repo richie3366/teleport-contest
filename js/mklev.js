@@ -50,8 +50,7 @@ import {
     is_male, is_female, mons,
 } from './monsters.js';
 import { name_to_monplus } from './mondata.js';
-import { getrumor } from './rumors.js';
-import { make_engr_at, wipe_engr_at, wipeout_text } from './engrave.js';
+import { make_engr_at, wipe_engr_at, random_engraving } from './engrave.js';
 import { DUST, MARK as ENGRAVE_MARK } from './const.js';
 
 const GOLD_PIECE = objectNames.indexOf('GOLD_PIECE');
@@ -277,17 +276,6 @@ const trap_engravings = new Array(TRAPNUM).fill(null);
 trap_engravings[TRAPDOOR] = 'Vlad was here';
 trap_engravings[TELEP_TRAP] = 'ad aerarium';
 trap_engravings[LEVEL_TELEP] = 'ad aerarium';
-
-function random_engraving() {
-    // C ref: engrave.c random_engraving()
-    let pristine;
-    if (!rn2(4) || !(pristine = getrumor(0, true)) || !pristine) {
-        // get_rnd_text(ENGRAVEFILE) fallback — rare; burn one chunk draw as stub
-        pristine = getrumor(0, true) || 'x'.repeat(40);
-    }
-    const text = wipeout_text(pristine, Math.trunc(pristine.length / 4), 0);
-    return { text, pristine };
-}
 
 // in_rooms stub
 function in_rooms(x, y, rtype) { return []; }

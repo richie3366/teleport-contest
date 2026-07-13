@@ -151,6 +151,7 @@ Do not record a guessed cause as fixed merely because an RNG prefix moved.
 | D-0145 | fixed | mklev/finddpos | irregular `finddpos_shift` walk; dig_corridor joins on map rooms |
 | D-0146 | fixed | mkobj/lamp | OIL_LAMP `rn1(500,1000)` + TOOL charged cases in `mksobj_init` |
 | D-0147 | fixed | mklev/occupied | `occupied` needs `t_at`; irregular `somexy`/`inside_room` |
+| D-0148 | fixed | engrave/get_rnd_text | ENGRAVEFILE `get_rnd_text` via pad+xcrypt extract; not getrumor stub |
 
 D-0001 through D-0005 predate the strict-length/cohort runbook. Their focused
 causes are preserved, but generic "green sessions held" is historical evidence,
@@ -3927,3 +3928,28 @@ cohort gates if those functions are touched again.
   `is_lava`; `get_rnd_text(ENGRAVEFILE)` in `random_engraving`.
 - **Next:** seed0200 `random_engraving`/`get_rnd_text` @1768 /
   seed0015 `getbones` @2918 / `next_ident` / `maybe_smudge_engr`.
+
+## D-0148 — random_engraving get_rnd_text(ENGRAVEFILE)
+
+- **Status:** fixed
+- **Observed:** seed0200 @1768 C `rn2(2894)` @ `random_engraving`
+  vs JS `rn2(2)` (stub re-called `getrumor` after `!rn2(4)`).
+- **Cause/evidence:** C `engrave.c` `random_engraving`: when
+  `!rn2(4)` short-circuits past `getrumor`, falls through to
+  `get_rnd_text(ENGRAVEFILE,…,rn2,MD_PAD_RUMORS)` → `get_rnd_line`
+  seeks in the pad+xcrypt engrave chunk (2894 bytes after don't-edit
+  header). JS stub burned another rumor draw instead.
+- **C locus:** `engrave.c` `random_engraving`; `rumors.c`
+  `get_rnd_text`/`get_rnd_line`; `makedefs.c` `do_rnd_access_file`.
+- **Change:** `scripts/extract-engrave.py` →
+  `js/generated/engrave_data.js` (`ENGRAVE_BUF`, MAIL=1 grep);
+  `js/rumors.js` export `get_rnd_text`; `js/engrave.js`
+  `random_engraving`; remove mklev stub.
+- **Verification:** seed0200 prefix **1768→3382** (`hitum`/
+  `exercise`); positional **3231→3385**/3822 Scr **9→14**/40;
+  green+strict PASS; PASS cohort 11/11; full **13/44** Scr **1275**
+  RNG **121154**/792838.
+- **Named omission:** epitaph `get_rnd_text(EPITAPHFILE)`;
+  `maybe_smudge_engr`; bogusmon file.
+- **Next:** seed0015 `getbones` @2918 / seed0101 `next_ident` @2293 /
+  seed0030 `maybe_smudge_engr` @6732 / seed0200 combat @3382.
