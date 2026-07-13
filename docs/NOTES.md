@@ -7,15 +7,15 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 
 ## Active
 
-- **Current unit:** D-0183 — underfoot `m_search_items` short-circuit deferred;
-  seed0030 now @14056.
-- **Hypothesis / next:** @14056 C `rn2(88)` `u_catch_thrown_obj` vs JS
-  `rn2(32)` — hero catch of mon throw / potion path missing or wrong
-  branch after aligned m_throw volley.
+- **Current unit:** D-0184 — muse potion throw + potionhit/breathe/makeknown
+  cleared @14056; seed0030 now @14118.
+- **Hypothesis / next:** @14118 C `rn2(32)` vs JS `rn2(24)` `m_move` —
+  mfndpos candidate-count drift after hero sleep multi from potion vapor
+  (or another mon's allowflags).
 - **Falsifier / next:**
   ```bash
   node scripts/rng-diff.mjs sessions/seed0030-ten-diverse-deaths.session.json
-  # expect first mismatch past 14056 once u_catch_thrown_obj matches
+  # expect first mismatch past 14118 once cnt/allowflags match
   node frozen/ps_test_runner.mjs sessions/seed0101-ranger-quiver-throw-travel-engrave.session.json
   # expect Scr >21/27 if residual display peel advances
   ```
@@ -75,6 +75,14 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   WORTHLESS_BLUE_GLASS returned underfoot `MMOVE_DONE` (JS postmov
   ignored DONE→no mpickstuff) while C continued to mtrack `rn2(28)`
   (D-0183). Do not re-chase fleeck actor skips.
+- **@14056 was NOT wrong catch_chance / DEX** — JS never reached
+  `u_catch`; C threw via `muse` `use_offensive` POT_SLEEPING while JS
+  `thrwmu` ARROW + URETREATING `rn2(5)` aborted (D-0184). Do not
+  “fix” catch_chance from the coincident `rn2(5)` values.
+- **`potionhit` must `obfree` not `delobj`** — `delobj` burns
+  `obj_resists` `rn2(100)`; C `obfree` does not (D-0184).
+- **`makeknown` after vapor needs flight `observe_object`** — thrower
+  `!cansee` still IDs potion when missile crosses visible cells (D-0184).
 - **`monattk.h`: AT_WEAP=254, AT_MAGC=255, AT_SPIT=10** — never use 10 for
   weapon (D-0179).
 - Hostile `m_move`: before place, `m_digweapon_check` may return
@@ -100,6 +108,9 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 - Underfoot loot claim in `m_search_items` deferred until
   postmov `mpickstuff` (D-0183); distant redirects still set gg.
 - `can_carry`: peaceful non-pets return 0 (D-0183).
+- Offensive potions: `mattacku`→`find_offensive`/`use_offensive` before
+  AT_WEAP; `m_throw` POTION→`potionhit` (not `thitu`); vapor
+  `makeknown` needs flight `observe_object` (D-0184).
 - Digger postmov: `tunnels` && !Rogue → `can_tunnel`; `ALLOW_DIG` in
   mfndpos; every moved digger with `may_dig` calls `mdig_tunnel` which
   **always** burns `rnd(12)` first (D-0178).

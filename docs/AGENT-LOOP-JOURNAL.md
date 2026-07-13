@@ -2303,3 +2303,19 @@ Use this shape:
 - Verification: seed0030 prefix **14026→14056**; positional **14375**/105529;
   full **15/44** Scr **1405** RNG **135825**; green+strict PASS; cohort held.
 - Next: seed0030 @14056 (`u_catch_thrown_obj` rn2(88)); or seed0101 Scr.
+
+## 2026-07-13 21:00 — muse potion throw + potionhit (D-0184)
+- Objective: seed0030 @14056 C `u_catch_thrown_obj` rn2(88) vs JS rn2(32)
+  (PROGRESS primary).
+- C locus: `mhitu.c` `mattacku` → `muse.c` `find_offensive`/`use_offensive`
+  (MUSE_POT_SLEEPING); `mthrowu.c` potion → `potion.c` `potionhit`/
+  `potionbreathe`; flight `observe_object` → `makeknown` →
+  `exercise(A_WIS,TRUE)`.
+- Result: **verified partial** — stacks showed C mid-`m_throw` while JS
+  `thrwmu` ARROW + URETREATING; not a catch_chance bug. Ported muse potion
+  offense, hero `potionhit`/`bottlename`/`potionbreathe`, flight observe,
+  `discover_object` credit_hero/`makeknown`; `losehp` no longer forces
+  `multi=0`.
+- Verification: seed0030 prefix **14056→14118**; positional **14487**/105529;
+  full **15/44** Scr **1405** RNG **135937**; green+strict PASS; cohort held.
+- Next: seed0030 @14118 (C `rn2(32)` vs JS `rn2(24)` `m_move`); or seed0101 Scr.

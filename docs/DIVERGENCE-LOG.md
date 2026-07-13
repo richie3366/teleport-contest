@@ -4996,4 +4996,37 @@ cohort gates if those functions are touched again.
 - **Next:** seed0030 @14056 (`u_catch_thrown_obj` rn2(88) vs JS rn2(32));
   or seed0101 Scr / seed0200 @3382.
 
+## D-0184 — muse potion throw + potionhit (seed0030 @14056)
+
+- **Status:** partial (potion offense + hero potionhit/breathe/makeknown;
+  wand/horn muse and full peffects deferred)
+- **Observed:** seed0030 @14056 — C `rn2(88)` `u_catch_thrown_obj`;
+  JS `rn2(32)` `m_move`. Call-site stacks: C already in `m_throw`
+  forcehit; JS at `thrwmu` URETREATING `rn2(5)` with ARROW.
+- **C locus:** `mhitu.c` `mattacku` → `muse.c` `find_offensive` /
+  `use_offensive` (MUSE_POT_SLEEPING); `mthrowu.c` `m_throw` potion
+  branch → `potion.c` `potionhit`/`bottlename`/`potionbreathe`;
+  flight `observe_object` → breathe `makeknown` →
+  `discover_object(..., credit_hero)` → `exercise(A_WIS,TRUE)`.
+- **Cause:** JS lacked muse offensive potion throw before AT_WEAP, so C
+  hurled POT_SLEEPING while JS tried thrwmu ARROW and aborted on
+  URETREATING. Coincident `rn2(5)` values were not `m_throw` forcehits.
+- **Change:** `js/muse.js` (new) potion `find_offensive`/`use_offensive`;
+  wire in `js/mhitu.js` `mattacku`; `js/mthrowu.js` POTION→`potionhit` +
+  flight `observe_object`; `js/potion.js` `potionhit`/`bottlename`/
+  `potionbreathe` hero path (`obfree` not `delobj`); `js/invent.js`
+  `discover_object` credit_hero + `makeknown`; `js/hack.js` `losehp`
+  matches C `end_running` (no forced `multi=0`).
+- **Named omission:** muse wand/horn/scroll/camera offense; mon-target
+  `potionhit`; `hold_another_object` catch; towel/Half_gas; trycall when
+  `!kn`; full `make_confused`/`make_blinded` bodies.
+- **Verification:** seed0030 prefix **14056→14118**; positional
+  **14487**/105529 Scr **168**/1953; full **15/44** Scr **1405** RNG
+  **135937**; green+strict PASS; PASS cohort held.
+- **Rejected / falsified:** wrong `catch_chance`/DEX (JS never entered
+  catch); `delobj` after potionhit (extra `rn2(100)`); makeknown without
+  flight `observe_object` when thrower `!cansee`.
+- **Next:** seed0030 @14118 (C `rn2(32)` vs JS `rn2(24)` `m_move`);
+  or seed0101 Scr / seed0200 @3382.
+
 
