@@ -2067,3 +2067,18 @@ Use this shape:
   full **13/44** Scr **1302** RNG **127080**/792838.
 - Next: seed0016 `zapyourself` @2551 / seed0015 Scr @21 /
   seed0030 `maybe_smudge_engr` / seed0101 Scr residual.
+
+## 2026-07-13 — mhitm mondied make_corpse (D-0167)
+- Objective: seed0030 `next_ident` @10584 (PROGRESS primary).
+- C locus: `mon.c` `mondied`/`make_corpse`; `mkobj.c` `mkcorpstat`/
+  `next_ident`; `mhitm.c` death after knockback.
+- Result: **verified** — JS mhitm burned `corpse_chance` only; on
+  success C `make_corpse`→`next_ident` `rnd(2)`, JS hit `grow_up`
+  `rnd(m_lev+1)`=`rnd(1)`. Ported ordinary default_1 `make_corpse`
+  into mhitm `mondied` (trap path already had it).
+- Verification: seed0030 prefix **10584→10608** (`obj_resists`);
+  positional **10939**/105529 Scr **110**/1953; green+strict PASS;
+  cohort 1500/1800/0060/0015/0106 PASS; full **15/44** Scr **1347**
+  RNG **131959**/792838.
+- Next: seed0030 `obj_resists` @10608 / seed0101 Scr residual /
+  seed0200 combat @3382.

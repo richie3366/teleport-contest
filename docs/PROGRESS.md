@@ -38,9 +38,9 @@ frozen-file overlay):
 | Metric | Value |
 |--------|------:|
 | Sessions passing | **15 / 44** |
-| Screens matched | **1348 / 11,405** (11.82%) |
-| Positional RNG calls matched | **131,946 / 792,838** (16.64%) |
-| Speed label | `19+0.09/turn` |
+| Screens matched | **1347 / 11,405** (11.81%) |
+| Positional RNG calls matched | **131,959 / 792,838** (16.64%) |
+| Speed label | `19+0.08/turn` |
 | Working-tree base | `8b71735` + committed port (see `main`) |
 | Role-init throws | **0 / 44** (`u_init_role: role not ported`) |
 
@@ -64,7 +64,7 @@ shared blockers, and semantic coverage together—not one vanity metric.
 | `seed0501-priest-cast-read-turn` | **2238 / 2238** | **28 / 28** |
 | `seed2200-wizard-quaff-zap-read` | **3018 / 3018** | **229 / 230** |
 | `seed0017-samurai-altar-pray` | **3465 / 3465** | **67 / 67** |
-| `seed0030-ten-diverse-deaths` | **10867 / 105529** | **111 / 1953** |
+| `seed0030-ten-diverse-deaths` | **10939 / 105529** | **110 / 1953** |
 | `seed0103-knight-ride-pony` | **2344 / 2640** | 2 / 60 |
 | `seed0200-monk-north-search` | **3385 / 3822** | **15 / 40** |
 | `seed0101-ranger-quiver-throw-travel-engrave` | **2371 / 2371** | **21 / 27** |
@@ -210,12 +210,15 @@ seed0030 prefix **6732→6889** positional **7215**/105529 Scr
 **Teleportation hub fill + `make_a_trap`** (D-0166) →
 seed0030 prefix **6889→10584** positional **10867**/105529 Scr
 **111**/1953; Scr held **1348**; RNG **128294→131946**.
+**mhitm `mondied`→`make_corpse`** (D-0167) →
+seed0030 prefix **10584→10608** positional **10939**/105529 Scr
+**110**/1953; Scr **1348→1347**; RNG **131946→131959**.
 Healer seed0016 **PASS**.
 seed0015 **PASS**. seed0101 next Scr residual (RNG full). seed0013 still breaks earlier in
 Lua/`sp_lev`. seed0103 next `next_ident`/`trquan` @ 2337.
 seed0361/0373 `getbones` blocked on unbound `^V`/`goto_level`/
 `makemaz`. seed0077 chargen + vault fallback + door vision/pick_lock/DEC
-open-door (D-0111/D-0112/D-0113) → **PASS**. seed0030 **10867**/105529.
+open-door (D-0111/D-0112/D-0113) → **PASS**. seed0030 **10939**/105529.
 seed0105 RNG **full** (Scr **30**/30).
 
 ### Green gate
@@ -355,21 +358,23 @@ autoopen `doopen_indir` (D-0059) + `mfndpos` BOULDER/`ALLOW_ROCK` +
 **^X gender gate + dungeon `depth(u.uz)`** (D-0164)
 **`maybe_smudge_engr`/`can_reach_floor` after walk** (D-0165)
 **Teleportation hub fill + `make_a_trap` postprocess** (D-0166)
+**mhitm `mondied`→`make_corpse` ordinary** (D-0167)
 **ported**. Fifteen public sessions pass end-to-end. **0/44** throw at
 `u_init_role`. seed0700 + seed1150 + seed0017 + seed0077 + seed0106 +
 seed0501 + seed0105 + seed0016 + seed0015 **PASS**. seed2200 RNG **full**
 (Scr **229**/230; sole miss parked RC @158).
 seed0101 RNG **full** Scr **21**/27.
 
-- **Bounded unit:** seed0030 `next_ident` @10584 /
+- **Bounded unit:** seed0030 `obj_resists` @10608 /
   seed0101 Scr residual /
   seed0103 `next_ident`/`trquan` /
   seed0200 combat `@3382` (lower priority) /
   seed0361/0373 **quest `getbones`** (blocked: need `^V`→`goto_level`→
   `makemaz` first — ordinary `goto_level` now exists for stairs).
-- **Prefer:** seed0030 `next_ident` / seed0101 Scr
+- **Prefer:** seed0030 `obj_resists` / seed0101 Scr
   over parked D-0006 and over baking seed2200 RC paths.
   Hero `dotrap` deferred until monster pit peel is clear.
+  Hero `xkilled` `make_corpse` still deferred (mhitm path done D-0167).
 - **Named omissions:** full `findtravelpath` TEST_TRAV/GUESS/travelmap/
   `#retravel`; themerms fill *bodies* beyond Ghost/Teleportation hub (Temple
   altars, Ice/Storeroom/…); garden/dig postprocess; epitaph `get_rnd_text`; `invocation_pos`;
@@ -991,6 +996,11 @@ Module status, constitutional debt, and named omissions live in
     **10867**/105529 Scr **111**/1953; screens **1348**;
     RNG **128294→131946**; green cohort PASS; next seed0030
     `next_ident` @10584 / seed0101 Scr residual / seed0200 @3382
+144. mhitm `mondied`→`make_corpse` ordinary (D-0167)
+    — seed0030 prefix **10584→10608** (`obj_resists`); positional
+    **10939**/105529 Scr **110**/1953; screens **1348→1347**;
+    RNG **131946→131959**; green cohort PASS; next seed0030
+    `obj_resists` @10608 / seed0101 Scr residual / seed0200 @3382
 
 Next work is selected from the active objectives above using
 `PORTING-RUNBOOK.md`, not by extending this historical list.

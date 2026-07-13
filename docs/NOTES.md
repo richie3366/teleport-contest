@@ -7,17 +7,16 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 
 ## Active
 
-- **Current unit:** D-0166 cleared seed0030 Teleportation hub @6889
-  (`rn2(3)` + `selection_rndcoord` + postprocess `make_a_trap` +
-  `mktrap` victim-gate `rnd(4)`). Prefix **6889→10584**; public Scr
-  **1348**, RNG **131946**; still **15/44**.
-- **Hypothesis / next:** seed0030 `next_ident` @10584 after corpse
-  (`rnd(2)` vs JS `rnd(1)`), or seed0101 Scr residual (RNG full), or
-  seed0200 combat `@3382`.
+- **Current unit:** D-0167 cleared seed0030 mhitm `mondied`→`make_corpse`
+  @10584 (`next_ident`/`rnd(2)`). Prefix **10584→10608**; positional
+  **10939**/105529; public Scr **1347**, RNG **131959**; still **15/44**.
+- **Hypothesis / next:** seed0030 `obj_resists` @10608 (C second
+  `rn2(100)` vs JS `rn2(5)` after dog_move), or seed0101 Scr residual
+  (RNG full), or seed0200 combat `@3382`.
 - **Falsifier / next:**
   ```bash
   node scripts/rng-diff.mjs sessions/seed0030-ten-diverse-deaths.session.json
-  # expect first mismatch past next_ident @10584 if that peel advances
+  # expect first mismatch past obj_resists @10608 if that peel advances
   node frozen/ps_test_runner.mjs sessions/seed0101-ranger-quiver-throw-travel-engrave.session.json
   # expect Scr >21/27 if residual display peel advances
   ```
@@ -266,6 +265,11 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   picked Teleportation hub; need `2+rn2(3)` + room-floor rndcoord
   queue + `post_level_generate` `make_a_trap` teledest + `mktrap`
   victim-gate `rnd(4)` even though TELEP rejects the body (D-0166).
+- **seed0030 @10584 was NOT broken `next_ident`/`rnd(1)`** — C
+  `mondied`→`make_corpse`→`mkcorpstat`→`next_ident` `rnd(2)`; JS mhitm
+  burned `corpse_chance` only so `grow_up` `rnd(m_lev+1)`=`rnd(1)`
+  landed next (D-0167). Trap-path already had make_corpse; hero
+  `xkilled` still burns chance without corpse.
 
 ## Landmarks
 
@@ -338,3 +342,6 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 - Teleportation hub: `2+rn2(3)` room-floor picks (skip rel_x≤0); queue
   coords as abs-1/abs_y; postprocess teledest until both axes differ;
   `maketrap`+tseen+teledest; then `mktrap` `rnd(4)` gate (D-0166).
+- mhitm `mondied`: `corpse_chance` then ordinary `make_corpse`→
+  `mkcorpstat(CORPSE,…,CORPSTAT_INIT)` → `next_ident` `rnd(2)` before
+  `grow_up` (D-0167).

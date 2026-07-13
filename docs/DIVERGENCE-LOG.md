@@ -170,6 +170,7 @@ Do not record a guessed cause as fixed merely because an RNG prefix moved.
 | D-0164 | fixed | insight/depth | ^X gender gate + dungeon `depth(u.uz)`; seed0015 PASS |
 | D-0165 | fixed | hack/engrave | `maybe_smudge_engr` after walk + `can_reach_floor` |
 | D-0166 | fixed | themerms/telehub | Teleportation hub fill + `make_a_trap` teledest + `mktrap` `rnd(4)` |
+| D-0167 | fixed | mhitm/corpse | mhitm `mondied`→`make_corpse`/`next_ident` (not grow_up `rnd(1)`) |
 
 D-0001 through D-0005 predate the strict-length/cohort runbook. Their focused
 causes are preserved, but generic "green sessions held" is historical evidence,
@@ -4483,4 +4484,35 @@ cohort gates if those functions are touched again.
 - **Lesson:** Lua postprocess can burn RNG long after fill; `mktrap`
   victim `rnd(4)` still runs for TELEP even when the body is skipped.
 - **Next:** seed0030 `next_ident` @10584 / seed0101 Scr residual /
+  seed0200 combat @3382.
+
+## D-0167 — mhitm mondied make_corpse / next_ident (seed0030)
+
+- **Status:** fixed
+- **Observed:** seed0030 first RNG mismatch @10584 — C `rnd(2)` @
+  `next_ident(mkobj.c)` after `corpse_chance`; JS `rnd(1)`.
+- **Rejected:** broken `next_ident` itself; inventing `rnd(1)` callers;
+  treating arity as missing `nextoid` shop search.
+- **C locus:** `mon.c` `mondied`/`make_corpse`/`corpse_chance`;
+  `mkobj.c` `mkcorpstat`/`mksobj`/`next_ident`; `mhitm.c` death path
+  after `mhitm_knockback`.
+- **Cause:** JS mhitm `mondied` burned `corpse_chance` only (named
+  omission). When the roll succeeded, C created the corpse
+  (`mkcorpstat`→`next_ident` `rnd(2)`); JS fell through to `grow_up`
+  `rnd(victim.m_lev+1)` = `rnd(1)` for a level-0 victim. Trap-path
+  `mondied` already called `make_corpse` (D-0150).
+- **Change:** port ordinary `make_corpse` default_1 into mhitm
+  `mondied` (same envelope as trap.js: `CORPSTAT_INIT` + gender +
+  `mkcorpstat`/`stackobj`/`newsym`).
+- **Verification:** seed0030 prefix **10584→10608** positional
+  **10939**/105529 Scr **110**/1953; green+strict PASS; cohort
+  1500/1800/0060/0015/0106 PASS; full **15/44** Scr **1347** RNG
+  **131959**.
+- **Named omission:** dragon/unicorn/worm/undead `make_corpse`
+  specials; `accessible`/`is_pool` gate; `save_mtraits`; hero
+  `xkilled` still burns `corpse_chance`/`!rn2(6)` without corpse body.
+- **Lesson:** deferred corpse after a matching `corpse_chance` success
+  does not look like a wrong `next_ident` — it looks like the next
+  caller's arity (`grow_up`).
+- **Next:** seed0030 `obj_resists` @10608 / seed0101 Scr residual /
   seed0200 combat @3382.
