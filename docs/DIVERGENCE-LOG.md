@@ -99,6 +99,8 @@ Do not record a guessed cause as fixed merely because an RNG prefix moved.
 | D-0093 | fixed | dothrow/getdir | flush `--More--` before getdir + Caveman multishot; seed1150 3032→3042 |
 | D-0094 | fixed | invent/stackobj | throw landing `stackobj` merge; seed1150 RNG full |
 | D-0095 | fixed | pickup/Monnam | `spoteffects`/`check_here` + given-name Monnam; seed1150 Scr 22→27 |
+| D-0096 | fixed | display/newsym | out-of-sight litcorr→corr; seed1150 Scr 27→46 |
+| D-0097 | fixed | objnam/throw/^X | GemStone xname + volley + gender/MC; seed1150 PASS |
 
 D-0001 through D-0005 predate the strict-length/cohort runbook. Their focused
 causes are preserved, but generic "green sessions held" is historical evidence,
@@ -2582,3 +2584,29 @@ cohort gates if those functions are touched again.
   engraving/trap glyphs; hallu/`see_objects`.
 - **Next:** seed1150 invent/UI @ screen 38 / seed0017 mfndpos /
   seed2200 post-help.
+
+## D-0097 — GemStone xname + throw volley + ^X gender/MC
+
+- **Symptom:** seed1150 Scr **46**/51 @ screen 38: JS
+  `"You shoot 2 15 uncursed flints (in quiver pouch)."` vs C
+  `"You shoot 2 flint stones."`; then ^X `"male human Caveman"` vs
+  `"human Caveman"` and missing Attributes `"You are warded."`.
+- **C locus:** `objnam.c` `GemStone` / `xname_flags` GEM_CLASS;
+  `dothrow.c` `throw_obj` `You("%s %d %s.", … xname/singular)`;
+  `insight.c` background gender omit when `urole.name.f`; 
+  `attributes_enlightenment` `magic_negation` → warded/guarded/
+  protected; `mhitu.c` `magic_negation` worn `a_can`.
+- **Cause:** JS volley used `doname`; `pretty_base` omitted
+  `" stone"`; ^X always printed gender; MC line absent / wrong
+  section (Status vs Attributes).
+- **Change:** `js/objnam.js` GemStone + GEM_CLASS `xname`/`singular`;
+  `js/dothrow.js` volley uses `xname`; `js/invent.js` distinct-`name.f`
+  gender omit + Attributes `magic_negation` (`oc_level` as `a_can`).
+- **Verification:** green + strict PASS; cohort seed1500/1800/0060/
+  0102/0700 PASS; seed1150 **PASS**; full **8/44**, screens
+  **593→598**/11405, RNG **91471**/792838.
+- **Named omission:** full `magic_negation` Protection/amulet bumps;
+  roles.js `name.f=null` where C has 0 (still same-string proxy);
+  full `xname` GEM unknown/called paths; armor pair-of in
+  `obj_typename`.
+- **Next:** seed0017 @ 3132 mfndpos / seed2200 Scr 199 / getbones.

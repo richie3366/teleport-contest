@@ -38,6 +38,23 @@ Use this shape:
 - Verification: green+strict PASS; cohort seed1500/1800/0060/0102/
   0700 PASS; seed1150 Scr 27→46/51 RNG full; full 7/44 Scr 593
   RNG 91471.
+- Next: seed1150 invent/UI @38 —
+  `node frozen/ps_test_runner.mjs sessions/seed1150-caveman-explore-move.session.json`
+
+## 2026-07-13 06:50 — GemStone xname + volley + ^X (D-0097)
+- Objective: seed1150 Scr 46/51 invent/UI @ screen 38 (PROGRESS).
+- C locus: `objnam.c` GemStone/`xname_flags` GEM_CLASS;
+  `dothrow.c` `throw_obj` xname/singular; `insight.c` gender omit
+  + `magic_negation` Attributes; `mhitu.c` `magic_negation`.
+- Result: **verified faithful change** — volley used doname; missing
+  `" stone"`; ^X always printed gender; MC line absent. Ported
+  GemStone/`xname`/`singular`, volley pline, distinct-`name.f`
+  gender omit, Attributes warded via worn `a_can` (`oc_level`).
+- Verification: green+strict PASS; cohort seed1500/1800/0060/0102/
+  0700+1150 PASS; seed1150 PASS; full **8/44** Scr **598** RNG
+  **91471**.
+- Next: seed0017 @ 3132 mfndpos —
+  `node scripts/rng-diff.mjs sessions/seed0017-samurai-altar-pray.session.json`
 - Next: decode seed1150 screen 38 invent/UI, or
   `node scripts/rng-diff.mjs sessions/seed0017-samurai-altar-pray.session.json`
 

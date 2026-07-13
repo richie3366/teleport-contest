@@ -7,18 +7,16 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 
 ## Active
 
-- **Current unit:** seed1150 Scr **46**/51 (RNG full; D-0096 lit-corr
-  memory) / seed0017 @ 3132 mfndpos / seed2200 post-help.
-- **Hypothesis (seed1150 Scr @38):** invent/UI text — first miss is
-  topline/menu chars (JS `"15…"` vs C `"flint…"`, then large invent
-  overlay diffs @39/46). Not corridor color.
+- **Current unit:** seed0017 @ 3132 mfndpos / seed2200 Scr 199/230
+  post-help / seed0501 `wipeout_text` / getbones (`^V` blocked).
+- **Hypothesis (seed0017 @ 3132):** pet (30,5) D_NODOOR, `mfndpos`
+  cnt=4 vs C needing 5 for 3×`rn2(12)`. Display `setCell(x-1)`; not a
+  room x-shift (D-0092/93).
 - **Falsifier:**
   ```bash
-  node frozen/ps_test_runner.mjs sessions/seed1150-caveman-explore-move.session.json
+  node scripts/rng-diff.mjs sessions/seed0017-samurai-altar-pray.session.json
   ```
-  (decode screen 38 first `ch` mismatch; cite invent/doname C path).
-- **seed0017 @ 3132:** pet (30,5) D_NODOOR, `mfndpos` cnt=4 vs C needing
-  5 for 3×`rn2(12)`. Display `setCell(x-1)`; not a room x-shift.
+  (cite mfndpos candidate set / door flags at first mismatch).
 - **Parked deep canary:** D-0006 pet movement — do not implement until C
   state/candidate capture exists.
 
@@ -132,6 +130,11 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 - **Do not** force corridor `#` to `NO_COLOR` under `lit_corridor` —
   raises seed1150 Scr but drops seed0900 (C wants CLR_WHITE there).
   Real fix is out-of-sight `S_litcorr`→`S_corr` remap (D-0096).
+- seed1150 Scr 38 was **not** invent overlay geometry — volley used
+  `doname` (`15 uncursed flints…`) and omitted GemStone `" stone"`;
+  C `throw_obj` uses `xname` → `"flint stones"` (D-0097). ^X omits
+  gender when `urole.name.f` distinct; MC `"warded"` is under
+  Attributes after piousness (not Status).
 - `more()` word-wrap of message text must only fire when len≥CO —
   wrapping at CO-8 breaks welcome `--More--` (seed0900).
 
@@ -219,3 +222,7 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   `cansee`; `newsym` remaps to `S_corr`/NO_COLOR when `!waslit` (or
   dark_room+color). Set `waslit=(lit!=0)` on cansee (D-0096).
   Map term row = map y+1 (message line).
+- Volley pline: `You shoot N %s` with `xname`/`singular`, not `doname`;
+  `GemStone` appends `" stone"` (FLINT → flint stone[s]) (D-0097).
+  ^X: omit gender when `name.f` distinct from `name.m`; MC
+  `"warded"` via worn armor `a_can` (`oc_level`) under Attributes.

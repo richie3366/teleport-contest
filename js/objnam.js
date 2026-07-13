@@ -43,6 +43,24 @@ function is_rustprone_obj(obj) {
     return (game.objects?.[obj.otyp]?.oc_material ?? 0) === 11; // IRON
 }
 
+// C ref: objclass.h enum obj_material_types
+const GEMSTONE = 20;
+const MINERAL = 21;
+
+/**
+ * C ref: objnam.c GemStone(typ) — gems/rocks that append " stone".
+ * FLINT always; GEMSTONE material except named crystal exceptions.
+ */
+function GemStone(typ) {
+    if (objectNames[typ] === 'FLINT') return true;
+    const mat = game.objects?.[typ]?.oc_material ?? 0;
+    if (mat !== GEMSTONE) return false;
+    const n = objectNames[typ];
+    return n !== 'DILITHIUM_CRYSTAL' && n !== 'RUBY' && n !== 'DIAMOND'
+        && n !== 'SAPPHIRE' && n !== 'BLACK_OPAL' && n !== 'EMERALD'
+        && n !== 'OPAL';
+}
+
 const PRETTY = {
     DART: 'dart',
     FOOD_RATION: 'food ration',
@@ -174,6 +192,28 @@ function pretty_base(obj) {
             return `wand of ${actual}`;
         return 'wand';
     }
+    // C ref: objnam.c xname GEM_CLASS — stone/gem + GemStone " stone"
+    if (obj.oclass === GEM_CLASS) {
+        const ocl = game.objects?.[obj.otyp];
+        const rock = (ocl?.oc_material === MINERAL) ? 'stone' : 'gem';
+        const nn = !!(ocl?.oc_name_known);
+        const dknown = !!obj.dknown;
+        const un = ocl?.oc_uname || null;
+        const dn = objectDescrs[ocl?.oc_descr_idx ?? obj.otyp] || null;
+        let actual = objectNameStrs[obj.otyp]
+            || (n ? n.toLowerCase().replace(/_/g, ' ') : rock);
+        if (Role_if_samurai()) {
+            const jn = Japanese_item_name(obj.otyp, null);
+            if (jn) actual = jn;
+        }
+        if (!dknown) return rock;
+        if (!nn) {
+            if (un) return `${rock} called ${un}`;
+            return `${dn || 'gray'} ${rock}`;
+        }
+        if (GemStone(obj.otyp)) return `${actual} stone`;
+        return actual;
+    }
     let base = PRETTY[n] || (n ? n.toLowerCase().replace(/_/g, ' ') : 'object');
     // C ref: objnam.c xname — Samurai Japanese_item_name overrides actualn
     if (Role_if_samurai()) {
@@ -181,6 +221,28 @@ function pretty_base(obj) {
         if (jn) base = jn;
     }
     return base;
+}
+
+/**
+ * C ref: objnam.c xname — base name with quan pluralization (doname subset).
+ */
+export function xname(obj) {
+    if (!obj) return 'something';
+    let base = pretty_base(obj);
+    if ((obj.quan || 1) !== 1) base = makeplural(base);
+    return base;
+}
+
+/**
+ * C ref: objnam.c singular — temporarily force quan=1 for naming.
+ */
+export function singular(obj, func = xname) {
+    if (!obj) return func(obj);
+    const savequan = obj.quan;
+    obj.quan = 1;
+    const nam = func(obj);
+    obj.quan = savequan;
+    return nam;
 }
 
 // C ref: objnam.c makeplural — enough for "X of Y" and simple nouns.
@@ -471,13 +533,14 @@ export function obj_typename(otyp) {
     default:
         if (nn) {
             buf += actualn;
-            // GemStone " stone" deferred
+            // C ref: objnam.c obj_typename / xname GemStone
+            if (GemStone(otyp)) buf += ' stone';
             if (un) buf += ` called ${un}`;
             if (dn) buf += ` (${dn})`;
         } else {
             buf += dn || actualn;
             if (ocl.oc_class === GEM_CLASS) {
-                buf += (ocl.oc_material === 21 /* MINERAL */) ? ' stone' : ' gem';
+                buf += (ocl.oc_material === MINERAL) ? ' stone' : ' gem';
             }
             if (un) buf += ` called ${un}`;
         }

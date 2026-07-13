@@ -37,8 +37,8 @@ frozen-file overlay):
 
 | Metric | Value |
 |--------|------:|
-| Sessions passing | **7 / 44** |
-| Screens matched | **593 / 11,405** (5.20%) |
+| Sessions passing | **8 / 44** |
+| Screens matched | **598 / 11,405** (5.24%) |
 | Positional RNG calls matched | **91,471 / 792,838** (11.54%) |
 | Speed label | `17+0.08/turn` |
 | Working-tree base | `8b71735` + committed port (see `main`) |
@@ -59,9 +59,9 @@ shared blockers, and semantic coverage together—not one vanity metric.
 | `seed0060-orc-rogue-kick-search` | **3626 / 3626** | **41 / 41** |
 | `seed0102-ranger-name-cancel` | **4485 / 4485** | **25 / 25** |
 | `seed0700-samurai-explore-descend` | **3230 / 3230** | **51 / 51** |
+| `seed1150-caveman-explore-move` | **3137 / 3137** | **51 / 51** |
 | `seed2200-wizard-quaff-zap-read` | **3018 / 3018** | **199 / 230** |
 | `seed0017-samurai-altar-pray` | **3169 / 3465** | **2 / 67** |
-| `seed1150-caveman-explore-move` | **3137 / 3137** | **46 / 51** |
 | `seed0030-ten-diverse-deaths` | **7036 / 105529** | **40 / 1953** |
 | `seed0103-knight-ride-pony` | **2344 / 2640** | 1 / 60 |
 | `seed0200-monk-north-search` | **1548 / 3822** | 0 / 40 |
@@ -77,7 +77,7 @@ shared blockers, and semantic coverage together—not one vanity metric.
 | `seed0013-rogue-friday13-combat` | **521 / 4838** | 1 / 59 |
 
 seed8000 + seed0900 + seed1500 + seed1800 + seed0060 + seed0102 +
-seed0700 pass end-to-end.
+seed0700 + seed1150 pass end-to-end.
 `choose_trapnote`/`hole_destination` (D-0054), `SPBOOK_no_NOVEL`
 (D-0055), roles `initrecord` (D-0056), CORPSE `G_NOCORPSE` retry
 (D-0057), `adjabil`/`u_calc_moveamt` Fast (D-0058), `rnl` +
@@ -105,17 +105,22 @@ autoopen `doopen_indir` (D-0059), `mfndpos` BOULDER/`NODIAG`
 **doname SCR/SPE/RIN/WAN + bimanual/`oc_big`** (D-0086), and
 **look_all/look_engrs NHW_TEXT** (D-0087), and
 **doextversion / NHW_TEXT quitchars / dowhatdoes** (D-0088–90), and
-**`option_help`/`next_opt`** (D-0091)
+**`option_help`/`next_opt`** (D-0091), and
+**`in_mk_themerooms` themerms `check_room`** (D-0092), and
+**getdir `flush_topl_more` + `throw_obj` multishot** (D-0093), and
+**`stackobj` after throw/drop** (D-0094), and
+**`spoteffects`/`check_here`/`look_here` + Monnam** (D-0095), and
+**`newsym` waslit + out-of-sight `S_litcorr`→`S_corr`** (D-0096), and
+**GemStone `xname` + throw volley + ^X gender/MC** (D-0097)
 clear shared peels. seed2200 RNG **full**; Scr **199**/230 (next:
-seed1150 invent Scr / seed0017 mfndpos; screen 158 RC path residual).
+seed0017 mfndpos; screen 158 RC path residual).
 seed0017 next @ 3132 `dog_move`/`mfndpos`; seed0030 next
 `maybe_smudge_engr` @ 6732. Healer seed0016 next `next_ident` @
-2493; Caveman seed1150 RNG **full** Scr **46**/51. Priest
-seed0501 still `wipeout_text`. seed0015/0200 next `lspo_map`.
-seed0101 next `next_ident`. seed0013 still breaks earlier in
-Lua/`sp_lev`. seed0103 next `next_ident`/`trquan` @ 2337.
-seed0361/0373 `getbones` blocked on unbound `^V`/`goto_level`/
-`makemaz`.
+2493. Priest seed0501 still `wipeout_text`. seed0015/0200 next
+`lspo_map`. seed0101 next `next_ident`. seed0013 still breaks
+earlier in Lua/`sp_lev`. seed0103 next `next_ident`/`trquan` @
+2337. seed0361/0373 `getbones` blocked on unbound `^V`/
+`goto_level`/`makemaz`.
 
 ### Green gate
 
@@ -181,21 +186,20 @@ autoopen `doopen_indir` (D-0059) + `mfndpos` BOULDER/`ALLOW_ROCK` +
 **getdir `flush_topl_more` + `throw_obj` multishot** (D-0093) +
 **`stackobj` after throw/drop** (D-0094) +
 **`spoteffects`/`check_here`/`look_here` + Monnam** (D-0095) +
-**`newsym` waslit + out-of-sight `S_litcorr`→`S_corr`** (D-0096)
-**ported** (screen 158 RC path residual). Seven public sessions
-pass end-to-end. **0/44** throw at `u_init_role`. seed0700
-**PASS**. seed0017 prefix **3132** (`dog_move`/`mfndpos`).
-seed1150 RNG **full** Scr **46**/51. seed2200 RNG
-**full** (Scr **199**/230 — next seed1150 invent / seed0017).
+**`newsym` waslit + out-of-sight `S_litcorr`→`S_corr`** (D-0096) +
+**GemStone `xname` + throw volley + ^X gender/MC** (D-0097)
+**ported**. Eight public sessions pass end-to-end. **0/44** throw at
+`u_init_role`. seed0700 + seed1150 **PASS**. seed0017 prefix
+**3132** (`dog_move`/`mfndpos`). seed2200 RNG **full** (Scr
+**199**/230 — next seed0017 / residual help RC).
 
-- **Bounded unit:** seed1150 Scr 46/51 invent/UI @ screen 38 /
-  seed0017 @ 3132 mfndpos neighbour / seed2200 post-help /
-  seed0501/0105 `wipeout_text` / seed0015/0200 `lspo_map` /
+- **Bounded unit:** seed0017 @ 3132 mfndpos neighbour / seed2200
+  post-help / seed0501/0105 `wipeout_text` / seed0015/0200 `lspo_map` /
   seed0101 `next_ident` / seed0103 `next_ident`/`trquan` /
   seed0030 `maybe_smudge_engr` / seed0361/0373 **`getbones`**
   (blocked: need `^V`→`goto_level`→`makemaz` first).
-- **Prefer:** seed1150 invent Scr / seed0017 mfndpos over parked D-0006
-  and over hardcoding recording RC paths.
+- **Prefer:** seed0017 mfndpos over parked D-0006 and over
+  hardcoding recording RC paths.
 - **Named omissions:** Wizard/Priest/Healer `initialspell`; Knight/
   Samurai/Healer/Valkyrie/Ranger/Monk/Archeologist/Barbarian/Caveman
   `skill_init`; full `x_monnam` hallu/invis/saddle/shk; pony saddle/
@@ -216,7 +220,9 @@ seed1150 RNG **full** Scr **46**/51. seed2200 RNG
   `throws_rocks`; `m_initinv` body; `set_malign`; telepathy/
   `Detect_monsters`/`MATCH_WARN_OF_MON` in `newsym`; full
   `weapon_insight` enhance/P_SKILL/odd P_NAME; shop `costly_spot`
-  autopickup; `obj_typename` armor pair-of/set-of + GemStone;
+  autopickup; `obj_typename` armor pair-of/set-of; full
+  `magic_negation` Protection/amulet; roles.js `name.f` null where
+  C has 0; GEM xname unknown/called beyond known GemStone;
   pool/lava/ice/air/cloud terrain glyphs; `help_dir` Guidebook/
   `^letter`/nodiag; cmdassist getdir beyond fire path; `align_shift`/
   `temperature_shift`;
@@ -236,7 +242,7 @@ seed1150 RNG **full** Scr **46**/51. seed2200 RNG
   other `seffect_*` / `study_book` / non-hands `doengrave` stylus /
   engraving glyphs / multi-turn dulling; …
 - **Cohort:** green gate + seed1500 + seed1800 + seed0060 + seed0102
-  + seed0700 (must stay PASS) + strict lengths.
+  + seed0700 + seed1150 (must stay PASS) + strict lengths.
 
 Focused survey:
 
@@ -501,6 +507,10 @@ Module status, constitutional debt, and named omissions live in
     seed1150 Scr **27→46**/51; aggregate RNG **91471**; screens
     **574→593**; green cohort PASS (seed0900 held); next seed1150
     invent/UI @38 / seed0017 mfndpos
+79. GemStone `xname` + throw volley + ^X gender/MC (D-0097) —
+    seed1150 **PASS**; public **8/44**; screens **593→598**;
+    RNG **91471** unchanged; green cohort + seed1150 PASS; next
+    seed0017 @ 3132 mfndpos / seed2200 Scr 199
 
 Next work is selected from the active objectives above using
 `PORTING-RUNBOOK.md`, not by extending this historical list.

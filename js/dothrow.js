@@ -23,7 +23,7 @@ import {
     PM_WIZARD, PM_HEALER, PM_TOURIST, PM_CLERIC,
     PM_ELF, PM_ORC, PM_GNOME,
 } from './generated/monsters_data.js';
-import { doname } from './objnam.js';
+import { xname, singular } from './objnam.js';
 
 /** C ref: cmd.c cmdq_add_ec(CQ_CANNED, …) — shared with rhack via game._cmdq_canned */
 function cmdq_add_ec(fn) {
@@ -247,8 +247,9 @@ async function throw_obj(obj, shotlimit) {
 
     const shot = ammo_and_launcher(obj, uwep);
     if (multishot > 1 || shotlimit > 0) {
-        // C: singular(obj, xname) / xname(obj) — doname is verbose but ok for volley
-        const name = doname(obj);
+        // C ref: dothrow.c throw_obj — You("%s %d %s.", shoot|throw, n,
+        //   (n==1) ? singular(obj, xname) : xname(obj));
+        const name = (multishot === 1) ? singular(obj, xname) : xname(obj);
         await pline(`You ${shot ? 'shoot' : 'throw'} ${multishot} ${name}.`);
     }
 
