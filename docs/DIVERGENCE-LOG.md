@@ -2093,3 +2093,30 @@ cohort gates if those functions are touched again.
   `u_wipe_engr` body; livelog; demon/vampire blood default.
 - **Next:** seed2200 post-Elbereth 0-RNG `/` UI then Lua shuffle @
   2979; seed0017 @ 3132 terrain; seed0700 screens.
+
+## D-0077 — seed2200 `/` whatis + `?` help / `get_lua_version`
+
+- **Status:** fixed
+- **Observed:** seed2200 rng-diff @ **2979**: C `rn2(3)` @ nhlib
+  `shuffle(align)` vs JS `rn2(5)` @ `distfleeck`. C emits no RNG from
+  post-Elbereth through step 108; step 109 `?`/`a` About triggers Lua.
+- **C locus:** `pager.c` `dowhatis`/`do_look`/`dohelp`; `getpos.c`
+  `getpos` + `handle_tip(TIP_GETPOS)`; `version.c` `doextversion` →
+  `get_lua_version` (`nhlua.c`) → `nhl_init` loads `nhlib.lua`
+  `shuffle(align)`.
+- **Cause:** `'/'`/`'?'` unbound → Unknown; following `.`/`hjkl` were
+  timed `donull`/moves before C's 0-RNG UI finished.
+- **Change:** `js/pager.js` (`do_look`/`dowhatis`/`dohelp`/`checkfile`/
+  `doextversion`); `js/getpos.js`; `js/cmd.js` bind `'/'`/`'?'`;
+  `invent_lines` export for invent-pick whatis.
+- **Verification:** green + seed1500/1800/0060/0102 PASS + strict;
+  full **6/44**, screens **318**/11405, RNG **91280**/792838;
+  seed2200 RNG **3018**/3018 Scr **1**/230; seed0700 RNG still full
+  Scr **2**/51.
+- **Named omission:** full `do_screen_description` glyph encyclopedia;
+  tty NHW_TEXT geometry for help/`checkfile` pages; `whatdoes`
+  keyhelp body beyond stub; `dokeylist`/`domenucontrols`/`option_help`
+  /contact; PORT_HELP; getpos menu-jump/hilite/valids; lootabc true
+  accelerators.
+- **Next:** seed2200 screen peel / seed0017 @ 3132 terrain /
+  seed0700 screens.

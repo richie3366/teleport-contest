@@ -270,7 +270,7 @@ export async function paint_corner_nhw_menu(entries, morestr = '(end) ') {
     return { offx, endRow, cursorCol };
 }
 
-function invent_lines() {
+export function invent_lines() {
     const inv = game.invent || [];
     const lines = [];
     for (const oclass of DEF_INV_ORDER) {

@@ -914,3 +914,18 @@ Use this shape:
 - Next: `node scripts/rng-diff.mjs sessions/seed2200-wizard-quaff-zap-read.session.json`
   — peel post-Elbereth 0-RNG `/` UI (JS emits RNG @ 2979; C waits
   until step 109 Lua shuffle).
+
+## 2026-07-13 — dowhatis/dohelp/get_lua_version (D-0077)
+- Objective: seed2200 @ 2979 (PROGRESS preferred after D-0076).
+- C locus: `pager.c` `dowhatis`/`do_look`/`dohelp`/`checkfile`;
+  `getpos.c` `getpos` + TIP_GETPOS; `version.c` `doextversion` →
+  `nhlua.c` `get_lua_version` → nhlib `shuffle(align)`.
+- Result: **verified** — unbound `/`/`?` let `.`/`hjkl` take turns
+  before C's 0-RNG UI; About's first `get_lua_version` is the Lua
+  shuffle at step 109. Ported whatis/getpos/help + data.base/`dat/*`
+  paging; wired `'/'`/`'?'`.
+- Verification: green + seed1500/1800/0060/0102 PASS + strict; full
+  **6/44**, RNG **91280**/792838, Scr **318**/11405; seed2200 RNG
+  **3018**/3018 Scr **1**/230; seed0700 RNG full Scr 2/51.
+- Next: seed2200 screen peel / seed0017 @ 3132 terrain / seed0700
+  screens — `node frozen/ps_test_runner.mjs sessions/seed2200-wizard-quaff-zap-read.session.json`.

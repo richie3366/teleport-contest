@@ -39,8 +39,8 @@ frozen-file overlay):
 |--------|------:|
 | Sessions passing | **6 / 44** |
 | Screens matched | **318 / 11,405** (2.79%) |
-| Positional RNG calls matched | **91,443 / 792,838** (11.53%) |
-| Speed label | `16+0.08/turn` |
+| Positional RNG calls matched | **91,280 / 792,838** (11.51%) |
+| Speed label | `16+0.09/turn` |
 | Working-tree base | `8b71735` + committed port (see `main`) |
 | Role-init throws | **0 / 44** (`u_init_role: role not ported`) |
 
@@ -69,11 +69,11 @@ shared blockers, and semantic coverage together—not one vanity metric.
 | `seed0107-samurai-twoweapon-enhance` | **2677 / 2902** | 0 / 98 |
 | `seed0104-knight-ride-combat` | **2401 / 3223** | 1 / 43 |
 | `seed0106-priest-extcmd-sweep` | **2576 / 4194** | 1 / 267 |
-| `seed2200-wizard-quaff-zap-read` | **2993 / 3018** | 1 / 230 |
-| `seed0361-archeologist-tour` | **3295 / 53865** | 0 / 366 |
-| `seed0373-barbarian-quest-tour` | **2573 / 35386** | 0 / 124 |
+| `seed2200-wizard-quaff-zap-read` | **3018 / 3018** | 1 / 230 |
+| `seed0361-archeologist-tour` | **3297 / 53865** | 0 / 366 |
+| `seed0373-barbarian-quest-tour` | **2555 / 35386** | 0 / 124 |
 | `seed0105-valk-chat-lamp-ration` | **987 / 2499** | 0 / 30 |
-| `seed0015-valk-level2-pit-dog-wait` | **364 / 8563** | 1 / 44 |
+| `seed0015-valk-level2-pit-dog-wait` | **363 / 8563** | 1 / 44 |
 | `seed0013-rogue-friday13-combat` | **521 / 4838** | 1 / 59 |
 
 seed8000 + seed0900 + seed1500 + seed1800 + seed0060 + seed0102 pass
@@ -91,13 +91,14 @@ autoopen `doopen_indir` (D-0059), `mfndpos` BOULDER/`NODIAG`
 **`help_dir`/Book offx** (D-0071), **`lookaround` corridor-turn**
 (D-0072), **`q`/`dodrink`/`peffect_oil`** (D-0073), and
 **`z`/`dozap` NODIR/`findit`** (D-0074),
-**`r`/`doread` SCR_MAGIC_MAPPING/`do_mapping`** (D-0075), and
-**`E`/`doengrave` fingertip Elbereth** (D-0076)
+**`r`/`doread` SCR_MAGIC_MAPPING/`do_mapping`** (D-0075),
+**`E`/`doengrave` fingertip Elbereth** (D-0076), and
+**`/`/`dowhatis` + `?`/`dohelp`/`get_lua_version`** (D-0077)
 clear shared peels. seed0700
 RNG **full**; next is screen peel (Scr 2/51). seed0361/0373 `getbones` blocked on unbound
 `^V`/`goto_level`/`makemaz` (Quest `y`). seed0017 next @ 3132
 `dog_move` (terrain); seed0030 next `maybe_smudge_engr` @ 6732.
-Wizard seed2200 next post-Elbereth `/` UI @ 2979; Healer seed0016 next
+Wizard seed2200 RNG **full**; next screen peel (Scr 1/230). Healer seed0016 next
 `next_ident` @ 2493; Caveman seed1150 next `dog_move` @ 2915;
 Priest seed0501 still `wipeout_text`. seed0015/0200 next `lspo_map`.
 seed0101 next `next_ident`. seed0013 still breaks earlier in
@@ -147,20 +148,21 @@ autoopen `doopen_indir` (D-0059) + `mfndpos` BOULDER/`ALLOW_ROCK` +
 **`q`/`dodrink`/`peffect_oil`** (D-0073) +
 **`z`/`dozap` NODIR secret-door/`findit`** (D-0074) +
 **`r`/`doread` SCR_MAGIC_MAPPING/`do_mapping`** (D-0075) +
-**`E`/`doengrave` fingertip DUST/Elbereth** (D-0076)
+**`E`/`doengrave` fingertip DUST/Elbereth** (D-0076) +
+**`/`/`dowhatis`/`do_look` + `?`/`dohelp`/`get_lua_version`** (D-0077)
 **ported**. Six public sessions pass end-to-end. **0/44**
 throw at `u_init_role`. seed0700 RNG full. seed0102 **PASS**.
-seed0017 prefix **3132** (`dog_move`). seed2200 prefix **2979**
-(post-Elbereth `/` UI / Lua shuffle).
+seed0017 prefix **3132** (`dog_move`). seed2200 RNG **full**
+(Scr **1**/230 — UI geometry).
 
-- **Bounded unit:** seed2200 @ 2979 post-Elbereth `/` whatis UI /
-  seed0017 @ 3132 `dog_move` terrain / seed0700 **screen** peel /
+- **Bounded unit:** seed2200 **screen** peel / seed0017 @ 3132
+  `dog_move` terrain / seed0700 **screen** peel /
   seed1150 `dog_move` / seed0501/0105 `wipeout_text` /
   seed0015/0200 `lspo_map` / seed0101 `next_ident` /
   seed0103 `next_ident`/`trquan` / seed0030 `maybe_smudge_engr` /
   seed0361/0373 **`getbones`** (blocked: need `^V`→`goto_level`→
   `makemaz` first).
-- **Prefer:** seed2200 @ 2979 UI/Lua / seed0017 terrain /
+- **Prefer:** seed2200 screens / seed0017 terrain /
   seed0700 screens over parked D-0006.
 - **Named omissions:** Wizard/Priest/Healer `initialspell`; Knight/
   Samurai/Healer/Valkyrie/Ranger/Monk/Archeologist/Barbarian/Caveman
@@ -395,6 +397,11 @@ Module status, constitutional debt, and named omissions live in
     prefix **2925→2979** positional **2940→2993**/3018; aggregate
     RNG **91390→91443**; screens **320→318**; green cohort PASS;
     seed0700 RNG still full; next seed2200 post-Elbereth `/` UI
+62. `/`/`dowhatis` + `?`/`dohelp`/`get_lua_version` (D-0077) —
+    seed2200 RNG **3018**/3018 Scr **1**/230; aggregate RNG
+    **91443→91280**; screens **318** unchanged; green cohort PASS;
+    seed0700 RNG still full; next seed2200 screens / seed0017
+    terrain / seed0700 screens
 
 Next work is selected from the active objectives above using
 `PORTING-RUNBOOK.md`, not by extending this historical list.

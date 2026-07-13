@@ -7,19 +7,19 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 
 ## Active
 
-- **Current unit:** after D-0076 seed2200 prefix **2925→2979** (pos
-  **2993**/3018). Prefer seed2200 post-Elbereth 0-RNG UI (`/` whatis
-  through step 108) then @ 2979 Lua `shuffle` on `a` / seed0017 @ 3132
-  `dog_move` terrain / seed0700 Scr 2/51 / wipeout_text / lspo_map /
-  next_ident / maybe_smudge_engr / getbones (needs `^V`→`makemaz`).
-- **Hypothesis (seed2200):** after Elbereth turn, C emits no RNG until
-  step 109 `a` → Lua `shuffle`; JS already emits `rn2(5)` @ 2979
-  (likely treating `/` UI as a timed action / monster turn).
+- **Current unit:** after D-0077 seed2200 RNG **3018**/3018 (Scr still
+  **1**/230 — UI glyphs/paging). Prefer seed2200 **screen** peel /
+  seed0017 @ 3132 `dog_move` terrain / seed0700 Scr 2/51 /
+  wipeout_text / lspo_map / next_ident / maybe_smudge_engr /
+  getbones (needs `^V`→`makemaz`).
+- **Hypothesis (seed2200 screens):** whatis/help/getpos text geometry
+  and `do_screen_description`/`checkfile` page layout diverge from C
+  tty — RNG path is faithful; screen peel is display fidelity.
 - **Falsifier / next probe:**
   ```bash
-  node scripts/rng-diff.mjs sessions/seed2200-wizard-quaff-zap-read.session.json
+  node frozen/ps_test_runner.mjs sessions/seed2200-wizard-quaff-zap-read.session.json
   ```
-  Inspect JS path for keys `/`… before first post-2978 RNG.
+  Compare first mismatched screen after Elbereth `/` menu.
 - **Parked seed0017 @ 3132:** JS `mfndpos` cnt=4 at pet (30,5); C emits
   3× `rn2(12)`. Adding walkable `(30,4)` yields exactly 3× `rn2(12)`.
   JS has VWALL at (30,4); C screen shows floor. Diagnose join/
@@ -64,6 +64,10 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 - seed2200 @ 2925 was **not** movement/`Unknown` — `E`+`-`+Elbereth
   → `doengrave` DUST mix-up `rn2(25)` then occupation `make_engr_at`
   Elbereth `exercise(A_WIS,TRUE)` (D-0076).
+- seed2200 @ 2979 was **not** moveloop/`distfleeck` — unbound `/` let
+  `.` become `donull` (timed). C 0-RNG `/` whatis through step 108;
+  step 109 `?`/`a` About → `get_lua_version` nhlib `shuffle(align)`
+  (D-0077).
 
 ## Landmarks
 
@@ -87,3 +91,6 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   `"You write in the dust with your fingertip."` `--More--`, getlin
   Elbereth, 8× `rn2(25)` mix-up, `set_occupation` → `make_engr_at`
   Elbereth exercises WIS; setup returns ECMD_OK (D-0076).
+- `/` whatis is ECMD_OK (no turn). First getpos shows nhcore tip.
+  About NetHack calls `get_lua_version` → `nhl_init` → nhlib
+  `shuffle(align)` once (`rn2(3)`+`rn2(2)`) (D-0077).
