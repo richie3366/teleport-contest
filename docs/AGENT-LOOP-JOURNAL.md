@@ -2332,3 +2332,13 @@ Use this shape:
 - Verification: green+strict PASS (preflight); DIAG removed; tree clean.
 - Next: resolve D-0185 (C typ at those cells or drifted actor); or
   seed0101 Scr.
+
+## 2026-07-13 21:25 — seed0030 @14118 path/map diagnosis (D-0185)
+- Objective: seed0030 @14118 C `rn2(32)` vs JS `rn2(24)` (PROGRESS primary).
+- C locus: `monmove.c` `m_move` mtrack; `mkmap.c` `pass_two`/`wallify`.
+- Result: **falsified** dig-open + unrelated-actor + mkmap iter/pass_two
+  formula theories — no production change. JS gnome continuous path to
+  `(57,10)`; walls from `pass_two` count==5; only 2 C digs before
+  mismatch. Next: @14074 dest split (gg/mtrack/occupancy) vs C ROOM.
+- Verification: green+strict PASS; DIAG removed; tree clean.
+- Next: resolve D-0185 @14074 decision / C typ; or seed0101 Scr.

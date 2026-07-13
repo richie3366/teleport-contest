@@ -8,17 +8,17 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 ## Active
 
 - **Current unit:** D-0185 — seed0030 @14118 `m_move` cnt (after D-0184).
-- **Hypothesis / next:** JS PM_GNOME @`(57,10)` has `cnt=6` because
-  `(56,9)`/`(56,10)` are minefill wallified STONE→corners (never join-
-  carved; no dig). C `rn2(32)` needs `cnt=8` — either C map differs
-  there or C’s actor/position at this index differs (deterministic
-  `appr=1` drift without earlier RNG mismatch).
+- **Hypothesis / next:** JS gnome path `(61,6)→(60,7)→(59,8)→(58,9)→(57,10)`
+  with matching `rn2(32)` cnt=8 along the open cells; at `(57,10)` JS
+  `cnt=6` from pass_two STONE→wallify corners `(56,9)`/`(56,10)`. C
+  `rn2(32)` ⇒ either C landed elsewhere after @14074 (gg/mtrack/
+  occupancy) on a cnt=8 cell, or C map kept those cells ROOM.
 - **Falsifier / next:**
   ```bash
   node scripts/rng-diff.mjs sessions/seed0030-ten-diverse-deaths.session.json
-  # past 14118 once C actor+typ at (56,9)/(56,10) explained
-  # Prefer: dump JS fmon order + cnt around 14115–14121; compare to C
-  # recorder/screen if available; do not “open” walls from the trace.
+  # At JS @14074 (58,9)→(57,10): dump mtrack/poss/gg/occupancy; find
+  # which alternate dest would give C cnt=8 @14118. Do not open walls
+  # from the trace. mkmap pass_two already explained JS STONE there.
   ```
 - **Parked deep canary:** D-0006 pet movement — do not implement until C
   state/candidate capture exists.
@@ -84,9 +84,12 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   `obj_resists` `rn2(100)`; C `obfree` does not (D-0184).
 - **`makeknown` after vapor needs flight `observe_object`** — thrower
   `!cansee` still IDs potion when missile crosses visible cells (D-0184).
-- **@14118 is NOT sleep/allowflags/`mtrapseen`** — JS gnome cnt=6 from
-  walls at (56,9)/(56,10) since minefill wallify; gnome has no tunnels;
-  no dig opened them (D-0185). Do not force-open walls from the trace.
+- **@14118 walls are from `mkmap_pass_two` count==5** — ROOM→STONE at
+  `(56,9)`/`(56,10)` after pass1; join never carved; wallify→corners;
+  only 2 C `mdig_tunnel` before 14118 (neither near there). Do not
+  force-open walls or re-chase dig-open (D-0185).
+- **mkmap N_P1/P2/P3_ITER is 1/1/2** — JS already matches; pass_two
+  logic matches C `new_loc` (D-0185).
 - **`monattk.h`: AT_WEAP=254, AT_MAGC=255, AT_SPIT=10** — never use 10 for
   weapon (D-0179).
 - Hostile `m_move`: before place, `m_digweapon_check` may return
@@ -119,5 +122,5 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   mfndpos; every moved digger with `may_dig` calls `mdig_tunnel` which
   **always** burns `rnd(12)` first (D-0178).
 - Mines `fill_lvl`/`makemaz(minefill)` + dungeon align `&7` (D-0171).
-- seed0030 @14118: JS gnome @`(57,10)` missing wall neigh `(56,9)`/
-  `(56,10)`; C wants cnt=8 (D-0185).
+- seed0030 @14118: JS gnome path ends `(57,10)` `cnt=6` vs C `rn2(32)`;
+  walls from pass_two at `(56,9)`/`(56,10)` (D-0185).

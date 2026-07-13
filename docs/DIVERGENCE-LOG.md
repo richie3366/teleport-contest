@@ -5033,33 +5033,35 @@ cohort gates if those functions are touched again.
 
 ## D-0185 — seed0030 @14118 m_move cnt (gnome walls)
 
-- **Status:** open (diagnosis; no production change this iteration)
+- **Status:** open (diagnosis refined; no production change)
 - **Observed:** seed0030 @14118 — C `rn2(32)` @ `m_move` mtrack skip
   (`4*(cnt-j)`); JS `rn2(24)`. Prior calls matched including
   `rn2(32)` @14115 and two `distfleeck` `rn2(5)`.
+- **JS actor path (same mon):** `(61,6)`→`(60,7)`→`(59,8)`→`(58,9)`→
+  `(57,10)` toward loot gg=`(57,11)`. Matching `rn2(32)` cnt=8 at
+  @13960/@14023/@14074 while on open cells; @14074 `(58,9)`→`(57,10)`
+  after `rn2(32)=11` mtrack skip of prior cell.
 - **JS state at mismatch:** PM_GNOME @`(57,10)`, `appr=1`,
-  `flag=ALLOW_U|OPENDOOR`, `mtrapseen=0`, `cnt=6`, first mtrack hit
-  `j=0` → `rn2(24)` on `(58,9)`. Missing neighbors `(56,9)=TRCORNER`,
-  `(56,10)=BRCORNER`. Hero `multi=-1` @`(34,4)`; gg redirected to
-  loot @`(57,11)`. Next mon @14121 also `cnt=5`→`rn2(20)` matching C.
-- **Map evidence:** after mines `mkmap`+`join_map`, those cells are
-  still STONE (join carved ROOM along y=11 e.g. `(54,11)`/`(55,11)`,
-  never `(56,9)`/`(56,10)`); `wallify`→corners. No JS `mdig_tunnel`
-  ever opened them (wall digs only near x=23–26). Gnome `tunnels=false`.
+  `flag=ALLOW_U|OPENDOOR`, `cnt=6`, mtrack=`(58,9);(59,8);(60,7);(61,6)`.
+  Missing neighbors `(56,9)=TRCORNER`, `(56,10)=BRCORNER`.
+- **Map evidence:** `mkmap_pass_two` converts those cells ROOM→STONE
+  (`count==5`); smooth/join leave STONE; `wallify`→HWALL then spines→
+  corners. C has only **2** `mdig_tunnel` `rnd(12)` before 14118
+  (@13906/@14064) — not dig-open of `(56,*)`. `N_P1/P2/P3_ITER` 1/1/2
+  and pass_two `new_loc` logic already match C.
 - **C locus:** `monmove.c` `m_move` `rn2(4*(cnt-j))`; `mon.c` `mfndpos`;
-  mines `mkmap`/`join_map`/`wallify_map` (`mkmap.c`/`sp_lev.c`).
-- **Cause (partial):** JS cnt shortfall is the two wall cells — not
-  allowflags, traps, sleep vapor, or `mtrapseen`. C `rn2(32)` requires
-  `cnt=8` (`j=0`), so either C has those cells open (mkmap/join
-  divergence without RNG mismatch) or C’s actor at this index is not
-  this gnome at `(57,10)` (earlier deterministic `appr=1` path drift).
-- **Rejected / falsified:** hero-sleep/`Unaware` allowflags drift;
-  `ALLOW_DIG` missing on gnome; known-trap skip; boulder/mon occupancy
-  on the missing cells; dig-open of `(56,*)` in JS.
-- **Next falsifier:** identify C actor (same fmon slot vs drifted
-  position) and/or C typ at `(56,9)`/`(56,10)` on Mines at this turn —
-  recorder or screen if hero vision reaches; else bisect first
-  deterministic gnome/`mfndpos` path split after D-0184.
-- **Verification:** green+strict PASS (preflight); no JS production edit.
+  `mkmap.c` `pass_two` / `join_map` / `wallify_map`.
+- **Cause (partial):** JS cnt shortfall is the two wall cells. C
+  `rn2(32)` needs `cnt=8` — either C’s dest after @14074 is not
+  `(57,10)` (deterministic nearer/gg/mtrack/occupancy split) or C map
+  kept those cells as ROOM despite matching mkmap RNG counts.
+- **Rejected / falsified:** hero-sleep/`Unaware` allowflags; gnome
+  `ALLOW_DIG`; known-trap skip; dig-open of `(56,*)`; “unrelated actor”
+  with no continuous path; mkmap iteration-count / pass_two formula
+  mismatch vs C.
+- **Next falsifier:** at JS @14074 dump full candidate decision
+  (mtrack/poss/gg/occupancy); enumerate alternate dests with cnt=8;
+  do not force-open walls. C recorder for typ/actor still ideal.
+- **Verification:** green+strict PASS; DIAG removed; no production edit.
 
 
