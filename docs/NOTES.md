@@ -7,15 +7,18 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 
 ## Active
 
-- **Current unit:** D-0136/37 cleared: `study_book` known-refresh + ^X
-  female role/rank → seed0501 **PASS** (was false `dog_move` peel).
-- **Hypothesis / next:** prefer seed0105 Scr / seed0015 `lspo_map` /
-  seed0101 `next_ident` / seed0103 `next_ident`/`trquan` over parked
-  D-0006. seed2200 sole miss remains parked RC @158.
+- **Current unit:** D-0138 cleared Valkyrie welcome (`name.f=0` + allow
+  gender gate). seed0105 RNG still **full**; Scr still **0**/30.
+- **Hypothesis / next:** seed0105 systematic miss is bright-blue ASCII
+  `` ` `` at screen (25,18) ≈ map (26,17): C raw
+  `<SO>x~~~~~<ESC>[94m<SI>`…` — ROCK_CLASS object glyph, color 12.
+  JS cell is ROOM floor with **no** object/pool/fountain there (and
+  full RNG match). Prefer diagnosing that glyph, else `lspo_map` /
+  `next_ident`.
 - **Falsifier / next:**
   ```bash
   node frozen/ps_test_runner.mjs sessions/seed0105-valk-chat-lamp-ration.session.json
-  # or seed0015 lspo_map / seed0101 next_ident
+  # expect Scr >0 once `` ` `` cell matches; or peel lspo_map/next_ident
   ```
 - **Parked deep canary:** D-0006 pet movement — do not implement until C
   state/candidate capture exists.
@@ -29,6 +32,9 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 - Role `mnum` must be monster-table IDs (`PM_ROGUE=338`), never roles[] index.
 - **roles[] order must match C** (Rogue before Ranger) — pantheon
   `randrole` uses roles[] indices.
+- **roles `name.f` is null where C has 0** — only Caveman/Priestess keep
+  distinct `f`. Welcome gender uses `!name.f` **and** both-genders
+  allow mask (D-0138). Do not restore same-string `f===m` proxy.
 - Do not hardcode Tourist `Aloha` / `neutral` / `HP:10` in `allmain`.
 - Do not auto-submit unique `#` extcmds without Enter — regresses
   `#levelchange` (seed0361).
@@ -151,6 +157,10 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   rng-diff arity alone when keys leaked earlier.
 - **seed0501 ^X Priest vs Priestess was always `.m`** — C uses
   `urole.name.f` / `rank.f` when female (D-0137).
+- **seed0105 welcome `female` was NOT missing allow alone** — JS had
+  `name.f='Valkyrie'` (C has 0) and used `f===m` ⇒ add gender; C adds
+  gender only for `!name.f` + both-genders roles (D-0138). Copy
+  `urole.allow` from roles[].
 
 ## Landmarks
 
@@ -234,3 +244,7 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   non-space/return → `Refresh your memory anyway? [yn] (n)` (D-0136).
 - ^X title/background: female + `urole.name.f` → Priestess; omit
   `"female "` when name.f set (D-0137).
+- Welcome: `!urole.name.f` && both genders → `" female"`/`" male"`;
+  Valkyrie `name.f=0` + female-only allow → no gender word (D-0138).
+  seed0105 map `` ` ``: ANSI 94 + ASCII backtick (not DEC diamond
+  span); JS (26,17) empty ROOM; no fobj/pool/fountain there.

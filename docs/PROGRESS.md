@@ -178,6 +178,8 @@ seed0501 prefix **1153→2205** (`spelleffects_check`).
 **`r`/`study_book` known-refresh + ^X female role/rank** (D-0136/37)
 → Scr **1180→1198**; RNG **107116→107134**; seed0501 **PASS**;
 public **12/44**.
+**roles `name.f=null` + welcome gender gate** (D-0138) → seed0105
+welcome matches C; Scr still **0**/30 (map `` ` ``); scores unchanged.
 
 ### Green gate
 
@@ -287,16 +289,18 @@ autoopen `doopen_indir` (D-0059) + `mfndpos` BOULDER/`ALLOW_ROCK` +
 **`Z`/`docast`/`spelleffects_check` + SPE_HEALING self-zap** (D-0135)
 **`r`/`study_book` known-refresh yn** (D-0136)
 **^X female `urole.name.f`/`rank.f`** (D-0137)
+**roles `name.f=null` + welcome `!name.f`+both-genders** (D-0138)
 **ported**. Twelve public sessions pass end-to-end. **0/44** throw at
 `u_init_role`. seed0700 + seed1150 + seed0017 + seed0077 + seed0106 +
 seed0501 **PASS**. seed2200 RNG **full** (Scr **229**/230; sole miss
-parked RC @158). seed0105 RNG **full** (Scr **0**/30).
+parked RC @158). seed0105 RNG **full** (Scr **0**/30; welcome fixed,
+remaining bright-blue ASCII `` ` ``).
 
-- **Bounded unit:** seed0105 Scr / seed0015/0200 `lspo_map` /
+- **Bounded unit:** seed0105 `` ` `` glyph / seed0015/0200 `lspo_map` /
   seed0101 `next_ident` / seed0103 `next_ident`/`trquan` /
   seed0030 `maybe_smudge_engr` / seed0361/0373 **`getbones`**
   (blocked: need `^V`→`goto_level`→`makemaz` first).
-- **Prefer:** seed0105 Scr / `lspo_map` / `next_ident` over parked
+- **Prefer:** seed0105 `` ` `` / `lspo_map` / `next_ident` over parked
   D-0006 and over baking seed2200 RC paths.
 - **Named omissions:** study_book occupation/`learn` / novel/tribute /
   dull sleep / `cursed_book`/`confused_book`; spell swap/sort / other
@@ -309,7 +313,8 @@ parked RC @158). seed0105 RNG **full** (Scr **0**/30).
   pony saddle/
   `see_monster_closeup`; other erosion proofs; `In_quest` lacquer;
   xname-path `observe_object` beyond invent_lines; full `role_init`
-  beyond pantheon/SPE_LIGHT/nemesis gender; `adjabil` lose/
+  beyond pantheon/SPE_LIGHT/nemesis gender; roles `title[].f` null
+  where C has 0; `adjabil` lose/
   `postadjabil`/weapon-skill delta; steed `u_calc_moveamt`; full
   `set_uasmon` youmonst.mmove; `make_corpse` after `corpse_chance`;
   dokick monster/object/SDOOR/furniture/`martial`/shop-town/
@@ -325,8 +330,7 @@ parked RC @158). seed0105 RNG **full** (Scr **0**/30).
   `Detect_monsters`/`MATCH_WARN_OF_MON` in `newsym`; full
   `weapon_insight` P_SKILL display; shop `costly_spot`
   autopickup; `obj_typename` armor pair-of/set-of; full
-  `magic_negation` Protection/amulet; roles.js `name.f` null where
-  C has 0; GEM xname unknown/called beyond known GemStone;
+  `magic_negation` Protection/amulet; GEM xname unknown/called beyond known GemStone;
   pool/lava/ice/air/cloud terrain glyphs; `help_dir` Guidebook/
   `^letter`/nodiag; cmdassist getdir beyond fire path; `align_shift`/
   `temperature_shift`;
@@ -792,6 +796,10 @@ Module status, constitutional debt, and named omissions live in
     — seed0501 **PASS**; public **12/44**; screens **1180→1198**;
     RNG **107116→107134**; green cohort + seed0501 PASS; next
     seed0105 Scr / `lspo_map` / `next_ident` / `getbones`
+118. roles `name.f=null` + welcome gender gate (D-0138)
+    — seed0105 welcome matches C; Scr still **0**/30 (map `` ` ``);
+    screens/RNG unchanged **1198**/**107134**; green cohort PASS; next
+    seed0105 `` ` `` / `lspo_map` / `next_ident`
 
 Next work is selected from the active objectives above using
 `PORTING-RUNBOOK.md`, not by extending this historical list.

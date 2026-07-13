@@ -1735,3 +1735,16 @@ Use this shape:
   PASS; cohort 1500/1800/0060/0102/0700/1150/0017/0077/0106/0501 PASS;
   full **12/44** Scr **1198** RNG **107134**/792838.
 - Next: seed0105 Scr / seed0015 `lspo_map` / seed0101 `next_ident`.
+
+## 2026-07-13 — roles name.f=null + welcome gender gate (D-0138)
+- Objective: seed0105 Scr (PROGRESS primary; RNG already full).
+- C locus: `role.c` roles[] `name.f`; `allmain.c` `welcome`.
+- Result: **verified** — JS had `name.f='Valkyrie'` (C has 0) and
+  treated `f===m` as add-gender; C adds gender only for `!name.f` +
+  both-genders allow. Fixed null `name.f`, C welcome gate, `urole.allow`
+  copy. seed0105 welcome matches; Scr still **0**/30 on bright-blue
+  ASCII `` ` `` at ~(26,17) with no JS object/pool there.
+- Verification: green+strict PASS; cohort PASS; seed0501 PASS; full
+  **12/44** Scr **1198** RNG **107134**/792838.
+- Next: seed0105 `` ` `` glyph / seed0015 `lspo_map` /
+  seed0101 `next_ident`.

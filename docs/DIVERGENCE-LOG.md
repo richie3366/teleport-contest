@@ -141,6 +141,7 @@ Do not record a guessed cause as fixed merely because an RNG prefix moved.
 | D-0135 | fixed | spell/cast | `Z`/`docast`/`spelleffects_check` + SPE_HEALING self-zap; seed0501 @2205 |
 | D-0136 | fixed | spell/read | `study_book` known-refresh `--More--`/yn; seed0501 key leak @2217 |
 | D-0137 | fixed | insight/^X | female `urole.name.f`/`rank.f`; seed0501 **PASS** |
+| D-0138 | fixed | roles/welcome | C `name.f=0` + welcome gender gate; Valkyrie no `female` |
 
 D-0001 through D-0005 predate the strict-length/cohort runbook. Their focused
 causes are preserved, but generic "green sessions held" is historical evidence,
@@ -3692,3 +3693,24 @@ cohort gates if those functions are touched again.
   `flags.female` and female name/rank present.
 - **Verification:** with D-0136, seed0501 **PASS**; green+cohort held.
 - **Next:** seed0105 Scr / `lspo_map` / `next_ident`.
+
+## D-0138 — roles `name.f` null + welcome gender gate
+
+- **Status:** fixed
+- **Observed:** seed0105 Scr @1 welcome: C `neutral human Valkyrie` /
+  JS `neutral female human Valkyrie`. Tourist green held only by the
+  old same-string proxy accidentally matching C's gender adj.
+- **Cause/evidence:** C `role.c` sets `name.f = 0` except Caveman/
+  Priestess. C `welcome()` adds gender only when `!urole.name.f` **and**
+  `(allow & ROLE_GENDMASK) == (ROLE_MALE|ROLE_FEMALE)`. Valkyrie is
+  female-only → no adj. JS stored `f: 'Valkyrie'` and treated
+  `f===m` as "add gender".
+- **C locus:** `role.c` roles[] `name.f`; `allmain.c` `welcome`.
+- **Change:** `js/roles.js` `name.f = null` where C has 0; `welcome`
+  uses C null + allow-mask gate; copy `allow` onto `game.urole`;
+  `doattributes` omits gender on `!!name.f` (not string inequality).
+- **Verification:** green+strict PASS; cohort PASS; seed0501 PASS;
+  seed0105 welcome text matches (still Scr **0**/30 on other peel);
+  full **12/44** Scr **1198** RNG **107134**.
+- **Next:** seed0105 bright-blue ASCII `` ` `` map cell / `lspo_map` /
+  `next_ident`.

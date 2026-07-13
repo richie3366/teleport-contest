@@ -671,8 +671,8 @@ export async function doattributes() {
         name = String.fromCharCode(name.charCodeAt(0) - 32) + name.slice(1);
     }
     const female = !!(game.flags?.female);
-    const distinctFemale = game.urole?.name?.f
-        && game.urole.name.f !== game.urole.name.m;
+    // C: insight.c — urole.name.f non-NULL (not same-string-as-m)
+    const hasFemaleName = !!game.urole?.name?.f;
     // C: insight.c — role/rank from name.f / rank.f when female
     const role = (female && game.urole?.name?.f)
         ? game.urole.name.f
@@ -687,10 +687,8 @@ export async function doattributes() {
     const turns = game.moves || 1;
     const hand = (u.uhandedness === 1 /* LEFT_HANDED */) ? 'left' : 'right';
     const gold = game._goldCount || 0;
-    // C ref: insight.c — omit gender when urole.name.f is set (Caveman/
-    // Cavewoman, Priest/Priestess). JS stores null-f as same string as m
-    // (Tourist/Rogue); distinct f is the C non-null case (same as welcome()).
-    const genderPart = distinctFemale ? '' : `${gender} `;
+    // C ref: insight.c — omit gender when urole.name.f is set
+    const genderPart = hasFemaleName ? '' : `${gender} `;
 
     // C ref: insight.c — mission for u_gname(); opposed by other pantheon gods
     let opposed = '  who is opposed by';
