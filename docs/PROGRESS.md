@@ -37,9 +37,9 @@ frozen-file overlay):
 
 | Metric | Value |
 |--------|------:|
-| Sessions passing | **9 / 44** |
-| Screens matched | **759 / 11,405** (6.65%) |
-| Positional RNG calls matched | **104,563 / 792,838** (13.19%) |
+| Sessions passing | **10 / 44** |
+| Screens matched | **788 / 11,405** (6.91%) |
+| Positional RNG calls matched | **104,575 / 792,838** (13.19%) |
 | Speed label | `18+0.08/turn` |
 | Working-tree base | `8b71735` + committed port (see `main`) |
 | Role-init throws | **0 / 44** (`u_init_role: role not ported`) |
@@ -74,11 +74,11 @@ shared blockers, and semantic coverage together—not one vanity metric.
 | `seed0373-barbarian-quest-tour` | **2555 / 35386** | 0 / 124 |
 | `seed0105-valk-chat-lamp-ration` | **987 / 2499** | 0 / 30 |
 | `seed0015-valk-level2-pit-dog-wait` | **363 / 8563** | 1 / 44 |
-| `seed0077-rogue-chargen` | **3242 / 3242** | **19 / 33** |
+| `seed0077-rogue-chargen` | **3242 / 3242** | **33 / 33** |
 | `seed0013-rogue-friday13-combat` | **522 / 4838** | 1 / 59 |
 
 seed8000 + seed0900 + seed1500 + seed1800 + seed0060 + seed0102 +
-seed0700 + seed1150 + seed0017 pass end-to-end.
+seed0700 + seed1150 + seed0017 + seed0077 pass end-to-end.
 `choose_trapnote`/`hole_destination` (D-0054), `SPBOOK_no_NOVEL`
 (D-0055), roles `initrecord` (D-0056), CORPSE `G_NOCORPSE` retry
 (D-0057), `adjabil`/`u_calc_moveamt` Fast (D-0058), `rnl` +
@@ -130,8 +130,8 @@ Priest seed0501 still `wipeout_text`. seed0015/0200 next `lspo_map`.
 seed0101 next `next_ident`. seed0013 still breaks earlier in
 Lua/`sp_lev`. seed0103 next `next_ident`/`trquan` @ 2337.
 seed0361/0373 `getbones` blocked on unbound `^V`/`goto_level`/
-`makemaz`. seed0077 chargen + vault fallback cleared (D-0111/D-0112); Scr
-**19**/33; next map/UI residual. seed0030 **7071**/105529.
+`makemaz`. seed0077 chargen + vault fallback + door vision/pick_lock/DEC
+open-door (D-0111/D-0112/D-0113) → **PASS**. seed0030 **7085**/105529.
 
 ### Green gate
 
@@ -214,20 +214,22 @@ autoopen `doopen_indir` (D-0059) + `mfndpos` BOULDER/`ALLOW_ROCK` +
 **`#offer`/`#enhance`/`#annotate`/`#overview`/`#version`** (D-0110)
 **`player_selection`/`genl_player_setup`** (D-0111)
 **`do_vault`/`create_vault` fallback** (D-0112)
-**ported**. Nine public sessions pass end-to-end. **0/44** throw at
-`u_init_role`. seed0700 + seed1150 + seed0017 **PASS**. seed0106
-RNG **full** (Scr **5**/267); seed2200 RNG **full** (Scr **199**/230).
-seed0077 RNG **full** (Scr **19**/33).
+**door `recalc_block_point` / `pick_lock` D_ISOPEN / DEC open-door**
+(D-0113)
+**ported**. Ten public sessions pass end-to-end. **0/44** throw at
+`u_init_role`. seed0700 + seed1150 + seed0017 + seed0077 **PASS**.
+seed0106 RNG **full** (Scr **5**/267); seed2200 RNG **full**
+(Scr **199**/230).
 
-- **Bounded unit:** seed0077 Scr residual / seed2200 Scr residual
-  (post-help) / seed0106 Scr residual
+- **Bounded unit:** seed2200 Scr residual (RC path @158) /
+  seed0106 Scr residual
   (enhance/overview menus + `#chronicle`/`#conduct`/…) /
   seed0501/0105 `wipeout_text` / seed0015/0200 `lspo_map` /
   seed0101 `next_ident` / seed0103 `next_ident`/`trquan` /
   seed0030 `maybe_smudge_engr` / seed0361/0373 **`getbones`**
   (blocked: need `^V`→`goto_level`→`makemaz` first).
-- **Prefer:** seed0077 Scr peel or seed2200 Scr residual over
-  parked D-0006; seed0106 screen peels when touching menus.
+- **Prefer:** seed2200 Scr peel or seed0106 Scr residual over
+  parked D-0006.
 - **Named omissions:** Wizard/Priest/Healer `initialspell`; Knight/
   Samurai/Healer/Valkyrie/Ranger/Monk/Archeologist/Barbarian/Caveman
   `skill_init`; full `x_monnam` hallu/invis/saddle/shk; pony saddle/
@@ -277,9 +279,12 @@ seed0077 RNG **full** (Scr **19**/33).
   filter UI; `#chat` other MS_*/shop/wall/priest/
   `night()` howl; `hitval`/`mswings`/HTH `mon_wield`; full hero
   `attack_checks`/Cleaver/twoweapon/`weapon_hit_bonus`/`P_SKILL`/
-  `dbon`/passive/knockback-on-live; …
+  `dbon`/passive/knockback-on-live; `pick_lock` CLOSED/LOCKED
+  occupation/autounlock; incremental `dig_point`; ASCII open-door
+  orientation when not DECgraphics; …
 - **Cohort:** green gate + seed1500 + seed1800 + seed0060 + seed0102
-  + seed0700 + seed1150 + seed0017 (must stay PASS) + strict lengths.
+  + seed0700 + seed1150 + seed0017 + seed0077 (must stay PASS) +
+  strict lengths.
 
 Focused survey:
 
@@ -614,6 +619,10 @@ Module status, constitutional debt, and named omissions live in
     seed0077 RNG **3242**/3242 Scr **11→19**/33; aggregate RNG
     **101108→104563**; screens **746→759**; green cohort PASS; next
     seed0077 Scr residual / seed2200 Scr 199 / seed0106 Scr
+95. door `recalc_block_point` + `pick_lock` D_ISOPEN + DEC open-door
+    (D-0113) — seed0077 **PASS**; public **10/44**; screens
+    **759→788**; RNG **104563→104575**; green cohort + seed0077 PASS;
+    next seed2200 Scr 199 / seed0106 Scr
 
 Next work is selected from the active objectives above using
 `PORTING-RUNBOOK.md`, not by extending this historical list.

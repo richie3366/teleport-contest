@@ -116,6 +116,7 @@ Do not record a guessed cause as fixed merely because an RNG prefix moved.
 | D-0110 | fixed | extcmd menus | `#offer`/`#enhance`/`#annotate`/`#overview`/`#version`; seed0106 RNG full |
 | D-0111 | fixed | chargen | `player_selection`/`genl_player_setup`; seed0077 100→1475 |
 | D-0112 | fixed | mklev/vault | `do_vault` `create_vault` fallback (not one `rnd_rect`); seed0077 RNG full |
+| D-0113 | fixed | vision/lock/display | door `recalc_block_point` + `pick_lock` D_ISOPEN + DEC open-door `a`; seed0077 PASS |
 
 D-0001 through D-0005 predate the strict-length/cohort runbook. Their focused
 causes are preserved, but generic "green sessions held" is historical evidence,
@@ -3022,5 +3023,32 @@ cohort gates if those functions are touched again.
   stand-in; full vault fill/`mk_knox_portal` edge cases.
 - **Next:** seed0077 Scr **19**/33 / seed2200 Scr 199 /
   seed0106 Scr residual.
+
+## D-0113 — seed0077 door vision + pick_lock + DEC open-door
+
+- **Status:** fixed
+- **Observed:** seed0077 Scr **19**/33 with RNG full. Screen 6:
+  Shall-I-pick topline color 0 vs C NO_COLOR(8). Screens 17+:
+  south room invisible after "The door opens."; open-door cell
+  ASCII `|` vs C DEC `a`; apply lockpick → JS "This doorway has
+  no door." vs C "You cannot lock an open door."
+- **Rejected:** further mklev/vault terrain mismatch — RNG already
+  full; room3 existed in `rooms[]` with seenv=0 because LOS still
+  blocked.
+- **C locus:** `vision.c` `recalc_block_point`/`unblock_point`;
+  `lock.c` `doopen_indir` + `pick_lock` `switch (doormask)`;
+  `dat/symbols` DECgraphics `S_hodoor`/`S_vodoor` = meta-a;
+  tty topline NO_COLOR for yn prompt.
+- **Change:** `vision.js` `recalc_block_point` → `vision_reset`;
+  `lock.js`/`dokick.js` call it before `vision_recalc`; `pick_lock`
+  NODOOR/ISOPEN/BROKEN cases; `display.js` open door DEC `a`+brown;
+  `shall_i_pick_prompt` uses `NO_COLOR`.
+- **Verification:** seed0077 **PASS** (3242/3242, 33/33) + strict;
+  green+strict PASS; cohort 1500/1800/0060/0102/0700/1150/0017 PASS;
+  full **10/44** Scr **788** RNG **104575**/792838.
+- **Named omission:** `pick_lock` CLOSED/LOCKED occupation +
+  autounlock/credit-card; incremental `dig_point` (full reset OK);
+  ASCII `|`/`-` open-door orientation when not DECgraphics.
+- **Next:** seed2200 Scr 199 (RC path @158) / seed0106 Scr 5.
 
 

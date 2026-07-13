@@ -7,20 +7,19 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 
 ## Active
 
-- **Current unit:** D-0112 `do_vault` `create_vault` fallback cleared
-  seed0077 RNG (**3242**/3242). Scr **19**/33 residual.
-- **Hypothesis:** seed0077 remaining screens are post-mklev display/
-  invent/UI (not further vault RNG) — prefer seed2200 Scr **199**/230
-  or seed0106 Scr **5**/267 if the Scr peel is deep.
+- **Current unit:** D-0113 cleared seed0077 (**PASS** Scr 33/33). Public
+  **10/44**.
+- **Hypothesis:** next Scr peel is seed2200 @ screen 158 (`option_help`
+  RC path / harness `$HOME` — do not bake recording paths) **or**
+  seed0106 Scr **5**/267 (enhance/overview menus + unbound
+  `#chronicle`/`#conduct`/…).
 - **Falsifier / next:**
   ```bash
-  node frozen/ps_test_runner.mjs sessions/seed0077-rogue-chargen.session.json
+  node frozen/ps_test_runner.mjs sessions/seed2200-wizard-quaff-zap-read.session.json
+  node frozen/ps_test_runner.mjs sessions/seed0106-priest-extcmd-sweep.session.json
   ```
-  Inspect first mismatched screen after chargen/confirm.
 - **Parked deep canary:** D-0006 pet movement — do not implement until C
   state/candidate capture exists.
-- **Named next:** seed0106 Scr **5**/267 (enhance/overview menus +
-  unbound chronicle/conduct/…).
 
 ## Don’t re-check
 
@@ -168,6 +167,13 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 - **seed0077 @1465 was NOT themerms/`split_rects` extra free rects** —
   vault `check_room` failed then JS stubbed `else if (rnd_rect()) {}`
   while C ran `create_vault` trycnt≤100 (102× `rn2(1)`) (D-0112).
+- **seed0077 Scr 19 was NOT map-gen** — RNG already full. Three
+  display bugs: (1) `shall_i_pick` used CLR_BLACK=0 not NO_COLOR=8;
+  (2) `doopen_indir` called `vision_recalc` without refreshing
+  `viz_clear` (`recalc_block_point`); (3) open-door glyph was ASCII
+  `|` while DECgraphics uses meta-a checkerboard; `pick_lock` stub
+  always said "no door" instead of D_ISOPEN "cannot lock an open
+  door" (D-0113).
 - seed1150 @ 3032 was **not** missing `f` binding — getdir saw a
   space that C used for pet-drop `--More--` because JS
   `getdir`/`yn_function` skipped `more()` on `TOPLINE_NEED_MORE`
@@ -334,3 +340,7 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   C does `rnd_rect() && create_vault()` — outer `rnd_rect` is only a
   null-check; `create_room` vault arm loops trycnt≤100 with its own
   `rnd_rect` each try (D-0112). Do not stub as a single burn.
+- Door open: C `recalc_block_point` before vision sees through;
+  `vision_recalc` alone leaves stale `viz_clear`. DECgraphics open
+  door = meta-a / CLR_BROWN (not ASCII `|`). `pick_lock` exact
+  `doormask` cases for NODOOR/ISOPEN/BROKEN (D-0113).

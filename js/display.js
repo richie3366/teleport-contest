@@ -507,9 +507,15 @@ function terrain_glyph(loc, x, y) {
         };
     }
     case DOOR:
-        if (loc.doormask & D_ISOPEN) return { ch: '|', color: CLR_BROWN, dec: false };
-        if (loc.doormask & (D_CLOSED | D_LOCKED)) return { ch: '+', color: CLR_BROWN, dec: false };
-        return { ch: '~', color: NO_COLOR, dec: true };  // D_NODOOR = floor
+        // C ref: display.c back_to_glyph DOOR — S_hodoor/S_vodoor when open.
+        // dat/symbols DECgraphics: both open-door cmaps are meta-a (checkerboard).
+        if (loc.doormask & D_ISOPEN) {
+            return { ch: 'a', color: CLR_BROWN, dec: true };
+        }
+        if (loc.doormask & (D_CLOSED | D_LOCKED)) {
+            return { ch: '+', color: CLR_BROWN, dec: false };
+        }
+        return { ch: '~', color: NO_COLOR, dec: true };  // D_NODOOR = S_ndoor
     case STAIRS: {
         // C defsym.h: ordinary stairs CLR_GRAY; branch CLR_YELLOW.
         // Recorded public sessions paint upstairs '<' as CLR_YELLOW and

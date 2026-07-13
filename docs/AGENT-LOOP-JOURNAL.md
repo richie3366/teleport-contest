@@ -1422,3 +1422,18 @@ Use this shape:
   PASS; full **9/44** Scr **759** RNG **104563**/792838.
 - Next: seed0077 Scr residual (first mismatch after chargen) /
   seed2200 Scr 199 / seed0106 Scr.
+
+## 2026-07-13 — door recalc_block_point + pick_lock + DEC open-door (D-0113)
+- Objective: seed0077 Scr residual after D-0112 (PROGRESS primary).
+- C locus: `vision.c` `recalc_block_point`; `lock.c` `doopen_indir` /
+  `pick_lock` doormask switch; `dat/symbols` DECgraphics
+  `S_hodoor`/`S_vodoor` meta-a; tty Shall-I-pick NO_COLOR.
+- Result: **verified** — open door left `viz_clear` blocked
+  (`vision_recalc` alone); `pick_lock` stubbed every door as
+  "no door"; open-door glyph was ASCII `|` vs DEC `a`; Shall-I-pick
+  used color 0. Ported `recalc_block_point`→`vision_reset`, ISOPEN
+  pline, DEC open-door, NO_COLOR prompt.
+- Verification: seed0077 **PASS** 3242/3242 Scr 33/33 + strict;
+  green+strict PASS; cohort 1500/1800/0060/0102/0700/1150/0017 PASS;
+  full **10/44** Scr **788** RNG **104575**/792838.
+- Next: seed2200 Scr 199 (RC path @158) / seed0106 Scr 5.
