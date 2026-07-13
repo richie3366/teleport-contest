@@ -2364,3 +2364,16 @@ Use this shape:
 - Verification: green+strict PASS; DIAG removed; tree clean of js edits.
 - Next: full mines `dig_corridor` carved-cell dump vs C dig RNG blocks;
   or seed0101 Scr.
+
+## 2026-07-13 21:50 — D-0185 dig-path opener falsified
+- Objective: seed0030 @14118 C `rn2(32)` vs JS `rn2(24)` (PROGRESS primary).
+- C locus: `sp_lev.c` `dig_corridor`; `mkmap.c` `join_map`; `dig.c`
+  `mdig_tunnel`; `monmove.c` `m_move` mtrack.
+- Result: **falsified** mines dig-path opener — no production change.
+  Dig RNG 12495–12635 matches C; last join dig `50,11→74,16` full visit
+  list stays on `y=11` near x=56 (never `(56,9)`/`(56,10)`). At mismatch
+  PM_GNOME @`(57,10)` `cnt=6` neigh TRCORNER/BRCORNER. Pre-14118
+  `mdig_tunnel` only dwarf @`(22,7)`/`(23,6)`. Next: post-wallify
+  typ-write hook or C `levl` dump.
+- Verification: green+strict PASS (preflight); DIAG removed; no js edit.
+- Next: D-0185 typ-mutation hook / C map dump; or seed0101 Scr.

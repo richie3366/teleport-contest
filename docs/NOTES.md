@@ -8,17 +8,16 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 ## Active
 
 - **Current unit:** D-0185 — seed0030 @14118 `m_move` cnt (after D-0184).
-- **Hypothesis / next:** C and JS both `pass_two` STONE→wallify
-  `(56,9)`/`(56,10)`; join dig `(50,11)→(74,16)` matches C endpoints and
-  only carves `(55,11)` nearby; gnome `!tunnels`. Yet C `rn2(32)` needs
-  those two neighbors walkable (FORCE-open → prefix 14153). Next: dump
-  every cell along each mines `dig_corridor` path (esp. digs that can reach
-  x=56) and compare C dig RNG blocks 1:1; or find a post-join opener.
+- **Hypothesis / next:** Mkmap→wallify leaves `(56,9)`/`(56,10)` as
+  TRCORNER/BRCORNER; mines `dig_corridor` never visits them (last join dig
+  walks `y=11` only); dig RNG 12k–13.2k matches C 1:1; pre-mismatch
+  `mdig_tunnel` only at `(22,7)`/`(23,6)`. Yet C `rn2(32)` and FORCE-open
+  →14153. Opener is a **post-wallify typ mutation** (or C map dump needed).
 - **Falsifier / next:**
   ```bash
+  # Hook every loc.typ write to (56,9)/(56,10) after mines wallify → 14118;
+  # or obtain C levl typ at those cells at the rn2(32) call.
   node scripts/rng-diff.mjs sessions/seed0030-ten-diverse-deaths.session.json
-  # Log all cells carved by mines join digs; expect C path through
-  # (56,9)/(56,10) or another opener. Do not FORCE-open in prod.
   ```
 - **Parked deep canary:** D-0006 pet movement — do not implement until C
   state/candidate capture exists.
@@ -96,8 +95,11 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   prefix — C map has those cells walkable (D-0185).
 - **C init_fill RNG replay → same pass_two STONE** — `(55,*)` STONE after
   pass1 in both; pass_one west-ROOM theory **falsified** (D-0185).
-- **Mines join dig endpoints match C** (`16,14→19,3` … `50,11→74,16`);
-  only `(55,11)` carved near the wall cells (D-0185).
+- **Mines join dig endpoints + dig RNG match C**; last dig
+  `50,11→74,16` visits only `y=11` near x=56 (never `(56,9)`/`(56,10)`);
+  dig-path opener **falsified** (D-0185).
+- **Pre-14118 `mdig_tunnel` is dwarf @`(22,7)`/`(23,6)` only** — not the
+  gnome walls (D-0185).
 - **PM_GNOME `!M1_TUNNEL`** — cannot `mfndpos` walls via ALLOW_DIG
   (D-0185).
 - **`monattk.h`: AT_WEAP=254, AT_MAGC=255, AT_SPIT=10** — never use 10 for

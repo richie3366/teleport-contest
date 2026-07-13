@@ -5068,14 +5068,18 @@ cohort gates if those functions are touched again.
   from C's own RNG — opener still unknown (later dig path cell, or
   other post-join mutation).
 - **Rejected / falsified:** hero-sleep/`Unaware` allowflags; gnome
-  `ALLOW_DIG`/`M1_TUNNEL`; known-trap skip; dig-open via `mdig_tunnel`;
+  `ALLOW_DIG`/`M1_TUNNEL`; known-trap skip; dig-open via `mdig_tunnel`
+  at `(22,7)`/`(23,6)` only (third dig @14064 still far from `(56,*)`);
   unrelated actor; mkmap iter/pass_two formula mismatch; @14074
   mux-vs-loot dest split / amulet nearer / occupancy on `(57,10)`;
   **pass_one west ROOM neighbor** (C RNG replay); **join dig endpoint
-  mismatch** (endpoints match C).
-- **Next falsifier:** log every cell carved by mines join
-  `dig_corridor` paths; compare C dig RNG blocks 1:1 for a path through
-  `(56,9)/(56,10)`. Do not FORCE-open in production.
+  mismatch** (endpoints match C); **mines `dig_corridor` path through
+  `(56,9)`/`(56,10)`** — dig RNG 12495–12635 matches C 1:1; last join
+  dig `50,11→74,16` visits only `y=11` near x=56 (carve list and full
+  visit list); other mines digs never near those cells.
+- **Next falsifier:** hook every `loc.typ` write to `(56,9)`/`(56,10)`
+  after mines wallify until RNG 14118; or dump C `levl` typ at the
+  `rn2(32)` call. Do not FORCE-open in production.
 - **Verification:** green+strict PASS; DIAG/FORCE removed; no production
   edit.
 
