@@ -12,6 +12,7 @@ import {
     SDOOR, SCORR, POOL, MOAT, WATER, LAVAPOOL, LAVAWALL, ICE,
     FOUNTAIN, SINK, THRONE, ALTAR, GRAVE,
     D_NODOOR, D_ISOPEN, D_CLOSED, D_LOCKED,
+    LA_DOWN,
     SV0, SV1, SV2, SV3, SV4, SV5, SV6, SV7,
     WM_MASK, WM_C_OUTER, WM_C_INNER,
     WM_W_LEFT, WM_W_RIGHT, WM_W_TOP, WM_W_BOTTOM, WM_T_LONG, WM_T_BL, WM_T_BR,
@@ -29,6 +30,7 @@ import {
     DEC_TO_UNICODE,
 } from './terminal.js';
 import { update_lastseentyp } from './dungeon.js';
+import { stairway_at, known_branch_stairs } from './mklev.js';
 import {
     A_INT, A_WIS, A_DEX, A_CON, A_CHA, acurr, get_strength_str,
 } from './attrib.js';
@@ -620,12 +622,17 @@ function terrain_glyph(loc, x, y) {
             ? { ch: '~', color: NO_COLOR, dec: true }
             : { ch: '.', color: NO_COLOR, dec: false };
     case STAIRS: {
-        // C defsym.h: ordinary stairs CLR_GRAY; branch CLR_YELLOW.
-        // Recorded public sessions paint upstairs '<' as CLR_YELLOW and
-        // downstairs '>' as NO_COLOR (default fg) — match the fixture.
-        if (game.level?.upstair?.x === x && game.level?.upstair?.y === y)
-            return { ch: '<', color: CLR_YELLOW, dec: false };
-        return { ch: '>', color: NO_COLOR, dec: false };
+        // C ref: display.c back_to_glyph STAIRS + defsym.h PCHAR
+        // known_branch_stairs → S_br*stair CLR_YELLOW; else S_*stair
+        // CLR_GRAY (tty_map_color → NO_COLOR). Direction from ladder flag.
+        const sway = stairway_at(x, y);
+        const branch = known_branch_stairs(sway);
+        const down = !!(loc.ladder & LA_DOWN);
+        return {
+            ch: down ? '>' : '<',
+            color: branch ? CLR_YELLOW : CLR_GRAY,
+            dec: false,
+        };
     }
     // C ref: defsym.h PCHAR — furniture glyphs (display.c back_to_glyph)
     case ALTAR:     return { ch: '_', color: CLR_GRAY, dec: false };

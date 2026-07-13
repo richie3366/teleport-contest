@@ -38,7 +38,7 @@ frozen-file overlay):
 | Metric | Value |
 |--------|------:|
 | Sessions passing | **14 / 44** |
-| Screens matched | **1327 / 11,405** (11.63%) |
+| Screens matched | **1345 / 11,405** (11.79%) |
 | Positional RNG calls matched | **128,105 / 792,838** (16.16%) |
 | Speed label | `20+0.08/turn` |
 | Working-tree base | `8b71735` + committed port (see `main`) |
@@ -74,7 +74,7 @@ shared blockers, and semantic coverage together—not one vanity metric.
 | `seed0361-archeologist-tour` | **3293 / 53865** | 0 / 366 |
 | `seed0373-barbarian-quest-tour` | **2555 / 35386** | 0 / 124 |
 | `seed0105-valk-chat-lamp-ration` | **2499 / 2499** | **30 / 30** |
-| `seed0015-valk-level2-pit-dog-wait` | **8563 / 8563** | **24 / 44** |
+| `seed0015-valk-level2-pit-dog-wait` | **8563 / 8563** | **42 / 44** |
 | `seed0077-rogue-chargen` | **3242 / 3242** | **33 / 33** |
 | `seed0013-rogue-friday13-combat` | **543 / 4838** | 1 / 59 |
 
@@ -128,7 +128,7 @@ autoopen `doopen_indir` (D-0059), `mfndpos` BOULDER/`NODIAG`
 clear shared peels. seed2200 RNG **full**; Scr **229**/230 (sole miss:
 parked RC path @158). seed0106 **PASS**.
 Healer seed0016 **PASS**.
-seed0015 next upstairs `<` color @21 (RNG full Scr **24**/44);
+seed0015 next distant SQKY hear @22 / ^X genderPart @38 (RNG full Scr **42**/44);
 seed0200 next `hitum`/`exercise` @ 3382.
 seed0101 next Scr residual (RNG full). seed0013 still breaks earlier in
 Lua/`sp_lev`. seed0103 next `next_ident`/`trquan` @ 2337.
@@ -326,20 +326,21 @@ autoopen `doopen_indir` (D-0059) + `mfndpos` BOULDER/`ALLOW_ROCK` +
 **`postmov` door open/unlock/smash** (D-0159)
 **`flush_screen(-1)`/`docrt`→`cls` descend `--More--`** (D-0160)
 **`clear_level_structures` `_objects_at`/`head_engr`** (D-0161)
+**ordinary vs known-branch stair colors** (D-0162)
 **ported**. Fourteen public sessions pass end-to-end. **0/44** throw at
 `u_init_role`. seed0700 + seed1150 + seed0017 + seed0077 + seed0106 +
 seed0501 + seed0105 + seed0016 **PASS**. seed2200 RNG **full** (Scr **229**/230; sole
-miss parked RC @158). seed0015 RNG **full** (Scr **24**/44).
+miss parked RC @158). seed0015 RNG **full** (Scr **42**/44).
 seed0101 RNG **full** Scr **21**/27.
 
-- **Bounded unit:** seed0015 upstairs `<` color @21 /
+- **Bounded unit:** seed0015 distant SQKY hear @22 / ^X genderPart @38 /
   seed0030 `maybe_smudge_engr` @6732 /
   seed0101 Scr residual /
   seed0103 `next_ident`/`trquan` /
   seed0200 combat `@3382` (lower priority) /
   seed0361/0373 **quest `getbones`** (blocked: need `^V`→`goto_level`→
   `makemaz` first — ordinary `goto_level` now exists for stairs).
-- **Prefer:** seed0015 upstairs `<` color / `maybe_smudge_engr` /
+- **Prefer:** seed0015 SQKY hear / ^X gender / `maybe_smudge_engr` /
   seed0101 Scr
   over parked D-0006 and over baking seed2200 RC paths.
   Hero `dotrap` deferred until monster pit peel is clear.
@@ -944,6 +945,11 @@ Module status, constitutional debt, and named omissions live in
     — seed0015 Scr **23→24**/44 (screen 20 match); screens
     **1326→1327**; RNG **128111→128105**; green cohort PASS; next
     upstairs `<` color @21 / `maybe_smudge_engr` / seed0101 Scr
+140. ordinary vs known-branch stair colors (D-0162)
+    — seed0015 Scr **24→42**/44 (screen 21+ match); screens
+    **1327→1345**; RNG **128105**; green cohort PASS; next
+    SQKY distant hear @22 / ^X genderPart @38 / `maybe_smudge_engr` /
+    seed0101 Scr
 
 Next work is selected from the active objectives above using
 `PORTING-RUNBOOK.md`, not by extending this historical list.

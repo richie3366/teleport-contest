@@ -164,6 +164,8 @@ Do not record a guessed cause as fixed merely because an RNG prefix moved.
 | D-0158 | fixed | objnam/insight | armor `pair of`/`set of` + ^X new moon + 23-row page; seed0016 PASS |
 | D-0159 | fixed | monmove/door | `postmov` CLOSED/LOCKED open/unlock/smash; seed0015 Scr 21→22 |
 | D-0160 | fixed | display/goto_level | `flush_screen(-1)` + `docrt`→`cls` more before redraw; descend `--More--` |
+| D-0161 | fixed | mklev/objects_at | clear `_objects_at`/`head_engr` on level rebuild; ghost gold gone |
+| D-0162 | fixed | display/stairs | `known_branch_stairs` → yellow; ordinary stairs CLR_GRAY→NO_COLOR |
 
 D-0001 through D-0005 predate the strict-length/cohort runbook. Their focused
 causes are preserved, but generic "green sessions held" is historical evidence,
@@ -4343,3 +4345,31 @@ cohort gates if those functions are touched again.
   nulling `fobj` alone leaves ghost `objects_at` hits across depths.
 - **Next:** seed0015 upstairs `<` color @21 / `maybe_smudge_engr` /
   seed0101 Scr residual.
+
+## D-0162 — ordinary vs known-branch stair colors (seed0015 Scr)
+
+- **Status:** fixed
+- **Observed:** seed0015 Scr @21 upstairs `<` JS yellow (11) vs C
+  NO_COLOR (8); RNG already full. Dlvl1 cohort sessions kept yellow
+  upstairs / gray downstairs (D-0038 fixture note).
+- **Rejected:** hardcoding upstairs=yellow / downstairs=NO_COLOR from
+  public recordings (D-0038 partial — matched Dlvl1 only).
+- **C locus:** `display.c` `back_to_glyph` STAIRS;
+  `stairs.c` `known_branch_stairs`; `defsym.h` S_upstair/S_dnstair
+  CLR_GRAY, S_br*stair CLR_YELLOW.
+- **Cause:** JS `terrain_glyph` forced all upstairs yellow. C uses
+  `known_branch_stairs(stairway_at)` (different dnum + `u_traversed`)
+  for yellow branch glyphs; ordinary same-dungeon stairs stay gray
+  (tty → NO_COLOR). Dlvl1 upstairs is a traversed branch → yellow;
+  Dlvl2 upstairs to Dlvl1 is ordinary → NO_COLOR.
+- **Change:** `terrain_glyph` STAIRS uses `stairway_at` +
+  `known_branch_stairs` + `loc.ladder & LA_DOWN`; branch→CLR_YELLOW,
+  else CLR_GRAY.
+- **Verification:** seed0015 Scr **24→42**/44; green+strict PASS;
+  cohort 12 PASS; full **14/44** Scr **1345** RNG **128105**.
+- **Named omission:** ladder glyphs; remaining seed0015 Scr @22 distant
+  SQKY "F note" / Scr @38 ^X genderPart.
+- **Lesson:** Dlvl1 fixture colors are not universal stair rules —
+  port `known_branch_stairs`, do not bake upstairs=yellow.
+- **Next:** seed0015 distant SQKY hear / ^X attributes gender /
+  `maybe_smudge_engr` / seed0101 Scr residual.

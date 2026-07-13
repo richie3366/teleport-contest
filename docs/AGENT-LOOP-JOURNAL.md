@@ -19,6 +19,20 @@ Use this shape:
 
 ---
 
+## 2026-07-13 18:06 — ordinary vs known-branch stair colors (D-0162)
+- Objective: seed0015 Scr @21 upstairs `<` yellow vs C NO_COLOR
+  (PROGRESS primary).
+- C locus: `display.c` `back_to_glyph` STAIRS; `stairs.c`
+  `known_branch_stairs`; `defsym.h` S_*stair CLR_GRAY / S_br* CLR_YELLOW.
+- Result: **verified** — D-0038 hardcoding upstairs=yellow matched
+  Dlvl1 traversed branch only. Port `known_branch_stairs` + ladder
+  direction; ordinary same-dungeon stairs CLR_GRAY→NO_COLOR.
+  Scr **24→42**/44.
+- Verification: green+strict PASS; cohort 12 PASS; full **14/44**
+  Scr **1345** RNG **128105**.
+- Next: seed0015 distant SQKY “F note” @22, or ^X genderPart @38
+  (`female human` vs C `human`), or seed0030 `maybe_smudge_engr` @6732.
+
 ## 2026-07-13 18:05 — clear _objects_at on level rebuild (D-0161)
 - Objective: seed0015 Scr @20 gold `$` on wall vs C DEC wall
   (PROGRESS primary).

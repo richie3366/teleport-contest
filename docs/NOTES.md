@@ -7,15 +7,16 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 
 ## Active
 
-- **Current unit:** D-0161 cleared seed0015 Dlvl:2 gold `$` on wall (Scr
-  **23→24**/44; screen 20 match). Cause was stale `_objects_at` from dlvl1.
-- **Hypothesis / next:** seed0015 Scr @21 one cell — upstairs `<` color
-  JS yellow (11) vs C NO_COLOR (8) at hero stairs. Or seed0030
-  `maybe_smudge_engr` @6732 / seed0101 Scr residual.
+- **Current unit:** D-0162 cleared seed0015 upstairs `<` color (Scr
+  **24→42**/44). Ordinary stairs CLR_GRAY→NO_COLOR; known-branch yellow.
+- **Hypothesis / next:** seed0015 Scr @22 missing distant
+  `You hear an F note squeak in the distance.` (SQKY / dosounds), or
+  Scr @38 ^X `female human Valkyrie` vs C `human Valkyrie` (genderPart
+  when `!name.f`). Or seed0030 `maybe_smudge_engr` @6732 / seed0101 Scr.
 - **Falsifier / next:**
   ```bash
   node frozen/ps_test_runner.mjs sessions/seed0015-valk-level2-pit-dog-wait.session.json
-  # expect Scr >24 or first cell miss past upstairs '<' color
+  # expect Scr >42 or first miss past SQKY hear / ^X gender
   node scripts/rng-diff.mjs sessions/seed0030-ten-diverse-deaths.session.json
   # expect first mismatch past maybe_smudge_engr @6732 if that peel advances
   ```
@@ -246,9 +247,16 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   dlvl1 `mkgold` at ROOM (63,6) left a stale `_objects_at` entry; dlvl2
   HWALL at same coords painted that ghost gold (D-0161). Clearing
   `fobj` alone is not enough — must clear `_objects_at` (+ `head_engr`).
+- **seed0015 Scr @21 yellow `<` was NOT “always upstairs yellow”** —
+  that matched Dlvl1 known-branch only. C `known_branch_stairs` →
+  yellow; ordinary same-dungeon stairs CLR_GRAY→NO_COLOR (D-0162).
+  Do not hardcode upstairs=yellow from fixtures.
 
 ## Landmarks
 
+- STAIRS glyph: `known_branch_stairs(stairway_at)` → CLR_YELLOW;
+  else CLR_GRAY (tty NO_COLOR); direction from `ladder & LA_DOWN`
+  (D-0162). Dlvl1 upstairs is traversed branch.
 - `clear_level_structures` / `goto_level`: clear `fobj` **and**
   `_objects_at` (C `level.objects[][]=0`) and `head_engr` (D-0161).
 - `goto_level` descend: `flush_screen(-1)` postpone → You/pline NEED_MORE →
