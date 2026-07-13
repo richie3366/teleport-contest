@@ -8,17 +8,17 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 ## Active
 
 - **Current unit:** D-0185 — seed0030 @14118 `m_move` cnt (after D-0184).
-- **Hypothesis / next:** C keeps `(56,9)`/`(56,10)` walkable (ROOM) on
-  Mines while JS `pass_two` count==5 → STONE → wallify corners. FORCE-open
-  those two cells at @14118 advances prefix **14118→14153** (rn2(32)
-  matches). @14074 dest `(58,9)→(57,10)` is forced by loot gg=`(57,11)`
-  glass (amulet @`(58,10)` not taken — gnome lacks M2_MAGIC).
+- **Hypothesis / next:** C and JS both `pass_two` STONE→wallify
+  `(56,9)`/`(56,10)`; join dig `(50,11)→(74,16)` matches C endpoints and
+  only carves `(55,11)` nearby; gnome `!tunnels`. Yet C `rn2(32)` needs
+  those two neighbors walkable (FORCE-open → prefix 14153). Next: dump
+  every cell along each mines `dig_corridor` path (esp. digs that can reach
+  x=56) and compare C dig RNG blocks 1:1; or find a post-join opener.
 - **Falsifier / next:**
   ```bash
   node scripts/rng-diff.mjs sessions/seed0030-ten-diverse-deaths.session.json
-  # Why C ROOM at (56,9)/(56,10): pass_one west neighbor (55,*) still
-  # ROOM (→ pass_two count≠5), or a mines join dig_corridor visits them.
-  # Dump after-pass_one map; compare dig paths. Do not FORCE-open in prod.
+  # Log all cells carved by mines join digs; expect C path through
+  # (56,9)/(56,10) or another opener. Do not FORCE-open in prod.
   ```
 - **Parked deep canary:** D-0006 pet movement — do not implement until C
   state/candidate capture exists.
@@ -94,6 +94,12 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   amulet `(58,10)` take=false (no M2_MAGIC); nearer→`(57,10)` only.
   Occupancy/traps do not block `(57,10)`. FORCE-open walls advances
   prefix — C map has those cells walkable (D-0185).
+- **C init_fill RNG replay → same pass_two STONE** — `(55,*)` STONE after
+  pass1 in both; pass_one west-ROOM theory **falsified** (D-0185).
+- **Mines join dig endpoints match C** (`16,14→19,3` … `50,11→74,16`);
+  only `(55,11)` carved near the wall cells (D-0185).
+- **PM_GNOME `!M1_TUNNEL`** — cannot `mfndpos` walls via ALLOW_DIG
+  (D-0185).
 - **`monattk.h`: AT_WEAP=254, AT_MAGC=255, AT_SPIT=10** — never use 10 for
   weapon (D-0179).
 - Hostile `m_move`: before place, `m_digweapon_check` may return

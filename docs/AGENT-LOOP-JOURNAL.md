@@ -2352,3 +2352,15 @@ Use this shape:
   Next: why C keeps those cells ROOM (pass_one west neighbor or dig).
 - Verification: green+strict PASS; DIAG/FORCE removed; no production edit.
 - Next: resolve D-0185 pass_one/`dig_corridor` map; or seed0101 Scr.
+
+## 2026-07-13 19:43 — D-0185 pass_one west-ROOM falsified
+- Objective: seed0030 @14118 C `rn2(32)` vs JS `rn2(24)` (PROGRESS primary).
+- C locus: `mkmap.c` `pass_one`/`pass_two`/`join_map`; `monmove.c` `m_move`.
+- Result: **falsified** pass_one west-ROOM theory — no production change.
+  Replayed C session `init_fill` RNG through pass_one/two/three → same
+  STONE at `(56,9)`/`(56,10)` (count==5). Mines join dig endpoints match
+  C (`16,14→19,3`…`50,11→74,16`); only `(55,11)` carved nearby. Gnome
+  `!M1_TUNNEL`. FORCE-open still advances to 14153. Opener unknown.
+- Verification: green+strict PASS; DIAG removed; tree clean of js edits.
+- Next: full mines `dig_corridor` carved-cell dump vs C dig RNG blocks;
+  or seed0101 Scr.

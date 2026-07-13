@@ -5042,13 +5042,19 @@ cohort gates if those functions are touched again.
   @13960/@14023/@14074 while on open cells; @14074 `(58,9)`→`(57,10)`
   after `rn2(32)=11` mtrack skip of prior cell.
 - **JS state at mismatch:** PM_GNOME @`(57,10)`, `appr=1`,
-  `flag=ALLOW_U|OPENDOOR`, `cnt=6`, mtrack=`(58,9);(59,8);(60,7);(61,6)`.
-  Missing neighbors `(56,9)=TRCORNER`, `(56,10)=BRCORNER`.
+  `flag=ALLOW_U|OPENDOOR`, `cnt=6`, `!tunnels`, mtrack=
+  `(58,9);(59,8);(60,7);(61,6)`. Missing neighbors `(56,9)=TRCORNER`,
+  `(56,10)=BRCORNER`. All six ROOM neighbors are in `poss`.
 - **Map evidence:** after pass_one, western edge `(55,8..10)=STONE` and
   `(56,9)/(56,10)=ROOM` with exactly 5 ROOM neighbors → `pass_two`
   ROOM→STONE; smooth/join leave STONE; `wallify`→HWALL→corners. Mines
   join dig `(50,11)→(74,16)` does not carve them. Only **2** C
-  `mdig_tunnel` before 14118 — not dig-open of `(56,*)`.
+  `mdig_tunnel` before 14118 at `(22,7)`/`(23,6)` — not dig-open of
+  `(56,*)`.
+- **C RNG replay:** session `init_fill` values through `pass_one`/
+  `pass_two`/`pass_three` yield the **same** STONE at `(56,9)`/
+  `(56,10)` (count==5 after pass1). Join dig endpoints match C
+  (`16,14→19,3` … `50,11→74,16`).
 - **@14074 dest:** gg=`(57,11)` WORTHLESS_BLUE_GLASS (COLLECT+practical
   GEM); AMULET_OF_CHANGE @`(58,10)` `take=false` (gnome `!M2_MAGIC`);
   nearer forces `(57,10)`. No trap/monster excludes that cell.
@@ -5058,16 +5064,18 @@ cohort gates if those functions are touched again.
 - **C locus:** `monmove.c` `m_move` `rn2(4*(cnt-j))`; `mon.c` `mfndpos`;
   `mkmap.c` `pass_one`/`pass_two` / `join_map` / `wallify_map`.
 - **Cause (partial):** JS cnt shortfall is the two wall cells. C needs
-  them walkable at movement time — likely C `pass_one` left a western
-  ROOM neighbor (pass_two count≠5) or a mines `dig_corridor` visits
-  them; not a @14074 dest/gg split.
+  them walkable at movement time despite the same mkmap→wallify outcome
+  from C's own RNG — opener still unknown (later dig path cell, or
+  other post-join mutation).
 - **Rejected / falsified:** hero-sleep/`Unaware` allowflags; gnome
-  `ALLOW_DIG`; known-trap skip; dig-open via `mdig_tunnel`; unrelated
-  actor; mkmap iter/pass_two formula mismatch; @14074 mux-vs-loot dest
-  split / amulet nearer / occupancy on `(57,10)`.
-- **Next falsifier:** after-pass_one map — why `(55,*)` STONE vs C ROOM;
-  or instrument mines `dig_corridor` visits to `(56,9)/(56,10)`. Do not
-  FORCE-open in production.
+  `ALLOW_DIG`/`M1_TUNNEL`; known-trap skip; dig-open via `mdig_tunnel`;
+  unrelated actor; mkmap iter/pass_two formula mismatch; @14074
+  mux-vs-loot dest split / amulet nearer / occupancy on `(57,10)`;
+  **pass_one west ROOM neighbor** (C RNG replay); **join dig endpoint
+  mismatch** (endpoints match C).
+- **Next falsifier:** log every cell carved by mines join
+  `dig_corridor` paths; compare C dig RNG blocks 1:1 for a path through
+  `(56,9)/(56,10)`. Do not FORCE-open in production.
 - **Verification:** green+strict PASS; DIAG/FORCE removed; no production
   edit.
 

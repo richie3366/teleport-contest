@@ -420,10 +420,10 @@ gettrack redirect falsified (no adjacent track).
 **underfoot `m_search_items` + peaceful `can_carry`** (D-0183) →
 seed0030 prefix **14026→14056** positional **14375**/105529 Scr
 **168**/1953; full **15/44** Scr **1405** RNG **135825**.
-Next peel: seed0030 @14118 / D-0185 (FORCE-open `(56,9)`/`(56,10)` →
-prefix 14153; find pass_one west ROOM or mines dig; @14074 dest
-falsified) / seed0101 Scr residual / seed0200 combat @3382 / quest
-`makemaz` / parked seed2200 RC @158.
+Next peel: seed0030 @14118 / D-0185 (FORCE-open → 14153; C RNG replay
+falsified pass_one west-ROOM; join dig endpoints match C; next full
+dig-path cell dump) / seed0101 Scr residual / seed0200 combat @3382 /
+quest `makemaz` / parked seed2200 RC @158.
 Hero `dotrap`/`trapeffect_pit` and `xkilled` `make_corpse` still
 deferred; other `m_initinv` bodies + soldier early-return still deferred;
 dog_move digweapon / iron bars / shop dig-damage deferred.
