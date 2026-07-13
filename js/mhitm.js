@@ -58,11 +58,16 @@ const FIRST_ATTK = (() => {
     return t;
 })();
 
-function get_mattk(magr, i) {
+/** First-slot mattk from compact table; later slots AT_NONE until full extract. */
+export function get_mattk(magr, i) {
     if (i > 0) return { aatyp: AT_NONE, adtyp: AD_PHYS, damn: 0, damd: 0 };
     const mndx = magr.mnum ?? magr.data?.mndx;
     return FIRST_ATTK.get(mndx) || { aatyp: AT_NONE, adtyp: AD_PHYS, damn: 0, damd: 0 };
 }
+
+export {
+    AT_NONE, AT_CLAW, AT_BITE, AT_KICK, AT_BUTT, AT_TUCH, AT_STNG, AT_WEAP, AD_PHYS,
+};
 
 function deadmonster(m) {
     return !m || (m.mhp != null && m.mhp < 1);
@@ -145,7 +150,7 @@ function passivemm(magr, mdef, mhitb, mdead) {
 }
 
 // C ref: uhitm.c mhitm_knockback — burn RNG in C order; no hurtle yet
-function mhitm_knockback(magr, mdef, mattk, hitflags, weapon_used) {
+export function mhitm_knockback(magr, mdef, mattk, hitflags, weapon_used) {
     // C: knockdistance = rn2(3) ? 1 : 2; then rn2(chance)
     rn2(3);
     rn2(6);
@@ -153,9 +158,11 @@ function mhitm_knockback(magr, mdef, mattk, hitflags, weapon_used) {
             || mattk.aatyp === AT_BUTT || mattk.aatyp === AT_WEAP)) {
         return false;
     }
+    void magr;
+    void mdef;
     void weapon_used;
     void hitflags;
-    return false; // full hurtle not needed for dlvl1 pet bites
+    return false; // full hurtle not needed for dlvl1 pet bites / kobold melee
 }
 
 // C ref: mon.c corpse_chance() — subset for ordinary dlvl1 kills

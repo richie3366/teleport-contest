@@ -7,11 +7,12 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 
 ## Active
 
-- **Current unit:** D-0105 `thrwmu`/`monmulti` cleared seed0106 @ 2912.
-  Next: seed0106 @ **2962** `mattacku` melee `rnd(20)` / `hitmu`, or
-  seed2200 Scr **199**/230, or seed0077 `player_selection`.
-- **Hypothesis:** seed0106 @ 2962 is adjacent `mattacku` AT_WEAP melee
-  (C `rnd(20)` @ mhitu.c:912); JS `mattacku` only does `range2`→`thrwmu`.
+- **Current unit:** D-0106 `mattacku` melee/`hitmu` cleared seed0106 @ 2962.
+  Next: seed0106 @ **2982** `hitum` hero melee (C `gethungry` then
+  `exercise`/`hitum`), or seed2200 Scr **199**/230, or seed0077
+  `player_selection`.
+- **Hypothesis:** seed0106 @ 2982 is hero `h` into kobold → `hitum`
+  `rnd(20)`; JS still treats the tile as a move → `distfleeck` `rn2(5)`.
 - **Falsifier / next:**
   ```bash
   node scripts/rng-diff.mjs sessions/seed0106-priest-extcmd-sweep.session.json
@@ -139,6 +140,9 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   C falls through when `!nearby && AT_WEAP` → `mattacku`→`thrwmu`→
   `monmulti` `rnd(1)` (D-0105). JS used to `return 0` on MOVED and
   gated attacks on `nearby`.
+- **seed0106 @2962 was NOT further pet/distfleeck** — adjacent kobold
+  melee `mattacku` `rnd(20)` → bare `hitmu` `d(1,4)` (dart already
+  thrown, `MON_WEP` null → no `dmgval`) (D-0106).
 - seed1150 @ 3032 was **not** missing `f` binding — getdir saw a
   space that C used for pet-drop `--More--` because JS
   `getdir`/`yn_function` skipped `more()` on `TOPLINE_NEED_MORE`
@@ -278,3 +282,6 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   then `splitobj`/`m_throw` flight `rn2(5)` per step; hero tile →
   `u_catch` then `dmgval`/`thitu`/`exercise`; hit →
   `should_mulch` + `delobj`→`obj_resists(0,0)`.
+- Melee `mattacku` AT_WEAP `!range2`: `NEED_HTH` wield (stub OK when
+  no mwep), `rnd(20+i)` → `hitmu` `d(damn,damd)` + knockback RNG;
+  bare hands → `hitmsg` without `dmgval` (D-0106).

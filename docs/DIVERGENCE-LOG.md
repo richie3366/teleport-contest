@@ -2805,3 +2805,31 @@ cohort gates if those functions are touched again.
 - **Next:** seed0106 @ 2962 melee `mattacku` / seed2200 Scr 199 /
   seed0077 `player_selection`.
 
+## D-0106 — seed0106 `mattacku` melee / `hitmu`
+
+- **Status:** fixed
+- **Observed:** seed0106 @ **2962**: C `rnd(20)` @ `mattacku` then
+  `hitmu` `d(1,4)` + `mhitm_knockback` vs JS `rn2(5)` `distfleeck`
+  (no melee path). Screen: `"The kobold hits!"` HP 11→10.
+- **C locus:** `mhitu.c` `mattacku` AT_WEAP `!range2` / `hitmu` /
+  `hitmsg` / `mdamageu`; `uhitm.c` `mhitm_ad_phys` (mhitu bare /
+  weapon); `uhitm.c` `mhitm_knockback`.
+- **Cause:** JS `mattacku` only called `thrwmu` when `range2`;
+  adjacent kobold (dart spent, `MON_WEP` null) needs melee
+  `rnd(20+i)` → `hitmu`.
+- **Change:** `js/mhitu.js` melee HTH + AT_WEAP envelope, `hitmu`/
+  `hitmsg`/`missmu`/`mdamageu`, bare/`dmgval` ad_phys; export
+  `get_mattk` / `mhitm_knockback` from `js/mhitm.js`.
+- **Verification:** seed0106 prefix **2962→2982** (`hitum` next
+  key); positional **3188**/4194; green+strict PASS; cohort
+  1500/1800/0060/0102/0700/1150/0017 PASS; full **9/44** Scr
+  **718** RNG **92375**/792838.
+- **Named omission:** `hitval`/`mswings` (mixed-dir `rn2`);
+  `mon_wield` HTH body; `wildmiss`/displace; `passiveum`;
+  `summonmu`/were; hugs/gaze/expl/engl/brea/spit/magc; seduce
+  hitmsg; undead midnight extra `d()`; `Half_physical_damage`/
+  Mitre; `done_in_by`; full `mattk[]` beyond FIRST_ATTK table;
+  knockback hurtle body.
+- **Next:** seed0106 @ 2982 `hitum` / hero melee / seed2200 Scr
+  199 / seed0077 `player_selection`.
+

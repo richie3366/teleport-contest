@@ -1304,3 +1304,20 @@ Use this shape:
 - Next: seed0106 @ 2962 melee `mattacku`/`hitmu` —
   `node scripts/rng-diff.mjs sessions/seed0106-priest-extcmd-sweep.session.json`
   — or seed2200 Scr 199 / seed0077 `player_selection`.
+
+## 2026-07-13 — mattacku melee / hitmu (D-0106)
+- Objective: seed0106 @ 2962 mattacku melee (PROGRESS primary).
+- C locus: `mhitu.c` `mattacku` AT_WEAP `!range2` / `hitmu` /
+  `hitmsg` / `mdamageu`; `uhitm.c` `mhitm_ad_phys` (mhitu);
+  `uhitm.c` `mhitm_knockback`.
+- Result: **verified** — JS only did `thrwmu` when `range2`;
+  adjacent kobold (dart spent) needs melee `rnd(20)` → bare
+  `hitmu` `d(1,4)` + knockback RNG. Ported HTH + AT_WEAP melee
+  envelope and `hitmu` subset.
+- Verification: seed0106 prefix **2962→2982**; positional
+  **3188**/4194; green+strict PASS; cohort 1500/1800/0060/
+  0102/0700/1150/0017 PASS; full **9/44** Scr **718** RNG
+  **92375**/792838.
+- Next: seed0106 @ 2982 `hitum` —
+  `node scripts/rng-diff.mjs sessions/seed0106-priest-extcmd-sweep.session.json`
+  — or seed2200 Scr 199 / seed0077 `player_selection`.
