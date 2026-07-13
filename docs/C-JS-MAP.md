@@ -421,8 +421,8 @@ gettrack redirect falsified (no adjacent track).
 seed0030 prefix **14026→14056** positional **14375**/105529 Scr
 **168**/1953; full **15/44** Scr **1405** RNG **135825**.
 Next peel: seed0030 @14118 / D-0185 (FORCE-open → 14153; dig-path /
-pass_one / join-endpoint / pre-mismatch mdig / post-wallify typ writes
-**falsified**; next non-RNG join_map/flood vs C, or C levl dump) /
+pass_one / join-endpoint / mdig / post-wallify / **join_map flood+erase**
+**falsified**; next **C levl typ dump** at rn2(32)) /
 seed0101 Scr residual /
 seed0200 combat @3382 / quest `makemaz` / parked seed2200 RC @158.
 Hero `dotrap`/`trapeffect_pit` and `xkilled` `make_corpse` still

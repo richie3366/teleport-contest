@@ -2388,3 +2388,14 @@ Use this shape:
   cells walkable. Next: non-RNG join_map/flood vs C, or C levl dump.
 - Verification: green+strict PASS; DIAG removed; tree clean of js edits.
 - Next: D-0185 join_map/flood non-RNG peel / C dump; or seed0101 Scr.
+
+## 2026-07-13 22:09 — D-0185 join_map/flood falsified
+- Objective: seed0030 @14118 C `rn2(32)` vs JS `rn2(24)` (PROGRESS primary).
+- C locus: `mkmap.c` `join_map`/`flood_fill_rm`; `monmove.c` `m_move`.
+- Result: **falsified** non-RNG join flood/erase — no production change.
+  Mines join keep=7 erase=0; room bounds match C somex widths; six dig
+  endpoints match C; init_fill+join dig RNG windows 0 mismatches;
+  pass_two STONE→wallify corners unchanged. FORCE-open still →14153.
+  Next: C `levl` typ dump at rn2(32).
+- Verification: green+strict PASS; DIAG removed; js tree clean.
+- Next: D-0185 C levl dump / unknown opener; or seed0101 Scr.

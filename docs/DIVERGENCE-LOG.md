@@ -188,7 +188,7 @@ Do not record a guessed cause as fixed merely because an RNG prefix moved.
 | D-0182 | fixed | monmove/m_search_items | getitems + loot gg redirect; dwarf rocktrap @13987 |
 | D-0183 | partial | monmove/underfoot loot | skip underfoot MMOVE_DONE until mpickstuff; can_carry peaceful |
 | D-0184 | partial | muse/potionhit | MUSE_POT_* throw + hero potionhit/breathe/makeknown |
-| D-0185 | open | m_move/mfndpos cnt | seed0030 @14118: JS gnome walls vs C rn2(32); post-wallify typ writes falsified |
+| D-0185 | open | m_move/mfndpos cnt | seed0030 @14118: JS gnome walls vs C rn2(32); join/flood+post-wallify falsified; need C levl dump |
 
 D-0001 through D-0005 predate the strict-length/cohort runbook. Their focused
 causes are preserved, but generic "green sessions held" is historical evidence,
@@ -5066,25 +5066,27 @@ cohort gates if those functions are touched again.
 - **Cause (partial):** JS cnt shortfall is the two wall cells. C needs
   them walkable at movement time despite the same mkmap→wallify outcome
   from C's own RNG — opener still unknown. **Post-wallify typ mutation
-  falsified:** property-hook on `(56,9)`/`(56,10)` from mines wallify
-  (rng 13226) through 14118 recorded **zero** writes; cells stay
-  TRCORNER/BRCORNER. @14115 matching `rn2(32)` is a different gnome at
-  `(48,17)` with cnt=8 all-ROOM neighbors.
+  falsified** and **join_map/flood/erase falsified** (rooms/digs/RNG
+  match C). @14115 matching `rn2(32)` is a different gnome at
+  `(48,17)` with cnt=8 all-ROOM neighbors. Remaining: C `levl` dump or
+  unknown post-wallify opener.
 - **Rejected / falsified:** hero-sleep/`Unaware` allowflags; gnome
   `ALLOW_DIG`/`M1_TUNNEL`; known-trap skip; dig-open via `mdig_tunnel`
   at `(22,7)`/`(23,6)` only (third dig @14064 still far from `(56,*)`);
   unrelated actor; mkmap iter/pass_two formula mismatch; @14074
   mux-vs-loot dest split / amulet nearer / occupancy on `(57,10)`;
-  **pass_one west ROOM neighbor** (C RNG replay); **join dig endpoint
+  **pass_one west ROOM neighbor** (C RNG replay);   **join dig endpoint
   mismatch** (endpoints match C); **mines `dig_corridor` path through
   `(56,9)`/`(56,10)`** — dig RNG 12495–12635 matches C 1:1; last join
   dig `50,11→74,16` visits only `y=11` near x=56 (carve list and full
   visit list); other mines digs never near those cells;
-  **post-wallify `loc.typ` mutation** (0 writes wallify→14118).
-- **Next falsifier:** non-RNG `join_map` flood/erase / room-bounds
-  divergence (deterministic) vs C; or dump C `levl` typ at the
-  `rn2(32)` call. Do not FORCE-open in production; do not re-hook typ
-  writers.
+  **post-wallify `loc.typ` mutation** (0 writes wallify→14118);
+  **join_map flood/erase / room-bounds** — keep=7 erase=0; room widths
+  match C somex/somey; six dig endpoints match; init_fill+join dig RNG
+  windows 0 mismatches.
+- **Next falsifier:** dump C `levl[56][9]`/`[56][10]` typ at the
+  `rn2(32)` call (recorder). Do not FORCE-open; do not re-peel join
+  flood / dig-path / post-wallify writers.
 - **Verification:** green+strict PASS; DIAG/FORCE removed; no production
   edit.
 
