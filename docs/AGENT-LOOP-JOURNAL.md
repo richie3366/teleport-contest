@@ -1321,3 +1321,20 @@ Use this shape:
 - Next: seed0106 @ 2982 `hitum` —
   `node scripts/rng-diff.mjs sessions/seed0106-priest-extcmd-sweep.session.json`
   — or seed2200 Scr 199 / seed0077 `player_selection`.
+
+## 2026-07-13 — hitum / hero melee / xkilled (D-0107)
+- Objective: seed0106 @ 2982 hitum hero melee (PROGRESS primary).
+- C locus: `hack.c` `overexertion` → `eat.c` `gethungry`; `uhitm.c`
+  `do_attack` / `hitum` / `known_hitum` / `find_roll_to_hit` / `hmon`;
+  `weapon.c` `dmgval`/`abon`; `mon.c` `killed`/`xkilled`/`corpse_chance`.
+- Result: **verified** — hostile `do_attack` stubbed `return true` with
+  no combat RNG so monsters still `distfleeck`'d; C
+  `overexertion`→`gethungry`→`exercise(STR)`→`hitum` `rnd(20)`→
+  `dmgval`→`xkilled`. Ported that envelope + melee OC_WSDAM.
+- Verification: seed0106 prefix **2982→2993**; positional
+  **3201**/4194; green+strict PASS; cohort 1500/1800/0060/
+  0102/0700/1150/0017 PASS; full **9/44** Scr **718** RNG
+  **92300**/792838.
+- Next: seed0106 @ 2993 post-kill `dog_goal` —
+  `node scripts/rng-diff.mjs sessions/seed0106-priest-extcmd-sweep.session.json`
+  — or seed2200 Scr 199 / seed0077 `player_selection`.

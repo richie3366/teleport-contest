@@ -20,6 +20,7 @@ import { A_DEX, A_STR, A_CON, acurr, exercise, change_luck, Fast, Very_fast, Sea
 import { dosearch0 } from './detect.js';
 import { nhgetch } from './input.js';
 import { unmul } from './hack.js';
+import { gethungry } from './eat.js';
 import { near_capacity, paint_corner_nhw_menu } from './invent.js';
 import { com_pager_legacy } from './questpgr.js';
 import { snapshot_status_lines } from './display.js';
@@ -193,13 +194,6 @@ function dosounds() {
         // gd_sound / vault messages — only when rn2 hits 0; seed1800 burns the roll
         // Full vault sound path TODO when a peel lands on 0
     }
-}
-
-// C ref: eat.c gethungry() — accessorytime roll
-function gethungry() {
-    const accessorytime = rn2(20);
-    void accessorytime;
-    // hunger side-effects omitted (no further RNG on seed8000 path)
 }
 
 function exerper() {

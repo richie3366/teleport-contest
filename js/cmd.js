@@ -483,7 +483,7 @@ async function domove(dx, dy) {
     const mtmp = mon_at(newx, newy);
     if (mtmp) {
         // C: domove_attackmon_at → do_attack
-        if (do_attack(mtmp)) {
+        if (await do_attack(mtmp)) {
             // Move consumed (stopped for pet in the way, or attacked)
             if (game.context?.run) end_running();
             return;

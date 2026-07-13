@@ -108,6 +108,9 @@ Do not record a guessed cause as fixed merely because an RNG prefix moved.
 | D-0102 | fixed | askname + ParanoidPray | no-name splash/`Who are you?`; default pray yn |
 | D-0103 | fixed | `#chat` / dochat | unbound extcmd; getdir `l` became move → fake `do_attack` peel |
 | D-0104 | fixed | dokick/kick_door | CLOSED door used kick_ouch stand-in; need exercise TRUE + rnl(35) |
+| D-0105 | fixed | mthrowu/monmulti | MMOVE_MOVED must fall through to thrwmu when !nearby+AT_WEAP |
+| D-0106 | fixed | combat/mhitu | `mattacku` melee HTH/`hitmu` for adjacent AT_WEAP |
+| D-0107 | fixed | combat/uhitm | hero `do_attack`→`overexertion`/`hitum`/`xkilled` |
 
 D-0001 through D-0005 predate the strict-length/cohort runbook. Their focused
 causes are preserved, but generic "green sessions held" is historical evidence,
@@ -2831,5 +2834,36 @@ cohort gates if those functions are touched again.
   Mitre; `done_in_by`; full `mattk[]` beyond FIRST_ATTK table;
   knockback hurtle body.
 - **Next:** seed0106 @ 2982 `hitum` / hero melee / seed2200 Scr
+  199 / seed0077 `player_selection`.
+
+## D-0107 — seed0106 `hitum` / hero melee
+
+- **Status:** fixed
+- **Observed:** seed0106 @ **2982**: C `rn2(20)` @ `gethungry` (via
+  `overexertion`) then `exercise`/`hitum` `rnd(20)`/`dmgval`/
+  `xkilled` vs JS `rn2(5)` `distfleeck` (hostile `do_attack`
+  stubbed `return true` with no combat RNG).
+- **C locus:** `hack.c` `overexertion` → `eat.c` `gethungry`;
+  `uhitm.c` `do_attack` / `hitum` / `known_hitum` /
+  `find_roll_to_hit` / `hmon`; `weapon.c` `dmgval`/`abon`;
+  `mon.c` `killed`/`xkilled`/`corpse_chance`.
+- **Cause:** JS `do_attack` only handled safemon; hostiles returned
+  true without `overexertion`/`hitum`, so monsters still moved
+  (`distfleeck`) while C resolved mace melee and killed the kobold.
+- **Change:** `js/eat.js` export `gethungry`; `js/hack.js`
+  `overexertion`; `js/uhitm.js` hostile `do_attack`→`hitum`/
+  `hmon`/`xkilled`; `js/weapon.js` melee `OC_WSDAM` (MACE…);
+  `js/cmd.js` `await do_attack`.
+- **Verification:** seed0106 prefix **2982→2993** (post-kill
+  `dog_goal`); positional **3201**/4194; green+strict PASS;
+  cohort 1500/1800/0060/0102/0700/1150/0017 PASS; full **9/44**
+  Scr **718** RNG **92300**/792838.
+- **Named omission:** `attack_checks` invis/mimic/peaceful yn;
+  Cleaver/twoweapon/`double_punch`; full `hitval`/
+  `weapon_hit_bonus`/`P_SKILL`; `dbon`/skill dam recalc;
+  live knockback; `passive` counters; `make_corpse`/`mkobj`
+  treasure bodies; `missum` near-miss flavor; `check_caitiff`;
+  encumber `overexert_hp`.
+- **Next:** seed0106 @ 2993 post-kill `dog_goal` / seed2200 Scr
   199 / seed0077 `player_selection`.
 
