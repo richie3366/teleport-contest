@@ -19,6 +19,19 @@ Use this shape:
 
 ---
 
+## 2026-07-13 07:30 — post-fill wallification + D-0099 refine
+- Objective: seed0017 @ 3132 missing (30,4) (PROGRESS primary).
+- C locus: `mklev.c` `themerooms_post_level_generate` / `do_room`;
+  symptom `dog_move`/`mfndpos` cnt.
+- Result: **verified faithful change** (D-0100) — `makelevel` calls
+  full-map `wallification` after fill like C. **Also falsified**
+  wallification / irregular themerms as (30,4) writer: themerms all
+  `default`; prefix still **3132**; probe CORR@(30,4)→3142 only.
+- Verification: green+strict PASS; cohort 1500/1800/0060/0102/0700/
+  1150 PASS; full **8/44** Scr **598** RNG **91410**.
+- Next: C `levl[30][4].typ` dump after mklev via
+  `nethack-c/build-recorder.sh` — do not ship probes.
+
 ## 2026-07-13 07:15 — seed0017 (30,4) writer diagnosis (D-0099)
 - Objective: seed0017 @ 3132 missing mfndpos neighbour (PROGRESS primary).
 - C locus: `mklev.c` `do_room`/`dosdoor`/`dig_corridor`; symptom

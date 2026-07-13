@@ -516,6 +516,11 @@ async function makelevel() {
     // C ref: mklev.c:1416-1418 — fill all special rooms
     for (let i = 0; i < g.level.nroom; i++)
         fill_special_room(g.level.rooms[i]);
+
+    // C ref: mklev.c themerooms_post_level_generate() — after fill, Lua
+    // post_level_generate (no-op when postprocess empty for default rooms)
+    // then full-map wallification. JS has no Lua postprocess queue yet.
+    wallification(1, 0, COLNO - 1, ROWNO - 1);
 }
 
 function ROOM_IS_FILLABLE(croom) {

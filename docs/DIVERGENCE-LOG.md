@@ -103,6 +103,7 @@ Do not record a guessed cause as fixed merely because an RNG prefix moved.
 | D-0097 | fixed | objnam/throw/^X | GemStone xname + volley + gender/MC; seed1150 PASS |
 | D-0098 | fixed | dog_move mtrack | `goto nxti` candidate skip (was inner `continue`) |
 | D-0099 | open | seed0017 mfndpos | Missing walkable map (30,4); JS VWALL through mklev |
+| D-0100 | fixed | mklev wallification | post-fill full-map `wallification` like C `themerooms_post`; not (30,4) |
 
 D-0001 through D-0005 predate the strict-length/cohort runbook. Their focused
 causes are preserved, but generic "green sessions held" is historical evidence,
@@ -2645,19 +2646,35 @@ cohort gates if those functions are touched again.
 - **JS writer trace:** `(30,4)` typ changes **once**: STONE→VWALL in
   `do_room_or_subroom`; never touched by `dig_corridor`/`dosdoor`/
   niches/fill/finalize. Only west-wall `dosdoor` is **(30,5)** DOOR.
+  Room r2: `lx=31,ly=3,hx=35,hy=5`. All themerms picks **`default`**.
 - **C screen:** `(30,4)` stays blank even with hero at **(29,5)** —
   diagonal through stone **(29,4)** (consistent with unseen doorway).
-  **(30,6)** stays blank with hero at **(29,6)** cardinal → solid in
-  C (not the missing cell). Fountain screen col 31 ≡ map **(32,3)**
-  via `setCell(x-1)`; room `lx=31` matches.
+  Blank at `(30,6)` from corridor is **not** proof of STONE (JS BL
+  also blanks there). Fountain screen col 31 ≡ map **(32,3)**;
+  room `lx=31` matches.
 - **RNG tension:** prefix matches through mklev into this peel, so C
   cannot have burned an extra `dosdoor`/`dig` `rn2` that JS skipped.
   `finddpos`+`bydoor` also blocks adjacent west-wall doors. Writer is
   therefore non-RNG, or a geometry path that preserves call counts.
 - **Rejected:** room x-shift; pool at (30,4); mtrack/nxti
   (`distminU=3`); `(29,4)` CORR; `(30,6)` walkable; `(31,6)` walkable;
-  `in_mk_themerooms` alone; little-dog dig/`ALLOW_DIG` (no `M1_TUNNEL`).
-- **Next falsifier:** C-side dump of `levl[30][4].typ` after mklev, or
-  compare `themerooms_post_level_generate` / theme `des.map` effects
-  JS stubs out. Do not ship map-coordinate probes.
+  `in_mk_themerooms` alone; little-dog dig/`ALLOW_DIG` (no `M1_TUNNEL`);
+  **post-fill `wallification` (D-0100)** — still 3132; irregular
+  themerms `des.map` (all picks default).
+- **Next falsifier:** C-side dump of `levl[30][4].typ` after mklev
+  (`build-recorder.sh` + print). Do not ship map-coordinate probes.
+
+## D-0100 — post-fill full-map wallification
+
+- **Status:** fixed (seed0017 peel unchanged)
+- **Observed:** C `themerooms_post_level_generate` ends with
+  `wallification(1,0,COLNO-1,ROWNO-1)` after Lua `post_level_generate`;
+  JS `makelevel` omitted that call (Lua postprocess empty for default).
+- **C locus:** `mklev.c` `themerooms_post_level_generate`
+- **Change:** `js/mklev.js` `makelevel` calls `wallification` after
+  special-room fill (no Lua postprocess queue yet — named omission).
+- **Verification:** green+strict PASS; cohort seed1500/1800/0060/0102/
+  0700/1150 PASS; full **8/44** Scr **598** RNG **91410**; seed0017
+  still **3132** — wallification is not the (30,4) writer.
+- **Next:** C typ dump for D-0099.
 

@@ -8,19 +8,19 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 ## Active
 
 - **Current unit:** seed0017 @ 3132 — missing walkable map **(30,4)**
-  (D-0099). Pet (30,5) D_NODOOR, goal hero, whappr=0, cnt=4.
-- **Hypothesis:** C `levl[30][4].typ` is non-`IS_OBSTRUCTED` (likely
-  DOOR); JS only ever sets STONE→VWALL in `do_room` and never
-  `dosdoor(30,4)`. Full RNG match through mklev⇒3132 implies no extra
-  `dosdoor`/`dig` RNG in C either — writer is non-RNG or finddpos
-  geometry differs without call-count drift (needs C typ dump).
-- **Falsifier / next:**
+  (D-0099). Pet (30,5) D_NODOOR, gg=hero (29,8), appr=1, whappr=0,
+  cnt=4: `(29,5)(29,6)(31,4)(31,5)` → 2× farther `rn2(12)`.
+- **Hypothesis:** C has non-obstructed typ at (30,4) (DOOR/CORR/ROOM).
+  Probe CORR→3142 (3× `rn2(12)`). JS writers: STONE→VWALL once in
+  `do_room` only. All themerms picks are `default`. Post-fill
+  `wallification` (D-0100) does **not** open (30,4).
+- **Falsifier / next:** dump C `levl[30][4].typ` after mklev via
+  recorder build (`nethack-c/build-recorder.sh` + one-line print in
+  `themerooms_post_level_generate` / end of `makelevel`). Do not ship
+  mfndpos probes.
   ```bash
   node scripts/rng-diff.mjs sessions/seed0017-samurai-altar-pray.session.json
   ```
-  Instrument C `levl[30][4].typ` after mklev, or diff JS vs C
-  `themerooms_post_level_generate` / theme `des.map` side effects.
-  Do not ship mfndpos probes.
 - **Parked deep canary:** D-0006 pet movement — do not implement until C
   state/candidate capture exists.
 
@@ -126,7 +126,10 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   never `dosdoor(30,4)`; typ STONE→VWALL once in `do_room` only.
 - **(30,6) is solid in C** — blank even with hero at (29,6) cardinal;
   not the missing candidate. (30,4) blank from (29,5) is OK (diagonal
-  through stone (29,4)).
+  through stone (29,4)). Blank at (30,6) from corridor is **not**
+  proof of STONE — JS BL corner also paints blank there.
+- **Post-fill `wallification` is not the (30,4) writer** (D-0100) —
+  prefix stays 3132; all themerms picks `default`.
 - seed1150 @ 3032 was **not** missing `f` binding — getdir saw a
   space that C used for pet-drop `--More--` because JS
   `getdir`/`yn_function` skipped `more()` on `TOPLINE_NEED_MORE`
@@ -237,5 +240,5 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   `GemStone` appends `" stone"` (FLINT → flint stone[s]) (D-0097).
   ^X: omit gender when `name.f` distinct from `name.m`; MC
   `"warded"` via worn armor `a_can` (`oc_level`) under Attributes.
-- seed0017 @3132: pet (30,5) door, goal hero, appr=1, cnt=4 vs C 5;
-  missing (30,4); create_room lx=31 matches C (D-0099).
+- seed0017 @3132: r2 `lx=31,ly=3,hx=35,hy=5`; west door (30,5);
+  (30,4) VWALL; themerms all `default` (D-0099/D-0100).

@@ -188,20 +188,21 @@ autoopen `doopen_indir` (D-0059) + `mfndpos` BOULDER/`ALLOW_ROCK` +
 **`spoteffects`/`check_here`/`look_here` + Monnam** (D-0095) +
 **`newsym` waslit + out-of-sight `S_litcorr`→`S_corr`** (D-0096) +
 **GemStone `xname` + throw volley + ^X gender/MC** (D-0097) +
-**dog_move mtrack `goto nxti`** (D-0098)
+**dog_move mtrack `goto nxti`** (D-0098) +
+**post-fill `wallification`** (D-0100)
 **ported**. Eight public sessions pass end-to-end. **0/44** throw at
 `u_init_role`. seed0700 + seed1150 **PASS**. seed0017 prefix
-**3132** (`dog_move`/`mfndpos` — missing walkable (30,4), D-0099).
-seed2200 RNG **full** (Scr **199**/230 — next residual help RC /
-seed0017 terrain).
+**3132** (`dog_move`/`mfndpos` — missing walkable (30,4), D-0099;
+wallification falsified as writer). seed2200 RNG **full** (Scr
+**199**/230 — next residual help RC / seed0017 terrain).
 
-- **Bounded unit:** seed0017 @ 3132 — find C writer of map **(30,4)**
-  (D-0099; room lx=31 matches C; do not probe-ship). Then seed2200
-  post-help / seed0501/0105 `wipeout_text` / seed0015/0200 `lspo_map` /
-  seed0101 `next_ident` / seed0103 `next_ident`/`trquan` /
+- **Bounded unit:** seed0017 @ 3132 — C `levl[30][4].typ` dump after
+  mklev (D-0099; themerms all default; do not probe-ship). Then
+  seed2200 post-help / seed0501/0105 `wipeout_text` / seed0015/0200
+  `lspo_map` / seed0101 `next_ident` / seed0103 `next_ident`/`trquan` /
   seed0030 `maybe_smudge_engr` / seed0361/0373 **`getbones`**
   (blocked: need `^V`→`goto_level`→`makemaz` first).
-- **Prefer:** seed0017 (30,4) terrain over parked D-0006 and over
+- **Prefer:** seed0017 (30,4) C typ dump over parked D-0006 and over
   hardcoding recording RC paths.
 - **Named omissions:** Wizard/Priest/Healer `initialspell`; Knight/
   Samurai/Healer/Valkyrie/Ranger/Monk/Archeologist/Barbarian/Caveman
@@ -517,6 +518,9 @@ Module status, constitutional debt, and named omissions live in
 80. dog_move mtrack `goto nxti` (D-0098) — candidate skip matches C;
     green cohort PASS; full **8/44** Scr **598** RNG **91410**;
     seed0017 still **3132** (D-0099: missing walkable (30,4))
+81. post-fill `wallification` (D-0100) — C `themerooms_post` parity;
+    green/cohort held; full **8/44** Scr **598** RNG **91410**;
+    seed0017 still **3132** (wallification not the writer)
 
 Next work is selected from the active objectives above using
 `PORTING-RUNBOOK.md`, not by extending this historical list.
