@@ -7,17 +7,18 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 
 ## Active
 
-- **Current unit:** D-0132/D-0133 cleared: Wizard `skill_based_spellbook_id`
-  + `read_engr_at` for `:` Elbereth (seed2200 Scr **229**/230).
-- **Hypothesis:** seed2200 sole remaining miss is parked harness RC path @158
-  (`$HOME` / recording absolute path). Next foundation peels are outside
-  seed2200: seed0501/0105 `wipeout_text`, seed0015/0200 `lspo_map`,
-  seed0101/0103 `next_ident`, seed0030 `maybe_smudge_engr`, or
-  `getbones` (blocked on `^V`/`goto_level`/`makemaz`).
+- **Current unit:** D-0134 cleared: vault `makeniche(TELEP_TRAP)` now
+  `make_engr_at` + `wipe_engr_at` → `wipeout_text` (seed0105 RNG full;
+  seed0501 prefix **2205**).
+- **Hypothesis:** seed0501 next is missing `spelleffects_check` /
+  cast path RNG @ 2205. seed0105 RNG full but Scr **0**/30 — display /
+  early screen peel, not wipeout. Prefer seed0501 cast or seed0015
+  `lspo_map` / seed0101 `next_ident` over parked D-0006.
 - **Falsifier / next:**
   ```bash
-  node frozen/ps_test_runner.mjs sessions/seed0501-priest-cast-read-turn.session.json
-  # or seed0015 / seed0101 — expect first divergence beyond wiped text / map
+  node scripts/rng-diff.mjs sessions/seed0501-priest-cast-read-turn.session.json
+  # expect first mismatch beyond spelleffects_check @ 2205
+  # or seed0015 lspo_map / seed0101 next_ident
   ```
 - **Parked deep canary:** D-0006 pet movement — do not implement until C
   state/candidate capture exists.
@@ -140,6 +141,9 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 - **seed2200 `:` @229 was NOT missing make_engr_at** — engraving existed;
   `look_here`/`check_here` deferred `read_engr_at` so printed
   `You see no objects here.` (D-0133).
+- **seed0501/0105 wipeout_text was NOT graffiti random_engraving** —
+  vault `makevtele` → `makeniche(TELEP_TRAP)` → `"ad aerarium"` DUST
+  + `wipe_engr_at(5)` (D-0134). Do not stub wipe_engr_at.
 
 ## Landmarks
 
@@ -213,3 +217,6 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 - `:` Elbereth: `read_engr_at` DUST → `Something is written here in the
   dust.` then `You read: "Elbereth".` (pline append → one `--More--`)
   (D-0133).
+- Niche tele trap: `"ad aerarium"` (len 11) DUST + wipe cnt 5 → first
+  wipeout `rn2(11)` then `rn2(4)` (D-0134). `"Vlad was here"` needs
+  TRAPDOOR + `Can_fall_thru`.

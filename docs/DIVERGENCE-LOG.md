@@ -137,6 +137,7 @@ Do not record a guessed cause as fixed merely because an RNG prefix moved.
 | D-0131 | fixed | cmd/pager | `dokeylist`/`show_menu_controls`/`docontact` + usagehlp trailing blank; seed2200 Scr 202→227 |
 | D-0132 | fixed | spell/weapon | Wizard `skill_based_spellbook_id` + spelspec unrestrict; seed2200 disco `*` @222 |
 | D-0133 | fixed | engrave/look | `read_engr_at` from `look_here`/`check_here`; seed2200 Elbereth `:` @229 |
+| D-0134 | fixed | mklev/engrave | `makeniche` trap `make_engr_at`+`wipe_engr_at`/`wipeout_text`; seed0105 RNG full |
 
 D-0001 through D-0005 predate the strict-length/cohort runbook. Their focused
 causes are preserved, but generic "green sessions held" is historical evidence,
@@ -3603,4 +3604,30 @@ cohort gates if those functions are touched again.
   display; engraving glyphs in `newsym`.
 - **Next:** seed0501/0105 `wipeout_text` / seed0015/0200 `lspo_map` /
   seed0101 `next_ident` / `getbones` (blocked on `^V`/`makemaz`).
+
+## D-0134 — makeniche trap engraving + wipe_engr_at / wipeout_text
+
+- **Status:** fixed
+- **Observed:** seed0501 @ **1153** / seed0105 @ **974**: C
+  `rn2(11)` @ `wipeout_text(engrave.c:134)` (length of `"ad aerarium"`);
+  JS `rn2(5)` from a later unrelated path — vault `makevtele` →
+  `makeniche(TELEP_TRAP)` never aged the niche dust engraving.
+- **Cause/evidence:** JS `makeniche` placed the trap but omitted C's
+  `trap_engravings[]` → `make_engr_at(..., DUST)` + `wipe_engr_at(..., 5)`;
+  `wipe_engr_at` / production `wipeout_text` were stubs or mklev-local only.
+- **C locus:** `mklev.c` `makeniche` / `makevtele`; `engrave.c`
+  `wipe_engr_at` / `wipeout_text` / `make_engr_at`.
+- **Change:** ported `wipeout_text` + `wipe_engr_at` in `engrave.js`;
+  wired `trap_engravings` + place/age in `makeniche`; graffiti path now
+  calls `make_engr_at` with MARK.
+- **Verification:** seed0501 prefix **1153→2205** (`spelleffects_check`);
+  seed0105 RNG **2499**/2499 (Scr still **0**/30); green+strict PASS;
+  cohort 1500/1800/0060/0106 PASS; full **11/44** Scr **1176** RNG
+  **107102**/792838.
+- **Named omission:** `Can_fall_thru` before hole→ROCKTRAP (JS always
+  converts holes, so TRAPDOOR niche never gets `"Vlad was here"`);
+  wipeout seeded path; `maybe_smudge_engr`; `get_rnd_text(ENGRAVEFILE)`
+  for `random_engraving`.
+- **Next:** seed0501 `spelleffects_check` @ 2205 / seed0105 screens /
+  seed0015 `lspo_map` / seed0101 `next_ident`.
 

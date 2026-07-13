@@ -38,8 +38,8 @@ frozen-file overlay):
 | Metric | Value |
 |--------|------:|
 | Sessions passing | **11 / 44** |
-| Screens matched | **1169 / 11,405** (10.25%) |
-| Positional RNG calls matched | **104,575 / 792,838** (13.19%) |
+| Screens matched | **1176 / 11,405** (10.31%) |
+| Positional RNG calls matched | **107,102 / 792,838** (13.51%) |
 | Speed label | `18+0.09/turn` |
 | Working-tree base | `8b71735` + committed port (see `main`) |
 | Role-init throws | **0 / 44** (`u_init_role: role not ported`) |
@@ -72,10 +72,11 @@ shared blockers, and semantic coverage together—not one vanity metric.
 | `seed0104-knight-ride-combat` | **2394 / 3223** | 1 / 43 |
 | `seed0361-archeologist-tour` | **3293 / 53865** | 0 / 366 |
 | `seed0373-barbarian-quest-tour` | **2555 / 35386** | 0 / 124 |
-| `seed0105-valk-chat-lamp-ration` | **987 / 2499** | 0 / 30 |
+| `seed0105-valk-chat-lamp-ration` | **2499 / 2499** | 0 / 30 |
 | `seed0015-valk-level2-pit-dog-wait` | **363 / 8563** | 1 / 44 |
 | `seed0077-rogue-chargen` | **3242 / 3242** | **33 / 33** |
 | `seed0013-rogue-friday13-combat` | **522 / 4838** | 1 / 59 |
+| `seed0501-priest-cast-read-turn` | **2206 / 2238** | **6 / 28** |
 
 seed8000 + seed0900 + seed1500 + seed1800 + seed0060 + seed0102 +
 seed0700 + seed1150 + seed0017 + seed0077 + seed0106 pass end-to-end.
@@ -126,12 +127,13 @@ autoopen `doopen_indir` (D-0059), `mfndpos` BOULDER/`NODIAG`
 clear shared peels. seed2200 RNG **full**; Scr **229**/230 (sole miss:
 parked RC path @158). seed0106 **PASS**.
 Healer seed0016 next `next_ident` @ 2493.
-Priest seed0501 still `wipeout_text`. seed0015/0200 next `lspo_map`.
+Priest seed0501 next `spelleffects_check` @ 2205. seed0015/0200 next `lspo_map`.
 seed0101 next `next_ident`. seed0013 still breaks earlier in
 Lua/`sp_lev`. seed0103 next `next_ident`/`trquan` @ 2337.
 seed0361/0373 `getbones` blocked on unbound `^V`/`goto_level`/
 `makemaz`. seed0077 chargen + vault fallback + door vision/pick_lock/DEC
-open-door (D-0111/D-0112/D-0113) → **PASS**. seed0030 **7085**/105529.
+open-door (D-0111/D-0112/D-0113) → **PASS**. seed0030 **7054**/105529.
+seed0105 RNG **full** (Scr **0**/30).
 **`option_help` msg_window PREV_MSGS extract** (D-0114) + **Primary ASCII /
 `symset:DECgraphics`** (D-0115) → Scr **788→851**.
 **angrygods `verbalize` + `adjattrib` You_feel** (D-0116) /
@@ -163,9 +165,12 @@ seed0106 Scr **265→266**; seed2200 Scr **200→201**.
 seed0106 **PASS**; public **11/44**; seed2200 Scr **201→202**.
 **`dokeylist`/`show_menu_controls`/`docontact` + usagehlp blank** (D-0131)
 → Scr **1141→1166**; seed2200 Scr **202→227**.
-**Wizard `skill_based_spellbook_id` + spelspec unrestrict** (D-0132) +
-**`read_engr_at` / `:` Elbereth** (D-0133) → Scr **1166→1169**;
+**Wizard `skill_based_spellbook_id` + `read_engr_at` / `:` Elbereth**
+(D-0132/D-0133) → Scr **1166→1169**;
 seed2200 Scr **227→229**/230.
+**`makeniche` trap engraving + `wipe_engr_at`/`wipeout_text`** (D-0134)
+→ Scr **1169→1176**; RNG **104575→107102**; seed0105 RNG **full**;
+seed0501 prefix **1153→2205** (`spelleffects_check`).
 
 ### Green gate
 
@@ -270,20 +275,21 @@ autoopen `doopen_indir` (D-0059) + `mfndpos` BOULDER/`ALLOW_ROCK` +
 **`initialspell`/`dovspell` VIEW + `age_spells`** (D-0129)
 **kill XP + doattributes `an`/Pw** (D-0130)
 **`dokeylist`/`show_menu_controls`/`docontact` + usagehlp blank** (D-0131)
-**Wizard `skill_based_spellbook_id` + spelspec unrestrict** (D-0132)
-**`read_engr_at` / `:` Elbereth look** (D-0133)
+**Wizard `skill_based_spellbook_id` + `read_engr_at`** (D-0132/33)
+**`makeniche` trap `wipe_engr_at`/`wipeout_text`** (D-0134)
 **ported**. Eleven public sessions pass end-to-end. **0/44** throw at
 `u_init_role`. seed0700 + seed1150 + seed0017 + seed0077 + seed0106
 **PASS**. seed2200 RNG **full** (Scr **229**/230; sole miss parked RC
-@158).
+@158). seed0105 RNG **full** (Scr **0**/30). seed0501 next
+`spelleffects_check` @ 2205.
 
-- **Bounded unit:** seed0501/0105 `wipeout_text` /
+- **Bounded unit:** seed0501 `spelleffects_check` / seed0105 screens /
   seed0015/0200 `lspo_map` / seed0101 `next_ident` /
   seed0103 `next_ident`/`trquan` / seed0030 `maybe_smudge_engr` /
   seed0361/0373 **`getbones`** (blocked: need `^V`→`goto_level`→
   `makemaz` first).
-- **Prefer:** `wipeout_text` / `lspo_map` / `next_ident` over parked
-  D-0006 and over baking seed2200 RC paths.
+- **Prefer:** seed0501 cast / seed0105 Scr / `lspo_map` / `next_ident`
+  over parked D-0006 and over baking seed2200 RC paths.
 - **Named omissions:** spell swap/sort / `docast`/`spelleffects`;
   enhance `can_advance`/`skill_advance`→`skill_based_spellbook_id` /
   wizard speedy; full `x_monnam`
@@ -762,6 +768,11 @@ Module status, constitutional debt, and named omissions live in
     @158); screens **1166→1169**; RNG **104575** unchanged; green
     cohort PASS; next seed0501 `wipeout_text` / `lspo_map` /
     `next_ident` / `getbones`
+115. `makeniche` trap engraving + `wipe_engr_at`/`wipeout_text`
+    (D-0134) — seed0501 prefix **1153→2205** (`spelleffects_check`);
+    seed0105 RNG **2499**/2499 Scr **0**/30; screens **1169→1176**;
+    RNG **104575→107102**; green cohort PASS; next seed0501 cast /
+    seed0105 Scr / `lspo_map` / `next_ident`
 
 Next work is selected from the active objectives above using
 `PORTING-RUNBOOK.md`, not by extending this historical list.

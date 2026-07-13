@@ -47,6 +47,8 @@ import {
     PM_ARCHEOLOGIST, PM_WIZARD, PM_GIANT_SPIDER,
 } from './monsters.js';
 import { getrumor } from './rumors.js';
+import { make_engr_at, wipe_engr_at, wipeout_text } from './engrave.js';
+import { DUST, MARK as ENGRAVE_MARK } from './const.js';
 
 const GOLD_PIECE = objectNames.indexOf('GOLD_PIECE');
 const ROCK = objectNames.indexOf('ROCK');
@@ -76,7 +78,6 @@ const ARROW = objectNames.indexOf('ARROW');
 const DART = objectNames.indexOf('DART');
 const TALLOW_CANDLE = objectNames.indexOf('TALLOW_CANDLE');
 const WAX_CANDLE = objectNames.indexOf('WAX_CANDLE');
-const MARK = 6;
 
 const XLIM = 4;
 const YLIM = 3;
@@ -260,52 +261,16 @@ function dealloc_obj(_otmp) { /* stub */ }
 function add_to_container(_container, _otmp) { /* stub */ }
 function sobj_at(_otyp, _x, _y) { return false; }
 
-// engrave stubs
-function make_engr_at(x, y, text, pristine, epoch, engr_type) { /* stub */ }
-function wipe_engr_at(x, y, cnt, perm) { /* stub */ }
 function make_grave(x, y, text) {
     const loc = game.level?.at(x, y);
     if (loc) loc.typ = GRAVE;
 }
 
-// random_engraving / wipeout_text — C ref: engrave.c
-
-const RUBOUTS = {
-    A: '^', B: 'Pb[', C: '(', D: '|)[', E: '|FL[_', F: '|-', G: 'C(', H: '|-',
-    I: '|', K: '|<', L: '|_', M: '|', N: '|\\', O: 'C(', P: 'F', Q: 'C(', R: 'PF',
-    T: '|', U: 'J', V: '/\\', W: 'V/\\', Z: '/',
-    b: '|', d: 'c|', e: 'c', g: 'c', h: 'n', j: 'i', k: '|', l: '|', m: 'nr',
-    n: 'r', o: 'c', q: 'c', w: 'v', y: 'v',
-    ':': '.', ';': ',:', ',': '.', '=': '-', '+': '-|', '*': '+', '@': '0',
-    '0': 'C(', '1': '|', '6': 'o', '7': '/', '8': '3o',
-};
-
-function wipeout_text(engr, cnt) {
-    const s = engr.split('');
-    const lth = s.length;
-    if (!lth || cnt <= 0) return engr;
-    let n = cnt;
-    while (n--) {
-        const nxt = rn2(lth);
-        const use_rubout = rn2(4);
-        if (s[nxt] === ' ') continue;
-        if ("?.,'`-|_".includes(s[nxt])) {
-            s[nxt] = ' ';
-            continue;
-        }
-        if (!use_rubout) {
-            s[nxt] = '?';
-            continue;
-        }
-        const wipeto = RUBOUTS[s[nxt]];
-        if (wipeto) {
-            s[nxt] = wipeto[rn2(wipeto.length)];
-        } else {
-            s[nxt] = '?';
-        }
-    }
-    return s.join('');
-}
+// C ref: mklev.c trap_engravings[] — parallel to trap.h order
+const trap_engravings = new Array(TRAPNUM).fill(null);
+trap_engravings[TRAPDOOR] = 'Vlad was here';
+trap_engravings[TELEP_TRAP] = 'ad aerarium';
+trap_engravings[LEVEL_TELEP] = 'ad aerarium';
 
 function random_engraving() {
     // C ref: engrave.c random_engraving()
@@ -314,7 +279,7 @@ function random_engraving() {
         // get_rnd_text(ENGRAVEFILE) fallback — rare; burn one chunk draw as stub
         pristine = getrumor(0, true) || 'x'.repeat(40);
     }
-    const text = wipeout_text(pristine, Math.trunc(pristine.length / 4));
+    const text = wipeout_text(pristine, Math.trunc(pristine.length / 4), 0);
     return { text, pristine };
 }
 
@@ -1415,9 +1380,19 @@ async function makeniche(trap_type) {
         if (trap_type || !rn2(4)) {
             rm.typ = SCORR;
             if (trap_type) {
+                // C ref: mklev.c makeniche — Can_fall_thru gate for holes
                 let actualTrap = trap_type;
                 if (is_hole(actualTrap)) actualTrap = ROCKTRAP;
-                await maketrap(xx, yy + dy, actualTrap);
+                const ttmp = await maketrap(xx, yy + dy, actualTrap);
+                if (ttmp) {
+                    if (actualTrap !== ROCKTRAP) ttmp.once = 1;
+                    // C: trap_engravings indexed by (possibly ROCKTRAP-adjusted) type
+                    const engr = trap_engravings[actualTrap];
+                    if (engr) {
+                        make_engr_at(xx, yy - dy, engr, null, 0, DUST);
+                        wipe_engr_at(xx, yy - dy, 5, false);
+                    }
+                }
             }
             dosdoor(xx, yy, aroom, SDOOR);
         } else {
@@ -1865,12 +1840,15 @@ async function fill_ordinary_room(croom, bonus_items) {
     // Graffiti
     const depth = depth_of_level(g.u?.uz);
     if (!rn2(27 + 3 * Math.abs(depth))) {
-        const { text: engrText } = random_engraving();
+        const { text: engrText, pristine } = random_engraving();
         if (engrText) {
             do {
                 somexyspace(croom, pos);
                 if (g.level?.at(pos.x, pos.y)?.typ === ROOM) break;
             } while (!rn2(40));
+            if (g.level?.at(pos.x, pos.y)?.typ === ROOM) {
+                make_engr_at(pos.x, pos.y, engrText, pristine, 0, ENGRAVE_MARK);
+            }
         }
     }
     // Random objects

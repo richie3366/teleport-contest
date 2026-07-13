@@ -1696,3 +1696,17 @@ Use this shape:
   **104575**/792838.
 - Next: seed0501/0105 `wipeout_text` / seed0015/0200 `lspo_map` /
   seed0101 `next_ident` / `getbones` (blocked on `^V`/`makemaz`).
+
+## 2026-07-13 — makeniche wipe_engr_at / wipeout_text (D-0134)
+- Objective: seed0501/0105 `wipeout_text` mklev peel (PROGRESS primary).
+- C locus: `mklev.c` `makeniche`/`makevtele` trap_engravings;
+  `engrave.c` `wipe_engr_at`/`wipeout_text`/`make_engr_at`.
+- Result: **verified** — vault TELEP_TRAP niche omitted
+  `make_engr_at("ad aerarium", DUST)` + `wipe_engr_at(5)`; ported
+  wipeout/wipe_engr and wired trap_engravings in makeniche.
+- Verification: seed0501 prefix **1153→2205** (`spelleffects_check`);
+  seed0105 RNG **2499**/2499 Scr **0**/30; green+strict PASS; cohort
+  1500/1800/0060/0106 PASS; full **11/44** Scr **1176** RNG
+  **107102**/792838.
+- Next: seed0501 `spelleffects_check` @ 2205 / seed0105 Scr /
+  seed0015 `lspo_map` / seed0101 `next_ident`.
