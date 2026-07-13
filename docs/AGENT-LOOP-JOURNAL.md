@@ -19,6 +19,19 @@ Use this shape:
 
 ---
 
+## 2026-07-13 15:52 — Q / doquiver_core (D-0152)
+- Objective: seed0101 @2293 `next_ident` (PROGRESS prefer shared).
+- C locus: `wield.c` `dowieldquiver`/`doquiver_core`; `dothrow.c`
+  `throw_ok`/`throwit` hand-throw; cmd `Q`.
+- Result: **verified** — unbound `Q` desynced `Qbytdl`; C readies
+  uswapwep bow then hand-throws arrows (`next_ident`+`obj_resists`).
+  Ported doquiver_core + throw_ok DOWNPLAY + hand-throw pline.
+- Verification: seed0101 prefix **2293→2302** Scr **4→10**/27;
+  green+strict PASS; cohort PASS; full **13/44** Scr **1282** RNG
+  **126936**/792838.
+- Next: seed0101 `_` travel @2302, or seed0016 eat `next_ident` @2493 /
+  seed0015 Scr @21.
+
 ## 2026-07-13 15:45 — hostile postmov / mon_learns_traps (D-0151)
 - Objective: seed0015 @8518 newt `m_move` track vs second `distfleeck`.
 - C locus: `monmove.c` `m_move`/`postmov`; `trap.c` `mintrap`

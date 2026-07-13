@@ -31,7 +31,7 @@ import { doextcmd } from './getline.js';
 import { dosearch } from './detect.js';
 import { dotakeoff, dowear, doputon } from './do_wear.js';
 import { wiz_wish } from './wizcmds.js';
-import { dowield } from './wield.js';
+import { dowield, dowieldquiver } from './wield.js';
 import { dowhatis, dohelp } from './pager.js';
 import { x_monnam_tame } from './do_name.js';
 import { spoteffects } from './pickup.js';
@@ -344,6 +344,11 @@ export async function rhack(key) {
     } else if (ch === 'w') {
         // C ref: wield.c dowield — wield a weapon
         const tookTime = await dowield();
+        game.context.move = tookTime ? 1 : 0;
+        if (tookTime) game.kickedloc = { x: 0, y: 0 };
+    } else if (ch === 'Q') {
+        // C ref: wield.c dowieldquiver / doquiver_core("ready")
+        const tookTime = await dowieldquiver();
         game.context.move = tookTime ? 1 : 0;
         if (tookTime) game.kickedloc = { x: 0, y: 0 };
     } else if (ch === 'W') {

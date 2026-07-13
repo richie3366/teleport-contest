@@ -4047,5 +4047,31 @@ cohort gates if those functions are touched again.
   mtrapped escape `rn2(40)`; hero `dotrap`.
 - **Lesson:** when C has 0-RNG `m_move` between fleecks, check
   `mfndpos` candidate set (known traps) before rewriting track math.
+
+## D-0152 — Q / doquiver_core ready uswapwep (seed0101 next_ident)
+
+- **Status:** fixed
+- **Observed:** seed0101 @2293 C `rnd(2)` @ `next_ident` then
+  `obj_resists`/`mcalcmove`; JS `rn2(12)` (skipped throw).
+- **Rejected:** missing `splitobj`/`next_ident` in throw alone — throw
+  never ran; keys `Qbytdl` desynced while `Q` was unbound.
+- **C locus:** `wield.c` `dowieldquiver`/`doquiver_core`;
+  `dothrow.c` `throw_ok`/`throwit` hand-throw pline;
+  session keys `Q`→ready bow from uswapwep→`t` throw arrows by hand.
+- **Cause:** JS lacked `Q`/`doquiver_core`. C readies bow from alternate
+  weapon (`ynq`), then throw splits arrows (`next_ident`) + `breaktest`
+  (`obj_resists`). Unbound `Q` ate following letters as other commands.
+- **Change:** `setuqwep` + `doquiver_core("ready")` (uswapwep/uwep ynq,
+  `-` clear, worn reject); bind `Q`; `throw_ok` DOWNPLAY lone uwep;
+  hand-throw pline + half range; `dofire` empty → `doquiver_core("fire")`.
+- **Verification:** seed0101 prefix **2293→2302** (`_` travel); Scr
+  **4→10**/27; green+strict PASS; cohort PASS; full **13/44** Scr
+  **1282** RNG **126936**/792838.
+- **Named omission:** count-split `finish_splitting`/`unsplitobj`;
+  `Shk_Your` decline plines; AutoReturn/`find_launcher`/polearm;
+  travel `_`/`dotravel`.
+- **Lesson:** seed0101 “next_ident” was command desync from missing
+  `Q`, not a mkobj bug — read session keys/screens before inventing
+  object-creation stubs.
 - **Next:** seed0015 Scr @21 / seed0101 `next_ident` @2293 /
   seed0030 `maybe_smudge_engr` @6732.
