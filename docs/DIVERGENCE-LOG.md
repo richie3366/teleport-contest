@@ -3326,3 +3326,31 @@ cohort gates if those functions are touched again.
   `#chronicle`.
 - **Next:** seed0106 `#chronicle` @188 / seed2200 `dokeylist` @184.
 
+## D-0124 — `#chronicle` / `do_gamelog` / `show_gamelog`
+
+- **Status:** fixed
+- **Observed:** seed0106 Scr **255**/267 first miss @188: C NHW_TEXT
+  `Logged events:` / ` Turn` / five lines (enter dungeon, rejected
+  atheism, lost all experience, first weapon hit, first kill); JS
+  `#chronicle: unknown extended command.`
+- **Cause/evidence:** `#chronicle` was AUTOCOMPLETE-only (D-0117) with
+  no `EXT_CMDS` runner; `gg.gamelog` / `livelog_printf` never written.
+  Expected text matches C `show_gamelog(ENL_GAMEINPROGRESS)`.
+- **C locus:** `cmd.c` extcmd → `insight.c` `do_gamelog` /
+  `show_gamelog`; `pline.c` `gamelog_add` / `livelog_printf`;
+  `allmain.c` `welcome` enter-dungeon; `pray.c` gnostic conduct;
+  `exper.c` `losexp` ulevel==1; `uhitm.c` `first_weapon_hit`;
+  `mon.c` `xkilled` killer conduct.
+- **Change:** `js/pline.js` gamelog append; `js/insight.js`
+  `do_gamelog`/`show_gamelog`; `js/getline.js` chronicle runner;
+  wire welcome/pray/losexp/weaphit/killer; export `show_text_pages`.
+- **Verification:** seed0106 Scr **255→257**/267 (next: `#conduct`
+  @199); green+strict PASS; cohort 1500/1800/0060/0102/0700/1150/
+  0017/0077 PASS; full **10/44** Scr **1126→1128** RNG
+  **104575**/792838.
+- **Named omission:** `livelog_add` file write; final/Major
+  `show_gamelog`; other livelog sites (wish/genocide/achieve/…);
+  artifact/cursed-bknown `first_weapon_hit`; `#conduct`/
+  `#vanquished`/`#genocided`.
+- **Next:** seed0106 `#conduct` @199 / seed2200 `dokeylist` @184.
+

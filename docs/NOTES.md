@@ -7,16 +7,15 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 
 ## Active
 
-- **Current unit:** D-0123 cleared: `update_lastseentyp` + `recalc_mapseen`
-  feat counts + `#overview` `print_mapseen` feature sentence (TAB vs PREFIX).
-- **Hypothesis:** seed0106 next Scr peel @188 is `#chronicle` unbound
-  (`Logged events:` NHW_TEXT). Later residual screens follow chronicle
-  `--More--`/unknown-command cascade. seed2200 next real peel after parked
-  RC path @158 is help `j` → `dokeylist` @184.
+- **Current unit:** D-0124 cleared: `#chronicle` / `do_gamelog` / `show_gamelog`
+  + `gamelog_add`/`livelog_printf` at welcome/pray/losexp/weaphit/killer.
+- **Hypothesis:** seed0106 next Scr peel @199 is `#conduct` unbound
+  (`Voluntary challenges:` NHW_TEXT). Later: `#vanquished` @213. seed2200
+  next real peel after parked RC path @158 is help `j` → `dokeylist` @184.
 - **Falsifier / next:**
   ```bash
   node frozen/ps_test_runner.mjs sessions/seed0106-priest-extcmd-sweep.session.json
-  # expect Scr >255 if #chronicle matches C; green cohort must stay PASS
+  # expect Scr >257 if #conduct matches C; green cohort must stay PASS
   node frozen/ps_test_runner.mjs sessions/seed2200-wizard-quaff-zap-read.session.json
   ```
 - **Parked deep canary:** D-0006 pet movement — do not implement until C
@@ -92,6 +91,10 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   `print_mapseen` OF_INTEREST feature line (`A fountain.`) from
   `lastseentyp`/`recalc_mapseen`; Level uses TAB (3 spaces), features
   use PREFIX (6) — wrong TAB→PREFIX collapses H2344 offx (D-0123).
+- **seed0106 @188 was `#chronicle` unbound** — C `do_gamelog` →
+  `show_gamelog(ENL_GAMEINPROGRESS)` NHW_TEXT `Logged events:` + Turn
+  column; needs `gamelog_add` at welcome/pray/losexp/weaphit/killer
+  (D-0124). Do not invent a static list.
 
 ## Landmarks
 
@@ -133,3 +136,6 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 - `#overview` features: `update_lastseentyp` on cansee map; overview
   calls `recalc_mapseen`; Level=`TAB`/`   `, feat=`PREFIX`/`      `
   (D-0123).
+- `#chronicle`: `show_gamelog(0)` → `Logged events:` + ` Turn` +
+  `%5ld: %s`; first_weapon_hit before kill so order is hit then killed
+  (D-0124).

@@ -116,7 +116,7 @@ async function text_page_wait() {
  * C ref: wintty.c process_text_window NHW_TEXT + H2344 putstr page-at-a-time.
  * @returns {Promise<boolean>} true if ESC cancelled remaining pages
  */
-async function show_text_pages(lines, { moreAtEnd = true } = {}) {
+export async function show_text_pages(lines, { moreAtEnd = true } = {}) {
     const disp = game.nhDisplay;
     if (!disp) {
         await nhgetch();

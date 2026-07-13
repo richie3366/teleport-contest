@@ -144,6 +144,15 @@ const EXT_CMDS = [
         },
     },
     {
+        name: 'chronicle',
+        wiz: false,
+        autocomplete: true,
+        run: async () => {
+            const { do_gamelog } = await import('./insight.js');
+            return do_gamelog();
+        },
+    },
+    {
         name: 'dip',
         wiz: false,
         autocomplete: true,

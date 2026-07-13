@@ -1572,3 +1572,15 @@ Use this shape:
   green+strict PASS; cohort 1500/1800/0060/0102/0700/1150/0017/0077
   PASS; full **10/44** Scr **1126** RNG **104575**/792838.
 - Next: seed0106 `#chronicle` @188 — or seed2200 `dokeylist` @184.
+
+## 2026-07-13 — #chronicle do_gamelog / show_gamelog (D-0124)
+- Objective: seed0106 Scr @188 `#chronicle` Logged events (PROGRESS primary).
+- C locus: `insight.c` `do_gamelog`/`show_gamelog`; `pline.c` `gamelog_add`/`livelog_printf`;
+  welcome/pray/losexp/`first_weapon_hit`/`xkilled` writers.
+- Result: **verified** — `#chronicle` was AC-only; no gamelog list. Ported
+  append + NHW_TEXT show + five seed0106 events (enter dungeon, atheism,
+  lost xp, first weapon hit before kill).
+- Verification: seed0106 Scr **255→257**/267 (next `#conduct` @199);
+  green+strict PASS; cohort 1500/1800/0060/0102/0700/1150/0017/0077
+  PASS; full **10/44** Scr **1128** RNG **104575**/792838.
+- Next: seed0106 `#conduct` @199 — or seed2200 `dokeylist` @184.

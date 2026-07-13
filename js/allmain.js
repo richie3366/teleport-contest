@@ -25,11 +25,12 @@ import { near_capacity, paint_corner_nhw_menu } from './invent.js';
 import { com_pager_legacy } from './questpgr.js';
 import { snapshot_status_lines } from './display.js';
 import { Hello, align_str } from './roles.js';
+import { livelog_printf } from './pline.js';
 import { phase_of_the_moon, friday_13th, FULL_MOON, NEW_MOON } from './calendar.js';
 import { ATR_INVERSE } from './terminal.js';
 import {
     UNENCUMBERED, SLT_ENCUMBER, MOD_ENCUMBER, HVY_ENCUMBER, EXT_ENCUMBER,
-    NO_MM_FLAGS, Upolyd,
+    NO_MM_FLAGS, Upolyd, LL_ACHIEVE,
 } from './const.js';
 
 // C ref: allmain.c moveloop_preamble() — moon/friday + new-game RNG leaves
@@ -243,6 +244,8 @@ async function welcome(new_game) {
     const plname = g.plname || 'Hero';
     if (new_game) {
         await pline(`${hello} ${plname}, welcome to NetHack!  You are a${buf}.`);
+        // C: livelog_printf(LL_ACHIEVE, "%s the%s entered the dungeon", plname, buf)
+        livelog_printf(LL_ACHIEVE, '%s the%s entered the dungeon', plname, buf);
     } else {
         await pline(`${hello} ${plname}, the${buf}, welcome back to NetHack!`);
     }

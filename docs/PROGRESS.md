@@ -38,7 +38,7 @@ frozen-file overlay):
 | Metric | Value |
 |--------|------:|
 | Sessions passing | **10 / 44** |
-| Screens matched | **1126 / 11,405** (9.87%) |
+| Screens matched | **1128 / 11,405** (9.89%) |
 | Positional RNG calls matched | **104,575 / 792,838** (13.19%) |
 | Speed label | `18+0.08/turn` |
 | Working-tree base | `8b71735` + committed port (see `main`) |
@@ -69,7 +69,7 @@ shared blockers, and semantic coverage together—not one vanity metric.
 | `seed0016-healer-newmoon-eat-zap` | **2544 / 3656** | **5 / 36** |
 | `seed0107-samurai-twoweapon-enhance` | **2684 / 2902** | **36 / 98** |
 | `seed0104-knight-ride-combat` | **2394 / 3223** | 1 / 43 |
-| `seed0106-priest-extcmd-sweep` | **4194 / 4194** | **255 / 267** |
+| `seed0106-priest-extcmd-sweep` | **4194 / 4194** | **257 / 267** |
 | `seed0361-archeologist-tour` | **3293 / 53865** | 0 / 366 |
 | `seed0373-barbarian-quest-tour` | **2555 / 35386** | 0 / 124 |
 | `seed0105-valk-chat-lamp-ration` | **987 / 2499** | 0 / 30 |
@@ -125,7 +125,7 @@ autoopen `doopen_indir` (D-0059), `mfndpos` BOULDER/`NODIAG`
 **`#offer`/`#enhance`/`#annotate`/`#overview`/`#version`** (D-0110)
 clear shared peels. seed2200 RNG **full**; Scr **200**/230 (next:
 `dokeylist` @184 after parked RC path @158). seed0106 RNG **full**;
-Scr **255**/267 (next: `#chronicle` @188). Healer seed0016 next
+Scr **257**/267 (next: `#conduct` @199). Healer seed0016 next
 `next_ident` @ 2493.
 Priest seed0501 still `wipeout_text`. seed0015/0200 next `lspo_map`.
 seed0101 next `next_ident`. seed0013 still breaks earlier in
@@ -148,6 +148,8 @@ Scr **1120→1123**; seed0106 Scr **250→253**.
 Scr **1123→1125**; seed0106 Scr **253→254**; seed0107 Scr **35→36**.
 **`update_lastseentyp`/`recalc_mapseen` overview features** (D-0123) →
 Scr **1125→1126**; seed0106 Scr **254→255**.
+**`#chronicle`/`do_gamelog`/`show_gamelog` + livelog wire** (D-0124) →
+Scr **1126→1128**; seed0106 Scr **255→257**.
 
 ### Green gate
 
@@ -243,18 +245,19 @@ autoopen `doopen_indir` (D-0059) + `mfndpos` BOULDER/`ALLOW_ROCK` +
 **`yn_function` leave prompt + cleric `doname` skip uncursed** (D-0121)
 **`skill_init` + `#enhance` `add_skills_to_menu`** (D-0122)
 **`update_lastseentyp`/`recalc_mapseen` overview features** (D-0123)
+**`#chronicle`/`do_gamelog`/`show_gamelog` + livelog wire** (D-0124)
 **ported**. Ten public sessions pass end-to-end. **0/44** throw at
 `u_init_role`. seed0700 + seed1150 + seed0017 + seed0077 **PASS**.
-seed0106 RNG **full** (Scr **255**/267); seed2200 RNG **full**
+seed0106 RNG **full** (Scr **257**/267); seed2200 RNG **full**
 (Scr **200**/230).
 
-- **Bounded unit:** seed0106 `#chronicle` @188 /
+- **Bounded unit:** seed0106 `#conduct` @199 /
   seed2200 `dokeylist` @184 /
   seed0501/0105 `wipeout_text` / seed0015/0200 `lspo_map` /
   seed0101 `next_ident` / seed0103 `next_ident`/`trquan` /
   seed0030 `maybe_smudge_engr` / seed0361/0373 **`getbones`**
   (blocked: need `^V`→`goto_level`→`makemaz` first).
-- **Prefer:** seed0106 `#chronicle` or seed2200
+- **Prefer:** seed0106 `#conduct` or seed2200
   `dokeylist` over parked D-0006.
 - **Named omissions:** Wizard/Priest/Healer `initialspell`;
   `skill_based_spellbook_id` / `unrestrict_weapon_skill(spelspec)`;
@@ -287,7 +290,7 @@ seed0106 RNG **full** (Scr **255**/267); seed2200 RNG **full**
   `egg_type_from_parent`; `^V`/`level_tele`/`goto_level`/`makemaz`;
   TIN `cnutrit`; interactive `o`/`doopen` getdir; `doopen_indir`
   `b_trapped`/autounlock/mapseen; `#levelchange` `losexp`;   remaining
-  `extcmdlist` (`#chronicle`/`#conduct`/`#vanquished`/`#genocided`/
+  `extcmdlist` (`#conduct`/`#vanquished`/`#genocided`/
   `#adjust`/`#terrain`); overview shop/temple/`shop_string`/altar-god /
   `traverse_mapseenchn`; `floorfood` sacrifice;
   `pluslvl` achievements/`newuexp`; takeoff `oc_delay`/
@@ -695,6 +698,10 @@ Module status, constitutional debt, and named omissions live in
     seed0106 Scr **254→255**/267; screens **1125→1126**; RNG
     **104575** unchanged; green cohort PASS; next seed0106
     `#chronicle` @188 / seed2200 `dokeylist` @184
+106. `#chronicle`/`do_gamelog`/`show_gamelog` + livelog wire (D-0124) —
+    seed0106 Scr **255→257**/267; screens **1126→1128**; RNG
+    **104575** unchanged; green cohort PASS; next seed0106
+    `#conduct` @199 / seed2200 `dokeylist` @184
 
 Next work is selected from the active objectives above using
 `PORTING-RUNBOOK.md`, not by extending this historical list.
