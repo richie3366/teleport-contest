@@ -263,6 +263,9 @@ export function nhw_menu_geometry(entries, morestr = '(end) ') {
  * entries: {text, attr}[] or string[]; morestr default "(end) ".
  */
 export async function paint_corner_nhw_menu(entries, morestr = '(end) ') {
+    // C ref: wintty.c tty_display_nhwindow(NHW_MENU) — flush NEED_MORE
+    // before corner paint (travel pline → tip --More--).
+    await flush_topl_more();
     const disp = display();
     if (!disp) return null;
     const { offx } = nhw_menu_geometry(entries, morestr);
@@ -325,6 +328,8 @@ export async function paint_corner_nhw_menu(entries, morestr = '(end) ') {
  * Pages at lmax = rows-1 (23); ESC/Return dismiss; Space next page or done.
  */
 export async function select_menu_pick_none(entries) {
+    // C ref: wintty.c tty_display_nhwindow(NHW_MENU) NEED_MORE flush
+    await flush_topl_more();
     const rows = display()?.rows || 24;
     const lmax = Math.min(52, rows - 1);
     const nitems = entries.length;

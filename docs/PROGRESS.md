@@ -37,8 +37,8 @@ frozen-file overlay):
 
 | Metric | Value |
 |--------|------:|
-| Sessions passing | **16 / 44** |
-| Screens matched | **1306 / 11,405** (11.45%) |
+| Sessions passing | **17 / 44** |
+| Screens matched | **1312 / 11,405** (11.50%) |
 | Positional RNG calls matched | **138,545 / 792,838** (17.47%) |
 | Speed label | `20+0.08/turn` |
 | Working-tree base | `8b71735` + committed port (see `main`) |
@@ -67,7 +67,7 @@ shared blockers, and semantic coverage together—not one vanity metric.
 | `seed0030-ten-diverse-deaths` | **15848 / 105529** | **44 / 1953** |
 | `seed0103-knight-ride-pony` | **2344 / 2640** | 2 / 60 |
 | `seed0200-monk-north-search` | **3822 / 3822** | **40 / 40** |
-| `seed0101-ranger-quiver-throw-travel-engrave` | **2371 / 2371** | **21 / 27** |
+| `seed0101-ranger-quiver-throw-travel-engrave` | **2371 / 2371** | **27 / 27** |
 | `seed0016-healer-newmoon-eat-zap` | **3656 / 3656** | **36 / 36** |
 | `seed0107-samurai-twoweapon-enhance` | **2684 / 2902** | **36 / 98** |
 | `seed0104-knight-ride-combat` | **2394 / 3223** | 1 / 43 |
@@ -80,7 +80,7 @@ shared blockers, and semantic coverage together—not one vanity metric.
 
 seed8000 + seed0900 + seed1500 + seed1800 + seed0060 + seed0102 +
 seed0700 + seed1150 + seed0017 + seed0077 + seed0106 + seed0501 +
-seed0105 + seed0016 + seed0015 + seed0200 pass end-to-end.
+seed0105 + seed0016 + seed0015 + seed0200 + seed0101 pass end-to-end.
 `choose_trapnote`/`hole_destination` (D-0054), `SPBOOK_no_NOVEL`
 (D-0055), roles `initrecord` (D-0056), CORPSE `G_NOCORPSE` retry
 (D-0057), `adjabil`/`u_calc_moveamt` Fast (D-0058), `rnl` +
@@ -247,6 +247,9 @@ full **15/44** Scr **1290** RNG **138575**.
 **full** Scr **24→39**/40; Scr **1290→1305**; RNG **138575→138545**.
 **`empty_handed` + ^X `weapon_insight` skill** (D-0194) → seed0200
 **PASS**; public **16/44**; Scr **1305→1306**; RNG held **138545**.
+**NHW_MENU flush NEED_MORE + mark_topline NON_EMPTY** (D-0195) →
+seed0101 **PASS**; public **17/44**; Scr **1306→1312**; RNG held
+**138545**.
 
 ### Green gate
 
@@ -416,21 +419,20 @@ autoopen `doopen_indir` (D-0059) + `mfndpos` BOULDER/`ALLOW_ROCK` +
 **`,`/`dopickup` one-object AUTOSELECT** (D-0192)
 **`e`/`eatcorpse`/`start_eating`/`eatfood`** (D-0193)
 **`empty_handed` + ^X `weapon_insight` skill lines** (D-0194)
-**ported**. Sixteen public sessions pass end-to-end. **0/44** throw at
+**NHW_MENU `flush_topl_more` + `mark_topline_seen` NON_EMPTY** (D-0195)
+**ported**. Seventeen public sessions pass end-to-end. **0/44** throw at
 `u_init_role`. seed0700 + seed1150 + seed0017 + seed0077 + seed0106 +
-seed0501 + seed0105 + seed0016 + seed0015 + seed0200 **PASS**. seed2200 RNG **full**
+seed0501 + seed0105 + seed0016 + seed0015 + seed0200 + seed0101 **PASS**. seed2200 RNG **full**
 (Scr **229**/230; sole miss parked RC @158).
-seed0101 RNG **full** Scr **21**/27.
+seed0101 RNG **full** Scr **27**/27.
 
 - **Bounded unit:** seed0030 multi-segment / disclosure Scr after seg0
   RNG complete /
-  seed0101 Scr residual /
   seed0103 `next_ident`/`trquan` /
   seed0361/0373 **quest `getbones`** (blocked: need `^V`→`goto_level`→
   `makemaz` first — ordinary `goto_level` now exists for stairs; Mines
   `fill_lvl` path exists D-0171).
-- **Prefer:** seed0030 disclosure/seg1 /
-  seed0101 Scr
+- **Prefer:** seed0030 disclosure/seg1 (seg1 @1238 `assign_candy_wrapper`)
   over parked D-0006 and over baking seed2200 RC paths.
   Hero `dotrap` deferred until monster pit peel is clear.
   Hero `xkilled` treasure `mkobj` still deferred (ordinary `make_corpse`
@@ -522,7 +524,8 @@ seed0101 RNG **full** Scr **21**/27.
   switch / thick-skin/shade/silver/blessed/axe (small path D-0189); …
 - **Cohort:** green gate + seed1500 + seed1800 + seed0060 + seed0102
   + seed0700 + seed1150 + seed0017 + seed0077 + seed0106 + seed0501
-  + seed0105 + seed0016 + seed0015 + seed0200 (must stay PASS) + strict lengths.
+  + seed0105 + seed0016 + seed0015 + seed0200 + seed0101 (must stay PASS)
+  + strict lengths.
 
 Focused survey:
 
@@ -1202,6 +1205,10 @@ Module status, constitutional debt, and named omissions live in
 171. `empty_handed` + ^X `weapon_insight` skill (D-0194)
     — seed0200 **PASS**; public **16/44**; Scr **1305→1306**; RNG
     held **138545**; next seed0030 disclosure·seg1 / seed0101 Scr
+172. NHW_MENU flush NEED_MORE + mark_topline NON_EMPTY (D-0195)
+    — seed0101 **PASS**; public **17/44**; Scr **1306→1312**; RNG
+    held **138545**; next seed0030 seg1 `assign_candy_wrapper` /
+    seed0103 `next_ident`
 
 Next work is selected from the active objectives above using
 `PORTING-RUNBOOK.md`, not by extending this historical list.

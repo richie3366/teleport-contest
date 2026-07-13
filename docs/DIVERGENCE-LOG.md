@@ -198,6 +198,7 @@ Do not record a guessed cause as fixed merely because an RNG prefix moved.
 | D-0192 | fixed | cmd/pickup `,` | unbound `,` skipped pickup turn → early Ctrl-D kick |
 | D-0193 | fixed | eat.c eatcorpse | CORPSE refuse → early kick; port eatcorpse + occupation |
 | D-0194 | fixed | insight/weapon | empty_handed + real P_SKILL martial ^X; seed0200 PASS |
+| D-0195 | fixed | wintty/NHW_MENU | menu flush NEED_MORE + mark_topline NON_EMPTY; seed0101 PASS |
 
 D-0001 through D-0005 predate the strict-length/cohort runbook. Their focused
 causes are preserved, but generic "green sessions held" is historical evidence,
@@ -5296,4 +5297,30 @@ cohort gates if those functions are touched again.
   full `set_uasmon` youmonst.data (missing data → humanoid start).
 - **Next:** seed0030 disclosure·seg1 / seed0101 Scr / seed0103
   `next_ident`.
+
+## D-0195 — NHW_MENU flush NEED_MORE + mark_topline NON_EMPTY (seed0101 Scr)
+
+- **Status:** fixed
+- **Observed:** seed0101 Scr **21**/27 (RNG full) — screen 10 C
+  `Where do you want to travel to?--More--` vs JS tip menu already
+  painted; subsequent tip frames desynced (E/- eaten as getpos dirs).
+- **C locus:** `win/tty/wintty.c` `tty_display_nhwindow(NHW_MENU)`
+  flushes `TOPLINE_NEED_MORE` via `tty_display_nhwindow(WIN_MESSAGE)`
+  before corner paint; `tty_nhgetch` marks `NEED_MORE`→`NON_EMPTY`
+  (not EMPTY).
+- **Cause/evidence:** After hand-throw pline, `_` travel pline sets
+  NEED_MORE; getpos tip NHW_MENU must `more()` that message first.
+  JS `paint_corner_nhw_menu` painted tip without flushing; also
+  `mark_topline_seen` wrongly cleared to EMPTY.
+- **Change:** `js/invent.js` `paint_corner_nhw_menu` +
+  `select_menu_pick_none` await `flush_topl_more`; `js/display.js`
+  `mark_topline_seen` → `TOPLINE_NON_EMPTY`.
+- **Verification:** seed0101 **PASS** (RNG 2371/2371 Scr 27/27);
+  green+strict+cohort PASS; full **17/44** Scr **1312**/11405 RNG
+  **138545**/792838.
+- **Named omissions:** full `update_topl` NON_EMPTY `cury`/docorner;
+  other NHW_MENU fullscreen paths beyond pick_none/corner; pline
+  NON_EMPTY append policy beyond NEED_MORE.
+- **Next:** seed0030 disclosure·seg1 / seed0103 `next_ident` /
+  quest `makemaz`.
 

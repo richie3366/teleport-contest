@@ -2531,3 +2531,15 @@ Use this shape:
   Scr **1305** RNG **138545**; green+cohort+strict PASS.
 - Next: seed0200 Scr residual (guilty+taste topline); or seed0030
   disclosure·seg1; or seed0101 Scr residual.
+
+## 2026-07-13 23:28 — D-0195 NHW_MENU NEED_MORE flush fixed
+- Objective: seed0101 Scr residual 21/27 (PROGRESS primary; RNG already full).
+- C locus: `win/tty/wintty.c` `tty_display_nhwindow(NHW_MENU)` NEED_MORE
+  flush; `tty_nhgetch` NEED_MORE→NON_EMPTY.
+- Result: **fixed** — tip menu painted without flushing travel pline
+  `--More--`; `mark_topline_seen` cleared to EMPTY. Wired
+  `flush_topl_more` into corner/pick_none menu paint; NON_EMPTY mark.
+- Verification: seed0101 **PASS**; green+strict+cohort PASS; full
+  **17/44** Scr **1312**/11405 RNG **138545**/792838.
+- Next: seed0030 seg1 @1238 `assign_candy_wrapper`; or seed0103
+  `next_ident`/`trquan`.

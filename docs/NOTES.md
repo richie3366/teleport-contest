@@ -7,11 +7,12 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 
 ## Active
 
-- **Current unit:** seed0030 disclosure·seg1 / seed0101 Scr residual /
-  seed0103 `next_ident`/`trquan`.
-- **Hypothesis (seed0030):** after seg0 RNG complete (D-0190), next peel
-  is disclosure / multi-segment — diagnose first mismatch in seg1+.
-- **Falsifier:** `node frozen/ps_test_runner.mjs sessions/seed0030-ten-diverse-deaths.session.json` + inspect first failing screen/RNG after seg0.
+- **Current unit:** seed0030 disclosure·seg1 / seed0103 `next_ident`/`trquan`.
+- **Hypothesis (seed0030):** after seg0 RNG complete (D-0190), seg1 first
+  mismatch @1238 C `rn2(12) @ assign_candy_wrapper` vs JS `rn2(6)` —
+  candy/wrapper init during post-death mklev (or prior fill omission).
+- **Falsifier:** per-seg RNG compare on seed0030 seg1; confirm C
+  `assign_candy_wrapper` call path vs JS mkobj candy branch.
 - **Parked deep canary:** D-0006 pet movement — do not implement until C
   state/candidate capture exists.
 - **Parked seed2200 @158:** RC config path — harness `$HOME`, not a port bug.
@@ -111,6 +112,10 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   attributes: hardcoded "bare handed"/"unskilled bare handed combat"
   vs C `empty_handed()` (gloves→empty) + `P_BASIC` martial arts
   (D-0194).
+- **seed0101 Scr residual was NOT tip PICK_NONE key loop alone** — tip
+  painted without C's NHW_MENU `NEED_MORE` flush; travel pline
+  `--More--` skipped (D-0195). `mark_topline_seen` must be NON_EMPTY
+  not EMPTY.
 - **`monattk.h`: AT_WEAP=254, AT_MAGC=255, AT_SPIT=10** — never use 10 for
   weapon (D-0179).
 - Hostile `m_move`: before place, `m_digweapon_check` may return
@@ -166,3 +171,5 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   fails `carnivorous` so palatable skips `rn2(10)`.
 - **^X weapon_insight:** `empty_handed()` uses `uarmg`→"empty handed";
   skill line uses real `P_SKILL` + martial `P_NAME` (D-0194).
+- **NHW_MENU must flush NEED_MORE** before paint (D-0195); nhgetch
+  marks NEED_MORE→NON_EMPTY not EMPTY.
