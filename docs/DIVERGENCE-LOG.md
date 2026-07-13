@@ -107,6 +107,7 @@ Do not record a guessed cause as fixed merely because an RNG prefix moved.
 | D-0101 | fixed | `#pray` / prayer_done | unbound extcmd; p_type 0 → rnz(250)+angrygods |
 | D-0102 | fixed | askname + ParanoidPray | no-name splash/`Who are you?`; default pray yn |
 | D-0103 | fixed | `#chat` / dochat | unbound extcmd; getdir `l` became move → fake `do_attack` peel |
+| D-0104 | fixed | dokick/kick_door | CLOSED door used kick_ouch stand-in; need exercise TRUE + rnl(35) |
 
 D-0001 through D-0005 predate the strict-length/cohort runbook. Their focused
 causes are preserved, but generic "green sessions held" is historical evidence,
@@ -2747,4 +2748,31 @@ cohort gates if those functions are touched again.
   `#chronicle`/`#conduct` still unknown.
 - **Next:** seed0106 @ 2713 door kick / seed2200 Scr 199 /
   seed0077 `player_selection`.
+
+## D-0104 — seed0106 `kick_door` CLOSED/LOCKED bust
+
+- **Status:** fixed
+- **Observed:** seed0106 @ **2713**: C `rn2(19)` @ `exercise`
+  then `rn2(40)`/`rnl(35)` @ `kick_door` vs JS `rn2(2)` (kick_ouch
+  `exercise(A_DEX,FALSE)`).
+- **C locus:** `dokick.c` `kick_door` (CLOSED/LOCKED after
+  open/broken/nodoor → `kick_dumb`); `attrib.c` `exercise`;
+  `rnd.c` `rnl`.
+- **Cause:** JS `kick_door` deferred closed doors to `kick_ouch`
+  (hurt path). C always `exercise(A_DEX,TRUE)` then
+  `rnl(35) < avrg_attrib` (martial DEX bonus), then shatter /
+  crash-open / Thwack-Whammm.
+- **Change:** `js/dokick.js` `kick_door` CLOSED/LOCKED envelope
+  (Levitation→ouch; DEX exercise; rnl bust; trap/shatter/crash;
+  fail Thwack/Whammm).
+- **Verification:** seed0106 prefix **2713→2912** (`monmulti`/
+  `m_throw`); positional **2784→3159**/4194; green+strict PASS;
+  cohort 1500/1800/0060/0102/0700/1150/0017 PASS; full **9/44**
+  Scr **718** RNG **92262**/792838.
+- **Named omission:** `martial()`; giant doorbuster; shop
+  `in_rooms`/`add_damage`/`pay_for_damage`; town watchman;
+  `b_trapped` body; Blind `feel_location`; kick_monster/object/
+  SDOOR-SCORR/furniture.
+- **Next:** seed0106 @ 2912 `monmulti`/`mthrowu` / seed2200 Scr
+  199 / seed0077 `player_selection`.
 

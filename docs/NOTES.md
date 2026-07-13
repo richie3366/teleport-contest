@@ -7,11 +7,11 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 
 ## Active
 
-- **Current unit:** D-0103 `#chat` cleared seed0106 @ 2639. Next:
-  seed0106 @ **2713** `kick_door`/`exercise` (Ctrl-D), or seed2200 Scr
-  **199**/230, or seed0077 `player_selection`.
-- **Hypothesis:** seed0106 @ 2713 is incomplete `dokick` door path
-  (C `exercise` then `kick_door`; JS emits `rn2(2)`).
+- **Current unit:** D-0104 `kick_door` cleared seed0106 @ 2713. Next:
+  seed0106 @ **2912** `monmulti`/`m_throw` (monster ranged), or
+  seed2200 Scr **199**/230, or seed0077 `player_selection`.
+- **Hypothesis:** seed0106 @ 2912 is missing `monmulti`/`mthrowu`
+  (C `rnd(1)` @ monmulti; JS still in `m_move` `rn2(12)`).
 - **Falsifier / next:**
   ```bash
   node scripts/rng-diff.mjs sessions/seed0106-priest-extcmd-sweep.session.json
@@ -132,6 +132,9 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 - **seed0106 @2639 was NOT incomplete `do_attack`** — unbound `#chat`
   made getdir `l` a real east move → `distfleeck` `rn2(5)` while C
   chats empty then `h` into pet → `do_attack` `rn2(7)` (D-0103).
+- **seed0106 @2713 was NOT kick_dumb/`kick_ouch` stand-in** —
+  CLOSED/LOCKED door needs `exercise(A_DEX,TRUE)` + `rnl(35)` bust
+  path, not `kick_ouch` `exercise(FALSE)` → `rn2(2)` (D-0104).
 - seed1150 @ 3032 was **not** missing `f` binding — getdir saw a
   space that C used for pet-drop `--More--` because JS
   `getdir`/`yn_function` skipped `more()` on `TOPLINE_NEED_MORE`
@@ -262,3 +265,7 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 - `#chat`/`dotalk`/`dochat`: getdir; empty tile → ECMD_OK (0 RNG);
   dog → `domonnoise` MS_BARK → `"The little dog barks."` + ECMD_TIME
   (D-0103). Generated monsters lack `msound`; infer S_DOG→MS_BARK.
+- `kick_door` CLOSED/LOCKED: `exercise(A_DEX,TRUE)` then
+  `rnl(35) < avrg_attrib` (martial adds DEX); success → shatter
+  (`STR>18 && !rn2(5)`) / crash `D_BROKEN` / trap; fail →
+  `exercise(A_STR,TRUE)` + `(Deaf||!rn2(3))` Thwack/Whammm (D-0104).

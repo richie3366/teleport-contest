@@ -1274,3 +1274,17 @@ Use this shape:
 - Next: seed0106 @ 2713 `kick_door`/`exercise` —
   `node scripts/rng-diff.mjs sessions/seed0106-priest-extcmd-sweep.session.json`
   — or seed2200 Scr 199 / seed0077 `player_selection`.
+
+## 2026-07-13 — kick_door CLOSED/LOCKED bust (D-0104)
+- Objective: seed0106 @ 2713 kick_door/exercise (PROGRESS primary).
+- C locus: `dokick.c` `kick_door`; `attrib.c` `exercise`; `rnd.c` `rnl`.
+- Result: **verified** — JS closed-door path used `kick_ouch`
+  (`exercise(FALSE)` → `rn2(2)`); C `exercise(A_DEX,TRUE)` +
+  `rnl(35)` bust / crash / Thwack. Ported CLOSED/LOCKED envelope.
+- Verification: seed0106 prefix **2713→2912**; positional
+  **2784→3159**/4194; green+strict PASS; cohort 1500/1800/0060/
+  0102/0700/1150/0017 PASS; full **9/44** Scr **718** RNG
+  **92262**/792838.
+- Next: seed0106 @ 2912 `monmulti`/`mthrowu` —
+  `node scripts/rng-diff.mjs sessions/seed0106-priest-extcmd-sweep.session.json`
+  — or seed2200 Scr 199 / seed0077 `player_selection`.

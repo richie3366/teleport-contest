@@ -209,7 +209,10 @@ seed0017 still **3132** (not the (30,4) writer; themerms all default).
 **`#chat`/`dochat`/`domonnoise` MS_BARK** (D-0103) → seed0106
 prefix **2639→2713** (`kick_door`); full **9/44** Scr **718**
 RNG **91887**/792838.
-Next peel: seed0106 @ 2713 kick_door / seed2200 Scr 199 /
+**`kick_door` CLOSED/LOCKED bust** (D-0104) → seed0106 prefix
+**2713→2912** (`monmulti`); positional **3159**/4194; full
+**9/44** Scr **718** RNG **92262**/792838.
+Next peel: seed0106 @ 2912 `monmulti`/`mthrowu` / seed2200 Scr 199 /
 seed0077 `player_selection` / `getbones` (blocked on `^V`/`makemaz`) /
 `wipeout_text` / `lspo_map` / pony `next_ident` / `maybe_smudge_engr`.
 `make_corpse` body and `m_initinv` body still absent (named omissions).
@@ -252,7 +255,7 @@ seed0077 `player_selection` / `getbones` (blocked on `^V`/`makemaz`) /
 | `src/objnam.c` `readobjnam` | `js/readobjnam.js`, `js/objnam.js` | partial | **wish subset:** prefixes + `name_to_monplus` dragon mail + `rnd_otyp_by_namedesc`/`wishymatch` + artifact_name + BUC/spe + oname (D-0064); doname empty/wield/swapwep/potion/implicit-uncursed (D-0024); CORPSE `corpsenm` (D-0019); **COIN quan=1 `"a gold piece"`** (D-0037); **`Japanese_item_name` table** for Samurai discovery (D-0045); **Japanese display in doname/`obj_typename`/`disco_typename` + ya plural + quiver + rustproof** (D-0079); doname `named`; **`xprname` `dot` for prinv** (D-0070); **xname SCR/SPE/RIN/WAN `… of <actualn>` + bimanual `(weapon in hands)`** (D-0086); **STATUE `of a <pm>`** (D-0087); **GEM `GemStone`/`xname`/`singular` + `obj_typename` stone** (D-0097); omit fruits/traps/terrain/random/`o_ranges`/alt spellings/Japanese wish; unlabeled/called/descr beyond GEM; ammo `(wielded)` / tethered aklys / glow paren; full erosion proofs beyond rustproof; armor pair-of/set-of |
 | `src/invent.c` `hold_another_object` | `js/invent.js` | partial | **artifact touch + addinv + prinv** (D-0064); **prinv `xprname(..., dot)`** (D-0070); **`observe_object` in invent_lines** (D-0079); omit fumbling/encumbrance-drop/autoquiver/fatal-corpse; xname-path observe beyond invent |
 | `src/do_name.c` `oname` / `docallcmd` | `js/do_name.js` | partial | **artifact oname/`artifact_exists`** (D-0064); **`docallcmd` menu + cancel/floor stubs** (D-0069); **`christen_monst` + tame `x_monnam` subset** (D-0079); **`Monnam`/`noit_Monnam` MGIVENNAME→bare** (D-0095); omit invent/floor getobj/getpos bodies, full x_monnam hallu/invis/saddle/priest/shk, literate/shop/intrinsic side-effects |
-| `src/dokick.c` | `js/dokick.js` | partial | `dokick` + `kick_dumb` (D-0031); `kickedloc` (D-0032); **`kick_ouch` → `losehp`** (D-0035); omit `kick_monster`/`kick_object`/closed-door Whammm/SDOOR-SCORR open/furniture/`martial`/`wake_nearby`/`u_wipe_engr`/`set_wounded_legs`/`kickstr` terrain names |
+| `src/dokick.c` | `js/dokick.js` | partial | `dokick` + `kick_dumb` (D-0031); `kickedloc` (D-0032); **`kick_ouch` → `losehp`** (D-0035); **`kick_door` CLOSED/LOCKED `rnl(35)` bust** (D-0104); omit `kick_monster`/`kick_object`/SDOOR-SCORR open/furniture/`martial`/shop-town watchman/`b_trapped`/`wake_nearby`/`u_wipe_engr`/`set_wounded_legs`/`kickstr` terrain names |
 | `src/hack.c` `losehp`/`nomul`/`spoteffects` | `js/hack.js`, `js/pickup.js`, `js/cmd.js` | partial | **`losehp` !Upolyd / Upolyd mh subtract** (D-0035); **`nomul`/`unmul` + afternmv** (D-0066); **`domove`→`spoteffects`→`pickup`/`check_here` when `!flags.pickup`** (D-0095); `maybe_half_phys` identity until Half_physical prop; omit `showdamage`/`maybe_wail`/`done(DIED)` bodies; full `end_running`/`cmdq_clear`; pool/trap/sink/`mention_decor`/`autopick` arms |
 | `src/apply.c` / `src/lock.c` | `js/apply.js`, `js/lock.js` | partial | `doapply` + `pick_lock` (D-0021); exported `getdir` for kick/apply; getobj missing-letter `continue`+`flush_topl_more` (D-0025); **`doopen_indir` CLOSED autoopen** (D-0059); omit sack/other tools, real door occupation, interactive `o` getdir, `b_trapped`/autounlock, `feel_location` mapseen gating, container-at-feet |
 | `src/display.c` `newsym` / map | `js/display.js` | partial | Floor `vobj_at` + class symbols + CORPSE `mon_color` (D-0022); **live `mon_glyph` uses `mcolors[mnum]`** (D-0036; newt yellow); **`wall_angle` + seenv** (D-0038); upstairs `<` yellow / downstairs `>` NO_COLOR (D-0038); **`see_with_infrared`/`mon_visible` when `!cansee`** (D-0039; race Infravision via `mons[urace]`); **full MONSYM `MLET_CH` + FOUNTAIN/SINK/THRONE/ALTAR/GRAVE terrain** (D-0070); **`magic_map_background` + dark_room DARKROOMSYM≡S_room** (D-0075/D-0081); **STATUE `obj_glyph` → mons[corpsenm].mlet + `obj_color(STATUE)`** (D-0080); **`more()` word-wrap only when len≥CO** (D-0083); **`look_shown_at` for look_all glyph filter** (D-0087); **`waslit=(lit!=0)` + out-of-sight `S_litcorr`→`S_corr`** (D-0096); omit traps/engravings/hallucination/`see_objects`; hallu/`random_monster` statue; pile-top/gender statue offsets; telepathy/`Detect_monsters`/`MATCH_WARN_OF_MON`; full `set_uasmon`/uprops; pool/lava/ice/air/cloud terrain; ROOM→DARKROOMSYM memory arm in `newsym` |
@@ -298,7 +301,8 @@ This is a planning list, not an exhaustive C file inventory:
 - hero-versus-monster and monster-versus-hero combat;
 - traps, riding, travel; prayer partial (`#pray` p_type 0 + angrygods 0–3);
   chat partial (`#chat` empty + MS_BARK);
-- kicking beyond empty-space/`kick_dumb` (monsters, objects, doors, furniture);
+- kicking beyond empty-space/`kick_dumb`/`kick_door` CLOSED bust
+  (monsters, objects, SDOOR/SCORR, furniture, martial/shop-town);
 - apply beyond lock-pick no-door (containers, other tools);
 - potions, scrolls, wands, spells, equipment, artifacts;
 - shops/priests/vault guards and billing;
