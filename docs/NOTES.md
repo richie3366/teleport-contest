@@ -7,15 +7,15 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 
 ## Active
 
-- **Current unit:** D-0124 cleared: `#chronicle` / `do_gamelog` / `show_gamelog`
-  + `gamelog_add`/`livelog_printf` at welcome/pray/losexp/weaphit/killer.
-- **Hypothesis:** seed0106 next Scr peel @199 is `#conduct` unbound
-  (`Voluntary challenges:` NHW_TEXT). Later: `#vanquished` @213. seed2200
+- **Current unit:** D-0125 cleared: `#conduct` / `doconduct` / `show_conduct`
+  + `initedog` `u.uconduct.pets++`.
+- **Hypothesis:** seed0106 next Scr peel @213 is `#vanquished` unbound
+  (`Vanquished creatures:` NHW_MENU). Later: `#genocided`. seed2200
   next real peel after parked RC path @158 is help `j` → `dokeylist` @184.
 - **Falsifier / next:**
   ```bash
   node frozen/ps_test_runner.mjs sessions/seed0106-priest-extcmd-sweep.session.json
-  # expect Scr >257 if #conduct matches C; green cohort must stay PASS
+  # expect Scr >259 if #vanquished matches C; green cohort must stay PASS
   node frozen/ps_test_runner.mjs sessions/seed2200-wizard-quaff-zap-read.session.json
   ```
 - **Parked deep canary:** D-0006 pet movement — do not implement until C
@@ -95,6 +95,10 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   `show_gamelog(ENL_GAMEINPROGRESS)` NHW_TEXT `Logged events:` + Turn
   column; needs `gamelog_add` at welcome/pray/losexp/weaphit/killer
   (D-0124). Do not invent a static list.
+- **seed0106 @199 was `#conduct` unbound** — C `doconduct` →
+  `show_conduct(0)` NHW_MENU `Voluntary challenges:`; foodless when
+  `!uconduct.food`; petless omitted after `initedog` pets++ (D-0125).
+  Do not invent static conduct text.
 
 ## Landmarks
 
@@ -139,3 +143,6 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 - `#chronicle`: `show_gamelog(0)` → `Logged events:` + ` Turn` +
   `%5ld: %s`; first_weapon_hit before kill so order is hit then killed
   (D-0124).
+- `#conduct`: `show_conduct(0)` NHW_MENU; `enlght_line` leading space +
+  period; `initedog` always `uconduct.pets++` (starting pet clears
+  petless); `show_achievements` skipped unless final||wizard (D-0125).

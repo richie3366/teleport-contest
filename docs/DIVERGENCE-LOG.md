@@ -127,6 +127,8 @@ Do not record a guessed cause as fixed merely because an RNG prefix moved.
 | D-0121 | fixed | yn/doname | leave yn prompt after answer; cleric skip `"uncursed "`; seed0106 Scr 250→253 |
 | D-0122 | fixed | skill/#enhance | `skill_init` + `add_skills_to_menu` paged PICK_NONE; seed0106 Scr 253→254 |
 | D-0123 | fixed | dungeon/overview | `lastseentyp`/`recalc_mapseen` + overview feature line; TAB vs PREFIX; seed0106 Scr 254→255 |
+| D-0124 | fixed | insight/#chronicle | `do_gamelog`/`show_gamelog` + livelog wire; seed0106 Scr 255→257 |
+| D-0125 | fixed | insight/#conduct | `doconduct`/`show_conduct` + `initedog` pets++; seed0106 Scr 257→259 |
 
 D-0001 through D-0005 predate the strict-length/cohort runbook. Their focused
 causes are preserved, but generic "green sessions held" is historical evidence,
@@ -3353,4 +3355,30 @@ cohort gates if those functions are touched again.
   artifact/cursed-bknown `first_weapon_hit`; `#conduct`/
   `#vanquished`/`#genocided`.
 - **Next:** seed0106 `#conduct` @199 / seed2200 `dokeylist` @184.
+
+## D-0125 — `#conduct` / `doconduct` / `show_conduct`
+
+- **Status:** fixed
+- **Observed:** seed0106 Scr **257**/267 first miss @199: C NHW_MENU
+  corner `Voluntary challenges:` + foodless/illiterate/genocide/
+  polypile/polyself/wishless lines; JS `#conduct: unknown extended
+  command.`
+- **Cause/evidence:** `#conduct` was AUTOCOMPLETE-only with no
+  `EXT_CMDS` runner. Expected overlay matches C `show_conduct(
+  ENL_GAMEINPROGRESS)` with present-tense `enl_msg` + contractions;
+  petless omitted because `initedog` bumps `u.uconduct.pets`.
+- **C locus:** `cmd.c` extcmd → `insight.c` `doconduct` /
+  `show_conduct` / `enlght_line` / `num_genocides` /
+  `sokoban_in_play`; `dog.c` `initedog` `u.uconduct.pets++`.
+- **Change:** `js/insight.js` `doconduct`/`show_conduct`; export
+  `show_nhw_menu_text`; `js/getline.js` conduct runner; `js/dog.js`
+  `initedog` pets++.
+- **Verification:** seed0106 Scr **257→259**/267 (next: `#vanquished`
+  @213); green+strict PASS; cohort 1500/1800/0060/0102/0700/1150/
+  0017/0077 PASS; full **10/44** Scr **1128→1130** RNG
+  **104575**/792838.
+- **Named omission:** `show_achievements` body (final/wizard only);
+  livelog first-pet; food/vegan bump sites beyond existing counters;
+  `#vanquished`/`#genocided`; final disclosure `show_conduct`.
+- **Next:** seed0106 `#vanquished` @213 / seed2200 `dokeylist` @184.
 

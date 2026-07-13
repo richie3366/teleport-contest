@@ -1584,3 +1584,15 @@ Use this shape:
   green+strict PASS; cohort 1500/1800/0060/0102/0700/1150/0017/0077
   PASS; full **10/44** Scr **1128** RNG **104575**/792838.
 - Next: seed0106 `#conduct` @199 — or seed2200 `dokeylist` @184.
+
+## 2026-07-13 — #conduct doconduct / show_conduct (D-0125)
+- Objective: seed0106 Scr @199 `#conduct` Voluntary challenges (PROGRESS primary).
+- C locus: `insight.c` `doconduct`/`show_conduct`/`enlght_line`/`num_genocides`/
+  `sokoban_in_play`; `dog.c` `initedog` `u.uconduct.pets++`.
+- Result: **verified** — `#conduct` was AC-only; no runner. Ported NHW_MENU
+  conduct list (present-tense enl_msg + contractions) and pets++ so petless
+  is correctly omitted after starting pet.
+- Verification: seed0106 Scr **257→259**/267 (next `#vanquished` @213);
+  green+strict PASS; cohort 1500/1800/0060/0102/0700/1150/0017/0077 PASS;
+  full **10/44** Scr **1130** RNG **104575**/792838.
+- Next: seed0106 `#vanquished` @213 — or seed2200 `dokeylist` @184.

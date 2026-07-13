@@ -153,6 +153,15 @@ const EXT_CMDS = [
         },
     },
     {
+        name: 'conduct',
+        wiz: false,
+        autocomplete: true,
+        run: async () => {
+            const { doconduct } = await import('./insight.js');
+            return doconduct();
+        },
+    },
+    {
         name: 'dip',
         wiz: false,
         autocomplete: true,

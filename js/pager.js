@@ -224,7 +224,11 @@ function look_at_monster_buf(mtmp) {
  * cursor past prompt at offx+1+strlen("--More--").
  * Corner path keeps map/status (no term_clear_screen).
  */
-async function show_nhw_menu_text(lines) {
+/**
+ * Exported for insight.c putstr NHW_MENU paths (#conduct, etc.).
+ * C ref: wintty.c process_text_window corner/fullscreen for NHW_MENU data.
+ */
+export async function show_nhw_menu_text(lines) {
     const disp = game.nhDisplay;
     if (!disp) {
         await nhgetch();
