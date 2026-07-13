@@ -21,6 +21,21 @@ Use this shape:
 
 ---
 
+---
+
+## 2026-07-13 06:05 — seed0017 terrain + in_mk_themerooms (D-0092)
+- C locus: `mklev.c` `makerooms` / `sp_lev.c` `check_room`
+  (`gi.in_mk_themerooms`); symptom `dogmove.c` `dog_move` @ 3132
+- Result: **verified faithful change** — set `game.in_mk_themerooms`
+  during themerms generate so `check_room` aborts like C. seed0017
+  peel **unchanged** (3132): JS room hx=35/east door 36 vs C east
+  door 35 / walkable (30,4); DEC `~` is floor not pool.
+- Verification: green + cohort PASS + strict; full **7/44**,
+  Scr **568**/11405, RNG **91371**/792838.
+- Next: `node scripts/rng-diff.mjs sessions/seed0017-samurai-altar-pray.session.json`
+  — compare first-room `dx`/`xabs`/`split_rects` vs C east-door x
+  (or seed1150 @ 3032 `throw_obj`).
+
 ## 2026-07-13 05:52 — seed2200 option_help (D-0091)
 - C locus: `options.c` `option_help`/`next_opt`; `optlist.h`
   `allopt[]`; `cfgfiles.c` `get_configfile`

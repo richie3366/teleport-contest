@@ -175,14 +175,16 @@ autoopen `doopen_indir` (D-0059) + `mfndpos` BOULDER/`ALLOW_ROCK` +
 **doextversion runtime options/Lua license** (D-0088) +
 **NHW_TEXT `dmore` quitchars** (D-0089) +
 **`dowhatdoes`** (D-0090) +
-**`option_help`/`next_opt`** (D-0091)
+**`option_help`/`next_opt`** (D-0091) +
+**`in_mk_themerooms` themerms `check_room`** (D-0092)
 **ported** (screen 158 RC path residual). Seven public sessions
 pass end-to-end. **0/44** throw at `u_init_role`. seed0700
-**PASS**. seed0017 prefix **3132** (`dog_move`). seed2200 RNG
-**full** (Scr **199**/230 — next seed0017 terrain / seed1150).
+**PASS**. seed0017 prefix **3132** (`dog_move` terrain/room x).
+seed2200 RNG **full** (Scr **199**/230 — next seed0017 terrain /
+seed1150).
 
-- **Bounded unit:** seed0017 @ 3132 `dog_move` terrain /
-  seed1150 `dog_move` / seed2200 post-help (after 165) /
+- **Bounded unit:** seed0017 @ 3132 room geometry (C east door 35 vs
+  JS 36) / seed1150 `throw_obj` @ 3032 / seed2200 post-help /
   seed0501/0105 `wipeout_text` / seed0015/0200 `lspo_map` /
   seed0101 `next_ident` / seed0103 `next_ident`/`trquan` /
   seed0030 `maybe_smudge_engr` / seed0361/0373 **`getbones`**
@@ -474,6 +476,9 @@ Module status, constitutional debt, and named omissions live in
     **91371** unchanged; green cohort PASS; screen 158 RC path
     residual (harness `$HOME`); next seed0017 terrain /
     seed1150 / seed2200 post-help
+74. `in_mk_themerooms` for themerms `check_room` (D-0092) —
+    C abort-not-shrink; green/cohort held; seed0017 still
+    **3132** (room east-door x vs C)
 
 Next work is selected from the active objectives above using
 `PORTING-RUNBOOK.md`, not by extending this historical list.

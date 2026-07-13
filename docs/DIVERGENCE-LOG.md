@@ -94,6 +94,8 @@ Do not record a guessed cause as fixed merely because an RNG prefix moved.
 | D-0088 | fixed | version/doextversion | OPTIONS_AT_RUNTIME options+windowing+soundlib+Lua license pages |
 | D-0089 | fixed | NHW_TEXT dmore | `xwaitforspace(quitchars)` — non-space keys stay on page |
 | D-0090 | fixed | pager/dowhatdoes | tip+`What command?`+`key2extcmddesc`; seed2200 Scr 167→176 |
+| D-0091 | fixed | options/help | `option_help`/`next_opt` + optlist extract; seed2200 Scr 176→199 |
+| D-0092 | fixed | mklev/themerooms | `in_mk_themerooms` for `check_room` abort; seed0017 still @3132 |
 
 D-0001 through D-0005 predate the strict-length/cohort runbook. Their focused
 causes are preserved, but generic "green sessions held" is historical evidence,
@@ -2455,3 +2457,25 @@ cohort gates if those functions are touched again.
   contact; full `doset`/`O` menu.
 - **Next:** seed0017 @ 3132 terrain / seed1150 `dog_move` / seed2200
   post-help after accepting path residual.
+
+## D-0092 — `in_mk_themerooms` for themerms `check_room`
+
+- **Status:** fixed (seed0017 peel unchanged)
+- **Observed:** seed0017 @ **3132**: C 3× `rn2(12)` @ `dog_move` vs JS
+  2× then `rn2(5)` `distfleeck`. Pet (30,5) `mfndpos` cnt=4; missing
+  walkable `(30,4)` (JS VWALL). C DEC screen: east door col **35**,
+  fountain **31**, floor at **(30,4)** (DEC `~`≡room floor / possible
+  D_NODOOR). JS room `lx=31,hx=35`, east door **36**, fountain **32**.
+- **C locus:** `mklev.c` `makerooms` sets `gi.in_mk_themerooms` around
+  Lua `themerooms_generate`; `sp_lev.c` `check_room` returns FALSE on
+  non-STONE when `in_mk_themerooms` (no shrink).
+- **Change:** `js/mklev.js` `themerooms_generate` toggles
+  `game.in_mk_themerooms` for the call (was never set → JS could shrink
+  where C aborts).
+- **Verification:** green + cohort PASS + strict; full **7/44**,
+  screens **568**/11405, RNG **91371**/792838. seed0017 still prefix
+  **3132** — this flag alone is not the (30,4) cause for this seed.
+- **Rejected:** “pool at (30,4)” — DEC `~` is floor. “mtrack/nxti” —
+  inactive (`distminU=3`).
+- **Next:** compare first-room `dx`/`xabs` / `split_rects` vs C map
+  east-door x; or seed1150 @ 3032 `throw_obj`.

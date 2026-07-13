@@ -7,24 +7,21 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 
 ## Active
 
-- **Current unit:** after D-0091 seed2200 Scr **176→199**/230
-  (`option_help`). Prefer seed0017 @ 3132 terrain / seed1150
-  `dog_move` / seed2200 post-help (after screen 165) once path is
-  accepted as harness-only.
-- **Hypothesis (seed2200 Scr 199/230):** screen 158 only remaining
-  option_help miss — `get_configfile()` path is recording `$HOME`
-  (`verify-rerecord.mjs` elides it). Do **not** hardcode the
-  davidbau absolute path. Pages 159–165 match.
+- **Current unit:** seed0017 @ 3132 terrain (D-0092 set
+  `in_mk_themerooms` but did **not** move the peel). Prefer seed0017
+  room geometry / seed1150 `throw_obj` @ 3032 / seed2200 post-help.
+- **Hypothesis (seed0017 @ 3132):** JS room at creation-order[0] is
+  `lx=31,hx=35` (east door 36, fountain 32, west VWALL @30,4). C map
+  (DEC `~`≡room floor) has east door **35**, fountain **31**, walkable
+  **(30,4)** — same relative fill, absolute x shifted/narrower. Not
+  mtrack; not `in_mk_themerooms` shrink (no effect this seed). Find
+  non-RNG or earlier create_room/`split_rects` geometry cause.
 - **Falsifier / next probe:**
   ```bash
-  node frozen/ps_test_runner.mjs sessions/seed0017-samurai-altar-pray.session.json
+  node scripts/rng-diff.mjs sessions/seed0017-samurai-altar-pray.session.json
   ```
-  or seed2200 first fail after 165 if not path-only.
-- **Parked seed0017 @ 3132:** JS `mfndpos` cnt=4 at pet (30,5); C emits
-  3× `rn2(12)`. Adding walkable `(30,4)` yields exactly 3× `rn2(12)`.
-  JS has VWALL at (30,4); C screen shows floor. Diagnose join/
-  wallification — do not patch coordinates. `mtrack`/`nxti` inactive
-  (`distminU=3`).
+  Dump C-vs-JS first-room `dx`/`xabs` (or compare east-door x after
+  `makecorridors`). Or peel seed1150 @ 3032 `throw_obj` vs JS `rn2(5)`.
 - **Parked deep canary:** D-0006 pet movement — do not implement until C
   state/candidate capture exists.
 
@@ -118,6 +115,9 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   harness `$HOME` (elided by `verify-rerecord`); do not bake in
   recording absolute paths. Over-long `%-20s` compounds (glyph /
   whatis_filter) display unpadded to fit CO.
+- seed0017 DEC `~` is **room floor** (`screen-decode` maps DEC `~`→`·`),
+  not pool. D_NODOOR also paints as `~`. (30,4) walkable in C vs JS
+  VWALL; `in_mk_themerooms` alone does not fix (D-0092).
 - `more()` word-wrap of message text must only fire when len≥CO —
   wrapping at CO-8 breaks welcome `--More--` (seed0900).
 
@@ -189,3 +189,6 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 - option_help: `next_opt` bool pack; compounds `%-20s` unless line
   would exceed CO (then unpadded); OthrOpt leading space; epilog
   leading blank; wrap-forcing config path for pagination (D-0091).
+- `gi.in_mk_themerooms` must be true for the whole themerms
+  `themerooms_generate` call so `check_room` aborts (no shrink) on
+  non-STONE (D-0092).
