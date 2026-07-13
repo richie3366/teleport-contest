@@ -21,6 +21,20 @@ Use this shape:
 
 ---
 
+## 2026-07-13 10:55 — obj_is_generic potion glyph (D-0118)
+- Objective: seed0106 Scr @34 potion `!` yellow vs NO_COLOR (PROGRESS).
+- C locus: `display.h` `obj_is_generic` / `obj_to_glyph`; contest
+  nomux CLR_GRAY/BLACK → decoded NO_COLOR.
+- Result: **verified** — falsified use_color-off; `!dknown` potions
+  use GENERIC_POTION color; `tty_map_color` maps gray/black→NO_COLOR.
+- Verification: seed0106 Scr **38→46**/267; green+strict PASS; cohort
+  PASS; full **10/44** Scr **857→916** RNG **104575**; seed0030
+  Scr **46→97**.
+- Next: seed0106 dart hit pline @46, or seed2200 `dokeylist` @184 —
+  `node frozen/ps_test_runner.mjs sessions/seed0106-priest-extcmd-sweep.session.json`
+
+---
+
 ## 2026-07-13 10:20 — extcmd AUTOCOMPLETE uniqueness (D-0117)
 - Objective: seed0106 Scr @16 progressive `# c` paint (PROGRESS primary).
 - C locus: `win/tty/getline.c` `ext_cmd_getlin_hook`; `cmd.c`

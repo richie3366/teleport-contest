@@ -3149,4 +3149,33 @@ cohort gates if those functions are touched again.
 - **Next:** seed0106 `use_color` / potion glyph color @34 /
   seed2200 `dokeylist` @184.
 
+## D-0118 — `obj_is_generic` + tty gray/black → NO_COLOR
+
+- **Status:** fixed
+- **Observed:** seed0106 Scr **38**/267 first miss @34: map potion `!`
+  at (71,9) JS CLR_YELLOW(11) vs C NO_COLOR(8). RNG **full** match;
+  fruit juice otyp 319 shuffled to golden/yellow; C raw `|...!|` had no
+  `\033[93m` (unlike yellow `<` on scr 29–33).
+- **Rejected:** missing `OPTIONS=color` / `iflags.use_color` off —
+  same session paints yellow stairs and white `@`/pet; color default
+  On; forcing all yellow `!`→NO_COLOR is a hack (seed0002 has real
+  yellow `!` when `dknown`).
+- **C locus:** `display.h` `obj_is_generic` / `obj_to_glyph` /
+  `generic_obj_to_glyph` — `!dknown` potions (and gems/spellbooks) use
+  `objects[oclass]` (GENERIC_POTION CLR_GRAY), not per-otyp `oc_color`.
+  Contest `006-nomux-capture.patch`: CLR_GRAY and CLR_BLACK record as
+  default fg → decoded NO_COLOR.
+- **Change:** `js/display.js` `obj_is_generic` + generic class color in
+  `obj_glyph`; `tty_map_color` in `show_glyph_cell` maps
+  CLR_GRAY/CLR_BLACK → NO_COLOR.
+- **Verification:** seed0106 Scr **38→46**/267; next miss combat
+  dart topline; green+strict PASS; cohort
+  1500/1800/0060/0102/0700/1150/0017/0077 PASS; seed2200 Scr
+  **200**/230 unchanged; full **10/44** Scr **857→916** RNG
+  **104575**/792838 (seed0030 Scr **46→97**).
+- **Named omission:** hallu `random_obj_to_glyph`; pile-top generic
+  offsets; when floor see sets `dknown` (colored potions after known).
+- **Next:** seed0106 mthrowu/hit dart pline @46 /
+  seed2200 `dokeylist` @184.
+
 

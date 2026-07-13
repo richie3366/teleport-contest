@@ -25,7 +25,7 @@ import {
     VENOM_CLASS, objectNames,
 } from './objects.js';
 import {
-    NO_COLOR, CLR_GRAY, CLR_BROWN, CLR_WHITE, CLR_YELLOW, CLR_BRIGHT_BLUE,
+    NO_COLOR, CLR_GRAY, CLR_BLACK, CLR_BROWN, CLR_WHITE, CLR_YELLOW, CLR_BRIGHT_BLUE,
     DEC_TO_UNICODE,
 } from './terminal.js';
 import {
@@ -34,6 +34,11 @@ import {
 
 const CORPSE_OTYP = objectNames.indexOf('CORPSE');
 const STATUE_OTYP = objectNames.indexOf('STATUE');
+// C ref: objects.h MARKER — obj_is_generic gem/spell ranges
+const FIRST_REAL_GEM_OTYP = objectNames.indexOf('DILITHIUM_CRYSTAL');
+const LAST_GLASS_GEM_OTYP = objectNames.indexOf('WORTHLESS_VIOLET_GLASS');
+const FIRST_SPELL_OTYP = objectNames.indexOf('SPE_DIG');
+const LAST_SPELL_OTYP = objectNames.indexOf('SPE_BLANK_PAPER');
 
 // C ref: defsym.h OBJCLASS_DRAWING — default object-class map symbols
 const DEF_OC_SYM = {
@@ -206,6 +211,25 @@ function covers_objects(x, y) {
     return t === POOL || t === MOAT || t === WATER || t === LAVAPOOL || t === LAVAWALL;
 }
 
+// C ref: display.h obj_is_generic — !dknown potions/gems/spellbooks use
+// generic class glyph (objects[oclass]), not per-otyp oc_color.
+function obj_is_generic(obj) {
+    if (obj.dknown) return false;
+    const oclass = obj.oclass ?? game.objects?.[obj.otyp]?.oc_class;
+    if (oclass === POTION_CLASS) return true;
+    const otyp = obj.otyp;
+    if (otyp >= FIRST_REAL_GEM_OTYP && otyp <= LAST_GLASS_GEM_OTYP) return true;
+    if (otyp >= FIRST_SPELL_OTYP && otyp <= LAST_SPELL_OTYP) return true;
+    return false;
+}
+
+// Contest nomux / tty ANSI_DEFAULT: CLR_GRAY hilite is empty → capture
+// emits default fg (decoded NO_COLOR). CLR_BLACK fg 0 is coerced the same.
+function tty_map_color(color) {
+    if (color === CLR_GRAY || color === CLR_BLACK) return NO_COLOR;
+    return color;
+}
+
 // C ref: display.c map_object / display.h obj_to_glyph + mon_color for corpses
 // C ref: display.h statue_to_glyph — statues use mons[corpsenm].mlet + obj_color(STATUE)
 export function obj_glyph(obj) {
@@ -223,6 +247,11 @@ export function obj_glyph(obj) {
     if (obj.otyp === CORPSE_OTYP && obj.corpsenm != null && obj.corpsenm >= 0) {
         const color = mcolors[obj.corpsenm] ?? def?.oc_color ?? NO_COLOR;
         return { ch, color, dec: false };
+    }
+    // C: generic_obj_to_glyph → objects[oclass] (GENERIC_POTION etc.)
+    if (obj_is_generic(obj)) {
+        const gen = game.objects?.[oclass];
+        return { ch, color: gen?.oc_color ?? NO_COLOR, dec: false };
     }
     const color = def?.oc_color ?? NO_COLOR;
     return { ch, color, dec: false };
@@ -591,7 +620,7 @@ export function show_glyph_cell(x, y, ch, color = NO_COLOR, decgfx = false, attr
     const loc = game.level?.at(x, y);
     if (!loc) return;
     loc.disp_ch = ch;
-    loc.disp_color = color;
+    loc.disp_color = tty_map_color(color);
     loc.disp_decgfx = !!decgfx;
     loc.disp_attr = attr | 0;
     loc.gnew = 1;

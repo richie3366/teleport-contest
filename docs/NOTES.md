@@ -7,17 +7,16 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 
 ## Active
 
-- **Current unit:** D-0117 cleared: `ext_cmd_getlin_hook` uniqueness uses
-  full C AUTOCOMPLETE set (not runnable subset). seed0106 Scr **34→38**.
-- **Hypothesis:** seed0106 next Scr peel @34 is potion `!` at map (71,9)
-  colored CLR_YELLOW (11) while C is NO_COLOR (8) — rc has no `OPTIONS=color`
-  (unlike PASS cohort). JS `obj_glyph`/`newsym` always paint `oc_color`;
-  C mapglyph gates on `iflags.use_color`. seed2200 next real peel after
-  parked RC path @158 is help `j` → `dokeylist` @184.
+- **Current unit:** D-0118 cleared: `obj_is_generic` + tty gray/black→NO_COLOR.
+  seed0106 Scr **38→46**; aggregate screens **857→916**.
+- **Hypothesis:** seed0106 next Scr peel @46 is combat topline — C
+  `You are hit by a dart.` vs JS `The kobold throws dart!  You are hit by
+  dart!` (mthrowu / hit messaging / article). seed2200 next real peel
+  after parked RC path @158 is help `j` → `dokeylist` @184.
 - **Falsifier / next:**
   ```bash
   node frozen/ps_test_runner.mjs sessions/seed0106-priest-extcmd-sweep.session.json
-  # expect Scr >38 if use_color gating is correct; green cohort must stay PASS
+  # expect Scr >46 if dart throw/hit pline matches C; green cohort must stay PASS
   node frozen/ps_test_runner.mjs sessions/seed2200-wizard-quaff-zap-read.session.json
   ```
 - **Parked deep canary:** D-0006 pet movement — do not implement until C
@@ -63,9 +62,10 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 - **seed0106 @16 `# c`→`# chat` was runnable-subset autocomplete** — full
   C AUTOCOMPLETE has chat/chronicle/conduct so `"c"`/`"ch"` stay unexpanded
   until `"cha"` (D-0117). Do not shrink AC names to ported runners.
-- seed0106 potion `!` yellow vs NO_COLOR: rc omits `color`; diagnose
-  `iflags.use_color` / mapglyph before forcing monochrome globally
-  (would break PASS cohort that sets `OPTIONS=color`).
+- **seed0106 potion `!` yellow vs NO_COLOR was NOT missing OPTIONS=color**
+  — C has color (yellow `<`, white `@`/pet). Cause was `obj_is_generic`
+  (`!dknown` potions → GENERIC_POTION CLR_GRAY → tty NO_COLOR) (D-0118).
+  Do not force all yellow `!` → NO_COLOR.
 - Door open: C `recalc_block_point` before vision sees through;
   DECgraphics open door = meta-a / CLR_BROWN; ASCII open door uses
   `horizontal` → `|` / `-` (D-0113/D-0115).
@@ -94,3 +94,6 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   on the quote line (D-0116).
 - `ext_cmd_getlin_hook`: unique among **all** AUTOCOMPLETE `ef_txt`
   (wizard-gated); `"c"`≠chat, `"cha"`→chat (D-0117).
+- Contest nomux: CLR_GRAY and CLR_BLACK record as NO_COLOR (8); yellow
+  hilite works (`\033[93m`). `!dknown` potions use generic class glyph
+  color, not shuffled `oc_color` (D-0118).
