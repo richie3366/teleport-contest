@@ -182,6 +182,8 @@ Do not record a guessed cause as fixed merely because an RNG prefix moved.
 | D-0176 | fixed | minefill/create_trap | traptype NO_TRAP retry + mktrap victim rnd(4) |
 | D-0177 | fixed | minefill/fixup | `fixup_special`/`place_lregion` + Mines mineralize |
 | D-0178 | fixed | dig/mdig_tunnel | tunnels/`ALLOW_DIG`/`mdig_tunnel` postmov rnd(12) |
+| D-0179 | fixed | mhitm/get_mattk | extracted mattk[] + AT_WEAP=254 (not AT_SPIT=10) |
+| D-0180 | fixed | monmove/digweapon | `m_digweapon_check` + pick/axe `mon_wield_item` |
 
 D-0001 through D-0005 predate the strict-length/cohort runbook. Their focused
 causes are preserved, but generic "green sessions held" is historical evidence,
@@ -4855,6 +4857,52 @@ cohort gates if those functions are touched again.
   `ALLOW_WALL` passwall; engulfer update.
 - **Lesson:** tunnel dig RNG is on every successful move of a digger,
   not only when standing on rock — `may_dig` is true for open floor.
-- **Next:** seed0030 @13921 (`mattacku` vs `rn2(12)`) /
+- **Next:** seed0030 @13921 cleared by D-0179/D-0180; see those next.
+
+## D-0179 — get_mattk from extracted mattk[] / AT_WEAP=254 (seed0030)
+
+- **Status:** fixed
+- **Observed:** seed0030 first RNG mismatch @13921 — C `rnd(20)` @
+  `mattacku`; JS `rn2(12)` (next dig / other path).
+- **Rejected:** inventing a Mines-only attack stub — extracted
+  `mattks` already had full NATTK slots; JS ignored them.
+- **C locus:** `monattk.h` AT_WEAP=254 / AT_SPIT=10; `mhitu.c`
+  `getmattk` → `mptr->mattk[indx]`; `mattacku` `rnd(20+i)`.
+- **Cause:** `get_mattk` used a hand `FIRST_ATTK` map with
+  `AT_WEAP=10` (actually AT_SPIT). Mines dwarves/gnomes were AT_NONE
+  so melee never burned the hit die.
+- **Change:** `get_mattk` reads `magr.data.mattk[i]`; constants
+  AT_WEAP=254 / AT_MAGC=255 / AT_SPIT=10; retire FIRST_ATTK.
+- **Verification:** seed0030 prefix **13921→13953**; green+cohort PASS.
+- **Named omission:** `getmattk` substitutions (SEDUCE/disease/DREN/
+  mspec_used/cold→phys/…); AT_MAGC/AT_BREA/AT_GAZE/… bodies in
+  `mattacku`; full multi-slot passives beyond AT_NONE scan.
+- **Lesson:** experience() already used AT_WEAP=254 — combat must
+  match `monattk.h`, not invent AT_WEAP=10 from older NetHack.
+- **Next:** cleared further by D-0180; see D-0180 next.
+
+## D-0180 — m_digweapon_check + pick/axe mon_wield (seed0030)
+
+- **Status:** fixed
+- **Observed:** seed0030 first RNG mismatch @13953 — C `distfleeck`
+  rn2(5); JS `rnd(12)` @ dig (after matching track rn2(32)).
+- **Rejected:** disabling dig near hero alone — C spends the turn
+  wielding before place when needspick diggers lack the right tool.
+- **C locus:** `monmove.c` `m_digweapon_check`; `weapon.c`
+  `mon_wield_item` NEED_PICK_AXE / NEED_AXE / NEED_PICK_OR_AXE;
+  hero-square `m_move` returns MMOVE_NOTHING (not DONE).
+- **Cause:** JS always placed + `mdig_tunnel` for tunnelers; missing
+  digweapon gate let needspick diggers dig when C only wielded.
+- **Change:** `m_digweapon_check` before place; pick/axe arms of
+  `mon_wield_item`; export `m_carrying`/`mon_has_shield`; hero-square
+  → MMOVE_NOTHING so dochug can attack.
+- **Verification:** seed0030 prefix **13953→13987** positional
+  **14343**/105529 Scr **168**/1953; green+strict PASS; cohort PASS;
+  full **15/44** Scr **1405** RNG **135799**.
+- **Named omission:** weld refuse-wield plines; `artifact_light`;
+  NEED_HTH/`select_hwep`; dog_move digweapon; canseemon wield msgs.
+- **Lesson:** dig RNG is gated by weapon readiness for needspick
+  species — missing wield looks like “extra dig”, not wrong may_dig.
+- **Next:** seed0030 @13987 (`next_ident` vs dig) /
   seed0101 Scr / seed0200 @3382.
 

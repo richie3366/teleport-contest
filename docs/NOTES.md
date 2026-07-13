@@ -7,17 +7,19 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 
 ## Active
 
-- **Current unit:** D-0178 cleared seed0030 @13906 — missing `tunnels`/
-  `ALLOW_DIG`/`mdig_tunnel` (JS forced `can_tunnel=false`). Prefix
-  **13906→13921**; positional **14256**/105529; Scr **168**/1953;
-  public Scr **1405**, RNG **135713**; still **15/44**.
-- **Hypothesis / next:** seed0030 @13921 — C `mattacku` `rnd(20)` vs JS
-  `rn2(12)` (hostile attack after digger move); or seed0101 Scr residual
+- **Current unit:** D-0179/D-0180 cleared seed0030 @13921–13953 —
+  `get_mattk` ignored extracted `mattk[]` (AT_WEAP was wrongly 10=AT_SPIT);
+  then missing `m_digweapon_check` let needspick diggers move+`rnd(12)` instead
+  of spending the turn wielding. Prefix **13921→13987**; positional
+  **14343**/105529; Scr **168**/1953; public Scr **1405**, RNG **135799**;
+  still **15/44**.
+- **Hypothesis / next:** seed0030 @13987 — C `next_ident` `rnd(2)` (mkobj /
+  corpse / rocktrap path) vs JS still `rnd(12)` dig; or seed0101 Scr residual
   (RNG full), or seed0200 combat `@3382`.
 - **Falsifier / next:**
   ```bash
   node scripts/rng-diff.mjs sessions/seed0030-ten-diverse-deaths.session.json
-  # expect first mismatch past 13921 if mattacku / combat advances
+  # expect first mismatch past 13987 if corpse/dig peel advances
   node frozen/ps_test_runner.mjs sessions/seed0101-ranger-quiver-throw-travel-engrave.session.json
   # expect Scr >21/27 if residual display peel advances
   ```
@@ -322,6 +324,13 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   `postmov` → `mdig_tunnel` always burns `rnd(12)` when `can_tunnel &&
   may_dig` (open floor included); JS forced `can_tunnel=false` (D-0178).
   Do not invent a seed-local dig burn without `tunnels`/`ALLOW_DIG`.
+- **seed0030 @13921 was NOT dig/`rn2(12)` leftover** — C `mattacku`
+  `rnd(20+i)` after digger move; JS `get_mattk` used a tiny FIRST_ATTK
+  table (AT_WEAP wrongly 10) so Mines dwarves/gnomes were AT_NONE and
+  skipped the hit roll (D-0179). Extracted `mattks` already had AT_WEAP=254.
+- **seed0030 @13953 was NOT missing dig on open floor** — C
+  `m_digweapon_check` spent the turn wielding pick/axe for needspick
+  diggers before place/`mdig_tunnel`; JS moved and dug (D-0180).
 
 ## Landmarks
 
@@ -427,3 +436,8 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 - Digger postmov: `tunnels` && !Rogue → `can_tunnel`; `ALLOW_DIG` in
   mfndpos; every moved digger with `may_dig` calls `mdig_tunnel` which
   **always** burns `rnd(12)` first (D-0178).
+- `monattk.h`: AT_WEAP=254, AT_MAGC=255, AT_SPIT=10 — never use 10 for
+  weapon (D-0179). `get_mattk` reads `data.mattk[]` from extractor.
+- Hostile `m_move`: before place, `m_digweapon_check` may return
+  MMOVE_DONE (wield pick/axe); hero-square returns MMOVE_NOTHING so
+  dochug can `mattacku` (D-0180).

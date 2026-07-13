@@ -31,7 +31,7 @@ const AXE = objectNames.indexOf('AXE');
 const BATTLE_AXE = objectNames.indexOf('BATTLE_AXE');
 
 /** C ref: invent.c m_carrying — first matching otyp in minvent chain. */
-function m_carrying(mon, otyp) {
+export function m_carrying(mon, otyp) {
     for (let o = mon?.minvent; o; o = o.nobj) {
         if (o.otyp === otyp) return o;
     }
@@ -39,7 +39,7 @@ function m_carrying(mon, otyp) {
 }
 
 /** C ref: worn.c which_armor(W_ARMS) — shield blocks two-hand dig tools. */
-function mon_has_shield(mon) {
+export function mon_has_shield(mon) {
     for (let o = mon?.minvent; o; o = o.nobj) {
         if ((o.owornmask || 0) & 0x00000008 /* W_ARMS */) return true;
     }

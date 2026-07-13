@@ -25,14 +25,18 @@ import {
 import { mattacku } from './mhitu.js';
 import { cansee, couldsee, vision_recalc, recalc_block_point } from './vision.js';
 import {
-    isok, ACCESSIBLE, IS_DOOR, D_CLOSED, D_LOCKED, D_ISOPEN, D_NODOOR,
+    isok, ACCESSIBLE, IS_DOOR, IS_STWALL, IS_TREE,
+    D_CLOSED, D_LOCKED, D_ISOPEN, D_NODOOR,
     D_BROKEN, D_TRAPPED, u_at, DISPLACED, Is_rogue_level,
+    NEED_PICK_AXE, NEED_AXE, NEED_PICK_OR_AXE,
+    P_AXE, P_PICK_AXE, W_WEP,
 } from './const.js';
 import {
     CLOAK_OF_DISPLACEMENT, COIN_CLASS, objectNames,
 } from './objects.js';
 import { Monnam } from './do_name.js';
 import { may_dig, mdig_tunnel } from './dig.js';
+import { MON_WEP, mon_wield_item } from './weapon.js';
 
 const CREDIT_CARD = objectNames.indexOf('CREDIT_CARD');
 const SKELETON_KEY = objectNames.indexOf('SKELETON_KEY');
@@ -44,6 +48,56 @@ const MMOVE_MOVED = 1;
 const MMOVE_DIED = 2;
 const MMOVE_DONE = 3;
 const MMOVE_NOMOVES = 4;
+
+/** C ref: obj.h is_pick / is_axe — dig-tool skill predicates. */
+function is_pick(obj) {
+    if (!obj) return false;
+    return (game.objects?.[obj.otyp]?.oc_skill ?? 0) === P_PICK_AXE;
+}
+function is_axe(obj) {
+    if (!obj) return false;
+    return (game.objects?.[obj.otyp]?.oc_skill ?? 0) === P_AXE;
+}
+
+function closed_door_at(x, y) {
+    const loc = game.level?.at(x, y);
+    if (!loc || !IS_DOOR(loc.typ)) return false;
+    return !!((loc.doormask || 0) & (D_CLOSED | D_LOCKED));
+}
+
+/** C ref: wield.c mwelded — cursed weapon stuck in hand. */
+function mwelded(obj) {
+    return !!(obj && obj.cursed && ((obj.owornmask || 0) & W_WEP));
+}
+
+/**
+ * C ref: monmove.c m_digweapon_check — spend turn wielding dig tool if needed.
+ * Returns true when the monster used this move to wield (no place/dig yet).
+ */
+function m_digweapon_check(mtmp, nix, niy) {
+    let can_tunnel = false;
+    if (!Is_rogue_level(game.u?.uz)) can_tunnel = tunnels(mtmp.data);
+    const mw_tmp = MON_WEP(mtmp);
+    if (!(can_tunnel && needspick(mtmp.data) && !mwelded(mw_tmp)
+        && (may_dig(nix, niy) || closed_door_at(nix, niy)))) {
+        return false;
+    }
+    const here = game.level?.at(nix, niy);
+    if (closed_door_at(nix, niy)) {
+        // C: !mw_tmp || !is_pick || !is_axe (almost always sets for doors)
+        if (!mw_tmp || !is_pick(mw_tmp) || !is_axe(mw_tmp)) {
+            mtmp.weapon_check = NEED_PICK_OR_AXE;
+        }
+    } else if (here && IS_TREE(here.typ)) {
+        if (!mw_tmp || !is_axe(mw_tmp)) mtmp.weapon_check = NEED_AXE;
+    } else if (here && IS_STWALL(here.typ)) {
+        if (!mw_tmp || !is_pick(mw_tmp)) mtmp.weapon_check = NEED_PICK_AXE;
+    }
+    if ((mtmp.weapon_check | 0) >= NEED_PICK_AXE && mon_wield_item(mtmp)) {
+        return true;
+    }
+    return false;
+}
 
 // C monsters.h indices (not exported from monsters_data)
 const PM_DISPLACER_BEAST = monsterNames.indexOf('PM_DISPLACER_BEAST');
@@ -493,10 +547,14 @@ export async function m_move(mtmp, after) {
 
     if (mmoved === MMOVE_NOTHING) return MMOVE_NOTHING;
 
-    // Attack-you square: leave in place for now (mattacku not ported)
-    // C returns MMOVE_NOTHING here; DONE is close enough for fall-through.
-    if (nix === game.u.ux && niy === game.u.uy) {
+    // C: m_digweapon_check before place — may spend turn wielding dig tool
+    if (m_digweapon_check(mtmp, nix, niy)) {
         return MMOVE_DONE;
+    }
+
+    // Attack-you square: C returns MMOVE_NOTHING (dochug falls through).
+    if (nix === game.u.ux && niy === game.u.uy) {
+        return MMOVE_NOTHING;
     }
 
     // C: place_monster + mon_track_add then postmov (mintrap on new cell)

@@ -2231,3 +2231,18 @@ Use this shape:
   full **15/44** Scr **1405** RNG **135713**/792838.
 - Next: seed0030 @13921 (`mattacku` vs rn2(12)) /
   seed0101 Scr residual / seed0200 combat @3382.
+
+## 2026-07-13 — get_mattk mattk[] + m_digweapon_check (D-0179/D-0180)
+- Objective: seed0030 @13921 C mattacku rnd(20) vs JS rn2(12) (PROGRESS primary).
+- C locus: monattk.h AT_WEAP=254; mhitu.c getmattk/mattacku; monmove.c
+  m_digweapon_check; weapon.c mon_wield_item NEED_PICK_*.
+- Result: **verified** — get_mattk ignored extracted mattks (AT_WEAP
+  wrongly 10=AT_SPIT) so Mines dwarves/gnomes skipped hit roll; then
+  missing digweapon let needspick diggers dig instead of wielding.
+  Wired get_mattk→data.mattk, AT_WEAP=254, m_digweapon_check +
+  pick/axe mon_wield; hero-square → MMOVE_NOTHING.
+- Verification: seed0030 prefix **13921→13987**; positional
+  **14343**/105529 Scr **168**/1953; green+strict PASS; cohort PASS;
+  full **15/44** Scr **1405** RNG **135799**/792838.
+- Next: seed0030 @13987 (`next_ident` vs dig) /
+  seed0101 Scr residual / seed0200 combat @3382.
