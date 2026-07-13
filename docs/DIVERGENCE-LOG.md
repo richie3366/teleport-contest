@@ -88,6 +88,8 @@ Do not record a guessed cause as fixed merely because an RNG prefix moved.
 | D-0082 | fixed | getpos tip | `nhl_text` NHW_MENU corner offx (not fullscreen blank); seed2200 Scr 89→90 |
 | D-0083 | fixed | farlook stairs | `lookat` cmap `S_brupstair` + getpos curs-after-flush; seed2200 Scr 90→109 |
 | D-0084 | fixed | getpos rush | `HJKLYUBN`/`C(dir)` → 8× `truncate_to_map`; seed2200 Scr 109→113 |
+| D-0085 | fixed | pager/checkfile | NHW_MENU `process_text_window` + CR/tabexpand; seed2200 Scr 113→117 |
+| D-0086 | fixed | objnam/doname | SCR/SPE/RIN/WAN `… of` + bimanual `hands` + `oc_big`; invent @i |
 
 D-0001 through D-0005 predate the strict-length/cohort runbook. Their focused
 causes are preserved, but generic "green sessions held" is historical evidence,
@@ -2309,3 +2311,49 @@ cohort gates if those functions are touched again.
   hilite / valids.
 - **Next:** seed2200 @ screen 80 checkfile pager cursor /
   seed0017 @ 3132 terrain / seed1150 `dog_move`.
+
+## D-0085 — seed2200 checkfile NHW_MENU process_text_window
+
+- **Status:** fixed
+- **Observed:** seed2200 Scr **113**/230 (RNG full). Screen 80 after
+  `/`→`?` getlin `"fountain"` → `checkfile`: C cursor `[36,15]`
+  corner overlay; JS fullscreen TEXT cursor `[8,15]` then (with
+  corner attempt) `[35,15]` from trailing `\r` inflating maxcol.
+- **C locus:** `pager.c` `checkfile` — `create_nhwindow(NHW_MENU)` +
+  `putstr` + `display_nhwindow` → `wintty.c` `process_text_window`
+  (H2344 offx, leading pad, dmore `--More--`); `hacklib.c`
+  `tabexpand` after one leading tab on body lines.
+- **Cause:** JS used fullscreen `show_text_pages` (NHW_TEXT-ish
+  clearScreen); data.base `\r` left in lines shifted offx left by 1.
+- **Change:** `js/pager.js` `show_nhw_menu_text` + CR-normalize
+  `readDat` + tabexpand in `lookup_data_base`; `checkfile` calls
+  NHW_MENU path.
+- **Verification:** green + seed1500/1800/0060/0102/0700 PASS +
+  strict; full **7/44**, screens **482→486**/11405 (with D-0086),
+  RNG **91380**/792838; seed2200 Scr **113→117**/230.
+- **Named omission:** tall checkfile fullscreen paging edge cases;
+  `display_file` still NHW_TEXT-ish `show_text_pages`.
+- **Next:** seed2200 look_all `m` @ screen 87 / seed0017 terrain /
+  seed1150.
+
+## D-0086 — seed2200 doname xname SCR/SPE/RIN/WAN + bimanual hands
+
+- **Status:** fixed
+- **Observed:** seed2200 invent pick (`/`→`i`): C
+  `scroll/spellbook/ring/wand of …`, `(weapon in hands)`; JS
+  `scr`/`spe`/`rin`/`wan` tokens and `(weapon in right hand)`.
+- **C locus:** `objnam.c` `xname` SCROLL/SPBOOK/RING/WAND;
+  `doname` W_WEP + `bimanual` (`obj.h` → `oc_bimanual`/`oc_big`);
+  `objects.h` WEAPON `bi` bit.
+- **Cause:** `pretty_base` lowercased enum tokens; W_WEP ignored
+  bimanual; extractor omitted `oc_big`.
+- **Change:** `scripts/extract-objects.py` + regenerate
+  `oc_big`; `js/objnam.js` xname class prefixes + `bimanual` →
+  `(weapon in hands)`.
+- **Verification:** with D-0085; invent screen 83 matches; seed2200
+  Scr **117**/230; green cohort PASS.
+- **Named omission:** unlabeled/called/descr paths; ammo/missile
+  `(wielded)` phrasing; tethered aklys; glow/artifact_light paren
+  overwrite.
+- **Next:** seed2200 look_all `m` @ screen 87 / seed0017 terrain /
+  seed1150.

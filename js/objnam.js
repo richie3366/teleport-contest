@@ -135,6 +135,40 @@ function pretty_base(obj) {
         }
         return `potion of ${rest}`;
     }
+    // C ref: objnam.c xname SCROLL_CLASS — "scroll of <actualn>" when known
+    if (n && n.startsWith('SCR_')) {
+        const actual = objectNameStrs[obj.otyp]
+            || n.slice(4).toLowerCase().replace(/_/g, ' ');
+        if (obj.dknown && (game.objects?.[obj.otyp]?.oc_name_known || obj.known))
+            return `scroll of ${actual}`;
+        return 'scroll';
+    }
+    // C ref: objnam.c xname SPBOOK_CLASS — "spellbook of <actualn>" when known
+    if (n && n.startsWith('SPE_')) {
+        if (n === 'SPE_NOVEL') return 'book';
+        const actual = objectNameStrs[obj.otyp]
+            || n.slice(4).toLowerCase().replace(/_/g, ' ');
+        if (n === 'SPE_BOOK_OF_THE_DEAD') return actual;
+        if (obj.dknown && (game.objects?.[obj.otyp]?.oc_name_known || obj.known))
+            return `spellbook of ${actual}`;
+        return 'spellbook';
+    }
+    // C ref: objnam.c xname RING_CLASS — "ring of <actualn>" when known
+    if (n && n.startsWith('RIN_')) {
+        const actual = objectNameStrs[obj.otyp]
+            || n.slice(4).toLowerCase().replace(/_/g, ' ');
+        if (obj.dknown && (game.objects?.[obj.otyp]?.oc_name_known || obj.known))
+            return `ring of ${actual}`;
+        return 'ring';
+    }
+    // C ref: objnam.c xname WAND_CLASS — "wand of <actualn>" when known
+    if (n && n.startsWith('WAN_')) {
+        const actual = objectNameStrs[obj.otyp]
+            || n.slice(4).toLowerCase().replace(/_/g, ' ');
+        if (obj.dknown && (game.objects?.[obj.otyp]?.oc_name_known || obj.known))
+            return `wand of ${actual}`;
+        return 'wand';
+    }
     let base = PRETTY[n] || (n ? n.toLowerCase().replace(/_/g, ' ') : 'object');
     // C ref: objnam.c xname — Samurai Japanese_item_name overrides actualn
     if (Role_if_samurai()) {
@@ -193,6 +227,13 @@ export function vtense(subj, verb) {
         return verb + 's';
     }
     return verb;
+}
+
+/** C ref: obj.h bimanual — WEAPON/TOOL with oc_bimanual (oc_big). */
+function bimanual(obj) {
+    if (!obj) return false;
+    if (obj.oclass !== WEAPON_CLASS && obj.oclass !== TOOL_CLASS) return false;
+    return !!(game.objects?.[obj.otyp]?.oc_big);
 }
 
 /**
@@ -275,10 +316,17 @@ export function doname(obj) {
         bp += ' (on right hand)';
     if (obj.owornmask & W_RINGL)
         bp += ' (on left hand)';
-    // C: W_WEP → "(weapon in right/left hand)" for single non-ammo weapons
+    // C ref: objnam.c W_WEP — bimanual → "weapon in hands"; else right/left hand
     if ((obj.owornmask & W_WEP) && quan === 1) {
+        const twoweap = !!game.u?.twoweap && obj === game.u?.uwep;
         const right = (game.u?.uhandedness !== 1); // LEFT_HANDED=1
-        bp += ` (weapon in ${right ? 'right' : 'left'} hand)`;
+        if (bimanual(obj)) {
+            bp += ' (weapon in hands)';
+        } else if (twoweap) {
+            bp += ` (wielded in ${right ? 'right' : 'left'} hand)`;
+        } else {
+            bp += ` (weapon in ${right ? 'right' : 'left'} hand)`;
+        }
     }
     // C: W_SWAPWEP, !twoweap → "(alternate weapon(s); not wielded)"
     if (obj.owornmask & W_SWAPWEP) {

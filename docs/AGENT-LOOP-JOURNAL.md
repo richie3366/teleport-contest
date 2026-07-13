@@ -1037,3 +1037,22 @@ Use this shape:
 - Next: seed2200 checkfile pager @ screen 80 —
   `node frozen/ps_test_runner.mjs sessions/seed2200-wizard-quaff-zap-read.session.json`
   — or seed0017 @ 3132 terrain / seed1150 `dog_move`.
+
+## 2026-07-13 05:18 — checkfile NHW_MENU + doname xname (D-0085/D-0086)
+- Objective: seed2200 Scr 113/230 screen 80 checkfile pager
+  (PROGRESS primary after D-0084).
+- C locus: `pager.c` `checkfile` → NHW_MENU `putstr` /
+  `wintty.c` `process_text_window` + `hacklib.c` `tabexpand`;
+  `objnam.c` `xname` SCR/SPE/RIN/WAN + `doname` W_WEP
+  `bimanual`/`oc_big`; extractor `oc_big`.
+- Result: **verified** — checkfile used fullscreen TEXT; `\r` in
+  data.base shifted offx. Invent pick used enum-token bases and
+  ignored bimanual. Ported NHW_MENU text window + class `… of`
+  names + `(weapon in hands)`.
+- Verification: green + seed1500/1800/0060/0102/0700 PASS +
+  strict; full **7/44**, screens **482→486**/11405, RNG
+  **91380**/792838; seed2200 Scr **113→117**/230.
+- Next: seed2200 look_all `m` @ screen 87 —
+  `node frozen/ps_test_runner.mjs sessions/seed2200-wizard-quaff-zap-read.session.json`
+  — cite look_all morestr/cursor vs `show_text_pages`; or
+  seed0017 @ 3132 terrain / seed1150 `dog_move`.

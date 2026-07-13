@@ -7,20 +7,19 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 
 ## Active
 
-- **Current unit:** after D-0084 seed2200 Scr **109→113**/230
-  (getpos `HJKLYUBN`/`C(dir)` rush 8× + `truncate_to_map`). Prefer
-  seed2200 @ screen 80 checkfile/data.base pager cursor /
+- **Current unit:** after D-0085/D-0086 seed2200 Scr **113→117**/230
+  (checkfile NHW_MENU + doname SCR/SPE/RIN/WAN + bimanual hands). Prefer
+  seed2200 @ screen 87 look_all `m` nearby monsters cursor /
   seed0017 @ 3132 terrain / seed1150 `dog_move`.
-- **Hypothesis (seed2200 Scr 113/230):** screen 80 — after `/`→`?`
-  getlin `"fountain"` → `checkfile`, C pager cursor `[36,15]` on
-  data.base text; JS `[8,15]` (wrong NHW_TEXT/MENU offx or
-  morestr/geometry). Topline text already matches.
+- **Hypothesis (seed2200 Scr 117/230):** screen 87 — `/`→`m` look_all
+  monsters: C pager cursor `[8,23]` (status/`--More--` row); JS `[8,4]`
+  (wrong morestr row / NHW_MENU text geometry for short list).
 - **Falsifier / next probe:**
   ```bash
   node frozen/ps_test_runner.mjs sessions/seed2200-wizard-quaff-zap-read.session.json
   ```
-  Diff screen 80 cursor; cite C `checkfile`/`dlb` pager window type
-  + `wintty` offx — not getpos rush.
+  Diff screen 87 cursor+cells; cite C `look_all`/`do_look` display path
+  vs JS `show_text_pages` / corner menu.
 - **Parked seed0017 @ 3132:** JS `mfndpos` cnt=4 at pet (30,5); C emits
   3× `rn2(12)`. Adding walkable `(30,4)` yields exactly 3× `rn2(12)`.
   JS has VWALL at (30,4); C screen shows floor. Diagnose join/
@@ -96,6 +95,13 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 - seed2200 Scr 109 @ screen 65 was **not** tip/ccp drift after
   corridor look — capital `H` is getpos `MV_RUN` → `8*u.dx` via
   `truncate_to_map` (D-0084). Lowercase-only DIR map ignored it.
+- seed2200 Scr 113 @ screen 80 was **not** NHW_TEXT fullscreen —
+  `checkfile` uses NHW_MENU `putstr` → `process_text_window`; also
+  strip `\r` or maxcol/offx shifts left by 1 (D-0085).
+- seed2200 Scr invent `@i` was **not** menu geometry — `pretty_base`
+  emitted `scr`/`spe`/`rin`/`wan` tokens; C xname uses
+  `scroll/spellbook/ring/wand of <actualn>`; quarterstaff is
+  bimanual → `(weapon in hands)` via `oc_big` (D-0086).
 - `more()` word-wrap of message text must only fire when len≥CO —
   wrapping at CO-8 breaks welcome `--More--` (seed0900).
 
@@ -149,3 +155,8 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 - getpos rush: `highc(dir)` → `movecmd(MV_RUN)`; `C(dir)` →
   `MV_RUSH`; both use `dx=8*u.dx` when `!getloc_moveskip`, then
   `truncate_to_map` (D-0084).
+- checkfile: NHW_MENU putstr → `process_text_window`; leading pad at
+  offx, text at offx+1, dmore `--More--` at offx+1, cursor
+  offx+1+8; tabexpand after one leading tab; strip `\r` (D-0085).
+- doname W_WEP bimanual → `(weapon in hands)` via `oc_big`; xname
+  SCR/SPE/RIN/WAN → `… of <actualn>` from `objectNameStrs` (D-0086).

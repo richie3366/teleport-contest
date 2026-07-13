@@ -47,7 +47,7 @@ function datPath(name) {
 function readDat(name) {
     const p = datPath(name);
     if (!existsSync(p)) return null;
-    return readFileSync(p, 'utf8');
+    return readFileSync(p, 'utf8').replace(/\r\n/g, '\n').replace(/\r/g, '\n');
 }
 
 /**
@@ -63,6 +63,27 @@ function get_lua_version_shuffle() {
     }
     game._lua_ver = '5.4';
     game._nhl_version_align = align;
+}
+
+/**
+ * C ref: hacklib.c tabexpand — expand tabs to 8-column stops in place.
+ */
+function tabexpand(s) {
+    let out = '';
+    let idx = 0;
+    for (const ch of String(s || '')) {
+        if (ch === '\t') {
+            do {
+                out += ' ';
+                idx++;
+            } while (idx % 8);
+        } else {
+            out += ch;
+            idx++;
+        }
+        if (idx >= 255) break; // BUFSZ-1ish truncate
+    }
+    return out;
 }
 
 /** NHW_TEXT-ish page: paint lines, --More-- or (end), wait one key. */
@@ -95,6 +116,86 @@ async function show_text_pages(lines, { moreAtEnd = true } = {}) {
         offset += pageRows;
         if (last) break;
     }
+    game._menu_overlay = false;
+    await docrt();
+    await flush_screen(1);
+}
+
+/**
+ * C ref: pager.c checkfile → create_nhwindow(NHW_MENU) + putstr +
+ *        display_nhwindow → wintty process_text_window (cw->data path).
+ * H2344_BROKEN offx; leading pad at offx; text at offx+1; dmore
+ * defmorestr "--More--" with MENU offset 2 → prompt at offx+1;
+ * cursor past prompt at offx+1+strlen("--More--").
+ * Corner path keeps map/status (no term_clear_screen).
+ */
+async function show_nhw_menu_text(lines) {
+    const disp = game.nhDisplay;
+    if (!disp) {
+        await nhgetch();
+        return;
+    }
+    const cols = disp.cols || 80;
+    const rows = 24;
+    const morestr = '--More--';
+    let maxcol = 0;
+    for (const line of lines) {
+        const n0 = String(line || '').length + 1; // tty_putstr
+        if (n0 > maxcol) maxcol = n0;
+    }
+    let offx = Math.min(Math.min(82, Math.floor(cols / 2)), cols - maxcol - 1);
+    if (offx < 0) offx = 0;
+    const maxrow = lines.length;
+    if (maxrow >= rows || game.flags?.menu_overlay === false) offx = 0;
+
+    game._pending_message = '';
+    game._menu_overlay = false;
+    await flush_screen(1);
+
+    if (offx === 0) {
+        // Fullscreen NHW_MENU / tall entry — clear then paint col-0 text.
+        disp.clearScreen();
+        const pageRows = rows - 1;
+        let offset = 0;
+        while (offset < lines.length || (offset === 0 && lines.length === 0)) {
+            game._menu_overlay = true;
+            const chunk = lines.slice(offset, offset + pageRows);
+            disp.clearScreen();
+            for (let r = 0; r < chunk.length; r++) {
+                const text = chunk[r] || '';
+                for (let i = 0; i < text.length && i < cols; i++)
+                    disp.setCell(i, r, text[i], NO_COLOR, 0);
+            }
+            const last = offset + pageRows >= lines.length;
+            const fr = Math.min(rows - 1, Math.max(chunk.length, 1));
+            for (let i = 0; i < morestr.length && i < cols; i++)
+                disp.setCell(i, fr, morestr[i], NO_COLOR, 0);
+            disp.setCursor(morestr.length, fr);
+            await nhgetch();
+            offset += pageRows;
+            if (last) break;
+        }
+    } else {
+        // C process_text_window corner: cl_end from offx; putchar(' '); text.
+        for (let r = 0; r < lines.length; r++) {
+            for (let c = offx; c < cols; c++)
+                disp.setCell(c, r, ' ', NO_COLOR, 0);
+            disp.setCell(offx, r, ' ', NO_COLOR, 0);
+            const text = lines[r] || '';
+            for (let i = 0; i < text.length && offx + 1 + i < cols; i++)
+                disp.setCell(offx + 1 + i, r, text[i], NO_COLOR, 0);
+        }
+        const moreRow = lines.length;
+        for (let c = offx; c < cols; c++)
+            disp.setCell(c, moreRow, ' ', NO_COLOR, 0);
+        // dmore NHW_MENU: prompt at offx+1
+        for (let i = 0; i < morestr.length && offx + 1 + i < cols; i++)
+            disp.setCell(offx + 1 + i, moreRow, morestr[i], NO_COLOR, 0);
+        disp.setCursor(offx + 1 + morestr.length, moreRow);
+        game._menu_overlay = true;
+        await nhgetch();
+    }
+
     game._menu_overlay = false;
     await docrt();
     await flush_screen(1);
@@ -147,7 +248,17 @@ function lookup_data_base(query) {
             if (!b) { body.push(''); i++; continue; }
             if (b.startsWith('#')) { i++; continue; }
             if (!(b.startsWith('\t') || b.startsWith(' '))) break;
-            body.push(b.replace(/^\t/, ''));
+            // C checkfile: strip one leading tab (or up to 8 spaces), then
+            // tabexpand if any remaining tab (attribution indents).
+            let tp = b;
+            if (tp.startsWith('\t')) tp = tp.slice(1);
+            else if (tp.startsWith(' ')) {
+                let n = 0;
+                while (n < 8 && tp[n] === ' ') n++;
+                tp = tp.slice(n);
+            }
+            if (tp.includes('\t')) tp = tabexpand(tp);
+            body.push(tp);
             i++;
         }
         let matched = false;
@@ -220,7 +331,8 @@ async function checkfile(inp, flags = 0) {
         yes = ch === 'y' || ch === 'Y';
     }
     if (!yes) return true;
-    await show_text_pages(body.map(l => l || ''));
+    // C: NHW_MENU putstr + process_text_window — not NHW_TEXT fullscreen.
+    await show_nhw_menu_text(body.map(l => l || ''));
     return true;
 }
 
