@@ -420,7 +420,7 @@ gettrack redirect falsified (no adjacent track).
 **underfoot `m_search_items` + peaceful `can_carry`** (D-0183) →
 seed0030 prefix **14026→14056** positional **14375**/105529 Scr
 **168**/1953; full **15/44** Scr **1405** RNG **135825**.
-Next peel: seed0030 seg1 @6561 (`dosounds` after D-0203 shop stock) /
+Next peel: seed0030 seg1 @6565 (`distfleeck` after D-0204 dosounds shop) /
 quest `makemaz` / parked seed2200 RC @158.
 Hero `dotrap`/`trapeffect_pit` still deferred; `xkilled` ordinary
 `make_corpse` done (D-0191; treasure `mkobj` still deferred); `,`
@@ -444,6 +444,8 @@ seg1 **3870→5220**);
 **5255→5381**);
 **`stock_room`/`shkinit`/`mkshobj_at`** done (D-0203; seg1
 **5381→6561**);
+**`dosounds` shop/beehive/… feature gates** done (D-0204; seg1
+**6561→6565**);
 other `m_initinv` bodies + soldier early-return still deferred;
 dog_move digweapon / iron bars / shop dig-damage deferred;
 underfoot `m_search_items`→`MMOVE_DONE` still deferred (D-0183);
@@ -476,7 +478,7 @@ underfoot `m_search_items`→`MMOVE_DONE` still deferred (D-0183);
 
 | C source | JS | Status | Evidence / known omissions |
 |---|---|---|---|
-| `src/allmain.c` | `js/allmain.js` | partial | Basic move loop and hunger/sound subsets; **`mvitals.mvflags = geno & G_NOCORPSE` at newgame** (D-0057); **`maybe_generate_rnd_mon` → real `makemon(NULL,0,0)`** (D-0034); **`regen_hp` + once-per-turn call** (D-0035); **`u_calc_moveamt` Fast/Very_fast `rn2(3)`** (D-0058); **Searching EOT → `dosearch0(1)`** (D-0062); **`multi < 0` occupation + `unmul`/`afternmv`** (D-0066); **`go.occupation` tick before rhack** (D-0076); **`welcome` enter-dungeon `livelog_printf`** (D-0124); omit steed `mcalcmove` path / full `youmonst.data->mmove` via `set_uasmon`; `regen_pw`/Teleport/Poly once-per-turn RNG; Upolyd eel hp-loss rolls; Regeneration/Sleepy props; warnreveal; `monster_nearby` stop_occupation |
+| `src/allmain.c` | `js/allmain.js` | partial | Basic move loop and hunger/sound subsets; **`mvitals.mvflags = geno & G_NOCORPSE` at newgame** (D-0057); **`maybe_generate_rnd_mon` → real `makemon(NULL,0,0)`** (D-0034); **`regen_hp` + once-per-turn call** (D-0035); **`u_calc_moveamt` Fast/Very_fast `rn2(3)`** (D-0058); **Searching EOT → `dosearch0(1)`** (D-0062); **`multi < 0` occupation + `unmul`/`afternmv`** (D-0066); **`go.occupation` tick before rhack** (D-0076); **`welcome` enter-dungeon `livelog_printf`** (D-0124); **`dosounds` via `sounds.js`** (D-0204); omit steed `mcalcmove` path / full `youmonst.data->mmove` via `set_uasmon`; `regen_pw`/Teleport/Poly once-per-turn RNG; Upolyd eel hp-loss rolls; Regeneration/Sleepy props; warnreveal; `monster_nearby` stop_occupation |
 | `src/detect.c` `dosearch0`/`findit`/`do_mapping`/`reveal_terrain` + `cmd.c` `doterrain` | `js/detect.js` | partial | **8-neighbour SDOOR/SCORR/trap find + fund (lenses)** + `find_trap` message (D-0062); **`findit`/`findone` SDOOR/SCORR/unseen traps + hero `do_clear_area`** (D-0074); **`do_mapping`/`show_map_spot` hero_memory + `magic_map_background`** (D-0075); **`#terrain`/`doterrain` View which? PICK_ONE + Esc + partial `reveal_terrain`/`browse_map`** (D-0128); omit feel_location/Blind/unmap_invisible, mfind0 body, Hallucination/cls wait, activate_statue_trap, artifact SPFX_SEARCH, cmd_safety_prevention; findone flash/mimic/hider/invis/chest-trap/trapped-door; `reveal_terrain_getglyph`/show_glyph rewrite; unconstrain underwater/buried/swallow; wiz_map_levltyp/legend; room_discovered; trap/engraving restore after furniture |
 | `src/cmd.c` / `src/do.c` / `src/hack.c` lookaround / `src/pray.c` / `src/sounds.c` | `js/cmd.js`, `js/do.js`, `js/getline.js`, `js/wizcmds.js`, `js/zap.js`, `js/read.js`, `js/engrave.js`, `js/pager.js`, `js/getpos.js`, `js/pray.js`, `js/sounds.js`, `js/sit.js`, `js/weapon.js`, `js/dungeon.js`, `js/insight.js`, `js/invent.js`, `js/pline.js` | partial | Movement/search/apply/kick/wait and selected UI/item commands; Ctrl-D → `dokick` (D-0031); **`.` → `donull`** (D-0033); **`'>'` → `dodown`/`next_level`/`goto_level` ordinary stairs + `flush_screen(-1)` descend `--More--` + clear `_objects_at`/`head_engr`** (D-0149/D-0160/D-0161); **`_`/`#travel` → `dotravel`/`dotravel_target` + adjacent/greedy `findtravelpath`** (D-0153); **autoopen walk-into → `doopen_indir`** (D-0059); **`#` → `doextcmd`/`#levelchange`/`#name`/`#pray`/`#chat`/`#chronicle`/`#conduct`/`#vanquished`/`#genocided`(empty)/`#adjust`/`#terrain`/`#sit`/`#dip`/`#offer`/`#enhance`/`#annotate`/`#overview`/`#version`/`#travel`** (D-0061/D-0069/D-0101/D-0103/D-0109/D-0110/D-0124/D-0125/D-0126/D-0127/D-0128/D-0153); omit `doup`/`savelev`/`getlev` restore, mysterious force, quest gate, portals/fall damage, Lua `NHCB_LVL_LEAVE`; full `TEST_TRAV`/`TRAVP_GUESS`/`travelmap`/`#retravel`; remaining `extcmdlist` bodies; … |
 | `src/potion.c` | `js/potion.js` | partial | **`dodrink`/`dopotion`/`peffect_oil`** uncursed/cursed unlit (D-0073); **`dodip` fountain yn→`dipfountain`** (D-0109); omit other `peffect_*`, Strangled, drink fountain/sink/underwater, milky/smoky bottles, lit-oil burn, worn-stack split, `potion_dip` alchemy, sink/pool dips, `more_experienced`, getobj `?`/`*` |
@@ -544,7 +546,7 @@ This is a planning list, not an exhaustive C file inventory:
 - hero-versus-monster and monster-versus-hero combat;
 - traps, riding, travel partial (`_` cancel + adjacent/greedy; full
   TEST_TRAV/GUESS/travelmap deferred); prayer partial (`#pray` p_type 0 + angrygods 0–3);
-  chat partial (`#chat` wall/SDOOR/statue + MS_BARK; other MS_*/shop/priest deferred);
+  chat partial (`#chat` wall/SDOOR/statue + MS_BARK; **`dosounds` feature gates + shop envelope** D-0204; You_hear plines / gd_sound / temple_priest / oracle canseemon / other MS_* deferred);
 - kicking beyond empty-space/`kick_dumb`/`kick_door` CLOSED bust
   (monsters, objects, SDOOR/SCORR, furniture, martial/shop-town);
 - apply beyond lock-pick no-door (containers, other tools);

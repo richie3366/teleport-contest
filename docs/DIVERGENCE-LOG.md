@@ -207,6 +207,7 @@ Do not record a guessed cause as fixed merely because an RNG prefix moved.
 | D-0201 | fixed | mkshop | `invalid_shop_shape` + shtypes `rnd(100)` + rtype/needfill |
 | D-0202 | fixed | maketrap | ROLLING_BOULDER `mkroll_launch`/`find_random_launch_coord` |
 | D-0203 | fixed | shops | `stock_room`/`shkinit`/`mkshobj_at` + shopkeeper invent |
+| D-0204 | fixed | dosounds | shop/`has_*` feature gates after vault; seg1 6561→6565 |
 
 D-0001 through D-0005 predate the strict-length/cohort runbook. Their focused
 causes are preserved, but generic "green sessions held" is historical evidence,
@@ -5518,4 +5519,27 @@ cohort gates if those functions are touched again.
   `rnd_defensive_item` body; irregular-shop edge cases; full `rloc`.
 - **Next:** seed0030 seg1 @6561 `dosounds`; or seed0103
   `next_ident`/`trquan`.
+
+## D-0204 — dosounds has_shop / feature gates (seed0030 seg1 @6561)
+
+- **Symptom:** seed0030 seg1 @6561 C `rn2(200)=59 @ dosounds(sounds.c:313)`
+  (`has_shop`) vs JS `rn2(20)` `gethungry`.
+- **Rejected:** vault/mineralize order; treating 6561 as a fleeck arity bug
+  (6560 already matched vault `rn2(200)` @ sounds.c:238).
+- **Cause/evidence:** After D-0203 set `has_shop`, C `dosounds` rolls
+  beehive/morgue/barracks/zoo/shop/temple/oracle gates after vault. JS
+  `dosounds` stopped after vault, so `gethungry`'s `rn2(20)` landed where
+  C burned shop `rn2(200)`.
+- **Change:** moved/expanded `dosounds` into `js/sounds.js` — full feature
+  gate order; shop body `search_special(ANY_SHOP)`/`tended_shop`/`rn2(2)`/
+  `noisy_shop`; mon_sound helpers RNG-only when match; `is_undead` in
+  `monsters.js`; `allmain.js` imports `dosounds`.
+- **Verification:** seg1 prefix **6561→6565** (`distfleeck`); seed0030
+  positional **21192**/105529 Scr **45**/1953; green+strict+cohort PASS;
+  full **17/44** Scr **1313**/11405 RNG **143768**/792838.
+- **Named omissions:** You_hear plines; `gd_sound` vault body; vampshifter
+  morgue; temple_priest body; oracle `canseemon`; `Is_sanctum`; Hallu
+  message index offsets; full `in_rooms` for `inhishop`.
+- **Next:** seed0030 seg1 @6565 `distfleeck` C `rn2(5)` vs JS `rn2(10)`;
+  or seed0103 `next_ident`/`trquan`.
 

@@ -29,6 +29,7 @@ import { Hello, align_str } from './roles.js';
 import { livelog_printf } from './pline.js';
 import { phase_of_the_moon, friday_13th, FULL_MOON, NEW_MOON } from './calendar.js';
 import { ATR_INVERSE } from './terminal.js';
+import { dosounds } from './sounds.js';
 import {
     UNENCUMBERED, SLT_ENCUMBER, MOD_ENCUMBER, HVY_ENCUMBER, EXT_ENCUMBER,
     NO_MM_FLAGS, Upolyd, LL_ACHIEVE,
@@ -173,30 +174,6 @@ function regen_hp(wtcap) {
     }
 
     if (reached_full) interrupt_multi('You are in full health.');
-}
-
-// C ref: sounds.c dosounds() — feature rolls; vault matters once has_vault
-function dosounds() {
-    const lf = game.level?.flags;
-    if (!lf) return;
-    // Deaf / !acoustics / uswallow / Underwater — skip (Tourist defaults ok)
-    if (lf.nfountains && !rn2(400)) {
-        rn2(3); // fountain_msg index
-    }
-    if (lf.nsinks && !rn2(300)) {
-        rn2(2); // sink_msg
-    }
-    if (lf.has_court && !rn2(200)) {
-        // throne_mon_sound — not hit on early Tourist peels
-    }
-    if (lf.has_swamp && !rn2(200)) {
-        rn2(2); // swamp_msg; C returns after
-        return;
-    }
-    if (lf.has_vault && !rn2(200)) {
-        // gd_sound / vault messages — only when rn2 hits 0; seed1800 burns the roll
-        // Full vault sound path TODO when a peel lands on 0
-    }
 }
 
 function exerper() {

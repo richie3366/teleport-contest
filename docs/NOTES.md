@@ -7,11 +7,13 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 
 ## Active
 
-- **Current unit:** seed0030 seg1 @6561 / seed0103 `next_ident`/`trquan`.
-- **Hypothesis (seed0030 seg1):** after D-0203 `stock_room`/`shkinit`, first
-  mismatch @6561 — C `dosounds` `rn2(200)` (sounds.c:313) vs JS `rn2(20)`.
-- **Falsifier:** compare C `dosounds` call at that site vs JS `dosounds` /
-  vault/fountain feature gates; port the missing sound branch.
+- **Current unit:** seed0030 seg1 @6565 / seed0103 `next_ident`/`trquan`.
+- **Hypothesis (seed0030 seg1):** after D-0204 `dosounds` shop gate, first
+  mismatch @6565 — C `distfleeck` `rn2(5)` vs JS `rn2(10)` (likely wrong
+  fleeck path / actor / `rn2` arity in monmove).
+- **Falsifier:** compare C provenance at 6564–6568 (matched first fleeck
+  `rn2(5)=3`) vs JS stack for the second fleeck call; port the missing
+  branch or fix arity.
 - **Parked deep canary:** D-0006 pet movement — do not implement until C
   state/candidate capture exists.
 - **Parked seed2200 @158:** RC config path — harness `$HOME`, not a port bug.
@@ -145,6 +147,10 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 - **seed0030 seg1 @5381 was NOT mineralize early** — C `fill_special_room`
   → `stock_room`→`shkinit`→`makemon(PM_SHOPKEEPER)` `next_ident`; JS
   skipped stocking (D-0203). Do not re-chase vault `rn2(200)` order.
+- **seed0030 seg1 @6561 was NOT gethungry/`rn2(20)` arity** — after shop
+  stock, C `dosounds` rolls `has_shop` `rn2(200)` (sounds.c:313); JS
+  stopped after vault so `gethungry` landed early (D-0204). Do not
+  re-chase vault-only dosounds.
 - **`monattk.h`: AT_WEAP=254, AT_MAGC=255, AT_SPIT=10** — never use 10 for
   weapon (D-0179).
 - Hostile `m_move`: before place, `m_digweapon_check` may return
@@ -226,3 +232,6 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   `m_initinv` kit + `rnd_misc_item` + `mkmonmoney` + tribute
   `rnd(stockcount)` novel + `mkshobj_at`/`get_shop_item` (D-0203).
   `shkveg`/health-food and Izchak still deferred.
+- **`dosounds`:** after vault, roll beehive/morgue/barracks/zoo/**shop**/
+  temple/oracle gates; shop always `return`s when gate hits (D-0204).
+  Vault gate hit also returns (gd_sound body still deferred).

@@ -90,6 +90,7 @@ export const M2_GREEDY = 0x10000000; /* monflag.h — likes gold */
 export const M2_JEWELS = 0x20000000; /* monflag.h — likes gems */
 export const M2_COLLECT = 0x40000000; /* monflag.h — picks up weapons/food */
 export const M2_MAGIC = 0x80000000; /* monflag.h — picks up magic items */
+export const M2_UNDEAD = 0x00000002; /* monflag.h — walking dead */
 export const M2_LORD = 0x00000400;
 export const M2_PRINCE = 0x00000800;
 export const M2_NASTY = 0x02000000;
@@ -281,6 +282,11 @@ export function mindless(ptr) {
 /** C ref: mondata.h is_animal */
 export function is_animal(ptr) {
     return !!((ptr?.mflags1 ?? 0) & M1_ANIMAL);
+}
+
+/** C ref: mondata.h is_undead */
+export function is_undead(ptr) {
+    return !!((ptr?.mflags2 ?? 0) & M2_UNDEAD);
 }
 
 /** C ref: mondata.h strongmonst */

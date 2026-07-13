@@ -2639,3 +2639,17 @@ Use this shape:
   **21235**/105529 Scr **45**/1953; green+strict+cohort PASS; full
   **17/44** Scr **1313** RNG **143811**.
 - Next: seed0030 seg1 @6561 `dosounds`; or seed0103 `next_ident`/`trquan`.
+
+## 2026-07-14 00:20 — D-0204 dosounds has_shop feature gates
+- Objective: seed0030 seg1 @6561 C `rn2(200) @ dosounds(sounds.c:313)` vs
+  JS `rn2(20)` gethungry (PROGRESS primary).
+- C locus: `sounds.c` `dosounds` / shop `search_special`/`tended_shop`;
+  `mkroom.c` `search_special`; `shk.c` `tended_shop`/`noisy_shop`.
+- Result: **fixed** — JS `dosounds` stopped after vault; after D-0203
+  `has_shop`, C rolls shop `rn2(200)`. Ported remaining feature gates +
+  shop envelope into `js/sounds.js`; `allmain` imports it.
+- Verification: seg1 **6561→6565** (`distfleeck`); seed0030 positional
+  **21192**/105529 Scr **45**/1953; green+strict+cohort PASS; full
+  **17/44** Scr **1313** RNG **143768**.
+- Next: seed0030 seg1 @6565 C `distfleeck` `rn2(5)` vs JS `rn2(10)`; or
+  seed0103 `next_ident`/`trquan`.
