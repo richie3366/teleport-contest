@@ -220,6 +220,7 @@ Do not record a guessed cause as fixed merely because an RNG prefix moved.
 | D-0214 | fixed | ride display | pet mcolor + ridden glyph + saddled + Ride botl; Scr 2→57 |
 | D-0215 | fixed | tutorial menu | invalid letter stays open; no premature Please choose |
 | D-0216 | fixed | death disclose | really_done flush You die --More-- + possessions yn |
+| D-0217 | fixed | mattacku steed | mounted rn2(is_orc?2:4)→mattackm steed; seed0104 2841→3031 |
 
 D-0001 through D-0005 predate the strict-length/cohort runbook. Their focused
 causes are preserved, but generic "green sessions held" is historical evidence,
@@ -5854,3 +5855,26 @@ cohort gates if those functions are touched again.
   (steed still post-checks uhp).
 - **Next:** seed0104 @2841 `mattacku` while mounted; or D-0211 typ
   dump; or seed0030 seg2 @2408.
+
+## D-0217 — Mounted `mattacku` steed redirect (seed0104 @2841)
+
+- **Status:** fixed
+- **Symptom:** seed0104 @2841 C `rn2(2)=0 @ mattacku(mhitu.c:534)` vs
+  JS `rn2(12)` (EOT `mcalcmove` / skipped steed gate).
+- **Cause/evidence:** JS `mattacku` omitted the entire `u.usteed` arm.
+  C burns `rn2(is_orc(ptr)?2:4)` then may `mattackm(mtmp, usteed)` and
+  steed retaliation; steed never attacks the rider. Also JS `m_at`
+  returned the mounted steed (same mx/my as hero) while C
+  `remove_monster`s the steed off the map grid.
+- **C locus:** `mhitu.c` `mattacku` ~528–547; `mondata.h` `is_orc`;
+  `you.h` `m_next2u`; `steed.c` `remove_monster` on mount; `mhitm.c`
+  `mattackm`.
+- **Change:** `mattacku` steed branch + `is_orc`/`M2_ORC` + `m_next2u`;
+  `m_at` skips `u.usteed`. Breath/swallow/undetected still deferred.
+- **Verification:** seed0104 prefix **2841→3031** (positional
+  **3034**/3223 Scr **15**/43); seed0103 still **PASS**; green+strict+
+  cohort PASS; full **18/44** Scr **1405** RNG **148941**.
+- **Named omissions:** full steed `mattackm` feedback/`bhitpos`;
+  whirly/unsolid; map-grid `remove_monster` (logical skip only).
+- **Next:** seed0104 @3031 C `gethungry` vs JS `rn2(5)`; or D-0211
+  typ dump.

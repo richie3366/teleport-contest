@@ -39,8 +39,8 @@ frozen-file overlay):
 |--------|------:|
 | Sessions passing | **18 / 44** |
 | Screens matched | **1405 / 11,405** (12.32%) |
-| Positional RNG calls matched | **148,875 / 792,838** (18.78%) |
-| Speed label | `19+0.09/turn` |
+| Positional RNG calls matched | **148,941 / 792,838** (18.79%) |
+| Speed label | `20+0.09/turn` |
 | Working-tree base | `8b71735` + committed port (see `main`) |
 | Role-init throws | **0 / 44** (`u_init_role: role not ported`) |
 
@@ -70,7 +70,7 @@ shared blockers, and semantic coverage together—not one vanity metric.
 | `seed0101-ranger-quiver-throw-travel-engrave` | **2371 / 2371** | **27 / 27** |
 | `seed0016-healer-newmoon-eat-zap` | **3656 / 3656** | **36 / 36** |
 | `seed0107-samurai-twoweapon-enhance` | **2684 / 2902** | **36 / 98** |
-| `seed0104-knight-ride-combat` | **2968 / 3223** | 15 / 43 |
+| `seed0104-knight-ride-combat` | **3034 / 3223** | 15 / 43 |
 | `seed0361-archeologist-tour` | **3293 / 53865** | 0 / 366 |
 | `seed0373-barbarian-quest-tour` | **2555 / 35386** | 0 / 124 |
 | `seed0105-valk-chat-lamp-ration` | **2499 / 2499** | **30 / 30** |
@@ -290,6 +290,9 @@ seed0103 Scr **2→57**/60; seed0104 Scr **3→15**/43; full **17/44**
 Scr **1399** RNG **148875**.
 **tutorial stay-open + death disclose** (D-0215/D-0216) →
 seed0103 **PASS**; full **18/44** Scr **1405** RNG **148875**.
+**mounted `mattacku` steed redirect** (D-0217) →
+seed0104 prefix **2841→3031** positional **3034**/3223; full
+**18/44** Scr **1405** RNG **148941**.
 
 ### Green gate
 
@@ -480,6 +483,7 @@ autoopen `doopen_indir` (D-0059) + `mfndpos` BOULDER/`ALLOW_ROCK` +
 **`#ride`/`doride`/`mount_steed`/`dismount_steed` BYCHOICE** (D-0213)
 **riding display / pet mcolor / saddled / Ride botl** (D-0214)
 **tutorial stay-open + death disclose** (D-0215/D-0216)
+**mounted `mattacku` steed redirect** (D-0217)
 **ported**; **dog_move extra mfndpos candidate** (D-0211) **open**. Eighteen
 public sessions pass end-to-end. **0/44** throw at
 `u_init_role`. seed0700 + seed1150 + seed0017 + seed0077 + seed0106 +
@@ -487,16 +491,16 @@ seed0501 + seed0105 + seed0016 + seed0015 + seed0200 + seed0101 +
 seed0103 **PASS**. seed2200 RNG **full**
 (Scr **229**/230; sole miss parked RC @158).
 seed0101 RNG **full** Scr **27**/27. seed0103 RNG **full** Scr **60**/60.
-seed0104 **2968**/3223 Scr **15**/43.
+seed0104 **3034**/3223 Scr **15**/43.
 
-- **Bounded unit:** seed0104 @2841 `mattacku` while mounted / seed0030
-  seg2 @2408 (D-0211: C excludes SW diagonal — poison-gas falsified;
-  need C typ dump) / seed0361/0373 **quest `getbones`**
+- **Bounded unit:** seed0104 @3031 C `gethungry` vs JS `rn2(5)` /
+  seed0030 seg2 @2408 (D-0211: C excludes SW diagonal — poison-gas
+  falsified; need C typ dump) / seed0361/0373 **quest `getbones`**
   (blocked: need `^V`→`goto_level`→`makemaz` first — ordinary
   `goto_level` now exists for stairs; Mines `fill_lvl` path exists
   D-0171).
-- **Prefer:** seed0104 mounted combat peel over parked D-0006 and over
-  baking seed2200 RC paths.
+- **Prefer:** seed0104 mounted-combat peel @3031 over parked D-0006 and
+  over baking seed2200 RC paths.
   Hero `dotrap` deferred until monster pit peel is clear.
   Hero `xkilled` treasure `mkobj` still deferred (ordinary `make_corpse`
   done D-0191; mhitm path done D-0167; `done_in_by` bones gate done
@@ -609,6 +613,7 @@ seed0104 **2968**/3223 Scr **15**/43.
   falsified for seg2; need C typ dump);
   **`doride`/`mount_steed`** (done D-0213; Scr residual D-0214 →
   D-0215/16 seed0103 PASS);
+  **mounted `mattacku` steed** (done D-0217; next seed0104 @3031);
   …
 - **Cohort:** green gate + seed1500 + seed1800 + seed0060 + seed0102
   + seed0700 + seed1150 + seed0017 + seed0077 + seed0106 + seed0501
@@ -1382,6 +1387,10 @@ Module status, constitutional debt, and named omissions live in
 191. tutorial stay-open + death disclose (D-0215/D-0216)
     — seed0103 **PASS**; full **18/44** Scr **1405** RNG **148875**;
     next seed0104 @2841 / D-0211 typ dump / seed0030 seg2 @2408
+192. mounted `mattacku` steed redirect (D-0217)
+    — seed0104 prefix **2841→3031** positional **3034**/3223 Scr
+    **15**/43; full **18/44** Scr **1405** RNG **148941**; next
+    seed0104 @3031 / D-0211 typ dump / seed0030 seg2 @2408
 
 Next work is selected from the active objectives above using
 `PORTING-RUNBOOK.md`, not by extending this historical list.

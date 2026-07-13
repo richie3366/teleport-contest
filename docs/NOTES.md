@@ -7,11 +7,14 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 
 ## Active
 
-- **Current unit:** seed0104 @2841 `mattacku` while mounted (after D-0215/
-  D-0216 seed0103 **PASS**); or D-0211 typ dump; or seed0030 seg2 @2408.
-- **Hypothesis (seed0104 @2841):** C `mattacku` `rn2(2)` vs JS extra
-  `dog_move` `rn2(12)` while mounted — steed skip / hero-under-steed
-  attack path after D-0213/D-0214.
+- **Current unit:** seed0104 @3031 after D-0217 mounted `mattacku`
+  steed branch — C `gethungry` `rn2(20)` vs JS `rn2(5)` (likely
+  `distfleeck`); C next is `exercise`/`hitum` (hero attack).
+- **Hypothesis:** post-steed-combat turn/allotment drift — JS still in
+  monster fleeck while C has advanced to hero `hitum`; or missing second
+  `gethungry` path before hero attack.
+- **Falsifier:** dump actor/`u.usteed`/movement at index 3030–3032; check
+  whether C steed HP/`mattackm` return left different moveloop state.
 - **Hypothesis (D-0211):** kitten `dog_move` — JS `mfndpos` includes SW
   that C skips; poison-gas falsified; need C typ dump.
 - **Parked deep canary:** D-0006 pet movement — do not implement until C
@@ -206,6 +209,10 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 - **seed0103 Scr 58–59 was NOT missing slip damage** — `really_done`
   never flushed `You die...` NEED_MORE or called `disclose` possessions
   yn (D-0216). `pline` alone does not wait.
+- **seed0104 @2841 was NOT missing dog_move / steed skip alone** — C
+  `mattacku` while mounted burns `rn2(is_orc?2:4)` then may
+  `mattackm` the steed (D-0217). JS lacked the whole usteed branch.
+  `m_at` must also skip `u.usteed` (C `remove_monster` while mounted).
 - **`monattk.h`: AT_WEAP=254, AT_MAGC=255, AT_SPIT=10** — never use 10 for
   weapon (D-0179).
 - Hostile `m_move`: before place, `m_digweapon_check` may return
@@ -321,3 +328,6 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   pick → rebuild + Please choose (D-0215).
 - **`really_done`:** `flush_topl_more` then `disclose` possessions yn
   before returning (D-0216); `pline("You die...")` alone does not wait.
+- **Mounted `mattacku`:** before hero melee, `rn2(is_orc?2:4)` may redirect
+  to `mattackm(mtmp, usteed)` + steed retaliation; steed never attacks
+  rider; `m_at` skips `usteed` (D-0217).

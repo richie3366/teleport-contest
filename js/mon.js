@@ -241,8 +241,11 @@ export function wakeup(mtmp, via_attack) {
 }
 
 export function m_at(x, y) {
+    // C: level.monsters[][] — steed is remove_monster'd while mounted
     const list = game.fmon || [];
+    const steed = game.u?.usteed;
     for (const m of list) {
+        if (m === steed) continue;
         if (m.mx === x && m.my === y) return m;
     }
     return null;

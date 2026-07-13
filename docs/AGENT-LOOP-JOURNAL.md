@@ -2792,3 +2792,10 @@ Use this shape:
   RNG **148875**.
 - Next: seed0103 Scr (riding display) / seed0104 @2841 `mattacku` /
   D-0211 C typ dump.
+
+## 2026-07-14 01:40 — D-0217 mounted mattacku steed redirect
+- Objective: PROGRESS primary — seed0104 @2841 C `rn2(2) @ mattacku` vs JS `rn2(12)` while mounted.
+- C locus: `mhitu.c:mattacku` usteed arm (~528–547); `mondata.h:is_orc`; `you.h:m_next2u`; `mhitm.c:mattackm`.
+- Result: **verified** — JS lacked the mounted steed branch (`rn2(is_orc?2:4)` → `mattackm` steed + retaliation; steed never attacks rider). Also `m_at` skipped `u.usteed` like C `remove_monster` on mount.
+- Verification: seed0104 prefix **2841→3031** positional **3034**/3223 Scr **15**/43; seed0103 PASS; green+strict+cohort PASS; full **18/44** Scr **1405** RNG **148941**.
+- Next: seed0104 @3031 C `gethungry` `rn2(20)` vs JS `rn2(5)`; or D-0211 C typ dump.

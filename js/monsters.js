@@ -96,6 +96,7 @@ export const M2_PRINCE = 0x00000800;
 export const M2_NASTY = 0x02000000;
 export const M2_STRONG = 0x04000000;
 export const M2_MERC = 0x00000200;
+export const M2_ORC = 0x00000080; /* monflag.h — is an orc (≡ MH_ORC) */
 
 export const M1_FLY = 0x00000001; /* monflag.h — can fly or float */
 export const M1_AMORPHOUS = 0x00000004; /* monflag.h — can flow under doors */
@@ -259,6 +260,11 @@ export function mon_learns_traps(mtmp, ttyp) {
 
 export function throws_rocks(ptr) {
     return !!((ptr?.mflags2 ?? 0) & M2_ROCKTHROW);
+}
+
+/** C ref: mondata.h is_orc */
+export function is_orc(ptr) {
+    return !!((ptr?.mflags2 ?? 0) & M2_ORC);
 }
 
 /** C ref: mondata.h likes_gold */
