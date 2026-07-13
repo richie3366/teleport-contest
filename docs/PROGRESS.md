@@ -39,7 +39,7 @@ frozen-file overlay):
 |--------|------:|
 | Sessions passing | **17 / 44** |
 | Screens matched | **1312 / 11,405** (11.50%) |
-| Positional RNG calls matched | **140,894 / 792,838** (17.77%) |
+| Positional RNG calls matched | **141,570 / 792,838** (17.86%) |
 | Speed label | `20+0.08/turn` |
 | Working-tree base | `8b71735` + committed port (see `main`) |
 | Role-init throws | **0 / 44** (`u_init_role: role not ported`) |
@@ -64,7 +64,7 @@ shared blockers, and semantic coverage together—not one vanity metric.
 | `seed0501-priest-cast-read-turn` | **2238 / 2238** | **28 / 28** |
 | `seed2200-wizard-quaff-zap-read` | **3018 / 3018** | **229 / 230** |
 | `seed0017-samurai-altar-pray` | **3465 / 3465** | **67 / 67** |
-| `seed0030-ten-diverse-deaths` | **18139 / 105529** | **44 / 1953** |
+| `seed0030-ten-diverse-deaths` | **18080 / 105529** | **44 / 1953** |
 | `seed0103-knight-ride-pony` | **2344 / 2640** | 2 / 60 |
 | `seed0200-monk-north-search` | **3822 / 3822** | **40 / 40** |
 | `seed0101-ranger-quiver-throw-travel-engrave` | **2371 / 2371** | **27 / 27** |
@@ -227,35 +227,17 @@ seed0015 **PASS**. seed0101 next Scr residual (RNG full). seed0013 still breaks 
 Lua/`sp_lev`. seed0103 next `next_ident`/`trquan` @ 2337.
 seed0361/0373 `getbones` blocked on unbound `^V`/`goto_level`/
 `makemaz`. seed0077 chargen + vault fallback + door vision/pick_lock/DEC
-open-door (D-0111/D-0112/D-0113) → **PASS**. seed0030 **14487**/105529.
+open-door (D-0111/D-0112/D-0113) → **PASS**. seed0030 **18080**/105529.
 seed0105 RNG **full** (Scr **30**/30).
-**hostile `should_see`/`gettrack` + `goto_level` `initrack`** (D-0181)
-→ gettrack wired; dwarf @13987 gettrack theory falsified.
-**`dmgval` extract `oc_wsdam`/`oc_wldam`** (D-0189) → seed0030 prefix
-**14296→14299**; positional **14572**/105529; full **15/44** Scr
-**1405** RNG **136019**.
-**`mdamageu`→`done_in_by`/`can_make_bones`** (D-0190) → seed0030 seg0
-RNG **complete** (prefix **14300**); positional **15844**/105529 Scr
-**44**/1953; full **15/44** Scr **1281** RNG **137291**.
-**`xkilled`→`make_corpse`** (D-0191) → seed0200 prefix **3387→3547**
-positional **3574**/3822 Scr **22**/40; full **15/44** Scr **1288**
-RNG **137724**.
-**`,`/`dopickup` AUTOSELECT_SINGLE** (D-0192) → seed0200 prefix
-**3547→3565** (`eatcorpse`); positional **3578**/3822 Scr **24**/40;
-full **15/44** Scr **1290** RNG **138575**.
-**`e`/`eatcorpse` + CORPSE occupation** (D-0193) → seed0200 RNG
-**full** Scr **24→39**/40; Scr **1290→1305**; RNG **138575→138545**.
-**`empty_handed` + ^X `weapon_insight` skill** (D-0194) → seed0200
-**PASS**; public **16/44**; Scr **1305→1306**; RNG held **138545**.
-**NHW_MENU flush NEED_MORE + mark_topline NON_EMPTY** (D-0195) →
-seed0101 **PASS**; public **17/44**; Scr **1306→1312**; RNG held
-**138545**.
 **CANDY_BAR `assign_candy_wrapper`** (D-0196) → seed0030 seg1 prefix
 **1238→3347** positional **17994**/105529; full **17/44** Scr **1312**
 RNG **140933**.
 **`dogfood` CORPSE vegan/lichen→MANFOOD** (D-0197) → seed0030 seg1
 prefix **3347→3466** positional **18139**/105529; full **17/44** Scr
 **1312** RNG **140894**.
+**`mhitm_mgc_atk_negated` + AD_ELEC `hitmu`** (D-0198) → seed0030 seg1
+prefix **3466→3497** positional **18080**/105529; full **17/44** Scr
+**1312** RNG **141570**.
 
 ### Green gate
 
@@ -428,20 +410,21 @@ autoopen `doopen_indir` (D-0059) + `mfndpos` BOULDER/`ALLOW_ROCK` +
 **NHW_MENU `flush_topl_more` + `mark_topline_seen` NON_EMPTY** (D-0195)
 **CANDY_BAR `assign_candy_wrapper` `rn2(12)`** (D-0196)
 **`dogfood` CORPSE vegan→MANFOOD + age/acid/poison** (D-0197)
+**`mhitm_mgc_atk_negated` + AD_ELEC `hitmu`** (D-0198)
 **ported**. Seventeen public sessions pass end-to-end. **0/44** throw at
 `u_init_role`. seed0700 + seed1150 + seed0017 + seed0077 + seed0106 +
 seed0501 + seed0105 + seed0016 + seed0015 + seed0200 + seed0101 **PASS**. seed2200 RNG **full**
 (Scr **229**/230; sole miss parked RC @158).
 seed0101 RNG **full** Scr **27**/27.
 
-- **Bounded unit:** seed0030 seg1 @3466 (`mhitm_mgc_atk_negated` vs JS
-  `rn2(3)`) /
+- **Bounded unit:** seed0030 seg1 @3497 (C `m_move` vs JS `mattacku`
+  after grid-bug zap) /
   seed0103 `next_ident`/`trquan` /
   seed0361/0373 **quest `getbones`** (blocked: need `^V`→`goto_level`→
   `makemaz` first — ordinary `goto_level` now exists for stairs; Mines
   `fill_lvl` path exists D-0171).
-- **Prefer:** seed0030 seg1 `mhitm_mgc_atk_negated` peel (lichen vegan
-  done D-0197) over parked D-0006 and over baking seed2200 RC paths.
+- **Prefer:** seed0030 seg1 position/`m_move` peel after D-0198 AD_ELEC
+  over parked D-0006 and over baking seed2200 RC paths.
   Hero `dotrap` deferred until monster pit peel is clear.
   Hero `xkilled` treasure `mkobj` still deferred (ordinary `make_corpse`
   done D-0191; mhitm path done D-0167; `done_in_by` bones gate done
@@ -531,7 +514,8 @@ seed0101 RNG **full** Scr **27**/27.
   per-level `rest_track` on return visits; large-monster `dmgval`
   switch / thick-skin/shade/silver/blessed/axe (small path D-0189);
   `dogfood` polyfood/cannibalism/rider/petrify/`resists_*` (vegan/
-  age-exception/acid/poison done D-0197); …
+  age-exception/acid/poison done D-0197); other `mhitm_ad_*` +
+  `destroy_items` body (AD_ELEC mgc gate done D-0198); …
 - **Cohort:** green gate + seed1500 + seed1800 + seed0060 + seed0102
   + seed0700 + seed1150 + seed0017 + seed0077 + seed0106 + seed0501
   + seed0105 + seed0016 + seed0015 + seed0200 + seed0101 (must stay PASS)
@@ -1228,6 +1212,11 @@ Module status, constitutional debt, and named omissions live in
     — seed0030 seg1 prefix **3347→3466** (`mhitm_mgc_atk_negated`);
     positional **18139**/105529 Scr **44**/1953; full **17/44** Scr
     **1312** RNG **140894**; next seed0030 seg1 @3466 /
+    seed0103 `next_ident`
+175. `mhitm_mgc_atk_negated` + AD_ELEC `hitmu` (D-0198)
+    — seed0030 seg1 prefix **3466→3497** (C `m_move` vs JS `mattacku`);
+    positional **18080**/105529 Scr **44**/1953; full **17/44** Scr
+    **1312** RNG **141570**; next seed0030 seg1 @3497 /
     seed0103 `next_ident`
 
 Next work is selected from the active objectives above using

@@ -5374,3 +5374,27 @@ cohort gates if those functions are touched again.
 - **Next:** seed0030 seg1 @3466 `mhitm_mgc_atk_negated`; or seed0103
   `next_ident`/`trquan`.
 
+## D-0198 — `mhitm_mgc_atk_negated` + AD_ELEC `hitmu` (2026-07-13)
+
+- **Symptom:** seed0030 seg1 @3466 C `rn2(10) @ mhitm_mgc_atk_negated`
+  vs JS `rn2(3)` (knockback). Screen: "The grid bug bites!  You get
+  zapped!"
+- **Rejected:** missing passive `rn2(3)` after PHYS hit — C never
+  reaches knockback until after `mhitm_ad_elec`.
+- **Cause/evidence:** JS `hitmu` only called `mhitm_ad_phys_u`; C
+  `hitmu`→`mhitm_adtyping`→`mhitm_ad_elec` (mhitu): `hitmsg`, then
+  `mhitm_mgc_atk_negated` (`rn2(10)` vs `3*armpro`), then destroy_items
+  gate `m_lev > rn2(20)`.
+- **Change:** `js/mhitm.js` `mhitm_mgc_atk_negated` + hero
+  `magic_negation` armor `a_can` subset; `js/mhitu.js`
+  `mhitm_adtyping_u` (PHYS+ELEC) + `mhitm_ad_elec_u`; `hitmu` wired.
+- **Verification:** seg1 prefix **3466→3497**; seed0030 positional
+  **18080**/105529 Scr **44**/1953; green+strict+cohort PASS; full
+  **17/44** Scr **1312**/11405 RNG **141570**/792838.
+- **Named omissions:** `destroy_items` body when gate passes; monster
+  defender `magic_negation`; Protection/amulet MC bumps; other
+  `mhitm_ad_*` (FIRE/COLD/ACID/…); `monstseesu`/`monstunseesu`;
+  uhitm/mhitm elec branches.
+- **Next:** seed0030 seg1 @3497 C `m_move` vs JS `mattacku` (position);
+  or seed0103 `next_ident`/`trquan`.
+

@@ -7,12 +7,12 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 
 ## Active
 
-- **Current unit:** seed0030 seg1 @3466 / seed0103 `next_ident`/`trquan`.
-- **Hypothesis (seed0030 seg1):** after D-0197 lichen vegan→MANFOOD, first
-  mismatch @3466 C `rn2(10) @ mhitm_mgc_atk_negated` vs JS `rn2(3)` —
-  missing magic-attack negation gate (or earlier silent combat state).
-- **Falsifier:** read C `mhitm_mgc_atk_negated` + caller; confirm JS
-  `mattacku`/`hitmu` path skips it before a `rn2(3)` (passive?).
+- **Current unit:** seed0030 seg1 @3497 / seed0103 `next_ident`/`trquan`.
+- **Hypothesis (seed0030 seg1):** after D-0198 grid-bug `mhitm_ad_elec`, first
+  mismatch @3497 C `rn2(12) @ m_move` vs JS `rnd(20) @ mattacku` — a monster
+  is adjacent in JS (attacks) while C still pathfinds (mfndpos/position drift).
+- **Falsifier:** dump actors near hero at seg1 step after the zap (C screen
+  "The grid bug bites!  You get zapped!"); compare mx/my vs JS `m_at`/mux.
 - **Parked deep canary:** D-0006 pet movement — do not implement until C
   state/candidate capture exists.
 - **Parked seed2200 @158:** RC config path — harness `$HOME`, not a port bug.
@@ -122,6 +122,10 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 - **seed0030 seg1 @3347 was NOT missing APPORT/`can_carry`/`m_cansee`**
   — lichen CORPSE: JS `dogfood` returned CADAVER; C vegan(fptr)→MANFOOD
   so `dog_goal` APPORT branch rolls `rn2(8)` (D-0197).
+- **seed0030 seg1 @3466 was NOT missing passive `rn2(3)`** — grid bug
+  AD_ELEC: C `mhitm_adtyping`→`mhitm_ad_elec` burns `mhitm_mgc_atk_negated`
+  `rn2(10)` then destroy_items gate `rn2(20)`; JS `hitmu` only did PHYS
+  (D-0198). Do not re-chase knockback-before-adtyping.
 - **`monattk.h`: AT_WEAP=254, AT_MAGC=255, AT_SPIT=10** — never use 10 for
   weapon (D-0179).
 - Hostile `m_move`: before place, `m_digweapon_check` may return
@@ -184,3 +188,6 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 - **`dogfood` CORPSE:** lichen/vegan → `herbi ? CADAVER : MANFOOD` (not
   always CADAVER); age poison skips lizard/lichen/fungus-pet; acidic/
   poisonous → POISON (`resists_*` stubbed false) (D-0197).
+- **`hitmu` must `mhitm_adtyping`** — AD_ELEC → `mhitm_mgc_atk_negated`
+  `rn2(10)` + destroy_items gate `rn2(20)`; PHYS keeps prior path
+  (D-0198). Other adtyps still zero-out.

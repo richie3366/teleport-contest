@@ -12,13 +12,14 @@ import {
 import { thrwmu } from './mthrowu.js';
 import { find_offensive, use_offensive } from './muse.js';
 import { nomul } from './hack.js';
-import { rnd, d } from './rng.js';
+import { rnd, d, rn2 } from './rng.js';
 import { pline } from './display.js';
 import { Monnam } from './do_name.js';
 import { MON_WEP, mon_wield_item, dmgval } from './weapon.js';
 import {
-    get_mattk, mhitm_knockback,
+    get_mattk, mhitm_knockback, mhitm_mgc_atk_negated,
     AT_NONE, AT_CLAW, AT_KICK, AT_BITE, AT_STNG, AT_TUCH, AT_BUTT, AT_WEAP,
+    AD_PHYS, AD_ELEC,
 } from './mhitm.js';
 import { done_in_by } from './end.js';
 
@@ -118,7 +119,52 @@ async function mhitm_ad_phys_u(mtmp, mattk, mhm) {
 }
 
 /**
- * C ref: mhitu.c hitmu — base d() + ad_phys + knockback + AC/Half + mdamageu.
+ * C ref: uhitm.c mhitm_ad_elec mhitu branch (mdef == youmonst).
+ * destroy_items body deferred when m_lev > rn2(20); gate always burns.
+ * monstseesu / monstunseesu deferred.
+ */
+async function mhitm_ad_elec_u(mtmp, mattk, mhm) {
+    const orig_dmg = mhm.damage;
+    await hitmsg(mtmp, mattk);
+    if (!(await mhitm_mgc_atk_negated(mtmp, null, true))) {
+        await pline('You get zapped!');
+        const u = game.u || {};
+        const Shock_resistance = !!(u.Shock_resistance || u.HShock_resistance
+            || u.EShock_resistance);
+        if (Shock_resistance) {
+            await pline("The zap doesn't shock you!");
+            mhm.damage = 0;
+        }
+        // C: if ((int) magr->m_lev > rn2(20)) destroy_items(...)
+        if ((mtmp.m_lev | 0) > rn2(20)) {
+            // destroy_items(&youmonst, AD_ELEC, orig_dmg) body deferred
+            void orig_dmg;
+        }
+    } else {
+        mhm.damage = 0;
+    }
+}
+
+/**
+ * C ref: uhitm.c mhitm_adtyping — mhitu (monster→you) subset.
+ * PHYS + ELEC ported; other adtyps zero damage until peeled.
+ */
+async function mhitm_adtyping_u(mtmp, mattk, mhm) {
+    switch (mattk.adtyp | 0) {
+    case AD_PHYS:
+        await mhitm_ad_phys_u(mtmp, mattk, mhm);
+        break;
+    case AD_ELEC:
+        await mhitm_ad_elec_u(mtmp, mattk, mhm);
+        break;
+    default:
+        mhm.damage = 0;
+        break;
+    }
+}
+
+/**
+ * C ref: mhitu.c hitmu — base d() + adtyping + knockback + AC/Half + mdamageu.
  * Undead midnight extra, passiveum, permdmg, map_invisible deferred.
  */
 async function hitmu(mtmp, mattk) {
@@ -133,7 +179,7 @@ async function hitmu(mtmp, mattk) {
     mhm.damage = d(mattk.damn | 0, mattk.damd | 0);
     // midnight undead extra d() deferred
 
-    await mhitm_ad_phys_u(mtmp, mattk, mhm);
+    await mhitm_adtyping_u(mtmp, mattk, mhm);
     mhitm_knockback(mtmp, null, mattk, mhm.hitflags, MON_WEP(mtmp) != null);
 
     if (mhm.done) return mhm.hitflags;

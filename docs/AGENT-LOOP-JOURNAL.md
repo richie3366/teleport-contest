@@ -2564,3 +2564,16 @@ Use this shape:
 - Verification: seg1 **3347→3466**; seed0030 positional **18139**/105529;
   full **17/44** Scr **1312** RNG **140894**; green+strict+cohort PASS.
 - Next: seed0030 seg1 @3466 `mhitm_mgc_atk_negated`; or seed0103 `next_ident`/`trquan`.
+
+## 2026-07-13 23:45 — D-0198 mhitm_mgc_atk_negated + AD_ELEC hitmu fixed
+- Objective: seed0030 seg1 @3466 C `rn2(10) @ mhitm_mgc_atk_negated` vs JS
+  `rn2(3)` (PROGRESS primary).
+- C locus: `uhitm.c` `mhitm_mgc_atk_negated` / `mhitm_ad_elec`; `mhitu.c` `hitmu`
+  → `mhitm_adtyping`.
+- Result: **fixed** — grid bug AD_ELEC: JS `hitmu` only ran PHYS; C burns
+  `rn2(10)` MC gate then destroy_items `rn2(20)`. Wired
+  `mhitm_mgc_atk_negated`, `mhitm_adtyping_u` (PHYS+ELEC), `mhitm_ad_elec_u`.
+- Verification: seg1 **3466→3497**; seed0030 positional **18080**/105529;
+  full **17/44** Scr **1312** RNG **141570**; green+strict+cohort PASS.
+- Next: seed0030 seg1 @3497 C `m_move` vs JS `mattacku`; or seed0103
+  `next_ident`/`trquan`.
