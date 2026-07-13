@@ -205,6 +205,7 @@ Do not record a guessed cause as fixed merely because an RNG prefix moved.
 | D-0199 | fixed | monnear NODIAG | grid-bug diagonal not nearby → `m_move` |
 | D-0200 | fixed | themerms fill | Default themed-fill → `themeroom_fill` + Storeroom + `set_mimic_sym` |
 | D-0201 | fixed | mkshop | `invalid_shop_shape` + shtypes `rnd(100)` + rtype/needfill |
+| D-0202 | fixed | maketrap | ROLLING_BOULDER `mkroll_launch`/`find_random_launch_coord` |
 
 D-0001 through D-0005 predate the strict-length/cohort runbook. Their focused
 causes are preserved, but generic "green sessions held" is historical evidence,
@@ -5467,5 +5468,28 @@ cohort gates if those functions are touched again.
 - **Named omissions:** `stock_room`/`shkinit`/`mkshobj_at`/`get_shop_item`;
   shtypes iprobs/shknms; wizard SHOPTYPE; COURT/ZOO/… `do_mkroom` bodies.
 - **Next:** seed0030 seg1 @5255 `find_random_launch_coord`/`mktrap`; or
+  seed0103 `next_ident`/`trquan`.
+
+## D-0202 — maketrap ROLLING_BOULDER mkroll_launch (seed0030 seg1 @5255)
+
+- **Symptom:** seed0030 seg1 @5255 C `rn2(5)=1 @ find_random_launch_coord`
+  vs JS `rnd(4)` (mktrap victim gate).
+- **Rejected:** arrow/dart launch setup — traptype was `rnd(25)=7`
+  (`ROLLING_BOULDER_TRAP`); C only calls `mkroll_launch` from that
+  `maketrap` case.
+- **Cause/evidence:** JS `maketrap` omitted `ROLLING_BOULDER_TRAP` →
+  `mkroll_launch` → `find_random_launch_coord` (`rn1(5,4)` / `rn2(8)` /
+  `isclearpath`), so victim `rnd(4)` ran immediately.
+- **Change:** `js/trap.js` — `isclearpath`, `find_random_launch_coord`,
+  `mkroll_launch`; `maketrap` calls `mkroll_launch(…, BOULDER, 1)` for
+  rolling boulder; `launch2` field on trap.
+- **Verification:** seg1 prefix **5255→5381** (`shkinit`/`makemon`
+  shopkeeper); seed0030 positional **19890**/105529 Scr **45**/1953;
+  green+strict+cohort PASS; full **17/44** Scr **1313**/11405 RNG
+  **142466**/792838.
+- **Named omissions:** drawbridge-under pool/lava in `is_pool_or_lava`;
+  full `linedup` couldsee for launchplace; `launch_obj` trigger;
+  STATUE_TRAP living statue; pit shop/terrain morph; Sokoban finish.
+- **Next:** seed0030 seg1 @5381 `shkinit`/`stock_room`/`mkshobj_at`; or
   seed0103 `next_ident`/`trquan`.
 

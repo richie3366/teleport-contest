@@ -2611,3 +2611,17 @@ Use this shape:
   full **17/44** Scr **1312** RNG **142327**.
 - Next: `node -e` seg1 mismatch @5255 / port `find_random_launch_coord`
   or `mktrap` launch; or seed0103 `next_ident`/`trquan`.
+
+## 2026-07-14 00:10 — D-0202 maketrap ROLLING_BOULDER mkroll_launch
+- Objective: seed0030 seg1 @5255 C `rn2(5) @ find_random_launch_coord` vs JS
+  `rnd(4)` (PROGRESS primary).
+- C locus: `trap.c` `maketrap`/`mkroll_launch`/`find_random_launch_coord`/
+  `isclearpath`.
+- Result: **fixed** — JS `maketrap` skipped rolling-boulder launch setup;
+  C burned `rn1(5,4)`/`rn2(8)` before victim gate. Ported launch helpers
+  and `mkroll_launch(BOULDER,1)` from the ROLLING_BOULDER case.
+- Verification: seg1 **5255→5381** (`shkinit`/`makemon` shopkeeper);
+  seed0030 positional **19890**/105529 Scr **45**/1953; green+strict+
+  cohort PASS; full **17/44** Scr **1313** RNG **142466**.
+- Next: seed0030 seg1 @5381 `shkinit`/`stock_room`/`mkshobj_at`; or
+  seed0103 `next_ident`/`trquan`.

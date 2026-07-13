@@ -7,12 +7,12 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 
 ## Active
 
-- **Current unit:** seed0030 seg1 @5255 / seed0103 `next_ident`/`trquan`.
-- **Hypothesis (seed0030 seg1):** after D-0201 `mkshop`, first mismatch @5255 —
-  C `rn2(5) @ find_random_launch_coord` vs JS `rnd(4)` (arrow/dart trap launch
-  setup incomplete or wrong `mktrap` branch during ordinary fill).
-- **Falsifier:** compare C `mktrap`/`find_random_launch_coord` call at seg1
-  ~5255 with JS fill_ordinary_room trap placement.
+- **Current unit:** seed0030 seg1 @5381 / seed0103 `next_ident`/`trquan`.
+- **Hypothesis (seed0030 seg1):** after D-0202 `mkroll_launch`, first mismatch
+  @5381 — C `next_ident`/`makemon(PM_SHOPKEEPER)` inside `shkinit` vs JS
+  `rn2(200)` mineralize (shop `stock_room`/`shkinit` still deferred).
+- **Falsifier:** wire `fill_special_room` shop path → `shkinit`/`stock_room`
+  and re-measure seg1 @5381.
 - **Parked deep canary:** D-0006 pet movement — do not implement until C
   state/candidate capture exists.
 - **Parked seed2200 @158:** RC config path — harness `$HOME`, not a port bug.
@@ -139,6 +139,10 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   eligible shop rooms without `rnd(100)`/`rtype`, so fillable count was
   `rn2(7)` vs C `rn2(6)` after shop claim (D-0201). Do not skip
   `invalid_shop_shape` when porting.
+- **seed0030 seg1 @5255 was NOT arrow/dart launch** — `traptype_rnd`
+  `rnd(25)=7` is `ROLLING_BOULDER_TRAP`; C `maketrap`→`mkroll_launch`→
+  `find_random_launch_coord` `rn1(5,4)`/`rn2(8)` while JS jumped to
+  victim `rnd(4)` (D-0202).
 - **`monattk.h`: AT_WEAP=254, AT_MAGC=255, AT_SPIT=10** — never use 10 for
   weapon (D-0179).
 - Hostile `m_move`: before place, `m_digweapon_check` may return
@@ -212,4 +216,7 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   overrides afterward.
 - **`mkshop`:** eligible OROOM + doorct==1 + `!invalid_shop_shape` +
   `rnd(100)` shtypes + `rtype=SHOPBASE+i` + `needfill` before fillable
-  countdown (D-0201). `stock_room`/`shkinit` still deferred (~seg1@5399).
+  countdown (D-0201).
+- **`maketrap` ROLLING_BOULDER:** `mkroll_launch`→`find_random_launch_coord`
+  `rn1(5,4)`+`rn2(8)` + `isclearpath` both ways; fail → launch at trap
+  (victim skipped) (D-0202). `stock_room`/`shkinit` next (~seg1@5381).
