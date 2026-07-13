@@ -23,6 +23,19 @@ Use this shape:
 
 ---
 
+## 2026-07-13 11:25 — yn leave prompt + cleric doname (D-0121)
+- Objective: seed0106 `#dip` yn @110 / garlic doname @116 (PROGRESS primary).
+- C locus: `win/tty/topl.c` `tty_yn_function`; `objnam.c` `doname` + `!Role_if(PM_CLERIC)`.
+- Result: **verified** — silent dipfountain case 16 left C yn prompt on
+  topline; JS cleared `_pending_message` on answer. Garlic `"uncursed "`
+  was priest BUC-always-known, not short_oname.
+- Verification: seed0106 Scr **250→253**/267; green+strict PASS; cohort
+  1500/1800/0060/0102/0700/1150/0017/0077 PASS; full **10/44** Scr
+  **1120→1123** RNG **104575**/792838.
+- Next: seed0106 `#enhance` menu offx @133, or seed2200 `dokeylist` @184.
+
+---
+
 ## 2026-07-13 11:20 — newsym _map_location under visible monster (D-0120)
 - Objective: seed0106 Scr @44 floor `)` vs `#` (PROGRESS primary).
 - C locus: `display.c` `newsym` / `_map_location` (show=0 under mon).

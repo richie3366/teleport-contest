@@ -248,7 +248,7 @@ RNG **104575**/792838.
 **angrygods `verbalize` + `adjattrib` You_feel** (D-0116) →
 seed0106 Scr **32→34**/267; full **10/44** Scr **853** RNG
 **104575**/792838.
-**`ext_cmd_getlin_hook` full AUTOCOMPLETE uniqueness** (D-0117) →
+**`ext_cmd_getlin_hook` full AUTOCOMPLETE uniqueness** (D-0117); **`yn_function` leave prompt after answer** (D-0121) →
 seed0106 Scr **34→38**/267; full **10/44** Scr **857** RNG
 **104575**/792838.
 **`obj_is_generic` + tty gray/black→NO_COLOR** (D-0118) →
@@ -260,7 +260,10 @@ seed0106 Scr **46→49**/267; full **10/44** Scr **919** RNG
 **`newsym` `_map_location` under visible monster** (D-0120) →
 seed0106 Scr **49→250**/267; full **10/44** Scr **1120** RNG
 **104575**/792838.
-Next peel: seed0106 `#dip` yn @110 / garlic doname @116 /
+**`yn_function` leave prompt + cleric `doname` skip uncursed** (D-0121) →
+seed0106 Scr **250→253**/267; full **10/44** Scr **1123** RNG
+**104575**/792838.
+Next peel: seed0106 `#enhance` menu offx @133 /
 seed2200 `dokeylist` @184 (after parked RC path @158) /
 `getbones` (blocked on `^V`/`makemaz`) / `wipeout_text` / `lspo_map` /
 pony `next_ident` / `maybe_smudge_engr`.
@@ -303,7 +306,7 @@ pony `next_ident` / `maybe_smudge_engr`.
 | `src/version.c` `doextversion` / `nhlua.c` `get_lua_version` | `js/pager.js` | partial | **first About/`#version` → nhlib `shuffle(align)`** (D-0077/D-0110); version/options text approximate; full OPTIONS_USED dlb parse deferred |
 | `src/wield.c` | `js/wield.js` | partial | **`dowield`/`ready_weapon`/`setuwep`/`welded`** + getobj letter/`-` (D-0065); **`doswapweapon`/`setuswapwep`/`ammo_and_launcher`** (D-0069); omit `cantwield` poly, `cant_wield_corpse`, bimanual+shield, weld pline body, quiver ynq, count-split, `arti_speak`/`artifact_light`, `pushweapon`, full `setworn` props |
 | `src/do_wear.c` | `js/do_wear.js` | partial | **`dotakeoff`** (D-0063) + **`dowear`/`canwearobj`/`accessory_or_armor_on`/`setworn`/`Armor_on` + delay-0 `on_msg`/`unmul`** (D-0066) + **`doputon`/`Amulet_on` + ring-hand yn + amulet/eyewear put-on** (D-0067); omit Ring_on learnring/attribs, Blindf_on specials, amulet change/strangle/sleep/flying/breathing, ring Glib/cursed-gloves/weld, doff `oc_delay` occupation, magic helms beyond fedora, `dragon_armor_handling`, `setworn` oc_oprop props, poly/weld/trap gates, `A` takeoffall |
-| `src/objnam.c` `readobjnam` | `js/readobjnam.js`, `js/objnam.js` | partial | **wish subset:** prefixes + `name_to_monplus` dragon mail + `rnd_otyp_by_namedesc`/`wishymatch` + artifact_name + BUC/spe + oname (D-0064); doname empty/wield/swapwep/potion/implicit-uncursed (D-0024); CORPSE `corpsenm` (D-0019); **COIN quan=1 `"a gold piece"`** (D-0037); **`Japanese_item_name` table** for Samurai discovery (D-0045); **Japanese display in doname/`obj_typename`/`disco_typename` + ya plural + quiver + rustproof** (D-0079); doname `named`; **`xprname` `dot` for prinv** (D-0070); **xname SCR/SPE/RIN/WAN `… of <actualn>` + bimanual `(weapon in hands)`** (D-0086); **STATUE `of a <pm>`** (D-0087); **GEM `GemStone`/`xname`/`singular` + `obj_typename` stone** (D-0097); omit fruits/traps/terrain/random/`o_ranges`/alt spellings/Japanese wish; unlabeled/called/descr beyond GEM; ammo `(wielded)` / tethered aklys / glow paren; full erosion proofs beyond rustproof; armor pair-of/set-of |
+| `src/objnam.c` `readobjnam` | `js/readobjnam.js`, `js/objnam.js` | partial | **wish subset:** prefixes + `name_to_monplus` dragon mail + `rnd_otyp_by_namedesc`/`wishymatch` + artifact_name + BUC/spe + oname (D-0064); doname empty/wield/swapwep/potion/implicit-uncursed (D-0024); **cleric skip `"uncursed "`** (D-0121); CORPSE `corpsenm` (D-0019); **COIN quan=1 `"a gold piece"`** (D-0037); **`Japanese_item_name` table** for Samurai discovery (D-0045); **Japanese display in doname/`obj_typename`/`disco_typename` + ya plural + quiver + rustproof** (D-0079); doname `named`; **`xprname` `dot` for prinv** (D-0070); **xname SCR/SPE/RIN/WAN `… of <actualn>` + bimanual `(weapon in hands)`** (D-0086); **STATUE `of a <pm>`** (D-0087); **GEM `GemStone`/`xname`/`singular` + `obj_typename` stone** (D-0097); omit fruits/traps/terrain/random/`o_ranges`/alt spellings/Japanese wish; unlabeled/called/descr beyond GEM; ammo `(wielded)` / tethered aklys / glow paren; full erosion proofs beyond rustproof; armor pair-of/set-of; SCR_MAIL/amulet uncursed exclusions |
 | `src/invent.c` `hold_another_object` | `js/invent.js` | partial | **artifact touch + addinv + prinv** (D-0064); **prinv `xprname(..., dot)`** (D-0070); **`observe_object` in invent_lines** (D-0079); omit fumbling/encumbrance-drop/autoquiver/fatal-corpse; xname-path observe beyond invent |
 | `src/do_name.c` `oname` / `docallcmd` | `js/do_name.js` | partial | **artifact oname/`artifact_exists`** (D-0064); **`docallcmd` menu + cancel/floor stubs** (D-0069); **`christen_monst` + tame `x_monnam` subset** (D-0079); **`Monnam`/`noit_Monnam` MGIVENNAME→bare** (D-0095); omit invent/floor getobj/getpos bodies, full x_monnam hallu/invis/saddle/priest/shk, literate/shop/intrinsic side-effects |
 | `src/dokick.c` | `js/dokick.js` | partial | `dokick` + `kick_dumb` (D-0031); `kickedloc` (D-0032); **`kick_ouch` → `losehp`** (D-0035); **`kick_door` CLOSED/LOCKED `rnl(35)` bust** (D-0104); omit `kick_monster`/`kick_object`/SDOOR-SCORR open/furniture/`martial`/shop-town watchman/`b_trapped`/`wake_nearby`/`u_wipe_engr`/`set_wounded_legs`/`kickstr` terrain names |

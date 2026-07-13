@@ -123,6 +123,8 @@ Do not record a guessed cause as fixed merely because an RNG prefix moved.
 | D-0117 | fixed | getline/extcmd AC | full AUTOCOMPLETE uniqueness for NEWAUTOCOMP; seed0106 Scr 34→38 |
 | D-0118 | fixed | display/glyph | `obj_is_generic` + tty gray/black→NO_COLOR; seed0106 Scr 38→46 |
 | D-0119 | fixed | mthrowu/uhitm msg | `canseemon`+`thitu` an/exclam/miss; melee skip hit when destroyed; seed0106 Scr 46→49 |
+| D-0120 | fixed | display/newsym | `_map_location` memory under visible mon; seed0106 Scr 49→250 |
+| D-0121 | fixed | yn/doname | leave yn prompt after answer; cleric skip `"uncursed "`; seed0106 Scr 250→253 |
 
 D-0001 through D-0005 predate the strict-length/cohort runbook. Their focused
 causes are preserved, but generic "green sessions held" is historical evidence,
@@ -3235,5 +3237,33 @@ cohort gates if those functions are touched again.
   `map_location_memory`.
 - **Next:** seed0106 `#dip` yn @110 / garlic doname @116 /
   seed2200 `dokeylist` @184.
+
+## D-0121 — yn leave prompt + cleric skip `"uncursed "`
+
+- **Status:** fixed
+- **Observed:** seed0106 Scr **250**/267 first miss @110: C topline still
+  `Dip 4 potions of holy water into the fountain? [yn] (n)` with hero
+  cursor after a silent fountain curse (`rnd(30)=16`, `rn2(3)=1` no dryup);
+  JS blank topline. @116: C `Dip 2 cloves of garlic…` vs JS
+  `Dip 2 uncursed cloves of garlic…`.
+- **Cause/evidence:** JS `yn_function` cleared `_pending_message` on every
+  answer; C `tty_yn_function` leaves the prompt (`TOPLINE_NON_EMPTY`) until
+  the next pline / `rhack` clear-after-capture. Holy-water case 16
+  `curse()` is silent and dryup skipped, so the yn text must survive until
+  the next-command nhgetch. Garlic BUC: C `doname` omits `"uncursed "` when
+  `Role_if(PM_CLERIC)` (priest always knows BUC); JS always printed it for
+  bknown uncursed non-charged items.
+- **C locus:** `win/tty/topl.c` `tty_yn_function` clean_up;
+  `objnam.c` `doname` uncursed + `!Role_if(PM_CLERIC)`.
+- **Change:** `js/getline.js` `yn_function` keep prompt after answer;
+  `js/objnam.js` `doname` skip uncursed for `PM_CLERIC`.
+- **Verification:** seed0106 Scr **250→253**/267 (next: enhance menu
+  offx @133); green+strict PASS; cohort
+  1500/1800/0060/0102/0700/1150/0017/0077 PASS; full **10/44** Scr
+  **1120→1123** RNG **104575**/792838.
+- **Named omission:** `doname` uncursed still omits SCR_MAIL /
+  AMULET_OF_YENDOR / FAKE_AMULET exclusions; `dodip` uses `doname` not
+  `short_oname` length fallback; enhance menu column/`offx` residual.
+- **Next:** seed0106 enhance menu @133 / seed2200 `dokeylist` @184.
 
 

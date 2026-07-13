@@ -327,6 +327,11 @@ export async function doextcmd() {
  * C ref: win/tty/topl.c tty_yn_function — query + [resp] + (def) + space.
  * Esc → 'q' if in resp else 'n' if in resp else def.
  * Quitchars (space/return) → def. Invalid keys bell and retry.
+ *
+ * After a valid answer, leave the prompt on the message line
+ * (C: TOPLINE_NON_EMPTY / gt.toplines). Silent follow-ups (e.g.
+ * dipfountain case 16 curse with no pline) keep the yn text until
+ * rhack clears after the next-command nhgetch capture.
  * @returns {string} single-character response
  */
 export async function yn_function(query, resp = 'yn', def = 'n') {
@@ -347,7 +352,7 @@ export async function yn_function(query, resp = 'yn', def = 'n') {
         if (disp?.setCursor) disp.setCursor(prompt.length, 0);
         const c = await nhgetch();
         let ch = String.fromCharCode(c);
-        game._pending_message = '';
+        // Do not clear _pending_message here — C leaves the yn prompt.
         if (!resp) return ch;
         const preserve = /[A-Z]/.test(resp);
         if (!preserve) ch = ch.toLowerCase();

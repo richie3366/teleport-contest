@@ -7,17 +7,16 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 
 ## Active
 
-- **Current unit:** D-0120 cleared: `newsym` maps object under visible monster
-  into hero_memory (`_map_location` show=0) before painting the monster.
-- **Hypothesis:** seed0106 next Scr peel @110 is `#dip` yn prompt missing
-  (`Dip 4 potions of holy water…` vs blank topline). Later @116 garlic
-  doname (`cloves` vs `uncursed cloves`); @133 enhance menu column.
-  seed2200 next real peel after parked RC path @158 is help `j` →
-  `dokeylist` @184.
+- **Current unit:** D-0121 cleared: `yn_function` leaves prompt after answer;
+  cleric `doname` skips `"uncursed "`.
+- **Hypothesis:** seed0106 next Scr peel @133 is `#enhance` NHW_MENU
+  column/`offx` (`Current skills:` at col 1 vs padded H2344 overlay).
+  Later: overview @165, `#chronicle` unbound @188. seed2200 next real
+  peel after parked RC path @158 is help `j` → `dokeylist` @184.
 - **Falsifier / next:**
   ```bash
   node frozen/ps_test_runner.mjs sessions/seed0106-priest-extcmd-sweep.session.json
-  # expect Scr >250 if dip yn matches C; green cohort must stay PASS
+  # expect Scr >253 if enhance offx matches C; green cohort must stay PASS
   node frozen/ps_test_runner.mjs sessions/seed2200-wizard-quaff-zap-read.session.json
   ```
 - **Parked deep canary:** D-0006 pet movement — do not implement until C
@@ -81,6 +80,11 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 - Door open: C `recalc_block_point` before vision sees through;
   DECgraphics open door = meta-a / CLR_BROWN; ASCII open door uses
   `horizontal` → `|` / `-` (D-0113/D-0115).
+- **seed0106 @110 blank Dip yn was NOT missing dodip** — silent
+  `dipfountain` case 16 + no dryup; JS cleared yn prompt on answer while
+  C leaves `TOPLINE_NON_EMPTY` (D-0121). Do not invent a fake pline.
+- **seed0106 @116 garlic `"uncursed "` was NOT short_oname length** —
+  priest `Role_if(PM_CLERIC)` skips uncursed in `doname` (D-0121).
 
 ## Landmarks
 
@@ -113,3 +117,6 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   (D-0119). Melee kill: no `You hit` when already destroyed.
 - C `newsym` with visible monster: `_map_location(x,y,FALSE)` then
   `display_monster` — memory keeps object under mon (D-0120).
+- `tty_yn_function` leaves prompt on WIN_MESSAGE after answer; `rhack`
+  clears after next-command capture (D-0121).
+- Cleric `doname`: never print `"uncursed "` (BUC always known) (D-0121).
