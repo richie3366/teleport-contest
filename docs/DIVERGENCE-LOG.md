@@ -175,6 +175,7 @@ Do not record a guessed cause as fixed merely because an RNG prefix moved.
 | D-0169 | fixed | monmove/meating | `m_move` meating countdown before `dog_move` |
 | D-0170 | fixed | uhitm/stagger | unarmed `hmon_hitmon_stagger` `rnd(100)` before kill |
 | D-0171 | fixed | mklev/mines | `fill_lvl`→`makemaz(minefill)` + mkmap; dungeon align 3-bit |
+| D-0172 | fixed | peace_minded/m_initinv | race hatemask + M2 race bits; S_GNOME candle |
 
 D-0001 through D-0005 predate the strict-length/cohort runbook. Their focused
 causes are preserved, but generic "green sessions held" is historical evidence,
@@ -4636,12 +4637,46 @@ cohort gates if those functions are touched again.
   **13100**/105529 Scr **168**/1953; green+strict PASS; cohort
   1500/1800/0060/0015 PASS; full **15/44** Scr **1405** RNG
   **134130**.
-- **Named omission:** `m_initweap` gnome envelope @12757; full
-  `create_trap`/`mktrap_victim` on des.trap; `fixup_special`/
-  `place_lregion`; hellfill/other protos; empty `makemaz("")` maze;
-  Is_special / quest fill branches.
+- **Named omission:** full `create_trap`/`mktrap_victim` on des.trap;
+  `fixup_special`/`place_lregion`; hellfill/other protos; empty
+  `makemaz("")` maze; Is_special / quest fill branches.
 - **Lesson:** after `getbones` on a branch dungeon, check
   `fill_lvl`/`makemaz` before ordinary Medusa `rn2(5)`; dungeon align
   must match C’s 3-bit truncation.
-- **Next:** seed0030 @12757 (`m_initweap` gnome) / seed0101 Scr /
-  seed0200 @3382.
+- **Next:** seed0030 @12757 cleared by D-0172; see D-0172 next.
+
+## D-0172 — race hatemask / M2 race bits + S_GNOME m_initinv
+
+- **Status:** fixed
+- **Observed:** seed0030 first RNG mismatch @12757 — C
+  `rnd(14) @ m_initweap` (default gnome); JS `rn2(16)` (looked like
+  wrong weapon envelope).
+- **Rejected:** JS `m_initweap` default using `rn2(16)` instead of
+  `rnd(14)` — default path already matched C; mismatch was an earlier
+  extra `peace_minded` roll. S_GNOME special weapon case (C has none;
+  gnomes fall through to default).
+- **C locus:** `role.c` races[] `hatemask`/`lovemask`; `mondata.h`
+  `race_hostile`/`race_peaceful`; `makemon.c` `peace_minded` /
+  `m_initinv` S_GNOME; `monflag.h` M2_HUMAN…M2_ORC; extractor
+  `scripts/extract-monsters.py` M2_FLAGS.
+- **Cause:** (1) Human `hatemask = MH_GNOME|MH_ORC` so Tourist vs
+  gnome returns hostile without co-align `rn2(16+record)`. JS omitted
+  race masks and `race_*` checks. (2) Extractor zeroed unknown M2 race
+  bits (`M2_GNOME` etc.), so even with hatemask the bit test failed.
+  (3) After peace_minded, C `m_initinv` S_GNOME burns Mines
+  `rn2(20)` candle gate; JS had tail-only `rn2(50)`/`rn2(100)`.
+- **Change:** races[] `lovemask`/`hatemask` + copy onto `game.urace`;
+  `peace_minded` race_peaceful/hostile (+ amulet arm); regenerate
+  `monsters_data.js` with full M2 race bits; `m_initinv` S_GNOME
+  candle before defensive/misc rolls.
+- **Verification:** seed0030 prefix **12757→12907** positional
+  **13718**/105529 Scr **168**/1953; green+strict PASS; cohort PASS;
+  full **15/44** Scr **1405** RNG **135175**.
+- **Named omission:** MS_LEADER/GUARDIAN/NEMESIS/ERINYS/`is_minion`
+  peace_minded arms; other `m_initinv` bodies (mercenary/nymph/…);
+  `begin_burn` on failed mpickobj; `likes_gold`/`mkmonmoney`.
+- **Lesson:** `rn2(16)` right after makemon gender is almost always
+  `peace_minded` co-align — check `race_hostile` and extracted M2 race
+  bits before blaming `m_initweap`.
+- **Next:** seed0030 @12907 (`induced_align` rn2(3) vs rn2(2)) /
+  seed0101 Scr / seed0200 @3382.

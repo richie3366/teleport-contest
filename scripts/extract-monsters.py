@@ -28,18 +28,27 @@ G_FLAGS = {
 }
 
 M2_FLAGS = {
-    # C ref: include/monflag.h — keep in sync
+    # C ref: include/monflag.h — keep in sync (race bits required for
+    # peace_minded race_hostile/race_peaceful via urace.hatemask/lovemask)
     "M2_NOPOLY": 0x00000001,
-    "M2_PNAME": 0x00080000,
-    "M2_SHAPESHIFTER": 0x00004000,
+    "M2_UNDEAD": 0x00000002,
+    "M2_WERE": 0x00000004,
+    "M2_HUMAN": 0x00000008,
+    "M2_ELF": 0x00000010,
+    "M2_DWARF": 0x00000020,
+    "M2_GNOME": 0x00000040,
+    "M2_ORC": 0x00000080,
+    "M2_DEMON": 0x00000100,
     "M2_MERC": 0x00000200,
     "M2_LORD": 0x00000400,
     "M2_PRINCE": 0x00000800,
     "M2_MINION": 0x00001000,
     "M2_GIANT": 0x00002000,
+    "M2_SHAPESHIFTER": 0x00004000,
     "M2_MALE": 0x00010000,
     "M2_FEMALE": 0x00020000,
     "M2_NEUTER": 0x00040000,
+    "M2_PNAME": 0x00080000,
     "M2_HOSTILE": 0x00100000,
     "M2_PEACEFUL": 0x00200000,
     "M2_DOMESTIC": 0x00400000,
@@ -113,7 +122,7 @@ def eval_flags(expr: str, env: dict[str, int]) -> int:
     e = re.sub(r"\s+", " ", expr)
     for k, v in sorted(env.items(), key=lambda kv: -len(kv[0])):
         e = re.sub(r"\b" + k + r"\b", str(v), e)
-    # Unknown identifiers → 0 (race flags etc. unused by rndmonst stubs)
+    # Unknown identifiers → 0 (should be rare after M1/M2/M3 tables are complete)
     e = re.sub(r"[A-Za-z_][A-Za-z0-9_]*", "0", e)
     try:
         return int(eval(e, {"__builtins__": {}}))  # noqa: S307

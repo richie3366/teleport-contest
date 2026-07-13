@@ -7,17 +7,18 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 
 ## Active
 
-- **Current unit:** D-0171 cleared seed0030 Mines `fill_lvl`→`makemaz(minefill)`
-  + dungeon align 3-bit. Prefix **10861→12757**; positional
-  **13100**/105529; Scr **168**/1953; public Scr **1405**, RNG **134130**;
-  still **15/44**.
-- **Hypothesis / next:** seed0030 @12757 — C `m_initweap` `rnd(14)` for
-  gnome vs JS `rn2(16)` (armed-mlet envelope / S_GNOME branch), or
+- **Current unit:** D-0172 cleared seed0030 gnome peel — was not
+  `m_initweap` arity; human `hatemask` + missing M2 race bits made JS
+  burn co-align `rn2(16)` before C `rnd(14)`. Prefix **12757→12907**;
+  positional **13718**/105529; Scr **168**/1953; public Scr **1405**,
+  RNG **135175**; still **15/44**.
+- **Hypothesis / next:** seed0030 @12907 — C `induced_align` `rn2(3)`
+  vs JS `rn2(2)` (align/dungeon flags or create_monster path), or
   seed0101 Scr residual (RNG full), or seed0200 combat `@3382`.
 - **Falsifier / next:**
   ```bash
   node scripts/rng-diff.mjs sessions/seed0030-ten-diverse-deaths.session.json
-  # expect first mismatch past 12757 if gnome m_initweap advances
+  # expect first mismatch past 12907 if induced_align advances
   node frozen/ps_test_runner.mjs sessions/seed0101-ranger-quiver-throw-travel-engrave.session.json
   # expect Scr >21/27 if residual display peel advances
   ```
@@ -290,6 +291,11 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   `fill_lvl` (D-0171). Also dungeon `flags.align` must be `dgn_align&7`
   (C 3-bit truncates `D_ALIGN_LAWFUL=0x40`→0) or `induced_align` burns
   `rn2(100)` instead of `rn2(3)`.
+- **seed0030 @12757 was NOT `m_initweap` `rnd(14)` vs `rn2(16)`** —
+  C gnome default already `rnd(14)`; JS burned human×gnome
+  `peace_minded` co-align because extractor zeroed `M2_GNOME` and
+  races lacked `hatemask` (D-0172). Then need S_GNOME `m_initinv`
+  `rn2(20)` candle before tail.
 
 ## Landmarks
 
@@ -377,3 +383,7 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   SOLIDFILL lit `rn2(2)` + MINES lit `rn2(2)` + `mkmap` `init_fill`
   `rn2(77)`/`rnd(19)` loop; dungeon `flags.align = dgn_align & 7`
   (D-0171).
+- Human hates gnome/orc (`hatemask`); extractor must keep M2_HUMAN…
+  M2_ORC in `mflags2s` or `race_hostile` is a no-op (D-0172).
+- Mines `m_initinv` S_GNOME: `rn2(20)` candle (else `rn2(60)`); then
+  defensive/misc tail (D-0172).

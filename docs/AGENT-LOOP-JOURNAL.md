@@ -2139,3 +2139,19 @@ Use this shape:
   **134130**/792838.
 - Next: seed0030 @12757 (`m_initweap` gnome) / seed0101 Scr residual /
   seed0200 combat @3382.
+
+## 2026-07-13 — race hatemask / M2 bits + S_GNOME m_initinv (D-0172)
+- Objective: seed0030 @12757 C `rnd(14) @ m_initweap` vs JS `rn2(16)`
+  (PROGRESS primary).
+- C locus: `role.c` races[] hatemask/lovemask; `mondata.h`
+  `race_hostile`; `makemon.c` `peace_minded` / `m_initinv` S_GNOME;
+  `scripts/extract-monsters.py` M2_FLAGS.
+- Result: **verified** — not a weapon-envelope bug. Human hates gnome
+  so C skips co-align `rn2(16)`; JS lacked hatemask and extractor
+  zeroed `M2_GNOME`. Ported race masks + `peace_minded` race_* +
+  regenerated mflags2 race bits + S_GNOME candle `rn2(20)`.
+- Verification: seed0030 prefix **12757→12907**; positional
+  **13718**/105529 Scr **168**/1953; green+strict PASS; cohort PASS;
+  full **15/44** Scr **1405** RNG **135175**/792838.
+- Next: seed0030 @12907 (`induced_align` rn2(3) vs rn2(2)) /
+  seed0101 Scr residual / seed0200 combat @3382.
