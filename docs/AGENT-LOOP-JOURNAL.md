@@ -19,6 +19,18 @@ Use this shape:
 
 ---
 
+## 2026-07-13 18:30 — Teleportation hub themeroom_fill (D-0166)
+- Objective: seed0030 themerms `contents` @6889 (PROGRESS primary).
+- C locus: `themerms.lua` Teleportation hub / `make_a_trap` /
+  `post_level_generate`; `mklev.c` `mktrap` victim `rnd(4)`.
+- Result: **verified** — hub fill + postprocess teledest TELEP +
+  `mktrap` `rnd(4)` burn (body rejected by `kind < HOLE`).
+  Prefix **6889→10584** (next `next_ident`).
+- Verification: green+strict PASS; cohort PASS; full **15/44**
+  Scr **1348** RNG **131946**; seed0030 **10867**/105529 Scr **111**.
+- Next: `node scripts/rng-diff.mjs sessions/seed0030-ten-diverse-deaths.session.json`
+  (expect past `next_ident` @10584) or seed0101 Scr residual.
+
 ## 2026-07-13 18:20 — maybe_smudge_engr after walk (D-0165)
 - Objective: seed0030 `maybe_smudge_engr` @6732 (PROGRESS primary).
 - C locus: `hack.c` `domove`/`maybe_smudge_engr`; `engrave.c`

@@ -7,16 +7,17 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 
 ## Active
 
-- **Current unit:** D-0165 cleared seed0030 `maybe_smudge_engr` @6732
-  (`rnd(5)` + `wipe_engr_at`). Prefix **6732→6889**; public Scr
-  **1348**, RNG **128294**; still **15/44**.
-- **Hypothesis / next:** seed0030 themerms `contents` @6889
-  (`themerms.lua:268`), or seed0101 Scr residual (RNG full), or
+- **Current unit:** D-0166 cleared seed0030 Teleportation hub @6889
+  (`rn2(3)` + `selection_rndcoord` + postprocess `make_a_trap` +
+  `mktrap` victim-gate `rnd(4)`). Prefix **6889→10584**; public Scr
+  **1348**, RNG **131946**; still **15/44**.
+- **Hypothesis / next:** seed0030 `next_ident` @10584 after corpse
+  (`rnd(2)` vs JS `rnd(1)`), or seed0101 Scr residual (RNG full), or
   seed0200 combat `@3382`.
 - **Falsifier / next:**
   ```bash
   node scripts/rng-diff.mjs sessions/seed0030-ten-diverse-deaths.session.json
-  # expect first mismatch past themerms contents @6889 if that peel advances
+  # expect first mismatch past next_ident @10584 if that peel advances
   node frozen/ps_test_runner.mjs sessions/seed0101-ranger-quiver-throw-travel-engrave.session.json
   # expect Scr >21/27 if residual display peel advances
   ```
@@ -261,6 +262,10 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 - **seed0030 @6732 was NOT a stray `rn2(5)`** — C `domove` after
   successful walk calls `maybe_smudge_engr` → `wipe_engr_at(..., rnd(5))`
   on old and/or new cell (D-0165). Call **after** `spoteffects`.
+- **seed0030 @6889 was NOT Storeroom/`rn2(1)` leftover** — reservoir
+  picked Teleportation hub; need `2+rn2(3)` + room-floor rndcoord
+  queue + `post_level_generate` `make_a_trap` teledest + `mktrap`
+  victim-gate `rnd(4)` even though TELEP rejects the body (D-0166).
 
 ## Landmarks
 
@@ -330,3 +335,6 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 - `domove` success: after `spoteffects`, `maybe_smudge_engr(ux0,uy0,ux,uy)`
   → `wipe_engr_at(..., rnd(5))` when `can_reach_floor(TRUE)` and
   non-HEADSTONE engraving (D-0165).
+- Teleportation hub: `2+rn2(3)` room-floor picks (skip rel_x≤0); queue
+  coords as abs-1/abs_y; postprocess teledest until both axes differ;
+  `maketrap`+tseen+teledest; then `mktrap` `rnd(4)` gate (D-0166).

@@ -166,6 +166,10 @@ Do not record a guessed cause as fixed merely because an RNG prefix moved.
 | D-0160 | fixed | display/goto_level | `flush_screen(-1)` + `docrt`→`cls` more before redraw; descend `--More--` |
 | D-0161 | fixed | mklev/objects_at | clear `_objects_at`/`head_engr` on level rebuild; ghost gold gone |
 | D-0162 | fixed | display/stairs | `known_branch_stairs` → yellow; ordinary stairs CLR_GRAY→NO_COLOR |
+| D-0163 | fixed | trap/sqky | monster `trapeffect_sqky_board` + `just_an` letter-space |
+| D-0164 | fixed | insight/depth | ^X gender gate + dungeon `depth(u.uz)`; seed0015 PASS |
+| D-0165 | fixed | hack/engrave | `maybe_smudge_engr` after walk + `can_reach_floor` |
+| D-0166 | fixed | themerms/telehub | Teleportation hub fill + `make_a_trap` teledest + `mktrap` `rnd(4)` |
 
 D-0001 through D-0005 predate the strict-length/cohort runbook. Their focused
 causes are preserved, but generic "green sessions held" is historical evidence,
@@ -4449,5 +4453,34 @@ cohort gates if those functions are touched again.
   `maybe_adjust_hero_bubble`.
 - **Lesson:** walk-adjacent engraving erosion is part of `domove`, not
   engrave command; call after pickup/`spoteffects`.
-- **Next:** seed0030 themerms `contents` @6889 / seed0101 Scr residual /
+- **Next:** seed0030 `next_ident` @10584 / seed0101 Scr residual /
+  seed0200 combat @3382.
+
+## D-0166 — Teleportation hub themeroom_fill + make_a_trap (seed0030)
+
+- **Status:** fixed
+- **Observed:** seed0030 first RNG mismatch @6889 — C `rn2(3)` @
+  `themerms.lua:268` Teleportation hub `contents`; JS `rn2(1)` (next
+  room / skipped fill body).
+- **Rejected:** treating arity as Storeroom/`rn2(1)` leftover; inventing
+  hub traps without postprocess teledest / `mktrap` victim gate.
+- **C locus:** `themerms.lua` Teleportation hub + `make_a_trap` +
+  `post_level_generate`; `mklev.c` `themerooms_post_level_generate` /
+  `mktrap` victim `rnd(4)`; `selvar.c` `selection_rndcoord` /
+  `selection_filter_mapchar`.
+- **Cause:** JS `themeroom_fill` reservoir could pick Teleportation hub
+  but only Ghost had a body. Missing `2+rn2(3)` + room-floor rndcoord
+  queue, `post_level_generate` teledest picks, and `mktrap`’s
+  short-circuit `rnd(4)` before `(kind < HOLE)` rejects TELEP.
+- **Change:** port hub fill + `selection_filter_mapchar` / all-floor
+  selection; themerms postprocess queue → `make_a_trap` (seen TELEP +
+  teledest); wire before wallification; `maketrap` gains `teledest`.
+- **Verification:** seed0030 prefix **6889→10584** positional
+  **10867**/105529 Scr **111**/1953; green+strict PASS; cohort PASS;
+  full **15/44** Scr **1348** RNG **131946**.
+- **Named omission:** other fill bodies (Ice/Temple/Storeroom/…);
+  garden/dig postprocess handlers; hero TELEP activation.
+- **Lesson:** Lua postprocess can burn RNG long after fill; `mktrap`
+  victim `rnd(4)` still runs for TELEP even when the body is skipped.
+- **Next:** seed0030 `next_ident` @10584 / seed0101 Scr residual /
   seed0200 combat @3382.

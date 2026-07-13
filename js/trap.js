@@ -114,7 +114,8 @@ export function choose_trapnote(ttmp) {
 
 // C ref: trap.c maketrap — creation + SQKY_BOARD / HOLE|TRAPDOOR RNG path.
 // Named omissions: overwrite/furniture/terrain gates, statue/boulder launch,
-// pit conjoined/shop damage/terrain morph, tele dest, Sokoban finish.
+// pit conjoined/shop damage/terrain morph, Sokoban finish.
+// TELEP teledest may be set by caller after create (themerms make_a_trap).
 export function maketrap(x, y, typ) {
     if (typ === TRAPPED_DOOR || typ === TRAPPED_CHEST) return null;
 
@@ -133,11 +134,13 @@ export function maketrap(x, y, typ) {
             tnote: 0,
             conjoined: 0,
             launch: { x: -1, y: -1 },
+            teledest: { x: -1, y: -1 },
             dst: { dnum: -1, dlevel: -1 },
             ntrap: null,
         };
     }
     ttmp.launch = { x: -1, y: -1 };
+    ttmp.teledest = { x: -1, y: -1 };
     ttmp.dst = { dnum: -1, dlevel: -1 };
     ttmp.madeby_u = 0;
     ttmp.once = 0;
