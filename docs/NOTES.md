@@ -7,14 +7,17 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 
 ## Active
 
-- **Current unit:** seed0030 @14296 (after D-0188 `passive`).
-- **Hypothesis:** C monster melee `dmgval` burns `rnd(2)` (OC_WSDAM stand-in
-  wrong size) while JS uses `rnd(1)` — weapon dice / `oc_wsdam` extractor gap
-  after `hitmu` `d(1,6)`.
+- **Current unit:** seed0030 @14299 (after D-0189 `dmgval`).
+- **Hypothesis:** after matched `hitmu`/`dmgval`/`mhitm_knockback`, C enters
+  hero death → `can_make_bones` (`rn2(1+(depth>>2))`) while JS survives and
+  continues with `distfleeck` `rn2(5)` — HP/`mdamageu`/`done` path gap, not
+  the bones formula alone.
 - **Falsifier:**
   ```bash
   node scripts/rng-diff.mjs sessions/seed0030-ten-diverse-deaths.session.json
   ```
+  Expect: if JS `mdamageu`/`losehp`/`done` match C through killing blow, next
+  call is `can_make_bones` (not `rn2(5)`).
 - **Parked deep canary:** D-0006 pet movement — do not implement until C
   state/candidate capture exists.
 - **Parked seed2200 @158:** RC config path — harness `$HOME`, not a port bug.
@@ -94,6 +97,9 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 - **@14235 was NOT missing distfleeck** — after a live hit, C `hitum`
   always calls `passive` which burns `rn2(3)` for any AT_NONE slot
   (incl. NO_ATTK fillers) when `malive && !mcan` (D-0188).
+- **@14296 was NOT missing dmgval switch alone** — stand-in map defaulted
+  missing otyps to `rnd(1)`; C `objects[].oc_wsdam` for BULLWHIP/
+  WORM_TOOTH is **2** (D-0189). Extractor already had the fields unread.
 - **`monattk.h`: AT_WEAP=254, AT_MAGC=255, AT_SPIT=10** — never use 10 for
   weapon (D-0179).
 - Hostile `m_move`: before place, `m_digweapon_check` may return
@@ -135,3 +141,5 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   Monk/Samurai martial `rnd(4)` barehands (D-0187).
 - **`hitum` must call `passive`** — live `malive && !mcan && rn2(3)`
   even when AT_NONE is a NO_ATTK filler (D-0188).
+- **`objects[].oc_wsdam`/`oc_wldam` extracted** — do not revive name→sdam
+  stand-in defaults (D-0189).

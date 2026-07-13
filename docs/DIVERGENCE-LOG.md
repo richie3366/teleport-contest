@@ -191,6 +191,8 @@ Do not record a guessed cause as fixed merely because an RNG prefix moved.
 | D-0185 | fixed | postmov mpickstuff | seed0030 @14118: missing `mpickstuff` left floor glass → silent `m_search_items` gg split |
 | D-0186 | fixed | mon.c can_carry | quan>1 → 1 only for M1_NOHANDS; hands take full stack |
 | D-0187 | fixed | weapon.c hit bonus | `weapon_hit_bonus` + martial barehands `rnd(4)` |
+| D-0188 | fixed | uhitm.c passive | `hitum`→`passive` live `rn2(3)` even for NO_ATTK |
+| D-0189 | fixed | weapon.c dmgval | extract `oc_wsdam`/`oc_wldam`; drop stand-in default 1 |
 
 D-0001 through D-0005 predate the strict-length/cohort runbook. Their focused
 causes are preserved, but generic "green sessions held" is historical evidence,
@@ -5136,4 +5138,29 @@ cohort gates if those functions are touched again.
   `passive` callers; `s_suffix`/`hliquid` splash wording.
 - **Next:** seed0030 @14296 `dmgval` `rnd(2)` vs `rnd(1)`; or
   seed0200 @3387 `xkilled`/`next_ident`; or seed0101 Scr.
+
+## D-0189 — extract oc_wsdam / dmgval (seed0030 @14296)
+
+- **Status:** fixed
+- **Observed:** seed0030 @14296 — C `rnd(2)` `@dmgval(weapon.c:265)`; JS
+  `rnd(1)` (stand-in default).
+- **Cause:** `extract-objects.py` already read C `oc_wsdam`/`oc_wldam` in
+  the dump struct but never emitted them. JS `dmgval` used a partial
+  name→sdam map that defaulted missing otyps (BULLWHIP/WORM_TOOTH/
+  grappling hook, …) to **1**.
+- **C locus:** `objects.h` WEAPON/WEPTOOL/PROJECTILE/ROCK `sdam`/`ldam`;
+  `weapon.c` `dmgval`.
+- **Fix:** emit `oc_wsdam`/`oc_wldam` from the extractor; regenerate
+  `objects_data.js`; rewrite `dmgval` to use extracted dice + small-
+  monster otyp switch (`+1` / `rnd(4)` / `rnd(6)`); drop the stand-in map.
+- **Verification:** seed0030 prefix **14296→14299** (`can_make_bones` vs
+  JS `rn2(5)`); positional **14572**/105529 Scr **168**/1953; full
+  **15/44** Scr **1405** RNG **136019**; green+cohort+strict PASS;
+  seed0200 still **3387**.
+- **Named omissions:** large-monster otyp switch (`d(2,4)`/`d(2,6)`…);
+  thick-skin/shade/silver/blessed/axe/artifact_light bonuses; heavy iron
+  ball weight; `special_dmgval`; hero death/`done`/`can_make_bones` after
+  killing blow (next peel @14299).
+- **Next:** seed0030 @14299 hero death vs survival after matched `dmgval`;
+  or seed0200 @3387 `xkilled`/`next_ident`; or seed0101 Scr.
 

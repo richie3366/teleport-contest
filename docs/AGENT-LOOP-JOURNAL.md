@@ -2452,3 +2452,19 @@ Use this shape:
   green+cohort+strict PASS; seed0200 still @3387.
 - Next: seed0030 @14296 `dmgval` `rnd(2)` vs `rnd(1)`; or seed0200
   @3387 `xkilled`/`next_ident`; or seed0101 Scr.
+
+## 2026-07-13 22:35 — D-0189 extract oc_wsdam / dmgval fixed
+- Objective: seed0030 @14296 C `dmgval` `rnd(2)` vs JS `rnd(1)`
+  (PROGRESS primary).
+- C locus: `objects.h` WEAPON sdam/ldam; `weapon.c` `dmgval`;
+  `scripts/extract-objects.py`.
+- Result: **fixed** — extractor already read `oc_wsdam`/`oc_wldam` but
+  never emitted them; JS stand-in map defaulted missing otyps
+  (BULLWHIP/WORM_TOOTH/…) to 1. Emit fields, regenerate table, rewrite
+  `dmgval` small-monster path from C (drop stand-in).
+- Verification: seed0030 prefix **14296→14299** (`can_make_bones` vs JS
+  survival `rn2(5)`); positional **14572**/105529; full **15/44** Scr
+  **1405** RNG **136019**; green+cohort+strict PASS; seed0200 still
+  @3387.
+- Next: seed0030 @14299 hero death/`mdamageu`/`done` after matched kill
+  blow; or seed0200 @3387 `xkilled`/`next_ident`; or seed0101 Scr.

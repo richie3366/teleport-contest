@@ -39,7 +39,7 @@ frozen-file overlay):
 |--------|------:|
 | Sessions passing | **15 / 44** |
 | Screens matched | **1405 / 11,405** (12.32%) |
-| Positional RNG calls matched | **136,012 / 792,838** (17.16%) |
+| Positional RNG calls matched | **136,019 / 792,838** (17.16%) |
 | Speed label | `19+0.09/turn` |
 | Working-tree base | `8b71735` + committed port (see `main`) |
 | Role-init throws | **0 / 44** (`u_init_role: role not ported`) |
@@ -64,7 +64,7 @@ shared blockers, and semantic coverage together—not one vanity metric.
 | `seed0501-priest-cast-read-turn` | **2238 / 2238** | **28 / 28** |
 | `seed2200-wizard-quaff-zap-read` | **3018 / 3018** | **229 / 230** |
 | `seed0017-samurai-altar-pray` | **3465 / 3465** | **67 / 67** |
-| `seed0030-ten-diverse-deaths` | **14565 / 105529** | **168 / 1953** |
+| `seed0030-ten-diverse-deaths` | **14572 / 105529** | **168 / 1953** |
 | `seed0103-knight-ride-pony` | **2344 / 2640** | 2 / 60 |
 | `seed0200-monk-north-search` | **3394 / 3822** | **15 / 40** |
 | `seed0101-ranger-quiver-throw-travel-engrave` | **2371 / 2371** | **21 / 27** |
@@ -231,6 +231,9 @@ open-door (D-0111/D-0112/D-0113) → **PASS**. seed0030 **14487**/105529.
 seed0105 RNG **full** (Scr **30**/30).
 **hostile `should_see`/`gettrack` + `goto_level` `initrack`** (D-0181)
 → gettrack wired; dwarf @13987 gettrack theory falsified.
+**`dmgval` extract `oc_wsdam`/`oc_wldam`** (D-0189) → seed0030 prefix
+**14296→14299**; positional **14572**/105529; full **15/44** Scr
+**1405** RNG **136019**.
 
 ### Green gate
 
@@ -394,21 +397,22 @@ autoopen `doopen_indir` (D-0059) + `mfndpos` BOULDER/`ALLOW_ROCK` +
 **`can_carry` quan>1 only for `M1_NOHANDS`** (D-0186)
 **`weapon_hit_bonus` + martial barehands `rnd(4)`** (D-0187)
 **`hitum`→`passive`/`passive_obj` live `rn2(3)`** (D-0188)
+**`dmgval` extracted `oc_wsdam`/`oc_wldam` + small otyp switch** (D-0189)
 **ported**. Fifteen public sessions pass end-to-end. **0/44** throw at
 `u_init_role`. seed0700 + seed1150 + seed0017 + seed0077 + seed0106 +
 seed0501 + seed0105 + seed0016 + seed0015 **PASS**. seed2200 RNG **full**
 (Scr **229**/230; sole miss parked RC @158).
 seed0101 RNG **full** Scr **21**/27.
 
-- **Bounded unit:** seed0030 @14296 (C `dmgval` `rnd(2)` after `hitmu`
-  vs JS `rnd(1)`) /
+- **Bounded unit:** seed0030 @14299 (C `can_make_bones` after matched
+  `dmgval` kill blow vs JS `rn2(5)` survival) /
   seed0200 @3387 (`xkilled`/`next_ident`) /
   seed0101 Scr residual /
   seed0103 `next_ident`/`trquan` /
   seed0361/0373 **quest `getbones`** (blocked: need `^V`→`goto_level`→
   `makemaz` first — ordinary `goto_level` now exists for stairs; Mines
   `fill_lvl` path exists D-0171).
-- **Prefer:** seed0030 @14296 /
+- **Prefer:** seed0030 @14299 /
   seed0200 @3387 /
   seed0101 Scr
   over parked D-0006 and over baking seed2200 RC paths.
@@ -495,7 +499,8 @@ seed0101 RNG **full** Scr **21**/27.
   MMOVE_DONE/`mpickstuff` (D-0183); muse wand/horn offense + mon-target
   `potionhit` (D-0184 potions done); mtrapped escape `rn2(40)`;
   full `alt_spl`/rank titles in `name_to_monplus` (NAMS done D-0173);
-  per-level `rest_track` on return visits; …
+  per-level `rest_track` on return visits; large-monster `dmgval`
+  switch / thick-skin/shade/silver/blessed/axe (small path D-0189); …
 - **Cohort:** green gate + seed1500 + seed1800 + seed0060 + seed0102
   + seed0700 + seed1150 + seed0017 + seed0077 + seed0106 + seed0501
   + seed0105 + seed0016 + seed0015 (must stay PASS) + strict lengths.
@@ -1150,6 +1155,11 @@ Module status, constitutional debt, and named omissions live in
     — seed0030 prefix **14235→14296** (`dmgval`); positional
     **14565**/105529 Scr **168**/1953; full **15/44** Scr **1405**
     RNG **136012**; next seed0030 @14296 / seed0200 @3387 /
+    seed0101 Scr
+166. extract `oc_wsdam`/`oc_wldam` + `dmgval` small switch (D-0189)
+    — seed0030 prefix **14296→14299** (`can_make_bones` vs JS survival);
+    positional **14572**/105529 Scr **168**/1953; full **15/44** Scr
+    **1405** RNG **136019**; next seed0030 @14299 / seed0200 @3387 /
     seed0101 Scr
 
 Next work is selected from the active objectives above using
