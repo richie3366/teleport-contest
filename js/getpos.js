@@ -2,13 +2,15 @@
 // C ref: getpos.c getpos / hack.c handle_tip(TIP_GETPOS).
 //
 // Branch envelope: verbose instruction pline, first-use getpos tip
-// (nhcore show_getpos_tip), hjklyubn cursor move + autodescribe topline,
-// '.' → LOOK_TRADITIONAL, ESC → -1. Menu/jump/hilite/valids deferred.
+// (nhcore show_getpos_tip), hjklyubn walk + HJKLYUBN/Ctrl-dir rush
+// (8× step via truncate_to_map) + autodescribe topline,
+// '.' → LOOK_TRADITIONAL, ESC → -1. Menu/jump/hilite/valids/
+// getloc_moveskip glyph-skip deferred.
 
 import { game } from './gstate.js';
 import { nhgetch } from './input.js';
 import { flush_screen, pline, docrt } from './display.js';
-import { isok } from './const.js';
+import { COLNO, ROWNO, isok } from './const.js';
 import { paint_corner_nhw_menu } from './invent.js';
 
 export const LOOK_TRADITIONAL = 0;
@@ -18,6 +20,46 @@ export const LOOK_VERBOSE = 3;
 
 const DIR_DX = { h: -1, l: 1, j: 0, k: 0, y: -1, u: 1, b: -1, n: 1 };
 const DIR_DY = { h: 0, l: 0, j: 1, k: -1, y: -1, u: -1, b: 1, n: 1 };
+
+/** C('h')..C('n') → walk dir letter (num_pad off bind). */
+const CTRL_DIR = {
+    8: 'h', // C('h')
+    10: 'j', // C('j')
+    11: 'k', // C('k')
+    12: 'l', // C('l')
+    25: 'y', // C('y')
+    21: 'u', // C('u')
+    2: 'b', // C('b')
+    14: 'n', // C('n')
+};
+
+function sgn(n) {
+    return n < 0 ? -1 : n > 0 ? 1 : 0;
+}
+
+/**
+ * C ref: getpos.c truncate_to_map — add dx,dy truncating at map edges.
+ * Returns {x,y} after apply (mutates conceptually like C *cx/*cy).
+ */
+function truncate_to_map(cx, cy, dx, dy) {
+    let x = cx;
+    let y = cy;
+    if (x + dx < 1) {
+        dy -= sgn(dy) * (1 - (x + dx));
+        dx = 1 - x;
+    } else if (x + dx > COLNO - 1) {
+        dy += sgn(dy) * ((COLNO - 1) - (x + dx));
+        dx = (COLNO - 1) - x;
+    }
+    if (y + dy < 0) {
+        dx -= sgn(dx) * (0 - (y + dy));
+        dy = 0 - y;
+    } else if (y + dy > ROWNO - 1) {
+        dx += sgn(dx) * ((ROWNO - 1) - (y + dy));
+        dy = (ROWNO - 1) - y;
+    }
+    return { x: x + dx, y: y + dy };
+}
 
 /**
  * C ref: nhcore.lua show_getpos_tip → nhlua.c nhl_text (NHW_MENU +
@@ -104,16 +146,36 @@ export async function getpos(ccp, _force, goal, describeAt) {
             return ch === ',' ? LOOK_ONCE : LOOK_TRADITIONAL;
         }
 
+        // C ref: getpos.c movecmd(c, MV_WALK) → one step; MV_RUN (highc)
+        // / MV_RUSH (C(dir)) → dx=8*u.dx (getloc_moveskip Off path).
+        let walk = null;
+        let rush = false;
         if (ch in DIR_DX) {
-            const nx = cx + DIR_DX[ch];
-            const ny = cy + DIR_DY[ch];
-            if (isok(nx, ny)) {
-                cx = nx;
-                cy = ny;
-                if (typeof describeAt === 'function') {
-                    const brief = describeAt(cx, cy);
-                    if (brief) g._pending_message = brief;
-                }
+            walk = ch;
+        } else if (ch.toLowerCase() in DIR_DX && ch !== ch.toLowerCase()) {
+            // highc(dirchars) → MV_RUN
+            walk = ch.toLowerCase();
+            rush = true;
+        } else if (key in CTRL_DIR) {
+            // C(dirchars) → MV_RUSH (same 8-step path)
+            walk = CTRL_DIR[key];
+            rush = true;
+        }
+
+        if (walk) {
+            let dx = DIR_DX[walk];
+            let dy = DIR_DY[walk];
+            if (rush) {
+                // C: iflags.getloc_moveskip Off → 8*u.dx (glyph-skip omitted)
+                dx *= 8;
+                dy *= 8;
+            }
+            const next = truncate_to_map(cx, cy, dx, dy);
+            cx = next.x;
+            cy = next.y;
+            if (typeof describeAt === 'function') {
+                const brief = describeAt(cx, cy);
+                if (brief) g._pending_message = brief;
             }
             continue;
         }

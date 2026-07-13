@@ -1022,3 +1022,18 @@ Use this shape:
 - Next: seed2200 getpos continue @ screen 65 —
   `node frozen/ps_test_runner.mjs sessions/seed2200-wizard-quaff-zap-read.session.json`
   — or seed0017 @ 3132 terrain / seed1150 `dog_move`.
+
+## 2026-07-13 — getpos HJKLYUBN rush + truncate_to_map (D-0084)
+- Objective: seed2200 Scr 109/230 screen 65 getpos continue
+  (PROGRESS primary after D-0083).
+- C locus: `getpos.c` `getpos` `movecmd(MV_RUN)`/`MV_RUSH` →
+  `dx=8*u.dx` + `truncate_to_map`; `cmd.c` `highc`/`C(dirchars)`.
+- Result: **verified** — capital `H` ignored by lowercase-only
+  DIR map; C rushes 8 west (25,13)→(17,13). Ported rush/run +
+  truncate. Falsified “ccp/tip drift after corridor look”.
+- Verification: green + seed1500/1800/0060/0102/0700 PASS +
+  strict; full **7/44**, screens **478→482**/11405, RNG
+  **91380**/792838; seed2200 Scr **109→113**/230.
+- Next: seed2200 checkfile pager @ screen 80 —
+  `node frozen/ps_test_runner.mjs sessions/seed2200-wizard-quaff-zap-read.session.json`
+  — or seed0017 @ 3132 terrain / seed1150 `dog_move`.

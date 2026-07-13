@@ -87,6 +87,7 @@ Do not record a guessed cause as fixed merely because an RNG prefix moved.
 | D-0081 | fixed | display/map | `magic_map_background` dark_room → keep floor · (not blank); seed2200 Scr 11→89 |
 | D-0082 | fixed | getpos tip | `nhl_text` NHW_MENU corner offx (not fullscreen blank); seed2200 Scr 89→90 |
 | D-0083 | fixed | farlook stairs | `lookat` cmap `S_brupstair` + getpos curs-after-flush; seed2200 Scr 90→109 |
+| D-0084 | fixed | getpos rush | `HJKLYUBN`/`C(dir)` → 8× `truncate_to_map`; seed2200 Scr 109→113 |
 
 D-0001 through D-0005 predate the strict-length/cohort runbook. Their focused
 causes are preserved, but generic "green sessions held" is historical evidence,
@@ -2283,7 +2284,28 @@ cohort gates if those functions are touched again.
   strict; full **7/44**, screens **459→478**/11405, RNG
   **91380**/792838; seed2200 Scr **90→109**/230.
 - **Named omission:** full showsyms-driven cmap scan (ASCII
-  ladder/`#` sets); getpos continue after corridor look @ screen
-  65 (cursor/tip drift).
+  ladder/`#` sets); getpos rush/run (D-0084).
 - **Next:** seed2200 @ screen 65 getpos continue / seed0017 @ 3132
   terrain / seed1150 `dog_move`.
+
+## D-0084 — seed2200 getpos capital rush (HJKLYUBN)
+
+- **Status:** fixed
+- **Observed:** seed2200 Scr **109**/230 (RNG full). Screen 65 key
+  `"H"`: C cursor `[17,13]` `"floor of a room"`; JS stayed at
+  `[25,13]` `"corridor"` (ignored uppercase).
+- **C locus:** `getpos.c` `getpos` — `movecmd(c, MV_WALK)` one step;
+  `movecmd(c, MV_RUN)` via `highc(dirchars)` / `MV_RUSH` via
+  `C(dirchars)` → `dx = 8 * u.dx` when `!iflags.getloc_moveskip`,
+  then `truncate_to_map`.
+- **Cause:** JS DIR map was lowercase-only; capital `H` fell through
+  as no-op, so continued getpos never reached the room floor cell.
+- **Change:** `js/getpos.js` — `truncate_to_map`; `HJKLYUBN` and
+  Ctrl-dir rush/run 8× step (moveskip Off path).
+- **Verification:** green + seed1500/1800/0060/0102/0700 PASS +
+  strict; full **7/44**, screens **478→482**/11405, RNG
+  **91380**/792838; seed2200 Scr **109→113**/230.
+- **Named omission:** `getloc_moveskip` glyph-skip loop; menu jump /
+  hilite / valids.
+- **Next:** seed2200 @ screen 80 checkfile pager cursor /
+  seed0017 @ 3132 terrain / seed1150 `dog_move`.

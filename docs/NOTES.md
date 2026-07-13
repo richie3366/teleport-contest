@@ -7,20 +7,20 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 
 ## Active
 
-- **Current unit:** after D-0083 seed2200 Scr **90→109**/230
-  (farlook `lookat` stairs + getpos curs-after-flush). Prefer
-  seed2200 @ screen 65 getpos continue / seed0017 @ 3132 terrain /
-  seed1150 `dog_move`.
-- **Hypothesis (seed2200 Scr 109/230):** screen 65 — after corridor
-  `.` look, next getpos tip C `"floor of a room"` cursor `[17,13]`;
-  JS still `"corridor"` at `[25,13]`. Cursor/position not tracking
-  continued farlook moves (or wrong cell typ at target).
+- **Current unit:** after D-0084 seed2200 Scr **109→113**/230
+  (getpos `HJKLYUBN`/`C(dir)` rush 8× + `truncate_to_map`). Prefer
+  seed2200 @ screen 80 checkfile/data.base pager cursor /
+  seed0017 @ 3132 terrain / seed1150 `dog_move`.
+- **Hypothesis (seed2200 Scr 113/230):** screen 80 — after `/`→`?`
+  getlin `"fountain"` → `checkfile`, C pager cursor `[36,15]` on
+  data.base text; JS `[8,15]` (wrong NHW_TEXT/MENU offx or
+  morestr/geometry). Topline text already matches.
 - **Falsifier / next probe:**
   ```bash
   node frozen/ps_test_runner.mjs sessions/seed2200-wizard-quaff-zap-read.session.json
   ```
-  Diff screen 65; cite C `getpos` loop preserving `ccp` +
-  `auto_describe` after move — not stairs/`lookat` cmap.
+  Diff screen 80 cursor; cite C `checkfile`/`dlb` pager window type
+  + `wintty` offx — not getpos rush.
 - **Parked seed0017 @ 3132:** JS `mfndpos` cnt=4 at pet (30,5); C emits
   3× `rn2(12)`. Adding walkable `(30,4)` yields exactly 3× `rn2(12)`.
   JS has VWALL at (30,4); C screen shows floor. Diagnose join/
@@ -91,6 +91,11 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   `lookat` cmap `S_brupstair` **"branch staircase up"** (not
   `stairs_description` Dlvl1), **and** getpos must `curs` after
   flush (`_buildScreenOutput` resets to hero) (D-0083).
+  DECgraphics floor `·` ambiguous doorway/floor/dark/ice; `#`
+  corridor → `can be many things (corridor)`.
+- seed2200 Scr 109 @ screen 65 was **not** tip/ccp drift after
+  corridor look — capital `H` is getpos `MV_RUN` → `8*u.dx` via
+  `truncate_to_map` (D-0084). Lowercase-only DIR map ignored it.
 - `more()` word-wrap of message text must only fire when len≥CO —
   wrapping at CO-8 breaks welcome `--More--` (seed0900).
 
@@ -141,3 +146,6 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   firstmatch; getpos must set map cursor **after** flush (D-0083).
   DECgraphics floor `·` ambiguous doorway/floor/dark/ice; `#`
   corridor → `can be many things (corridor)`.
+- getpos rush: `highc(dir)` → `movecmd(MV_RUN)`; `C(dir)` →
+  `MV_RUSH`; both use `dx=8*u.dx` when `!getloc_moveskip`, then
+  `truncate_to_map` (D-0084).
