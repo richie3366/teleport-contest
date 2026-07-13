@@ -7,16 +7,16 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 
 ## Active
 
-- **Current unit:** D-0129 cleared: `initialspell` + `dovspell` VIEW +
-  `age_spells` (seed0106 Scr 266/267).
-- **Hypothesis:** seed0106 last Scr peel @261 is `^X`/`doattributes` —
-  JS `a Aspirant` / `0 experience` / `both energy points` vs C
-  `an Aspirant` / `6 experience` / `all 8 energy points`.
+- **Current unit:** D-0130 cleared: kill XP + doattributes `an`/Pw
+  (seed0106 **PASS**).
+- **Hypothesis:** seed2200 next Scr peel @184 is `dokeylist` / Full Current
+  Key Bindings List (help `c` path after About/Guidebook); parked RC path
+  @158 remains harness `$HOME`.
 - **Falsifier / next:**
   ```bash
-  node frozen/ps_test_runner.mjs sessions/seed0106-priest-extcmd-sweep.session.json
-  # expect Scr 267/267 if attributes page1 matches C; green cohort must stay PASS
   node frozen/ps_test_runner.mjs sessions/seed2200-wizard-quaff-zap-read.session.json
+  # expect Scr >202/230 if dokeylist matches C; green cohort must stay PASS
+  node frozen/ps_test_runner.mjs sessions/seed0106-priest-extcmd-sweep.session.json
   ```
 - **Parked deep canary:** D-0006 pet movement — do not implement until C
   state/candidate capture exists.
@@ -121,6 +121,10 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   ` ${header}` with ATR_INVERSE on the whole string makes col-0 inverse;
   C tty pad is plain. With `serialize_for_scoring` (emits leading
   inverse spaces), that regresses enhance headers (D-0129).
+- **seed0106 @261 was missing kill XP + hardcoded attributes wording** —
+  not botl/Xp alone. `xkilled` must call `experience`/`more_experienced`
+  (kobold = 6 via AT_WEAP); energy uses `all N` when pwmax>2 (D-0130).
+  Do not hardcode `both energy` or `0 experience`.
 
 ## Landmarks
 
@@ -182,3 +186,5 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 - `+` spells: `initialspell` at SPBOOK ini_inv_use; `age_spells` each
   EOT; Priest Fail% uses robe−spelarmr + shield + spelspec/heal;
   Retention intervals from P_SKILL (D-0129).
+- Kill XP: kobold L0 + AT_WEAP → 6; lichen AT_TUCH → 4 (pet mondied
+  awards no hero XP); `newuexp(1)=20` so 6 XP no level-up (D-0130).

@@ -19,6 +19,7 @@ import { verysmall, G_FREQ } from './monsters.js';
 import { relobj_on_death } from './mkobj.js';
 import { record_mvitals_died } from './mon.js';
 import { livelog_printf } from './pline.js';
+import { experience, more_experienced, newexplevel } from './exper.js';
 
 function mon_nam(mtmp) {
     // C mon_nam — ARTICLE_THE lowercase; named → bare
@@ -176,6 +177,8 @@ async function xkilled(mtmp, xkill_flags = XKILL_GIVEMSG) {
     }
     mondead(mtmp);
     if ((mtmp.mhp | 0) >= 1) return; // lifesaved
+    const mdat = mtmp.data;
+    const mndx = mtmp.mnum ?? mdat?.mndx;
     if (!nocorpse) {
         // accessible/pool gate deferred — always attempt RNG like floor tile
         if (!rn2(6)) {
@@ -183,6 +186,12 @@ async function xkilled(mtmp, xkill_flags = XKILL_GIVEMSG) {
         }
         corpse_chance(mtmp);
     }
+    // C ref: mon.c xkilled cleanup — experience after corpse; murder/luck/
+    // alignment adjust deferred when they would burn RNG (peaceful rn2)
+    const died = game.mvitals?.[mndx]?.died | 0;
+    const tmp = experience(mtmp, died);
+    more_experienced(tmp, 0);
+    await newexplevel();
     void x;
     void y;
 }

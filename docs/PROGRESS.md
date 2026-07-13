@@ -37,10 +37,10 @@ frozen-file overlay):
 
 | Metric | Value |
 |--------|------:|
-| Sessions passing | **10 / 44** |
-| Screens matched | **1139 / 11,405** (9.99%) |
+| Sessions passing | **11 / 44** |
+| Screens matched | **1141 / 11,405** (10.00%) |
 | Positional RNG calls matched | **104,575 / 792,838** (13.19%) |
-| Speed label | `19+0.08/turn` |
+| Speed label | `18+0.09/turn` |
 | Working-tree base | `8b71735` + committed port (see `main`) |
 | Role-init throws | **0 / 44** (`u_init_role: role not ported`) |
 
@@ -60,7 +60,8 @@ shared blockers, and semantic coverage together—not one vanity metric.
 | `seed0102-ranger-name-cancel` | **4485 / 4485** | **25 / 25** |
 | `seed0700-samurai-explore-descend` | **3230 / 3230** | **51 / 51** |
 | `seed1150-caveman-explore-move` | **3137 / 3137** | **51 / 51** |
-| `seed2200-wizard-quaff-zap-read` | **3018 / 3018** | **201 / 230** |
+| `seed0106-priest-extcmd-sweep` | **4194 / 4194** | **267 / 267** |
+| `seed2200-wizard-quaff-zap-read` | **3018 / 3018** | **202 / 230** |
 | `seed0017-samurai-altar-pray` | **3465 / 3465** | **67 / 67** |
 | `seed0030-ten-diverse-deaths` | **7085 / 105529** | **97 / 1953** |
 | `seed0103-knight-ride-pony` | **2344 / 2640** | 2 / 60 |
@@ -69,7 +70,6 @@ shared blockers, and semantic coverage together—not one vanity metric.
 | `seed0016-healer-newmoon-eat-zap` | **2544 / 3656** | **6 / 36** |
 | `seed0107-samurai-twoweapon-enhance` | **2684 / 2902** | **36 / 98** |
 | `seed0104-knight-ride-combat` | **2394 / 3223** | 1 / 43 |
-| `seed0106-priest-extcmd-sweep` | **4194 / 4194** | **266 / 267** |
 | `seed0361-archeologist-tour` | **3293 / 53865** | 0 / 366 |
 | `seed0373-barbarian-quest-tour` | **2555 / 35386** | 0 / 124 |
 | `seed0105-valk-chat-lamp-ration` | **987 / 2499** | 0 / 30 |
@@ -78,7 +78,7 @@ shared blockers, and semantic coverage together—not one vanity metric.
 | `seed0013-rogue-friday13-combat` | **522 / 4838** | 1 / 59 |
 
 seed8000 + seed0900 + seed1500 + seed1800 + seed0060 + seed0102 +
-seed0700 + seed1150 + seed0017 + seed0077 pass end-to-end.
+seed0700 + seed1150 + seed0017 + seed0077 + seed0106 pass end-to-end.
 `choose_trapnote`/`hole_destination` (D-0054), `SPBOOK_no_NOVEL`
 (D-0055), roles `initrecord` (D-0056), CORPSE `G_NOCORPSE` retry
 (D-0057), `adjabil`/`u_calc_moveamt` Fast (D-0058), `rnl` +
@@ -123,10 +123,9 @@ autoopen `doopen_indir` (D-0059), `mfndpos` BOULDER/`NODIAG`
 **`mondead`/`relobj` death minvent** (D-0108), and
 **`#sit`/`#dip`/`dipfountain`** (D-0109), and
 **`#offer`/`#enhance`/`#annotate`/`#overview`/`#version`** (D-0110)
-clear shared peels. seed2200 RNG **full**; Scr **201**/230 (next:
-`dokeylist` @184 after parked RC path @158). seed0106 RNG **full**;
-Scr **266**/267 (next: `^X` attributes @261). Healer seed0016 next
-`next_ident` @ 2493.
+clear shared peels. seed2200 RNG **full**; Scr **202**/230 (next:
+`dokeylist` @184 after parked RC path @158). seed0106 **PASS**.
+Healer seed0016 next `next_ident` @ 2493.
 Priest seed0501 still `wipeout_text`. seed0015/0200 next `lspo_map`.
 seed0101 next `next_ident`. seed0013 still breaks earlier in
 Lua/`sp_lev`. seed0103 next `next_ident`/`trquan` @ 2337.
@@ -158,6 +157,10 @@ Scr **1128→1130**; seed0106 Scr **257→259**.
 **262→264**.
 **`#terrain`/`doterrain`** (D-0128) → Scr **1135→1136**; seed0106 Scr
 **264→265**.
+**`initialspell`/`dovspell`/`age_spells`** (D-0129) → Scr **1136→1139**;
+seed0106 Scr **265→266**; seed2200 Scr **200→201**.
+**kill XP + doattributes `an`/Pw** (D-0130) → Scr **1139→1141**;
+seed0106 **PASS**; public **11/44**; seed2200 Scr **201→202**.
 
 ### Green gate
 
@@ -260,19 +263,17 @@ autoopen `doopen_indir` (D-0059) + `mfndpos` BOULDER/`ALLOW_ROCK` +
 **`#adjust`/`doorganize` getobj + destination cancel** (D-0127)
 **`#terrain`/`doterrain` View which? + Esc cancel** (D-0128)
 **`initialspell`/`dovspell` VIEW + `age_spells`** (D-0129)
-**ported**. Ten public sessions pass end-to-end. **0/44** throw at
-`u_init_role`. seed0700 + seed1150 + seed0017 + seed0077 **PASS**.
-seed0106 RNG **full** (Scr **266**/267); seed2200 RNG **full**
-(Scr **201**/230).
+**kill XP + doattributes `an`/energy** (D-0130)
+**ported**. Eleven public sessions pass end-to-end. **0/44** throw at
+`u_init_role`. seed0700 + seed1150 + seed0017 + seed0077 + seed0106
+**PASS**. seed2200 RNG **full** (Scr **202**/230).
 
-- **Bounded unit:** seed0106 `^X`/`doattributes` @261 /
-  seed2200 `dokeylist` @184 /
+- **Bounded unit:** seed2200 `dokeylist` @184 /
   seed0501/0105 `wipeout_text` / seed0015/0200 `lspo_map` /
   seed0101 `next_ident` / seed0103 `next_ident`/`trquan` /
   seed0030 `maybe_smudge_engr` / seed0361/0373 **`getbones`**
   (blocked: need `^V`→`goto_level`→`makemaz` first).
-- **Prefer:** seed0106 attributes article/uexp/Pw or seed2200
-  `dokeylist` over parked D-0006.
+- **Prefer:** seed2200 `dokeylist` over parked D-0006.
 - **Named omissions:** spell swap/sort / `docast`/`spelleffects`;
   `skill_based_spellbook_id` / `unrestrict_weapon_skill(spelspec)`;
   enhance `can_advance`/`skill_advance`/wizard speedy; full `x_monnam`
@@ -306,7 +307,7 @@ seed0106 RNG **full** (Scr **266**/267); seed2200 RNG **full**
   `b_trapped`/autounlock/mapseen; `#levelchange` `losexp`; remaining
   `extcmdlist` (beyond `#terrain`); overview shop/temple/`shop_string`/altar-god /
   `traverse_mapseenchn`; `floorfood` sacrifice;
-  `pluslvl` achievements/`newuexp`; takeoff `oc_delay`/
+  `pluslvl` achievements; takeoff `oc_delay`/
   occupation/magic helms/dragon/`A` takeoffall; dosearch0
   feel_location/mfind0/statue activate/SPFX_SEARCH; full `readobjnam`
   (fruits/traps/terrain/random/`o_ranges`); `#wizwish`; Ring_on
@@ -329,10 +330,12 @@ seed0106 RNG **full** (Scr **266**/267); seed2200 RNG **full**
   `show_menu_controls`/domenucontrols; `mshot_xname` multishot Nth;
   surviving melee `canseemon?exclam`; hero-underfoot `_map_location`
   memory (seed0060-sensitive); infrared `_map_location`;
-  `show_achievements` body; …
+  `show_achievements` body; xkilled murder/peaceful luck/`adjalign`;
+  eel AD_WRAP Amphibious XP; `get_mattk` still FIRST_ATTK compact;
+  wizard ^X next-level XP line; …
 - **Cohort:** green gate + seed1500 + seed1800 + seed0060 + seed0102
-  + seed0700 + seed1150 + seed0017 + seed0077 (must stay PASS) +
-  strict lengths.
+  + seed0700 + seed1150 + seed0017 + seed0077 + seed0106 (must stay
+  PASS) + strict lengths.
 
 Focused survey:
 
@@ -734,6 +737,10 @@ Module status, constitutional debt, and named omissions live in
     **265→266**/267; screens **1136→1139**; RNG **104575** unchanged;
     seed2200 Scr **200→201**; green cohort PASS; next seed0106
     `^X` attributes @261 / seed2200 `dokeylist` @184
+112. kill XP + doattributes `an`/Pw (D-0130) — seed0106 **PASS**;
+    public **11/44**; screens **1139→1141**; RNG **104575** unchanged;
+    seed2200 Scr **201→202**; green cohort + seed0106 PASS; next
+    seed2200 `dokeylist` @184
 
 Next work is selected from the active objectives above using
 `PORTING-RUNBOOK.md`, not by extending this historical list.

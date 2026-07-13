@@ -142,6 +142,109 @@ def split_top_commas(body: str) -> list[str]:
     return parts
 
 
+# C ref: include/monattk.h — values used by exper.c experience()
+AT_MAP = {
+    "AT_ANY": -1,
+    "AT_NONE": 0,
+    "AT_CLAW": 1,
+    "AT_BITE": 2,
+    "AT_KICK": 3,
+    "AT_BUTT": 4,
+    "AT_TUCH": 5,
+    "AT_STNG": 6,
+    "AT_HUGS": 7,
+    "AT_SPIT": 10,
+    "AT_ENGL": 11,
+    "AT_BREA": 12,
+    "AT_EXPL": 13,
+    "AT_BOOM": 14,
+    "AT_GAZE": 15,
+    "AT_TENT": 16,
+    "AT_WEAP": 254,
+    "AT_MAGC": 255,
+}
+
+AD_MAP = {
+    "AD_ANY": -1,
+    "AD_PHYS": 0,
+    "AD_MAGM": 1,
+    "AD_FIRE": 2,
+    "AD_COLD": 3,
+    "AD_SLEE": 4,
+    "AD_DISN": 5,
+    "AD_ELEC": 6,
+    "AD_DRST": 7,
+    "AD_ACID": 8,
+    "AD_SPC1": 9,
+    "AD_SPC2": 10,
+    "AD_BLND": 11,
+    "AD_STUN": 12,
+    "AD_SLOW": 13,
+    "AD_PLYS": 14,
+    "AD_DRLI": 15,
+    "AD_DREN": 16,
+    "AD_LEGS": 17,
+    "AD_STON": 18,
+    "AD_STCK": 19,
+    "AD_SGLD": 20,
+    "AD_SITM": 21,
+    "AD_SEDU": 22,
+    "AD_TLPT": 23,
+    "AD_RUST": 24,
+    "AD_CONF": 25,
+    "AD_DGST": 26,
+    "AD_HEAL": 27,
+    "AD_WRAP": 28,
+    "AD_WERE": 29,
+    "AD_DRDX": 30,
+    "AD_DRCO": 31,
+    "AD_DRIN": 32,
+    "AD_DISE": 33,
+    "AD_DCAY": 34,
+    "AD_SSEX": 35,
+    "AD_HALU": 36,
+    "AD_DETH": 37,
+    "AD_PEST": 38,
+    "AD_FAMN": 39,
+    "AD_SLIM": 40,
+    "AD_ENCH": 41,
+    "AD_CORR": 42,
+    "AD_POLY": 43,
+    "AD_TCKL": 44,
+    "AD_CURS": 45,
+    "AD_CNCL": 46,
+    "AD_RBRE": 47,
+    "AD_SAMU": 48,
+    "AD_SQUE": 49,
+}
+
+
+def parse_mattk(atks: str) -> list[dict[str, int]]:
+    """Parse A(ATTK(...), ...) / NO_ATTK into NATTK=6 slots for experience()."""
+    slots: list[dict[str, int]] = []
+    # NO_ATTK expands to ATTK(0,0,0,0) in C
+    for m in re.finditer(
+        r"(?:NO_ATTK|ATTK\s*\(\s*([A-Z0-9_]+)\s*,\s*([A-Z0-9_]+)\s*,\s*(-?\d+)\s*,\s*(-?\d+)\s*\))",
+        atks,
+    ):
+        if m.group(0).startswith("NO_ATTK"):
+            slots.append({"aatyp": 0, "adtyp": 0, "damn": 0, "damd": 0})
+        else:
+            slots.append(
+                {
+                    "aatyp": AT_MAP.get(m.group(1), 0),
+                    "adtyp": AD_MAP.get(m.group(2), 0),
+                    "damn": int(m.group(3)),
+                    "damd": int(m.group(4)),
+                }
+            )
+        if len(slots) >= 6:
+            break
+    while len(slots) < 6:
+        slots.append({"aatyp": 0, "adtyp": 0, "damn": 0, "damd": 0})
+    return slots[:6]
+
+
 def main() -> int:
     if not INC.is_dir():
         print("missing", INC, file=sys.stderr)
@@ -271,6 +374,7 @@ def main() -> int:
             "sym": parts[1].strip(),
             "msize": msize,
             "has_at_weap": "AT_WEAP" in atks,
+            "mattk": parse_mattk(atks),
             "mcolor": mcolor,
         }
 
@@ -294,6 +398,7 @@ def main() -> int:
                     "sym": "S_HUMAN",
                     "msize": 2,
                     "has_at_weap": False,
+                    "mattk": parse_mattk(""),
                     "mcolor": 7,  # CLR_GRAY
                 }
             )
@@ -360,6 +465,11 @@ def main() -> int:
     lines.append(
         "export const has_at_weaps = "
         + json.dumps([bool(m.get("has_at_weap")) for m in mons])
+        + ";"
+    )
+    lines.append(
+        "export const mattks = "
+        + json.dumps([m.get("mattk") or parse_mattk("") for m in mons])
         + ";"
     )
     lines.append(

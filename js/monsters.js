@@ -18,6 +18,7 @@ import {
     msizes,
     mlets,
     has_at_weaps,
+    mattks,
     mcolors,
     monsterNames,
     PM_GIANT_SPIDER,
@@ -109,6 +110,7 @@ export function mons(mndx) {
         msize: msizes[mndx],
         mlet: mlets[mndx],
         mcolor: mcolors[mndx],
+        mattk: mattks[mndx],
         name: monsterNames[mndx],
     };
 }

@@ -1651,3 +1651,17 @@ Use this shape:
   seed2200 Scr **201**/230.
 - Next: seed0106 `doattributes` article/uexp/Pw @261 — or seed2200
   `dokeylist` @184.
+
+## 2026-07-13 — kill XP + doattributes an/Pw (D-0130)
+- Objective: seed0106 Scr @261 `^X`/`doattributes` (PROGRESS primary).
+- C locus: `exper.c` `experience`/`more_experienced`/`newuexp`/
+  `newexplevel`; `mon.c` `xkilled` cleanup; `insight.c`
+  `background_enlightenment`/`basics_enlightenment`; `objnam.c` `an`;
+  `monsters.h` mattk extract.
+- Result: **verified** — `xkilled` never awarded XP (`uexp` stayed 0;
+  kobold kill = 6). Attributes hardcoded `a` + `both energy`. Ported
+  full mattk extract + experience path + C article/HP/Pw phrasing.
+- Verification: seed0106 **PASS** (4194/4194 Scr 267/267); green+strict
+  PASS; cohort 1500/1800/0060/0102/0700/1150/0017/0077 PASS; full
+  **11/44** Scr **1141** RNG **104575**/792838; seed2200 Scr **202**/230.
+- Next: seed2200 `dokeylist` @184.

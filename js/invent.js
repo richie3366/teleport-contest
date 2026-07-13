@@ -704,21 +704,40 @@ export async function doattributes() {
         ? `  Your wallet contains ${gold} zorkmids.`
         : '  Your wallet is empty.';
 
+    const uexp = u.uexp | 0;
+    const hp = u.uhp | 0;
+    const hpmax = u.uhpmax | 0;
+    const pw = u.uen | 0;
+    const pwmax = u.uenmax | 0;
+    // C ref: insight.c basics_enlightenment — hit / energy phrasing
+    let hpLine;
+    if (hp === hpmax && hpmax > 1) hpLine = `all ${hpmax} hit points`;
+    else hpLine = `${hp} out of ${hpmax} hit point${hpmax === 1 ? '' : 's'}`;
+    const Power = 'energy points (spell power)';
+    let pwLine;
+    if (pwmax === 0 || (pw === pwmax && pwmax === 2)) {
+        pwLine = `${!pwmax ? 'no' : 'both'} ${Power}`;
+    } else if (pw === pwmax && pwmax > 2) {
+        pwLine = `all ${pwmax} ${Power}`;
+    } else {
+        pwLine = `${pw} out of ${pwmax} ${Power}`;
+    }
+
     const page1 = [
         ` ${name} the ${role}'s attributes:`,
         '',
         ' Background:',
-        `  You are a ${rank}, a level ${u.ulevel || 1} ${genderPart}${race} ${role}.`,
+        `  You are ${an(rank)}, a level ${u.ulevel || 1} ${genderPart}${race} ${role}.`,
         `  You are ${align}, on a mission for ${u_gname(game.urole, atype)}`,
         opposed,
         `  You are ${hand}-handed.`,
         '  You are in the Dungeons of Doom, on level 1.',
         `  You entered the dungeon ${turns} turn${turns === 1 ? '' : 's'} ago.`,
-        `  You have ${u.uexp || 0} experience point${(u.uexp || 0) === 1 ? '' : 's'}.`,
+        `  You have ${uexp} experience point${uexp === 1 ? '' : 's'}.`,
         '',
         ' Basics:',
-        `  You have all ${u.uhpmax || 0} hit points.`,
-        '  You have both energy points (spell power).',
+        `  You have ${hpLine}.`,
+        `  You have ${pwLine}.`,
         `  Your armor class is ${u.uac ?? 10}.`,
         wallet,
         autopickup_enlightenment_line(),

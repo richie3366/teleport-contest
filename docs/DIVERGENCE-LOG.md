@@ -129,6 +129,11 @@ Do not record a guessed cause as fixed merely because an RNG prefix moved.
 | D-0123 | fixed | dungeon/overview | `lastseentyp`/`recalc_mapseen` + overview feature line; TAB vs PREFIX; seed0106 Scr 254→255 |
 | D-0124 | fixed | insight/#chronicle | `do_gamelog`/`show_gamelog` + livelog wire; seed0106 Scr 255→257 |
 | D-0125 | fixed | insight/#conduct | `doconduct`/`show_conduct` + `initedog` pets++; seed0106 Scr 257→259 |
+| D-0126 | fixed | insight/#vanquished | `list_vanquished` + `mvitals.died` + empty `#genocided`; seed0106 Scr 259→262 |
+| D-0127 | fixed | invent/#adjust | `doorganize` getobj + destination cancel; seed0106 Scr 262→264 |
+| D-0128 | fixed | detect/#terrain | `doterrain` View which? + Esc cancel; seed0106 Scr 264→265 |
+| D-0129 | fixed | spell/+ | `initialspell`/`dovspell` VIEW + `age_spells`; seed0106 Scr 265→266 |
+| D-0130 | fixed | exper/^X | `experience`/`more_experienced` + doattributes `an`/Pw; seed0106 **PASS** |
 
 D-0001 through D-0005 predate the strict-length/cohort runbook. Their focused
 causes are preserved, but generic "green sessions held" is historical evidence,
@@ -3492,8 +3497,35 @@ cohort gates if those functions are touched again.
   **1136→1139** RNG **104575**/792838; seed2200 Scr **200→201**.
 - **Named omission:** spell swap/sort bodies; `docast`/`spelleffects`;
   `skill_based_spellbook_id` / spelspec unrestrict; wizard turns column;
-  `force_learn_spell` / read-book path; doattributes article/uexp/Pw
-  wording (@261).
+  `force_learn_spell` / read-book path.
 - **Next:** seed0106 `^X`/`doattributes` @261 / seed2200 `dokeylist` @184.
 
+## D-0130 — kill XP + doattributes article / energy phrasing
+
+- **Status:** fixed
+- **Observed:** seed0106 Scr **266**/267 @261: JS `a Aspirant` /
+  `0 experience points` / `both energy points` vs C `an Aspirant` /
+  `6 experience points` / `all 8 energy points (spell power)`.
+- **Cause/evidence:** `xkilled` never called `experience`/`more_experienced`
+  (`uexp` stayed 0 after kobold kill = 6 XP). Attributes page hardcoded
+  `"a "` and `"both energy points"` instead of C `an(rank)` and
+  `basics_enlightenment` pwmax rules (`all N` when pw==pwmax && pwmax>2).
+- **C locus:** `exper.c` `experience` / `more_experienced` / `newuexp` /
+  `newexplevel`; `mon.c` `xkilled` cleanup; `insight.c`
+  `background_enlightenment` / `basics_enlightenment`; `objnam.c` `an`;
+  `include/monsters.h` mattk for XP attack bonuses.
+- **Change:** extract full `mattk[]` into `monsters_data.js`; port
+  `experience`/`more_experienced`/`newuexp`/`newexplevel`; wire after
+  corpse RNG in `xkilled`; doattributes uses `an(rank)` + real uexp +
+  C energy/HP phrasing; init `urexp=0`.
+- **Verification:** seed0106 **PASS** (RNG 4194/4194 Scr 267/267);
+  green+strict PASS; cohort 1500/1800/0060/0102/0700/1150/0017/0077
+  PASS; full **11/44** Scr **1139→1141** RNG **104575**/792838;
+  seed2200 Scr **201→202**/230.
+- **Named omission:** xkilled murder/peaceful luck/`adjalign` after XP;
+  eel `AD_WRAP` Amphibious +1000; MAIL_DAEMON XP=1; `exp_percent_changing`;
+  SCORE_ON_BOTL; `get_mattk` still uses compact FIRST_ATTK (extracted
+  mattk used by `experience`); wizard next-level XP line on ^X.
+- **Next:** seed2200 `dokeylist` @184 / seed0501 `wipeout_text` /
+  seed0015/0200 `lspo_map`.
 

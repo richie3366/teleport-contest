@@ -304,6 +304,7 @@ export async function newgame() {
     // Post-mklev placeholders that u_init_misc does not set
     g.u.ulevel = 1;
     g.u.uexp = 0;
+    g.u.urexp = 0;
     g.u.uhunger = g.u.uhunger ?? 900;
     g.moves = 1;
     g.flags.female = g.flags.female !== false;
