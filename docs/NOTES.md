@@ -7,22 +7,21 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 
 ## Active
 
-- **Current unit:** D-0110 `#offer`/`#enhance`/`#annotate`/`#overview`/
-  `#version` cleared seed0106 RNG **full** (4194/4194). Scr still
-  **5**/267 (stub enhance/overview menus + unbound chronicle/conduct/…).
-- **Hypothesis:** seed0106 Scr residual is NHW_MENU skill/overview text
-  + remaining unbound display extcmds (`#chronicle`/`#conduct`/
-  `#vanquished`/`#genocided`/`#adjust`/`#terrain`) — not RNG.
+- **Current unit:** D-0111 `player_selection` cleared seed0077 chargen
+  (Scr **11**/33, RNG prefix **1475**). Next peel @ **1465**
+  `rnd_rect` / themerms during Rogue Dlvl1 mklev.
+- **Hypothesis:** seed0077 post-chargen divergence is themerms/
+  `check_room`/`rnd_rect` count (extra JS rectangles), not more
+  chargen — C has more `rn2(1)` `rnd_rect` while JS rolls `rn2(6)`.
 - **Falsifier / next:**
   ```bash
-  node frozen/ps_test_runner.mjs sessions/seed0106-priest-extcmd-sweep.session.json
+  node scripts/rng-diff.mjs sessions/seed0077-rogue-chargen.session.json
   ```
-  Prefer seed2200 Scr **199**/230 or seed0077 `player_selection` if
-  screen peels stay low-leverage.
+  Prefer seed2200 Scr **199**/230 if mklev peel is deep.
 - **Parked deep canary:** D-0006 pet movement — do not implement until C
   state/candidate capture exists.
-- **Named next for no-name sessions:** seed0077 needs `player_selection`
-  after askname (Scr 6/33).
+- **Named next:** seed0106 Scr **5**/267 (enhance/overview menus +
+  unbound chronicle/conduct/…).
 
 ## Don’t re-check
 
@@ -162,6 +161,11 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   `#annotate` getlin → `#overview` ESC → `#version` nhlib
   `rn2(3)`+`rn2(2)` (D-0110). Unbound enhance ESC / annotate text /
   overview ESC became moves (`rn2(5)`).
+- **seed0077 @0 was NOT gem-color-first** — missing `player_selection`;
+  Rogue pick → `plsel_startmenu`→`rigid_role_checks`→`pick_align`
+  `rn2(1)` before `o_init` (D-0111). Tall role menu is H2344
+  fullscreen (`maxrow>=24`); corner menus must not `flush_screen`
+  botl during `in_role_selection`.
 - seed1150 @ 3032 was **not** missing `f` binding — getdir saw a
   space that C used for pet-drop `--More--` because JS
   `getdir`/`yn_function` skipped `more()` on `TOPLINE_NEED_MORE`
@@ -216,6 +220,7 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 - `wintty.c` **`#define H2344_BROKEN`** (always on): NHW_MENU
   `offx = min(min(82, cols/2), cols-maxcol-1)`; fullscreen only on
   `maxrow>=rows || !menu_overlay` — **not** `offx==10` (D-0078).
+  Role-selection menu is fullscreen on 24-row tty (D-0111).
 - botl `get_strength_str`: st>18 → `18/%02d` / `18/**` / `%2d`
   (st-100); Samurai Str 19 displays `18/01` (D-0078).
 - Samurai `makedog`: little-dog defaults `Hachi`; `christen_monst` →
@@ -319,3 +324,7 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   `"What do you want to call this dungeon level?"`. `#overview`
   PICK_NONE current-level line. `#version` → `doextversion` →
   `get_lua_version` nhlib shuffle.
+- No OPTIONS role/race/gender/align: after askname,
+  `genl_player_setup` Shall I pick → menus; Rogue forces chaotic via
+  `pick_align` `rn2(1)` inside `plsel_startmenu`→`rigid_role_checks`
+  (D-0111). Already-specified rc facets skip menus (green path).

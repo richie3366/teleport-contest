@@ -1391,3 +1391,20 @@ Use this shape:
   **93316**/792838.
 - Next: seed0106 Scr residual / seed2200 Scr 199 /
   seed0077 `player_selection`.
+
+## 2026-07-13 — player_selection / genl_player_setup (D-0111)
+- Objective: seed0077 after askname needs interactive chargen
+  (PROGRESS primary preference).
+- C locus: `role.c` `genl_player_setup` / `rigid_role_checks` /
+  `pick_align` / `ok_*` / `plsel_startmenu`; `wintty.c`
+  `tty_player_selection`; H2344 fullscreen menus.
+- Result: **verified** — missing `player_selection` skipped
+  `pick_align` `rn2(1)` before `o_init`. Ported Shall I pick +
+  role/race/gender/align menus + confirm; roles/races allow masks;
+  invent fullscreen NHW_MENU + no botl during `in_role_selection`.
+- Verification: seed0077 prefix **100→1475** Scr **6→11**/33;
+  green+strict PASS; cohort 1500/1800/0060/0102/0700/1150/0017
+  PASS; full **9/44** Scr **746** RNG **101108**/792838.
+- Next: seed0077 @ 1465 themerms/`rnd_rect` —
+  `node scripts/rng-diff.mjs sessions/seed0077-rogue-chargen.session.json`
+  — or seed2200 Scr 199 / seed0106 Scr.

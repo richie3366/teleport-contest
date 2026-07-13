@@ -2959,3 +2959,36 @@ cohort gates if those functions are touched again.
 - **Next:** seed0106 Scr residual / seed2200 Scr 199 /
   seed0077 `player_selection`.
 
+## D-0111 — seed0077 `player_selection` / `genl_player_setup`
+
+- **Status:** fixed (chargen path); mid-mklev residual
+- **Observed:** seed0077 after askname "Shade": C
+  `Shall I pick…` → `n` → role/race/gender menus → confirm →
+  first RNG `rn2(1)=0 @ pick_align` (Rogue→chaotic via
+  `plsel_startmenu`→`rigid_role_checks`) then gem shuffle. JS skipped
+  selection and started `o_init` at `rn2(2)` (prefix **100**, Scr **6**).
+- **Rejected:** treating seed0077 as rc-specified Rogue (nethackrc has
+  no role/race/gender/align); skip-path only for already-specified facets.
+- **C locus:** `role.c` `genl_player_setup` / `rigid_role_checks` /
+  `pick_align` / `ok_*` / `plsel_startmenu` / `setup_*menu` /
+  `role_menu_extra`; `wintty.c` `tty_player_selection`; H2344
+  fullscreen when `maxrow>=rows`.
+- **Cause:** no `player_selection` after askname; roles/races lacked
+  `allow`/`selfmask`; tall role menu `paint_corner_nhw_menu` returned
+  null on fullscreen; corner menus called `flush_screen` and invented
+  botl during `in_role_selection`.
+- **Change:** `js/player_selection.js`; roles/races/genders/aligns
+  allow masks; `jsmain` → `player_selection` before `newgame`;
+  `setup_role_race_from_rc` prefers `flags.init*`; invent fullscreen
+  NHW_MENU + no status flush under `in_role_selection`.
+- **Verification:** seed0077 prefix **100→1475** (`rnd_rect`/
+  themerms); Scr **6→11**/33 (chargen through confirm); green+strict
+  PASS; cohort 1500/1800/0060/0102/0700/1150/0017 PASS; full **9/44**
+  Scr **746** RNG **101108**/792838.
+- **Named omission:** filter-reset UI body; rename-in-confirm
+  (`plnamesuffix` re-ask); SELECTSAVED; full `maybe_skip_seps` for
+  non-24 rows; `doset`/`O` player_selection option.
+- **Next:** seed0077 @ 1465 themerms/`rnd_rect` / seed2200 Scr 199 /
+  seed0106 Scr residual.
+
+

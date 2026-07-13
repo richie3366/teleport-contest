@@ -19,6 +19,7 @@ import { parseNethackrc } from './options.js';
 import { flush_screen } from './display.js';
 import { GameDisplay } from './game_display.js';
 import { askname_if_needed } from './askname.js';
+import { player_selection } from './player_selection.js';
 import { PARANOID_PRAY, PARANOID_SWIM, PARANOID_TRAP } from './const.js';
 
 // ── NethackGame ──
@@ -143,6 +144,9 @@ export class NethackGame {
         // C ref: unixmain → plnamesuffix → askname when no -u / OPTIONS=name
         await askname_if_needed();
         if (!g.plname) g.plname = 'Hero';
+
+        // C ref: unixmain → player_selection() before newgame
+        await player_selection();
 
         // Run game startup
         await newgame();
