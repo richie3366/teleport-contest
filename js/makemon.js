@@ -43,12 +43,42 @@ import {
     NO_MINVENT, MM_NOGRP, MM_ASLEEP, MM_NONAME,
     GP_CHECKSCARY, GP_AVOID_MONPOS, Is_rogue_level, In_mines,
     OBJ_MINVENT, COLNO, ROWNO, A_NONE, GEHENNOM, G_GONE,
+    M_AP_OBJECT, M_AP_FURNITURE, IS_DOOR, IS_WALL,
+    SDOOR, SCORR, ZOO, VAULT, DELPHI, TEMPLE, SHOPBASE, ROOMOFFSET,
 } from './const.js';
 import { enexto_core, enexto_gpflags, goodpos } from './teleport.js';
-import { mksobj, weight } from './mkobj.js';
-import { objectNames, WEAPON_CLASS, ARMOR_CLASS } from './objects.js';
+import { mksobj, mkobj, weight, objects_at } from './mkobj.js';
+import {
+    objectNames, WEAPON_CLASS, ARMOR_CLASS, RING_CLASS, WAND_CLASS,
+    FOOD_CLASS, COIN_CLASS, SCROLL_CLASS, POTION_CLASS, AMULET_CLASS,
+    TOOL_CLASS, ROCK_CLASS, GEM_CLASS, SPBOOK_CLASS, MAXOCLASSES,
+    RANDOM_CLASS,
+} from './objects.js';
 import { cansee } from './vision.js';
 import { christen_monst } from './do_name.js';
+
+// C ref: makemon.c set_mimic_sym — S_MIMIC_DEF sentinel (MONSYMS_S_ENUM idx 60)
+const S_MIMIC_DEF_SYM = 60;
+const STRANGE_OBJECT = objectNames.indexOf('STRANGE_OBJECT');
+const GOLD_PIECE = objectNames.indexOf('GOLD_PIECE');
+const STATUE = objectNames.indexOf('STATUE');
+const FIGURINE = objectNames.indexOf('FIGURINE');
+const CORPSE = objectNames.indexOf('CORPSE');
+const EGG = objectNames.indexOf('EGG');
+const TIN = objectNames.indexOf('TIN');
+const SLIME_MOLD = objectNames.indexOf('SLIME_MOLD');
+const BOULDER = objectNames.indexOf('BOULDER');
+
+// C ref: makemon.c syms[] for ordinary-room mimic appearance
+const MIMIC_SYMS = [
+    MAXOCLASSES, MAXOCLASSES, RING_CLASS, WAND_CLASS, WEAPON_CLASS,
+    FOOD_CLASS, COIN_CLASS, SCROLL_CLASS, POTION_CLASS, ARMOR_CLASS,
+    AMULET_CLASS, TOOL_CLASS, ROCK_CLASS, GEM_CLASS, SPBOOK_CLASS,
+    S_MIMIC_DEF_SYM, S_MIMIC_DEF_SYM,
+];
+// C ref: furnsyms[] — only need length for ROLL_FROM RNG; appear value unused
+// when appear_as overrides (Storeroom). Indices are pchar S_* stubs.
+const MIMIC_FURNSYMS = [0, 0, 1, 1, 2, 3, 4, 5];
 
 // C ref: do_name.c ghostnames[] / rndghostname
 const GHOSTNAMES = [
@@ -813,6 +843,9 @@ export function makemon(mdat, x, y, mmflags = 0) {
         }
     }
 
+    // C: switch (ptr->mlet) case S_MIMIC → set_mimic_sym before invent
+    if (ptr.mlet === 'S_MIMIC') set_mimic_sym(mtmp);
+
     // C: allow_minvent → is_armed? m_initweap; m_initinv; domestic saddle
     if (allow_minvent) {
         if (is_armed(ptr)) m_initweap(mtmp);
@@ -823,6 +856,108 @@ export function makemon(mdat, x, y, mmflags = 0) {
     }
 
     return mtmp;
+}
+
+/**
+ * C ref: makemon.c set_mimic_sym — ordinary THEMEROOM/OROOM path + traps.
+ * Named omissions: shop get_shop_item body, maze town/sokoban arms,
+ * altar Align2amask MCORPSENM, Protection_from_shape_changers early-out
+ * when hero wears the amulet (stubbed false at mklev).
+ */
+export function set_mimic_sym(mtmp) {
+    if (!mtmp) return;
+    // C: Protection_from_shape_changers → return (not active at mklev)
+    const mx = mtmp.mx | 0;
+    const my = mtmp.my | 0;
+    const loc = game.level?.at?.(mx, my);
+    const typ = loc?.typ ?? 0;
+    const roomno = (loc?.roomno ?? 0) - ROOMOFFSET;
+    let rt = 0;
+    if (roomno >= 0 && game.level?.rooms?.[roomno])
+        rt = game.level.rooms[roomno].rtype ?? 0;
+
+    let ap_type = M_AP_OBJECT;
+    let appear = STRANGE_OBJECT;
+
+    const floorObj = objects_at(mx, my);
+    if (floorObj) {
+        ap_type = M_AP_OBJECT;
+        appear = floorObj.otyp;
+    } else if (IS_DOOR(typ) || IS_WALL(typ) || typ === SDOOR || typ === SCORR) {
+        ap_type = M_AP_FURNITURE;
+        // door/wall glyph pick has no RNG
+        appear = 0;
+    } else if (game.level?.flags?.is_maze_lev
+        && !(In_mines(game.u?.uz) /* && in_town */)
+        && !rn2(2)) {
+        // Sokoban gate omitted — not on ordinary themerms path
+        ap_type = M_AP_OBJECT;
+        appear = STATUE;
+    } else if (roomno < 0 && !game.ftrap?.some?.(t => t.tx === mx && t.ty === my)) {
+        // t_at stub: no trap → boulder. Named omission: full t_at.
+        ap_type = M_AP_OBJECT;
+        appear = BOULDER;
+    } else if (rt === ZOO || rt === VAULT) {
+        ap_type = M_AP_OBJECT;
+        appear = GOLD_PIECE;
+    } else if (rt === DELPHI) {
+        if (rn2(2)) {
+            ap_type = M_AP_OBJECT;
+            appear = STATUE;
+        } else {
+            ap_type = M_AP_FURNITURE;
+            appear = 0; // S_fountain stub
+        }
+    } else if (rt === TEMPLE) {
+        ap_type = M_AP_FURNITURE;
+        appear = 0; // S_altar stub
+    } else if (rt >= SHOPBASE) {
+        // Shop arms deferred — fall through burns like ordinary if reached
+        let s_sym = S_MIMIC_DEF_SYM;
+        if (rn2(10) >= (game.u?.uz?.dlevel ?? 1)) {
+            s_sym = S_MIMIC_DEF_SYM;
+        } else {
+            // get_shop_item deferred → mimic def
+            s_sym = S_MIMIC_DEF_SYM;
+        }
+        if (s_sym === S_MIMIC_DEF_SYM) {
+            ap_type = M_AP_OBJECT;
+            appear = STRANGE_OBJECT;
+        }
+    } else {
+        let s_sym = MIMIC_SYMS[rn2(MIMIC_SYMS.length)];
+        if (s_sym === MAXOCLASSES) {
+            ap_type = M_AP_FURNITURE;
+            appear = MIMIC_FURNSYMS[rn2(MIMIC_FURNSYMS.length)];
+        } else {
+            ap_type = M_AP_OBJECT;
+            if (s_sym === S_MIMIC_DEF_SYM) {
+                appear = STRANGE_OBJECT;
+            } else if (s_sym === COIN_CLASS) {
+                appear = GOLD_PIECE;
+            } else {
+                const otmp = mkobj(s_sym, false);
+                appear = otmp?.otyp ?? STRANGE_OBJECT;
+                // C: obfree — discard without floor/obj_resists
+            }
+        }
+    }
+
+    mtmp.m_ap_type = ap_type;
+    mtmp.mappearance = appear;
+
+    if (ap_type === M_AP_OBJECT
+        && (appear === STATUE || appear === FIGURINE
+            || appear === CORPSE || appear === EGG || appear === TIN)) {
+        let mndx = rndmonnum();
+        // nocorpse / hatch / tin Plan-B arms deferred
+        if (!mtmp.mextra) mtmp.mextra = {};
+        mtmp.mextra.mcorpsenm = mndx;
+    } else if (ap_type === M_AP_OBJECT && appear === SLIME_MOLD) {
+        if (!mtmp.mextra) mtmp.mextra = {};
+        mtmp.mextra.mcorpsenm = game.context?.current_fruit ?? 0;
+    }
+    // altar Align2amask / block_point deferred
 }
 
 export { MM_NOGRP };

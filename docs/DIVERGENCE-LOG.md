@@ -200,6 +200,10 @@ Do not record a guessed cause as fixed merely because an RNG prefix moved.
 | D-0194 | fixed | insight/weapon | empty_handed + real P_SKILL martial ^X; seed0200 PASS |
 | D-0195 | fixed | wintty/NHW_MENU | menu flush NEED_MORE + mark_topline NON_EMPTY; seed0101 PASS |
 | D-0196 | fixed | mkobj/candy | CANDY_BAR `assign_candy_wrapper` `rn2(12)` before quan `rn2(6)` |
+| D-0197 | fixed | dogfood CORPSE | vegan/lichen → MANFOOD; APPORT `rn2(8)` |
+| D-0198 | fixed | mhitm AD_ELEC | `mhitm_mgc_atk_negated` + `hitmu` adtyping |
+| D-0199 | fixed | monnear NODIAG | grid-bug diagonal not nearby → `m_move` |
+| D-0200 | fixed | themerms fill | Default themed-fill → `themeroom_fill` + Storeroom + `set_mimic_sym` |
 
 D-0001 through D-0005 predate the strict-length/cohort runbook. Their focused
 causes are preserved, but generic "green sessions held" is historical evidence,
@@ -5417,4 +5421,29 @@ cohort gates if those functions are touched again.
   next.
 - **Next:** seed0030 seg1 @3870 themerms.lua `room`/`nh.rn2`; or
   seed0103 `next_ident`/`trquan`.
+
+## D-0200 — Default themed-fill + Storeroom + set_mimic_sym (seed0030 seg1 @3870)
+
+- **Symptom:** seed0030 seg1 @3870 C `rn2(1) @ themerms.lua:1039
+  themeroom_fill` vs JS `rn2(3)` after matching `create_room`.
+- **Rejected:** wrong create_room args / next-room nhlib reservoir —
+  C reservoir pick was "Default room with themed fill"; fill pick
+  Storeroom (diff<4).
+- **Cause/evidence:** JS `themerooms_generate` always `create_room(OROOM)`
+  + `needfill=FILL_NORMAL` and never called `themeroom_fill` for
+  rectangular themed-fill rooms. C `des.room({type="themed", contents=
+  themeroom_fill})` → THEMEROOM + fill reservoir + Storeroom
+  `selection.room():percentage(30)` + chest/mimic.
+- **Change:** `js/mklev.js` — Default/Unlit/Both themed-fill rooms use
+  THEMEROOM + `themeroom_fill`; Storeroom body + `selection_filter_percent`;
+  mimic-as-chest via `mkclass(S_MIMIC)`/`enexto`/`appear_as`. `js/makemon.js`
+  — `set_mimic_sym` on `S_MIMIC` (ordinary ROLL_FROM path; shop/maze arms
+  stubbed).
+- **Verification:** seg1 prefix **3870→5220** (`mkshop`); seed0030
+  positional **19786**/105529 Scr **45**/1953; green+strict+cohort PASS;
+  full **17/44** Scr **1313**/11405 RNG **142362**/792838.
+- **Named omissions:** other themerms fill bodies (Ice/Trap/Spider/…);
+  Fake Delphi/Pillars/nested `des.room`; shop `get_shop_item` in
+  `set_mimic_sym`; maze/sokoban/town mimic arms; altar MCORPSENM.
+- **Next:** seed0030 seg1 @5220 `mkshop`; or seed0103 `next_ident`/`trquan`.
 

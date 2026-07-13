@@ -420,8 +420,8 @@ gettrack redirect falsified (no adjacent track).
 **underfoot `m_search_items` + peaceful `can_carry`** (D-0183) →
 seed0030 prefix **14026→14056** positional **14375**/105529 Scr
 **168**/1953; full **15/44** Scr **1405** RNG **135825**.
-Next peel: seed0030 seg1 @3870 (themerms.lua `room`/`nh.rn2` after
-D-0199 `monnear` NODIAG) / quest `makemaz` / parked seed2200 RC @158.
+Next peel: seed0030 seg1 @5220 (`mkshop` after D-0200 themed-fill
+Storeroom) / quest `makemaz` / parked seed2200 RC @158.
 Hero `dotrap`/`trapeffect_pit` still deferred; `xkilled` ordinary
 `make_corpse` done (D-0191; treasure `mkobj` still deferred); `,`
 one-object AUTOSELECT done (D-0192; multi query_objlist deferred);
@@ -436,6 +436,8 @@ seed0101 PASS);
 **`mhitm_mgc_atk_negated` + AD_ELEC `hitmu`** done (D-0198; seg1
 **3466→3497**);
 **`monnear` NODIAG diagonal** done (D-0199; seg1 **3497→3870**);
+**Default themed-fill + Storeroom + `set_mimic_sym`** done (D-0200;
+seg1 **3870→5220**);
 other `m_initinv` bodies + soldier early-return still deferred;
 dog_move digweapon / iron bars / shop dig-damage deferred;
 underfoot `m_search_items`→`MMOVE_DONE` still deferred (D-0183);
@@ -461,7 +463,7 @@ underfoot `m_search_items`→`MMOVE_DONE` still deferred (D-0183);
 | `src/trap.c` | `js/trap.js` | partial | Monster dart path: `t_at`/`t_missile`/`thitm` miss pline/`mintrap`/`seetrap` (D-0018–D-0019); **`maketrap` + `choose_trapnote` + `hole_destination`/`dng_bottom`** (D-0054); **`water_damage` POT_WATER/force/dilute/scroll/book** (D-0109); **monster `trapeffect_pit` + `thitm`→`monkilled`/`make_corpse` ordinary** (D-0150); **`mintrap` `mon_learns_traps` + `m_harmless_trap`** (D-0151); **monster `trapeffect_sqky_board`/`trapnote`/`You_hear`/`wake_nearto` + real `canseemon`** (D-0163); **`maketrap` `teledest` field for themerms TELEP** (D-0166); **monster `trapeffect_rocktrap` `t_missile(ROCK)`+`thitm(d(2,6))`** (D-0181); omit grease/towel/container/acid boom, `erode_obj` rust body, overwrite/furniture/statue/boulder/shop/terrain morph, other trap types, **hero `dotrap`/`trapeffect_pit`/SQKY/ROCKTRAP/TELEP**, SPIKED poison/`mselftouch` petrify/`wearing_iron_shoes`, hit/`dmgval`, `mons_see_trap`, HOLE `!mindless` already_seen, full `m_harmless_trap` immunities, mtrapped escape `rn2(40)`, Deaf+mindless silent, `disturb_buried_zombies`, empty-door pline_mon |
 | `src/fountain.c` | `js/fountain.js` | partial | **`dipfountain` case 16/default + `dryup` rn2(3)** (D-0109); omit Excalibur body, wash_hands, cases 17–29, drinkfountain, town warn/`angry_guards`, wizard yn |
 | `src/sit.c` | `js/sit.js` | partial | **`dosit` having-fun / surface fountain** (D-0109); omit steed/trap/pool/OBJ_AT picnic/throne/egg |
-| runtime `dat/*.lua` + `nhlua.c`/`sp_lev.c` | `js/mklev.js` themerms subset | partial | **Simple filler-map themerms via JS `lspo_map`** (D-0143); **Ghost fill body** (D-0144); **irregular finddpos_shift** (D-0145); **Teleportation hub fill + `make_a_trap` postprocess** (D-0166); full Lua VM + remaining `des.*` still production requirement; nested `des.room` / complex map rooms / other fill bodies (Ice/Temple/Storeroom/…) + garden/dig postprocess absent |
+| runtime `dat/*.lua` + `nhlua.c`/`sp_lev.c` | `js/mklev.js` themerms subset | partial | **Simple filler-map themerms via JS `lspo_map`** (D-0143); **Ghost fill body** (D-0144); **irregular finddpos_shift** (D-0145); **Teleportation hub fill + `make_a_trap` postprocess** (D-0166); **Default/Unlit/Both themed-fill → `themeroom_fill` + Storeroom + `set_mimic_sym`** (D-0200); full Lua VM + remaining `des.*` still production requirement; nested `des.room` / complex map rooms / other fill bodies (Ice/Temple/…) + garden/dig postprocess absent |
 
 ## Turns, commands, and display
 

@@ -51,6 +51,7 @@ import {
     curse, bless, blessorcurse, place_object, add_to_buried, weight, OBJ,
 } from './mkobj.js';
 import { makemon, mkclass, MM_NOGRP } from './makemon.js';
+import { enexto } from './teleport.js';
 import {
     PM_ELF, PM_DWARF, PM_ORC, PM_GNOME, PM_HUMAN,
     PM_ARCHEOLOGIST, PM_WIZARD, PM_GIANT_SPIDER,
@@ -59,7 +60,7 @@ import {
 } from './monsters.js';
 import { name_to_monplus } from './mondata.js';
 import { make_engr_at, wipe_engr_at, random_engraving } from './engrave.js';
-import { DUST, MARK as ENGRAVE_MARK } from './const.js';
+import { DUST, MARK as ENGRAVE_MARK, M_AP_OBJECT } from './const.js';
 
 const GOLD_PIECE = objectNames.indexOf('GOLD_PIECE');
 const ROCK = objectNames.indexOf('ROCK');
@@ -1747,6 +1748,90 @@ function find_montype_gender(name) {
     return { mndx: i, female };
 }
 
+// C ref: selvar.c selection_filter_percent — rn2(100) < pct per set cell
+function selection_filter_percent(sel, pct) {
+    const pts = new Set();
+    let lx = COLNO, ly = ROWNO, hx = 0, hy = 0;
+    if (!sel || !sel.pts.size) return { pts, lx: 0, ly: 0, hx: -1, hy: -1 };
+    for (let x = sel.lx; x <= sel.hx; x++) {
+        for (let y = sel.ly; y <= sel.hy; y++) {
+            const key = `${x},${y}`;
+            if (!sel.pts.has(key)) continue;
+            if (rn2(100) < pct) {
+                pts.add(key);
+                if (x < lx) lx = x;
+                if (y < ly) ly = y;
+                if (x > hx) hx = x;
+                if (y > hy) hy = y;
+            }
+        }
+    }
+    if (pts.size === 0) return { pts, lx: 0, ly: 0, hx: -1, hy: -1 };
+    return { pts, lx, ly, hx, hy };
+}
+
+// C ref: selection.room() iterate order — x-outer then y (same as filter_percent)
+function selection_iterate(sel, fn) {
+    if (!sel || !sel.pts.size) return;
+    for (let x = sel.lx; x <= sel.hx; x++) {
+        for (let y = sel.ly; y <= sel.hy; y++) {
+            if (sel.pts.has(`${x},${y}`)) fn(x, y);
+        }
+    }
+}
+
+// C ref: sp_lev.c get_location with croom → somexy for random room place
+function room_random_loc(croom) {
+    const c = { x: 0, y: 0 };
+    if (!somexy(croom, c)) return null;
+    return c;
+}
+
+// C ref: sp_lev.c create_monster class "m" + appear_as "obj:chest" in croom
+function create_mimic_as_chest(croom) {
+    // C: amask = sp_amask_to_amask(RANDOM) → induced_align(80)
+    induced_align(80);
+    const pm = mkclass('S_MIMIC', G_NOGEN);
+    let pos = room_random_loc(croom);
+    if (!pos) return null;
+    // C: if (MON_AT && enexto) relocate before makemon
+    if (game.fmon) {
+        for (const m of game.fmon) {
+            if (m.mx === pos.x && m.my === pos.y) {
+                const cc = { x: 0, y: 0 };
+                if (enexto(cc, pos.x, pos.y, pm)) {
+                    pos = { x: cc.x, y: cc.y };
+                } else {
+                    return null;
+                }
+                break;
+            }
+        }
+    }
+    const mtmp = makemon(pm, pos.x, pos.y, 0);
+    if (mtmp) {
+        // C create_monster appear_as overrides set_mimic_sym result
+        mtmp.m_ap_type = M_AP_OBJECT;
+        mtmp.mappearance = CHEST;
+    }
+    return mtmp;
+}
+
+// C ref: themerms.lua "Storeroom" contents
+function themeroom_fill_storeroom(croom) {
+    const roomSel = selection_from_mkroom(croom);
+    const locs = selection_filter_percent(roomSel, 30);
+    // Lua iterate ignores x,y and places via get_location(croom) each time
+    selection_iterate(locs, () => {
+        if (percent(25)) {
+            const pos = room_random_loc(croom);
+            if (pos) mksobj_at(CHEST, pos.x, pos.y, true, false);
+        } else {
+            create_mimic_as_chest(croom);
+        }
+    });
+}
+
 // C ref: themerms.lua "Ghost of an Adventurer" contents + sp_lev create_monster/object
 function themeroom_fill_ghost(croom) {
     const sel = selection_from_mkroom(croom);
@@ -1898,6 +1983,7 @@ function run_themerms_post_level_generate() {
 const THEMEROOM_FILL_BODIES = {
     'Ghost of an Adventurer': themeroom_fill_ghost,
     'Teleportation hub': themeroom_fill_teleport_hub,
+    'Storeroom': themeroom_fill_storeroom,
 };
 
 // C ref: themerms.lua themeroom_fill() — reservoir + dispatched fill bodies
@@ -2084,13 +2170,40 @@ async function themerooms_generate(difficulty) {
         if (pick.name !== 'ordinary') {
             rn2(100);
         }
-        const ok = create_room(-1, -1, -1, -1, -1, -1, OROOM, -1);
+
+        // C themerms.lua rectangular rooms:
+        //  default → ordinary filled=1
+        //  Default/Unlit/Both themed fill → type=themed + themeroom_fill
+        let rtype = OROOM;
+        let rlit = -1;
+        let needfill = FILL_NORMAL;
+        let do_themed_fill = false;
+        if (pick.name === 'Default room with themed fill') {
+            rtype = THEMEROOM;
+            needfill = 0;
+            do_themed_fill = true;
+        } else if (pick.name === 'Unlit room with themed fill') {
+            rtype = THEMEROOM;
+            rlit = 0;
+            needfill = 0;
+            do_themed_fill = true;
+        } else if (pick.name === 'Room with both normal contents and themed fill') {
+            rtype = THEMEROOM;
+            needfill = FILL_NORMAL;
+            do_themed_fill = true;
+        }
+        // Named omission: Fake Delphi / Pillars / Mausoleum / nested des.room
+        // bodies still fall through as plain create_room.
+
+        const ok = create_room(-1, -1, -1, -1, -1, -1, rtype, rlit);
         if (ok) {
             // C ref: sp_lev.c:2824 — build_room calls topologize after create_room
             const aroom = g.level.rooms[g.level.nroom - 1];
             if (aroom) {
                 topologize(aroom);
-                aroom.needfill = FILL_NORMAL;
+                aroom.needfill = needfill;
+                // C lspo_room: contents(themeroom_fill) after build_room
+                if (do_themed_fill) themeroom_fill(aroom);
             }
         }
         return ok;

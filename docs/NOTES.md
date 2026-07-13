@@ -7,12 +7,12 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 
 ## Active
 
-- **Current unit:** seed0030 seg1 @3870 / seed0103 `next_ident`/`trquan`.
-- **Hypothesis (seed0030 seg1):** after D-0199 `monnear` NODIAG, first mismatch
-  @3870 on descend `>` — C `nh.rn2` themerms.lua:1039 `room()` shuffle vs JS
-  `rn2(3)` (wrong Lua/fill path or earlier room args).
-- **Falsifier:** compare JS Lua provenance / `create_room` args at seg1 step
-  with key `>` just before 3870; check whether themerms `room` body runs.
+- **Current unit:** seed0030 seg1 @5220 / seed0103 `next_ident`/`trquan`.
+- **Hypothesis (seed0030 seg1):** after D-0200 themed-fill Storeroom, first
+  mismatch @5220 — C `rnd(100) @ mkshop` vs JS `rn2(7)` (dlvl2+ special-room
+  `do_mkroom`/`mkshop` stub incomplete).
+- **Falsifier:** compare C `makelevel` special-room branch at seg1 ~5219 with
+  JS `do_mkroom`/`mkshop` callers; check whether `rn2(u_depth)` picked a shop.
 - **Parked deep canary:** D-0006 pet movement — do not implement until C
   state/candidate capture exists.
 - **Parked seed2200 @158:** RC config path — harness `$HOME`, not a port bug.
@@ -131,6 +131,10 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   `mattacku`; C `monnear` returns 0 when `dist2==2 && NODIAG` so
   want_move→`m_move` (D-0199). Do not re-chase mux/hero coord theories
   for that index.
+- **seed0030 seg1 @3870 was NOT wrong create_room args / next-room
+  reservoir** — pick was "Default room with themed fill"; JS never called
+  `themeroom_fill` after `create_room` (D-0200). Do not re-chase litstate
+  or nhlib shuffle for that index.
 - **`monattk.h`: AT_WEAP=254, AT_MAGC=255, AT_SPIT=10** — never use 10 for
   weapon (D-0179).
 - Hostile `m_move`: before place, `m_digweapon_check` may return
@@ -198,3 +202,7 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   (D-0198). Other adtyps still zero-out.
 - **`monnear`:** `dist2<3`, but `dist2==2 && NODIAG(PM_GRID_BUG)` →
   false (D-0199). Do not use bare `distmin<=1` for grid bugs.
+- **Themed rectangular rooms:** "Default/Unlit/Both … themed fill" must
+  `create_room(THEMEROOM)` then `themeroom_fill` (D-0200). Mimic
+  `makemon` burns `set_mimic_sym` before invent; Storeroom `appear_as`
+  overrides afterward.

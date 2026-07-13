@@ -2587,3 +2587,14 @@ Use this shape:
   full **17/44** Scr **1312** RNG **141923**; green+strict+cohort PASS.
 - Next: seed0030 seg1 @3870 themerms.lua `room`/`nh.rn2`; or seed0103
   `next_ident`/`trquan`.
+
+## 2026-07-13 23:55 — D-0200 Default themed-fill + Storeroom fixed
+- Objective: seed0030 seg1 @3870 C `themeroom_fill` vs JS `rn2(3)` (PROGRESS primary).
+- C locus: `themerms.lua` Default room with themed fill / `themeroom_fill` /
+  Storeroom; `makemon.c` `set_mimic_sym`; `selvar.c` `selection_filter_percent`.
+- Result: **fixed** — JS skipped `themeroom_fill` after `create_room` for
+  rectangular themed-fill rooms. Wired THEMEROOM + fill dispatch, Storeroom
+  percentage/chest/mimic, and `set_mimic_sym` on S_MIMIC.
+- Verification: seg1 **3870→5220**; seed0030 positional **19786**/105529;
+  full **17/44** Scr **1313** RNG **142362**; green+strict+cohort PASS.
+- Next: seed0030 seg1 @5220 `mkshop`; or seed0103 `next_ident`/`trquan`.
