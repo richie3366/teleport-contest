@@ -434,6 +434,16 @@ function start_corpse_timeout(body) {
     start_timer(when, TIMER_OBJECT, action, body);
 }
 
+// C ref: read.c candy_wrappers[] — index 0 unused; SIZE-1 == 12 brands
+const CANDY_WRAPPER_COUNT = 12;
+
+// C ref: read.c assign_candy_wrapper — spe = 1 + rn2(SIZE(candy_wrappers)-1)
+function assign_candy_wrapper(obj) {
+    if (otypName(obj.otyp) === 'CANDY_BAR') {
+        obj.spe = 1 + rn2(CANDY_WRAPPER_COUNT);
+    }
+}
+
 // C ref: mkobj.c mksobj_init (partial — classes hit during fill/mineralize)
 function mksobj_init(otmp, artif) {
     const objects = objs();
@@ -500,6 +510,15 @@ function mksobj_init(otmp, artif) {
                 }
             }
             blessorcurse(otmp, 10);
+        } else if (name === 'SLIME_MOLD') {
+            // C ref: mkobj.c SLIME_MOLD — spe = current_fruit; fruit chain deferred
+            if (game.context?.current_fruit != null) {
+                otmp.spe = game.context.current_fruit;
+            }
+            if (game.flags) game.flags.made_fruit = true;
+        } else if (name === 'CANDY_BAR') {
+            // C ref: mkobj.c CANDY_BAR → read.c assign_candy_wrapper
+            assign_candy_wrapper(otmp);
         }
         if (name !== 'CORPSE' && name !== 'MEAT_RING' && name !== 'KELP_FROND'
             && !name.startsWith('GLOB_')) {

@@ -2543,3 +2543,15 @@ Use this shape:
   **17/44** Scr **1312**/11405 RNG **138545**/792838.
 - Next: seed0030 seg1 @1238 `assign_candy_wrapper`; or seed0103
   `next_ident`/`trquan`.
+
+
+## 2026-07-13 23:32 — D-0196 CANDY_BAR assign_candy_wrapper fixed
+- Objective: seed0030 seg1 @1238 C `assign_candy_wrapper` vs JS quan `rn2(6)` (PROGRESS primary).
+- C locus: `read.c` `assign_candy_wrapper`; `mkobj.c` `mksobj_init` FOOD `CANDY_BAR`.
+- Result: **fixed** — JS skipped candy wrapper `rn2(12)` before quan `rn2(6)`.
+  Wired `assign_candy_wrapper` + `CANDY_BAR` in `mksobj_init`; SLIME_MOLD spe
+  from `current_fruit` when present (fruit chain still deferred).
+- Verification: seg1 prefix **1238→3347**; seed0030 positional **17994**/105529;
+  full **17/44** Scr **1312** RNG **140933**; green+strict+cohort PASS.
+- Next: seed0030 seg1 @3347 C `dog_goal` vs JS `obj_resists`; or seed0103
+  `next_ident`/`trquan`.

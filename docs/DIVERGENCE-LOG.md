@@ -199,6 +199,7 @@ Do not record a guessed cause as fixed merely because an RNG prefix moved.
 | D-0193 | fixed | eat.c eatcorpse | CORPSE refuse → early kick; port eatcorpse + occupation |
 | D-0194 | fixed | insight/weapon | empty_handed + real P_SKILL martial ^X; seed0200 PASS |
 | D-0195 | fixed | wintty/NHW_MENU | menu flush NEED_MORE + mark_topline NON_EMPTY; seed0101 PASS |
+| D-0196 | fixed | mkobj/candy | CANDY_BAR `assign_candy_wrapper` `rn2(12)` before quan `rn2(6)` |
 
 D-0001 through D-0005 predate the strict-length/cohort runbook. Their focused
 causes are preserved, but generic "green sessions held" is historical evidence,
@@ -5323,4 +5324,27 @@ cohort gates if those functions are touched again.
   NON_EMPTY append policy beyond NEED_MORE.
 - **Next:** seed0030 disclosure·seg1 / seed0103 `next_ident` /
   quest `makemaz`.
+
+## D-0196 — CANDY_BAR assign_candy_wrapper (seed0030 seg1 @1238)
+
+- **Status:** fixed
+- **Observed:** seed0030 seg1 first mismatch @1238 — C
+  `rn2(12) @ assign_candy_wrapper` vs JS `rn2(6)` (quan gate).
+- **C locus:** `read.c` `assign_candy_wrapper` (`spe = 1 +
+  rn2(SIZE(candy_wrappers)-1)`); `mkobj.c` `mksobj_init` FOOD
+  `CANDY_BAR` case before post-switch quan `!rn2(6)`.
+- **Cause/evidence:** JS FOOD_CLASS omitted `CANDY_BAR`, so the next
+  call was the shared quan `rn2(6)` while C burned wrapper `rn2(12)`
+  first. Seg1 isolated prefix **1238→3347**.
+- **Change:** `js/mkobj.js` — `assign_candy_wrapper` + `CANDY_BAR`
+  branch; `SLIME_MOLD` spe from `current_fruit` when present (fruit
+  chain still deferred).
+- **Verification:** seed0030 positional **17994**/105529 Scr **44**/1953;
+  seg1 prefix **3347**/7640; green+strict+cohort PASS; full **17/44**
+  Scr **1312**/11405 RNG **140933**/792838.
+- **Named omissions:** fruit `ffruit`/`current_fruit` init + slime-mold
+  naming; candy wrapper *text* for `doread`; other FOOD specials
+  (pudding globby beyond GLOB_ name skip).
+- **Next:** seed0030 seg1 @3347 `dog_goal` vs JS `obj_resists`; or
+  seed0103 `next_ident`/`trquan`.
 

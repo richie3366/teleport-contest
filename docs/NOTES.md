@@ -7,12 +7,12 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 
 ## Active
 
-- **Current unit:** seed0030 disclosure·seg1 / seed0103 `next_ident`/`trquan`.
-- **Hypothesis (seed0030):** after seg0 RNG complete (D-0190), seg1 first
-  mismatch @1238 C `rn2(12) @ assign_candy_wrapper` vs JS `rn2(6)` —
-  candy/wrapper init during post-death mklev (or prior fill omission).
-- **Falsifier:** per-seg RNG compare on seed0030 seg1; confirm C
-  `assign_candy_wrapper` call path vs JS mkobj candy branch.
+- **Current unit:** seed0030 seg1 @3347 / seed0103 `next_ident`/`trquan`.
+- **Hypothesis (seed0030 seg1):** after D-0196 candy wrapper, first mismatch
+  @3347 C `rn2(8) @ dog_goal` vs JS `rn2(100) @ obj_resists` — pet goal /
+  floor-object resist path diverged (or earlier silent state).
+- **Falsifier:** reconstruct C call path at seg1 ~3340 (dog_goal vs
+  delobj/obj_resists); confirm whether a missing relobj/delobj precedes.
 - **Parked deep canary:** D-0006 pet movement — do not implement until C
   state/candidate capture exists.
 - **Parked seed2200 @158:** RC config path — harness `$HOME`, not a port bug.
@@ -116,6 +116,9 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   painted without C's NHW_MENU `NEED_MORE` flush; travel pline
   `--More--` skipped (D-0195). `mark_topline_seen` must be NON_EMPTY
   not EMPTY.
+- **seed0030 seg1 @1238 was NOT missing quan/`rn2(6)` alone** — FOOD
+  `CANDY_BAR` must `assign_candy_wrapper` (`rn2(12)`) before quan
+  (D-0196). Do not re-chase fill_ordinary_room order for that index.
 - **`monattk.h`: AT_WEAP=254, AT_MAGC=255, AT_SPIT=10** — never use 10 for
   weapon (D-0179).
 - Hostile `m_move`: before place, `m_digweapon_check` may return
@@ -173,3 +176,5 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   skill line uses real `P_SKILL` + martial `P_NAME` (D-0194).
 - **NHW_MENU must flush NEED_MORE** before paint (D-0195); nhgetch
   marks NEED_MORE→NON_EMPTY not EMPTY.
+- **CANDY_BAR `mksobj_init`:** `assign_candy_wrapper` → `spe = 1 +
+  rn2(12)` before quan `!rn2(6)` (D-0196).
