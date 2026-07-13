@@ -290,9 +290,12 @@ seed0103 Scr **2→57**/60; seed0104 Scr **3→15**/43; full **17/44**
 Scr **1399** RNG **148875**.
 **tutorial stay-open + death disclose** (D-0215/D-0216) →
 seed0103 **PASS**; full **18/44** Scr **1405** RNG **148875**.
-**mounted `mattacku` steed redirect** (D-0217) →
-seed0104 prefix **2841→3031** positional **3034**/3223; full
+**mounted `mattacku` steed redirect** (D-0217) → seed0104 prefix
+**2841→3031** positional **3034**/3223; full
 **18/44** Scr **1405** RNG **148941**.
+**seed0104 @3031 upstairs geometry** (D-0218) → not gethungry/
+fleeck; JS branch stair **(19,7)** vs C **(18,8)**; next
+`makerooms` rect dump.
 
 ### Green gate
 
@@ -484,6 +487,7 @@ autoopen `doopen_indir` (D-0059) + `mfndpos` BOULDER/`ALLOW_ROCK` +
 **riding display / pet mcolor / saddled / Ride botl** (D-0214)
 **tutorial stay-open + death disclose** (D-0215/D-0216)
 **mounted `mattacku` steed redirect** (D-0217)
+**seed0104 @3031 upstairs geometry** (D-0218) diagnosed
 **ported**; **dog_move extra mfndpos candidate** (D-0211) **open**. Eighteen
 public sessions pass end-to-end. **0/44** throw at
 `u_init_role`. seed0700 + seed1150 + seed0017 + seed0077 + seed0106 +
@@ -493,13 +497,15 @@ seed0103 **PASS**. seed2200 RNG **full**
 seed0101 RNG **full** Scr **27**/27. seed0103 RNG **full** Scr **60**/60.
 seed0104 **3034**/3223 Scr **15**/43.
 
-- **Bounded unit:** seed0104 @3031 C `gethungry` vs JS `rn2(5)` /
+- **Bounded unit:** seed0104 `makerooms`/`create_room` rect origin
+  (D-0218: branch stair JS (19,7) vs C (18,8); @3031 is symptom) /
   seed0030 seg2 @2408 (D-0211: C excludes SW diagonal — poison-gas
   falsified; need C typ dump) / seed0361/0373 **quest `getbones`**
   (blocked: need `^V`→`goto_level`→`makemaz` first — ordinary
   `goto_level` now exists for stairs; Mines `fill_lvl` path exists
   D-0171).
-- **Prefer:** seed0104 mounted-combat peel @3031 over parked D-0006 and
+- **Prefer:** D-0218 room-rect dump / first diverging `create_room`
+  over inventing moveloop fixes at @3031; over parked D-0006 and
   over baking seed2200 RC paths.
   Hero `dotrap` deferred until monster pit peel is clear.
   Hero `xkilled` treasure `mkobj` still deferred (ordinary `make_corpse`
@@ -613,7 +619,8 @@ seed0104 **3034**/3223 Scr **15**/43.
   falsified for seg2; need C typ dump);
   **`doride`/`mount_steed`** (done D-0213; Scr residual D-0214 →
   D-0215/16 seed0103 PASS);
-  **mounted `mattacku` steed** (done D-0217; next seed0104 @3031);
+  **mounted `mattacku` steed** (done D-0217; @3031 = D-0218 upstairs);
+  **seed0104 upstairs geometry** (D-0218 open — makerooms rect);
   …
 - **Cohort:** green gate + seed1500 + seed1800 + seed0060 + seed0102
   + seed0700 + seed1150 + seed0017 + seed0077 + seed0106 + seed0501
@@ -1391,6 +1398,10 @@ Module status, constitutional debt, and named omissions live in
     — seed0104 prefix **2841→3031** positional **3034**/3223 Scr
     **15**/43; full **18/44** Scr **1405** RNG **148941**; next
     seed0104 @3031 / D-0211 typ dump / seed0030 seg2 @2408
+193. seed0104 @3031 upstairs geometry (D-0218)
+    — diagnosed: not gethungry/fleeck; JS branch stair **(19,7)** vs
+    C **(18,8)**; matched somex/somey on drifted room origin; next
+    makerooms rect dump / D-0211 typ dump
 
 Next work is selected from the active objectives above using
 `PORTING-RUNBOOK.md`, not by extending this historical list.

@@ -2799,3 +2799,10 @@ Use this shape:
 - Result: **verified** — JS lacked the mounted steed branch (`rn2(is_orc?2:4)` → `mattackm` steed + retaliation; steed never attacks rider). Also `m_at` skipped `u.usteed` like C `remove_monster` on mount.
 - Verification: seed0104 prefix **2841→3031** positional **3034**/3223 Scr **15**/43; seed0103 PASS; green+strict+cohort PASS; full **18/44** Scr **1405** RNG **148941**.
 - Next: seed0104 @3031 C `gethungry` `rn2(20)` vs JS `rn2(5)`; or D-0211 C typ dump.
+
+## 2026-07-14 01:43 — D-0218 seed0104 @3031 upstairs geometry
+- Objective: PROGRESS primary — seed0104 @3031 C `gethungry` vs JS `rn2(5)`.
+- C locus: `mklev.c` `place_branch`/`find_branch_room`; `mkroom.c` `somex`/`somey`; `stairs.c` `u_on_upstairs` (symptom: `hack.c` `overexertion`).
+- Result: **falsified** allotment/gethungry theories. After matched EOT, JS reaches rhack; `l` is free move because goblin is north (C: east). Root: JS upstairs **(19,7)** vs C **(18,8)** from `place_branch` on a same-sized room at a drifted origin (matched `rn2(7)=0`/`rn2(5)=1`).
+- Verification: green+strict preflight PASS; focused still 3034/3223; DIAG removed; no production change.
+- Next: dump post-`sort_rooms` rects vs C; peel first diverging `create_room`; or D-0211 typ dump.

@@ -7,14 +7,15 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 
 ## Active
 
-- **Current unit:** seed0104 @3031 after D-0217 mounted `mattacku`
-  steed branch — C `gethungry` `rn2(20)` vs JS `rn2(5)` (likely
-  `distfleeck`); C next is `exercise`/`hitum` (hero attack).
-- **Hypothesis:** post-steed-combat turn/allotment drift — JS still in
-  monster fleeck while C has advanced to hero `hitum`; or missing second
-  `gethungry` path before hero attack.
-- **Falsifier:** dump actor/`u.usteed`/movement at index 3030–3032; check
-  whether C steed HP/`mattackm` return left different moveloop state.
+- **Current unit:** seed0104 upstairs / `place_branch` room absolute
+  position — C entrance stair **(18,8)** vs JS **(19,7)** (D-0218).
+  Late peel @3031 is a symptom (C goblin east of hero; JS north).
+- **Hypothesis:** `makerooms`/`create_room`/`rnd_rect` places the branch
+  room at a different origin while floor **size** (hence `somex`/`somey`
+  arities) still matches — same `rn2(7)=0`/`rn2(5)=1` → different xy.
+- **Falsifier:** dump room `lx,ly,hx,hy` after `sort_rooms` for seed0104
+  vs C; find first `create_room` whose rect origin differs under a
+  matched RNG prefix.
 - **Hypothesis (D-0211):** kitten `dog_move` — JS `mfndpos` includes SW
   that C skips; poison-gas falsified; need C typ dump.
 - **Parked deep canary:** D-0006 pet movement — do not implement until C
@@ -213,6 +214,12 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   `mattacku` while mounted burns `rn2(is_orc?2:4)` then may
   `mattackm` the steed (D-0217). JS lacked the whole usteed branch.
   `m_at` must also skip `u.usteed` (C `remove_monster` while mounted).
+- **seed0104 @3031 was NOT missing gethungry / leftover fleeck /
+  steed mattackm RNG** — after matched EOT wipe_engr, C `l` attacks
+  goblin to the **east**; JS fleecks because goblin is **north**.
+  Root: `place_branch` upstairs JS **(19,7)** vs C **(18,8)**; branch
+  `somex`/`somey` arities matched on a same-sized room at a different
+  origin (D-0218). Do not patch moveloop allotment or force-attack.
 - **`monattk.h`: AT_WEAP=254, AT_MAGC=255, AT_SPIT=10** — never use 10 for
   weapon (D-0179).
 - Hostile `m_move`: before place, `m_digweapon_check` may return
@@ -331,3 +338,6 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 - **Mounted `mattacku`:** before hero melee, `rn2(is_orc?2:4)` may redirect
   to `mattackm(mtmp, usteed)` + steed retaliation; steed never attacks
   rider; `m_at` skips `usteed` (D-0217).
+- **Dlvl1 upstairs** comes from `place_branch` (not `generate_stairs`
+  up-arm); matched `somex`/`somey` arities can still yield wrong xy if
+  the chosen room's origin drifted in `makerooms` (D-0218).

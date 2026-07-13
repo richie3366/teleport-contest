@@ -221,6 +221,7 @@ Do not record a guessed cause as fixed merely because an RNG prefix moved.
 | D-0215 | fixed | tutorial menu | invalid letter stays open; no premature Please choose |
 | D-0216 | fixed | death disclose | really_done flush You die --More-- + possessions yn |
 | D-0217 | fixed | mattacku steed | mounted rn2(is_orc?2:4)→mattackm steed; seed0104 2841→3031 |
+| D-0218 | open | upstairs geometry | seed0104 branch stair (19,7) vs C (18,8); @3031 symptom |
 
 D-0001 through D-0005 predate the strict-length/cohort runbook. Their focused
 causes are preserved, but generic "green sessions held" is historical evidence,
@@ -5878,3 +5879,29 @@ cohort gates if those functions are touched again.
   whirly/unsolid; map-grid `remove_monster` (logical skip only).
 - **Next:** seed0104 @3031 C `gethungry` vs JS `rn2(5)`; or D-0211
   typ dump.
+
+## D-0218 — seed0104 @3031 is upstairs geometry, not gethungry
+
+- **Status:** diagnosed (prerequisite); no production change
+- **Symptom:** seed0104 @3031 C `rn2(20) @ gethungry` (hero
+  `overexertion`/`do_attack`) vs JS `rn2(5) @ distfleeck`.
+- **Rejected:** post-steed moveloop allotment / missing second
+  `gethungry` / incomplete steed `mattackm` RNG — after matched EOT
+  wipe_engr, JS `umovement=12` and reaches `rhack`; next key `l` is a
+  free east move on JS (goblin is **north** at 34,8) while C attacks
+  goblin **east** of hero (screen `uo` at cursor 32,9).
+- **Cause/evidence:** JS `u_on_upstairs` places hero on branch stair
+  **(19,7)**; C start cursor **(18,8)**. `place_branch`→
+  `find_branch_room`→`somex`/`somey` use matched arities
+  (`rn2(7)=0`,`rn2(5)=1` @1256–57) on a same-sized room whose
+  absolute origin already differs (`JS room lx=19,ly=6` → (19,7);
+  C (18,8) implies room origin one west and one south). Drift begins
+  in earlier `makerooms`/`create_room`/`rnd_rect`.
+- **C locus:** `mklev.c` `place_branch`/`find_branch_room`;
+  `mkroom.c` `somex`/`somey`; `stairs.c` `u_on_upstairs`;
+  `hack.c` `overexertion` (symptom only).
+- **Change:** none (DIAG removed).
+- **Verification:** green+strict preflight PASS; focused still
+  **3034**/3223; diagnosis-only.
+- **Next:** dump post-`sort_rooms` room rects vs C; peel first
+  diverging `create_room` under matched RNG; or D-0211 typ dump.
