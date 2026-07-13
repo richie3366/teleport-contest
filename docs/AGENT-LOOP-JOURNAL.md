@@ -2494,3 +2494,17 @@ Use this shape:
   **137724**; green+cohort+strict PASS.
 - Next: seed0200 @3547 `distfleeck`; or seed0030 disclosure·seg1; or
   seed0101 Scr residual.
+
+## 2026-07-13 22:55 — D-0192 `,`/dopickup fixed
+- Objective: seed0200 @3547 C `distfleeck` vs JS `rn2(2)` (PROGRESS primary).
+- C locus: `cmd.c` `,`→`dopickup`; `hack.c` `dopickup`/`pickup_checks`;
+  `pickup.c` `pickup`/`pickup_object`/`pick_obj` AUTOSELECT_SINGLE.
+- Result: **fixed** — `,` was Unknown (move=0); JS raced to Ctrl-D
+  `dokick`→`exercise` while C timed pickup then monsters. Wired
+  one-object AUTOSELECT `dopickup`.
+- Verification: seed0200 prefix **3547→3565** (`eatcorpse`); positional
+  **3578**/3822 Scr **24**/40; full **15/44** Scr **1290** RNG
+  **138575**; green+cohort+strict PASS.
+- Next: seed0200 @3565 `eatcorpse`; or seed0030 disclosure·seg1; or
+  seed0101 Scr residual.
+

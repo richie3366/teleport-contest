@@ -7,17 +7,17 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 
 ## Active
 
-- **Current unit:** seed0200 @3547 (`distfleeck` vs JS `rn2(2)`) — after
-  D-0191 `xkilled`→`make_corpse`.
-- **Hypothesis:** C flees/distfleeck burns `rn2(5)` while JS takes a
-  different pet/hostile branch that burns `rn2(2)` (possibly APPORT/
-  invent or wrong fleeck gate).
+- **Current unit:** seed0200 @3565 (`eatcorpse` vs JS `rn2(2)`) — after
+  D-0192 `,`/`dopickup`.
+- **Hypothesis:** C `e`+`k` eats invent corpse via `eatcorpse` (rotting
+  rolls); JS doeat path misses corpse / burns a different `rn2(2)`
+  (exercise or wrong food branch) before `eatcorpse`.
 - **Falsifier:**
   ```bash
   node scripts/rng-diff.mjs sessions/seed0200-monk-north-search.session.json
   ```
-  Expect: if fleeck path matches, next C call is `obj_resists` (not a
-  different `rn2(5)`/`rn2(2)` swap).
+  Expect: if eatcorpse path matches, next C calls stay in eatcorpse
+  (`rn2(7)`, `rn2(5)`) then `distfleeck`.
 - **Parked deep canary:** D-0006 pet movement — do not implement until C
   state/candidate capture exists.
 - **Parked seed2200 @158:** RC config path — harness `$HOME`, not a port bug.
@@ -106,6 +106,10 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 - **@3387 was NOT missing treasure `mkobj`** — `rn2(6)=3` skipped
   treasure; C then `make_corpse`→`next_ident` while JS only burned
   `corpse_chance` (D-0191).
+- **@3547 was NOT missing distfleeck / fleeck gate** — JS unbound `,`
+  (unknown, move=0) skipped the pickup turn; next keys raced to Ctrl-D
+  `dokick`→`exercise` `rn2(2)` while C `dopickup`→monsters→`distfleeck`
+  (D-0192). Do not re-chase fleeck/APPORT for this index.
 - **`monattk.h`: AT_WEAP=254, AT_MAGC=255, AT_SPIT=10** — never use 10 for
   weapon (D-0179).
 - Hostile `m_move`: before place, `m_digweapon_check` may return
@@ -154,3 +158,5 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   (D-0190). `runSegment` must stop on `gameover`.
 - **`xkilled` must `make_corpse` when `corpse_chance`** — not burn-only
   (D-0191). Treasure `mkobj(RANDOM_CLASS)` still deferred.
+- **`,` → `dopickup`** with menu AUTOSELECT_SINGLE for one floor object
+  (D-0192); multi-object query_objlist still deferred.

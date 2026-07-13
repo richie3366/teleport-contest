@@ -420,12 +420,13 @@ gettrack redirect falsified (no adjacent track).
 **underfoot `m_search_items` + peaceful `can_carry`** (D-0183) →
 seed0030 prefix **14026→14056** positional **14375**/105529 Scr
 **168**/1953; full **15/44** Scr **1405** RNG **135825**.
-Next peel: seed0200 @3547 (`distfleeck` after D-0191) / seed0030
+Next peel: seed0200 @3565 (`eatcorpse` after D-0192) / seed0030
 disclosure·seg1 (seg0 RNG complete D-0190) / seed0101 Scr residual /
 quest `makemaz` / parked seed2200 RC @158.
 Hero `dotrap`/`trapeffect_pit` still deferred; `xkilled` ordinary
-`make_corpse` done (D-0191; treasure `mkobj` still deferred); other
-`m_initinv` bodies + soldier early-return still deferred;
+`make_corpse` done (D-0191; treasure `mkobj` still deferred); `,`
+one-object AUTOSELECT done (D-0192; multi query_objlist deferred);
+other `m_initinv` bodies + soldier early-return still deferred;
 dog_move digweapon / iron bars / shop dig-damage deferred;
 underfoot `m_search_items`→`MMOVE_DONE` still deferred (D-0183);
 `losehp`→`done(DIED)` / disclosure / topten / `savebones` body deferred
@@ -472,7 +473,7 @@ underfoot `m_search_items`→`MMOVE_DONE` still deferred (D-0183);
 | `src/invent.c` `hold_another_object` | `js/invent.js` | partial | **artifact touch + addinv + prinv** (D-0064); **prinv `xprname(..., dot)`** (D-0070); **`observe_object` in invent_lines** (D-0079); omit fumbling/encumbrance-drop/autoquiver/fatal-corpse; xname-path observe beyond invent |
 | `src/do_name.c` `oname` / `docallcmd` | `js/do_name.js` | partial | **artifact oname/`artifact_exists`** (D-0064); **`docallcmd` menu + cancel/floor stubs** (D-0069); **`christen_monst` + tame `x_monnam` subset** (D-0079); **`Monnam`/`noit_Monnam` MGIVENNAME→bare** (D-0095); omit invent/floor getobj/getpos bodies, full x_monnam hallu/invis/saddle/priest/shk, literate/shop/intrinsic side-effects |
 | `src/dokick.c` | `js/dokick.js` | partial | `dokick` + `kick_dumb` (D-0031); `kickedloc` (D-0032); **`kick_ouch` → `losehp`** (D-0035); **`kick_door` CLOSED/LOCKED `rnl(35)` bust** (D-0104); omit `kick_monster`/`kick_object`/SDOOR-SCORR open/furniture/`martial`/shop-town watchman/`b_trapped`/`wake_nearby`/`u_wipe_engr`/`set_wounded_legs`/`kickstr` terrain names |
-| `src/hack.c` `losehp`/`nomul`/`spoteffects`/`overexertion` / `timeout.c` `fall_asleep` | `js/hack.js`, `js/pickup.js`, `js/cmd.js` | partial | **`losehp` !Upolyd / Upolyd mh subtract** (D-0035); **`nomul`/`unmul` + afternmv** (D-0066); **`fall_asleep`/`usleep`/`nomovemsg`** (D-0156); **`overexertion`→`gethungry`** (D-0107); **`domove`→`spoteffects`→`pickup`/`check_here` when `!flags.pickup`** (D-0095); `maybe_half_phys` identity until Half_physical prop; omit `showdamage`/`maybe_wail`/`done(DIED)` bodies (monster kills use `done_in_by` D-0190); full `end_running`/`cmdq_clear`; encumber `overexert_hp`; pool/trap/sink/`mention_decor`/`autopick` arms; Deafness/Hear_again |
+| `src/hack.c` `losehp`/`nomul`/`spoteffects`/`overexertion`/`dopickup` / `timeout.c` `fall_asleep` / `pickup.c` | `js/hack.js`, `js/pickup.js`, `js/cmd.js` | partial | **`losehp` !Upolyd / Upolyd mh subtract** (D-0035); **`nomul`/`unmul` + afternmv** (D-0066); **`fall_asleep`/`usleep`/`nomovemsg`** (D-0156); **`overexertion`→`gethungry`** (D-0107); **`domove`→`spoteffects`→`pickup`/`check_here` when `!flags.pickup`** (D-0095); **`,` → `dopickup`/`pickup_checks`/`pickup_object`/`pick_obj` one-object AUTOSELECT** (D-0192); `maybe_half_phys` identity until Half_physical prop; omit `showdamage`/`maybe_wail`/`done(DIED)` bodies (monster kills use `done_in_by` D-0190); full `end_running`/`cmdq_clear`; encumber `overexert_hp`; pool/trap/sink/`mention_decor`/`autopick` arms; multi-object `query_objlist`/traditional yn; `lift_object` carry_count; shop bill; SCR_SCARE/CORPSE fatal; furniture nothing msgs; engulfer loot_mon; Deafness/Hear_again |
 | `src/end.c` / `src/bones.c` | `js/end.js` | partial | **`done_in_by`→`done`→`really_done` + `can_make_bones` depth rn2** (D-0190); omit full `no_bones_level`/portal ban/`savebones` body; Lifesaved; wizard·discover `Die?`; disclosure/topten/rip; killer/`ugrave_arise` detail |
 | `src/dig.c` `mdig_tunnel` / `hack.c` `may_dig` | `js/dig.js` | partial | **`may_dig` + `mdig_tunnel`** door/SCORR/wall/tree/stone + `rnd(12)` pile + draft/crash/boulder-rock/`rnd_treefruit_at` (D-0178); omit Hallucination draft; `in_town` cavernous; shop `add_damage`; Soundeffect; iron-bar path stays in monmove |
 | `src/eat.c` | `js/eat.js` | partial | Cookie + **reqtime-1 food** (`touchfood`/`splitobj`/`fprefx`/`lesshungry`) (D-0155); **`gethungry` accessorytime `rn2(20)`** (D-0107); **Unaware metabolic `rn2(10)` before accessorytime** (D-0156); **getobj missing-letter `continue` + empty early-return** (D-0142); multi-turn occupation / rotten `rn2(7)` / floorfood floor / corpses/tins / `?`/`*` menu deferred; uhunger-- body / fainted Unaware arm deferred; `oc_nutrition` still local FOOD map until extract |

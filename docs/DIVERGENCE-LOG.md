@@ -195,6 +195,7 @@ Do not record a guessed cause as fixed merely because an RNG prefix moved.
 | D-0189 | fixed | weapon.c dmgval | extract `oc_wsdam`/`oc_wldam`; drop stand-in default 1 |
 | D-0190 | fixed | end/bones death | `mdamageu`→`done_in_by`/`can_make_bones`; stop post-death RNG |
 | D-0191 | fixed | mon.c xkilled corpse | `xkilled`→`make_corpse` when `corpse_chance` (not burn-only) |
+| D-0192 | fixed | cmd/pickup `,` | unbound `,` skipped pickup turn → early Ctrl-D kick |
 
 D-0001 through D-0005 predate the strict-length/cohort runbook. Their focused
 causes are preserved, but generic "green sessions held" is historical evidence,
@@ -5213,5 +5214,33 @@ cohort gates if those functions are touched again.
   burycorpse/zombify; murder/peaceful luck `rn2`; dragon/unicorn/golem
   corpse specials (shared with mhitm/trap `make_corpse`).
 - **Next:** seed0200 @3547 `distfleeck`; or seed0030 disclosure·seg1;
+  or seed0101 Scr residual.
+
+## D-0192 — `,` / dopickup unbound (seed0200 @3547)
+
+- **Status:** fixed
+- **Observed:** seed0200 index **3547** — after matched EOT
+  (`u_calc_moveamt` Fast `rn2(3)`, dosounds, gethungry, wipe_engr),
+  C `rn2(5) @ distfleeck`; JS `rn2(2)`.
+- **C locus:** `cmd.c` `,` → `dopickup`; `hack.c` `dopickup`/
+  `pickup_checks`; `pickup.c` `pickup` / `pickup_object` /
+  `pick_obj` (menu `AUTOSELECT_SINGLE`).
+- **Cause/evidence:** Stack at mismatch was
+  `exercise`←`kick_dumb`←`dokick` (Ctrl-D). `nhgetch` trace: after EOT,
+  JS consumed `,`/`e`/`k`/spaces as zero-time (`,` was **Unknown
+  command** `move=0`) then hit Ctrl-D kick. C's `,` step RNG is only
+  monster/EOT after a timed `dopickup` (one floor object,
+  AUTOSELECT_SINGLE — no menu keys). Not a fleeck/APPORT bug.
+- **Change:** `js/pickup.js` `dopickup`/`pickup_checks`/`pickup_object`/
+  `pick_obj`; manual `pickup(0)` one-object AUTOSELECT; `js/cmd.js`
+  `,` → `dopickup`.
+- **Verification:** seed0200 prefix **3547→3565** (`eatcorpse`);
+  positional **3578**/3822 Scr **24**/40; full **15/44** Scr **1290**
+  RNG **138575**; green+cohort+strict PASS.
+- **Named omissions:** multi-object `query_objlist`/traditional yn;
+  `lift_object` carry_count; shop bill; SCR_SCARE/CORPSE fatal;
+  LOADSTONE no-split; furniture-specific nothing messages; engulfer
+  loot_mon; encumbrance `pickup_prinv` prefixes.
+- **Next:** seed0200 @3565 `eatcorpse`; or seed0030 disclosure·seg1;
   or seed0101 Scr residual.
 
