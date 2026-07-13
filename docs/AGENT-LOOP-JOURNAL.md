@@ -988,3 +988,19 @@ Use this shape:
 - Next: seed2200 getpos tip @ screen 36 —
   `node frozen/ps_test_runner.mjs sessions/seed2200-wizard-quaff-zap-read.session.json`
   — or seed0017 @ 3132 terrain / seed1150 `dog_move`.
+
+## 2026-07-13 — getpos tip nhl_text NHW_MENU corner (D-0082)
+- Objective: seed2200 Scr 89/230 screen 36 tip geometry
+  (PROGRESS primary after D-0081).
+- C locus: `nhcore.lua` `show_getpos_tip` → `nhlua.c` `nhl_text`
+  → NHW_MENU + `select_menu` PICK_NONE; `wintty.c` H2344 corner.
+- Result: **verified** — JS blanked map + col-0 paint; C corner
+  offx=9 / cursor [16,8] via same path as invent. Reused
+  `paint_corner_nhw_menu`.
+- Verification: green + seed1500/1800/0060/0102/0700 PASS +
+  strict; full **7/44**, screens **458→459**/11405, RNG
+  **91380**/792838; seed2200 Scr **89→90**/230.
+- Next: seed2200 farlook stairs @ screen 46 —
+  `node frozen/ps_test_runner.mjs sessions/seed2200-wizard-quaff-zap-read.session.json`
+  — cite `lookat` cmap `S_brupstair` vs `stairs_description`;
+  or seed0017 @ 3132 terrain / seed1150 `dog_move`.

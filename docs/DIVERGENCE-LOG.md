@@ -85,6 +85,7 @@ Do not record a guessed cause as fixed merely because an RNG prefix moved.
 | D-0079 | fixed | Samurai invent | `makedog` Hachi + Japanese display + lacquer + observe; seed0700 PASS |
 | D-0080 | fixed | display/statue | `obj_glyph` STATUE → mons[corpsenm].mlet + `obj_color(STATUE)`; seed2200 Scr 1→11 |
 | D-0081 | fixed | display/map | `magic_map_background` dark_room → keep floor · (not blank); seed2200 Scr 11→89 |
+| D-0082 | fixed | getpos tip | `nhl_text` NHW_MENU corner offx (not fullscreen blank); seed2200 Scr 89→90 |
 
 D-0001 through D-0005 predate the strict-length/cohort runbook. Their focused
 causes are preserved, but generic "green sessions held" is historical evidence,
@@ -2226,7 +2227,32 @@ cohort gates if those functions are touched again.
   strict; full **7/44**, screens **380→458**/11405, RNG
   **91380**/792838; seed2200 Scr **11→89**/230.
 - **Named omission:** `newsym` still omits `waslit=(lit!=0)` on
-  cansee; full S_darkroom/CLR_BLACK vs showsym equate; getpos tip
-  geometry (next @ screen 36).
+  cansee; full S_darkroom/CLR_BLACK vs showsym equate.
 - **Next:** seed2200 getpos tip @ screen 36 / seed0017 @ 3132
+  terrain / seed1150 `dog_move`.
+
+## D-0082 — seed2200 getpos tip NHW_MENU corner
+
+- **Status:** fixed
+- **Observed:** seed2200 Scr **89**/230 (RNG full). Screen 36 tip:
+  C text at col ~10 over intact map, cursor `[16,8]`; JS blanked
+  rows 0–20, painted at col 0, cursor `[5,8]`.
+- **C locus:** `dat/nhcore.lua` `show_getpos_tip` → `nhlua.c`
+  `nhl_text` → `create_nhwindow(NHW_MENU)` + `select_menu`
+  PICK_NONE; `wintty.c` H2344 corner
+  `offx = min(min(82,cols/2), cols-maxcol-1)` (maxcol = strlen+2;
+  morestr `"(end) "`).
+- **Cause:** JS `show_getpos_tip` invented a fullscreen blank +
+  col-0 paint; C uses the same corner NHW_MENU path as invent
+  (`paint_corner_nhw_menu`). Longest tip line 68 → maxcol 70 →
+  offx 9 → cursor col 16.
+- **Change:** `js/getpos.js` `show_getpos_tip` →
+  `paint_corner_nhw_menu(lines, '(end) ')`.
+- **Verification:** green + seed1500/1800/0060/0102/0700 PASS +
+  strict; full **7/44**, screens **458→459**/11405, RNG
+  **91380**/792838; seed2200 Scr **89→90**/230.
+- **Named omission:** getpos menu-jump/hilite/valids; farlook
+  autodescribe still uses `dfeature_at`/`stairs_description`
+  instead of cmap `lookat` (`S_brupstair`).
+- **Next:** seed2200 farlook stairs @ screen 46 / seed0017 @ 3132
   terrain / seed1150 `dog_move`.

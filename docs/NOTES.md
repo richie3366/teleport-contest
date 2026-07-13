@@ -7,18 +7,21 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 
 ## Active
 
-- **Current unit:** after D-0081 seed2200 Scr **11→89**/230
-  (`magic_map_background` dark_room floors). Prefer seed2200 @
-  screen 36 getpos tip / seed0017 @ 3132 terrain / seed1150
+- **Current unit:** after D-0082 seed2200 Scr **89→90**/230
+  (getpos tip → `nhl_text` NHW_MENU corner). Prefer seed2200 @
+  screen 46 farlook stairs / seed0017 @ 3132 terrain / seed1150
   `dog_move`.
-- **Hypothesis (seed2200 Scr 89/230):** screen 36 — `/` whatis
-  getpos tip. C tip text indented (~col 10) over intact map; JS tip
-  at col 0 and blanks map under tip. Cursor C `[16,8]` vs JS `[5,8]`.
+- **Hypothesis (seed2200 Scr 90/230):** screen 46 — getpos
+  autodescribe on `<`. C tip `"branch staircase up"` (cmap
+  `S_brupstair` / `defsyms[].explanation` via `lookat`); JS
+  `dfeature_at` → `stairs_description` → `"staircase up out of
+  the dungeon"`. Cursor C `[21,10]` vs JS `[22,10]`.
 - **Falsifier / next probe:**
   ```bash
   node frozen/ps_test_runner.mjs sessions/seed2200-wizard-quaff-zap-read.session.json
   ```
-  Diff screen 36; cite C `getpos` / tip pline / map restore path.
+  Diff screen 46; cite C `pager.c` `lookat` cmap default +
+  `defsym.h` `S_brupstair` — not `stairs_description` Dlvl1 path.
 - **Parked seed0017 @ 3132:** JS `mfndpos` cnt=4 at pet (30,5); C emits
   3× `rn2(12)`. Adding walkable `(30,4)` yields exactly 3× `rn2(12)`.
   JS has VWALL at (30,4); C screen shows floor. Diagnose join/
@@ -82,6 +85,9 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 - seed2200 Scr 11 @ screen 10 was **not** whatis/overlay clear —
   `magic_map_background` blanked `!waslit` ROOM floors; C
   `dark_room`+color keeps DARKROOMSYM≡S_room floor (D-0081).
+- seed2200 Scr 89 @ screen 36 was **not** NHW_TEXT fullscreen —
+  `nhl_text` creates NHW_MENU + `select_menu` PICK_NONE; H2344
+  corner offx=9, cursor [16,8], map left of panel intact (D-0082).
 
 ## Landmarks
 
@@ -122,3 +128,9 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   boulder still ROCK_CLASS `` ` `` / `S_boulder`.
 - Magic map out-of-sight `!waslit` ROOM: `dark_room`+color →
   DARKROOMSYM painted as S_room floor ·; else GLYPH_NOTHING (D-0081).
+- getpos tip: `nhcore.lua` `show_getpos_tip` → `nhl_text` →
+  NHW_MENU corner (not NHW_TEXT); longest line 68 → maxcol 70 →
+  offx 9; morestr `"(end) "`; cursor [16,8] (D-0082).
+- Farlook stairs tip uses cmap explanation (`S_brupstair` =
+  `"branch staircase up"`), not `stairs_description` Dlvl1
+  `"… out of the dungeon"` (next peel @ screen 46).

@@ -9,7 +9,7 @@ import { game } from './gstate.js';
 import { nhgetch } from './input.js';
 import { flush_screen, pline, docrt } from './display.js';
 import { isok } from './const.js';
-import { NO_COLOR } from './terminal.js';
+import { paint_corner_nhw_menu } from './invent.js';
 
 export const LOOK_TRADITIONAL = 0;
 export const LOOK_QUICK = 1;
@@ -20,12 +20,12 @@ const DIR_DX = { h: -1, l: 1, j: 0, k: 0, y: -1, u: 1, b: -1, n: 1 };
 const DIR_DY = { h: 0, l: 0, j: 1, k: -1, y: -1, u: -1, b: 1, n: 1 };
 
 /**
- * C ref: nhcore.lua show_getpos_tip via l_nhcore_call(NHCORE_GETPOS_TIP).
- * Shown once per game on first getpos entry.
+ * C ref: nhcore.lua show_getpos_tip → nhlua.c nhl_text (NHW_MENU +
+ * select_menu PICK_NONE) → wintty H2344 corner offx. Not NHW_TEXT
+ * fullscreen; map under/left of the panel stays.
  */
 async function show_getpos_tip() {
-    const disp = game.nhDisplay;
-    if (!disp) return;
+    // Exact nhcore.lua [[...]] lines (nhl_text splits on \n; wrap at 76).
     const lines = [
         'Tip: Farlooking or selecting a map location',
         '',
@@ -35,20 +35,8 @@ async function show_getpos_tip() {
         '',
         'When in this mode, you can press ESC to return to normal game mode,',
         'and pressing ? will show the key help.',
-        '(end)',
     ];
-    game._menu_overlay = true;
-    game._pending_message = '';
-    // Corner-ish: paint over map rows but keep status (matches session tip)
-    for (let r = 0; r < 21; r++) {
-        for (let c = 0; c < disp.cols; c++) disp.setCell(c, r, ' ', NO_COLOR, 0);
-    }
-    for (let r = 0; r < lines.length; r++) {
-        const text = lines[r];
-        for (let i = 0; i < text.length && i < disp.cols; i++)
-            disp.setCell(i, r, text[i], NO_COLOR, 0);
-    }
-    disp.setCursor(5, 8); // past "(end)"
+    await paint_corner_nhw_menu(lines, '(end) ');
     await flush_screen(1);
     await nhgetch();
     game._menu_overlay = false;
