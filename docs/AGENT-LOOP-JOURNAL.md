@@ -2155,3 +2155,19 @@ Use this shape:
   full **15/44** Scr **1405** RNG **135175**/792838.
 - Next: seed0030 @12907 (`induced_align` rn2(3) vs rn2(2)) /
   seed0101 Scr residual / seed0200 combat @3382.
+
+## 2026-07-13 — NAMS pmnames / name_to_monplus gender (D-0173)
+- Objective: seed0030 @12907 C `rn2(3) @ induced_align` vs JS `rn2(2)`
+  (PROGRESS primary).
+- C locus: `monst.c` NAM/NAMS → `pmnames[]`; `mondata.c`
+  `name_to_monplus`; `sp_lev.c` `find_montype`; extractor
+  `scripts/extract-monsters.py`.
+- Result: **verified** — not an induced_align bug. `"gnome lord"`
+  lacked NAMS male pmname so matched `"gnome"` and burned
+  `find_montype` `rn2(2)`. Extracted pmnames + gender-aware
+  `name_to_monplus`/`find_montype`.
+- Verification: seed0030 prefix **12907→12968**; positional
+  **13313**/105529 Scr **168**/1953; green+strict PASS; cohort PASS;
+  full **15/44** Scr **1405** RNG **134770**/792838.
+- Next: seed0030 @12968 (`likes_gold`/`mkmonmoney` rn2(5)) /
+  seed0101 Scr residual / seed0200 combat @3382.

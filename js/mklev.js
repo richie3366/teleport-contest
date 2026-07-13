@@ -52,6 +52,7 @@ import {
     PM_ELF, PM_DWARF, PM_ORC, PM_GNOME, PM_HUMAN,
     PM_ARCHEOLOGIST, PM_WIZARD, PM_GIANT_SPIDER,
     is_male, is_female, mons, G_NOGEN,
+    MALE, FEMALE, NEUTRAL,
 } from './monsters.js';
 import { name_to_monplus } from './mondata.js';
 import { make_engr_at, wipe_engr_at, random_engraving } from './engrave.js';
@@ -1637,16 +1638,22 @@ function create_object_themed(opts, x, y) {
     return otmp;
 }
 
-// C ref: sp_lev.c find_montype — gender roll for non-fixed-sex species
+// C ref: sp_lev.c find_montype — gender from name_to_monplus / fixed-sex / rn2(2)
 function find_montype_gender(name) {
-    const i = name_to_monplus(name);
+    // C: int mgend = NEUTRAL; then name_to_monplus(..., &mgend)
+    const genderVar = { gender: NEUTRAL };
+    const i = name_to_monplus(name, null, genderVar);
     if (i < 0 || i === NON_PM) return { mndx: NON_PM, female: 0 };
     const ptr = mons(i);
     let female = 0;
     if (is_male(ptr) || is_female(ptr)) {
-        female = is_female(ptr) ? 1 : 0;
+        female = is_female(ptr) ? FEMALE : MALE;
     } else {
-        female = rn2(2); // FEMALE=1 / MALE=0
+        const mgend = genderVar.gender;
+        // C: (mgend == FEMALE) ? FEMALE : (mgend == MALE) ? MALE : rn2(2)
+        female = mgend === FEMALE ? FEMALE
+            : mgend === MALE ? MALE
+            : rn2(2);
     }
     return { mndx: i, female };
 }

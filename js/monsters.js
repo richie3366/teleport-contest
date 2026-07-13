@@ -21,6 +21,7 @@ import {
     mattks,
     mcolors,
     monsterNames,
+    pmnames,
     PM_GIANT_SPIDER,
     PM_LICHEN,
     PM_HUMAN,
@@ -47,8 +48,15 @@ export {
     PM_ARCHEOLOGIST,
     PM_WIZARD,
     monsterNames,
+    pmnames,
     mcolors,
 };
+
+/** C ref: monflag.h enum mgender */
+export const MALE = 0;
+export const FEMALE = 1;
+export const NEUTRAL = 2;
+export const NUM_MGENDERS = 3;
 
 export const G_UNIQ = 0x1000;
 export const G_NOHELL = 0x0800;

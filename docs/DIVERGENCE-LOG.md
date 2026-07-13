@@ -176,6 +176,7 @@ Do not record a guessed cause as fixed merely because an RNG prefix moved.
 | D-0170 | fixed | uhitm/stagger | unarmed `hmon_hitmon_stagger` `rnd(100)` before kill |
 | D-0171 | fixed | mklev/mines | `fill_lvl`→`makemaz(minefill)` + mkmap; dungeon align 3-bit |
 | D-0172 | fixed | peace_minded/m_initinv | race hatemask + M2 race bits; S_GNOME candle |
+| D-0173 | fixed | name_to_monplus/NAMS | pmnames gender; gnome lord no rn2(2) |
 
 D-0001 through D-0005 predate the strict-length/cohort runbook. Their focused
 causes are preserved, but generic "green sessions held" is historical evidence,
@@ -4678,5 +4679,38 @@ cohort gates if those functions are touched again.
 - **Lesson:** `rn2(16)` right after makemon gender is almost always
   `peace_minded` co-align — check `race_hostile` and extracted M2 race
   bits before blaming `m_initweap`.
-- **Next:** seed0030 @12907 (`induced_align` rn2(3) vs rn2(2)) /
-  seed0101 Scr / seed0200 @3382.
+- **Next:** seed0030 @12907 cleared by D-0173; see D-0173 next.
+
+## D-0173 — NAMS pmnames / name_to_monplus gender (gnome lord)
+
+- **Status:** fixed
+- **Observed:** seed0030 first RNG mismatch @12907 — C
+  `rn2(3) @ induced_align`; JS `rn2(2)` (looked like induced_align
+  dungeon-align short-circuit or wrong rn2 arity).
+- **Rejected:** `induced_align` itself wrong (lev/dun align gates) —
+  C was already on the final `rn2(3)` fallback; JS emitted an *extra*
+  call before that. Also not a minefill `create_monster` order bug:
+  prior gnome `find_montype`/`induced_align` pairs matched.
+- **C locus:** `monst.c` `NAM`/`NAMS` → `permonst.pmnames[]`;
+  `mondata.c` `name_to_monplus` gender match; `sp_lev.c`
+  `find_montype` / `lspo_monster`; extractor
+  `scripts/extract-monsters.py`.
+- **Cause:** JS `name_to_monplus` only matched enum tokens
+  (`PM_GNOME_LEADER` → `"gnome leader"`). `"gnome lord"`
+  prefix-matched `"gnome"` → PM_GNOME, then `find_montype_gender`
+  burned `rn2(2)` for non-fixed-sex. C matches NAMS male
+  `"gnome lord"` → PM_GNOME_LEADER + MALE with **no** gender RNG,
+  then `induced_align` `rn2(3)`.
+- **Change:** extract `pmnames[MALE/FEMALE/NEUTRAL]` from NAM/NAMS;
+  `name_to_monplus` longest-match + gender out-param; `find_montype`
+  uses name gender before `rn2(2)`.
+- **Verification:** seed0030 prefix **12907→12968** positional
+  **13313**/105529 Scr **168**/1953; green+strict PASS; cohort PASS;
+  full **15/44** Scr **1405** RNG **134770**.
+- **Named omission:** full `alt_spl` table / rank titles; `likes_gold`
+  / `mkmonmoney` `rn2(5)` (next @12968); other `m_initinv` bodies.
+- **Lesson:** `rn2(2)` immediately before `induced_align` in minefill
+  is `find_montype` gender — check NAMS male/female names, not
+  `induced_align` first.
+- **Next:** seed0030 @12968 (`likes_gold`/`mkmonmoney`) / seed0101 Scr /
+  seed0200 @3382.

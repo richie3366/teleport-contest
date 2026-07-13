@@ -291,6 +291,18 @@ def main() -> int:
         parts = split_top_commas(body)
         if len(parts) < 14:
             continue
+        # C ref: monst.c NAM / NAMS → permonst.pmnames[MALE,FEMALE,NEUTRAL]
+        nam_arg = parts[0].strip()
+        pmnames = [None, None, None]  # MALE, FEMALE, NEUTRAL
+        nams_m = re.match(
+            r'NAMS\s*\(\s*"([^"]*)"\s*,\s*"([^"]*)"\s*,\s*"([^"]*)"\s*\)',
+            nam_arg,
+        )
+        nam_m = re.match(r'NAM\s*\(\s*"([^"]*)"\s*\)', nam_arg)
+        if nams_m:
+            pmnames = [nams_m.group(1), nams_m.group(2), nams_m.group(3)]
+        elif nam_m:
+            pmnames = [None, None, nam_m.group(1)]
         lvl, gen, flg1, flg2, flg3, diff, col, bn = (
             parts[2],
             parts[3],
@@ -385,6 +397,7 @@ def main() -> int:
             "has_at_weap": "AT_WEAP" in atks,
             "mattk": parse_mattk(atks),
             "mcolor": mcolor,
+            "pmnames": pmnames,
         }
 
     # Wizard of Yendor may be defined outside MON walker edge-cases
@@ -393,6 +406,8 @@ def main() -> int:
         bn = n[3:]
         e = entries.get(bn)
         if not e:
+            # Fallback pmnames: enum token as NEUTRAL only (matches old behavior)
+            neut = bn.lower().replace("_", " ")
             mons.append(
                 {
                     "mlevel": 0,
@@ -409,6 +424,7 @@ def main() -> int:
                     "has_at_weap": False,
                     "mattk": parse_mattk(""),
                     "mcolor": 7,  # CLR_GRAY
+                    "pmnames": [None, None, neut],
                 }
             )
         else:
@@ -486,9 +502,25 @@ def main() -> int:
         + json.dumps([int(m.get("mcolor", 7)) for m in mons])
         + ";"
     )
+    # C ref: permonst.pmnames[NUM_MGENDERS] — null male/female when NAM()-only
+    def emit_pmnames(m: dict) -> list:
+        p = m.get("pmnames") or [None, None, None]
+        while len(p) < 3:
+            p.append(None)
+        return [p[0], p[1], p[2]]
+
+    lines.append(
+        "export const pmnames = "
+        + json.dumps([emit_pmnames(m) for m in mons])
+        + ";"
+    )
     OUT.write_text("\n".join(lines) + "\n")
     n_armed = sum(1 for m in mons if m.get("has_at_weap"))
-    print(f"wrote {OUT} ({nummons} monsters, SPECIAL_PM={special_pm}, AT_WEAP={n_armed})")
+    n_nams = sum(1 for m in mons if (m.get("pmnames") or [None])[0])
+    print(
+        f"wrote {OUT} ({nummons} monsters, SPECIAL_PM={special_pm}, "
+        f"AT_WEAP={n_armed}, NAMS={n_nams})"
+    )
     return 0
 
 

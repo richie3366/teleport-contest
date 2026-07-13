@@ -7,18 +7,18 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 
 ## Active
 
-- **Current unit:** D-0172 cleared seed0030 gnome peel — was not
-  `m_initweap` arity; human `hatemask` + missing M2 race bits made JS
-  burn co-align `rn2(16)` before C `rnd(14)`. Prefix **12757→12907**;
-  positional **13718**/105529; Scr **168**/1953; public Scr **1405**,
-  RNG **135175**; still **15/44**.
-- **Hypothesis / next:** seed0030 @12907 — C `induced_align` `rn2(3)`
-  vs JS `rn2(2)` (align/dungeon flags or create_monster path), or
+- **Current unit:** D-0173 cleared seed0030 @12907 — `"gnome lord"` lacked
+  NAMS `pmnames`, so `name_to_monplus` matched `"gnome"` and burned
+  `find_montype` `rn2(2)` before C `induced_align` `rn2(3)`. Prefix
+  **12907→12968**; positional **13313**/105529; Scr **168**/1953;
+  public Scr **1405**, RNG **134770**; still **15/44**.
+- **Hypothesis / next:** seed0030 @12968 — C `m_initinv` `likes_gold`
+  `!rn2(5)`/`mkmonmoney` (dwarf GREEDY) vs JS skip → peace_minded; or
   seed0101 Scr residual (RNG full), or seed0200 combat `@3382`.
 - **Falsifier / next:**
   ```bash
   node scripts/rng-diff.mjs sessions/seed0030-ten-diverse-deaths.session.json
-  # expect first mismatch past 12907 if induced_align advances
+  # expect first mismatch past 12968 if likes_gold/mkmonmoney advances
   node frozen/ps_test_runner.mjs sessions/seed0101-ranger-quiver-throw-travel-engrave.session.json
   # expect Scr >21/27 if residual display peel advances
   ```
@@ -296,6 +296,10 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   `peace_minded` co-align because extractor zeroed `M2_GNOME` and
   races lacked `hatemask` (D-0172). Then need S_GNOME `m_initinv`
   `rn2(20)` candle before tail.
+- **seed0030 @12907 was NOT induced_align dungeon-align/`rn2(2)`** —
+  C went straight to `rn2(3)` for gnome lord; JS burned `find_montype`
+  `rn2(2)` because `"gnome lord"` prefix-matched `"gnome"` without NAMS
+  `pmnames[MALE]` (D-0173). Do not “fix” induced_align from arity alone.
 
 ## Landmarks
 
@@ -387,3 +391,6 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   M2_ORC in `mflags2s` or `race_hostile` is a no-op (D-0172).
 - Mines `m_initinv` S_GNOME: `rn2(20)` candle (else `rn2(60)`); then
   defensive/misc tail (D-0172).
+- `name_to_monplus` matches `pmnames[MALE/FEMALE/NEUTRAL]` (NAM/NAMS);
+  `"gnome lord"` → PM_GNOME_LEADER + MALE without `rn2(2)` (D-0173).
+  Enum-token `"gnome leader"` alone is not enough for NAMS male/female.
