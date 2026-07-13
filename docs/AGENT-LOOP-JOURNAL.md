@@ -722,3 +722,18 @@ Use this shape:
   wish); seed0700 RNG full.
 - Next: `node scripts/rng-diff.mjs sessions/seed0361-archeologist-tour.session.json`
   — port `^W`/`wiz_wish`/`makewish`/`readobjnam` @ 3011.
+
+## 2026-07-13 02:30 — ^W makewish/readobjnam (D-0064)
+- C locus: `wizcmds.c` `wiz_wish`; `zap.c` `makewish`; `objnam.c`
+  `readobjnam`/`rnd_otyp_by_namedesc`; `mondata.c` `name_to_monplus`;
+  `artifact.c` `artifact_name`/`touch_artifact`; `do_name.c` `oname`;
+  `invent.c` `hold_another_object`; `cmd.c` `C('w')`
+- Result: seed0361 @ 3011 needed wizard wish. Ported artifact table
+  extractor + wish subset covering Grayswandir / SDSM (mon-strip +
+  `scale mail` `rn2(67)` + remap) / ALS. Cleared wish trio; next is
+  `w` wield @ 3035.
+- Verification: green + seed1500/1800/0060 PASS + strict; full 5/44
+  screens 295 RNG 85938; seed0361 prefix 3011→3035 positional 3087;
+  seed0700 RNG full.
+- Next: `node scripts/rng-diff.mjs sessions/seed0361-archeologist-tour.session.json`
+  — peel `w`/`dowield` @ 3035 (or getbones/egg/seed0700 screen).

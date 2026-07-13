@@ -795,7 +795,7 @@ function reorder_invent() {
 }
 
 // C ref: invent.c addinv()
-function addinv(obj) {
+export function addinv(obj) {
     if (!game.invent) game.invent = [];
     for (const otmp of game.invent) {
         if (mergable(otmp, obj)) {

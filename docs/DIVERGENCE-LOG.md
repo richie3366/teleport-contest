@@ -67,6 +67,7 @@ Do not record a guessed cause as fixed merely because an RNG prefix moved.
 | D-0061 | fixed | exper/levelup | `newhp`/`newpw` level-up + `pluslvl` + `#levelchange`; roles `xlev` |
 | D-0062 | fixed | detect/search | `dosearch0` + Searching EOT; next was takeoff then wish |
 | D-0063 | fixed | do_wear/takeoff | `T`/`dotakeoff` + delay-0 `armoroff`; seed0361 past `TcTd` |
+| D-0064 | fixed | wish/readobjnam | `^W`/`makewish`/`readobjnam` + artifacts; seed0361 past 3 wishes |
 
 D-0001 through D-0005 predate the strict-length/cohort runbook. Their focused
 causes are preserved, but generic "green sessions held" is historical evidence,
@@ -1702,3 +1703,40 @@ cohort gates if those functions are touched again.
   index.
 - **Next:** `^W` `wiz_wish`/`makewish`/`readobjnam` for seed0361 @
   3011; or shared `getbones`/`^V` / egg / seed0700 screen.
+
+## D-0064 — `^W` wish / `makewish` / `readobjnam` (seed0361 trio)
+
+- **Symptom:** seed0361 rng-diff @ **3011**: C `rnd(2)` `next_ident`
+  (Grayswandir `mksobj`) vs JS `rn2(5)` (wish text still leaked into
+  rhack as movement/search).
+- **Cause/evidence:** C `C('w')` → `wiz_wish` → `makewish` →
+  `readobjnam` for `blessed +5 Grayswandir`, then SDSM, then ALS.
+  JS had no `^W` binding and no wish parser. SDSM path is
+  `name_to_monplus("silver dragon")` + `rnd_otyp_by_namedesc("scale
+  mail")` (`rn2(67)`) then `SCALE_MAIL`→SDSM remap — not a direct
+  full-name `rnd_otyp` (`rn2(1)`).
+- **Rejected:** matching SDSM via exact `"silver dragon scale mail"`
+  `rnd_otyp` (wrong arity); skipping `rn2(nartifact_exist())` in
+  wizard mode (C still evaluates the `||` left side).
+- **C locus:** `wizcmds.c` `wiz_wish`; `zap.c` `makewish`;
+  `objnam.c` `readobjnam`/`rnd_otyp_by_namedesc`/`wishymatch`;
+  `mondata.c` `name_to_monplus`; `artifact.c` `artifact_name`/
+  `touch_artifact`/`nartifact_exist`; `do_name.c` `oname`;
+  `invent.c` `hold_another_object`; `cmd.c` `C('w')`.
+- **Change:** artifact extractor + `js/artifact.js`/`do_name.js`/
+  `mondata.js`/`readobjnam.js`/`zap.js`; `wiz_wish`; `cmd.js` `^W`;
+  `hold_another_object` + exported `addinv`; doname `named`.
+- **Verification:** green + seed1500/1800/0060 PASS + strict; full
+  **5/44** screens **295** RNG **85938**/792838; seed0361 prefix
+  **3011→3035** (`w` wield `touch_artifact`) positional **3087**/53865;
+  seed0700 RNG still full; seed0108 wishlist positional **2690**.
+- **Omissions named:** full `readobjnam` (fruits/traps/terrain/
+  random/`o_ranges`/alt spellings/Japanese wish); `wishcmdassist`/
+  history; livelog; `observe_object` beyond `dknown`; blast
+  `losehp` in `touch_artifact`; `encumber_msg`; `#wizwish` extcmd;
+  `w`/`W` wield/wear; `bane_applies`; artifact intrinsics on wield.
+- **Lesson:** dragon scale mail wishes go through monster-name strip
+  + generic `scale mail` probabilistic match, then otyp remap — do
+  not short-circuit to the final otyp in `rnd_otyp_by_namedesc`.
+- **Next:** `w`/`dowield` (seed0361 @ 3035) or shared
+  `getbones`/`^V` / egg / seed0700 screen.

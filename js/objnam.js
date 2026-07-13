@@ -221,6 +221,12 @@ export function doname(obj) {
 
     let bp = prefix + base;
 
+    // C: has_oname && dknown → " named Foo"
+    const onameStr = obj.oextra?.oname;
+    if (onameStr && obj.dknown) {
+        bp += ` named ${onameStr}`;
+    }
+
     if (oclass === ARMOR_CLASS && (obj.owornmask & W_ARMOR))
         bp += ' (being worn)';
     // C: W_WEP → "(weapon in right/left hand)" for single non-ammo weapons

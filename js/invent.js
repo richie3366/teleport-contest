@@ -770,3 +770,46 @@ export async function look_here(obj_cnt = 0, lookhere_flags = 0) {
 export async function dolook() {
     await look_here(0, 0);
 }
+
+/**
+ * C ref: invent.c hold_another_object — wish/pickup into invent.
+ * Fumbling / encumbrance-drop / autoquiver / fatal-corpse paths deferred.
+ */
+export async function hold_another_object(obj, drop_fmt, drop_arg, hold_msg) {
+    const { addinv } = await import('./u_init.js');
+    const {
+        place_object, obj_extract_self,
+    } = await import('./mkobj.js');
+    const {
+        touch_artifact, youmonst,
+    } = await import('./artifact.js');
+    const { xprname } = await import('./objnam.js');
+
+    if (!obj) return obj;
+    // C: if (!Blind) observe_object(obj)
+    if (!game.u?.Blind) obj.dknown = true;
+
+    if (obj.oartifact) {
+        const u = game.u || {};
+        place_object(obj, u.ux, u.uy);
+        if (!touch_artifact(obj, youmonst)) {
+            obj_extract_self(obj);
+            // dropy deferred — leave on floor
+            if (drop_fmt) {
+                const msg = drop_fmt.includes('%s')
+                    ? drop_fmt.replace('%s', drop_arg || 'it')
+                    : drop_fmt;
+                await pline(msg);
+            }
+            return obj;
+        }
+        obj_extract_self(obj);
+    }
+
+    const held = addinv(obj);
+    if (hold_msg || drop_fmt) {
+        // C: prinv(hold_msg, obj, oquan) with null prefix → "ilet - doname"
+        await pline(xprname(held));
+    }
+    return held;
+}

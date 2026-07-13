@@ -6,6 +6,7 @@ import { pline } from './display.js';
 import { getlin } from './getline.js';
 import { pluslvl } from './exper.js';
 import { MAXULEV } from './const.js';
+import { makewish } from './zap.js';
 
 /**
  * C ref: wizcmds.c wiz_level_change — #levelchange
@@ -51,4 +52,19 @@ export async function wiz_level_change() {
         }
     }
     u.ulevelmax = u.ulevel;
+}
+
+/**
+ * C ref: wizcmds.c wiz_wish — #wizwish / ^W
+ */
+export async function wiz_wish() {
+    if (!(game.flags?.debug || game.flags?.wizard)) {
+        await pline("You can't do that.");
+        return;
+    }
+    const save_verbose = game.flags.verbose;
+    game.flags.verbose = false;
+    await makewish();
+    game.flags.verbose = save_verbose;
+    // encumber_msg deferred
 }

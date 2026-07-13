@@ -24,6 +24,7 @@ import { doopen_indir } from './lock.js';
 import { doextcmd } from './getline.js';
 import { dosearch } from './detect.js';
 import { dotakeoff } from './do_wear.js';
+import { wiz_wish } from './wizcmds.js';
 
 
 // Direction deltas: y u k
@@ -232,6 +233,10 @@ export async function rhack(key) {
     } else if (key === 24) { // ^X
         // C ref: insight.c enlightenment / doattributes
         await doattributes();
+        game.context.move = 0;
+    } else if (key === 23) { // ^W — C('w') wiz_wish
+        // C ref: wizcmds.c wiz_wish / cmd.c wizwish
+        await wiz_wish();
         game.context.move = 0;
     } else if (ch === ':') {
         // C ref: invent.c dolook / lookat

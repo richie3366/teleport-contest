@@ -7,16 +7,15 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 
 ## Active
 
-- **Current unit:** D-0063 fixed `T`/`dotakeoff`. seed0361 prefix
-  **2979→3011**; next is `^W` wish (`next_ident` / Grayswandir mksobj).
-- **Hypothesis / next peel:** Prefer wizard `^W` → `wiz_wish` →
-  `makewish`/`readobjnam` (seed0361 @ 3011) or shared `getbones` via
-  `^V` wizlevelport (seed0373 @ 2549) / egg `can_be_hatched`
+- **Current unit:** D-0064 fixed `^W`/`makewish`/`readobjnam`. seed0361
+  prefix **3011→3035**; next is `w` wield (`touch_artifact` again).
+- **Hypothesis / next peel:** Prefer `w`/`dowield` (seed0361 @ 3035) or
+  shared `getbones` via `^V` (seed0373 @ 2549) / egg `can_be_hatched`
   (seed0102 @ 1281) / seed0700 screen.
 - **Falsifier / next probe:**
   ```bash
   node scripts/rng-diff.mjs sessions/seed0361-archeologist-tour.session.json
-  # Expect first gap at 3011 next_ident until wish ported
+  # Expect first gap at 3035 touch_artifact until wield ported
   ```
 - **Parked deep canary:** D-0006 pet movement — do not implement until C
   state/candidate capture exists.
@@ -48,8 +47,9 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   Blind/unmap_invisible in `dosearch0`; mfind0 body; Hallucination
   find_trap wait; activate_statue_trap; artifact SPFX_SEARCH fund;
   `oc_delay`/occupation takeoff; magic helm `Helmet_off` beyond fedora
-  luck; dragon armor/`setworn` props; `A` takeoffall; **`^W` wish** /
-  `makewish`/`readobjnam`; …
+  luck; dragon armor/`setworn` props; `A` takeoffall; full `readobjnam`
+  (fruits/traps/terrain/random/`o_ranges`); `#wizwish` extcmd;
+  `w`/`W` wield/wear; touch blast `losehp`; artifact wield intrinsics; …
 
 ## Don’t re-check
 
@@ -252,6 +252,10 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   takeoff so `TcTd\e` never ran; wish-text `blessed…` leaked into rhack
   (`l` move / `s` search). Wish RNG starts at **3011** after both
   takeoffs — D-0063.
+- seed0361 `rnd(2)` @ 3011 was **not** a later wield peel: missing `^W`
+  wish. SDSM is **not** exact-name `rnd_otyp` (`rn2(1)`); it is
+  mon-strip + `scale mail` `rn2(67)` then otyp remap — D-0064. Wish
+  trio clears at **3035**; next is `w` wield.
 
 ## Landmarks
 
@@ -304,8 +308,8 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   next prefix **6732** (`maybe_smudge_engr`).
 - seed0373: D-0061 → past `#levelchange`/`newhp`; prefix **2549**
   (`getbones`); positional **2573**/35386.
-- seed0361: D-0063 → past `T` takeoff; prefix **3011** (`^W` wish
-  `next_ident`); positional **3054**/53865.
+- seed0361: D-0064 → past 3 wishes; prefix **3035** (`w` wield
+  `touch_artifact`); positional **3087**/53865.
 - seed1150: D-0056 → past `peace_minded`; prefix **2915** (`dog_move`);
   positional **2942**/3137 Scr **22**/51.
 - seed0700: D-0060 → RNG **3230**/3230 Scr **2**/51 (screen peel next).
@@ -333,5 +337,8 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   unseen trap; silent otherwise (D-0062).
 - Archeologist wear: fedora + leather jacket → first `T` getobj, second
   `T` auto (`Narmorpieces==1`); fedora off → `change_luck(-1)` (D-0063).
-- seed0361 wishes (after takeoff): `blessed +5 Grayswandir`, then SDSM,
-  then amulet of life saving — need `readobjnam` (D-0063 next).
+- seed0361 wishes: Grayswandir (artifact_name), SDSM (mon-strip +
+  `scale mail` `rn2(67)` + remap), ALS (`rn2(76)`); then `w` wield
+  (D-0064).
+- Wish `rn2(nartifact_exist())` runs even in wizard mode (C `||`
+  left-to-right); wizard only skips the destroy body.
