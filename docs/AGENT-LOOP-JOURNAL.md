@@ -21,6 +21,20 @@ Use this shape:
 
 ---
 
+## 2026-07-13 09:35 — msg_window extract + ASCII/DEC symset (D-0114/15)
+- Objective: seed2200/seed0106 Scr peels (PROGRESS primary).
+- C locus: `optlist.h` `#if PREV_MSGS /*…*/`; `scripts/extract-optlist.py`
+  `eval_expr`; `options.c`/`symbols.c` Primary vs DECgraphics;
+  `display.c` `back_to_glyph` door `horizontal`.
+- Result: **verified** — strip C comments in `#if` (msg_window descr);
+  default ASCII walls/floors/open doors; DEC only when
+  `symset:DECgraphics` / boolean DECgraphics.
+- Verification: seed2200 Scr **200**/230; seed0106 Scr **32**/267;
+  green+strict PASS; cohort PASS; full **10/44** Scr **851** RNG
+  **104575**.
+- Next: seed0106 screen 13 angrygods quote/`--More--` split, or
+  seed2200 help `j` → `dokeylist` (after parked RC path @158).
+
 ## 2026-07-13 07:55 — askname + ParanoidPray (D-0102)
 - Objective: seed0017 Scr peel (PROGRESS primary).
 - C locus: `wintty.c` `tty_askname`/`tty_init_nhwindows`; `role.c`

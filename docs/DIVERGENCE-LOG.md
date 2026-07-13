@@ -117,6 +117,8 @@ Do not record a guessed cause as fixed merely because an RNG prefix moved.
 | D-0111 | fixed | chargen | `player_selection`/`genl_player_setup`; seed0077 100→1475 |
 | D-0112 | fixed | mklev/vault | `do_vault` `create_vault` fallback (not one `rnd_rect`); seed0077 RNG full |
 | D-0113 | fixed | vision/lock/display | door `recalc_block_point` + `pick_lock` D_ISOPEN + DEC open-door `a`; seed0077 PASS |
+| D-0114 | fixed | options/extract | `#if PREV_MSGS /*…*/` comment broke extract → stale `(not applicable)` msg_window |
+| D-0115 | fixed | display/symset | Honor `symset:DECgraphics`; default Primary ASCII walls/floors/open doors |
 
 D-0001 through D-0005 predate the strict-length/cohort runbook. Their focused
 causes are preserved, but generic "green sessions held" is historical evidence,
@@ -3050,5 +3052,47 @@ cohort gates if those functions are touched again.
   autounlock/credit-card; incremental `dig_point` (full reset OK);
   ASCII `|`/`-` open-door orientation when not DECgraphics.
 - **Next:** seed2200 Scr 199 (RC path @158) / seed0106 Scr 5.
+
+## D-0114 — option_help msg_window PREV_MSGS extract
+
+- **Status:** fixed
+- **Observed:** seed2200 screen 162 compound list showed
+  `` `msg_window' - (not applicable) `` while C has the real
+  `PREV_MSGS` description for ^P behavior.
+- **C locus:** `optlist.h` `#if PREV_MSGS /* tty or curses */`
+  vs `#else` `(not applicable)`; `scripts/extract-optlist.py`
+  `eval_expr` left C comments in the expression → Python `eval`
+  failed → False → wrong branch.
+- **Change:** strip `/* … */` / `//` from `#if` expressions before
+  eval; regenerate `js/generated/optlist_data.js`.
+- **Verification:** seed2200 Scr **199→200**/230; green+cohort PASS;
+  full **10/44** Scr **851** RNG **104575**/792838.
+- **Named omission:** recording `get_configfile` absolute path still
+  harness-only (screen 158); `dokeylist` / menu-controls stubs.
+- **Next:** seed0106 Scr / seed2200 `dokeylist` @184.
+
+## D-0115 — Primary ASCII vs `symset:DECgraphics`
+
+- **Status:** fixed
+- **Observed:** seed0106 (no `symset` in rc) Scr **5**/267 with RNG
+  full: JS painted DEC walls/floors (`┌`/`·`) while C used Primary
+  ASCII (`-`/`|`/`.`). Green/PASS cohort all set `symset:DECgraphics`.
+- **Rejected:** further seed0106 Scr as only enhance/overview stubs —
+  first miss was map glyphs from forced DEC.
+- **C locus:** `options.c` / `symbols.c` default Primary showsyms;
+  `OPTIONS=symset:DECgraphics` loads H_DEC; `display.c`
+  `back_to_glyph` DOOR uses `horizontal` → `S_hodoor`/`S_vodoor`
+  (ASCII `|`/`-`; DEC both meta-a); `defsym.h` S_room `.` vs DEC `~`.
+- **Change:** `jsmain.js` sets `iflags.decgraphics` from rc;
+  `display.js` ASCII vs DEC wall/floor/ndoor/open-door tables;
+  `options.js` parses boolean `DECgraphics`.
+- **Verification:** seed0106 Scr **5→32**/267; seed0107 Scr **1→35**;
+  green+cohort PASS + strict; full **10/44** Scr **788→851** RNG
+  **104575**/792838.
+- **Named omission:** full `load_symset`/IBM/UTF8; `iflags.use_color`
+  gating of `obj_color`/`mon_color` when `OPTIONS=color` absent
+  (seed0106 potion `!` yellow vs NO_COLOR); `dokeylist`.
+- **Next:** seed0106 @13 angrygods quote/`--More--` split /
+  extcmd progressive `# c` paint / seed2200 `dokeylist`.
 
 

@@ -124,6 +124,9 @@ WC2_NAMES = {
 
 def eval_expr(expr: str) -> bool:
     expr = expr.strip()
+    # C: #if PREV_MSGS /* tty or curses */ — strip comments or eval fails → False
+    expr = re.sub(r"/\*.*?\*/", " ", expr)
+    expr = re.sub(r"//.*$", " ", expr)
 
     def repl_def(m: re.Match[str]) -> str:
         return "True" if FLAGS.get(m.group(1), False) else "False"
