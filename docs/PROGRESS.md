@@ -38,9 +38,9 @@ frozen-file overlay):
 | Metric | Value |
 |--------|------:|
 | Sessions passing | **10 / 44** |
-| Screens matched | **1123 / 11,405** (9.85%) |
+| Screens matched | **1125 / 11,405** (9.86%) |
 | Positional RNG calls matched | **104,575 / 792,838** (13.19%) |
-| Speed label | `19+0.08/turn` |
+| Speed label | `18+0.09/turn` |
 | Working-tree base | `8b71735` + committed port (see `main`) |
 | Role-init throws | **0 / 44** (`u_init_role: role not ported`) |
 
@@ -67,9 +67,9 @@ shared blockers, and semantic coverage together—not one vanity metric.
 | `seed0200-monk-north-search` | **1540 / 3822** | 0 / 40 |
 | `seed0101-ranger-quiver-throw-travel-engrave` | **2306 / 2371** | 4 / 27 |
 | `seed0016-healer-newmoon-eat-zap` | **2544 / 3656** | **5 / 36** |
-| `seed0107-samurai-twoweapon-enhance` | **2684 / 2902** | **35 / 98** |
+| `seed0107-samurai-twoweapon-enhance` | **2684 / 2902** | **36 / 98** |
 | `seed0104-knight-ride-combat` | **2394 / 3223** | 1 / 43 |
-| `seed0106-priest-extcmd-sweep` | **4194 / 4194** | **253 / 267** |
+| `seed0106-priest-extcmd-sweep` | **4194 / 4194** | **254 / 267** |
 | `seed0361-archeologist-tour` | **3293 / 53865** | 0 / 366 |
 | `seed0373-barbarian-quest-tour` | **2555 / 35386** | 0 / 124 |
 | `seed0105-valk-chat-lamp-ration` | **987 / 2499** | 0 / 30 |
@@ -125,7 +125,7 @@ autoopen `doopen_indir` (D-0059), `mfndpos` BOULDER/`NODIAG`
 **`#offer`/`#enhance`/`#annotate`/`#overview`/`#version`** (D-0110)
 clear shared peels. seed2200 RNG **full**; Scr **200**/230 (next:
 `dokeylist` @184 after parked RC path @158). seed0106 RNG **full**;
-Scr **38**/267 (next: `use_color` potion glyph @34). Healer seed0016 next
+Scr **254**/267 (next: overview features @165). Healer seed0016 next
 `next_ident` @ 2493.
 Priest seed0501 still `wipeout_text`. seed0015/0200 next `lspo_map`.
 seed0101 next `next_ident`. seed0013 still breaks earlier in
@@ -144,6 +144,8 @@ Scr **851→919**; seed0106 Scr **32→49**.
 Scr **919→1120**; seed0106 Scr **49→250**.
 **`yn_function` leave prompt + cleric `doname` skip uncursed** (D-0121) →
 Scr **1120→1123**; seed0106 Scr **250→253**.
+**`skill_init` + `#enhance` `add_skills_to_menu`** (D-0122) →
+Scr **1123→1125**; seed0106 Scr **253→254**; seed0107 Scr **35→36**.
 
 ### Green gate
 
@@ -237,23 +239,25 @@ autoopen `doopen_indir` (D-0059) + `mfndpos` BOULDER/`ALLOW_ROCK` +
 (D-0119)
 **`newsym` `_map_location` under visible monster** (D-0120)
 **`yn_function` leave prompt + cleric `doname` skip uncursed** (D-0121)
+**`skill_init` + `#enhance` `add_skills_to_menu` paged PICK_NONE** (D-0122)
 **ported**. Ten public sessions pass end-to-end. **0/44** throw at
 `u_init_role`. seed0700 + seed1150 + seed0017 + seed0077 **PASS**.
-seed0106 RNG **full** (Scr **253**/267); seed2200 RNG **full**
+seed0106 RNG **full** (Scr **254**/267); seed2200 RNG **full**
 (Scr **200**/230).
 
-- **Bounded unit:** seed0106 `#enhance` menu offx @133 /
-  overview @165 / `#chronicle` @188 /
+- **Bounded unit:** seed0106 `#overview` feature lines @165 /
+  `#chronicle` @188 /
   seed2200 `dokeylist` @184 /
   seed0501/0105 `wipeout_text` / seed0015/0200 `lspo_map` /
   seed0101 `next_ident` / seed0103 `next_ident`/`trquan` /
   seed0030 `maybe_smudge_engr` / seed0361/0373 **`getbones`**
   (blocked: need `^V`→`goto_level`→`makemaz` first).
-- **Prefer:** seed0106 enhance menu offx or seed2200
+- **Prefer:** seed0106 overview features or seed2200
   `dokeylist` over parked D-0006.
-- **Named omissions:** Wizard/Priest/Healer `initialspell`; Knight/
-  Samurai/Healer/Valkyrie/Ranger/Monk/Archeologist/Barbarian/Caveman
-  `skill_init`; full `x_monnam` hallu/invis/saddle/shk; pony saddle/
+- **Named omissions:** Wizard/Priest/Healer `initialspell`;
+  `skill_based_spellbook_id` / `unrestrict_weapon_skill(spelspec)`;
+  enhance `can_advance`/`skill_advance`/wizard speedy; full `x_monnam`
+  hallu/invis/saddle/shk; pony saddle/
   `see_monster_closeup`; other erosion proofs; `In_quest` lacquer;
   xname-path `observe_object` beyond invent_lines; full `role_init`
   beyond pantheon/SPE_LIGHT/nemesis gender; `adjabil` lose/
@@ -270,7 +274,7 @@ seed0106 RNG **full** (Scr **253**/267); seed2200 RNG **full**
   `cmd_safety_prevention`; `makemon` Sokoban
   `throws_rocks`; `m_initinv` body; `set_malign`; telepathy/
   `Detect_monsters`/`MATCH_WARN_OF_MON` in `newsym`; full
-  `weapon_insight` enhance/P_SKILL/odd P_NAME; shop `costly_spot`
+  `weapon_insight` P_SKILL display; shop `costly_spot`
   autopickup; `obj_typename` armor pair-of/set-of; full
   `magic_negation` Protection/amulet; roles.js `name.f` null where
   C has 0; GEM xname unknown/called beyond known GemStone;
@@ -282,8 +286,7 @@ seed0106 RNG **full** (Scr **253**/267); seed2200 RNG **full**
   TIN `cnutrit`; interactive `o`/`doopen` getdir; `doopen_indir`
   `b_trapped`/autounlock/mapseen; `#levelchange` `losexp`; remaining
   `extcmdlist` (`#chronicle`/`#conduct`/`#vanquished`/`#genocided`/
-  `#adjust`/`#terrain`); enhance `add_skills_to_menu`/`can_advance`/
-  `skill_advance`; overview feature lines; `floorfood` sacrifice;
+  `#adjust`/`#terrain`); overview feature lines; `floorfood` sacrifice;
   `pluslvl` achievements/`newuexp`; takeoff `oc_delay`/
   occupation/magic helms/dragon/`A` takeoffall; dosearch0
   feel_location/mfind0/statue activate/SPFX_SEARCH; full `readobjnam`
@@ -681,6 +684,10 @@ Module status, constitutional debt, and named omissions live in
     (D-0121) — seed0106 Scr **250→253**/267; screens
     **1120→1123**; RNG **104575** unchanged; green cohort PASS;
     next seed0106 enhance menu @133 / seed2200 `dokeylist` @184
+104. `skill_init` + `#enhance` `add_skills_to_menu` (D-0122) —
+    seed0106 Scr **253→254**/267; seed0107 Scr **35→36**; screens
+    **1123→1125**; RNG **104575** unchanged; green cohort PASS;
+    next seed0106 overview features @165 / seed2200 `dokeylist` @184
 
 Next work is selected from the active objectives above using
 `PORTING-RUNBOOK.md`, not by extending this historical list.

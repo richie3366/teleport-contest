@@ -125,6 +125,7 @@ Do not record a guessed cause as fixed merely because an RNG prefix moved.
 | D-0119 | fixed | mthrowu/uhitm msg | `canseemon`+`thitu` an/exclam/miss; melee skip hit when destroyed; seed0106 Scr 46→49 |
 | D-0120 | fixed | display/newsym | `_map_location` memory under visible mon; seed0106 Scr 49→250 |
 | D-0121 | fixed | yn/doname | leave yn prompt after answer; cleric skip `"uncursed "`; seed0106 Scr 250→253 |
+| D-0122 | fixed | skill/#enhance | `skill_init` + `add_skills_to_menu` paged PICK_NONE; seed0106 Scr 253→254 |
 
 D-0001 through D-0005 predate the strict-length/cohort runbook. Their focused
 causes are preserved, but generic "green sessions held" is historical evidence,
@@ -3263,7 +3264,36 @@ cohort gates if those functions are touched again.
   **1120→1123** RNG **104575**/792838.
 - **Named omission:** `doname` uncursed still omits SCR_MAIL /
   AMULET_OF_YENDOR / FAKE_AMULET exclusions; `dodip` uses `doname` not
-  `short_oname` length fallback; enhance menu column/`offx` residual.
+  `short_oname` length fallback.
 - **Next:** seed0106 enhance menu @133 / seed2200 `dokeylist` @184.
 
+## D-0122 — `#enhance` skill_init + add_skills_to_menu (paged PICK_NONE)
+
+- **Status:** fixed
+- **Observed:** seed0106 Scr **253**/267 first miss @133: C fullscreen
+  `Current skills:` + Fighting/Weapon/Spellcasting skill list +
+  `(1 of 2)`; JS corner overlay stub `(no skills ready to advance)`.
+- **Cause/evidence:** `u_init_skills_discoveries` never called
+  `skill_init`, so `weapon_skills[]` stayed unset; `enhance_weapon_skill`
+  painted a three-line stub via corner NHW_MENU. C builds the real menu
+  via `add_skills_to_menu` after invent→Basic / role maxes; tty_end_menu
+  prepends prompt+blank; lmax=23 yields two pages; seed presses `\n` on
+  page 1 (dismiss without page 2). Not an H2344 offx bug.
+- **C locus:** `weapon.c` `skill_init` / `add_skills_to_menu` /
+  `enhance_weapon_skill`; `wintty.c` `tty_end_menu` /
+  `process_menu_window` PICK_NONE paging; `u_init.c`
+  `u_init_skills_discoveries`.
+- **Change:** `js/weapon.js` `skill_init`/`P_NAME`/`add_skills_to_menu`/
+  enhance rewrite; `js/u_init.js` Skill_T/Skill_R + call `skill_init`;
+  `js/invent.js` `select_menu_pick_none` (lmax=23, `(N of M)`).
+- **Verification:** seed0106 Scr **253→254**/267 (next: overview
+  features @165); seed0107 Scr **35→36**; green+strict PASS; cohort
+  1500/1800/0060/0102/0700/1150/0017/0077 PASS; full **10/44** Scr
+  **1123→1125** RNG **104575**/792838.
+- **Named omission:** wizard speedy y_n; `can_advance`/`could_advance`/
+  `peaked_skill` annotations; `skill_advance`; `skill_based_spellbook_id`;
+  `unrestrict_weapon_skill(spelspec)`; overview feature lines;
+  `#chronicle`.
+- **Next:** seed0106 `#overview` features @165 / seed2200 `dokeylist`
+  @184.
 

@@ -299,6 +299,51 @@ export async function paint_corner_nhw_menu(entries, morestr = '(end) ') {
 }
 
 /**
+ * C ref: wintty.c tty_end_menu + process_menu_window select_menu(PICK_NONE).
+ * entries already include prompt/blank/items (as after tty_end_menu).
+ * Pages at lmax = rows-1 (23); ESC/Return dismiss; Space next page or done.
+ */
+export async function select_menu_pick_none(entries) {
+    const rows = display()?.rows || 24;
+    const lmax = Math.min(52, rows - 1);
+    const nitems = entries.length;
+    const npages = Math.max(1, Math.floor((nitems + lmax - 1) / lmax));
+    let curr_page = 0;
+
+    for (;;) {
+        const start = curr_page * lmax;
+        const page = entries.slice(start, start + lmax);
+        const morestr = npages > 1
+            ? `(${curr_page + 1} of ${npages})`
+            : '(end) ';
+        const painted = page.map(e => ({
+            text: ` ${typeof e === 'string' ? e : e.text}`,
+            attr: typeof e === 'string' ? 0 : (e.attr || 0),
+        }));
+        painted.push({ text: ` ${morestr}`, attr: 0 });
+        paint_overlay(painted, {
+            col: 0,
+            withStatus: false,
+            cursor: [morestr.length + 1, page.length],
+        });
+        await flush_screen(1);
+        const key = await nhgetch();
+        if (key === 27 || key === 13 || key === 10) break;
+        if (key === 32) {
+            if (curr_page < npages - 1) {
+                curr_page++;
+                continue;
+            }
+            break;
+        }
+        // other keys: re-prompt same page (C xwaitforspace)
+    }
+    clear_overlay();
+    await docrt();
+    await flush_screen(1);
+}
+
+/**
  * C ref: o_init.c observe_object — dknown + discover_object(..., FALSE, TRUE).
  */
 export function observe_object(obj) {

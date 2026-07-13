@@ -23,6 +23,20 @@ Use this shape:
 
 ---
 
+## 2026-07-13 11:35 — skill_init + #enhance add_skills_to_menu (D-0122)
+- Objective: seed0106 `#enhance` Scr @133 (PROGRESS primary; not offx).
+- C locus: `weapon.c` `skill_init`/`add_skills_to_menu`/`enhance_weapon_skill`;
+  `wintty.c` `tty_end_menu`/`process_menu_window` PICK_NONE; `u_init.c`
+  `u_init_skills_discoveries`.
+- Result: **verified** — stub corner menu was missing `skill_init` + real
+  skill list; C fullscreen page `(1 of 2)` after invent→Basic / Skill_P.
+- Verification: seed0106 Scr **253→254**/267; seed0107 Scr **35→36**;
+  green+strict PASS; cohort 1500/1800/0060/0102/0700/1150/0017/0077 PASS;
+  full **10/44** Scr **1123→1125** RNG **104575**/792838.
+- Next: seed0106 `#overview` features @165, or seed2200 `dokeylist` @184.
+
+---
+
 ## 2026-07-13 11:25 — yn leave prompt + cleric doname (D-0121)
 - Objective: seed0106 `#dip` yn @110 / garlic doname @116 (PROGRESS primary).
 - C locus: `win/tty/topl.c` `tty_yn_function`; `objnam.c` `doname` + `!Role_if(PM_CLERIC)`.

@@ -7,16 +7,16 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 
 ## Active
 
-- **Current unit:** D-0121 cleared: `yn_function` leaves prompt after answer;
-  cleric `doname` skips `"uncursed "`.
-- **Hypothesis:** seed0106 next Scr peel @133 is `#enhance` NHW_MENU
-  column/`offx` (`Current skills:` at col 1 vs padded H2344 overlay).
-  Later: overview @165, `#chronicle` unbound @188. seed2200 next real
-  peel after parked RC path @158 is help `j` → `dokeylist` @184.
+- **Current unit:** D-0122 cleared: `skill_init` + `add_skills_to_menu` +
+  paged PICK_NONE `#enhance` (not corner offx).
+- **Hypothesis:** seed0106 next Scr peel @165 is `#overview` feature lines
+  (C shows `A fountain.`; JS omits dungeon feature list under Level 1).
+  Later: `#chronicle` unbound @188. seed2200 next real peel after parked RC
+  path @158 is help `j` → `dokeylist` @184.
 - **Falsifier / next:**
   ```bash
   node frozen/ps_test_runner.mjs sessions/seed0106-priest-extcmd-sweep.session.json
-  # expect Scr >253 if enhance offx matches C; green cohort must stay PASS
+  # expect Scr >254 if overview features match C; green cohort must stay PASS
   node frozen/ps_test_runner.mjs sessions/seed2200-wizard-quaff-zap-read.session.json
   ```
 - **Parked deep canary:** D-0006 pet movement — do not implement until C
@@ -85,6 +85,9 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   C leaves `TOPLINE_NON_EMPTY` (D-0121). Do not invent a fake pline.
 - **seed0106 @116 garlic `"uncursed "` was NOT short_oname length** —
   priest `Role_if(PM_CLERIC)` skips uncursed in `doname` (D-0121).
+- **seed0106 @133 enhance was NOT H2344 offx** — stub showed
+  `(no skills ready to advance)` corner overlay; C needs `skill_init` +
+  `add_skills_to_menu` fullscreen page 1 of 2 (D-0122). Do not pad stub.
 
 ## Landmarks
 
@@ -120,3 +123,6 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 - `tty_yn_function` leaves prompt on WIN_MESSAGE after answer; `rhack`
   clears after next-command capture (D-0121).
 - Cleric `doname`: never print `"uncursed "` (BUC always known) (D-0121).
+- `#enhance`: `skill_init` then `add_skills_to_menu`; tty_end_menu
+  prompt+blank; lmax=23 → `(1 of 2)`; `\n` dismisses without page 2
+  (D-0122).
