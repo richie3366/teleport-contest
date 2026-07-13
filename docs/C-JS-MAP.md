@@ -125,10 +125,12 @@ prefix **3035** (`w` wield); screens **295**/11405; RNG
 **85938**/792838. `w`/`dowield` (D-0065) → seed0361 prefix **3073**
 (`W` wear); screens **295**/11405; RNG **85896**/792838.
 `W`/`dowear`/`oc_delay`/`nomul` (D-0066) → seed0361 prefix **3259**
-(`P` puton); screens **295**/11405; RNG **85752**/792838. Next peel:
-`P`/`doputon` / seed0700 **screen** / egg `can_be_hatched` /
+(`P` puton); screens **295**/11405; RNG **85752**/792838.
+`P`/`doputon`/`Amulet_on` (D-0067) → seed0361 prefix **3292**
+(`getbones`); screens **295**/11405; RNG **85792**/792838. Next peel:
+`getbones` / seed0700 **screen** / egg `can_be_hatched` /
 `exercise` / `dog_move` / `wipeout_text` / `lspo_map` / pony
-`next_ident` / `maybe_smudge_engr` / `getbones`.
+`next_ident` / `maybe_smudge_engr`.
 `make_corpse` body and `m_initinv` body still absent (named omissions).
 
 ## Data and world generation
@@ -154,9 +156,9 @@ prefix **3035** (`w` wield); screens **295**/11405; RNG
 |---|---|---|---|
 | `src/allmain.c` | `js/allmain.js` | partial | Basic move loop and hunger/sound subsets; **`mvitals.mvflags = geno & G_NOCORPSE` at newgame** (D-0057); **`maybe_generate_rnd_mon` → real `makemon(NULL,0,0)`** (D-0034); **`regen_hp` + once-per-turn call** (D-0035); **`u_calc_moveamt` Fast/Very_fast `rn2(3)`** (D-0058); **Searching EOT → `dosearch0(1)`** (D-0062); **`multi < 0` occupation + `unmul`/`afternmv`** (D-0066); omit steed `mcalcmove` path / full `youmonst.data->mmove` via `set_uasmon`; `regen_pw`/Teleport/Poly once-per-turn RNG; Upolyd eel hp-loss rolls; Regeneration/Sleepy props; warnreveal |
 | `src/detect.c` `dosearch0` | `js/detect.js` | partial | **8-neighbour SDOOR/SCORR/trap find + fund (lenses)** + `find_trap` message (D-0062); omit feel_location/Blind/unmap_invisible, mfind0 body, Hallucination/cls wait, activate_statue_trap, artifact SPFX_SEARCH, cmd_safety_prevention |
-| `src/cmd.c` / `src/do.c` | `js/cmd.js`, `js/do.js`, `js/getline.js`, `js/wizcmds.js`, `js/zap.js` | partial | Movement/search/apply/kick/wait and selected UI/item commands; Ctrl-D → `dokick` (D-0031); **`.` → `donull`** (D-0033); **autoopen walk-into → `doopen_indir`** (D-0059); **`#` → `doextcmd`/`#levelchange`** (D-0061); **`s`/`continue_search` → `dosearch`** (D-0062); **`T` → `dotakeoff`** (D-0063); **`^W` → `wiz_wish`/`makewish`** (D-0064); **`w` → `dowield`** (D-0065); **`W` → `dowear`** (D-0066); omit full `extcmdlist`, `losexp` drain, `cmd_safety_prevention`, `rest_on_space`, interactive `o`, `#wizwish`, `P` puton |
+| `src/cmd.c` / `src/do.c` | `js/cmd.js`, `js/do.js`, `js/getline.js`, `js/wizcmds.js`, `js/zap.js` | partial | Movement/search/apply/kick/wait and selected UI/item commands; Ctrl-D → `dokick` (D-0031); **`.` → `donull`** (D-0033); **autoopen walk-into → `doopen_indir`** (D-0059); **`#` → `doextcmd`/`#levelchange`** (D-0061); **`s`/`continue_search` → `dosearch`** (D-0062); **`T` → `dotakeoff`** (D-0063); **`^W` → `wiz_wish`/`makewish`** (D-0064); **`w` → `dowield`** (D-0065); **`W` → `dowear`** (D-0066); **`P` → `doputon`** (D-0067); omit full `extcmdlist`, `losexp` drain, `cmd_safety_prevention`, `rest_on_space`, interactive `o`, `#wizwish` |
 | `src/wield.c` | `js/wield.js` | partial | **`dowield`/`ready_weapon`/`setuwep`/`welded`** + getobj letter/`-` (D-0065); omit `cantwield` poly, `cant_wield_corpse`, bimanual+shield, weld pline body, `doswapweapon`, quiver ynq, count-split, `arti_speak`/`artifact_light`, `pushweapon`, full `setworn` props |
-| `src/do_wear.c` | `js/do_wear.js` | partial | **`dotakeoff`** (D-0063) + **`dowear`/`canwearobj`/`accessory_or_armor_on`/`setworn`/`Armor_on` + delay-0 `on_msg`/`unmul`** (D-0066); omit `P`/`doputon` accessory bodies, doff `oc_delay` occupation, magic helms beyond fedora, `dragon_armor_handling`, `setworn` oc_oprop props, poly/weld/trap gates, `A` takeoffall, ring-hand yn |
+| `src/do_wear.c` | `js/do_wear.js` | partial | **`dotakeoff`** (D-0063) + **`dowear`/`canwearobj`/`accessory_or_armor_on`/`setworn`/`Armor_on` + delay-0 `on_msg`/`unmul`** (D-0066) + **`doputon`/`Amulet_on` + ring-hand yn + amulet/eyewear put-on** (D-0067); omit Ring_on learnring/attribs, Blindf_on specials, amulet change/strangle/sleep/flying/breathing, ring Glib/cursed-gloves/weld, doff `oc_delay` occupation, magic helms beyond fedora, `dragon_armor_handling`, `setworn` oc_oprop props, poly/weld/trap gates, `A` takeoffall |
 | `src/objnam.c` `readobjnam` | `js/readobjnam.js`, `js/objnam.js` | partial | **wish subset:** prefixes + `name_to_monplus` dragon mail + `rnd_otyp_by_namedesc`/`wishymatch` + artifact_name + BUC/spe + oname (D-0064); doname empty/wield/swapwep/potion/implicit-uncursed (D-0024); CORPSE `corpsenm` (D-0019); **COIN quan=1 `"a gold piece"`** (D-0037); **`Japanese_item_name` table** for Samurai discovery (D-0045); doname `named`; omit fruits/traps/terrain/random/`o_ranges`/alt spellings/Japanese wish; display-path Japanese + full erosion deferred |
 | `src/invent.c` `hold_another_object` | `js/invent.js` | partial | **artifact touch + addinv + prinv** (D-0064); omit fumbling/encumbrance-drop/autoquiver/fatal-corpse/`observe_object` beyond dknown |
 | `src/do_name.c` `oname` | `js/do_name.js` | partial | **artifact oname/`artifact_exists`** (D-0064); omit literate/shop/intrinsic side-effects |

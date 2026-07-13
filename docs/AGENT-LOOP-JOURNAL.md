@@ -762,3 +762,15 @@ Use this shape:
   positional 3262; seed0700 RNG full.
 - Next: `node scripts/rng-diff.mjs sessions/seed0361-archeologist-tour.session.json`
   — peel `P`/`doputon` ALS @ 3259 (or getbones/egg/seed0700 screen).
+
+## 2026-07-13 02:55 — P/doputon ALS (D-0067)
+- C locus: `do_wear.c` `doputon`/`accessory_or_armor_on`/`Amulet_on`/`on_msg`;
+  `worn.c` `setworn`; `invent.c` `prinv`; `objnam.c` worn amulet; `cmd.c` `'P'`
+- Result: seed0361 @ 3259 was missing puton. Session keys `Pk` after wear;
+  ALS is setworn + prinv (no puton RNG). Ported doputon + amulet/ring-hand
+  accessory path + doname worn suffixes.
+- Verification: green + seed1500/1800/0060 PASS + strict; full 5/44
+  screens 295 RNG 85792; seed0361 prefix 3259→3292 (`getbones`)
+  positional 3295; seed0700 RNG full.
+- Next: `node scripts/rng-diff.mjs sessions/seed0361-archeologist-tour.session.json`
+  — peel `getbones` @ 3292 (also seed0373 @ 2549) or egg/seed0700 screen.

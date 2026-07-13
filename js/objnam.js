@@ -21,7 +21,7 @@ import {
 } from './objects.js';
 import { monsterNames } from './monsters.js';
 import {
-    W_ARMOR, W_QUIVER, W_WEP, W_SWAPWEP,
+    W_ARMOR, W_AMUL, W_RINGL, W_RINGR, W_QUIVER, W_WEP, W_SWAPWEP,
     Has_contents, Is_container,
 } from './const.js';
 
@@ -229,6 +229,12 @@ export function doname(obj) {
 
     if (oclass === ARMOR_CLASS && (obj.owornmask & W_ARMOR))
         bp += ' (being worn)';
+    if (obj.owornmask & W_AMUL)
+        bp += ' (being worn)';
+    if (obj.owornmask & W_RINGR)
+        bp += ' (on right hand)';
+    if (obj.owornmask & W_RINGL)
+        bp += ' (on left hand)';
     // C: W_WEP → "(weapon in right/left hand)" for single non-ammo weapons
     if ((obj.owornmask & W_WEP) && quan === 1) {
         const right = (game.u?.uhandedness !== 1); // LEFT_HANDED=1

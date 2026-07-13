@@ -70,6 +70,7 @@ Do not record a guessed cause as fixed merely because an RNG prefix moved.
 | D-0064 | fixed | wish/readobjnam | `^W`/`makewish`/`readobjnam` + artifacts; seed0361 past 3 wishes |
 | D-0065 | fixed | wield | `w`/`dowield`/`ready_weapon`/`setuwep`/`retouch_object`; seed0361 past Grayswandir wield |
 | D-0066 | fixed | wear | `W`/`dowear`/`canwearobj`/`setworn`/`oc_delay`/`nomul`; seed0361 past SDSM dress |
+| D-0067 | fixed | puton | `P`/`doputon`/`Amulet_on` + accessory path; seed0361 past ALS; next `getbones` |
 
 D-0001 through D-0005 predate the strict-length/cohort runbook. Their focused
 causes are preserved, but generic "green sessions held" is historical evidence,
@@ -1808,3 +1809,32 @@ cohort gates if those functions are touched again.
   and those turns share the selection keystroke's RNG segment.
 - **Next:** `P`/`doputon` (seed0361 @ 3259 ALS) or shared
   `getbones`/`^V` / egg / seed0700 screen.
+
+## D-0067 — `P`/`doputon` ALS put-on (seed0361)
+
+- **Observed:** `seed0361-archeologist-tour`, first mismatch **3259**
+  (`dog_move` `rn2(12)` vs JS `rn2(100)`).
+- **Cause/evidence:** Session keys `Pk` after SDSM wear. C `doputon`
+  → getobj → `accessory_or_armor_on` → `Amulet_on` (ALS is a no-op
+  case + `on_msg`/`prinv`). JS lacked `'P'`, so `P`/`k` leaked into
+  rhack. ALS puton itself emits no RNG; the turn's pet `dog_move`
+  follows.
+- **Rejected:** fleeck/dog_move formula as the first cause — without
+  puton, keys never reached the post-puton movemon segment.
+- **C locus:** `do_wear.c` `doputon`/`accessory_or_armor_on`/
+  `Amulet_on`/`on_msg`; `worn.c` `setworn`; `invent.c` `prinv`;
+  `objnam.c` amulet `(being worn)`; `cmd.c` `'P'`.
+- **Change:** `js/do_wear.js` puton/amulet/ring-hand path;
+  `js/cmd.js` `'P'`; `js/objnam.js` worn amulet/ring suffixes.
+- **Verification:** green + seed1500/1800/0060 PASS + strict; full
+  **5/44** screens **295** RNG **85792**/792838; seed0361 prefix
+  **3259→3292** (`getbones`) positional **3295**/53865; seed0700
+  RNG still full; seed0373 still `getbones` @ 2549.
+- **Omissions named:** Ring_on learnring/attribs; Blindf_on
+  specials; amulet change/strangle/sleep/flying/breathing bodies;
+  ring Glib/cursed-gloves/welded gates; `setworn` oc_oprop;
+  `dragon_armor_handling`; doff `oc_delay`; `A` takeoffall.
+- **Lesson:** missing command letters look like late pet RNG gaps;
+  confirm the key map (`Pk`) before peeling fleeck arity.
+- **Next:** shared `getbones` (seed0361 @ 3292 / seed0373 @ 2549)
+  or egg `can_be_hatched` / seed0700 screen.
