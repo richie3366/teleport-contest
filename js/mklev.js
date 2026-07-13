@@ -874,18 +874,24 @@ function monclass_letter_to_mlet(ch) {
     return null;
 }
 
+// C ref: sp_lev.c create_monster — sp_amask_to_amask before mkclass / makemon
 function splev_create_monster(id_or_class) {
     let pm = null;
     let female = 0;
-    if (typeof id_or_class === 'string' && id_or_class.length === 1) {
-        const mlet = monclass_letter_to_mlet(id_or_class);
-        pm = mlet ? mkclass(mlet, G_NOGEN) : null;
-    } else if (typeof id_or_class === 'string') {
+    const isClass = typeof id_or_class === 'string' && id_or_class.length === 1;
+    // Named ids: find_montype gender RNG happens before create_monster in C Lua
+    // binding; class letters leave id=NON_PM and resolve via mkclass after amask.
+    if (!isClass && typeof id_or_class === 'string') {
         const r = find_montype_gender(id_or_class);
         female = r.female;
         if (r.mndx !== NON_PM && r.mndx >= 0) pm = mons(r.mndx);
     }
+    // C: amask = sp_amask_to_amask(m->sp_amask) → induced_align(80) for RANDOM
     induced_align(80);
+    if (isClass) {
+        const mlet = monclass_letter_to_mlet(id_or_class);
+        pm = mlet ? mkclass(mlet, G_NOGEN) : null;
+    }
     const pos = get_location_random(null);
     const mtmp = makemon(pm, pos.x, pos.y, 0);
     if (mtmp && typeof id_or_class === 'string' && id_or_class.length > 1) {
@@ -910,10 +916,31 @@ function splev_create_stair(up) {
     mkstairs(pos.x, pos.y, up ? 1 : 0, null);
 }
 
+// C ref: sp_lev.c create_trap → mktrap(random) — retry until kind != NO_TRAP
 function splev_create_trap() {
     const pos = get_location_random(null);
-    let kind = traptype_rnd();
-    if (kind !== NO_TRAP) maketrap(pos.x, pos.y, kind);
+    let kind;
+    do {
+        kind = traptype_rnd();
+    } while (kind === NO_TRAP);
+    // C mktrap: is_hole && !Can_fall_thru → ROCKTRAP
+    const dungeon = game.dungeons?.[game.u?.uz?.dnum ?? 0];
+    const canFallThru = (game.u?.uz?.dlevel ?? 1) < (dungeon?.num_dunlevs ?? 1);
+    if (is_hole(kind) && !canFallThru) kind = ROCKTRAP;
+    const trap = maketrap(pos.x, pos.y, kind);
+    kind = trap ? trap.ttyp : NO_TRAP;
+    // C mktrap victim gate (minefill des.trap has no novictim)
+    const lvl = level_difficulty();
+    if (game.in_mklev
+        && kind !== NO_TRAP
+        && lvl <= rnd(4)
+        && kind !== SQKY_BOARD && kind !== RUST_TRAP
+        && !(kind === ROLLING_BOULDER_TRAP
+            && trap.launch?.x === trap.tx && trap.launch?.y === trap.ty)
+        && !is_pit(kind) && (kind < HOLE || kind === MAGIC_TRAP)) {
+        if (kind === LANDMINE) { trap.ttyp = PIT; trap.tseen = true; }
+        mktrap_victim(trap);
+    }
 }
 
 /**

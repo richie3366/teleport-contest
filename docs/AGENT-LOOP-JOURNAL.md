@@ -2185,3 +2185,18 @@ Use this shape:
   full **15/44** Scr **1405** RNG **134796**/792838.
 - Next: seed0030 @13007 (`induced_align` rn2(3) vs rn2(9)) /
   seed0101 Scr residual / seed0200 combat @3382.
+
+## 2026-07-13 — minefill create_monster/create_trap (D-0175/D-0176)
+- Objective: seed0030 @13007 C `rn2(3) @ induced_align` vs JS `rn2(9)`
+  (PROGRESS primary).
+- C locus: `sp_lev.c` `create_monster`/`create_trap` → `mktrap`
+  (`mklev.c` traptype retry + victim).
+- Result: **verified** — not induced_align itself. Class-letter minefill
+  called `mkclass` before amask; then `splev_create_trap` skipped
+  NO_TRAP retry and victim `rnd(4)`. Reordered amask→mkclass; ported
+  trap retry+victim.
+- Verification: seed0030 prefix **13007→13226**; positional
+  **14148**/105529 Scr **168**/1953; green+strict PASS; cohort PASS;
+  full **15/44** Scr **1405** RNG **135605**/792838.
+- Next: seed0030 @13226 (`place_lregion` vs rn2(1000)) /
+  seed0101 Scr residual / seed0200 combat @3382.

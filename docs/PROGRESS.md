@@ -39,7 +39,7 @@ frozen-file overlay):
 |--------|------:|
 | Sessions passing | **15 / 44** |
 | Screens matched | **1405 / 11,405** (12.32%) |
-| Positional RNG calls matched | **134,796 / 792,838** (17.00%) |
+| Positional RNG calls matched | **135,605 / 792,838** (17.10%) |
 | Speed label | `19+0.09/turn` |
 | Working-tree base | `8b71735` + committed port (see `main`) |
 | Role-init throws | **0 / 44** (`u_init_role: role not ported`) |
@@ -64,7 +64,7 @@ shared blockers, and semantic coverage together—not one vanity metric.
 | `seed0501-priest-cast-read-turn` | **2238 / 2238** | **28 / 28** |
 | `seed2200-wizard-quaff-zap-read` | **3018 / 3018** | **229 / 230** |
 | `seed0017-samurai-altar-pray` | **3465 / 3465** | **67 / 67** |
-| `seed0030-ten-diverse-deaths` | **13339 / 105529** | **168 / 1953** |
+| `seed0030-ten-diverse-deaths` | **14148 / 105529** | **168 / 1953** |
 | `seed0103-knight-ride-pony` | **2344 / 2640** | 2 / 60 |
 | `seed0200-monk-north-search` | **3385 / 3822** | **15 / 40** |
 | `seed0101-ranger-quiver-throw-travel-engrave` | **2371 / 2371** | **21 / 27** |
@@ -227,7 +227,7 @@ seed0015 **PASS**. seed0101 next Scr residual (RNG full). seed0013 still breaks 
 Lua/`sp_lev`. seed0103 next `next_ident`/`trquan` @ 2337.
 seed0361/0373 `getbones` blocked on unbound `^V`/`goto_level`/
 `makemaz`. seed0077 chargen + vault fallback + door vision/pick_lock/DEC
-open-door (D-0111/D-0112/D-0113) → **PASS**. seed0030 **13339**/105529.
+open-door (D-0111/D-0112/D-0113) → **PASS**. seed0030 **14148**/105529.
 seed0105 RNG **full** (Scr **30**/30).
 
 ### Green gate
@@ -375,20 +375,22 @@ autoopen `doopen_indir` (D-0059) + `mfndpos` BOULDER/`ALLOW_ROCK` +
 **race `hatemask`/`M2_*` + S_GNOME `m_initinv`** (D-0172)
 **NAMS `pmnames` / `name_to_monplus` gender** (D-0173)
 **`likes_gold`/`findgold`/`mkmonmoney`** (D-0174)
+**minefill class-letter amask-before-mkclass** (D-0175)
+**minefill create_trap retry + victim** (D-0176)
 **ported**. Fifteen public sessions pass end-to-end. **0/44** throw at
 `u_init_role`. seed0700 + seed1150 + seed0017 + seed0077 + seed0106 +
 seed0501 + seed0105 + seed0016 + seed0015 **PASS**. seed2200 RNG **full**
 (Scr **229**/230; sole miss parked RC @158).
 seed0101 RNG **full** Scr **21**/27.
 
-- **Bounded unit:** seed0030 @13007 (`induced_align` rn2(3) vs rn2(9)) /
+- **Bounded unit:** seed0030 @13226 (`place_lregion` vs rn2(1000)) /
   seed0101 Scr residual /
   seed0103 `next_ident`/`trquan` /
   seed0200 combat `@3382` (lower priority) /
   seed0361/0373 **quest `getbones`** (blocked: need `^V`→`goto_level`→
   `makemaz` first — ordinary `goto_level` now exists for stairs; Mines
   `fill_lvl` path exists D-0171).
-- **Prefer:** seed0030 @13007 / seed0101 Scr
+- **Prefer:** seed0030 @13226 / seed0101 Scr
   over parked D-0006 and over baking seed2200 RC paths.
   Hero `dotrap` deferred until monster pit peel is clear.
   Hero `xkilled` `make_corpse` still deferred (mhitm path done D-0167).
@@ -1055,6 +1057,14 @@ Module status, constitutional debt, and named omissions live in
     — seed0030 prefix **12968→13007** (`induced_align` vs rn2(9));
     positional **13339**/105529 Scr **168**/1953; screens **1405**;
     RNG **134770→134796**; green cohort PASS; next seed0030 @13007 /
+    seed0101 Scr residual / seed0200 @3382
+152. minefill `create_monster` amask-before-mkclass (D-0175)
+    — seed0030 prefix **13007→13122** (`traptype_rnd` retry);
+    green cohort PASS
+153. minefill `create_trap` retry + victim (D-0176)
+    — seed0030 prefix **13122→13226** (`place_lregion`); positional
+    **14148**/105529 Scr **168**/1953; screens **1405**;
+    RNG **134796→135605**; green cohort PASS; next seed0030 @13226 /
     seed0101 Scr residual / seed0200 @3382
 
 Next work is selected from the active objectives above using

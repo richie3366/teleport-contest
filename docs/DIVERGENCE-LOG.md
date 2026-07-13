@@ -178,6 +178,8 @@ Do not record a guessed cause as fixed merely because an RNG prefix moved.
 | D-0172 | fixed | peace_minded/m_initinv | race hatemask + M2 race bits; S_GNOME candle |
 | D-0173 | fixed | name_to_monplus/NAMS | pmnames gender; gnome lord no rn2(2) |
 | D-0174 | fixed | m_initinv/likes_gold | likes_gold + findgold + mkmonmoney rn2(5) |
+| D-0175 | fixed | minefill/create_monster | class-letter: induced_align before mkclass |
+| D-0176 | fixed | minefill/create_trap | traptype NO_TRAP retry + mktrap victim rnd(4) |
 
 D-0001 through D-0005 predate the strict-length/cohort runbook. Their focused
 causes are preserved, but generic "green sessions held" is historical evidence,
@@ -4741,5 +4743,55 @@ cohort gates if those functions are touched again.
   `begin_burn` on failed candle `mpickobj`.
 - **Lesson:** trailing `m_initinv` gold is shared across GREEDY mlets
   (dwarf/orc/…), not part of the S_GNOME candle case.
-- **Next:** seed0030 @13007 (`induced_align` rn2(3) vs JS rn2(9)) /
+- **Next:** seed0030 @13007 cleared by D-0175; see D-0175 next.
+
+## D-0175 — minefill create_monster induced_align before mkclass
+
+- **Status:** fixed
+- **Observed:** seed0030 first RNG mismatch @13007 — C
+  `rn2(3) @ induced_align`; JS `rn2(9)` (`mkclass_aligned`).
+- **Rejected:** induced_align dungeon/lev align gates wrong — named
+  gnome/dwarf spawns already matched amask/`rn2(3)`; only class-letter
+  `'G'`/`'h'` diverged. Also not a mkclass body bug (C’s next call is
+  the same `rn2(9)` after amask).
+- **C locus:** `sp_lev.c` `create_monster` → `sp_amask_to_amask` then
+  `mkclass(class, G_NOGEN)` when `id == NON_PM`.
+- **Cause:** JS `splev_create_monster` called `mkclass` before
+  `induced_align(80)` for single-letter classes.
+- **Change:** reorder — named `find_montype_gender` first; always
+  `induced_align(80)`; then class-letter `mkclass`.
+- **Verification:** seed0030 prefix **13007→13122** (then D-0176);
+  green+strict PASS; cohort PASS.
+- **Named omission:** `In_mines` your_race dwarf/gnome `rn2(3)` null-out;
+  humidity `get_location_coord`; appear/inventory; non-RANDOM amask /
+  `mk_roamer`.
+- **Lesson:** class-letter and named minefill paths share amask but
+  differ on whether `mkclass` runs after it — do not hoist mkclass.
+- **Next:** seed0030 @13122 cleared by D-0176; see D-0176 next.
+
+## D-0176 — minefill create_trap traptype retry + mktrap victim
+
+- **Status:** fixed
+- **Observed:** seed0030 first RNG mismatch @13122 — C second
+  `rnd(25) @ traptype_rnd`; JS `rn2(79)` (`get_location`). After retry
+  fix, @13127 C `rnd(4) @ mktrap` vs JS next get_location.
+- **Rejected:** get_location arity / trap count wrong — first
+  location+traptype matched; JS simply accepted NO_TRAP without retry
+  then skipped victim gate.
+- **C locus:** `sp_lev.c` `create_trap` → `mktrap` (`mklev.c`) —
+  `do { traptype_rnd } while NO_TRAP`; hole→ROCKTRAP; victim
+  `lvl <= rnd(4)` (+ LANDMINE→PIT / `mktrap_victim`).
+- **Cause:** JS `splev_create_trap` called `traptype_rnd` once and
+  skipped on NO_TRAP; never burned victim `rnd(4)`.
+- **Change:** retry loop + ROCKTRAP rewrite + victim gate wired to
+  existing `mktrap_victim` (same shape as `mktrap_room` / telehub).
+- **Verification:** seed0030 prefix **13122→13226** positional
+  **14148**/105529 Scr **168**/1953; green+strict PASS; cohort PASS;
+  full **15/44** Scr **1405** RNG **135605**.
+- **Named omission:** `MKTRAP_NOSPIDERONWEB`/`SEEN`/`NOVICTIM` Lua
+  flags; WEB giant spider; stair/ladder location retry; full
+  `place_lregion` / stock after minefill traps.
+- **Lesson:** special-level random traps still use ordinary `mktrap`
+  retry+victim unless Lua sets `novictim`.
+- **Next:** seed0030 @13226 (`place_lregion` vs rn2(1000)) /
   seed0101 Scr / seed0200 @3382.

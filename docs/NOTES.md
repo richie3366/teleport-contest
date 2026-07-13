@@ -7,18 +7,19 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 
 ## Active
 
-- **Current unit:** D-0174 cleared seed0030 @12968 — `m_initinv` skipped
-  `likes_gold`/`!rn2(5)`/`mkmonmoney` so JS hit `peace_minded` while C
-  burned `rn2(5)` (dwarf GREEDY). Prefix **12968→13007**; positional
-  **13339**/105529; Scr **168**/1953; public Scr **1405**, RNG **134796**;
-  still **15/44**.
-- **Hypothesis / next:** seed0030 @13007 — C `induced_align` `rn2(3)` vs
-  JS `rn2(9)` (mkclass-shaped arity) on the next minefill spawn; or
-  seed0101 Scr residual (RNG full), or seed0200 combat `@3382`.
+- **Current unit:** D-0175/D-0176 cleared seed0030 @13007–13127 — minefill
+  class-letter `splev_create_monster` called `mkclass` before `induced_align`
+  (C `create_monster` does amask first); then `splev_create_trap` skipped
+  `traptype_rnd` NO_TRAP retry and `mktrap` victim `rnd(4)`. Prefix
+  **13007→13226**; positional **14148**/105529; Scr **168**/1953; public
+  Scr **1405**, RNG **135605**; still **15/44**.
+- **Hypothesis / next:** seed0030 @13226 — C `place_lregion` `rn2(79)` vs
+  JS `rn2(1000)` (stock/fixup after minefill traps); or seed0101 Scr
+  residual (RNG full), or seed0200 combat `@3382`.
 - **Falsifier / next:**
   ```bash
   node scripts/rng-diff.mjs sessions/seed0030-ten-diverse-deaths.session.json
-  # expect first mismatch past 13007 if induced_align/create_monster order advances
+  # expect first mismatch past 13226 if place_lregion / stock advances
   node frozen/ps_test_runner.mjs sessions/seed0101-ranger-quiver-throw-travel-engrave.session.json
   # expect Scr >21/27 if residual display peel advances
   ```
@@ -305,6 +306,14 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   `mkmonmoney`/`d(level_difficulty(),…)`; dwarves have `M2_GREEDY`,
   ordinary gnomes do not (D-0174). Do not skip gold just because
   S_GNOME candle path has no GREEDY.
+- **seed0030 @13007 was NOT broken induced_align/`rn2(3)` itself** —
+  class-letter `'G'`/`'h'` called `mkclass` before `induced_align`; C
+  `create_monster` does `sp_amask_to_amask` first then `mkclass`
+  (D-0175). Named ids keep find_montype gender before amask.
+- **seed0030 @13122 was NOT missing get_location arity** — after first
+  `traptype_rnd` returned NO_TRAP, C `mktrap` retries; JS skipped and
+  advanced to the next trap’s location. Also need victim `rnd(4)`
+  (D-0176). Do not “fix” by inventing a second get_location.
 
 ## Landmarks
 
@@ -399,3 +408,7 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 - `m_initinv` after defensive/misc: `likes_gold` → `!findgold(minvent)`
   → `!rn2(5)` → `mkmonmoney`/`d(level_difficulty(), minvent?5:10)`
   (D-0174). Gnomes lack GREEDY; dwarves/orcs have it.
+- minefill class-letter monsters: `induced_align(80)` **before**
+  `mkclass` (D-0175); named monsters: find_montype gender then amask.
+- minefill `des.trap`: `do { traptype_rnd } while NO_TRAP` then
+  hole→ROCKTRAP then `mktrap` victim `rnd(4)` (D-0176).
