@@ -23,6 +23,19 @@ Use this shape:
 
 ---
 
+## 2026-07-13 14:28 — lspo_map themerms map rooms (D-0143)
+- Objective: seed0015/0200 `lspo_map` (PROGRESS primary).
+- C locus: `sp_lev.c` `lspo_map`/`mapfrag_*`/`lspo_region`;
+  `mkmap.c` `flood_fill_rm`; `themerms.lua` map rooms +
+  `filler_region` + `themeroom_fill` reservoir.
+- Result: **verified** — map-shaped themerms call real `lspo_map`
+  placement/load + `filler_region` irregular room; fill reservoir
+  (bodies deferred). seed0015 337→357; seed0200 377→1447.
+- Verification: green+strict PASS; cohort PASS sessions held; full
+  **13/44** Scr **1240** RNG **111362**/792838.
+- Next: Ghost `themeroom_fill`/`selection_rndcoord` (seed0015) or
+  `dig_corridor` (seed0200); else `next_ident` / `maybe_smudge_engr`.
+
 ## 2026-07-13 14:16 — dochat wall + apply/eat getobj (D-0140/41/42)
 - Objective: seed0105 Scr after D-0139 (PROGRESS primary).
 - C locus: `sounds.c` `dochat`; `invent.c` `getobj`; `apply.c`

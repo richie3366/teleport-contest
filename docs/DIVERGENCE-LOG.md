@@ -146,6 +146,7 @@ Do not record a guessed cause as fixed merely because an RNG prefix moved.
 | D-0140 | fixed | sounds/dochat | wall/SDOOR + statue talk; seed0105 wall pline |
 | D-0141 | fixed | invent/apply getobj | empty SUGGEST → "don't have anything to use or apply" |
 | D-0142 | fixed | invent/eat getobj | missing-letter `continue` + NEED_MORE `--More--`; seed0105 **PASS** |
+| D-0143 | fixed | mklev/lspo_map | themerms map rooms → `lspo_map`+`filler_region`; not `rn2(100)`+`create_room` |
 
 D-0001 through D-0005 predate the strict-length/cohort runbook. Their focused
 causes are preserved, but generic "green sessions held" is historical evidence,
@@ -3795,3 +3796,30 @@ cohort gates if those functions are touched again.
 - **Named omission:** ordinary food nutrition/occupation; eat `?`/`*`
   menu; full `is_edible`.
 - **Next:** `lspo_map` / `next_ident` / `maybe_smudge_engr`.
+
+## D-0143 — lspo_map themerms map rooms + filler_region
+
+- **Status:** fixed
+- **Observed:** seed0015 first mismatch @337 `rn2(71) @ lspo_map`;
+  seed0200 @377 same. JS burned `rn2(100)` then `create_room`.
+- **Cause/evidence:** Reservoir can pick L/S/T/Z/Cross/… shapes whose
+  Lua `contents` call `des.map` → C `lspo_map` (`1+rn2(COLNO-1-wid)`,
+  `rn2(ROWNO-hei)`, overwrite redo). JS treated every non-`ordinary`
+  pick as `build_room` chance + rectangular `create_room`.
+- **C locus:** `sp_lev.c` `lspo_map` / `mapfrag_*` / `lspo_region`;
+  `mkmap.c` `flood_fill_rm`; `themerms.lua` map rooms + `filler_region`
+  + `themeroom_fill` reservoir.
+- **Change:** `js/mklev.js` — `splev_chr2typ`/`mapfrag`/`lspo_map_themeroom`
+  placement+load; `filler_region` percent + irregular flood/add_room;
+  `themeroom_fill` reservoir (lit/mindiff gates); wire 17 simple
+  filler-map rooms; `makerooms` honors `themeroom_failed`.
+- **Verification:** seed0015 prefix **337→357** (`selection_rndcoord` /
+  Ghost fill); seed0200 **377→1447** (`dig_corridor`); green+strict
+  PASS; PASS cohort held; full **13/44** Scr **1239→1240** RNG
+  **106907→111362**.
+- **Named omission:** fill *bodies* (Ghost `selection.room`/monster,
+  Temple altars, …); Blocked center/Pillars/Water vault/complex maps;
+  nested `des.room` themerms still `create_room`; irregular
+  `dig_corridor` join.
+- **Next:** Ghost `themeroom_fill` / `selection_rndcoord`, or
+  `dig_corridor` after L-room, or `next_ident` / `maybe_smudge_engr`.

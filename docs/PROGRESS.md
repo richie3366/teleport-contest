@@ -38,8 +38,8 @@ frozen-file overlay):
 | Metric | Value |
 |--------|------:|
 | Sessions passing | **13 / 44** |
-| Screens matched | **1239 / 11,405** (10.86%) |
-| Positional RNG calls matched | **106,907 / 792,838** (13.48%) |
+| Screens matched | **1240 / 11,405** (10.87%) |
+| Positional RNG calls matched | **111,362 / 792,838** (14.05%) |
 | Speed label | `18+0.08/turn` |
 | Working-tree base | `8b71735` + committed port (see `main`) |
 | Role-init throws | **0 / 44** (`u_init_role: role not ported`) |
@@ -64,9 +64,9 @@ shared blockers, and semantic coverage together—not one vanity metric.
 | `seed0501-priest-cast-read-turn` | **2238 / 2238** | **28 / 28** |
 | `seed2200-wizard-quaff-zap-read` | **3018 / 3018** | **229 / 230** |
 | `seed0017-samurai-altar-pray` | **3465 / 3465** | **67 / 67** |
-| `seed0030-ten-diverse-deaths` | **7054 / 105529** | **109 / 1953** |
+| `seed0030-ten-diverse-deaths` | **7023 / 105529** | **109 / 1953** |
 | `seed0103-knight-ride-pony` | **2344 / 2640** | 2 / 60 |
-| `seed0200-monk-north-search` | **1540 / 3822** | 0 / 40 |
+| `seed0200-monk-north-search` | **1530 / 3822** | 0 / 40 |
 | `seed0101-ranger-quiver-throw-travel-engrave` | **2306 / 2371** | 4 / 27 |
 | `seed0016-healer-newmoon-eat-zap` | **2544 / 3656** | **6 / 36** |
 | `seed0107-samurai-twoweapon-enhance` | **2684 / 2902** | **36 / 98** |
@@ -74,9 +74,9 @@ shared blockers, and semantic coverage together—not one vanity metric.
 | `seed0361-archeologist-tour` | **3293 / 53865** | 0 / 366 |
 | `seed0373-barbarian-quest-tour` | **2555 / 35386** | 0 / 124 |
 | `seed0105-valk-chat-lamp-ration` | **2499 / 2499** | **30 / 30** |
-| `seed0015-valk-level2-pit-dog-wait` | **363 / 8563** | 1 / 44 |
+| `seed0015-valk-level2-pit-dog-wait` | **392 / 8563** | 2 / 44 |
 | `seed0077-rogue-chargen` | **3242 / 3242** | **33 / 33** |
-| `seed0013-rogue-friday13-combat` | **522 / 4838** | 1 / 59 |
+| `seed0013-rogue-friday13-combat` | **543 / 4838** | 1 / 59 |
 
 seed8000 + seed0900 + seed1500 + seed1800 + seed0060 + seed0102 +
 seed0700 + seed1150 + seed0017 + seed0077 + seed0106 + seed0501 +
@@ -128,13 +128,14 @@ autoopen `doopen_indir` (D-0059), `mfndpos` BOULDER/`NODIAG`
 clear shared peels. seed2200 RNG **full**; Scr **229**/230 (sole miss:
 parked RC path @158). seed0106 **PASS**.
 Healer seed0016 next `next_ident` @ 2493.
-seed0015/0200 next `lspo_map`.
+seed0015 next Ghost `themeroom_fill`/`selection_rndcoord` @ 357;
+seed0200 next `dig_corridor` @ 1447.
 seed0101 next `next_ident`. seed0013 still breaks earlier in
 Lua/`sp_lev`. seed0103 next `next_ident`/`trquan` @ 2337.
 seed0361/0373 `getbones` blocked on unbound `^V`/`goto_level`/
 `makemaz`. seed0077 chargen + vault fallback + door vision/pick_lock/DEC
-open-door (D-0111/D-0112/D-0113) → **PASS**. seed0030 **7054**/105529.
-seed0105 RNG **full** (Scr **0**/30).
+open-door (D-0111/D-0112/D-0113) → **PASS**. seed0030 **7023**/105529.
+seed0105 RNG **full** (Scr **30**/30).
 **`option_help` msg_window PREV_MSGS extract** (D-0114) + **Primary ASCII /
 `symset:DECgraphics`** (D-0115) → Scr **788→851**.
 **angrygods `verbalize` + `adjattrib` You_feel** (D-0116) /
@@ -298,18 +299,23 @@ autoopen `doopen_indir` (D-0059) + `mfndpos` BOULDER/`ALLOW_ROCK` +
 **`#chat` wall/SDOOR/statue** (D-0140)
 **apply getobj empty SUGGEST** (D-0141)
 **eat getobj missing-letter loop** (D-0142)
+**`lspo_map` + filler_region map themerms** (D-0143)
 **ported**. Thirteen public sessions pass end-to-end. **0/44** throw at
 `u_init_role`. seed0700 + seed1150 + seed0017 + seed0077 + seed0106 +
 seed0501 + seed0105 **PASS**. seed2200 RNG **full** (Scr **229**/230; sole
 miss parked RC @158).
 
-- **Bounded unit:** seed0015/0200 `lspo_map` / seed0101 `next_ident` /
+- **Bounded unit:** seed0015 Ghost `themeroom_fill`/`selection_rndcoord` /
+  seed0200 `dig_corridor` / seed0101 `next_ident` /
   seed0103 `next_ident`/`trquan` / seed0030 `maybe_smudge_engr` /
   seed0361/0373 **`getbones`** (blocked: need `^V`→`goto_level`→
   `makemaz` first).
-- **Prefer:** `lspo_map` / `next_ident` over parked D-0006 and over
-  baking seed2200 RC paths.
-- **Named omissions:** study_book occupation/`learn` / novel/tribute /
+- **Prefer:** Ghost fill / `dig_corridor` / `next_ident` over parked
+  D-0006 and over baking seed2200 RC paths.
+- **Named omissions:** themerms fill *bodies* (Ghost `selection.room`/
+  monster, Temple altars, …); Blocked center/Pillars/Water vault/
+  complex maps; nested `des.room` themerms; irregular `dig_corridor`;
+  study_book occupation/`learn` / novel/tribute /
   dull sleep / `cursed_book`/`confused_book`; spell swap/sort / other
   `spelleffects` otyps /
   directional `weffects`;
@@ -816,6 +822,10 @@ Module status, constitutional debt, and named omissions live in
     — seed0105 **PASS**; public **13/44**; screens **1231→1239**;
     RNG **107134→106907**; green cohort + seed0105 PASS; next
     `lspo_map` / `next_ident` / `maybe_smudge_engr` / `getbones`
+121. `lspo_map` + filler_region map themerms (D-0143)
+    — seed0015 prefix **337→357**; seed0200 **377→1447**; screens
+    **1239→1240**; RNG **106907→111362**; green cohort PASS; next
+    Ghost fill / `dig_corridor` / `next_ident` / `maybe_smudge_engr`
 
 Next work is selected from the active objectives above using
 `PORTING-RUNBOOK.md`, not by extending this historical list.

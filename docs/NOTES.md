@@ -7,14 +7,19 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 
 ## Active
 
-- **Current unit:** D-0140/41/42 cleared seed0105 (**PASS** Scr 30/30).
-- **Hypothesis / next:** prefer `lspo_map` (seed0015/0200) or `next_ident`
-  (seed0101/0103) / seed0030 `maybe_smudge_engr`; `getbones` still blocked
-  on `^V`→`goto_level`→`makemaz`. Parked seed2200 RC @158.
+- **Current unit:** D-0143 cleared `lspo_map` for simple filler-map themerms
+  (seed0015 337→357; seed0200 377→1447).
+- **Hypothesis / next:** seed0015 next `selection_rndcoord` /
+  Ghost-of-an-Adventurer `themeroom_fill` body; seed0200 next
+  `dig_corridor` (irregular L-room join). Else `next_ident` /
+  `maybe_smudge_engr`. `getbones` still blocked on `^V`→`goto_level`→
+  `makemaz`.
 - **Falsifier / next:**
   ```bash
   node scripts/rng-diff.mjs sessions/seed0015-valk-level2-pit-dog-wait.session.json
-  # or seed0200 / seed0101 — expect first mismatch name; peel that C site
+  # expect selection_rndcoord / Ghost fill — not lspo_map
+  node scripts/rng-diff.mjs sessions/seed0200-monk-north-search.session.json
+  # expect dig_corridor — not lspo_map
   ```
 - **Parked deep canary:** D-0006 pet movement — do not implement until C
   state/candidate capture exists.
@@ -167,6 +172,10 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 - **seed0105 eat missing-letter must `continue`** — C loops; next
   `yn_function` flushes NEED_MORE → `--More--` (D-0142). Do not return
   null on first bad letter.
+- **seed0015/0200 @ lspo_map was NOT missing create_room chance** —
+  map-shaped themerms call `des.map`→`lspo_map` (`rn2(COLNO-1-wid)`),
+  never `build_room`’s `rn2(100)` (D-0143). Do not burn chance then
+  `create_room` for L/S/T/Z/Cross/… maps.
 
 ## Landmarks
 
@@ -262,3 +271,8 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   anything to <word>.` (D-0141).
 - `getobj` missing letter: `You("don't have…")` + `continue`; next
   `yn_function` calls `more()` when NEED_MORE (D-0142).
+- Themeroom maps: `lspo_map` places with `x=1+rn2(COLNO-1-wid)`,
+  `y=rn2(ROWNO-hei)`; overwrite check may `redo_maploc` (up to 100);
+  then `filler_region` → `percent(30)` themed fill + irregular
+  `flood_fill_rm`/`add_room` (D-0143). Fill reservoir skips Boulder
+  (mindiff 4), Garden unless lit, Light source unless unlit.

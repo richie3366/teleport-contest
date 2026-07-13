@@ -15,12 +15,14 @@ import {
     HWALL, VWALL, TLCORNER, TRCORNER, BLCORNER, BRCORNER,
     CROSSWALL, TUWALL, TDWALL, TLWALL, TRWALL,
     D_NODOOR, D_CLOSED, D_ISOPEN, D_LOCKED, D_TRAPPED,
-    OROOM, VAULT, THEMEROOM, ROOMOFFSET, MAXNROFROOMS, SHARED,
+    OROOM, VAULT, THEMEROOM, ROOMOFFSET, MAXNROFROOMS, SHARED, NO_ROOM,
     SDOOR, SCORR, IRONBARS, FOUNTAIN, SINK, ALTAR, GRAVE,
     DIR_N, DIR_S, DIR_E, DIR_W, DIR_180,
-    IS_WALL, IS_STWALL, IS_DOOR, IS_OBSTRUCTED, IS_FURNITURE, IS_POOL,
+    IS_WALL, IS_STWALL, IS_DOOR, IS_ROOM, IS_OBSTRUCTED, IS_FURNITURE, IS_POOL,
     SPACE_POS, isok, W_NONDIGGABLE, FILL_NORMAL,
     ICE, MOAT, POOL, WATER, LAVAPOOL, LAVAWALL, DBWALL,
+    AIR, CLOUD, THRONE, TREE, DRAWBRIDGE_UP,
+    MAX_TYPE, INVALID_TYPE, MATCH_WALL,
     A_LAWFUL, Align2amask,
     LR_UPTELE,
     TAINT_AGE,
@@ -573,8 +575,11 @@ async function makerooms() {
                 if (g.level.rooms[g.level.nroom]) g.level.rooms[g.level.nroom].hx = -1;
             }
         } else {
-            // Themed room selection (reservoir sampling)
-            if (!(await themerooms_generate(difficulty))) {
+            // C: themes path always calls themerooms_generate; failure is
+            // gt.themeroom_failed (map placement miss), not a false return.
+            g.themeroom_failed = false;
+            const ok = await themerooms_generate(difficulty);
+            if (!ok || g.themeroom_failed) {
                 if (themeroom_tries++ > 10
                     || g.level.nroom >= Math.trunc(MAXNROFROOMS / 6))
                     break;
@@ -619,6 +624,406 @@ const THEMEROOM_META = [
     { name: 'Twin businesses', frequency: 1, mindiff: 4 },
 ];
 
+// C ref: themerms.lua — des.map rooms whose contents are only filler_region(x,y).
+// Extracted from nethack-c/upstream/dat/themerms.lua (simple filler envelope).
+const THEMEROOM_MAPS = {
+    'L-shaped': {
+        map: '-----xxx\n|...|xxx\n|...|xxx\n|...----\n|......|\n|......|\n|......|\n--------',
+        fx: 1, fy: 1,
+    },
+    'L-shaped, rot 1': {
+        map: 'xxx-----\nxxx|...|\nxxx|...|\n----...|\n|......|\n|......|\n|......|\n--------',
+        fx: 5, fy: 1,
+    },
+    'L-shaped, rot 2': {
+        map: '--------\n|......|\n|......|\n|......|\n----...|\nxxx|...|\nxxx|...|\nxxx-----',
+        fx: 1, fy: 1,
+    },
+    'L-shaped, rot 3': {
+        map: '--------\n|......|\n|......|\n|......|\n|...----\n|...|xxx\n|...|xxx\n-----xxx',
+        fx: 1, fy: 1,
+    },
+    'Circular, small': {
+        map: 'xx---xx\nx--.--x\n--...--\n|.....|\n--...--\nx--.--x\nxx---xx',
+        fx: 3, fy: 3,
+    },
+    'Circular, medium': {
+        map: 'xx-----xx\nx--...--x\n--.....--\n|.......|\n|.......|\n|.......|\n--.....--\nx--...--x\nxx-----xx',
+        fx: 4, fy: 4,
+    },
+    'Circular, big': {
+        map: 'xxx-----xxx\nx---...---x\nx-.......-x\n--.......--\n|.........|\n|.........|\n|.........|\n--.......--\nx-.......-x\nx---...---x\nxxx-----xxx',
+        fx: 5, fy: 5,
+    },
+    'T-shaped': {
+        map: 'xxx-----xxx\nxxx|...|xxx\nxxx|...|xxx\n----...----\n|.........|\n|.........|\n|.........|\n-----------',
+        fx: 5, fy: 5,
+    },
+    'T-shaped, rot 1': {
+        map: '-----xxx\n|...|xxx\n|...|xxx\n|...----\n|......|\n|......|\n|......|\n|...----\n|...|xxx\n|...|xxx\n-----xxx',
+        fx: 2, fy: 2,
+    },
+    'T-shaped, rot 2': {
+        map: '-----------\n|.........|\n|.........|\n|.........|\n----...----\nxxx|...|xxx\nxxx|...|xxx\nxxx-----xxx',
+        fx: 2, fy: 2,
+    },
+    'T-shaped, rot 3': {
+        map: 'xxx-----\nxxx|...|\nxxx|...|\n----...|\n|......|\n|......|\n|......|\n----...|\nxxx|...|\nxxx|...|\nxxx-----',
+        fx: 5, fy: 5,
+    },
+    'S-shaped': {
+        map: '-----xxx\n|...|xxx\n|...|xxx\n|...----\n|......|\n|......|\n|......|\n----...|\nxxx|...|\nxxx|...|\nxxx-----',
+        fx: 2, fy: 2,
+    },
+    'S-shaped, rot 1': {
+        map: 'xxx--------\nxxx|......|\nxxx|......|\n----......|\n|......----\n|......|xxx\n|......|xxx\n--------xxx',
+        fx: 5, fy: 5,
+    },
+    'Z-shaped': {
+        map: 'xxx-----\nxxx|...|\nxxx|...|\n----...|\n|......|\n|......|\n|......|\n|...----\n|...|xxx\n|...|xxx\n-----xxx',
+        fx: 5, fy: 5,
+    },
+    'Z-shaped, rot 1': {
+        map: '--------xxx\n|......|xxx\n|......|xxx\n|......----\n----......|\nxxx|......|\nxxx|......|\nxxx--------',
+        fx: 2, fy: 2,
+    },
+    'Cross': {
+        map: 'xxx-----xxx\nxxx|...|xxx\nxxx|...|xxx\n----...----\n|.........|\n|.........|\n|.........|\n----...----\nxxx|...|xxx\nxxx|...|xxx\nxxx-----xxx',
+        fx: 6, fy: 6,
+    },
+    'Four-leaf clover': {
+        map: '-----x-----\n|...|x|...|\n|...---...|\n|.........|\n---.....---\nxx|.....|xx\n---.....---\n|.........|\n|...---...|\n|...|x|...|\n-----x-----',
+        fx: 6, fy: 6,
+    },
+};
+
+// C ref: nhlua.c char2typ[] / splev_chr2typ() — first match wins ('-' → HWALL).
+const SPLEV_CHAR2TYP = [
+    [' ', STONE],
+    ['#', CORR],
+    ['.', ROOM],
+    ['-', HWALL],
+    ['|', VWALL],
+    ['+', DOOR],
+    ['A', AIR],
+    ['C', CLOUD],
+    ['S', SDOOR],
+    ['H', SCORR],
+    ['{', FOUNTAIN],
+    ['\\', THRONE],
+    ['K', SINK],
+    ['}', MOAT],
+    ['P', POOL],
+    ['L', LAVAPOOL],
+    ['Z', LAVAWALL],
+    ['I', ICE],
+    ['W', WATER],
+    ['T', TREE],
+    ['F', IRONBARS],
+    ['x', MAX_TYPE],
+    ['B', CROSSWALL],
+    ['w', MATCH_WALL],
+];
+
+function splev_chr2typ(ch) {
+    for (const [c, typ] of SPLEV_CHAR2TYP) {
+        if (c === ch) return typ;
+    }
+    return INVALID_TYPE;
+}
+
+// C ref: sp_lev.c mapfrag_fromstr / mapfrag_get
+function mapfrag_fromstr(str) {
+    const lines = String(str).replace(/\r/g, '').split('\n');
+    // drop a single trailing empty line from a final newline
+    if (lines.length && lines[lines.length - 1] === '') lines.pop();
+    const wid = lines.reduce((m, l) => Math.max(m, l.length), 0);
+    const data = lines.map(l => l.padEnd(wid, ' '));
+    return { wid, hei: data.length, data };
+}
+
+function mapfrag_get(mf, x, y) {
+    return splev_chr2typ(mf.data[y][x]);
+}
+
+// C ref: sp_lev.c sel_set_ter / set_levltyp_lit subset for map load
+function sel_set_ter(x, y, ter, tlit) {
+    const loc = game.level.at(x, y);
+    if (!loc || !isok(x, y)) return;
+    loc.typ = ter;
+    loc.flags = 0;
+    loc.horizontal = false;
+    loc.roomno = NO_ROOM;
+    loc.edge = false;
+    if (tlit) loc.lit = true;
+    if (ter === SDOOR || IS_DOOR(ter)) {
+        if (ter === SDOOR) loc.doormask = D_CLOSED;
+        const left = game.level.at(x - 1, y);
+        if (x && left && (IS_WALL(left.typ) || left.horizontal))
+            loc.horizontal = true;
+    } else if (ter === HWALL || ter === IRONBARS) {
+        loc.horizontal = true;
+    }
+}
+
+// flood_fill bounds — C mkmap.c WIDTH = COLNO-2
+const FLOOD_WIDTH = COLNO - 2;
+
+// C ref: mkmap.c flood_fill_rm()
+function flood_fill_rm(sx, sy, rmno, lit, anyroom, bounds) {
+    const map = game.level;
+    const fg_typ = map.at(sx, sy)?.typ;
+    if (fg_typ == null) return;
+
+    while (sx > 0) {
+        const loc = map.at(sx, sy);
+        if (!loc) break;
+        const oktyp = anyroom ? IS_ROOM(loc.typ) : loc.typ === fg_typ;
+        if (!oktyp || loc.roomno === rmno) break;
+        sx--;
+    }
+    sx++;
+
+    if (sx < bounds.min_rx) bounds.min_rx = sx;
+    if (sy < bounds.min_ry) bounds.min_ry = sy;
+
+    let i = sx;
+    for (; i <= FLOOD_WIDTH; i++) {
+        const loc = map.at(i, sy);
+        if (!loc || loc.typ !== fg_typ) break;
+        loc.roomno = rmno;
+        loc.lit = !!lit;
+        if (anyroom) {
+            for (let ii = (i === sx ? i - 1 : i); ii <= i + 1; ii++) {
+                for (let jj = sy - 1; jj <= sy + 1; jj++) {
+                    if (!isok(ii, jj)) continue;
+                    const w = map.at(ii, jj);
+                    if (!w) continue;
+                    if (IS_WALL(w.typ) || IS_DOOR(w.typ) || w.typ === SDOOR) {
+                        w.edge = true;
+                        if (lit) w.lit = true;
+                        if (w.roomno === NO_ROOM) w.roomno = rmno;
+                        else if (w.roomno !== rmno) w.roomno = SHARED;
+                    }
+                }
+            }
+        }
+    }
+    const nx = i;
+
+    if (isok(sx, sy - 1)) {
+        for (i = sx; i < nx; i++) {
+            const above = map.at(i, sy - 1);
+            if (above?.typ === fg_typ) {
+                if (above.roomno !== rmno)
+                    flood_fill_rm(i, sy - 1, rmno, lit, anyroom, bounds);
+            } else {
+                const al = map.at(i - 1, sy - 1);
+                if ((i > sx || isok(i - 1, sy - 1)) && al?.typ === fg_typ
+                    && al.roomno !== rmno)
+                    flood_fill_rm(i - 1, sy - 1, rmno, lit, anyroom, bounds);
+                const ar = map.at(i + 1, sy - 1);
+                if ((i < nx - 1 || isok(i + 1, sy - 1)) && ar?.typ === fg_typ
+                    && ar.roomno !== rmno)
+                    flood_fill_rm(i + 1, sy - 1, rmno, lit, anyroom, bounds);
+            }
+        }
+    }
+    if (isok(sx, sy + 1)) {
+        for (i = sx; i < nx; i++) {
+            const below = map.at(i, sy + 1);
+            if (below?.typ === fg_typ) {
+                if (below.roomno !== rmno)
+                    flood_fill_rm(i, sy + 1, rmno, lit, anyroom, bounds);
+            } else {
+                const bl = map.at(i - 1, sy + 1);
+                if ((i > sx || isok(i - 1, sy + 1)) && bl?.typ === fg_typ
+                    && bl.roomno !== rmno)
+                    flood_fill_rm(i - 1, sy + 1, rmno, lit, anyroom, bounds);
+                const br = map.at(i + 1, sy + 1);
+                if ((i < nx - 1 || isok(i + 1, sy + 1)) && br?.typ === fg_typ
+                    && br.roomno !== rmno)
+                    flood_fill_rm(i + 1, sy + 1, rmno, lit, anyroom, bounds);
+            }
+        }
+    }
+
+    if (nx - 1 > bounds.max_rx) bounds.max_rx = nx - 1;
+    if (sy > bounds.max_ry) bounds.max_ry = sy;
+}
+
+// C ref: themerms.lua themeroom_fills frequency table (mindiff + lit eligible)
+const THEMEROOM_FILLS = [
+    { name: 'Ice room', frequency: 1 },
+    { name: 'Cloud room', frequency: 1 },
+    { name: 'Boulder room', frequency: 1, mindiff: 4 },
+    { name: 'Spider nest', frequency: 1 },
+    { name: 'Trap room', frequency: 1 },
+    { name: 'Garden', frequency: 1, needs_lit: true },
+    { name: 'Buried treasure', frequency: 1 },
+    { name: 'Buried zombies', frequency: 1 },
+    { name: 'Massacre', frequency: 1 },
+    { name: 'Statuary', frequency: 1 },
+    { name: 'Light source', frequency: 1, needs_unlit: true },
+    { name: 'Temple of the gods', frequency: 1 },
+    { name: 'Ghost of an Adventurer', frequency: 1 },
+    { name: 'Storeroom', frequency: 1 },
+    { name: 'Teleportation hub', frequency: 1 },
+];
+
+function is_themeroom_fill_eligible(fill, croom, difficulty) {
+    if (fill.mindiff != null && difficulty < fill.mindiff) return false;
+    if (fill.maxdiff != null && difficulty > fill.maxdiff) return false;
+    // C: Garden eligible = rm.lit == true; Light source = rm.lit == false
+    if (fill.needs_lit && !croom?.rlit) return false;
+    if (fill.needs_unlit && croom?.rlit) return false;
+    return true;
+}
+
+// C ref: themerms.lua themeroom_fill() — reservoir only; fill bodies partial.
+function themeroom_fill(croom) {
+    const difficulty = depth_of_level(game.u?.uz);
+    let pick = null;
+    let total_frequency = 0;
+    for (const fill of THEMEROOM_FILLS) {
+        if (!is_themeroom_fill_eligible(fill, croom, difficulty)) continue;
+        const this_frequency = fill.frequency || 1;
+        total_frequency += this_frequency;
+        if (this_frequency > 0 && rn2(total_frequency) < this_frequency)
+            pick = fill;
+    }
+    if (!pick) return;
+    // Named omission: individual fill contents (altar/ghost/…); burn none yet.
+    // Next peel after map+region for themed fills.
+    croom._themeroom_fill = pick.name;
+}
+
+// C ref: themerms.lua filler_region + sp_lev.c lspo_region irregular path
+function filler_region(rel_x, rel_y) {
+    const g = game;
+    const xstart = g.splev_xstart ?? 1;
+    const ystart = g.splev_ystart ?? 0;
+    const ax = xstart + rel_x;
+    const ay = ystart + rel_y;
+
+    // percent(30) → nh.rn2(100) < 30
+    let rtype = OROOM;
+    let do_themed_fill = false;
+    if (rn2(100) < 30) {
+        rtype = THEMEROOM;
+        do_themed_fill = true;
+    }
+
+    // lit defaults to -1 in des.region table → litstate_rnd
+    const rlit = litstate_rnd(-1);
+
+    if (g.level.nroom >= MAXNROFROOMS) return false;
+
+    const bounds = {
+        min_rx: ax, max_rx: ax, min_ry: ay, max_ry: ay,
+    };
+    const rmno = g.level.nroom + ROOMOFFSET;
+    if (g.smeq) g.smeq[g.level.nroom] = g.level.nroom;
+    flood_fill_rm(ax, ay, rmno, rlit, true, bounds);
+
+    // C lspo_region: needjoining=TRUE (joined default), then add_room special
+    add_room(bounds.min_rx, bounds.min_ry, bounds.max_rx, bounds.max_ry,
+        false, rtype, true);
+    const troom = g.level.rooms[g.level.nroom - 1];
+    if (troom) {
+        troom.rlit = rlit ? 1 : 0;
+        troom.irregular = true;
+        troom.needjoining = true;
+        troom.needfill = FILL_NORMAL;
+        if (rlit) {
+            for (let x = troom.lx - 1; x <= troom.hx + 1; x++) {
+                for (let y = Math.max(troom.ly - 1, 0); y <= troom.hy + 1; y++) {
+                    const loc = g.level.at(x, y);
+                    if (loc) loc.lit = true;
+                }
+            }
+        }
+        if (do_themed_fill) themeroom_fill(troom);
+    }
+    return true;
+}
+
+// C ref: sp_lev.c lspo_map — themerms random-placement path (lr=tb=-1, no croom)
+function lspo_map_themeroom(mapstr, filler_x, filler_y) {
+    const g = game;
+    const mf = mapfrag_fromstr(mapstr);
+    if (!mf || mf.wid < 1 || mf.hei < 1) {
+        g.themeroom_failed = true;
+        return false;
+    }
+
+    let tryct = 0;
+    let x = -1;
+    let y = -1;
+
+    for (;;) {
+        // C: x = 1 + rn2(COLNO - 1 - mf->wid); y = rn2(ROWNO - mf->hei);
+        x = 1 + rn2(COLNO - 1 - mf.wid);
+        y = rn2(ROWNO - mf.hei);
+
+        const xstart = x;
+        const ystart = y;
+        const xsize = mf.wid;
+        const ysize = mf.hei;
+
+        let isokp = true;
+        outer:
+        for (let yy = ystart - 1; yy < Math.min(ROWNO, ystart + ysize) + 1; yy++) {
+            for (let xx = xstart - 1; xx < Math.min(COLNO, xstart + xsize) + 1; xx++) {
+                if (!isok(xx, yy)) {
+                    isokp = false;
+                } else if (yy < ystart || yy >= ystart + ysize
+                    || xx < xstart || xx >= xstart + xsize) {
+                    const loc = g.level.at(xx, yy);
+                    if (loc.typ !== STONE || loc.roomno !== NO_ROOM)
+                        isokp = false;
+                } else {
+                    const mptyp = mapfrag_get(mf, xx - xstart, yy - ystart);
+                    if (mptyp >= MAX_TYPE) continue;
+                    const loc = g.level.at(xx, yy);
+                    if ((loc.typ !== STONE && loc.typ !== mptyp)
+                        || loc.roomno !== NO_ROOM)
+                        isokp = false;
+                }
+                if (!isokp) break outer;
+            }
+        }
+
+        if (!isokp) {
+            if (tryct++ < 100) continue;
+            g.themeroom_failed = true;
+            return false;
+        }
+
+        // Load the map
+        g.splev_xstart = xstart;
+        g.splev_ystart = ystart;
+        g.splev_xsize = xsize;
+        g.splev_ysize = ysize;
+        for (let yy = ystart; yy < Math.min(ROWNO, ystart + ysize); yy++) {
+            for (let xx = xstart; xx < Math.min(COLNO, xstart + xsize); xx++) {
+                const mptyp = mapfrag_get(mf, xx - xstart, yy - ystart);
+                if (mptyp === INVALID_TYPE) continue;
+                if (mptyp >= MAX_TYPE) continue;
+                sel_set_ter(xx, yy, mptyp, false);
+            }
+        }
+
+        filler_region(filler_x, filler_y);
+        // C resets xystart after contents
+        g.splev_xstart = 1;
+        g.splev_ystart = 0;
+        g.splev_xsize = COLNO - 1;
+        g.splev_ysize = ROWNO;
+        return true;
+    }
+}
+
 function is_themeroom_eligible(room, difficulty) {
     if (room.mindiff != null && difficulty < room.mindiff) return false;
     if (room.maxdiff != null && difficulty > room.maxdiff) return false;
@@ -632,6 +1037,7 @@ function is_themeroom_eligible(room, difficulty) {
 async function themerooms_generate(difficulty) {
     const g = game;
     g.in_mk_themerooms = true;
+    g.themeroom_failed = false;
     try {
         let pick = null;
         let total_frequency = 0;
@@ -644,8 +1050,16 @@ async function themerooms_generate(difficulty) {
             }
         }
         if (!pick) return false;
+
+        const mapdef = THEMEROOM_MAPS[pick.name];
+        if (mapdef) {
+            // C: des.map → lspo_map (no build_room rn2(100) chance burn)
+            return lspo_map_themeroom(mapdef.map, mapdef.fx, mapdef.fy);
+        }
+
         // C build_room: chance defaults to 100 → always burns rn2(100)
         // (default themerms entry is named "default", not "ordinary")
+        // Map-shaped rooms handled above; remaining still use create_room.
         if (pick.name !== 'ordinary') {
             rn2(100);
         }
