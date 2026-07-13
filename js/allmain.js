@@ -356,6 +356,10 @@ export async function newgame() {
  * C ref: wintty.c tty_end_menu / tty_display_nhwindow / process_menu_window
  *        H2344_BROKEN corner offx = min(min(82, cols/2), cols-maxcol-1);
  *        title uses menu_headings (ATR_INVERSE) after adjust_menu_promptstyle.
+ *
+ * process_menu_window: invalid letter → nhbell + stay open (no rebuild);
+ * space/return with no pick → select_menu n==0 → outer loop rebuilds and
+ * pass++ adds "(Please choose 'y' or 'n'.)".
  */
 async function ask_do_tutorial() {
     if (game.tutorial_set_in_config) return !!game.flags.tutorial;
@@ -380,16 +384,37 @@ async function ask_do_tutorial() {
             entries.push({ text: "(Please choose 'y' or 'n'.)", attr: 0 });
 
         await paint_corner_nhw_menu(entries, '(end) ');
-        const key = await nhgetch();
+
+        // Inner loop ≡ process_menu_window while (!finished)
+        let dismissNoPick = false;
+        for (;;) {
+            const key = await nhgetch();
+            const ch = String.fromCharCode(key);
+            if (ch === 'y' || ch === 'Y') {
+                game._menu_overlay = false;
+                await docrt();
+                await flush_screen(1);
+                return true;
+            }
+            if (ch === 'n' || ch === 'N' || key === 27) {
+                game._menu_overlay = false;
+                await docrt();
+                await flush_screen(1);
+                return false;
+            }
+            // C: space/return finish with no selection → n==0
+            if (ch === ' ' || key === 13 || key === 10) {
+                dismissNoPick = true;
+                break;
+            }
+            // C: unacceptable input → tty_nhbell; cursor stays; wait again
+            continue;
+        }
+
         game._menu_overlay = false;
         await docrt();
         await flush_screen(1);
-
-        const ch = String.fromCharCode(key);
-        if (ch === 'y' || ch === 'Y') return true;
-        if (ch === 'n' || ch === 'N' || key === 27) return false;
-        // space/return / other → re-prompt (C select_menu n==0)
-        pass++;
+        if (dismissNoPick) pass++;
     }
 }
 

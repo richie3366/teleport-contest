@@ -218,6 +218,8 @@ Do not record a guessed cause as fixed merely because an RNG prefix moved.
 | D-0212 | fixed | pony saddle | makedog put_saddle_on_mon; seed0103 2337→2440 |
 | D-0213 | fixed | #ride mount | doride/mount_steed/dismount; seed0103 RNG full |
 | D-0214 | fixed | ride display | pet mcolor + ridden glyph + saddled + Ride botl; Scr 2→57 |
+| D-0215 | fixed | tutorial menu | invalid letter stays open; no premature Please choose |
+| D-0216 | fixed | death disclose | really_done flush You die --More-- + possessions yn |
 
 D-0001 through D-0005 predate the strict-length/cohort runbook. Their focused
 causes are preserved, but generic "green sessions held" is historical evidence,
@@ -5806,8 +5808,49 @@ cohort gates if those functions are touched again.
 - **Verification:** seed0103 Scr **2→57**/60 (RNG full); seed0104 Scr
   **3→15**/43; green+strict+cohort PASS; full **17/44** Scr **1399**
   RNG **148875**.
-- **Named omissions:** tutorial yn menu row/cursor; death disclosure
-  screen capture (58 vs 60); full `nonliving` (golem/vortex/manes);
+- **Named omissions:** tutorial/disclosure residuals cleared in
+  D-0215/D-0216; full `nonliving` (golem/vortex/manes);
   `hilite_pet` attr; Hallu/Blind saddle suppress paths.
-- **Next:** seed0103 tutorial @3 / disclosure @58, or seed0104 @2841
-  `mattacku`, or D-0211 typ dump.
+- **Next:** seed0104 @2841 `mattacku`, or D-0211 typ dump.
+
+## D-0215 — Tutorial menu invalid letter stays open
+
+- **Status:** fixed
+- **Symptom:** seed0103 Scr **57**/60; screen 3 cursor (27,7) vs C
+  (27,6); JS showed `(Please choose 'y' or 'n'.)` after key `s`.
+- **Cause/evidence:** JS treated every non-y/n as `select_menu` n==0
+  rebuild (`pass++`). C `process_menu_window`: invalid letter →
+  `tty_nhbell` + stay open (same paint); only space/return with no
+  pick returns n==0 and rebuilds with the hint (`options.c`
+  `ask_do_tutorial` `pass++`).
+- **C locus:** `options.c` `ask_do_tutorial`; `wintty.c`
+  `process_menu_window` default unacceptable / space finish.
+- **Change:** `ask_do_tutorial` inner loop — y/n/ESC dismiss; space/
+  return rebuild with hint; other keys stay open without `docrt`.
+- **Verification:** seed0103 Scr **57→58**/60 (screen 3 match); green
+  held.
+- **Next:** disclosure (D-0216).
+
+## D-0216 — Death `really_done` message flush + possessions disclose
+
+- **Status:** fixed
+- **Symptom:** seed0103 Scr **58**/60; JS emitted 58 screens vs C 60 —
+  missing `You die...--More--` and possessions yn.
+- **Cause/evidence:** `really_done` set `gameover` and returned without
+  C's `display_nhwindow(WIN_MESSAGE)` (wait for pending die `--More--`)
+  or `disclose` inventory yn. `pline("You die...")` only sets
+  NEED_MORE; flush happens in really_done / next UI.
+- **C locus:** `end.c` `really_done` / `disclose`; `hack.c` `losehp`
+  `urgent_pline`+`done`; `steed.c` mount slip → `losehp`.
+- **Change:** `really_done` → `flush_topl_more` then `disclose`
+  possessions `yn_function(..., 'ynq', 'n')`. Other disclose
+  categories deferred.
+- **Verification:** seed0103 **PASS** (RNG 2640/2640 Scr 60/60);
+  green+strict+cohort PASS; full **18/44** Scr **1405** RNG
+  **148875**.
+- **Named omissions:** invent discover_object before disclose; 'y'
+  `display_inventory`; attributes/vanquished/genocided/conduct/
+  overview; paybill `taken` prompt; async `losehp` calling `done`
+  (steed still post-checks uhp).
+- **Next:** seed0104 @2841 `mattacku` while mounted; or D-0211 typ
+  dump; or seed0030 seg2 @2408.

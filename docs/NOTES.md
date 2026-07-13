@@ -7,13 +7,8 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 
 ## Active
 
-- **Current unit:** seed0103 residual after D-0214 (Scr **57**/60): tutorial
-  menu layout @ screen 3, or death-disclosure screens 58–59 (JS emits 58
-  vs C 60); or seed0104 @2841 `mattacku` while mounted; or D-0211 typ dump.
-- **Hypothesis (seed0103 Scr 3):** tutorial yn menu paints one row low /
-  cursor (27,7) vs C (27,6) — not riding.
-- **Hypothesis (seed0103 Scr 58–59):** `done`/disclosure does not capture
-  "You die..." / possessions yn boundaries (strict short 58 vs 60).
+- **Current unit:** seed0104 @2841 `mattacku` while mounted (after D-0215/
+  D-0216 seed0103 **PASS**); or D-0211 typ dump; or seed0030 seg2 @2408.
 - **Hypothesis (seed0104 @2841):** C `mattacku` `rn2(2)` vs JS extra
   `dog_move` `rn2(12)` while mounted — steed skip / hero-under-steed
   attack path after D-0213/D-0214.
@@ -205,6 +200,12 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   `HI_DOMESTIC` so green cohort hid the bug (D-0214). Riding shows
   `ridden_mon_to_glyph` (steed letter+color), not `@`; botl `Ride`;
   `x_monnam` `"saddled "`.
+- **seed0103 Scr 3 was NOT riding / wrong offx** — tutorial key `s`:
+  JS rebuilt with Please choose; C `process_menu_window` stays open
+  (D-0215). Only space/return → n==0 rebuild.
+- **seed0103 Scr 58–59 was NOT missing slip damage** — `really_done`
+  never flushed `You die...` NEED_MORE or called `disclose` possessions
+  yn (D-0216). `pline` alone does not wait.
 - **`monattk.h`: AT_WEAP=254, AT_MAGC=255, AT_SPIT=10** — never use 10 for
   weapon (D-0179).
 - Hostile `m_move`: before place, `m_digweapon_check` may return
@@ -316,3 +317,7 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 - **`pet_color` ≡ `mons[].mcolor`** — never force white for all tame;
   `hilite_pet` is tty attr only (D-0214). Riding → steed mlet+color;
   botl `Ride`; `x_monnam` `"saddled "` when `W_SADDLE`.
+- **Tutorial PICK_ONE:** invalid letter stays open; space/return with no
+  pick → rebuild + Please choose (D-0215).
+- **`really_done`:** `flush_topl_more` then `disclose` possessions yn
+  before returning (D-0216); `pline("You die...")` alone does not wait.
