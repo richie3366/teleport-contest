@@ -25,6 +25,21 @@ Use this shape:
 
 ---
 
+---
+
+## 2026-07-13 14:50 — mksobj_init OIL_LAMP / TOOL lamps (D-0146)
+- Objective: seed0015 `mksobj_init` @2513 (PROGRESS primary).
+- C locus: `mkobj.c` `mksobj_init` TOOL_CLASS BRASS_LANTERN/OIL_LAMP;
+  caller `u_init.c` `ini_inv(Lamp)`.
+- Result: **verified** — port lamp age `rn1(500,1000)` +
+  `blessorcurse(5)` and sibling charged TOOL cases (grease/crystal/
+  horn/bag/bell/instruments). Candle `oc_cost` age + FIGURINE deferred.
+- Verification: seed0015 2513→2918; Scr 1→20/44; green+strict PASS;
+  cohort 11/11 PASS; full **13/44** Scr **1259** RNG **115572**/792838.
+- Next: seed0200 irregular `somexy` @1672 (C retries edge/roomno;
+  JS accepts first bbox cell), or seed0015 `getbones` @2918
+  (C `rn2(3)` vs JS already in `makelevel`).
+
 ## 2026-07-13 14:42 — finddpos_shift irregular walk (D-0145)
 - Objective: seed0015/0200 `dig_corridor` (PROGRESS primary).
 - C locus: `mklev.c` `finddpos_shift` / `finddpos` / `join`;

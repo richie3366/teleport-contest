@@ -3875,3 +3875,26 @@ cohort gates if those functions are touched again.
 - **Next:** seed0015 `mksobj_init` @2513 / seed0200
   `fill_ordinary_room` @1672 / seed0101 `next_ident` /
   `maybe_smudge_engr` / `getbones`.
+
+## D-0146 — mksobj_init OIL_LAMP / TOOL lamp charges
+
+- **Status:** fixed
+- **Observed:** seed0015 @2513 C `rn2(500) @ mksobj_init` (OIL_LAMP
+  age via `rn1(500,1000)`) vs JS `rn2(1)` (skipped lamp body after
+  Valkyrie `!rn2(6)` Lamp `ini_inv`).
+- **Cause/evidence:** JS `mksobj_init` TOOL_CLASS handled chests/
+  candles/markers but omitted BRASS_LANTERN/OIL_LAMP/MAGIC_LAMP and
+  other charged tools. C sets `spe=1`, `age=rn1(500,1000)`,
+  `lamplit=0`, `blessorcurse(5)`.
+- **C locus:** `mkobj.c` `mksobj_init` TOOL_CLASS; caller
+  `u_init.c` `ini_inv(Lamp)` from Valkyrie/Healer/Barbarian/…
+- **Change:** `js/mkobj.js` — port lamp + grease/crystal/horn/bag/
+  bell/magic-instrument TOOL cases; candle spe/lamplit (age deferred).
+- **Verification:** seed0015 prefix **2513→2918** (`getbones`);
+  positional **2597→2925**/8563 Scr **1→20**/44; green+strict PASS;
+  PASS cohort 11/11; full **13/44** Scr **1259** RNG **115572**/792838.
+- **Named omission:** FIGURINE (`rndmonnum_adj`+`is_human`); candle
+  `age=20*oc_cost` (`oc_cost` not in objects extract); full
+  `getbones` load path.
+- **Next:** seed0200 irregular `somexy` @1672 / seed0015 `getbones`
+  @2918 / `next_ident` / `maybe_smudge_engr`.

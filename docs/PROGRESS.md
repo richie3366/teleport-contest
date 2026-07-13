@@ -38,8 +38,8 @@ frozen-file overlay):
 | Metric | Value |
 |--------|------:|
 | Sessions passing | **13 / 44** |
-| Screens matched | **1239 / 11,405** (10.86%) |
-| Positional RNG calls matched | **115,097 / 792,838** (14.52%) |
+| Screens matched | **1259 / 11,405** (11.04%) |
+| Positional RNG calls matched | **115,572 / 792,838** (14.58%) |
 | Speed label | `19+0.08/turn` |
 | Working-tree base | `8b71735` + committed port (see `main`) |
 | Role-init throws | **0 / 44** (`u_init_role: role not ported`) |
@@ -74,7 +74,7 @@ shared blockers, and semantic coverage together—not one vanity metric.
 | `seed0361-archeologist-tour` | **3293 / 53865** | 0 / 366 |
 | `seed0373-barbarian-quest-tour` | **2555 / 35386** | 0 / 124 |
 | `seed0105-valk-chat-lamp-ration` | **2499 / 2499** | **30 / 30** |
-| `seed0015-valk-level2-pit-dog-wait` | **2597 / 8563** | 1 / 44 |
+| `seed0015-valk-level2-pit-dog-wait` | **2925 / 8563** | **20 / 44** |
 | `seed0077-rogue-chargen` | **3242 / 3242** | **33 / 33** |
 | `seed0013-rogue-friday13-combat` | **543 / 4838** | 1 / 59 |
 
@@ -128,8 +128,8 @@ autoopen `doopen_indir` (D-0059), `mfndpos` BOULDER/`NODIAG`
 clear shared peels. seed2200 RNG **full**; Scr **229**/230 (sole miss:
 parked RC path @158). seed0106 **PASS**.
 Healer seed0016 next `next_ident` @ 2493.
-seed0015 next `mksobj_init` @ 2513;
-seed0200 next `fill_ordinary_room`/`somex` @ 1672.
+seed0015 next `getbones` @ 2918;
+seed0200 next irregular `somexy` @ 1672.
 seed0101 next `next_ident`. seed0013 still breaks earlier in
 Lua/`sp_lev`. seed0103 next `next_ident`/`trquan` @ 2337.
 seed0361/0373 `getbones` blocked on unbound `^V`/`goto_level`/
@@ -302,22 +302,24 @@ autoopen `doopen_indir` (D-0059) + `mfndpos` BOULDER/`ALLOW_ROCK` +
 **`lspo_map` + filler_region map themerms** (D-0143)
 **Ghost `themeroom_fill`/`selection_rndcoord`** (D-0144)
 **`finddpos_shift` irregular walk** (D-0145)
+**`mksobj_init` OIL_LAMP / TOOL lamps** (D-0146)
 **ported**. Thirteen public sessions pass end-to-end. **0/44** throw at
 `u_init_role`. seed0700 + seed1150 + seed0017 + seed0077 + seed0106 +
 seed0501 + seed0105 **PASS**. seed2200 RNG **full** (Scr **229**/230; sole
 miss parked RC @158).
 
-- **Bounded unit:** seed0015 `mksobj_init` /
-  seed0200 `fill_ordinary_room` /
+- **Bounded unit:** seed0200 irregular `somexy` /
+  seed0015 `getbones` (ordinary descent `rn2(3)`) /
   seed0101 `next_ident` /
   seed0103 `next_ident`/`trquan` / seed0030 `maybe_smudge_engr` /
-  seed0361/0373 **`getbones`** (blocked: need `^V`→`goto_level`→
+  seed0361/0373 **quest `getbones`** (blocked: need `^V`→`goto_level`→
   `makemaz` first).
-- **Prefer:** `mksobj_init` / `fill_ordinary_room` / `next_ident` over
+- **Prefer:** irregular `somexy` / ordinary `getbones` / `next_ident` over
   parked D-0006 and over baking seed2200 RC paths.
 - **Named omissions:** themerms fill *bodies* beyond Ghost (Temple
-  altars, Ice/Storeroom/…); Blocked center/Pillars/Water vault/
+  altars, Ice/Storeroom/…); irregular `somexy` edge/roomno; Blocked center/Pillars/Water vault/
   complex maps; nested `des.room` themerms; `join` arboreal→ROOM;
+  FIGURINE `rndmonnum_adj`/`is_human`; candle `oc_cost` age;
   study_book occupation/`learn` / novel/tribute /
   dull sleep / `cursed_book`/`confused_book`; spell swap/sort / other
   `spelleffects` otyps /
@@ -839,6 +841,11 @@ Module status, constitutional debt, and named omissions live in
     screens **1239**; RNG **112442→115097**; green cohort PASS; next
     `mksobj_init` / `fill_ordinary_room` / `next_ident` /
     `maybe_smudge_engr`
+124. `mksobj_init` OIL_LAMP / TOOL lamps (D-0146)
+    — seed0015 prefix **2513→2918** (`getbones`); positional
+    **2597→2925**/8563 Scr **1→20**/44; screens **1239→1259**;
+    RNG **115097→115572**; green cohort PASS; next irregular `somexy`
+    / ordinary `getbones` / `next_ident` / `maybe_smudge_engr`
 
 Next work is selected from the active objectives above using
 `PORTING-RUNBOOK.md`, not by extending this historical list.
