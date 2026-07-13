@@ -1558,3 +1558,17 @@ Use this shape:
   green+strict PASS; cohort 1500/1800/0060/0102/0700/1150/0017 PASS;
   full **10/44** Scr **788** RNG **104575**/792838.
 - Next: seed2200 Scr 199 (RC path @158) / seed0106 Scr 5.
+
+## 2026-07-13 — overview lastseentyp / print_mapseen features (D-0123)
+- Objective: seed0106 Scr @165 `#overview` feature lines (PROGRESS primary).
+- C locus: `dungeon.c` `update_lastseentyp`/`recalc_mapseen`/`print_mapseen`
+  (TAB vs PREFIX); `display.c` `_map_location`/`magic_map_background`.
+- Result: **verified** — overview omitted OF_INTEREST (`A fountain.`)
+  because lastseentyp was never filled; Level used PREFIX(6) not TAB(3)
+  so H2344 offx drifted once the feature line existed. Ported
+  lastseentyp update on cansee map + recalc feat counts + overview
+  feature sentence.
+- Verification: seed0106 Scr **254→255**/267 (next `#chronicle` @188);
+  green+strict PASS; cohort 1500/1800/0060/0102/0700/1150/0017/0077
+  PASS; full **10/44** Scr **1126** RNG **104575**/792838.
+- Next: seed0106 `#chronicle` @188 — or seed2200 `dokeylist` @184.

@@ -7,16 +7,16 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 
 ## Active
 
-- **Current unit:** D-0122 cleared: `skill_init` + `add_skills_to_menu` +
-  paged PICK_NONE `#enhance` (not corner offx).
-- **Hypothesis:** seed0106 next Scr peel @165 is `#overview` feature lines
-  (C shows `A fountain.`; JS omits dungeon feature list under Level 1).
-  Later: `#chronicle` unbound @188. seed2200 next real peel after parked RC
-  path @158 is help `j` → `dokeylist` @184.
+- **Current unit:** D-0123 cleared: `update_lastseentyp` + `recalc_mapseen`
+  feat counts + `#overview` `print_mapseen` feature sentence (TAB vs PREFIX).
+- **Hypothesis:** seed0106 next Scr peel @188 is `#chronicle` unbound
+  (`Logged events:` NHW_TEXT). Later residual screens follow chronicle
+  `--More--`/unknown-command cascade. seed2200 next real peel after parked
+  RC path @158 is help `j` → `dokeylist` @184.
 - **Falsifier / next:**
   ```bash
   node frozen/ps_test_runner.mjs sessions/seed0106-priest-extcmd-sweep.session.json
-  # expect Scr >254 if overview features match C; green cohort must stay PASS
+  # expect Scr >255 if #chronicle matches C; green cohort must stay PASS
   node frozen/ps_test_runner.mjs sessions/seed2200-wizard-quaff-zap-read.session.json
   ```
 - **Parked deep canary:** D-0006 pet movement — do not implement until C
@@ -88,6 +88,10 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 - **seed0106 @133 enhance was NOT H2344 offx** — stub showed
   `(no skills ready to advance)` corner overlay; C needs `skill_init` +
   `add_skills_to_menu` fullscreen page 1 of 2 (D-0122). Do not pad stub.
+- **seed0106 @165 overview was NOT missing Level indent alone** — C
+  `print_mapseen` OF_INTEREST feature line (`A fountain.`) from
+  `lastseentyp`/`recalc_mapseen`; Level uses TAB (3 spaces), features
+  use PREFIX (6) — wrong TAB→PREFIX collapses H2344 offx (D-0123).
 
 ## Landmarks
 
@@ -126,3 +130,6 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 - `#enhance`: `skill_init` then `add_skills_to_menu`; tty_end_menu
   prompt+blank; lmax=23 → `(1 of 2)`; `\n` dismisses without page 2
   (D-0122).
+- `#overview` features: `update_lastseentyp` on cansee map; overview
+  calls `recalc_mapseen`; Level=`TAB`/`   `, feat=`PREFIX`/`      `
+  (D-0123).

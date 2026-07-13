@@ -126,6 +126,7 @@ Do not record a guessed cause as fixed merely because an RNG prefix moved.
 | D-0120 | fixed | display/newsym | `_map_location` memory under visible mon; seed0106 Scr 49→250 |
 | D-0121 | fixed | yn/doname | leave yn prompt after answer; cleric skip `"uncursed "`; seed0106 Scr 250→253 |
 | D-0122 | fixed | skill/#enhance | `skill_init` + `add_skills_to_menu` paged PICK_NONE; seed0106 Scr 253→254 |
+| D-0123 | fixed | dungeon/overview | `lastseentyp`/`recalc_mapseen` + overview feature line; TAB vs PREFIX; seed0106 Scr 254→255 |
 
 D-0001 through D-0005 predate the strict-length/cohort runbook. Their focused
 causes are preserved, but generic "green sessions held" is historical evidence,
@@ -3292,8 +3293,36 @@ cohort gates if those functions are touched again.
   **1123→1125** RNG **104575**/792838.
 - **Named omission:** wizard speedy y_n; `can_advance`/`could_advance`/
   `peaked_skill` annotations; `skill_advance`; `skill_based_spellbook_id`;
-  `unrestrict_weapon_skill(spelspec)`; overview feature lines;
-  `#chronicle`.
+  `unrestrict_weapon_skill(spelspec)`; `#chronicle`.
 - **Next:** seed0106 `#overview` features @165 / seed2200 `dokeylist`
   @184.
+
+## D-0123 — `#overview` mapseen features (`lastseentyp` / `recalc_mapseen`)
+
+- **Status:** fixed
+- **Observed:** seed0106 Scr **254**/267 first miss @165: C corner
+  overview shows `A fountain.` under Level 1; JS only dungeon header +
+  Level line + `(end)`. Header/`(end)` offx also short by 3 cols.
+- **Cause/evidence:** `dooverview` never called `recalc_mapseen` /
+  `print_mapseen` OF_INTEREST; `update_lastseentyp` was deferred in
+  `newsym`/`magic_map_background`. Level line used PREFIX (6 spaces)
+  instead of C TAB (3), so with a feature line H2344 `maxcol`/`offx`
+  diverged even after adding the sentence.
+- **C locus:** `dungeon.c` `update_lastseentyp` / `count_feat_lastseentyp`
+  / `recalc_mapseen` / `show_overview` / `print_mapseen` (`TAB` vs
+  `PREFIX` / `ADDNTOBUF`); `display.c` `_map_location` /
+  `magic_map_background` call `update_lastseentyp`.
+- **Change:** `js/dungeon.js` lastseentyp + feat count + overview
+  feature sentence; Level `   ` TAB; `js/display.js` /
+  `js/mklev.js` update/clear lastseentyp on map/level.
+- **Verification:** seed0106 Scr **254→255**/267 (next: `#chronicle`
+  @188); green+strict PASS; cohort 1500/1800/0060/0102/0700/1150/
+  0017/0077 PASS; full **10/44** Scr **1125→1126** RNG
+  **104575**/792838.
+- **Named omission:** shop/temple room traversal; `shop_string` /
+  altar-to-god; altar `msalign`; DRAWBRIDGE_UP / furniture-mimic
+  lastseentyp; `traverse_mapseenchn` / `interest_mapseen` / auto
+  annotations; Blind bigroom / bones / valley/sanctum flags;
+  `#chronicle`.
+- **Next:** seed0106 `#chronicle` @188 / seed2200 `dokeylist` @184.
 

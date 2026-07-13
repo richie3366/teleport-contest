@@ -28,6 +28,7 @@ import {
     NO_COLOR, CLR_GRAY, CLR_BLACK, CLR_BROWN, CLR_WHITE, CLR_YELLOW, CLR_BRIGHT_BLUE,
     DEC_TO_UNICODE,
 } from './terminal.js';
+import { update_lastseentyp } from './dungeon.js';
 import {
     A_INT, A_WIS, A_DEX, A_CON, A_CHA, acurr, get_strength_str,
 } from './attrib.js';
@@ -669,7 +670,8 @@ export function magic_map_background(x, y, show) {
     if (show) {
         show_glyph_cell(x, y, tg.ch, tg.color, tg.dec);
     }
-    // update_lastseentyp deferred
+    // C: update_lastseentyp(x, y) after magic_map_background
+    update_lastseentyp(x, y);
 }
 
 // C ref: display.c _map_location(x,y,show=0) — remember non-living contents
@@ -682,11 +684,13 @@ function map_location_memory(x, y) {
     if (obj && !covers_objects(x, y)) {
         const og = obj_glyph(obj);
         loc.remembered_glyph = { ch: og.ch, color: og.color, decgfx: og.dec };
+        update_lastseentyp(x, y);
         return;
     }
     // traps / engravings deferred — fall through to background
     const tg = terrain_glyph(loc, x, y);
     loc.remembered_glyph = { ch: tg.ch, color: tg.color, decgfx: tg.dec };
+    update_lastseentyp(x, y);
 }
 
 // ── newsym ──
@@ -726,6 +730,8 @@ export function newsym(x, y) {
             if (game.level?.flags?.hero_memory) {
                 loc.remembered_glyph = { ch: og.ch, color: og.color, decgfx: og.dec };
             }
+            // C _map_location always updates lastseentyp after mapping
+            update_lastseentyp(x, y);
             return;
         }
         const tg = terrain_glyph(loc, x, y);
@@ -733,6 +739,7 @@ export function newsym(x, y) {
         if (game.level?.flags?.hero_memory) {
             loc.remembered_glyph = { ch: tg.ch, color: tg.color, decgfx: tg.dec };
         }
+        update_lastseentyp(x, y);
         return;
     }
 
