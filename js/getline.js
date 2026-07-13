@@ -83,6 +83,24 @@ const EXT_CMDS = [
         },
     },
     {
+        name: 'dip',
+        wiz: false,
+        autocomplete: true,
+        run: async () => {
+            const { dodip } = await import('./potion.js');
+            return dodip();
+        },
+    },
+    {
+        name: 'sit',
+        wiz: false,
+        autocomplete: true,
+        run: async () => {
+            const { dosit } = await import('./sit.js');
+            return dosit();
+        },
+    },
+    {
         name: 'levelchange',
         wiz: true,
         autocomplete: true,

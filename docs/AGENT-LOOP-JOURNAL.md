@@ -1355,3 +1355,21 @@ Use this shape:
 - Next: seed0106 @ 4097 `dipfountain` —
   `node scripts/rng-diff.mjs sessions/seed0106-priest-extcmd-sweep.session.json`
   — or seed2200 Scr 199 / seed0077 `player_selection`.
+
+## 2026-07-13 — #sit + #dip / dipfountain (D-0109)
+- Objective: seed0106 @ 4097 `dipfountain` (PROGRESS primary).
+- C locus: `sit.c` `dosit`; `potion.c` `dodip`; `fountain.c`
+  `dipfountain`/`dryup`; `trap.c` `water_damage`; `objnam.c`
+  holy-water naming.
+- Result: **verified** — unbound `#dip` let `y` move; also needed
+  `#sit` one turn earlier (`Having fun sitting on the fountain?` +
+  ECMD_TIME). Fountain dip of holy water: `water_damage` force →
+  ER_NOTHING → `rnd(30)` → `dryup`. Ported sit/dip/fountain +
+  water_damage subset + holy-water doname.
+- Verification: seed0106 prefix **4097→4141**; positional
+  **4145**/4194; green+strict PASS; cohort 1500/1800/0060/
+  0102/0700/1150/0017 PASS; full **9/44** Scr **718** RNG
+  **93267**/792838.
+- Next: seed0106 @ 4141 `#offer`/`#enhance`/`#annotate` —
+  `node scripts/rng-diff.mjs sessions/seed0106-priest-extcmd-sweep.session.json`
+  — or seed2200 Scr 199 / seed0077 `player_selection`.

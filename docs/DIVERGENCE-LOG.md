@@ -2896,3 +2896,32 @@ cohort gates if those functions are touched again.
 - **Next:** seed0106 @ 4097 `dipfountain` / seed2200 Scr 199 /
   seed0077 `player_selection`.
 
+## D-0109 — seed0106 `#sit` + `#dip` / `dipfountain`
+
+- **Status:** fixed
+- **Observed:** seed0106 @ **4097**: C `rnd(30)` @ `dipfountain` vs JS
+  `rn2(5)` `distfleeck`. Keys `#dip`→`d`→`y` on fountain; prior turn
+  was `#sit` with `"Having fun sitting on the fountain?"`.
+- **Rejected:** `#dip`-only without `#sit` (moves peel earlier to
+  4073: JS `rnd(30)` while C still runs sit's monster-turn RNG).
+- **C locus:** `sit.c` `dosit` default/`surface`; `potion.c` `dodip`;
+  `fountain.c` `dipfountain`/`dryup`; `trap.c` `water_damage`
+  (POT_WATER + force → ER_NOTHING); `objnam.c` holy-water xname/BUC.
+- **Cause:** unbound `#sit`/`#dip` let later keys become moves. Fountain
+  dip of holy water needs `water_damage` ER_NOTHING then `rnd(30)` /
+  `dryup`.
+- **Change:** `js/sit.js` `dosit`; `js/fountain.js` `dipfountain`/
+  `dryup`; `js/potion.js` `dodip`; `js/trap.js` `water_damage`;
+  `js/getline.js` extcmds `sit`/`dip`; `js/objnam.js` holy/unholy
+  water naming.
+- **Verification:** seed0106 prefix **4097→4141** (nhlib shuffle @
+  `#version`); positional **4145**/4194; green+strict PASS; cohort
+  1500/1800/0060/0102/0700/1150/0017 PASS; full **9/44** Scr
+  **718** RNG **93267**/792838.
+- **Named omission:** Excalibur LONG_SWORD body; wash_hands; dipfountain
+  cases 17–29; potion_dip alchemy; sink/pool dips; town warn/
+  angry_guards; grease/towel/container water_damage; `#offer`/
+  `#enhance`/`#annotate`/`#overview`/`#version` bindings.
+- **Next:** seed0106 @ 4141 `#offer`/`#enhance`/`#annotate` key
+  ownership / seed2200 Scr 199 / seed0077 `player_selection`.
+

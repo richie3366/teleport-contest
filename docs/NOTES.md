@@ -7,11 +7,13 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 
 ## Active
 
-- **Current unit:** D-0108 `mondead`→`relobj` cleared seed0106 @ 2993.
-  Next: seed0106 @ **4097** `dipfountain` (key `y`), or seed2200 Scr
-  **199**/230, or seed0077 `player_selection`.
-- **Hypothesis:** unbound `#dip` / fountain dip lets `y` become a move;
-  C `dipfountain` `rnd(30)` then `dryup`.
+- **Current unit:** D-0109 `#sit`/`#dip`/`dipfountain` cleared seed0106 @
+  4097. Next: seed0106 @ **4141** unbound `#offer`/`#enhance`/`#annotate`
+  (ESC/`getlin` key ownership) before `#version` nhlib shuffle — or
+  seed2200 Scr **199**/230 / seed0077 `player_selection`.
+- **Hypothesis:** after two fountain dips, leftover keys from unknown
+  `#enhance` ESC / `#annotate` getlin become moves (`rn2(5)`) while C
+  reaches `#version` → `get_lua_version` `rn2(3)`+`rn2(2)`.
 - **Falsifier / next:**
   ```bash
   node scripts/rng-diff.mjs sessions/seed0106-priest-extcmd-sweep.session.json
@@ -150,6 +152,10 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   `rn2(6)=2` / `rn2(3)=2` (no drop); peel was `mondead`→`m_detach`→
   `relobj` minvent (leftover kobold darts) onto `fobj` for a second
   `dog_goal` APPORT `rn2(8)` (D-0108).
+- **seed0106 @4097 was NOT only unbound `#dip`** — also unbound
+  `#sit` on the fountain one turn earlier (`Having fun sitting…` +
+  ECMD_TIME). Porting `#dip` alone moved the peel earlier to sit's
+  missing turn (D-0109).
 - seed1150 @ 3032 was **not** missing `f` binding — getdir saw a
   space that C used for pet-drop `--More--` because JS
   `getdir`/`yn_function` skipped `more()` on `TOPLINE_NEED_MORE`
@@ -297,3 +303,7 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   `dmgval` + `xkilled` `!rn2(6)` treasure + `corpse_chance` (D-0107).
 - Death `mondead`→`m_detach`→`relobj(mtmp,1,FALSE)` drops **all**
   minvent before xkilled treasure/corpse RNG (D-0108).
+- `#sit` on fountain (no OBJ_AT): `"Having fun sitting on the fountain?"`
+  + ECMD_TIME (D-0109). `#dip` getobj + yn fountain → `dipfountain`:
+  `water_damage` force (POT_WATER → ER_NOTHING) then `rnd(30)` then
+  `dryup` `rn2(3)`. Case 16 curses; default plines nothing_seems.

@@ -39,7 +39,7 @@ frozen-file overlay):
 |--------|------:|
 | Sessions passing | **9 / 44** |
 | Screens matched | **718 / 11,405** (6.30%) |
-| Positional RNG calls matched | **93,214 / 792,838** (11.76%) |
+| Positional RNG calls matched | **93,267 / 792,838** (11.76%) |
 | Speed label | `21+0.09/turn` |
 | Working-tree base | `8b71735` + committed port (see `main`) |
 | Role-init throws | **0 / 44** (`u_init_role: role not ported`) |
@@ -119,10 +119,11 @@ autoopen `doopen_indir` (D-0059), `mfndpos` BOULDER/`NODIAG`
 **`thrwmu`/`monmulti` move-then-shoot** (D-0105), and
 **`mattacku` melee/`hitmu`/`hitmsg`** (D-0106), and
 **`hitum`/hero melee/`xkilled`** (D-0107), and
-**`mondead`/`relobj` death minvent** (D-0108)
+**`mondead`/`relobj` death minvent** (D-0108), and
+**`#sit`/`#dip`/`dipfountain`** (D-0109)
 clear shared peels. seed2200 RNG **full**; Scr **199**/230 (next:
-screen residual). seed0106 next `dipfountain` @ 4097
-(D-0108 cleared post-kill `dog_goal`). seed0030 next
+screen residual). seed0106 next `#offer`/`#enhance`/`#annotate` @ 4141
+(D-0109 cleared `dipfountain`). seed0030 next
 `maybe_smudge_engr`. Healer seed0016 next `next_ident` @ 2493.
 Priest seed0501 still `wipeout_text`. seed0015/0200 next `lspo_map`.
 seed0101 next `next_ident`. seed0013 still breaks earlier in
@@ -207,17 +208,18 @@ autoopen `doopen_indir` (D-0059) + `mfndpos` BOULDER/`ALLOW_ROCK` +
 **`mattacku` melee/`hitmu`/`hitmsg`** (D-0106) +
 **`hitum`/hero melee/`xkilled`** (D-0107) +
 **`mondead`/`relobj` death minvent** (D-0108)
+**`#sit`/`#dip`/`dipfountain`** (D-0109)
 **ported**. Nine public sessions pass end-to-end. **0/44** throw at
 `u_init_role`. seed0700 + seed1150 + seed0017 **PASS**. seed0106
-prefix **4097** (`dipfountain`); seed2200 RNG **full** (Scr **199**/230).
+prefix **4141** (`#version` nhlib); seed2200 RNG **full** (Scr **199**/230).
 
-- **Bounded unit:** seed0106 @ 4097 `dipfountain` /
+- **Bounded unit:** seed0106 @ 4141 `#offer`/`#enhance`/`#annotate` /
   seed2200 post-help Scr 199 / seed0077 `player_selection` /
   seed0501/0105 `wipeout_text` / seed0015/0200 `lspo_map` /
   seed0101 `next_ident` / seed0103 `next_ident`/`trquan` /
   seed0030 `maybe_smudge_engr` / seed0361/0373 **`getbones`**
   (blocked: need `^V`→`goto_level`→`makemaz` first).
-- **Prefer:** seed0106 `dipfountain` or seed2200 Scr residual over
+- **Prefer:** seed0106 extcmd key ownership or seed2200 Scr residual over
   parked D-0006.
 - **Named omissions:** Wizard/Priest/Healer `initialspell`; Knight/
   Samurai/Healer/Valkyrie/Ranger/Monk/Archeologist/Barbarian/Caveman
@@ -585,6 +587,11 @@ Module status, constitutional debt, and named omissions live in
     aggregate RNG **92300→93214**; screens **718**; green cohort
     PASS; next seed0106 @ 4097 `dipfountain` / seed2200 Scr 199 /
     seed0077 `player_selection`
+91. `#sit`/`#dip`/`dipfountain` (D-0109) — seed0106 prefix
+    **4097→4141** (`#version` nhlib shuffle); positional
+    **4145**/4194; aggregate RNG **93214→93267**; screens **718**;
+    green cohort PASS; next seed0106 @ 4141 `#offer`/`#enhance`/
+    `#annotate` / seed2200 Scr 199 / seed0077 `player_selection`
 
 Next work is selected from the active objectives above using
 `PORTING-RUNBOOK.md`, not by extending this historical list.
