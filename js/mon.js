@@ -382,9 +382,11 @@ async function movemon_singlemon(mtmp) {
 // C ref: mon.c movemon()
 export async function movemon() {
     game._somebody_can_move = false;
+    if (game.program_state?.gameover) return false;
     const list = game.fmon || [];
     // Snapshot — dochug may mutate list later
     for (const mtmp of list.slice()) {
+        if (game.program_state?.gameover) break;
         await movemon_singlemon(mtmp);
     }
     return game._somebody_can_move;

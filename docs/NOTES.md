@@ -7,17 +7,17 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 
 ## Active
 
-- **Current unit:** seed0030 @14299 (after D-0189 `dmgval`).
-- **Hypothesis:** after matched `hitmu`/`dmgval`/`mhitm_knockback`, C enters
-  hero death → `can_make_bones` (`rn2(1+(depth>>2))`) while JS survives and
-  continues with `distfleeck` `rn2(5)` — HP/`mdamageu`/`done` path gap, not
-  the bones formula alone.
+- **Current unit:** seed0200 @3387 (`xkilled`/`next_ident`) — seed0030
+  seg0 RNG complete after D-0190.
+- **Hypothesis:** after matched `xkilled`/`corpse_chance`, C
+  `make_corpse`/`mkcorpstat` burns `next_ident` while JS skips corpse
+  creation (or takes another spawn path).
 - **Falsifier:**
   ```bash
-  node scripts/rng-diff.mjs sessions/seed0030-ten-diverse-deaths.session.json
+  node scripts/rng-diff.mjs sessions/seed0200-monk-north-search.session.json
   ```
-  Expect: if JS `mdamageu`/`losehp`/`done` match C through killing blow, next
-  call is `can_make_bones` (not `rn2(5)`).
+  Expect: if JS `xkilled`→`make_corpse` matches C, next call is
+  `next_ident` (not `rn2(12)`).
 - **Parked deep canary:** D-0006 pet movement — do not implement until C
   state/candidate capture exists.
 - **Parked seed2200 @158:** RC config path — harness `$HOME`, not a port bug.
@@ -100,6 +100,9 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 - **@14296 was NOT missing dmgval switch alone** — stand-in map defaulted
   missing otyps to `rnd(1)`; C `objects[].oc_wsdam` for BULLWHIP/
   WORM_TOOTH is **2** (D-0189). Extractor already had the fields unread.
+- **@14299 was NOT JS survival** — HP did go to 0 via `losehp`; missing
+  was `done_in_by`→`can_make_bones` + stopping `runSegment` (D-0190).
+  Do not re-chase `dmgval`/knockback damage amounts.
 - **`monattk.h`: AT_WEAP=254, AT_MAGC=255, AT_SPIT=10** — never use 10 for
   weapon (D-0179).
 - Hostile `m_move`: before place, `m_digweapon_check` may return
@@ -143,3 +146,6 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   even when AT_NONE is a NO_ATTK filler (D-0188).
 - **`objects[].oc_wsdam`/`oc_wldam` extracted** — do not revive name→sdam
   stand-in defaults (D-0189).
+- **`mdamageu` must `done_in_by` not `losehp`** — C never routes monster
+  kill blows through `losehp`; `can_make_bones` lives in `really_done`
+  (D-0190). `runSegment` must stop on `gameover`.

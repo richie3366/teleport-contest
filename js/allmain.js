@@ -429,6 +429,7 @@ export async function moveloop_core() {
         do {
             do {
                 monscanmove = await movemon();
+                if (g.program_state?.gameover) return;
                 if ((g.u.umovement || 0) >= NORMAL_SPEED) break;
             } while (monscanmove);
 
@@ -488,6 +489,7 @@ export async function moveloop_core() {
                     }
                 }
             }
+            if (g.program_state?.gameover) return;
         } while ((g.u.umovement || 0) < NORMAL_SPEED);
     }
 

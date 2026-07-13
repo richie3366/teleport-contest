@@ -193,6 +193,7 @@ Do not record a guessed cause as fixed merely because an RNG prefix moved.
 | D-0187 | fixed | weapon.c hit bonus | `weapon_hit_bonus` + martial barehands `rnd(4)` |
 | D-0188 | fixed | uhitm.c passive | `hitum`→`passive` live `rn2(3)` even for NO_ATTK |
 | D-0189 | fixed | weapon.c dmgval | extract `oc_wsdam`/`oc_wldam`; drop stand-in default 1 |
+| D-0190 | fixed | end/bones death | `mdamageu`→`done_in_by`/`can_make_bones`; stop post-death RNG |
 
 D-0001 through D-0005 predate the strict-length/cohort runbook. Their focused
 causes are preserved, but generic "green sessions held" is historical evidence,
@@ -5163,4 +5164,29 @@ cohort gates if those functions are touched again.
   killing blow (next peel @14299).
 - **Next:** seed0030 @14299 hero death vs survival after matched `dmgval`;
   or seed0200 @3387 `xkilled`/`next_ident`; or seed0101 Scr.
+
+## D-0190 — mdamageu → done_in_by / can_make_bones (seed0030 @14299)
+
+- **Status:** fixed
+- **Observed:** seed0030 index **14299** — C `rn2(1)=0 @ can_make_bones`
+  after matched knockback; JS `rn2(5)` (`distfleeck`) while hero kept
+  fighting.
+- **C locus:** `mhitu.c` `mdamageu` → `done_in_by` → `done` →
+  `really_done` → `bones.c` `can_make_bones` depth `rn2(1+(depth>>2))`.
+- **Cause/evidence:** DIAG — fatal blow `n=8` with `uhp_before=4` at
+  idx 14299; JS `mdamageu` routed through `losehp` (gameover only, no
+  bones RNG) and `runSegment` kept driving `moveloop_core` past death.
+- **Change:** new `js/end.js` (`can_make_bones` / `done_in_by` / `done` /
+  `really_done` stub); `mdamageu` matches C HP subtract + `done_in_by`;
+  gameover stops `movemon` / `moveloop_core` / `runSegment`.
+- **Verification:** seed0030 seg0 RNG **complete** (prefix **14300**,
+  JS emitted 14300; next C line is seg1 `randomize_gem_colors`);
+  positional **15844**/105529 Scr **44**/1953 (Scr drop = lost
+  post-death accidental matches in seg0); full **15/44** Scr **1281**
+  RNG **137291**; green+cohort+strict PASS; seed0200 still **3387**.
+- **Named omissions:** full `no_bones_level` / portal ban / `savebones`
+  body; Lifesaved; wizard·discover `Die?`; disclosure / topten / rip;
+  `losehp`→`done(DIED)` path; killer/`ugrave_arise` detail.
+- **Next:** seed0200 @3387 `xkilled`/`next_ident`; or seed0030 multi-
+  segment / disclosure Scr; or seed0101 Scr residual.
 

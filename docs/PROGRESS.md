@@ -38,9 +38,9 @@ frozen-file overlay):
 | Metric | Value |
 |--------|------:|
 | Sessions passing | **15 / 44** |
-| Screens matched | **1405 / 11,405** (12.32%) |
-| Positional RNG calls matched | **136,019 / 792,838** (17.16%) |
-| Speed label | `19+0.09/turn` |
+| Screens matched | **1281 / 11,405** (11.23%) |
+| Positional RNG calls matched | **137,291 / 792,838** (17.32%) |
+| Speed label | `21+0.08/turn` |
 | Working-tree base | `8b71735` + committed port (see `main`) |
 | Role-init throws | **0 / 44** (`u_init_role: role not ported`) |
 
@@ -64,7 +64,7 @@ shared blockers, and semantic coverage together—not one vanity metric.
 | `seed0501-priest-cast-read-turn` | **2238 / 2238** | **28 / 28** |
 | `seed2200-wizard-quaff-zap-read` | **3018 / 3018** | **229 / 230** |
 | `seed0017-samurai-altar-pray` | **3465 / 3465** | **67 / 67** |
-| `seed0030-ten-diverse-deaths` | **14572 / 105529** | **168 / 1953** |
+| `seed0030-ten-diverse-deaths` | **15844 / 105529** | **44 / 1953** |
 | `seed0103-knight-ride-pony` | **2344 / 2640** | 2 / 60 |
 | `seed0200-monk-north-search` | **3394 / 3822** | **15 / 40** |
 | `seed0101-ranger-quiver-throw-travel-engrave` | **2371 / 2371** | **21 / 27** |
@@ -234,6 +234,9 @@ seed0105 RNG **full** (Scr **30**/30).
 **`dmgval` extract `oc_wsdam`/`oc_wldam`** (D-0189) → seed0030 prefix
 **14296→14299**; positional **14572**/105529; full **15/44** Scr
 **1405** RNG **136019**.
+**`mdamageu`→`done_in_by`/`can_make_bones`** (D-0190) → seed0030 seg0
+RNG **complete** (prefix **14300**); positional **15844**/105529 Scr
+**44**/1953; full **15/44** Scr **1281** RNG **137291**.
 
 ### Green gate
 
@@ -398,26 +401,27 @@ autoopen `doopen_indir` (D-0059) + `mfndpos` BOULDER/`ALLOW_ROCK` +
 **`weapon_hit_bonus` + martial barehands `rnd(4)`** (D-0187)
 **`hitum`→`passive`/`passive_obj` live `rn2(3)`** (D-0188)
 **`dmgval` extracted `oc_wsdam`/`oc_wldam` + small otyp switch** (D-0189)
+**`mdamageu`→`done_in_by`/`can_make_bones` + runSegment gameover** (D-0190)
 **ported**. Fifteen public sessions pass end-to-end. **0/44** throw at
 `u_init_role`. seed0700 + seed1150 + seed0017 + seed0077 + seed0106 +
 seed0501 + seed0105 + seed0016 + seed0015 **PASS**. seed2200 RNG **full**
 (Scr **229**/230; sole miss parked RC @158).
 seed0101 RNG **full** Scr **21**/27.
 
-- **Bounded unit:** seed0030 @14299 (C `can_make_bones` after matched
-  `dmgval` kill blow vs JS `rn2(5)` survival) /
-  seed0200 @3387 (`xkilled`/`next_ident`) /
+- **Bounded unit:** seed0200 @3387 (`xkilled`/`next_ident`) /
+  seed0030 multi-segment / disclosure Scr after seg0 RNG complete /
   seed0101 Scr residual /
   seed0103 `next_ident`/`trquan` /
   seed0361/0373 **quest `getbones`** (blocked: need `^V`→`goto_level`→
   `makemaz` first — ordinary `goto_level` now exists for stairs; Mines
   `fill_lvl` path exists D-0171).
-- **Prefer:** seed0030 @14299 /
-  seed0200 @3387 /
+- **Prefer:** seed0200 @3387 /
+  seed0030 disclosure/seg1 /
   seed0101 Scr
   over parked D-0006 and over baking seed2200 RC paths.
   Hero `dotrap` deferred until monster pit peel is clear.
-  Hero `xkilled` `make_corpse` still deferred (mhitm path done D-0167).
+  Hero `xkilled` `make_corpse` still deferred (mhitm path done D-0167;
+  `done_in_by` bones gate done D-0190).
 - **Named omissions:** full `findtravelpath` TEST_TRAV/GUESS/travelmap/
   `#retravel`; themerms fill *bodies* beyond Ghost/Teleportation hub (Temple
   altars, Ice/Storeroom/…); garden/dig postprocess; epitaph `get_rnd_text`; `invocation_pos`;
@@ -1160,6 +1164,11 @@ Module status, constitutional debt, and named omissions live in
     — seed0030 prefix **14296→14299** (`can_make_bones` vs JS survival);
     positional **14572**/105529 Scr **168**/1953; full **15/44** Scr
     **1405** RNG **136019**; next seed0030 @14299 / seed0200 @3387 /
+    seed0101 Scr
+167. `mdamageu`→`done_in_by`/`can_make_bones` (D-0190)
+    — seed0030 seg0 RNG **complete** (prefix **14300**); positional
+    **15844**/105529 Scr **44**/1953; full **15/44** Scr **1281** RNG
+    **137291**; next seed0200 @3387 / seed0030 disclosure·seg1 /
     seed0101 Scr
 
 Next work is selected from the active objectives above using

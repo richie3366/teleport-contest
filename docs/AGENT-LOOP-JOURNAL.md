@@ -19,6 +19,18 @@ Use this shape:
 
 ---
 
+## 2026-07-13 22:45 — mdamageu done_in_by / can_make_bones (D-0190)
+- Objective: seed0030 @14299 (C `can_make_bones` vs JS `rn2(5)`).
+- C locus: `mhitu.c` `mdamageu` → `end.c` `done_in_by`/`done`/`really_done`
+  → `bones.c` `can_make_bones`.
+- Result: **verified** — `mdamageu` no longer routes fatal blows through
+  `losehp`; new `js/end.js` burns bones rn2; `runSegment`/`movemon`
+  stop on `gameover`. seed0030 seg0 RNG complete (prefix **14300**).
+- Verification: green+strict PASS; cohort PASS; full **15/44** Scr
+  **1281** RNG **137291**; seed0030 positional **15844**/105529 Scr
+  **44** (Scr drop = lost post-death accidental matches).
+- Next: `node scripts/rng-diff.mjs sessions/seed0200-monk-north-search.session.json`
+
 ## 2026-07-13 18:45 — dog_eat after edible newdogpos (D-0168)
 - Objective: seed0030 `obj_resists` @10608 (PROGRESS primary).
 - C locus: `dogmove.c` edible candidate → `goto newdogpos` → `dog_eat`

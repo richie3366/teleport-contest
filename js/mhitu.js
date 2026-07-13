@@ -7,10 +7,11 @@ import { monnear } from './mon.js';
 import {
     Is_rogue_level, NEED_WEAPON, NEED_HTH_WEAPON, NATTK,
     M_ATTK_MISS, M_ATTK_HIT, M_ATTK_AGR_DIED, M_ATTK_AGR_DONE,
+    Upolyd, DIED,
 } from './const.js';
 import { thrwmu } from './mthrowu.js';
 import { find_offensive, use_offensive } from './muse.js';
-import { nomul, losehp } from './hack.js';
+import { nomul } from './hack.js';
 import { rnd, d } from './rng.js';
 import { pline } from './display.js';
 import { Monnam } from './do_name.js';
@@ -19,6 +20,7 @@ import {
     get_mattk, mhitm_knockback,
     AT_NONE, AT_CLAW, AT_KICK, AT_BITE, AT_STNG, AT_TUCH, AT_BUTT, AT_WEAP,
 } from './mhitm.js';
+import { done_in_by } from './end.js';
 
 /**
  * C ref: hack.h AC_VALUE — positive AC as-is; negative rolls -rnd(-AC).
@@ -73,18 +75,31 @@ async function missmu(mtmp, _nearmiss, _mattk) {
 }
 
 /**
- * C ref: mhitu.c mdamageu — subtract HP; done_in_by / rehumanize deferred.
+ * C ref: mhitu.c mdamageu — subtract HP; fatal → done_in_by (not losehp).
+ * showdamage / rehumanize deferred.
  */
-function mdamageu(mtmp, n) {
+async function mdamageu(mtmp, n) {
     let dmg = n | 0;
     if (dmg < 0) dmg = 0;
     if (!game.flags) game.flags = {};
     game.flags.botl = true;
-    // showdamage deferred
-    losehp(dmg, Monnam(mtmp), /* KILLED_BY_AN */ 2);
-}
-
-/**
+    const u = game.u || (game.u = {});
+    if (Upolyd(u)) {
+        u.mh = (u.mh || 0) - dmg;
+        if ((u.mh || 0) > (u.mhmax || 0)) u.mh = u.mhmax;
+        if ((u.mh || 0) < 1) {
+            // rehumanize deferred
+            u.mh = 0;
+            if (game.program_state) game.program_state.gameover = true;
+        }
+        return;
+    }
+    u.uhp = (u.uhp || 0) - dmg;
+    if ((u.uhp || 0) > (u.uhpmax || 0)) u.uhp = u.uhpmax;
+    if ((u.uhp || 0) < 1) {
+        await done_in_by(mtmp, DIED);
+    }
+}/**
  * C ref: uhitm.c mhitm_ad_phys mhitu branch — bare hitmsg or weapon+dmgval.
  * Hugs / corpse / silver / poison / pudding clone deferred.
  */
@@ -125,7 +140,7 @@ async function hitmu(mtmp, mattk) {
 
     const u = game.u || {};
     if ((u.uhp | 0) < 1) {
-        mdamageu(mtmp, 1);
+        await mdamageu(mtmp, 1);
         mhm.damage = 0;
     }
 
@@ -136,7 +151,7 @@ async function hitmu(mtmp, mattk) {
 
     if (mhm.damage > 0) {
         // Half_physical_damage / Mitre deferred (maybe_half_phys when wired)
-        mdamageu(mtmp, mhm.damage);
+        await mdamageu(mtmp, mhm.damage);
     }
 
     // passiveum deferred — human L1 has no passive
@@ -235,6 +250,7 @@ export async function mattacku(mtmp) {
 
         if (sum[i] & M_ATTK_AGR_DIED) return 1;
         if (sum[i] & M_ATTK_AGR_DONE) break;
+        if (game.program_state?.gameover) return 1;
     }
     return (mtmp.mhp | 0) < 1 ? 1 : 0;
 }
