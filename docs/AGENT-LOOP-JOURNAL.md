@@ -2109,3 +2109,18 @@ Use this shape:
   **132144**/792838.
 - Next: seed0030 @10803 (`hmon_hitmon_stagger`) / seed0101 Scr residual /
   seed0200 combat @3382.
+
+## 2026-07-13 — unarmed hmon_hitmon_stagger rnd(100) (D-0170)
+- Objective: seed0030 @10803 `hmon_hitmon_stagger` (PROGRESS primary).
+- C locus: `uhitm.c` `hmon_hitmon` / `hmon_hitmon_stagger`;
+  `mondata.h` `bigmonst`/`thick_skinned`.
+- Result: **verified** — after barehands `rnd(2)=2` (`dmg > 1`), C
+  burns `rnd(100)` in stagger before damage/`xkilled`. JS skipped to
+  `rn2(6)`. Ported unarmed gate + stagger `rnd(100)` + skill/size/hide
+  checks; stun pline/`mhurtle_to_doom` deferred.
+- Verification: seed0030 prefix **10803→10861**; positional
+  **11206**/105529 Scr **168**/1953; green+strict PASS; cohort
+  1500/1800/0060/0015 PASS; full **15/44** Scr **1405** RNG
+  **132236**/792838.
+- Next: seed0030 @10861 (`nhlib.lua` shuffle after `getbones`) /
+  seed0101 Scr residual / seed0200 combat @3382.

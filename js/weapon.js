@@ -369,7 +369,8 @@ function skill_level_name(skill) {
     }
 }
 
-function P_SKILL(type) {
+/** C ref: skills.h P_SKILL — current skill rank (u.weapon_skills). */
+export function P_SKILL(type) {
     return game.u?.weapon_skills?.[type]?.skill ?? P_ISRESTRICTED;
 }
 function P_MAX_SKILL(type) {

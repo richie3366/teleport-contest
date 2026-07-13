@@ -81,6 +81,7 @@ export const M1_AMORPHOUS = 0x00000004; /* monflag.h — can flow under doors */
 export const M1_WALLWALK = 0x00000008;
 export const M1_CLING = 0x00000010; /* monflag.h — cling to ceiling */
 export const M1_NOHANDS = 0x00002000;
+export const M1_THICK_HIDE = 0x00200000; /* monflag.h — thick hide or scales */
 export const M1_SEE_INVIS = 0x01000000; /* monflag.h — sees invisible */
 export const M1_NOEYES = 0x00001000;
 export const M1_MINDLESS = 0x00010000;
@@ -130,8 +131,19 @@ export function infravisible(ptr) {
 // C ref: mondata.h / monflag.h — verysmall = msize < MZ_SMALL
 export const MZ_TINY = 0;
 export const MZ_SMALL = 1;
+export const MZ_LARGE = 3; /* monflag.h — 7-12' */
 export function verysmall(ptr) {
     return (ptr?.msize ?? 2) < MZ_SMALL;
+}
+
+/** C ref: mondata.h bigmonst — msize >= MZ_LARGE */
+export function bigmonst(ptr) {
+    return (ptr?.msize ?? 0) >= MZ_LARGE;
+}
+
+/** C ref: mondata.h thick_skinned — M1_THICK_HIDE */
+export function thick_skinned(ptr) {
+    return !!((ptr?.mflags1 ?? 0) & M1_THICK_HIDE);
 }
 
 // C ref: mondata.h nohands()

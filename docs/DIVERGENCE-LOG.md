@@ -173,6 +173,7 @@ Do not record a guessed cause as fixed merely because an RNG prefix moved.
 | D-0167 | fixed | mhitm/corpse | mhitm `mondied`→`make_corpse`/`next_ident` (not grow_up `rnd(1)`) |
 | D-0168 | fixed | dogmove/eat | `dog_eat` after edible `newdogpos` (2nd dogfood + delobj) |
 | D-0169 | fixed | monmove/meating | `m_move` meating countdown before `dog_move` |
+| D-0170 | fixed | uhitm/stagger | unarmed `hmon_hitmon_stagger` `rnd(100)` before kill |
 
 D-0001 through D-0005 predate the strict-length/cohort runbook. Their focused
 causes are preserved, but generic "green sessions held" is historical evidence,
@@ -4577,3 +4578,33 @@ cohort gates if those functions are touched again.
   dog_goal — check `m_move` gates before follow-player RNG.
 - **Next:** seed0030 @10803 (`hmon_hitmon_stagger`) / seed0101 Scr /
   seed0200 @3382.
+
+## D-0170 — unarmed hmon_hitmon_stagger rnd(100) (seed0030)
+
+- **Status:** fixed
+- **Observed:** seed0030 first RNG mismatch @10803 — C `rnd(100)` @
+  `hmon_hitmon_stagger`; JS `rn2(6)` (`xkilled` treasure).
+- **Rejected:** barehands damage formula alone; xkilled order; miss vs
+  hit gate (prefix matched through `rnd(2)=2` barehands).
+- **C locus:** `uhitm.c` `hmon_hitmon` — after dmg recalc, if
+  `unarmed && dmg > 1 && !thrown && !obj && !Upolyd` call
+  `hmon_hitmon_stagger` **before** `mhp -= dmg` / `killed`. Stagger
+  always evaluates `rnd(100) < P_SKILL(P_BARE_HANDED_COMBAT)` then
+  `!bigmonst`/`!thick_skinned`.
+- **Cause:** JS `hmon` applied barehands damage and went straight to
+  `xkilled`, skipping the unarmed stagger RNG (even when skill gate
+  fails, C still burns `rnd(100)`).
+- **Change:** `hmon_hitmon_stagger` + call gate in `uhitm.js`;
+  `bigmonst`/`thick_skinned`/`M1_THICK_HIDE`/`MZ_LARGE` in
+  `monsters.js`; export `P_SKILL` from `weapon.js`.
+- **Verification:** seed0030 prefix **10803→10861** positional
+  **11206**/105529 Scr **168**/1953; green+strict PASS; cohort
+  1500/1800/0060/0015/0106/0105/0016 PASS; full **15/44** Scr
+  **1405** RNG **132236**.
+- **Named omission:** stun pline + `mhurtle_to_doom` when skill gate
+  succeeds and pending dmg < mhp; martial `rnd(4)` barehands;
+  `dbon`/weapon-skill dmg_recalc; live weapon knockback.
+- **Lesson:** unarmed `dmg > 1` always burns stagger `rnd(100)` before
+  kill RNG — do not jump from barehands `rnd(2)` to `xkilled`.
+- **Next:** seed0030 @10861 (`nhlib.lua` shuffle after `getbones`) /
+  seed0101 Scr / seed0200 @3382.
