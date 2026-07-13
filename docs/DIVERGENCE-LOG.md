@@ -106,6 +106,7 @@ Do not record a guessed cause as fixed merely because an RNG prefix moved.
 | D-0100 | fixed | mklev wallification | post-fill full-map `wallification` like C `themerooms_post`; not (30,4) |
 | D-0101 | fixed | `#pray` / prayer_done | unbound extcmd; p_type 0 → rnz(250)+angrygods |
 | D-0102 | fixed | askname + ParanoidPray | no-name splash/`Who are you?`; default pray yn |
+| D-0103 | fixed | `#chat` / dochat | unbound extcmd; getdir `l` became move → fake `do_attack` peel |
 
 D-0001 through D-0005 predate the strict-length/cohort runbook. Their focused
 causes are preserved, but generic "green sessions held" is historical evidence,
@@ -2721,4 +2722,29 @@ cohort gates if those functions are touched again.
   **91965**.
 - **Next:** seed2200 Scr 199 / seed0106 @ 2639 `do_attack` /
   seed0077 chargen `player_selection`.
+
+## D-0103 — seed0106 `#chat` / `dochat` / `domonnoise` MS_BARK
+
+- **Status:** fixed
+- **Observed:** seed0106 @ **2639**: C `rn2(7)` @ `do_attack`
+  vs JS `rn2(5)` @ `distfleeck`. Keys after prayer: `#chat\n` +
+  `l` + `h`. Screen: empty-east chat then swap with little dog.
+- **C locus:** `sounds.c` `dotalk`/`dochat`/`domonnoise` MS_BARK;
+  `cmd.c` extcmdlist `"chat"`; `getline.js` EXT_CMDS.
+- **Cause:** JS had no `#chat`. C uses `l` as getdir (0 RNG, chat
+  empty → ECMD_OK); JS treated `l` as move east → turn +
+  `distfleeck`. Second `#chat`+`l` talks to dog after swap →
+  `"The little dog barks."` + ECMD_TIME.
+- **Change:** `js/sounds.js` (`dotalk`/`dochat`/`domonnoise`
+  MS_BARK via S_DOG); `getline.js` EXT_CMDS `chat`.
+- **Verification:** seed0106 prefix **2639→2713** (`kick_door`/
+  `exercise`); green+strict PASS; cohort 1500/1800/0060/0102/
+  0700/1150/0017 PASS; full **9/44** Scr **718** RNG
+  **91887**/792838 (positional aggregate can drop when a wrong
+  path’s accidental later matches disappear).
+- **Named omission:** other MS_*; shop `price_quote`; wall/
+  statue talk; `night()` howl; priest/`shk`/`quest` chat;
+  `#chronicle`/`#conduct` still unknown.
+- **Next:** seed0106 @ 2713 door kick / seed2200 Scr 199 /
+  seed0077 `player_selection`.
 

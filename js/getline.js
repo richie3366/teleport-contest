@@ -74,6 +74,15 @@ const EXT_CMDS = [
         },
     },
     {
+        name: 'chat',
+        wiz: false,
+        autocomplete: true,
+        run: async () => {
+            const { dotalk } = await import('./sounds.js');
+            return dotalk();
+        },
+    },
+    {
         name: 'levelchange',
         wiz: true,
         autocomplete: true,

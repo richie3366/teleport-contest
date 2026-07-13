@@ -1259,3 +1259,18 @@ Use this shape:
   `node frozen/ps_test_runner.mjs sessions/seed2200-wizard-quaff-zap-read.session.json`
   — cite look_all morestr/cursor vs `show_text_pages`; or
   seed0017 @ 3132 terrain / seed1150 `dog_move`.
+
+## 2026-07-13 — `#chat` / dochat / domonnoise MS_BARK (D-0103)
+- Objective: seed0106 @ 2639 apparent `do_attack` (PROGRESS primary).
+- C locus: `sounds.c` `dotalk`/`dochat`/`domonnoise` MS_BARK;
+  extcmdlist `"chat"`.
+- Result: **verified** — unbound `#chat` made getdir `l` a real
+  east move → `distfleeck` `rn2(5)`; C chats empty then `h` into
+  pet → `do_attack` `rn2(7)`. Ported empty-chat + dog bark.
+  Falsified “incomplete do_attack” as the peel cause.
+- Verification: seed0106 prefix **2639→2713**; green+strict PASS;
+  cohort 1500/1800/0060/0102/0700/1150/0017 PASS; full **9/44**
+  Scr **718** RNG **91887**/792838.
+- Next: seed0106 @ 2713 `kick_door`/`exercise` —
+  `node scripts/rng-diff.mjs sessions/seed0106-priest-extcmd-sweep.session.json`
+  — or seed2200 Scr 199 / seed0077 `player_selection`.

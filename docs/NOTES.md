@@ -7,16 +7,15 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 
 ## Active
 
-- **Current unit:** seed0017 **PASS** (D-0102 askname + ParanoidPray).
-  Prefer seed2200 Scr **199**/230 (screen 158 RC residual or next) or
-  seed0106 @ **2639** `do_attack`.
-- **Hypothesis:** seed2200 remaining Scr is help/option residual and/or
-  later map UI — not chargen.
+- **Current unit:** D-0103 `#chat` cleared seed0106 @ 2639. Next:
+  seed0106 @ **2713** `kick_door`/`exercise` (Ctrl-D), or seed2200 Scr
+  **199**/230, or seed0077 `player_selection`.
+- **Hypothesis:** seed0106 @ 2713 is incomplete `dokick` door path
+  (C `exercise` then `kick_door`; JS emits `rn2(2)`).
 - **Falsifier / next:**
   ```bash
-  node frozen/ps_test_runner.mjs sessions/seed2200-wizard-quaff-zap-read.session.json
+  node scripts/rng-diff.mjs sessions/seed0106-priest-extcmd-sweep.session.json
   ```
-  Or: `node scripts/rng-diff.mjs sessions/seed0106-priest-extcmd-sweep.session.json`
 - **Parked deep canary:** D-0006 pet movement — do not implement until C
   state/candidate capture exists.
 - **Named next for no-name sessions:** seed0077 needs `player_selection`
@@ -130,6 +129,9 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   copyright + `Who are you?` when rc omits `name:`; do **not**
   `flush_screen` during askname (clears splash) (D-0102). Default
   `PARANOID_PRAY` requires yn before prayer.
+- **seed0106 @2639 was NOT incomplete `do_attack`** — unbound `#chat`
+  made getdir `l` a real east move → `distfleeck` `rn2(5)` while C
+  chats empty then `h` into pet → `do_attack` `rn2(7)` (D-0103).
 - seed1150 @ 3032 was **not** missing `f` binding — getdir saw a
   space that C used for pet-drop `--More--` because JS
   `getdir`/`yn_function` skipped `more()` on `TOPLINE_NEED_MORE`
@@ -257,3 +259,6 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   `flush_screen` (rebuilds empty map/botl). Default
   `paranoia_bits` includes `PARANOID_PRAY` → yn before `#pray`
   (D-0102).
+- `#chat`/`dotalk`/`dochat`: getdir; empty tile → ECMD_OK (0 RNG);
+  dog → `domonnoise` MS_BARK → `"The little dog barks."` + ECMD_TIME
+  (D-0103). Generated monsters lack `msound`; infer S_DOG→MS_BARK.

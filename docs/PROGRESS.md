@@ -39,7 +39,7 @@ frozen-file overlay):
 |--------|------:|
 | Sessions passing | **9 / 44** |
 | Screens matched | **718 / 11,405** (6.30%) |
-| Positional RNG calls matched | **91,965 / 792,838** (11.60%) |
+| Positional RNG calls matched | **91,887 / 792,838** (11.59%) |
 | Speed label | `18+0.08/turn` |
 | Working-tree base | `8b71735` + committed port (see `main`) |
 | Role-init throws | **0 / 44** (`u_init_role: role not ported`) |
@@ -69,7 +69,7 @@ shared blockers, and semantic coverage together—not one vanity metric.
 | `seed0016-healer-newmoon-eat-zap` | **2544 / 3656** | **5 / 36** |
 | `seed0107-samurai-twoweapon-enhance` | **2679 / 2902** | 1 / 98 |
 | `seed0104-knight-ride-combat` | **2401 / 3223** | 1 / 43 |
-| `seed0106-priest-extcmd-sweep` | **2865 / 4194** | 3 / 267 |
+| `seed0106-priest-extcmd-sweep` | **2784 / 4194** | 3 / 267 |
 | `seed0361-archeologist-tour` | **3297 / 53865** | 0 / 366 |
 | `seed0373-barbarian-quest-tour` | **2555 / 35386** | 0 / 124 |
 | `seed0105-valk-chat-lamp-ration` | **987 / 2499** | 0 / 30 |
@@ -115,7 +115,8 @@ autoopen `doopen_indir` (D-0059), `mfndpos` BOULDER/`NODIAG`
 **`#pray`/`prayer_done`/`angrygods`** (D-0101), and
 **askname splash + ParanoidPray yn** (D-0102)
 clear shared peels. seed2200 RNG **full**; Scr **199**/230 (next:
-screen residual). seed0106 next `do_attack` @ 2639. seed0030 next
+screen residual). seed0106 next `kick_door`/`exercise` @ 2713
+(D-0103 cleared fake `do_attack` peel). seed0030 next
 `maybe_smudge_engr`. Healer seed0016 next `next_ident` @ 2493.
 Priest seed0501 still `wipeout_text`. seed0015/0200 next `lspo_map`.
 seed0101 next `next_ident`. seed0013 still breaks earlier in
@@ -193,18 +194,19 @@ autoopen `doopen_indir` (D-0059) + `mfndpos` BOULDER/`ALLOW_ROCK` +
 **post-fill `wallification`** (D-0100) +
 **dog_goal `gettrack`** (D-0099) +
 **`#pray`/`dopray`/`prayer_done`/`angrygods` 0–3** (D-0101) +
-**askname splash + ParanoidPray yn** (D-0102)
+**askname splash + ParanoidPray yn** (D-0102) +
+**`#chat`/`dochat`/`domonnoise` MS_BARK** (D-0103)
 **ported**. Nine public sessions pass end-to-end. **0/44** throw at
 `u_init_role`. seed0700 + seed1150 + seed0017 **PASS**. seed0106
-prefix **2639** (`do_attack`); seed2200 RNG **full** (Scr **199**/230).
+prefix **2713** (`kick_door`); seed2200 RNG **full** (Scr **199**/230).
 
-- **Bounded unit:** seed2200 post-help Scr 199 / seed0106 @ 2639
-  `do_attack` / seed0077 `player_selection` / seed0501/0105
+- **Bounded unit:** seed2200 post-help Scr 199 / seed0106 @ 2713
+  `kick_door` / seed0077 `player_selection` / seed0501/0105
   `wipeout_text` / seed0015/0200 `lspo_map` / seed0101 `next_ident` /
   seed0103 `next_ident`/`trquan` / seed0030 `maybe_smudge_engr` /
   seed0361/0373 **`getbones`** (blocked: need `^V`→`goto_level`→
   `makemaz` first).
-- **Prefer:** seed2200 Scr residual or seed0106 `do_attack` over
+- **Prefer:** seed0106 door kick or seed2200 Scr residual over
   parked D-0006.
 - **Named omissions:** Wizard/Priest/Healer `initialspell`; Knight/
   Samurai/Healer/Valkyrie/Ranger/Monk/Archeologist/Barbarian/Caveman
@@ -236,7 +238,8 @@ prefix **2639** (`do_attack`); seed2200 RNG **full** (Scr **199**/230).
   `egg_type_from_parent`; `^V`/`level_tele`/`goto_level`/`makemaz`;
   TIN `cnutrit`; interactive `o`/`doopen` getdir; `doopen_indir`
   `b_trapped`/autounlock/mapseen; `#levelchange` `losexp`; full
-  `extcmdlist`; `pluslvl` achievements/`newuexp`; takeoff `oc_delay`/
+  `extcmdlist` (`#chronicle`/`#conduct` still unknown); `pluslvl`
+  achievements/`newuexp`; takeoff `oc_delay`/
   occupation/magic helms/dragon/`A` takeoffall; dosearch0
   feel_location/mfind0/statue activate/SPFX_SEARCH; full `readobjnam`
   (fruits/traps/terrain/random/`o_ranges`); `#wizwish`; Ring_on
@@ -249,7 +252,8 @@ prefix **2639** (`do_attack`); seed2200 RNG **full** (Scr **199**/230).
   engraving glyphs / multi-turn dulling; prayer `in_trouble` body /
   `pleased`/crown/fix-trouble / angrygods 4+ / sacrifice / `#turn`;
   ParanoidConfirm "yes" getlin; `player_selection` / interactive
-  chargen beyond askname; …
+  chargen beyond askname; `#chat` other MS_*/shop/wall/priest/
+  `night()` howl; …
 - **Cohort:** green gate + seed1500 + seed1800 + seed0060 + seed0102
   + seed0700 + seed1150 + seed0017 (must stay PASS) + strict lengths.
 
@@ -538,6 +542,11 @@ Module status, constitutional debt, and named omissions live in
     public **9/44**; screens **599→718**; RNG **91965** unchanged;
     green cohort + seed0017 PASS; next seed2200 Scr 199 /
     seed0106 @ 2639 / seed0077 `player_selection`
+85. `#chat`/`dochat`/`domonnoise` MS_BARK (D-0103) — seed0106
+    prefix **2639→2713** (`kick_door`); aggregate RNG
+    **91965→91887**; screens **718**; green cohort PASS; next
+    seed0106 @ 2713 door kick / seed2200 Scr 199 /
+    seed0077 `player_selection`
 
 Next work is selected from the active objectives above using
 `PORTING-RUNBOOK.md`, not by extending this historical list.
