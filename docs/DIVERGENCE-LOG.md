@@ -213,6 +213,8 @@ Do not record a guessed cause as fixed merely because an RNG prefix moved.
 | D-0207 | fixed | mimic attack | stumble_onto_mimic object_from_map next_ident; seg1 7007→7189 |
 | D-0208 | fixed | dosounds vault | gd_sound rn2(2)+hallu; seg1 7189→full 7640; next seg2 somey |
 | D-0209 | fixed | make_grave epitaph | EPITAPHFILE get_rnd_text; seg2 1272→2217 |
+| D-0210 | fixed | elf Instrument | eager ROLL_FROM before trquan; seg2 2217→2408 |
+| D-0211 | open | dog_move mfndpos | extra rn2(12); C skips SW diagonal; need typ/region |
 
 D-0001 through D-0005 predate the strict-length/cohort runbook. Their focused
 causes are preserved, but generic "green sessions held" is historical evidence,
@@ -5696,3 +5698,33 @@ cohort gates if those functions are touched again.
   Instrument construction.
 - **Next:** seed0030 seg2 @2408 C `distfleeck` vs JS `dog_move`; or
   seed0103 `next_ident`/`trquan`.
+
+## D-0211 — dog_move extra mfndpos candidate (seed0030 seg2 @2408)
+
+- **Status:** open
+- **Symptom:** seed0030 seg2 @2408 C `rn2(5)=3 @ distfleeck(monmove.c:538)`
+  vs JS `rn2(12)=7` — after matched `obj_resists`×3 then six matched
+  `dog_move` `rn2(12)` (indices 2402–2407).
+- **Rejected:** actor-order / extra `dochug` / Instrument leftover —
+  enter/exit DIAG shows one kitten `dog_move` (mnum=32 PM_KITTEN) at
+  (73,7), `appr=1`, `whappr=0`, `gg=(68,6)`, `udist=26`.
+- **Evidence:** JS `mfndpos` cnt=**8** (all eight ROOM neighbors, no
+  trap/obj/mon). Loop: one better cell `(72,6)` (no RNG) then **7×**
+  `rn2(12)`; C only **6×** then fleeck→`mcalcmove`×5→EOT. FORCE-omit
+  SW diagonal `(72,8)` (diagnostic only) makes `rn2(12)=0` accept
+  `(73,6)` instead of `(72,8)` and advances prefix **2408→2457**.
+  Omitting a later worse cell while still accepting `(72,8)` only
+  reaches **2421**. So C does not treat `(72,8)` as a selectable
+  candidate (or skips it before selection RNG).
+- **Open cause:** JS terrain at `(72,8)` is ROOM; squeeze
+  (`bad_rock`+`cant_squeeze_thru`) does not fire for small kitten;
+  no gas RNG provenance in the session. Missing C `mfndpos` gates
+  still include pool/lava wrapper, IRONBARS, waterwall, diagonal
+  squeeze helpers, and poison-gas `visible_region_at` (named in
+  C-JS-MAP). Need C `poss[]` / `levl[].typ` / region dump, or port
+  gas-region gate.
+- **Change:** none (diagnosis only; no production FORCE).
+- **Verification:** seg2 still **2408**; green+strict PASS; JS restored
+  clean.
+- **Next:** C-state falsifier for `(72,8)` / port `visible_region_at`
+  poison-gas skip in `mfndpos`; or seed0103 `next_ident`/`trquan`.

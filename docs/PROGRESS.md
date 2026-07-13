@@ -462,19 +462,21 @@ autoopen `doopen_indir` (D-0059) + `mfndpos` BOULDER/`ALLOW_ROCK` +
 **`stumble_onto_mimic`/`object_from_map` next_ident** (D-0207)
 **vault `gd_sound`/`rn2(2)+hallu`** (D-0208)
 **`make_grave`/`get_rnd_text(EPITAPHFILE)`** (D-0209)
-**elf Instrument eager `ROLL_FROM` before `ini_inv`/`trquan`** (D-0210)
-**ported**. Seventeen public sessions pass end-to-end. **0/44** throw at
+**elf Instrument eager `ROLL_FROM`** (D-0210)
+**ported**; **dog_move extra mfndpos candidate** (D-0211) **open**. Seventeen
+public sessions pass end-to-end. **0/44** throw at
 `u_init_role`. seed0700 + seed1150 + seed0017 + seed0077 + seed0106 +
 seed0501 + seed0105 + seed0016 + seed0015 + seed0200 + seed0101 **PASS**. seed2200 RNG **full**
 (Scr **229**/230; sole miss parked RC @158).
 seed0101 RNG **full** Scr **27**/27.
 
-- **Bounded unit:** seed0030 seg2 @2408 (C `distfleeck` vs JS `dog_move`
-  after D-0210) / seed0103 `next_ident`/`trquan` /
+- **Bounded unit:** seed0030 seg2 @2408 (D-0211: C excludes SW diagonal
+  from kitten `mfndpos` / selection — need typ·region falsifier or
+  `visible_region_at` gas gate) / seed0103 `next_ident`/`trquan` /
   seed0361/0373 **quest `getbones`** (blocked: need `^V`→`goto_level`→
   `makemaz` first — ordinary `goto_level` now exists for stairs; Mines
   `fill_lvl` path exists D-0171).
-- **Prefer:** seed0030 seg2 peel after D-0210 over parked
+- **Prefer:** D-0211 C-state/`mfndpos` gas-region prerequisite over parked
   D-0006 and over baking seed2200 RC paths.
   Hero `dotrap` deferred until monster pit peel is clear.
   Hero `xkilled` treasure `mkobj` still deferred (ordinary `make_corpse`
@@ -585,6 +587,8 @@ seed0101 RNG **full** Scr **27**/27.
   epitaph done D-0209);
   **lazy `trotyp()` ROLL_FROM after `trquan`** (eager Instrument pick
   done D-0210);
+  **`mfndpos` SW-diagonal skip @ pet dog_move** (D-0211 open — poison-gas
+  `visible_region_at` / C typ falsifier);
   …
 - **Cohort:** green gate + seed1500 + seed1800 + seed0060 + seed0102
   + seed0700 + seed1150 + seed0017 + seed0077 + seed0106 + seed0501

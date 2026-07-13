@@ -8,13 +8,15 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 ## Active
 
 - **Current unit:** seed0030 seg2 @2408 / seed0103 `next_ident`/`trquan`.
-- **Hypothesis (seed0030 seg2):** @2408 C `rn2(5) @ distfleeck` vs JS
-  `rn2(12) @ dog_move` — after matched Wizard-elf init, JS still has one
-  more pet `dog_move` mfndpos loop while C already reached fleeck for
-  the next actor (count/actor-order drift, not Instrument RNG).
-- **Falsifier:** compare pet/hostile actor list and movement allotment
-  around seg2 index 2400–2415; confirm whether an extra `dochug`/`dog_move`
-  or a skipped fleeck gate is the split.
+- **Hypothesis (D-0211):** same kitten `dog_move` — JS `mfndpos` cnt=8 (all
+  ROOM neighbors) burns 7× `rn2(12)`; C burns 6× then `distfleeck`. C does
+  not select SW diagonal `(pet.mx-1, pet.my+1)` (here `(72,8)`): FORCE-omit
+  that cell → accept `(73,6)` → prefix **2457**. Open floor; no trap/obj/mon/
+  engraving in JS. Likely missing `mfndpos` gate (poison-gas
+  `visible_region_at`, or C typ≠ROOM at that cell).
+- **Falsifier:** C dump of `mfndpos` poss[] / `levl[72][8].typ` /
+  `visible_region_at(72,8)` at this dog_move; or port gas-region gate and
+  re-diff seg2 @2408.
 - **Parked deep canary:** D-0006 pet movement — do not implement until C
   state/candidate capture exists.
 - **Parked seed2200 @158:** RC config path — harness `$HOME`, not a port bug.
@@ -179,6 +181,11 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   `trquan`); JS deferred `rn2(6)` inside lazy `trotyp()` after `trquan`
   so order was `rn2(1)` then `rn2(6)` (D-0210). Do not re-chase orc
   `Xtra_food` for Wizard-elf.
+- **seed0030 seg2 @2408 was NOT actor-order / extra dochug** — same
+  kitten `dog_move` after matched `obj_resists`×3; JS one extra
+  `rn2(12)` vs C fleeck (D-0211). Do not re-chase fleeck/mcalcmove
+  allotment for that index. Do not FORCE-omit cells by recorded coords
+  in production.
 - **`monattk.h`: AT_WEAP=254, AT_MAGC=255, AT_SPIT=10** — never use 10 for
   weapon (D-0179).
 - Hostile `m_move`: before place, `m_digweapon_check` may return
@@ -280,3 +287,5 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   may mis-attribute pointer-`rn2` calls to an unrelated `rn2` site.
 - **Elf Instrument:** `ROLL_FROM(trotyp)` is eager at array construction
   (before `ini_inv`/`trquan`); lazy `trotyp()` reorders RNG (D-0210).
+- **Pet `dog_move` selection `rn2(12)`:** each worse `mfndpos` candidate
+  with `appr!=0 && !whappr` (D-0211). Extra candidate ⇒ fleeck arity split.

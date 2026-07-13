@@ -2727,3 +2727,16 @@ Use this shape:
   **17/44** Scr **1315** RNG **147858**.
 - Next: seed0030 seg2 @2408 C `distfleeck` vs JS `dog_move`; or
   seed0103 `next_ident`/`trquan`.
+
+## 2026-07-14 01:10 — D-0211 dog_move extra mfndpos candidate
+- Objective: seed0030 seg2 @2408 C `distfleeck` vs JS `dog_move`
+  (PROGRESS primary after D-0210).
+- C locus: `dogmove.c:dog_move` selection `rn2(12)`; `mon.c:mfndpos`.
+- Result: **falsified** actor-order/extra-dochug — same kitten
+  `dog_move`, JS cnt=8 burns 7×`rn2(12)`, C 6× then fleeck. C skips
+  SW diagonal (here `(72,8)`): diagnostic omit → accept `(73,6)` →
+  prefix **2457**. Open ROOM in JS; squeeze N/A for kitten; no gas
+  provenance. No production change.
+- Verification: seg2 still **2408**; green+strict PASS; DIAG removed.
+- Next: C `mfndpos` poss/typ/region dump at this call, or port
+  `visible_region_at` poison-gas skip; or seed0103 `next_ident`.
