@@ -19,6 +19,20 @@ Use this shape:
 
 ---
 
+## 2026-07-13 15:55 — `_` / dotravel (D-0153)
+- Objective: seed0101 `_` travel unbound @2302 (PROGRESS primary).
+- C locus: `cmd.c` `dotravel`/`dotravel_target`; `getpos.c` tip
+  PICK_NONE + force unknown-dir; `hack.c` `findtravelpath` adjacent/
+  continue.
+- Result: **verified** — unbound `_` desynced tip/`E`/`-`/getpos cancel;
+  searches never aligned. Ported dotravel + tip loop + force unknown
+  pline + adjacent/greedy travel step.
+- Verification: seed0101 prefix **2302→2309** Scr **10→21**/27;
+  green+strict PASS; cohort PASS; full **13/44** Scr **1293** RNG
+  **126947**/792838.
+- Next: seed0101 `set_apparxy` rn2(4) vs rn2(5) @2309, or seed0016
+  eat `next_ident` @2493 / seed0015 Scr @21.
+
 ## 2026-07-13 15:52 — Q / doquiver_core (D-0152)
 - Objective: seed0101 @2293 `next_ident` (PROGRESS prefer shared).
 - C locus: `wield.c` `dowieldquiver`/`doquiver_core`; `dothrow.c`

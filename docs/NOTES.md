@@ -7,16 +7,17 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 
 ## Active
 
-- **Current unit:** D-0152 cleared seed0101 `Q`/`doquiver_core` → throw
-  `next_ident`/`obj_resists`. Prefix **2302**/2371; Scr **10**/27.
-- **Hypothesis / next:** seed0101 `_` travel unbound @2302
-  (`distfleeck` vs missing) / seed0015 Scr @21 /
+- **Current unit:** D-0153 cleared seed0101 `_`/`dotravel` cancel + tip
+  PICK_NONE. Prefix **2302→2309**; Scr **10→21**/27.
+- **Hypothesis / next:** seed0101 @2309 `set_apparxy` C `rn2(4)` vs JS
+  `rn2(5)` during search monster turns / seed0015 Scr @21 /
   seed0016 eat-stack `next_ident` @2493 / seed0030 `maybe_smudge_engr`.
-  Prefer shared travel or eat-split over baking seed0015 screens alone.
+  Prefer `set_apparxy` NODIAG/`xdir` envelope or eat-split over baking
+  seed0015 screens alone.
 - **Falsifier / next:**
   ```bash
   node scripts/rng-diff.mjs sessions/seed0101-ranger-quiver-throw-travel-engrave.session.json
-  # expect dotravel / getpos vs missing after throw
+  # expect set_apparxy rn2(4) match (or prove JS 8-dir when C uses 4)
   node scripts/rng-diff.mjs sessions/seed0016-healer-newmoon-eat-zap.session.json
   # expect next_ident vs JS mcalcmove (eat split)
   ```
@@ -210,9 +211,15 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   unbound so `Qbytdl` never reached quiver→throw; C `doquiver_core`
   readies uswapwep bow then hand-throw splits arrows (D-0152). Do not
   invent mkobj stubs from rng-diff without reading keys/screens.
+- **seed0101 @2302 was NOT search/`set_apparxy` first** — `_` was
+  unbound so keys desynced through tip/`E`/`-`/getpos; C `dotravel`→
+  getpos tip PICK_NONE then cancel (D-0153). Tip must stay open for
+  non-dismiss keys.
 
 ## Landmarks
 
+- `_` → `dotravel` → pline Where → getpos(force) tip PICK_NONE →
+  destination / ESC cancel; `#travel` same (D-0153).
 - `Q` → `doquiver_core("ready")`; uswapwep bow → ynq → `setuqwep`;
   throw ammo without launcher → hand-throw pline + half range (D-0152).
 - Hostile `m_move` must `postmov`→`mintrap`→`mon_learns_traps`;

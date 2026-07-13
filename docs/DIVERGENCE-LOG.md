@@ -4068,10 +4068,39 @@ cohort gates if those functions are touched again.
   **4→10**/27; green+strict PASS; cohort PASS; full **13/44** Scr
   **1282** RNG **126936**/792838.
 - **Named omission:** count-split `finish_splitting`/`unsplitobj`;
-  `Shk_Your` decline plines; AutoReturn/`find_launcher`/polearm;
-  travel `_`/`dotravel`.
+  `Shk_Your` decline plines; AutoReturn/`find_launcher`/polearm.
 - **Lesson:** seed0101 “next_ident” was command desync from missing
   `Q`, not a mkobj bug — read session keys/screens before inventing
   object-creation stubs.
-- **Next:** seed0015 Scr @21 / seed0101 `next_ident` @2293 /
-  seed0030 `maybe_smudge_engr` @6732.
+- **Next:** seed0101 `_` travel @2302 / seed0015 Scr @21 /
+  seed0016 eat `next_ident` @2493.
+
+## D-0153 — `_` / dotravel cancel + getpos tip PICK_NONE (seed0101)
+
+- **Status:** fixed
+- **Observed:** seed0101 @2302 C `distfleeck` vs JS missing after throw;
+  Scr 10/27 (Unknown command `_`).
+- **Rejected:** search/`set_apparxy` as the first peel — keys `_` ESC
+  `E` `-` ESC were travel getpos tip, not engrave; unbound `_` desynced
+  the rest so searches never matched C RNG.
+- **C locus:** `cmd.c` `dotravel`/`dotravel_target`; `getpos.c` `getpos`
+  force unknown-direction; `hack.c` `handle_tip(TIP_GETPOS)` →
+  nhcore `show_getpos_tip` PICK_NONE; `hack.c` `findtravelpath` adjacent
+  + travel continue.
+- **Cause:** JS lacked `_`/`dotravel`. Tip menu consumed one key then
+  closed (C stays open for non-dismiss keys). Session cancels travel
+  after tip; later `s`/`s`/`:` need keys in sync.
+- **Change:** `dotravel`/`dotravel_target` + greedy/adjacent
+  `findtravelpath_travel`; bind `_` + `#travel`; tip PICK_NONE loop;
+  getpos force unknown-direction pline; `end_running` clears travel;
+  `continue_run` recomputes travel steps.
+- **Verification:** seed0101 prefix **2302→2309** (`set_apparxy`);
+  Scr **10→21**/27; green+strict PASS; cohort PASS; full **13/44**
+  Scr **1293** RNG **126947**/792838.
+- **Named omission:** full `TEST_TRAV`/`TRAVP_GUESS`/`travelmap`/
+  boulder-door delay; `getpos_menu`; `#retravel`; crawl_destination /
+  NODIAG travel gates.
+- **Lesson:** after a timed command, read the next keys/screens before
+  peeling monster RNG — unbound `_` looked like a missing `distfleeck`.
+- **Next:** seed0101 `set_apparxy` @2309 / seed0015 Scr @21 /
+  seed0016 eat `next_ident` @2493.
