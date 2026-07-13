@@ -19,13 +19,20 @@ Use this shape:
 
 ---
 
----
-
----
-
----
-
----
+## 2026-07-13 07:15 — seed0017 (30,4) writer diagnosis (D-0099)
+- Objective: seed0017 @ 3132 missing mfndpos neighbour (PROGRESS primary).
+- C locus: `mklev.c` `do_room`/`dosdoor`/`dig_corridor`; symptom
+  `dog_move`/`mfndpos` cnt at (30,5).
+- Result: **falsified / refined** — no production change. Confirmed
+  pet/goal/whappr; JS `(30,4)` only STONE→VWALL once; only
+  `dosdoor(30,5)` on west wall; probe matrix (30,4)/(31,6)→3142 with
+  (31,6) false positive (C HWALL `q`); (30,6) solid on C screen;
+  RNG match through mklev rules out extra door/dig `rn2`.
+- Verification: green+strict preflight PASS; focused rng-diff still
+  **3132**; DIAG removed (checkout).
+- Next: C typ dump of `levl[30][4]` after mklev, or compare JS stub
+  vs C `themerooms_post_level_generate` / theme map side effects —
+  `node scripts/rng-diff.mjs sessions/seed0017-samurai-altar-pray.session.json`
 
 ## 2026-07-13 06:58 — dog_move mtrack nxti + seed0017 (30,4) diag
 - C locus: `dogmove.c` `dog_move` mtrack → `goto nxti`; symptom

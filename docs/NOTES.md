@@ -8,16 +8,19 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 ## Active
 
 - **Current unit:** seed0017 @ 3132 — missing walkable map **(30,4)**
-  (D-0099). D-0098 mtrack `nxti` fixed (inactive here: `distminU=3`).
-- **Hypothesis:** C has non-obstructed typ at (30,4) (likely DOOR/
-  ROOM/CORR); JS keeps VWALL from `do_room` through finalize. Pet on
-  west door (30,5); room lx=31 matches C create_room RNG.
-- **Falsifier:**
+  (D-0099). Pet (30,5) D_NODOOR, goal hero, whappr=0, cnt=4.
+- **Hypothesis:** C `levl[30][4].typ` is non-`IS_OBSTRUCTED` (likely
+  DOOR); JS only ever sets STONE→VWALL in `do_room` and never
+  `dosdoor(30,4)`. Full RNG match through mklev⇒3132 implies no extra
+  `dosdoor`/`dig` RNG in C either — writer is non-RNG or finddpos
+  geometry differs without call-count drift (needs C typ dump).
+- **Falsifier / next:**
   ```bash
   node scripts/rng-diff.mjs sessions/seed0017-samurai-altar-pray.session.json
   ```
-  Find C writer of (30,4); probe-only walkable (30,4) moved prefix to
-  3142 — do not ship probes.
+  Instrument C `levl[30][4].typ` after mklev, or diff JS vs C
+  `themerooms_post_level_generate` / theme `des.map` side effects.
+  Do not ship mfndpos probes.
 - **Parked deep canary:** D-0006 pet movement — do not implement until C
   state/candidate capture exists.
 
@@ -118,8 +121,12 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   col 31 ≡ JS map (32,3); “east door col 35” is screen for map 36
   (D-0092/93/99).
 - **seed0017 (30,4) is the missing mfndpos neighbour** — probe-only
-  walkable extends 3132→3142; (29,4) probe regresses (D-0099). JS
-  never `dosdoor(30,4)`; typ stays VWALL all mklev.
+  walkable extends 3132→3142; (29,4)→3130; (30,6)→3075; (31,6) also
+  →3142 but C screen shows HWALL `q` there (false positive). JS
+  never `dosdoor(30,4)`; typ STONE→VWALL once in `do_room` only.
+- **(30,6) is solid in C** — blank even with hero at (29,6) cardinal;
+  not the missing candidate. (30,4) blank from (29,5) is OK (diagonal
+  through stone (29,4)).
 - seed1150 @ 3032 was **not** missing `f` binding — getdir saw a
   space that C used for pet-drop `--More--` because JS
   `getdir`/`yn_function` skipped `more()` on `TOPLINE_NEED_MORE`

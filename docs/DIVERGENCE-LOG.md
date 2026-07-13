@@ -2632,24 +2632,32 @@ cohort gates if those functions are touched again.
 - **Status:** open (diagnosed; terrain writer unknown)
 - **Observed:** seed0017 @ **3132**: C 3× `rn2(12)` @ `dog_move:1257`
   vs JS 2× then `rn2(5)` `distfleeck`. Pet map **(30,5)** D_NODOOR,
-  hero **(29,8)**, `appr=1`, `mfndpos` cnt=4:
-  `(29,5)(29,6)(31,4)(31,5)`. C needs a fifth candidate in scan order
-  between the corridor cells and the room cells.
-- **Probe:** treating map **(30,4)** as walkable in `mfndpos` only →
-  cnt=5, prefix **3132→3142** (then `dog_goal` `rn2(8)` vs `rn2(3)`).
-  Probing **(29,4)** instead → worse (early `rn2(3)` at origin).
-- **Geometry:** room `lx=31,hx=35,ly=3,hy=5` matches C `create_room`
-  RNG (`xabs=31`). West door only at **(30,5)**; **(30,4)** stays
-  VWALL through makerooms/corridors/niches/fill/finalize. No second
-  `dosdoor(30,4)`. Display `setCell(x-1)`: C screen fountain col 31
-  ≡ JS map (32,3). Prior “room x-shift” / “C east door 35” readings
-  were screen cols, not map (D-0092/93).
-- **Rejected:** room x-shift; pool at (30,4); mtrack/nxti on this peel
-  (`distminU=3`); missing `(29,4)` CORR; `in_mk_themerooms` alone.
-- **C implication:** map (30,4) is non-`IS_OBSTRUCTED` in C (DOOR/
-  ROOM/CORR). Screen stays blank even with hero at (29,5) — diagonal
-  vision blocked by stone (29,4) is consistent with an unseen doorway.
-- **Next falsifier:** find C writer of (30,4) typ (compare
-  dig_corridor cell path / join door picks vs JS, or instrument
-  recorder). Do not ship map-coordinate probes.
+  hero/goal **(29,8)**, `appr=1`, `whappr=0`, `mfndpos` cnt=4:
+  `(29,5)(29,6)(31,4)(31,5)`. With goal=hero, those four yield only
+  2× farther `rn2(12)`; a fifth farther neighbour in scan order
+  (between corr and room cells) yields the third.
+- **Probe matrix (mfndpos-only, do not ship):**
+  - **(30,4)** walkable → prefix **3132→3142**
+  - **(31,6)** walkable → also **3142** (same 3× `rn2(12)` count) but
+    C screen glyph is HWALL `q` — false positive
+  - **(29,4)** → **3130** (worse); **(30,6)** → **3075** (worse);
+    **(30,3)/(31,3)** → **3132** (no change)
+- **JS writer trace:** `(30,4)` typ changes **once**: STONE→VWALL in
+  `do_room_or_subroom`; never touched by `dig_corridor`/`dosdoor`/
+  niches/fill/finalize. Only west-wall `dosdoor` is **(30,5)** DOOR.
+- **C screen:** `(30,4)` stays blank even with hero at **(29,5)** —
+  diagonal through stone **(29,4)** (consistent with unseen doorway).
+  **(30,6)** stays blank with hero at **(29,6)** cardinal → solid in
+  C (not the missing cell). Fountain screen col 31 ≡ map **(32,3)**
+  via `setCell(x-1)`; room `lx=31` matches.
+- **RNG tension:** prefix matches through mklev into this peel, so C
+  cannot have burned an extra `dosdoor`/`dig` `rn2` that JS skipped.
+  `finddpos`+`bydoor` also blocks adjacent west-wall doors. Writer is
+  therefore non-RNG, or a geometry path that preserves call counts.
+- **Rejected:** room x-shift; pool at (30,4); mtrack/nxti
+  (`distminU=3`); `(29,4)` CORR; `(30,6)` walkable; `(31,6)` walkable;
+  `in_mk_themerooms` alone; little-dog dig/`ALLOW_DIG` (no `M1_TUNNEL`).
+- **Next falsifier:** C-side dump of `levl[30][4].typ` after mklev, or
+  compare `themerooms_post_level_generate` / theme `des.map` effects
+  JS stubs out. Do not ship map-coordinate probes.
 
