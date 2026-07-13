@@ -194,6 +194,7 @@ Do not record a guessed cause as fixed merely because an RNG prefix moved.
 | D-0188 | fixed | uhitm.c passive | `hitum`→`passive` live `rn2(3)` even for NO_ATTK |
 | D-0189 | fixed | weapon.c dmgval | extract `oc_wsdam`/`oc_wldam`; drop stand-in default 1 |
 | D-0190 | fixed | end/bones death | `mdamageu`→`done_in_by`/`can_make_bones`; stop post-death RNG |
+| D-0191 | fixed | mon.c xkilled corpse | `xkilled`→`make_corpse` when `corpse_chance` (not burn-only) |
 
 D-0001 through D-0005 predate the strict-length/cohort runbook. Their focused
 causes are preserved, but generic "green sessions held" is historical evidence,
@@ -5189,4 +5190,28 @@ cohort gates if those functions are touched again.
   `losehp`→`done(DIED)` path; killer/`ugrave_arise` detail.
 - **Next:** seed0200 @3387 `xkilled`/`next_ident`; or seed0030 multi-
   segment / disclosure Scr; or seed0101 Scr residual.
+
+## D-0191 — xkilled → make_corpse when corpse_chance (seed0200 @3387)
+
+- **Status:** fixed
+- **Observed:** seed0200 index **3387** — after matched
+  `xkilled`/`corpse_chance` (`rn2(6)=3`, `rn2(2)=0`), C
+  `rnd(2)=2 @ next_ident(mkobj.c:521)`; JS `rn2(12)`.
+- **C locus:** `mon.c` `xkilled` → `corpse_chance` → `make_corpse` →
+  `mkcorpstat`/`mksobj` `next_ident`.
+- **Cause/evidence:** JS `xkilled` burned `corpse_chance` but never
+  called `make_corpse` (comment said deferred). Treasure `!rn2(6)` was
+  false here (`=3`); corpse chance succeeded → C created ordinary
+  corpse via existing `make_corpse` default_1 path.
+- **Change:** export `make_corpse` from `js/mhitm.js`; `js/uhitm.js`
+  `xkilled` calls it when `corpse_chance` returns true.
+- **Verification:** seed0200 prefix **3387→3547** (`distfleeck` vs
+  JS `rn2(2)`); positional **3574**/3822 Scr **22**/40; full **15/44**
+  Scr **1288** RNG **137724**; green+cohort+strict PASS.
+- **Named omissions:** `mkobj(RANDOM_CLASS)` treasure body;
+  `LEVEL_SPECIFIC_NOCORPSE`; `accessible`/`is_pool` gate; wasinside/
+  burycorpse/zombify; murder/peaceful luck `rn2`; dragon/unicorn/golem
+  corpse specials (shared with mhitm/trap `make_corpse`).
+- **Next:** seed0200 @3547 `distfleeck`; or seed0030 disclosure·seg1;
+  or seed0101 Scr residual.
 

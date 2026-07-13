@@ -176,7 +176,7 @@ function corpse_chance(mon) {
 // C ref: mon.c make_corpse default_1 — ordinary corpse via mkcorpstat
 // Named omission: dragon scales/unicorn horn/worm tooth/undead specials;
 // accessible||is_pool gate deferred (trap path same); save_mtraits deferred.
-function make_corpse(mtmp) {
+export function make_corpse(mtmp) {
     const mdat = mtmp.data;
     const mndx = mtmp.mnum ?? mdat?.mndx;
     const x = mtmp.mx, y = mtmp.my;

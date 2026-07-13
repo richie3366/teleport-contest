@@ -2480,3 +2480,17 @@ Use this shape:
   @3387.
 - Next: seed0030 @14299 hero death/`mdamageu`/`done` after matched kill
   blow; or seed0200 @3387 `xkilled`/`next_ident`; or seed0101 Scr.
+
+## 2026-07-13 22:45 — D-0191 xkilled make_corpse fixed
+- Objective: seed0200 @3387 C `next_ident` vs JS `rn2(12)` after matched
+  `corpse_chance` (PROGRESS primary).
+- C locus: `mon.c` `xkilled` → `corpse_chance` → `make_corpse` →
+  `mkcorpstat`/`mksobj` `next_ident`.
+- Result: **fixed** — JS burned `corpse_chance` without calling
+  `make_corpse`. Wired existing `make_corpse` (exported from mhitm)
+  into `xkilled` when chance succeeds. Treasure `mkobj` still deferred.
+- Verification: seed0200 prefix **3387→3547** (`distfleeck`); positional
+  **3574**/3822 Scr **22**/40; full **15/44** Scr **1288** RNG
+  **137724**; green+cohort+strict PASS.
+- Next: seed0200 @3547 `distfleeck`; or seed0030 disclosure·seg1; or
+  seed0101 Scr residual.
