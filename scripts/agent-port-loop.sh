@@ -344,14 +344,18 @@ NODE
   fi
   tee -a "$MASTER_LOG" <"$iter_log" >/dev/null
 
-  # Only treat structured tool failures as denials — never scan Read/file
-  # contents (docs often say "Shell rejected" / "rejected hypotheses").
+  # Tool-approval denials only. Ordinary shell failures often contain
+  # "permission denied" (OS) and must not abort the loop under set -e.
   if [[ "$OUTPUT_FORMAT" == "stream-json" ]] || [[ "$OUTPUT_FORMAT" == "json" ]]; then
+    set +e
     deny_report="$(node --input-type=module - "$iter_raw" <<'NODE'
 import { readFileSync } from 'node:fs';
 const raw = readFileSync(process.argv[2], 'utf8');
 const denials = [];
 const stats = { started: 0, completed: 0, ok: 0, err: 0 };
+// Approval/UI denials only — not OS "permission denied" in shell stderr.
+const approvalRe =
+  /rejected by user|requires approval|not approved|tool call was rejected|Shell call was rejected|approval required|tools? were rejected/i;
 for (const line of raw.split(/\r?\n/)) {
   if (!line.trim()) continue;
   let ev;
@@ -366,19 +370,25 @@ for (const line of raw.split(/\r?\n/)) {
   if (!result) continue;
   if (result.success) { stats.ok++; continue; }
   stats.err++;
-  const errBlob = JSON.stringify(result.error ?? result.failure ?? result);
-  if (/denied|rejected by user|requires approval|not approved|permission denied|tool call was rejected|Shell call was rejected/i.test(errBlob)) {
+  const errObj = result.error ?? result.failure ?? result;
+  // Shell/OS failures include exitCode; those are not approval denials.
+  if (errObj && typeof errObj === 'object' && ('exitCode' in errObj || 'signal' in errObj)) {
+    continue;
+  }
+  const errBlob = JSON.stringify(errObj);
+  if (approvalRe.test(errBlob)) {
     denials.push(`${key}: ${errBlob.slice(0, 180)}`);
   }
 }
+console.error(`tools ok=${stats.ok} err=${stats.err} completed=${stats.completed}/${stats.started}`);
 if (denials.length) {
   console.log(denials.join('\n'));
   process.exit(2);
 }
-console.error(`tools ok=${stats.ok} err=${stats.err} completed=${stats.completed}/${stats.started}`);
 NODE
 )"
     deny_status=$?
+    set -e
     if [[ "$deny_status" -eq 2 ]]; then
       echo "warning: structured tool denial(s) in agent stream (continuing):" \
         | tee -a "$MASTER_LOG"
