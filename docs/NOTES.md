@@ -7,19 +7,20 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 
 ## Active
 
-- **Current unit:** D-0153 cleared seed0101 `_`/`dotravel` cancel + tip
-  PICK_NONE. Prefix **2302→2309**; Scr **10→21**/27.
-- **Hypothesis / next:** seed0101 @2309 `set_apparxy` C `rn2(4)` vs JS
-  `rn2(5)` during search monster turns / seed0015 Scr @21 /
-  seed0016 eat-stack `next_ident` @2493 / seed0030 `maybe_smudge_engr`.
-  Prefer `set_apparxy` NODIAG/`xdir` envelope or eat-split over baking
-  seed0015 screens alone.
+- **Current unit:** D-0154 cleared seed0101 `set_apparxy` Displacement —
+  C `rn2(4)` vs stub that skipped RNG. seed0101 RNG **full** (2371/2371);
+  Scr still **21**/27.
+- **Hypothesis / next:** seed0016 eat-stack `next_ident` @2493 (C
+  `rnd(2)` vs JS `rn2(12)` `mcalcmove`) / seed0015 Scr @21 /
+  seed0030 `maybe_smudge_engr` @6732 / seed0101 Scr residual.
+  Prefer eat-split `next_ident` or seed0015 screen peel over parked
+  D-0006 and over baking seed0101 Scr alone.
 - **Falsifier / next:**
   ```bash
-  node scripts/rng-diff.mjs sessions/seed0101-ranger-quiver-throw-travel-engrave.session.json
-  # expect set_apparxy rn2(4) match (or prove JS 8-dir when C uses 4)
   node scripts/rng-diff.mjs sessions/seed0016-healer-newmoon-eat-zap.session.json
-  # expect next_ident vs JS mcalcmove (eat split)
+  # expect next_ident match (or prove JS eats/split before mcalcmove)
+  node frozen/ps_test_runner.mjs sessions/seed0015-valk-level2-pit-dog-wait.session.json
+  # expect Scr >21 or named first cell mismatch
   ```
 - **Parked deep canary:** D-0006 pet movement — do not implement until C
   state/candidate capture exists.
@@ -215,9 +216,17 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   unbound so keys desynced through tip/`E`/`-`/getpos; C `dotravel`→
   getpos tip PICK_NONE then cancel (D-0153). Tip must stay open for
   non-dismiss keys.
+- **seed0101 @2309 was NOT NODIAG/`xdir` 4-vs-8** — C `set_apparxy`
+  Displacement `!rn2(4)` (Ranger cloak); JS stub always set mux=hero
+  with no RNG so next call was `distfleeck` `rn2(5)` (D-0154). Do not
+  invent 4-dir movement from arity alone.
 
 ## Landmarks
 
+- `set_apparxy`: pet/ustuck/`u_at(mux,muy)` early-exit; else
+  Displaced→`rn2(4)` / Invis→`rn2(3)` then optional displace loop
+  `rn2(2*displ+1)` (D-0154). Cloak otyp stands in for EDisplaced until
+  `oc_oprop`/`setworn` props.
 - `_` → `dotravel` → pline Where → getpos(force) tip PICK_NONE →
   destination / ESC cancel; `#travel` same (D-0153).
 - `Q` → `doquiver_core("ready")`; uswapwep bow → ynq → `setuqwep`;

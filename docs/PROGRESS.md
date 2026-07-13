@@ -39,7 +39,7 @@ frozen-file overlay):
 |--------|------:|
 | Sessions passing | **13 / 44** |
 | Screens matched | **1293 / 11,405** (11.34%) |
-| Positional RNG calls matched | **126,947 / 792,838** (16.01%) |
+| Positional RNG calls matched | **127,004 / 792,838** (16.02%) |
 | Speed label | `19+0.08/turn` |
 | Working-tree base | `8b71735` + committed port (see `main`) |
 | Role-init throws | **0 / 44** (`u_init_role: role not ported`) |
@@ -67,7 +67,7 @@ shared blockers, and semantic coverage together—not one vanity metric.
 | `seed0030-ten-diverse-deaths` | **7060 / 105529** | **109 / 1953** |
 | `seed0103-knight-ride-pony` | **2344 / 2640** | 2 / 60 |
 | `seed0200-monk-north-search` | **3385 / 3822** | **14 / 40** |
-| `seed0101-ranger-quiver-throw-travel-engrave` | **2314 / 2371** | **21 / 27** |
+| `seed0101-ranger-quiver-throw-travel-engrave` | **2371 / 2371** | **21 / 27** |
 | `seed0016-healer-newmoon-eat-zap` | **2544 / 3656** | **6 / 36** |
 | `seed0107-samurai-twoweapon-enhance` | **2684 / 2902** | **36 / 98** |
 | `seed0104-knight-ride-combat` | **2394 / 3223** | 1 / 43 |
@@ -310,20 +310,22 @@ autoopen `doopen_indir` (D-0059) + `mfndpos` BOULDER/`ALLOW_ROCK` +
 **hostile `postmov`/`mon_learns_traps`/`mfndpos` known-trap** (D-0151)
 **`Q`/`doquiver_core` uswapwep ready + hand-throw** (D-0152)
 **`_`/`dotravel` cancel + tip PICK_NONE** (D-0153)
+**`set_apparxy` Displacement/`Invis`** (D-0154)
 **ported**. Thirteen public sessions pass end-to-end. **0/44** throw at
 `u_init_role`. seed0700 + seed1150 + seed0017 + seed0077 + seed0106 +
 seed0501 + seed0105 **PASS**. seed2200 RNG **full** (Scr **229**/230; sole
 miss parked RC @158). seed0015 RNG **full** (Scr **21**/44).
-seed0101 prefix **2309**/2371 Scr **21**/27.
+seed0101 RNG **full** Scr **21**/27.
 
-- **Bounded unit:** seed0101 `set_apparxy` @2309 /
+- **Bounded unit:** seed0016 eat `next_ident` @2493 /
   seed0015 Scr @21 /
-  seed0016 eat `next_ident` @2493 /
-  seed0103 `next_ident`/`trquan` / seed0030 `maybe_smudge_engr` /
+  seed0030 `maybe_smudge_engr` @6732 /
+  seed0101 Scr residual /
+  seed0103 `next_ident`/`trquan` /
   seed0200 combat `@3382` (lower priority) /
   seed0361/0373 **quest `getbones`** (blocked: need `^V`→`goto_level`→
   `makemaz` first — ordinary `goto_level` now exists for stairs).
-- **Prefer:** `set_apparxy` / eat-stack `next_ident` / seed0015 Scr
+- **Prefer:** eat-stack `next_ident` / seed0015 Scr / `maybe_smudge_engr`
   over parked D-0006 and over baking seed2200 RC paths.
   Hero `dotrap` deferred until monster pit peel is clear.
 - **Named omissions:** full `findtravelpath` TEST_TRAV/GUESS/travelmap/
@@ -895,6 +897,10 @@ Module status, constitutional debt, and named omissions live in
     screens **1282→1293**; RNG **126936→126947**; green cohort PASS;
     next seed0101 `set_apparxy` / seed0016 eat `next_ident` /
     seed0015 Scr
+132. `set_apparxy` Displacement/`Invis` (D-0154)
+    — seed0101 RNG **2371**/2371 Scr **21**/27; screens **1293**;
+    RNG **126947→127004**; green cohort PASS; next seed0016 eat
+    `next_ident` / seed0015 Scr / `maybe_smudge_engr`
 
 Next work is selected from the active objectives above using
 `PORTING-RUNBOOK.md`, not by extending this historical list.

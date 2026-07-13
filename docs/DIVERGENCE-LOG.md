@@ -155,6 +155,9 @@ Do not record a guessed cause as fixed merely because an RNG prefix moved.
 | D-0149 | fixed | do/goto_level | ordinary `>` `dodown`/`goto_level`/`getbones`/`keepdogs`; dlvl2 shop `rn2(u_depth)` |
 | D-0150 | fixed | trap/pit mon | monster `trapeffect_pit` + `thitm`→`monkilled`/`make_corpse`; not hero dotrap |
 | D-0151 | fixed | monmove/traps | hostile `postmov` + `mon_learns_traps` + `mfndpos` known-trap skip; seed0015 RNG full |
+| D-0152 | fixed | wield/quiver | `Q`/`doquiver_core` uswapwep ready + hand-throw; seed0101 @2293 |
+| D-0153 | fixed | cmd/travel | `_`/`dotravel` cancel + tip PICK_NONE; seed0101 @2302 |
+| D-0154 | fixed | monmove/apparxy | `set_apparxy` Displacement `rn2(4)`; seed0101 RNG full |
 
 D-0001 through D-0005 predate the strict-length/cohort runbook. Their focused
 causes are preserved, but generic "green sessions held" is historical evidence,
@@ -4104,3 +4107,31 @@ cohort gates if those functions are touched again.
   peeling monster RNG — unbound `_` looked like a missing `distfleeck`.
 - **Next:** seed0101 `set_apparxy` @2309 / seed0015 Scr @21 /
   seed0016 eat `next_ident` @2493.
+
+## D-0154 — set_apparxy Displacement rn2(4) (seed0101)
+
+- **Status:** fixed
+- **Observed:** seed0101 @2309 C `rn2(4)` @ `set_apparxy` vs JS `rn2(5)`
+  (`distfleeck`).
+- **Rejected:** NODIAG / 4-dir vs 8-dir `xdir` as the arity cause —
+  provenance is Displacement cloak, not movement dirs.
+- **C locus:** `monmove.c` `set_apparxy`; `youprop.h` `Displaced`;
+  Ranger kit `CLOAK_OF_DISPLACEMENT`.
+- **Cause:** JS stub always set `mux/muy = hero` with no RNG. Hostile
+  monsters facing a Displaced hero burn `!rn2(4)` (gotu) then optional
+  displace-loop `rn2(2*displ+1)`. Skipping that made the next call a
+  `distfleeck` `rn2(5)`.
+- **Change:** Ported `set_apparxy` early-exits, Invis/Displaced/Underwater
+  `displ`, gotu RNG, and displace position loop (`accessible`/
+  `closed_door`/`couldsee`/`passes_walls`). EDisplaced via worn cloak
+  otyp until `oc_oprop`/`setworn` props exist; `can_fog` stubbed false;
+  DRAWBRIDGE_UP `SURFACE_AT` deferred.
+- **Verification:** seed0101 RNG **2371**/2371 Scr **21**/27;
+  green+strict PASS; cohort 11 PASS; full **13/44** Scr **1293** RNG
+  **127004**/792838.
+- **Named omission:** `oc_oprop` Extrinsic props; timed `HDisplaced`;
+  `can_fog` vampshifter; `stuff_prevents_passage`; DRAWBRIDGE under-typ.
+- **Lesson:** arity `rn2(4)` next to `distfleeck` `rn2(5)` is often
+  Displacement/Invis `set_apparxy`, not a 4-dir mfndpos bug.
+- **Next:** seed0016 eat `next_ident` @2493 / seed0015 Scr @21 /
+  seed0030 `maybe_smudge_engr` / seed0101 Scr residual.

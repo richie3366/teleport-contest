@@ -77,9 +77,11 @@ export const M2_STRONG = 0x04000000;
 export const M2_MERC = 0x00000200;
 
 export const M1_FLY = 0x00000001; /* monflag.h — can fly or float */
+export const M1_AMORPHOUS = 0x00000004; /* monflag.h — can flow under doors */
 export const M1_WALLWALK = 0x00000008;
 export const M1_CLING = 0x00000010; /* monflag.h — cling to ceiling */
 export const M1_NOHANDS = 0x00002000;
+export const M1_SEE_INVIS = 0x01000000; /* monflag.h — sees invisible */
 export const M1_NOEYES = 0x00001000;
 export const M1_MINDLESS = 0x00010000;
 export const M1_ANIMAL = 0x00040000;

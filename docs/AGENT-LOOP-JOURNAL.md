@@ -19,6 +19,21 @@ Use this shape:
 
 ---
 
+## 2026-07-13 16:08 — set_apparxy Displacement (D-0154)
+- Objective: seed0101 @2309 C `set_apparxy` `rn2(4)` vs JS `rn2(5)`
+  (PROGRESS primary).
+- C locus: `monmove.c` `set_apparxy`; Displaced via cloak of
+  displacement; helpers `accessible`/`closed_door`/`couldsee`.
+- Result: **verified** — stub skipped Displacement `!rn2(4)` so next
+  call was `distfleeck` `rn2(5)`. Ported full set_apparxy envelope
+  (pet/know early-exit, Invis/Displaced/Underwater, gotu, displace
+  loop). Cloak otyp stands in for EDisplaced.
+- Verification: seed0101 RNG **2371**/2371 Scr **21**/27; green+strict
+  PASS; cohort 11 PASS; full **13/44** Scr **1293** RNG
+  **127004**/792838.
+- Next: seed0016 eat `next_ident` @2493, or seed0015 Scr @21 /
+  seed0030 `maybe_smudge_engr` @6732 / seed0101 Scr residual.
+
 ## 2026-07-13 15:55 — `_` / dotravel (D-0153)
 - Objective: seed0101 `_` travel unbound @2302 (PROGRESS primary).
 - C locus: `cmd.c` `dotravel`/`dotravel_target`; `getpos.c` tip
