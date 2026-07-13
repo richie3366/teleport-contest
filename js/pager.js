@@ -28,6 +28,7 @@ import { mon_at } from './uhitm.js';
 import { objects_at } from './mkobj.js';
 import { doname, an } from './objnam.js';
 import { engr_at } from './engrave.js';
+import { option_help_lines } from './options.js';
 import {
     BOLT_LIM, COLNO, ROWNO, STAIRS, LA_DOWN, ROOM, CORR, STONE,
     GPCOORDS_NONE, GPCOORDS_MAP, GPCOORDS_COMPASS, GPCOORDS_SCREEN,
@@ -1125,9 +1126,9 @@ export async function dohelp() {
         { key: 'd', text: 'Concise history of NetHack.', fn: () => display_file('history', true) },
         { key: 'e', text: 'Info on a character in the game display.', fn: dowhatis },
         { key: 'f', text: 'Info on what a given key does.', fn: dowhatdoes },
+        // C ref: options.c option_help via pager.c dohelp help_menu
         { key: 'g', text: 'List of game options.', fn: async () => {
-            await pline('(option help stub)');
-            await more();
+            await show_text_pages(option_help_lines());
         } },
         { key: 'h', text: 'Longer explanation of game options.', fn: () => display_file('opthelp', true) },
         { key: 'i', text: "Using the '#optionsfull' or 'm O' command to set options.", fn: () => display_file('optmenu', true) },

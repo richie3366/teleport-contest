@@ -21,6 +21,19 @@ Use this shape:
 
 ---
 
+## 2026-07-13 05:52 — seed2200 option_help (D-0091)
+- C locus: `options.c` `option_help`/`next_opt`; `optlist.h`
+  `allopt[]`; `cfgfiles.c` `get_configfile`
+- Result: **verified faithful change** — help `g` lists
+  booleans/compounds/others from extracted contest optlist;
+  Scr **199**/230 (was 176). Screen 158 still differs only on
+  recording `$HOME` RC path (do not hardcode).
+- Verification: seed2200 3018/3018 Scr 199/230; green + cohort
+  PASS + strict; full **7/44**, screens **568**/11405, RNG
+  **91371**/792838.
+- Next: `node frozen/ps_test_runner.mjs sessions/seed0017-samurai-altar-pray.session.json`
+  — peel `dog_move` terrain @ 3132 (or seed1150).
+
 ## 2026-07-13 05:40 — seed2200 doextversion + quitchars + dowhatdoes (D-0088–90)
 - C locus: `version.c` `doextversion` / `mdlib.c` `build_options`;
   `wintty.c` `dmore` → `xwaitforspace(quitchars)`; `pager.c`

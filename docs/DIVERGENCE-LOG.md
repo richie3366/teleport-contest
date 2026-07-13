@@ -2429,7 +2429,29 @@ cohort gates if those functions are touched again.
   green + cohort PASS + strict; full **7/44**, screens
   **536→545**/11405, RNG **91371**/792838.
 - **Named omission:** full `key2extcmddesc` misc_keys/number_pad/
-  rush-run; `option_help` (help `g`); dokeylist; contact; cmdhelp
-  `&?` conditionals (#if 0 in C).
+  rush-run; dokeylist; contact; cmdhelp `&?` conditionals (#if 0 in C).
 - **Next:** seed2200 `option_help` @ screen 158 / seed0017 terrain /
   seed1150.
+
+## D-0091 — seed2200 option_help
+
+- **Status:** fixed (RC path harness-only residual)
+- **Observed:** help `g` showed `(option help stub)`; C `option_help`
+  NHW_TEXT lists booleans/compounds/others + epilog (screens 158–165).
+- **C locus:** `options.c` `option_help` / `next_opt`; `optlist.h`
+  `allopt[]`; `cfgfiles.c` `get_configfile`; tty wrap for long
+  OPTIONS= intro. Contest flags: ALTMETA/CRASHREPORT/PREV_MSGS;
+  no SCORE_ON_BOTL/TIMED_DELAY; tty WC/WC2 subset.
+- **Change:** `scripts/extract-optlist.py` → `js/generated/optlist_data.js`;
+  `option_help_lines()` + `next_opt` packing; help `g` →
+  `show_text_pages`. Over-long `%-20s` compounds render unpadded to
+  fit CO (glyph / whatis_filter). Wrap-forcing synthetic config path
+  (not recording `$HOME`).
+- **Verification:** seed2200 Scr **176→199**/230 (158 path cells only
+  remaining option_help miss); green + cohort PASS + strict; full
+  **7/44**, screens **545→568**/11405, RNG **91371**/792838.
+- **Named omission:** recording-machine `get_configfile()` absolute
+  path (`verify-rerecord` elides; do not hardcode); dokeylist;
+  contact; full `doset`/`O` menu.
+- **Next:** seed0017 @ 3132 terrain / seed1150 `dog_move` / seed2200
+  post-help after accepting path residual.

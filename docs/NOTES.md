@@ -7,18 +7,19 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 
 ## Active
 
-- **Current unit:** after D-0088/89/90 seed2200 Scr **167→176**/230
-  (doextversion + NHW_TEXT quitchars + dowhatdoes). Prefer seed2200
-  @ screen 158 `option_help` / seed0017 @ 3132 terrain / seed1150
-  `dog_move`.
-- **Hypothesis (seed2200 Scr 176/230):** screen 158 — C `option_help`
-  NHW_TEXT lists boolean options + rc path; JS help `g` still
-  `(option help stub)`.
+- **Current unit:** after D-0091 seed2200 Scr **176→199**/230
+  (`option_help`). Prefer seed0017 @ 3132 terrain / seed1150
+  `dog_move` / seed2200 post-help (after screen 165) once path is
+  accepted as harness-only.
+- **Hypothesis (seed2200 Scr 199/230):** screen 158 only remaining
+  option_help miss — `get_configfile()` path is recording `$HOME`
+  (`verify-rerecord.mjs` elides it). Do **not** hardcode the
+  davidbau absolute path. Pages 159–165 match.
 - **Falsifier / next probe:**
   ```bash
-  node frozen/ps_test_runner.mjs sessions/seed2200-wizard-quaff-zap-read.session.json
+  node frozen/ps_test_runner.mjs sessions/seed0017-samurai-altar-pray.session.json
   ```
-  Diff screen 158; cite C `options.c` `option_help` vs JS dohelp `g`.
+  or seed2200 first fail after 165 if not path-only.
 - **Parked seed0017 @ 3132:** JS `mfndpos` cnt=4 at pet (30,5); C emits
   3× `rn2(12)`. Adding walkable `(30,4)` yields exactly 3× `rn2(12)`.
   JS has VWALL at (30,4); C screen shows floor. Diagnose join/
@@ -112,6 +113,11 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   history file — NHW_TEXT `dmore` ignores non-quitchars (D-0089).
 - seed2200 help `f` was **not** `display_file('keyhelp')` — real
   `dowhatdoes` tip + `What command?` + `key2extcmddesc` (D-0090).
+- seed2200 help `g` stub was **not** missing opthelp file — real
+  `option_help` NHW_TEXT from `allopt[]` (D-0091). RC path line is
+  harness `$HOME` (elided by `verify-rerecord`); do not bake in
+  recording absolute paths. Over-long `%-20s` compounds (glyph /
+  whatis_filter) display unpadded to fit CO.
 - `more()` word-wrap of message text must only fire when len≥CO —
   wrapping at CO-8 breaks welcome `--More--` (seed0900).
 
@@ -180,3 +186,6 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   (D-0089).
 - dowhatdoes: once tip + more; `What command? ` cursor col 14;
   `%-8s` key + `ef_desc (#ef_txt).` (D-0090).
+- option_help: `next_opt` bool pack; compounds `%-20s` unless line
+  would exceed CO (then unpadded); OthrOpt leading space; epilog
+  leading blank; wrap-forcing config path for pagination (D-0091).
