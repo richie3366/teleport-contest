@@ -19,6 +19,17 @@ Use this shape:
 
 ---
 
+## 2026-07-13 16:35 — apply_ok SUGGEST wand/spbook (D-0157)
+- Objective: seed0016 Scr @3 apply letters `[c]` vs C `[cfghi]`
+  (PROGRESS primary).
+- C locus: `apply.c` `apply_ok` / `doapply` getobj.
+- Result: **verified** — JS only SUGGEST TOOL_CLASS; C also SUGGEST
+  WAND/SPBOOK. Ported apply_ok ranks; letters = SUGGEST only.
+- Verification: seed0016 Scr **31→32**/36; green+strict PASS; cohort
+  11 PASS; full **13/44** Scr **1318** RNG **128139**.
+- Next: seed0016 invent @24 (H2344 offx + `pair of` gloves), or
+  seed0015 Scr @21 / seed0030 `maybe_smudge_engr` / seed0101 Scr.
+
 ## 2026-07-13 16:25 — WAN_SLEEP zapyourself (D-0156)
 - Objective: seed0016 @2551 C `rnd(50)` @ `zapyourself` vs JS
   `rn2(5)` (PROGRESS primary).

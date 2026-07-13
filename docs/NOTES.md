@@ -7,16 +7,15 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 
 ## Active
 
-- **Current unit:** D-0156 cleared seed0016 `zapyourself` @2551 —
-  WAN_SLEEP self-zap + Unaware `gethungry` `rn2(10)`. RNG **full**;
-  Scr **15→31**/36.
-- **Hypothesis / next:** seed0016 Scr residual @31 / seed0015 Scr @21 /
+- **Current unit:** D-0157 cleared seed0016 Scr @3 — `apply_ok` SUGGEST
+  for WAND/SPBOOK (Healer `cfghi`). Scr **31→32**/36.
+- **Hypothesis / next:** seed0016 invent @24 — H2344 offx + `pair of`
+  leather gloves (`obj_typename` armor) / seed0015 Scr @21 /
   seed0030 `maybe_smudge_engr` @6732 / seed0101 Scr residual.
-  Prefer screen peels or smudge over parked D-0006.
 - **Falsifier / next:**
   ```bash
   node frozen/ps_test_runner.mjs sessions/seed0016-healer-newmoon-eat-zap.session.json
-  # expect Scr >31 or named first cell mismatch
+  # expect Scr >32 or invent header col matches C (Coins @col 24)
   node frozen/ps_test_runner.mjs sessions/seed0015-valk-level2-pit-dog-wait.session.json
   # expect Scr >21 or named first cell mismatch
   ```
@@ -227,9 +226,16 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   `z`/`WAN_SLEEP`/`.` is self `zapyourself` → `fall_asleep(-rnd(50))`
   (D-0156). After sleep, Unaware `gethungry` burns `rn2(10)` before
   `rn2(20)` — do not “fix” by inventing hungrier accessory rolls.
+- **seed0016 Scr @3 `[c or ?*]` was NOT empty-SUGGEST / stethoscope** —
+  JS `apply_ok` only TOOL_CLASS; C SUGGEST all WAND/SPBOOK too →
+  Healer `cfghi` (D-0157). Do not shrink apply letters to ported tools.
 
 ## Landmarks
 
+- `apply_ok`: TOOL/WAND/SPBOOK SUGGEST; COIN DOWNPLAY; pick/axe/pole/
+  whip SUGGEST; unknown potion DOWNPLAY; known oil SUGGEST; cream pie/
+  eucalyptus/jelly SUGGEST; graystone SUGGEST unless known non-touch
+  (D-0157).
 - WAN_SLEEP self-zap: getdir `.` → `zapyourself` →
   `The sleep ray hits you!` → `fall_asleep(-rnd(50), TRUE)` (D-0156).
 - Unaware (`multi < 0 && usleep`): `gethungry` always evaluates

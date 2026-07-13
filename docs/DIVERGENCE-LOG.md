@@ -160,6 +160,7 @@ Do not record a guessed cause as fixed merely because an RNG prefix moved.
 | D-0154 | fixed | monmove/apparxy | `set_apparxy` Displacement `rn2(4)`; seed0101 RNG full |
 | D-0155 | fixed | apply/eat | STETHOSCOPE self + touchfood split; seed0016 @2493→2551 |
 | D-0156 | fixed | zap/sleep | WAN_SLEEP self-zap + Unaware gethungry; seed0016 RNG full |
+| D-0157 | fixed | apply/getobj | `apply_ok` SUGGEST wand/spbook; seed0016 Scr 31→32 |
 
 D-0001 through D-0005 predate the strict-length/cohort runbook. Their focused
 causes are preserved, but generic "green sessions held" is historical evidence,
@@ -4198,3 +4199,28 @@ cohort gates if those functions are touched again.
   before any hunger side-effect ports.
 - **Next:** seed0016 Scr residual @31 / seed0015 Scr @21 /
   seed0030 `maybe_smudge_engr` / seed0101 Scr residual.
+
+## D-0157 — apply_ok SUGGEST wand/spbook (seed0016 Scr @3)
+
+- **Status:** fixed
+- **Observed:** seed0016 Scr @3 JS
+  `What do you want to use or apply? [c or ?*]` vs C `[cfghi or ?*]`
+  (cursor col 44 vs 48).
+- **Rejected:** empty-SUGGEST / stethoscope-only getobj — invent has
+  wand+three spellbooks; C suggests them for apply (break/flip).
+- **C locus:** `apply.c` `apply_ok` / `doapply` getobj.
+- **Cause:** JS `apply_ok` returned true only for `TOOL_CLASS`, so Healer
+  prompt omitted `f` WAN_SLEEP and `ghi` SPE_*.
+- **Change:** port `apply_ok` ranks (SUGGEST tools/wands/spbooks +
+  pick/axe/pole/whip/oil/food/graystone; DOWNPLAY coins/unknown potions;
+  EXCLUDE_SELECTABLE default). getobj letters = SUGGEST only; EXCLUDE →
+  silly_thing. `do_break_wand` / `flip_through_book` / other otyps still
+  deferred (default "Sorry…").
+- **Verification:** seed0016 Scr **31→32**/36 (RNG full); green+strict
+  PASS; cohort 11 PASS; full **13/44** Scr **1318** RNG **128139**.
+- **Named omission:** break wand / flip book / flip coin / sack /
+  cream pie / whip / use_stone / use_pole / Snickersnee.
+- **Lesson:** apply prompt letters follow `apply_ok` SUGGEST classes,
+  not the subset of otyps with ported `doapply` bodies.
+- **Next:** seed0016 invent @24 (H2344 offx + `pair of` gloves) /
+  seed0015 Scr / `maybe_smudge_engr`.
