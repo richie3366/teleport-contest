@@ -21,6 +21,20 @@ Use this shape:
 
 ---
 
+## 2026-07-13 03:30 — seed0102 help_dir + Book offx (D-0071)
+- C locus: `cmd.c` `getdir`/`help_dir`/`show_direction_keys`;
+  `wintty.c` `tty_putstr`/`process_text_window` (NHW_MENU);
+  `quest.lua` legacy menu
+- Result: **verified faithful change** — invalid getdir shows
+  NHW_TEXT direction grid then cancels (no retry); legacy Book
+  uses `maxcol=strlen+1` + leading pad at `offx+1`. seed0102
+  **PASS**; public **6/44**.
+- Verification: seed0102 4485/4485 Scr 25/25 + strict; green +
+  seed1500/1800/0060 PASS; full screens **320**/11405, RNG
+  **90863**/792838.
+- Next: `node scripts/rng-diff.mjs sessions/seed0017-samurai-altar-pray.session.json`
+  (prefix @ 2775) or seed0700 screen peel after Scr 2.
+
 ## 2026-07-13 01:53 — mfndpos BOULDER + NODIAG (D-0060)
 - C locus: `mon.c` `mfndpos`/`mon_allowflags`; `hack.h` `NODIAG`;
   `mondata.h` `throws_rocks`/`passes_walls`

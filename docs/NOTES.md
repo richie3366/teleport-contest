@@ -7,17 +7,18 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 
 ## Active
 
-- **Current unit:** seed0102 Scr **17/25** after D-0070 (glyphs +
-  prinv `dot`). Next peel is **cmdassist direction-help** (Scr 15+)
-  or Book-of-Dead overlay blanking (Scr 0), else seed0017 @ 2775 /
-  seed0700 Scr 2/51.
-- **Hypothesis:** Scr 15 fails because JS appends `--More--` on the
-  cmdassist topline and never paints the direction-key help window
-  C shows after invalid fireassist getdir.
+- **Current unit:** after D-0071 seed0102 **PASS** (6/44). Prefer
+  seed0017 @ 2775 / seed0700 Scr 2/51 / seed2200 `exercise` /
+  seed1150 `dog_move` / seed0501/0105 `wipeout_text` /
+  seed0015/0200 `lspo_map` / seed0101 `next_ident` /
+  seed0103 `next_ident`/`trquan` / seed0030 `maybe_smudge_engr` /
+  seed0361/0373 `getbones` (needs `^V`→`goto_level`→`makemaz`).
+- **Hypothesis:** next peel is whichever focused command shows first
+  shared/call-order divergence — start with seed0017 or seed0700 screens.
 - **Falsifier / next probe:**
   ```bash
-  node frozen/ps_test_runner.mjs sessions/seed0102-ranger-name-cancel.session.json
-  # compare screen 15 cells; C locus: cmdassist / getdir invalid key
+  node scripts/rng-diff.mjs sessions/seed0017-samurai-altar-pray.session.json
+  # or screen-diff seed0700 after Scr 2
   ```
 - **Parked deep canary:** D-0006 pet movement — do not implement until C
   state/candidate capture exists.
@@ -40,6 +41,10 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   `dog_goal` formula (D-0069).
 - seed0102 Scr 0/25 was not topline-only: map `?` was missing MLET_CH /
   furniture terrain (D-0070).
+- getdir invalid key must **not** retry after `help_dir` (C returns 0);
+  topline pline+`--More--` is wrong — need NHW_TEXT (D-0071).
+- Legacy Book overlay: `maxcol = strlen+1` (tty_putstr), not bare strlen;
+  NHW_MENU paints leading pad then text at `offx+1` (D-0071).
 
 ## Landmarks
 

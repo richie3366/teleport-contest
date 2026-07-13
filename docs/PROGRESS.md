@@ -37,8 +37,8 @@ frozen-file overlay):
 
 | Metric | Value |
 |--------|------:|
-| Sessions passing | **5 / 44** |
-| Screens matched | **311 / 11,405** (2.73%) |
+| Sessions passing | **6 / 44** |
+| Screens matched | **320 / 11,405** (2.81%) |
 | Positional RNG calls matched | **90,863 / 792,838** (11.46%) |
 | Speed label | `17+0.08/turn` |
 | Working-tree base | `8b71735` + committed port (see `main`) |
@@ -57,12 +57,13 @@ shared blockers, and semantic coverage together—not one vanity metric.
 | `seed1500-rogue-explore-move` | **2768 / 2768** | **40 / 40** |
 | `seed1800-tourist-eat-throw` | **2458 / 2458** | **26 / 26** |
 | `seed0060-orc-rogue-kick-search` | **3626 / 3626** | **41 / 41** |
+| `seed0102-ranger-name-cancel` | **4485 / 4485** | **25 / 25** |
 | `seed0700-samurai-explore-descend` | **3230 / 3230** | **2 / 51** |
 | `seed1150-caveman-explore-move` | **2942 / 3137** | **22 / 51** |
 | `seed0030-ten-diverse-deaths` | **7030 / 105529** | **39 / 1953** |
 | `seed0103-knight-ride-pony` | **2344 / 2640** | 1 / 60 |
 | `seed0200-monk-north-search` | **1548 / 3822** | 0 / 40 |
-| `seed0101-ranger-quiver-throw-travel-engrave` | **2304 / 2371** | 3 / 27 |
+| `seed0101-ranger-quiver-throw-travel-engrave` | **2304 / 2371** | 4 / 27 |
 | `seed0016-healer-newmoon-eat-zap` | **2538 / 3656** | **5 / 36** |
 | `seed0017-samurai-altar-pray` | **2840 / 3465** | 1 / 67 |
 | `seed0107-samurai-twoweapon-enhance` | **2677 / 2902** | 0 / 98 |
@@ -72,11 +73,11 @@ shared blockers, and semantic coverage together—not one vanity metric.
 | `seed0361-archeologist-tour` | **3295 / 53865** | 0 / 366 |
 | `seed0373-barbarian-quest-tour` | **2573 / 35386** | 0 / 124 |
 | `seed0105-valk-chat-lamp-ration` | **987 / 2499** | 0 / 30 |
-| `seed0102-ranger-name-cancel` | **4485 / 4485** | **17 / 25** |
 | `seed0015-valk-level2-pit-dog-wait` | **364 / 8563** | 1 / 44 |
 | `seed0013-rogue-friday13-combat` | **521 / 4838** | 1 / 59 |
 
-seed8000 + seed0900 + seed1500 + seed1800 + seed0060 pass end-to-end.
+seed8000 + seed0900 + seed1500 + seed1800 + seed0060 + seed0102 pass
+end-to-end.
 `choose_trapnote`/`hole_destination` (D-0054), `SPBOOK_no_NOVEL`
 (D-0055), roles `initrecord` (D-0056), CORPSE `G_NOCORPSE` retry
 (D-0057), `adjabil`/`u_calc_moveamt` Fast (D-0058), `rnl` +
@@ -84,12 +85,12 @@ autoopen `doopen_indir` (D-0059), `mfndpos` BOULDER/`NODIAG`
 (D-0060), `newhp`/`newpw` level-up + `#levelchange` (D-0061),
 `dosearch0`/Searching EOT (D-0062), `T`/`dotakeoff` (D-0063),
 `^W`/`makewish`/`readobjnam` (D-0064), `w`/`dowield`
-(D-0065), **`W`/`dowear`** (D-0066), **`P`/`doputon`** (D-0067), and
-**EGG `can_be_hatched`** (D-0068) and **`f`/fireassist** (D-0069)
-and **MLET_CH/furniture/`xprname` dot** (D-0070)
+(D-0065), **`W`/`dowear`** (D-0066), **`P`/`doputon`** (D-0067),
+**EGG `can_be_hatched`** (D-0068), **`f`/fireassist** (D-0069),
+**MLET_CH/furniture/`xprname` dot** (D-0070), and
+**`help_dir`/Book offx** (D-0071)
 clear shared peels. seed0700
-RNG **full**; next is screen peel (Scr 2/51). seed0102 RNG **full**;
-next screen peel (Scr 17/25 — cmdassist / Book overlay). seed0361/0373 `getbones` blocked on unbound
+RNG **full**; next is screen peel (Scr 2/51). seed0361/0373 `getbones` blocked on unbound
 `^V`/`goto_level`/`makemaz` (Quest `y`). seed0017 next @ 2775;
 seed0030 next `maybe_smudge_engr` @ 6732. Wizard seed2200 next
 `exercise` @ 2724; Healer seed0016 next `next_ident` @ 2493;
@@ -136,19 +137,19 @@ autoopen `doopen_indir` (D-0059) + `mfndpos` BOULDER/`ALLOW_ROCK` +
 **EGG `can_be_hatched`/`dead_species`/`little_to_big`** (D-0068) +
 **`f`/`dofire` fireassist/`doswapweapon`/cmdq** (D-0069) +
 **MONSYM `MLET_CH` + furniture `terrain_glyph` + `xprname` `dot`**
-(D-0070)
-**ported**. Five public sessions still pass end-to-end. **0/44**
-throw at `u_init_role`. seed0700 RNG full. seed0102 RNG **full**,
-Scr **17/25**.
+(D-0070) +
+**`help_dir` NHW_TEXT + Book NHW_MENU offx** (D-0071)
+**ported**. Six public sessions pass end-to-end. **0/44**
+throw at `u_init_role`. seed0700 RNG full. seed0102 **PASS**.
 
-- **Bounded unit:** seed0102 **cmdassist**/Book overlay screen peel /
-  seed0017 @ 2775 / seed0700 **screen** peel / seed2200 `exercise` /
-  seed1150 `dog_move` / seed0501/0105 `wipeout_text` /
-  seed0015/0200 `lspo_map` / seed0101 `next_ident` /
-  seed0103 `next_ident`/`trquan` / seed0030 `maybe_smudge_engr` /
+- **Bounded unit:** seed0017 @ 2775 / seed0700 **screen** peel /
+  seed2200 `exercise` / seed1150 `dog_move` /
+  seed0501/0105 `wipeout_text` / seed0015/0200 `lspo_map` /
+  seed0101 `next_ident` / seed0103 `next_ident`/`trquan` /
+  seed0030 `maybe_smudge_engr` /
   seed0361/0373 **`getbones`** (blocked: need `^V`→`goto_level`→
   `makemaz` first).
-- **Prefer:** seed0102 remaining screens / seed0017 / seed0700 screens
+- **Prefer:** seed0017 / seed0700 screens / seed2200 `exercise`
   over parked D-0006.
 - **Named omissions:** Wizard/Priest/Healer `initialspell`; Knight/
   Samurai/Healer/Valkyrie/Ranger/Monk/Archeologist/Barbarian/Caveman
@@ -169,8 +170,9 @@ Scr **17/25**.
   `Detect_monsters`/`MATCH_WARN_OF_MON` in `newsym`; full
   `weapon_insight` enhance/P_SKILL/odd P_NAME; shop `costly_spot`
   autopickup; `obj_typename` armor pair-of/set-of + GemStone;
-  pool/lava/ice/air/cloud terrain glyphs; Book overlay blanking;
-  cmdassist getdir help window; `align_shift`/`temperature_shift`;
+  pool/lava/ice/air/cloud terrain glyphs; `help_dir` Guidebook/
+  `^letter`/nodiag; cmdassist getdir beyond fire path; `align_shift`/
+  `temperature_shift`;
   `peace_minded` MS_*/race_*/minion arms; egg hatch timers /
   `egg_type_from_parent`; `^V`/`level_tele`/`goto_level`/`makemaz`;
   TIN `cnutrit`; interactive `o`/`doopen` getdir; `doopen_indir`
@@ -184,8 +186,9 @@ Scr **17/25**.
   `setworn` oc_oprop; dragon_armor_handling; touch blast `d()`/`losehp`;
   artifact wield intrinsics; wield poly/corpse/bimanual/weld-pline/
   swap/quiver ynq; …
-- **Cohort:** green gate + seed1500 + seed1800 + seed0060 (must stay
-  PASS) + strict lengths; Samurai focus seed0700 when on that peel.
+- **Cohort:** green gate + seed1500 + seed1800 + seed0060 + seed0102
+  (must stay PASS) + strict lengths; Samurai focus seed0700 when on
+  that peel.
 
 Focused survey:
 
@@ -356,6 +359,9 @@ Module status, constitutional debt, and named omissions live in
 55. MONSYM `MLET_CH` + furniture terrain + `xprname` `dot` (D-0070)
     — seed0102 Scr **0→17**/25; aggregate screens **294→311**;
     RNG **90863** unchanged; green cohort still PASS
+56. `help_dir` NHW_TEXT + Book NHW_MENU offx (D-0071) — seed0102
+    **PASS**; public **6/44**; screens **311→320**; RNG **90863**
+    unchanged; green + seed1500/1800/0060/0102 PASS
 
 Next work is selected from the active objectives above using
 `PORTING-RUNBOOK.md`, not by extending this historical list.

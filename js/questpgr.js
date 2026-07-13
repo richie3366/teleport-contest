@@ -47,17 +47,21 @@ function legacy_lines() {
         '--More--',
     ];
 
-    // C ref: wintty.c tty_display_nhwindow NHW_MENU offx
+    // C ref: wintty.c tty_putstr NHW_MENU — n0 = strlen(str)+1 → maxcol;
+    //        tty_display_nhwindow offx = max(10, cols - maxcol - 1).
     const cols = 80;
     let maxcol = 0;
     for (const line of raw) {
-        if (line.length > maxcol) maxcol = line.length;
+        if (line === '--More--') continue; // C: dmore, not putstr
+        const n0 = line.length + 1;
+        if (n0 > maxcol) maxcol = n0;
     }
     let offx = Math.max(10, cols - maxcol - 1);
-    // C: offx==10 or !menu_overlay → fullscreen; legacy maxcol keeps offx>10
+    // C: offx==10 || maxrow>=rows || !menu_overlay → fullscreen
     if (offx === 10) offx = 0;
     const moreRow = raw.length - 1;
-    const moreCol = offx + '--More--'.length;
+    // C: NHW_MENU dmore offset 2 → --More-- at offx+1, cursor past it
+    const moreCol = offx + 1 + '--More--'.length;
     return { raw, offx, moreRow, moreCol };
 }
 
@@ -113,18 +117,20 @@ export async function com_pager_legacy(statusSnap = null) {
         }
     } else {
         // C ref: wintty.c process_text_window — tty_curs(1,n)+cl_end from offx;
-        // columns < offx and rows below the text block keep the map.
+        // putchar(' ') then text; columns < offx and rows below keep the map.
         for (let r = 0; r < raw.length && r < 21; r++) {
             for (let c = offx; c < disp.cols; c++)
                 disp.setCell(c, r, ' ', NO_COLOR, 0);
             const text = raw[r];
-            for (let i = 0; i < text.length && offx + i < disp.cols; i++)
-                disp.setCell(offx + i, r, text[i], NO_COLOR, 0);
+            // C: leading pad space at offx, text at offx+1
+            disp.setCell(offx, r, ' ', NO_COLOR, 0);
+            for (let i = 0; i < text.length && offx + 1 + i < disp.cols; i++)
+                disp.setCell(offx + 1 + i, r, text[i], NO_COLOR, 0);
         }
     }
 
     write_status_to_grid(disp, statusSnap);
-    // C tty places cursor past "--More--" on the more row
+    // C tty places cursor past "--More--" on the more row (offx + 1 + len)
     disp.setCursor(moreCol, moreRow);
     await flush_screen(1);
 

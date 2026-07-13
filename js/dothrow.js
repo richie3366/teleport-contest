@@ -3,13 +3,14 @@
 
 import { game } from './gstate.js';
 import { nhgetch } from './input.js';
-import { flush_screen, flush_topl_more, pline } from './display.js';
+import { flush_screen, flush_topl_more, pline, docrt } from './display.js';
 import { rnd } from './rng.js';
 import { place_object, splitobj } from './mkobj.js';
 import { WEAPON_CLASS, COIN_CLASS } from './objects.js';
 import {
     COLNO, ROWNO, IS_SOFT, LOST_THROWN, ZAP_POS, IS_DOOR, D_CLOSED, D_LOCKED,
 } from './const.js';
+import { NO_COLOR } from './terminal.js';
 import { obj_resists } from './dogmove.js';
 import {
     ammo_and_launcher, is_ammo, doswapweapon,
@@ -196,11 +197,82 @@ async function throwit(obj) {
 
 
 /**
- * C ref: cmd.c getdir via yn_function — invalid keys show cmdassist and retry.
- * Esc / self / space cancel. Returns {dx,dy} or null.
+ * C ref: cmd.c show_direction_keys — hjkl/yubn grid for help_dir.
+ * @param {boolean} nodiag grid-bug form (orthogonal only)
+ */
+function show_direction_keys_lines(nodiag) {
+    if (nodiag) {
+        return [
+            '             k   ',
+            '             |   ',
+            '          h- . -l',
+            '             |   ',
+            '             j   ',
+        ];
+    }
+    return [
+        '          y  k  u',
+        '           \\ | / ',
+        '          h- . -l',
+        '           / | \\ ',
+        '          b  j  n',
+    ];
+}
+
+/**
+ * C ref: cmd.c help_dir — NHW_TEXT cmdassist for invalid getdir / '?'.
+ * display_nhwindow blocking; --More-- on row 23. Returns true if shown.
+ * Prefix-key / ^letter Guidebook branches deferred.
+ */
+async function help_dir(msg) {
+    const disp = game.nhDisplay;
+    if (!disp) return false;
+
+    const lines = [];
+    if (msg) {
+        lines.push(`cmdassist: ${msg}`);
+        lines.push('');
+    }
+    lines.push('Valid direction keys are:');
+    lines.push(...show_direction_keys_lines(false));
+    lines.push('');
+    lines.push('          <  up');
+    lines.push('          >  down');
+    lines.push('          .  direct at yourself');
+    if (msg) {
+        lines.push('');
+        lines.push('(Suppress this message with !cmdassist in config file.)');
+    }
+    while (lines.length < 24) lines.push('');
+    lines[23] = '--More--';
+
+    // C: process_text_window fullscreen (offx==0) — clear map/status
+    disp.clearScreen();
+    game._menu_overlay = true;
+    game._pending_message = '';
+    for (let r = 0; r < 24; r++) {
+        const text = lines[r] || '';
+        for (let i = 0; i < text.length && i < disp.cols; i++)
+            disp.setCell(i, r, text[i], NO_COLOR, 0);
+    }
+    disp.setCursor(8, 23);
+    await flush_screen(1);
+    await nhgetch(); // dmore / xwaitforspace
+    game._menu_overlay = false;
+    await docrt();
+    return true;
+}
+
+/**
+ * C ref: cmd.c getdir via yn_function + help_dir.
+ * Esc / '.' / space / return cancel. '?' shows help and retries.
+ * Other invalid keys: cmdassist NHW_TEXT then return cancel (no retry).
+ * Returns {dx,dy} or null.
  */
 async function getdir_cmdassist(prompt) {
-    const msg = prompt || 'In what direction?';
+    // C: tty_yn_function — Sprintf(prompt, "%s ", query)
+    const base = prompt || 'In what direction?';
+    const msg = base.endsWith(' ') ? base : `${base} `;
     for (;;) {
         game._pending_message = msg;
         await flush_screen(1);
@@ -209,12 +281,22 @@ async function getdir_cmdassist(prompt) {
         const key = await nhgetch();
         const ch = String.fromCharCode(key);
         game._pending_message = '';
+        // C: quitchars + getdir self ('.') cancel without help
         if (key === 27 || ch === '.' || ch === ' ' || ch === '\n' || ch === '\r')
             return null;
         if (ch in DIR_DX) return { dx: DIR_DX[ch], dy: DIR_DY[ch] };
-        // C: iflags.cmdassist → "cmdassist: Invalid direction key!" + help
-        await pline('cmdassist: Invalid direction key!');
-        await flush_topl_more();
+        // C: NHKF_GETDIR_HELP '?' → help_dir then retry
+        if (ch === '?') {
+            await help_dir(null);
+            continue;
+        }
+        // C: iflags.cmdassist → help_dir("Invalid direction key!") then return 0
+        if (game.flags?.cmdassist !== false) {
+            await help_dir('Invalid direction key!');
+        } else {
+            await pline('What a strange direction!');
+        }
+        return null;
     }
 }
 

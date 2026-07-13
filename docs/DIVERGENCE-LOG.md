@@ -74,6 +74,7 @@ Do not record a guessed cause as fixed merely because an RNG prefix moved.
 | D-0068 | fixed | mkobj/egg | EGG `can_be_hatched` retry + growth helpers; seed0102 1281→4451 |
 | D-0069 | fixed | fire/`f` | fireassist swap+cmdq; seed0102 RNG full (udist via no leaked `l`) |
 | D-0070 | fixed | display/xprname | full MLET_CH + furniture terrain + prinv `dot`; seed0102 Scr 0→17 |
+| D-0071 | fixed | getdir/legacy | `help_dir` NHW_TEXT + no-retry; Book `maxcol=strlen+1`/pad; seed0102 PASS |
 
 D-0001 through D-0005 predate the strict-length/cohort runbook. Their focused
 causes are preserved, but generic "green sessions held" is historical evidence,
@@ -1926,7 +1927,34 @@ cohort gates if those functions are touched again.
 - **Verification:** seed0102 Scr **0→17**/25 (RNG still full);
   green + seed1500/1800/0060 PASS + strict; full **5/44**,
   RNG **90863**/792838, screens **311**/11405.
-- **Named omission:** Book-of-Dead overlay still leaves map under
-  text (Scr 0); cmdassist direction-help window (Scr 15+).
-- **Next:** seed0102 cmdassist/`getdir` help UI, or Book overlay
-  blanking; else seed0017 @ 2775 / seed0700 screens.
+- **Named omission:** (retired by D-0071) Book overlay / cmdassist.
+- **Next:** seed0017 @ 2775 / seed0700 screens / shared peels.
+
+## D-0071 — seed0102 cmdassist help_dir + Book NHW_MENU offx
+
+- **Status:** fixed
+- **Observed:** seed0102 RNG full, Scr **17/25**. Scr 15: JS
+  topline `cmdassist:…--More--` vs C fullscreen direction grid;
+  later screens desynced because getdir **retried** after invalid
+  keys and ate `\`, `^X`, etc. Scr 0: map glyphs under Book text
+  (`k`, extra walls) where C blanks.
+- **C locus:** `cmd.c` `getdir`/`help_dir`/`show_direction_keys`;
+  `wintty.c` `tty_putstr` (`maxcol = strlen+1`),
+  `tty_display_nhwindow`/`process_text_window` (NHW_MENU offx +
+  leading pad); `quest.lua` legacy `output = "menu"`.
+- **Cause:** (1) `getdir_cmdassist` used pline+more and looped on
+  invalid keys; C shows NHW_TEXT then **returns 0** (only `?`
+  retries). (2) Legacy `offx` used bare `strlen` without `+1` and
+  painted text at `offx` without the leading pad space.
+- **Change:** `js/dothrow.js` `help_dir`/`show_direction_keys` +
+  getdir cancel-after-help / `?` retry / trailing-space prompt;
+  `js/questpgr.js` `maxcol = strlen+1`, paint at `offx+1`,
+  `moreCol = offx+1+8`.
+- **Verification:** seed0102 **PASS** (4485/4485, 25/25) + strict;
+  green + seed1500/1800/0060 PASS; full **6/44**, screens
+  **320**/11405, RNG **90863**/792838.
+- **Named omission:** `help_dir` Guidebook/`^letter` and nodiag
+  grid-bug branch; other NHW_TEXT callers may still use wrong
+  geometry.
+- **Next:** seed0017 @ 2775 / seed0700 Scr 2/51 / seed2200
+  `exercise`.
