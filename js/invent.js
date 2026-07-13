@@ -808,8 +808,8 @@ export async function hold_another_object(obj, drop_fmt, drop_arg, hold_msg) {
 
     const held = addinv(obj);
     if (hold_msg || drop_fmt) {
-        // C: prinv(hold_msg, obj, oquan) with null prefix → "ilet - doname"
-        await pline(xprname(held));
+        // C: prinv(hold_msg, obj, oquan) with null prefix → "ilet - doname."
+        await pline(xprname(held, undefined, true));
     }
     return held;
 }

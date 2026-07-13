@@ -38,7 +38,7 @@ frozen-file overlay):
 | Metric | Value |
 |--------|------:|
 | Sessions passing | **5 / 44** |
-| Screens matched | **294 / 11,405** (2.58%) |
+| Screens matched | **311 / 11,405** (2.73%) |
 | Positional RNG calls matched | **90,863 / 792,838** (11.46%) |
 | Speed label | `17+0.08/turn` |
 | Working-tree base | `8b71735` + committed port (see `main`) |
@@ -72,7 +72,7 @@ shared blockers, and semantic coverage together—not one vanity metric.
 | `seed0361-archeologist-tour` | **3295 / 53865** | 0 / 366 |
 | `seed0373-barbarian-quest-tour` | **2573 / 35386** | 0 / 124 |
 | `seed0105-valk-chat-lamp-ration` | **987 / 2499** | 0 / 30 |
-| `seed0102-ranger-name-cancel` | **4485 / 4485** | 0 / 25 |
+| `seed0102-ranger-name-cancel` | **4485 / 4485** | **17 / 25** |
 | `seed0015-valk-level2-pit-dog-wait` | **364 / 8563** | 1 / 44 |
 | `seed0013-rogue-friday13-combat` | **521 / 4838** | 1 / 59 |
 
@@ -86,9 +86,10 @@ autoopen `doopen_indir` (D-0059), `mfndpos` BOULDER/`NODIAG`
 `^W`/`makewish`/`readobjnam` (D-0064), `w`/`dowield`
 (D-0065), **`W`/`dowear`** (D-0066), **`P`/`doputon`** (D-0067), and
 **EGG `can_be_hatched`** (D-0068) and **`f`/fireassist** (D-0069)
+and **MLET_CH/furniture/`xprname` dot** (D-0070)
 clear shared peels. seed0700
 RNG **full**; next is screen peel (Scr 2/51). seed0102 RNG **full**;
-next screen peel (Scr 0/25). seed0361/0373 `getbones` blocked on unbound
+next screen peel (Scr 17/25 — cmdassist / Book overlay). seed0361/0373 `getbones` blocked on unbound
 `^V`/`goto_level`/`makemaz` (Quest `y`). seed0017 next @ 2775;
 seed0030 next `maybe_smudge_engr` @ 6732. Wizard seed2200 next
 `exercise` @ 2724; Healer seed0016 next `next_ident` @ 2493;
@@ -133,19 +134,22 @@ autoopen `doopen_indir` (D-0059) + `mfndpos` BOULDER/`ALLOW_ROCK` +
 `W`/`dowear`/`oc_delay`/`nomul` (D-0066) +
 `P`/`doputon`/`Amulet_on` (D-0067) +
 **EGG `can_be_hatched`/`dead_species`/`little_to_big`** (D-0068) +
-**`f`/`dofire` fireassist/`doswapweapon`/cmdq** (D-0069)
+**`f`/`dofire` fireassist/`doswapweapon`/cmdq** (D-0069) +
+**MONSYM `MLET_CH` + furniture `terrain_glyph` + `xprname` `dot`**
+(D-0070)
 **ported**. Five public sessions still pass end-to-end. **0/44**
-throw at `u_init_role`. seed0700 RNG full. seed0102 RNG **full**.
+throw at `u_init_role`. seed0700 RNG full. seed0102 RNG **full**,
+Scr **17/25**.
 
-- **Bounded unit:** seed0102 **screen** peel / seed0017 @ 2775 /
-  seed0700 **screen** peel / seed2200 `exercise` /
+- **Bounded unit:** seed0102 **cmdassist**/Book overlay screen peel /
+  seed0017 @ 2775 / seed0700 **screen** peel / seed2200 `exercise` /
   seed1150 `dog_move` / seed0501/0105 `wipeout_text` /
   seed0015/0200 `lspo_map` / seed0101 `next_ident` /
   seed0103 `next_ident`/`trquan` / seed0030 `maybe_smudge_engr` /
   seed0361/0373 **`getbones`** (blocked: need `^V`→`goto_level`→
   `makemaz` first).
-- **Prefer:** seed0102 screen / seed0017 / seed0700 screens over
-  parked D-0006.
+- **Prefer:** seed0102 remaining screens / seed0017 / seed0700 screens
+  over parked D-0006.
 - **Named omissions:** Wizard/Priest/Healer `initialspell`; Knight/
   Samurai/Healer/Valkyrie/Ranger/Monk/Archeologist/Barbarian/Caveman
   `skill_init`; display-path Japanese names; full `role_init` beyond
@@ -165,7 +169,8 @@ throw at `u_init_role`. seed0700 RNG full. seed0102 RNG **full**.
   `Detect_monsters`/`MATCH_WARN_OF_MON` in `newsym`; full
   `weapon_insight` enhance/P_SKILL/odd P_NAME; shop `costly_spot`
   autopickup; `obj_typename` armor pair-of/set-of + GemStone;
-  MLET_CH beyond early subset; `align_shift`/`temperature_shift`;
+  pool/lava/ice/air/cloud terrain glyphs; Book overlay blanking;
+  cmdassist getdir help window; `align_shift`/`temperature_shift`;
   `peace_minded` MS_*/race_*/minion arms; egg hatch timers /
   `egg_type_from_parent`; `^V`/`level_tele`/`goto_level`/`makemaz`;
   TIN `cnutrit`; interactive `o`/`doopen` getdir; `doopen_indir`
@@ -345,6 +350,12 @@ Module status, constitutional debt, and named omissions live in
     **85792→90837**; screens **295→296**; positional seed0102
     **1284→4459**; seed0700 RNG still full; getbones still blocked
     on unbound `^V`/special levels
+54. `f`/`dofire` fireassist/`doswapweapon` (D-0069) — seed0102 RNG
+    **4485**/4485 Scr **0**/25; aggregate RNG **90863**; screens
+    **294**
+55. MONSYM `MLET_CH` + furniture terrain + `xprname` `dot` (D-0070)
+    — seed0102 Scr **0→17**/25; aggregate screens **294→311**;
+    RNG **90863** unchanged; green cohort still PASS
 
 Next work is selected from the active objectives above using
 `PORTING-RUNBOOK.md`, not by extending this historical list.

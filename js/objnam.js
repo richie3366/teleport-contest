@@ -262,11 +262,12 @@ export function doname(obj) {
 }
 
 /**
- * C ref: invent.c xprname() — "a - doname" / "$ - doname"
+ * C ref: invent.c xprname(obj, txt, let, dot, cost, quan)
+ * Message/prinv paths pass dot=true (trailing period); invent menus omit it.
  */
-export function xprname(obj, let_) {
+export function xprname(obj, let_, dot = false) {
     const ilet = let_ ?? obj.invlet ?? '?';
-    return `${ilet} - ${doname(obj)}`;
+    return `${ilet} - ${doname(obj)}${dot ? '.' : ''}`;
 }
 
 // C ref: objnam.c Japanese_items[] / Japanese_item_name()

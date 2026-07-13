@@ -10,11 +10,13 @@ import {
     HWALL, VWALL, TLCORNER, TRCORNER, BLCORNER, BRCORNER,
     CROSSWALL, TUWALL, TDWALL, TLWALL, TRWALL,
     SDOOR, SCORR, POOL, MOAT, WATER, LAVAPOOL, LAVAWALL,
+    FOUNTAIN, SINK, THRONE, ALTAR, GRAVE,
     D_NODOOR, D_ISOPEN, D_CLOSED, D_LOCKED,
     SV0, SV1, SV2, SV3, SV4, SV5, SV6, SV7,
     WM_MASK, WM_C_OUTER, WM_C_INNER,
     WM_W_LEFT, WM_W_RIGHT, WM_W_TOP, WM_W_BOTTOM, WM_T_LONG, WM_T_BL, WM_T_BR,
     WM_X_TL, WM_X_TR, WM_X_BL, WM_X_BR, WM_X_TLBR, WM_X_BLTR,
+    HI_GOLD,
 } from './const.js';
 import {
     ILLOBJ_CLASS, WEAPON_CLASS, ARMOR_CLASS, RING_CLASS, AMULET_CLASS,
@@ -22,7 +24,10 @@ import {
     WAND_CLASS, COIN_CLASS, GEM_CLASS, ROCK_CLASS, BALL_CLASS, CHAIN_CLASS,
     VENOM_CLASS, objectNames,
 } from './objects.js';
-import { NO_COLOR, CLR_GRAY, CLR_BROWN, CLR_WHITE, CLR_YELLOW, DEC_TO_UNICODE } from './terminal.js';
+import {
+    NO_COLOR, CLR_GRAY, CLR_BROWN, CLR_WHITE, CLR_YELLOW, CLR_BRIGHT_BLUE,
+    DEC_TO_UNICODE,
+} from './terminal.js';
 
 const CORPSE_OTYP = objectNames.indexOf('CORPSE');
 
@@ -50,11 +55,66 @@ const DEF_OC_SYM = {
 // C ref: defsym.h MONSYM — letter from mlet; color from mons[].mcolor (not mlet).
 // HI_DOMESTIC (CLR_WHITE) for pets — color.h.
 const MLET_CH = {
+    S_ANT: 'a',
+    S_BLOB: 'b',
+    S_COCKATRICE: 'c',
     S_DOG: 'd',
+    S_EYE: 'e',
     S_FELINE: 'f',
+    S_GREMLIN: 'g',
+    S_HUMANOID: 'h',
+    S_IMP: 'i',
+    S_JELLY: 'j',
+    S_KOBOLD: 'k',
+    S_LEPRECHAUN: 'l',
+    S_MIMIC: 'm',
+    S_NYMPH: 'n',
+    S_ORC: 'o',
+    S_PIERCER: 'p',
+    S_QUADRUPED: 'q',
     S_RODENT: 'r',
-    S_LIZARD: ':',
+    S_SPIDER: 's',
+    S_TRAPPER: 't',
+    S_UNICORN: 'u',
+    S_VORTEX: 'v',
+    S_WORM: 'w',
+    S_XAN: 'x',
+    S_LIGHT: 'y',
+    S_ZRUTY: 'z',
+    S_ANGEL: 'A',
+    S_BAT: 'B',
+    S_CENTAUR: 'C',
+    S_DRAGON: 'D',
+    S_ELEMENTAL: 'E',
+    S_FUNGUS: 'F',
+    S_GNOME: 'G',
+    S_GIANT: 'H',
+    S_invisible: 'I',
+    S_JABBERWOCK: 'J',
+    S_KOP: 'K',
+    S_LICH: 'L',
+    S_MUMMY: 'M',
+    S_NAGA: 'N',
+    S_OGRE: 'O',
+    S_PUDDING: 'P',
+    S_QUANTMECH: 'Q',
+    S_RUSTMONST: 'R',
+    S_SNAKE: 'S',
+    S_TROLL: 'T',
+    S_UMBER: 'U',
+    S_VAMPIRE: 'V',
+    S_WRAITH: 'W',
+    S_XORN: 'X',
+    S_YETI: 'Y',
+    S_ZOMBIE: 'Z',
     S_HUMAN: '@',
+    S_GHOST: ' ',
+    S_GOLEM: "'",
+    S_DEMON: '&',
+    S_EEL: ';',
+    S_LIZARD: ':',
+    S_WORM_TAIL: '~',
+    S_MIMIC_DEF: ']',
 };
 
 function mon_at_display(x, y) {
@@ -413,6 +473,12 @@ function terrain_glyph(loc, x, y) {
             return { ch: '<', color: CLR_YELLOW, dec: false };
         return { ch: '>', color: NO_COLOR, dec: false };
     }
+    // C ref: defsym.h PCHAR — furniture glyphs (display.c back_to_glyph)
+    case ALTAR:     return { ch: '_', color: CLR_GRAY, dec: false };
+    case GRAVE:     return { ch: '|', color: CLR_WHITE, dec: false };
+    case THRONE:    return { ch: '\\', color: HI_GOLD, dec: false };
+    case SINK:      return { ch: '{', color: CLR_WHITE, dec: false };
+    case FOUNTAIN:  return { ch: '{', color: CLR_BRIGHT_BLUE, dec: false };
     // C ref: display.c back_to_glyph — walls/SDOOR use wall_angle(seenv)
     case SDOOR:
     case HWALL:

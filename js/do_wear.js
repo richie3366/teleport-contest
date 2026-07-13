@@ -82,9 +82,9 @@ async function off_msg(otmp) {
     }
 }
 
-/** C ref: invent.c prinv(NULL, otmp, 0) — "ilet - doname" */
+/** C ref: invent.c prinv(NULL, otmp, 0) — "ilet - doname." via xprname(dot) */
 async function prinv(otmp) {
-    await pline(xprname(otmp));
+    await pline(xprname(otmp, undefined, true));
 }
 
 /** C ref: do_wear.c on_msg — rings/amulets use prinv; armor uses verbose You(). */

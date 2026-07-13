@@ -73,6 +73,7 @@ Do not record a guessed cause as fixed merely because an RNG prefix moved.
 | D-0067 | fixed | puton | `P`/`doputon`/`Amulet_on` + accessory path; seed0361 past ALS; next `getbones` |
 | D-0068 | fixed | mkobj/egg | EGG `can_be_hatched` retry + growth helpers; seed0102 1281→4451 |
 | D-0069 | fixed | fire/`f` | fireassist swap+cmdq; seed0102 RNG full (udist via no leaked `l`) |
+| D-0070 | fixed | display/xprname | full MLET_CH + furniture terrain + prinv `dot`; seed0102 Scr 0→17 |
 
 D-0001 through D-0005 predate the strict-length/cohort runbook. Their focused
 causes are preserved, but generic "green sessions held" is historical evidence,
@@ -1906,3 +1907,26 @@ cohort gates if those functions are touched again.
   movement key.
 - **Next:** seed0102 **screen** peel (More/prinv display), or
   seed0017 @ 2775 / seed0700 screens.
+
+## D-0070 — seed0102 map glyphs + prinv period
+
+- **Status:** fixed
+- **Observed:** seed0102 RNG full but Scr **0/25**. Persistent cells:
+  kobold `?` vs C `k` (CLR_BROWN); sink `?` vs C `{` (CLR_WHITE).
+- **C locus:** `defsym.h` MONSYM (`S_KOBOLD`→`'k'`); PCHAR
+  (`S_sink`→`'{'` CLR_WHITE, fountain/throne/altar/grave); `invent.c`
+  `prinv` → `xprname(..., dot=TRUE)` trailing period.
+- **Cause:** `mon_glyph` MLET_CH covered only dog/feline/rodent/lizard/
+  human → unknown mlets rendered `'?'`. `terrain_glyph` defaulted
+  furniture (typ SINK=30 etc.) to `'?'`. `xprname` omitted `dot`, so
+  fireassist swap More lacked `hand).--More--`.
+- **Change:** `js/display.js` full MONSYM `MLET_CH` + furniture
+  cases in `terrain_glyph`; `js/objnam.js` `xprname(..., dot)`;
+  prinv callers in wield/do_wear/invent pass `dot=true`.
+- **Verification:** seed0102 Scr **0→17**/25 (RNG still full);
+  green + seed1500/1800/0060 PASS + strict; full **5/44**,
+  RNG **90863**/792838, screens **311**/11405.
+- **Named omission:** Book-of-Dead overlay still leaves map under
+  text (Scr 0); cmdassist direction-help window (Scr 15+).
+- **Next:** seed0102 cmdassist/`getdir` help UI, or Book overlay
+  blanking; else seed0017 @ 2775 / seed0700 screens.

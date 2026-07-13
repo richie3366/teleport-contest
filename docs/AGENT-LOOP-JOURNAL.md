@@ -814,3 +814,16 @@ Use this shape:
   RNG **90863**/792838, Scr **294**/11405.
 - Next: `node frozen/ps_test_runner.mjs sessions/seed0102-ranger-name-cancel.session.json`
   — screen peel, or seed0017 @ 2775 / seed0700 screens.
+
+## 2026-07-13 — display MLET_CH + furniture + xprname dot (D-0070)
+- Objective: seed0102 screen peel Scr 0/25 (PROGRESS primary).
+- C locus: `defsym.h` MONSYM / PCHAR furniture; `invent.c`
+  `prinv`→`xprname(..., TRUE)`.
+- Result: **verified** — kobold/`S_KOBOLD`→`k`, sink→`{`
+  CLR_WHITE, full MLET_CH + altar/grave/throne/fountain;
+  prinv trailing period. seed0102 Scr **0→17**/25 (RNG full).
+  Remaining: Book overlay Scr 0; cmdassist help Scr 15+.
+- Verification: green + seed1500/1800/0060 PASS + strict; full
+  **5/44**, RNG **90863**/792838, Scr **311**/11405.
+- Next: `node frozen/ps_test_runner.mjs sessions/seed0102-ranger-name-cancel.session.json`
+  — cmdassist getdir help UI (Scr 15) or Book overlay blanking.

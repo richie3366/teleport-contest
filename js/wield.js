@@ -163,7 +163,7 @@ export async function doswapweapon() {
     } else {
         setuswapwep(oldwep);
         // C: second prinv triggers more() on the ready_weapon message
-        if (u.uswapwep) await pline(xprname(u.uswapwep));
+        if (u.uswapwep) await pline(xprname(u.uswapwep, undefined, true));
         else await pline('You have no secondary weapon readied.');
     }
 
@@ -204,7 +204,7 @@ async function ready_weapon(wep) {
 
     const dummy = wep.owornmask || 0;
     wep.owornmask = dummy | W_WEP;
-    await pline(xprname(wep));
+    await pline(xprname(wep, undefined, true)); // C: prinv → xprname(..., TRUE)
     wep.owornmask = dummy;
 
     setuwep(wep);
