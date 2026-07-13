@@ -254,7 +254,7 @@ export function singular(obj, func = xname) {
 }
 
 // C ref: objnam.c makeplural — enough for "X of Y" and simple nouns.
-function makeplural(s) {
+export function makeplural(s) {
     const of = s.indexOf(' of ');
     if (of > 0) {
         return makeplural(s.slice(0, of)) + s.slice(of);

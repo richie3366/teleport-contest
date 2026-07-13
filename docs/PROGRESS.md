@@ -38,7 +38,7 @@ frozen-file overlay):
 | Metric | Value |
 |--------|------:|
 | Sessions passing | **10 / 44** |
-| Screens matched | **1130 / 11,405** (9.91%) |
+| Screens matched | **1133 / 11,405** (9.93%) |
 | Positional RNG calls matched | **104,575 / 792,838** (13.19%) |
 | Speed label | `18+0.08/turn` |
 | Working-tree base | `8b71735` + committed port (see `main`) |
@@ -69,7 +69,7 @@ shared blockers, and semantic coverage together—not one vanity metric.
 | `seed0016-healer-newmoon-eat-zap` | **2544 / 3656** | **5 / 36** |
 | `seed0107-samurai-twoweapon-enhance` | **2684 / 2902** | **36 / 98** |
 | `seed0104-knight-ride-combat` | **2394 / 3223** | 1 / 43 |
-| `seed0106-priest-extcmd-sweep` | **4194 / 4194** | **259 / 267** |
+| `seed0106-priest-extcmd-sweep` | **4194 / 4194** | **262 / 267** |
 | `seed0361-archeologist-tour` | **3293 / 53865** | 0 / 366 |
 | `seed0373-barbarian-quest-tour` | **2555 / 35386** | 0 / 124 |
 | `seed0105-valk-chat-lamp-ration` | **987 / 2499** | 0 / 30 |
@@ -125,7 +125,7 @@ autoopen `doopen_indir` (D-0059), `mfndpos` BOULDER/`NODIAG`
 **`#offer`/`#enhance`/`#annotate`/`#overview`/`#version`** (D-0110)
 clear shared peels. seed2200 RNG **full**; Scr **200**/230 (next:
 `dokeylist` @184 after parked RC path @158). seed0106 RNG **full**;
-Scr **259**/267 (next: `#vanquished` @213). Healer seed0016 next
+Scr **262**/267 (next: `#adjust` @235). Healer seed0016 next
 `next_ident` @ 2493.
 Priest seed0501 still `wipeout_text`. seed0015/0200 next `lspo_map`.
 seed0101 next `next_ident`. seed0013 still breaks earlier in
@@ -249,18 +249,20 @@ autoopen `doopen_indir` (D-0059) + `mfndpos` BOULDER/`ALLOW_ROCK` +
 **`update_lastseentyp`/`recalc_mapseen` overview features** (D-0123)
 **`#chronicle`/`do_gamelog`/`show_gamelog` + livelog wire** (D-0124)
 **`#conduct`/`doconduct`/`show_conduct` + `initedog` pets++** (D-0125)
+**`#vanquished`/`list_vanquished` + `mvitals.died` + empty `#genocided`**
+(D-0126)
 **ported**. Ten public sessions pass end-to-end. **0/44** throw at
 `u_init_role`. seed0700 + seed1150 + seed0017 + seed0077 **PASS**.
-seed0106 RNG **full** (Scr **259**/267); seed2200 RNG **full**
+seed0106 RNG **full** (Scr **262**/267); seed2200 RNG **full**
 (Scr **200**/230).
 
-- **Bounded unit:** seed0106 `#vanquished` @213 /
+- **Bounded unit:** seed0106 `#adjust` @235 /
   seed2200 `dokeylist` @184 /
   seed0501/0105 `wipeout_text` / seed0015/0200 `lspo_map` /
   seed0101 `next_ident` / seed0103 `next_ident`/`trquan` /
   seed0030 `maybe_smudge_engr` / seed0361/0373 **`getbones`**
   (blocked: need `^V`→`goto_level`→`makemaz` first).
-- **Prefer:** seed0106 `#vanquished` or seed2200
+- **Prefer:** seed0106 `#adjust` or seed2200
   `dokeylist` over parked D-0006.
 - **Named omissions:** Wizard/Priest/Healer `initialspell`;
   `skill_based_spellbook_id` / `unrestrict_weapon_skill(spelspec)`;
@@ -293,8 +295,8 @@ seed0106 RNG **full** (Scr **259**/267); seed2200 RNG **full**
   `egg_type_from_parent`; `^V`/`level_tele`/`goto_level`/`makemaz`;
   TIN `cnutrit`; interactive `o`/`doopen` getdir; `doopen_indir`
   `b_trapped`/autounlock/mapseen; `#levelchange` `losexp`;   remaining
-  `extcmdlist` (`#vanquished`/`#genocided`/
-  `#adjust`/`#terrain`); overview shop/temple/`shop_string`/altar-god /
+  `extcmdlist` (`#adjust`/
+  `#terrain`); overview shop/temple/`shop_string`/altar-god /
   `traverse_mapseenchn`; `floorfood` sacrifice;
   `pluslvl` achievements/`newuexp`; takeoff `oc_delay`/
   occupation/magic helms/dragon/`A` takeoffall; dosearch0
@@ -709,6 +711,10 @@ Module status, constitutional debt, and named omissions live in
     seed0106 Scr **257→259**/267; screens **1128→1130**; RNG
     **104575** unchanged; green cohort PASS; next seed0106
     `#vanquished` @213 / seed2200 `dokeylist` @184
+108. `#vanquished`/`list_vanquished` + `mvitals.died` + empty
+    `#genocided` (D-0126) — seed0106 Scr **259→262**/267; screens
+    **1130→1133**; RNG **104575** unchanged; green cohort PASS;
+    next seed0106 `#adjust` @235 / seed2200 `dokeylist` @184
 
 Next work is selected from the active objectives above using
 `PORTING-RUNBOOK.md`, not by extending this historical list.

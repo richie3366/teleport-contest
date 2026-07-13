@@ -1596,3 +1596,15 @@ Use this shape:
   green+strict PASS; cohort 1500/1800/0060/0102/0700/1150/0017/0077 PASS;
   full **10/44** Scr **1130** RNG **104575**/792838.
 - Next: seed0106 `#vanquished` @213 — or seed2200 `dokeylist` @184.
+
+## 2026-07-13 — #vanquished list_vanquished + mvitals.died + empty #genocided (D-0126)
+- Objective: seed0106 Scr @213 `#vanquished` Vanquished creatures (PROGRESS primary).
+- C locus: `insight.c` `dovanquished`/`list_vanquished`/`vanqsort_cmp`/
+  `dogenocided`/`list_genocided`; `mon.c` `mondead` `mvitals[].died++`.
+- Result: **verified** — `#vanquished`/`#genocided` were AC-only; `mondead`
+  never bumped `mvitals.died`. Ported census + traditional-sort NHW_MENU
+  (an()/pfx + total) and empty genocided pline.
+- Verification: seed0106 Scr **259→262**/267 (next `#adjust` @235);
+  green+strict PASS; cohort 1500/1800/0060/0102/0700/1150/0017/0077 PASS;
+  full **10/44** Scr **1133** RNG **104575**/792838.
+- Next: seed0106 `#adjust` @235 — or seed2200 `dokeylist` @184.

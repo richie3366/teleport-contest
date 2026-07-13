@@ -17,6 +17,7 @@ import { dmgval } from './weapon.js';
 import { find_mac, AT_WEAP, AD_PHYS } from './mhitm.js';
 import { verysmall, G_FREQ } from './monsters.js';
 import { relobj_on_death } from './mkobj.js';
+import { record_mvitals_died } from './mon.js';
 import { livelog_printf } from './pline.js';
 
 function mon_nam(mtmp) {
@@ -123,6 +124,8 @@ function corpse_chance(mon) {
 function mondead(mtmp) {
     mtmp.mhp = 0;
     const mx = mtmp.mx, my = mtmp.my;
+    // C: after cham/were restore — mvitals[monsndx].died++
+    record_mvitals_died(mtmp.mnum ?? mtmp.data?.mndx);
     if (game.fmon) {
         const i = game.fmon.indexOf(mtmp);
         if (i >= 0) game.fmon.splice(i, 1);

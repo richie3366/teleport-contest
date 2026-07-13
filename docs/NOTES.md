@@ -7,15 +7,16 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 
 ## Active
 
-- **Current unit:** D-0125 cleared: `#conduct` / `doconduct` / `show_conduct`
-  + `initedog` `u.uconduct.pets++`.
-- **Hypothesis:** seed0106 next Scr peel @213 is `#vanquished` unbound
-  (`Vanquished creatures:` NHW_MENU). Later: `#genocided`. seed2200
-  next real peel after parked RC path @158 is help `j` → `dokeylist` @184.
+- **Current unit:** D-0126 cleared: `#vanquished` / `list_vanquished` +
+  `mvitals.died++` in `mondead`; empty `#genocided` pline.
+- **Hypothesis:** seed0106 next Scr peel @235 is `#adjust` unbound
+  (`What do you want to adjust? [a-h or ?*]`). Later: `#name` /
+  `#terrain` / invent / `^X` attributes @261. seed2200 next real peel
+  after parked RC path @158 is help `j` → `dokeylist` @184.
 - **Falsifier / next:**
   ```bash
   node frozen/ps_test_runner.mjs sessions/seed0106-priest-extcmd-sweep.session.json
-  # expect Scr >259 if #vanquished matches C; green cohort must stay PASS
+  # expect Scr >262 if #adjust matches C; green cohort must stay PASS
   node frozen/ps_test_runner.mjs sessions/seed2200-wizard-quaff-zap-read.session.json
   ```
 - **Parked deep canary:** D-0006 pet movement — do not implement until C
@@ -99,6 +100,12 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   `show_conduct(0)` NHW_MENU `Voluntary challenges:`; foodless when
   `!uconduct.food`; petless omitted after `initedog` pets++ (D-0125).
   Do not invent static conduct text.
+- **seed0106 @213 was `#vanquished` unbound + missing `mvitals.died++`**
+  — C `list_vanquished('y')` NHW_MENU; needs `mondead` census (D-0126).
+  Do not hardcode kobold/lichen lines.
+- **seed0106 @226 empty `#genocided` was unbound** — C
+  `list_genocided` pline when `ngone==0` (D-0126). Menu body when
+  genocides exist still deferred.
 
 ## Landmarks
 
@@ -146,3 +153,8 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 - `#conduct`: `show_conduct(0)` NHW_MENU; `enlght_line` leading space +
   period; `initedog` always `uconduct.pets++` (starting pet clears
   petless); `show_achievements` skipped unless final||wizard (D-0125).
+- `#vanquished`: `list_vanquished('y')` NHW_MENU; `mvitals.died` from
+  `mondead`; default `VANQ_MLVL_MNDX`; `"a "` lines get pfx=2 spaces;
+  total line when `ntypes>1` (D-0126).
+- `#genocided` empty: `pline("No creatures have been genocided.")`
+  when `ngone==0` (D-0126).

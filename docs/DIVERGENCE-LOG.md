@@ -3379,6 +3379,38 @@ cohort gates if those functions are touched again.
   **104575**/792838.
 - **Named omission:** `show_achievements` body (final/wizard only);
   livelog first-pet; food/vegan bump sites beyond existing counters;
-  `#vanquished`/`#genocided`; final disclosure `show_conduct`.
+  final disclosure `show_conduct`.
 - **Next:** seed0106 `#vanquished` @213 / seed2200 `dokeylist` @184.
+
+## D-0126 — `#vanquished` / `list_vanquished` + `mvitals.died` + empty `#genocided`
+
+- **Status:** fixed
+- **Observed:** seed0106 Scr **259**/267 first miss @213: C NHW_MENU
+  corner `Vanquished creatures:` + `  a kobold` / `  a lichen` /
+  `2 creatures vanquished.`; JS `#vanquished: unknown extended
+  command.` (and `mvitals[].died` never incremented). Screen @226:
+  C `No creatures have been genocided.`; JS unknown extcmd.
+- **Cause/evidence:** `#vanquished`/`#genocided` were AUTOCOMPLETE-only
+  with no runners. Even with a runner, `mondead` omitted C's
+  `svm.mvitals[mndx].died++`, so the census would always be empty.
+  Expected overlay matches traditional `VANQ_MLVL_MNDX` sort (both
+  mlevel 0 → mndx kobold before lichen) with `an()` + 3-digit pfx
+  padding.
+- **C locus:** `cmd.c` extcmd → `insight.c` `dovanquished` /
+  `list_vanquished` / `vanqsort_cmp` / `dogenocided` /
+  `list_genocided`; `mon.c` `mondead` `mvitals[].died++`.
+- **Change:** `js/mon.js` `record_mvitals_died`; call from
+  `uhitm.js`/`mhitm.js` `mondead`; `js/insight.js`
+  `dovanquished`/`list_vanquished`/`vanqsort_cmp` + empty
+  `dogenocided`/`list_genocided`; `js/getline.js` runners;
+  export `makeplural`; `M2_PNAME`.
+- **Verification:** seed0106 Scr **259→262**/267 (next: `#adjust`
+  @235); green+strict PASS; cohort 1500/1800/0060/0102/0700/1150/
+  0017/0077 PASS; full **10/44** Scr **1130→1133** RNG
+  **104575**/792838.
+- **Named omission:** `set_vanq_order` / `m #vanquished` force_sort;
+  disclose yn ask; class-header / numeric-mlet MCLS modes; dumplog
+  `'d'`; Hallucination footer; `#genocided` ngone>0 NHW_MENU +
+  extinctions; cham/were restore before `monsndx` in `mondead`.
+- **Next:** seed0106 `#adjust` @235 / seed2200 `dokeylist` @184.
 

@@ -63,6 +63,7 @@ export const G_IGNORE = 0x8000;
 export const M2_MALE = 0x00010000;
 export const M2_FEMALE = 0x00020000;
 export const M2_NEUTER = 0x00040000;
+export const M2_PNAME = 0x00080000; /* monflag.h — proper name */
 export const M2_HOSTILE = 0x00100000;
 export const M2_PEACEFUL = 0x00200000;
 export const M2_DOMESTIC = 0x00400000;

@@ -162,6 +162,24 @@ const EXT_CMDS = [
         },
     },
     {
+        name: 'vanquished',
+        wiz: false,
+        autocomplete: true,
+        run: async () => {
+            const { dovanquished } = await import('./insight.js');
+            return dovanquished();
+        },
+    },
+    {
+        name: 'genocided',
+        wiz: false,
+        autocomplete: true,
+        run: async () => {
+            const { dogenocided } = await import('./insight.js');
+            return dogenocided();
+        },
+    },
+    {
         name: 'dip',
         wiz: false,
         autocomplete: true,
