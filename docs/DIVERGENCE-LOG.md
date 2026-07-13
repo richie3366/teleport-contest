@@ -120,6 +120,7 @@ Do not record a guessed cause as fixed merely because an RNG prefix moved.
 | D-0114 | fixed | options/extract | `#if PREV_MSGS /*…*/` comment broke extract → stale `(not applicable)` msg_window |
 | D-0115 | fixed | display/symset | Honor `symset:DECgraphics`; default Primary ASCII walls/floors/open doors |
 | D-0116 | fixed | pray/attrib/pline | angrygods `verbalize` + `adjattrib` You_feel → quote/`--More--`; seed0106 Scr 32→34 |
+| D-0117 | fixed | getline/extcmd AC | full AUTOCOMPLETE uniqueness for NEWAUTOCOMP; seed0106 Scr 34→38 |
 
 D-0001 through D-0005 predate the strict-length/cohort runbook. Their focused
 causes are preserved, but generic "green sessions held" is historical evidence,
@@ -3119,6 +3120,33 @@ cohort gates if those functions are touched again.
 - **Named omission:** Fixed_abil/Dunce/verbose adjattrib; Unaware
   You_feel dream prefix; angrygods 4+; progressive extcmd paint.
 - **Next:** seed0106 extcmd `# c` progressive getline /
+  seed2200 `dokeylist` @184.
+
+## D-0117 — seed0106 progressive `# c` / `# ch` extcmd paint
+
+- **Status:** fixed
+- **Observed:** seed0106 Scr **34**/267 first miss @16: after `#` then
+  `c`, C topline `# c` vs JS `# chat` (same cursor col 3); `@17` `# ch`
+  vs `# chat`. Screens 18–19 (`a`/`t`) already matched after C also
+  expands at `"cha"`.
+- **C locus:** `win/tty/getline.c` `ext_cmd_getlin_hook` →
+  `cmd.c` `extcmds_match(..., ECM_NOFLAGS)`; `extcmdlist[]` AUTOCOMPLETE
+  names (chat/chronicle/conduct share `"c"`/`"ch"`).
+- **Cause:** JS autocomplete uniqueness used only the runnable
+  `EXT_CMDS` subset, so `"c"` uniquely matched `chat`. C matches against
+  every AUTOCOMPLETE entry (wizard-gated), so expansion waits until
+  `"cha"`.
+- **Change:** `getline.js` `EXT_CMD_AC` = full C AUTOCOMPLETE name set
+  for hook uniqueness; `EXT_CMDS` remains the runnable subset for Enter
+  dispatch.
+- **Verification:** seed0106 Scr **34→38**/267 (screens 16–17 and
+  24–25 match); next miss @34 potion `!` color 11 vs NO_COLOR 8;
+  green+strict PASS; cohort 1500/1800/0060/0102/0700/1150/0017/0077
+  PASS; full **10/44** Scr **853→857** RNG **104575**/792838.
+- **Named omission:** full runnable `extcmdlist` bodies; `extcmds_match`
+  ECM_IGNOREAC exact-enter for non-AC names; `iflags.use_color` mapglyph
+  gating (next peel).
+- **Next:** seed0106 `use_color` / potion glyph color @34 /
   seed2200 `dokeylist` @184.
 
 

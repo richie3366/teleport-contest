@@ -7,15 +7,17 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 
 ## Active
 
-- **Current unit:** D-0116 cleared: angrygods `verbalize` + `adjattrib`
-  You_feel. Public still **10/44**; Scr **853**.
-- **Hypothesis:** seed0106 next Scr peel @16 is progressive extcmd
-  getline paint (`# c` / `# ch` vs full `# chat`). seed2200 next real
-  peel after parked RC path @158 is help `j` → `dokeylist` @184
-  (`(key list stub)`).
+- **Current unit:** D-0117 cleared: `ext_cmd_getlin_hook` uniqueness uses
+  full C AUTOCOMPLETE set (not runnable subset). seed0106 Scr **34→38**.
+- **Hypothesis:** seed0106 next Scr peel @34 is potion `!` at map (71,9)
+  colored CLR_YELLOW (11) while C is NO_COLOR (8) — rc has no `OPTIONS=color`
+  (unlike PASS cohort). JS `obj_glyph`/`newsym` always paint `oc_color`;
+  C mapglyph gates on `iflags.use_color`. seed2200 next real peel after
+  parked RC path @158 is help `j` → `dokeylist` @184.
 - **Falsifier / next:**
   ```bash
   node frozen/ps_test_runner.mjs sessions/seed0106-priest-extcmd-sweep.session.json
+  # expect Scr >38 if use_color gating is correct; green cohort must stay PASS
   node frozen/ps_test_runner.mjs sessions/seed2200-wizard-quaff-zap-read.session.json
   ```
 - **Parked deep canary:** D-0006 pet movement — do not implement until C
@@ -58,8 +60,12 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 - **seed0106 @13 was verbalize + adjattrib You_feel** — not map glyphs
   (D-0116). Bare `pline` for relearn + silent adjattrib skipped quotes
   and the `more()` forced by `You feel foolish!`.
-- seed0106 potion `!` yellow vs NO_COLOR may be `iflags.use_color`
-  when `OPTIONS=color` absent — diagnose before forcing monochrome.
+- **seed0106 @16 `# c`→`# chat` was runnable-subset autocomplete** — full
+  C AUTOCOMPLETE has chat/chronicle/conduct so `"c"`/`"ch"` stay unexpanded
+  until `"cha"` (D-0117). Do not shrink AC names to ported runners.
+- seed0106 potion `!` yellow vs NO_COLOR: rc omits `color`; diagnose
+  `iflags.use_color` / mapglyph before forcing monochrome globally
+  (would break PASS cohort that sets `OPTIONS=color`).
 - Door open: C `recalc_block_point` before vision sees through;
   DECgraphics open door = meta-a / CLR_BROWN; ASCII open door uses
   `horizontal` → `|` / `-` (D-0113/D-0115).
@@ -86,3 +92,5 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 - angrygods case 2/3: `pline` quote + `verbalize` relearn +
   `adjattrib(A_WIS,-1,FALSE)` → `You feel foolish!` forces `--More--`
   on the quote line (D-0116).
+- `ext_cmd_getlin_hook`: unique among **all** AUTOCOMPLETE `ef_txt`
+  (wizard-gated); `"c"`≠chat, `"cha"`→chat (D-0117).
