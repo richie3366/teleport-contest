@@ -33,6 +33,9 @@ import {
 } from './const.js';
 import { ATR_INVERSE } from './terminal.js';
 import {
+    skill_based_spellbook_id, spell_skilltype,
+} from './spell.js';
+import {
     PM_CAVE_DWELLER, PM_MONK, PM_RANGER, PM_ROGUE, PM_SAMURAI,
     PM_HEALER, PM_CLERIC, PM_WIZARD,
     monsterNames,
@@ -455,9 +458,8 @@ export function unrestrict_weapon_skill(skill) {
 /**
  * C ref: weapon.c skill_init.
  * Branch envelope: invent→Basic (skip ammo), role magic Basics, class_skill
- * maxes, bare-hands Expert+, pony riding, advance fill.
- * skill_based_spellbook_id / spelspec unrestrict deferred (callers may
- * unrestrict separately when spelspec is known).
+ * maxes, bare-hands Expert+, pony riding, advance fill, spelspec
+ * unrestrict, non-pauper skill_based_spellbook_id.
  */
 export function skill_init(class_skill) {
     if (!game.u) return;
@@ -507,6 +509,13 @@ export function skill_init(class_skill) {
         }
         set_P_ADVANCE(skill, practice_needed_to_advance(P_SKILL(skill) - 1));
     }
+
+    // C: each role has a special spell; allow at least Unskilled for its school
+    const spelspec = game.urole?.spelspec | 0;
+    if (spelspec) unrestrict_weapon_skill(spell_skilltype(spelspec));
+
+    // C: paupers lack advanced access to books
+    if (!game.u.uroleplay?.pauper) skill_based_spellbook_id();
 }
 
 /** C ref: mthrowu.c monmulti */

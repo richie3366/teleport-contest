@@ -871,8 +871,8 @@ export function dfeature_at(x, y) {
 /**
  * C ref: invent.c look_here — feature + objects at hero feet.
  * Ported envelope: non-swallow, non-blind, no pile skip; dfeature pline;
- * no-objects message only when Blind || !dfeature. Object listing /
- * engraving / trap+region / Blind feel path deferred.
+ * read_engr_at; no-objects when Blind || !dfeature. Object listing /
+ * trap+region / Blind feel path deferred.
  */
 export async function look_here(obj_cnt = 0, lookhere_flags = 0) {
     const u = game.u;
@@ -898,7 +898,9 @@ export async function look_here(obj_cnt = 0, lookhere_flags = 0) {
     if (!otmp) {
         if (dfeature && !skip_dfeature && fbuf)
             await pline(fbuf);
-        // read_engr_at deferred
+        const { read_engr_at } = await import('./engrave.js');
+        await read_engr_at(u?.ux, u?.uy);
+        // C: (!skip_objects && (Blind || !dfeature))
         if (!skip_objects && !dfeature)
             await pline(`You ${verb} no objects here.`);
         return;
@@ -907,6 +909,10 @@ export async function look_here(obj_cnt = 0, lookhere_flags = 0) {
     // Objects present — single-item / multi deferred beyond dfeature prefix
     if (dfeature && !skip_dfeature && fbuf)
         await pline(fbuf);
+    {
+        const { read_engr_at } = await import('./engrave.js');
+        await read_engr_at(u?.ux, u?.uy);
+    }
     if (!otmp.nexthere) {
         // single object: "You see here <doname>" — doname_with_price deferred
         await pline(`You ${verb} here ${doname(otmp)}.`);

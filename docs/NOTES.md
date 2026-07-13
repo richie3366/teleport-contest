@@ -7,18 +7,21 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 
 ## Active
 
-- **Current unit:** D-0131 cleared: `dokeylist`/`show_menu_controls`/
-  `docontact` + usagehlp trailing blank (seed2200 Scr **227**/230).
-- **Hypothesis:** seed2200 next Scr peels are (1) `\` disco missing C `*`
-  spellbook discoveries @222, (2) `:` look Elbereth engaving @229;
-  parked RC path @158 remains harness `$HOME`.
+- **Current unit:** D-0132/D-0133 cleared: Wizard `skill_based_spellbook_id`
+  + `read_engr_at` for `:` Elbereth (seed2200 Scr **229**/230).
+- **Hypothesis:** seed2200 sole remaining miss is parked harness RC path @158
+  (`$HOME` / recording absolute path). Next foundation peels are outside
+  seed2200: seed0501/0105 `wipeout_text`, seed0015/0200 `lspo_map`,
+  seed0101/0103 `next_ident`, seed0030 `maybe_smudge_engr`, or
+  `getbones` (blocked on `^V`/`goto_level`/`makemaz`).
 - **Falsifier / next:**
   ```bash
-  node frozen/ps_test_runner.mjs sessions/seed2200-wizard-quaff-zap-read.session.json
-  # expect Scr >227/230 if disco/Elbereth match; green cohort must stay PASS
+  node frozen/ps_test_runner.mjs sessions/seed0501-priest-cast-read-turn.session.json
+  # or seed0015 / seed0101 — expect first divergence beyond wiped text / map
   ```
 - **Parked deep canary:** D-0006 pet movement — do not implement until C
   state/candidate capture exists.
+- **Parked seed2200 @158:** RC config path — harness `$HOME`, not a port bug.
 
 ## Don’t re-check
 
@@ -130,6 +133,13 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 - **usagehlp empty final `--More--` was display_file over-stripping** —
   keep intentional trailing blank from `\n\n`; only pop split artifact
   (D-0131). Do not strip all trailing empties.
+- **seed2200 disco @222 missing `*` books was NOT invent `knows_object`**
+  — Wizard `skill_based_spellbook_id` after `skill_init` discovers by
+  school skill without `oc_encountered` (D-0132). Do not copy Tourist
+  disco or hardcode book lists.
+- **seed2200 `:` @229 was NOT missing make_engr_at** — engraving existed;
+  `look_here`/`check_here` deferred `read_engr_at` so printed
+  `You see no objects here.` (D-0133).
 
 ## Landmarks
 
@@ -196,3 +206,10 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 - dokeylist: extcmdlist extract + commands_init then N_DIRS=8 movement
   overwrite; `<>` stay down/up; title `%7s %s` with `"    Full…"`;
   menu dolist `%-7s`; domenucontrols `%8s` right-align (D-0131).
+- Wizard disco `*`: `skill_based_spellbook_id` — BASIC→L≤3,
+  UNSKILLED→L≤1 (non-pauper); `discover_object(...,TRUE,FALSE)` so
+  prefix `*` (D-0132). `skill_init` also `unrestrict_weapon_skill(
+  spell_skilltype(spelspec))`.
+- `:` Elbereth: `read_engr_at` DUST → `Something is written here in the
+  dust.` then `You read: "Elbereth".` (pline append → one `--More--`)
+  (D-0133).

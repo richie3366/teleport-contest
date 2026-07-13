@@ -1,19 +1,23 @@
 // spell.js — Known spells / + menu / initial inventory learning.
 // C ref: spell.c initialspell, dovspell, dospellmenu, percent_success,
-//        spellretention, spelltypemnemonic, spell_skilltype.
+//        spellretention, spelltypemnemonic, spell_skilltype,
+//        skill_based_spellbook_id.
 //
-// Branch envelope this iteration: spl_book init; initialspell from
-// ini_inv_use_obj; dovspell VIEW menu (empty / one / many + sort entry);
-// Esc cancel; swap/sort bodies deferred (Esc exits); cast/docast deferred.
+// Branch envelope: spl_book init; initialspell from ini_inv_use_obj;
+// dovspell VIEW menu; Wizard skill_based_spellbook_id from skill_init /
+// spell-skill advance; Esc cancel; swap/sort bodies deferred; cast/docast
+// deferred.
 
 import { game } from './gstate.js';
 import { nhgetch } from './input.js';
 import { flush_screen, pline, docrt } from './display.js';
-import { paint_corner_nhw_menu } from './invent.js';
+import { paint_corner_nhw_menu, discover_object } from './invent.js';
 import { ATR_INVERSE, NO_COLOR } from './terminal.js';
 import { weight } from './mkobj.js';
 import { acurr, A_WIS } from './attrib.js';
+import { SPBOOK_CLASS } from './objects.js';
 import {
+    P_NONE,
     P_ATTACK_SPELL,
     P_HEALING_SPELL,
     P_DIVINATION_SPELL,
@@ -25,10 +29,12 @@ import {
     P_BASIC,
     P_SKILLED,
     P_EXPERT,
+    P_MASTER,
+    P_GRAND_MASTER,
     P_ISRESTRICTED,
 } from './const.js';
 import { objectNames, objectNameStrs } from './generated/objects_data.js';
-import { PM_KNIGHT } from './generated/monsters_data.js';
+import { PM_KNIGHT, PM_WIZARD } from './generated/monsters_data.js';
 
 /** C ref: spell.h NO_SPELL */
 export const NO_SPELL = 0;
@@ -105,6 +111,51 @@ function P_SKILL(type) {
 /** C ref: spell.c spell_skilltype */
 export function spell_skilltype(booktype) {
     return game.objects?.[booktype]?.oc_skill ?? 0;
+}
+
+/**
+ * C ref: spell.c skill_based_spellbook_id — Wizards ID spellbooks by school
+ * skill without marking them encountered (disco shows '* ').
+ * Called from skill_init and after advancing a spell skill.
+ */
+export function skill_based_spellbook_id() {
+    if (game.urole?.mnum !== PM_WIZARD) return;
+
+    const bases = game.bases || [];
+    const start = bases[SPBOOK_CLASS] || 0;
+    const end = bases[SPBOOK_CLASS + 1] || (game.objects?.length ?? 0);
+    const pauper = !!game.u?.uroleplay?.pauper;
+
+    for (let booktype = start; booktype < end; booktype++) {
+        const skill = spell_skilltype(booktype);
+        if (skill === P_NONE) continue;
+
+        let known_up_to_level;
+        switch (P_SKILL(skill)) {
+        case P_BASIC:
+            known_up_to_level = 3;
+            break;
+        case P_SKILLED:
+            known_up_to_level = 5;
+            break;
+        case P_EXPERT:
+        case P_MASTER:
+        case P_GRAND_MASTER:
+            known_up_to_level = 7;
+            break;
+        case P_UNSKILLED:
+        default:
+            // C: paupers need more skill; most wizards know the basics
+            known_up_to_level = pauper ? 0 : 1;
+            break;
+        }
+
+        const oc_level = game.objects?.[booktype]?.oc_level ?? 0;
+        if (oc_level <= known_up_to_level) {
+            // C: discover_object(booktype, TRUE, FALSE, FALSE)
+            discover_object(booktype, true, false);
+        }
+    }
 }
 
 /** C ref: objclass.h is_metallic */

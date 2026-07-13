@@ -135,6 +135,8 @@ Do not record a guessed cause as fixed merely because an RNG prefix moved.
 | D-0129 | fixed | spell/+ | `initialspell`/`dovspell` VIEW + `age_spells`; seed0106 Scr 265→266 |
 | D-0130 | fixed | exper/^X | `experience`/`more_experienced` + doattributes `an`/Pw; seed0106 **PASS** |
 | D-0131 | fixed | cmd/pager | `dokeylist`/`show_menu_controls`/`docontact` + usagehlp trailing blank; seed2200 Scr 202→227 |
+| D-0132 | fixed | spell/weapon | Wizard `skill_based_spellbook_id` + spelspec unrestrict; seed2200 disco `*` @222 |
+| D-0133 | fixed | engrave/look | `read_engr_at` from `look_here`/`check_here`; seed2200 Elbereth `:` @229 |
 
 D-0001 through D-0005 predate the strict-length/cohort runbook. Their focused
 causes are preserved, but generic "green sessions held" is historical evidence,
@@ -3553,8 +3555,52 @@ cohort gates if those functions are touched again.
   1150/0017/0077/0106 PASS; full **11/44** Scr **1141→1166** RNG
   **104575**/792838.
 - **Named omission:** custom BIND=/number_pad/swap_yz/rest_on_space;
-  menu_shift; CMD_PARAM bound params; recording `get_configfile` path;
-  disco identify/`*` known-class completeness; `:` engraving look.
+  menu_shift; CMD_PARAM bound params; recording `get_configfile` path.
 - **Next:** seed2200 disco @222 / Elbereth `:` @229 / seed0501
   `wipeout_text` / `lspo_map` / `getbones`.
+
+## D-0132 — Wizard skill_based_spellbook_id (disco `*` books)
+
+- **Status:** fixed
+- **Observed:** seed2200 Scr @222 `\`; C listed ten `* spellbook of …`
+  after force bolt / create monster; JS jumped from copper book to
+  Potions (missing skill-ID discoveries).
+- **Cause/evidence:** `skill_init` omitted C's trailing
+  `unrestrict_weapon_skill(spell_skilltype(spelspec))` and
+  `skill_based_spellbook_id()`. Wizard BASIC attack/enchantment IDs
+  books through level 3 via `discover_object(..., TRUE, FALSE)` so
+  disco shows `*` (known, not encountered).
+- **C locus:** `spell.c` `skill_based_spellbook_id`; `weapon.c`
+  `skill_init` (post-advance fill) / `skill_advance` spell-school gate.
+- **Change:** ported `skill_based_spellbook_id` in `js/spell.js`; wire
+  from `skill_init` with spelspec unrestrict; non-pauper only.
+- **Verification:** seed2200 Scr **227→228**/230 (then +Elbereth →229);
+  green+strict PASS; cohort PASS; full **11/44** Scr **1166→1169** RNG
+  **104575**/792838.
+- **Named omission:** `skill_advance` → `skill_based_spellbook_id` when
+  `#enhance` advances a spell school; pauper L0 path untested in public
+  sessions.
+- **Next:** Elbereth `:` / parked RC @158 / `wipeout_text` / `lspo_map`.
+
+## D-0133 — read_engr_at for `:` look (Elbereth)
+
+- **Status:** fixed
+- **Observed:** seed2200 Scr @229 `:`; C
+  `Something is written here in the dust.  You read: "Elbereth".--More--`;
+  JS `You see no objects here.` (cursor at hero).
+- **Cause/evidence:** `make_engr_at` already stored the DUST Elbereth;
+  `look_here` / `check_here` deferred `read_engr_at`, so the empty-floor
+  path only printed the no-objects pline.
+- **C locus:** `engrave.c` `read_engr_at`; `invent.c` `look_here` /
+  `dolook`; `pickup.c` `check_here` (ct==0 branch).
+- **Change:** ported `read_engr_at` (DUST/ENGRAVE/BURN/MARK/blood
+  non-Blind envelope); call from `look_here` and `check_here`.
+- **Verification:** seed2200 Scr **228→229**/230 (cursors **230**/230);
+  sole remaining miss parked RC path @158; green+strict PASS; cohort
+  PASS; full **11/44** Scr **1169** RNG **104575**/792838.
+- **Named omission:** Blind feel for engrave/burn; full `surface()` /
+  `is_ice` nouns; multi-object menu order of `read_engr_at` after
+  display; engraving glyphs in `newsym`.
+- **Next:** seed0501/0105 `wipeout_text` / seed0015/0200 `lspo_map` /
+  seed0101 `next_ident` / `getbones` (blocked on `^V`/`makemaz`).
 

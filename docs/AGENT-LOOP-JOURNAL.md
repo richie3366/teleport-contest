@@ -1681,3 +1681,18 @@ Use this shape:
   PASS; cohort 1500/1800/0060/0102/0700/1150/0017/0077/0106 PASS;
   full **11/44** Scr **1166** RNG **104575**/792838.
 - Next: seed2200 disco @222 / Elbereth `:` @229.
+
+## 2026-07-13 — skill_based_spellbook_id + read_engr_at (D-0132/33)
+- Objective: seed2200 disco `*` spellbooks @222 + Elbereth `:` @229
+  (PROGRESS primary after D-0131).
+- C locus: `spell.c` `skill_based_spellbook_id`; `weapon.c` `skill_init`
+  (spelspec unrestrict); `engrave.c` `read_engr_at`; `invent.c`
+  `look_here`; `pickup.c` `check_here`.
+- Result: **verified** — Wizard skill-ID books (`discover_object` known,
+  not encountered → `*`); `:` look reads DUST Elbereth via `read_engr_at`.
+- Verification: seed2200 Scr **227→229**/230 (cursors full; sole miss
+  parked RC @158); green+strict PASS; cohort 1500/1800/0060/0102/0700/
+  1150/0017/0077/0106 PASS; full **11/44** Scr **1169** RNG
+  **104575**/792838.
+- Next: seed0501/0105 `wipeout_text` / seed0015/0200 `lspo_map` /
+  seed0101 `next_ident` / `getbones` (blocked on `^V`/`makemaz`).
