@@ -119,6 +119,8 @@ function can_touch_safely(_mtmp, otmp) {
 function can_carry(mtmp, otmp) {
     if (!mtmp || !otmp) return 0;
     if (!can_touch_safely(mtmp, otmp)) return 0;
+    // C ref: mon.c can_carry — peaceful non-pets refuse loot
+    if (mtmp.mpeaceful && !mtmp.mtame) return 0;
     const iquan = otmp.quan || 1;
     if (iquan > 1) return 1;
     if ((otmp.owt || 0) > max_mon_load(mtmp)) return 0;
@@ -173,7 +175,8 @@ function could_reach_item(_mtmp, _x, _y) {
  * C ref: monmove.c m_search_items — redirect gg toward interesting floor loot.
  * Named omissions: in_rooms shop rn2(25); hides_under; onscary; costly_spot
  * merchandise; is_mines_prize/is_soko_prize; helpless under-monster skip
- * beyond mcanmove/msleeping/mmove; searches_for_item via mon_would_take.
+ * beyond mcanmove/msleeping/mmove; searches_for_item via mon_would_take;
+ * underfoot MMOVE_DONE short-circuit + postmov mpickstuff (D-0183).
  */
 function m_search_items(mtmp, gg) {
     let minr = SQSRCHRADIUS;
@@ -228,12 +231,17 @@ function m_search_items(mtmp, gg) {
                 // is_mines_prize / is_soko_prize deferred
                 if ((mon_would_take_item(mtmp, otmp) && can_carry(mtmp, otmp) > 0)
                     || mon_would_consume_item(mtmp, otmp)) {
+                    const ix = otmp.ox ?? xx;
+                    const iy = otmp.oy ?? yy;
+                    // Underfoot interesting loot: C returns TRUE → postmov →
+                    // mpickstuff (MMOVE_DONE). JS postmov still omits that
+                    // pickup path; returning TRUE skipped mfndpos/mtrack while
+                    // C kept approaching. Skip underfoot claim until DONE
+                    // pickup is wired; distant redirects still set gg.
+                    if (ix === omx && iy === omy) continue;
                     minr = distmin(omx, omy, xx, yy);
-                    gg.x = otmp.ox ?? xx;
-                    gg.y = otmp.oy ?? yy;
-                    if (gg.x === omx && gg.y === omy) {
-                        return true; // MMOVE_DONE caller
-                    }
+                    gg.x = ix;
+                    gg.y = iy;
                     break;
                 }
             }
@@ -542,7 +550,15 @@ function canspotmon(mtmp) {
  * has_magic_key disarm; full mondied from trap death; m_digweapon_check.
  */
 async function postmov(mtmp, omx, omy, mmoved, can_tunnel, can_unlock, can_open) {
-    if (mmoved !== MMOVE_MOVED) return mmoved;
+    // C: MOVED block (traps/doors/dig) only for MMOVE_MOVED; DONE falls through
+    // to the shared floor-item pickup section. Full mpickstuff deferred — DONE
+    // currently returns after the MOVED-only work is skipped.
+    if (mmoved !== MMOVE_MOVED && mmoved !== MMOVE_DONE) return mmoved;
+    if (mmoved === MMOVE_DONE) {
+        // C: mmoved==DONE still runs OBJ_AT pickup / mpickstuff; named omission
+        // until underfoot m_search_items short-circuit is restored with it.
+        return mmoved;
+    }
 
     // notice_mon deferred
     let canseeit = cansee(mtmp.mx, mtmp.my);
@@ -659,7 +675,9 @@ export async function m_move(mtmp, after) {
             if (mtmp.mx) newsym(mtmp.mx, mtmp.my);
             return MMOVE_DIED;
         }
-        if (i === Trap_Caught_Mon) return MMOVE_NOTHING;
+        if (i === Trap_Caught_Mon) {
+            return MMOVE_NOTHING;
+        }
     }
 
     // C: meating countdown — still eating skips dog_move / approach
@@ -737,7 +755,9 @@ export async function m_move(mtmp, after) {
     const flag = mon_allowflags(mtmp);
     const mfp = { cnt: 0, poss: [], info: [] };
     const cnt = mfndpos(mtmp, mfp, flag);
-    if (cnt === 0) return MMOVE_NOMOVES;
+    if (cnt === 0) {
+        return MMOVE_NOMOVES;
+    }
 
     let nix = omx;
     let niy = omy;
@@ -745,6 +765,7 @@ export async function m_move(mtmp, after) {
     const jcnt = Math.min(MTSZ, cnt - 1);
     let nidist = dist2(nix, niy, ggx, ggy);
     let mmoved = MMOVE_NOTHING;
+
 
     for (let i = 0; i < cnt; i++) {
         const nx = mfp.poss[i].x;
@@ -805,6 +826,7 @@ export async function dochug(mtmp) {
     if (!mtmp.mcanmove) return 0;
     if (mtmp.msleeping) return 0; // disturb not needed: fill mons start awake
 
+
     set_apparxy(mtmp);
     let { inrange, nearby, scared } = distfleeck(mtmp);
 
@@ -821,6 +843,7 @@ export async function dochug(mtmp) {
         || (!mtmp.mcansee && !rn2(4))
         || mtmp.mpeaceful
     );
+
 
     let status = MMOVE_NOTHING;
     // PHASE THREE: move if not adjacent-hostile (attack path)

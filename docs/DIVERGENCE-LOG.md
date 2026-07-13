@@ -186,6 +186,7 @@ Do not record a guessed cause as fixed merely because an RNG prefix moved.
 | D-0180 | fixed | monmove/digweapon | `m_digweapon_check` + pick/axe `mon_wield_item` |
 | D-0181 | partial | trap/rocktrap + gettrack | rocktrap + should_see/gettrack/initrack; dwarf pick → D-0182 |
 | D-0182 | fixed | monmove/m_search_items | getitems + loot gg redirect; dwarf rocktrap @13987 |
+| D-0183 | partial | monmove/underfoot loot | skip underfoot MMOVE_DONE until mpickstuff; can_carry peaceful |
 
 D-0001 through D-0005 predate the strict-length/cohort runbook. Their focused
 causes are preserved, but generic "green sessions held" is historical evidence,
@@ -4967,5 +4968,32 @@ cohort gates if those functions are touched again.
   before loot gg (loot was the writer).
 - **Next:** seed0030 @14026 (C `rn2(28)` mtrack vs JS `rn2(5)`
   distfleeck — actor/cnt); or seed0101 Scr / seed0200 @3382.
+
+## D-0183 — underfoot m_search_items MMOVE_DONE (seed0030 gnome glass)
+
+- **Status:** partial (underfoot short-circuit deferred; peaceful can_carry done)
+- **Observed:** seed0030 @14026 — C `rn2(28)` mtrack @ `monmove.c:1963`;
+  JS `rn2(5)` distfleeck.
+- **C locus:** `monmove.c` `m_search_items` underfoot → `MMOVE_DONE` →
+  `postmov` → `mpickstuff`; `mon.c` `can_carry` peaceful gate.
+- **Cause:** DIAG: PM_GNOME @(57,11) on WORTHLESS_BLUE_GLASS —
+  `m_search_items` returned TRUE (underfoot take). JS `postmov` ignored
+  `MMOVE_DONE` (no mpickstuff), so the turn ended without mfndpos/mtrack
+  while C continued to approach (`cnt=7` → `rn2(28)`). Actor-order/cnt
+  drift after D-0182 **falsified**.
+- **Change:** `js/monmove.js` — skip underfoot loot claim in
+  `m_search_items` (distant redirects unchanged); `can_carry` peaceful
+  non-pets return 0; `postmov` acknowledges DONE (pickup still omitted).
+- **Named omission:** restore underfoot `return TRUE` together with
+  `postmov`→`mpickstuff` (and shop `rn2(25)` / metallivorous / gelcube /
+  corpse_eater arms as needed).
+- **Verification:** seed0030 prefix **14026→14056**; positional
+  **14375**/105529 Scr **168**/1953; full **15/44** Scr **1405** RNG
+  **135825**; green+strict PASS; PASS cohort held.
+- **Rejected / falsified:** post-loot actor skip / fleeck-only cnt drift;
+  peaceful standing-vs-approaching (all gnomes `mpeaceful=0`); onscary /
+  trap / shop under glass cell (none).
+- **Next:** seed0030 @14056 (`u_catch_thrown_obj` rn2(88) vs JS rn2(32));
+  or seed0101 Scr / seed0200 @3382.
 
 

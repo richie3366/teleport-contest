@@ -2290,3 +2290,16 @@ Use this shape:
   full PASS cohort held; full **15/44** Scr **1405** RNG **135801**.
 - Next: seed0030 @14026 (C `rn2(28)` mtrack vs JS `rn2(5)` distfleeck);
   or seed0101 Scr residual.
+
+## 2026-07-13 20:45 — underfoot m_search_items (D-0183)
+- Objective: seed0030 @14026 C rn2(28) mtrack vs JS rn2(5) distfleeck
+  (PROGRESS primary).
+- C locus: `monmove.c` `m_search_items` underfoot MMOVE_DONE → postmov
+  → mpickstuff; `mon.c` `can_carry` peaceful gate.
+- Result: **verified partial** — DIAG: PM_GNOME @(57,11) on
+  WORTHLESS_BLUE_GLASS returned underfoot TRUE; JS postmov ignored DONE
+  (no approach). Skip underfoot claim until mpickstuff; peaceful
+  can_carry. Actor-order theory falsified.
+- Verification: seed0030 prefix **14026→14056**; positional **14375**/105529;
+  full **15/44** Scr **1405** RNG **135825**; green+strict PASS; cohort held.
+- Next: seed0030 @14056 (`u_catch_thrown_obj` rn2(88)); or seed0101 Scr.

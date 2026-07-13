@@ -7,16 +7,15 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 
 ## Active
 
-- **Current unit:** D-0182 — `m_search_items` cleared dwarf rocktrap @13987;
-  seed0030 now @14026.
-- **Hypothesis / next:** @14026 C `rn2(28)` mtrack skip vs JS `rn2(5)`
-  distfleeck — different actor `cnt`/turn order after loot-redirect moves
-  (or mfndpos candidate-count drift). Diagnose which monster moves and
-  whether JS skipped a mon that C moved (or vice versa).
+- **Current unit:** D-0183 — underfoot `m_search_items` short-circuit deferred;
+  seed0030 now @14056.
+- **Hypothesis / next:** @14056 C `rn2(88)` `u_catch_thrown_obj` vs JS
+  `rn2(32)` — hero catch of mon throw / potion path missing or wrong
+  branch after aligned m_throw volley.
 - **Falsifier / next:**
   ```bash
   node scripts/rng-diff.mjs sessions/seed0030-ten-diverse-deaths.session.json
-  # expect first mismatch past 14026 once actor/cnt matches
+  # expect first mismatch past 14056 once u_catch_thrown_obj matches
   node frozen/ps_test_runner.mjs sessions/seed0101-ranger-quiver-throw-travel-engrave.session.json
   # expect Scr >21/27 if residual display peel advances
   ```
@@ -72,6 +71,10 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 - **Dwarf @13987 was missing `m_search_items`** — ROCKTRAP (27,6) pile
   (CORPSE/SLIME_MOLD/glass) redirects gg; mux-nearer dig (28,6) loses
   (D-0182). Do not re-chase mfndpos exclude of (28,6).
+- **@14026 was NOT actor-order / cnt drift** — PM_GNOME @(57,11) on
+  WORTHLESS_BLUE_GLASS returned underfoot `MMOVE_DONE` (JS postmov
+  ignored DONE→no mpickstuff) while C continued to mtrack `rn2(28)`
+  (D-0183). Do not re-chase fleeck actor skips.
 - **`monattk.h`: AT_WEAP=254, AT_MAGC=255, AT_SPIT=10** — never use 10 for
   weapon (D-0179).
 - Hostile `m_move`: before place, `m_digweapon_check` may return
@@ -94,6 +97,9 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 - `can_track` ≡ `haseyes` (Excalibur named omission) (D-0181).
 - Hostile getitems: `(!peaceful || !rn2(10))` + `!Rogue` →
   `m_search_items` may redirect gg to floor loot (D-0182).
+- Underfoot loot claim in `m_search_items` deferred until
+  postmov `mpickstuff` (D-0183); distant redirects still set gg.
+- `can_carry`: peaceful non-pets return 0 (D-0183).
 - Digger postmov: `tunnels` && !Rogue → `can_tunnel`; `ALLOW_DIG` in
   mfndpos; every moved digger with `may_dig` calls `mdig_tunnel` which
   **always** burns `rnd(12)` first (D-0178).
