@@ -64,6 +64,7 @@ Do not record a guessed cause as fixed merely because an RNG prefix moved.
 | D-0040 | fixed | disco OBJ_DESCR + obj_typename | extracted descr/name strs; Scr 38→39 |
 | D-0041 | fixed | ^X enlightenment | autopickup/limits/weapon_descr; Scr 39→41 PASS |
 | D-0060 | fixed | mfndpos | BOULDER/`ALLOW_ROCK` + `NODIAG` (grid bug); seed0700 RNG full |
+| D-0061 | fixed | exper/levelup | `newhp`/`newpw` level-up + `pluslvl` + `#levelchange`; roles `xlev` |
 
 D-0001 through D-0005 predate the strict-length/cohort runbook. Their focused
 causes are preserved, but generic "green sessions held" is historical evidence,
@@ -1597,3 +1598,39 @@ cohort gates if those functions are touched again.
 - **Next:** seed0700 screen peel (RNG full); seed0361 `newhp` @ 2924;
   seed0017 @ 2775; seed0102 egg; seed2200 `exercise`; seed1150
   `dog_move`.
+
+## D-0061 — `newhp`/`newpw` level-up + `#levelchange`
+
+- **Symptom:** seed0361 rng-diff @ **2924**: C `rnd(8)` @
+  `newhp(attrib.c:1101)` vs JS `rn2(12)`. seed0373 @ **2512**: C
+  `rnd(10)` vs JS `rn2(7)`.
+- **Cause/evidence:** Provenance is the **level-up** branch (lornd), not
+  init. Wizard tours type `#levelchange` → `20` → `wiz_level_change` →
+  `pluslvl(FALSE)` loop. JS had only ulevel==0 `newhp`/`newpw`, no
+  `pluslvl`, and `#` was an unknown command. Follow-on: Barbarian
+  stalled at xlev because `setup_role_race_from_rc` omitted `xlev`
+  (defaulted to 14 while C Barbarian is 10). Extcmd autocomplete must
+  truncate-at-cursor like C NEWAUTOCOMP (append-after-expand garbled
+  `levelchange`).
+- **Rejected:** treating 2924 as init `newhp`/`rn2(12)` trap arity;
+  Tourist-shaped level-up stubs; seed-specific level tables.
+- **C locus:** `attrib.c` `newhp`; `exper.c` `newpw`/`enermod`/`pluslvl`;
+  `wizcmds.c` `wiz_level_change`; `cmd.c` `doextcmd`;
+  `win/tty/getline.c` `tty_get_ext_cmd`/`ext_cmd_getlin_hook`;
+  `role.c` `roles[].xlev`.
+- **Change:** `js/attrib.js` full `newhp` + async `adjabil` gainstr;
+  `js/exper.js` `newpw`/`pluslvl`; `js/getline.js` `getlin`/`doextcmd`;
+  `js/wizcmds.js` `wiz_level_change`; `js/cmd.js` `#`; `js/roles.js`
+  `xlev` on all roles; `u_init` copies `xlev`.
+- **Verification:** green + seed1500/1800/0060 PASS + strict; full
+  **5/44** screens **295** RNG **86020**/792838; seed0361 prefix
+  **2924→2975** (`dosearch0`) positional **3044**/53865; seed0373
+  **2512→2549** (`getbones`) positional **2573**/35386.
+- **Omissions named:** `#levelchange` `losexp` drain; full `extcmdlist`;
+  `pluslvl` achievements/livelog/`newuexp`/Upolyd; `adjabil` lose/
+  `postadjabil`/`add_weapon_skill`.
+- **Lesson:** tour peels after moveloop_preamble are often wizard
+  `#levelchange`, not mklev; copy every RoleAdvance sibling field
+  (`xlev`) when building `game.urole`.
+- **Next:** seed0361 `dosearch0`/`rnl` @ 2975; seed0700 screen peel;
+  seed0373 `getbones` @ 2549; seed0017 @ 2775; egg `can_be_hatched`.

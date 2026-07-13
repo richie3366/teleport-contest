@@ -7,14 +7,14 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 
 ## Active
 
-- **Current unit:** D-0060 fixed `mfndpos` BOULDER/`ALLOW_ROCK` + `NODIAG`
-  (grid bug). seed0700 RNG **3230**/3230; Scr still **2**/51.
-- **Hypothesis / next peel:** Prefer shared `newhp` (seed0361 @ 2924:
-  C `rnd(8)` vs JS `rn2(12)`) or seed0017 @ 2775 (C `rn2(5)`
-  `distfleeck` vs JS `rn2(7)`). seed0700 next is a **screen** peel
-  (RNG already full). Also seed0102 egg `can_be_hatched` @ 1281;
-  seed2200 `exercise` @ 2724; seed1150 `dog_move` @ 2915;
-  seed0030 @ 6732 `maybe_smudge_engr`.
+- **Current unit:** D-0061 fixed `newhp`/`newpw` level-up + `pluslvl` +
+  `#levelchange` (wizard tours). seed0361 prefix **2924→2975**
+  (`dosearch0`); seed0373 **2512→2549** (`getbones`).
+- **Hypothesis / next peel:** Prefer shared `dosearch0`/`rnl` (seed0361 @
+  2975: C `rnl(8)` vs JS `rn2(300)` dosounds) or seed0700 **screen**
+  peel (RNG already full). Also seed0017 @ 2775; seed0102 egg
+  `can_be_hatched` @ 1281; seed2200 `exercise` @ 2724; seed1150
+  `dog_move` @ 2915; seed0030 @ 6732 `maybe_smudge_engr`.
 - **Falsifier / next probe:**
   ```bash
   node scripts/rng-diff.mjs sessions/seed0361-archeologist-tour.session.json
@@ -26,7 +26,7 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 - **Also deferred:** Wizard/Priest/Healer `initialspell`; Knight/Samurai/
   Healer/Valkyrie/Ranger/Monk/Archeologist/Barbarian/Caveman
   `skill_init`; display-path Japanese names; full `role_init` beyond
-  pantheon + SPE_LIGHT + nemesis gender; `adjabil` gain/lose plines +
+  pantheon + SPE_LIGHT + nemesis gender; `adjabil` lose plines +
   `postadjabil`/`add_weapon_skill`; steed `u_calc_moveamt` path; full
   `set_uasmon` youmonst.mmove; `make_corpse` after `corpse_chance`;
   dokick monster/object/closed-door/SDOOR/furniture; `martial()`;
@@ -45,7 +45,9 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   exceptions; maketrap overwrite/furniture/statue/boulder; `peace_minded`
   MS_*/race_*/minion arms; `align_shift`/`temperature_shift` bodies;
   EGG `can_be_hatched` multi-retry; TIN `cnutrit` gate; interactive
-  `o`/`doopen` getdir; `doopen_indir` `b_trapped`/autounlock/mapseen; …
+  `o`/`doopen` getdir; `doopen_indir` `b_trapped`/autounlock/mapseen;
+  `#levelchange` `losexp` drain path; full `extcmdlist` beyond
+  `levelchange`; `pluslvl` achievements/livelog/`newuexp`; …
 
 ## Don’t re-check
 
@@ -235,6 +237,12 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   C skips boulder without `ALLOW_ROCK` (`cnt=4`) — D-0060. seed0017
   `rn2(16)` vs `rn2(32)` was grid-bug diagonals (`NODIAG`); not a
   second boulder.
+- seed0361 `rnd(8)` @ 2924 was **not** init `newhp`: C provenance is
+  level-up `attrib.c:1101` via wizard `#levelchange` → `pluslvl(FALSE)`.
+  JS lacked `pluslvl`/`newhp` lornd path + `#` extcmd. Also
+  `game.urole.xlev` must be copied from `roles[]` (default 14 hid the
+  Barbarian xlev=10 bug until seed0373) — D-0061. Autocomplete must
+  truncate-at-cursor like C NEWAUTOCOMP, not append after expand.
 
 ## Landmarks
 
@@ -265,6 +273,8 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   (C; not 10); club `+1`, sling `+2`; flint trop 10–20; rock trop
   3×`rn1(6,6)` → 18..33; leather armor; little dog pet.
 - Rogue initrecord **10** (C; JS had wrongly 0 until D-0056); L1 `HStealth`.
+- Role `xlev` (C comment “Energy” after enadv): Arc/Tou **14**; Hea **20**;
+  Rog/Sam **11**; Ran/Wiz **12**; others **10**.
 - Rogue legacy offx = `max(10, 80 - maxcol - 1)` (Kos → 23; The Lady → 17).
 - Tutorial menu offx = 20 (OPTIONS `.nethackrc` line → maxcol 59); cursor
   `[27,6]` on `(end) `.
@@ -283,10 +293,10 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   (`next_ident`); positional **2538**/3656 Scr **5**/36.
 - seed0030: D-0060 → positional **7021**/105529 Scr **39**/1953;
   next prefix **6732** (`maybe_smudge_engr`).
-- seed0373: D-0054/55 → past trap+SPBOOK; prefix **2512** (`newhp`);
-  positional **2582**/35386.
-- seed0361: D-0057 → past CORPSE retry; prefix **2924** (`newhp`);
-  positional **2972**/53865.
+- seed0373: D-0061 → past `#levelchange`/`newhp`; prefix **2549**
+  (`getbones`); positional **2573**/35386.
+- seed0361: D-0061 → past `#levelchange`/`newhp`; prefix **2975**
+  (`dosearch0`); positional **3044**/53865.
 - seed1150: D-0056 → past `peace_minded`; prefix **2915** (`dog_move`);
   positional **2942**/3137 Scr **22**/51.
 - seed0700: D-0060 → RNG **3230**/3230 Scr **2**/51 (screen peel next).
@@ -308,3 +318,5 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   step (C leaves `context.move` false for both).
 - `mfndpos` track arity `rn2(4*(cnt-j))`: boulder without `ALLOW_ROCK`
   and grid-bug `NODIAG` both change `cnt` (D-0060).
+- `#levelchange` to N: `pluslvl(FALSE)` N−1 times; each `newhp` then
+  `newpw`; adjabil gainstr can interleave `--More--` (stealthy/quick).

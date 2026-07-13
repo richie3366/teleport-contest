@@ -686,3 +686,15 @@ Use this shape:
 - Next: `node scripts/rng-diff.mjs sessions/seed0700-samurai-explore-descend.session.json`
   — peel `rnl`/`doopen_indir` @ 3141 (or egg `can_be_hatched` on
   seed0102 / `newhp` on seed0361).
+
+## 2026-07-13 02:00 — newhp/pluslvl/#levelchange (D-0061)
+- C locus: `attrib.c` `newhp`; `exper.c` `newpw`/`pluslvl`; `wizcmds.c`
+  `wiz_level_change`; `getline.c` `tty_get_ext_cmd`; `role.c` `xlev`
+- Result: wizard tours were stuck at post-preamble because JS lacked
+  level-up `newhp`/`newpw` and `#levelchange`. Ported those plus
+  NEWAUTOCOMP-style extcmd entry and `roles[].xlev` on `game.urole`.
+- Verification: green + seed1500/1800/0060 PASS + strict; full 5/44
+  screens 295 RNG 86020; seed0361 prefix 2924→2975 (`dosearch0`);
+  seed0373 2512→2549 (`getbones`).
+- Next: `node scripts/rng-diff.mjs sessions/seed0361-archeologist-tour.session.json`
+  — peel `dosearch0`/`rnl` @ 2975 (or seed0700 screen / egg hatch).

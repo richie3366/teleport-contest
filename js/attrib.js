@@ -9,7 +9,9 @@ import {
     FROMRACE,
     FROMOUTSIDE,
     INTRINSIC,
+    MAXULEV,
 } from './const.js';
+import { pline } from './display.js';
 import {
     PM_ARCHEOLOGIST,
     PM_BARBARIAN,
@@ -180,11 +182,12 @@ export function vary_init_attr() {
     }
 }
 
-// C ref: attrib.c newhp() — u.ulevel==0 init path only (level-up deferred)
+// C ref: attrib.c newhp() — init + level-up (Con / MAXULEV throttle)
 export function newhp() {
     const u = game.u;
     const roleAdv = game.urole?.hpadv || { infix: 8, inrnd: 0 };
     const raceAdv = game.urace?.hpadv || { infix: 2, inrnd: 0 };
+    const xlev = game.urole?.xlev ?? 14;
     let hp;
     if ((u.ulevel | 0) === 0) {
         hp = (roleAdv.infix | 0) + (raceAdv.infix | 0);
@@ -192,28 +195,36 @@ export function newhp() {
         if ((raceAdv.inrnd | 0) > 0) hp += rnd(raceAdv.inrnd);
         // Alignment init when moves==0 is done in u_init_misc (C newhp + u_init_misc).
     } else {
-        // Level-up path not ported yet.
-        hp = (roleAdv.lofix | 0) + (raceAdv.lofix | 0);
+        let conplus;
+        if ((u.ulevel | 0) < xlev) {
+            hp = (roleAdv.lofix | 0) + (raceAdv.lofix | 0);
+            if ((roleAdv.lornd | 0) > 0) hp += rnd(roleAdv.lornd);
+            if ((raceAdv.lornd | 0) > 0) hp += rnd(raceAdv.lornd);
+        } else {
+            hp = (roleAdv.hifix | 0) + (raceAdv.hifix | 0);
+            if ((roleAdv.hirnd | 0) > 0) hp += rnd(roleAdv.hirnd);
+            if ((raceAdv.hirnd | 0) > 0) hp += rnd(raceAdv.hirnd);
+        }
+        const con = acurr(A_CON);
+        if (con <= 3) conplus = -2;
+        else if (con <= 6) conplus = -1;
+        else if (con <= 14) conplus = 0;
+        else if (con <= 16) conplus = 1;
+        else if (con === 17) conplus = 2;
+        else if (con === 18) conplus = 3;
+        else conplus = 4;
+        hp += conplus;
     }
     if (hp <= 0) hp = 1;
-    return hp;
-}
-
-// C ref: exper.c newpw() — u.ulevel==0 init path only
-export function newpw() {
-    const u = game.u;
-    const roleAdv = game.urole?.enadv || { infix: 1, inrnd: 0 };
-    const raceAdv = game.urace?.enadv || { infix: 1, inrnd: 0 };
-    let en;
-    if ((u.ulevel | 0) === 0) {
-        en = (roleAdv.infix | 0) + (raceAdv.infix | 0);
-        if ((roleAdv.inrnd | 0) > 0) en += rnd(roleAdv.inrnd);
-        if ((raceAdv.inrnd | 0) > 0) en += rnd(raceAdv.inrnd);
+    if ((u.ulevel | 0) < MAXULEV) {
+        if (!u.uhpinc) u.uhpinc = [];
+        u.uhpinc[u.ulevel | 0] = hp;
     } else {
-        en = 1;
+        let lim = 5 - Math.trunc((u.uhpmax || 0) / 300);
+        if (lim < 1) lim = 1;
+        if (hp > lim) hp = lim;
     }
-    if (en <= 0) en = 1;
-    return en;
+    return hp;
 }
 
 // C ref: attrib.c change_luck() — clamp u.uluck; no RNG
@@ -327,9 +338,9 @@ function role_abil(rolePm) {
 /**
  * C ref: attrib.c adjabil(oldlevel, newlevel)
  * Grants/revokes role and (elf/orc) race intrinsics by level thresholds.
- * Messages / see_monsters / weapon-skill delta deferred.
+ * Gain You_feel for nonempty gainstr; lose/postadjabil/weapon-skill deferred.
  */
-export function adjabil(oldlevel, newlevel) {
+export async function adjabil(oldlevel, newlevel) {
     const u = game.u || (game.u = {});
     let abil = role_abil(game.urole?.mnum);
     let rabil = null;
@@ -368,7 +379,10 @@ export function adjabil(oldlevel, newlevel) {
             // cannot "gain" a meaningless duplicate (C adjabil).
             if (entry.ulevel === 1) u[prop] = prev | (mask | FROMOUTSIDE);
             else u[prop] = prev | mask;
-            // gainstr pline deferred (silent at u.ulevel==0 init anyway)
+            // C: if (!(*(abil->ability) & INTRINSIC & ~mask)) You_feel(gainstr)
+            if (!((u[prop] || 0) & INTRINSIC & ~mask) && entry.gainstr) {
+                await pline(`You feel ${entry.gainstr}!`);
+            }
         } else if (oldlevel >= entry.ulevel && newlevel < entry.ulevel) {
             u[prop] = prev & ~mask;
             // losestr pline deferred

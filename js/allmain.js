@@ -283,7 +283,7 @@ export async function newgame() {
     // C ref: allmain.c → init_dungeons() (dungeon.c) — peels fastforward_pre_mklev
     init_dungeons();
     // C ref: allmain.c → u_init_misc() (u_init.c)
-    u_init_misc();
+    await u_init_misc();
     fastforward_pre_mklev(); // emptied — kept as delete-only hook
 
     // C ref: allmain.c l_nhcore_init() — shuffle align[] for Lua (second nhlib load)

@@ -21,6 +21,7 @@ import { dokick } from './dokick.js';
 import { donull } from './do.js';
 import { do_attack, mon_at, is_safemon } from './uhitm.js';
 import { doopen_indir } from './lock.js';
+import { doextcmd } from './getline.js';
 
 
 // Direction deltas: y u k
@@ -224,6 +225,10 @@ export async function rhack(key) {
     } else if (ch === ':') {
         // C ref: invent.c dolook / lookat
         await dolook();
+        game.context.move = 0;
+    } else if (ch === '#') {
+        // C ref: cmd.c doextcmd — extended commands
+        await doextcmd();
         game.context.move = 0;
     } else if (key === 27) {
         // Esc — cancel run/count; no message

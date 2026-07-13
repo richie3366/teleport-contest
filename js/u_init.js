@@ -26,7 +26,8 @@ import {
     objectNames,
     objectDescrs,
 } from './objects.js';
-import { init_attr, vary_init_attr, adjabil, A_STR, A_CON, newhp, newpw } from './attrib.js';
+import { init_attr, vary_init_attr, adjabil, A_STR, A_CON, newhp } from './attrib.js';
+import { newpw } from './exper.js';
 import { roles, races, aligns, findRole, findRace, findAlign } from './roles.js';
 import { discover_object } from './invent.js';
 import { otyp_uses_known, Japanese_item_name } from './objnam.js';
@@ -1365,6 +1366,7 @@ export function setup_role_race_from_rc(opts = {}) {
         attrbase: role.attrbase,
         attrdist: role.attrdist,
         initrecord: role.initrecord ?? 0,
+        xlev: role.xlev ?? 14,
         // Priest starts with null gods; role_init_pantheon fills from randrole
         lgod: role.lgod ?? null,
         ngod: role.ngod ?? null,
@@ -1455,7 +1457,7 @@ function role_init_nemesis_gender() {
 }
 
 // C ref: u_init.c u_init_misc() — pre-mklev; newhp/newpw at ulevel==0.
-export function u_init_misc() {
+export async function u_init_misc() {
     const g = game;
     g.u = g.u || {};
     g.flags = g.flags || {};
@@ -1471,7 +1473,7 @@ export function u_init_misc() {
     const pw = newpw();
     g.u.uhp = g.u.uhpmax = g.u.uhppeak = hp;
     g.u.uen = g.u.uenmax = g.u.uenpeak = pw;
-    adjabil(0, 1);
+    await adjabil(0, 1);
     g.u.ulevel = g.u.ulevelmax = 1;
 
     // C: u.ualignbase[...] = u.ualign.type = aligns[flags.initalign].value

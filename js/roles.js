@@ -59,6 +59,7 @@ export const roles = [
         // C: { 7, 10, 10, 7, 7, 7 } / { 20, 20, 20, 10, 20, 10 }
         attrbase: [7, 10, 10, 7, 7, 7],
         attrdist: [20, 20, 20, 10, 20, 10],
+        xlev: 14,
         initrecord: 10,
         // C: { 11, 0, 0, 8, 1, 0 } / { 1, 0, 0, 1, 0, 1 }
         hpadv: adv(11, 0, 0, 8, 1, 0),
@@ -79,6 +80,7 @@ export const roles = [
         // C: { 16, 7, 7, 15, 16, 6 } / { 30, 6, 7, 20, 30, 7 }
         attrbase: [16, 7, 7, 15, 16, 6],
         attrdist: [30, 6, 7, 20, 30, 7],
+        xlev: 10,
         initrecord: 10,
         // C: { 14, 0, 0, 10, 2, 0 } / { 1, 0, 0, 1, 0, 1 }
         hpadv: adv(14, 0, 0, 10, 2, 0),
@@ -100,6 +102,7 @@ export const roles = [
         attrbase: [10, 7, 7, 7, 8, 6],
         attrdist: [30, 6, 7, 20, 30, 7],
         // C: xlev 10, initrecord 0 (role.c after enadv)
+        xlev: 10,
         initrecord: 0,
         // C: { 14, 0, 0, 8, 2, 0 } / { 1, 0, 0, 1, 0, 1 }
         hpadv: adv(14, 0, 0, 8, 2, 0),
@@ -120,6 +123,7 @@ export const roles = [
         // C: { 7, 7, 13, 7, 11, 16 } / { 15, 20, 20, 15, 25, 5 }
         attrbase: [7, 7, 13, 7, 11, 16],
         attrdist: [15, 20, 20, 15, 25, 5],
+        xlev: 20,
         initrecord: 10,
         // C: { 11, 0, 0, 8, 1, 0 } / { 1, 4, 0, 1, 0, 2 }
         hpadv: adv(11, 0, 0, 8, 1, 0),
@@ -140,6 +144,7 @@ export const roles = [
         // C: { 13, 7, 14, 8, 10, 17 } / { 30, 15, 15, 10, 20, 10 }
         attrbase: [13, 7, 14, 8, 10, 17],
         attrdist: [30, 15, 15, 10, 20, 10],
+        xlev: 10,
         initrecord: 10,
         // C: { 14, 0, 0, 8, 2, 0 } / { 1, 4, 0, 1, 0, 2 }
         hpadv: adv(14, 0, 0, 8, 2, 0),
@@ -160,6 +165,7 @@ export const roles = [
         // C: { 10, 7, 8, 8, 7, 7 } / { 25, 10, 20, 20, 15, 10 }
         attrbase: [10, 7, 8, 8, 7, 7],
         attrdist: [25, 10, 20, 20, 15, 10],
+        xlev: 10,
         initrecord: 10,
         // C: { 12, 0, 0, 8, 1, 0 } / { 2, 2, 0, 2, 0, 2 }
         hpadv: adv(12, 0, 0, 8, 1, 0),
@@ -180,6 +186,7 @@ export const roles = [
         cgod: null,
         attrbase: [7, 7, 10, 7, 7, 7],
         attrdist: [15, 10, 30, 15, 20, 10],
+        xlev: 10,
         initrecord: 0,
         // C: { 12, 0, 0, 8, 1, 0 } / { 4, 3, 0, 2, 0, 2 }
         hpadv: adv(12, 0, 0, 8, 1, 0),
@@ -201,6 +208,7 @@ export const roles = [
         attrbase: [7, 7, 7, 10, 7, 6],
         attrdist: [20, 10, 10, 30, 20, 10],
         // C: xlev 11, initrecord 10
+        xlev: 11,
         initrecord: 10,
         hpadv: adv(10, 0, 0, 8, 1, 0),
         enadv: adv(1, 0, 0, 1, 0, 1),
@@ -220,6 +228,7 @@ export const roles = [
         // C: { 13, 13, 13, 9, 13, 7 } / { 30, 10, 10, 20, 20, 10 }
         attrbase: [13, 13, 13, 9, 13, 7],
         attrdist: [30, 10, 10, 20, 20, 10],
+        xlev: 12,
         initrecord: 10,
         // C: { 13, 0, 0, 6, 1, 0 } / { 1, 0, 0, 1, 0, 1 }
         hpadv: adv(13, 0, 0, 6, 1, 0),
@@ -240,6 +249,7 @@ export const roles = [
         // C: { 10, 8, 7, 10, 17, 6 } / { 30, 10, 8, 30, 14, 8 }
         attrbase: [10, 8, 7, 10, 17, 6],
         attrdist: [30, 10, 8, 30, 14, 8],
+        xlev: 11,
         initrecord: 10,
         // C: { 13, 0, 0, 8, 1, 0 } / { 1, 0, 0, 1, 0, 1 }
         hpadv: adv(13, 0, 0, 8, 1, 0),
@@ -259,6 +269,7 @@ export const roles = [
         cgod: 'Offler',
         attrbase: [7, 10, 6, 7, 7, 10],
         attrdist: [15, 10, 10, 15, 30, 20],
+        xlev: 14,
         initrecord: 0,
         hpadv: adv(8, 0, 0, 8, 0, 0),
         enadv: adv(1, 0, 0, 1, 0, 1),
@@ -279,6 +290,7 @@ export const roles = [
         attrbase: [10, 7, 7, 7, 10, 7],
         attrdist: [30, 6, 7, 20, 30, 7],
         // C: xlev 10, initrecord 0
+        xlev: 10,
         initrecord: 0,
         // C: { 14, 0, 0, 8, 2, 0 } / { 1, 0, 0, 1, 0, 1 }
         hpadv: adv(14, 0, 0, 8, 2, 0),
@@ -298,6 +310,7 @@ export const roles = [
         cgod: 'Anhur',
         attrbase: [7, 10, 7, 7, 7, 7],
         attrdist: [10, 30, 10, 20, 20, 10],
+        xlev: 12,
         initrecord: 0,
         hpadv: adv(10, 0, 0, 8, 1, 0),
         enadv: adv(4, 3, 0, 2, 0, 3),
