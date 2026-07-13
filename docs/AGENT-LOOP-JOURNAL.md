@@ -19,6 +19,23 @@ Use this shape:
 
 ---
 
+---
+
+## 2026-07-13 07:40 — dog_goal gettrack (D-0099)
+- Objective: seed0017 @ 3132 (PROGRESS primary); C typ dump first.
+- C locus: `dogmove.c:dog_goal` gettrack; `track.c`; recorder dump
+  `levl[30][4]=VWALL` (terrain hypothesis falsified).
+- Result: **verified faithful change** — `js/track.js` + `settrack` in
+  `allmain` + `dog_goal` gettrack/ogoal when `!couldsee`. Wantdoor
+  `view_from` omitted (hero fallback).
+- Verification: seed0017 **3132→3327**; green+strict PASS; cohort
+  1500/1800/0060/0102/0700/1150 PASS; full **8/44** Scr **598** RNG
+  **91540**.
+- Next: `node scripts/rng-diff.mjs sessions/seed0017-samurai-altar-pray.session.json`
+  — port `#pray`/`prayer_done` @ 3327.
+- Note: Darwin recorder needs CRLF strip + minimal `sysconf` (no
+  missing GDBPATH) before rerecord.
+
 ## 2026-07-13 07:30 — post-fill wallification + D-0099 refine
 - Objective: seed0017 @ 3132 missing (30,4) (PROGRESS primary).
 - C locus: `mklev.c` `themerooms_post_level_generate` / `do_room`;

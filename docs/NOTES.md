@@ -7,20 +7,15 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 
 ## Active
 
-- **Current unit:** seed0017 @ 3132 — missing walkable map **(30,4)**
-  (D-0099). Pet (30,5) D_NODOOR, gg=hero (29,8), appr=1, whappr=0,
-  cnt=4: `(29,5)(29,6)(31,4)(31,5)` → 2× farther `rn2(12)`.
-- **Hypothesis:** C has non-obstructed typ at (30,4) (DOOR/CORR/ROOM).
-  Probe CORR→3142 (3× `rn2(12)`). JS writers: STONE→VWALL once in
-  `do_room` only. All themerms picks are `default`. Post-fill
-  `wallification` (D-0100) does **not** open (30,4).
-- **Falsifier / next:** dump C `levl[30][4].typ` after mklev via
-  recorder build (`nethack-c/build-recorder.sh` + one-line print in
-  `themerooms_post_level_generate` / end of `makelevel`). Do not ship
-  mfndpos probes.
+- **Current unit:** seed0017 @ **3327** — C `prayer_done` (`pray.c`)
+  `rn2(1000)` after altar pray; JS emits nothing (unbound/`#pray` body).
+- **Hypothesis:** session keys reach `#pray` / altar prayer completion; JS
+  lacks `prayer_done` RNG (and likely `dopray`/`prayer_done` port).
+- **Falsifier / next:**
   ```bash
   node scripts/rng-diff.mjs sessions/seed0017-samurai-altar-pray.session.json
   ```
+  Confirm C caller stack around 3327 and whether JS binds `#pray`.
 - **Parked deep canary:** D-0006 pet movement — do not implement until C
   state/candidate capture exists.
 
@@ -120,16 +115,11 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   `xabs=31` matches C RNG; display `setCell(x-1)`; C screen fountain
   col 31 ≡ JS map (32,3); “east door col 35” is screen for map 36
   (D-0092/93/99).
-- **seed0017 (30,4) is the missing mfndpos neighbour** — probe-only
-  walkable extends 3132→3142; (29,4)→3130; (30,6)→3075; (31,6) also
-  →3142 but C screen shows HWALL `q` there (false positive). JS
-  never `dosdoor(30,4)`; typ STONE→VWALL once in `do_room` only.
-- **(30,6) is solid in C** — blank even with hero at (29,6) cardinal;
-  not the missing candidate. (30,4) blank from (29,5) is OK (diagonal
-  through stone (29,4)). Blank at (30,6) from corridor is **not**
-  proof of STONE — JS BL corner also paints blank there.
-- **Post-fill `wallification` is not the (30,4) writer** (D-0100) —
-  prefix stays 3132; all themerms picks `default`.
+- **seed0017 @3132 was NOT missing walkable (30,4)** — C recorder dump:
+  `levl[30][4].typ=VWALL` same as JS; peel was `!couldsee` →
+  `gettrack` → `gg=(29,5)` → 3× `rn2(12)` after nidist update (D-0099).
+  Probe CORR@(30,4)→3142 was a false positive (extra farther cell).
+- **Post-fill `wallification` is not the (30,4) writer** (D-0100).
 - seed1150 @ 3032 was **not** missing `f` binding — getdir saw a
   space that C used for pet-drop `--More--` because JS
   `getdir`/`yn_function` skipped `more()` on `TOPLINE_NEED_MORE`
@@ -151,6 +141,9 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   Attributes after piousness (not Status).
 - `more()` word-wrap of message text must only fire when len≥CO —
   wrapping at CO-8 breaks welcome `--More--` (seed0900).
+- **Recorder build on Darwin:** upstream `text=auto` checks out CRLF;
+  strip `\r` across the recorder tree and install `sysconf` (comment
+  out missing `GDBPATH=/usr/bin/gdb`) before rerecord works.
 
 ## Landmarks
 
@@ -240,5 +233,7 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   `GemStone` appends `" stone"` (FLINT → flint stone[s]) (D-0097).
   ^X: omit gender when `name.f` distinct from `name.m`; MC
   `"warded"` via worn armor `a_can` (`oc_level`) under Attributes.
-- seed0017 @3132: r2 `lx=31,ly=3,hx=35,hy=5`; west door (30,5);
-  (30,4) VWALL; themerms all `default` (D-0099/D-0100).
+- seed0017 dog_goal: when `!couldsee(pet)` and goal is hero, C
+  `gettrack` redirects `gg` to an adjacent track cell (D-0099).
+  After selecting a closer cell, former equal-distance cells become
+  farther → extra `rn2(12)`.

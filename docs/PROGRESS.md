@@ -39,8 +39,8 @@ frozen-file overlay):
 |--------|------:|
 | Sessions passing | **8 / 44** |
 | Screens matched | **598 / 11,405** (5.24%) |
-| Positional RNG calls matched | **91,410 / 792,838** (11.53%) |
-| Speed label | `17+0.08/turn` |
+| Positional RNG calls matched | **91,540 / 792,838** (11.55%) |
+| Speed label | `18+0.08/turn` |
 | Working-tree base | `8b71735` + committed port (see `main`) |
 | Role-init throws | **0 / 44** (`u_init_role: role not ported`) |
 
@@ -61,7 +61,7 @@ shared blockers, and semantic coverage together—not one vanity metric.
 | `seed0700-samurai-explore-descend` | **3230 / 3230** | **51 / 51** |
 | `seed1150-caveman-explore-move` | **3137 / 3137** | **51 / 51** |
 | `seed2200-wizard-quaff-zap-read` | **3018 / 3018** | **199 / 230** |
-| `seed0017-samurai-altar-pray` | **3169 / 3465** | **2 / 67** |
+| `seed0017-samurai-altar-pray` | **3327 / 3465** | **2 / 67** |
 | `seed0030-ten-diverse-deaths` | **7036 / 105529** | **40 / 1953** |
 | `seed0103-knight-ride-pony` | **2344 / 2640** | 1 / 60 |
 | `seed0200-monk-north-search` | **1548 / 3822** | 0 / 40 |
@@ -114,7 +114,7 @@ autoopen `doopen_indir` (D-0059), `mfndpos` BOULDER/`NODIAG`
 **GemStone `xname` + throw volley + ^X gender/MC** (D-0097)
 clear shared peels. seed2200 RNG **full**; Scr **199**/230 (next:
 seed0017 mfndpos; screen 158 RC path residual).
-seed0017 next @ 3132 `dog_move`/`mfndpos`; seed0030 next
+seed0017 next @ 3327 `prayer_done`; seed0030 next
 `maybe_smudge_engr` @ 6732. Healer seed0016 next `next_ident` @
 2493. Priest seed0501 still `wipeout_text`. seed0015/0200 next
 `lspo_map`. seed0101 next `next_ident`. seed0013 still breaks
@@ -189,20 +189,20 @@ autoopen `doopen_indir` (D-0059) + `mfndpos` BOULDER/`ALLOW_ROCK` +
 **`newsym` waslit + out-of-sight `S_litcorr`→`S_corr`** (D-0096) +
 **GemStone `xname` + throw volley + ^X gender/MC** (D-0097) +
 **dog_move mtrack `goto nxti`** (D-0098) +
-**post-fill `wallification`** (D-0100)
+**post-fill `wallification`** (D-0100) +
+**dog_goal `gettrack`** (D-0099)
 **ported**. Eight public sessions pass end-to-end. **0/44** throw at
 `u_init_role`. seed0700 + seed1150 **PASS**. seed0017 prefix
-**3132** (`dog_move`/`mfndpos` — missing walkable (30,4), D-0099;
-wallification falsified as writer). seed2200 RNG **full** (Scr
-**199**/230 — next residual help RC / seed0017 terrain).
+**3327** (`prayer_done`); C recorder falsified (30,4) terrain —
+real cause was `!couldsee`→`gettrack`. seed2200 RNG **full** (Scr
+**199**/230 — next residual help RC / seed0017 pray).
 
-- **Bounded unit:** seed0017 @ 3132 — C `levl[30][4].typ` dump after
-  mklev (D-0099; themerms all default; do not probe-ship). Then
-  seed2200 post-help / seed0501/0105 `wipeout_text` / seed0015/0200
-  `lspo_map` / seed0101 `next_ident` / seed0103 `next_ident`/`trquan` /
-  seed0030 `maybe_smudge_engr` / seed0361/0373 **`getbones`**
-  (blocked: need `^V`→`goto_level`→`makemaz` first).
-- **Prefer:** seed0017 (30,4) C typ dump over parked D-0006 and over
+- **Bounded unit:** seed0017 @ 3327 — `#pray` / `prayer_done`
+  (`pray.c`). Then seed2200 post-help / seed0501/0105 `wipeout_text` /
+  seed0015/0200 `lspo_map` / seed0101 `next_ident` / seed0103
+  `next_ident`/`trquan` / seed0030 `maybe_smudge_engr` / seed0361/0373
+  **`getbones`** (blocked: need `^V`→`goto_level`→`makemaz` first).
+- **Prefer:** seed0017 `prayer_done` over parked D-0006 and over
   hardcoding recording RC paths.
 - **Named omissions:** Wizard/Priest/Healer `initialspell`; Knight/
   Samurai/Healer/Valkyrie/Ranger/Monk/Archeologist/Barbarian/Caveman
@@ -215,7 +215,7 @@ wallification falsified as writer). seed2200 RNG **full** (Scr
   dokick monster/object/closed-door/SDOOR/furniture; `martial()`;
   wake/engraving; `set_wounded_legs` body; `showdamage`/death `done`;
   Upolyd eel `regen_hp` loss; `regen_pw`/Teleport/Poly once-per-turn;
-  `dog_goal` gettrack/FARAWAY; `throw_gold`; eat getobj single-shot;
+  `dog_goal` wantdoor `view_from` do_clear_area; `throw_gold`; eat getobj single-shot;
   Blind/`look_here`; trap glyphs; hallucination/`see_objects`;
   `u_init_carry_attr_boost`; mfndpos pool/lava/garlic/`bad_rock`
   squeeze / temple / iron bars; `m_can_break_boulder`; `ALLOW_WALL`;
@@ -521,6 +521,10 @@ Module status, constitutional debt, and named omissions live in
 81. post-fill `wallification` (D-0100) — C `themerooms_post` parity;
     green/cohort held; full **8/44** Scr **598** RNG **91410**;
     seed0017 still **3132** (wallification not the writer)
+82. dog_goal `gettrack` (D-0099) — C recorder: (30,4)=VWALL; peel was
+    `!couldsee`→gettrack `gg=(29,5)`; seed0017 prefix **3132→3327**;
+    aggregate RNG **91410→91540**; screens **598**; green cohort PASS;
+    next seed0017 `prayer_done` @ 3327
 
 Next work is selected from the active objectives above using
 `PORTING-RUNBOOK.md`, not by extending this historical list.

@@ -102,7 +102,7 @@ Do not record a guessed cause as fixed merely because an RNG prefix moved.
 | D-0096 | fixed | display/newsym | out-of-sight litcorr→corr; seed1150 Scr 27→46 |
 | D-0097 | fixed | objnam/throw/^X | GemStone xname + volley + gender/MC; seed1150 PASS |
 | D-0098 | fixed | dog_move mtrack | `goto nxti` candidate skip (was inner `continue`) |
-| D-0099 | open | seed0017 mfndpos | Missing walkable map (30,4); JS VWALL through mklev |
+| D-0099 | fixed | dog_goal gettrack | `!couldsee` → gettrack gg; not missing (30,4) terrain |
 | D-0100 | fixed | mklev wallification | post-fill full-map `wallification` like C `themerooms_post`; not (30,4) |
 
 D-0001 through D-0005 predate the strict-length/cohort runbook. Their focused
@@ -2628,41 +2628,33 @@ cohort gates if those functions are touched again.
   inactive on that peel).
 - **Next:** seed0017 (30,4) terrain (D-0099).
 
-## D-0099 — seed0017 missing mfndpos neighbour (30,4)
+## D-0099 — seed0017 dog_goal gettrack (!couldsee)
 
-- **Status:** open (diagnosed; terrain writer unknown)
-- **Observed:** seed0017 @ **3132**: C 3× `rn2(12)` @ `dog_move:1257`
-  vs JS 2× then `rn2(5)` `distfleeck`. Pet map **(30,5)** D_NODOOR,
-  hero/goal **(29,8)**, `appr=1`, `whappr=0`, `mfndpos` cnt=4:
-  `(29,5)(29,6)(31,4)(31,5)`. With goal=hero, those four yield only
-  2× farther `rn2(12)`; a fifth farther neighbour in scan order
-  (between corr and room cells) yields the third.
-- **Probe matrix (mfndpos-only, do not ship):**
-  - **(30,4)** walkable → prefix **3132→3142**
-  - **(31,6)** walkable → also **3142** (same 3× `rn2(12)` count) but
-    C screen glyph is HWALL `q` — false positive
-  - **(29,4)** → **3130** (worse); **(30,6)** → **3075** (worse);
-    **(30,3)/(31,3)** → **3132** (no change)
-- **JS writer trace:** `(30,4)` typ changes **once**: STONE→VWALL in
-  `do_room_or_subroom`; never touched by `dig_corridor`/`dosdoor`/
-  niches/fill/finalize. Only west-wall `dosdoor` is **(30,5)** DOOR.
-  Room r2: `lx=31,ly=3,hx=35,hy=5`. All themerms picks **`default`**.
-- **C screen:** `(30,4)` stays blank even with hero at **(29,5)** —
-  diagonal through stone **(29,4)** (consistent with unseen doorway).
-  Blank at `(30,6)` from corridor is **not** proof of STONE (JS BL
-  also blanks there). Fountain screen col 31 ≡ map **(32,3)**;
-  room `lx=31` matches.
-- **RNG tension:** prefix matches through mklev into this peel, so C
-  cannot have burned an extra `dosdoor`/`dig` `rn2` that JS skipped.
-  `finddpos`+`bydoor` also blocks adjacent west-wall doors. Writer is
-  therefore non-RNG, or a geometry path that preserves call counts.
-- **Rejected:** room x-shift; pool at (30,4); mtrack/nxti
-  (`distminU=3`); `(29,4)` CORR; `(30,6)` walkable; `(31,6)` walkable;
-  `in_mk_themerooms` alone; little-dog dig/`ALLOW_DIG` (no `M1_TUNNEL`);
-  **post-fill `wallification` (D-0100)** — still 3132; irregular
-  themerms `des.map` (all picks default).
-- **Next falsifier:** C-side dump of `levl[30][4].typ` after mklev
-  (`build-recorder.sh` + print). Do not ship map-coordinate probes.
+- **Status:** fixed
+- **Observed:** seed0017 @ **3132**: C 3× `rn2(12)` @ `dog_move` vs JS
+  2× then `rn2(5)` `distfleeck`. Pet **(30,5)** DOOR, hero **(29,8)**,
+  `mfndpos` cnt=4 same cells as JS.
+- **C recorder dump (after mklev):** `levl[30][4].typ=VWALL` — same as
+  JS. Terrain-writer theory **falsified**.
+- **C dump at peel (cc≈3130):** `couldsee(pet)=0`, `gg=(29,5)`,
+  `gtyp=UNDEF`. After closer pick `(29,5)` updates `nidist`, former
+  equal-distance `(29,6)` becomes farther → **3×** `rn2(12)`.
+- **C locus:** `dogmove.c` `dog_goal` — when goal is hero and
+  `!in_masters_sight`, `gettrack(omx,omy)` redirects `gg`; `track.c`
+  `settrack` each new turn.
+- **Cause:** JS `dog_goal` omitted the gettrack/ogoal/FARAWAY block;
+  `track.c` was unported, so even with correct `couldsee` the goal
+  stayed at the hero → only 2 farther cells.
+- **Change:** `js/track.js` (`initrack`/`settrack`/`gettrack`);
+  `allmain` calls `settrack` before `moves++`; `dog_goal` ports
+  gettrack/ogoal (wantdoor `view_from` do_clear_area omitted → hero
+  fallback).
+- **Rejected:** missing walkable (30,4); room x-shift; wallification;
+  mfndpos probe “extra neighbour” as the C map state.
+- **Verification:** seed0017 prefix **3132→3327** (`prayer_done`);
+  green+strict PASS; cohort seed1500/1800/0060/0102/0700/1150 PASS;
+  full **8/44** Scr **598** RNG **91540**.
+- **Next:** seed0017 @ 3327 `prayer_done` / `#pray`.
 
 ## D-0100 — post-fill full-map wallification
 
@@ -2676,5 +2668,5 @@ cohort gates if those functions are touched again.
 - **Verification:** green+strict PASS; cohort seed1500/1800/0060/0102/
   0700/1150 PASS; full **8/44** Scr **598** RNG **91410**; seed0017
   still **3132** — wallification is not the (30,4) writer.
-- **Next:** C typ dump for D-0099.
+- **Next:** seed0017 @ 3327 `prayer_done` (D-0099 gettrack cleared 3132).
 
