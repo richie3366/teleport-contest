@@ -7,12 +7,12 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 
 ## Active
 
-- **Current unit:** seed0030 seg1 @5220 / seed0103 `next_ident`/`trquan`.
-- **Hypothesis (seed0030 seg1):** after D-0200 themed-fill Storeroom, first
-  mismatch @5220 — C `rnd(100) @ mkshop` vs JS `rn2(7)` (dlvl2+ special-room
-  `do_mkroom`/`mkshop` stub incomplete).
-- **Falsifier:** compare C `makelevel` special-room branch at seg1 ~5219 with
-  JS `do_mkroom`/`mkshop` callers; check whether `rn2(u_depth)` picked a shop.
+- **Current unit:** seed0030 seg1 @5255 / seed0103 `next_ident`/`trquan`.
+- **Hypothesis (seed0030 seg1):** after D-0201 `mkshop`, first mismatch @5255 —
+  C `rn2(5) @ find_random_launch_coord` vs JS `rnd(4)` (arrow/dart trap launch
+  setup incomplete or wrong `mktrap` branch during ordinary fill).
+- **Falsifier:** compare C `mktrap`/`find_random_launch_coord` call at seg1
+  ~5255 with JS fill_ordinary_room trap placement.
 - **Parked deep canary:** D-0006 pet movement — do not implement until C
   state/candidate capture exists.
 - **Parked seed2200 @158:** RC config path — harness `$HOME`, not a port bug.
@@ -135,6 +135,10 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   reservoir** — pick was "Default room with themed fill"; JS never called
   `themeroom_fill` after `create_room` (D-0200). Do not re-chase litstate
   or nhlib shuffle for that index.
+- **seed0030 seg1 @5220 was NOT missing stock_room first** — JS skipped
+  eligible shop rooms without `rnd(100)`/`rtype`, so fillable count was
+  `rn2(7)` vs C `rn2(6)` after shop claim (D-0201). Do not skip
+  `invalid_shop_shape` when porting.
 - **`monattk.h`: AT_WEAP=254, AT_MAGC=255, AT_SPIT=10** — never use 10 for
   weapon (D-0179).
 - Hostile `m_move`: before place, `m_digweapon_check` may return
@@ -206,3 +210,6 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   `create_room(THEMEROOM)` then `themeroom_fill` (D-0200). Mimic
   `makemon` burns `set_mimic_sym` before invent; Storeroom `appear_as`
   overrides afterward.
+- **`mkshop`:** eligible OROOM + doorct==1 + `!invalid_shop_shape` +
+  `rnd(100)` shtypes + `rtype=SHOPBASE+i` + `needfill` before fillable
+  countdown (D-0201). `stock_room`/`shkinit` still deferred (~seg1@5399).

@@ -38,8 +38,8 @@ frozen-file overlay):
 | Metric | Value |
 |--------|------:|
 | Sessions passing | **17 / 44** |
-| Screens matched | **1313 / 11,405** (11.51%) |
-| Positional RNG calls matched | **142,362 / 792,838** (17.96%) |
+| Screens matched | **1312 / 11,405** (11.50%) |
+| Positional RNG calls matched | **142,327 / 792,838** (17.95%) |
 | Speed label | `20+0.08/turn` |
 | Working-tree base | `8b71735` + committed port (see `main`) |
 | Role-init throws | **0 / 44** (`u_init_role: role not ported`) |
@@ -244,6 +244,9 @@ prefix **3466→3497** positional **18080**/105529; full **17/44** Scr
 **Default themed-fill + Storeroom + `set_mimic_sym`** (D-0200) →
 seed0030 seg1 prefix **3870→5220** positional **19786**/105529 Scr
 **45**/1953; full **17/44** Scr **1313** RNG **142362**.
+**`mkshop` eligibility + shtypes `rnd(100)`** (D-0201) →
+seed0030 seg1 prefix **5220→5255** positional **19751**/105529 Scr
+**44**/1953; full **17/44** Scr **1312** RNG **142327**.
 
 ### Green gate
 
@@ -419,19 +422,21 @@ autoopen `doopen_indir` (D-0059) + `mfndpos` BOULDER/`ALLOW_ROCK` +
 **`mhitm_mgc_atk_negated` + AD_ELEC `hitmu`** (D-0198)
 **`monnear` NODIAG diagonal** (D-0199)
 **Default themed-fill + Storeroom + `set_mimic_sym`** (D-0200)
+**`mkshop` eligibility + shtypes `rnd(100)`** (D-0201)
 **ported**. Seventeen public sessions pass end-to-end. **0/44** throw at
 `u_init_role`. seed0700 + seed1150 + seed0017 + seed0077 + seed0106 +
 seed0501 + seed0105 + seed0016 + seed0015 + seed0200 + seed0101 **PASS**. seed2200 RNG **full**
 (Scr **229**/230; sole miss parked RC @158).
 seed0101 RNG **full** Scr **27**/27.
 
-- **Bounded unit:** seed0030 seg1 @5220 (`mkshop` after D-0200) /
-  seed0103 `next_ident`/`trquan` /
+- **Bounded unit:** seed0030 seg1 @5255 (`find_random_launch_coord` after
+  D-0201 `mkshop`) / seed0103 `next_ident`/`trquan` /
   seed0361/0373 **quest `getbones`** (blocked: need `^V`→`goto_level`→
   `makemaz` first — ordinary `goto_level` now exists for stairs; Mines
   `fill_lvl` path exists D-0171).
-- **Prefer:** seed0030 seg1 `mkshop`/`do_mkroom` peel after D-0200
-  over parked D-0006 and over baking seed2200 RC paths.
+- **Prefer:** seed0030 seg1 `mktrap`/`find_random_launch_coord` peel after
+  D-0201 over parked D-0006 and over baking seed2200 RC paths.
+  `stock_room`/`shkinit` deferred until fill reaches ~5399.
   Hero `dotrap` deferred until monster pit peel is clear.
   Hero `xkilled` treasure `mkobj` still deferred (ordinary `make_corpse`
   done D-0191; mhitm path done D-0167; `done_in_by` bones gate done
@@ -526,7 +531,8 @@ seed0101 RNG **full** Scr **27**/27.
   bare `distmin<=1` `monnear` (NODIAG done D-0199); Fake Delphi/
   Pillars/nested `des.room` + other themerms fills beyond Ghost/
   Teleportation hub/Storeroom (D-0200); `set_mimic_sym` shop/
-  maze arms; `mkshop` body; …
+  maze arms; **`stock_room`/`shkinit`/`mkshobj_at`** (mkshop rtype
+  done D-0201); …
 - **Cohort:** green gate + seed1500 + seed1800 + seed0060 + seed0102
   + seed0700 + seed1150 + seed0017 + seed0077 + seed0106 + seed0501
   + seed0105 + seed0016 + seed0015 + seed0200 + seed0101 (must stay PASS)
@@ -1232,12 +1238,17 @@ Module status, constitutional debt, and named omissions live in
 176. `monnear` NODIAG diagonal (D-0199)
     — seed0030 seg1 prefix **3497→3870** (themerms.lua `room`);
     positional **18437**/105529 Scr **44**/1953; full **17/44** Scr
-    **1312** RNG **141923**; next seed0030 seg1 @3870 /
+    **1312**     RNG **141923**; next seed0030 seg1 @3870 /
     seed0103 `next_ident`
 177. Default themed-fill + Storeroom + `set_mimic_sym` (D-0200)
     — seed0030 seg1 prefix **3870→5220** (`mkshop`); positional
     **19786**/105529 Scr **45**/1953; full **17/44** Scr **1313**
     RNG **142362**; next seed0030 seg1 @5220 / seed0103 `next_ident`
+178. `mkshop` eligibility + shtypes `rnd(100)` (D-0201)
+    — seed0030 seg1 prefix **5220→5255** (`find_random_launch_coord`);
+    positional **19751**/105529 Scr **44**/1953; full **17/44** Scr
+    **1312** RNG **142327**; next seed0030 seg1 @5255 / seed0103
+    `next_ident`
 
 Next work is selected from the active objectives above using
 `PORTING-RUNBOOK.md`, not by extending this historical list.

@@ -2598,3 +2598,16 @@ Use this shape:
 - Verification: seg1 **3870→5220**; seed0030 positional **19786**/105529;
   full **17/44** Scr **1313** RNG **142362**; green+strict+cohort PASS.
 - Next: seed0030 seg1 @5220 `mkshop`; or seed0103 `next_ident`/`trquan`.
+
+## 2026-07-14 00:05 — D-0201 mkshop eligibility + shtypes rnd(100)
+- Objective: seed0030 seg1 @5220 C `rnd(100) @ mkshop` vs JS `rn2(7)` (PROGRESS primary).
+- C locus: `mkroom.c` `mkshop`/`invalid_shop_shape`/`isbig`; `shknam.c` `shtypes[]`.
+- Result: **fixed** — JS skipped eligible shop rooms without type RNG or
+  `rtype`/`needfill`, so fillable countdown stayed `rn2(7)` vs C `rn2(6)`.
+  Ported non-wizard `mkshop` + `js/shknam.js` shtypes probs; `stock_room`
+  deferred.
+- Verification: seg1 **5220→5255** (`find_random_launch_coord`); seed0030
+  positional **19751**/105529 Scr **44**/1953; green+strict+cohort PASS;
+  full **17/44** Scr **1312** RNG **142327**.
+- Next: `node -e` seg1 mismatch @5255 / port `find_random_launch_coord`
+  or `mktrap` launch; or seed0103 `next_ident`/`trquan`.

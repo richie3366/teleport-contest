@@ -41,9 +41,10 @@ import {
 import {
     RANDOM_CLASS, WEAPON_CLASS, ARMOR_CLASS, RING_CLASS,
     FOOD_CLASS, SCROLL_CLASS, POTION_CLASS, TOOL_CLASS, GEM_CLASS,
-    SPBOOK_CLASS,
+    SPBOOK_CLASS, WAND_CLASS,
     objectNames,
 } from './objects.js';
+import { shtypes } from './shknam.js';
 import { setgemprobs } from './o_init.js';
 import { maketrap, t_at } from './trap.js';
 import {
@@ -1226,7 +1227,7 @@ async function makelevel_ordinary() {
 
 /**
  * C ref: mkroom.c do_mkroom — dispatch special room makers.
- * Shop path: mkshop eligibility scan; stocking deferred when a room qualifies.
+ * Shop path: mkshop sets rtype/needfill; stock_room deferred to fill_special_room.
  */
 function do_mkroom(roomtype) {
     if (roomtype >= SHOPBASE) {
@@ -1236,34 +1237,116 @@ function do_mkroom(roomtype) {
     // COURT/ZOO/… bodies deferred — named in C-JS-MAP.md
 }
 
+/** C ref: mkroom.c isbig() */
+function isbig(sroom) {
+    const area = (sroom.hx - sroom.lx + 1) * (sroom.hy - sroom.ly + 1);
+    return area > 20;
+}
+
+/** C ref: mkroom.c has_dnstairs() */
+function has_dnstairs(sroom) {
+    for (let stway = game.stairs; stway; stway = stway.next) {
+        if (!stway.up && inside_room(sroom, stway.sx, stway.sy)) return true;
+    }
+    return false;
+}
+
+/** C ref: mkroom.c has_upstairs() */
+function has_upstairs(sroom) {
+    for (let stway = game.stairs; stway; stway = stway.next) {
+        if (stway.up && inside_room(sroom, stway.sx, stway.sy)) return true;
+    }
+    return false;
+}
+
 /**
- * C ref: mkroom.c mkshop — find eligible OROOM with one door, no stairs.
- * Full invalid_shop_shape + shtypes rnd(100) + rtype set deferred; candidates
- * are skipped so we never claim a shop without burning shop-type RNG.
- * seed0015 dlvl2: C also finds no eligible room → no RNG here.
+ * C ref: mkroom.c invalid_shop_shape() — door-adjacent ROOM cells must leave
+ * the shopkeeper more than one escape square.
+ */
+function invalid_shop_shape(sroom) {
+    const doors = game.level?.doors;
+    if (!doors || sroom.fdoor == null || !doors[sroom.fdoor]) return true;
+    const doorx = doors[sroom.fdoor].x;
+    const doory = doors[sroom.fdoor].y;
+    let insidex = 0, insidey = 0, insidect = 0;
+
+    for (let x = Math.max(doorx - 1, sroom.lx);
+        x <= Math.min(doorx + 1, sroom.hx); x++) {
+        for (let y = Math.max(doory - 1, sroom.ly);
+            y <= Math.min(doory + 1, sroom.hy); y++) {
+            const loc = game.level.at(x, y);
+            if (loc && loc.typ === ROOM) {
+                insidex = x;
+                insidey = y;
+                insidect++;
+            }
+        }
+    }
+    if (insidect < 1) return true;
+    if (insidect === 1) {
+        insidect = 0;
+        for (let x = Math.max(insidex - 1, sroom.lx);
+            x <= Math.min(insidex + 1, sroom.hx); x++) {
+            for (let y = Math.max(insidey - 1, sroom.ly);
+                y <= Math.min(insidey + 1, sroom.hy); y++) {
+                if (x === insidex && y === insidey) continue;
+                const loc = game.level.at(x, y);
+                if (loc && loc.typ === ROOM) insidect++;
+            }
+        }
+        if (insidect === 1) return true;
+    }
+    return false;
+}
+
+/**
+ * C ref: mkroom.c mkshop — find eligible OROOM (one door, no stairs, valid
+ * shape), light it, pick shtypes via rnd(100), set rtype/needfill/topologize.
+ * Wizard SHOPTYPE env and stock_room deferred (stocked in fill_special_room).
  */
 function mkshop() {
     const g = game;
     const nroom = g.level?.nroom | 0;
+    let sroom = null;
     for (let i = 0; i < nroom; i++) {
-        const sroom = g.level.rooms[i];
-        if (!sroom || sroom.hx < 0) return;
-        if (sroom.rtype !== OROOM) continue;
-        let hasStairs = false;
-        for (let s = g.stairs; s; s = s.next) {
-            if (s.sx >= sroom.lx && s.sx <= sroom.hx
-                && s.sy >= sroom.ly && s.sy <= sroom.hy) {
-                hasStairs = true;
-                break;
-            }
-        }
-        if (hasStairs) continue;
-        if ((sroom.doorct | 0) === 1) {
-            // Eligible under doorct rule — invalid_shop_shape/shtypes omitted;
-            // skip rather than set rtype without rnd(100).
-            continue;
+        const cand = g.level.rooms[i];
+        if (!cand || cand.hx < 0) return;
+        if (cand.rtype !== OROOM) continue;
+        if (has_dnstairs(cand) || has_upstairs(cand)) continue;
+        if ((cand.doorct | 0) === 1) {
+            if (invalid_shop_shape(cand)) continue;
+            sroom = cand;
+            break;
         }
     }
+    if (!sroom) return;
+
+    if (!sroom.rlit) {
+        for (let x = sroom.lx - 1; x <= sroom.hx + 1; x++) {
+            for (let y = sroom.ly - 1; y <= sroom.hy + 1; y++) {
+                const loc = g.level.at(x, y);
+                if (loc) loc.lit = 1;
+            }
+        }
+        sroom.rlit = 1;
+    }
+
+    let shopIdx = -1;
+    {
+        let j = rnd(100);
+        let i = 0;
+        for (; i < shtypes.length && (j -= shtypes[i].prob) > 0; i++)
+            continue;
+        shopIdx = i;
+        if (isbig(sroom) && (shtypes[shopIdx]?.symb === WAND_CLASS
+            || shtypes[shopIdx]?.symb === SPBOOK_CLASS)) {
+            shopIdx = 0;
+        }
+    }
+
+    sroom.rtype = SHOPBASE + shopIdx;
+    topologize(sroom);
+    sroom.needfill = FILL_NORMAL;
 }
 
 function ROOM_IS_FILLABLE(croom) {
@@ -1272,8 +1355,7 @@ function ROOM_IS_FILLABLE(croom) {
 }
 
 /**
- * C ref: sp_lev.c fill_special_room() — vault gold + zoo stubs.
- * Shops/zoos not yet ported; VAULT is enough for early Tourist seeds.
+ * C ref: sp_lev.c fill_special_room() — vault gold; shop stock_room deferred.
  */
 function fill_special_room(croom) {
     if (!croom) return;
@@ -1285,6 +1367,11 @@ function fill_special_room(croom) {
         return;
 
     if (croom.needfill === FILL_NORMAL) {
+        // C: rtype >= SHOPBASE → stock_room(...); has_shop — deferred (D-0201 next)
+        if (croom.rtype >= SHOPBASE) {
+            // rtype/needfill set by mkshop; stocking omitted until shkinit port
+            return;
+        }
         if (croom.rtype === VAULT) {
             const d = Math.abs(depth_of_level(game.u?.uz));
             for (let x = croom.lx; x <= croom.hx; x++) {

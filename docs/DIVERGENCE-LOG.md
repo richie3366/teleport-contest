@@ -204,6 +204,7 @@ Do not record a guessed cause as fixed merely because an RNG prefix moved.
 | D-0198 | fixed | mhitm AD_ELEC | `mhitm_mgc_atk_negated` + `hitmu` adtyping |
 | D-0199 | fixed | monnear NODIAG | grid-bug diagonal not nearby → `m_move` |
 | D-0200 | fixed | themerms fill | Default themed-fill → `themeroom_fill` + Storeroom + `set_mimic_sym` |
+| D-0201 | fixed | mkshop | `invalid_shop_shape` + shtypes `rnd(100)` + rtype/needfill |
 
 D-0001 through D-0005 predate the strict-length/cohort runbook. Their focused
 causes are preserved, but generic "green sessions held" is historical evidence,
@@ -5446,4 +5447,25 @@ cohort gates if those functions are touched again.
   Fake Delphi/Pillars/nested `des.room`; shop `get_shop_item` in
   `set_mimic_sym`; maze/sokoban/town mimic arms; altar MCORPSENM.
 - **Next:** seed0030 seg1 @5220 `mkshop`; or seed0103 `next_ident`/`trquan`.
+
+## D-0201 — mkshop eligibility + shtypes rnd(100) (seed0030 seg1 @5220)
+
+- **Symptom:** seed0030 seg1 @5220 C `rnd(100)=65 @ mkshop` vs JS
+  `rn2(7)` (fillable-room countdown still counted the shop room).
+- **Rejected:** stock_room-first — C next call after type pick is
+  `rn2(fillable)` at makelevel:1402; stocking is later (~5399).
+- **Cause/evidence:** JS `mkshop` skipped eligible rooms without burning
+  `rnd(100)` or setting `rtype`/`needfill`, so the room stayed
+  ROOM_IS_FILLABLE and the countdown used `rn2(7)` vs C `rn2(6)`.
+- **Change:** `js/mklev.js` — `isbig`/`has_*stairs`/`invalid_shop_shape`/
+  full non-wizard `mkshop` (light, shtypes pick, `rtype`, `topologize`,
+  `needfill`). `js/shknam.js` — `shtypes[]` name/symb/prob for type pick.
+  `fill_special_room` early-returns on shop rtype pending `stock_room`.
+- **Verification:** seg1 prefix **5220→5255** (`find_random_launch_coord`);
+  seed0030 positional **19751**/105529 Scr **44**/1953; green+strict+
+  cohort PASS; full **17/44** Scr **1312**/11405 RNG **142327**/792838.
+- **Named omissions:** `stock_room`/`shkinit`/`mkshobj_at`/`get_shop_item`;
+  shtypes iprobs/shknms; wizard SHOPTYPE; COURT/ZOO/… `do_mkroom` bodies.
+- **Next:** seed0030 seg1 @5255 `find_random_launch_coord`/`mktrap`; or
+  seed0103 `next_ident`/`trquan`.
 
