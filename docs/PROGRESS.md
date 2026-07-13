@@ -397,15 +397,15 @@ seed0501 + seed0105 + seed0016 + seed0015 **PASS**. seed2200 RNG **full**
 seed0101 RNG **full** Scr **21**/27.
 
 - **Bounded unit:** seed0030 @14118 / D-0185 (FORCE-open → prefix
-  14153; dig-path/pass_one/join/mdig-near **falsified** — next
-  post-wallify typ-write hook or C levl dump at rn2(32)) /
+  14153; dig-path/pass_one/join/mdig-near/**post-wallify typ writes**
+  **falsified** — next non-RNG join_map/flood vs C, or C levl dump) /
   seed0101 Scr residual /
   seed0103 `next_ident`/`trquan` /
   seed0200 combat `@3382` (lower priority) /
   seed0361/0373 **quest `getbones`** (blocked: need `^V`→`goto_level`→
   `makemaz` first — ordinary `goto_level` now exists for stairs; Mines
   `fill_lvl` path exists D-0171).
-- **Prefer:** seed0030 @14118 D-0185 (post-wallify typ mutation) /
+- **Prefer:** seed0030 @14118 D-0185 (non-RNG join/flood or C dump) /
   seed0101 Scr
   over parked D-0006 and over baking seed2200 RC paths.
   Hero `dotrap` deferred until monster pit peel is clear.

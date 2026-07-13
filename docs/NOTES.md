@@ -8,15 +8,15 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 ## Active
 
 - **Current unit:** D-0185 — seed0030 @14118 `m_move` cnt (after D-0184).
-- **Hypothesis / next:** Mkmap→wallify leaves `(56,9)`/`(56,10)` as
-  TRCORNER/BRCORNER; mines `dig_corridor` never visits them (last join dig
-  walks `y=11` only); dig RNG 12k–13.2k matches C 1:1; pre-mismatch
-  `mdig_tunnel` only at `(22,7)`/`(23,6)`. Yet C `rn2(32)` and FORCE-open
-  →14153. Opener is a **post-wallify typ mutation** (or C map dump needed).
+- **Hypothesis / next:** JS map after mines wallify keeps `(56,9)`/
+  `(56,10)` as TRCORNER/BRCORNER with **zero** typ writes through
+  14118. FORCE-open still advances →14153, so C needs those cells
+  walkable. Next: non-RNG `join_map`/flood/erase divergence vs C, or
+  C `levl` dump at the `rn2(32)` call (not another typ-write hunt).
 - **Falsifier / next:**
   ```bash
-  # Hook every loc.typ write to (56,9)/(56,10) after mines wallify → 14118;
-  # or obtain C levl typ at those cells at the rn2(32) call.
+  # Compare join_map room bounds / carved set vs C somexy+dig provenance;
+  # or instrument C recorder for levl[56][9].typ at m_move rn2(32).
   node scripts/rng-diff.mjs sessions/seed0030-ten-diverse-deaths.session.json
   ```
 - **Parked deep canary:** D-0006 pet movement — do not implement until C
@@ -102,6 +102,10 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   gnome walls (D-0185).
 - **PM_GNOME `!M1_TUNNEL`** — cannot `mfndpos` walls via ALLOW_DIG
   (D-0185).
+- **Post-wallify typ mutation falsified** — hook from mines wallify
+  @13226→14118: **0** writes to `(56,9)`/`(56,10)`; still TRCORNER/
+  BRCORNER at mismatch. @14115 is a *different* gnome @(48,17) cnt=8
+  (D-0185). Do not re-hunt post-wallify writers.
 - **`monattk.h`: AT_WEAP=254, AT_MAGC=255, AT_SPIT=10** — never use 10 for
   weapon (D-0179).
 - Hostile `m_move`: before place, `m_digweapon_check` may return
@@ -135,4 +139,5 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   **always** burns `rnd(12)` first (D-0178).
 - Mines `fill_lvl`/`makemaz(minefill)` + dungeon align `&7` (D-0171).
 - seed0030 @14118: JS gnome @`(57,10)` `cnt=6` vs C `rn2(32)`; walls
-  from pass_two; FORCE-open → prefix 14153 (D-0185).
+  from pass_two; FORCE-open → prefix 14153; **no post-wallify typ
+  writes** (D-0185).

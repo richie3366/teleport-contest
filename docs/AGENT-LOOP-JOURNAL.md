@@ -2377,3 +2377,14 @@ Use this shape:
   typ-write hook or C `levl` dump.
 - Verification: green+strict PASS (preflight); DIAG removed; no js edit.
 - Next: D-0185 typ-mutation hook / C map dump; or seed0101 Scr.
+
+## 2026-07-13 22:00 — D-0185 post-wallify typ writes falsified
+- Objective: seed0030 @14118 C `rn2(32)` vs JS `rn2(24)` (PROGRESS primary).
+- C locus: `monmove.c` `m_move` mtrack; `mkmap.c` wallify/`join_map`.
+- Result: **falsified** post-wallify typ-mutation — no production change.
+  Property-hook on `(56,9)`/`(56,10)` from mines wallify (rng 13226) through
+  14118: **0** writes; still TRCORNER/BRCORNER. @14115 matching `rn2(32)`
+  is different gnome @(48,17) cnt=8. FORCE-open still implies C needs those
+  cells walkable. Next: non-RNG join_map/flood vs C, or C levl dump.
+- Verification: green+strict PASS; DIAG removed; tree clean of js edits.
+- Next: D-0185 join_map/flood non-RNG peel / C dump; or seed0101 Scr.
