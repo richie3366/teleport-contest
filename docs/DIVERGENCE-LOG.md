@@ -90,6 +90,7 @@ Do not record a guessed cause as fixed merely because an RNG prefix moved.
 | D-0084 | fixed | getpos rush | `HJKLYUBN`/`C(dir)` → 8× `truncate_to_map`; seed2200 Scr 109→113 |
 | D-0085 | fixed | pager/checkfile | NHW_MENU `process_text_window` + CR/tabexpand; seed2200 Scr 113→117 |
 | D-0086 | fixed | objnam/doname | SCR/SPE/RIN/WAN `… of` + bimanual `hands` + `oc_big`; invent @i |
+| D-0087 | fixed | pager look_all | NHW_TEXT more@23 + coords/glyph + shown-filter + statue/engr |
 
 D-0001 through D-0005 predate the strict-length/cohort runbook. Their focused
 causes are preserved, but generic "green sessions held" is historical evidence,
@@ -2357,3 +2358,31 @@ cohort gates if those functions are touched again.
   overwrite.
 - **Next:** seed2200 look_all `m` @ screen 87 / seed0017 terrain /
   seed1150.
+
+## D-0087 — seed2200 look_all / look_engrs NHW_TEXT
+
+- **Status:** fixed
+- **Observed:** seed2200 `/`→`m` screen 87: C cursor `[8,23]` and
+  lines ` <23,9>   @  human wizard…` / ` <20,10>  f  tame kitten`;
+  JS `--More--` on row 4, bare `    human wizard` / `tame monster`.
+  Nearby objects listed every floor pile; C only glyph-shown.
+- **C locus:** `pager.c` `look_all`/`look_engrs`/`self_lookat`/
+  `look_at_monster`; `wintty.c` `tty_display_nhwindow(NHW_TEXT)` +
+  `process_text_window` (more on `rows-1`); `getpos.c` `coord_desc`;
+  `objnam.c` STATUE xname; `display.c` `newsym`/`glyph_at`.
+- **Cause:** `show_text_pages` put `--More--` after content; look_all
+  skipped coords/glyph and used `data.mname` + `loc.objects` instead
+  of `data.name` + currently-shown (`cansee`/`mon_visible`) filter;
+  STATUE pretty_base omitted corpsenm; look_engrs stringified
+  `engr_txt` object.
+- **Change:** NHW_TEXT `--More--` on row 23; look_all MAP prefixes +
+  `look_shown_at`; statue `of a <pm>`; look_engrs remembered/
+  obscured-by format + S_engroom `` ` ``.
+- **Verification:** seed2200 Scr **117→167**/230; green + cohort
+  PASS + strict; full **7/44**, screens **486→536**/11405, RNG
+  **91379**/792838.
+- **Named omission:** invis/warning glyphs; `object_from_map` fakeobj;
+  compass/screen coord modes; look_traps format; `display_file`
+  license page (seed2200 @ 110); S_engrcorr/grave headstone.
+- **Next:** seed2200 `display_file`/license @ screen 110 /
+  seed0017 terrain / seed1150.

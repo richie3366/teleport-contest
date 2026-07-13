@@ -130,7 +130,7 @@ function mon_at_display(x, y) {
 }
 
 // C ref: display.h _mon_visible — invis/undetected only (caller handles sight)
-function mon_visible(mon) {
+export function mon_visible(mon) {
     if (!mon) return false;
     if (mon.minvis && !game.u?.See_invisible) return false;
     if (mon.mundetected) return false;
@@ -147,7 +147,7 @@ function hero_has_infravision() {
 }
 
 // C ref: display.h _see_with_infrared
-function see_with_infrared(mon) {
+export function see_with_infrared(mon) {
     if (!mon) return false;
     if (game.u?.Blind || game.u?.ublind) return false;
     if (!hero_has_infravision()) return false;
@@ -156,9 +156,38 @@ function see_with_infrared(mon) {
     return couldsee(mon.mx, mon.my);
 }
 
+/**
+ * C ref: display.c newsym / glyph_at — what look_all treats as "currently shown".
+ * Returns {kind:'hero'|'mon'|'obj', mtmp?, obj?} or null.
+ */
+export function look_shown_at(x, y) {
+    const u = game.u || {};
+    if (u.ux === x && u.uy === y) return { kind: 'hero' };
+
+    const mtmp = mon_at_display(x, y);
+    if (cansee(x, y)) {
+        if (mtmp && mon_visible(mtmp)) return { kind: 'mon', mtmp };
+        const obj = objects_at(x, y);
+        if (obj && !covers_objects(x, y)) return { kind: 'obj', obj };
+        return null;
+    }
+    if (mtmp && mon_visible(mtmp) && see_with_infrared(mtmp)) {
+        return { kind: 'mon', mtmp };
+    }
+    // Remembered object glyph still on map (hero_memory)
+    const loc = game.level?.at?.(x, y);
+    const rg = loc?.remembered_glyph;
+    const obj = objects_at(x, y);
+    if (rg && obj && !covers_objects(x, y)) {
+        const og = obj_glyph(obj);
+        if (rg.ch === og.ch) return { kind: 'obj', obj };
+    }
+    return null;
+}
+
 // C ref: display.c map_glyph / mon_color(monsndx) — per-species mcolor.
 // Newt is CLR_YELLOW; gecko/lizard are CLR_GREEN — mlet-only color is wrong.
-function mon_glyph(mtmp) {
+export function mon_glyph(mtmp) {
     const mlet = mtmp.data?.mlet || mtmp.mlet;
     const ch = MLET_CH[mlet] || '?';
     if (mtmp.mtame) return { ch, color: CLR_WHITE };
@@ -179,7 +208,7 @@ function covers_objects(x, y) {
 
 // C ref: display.c map_object / display.h obj_to_glyph + mon_color for corpses
 // C ref: display.h statue_to_glyph — statues use mons[corpsenm].mlet + obj_color(STATUE)
-function obj_glyph(obj) {
+export function obj_glyph(obj) {
     const def = game.objects?.[obj.otyp];
     const oclass = obj.oclass ?? def?.oc_class ?? ILLOBJ_CLASS;
     // C: STATUE → monster letter (not ROCK_CLASS '`'); color is statue white

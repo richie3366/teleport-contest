@@ -125,6 +125,11 @@ function pretty_base(obj) {
     // C: corpse → "<monster> corpse" when corpsenm known
     if (n === 'CORPSE' && obj.corpsenm != null && obj.corpsenm >= 0)
         return `${mon_name(obj.corpsenm)} corpse`;
+    // C ref: objnam.c xname ROCK_CLASS STATUE — "statue of a <pm>"
+    if (n === 'STATUE' && obj.corpsenm != null && obj.corpsenm >= 0) {
+        const pm = mon_name(obj.corpsenm);
+        return `statue of ${an(pm)}`;
+    }
     // C: xname potion — "potion of X" when oc_name_known (startup kits are)
     if (n && n.startsWith('POT_')) {
         const rest = n.slice(4).toLowerCase().replace(/_/g, ' ');

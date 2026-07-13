@@ -16,6 +16,7 @@ import { rn2 } from './rng.js';
 import { nhgetch } from './input.js';
 import {
     flush_screen, flush_topl_more, pline, docrt, more,
+    mon_glyph, obj_glyph, look_shown_at,
 } from './display.js';
 import { getlin } from './getline.js';
 import {
@@ -24,9 +25,13 @@ import {
 import { stairway_at, known_branch_stairs } from './mklev.js';
 import { getpos, LOOK_ONCE } from './getpos.js';
 import { mon_at } from './uhitm.js';
+import { objects_at } from './mkobj.js';
 import { doname, an } from './objnam.js';
 import { engr_at } from './engrave.js';
-import { BOLT_LIM, COLNO, ROWNO, STAIRS, LA_DOWN, ROOM, CORR, STONE } from './const.js';
+import {
+    BOLT_LIM, COLNO, ROWNO, STAIRS, LA_DOWN, ROOM, CORR, STONE,
+    GPCOORDS_NONE, GPCOORDS_MAP, GPCOORDS_COMPASS, GPCOORDS_SCREEN,
+} from './const.js';
 import { IS_WALL } from './const.js';
 import { ATR_INVERSE, NO_COLOR } from './terminal.js';
 
@@ -86,31 +91,45 @@ function tabexpand(s) {
     return out;
 }
 
-/** NHW_TEXT-ish page: paint lines, --More-- or (end), wait one key. */
+/**
+ * C ref: wintty.c tty_display_nhwindow(NHW_TEXT) + process_text_window.
+ * NHW_TEXT forces maxcol=cols → offx=0 fullscreen; after lines, H2344
+ * cl_eos from cury+1; --More-- on rows-1; dmore offset 1 → cursor [8,23].
+ */
 async function show_text_pages(lines, { moreAtEnd = true } = {}) {
     const disp = game.nhDisplay;
     if (!disp) {
         await nhgetch();
         return;
     }
-    const pageRows = 21; // leave status
+    const cols = disp.cols || 80;
+    const rows = 24;
+    const pageRows = rows - 1; // leave bottom for --More-- / (end)
     let offset = 0;
     while (offset < lines.length || (offset === 0 && lines.length === 0)) {
         game._menu_overlay = true;
         game._pending_message = '';
         disp.clearScreen();
         const chunk = lines.slice(offset, offset + pageRows);
-        for (let r = 0; r < pageRows; r++) {
+        for (let r = 0; r < chunk.length; r++) {
             const text = chunk[r] || '';
-            for (let i = 0; i < text.length && i < disp.cols; i++)
+            for (let i = 0; i < text.length && i < cols; i++)
                 disp.setCell(i, r, text[i], NO_COLOR, 0);
         }
+        // C H2344: tty_curs(1, cury+1); cl_eos(); then more on rows-1
+        for (let r = chunk.length; r < rows - 1; r++) {
+            for (let c = 0; c < cols; c++)
+                disp.setCell(c, r, ' ', NO_COLOR, 0);
+        }
         const last = offset + pageRows >= lines.length;
-        const footer = last && !moreAtEnd ? '(end)' : '--More--';
-        const fr = Math.min(23, Math.max(chunk.length, 1));
-        for (let i = 0; i < footer.length && i < disp.cols; i++)
-            disp.setCell(i, fr > 20 ? 23 : fr, footer[i], NO_COLOR, 0);
-        disp.setCursor(footer.length, fr > 20 ? 23 : fr);
+        const footer = last && !moreAtEnd ? '(end) ' : '--More--';
+        const moreRow = rows - 1;
+        for (let c = 0; c < cols; c++)
+            disp.setCell(c, moreRow, ' ', NO_COLOR, 0);
+        for (let i = 0; i < footer.length && i < cols; i++)
+            disp.setCell(i, moreRow, footer[i], NO_COLOR, 0);
+        // C dmore NHW_TEXT: cursor after prompt; help_dir uses [8,23] for "--More--"
+        disp.setCursor(footer.startsWith('--More--') ? 8 : footer.length, moreRow);
         await flush_screen(1);
         await nhgetch();
         offset += pageRows;
@@ -119,6 +138,59 @@ async function show_text_pages(lines, { moreAtEnd = true } = {}) {
     game._menu_overlay = false;
     await docrt();
     await flush_screen(1);
+}
+
+/**
+ * C ref: getpos.c coord_desc GPCOORDS_MAP — "<x,y>"; y<10 gets trailing
+ * space so %8s columns line up (pager.c look_all).
+ */
+function coord_desc(x, y, cmode = GPCOORDS_MAP) {
+    if (cmode === GPCOORDS_SCREEN) {
+        return `[${String(y + 2).padStart(2, '0')},${String(x).padStart(2, '0')}]`;
+    }
+    if (cmode === GPCOORDS_COMPASS || cmode === 'f') {
+        return '(here)'; // full compass deferred; look_all defaults to MAP
+    }
+    let s = `<${x},${y}>`;
+    if (cmode === GPCOORDS_MAP && y < 10) s += ' ';
+    return s;
+}
+
+function look_coord_prefix(x, y, cmode) {
+    const coordbuf = coord_desc(x, y, cmode);
+    if (cmode === GPCOORDS_SCREEN) return `${coordbuf}  `;
+    if (cmode === GPCOORDS_MAP) return `${coordbuf.padStart(8, ' ')}  `;
+    return `${coordbuf.padStart(12, ' ')}  `;
+}
+
+function look_getpos_cmode() {
+    const gpc = game.iflags?.getpos_coords;
+    if (gpc && gpc !== GPCOORDS_NONE) return gpc;
+    return GPCOORDS_MAP;
+}
+
+/** C ref: pager.c self_lookat — race adj + pmname + called plname. */
+function self_lookat() {
+    const race = (game.urace?.adj || game.urace?.noun || 'human').toLowerCase();
+    const role = (game.urole?.name?.m || game.urole?.name || 'hero')
+        .toString()
+        .toLowerCase();
+    const plname = (game.plname || 'hero').toLowerCase();
+    const invis =
+        game.u?.Invis && (game.u?.senseself || !game.u?.Blind) ? 'invisible ' : '';
+    return `${invis}${race} ${role} called ${plname}`;
+}
+
+/**
+ * C ref: pager.c look_at_monster — distant_monnam ARTICLE_NONE + tame/peaceful.
+ * Hallucination / health / stuck / trapped / mhidden deferred.
+ */
+function look_at_monster_buf(mtmp) {
+    const raw = mtmp?.data?.name || mtmp?.mname || 'monster';
+    const name = String(raw).replace(/^PM_/, '').replace(/_/g, ' ').toLowerCase();
+    if (mtmp.mtame) return `tame ${name}`;
+    if (mtmp.mpeaceful) return `peaceful ${name}`;
+    return name;
 }
 
 /**
@@ -382,20 +454,14 @@ function is_stair_spot(x, y) {
 function brief_at(x, y) {
     const u = game.u || {};
     if (u.ux === x && u.uy === y) {
-        // C ref: pager.c self_lookat — race + role + "called" plname
-        const role = (game.urole?.name?.m || game.urole?.name || 'hero')
-            .toString().toLowerCase();
-        const race = (game.urace?.adj || game.urace?.noun || 'human').toLowerCase();
-        const plname = (game.plname || 'hero').toLowerCase();
-        return `${race} ${role} called ${plname}`;
+        return self_lookat();
     }
     const mtmp = mon_at(x, y);
     if (mtmp) {
-        const nm = mtmp.data?.mname || mtmp.mname || 'monster';
-        return mtmp.mtame ? `tame ${nm}` : nm;
+        return look_at_monster_buf(mtmp);
     }
-    const objs = game.level?.objects_at?.(x, y) || game.level?.at?.(x, y)?.objects;
-    if (objs?.length) return doname(objs[0]);
+    const top = objects_at(x, y);
+    if (top) return doname(top);
     if (is_stair_spot(x, y)) return stair_cmap_explanation(x, y);
     const feat = dfeature_at(x, y);
     if (feat) return feat;
@@ -443,7 +509,7 @@ function describe_looked(x, y) {
     }
     const mtmp = mon_at(x, y);
     if (mtmp) {
-        const nm = mtmp.data?.mname || 'monster';
+        const nm = look_at_monster_buf(mtmp).replace(/^(tame|peaceful) /, '');
         const first = nm;
         return { out: `${nm[0] || '?'}        ${an(nm)}`, first, found: 1 };
     }
@@ -488,33 +554,45 @@ function describe_looked(x, y) {
     return { out: '        dark part of a room', first: 'dark part of a room', found: 1 };
 }
 
+/**
+ * C ref: pager.c look_all — NHW_TEXT list of monsters or objects.
+ * Filters via newsym-equivalent "currently shown" (glyph_at), not raw
+ * mon_at/objects_at. Invis/warning glyphs and object_from_map fakeobj deferred.
+ */
 async function look_all(nearby, do_mons) {
     const { lo_x, lo_y, hi_x, hi_y } = look_region(nearby);
     const lines = [];
     let count = 0;
     const u = game.u || {};
+    const cmode = look_getpos_cmode();
     for (let y = lo_y; y <= hi_y; y++) {
         for (let x = lo_x; x <= hi_x; x++) {
+            const shown = look_shown_at(x, y);
             let lookbuf = '';
+            let glyphCh = '';
             if (do_mons) {
-                if (u.ux === x && u.uy === y) {
-                    lookbuf = brief_at(x, y);
-                } else {
-                    const m = mon_at(x, y);
-                    if (m) lookbuf = brief_at(x, y);
+                if (shown?.kind === 'hero') {
+                    lookbuf = self_lookat();
+                    glyphCh = '@';
+                } else if (shown?.kind === 'mon') {
+                    lookbuf = look_at_monster_buf(shown.mtmp);
+                    glyphCh = mon_glyph(shown.mtmp).ch || '?';
                 }
-            } else {
-                const loc = game.level?.at?.(x, y);
-                const objs = loc?.objects || [];
-                if (objs.length) lookbuf = doname(objs[0]);
+            } else if (shown?.kind === 'obj') {
+                lookbuf = doname(shown.obj);
+                glyphCh = obj_glyph(shown.obj).ch || '?';
             }
             if (lookbuf) {
                 count++;
                 if (count === 1) {
                     const which = do_mons ? 'monsters' : 'objects';
                     if (nearby) {
+                        const where =
+                            cmode !== GPCOORDS_COMPASS
+                                ? coord_desc(u.ux, u.uy, cmode).replace(/ $/, '')
+                                : 'you';
                         lines.push(
-                            `${which[0].toUpperCase()}${which.slice(1)} currently shown near <${u.ux},${u.uy}>:`,
+                            `${which[0].toUpperCase()}${which.slice(1)} currently shown near ${where}:`,
                         );
                     } else {
                         lines.push(
@@ -523,7 +601,8 @@ async function look_all(nearby, do_mons) {
                     }
                     lines.push('    ');
                 }
-                lines.push(`    ${lookbuf}`);
+                const prefix = look_coord_prefix(x, y, cmode);
+                lines.push(`${prefix}${glyphCh}  ${lookbuf}`);
             }
         }
     }
@@ -581,24 +660,61 @@ async function look_traps(nearby) {
     }
 }
 
+/**
+ * C ref: pager.c look_engrs — NHW_TEXT; seenv + eread remembered text;
+ * covered by hero/mon/obj → ", obscured by <glyph>" and engraving_to_glyph
+ * '`' (S_engroom). Grave/headstone and S_engrcorr deferred.
+ */
 async function look_engrs(nearby) {
     const { lo_x, lo_y, hi_x, hi_y } = look_region(nearby);
     const lines = [];
     let count = 0;
+    const cmode = look_getpos_cmode();
     for (let y = lo_y; y <= hi_y; y++) {
         for (let x = lo_x; x <= hi_x; x++) {
+            const loc = game.level?.at?.(x, y);
+            if (!loc?.seenv) continue;
             const e = engr_at(x, y);
-            if (!e?.engr_txt) continue;
+            if (!e) continue;
+            const txt = e.engr_txt;
+            const remembered =
+                (typeof txt === 'string'
+                    ? txt
+                    : txt?.remembered_text || txt?.actual_text || '') || '';
+            // After C strsubst("(engraving with " → ""): leading space retained
+            let lookbuf = e.eread
+                ? ` remembered text: "${remembered}"`
+                : ' that you haven\'t read';
+
+            const shown = look_shown_at(x, y);
+            // Engraving cmap shown only when nothing covers; else obscured.
+            // JS map rarely paints S_engroom; treat cover as hero/mon/obj.
+            let glyphCh = '`'; // S_engroom / engraving_to_glyph
+            if (shown?.kind === 'hero') {
+                lookbuf += ', obscured by @';
+            } else if (shown?.kind === 'mon') {
+                lookbuf += `, obscured by ${mon_glyph(shown.mtmp).ch || '?'}`;
+            } else if (shown?.kind === 'obj') {
+                lookbuf += `, obscured by ${obj_glyph(shown.obj).ch || '?'}`;
+            }
+
             count++;
             if (count === 1) {
                 lines.push(
-                    nearby
-                        ? 'Nearby seen or remembered engravings:'
-                        : 'Seen or remembered engravings on this level:',
+                    `${nearby ? 'Nearby seen or remembered engravings' : 'Seen or remembered engravings on this level'}:`,
                 );
                 lines.push('    ');
             }
-            lines.push(`    "${e.engr_txt}"`);
+            // look_engrs: no y<10 kitten on coord_desc (unlike look_all)
+            const raw = `<${x},${y}>`;
+            const prefix =
+                cmode === GPCOORDS_SCREEN
+                    ? `${coord_desc(x, y, cmode)}  `
+                    : cmode === GPCOORDS_MAP
+                      ? `${raw.padStart(8, ' ')}  `
+                      : `${raw.padStart(12, ' ')}  `;
+            // C: "%s " after encglyph (one space); lookbuf already has leading space
+            lines.push(`${prefix}${glyphCh} ${lookbuf}`);
         }
     }
     if (count) await show_text_pages(lines);

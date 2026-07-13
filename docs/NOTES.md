@@ -7,19 +7,19 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 
 ## Active
 
-- **Current unit:** after D-0085/D-0086 seed2200 Scr **113→117**/230
-  (checkfile NHW_MENU + doname SCR/SPE/RIN/WAN + bimanual hands). Prefer
-  seed2200 @ screen 87 look_all `m` nearby monsters cursor /
-  seed0017 @ 3132 terrain / seed1150 `dog_move`.
-- **Hypothesis (seed2200 Scr 117/230):** screen 87 — `/`→`m` look_all
-  monsters: C pager cursor `[8,23]` (status/`--More--` row); JS `[8,4]`
-  (wrong morestr row / NHW_MENU text geometry for short list).
+- **Current unit:** after D-0087 seed2200 Scr **117→167**/230
+  (look_all/look_engrs NHW_TEXT). Prefer seed2200 @ screen 110
+  `display_file`/license quote / seed0017 @ 3132 terrain /
+  seed1150 `dog_move`.
+- **Hypothesis (seed2200 Scr 167/230):** screen 110 — C pages
+  license/`Permission is hereby granted…` as NHW_TEXT; JS still on
+  map (wrong branch or empty `display_file` path for that help item).
 - **Falsifier / next probe:**
   ```bash
   node frozen/ps_test_runner.mjs sessions/seed2200-wizard-quaff-zap-read.session.json
   ```
-  Diff screen 87 cursor+cells; cite C `look_all`/`do_look` display path
-  vs JS `show_text_pages` / corner menu.
+  Diff screen 110; cite C `dohelp`/`display_file`/`nh_copyright` vs
+  JS help menu handlers.
 - **Parked seed0017 @ 3132:** JS `mfndpos` cnt=4 at pet (30,5); C emits
   3× `rn2(12)`. Adding walkable `(30,4)` yields exactly 3× `rn2(12)`.
   JS has VWALL at (30,4); C screen shows floor. Diagnose join/
@@ -102,6 +102,10 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   emitted `scr`/`spe`/`rin`/`wan` tokens; C xname uses
   `scroll/spellbook/ring/wand of <actualn>`; quarterstaff is
   bimanual → `(weapon in hands)` via `oc_big` (D-0086).
+- seed2200 Scr 117 @ screen 87 was **not** NHW_MENU corner geometry —
+  `look_all` is NHW_TEXT (`--More--` on row 23); lines need MAP
+  `%8s` coords + glyph + `look_at_monster`/`self_lookat`; filter
+  by currently shown glyphs not raw `objects_at` (D-0087).
 - `more()` word-wrap of message text must only fire when len≥CO —
   wrapping at CO-8 breaks welcome `--More--` (seed0900).
 
@@ -160,3 +164,7 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   offx+1+8; tabexpand after one leading tab; strip `\r` (D-0085).
 - doname W_WEP bimanual → `(weapon in hands)` via `oc_big`; xname
   SCR/SPE/RIN/WAN → `… of <actualn>` from `objectNameStrs` (D-0086).
+- look_all: NHW_TEXT more on row 23; MAP `%8s` + y<10 pad; filter
+  `look_shown_at` (cansee/mon_visible); STATUE `of a <pm>`;
+  look_engrs: no y-pad, one space after glyph, S_engroom `` ` ``,
+  `remembered text` + obscured-by (D-0087).

@@ -21,6 +21,19 @@ Use this shape:
 
 ---
 
+## 2026-07-13 05:25 — seed2200 look_all/look_engrs NHW_TEXT (D-0087)
+- C locus: `pager.c` `look_all`/`look_engrs`/`self_lookat`/
+  `look_at_monster`; `wintty.c` NHW_TEXT `process_text_window`;
+  `objnam.c` STATUE xname; `display.c` newsym/`glyph_at`
+- Result: **verified faithful change** — NHW_TEXT `--More--` on
+  row 23; look_all MAP coords+glyph+shown-filter; statue `of a
+  <pm>`; look_engrs remembered/obscured. seed2200 Scr **167**/230.
+- Verification: seed2200 3018/3018 Scr 167/230; green + cohort
+  PASS + strict; full **7/44**, screens **536**/11405, RNG
+  **91379**/792838.
+- Next: `node frozen/ps_test_runner.mjs sessions/seed2200-wizard-quaff-zap-read.session.json`
+  — peel `display_file`/license @ screen 110.
+
 ## 2026-07-13 03:30 — seed0102 help_dir + Book offx (D-0071)
 - C locus: `cmd.c` `getdir`/`help_dir`/`show_direction_keys`;
   `wintty.c` `tty_putstr`/`process_text_window` (NHW_MENU);
