@@ -5672,5 +5672,27 @@ cohort gates if those functions are touched again.
   **17/44** Scr **1315** RNG **147856**.
 - **Named omissions:** full `set_levltyp` beyond typ=GRAVE;
   `disturb_grave`; You_hear vault plines still deferred (D-0208).
-- **Next:** seed0030 seg2 @2217 Wizard-elf `u_init_race` Xtra_food
-  `rn2(6)`; or seed0103 `next_ident`/`trquan`.
+- **Next:** seed0030 seg2 @2217 Wizard-elf `u_init_race` Instrument
+  `ROLL_FROM`/`rn2(6)`; or seed0103 `next_ident`/`trquan`.
+
+## D-0210 — elf Instrument ROLL_FROM before ini_inv/trquan (seed0030 seg2 @2217)
+
+- **Symptom:** seed0030 seg2 @2217 C `rn2(6)=2 @ u_init_race(u_init.c:810)`
+  vs JS `rn2(1)=0` — right after matched Wizard Blindfold `rn2(5)=4`.
+- **Rejected:** Wizard-elf `Xtra_food` / skipped elf branch — C `Xtra_food`
+  is orc-only (`!Role_if(PM_WIZARD)`); elf path only rolls Instrument
+  `ROLL_FROM` then `knows_object`.
+- **Cause/evidence:** C `u_init.c:810` evaluates `ROLL_FROM(trotyp)` when
+  constructing the local `Instrument[]` (before `ini_inv`). C `ini_inv`
+  then calls `trquan` first (`rn2(1)`). JS deferred `rn2(6)` inside lazy
+  `trotyp()` after `trquan`, so order was `rn2(1)` then `rn2(6)`.
+- **Change:** `js/u_init.js` `u_init_race` PM_ELF — eager
+  `chosen = trotyp[rn2(trotyp.length)]` then constant `trotyp: () => chosen`.
+- **Verification:** seg2 continuous **2217→2408** (`distfleeck`);
+  seed0030 positional **24703**/105529 Scr **45**/1953; green+strict+
+  cohort PASS (seed2200 Scr 229/230 parked RC); full **17/44** Scr
+  **1315** RNG **147858**.
+- **Named omissions:** none new for this path; Cleric-elf shares the same
+  Instrument construction.
+- **Next:** seed0030 seg2 @2408 C `distfleeck` vs JS `dog_move`; or
+  seed0103 `next_ident`/`trquan`.

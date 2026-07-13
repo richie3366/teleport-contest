@@ -2712,5 +2712,18 @@ Use this shape:
 - Verification: seg2 **1272→2217** (`u_init_race` elf); seg1 FULL;
   seed0030 positional **24701**/105529 Scr **45**/1953;
   green+strict+cohort PASS; full **17/44** Scr **1315** RNG **147856**.
-- Next: seed0030 seg2 @2217 Wizard-elf `u_init_race` Xtra_food `rn2(6)`;
-  or seed0103 `next_ident`/`trquan`.
+- Next: seed0030 seg2 @2217 Wizard-elf `u_init_race` Instrument
+  `ROLL_FROM`/`rn2(6)`; or seed0103 `next_ident`/`trquan`.
+
+## 2026-07-14 01:00 — D-0210 elf Instrument eager ROLL_FROM
+- Objective: seed0030 seg2 @2217 C `rn2(6) @ u_init_race` vs JS `rn2(1)`
+  (PROGRESS primary after D-0209).
+- C locus: `u_init.c:810` `ROLL_FROM(trotyp)` in Instrument[];
+  `ini_inv`→`trquan` after construction.
+- Result: **fixed** — not Xtra_food; JS deferred instrument `rn2(6)`
+  inside lazy `trotyp()` after `trquan`. Eager pick matches C order.
+- Verification: seg2 **2217→2408** (`distfleeck`); positional
+  **24703**/105529 Scr **45**/1953; green+strict+cohort PASS; full
+  **17/44** Scr **1315** RNG **147858**.
+- Next: seed0030 seg2 @2408 C `distfleeck` vs JS `dog_move`; or
+  seed0103 `next_ident`/`trquan`.

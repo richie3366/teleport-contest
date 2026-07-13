@@ -7,14 +7,14 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 
 ## Active
 
-- **Current unit:** seed0030 seg2 @2217 / seed0103 `next_ident`/`trquan`.
-- **Hypothesis (seed0030 seg2):** @2217 C `rn2(6) @ u_init_race` (Wizard
-  elf `Xtra_food` chance) vs JS `rn2(1)` — JS race init skips or
-  mis-orders the elf food branch after matched Wizard Blindfold
-  `rn2(5)=4`.
-- **Falsifier:** compare JS `u_init_race` PM_ELF path to C
-  `u_init.c:799+`; confirm `Race_switch` is elf and whether
-  `Xtra_food` / `ini_inv` is reached.
+- **Current unit:** seed0030 seg2 @2408 / seed0103 `next_ident`/`trquan`.
+- **Hypothesis (seed0030 seg2):** @2408 C `rn2(5) @ distfleeck` vs JS
+  `rn2(12) @ dog_move` — after matched Wizard-elf init, JS still has one
+  more pet `dog_move` mfndpos loop while C already reached fleeck for
+  the next actor (count/actor-order drift, not Instrument RNG).
+- **Falsifier:** compare pet/hostile actor list and movement allotment
+  around seg2 index 2400–2415; confirm whether an extra `dochug`/`dog_move`
+  or a skipped fleeck gate is the split.
 - **Parked deep canary:** D-0006 pet movement — do not implement until C
   state/candidate capture exists.
 - **Parked seed2200 @158:** RC config path — harness `$HOME`, not a port bug.
@@ -174,6 +174,11 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   C `rn2(24075)` is `get_rnd_text(EPITAPHFILE)` via `rn2` function
   pointer (provenance mis-attributed to somey); JS `make_grave` stub
   skipped epitaph (D-0209). Do not re-chase somexy room bbox.
+- **seed0030 seg2 @2217 was NOT Xtra_food / skipped elf branch** — C
+  `ROLL_FROM(trotyp)` at Instrument construction (before `ini_inv`→
+  `trquan`); JS deferred `rn2(6)` inside lazy `trotyp()` after `trquan`
+  so order was `rn2(1)` then `rn2(6)` (D-0210). Do not re-chase orc
+  `Xtra_food` for Wizard-elf.
 - **`monattk.h`: AT_WEAP=254, AT_MAGC=255, AT_SPIT=10** — never use 10 for
   weapon (D-0179).
 - Hostile `m_move`: before place, `m_digweapon_check` may return
@@ -273,3 +278,5 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 - **`make_grave`:** null str → `get_rnd_text(EPITAPHFILE)` (chunk
   24075) + HEADSTONE; bell str skips draw (D-0209). Contest provenance
   may mis-attribute pointer-`rn2` calls to an unrelated `rn2` site.
+- **Elf Instrument:** `ROLL_FROM(trotyp)` is eager at array construction
+  (before `ini_inv`/`trquan`); lazy `trotyp()` reorders RNG (D-0210).

@@ -36,7 +36,7 @@ When changing a subsystem:
 | `src/role.c` `genl_player_setup` / `wintty.c` `tty_player_selection` | `js/player_selection.js`, `js/roles.js`, `js/jsmain.js` | partial | **Shall I pick + role/race/gender/align menus + confirm + `rigid_role_checks`/`pick_align`** (D-0111); **Shall-I-pick topline NO_COLOR** (D-0113); roles/races `allow`/`selfmask`; already-specified rc facets skip; H2344 fullscreen role menu; omit filter-reset UI body, rename-in-confirm, SELECTSAVED |
 | `src/role.c` | `js/roles.js` | partial | Tourist + Rogue + Wizard + Priest + Knight + Samurai + Healer + Valkyrie + Ranger + Monk + Archeologist + Barbarian + **Caveman** identity/attrs/`hpadv`/`enadv`/`neminum`; **`initrecord` matches C** (Caveman/Valkyrie/Priest/Tourist/Wizard **0**; others **10** — D-0056); **`xlev` on all roles + copied to `game.urole`** (D-0061); **all roles pantheon gods** + C roles[] order (Rogue before Ranger) for `randrole`; **`allow` race/gend/align masks** (D-0111); **`name.f = null` where C has 0** (only Caveman/Priestess keep `f` — D-0138); **races `lovemask`/`hatemask`/`selfmask`** (D-0172); `role_init` pantheon + SPE_LIGHT + nemesis gender; `Hello`/`align_*`; **all races `hpadv`/`enadv` + attrmin/attrmax + allow/selfmask** (D-0036/D-0111); full `role_init` beyond pantheon/SPE_LIGHT/nemgend deferred; rank/`title[].f` nulls where C has 0 still deferred |
 | `src/u_init.c:u_init_role` | `js/u_init.js` | partial | Tourist + Rogue + Wizard + Priest + Knight + Samurai + Healer + Valkyrie + Ranger + Monk + Archeologist + Barbarian + **Caveman** cases (D-0052); Rogue `knows_class` still uses named P_DAGGER otyps; Barbarian/Knight/Samurai/Valkyrie/Ranger/Monk `knows_class` walks `bases[]` (Barb/Valk exclude polearms; Ranger: launchers/ammo/spears; Monk: armor only + SHURIKEN); Samurai `Japanese_item_name` pre-discovery; Healer `umoney0=rn1(1000,1001)` + `POT_FULL_HEALING` know; Valkyrie/Barbarian Lamp `!rn2(6)`; Monk `M_spell[rn2(90)/30]` + Magicmarker/`!rn2(4)` else Lamp; Archeologist Tinopener/`!rn2(10)` else Lamp/`!rn2(4)` else Magicmarker/`!rn2(5)` + SACK/TOUCHSTONE knows; Barbarian `rn2(100)>=50` kit pick; Caveman `Cave_man[]` only (club/sling/flint/rock/leather); `ini_inv_use_obj` quivers FLINT/ROCK; graystone quan=1 except FLINT; `Skill_W`/`Skill_P`/`Skill_K`/`Skill_S`/`Skill_H`/`Skill_V`/`Skill_Ran`/`Skill_Mon`/`Skill_A`/`Skill_B`/`Skill_C` for filter; `skill_init` / `initialspell` deferred |
-| `src/u_init.c:u_init_race` | `js/u_init.js` | partial | Human no-op; orc `Xtra_food` + knows; elf instrument+knows; dwarf knows; gnome no-op (D-0027); `ini_inv_obj_substitution`/`inv_subs` ported; **`ini_inv_mkobj_filter` reject list + `oc_level`/`Skill_*` incl. `Skill_C`** (D-0042…/52) |
+| `src/u_init.c:u_init_race` | `js/u_init.js` | partial | Human no-op; orc `Xtra_food` + knows; elf instrument+knows (**eager `ROLL_FROM` before `ini_inv`/`trquan`** D-0210); dwarf knows; gnome no-op (D-0027); `ini_inv_obj_substitution`/`inv_subs` ported; **`ini_inv_mkobj_filter` reject list + `oc_level`/`Skill_*` incl. `Skill_C`** (D-0042…/52) |
 | `src/u_init.c:u_init_misc` | `js/u_init.js` | partial | `newhp`/`newpw` at ulevel 0; **`adjabil(0,1)`** role/race L1 intrinsics (D-0058); rc align → `ualign`; handedness RNG; many u fields still absent |
 | `src/attrib.c:newhp` / `src/exper.c:newpw` | `js/attrib.js`, `js/exper.js` | partial | **Init + level-up** (lornd/hirnd + Con; `enermod`/`rn1`) (D-0061); `pluslvl` HP/EN/level/`adjabil` (omit achievements/Upolyd); **`experience`/`more_experienced`/`newuexp`/`newexplevel`** (D-0130); `uhpinc`/`ueninc` stored; omit eel AD_WRAP Amphibious XP / MAIL_DAEMON / `exp_percent_changing` / SCORE_ON_BOTL |
 | `src/attrib.c` (attrs) | `js/attrib.js` | partial | Initial attr paths; `change_luck` clamp; **`adjabil`/`role_abil` + Fast/Very_fast** (D-0058); **`Searching()`** (D-0062); **gainstr You_feel on level-up** (D-0061); **`acurrstr` exported** (D-0059); **`adjattrib` async You_feel when msgflg≤0** (D-0116); omit Fixed_abil/Dunce/verbose "already", `postadjabil`, `add_weapon_skill`; `u_init_carry_attr_boost` stubbed |
@@ -420,8 +420,8 @@ gettrack redirect falsified (no adjacent track).
 **underfoot `m_search_items` + peaceful `can_carry`** (D-0183) →
 seed0030 prefix **14026→14056** positional **14375**/105529 Scr
 **168**/1953; full **15/44** Scr **1405** RNG **135825**.
-Next peel: seed0030 seg2 @2217 (Wizard-elf `u_init_race` after D-0209) /
-quest `makemaz` / parked seed2200 RC @158.
+Next peel: seed0030 seg2 @2408 (C `distfleeck` vs JS `dog_move` after
+D-0210) / quest `makemaz` / parked seed2200 RC @158.
 Hero `dotrap`/`trapeffect_pit` still deferred; `xkilled` ordinary
 `make_corpse` done (D-0191; treasure `mkobj` still deferred); `,`
 one-object AUTOSELECT done (D-0192; multi query_objlist deferred);
@@ -455,6 +455,8 @@ seg1 **7007→7189**);
 **vault `gd_sound`/`rn2(2)+hallu`** done (D-0208; seg1 **7189→7640 FULL**);
 **`make_grave`/`get_rnd_text(EPITAPHFILE)`** done (D-0209; seg2
 **1272→2217** `u_init_race`);
+**elf Instrument eager `ROLL_FROM`** done (D-0210; seg2
+**2217→2408** `distfleeck`);
 other `m_initinv` bodies + soldier early-return still deferred;
 dog_move digweapon / iron bars / shop dig-damage deferred;
 underfoot `m_search_items`→`MMOVE_DONE` still deferred (D-0183);
