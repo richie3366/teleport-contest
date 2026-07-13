@@ -212,6 +212,7 @@ Do not record a guessed cause as fixed merely because an RNG prefix moved.
 | D-0206 | fixed | movemon hider | disguised mimic skip dochug; seg1 6568→7007 |
 | D-0207 | fixed | mimic attack | stumble_onto_mimic object_from_map next_ident; seg1 7007→7189 |
 | D-0208 | fixed | dosounds vault | gd_sound rn2(2)+hallu; seg1 7189→full 7640; next seg2 somey |
+| D-0209 | fixed | make_grave epitaph | EPITAPHFILE get_rnd_text; seg2 1272→2217 |
 
 D-0001 through D-0005 predate the strict-length/cohort runbook. Their focused
 causes are preserved, but generic "green sessions held" is historical evidence,
@@ -5647,3 +5648,29 @@ cohort gates if those functions are touched again.
   park-at-`<0,0>`; fountain/sink Hallu index still deferred.
 - **Next:** seed0030 seg2 @1272 `somey`/`create_room`; or seed0103
   `next_ident`/`trquan`.
+
+## D-0209 — make_grave get_rnd_text(EPITAPHFILE) (seed0030 seg2 @1272)
+
+- **Symptom:** seed0030 seg2 @1272 C `rn2(24075) @ somey(mkroom.c:674)`
+  vs JS `rn2(3)` — right after matched `mkgrave` `dobell=!rn2(10)` and
+  `find_okay_roompos` somex/somey.
+- **Rejected:** room-height / `create_room` / `somey` arity drift — C
+  provenance is the `rn2` **function pointer** passed into
+  `get_rnd_text`; chunk size of pad+xcrypt epitaph buffer is exactly
+  24075. JS stub `make_grave` only set `typ=GRAVE` and skipped the
+  epitaph draw, so the next burn was `mkgrave`'s gold `rn2(3)`.
+- **Cause/evidence:** C `engrave.c` `make_grave`: when `str` is null
+  (non-bell graves), `get_rnd_text(EPITAPHFILE,buf,rn2,MD_PAD_RUMORS)`
+  then `make_engr_at(...,HEADSTONE)`. Named omission from D-0148.
+- **Change:** `scripts/extract-epitaph.py` →
+  `js/generated/epitaph_data.js` (`EPITAPH_BUF` len 24075); `js/engrave.js`
+  `make_grave`; `js/mklev.js` import + `mkgrave_room` bury/
+  `level_difficulty` parity.
+- **Verification:** seg2 continuous **1272→2217** (`u_init_race`
+  elf `rn2(6)`); seg1 still FULL; seed0030 positional
+  **24701**/105529 Scr **45**/1953; green+strict+cohort PASS; full
+  **17/44** Scr **1315** RNG **147856**.
+- **Named omissions:** full `set_levltyp` beyond typ=GRAVE;
+  `disturb_grave`; You_hear vault plines still deferred (D-0208).
+- **Next:** seed0030 seg2 @2217 Wizard-elf `u_init_race` Xtra_food
+  `rn2(6)`; or seed0103 `next_ident`/`trquan`.

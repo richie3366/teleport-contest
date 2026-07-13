@@ -38,9 +38,9 @@ frozen-file overlay):
 | Metric | Value |
 |--------|------:|
 | Sessions passing | **17 / 44** |
-| Screens matched | **1313 / 11,405** (11.51%) |
-| Positional RNG calls matched | **146,740 / 792,838** (18.51%) |
-| Speed label | `20+0.08/turn` |
+| Screens matched | **1315 / 11,405** (11.53%) |
+| Positional RNG calls matched | **147,856 / 792,838** (18.65%) |
+| Speed label | `19+0.09/turn` |
 | Working-tree base | `8b71735` + committed port (see `main`) |
 | Role-init throws | **0 / 44** (`u_init_role: role not ported`) |
 
@@ -64,7 +64,7 @@ shared blockers, and semantic coverage together—not one vanity metric.
 | `seed0501-priest-cast-read-turn` | **2238 / 2238** | **28 / 28** |
 | `seed2200-wizard-quaff-zap-read` | **3018 / 3018** | **229 / 230** |
 | `seed0017-samurai-altar-pray` | **3465 / 3465** | **67 / 67** |
-| `seed0030-ten-diverse-deaths` | **24164 / 105529** | **45 / 1953** |
+| `seed0030-ten-diverse-deaths` | **24701 / 105529** | **45 / 1953** |
 | `seed0103-knight-ride-pony` | **2344 / 2640** | 2 / 60 |
 | `seed0200-monk-north-search` | **3822 / 3822** | **40 / 40** |
 | `seed0101-ranger-quiver-throw-travel-engrave` | **2371 / 2371** | **27 / 27** |
@@ -133,7 +133,7 @@ seed0101 next Scr residual (RNG full). seed0013 still breaks earlier in
 Lua/`sp_lev`. seed0103 next `next_ident`/`trquan` @ 2337.
 seed0361/0373 `getbones` blocked on unbound `^V`/`goto_level`/
 `makemaz`. seed0077 chargen + vault fallback + door vision/pick_lock/DEC
-open-door (D-0111/D-0112/D-0113) → **PASS**. seed0030 **7215**/105529.
+open-door (D-0111/D-0112/D-0113) → **PASS**. seed0030 **24701**/105529.
 seed0105 RNG **full** (Scr **30**/30).
 **`option_help` msg_window PREV_MSGS extract** (D-0114) + **Primary ASCII /
 `symset:DECgraphics`** (D-0115) → Scr **788→851**.
@@ -269,6 +269,10 @@ seed0030 seg1 prefix **7007→7189** positional **21760**/105529 Scr
 seed0030 seg1 **7189→7640 FULL**; seg2 continuous **1272**/6221
 (`somey`); positional **24164**/105529 Scr **45**/1953; full **17/44**
 Scr **1313** RNG **146740**.
+**`make_grave`/`get_rnd_text(EPITAPHFILE)`** (D-0209) →
+seed0030 seg2 **1272→2217** (`u_init_race`); positional
+**24701**/105529 Scr **45**/1953; full **17/44** Scr **1315** RNG
+**147856**.
 
 ### Green gate
 
@@ -453,18 +457,19 @@ autoopen `doopen_indir` (D-0059) + `mfndpos` BOULDER/`ALLOW_ROCK` +
 **`movemon_singlemon` hider/`M_AP_*` skip dochug** (D-0206)
 **`stumble_onto_mimic`/`object_from_map` next_ident** (D-0207)
 **vault `gd_sound`/`rn2(2)+hallu`** (D-0208)
+**`make_grave`/`get_rnd_text(EPITAPHFILE)`** (D-0209)
 **ported**. Seventeen public sessions pass end-to-end. **0/44** throw at
 `u_init_role`. seed0700 + seed1150 + seed0017 + seed0077 + seed0106 +
 seed0501 + seed0105 + seed0016 + seed0015 + seed0200 + seed0101 **PASS**. seed2200 RNG **full**
 (Scr **229**/230; sole miss parked RC @158).
 seed0101 RNG **full** Scr **27**/27.
 
-- **Bounded unit:** seed0030 seg2 @1272 (`somey` after D-0208 clears seg1) /
-  seed0103 `next_ident`/`trquan` /
+- **Bounded unit:** seed0030 seg2 @2217 (Wizard-elf `u_init_race`
+  `Xtra_food` after D-0209) / seed0103 `next_ident`/`trquan` /
   seed0361/0373 **quest `getbones`** (blocked: need `^V`→`goto_level`→
   `makemaz` first — ordinary `goto_level` now exists for stairs; Mines
   `fill_lvl` path exists D-0171).
-- **Prefer:** seed0030 seg2 peel after D-0208 over parked
+- **Prefer:** seed0030 seg2 peel after D-0209 over parked
   D-0006 and over baking seed2200 RC paths.
   Hero `dotrap` deferred until monster pit peel is clear.
   Hero `xkilled` treasure `mkobj` still deferred (ordinary `make_corpse`
@@ -472,7 +477,7 @@ seed0101 RNG **full** Scr **27**/27.
   D-0190).
 - **Named omissions:** full `findtravelpath` TEST_TRAV/GUESS/travelmap/
   `#retravel`; themerms fill *bodies* beyond Ghost/Teleportation hub/
-  Storeroom (Ice/Temple/…); garden/dig postprocess; epitaph `get_rnd_text`; `invocation_pos`;
+  Storeroom (Ice/Temple/…); garden/dig postprocess; `invocation_pos`;
   Blocked center/Pillars/Water vault/
   complex maps; nested `des.room` themerms; `join` arboreal→ROOM;
   FIGURINE `rndmonnum_adj`/`is_human`; candle `oc_cost` age;
@@ -569,8 +574,10 @@ seed0101 RNG **full** Scr **27**/27.
   **`restrap`/`hideunder`/`minliquid` before dochug** (`is_hider`
   `M_AP_*` skip done D-0206); **`attack_checks` Blind/hallu/invis/
   peaceful yn / furniture defsyms** (`stumble_onto_mimic` object
-  path done D-0207); **vault You_hear / gold_in_vault / urooms /
+  path done D-0207);   **vault You_hear / gold_in_vault / urooms /
   findgd migrating** (RNG gate done D-0208);
+  **`disturb_grave` / full `set_levltyp` beyond GRAVE typ** (`make_grave`
+  epitaph done D-0209);
   …
 - **Cohort:** green gate + seed1500 + seed1800 + seed0060 + seed0102
   + seed0700 + seed1150 + seed0017 + seed0077 + seed0106 + seed0501
@@ -1319,6 +1326,11 @@ Module status, constitutional debt, and named omissions live in
     (`somey`); positional **24164**/105529 Scr **45**/1953; full
     **17/44** Scr **1313** RNG **146740**; next seed0030 seg2 @1272 /
     seed0103 `next_ident`
+186. `make_grave` / `get_rnd_text(EPITAPHFILE)` (D-0209)
+    — seed0030 seg2 **1272→2217** (`u_init_race` elf Xtra_food);
+    positional **24701**/105529 Scr **45**/1953; full **17/44** Scr
+    **1315** RNG **147856**; next seed0030 seg2 @2217 / seed0103
+    `next_ident`
 
 Next work is selected from the active objectives above using
 `PORTING-RUNBOOK.md`, not by extending this historical list.

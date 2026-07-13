@@ -7,12 +7,14 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 
 ## Active
 
-- **Current unit:** seed0030 seg2 @1272 / seed0103 `next_ident`/`trquan`.
-- **Hypothesis (seed0030 seg2):** @1272 C `rn2(24075) @ somey(mkroom.c:674)`
-  (logged `rn1` room-height draw) vs JS `rn2(3)` — level/room gen after
-  seg1 completed; JS still on a shorter create_room / somexy path.
-- **Falsifier:** reproduce seg2 continuous prefix; identify which C
-  `somexy`/`create_room` caller burns that arity while JS burns `rn2(3)`.
+- **Current unit:** seed0030 seg2 @2217 / seed0103 `next_ident`/`trquan`.
+- **Hypothesis (seed0030 seg2):** @2217 C `rn2(6) @ u_init_race` (Wizard
+  elf `Xtra_food` chance) vs JS `rn2(1)` — JS race init skips or
+  mis-orders the elf food branch after matched Wizard Blindfold
+  `rn2(5)=4`.
+- **Falsifier:** compare JS `u_init_race` PM_ELF path to C
+  `u_init.c:799+`; confirm `Race_switch` is elf and whether
+  `Xtra_food` / `ini_inv` is reached.
 - **Parked deep canary:** D-0006 pet movement — do not implement until C
   state/candidate capture exists.
 - **Parked seed2200 @158:** RC config path — harness `$HOME`, not a port bug.
@@ -168,6 +170,10 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   `rn2(200)=0` requires `gd_sound`→`rn2(2)+hallu` before return; JS
   early-returned without the message roll (D-0208). Do not re-chase
   beehive/shop order for that index.
+- **seed0030 seg2 @1272 was NOT room-height / create_room / somey** —
+  C `rn2(24075)` is `get_rnd_text(EPITAPHFILE)` via `rn2` function
+  pointer (provenance mis-attributed to somey); JS `make_grave` stub
+  skipped epitaph (D-0209). Do not re-chase somexy room bbox.
 - **`monattk.h`: AT_WEAP=254, AT_MAGC=255, AT_SPIT=10** — never use 10 for
   weapon (D-0179).
 - Hostile `m_move`: before place, `m_digweapon_check` may return
@@ -264,3 +270,6 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   **before** `overexertion` (D-0207).
 - **`gd_sound`:** `!(vault_occupied(urooms) || findgd())`; `urooms`
   maintenance and `findgd` migrating_mons still deferred (D-0208).
+- **`make_grave`:** null str → `get_rnd_text(EPITAPHFILE)` (chunk
+  24075) + HEADSTONE; bell str skips draw (D-0209). Contest provenance
+  may mis-attribute pointer-`rn2` calls to an unrelated `rn2` site.

@@ -2699,3 +2699,18 @@ Use this shape:
 - Result: **fixed** — vault `!rn2(200)` early-returned without `gd_sound`→`rn2(2)+hallu`; ported search_special(VAULT)+gd_sound message roll (You_hear deferred).
 - Verification: seg1 **7189→7640/7640 FULL**; seg2 cont **1272**/6221 (`somey`); seed0030 positional **24164**/105529 Scr **45**/1953; green+strict+cohort PASS; full **17/44** Scr **1313** RNG **146740**.
 - Next: seed0030 seg2 @1272 `somey`/`create_room`; or seed0103 `next_ident`/`trquan`.
+
+## 2026-07-14 00:50 — D-0209 make_grave EPITAPHFILE get_rnd_text
+- Objective: seed0030 seg2 @1272 C `rn2(24075)` mis-attributed to `somey`
+  (PROGRESS primary after D-0208).
+- C locus: `engrave.c` `make_grave`; `rumors.c` `get_rnd_text`;
+  `makedefs.c` `do_rnd_access_file(EPITAPHFILE)`.
+- Result: **fixed** — JS `make_grave` stub skipped null-str epitaph draw;
+  C burns `rn2(chunk=24075)` via `rn2` function pointer. Added
+  `extract-epitaph.py` + `make_grave` + `mkgrave_room` bury/
+  `level_difficulty` parity.
+- Verification: seg2 **1272→2217** (`u_init_race` elf); seg1 FULL;
+  seed0030 positional **24701**/105529 Scr **45**/1953;
+  green+strict+cohort PASS; full **17/44** Scr **1315** RNG **147856**.
+- Next: seed0030 seg2 @2217 Wizard-elf `u_init_race` Xtra_food `rn2(6)`;
+  or seed0103 `next_ident`/`trquan`.
