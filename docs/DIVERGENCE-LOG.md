@@ -111,6 +111,7 @@ Do not record a guessed cause as fixed merely because an RNG prefix moved.
 | D-0105 | fixed | mthrowu/monmulti | MMOVE_MOVED must fall through to thrwmu when !nearby+AT_WEAP |
 | D-0106 | fixed | combat/mhitu | `mattacku` melee HTH/`hitmu` for adjacent AT_WEAP |
 | D-0107 | fixed | combat/uhitm | hero `do_attack`→`overexertion`/`hitum`/`xkilled` |
+| D-0108 | fixed | mon/relobj | `mondead`→`m_detach` must `relobj` minvent onto fobj |
 
 D-0001 through D-0005 predate the strict-length/cohort runbook. Their focused
 causes are preserved, but generic "green sessions held" is historical evidence,
@@ -2866,4 +2867,32 @@ cohort gates if those functions are touched again.
   encumber `overexert_hp`.
 - **Next:** seed0106 @ 2993 post-kill `dog_goal` / seed2200 Scr
   199 / seed0077 `player_selection`.
+
+## D-0108 — seed0106 `mondead`→`relobj` minvent drop
+
+- **Status:** fixed
+- **Observed:** seed0106 @ **2993**: C `rn2(8)` @ `dog_goal` vs JS
+  `rn2(100)` `obj_resists`. Kill RNG matched (`rn2(6)=2` no treasure,
+  `rn2(3)=2` no corpse). C then had a second APPORT candidate; JS did
+  not.
+- **Rejected:** missing `make_corpse`/treasure body (this kill's rolls
+  were false); rewriting `dog_goal` APPORT gates.
+- **C locus:** `mon.c` `mondead` → `m_detach(due_to_death)` →
+  `steal.c` `relobj(mtmp, 1, FALSE)`; `dogmove.c` `dog_goal` scans
+  `fobj`.
+- **Cause:** JS `mondead` removed the monster from `fmon` without
+  dropping `minvent`. Kobold leftover darts never reached `fobj`, so
+  post-kill `dog_goal` skipped the second APPORT `rn2(8)`.
+- **Change:** `js/mkobj.js` `relobj_on_death`; wired from
+  `js/uhitm.js` and `js/mhitm.js` `mondead` (before xkilled treasure/
+  corpse RNG). Vault-guard gold / `flooreffects` omitted.
+- **Verification:** seed0106 prefix **2993→4097** (`dipfountain`);
+  positional **4114**/4194; green+strict PASS; cohort
+  1500/1800/0060/0102/0700/1150/0017 PASS; full **9/44** Scr
+  **718** RNG **93214**/792838.
+- **Named omission:** vault-guard gold discard; `flooreffects` on
+  death-drop; worn/saddle extrinsics update; `make_corpse` /
+  xkilled treasure `mkobj` bodies still deferred.
+- **Next:** seed0106 @ 4097 `dipfountain` / seed2200 Scr 199 /
+  seed0077 `player_selection`.
 

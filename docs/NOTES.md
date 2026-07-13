@@ -7,12 +7,11 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 
 ## Active
 
-- **Current unit:** D-0107 `hitum` / hero melee cleared seed0106 @ 2982.
-  Next: seed0106 @ **2993** post-kill `dog_goal` (extra C `rn2(8)` vs JS
-  `obj_resists`), or seed2200 Scr **199**/230, or seed0077
-  `player_selection`.
-- **Hypothesis:** after hero kills kobold, C pet `dog_goal` takes a second
-  `rn2(8)` APPORT/goal pass that JS skips (floor/corpse/candidate set).
+- **Current unit:** D-0108 `mondead`→`relobj` cleared seed0106 @ 2993.
+  Next: seed0106 @ **4097** `dipfountain` (key `y`), or seed2200 Scr
+  **199**/230, or seed0077 `player_selection`.
+- **Hypothesis:** unbound `#dip` / fountain dip lets `y` become a move;
+  C `dipfountain` `rnd(30)` then `dryup`.
 - **Falsifier / next:**
   ```bash
   node scripts/rng-diff.mjs sessions/seed0106-priest-extcmd-sweep.session.json
@@ -147,6 +146,10 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   stubbed `return true` with no combat RNG; C `overexertion`→
   `gethungry`→`exercise(STR)`→`hitum` `rnd(20)`→`dmgval`→`xkilled`
   (D-0107).
+- **seed0106 @2993 was NOT missing corpse/treasure** — kill rolled
+  `rn2(6)=2` / `rn2(3)=2` (no drop); peel was `mondead`→`m_detach`→
+  `relobj` minvent (leftover kobold darts) onto `fobj` for a second
+  `dog_goal` APPORT `rn2(8)` (D-0108).
 - seed1150 @ 3032 was **not** missing `f` binding — getdir saw a
   space that C used for pet-drop `--More--` because JS
   `getdir`/`yn_function` skipped `more()` on `TOPLINE_NEED_MORE`
@@ -292,3 +295,5 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 - Hero `do_attack` hostile: `overexertion`→`gethungry` `rn2(20)` then
   `exercise(A_STR)` then `hitum` `rnd(20)`; hit → `exercise(A_DEX)` +
   `dmgval` + `xkilled` `!rn2(6)` treasure + `corpse_chance` (D-0107).
+- Death `mondead`→`m_detach`→`relobj(mtmp,1,FALSE)` drops **all**
+  minvent before xkilled treasure/corpse RNG (D-0108).

@@ -13,6 +13,7 @@ import {
     M_ATTK_AGR_DIED,
 } from './const.js';
 import { monsterNames, verysmall, G_FREQ } from './monsters.js';
+import { relobj_on_death } from './mkobj.js';
 
 const NATTK = 6;
 const AT_NONE = 0;
@@ -175,7 +176,7 @@ function corpse_chance(mon) {
     return !rn2(tmp);
 }
 
-// C ref: mon.c mondead() — remove from fmon + newsym; keep mx/my (C does)
+// C ref: mon.c mondead → m_detach(due_to_death) → relobj(mtmp, 1, FALSE)
 function mondead(mtmp) {
     mtmp.mhp = 0;
     const mx = mtmp.mx, my = mtmp.my;
@@ -183,7 +184,8 @@ function mondead(mtmp) {
         const i = game.fmon.indexOf(mtmp);
         if (i >= 0) game.fmon.splice(i, 1);
     }
-    // C mon_leaving_level keeps mx/my for make_corpse; do not zero here
+    // Keep mx/my for drop + make_corpse (C mon_leaving_level).
+    relobj_on_death(mtmp);
     if (mx > 0) newsym(mx, my);
 }
 

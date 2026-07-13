@@ -1338,3 +1338,20 @@ Use this shape:
 - Next: seed0106 @ 2993 post-kill `dog_goal` —
   `node scripts/rng-diff.mjs sessions/seed0106-priest-extcmd-sweep.session.json`
   — or seed2200 Scr 199 / seed0077 `player_selection`.
+
+## 2026-07-13 — mondead/relobj death minvent (D-0108)
+- Objective: seed0106 @ 2993 post-kill dog_goal (PROGRESS primary).
+- C locus: `mon.c` `mondead` → `m_detach(due_to_death)` →
+  `steal.c` `relobj(mtmp, 1, FALSE)`; `dogmove.c` `dog_goal` `fobj`.
+- Result: **verified** — kill created no treasure/corpse
+  (`rn2(6)=2`/`rn2(3)=2`); C still dropped kobold minvent onto
+  `fobj`, yielding a second APPORT `rn2(8)`. JS `mondead` omitted
+  `relobj`. Added `relobj_on_death` and wired both hero/pet
+  `mondead` paths.
+- Verification: seed0106 prefix **2993→4097** (`dipfountain`);
+  positional **4114**/4194; green+strict PASS; cohort
+  1500/1800/0060/0102/0700/1150/0017 PASS; full **9/44** Scr
+  **718** RNG **93214**/792838.
+- Next: seed0106 @ 4097 `dipfountain` —
+  `node scripts/rng-diff.mjs sessions/seed0106-priest-extcmd-sweep.session.json`
+  — or seed2200 Scr 199 / seed0077 `player_selection`.

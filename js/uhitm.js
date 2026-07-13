@@ -15,6 +15,7 @@ import { pline, newsym } from './display.js';
 import { dmgval } from './weapon.js';
 import { find_mac, AT_WEAP, AD_PHYS } from './mhitm.js';
 import { verysmall, G_FREQ } from './monsters.js';
+import { relobj_on_death } from './mkobj.js';
 
 function mon_nam(mtmp) {
     // C mon_nam — ARTICLE_THE lowercase; named → bare
@@ -116,7 +117,7 @@ function corpse_chance(mon) {
     return !rn2(tmp);
 }
 
-// C ref: mon.c mondead
+// C ref: mon.c mondead → m_detach(due_to_death) → relobj(mtmp, 1, FALSE)
 function mondead(mtmp) {
     mtmp.mhp = 0;
     const mx = mtmp.mx, my = mtmp.my;
@@ -124,6 +125,8 @@ function mondead(mtmp) {
         const i = game.fmon.indexOf(mtmp);
         if (i >= 0) game.fmon.splice(i, 1);
     }
+    // Keep mx/my for drop coords (C mon_leaving_level).
+    relobj_on_death(mtmp);
     if (mx > 0) newsym(mx, my);
 }
 

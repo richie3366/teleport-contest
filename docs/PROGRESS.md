@@ -39,8 +39,8 @@ frozen-file overlay):
 |--------|------:|
 | Sessions passing | **9 / 44** |
 | Screens matched | **718 / 11,405** (6.30%) |
-| Positional RNG calls matched | **92,300 / 792,838** (11.64%) |
-| Speed label | `18+0.08/turn` |
+| Positional RNG calls matched | **93,214 / 792,838** (11.76%) |
+| Speed label | `21+0.09/turn` |
 | Working-tree base | `8b71735` + committed port (see `main`) |
 | Role-init throws | **0 / 44** (`u_init_role: role not ported`) |
 
@@ -62,14 +62,14 @@ shared blockers, and semantic coverage together—not one vanity metric.
 | `seed1150-caveman-explore-move` | **3137 / 3137** | **51 / 51** |
 | `seed2200-wizard-quaff-zap-read` | **3018 / 3018** | **199 / 230** |
 | `seed0017-samurai-altar-pray` | **3465 / 3465** | **67 / 67** |
-| `seed0030-ten-diverse-deaths` | **7036 / 105529** | **40 / 1953** |
+| `seed0030-ten-diverse-deaths` | **7055 / 105529** | **40 / 1953** |
 | `seed0103-knight-ride-pony` | **2344 / 2640** | 1 / 60 |
 | `seed0200-monk-north-search` | **1548 / 3822** | 0 / 40 |
 | `seed0101-ranger-quiver-throw-travel-engrave` | **2306 / 2371** | 2 / 27 |
 | `seed0016-healer-newmoon-eat-zap` | **2544 / 3656** | **5 / 36** |
-| `seed0107-samurai-twoweapon-enhance` | **2679 / 2902** | 1 / 98 |
-| `seed0104-knight-ride-combat` | **2401 / 3223** | 1 / 43 |
-| `seed0106-priest-extcmd-sweep` | **3201 / 4194** | 3 / 267 |
+| `seed0107-samurai-twoweapon-enhance` | **2682 / 2902** | 1 / 98 |
+| `seed0104-knight-ride-combat` | **2394 / 3223** | 1 / 43 |
+| `seed0106-priest-extcmd-sweep` | **4114 / 4194** | 3 / 267 |
 | `seed0361-archeologist-tour` | **3297 / 53865** | 0 / 366 |
 | `seed0373-barbarian-quest-tour` | **2555 / 35386** | 0 / 124 |
 | `seed0105-valk-chat-lamp-ration` | **987 / 2499** | 0 / 30 |
@@ -118,10 +118,11 @@ autoopen `doopen_indir` (D-0059), `mfndpos` BOULDER/`NODIAG`
 **`kick_door` CLOSED/LOCKED bust** (D-0104), and
 **`thrwmu`/`monmulti` move-then-shoot** (D-0105), and
 **`mattacku` melee/`hitmu`/`hitmsg`** (D-0106), and
-**`hitum`/hero melee/`xkilled`** (D-0107)
+**`hitum`/hero melee/`xkilled`** (D-0107), and
+**`mondead`/`relobj` death minvent** (D-0108)
 clear shared peels. seed2200 RNG **full**; Scr **199**/230 (next:
-screen residual). seed0106 next post-kill `dog_goal` @ 2993
-(D-0107 cleared `hitum`). seed0030 next
+screen residual). seed0106 next `dipfountain` @ 4097
+(D-0108 cleared post-kill `dog_goal`). seed0030 next
 `maybe_smudge_engr`. Healer seed0016 next `next_ident` @ 2493.
 Priest seed0501 still `wipeout_text`. seed0015/0200 next `lspo_map`.
 seed0101 next `next_ident`. seed0013 still breaks earlier in
@@ -204,18 +205,19 @@ autoopen `doopen_indir` (D-0059) + `mfndpos` BOULDER/`ALLOW_ROCK` +
 **`kick_door` CLOSED/LOCKED bust** (D-0104) +
 **`thrwmu`/`monmulti` move-then-shoot** (D-0105) +
 **`mattacku` melee/`hitmu`/`hitmsg`** (D-0106) +
-**`hitum`/hero melee/`xkilled`** (D-0107)
+**`hitum`/hero melee/`xkilled`** (D-0107) +
+**`mondead`/`relobj` death minvent** (D-0108)
 **ported**. Nine public sessions pass end-to-end. **0/44** throw at
 `u_init_role`. seed0700 + seed1150 + seed0017 **PASS**. seed0106
-prefix **2993** (post-kill `dog_goal`); seed2200 RNG **full** (Scr **199**/230).
+prefix **4097** (`dipfountain`); seed2200 RNG **full** (Scr **199**/230).
 
-- **Bounded unit:** seed0106 @ 2993 post-kill `dog_goal` /
+- **Bounded unit:** seed0106 @ 4097 `dipfountain` /
   seed2200 post-help Scr 199 / seed0077 `player_selection` /
   seed0501/0105 `wipeout_text` / seed0015/0200 `lspo_map` /
   seed0101 `next_ident` / seed0103 `next_ident`/`trquan` /
   seed0030 `maybe_smudge_engr` / seed0361/0373 **`getbones`**
   (blocked: need `^V`→`goto_level`→`makemaz` first).
-- **Prefer:** seed0106 `dog_goal` after kill or seed2200 Scr residual over
+- **Prefer:** seed0106 `dipfountain` or seed2200 Scr residual over
   parked D-0006.
 - **Named omissions:** Wizard/Priest/Healer `initialspell`; Knight/
   Samurai/Healer/Valkyrie/Ranger/Monk/Archeologist/Barbarian/Caveman
@@ -578,6 +580,11 @@ Module status, constitutional debt, and named omissions live in
     **3201**/4194; aggregate RNG **92375→92300**; screens **718**;
     green cohort PASS; next seed0106 @ 2993 `dog_goal` /
     seed2200 Scr 199 / seed0077 `player_selection`
+90. `mondead`/`relobj` death minvent (D-0108) — seed0106 prefix
+    **2993→4097** (`dipfountain`); positional **4114**/4194;
+    aggregate RNG **92300→93214**; screens **718**; green cohort
+    PASS; next seed0106 @ 4097 `dipfountain` / seed2200 Scr 199 /
+    seed0077 `player_selection`
 
 Next work is selected from the active objectives above using
 `PORTING-RUNBOOK.md`, not by extending this historical list.
