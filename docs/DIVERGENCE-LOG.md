@@ -208,6 +208,7 @@ Do not record a guessed cause as fixed merely because an RNG prefix moved.
 | D-0202 | fixed | maketrap | ROLLING_BOULDER `mkroll_launch`/`find_random_launch_coord` |
 | D-0203 | fixed | shops | `stock_room`/`shkinit`/`mkshobj_at` + shopkeeper invent |
 | D-0204 | fixed | dosounds | shop/`has_*` feature gates after vault; seg1 6561→6565 |
+| D-0205 | fixed | shk_move | isshk before getitems; seg1 6565→6568 |
 
 D-0001 through D-0005 predate the strict-length/cohort runbook. Their focused
 causes are preserved, but generic "green sessions held" is historical evidence,
@@ -5541,5 +5542,31 @@ cohort gates if those functions are touched again.
   morgue; temple_priest body; oracle `canseemon`; `Is_sanctum`; Hallu
   message index offsets; full `in_rooms` for `inhishop`.
 - **Next:** seed0030 seg1 @6565 `distfleeck` C `rn2(5)` vs JS `rn2(10)`;
+  or seed0103 `next_ident`/`trquan`.
+
+## D-0205 — shk_move before getitems (seed0030 seg1 @6565)
+
+- **Symptom:** seed0030 seg1 @6565 C `rn2(5)=4 @ distfleeck` vs JS
+  `rn2(10)=4` at `m_move` getitems peaceful gate.
+- **Rejected:** fleeck arity/actor-order alone; treating rn2(10) as
+  `dog_goal` apport or `mhitm_mgc_atk_negated` (stack was monmove:815
+  getitems); meating early-return (shopkeeper `meating==0`).
+- **Cause/evidence:** After first fleeck, C `m_move` routes `isshk` through
+  `shk_move` (peaceful near home → return 0, no RNG) then second fleeck.
+  JS fell through to normal AI and burned peaceful `!rn2(10)` getitems.
+  DIAG: mnum=271 PM_SHOPKEEPER @ (76,7), mpeaceful=1, isshk set by
+  `shkinit`.
+- **Change:** new `js/shk.js` — `shk_move` / `move_special` / `inhishop` /
+  `online2` (hacklib); `m_move` dispatches isshk/isgd/ispriest before
+  normal AI; `gd_move`/`pri_move` stubs return 0.
+- **Verification:** seg1 prefix **6565→6568** (C `mcalcmove` vs JS next
+  ant fleeck); seed0030 positional **21198**/105529 Scr **45**/1953;
+  green+strict+cohort PASS; full **17/44** Scr **1313** RNG **143774**.
+- **Named omissions:** `shk_fixes_damage`; holetime dig follow; following
+  verbalize/`rile_shk`; `resist_conflict`/`m_canseeu`; Fast+sobj_at
+  doorway; `m_break_boulder`/`m_move_aggress`; `after_shk_move` bill_p;
+  `gd_move` body; `pri_move` altar `rn1` mill.
+- **Next:** seed0030 seg1 @6568 C `mcalcmove` vs JS extra hostile fleeck
+  (movement rations / which ants still have `movement>=NORMAL_SPEED`);
   or seed0103 `next_ident`/`trquan`.
 

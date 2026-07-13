@@ -2653,3 +2653,18 @@ Use this shape:
   **17/44** Scr **1313** RNG **143768**.
 - Next: seed0030 seg1 @6565 C `distfleeck` `rn2(5)` vs JS `rn2(10)`; or
   seed0103 `next_ident`/`trquan`.
+
+## 2026-07-14 00:30 — D-0205 shk_move before getitems
+- Objective: seed0030 seg1 @6565 C `distfleeck` `rn2(5)` vs JS `rn2(10)`
+  (PROGRESS primary).
+- C locus: `monmove.c` `m_move` isshk/`shk_move`; `shk.c` `shk_move`;
+  `priest.c` `move_special`.
+- Result: **fixed** — peaceful shopkeeper fell through to getitems
+  `rn2(10)`; C routes isshk through `shk_move` (near-home return 0, no
+  RNG) then second fleeck. Added `js/shk.js` + `m_move` dispatch;
+  `online2` in hacklib; gd/pri stubs return 0.
+- Verification: seg1 **6565→6568** (`mcalcmove`); seed0030 positional
+  **21198**/105529 Scr **45**/1953; green+strict+cohort PASS; full
+  **17/44** Scr **1313** RNG **143774**.
+- Next: seed0030 seg1 @6568 C `mcalcmove` vs JS extra ant fleeck
+  (movement rations); or seed0103 `next_ident`/`trquan`.

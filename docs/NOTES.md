@@ -7,13 +7,13 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 
 ## Active
 
-- **Current unit:** seed0030 seg1 @6565 / seed0103 `next_ident`/`trquan`.
-- **Hypothesis (seed0030 seg1):** after D-0204 `dosounds` shop gate, first
-  mismatch @6565 — C `distfleeck` `rn2(5)` vs JS `rn2(10)` (likely wrong
-  fleeck path / actor / `rn2` arity in monmove).
-- **Falsifier:** compare C provenance at 6564–6568 (matched first fleeck
-  `rn2(5)=3`) vs JS stack for the second fleeck call; port the missing
-  branch or fix arity.
+- **Current unit:** seed0030 seg1 @6568 / seed0103 `next_ident`/`trquan`.
+- **Hypothesis (seed0030 seg1):** after D-0205 `shk_move`, @6568 C finishes
+  the monster pass → `mcalcmove` `rn2(12)` while JS still `dochug`s another
+  hostile (mnum 64) — leftover `movement >= NORMAL_SPEED` on ants C already
+  exhausted (allotment drift earlier in the turn/segment).
+- **Falsifier:** dump JS vs expected C movement for fmon after the first ant
+  acts (post fleeck 6567); find which prior peel left extra movement.
 - **Parked deep canary:** D-0006 pet movement — do not implement until C
   state/candidate capture exists.
 - **Parked seed2200 @158:** RC config path — harness `$HOME`, not a port bug.
@@ -151,6 +151,10 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   stock, C `dosounds` rolls `has_shop` `rn2(200)` (sounds.c:313); JS
   stopped after vault so `gethungry` landed early (D-0204). Do not
   re-chase vault-only dosounds.
+- **seed0030 seg1 @6565 was NOT fleeck arity / wrong first actor** — C
+  `m_move`→`shk_move` for isshk (return 0, no RNG) then second fleeck;
+  JS burned peaceful getitems `rn2(10)` (D-0205). Do not re-chase
+  meating/`dog_goal` apport for that index.
 - **`monattk.h`: AT_WEAP=254, AT_MAGC=255, AT_SPIT=10** — never use 10 for
   weapon (D-0179).
 - Hostile `m_move`: before place, `m_digweapon_check` may return
@@ -235,3 +239,6 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 - **`dosounds`:** after vault, roll beehive/morgue/barracks/zoo/**shop**/
   temple/oracle gates; shop always `return`s when gate hits (D-0204).
   Vault gate hit also returns (gd_sound body still deferred).
+- **`m_move` isshk/isgd/ispriest:** call `shk_move`/`gd_move`/`pri_move`
+  before getitems; peaceful shk near home often returns 0 with no RNG
+  (D-0205). `gd_move`/`pri_move` bodies still stubbed.
