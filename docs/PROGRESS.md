@@ -39,7 +39,7 @@ frozen-file overlay):
 |--------|------:|
 | Sessions passing | **17 / 44** |
 | Screens matched | **1312 / 11,405** (11.50%) |
-| Positional RNG calls matched | **140,933 / 792,838** (17.78%) |
+| Positional RNG calls matched | **140,894 / 792,838** (17.77%) |
 | Speed label | `20+0.08/turn` |
 | Working-tree base | `8b71735` + committed port (see `main`) |
 | Role-init throws | **0 / 44** (`u_init_role: role not ported`) |
@@ -64,7 +64,7 @@ shared blockers, and semantic coverage together—not one vanity metric.
 | `seed0501-priest-cast-read-turn` | **2238 / 2238** | **28 / 28** |
 | `seed2200-wizard-quaff-zap-read` | **3018 / 3018** | **229 / 230** |
 | `seed0017-samurai-altar-pray` | **3465 / 3465** | **67 / 67** |
-| `seed0030-ten-diverse-deaths` | **17994 / 105529** | **44 / 1953** |
+| `seed0030-ten-diverse-deaths` | **18139 / 105529** | **44 / 1953** |
 | `seed0103-knight-ride-pony` | **2344 / 2640** | 2 / 60 |
 | `seed0200-monk-north-search` | **3822 / 3822** | **40 / 40** |
 | `seed0101-ranger-quiver-throw-travel-engrave` | **2371 / 2371** | **27 / 27** |
@@ -253,6 +253,9 @@ seed0101 **PASS**; public **17/44**; Scr **1306→1312**; RNG held
 **CANDY_BAR `assign_candy_wrapper`** (D-0196) → seed0030 seg1 prefix
 **1238→3347** positional **17994**/105529; full **17/44** Scr **1312**
 RNG **140933**.
+**`dogfood` CORPSE vegan/lichen→MANFOOD** (D-0197) → seed0030 seg1
+prefix **3347→3466** positional **18139**/105529; full **17/44** Scr
+**1312** RNG **140894**.
 
 ### Green gate
 
@@ -424,19 +427,21 @@ autoopen `doopen_indir` (D-0059) + `mfndpos` BOULDER/`ALLOW_ROCK` +
 **`empty_handed` + ^X `weapon_insight` skill lines** (D-0194)
 **NHW_MENU `flush_topl_more` + `mark_topline_seen` NON_EMPTY** (D-0195)
 **CANDY_BAR `assign_candy_wrapper` `rn2(12)`** (D-0196)
+**`dogfood` CORPSE vegan→MANFOOD + age/acid/poison** (D-0197)
 **ported**. Seventeen public sessions pass end-to-end. **0/44** throw at
 `u_init_role`. seed0700 + seed1150 + seed0017 + seed0077 + seed0106 +
 seed0501 + seed0105 + seed0016 + seed0015 + seed0200 + seed0101 **PASS**. seed2200 RNG **full**
 (Scr **229**/230; sole miss parked RC @158).
 seed0101 RNG **full** Scr **27**/27.
 
-- **Bounded unit:** seed0030 seg1 @3347 (`dog_goal` vs JS `obj_resists`) /
+- **Bounded unit:** seed0030 seg1 @3466 (`mhitm_mgc_atk_negated` vs JS
+  `rn2(3)`) /
   seed0103 `next_ident`/`trquan` /
   seed0361/0373 **quest `getbones`** (blocked: need `^V`→`goto_level`→
   `makemaz` first — ordinary `goto_level` now exists for stairs; Mines
   `fill_lvl` path exists D-0171).
-- **Prefer:** seed0030 seg1 dog_goal/obj_resists peel (candy done D-0196)
-  over parked D-0006 and over baking seed2200 RC paths.
+- **Prefer:** seed0030 seg1 `mhitm_mgc_atk_negated` peel (lichen vegan
+  done D-0197) over parked D-0006 and over baking seed2200 RC paths.
   Hero `dotrap` deferred until monster pit peel is clear.
   Hero `xkilled` treasure `mkobj` still deferred (ordinary `make_corpse`
   done D-0191; mhitm path done D-0167; `done_in_by` bones gate done
@@ -524,7 +529,9 @@ seed0101 RNG **full** Scr **27**/27.
   `potionhit` (D-0184 potions done); mtrapped escape `rn2(40)`;
   full `alt_spl`/rank titles in `name_to_monplus` (NAMS done D-0173);
   per-level `rest_track` on return visits; large-monster `dmgval`
-  switch / thick-skin/shade/silver/blessed/axe (small path D-0189); …
+  switch / thick-skin/shade/silver/blessed/axe (small path D-0189);
+  `dogfood` polyfood/cannibalism/rider/petrify/`resists_*` (vegan/
+  age-exception/acid/poison done D-0197); …
 - **Cohort:** green gate + seed1500 + seed1800 + seed0060 + seed0102
   + seed0700 + seed1150 + seed0017 + seed0077 + seed0106 + seed0501
   + seed0105 + seed0016 + seed0015 + seed0200 + seed0101 (must stay PASS)
@@ -1217,6 +1224,11 @@ Module status, constitutional debt, and named omissions live in
     Scr **44**/1953; full **17/44** Scr **1312** RNG **140933**; next
     seed0030 seg1 @3347 `dog_goal`/`obj_resists` / seed0103
     `next_ident`
+174. `dogfood` CORPSE vegan/lichen→MANFOOD (D-0197)
+    — seed0030 seg1 prefix **3347→3466** (`mhitm_mgc_atk_negated`);
+    positional **18139**/105529 Scr **44**/1953; full **17/44** Scr
+    **1312** RNG **140894**; next seed0030 seg1 @3466 /
+    seed0103 `next_ident`
 
 Next work is selected from the active objectives above using
 `PORTING-RUNBOOK.md`, not by extending this historical list.

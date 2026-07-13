@@ -5348,3 +5348,29 @@ cohort gates if those functions are touched again.
 - **Next:** seed0030 seg1 @3347 `dog_goal` vs JS `obj_resists`; or
   seed0103 `next_ident`/`trquan`.
 
+
+## D-0197 — dogfood CORPSE vegan/lichen → MANFOOD (seed0030 seg1 @3347)
+
+- **Status:** fixed
+- **Observed:** seed0030 seg1 first mismatch @3347 — C `rn2(8) @ dog_goal`
+  vs JS `rn2(100) @ obj_resists`.
+- **C locus:** `dog.c` `dogfood` CORPSE: after age/acid/poison gates,
+  `vegan(fptr)` → `herbi ? CADAVER : MANFOOD`; lichen is `S_FUNGUS`/vegan.
+  `dogmove.c` `dog_goal` APPORT branch rolls `rn2(8)` only when
+  `otyp >= MANFOOD` and `gtyp == UNDEF`.
+- **Cause/evidence:** DIAG at pet (38,5): floor lichen CORPSE → JS
+  `CADAVER` (hardcoded carni path) set food goal; C returned `MANFOOD`
+  so APPORT `rn2(8)` fired, then continued scanning. JS never rolled
+  `rn2(8)` and burned a second `obj_resists` on the next object.
+- **Change:** `js/dogmove.js` `dogfood` — real `carnivorous`/`herbivorous`;
+  CORPSE age poison skips lizard/lichen/fungus-pet; acidic/poisonous →
+  POISON; vegan → MANFOOD for non-herbi pets. Deferred: `resists_*`,
+  polyfood, cannibalism, rider/petrify.
+- **Verification:** seg1 prefix **3347→3466**; seed0030 positional
+  **18139**/105529 Scr **44**/1953; green+strict+cohort PASS; full
+  **17/44** Scr **1312**/11405 RNG **140894**/792838.
+- **Named omissions:** `resists_poison`/`resists_acid`; `polyfood`;
+  humanoid cannibalism; rider/petrify CORPSE; iced `peek_at_iced_corpse_age`.
+- **Next:** seed0030 seg1 @3466 `mhitm_mgc_atk_negated`; or seed0103
+  `next_ident`/`trquan`.
+

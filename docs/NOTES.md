@@ -7,12 +7,12 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 
 ## Active
 
-- **Current unit:** seed0030 seg1 @3347 / seed0103 `next_ident`/`trquan`.
-- **Hypothesis (seed0030 seg1):** after D-0196 candy wrapper, first mismatch
-  @3347 C `rn2(8) @ dog_goal` vs JS `rn2(100) @ obj_resists` — pet goal /
-  floor-object resist path diverged (or earlier silent state).
-- **Falsifier:** reconstruct C call path at seg1 ~3340 (dog_goal vs
-  delobj/obj_resists); confirm whether a missing relobj/delobj precedes.
+- **Current unit:** seed0030 seg1 @3466 / seed0103 `next_ident`/`trquan`.
+- **Hypothesis (seed0030 seg1):** after D-0197 lichen vegan→MANFOOD, first
+  mismatch @3466 C `rn2(10) @ mhitm_mgc_atk_negated` vs JS `rn2(3)` —
+  missing magic-attack negation gate (or earlier silent combat state).
+- **Falsifier:** read C `mhitm_mgc_atk_negated` + caller; confirm JS
+  `mattacku`/`hitmu` path skips it before a `rn2(3)` (passive?).
 - **Parked deep canary:** D-0006 pet movement — do not implement until C
   state/candidate capture exists.
 - **Parked seed2200 @158:** RC config path — harness `$HOME`, not a port bug.
@@ -119,6 +119,9 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 - **seed0030 seg1 @1238 was NOT missing quan/`rn2(6)` alone** — FOOD
   `CANDY_BAR` must `assign_candy_wrapper` (`rn2(12)`) before quan
   (D-0196). Do not re-chase fill_ordinary_room order for that index.
+- **seed0030 seg1 @3347 was NOT missing APPORT/`can_carry`/`m_cansee`**
+  — lichen CORPSE: JS `dogfood` returned CADAVER; C vegan(fptr)→MANFOOD
+  so `dog_goal` APPORT branch rolls `rn2(8)` (D-0197).
 - **`monattk.h`: AT_WEAP=254, AT_MAGC=255, AT_SPIT=10** — never use 10 for
   weapon (D-0179).
 - Hostile `m_move`: before place, `m_digweapon_check` may return
@@ -178,3 +181,6 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   marks NEED_MORE→NON_EMPTY not EMPTY.
 - **CANDY_BAR `mksobj_init`:** `assign_candy_wrapper` → `spe = 1 +
   rn2(12)` before quan `!rn2(6)` (D-0196).
+- **`dogfood` CORPSE:** lichen/vegan → `herbi ? CADAVER : MANFOOD` (not
+  always CADAVER); age poison skips lizard/lichen/fungus-pet; acidic/
+  poisonous → POISON (`resists_*` stubbed false) (D-0197).

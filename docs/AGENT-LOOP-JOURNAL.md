@@ -2555,3 +2555,12 @@ Use this shape:
   full **17/44** Scr **1312** RNG **140933**; green+strict+cohort PASS.
 - Next: seed0030 seg1 @3347 C `dog_goal` vs JS `obj_resists`; or seed0103
   `next_ident`/`trquan`.
+
+## 2026-07-13 23:40 — D-0197 dogfood CORPSE vegan/lichen fixed
+- Objective: seed0030 seg1 @3347 C `dog_goal` rn2(8) vs JS `obj_resists` (PROGRESS primary).
+- C locus: `dog.c` `dogfood` CORPSE vegan(fptr); `dogmove.c` `dog_goal` APPORT.
+- Result: **fixed** — lichen CORPSE returned CADAVER in JS; C vegan→MANFOOD
+  enters APPORT `rn2(8)`. Wired vegan/age-exception/acid/poison + mflags1 carni/herbi.
+- Verification: seg1 **3347→3466**; seed0030 positional **18139**/105529;
+  full **17/44** Scr **1312** RNG **140894**; green+strict+cohort PASS.
+- Next: seed0030 seg1 @3466 `mhitm_mgc_atk_negated`; or seed0103 `next_ident`/`trquan`.
