@@ -112,6 +112,10 @@ Do not record a guessed cause as fixed merely because an RNG prefix moved.
 | D-0106 | fixed | combat/mhitu | `mattacku` melee HTH/`hitmu` for adjacent AT_WEAP |
 | D-0107 | fixed | combat/uhitm | hero `do_attack`→`overexertion`/`hitum`/`xkilled` |
 | D-0108 | fixed | mon/relobj | `mondead`→`m_detach` must `relobj` minvent onto fobj |
+| D-0109 | fixed | sit/dip | `#sit`/`#dip`/`dipfountain`; seed0106 4097→4141 |
+| D-0110 | fixed | extcmd menus | `#offer`/`#enhance`/`#annotate`/`#overview`/`#version`; seed0106 RNG full |
+| D-0111 | fixed | chargen | `player_selection`/`genl_player_setup`; seed0077 100→1475 |
+| D-0112 | fixed | mklev/vault | `do_vault` `create_vault` fallback (not one `rnd_rect`); seed0077 RNG full |
 
 D-0001 through D-0005 predate the strict-length/cohort runbook. Their focused
 causes are preserved, but generic "green sessions held" is historical evidence,
@@ -2989,6 +2993,34 @@ cohort gates if those functions are touched again.
   (`plnamesuffix` re-ask); SELECTSAVED; full `maybe_skip_seps` for
   non-24 rows; `doset`/`O` player_selection option.
 - **Next:** seed0077 @ 1465 themerms/`rnd_rect` / seed2200 Scr 199 /
+  seed0106 Scr residual.
+
+## D-0112 — seed0077 `do_vault` `create_vault` fallback
+
+- **Status:** fixed (RNG); screen residual remains
+- **Observed:** seed0077 @ **1465**: C `rn2(1)` @ `rnd_rect` vs JS
+  `rn2(6)`. After niches, vault `check_room` fails (`rn2(3)=1`);
+  C then `rnd_rect() && create_vault()` burns **102** `rnd_rect`
+  calls (outer null-check + create_room trycnt≤100) with
+  `rect_cnt=1` before giving up; JS stubbed
+  `else if (rnd_rect()) { /* simplified */ }` and continued into
+  fill/branch with a different `rn2(6)`.
+- **Rejected:** themerms/`check_room`/`split_rects` leaving extra JS
+  rectangles during makerooms — prefix through niches matched;
+  peel was the post-niche vault fallback stub.
+- **C locus:** `mklev.c` `makelevel` vault block (`do_vault` /
+  `check_room` / `create_vault`); `sp_lev.c` `create_room` vault
+  arm (trycnt loop + `rnd_rect`).
+- **Change:** `js/mklev.js` ports real fallback —
+  `rnd_rect() && create_vault()` then re-`check_room` → fill or
+  `rooms[nroom].hx = -1`.
+- **Verification:** seed0077 RNG **3242**/3242 Scr **19**/33 +
+  strict lengths; green+strict PASS; cohort 1500/1800/0060/0102/
+  0700/1150/0017 PASS; full **9/44** Scr **759** RNG
+  **104563**/792838.
+- **Named omission:** `makevtele` still `makeniche(TELEP_TRAP)`
+  stand-in; full vault fill/`mk_knox_portal` edge cases.
+- **Next:** seed0077 Scr **19**/33 / seed2200 Scr 199 /
   seed0106 Scr residual.
 
 

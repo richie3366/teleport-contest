@@ -7,17 +7,16 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 
 ## Active
 
-- **Current unit:** D-0111 `player_selection` cleared seed0077 chargen
-  (Scr **11**/33, RNG prefix **1475**). Next peel @ **1465**
-  `rnd_rect` / themerms during Rogue Dlvl1 mklev.
-- **Hypothesis:** seed0077 post-chargen divergence is themerms/
-  `check_room`/`rnd_rect` count (extra JS rectangles), not more
-  chargen — C has more `rn2(1)` `rnd_rect` while JS rolls `rn2(6)`.
+- **Current unit:** D-0112 `do_vault` `create_vault` fallback cleared
+  seed0077 RNG (**3242**/3242). Scr **19**/33 residual.
+- **Hypothesis:** seed0077 remaining screens are post-mklev display/
+  invent/UI (not further vault RNG) — prefer seed2200 Scr **199**/230
+  or seed0106 Scr **5**/267 if the Scr peel is deep.
 - **Falsifier / next:**
   ```bash
-  node scripts/rng-diff.mjs sessions/seed0077-rogue-chargen.session.json
+  node frozen/ps_test_runner.mjs sessions/seed0077-rogue-chargen.session.json
   ```
-  Prefer seed2200 Scr **199**/230 if mklev peel is deep.
+  Inspect first mismatched screen after chargen/confirm.
 - **Parked deep canary:** D-0006 pet movement — do not implement until C
   state/candidate capture exists.
 - **Named next:** seed0106 Scr **5**/267 (enhance/overview menus +
@@ -166,6 +165,9 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   `rn2(1)` before `o_init` (D-0111). Tall role menu is H2344
   fullscreen (`maxrow>=24`); corner menus must not `flush_screen`
   botl during `in_role_selection`.
+- **seed0077 @1465 was NOT themerms/`split_rects` extra free rects** —
+  vault `check_room` failed then JS stubbed `else if (rnd_rect()) {}`
+  while C ran `create_vault` trycnt≤100 (102× `rn2(1)`) (D-0112).
 - seed1150 @ 3032 was **not** missing `f` binding — getdir saw a
   space that C used for pet-drop `--More--` because JS
   `getdir`/`yn_function` skipped `more()` on `TOPLINE_NEED_MORE`
@@ -328,3 +330,7 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   `genl_player_setup` Shall I pick → menus; Rogue forces chaotic via
   `pick_align` `rn2(1)` inside `plsel_startmenu`→`rigid_role_checks`
   (D-0111). Already-specified rc facets skip menus (green path).
+- `do_vault` after niches: if pending `vault_x` `check_room` fails,
+  C does `rnd_rect() && create_vault()` — outer `rnd_rect` is only a
+  null-check; `create_room` vault arm loops trycnt≤100 with its own
+  `rnd_rect` each try (D-0112). Do not stub as a single burn.

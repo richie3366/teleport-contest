@@ -1408,3 +1408,17 @@ Use this shape:
 - Next: seed0077 @ 1465 themerms/`rnd_rect` —
   `node scripts/rng-diff.mjs sessions/seed0077-rogue-chargen.session.json`
   — or seed2200 Scr 199 / seed0106 Scr.
+
+## 2026-07-13 09:12 — do_vault create_vault fallback (D-0112)
+- Objective: seed0077 @ 1465 `rnd_rect` (PROGRESS primary).
+- C locus: `mklev.c` `makelevel` vault `do_vault` /
+  `create_vault`; `sp_lev.c` `create_room` vault trycnt.
+- Result: **verified** — after niches, vault `check_room` fails then
+  C runs `rnd_rect() && create_vault()` (102× `rnd_rect` with
+  `rect_cnt=1`). JS stubbed a single `rnd_rect()` burn and skipped
+  the trycnt loop. Ported real fallback + re-check / `hx=-1`.
+- Verification: seed0077 RNG **3242**/3242 Scr **19**/33 + strict;
+  green+strict PASS; cohort 1500/1800/0060/0102/0700/1150/0017
+  PASS; full **9/44** Scr **759** RNG **104563**/792838.
+- Next: seed0077 Scr residual (first mismatch after chargen) /
+  seed2200 Scr 199 / seed0106 Scr.

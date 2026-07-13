@@ -38,8 +38,8 @@ frozen-file overlay):
 | Metric | Value |
 |--------|------:|
 | Sessions passing | **9 / 44** |
-| Screens matched | **746 / 11,405** (6.54%) |
-| Positional RNG calls matched | **101,108 / 792,838** (12.75%) |
+| Screens matched | **759 / 11,405** (6.65%) |
+| Positional RNG calls matched | **104,563 / 792,838** (13.19%) |
 | Speed label | `18+0.08/turn` |
 | Working-tree base | `8b71735` + committed port (see `main`) |
 | Role-init throws | **0 / 44** (`u_init_role: role not ported`) |
@@ -74,8 +74,8 @@ shared blockers, and semantic coverage together—not one vanity metric.
 | `seed0373-barbarian-quest-tour` | **2555 / 35386** | 0 / 124 |
 | `seed0105-valk-chat-lamp-ration` | **987 / 2499** | 0 / 30 |
 | `seed0015-valk-level2-pit-dog-wait` | **363 / 8563** | 1 / 44 |
-| `seed0077-rogue-chargen` | **1475 / 3242** | **11 / 33** |
-| `seed0013-rogue-friday13-combat` | **521 / 4838** | 1 / 59 |
+| `seed0077-rogue-chargen` | **3242 / 3242** | **19 / 33** |
+| `seed0013-rogue-friday13-combat` | **522 / 4838** | 1 / 59 |
 
 seed8000 + seed0900 + seed1500 + seed1800 + seed0060 + seed0102 +
 seed0700 + seed1150 + seed0017 pass end-to-end.
@@ -130,8 +130,8 @@ Priest seed0501 still `wipeout_text`. seed0015/0200 next `lspo_map`.
 seed0101 next `next_ident`. seed0013 still breaks earlier in
 Lua/`sp_lev`. seed0103 next `next_ident`/`trquan` @ 2337.
 seed0361/0373 `getbones` blocked on unbound `^V`/`goto_level`/
-`makemaz`. seed0077 chargen cleared (D-0111); next `@1465`
-themerms/`rnd_rect`.
+`makemaz`. seed0077 chargen + vault fallback cleared (D-0111/D-0112); Scr
+**19**/33; next map/UI residual. seed0030 **7071**/105529.
 
 ### Green gate
 
@@ -213,20 +213,20 @@ autoopen `doopen_indir` (D-0059) + `mfndpos` BOULDER/`ALLOW_ROCK` +
 **`#sit`/`#dip`/`dipfountain`** (D-0109)
 **`#offer`/`#enhance`/`#annotate`/`#overview`/`#version`** (D-0110)
 **`player_selection`/`genl_player_setup`** (D-0111)
+**`do_vault`/`create_vault` fallback** (D-0112)
 **ported**. Nine public sessions pass end-to-end. **0/44** throw at
 `u_init_role`. seed0700 + seed1150 + seed0017 **PASS**. seed0106
 RNG **full** (Scr **5**/267); seed2200 RNG **full** (Scr **199**/230).
-seed0077 chargen through confirm Scr **11**/33; next `@1465`
-themerms/`rnd_rect`.
+seed0077 RNG **full** (Scr **19**/33).
 
-- **Bounded unit:** seed0077 @ 1465 themerms/`rnd_rect` /
-  seed2200 Scr residual (post-help) / seed0106 Scr residual
+- **Bounded unit:** seed0077 Scr residual / seed2200 Scr residual
+  (post-help) / seed0106 Scr residual
   (enhance/overview menus + `#chronicle`/`#conduct`/…) /
   seed0501/0105 `wipeout_text` / seed0015/0200 `lspo_map` /
   seed0101 `next_ident` / seed0103 `next_ident`/`trquan` /
   seed0030 `maybe_smudge_engr` / seed0361/0373 **`getbones`**
   (blocked: need `^V`→`goto_level`→`makemaz` first).
-- **Prefer:** seed0077 mklev peel or seed2200 Scr residual over
+- **Prefer:** seed0077 Scr peel or seed2200 Scr residual over
   parked D-0006; seed0106 screen peels when touching menus.
 - **Named omissions:** Wizard/Priest/Healer `initialspell`; Knight/
   Samurai/Healer/Valkyrie/Ranger/Monk/Archeologist/Barbarian/Caveman
@@ -610,6 +610,10 @@ Module status, constitutional debt, and named omissions live in
     **93316→101108**; screens **722→746**; green cohort PASS; next
     seed0077 @ 1465 themerms/`rnd_rect` / seed2200 Scr 199 /
     seed0106 Scr
+94. `do_vault` `create_vault` fallback (D-0112) —
+    seed0077 RNG **3242**/3242 Scr **11→19**/33; aggregate RNG
+    **101108→104563**; screens **746→759**; green cohort PASS; next
+    seed0077 Scr residual / seed2200 Scr 199 / seed0106 Scr
 
 Next work is selected from the active objectives above using
 `PORTING-RUNBOOK.md`, not by extending this historical list.
