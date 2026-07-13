@@ -5113,3 +5113,27 @@ cohort gates if those functions are touched again.
 - **Next:** seed0030 @14235 `passive` `rn2(3)`; or seed0200 @3387
   `xkilled` corpse/`next_ident`; or seed0101 Scr.
 
+## D-0188 — hitum `passive` live rn2(3) (seed0030 @14235)
+
+- **Status:** fixed
+- **Observed:** seed0030 @14235 — C `rn2(3)` `@passive(uhitm.c:6019)`
+  after live `hmon`; JS `rn2(5)` `@distfleeck`.
+- **Cause:** JS `hitum` never called `passive`. C always calls
+  `passive(mon, uwep, mhit, malive, AT_WEAP, …)` after `known_hitum`.
+  First AT_NONE slot (often a NO_ATTK filler) still takes the live gate
+  `malive && !mcan && rn2(3)` even when `damn=damd=0` and the adtyp
+  switch is `default`.
+- **C locus:** `uhitm.c` `hitum` / `passive` / `passive_obj`.
+- **Fix:** port `passive` + `passive_obj` (RNG-faithful; erosion /
+  gaze / split_mon bodies named omissions) and wire into `hitum`.
+- **Verification:** seed0030 prefix **14235→14296** (`dmgval`);
+  positional **14565**/105529 Scr **168**/1953; full **15/44** Scr
+  **1405** RNG **136012**; green+cohort+strict PASS; seed0200 still
+  **3387**.
+- **Named omissions:** full AD_PLYS gaze/cube; `ugolemeffects` /
+  `split_mon` / `erode_obj`/`erode_armor`/`drain_item` bodies;
+  `done_in_by` stone; `attk_protection`; dokick/`hmon` poly-form
+  `passive` callers; `s_suffix`/`hliquid` splash wording.
+- **Next:** seed0030 @14296 `dmgval` `rnd(2)` vs `rnd(1)`; or
+  seed0200 @3387 `xkilled`/`next_ident`; or seed0101 Scr.
+

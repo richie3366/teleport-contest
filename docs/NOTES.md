@@ -7,10 +7,10 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 
 ## Active
 
-- **Current unit:** seed0030 @14235 (after D-0187 `weapon_hit_bonus`).
-- **Hypothesis:** C `hitum`→`passive` burns `rn2(3)` when defender still lives
-  and has `AT_NONE` (this mon: `damn=damd=0`, no prior `d()`); JS skips
-  `passive` and jumps to `distfleeck` `rn2(5)`.
+- **Current unit:** seed0030 @14296 (after D-0188 `passive`).
+- **Hypothesis:** C monster melee `dmgval` burns `rnd(2)` (OC_WSDAM stand-in
+  wrong size) while JS uses `rnd(1)` — weapon dice / `oc_wsdam` extractor gap
+  after `hitmu` `d(1,6)`.
 - **Falsifier:**
   ```bash
   node scripts/rng-diff.mjs sessions/seed0030-ten-diverse-deaths.session.json
@@ -91,6 +91,9 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   hands: JS `weapon_hit_bonus` stubbed 0 vs C unskilled b.h. **+1**, so
   `tmp<=dieroll` miss while C hit→`exercise` (D-0187). Do not re-chase
   distfleeck-before-hit theories.
+- **@14235 was NOT missing distfleeck** — after a live hit, C `hitum`
+  always calls `passive` which burns `rn2(3)` for any AT_NONE slot
+  (incl. NO_ATTK fillers) when `malive && !mcan` (D-0188).
 - **`monattk.h`: AT_WEAP=254, AT_MAGC=255, AT_SPIT=10** — never use 10 for
   weapon (D-0179).
 - Hostile `m_move`: before place, `m_digweapon_check` may return
@@ -130,3 +133,5 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   signature, different dest) (D-0185).
 - **`weapon_hit_bonus(NULL)` bare-hand unskilled = +1** (not 0);
   Monk/Samurai martial `rnd(4)` barehands (D-0187).
+- **`hitum` must call `passive`** — live `malive && !mcan && rn2(3)`
+  even when AT_NONE is a NO_ATTK filler (D-0188).

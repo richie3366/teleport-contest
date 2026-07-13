@@ -2438,3 +2438,17 @@ Use this shape:
   RNG **136046**; green+cohort+strict PASS.
 - Next: seed0030 @14235 `passive` `rn2(3)`; or seed0200 @3387
   `xkilled`/`next_ident`; or seed0101 Scr.
+
+## 2026-07-13 22:30 — D-0188 hitum `passive` live rn2(3) fixed
+- Objective: seed0030 @14235 C `passive` `rn2(3)` vs JS `distfleeck`
+  `rn2(5)` (PROGRESS primary).
+- C locus: `uhitm.c` `hitum` / `passive` / `passive_obj`.
+- Result: **fixed** — JS `hitum` skipped `passive`; C always calls it
+  after `known_hitum`, and live `malive && !mcan && rn2(3)` burns even
+  for NO_ATTK AT_NONE fillers. Ported `passive`+`passive_obj` and wired
+  into `hitum`.
+- Verification: seed0030 prefix **14235→14296** (`dmgval`); positional
+  **14565**/105529; full **15/44** Scr **1405** RNG **136012**;
+  green+cohort+strict PASS; seed0200 still @3387.
+- Next: seed0030 @14296 `dmgval` `rnd(2)` vs `rnd(1)`; or seed0200
+  @3387 `xkilled`/`next_ident`; or seed0101 Scr.
