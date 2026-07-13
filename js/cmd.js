@@ -18,6 +18,7 @@ import {
 import { doeat } from './eat.js';
 import { dodrink } from './potion.js';
 import { dozap } from './zap.js';
+import { doread } from './read.js';
 import { dothrow, dofire } from './dothrow.js';
 import { doapply } from './apply.js';
 import { dokick } from './dokick.js';
@@ -362,6 +363,11 @@ export async function rhack(key) {
     } else if (ch === 'z') {
         // C ref: zap.c dozap / #zap
         const tookTime = await dozap();
+        game.context.move = tookTime ? 1 : 0;
+        if (tookTime) game.kickedloc = { x: 0, y: 0 };
+    } else if (ch === 'r') {
+        // C ref: read.c doread / #read
+        const tookTime = await doread();
         game.context.move = tookTime ? 1 : 0;
         if (tookTime) game.kickedloc = { x: 0, y: 0 };
     } else if (ch === 't') {

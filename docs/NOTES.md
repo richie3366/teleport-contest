@@ -7,13 +7,13 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 
 ## Active
 
-- **Current unit:** after D-0074 seed2200 prefix **2733→2772** (pos
-  **2794**/3018). Prefer seed2200 @ 2772 `r`/`doread` SCR_MAGIC_MAPPING /
-  seed0017 @ 3132 `dog_move` terrain / seed0700 Scr 2/51 / wipeout_text /
-  lspo_map / next_ident / maybe_smudge_engr / getbones (needs `^V`→`makemaz`).
-- **Hypothesis (seed2200):** @ 2772 C `rn2(19)` @ `exercise` during
-  `r`+`j` scroll read (“A map coalesces in your mind!”) — JS has no
-  `doread`.
+- **Current unit:** after D-0075 seed2200 prefix **2772→2925** (pos
+  **2940**/3018). Prefer seed2200 @ 2925 `E`/`doengrave` /
+  seed0017 @ 3132 `dog_move` terrain / seed0700 Scr 2/51 /
+  wipeout_text / lspo_map / next_ident / maybe_smudge_engr /
+  getbones (needs `^V`→`makemaz`).
+- **Hypothesis (seed2200):** @ 2925 C `rn2(25)` @ `doengrave` —
+  JS has no `doengrave` (`E` unbound → movement/`Unknown`).
 - **Falsifier / next probe:**
   ```bash
   node scripts/rng-diff.mjs sessions/seed2200-wizard-quaff-zap-read.session.json
@@ -56,6 +56,9 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 - seed2200 @ 2733 was **not** directional zap — `z`+`c` NODIR
   WAN_SECRET_DOOR_DETECTION → `weffects` `exercise(A_WIS,TRUE)` +
   `findit` empty (D-0074).
+- seed2200 @ 2772 was **not** moveloop exercise — `r`+`j` SCR_MAGIC_MAPPING
+  → `seffects` + `do_mapping` dual `exercise(A_WIS,TRUE)` (D-0075).
+  Second `r`+`j` is missing-letter getobj re-prompt (letter `j` used up).
 
 ## Landmarks
 
@@ -72,3 +75,6 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   → `rn2(2)` (D-0073).
 - NODIR secret-door wand: `weffects` always `exercise(A_WIS,TRUE)` before
   `zapnodir`/`findit`; empty find → `"You don't find anything."` (D-0074).
+- SCR_MAGIC_MAPPING: `seffects` `exercise` then `do_mapping` `exercise`;
+  `"A map coalesces in your mind!"`; getobj invent-order + missing-letter
+  continue (D-0075).

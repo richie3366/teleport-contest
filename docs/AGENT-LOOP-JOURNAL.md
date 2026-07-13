@@ -884,3 +884,18 @@ Use this shape:
   **2733→2772** positional **2794**/3018; seed0700 RNG full Scr 2/51.
 - Next: `node scripts/rng-diff.mjs sessions/seed2200-wizard-quaff-zap-read.session.json`
   — peel `r`/`doread` @ 2772 (SCR_MAGIC_MAPPING dual exercise).
+
+## 2026-07-13 — doread SCR_MAGIC_MAPPING / do_mapping (D-0075)
+- Objective: seed2200 @ 2772 (PROGRESS preferred after D-0074).
+- C locus: `read.c` `doread`/`seffects`/`seffect_magic_mapping` +
+  `detect.c` `do_mapping`/`show_map_spot` — `r`+`j` SCR_MAGIC_MAPPING;
+  dual `exercise(A_WIS,TRUE)` then `"A map coalesces in your mind!"`.
+- Result: **verified** — JS unbound `r` so `j` was a south move.
+  Ported read getobj (invent-order + missing-letter continue) +
+  SCR_MAGIC_MAPPING seffect + do_mapping hero_memory path +
+  magic_map_background; wired `'r'`.
+- Verification: green + seed1500/1800/0060/0102 PASS + strict; full
+  **6/44**, RNG **91390**/792838, Scr **320**/11405; seed2200 prefix
+  **2772→2925** positional **2940**/3018; seed0700 RNG full Scr 2/51.
+- Next: `node scripts/rng-diff.mjs sessions/seed2200-wizard-quaff-zap-read.session.json`
+  — peel `E`/`doengrave` @ 2925.

@@ -39,7 +39,7 @@ frozen-file overlay):
 |--------|------:|
 | Sessions passing | **6 / 44** |
 | Screens matched | **320 / 11,405** (2.81%) |
-| Positional RNG calls matched | **91,222 / 792,838** (11.51%) |
+| Positional RNG calls matched | **91,390 / 792,838** (11.53%) |
 | Speed label | `16+0.08/turn` |
 | Working-tree base | `8b71735` + committed port (see `main`) |
 | Role-init throws | **0 / 44** (`u_init_role: role not ported`) |
@@ -69,7 +69,7 @@ shared blockers, and semantic coverage together—not one vanity metric.
 | `seed0107-samurai-twoweapon-enhance` | **2677 / 2902** | 0 / 98 |
 | `seed0104-knight-ride-combat` | **2401 / 3223** | 1 / 43 |
 | `seed0106-priest-extcmd-sweep` | **2576 / 4194** | 1 / 267 |
-| `seed2200-wizard-quaff-zap-read` | **2794 / 3018** | 1 / 230 |
+| `seed2200-wizard-quaff-zap-read` | **2940 / 3018** | 1 / 230 |
 | `seed0361-archeologist-tour` | **3295 / 53865** | 0 / 366 |
 | `seed0373-barbarian-quest-tour` | **2573 / 35386** | 0 / 124 |
 | `seed0105-valk-chat-lamp-ration` | **987 / 2499** | 0 / 30 |
@@ -95,7 +95,7 @@ clear shared peels. seed0700
 RNG **full**; next is screen peel (Scr 2/51). seed0361/0373 `getbones` blocked on unbound
 `^V`/`goto_level`/`makemaz` (Quest `y`). seed0017 next @ 3132
 `dog_move` (terrain); seed0030 next `maybe_smudge_engr` @ 6732.
-Wizard seed2200 next `r`/`doread` @ 2772; Healer seed0016 next
+Wizard seed2200 next `E`/`doengrave` @ 2925; Healer seed0016 next
 `next_ident` @ 2493; Caveman seed1150 next `dog_move` @ 2915;
 Priest seed0501 still `wipeout_text`. seed0015/0200 next `lspo_map`.
 seed0101 next `next_ident`. seed0013 still breaks earlier in
@@ -143,20 +143,21 @@ autoopen `doopen_indir` (D-0059) + `mfndpos` BOULDER/`ALLOW_ROCK` +
 **`help_dir` NHW_TEXT + Book NHW_MENU offx** (D-0071) +
 **`lookaround` run==1 corridor-turn** (D-0072) +
 **`q`/`dodrink`/`peffect_oil`** (D-0073) +
-**`z`/`dozap` NODIR secret-door/`findit`** (D-0074)
+**`z`/`dozap` NODIR secret-door/`findit`** (D-0074) +
+**`r`/`doread` SCR_MAGIC_MAPPING/`do_mapping`** (D-0075)
 **ported**. Six public sessions pass end-to-end. **0/44**
 throw at `u_init_role`. seed0700 RNG full. seed0102 **PASS**.
-seed0017 prefix **3132** (`dog_move`). seed2200 prefix **2772**
-(`r`/`doread`).
+seed0017 prefix **3132** (`dog_move`). seed2200 prefix **2925**
+(`E`/`doengrave`).
 
-- **Bounded unit:** seed2200 @ 2772 `r`/`doread` /
+- **Bounded unit:** seed2200 @ 2925 `E`/`doengrave` /
   seed0017 @ 3132 `dog_move` terrain / seed0700 **screen** peel /
   seed1150 `dog_move` / seed0501/0105 `wipeout_text` /
   seed0015/0200 `lspo_map` / seed0101 `next_ident` /
   seed0103 `next_ident`/`trquan` / seed0030 `maybe_smudge_engr` /
   seed0361/0373 **`getbones`** (blocked: need `^V`→`goto_level`→
   `makemaz` first).
-- **Prefer:** seed2200 @ 2772 `doread` / seed0017 terrain /
+- **Prefer:** seed2200 @ 2925 `doengrave` / seed0017 terrain /
   seed0700 screens over parked D-0006.
 - **Named omissions:** Wizard/Priest/Healer `initialspell`; Knight/
   Samurai/Healer/Valkyrie/Ranger/Monk/Archeologist/Barbarian/Caveman
@@ -192,7 +193,8 @@ seed0017 prefix **3132** (`dog_move`). seed2200 prefix **2772**
   sleep/flying/breathing; ring Glib/cursed-gloves/weld;
   `setworn` oc_oprop; dragon_armor_handling; touch blast `d()`/`losehp`;
   artifact wield intrinsics; wield poly/corpse/bimanual/weld-pline/
-  swap/quiver ynq; other `peffect_*` / IMMEDIATE·RAY `dozap` / `doread`; …
+  swap/quiver ynq; other `peffect_*` / IMMEDIATE·RAY `dozap` /
+  other `seffect_*` / `study_book` / `doengrave`; …
 - **Cohort:** green gate + seed1500 + seed1800 + seed0060 + seed0102
   (must stay PASS) + strict lengths; Samurai focus seed0700 when on
   that peel.
@@ -381,6 +383,10 @@ Module status, constitutional debt, and named omissions live in
     prefix **2733→2772** positional **2790→2794**/3018; aggregate
     RNG **91220→91222**; screens **320** unchanged; green cohort
     PASS; seed0700 RNG still full; next seed2200 `r`/`doread`
+60. `r`/`doread` SCR_MAGIC_MAPPING/`do_mapping` (D-0075) — seed2200
+    prefix **2772→2925** positional **2794→2940**/3018; aggregate
+    RNG **91222→91390**; screens **320** unchanged; green cohort
+    PASS; seed0700 RNG still full; next seed2200 `E`/`doengrave`
 
 Next work is selected from the active objectives above using
 `PORTING-RUNBOOK.md`, not by extending this historical list.

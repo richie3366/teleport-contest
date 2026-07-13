@@ -2033,3 +2033,32 @@ cohort gates if those functions are touched again.
   findone flash/mimic/hider/invis/chest-trap/trapped-door.
 - **Next:** seed2200 @ 2772 `r`/`doread`; seed0017 @ 3132 terrain;
   seed0700 screens.
+
+## D-0075 — seed2200 `r`/`doread` SCR_MAGIC_MAPPING
+
+- **Status:** fixed
+- **Observed:** seed2200 rng-diff @ **2772**: C `rn2(19)` @
+  `exercise(attrib.c:509)` vs JS `rn2(5)` @ `distfleeck`. Session keys
+  `r` then `j`; C screen `"As you read the scroll, it disappears.  A
+  map coalesces in your mind!"` / read prompt `[ijklm or ?*]`. JS
+  unbound `r`, so `j` ran as south move.
+- **C locus:** `read.c` `doread` → `seffects` (`exercise(A_WIS,TRUE)`
+  when `oc_magic`) → `seffect_magic_mapping` → `detect.c`
+  `do_mapping`/`show_map_spot` (second `exercise(A_WIS,TRUE)`).
+- **Cause:** no read path; movement key swallowed the scroll letter.
+- **Change:** `js/read.js` (`doread`/getobj-read/`seffects`/
+  `seffect_magic_mapping`/`learnscroll`/`useup`); `js/detect.js`
+  `do_mapping`/`show_map_spot`; `js/display.js`
+  `magic_map_background`; `js/cmd.js` bind `'r'`.
+- **Verification:** green + seed1500/1800/0060/0102 PASS + strict;
+  full **6/44**, screens **320**/11405, RNG **91390**/792838;
+  seed2200 prefix **2772→2925** positional **2940**/3018; seed0700
+  RNG still full Scr **2**/51.
+- **Named omission:** other `seffect_*`; `study_book`; fortune/shirt/
+  credit/marker/coin/orb/candy; Blind Braille gates; nommap/
+  Hallucination/`make_confused`; blessed-SDOOR convert edge cases;
+  `notice_mon_off`/`on`; `browse_map`/unconstrain; `trycall`;
+  `can_chant`; `check_capacity`; `room_discovered`; trap/engraving
+  restore after furniture in `show_map_spot`; SPE_MAGIC_MAPPING.
+- **Next:** seed2200 @ 2925 `E`/`doengrave`; seed0017 @ 3132 terrain;
+  seed0700 screens.

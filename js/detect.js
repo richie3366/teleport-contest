@@ -1,19 +1,24 @@
-// detect.js — Searching / dosearch0 / findit subset.
+// detect.js — Searching / dosearch0 / findit / do_mapping subset.
 // C ref: detect.c — dosearch0, find_trap, cvt_sdoor_to_door, findit,
-// findone; vision.c do_clear_area (hero-centered).
+// findone, show_map_spot, do_mapping; vision.c do_clear_area
+// (hero-centered).
 //
 // Branch envelope: 8-neighbour SDOOR/SCORR/trap search with fund
 // (lenses); findit clear-area reveal of SDOOR/SCORR/unseen traps +
-// empty "don't find anything" path. Named omissions: feel_location /
+// empty "don't find anything" path; do_mapping hero_memory path
+// (no browse_map) + show_map_spot SCORR uncover / seenv=SVALL /
+// magic_map_background. Named omissions: feel_location /
 // visible_region_at / unmap_invisible / Blind feel; mfind0 body;
 // Hallucination/cls map_trap wait; activate_statue_trap; artifact
-// SPFX_SEARCH; cmd_safety_prevention; warnreveal; magic mapping;
+// SPFX_SEARCH; cmd_safety_prevention; warnreveal; room_discovered;
+// map_trap/map_engraving restore after furniture; browse_map /
+// unconstrain underwater-buried-swallow; notice_mon_off/on;
 // findone flash_glyph / mimic / hider / invis / chest-trap detect;
 // trapped-door dummytrap; FOUND_FLASH_COUNT==0 tmp_at path.
 
 import { game } from './gstate.js';
-import { rnl } from './rng.js';
-import { newsym, pline } from './display.js';
+import { rnl, rn2 } from './rng.js';
+import { newsym, pline, magic_map_background } from './display.js';
 import { vision_recalc, couldsee } from './vision.js';
 import { an } from './objnam.js';
 import { A_WIS, exercise } from './attrib.js';
@@ -23,6 +28,7 @@ import { objectNames } from './objects.js';
 import {
     isok, SDOOR, SCORR, DOOR, CORR, D_NODOOR, D_CLOSED, D_LOCKED, WM_MASK,
     STATUE_TRAP, NO_TRAP, TRAPNUM, Is_rogue_level, BOLT_LIM, COLNO, ROWNO,
+    SVALL, IS_FURNITURE,
 } from './const.js';
 
 // C ref: vision.c circle_data[] / circle_start[] — radius→row half-width
@@ -78,7 +84,7 @@ function trapname(ttyp, _override) {
 }
 
 /** C ref: detect.c cvt_sdoor_to_door */
-function cvt_sdoor_to_door(lev) {
+export function cvt_sdoor_to_door(lev) {
     let newmask = (lev.doormask || 0) & ~WM_MASK;
     if (Is_rogue_level(game.u?.uz)) {
         newmask = D_NODOOR;
@@ -317,4 +323,65 @@ export async function findit() {
 
     if (!num) await pline("You don't find anything.");
     return num;
+}
+
+/**
+ * C ref: detect.c show_map_spot — magic mapping / clairvoyance cell update.
+ * Confusion path rolls rn2(7) skip; furniture trap/engraving restore deferred.
+ */
+export function show_map_spot(x, y, cnf) {
+    if (cnf && rn2(7)) return;
+    const lev = game.level?.at(x, y);
+    if (!lev) return;
+
+    lev.seenv = SVALL;
+
+    // Secret corridors are found, but not secret doors.
+    if (lev.typ === SCORR) {
+        lev.typ = CORR;
+        vision_recalc(1); // C: unblock_point
+    }
+
+    if (game.level?.flags?.hero_memory) {
+        magic_map_background(x, y, 0);
+        newsym(x, y);
+    } else {
+        magic_map_background(x, y, 1);
+    }
+
+    // Non-furniture trap.tseen / engraving / oldglyph restore deferred
+    if (!IS_FURNITURE(lev.typ)) {
+        const trap = t_at(x, y);
+        if (trap && trap.tseen) {
+            newsym(x, y); // map_trap subset: redisplay via newsym
+        }
+    }
+    // room_discovered deferred
+}
+
+/**
+ * C ref: detect.c do_mapping — full-level magic mapping.
+ * hero_memory path (default): no browse_map. notice_mon_off/on deferred.
+ */
+export function do_mapping() {
+    const u = game.u || {};
+    // C: unconstrain_map — underwater/buried/swallow; return if any change
+    const unconstrained = !!(u.uinwater || u.uburied || u.uswallow);
+    if (unconstrained) {
+        // save/clear flags deferred — ordinary start is never constrained
+    }
+
+    const confused = !!(u.Confusion);
+    for (let zx = 1; zx < COLNO; zx++) {
+        for (let zy = 0; zy < ROWNO; zy++) {
+            show_map_spot(zx, zy, confused);
+        }
+    }
+
+    if (!game.level?.flags?.hero_memory || unconstrained) {
+        // browse_map / map_redisplay deferred
+    }
+    // reconstrain_map no-op when unconstrained was false
+
+    exercise(A_WIS, true);
 }
