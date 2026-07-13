@@ -2423,3 +2423,18 @@ Use this shape:
   full **15/44** Scr **1405** RNG **135986**; green+cohort+strict PASS.
 - Next: seed0030 @14231 (`hitum`/`exercise` `rn2(19)` vs JS `rn2(5)`); or
   seed0101 Scr / seed0200 @3382.
+
+## 2026-07-13 22:26 — D-0187 weapon_hit_bonus + martial barehands fixed
+- Objective: seed0030 @14231 C `exercise` `rn2(19)` vs JS `rn2(5)` after
+  `hitum` `rnd(20)=13` (PROGRESS primary).
+- C locus: `weapon.c` `weapon_hit_bonus`/`weapon_type`/`martial_bonus`;
+  `uhitm.c` `find_roll_to_hit` / `hmon_hitmon_barehands`.
+- Result: **fixed** — JS stubbed `weapon_hit_bonus`→0 so Tourist bare-hand
+  `tmp` missed (`tmp<=13`) while C unskilled b.h. **+1** hit→`exercise`/
+  `hmon`. Ported full `weapon_hit_bonus`; barehands
+  `rnd(martial_bonus() ? 4 : 2)` (seed0200 Monk).
+- Verification: seed0030 prefix **14231→14235** (`passive`); positional
+  **14586**/105529; seed0200 **3382→3387**; full **15/44** Scr **1405**
+  RNG **136046**; green+cohort+strict PASS.
+- Next: seed0030 @14235 `passive` `rn2(3)`; or seed0200 @3387
+  `xkilled`/`next_ident`; or seed0101 Scr.

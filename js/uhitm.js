@@ -13,7 +13,7 @@ import { WEAPON_CLASS, objectNameStrs } from './objects.js';
 import { exercise, A_STR, A_DEX, acurr } from './attrib.js';
 import { overexertion } from './hack.js';
 import { pline, newsym } from './display.js';
-import { dmgval, P_SKILL } from './weapon.js';
+import { dmgval, P_SKILL, weapon_hit_bonus, martial_bonus } from './weapon.js';
 import { find_mac, AT_WEAP, AD_PHYS } from './mhitm.js';
 import { verysmall, G_FREQ, bigmonst, thick_skinned } from './monsters.js';
 import { relobj_on_death } from './mkobj.js';
@@ -72,14 +72,6 @@ function abon() {
 }
 
 /**
- * C ref: weapon.c weapon_hit_bonus — skill bonus; skills stubbed → 0
- * (named omission: P_SKILL / restricted −4). Enough for L1 hit vs dieroll.
- */
-function weapon_hit_bonus(_weapon) {
-    return 0;
-}
-
-/**
  * C ref: weapon.c hitval — spe + type vs mon; silver/artifact deferred.
  */
 function hitval(otmp, _mon) {
@@ -91,6 +83,7 @@ function hitval(otmp, _mon) {
  * C ref: uhitm.c find_roll_to_hit — to-hit threshold before rnd(20).
  * check_caitiff / monk armor / encumbrance / trap penalties deferred when
  * they do not change RNG order for ordinary L1 melee.
+ * weapon_hit_bonus from weapon.c (bare-hand unskilled = +1).
  */
 function find_roll_to_hit(mtmp, aatyp, weapon, attk_count, role_roll_penalty) {
     role_roll_penalty.v = 0;
@@ -226,8 +219,8 @@ function hmon_hitmon_stagger(mon, dmg) {
 async function hmon(mon, obj, thrown, _dieroll) {
     let dmg = 0;
     if (!obj) {
-        // bare hands: rnd(2) or martial rnd(4)
-        dmg = rnd(2);
+        // C hmon_hitmon_barehands: rnd(!martial_bonus() ? 2 : 4)
+        dmg = rnd(martial_bonus() ? 4 : 2);
     } else if (obj.oclass === WEAPON_CLASS
         || game.objects?.[obj.otyp]?.oc_skill != null) {
         dmg = dmgval(obj, mon);

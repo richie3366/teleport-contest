@@ -190,6 +190,7 @@ Do not record a guessed cause as fixed merely because an RNG prefix moved.
 | D-0184 | partial | muse/potionhit | MUSE_POT_* throw + hero potionhit/breathe/makeknown |
 | D-0185 | fixed | postmov mpickstuff | seed0030 @14118: missing `mpickstuff` left floor glass → silent `m_search_items` gg split |
 | D-0186 | fixed | mon.c can_carry | quan>1 → 1 only for M1_NOHANDS; hands take full stack |
+| D-0187 | fixed | weapon.c hit bonus | `weapon_hit_bonus` + martial barehands `rnd(4)` |
 
 D-0001 through D-0005 predate the strict-length/cohort runbook. Their focused
 causes are preserved, but generic "green sessions held" is historical evidence,
@@ -5085,4 +5086,30 @@ cohort gates if those functions are touched again.
   (pets are nohands — coincidentally OK).
 - **Next:** seed0030 @14231 (`hitum`/`exercise` vs `rn2(5)`); or
   seed0101 Scr / seed0200 @3382.
+
+## D-0187 — weapon_hit_bonus + martial barehands (seed0030 @14231)
+
+- **Status:** fixed
+- **Observed:** seed0030 @14231 — C `rn2(19)` `@exercise` after `hitum`
+  `rnd(20)=13`; JS `rn2(5)` `@distfleeck`. seed0200 @3383 after the
+  hit-bonus fix: C `rnd(4)` barehands vs JS `rnd(2)`.
+- **Cause:** JS `find_roll_to_hit` stubbed `weapon_hit_bonus`→0. C
+  `weapon_type(NULL)`→`P_BARE_HANDED_COMBAT`; unskilled non-martial
+  bonus is **+1**, so `tmp > 13` and C hits→`exercise`/`hmon` while JS
+  misses. Separately, `hmon_hitmon_barehands` uses
+  `rnd(!martial_bonus() ? 2 : 4)` — Monk/Samurai need `rnd(4)`.
+- **C locus:** `weapon.c` `weapon_hit_bonus` / `weapon_type` /
+  `martial_bonus`; `uhitm.c` `find_roll_to_hit` / `hmon_hitmon_barehands`.
+- **Fix:** port `weapon_hit_bonus` (weapon / two-weapon / bare-hand /
+  riding) in `js/weapon.js`; wire into `find_roll_to_hit`; barehands
+  `rnd(martial_bonus() ? 4 : 2)`.
+- **Verification:** seed0030 prefix **14231→14235** (`passive`);
+  positional **14586**/105529; seed0200 prefix **3382→3387**
+  (`xkilled`/`next_ident`); full **15/44** Scr **1405** RNG
+  **136046**; green+cohort+strict PASS.
+- **Named omissions:** `hitval` silver/artifact/`spec_abon`;
+  `weapon_dam_bonus`/`dbon` in `hmon`; `passive` body; Cleaver /
+  twoweapon / `double_punch`.
+- **Next:** seed0030 @14235 `passive` `rn2(3)`; or seed0200 @3387
+  `xkilled` corpse/`next_ident`; or seed0101 Scr.
 

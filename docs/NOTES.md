@@ -7,11 +7,10 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 
 ## Active
 
-- **Current unit:** seed0030 @14231 (after D-0186 `can_carry` quan>1).
-- **Hypothesis:** C continues `hitum`/`known_hitum` with second `exercise`
-  `rn2(19)` then barehands `rnd(2)` + stagger; JS leaves combat after first
-  `hitum` `rnd(20)` into `distfleeck` `rn2(5)` — missing post-hit `exercise`
-  and/or barehands damage path.
+- **Current unit:** seed0030 @14235 (after D-0187 `weapon_hit_bonus`).
+- **Hypothesis:** C `hitum`→`passive` burns `rn2(3)` when defender still lives
+  and has `AT_NONE` (this mon: `damn=damd=0`, no prior `d()`); JS skips
+  `passive` and jumps to `distfleeck` `rn2(5)`.
 - **Falsifier:**
   ```bash
   node scripts/rng-diff.mjs sessions/seed0030-ten-diverse-deaths.session.json
@@ -88,6 +87,10 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 - **@14151 was NOT missing distfleeck** — PM_GNOME hands + quan=2
   WORTHLESS_VIOLET_GLASS: JS `can_carry` always returned 1 for quan>1 →
   `splitobj`/`next_ident`; C only returns 1 for `M1_NOHANDS` (D-0186).
+- **@14231 was NOT missing second-hit / double_punch** — Tourist bare
+  hands: JS `weapon_hit_bonus` stubbed 0 vs C unskilled b.h. **+1**, so
+  `tmp<=dieroll` miss while C hit→`exercise` (D-0187). Do not re-chase
+  distfleeck-before-hit theories.
 - **`monattk.h`: AT_WEAP=254, AT_MAGC=255, AT_SPIT=10** — never use 10 for
   weapon (D-0179).
 - Hostile `m_move`: before place, `m_digweapon_check` may return
@@ -125,3 +128,5 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 - **postmov MOVED|DONE must `mpickstuff`** — without it floor loot
   stays and later `m_search_items` gg diverges silently (same RNG
   signature, different dest) (D-0185).
+- **`weapon_hit_bonus(NULL)` bare-hand unskilled = +1** (not 0);
+  Monk/Samurai martial `rnd(4)` barehands (D-0187).
