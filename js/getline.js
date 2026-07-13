@@ -171,6 +171,15 @@ const EXT_CMDS = [
         },
     },
     {
+        name: 'adjust',
+        wiz: false,
+        autocomplete: true,
+        run: async () => {
+            const { doorganize } = await import('./invent.js');
+            return doorganize();
+        },
+    },
+    {
         name: 'genocided',
         wiz: false,
         autocomplete: true,

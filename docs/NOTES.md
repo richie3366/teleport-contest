@@ -7,16 +7,17 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 
 ## Active
 
-- **Current unit:** D-0126 cleared: `#vanquished` / `list_vanquished` +
-  `mvitals.died++` in `mondead`; empty `#genocided` pline.
-- **Hypothesis:** seed0106 next Scr peel @235 is `#adjust` unbound
-  (`What do you want to adjust? [a-h or ?*]`). Later: `#name` /
-  `#terrain` / invent / `^X` attributes @261. seed2200 next real peel
-  after parked RC path @158 is help `j` → `dokeylist` @184.
+- **Current unit:** D-0127 cleared: `#adjust` / `doorganize` getobj +
+  destination Esc → Never mind (+ move/collect/swap/merge without split).
+- **Hypothesis:** seed0106 next Scr peel @253 is `#terrain` unbound
+  (`View which?` menu). Also residual `@257` spells menu vs
+  `You don't know any spells` and `@261` attributes title cells.
+  seed2200 next real peel after parked RC path @158 is help `j` →
+  `dokeylist` @184.
 - **Falsifier / next:**
   ```bash
   node frozen/ps_test_runner.mjs sessions/seed0106-priest-extcmd-sweep.session.json
-  # expect Scr >262 if #adjust matches C; green cohort must stay PASS
+  # expect Scr >264 if #terrain matches C; green cohort must stay PASS
   node frozen/ps_test_runner.mjs sessions/seed2200-wizard-quaff-zap-read.session.json
   ```
 - **Parked deep canary:** D-0006 pet movement — do not implement until C
@@ -106,6 +107,10 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 - **seed0106 @226 empty `#genocided` was unbound** — C
   `list_genocided` pline when `ngone==0` (D-0126). Menu body when
   genocides exist still deferred.
+- **seed0106 @235 was `#adjust` unbound** — C `doorganize` →
+  `getobj("adjust")` then destination `yn_function` (D-0127). Do not
+  invent a static letter map; destination list blanks used non-mergable
+  slots then `compactify`.
 
 ## Landmarks
 
@@ -158,3 +163,6 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   total line when `ntypes>1` (D-0126).
 - `#genocided` empty: `pline("No creatures have been genocided.")`
   when `ngone==0` (D-0126).
+- `#adjust`: `doorganize` → getobj suggest non-gold → destination
+  blanks used non-mergable letters → `compactify` → Esc Never mind
+  (D-0127).

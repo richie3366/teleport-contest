@@ -1608,3 +1608,16 @@ Use this shape:
   green+strict PASS; cohort 1500/1800/0060/0102/0700/1150/0017/0077 PASS;
   full **10/44** Scr **1133** RNG **104575**/792838.
 - Next: seed0106 `#adjust` @235 — or seed2200 `dokeylist` @184.
+
+## 2026-07-13 — #adjust doorganize (D-0127)
+- Objective: seed0106 Scr @235 `#adjust` (PROGRESS primary).
+- C locus: `invent.c` `doorganize`/`doorganize_core`/`adjust_ok`/`compactify`;
+  `cmd.c` extcmd `#adjust`.
+- Result: **verified** — `#adjust` was AC-only; no runner. Ported
+  getobj suggest non-gold, destination letter list (blank used
+  non-mergable + compactify), Esc Never mind, and move/collect/
+  swap/merge without count-split.
+- Verification: seed0106 Scr **262→264**/267 (next `#terrain` @253);
+  green+strict PASS; cohort 1500/1800/0060/0102/0700/1150/0017/0077
+  PASS; full **10/44** Scr **1135** RNG **104575**/792838.
+- Next: seed0106 `#terrain` @253 — or seed2200 `dokeylist` @184.

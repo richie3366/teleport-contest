@@ -3414,3 +3414,30 @@ cohort gates if those functions are touched again.
   extinctions; cham/were restore before `monsndx` in `mondead`.
 - **Next:** seed0106 `#adjust` @235 / seed2200 `dokeylist` @184.
 
+## D-0127 — `#adjust` / `doorganize` getobj + destination cancel
+
+- **Status:** fixed
+- **Observed:** seed0106 Scr **262**/267 first miss @235: C
+  `What do you want to adjust? [a-h or ?*]` then
+  `Adjust letter to what [ai-zA-Z] (? see used letters)?` then
+  Esc → `Never mind.`; JS `#adjust: unknown extended command.`
+- **Cause/evidence:** `#adjust` was AUTOCOMPLETE-only (`EXT_CMD_AC`)
+  with no `EXT_CMDS` runner. C `doorganize` → `getobj("adjust")` →
+  `doorganize_core` destination `yn_function` (NULL resp).
+- **C locus:** `cmd.c` extcmd → `invent.c` `doorganize` /
+  `doorganize_core` / `adjust_ok` / `compactify` / `prinv`.
+- **Change:** `js/invent.js` `doorganize`/`doorganize_core`/
+  `getobj_adjust` (suggest non-gold, destination letter list,
+  Esc cancel, move/collect/swap/merge without count-split);
+  `js/getline.js` `#adjust` runner.
+- **Verification:** seed0106 Scr **262→264**/267 (next: `#terrain`
+  @253); green+strict PASS; cohort 1500/1800/0060/0102/0700/1150/
+  0017/0077 PASS; full **10/44** Scr **1133→1135** RNG
+  **104575**/792838.
+- **Named omission:** getobj count-split / `splitobj`;
+  `display_used_invlets` / `display_pickinv` for `?`/`*`;
+  `check_invent_gold` / wonky-gold `adjust_gold_ok`;
+  `adjust_split` / itemactionsions; pack-full bump on split;
+  floating `!invlet_constant` `reassign` truncate.
+- **Next:** seed0106 `#terrain` @253 / seed2200 `dokeylist` @184.
+
