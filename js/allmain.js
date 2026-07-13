@@ -260,6 +260,13 @@ async function welcome(new_game) {
 export async function newgame() {
     const g = game;
 
+    // C ref: allmain.c newgame — context.ident / tribute before init_objects
+    if (!g.context) g.context = {};
+    if (g.context.ident == null) g.context.ident = 2;
+    if (!g.context.tribute) g.context.tribute = {};
+    g.context.tribute.enabled = true;
+    g.context.tribute.bookstock = !!g.context.tribute.bookstock;
+
     // C ref: allmain.c — mvitals.mvflags = geno & G_NOCORPSE (before init_objects)
     if (!g.mvitals) g.mvitals = [];
     for (let i = LOW_PM; i < NUMMONS; i++) {

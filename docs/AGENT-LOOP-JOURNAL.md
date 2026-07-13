@@ -2625,3 +2625,17 @@ Use this shape:
   cohort PASS; full **17/44** Scr **1313** RNG **142466**.
 - Next: seed0030 seg1 @5381 `shkinit`/`stock_room`/`mkshobj_at`; or
   seed0103 `next_ident`/`trquan`.
+
+## 2026-07-14 00:15 — D-0203 stock_room / shkinit / mkshobj_at
+- Objective: seed0030 seg1 @5381 C `next_ident` @ makemon(PM_SHOPKEEPER)
+  vs JS `rn2(200)` mineralize (PROGRESS primary).
+- C locus: `shknam.c` `stock_room`/`shkinit`/`mkshobj_at`/`get_shop_item`;
+  `makemon.c` shopkeeper `m_initinv`; `muse.c` `rnd_misc_item`;
+  `mkobj.c`/`do_name.c` SPE_NOVEL `noveltitle`; `allmain.c` tribute.enabled.
+- Result: **fixed** — `fill_special_room` skipped shop stocking after
+  mkshop set rtype. Ported stock_room cluster + shopkeeper invent +
+  tribute novel + SPE_NOVEL noveltitle.
+- Verification: seg1 **5381→6561** (`dosounds`); seed0030 positional
+  **21235**/105529 Scr **45**/1953; green+strict+cohort PASS; full
+  **17/44** Scr **1313** RNG **143811**.
+- Next: seed0030 seg1 @6561 `dosounds`; or seed0103 `next_ident`/`trquan`.

@@ -39,7 +39,7 @@ frozen-file overlay):
 |--------|------:|
 | Sessions passing | **17 / 44** |
 | Screens matched | **1313 / 11,405** (11.51%) |
-| Positional RNG calls matched | **142,466 / 792,838** (17.97%) |
+| Positional RNG calls matched | **143,811 / 792,838** (18.14%) |
 | Speed label | `20+0.08/turn` |
 | Working-tree base | `8b71735` + committed port (see `main`) |
 | Role-init throws | **0 / 44** (`u_init_role: role not ported`) |
@@ -64,7 +64,7 @@ shared blockers, and semantic coverage together—not one vanity metric.
 | `seed0501-priest-cast-read-turn` | **2238 / 2238** | **28 / 28** |
 | `seed2200-wizard-quaff-zap-read` | **3018 / 3018** | **229 / 230** |
 | `seed0017-samurai-altar-pray` | **3465 / 3465** | **67 / 67** |
-| `seed0030-ten-diverse-deaths` | **19890 / 105529** | **45 / 1953** |
+| `seed0030-ten-diverse-deaths` | **21235 / 105529** | **45 / 1953** |
 | `seed0103-knight-ride-pony` | **2344 / 2640** | 2 / 60 |
 | `seed0200-monk-north-search` | **3822 / 3822** | **40 / 40** |
 | `seed0101-ranger-quiver-throw-travel-engrave` | **2371 / 2371** | **27 / 27** |
@@ -250,6 +250,9 @@ seed0030 seg1 prefix **5220→5255** positional **19751**/105529 Scr
 **`maketrap` ROLLING_BOULDER `mkroll_launch`** (D-0202) →
 seed0030 seg1 prefix **5255→5381** positional **19890**/105529 Scr
 **45**/1953; full **17/44** Scr **1313** RNG **142466**.
+**`stock_room`/`shkinit`/`mkshobj_at`** (D-0203) →
+seed0030 seg1 prefix **5381→6561** positional **21235**/105529 Scr
+**45**/1953; full **17/44** Scr **1313** RNG **143811**.
 
 ### Green gate
 
@@ -428,19 +431,20 @@ autoopen `doopen_indir` (D-0059) + `mfndpos` BOULDER/`ALLOW_ROCK` +
 **`mkshop` eligibility + shtypes `rnd(100)`** (D-0201)
 **`maketrap` ROLLING_BOULDER `mkroll_launch`/`find_random_launch_coord`**
 (D-0202)
+**`stock_room`/`shkinit`/`mkshobj_at`/`get_shop_item`** (D-0203)
 **ported**. Seventeen public sessions pass end-to-end. **0/44** throw at
 `u_init_role`. seed0700 + seed1150 + seed0017 + seed0077 + seed0106 +
 seed0501 + seed0105 + seed0016 + seed0015 + seed0200 + seed0101 **PASS**. seed2200 RNG **full**
 (Scr **229**/230; sole miss parked RC @158).
 seed0101 RNG **full** Scr **27**/27.
 
-- **Bounded unit:** seed0030 seg1 @5381 (`shkinit`/`stock_room` after
-  D-0202 `mkroll_launch`) / seed0103 `next_ident`/`trquan` /
+- **Bounded unit:** seed0030 seg1 @6561 (`dosounds` after D-0203 shop
+  stock) / seed0103 `next_ident`/`trquan` /
   seed0361/0373 **quest `getbones`** (blocked: need `^V`→`goto_level`→
   `makemaz` first — ordinary `goto_level` now exists for stairs; Mines
   `fill_lvl` path exists D-0171).
-- **Prefer:** seed0030 seg1 `shkinit`/`stock_room`/`mkshobj_at` peel after
-  D-0202 over parked D-0006 and over baking seed2200 RC paths.
+- **Prefer:** seed0030 seg1 `dosounds` peel after D-0203 over parked
+  D-0006 and over baking seed2200 RC paths.
   Hero `dotrap` deferred until monster pit peel is clear.
   Hero `xkilled` treasure `mkobj` still deferred (ordinary `make_corpse`
   done D-0191; mhitm path done D-0167; `done_in_by` bones gate done
@@ -532,11 +536,11 @@ seed0101 RNG **full** Scr **27**/27.
   `dogfood` polyfood/cannibalism/rider/petrify/`resists_*` (vegan/
   age-exception/acid/poison done D-0197); other `mhitm_ad_*` +
   `destroy_items` body (AD_ELEC mgc gate done D-0198);
-  bare `distmin<=1` `monnear` (NODIAG done D-0199); Fake Delphi/
+  bare `distmin<=1` `monnear` (NODIAG done D-0199);   Fake Delphi/
   Pillars/nested `des.room` + other themerms fills beyond Ghost/
   Teleportation hub/Storeroom (D-0200); `set_mimic_sym` shop/
-  maze arms; **`stock_room`/`shkinit`/`mkshobj_at`/`get_shop_item`**
-  (mkshop rtype done D-0201; rolling-boulder launch done D-0202); …
+  maze arms; **`shkveg`/`mkveggy_at` + Izchak + wizard SHOPTYPE**
+  (`stock_room`/`shkinit`/`mkshobj_at` done D-0203); …
 - **Cohort:** green gate + seed1500 + seed1800 + seed0060 + seed0102
   + seed0700 + seed1150 + seed0017 + seed0077 + seed0106 + seed0501
   + seed0105 + seed0016 + seed0015 + seed0200 + seed0101 (must stay PASS)
@@ -1258,6 +1262,10 @@ Module status, constitutional debt, and named omissions live in
     positional **19890**/105529 Scr **45**/1953; full **17/44** Scr
     **1313** RNG **142466**; next seed0030 seg1 @5381 / seed0103
     `next_ident`
+180. `stock_room`/`shkinit`/`mkshobj_at` (D-0203)
+    — seed0030 seg1 prefix **5381→6561** (`dosounds`); positional
+    **21235**/105529 Scr **45**/1953; full **17/44** Scr **1313**
+    RNG **143811**; next seed0030 seg1 @6561 / seed0103 `next_ident`
 
 Next work is selected from the active objectives above using
 `PORTING-RUNBOOK.md`, not by extending this historical list.

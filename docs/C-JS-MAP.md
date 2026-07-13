@@ -420,8 +420,8 @@ gettrack redirect falsified (no adjacent track).
 **underfoot `m_search_items` + peaceful `can_carry`** (D-0183) →
 seed0030 prefix **14026→14056** positional **14375**/105529 Scr
 **168**/1953; full **15/44** Scr **1405** RNG **135825**.
-Next peel: seed0030 seg1 @5381 (`shkinit`/`stock_room` after D-0202
-`mkroll_launch`) / quest `makemaz` / parked seed2200 RC @158.
+Next peel: seed0030 seg1 @6561 (`dosounds` after D-0203 shop stock) /
+quest `makemaz` / parked seed2200 RC @158.
 Hero `dotrap`/`trapeffect_pit` still deferred; `xkilled` ordinary
 `make_corpse` done (D-0191; treasure `mkobj` still deferred); `,`
 one-object AUTOSELECT done (D-0192; multi query_objlist deferred);
@@ -441,7 +441,9 @@ seg1 **3870→5220**);
 **`mkshop` eligibility + shtypes `rnd(100)`** done (D-0201; seg1
 **5220→5255**);
 **`maketrap` ROLLING_BOULDER `mkroll_launch`** done (D-0202; seg1
-**5255→5381**; `stock_room`/`shkinit` next);
+**5255→5381**);
+**`stock_room`/`shkinit`/`mkshobj_at`** done (D-0203; seg1
+**5381→6561**);
 other `m_initinv` bodies + soldier early-return still deferred;
 dog_move digweapon / iron bars / shop dig-damage deferred;
 underfoot `m_search_items`→`MMOVE_DONE` still deferred (D-0183);
@@ -468,7 +470,7 @@ underfoot `m_search_items`→`MMOVE_DONE` still deferred (D-0183);
 | `src/fountain.c` | `js/fountain.js` | partial | **`dipfountain` case 16/default + `dryup` rn2(3)** (D-0109); omit Excalibur body, wash_hands, cases 17–29, drinkfountain, town warn/`angry_guards`, wizard yn |
 | `src/sit.c` | `js/sit.js` | partial | **`dosit` having-fun / surface fountain** (D-0109); omit steed/trap/pool/OBJ_AT picnic/throne/egg |
 | runtime `dat/*.lua` + `nhlua.c`/`sp_lev.c` | `js/mklev.js` themerms subset | partial | **Simple filler-map themerms via JS `lspo_map`** (D-0143); **Ghost fill body** (D-0144); **irregular finddpos_shift** (D-0145); **Teleportation hub fill + `make_a_trap` postprocess** (D-0166); **Default/Unlit/Both themed-fill → `themeroom_fill` + Storeroom + `set_mimic_sym`** (D-0200); full Lua VM + remaining `des.*` still production requirement; nested `des.room` / complex map rooms / other fill bodies (Ice/Temple/…) + garden/dig postprocess absent |
-| `src/mkroom.c` `mkshop` / `src/shknam.c` `shtypes` | `js/mklev.js`, `js/shknam.js` | partial | **`mkshop` eligibility + `invalid_shop_shape` + shtypes `rnd(100)` + rtype/needfill/topologize** (D-0201); omit `stock_room`/`shkinit`/`mkshobj_at`/iprobs/shknms (next @seg1 5381); wizard SHOPTYPE; COURT/ZOO/… `do_mkroom` |
+| `src/mkroom.c` `mkshop` / `src/shknam.c` `stock_room` | `js/mklev.js`, `js/shknam.js`, `js/makemon.js` | partial | **`mkshop` eligibility + shtypes** (D-0201); **`stock_room`/`shkinit`/`mkshobj_at`/`get_shop_item`/iprobs/shknms + shopkeeper `m_initinv`/`rnd_misc_item`/`MM_ESHK` + tribute novel** (D-0203); omit `shkveg`/Izchak/wizard SHOPTYPE/Orcus mongone; COURT/ZOO/… `do_mkroom` |
 
 ## Turns, commands, and display
 

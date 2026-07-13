@@ -682,6 +682,34 @@ function mksobj_init(otmp, artif) {
     mkobj_erosions(otmp);
 }
 
+// C ref: do_name.c sir_Terry_novels[] / noveltitle
+const SIR_TERRY_NOVELS = [
+    'The Colour of Magic', 'The Light Fantastic', 'Equal Rites', 'Mort',
+    'Sourcery', 'Wyrd Sisters', 'Pyramids', 'Guards! Guards!', 'Eric',
+    'Moving Pictures', 'Reaper Man', 'Witches Abroad', 'Small Gods',
+    'Lords and Ladies', 'Men at Arms', 'Soul Music', 'Interesting Times',
+    'Maskerade', 'Feet of Clay', 'Hogfather', 'Jingo', 'The Last Continent',
+    'Carpe Jugulum', 'The Fifth Elephant', 'The Truth', 'Thief of Time',
+    'The Last Hero', 'The Amazing Maurice and His Educated Rodents',
+    'Night Watch', 'The Wee Free Men', 'Monstrous Regiment',
+    'A Hat Full of Sky', 'Going Postal', 'Thud!', 'Wintersmith',
+    'Making Money', 'Unseen Academicals', 'I Shall Wear Midnight', 'Snuff',
+    'Raising Steam', "The Shepherd's Crown",
+];
+
+/** C ref: do_name.c noveltitle — pick/store Discworld novel title index. */
+function noveltitle(otmp) {
+    const k = SIR_TERRY_NOVELS.length;
+    let j = rn2(k);
+    if (otmp) {
+        if ((otmp.novelidx | 0) === -1) otmp.novelidx = j;
+        else if ((otmp.novelidx | 0) >= 0 && (otmp.novelidx | 0) < k) {
+            j = otmp.novelidx | 0;
+        }
+    }
+    return SIR_TERRY_NOVELS[j];
+}
+
 // C ref: mkobj.c mksobj()
 export function mksobj(otyp, init, artif) {
     const objects = objs();
@@ -738,6 +766,11 @@ export function mksobj(otyp, init, artif) {
             rn2(2);
         }
         if (name === 'CORPSE') start_corpse_timeout(otmp);
+    } else if (name === 'SPE_NOVEL') {
+        // C ref: mkobj.c mksobj SPE_NOVEL — even when !init
+        otmp.novelidx = -1;
+        const title = noveltitle(otmp);
+        otmp.oname = title;
     }
     // C: otmp->owt = weight(otmp);
     otmp.owt = weight(otmp);

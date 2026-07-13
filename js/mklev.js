@@ -44,7 +44,7 @@ import {
     SPBOOK_CLASS, WAND_CLASS,
     objectNames,
 } from './objects.js';
-import { shtypes } from './shknam.js';
+import { shtypes, stock_room } from './shknam.js';
 import { setgemprobs } from './o_init.js';
 import { maketrap, t_at } from './trap.js';
 import {
@@ -1355,7 +1355,7 @@ function ROOM_IS_FILLABLE(croom) {
 }
 
 /**
- * C ref: sp_lev.c fill_special_room() — vault gold; shop stock_room deferred.
+ * C ref: sp_lev.c fill_special_room() — vault gold; shop stock_room.
  */
 function fill_special_room(croom) {
     if (!croom) return;
@@ -1367,9 +1367,10 @@ function fill_special_room(croom) {
         return;
 
     if (croom.needfill === FILL_NORMAL) {
-        // C: rtype >= SHOPBASE → stock_room(...); has_shop — deferred (D-0201 next)
+        // C: rtype >= SHOPBASE → stock_room(...); has_shop
         if (croom.rtype >= SHOPBASE) {
-            // rtype/needfill set by mkshop; stocking omitted until shkinit port
+            stock_room(croom.rtype - SHOPBASE, croom);
+            if (game.level?.flags) game.level.flags.has_shop = true;
             return;
         }
         if (croom.rtype === VAULT) {

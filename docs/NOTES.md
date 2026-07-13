@@ -7,12 +7,11 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 
 ## Active
 
-- **Current unit:** seed0030 seg1 @5381 / seed0103 `next_ident`/`trquan`.
-- **Hypothesis (seed0030 seg1):** after D-0202 `mkroll_launch`, first mismatch
-  @5381 — C `next_ident`/`makemon(PM_SHOPKEEPER)` inside `shkinit` vs JS
-  `rn2(200)` mineralize (shop `stock_room`/`shkinit` still deferred).
-- **Falsifier:** wire `fill_special_room` shop path → `shkinit`/`stock_room`
-  and re-measure seg1 @5381.
+- **Current unit:** seed0030 seg1 @6561 / seed0103 `next_ident`/`trquan`.
+- **Hypothesis (seed0030 seg1):** after D-0203 `stock_room`/`shkinit`, first
+  mismatch @6561 — C `dosounds` `rn2(200)` (sounds.c:313) vs JS `rn2(20)`.
+- **Falsifier:** compare C `dosounds` call at that site vs JS `dosounds` /
+  vault/fountain feature gates; port the missing sound branch.
 - **Parked deep canary:** D-0006 pet movement — do not implement until C
   state/candidate capture exists.
 - **Parked seed2200 @158:** RC config path — harness `$HOME`, not a port bug.
@@ -143,6 +142,9 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   `rnd(25)=7` is `ROLLING_BOULDER_TRAP`; C `maketrap`→`mkroll_launch`→
   `find_random_launch_coord` `rn1(5,4)`/`rn2(8)` while JS jumped to
   victim `rnd(4)` (D-0202).
+- **seed0030 seg1 @5381 was NOT mineralize early** — C `fill_special_room`
+  → `stock_room`→`shkinit`→`makemon(PM_SHOPKEEPER)` `next_ident`; JS
+  skipped stocking (D-0203). Do not re-chase vault `rn2(200)` order.
 - **`monattk.h`: AT_WEAP=254, AT_MAGC=255, AT_SPIT=10** — never use 10 for
   weapon (D-0179).
 - Hostile `m_move`: before place, `m_digweapon_check` may return
@@ -219,4 +221,8 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   countdown (D-0201).
 - **`maketrap` ROLLING_BOULDER:** `mkroll_launch`→`find_random_launch_coord`
   `rn1(5,4)`+`rn2(8)` + `isclearpath` both ways; fail → launch at trap
-  (victim skipped) (D-0202). `stock_room`/`shkinit` next (~seg1@5381).
+  (victim skipped) (D-0202).
+- **`stock_room`/`shkinit`:** `makemon(PM_SHOPKEEPER,MM_ESHK)` + shopkeeper
+  `m_initinv` kit + `rnd_misc_item` + `mkmonmoney` + tribute
+  `rnd(stockcount)` novel + `mkshobj_at`/`get_shop_item` (D-0203).
+  `shkveg`/health-food and Izchak still deferred.

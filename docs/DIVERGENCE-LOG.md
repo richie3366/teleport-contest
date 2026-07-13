@@ -206,6 +206,7 @@ Do not record a guessed cause as fixed merely because an RNG prefix moved.
 | D-0200 | fixed | themerms fill | Default themed-fill → `themeroom_fill` + Storeroom + `set_mimic_sym` |
 | D-0201 | fixed | mkshop | `invalid_shop_shape` + shtypes `rnd(100)` + rtype/needfill |
 | D-0202 | fixed | maketrap | ROLLING_BOULDER `mkroll_launch`/`find_random_launch_coord` |
+| D-0203 | fixed | shops | `stock_room`/`shkinit`/`mkshobj_at` + shopkeeper invent |
 
 D-0001 through D-0005 predate the strict-length/cohort runbook. Their focused
 causes are preserved, but generic "green sessions held" is historical evidence,
@@ -5492,4 +5493,29 @@ cohort gates if those functions are touched again.
   STATUE_TRAP living statue; pit shop/terrain morph; Sokoban finish.
 - **Next:** seed0030 seg1 @5381 `shkinit`/`stock_room`/`mkshobj_at`; or
   seed0103 `next_ident`/`trquan`.
+
+## D-0203 — stock_room / shkinit / mkshobj_at (seed0030 seg1 @5381)
+
+- **Symptom:** seed0030 seg1 @5381 C `rnd(2)=2 @ next_ident` (shopkeeper
+  `makemon`) vs JS `rn2(200)` mineralize.
+- **Rejected:** vault/mineralize order alone — C already filled vault gold
+  earlier; @5381 is `fill_special_room` shop → `stock_room`→`shkinit`.
+- **Cause/evidence:** JS `fill_special_room` returned early for
+  `rtype >= SHOPBASE` without calling `stock_room`, so mklev jumped to
+  mineralize while C created `PM_SHOPKEEPER` (`MM_ESHK`), shopkeeper
+  `m_initinv`, `mkmonmoney`, tribute novel spot, and `mkshobj_at` stock.
+- **Change:** `js/shknam.js` — shtypes iprobs/shknms, `get_shop_item`,
+  `shkinit`/`stock_room`/`mkshobj_at`/`nameshk`/`good_shopdoor`;
+  `js/makemon.js` — `neweshk`/`MM_ESHK`, shopkeeper `m_initinv`,
+  `rnd_misc_item`, export `mkmonmoney`; `js/mkobj.js` — `SPE_NOVEL`
+  `noveltitle`; `js/mklev.js` — `fill_special_room`→`stock_room`;
+  `js/allmain.js` — `context.tribute.enabled`.
+- **Verification:** seg1 prefix **5381→6561** (`dosounds`); seed0030
+  positional **21235**/105529 Scr **45**/1953; green+strict+cohort PASS;
+  full **17/44** Scr **1313**/11405 RNG **143811**/792838.
+- **Named omissions:** `shkveg`/`mkveggy_at`; Izchak minetown light-shk;
+  platform ifdef `shktools` names; Orcus `mongone`; wizard SHOPTYPE;
+  `rnd_defensive_item` body; irregular-shop edge cases; full `rloc`.
+- **Next:** seed0030 seg1 @6561 `dosounds`; or seed0103
+  `next_ident`/`trquan`.
 

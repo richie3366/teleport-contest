@@ -38,9 +38,11 @@ import {
     montoostrong,
     likes_gold,
     monsterNames,
+    is_animal,
+    mindless,
 } from './monsters.js';
 import {
-    NO_MINVENT, MM_NOGRP, MM_ASLEEP, MM_NONAME,
+    NO_MINVENT, MM_NOGRP, MM_ASLEEP, MM_NONAME, MM_ESHK,
     GP_CHECKSCARY, GP_AVOID_MONPOS, Is_rogue_level, In_mines,
     OBJ_MINVENT, COLNO, ROWNO, A_NONE, GEHENNOM, G_GONE,
     M_AP_OBJECT, M_AP_FURNITURE, IS_DOOR, IS_WALL,
@@ -56,6 +58,28 @@ import {
 } from './objects.js';
 import { cansee } from './vision.js';
 import { christen_monst } from './do_name.js';
+
+/** C ref: shknam.c neweshk — allocate eshk for MM_ESHK makemon. */
+export function neweshk(mtmp) {
+    if (!mtmp.mextra) mtmp.mextra = {};
+    if (!mtmp.mextra.eshk) {
+        mtmp.mextra.eshk = {
+            parentmid: mtmp.m_id | 0,
+            bill_p: null,
+            shoproom: 0,
+            shoptype: 0,
+            shoplevel: { dnum: 0, dlevel: 0 },
+            shd: { x: 0, y: 0 },
+            shk: { x: 0, y: 0 },
+            robbed: 0, credit: 0, debit: 0, loan: 0,
+            following: false, surcharge: false, dismiss_kops: false,
+            billct: 0, visitct: 0,
+            customer: '',
+            shknam: '',
+        };
+    }
+    return mtmp.mextra.eshk;
+}
 
 // C ref: makemon.c set_mimic_sym — S_MIMIC_DEF sentinel (MONSYMS_S_ENUM idx 60)
 const S_MIMIC_DEF_SYM = 60;
@@ -588,7 +612,7 @@ function findgold(argchain) {
 }
 
 // C ref: makemon.c mkmonmoney
-function mkmonmoney(mtmp, amount) {
+export function mkmonmoney(mtmp, amount) {
     if (amount > 0) {
         const gold = mksobj(otyp('GOLD_PIECE'), false, false);
         gold.quan = amount;
@@ -597,7 +621,40 @@ function mkmonmoney(mtmp, amount) {
     }
 }
 
-// C ref: makemon.c m_initinv — S_GNOME candle + trailing defensive/misc/gold
+/**
+ * C ref: muse.c rnd_misc_item — weak-monster misc inventory.
+ * Named omissions: See_invisible gate detail; vampshifter; nonliving table.
+ */
+function rnd_misc_item(mtmp) {
+    const pm = mtmp.data;
+    const difficulty = pm?.difficulty ?? 0;
+    if (is_animal(pm) || mindless(pm)
+        || pm?.mlet === 'S_GHOST' || pm?.mlet === 'S_KOP') {
+        return 0;
+    }
+    // attacktype(AT_EXPL) deferred — no shopkeeper/common path uses it here
+    if (difficulty < 6 && !rn2(30)) {
+        return rn2(6) ? otyp('POT_POLYMORPH') : otyp('WAN_POLYMORPH');
+    }
+    if (!rn2(40) /* && !nonliving && !vampshifter */) {
+        return otyp('AMULET_OF_LIFE_SAVING');
+    }
+    switch (rn2(3)) {
+    case 0:
+        if (mtmp.isgd) return 0;
+        return rn2(6) ? otyp('POT_SPEED') : otyp('WAN_SPEED_MONSTER');
+    case 1:
+        // C: mpeaceful && !See_invisible → 0; See_invisible deferred → treat false
+        if (mtmp.mpeaceful) return 0;
+        return rn2(6) ? otyp('POT_INVISIBILITY') : otyp('WAN_MAKE_INVISIBLE');
+    case 2:
+        return otyp('POT_GAIN_LEVEL');
+    default:
+        return 0;
+    }
+}
+
+// C ref: makemon.c m_initinv — S_GNOME candle, PM_SHOPKEEPER kit, trailing misc
 function m_initinv(mtmp) {
     const ptr = mtmp.data;
     if (Is_rogue_level(game.u?.uz)) return;
@@ -617,17 +674,37 @@ function m_initinv(mtmp) {
             mpickobj(mtmp, otmp);
         }
         break;
+    case 'S_HUMAN':
+        if (ptr.mndx === pm('SHOPKEEPER')) {
+            mongets(mtmp, otyp('SKELETON_KEY'));
+            switch (rn2(4)) {
+            case 0:
+                mongets(mtmp, otyp('WAN_MAGIC_MISSILE'));
+                // FALLTHROUGH
+            case 1:
+                mongets(mtmp, otyp('POT_EXTRA_HEALING'));
+                // FALLTHROUGH
+            case 2:
+                mongets(mtmp, otyp('POT_HEALING'));
+                // FALLTHROUGH
+            case 3:
+                mongets(mtmp, otyp('WAN_STRIKING'));
+                break;
+            }
+        }
+        // mercenary / elf / priest / guardian arms deferred
+        break;
     default:
-        // Other m_initinv bodies (mercenary armor, nymph, …) deferred
+        // Other m_initinv bodies (nymph, giant, …) deferred
         break;
     }
 
     // C: PM_SOLDIER && rn2(13) early return — deferred (mercenary m_initinv)
     if (mtmp.m_lev > rn2(50)) {
-        /* rnd_defensive_item */
+        /* rnd_defensive_item — named omission until a gate-passing cohort */
     }
     if (mtmp.m_lev > rn2(100)) {
-        /* rnd_misc_item */
+        mongets(mtmp, rnd_misc_item(mtmp));
     }
     // C: likes_gold && !findgold(minvent) && !rn2(5) → mkmonmoney
     if (likes_gold(ptr) && !findgold(mtmp.minvent) && !rn2(5)) {
@@ -813,8 +890,12 @@ export function makemon(mdat, x, y, mmflags = 0) {
         minvent: null,
     };
 
+    // C: MM_ESHK → neweshk before m_id assignment
+    if (mmflags & MM_ESHK) neweshk(mtmp);
+
     next_ident(); // m_id
     mtmp.m_id = game.context?.ident ? game.context.ident - 1 : 1;
+    if (mtmp.mextra?.eshk) mtmp.mextra.eshk.parentmid = mtmp.m_id;
     newmonhp(mtmp, ptr);
 
     const femaleok = !is_male(ptr) && !is_neuter(ptr);
