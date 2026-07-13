@@ -21,6 +21,25 @@ Use this shape:
 
 ---
 
+---
+
+## 2026-07-13 11:05 — mthrowu canseemon/thitu + melee skip hit (D-0119)
+- Objective: seed0106 Scr @46 dart combat topline (PROGRESS primary).
+- C locus: `display.h` `_canseemon`; `mthrowu.c` `monshoot`/`thitu`;
+  `zap.c` `exclam`; `uhitm.c` `hmon_hitmon_msg_hit`.
+- Result: **verified** — JS `canseemon` used `couldsee` so printed
+  throw while kobold off-screen; `thitu` lacked `an`/`exclam`/miss;
+  melee always printed `You hit` before kill. Ported real canseemon,
+  thitu messaging, skip hit-on-destroyed.
+- Verification: seed0106 Scr **46→49**/267; green+strict PASS; cohort
+  1500/1800/0060/0102/0700/1150/0017/0077 PASS; full **10/44** Scr
+  **916→919** RNG **104575**/792838.
+- Next: seed0106 death-drop floor `)` glyph @44, or seed2200
+  `dokeylist` @184 —
+  `node frozen/ps_test_runner.mjs sessions/seed0106-priest-extcmd-sweep.session.json`
+
+---
+
 ## 2026-07-13 10:55 — obj_is_generic potion glyph (D-0118)
 - Objective: seed0106 Scr @34 potion `!` yellow vs NO_COLOR (PROGRESS).
 - C locus: `display.h` `obj_is_generic` / `obj_to_glyph`; contest

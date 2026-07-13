@@ -121,6 +121,8 @@ Do not record a guessed cause as fixed merely because an RNG prefix moved.
 | D-0115 | fixed | display/symset | Honor `symset:DECgraphics`; default Primary ASCII walls/floors/open doors |
 | D-0116 | fixed | pray/attrib/pline | angrygods `verbalize` + `adjattrib` You_feel → quote/`--More--`; seed0106 Scr 32→34 |
 | D-0117 | fixed | getline/extcmd AC | full AUTOCOMPLETE uniqueness for NEWAUTOCOMP; seed0106 Scr 34→38 |
+| D-0118 | fixed | display/glyph | `obj_is_generic` + tty gray/black→NO_COLOR; seed0106 Scr 38→46 |
+| D-0119 | fixed | mthrowu/uhitm msg | `canseemon`+`thitu` an/exclam/miss; melee skip hit when destroyed; seed0106 Scr 46→49 |
 
 D-0001 through D-0005 predate the strict-length/cohort runbook. Their focused
 causes are preserved, but generic "green sessions held" is historical evidence,
@@ -3176,6 +3178,36 @@ cohort gates if those functions are touched again.
 - **Named omission:** hallu `random_obj_to_glyph`; pile-top generic
   offsets; when floor see sets `dknown` (colored potions after known).
 - **Next:** seed0106 mthrowu/hit dart pline @46 /
+  seed2200 `dokeylist` @184.
+
+## D-0119 — mthrowu `canseemon`/`thitu` + melee skip hit-on-kill
+
+- **Status:** fixed
+- **Observed:** seed0106 Scr **46**/267 first miss @40: C topline
+  `You are hit by a dart.` vs JS
+  `The kobold throws dart!  You are hit by dart!`. Map at that step
+  has no visible `k` (kobold still off-screen). Later @43: C
+  `You kill the kobold!` vs JS
+  `You hit the kobold.  You kill the kobold!`.
+- **Cause/evidence:** JS `monshoot` used `couldsee && !minvis` as
+  `canseemon`, so dark-corridor LOS still printed the throw pline;
+  C `_canseemon` needs `cansee`/`see_with_infrared` + `mon_visible`.
+  `thitu` omitted `an()`/`exclam` and miss plines (`A dart misses you.`).
+  Melee `hmon` always printed `You hit` before damage; C
+  `hmon_hitmon_msg_hit` skips when `destroyed` (non-thrown).
+- **C locus:** `display.h` `_canseemon`; `mthrowu.c` `monshoot`/`thitu`;
+  `zap.c` `exclam`; `uhitm.c` `hmon_hitmon_msg_hit`.
+- **Change:** `js/mthrowu.js` real `canseemon`, `thitu` an/exclam/miss,
+  `monshoot` `an(singular)`; `js/uhitm.js` apply damage then skip hit
+  pline when destroyed.
+- **Verification:** seed0106 Scr **46→49**/267 (next: floor `)` vs `#`
+  at death-drop cell); green+strict PASS; cohort
+  1500/1800/0060/0102/0700/1150/0017/0077 PASS; full **10/44** Scr
+  **916→919** RNG **104575**/792838.
+- **Named omission:** `mshot_xname` multishot "Nth"; `obj_is_pname`/
+  `the()`; thrown multishot hit-when-destroyed; surviving-hit
+  `canseemon ? exclam : "."`; death-drop map glyph/`newsym` after kill.
+- **Next:** seed0106 death-drop floor glyph @44 /
   seed2200 `dokeylist` @184.
 
 

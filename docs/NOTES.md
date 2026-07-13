@@ -7,16 +7,17 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 
 ## Active
 
-- **Current unit:** D-0118 cleared: `obj_is_generic` + tty gray/black→NO_COLOR.
-  seed0106 Scr **38→46**; aggregate screens **857→916**.
-- **Hypothesis:** seed0106 next Scr peel @46 is combat topline — C
-  `You are hit by a dart.` vs JS `The kobold throws dart!  You are hit by
-  dart!` (mthrowu / hit messaging / article). seed2200 next real peel
-  after parked RC path @158 is help `j` → `dokeylist` @184.
+- **Current unit:** D-0119 cleared: mthrowu `canseemon`/`thitu` an/exclam/miss
+  + melee skip hit-on-kill. seed0106 Scr **46→49**.
+- **Hypothesis:** seed0106 next Scr peel @44 is death-drop map glyph —
+  C shows weapon `)` (yellow) at kobold death cell vs JS corridor `#`
+  (NO_COLOR). Likely `relobj`/`newsym`/floor-object display after kill,
+  not topline. seed2200 next real peel after parked RC path @158 is
+  help `j` → `dokeylist` @184.
 - **Falsifier / next:**
   ```bash
   node frozen/ps_test_runner.mjs sessions/seed0106-priest-extcmd-sweep.session.json
-  # expect Scr >46 if dart throw/hit pline matches C; green cohort must stay PASS
+  # expect Scr >49 if death-drop glyph matches C; green cohort must stay PASS
   node frozen/ps_test_runner.mjs sessions/seed2200-wizard-quaff-zap-read.session.json
   ```
 - **Parked deep canary:** D-0006 pet movement — do not implement until C
@@ -66,6 +67,11 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   — C has color (yellow `<`, white `@`/pet). Cause was `obj_is_generic`
   (`!dknown` potions → GENERIC_POTION CLR_GRAY → tty NO_COLOR) (D-0118).
   Do not force all yellow `!` → NO_COLOR.
+- **seed0106 @40 dart topline was NOT missing articles alone** — JS
+  `canseemon` used `couldsee` so printed throw while kobold off-screen;
+  C only `You are hit by a dart.` (D-0119). Do not suppress throw by seed.
+- **seed0106 @43 kill topline was NOT message concat** — C
+  `hmon_hitmon_msg_hit` skips melee hit when `destroyed` (D-0119).
 - Door open: C `recalc_block_point` before vision sees through;
   DECgraphics open door = meta-a / CLR_BROWN; ASCII open door uses
   `horizontal` → `|` / `-` (D-0113/D-0115).
@@ -97,3 +103,5 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 - Contest nomux: CLR_GRAY and CLR_BLACK record as NO_COLOR (8); yellow
   hilite works (`\033[93m`). `!dknown` potions use generic class glyph
   color, not shuffled `oc_color` (D-0118).
+- `_canseemon` = `(cansee||infrared) && mon_visible` — not `couldsee`
+  (D-0119). Melee kill: no `You hit` when already destroyed.
