@@ -188,7 +188,7 @@ Do not record a guessed cause as fixed merely because an RNG prefix moved.
 | D-0182 | fixed | monmove/m_search_items | getitems + loot gg redirect; dwarf rocktrap @13987 |
 | D-0183 | partial | monmove/underfoot loot | skip underfoot MMOVE_DONE until mpickstuff; can_carry peaceful |
 | D-0184 | partial | muse/potionhit | MUSE_POT_* throw + hero potionhit/breathe/makeknown |
-| D-0185 | open | m_move/mfndpos cnt | seed0030 @14118: JS gnome walls vs C rn2(32); join/flood+post-wallify falsified; need C levl dump |
+| D-0185 | fixed | postmov mpickstuff | seed0030 @14118: missing `mpickstuff` left floor glass → silent `m_search_items` gg split |
 
 D-0001 through D-0005 predate the strict-length/cohort runbook. Their focused
 causes are preserved, but generic "green sessions held" is historical evidence,
@@ -5028,66 +5028,36 @@ cohort gates if those functions are touched again.
 - **Rejected / falsified:** wrong `catch_chance`/DEX (JS never entered
   catch); `delobj` after potionhit (extra `rn2(100)`); makeknown without
   flight `observe_object` when thrower `!cansee`.
-- **Next:** seed0030 @14118 (C `rn2(32)` vs JS `rn2(24)` `m_move`);
-  or seed0101 Scr / seed0200 @3382.
+- **Next:** seed0030 @14151 (after D-0185); or seed0101 Scr / seed0200 @3382.
 
-## D-0185 — seed0030 @14118 m_move cnt (gnome walls)
+## D-0185 — seed0030 @14118 missing postmov `mpickstuff`
 
-- **Status:** open (diagnosis refined; no production change)
-- **Observed:** seed0030 @14118 — C `rn2(32)` @ `m_move` mtrack skip
-  (`4*(cnt-j)`); JS `rn2(24)`. Prior calls matched including
-  `rn2(32)` @14115 and two `distfleeck` `rn2(5)`.
-- **JS actor path (same mon):** `(61,6)`→`(60,7)`→`(59,8)`→`(58,9)`→
-  `(57,10)` toward loot gg=`(57,11)`. Matching `rn2(32)` cnt=8 at
-  @13960/@14023/@14074 while on open cells; @14074 `(58,9)`→`(57,10)`
-  after `rn2(32)=11` mtrack skip of prior cell.
-- **JS state at mismatch:** PM_GNOME @`(57,10)`, `appr=1`,
-  `flag=ALLOW_U|OPENDOOR`, `cnt=6`, `!tunnels`, mtrack=
-  `(58,9);(59,8);(60,7);(61,6)`. Missing neighbors `(56,9)=TRCORNER`,
-  `(56,10)=BRCORNER`. All six ROOM neighbors are in `poss`.
-- **Map evidence:** after pass_one, western edge `(55,8..10)=STONE` and
-  `(56,9)/(56,10)=ROOM` with exactly 5 ROOM neighbors → `pass_two`
-  ROOM→STONE; smooth/join leave STONE; `wallify`→HWALL→corners. Mines
-  join dig `(50,11)→(74,16)` does not carve them. Only **2** C
-  `mdig_tunnel` before 14118 at `(22,7)`/`(23,6)` — not dig-open of
-  `(56,*)`.
-- **C RNG replay:** session `init_fill` values through `pass_one`/
-  `pass_two`/`pass_three` yield the **same** STONE at `(56,9)`/
-  `(56,10)` (count==5 after pass1). Join dig endpoints match C
-  (`16,14→19,3` … `50,11→74,16`).
-- **@14074 dest:** gg=`(57,11)` WORTHLESS_BLUE_GLASS (COLLECT+practical
-  GEM); AMULET_OF_CHANGE @`(58,10)` `take=false` (gnome `!M2_MAGIC`);
-  nearer forces `(57,10)`. No trap/monster excludes that cell.
-- **FORCE experiment (removed):** opening `(56,9)`/`(56,10)` to ROOM at
-  @14118 advances prefix **14118→14153** (C/JS both `rn2(32)`); next
-  miss `rn2(24)` vs `rn2(28)`.
-- **C locus:** `monmove.c` `m_move` `rn2(4*(cnt-j))`; `mon.c` `mfndpos`;
-  `mkmap.c` `pass_one`/`pass_two` / `join_map` / `wallify_map`.
-- **Cause (partial):** JS cnt shortfall is the two wall cells. C needs
-  them walkable at movement time despite the same mkmap→wallify outcome
-  from C's own RNG — opener still unknown. **Post-wallify typ mutation
-  falsified** and **join_map/flood/erase falsified** (rooms/digs/RNG
-  match C). @14115 matching `rn2(32)` is a different gnome at
-  `(48,17)` with cnt=8 all-ROOM neighbors. Remaining: C `levl` dump or
-  unknown post-wallify opener.
-- **Rejected / falsified:** hero-sleep/`Unaware` allowflags; gnome
-  `ALLOW_DIG`/`M1_TUNNEL`; known-trap skip; dig-open via `mdig_tunnel`
-  at `(22,7)`/`(23,6)` only (third dig @14064 still far from `(56,*)`);
-  unrelated actor; mkmap iter/pass_two formula mismatch; @14074
-  mux-vs-loot dest split / amulet nearer / occupancy on `(57,10)`;
-  **pass_one west ROOM neighbor** (C RNG replay);   **join dig endpoint
-  mismatch** (endpoints match C); **mines `dig_corridor` path through
-  `(56,9)`/`(56,10)`** — dig RNG 12495–12635 matches C 1:1; last join
-  dig `50,11→74,16` visits only `y=11` near x=56 (carve list and full
-  visit list); other mines digs never near those cells;
-  **post-wallify `loc.typ` mutation** (0 writes wallify→14118);
-  **join_map flood/erase / room-bounds** — keep=7 erase=0; room widths
-  match C somex/somey; six dig endpoints match; init_fill+join dig RNG
-  windows 0 mismatches.
-- **Next falsifier:** dump C `levl[56][9]`/`[56][10]` typ at the
-  `rn2(32)` call (recorder). Do not FORCE-open; do not re-peel join
-  flood / dig-path / post-wallify writers.
-- **Verification:** green+strict PASS; DIAG/FORCE removed; no production
-  edit.
-
+- **Status:** fixed
+- **Observed:** seed0030 @14118 — C `rn2(32)` @ `m_move` mtrack; JS
+  `rn2(24)`. Matching `rn2(32)` @14074 with **different mon positions**:
+  C `(59,9)` vs JS `(58,9)` (same arg — silent path split).
+- **C recorder dump:** at `(59,8)` both `gettrack=null`, `mux=(33,5)`;
+  after `m_search_items` C `gg=(59,12)` vs JS `gg=(57,11)`. Same
+  `poss`/cnt=8. C has no floor glass at `(57,11)` (gnome there holds
+  glass in `minvent`); JS still has floor glass → nearer loot redirect.
+  At `(57,10)` C **also** has TRCORNER/BRCORNER and cnt=6 — wall-opener
+  theories were red herrings (FORCE-open coincidence).
+- **C locus:** `mon.c` `mpickstuff`; `monmove.c` `postmov` shared
+  `MOVED|DONE` `OBJ_AT` pickup; `m_search_items` gg.
+- **Cause:** JS `postmov` never called `mpickstuff`, so hostile gnomes
+  left takeable glass on the floor; later `m_search_items` chose a
+  different gg without burning different RNG at the prior mtrack call.
+- **Fix:** port `mpickstuff` (one-object take via `mon_would_take_item`/
+  `can_carry`/`splitobj`/`mpickobj`) and run it in `postmov` for
+  `MMOVE_MOVED|MMOVE_DONE` like C.
+- **Rejected / falsified:** mkmap pass_two/join/flood/dig/wallify openers;
+  post-wallify typ writers; C walkable walls at `(56,9)/(56,10)` when
+  gnome is at `(57,10)`.
+- **Verification:** seed0030 prefix **14118→14151**; positional
+  **14489**/105529; full **15/44** Scr **1405** RNG **135939**; green
+  + seed1500/1800/0060 + strict PASS. Next @14151 `distfleeck` vs
+  `rnd(2)`.
+- **Named omissions:** underfoot `m_search_items`→`MMOVE_DONE` still
+  deferred (D-0183); shop/`inhishop`; meatmetal/cube/corpse_eater;
+  `check_gear_next_turn`; `distant_name` side-effects.
 

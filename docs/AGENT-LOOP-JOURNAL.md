@@ -2399,3 +2399,15 @@ Use this shape:
   Next: C `levl` typ dump at rn2(32).
 - Verification: green+strict PASS; DIAG removed; js tree clean.
 - Next: D-0185 C levl dump / unknown opener; or seed0101 Scr.
+
+## 2026-07-13 22:20 — D-0185 postmov `mpickstuff` fixed
+- Objective: seed0030 @14118 C `rn2(32)` vs JS `rn2(24)` (PROGRESS primary).
+- C locus: `mon.c` `mpickstuff`; `monmove.c` `postmov` MOVED|DONE pickup;
+  `m_search_items` gg.
+- Result: **fixed** — C recorder dump at `(59,8)`: same gettrack/mux/poss;
+  C `gg=(59,12)` vs JS `gg=(57,11)` because JS never picked up floor glass
+  (`postmov` omitted `mpickstuff`). Wall theories falsified (C also cnt=6
+  at `(57,10)`). Ported `mpickstuff` + wired into `postmov`.
+- Verification: seed0030 prefix **14118→14151**; positional **14489**/105529;
+  full **15/44** Scr **1405** RNG **135939**; green+cohort+strict PASS.
+- Next: seed0030 @14151 (`distfleeck` `rn2(5)` vs `rnd(2)`); or seed0101 Scr.

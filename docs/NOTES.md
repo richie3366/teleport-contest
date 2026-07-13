@@ -7,16 +7,11 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 
 ## Active
 
-- **Current unit:** D-0185 — seed0030 @14118 `m_move` cnt (after D-0184).
-- **Hypothesis / next:** join_map/flood/erase **falsified** (7 rooms,
-  somex sizes, dig endpoints, erase=0 all match C; pass_two STONE→wallify
-  corners). FORCE-open `(56,9)`/`(56,10)` still →14153. Need **C `levl`
-  typ dump** at the `rn2(32)` call (or other post-wallify opener C has
-  that JS lacks — not join/flood).
-- **Falsifier / next:**
+- **Current unit:** seed0030 @14151 (after D-0185 `mpickstuff`).
+- **Hypothesis:** C `rn2(5)` `@distfleeck` vs JS `rnd(2)` — different call
+  site / actor after mpickstuff path; reconstruct C caller at 14151.
+- **Falsifier:**
   ```bash
-  # Instrument C recorder: levl[56][9].typ / levl[56][10].typ at m_move
-  # rn2(32) @14118; compare to JS TRCORNER/BRCORNER.
   node scripts/rng-diff.mjs sessions/seed0030-ten-diverse-deaths.session.json
   ```
 - **Parked deep canary:** D-0006 pet movement — do not implement until C
@@ -83,34 +78,11 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   `obj_resists` `rn2(100)`; C `obfree` does not (D-0184).
 - **`makeknown` after vapor needs flight `observe_object`** — thrower
   `!cansee` still IDs potion when missile crosses visible cells (D-0184).
-- **@14118 walls are from `mkmap_pass_two` count==5** — ROOM→STONE at
-  `(56,9)`/`(56,10)` after pass1; join never carved; wallify→corners;
-  only 2 C `mdig_tunnel` before 14118 (neither near there). Do not
-  force-open walls or re-chase dig-open (D-0185).
-- **mkmap N_P1/P2/P3_ITER is 1/1/2** — JS already matches; pass_two
-  logic matches C `new_loc` (D-0185).
-- **@14074 dest split falsified** — gg=`(57,11)` glass via COLLECT;
-  amulet `(58,10)` take=false (no M2_MAGIC); nearer→`(57,10)` only.
-  Occupancy/traps do not block `(57,10)`. FORCE-open walls advances
-  prefix — C map has those cells walkable (D-0185).
-- **C init_fill RNG replay → same pass_two STONE** — `(55,*)` STONE after
-  pass1 in both; pass_one west-ROOM theory **falsified** (D-0185).
-- **Mines join dig endpoints + dig RNG match C**; last dig
-  `50,11→74,16` visits only `y=11` near x=56 (never `(56,9)`/`(56,10)`);
-  dig-path opener **falsified** (D-0185).
-- **Pre-14118 `mdig_tunnel` is dwarf @`(22,7)`/`(23,6)` only** — not the
-  gnome walls (D-0185).
-- **PM_GNOME `!M1_TUNNEL`** — cannot `mfndpos` walls via ALLOW_DIG
-  (D-0185).
-- **Post-wallify typ mutation falsified** — hook from mines wallify
-  @13226→14118: **0** writes to `(56,9)`/`(56,10)`; still TRCORNER/
-  BRCORNER at mismatch. @14115 is a *different* gnome @(48,17) cnt=8
-  (D-0185). Do not re-hunt post-wallify writers.
-- **join_map/flood/erase non-RNG falsified** — keep=7 erase=0; room
-  bounds match C `somex`/`somey` widths (17×16…15×14); six dig
-  endpoints match C (`16,14→19,3` … `50,11→74,16`); init_fill+join dig
-  RNG windows 0 mismatches; cells STONE after pass_two → HWALL →
-  corners. Do not re-peel join flood (D-0185).
+- **@14118 was NOT missing wall openers / join / dig / pass_two** — C
+  also has TRCORNER/BRCORNER at `(56,9)/(56,10)` with cnt=6 when gnome
+  is at `(57,10)`. Real split: silent gg after `(59,8)` — C `gg=(59,12)`
+  vs JS `gg=(57,11)` because JS never `mpickstuff`’d floor glass
+  (D-0185). Do not FORCE-open walls or re-peel mkmap.
 - **`monattk.h`: AT_WEAP=254, AT_MAGC=255, AT_SPIT=10** — never use 10 for
   weapon (D-0179).
 - Hostile `m_move`: before place, `m_digweapon_check` may return
@@ -143,6 +115,6 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   mfndpos; every moved digger with `may_dig` calls `mdig_tunnel` which
   **always** burns `rnd(12)` first (D-0178).
 - Mines `fill_lvl`/`makemaz(minefill)` + dungeon align `&7` (D-0171).
-- seed0030 @14118: JS gnome @`(57,10)` `cnt=6` vs C `rn2(32)`; walls
-  from pass_two; FORCE-open → prefix 14153; join/flood matches C;
-  **need C levl dump** (D-0185).
+- **postmov MOVED|DONE must `mpickstuff`** — without it floor loot
+  stays and later `m_search_items` gg diverges silently (same RNG
+  signature, different dest) (D-0185).

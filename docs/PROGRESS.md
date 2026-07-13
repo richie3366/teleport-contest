@@ -39,8 +39,8 @@ frozen-file overlay):
 |--------|------:|
 | Sessions passing | **15 / 44** |
 | Screens matched | **1405 / 11,405** (12.32%) |
-| Positional RNG calls matched | **135,937 / 792,838** (17.15%) |
-| Speed label | `20+0.09/turn` |
+| Positional RNG calls matched | **135,939 / 792,838** (17.15%) |
+| Speed label | `19+0.09/turn` |
 | Working-tree base | `8b71735` + committed port (see `main`) |
 | Role-init throws | **0 / 44** (`u_init_role: role not ported`) |
 
@@ -64,7 +64,7 @@ shared blockers, and semantic coverage together—not one vanity metric.
 | `seed0501-priest-cast-read-turn` | **2238 / 2238** | **28 / 28** |
 | `seed2200-wizard-quaff-zap-read` | **3018 / 3018** | **229 / 230** |
 | `seed0017-samurai-altar-pray` | **3465 / 3465** | **67 / 67** |
-| `seed0030-ten-diverse-deaths` | **14487 / 105529** | **168 / 1953** |
+| `seed0030-ten-diverse-deaths` | **14489 / 105529** | **168 / 1953** |
 | `seed0103-knight-ride-pony` | **2344 / 2640** | 2 / 60 |
 | `seed0200-monk-north-search` | **3385 / 3822** | **15 / 40** |
 | `seed0101-ranger-quiver-throw-travel-engrave` | **2371 / 2371** | **21 / 27** |
@@ -390,22 +390,22 @@ autoopen `doopen_indir` (D-0059) + `mfndpos` BOULDER/`ALLOW_ROCK` +
 (D-0183)
 **muse `find_offensive`/`use_offensive` MUSE_POT_* + `potionhit`/**
 `potionbreathe`/`makeknown`** (D-0184)
+**postmov `mpickstuff` MOVED|DONE** (D-0185)
 **ported**. Fifteen public sessions pass end-to-end. **0/44** throw at
 `u_init_role`. seed0700 + seed1150 + seed0017 + seed0077 + seed0106 +
 seed0501 + seed0105 + seed0016 + seed0015 **PASS**. seed2200 RNG **full**
 (Scr **229**/230; sole miss parked RC @158).
 seed0101 RNG **full** Scr **21**/27.
 
-- **Bounded unit:** seed0030 @14118 / D-0185 (FORCE-open → prefix
-  14153; dig/pass_one/join/mdig/post-wallify/**join flood+erase**
-  **falsified** — next **C levl typ dump** at rn2(32)) /
+- **Bounded unit:** seed0030 @14151 (C `distfleeck` `rn2(5)` vs JS
+  `rnd(2)` after D-0185) /
   seed0101 Scr residual /
   seed0103 `next_ident`/`trquan` /
   seed0200 combat `@3382` (lower priority) /
   seed0361/0373 **quest `getbones`** (blocked: need `^V`→`goto_level`→
   `makemaz` first — ordinary `goto_level` now exists for stairs; Mines
   `fill_lvl` path exists D-0171).
-- **Prefer:** seed0030 @14118 D-0185 (C `levl` dump at rn2(32)) /
+- **Prefer:** seed0030 @14151 /
   seed0101 Scr
   over parked D-0006 and over baking seed2200 RC paths.
   Hero `dotrap` deferred until monster pit peel is clear.
@@ -1125,6 +1125,11 @@ Module status, constitutional debt, and named omissions live in
     seed0030 prefix **14056→14118** positional **14487**/105529 Scr
     **168**/1953; full **15/44** Scr **1405** RNG **135937**; next
     seed0030 @14118 `m_move` cnt / seed0101 Scr / seed0200 @3382
+162. postmov `mpickstuff` MOVED|DONE (D-0185)
+    — silent `m_search_items` gg split from leftover floor glass (not
+    walls). seed0030 prefix **14118→14151** positional **14489**/105529
+    Scr **168**/1953; full **15/44** Scr **1405** RNG **135939**; next
+    seed0030 @14151 / seed0101 Scr / seed0200 @3382
 
 Next work is selected from the active objectives above using
 `PORTING-RUNBOOK.md`, not by extending this historical list.

@@ -21,7 +21,7 @@ import {
     mon_knows_traps,
 } from './monsters.js';
 import { gettrack } from './track.js';
-import { objects_at } from './mkobj.js';
+import { objects_at, obj_extract_self, splitobj } from './mkobj.js';
 import {
     mintrap,
     NO_TRAP_FLAGS,
@@ -46,6 +46,8 @@ import {
     objectNames,
 } from './objects.js';
 import { Monnam } from './do_name.js';
+import { doname } from './objnam.js';
+import { mpickobj } from './makemon.js';
 import { may_dig, mdig_tunnel } from './dig.js';
 import { MON_WEP, mon_wield_item } from './weapon.js';
 import { lined_up } from './mthrowu.js';
@@ -172,11 +174,52 @@ function could_reach_item(_mtmp, _x, _y) {
 }
 
 /**
+ * C ref: mon.c mpickstuff — pick one wanted floor object underfoot.
+ * Named omissions: shopkeeper inhishop; in_rooms shop rn2(25); is_mines_prize/
+ * is_soko_prize; nymph/corpse specials; check_gear_next_turn; distant_name
+ * side-effects (doname stand-in).
+ */
+async function mpickstuff(mtmp) {
+    if (mtmp.isshk) return false;
+    // shop in_rooms + rn2(25) deferred (no shop rooms on Mines path)
+    if (!could_reach_item(mtmp, mtmp.mx, mtmp.my)) return false;
+
+    for (let otmp = objects_at(mtmp.mx, mtmp.my); otmp; otmp = otmp.nexthere) {
+        // is_mines_prize / is_soko_prize deferred
+        if (!mon_would_take_item(mtmp, otmp)) continue;
+        if (otmp.otyp === CORPSE && mtmp.data?.mlet !== 'S_NYMPH') {
+            // touch_petrifies / lizard / acidic corpse exceptions deferred
+            continue;
+        }
+        if (!can_touch_safely(mtmp, otmp)) continue;
+        const carryamt = can_carry(mtmp, otmp);
+        if (carryamt === 0) continue;
+        let otmp3 = otmp;
+        if (carryamt !== (otmp.quan || 1)) {
+            otmp3 = splitobj(otmp, carryamt) || otmp;
+        }
+        if (cansee(mtmp.mx, mtmp.my)) {
+            const otmpname = doname(otmp3);
+            if (game.flags?.verbose !== false) {
+                await pline(`${Monnam(mtmp)} picks up ${otmpname}.`);
+            }
+        }
+        obj_extract_self(otmp3);
+        mpickobj(mtmp, otmp3);
+        // check_gear_next_turn deferred
+        newsym(mtmp.mx, mtmp.my);
+        return true;
+    }
+    return false;
+}
+
+/**
  * C ref: monmove.c m_search_items — redirect gg toward interesting floor loot.
  * Named omissions: in_rooms shop rn2(25); hides_under; onscary; costly_spot
  * merchandise; is_mines_prize/is_soko_prize; helpless under-monster skip
  * beyond mcanmove/msleeping/mmove; searches_for_item via mon_would_take;
- * underfoot MMOVE_DONE short-circuit + postmov mpickstuff (D-0183).
+ * underfoot MMOVE_DONE short-circuit (kept deferred — D-0183; postmov now
+ * has mpickstuff for MOVED/DONE).
  */
 function m_search_items(mtmp, gg) {
     let minr = SQSRCHRADIUS;
@@ -543,27 +586,23 @@ function canspotmon(mtmp) {
 }
 
 /**
- * C ref: monmove.c postmov — after a successful step: traps then doors.
+ * C ref: monmove.c postmov — after a successful step: traps then doors,
+ * then shared OBJ_AT / mpickstuff for MOVED|DONE.
  * Branch envelope: D_CLOSED open / D_LOCKED unlock / smash doorbuster;
- * amorphous squeeze message; mb_trapped. Named omissions: vampshift fog
- * sequencing; iron bars; engulfing_u; shop add_damage;
- * has_magic_key disarm; full mondied from trap death; m_digweapon_check.
+ * amorphous squeeze message; mb_trapped; mpickstuff one-object pickup.
+ * Named omissions: vampshift fog; iron bars; engulfing_u; shop add_damage;
+ * has_magic_key disarm; metallivorous/cube/corpse_eater meat*; maybe_spin_web;
+ * hides_under; shk after_shk_move; check_gear_next_turn.
  */
 async function postmov(mtmp, omx, omy, mmoved, can_tunnel, can_unlock, can_open) {
-    // C: MOVED block (traps/doors/dig) only for MMOVE_MOVED; DONE falls through
-    // to the shared floor-item pickup section. Full mpickstuff deferred — DONE
-    // currently returns after the MOVED-only work is skipped.
     if (mmoved !== MMOVE_MOVED && mmoved !== MMOVE_DONE) return mmoved;
-    if (mmoved === MMOVE_DONE) {
-        // C: mmoved==DONE still runs OBJ_AT pickup / mpickstuff; named omission
-        // until underfoot m_search_items short-circuit is restored with it.
-        return mmoved;
-    }
 
+    const ptr = mtmp.data;
+
+    if (mmoved === MMOVE_MOVED) {
     // notice_mon deferred
     let canseeit = cansee(mtmp.mx, mtmp.my);
     const didseeit = canseeit;
-    const ptr = mtmp.data;
 
     newsym(omx, omy); // update the old position
     const trapret = await mintrap(mtmp, NO_TRAP_FLAGS);
@@ -652,6 +691,17 @@ async function postmov(mtmp, omx, omy, mmoved, can_tunnel, can_unlock, can_open)
     }
 
     if (mtmp.mx) newsym(mtmp.mx, mtmp.my);
+    } // end MMOVE_MOVED
+
+    // C: shared MOVED|DONE floor pickup
+    if (objects_at(mtmp.mx, mtmp.my) && mtmp.mcanmove) {
+        // metallivorous / gelatinous cube / corpse_eater meat* deferred
+        if (await mpickstuff(mtmp)) {
+            mmoved = MMOVE_DONE;
+        }
+        // minvis newsym / maybe_spin_web / hides_under / shk deferred
+    }
+
     return mmoved;
 }
 
