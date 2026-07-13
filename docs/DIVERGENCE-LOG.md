@@ -217,6 +217,7 @@ Do not record a guessed cause as fixed merely because an RNG prefix moved.
 | D-0211 | open | dog_move mfndpos | extra rn2(12); C skips SW diagonal; gas falsified |
 | D-0212 | fixed | pony saddle | makedog put_saddle_on_mon; seed0103 2337→2440 |
 | D-0213 | fixed | #ride mount | doride/mount_steed/dismount; seed0103 RNG full |
+| D-0214 | fixed | ride display | pet mcolor + ridden glyph + saddled + Ride botl; Scr 2→57 |
 
 D-0001 through D-0005 predate the strict-length/cohort runbook. Their focused
 causes are preserved, but generic "green sessions held" is historical evidence,
@@ -5775,7 +5776,38 @@ cohort gates if those functions are touched again.
 - **Verification:** seed0103 RNG **2640**/2640 Scr **2**/60; seed0104
   **2968**/3223; green+strict+cohort PASS; full **17/44** Scr **1316**
   RNG **148875**.
-- **Named omissions:** riding display/botl/map (Scr residual); thrown/
-  fell dismount damage; full `test_move` squeeze; `float_down` body;
-  `use_saddle`; Hallu/Wounded_legs mount arms; wake pline.
-- **Next:** seed0103 Scr / seed0104 @2841 `mattacku`; or D-0211 typ dump.
+- **Named omissions:** thrown/fell dismount damage; full `test_move`
+  squeeze; `float_down` body; `use_saddle`; Hallu/Wounded_legs mount
+  arms; wake pline. Riding display/botl done in D-0214.
+- **Next:** seed0103 Scr residual / seed0104 @2841; or D-0211 typ dump.
+
+## D-0214 — Riding display / pet color / saddled / Ride botl
+
+- **Status:** fixed
+- **Symptom:** seed0103 RNG full but Scr **2**/60; pony `u` white vs
+  C brown; mount plines `"the pony"` vs `"the saddled pony"`; no botl
+  `Ride`; mounted hero stayed `@` white.
+- **Cause/evidence:** JS `mon_glyph` forced `CLR_WHITE` for all
+  `mtame`; C `pet_color`≡`mon_color`≡`mons[].mcolor` (pony
+  `CLR_BROWN`; dogs/cats already `HI_DOMESTIC` so green hid the bug).
+  `hilite_pet` only sets tty attr. C `display_self`→
+  `ridden_mon_to_glyph` shows steed mlet+color. `x_monnam` prepends
+  `"saddled "` when `W_SADDLE`. botl `BL_MASK_RIDE` when `u.usteed`.
+  Longer `"saddled"` combat plines also force `--More--` between pet
+  attacks; `monkilled` uses `nonliving`→`"destroyed"` for zombies.
+- **C locus:** `display.c` `pet_color`/`map_glyphinfo`/
+  `GLYPH_RIDDEN_*`; `display.h` `maybe_display_usteed`; `do_name.c`
+  `x_monnam` saddle adj; `botl.c` `bl_ride`; `mon.c` `monkilled`;
+  `win/tty/wintty.c` `hilite_pet` attr.
+- **Change:** `mon_glyph` species color; skip `usteed` in
+  `mon_at_display`; `hero_display_glyph` ridden path; `do_name`
+  `mon_nam`/`Monnam`/`x_monnam_tame` saddle adj; botl `" Ride"`;
+  `mhitm` shared naming + undead `"destroyed"`.
+- **Verification:** seed0103 Scr **2→57**/60 (RNG full); seed0104 Scr
+  **3→15**/43; green+strict+cohort PASS; full **17/44** Scr **1399**
+  RNG **148875**.
+- **Named omissions:** tutorial yn menu row/cursor; death disclosure
+  screen capture (58 vs 60); full `nonliving` (golem/vortex/manes);
+  `hilite_pet` attr; Hallu/Blind saddle suppress paths.
+- **Next:** seed0103 tutorial @3 / disclosure @58, or seed0104 @2841
+  `mattacku`, or D-0211 typ dump.

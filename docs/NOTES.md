@@ -7,13 +7,16 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 
 ## Active
 
-- **Current unit:** seed0103 Scr residual after D-0213 RNG-full ride; or
-  seed0104 @2841 `mattacku` while mounted; or D-0211 typ dump.
-- **Hypothesis (seed0103 Scr):** riding display/botl/map under `usteed`
-  (RNG **2640**/2640; Scr **2**/60; strict short 58 vs 60 screens).
+- **Current unit:** seed0103 residual after D-0214 (Scr **57**/60): tutorial
+  menu layout @ screen 3, or death-disclosure screens 58–59 (JS emits 58
+  vs C 60); or seed0104 @2841 `mattacku` while mounted; or D-0211 typ dump.
+- **Hypothesis (seed0103 Scr 3):** tutorial yn menu paints one row low /
+  cursor (27,7) vs C (27,6) — not riding.
+- **Hypothesis (seed0103 Scr 58–59):** `done`/disclosure does not capture
+  "You die..." / possessions yn boundaries (strict short 58 vs 60).
 - **Hypothesis (seed0104 @2841):** C `mattacku` `rn2(2)` vs JS extra
-  `mcalcmove`/`dog_move` while mounted — check steed movement skip /
-  hero-under-steed attack path after D-0213.
+  `dog_move` `rn2(12)` while mounted — steed skip / hero-under-steed
+  attack path after D-0213/D-0214.
 - **Hypothesis (D-0211):** kitten `dog_move` — JS `mfndpos` includes SW
   that C skips; poison-gas falsified; need C typ dump.
 - **Parked deep canary:** D-0006 pet movement — do not implement until C
@@ -196,6 +199,12 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   need `doride`/`mount_steed` (`rnd(20)` slip + `rn2(5)` losehp) and
   `dismount_steed`/`landing_spot`; also clear `u.umoved` before rhack
   so steed `u_calc_moveamt` does not double-`mcalcmove` (D-0213).
+- **seed0103 Scr residual was NOT botl-only / ride glyph alone** —
+  JS `mon_glyph` forced `CLR_WHITE` for all `mtame` while C
+  `pet_color`≡`mons[].mcolor` (pony `CLR_BROWN`); dogs/cats already
+  `HI_DOMESTIC` so green cohort hid the bug (D-0214). Riding shows
+  `ridden_mon_to_glyph` (steed letter+color), not `@`; botl `Ride`;
+  `x_monnam` `"saddled "`.
 - **`monattk.h`: AT_WEAP=254, AT_MAGC=255, AT_SPIT=10** — never use 10 for
   weapon (D-0179).
 - Hostile `m_move`: before place, `m_digweapon_check` may return
@@ -304,3 +313,6 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 - **`#ride`/`doride`/`mount_steed`:** slip gate `ulevel+mtame < rnd(20)`;
   fatal slip → `done`/`can_make_bones`; clear `umoved` before rhack
   (D-0213). `dog_goal` returns -2 for `usteed`.
+- **`pet_color` ≡ `mons[].mcolor`** — never force white for all tame;
+  `hilite_pet` is tty attr only (D-0214). Riding → steed mlet+color;
+  botl `Ride`; `x_monnam` `"saddled "` when `W_SADDLE`.

@@ -19,6 +19,18 @@ Use this shape:
 
 ---
 
+## 2026-07-14 01:30 — riding display / pet mcolor (D-0214)
+- Objective: seed0103 Scr residual after D-0213 (PROGRESS primary).
+- C locus: `display.c` `pet_color`/`ridden_mon_to_glyph`; `do_name.c`
+  `x_monnam` saddle; `botl.c` `bl_ride`; `mon.c` `monkilled`.
+- Result: **verified** — JS forced white for all tame; C uses species
+  mcolor (pony brown). Riding shows steed glyph; `"saddled "` + botl
+  `Ride`; undead `"destroyed"`. Scr **2→57**/60.
+- Verification: green+strict+cohort PASS; full **17/44** Scr **1399**
+  RNG **148875**.
+- Next: seed0103 tutorial menu @ screen 3, or death disclosure @58, or
+  `node scripts/rng-diff.mjs sessions/seed0104-knight-ride-combat.session.json`
+
 ## 2026-07-13 23:05 — empty_handed + weapon_insight (D-0194)
 - Objective: seed0200 Scr residual (PROGRESS primary).
 - C locus: `wield.c` `empty_handed`; `insight.c` `weapon_insight`;

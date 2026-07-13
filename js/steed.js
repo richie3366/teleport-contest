@@ -27,7 +27,7 @@ import { pline, newsym } from './display.js';
 import { getdir } from './lock.js';
 import { m_at } from './mon.js';
 import { isok } from './hacklib.js';
-import { Monnam } from './do_name.js';
+import { Monnam, mon_nam } from './do_name.js';
 import { losehp, maybe_half_phys } from './hack.js';
 import { finish_meating } from './dogmove.js';
 import { an } from './objnam.js';
@@ -47,14 +47,6 @@ const M1_SWIM = 0x00000002;
 
 function Role_if(pm) {
     return game.urole?.mnum === pm;
-}
-
-function mon_nam(mtmp) {
-    if (!mtmp) return 'it';
-    if (has_mgivenname(mtmp)) return MGIVENNAME(mtmp);
-    const raw = mtmp?.data?.name || 'monster';
-    const plain = String(raw).replace(/^PM_/, '').replace(/_/g, ' ').toLowerCase();
-    return `the ${plain}`;
 }
 
 function mon_plain(mtmp) {
