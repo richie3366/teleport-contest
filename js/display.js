@@ -855,8 +855,18 @@ export async function more() {
     const { nhgetch } = await import('./input.js');
     const CO = game?.nhDisplay?.cols || 80;
     const base = (_toplines || game._pending_message || '').replace(/--More--$/, '');
-    // C ref: topl.c more() — if curx >= CO-8, newline before --More--
-    if (base.length >= CO - 8) {
+    // C ref: topl.c more() — if curx >= CO-8, put --More-- on the next row.
+    // Only word-wrap the message text when it exceeds CO (welcome lines are
+    // CO-8..CO-1 and stay intact with a bare "--More--" row).
+    if (base.length >= CO) {
+        let breakAt = base.lastIndexOf(' ', CO - 1);
+        if (breakAt < (CO >> 1)) breakAt = Math.min(base.length, CO - 1);
+        const line0 = base.slice(0, breakAt).trimEnd();
+        const rest = base.slice(breakAt).trimStart();
+        game._pending_message = rest
+            ? `${line0}\n${rest}--More--`
+            : `${line0}\n--More--`;
+    } else if (base.length >= CO - 8) {
         game._pending_message = `${base}\n--More--`;
     } else {
         game._pending_message = base + '--More--';
@@ -866,8 +876,10 @@ export async function more() {
     if (disp) {
         const msg = game._pending_message || '';
         if (msg.includes('\n')) {
-            // Second-line --More--; C seed0900 welcome-more cursor at col 8
-            disp.setCursor(8, 1);
+            const line1 = msg.split('\n')[1] || '';
+            // Bare "--More--" on row 1 (welcome): C cursor col 8; else end of text
+            if (line1 === '--More--') disp.setCursor(8, 1);
+            else disp.setCursor(line1.length, 1);
         } else {
             // Same-line --More—; cursor just past the prompt
             disp.setCursor(msg.length, 0);

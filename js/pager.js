@@ -21,11 +21,13 @@ import { getlin } from './getline.js';
 import {
     paint_corner_nhw_menu, dfeature_at, invent_lines,
 } from './invent.js';
+import { stairway_at, known_branch_stairs } from './mklev.js';
 import { getpos, LOOK_ONCE } from './getpos.js';
 import { mon_at } from './uhitm.js';
 import { doname, an } from './objnam.js';
 import { engr_at } from './engrave.js';
-import { BOLT_LIM, COLNO, ROWNO } from './const.js';
+import { BOLT_LIM, COLNO, ROWNO, STAIRS, LA_DOWN, ROOM, CORR, STONE } from './const.js';
+import { IS_WALL } from './const.js';
 import { ATR_INVERSE, NO_COLOR } from './terminal.js';
 
 const DAT_DIR = join(
@@ -231,13 +233,49 @@ function look_region(nearby) {
     return { lo_x, lo_y, hi_x, hi_y };
 }
 
+/**
+ * C ref: display.c back_to_glyph STAIRS/LADDER + defsym.h explanation.
+ * known_branch_stairs → S_brupstair/S_brdnstair ("branch staircase …");
+ * else S_upstair/S_dnstair ("staircase …"). lookat copies defsyms[].explanation.
+ */
+function stair_cmap_explanation(x, y) {
+    const sway = stairway_at(x, y);
+    const loc = game.level?.at?.(x, y);
+    const up = sway
+        ? !!sway.up
+        : !!(loc && !(loc.ladder & LA_DOWN));
+    if (known_branch_stairs(sway)) {
+        return up ? 'branch staircase up' : 'branch staircase down';
+    }
+    return up ? 'staircase up' : 'staircase down';
+}
+
+function is_stair_spot(x, y) {
+    const sway = stairway_at(x, y);
+    if (sway) return true;
+    const loc = game.level?.at?.(x, y);
+    return !!(loc && loc.typ === STAIRS);
+}
+
+/**
+ * C ref: getpos.c auto_describe — prints firstmatch after
+ * do_screen_description(+lookat), not the full out_str / dfeature_at.
+ * Stairs: DECgraphics showsyms keep '<'/'>' for stairs while ladders use
+ * ≤/≥, so cmap match is ordinary+branch staircase only; lookat overwrites
+ * firstmatch with S_br* / S_*stair explanation.
+ *
+ * C ref: pager.c lookat cmap default — defsyms[].explanation for walls/
+ * floors (not stairs_description / dfeature_at destination text).
+ */
 function brief_at(x, y) {
     const u = game.u || {};
     if (u.ux === x && u.uy === y) {
+        // C ref: pager.c self_lookat — race + role + "called" plname
         const role = (game.urole?.name?.m || game.urole?.name || 'hero')
             .toString().toLowerCase();
-        const race = (game.urace?.noun || 'human').toLowerCase();
-        return `${race} ${role}`;
+        const race = (game.urace?.adj || game.urace?.noun || 'human').toLowerCase();
+        const plname = (game.plname || 'hero').toLowerCase();
+        return `${race} ${role} called ${plname}`;
     }
     const mtmp = mon_at(x, y);
     if (mtmp) {
@@ -246,14 +284,39 @@ function brief_at(x, y) {
     }
     const objs = game.level?.objects_at?.(x, y) || game.level?.at?.(x, y)?.objects;
     if (objs?.length) return doname(objs[0]);
+    if (is_stair_spot(x, y)) return stair_cmap_explanation(x, y);
     const feat = dfeature_at(x, y);
     if (feat) return feat;
     const e = engr_at(x, y);
     if (e?.engr_txt) return 'engraving';
     const loc = game.level?.at?.(x, y);
-    if (!loc || loc.typ === 0) return 'dark part of a room';
-    if (loc.typ === 1) return 'wall'; // approx
+    if (!loc) return 'dark part of a room';
+    // C lookat glyph_is_cmap → defsyms[].explanation
+    if (IS_WALL(loc.typ)) return 'wall';
+    if (loc.typ === ROOM) return 'floor of a room';
+    if (loc.typ === CORR) {
+        return loc.lit || game.flags?.lit_corridor ? 'lit corridor' : 'corridor';
+    }
+    if (loc.typ === STONE) {
+        if (!loc.seenv) return 'unexplored';
+        return 'stone';
+    }
     return '';
+}
+
+/**
+ * C ref: pager.c do_screen_description + lookat for looked stairs.
+ * Ambiguous '<'/'>' → "a staircase … or a branch staircase … (lookat)".
+ * Ladder showsyms deferred (ASCII where ladders share '<' would add two more).
+ */
+function describe_stairs_looked(x, y) {
+    const look = stair_cmap_explanation(x, y);
+    const up = look.endsWith(' up');
+    const ordinary = up ? 'staircase up' : 'staircase down';
+    const branch = up ? 'branch staircase up' : 'branch staircase down';
+    const ch = up ? '<' : '>';
+    const out = `${ch}        ${an(ordinary)} or ${an(branch)} (${look})`;
+    return { out, first: look, found: 2 };
 }
 
 function describe_looked(x, y) {
@@ -278,15 +341,28 @@ function describe_looked(x, y) {
         const nm = doname(pile[0]);
         return { out: `?        ${nm}`, first: simplify_for_db(nm), found: 1 };
     }
+    if (is_stair_spot(x, y)) return describe_stairs_looked(x, y);
+    // C ref: pager.c do_screen_description — DECgraphics shares showsym
+    // \xfe among S_ndoor/S_room/S_darkroom/S_ice; lookat parenthetical.
+    // Full showsyms-driven cmap scan deferred (ASCII ladders/rooms differ).
+    if (loc?.typ === ROOM) {
+        const look = 'floor of a room';
+        // C encglyph of DECgraphics S_room is SO+'~'+SI → middle dot ·
+        // (frozen serialize has no decgfx; paint Unicode like map glyphs).
+        const ch = '\u00b7';
+        const out = `${ch}        a doorway or the floor of a room or the dark part of a room or ice (${look})`;
+        return { out, first: look, found: 4 };
+    }
+    if (loc?.typ === CORR) {
+        // C: found > 4 under DECgraphics '#' (corr/bars/tree/bridges/…)
+        // → "can be many things"; lookat still supplies (corridor).
+        const look = 'corridor';
+        const out = `#        can be many things (${look})`;
+        return { out, first: look, found: 5 };
+    }
     const feat = dfeature_at(x, y);
     if (feat) {
-        // Session: "<a staircase up or a branch staircase up (branch staircase up)"
-        let out;
-        if (feat.includes('staircase') || feat.includes('ladder')) {
-            out = `<        a staircase ${feat.includes('up') ? 'up' : 'down'} or a ${feat} (${feat})`;
-        } else {
-            out = `${feat[0] || '.'}        ${an(feat)}`;
-        }
+        const out = `${feat[0] || '.'}        ${an(feat)}`;
         return { out, first: feat, found: 1 };
     }
     const e = engr_at(x, y);

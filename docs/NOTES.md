@@ -7,21 +7,20 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 
 ## Active
 
-- **Current unit:** after D-0082 seed2200 Scr **89→90**/230
-  (getpos tip → `nhl_text` NHW_MENU corner). Prefer seed2200 @
-  screen 46 farlook stairs / seed0017 @ 3132 terrain / seed1150
-  `dog_move`.
-- **Hypothesis (seed2200 Scr 90/230):** screen 46 — getpos
-  autodescribe on `<`. C tip `"branch staircase up"` (cmap
-  `S_brupstair` / `defsyms[].explanation` via `lookat`); JS
-  `dfeature_at` → `stairs_description` → `"staircase up out of
-  the dungeon"`. Cursor C `[21,10]` vs JS `[22,10]`.
+- **Current unit:** after D-0083 seed2200 Scr **90→109**/230
+  (farlook `lookat` stairs + getpos curs-after-flush). Prefer
+  seed2200 @ screen 65 getpos continue / seed0017 @ 3132 terrain /
+  seed1150 `dog_move`.
+- **Hypothesis (seed2200 Scr 109/230):** screen 65 — after corridor
+  `.` look, next getpos tip C `"floor of a room"` cursor `[17,13]`;
+  JS still `"corridor"` at `[25,13]`. Cursor/position not tracking
+  continued farlook moves (or wrong cell typ at target).
 - **Falsifier / next probe:**
   ```bash
   node frozen/ps_test_runner.mjs sessions/seed2200-wizard-quaff-zap-read.session.json
   ```
-  Diff screen 46; cite C `pager.c` `lookat` cmap default +
-  `defsym.h` `S_brupstair` — not `stairs_description` Dlvl1 path.
+  Diff screen 65; cite C `getpos` loop preserving `ccp` +
+  `auto_describe` after move — not stairs/`lookat` cmap.
 - **Parked seed0017 @ 3132:** JS `mfndpos` cnt=4 at pet (30,5); C emits
   3× `rn2(12)`. Adding walkable `(30,4)` yields exactly 3× `rn2(12)`.
   JS has VWALL at (30,4); C screen shows floor. Diagnose join/
@@ -88,6 +87,12 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 - seed2200 Scr 89 @ screen 36 was **not** NHW_TEXT fullscreen —
   `nhl_text` creates NHW_MENU + `select_menu` PICK_NONE; H2344
   corner offx=9, cursor [16,8], map left of panel intact (D-0082).
+- seed2200 Scr 90 @ screen 46 was **not** only tip text —
+  `lookat` cmap `S_brupstair` **"branch staircase up"** (not
+  `stairs_description` Dlvl1), **and** getpos must `curs` after
+  flush (`_buildScreenOutput` resets to hero) (D-0083).
+- `more()` word-wrap of message text must only fire when len≥CO —
+  wrapping at CO-8 breaks welcome `--More--` (seed0900).
 
 ## Landmarks
 
@@ -131,6 +136,8 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 - getpos tip: `nhcore.lua` `show_getpos_tip` → `nhl_text` →
   NHW_MENU corner (not NHW_TEXT); longest line 68 → maxcol 70 →
   offx 9; morestr `"(end) "`; cursor [16,8] (D-0082).
-- Farlook stairs tip uses cmap explanation (`S_brupstair` =
-  `"branch staircase up"`), not `stairs_description` Dlvl1
-  `"… out of the dungeon"` (next peel @ screen 46).
+- Farlook stairs: `known_branch_stairs` → glyph `S_brupstair` →
+  lookat `"branch staircase up"`; `auto_describe` prints that
+  firstmatch; getpos must set map cursor **after** flush (D-0083).
+  DECgraphics floor `·` ambiguous doorway/floor/dark/ice; `#`
+  corridor → `can be many things (corridor)`.

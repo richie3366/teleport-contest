@@ -78,8 +78,13 @@ export async function getpos(ccp, _force, goal, describeAt) {
 
     const disp = g.nhDisplay;
     for (;;) {
+        // C getpos: auto_describe / goal pline then curs(WIN_MAP) then readchar.
+        // flush_screen/_buildScreenOutput resets cursor to hero for ordinary
+        // topline messages — set getpos cursor *after* flush, like C curs().
         if (disp?.setCursor) {
+            await flush_screen(1);
             disp.setCursor(cx - 1, cy + 1);
+        } else {
             await flush_screen(1);
         }
         const key = await nhgetch();
@@ -107,10 +112,7 @@ export async function getpos(ccp, _force, goal, describeAt) {
                 cy = ny;
                 if (typeof describeAt === 'function') {
                     const brief = describeAt(cx, cy);
-                    if (brief) {
-                        g._pending_message = brief;
-                        await flush_screen(1);
-                    }
+                    if (brief) g._pending_message = brief;
                 }
             }
             continue;

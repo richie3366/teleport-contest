@@ -1004,3 +1004,21 @@ Use this shape:
   `node frozen/ps_test_runner.mjs sessions/seed2200-wizard-quaff-zap-read.session.json`
   — cite `lookat` cmap `S_brupstair` vs `stairs_description`;
   or seed0017 @ 3132 terrain / seed1150 `dog_move`.
+
+## 2026-07-13 — farlook lookat stairs + getpos cursor (D-0083)
+- Objective: seed2200 Scr 90/230 screen 46 farlook stairs
+  (PROGRESS primary after D-0082).
+- C locus: `pager.c` `lookat` cmap/`do_screen_description`;
+  `display.c` `back_to_glyph` STAIRS + `known_branch_stairs`;
+  `getpos.c` `auto_describe` firstmatch + curs-after-pline;
+  `defsym.h` `S_brupstair`.
+- Result: **verified** — tip used `stairs_description` Dlvl1
+  path; flush reset getpos cursor to hero. Ported lookat
+  stairs/wall/floor/self subset + DECgraphics floor/corridor
+  describe; getpos sets cursor after flush.
+- Verification: green + seed1500/1800/0060/0102/0700 PASS +
+  strict; full **7/44**, screens **459→478**/11405, RNG
+  **91380**/792838; seed2200 Scr **90→109**/230.
+- Next: seed2200 getpos continue @ screen 65 —
+  `node frozen/ps_test_runner.mjs sessions/seed2200-wizard-quaff-zap-read.session.json`
+  — or seed0017 @ 3132 terrain / seed1150 `dog_move`.
