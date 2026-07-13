@@ -7,17 +7,18 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 
 ## Active
 
-- **Current unit:** D-0144 cleared Ghost `themeroom_fill` (seed0015
-  357→1284).
-- **Hypothesis / next:** seed0015/0200 next `dig_corridor` (irregular
-  L-room / map-room join). Else `next_ident` / `maybe_smudge_engr`.
-  `getbones` still blocked on `^V`→`goto_level`→`makemaz`.
+- **Current unit:** D-0145 cleared irregular `finddpos_shift` (seed0015
+  1284→2513; seed0200 1447→1672).
+- **Hypothesis / next:** seed0015 next `mksobj_init` @2513 (u_init kit
+  after level gen). seed0200 next `fill_ordinary_room`/`somex` @1672.
+  Else `next_ident` / `maybe_smudge_engr`. `getbones` still blocked on
+  `^V`→`goto_level`→`makemaz`.
 - **Falsifier / next:**
   ```bash
   node scripts/rng-diff.mjs sessions/seed0015-valk-level2-pit-dog-wait.session.json
-  # expect dig_corridor — not selection_rndcoord / Ghost
+  # expect mksobj_init — not dig_corridor / finddpos
   node scripts/rng-diff.mjs sessions/seed0200-monk-north-search.session.json
-  # expect dig_corridor — still @1447 until ported
+  # expect fill_ordinary_room/somex — not dig_corridor
   ```
 - **Parked deep canary:** D-0006 pet movement — do not implement until C
   state/candidate capture exists.
@@ -180,6 +181,9 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 - **`create_monster` always burns `induced_align(80)`** for
   `AM_SPLEV_RANDOM` even when `makemon` (not `mk_roamer`) is used
   (D-0144).
+- **seed0015/0200 @ dig_corridor was NOT dig body** — `dig_corridor`
+  already matched C; JS `finddpos_shift` omitted irregular inward walk
+  so joins failed on map rooms (D-0145). Do not re-port dig from scratch.
 
 ## Landmarks
 
@@ -285,3 +289,6 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   gender `rn2(2)`; always `induced_align(80)`; `makemon` + asleep +
   `STRAT_WAITFORU`; percent loot with buc `not-blessed` (D-0144).
   `rndghostname`: `rn2(7)? ghostnames[rn2(34)] : plname`.
+- Irregular door find: `finddpos_shift` DIR_180 then if edge fails and
+  `aroom.irregular`, walk inward through STONE/CORR until
+  `good_rm_wall_doorpos` (D-0145).

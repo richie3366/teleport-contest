@@ -1500,9 +1500,36 @@ function good_rm_wall_doorpos(x, y, dir, room) {
     return true;
 }
 
+// C ref: mklev.c finddpos_shift() — irregular rooms walk inward from
+// the bounding-box edge through STONE/CORR until a real wall doorpos.
 function finddpos_shift(xp, yp, dir, aroom) {
-    const rdir = DIR_180(dir);
-    if (good_rm_wall_doorpos(xp.v, yp.v, rdir, aroom)) return true;
+    dir = DIR_180(dir);
+    const dx = xdir[dir];
+    const dy = ydir[dir];
+    if (good_rm_wall_doorpos(xp.v, yp.v, dir, aroom)) return true;
+    if (aroom.irregular) {
+        let rx = xp.v;
+        let ry = yp.v;
+        let fail = false;
+        const map = game.level;
+        while (!fail && isok(rx, ry)) {
+            const loc = map.at(rx, ry);
+            if (!loc || !(loc.typ === STONE || loc.typ === CORR)) break;
+            rx += dx;
+            ry += dy;
+            if (good_rm_wall_doorpos(rx, ry, dir, aroom)) {
+                xp.v = rx;
+                yp.v = ry;
+                return true;
+            }
+            const nloc = map.at(rx, ry);
+            if (!nloc || !(nloc.typ === STONE || nloc.typ === CORR))
+                fail = true;
+            if (rx < aroom.lx || rx > aroom.hx
+                || ry < aroom.ly || ry > aroom.hy)
+                fail = true;
+        }
+    }
     return false;
 }
 

@@ -25,6 +25,18 @@ Use this shape:
 
 ---
 
+## 2026-07-13 14:42 — finddpos_shift irregular walk (D-0145)
+- Objective: seed0015/0200 `dig_corridor` (PROGRESS primary).
+- C locus: `mklev.c` `finddpos_shift` / `finddpos` / `join`;
+  `sp_lev.c` `dig_corridor` (already ported).
+- Result: **verified** — irregular rooms walk inward through
+  STONE/CORR to a real wall doorpos; dig joins match C.
+- Verification: seed0015 1284→2513; seed0200 1447→1672;
+  green+strict PASS; cohort 11/11 PASS; full **13/44** Scr **1239**
+  RNG **115097**/792838.
+- Next: seed0015 `mksobj_init` @2513, or seed0200
+  `fill_ordinary_room` @1672, or `next_ident` / `maybe_smudge_engr`.
+
 ## 2026-07-13 14:36 — Ghost themeroom_fill (D-0144)
 - Objective: seed0015 Ghost `selection_rndcoord` / fill body (PROGRESS).
 - C locus: `themerms.lua` Ghost; `selvar.c` `selection_from_mkroom`/

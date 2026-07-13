@@ -148,6 +148,7 @@ Do not record a guessed cause as fixed merely because an RNG prefix moved.
 | D-0142 | fixed | invent/eat getobj | missing-letter `continue` + NEED_MORE `--More--`; seed0105 **PASS** |
 | D-0143 | fixed | mklev/lspo_map | themerms map rooms → `lspo_map`+`filler_region`; not `rn2(100)`+`create_room` |
 | D-0144 | fixed | themerms/Ghost | Ghost fill: `selection_rndcoord` + create_monster/object |
+| D-0145 | fixed | mklev/finddpos | irregular `finddpos_shift` walk; dig_corridor joins on map rooms |
 
 D-0001 through D-0005 predate the strict-length/cohort runbook. Their focused
 causes are preserved, but generic "green sessions held" is historical evidence,
@@ -3845,8 +3846,32 @@ cohort gates if those functions are touched again.
   positional **392→1472**/8563; seed0200 still **1447** (`dig_corridor`);
   green+strict PASS; PASS cohort held; full **13/44** Scr **1239**
   RNG **112442**/792838.
-- **Named omission:** other themerms fill bodies; irregular
-  `dig_corridor`; full `create_monster` humidity/appear/inventory;
-  `m_initinv` body.
+- **Named omission:** other themerms fill bodies; full
+  `create_monster` humidity/appear/inventory; `m_initinv` body.
 - **Next:** `dig_corridor` (seed0015/0200), or `next_ident` /
   `maybe_smudge_engr`.
+
+## D-0145 — finddpos_shift irregular inward walk
+
+- **Status:** fixed
+- **Observed:** seed0015 @1284 C `rn2(2) @ dig_corridor` vs JS
+  `rn2(9)` (extra `finddpos` retry); seed0200 @1447 C `rn2(35) @
+  dig_corridor` (nxcor) vs JS `rn2(6)` (skipped dig → next finddpos).
+- **Cause/evidence:** After `filler_region` sets `irregular=true`,
+  walls sit inside the bounding box. C `finddpos_shift` walks inward
+  through STONE/CORR until `good_rm_wall_doorpos`; JS only tested the
+  rect-edge cell and failed, so `join` never reached matching dig.
+  `dig_corridor` body itself already matched C.
+- **C locus:** `mklev.c` `finddpos_shift` / `finddpos` / `join`;
+  caller `makecorridors`; dig in `sp_lev.c` `dig_corridor`.
+- **Change:** `js/mklev.js` `finddpos_shift` — port irregular walk
+  (DIR_180 + step via `xdir`/`ydir` + bounds fail).
+- **Verification:** seed0015 prefix **1284→2513** (`mksobj_init`);
+  positional **1472→2597**/8563; seed0200 **1447→1672**
+  (`fill_ordinary_room`/`somex`); green+strict PASS; PASS cohort
+  11/11; full **13/44** Scr **1239** RNG **115097**/792838.
+- **Named omission:** `join` still always `CORR` (C arboreal→ROOM);
+  other themerms fill bodies; `fill_ordinary_room` somexy envelope.
+- **Next:** seed0015 `mksobj_init` @2513 / seed0200
+  `fill_ordinary_room` @1672 / seed0101 `next_ident` /
+  `maybe_smudge_engr` / `getbones`.
