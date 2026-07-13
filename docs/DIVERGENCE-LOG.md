@@ -138,6 +138,7 @@ Do not record a guessed cause as fixed merely because an RNG prefix moved.
 | D-0132 | fixed | spell/weapon | Wizard `skill_based_spellbook_id` + spelspec unrestrict; seed2200 disco `*` @222 |
 | D-0133 | fixed | engrave/look | `read_engr_at` from `look_here`/`check_here`; seed2200 Elbereth `:` @229 |
 | D-0134 | fixed | mklev/engrave | `makeniche` trap `make_engr_at`+`wipe_engr_at`/`wipeout_text`; seed0105 RNG full |
+| D-0135 | fixed | spell/cast | `Z`/`docast`/`spelleffects_check` + SPE_HEALING self-zap; seed0501 @2205 |
 
 D-0001 through D-0005 predate the strict-length/cohort runbook. Their focused
 causes are preserved, but generic "green sessions held" is historical evidence,
@@ -3630,4 +3631,27 @@ cohort gates if those functions are touched again.
   for `random_engraving`.
 - **Next:** seed0501 `spelleffects_check` @ 2205 / seed0105 screens /
   seed0015 `lspo_map` / seed0101 `next_ident`.
+
+## D-0135 — Z / docast / spelleffects_check + SPE_HEALING self-zap
+
+- **Status:** fixed
+- **Observed:** seed0501 @ **2205**: C `rnd(100)` @
+  `spelleffects_check(spell.c:1372)`; JS `rn2(12)` — `Z` was unbound
+  (`Unknown command`) so cast never ran.
+- **Cause/evidence:** session casts healing on self (`Z`→`a`→`.`); needs
+  CAST menu `getspell`, energy/hunger/`percent_success` check, `mksobj`
+  pseudo, spell `getdir` (`.` = self success), `zapyourself`→`healup(d(6,4))`.
+- **C locus:** `spell.c` `docast`/`getspell`/`dospellmenu`/`spelleffects_check`/
+  `spelleffects`; `zap.c` `zapyourself`; `potion.c` `healup`; `eat.c`
+  `morehungry`; `cmd.c` `getdir` self key.
+- **Change:** wired `Z`→`docast`; CAST `dospellmenu`; check + healing
+  self-zap path; `morehungry`; local `use_skill` advance; healup in zap.
+- **Verification:** seed0501 prefix **2205→2217** (`dog_move`); Scr
+  **6→10**/28; green+strict PASS; cohort 1500/1800/0060/0106 PASS; full
+  **11/44** Scr **1180** RNG **107116**/792838.
+- **Named omission:** other `spelleffects` otyps; directional `weffects`;
+  traditional getspell yn; CQ_REPEAT; spell_backfire; amulet drain;
+  check_capacity; `zapyourself` beyond healing; VIEW swap/sort.
+- **Next:** seed0501 `dog_move` @ 2217 / seed0105 Scr / `lspo_map` /
+  `next_ident`.
 

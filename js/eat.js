@@ -21,6 +21,15 @@ export function gethungry() {
     void accessorytime;
 }
 
+/**
+ * C ref: eat.c morehungry — nutrition loss after feats of magic / vomit.
+ * newuhs body deferred (status transitions not needed for cast hunger).
+ */
+export function morehungry(num) {
+    if (!game.u) return;
+    game.u.uhunger = (game.u.uhunger ?? 900) - (num | 0);
+}
+
 function is_edible(obj) {
     if (!obj) return false;
     // C: objects[obj->otyp].oc_unique → false; human → FOOD_CLASS only

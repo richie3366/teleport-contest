@@ -38,9 +38,9 @@ frozen-file overlay):
 | Metric | Value |
 |--------|------:|
 | Sessions passing | **11 / 44** |
-| Screens matched | **1176 / 11,405** (10.31%) |
-| Positional RNG calls matched | **107,102 / 792,838** (13.51%) |
-| Speed label | `18+0.09/turn` |
+| Screens matched | **1180 / 11,405** (10.35%) |
+| Positional RNG calls matched | **107,116 / 792,838** (13.51%) |
+| Speed label | `18+0.08/turn` |
 | Working-tree base | `8b71735` + committed port (see `main`) |
 | Role-init throws | **0 / 44** (`u_init_role: role not ported`) |
 
@@ -76,7 +76,7 @@ shared blockers, and semantic coverage together—not one vanity metric.
 | `seed0015-valk-level2-pit-dog-wait` | **363 / 8563** | 1 / 44 |
 | `seed0077-rogue-chargen` | **3242 / 3242** | **33 / 33** |
 | `seed0013-rogue-friday13-combat` | **522 / 4838** | 1 / 59 |
-| `seed0501-priest-cast-read-turn` | **2206 / 2238** | **6 / 28** |
+| `seed0501-priest-cast-read-turn` | **2220 / 2238** | **10 / 28** |
 
 seed8000 + seed0900 + seed1500 + seed1800 + seed0060 + seed0102 +
 seed0700 + seed1150 + seed0017 + seed0077 + seed0106 pass end-to-end.
@@ -171,6 +171,9 @@ seed2200 Scr **227→229**/230.
 **`makeniche` trap engraving + `wipe_engr_at`/`wipeout_text`** (D-0134)
 → Scr **1169→1176**; RNG **104575→107102**; seed0105 RNG **full**;
 seed0501 prefix **1153→2205** (`spelleffects_check`).
+**`Z`/`docast`/`spelleffects_check` + SPE_HEALING self-zap** (D-0135)
+→ Scr **1176→1180**; RNG **107102→107116**; seed0501 prefix
+**2205→2217** (`dog_move`); Scr **6→10**/28.
 
 ### Green gate
 
@@ -277,20 +280,22 @@ autoopen `doopen_indir` (D-0059) + `mfndpos` BOULDER/`ALLOW_ROCK` +
 **`dokeylist`/`show_menu_controls`/`docontact` + usagehlp blank** (D-0131)
 **Wizard `skill_based_spellbook_id` + `read_engr_at`** (D-0132/33)
 **`makeniche` trap `wipe_engr_at`/`wipeout_text`** (D-0134)
+**`Z`/`docast`/`spelleffects_check` + SPE_HEALING self-zap** (D-0135)
 **ported**. Eleven public sessions pass end-to-end. **0/44** throw at
 `u_init_role`. seed0700 + seed1150 + seed0017 + seed0077 + seed0106
 **PASS**. seed2200 RNG **full** (Scr **229**/230; sole miss parked RC
 @158). seed0105 RNG **full** (Scr **0**/30). seed0501 next
-`spelleffects_check` @ 2205.
+`dog_move` @ 2217.
 
-- **Bounded unit:** seed0501 `spelleffects_check` / seed0105 screens /
+- **Bounded unit:** seed0501 `dog_move` / seed0105 screens /
   seed0015/0200 `lspo_map` / seed0101 `next_ident` /
   seed0103 `next_ident`/`trquan` / seed0030 `maybe_smudge_engr` /
   seed0361/0373 **`getbones`** (blocked: need `^V`→`goto_level`→
   `makemaz` first).
-- **Prefer:** seed0501 cast / seed0105 Scr / `lspo_map` / `next_ident`
+- **Prefer:** seed0501 pet move / seed0105 Scr / `lspo_map` / `next_ident`
   over parked D-0006 and over baking seed2200 RC paths.
-- **Named omissions:** spell swap/sort / `docast`/`spelleffects`;
+- **Named omissions:** spell swap/sort / other `spelleffects` otyps /
+  directional `weffects`;
   enhance `can_advance`/`skill_advance`→`skill_based_spellbook_id` /
   wizard speedy; full `x_monnam`
   hallu/invis/saddle/shk; custom BIND=/number_pad/swap_yz; menu_shift;
@@ -773,6 +778,10 @@ Module status, constitutional debt, and named omissions live in
     seed0105 RNG **2499**/2499 Scr **0**/30; screens **1169→1176**;
     RNG **104575→107102**; green cohort PASS; next seed0501 cast /
     seed0105 Scr / `lspo_map` / `next_ident`
+116. `Z`/`docast`/`spelleffects_check` + SPE_HEALING self-zap (D-0135)
+    — seed0501 prefix **2205→2217** (`dog_move`); Scr **6→10**/28;
+    screens **1176→1180**; RNG **107102→107116**; green cohort PASS;
+    next seed0501 `dog_move` / seed0105 Scr / `lspo_map` / `next_ident`
 
 Next work is selected from the active objectives above using
 `PORTING-RUNBOOK.md`, not by extending this historical list.

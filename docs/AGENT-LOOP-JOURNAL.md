@@ -1710,3 +1710,16 @@ Use this shape:
   **107102**/792838.
 - Next: seed0501 `spelleffects_check` @ 2205 / seed0105 Scr /
   seed0015 `lspo_map` / seed0101 `next_ident`.
+
+## 2026-07-13 — Z / docast / SPE_HEALING self-zap (D-0135)
+- Objective: seed0501 `spelleffects_check` @ 2205 (PROGRESS primary).
+- C locus: `spell.c` `docast`/`getspell`/`spelleffects_check`/`spelleffects`;
+  `zap.c` `zapyourself`; `potion.c` `healup`; `eat.c` `morehungry`.
+- Result: **verified** — `Z` was unbound; ported CAST menu + check +
+  SPE_HEALING self-zap (`.` = getdir self); energy/`rnd(100)`/`mksobj`/
+  `healup(d(6,4))` match C.
+- Verification: seed0501 prefix **2205→2217** (`dog_move`); Scr
+  **6→10**/28; green+strict PASS; cohort 1500/1800/0060/0106 PASS;
+  full **11/44** Scr **1180** RNG **107116**/792838.
+- Next: seed0501 `dog_move` @ 2217 / seed0105 Scr / `lspo_map` /
+  `next_ident`.

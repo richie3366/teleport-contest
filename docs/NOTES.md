@@ -7,17 +7,17 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 
 ## Active
 
-- **Current unit:** D-0134 cleared: vault `makeniche(TELEP_TRAP)` now
-  `make_engr_at` + `wipe_engr_at` → `wipeout_text` (seed0105 RNG full;
-  seed0501 prefix **2205**).
-- **Hypothesis:** seed0501 next is missing `spelleffects_check` /
-  cast path RNG @ 2205. seed0105 RNG full but Scr **0**/30 — display /
-  early screen peel, not wipeout. Prefer seed0501 cast or seed0015
-  `lspo_map` / seed0101 `next_ident` over parked D-0006.
+- **Current unit:** D-0135 cleared: `Z`/`docast` → `spelleffects_check` +
+  SPE_HEALING self-zap (seed0501 prefix **2205→2217**).
+- **Hypothesis:** seed0501 next @ 2217 is `dog_move` candidate pick
+  (`rn2(++chcnt)` when `j==0`) — C `rn2(1)` means `chcnt==1`; JS hits
+  `rn2(5)` (different branch / earlier chcnt). Prefer diagnose pet goal
+  vs mtrack skip over parked D-0006. Alternates: seed0105 Scr /
+  seed0015 `lspo_map` / seed0101 `next_ident`.
 - **Falsifier / next:**
   ```bash
   node scripts/rng-diff.mjs sessions/seed0501-priest-cast-read-turn.session.json
-  # expect first mismatch beyond spelleffects_check @ 2205
+  # expect first mismatch beyond dog_move @ 2217
   # or seed0015 lspo_map / seed0101 next_ident
   ```
 - **Parked deep canary:** D-0006 pet movement — do not implement until C
@@ -144,6 +144,9 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 - **seed0501/0105 wipeout_text was NOT graffiti random_engraving** —
   vault `makevtele` → `makeniche(TELEP_TRAP)` → `"ad aerarium"` DUST
   + `wipe_engr_at(5)` (D-0134). Do not stub wipe_engr_at.
+- **seed0501 @2205 was unbound `Z`/`docast`** — not percent_success math;
+  C `spelleffects_check` `rnd(100)` then SPE_HEALING `getdir`+`zapyourself`
+  (D-0135). Spell getdir: `.` is self (success), not cancel.
 
 ## Landmarks
 
@@ -220,3 +223,6 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 - Niche tele trap: `"ad aerarium"` (len 11) DUST + wipe cnt 5 → first
   wipeout `rn2(11)` then `rn2(4)` (D-0134). `"Vlad was here"` needs
   TRAPDOOR + `Can_fall_thru`.
+- Cast: `SPELL_LEV_PW(lev)=lev*5`; fail `rnd(100)>chance`; SPE_HEALING
+  `mksobj(FALSE)` → `getdir` → self `zapyourself` `healup(d(6,4),…)`
+  (D-0135).
