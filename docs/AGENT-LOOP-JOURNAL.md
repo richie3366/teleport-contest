@@ -23,6 +23,21 @@ Use this shape:
 
 ---
 
+## 2026-07-13 11:20 — newsym _map_location under visible monster (D-0120)
+- Objective: seed0106 Scr @44 floor `)` vs `#` (PROGRESS primary).
+- C locus: `display.c` `newsym` / `_map_location` (show=0 under mon).
+- Result: **verified** — dart was on floor; pet stood on it while cansee
+  then cell left dark-corridor sight; JS remembered terrain under
+  monster instead of C object memory. Added `map_location_memory` on
+  cansee+visible-monster arm only (hero/infrared arms regress seed0060).
+- Verification: seed0106 Scr **49→250**/267; green+strict PASS; cohort
+  1500/1800/0060/0102/0700/1150/0017/0077 PASS; full **10/44** Scr
+  **919→1120** RNG **104575**/792838.
+- Next: seed0106 `#dip` yn @110 / garlic doname @116, or seed2200
+  `dokeylist` @184.
+
+---
+
 ## 2026-07-13 11:05 — mthrowu canseemon/thitu + melee skip hit (D-0119)
 - Objective: seed0106 Scr @46 dart combat topline (PROGRESS primary).
 - C locus: `display.h` `_canseemon`; `mthrowu.c` `monshoot`/`thitu`;

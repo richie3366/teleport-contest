@@ -7,17 +7,17 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 
 ## Active
 
-- **Current unit:** D-0119 cleared: mthrowu `canseemon`/`thitu` an/exclam/miss
-  + melee skip hit-on-kill. seed0106 Scr **46→49**.
-- **Hypothesis:** seed0106 next Scr peel @44 is death-drop map glyph —
-  C shows weapon `)` (yellow) at kobold death cell vs JS corridor `#`
-  (NO_COLOR). Likely `relobj`/`newsym`/floor-object display after kill,
-  not topline. seed2200 next real peel after parked RC path @158 is
-  help `j` → `dokeylist` @184.
+- **Current unit:** D-0120 cleared: `newsym` maps object under visible monster
+  into hero_memory (`_map_location` show=0) before painting the monster.
+- **Hypothesis:** seed0106 next Scr peel @110 is `#dip` yn prompt missing
+  (`Dip 4 potions of holy water…` vs blank topline). Later @116 garlic
+  doname (`cloves` vs `uncursed cloves`); @133 enhance menu column.
+  seed2200 next real peel after parked RC path @158 is help `j` →
+  `dokeylist` @184.
 - **Falsifier / next:**
   ```bash
   node frozen/ps_test_runner.mjs sessions/seed0106-priest-extcmd-sweep.session.json
-  # expect Scr >49 if death-drop glyph matches C; green cohort must stay PASS
+  # expect Scr >250 if dip yn matches C; green cohort must stay PASS
   node frozen/ps_test_runner.mjs sessions/seed2200-wizard-quaff-zap-read.session.json
   ```
 - **Parked deep canary:** D-0006 pet movement — do not implement until C
@@ -71,7 +71,13 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   `canseemon` used `couldsee` so printed throw while kobold off-screen;
   C only `You are hit by a dart.` (D-0119). Do not suppress throw by seed.
 - **seed0106 @43 kill topline was NOT message concat** — C
-  `hmon_hitmon_msg_hit` skips melee hit when `destroyed` (D-0119).
+  `hmon_hitmon_msg_hit` skips melee hit when destroyed (D-0119).
+- **seed0106 Scr @44 `)` vs `#` was NOT missing death-drop place** —
+  object was on floor; pet stood on it while cansee then cell left sight;
+  JS remembered terrain under monster instead of C `_map_location`
+  object (D-0120). Do not “fix” by forcing newsym on drop alone.
+- **Do not map `_map_location` under hero / infrared yet** — hero-underfoot
+  memory regresses seed0060 gold `$` (named omission).
 - Door open: C `recalc_block_point` before vision sees through;
   DECgraphics open door = meta-a / CLR_BROWN; ASCII open door uses
   `horizontal` → `|` / `-` (D-0113/D-0115).
@@ -105,3 +111,5 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   color, not shuffled `oc_color` (D-0118).
 - `_canseemon` = `(cansee||infrared) && mon_visible` — not `couldsee`
   (D-0119). Melee kill: no `You hit` when already destroyed.
+- C `newsym` with visible monster: `_map_location(x,y,FALSE)` then
+  `display_monster` — memory keeps object under mon (D-0120).

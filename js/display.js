@@ -672,6 +672,23 @@ export function magic_map_background(x, y, show) {
     // update_lastseentyp deferred
 }
 
+// C ref: display.c _map_location(x,y,show=0) — remember non-living contents
+// (object / trap / background) without necessarily painting the screen.
+// Used under hero/monster so out-of-sight memory keeps the object glyph.
+function map_location_memory(x, y) {
+    const loc = game.level?.at(x, y);
+    if (!loc || !game.level?.flags?.hero_memory) return;
+    const obj = objects_at(x, y);
+    if (obj && !covers_objects(x, y)) {
+        const og = obj_glyph(obj);
+        loc.remembered_glyph = { ch: og.ch, color: og.color, decgfx: og.dec };
+        return;
+    }
+    // traps / engravings deferred — fall through to background
+    const tg = terrain_glyph(loc, x, y);
+    loc.remembered_glyph = { ch: tg.ch, color: tg.color, decgfx: tg.dec };
+}
+
 // ── newsym ──
 export function newsym(x, y) {
     const loc = game.level?.at(x, y);
@@ -693,12 +710,12 @@ export function newsym(x, y) {
         // C: lev->waslit = (lev->lit != 0); /* remember lit condition */
         loc.waslit = !!loc.lit;
         if (mtmp && mon_visible(mtmp)) {
+            // C: _map_location(x, y, FALSE) then display_monster — memory
+            // keeps object under the monster so leaving sight does not
+            // replace ) with remembered corridor.
+            map_location_memory(x, y);
             const mg = mon_glyph(mtmp);
             show_glyph_cell(x, y, mg.ch, mg.color, false);
-            const tg = terrain_glyph(loc, x, y);
-            if (game.level?.flags?.hero_memory) {
-                loc.remembered_glyph = { ch: tg.ch, color: tg.color, decgfx: tg.dec };
-            }
             return;
         }
         // C ref: display.c _map_location — vobj_at before trap/background

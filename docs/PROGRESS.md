@@ -38,9 +38,9 @@ frozen-file overlay):
 | Metric | Value |
 |--------|------:|
 | Sessions passing | **10 / 44** |
-| Screens matched | **919 / 11,405** (8.06%) |
+| Screens matched | **1120 / 11,405** (9.82%) |
 | Positional RNG calls matched | **104,575 / 792,838** (13.19%) |
-| Speed label | `18+0.09/turn` |
+| Speed label | `18+0.08/turn` |
 | Working-tree base | `8b71735` + committed port (see `main`) |
 | Role-init throws | **0 / 44** (`u_init_role: role not ported`) |
 
@@ -69,7 +69,7 @@ shared blockers, and semantic coverage together—not one vanity metric.
 | `seed0016-healer-newmoon-eat-zap` | **2544 / 3656** | **5 / 36** |
 | `seed0107-samurai-twoweapon-enhance` | **2684 / 2902** | **35 / 98** |
 | `seed0104-knight-ride-combat` | **2394 / 3223** | 1 / 43 |
-| `seed0106-priest-extcmd-sweep` | **4194 / 4194** | **49 / 267** |
+| `seed0106-priest-extcmd-sweep` | **4194 / 4194** | **250 / 267** |
 | `seed0361-archeologist-tour` | **3293 / 53865** | 0 / 366 |
 | `seed0373-barbarian-quest-tour` | **2555 / 35386** | 0 / 124 |
 | `seed0105-valk-chat-lamp-ration` | **987 / 2499** | 0 / 30 |
@@ -140,6 +140,8 @@ open-door (D-0111/D-0112/D-0113) → **PASS**. seed0030 **7085**/105529.
 **`obj_is_generic` + tty gray·black→NO_COLOR** (D-0118) /
 **mthrowu `canseemon`/`thitu` + melee skip hit-on-kill** (D-0119) →
 Scr **851→919**; seed0106 Scr **32→49**.
+**`newsym` `_map_location` under visible monster** (D-0120) →
+Scr **919→1120**; seed0106 Scr **49→250**.
 
 ### Green gate
 
@@ -231,18 +233,19 @@ autoopen `doopen_indir` (D-0059) + `mfndpos` BOULDER/`ALLOW_ROCK` +
 **`obj_is_generic` / tty gray·black→NO_COLOR** (D-0118)
 **mthrowu `canseemon`/`thitu` an/exclam/miss + melee skip hit-on-kill**
 (D-0119)
+**`newsym` `_map_location` under visible monster** (D-0120)
 **ported**. Ten public sessions pass end-to-end. **0/44** throw at
 `u_init_role`. seed0700 + seed1150 + seed0017 + seed0077 **PASS**.
-seed0106 RNG **full** (Scr **49**/267); seed2200 RNG **full**
+seed0106 RNG **full** (Scr **250**/267); seed2200 RNG **full**
 (Scr **200**/230).
 
-- **Bounded unit:** seed0106 Scr @44 (death-drop floor `)` glyph) /
+- **Bounded unit:** seed0106 `#dip` yn @110 / garlic doname @116 /
   seed2200 `dokeylist` @184 /
   seed0501/0105 `wipeout_text` / seed0015/0200 `lspo_map` /
   seed0101 `next_ident` / seed0103 `next_ident`/`trquan` /
   seed0030 `maybe_smudge_engr` / seed0361/0373 **`getbones`**
   (blocked: need `^V`→`goto_level`→`makemaz` first).
-- **Prefer:** seed0106 death-drop map glyph or seed2200
+- **Prefer:** seed0106 `#dip` yn / garlic doname or seed2200
   `dokeylist` over parked D-0006.
 - **Named omissions:** Wizard/Priest/Healer `initialspell`; Knight/
   Samurai/Healer/Valkyrie/Ranger/Monk/Archeologist/Barbarian/Caveman
@@ -298,7 +301,8 @@ seed0106 RNG **full** (Scr **49**/267); seed2200 RNG **full**
   occupation/autounlock; incremental `dig_point`; full `load_symset`
   IBM/UTF8; `iflags.use_color` obj/mon color gate; `dokeylist`/
   `show_menu_controls`/domenucontrols; `mshot_xname` multishot Nth;
-  surviving melee `canseemon?exclam`; death-drop floor glyph after kill;
+  surviving melee `canseemon?exclam`; hero-underfoot `_map_location`
+  memory (seed0060-sensitive); infrared `_map_location`;
   …
 - **Cohort:** green gate + seed1500 + seed1800 + seed0060 + seed0102
   + seed0700 + seed1150 + seed0017 + seed0077 (must stay PASS) +
@@ -664,6 +668,11 @@ Module status, constitutional debt, and named omissions live in
     seed0106 Scr **46→49**/267; screens **916→919**; RNG
     **104575** unchanged; green cohort PASS; next seed0106
     death-drop floor `)` @44 / seed2200 `dokeylist` @184
+102. `newsym` `_map_location` under visible monster (D-0120) —
+    seed0106 Scr **49→250**/267; screens **919→1120**; RNG
+    **104575** unchanged; green cohort + seed0060 PASS; next
+    seed0106 `#dip` yn @110 / garlic doname @116 /
+    seed2200 `dokeylist` @184
 
 Next work is selected from the active objectives above using
 `PORTING-RUNBOOK.md`, not by extending this historical list.

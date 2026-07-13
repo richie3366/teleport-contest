@@ -3210,4 +3210,30 @@ cohort gates if those functions are touched again.
 - **Next:** seed0106 death-drop floor glyph @44 /
   seed2200 `dokeylist` @184.
 
+## D-0120 — `newsym` memory under visible monster (`_map_location`)
+
+- **Status:** fixed
+- **Observed:** seed0106 Scr **49**/267 first miss @44: C map `)` (thrown
+  dart) vs JS corridor `#` at the same cell. Screens 42–43 already matched
+  (`k@)` then `)@d`); the glyph vanished after the pet left the cell once
+  it was out of `cansee` (dark corridor, two steps from hero).
+- **Cause/evidence:** Object was on the floor (`drop_throw` + remaining
+  minvent via `relobj_on_death`). When the pet stood on it while `cansee`,
+  JS `newsym` painted the monster and set `remembered_glyph` to **terrain**.
+  C `newsym` calls `_map_location(x,y,FALSE)` before `display_monster`, so
+  hero_memory keeps the object glyph. After the cell left sight, JS replayed
+  remembered `#` while C kept `$`/`)`.
+- **C locus:** `display.c` `newsym` / `_map_location` (show=0 under mon).
+- **Change:** `js/display.js` `map_location_memory` + call from the
+  `cansee`+visible-monster arm of `newsym`.
+- **Verification:** seed0106 Scr **49→250**/267; green+strict PASS; cohort
+  1500/1800/0060/0102/0700/1150/0017/0077 PASS; full **10/44** Scr
+  **919→1120** RNG **104575**/792838.
+- **Named omission:** hero-underfoot `_map_location` (still terrain-only;
+  mapping under `@` regresses seed0060 gold `$`); infrared sensed-monster
+  path still skips `_map_location`; traps/engravings in
+  `map_location_memory`.
+- **Next:** seed0106 `#dip` yn @110 / garlic doname @116 /
+  seed2200 `dokeylist` @184.
+
 
