@@ -7,19 +7,17 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 
 ## Active
 
-- **Current unit:** D-0143 cleared `lspo_map` for simple filler-map themerms
-  (seed0015 337→357; seed0200 377→1447).
-- **Hypothesis / next:** seed0015 next `selection_rndcoord` /
-  Ghost-of-an-Adventurer `themeroom_fill` body; seed0200 next
-  `dig_corridor` (irregular L-room join). Else `next_ident` /
-  `maybe_smudge_engr`. `getbones` still blocked on `^V`→`goto_level`→
-  `makemaz`.
+- **Current unit:** D-0144 cleared Ghost `themeroom_fill` (seed0015
+  357→1284).
+- **Hypothesis / next:** seed0015/0200 next `dig_corridor` (irregular
+  L-room / map-room join). Else `next_ident` / `maybe_smudge_engr`.
+  `getbones` still blocked on `^V`→`goto_level`→`makemaz`.
 - **Falsifier / next:**
   ```bash
   node scripts/rng-diff.mjs sessions/seed0015-valk-level2-pit-dog-wait.session.json
-  # expect selection_rndcoord / Ghost fill — not lspo_map
+  # expect dig_corridor — not selection_rndcoord / Ghost
   node scripts/rng-diff.mjs sessions/seed0200-monk-north-search.session.json
-  # expect dig_corridor — not lspo_map
+  # expect dig_corridor — still @1447 until ported
   ```
 - **Parked deep canary:** D-0006 pet movement — do not implement until C
   state/candidate capture exists.
@@ -176,6 +174,12 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   map-shaped themerms call `des.map`→`lspo_map` (`rn2(COLNO-1-wid)`),
   never `build_room`’s `rn2(100)` (D-0143). Do not burn chance then
   `create_room` for L/S/T/Z/Cross/… maps.
+- **seed0015 @357 was Ghost fill body, not dig_corridor** — reservoir
+  picked Ghost; need `selection_rndcoord` + monster/loot (D-0144). Do not
+  skip to corridor join when fill name is set but contents empty.
+- **`create_monster` always burns `induced_align(80)`** for
+  `AM_SPLEV_RANDOM` even when `makemon` (not `mk_roamer`) is used
+  (D-0144).
 
 ## Landmarks
 
@@ -276,3 +280,8 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   then `filler_region` → `percent(30)` themed fill + irregular
   `flood_fill_rm`/`add_room` (D-0143). Fill reservoir skips Boulder
   (mindiff 4), Garden unless lit, Light source unless unlit.
+- Ghost fill: `selection_from_mkroom` (!edge roomno cells) →
+  `selection_rndcoord` (x-outer y walk, `rn2(count)`); `find_montype`
+  gender `rn2(2)`; always `induced_align(80)`; `makemon` + asleep +
+  `STRAT_WAITFORU`; percent loot with buc `not-blessed` (D-0144).
+  `rndghostname`: `rn2(7)? ghostnames[rn2(34)] : plname`.

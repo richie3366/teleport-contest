@@ -147,6 +147,7 @@ Do not record a guessed cause as fixed merely because an RNG prefix moved.
 | D-0141 | fixed | invent/apply getobj | empty SUGGEST → "don't have anything to use or apply" |
 | D-0142 | fixed | invent/eat getobj | missing-letter `continue` + NEED_MORE `--More--`; seed0105 **PASS** |
 | D-0143 | fixed | mklev/lspo_map | themerms map rooms → `lspo_map`+`filler_region`; not `rn2(100)`+`create_room` |
+| D-0144 | fixed | themerms/Ghost | Ghost fill: `selection_rndcoord` + create_monster/object |
 
 D-0001 through D-0005 predate the strict-length/cohort runbook. Their focused
 causes are preserved, but generic "green sessions held" is historical evidence,
@@ -3823,3 +3824,29 @@ cohort gates if those functions are touched again.
   `dig_corridor` join.
 - **Next:** Ghost `themeroom_fill` / `selection_rndcoord`, or
   `dig_corridor` after L-room, or `next_ident` / `maybe_smudge_engr`.
+
+## D-0144 — Ghost of an Adventurer themeroom_fill
+
+- **Status:** fixed
+- **Observed:** seed0015 first mismatch @357 `rn2(36) @
+  selection_rndcoord`; JS emitted `rn2(1)` (fill name only, no body).
+- **Cause/evidence:** Reservoir picked Ghost; C runs
+  `selection.room():rndcoord(0)` then `des.monster` ghost
+  (asleep/waiting) + percent loot. JS stored `_themeroom_fill` and
+  returned without contents.
+- **C locus:** `themerms.lua` Ghost contents; `selvar.c`
+  `selection_from_mkroom`/`selection_rndcoord`; `sp_lev.c`
+  `create_monster`/`create_object`/`find_montype`/`induced_align`;
+  `makemon.c` `rndghostname` for `PM_GHOST`.
+- **Change:** `js/mklev.js` — selection helpers + Ghost fill body
+  (monster + not-blessed id/class objects); `js/makemon.js` —
+  `rndghostname`/`christen_monst` for ghosts + `mstrategy`/`MM_ASLEEP`.
+- **Verification:** seed0015 prefix **357→1284** (`dig_corridor`);
+  positional **392→1472**/8563; seed0200 still **1447** (`dig_corridor`);
+  green+strict PASS; PASS cohort held; full **13/44** Scr **1239**
+  RNG **112442**/792838.
+- **Named omission:** other themerms fill bodies; irregular
+  `dig_corridor`; full `create_monster` humidity/appear/inventory;
+  `m_initinv` body.
+- **Next:** `dig_corridor` (seed0015/0200), or `next_ident` /
+  `maybe_smudge_engr`.

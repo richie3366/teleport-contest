@@ -23,7 +23,7 @@ import {
     ICE, MOAT, POOL, WATER, LAVAPOOL, LAVAWALL, DBWALL,
     AIR, CLOUD, THRONE, TREE, DRAWBRIDGE_UP,
     MAX_TYPE, INVALID_TYPE, MATCH_WALL,
-    A_LAWFUL, Align2amask,
+    A_LAWFUL, Align2amask, STRAT_WAITFORU, NON_PM,
     LR_UPTELE,
     TAINT_AGE,
     WM_MASK, WM_C_OUTER, WM_C_INNER,
@@ -41,13 +41,15 @@ import { setgemprobs } from './o_init.js';
 import { maketrap } from './trap.js';
 import {
     mkobj, mksobj, mksobj_at, mkobj_at, mkgold, mkcorpstat, next_ident,
-    curse, blessorcurse, place_object, add_to_buried, weight, OBJ,
+    curse, bless, blessorcurse, place_object, add_to_buried, weight, OBJ,
 } from './mkobj.js';
 import { makemon, mkclass, MM_NOGRP } from './makemon.js';
 import {
     PM_ELF, PM_DWARF, PM_ORC, PM_GNOME, PM_HUMAN,
     PM_ARCHEOLOGIST, PM_WIZARD, PM_GIANT_SPIDER,
+    is_male, is_female, mons,
 } from './monsters.js';
+import { name_to_monplus } from './mondata.js';
 import { getrumor } from './rumors.js';
 import { make_engr_at, wipe_engr_at, wipeout_text } from './engrave.js';
 import { DUST, MARK as ENGRAVE_MARK } from './const.js';
@@ -78,6 +80,8 @@ const CRAM_RATION = objectNames.indexOf('CRAM_RATION');
 const LEMBAS_WAFER = objectNames.indexOf('LEMBAS_WAFER');
 const ARROW = objectNames.indexOf('ARROW');
 const DART = objectNames.indexOf('DART');
+const DAGGER = objectNames.indexOf('DAGGER');
+const BOW = objectNames.indexOf('BOW');
 const TALLOW_CANDLE = objectNames.indexOf('TALLOW_CANDLE');
 const WAX_CANDLE = objectNames.indexOf('WAX_CANDLE');
 
@@ -880,7 +884,147 @@ function is_themeroom_fill_eligible(fill, croom, difficulty) {
     return true;
 }
 
-// C ref: themerms.lua themeroom_fill() — reservoir only; fill bodies partial.
+// C ref: nhlib.lua percent() → nh.rn2(100) < threshold
+function percent(threshold) {
+    return rn2(100) < threshold;
+}
+
+// C ref: dungeon.c induced_align — burn RNG even when create_monster discards amask
+function induced_align(pct) {
+    const levAlign = game.level?.flags?.align;
+    if (levAlign) {
+        if (rn2(100) < pct) return levAlign;
+    }
+    const dunAlign = game.dungeons?.[game.u?.uz?.dnum]?.flags?.align;
+    if (dunAlign) {
+        if (rn2(100) < pct) return dunAlign;
+    }
+    return Align2amask(rn2(3) - 1);
+}
+
+// C ref: selvar.c selection_from_mkroom — room floor cells (!edge, matching roomno)
+function selection_from_mkroom(croom) {
+    const pts = new Set();
+    let lx = COLNO, ly = ROWNO, hx = 0, hy = 0;
+    if (!croom) return { pts, lx: 0, ly: 0, hx: -1, hy: -1 };
+    const rmno = (croom.roomnoidx ?? -1) + ROOMOFFSET;
+    for (let y = croom.ly; y <= croom.hy; y++) {
+        for (let x = croom.lx; x <= croom.hx; x++) {
+            if (!isok(x, y)) continue;
+            const loc = game.level.at(x, y);
+            if (loc && !loc.edge && loc.roomno === rmno) {
+                pts.add(`${x},${y}`);
+                if (x < lx) lx = x;
+                if (y < ly) ly = y;
+                if (x > hx) hx = x;
+                if (y > hy) hy = y;
+            }
+        }
+    }
+    if (pts.size === 0) return { pts, lx: 0, ly: 0, hx: -1, hy: -1 };
+    return { pts, lx, ly, hx, hy };
+}
+
+// C ref: selvar.c selection_rndcoord — walk x-outer then y; rn2(count)
+function selection_rndcoord(sel, removeit) {
+    if (!sel || !sel.pts.size) return null;
+    let idx = 0;
+    for (let dx = sel.lx; dx <= sel.hx; dx++) {
+        for (let dy = sel.ly; dy <= sel.hy; dy++) {
+            if (sel.pts.has(`${dx},${dy}`)) idx++;
+        }
+    }
+    if (!idx) return null;
+    let c = rn2(idx);
+    for (let dx = sel.lx; dx <= sel.hx; dx++) {
+        for (let dy = sel.ly; dy <= sel.hy; dy++) {
+            const key = `${dx},${dy}`;
+            if (!sel.pts.has(key)) continue;
+            if (!c) {
+                if (removeit) sel.pts.delete(key);
+                return { x: dx, y: dy };
+            }
+            c--;
+        }
+    }
+    return null;
+}
+
+// C ref: mkobj.c unbless — clear blessed only
+function unbless(otmp) {
+    if (otmp) otmp.blessed = false;
+}
+
+// C ref: sp_lev.c create_object — id/class + not-blessed (curse_state 6) at abs coord
+function create_object_themed(opts, x, y) {
+    let otmp = null;
+    const named = false;
+    if (opts.id != null && opts.id >= 0) {
+        otmp = mksobj_at(opts.id, x, y, true, !named);
+    } else if (opts.oclass != null && opts.oclass >= 0) {
+        otmp = mkobj_at(opts.oclass, x, y, !named);
+    }
+    if (!otmp) return null;
+    // curse_state 6 = not-blessed
+    if (opts.curse_state === 6) unbless(otmp);
+    else if (opts.curse_state === 1) bless(otmp);
+    else if (opts.curse_state === 3) curse(otmp);
+    return otmp;
+}
+
+// C ref: sp_lev.c find_montype — gender roll for non-fixed-sex species
+function find_montype_gender(name) {
+    const i = name_to_monplus(name);
+    if (i < 0 || i === NON_PM) return { mndx: NON_PM, female: 0 };
+    const ptr = mons(i);
+    let female = 0;
+    if (is_male(ptr) || is_female(ptr)) {
+        female = is_female(ptr) ? 1 : 0;
+    } else {
+        female = rn2(2); // FEMALE=1 / MALE=0
+    }
+    return { mndx: i, female };
+}
+
+// C ref: themerms.lua "Ghost of an Adventurer" contents + sp_lev create_monster/object
+function themeroom_fill_ghost(croom) {
+    const sel = selection_from_mkroom(croom);
+    // Lua: selection.room():rndcoord(0) — removeit=FALSE; returns room-relative,
+    // then get_location adds lx/ly. Use absolute cells directly.
+    const loc = selection_rndcoord(sel, false);
+    if (!loc) return;
+
+    const { mndx, female } = find_montype_gender('ghost');
+    if (mndx === NON_PM || mndx < 0) return;
+
+    // C create_monster: sp_amask_to_amask(AM_SPLEV_RANDOM) always burns induced_align
+    induced_align(80);
+
+    const ptr = mons(mndx);
+    const mtmp = makemon(ptr, loc.x, loc.y, 0);
+    if (mtmp) {
+        mtmp.female = female;
+        mtmp.msleeping = 1; // asleep = true
+        mtmp.mstrategy = (mtmp.mstrategy || 0) | STRAT_WAITFORU; // waiting
+    }
+
+    const buc = { curse_state: 6 }; // not-blessed
+    if (percent(65)) create_object_themed({ id: DAGGER, ...buc }, loc.x, loc.y);
+    if (percent(55)) create_object_themed({ oclass: WEAPON_CLASS, ...buc }, loc.x, loc.y);
+    if (percent(45)) {
+        create_object_themed({ id: BOW, ...buc }, loc.x, loc.y);
+        create_object_themed({ id: ARROW, ...buc }, loc.x, loc.y);
+    }
+    if (percent(65)) create_object_themed({ oclass: ARMOR_CLASS, ...buc }, loc.x, loc.y);
+    if (percent(20)) create_object_themed({ oclass: RING_CLASS, ...buc }, loc.x, loc.y);
+    if (percent(20)) create_object_themed({ oclass: SCROLL_CLASS, ...buc }, loc.x, loc.y);
+}
+
+const THEMEROOM_FILL_BODIES = {
+    'Ghost of an Adventurer': themeroom_fill_ghost,
+};
+
+// C ref: themerms.lua themeroom_fill() — reservoir + dispatched fill bodies
 function themeroom_fill(croom) {
     const difficulty = depth_of_level(game.u?.uz);
     let pick = null;
@@ -893,9 +1037,10 @@ function themeroom_fill(croom) {
             pick = fill;
     }
     if (!pick) return;
-    // Named omission: individual fill contents (altar/ghost/…); burn none yet.
-    // Next peel after map+region for themed fills.
     croom._themeroom_fill = pick.name;
+    const body = THEMEROOM_FILL_BODIES[pick.name];
+    if (body) body(croom);
+    // Named omission: other fill contents (Ice/Temple/Storeroom/…)
 }
 
 // C ref: themerms.lua filler_region + sp_lev.c lspo_region irregular path

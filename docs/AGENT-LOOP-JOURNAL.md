@@ -23,6 +23,20 @@ Use this shape:
 
 ---
 
+---
+
+## 2026-07-13 14:36 — Ghost themeroom_fill (D-0144)
+- Objective: seed0015 Ghost `selection_rndcoord` / fill body (PROGRESS).
+- C locus: `themerms.lua` Ghost; `selvar.c` `selection_from_mkroom`/
+  `selection_rndcoord`; `sp_lev.c` `create_monster`/`create_object`/
+  `find_montype`/`induced_align`; `makemon.c` `rndghostname`.
+- Result: **verified** — Ghost fill places asleep/waiting ghost +
+  percent not-blessed loot; `makemon` names ghosts.
+- Verification: seed0015 357→1284; green+strict PASS; cohort PASS;
+  full **13/44** Scr **1239** RNG **112442**/792838.
+- Next: `dig_corridor` (seed0015 @1284 / seed0200 @1447), or
+  `next_ident` / `maybe_smudge_engr`.
+
 ## 2026-07-13 14:28 — lspo_map themerms map rooms (D-0143)
 - Objective: seed0015/0200 `lspo_map` (PROGRESS primary).
 - C locus: `sp_lev.c` `lspo_map`/`mapfrag_*`/`lspo_region`;
