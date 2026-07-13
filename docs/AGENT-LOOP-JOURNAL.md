@@ -774,3 +774,16 @@ Use this shape:
   positional 3295; seed0700 RNG full.
 - Next: `node scripts/rng-diff.mjs sessions/seed0361-archeologist-tour.session.json`
   — peel `getbones` @ 3292 (also seed0373 @ 2549) or egg/seed0700 screen.
+
+## 2026-07-13 03:00 — EGG can_be_hatched (D-0068)
+- Objective: primary peel — Notes said getbones; diagnosed getbones
+  blocked on unbound `^V`/Quest `makemaz`; pivoted to seed0102 egg.
+- C locus: `mkobj.c` EGG `mksobj_init`; `mon.c` `can_be_hatched`/
+  `dead_species`/`BREEDER_EGG`; `mondata.c` `little_to_big`
+- Result: real hatch retry + growth helpers + `lays_eggs`. seed0102
+  prefix 1281→4451 (`dog_goal`). getbones remains blocked (documented).
+- Verification: green + seed1500/1800/0060 PASS + strict; full 5/44
+  screens 296 RNG 90837; seed0102 positional 4459/4485 Scr 2/25;
+  seed0700 RNG full.
+- Next: `node scripts/rng-diff.mjs sessions/seed0102-ranger-name-cancel.session.json`
+  — peel `dog_goal` @ 4451 (or seed0017/seed0700 screen/`exercise`).

@@ -7,16 +7,17 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 
 ## Active
 
-- **Current unit:** D-0067 fixed `P`/`doputon` + amulet `Amulet_on` +
-  accessory `accessory_or_armor_on`. seed0361 prefix **3259→3292**;
-  next is `getbones` (`rn2(3)`).
-- **Hypothesis / next peel:** Prefer shared `getbones` via `^V`
-  (seed0361 @ 3292 / seed0373 @ 2549) or egg `can_be_hatched`
-  (seed0102 @ 1281) / seed0700 screen.
+- **Current unit:** D-0068 fixed EGG `can_be_hatched` + `dead_species` +
+  `little_to_big` retry loop. seed0102 prefix **1281→4451**; next
+  `dog_goal` @ 4451.
+- **Hypothesis / next peel:** Prefer shared `getbones` only after
+  `^V`/`level_tele`/`goto_level` (see dead end). Else seed0102
+  `dog_goal` @ 4451 / seed0361 getbones blocked / seed0017 @ 2775 /
+  seed0700 screen / seed2200 `exercise` / seed1150 `dog_move`.
 - **Falsifier / next probe:**
   ```bash
-  node scripts/rng-diff.mjs sessions/seed0361-archeologist-tour.session.json
-  # Expect first gap at 3292 getbones until bones ported
+  node scripts/rng-diff.mjs sessions/seed0102-ranger-name-cancel.session.json
+  # Expect first gap at 4451 dog_goal until that peel
   ```
 - **Parked deep canary:** D-0006 pet movement — do not implement until C
   state/candidate capture exists.
@@ -41,20 +42,21 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   MLET_CH beyond early subset; shop `costly_spot` autopickup; `apelist`
   exceptions; maketrap overwrite/furniture/statue/boulder; `peace_minded`
   MS_*/race_*/minion arms; `align_shift`/`temperature_shift` bodies;
-  EGG `can_be_hatched` multi-retry; TIN `cnutrit` gate; interactive
-  `o`/`doopen` getdir; `doopen_indir` `b_trapped`/autounlock/mapseen;
-  `#levelchange` `losexp` drain path; full `extcmdlist` beyond
-  `levelchange`; `pluslvl` achievements/livelog/`newuexp`; feel_location/
-  Blind/unmap_invisible in `dosearch0`; mfind0 body; Hallucination
-  find_trap wait; activate_statue_trap; artifact SPFX_SEARCH fund;
-  `oc_delay` doff occupation; magic helm `Helmet_off` beyond fedora
-  luck; dragon armor/`setworn` oc_oprop props; `A` takeoffall; full
-  `readobjnam` (fruits/traps/terrain/random/`o_ranges`); `#wizwish`
-  extcmd; Ring_on learnring/attribs; Blindf_on specials; amulet
-  change/strangle/sleep/flying/breathing bodies; ring Glib/
-  cursed-gloves/welded gates; touch blast `d()`/`losehp`; artifact
-  wield intrinsics; `cantwield`/corpse/bimanual/weld pline/swap/
-  quiver ynq; …
+  TIN `cnutrit` gate; interactive `o`/`doopen` getdir; `doopen_indir`
+  `b_trapped`/autounlock/mapseen; `#levelchange` `losexp` drain path;
+  full `extcmdlist` beyond `levelchange`; `pluslvl` achievements/
+  livelog/`newuexp`; feel_location/Blind/unmap_invisible in `dosearch0`;
+  mfind0 body; Hallucination find_trap wait; activate_statue_trap;
+  artifact SPFX_SEARCH fund; `oc_delay` doff occupation; magic helm
+  `Helmet_off` beyond fedora luck; dragon armor/`setworn` oc_oprop
+  props; `A` takeoffall; full `readobjnam` (fruits/traps/terrain/
+  random/`o_ranges`); `#wizwish` extcmd; Ring_on learnring/attribs;
+  Blindf_on specials; amulet change/strangle/sleep/flying/breathing
+  bodies; ring Glib/cursed-gloves/welded gates; touch blast `d()`/
+  `losehp`; artifact wield intrinsics; `cantwield`/corpse/bimanual/
+  weld pline/swap/quiver ynq; `^V`/`level_tele`/`schedule_goto`/
+  `deferred_goto`/`goto_level`; `makemaz`/`splev` special levels;
+  `egg_type_from_parent` / hatch timers; …
 
 ## Don’t re-check
 
@@ -273,6 +275,16 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   `P`/`doputon`. Session keys `Pk` after wear; without puton, `P`/`k`
   leaked into rhack. ALS path is setworn + `on_msg`/`prinv` (no puton
   RNG); next peel is `getbones` @ **3292** (D-0067).
+- seed0361/0373 `getbones` `rn2(3)` @ 3292/2549 was **not** a broken
+  `getbones` early-return: JS stub already has `rn2(3)`, but `^V`
+  (`wiz_level_tele`) is unbound → no `level_tele`/`schedule_goto`/
+  `deferred_goto`/`goto_level`/`mklev`. Menu letter `y` is Quest
+  start (`*-strt`) → needs `makemaz`/`splev` (absent). Do not patch
+  getbones alone — D-0068 egg pivot; getbones blocked on level-tele.
+- seed0102 @ 1281 was **not** a second CORPSE `G_NOCORPSE` retry:
+  supply-chest EGG `!rn2(3)` must loop `can_be_hatched(rndmonnum())`
+  until hatchable (or tryct); stub broke after one `rndmonnum`
+  (D-0068). `BREEDER_EGG` is `!rn2(77)` on oviparous path.
 
 ## Landmarks
 
@@ -331,7 +343,8 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   positional **2942**/3137 Scr **22**/51.
 - seed0700: D-0060 → RNG **3230**/3230 Scr **2**/51 (screen peel next).
   seed0017: D-0060 → prefix **2775**; positional **2840**/3465.
-- seed0102 still **1281** — EGG `can_be_hatched` multi-`rndmonnum`.
+- seed0102: D-0068 → past EGG `can_be_hatched`; prefix **4451**
+  (`dog_goal`); positional **4459**/4485 Scr **2**/25.
 - `SPBOOK_no_NOVEL` ≡ `-SPBOOK_CLASS` (−10); `rnd_class` to
   `SPE_BLANK_PAPER` sums **999** (novel prob 1 excluded).
 - C `initrecord` after xlev: Caveman/Priest/Tourist/Valkyrie/Wizard **0**;
@@ -364,4 +377,9 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 - SDSM `oc_delay=5` → `nomul(-5)`; moveloop skips `nhgetch` while
   `multi < 0` and increments until `unmul` → `Armor_on` (D-0066).
 - ALS puton: no puton-time RNG; `Amulet_on` setworn + `prinv` on_msg;
-  next shared peel often `getbones` (D-0067).
+  next shared peel often `getbones` (D-0067) but tours use `^V` first.
+- Wizard `^V` → `wiz_level_tele` → `level_tele` → `?\n` menu → letter
+  `y` = Quest start (`*-strt`); needs `goto_level` + `makemaz`/`splev`.
+- EGG typed: `!rn2(3)` then up to 200× `can_be_hatched(rndmonnum())`;
+  oviparous path rolls `!rn2(77)` (BREEDER_EGG) except killer bee/
+  gargoyle fast path (D-0068).

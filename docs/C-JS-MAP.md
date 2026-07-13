@@ -127,10 +127,13 @@ prefix **3035** (`w` wield); screens **295**/11405; RNG
 `W`/`dowear`/`oc_delay`/`nomul` (D-0066) → seed0361 prefix **3259**
 (`P` puton); screens **295**/11405; RNG **85752**/792838.
 `P`/`doputon`/`Amulet_on` (D-0067) → seed0361 prefix **3292**
-(`getbones`); screens **295**/11405; RNG **85792**/792838. Next peel:
-`getbones` / seed0700 **screen** / egg `can_be_hatched` /
-`exercise` / `dog_move` / `wipeout_text` / `lspo_map` / pony
-`next_ident` / `maybe_smudge_engr`.
+(`getbones`); screens **295**/11405; RNG **85792**/792838.
+EGG `can_be_hatched`/`dead_species`/`little_to_big` (D-0068) →
+seed0102 prefix **4451** (`dog_goal`); positional **4459**/4485;
+screens **296**/11405; RNG **90837**/792838. Next peel:
+seed0102 `dog_goal` / seed0700 **screen** / `getbones` (blocked on
+`^V`/`makemaz`) / `exercise` / `dog_move` / `wipeout_text` /
+`lspo_map` / pony `next_ident` / `maybe_smudge_engr`.
 `make_corpse` body and `m_initinv` body still absent (named omissions).
 
 ## Data and world generation
@@ -142,8 +145,9 @@ prefix **3035** (`w` wield); screens **295**/11405; RNG
 | rumor sources | extractor + generated rumors | partial | Fortune path exercised |
 | `include/artilist.h` | extractor + `js/generated/artifacts_data.js` + `js/artifact.js` | partial | **name/otyp/spfx/align/role/race** (D-0064); **`retouch_object` + touch gate** (D-0065); omit attk/defn/cary/inv/cost/color gen_spe; `bane_applies`/blast `d()`/`losehp`/wield intrinsics |
 | `src/mondata.c` `name_to_monplus` | `js/mondata.js` | partial | **PM_* string + grey dragon alts** (D-0064); omit full alt_spl/rank titles/plural edge cases |
-| `src/mkobj.c` | `js/mkobj.js` | partial | Creation/merge/weight subsets; `add_to_buried` (D-0014); `start_corpse_timeout` + `mkcorpstat` `special_corpse` restart (D-0011); `is_poisonable`≡missiles (D-0012); starting SACK/`mkbox_cnts` (D-0013); **`splitobj`** quan/owt + floor chain + `next_ident` (D-0028); **`obj_extract_self` MINVENT** (D-0029); **`SPBOOK_no_NOVEL` → `rnd_class`…`SPE_BLANK_PAPER`** (D-0055); **CORPSE `undead_to_corpse` + `G_NOCORPSE` retry** (D-0057); omit `nextoid` shop-price search, unpaid/`splitbill`, timers/light/`copy_oextra`, invent/contained extract, `zombie_form`/zombify, EGG `can_be_hatched` multi-retry (JS breaks after one `rndmonnum`), TIN `cnutrit` gate, timer fire, `permapoisoned` |
-| `src/mon.c` `undead_to_corpse` | `js/mon.js` | partial | **`undead_to_corpse`** zombie/mummy/vampire map (D-0057); omit genus/other mon.c helpers |
+| `src/mkobj.c` | `js/mkobj.js` | partial | Creation/merge/weight subsets; `add_to_buried` (D-0014); `start_corpse_timeout` + `mkcorpstat` `special_corpse` restart (D-0011); `is_poisonable`≡missiles (D-0012); starting SACK/`mkbox_cnts` (D-0013); **`splitobj`** quan/owt + floor chain + `next_ident` (D-0028); **`obj_extract_self` MINVENT** (D-0029); **`SPBOOK_no_NOVEL` → `rnd_class`…`SPE_BLANK_PAPER`** (D-0055); **CORPSE `undead_to_corpse` + `G_NOCORPSE` retry** (D-0057); **EGG `can_be_hatched` multi-retry** (D-0068); omit `nextoid` shop-price search, unpaid/`splitbill`, timers/light/`copy_oextra`, invent/contained extract, `zombie_form`/zombify, TIN `cnutrit` gate, timer fire, `permapoisoned`, hatch timers |
+| `src/mon.c` `undead_to_corpse`/`can_be_hatched` | `js/mon.js` | partial | **`undead_to_corpse`** zombie/mummy/vampire map (D-0057); **`can_be_hatched`/`dead_species`** + BREEDER_EGG (D-0068); omit `egg_type_from_parent`, genus/other mon.c helpers |
+| `src/mondata.c` growth | `js/mondata.js` | partial | **`little_to_big`/`big_to_little`** grownups table (D-0068); name_to_mon; omit `big_little_match` multi-step walks beyond one step |
 | `src/makemon.c` | `js/makemon.js` | partial | Ordinary `is_armed`/`m_initweap`/`mongets`/`m_initthrow` (S_KOBOLD/S_ORC/S_OGRE/S_GIANT/S_CENTAUR/S_WRAITH/S_ZOMBIE/S_HUMANOID + default); **`add_to_minv` uses `OBJ_MINVENT`** (D-0029); **`makemon_rnd_goodpos` + null-ptr `rndmonst` order + `m_initgrp`/`G_SGROUP`** (D-0034); **`mkclass`/`mkclass_aligned`/`init_mongen_order`/`mk_gen_ok`/`is_placeholder`** (D-0053); **`peace_minded` co-align path uses real `ualign.record`** (D-0056); omit MS_LEADER/GUARDIAN/NEMESIS/ERINYS/`race_*`/`is_minion`/amulet arms; **`align_shift`/`temperature_shift` stubbed 0**; **`m_initinv` body absent** (tail-only); omit `throws_rocks` Sokoban first-try, S_HUMAN/S_ANGEL/S_KOP/S_DEMON/S_TROLL/S_LIZARD specials, `add_to_minv` merge, demon→default FALLTHROUGH, `set_malign`; `ndemon`/aligned `mkclass` callers unaudited |
 | `src/mklev.c` | `js/mklev.js` | partial | Ordinary level path substantial; mineralize bury-vs-place (D-0014); `mktrap_victim` place_object ammo/possessions (D-0016); **`set_wall_state`/`xy_set_wall_state`** (D-0038); **`makeniche` → real `mkclass(S_HUMAN)`** (D-0053); supply-chest **`SPBOOK_no_NOVEL`** (D-0055); omit `mkgrave_room` bury, `begin_burn`, special rooms/edge cases; seed0060 @ 2997 was **not** corridor typ (D-0032) |
 | `src/vision.c` | `js/vision.js` | partial | Algorithm subset; `clear_path`/`m_cansee` exported for pet rays (D-0018); **`couldsee` wired into `dog_goal`** (D-0030); **`cansee` used by `makemon_rnd_goodpos`** (D-0034); broad FOV/detection states unaudited |

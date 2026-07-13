@@ -71,6 +71,7 @@ Do not record a guessed cause as fixed merely because an RNG prefix moved.
 | D-0065 | fixed | wield | `w`/`dowield`/`ready_weapon`/`setuwep`/`retouch_object`; seed0361 past Grayswandir wield |
 | D-0066 | fixed | wear | `W`/`dowear`/`canwearobj`/`setworn`/`oc_delay`/`nomul`; seed0361 past SDSM dress |
 | D-0067 | fixed | puton | `P`/`doputon`/`Amulet_on` + accessory path; seed0361 past ALS; next `getbones` |
+| D-0068 | fixed | mkobj/egg | EGG `can_be_hatched` retry + growth helpers; seed0102 1281→4451 |
 
 D-0001 through D-0005 predate the strict-length/cohort runbook. Their focused
 causes are preserved, but generic "green sessions held" is historical evidence,
@@ -1838,3 +1839,37 @@ cohort gates if those functions are touched again.
   confirm the key map (`Pk`) before peeling fleeck arity.
 - **Next:** shared `getbones` (seed0361 @ 3292 / seed0373 @ 2549)
   or egg `can_be_hatched` / seed0700 screen.
+
+## D-0068 — EGG can_be_hatched multi-retry
+
+- **Status:** fixed
+- **Observed:** seed0102 first mismatch @ **1281**: C continues
+  `rndmonst_adj` `rn2(3)` (second `rndmonnum` in egg loop); JS
+  `rn2(6)` after a one-shot stub. seed0361/0373 `getbones` @
+  3292/2549 diagnosed as unbound `^V` → Quest `makemaz` (not a
+  getbones body bug) — pivoted to egg.
+- **Rejected:** getbones early-return / `flags.bones` — JS stub
+  already emits `rn2(3)` when reached; tours never call `mklev`
+  again without level-tele. CORPSE `G_NOCORPSE` retry — different
+  peel (D-0057); egg is separate.
+- **C locus:** `mkobj.c` `mksobj_init` EGG; `mon.c` `can_be_hatched`
+  / `dead_species` / `BREEDER_EGG`; `mondata.c` `little_to_big` /
+  `big_to_little` / `grownups`; `mondata.h` `lays_eggs` /
+  `M1_OVIPAROUS`.
+- **Cause:** typed-egg path must loop `can_be_hatched(rndmonnum())`
+  until hatchable (or tryct); oviparous path consumes `!rn2(77)`.
+  Stub broke after one `rndmonnum`.
+- **Change:** `js/mon.js` `can_be_hatched`/`dead_species`;
+  `js/mondata.js` grownups + growth helpers; `js/monsters.js`
+  `M1_OVIPAROUS`/`lays_eggs`; `js/mkobj.js` real EGG retry loop.
+- **Verification:** green + seed1500/1800/0060 PASS + strict; full
+  **5/44** screens **296** RNG **90837**/792838; seed0102 prefix
+  **1281→4451** (`dog_goal`) positional **4459**/4485 Scr **2**/25;
+  seed0700 RNG still full.
+- **Omissions named:** `egg_type_from_parent`; hatch timers;
+  `^V`/`level_tele`/`goto_level`/`makemaz`/`splev`.
+- **Lesson:** when Notes say getbones but C never reaches `mklev`,
+  check command bindings (`^V`) and special-level prerequisites
+  before patching the stub that already matches.
+- **Next:** seed0102 `dog_goal` @ 4451, or other shared peels;
+  getbones waits on level-tele + special levels.
