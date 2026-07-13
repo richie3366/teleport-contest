@@ -252,6 +252,15 @@ const EXT_CMDS = [
         },
     },
     {
+        name: 'terrain',
+        wiz: false,
+        autocomplete: true,
+        run: async () => {
+            const { doterrain } = await import('./detect.js');
+            return doterrain();
+        },
+    },
+    {
         name: 'levelchange',
         wiz: true,
         autocomplete: true,

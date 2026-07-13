@@ -7,17 +7,16 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 
 ## Active
 
-- **Current unit:** D-0127 cleared: `#adjust` / `doorganize` getobj +
-  destination Esc → Never mind (+ move/collect/swap/merge without split).
-- **Hypothesis:** seed0106 next Scr peel @253 is `#terrain` unbound
-  (`View which?` menu). Also residual `@257` spells menu vs
-  `You don't know any spells` and `@261` attributes title cells.
-  seed2200 next real peel after parked RC path @158 is help `j` →
-  `dokeylist` @184.
+- **Current unit:** D-0128 cleared: `#terrain` / `doterrain` View which?
+  menu + Esc cancel (+ reveal_terrain call path without getglyph rewrite).
+- **Hypothesis:** seed0106 next Scr peel @257 is Priest `+` spell menu —
+  needs `initialspell` / known spells (JS: `You don't know any spells`).
+  Residual @261 attributes title/cells. seed2200 next real peel after
+  parked RC path @158 is help `j` → `dokeylist` @184.
 - **Falsifier / next:**
   ```bash
   node frozen/ps_test_runner.mjs sessions/seed0106-priest-extcmd-sweep.session.json
-  # expect Scr >264 if #terrain matches C; green cohort must stay PASS
+  # expect Scr >265 if + spells menu matches C; green cohort must stay PASS
   node frozen/ps_test_runner.mjs sessions/seed2200-wizard-quaff-zap-read.session.json
   ```
 - **Parked deep canary:** D-0006 pet movement — do not implement until C
@@ -111,6 +110,10 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   `getobj("adjust")` then destination `yn_function` (D-0127). Do not
   invent a static letter map; destination list blanks used non-mergable
   slots then `compactify`.
+- **seed0106 @253 was `#terrain` unbound** — C `doterrain` →
+  `View which?` PICK_ONE with `a *` preselected; Esc cancels (D-0128).
+  Do not skip the menu and jump to `reveal_terrain`; contest nomux
+  paints selected as `*` not `+`.
 
 ## Landmarks
 
@@ -166,3 +169,6 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 - `#adjust`: `doorganize` → getobj suggest non-gold → destination
   blanks used non-mergable letters → `compactify` → Esc Never mind
   (D-0127).
+- `#terrain`: `doterrain` → `recalc_mapseen` → View which? a/b/c
+  (`a *` preselected; nomux `*`) → Esc cancel or reveal_terrain
+  (D-0128).

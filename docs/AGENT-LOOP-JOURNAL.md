@@ -1621,3 +1621,17 @@ Use this shape:
   green+strict PASS; cohort 1500/1800/0060/0102/0700/1150/0017/0077
   PASS; full **10/44** Scr **1135** RNG **104575**/792838.
 - Next: seed0106 `#terrain` @253 — or seed2200 `dokeylist` @184.
+
+## 2026-07-13 — #terrain doterrain View which? (D-0128)
+- Objective: seed0106 Scr @253 `#terrain` (PROGRESS primary).
+- C locus: `cmd.c` `doterrain`; `detect.c` `reveal_terrain`/`browse_map`;
+  contest nomux selected → `*`.
+- Result: **verified** — `#terrain` was AC-only; no runner. Ported
+  View which? PICK_ONE (a/b/c + explore/wizard extras), Esc cancel,
+  and partial `reveal_terrain` (impairment + Showing pline + browse_map
+  + docrt; getglyph rewrite deferred).
+- Verification: seed0106 Scr **264→265**/267 (next `+` spells @257);
+  green+strict PASS; cohort 1500/1800/0060/0102/0700/1150/0017/0077
+  PASS; full **10/44** Scr **1136** RNG **104575**/792838.
+- Next: seed0106 Priest `initialspell`/`dovspell` @257 — or seed2200
+  `dokeylist` @184.

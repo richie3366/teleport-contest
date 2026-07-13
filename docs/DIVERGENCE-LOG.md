@@ -3441,3 +3441,29 @@ cohort gates if those functions are touched again.
   floating `!invlet_constant` `reassign` truncate.
 - **Next:** seed0106 `#terrain` @253 / seed2200 `dokeylist` @184.
 
+## D-0128 — `#terrain` / `doterrain` View which? menu + Esc cancel
+
+- **Status:** fixed
+- **Observed:** seed0106 Scr **264**/267 first miss @253: C
+  `View which?` / `a * known map without monsters, objects, and traps`
+  / `b -` / `c -` / `(end)`; JS `#terrain: unknown extended command.`
+- **Cause/evidence:** `#terrain` was AUTOCOMPLETE-only (`EXT_CMD_AC`)
+  with no `EXT_CMDS` runner. Session Esc-cancels before
+  `reveal_terrain` (moves `#terrain\n\x1b`).
+- **C locus:** `cmd.c` `doterrain`; `detect.c` `reveal_terrain` /
+  `browse_map` / `map_redisplay`; contest `006-nomux` selected → `*`.
+- **Change:** `js/detect.js` `doterrain` (recalc_mapseen + PICK_ONE
+  a/b/c + explore/wizard 4–6; Esc/`letter`/space-return) + partial
+  `reveal_terrain`/`browse_map`/`map_redisplay`; `js/getline.js`
+  `#terrain` runner.
+- **Verification:** seed0106 Scr **264→265**/267 (next: `+` spells
+  @257 / attributes @261); green+strict PASS; cohort
+  1500/1800/0060/0102/0700/1150/0017/0077 PASS; full **10/44** Scr
+  **1135→1136** RNG **104575**/792838.
+- **Named omission:** `reveal_terrain_getglyph` / `show_glyph` map
+  rewrite; `unconstrain_map` underwater/buried/swallow;
+  `wiz_map_levltyp` / `wiz_levltyp_legend`; terrainmode autodescribe
+  glyph path in getpos; TER_FULL explore map body.
+- **Next:** seed0106 `+`/`dovspell`/`initialspell` @257 /
+  seed2200 `dokeylist` @184.
+

@@ -38,7 +38,7 @@ frozen-file overlay):
 | Metric | Value |
 |--------|------:|
 | Sessions passing | **10 / 44** |
-| Screens matched | **1135 / 11,405** (9.95%) |
+| Screens matched | **1136 / 11,405** (9.96%) |
 | Positional RNG calls matched | **104,575 / 792,838** (13.19%) |
 | Speed label | `18+0.09/turn` |
 | Working-tree base | `8b71735` + committed port (see `main`) |
@@ -69,7 +69,7 @@ shared blockers, and semantic coverage together—not one vanity metric.
 | `seed0016-healer-newmoon-eat-zap` | **2544 / 3656** | **5 / 36** |
 | `seed0107-samurai-twoweapon-enhance` | **2684 / 2902** | **36 / 98** |
 | `seed0104-knight-ride-combat` | **2394 / 3223** | 1 / 43 |
-| `seed0106-priest-extcmd-sweep` | **4194 / 4194** | **264 / 267** |
+| `seed0106-priest-extcmd-sweep` | **4194 / 4194** | **265 / 267** |
 | `seed0361-archeologist-tour` | **3293 / 53865** | 0 / 366 |
 | `seed0373-barbarian-quest-tour` | **2555 / 35386** | 0 / 124 |
 | `seed0105-valk-chat-lamp-ration` | **987 / 2499** | 0 / 30 |
@@ -125,7 +125,7 @@ autoopen `doopen_indir` (D-0059), `mfndpos` BOULDER/`NODIAG`
 **`#offer`/`#enhance`/`#annotate`/`#overview`/`#version`** (D-0110)
 clear shared peels. seed2200 RNG **full**; Scr **200**/230 (next:
 `dokeylist` @184 after parked RC path @158). seed0106 RNG **full**;
-Scr **264**/267 (next: `#terrain` @253). Healer seed0016 next
+Scr **265**/267 (next: `+` spells/`initialspell` @257). Healer seed0016 next
 `next_ident` @ 2493.
 Priest seed0501 still `wipeout_text`. seed0015/0200 next `lspo_map`.
 seed0101 next `next_ident`. seed0013 still breaks earlier in
@@ -156,6 +156,8 @@ Scr **1128→1130**; seed0106 Scr **257→259**.
 (D-0126) → Scr **1130→1133**; seed0106 Scr **259→262**.
 **`#adjust`/`doorganize`** (D-0127) → Scr **1133→1135**; seed0106 Scr
 **262→264**.
+**`#terrain`/`doterrain`** (D-0128) → Scr **1135→1136**; seed0106 Scr
+**264→265**.
 
 ### Green gate
 
@@ -256,18 +258,19 @@ autoopen `doopen_indir` (D-0059) + `mfndpos` BOULDER/`ALLOW_ROCK` +
 **`#vanquished`/`list_vanquished` + `mvitals.died` + empty `#genocided`**
 (D-0126)
 **`#adjust`/`doorganize` getobj + destination cancel** (D-0127)
+**`#terrain`/`doterrain` View which? + Esc cancel** (D-0128)
 **ported**. Ten public sessions pass end-to-end. **0/44** throw at
 `u_init_role`. seed0700 + seed1150 + seed0017 + seed0077 **PASS**.
-seed0106 RNG **full** (Scr **264**/267); seed2200 RNG **full**
+seed0106 RNG **full** (Scr **265**/267); seed2200 RNG **full**
 (Scr **200**/230).
 
-- **Bounded unit:** seed0106 `#terrain` @253 /
+- **Bounded unit:** seed0106 `+`/`dovspell`/`initialspell` @257 /
   seed2200 `dokeylist` @184 /
   seed0501/0105 `wipeout_text` / seed0015/0200 `lspo_map` /
   seed0101 `next_ident` / seed0103 `next_ident`/`trquan` /
   seed0030 `maybe_smudge_engr` / seed0361/0373 **`getbones`**
   (blocked: need `^V`→`goto_level`→`makemaz` first).
-- **Prefer:** seed0106 `#terrain` or seed2200
+- **Prefer:** seed0106 Priest `initialspell`/`dovspell` or seed2200
   `dokeylist` over parked D-0006.
 - **Named omissions:** Wizard/Priest/Healer `initialspell`;
   `skill_based_spellbook_id` / `unrestrict_weapon_skill(spelspec)`;
@@ -299,8 +302,8 @@ seed0106 RNG **full** (Scr **264**/267); seed2200 RNG **full**
   `peace_minded` MS_*/race_*/minion arms; egg hatch timers /
   `egg_type_from_parent`; `^V`/`level_tele`/`goto_level`/`makemaz`;
   TIN `cnutrit`; interactive `o`/`doopen` getdir; `doopen_indir`
-  `b_trapped`/autounlock/mapseen; `#levelchange` `losexp`;   remaining
-  `extcmdlist` (`#terrain`); overview shop/temple/`shop_string`/altar-god /
+  `b_trapped`/autounlock/mapseen; `#levelchange` `losexp`; remaining
+  `extcmdlist` (beyond `#terrain`); overview shop/temple/`shop_string`/altar-god /
   `traverse_mapseenchn`; `floorfood` sacrifice;
   `pluslvl` achievements/`newuexp`; takeoff `oc_delay`/
   occupation/magic helms/dragon/`A` takeoffall; dosearch0
@@ -722,6 +725,10 @@ Module status, constitutional debt, and named omissions live in
 109. `#adjust`/`doorganize` (D-0127) — seed0106 Scr **262→264**/267;
     screens **1133→1135**; RNG **104575** unchanged; green cohort
     PASS; next seed0106 `#terrain` @253 / seed2200 `dokeylist` @184
+110. `#terrain`/`doterrain` (D-0128) — seed0106 Scr **264→265**/267;
+    screens **1135→1136**; RNG **104575** unchanged; green cohort
+    PASS; next seed0106 `+` spells/`initialspell` @257 /
+    seed2200 `dokeylist` @184
 
 Next work is selected from the active objectives above using
 `PORTING-RUNBOOK.md`, not by extending this historical list.
