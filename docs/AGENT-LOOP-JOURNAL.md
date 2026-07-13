@@ -19,6 +19,19 @@ Use this shape:
 
 ---
 
+## 2026-07-13 18:15 — SQKY You_hear + ^X gender/depth (D-0163/64)
+- Objective: seed0015 Scr @22 distant F-note squeak + @38 ^X attributes
+  (PROGRESS primary).
+- C locus: `trap.c` `trapeffect_sqky_board`/`trapnote`; `pline.c`
+  `You_hear`; `objnam.c` `just_an` letter-space; `insight.c`
+  `background_enlightenment` gender + dungeon depth.
+- Result: **verified** — port monster SQKY out-of-sight hear + real
+  `canseemon`; `just_an("F note")`→`an`; ^X same gender gate as welcome;
+  dungeon line uses `depth(u.uz)`. seed0015 **PASS**.
+- Verification: green+strict PASS; cohort 12 PASS; full **15/44**
+  Scr **1347** RNG **128105**.
+- Next: seed0030 `maybe_smudge_engr` @6732, or seed0101 Scr residual.
+
 ## 2026-07-13 18:06 — ordinary vs known-branch stair colors (D-0162)
 - Objective: seed0015 Scr @21 upstairs `<` yellow vs C NO_COLOR
   (PROGRESS primary).

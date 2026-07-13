@@ -37,10 +37,10 @@ frozen-file overlay):
 
 | Metric | Value |
 |--------|------:|
-| Sessions passing | **14 / 44** |
-| Screens matched | **1345 / 11,405** (11.79%) |
+| Sessions passing | **15 / 44** |
+| Screens matched | **1347 / 11,405** (11.81%) |
 | Positional RNG calls matched | **128,105 / 792,838** (16.16%) |
-| Speed label | `20+0.08/turn` |
+| Speed label | `19+0.08/turn` |
 | Working-tree base | `8b71735` + committed port (see `main`) |
 | Role-init throws | **0 / 44** (`u_init_role: role not ported`) |
 
@@ -74,13 +74,13 @@ shared blockers, and semantic coverage together—not one vanity metric.
 | `seed0361-archeologist-tour` | **3293 / 53865** | 0 / 366 |
 | `seed0373-barbarian-quest-tour` | **2555 / 35386** | 0 / 124 |
 | `seed0105-valk-chat-lamp-ration` | **2499 / 2499** | **30 / 30** |
-| `seed0015-valk-level2-pit-dog-wait` | **8563 / 8563** | **42 / 44** |
+| `seed0015-valk-level2-pit-dog-wait` | **8563 / 8563** | **44 / 44** |
 | `seed0077-rogue-chargen` | **3242 / 3242** | **33 / 33** |
 | `seed0013-rogue-friday13-combat` | **543 / 4838** | 1 / 59 |
 
 seed8000 + seed0900 + seed1500 + seed1800 + seed0060 + seed0102 +
 seed0700 + seed1150 + seed0017 + seed0077 + seed0106 + seed0501 +
-seed0105 + seed0016 pass end-to-end.
+seed0105 + seed0016 + seed0015 pass end-to-end.
 `choose_trapnote`/`hole_destination` (D-0054), `SPBOOK_no_NOVEL`
 (D-0055), roles `initrecord` (D-0056), CORPSE `G_NOCORPSE` retry
 (D-0057), `adjabil`/`u_calc_moveamt` Fast (D-0058), `rnl` +
@@ -128,8 +128,7 @@ autoopen `doopen_indir` (D-0059), `mfndpos` BOULDER/`NODIAG`
 clear shared peels. seed2200 RNG **full**; Scr **229**/230 (sole miss:
 parked RC path @158). seed0106 **PASS**.
 Healer seed0016 **PASS**.
-seed0015 next distant SQKY hear @22 / ^X genderPart @38 (RNG full Scr **42**/44);
-seed0200 next `hitum`/`exercise` @ 3382.
+seed0015 **PASS**. seed0200 next `hitum`/`exercise` @ 3382.
 seed0101 next Scr residual (RNG full). seed0013 still breaks earlier in
 Lua/`sp_lev`. seed0103 next `next_ident`/`trquan` @ 2337.
 seed0361/0373 `getbones` blocked on unbound `^V`/`goto_level`/
@@ -193,6 +192,25 @@ aggregate Scr/RNG held **1318**/**128139**.
 **armor `pair of`/`set of` + ^X new moon paging** (D-0158) →
 seed0016 **PASS**; public **14/44**; Scr **1318→1323**; RNG held
 **128139**.
+**`postmov` door open/unlock/smash** (D-0159) →
+seed0015 Scr **21→22**/44; Scr **1323→1324**; RNG **128139→128111**.
+**`flush_screen(-1)`/`docrt`→`cls` descend `--More--`** (D-0160) →
+seed0015 Scr **22→23**/44; Scr **1324→1326**.
+**`clear_level_structures` `_objects_at`/`head_engr`** (D-0161) →
+seed0015 Scr **23→24**/44; Scr **1326→1327**; RNG **128111→128105**.
+**ordinary vs known-branch stair colors** (D-0162) →
+seed0015 Scr **24→42**/44; Scr **1327→1345**.
+**monster `trapeffect_sqky_board` + `just_an` letter-space** (D-0163) +
+**^X gender gate + dungeon `depth`** (D-0164) →
+seed0015 **PASS**; public **15/44**; Scr **1345→1347**; RNG held
+**128105**.
+Healer seed0016 **PASS**.
+seed0015 **PASS**. seed0101 next Scr residual (RNG full). seed0013 still breaks earlier in
+Lua/`sp_lev`. seed0103 next `next_ident`/`trquan` @ 2337.
+seed0361/0373 `getbones` blocked on unbound `^V`/`goto_level`/
+`makemaz`. seed0077 chargen + vault fallback + door vision/pick_lock/DEC
+open-door (D-0111/D-0112/D-0113) → **PASS**. seed0030 **7026**/105529.
+seed0105 RNG **full** (Scr **30**/30).
 
 ### Green gate
 
@@ -327,21 +345,21 @@ autoopen `doopen_indir` (D-0059) + `mfndpos` BOULDER/`ALLOW_ROCK` +
 **`flush_screen(-1)`/`docrt`→`cls` descend `--More--`** (D-0160)
 **`clear_level_structures` `_objects_at`/`head_engr`** (D-0161)
 **ordinary vs known-branch stair colors** (D-0162)
-**ported**. Fourteen public sessions pass end-to-end. **0/44** throw at
+**monster `trapeffect_sqky_board` + `just_an` letter-space** (D-0163)
+**^X gender gate + dungeon `depth(u.uz)`** (D-0164)
+**ported**. Fifteen public sessions pass end-to-end. **0/44** throw at
 `u_init_role`. seed0700 + seed1150 + seed0017 + seed0077 + seed0106 +
-seed0501 + seed0105 + seed0016 **PASS**. seed2200 RNG **full** (Scr **229**/230; sole
-miss parked RC @158). seed0015 RNG **full** (Scr **42**/44).
+seed0501 + seed0105 + seed0016 + seed0015 **PASS**. seed2200 RNG **full**
+(Scr **229**/230; sole miss parked RC @158).
 seed0101 RNG **full** Scr **21**/27.
 
-- **Bounded unit:** seed0015 distant SQKY hear @22 / ^X genderPart @38 /
-  seed0030 `maybe_smudge_engr` @6732 /
+- **Bounded unit:** seed0030 `maybe_smudge_engr` @6732 /
   seed0101 Scr residual /
   seed0103 `next_ident`/`trquan` /
   seed0200 combat `@3382` (lower priority) /
   seed0361/0373 **quest `getbones`** (blocked: need `^V`→`goto_level`→
   `makemaz` first — ordinary `goto_level` now exists for stairs).
-- **Prefer:** seed0015 SQKY hear / ^X gender / `maybe_smudge_engr` /
-  seed0101 Scr
+- **Prefer:** `maybe_smudge_engr` / seed0101 Scr
   over parked D-0006 and over baking seed2200 RC paths.
   Hero `dotrap` deferred until monster pit peel is clear.
 - **Named omissions:** full `findtravelpath` TEST_TRAV/GUESS/travelmap/
@@ -415,13 +433,13 @@ seed0101 RNG **full** Scr **21**/27.
   memory (seed0060-sensitive); infrared `_map_location`;
   `show_achievements` body; xkilled murder/peaceful luck/`adjalign`;
   eel AD_WRAP Amphibious XP; `get_mattk` still FIRST_ATTK compact;
-  wizard ^X next-level XP line; SQKY `wake_nearto`/`You_hear`;
+  wizard ^X next-level XP line; hero SQKY `dotrap`;
   `mons_see_trap`; HOLE `!mindless` already_seen; full
   `m_harmless_trap` flyer/resist immunities; hostile `gettrack`/
   shortsighted/`m_search_items`; mtrapped escape `rn2(40)`; …
 - **Cohort:** green gate + seed1500 + seed1800 + seed0060 + seed0102
   + seed0700 + seed1150 + seed0017 + seed0077 + seed0106 + seed0501
-  + seed0105 + seed0016 (must stay PASS) + strict lengths.
+  + seed0105 + seed0016 + seed0015 (must stay PASS) + strict lengths.
 
 Focused survey:
 
@@ -950,6 +968,11 @@ Module status, constitutional debt, and named omissions live in
     **1327→1345**; RNG **128105**; green cohort PASS; next
     SQKY distant hear @22 / ^X genderPart @38 / `maybe_smudge_engr` /
     seed0101 Scr
+141. monster `trapeffect_sqky_board` + `just_an` letter-space (D-0163)
+    + ^X gender gate + dungeon `depth` (D-0164)
+    — seed0015 **PASS**; public **15/44**; screens **1345→1347**;
+    RNG **128105**; green cohort + seed0015 PASS; next
+    `maybe_smudge_engr` / seed0101 Scr residual / seed0200 @3382
 
 Next work is selected from the active objectives above using
 `PORTING-RUNBOOK.md`, not by extending this historical list.

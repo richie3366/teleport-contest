@@ -7,18 +7,16 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 
 ## Active
 
-- **Current unit:** D-0162 cleared seed0015 upstairs `<` color (Scr
-  **24→42**/44). Ordinary stairs CLR_GRAY→NO_COLOR; known-branch yellow.
-- **Hypothesis / next:** seed0015 Scr @22 missing distant
-  `You hear an F note squeak in the distance.` (SQKY / dosounds), or
-  Scr @38 ^X `female human Valkyrie` vs C `human Valkyrie` (genderPart
-  when `!name.f`). Or seed0030 `maybe_smudge_engr` @6732 / seed0101 Scr.
+- **Current unit:** D-0163/64 cleared seed0015 (SQKY hear + ^X gender/depth
+  + `just_an` letter-space). Session **PASS**; public **15/44**.
+- **Hypothesis / next:** seed0030 `maybe_smudge_engr` @6732, or
+  seed0101 Scr residual (RNG full), or seed0200 combat `@3382`.
 - **Falsifier / next:**
   ```bash
-  node frozen/ps_test_runner.mjs sessions/seed0015-valk-level2-pit-dog-wait.session.json
-  # expect Scr >42 or first miss past SQKY hear / ^X gender
   node scripts/rng-diff.mjs sessions/seed0030-ten-diverse-deaths.session.json
   # expect first mismatch past maybe_smudge_engr @6732 if that peel advances
+  node frozen/ps_test_runner.mjs sessions/seed0101-ranger-quiver-throw-travel-engrave.session.json
+  # expect Scr >21/27 if residual display peel advances
   ```
 - **Parked deep canary:** D-0006 pet movement — do not implement until C
   state/candidate capture exists.
@@ -251,6 +249,13 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   that matched Dlvl1 known-branch only. C `known_branch_stairs` →
   yellow; ordinary same-dungeon stairs CLR_GRAY→NO_COLOR (D-0162).
   Do not hardcode upstairs=yellow from fixtures.
+- **seed0015 Scr @22 missing SQKY hear was NOT dosounds** — deferred
+  `trapeffect_sqky_board` You_hear out-of-sight (D-0163). trap.js
+  `canseemon` must use real `cansee`, not always-true. `just_an("F note")`
+  is letter+space → `an` via `aefhilmnosx` (not vowel-only).
+- **seed0015 ^X `female human Valkyrie` was NOT missing name.f alone** —
+  `doattributes` must use same both-genders / initgend gate as welcome
+  (D-0164). Hardcoded `on level 1` also ignored `depth(u.uz)`.
 
 ## Landmarks
 
@@ -312,3 +317,8 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   `get_rnd_text` → `rn2(2894)` then wipeout on drawn line (D-0148).
 - `occupied`: `t_at` OR furniture OR lava/pool OR `invocation_pos`
   (D-0147). `invocation_pos` still always-false until wired.
+- SQKY distant: out-of-sight `You_hear("%s squeak %s.", trapnote,
+  nearby|distance)`; range = couldsee ? BOLT_LIM+1 : BOLT_LIM-3;
+  `just_an` letter+space uses `aefhilmnosx` (D-0163).
+- ^X gender: same gate as welcome — `!name.f` AND (both-genders OR
+  innategend!=initgend); dungeon line uses `depth(u.uz)` (D-0164).

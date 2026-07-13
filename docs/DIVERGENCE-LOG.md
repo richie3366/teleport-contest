@@ -4373,3 +4373,55 @@ cohort gates if those functions are touched again.
   port `known_branch_stairs`, do not bake upstairs=yellow.
 - **Next:** seed0015 distant SQKY hear / ^X attributes gender /
   `maybe_smudge_engr` / seed0101 Scr residual.
+
+## D-0163 — monster `trapeffect_sqky_board` + `just_an` letter-space (seed0015)
+
+- **Status:** fixed
+- **Observed:** seed0015 Scr @22 blank vs C
+  `You hear an F note squeak in the distance.`; RNG already full.
+- **Rejected:** dosounds feature rolls; inventing a fake hear without
+  `mintrap`/`trapeffect_sqky_board`.
+- **C locus:** `trap.c` `trapeffect_sqky_board` / `trapnote`;
+  `pline.c` `You_hear`; `mon.c` `wake_nearto`; `objnam.c` `just_an`
+  (letter+space → `aefhilmnosx`).
+- **Cause:** JS SQKY case was a no-op stub. Out-of-sight monsters need
+  `You_hear` with `trapnote` + nearby/distance from `couldsee`/`mdistu`.
+  trap.js `canseemon` was always-true (local `cansee` stub), which would
+  take the in-sight pline path. After You_hear landed, article was
+  `a F note` because JS `just_an` only checked vowels — C treats
+  `"F note"` (`str[1]==' '`) as single-letter musical note → `an`.
+- **Change:** port monster `trapeffect_sqky_board` + `trapnote` +
+  `You_hear` + `wake_nearto`; real `canseemon` via vision/`mon_visible`;
+  `just_an` letter-space / the-/lava/bars/ice.
+- **Verification:** seed0015 Scr **42→43**/44 (then D-0164 → PASS);
+  green+strict PASS; cohort 12 PASS.
+- **Named omission:** hero `dotrap` SQKY; Deaf+mindless silent;
+  `Soundeffect`; `disturb_buried_zombies`; full `just_an` one-/eu-/uke-
+  exceptions.
+- **Lesson:** trap effect stubs that skip messages still need real
+  `canseemon`; musical-note articles are not vowel rules.
+- **Next:** ^X genderPart / dungeon depth (D-0164).
+
+## D-0164 — ^X gender gate + dungeon `depth(u.uz)` (seed0015)
+
+- **Status:** fixed
+- **Observed:** seed0015 Scr @38 `female human Valkyrie` vs C
+  `human Valkyrie`; after gender fix, `on level 1` vs C `level 2`.
+- **Rejected:** treating `!name.f` alone as always-add-gender (welcome
+  already had the both-genders gate — D-0138).
+- **C locus:** `insight.c` `background_enlightenment` gender tmpbuf +
+  dungeon line (`dungeons[].dname` + `depth`/`dunlev`).
+- **Cause:** `doattributes` used `hasFemaleName ? '' : gender+' '` and
+  hardcoded `on level 1`. Valkyrie is female-only (`allow` not both
+  genders) so C omits gender; after descend `depth(u.uz)` is 2.
+- **Change:** same gender gate as welcome; dungeon line from
+  `dungeons[dnum].dname` + `depth(u.uz)`.
+- **Verification:** seed0015 **PASS** (RNG 8563/8563 Scr 44/44);
+  green+strict PASS; cohort 12 PASS; full **15/44** Scr **1347** RNG
+  **128105**.
+- **Named omission:** endgame/knox/quest/rogue/bigroom dungeon phrasing;
+  `In_quest` uses `dunlev` not `depth`.
+- **Lesson:** welcome and ^X share the gender gate; do not hardcode
+  Dlvl:1 into attributes after `goto_level` exists.
+- **Next:** seed0030 `maybe_smudge_engr` / seed0101 Scr residual /
+  seed0200 combat @3382.
