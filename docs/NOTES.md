@@ -7,13 +7,11 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 
 ## Active
 
-- **Current unit:** seed0200 Scr **39**/40 (RNG full after D-0193) /
-  seed0030 disclosure·seg1 / seed0101 Scr residual.
-- **Hypothesis (seed0200 Scr):** remaining miss is topline join of
-  Monk `You feel guilty.` + eatcorpse taste on one `--More--` line
-  (C: two spaces), not further RNG.
-- **Falsifier:** compare JS vs C screen after `e`+`k` for
-  `guilty`/`tastes terrible` on the same topline page.
+- **Current unit:** seed0030 disclosure·seg1 / seed0101 Scr residual /
+  seed0103 `next_ident`/`trquan`.
+- **Hypothesis (seed0030):** after seg0 RNG complete (D-0190), next peel
+  is disclosure / multi-segment — diagnose first mismatch in seg1+.
+- **Falsifier:** `node frozen/ps_test_runner.mjs sessions/seed0030-ten-diverse-deaths.session.json` + inspect first failing screen/RNG after seg0.
 - **Parked deep canary:** D-0006 pet movement — do not implement until C
   state/candidate capture exists.
 - **Parked seed2200 @158:** RC config path — harness `$HOME`, not a port bug.
@@ -109,6 +107,10 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 - **@3565 was NOT missing exercise / fleeck** — JS refused CORPSE; C
   `eatcorpse` (D-0193). Monk form is not carnivorous → no palatable
   `rn2(10)`.
+- **seed0200 Scr residual was NOT guilty+taste topline join** — ^X
+  attributes: hardcoded "bare handed"/"unskilled bare handed combat"
+  vs C `empty_handed()` (gloves→empty) + `P_BASIC` martial arts
+  (D-0194).
 - **`monattk.h`: AT_WEAP=254, AT_MAGC=255, AT_SPIT=10** — never use 10 for
   weapon (D-0179).
 - Hostile `m_move`: before place, `m_digweapon_check` may return
@@ -162,3 +164,5 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 - **CORPSE `eatcorpse`** rotting `rn2(20)` + `start_eating`/`eatfood`
   occupation (D-0193); `mons[].cwt`/`cnutrit` extracted; Monk form
   fails `carnivorous` so palatable skips `rn2(10)`.
+- **^X weapon_insight:** `empty_handed()` uses `uarmg`→"empty handed";
+  skill line uses real `P_SKILL` + martial `P_NAME` (D-0194).

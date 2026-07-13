@@ -19,6 +19,17 @@ Use this shape:
 
 ---
 
+## 2026-07-13 23:05 — empty_handed + weapon_insight (D-0194)
+- Objective: seed0200 Scr residual (PROGRESS primary).
+- C locus: `wield.c` `empty_handed`; `insight.c` `weapon_insight`;
+  `weapon.c` `P_NAME`/`martial_bonus`/`skill_level_name`.
+- Result: **verified** — NOTES guilty+taste join **falsified**; real
+  cause was hardcoded ^X bare-handed/unskilled vs gloves→empty + Monk
+  martial `P_BASIC`. seed0200 **PASS**.
+- Verification: green+strict+cohort PASS; full **16/44** Scr **1306**
+  RNG **138545**.
+- Next: `node frozen/ps_test_runner.mjs sessions/seed0030-ten-diverse-deaths.session.json`
+
 ## 2026-07-13 22:45 — mdamageu done_in_by / can_make_bones (D-0190)
 - Objective: seed0030 @14299 (C `can_make_bones` vs JS `rn2(5)`).
 - C locus: `mhitu.c` `mdamageu` → `end.c` `done_in_by`/`done`/`really_done`

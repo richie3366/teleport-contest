@@ -197,6 +197,7 @@ Do not record a guessed cause as fixed merely because an RNG prefix moved.
 | D-0191 | fixed | mon.c xkilled corpse | `xkilled`→`make_corpse` when `corpse_chance` (not burn-only) |
 | D-0192 | fixed | cmd/pickup `,` | unbound `,` skipped pickup turn → early Ctrl-D kick |
 | D-0193 | fixed | eat.c eatcorpse | CORPSE refuse → early kick; port eatcorpse + occupation |
+| D-0194 | fixed | insight/weapon | empty_handed + real P_SKILL martial ^X; seed0200 PASS |
 
 D-0001 through D-0005 predate the strict-length/cohort runbook. Their focused
 causes are preserved, but generic "green sessions held" is historical evidence,
@@ -5268,8 +5269,31 @@ cohort gates if those functions are touched again.
 - **Named omissions:** floorfood floor; TIN; full `cprefx`/`cpostfx`;
   tainted `make_sick`; `poison_strdmg`; slime/stone; `rottenfood`
   confuse/blind/faint bodies; freeinv invent-full drop; `?`/`*` menu;
-  topline join of guilty+taste (Scr residual @1); `oc_nutrition`
-  extract.
+  `oc_nutrition` extract.
 - **Next:** seed0200 Scr residual / seed0030 disclosure·seg1 /
   seed0101 Scr.
+
+## D-0194 — empty_handed + weapon_insight skill lines (seed0200 Scr)
+
+- **Status:** fixed
+- **Observed:** seed0200 Scr **39**/40 (RNG full) — ^X attributes page
+  row: JS `You are bare handed.` / `You are unskilled in bare handed
+  combat.` vs C `You are empty handed.` / `You have basic skill with
+  martial arts.` NOTES guilty+taste topline join **falsified**.
+- **C locus:** `wield.c` `empty_handed`; `insight.c` `weapon_insight`;
+  `weapon.c` `P_NAME`/`skill_level_name`/`martial_bonus`; `skill_init`
+  sets Monk bare-hand to `P_BASIC` when max > Expert.
+- **Cause/evidence:** invent enlightenment hardcoded bare-handed/
+  unskilled; Monk wears LEATHER_GLOVES → C `uarmg` ⇒ "empty handed";
+  `martial_bonus` + `P_BASIC` ⇒ "have basic skill with martial arts."
+- **Change:** `js/wield.js` `empty_handed` (+ ready/quiver callers);
+  `js/invent.js` weapon_insight from real `P_SKILL`/`skill_name`
+  (martial); `js/monsters.js` `M1_HUMANOID`/`humanoid`.
+- **Verification:** seed0200 **PASS**; green+strict+cohort PASS; full
+  **16/44** Scr **1306**/11405 RNG **138545**/792838.
+- **Named omissions:** twoweap skill-comparison branch; `can_advance`
+  enhance suffix; ammo-as-uwep skip; odd-skill P_NAME beyond martial;
+  full `set_uasmon` youmonst.data (missing data → humanoid start).
+- **Next:** seed0030 disclosure·seg1 / seed0101 Scr / seed0103
+  `next_ident`.
 

@@ -104,6 +104,7 @@ export const M1_TUNNEL = 0x00000020; /* monflag.h — can tunnel through rock */
 export const M1_NEEDPICK = 0x00000040; /* monflag.h — needs pick to tunnel */
 export const M1_NOTAKE = 0x00000800; /* monflag.h — cannot pick up objects */
 export const M1_NOHANDS = 0x00002000;
+export const M1_HUMANOID = 0x00020000; /* monflag.h — humanoid head/arms/torso */
 export const M1_THICK_HIDE = 0x00200000; /* monflag.h — thick hide or scales */
 export const M1_SEE_INVIS = 0x01000000; /* monflag.h — sees invisible */
 export const M1_NOEYES = 0x00001000;
@@ -174,6 +175,11 @@ export function thick_skinned(ptr) {
 // C ref: mondata.h nohands()
 export function nohands(ptr) {
     return !!((ptr?.mflags1 ?? 0) & M1_NOHANDS);
+}
+
+/** C ref: mondata.h humanoid — M1_HUMANOID */
+export function humanoid(ptr) {
+    return !!((ptr?.mflags1 ?? 0) & M1_HUMANOID);
 }
 
 /** C ref: mondata.h haseyes — !(M1_NOEYES) */
