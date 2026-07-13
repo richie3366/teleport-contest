@@ -68,6 +68,7 @@ Do not record a guessed cause as fixed merely because an RNG prefix moved.
 | D-0062 | fixed | detect/search | `dosearch0` + Searching EOT; next was takeoff then wish |
 | D-0063 | fixed | do_wear/takeoff | `T`/`dotakeoff` + delay-0 `armoroff`; seed0361 past `TcTd` |
 | D-0064 | fixed | wish/readobjnam | `^W`/`makewish`/`readobjnam` + artifacts; seed0361 past 3 wishes |
+| D-0065 | fixed | wield | `w`/`dowield`/`ready_weapon`/`setuwep`/`retouch_object`; seed0361 past Grayswandir wield |
 
 D-0001 through D-0005 predate the strict-length/cohort runbook. Their focused
 causes are preserved, but generic "green sessions held" is historical evidence,
@@ -1739,4 +1740,37 @@ cohort gates if those functions are touched again.
   + generic `scale mail` probabilistic match, then otyp remap — do
   not short-circuit to the final otyp in `rnd_otyp_by_namedesc`.
 - **Next:** `w`/`dowield` (seed0361 @ 3035) or shared
+  `getbones`/`^V` / egg / seed0700 screen.
+
+## D-0065 — `w`/`dowield` Grayswandir (seed0361)
+
+- **Symptom:** seed0361 rng-diff @ **3035**: C `rn2(4)`
+  `touch_artifact` vs JS `rn2(7)` (unknown-`w` desync).
+- **Cause/evidence:** Session keys `wi` after wish trio. C
+  `dowield` → `getobj` letter `i` → `ready_weapon` →
+  `retouch_object` → `touch_artifact`. Neutral Archeologist +
+  lawful Grayswandir → `badalign` → `rn2(4)` gate (`spfx` has
+  `SPFX_RESTR|SPFX_HALRES`, not `SPFX_INTEL`). JS had no `'w'`
+  binding.
+- **Rejected:** treating wish-time `hold_another_object`
+  `touch_artifact` (@ 3017) as the only touch — wield retouches
+  again (@ 3035).
+- **C locus:** `wield.c` `dowield`/`ready_weapon`/`setuwep`/
+  `welded`; `artifact.c` `retouch_object`/`touch_artifact`;
+  `cmd.c` `'w'`.
+- **Change:** `js/wield.js` + `cmd.js` `'w'`; `retouch_object` in
+  `artifact.js`.
+- **Verification:** green + seed1500/1800/0060 PASS + strict; full
+  **5/44** screens **295** RNG **85896**/792838; seed0361 prefix
+  **3035→3073** (`W` wear) positional **3103**/53865; seed0700
+  RNG still full.
+- **Omissions named:** `cantwield` poly; `cant_wield_corpse`;
+  bimanual+shield; `will_weld` pline body; `doswapweapon`; quiver
+  ynq; count-split/`finish_splitting`; `arti_speak`/
+  `artifact_light`; `pushweapon`; blast `d()`/`losehp` when
+  `rn2(4)==0`; silver-hate/bane in `retouch_object`; full
+  `setworn` props; `W`/`dowear`.
+- **Lesson:** alignment-restricted non-intelligent artifacts still
+  roll `rn2(4)` on every retouch (wish and wield), not only once.
+- **Next:** `W`/`dowear` (seed0361 @ 3073 SDSM) or shared
   `getbones`/`^V` / egg / seed0700 screen.

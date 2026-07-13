@@ -39,7 +39,7 @@ frozen-file overlay):
 |--------|------:|
 | Sessions passing | **5 / 44** |
 | Screens matched | **295 / 11,405** (2.59%) |
-| Positional RNG calls matched | **85,938 / 792,838** (10.84%) |
+| Positional RNG calls matched | **85,896 / 792,838** (10.83%) |
 | Speed label | `16+0.08/turn` |
 | Working-tree base | `8b71735` + committed port (see `main`) |
 | Role-init throws | **0 / 44** (`u_init_role: role not ported`) |
@@ -69,7 +69,7 @@ shared blockers, and semantic coverage together—not one vanity metric.
 | `seed0104-knight-ride-combat` | **2401 / 3223** | 1 / 43 |
 | `seed0106-priest-extcmd-sweep` | **2576 / 4194** | 1 / 267 |
 | `seed2200-wizard-quaff-zap-read` | **2772 / 3018** | 1 / 230 |
-| `seed0361-archeologist-tour` | **3087 / 53865** | 0 / 366 |
+| `seed0361-archeologist-tour` | **3103 / 53865** | 0 / 366 |
 | `seed0373-barbarian-quest-tour` | **2573 / 35386** | 0 / 124 |
 | `seed0105-valk-chat-lamp-ration` | **987 / 2499** | 0 / 30 |
 | `seed0102-ranger-name-cancel` | **1284 / 4485** | 1 / 25 |
@@ -82,10 +82,11 @@ seed8000 + seed0900 + seed1500 + seed1800 + seed0060 pass end-to-end.
 (D-0057), `adjabil`/`u_calc_moveamt` Fast (D-0058), `rnl` +
 autoopen `doopen_indir` (D-0059), `mfndpos` BOULDER/`NODIAG`
 (D-0060), `newhp`/`newpw` level-up + `#levelchange` (D-0061),
-`dosearch0`/Searching EOT (D-0062), `T`/`dotakeoff` (D-0063), and
-**`^W`/`makewish`/`readobjnam`** (D-0064) clear shared peels.
+`dosearch0`/Searching EOT (D-0062), `T`/`dotakeoff` (D-0063),
+`^W`/`makewish`/`readobjnam` (D-0064), and **`w`/`dowield`**
+(D-0065) clear shared peels.
 seed0700 RNG **full**; next is screen peel (Scr 2/51). seed0361
-next `w` wield @ 3035; seed0373 next `getbones` @ 2549; seed0102
+next `W` wear @ 3073; seed0373 next `getbones` @ 2549; seed0102
 next egg `can_be_hatched` @ 1281; seed0017 next @ 2775; seed0030
 next `maybe_smudge_engr` @ 6732. Wizard seed2200 next `exercise` @
 2724; Healer seed0016 next `next_ident` @ 2493; Caveman seed1150
@@ -125,17 +126,18 @@ L1 intrinsics + `u_calc_moveamt` Fast/Very_fast (D-0058) + `rnl` +
 autoopen `doopen_indir` (D-0059) + `mfndpos` BOULDER/`ALLOW_ROCK` +
 `NODIAG` (D-0060) + `newhp`/`newpw` level-up + `pluslvl` +
 `#levelchange` (D-0061) + `dosearch0`/Searching EOT (D-0062) +
-`T`/`dotakeoff` (D-0063) + **`^W`/`makewish`/`readobjnam`**
-(D-0064) **ported**. Five public sessions still pass end-to-end.
-**0/44** throw at `u_init_role`. seed0700 RNG full.
+`T`/`dotakeoff` (D-0063) + `^W`/`makewish`/`readobjnam` (D-0064) +
+**`w`/`dowield`/`setuwep`/`retouch_object`** (D-0065) **ported**.
+Five public sessions still pass end-to-end. **0/44** throw at
+`u_init_role`. seed0700 RNG full.
 
-- **Bounded unit:** seed0361 `w` wield @ 3035 / seed0373 `getbones`
+- **Bounded unit:** seed0361 `W` wear @ 3073 / seed0373 `getbones`
   @ 2549 / seed0017 @ 2775 / seed0700 **screen** peel / seed0102 egg
   `can_be_hatched` / seed2200 `exercise` / seed1150 `dog_move` /
   seed0501/0105 `wipeout_text` / seed0015/0200 `lspo_map` /
   seed0101 `next_ident` / seed0103 `next_ident`/`trquan` /
   seed0030 `maybe_smudge_engr`.
-- **Prefer:** highest-leverage shared wield/wear/bones/egg over
+- **Prefer:** highest-leverage shared wear/`P` puton/bones/egg over
   polishing one late path; seed0700 screens only when diagnosing
   display.
 - **Named omissions:** Wizard/Priest/Healer `initialspell`; Knight/
@@ -164,8 +166,9 @@ autoopen `doopen_indir` (D-0059) + `mfndpos` BOULDER/`ALLOW_ROCK` +
   `extcmdlist`; `pluslvl` achievements/`newuexp`; takeoff `oc_delay`/
   occupation/magic helms/dragon/`A` takeoffall; dosearch0
   feel_location/mfind0/statue activate/SPFX_SEARCH; full `readobjnam`
-  (fruits/traps/terrain/random/`o_ranges`); `#wizwish`; `w`/`W`
-  wield/wear; touch blast `losehp`; artifact wield intrinsics; …
+  (fruits/traps/terrain/random/`o_ranges`); `#wizwish`; `W`/`P`
+  wear/puton; touch blast `d()`/`losehp`; artifact wield intrinsics;
+  wield poly/corpse/bimanual/weld-pline/swap/quiver ynq; …
 - **Cohort:** green gate + seed1500 + seed1800 + seed0060 (must stay
   PASS) + strict lengths; Samurai focus seed0700 when on that peel.
 
@@ -315,6 +318,10 @@ Module status, constitutional debt, and named omissions live in
     **3011→3035** (`w` wield); aggregate RNG **86053→85938**;
     screens **295** (unchanged); positional seed0361 **3054→3087**;
     seed0108 wishlist positional **2690**
+50. `w`/`dowield`/`setuwep`/`retouch_object` (D-0065) — seed0361
+    prefix **3035→3073** (`W` wear); aggregate RNG **85938→85896**;
+    screens **295** (unchanged); positional seed0361 **3087→3103**;
+    seed0700 RNG still full
 
 Next work is selected from the active objectives above using
 `PORTING-RUNBOOK.md`, not by extending this historical list.

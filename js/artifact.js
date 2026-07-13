@@ -184,7 +184,8 @@ export function artifact_exists(otmp, name, mod, flgs) {
 
 /**
  * C ref: artifact.c touch_artifact — hero path subset.
- * Returns 1 if held, 0 if refused. Blasting deferred (no losehp body).
+ * Returns 1 if held, 0 if refused. Blast `d()`/`losehp` deferred when
+ * the rn2(4) gate fires; gate itself matches C (short-circuit order).
  */
 export function touch_artifact(obj, mon) {
     const oart = get_artifact(obj);
@@ -213,13 +214,29 @@ export function touch_artifact(obj, mon) {
 
     if (((badclass || badalign) && self_willed)
         || (badalign && (!yours || !rn2(4)))) {
-        // C: blast + losehp — deferred; still consumes rn2(4) above
         if (!yours) return 0;
-        // touch_blasted path omitted; allow pickup unless total desync
+        // C: You("are blasted…"); d(Antimagic?2:4, self_willed?10:4); losehp;
+        // exercise(A_WIS,FALSE); touch_blasted=TRUE. Deferred when rn2(4)==0.
     }
 
     if (badclass && badalign && self_willed) {
         return 0;
     }
     return 1;
+}
+
+/**
+ * C ref: artifact.c retouch_object — hero wield/wear touch gate.
+ * Silver-hate / bane damage and drop paths deferred. Blast `d()`/`losehp`
+ * deferred inside touch_artifact when rn2(4)==0.
+ * @returns {number} 1 ok, 0 refused
+ */
+export function retouch_object(obj, _loseit) {
+    if (!obj) return 1;
+    if (touch_artifact(obj, youmonst)) {
+        // ag (Hate_silver) / bane_applies damage deferred → allow when clear
+        return 1;
+    }
+    // remove_worn_item / dropx deferred
+    return 0;
 }

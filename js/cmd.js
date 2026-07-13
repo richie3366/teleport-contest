@@ -25,6 +25,7 @@ import { doextcmd } from './getline.js';
 import { dosearch } from './detect.js';
 import { dotakeoff } from './do_wear.js';
 import { wiz_wish } from './wizcmds.js';
+import { dowield } from './wield.js';
 
 
 // Direction deltas: y u k
@@ -206,6 +207,11 @@ export async function rhack(key) {
     } else if (ch === 'T') {
         // C ref: do_wear.c dotakeoff — take off armor/accessory
         const tookTime = await dotakeoff();
+        game.context.move = tookTime ? 1 : 0;
+        if (tookTime) game.kickedloc = { x: 0, y: 0 };
+    } else if (ch === 'w') {
+        // C ref: wield.c dowield — wield a weapon
+        const tookTime = await dowield();
         game.context.move = tookTime ? 1 : 0;
         if (tookTime) game.kickedloc = { x: 0, y: 0 };
     } else if (ch === 'i') {

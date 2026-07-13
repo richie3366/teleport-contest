@@ -737,3 +737,15 @@ Use this shape:
   seed0700 RNG full.
 - Next: `node scripts/rng-diff.mjs sessions/seed0361-archeologist-tour.session.json`
   — peel `w`/`dowield` @ 3035 (or getbones/egg/seed0700 screen).
+
+## 2026-07-13 02:35 — w/dowield Grayswandir (D-0065)
+- C locus: `wield.c` `dowield`/`ready_weapon`/`setuwep`/`welded`;
+  `artifact.c` `retouch_object`/`touch_artifact`; `cmd.c` `'w'`
+- Result: seed0361 @ 3035 was missing wield. Neutral + Grayswandir
+  `SPFX_RESTR` rolls `rn2(4)` again on retouch (wish already touched
+  @ 3017). Ported getobj/`ready_weapon`/`setuwep`/`retouch_object`.
+- Verification: green + seed1500/1800/0060 PASS + strict; full 5/44
+  screens 295 RNG 85896; seed0361 prefix 3035→3073 (`W` wear)
+  positional 3103; seed0700 RNG full.
+- Next: `node scripts/rng-diff.mjs sessions/seed0361-archeologist-tour.session.json`
+  — peel `W`/`dowear` SDSM @ 3073 (or getbones/egg/seed0700 screen).
