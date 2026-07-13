@@ -7,16 +7,15 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 
 ## Active
 
-- **Current unit:** D-0128 cleared: `#terrain` / `doterrain` View which?
-  menu + Esc cancel (+ reveal_terrain call path without getglyph rewrite).
-- **Hypothesis:** seed0106 next Scr peel @257 is Priest `+` spell menu —
-  needs `initialspell` / known spells (JS: `You don't know any spells`).
-  Residual @261 attributes title/cells. seed2200 next real peel after
-  parked RC path @158 is help `j` → `dokeylist` @184.
+- **Current unit:** D-0129 cleared: `initialspell` + `dovspell` VIEW +
+  `age_spells` (seed0106 Scr 266/267).
+- **Hypothesis:** seed0106 last Scr peel @261 is `^X`/`doattributes` —
+  JS `a Aspirant` / `0 experience` / `both energy points` vs C
+  `an Aspirant` / `6 experience` / `all 8 energy points`.
 - **Falsifier / next:**
   ```bash
   node frozen/ps_test_runner.mjs sessions/seed0106-priest-extcmd-sweep.session.json
-  # expect Scr >265 if + spells menu matches C; green cohort must stay PASS
+  # expect Scr 267/267 if attributes page1 matches C; green cohort must stay PASS
   node frozen/ps_test_runner.mjs sessions/seed2200-wizard-quaff-zap-read.session.json
   ```
 - **Parked deep canary:** D-0006 pet movement — do not implement until C
@@ -114,6 +113,14 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   `View which?` PICK_ONE with `a *` preselected; Esc cancels (D-0128).
   Do not skip the menu and jump to `reveal_terrain`; contest nomux
   paints selected as `*` not `+`.
+- **seed0106 @257 was empty dovspell stub + missing initialspell** —
+  Priest SPBOOK kit must call `initialspell`; Fail%/Retention need
+  role `spel*` + `age_spells` each turn (D-0129). Do not hardcode
+  detect monsters / remove curse lines.
+- **Fullscreen menu leading pad must be attr 0** — painting
+  ` ${header}` with ATR_INVERSE on the whole string makes col-0 inverse;
+  C tty pad is plain. With `serialize_for_scoring` (emits leading
+  inverse spaces), that regresses enhance headers (D-0129).
 
 ## Landmarks
 
@@ -172,3 +179,6 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 - `#terrain`: `doterrain` → `recalc_mapseen` → View which? a/b/c
   (`a *` preselected; nomux `*`) → Esc cancel or reveal_terrain
   (D-0128).
+- `+` spells: `initialspell` at SPBOOK ini_inv_use; `age_spells` each
+  EOT; Priest Fail% uses robe−spelarmr + shield + spelspec/heal;
+  Retention intervals from P_SKILL (D-0129).

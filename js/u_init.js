@@ -30,6 +30,7 @@ import { init_attr, vary_init_attr, adjabil, A_STR, A_CON, newhp } from './attri
 import { newpw } from './exper.js';
 import { roles, races, aligns, findRole, findRace, findAlign } from './roles.js';
 import { discover_object } from './invent.js';
+import { initialspell, init_spl_book } from './spell.js';
 import { otyp_uses_known, Japanese_item_name } from './objnam.js';
 import {
     W_ARMU, W_ARM, W_ARMC, W_ARMS, W_ARMH, W_ARMG, W_ARMF,
@@ -1076,6 +1077,11 @@ function ini_inv_use_obj(obj) {
             game.u.uswapwep = obj;
         }
     }
+    // C ref: u_init.c ini_inv_use_obj — SPBOOK → initialspell (not blank paper)
+    if (obj.oclass === SPBOOK_CLASS
+        && objectNames[obj.otyp] !== 'SPE_BLANK_PAPER') {
+        initialspell(obj);
+    }
 }
 
 // C ref: do_wear.c find_ac() — base human AC 10; ARM_BONUS via objects[].a_ac
@@ -1450,6 +1456,16 @@ export function setup_role_race_from_rc(opts = {}) {
         cgod: role.cgod ?? null,
         hpadv: role.hpadv || { infix: 8, inrnd: 0, lofix: 0, lornd: 8, hifix: 0, hirnd: 0 },
         enadv: role.enadv || { infix: 1, inrnd: 0, lofix: 0, lornd: 1, hifix: 0, hirnd: 1 },
+        // C: Role spel* — percent_success / Fail% (D-0129)
+        spelbase: role.spelbase ?? 0,
+        spelheal: role.spelheal ?? 0,
+        spelshld: role.spelshld ?? 0,
+        spelarmr: role.spelarmr ?? 0,
+        spelstat: role.spelstat ?? 0,
+        spelspec: typeof role.spelspec === 'string'
+            ? otypByName(role.spelspec)
+            : (role.spelspec ?? 0),
+        spelsbon: role.spelsbon ?? 0,
     };
     game.urace = {
         name: race.name,
@@ -1567,6 +1583,9 @@ export async function u_init_misc() {
     g.u.ublesscnt = 300;
     g.u.nv_range = 1;
     g.u.xray_range = -1;
+
+    // C: for (i = 0; i <= MAXSPELL; i++) svs.spl_book[i].sp_id = NO_SPELL;
+    init_spl_book();
 
     // C: u.uhandedness = rn2(10) ? RIGHT_HANDED : LEFT_HANDED;
     g.u.uhandedness = rn2(10) ? RIGHT_HANDED : LEFT_HANDED;

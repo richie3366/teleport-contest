@@ -210,8 +210,11 @@ function paint_overlay(lines, opts = {}) {
         const text = typeof entry === 'string' ? entry : entry.text;
         const attr = typeof entry === 'string' ? 0 : (entry.attr || 0);
         const col = opts.col || 0;
-        for (let i = 0; i < text.length && col + i < disp.cols; i++)
-            disp.setCell(col + i, r, text[i], NO_COLOR, attr);
+        // C tty: leading pad space is not part of item ATR_INVERSE/heading
+        for (let i = 0; i < text.length && col + i < disp.cols; i++) {
+            const a = (i === 0 && text[0] === ' ') ? 0 : attr;
+            disp.setCell(col + i, r, text[i], NO_COLOR, a);
+        }
     }
     if (withStatus) write_status_to_grid(disp);
     if (cursor) disp.setCursor(cursor[0], cursor[1]);
@@ -793,11 +796,6 @@ export async function doattributes() {
     clear_overlay();
     await docrt();
     await flush_screen(1);
-}
-
-/** C ref: spell.c dovspell() empty case */
-export async function dovspell() {
-    await pline("You don't know any spells right now.");
 }
 
 /**

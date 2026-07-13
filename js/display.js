@@ -905,6 +905,87 @@ export function serialize_terminal_grid(display) {
     return output;
 }
 
+/**
+ * C-comparable tty serialize — like Terminal.serialize(), but leading
+ * spaces that carry visible attrs (inverse/underline) are emitted so
+ * decode preserves them. Frozen Terminal.serialize() cursor-forwards
+ * past all leading spaces and drops those attrs (D-0129 spell heading).
+ */
+export function serialize_for_scoring(term) {
+    if (!term?.grid) return term?.serialize?.() ?? '';
+    const colorToFg = (color) => {
+        if (color === 8 || color < 0 || color > 15) return 39;
+        return color < 8 ? 30 + color : 90 + (color - 8);
+    };
+    const sgrTransition = (curFg, curAttr, wantFg, wantAttr) => {
+        if (curFg === wantFg && curAttr === wantAttr) return '';
+        const wantBold = (wantAttr & 2) !== 0;
+        const wantUnder = (wantAttr & 4) !== 0;
+        const wantInv = (wantAttr & 1) !== 0;
+        const curBold = (curAttr & 2) !== 0;
+        const curUnder = (curAttr & 4) !== 0;
+        const curInv = (curAttr & 1) !== 0;
+        const needReset = (curBold && !wantBold) || (curUnder && !wantUnder)
+            || (curInv && !wantInv);
+        const codes = [];
+        if (needReset) {
+            codes.push(0);
+            if (wantBold) codes.push(1);
+            if (wantUnder) codes.push(4);
+            if (wantInv) codes.push(7);
+            if (wantFg !== 39) codes.push(wantFg);
+        } else {
+            if (wantBold && !curBold) codes.push(1);
+            if (wantUnder && !curUnder) codes.push(4);
+            if (wantInv && !curInv) codes.push(7);
+            if (wantFg !== curFg) codes.push(wantFg);
+        }
+        return codes.length ? `\x1b[${codes.join(';')}m` : '';
+    };
+    const rows = term.rows || 24;
+    const cols = term.cols || 80;
+    let lastRow = 0;
+    for (let r = 0; r < rows; r++) {
+        for (let c = 0; c < cols; c++) {
+            if (term.grid[r][c].ch !== ' ') { lastRow = r; break; }
+        }
+    }
+    let out = '';
+    let curFg = 39, curAttr = 0;
+    for (let r = 0; r <= lastRow; r++) {
+        let lastCol = -1;
+        for (let c = cols - 1; c >= 0; c--) {
+            if (term.grid[r][c].ch !== ' ') { lastCol = c; break; }
+        }
+        if (lastCol < 0) { if (r < lastRow) out += '\n'; continue; }
+        // Start at first non-space OR space with visible attr (inv/uline)
+        let firstCol = 0;
+        for (let c = 0; c <= lastCol; c++) {
+            const cell = term.grid[r][c];
+            if (cell.ch !== ' ' || (cell.attr & 0x5)) {
+                firstCol = c;
+                break;
+            }
+        }
+        if (firstCol > 4) out += `\x1b[${firstCol}C`;
+        else if (firstCol > 0) out += ' '.repeat(firstCol);
+        for (let c = firstCol; c <= lastCol; c++) {
+            const cell = term.grid[r][c];
+            const wantFg = colorToFg(cell.color);
+            const wantAttr = cell.attr | 0;
+            out += sgrTransition(curFg, curAttr, wantFg, wantAttr);
+            curFg = wantFg;
+            curAttr = wantAttr;
+            out += cell.ch;
+        }
+        out += sgrTransition(curFg, curAttr, 39, 0);
+        curFg = 39;
+        curAttr = 0;
+        if (r < lastRow) out += '\n';
+    }
+    return out;
+}
+
 // ── Build screen output ──
 function _buildScreenOutput() {
     const display = game?.nhDisplay;

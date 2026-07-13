@@ -21,6 +21,7 @@ import { dosearch0 } from './detect.js';
 import { nhgetch } from './input.js';
 import { unmul } from './hack.js';
 import { gethungry } from './eat.js';
+import { age_spells } from './spell.js';
 import { near_capacity, paint_corner_nhw_menu } from './invent.js';
 import { com_pager_legacy } from './questpgr.js';
 import { snapshot_status_lines } from './display.js';
@@ -461,6 +462,7 @@ export async function moveloop_core() {
                 // warnreveal deferred
                 dosounds();
                 gethungry();
+                age_spells();
                 exerchk();
 
                 // C: if (!rn2(40 + ACURR(A_DEX)*3)) u_wipe_engr(rnd(3));

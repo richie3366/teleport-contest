@@ -3467,3 +3467,33 @@ cohort gates if those functions are touched again.
 - **Next:** seed0106 `+`/`dovspell`/`initialspell` @257 /
   seed2200 `dokeylist` @184.
 
+## D-0129 — `initialspell` + `dovspell` VIEW menu + `age_spells`
+
+- **Status:** fixed
+- **Observed:** seed0106 Scr **265**/267 @257: C `Currently known spells`
+  with `a - detect monsters` / `b - remove curse` / Fail% / Retention /
+  `+ - [sort spells]`; JS stub `You don't know any spells right now.`
+- **Cause/evidence:** `ini_inv_use_obj` never called `initialspell` for
+  SPBOOK; no `spl_book` / `age_spells`; `dovspell` empty stub. Priest
+  kit learns two books at init; Fail% needs role `spel*` +
+  `percent_success`; Retention needs `age_spells` each turn (KEEN−turns).
+- **C locus:** `spell.c` `initialspell` / `dovspell` / `dospellmenu` /
+  `percent_success` / `spellretention` / `age_spells`; `u_init.c`
+  `ini_inv_use_obj`; `allmain.c` moveloop `age_spells`; `role.c` Role
+  `spelbase`…`spelsbon`.
+- **Change:** `js/spell.js` (spl_book, initialspell, percent_success,
+  retention, VIEW menu); roles `spel*` → `game.urole`; wire
+  `ini_inv_use_obj` + `age_spells` in moveloop; capture
+  `serialize_for_scoring` preserves leading inverse spaces; fullscreen
+  menu leading pad attr 0 (C tty).
+- **Verification:** seed0106 Scr **265→266**/267 (next: `^X`
+  attributes @261); green+strict PASS; cohort
+  1500/1800/0060/0102/0700/1150/0017/0077 PASS; full **10/44** Scr
+  **1136→1139** RNG **104575**/792838; seed2200 Scr **200→201**.
+- **Named omission:** spell swap/sort bodies; `docast`/`spelleffects`;
+  `skill_based_spellbook_id` / spelspec unrestrict; wizard turns column;
+  `force_learn_spell` / read-book path; doattributes article/uexp/Pw
+  wording (@261).
+- **Next:** seed0106 `^X`/`doattributes` @261 / seed2200 `dokeylist` @184.
+
+

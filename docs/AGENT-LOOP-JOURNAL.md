@@ -1635,3 +1635,19 @@ Use this shape:
   PASS; full **10/44** Scr **1136** RNG **104575**/792838.
 - Next: seed0106 Priest `initialspell`/`dovspell` @257 — or seed2200
   `dokeylist` @184.
+
+## 2026-07-13 — initialspell + dovspell VIEW + age_spells (D-0129)
+- Objective: seed0106 Scr @257 `+` spells menu (PROGRESS primary).
+- C locus: `spell.c` `initialspell`/`dovspell`/`dospellmenu`/
+  `percent_success`/`spellretention`/`age_spells`; `u_init.c`
+  `ini_inv_use_obj`; `role.c` Role `spel*`; `allmain.c` moveloop.
+- Result: **verified** — SPBOOK kit never called `initialspell`; stub
+  `dovspell`. Ported spl_book + roles `spel*` + Fail%/Retention VIEW
+  menu + per-turn `age_spells`; capture `serialize_for_scoring` keeps
+  leading inverse spaces; fullscreen leading pad attr 0.
+- Verification: seed0106 Scr **265→266**/267 (next `^X` @261);
+  green+strict PASS; cohort 1500/1800/0060/0102/0700/1150/0017/0077
+  PASS; full **10/44** Scr **1139** RNG **104575**/792838;
+  seed2200 Scr **201**/230.
+- Next: seed0106 `doattributes` article/uexp/Pw @261 — or seed2200
+  `dokeylist` @184.

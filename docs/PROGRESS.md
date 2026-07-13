@@ -38,9 +38,9 @@ frozen-file overlay):
 | Metric | Value |
 |--------|------:|
 | Sessions passing | **10 / 44** |
-| Screens matched | **1136 / 11,405** (9.96%) |
+| Screens matched | **1139 / 11,405** (9.99%) |
 | Positional RNG calls matched | **104,575 / 792,838** (13.19%) |
-| Speed label | `18+0.09/turn` |
+| Speed label | `19+0.08/turn` |
 | Working-tree base | `8b71735` + committed port (see `main`) |
 | Role-init throws | **0 / 44** (`u_init_role: role not ported`) |
 
@@ -60,16 +60,16 @@ shared blockers, and semantic coverage together—not one vanity metric.
 | `seed0102-ranger-name-cancel` | **4485 / 4485** | **25 / 25** |
 | `seed0700-samurai-explore-descend` | **3230 / 3230** | **51 / 51** |
 | `seed1150-caveman-explore-move` | **3137 / 3137** | **51 / 51** |
-| `seed2200-wizard-quaff-zap-read` | **3018 / 3018** | **200 / 230** |
+| `seed2200-wizard-quaff-zap-read` | **3018 / 3018** | **201 / 230** |
 | `seed0017-samurai-altar-pray` | **3465 / 3465** | **67 / 67** |
 | `seed0030-ten-diverse-deaths` | **7085 / 105529** | **97 / 1953** |
 | `seed0103-knight-ride-pony` | **2344 / 2640** | 2 / 60 |
 | `seed0200-monk-north-search` | **1540 / 3822** | 0 / 40 |
 | `seed0101-ranger-quiver-throw-travel-engrave` | **2306 / 2371** | 4 / 27 |
-| `seed0016-healer-newmoon-eat-zap` | **2544 / 3656** | **5 / 36** |
+| `seed0016-healer-newmoon-eat-zap` | **2544 / 3656** | **6 / 36** |
 | `seed0107-samurai-twoweapon-enhance` | **2684 / 2902** | **36 / 98** |
 | `seed0104-knight-ride-combat` | **2394 / 3223** | 1 / 43 |
-| `seed0106-priest-extcmd-sweep` | **4194 / 4194** | **265 / 267** |
+| `seed0106-priest-extcmd-sweep` | **4194 / 4194** | **266 / 267** |
 | `seed0361-archeologist-tour` | **3293 / 53865** | 0 / 366 |
 | `seed0373-barbarian-quest-tour` | **2555 / 35386** | 0 / 124 |
 | `seed0105-valk-chat-lamp-ration` | **987 / 2499** | 0 / 30 |
@@ -123,9 +123,9 @@ autoopen `doopen_indir` (D-0059), `mfndpos` BOULDER/`NODIAG`
 **`mondead`/`relobj` death minvent** (D-0108), and
 **`#sit`/`#dip`/`dipfountain`** (D-0109), and
 **`#offer`/`#enhance`/`#annotate`/`#overview`/`#version`** (D-0110)
-clear shared peels. seed2200 RNG **full**; Scr **200**/230 (next:
+clear shared peels. seed2200 RNG **full**; Scr **201**/230 (next:
 `dokeylist` @184 after parked RC path @158). seed0106 RNG **full**;
-Scr **265**/267 (next: `+` spells/`initialspell` @257). Healer seed0016 next
+Scr **266**/267 (next: `^X` attributes @261). Healer seed0016 next
 `next_ident` @ 2493.
 Priest seed0501 still `wipeout_text`. seed0015/0200 next `lspo_map`.
 seed0101 next `next_ident`. seed0013 still breaks earlier in
@@ -259,20 +259,21 @@ autoopen `doopen_indir` (D-0059) + `mfndpos` BOULDER/`ALLOW_ROCK` +
 (D-0126)
 **`#adjust`/`doorganize` getobj + destination cancel** (D-0127)
 **`#terrain`/`doterrain` View which? + Esc cancel** (D-0128)
+**`initialspell`/`dovspell` VIEW + `age_spells`** (D-0129)
 **ported**. Ten public sessions pass end-to-end. **0/44** throw at
 `u_init_role`. seed0700 + seed1150 + seed0017 + seed0077 **PASS**.
-seed0106 RNG **full** (Scr **265**/267); seed2200 RNG **full**
-(Scr **200**/230).
+seed0106 RNG **full** (Scr **266**/267); seed2200 RNG **full**
+(Scr **201**/230).
 
-- **Bounded unit:** seed0106 `+`/`dovspell`/`initialspell` @257 /
+- **Bounded unit:** seed0106 `^X`/`doattributes` @261 /
   seed2200 `dokeylist` @184 /
   seed0501/0105 `wipeout_text` / seed0015/0200 `lspo_map` /
   seed0101 `next_ident` / seed0103 `next_ident`/`trquan` /
   seed0030 `maybe_smudge_engr` / seed0361/0373 **`getbones`**
   (blocked: need `^V`→`goto_level`→`makemaz` first).
-- **Prefer:** seed0106 Priest `initialspell`/`dovspell` or seed2200
+- **Prefer:** seed0106 attributes article/uexp/Pw or seed2200
   `dokeylist` over parked D-0006.
-- **Named omissions:** Wizard/Priest/Healer `initialspell`;
+- **Named omissions:** spell swap/sort / `docast`/`spelleffects`;
   `skill_based_spellbook_id` / `unrestrict_weapon_skill(spelspec)`;
   enhance `can_advance`/`skill_advance`/wizard speedy; full `x_monnam`
   hallu/invis/saddle/shk; pony saddle/
@@ -729,6 +730,10 @@ Module status, constitutional debt, and named omissions live in
     screens **1135→1136**; RNG **104575** unchanged; green cohort
     PASS; next seed0106 `+` spells/`initialspell` @257 /
     seed2200 `dokeylist` @184
+111. `initialspell`/`dovspell`/`age_spells` (D-0129) — seed0106 Scr
+    **265→266**/267; screens **1136→1139**; RNG **104575** unchanged;
+    seed2200 Scr **200→201**; green cohort PASS; next seed0106
+    `^X` attributes @261 / seed2200 `dokeylist` @184
 
 Next work is selected from the active objectives above using
 `PORTING-RUNBOOK.md`, not by extending this historical list.
