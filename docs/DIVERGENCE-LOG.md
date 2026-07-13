@@ -2776,3 +2776,32 @@ cohort gates if those functions are touched again.
 - **Next:** seed0106 @ 2912 `monmulti`/`mthrowu` / seed2200 Scr
   199 / seed0077 `player_selection`.
 
+## D-0105 — seed0106 `thrwmu` / `monmulti` / move-then-shoot
+
+- **Status:** fixed
+- **Observed:** seed0106 @ **2912**: C `rnd(1)` @ `monmulti` then
+  `next_ident`/`m_throw` `rn2(5)` vs JS still `m_move` `rn2(12)`.
+- **C locus:** `monmove.c` `dochug` (MMOVE_MOVED fall-through);
+  `mhitu.c` `mattacku` AT_WEAP `range2`; `mthrowu.c` `thrwmu`/
+  `monshoot`/`monmulti`/`m_throw`/`thitu`/`u_catch_thrown_obj`/
+  `drop_throw`; `weapon.c` `select_rwep`/`dmgval`;
+  `dothrow.c` `should_mulch_missile`; `invent.c` `delobj`→
+  `obj_resists(0,0)`.
+- **Cause:** JS `dochug` returned early on `MMOVE_MOVED` and gated
+  attacks on `nearby`, so ranged `thrwmu` never ran. C allows
+  move-then-shoot when `!nearby && AT_WEAP`.
+- **Change:** `js/monmove.js` fall-through; `js/mhitu.js` ranged
+  `mattacku`; `js/mthrowu.js` + `js/weapon.js` throw envelope;
+  `js/mkobj.js` `delobj`.
+- **Verification:** seed0106 prefix **2912→2962** (`mattacku` melee);
+  positional **3159→3217**/4194; green+strict PASS; cohort
+  1500/1800/0060/0102/0700/1150/0017 PASS; full **9/44** Scr
+  **718** RNG **92304**/792838.
+- **Named omission:** melee `mattacku`/`hitmu`/`missmu`; polearm/
+  spit/breath; `hold_another_object` on catch; `ohitmon`;
+  `flooreffects`/ship; full `mattk[]`; elf/orc/gnome racial
+  multishot; extractor `oc_wsdam` (table stand-in); `mon_wield`
+  HTH; cursed slip path beyond roll.
+- **Next:** seed0106 @ 2962 melee `mattacku` / seed2200 Scr 199 /
+  seed0077 `player_selection`.
+

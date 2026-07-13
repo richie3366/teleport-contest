@@ -906,6 +906,27 @@ export function obj_extract_self(obj) {
     obj.oy = 0;
 }
 
+/**
+ * C ref: invent.c delobj / delobj_core — obj_resists(0,0) then extract+free.
+ * Invocation-item protection deferred; always rolls rn2(100) like C.
+ */
+export function delobj(obj) {
+    if (!obj) return;
+    // C: obj_resists(obj, 0, 0) — rolls rn2(100); returns true only for
+    // Amulet / Book / Candelabrum / Bell / Rider corpse
+    const n = objectNames[obj.otyp];
+    const special = n === 'AMULET_OF_YENDOR'
+        || n === 'SPE_BOOK_OF_THE_DEAD'
+        || n === 'CANDELABRUM_OF_INVOCATION'
+        || n === 'BELL_OF_OPENING';
+    if (special) return;
+    rn2(100); // ochance 0 → never resists, but always consumes
+    obj_extract_self(obj);
+    // obfree — drop references; GC reclaim
+    obj.quan = 0;
+    obj.where = OBJ_FREE;
+}
+
 function g_at(x, y) {
     // C ref: invent.c g_at — first COIN_CLASS on pile
     for (let obj = objects_at(x, y); obj; obj = obj.nexthere) {

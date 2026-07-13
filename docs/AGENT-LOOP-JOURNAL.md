@@ -1288,3 +1288,19 @@ Use this shape:
 - Next: seed0106 @ 2912 `monmulti`/`mthrowu` —
   `node scripts/rng-diff.mjs sessions/seed0106-priest-extcmd-sweep.session.json`
   — or seed2200 Scr 199 / seed0077 `player_selection`.
+
+## 2026-07-13 — thrwmu / monmulti move-then-shoot (D-0105)
+- Objective: seed0106 @ 2912 monmulti/m_throw (PROGRESS primary).
+- C locus: `monmove.c` `dochug`; `mhitu.c` `mattacku`; `mthrowu.c`
+  `thrwmu`/`monmulti`/`m_throw`/`thitu`; `weapon.c` `select_rwep`/
+  `dmgval`; `dothrow.c` `should_mulch_missile`; `invent.c` `delobj`.
+- Result: **verified** — JS returned early on `MMOVE_MOVED` and gated
+  attacks on `nearby`; C move-then-shoots when `!nearby && AT_WEAP`.
+  Ported ranged `mattacku`→`thrwmu` envelope.
+- Verification: seed0106 prefix **2912→2962**; positional
+  **3159→3217**/4194; green+strict PASS; cohort 1500/1800/0060/
+  0102/0700/1150/0017 PASS; full **9/44** Scr **718** RNG
+  **92304**/792838.
+- Next: seed0106 @ 2962 melee `mattacku`/`hitmu` —
+  `node scripts/rng-diff.mjs sessions/seed0106-priest-extcmd-sweep.session.json`
+  — or seed2200 Scr 199 / seed0077 `player_selection`.
