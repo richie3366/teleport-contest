@@ -4425,3 +4425,29 @@ cohort gates if those functions are touched again.
   Dlvl:1 into attributes after `goto_level` exists.
 - **Next:** seed0030 `maybe_smudge_engr` / seed0101 Scr residual /
   seed0200 combat @3382.
+
+## D-0165 — `maybe_smudge_engr` after successful walk (seed0030)
+
+- **Status:** fixed
+- **Observed:** seed0030 first RNG mismatch @6732 — C `rnd(5)` @
+  `maybe_smudge_engr` then `wipe_engr_at` `rn2(26)`; JS `rn2(5)` elsewhere.
+- **Rejected:** treating arity as a stray movement `rn2(5)`; inventing
+  smudge without walk success / `spoteffects` ordering.
+- **C locus:** `hack.c` `domove` → `maybe_smudge_engr`; `engrave.c`
+  `can_reach_floor` / `wipe_engr_at`.
+- **Cause:** JS `domove` never called `maybe_smudge_engr` after a
+  successful walk. C erodes non-HEADSTONE engravings at old and/or new
+  cell with `wipe_engr_at(..., rnd(5), FALSE)` when
+  `can_reach_floor(TRUE)`, **after** `spoteffects`.
+- **Change:** port `can_reach_floor` subset + `maybe_smudge_engr`; wire
+  into `cmd.js` `domove` after `spoteffects`.
+- **Verification:** seed0030 prefix **6732→6889** positional
+  **7215**/105529 Scr **111**/1953; green+strict PASS; cohort 13 PASS;
+  full **15/44** Scr **1348** RNG **128294**.
+- **Named omission:** can_reach_floor ustuck-hugs / ceiling_hider /
+  MZ_HUGE / uteetering_at_seen_pit / uescaped_shaft; `u_wipe_engr` body;
+  `maybe_adjust_hero_bubble`.
+- **Lesson:** walk-adjacent engraving erosion is part of `domove`, not
+  engrave command; call after pickup/`spoteffects`.
+- **Next:** seed0030 themerms `contents` @6889 / seed0101 Scr residual /
+  seed0200 combat @3382.

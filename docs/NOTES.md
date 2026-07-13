@@ -7,14 +7,16 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 
 ## Active
 
-- **Current unit:** D-0163/64 cleared seed0015 (SQKY hear + ^X gender/depth
-  + `just_an` letter-space). Session **PASS**; public **15/44**.
-- **Hypothesis / next:** seed0030 `maybe_smudge_engr` @6732, or
-  seed0101 Scr residual (RNG full), or seed0200 combat `@3382`.
+- **Current unit:** D-0165 cleared seed0030 `maybe_smudge_engr` @6732
+  (`rnd(5)` + `wipe_engr_at`). Prefix **6732→6889**; public Scr
+  **1348**, RNG **128294**; still **15/44**.
+- **Hypothesis / next:** seed0030 themerms `contents` @6889
+  (`themerms.lua:268`), or seed0101 Scr residual (RNG full), or
+  seed0200 combat `@3382`.
 - **Falsifier / next:**
   ```bash
   node scripts/rng-diff.mjs sessions/seed0030-ten-diverse-deaths.session.json
-  # expect first mismatch past maybe_smudge_engr @6732 if that peel advances
+  # expect first mismatch past themerms contents @6889 if that peel advances
   node frozen/ps_test_runner.mjs sessions/seed0101-ranger-quiver-throw-travel-engrave.session.json
   # expect Scr >21/27 if residual display peel advances
   ```
@@ -256,6 +258,9 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 - **seed0015 ^X `female human Valkyrie` was NOT missing name.f alone** —
   `doattributes` must use same both-genders / initgend gate as welcome
   (D-0164). Hardcoded `on level 1` also ignored `depth(u.uz)`.
+- **seed0030 @6732 was NOT a stray `rn2(5)`** — C `domove` after
+  successful walk calls `maybe_smudge_engr` → `wipe_engr_at(..., rnd(5))`
+  on old and/or new cell (D-0165). Call **after** `spoteffects`.
 
 ## Landmarks
 
@@ -322,3 +327,6 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   `just_an` letter+space uses `aefhilmnosx` (D-0163).
 - ^X gender: same gate as welcome — `!name.f` AND (both-genders OR
   innategend!=initgend); dungeon line uses `depth(u.uz)` (D-0164).
+- `domove` success: after `spoteffects`, `maybe_smudge_engr(ux0,uy0,ux,uy)`
+  → `wipe_engr_at(..., rnd(5))` when `can_reach_floor(TRUE)` and
+  non-HEADSTONE engraving (D-0165).

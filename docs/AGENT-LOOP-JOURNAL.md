@@ -19,6 +19,17 @@ Use this shape:
 
 ---
 
+## 2026-07-13 18:20 — maybe_smudge_engr after walk (D-0165)
+- Objective: seed0030 `maybe_smudge_engr` @6732 (PROGRESS primary).
+- C locus: `hack.c` `domove`/`maybe_smudge_engr`; `engrave.c`
+  `can_reach_floor`/`wipe_engr_at`.
+- Result: **verified** — port `can_reach_floor` subset +
+  `maybe_smudge_engr`; call after `spoteffects` on successful walk.
+  Prefix **6732→6889** (next themerms `contents`).
+- Verification: green+strict PASS; cohort PASS; full **15/44**
+  Scr **1348** RNG **128294**; seed0030 **7215**/105529 Scr **111**/1953.
+- Next: seed0030 themerms `contents` @6889, or seed0101 Scr residual.
+
 ## 2026-07-13 18:15 — SQKY You_hear + ^X gender/depth (D-0163/64)
 - Objective: seed0015 Scr @22 distant F-note squeak + @38 ^X attributes
   (PROGRESS primary).
