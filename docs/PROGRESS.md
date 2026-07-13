@@ -38,8 +38,8 @@ frozen-file overlay):
 | Metric | Value |
 |--------|------:|
 | Sessions passing | **13 / 44** |
-| Screens matched | **1275 / 11,405** (11.18%) |
-| Positional RNG calls matched | **126,755 / 792,838** (15.99%) |
+| Screens matched | **1276 / 11,405** (11.19%) |
+| Positional RNG calls matched | **126,779 / 792,838** (15.99%) |
 | Speed label | `19+0.08/turn` |
 | Working-tree base | `8b71735` + committed port (see `main`) |
 | Role-init throws | **0 / 44** (`u_init_role: role not ported`) |
@@ -74,7 +74,7 @@ shared blockers, and semantic coverage together—not one vanity metric.
 | `seed0361-archeologist-tour` | **3293 / 53865** | 0 / 366 |
 | `seed0373-barbarian-quest-tour` | **2555 / 35386** | 0 / 124 |
 | `seed0105-valk-chat-lamp-ration` | **2499 / 2499** | **30 / 30** |
-| `seed0015-valk-level2-pit-dog-wait` | **8500 / 8563** | **20 / 44** |
+| `seed0015-valk-level2-pit-dog-wait` | **8524 / 8563** | **21 / 44** |
 | `seed0077-rogue-chargen` | **3242 / 3242** | **33 / 33** |
 | `seed0013-rogue-friday13-combat` | **543 / 4838** | 1 / 59 |
 
@@ -128,7 +128,7 @@ autoopen `doopen_indir` (D-0059), `mfndpos` BOULDER/`NODIAG`
 clear shared peels. seed2200 RNG **full**; Scr **229**/230 (sole miss:
 parked RC path @158). seed0106 **PASS**.
 Healer seed0016 next `next_ident` @ 2493.
-seed0015 next `trapeffect_pit` @ 8499;
+seed0015 next `m_move` track @ 8518;
 seed0200 next `hitum`/`exercise` @ 3382.
 seed0101 next `next_ident`. seed0013 still breaks earlier in
 Lua/`sp_lev`. seed0103 next `next_ident`/`trquan` @ 2337.
@@ -306,19 +306,22 @@ autoopen `doopen_indir` (D-0059) + `mfndpos` BOULDER/`ALLOW_ROCK` +
 **`occupied` `t_at` + irregular `somexy`** (D-0147)
 **`random_engraving`/`get_rnd_text(ENGRAVEFILE)`** (D-0148)
 **`>`/`dodown`/`goto_level`/`getbones`/`keepdogs`** (D-0149)
+**monster `trapeffect_pit`/`make_corpse`** (D-0150)
 **ported**. Thirteen public sessions pass end-to-end. **0/44** throw at
 `u_init_role`. seed0700 + seed1150 + seed0017 + seed0077 + seed0106 +
 seed0501 + seed0105 **PASS**. seed2200 RNG **full** (Scr **229**/230; sole
 miss parked RC @158).
 
-- **Bounded unit:** seed0015 `trapeffect_pit` (hero pit fall) /
+- **Bounded unit:** seed0015 @8518 newt `m_move` track / second
+  `distfleeck` /
   seed0101 `next_ident` /
   seed0103 `next_ident`/`trquan` / seed0030 `maybe_smudge_engr` /
   seed0200 combat `@3382` (lower priority) /
   seed0361/0373 **quest `getbones`** (blocked: need `^V`→`goto_level`→
   `makemaz` first — ordinary `goto_level` now exists for stairs).
-- **Prefer:** `trapeffect_pit` / `next_ident` / `maybe_smudge_engr`
+- **Prefer:** newt post-pit `m_move` / `next_ident` / `maybe_smudge_engr`
   over parked D-0006 and over baking seed2200 RC paths.
+  Hero `dotrap` deferred until monster pit peel is clear.
 - **Named omissions:** themerms fill *bodies* beyond Ghost (Temple
   altars, Ice/Storeroom/…); epitaph `get_rnd_text`; `invocation_pos`;
   Blocked center/Pillars/Water vault/
@@ -338,7 +341,8 @@ miss parked RC @158).
   beyond pantheon/SPE_LIGHT/nemesis gender; roles `title[].f` null
   where C has 0; `adjabil` lose/
   `postadjabil`/weapon-skill delta; steed `u_calc_moveamt`; full
-  `set_uasmon` youmonst.mmove; `make_corpse` after `corpse_chance`;
+  `set_uasmon` youmonst.mmove; `make_corpse` specials + `xkilled`/`mhitm`
+  path (trap ordinary path exists D-0150);
   dokick monster/object/SDOOR/furniture/`martial`/shop-town/
   `b_trapped`; `set_wounded_legs` body; `showdamage`/death `done`;
   Upolyd eel `regen_hp` loss; `regen_pw`/Teleport/Poly once-per-turn;
@@ -864,6 +868,11 @@ Module status, constitutional debt, and named omissions live in
     — seed0015 prefix **2918→8499** (`trapeffect_pit`); positional
     **8500**/8563 Scr **20**/44; screens **1275**; RNG
     **121154→126755**; green cohort PASS; next `trapeffect_pit` /
+    `next_ident` / `maybe_smudge_engr`
+128. monster `trapeffect_pit`/`make_corpse` (D-0150)
+    — seed0015 prefix **8499→8518** (newt `m_move` track); positional
+    **8524**/8563 Scr **21**/44; screens **1275→1276**; RNG
+    **126755→126779**; green cohort PASS; next newt track /
     `next_ident` / `maybe_smudge_engr`
 
 Next work is selected from the active objectives above using

@@ -7,17 +7,17 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 
 ## Active
 
-- **Current unit:** D-0149 cleared ordinary `>` descent (`dodown`/`goto_level`/
-  `getbones`/`keepdogs`/`losedogs`) + dlvl2 special-room `rn2(u_depth)`.
-  seed0015 **2918→8499**.
-- **Hypothesis / next:** seed0015 @8499 — C `rnd(6)` @ `trapeffect_pit`
-  (hero pit fall); JS still on dog_move `rn2(5)`. Port `dotrap`/
-  `trapeffect_pit` for PIT. Else seed0101 `next_ident` @2293 /
-  seed0030 `maybe_smudge_engr` @6732 / seed0200 combat @3382.
+- **Current unit:** D-0150 cleared monster `trapeffect_pit` + `thitm`→
+  `monkilled`/`make_corpse` ordinary path. seed0015 **8499→8518**.
+- **Hypothesis / next:** seed0015 @8518 — C second `distfleeck` (newt
+  post-move without track `rn2`) vs JS newt `m_move` track `rn2(12)`.
+  Pet dead; zombie `mv=0`; only newt acts. Diagnose `mtrack`/candidates
+  before inventing alignment. Else seed0101 `next_ident` @2293 /
+  seed0030 `maybe_smudge_engr` @6732.
 - **Falsifier / next:**
   ```bash
   node scripts/rng-diff.mjs sessions/seed0015-valk-level2-pit-dog-wait.session.json
-  # expect trapeffect_pit rnd(6) then corpse_chance — not dog_move rn2(5)
+  # expect two distfleeck then mcalcmove — not newt track rn2(12)
   ```
 - **Parked deep canary:** D-0006 pet movement — do not implement until C
   state/candidate capture exists.
@@ -198,9 +198,14 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   C `dodown`→`next_level`→`goto_level`→`mklev`→`getbones` `rn2(3)`.
   getbones stub already correct when reached (D-0149). Same lesson as
   D-0068 (`^V` vs getbones).
+- **seed0015 @8499 was NOT hero `dotrap`** — C provenance is monster
+  `trapeffect_pit` `thitm(..., rnd(6))` after pet steps into PIT;
+  needs `monkilled`→`make_corpse` (D-0150). Do not port hero pit first.
 
 ## Landmarks
 
+- Monster PIT: `mintrap`→`trapeffect_pit`→`thitm(0,NULL,rnd(6|10))`→
+  `monkilled`→`mondied`→`make_corpse`/`mkcorpstat` (D-0150).
 - Ordinary `>` → `dodown` → `next_level` → `goto_level` → `keepdogs` →
   `mklev`/`getbones` → `u_on_upstairs` → `losedogs`/`mon_arrive`
   `!rn2(mtame?10:…)` (D-0149).

@@ -76,7 +76,9 @@ export const M2_NASTY = 0x02000000;
 export const M2_STRONG = 0x04000000;
 export const M2_MERC = 0x00000200;
 
+export const M1_FLY = 0x00000001; /* monflag.h — can fly or float */
 export const M1_WALLWALK = 0x00000008;
+export const M1_CLING = 0x00000010; /* monflag.h — cling to ceiling */
 export const M1_NOHANDS = 0x00002000;
 export const M1_NOEYES = 0x00001000;
 export const M1_MINDLESS = 0x00010000;
@@ -140,7 +142,24 @@ export function lays_eggs(ptr) {
     return !!((ptr?.mflags1 ?? 0) & M1_OVIPAROUS);
 }
 
-// C ref: mondata.h passes_walls / throws_rocks
+// C ref: mondata.h is_flyer / is_floater / is_clinger / grounded / passes_walls
+export function is_flyer(ptr) {
+    return !!((ptr?.mflags1 ?? 0) & M1_FLY);
+}
+export function is_floater(ptr) {
+    const mlet = ptr?.mlet;
+    return mlet === 'S_EYE' || mlet === 'S_LIGHT';
+}
+export function is_clinger(ptr) {
+    return !!((ptr?.mflags1 ?? 0) & M1_CLING);
+}
+/** C: grounded — not flyer/floater; clingers need ceiling (always assume has). */
+export function grounded(ptr) {
+    if (!ptr) return true;
+    if (is_flyer(ptr) || is_floater(ptr)) return false;
+    if (is_clinger(ptr)) return false; /* has_ceiling stub: treat as cling-safe */
+    return true;
+}
 export function passes_walls(ptr) {
     return !!((ptr?.mflags1 ?? 0) & M1_WALLWALK);
 }

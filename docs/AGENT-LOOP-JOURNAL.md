@@ -19,6 +19,17 @@ Use this shape:
 
 ---
 
+## 2026-07-13 15:35 — monster trapeffect_pit / make_corpse (D-0150)
+- Objective: seed0015 @8499 `trapeffect_pit` (PROGRESS primary).
+- C locus: `trap.c` `trapeffect_pit` (monster) / `thitm`;
+  `mon.c` `monkilled`/`make_corpse`; `mkobj.c` `mkcorpstat`.
+- Result: **verified** — Notes said hero pit; C provenance is pet
+  `thitm(rnd(6))`. Ported monster PIT + death→`make_corpse`.
+- Verification: seed0015 8499→8518; Scr 21/44; green+strict PASS;
+  cohort 11 PASS; full **13/44** Scr **1276** RNG **126779**/792838.
+- Next: seed0015 @8518 newt `m_move` track vs second `distfleeck`, or
+  seed0101 `next_ident` / seed0030 `maybe_smudge_engr`.
+
 ## 2026-07-13 15:20 — ordinary > dodown/goto_level/getbones (D-0149)
 - Objective: seed0015 ordinary `getbones` @2918 (PROGRESS primary).
 - C locus: `do.c` `dodown`/`goto_level`; `dungeon.c` `next_level`;

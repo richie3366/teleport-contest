@@ -153,6 +153,7 @@ Do not record a guessed cause as fixed merely because an RNG prefix moved.
 | D-0147 | fixed | mklev/occupied | `occupied` needs `t_at`; irregular `somexy`/`inside_room` |
 | D-0148 | fixed | engrave/get_rnd_text | ENGRAVEFILE `get_rnd_text` via pad+xcrypt extract; not getrumor stub |
 | D-0149 | fixed | do/goto_level | ordinary `>` `dodown`/`goto_level`/`getbones`/`keepdogs`; dlvl2 shop `rn2(u_depth)` |
+| D-0150 | fixed | trap/pit mon | monster `trapeffect_pit` + `thitm`→`monkilled`/`make_corpse`; not hero dotrap |
 
 D-0001 through D-0005 predate the strict-length/cohort runbook. Their focused
 causes are preserved, but generic "green sessions held" is historical evidence,
@@ -3986,3 +3987,32 @@ cohort gates if those functions are touched again.
   check command bindings (`>` / `^V`) before patching the stub.
 - **Next:** seed0015 `trapeffect_pit` @8499 / `next_ident` /
   `maybe_smudge_engr`.
+
+## D-0150 — monster trapeffect_pit / make_corpse
+
+- **Status:** fixed
+- **Observed:** seed0015 @8499 C `rnd(6)` @ `trapeffect_pit(trap.c:2003)`
+  vs JS `rn2(5)` (dog_move). NOTES said hero pit; provenance is
+  **monster** branch `thitm(..., rnd(6))`.
+- **Rejected:** hero `dotrap`/`set_utrap` first — C line 2003 is the
+  pet fall-damage path after `mintrap`.
+- **C locus:** `trap.c` `trapeffect_pit` (monster) / `thitm` /
+  `trapeffect_selector`; `mon.c` `monkilled`/`mondied`/`make_corpse`
+  default_1; `mkobj.c` `mkcorpstat`.
+- **Cause:** `trapeffect_selector` only handled DART; PIT no-op so pet
+  kept walking. Death also needed real `monkilled`→`make_corpse`
+  (next_ident + rndmonst_adj + start_corpse_timeout), not mark-dead.
+- **Change:** `js/trap.js` monster `trapeffect_pit` + `thitm` death →
+  `monkilled`/`mondied`/`make_corpse`; `js/monsters.js`
+  `grounded`/`is_flyer`/`is_floater`/`is_clinger`.
+- **Verification:** seed0015 prefix **8499→8518**; positional
+  **8524**/8563 Scr **21**/44; green+strict PASS; cohort 11 PASS;
+  full **13/44** Scr **1276** RNG **126779**/792838.
+- **Named omission:** hero `dotrap`/`trapeffect_pit`; SPIKED poison;
+  `mselftouch` petrify; `wearing_iron_shoes`; `save_mtraits`;
+  golem/dragon/… `make_corpse` specials; `xkilled`/`mhitm` still burn
+  `corpse_chance` without `make_corpse`.
+- **Lesson:** rng-diff provenance line numbers beat session-name
+  guesses (“hero pit”); monster pit death pulls `make_corpse` RNG.
+- **Next:** seed0015 @8518 newt `m_move` track vs second `distfleeck` /
+  `next_ident` / `maybe_smudge_engr`.
