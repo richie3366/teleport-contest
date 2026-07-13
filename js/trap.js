@@ -13,17 +13,18 @@ import { newsym, pline } from './display.js';
 import { doname } from './objnam.js';
 import { Monnam } from './do_name.js';
 import {
+    G_NOCORPSE, G_FREQ, verysmall, grounded, passes_walls, is_neuter,
+    mon_knows_traps, mon_learns_traps,
+} from './monsters.js';
+import {
     DART_TRAP, FORCETRAP, FORCEBUNGLE,
     SQKY_BOARD, HOLE, TRAPDOOR, TRAPPED_DOOR, TRAPPED_CHEST,
-    PIT, SPIKED_PIT, is_hole, In_quest,
+    PIT, SPIKED_PIT, STATUE_TRAP, MAGIC_TRAP, is_hole, In_quest,
     CORPSTAT_INIT, CORPSTAT_FEMALE, CORPSTAT_MALE, CORPSTAT_NONE,
     ER_NOTHING, ER_DAMAGED, ER_DESTROYED,
     LOW_PM,
 } from './const.js';
 import { objectNames, POTION_CLASS, SCROLL_CLASS, SPBOOK_CLASS } from './objects.js';
-import {
-    G_NOCORPSE, G_FREQ, verysmall, grounded, passes_walls, is_neuter,
-} from './monsters.js';
 
 const DART = objectNames.indexOf('DART');
 const CORPSE = objectNames.indexOf('CORPSE');
@@ -37,6 +38,17 @@ export const Trap_Caught_Mon = 3;
 export const Trap_Moved_Mon = 4;
 
 export const NO_TRAP_FLAGS = 0;
+
+/**
+ * C ref: trap.c m_harmless_trap — whether mfndpos may ignore this trap.
+ * Envelope: SQKY/PIT/DART/… harmful (false); STATUE/MAGIC usually true.
+ * Named omission: flyer/Sokoban/bear-size/resist per-type immunities.
+ */
+export function m_harmless_trap(_mtmp, ttmp) {
+    if (!ttmp) return true;
+    if (ttmp.ttyp === STATUE_TRAP || ttmp.ttyp === MAGIC_TRAP) return true;
+    return false;
+}
 
 // C ref: dungeon.c dunlev / dunlevs_in_dungeon / In_hell
 function dunlev(lev) {
@@ -392,7 +404,7 @@ async function trapeffect_dart_trap(mtmp, trap) {
         : (mtmp.mtrapped ? Trap_Caught_Mon : Trap_Effect_Finished);
 }
 
-// C ref: trap.c trapeffect_selector — dart + pit; other types no-op
+// C ref: trap.c trapeffect_selector — dart + pit + sqky; other types no-op
 async function trapeffect_selector(mtmp, trap, trflags) {
     switch (trap.ttyp) {
     case DART_TRAP:
@@ -400,6 +412,10 @@ async function trapeffect_selector(mtmp, trap, trflags) {
     case PIT:
     case SPIKED_PIT:
         return trapeffect_pit(mtmp, trap, trflags);
+    case SQKY_BOARD:
+        // C: trapeffect_squeaky_board — wake_nearto / You_hear deferred
+        // (no RNG). Learning already done in mintrap via mon_learns_traps.
+        return Trap_Effect_Finished;
     default:
         // Named omission: arrow/bear/hole/… trap effects
         return Trap_Effect_Finished;
@@ -408,8 +424,8 @@ async function trapeffect_selector(mtmp, trap, trflags) {
 
 /**
  * C ref: trap.c mintrap() — monster steps on a trap.
- * Early-session envelope: unseen dart trap on a pet (no already_seen skip,
- * no madeby_u, not flying). Other trap types and escape paths deferred.
+ * Early-session envelope: dart / pit / sqky learn+effect; already_seen
+ * rn2(4) skip when mon_knows_traps. Other types and escape paths partial.
  */
 export async function mintrap(mtmp, mintrapflags = NO_TRAP_FLAGS) {
     const trap = t_at(mtmp.mx, mtmp.my);
@@ -418,23 +434,27 @@ export async function mintrap(mtmp, mintrapflags = NO_TRAP_FLAGS) {
         return Trap_Effect_Finished;
     }
     if (mtmp.mtrapped) {
-        // Already trapped escape path omitted
+        // Already trapped escape path: C burns rn2(40) / easy_escape;
+        // omit body — stay caught (named omission).
         return mtmp.mtrapped ? Trap_Caught_Mon : Trap_Effect_Finished;
     }
 
     const forcetrap = (mintrapflags & FORCETRAP) !== 0;
     const forcebungle = (mintrapflags & FORCEBUNGLE) !== 0;
-    // mon_knows_traps stub: pets start without trap knowledge
-    const already_seen = false;
+    const tt = trap.ttyp;
+    // C also treats HOLE && !mindless as already_seen — mindless helper deferred
+    const already_seen = mon_knows_traps(mtmp, tt);
 
     if (!forcetrap) {
-        // floor_trigger + check_in_air omitted (pets on floor)
+        // floor_trigger + check_in_air omitted (mons on floor)
         if (already_seen && rn2(4) && !forcebungle) {
             return Trap_Effect_Finished;
         }
     }
 
-    // mon_learns_traps / mons_see_trap / madeby_u rnl omitted (no RNG here)
+    // C: mon_learns_traps then mons_see_trap then trapeffect_selector
+    mon_learns_traps(mtmp, tt);
+    // mons_see_trap / madeby_u rnl omitted (no RNG on ordinary commons path)
     return await trapeffect_selector(mtmp, trap, mintrapflags);
 }
 

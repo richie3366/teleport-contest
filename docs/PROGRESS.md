@@ -39,7 +39,7 @@ frozen-file overlay):
 |--------|------:|
 | Sessions passing | **13 / 44** |
 | Screens matched | **1276 / 11,405** (11.19%) |
-| Positional RNG calls matched | **126,779 / 792,838** (15.99%) |
+| Positional RNG calls matched | **126,818 / 792,838** (16.00%) |
 | Speed label | `19+0.08/turn` |
 | Working-tree base | `8b71735` + committed port (see `main`) |
 | Role-init throws | **0 / 44** (`u_init_role: role not ported`) |
@@ -74,7 +74,7 @@ shared blockers, and semantic coverage together—not one vanity metric.
 | `seed0361-archeologist-tour` | **3293 / 53865** | 0 / 366 |
 | `seed0373-barbarian-quest-tour` | **2555 / 35386** | 0 / 124 |
 | `seed0105-valk-chat-lamp-ration` | **2499 / 2499** | **30 / 30** |
-| `seed0015-valk-level2-pit-dog-wait` | **8524 / 8563** | **21 / 44** |
+| `seed0015-valk-level2-pit-dog-wait` | **8563 / 8563** | **21 / 44** |
 | `seed0077-rogue-chargen` | **3242 / 3242** | **33 / 33** |
 | `seed0013-rogue-friday13-combat` | **543 / 4838** | 1 / 59 |
 
@@ -128,7 +128,7 @@ autoopen `doopen_indir` (D-0059), `mfndpos` BOULDER/`NODIAG`
 clear shared peels. seed2200 RNG **full**; Scr **229**/230 (sole miss:
 parked RC path @158). seed0106 **PASS**.
 Healer seed0016 next `next_ident` @ 2493.
-seed0015 next `m_move` track @ 8518;
+seed0015 next Scr @21 (RNG full);
 seed0200 next `hitum`/`exercise` @ 3382.
 seed0101 next `next_ident`. seed0013 still breaks earlier in
 Lua/`sp_lev`. seed0103 next `next_ident`/`trquan` @ 2337.
@@ -307,19 +307,19 @@ autoopen `doopen_indir` (D-0059) + `mfndpos` BOULDER/`ALLOW_ROCK` +
 **`random_engraving`/`get_rnd_text(ENGRAVEFILE)`** (D-0148)
 **`>`/`dodown`/`goto_level`/`getbones`/`keepdogs`** (D-0149)
 **monster `trapeffect_pit`/`make_corpse`** (D-0150)
+**hostile `postmov`/`mon_learns_traps`/`mfndpos` known-trap** (D-0151)
 **ported**. Thirteen public sessions pass end-to-end. **0/44** throw at
 `u_init_role`. seed0700 + seed1150 + seed0017 + seed0077 + seed0106 +
 seed0501 + seed0105 **PASS**. seed2200 RNG **full** (Scr **229**/230; sole
-miss parked RC @158).
+miss parked RC @158). seed0015 RNG **full** (Scr **21**/44).
 
-- **Bounded unit:** seed0015 @8518 newt `m_move` track / second
-  `distfleeck` /
+- **Bounded unit:** seed0015 Scr @21 /
   seed0101 `next_ident` /
   seed0103 `next_ident`/`trquan` / seed0030 `maybe_smudge_engr` /
   seed0200 combat `@3382` (lower priority) /
   seed0361/0373 **quest `getbones`** (blocked: need `^V`→`goto_level`→
   `makemaz` first — ordinary `goto_level` now exists for stairs).
-- **Prefer:** newt post-pit `m_move` / `next_ident` / `maybe_smudge_engr`
+- **Prefer:** `next_ident` / `maybe_smudge_engr` / seed0015 Scr
   over parked D-0006 and over baking seed2200 RC paths.
   Hero `dotrap` deferred until monster pit peel is clear.
 - **Named omissions:** themerms fill *bodies* beyond Ghost (Temple
@@ -349,7 +349,7 @@ miss parked RC @158).
   `dog_goal` wantdoor `view_from` do_clear_area; `throw_gold`; eat getobj
   `?`/`*` menu; ordinary food nutrition/occupation; Blind/`look_here`;
   trap glyphs; hallucination/`see_objects`;
-  `u_init_carry_attr_boost`; mfndpos pool/lava/garlic/`bad_rock`
+  `u_init_carry_attr_boost`;   mfndpos pool/lava/garlic/`bad_rock`
   squeeze / temple / iron bars; `m_can_break_boulder`; `ALLOW_WALL`;
   hostile `m_avoid_kicked_loc` wiring; Sokoban push-avoid; `donull`
   `cmd_safety_prevention`; `makemon` Sokoban
@@ -392,7 +392,10 @@ miss parked RC @158).
   memory (seed0060-sensitive); infrared `_map_location`;
   `show_achievements` body; xkilled murder/peaceful luck/`adjalign`;
   eel AD_WRAP Amphibious XP; `get_mattk` still FIRST_ATTK compact;
-  wizard ^X next-level XP line; …
+  wizard ^X next-level XP line; SQKY `wake_nearto`/`You_hear`;
+  `mons_see_trap`; HOLE `!mindless` already_seen; full
+  `m_harmless_trap` flyer/resist immunities; hostile `gettrack`/
+  shortsighted/`m_search_items`; mtrapped escape `rn2(40)`; …
 - **Cohort:** green gate + seed1500 + seed1800 + seed0060 + seed0102
   + seed0700 + seed1150 + seed0017 + seed0077 + seed0106 + seed0501
   + seed0105 (must stay PASS) + strict lengths.
@@ -873,6 +876,10 @@ Module status, constitutional debt, and named omissions live in
     — seed0015 prefix **8499→8518** (newt `m_move` track); positional
     **8524**/8563 Scr **21**/44; screens **1275→1276**; RNG
     **126755→126779**; green cohort PASS; next newt track /
+    `next_ident` / `maybe_smudge_engr`
+129. hostile `postmov`/`mon_learns_traps`/`mfndpos` known-trap (D-0151)
+    — seed0015 RNG **8563**/8563 Scr **21**/44; screens **1276**;
+    RNG **126779→126818**; green cohort PASS; next seed0015 Scr /
     `next_ident` / `maybe_smudge_engr`
 
 Next work is selected from the active objectives above using

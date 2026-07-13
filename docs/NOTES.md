@@ -7,17 +7,19 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 
 ## Active
 
-- **Current unit:** D-0150 cleared monster `trapeffect_pit` + `thitm`→
-  `monkilled`/`make_corpse` ordinary path. seed0015 **8499→8518**.
-- **Hypothesis / next:** seed0015 @8518 — C second `distfleeck` (newt
-  post-move without track `rn2`) vs JS newt `m_move` track `rn2(12)`.
-  Pet dead; zombie `mv=0`; only newt acts. Diagnose `mtrack`/candidates
-  before inventing alignment. Else seed0101 `next_ident` @2293 /
-  seed0030 `maybe_smudge_engr` @6732.
+- **Current unit:** D-0151 cleared hostile `postmov` + `mon_learns_traps` +
+  `mfndpos` known-trap skip. seed0015 RNG **full** (8563/8563); Scr still
+  **21**/44.
+- **Hypothesis / next:** seed0015 Scr @21 (map/UI after pit) /
+  seed0101 `next_ident` @2293 / seed0030 `maybe_smudge_engr` @6732 /
+  seed0200 combat `@3382`. Prefer shared `next_ident` / engraving over
+  baking seed0015 screens alone.
 - **Falsifier / next:**
   ```bash
-  node scripts/rng-diff.mjs sessions/seed0015-valk-level2-pit-dog-wait.session.json
-  # expect two distfleeck then mcalcmove — not newt track rn2(12)
+  node frozen/ps_test_runner.mjs sessions/seed0015-valk-level2-pit-dog-wait.session.json
+  # Scr still 21/44 — inspect first screen delta
+  node scripts/rng-diff.mjs sessions/seed0101-ranger-quiver-throw-travel-engrave.session.json
+  # expect next_ident vs JS mcalcmove/rn2(12)
   ```
 - **Parked deep canary:** D-0006 pet movement — do not implement until C
   state/candidate capture exists.
@@ -201,9 +203,15 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 - **seed0015 @8499 was NOT hero `dotrap`** — C provenance is monster
   `trapeffect_pit` `thitm(..., rnd(6))` after pet steps into PIT;
   needs `monkilled`→`make_corpse` (D-0150). Do not port hero pit first.
+- **seed0015 @8518 was NOT broken mtrack arity/`appr`** — C second
+  `distfleeck` with 0-RNG `m_move` because hostile `mfndpos` skips
+  known SQKY_BOARD; JS never `postmov`→`mon_learns_traps` so kept
+  walking onto mtrack back onto the board (`rn2(12)`) (D-0151).
 
 ## Landmarks
 
+- Hostile `m_move` must `postmov`→`mintrap`→`mon_learns_traps`;
+  `mfndpos` skips known harmful traps when `!(ALLOW_TRAPS)` (D-0151).
 - Monster PIT: `mintrap`→`trapeffect_pit`→`thitm(0,NULL,rnd(6|10))`→
   `monkilled`→`mondied`→`make_corpse`/`mkcorpstat` (D-0150).
 - Ordinary `>` → `dodown` → `next_level` → `goto_level` → `keepdogs` →

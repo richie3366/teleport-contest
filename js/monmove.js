@@ -17,6 +17,7 @@ import {
     NO_TRAP_FLAGS,
     Trap_Killed_Mon,
     Trap_Moved_Mon,
+    Trap_Caught_Mon,
 } from './trap.js';
 import { mattacku } from './mhitu.js';
 
@@ -94,6 +95,16 @@ export async function m_move(mtmp, after) {
     const omx = mtmp.mx;
     const omy = mtmp.my;
 
+    // C: m_move starts with mtrapped → mintrap; still-caught → no move
+    if (mtmp.mtrapped) {
+        const i = await mintrap(mtmp, NO_TRAP_FLAGS);
+        if (i === Trap_Killed_Mon) {
+            if (mtmp.mx) newsym(mtmp.mx, mtmp.my);
+            return MMOVE_DIED;
+        }
+        if (i === Trap_Caught_Mon) return MMOVE_NOTHING;
+    }
+
     set_apparxy(mtmp);
 
     const ggx = mtmp.mux;
@@ -107,6 +118,7 @@ export async function m_move(mtmp, after) {
     }
 
     // Hostiles keep appr=1; peaceful wander uses !rn2(++chcnt) instead of track.
+    // Named omission: gettrack goal, shortsighted, m_search_items, balks.
 
     const flag = mon_allowflags(mtmp);
     const mfp = { cnt: 0, poss: [], info: [] };
@@ -158,17 +170,16 @@ export async function m_move(mtmp, after) {
     if (mmoved === MMOVE_NOTHING) return MMOVE_NOTHING;
 
     // Attack-you square: leave in place for now (mattacku not ported)
+    // C returns MMOVE_NOTHING here; DONE is close enough for fall-through.
     if (nix === game.u.ux && niy === game.u.uy) {
         return MMOVE_DONE;
     }
 
-    // Actually step
+    // C: place_monster + mon_track_add then postmov (mintrap on new cell)
     mtmp.mx = nix;
     mtmp.my = niy;
     mon_track_add(mtmp, omx, omy);
-    newsym(omx, omy);
-    newsym(nix, niy);
-    return MMOVE_MOVED;
+    return postmov(mtmp, omx, omy, MMOVE_MOVED);
 }
 
 // C ref: monmove.c dochug()

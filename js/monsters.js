@@ -164,6 +164,26 @@ export function passes_walls(ptr) {
     return !!((ptr?.mflags1 ?? 0) & M1_WALLWALK);
 }
 
+// C ref: mondata.c mon_knows_traps / mon_learns_traps — mtrapseen bitset
+// (trap.h ALL_TRAPS=-1, NO_TRAP=0; bits are 1<<(ttyp-1)).
+export function mon_knows_traps(mtmp, ttyp) {
+    const seen = mtmp?.mtrapseen | 0;
+    if (ttyp === -1 /* ALL_TRAPS */) return !!seen;
+    if (ttyp === 0 /* NO_TRAP */) return !seen;
+    return (seen & (1 << (ttyp - 1))) !== 0;
+}
+
+export function mon_learns_traps(mtmp, ttyp) {
+    if (!mtmp) return;
+    if (ttyp === -1 /* ALL_TRAPS */) {
+        mtmp.mtrapseen = ~0;
+    } else if (ttyp === 0 /* NO_TRAP */) {
+        mtmp.mtrapseen = 0;
+    } else {
+        mtmp.mtrapseen = (mtmp.mtrapseen | 0) | (1 << (ttyp - 1));
+    }
+}
+
 export function throws_rocks(ptr) {
     return !!((ptr?.mflags2 ?? 0) & M2_ROCKTHROW);
 }

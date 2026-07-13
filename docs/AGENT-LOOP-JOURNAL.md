@@ -19,6 +19,20 @@ Use this shape:
 
 ---
 
+## 2026-07-13 15:45 — hostile postmov / mon_learns_traps (D-0151)
+- Objective: seed0015 @8518 newt `m_move` track vs second `distfleeck`.
+- C locus: `monmove.c` `m_move`/`postmov`; `trap.c` `mintrap`
+  `mon_learns_traps`; `mon.c` `mfndpos` known-trap skip;
+  `mondata.c` `mon_knows_traps`/`mon_learns_traps`.
+- Result: **verified** — hostile `m_move` skipped `postmov`, so never
+  learned SQKY_BOARD; C `mfndpos` dropped that cell (no track RNG).
+  Wired postmov + trap memory + known-trap skip.
+- Verification: seed0015 RNG **8563**/8563 Scr **21**/44; green+strict
+  PASS; cohort 11 PASS; full **13/44** Scr **1276** RNG
+  **126818**/792838.
+- Next: seed0015 Scr @21, or seed0101 `next_ident` @2293 /
+  seed0030 `maybe_smudge_engr` @6732.
+
 ## 2026-07-13 15:35 — monster trapeffect_pit / make_corpse (D-0150)
 - Objective: seed0015 @8499 `trapeffect_pit` (PROGRESS primary).
 - C locus: `trap.c` `trapeffect_pit` (monster) / `thitm`;

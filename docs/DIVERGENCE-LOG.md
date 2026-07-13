@@ -154,6 +154,7 @@ Do not record a guessed cause as fixed merely because an RNG prefix moved.
 | D-0148 | fixed | engrave/get_rnd_text | ENGRAVEFILE `get_rnd_text` via pad+xcrypt extract; not getrumor stub |
 | D-0149 | fixed | do/goto_level | ordinary `>` `dodown`/`goto_level`/`getbones`/`keepdogs`; dlvl2 shop `rn2(u_depth)` |
 | D-0150 | fixed | trap/pit mon | monster `trapeffect_pit` + `thitm`→`monkilled`/`make_corpse`; not hero dotrap |
+| D-0151 | fixed | monmove/traps | hostile `postmov` + `mon_learns_traps` + `mfndpos` known-trap skip; seed0015 RNG full |
 
 D-0001 through D-0005 predate the strict-length/cohort runbook. Their focused
 causes are preserved, but generic "green sessions held" is historical evidence,
@@ -4016,3 +4017,35 @@ cohort gates if those functions are touched again.
   guesses (“hero pit”); monster pit death pulls `make_corpse` RNG.
 - **Next:** seed0015 @8518 newt `m_move` track vs second `distfleeck` /
   `next_ident` / `maybe_smudge_engr`.
+
+## D-0151 — hostile postmov / mon_learns_traps / mfndpos known-trap skip
+
+- **Status:** fixed
+- **Observed:** seed0015 @8518 C `rn2(5)` second `distfleeck` vs JS
+  `rn2(12)` newt `m_move` track. Pet already dead; only newt acts.
+- **Rejected:** inventing `appr`/mtrack arity hacks; “second fleeck =
+  two monsters”; mtrapped early-return (newt `mtrapped=0`, no
+  `rn2(40)`).
+- **C locus:** `monmove.c` `m_move`/`postmov`; `trap.c` `mintrap`
+  `mon_learns_traps`; `mon.c` `mfndpos` known-trap `continue`;
+  `mondata.c` `mon_knows_traps`/`mon_learns_traps`.
+- **Cause:** JS hostile `m_move` stepped without `postmov`→`mintrap`,
+  so never set `mtrapseen` for SQKY_BOARD under the newt. C learned the
+  board then `mfndpos` skipped that cell — no track match, 0-RNG move,
+  post `distfleeck`. JS kept `(5,9)` in candidates matching
+  `mtrack[0]` → `rn2(12)`.
+- **Change:** hostile `m_move`→`postmov`; `mon_knows_traps`/
+  `mon_learns_traps` + `mtrapseen` init; `mintrap` learns before
+  effect; `mfndpos` skips known harmful traps when `!(ALLOW_TRAPS)`;
+  SQKY_BOARD effect stub (wake deferred).
+- **Verification:** seed0015 RNG **8563**/8563 Scr **21**/44;
+  green+strict PASS; cohort 11 PASS; full **13/44** Scr **1276** RNG
+  **126818**/792838.
+- **Named omission:** `wake_nearto`/`You_hear` for SQKY; `mons_see_trap`;
+  HOLE `!mindless` already_seen; full `m_harmless_trap` immunities;
+  `gettrack`/shortsighted/`m_search_items` in hostile `m_move`;
+  mtrapped escape `rn2(40)`; hero `dotrap`.
+- **Lesson:** when C has 0-RNG `m_move` between fleecks, check
+  `mfndpos` candidate set (known traps) before rewriting track math.
+- **Next:** seed0015 Scr @21 / seed0101 `next_ident` @2293 /
+  seed0030 `maybe_smudge_engr` @6732.
