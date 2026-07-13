@@ -7,20 +7,18 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 
 ## Active
 
-- **Current unit:** seed1150 @ 3042 post-throw (extra JS `obj_resists`
-  before C `dog_move`). Prefer that / seed0017 mfndpos / seed2200
-  post-help.
-- **Hypothesis (seed1150 @ 3042):** after fire volley, JS dog_goal (or
-  throw aftermath) burns one more `obj_resists` than C before
-  `dog_move` rn2(12). Compare fobj walk / could_reach after flint land.
+- **Current unit:** seed1150 Scr **22**/51 (RNG full after D-0094) /
+  seed0017 @ 3132 mfndpos / seed2200 post-help.
+- **Hypothesis (seed1150 screens):** first Scr miss after full RNG —
+  display/glyph/topline residual (not another dogfood count). Decode
+  first mismatched screen vs C.
 - **Falsifier:**
   ```bash
-  node scripts/rng-diff.mjs sessions/seed1150-caveman-explore-move.session.json
+  node frozen/ps_test_runner.mjs sessions/seed1150-caveman-explore-move.session.json
   ```
-- **seed0017 @ 3132 (parked this iter):** pet (30,5) D_NODOOR,
-  `mfndpos` cnt=4 vs C needing 5 for 3×`rn2(12)`. Screen col = map_x−1
-  (display `setCell(x-1)`); C fountain screen 31 ≡ map 32 — **not** a
-  room x-shift. Likely missing passable neighbour (30,4) or equivalent.
+  (Scr still 22/51 → dig first mismatched frame; if Scr rises, update.)
+- **seed0017 @ 3132:** pet (30,5) D_NODOOR, `mfndpos` cnt=4 vs C needing
+  5 for 3×`rn2(12)`. Display `setCell(x-1)`; not a room x-shift.
 - **Parked deep canary:** D-0006 pet movement — do not implement until C
   state/candidate capture exists.
 
@@ -124,6 +122,9 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   space that C used for pet-drop `--More--` because JS
   `getdir`/`yn_function` skipped `more()` on `TOPLINE_NEED_MORE`
   (D-0093). Also needed Caveman `multishot_class_bonus` + `rnd(multishot)`.
+- seed1150 @ 3042 was **not** pet position / gold@(54,16) bbox —
+  two unmerged FLINT `fobj` nodes after volley; C `throwit`→`stackobj`
+  (D-0094).
 - `more()` word-wrap of message text must only fire when len≥CO —
   wrapping at CO-8 breaks welcome `--More--` (seed0900).
 
@@ -202,3 +203,5 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   call `more()` **before** printing the direction prompt (D-0093).
 - Caveman sling flint: `multishot_class_bonus` +1 for `-P_SLING` /
   `P_SPEAR`; then `multishot = rnd(multishot)` (D-0093).
+- `throwit` must `stackobj` after `place_object` — multishot ammo
+  merges so `dog_goal` `dogfood`s once per pile (D-0094).

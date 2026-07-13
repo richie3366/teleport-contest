@@ -5,7 +5,7 @@ import { game } from './gstate.js';
 import { nhgetch } from './input.js';
 import { flush_screen, flush_topl_more, pline, docrt } from './display.js';
 import { rnd } from './rng.js';
-import { place_object, splitobj } from './mkobj.js';
+import { place_object, splitobj, stackobj } from './mkobj.js';
 import { WEAPON_CLASS, COIN_CLASS, objectNames } from './objects.js';
 import {
     COLNO, ROWNO, IS_SOFT, LOST_THROWN, ZAP_POS, IS_DOOR, D_CLOSED, D_LOCKED,
@@ -309,6 +309,8 @@ async function throwit(obj) {
     }
     obj.how_lost = LOST_THROWN;
     place_object(obj, x, y);
+    // C: throwit → stackobj after place_object
+    stackobj(obj);
 }
 
 

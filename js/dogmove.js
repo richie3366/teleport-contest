@@ -7,7 +7,7 @@ import {
     dist2, distmin, mon_allowflags, mfndpos, m_at, monnear, ALLOW_M,
     ALLOW_TRAPS, m_avoid_kicked_loc, m_avoid_soko_push_loc,
 } from './mon.js';
-import { objects_at, obj_extract_self, place_object, splitobj } from './mkobj.js';
+import { objects_at, obj_extract_self, place_object, splitobj, stackobj } from './mkobj.js';
 import { mattackm, max_passive_dmg } from './mhitm.js';
 import { newsym, pline } from './display.js';
 import { doname } from './objnam.js';
@@ -319,7 +319,7 @@ async function mdrop_obj(mon, obj, verbosely) {
     }
     // flooreffects omitted — ordinary missiles/items place on floor
     place_object(obj, omx, omy);
-    // stackobj merge omitted (C-JS-MAP)
+    stackobj(obj);
 }
 
 // C ref: steal.c relobj — is_pet uses droppables; vault-guard gold omitted

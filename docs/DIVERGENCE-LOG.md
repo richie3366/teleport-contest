@@ -97,6 +97,7 @@ Do not record a guessed cause as fixed merely because an RNG prefix moved.
 | D-0091 | fixed | options/help | `option_help`/`next_opt` + optlist extract; seed2200 Scr 176→199 |
 | D-0092 | fixed | mklev/themerooms | `in_mk_themerooms` for `check_room` abort; seed0017 still @3132 |
 | D-0093 | fixed | dothrow/getdir | flush `--More--` before getdir + Caveman multishot; seed1150 3032→3042 |
+| D-0094 | fixed | invent/stackobj | throw landing `stackobj` merge; seed1150 RNG full |
 
 D-0001 through D-0005 predate the strict-length/cohort runbook. Their focused
 causes are preserved, but generic "green sessions held" is historical evidence,
@@ -2507,3 +2508,27 @@ cohort gates if those functions are touched again.
   bonus; `weapon_skills` init beyond defaults.
 - **Next:** seed1150 @ 3042 extra `obj_resists` before `dog_move`;
   seed0017 mfndpos neighbour; seed2200 post-help.
+
+## D-0094 — throw landing must `stackobj`
+
+- **Status:** fixed
+- **Observed:** seed1150 @ **3042**: C `rn2(12)` @ `dog_move` vs JS
+  extra `rn2(100)` `obj_resists`. After sling volley of 2 flints,
+  JS `dog_goal` `dogfood`'d two separate `fobj` FLINT nodes at
+  `(51,14)` plus food + 2 golds (5 rolls); C merged the flints so
+  only 4 `obj_resists` then selection RNG.
+- **C locus:** `invent.c` `stackobj`/`merged`/`mergable`;
+  `dothrow.c` `throwit` calls `stackobj` after `place_object`.
+- **Cause:** JS `throwit` placed without merge; `dog_goal` walks
+  `fobj` and always `dogfood`s in-bbox objects.
+- **Change:** `js/mkobj.js` floor `mergable`/`merged`/`stackobj`
+  (oc_merge approximated until extractor emits it); `throwit`,
+  pet `mdrop_obj`, and trap miss-path call `stackobj`.
+- **Verification:** green + cohort PASS + strict; seed1150
+  **rng-diff OK** (3137/3137) Scr **22**/51 + strict lengths;
+  full **7/44**, screens **568**/11405, RNG **91465**/792838.
+- **Named omission:** `objects[].oc_merge` not in extractor (class
+  heuristic + boulder/statue/boomerang denylist); full `mergable`
+  shop/mail/globby/candle/erosion arms deferred.
+- **Next:** seed1150 screen peel (Scr 22/51) / seed0017 @ 3132
+  `mfndpos` / seed2200 post-help.

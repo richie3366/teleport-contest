@@ -25,6 +25,16 @@ Use this shape:
 
 ---
 
+## 2026-07-13 06:26 — seed1150 stackobj after throw (D-0094)
+- C locus: `invent.c:stackobj`/`merged`/`mergable`; `dothrow.c:throwit`
+- Result: **verified faithful change** — multishot flints merge on
+  landing; `dog_goal` no longer double-`dogfood`s the pile.
+- Verification: green+strict PASS; cohort seed1500/1800/0060/0102/0700
+  PASS; seed1150 rng-diff OK 3137/3137 Scr 22/51; full 7/44 Scr 568
+  RNG 91465
+- Next: decode seed1150 first Scr miss, or
+  `node scripts/rng-diff.mjs sessions/seed0017-samurai-altar-pray.session.json`
+
 ## 2026-07-13 06:25 — seed1150 getdir more + multishot (D-0093)
 - C locus: `cmd.c`/`topl.c` yn_function more-before-prompt;
   `dothrow.c` `throw_obj` / `multishot_class_bonus`
