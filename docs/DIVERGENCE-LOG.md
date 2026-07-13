@@ -2559,3 +2559,26 @@ cohort gates if those functions are touched again.
   `lit_corridor` (raises seed1150 Scr, drops seed0900 to 12/84).
 - **Next:** seed1150 corridor `#` color (C 8 vs JS 15) without
   regressing seed0900; or seed0017 mfndpos / invent Scr 38+.
+
+## D-0096 — out-of-sight lit corridor → dark corr
+
+- **Symptom:** seed1150 Scr **27**/51: `#` CLR_WHITE(15) vs C
+  NO_COLOR(8) at out-of-sight unlit CORR; seed0900 needs visible
+  lit-corridor white.
+- **C locus:** `display.c` `newsym` (`waslit=(lit!=0)`; `!cansee`
+  remap `S_litcorr`→`S_corr` when `!waslit` or dark_room+color);
+  `back_to_glyph` / `reset_glyphmap` (shared `#` → CLR_WHITE for
+  litcorr; S_corr CLR_GRAY → tty NO_COLOR).
+- **Cause:** JS kept remembered `S_litcorr`/CLR_WHITE when leaving
+  sight; never set `waslit` on cansee. Blind “always NO_COLOR” is
+  wrong — visible `lit_corridor` must stay white (seed0900).
+- **Change:** `js/display.js` `newsym` sets `waslit`; `!cansee`
+  remaps remembered lit `#`→NO_COLOR; `terrain_glyph` uses
+  `waslit||lit_corridor`.
+- **Verification:** green + strict PASS; cohort seed1500/1800/0060/
+  0102/0700 PASS; seed1150 Scr **27→46**/51 RNG full; full **7/44**,
+  screens **574→593**/11405, RNG **91471**/792838.
+- **Named omission:** `newsym` ROOM→DARKROOMSYM memory arm;
+  engraving/trap glyphs; hallu/`see_objects`.
+- **Next:** seed1150 invent/UI @ screen 38 / seed0017 mfndpos /
+  seed2200 post-help.

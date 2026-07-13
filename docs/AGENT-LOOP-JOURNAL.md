@@ -25,6 +25,22 @@ Use this shape:
 
 ---
 
+---
+
+## 2026-07-13 06:40 — seed1150 out-of-sight lit corridor (D-0096)
+- Objective: seed1150 Scr 27/51 corridor `#` color (PROGRESS primary).
+- C locus: `display.c:newsym` waslit + `S_litcorr`→`S_corr`;
+  `reset_glyphmap` litcorr CLR_WHITE / S_corr CLR_GRAY→tty NO_COLOR.
+- Result: **verified faithful change** — JS kept remembered white
+  lit-corr when leaving sight; never set `waslit`. Visible
+  `lit_corridor` stays white (seed0900). Rejected: blind always
+  NO_COLOR under lit_corridor.
+- Verification: green+strict PASS; cohort seed1500/1800/0060/0102/
+  0700 PASS; seed1150 Scr 27→46/51 RNG full; full 7/44 Scr 593
+  RNG 91471.
+- Next: decode seed1150 screen 38 invent/UI, or
+  `node scripts/rng-diff.mjs sessions/seed0017-samurai-altar-pray.session.json`
+
 ## 2026-07-13 06:30 — seed1150 look_here + Monnam (D-0095)
 - Objective: seed1150 Scr 22/51 first miss (PROGRESS primary).
 - C locus: `hack.c:spoteffects` → `pickup.c:pickup`/`check_here` →

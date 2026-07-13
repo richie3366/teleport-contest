@@ -7,18 +7,16 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 
 ## Active
 
-- **Current unit:** seed1150 Scr **27**/51 (RNG full; D-0095 look_here +
-  Monnam) / seed0017 @ 3132 mfndpos / seed2200 post-help.
-- **Hypothesis (seed1150 Scr @27):** corridor `#` attr — JS
-  `lit_corridor`→`CLR_WHITE`(15), C fixture `NO_COLOR`(8). Blind
-  “always NO_COLOR” **breaks seed0900** (C wants 15 there). Need
-  C path that yields gray/default for this cell without regressing
-  tourist lit corridors (waslit / remembered / tty CLR_GRAY).
+- **Current unit:** seed1150 Scr **46**/51 (RNG full; D-0096 lit-corr
+  memory) / seed0017 @ 3132 mfndpos / seed2200 post-help.
+- **Hypothesis (seed1150 Scr @38):** invent/UI text — first miss is
+  topline/menu chars (JS `"15…"` vs C `"flint…"`, then large invent
+  overlay diffs @39/46). Not corridor color.
 - **Falsifier:**
   ```bash
-  node frozen/ps_test_runner.mjs sessions/seed1150-caveman-explore-move.session.json sessions/seed0900-tourist-explore-actions.session.json
+  node frozen/ps_test_runner.mjs sessions/seed1150-caveman-explore-move.session.json
   ```
-  (both Scr must hold; seed1150 rise without seed0900 drop).
+  (decode screen 38 first `ch` mismatch; cite invent/doname C path).
 - **seed0017 @ 3132:** pet (30,5) D_NODOOR, `mfndpos` cnt=4 vs C needing
   5 for 3×`rn2(12)`. Display `setCell(x-1)`; not a room x-shift.
 - **Parked deep canary:** D-0006 pet movement — do not implement until C
@@ -133,6 +131,7 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   ignored `MGIVENNAME` (D-0095).
 - **Do not** force corridor `#` to `NO_COLOR` under `lit_corridor` —
   raises seed1150 Scr but drops seed0900 (C wants CLR_WHITE there).
+  Real fix is out-of-sight `S_litcorr`→`S_corr` remap (D-0096).
 - `more()` word-wrap of message text must only fire when len≥CO —
   wrapping at CO-8 breaks welcome `--More--` (seed0900).
 
@@ -216,3 +215,7 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 - `!autopickup` move: `spoteffects`→`pickup(1)`→`check_here`→
   `look_here` `"You see here …"` (D-0095). `Monnam`/`noit_Monnam`
   use bare `MGIVENNAME` when set (Caveman `Slasher`).
+- Out-of-sight CORR: `lit_corridor` paints `S_litcorr`/CLR_WHITE while
+  `cansee`; `newsym` remaps to `S_corr`/NO_COLOR when `!waslit` (or
+  dark_room+color). Set `waslit=(lit!=0)` on cansee (D-0096).
+  Map term row = map y+1 (message line).

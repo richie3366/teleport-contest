@@ -187,10 +187,13 @@ screens **568**/11405; RNG **91398**/792838.
 **`spoteffects`/`check_here`/`look_here` + Monnam MGIVENNAME**
 (D-0095) → seed1150 Scr **22→27**/51; screens **568→574**/11405;
 RNG **91465→91471**/792838.
-Next peel: seed1150 Scr 27/51 corridor `#` color (seed0900-
-safe) / seed0017 @ 3132 `mfndpos` / seed2200 post-help /
-`getbones` (blocked on `^V`/`makemaz`) / `wipeout_text` /
-`lspo_map` / pony `next_ident` / `maybe_smudge_engr`.
+**`newsym` waslit + out-of-sight `S_litcorr`→`S_corr`** (D-0096)
+→ seed1150 Scr **27→46**/51; screens **574→593**/11405; RNG
+**91471**/792838 (unchanged).
+Next peel: seed1150 Scr 46/51 invent/UI @38 / seed0017 @ 3132
+`mfndpos` / seed2200 post-help / `getbones` (blocked on
+`^V`/`makemaz`) / `wipeout_text` / `lspo_map` / pony `next_ident` /
+`maybe_smudge_engr`.
 `make_corpse` body and `m_initinv` body still absent (named omissions).
 
 ## Data and world generation
@@ -233,7 +236,7 @@ safe) / seed0017 @ 3132 `mfndpos` / seed2200 post-help /
 | `src/dokick.c` | `js/dokick.js` | partial | `dokick` + `kick_dumb` (D-0031); `kickedloc` (D-0032); **`kick_ouch` → `losehp`** (D-0035); omit `kick_monster`/`kick_object`/closed-door Whammm/SDOOR-SCORR open/furniture/`martial`/`wake_nearby`/`u_wipe_engr`/`set_wounded_legs`/`kickstr` terrain names |
 | `src/hack.c` `losehp`/`nomul`/`spoteffects` | `js/hack.js`, `js/pickup.js`, `js/cmd.js` | partial | **`losehp` !Upolyd / Upolyd mh subtract** (D-0035); **`nomul`/`unmul` + afternmv** (D-0066); **`domove`→`spoteffects`→`pickup`/`check_here` when `!flags.pickup`** (D-0095); `maybe_half_phys` identity until Half_physical prop; omit `showdamage`/`maybe_wail`/`done(DIED)` bodies; full `end_running`/`cmdq_clear`; pool/trap/sink/`mention_decor`/`autopick` arms |
 | `src/apply.c` / `src/lock.c` | `js/apply.js`, `js/lock.js` | partial | `doapply` + `pick_lock` (D-0021); exported `getdir` for kick/apply; getobj missing-letter `continue`+`flush_topl_more` (D-0025); **`doopen_indir` CLOSED autoopen** (D-0059); omit sack/other tools, real door occupation, interactive `o` getdir, `b_trapped`/autounlock, `feel_location` mapseen gating, container-at-feet |
-| `src/display.c` `newsym` / map | `js/display.js` | partial | Floor `vobj_at` + class symbols + CORPSE `mon_color` (D-0022); **live `mon_glyph` uses `mcolors[mnum]`** (D-0036; newt yellow); **`wall_angle` + seenv** (D-0038); upstairs `<` yellow / downstairs `>` NO_COLOR (D-0038); **`see_with_infrared`/`mon_visible` when `!cansee`** (D-0039; race Infravision via `mons[urace]`); **full MONSYM `MLET_CH` + FOUNTAIN/SINK/THRONE/ALTAR/GRAVE terrain** (D-0070); **`magic_map_background` + dark_room DARKROOMSYM≡S_room** (D-0075/D-0081); **STATUE `obj_glyph` → mons[corpsenm].mlet + `obj_color(STATUE)`** (D-0080); **`more()` word-wrap only when len≥CO** (D-0083); **`look_shown_at` for look_all glyph filter** (D-0087); omit traps/engravings/hallucination/`see_objects`; hallu/`random_monster` statue; pile-top/gender statue offsets; telepathy/`Detect_monsters`/`MATCH_WARN_OF_MON`; full `set_uasmon`/uprops; pool/lava/ice/air/cloud terrain; `newsym` `waslit=(lit!=0)` on cansee |
+| `src/display.c` `newsym` / map | `js/display.js` | partial | Floor `vobj_at` + class symbols + CORPSE `mon_color` (D-0022); **live `mon_glyph` uses `mcolors[mnum]`** (D-0036; newt yellow); **`wall_angle` + seenv** (D-0038); upstairs `<` yellow / downstairs `>` NO_COLOR (D-0038); **`see_with_infrared`/`mon_visible` when `!cansee`** (D-0039; race Infravision via `mons[urace]`); **full MONSYM `MLET_CH` + FOUNTAIN/SINK/THRONE/ALTAR/GRAVE terrain** (D-0070); **`magic_map_background` + dark_room DARKROOMSYM≡S_room** (D-0075/D-0081); **STATUE `obj_glyph` → mons[corpsenm].mlet + `obj_color(STATUE)`** (D-0080); **`more()` word-wrap only when len≥CO** (D-0083); **`look_shown_at` for look_all glyph filter** (D-0087); **`waslit=(lit!=0)` + out-of-sight `S_litcorr`→`S_corr`** (D-0096); omit traps/engravings/hallucination/`see_objects`; hallu/`random_monster` statue; pile-top/gender statue offsets; telepathy/`Detect_monsters`/`MATCH_WARN_OF_MON`; full `set_uasmon`/uprops; pool/lava/ice/air/cloud terrain; ROOM→DARKROOMSYM memory arm in `newsym` |
 | `src/questpgr.c` / tty menu | `js/questpgr.js` | partial | **legacy corner NHW_MENU `maxcol=strlen+1` + leading pad** (D-0071); **H2344_BROKEN offx** (D-0078); omit other pager outputs / pauper_legacy |
 | `src/invent.c` `look_here` / `dfeature_at` | `js/invent.js`, `js/mklev.js`, `js/pickup.js` | partial | Stairs via `stairs_description` + Dlvl1 `u_traversed` (D-0026); doors/fountain/sink stubs; **`check_here`→`look_here` after move when `!autopickup`** (D-0095); Blind feel, engraving, multi-object menu, `doname_with_price`, pile_limit skip deferred |
 | `src/pline.c` / tty message behavior | `js/display.js`, `js/input.js` | partial | `--More--` works for green paths + getobj re-prompt (D-0025); full message/window policy incomplete |

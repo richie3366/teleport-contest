@@ -495,13 +495,17 @@ function terrain_glyph(loc, x, y) {
     case STONE:     return { ch: ' ', color: NO_COLOR, dec: false };
     case SCORR:     return { ch: ' ', color: NO_COLOR, dec: false }; // C: like stone until found
     case ROOM:      return { ch: '~', color: NO_COLOR, dec: true };  // DEC middle dot
-    case CORR:
-        // C: lit_corridor → S_litcorr; same glyph as S_corr → CLR_WHITE
+    case CORR: {
+        // C ref: display.c back_to_glyph — S_litcorr if waslit||lit_corridor
+        // else S_corr. reset_glyphmap: S_litcorr + shared '#' → CLR_WHITE;
+        // S_corr is defsym CLR_GRAY, which tty records as NO_COLOR.
+        const litCorr = !!(loc.waslit || game.flags?.lit_corridor);
         return {
             ch: '#',
-            color: game.flags?.lit_corridor ? CLR_WHITE : NO_COLOR,
+            color: litCorr ? CLR_WHITE : NO_COLOR,
             dec: false,
         };
+    }
     case DOOR:
         if (loc.doormask & D_ISOPEN) return { ch: '|', color: CLR_BROWN, dec: false };
         if (loc.doormask & (D_CLOSED | D_LOCKED)) return { ch: '+', color: CLR_BROWN, dec: false };
@@ -600,6 +604,8 @@ export function newsym(x, y) {
 
     if (game.u?.ux === x && game.u?.uy === y) {
         // Hero
+        // C: cansee path still sets waslit before display_self
+        loc.waslit = !!loc.lit;
         show_glyph_cell(x, y, '@', CLR_WHITE, false);
         const tg = terrain_glyph(loc, x, y);
         loc.remembered_glyph = { ch: tg.ch, color: tg.color, decgfx: tg.dec };
@@ -609,6 +615,8 @@ export function newsym(x, y) {
     // C ref: display.c newsym — monster via cansee+mon_visible, or infrared
     const mtmp = mon_at_display(x, y);
     if (cansee(x, y)) {
+        // C: lev->waslit = (lev->lit != 0); /* remember lit condition */
+        loc.waslit = !!loc.lit;
         if (mtmp && mon_visible(mtmp)) {
             const mg = mon_glyph(mtmp);
             show_glyph_cell(x, y, mg.ch, mg.color, false);
@@ -644,9 +652,20 @@ export function newsym(x, y) {
     }
 
     if (loc.remembered_glyph) {
-        // Out of sight but remembered — show remembered glyph
-        show_glyph_cell(x, y, loc.remembered_glyph.ch,
-            loc.remembered_glyph.color, loc.remembered_glyph.decgfx);
+        // C ref: display.c newsym — out of sight, correct lit memory to
+        // match waslit. With lit_corridor, visible CORR paints as
+        // S_litcorr (CLR_WHITE); when !waslit (or dark_room+color), show
+        // S_corr instead (tty CLR_GRAY → NO_COLOR).
+        let mem = loc.remembered_glyph;
+        const darkRoomColor = game.flags?.dark_room !== false
+            && game.flags?.color !== false
+            && game.iflags?.use_color !== false;
+        if (loc.typ === CORR && mem.ch === '#' && mem.color === CLR_WHITE
+            && (!loc.waslit || darkRoomColor)) {
+            mem = { ch: '#', color: NO_COLOR, decgfx: false };
+            loc.remembered_glyph = mem;
+        }
+        show_glyph_cell(x, y, mem.ch, mem.color, mem.decgfx);
     }
 }
 
