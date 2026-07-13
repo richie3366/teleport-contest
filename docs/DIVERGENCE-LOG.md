@@ -214,7 +214,8 @@ Do not record a guessed cause as fixed merely because an RNG prefix moved.
 | D-0208 | fixed | dosounds vault | gd_sound rn2(2)+hallu; seg1 7189→full 7640; next seg2 somey |
 | D-0209 | fixed | make_grave epitaph | EPITAPHFILE get_rnd_text; seg2 1272→2217 |
 | D-0210 | fixed | elf Instrument | eager ROLL_FROM before trquan; seg2 2217→2408 |
-| D-0211 | open | dog_move mfndpos | extra rn2(12); C skips SW diagonal; need typ/region |
+| D-0211 | open | dog_move mfndpos | extra rn2(12); C skips SW diagonal; gas falsified |
+| D-0212 | fixed | pony saddle | makedog put_saddle_on_mon; seed0103 2337→2440 |
 
 D-0001 through D-0005 predate the strict-length/cohort runbook. Their focused
 causes are preserved, but generic "green sessions held" is historical evidence,
@@ -5718,13 +5719,36 @@ cohort gates if those functions are touched again.
   candidate (or skips it before selection RNG).
 - **Open cause:** JS terrain at `(72,8)` is ROOM; squeeze
   (`bad_rock`+`cant_squeeze_thru`) does not fire for small kitten;
-  no gas RNG provenance in the session. Missing C `mfndpos` gates
-  still include pool/lava wrapper, IRONBARS, waterwall, diagonal
-  squeeze helpers, and poison-gas `visible_region_at` (named in
-  C-JS-MAP). Need C `poss[]` / `levl[].typ` / region dump, or port
-  gas-region gate.
+  **poison-gas falsified** — no gas/cloud/region RNG in seg2 before
+  2408. Missing C `mfndpos` gates still include pool/lava wrapper,
+  IRONBARS, waterwall, diagonal squeeze helpers. Need C `poss[]` /
+  `levl[].typ` dump (non-RNG typ divergence still possible).
 - **Change:** none (diagnosis only; no production FORCE).
 - **Verification:** seg2 still **2408**; green+strict PASS; JS restored
-  clean.
-- **Next:** C-state falsifier for `(72,8)` / port `visible_region_at`
-  poison-gas skip in `mfndpos`; or seed0103 `next_ident`/`trquan`.
+  clean. Reconfirmed 2026-07-14: empty 3×3 ROOM, kickedloc 0, dmin=5,
+  mtrack present but gated off.
+- **Next:** C-state falsifier for `(72,8)`; or seed0103 `mount_steed`
+  (D-0212 cleared saddle).
+
+## D-0212 — Knight pony `put_saddle_on_mon` (seed0103 @2337)
+
+- **Status:** fixed
+- **Symptom:** seed0103 @2337 C `rnd(2) @ next_ident` vs JS `rn2(1)`
+  after matched pony `makemon`/`newmonhp`.
+- **Cause/evidence:** C `dog.c` `makedog` after `makemon(..., NO_MINVENT)`
+  calls `put_saddle_on_mon(NULL)` for `PM_PONY` (non-pauper) →
+  `mksobj(SADDLE,TRUE,FALSE)` → `next_ident` then `u_init` `trquan`.
+  JS deferred the saddle (`// put_saddle_on_mon … deferred`).
+- **C locus:** `dog.c` `makedog`; `steed.c` `put_saddle_on_mon` /
+  `can_saddle`; `makemon.c` domestic `!rn2(100)` saddle arm.
+- **Change:** new `js/steed.js` `can_saddle`/`put_saddle_on_mon`;
+  `makedog` wires pony saddle; `makemon` domestic 1% calls the same
+  helper. `see_monster_closeup` / `update_mon_extrinsics` /
+  `doride`/`mount_steed` deferred.
+- **Verification:** seed0103 prefix **2337→2440** (`mount_steed`);
+  positional **2461**/2640 Scr **2**/60; seed0104 **2638**/3223;
+  green+strict+cohort PASS; full **17/44** Scr **1315** RNG
+  **148366**.
+- **Named omissions:** `doride`/`mount_steed` body; whirly/unsolid in
+  `can_saddle`; full `which_armor`; `see_monster_closeup`.
+- **Next:** seed0103 @2440 `mount_steed`; or D-0211 C typ dump.

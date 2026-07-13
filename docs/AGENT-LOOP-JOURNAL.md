@@ -2740,3 +2740,17 @@ Use this shape:
 - Verification: seg2 still **2408**; green+strict PASS; DIAG removed.
 - Next: C `mfndpos` poss/typ/region dump at this call, or port
   `visible_region_at` poison-gas skip; or seed0103 `next_ident`.
+
+## 2026-07-14 01:20 — D-0212 Knight pony put_saddle_on_mon
+- Objective: PROGRESS primary — D-0211 blocked (gas falsified); pivot
+  seed0103 @2337 `next_ident` vs `trquan`.
+- C locus: `dog.c:makedog`; `steed.c:put_saddle_on_mon`/`can_saddle`;
+  `makemon.c` domestic `!rn2(100)`.
+- Result: **verified** — missing pony `mksobj(SADDLE)` after
+  `NO_MINVENT` makedog. New `js/steed.js`; wired makedog + makemon.
+  D-0211: reconfirmed empty ROOM `(72,8)`; **no gas RNG in seg2** —
+  poison-gas theory falsified for this peel.
+- Verification: seed0103 **2337→2440** (`mount_steed`); green+strict+
+  cohort PASS; full **17/44** Scr **1315** RNG **148366**.
+- Next: seed0103 @2440 `mount_steed` (`rnd(20)`/`rn2(5)`); or D-0211
+  C typ dump for `(72,8)`.

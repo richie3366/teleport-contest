@@ -7,16 +7,16 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 
 ## Active
 
-- **Current unit:** seed0030 seg2 @2408 / seed0103 `next_ident`/`trquan`.
-- **Hypothesis (D-0211):** same kitten `dog_move` — JS `mfndpos` cnt=8 (all
-  ROOM neighbors) burns 7× `rn2(12)`; C burns 6× then `distfleeck`. C does
-  not select SW diagonal `(pet.mx-1, pet.my+1)` (here `(72,8)`): FORCE-omit
-  that cell → accept `(73,6)` → prefix **2457**. Open floor; no trap/obj/mon/
-  engraving in JS. Likely missing `mfndpos` gate (poison-gas
-  `visible_region_at`, or C typ≠ROOM at that cell).
-- **Falsifier:** C dump of `mfndpos` poss[] / `levl[72][8].typ` /
-  `visible_region_at(72,8)` at this dog_move; or port gas-region gate and
-  re-diff seg2 @2408.
+- **Current unit:** seed0103 @2440 `mount_steed` / seed0030 seg2 @2408 (D-0211).
+- **Hypothesis (D-0212 next):** Knight `#ride` needs `mount_steed` body
+  (`rnd(20)`/`rn2(5)` at steed.c:341/354) after pony saddle is worn.
+- **Hypothesis (D-0211):** kitten `dog_move` — JS `mfndpos` cnt=8 includes
+  SW `(72,8)` that C skips → extra `rn2(12)`. JS state: empty ROOM, no
+  trap/obj/mon/engraving/kickedloc; dmin=5 so mtrack N/A; **no gas/cloud
+  RNG in seg2** (poison-gas region falsified for this peel). Need C
+  `poss[]`/`levl[].typ` dump or another non-RNG typ gate.
+- **Falsifier (D-0211):** C dump of `mfndpos` poss / `levl[72][8].typ` at
+  this dog_move.
 - **Parked deep canary:** D-0006 pet movement — do not implement until C
   state/candidate capture exists.
 - **Parked seed2200 @158:** RC config path — harness `$HOME`, not a port bug.
@@ -186,6 +186,13 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   `rn2(12)` vs C fleeck (D-0211). Do not re-chase fleeck/mcalcmove
   allotment for that index. Do not FORCE-omit cells by recorded coords
   in production.
+- **seed0030 seg2 @2408 is NOT poison-gas `visible_region_at`** — no
+  gas/cloud/region RNG provenance anywhere in seg2 before 2408; JS
+  dump shows empty ROOM at `(72,8)` (D-0211). Do not port gas regions
+  hoping to fix this peel without a C typ dump.
+- **seed0103 @2337 was NOT `trquan` order / lazy trotyp** — missing
+  Knight pony `put_saddle_on_mon`→`mksobj(SADDLE)` `next_ident` after
+  `makedog`/`NO_MINVENT` (D-0212).
 - **`monattk.h`: AT_WEAP=254, AT_MAGC=255, AT_SPIT=10** — never use 10 for
   weapon (D-0179).
 - Hostile `m_move`: before place, `m_digweapon_check` may return
@@ -289,3 +296,5 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   (before `ini_inv`/`trquan`); lazy `trotyp()` reorders RNG (D-0210).
 - **Pet `dog_move` selection `rn2(12)`:** each worse `mfndpos` candidate
   with `appr!=0 && !whappr` (D-0211). Extra candidate ⇒ fleeck arity split.
+- **Knight pony:** `makedog` `NO_MINVENT` then `put_saddle_on_mon(NULL)`
+  → `mksobj(SADDLE)` (D-0212); domestic `!rn2(100)` in `makemon` same helper.
