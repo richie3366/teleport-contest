@@ -855,3 +855,18 @@ Use this shape:
   **2775→3132** positional **3169**/3465; seed0700 RNG full Scr 2/51.
 - Next: `node scripts/rng-diff.mjs sessions/seed0017-samurai-altar-pray.session.json`
   — peel `dog_move` @ 3132 (or seed0700 screen / seed2200 `exercise`).
+
+## 2026-07-13 — dodrink / peffect_oil (D-0073)
+- Objective: seed2200 @ 2724 (PROGRESS preferred after D-0072; NOTES
+  said exercise — falsified as moveloop/exerper).
+- C locus: `potion.c` `dodrink`/`dopotion`/`peffect_oil` —
+  `"That was smooth!"` + `exercise(A_WIS,FALSE)` → `rn2(2)`.
+- Result: **verified** — keys `q`+`h` quaff oil; JS unbound `q` so
+  `h` was a west move. Ported drink getobj + oil peffect; wired `'q'`.
+- Verification: green + seed1500/1800/0060/0102 PASS + strict; full
+  **6/44**, RNG **91220**/792838, Scr **320**/11405; seed2200 prefix
+  **2724→2733** positional **2790**/3018; seed0700 RNG full Scr 2/51.
+- Diagnosis parked: seed0017 @ 3132 needs walkable `(30,4)` (JS VWALL
+  vs C floor) for third `rn2(12)` — join/wallification, not mtrack.
+- Next: `node scripts/rng-diff.mjs sessions/seed2200-wizard-quaff-zap-read.session.json`
+  — peel `z`/`dozap` @ 2733.

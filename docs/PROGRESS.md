@@ -39,8 +39,8 @@ frozen-file overlay):
 |--------|------:|
 | Sessions passing | **6 / 44** |
 | Screens matched | **320 / 11,405** (2.81%) |
-| Positional RNG calls matched | **91,263 / 792,838** (11.51%) |
-| Speed label | `17+0.08/turn` |
+| Positional RNG calls matched | **91,220 / 792,838** (11.50%) |
+| Speed label | `16+0.08/turn` |
 | Working-tree base | `8b71735` + committed port (see `main`) |
 | Role-init throws | **0 / 44** (`u_init_role: role not ported`) |
 
@@ -69,7 +69,7 @@ shared blockers, and semantic coverage together—not one vanity metric.
 | `seed0107-samurai-twoweapon-enhance` | **2677 / 2902** | 0 / 98 |
 | `seed0104-knight-ride-combat` | **2401 / 3223** | 1 / 43 |
 | `seed0106-priest-extcmd-sweep` | **2576 / 4194** | 1 / 267 |
-| `seed2200-wizard-quaff-zap-read` | **2772 / 3018** | 1 / 230 |
+| `seed2200-wizard-quaff-zap-read` | **2790 / 3018** | 1 / 230 |
 | `seed0361-archeologist-tour` | **3295 / 53865** | 0 / 366 |
 | `seed0373-barbarian-quest-tour` | **2573 / 35386** | 0 / 124 |
 | `seed0105-valk-chat-lamp-ration` | **987 / 2499** | 0 / 30 |
@@ -87,17 +87,18 @@ autoopen `doopen_indir` (D-0059), `mfndpos` BOULDER/`NODIAG`
 `^W`/`makewish`/`readobjnam` (D-0064), `w`/`dowield`
 (D-0065), **`W`/`dowear`** (D-0066), **`P`/`doputon`** (D-0067),
 **EGG `can_be_hatched`** (D-0068), **`f`/fireassist** (D-0069),
-**MLET_CH/furniture/`xprname` dot** (D-0070), and
-**`help_dir`/Book offx** (D-0071)
+**MLET_CH/furniture/`xprname` dot** (D-0070),
+**`help_dir`/Book offx** (D-0071), **`lookaround` corridor-turn**
+(D-0072), and **`q`/`dodrink`/`peffect_oil`** (D-0073)
 clear shared peels. seed0700
 RNG **full**; next is screen peel (Scr 2/51). seed0361/0373 `getbones` blocked on unbound
 `^V`/`goto_level`/`makemaz` (Quest `y`). seed0017 next @ 3132
-`dog_move`; seed0030 next `maybe_smudge_engr` @ 6732. Wizard seed2200 next
-`exercise` @ 2724; Healer seed0016 next `next_ident` @ 2493;
-Caveman seed1150 next `dog_move` @ 2915; Priest seed0501 still
-`wipeout_text`. seed0015/0200 next `lspo_map`. seed0101 next
-`next_ident`. seed0013 still breaks earlier in Lua/`sp_lev`.
-seed0103 next `next_ident`/`trquan` @ 2337.
+`dog_move` (terrain); seed0030 next `maybe_smudge_engr` @ 6732.
+Wizard seed2200 next `z`/`dozap` @ 2733; Healer seed0016 next
+`next_ident` @ 2493; Caveman seed1150 next `dog_move` @ 2915;
+Priest seed0501 still `wipeout_text`. seed0015/0200 next `lspo_map`.
+seed0101 next `next_ident`. seed0013 still breaks earlier in
+Lua/`sp_lev`. seed0103 next `next_ident`/`trquan` @ 2337.
 
 ### Green gate
 
@@ -139,20 +140,22 @@ autoopen `doopen_indir` (D-0059) + `mfndpos` BOULDER/`ALLOW_ROCK` +
 **MONSYM `MLET_CH` + furniture `terrain_glyph` + `xprname` `dot`**
 (D-0070) +
 **`help_dir` NHW_TEXT + Book NHW_MENU offx** (D-0071) +
-**`lookaround` run==1 corridor-turn** (D-0072)
+**`lookaround` run==1 corridor-turn** (D-0072) +
+**`q`/`dodrink`/`peffect_oil`** (D-0073)
 **ported**. Six public sessions pass end-to-end. **0/44**
 throw at `u_init_role`. seed0700 RNG full. seed0102 **PASS**.
-seed0017 prefix **3132** (`dog_move`).
+seed0017 prefix **3132** (`dog_move`). seed2200 prefix **2733**
+(`z`/`dozap`).
 
-- **Bounded unit:** seed0017 @ 3132 / seed0700 **screen** peel /
-  seed2200 `exercise` / seed1150 `dog_move` /
-  seed0501/0105 `wipeout_text` / seed0015/0200 `lspo_map` /
-  seed0101 `next_ident` / seed0103 `next_ident`/`trquan` /
-  seed0030 `maybe_smudge_engr` /
+- **Bounded unit:** seed2200 @ 2733 `z`/`dozap` /
+  seed0017 @ 3132 `dog_move` terrain / seed0700 **screen** peel /
+  seed1150 `dog_move` / seed0501/0105 `wipeout_text` /
+  seed0015/0200 `lspo_map` / seed0101 `next_ident` /
+  seed0103 `next_ident`/`trquan` / seed0030 `maybe_smudge_engr` /
   seed0361/0373 **`getbones`** (blocked: need `^V`→`goto_level`→
   `makemaz` first).
-- **Prefer:** seed0017 @ 3132 / seed0700 screens / seed2200 `exercise`
-  over parked D-0006.
+- **Prefer:** seed2200 @ 2733 `dozap` / seed0017 terrain /
+  seed0700 screens over parked D-0006.
 - **Named omissions:** Wizard/Priest/Healer `initialspell`; Knight/
   Samurai/Healer/Valkyrie/Ranger/Monk/Archeologist/Barbarian/Caveman
   `skill_init`; display-path Japanese names; full `role_init` beyond
@@ -187,7 +190,7 @@ seed0017 prefix **3132** (`dog_move`).
   sleep/flying/breathing; ring Glib/cursed-gloves/weld;
   `setworn` oc_oprop; dragon_armor_handling; touch blast `d()`/`losehp`;
   artifact wield intrinsics; wield poly/corpse/bimanual/weld-pline/
-  swap/quiver ynq; …
+  swap/quiver ynq; other `peffect_*` / `dozap`; …
 - **Cohort:** green gate + seed1500 + seed1800 + seed0060 + seed0102
   (must stay PASS) + strict lengths; Samurai focus seed0700 when on
   that peel.
@@ -368,6 +371,10 @@ Module status, constitutional debt, and named omissions live in
     **2775→3132** positional **3169**/3465; aggregate RNG
     **90863→91263**; screens **320** unchanged; green cohort PASS;
     seed0700 RNG still full
+58. `q`/`dodrink`/`peffect_oil` (D-0073) — seed2200 prefix
+    **2724→2733** positional **2772→2790**/3018; aggregate RNG
+    **91263→91220**; screens **320** unchanged; green cohort PASS;
+    seed0700 RNG still full; next seed2200 `z`/`dozap`
 
 Next work is selected from the active objectives above using
 `PORTING-RUNBOOK.md`, not by extending this historical list.

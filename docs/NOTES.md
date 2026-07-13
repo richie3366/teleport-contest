@@ -7,16 +7,21 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 
 ## Active
 
-- **Current unit:** after D-0072 seed0017 prefix **2775→3132** (pos
-  **3169**/3465). Prefer seed0017 @ 3132 `dog_move` / seed0700 Scr 2/51 /
-  seed2200 `exercise` / seed1150 `dog_move` / wipeout_text / lspo_map /
+- **Current unit:** after D-0073 seed2200 prefix **2724→2733** (pos
+  **2790**/3018). Prefer seed2200 @ 2733 `z`/`dozap` / seed0017 @ 3132
+  `dog_move` terrain / seed0700 Scr 2/51 / wipeout_text / lspo_map /
   next_ident / maybe_smudge_engr / getbones (needs `^V`→`makemaz`).
-- **Hypothesis:** seed0017 @ 3132 C `dog_move` `rn2(12)` vs JS `rn2(5)` —
-  pet candidate/`appr` path after corridor-run turn, not lookaround abort.
+- **Hypothesis (seed2200):** @ 2733 C `rn2(19)` @ `exercise` during
+  `z`+`c` wand zap (“You don't find anything.”) — JS has no `dozap`.
 - **Falsifier / next probe:**
   ```bash
-  node scripts/rng-diff.mjs sessions/seed0017-samurai-altar-pray.session.json
+  node scripts/rng-diff.mjs sessions/seed2200-wizard-quaff-zap-read.session.json
   ```
+- **Parked seed0017 @ 3132:** JS `mfndpos` cnt=4 at pet (30,5); C emits
+  3× `rn2(12)`. Adding walkable `(30,4)` yields exactly 3× `rn2(12)`.
+  JS has VWALL at (30,4); C screen shows floor. Diagnose join/
+  wallification — do not patch coordinates. `mtrack`/`nxti` inactive
+  (`distminU=3`).
 - **Parked deep canary:** D-0006 pet movement — do not implement until C
   state/candidate capture exists.
 
@@ -44,6 +49,9 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   NHW_MENU paints leading pad then text at `offx+1` (D-0071).
 - **lookaround must not `end_running` on ahead STONE/wall** — C treats
   IS_OBSTRUCTED as uninteresting and may corridor-turn for run==1 (D-0072).
+- seed2200 @ 2724 was **not** moveloop `exercise`/exerper — it was
+  `q`+`h` quaff oil → `peffect_oil` `exercise(A_WIS,FALSE)` (D-0073).
+  JS treated `h` as move because `q` was unbound.
 
 ## Landmarks
 
@@ -56,3 +64,5 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   (`defsym.h` PCHAR).
 - Samurai L1 `HFast` → `u_calc_moveamt` `rn2(3)`; capital-letter rush
   `context.run==1` corridor-follows at dead ends (D-0072).
+- Uncursed unlit `POT_OIL` → `"That was smooth!"` + `exercise(A_WIS,FALSE)`
+  → `rn2(2)` (D-0073).

@@ -1984,3 +1984,26 @@ cohort gates if those functions are touched again.
   run==2 corridor-widen stop; mention_walls plines.
 - **Next:** seed0017 @ 3132 `dog_move`; seed0700 screen peel;
   seed2200 `exercise`.
+
+## D-0073 — seed2200 `q`/`dodrink` POT_OIL (`peffect_oil`)
+
+- **Status:** fixed
+- **Observed:** seed2200 rng-diff @ **2724**: C `rn2(2)` @
+  `exercise(attrib.c:509)` vs JS `rn2(12)` @ `mcalcmove`. Session keys
+  `q` then `h`; C screen `"That was smooth!"` / drink prompt
+  `[fgh or ?*]`. JS unbound `q`, so `h` ran as west move from stairs.
+- **C locus:** `potion.c` `dodrink` → `dopotion` → `peffects` →
+  `peffect_oil` — uncursed unlit oil plines `"That was smooth!"` then
+  `exercise(A_WIS, FALSE)` → `-rn2(2)`.
+- **Cause:** no quaff path; movement key swallowed the potion letter.
+- **Change:** `js/potion.js` (`dodrink`/`dopotion`/`peffect_oil` +
+  drink getobj); `js/cmd.js` bind `'q'`.
+- **Verification:** green + seed1500/1800/0060/0102 PASS + strict;
+  full **6/44**, screens **320**/11405, RNG **91220**/792838;
+  seed2200 prefix **2724→2733** positional **2790**/3018; seed0700
+  RNG still full Scr **2**/51.
+- **Named omission:** other `peffect_*`; Strangled; fountain/sink/
+  underwater drink; milky-ghost/smoky-djinni; lit-oil burn/`likes_fire`;
+  worn-stack split; `more_experienced` on discover; getobj `?`/`*` menus.
+- **Next:** seed2200 @ 2733 `z`/`dozap`; seed0017 @ 3132 terrain;
+  seed0700 screens.
