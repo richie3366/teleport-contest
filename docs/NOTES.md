@@ -7,24 +7,22 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 
 ## Active
 
-- **Current unit:** after D-0078 seed0700 Scr **44**/51 (RNG full).
-  Prefer seed0700 pet `Hachi` / invent offx / Japanese disco /
-  seed2200 map `` ` `` vs ASCII `x` / seed0017 @ 3132 terrain.
-- **Hypothesis (seed0700 remaining):** swap-place pline uses generic
-  "your little dog" because starting pet was never christened
-  `Hachi` (Samurai); invent Weapons header is 2 cols left of C.
+- **Current unit:** after D-0079 seed0700 **PASS** (public **7/44**).
+  Prefer seed2200 map `` ` `` vs ASCII `x` / seed0017 @ 3132
+  terrain / seed1150 `dog_move` / seed0016 `next_ident`.
+- **Hypothesis (seed2200 Scr 1/230):** first screen one cell —
+  JS ROCK_CLASS `` ` `` vs C ASCII `x` (decgfx=0, not DEC wall)
+  at (11,16).
 - **Falsifier / next probe:**
   ```bash
-  node frozen/ps_test_runner.mjs sessions/seed0700-samurai-explore-descend.session.json
+  node frozen/ps_test_runner.mjs sessions/seed2200-wizard-quaff-zap-read.session.json
   ```
-  Compare screens #10 (Hachi) and #37 (Weapons offx).
+  Diff first screen cell at (11,16); cite C glyph/terrain path.
 - **Parked seed0017 @ 3132:** JS `mfndpos` cnt=4 at pet (30,5); C emits
   3× `rn2(12)`. Adding walkable `(30,4)` yields exactly 3× `rn2(12)`.
   JS has VWALL at (30,4); C screen shows floor. Diagnose join/
   wallification — do not patch coordinates. `mtrack`/`nxti` inactive
   (`distminU=3`).
-- **Parked seed2200 Scr 1/230:** first screen one cell — JS ROCK_CLASS
-  `` ` `` vs C ASCII `x` (decgfx=0, not DEC wall) at (11,16).
 - **Parked deep canary:** D-0006 pet movement — do not implement until C
   state/candidate capture exists.
 
@@ -72,6 +70,10 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   forced fullscreen for long Amaterasu lines; C `#define H2344_BROKEN`
   uses `min(cols/2, cols-maxcol-1)` so offx=7 stays corner (D-0078).
   Also `St:19` must be `get_strength_str` → `18/01`.
+- seed0700 remaining Scr was **not** invent-geometry-only — missing
+  `makedog` christen `Hachi`, Japanese doname/disco, lacquer
+  `SPLINT_MAIL`, and invent `observe_object` for wakizashi encounter
+  (D-0079). Invent offx drift was a maxcol side-effect of English names.
 
 ## Landmarks
 
@@ -103,3 +105,8 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   `maxrow>=rows || !menu_overlay` — **not** `offx==10` (D-0078).
 - botl `get_strength_str`: st>18 → `18/%02d` / `18/**` / `%2d`
   (st-100); Samurai Str 19 displays `18/01` (D-0078).
+- Samurai `makedog`: little-dog defaults `Hachi`; `christen_monst` →
+  bare name in ARTICLE_YOUR swap pline (D-0079). Japanese
+  `obj_typename`/`doname` + `disco_typename` brackets; lacquer
+  `SPLINT_MAIL` when `moves<=1`; invent `observe_object` before
+  `xprname` (D-0079).

@@ -6,7 +6,7 @@
 import { game } from './gstate.js';
 import { nhgetch } from './input.js';
 import { flush_screen, pline, docrt, status_line_2 } from './display.js';
-import { xprname, an, vtense, doname, obj_typename } from './objnam.js';
+import { xprname, an, vtense, doname, disco_typename, Japanese_item_name } from './objnam.js';
 import {
     WEAPON_CLASS,
     ARMOR_CLASS,
@@ -51,6 +51,7 @@ import {
 } from './const.js';
 import { stairway_at, stairs_description } from './mklev.js';
 import { objects_at } from './mkobj.js';
+import { PM_SAMURAI } from './generated/monsters_data.js';
 
 // C ref: hack.c weight_cap()
 export function weight_cap() {
@@ -130,6 +131,9 @@ function appearance_of(otyp) {
 
 /** C ref: o_init.c interesting_to_discover — needs OBJ_DESCR (or uname). */
 function interesting_to_discover(otyp) {
+    // C: Samurai Japanese items always disclosed by '\'
+    if (game.urole?.mnum === PM_SAMURAI && Japanese_item_name(otyp, null))
+        return true;
     const oc = game.objects?.[otyp];
     if (!oc) return false;
     if (oc.oc_uname) return true;
@@ -275,6 +279,16 @@ export async function paint_corner_nhw_menu(entries, morestr = '(end) ') {
     return { offx, endRow, cursorCol };
 }
 
+/**
+ * C ref: o_init.c observe_object — dknown + discover_object(..., FALSE, TRUE).
+ */
+export function observe_object(obj) {
+    if (!obj || game.u?.Hallucination) return;
+    // FIRST_OBJECT / generic skip deferred
+    obj.dknown = 1;
+    discover_object(obj.otyp, false, true);
+}
+
 export function invent_lines() {
     const inv = game.invent || [];
     const lines = [];
@@ -282,8 +296,11 @@ export function invent_lines() {
         const items = inv.filter(o => o.oclass === oclass);
         if (!items.length) continue;
         lines.push({ text: CLASS_NAMES[oclass] || 'Items', attr: ATR_INVERSE });
-        for (const otmp of items)
+        for (const otmp of items) {
+            // C ref: invent.c sortloot_item — observe_object before naming
+            if (!game.u?.Blind) observe_object(otmp);
             lines.push({ text: xprname(otmp), attr: 0 });
+        }
     }
     lines.push({ text: '(end)', attr: 0 });
     return lines;
@@ -342,9 +359,12 @@ export function discover_object(oindx, mark_as_known, mark_as_encountered = fals
     if (!objects?.[oindx]) return;
     if (!game.disco) game.disco = new Array(objects.length).fill(0);
 
+    const samuraiJp = game.urole?.mnum === PM_SAMURAI
+        && !!Japanese_item_name(oindx, null);
     const need =
         (mark_as_known && !objects[oindx].oc_name_known)
-        || (mark_as_encountered && !objects[oindx].oc_encountered);
+        || (mark_as_encountered && !objects[oindx].oc_encountered)
+        || samuraiJp;
     if (!need) return;
 
     const acls = objects[oindx].oc_class;
@@ -384,8 +404,8 @@ export async function dodiscovered() {
         for (const otyp of found) {
             const enc = !!game.objects?.[otyp]?.oc_encountered;
             const prefix = enc ? '  ' : '* ';
-            // C: disco_append_typename → obj_typename (includes " (descr)")
-            lines.push({ text: prefix + obj_typename(otyp), attr: 0 });
+            // C: disco_append_typename → disco_typename (Japanese brackets)
+            lines.push({ text: prefix + disco_typename(otyp), attr: 0 });
         }
     }
     // Pad so --More-- lands on row 23 like C tty text window.

@@ -32,6 +32,7 @@ import { dotakeoff, dowear, doputon } from './do_wear.js';
 import { wiz_wish } from './wizcmds.js';
 import { dowield } from './wield.js';
 import { dowhatis, dohelp } from './pager.js';
+import { x_monnam_tame } from './do_name.js';
 
 /** C ref: cmd.c cmdq_clear(CQ_CANNED) */
 function cmdq_clear() {
@@ -490,10 +491,9 @@ async function domove(dx, dy) {
         if (is_safemon(mtmp)) {
             mtmp.mx = oldx;
             mtmp.my = oldy;
-            const raw = mtmp.data?.name || 'monster';
-            const plain = String(raw).replace(/^PM_/, '').replace(/_/g, ' ').toLowerCase();
-            // C: "You swap places with your little dog."
-            await pline(`You swap places with your ${plain}.`);
+            // C ref: hack.c domove_swap_with_pet — x_monnam ARTICLE_YOUR
+            // (named pet → bare MGIVENNAME, e.g. "Hachi")
+            await pline(`You swap places with ${x_monnam_tame(mtmp)}.`);
         }
     }
 

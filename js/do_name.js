@@ -6,10 +6,37 @@ import { game } from './gstate.js';
 import { nhgetch } from './input.js';
 import { flush_screen, flush_topl_more, docrt } from './display.js';
 import { paint_corner_nhw_menu } from './invent.js';
-import { ONAME_VIA_NAMING } from './const.js';
+import { ONAME_VIA_NAMING, MGIVENNAME, has_mgivenname } from './const.js';
 import { ATR_INVERSE } from './terminal.js';
 
 const PL_PSIZ = 32; // C: PL_PSIZ player-name / oname buffer
+
+/**
+ * C ref: do_name.c christen_monst — assign MGIVENNAME (pet / #name).
+ */
+export function christen_monst(mtmp, name) {
+    if (!mtmp) return mtmp;
+    let n = name || '';
+    if (n.length >= PL_PSIZ) n = n.slice(0, PL_PSIZ - 1);
+    if (!mtmp.mextra) mtmp.mextra = {};
+    if (n) mtmp.mextra.mgivenname = n;
+    else delete mtmp.mextra.mgivenname;
+    // C: leash → update_inventory deferred
+    return mtmp;
+}
+
+/**
+ * C ref: do_name.c x_monnam — tame/name subset for displace and pet plines.
+ * ARTICLE_YOUR + named pet → bare given name (name_at_start clears article).
+ */
+export function x_monnam_tame(mtmp) {
+    if (!mtmp) return 'it';
+    if (has_mgivenname(mtmp)) return MGIVENNAME(mtmp);
+    const raw = mtmp.data?.name || 'monster';
+    const plain = String(raw).replace(/^PM_/, '').replace(/_/g, ' ').toLowerCase();
+    if (mtmp.mtame) return `your ${plain}`;
+    return `the ${plain}`;
+}
 
 /**
  * C ref: do_name.c oname — assign name; may create artifact via artifact_exists.

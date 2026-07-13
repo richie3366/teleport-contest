@@ -943,3 +943,19 @@ Use this shape:
 - Next: seed0700 pet `Hachi` / invent offx / Japanese disco —
   `node frozen/ps_test_runner.mjs sessions/seed0700-samurai-explore-descend.session.json`
   — or seed2200 map `` ` `` vs `x` / seed0017 terrain.
+
+## 2026-07-13 — Samurai Hachi + Japanese invent/disco (D-0079)
+- Objective: seed0700 remaining screens (PROGRESS primary).
+- C locus: `dog.c` `makedog` + `do_name.c` `christen_monst`/
+  `x_monnam`; `hack.c` swap pline; `objnam.c` Japanese/ya/
+  quiver/rustproof; `mkobj.c` lacquer `SPLINT_MAIL`; `o_init.c`
+  disco Samurai + `observe_object`.
+- Result: **verified** — christen `Hachi`; Japanese doname/
+  disco brackets; lacquer rustproof; invent `observe_object`
+  marks wakizashi encountered. Invent offx was maxcol side-effect.
+- Verification: green + seed1500/1800/0060/0102/0700 PASS +
+  strict; full **7/44**, screens **361→370**/11405, RNG
+  **91280→91380**/792838; seed0700 **PASS** 51/51.
+- Next: seed2200 map `` ` `` vs `x` —
+  `node frozen/ps_test_runner.mjs sessions/seed2200-wizard-quaff-zap-read.session.json`
+  — or seed0017 @ 3132 terrain / seed1150 `dog_move`.

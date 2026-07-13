@@ -80,6 +80,9 @@ Do not record a guessed cause as fixed merely because an RNG prefix moved.
 | D-0074 | fixed | zap/findit | `z`/`dozap` NODIR secret-door/`findit`; seed2200 2733→2772 |
 | D-0075 | fixed | read/mapping | `r`/`doread` SCR_MAGIC_MAPPING + `do_mapping`; seed2200 2772→2925 |
 | D-0076 | fixed | engrave | `E`/`doengrave` fingertip DUST Elbereth + occupation; seed2200 2925→2979 |
+| D-0077 | fixed | whatis/help | `/`/`dowhatis` + `?`/`dohelp`/`get_lua_version`; seed2200 RNG full |
+| D-0078 | fixed | tty/botl | H2344 NHW_MENU offx + `get_strength_str`; seed0700 Scr 2→44 |
+| D-0079 | fixed | Samurai invent | `makedog` Hachi + Japanese display + lacquer + observe; seed0700 PASS |
 
 D-0001 through D-0005 predate the strict-length/cohort runbook. Their focused
 causes are preserved, but generic "green sessions held" is historical evidence,
@@ -2147,3 +2150,34 @@ cohort gates if those functions are touched again.
   `` ` `` vs ASCII `x`.
 - **Next:** seed0700 pet `Hachi` / invent offx / Japanese disco;
   or seed2200 map cell; or seed0017 @ 3132 terrain.
+
+## D-0079 — seed0700 Samurai Hachi + Japanese invent/disco
+
+- **Status:** fixed
+- **Observed:** seed0700 Scr **44**/51 (RNG full). Swap pline
+  "your little dog" vs C "Hachi"; invent English short sword /
+  yas / missing rustproof + 2-col offx; disco missing
+  `shito`/`wakizashi`/`ninja-to` bracket lines.
+- **C locus:** `dog.c` `makedog` + `do_name.c` `christen_monst` /
+  `x_monnam`; `hack.c` `domove_swap_with_pet`; `objnam.c`
+  Japanese/`makeplural` ya / quiver / `add_erosion_words`;
+  `mkobj.c` lacquered Samurai `SPLINT_MAIL`; `o_init.c`
+  `interesting_to_discover` / `disco_typename` / `discover_object`
+  Samurai gate + `observe_object`.
+- **Cause:** starting pet never christened; invent/disco lacked
+  Japanese display path; lacquer `oerodeproof` absent; invent
+  never called `observe_object` so wakizashi stayed `*`.
+- **Change:** `js/dog.js` role petnames + `christen_monst`;
+  `js/do_name.js` christen + `x_monnam_tame`; `js/cmd.js` swap
+  pline; `js/objnam.js` Japanese/`ya`/quiver/rustproof/
+  `disco_typename`; `js/mkobj.js` lacquer; `js/invent.js`
+  Samurai disco + `observe_object` in `invent_lines`.
+- **Verification:** green + seed1500/1800/0060/0102/0700 PASS +
+  strict; full **7/44**, screens **361→370**/11405, RNG
+  **91280→91380**/792838; seed0700 **PASS** (51/51).
+- **Named omission:** full `x_monnam` (hallu/invis/saddle/shk);
+  pony saddle/`see_monster_closeup`; other erosion proofs;
+  `In_quest` lacquer path; xname-path `observe_object` beyond
+  invent_lines; seed2200 map `` ` `` vs `x`.
+- **Next:** seed2200 map cell / seed0017 @ 3132 terrain /
+  seed1150 `dog_move` / seed0016 `next_ident`.

@@ -30,6 +30,7 @@ import {
     mons, is_male, is_female, is_neuter, verysmall, PM_LICHEN, monsterNames,
     G_NOCORPSE, NON_PM as MON_NON_PM,
 } from './monsters.js';
+import { PM_SAMURAI } from './generated/monsters_data.js';
 import {
     ROT_AGE, TAINT_AGE, TROLL_REVIVE_CHANCE,
     ROT_CORPSE, REVIVE_MON, TIMER_OBJECT,
@@ -567,6 +568,13 @@ function mksobj_init(otmp, artif) {
         }
         if (artif && !rn2(40)) {
             /* mk_artifact stub */
+        }
+        // C ref: mkobj.c ARMOR_CLASS — lacquered armor for Samurai
+        if (game.urole?.mnum === PM_SAMURAI
+            && otypName(otmp.otyp) === 'SPLINT_MAIL'
+            && ((game.moves ?? 0) <= 1 /* || In_quest deferred */)) {
+            otmp.oerodeproof = 1;
+            otmp.rknown = 1;
         }
         break;
     case RING_CLASS: {
