@@ -2342,3 +2342,13 @@ Use this shape:
   mismatch. Next: @14074 dest split (gg/mtrack/occupancy) vs C ROOM.
 - Verification: green+strict PASS; DIAG removed; tree clean.
 - Next: resolve D-0185 @14074 decision / C typ; or seed0101 Scr.
+
+## 2026-07-13 21:35 — seed0030 @14118 walls confirmed (D-0185)
+- Objective: seed0030 @14118 C `rn2(32)` vs JS `rn2(24)` (PROGRESS primary).
+- C locus: `monmove.c` `m_move` mtrack; `mkmap.c` `pass_one`/`pass_two`/`join`.
+- Result: **falsified** @14074 dest/gg-split — loot gg=`(57,11)` glass;
+  amulet `(58,10)` not taken (`!M2_MAGIC`); nearer→`(57,10)`. FORCE-open
+  pass_two walls `(56,9)`/`(56,10)` advances prefix **14118→14153**.
+  Next: why C keeps those cells ROOM (pass_one west neighbor or dig).
+- Verification: green+strict PASS; DIAG/FORCE removed; no production edit.
+- Next: resolve D-0185 pass_one/`dig_corridor` map; or seed0101 Scr.

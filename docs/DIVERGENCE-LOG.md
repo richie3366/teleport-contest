@@ -5044,24 +5044,31 @@ cohort gates if those functions are touched again.
 - **JS state at mismatch:** PM_GNOME @`(57,10)`, `appr=1`,
   `flag=ALLOW_U|OPENDOOR`, `cnt=6`, mtrack=`(58,9);(59,8);(60,7);(61,6)`.
   Missing neighbors `(56,9)=TRCORNER`, `(56,10)=BRCORNER`.
-- **Map evidence:** `mkmap_pass_two` converts those cells ROOM→STONE
-  (`count==5`); smooth/join leave STONE; `wallify`→HWALL then spines→
-  corners. C has only **2** `mdig_tunnel` `rnd(12)` before 14118
-  (@13906/@14064) — not dig-open of `(56,*)`. `N_P1/P2/P3_ITER` 1/1/2
-  and pass_two `new_loc` logic already match C.
+- **Map evidence:** after pass_one, western edge `(55,8..10)=STONE` and
+  `(56,9)/(56,10)=ROOM` with exactly 5 ROOM neighbors → `pass_two`
+  ROOM→STONE; smooth/join leave STONE; `wallify`→HWALL→corners. Mines
+  join dig `(50,11)→(74,16)` does not carve them. Only **2** C
+  `mdig_tunnel` before 14118 — not dig-open of `(56,*)`.
+- **@14074 dest:** gg=`(57,11)` WORTHLESS_BLUE_GLASS (COLLECT+practical
+  GEM); AMULET_OF_CHANGE @`(58,10)` `take=false` (gnome `!M2_MAGIC`);
+  nearer forces `(57,10)`. No trap/monster excludes that cell.
+- **FORCE experiment (removed):** opening `(56,9)`/`(56,10)` to ROOM at
+  @14118 advances prefix **14118→14153** (C/JS both `rn2(32)`); next
+  miss `rn2(24)` vs `rn2(28)`.
 - **C locus:** `monmove.c` `m_move` `rn2(4*(cnt-j))`; `mon.c` `mfndpos`;
-  `mkmap.c` `pass_two` / `join_map` / `wallify_map`.
-- **Cause (partial):** JS cnt shortfall is the two wall cells. C
-  `rn2(32)` needs `cnt=8` — either C’s dest after @14074 is not
-  `(57,10)` (deterministic nearer/gg/mtrack/occupancy split) or C map
-  kept those cells as ROOM despite matching mkmap RNG counts.
+  `mkmap.c` `pass_one`/`pass_two` / `join_map` / `wallify_map`.
+- **Cause (partial):** JS cnt shortfall is the two wall cells. C needs
+  them walkable at movement time — likely C `pass_one` left a western
+  ROOM neighbor (pass_two count≠5) or a mines `dig_corridor` visits
+  them; not a @14074 dest/gg split.
 - **Rejected / falsified:** hero-sleep/`Unaware` allowflags; gnome
-  `ALLOW_DIG`; known-trap skip; dig-open of `(56,*)`; “unrelated actor”
-  with no continuous path; mkmap iteration-count / pass_two formula
-  mismatch vs C.
-- **Next falsifier:** at JS @14074 dump full candidate decision
-  (mtrack/poss/gg/occupancy); enumerate alternate dests with cnt=8;
-  do not force-open walls. C recorder for typ/actor still ideal.
-- **Verification:** green+strict PASS; DIAG removed; no production edit.
+  `ALLOW_DIG`; known-trap skip; dig-open via `mdig_tunnel`; unrelated
+  actor; mkmap iter/pass_two formula mismatch; @14074 mux-vs-loot dest
+  split / amulet nearer / occupancy on `(57,10)`.
+- **Next falsifier:** after-pass_one map — why `(55,*)` STONE vs C ROOM;
+  or instrument mines `dig_corridor` visits to `(56,9)/(56,10)`. Do not
+  FORCE-open in production.
+- **Verification:** green+strict PASS; DIAG/FORCE removed; no production
+  edit.
 
 
