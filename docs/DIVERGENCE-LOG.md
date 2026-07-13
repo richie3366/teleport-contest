@@ -162,6 +162,8 @@ Do not record a guessed cause as fixed merely because an RNG prefix moved.
 | D-0156 | fixed | zap/sleep | WAN_SLEEP self-zap + Unaware gethungry; seed0016 RNG full |
 | D-0157 | fixed | apply/getobj | `apply_ok` SUGGEST wand/spbook; seed0016 Scr 31→32 |
 | D-0158 | fixed | objnam/insight | armor `pair of`/`set of` + ^X new moon + 23-row page; seed0016 PASS |
+| D-0159 | fixed | monmove/door | `postmov` CLOSED/LOCKED open/unlock/smash; seed0015 Scr 21→22 |
+| D-0160 | fixed | display/goto_level | `flush_screen(-1)` + `docrt`→`cls` more before redraw; descend `--More--` |
 
 D-0001 through D-0005 predate the strict-length/cohort runbook. Their focused
 causes are preserved, but generic "green sessions held" is historical evidence,
@@ -4280,3 +4282,35 @@ cohort gates if those functions are touched again.
   doormask and emit verbose hear/see after the step.
 - **Next:** seed0015 descend `--More--` @19 / `maybe_smudge_engr` /
   seed0101 Scr residual.
+
+## D-0160 — goto_level descend `--More--` on stale map (seed0015 Scr)
+
+- **Status:** fixed
+- **Observed:** seed0015 Scr @19 JS already Dlvl:2
+  `You descend the stairs.` (no More; space → Unknown command) vs C
+  `You descend the stairs.--More--` still on Dlvl:1 map/status.
+- **Rejected:** missing descend pline text (message existed); botl
+  Dlvl update bug alone.
+- **C locus:** `display.c` `flush_screen(-1)` delay toggle;
+  `docrt`→`cls`→`display_nhwindow(WIN_MESSAGE)` forces `more()` before
+  clearing the map; `do.c` `goto_level` brackets arrival plines with
+  postpone / un-postpone.
+- **Cause:** JS `pline` set NEED_MORE but `docrt` never flushed messages
+  before redrawing the new level, so `--More--` never owned the space
+  key and the capture already showed Dlvl:2.
+- **Change:** Port `flush_screen(-1)` postpone (topline-only paints
+  while delayed); `cls` flushes NEED_MORE via `more()` then clears;
+  `docrt` calls `cls` first; `goto_level` brackets plines+docrt with
+  `-1` toggles. Reset topline/delay module state in `runSegment` start
+  so NEED_MORE cannot leak across harness sessions.
+- **Verification:** seed0015 Scr **22→23**/44 (screen 19 cells match;
+  cursors full); green+strict PASS; cohort 12 PASS; full **14/44**
+  Scr **1326** RNG **128111**.
+- **Named omission:** full `delay_flushing` interaction with every
+  `newsym` path; `disp.botlx` force; upstairs/fly/fall descend
+  messages; savelev/getlev restore still regenerates.
+- **Lesson:** level-change `--More--` must run while map flushes are
+  postponed so the stale Dlvl:N screen stays visible; do not rebuild
+  from the new `game.level` during that more().
+- **Next:** seed0015 Dlvl:2 gold `$` vs wall @ screen 20 /
+  `maybe_smudge_engr` / seed0101 Scr residual.

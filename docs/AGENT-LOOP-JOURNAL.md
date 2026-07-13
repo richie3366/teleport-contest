@@ -19,6 +19,19 @@ Use this shape:
 
 ---
 
+## 2026-07-13 17:55 — goto_level descend --More-- (D-0160)
+- Objective: seed0015 Scr @19 descend without More / early Dlvl:2
+  (PROGRESS primary).
+- C locus: `display.c` `flush_screen(-1)` / `cls` / `docrt`;
+  `do.c` `goto_level` arrival plines.
+- Result: **verified** — NEED_MORE never flushed before redraw.
+  Ported postpone + `docrt`→`cls`→`more` on stale map; reset topline
+  state per `runSegment`. Scr **22→23**/44; screen 19 match.
+- Verification: green+strict PASS; cohort 12 PASS; full **14/44**
+  Scr **1326** RNG **128111**.
+- Next: seed0015 Dlvl:2 gold `$` vs wall @20, or seed0030
+  `maybe_smudge_engr` @6732, or seed0101 Scr residual.
+
 ## 2026-07-13 17:40 — postmov monster door open (D-0159)
 - Objective: seed0015 Scr @13 blank vs `You hear a door open.`
   (PROGRESS primary).

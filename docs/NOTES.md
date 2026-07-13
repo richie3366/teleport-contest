@@ -7,16 +7,16 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 
 ## Active
 
-- **Current unit:** D-0159 cleared seed0015 door topline — `postmov` open/
-  unlock/smash. Scr **21→22**/44.
-- **Hypothesis / next:** seed0015 Scr @19 descend `"You descend the
-  stairs.--More--"` while C still shows Dlvl:1 + corner menu; JS already
-  Dlvl:2 without More (space then leaks as Unknown command). Or
+- **Current unit:** D-0160 cleared seed0015 descend `--More--` (Scr **22→23**/44;
+  screen 19 cells+cursors match).
+- **Hypothesis / next:** seed0015 Scr @20 one cell — JS gold `$` (bright)
+  on top wall vs C DEC wall `q` at map ~(63,6). RNG already full so
+  placement/display of that gold vs wall glyph, not mklev arity. Or
   seed0030 `maybe_smudge_engr` @6732 / seed0101 Scr residual.
 - **Falsifier / next:**
   ```bash
   node frozen/ps_test_runner.mjs sessions/seed0015-valk-level2-pit-dog-wait.session.json
-  # expect Scr >22 or named first cell mismatch past descend --More--
+  # expect Scr >23 or first cell miss past the wall `$`
   node scripts/rng-diff.mjs sessions/seed0030-ten-diverse-deaths.session.json
   # expect first mismatch past maybe_smudge_engr @6732 if that peel advances
   ```
@@ -239,9 +239,18 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 - **seed0015 Scr @13 blank vs "You hear a door open." was deferred
   `postmov` door** — not dosounds; C opens CLOSED doors after step
   (D-0159). Do not invent a fake hear without UnblockDoor.
+- **seed0015 Scr @19 missing `--More--` / early Dlvl:2 was NOT missing
+  descend text** — C `flush_screen(-1)` + `docrt`→`cls` forces more on
+  the stale map before redraw (D-0160). Do not rebuild from new
+  `game.level` during that more(); reset topline state per runSegment.
 
 ## Landmarks
 
+- `goto_level` descend: `flush_screen(-1)` postpone → You/pline NEED_MORE →
+  losedogs → `docrt`→`cls`→`more()` on stale Dlvl:N → clear/redraw →
+  `flush_screen(-1)` un-postpone (D-0160).
+- Module `_toplin`/`_delay_flushing` must reset in `runSegment` start —
+  NEED_MORE leak across sessions makes next `docrt` eat keys (D-0160).
 - `postmov` door: amorphous squeeze msg; LOCKED+key unlock; exact
   `doormask == D_CLOSED` open; else smash (`rn2(2)` locked→NODOOR);
   UnblockDoor = doormask+newsym+recalc_block_point+vision_recalc(0)
