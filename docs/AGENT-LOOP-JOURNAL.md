@@ -2508,3 +2508,15 @@ Use this shape:
 - Next: seed0200 @3565 `eatcorpse`; or seed0030 disclosure·seg1; or
   seed0101 Scr residual.
 
+
+## 2026-07-13 23:00 — D-0193 eatcorpse fixed
+- Objective: seed0200 @3565 C `eatcorpse` vs JS `rn2(2)` (PROGRESS primary).
+- C locus: `eat.c` `doeat`/`eatcorpse`/`start_eating`/`eatfood`; `mondata.h`
+  vegan/vegetarian/carnivorous; SIZ `cwt`/`cnutrit` via extractor.
+- Result: **fixed** — JS refused CORPSE after getobj; C ate invent goblin
+  corpse (rotting `rn2(20)`, palatable path, multi-turn occupation).
+  Monk form not carnivorous → no `rn2(10)`. Await occupation in allmain.
+- Verification: seed0200 RNG **3822**/3822 Scr **39**/40; full **15/44**
+  Scr **1305** RNG **138545**; green+cohort+strict PASS.
+- Next: seed0200 Scr residual (guilty+taste topline); or seed0030
+  disclosure·seg1; or seed0101 Scr residual.

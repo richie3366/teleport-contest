@@ -38,8 +38,8 @@ frozen-file overlay):
 | Metric | Value |
 |--------|------:|
 | Sessions passing | **15 / 44** |
-| Screens matched | **1290 / 11,405** (11.31%) |
-| Positional RNG calls matched | **138,575 / 792,838** (17.48%) |
+| Screens matched | **1305 / 11,405** (11.44%) |
+| Positional RNG calls matched | **138,545 / 792,838** (17.47%) |
 | Speed label | `20+0.08/turn` |
 | Working-tree base | `8b71735` + committed port (see `main`) |
 | Role-init throws | **0 / 44** (`u_init_role: role not ported`) |
@@ -66,7 +66,7 @@ shared blockers, and semantic coverage together—not one vanity metric.
 | `seed0017-samurai-altar-pray` | **3465 / 3465** | **67 / 67** |
 | `seed0030-ten-diverse-deaths` | **15848 / 105529** | **44 / 1953** |
 | `seed0103-knight-ride-pony` | **2344 / 2640** | 2 / 60 |
-| `seed0200-monk-north-search` | **3578 / 3822** | **24 / 40** |
+| `seed0200-monk-north-search` | **3822 / 3822** | **39 / 40** |
 | `seed0101-ranger-quiver-throw-travel-engrave` | **2371 / 2371** | **21 / 27** |
 | `seed0016-healer-newmoon-eat-zap` | **3656 / 3656** | **36 / 36** |
 | `seed0107-samurai-twoweapon-enhance` | **2684 / 2902** | **36 / 98** |
@@ -243,6 +243,8 @@ RNG **137724**.
 **`,`/`dopickup` AUTOSELECT_SINGLE** (D-0192) → seed0200 prefix
 **3547→3565** (`eatcorpse`); positional **3578**/3822 Scr **24**/40;
 full **15/44** Scr **1290** RNG **138575**.
+**`e`/`eatcorpse` + CORPSE occupation** (D-0193) → seed0200 RNG
+**full** Scr **24→39**/40; Scr **1290→1305**; RNG **138575→138545**.
 
 ### Green gate
 
@@ -410,20 +412,21 @@ autoopen `doopen_indir` (D-0059) + `mfndpos` BOULDER/`ALLOW_ROCK` +
 **`mdamageu`→`done_in_by`/`can_make_bones` + runSegment gameover** (D-0190)
 **`xkilled`→`make_corpse` when `corpse_chance`** (D-0191)
 **`,`/`dopickup` one-object AUTOSELECT** (D-0192)
+**`e`/`eatcorpse`/`start_eating`/`eatfood`** (D-0193)
 **ported**. Fifteen public sessions pass end-to-end. **0/44** throw at
 `u_init_role`. seed0700 + seed1150 + seed0017 + seed0077 + seed0106 +
 seed0501 + seed0105 + seed0016 + seed0015 **PASS**. seed2200 RNG **full**
 (Scr **229**/230; sole miss parked RC @158).
-seed0101 RNG **full** Scr **21**/27.
+seed0101 RNG **full** Scr **21**/27. seed0200 RNG **full** Scr **39**/40.
 
-- **Bounded unit:** seed0200 @3565 (`eatcorpse`) /
+- **Bounded unit:** seed0200 Scr residual (guilty+taste topline) /
   seed0030 multi-segment / disclosure Scr after seg0 RNG complete /
   seed0101 Scr residual /
   seed0103 `next_ident`/`trquan` /
   seed0361/0373 **quest `getbones`** (blocked: need `^V`→`goto_level`→
   `makemaz` first — ordinary `goto_level` now exists for stairs; Mines
   `fill_lvl` path exists D-0171).
-- **Prefer:** seed0200 @3565 /
+- **Prefer:** seed0200 Scr /
   seed0030 disclosure/seg1 /
   seed0101 Scr
   over parked D-0006 and over baking seed2200 RC paths.
@@ -1189,6 +1192,10 @@ Module status, constitutional debt, and named omissions live in
     **3578**/3822 Scr **24**/40; full **15/44** Scr **1290** RNG
     **138575**; next seed0200 @3565 / seed0030 disclosure·seg1 /
     seed0101 Scr
+170. `e`/`eatcorpse` + CORPSE `start_eating`/`eatfood` (D-0193)
+    — seed0200 RNG **3822**/3822 Scr **39**/40; full **15/44** Scr
+    **1305** RNG **138545**; next seed0200 Scr / seed0030
+    disclosure·seg1 / seed0101 Scr
 
 Next work is selected from the active objectives above using
 `PORTING-RUNBOOK.md`, not by extending this historical list.

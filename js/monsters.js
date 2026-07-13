@@ -16,6 +16,8 @@ import {
     mflags2s,
     mflags3s,
     msizes,
+    cwts,
+    cnutrits,
     mlets,
     has_at_weaps,
     mattks,
@@ -24,6 +26,7 @@ import {
     pmnames,
     PM_GIANT_SPIDER,
     PM_LICHEN,
+    PM_ACID_BLOB,
     PM_HUMAN,
     PM_ELF,
     PM_DWARF,
@@ -31,6 +34,7 @@ import {
     PM_GNOME,
     PM_ARCHEOLOGIST,
     PM_WIZARD,
+    PM_MONK,
 } from './generated/monsters_data.js';
 
 export {
@@ -40,6 +44,7 @@ export {
     NON_PM,
     PM_GIANT_SPIDER,
     PM_LICHEN,
+    PM_ACID_BLOB,
     PM_HUMAN,
     PM_ELF,
     PM_DWARF,
@@ -47,9 +52,12 @@ export {
     PM_GNOME,
     PM_ARCHEOLOGIST,
     PM_WIZARD,
+    PM_MONK,
     monsterNames,
     pmnames,
     mcolors,
+    cwts,
+    cnutrits,
 };
 
 /** C ref: monflag.h enum mgender */
@@ -128,6 +136,8 @@ export function mons(mndx) {
         mflags2: mflags2s[mndx],
         mflags3: mflags3s[mndx],
         msize: msizes[mndx],
+        cwt: cwts[mndx],
+        cnutrit: cnutrits[mndx],
         mlet: mlets[mndx],
         mcolor: mcolors[mndx],
         mattk: mattks[mndx],
@@ -334,4 +344,60 @@ export function is_placeholder(ptr) {
     const mndx = ptr?.mndx;
     return mndx === PM_ORC || mndx === PM_GIANT
         || mndx === PM_ELF || mndx === PM_HUMAN;
+}
+
+const PM_DEATH = monsterNames.indexOf('PM_DEATH');
+const PM_FAMINE = monsterNames.indexOf('PM_FAMINE');
+const PM_PESTILENCE = monsterNames.indexOf('PM_PESTILENCE');
+const PM_STALKER = monsterNames.indexOf('PM_STALKER');
+const PM_FLESH_GOLEM = monsterNames.indexOf('PM_FLESH_GOLEM');
+const PM_LEATHER_GOLEM = monsterNames.indexOf('PM_LEATHER_GOLEM');
+const PM_BLACK_PUDDING = monsterNames.indexOf('PM_BLACK_PUDDING');
+
+/** C ref: mondata.h is_rider */
+export function is_rider(ptr) {
+    const mndx = ptr?.mndx;
+    return mndx === PM_DEATH || mndx === PM_FAMINE || mndx === PM_PESTILENCE;
+}
+
+/** C ref: mondata.h noncorporeal */
+export function noncorporeal(ptr) {
+    return ptr?.mlet === 'S_GHOST';
+}
+
+/** C ref: mondata.h acidic / poisonous / carnivorous / herbivorous */
+export function acidic(ptr) {
+    return !!((ptr?.mflags1 ?? 0) & M1_ACID);
+}
+export function poisonous(ptr) {
+    return !!((ptr?.mflags1 ?? 0) & M1_POIS);
+}
+export function carnivorous(ptr) {
+    return !!((ptr?.mflags1 ?? 0) & M1_CARNIVORE);
+}
+export function herbivorous(ptr) {
+    return !!((ptr?.mflags1 ?? 0) & M1_HERBIVORE);
+}
+
+/**
+ * C ref: mondata.h vegan / vegetarian — corpse/tin conduct + eatcorpse.
+ */
+export function vegan(ptr) {
+    if (!ptr) return false;
+    const mlet = ptr.mlet;
+    if (mlet === 'S_BLOB' || mlet === 'S_JELLY' || mlet === 'S_FUNGUS'
+        || mlet === 'S_VORTEX' || mlet === 'S_LIGHT') {
+        return true;
+    }
+    if (mlet === 'S_ELEMENTAL' && ptr.mndx !== PM_STALKER) return true;
+    if (mlet === 'S_GOLEM' && ptr.mndx !== PM_FLESH_GOLEM
+        && ptr.mndx !== PM_LEATHER_GOLEM) {
+        return true;
+    }
+    return noncorporeal(ptr);
+}
+
+export function vegetarian(ptr) {
+    if (vegan(ptr)) return true;
+    return ptr?.mlet === 'S_PUDDING' && ptr.mndx !== PM_BLACK_PUDDING;
 }

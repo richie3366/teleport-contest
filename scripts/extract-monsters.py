@@ -374,11 +374,34 @@ def main() -> int:
             "HI_LORD": 13,
             "DRAGON_SILVER": 7,
         }
+        # C ref: weight.h — SIZ(cwt, cnutrit, sound, msize)
+        wt_map = {
+            "WT_ETHEREAL": 0,
+            "WT_JELLY": 50,
+            "WT_NYMPH": 600,
+            "WT_ELF": 800,
+            "WT_HUMAN": 1450,
+            "WT_BABY_DRAGON": 1500,
+            "WT_DRAGON": 4500,
+            **mz_map,
+        }
         msize = 2  # MZ_MEDIUM default
+        cwt = 0
+        cnutrit = 0
         if len(parts) > 5:
-            sm = re.search(r"SIZ\s*\([^)]*?,\s*([A-Z0-9_]+)\s*\)", parts[5])
+            sm = re.search(
+                r"SIZ\s*\(\s*([A-Za-z0-9_]+)\s*,\s*([A-Za-z0-9_]+)\s*,"
+                r"\s*[A-Za-z0-9_]+\s*,\s*([A-Za-z0-9_]+)\s*\)",
+                parts[5],
+            )
             if sm:
-                msize = mz_map.get(sm.group(1), eval_flags(sm.group(1), mz_map))
+                cwt = wt_map.get(sm.group(1), eval_flags(sm.group(1), wt_map))
+                cnutrit = wt_map.get(sm.group(2), eval_flags(sm.group(2), wt_map))
+                msize = mz_map.get(sm.group(3), eval_flags(sm.group(3), mz_map))
+            else:
+                sm2 = re.search(r"SIZ\s*\([^)]*?,\s*([A-Z0-9_]+)\s*\)", parts[5])
+                if sm2:
+                    msize = mz_map.get(sm2.group(1), eval_flags(sm2.group(1), mz_map))
         # parts[4] is A(ATTK(...), ...); is_armed ≡ attacktype(AT_WEAP)
         atks = parts[4] if len(parts) > 4 else ""
         mcolor = color_map.get(col, eval_flags(col, color_map))
@@ -394,6 +417,8 @@ def main() -> int:
             "mflags3": eval_flags(flg3, M3_FLAGS),
             "sym": parts[1].strip(),
             "msize": msize,
+            "cwt": int(cwt),
+            "cnutrit": int(cnutrit),
             "has_at_weap": "AT_WEAP" in atks,
             "mattk": parse_mattk(atks),
             "mcolor": mcolor,
@@ -421,6 +446,8 @@ def main() -> int:
                     "mflags3": 0,
                     "sym": "S_HUMAN",
                     "msize": 2,
+                    "cwt": 0,
+                    "cnutrit": 0,
                     "has_at_weap": False,
                     "mattk": parse_mattk(""),
                     "mcolor": 7,  # CLR_GRAY
@@ -486,6 +513,12 @@ def main() -> int:
     lines.append("export const mflags2s = " + json.dumps([m["mflags2"] for m in mons]) + ";")
     lines.append("export const mflags3s = " + json.dumps([m.get("mflags3", 0) for m in mons]) + ";")
     lines.append("export const msizes = " + json.dumps([m["msize"] for m in mons]) + ";")
+    lines.append("export const cwts = " + json.dumps([int(m.get("cwt", 0)) for m in mons]) + ";")
+    lines.append(
+        "export const cnutrits = "
+        + json.dumps([int(m.get("cnutrit", 0)) for m in mons])
+        + ";"
+    )
     lines.append("export const mlets = " + json.dumps([m["sym"] for m in mons]) + ";")
     lines.append(
         "export const has_at_weaps = "

@@ -7,17 +7,13 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 
 ## Active
 
-- **Current unit:** seed0200 @3565 (`eatcorpse` vs JS `rn2(2)`) — after
-  D-0192 `,`/`dopickup`.
-- **Hypothesis:** C `e`+`k` eats invent corpse via `eatcorpse` (rotting
-  rolls); JS doeat path misses corpse / burns a different `rn2(2)`
-  (exercise or wrong food branch) before `eatcorpse`.
-- **Falsifier:**
-  ```bash
-  node scripts/rng-diff.mjs sessions/seed0200-monk-north-search.session.json
-  ```
-  Expect: if eatcorpse path matches, next C calls stay in eatcorpse
-  (`rn2(7)`, `rn2(5)`) then `distfleeck`.
+- **Current unit:** seed0200 Scr **39**/40 (RNG full after D-0193) /
+  seed0030 disclosure·seg1 / seed0101 Scr residual.
+- **Hypothesis (seed0200 Scr):** remaining miss is topline join of
+  Monk `You feel guilty.` + eatcorpse taste on one `--More--` line
+  (C: two spaces), not further RNG.
+- **Falsifier:** compare JS vs C screen after `e`+`k` for
+  `guilty`/`tastes terrible` on the same topline page.
 - **Parked deep canary:** D-0006 pet movement — do not implement until C
   state/candidate capture exists.
 - **Parked seed2200 @158:** RC config path — harness `$HOME`, not a port bug.
@@ -110,6 +106,9 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   (unknown, move=0) skipped the pickup turn; next keys raced to Ctrl-D
   `dokick`→`exercise` `rn2(2)` while C `dopickup`→monsters→`distfleeck`
   (D-0192). Do not re-chase fleeck/APPORT for this index.
+- **@3565 was NOT missing exercise / fleeck** — JS refused CORPSE; C
+  `eatcorpse` (D-0193). Monk form is not carnivorous → no palatable
+  `rn2(10)`.
 - **`monattk.h`: AT_WEAP=254, AT_MAGC=255, AT_SPIT=10** — never use 10 for
   weapon (D-0179).
 - Hostile `m_move`: before place, `m_digweapon_check` may return
@@ -160,3 +159,6 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   (D-0191). Treasure `mkobj(RANDOM_CLASS)` still deferred.
 - **`,` → `dopickup`** with menu AUTOSELECT_SINGLE for one floor object
   (D-0192); multi-object query_objlist still deferred.
+- **CORPSE `eatcorpse`** rotting `rn2(20)` + `start_eating`/`eatfood`
+  occupation (D-0193); `mons[].cwt`/`cnutrit` extracted; Monk form
+  fails `carnivorous` so palatable skips `rn2(10)`.

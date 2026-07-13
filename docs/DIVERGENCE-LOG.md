@@ -196,6 +196,7 @@ Do not record a guessed cause as fixed merely because an RNG prefix moved.
 | D-0190 | fixed | end/bones death | `mdamageu`→`done_in_by`/`can_make_bones`; stop post-death RNG |
 | D-0191 | fixed | mon.c xkilled corpse | `xkilled`→`make_corpse` when `corpse_chance` (not burn-only) |
 | D-0192 | fixed | cmd/pickup `,` | unbound `,` skipped pickup turn → early Ctrl-D kick |
+| D-0193 | fixed | eat.c eatcorpse | CORPSE refuse → early kick; port eatcorpse + occupation |
 
 D-0001 through D-0005 predate the strict-length/cohort runbook. Their focused
 causes are preserved, but generic "green sessions held" is historical evidence,
@@ -5243,4 +5244,32 @@ cohort gates if those functions are touched again.
   loot_mon; encumbrance `pickup_prinv` prefixes.
 - **Next:** seed0200 @3565 `eatcorpse`; or seed0030 disclosure·seg1;
   or seed0101 Scr residual.
+
+## D-0193 — eatcorpse / CORPSE doeat (seed0200 @3565)
+
+- **Status:** fixed
+- **Observed:** seed0200 index **3565** — after matched EOT, C
+  `rn2(20) @ eatcorpse`; JS `rn2(2)` (kick/`exercise` after refuse).
+- **C locus:** `eat.c` `doeat` → `touchfood` → `eatcorpse` →
+  `start_eating` / `eatfood` occupation; `mondata.h` vegan/vegetarian/
+  carnivorous; `hack.c` `rounddiv`; `monsters.h` SIZ `cwt`/`cnutrit`.
+- **Cause/evidence:** JS rejected CORPSE with "not implemented" (return
+  0) after getobj `e`+`k`, then raced to Ctrl-D. C ate invent goblin
+  corpse: rotting `rn2(20)`, `!rn2(7)` skip rotten, palatable path
+  (Monk `youmonst` not carnivorous → no `rn2(10)`), `rn2(5)` taste
+  index, then multi-turn occupation.
+- **Change:** `js/eat.js` `eatcorpse`/`start_eating`/`eatfood`/
+  `done_eating`/`bite`; CORPSE in `doeat`; `allmain.js` await
+  occupation; extract `cwts`/`cnutrits` + mondata vegan/vegetarian/
+  acidic/poisonous/carnivorous/herbivorous; `dogmove` uses extracted
+  cwt/cnutrit.
+- **Verification:** seed0200 RNG **3822**/3822 Scr **39**/40; full
+  **15/44** Scr **1305** RNG **138545**; green+cohort+strict PASS.
+- **Named omissions:** floorfood floor; TIN; full `cprefx`/`cpostfx`;
+  tainted `make_sick`; `poison_strdmg`; slime/stone; `rottenfood`
+  confuse/blind/faint bodies; freeinv invent-full drop; `?`/`*` menu;
+  topline join of guilty+taste (Scr residual @1); `oc_nutrition`
+  extract.
+- **Next:** seed0200 Scr residual / seed0030 disclosure·seg1 /
+  seed0101 Scr.
 

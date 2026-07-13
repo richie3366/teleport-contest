@@ -24,7 +24,7 @@ import {
     MAGIC_PORTAL,
 } from './const.js';
 import { FOOD_CLASS, BALL_CLASS, CHAIN_CLASS, ROCK_CLASS, objectNames } from './objects.js';
-import { monsterNames } from './monsters.js';
+import { monsterNames, mons } from './monsters.js';
 import { m_cansee, couldsee, cansee } from './vision.js';
 import { Monnam, noit_Monnam } from './do_name.js';
 import { gettrack } from './track.js';
@@ -227,14 +227,11 @@ function dog_nutrition(mtmp, obj) {
 }
 
 function mons_cwt(corpsenm) {
-    // Generated tables omit cwt; newt-sized default keeps meating sane.
-    void corpsenm;
-    return 10;
+    return mons(corpsenm)?.cwt ?? 10;
 }
 
 function mons_cnutrit(corpsenm) {
-    void corpsenm;
-    return 20;
+    return mons(corpsenm)?.cnutrit ?? 20;
 }
 
 // C ref: mon.c m_consume_obj — pet heal omitted; delobj always rolls obj_resists(0,0).

@@ -506,7 +506,7 @@ export async function moveloop_core() {
     g.context.move = 1;
     if ((g.multi || 0) >= 0 && typeof g.occupation === 'function') {
         // C ref: allmain.c go.occupation — runs before rhack; return ends this tick
-        const cont = g.occupation();
+        const cont = await g.occupation();
         if (!cont) g.occupation = null;
         // monster_nearby stop_occupation deferred
         return;
