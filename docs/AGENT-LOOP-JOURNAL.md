@@ -19,6 +19,18 @@ Use this shape:
 
 ---
 
+## 2026-07-13 18:45 — dog_eat after edible newdogpos (D-0168)
+- Objective: seed0030 `obj_resists` @10608 (PROGRESS primary).
+- C locus: `dogmove.c` edible candidate → `goto newdogpos` → `dog_eat`
+  → `dogfood` + `m_consume_obj`/`delobj`.
+- Result: **verified** — stop early-returning on edible food; call
+  `dog_eat` after move (second `obj_resists` + `delobj` roll).
+  Prefix **10608→10620**.
+- Verification: green+strict PASS; cohort PASS; full **15/44**
+  Scr **1357** RNG **132086**; seed0030 **11005**/105529 Scr **120**.
+- Next: `node scripts/rng-diff.mjs sessions/seed0030-ten-diverse-deaths.session.json`
+  (expect past 10620) or seed0101 Scr residual.
+
 ## 2026-07-13 18:30 — Teleportation hub themeroom_fill (D-0166)
 - Objective: seed0030 themerms `contents` @6889 (PROGRESS primary).
 - C locus: `themerms.lua` Teleportation hub / `make_a_trap` /

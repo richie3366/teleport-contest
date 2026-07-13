@@ -7,16 +7,17 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 
 ## Active
 
-- **Current unit:** D-0167 cleared seed0030 mhitm `mondied`→`make_corpse`
-  @10584 (`next_ident`/`rnd(2)`). Prefix **10584→10608**; positional
-  **10939**/105529; public Scr **1347**, RNG **131959**; still **15/44**.
-- **Hypothesis / next:** seed0030 `obj_resists` @10608 (C second
-  `rn2(100)` vs JS `rn2(5)` after dog_move), or seed0101 Scr residual
+- **Current unit:** D-0168 cleared seed0030 `dog_eat` after edible
+  `newdogpos` (second `dogfood`/`obj_resists` + `delobj`). Prefix
+  **10608→10620**; positional **11005**/105529; Scr **120**/1953;
+  public Scr **1357**, RNG **132086**; still **15/44**.
+- **Hypothesis / next:** seed0030 @10620 — C second `distfleeck` `rn2(5)`
+  vs JS `rn2(4)` (post-eat monster turn), or seed0101 Scr residual
   (RNG full), or seed0200 combat `@3382`.
 - **Falsifier / next:**
   ```bash
   node scripts/rng-diff.mjs sessions/seed0030-ten-diverse-deaths.session.json
-  # expect first mismatch past obj_resists @10608 if that peel advances
+  # expect first mismatch past 10620 if distfleeck/dochug peel advances
   node frozen/ps_test_runner.mjs sessions/seed0101-ranger-quiver-throw-travel-engrave.session.json
   # expect Scr >21/27 if residual display peel advances
   ```
@@ -270,6 +271,10 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   burned `corpse_chance` only so `grow_up` `rnd(m_lev+1)`=`rnd(1)`
   landed next (D-0167). Trap-path already had make_corpse; hero
   `xkilled` still burns chance without corpse.
+- **seed0030 @10608 was NOT missing floor pile / poisonous newt** —
+  JS early-returned from edible `newdogpos` without `dog_eat`; C
+  `dog_eat` re-rolls `dogfood`/`obj_resists` then `delobj`/`obj_resists(0,0)`
+  (D-0168). Do not invent extra `fobj` scans from arity alone.
 
 ## Landmarks
 
@@ -345,3 +350,6 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 - mhitm `mondied`: `corpse_chance` then ordinary `make_corpse`→
   `mkcorpstat(CORPSE,…,CORPSTAT_INIT)` → `next_ident` `rnd(2)` before
   `grow_up` (D-0167).
+- Edible `newdogpos`: set `do_eat` + break (C `goto`); after move call
+  `dog_eat` (re-`dogfood` + `m_consume_obj`/`delobj`); do **not**
+  early-return from the candidate loop alone (D-0168).

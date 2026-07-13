@@ -171,6 +171,7 @@ Do not record a guessed cause as fixed merely because an RNG prefix moved.
 | D-0165 | fixed | hack/engrave | `maybe_smudge_engr` after walk + `can_reach_floor` |
 | D-0166 | fixed | themerms/telehub | Teleportation hub fill + `make_a_trap` teledest + `mktrap` `rnd(4)` |
 | D-0167 | fixed | mhitm/corpse | mhitm `mondied`→`make_corpse`/`next_ident` (not grow_up `rnd(1)`) |
+| D-0168 | fixed | dogmove/eat | `dog_eat` after edible `newdogpos` (2nd dogfood + delobj) |
 
 D-0001 through D-0005 predate the strict-length/cohort runbook. Their focused
 causes are preserved, but generic "green sessions held" is historical evidence,
@@ -4516,3 +4517,31 @@ cohort gates if those functions are touched again.
   caller's arity (`grow_up`).
 - **Next:** seed0030 `obj_resists` @10608 / seed0101 Scr residual /
   seed0200 combat @3382.
+
+## D-0168 — dog_eat after edible newdogpos (seed0030)
+
+- **Status:** fixed
+- **Observed:** seed0030 first RNG mismatch @10608 — C three
+  `obj_resists` `rn2(100)` after dog_move selection; JS one then
+  `rn2(5)` (distfleeck).
+- **Rejected:** missing floor pile / nexthere; poisonous newt corpse;
+  missing `mpickstuff` dogfood; dog_goal invent scan after selection.
+- **C locus:** `dogmove.c` edible candidate → `goto newdogpos` →
+  `dog_eat` → `dogfood` (reward check) → `m_consume_obj` →
+  `delobj`/`obj_resists(0,0)`.
+- **Cause:** JS early-returned from the candidate loop on edible food
+  (move only), skipping `dog_eat`. C always re-rolls `dogfood` then
+  `delobj` — two extra `rn2(100)`.
+- **Change:** set `do_eat` + break (C `goto`); after place call
+  `dog_eat` (nutrition/pline subset + `dogfood` + `delobj`).
+- **Verification:** seed0030 prefix **10608→10620** positional
+  **11005**/105529 Scr **120**/1953; green+strict PASS; cohort
+  1500/1800/0060/0015/0106/0105/0016 PASS; full **15/44** Scr
+  **1357** RNG **132086**.
+- **Named omission:** full `dog_nutrition` cwt/cnutrit tables;
+  bee jelly / rust spit / unpaid shop; `dog_invent` eat return path;
+  `postmov` `mpickstuff` body.
+- **Lesson:** edible `newdogpos` is not “move and return” — C’s
+  `dog_eat` still burns `obj_resists` twice after the find.
+- **Next:** seed0030 @10620 (distfleeck vs `rn2(4)`) / seed0101 Scr /
+  seed0200 @3382.
