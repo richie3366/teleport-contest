@@ -105,6 +105,7 @@ Do not record a guessed cause as fixed merely because an RNG prefix moved.
 | D-0099 | fixed | dog_goal gettrack | `!couldsee` → gettrack gg; not missing (30,4) terrain |
 | D-0100 | fixed | mklev wallification | post-fill full-map `wallification` like C `themerooms_post`; not (30,4) |
 | D-0101 | fixed | `#pray` / prayer_done | unbound extcmd; p_type 0 → rnz(250)+angrygods |
+| D-0102 | fixed | askname + ParanoidPray | no-name splash/`Who are you?`; default pray yn |
 
 D-0001 through D-0005 predate the strict-length/cohort runbook. Their focused
 causes are preserved, but generic "green sessions held" is historical evidence,
@@ -2694,4 +2695,30 @@ cohort gates if those functions are touched again.
   **91965**.
 - **Next:** seed0017 Scr (legacy/Book) / seed2200 Scr 199 / seed0106
   @ 2639 `do_attack`.
+
+## D-0102 — askname splash + ParanoidPray yn
+
+- **Status:** fixed
+- **Observed:** seed0017 Scr **2**/67 with full RNG. Screen 0 C is
+  copyright + `Who are you?` (no `OPTIONS=name`); JS skipped to Book.
+  After askname, Scr **66**/67 — residual idx 46 C
+  `Are you sure you want to pray? [yn] (n)` vs JS already on prayer
+  `--More--` (ParanoidPray omitted).
+- **C locus:** `wintty.c` `tty_init_nhwindows` / `tty_askname`;
+  `role.c` `plnamesuffix`; `options.c` default
+  `paranoia_bits = PARANOID_PRAY|…`; `pray.c` `dopray`;
+  `topl.c` `tty_yn_function`; `cmd.c` `paranoid_query`.
+- **Cause:** (1) JS invented `plname='Hero'` when rc omitted name, so
+  typed `Akira` keys were eaten by Book's non-quitchar loop. (2)
+  Default `PARANOID_PRAY` requires yn before prayer; JS skipped it so
+  the confirm key only shifted one screen.
+- **Change:** `js/askname.js` splash + `tty_askname` (grid paint only —
+  no `flush_screen`); `jsmain` asks when `!opts.name` + default
+  `paranoia_bits`; `getline.js` `yn_function`; `dopray` ParanoidPray
+  confirm.
+- **Verification:** seed0017 **PASS** RNG **3465**/3465 Scr **67**/67
+  + strict; green+cohort PASS; full **9/44** Scr **718** RNG
+  **91965**.
+- **Next:** seed2200 Scr 199 / seed0106 @ 2639 `do_attack` /
+  seed0077 chargen `player_selection`.
 

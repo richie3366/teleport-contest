@@ -2,12 +2,13 @@
 // C ref: pray.c — can_pray, dopray, prayer_done, gods_upset, angrygods,
 // water_prayer, on_altar / a_align helpers.
 //
-// Branch envelope: noninteractive #pray with ublesscnt-too-soon (p_type 0)
-// → nomul(-3)/afternmv → prayer_done rnz(250)+change_luck+gods_upset →
-// angrygods cases 0–3 (displeased / godvoice+relearn) + trailing rnz(300).
-// Named omissions: full in_trouble body; ParanoidPray / wizard force;
-// angrygods cases 4+ (curse/minion/zap); pleased / crown / fix
-// troubles; p_type -2/-1/1/2/3 outcome bodies beyond water_prayer scan;
+// Branch envelope: ParanoidPray yn confirm (default on) + noninteractive
+// #pray with ublesscnt-too-soon (p_type 0) → nomul(-3)/afternmv →
+// prayer_done rnz(250)+change_luck+gods_upset → angrygods cases 0–3
+// (displeased / godvoice+relearn) + trailing rnz(300).
+// Named omissions: full in_trouble body; ParanoidConfirm "yes" path /
+// wizard force; angrygods cases 4+ (curse/minion/zap); pleased / crown /
+// fix troubles; p_type -2/-1/1/2/3 outcome bodies beyond water_prayer scan;
 // pray_revive; sacrifice / #turn; livelog; is_demon/is_undead poly paths;
 // full losexp (adjabil/resists_drli/Upolyd).
 
@@ -18,9 +19,10 @@ import { nomul } from './hack.js';
 import { A_WIS, change_luck, adjattrib } from './attrib.js';
 import { align_gname } from './roles.js';
 import { objects_at } from './mkobj.js';
+import { yn_function } from './getline.js';
 import {
     IS_ALTAR, Amask2align, AM_MASK, A_NONE, A_LAWFUL, A_NEUTRAL,
-    GEHENNOM, ECMD_OK, ECMD_TIME,
+    GEHENNOM, ECMD_OK, ECMD_TIME, PARANOID_PRAY,
 } from './const.js';
 import { POT_WATER, POTION_CLASS } from './objects.js';
 
@@ -345,10 +347,24 @@ export async function prayer_done() {
 
 /**
  * C ref: pray.c dopray — #pray
- * ParanoidPray / wizard force omitted.
+ * ParanoidPray (default) → paranoid_query(ParanoidConfirm, …);
+ * wizard Force-the-gods omitted.
  */
 export async function dopray() {
     const u = game.u || (game.u = {});
+    // C: flags.paranoia_bits defaults include PARANOID_PRAY
+    const bits = game.flags?.paranoia_bits;
+    const paranoidPray = bits == null
+        ? true
+        : (bits & PARANOID_PRAY) !== 0;
+    if (paranoidPray) {
+        // C: paranoid_query(ParanoidConfirm, …); Confirm→getlin "yes" deferred
+        const ok = (await yn_function(
+            'Are you sure you want to pray?', 'yn', 'n',
+        )) === 'y';
+        if (!ok) return ECMD_OK;
+    }
+
     if (!u.uconduct) u.uconduct = {};
     u.uconduct.gnostic = (u.uconduct.gnostic | 0) + 1;
 

@@ -7,18 +7,20 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 
 ## Active
 
-- **Current unit:** seed0017 RNG **full** after `#pray`/`prayer_done` (D-0101).
-  Session still FAIL on screens (**2**/67). First cell mismatch is early
-  Book/legacy (idx 0), not the pray topline — need a real screen-diff peel.
-- **Hypothesis:** seed0017 Scr gap is legacy/Book/`questpgr` (or early
-  map), not missing `prayer_done` RNG.
+- **Current unit:** seed0017 **PASS** (D-0102 askname + ParanoidPray).
+  Prefer seed2200 Scr **199**/230 (screen 158 RC residual or next) or
+  seed0106 @ **2639** `do_attack`.
+- **Hypothesis:** seed2200 remaining Scr is help/option residual and/or
+  later map UI — not chargen.
 - **Falsifier / next:**
   ```bash
-  node frozen/ps_test_runner.mjs sessions/seed0017-samurai-altar-pray.session.json
+  node frozen/ps_test_runner.mjs sessions/seed2200-wizard-quaff-zap-read.session.json
   ```
-  Or pivot: seed2200 Scr 199 / seed0106 @ 2639 `do_attack` after pray.
+  Or: `node scripts/rng-diff.mjs sessions/seed0106-priest-extcmd-sweep.session.json`
 - **Parked deep canary:** D-0006 pet movement — do not implement until C
   state/candidate capture exists.
+- **Named next for no-name sessions:** seed0077 needs `player_selection`
+  after askname (Scr 6/33).
 
 ## Don’t re-check
 
@@ -124,6 +126,10 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 - **seed0017 @3327 was unbound `#pray`** — C `prayer_done` `rnz(250)`
   (p_type 0 too-soon) → `gods_upset`/`angrygods` (D-0101).
   `doextcmd` must return callee `ECMD_TIME` so `#pray` keeps `move`.
+- **seed0017 Scr 2 was NOT Book/legacy text** — first screens are
+  copyright + `Who are you?` when rc omits `name:`; do **not**
+  `flush_screen` during askname (clears splash) (D-0102). Default
+  `PARANOID_PRAY` requires yn before prayer.
 - seed1150 @ 3032 was **not** missing `f` binding — getdir saw a
   space that C used for pet-drop `--More--` because JS
   `getdir`/`yn_function` skipped `more()` on `TOPLINE_NEED_MORE`
@@ -194,7 +200,7 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 - Farlook stairs: `known_branch_stairs` → glyph `S_brupstair` →
   lookat `"branch staircase up"`; `auto_describe` prints that
   firstmatch; getpos must set map cursor **after** flush (D-0083).
-  DECgraphics floor `·` ambiguous doorway/floor/dark/ice; `#`
+- DECgraphics floor `·` ambiguous doorway/floor/dark/ice; `#`
   corridor → `can be many things (corridor)`.
 - getpos rush: `highc(dir)` → `movecmd(MV_RUN)`; `C(dir)` →
   `MV_RUSH`; both use `dx=8*u.dx` when `!getloc_moveskip`, then
@@ -246,3 +252,8 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   `gods_upset` → `angrygods` (D-0101). With `initrecord>=STRIDENT(4)`
   and Luck=-3 after change, `maxanger=4`. Cases 0/1 displeased; 2/3
   `godvoice` `rn2(4)` then relearn/`losexp` (no RNG) then `rnz(300)`.
+- No `OPTIONS=name`: `plnamesuffix`→`askname` on copyright splash
+  (rows 4–7 banners, prompt row 12). Paint BASE grid only — never
+  `flush_screen` (rebuilds empty map/botl). Default
+  `paranoia_bits` includes `PARANOID_PRAY` → yn before `#pray`
+  (D-0102).

@@ -179,3 +179,42 @@ export async function doextcmd() {
     const res = await ec.run();
     return res | 0;
 }
+
+/**
+ * C ref: win/tty/topl.c tty_yn_function — query + [resp] + (def) + space.
+ * Esc → 'q' if in resp else 'n' if in resp else def.
+ * Quitchars (space/return) → def. Invalid keys bell and retry.
+ * @returns {string} single-character response
+ */
+export async function yn_function(query, resp = 'yn', def = 'n') {
+    await flush_topl_more();
+    let prompt;
+    if (resp) {
+        const shown = resp.replace(/\x1b[\s\S]*$/, ''); // hide after ESC
+        prompt = `${query} [${shown}]`;
+        if (def) prompt += ` (${def})`;
+        prompt += ' ';
+    } else {
+        prompt = `${query} `;
+    }
+    for (;;) {
+        game._pending_message = prompt;
+        await flush_screen(1);
+        const disp = game.nhDisplay;
+        if (disp?.setCursor) disp.setCursor(prompt.length, 0);
+        const c = await nhgetch();
+        let ch = String.fromCharCode(c);
+        game._pending_message = '';
+        if (!resp) return ch;
+        const preserve = /[A-Z]/.test(resp);
+        if (!preserve) ch = ch.toLowerCase();
+        if (c === 27) {
+            if (resp.includes('q')) return 'q';
+            if (resp.includes('n')) return 'n';
+            return def || 'n';
+        }
+        if (ch === ' ' || c === 13 || c === 10) return def || 'n';
+        if (resp.includes(ch)) return ch;
+        // invalid — C tty_nhbell + retry
+    }
+}

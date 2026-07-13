@@ -21,6 +21,19 @@ Use this shape:
 
 ---
 
+## 2026-07-13 07:55 — askname + ParanoidPray (D-0102)
+- Objective: seed0017 Scr peel (PROGRESS primary).
+- C locus: `wintty.c` `tty_askname`/`tty_init_nhwindows`; `role.c`
+  `plnamesuffix`; `pray.c` `dopray`; `topl.c` `tty_yn_function`;
+  `options.c` default `paranoia_bits`.
+- Result: **verified** — no-name sessions need copyright +
+  `Who are you?` (do not `flush_screen`); default ParanoidPray yn.
+  seed0017 **PASS**.
+- Verification: seed0017 RNG **3465**/3465 Scr **67**/67 + strict;
+  green+cohort PASS; full **9/44** Scr **718** RNG **91965**.
+- Next: `node frozen/ps_test_runner.mjs sessions/seed2200-wizard-quaff-zap-read.session.json`
+  or rng-diff seed0106 @ 2639.
+
 ## 2026-07-13 07:45 — #pray / prayer_done / angrygods (D-0101)
 - Objective: seed0017 @ 3327 `prayer_done` (PROGRESS primary).
 - C locus: `pray.c` `dopray`/`can_pray`/`prayer_done`/`gods_upset`/

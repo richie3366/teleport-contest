@@ -37,8 +37,8 @@ frozen-file overlay):
 
 | Metric | Value |
 |--------|------:|
-| Sessions passing | **8 / 44** |
-| Screens matched | **599 / 11,405** (5.25%) |
+| Sessions passing | **9 / 44** |
+| Screens matched | **718 / 11,405** (6.30%) |
 | Positional RNG calls matched | **91,965 / 792,838** (11.60%) |
 | Speed label | `18+0.08/turn` |
 | Working-tree base | `8b71735` + committed port (see `main`) |
@@ -61,7 +61,7 @@ shared blockers, and semantic coverage together—not one vanity metric.
 | `seed0700-samurai-explore-descend` | **3230 / 3230** | **51 / 51** |
 | `seed1150-caveman-explore-move` | **3137 / 3137** | **51 / 51** |
 | `seed2200-wizard-quaff-zap-read` | **3018 / 3018** | **199 / 230** |
-| `seed0017-samurai-altar-pray` | **3465 / 3465** | **2 / 67** |
+| `seed0017-samurai-altar-pray` | **3465 / 3465** | **67 / 67** |
 | `seed0030-ten-diverse-deaths` | **7036 / 105529** | **40 / 1953** |
 | `seed0103-knight-ride-pony` | **2344 / 2640** | 1 / 60 |
 | `seed0200-monk-north-search` | **1548 / 3822** | 0 / 40 |
@@ -77,7 +77,7 @@ shared blockers, and semantic coverage together—not one vanity metric.
 | `seed0013-rogue-friday13-combat` | **521 / 4838** | 1 / 59 |
 
 seed8000 + seed0900 + seed1500 + seed1800 + seed0060 + seed0102 +
-seed0700 + seed1150 pass end-to-end.
+seed0700 + seed1150 + seed0017 pass end-to-end.
 `choose_trapnote`/`hole_destination` (D-0054), `SPBOOK_no_NOVEL`
 (D-0055), roles `initrecord` (D-0056), CORPSE `G_NOCORPSE` retry
 (D-0057), `adjabil`/`u_calc_moveamt` Fast (D-0058), `rnl` +
@@ -112,16 +112,16 @@ autoopen `doopen_indir` (D-0059), `mfndpos` BOULDER/`NODIAG`
 **`spoteffects`/`check_here`/`look_here` + Monnam** (D-0095), and
 **`newsym` waslit + out-of-sight `S_litcorr`→`S_corr`** (D-0096), and
 **GemStone `xname` + throw volley + ^X gender/MC** (D-0097), and
-**`#pray`/`prayer_done`/`angrygods`** (D-0101)
+**`#pray`/`prayer_done`/`angrygods`** (D-0101), and
+**askname splash + ParanoidPray yn** (D-0102)
 clear shared peels. seed2200 RNG **full**; Scr **199**/230 (next:
-seed0017 Scr / screen 158 RC path residual).
-seed0017 RNG **full**; Scr **2**/67 (legacy/Book). seed0106 next
-`do_attack` @ 2639. seed0030 next `maybe_smudge_engr`. Healer
-seed0016 next `next_ident` @ 2493. Priest seed0501 still
-`wipeout_text`. seed0015/0200 next `lspo_map`. seed0101 next
-`next_ident`. seed0013 still breaks earlier in Lua/`sp_lev`.
-seed0103 next `next_ident`/`trquan` @ 2337. seed0361/0373
-`getbones` blocked on unbound `^V`/`goto_level`/`makemaz`.
+screen residual). seed0106 next `do_attack` @ 2639. seed0030 next
+`maybe_smudge_engr`. Healer seed0016 next `next_ident` @ 2493.
+Priest seed0501 still `wipeout_text`. seed0015/0200 next `lspo_map`.
+seed0101 next `next_ident`. seed0013 still breaks earlier in
+Lua/`sp_lev`. seed0103 next `next_ident`/`trquan` @ 2337.
+seed0361/0373 `getbones` blocked on unbound `^V`/`goto_level`/
+`makemaz`. seed0077 after askname needs `player_selection`.
 
 ### Green gate
 
@@ -192,19 +192,19 @@ autoopen `doopen_indir` (D-0059) + `mfndpos` BOULDER/`ALLOW_ROCK` +
 **dog_move mtrack `goto nxti`** (D-0098) +
 **post-fill `wallification`** (D-0100) +
 **dog_goal `gettrack`** (D-0099) +
-**`#pray`/`dopray`/`prayer_done`/`angrygods` 0–3** (D-0101)
-**ported**. Eight public sessions pass end-to-end. **0/44** throw at
-`u_init_role`. seed0700 + seed1150 **PASS**. seed0017 RNG **full**
-(Scr **2**/67 — legacy/Book); seed0106 prefix **2639** (`do_attack`);
-seed2200 RNG **full** (Scr **199**/230).
+**`#pray`/`dopray`/`prayer_done`/`angrygods` 0–3** (D-0101) +
+**askname splash + ParanoidPray yn** (D-0102)
+**ported**. Nine public sessions pass end-to-end. **0/44** throw at
+`u_init_role`. seed0700 + seed1150 + seed0017 **PASS**. seed0106
+prefix **2639** (`do_attack`); seed2200 RNG **full** (Scr **199**/230).
 
-- **Bounded unit:** seed0017 Scr (legacy/Book/`questpgr`) or
-  seed2200 post-help Scr 199 / seed0106 @ 2639 `do_attack` /
-  seed0501/0105 `wipeout_text` / seed0015/0200 `lspo_map` /
-  seed0101 `next_ident` / seed0103 `next_ident`/`trquan` /
-  seed0030 `maybe_smudge_engr` / seed0361/0373 **`getbones`**
-  (blocked: need `^V`→`goto_level`→`makemaz` first).
-- **Prefer:** seed0017 screen peel or seed2200 Scr residual over
+- **Bounded unit:** seed2200 post-help Scr 199 / seed0106 @ 2639
+  `do_attack` / seed0077 `player_selection` / seed0501/0105
+  `wipeout_text` / seed0015/0200 `lspo_map` / seed0101 `next_ident` /
+  seed0103 `next_ident`/`trquan` / seed0030 `maybe_smudge_engr` /
+  seed0361/0373 **`getbones`** (blocked: need `^V`→`goto_level`→
+  `makemaz` first).
+- **Prefer:** seed2200 Scr residual or seed0106 `do_attack` over
   parked D-0006.
 - **Named omissions:** Wizard/Priest/Healer `initialspell`; Knight/
   Samurai/Healer/Valkyrie/Ranger/Monk/Archeologist/Barbarian/Caveman
@@ -248,9 +248,10 @@ seed2200 RNG **full** (Scr **199**/230).
   other `seffect_*` / `study_book` / non-hands `doengrave` stylus /
   engraving glyphs / multi-turn dulling; prayer `in_trouble` body /
   `pleased`/crown/fix-trouble / angrygods 4+ / sacrifice / `#turn`;
-  …
+  ParanoidConfirm "yes" getlin; `player_selection` / interactive
+  chargen beyond askname; …
 - **Cohort:** green gate + seed1500 + seed1800 + seed0060 + seed0102
-  + seed0700 + seed1150 (must stay PASS) + strict lengths.
+  + seed0700 + seed1150 + seed0017 (must stay PASS) + strict lengths.
 
 Focused survey:
 
@@ -533,6 +534,10 @@ Module status, constitutional debt, and named omissions live in
     **3465**/3465 Scr **2**/67; seed0106 prefix **2639** (`do_attack`);
     aggregate RNG **91540→91965**; screens **598→599**; green cohort
     PASS; next seed0017 Scr / seed2200 Scr 199 / seed0106 @ 2639
+84. askname splash + ParanoidPray yn (D-0102) — seed0017 **PASS**;
+    public **9/44**; screens **599→718**; RNG **91965** unchanged;
+    green cohort + seed0017 PASS; next seed2200 Scr 199 /
+    seed0106 @ 2639 / seed0077 `player_selection`
 
 Next work is selected from the active objectives above using
 `PORTING-RUNBOOK.md`, not by extending this historical list.
