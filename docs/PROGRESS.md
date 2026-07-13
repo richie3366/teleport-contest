@@ -38,7 +38,7 @@ frozen-file overlay):
 | Metric | Value |
 |--------|------:|
 | Sessions passing | **10 / 44** |
-| Screens matched | **851 / 11,405** (7.46%) |
+| Screens matched | **853 / 11,405** (7.48%) |
 | Positional RNG calls matched | **104,575 / 792,838** (13.19%) |
 | Speed label | `18+0.09/turn` |
 | Working-tree base | `8b71735` + committed port (see `main`) |
@@ -69,7 +69,7 @@ shared blockers, and semantic coverage together—not one vanity metric.
 | `seed0016-healer-newmoon-eat-zap` | **2544 / 3656** | **5 / 36** |
 | `seed0107-samurai-twoweapon-enhance` | **2684 / 2902** | **35 / 98** |
 | `seed0104-knight-ride-combat` | **2394 / 3223** | 1 / 43 |
-| `seed0106-priest-extcmd-sweep` | **4194 / 4194** | **32 / 267** |
+| `seed0106-priest-extcmd-sweep` | **4194 / 4194** | **34 / 267** |
 | `seed0361-archeologist-tour` | **3293 / 53865** | 0 / 366 |
 | `seed0373-barbarian-quest-tour` | **2555 / 35386** | 0 / 124 |
 | `seed0105-valk-chat-lamp-ration` | **987 / 2499** | 0 / 30 |
@@ -125,7 +125,7 @@ autoopen `doopen_indir` (D-0059), `mfndpos` BOULDER/`NODIAG`
 **`#offer`/`#enhance`/`#annotate`/`#overview`/`#version`** (D-0110)
 clear shared peels. seed2200 RNG **full**; Scr **200**/230 (next:
 `dokeylist` @184 after parked RC path @158). seed0106 RNG **full**;
-Scr **32**/267 (next: angrygods `--More--` @13). Healer seed0016 next
+Scr **34**/267 (next: progressive `# c` extcmd @16). Healer seed0016 next
 `next_ident` @ 2493.
 Priest seed0501 still `wipeout_text`. seed0015/0200 next `lspo_map`.
 seed0101 next `next_ident`. seed0013 still breaks earlier in
@@ -221,19 +221,20 @@ autoopen `doopen_indir` (D-0059) + `mfndpos` BOULDER/`ALLOW_ROCK` +
 (D-0113)
 **`option_help` msg_window PREV_MSGS extract** (D-0114)
 **Primary ASCII / `symset:DECgraphics` terrain** (D-0115)
+**angrygods `verbalize` + `adjattrib` You_feel** (D-0116)
 **ported**. Ten public sessions pass end-to-end. **0/44** throw at
 `u_init_role`. seed0700 + seed1150 + seed0017 + seed0077 **PASS**.
-seed0106 RNG **full** (Scr **32**/267); seed2200 RNG **full**
+seed0106 RNG **full** (Scr **34**/267); seed2200 RNG **full**
 (Scr **200**/230).
 
-- **Bounded unit:** seed0106 Scr @13 (angrygods quote/`--More--`) /
+- **Bounded unit:** seed0106 Scr @16 (progressive `# c` extcmd) /
   seed2200 `dokeylist` @184 /
   seed0501/0105 `wipeout_text` / seed0015/0200 `lspo_map` /
   seed0101 `next_ident` / seed0103 `next_ident`/`trquan` /
   seed0030 `maybe_smudge_engr` / seed0361/0373 **`getbones`**
   (blocked: need `^V`→`goto_level`→`makemaz` first).
-- **Prefer:** seed0106 Scr peel or seed2200 `dokeylist` over
-  parked D-0006.
+- **Prefer:** seed0106 extcmd progressive paint or seed2200
+  `dokeylist` over parked D-0006.
 - **Named omissions:** Wizard/Priest/Healer `initialspell`; Knight/
   Samurai/Healer/Valkyrie/Ranger/Monk/Archeologist/Barbarian/Caveman
   `skill_init`; full `x_monnam` hallu/invis/saddle/shk; pony saddle/
@@ -278,10 +279,10 @@ seed0106 RNG **full** (Scr **32**/267); seed2200 RNG **full**
   swap/quiver ynq; other `peffect_*` / IMMEDIATE·RAY `dozap` /
   other `seffect_*` / `study_book` / non-hands `doengrave` stylus /
   engraving glyphs / multi-turn dulling; prayer `in_trouble` body /
-  `pleased`/crown/fix-trouble / angrygods 4+ quote/`--More--` split /
+  `pleased`/crown/fix-trouble / angrygods 4+ /
   sacrifice / `#turn`;
   ParanoidConfirm "yes" getlin; interactive chargen rename-in-confirm /
-  filter UI; `#chat` other MS_*/shop/wall/priest/
+  filter UI; progressive `#` extcmd getline paint; `#chat` other MS_*/shop/wall/priest/
   `night()` howl; `hitval`/`mswings`/HTH `mon_wield`; full hero
   `attack_checks`/Cleaver/twoweapon/`weapon_hit_bonus`/`P_SKILL`/
   `dbon`/passive/knockback-on-live; `pick_lock` CLOSED/LOCKED
@@ -636,6 +637,10 @@ Module status, constitutional debt, and named omissions live in
     **5→32**/267; seed0107 Scr **1→35**; screens **788→851**; RNG
     **104575** unchanged; green cohort PASS; next seed0106 @13
     angrygods `--More--` / seed2200 `dokeylist` @184
+98. angrygods `verbalize` + `adjattrib` You_feel (D-0116) —
+    seed0106 Scr **32→34**/267; screens **851→853**; RNG
+    **104575** unchanged; green cohort PASS; next seed0106 @16
+    progressive `# c` / seed2200 `dokeylist` @184
 
 Next work is selected from the active objectives above using
 `PORTING-RUNBOOK.md`, not by extending this historical list.

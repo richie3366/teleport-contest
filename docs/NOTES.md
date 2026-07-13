@@ -7,11 +7,11 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 
 ## Active
 
-- **Current unit:** D-0114/D-0115 cleared: msg_window extract + Primary
-  ASCII vs `symset:DECgraphics`. Public still **10/44**; Scr **851**.
-- **Hypothesis:** seed0106 next Scr peel @ screen 13 is angrygods
-  second-sentence quotes + `--More--` (not map glyphs). seed2200 next
-  real peel after parked RC path @158 is help `j` → `dokeylist` @184
+- **Current unit:** D-0116 cleared: angrygods `verbalize` + `adjattrib`
+  You_feel. Public still **10/44**; Scr **853**.
+- **Hypothesis:** seed0106 next Scr peel @16 is progressive extcmd
+  getline paint (`# c` / `# ch` vs full `# chat`). seed2200 next real
+  peel after parked RC path @158 is help `j` → `dokeylist` @184
   (`(key list stub)`).
 - **Falsifier / next:**
   ```bash
@@ -49,16 +49,15 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   `option_help` NHW_TEXT from `allopt[]` (D-0091). RC path line is
   harness `$HOME` (elided by `verify-rerecord`); do not bake in
   recording absolute paths.
-- **seed2200 Scr 162 msg_window `(not applicable)` was extractor bug** —
-  `#if PREV_MSGS /* tty or curses */` comments made `eval_expr` fail →
+- **seed2200 Scr 162 msg_window `(not applicable)` was extractor bug**
+  — `#if PREV_MSGS /* tty or curses */` comments made `eval_expr` fail →
   False → else branch (D-0114). Do not hardcode the descr.
 - **seed0106 Scr 5 was NOT enhance/overview-first** — JS forced DEC
   walls/floors without `symset:DECgraphics`; C Primary ASCII (D-0115).
   All current PASS cohort sessions set `symset:DECgraphics`.
-- seed0106 @13 after D-0115: C quotes both angrygods clauses +
-  `--More--`; JS merges second sentence without quotes/more.
-- seed0106 extcmd typing shows full `# chat` early; C paints progressive
-  `# c` / `# ch` (getline/extcmd UI).
+- **seed0106 @13 was verbalize + adjattrib You_feel** — not map glyphs
+  (D-0116). Bare `pline` for relearn + silent adjattrib skipped quotes
+  and the `more()` forced by `You feel foolish!`.
 - seed0106 potion `!` yellow vs NO_COLOR may be `iflags.use_color`
   when `OPTIONS=color` absent — diagnose before forcing monochrome.
 - Door open: C `recalc_block_point` before vision sees through;
@@ -84,3 +83,6 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 - `#pray` / `ublesscnt=300` → `can_pray` p_type **0** (too soon) even
   on coaligned altar; `prayer_done` → `rnz(250)` + `change_luck(-3)` +
   `gods_upset` → `angrygods` (D-0101).
+- angrygods case 2/3: `pline` quote + `verbalize` relearn +
+  `adjattrib(A_WIS,-1,FALSE)` → `You feel foolish!` forces `--More--`
+  on the quote line (D-0116).

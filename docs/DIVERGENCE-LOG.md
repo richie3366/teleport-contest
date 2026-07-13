@@ -119,6 +119,7 @@ Do not record a guessed cause as fixed merely because an RNG prefix moved.
 | D-0113 | fixed | vision/lock/display | door `recalc_block_point` + `pick_lock` D_ISOPEN + DEC open-door `a`; seed0077 PASS |
 | D-0114 | fixed | options/extract | `#if PREV_MSGS /*…*/` comment broke extract → stale `(not applicable)` msg_window |
 | D-0115 | fixed | display/symset | Honor `symset:DECgraphics`; default Primary ASCII walls/floors/open doors |
+| D-0116 | fixed | pray/attrib/pline | angrygods `verbalize` + `adjattrib` You_feel → quote/`--More--`; seed0106 Scr 32→34 |
 
 D-0001 through D-0005 predate the strict-length/cohort runbook. Their focused
 causes are preserved, but generic "green sessions held" is historical evidence,
@@ -3094,5 +3095,30 @@ cohort gates if those functions are touched again.
   (seed0106 potion `!` yellow vs NO_COLOR); `dokeylist`.
 - **Next:** seed0106 @13 angrygods quote/`--More--` split /
   extcmd progressive `# c` paint / seed2200 `dokeylist`.
+
+## D-0116 — angrygods `verbalize` + `adjattrib` You_feel
+
+- **Status:** fixed
+- **Observed:** seed0106 Scr **32**/267 first miss @13: C
+  `"Thou art arrogant, mortal."  "Thou must relearn thy lessons!"--More--`
+  vs JS second clause unquoted and no `--More--`; next key became
+  `Unknown command ' '.` instead of `You feel foolish!`.
+- **C locus:** `pray.c` `angrygods` case 2/3; `pline.c` `verbalize`;
+  `attrib.c` `adjattrib` (`msgflg<=0` → `You_feel("%s!", minusattr)`).
+- **Cause:** JS used bare `pline` for the relearn line (no quotes) and
+  silent `adjattrib`, so `You_feel("foolish!")` never ran and never
+  forced `more()` on the combined quote topline.
+- **Change:** `display.js` `verbalize`/`You_feel`; `attrib.js`
+  `adjattrib` async messaging + ACURR gate; `pray.js` case 2/3 uses
+  `verbalize` + `await adjattrib(..., false)`; `vary_init_attr`/
+  `u_init_inventory_attrs` await the async path.
+- **Verification:** seed0106 Scr **32→34**/267 (screens 13–15 match);
+  next miss @16 progressive `# c` vs `# chat`; green+strict PASS;
+  cohort 1500/1800/0060/0102/0700/1150/0017/0077 PASS; full **10/44**
+  Scr **851→853** RNG **104575**/792838.
+- **Named omission:** Fixed_abil/Dunce/verbose adjattrib; Unaware
+  You_feel dream prefix; angrygods 4+; progressive extcmd paint.
+- **Next:** seed0106 extcmd `# c` progressive getline /
+  seed2200 `dokeylist` @184.
 
 

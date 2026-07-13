@@ -1016,6 +1016,18 @@ export function get_win_stop() {
     return _win_stop;
 }
 
+// C ref: pline.c You_feel — prefix "You feel " (Unaware dream path deferred)
+export async function You_feel(msg) {
+    if (msg == null || msg === '') return;
+    await pline(`You feel ${msg}`);
+}
+
+// C ref: pline.c verbalize — wrap spoken text in double quotes
+export async function verbalize(msg) {
+    if (msg == null || msg === '') return;
+    await pline(`"${msg}"`);
+}
+
 // ── pline ──
 // C ref: topl.c update_topl / addtopl — append if room, else more() then replace
 export async function pline(msg) {

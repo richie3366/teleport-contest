@@ -35,6 +35,21 @@ Use this shape:
 - Next: seed0106 screen 13 angrygods quote/`--More--` split, or
   seed2200 help `j` → `dokeylist` (after parked RC path @158).
 
+## 2026-07-13 10:15 — angrygods verbalize + adjattrib You_feel (D-0116)
+- Objective: seed0106 Scr @13 angrygods quote/`--More--` (PROGRESS).
+- C locus: `pray.c` `angrygods` case 2/3; `pline.c` `verbalize`;
+  `attrib.c` `adjattrib` msgflg≤0 → `You_feel`.
+- Result: **verified** — bare `pline` for relearn + silent `adjattrib`
+  skipped quotes and the `more()` forced by `You feel foolish!`.
+  Ported `verbalize`/`You_feel`; async `adjattrib` messaging.
+- Verification: seed0106 Scr **32→34**/267 (screens 13–15 match);
+  next @16 progressive `# c`; green+strict PASS; cohort
+  1500/1800/0060/0102/0700/1150/0017/0077 PASS; full **10/44** Scr
+  **853** RNG **104575**.
+- Next: seed0106 progressive `# c` extcmd getline paint, or
+  seed2200 `dokeylist` @184 —
+  `node frozen/ps_test_runner.mjs sessions/seed0106-priest-extcmd-sweep.session.json`
+
 ## 2026-07-13 07:55 — askname + ParanoidPray (D-0102)
 - Objective: seed0017 Scr peel (PROGRESS primary).
 - C locus: `wintty.c` `tty_askname`/`tty_init_nhwindows`; `role.c`
