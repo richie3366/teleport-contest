@@ -65,7 +65,8 @@ Do not record a guessed cause as fixed merely because an RNG prefix moved.
 | D-0041 | fixed | ^X enlightenment | autopickup/limits/weapon_descr; Scr 39→41 PASS |
 | D-0060 | fixed | mfndpos | BOULDER/`ALLOW_ROCK` + `NODIAG` (grid bug); seed0700 RNG full |
 | D-0061 | fixed | exper/levelup | `newhp`/`newpw` level-up + `pluslvl` + `#levelchange`; roles `xlev` |
-| D-0062 | fixed | detect/search | `dosearch0` + Searching EOT; next seed0361 needs `^W` wish |
+| D-0062 | fixed | detect/search | `dosearch0` + Searching EOT; next was takeoff then wish |
+| D-0063 | fixed | do_wear/takeoff | `T`/`dotakeoff` + delay-0 `armoroff`; seed0361 past `TcTd` |
 
 D-0001 through D-0005 predate the strict-length/cohort runbook. Their focused
 causes are preserved, but generic "green sessions held" is historical evidence,
@@ -1666,5 +1667,38 @@ cohort gates if those functions are touched again.
 - **Lesson:** L1 Searching roles (Arc/Ran) need EOT `dosearch0` even
   when the player never presses `s`; silent when no adjacent
   SDOOR/SCORR/unseen trap.
-- **Next:** wizard `^W` wish / getlin for seed0361; or shared
-  `getbones` / egg `can_be_hatched` / seed0700 screen / seed0017.
+- **Next:** see D-0063 — first post-dosearch peel was `T` takeoff,
+  not wish; wish follows once `TcTd` is consumed.
+
+## D-0063 — `dotakeoff` (`T`) delay-0 armor
+
+- **Symptom:** seed0361 rng-diff @ **2979**: C `rn2(5)` @
+  `distfleeck` (post-takeoff turn) vs JS `rnl(8)` Searching. Key map
+  is `TcTd\e^Wblessed…`; JS had no `T`, so `^W`/`blessed` leaked and
+  `l`/`s` from the wish string became move/search.
+- **Cause/evidence:** C `dotakeoff` — with 2 worn pieces (fedora +
+  leather jacket) first `T` prompts getobj (`c` = fedora), second `T`
+  auto-removes the remaining piece (`Narmorpieces == 1`). JS treated
+  `T` as unknown.
+- **Rejected:** claiming @ 2979 was solely `^W` wish (wish keys start
+  at RNG **3011** after both takeoffs); treating wish-text `s` as the
+  first peel without checking `TcTd`.
+- **C locus:** `do_wear.c` `dotakeoff`/`count_worn_stuff`/
+  `armor_or_accessory_off`/`armoroff`/`Helmet_off`/`Armor_off`/
+  `off_msg`; `cmd.c` `'T'` → `dotakeoff`.
+- **Change:** new `js/do_wear.js`; `cmd.js` `'T'` → `dotakeoff`.
+  Delay-0 path only (`oc_delay` not in objects extractor); fedora
+  Archeologist `change_luck(-1)`; accessories/cursed/layering basics.
+- **Verification:** green + seed1500/1800/0060 PASS + strict; full
+  **5/44** screens **295** RNG **86053**/792838; seed0361 prefix
+  **2979→3011** (`next_ident` wish mksobj) positional **3054**/53865;
+  seed0700 RNG still full.
+- **Omissions named:** `oc_delay`/occupation `afternmv`; full
+  `Helmet_off` magic helms; dragon armor; `setworn` prop side-effects;
+  `ParanoidRemove`; welded/Glib glove gates; `A` takeoffall;
+  **`^W`/`makewish`/`readobjnam`**.
+- **Lesson:** after `#levelchange`, tour keys often strip armor before
+  wizard wishes — missing `T` looks like wish-text leak at a later
+  index.
+- **Next:** `^W` `wiz_wish`/`makewish`/`readobjnam` for seed0361 @
+  3011; or shared `getbones`/`^V` / egg / seed0700 screen.

@@ -117,10 +117,13 @@ screens **295**/11405; RNG **86026**/792838. `newhp`/`newpw` level-up
 + `pluslvl` + `#levelchange` (D-0061) → seed0361 prefix **2975**
 (`dosearch0`); seed0373 **2549** (`getbones`); screens **295**/11405;
 RNG **86020**/792838. `dosearch0` + Searching EOT (D-0062) →
-seed0361 prefix **2979** (`^W` wish-text); screens **295**/11405;
-RNG **86037**/792838. Next peel: `^W` wish / seed0700 **screen** /
-egg `can_be_hatched` / `exercise` / `dog_move` / `wipeout_text` /
-`lspo_map` / pony `next_ident` / `maybe_smudge_engr` / `getbones`.
+seed0361 prefix **2979** (then `T` takeoff); screens **295**/11405;
+RNG **86037**/792838. `T`/`dotakeoff` (D-0063) → seed0361 prefix
+**3011** (`^W` wish `next_ident`); screens **295**/11405; RNG
+**86053**/792838. Next peel: `^W` wish/`readobjnam` / seed0700
+**screen** / egg `can_be_hatched` / `exercise` / `dog_move` /
+`wipeout_text` / `lspo_map` / pony `next_ident` / `maybe_smudge_engr`
+/ `getbones`.
 `make_corpse` body and `m_initinv` body still absent (named omissions).
 
 ## Data and world generation
@@ -144,7 +147,8 @@ egg `can_be_hatched` / `exercise` / `dog_move` / `wipeout_text` /
 |---|---|---|---|
 | `src/allmain.c` | `js/allmain.js` | partial | Basic move loop and hunger/sound subsets; **`mvitals.mvflags = geno & G_NOCORPSE` at newgame** (D-0057); **`maybe_generate_rnd_mon` → real `makemon(NULL,0,0)`** (D-0034); **`regen_hp` + once-per-turn call** (D-0035); **`u_calc_moveamt` Fast/Very_fast `rn2(3)`** (D-0058); **Searching EOT → `dosearch0(1)`** (D-0062); omit steed `mcalcmove` path / full `youmonst.data->mmove` via `set_uasmon`; `regen_pw`/Teleport/Poly once-per-turn RNG; Upolyd eel hp-loss rolls; Regeneration/Sleepy props; warnreveal |
 | `src/detect.c` `dosearch0` | `js/detect.js` | partial | **8-neighbour SDOOR/SCORR/trap find + fund (lenses)** + `find_trap` message (D-0062); omit feel_location/Blind/unmap_invisible, mfind0 body, Hallucination/cls wait, activate_statue_trap, artifact SPFX_SEARCH, cmd_safety_prevention |
-| `src/cmd.c` / `src/do.c` | `js/cmd.js`, `js/do.js`, `js/getline.js`, `js/wizcmds.js` | partial | Movement/search/apply/kick/wait and selected UI/item commands; Ctrl-D → `dokick` (D-0031); **`.` → `donull`** (D-0033); **autoopen walk-into → `doopen_indir`** (D-0059); **`#` → `doextcmd`/`#levelchange`** (D-0061); **`s`/`continue_search` → `dosearch`** (D-0062); omit full `extcmdlist`, `losexp` drain, `cmd_safety_prevention`, `rest_on_space`, interactive `o`, **`^W` wish** |
+| `src/cmd.c` / `src/do.c` | `js/cmd.js`, `js/do.js`, `js/getline.js`, `js/wizcmds.js` | partial | Movement/search/apply/kick/wait and selected UI/item commands; Ctrl-D → `dokick` (D-0031); **`.` → `donull`** (D-0033); **autoopen walk-into → `doopen_indir`** (D-0059); **`#` → `doextcmd`/`#levelchange`** (D-0061); **`s`/`continue_search` → `dosearch`** (D-0062); **`T` → `dotakeoff`** (D-0063); omit full `extcmdlist`, `losexp` drain, `cmd_safety_prevention`, `rest_on_space`, interactive `o`, **`^W` wish** |
+| `src/do_wear.c` | `js/do_wear.js` | partial | **`dotakeoff`/`count_worn_stuff`/delay-0 `armoroff`/`Helmet_off` fedora luck/`Armor_off`/`off_msg`** (D-0063); omit `oc_delay` occupation, magic helms beyond fedora, dragon armor, `setworn` prop side-effects, `ParanoidRemove`, welded/Glib gates, `A` takeoffall, full accessory off bodies |
 | `src/dokick.c` | `js/dokick.js` | partial | `dokick` + `kick_dumb` (D-0031); `kickedloc` (D-0032); **`kick_ouch` → `losehp`** (D-0035); omit `kick_monster`/`kick_object`/closed-door Whammm/SDOOR-SCORR open/furniture/`martial`/`wake_nearby`/`u_wipe_engr`/`set_wounded_legs`/`kickstr` terrain names |
 | `src/hack.c` `losehp` | `js/hack.js` | partial | **`losehp` !Upolyd / Upolyd mh subtract** (D-0035); `maybe_half_phys` identity until Half_physical prop; omit `showdamage`/`maybe_wail`/`done(DIED)` bodies |
 | `src/apply.c` / `src/lock.c` | `js/apply.js`, `js/lock.js` | partial | `doapply` + `pick_lock` (D-0021); exported `getdir` for kick/apply; getobj missing-letter `continue`+`flush_topl_more` (D-0025); **`doopen_indir` CLOSED autoopen** (D-0059); omit sack/other tools, real door occupation, interactive `o` getdir, `b_trapped`/autounlock, `feel_location` mapseen gating, container-at-feet |

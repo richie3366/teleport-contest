@@ -7,17 +7,16 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 
 ## Active
 
-- **Current unit:** D-0062 fixed `dosearch0` + Searching EOT. seed0361
-  prefix **2975→2979**; next is wish-text leak (`^W` unported).
-- **Hypothesis / next peel:** Prefer wizard `^W` / `dowish` getlin
-  (seed0361 @ 2979: JS rhack reads `blessed` as `e`/`s`) or shared
-  `getbones` (seed0373 @ 2549) / egg `can_be_hatched` (seed0102 @
-  1281) / seed0700 screen / seed0017 @ 2775.
+- **Current unit:** D-0063 fixed `T`/`dotakeoff`. seed0361 prefix
+  **2979→3011**; next is `^W` wish (`next_ident` / Grayswandir mksobj).
+- **Hypothesis / next peel:** Prefer wizard `^W` → `wiz_wish` →
+  `makewish`/`readobjnam` (seed0361 @ 3011) or shared `getbones` via
+  `^V` wizlevelport (seed0373 @ 2549) / egg `can_be_hatched`
+  (seed0102 @ 1281) / seed0700 screen.
 - **Falsifier / next probe:**
   ```bash
   node scripts/rng-diff.mjs sessions/seed0361-archeologist-tour.session.json
-  # Or: node scripts/rng-diff.mjs sessions/seed0373-barbarian-quest-tour.session.json
-  # Or: node scripts/rng-diff.mjs sessions/seed0102-ranger-name-cancel.session.json
+  # Expect first gap at 3011 next_ident until wish ported
   ```
 - **Parked deep canary:** D-0006 pet movement — do not implement until C
   state/candidate capture exists.
@@ -48,7 +47,9 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   `levelchange`; `pluslvl` achievements/livelog/`newuexp`; feel_location/
   Blind/unmap_invisible in `dosearch0`; mfind0 body; Hallucination
   find_trap wait; activate_statue_trap; artifact SPFX_SEARCH fund;
-  `^W` wizard wish; …
+  `oc_delay`/occupation takeoff; magic helm `Helmet_off` beyond fedora
+  luck; dragon armor/`setworn` props; `A` takeoffall; **`^W` wish** /
+  `makewish`/`readobjnam`; …
 
 ## Don’t re-check
 
@@ -246,9 +247,11 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   truncate-at-cursor like C NEWAUTOCOMP, not append after expand.
 - seed0361 `rnl(8)` @ 2975 was **not** dosounds: Archeologist
   `HSearching` → EOT `dosearch0(1)` on adjacent unseen trap; JS never
-  called `dosearch0` — D-0062. Follow-on @ 2979 is **not** another
-  dosearch bug: missing `^W` wish so `"blessed"` leaks into rhack as
-  `e`/`s`.
+  called `dosearch0` — D-0062.
+- seed0361 `rn2(5)` @ 2979 was **not** the wish itself: missing `T`
+  takeoff so `TcTd\e` never ran; wish-text `blessed…` leaked into rhack
+  (`l` move / `s` search). Wish RNG starts at **3011** after both
+  takeoffs — D-0063.
 
 ## Landmarks
 
@@ -301,8 +304,8 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   next prefix **6732** (`maybe_smudge_engr`).
 - seed0373: D-0061 → past `#levelchange`/`newhp`; prefix **2549**
   (`getbones`); positional **2573**/35386.
-- seed0361: D-0062 → past `dosearch0` EOT; prefix **2979** (wish-text
-  `s`); positional **3051**/53865.
+- seed0361: D-0063 → past `T` takeoff; prefix **3011** (`^W` wish
+  `next_ident`); positional **3054**/53865.
 - seed1150: D-0056 → past `peace_minded`; prefix **2915** (`dog_move`);
   positional **2942**/3137 Scr **22**/51.
 - seed0700: D-0060 → RNG **3230**/3230 Scr **2**/51 (screen peel next).
@@ -328,3 +331,7 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   `newpw`; adjabil gainstr can interleave `--More--` (stealthy/quick).
 - Searching EOT: `dosearch0(1)` only emits RNG when adjacent SDOOR/SCORR/
   unseen trap; silent otherwise (D-0062).
+- Archeologist wear: fedora + leather jacket → first `T` getobj, second
+  `T` auto (`Narmorpieces==1`); fedora off → `change_luck(-1)` (D-0063).
+- seed0361 wishes (after takeoff): `blessed +5 Grayswandir`, then SDSM,
+  then amulet of life saving — need `readobjnam` (D-0063 next).

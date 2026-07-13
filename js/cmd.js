@@ -23,6 +23,7 @@ import { do_attack, mon_at, is_safemon } from './uhitm.js';
 import { doopen_indir } from './lock.js';
 import { doextcmd } from './getline.js';
 import { dosearch } from './detect.js';
+import { dotakeoff } from './do_wear.js';
 
 
 // Direction deltas: y u k
@@ -201,6 +202,11 @@ export async function rhack(key) {
         await dosearch();
         game.context.move = 1;
         game.kickedloc = { x: 0, y: 0 };
+    } else if (ch === 'T') {
+        // C ref: do_wear.c dotakeoff — take off armor/accessory
+        const tookTime = await dotakeoff();
+        game.context.move = tookTime ? 1 : 0;
+        if (tookTime) game.kickedloc = { x: 0, y: 0 };
     } else if (ch === 'i') {
         // C ref: invent.c ddoinv / display_inventory
         await ddoinv();

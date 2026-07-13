@@ -704,8 +704,21 @@ Use this shape:
   `allmain.c` Searching EOT; `youprop.h` Searching
 - Result: Archeologist L1 `HSearching` never ran `dosearch0`; ported
   trap/SDOOR/SCORR find + EOT/`s` callers. Cleared C `rnl(8)` @ 2975.
-  Follow-on @ 2979 is missing `^W` wish (rhack eats `"blessed"`).
+  Follow-on @ 2979 looked like wish-text leak; actual next peel was
+  missing `T` takeoff (D-0063).
 - Verification: green + seed1500/1800/0060 PASS + strict; full 5/44
   screens 295 RNG 86037; seed0361 prefix 2975→2979; seed0700 RNG full.
 - Next: `node scripts/rng-diff.mjs sessions/seed0361-archeologist-tour.session.json`
-  — port `^W`/`dowish` (or peel `getbones`/egg/`seed0700` screen).
+  — peel @ 2979 (takeoff, then wish).
+
+## 2026-07-13 02:20 — T/dotakeoff delay-0 armor (D-0063)
+- C locus: `do_wear.c` `dotakeoff`/`count_worn_stuff`/`armoroff`/
+  `Helmet_off`/`Armor_off`/`off_msg`; `cmd.c` `'T'`
+- Result: seed0361 @ 2979 was not wish yet — keys `TcTd\e` strip
+  fedora then jacket; JS unknown-`T` let `blessed…` leak into rhack.
+  Ported delay-0 takeoff + fedora Archeologist luck.
+- Verification: green + seed1500/1800/0060 PASS + strict; full 5/44
+  screens 295 RNG 86053; seed0361 prefix 2979→3011 (`next_ident`
+  wish); seed0700 RNG full.
+- Next: `node scripts/rng-diff.mjs sessions/seed0361-archeologist-tour.session.json`
+  — port `^W`/`wiz_wish`/`makewish`/`readobjnam` @ 3011.
