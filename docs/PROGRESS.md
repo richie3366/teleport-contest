@@ -38,8 +38,8 @@ frozen-file overlay):
 | Metric | Value |
 |--------|------:|
 | Sessions passing | **13 / 44** |
-| Screens matched | **1259 / 11,405** (11.04%) |
-| Positional RNG calls matched | **115,572 / 792,838** (14.58%) |
+| Screens matched | **1268 / 11,405** (11.12%) |
+| Positional RNG calls matched | **118,314 / 792,838** (14.92%) |
 | Speed label | `19+0.08/turn` |
 | Working-tree base | `8b71735` + committed port (see `main`) |
 | Role-init throws | **0 / 44** (`u_init_role: role not ported`) |
@@ -66,7 +66,7 @@ shared blockers, and semantic coverage together—not one vanity metric.
 | `seed0017-samurai-altar-pray` | **3465 / 3465** | **67 / 67** |
 | `seed0030-ten-diverse-deaths` | **7023 / 105529** | **109 / 1953** |
 | `seed0103-knight-ride-pony` | **2344 / 2640** | 2 / 60 |
-| `seed0200-monk-north-search` | **1687 / 3822** | 0 / 40 |
+| `seed0200-monk-north-search` | **3231 / 3822** | **9 / 40** |
 | `seed0101-ranger-quiver-throw-travel-engrave` | **2306 / 2371** | 4 / 27 |
 | `seed0016-healer-newmoon-eat-zap` | **2544 / 3656** | **6 / 36** |
 | `seed0107-samurai-twoweapon-enhance` | **2684 / 2902** | **36 / 98** |
@@ -129,12 +129,12 @@ clear shared peels. seed2200 RNG **full**; Scr **229**/230 (sole miss:
 parked RC path @158). seed0106 **PASS**.
 Healer seed0016 next `next_ident` @ 2493.
 seed0015 next `getbones` @ 2918;
-seed0200 next irregular `somexy` @ 1672.
+seed0200 next `random_engraving`/`get_rnd_text` @ 1768.
 seed0101 next `next_ident`. seed0013 still breaks earlier in
 Lua/`sp_lev`. seed0103 next `next_ident`/`trquan` @ 2337.
 seed0361/0373 `getbones` blocked on unbound `^V`/`goto_level`/
 `makemaz`. seed0077 chargen + vault fallback + door vision/pick_lock/DEC
-open-door (D-0111/D-0112/D-0113) → **PASS**. seed0030 **7033**/105529.
+open-door (D-0111/D-0112/D-0113) → **PASS**. seed0030 **7034**/105529.
 seed0105 RNG **full** (Scr **30**/30).
 **`option_help` msg_window PREV_MSGS extract** (D-0114) + **Primary ASCII /
 `symset:DECgraphics`** (D-0115) → Scr **788→851**.
@@ -303,21 +303,23 @@ autoopen `doopen_indir` (D-0059) + `mfndpos` BOULDER/`ALLOW_ROCK` +
 **Ghost `themeroom_fill`/`selection_rndcoord`** (D-0144)
 **`finddpos_shift` irregular walk** (D-0145)
 **`mksobj_init` OIL_LAMP / TOOL lamps** (D-0146)
+**`occupied` `t_at` + irregular `somexy`** (D-0147)
 **ported**. Thirteen public sessions pass end-to-end. **0/44** throw at
 `u_init_role`. seed0700 + seed1150 + seed0017 + seed0077 + seed0106 +
 seed0501 + seed0105 **PASS**. seed2200 RNG **full** (Scr **229**/230; sole
 miss parked RC @158).
 
-- **Bounded unit:** seed0200 irregular `somexy` /
+- **Bounded unit:** seed0200 `random_engraving`/`get_rnd_text` /
   seed0015 `getbones` (ordinary descent `rn2(3)`) /
   seed0101 `next_ident` /
   seed0103 `next_ident`/`trquan` / seed0030 `maybe_smudge_engr` /
   seed0361/0373 **quest `getbones`** (blocked: need `^V`→`goto_level`→
   `makemaz` first).
-- **Prefer:** irregular `somexy` / ordinary `getbones` / `next_ident` over
-  parked D-0006 and over baking seed2200 RC paths.
+- **Prefer:** `get_rnd_text(ENGRAVEFILE)` / ordinary `getbones` /
+  `next_ident` over parked D-0006 and over baking seed2200 RC paths.
 - **Named omissions:** themerms fill *bodies* beyond Ghost (Temple
-  altars, Ice/Storeroom/…); irregular `somexy` edge/roomno; Blocked center/Pillars/Water vault/
+  altars, Ice/Storeroom/…); `get_rnd_text` engrave file; `invocation_pos`;
+  Blocked center/Pillars/Water vault/
   complex maps; nested `des.room` themerms; `join` arboreal→ROOM;
   FIGURINE `rndmonnum_adj`/`is_human`; candle `oc_cost` age;
   study_book occupation/`learn` / novel/tribute /
@@ -846,6 +848,11 @@ Module status, constitutional debt, and named omissions live in
     **2597→2925**/8563 Scr **1→20**/44; screens **1239→1259**;
     RNG **115097→115572**; green cohort PASS; next irregular `somexy`
     / ordinary `getbones` / `next_ident` / `maybe_smudge_engr`
+125. `occupied` `t_at` + irregular `somexy` (D-0147)
+    — seed0200 prefix **1672→1768** (`random_engraving`);
+    positional **1687→3231**/3822 Scr **0→9**/40; screens
+    **1259→1268**; RNG **115572→118314**; green cohort PASS; next
+    `get_rnd_text(ENGRAVEFILE)` / ordinary `getbones` / `next_ident`
 
 Next work is selected from the active objectives above using
 `PORTING-RUNBOOK.md`, not by extending this historical list.

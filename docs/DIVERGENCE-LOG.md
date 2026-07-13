@@ -149,6 +149,8 @@ Do not record a guessed cause as fixed merely because an RNG prefix moved.
 | D-0143 | fixed | mklev/lspo_map | themerms map rooms → `lspo_map`+`filler_region`; not `rn2(100)`+`create_room` |
 | D-0144 | fixed | themerms/Ghost | Ghost fill: `selection_rndcoord` + create_monster/object |
 | D-0145 | fixed | mklev/finddpos | irregular `finddpos_shift` walk; dig_corridor joins on map rooms |
+| D-0146 | fixed | mkobj/lamp | OIL_LAMP `rn1(500,1000)` + TOOL charged cases in `mksobj_init` |
+| D-0147 | fixed | mklev/occupied | `occupied` needs `t_at`; irregular `somexy`/`inside_room` |
 
 D-0001 through D-0005 predate the strict-length/cohort runbook. Their focused
 causes are preserved, but generic "green sessions held" is historical evidence,
@@ -3898,3 +3900,30 @@ cohort gates if those functions are touched again.
   `getbones` load path.
 - **Next:** seed0200 irregular `somexy` @1672 / seed0015 `getbones`
   @2918 / `next_ident` / `maybe_smudge_engr`.
+
+## D-0147 — occupied t_at + irregular somexy
+
+- **Status:** fixed
+- **Observed:** seed0200 @1672 C second `somex`/`somey` vs JS
+  `mkgold` `rnd(2)` after gold `!rn2(3)` + first `somexyspace`.
+- **Rejected hypothesis:** “JS ignores irregular and accepts first
+  bbox cell.” DIAG on the gold room showed `irreg=false`/`nsub=0`;
+  C’s extra `somex` was `somexyspace` retry after `occupied`.
+- **Cause/evidence:** C `occupied` includes `t_at(x,y)` (and
+  furniture/lava/pool/`invocation_pos`). JS only checked furniture/
+  lava/pool, so gold landed on a trap cell that C rejected. Also
+  ported missing irregular `somexy`/`inside_room` (still required for
+  flood-fill themerms; not the peel writer here).
+- **C locus:** `mklev.c` `occupied`; `mkroom.c` `somexy`/`inside_room`;
+  caller `mklev.c` `fill_ordinary_room` → `somexyspace` → `mkgold`.
+- **Change:** `js/mklev.js` — `occupied` calls `t_at`; irregular
+  `somexy` `!edge`/`roomno` + exhaustive fallback; `inside_room` for
+  subroom rejection. `invocation_pos` still always-false (named).
+- **Verification:** seed0200 prefix **1672→1768**
+  (`random_engraving`); positional **1687→3231**/3822 Scr **0→9**/40;
+  green+strict PASS; PASS cohort 11/11; full **13/44** Scr **1268**
+  RNG **118314**/792838.
+- **Named omission:** `invocation_pos`/`inv_pos`; drawbridge lava in
+  `is_lava`; `get_rnd_text(ENGRAVEFILE)` in `random_engraving`.
+- **Next:** seed0200 `random_engraving`/`get_rnd_text` @1768 /
+  seed0015 `getbones` @2918 / `next_ident` / `maybe_smudge_engr`.

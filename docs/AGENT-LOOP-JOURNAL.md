@@ -27,6 +27,21 @@ Use this shape:
 
 ---
 
+## 2026-07-13 14:55 — occupied t_at + irregular somexy (D-0147)
+- Objective: seed0200 @1672 (PROGRESS primary; NOTES said irregular
+  somexy).
+- C locus: `mklev.c` `occupied`; `mkroom.c` `somexy`/`inside_room`;
+  caller `fill_ordinary_room` → `somexyspace` → `mkgold`.
+- Result: **verified** — peel was missing `t_at` in `occupied` (gold
+  landed on trap; C retried). Irregular-only theory falsified
+  (`irreg=false` on that room). Also ported irregular `somexy`/
+  `inside_room` for flood-fill rooms.
+- Verification: seed0200 1672→1768; Scr 0→9/40; green+strict PASS;
+  cohort 11/11 PASS; full **13/44** Scr **1268** RNG **118314**/792838.
+- Next: seed0200 `random_engraving`/`get_rnd_text(ENGRAVEFILE)` @1768
+  (C `rn2(2894)` vs JS stub `getrumor`/`rn2(2)`), or seed0015
+  `getbones` @2918.
+
 ## 2026-07-13 14:50 — mksobj_init OIL_LAMP / TOOL lamps (D-0146)
 - Objective: seed0015 `mksobj_init` @2513 (PROGRESS primary).
 - C locus: `mkobj.c` `mksobj_init` TOOL_CLASS BRASS_LANTERN/OIL_LAMP;

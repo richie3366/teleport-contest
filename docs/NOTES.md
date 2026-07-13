@@ -7,21 +7,17 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 
 ## Active
 
-- **Current unit:** D-0146 cleared OIL_LAMP/`rn1(500,1000)` in
-  `mksobj_init` TOOL_CLASS (seed0015 2513→2918).
-- **Hypothesis / next:** Prefer seed0200 `somexy` irregular path —
-  C retries `somex`/`somey` when `!edge && roomno` fails; JS
-  `somexy` ignores `irregular` and accepts first bbox cell, so gold
-  `somexyspace` burns one fewer pair before `mkgold` @1672. Else
-  seed0015 `getbones` @2918 — C burns `rn2(3)` while JS already in
-  `makelevel` `rn2(5)` (suspect explore/discover early-return or
-  skipped `mklev`/`getbones` on descent). Else `next_ident` /
-  `maybe_smudge_engr`. Quest `getbones` still blocked on
-  `^V`→`goto_level`→`makemaz`.
+- **Current unit:** D-0147 cleared `occupied` `t_at` + irregular `somexy`
+  (seed0200 1672→1768).
+- **Hypothesis / next:** Prefer seed0200 `random_engraving` @1768 —
+  C `!rn2(4)` then `getrumor` fails → `get_rnd_text(ENGRAVEFILE,…,rn2)`
+  burns `rn2(2894)`; JS stub re-calls `getrumor`/`rn2(2)`. Else
+  seed0015 `getbones` @2918 / `next_ident` / `maybe_smudge_engr`.
+  Quest `getbones` still blocked on `^V`→`goto_level`→`makemaz`.
 - **Falsifier / next:**
   ```bash
   node scripts/rng-diff.mjs sessions/seed0200-monk-north-search.session.json
-  # expect fill_ordinary_room/somex — after irregular somexy, mkgold aligns
+  # expect get_rnd_text / engrave-file draw — not getrumor rn2(2)
   node scripts/rng-diff.mjs sessions/seed0015-valk-level2-pit-dog-wait.session.json
   # expect getbones rn2(3) match — not makelevel rn2(5) first
   ```
@@ -181,7 +177,7 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   never `build_room`’s `rn2(100)` (D-0143). Do not burn chance then
   `create_room` for L/S/T/Z/Cross/… maps.
 - **seed0015 @357 was Ghost fill body, not dig_corridor** — reservoir
-  picked Ghost; need `selection_rndcoord` + monster/loot (D-0144). Do not
+  picked Ghost; need `selection_rndcoord` + spawn/loot (D-0144). Do not
   skip to corridor join when fill name is set but contents empty.
 - **`create_monster` always burns `induced_align(80)`** for
   `AM_SPLEV_RANDOM` even when `makemon` (not `mk_roamer`) is used
@@ -192,6 +188,10 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 - **seed0015 @2513 was missing OIL_LAMP `mksobj_init`** — Valkyrie
   `!rn2(6)` Lamp; C `rn1(500,1000)`+`blessorcurse(5)`; JS TOOL_CLASS
   skipped lamps entirely (D-0146). Do not skip lamp age as “spe-only”.
+- **seed0200 @1672 was NOT irregular `somexy` alone** — gold room was
+  ordinary `irreg=false`; C `somexyspace` retried after `occupied` saw
+  a trap via `t_at`; JS `occupied` omitted traps (D-0147). Irregular
+  `somexy`/`inside_room` still needed for flood-fill rooms.
 
 ## Landmarks
 
@@ -303,3 +303,7 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 - OIL_LAMP/BRASS_LANTERN: `spe=1`, `age=rn1(500,1000)`, `lamplit=0`,
   `blessorcurse(5)`; MAGIC_LAMP: `spe=1`, `lamplit=0`, `blessorcurse(2)`
   (D-0146). Candle `age=20*oc_cost` needs `oc_cost` in objects extract.
+- `occupied`: `t_at` OR furniture OR lava/pool OR `invocation_pos`
+  (D-0147). `somexyspace` retries `somexy` when occupied; looks like
+  irregular retry in rng-diff. `invocation_pos` still always-false
+  until `inv_pos`/`Invocation_lev` exist.

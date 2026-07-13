@@ -38,7 +38,7 @@ import {
     objectNames,
 } from './objects.js';
 import { setgemprobs } from './o_init.js';
-import { maketrap } from './trap.js';
+import { maketrap, t_at } from './trap.js';
 import {
     mkobj, mksobj, mksobj_at, mkobj_at, mkgold, mkcorpstat, next_ident,
     curse, bless, blessorcurse, place_object, add_to_buried, weight, OBJ,
@@ -1803,27 +1803,74 @@ function makecorridors() {
 function somex(croom) { return rn1(croom.hx - croom.lx + 1, croom.lx); }
 function somey(croom) { return rn1(croom.hy - croom.ly + 1, croom.ly); }
 
+// C ref: mkroom.c inside_room()
+function inside_room(croom, x, y) {
+    if (croom.irregular) {
+        const i = (croom.roomnoidx ?? -1) + ROOMOFFSET;
+        const loc = game.level.at(x, y);
+        return !!(loc && !loc.edge && loc.roomno === i);
+    }
+    return x >= croom.lx - 1 && x <= croom.hx + 1
+        && y >= croom.ly - 1 && y <= croom.hy + 1;
+}
+
+// C ref: mkroom.c somexy() — irregular rejects bbox cells with edge/wrong roomno
 function somexy(croom, c) {
+    let try_cnt = 0;
+
+    if (croom.irregular) {
+        const i = (croom.roomnoidx ?? -1) + ROOMOFFSET;
+        while (try_cnt++ < 100) {
+            c.x = somex(croom);
+            c.y = somey(croom);
+            const loc = game.level.at(c.x, c.y);
+            if (loc && !loc.edge && loc.roomno === i) return true;
+        }
+        for (c.x = croom.lx; c.x <= croom.hx; c.x++) {
+            for (c.y = croom.ly; c.y <= croom.hy; c.y++) {
+                const loc = game.level.at(c.x, c.y);
+                if (loc && !loc.edge && loc.roomno === i) return true;
+            }
+        }
+        return false;
+    }
+
     if (!croom.nsubrooms) {
         c.x = somex(croom);
         c.y = somey(croom);
         return true;
     }
-    let try_cnt = 0;
+
+    // Check that coords don't fall into a subroom or into a wall
     while (try_cnt++ < 100) {
         c.x = somex(croom);
         c.y = somey(croom);
         const loc = game.level.at(c.x, c.y);
         if (loc && IS_WALL(loc.typ)) continue;
-        return true;
+        let in_sub = false;
+        for (let i = 0; i < croom.nsubrooms; i++) {
+            if (inside_room(croom.sbrooms[i], c.x, c.y)) {
+                in_sub = true;
+                break;
+            }
+        }
+        if (in_sub) continue;
+        break;
     }
-    return false;
+    if (try_cnt >= 100) return false;
+    return true;
 }
 
+// C ref: mklev.c occupied() — traps/furniture/lava/pool/invocation
 function occupied(x, y) {
+    if (!isok(x, y)) return false;
     const loc = game.level.at(x, y);
     if (!loc) return false;
-    return !!(IS_FURNITURE(loc.typ) || loc.typ === LAVAPOOL || IS_POOL(loc.typ));
+    // invocation_pos: omitted until inv_pos/Invocation_lev exist (always false)
+    return !!(t_at(x, y)
+        || IS_FURNITURE(loc.typ)
+        || loc.typ === LAVAPOOL || loc.typ === LAVAWALL
+        || IS_POOL(loc.typ));
 }
 
 function somexyspace(croom, c) {
