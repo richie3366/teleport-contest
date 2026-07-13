@@ -91,6 +91,9 @@ Do not record a guessed cause as fixed merely because an RNG prefix moved.
 | D-0085 | fixed | pager/checkfile | NHW_MENU `process_text_window` + CR/tabexpand; seed2200 Scr 113→117 |
 | D-0086 | fixed | objnam/doname | SCR/SPE/RIN/WAN `… of` + bimanual `hands` + `oc_big`; invent @i |
 | D-0087 | fixed | pager look_all | NHW_TEXT more@23 + coords/glyph + shown-filter + statue/engr |
+| D-0088 | fixed | version/doextversion | OPTIONS_AT_RUNTIME options+windowing+soundlib+Lua license pages |
+| D-0089 | fixed | NHW_TEXT dmore | `xwaitforspace(quitchars)` — non-space keys stay on page |
+| D-0090 | fixed | pager/dowhatdoes | tip+`What command?`+`key2extcmddesc`; seed2200 Scr 167→176 |
 
 D-0001 through D-0005 predate the strict-length/cohort runbook. Their focused
 causes are preserved, but generic "green sessions held" is historical evidence,
@@ -2386,3 +2389,47 @@ cohort gates if those functions are touched again.
   license page (seed2200 @ 110); S_engrcorr/grave headstone.
 - **Next:** seed2200 `display_file`/license @ screen 110 /
   seed0017 terrain / seed1150.
+
+## D-0088 — seed2200 doextversion runtime options / Lua license
+
+- **Status:** fixed
+- **Observed:** seed2200 Scr 167/230; first miss screen 109 — C has
+  full options wrap through `browser…5.0.0 only`, windowing/soundlib/
+  Lua copyright, then page 2 Permission block; JS truncated at
+  `prefix, Lua interpreter version: 5.4` and mis-indented license.
+- **C locus:** `version.c` `doextversion` OPTIONS_AT_RUNTIME +
+  `mdlib.c` `build_options` / `do_runtime_info` / `lua_info[]`;
+  outdented headers insert blank separators.
+- **Change:** `doextversion_runtime_lines()` matching contest MacOS
+  tty/nosound feature set + 5-space Permission continuation.
+- **Verification:** with D-0089/D-0090; seed2200 Scr **167→176**/230.
+
+## D-0089 — NHW_TEXT dmore quitchars
+
+- **Status:** fixed
+- **Observed:** history page at Benson: C stays for keys `?`/`e` then
+  ESC; JS advanced on any key into Bill Dyer pages C never shows.
+- **C locus:** `wintty.c` `dmore` → `getline.c` `xwaitforspace(quitchars)`
+  with `quitchars=" \\r\\n\\033"` (`decl.c`); ESC → WIN_CANCELLED.
+- **Change:** `text_page_wait()` / `show_text_pages` only accept
+  space/CR/LF/ESC; other keys stay on page (capture boundaries kept).
+- **Verification:** history pages through ESC match; green cohort PASS.
+
+## D-0090 — seed2200 dowhatdoes
+
+- **Status:** fixed
+- **Observed:** after history, help `f`: C `Ask about…--More--` then
+  `What command?` then `i       show your inventory (#inventory).`;
+  JS stub dumped full keyhelp as NHW_TEXT.
+- **C locus:** `pager.c` `dowhatdoes` / `dowhatdoes_core` /
+  `whatdoes_help`; `cmd.c` `key2extcmddesc` / `key2txt`.
+- **Change:** tip-once + more; yn-style prompt; `key2extcmddesc` for
+  rhack-bound letters; `&`/`?` → stripped KEYHELP pages.
+- **Verification:** seed2200 Scr **167→176**/230 (prefix through 157);
+  green + cohort PASS + strict; full **7/44**, screens
+  **536→545**/11405, RNG **91371**/792838.
+- **Named omission:** full `key2extcmddesc` misc_keys/number_pad/
+  rush-run; `option_help` (help `g`); dokeylist; contact; cmdhelp
+  `&?` conditionals (#if 0 in C).
+- **Next:** seed2200 `option_help` @ screen 158 / seed0017 terrain /
+  seed1150.

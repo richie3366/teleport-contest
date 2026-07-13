@@ -21,6 +21,20 @@ Use this shape:
 
 ---
 
+## 2026-07-13 05:40 — seed2200 doextversion + quitchars + dowhatdoes (D-0088–90)
+- C locus: `version.c` `doextversion` / `mdlib.c` `build_options`;
+  `wintty.c` `dmore` → `xwaitforspace(quitchars)`; `pager.c`
+  `dowhatdoes`/`dowhatdoes_core`/`whatdoes_help`; `cmd.c`
+  `key2extcmddesc`/`key2txt`
+- Result: **verified faithful change** — About options+Lua license
+  pages; NHW_TEXT ignores non-quitchars; help `f` tip+prompt+
+  inventory desc. seed2200 Scr **176**/230 (was 167).
+- Verification: seed2200 3018/3018 Scr 176/230; green + cohort
+  PASS + strict; full **7/44**, screens **545**/11405, RNG
+  **91371**/792838.
+- Next: `node frozen/ps_test_runner.mjs sessions/seed2200-wizard-quaff-zap-read.session.json`
+  — peel `option_help` @ screen 158.
+
 ## 2026-07-13 05:25 — seed2200 look_all/look_engrs NHW_TEXT (D-0087)
 - C locus: `pager.c` `look_all`/`look_engrs`/`self_lookat`/
   `look_at_monster`; `wintty.c` NHW_TEXT `process_text_window`;

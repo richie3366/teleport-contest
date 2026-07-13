@@ -38,8 +38,8 @@ frozen-file overlay):
 | Metric | Value |
 |--------|------:|
 | Sessions passing | **7 / 44** |
-| Screens matched | **536 / 11,405** (4.70%) |
-| Positional RNG calls matched | **91,379 / 792,838** (11.53%) |
+| Screens matched | **545 / 11,405** (4.78%) |
+| Positional RNG calls matched | **91,371 / 792,838** (11.52%) |
 | Speed label | `17+0.08/turn` |
 | Working-tree base | `8b71735` + committed port (see `main`) |
 | Role-init throws | **0 / 44** (`u_init_role: role not ported`) |
@@ -59,7 +59,7 @@ shared blockers, and semantic coverage together—not one vanity metric.
 | `seed0060-orc-rogue-kick-search` | **3626 / 3626** | **41 / 41** |
 | `seed0102-ranger-name-cancel` | **4485 / 4485** | **25 / 25** |
 | `seed0700-samurai-explore-descend` | **3230 / 3230** | **51 / 51** |
-| `seed2200-wizard-quaff-zap-read` | **3018 / 3018** | **167 / 230** |
+| `seed2200-wizard-quaff-zap-read` | **3018 / 3018** | **176 / 230** |
 | `seed0017-samurai-altar-pray` | **3169 / 3465** | **2 / 67** |
 | `seed1150-caveman-explore-move` | **3042 / 3137** | **22 / 51** |
 | `seed0030-ten-diverse-deaths` | **7036 / 105529** | **39 / 1953** |
@@ -103,9 +103,10 @@ autoopen `doopen_indir` (D-0059), `mfndpos` BOULDER/`NODIAG`
 **`getpos` `HJKLYUBN` rush + `truncate_to_map`** (D-0084),
 **`checkfile` NHW_MENU + tabexpand/CR** (D-0085), and
 **doname SCR/SPE/RIN/WAN + bimanual/`oc_big`** (D-0086), and
-**look_all/look_engrs NHW_TEXT** (D-0087)
-clear shared peels. seed2200 RNG **full**; Scr **167**/230 (next:
-`display_file`/license @ screen 110). seed0017 next @ 3132 `dog_move`
+**look_all/look_engrs NHW_TEXT** (D-0087), and
+**doextversion / NHW_TEXT quitchars / dowhatdoes** (D-0088–90)
+clear shared peels. seed2200 RNG **full**; Scr **176**/230 (next:
+`option_help` @ screen 158). seed0017 next @ 3132 `dog_move`
 (terrain); seed0030 next `maybe_smudge_engr` @ 6732.
 Healer seed0016 next `next_ident` @ 2493; Caveman seed1150
 prefix **3042** (`dog_move`); Priest seed0501 still
@@ -169,13 +170,16 @@ autoopen `doopen_indir` (D-0059) + `mfndpos` BOULDER/`ALLOW_ROCK` +
 **getpos `HJKLYUBN` rush + `truncate_to_map`** (D-0084) +
 **`checkfile` NHW_MENU `process_text_window`** (D-0085) +
 **doname SCR/SPE/RIN/WAN + bimanual/`oc_big`** (D-0086) +
-**look_all/look_engrs NHW_TEXT coords/glyph/shown-filter** (D-0087)
+**look_all/look_engrs NHW_TEXT coords/glyph/shown-filter** (D-0087) +
+**doextversion runtime options/Lua license** (D-0088) +
+**NHW_TEXT `dmore` quitchars** (D-0089) +
+**`dowhatdoes`** (D-0090)
 **ported**. Seven public sessions pass end-to-end. **0/44**
 throw at `u_init_role`. seed0700 **PASS**. seed0017 prefix
-**3132** (`dog_move`). seed2200 RNG **full** (Scr **167**/230 —
-next `display_file`/license @ screen 110).
+**3132** (`dog_move`). seed2200 RNG **full** (Scr **176**/230 —
+next `option_help` @ screen 158).
 
-- **Bounded unit:** seed2200 **screen** peel (`display_file` @ 110) /
+- **Bounded unit:** seed2200 **screen** peel (`option_help` @ 158) /
   seed0017 @ 3132 `dog_move` terrain / seed1150 `dog_move` /
   seed0501/0105 `wipeout_text` / seed0015/0200 `lspo_map` /
   seed0101 `next_ident` / seed0103 `next_ident`/`trquan` /
@@ -459,6 +463,10 @@ Module status, constitutional debt, and named omissions live in
     **117→167**/230; screens **486→536**; RNG **91380→91379**;
     green cohort PASS; next seed2200 `display_file`/license @
     screen 110 / seed0017 terrain / seed1150
+72. doextversion + NHW_TEXT quitchars + dowhatdoes (D-0088/89/90)
+    — seed2200 Scr **167→176**/230; screens **536→545**; RNG
+    **91379→91371**; green cohort PASS; next seed2200
+    `option_help` @ screen 158 / seed0017 terrain / seed1150
 
 Next work is selected from the active objectives above using
 `PORTING-RUNBOOK.md`, not by extending this historical list.

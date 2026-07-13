@@ -96,16 +96,36 @@ function tabexpand(s) {
  * NHW_TEXT forces maxcol=cols → offx=0 fullscreen; after lines, H2344
  * cl_eos from cury+1; --More-- on rows-1; dmore offset 1 → cursor [8,23].
  */
+/**
+ * C ref: wintty.c dmore → getline.c xwaitforspace(quitchars)
+ * quitchars = " \\r\\n\\033". Non-matching keys bell and stay on the page
+ * (each nhgetch is still a capture boundary). ESC cancels (WIN_CANCELLED).
+ * @returns {Promise<boolean>} true if ESC cancelled
+ */
+async function text_page_wait() {
+    for (;;) {
+        const c = await nhgetch();
+        if (c === 27) return true;
+        if (c === 32 || c === 13 || c === 10) return false;
+        // tty_nhbell(); ignore
+    }
+}
+
+/**
+ * C ref: wintty.c process_text_window NHW_TEXT + H2344 putstr page-at-a-time.
+ * @returns {Promise<boolean>} true if ESC cancelled remaining pages
+ */
 async function show_text_pages(lines, { moreAtEnd = true } = {}) {
     const disp = game.nhDisplay;
     if (!disp) {
         await nhgetch();
-        return;
+        return false;
     }
     const cols = disp.cols || 80;
     const rows = 24;
     const pageRows = rows - 1; // leave bottom for --More-- / (end)
     let offset = 0;
+    let cancelled = false;
     while (offset < lines.length || (offset === 0 && lines.length === 0)) {
         game._menu_overlay = true;
         game._pending_message = '';
@@ -131,13 +151,15 @@ async function show_text_pages(lines, { moreAtEnd = true } = {}) {
         // C dmore NHW_TEXT: cursor after prompt; help_dir uses [8,23] for "--More--"
         disp.setCursor(footer.startsWith('--More--') ? 8 : footer.length, moreRow);
         await flush_screen(1);
-        await nhgetch();
+        cancelled = await text_page_wait();
+        if (cancelled) break;
         offset += pageRows;
         if (last) break;
     }
     game._menu_overlay = false;
     await docrt();
     await flush_screen(1);
+    return cancelled;
 }
 
 /**
@@ -908,14 +930,15 @@ export async function dowhatis() {
 }
 
 /**
- * C ref: version.c doextversion — version text + runtime options;
- * triggers get_lua_version → nhlib shuffle once.
+ * C ref: mdlib.c build_options + version.c doextversion OPTIONS_AT_RUNTIME
+ * path (do_runtime_info). Contest MacOS tty/nosound feature set; :PATMATCH:
+ * / :LUACOPYRIGHT: already substituted (posixregex / Lua copyright).
+ * Outdented headers get a blank separator; blank/prolog lines are skipped.
  */
-async function doextversion() {
-    get_lua_version_shuffle();
-    const lines = [
-        'MacOS NetHack Version 5.0.0 - last build May  2 2026 12:00:00.',
-        '',
+function doextversion_runtime_lines() {
+    // C putstr order after getversionstring; prolog "    NetHack version…"
+    // from build_options is skipped by doextversion's prolog flag.
+    const runtime = [
         'Options compiled into this edition:',
         '    I32LP64 data model, color, data file compression, deferred handling of',
         '    hangup signal, insurance files for recovering from crashes, live logging',
@@ -926,38 +949,168 @@ async function doextversion() {
         '    clipping, shell command, traditional status display, status via',
         '    windowport with highlighting, suspend command, terminal info library,',
         '    system configuration at run-time, show stack trace on error, launch',
-        '    prefix, Lua interpreter version: 5.4',
-        '',
+        '    browser to report issues, save and bones files accepted from version',
+        '    5.0.0 only, and basic NetHack features.',
+        'Supported windowing system:',
+        '    "tty" (traditional text with optional line-drawing).',
+        'Supported soundlib:',
+        '    "nosound".',
+        "NetHack 5.0.* uses the 'Lua' interpreter to process some data:",
+        '    Lua 5.4.8  Copyright (C) 1994-2025 Lua.org, PUC-Rio',
+        // mdlib.lua_info Permission block (5-space continuation indent)
         '    "Permission is hereby granted, free of charge, to any person obtaining',
-        'a copy of this software and associated documentation files (the',
-        '"Software"), to deal in the Software without restriction including',
-        'without limitation the rights to use, copy, modify, merge, publish,',
-        'distribute, sublicense, and/or sell copies of the Software, and to',
-        'permit persons to whom the Software is furnished to do so, subject to',
-        'the following conditions:',
-        'The above copyright notice and this permission notice shall be',
-        'included in all copies or substantial portions of the Software."',
+        '     a copy of this software and associated documentation files (the',
+        '     "Software"), to deal in the Software without restriction including',
+        '     without limitation the rights to use, copy, modify, merge, publish,',
+        '     distribute, sublicense, and/or sell copies of the Software, and to',
+        '     permit persons to whom the Software is furnished to do so, subject to',
+        '     the following conditions:',
+        '     The above copyright notice and this permission notice shall be',
+        '     included in all copies or substantial portions of the Software."',
     ];
-    // Two logical pages matching session (version then license) — page at 21
+    const out = [];
+    for (const buf of runtime) {
+        if (buf && buf[0] !== ' ') out.push(''); // outdented header separator
+        if (!buf) continue;
+        out.push(buf);
+    }
+    return out;
+}
+
+/**
+ * C ref: version.c doextversion — version text + runtime options;
+ * triggers get_lua_version → nhlib shuffle once.
+ */
+async function doextversion() {
+    get_lua_version_shuffle();
+    // C getversionstring → nomakedefs.version_id (runner normalizes date).
+    const lines = [
+        'MacOS NetHack Version 5.0.0 - last build May  2 2026 12:00:00.',
+        ...doextversion_runtime_lines(),
+    ];
     await show_text_pages(lines);
     return 0;
 }
 
-async function dowhatdoes_stub() {
-    // C: prompt for a key then show keyhelp; seed uses space then 'i' then '?'
-    game._pending_message = 'What command do you want to know about? ';
-    await flush_screen(1);
-    for (;;) {
-        const key = await nhgetch();
-        if (key === 27) {
-            game._pending_message = '';
-            return;
-        }
-        // After a command char, show a short stub page then return
-        game._pending_message = '';
-        await display_file('keyhelp', true);
+/**
+ * C ref: cmd.c key2txt — short label for one-byte key.
+ */
+function key2txt(c) {
+    if (c === 32) return '<space>';
+    if (c === 27) return '<esc>';
+    if (c === 10 || c === 13) return '<enter>';
+    if (c === 127) return '<del>';
+    if (c >= 1 && c <= 26) return `^${String.fromCharCode(c + 64)}`;
+    return String.fromCharCode(c);
+}
+
+/**
+ * C ref: cmd.c key2extcmddesc — description for a command key.
+ * Branch envelope: letters bound in rhack/cmd.js + common meta; full
+ * misc_keys / number_pad / rush-run prefixes deferred.
+ */
+function key2extcmddesc(key) {
+    const ch = typeof key === 'number' ? String.fromCharCode(key) : String(key);
+    /** @type {Record<string, [string, string]>} ef_desc, ef_txt */
+    const binds = {
+        i: ['show your inventory', 'inventory'],
+        ':': ['look here', 'look'],
+        ',': ['pick up things', 'pickup'],
+        '.': ['rest one move', 'wait'],
+        s: ['search for traps and secret doors', 'search'],
+        o: ['open a door', 'open'],
+        c: ['close a door', 'close'],
+        a: ['apply (use) something', 'apply'],
+        e: ['eat something', 'eat'],
+        q: ['quaff (drink) something', 'quaff'],
+        r: ['read a scroll or spellbook', 'read'],
+        z: ['zap a wand', 'zap'],
+        t: ['throw something', 'throw'],
+        f: ['fire ammunition', 'fire'],
+        w: ['wield a weapon', 'wield'],
+        W: ['wear armor', 'wear'],
+        T: ['take off armor', 'takeoff'],
+        P: ['put on an accessory', 'puton'],
+        R: ['remove an accessory', 'remove'],
+        E: ['engrave into the floor', 'engrave'],
+        d: ['drop an item', 'drop'],
+        '/': ['identify a glyph or creature', 'whatis'],
+        '?': ['get this help menu', 'help'],
+        '<': ['go up a staircase', 'up'],
+        '>': ['go down a staircase', 'down'],
+        '_': ['travel to a map location', 'travel'],
+        ' ': ['rest one move', 'wait'],
+    };
+    const b = binds[ch];
+    if (!b) return null;
+    return `${b[0]} (#${b[1]})`;
+}
+
+/**
+ * C ref: pager.c whatdoes_help — page KEYHELP with leading WS stripped.
+ */
+async function whatdoes_help() {
+    const raw = readDat('keyhelp');
+    if (!raw) {
+        await pline('Cannot open "keyhelp" data file!');
+        await more();
         return;
     }
+    const lines = [];
+    for (const line of raw.replace(/\r\n/g, '\n').split('\n')) {
+        if (line.startsWith('#')) continue;
+        let p = 0;
+        while (p < line.length && (line[p] === ' ' || line[p] === '\t')) p++;
+        lines.push(line.slice(p));
+    }
+    while (lines.length && lines[lines.length - 1] === '') lines.pop();
+    await show_text_pages(lines);
+}
+
+/**
+ * C ref: pager.c dowhatdoes_core — key2extcmddesc → "%-8s%s.".
+ */
+function dowhatdoes_core(q) {
+    const ec = key2extcmddesc(q);
+    if (!ec) return null;
+    const keybuf = key2txt(q).padEnd(8, ' ');
+    return `${keybuf}${ec}.`;
+}
+
+/**
+ * C ref: pager.c dowhatdoes — tip once, yn_function "What command?", describe.
+ */
+async function dowhatdoes() {
+    if (!game._whatdoes_once) {
+        await pline("Ask about '&' or '?' to get more info.");
+        // C: previous topline / yn_function path surfaces --More-- before prompt
+        await more();
+        game._whatdoes_once = true;
+    }
+    // C: yn_function("What command?", NULL, '\0', TRUE) — prompt + one key
+    game._pending_message = 'What command? ';
+    await flush_screen(1);
+    const disp = game.nhDisplay;
+    if (disp?.setCursor) disp.setCursor(14, 0); // after "What command? "
+    const q = await nhgetch();
+    game._pending_message = '';
+    const reslt = dowhatdoes_core(q);
+    if (reslt) {
+        if (q === 38 || q === 63) await whatdoes_help(); // '&' or '?'
+        const nl = reslt.indexOf('\n');
+        if (nl < 0) {
+            await pline(reslt);
+        } else {
+            await pline(`${reslt.slice(0, nl)},`);
+            await pline(`${reslt.slice(0, 8)}${reslt.slice(nl + 1)}`);
+        }
+    } else {
+        const label = key2txt(q);
+        await pline(
+            `No such command '${label}', char code ${q} (0${q.toString(8).padStart(3, '0')} or 0x${q.toString(16).padStart(2, '0')}).`,
+        );
+    }
+    return 0;
 }
 
 /**
@@ -971,7 +1124,7 @@ export async function dohelp() {
         { key: 'c', text: 'List of game commands.', fn: () => display_file('hh', true) },
         { key: 'd', text: 'Concise history of NetHack.', fn: () => display_file('history', true) },
         { key: 'e', text: 'Info on a character in the game display.', fn: dowhatis },
-        { key: 'f', text: 'Info on what a given key does.', fn: dowhatdoes_stub },
+        { key: 'f', text: 'Info on what a given key does.', fn: dowhatdoes },
         { key: 'g', text: 'List of game options.', fn: async () => {
             await pline('(option help stub)');
             await more();

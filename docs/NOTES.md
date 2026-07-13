@@ -7,19 +7,18 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 
 ## Active
 
-- **Current unit:** after D-0087 seed2200 Scr **117→167**/230
-  (look_all/look_engrs NHW_TEXT). Prefer seed2200 @ screen 110
-  `display_file`/license quote / seed0017 @ 3132 terrain /
-  seed1150 `dog_move`.
-- **Hypothesis (seed2200 Scr 167/230):** screen 110 — C pages
-  license/`Permission is hereby granted…` as NHW_TEXT; JS still on
-  map (wrong branch or empty `display_file` path for that help item).
+- **Current unit:** after D-0088/89/90 seed2200 Scr **167→176**/230
+  (doextversion + NHW_TEXT quitchars + dowhatdoes). Prefer seed2200
+  @ screen 158 `option_help` / seed0017 @ 3132 terrain / seed1150
+  `dog_move`.
+- **Hypothesis (seed2200 Scr 176/230):** screen 158 — C `option_help`
+  NHW_TEXT lists boolean options + rc path; JS help `g` still
+  `(option help stub)`.
 - **Falsifier / next probe:**
   ```bash
   node frozen/ps_test_runner.mjs sessions/seed2200-wizard-quaff-zap-read.session.json
   ```
-  Diff screen 110; cite C `dohelp`/`display_file`/`nh_copyright` vs
-  JS help menu handlers.
+  Diff screen 158; cite C `options.c` `option_help` vs JS dohelp `g`.
 - **Parked seed0017 @ 3132:** JS `mfndpos` cnt=4 at pet (30,5); C emits
   3× `rn2(12)`. Adding walkable `(30,4)` yields exactly 3× `rn2(12)`.
   JS has VWALL at (30,4); C screen shows floor. Diagnose join/
@@ -106,6 +105,13 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   `look_all` is NHW_TEXT (`--More--` on row 23); lines need MAP
   `%8s` coords + glyph + `look_at_monster`/`self_lookat`; filter
   by currently shown glyphs not raw `objects_at` (D-0087).
+- seed2200 Scr 167 @ screen 109 was **not** license `display_file` —
+  About `doextversion` truncated options + wrong Permission indent
+  (D-0088). Screen 110 is page-2 Lua MIT text.
+- seed2200 history stay on Benson for `?`/`e` was **not** a shorter
+  history file — NHW_TEXT `dmore` ignores non-quitchars (D-0089).
+- seed2200 help `f` was **not** `display_file('keyhelp')` — real
+  `dowhatdoes` tip + `What command?` + `key2extcmddesc` (D-0090).
 - `more()` word-wrap of message text must only fire when len≥CO —
   wrapping at CO-8 breaks welcome `--More--` (seed0900).
 
@@ -168,3 +174,9 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   `look_shown_at` (cansee/mon_visible); STATUE `of a <pm>`;
   look_engrs: no y-pad, one space after glyph, S_engroom `` ` ``,
   `remembered text` + obscured-by (D-0087).
+- doextversion: blank before outdented headers; Lua Permission uses
+  5-space continuation indent (D-0088).
+- NHW_TEXT `dmore`: quitchars only; ESC cancels remaining pages
+  (D-0089).
+- dowhatdoes: once tip + more; `What command? ` cursor col 14;
+  `%-8s` key + `ef_desc (#ef_txt).` (D-0090).
