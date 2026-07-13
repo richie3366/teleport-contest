@@ -184,7 +184,7 @@ Do not record a guessed cause as fixed merely because an RNG prefix moved.
 | D-0178 | fixed | dig/mdig_tunnel | tunnels/`ALLOW_DIG`/`mdig_tunnel` postmov rnd(12) |
 | D-0179 | fixed | mhitm/get_mattk | extracted mattk[] + AT_WEAP=254 (not AT_SPIT=10) |
 | D-0180 | fixed | monmove/digweapon | `m_digweapon_check` + pick/axe `mon_wield_item` |
-| D-0181 | partial | trap/rocktrap + gettrack | monster `trapeffect_rocktrap` ported; hostile `gettrack` blocked |
+| D-0181 | partial | trap/rocktrap + gettrack | rocktrap + should_see/gettrack/initrack; dwarf pick open |
 
 D-0001 through D-0005 predate the strict-length/cohort runbook. Their focused
 causes are preserved, but generic "green sessions held" is historical evidence,
@@ -4907,32 +4907,36 @@ cohort gates if those functions are touched again.
 - **Next:** seed0030 @13987 (`next_ident` vs dig) /
   seed0101 Scr / seed0200 @3382.
 
-## D-0181 — trapeffect_rocktrap + hostile gettrack prerequisite (seed0030)
+## D-0181 — trapeffect_rocktrap + hostile gettrack + initrack (seed0030)
 
-- **Status:** partial — rocktrap effect ported; gettrack not wired
+- **Status:** partial — rocktrap + hostile gettrack + level-leave initrack
+  ported; dwarf @13987 pick still open
 - **Observed:** seed0030 first RNG mismatch @13987 — C `next_ident`
   `rnd(2)` @ rocktrap `t_missile(ROCK)`; JS `rnd(12)` dig.
-- **Rejected:** rocktrap alone advances the prefix — dwarf at (27,7)
-  with mux=(33,5) picks nearer (28,6) (open dig) over ROCKTRAP (27,6);
-  C must redirect gg via gettrack first.
 - **C locus:** `trap.c` `trapeffect_rocktrap` monster branch;
-  `monmove.c` `m_move` `should_see` + `gettrack`; `mondata.c` `can_track`.
-- **Cause:** JS `trapeffect_selector` omitted ROCKTRAP (no-op → dig).
-  Separately, hostile `m_move` never redirects gg with gettrack when
-  `!should_see` (dist2 to mux was 40 > 36).
-- **Change:** monster `trapeffect_rocktrap` (`t_missile(ROCK)` +
-  `thitm(..., d(2,6))` + once/tseen empty-door); `haseyes`/`can_track`
-  helpers. Hostile gettrack **not** enabled: wiring `tooFar &&
-  gettrack` first diverges newt @10676 (track pick (56,5) vs mux
-  (56,6)) → mtrack rn2(24) vs C rn2(20) @10701.
-- **Verification:** green+strict PASS; cohort PASS; seed0030 still
-  **13987** (gettrack blocked); rocktrap ready once gettrack lands.
-- **Named omission:** hero rocktrap/helmet path; empty-door pline_mon;
-  full `should_see` (couldsee+lit); hostile gettrack wiring; Excalibur
-  `can_track`.
-- **Lesson:** rocktrap RNG is gated by approach goal — missing gettrack
-  looks like “extra dig”, not a missing `mdig_tunnel` burn.
-- **Next:** diagnose why C does not take the JS track pick at newt
-  @10676 (track ring / should_see / mux), then wire hostile gettrack;
-  or peel seed0101 Scr residual.
+  `monmove.c` `m_move` `should_see` + `gettrack`; `mondata.c` `can_track`;
+  `do.c`/`save.c`/`track.c` `savelev`→`save_track`→`initrack`.
+- **Cause (ported):** JS `trapeffect_selector` omitted ROCKTRAP; hostile
+  `m_move` omitted `!should_see && can_track`→`gettrack`; `goto_level`
+  omitted initrack so prior-level tracks leaked.
+- **Change:** monster `trapeffect_rocktrap`; `haseyes`/`can_track`;
+  hostile `should_see`+`gettrack`; `goto_level` `initrack` on leave.
+- **Rejected / falsified:**
+  1. Wiring gettrack without initrack: stale tracks redirect newt
+     @10676 → @10701 `rn2(24)` vs C `rn2(20)`.
+  2. **Dwarf @13987 needs gettrack to prefer ROCKTRAP (27,6):** dwarf at
+     (27,7), mux=(33,5), candidates include ROCKTRAP (27,6) and nearer
+     (28,6); gettrack returns **null** — current-level ring has only
+     (30,8)/(31,7)/(32,6); full stale prior-level ring also has no
+     adjacent cell. Not a missing gettrack redirect.
+- **Verification:** green+strict PASS; cohort PASS; full **15/44** Scr
+  **1405** RNG **135795**; seed0030 prefix still **13987**.
+- **Named omission:** hero rocktrap/helmet; empty-door pline_mon;
+  Invis/balks/shortsighted/`m_search_items`; Excalibur `can_track`;
+  per-level `rest_track` on return visits.
+- **Lesson:** C `savelev` clears tracks on leave — porting gettrack
+  without initrack invents cross-level footprints. Falsify adjacent-track
+  presence before attributing a nearer-trap miss to gettrack.
+- **Next:** why C steps on ROCKTRAP without adjacent track (mfndpos /
+  actor order / other gg); or peel seed0101 Scr.
 

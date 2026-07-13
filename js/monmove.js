@@ -14,7 +14,9 @@ import {
 import {
     is_wanderer, is_armed, passes_walls, nohands, verysmall,
     monsterNames, M1_SEE_INVIS, M1_AMORPHOUS, tunnels, needspick,
+    can_track,
 } from './monsters.js';
+import { gettrack } from './track.js';
 import {
     mintrap,
     NO_TRAP_FLAGS,
@@ -478,21 +480,33 @@ export async function m_move(mtmp, after) {
 
     set_apparxy(mtmp);
 
-    const ggx = mtmp.mux;
-    const ggy = mtmp.muy;
+    let ggx = mtmp.mux;
+    let ggy = mtmp.muy;
     let appr = mtmp.mflee ? -1 : 1;
     if (mtmp.mconf) {
         appr = 0;
     } else if (mtmp.mpeaceful && !mtmp.isshk) {
         // C: peaceful (non-shk) → appr = 0
         appr = 0;
+    } else {
+        // C ref: monmove.c m_move should_see + gettrack
+        const goalLoc = game.level?.at(ggx, ggy);
+        const monLoc = game.level?.at(omx, omy);
+        const should_see = !!(
+            couldsee(omx, omy)
+            && (!!goalLoc?.lit || !monLoc?.lit)
+            && dist2(omx, omy, ggx, ggy) <= 36
+        );
+        // Named omission: Invis rn2(11); stalker/bat rn2(3); balks;
+        // shortsighted; m_search_items.
+        if (!should_see && can_track(ptr)) {
+            const cp = gettrack(omx, omy);
+            if (cp) {
+                ggx = cp.x;
+                ggy = cp.y;
+            }
+        }
     }
-
-    // Hostiles keep appr=1 toward mux/muy.
-    // Named omission: should_see + gettrack (can_track/haseyes exist);
-    // shortsighted; m_search_items; balks; Invis rn2(11); stalker/bat rn2(3).
-    // seed0030 @13987: dwarf needs gettrack so nearer is ROCKTRAP (27,6)
-    // not (28,6); enabling gettrack first diverges newt @10676 (see D-0181).
 
     // C: don't tunnel if hostile and close enough to prefer a weapon
     if (can_tunnel && needspick(ptr)

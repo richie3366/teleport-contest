@@ -2260,3 +2260,19 @@ Use this shape:
   +0102/0700/1150/0017/0015/0016); seed0030 still 13987.
 - Next: diagnose C vs JS gettrack at newt @10676 before wiring hostile
   gettrack; or peel seed0101 Scr residual.
+
+## 2026-07-13 20:20 — hostile gettrack + goto_level initrack (D-0181)
+- Objective: seed0030 gettrack diagnosis @10676 / dwarf rocktrap @13987
+  (PROGRESS primary).
+- C locus: `monmove.c` `should_see`+`gettrack`; `do.c`/`save.c`/`track.c`
+  `savelev`→`save_track`→`initrack`.
+- Result: **verified partial** — wired hostile `should_see`+`gettrack`
+  and `goto_level` `initrack` (C leave-level clear). Without initrack,
+  stale prior-level tracks redirected newt @10676→@10701. With both,
+  newt holds; dwarf @13987 gettrack redirect **falsified** (ring has no
+  adjacent cell to (27,7) — only (30,8)/(31,7)/(32,6); full stale ring
+  also none). Prefix still **13987** (pick (28,6) dig vs ROCKTRAP (27,6)).
+- Verification: green+strict PASS; cohort 8000/0900/1500/1800/0060/0015
+  PASS; full **15/44** Scr **1405** RNG **135795**.
+- Next: why C steps on ROCKTRAP without adjacent track (mfndpos exclude
+  (28,6)/(28,7), actor order, or other gg); or peel seed0101 Scr.

@@ -7,18 +7,18 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 
 ## Active
 
-- **Current unit:** D-0181 — monster `trapeffect_rocktrap` ported; seed0030
-  @13987 still blocked on hostile `m_move` gettrack.
-- **Hypothesis / next:** C dwarf at (27,7) uses `!should_see`→`gettrack` so
-  nearer is ROCKTRAP (27,6) not dig (28,6). Wiring `tooFar && gettrack`
-  first diverges newt @10676: JS track→(56,5) vs muxWould→(56,6) with
-  mux=u=(43,16); then @10701 C `rn2(20)` vs JS `rn2(24)` mtrack.
-  Falsify why C does not take that track pick (ring contents / should_see /
-  mux) before re-enabling hostile gettrack.
+- **Current unit:** D-0181 — hostile `should_see`+`gettrack` + `goto_level`
+  `initrack` wired; seed0030 still @13987 (dwarf dig vs rocktrap).
+- **Hypothesis / next:** Dwarf (27,7) ROCKTRAP at (27,6); mux=(33,5)
+  nearer pick is (28,6) dig. **gettrack cannot redirect** — ring has no
+  adjacent track (only 3 post-descend cells (30,8)/(31,7)/(32,6); even
+  full prior-level stale ring has none near 27,7). Next: why C hits
+  rocktrap without an adjacent track (mfndpos exclude (28,6)/(28,7),
+  different actor/order, or non-gettrack gg redirect).
 - **Falsifier / next:**
   ```bash
   node scripts/rng-diff.mjs sessions/seed0030-ten-diverse-deaths.session.json
-  # expect first mismatch past 13987 only after gettrack matches C @10676
+  # expect first mismatch past 13987 once dwarf pick is (27,6)
   node frozen/ps_test_runner.mjs sessions/seed0101-ranger-quiver-throw-travel-engrave.session.json
   # expect Scr >21/27 if residual display peel advances
   ```
@@ -65,11 +65,12 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   All current PASS cohort sessions set `symset:DECgraphics`.
 - **seed0030 @13987 was NOT missing dig/`rnd(12)` alone** — C
   `trapeffect_rocktrap` `t_missile(ROCK)`→`next_ident`; JS dwarf walked
-  to (28,6) dig because hostile `m_move` omitted gettrack so mux nearer
-  beat ROCKTRAP (27,6) (D-0181). Do not burn dig to fake rocktrap.
-- **Hostile gettrack is not a free wire** — `tooFar && gettrack` first
-  diverges newt @10676 track vs mux pick before the dwarf rocktrap
-  (D-0181). Diagnose C vs JS at 10676 before re-enabling.
+  to (28,6) (D-0181).
+- **Hostile gettrack without `goto_level` initrack is wrong** — stale
+  prior-level tracks redirect newt @10676; C `savelev`→`save_track`→
+  `initrack` clears on leave (D-0181).
+- **Dwarf @13987 is NOT missing gettrack redirect** — no adjacent track
+  in current-level ring (3 cells) nor in full stale ring (D-0181).
 - **`monattk.h`: AT_WEAP=254, AT_MAGC=255, AT_SPIT=10** — never use 10 for
   weapon (D-0179).
 - Hostile `m_move`: before place, `m_digweapon_check` may return
@@ -87,7 +88,8 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   then `thitm(..., d(2,6))`; seetrap only if `canseemon` (D-0181).
 - Hostile `m_move` should_see: `couldsee(omx,omy) && (goal.lit ||
   !mon.lit) && dist2<=36`; else `can_track`→`gettrack` redirects gg
-  (D-0181; wiring deferred).
+  (D-0181).
+- `goto_level` must `initrack` like C savelev release (D-0181).
 - `can_track` ≡ `haseyes` (Excalibur named omission) (D-0181).
 - Digger postmov: `tunnels` && !Rogue → `can_tunnel`; `ALLOW_DIG` in
   mfndpos; every moved digger with `may_dig` calls `mdig_tunnel` which
