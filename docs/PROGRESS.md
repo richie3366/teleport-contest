@@ -38,8 +38,8 @@ frozen-file overlay):
 | Metric | Value |
 |--------|------:|
 | Sessions passing | **9 / 44** |
-| Screens matched | **718 / 11,405** (6.30%) |
-| Positional RNG calls matched | **93,267 / 792,838** (11.76%) |
+| Screens matched | **722 / 11,405** (6.33%) |
+| Positional RNG calls matched | **93,316 / 792,838** (11.77%) |
 | Speed label | `21+0.09/turn` |
 | Working-tree base | `8b71735` + committed port (see `main`) |
 | Role-init throws | **0 / 44** (`u_init_role: role not ported`) |
@@ -64,13 +64,13 @@ shared blockers, and semantic coverage together—not one vanity metric.
 | `seed0017-samurai-altar-pray` | **3465 / 3465** | **67 / 67** |
 | `seed0030-ten-diverse-deaths` | **7055 / 105529** | **40 / 1953** |
 | `seed0103-knight-ride-pony` | **2344 / 2640** | 1 / 60 |
-| `seed0200-monk-north-search` | **1548 / 3822** | 0 / 40 |
+| `seed0200-monk-north-search` | **1540 / 3822** | 0 / 40 |
 | `seed0101-ranger-quiver-throw-travel-engrave` | **2306 / 2371** | 2 / 27 |
 | `seed0016-healer-newmoon-eat-zap` | **2544 / 3656** | **5 / 36** |
-| `seed0107-samurai-twoweapon-enhance` | **2682 / 2902** | 1 / 98 |
+| `seed0107-samurai-twoweapon-enhance` | **2684 / 2902** | 1 / 98 |
 | `seed0104-knight-ride-combat` | **2394 / 3223** | 1 / 43 |
-| `seed0106-priest-extcmd-sweep` | **4114 / 4194** | 3 / 267 |
-| `seed0361-archeologist-tour` | **3297 / 53865** | 0 / 366 |
+| `seed0106-priest-extcmd-sweep` | **4194 / 4194** | 5 / 267 |
+| `seed0361-archeologist-tour` | **3293 / 53865** | 0 / 366 |
 | `seed0373-barbarian-quest-tour` | **2555 / 35386** | 0 / 124 |
 | `seed0105-valk-chat-lamp-ration` | **987 / 2499** | 0 / 30 |
 | `seed0015-valk-level2-pit-dog-wait` | **363 / 8563** | 1 / 44 |
@@ -120,11 +120,11 @@ autoopen `doopen_indir` (D-0059), `mfndpos` BOULDER/`NODIAG`
 **`mattacku` melee/`hitmu`/`hitmsg`** (D-0106), and
 **`hitum`/hero melee/`xkilled`** (D-0107), and
 **`mondead`/`relobj` death minvent** (D-0108), and
-**`#sit`/`#dip`/`dipfountain`** (D-0109)
+**`#sit`/`#dip`/`dipfountain`** (D-0109), and
+**`#offer`/`#enhance`/`#annotate`/`#overview`/`#version`** (D-0110)
 clear shared peels. seed2200 RNG **full**; Scr **199**/230 (next:
-screen residual). seed0106 next `#offer`/`#enhance`/`#annotate` @ 4141
-(D-0109 cleared `dipfountain`). seed0030 next
-`maybe_smudge_engr`. Healer seed0016 next `next_ident` @ 2493.
+screen residual). seed0106 RNG **full**; Scr **5**/267 (menu/
+remaining extcmd screens). Healer seed0016 next `next_ident` @ 2493.
 Priest seed0501 still `wipeout_text`. seed0015/0200 next `lspo_map`.
 seed0101 next `next_ident`. seed0013 still breaks earlier in
 Lua/`sp_lev`. seed0103 next `next_ident`/`trquan` @ 2337.
@@ -209,18 +209,20 @@ autoopen `doopen_indir` (D-0059) + `mfndpos` BOULDER/`ALLOW_ROCK` +
 **`hitum`/hero melee/`xkilled`** (D-0107) +
 **`mondead`/`relobj` death minvent** (D-0108)
 **`#sit`/`#dip`/`dipfountain`** (D-0109)
+**`#offer`/`#enhance`/`#annotate`/`#overview`/`#version`** (D-0110)
 **ported**. Nine public sessions pass end-to-end. **0/44** throw at
 `u_init_role`. seed0700 + seed1150 + seed0017 **PASS**. seed0106
-prefix **4141** (`#version` nhlib); seed2200 RNG **full** (Scr **199**/230).
+RNG **full** (Scr **5**/267); seed2200 RNG **full** (Scr **199**/230).
 
-- **Bounded unit:** seed0106 @ 4141 `#offer`/`#enhance`/`#annotate` /
-  seed2200 post-help Scr 199 / seed0077 `player_selection` /
-  seed0501/0105 `wipeout_text` / seed0015/0200 `lspo_map` /
-  seed0101 `next_ident` / seed0103 `next_ident`/`trquan` /
-  seed0030 `maybe_smudge_engr` / seed0361/0373 **`getbones`**
-  (blocked: need `^V`→`goto_level`→`makemaz` first).
-- **Prefer:** seed0106 extcmd key ownership or seed2200 Scr residual over
-  parked D-0006.
+- **Bounded unit:** seed0106 Scr residual (enhance/overview menus +
+  `#chronicle`/`#conduct`/…) / seed2200 post-help Scr 199 /
+  seed0077 `player_selection` / seed0501/0105 `wipeout_text` /
+  seed0015/0200 `lspo_map` / seed0101 `next_ident` /
+  seed0103 `next_ident`/`trquan` / seed0030 `maybe_smudge_engr` /
+  seed0361/0373 **`getbones`** (blocked: need `^V`→`goto_level`→
+  `makemaz` first).
+- **Prefer:** seed2200 Scr residual or seed0077 `player_selection`
+  over parked D-0006; seed0106 screen peels when touching menus.
 - **Named omissions:** Wizard/Priest/Healer `initialspell`; Knight/
   Samurai/Healer/Valkyrie/Ranger/Monk/Archeologist/Barbarian/Caveman
   `skill_init`; full `x_monnam` hallu/invis/saddle/shk; pony saddle/
@@ -250,9 +252,11 @@ prefix **4141** (`#version` nhlib); seed2200 RNG **full** (Scr **199**/230).
   `peace_minded` MS_*/race_*/minion arms; egg hatch timers /
   `egg_type_from_parent`; `^V`/`level_tele`/`goto_level`/`makemaz`;
   TIN `cnutrit`; interactive `o`/`doopen` getdir; `doopen_indir`
-  `b_trapped`/autounlock/mapseen; `#levelchange` `losexp`; full
-  `extcmdlist` (`#chronicle`/`#conduct` still unknown); `pluslvl`
-  achievements/`newuexp`; takeoff `oc_delay`/
+  `b_trapped`/autounlock/mapseen; `#levelchange` `losexp`; remaining
+  `extcmdlist` (`#chronicle`/`#conduct`/`#vanquished`/`#genocided`/
+  `#adjust`/`#terrain`); enhance `add_skills_to_menu`/`can_advance`/
+  `skill_advance`; overview feature lines; `floorfood` sacrifice;
+  `pluslvl` achievements/`newuexp`; takeoff `oc_delay`/
   occupation/magic helms/dragon/`A` takeoffall; dosearch0
   feel_location/mfind0/statue activate/SPFX_SEARCH; full `readobjnam`
   (fruits/traps/terrain/random/`o_ranges`); `#wizwish`; Ring_on
@@ -592,6 +596,10 @@ Module status, constitutional debt, and named omissions live in
     **4145**/4194; aggregate RNG **93214→93267**; screens **718**;
     green cohort PASS; next seed0106 @ 4141 `#offer`/`#enhance`/
     `#annotate` / seed2200 Scr 199 / seed0077 `player_selection`
+92. `#offer`/`#enhance`/`#annotate`/`#overview`/`#version` (D-0110)
+    — seed0106 RNG **4194**/4194 Scr **5**/267; aggregate RNG
+    **93267→93316**; screens **718→722**; green cohort PASS; next
+    seed0106 Scr / seed2200 Scr 199 / seed0077 `player_selection`
 
 Next work is selected from the active objectives above using
 `PORTING-RUNBOOK.md`, not by extending this historical list.

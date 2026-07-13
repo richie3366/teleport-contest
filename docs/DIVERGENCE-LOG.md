@@ -2925,3 +2925,37 @@ cohort gates if those functions are touched again.
 - **Next:** seed0106 @ 4141 `#offer`/`#enhance`/`#annotate` key
   ownership / seed2200 Scr 199 / seed0077 `player_selection`.
 
+## D-0110 — seed0106 `#offer`/`#enhance`/`#annotate`/`#overview`/`#version`
+
+- **Status:** fixed (RNG); screens residual
+- **Observed:** seed0106 @ **4141**: C `rn2(3)` nhlib `shuffle(align)`
+  via `#version`/`doextversion`/`get_lua_version` vs JS `rn2(5)`
+  `distfleeck`. Keys after second dip: `#offer\n` `#enhance\n` ESC
+  `#annotate\nTest level\n` `#overview\n` ESC `#version\n` (+ spaces).
+- **Rejected:** treating only `#version` as missing without prior
+  key-owning menus (unbound enhance ESC / annotate getlin / overview
+  ESC become moves before version runs).
+- **C locus:** `pray.c` `dosacrifice` (not-on-altar); `weapon.c`
+  `enhance_weapon_skill` PICK_NONE; `dungeon.c` `donamelevel`/
+  `query_annotation`/`dooverview`; `version.c` `doextversion`;
+  `nhlua.c` `get_lua_version` → nhlib shuffle.
+- **Cause:** unbound extcmds left ESC / `Test level` / overview ESC as
+  free keys → movement RNG while C shows menus/getlin then `#version`
+  shuffle (0 RNG until Enter on version).
+- **Change:** `js/pray.js` `dosacrifice`; `js/weapon.js`
+  `enhance_weapon_skill`; `js/dungeon.js` `donamelevel`/
+  `query_annotation`/`dooverview` + lazy mapseen; `js/pager.js`
+  export `doextversion`; `js/getline.js` EXT_CMDS bindings; `do_name`
+  menu `a` → `donamelevel`.
+- **Verification:** seed0106 RNG **4194**/4194 Scr **5**/267;
+  strict lengths PASS; green+strict PASS; cohort
+  1500/1800/0060/0102/0700/1150/0017 PASS; full **9/44** Scr
+  **722** RNG **93316**/792838.
+- **Named omission:** `floorfood` sacrifice body; enhance
+  `add_skills_to_menu`/`can_advance`/`skill_advance`/wizard speedy;
+  overview `traverse_mapseenchn`/`interest_mapseen`/feature lines;
+  `#chronicle`/`#conduct`/`#vanquished`/`#genocided`/`#adjust`/
+  `#terrain` (and other remaining extcmds).
+- **Next:** seed0106 Scr residual / seed2200 Scr 199 /
+  seed0077 `player_selection`.
+

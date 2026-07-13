@@ -101,6 +101,51 @@ const EXT_CMDS = [
         },
     },
     {
+        name: 'offer',
+        wiz: false,
+        autocomplete: true,
+        run: async () => {
+            const { dosacrifice } = await import('./pray.js');
+            return dosacrifice();
+        },
+    },
+    {
+        name: 'enhance',
+        wiz: false,
+        autocomplete: true,
+        run: async () => {
+            const { enhance_weapon_skill } = await import('./weapon.js');
+            return enhance_weapon_skill();
+        },
+    },
+    {
+        name: 'annotate',
+        wiz: false,
+        autocomplete: true,
+        run: async () => {
+            const { donamelevel } = await import('./dungeon.js');
+            return donamelevel();
+        },
+    },
+    {
+        name: 'overview',
+        wiz: false,
+        autocomplete: true,
+        run: async () => {
+            const { dooverview } = await import('./dungeon.js');
+            return dooverview();
+        },
+    },
+    {
+        name: 'version',
+        wiz: false,
+        autocomplete: true,
+        run: async () => {
+            const { doextversion } = await import('./pager.js');
+            return doextversion();
+        },
+    },
+    {
         name: 'levelchange',
         wiz: true,
         autocomplete: true,

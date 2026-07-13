@@ -1,9 +1,13 @@
 // weapon.js — Monster ranged weapon selection + damage (partial).
 // C ref: weapon.c select_rwep / dmgval / mon_wield_item (ranged subset);
-//         dothrow.c should_mulch_missile / multishot_class_bonus.
+//         enhance_weapon_skill (#enhance); dothrow.c should_mulch_missile /
+//         multishot_class_bonus.
 
 import { game } from './gstate.js';
 import { rn2, rnd } from './rng.js';
+import { nhgetch } from './input.js';
+import { flush_screen, flush_topl_more, docrt } from './display.js';
+import { paint_corner_nhw_menu } from './invent.js';
 import { WEAPON_CLASS, GEM_CLASS, objectNames } from './objects.js';
 import {
     is_ammo, ammo_and_launcher, is_missile,
@@ -12,7 +16,9 @@ import { is_lord, is_prince } from './monsters.js';
 import {
     P_DAGGER, P_SPEAR, P_SLING, P_SHURIKEN, P_BOW, P_CROSSBOW,
     NEED_WEAPON, NEED_RANGED_WEAPON, NO_WEAPON_WANTED, W_WEP,
+    ECMD_OK,
 } from './const.js';
+import { ATR_INVERSE } from './terminal.js';
 import {
     PM_CAVE_DWELLER, PM_MONK, PM_RANGER, PM_ROGUE, PM_SAMURAI,
 } from './generated/monsters_data.js';
@@ -258,6 +264,34 @@ export function mon_wield_item(mon) {
     }
     mon.weapon_check = NEED_WEAPON;
     return 0;
+}
+
+/**
+ * C ref: weapon.c enhance_weapon_skill (#enhance).
+ * Branch envelope: non-wizard path with no advanceable skills → PICK_NONE
+ * menu dismissed by ESC/space/return (0 RNG). Wizard speedy y_n,
+ * skill_advance, can_advance / add_skills_to_menu body deferred.
+ */
+export async function enhance_weapon_skill() {
+    await flush_topl_more();
+    // C: svc.context.tips |= (1 << TIP_ENHANCE); TIP_ENHANCE=0
+    if (game.context) game.context.tips = (game.context.tips | 0) | (1 << 0);
+    // wizard y_n("Advance skills without practice?") deferred
+    const entries = [
+        { text: 'Current skills:', attr: ATR_INVERSE },
+        { text: '', attr: 0 },
+        { text: '(no skills ready to advance)', attr: 0 },
+    ];
+    // C select_menu PICK_NONE: ESC / space / return dismiss
+    for (;;) {
+        await paint_corner_nhw_menu(entries, '(end) ');
+        const key = await nhgetch();
+        game._menu_overlay = false;
+        await docrt();
+        await flush_screen(1);
+        if (key === 27 || key === 32 || key === 13 || key === 10) break;
+    }
+    return ECMD_OK;
 }
 
 /** C ref: mthrowu.c monmulti */

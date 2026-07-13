@@ -1373,3 +1373,21 @@ Use this shape:
 - Next: seed0106 @ 4141 `#offer`/`#enhance`/`#annotate` —
   `node scripts/rng-diff.mjs sessions/seed0106-priest-extcmd-sweep.session.json`
   — or seed2200 Scr 199 / seed0077 `player_selection`.
+
+## 2026-07-13 — #offer/#enhance/#annotate/#overview/#version (D-0110)
+- Objective: seed0106 @ 4141 extcmd key ownership through `#version`
+  (PROGRESS primary).
+- C locus: `pray.c` `dosacrifice`; `weapon.c` `enhance_weapon_skill`;
+  `dungeon.c` `donamelevel`/`query_annotation`/`dooverview`;
+  `version.c` `doextversion` / `nhlua.c` `get_lua_version`.
+- Result: **verified** — unbound `#enhance` ESC / `#annotate` getlin /
+  `#overview` ESC leaked as moves (`rn2(5)`) while C reached
+  `#version` nhlib `rn2(3)`+`rn2(2)`. Ported not-on-altar offer,
+  enhance PICK_NONE ESC, annotate getlin + lazy mapseen, overview
+  PICK_NONE, and wired `#version`→exported `doextversion`.
+- Verification: seed0106 RNG **4194**/4194 Scr **5**/267; strict
+  lengths PASS; green+strict PASS; cohort 1500/1800/0060/0102/
+  0700/1150/0017 PASS; full **9/44** Scr **722** RNG
+  **93316**/792838.
+- Next: seed0106 Scr residual / seed2200 Scr 199 /
+  seed0077 `player_selection`.

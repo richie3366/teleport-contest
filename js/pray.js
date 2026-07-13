@@ -1,16 +1,16 @@
 // pray.js — Prayer / altar gods (partial).
 // C ref: pray.c — can_pray, dopray, prayer_done, gods_upset, angrygods,
-// water_prayer, on_altar / a_align helpers.
+// water_prayer, on_altar / a_align helpers; dosacrifice (#offer).
 //
 // Branch envelope: ParanoidPray yn confirm (default on) + noninteractive
 // #pray with ublesscnt-too-soon (p_type 0) → nomul(-3)/afternmv →
 // prayer_done rnz(250)+change_luck+gods_upset → angrygods cases 0–3
-// (displeased / godvoice+relearn) + trailing rnz(300).
+// (displeased / godvoice+relearn) + trailing rnz(300); #offer not-on-altar.
 // Named omissions: full in_trouble body; ParanoidConfirm "yes" path /
 // wizard force; angrygods cases 4+ (curse/minion/zap); pleased / crown /
 // fix troubles; p_type -2/-1/1/2/3 outcome bodies beyond water_prayer scan;
-// pray_revive; sacrifice / #turn; livelog; is_demon/is_undead poly paths;
-// full losexp (adjabil/resists_drli/Upolyd).
+// pray_revive; floorfood sacrifice / #turn; livelog; is_demon/is_undead
+// poly paths; full losexp (adjabil/resists_drli/Upolyd).
 
 import { game } from './gstate.js';
 import { rn2, rnz } from './rng.js';
@@ -384,4 +384,24 @@ export async function dopray() {
     }
 
     return ECMD_TIME;
+}
+
+/**
+ * C ref: pray.c dosacrifice (#offer).
+ * Branch envelope: not-on-altar / impaired early returns (ECMD_OK, 0 RNG).
+ * floorfood sacrifice / amulet / corpse / nothing_happens deferred.
+ */
+export async function dosacrifice() {
+    const u = game.u || {};
+    if (!on_altar() || u.uswallow) {
+        const prep = (u.Levitation || u.Flying) ? 'over' : 'on';
+        await pline(`You are not ${prep} an altar.`);
+        return ECMD_OK;
+    }
+    if (u.Confusion || u.Stunned) {
+        await pline('You are too impaired to perform the rite.');
+        return ECMD_OK;
+    }
+    // floorfood("sacrifice", 1) + offering body deferred (C-JS-MAP)
+    return ECMD_OK;
 }

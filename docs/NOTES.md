@@ -7,17 +7,18 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 
 ## Active
 
-- **Current unit:** D-0109 `#sit`/`#dip`/`dipfountain` cleared seed0106 @
-  4097. Next: seed0106 @ **4141** unbound `#offer`/`#enhance`/`#annotate`
-  (ESC/`getlin` key ownership) before `#version` nhlib shuffle — or
-  seed2200 Scr **199**/230 / seed0077 `player_selection`.
-- **Hypothesis:** after two fountain dips, leftover keys from unknown
-  `#enhance` ESC / `#annotate` getlin become moves (`rn2(5)`) while C
-  reaches `#version` → `get_lua_version` `rn2(3)`+`rn2(2)`.
+- **Current unit:** D-0110 `#offer`/`#enhance`/`#annotate`/`#overview`/
+  `#version` cleared seed0106 RNG **full** (4194/4194). Scr still
+  **5**/267 (stub enhance/overview menus + unbound chronicle/conduct/…).
+- **Hypothesis:** seed0106 Scr residual is NHW_MENU skill/overview text
+  + remaining unbound display extcmds (`#chronicle`/`#conduct`/
+  `#vanquished`/`#genocided`/`#adjust`/`#terrain`) — not RNG.
 - **Falsifier / next:**
   ```bash
-  node scripts/rng-diff.mjs sessions/seed0106-priest-extcmd-sweep.session.json
+  node frozen/ps_test_runner.mjs sessions/seed0106-priest-extcmd-sweep.session.json
   ```
+  Prefer seed2200 Scr **199**/230 or seed0077 `player_selection` if
+  screen peels stay low-leverage.
 - **Parked deep canary:** D-0006 pet movement — do not implement until C
   state/candidate capture exists.
 - **Named next for no-name sessions:** seed0077 needs `player_selection`
@@ -156,6 +157,11 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   `#sit` on the fountain one turn earlier (`Having fun sitting…` +
   ECMD_TIME). Porting `#dip` alone moved the peel earlier to sit's
   missing turn (D-0109).
+- **seed0106 @4141 was NOT leftover-key-only theory without bindings** —
+  C `#offer` (not on altar, 0 RNG) → `#enhance` ESC PICK_NONE →
+  `#annotate` getlin → `#overview` ESC → `#version` nhlib
+  `rn2(3)`+`rn2(2)` (D-0110). Unbound enhance ESC / annotate text /
+  overview ESC became moves (`rn2(5)`).
 - seed1150 @ 3032 was **not** missing `f` binding — getdir saw a
   space that C used for pet-drop `--More--` because JS
   `getdir`/`yn_function` skipped `more()` on `TOPLINE_NEED_MORE`
@@ -205,7 +211,8 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   Elbereth exercises WIS; setup returns ECMD_OK (D-0076).
 - `/` whatis is ECMD_OK (no turn). First getpos shows nhcore tip.
   About NetHack calls `get_lua_version` → `nhl_init` → nhlib
-  `shuffle(align)` once (`rn2(3)`+`rn2(2)`) (D-0077).
+  `shuffle(align)` once (`rn2(3)`+`rn2(2)`) (D-0077). Same shuffle on
+  first `#version` / `doextversion` when `_lua_ver` unset (D-0110).
 - `wintty.c` **`#define H2344_BROKEN`** (always on): NHW_MENU
   `offx = min(min(82, cols/2), cols-maxcol-1)`; fullscreen only on
   `maxrow>=rows || !menu_overlay` — **not** `offx==10` (D-0078).
@@ -307,3 +314,8 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   + ECMD_TIME (D-0109). `#dip` getobj + yn fountain → `dipfountain`:
   `water_damage` force (POT_WATER → ER_NOTHING) then `rnd(30)` then
   `dryup` `rn2(3)`. Case 16 curses; default plines nothing_seems.
+- `#offer` off-altar: `"You are not on an altar."` ECMD_OK (D-0110).
+  `#enhance` non-wizard PICK_NONE → ESC dismiss. `#annotate` getlin
+  `"What do you want to call this dungeon level?"`. `#overview`
+  PICK_NONE current-level line. `#version` → `doextversion` →
+  `get_lua_version` nhlib shuffle.
