@@ -134,6 +134,7 @@ Do not record a guessed cause as fixed merely because an RNG prefix moved.
 | D-0128 | fixed | detect/#terrain | `doterrain` View which? + Esc cancel; seed0106 Scr 264→265 |
 | D-0129 | fixed | spell/+ | `initialspell`/`dovspell` VIEW + `age_spells`; seed0106 Scr 265→266 |
 | D-0130 | fixed | exper/^X | `experience`/`more_experienced` + doattributes `an`/Pw; seed0106 **PASS** |
+| D-0131 | fixed | cmd/pager | `dokeylist`/`show_menu_controls`/`docontact` + usagehlp trailing blank; seed2200 Scr 202→227 |
 
 D-0001 through D-0005 predate the strict-length/cohort runbook. Their focused
 causes are preserved, but generic "green sessions held" is historical evidence,
@@ -3528,4 +3529,32 @@ cohort gates if those functions are touched again.
   mattk used by `experience`); wizard next-level XP line on ^X.
 - **Next:** seed2200 `dokeylist` @184 / seed0501 `wipeout_text` /
   seed0015/0200 `lspo_map`.
+
+## D-0131 — dokeylist / show_menu_controls / docontact + usagehlp trailing blank
+
+- **Status:** fixed
+- **Observed:** seed2200 Scr **202**/230; help `j` was `(key list stub)`
+  vs C `Full Current Key Bindings List`; help `l`/`o` stubs. After
+  dokeylist aligned, usagehlp ended one `--More--` early (missing empty
+  trailing page) → Unknown command cascade.
+- **Cause/evidence:** no `dokeylist`/`show_menu_controls` port; `display_file`
+  stripped all trailing blank lines while C keeps the intentional EOF blank
+  from usagehlp's final `\n\n`.
+- **C locus:** `cmd.c` `dokeylist` / `keylist_putcmds` / `show_direction_keys`
+  / `key2txt` / `commands_init`+`reset_commands` (N_DIRS=8); `options.c`
+  `show_menu_controls`; `pager.c` `domenucontrols` / `docontact`;
+  `files.c`/`windows.c` `display_file` line list.
+- **Change:** `scripts/extract-extcmdlist.py` → `extcmdlist_data.js`;
+  `js/dokeylist.js` (!num_pad default binds); wire help `j`/`l`/`o`;
+  `display_file` pops only the split artifact `\n`, not intentional blanks.
+- **Verification:** seed2200 Scr **202→227**/230 (RNG full); remaining
+  @158 RC path (parked), @222 disco missing `*` spellbooks, @229
+  Elbereth look; green+strict PASS; cohort 1500/1800/0060/0102/0700/
+  1150/0017/0077/0106 PASS; full **11/44** Scr **1141→1166** RNG
+  **104575**/792838.
+- **Named omission:** custom BIND=/number_pad/swap_yz/rest_on_space;
+  menu_shift; CMD_PARAM bound params; recording `get_configfile` path;
+  disco identify/`*` known-class completeness; `:` engraving look.
+- **Next:** seed2200 disco @222 / Elbereth `:` @229 / seed0501
+  `wipeout_text` / `lspo_map` / `getbones`.
 

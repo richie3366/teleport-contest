@@ -38,9 +38,9 @@ frozen-file overlay):
 | Metric | Value |
 |--------|------:|
 | Sessions passing | **11 / 44** |
-| Screens matched | **1141 / 11,405** (10.00%) |
+| Screens matched | **1166 / 11,405** (10.22%) |
 | Positional RNG calls matched | **104,575 / 792,838** (13.19%) |
-| Speed label | `18+0.09/turn` |
+| Speed label | `18+0.08/turn` |
 | Working-tree base | `8b71735` + committed port (see `main`) |
 | Role-init throws | **0 / 44** (`u_init_role: role not ported`) |
 
@@ -61,7 +61,7 @@ shared blockers, and semantic coverage together—not one vanity metric.
 | `seed0700-samurai-explore-descend` | **3230 / 3230** | **51 / 51** |
 | `seed1150-caveman-explore-move` | **3137 / 3137** | **51 / 51** |
 | `seed0106-priest-extcmd-sweep` | **4194 / 4194** | **267 / 267** |
-| `seed2200-wizard-quaff-zap-read` | **3018 / 3018** | **202 / 230** |
+| `seed2200-wizard-quaff-zap-read` | **3018 / 3018** | **227 / 230** |
 | `seed0017-samurai-altar-pray` | **3465 / 3465** | **67 / 67** |
 | `seed0030-ten-diverse-deaths` | **7085 / 105529** | **97 / 1953** |
 | `seed0103-knight-ride-pony` | **2344 / 2640** | 2 / 60 |
@@ -123,8 +123,8 @@ autoopen `doopen_indir` (D-0059), `mfndpos` BOULDER/`NODIAG`
 **`mondead`/`relobj` death minvent** (D-0108), and
 **`#sit`/`#dip`/`dipfountain`** (D-0109), and
 **`#offer`/`#enhance`/`#annotate`/`#overview`/`#version`** (D-0110)
-clear shared peels. seed2200 RNG **full**; Scr **202**/230 (next:
-`dokeylist` @184 after parked RC path @158). seed0106 **PASS**.
+clear shared peels. seed2200 RNG **full**; Scr **227**/230 (next:
+disco `*` spellbooks @222 / Elbereth `:` @229; parked RC @158). seed0106 **PASS**.
 Healer seed0016 next `next_ident` @ 2493.
 Priest seed0501 still `wipeout_text`. seed0015/0200 next `lspo_map`.
 seed0101 next `next_ident`. seed0013 still breaks earlier in
@@ -263,21 +263,25 @@ autoopen `doopen_indir` (D-0059) + `mfndpos` BOULDER/`ALLOW_ROCK` +
 **`#adjust`/`doorganize` getobj + destination cancel** (D-0127)
 **`#terrain`/`doterrain` View which? + Esc cancel** (D-0128)
 **`initialspell`/`dovspell` VIEW + `age_spells`** (D-0129)
-**kill XP + doattributes `an`/energy** (D-0130)
+**kill XP + doattributes `an`/Pw** (D-0130)
+**`dokeylist`/`show_menu_controls`/`docontact` + usagehlp blank** (D-0131)
 **ported**. Eleven public sessions pass end-to-end. **0/44** throw at
 `u_init_role`. seed0700 + seed1150 + seed0017 + seed0077 + seed0106
-**PASS**. seed2200 RNG **full** (Scr **202**/230).
+**PASS**. seed2200 RNG **full** (Scr **227**/230).
 
-- **Bounded unit:** seed2200 `dokeylist` @184 /
-  seed0501/0105 `wipeout_text` / seed0015/0200 `lspo_map` /
-  seed0101 `next_ident` / seed0103 `next_ident`/`trquan` /
-  seed0030 `maybe_smudge_engr` / seed0361/0373 **`getbones`**
-  (blocked: need `^V`→`goto_level`→`makemaz` first).
-- **Prefer:** seed2200 `dokeylist` over parked D-0006.
+- **Bounded unit:** seed2200 disco `*` spellbooks @222 /
+  Elbereth `:` look @229 / seed0501/0105 `wipeout_text` /
+  seed0015/0200 `lspo_map` / seed0101 `next_ident` /
+  seed0103 `next_ident`/`trquan` / seed0030 `maybe_smudge_engr` /
+  seed0361/0373 **`getbones`** (blocked: need `^V`→`goto_level`→
+  `makemaz` first).
+- **Prefer:** seed2200 disco/Elbereth over parked D-0006.
 - **Named omissions:** spell swap/sort / `docast`/`spelleffects`;
   `skill_based_spellbook_id` / `unrestrict_weapon_skill(spelspec)`;
   enhance `can_advance`/`skill_advance`/wizard speedy; full `x_monnam`
-  hallu/invis/saddle/shk; pony saddle/
+  hallu/invis/saddle/shk; custom BIND=/number_pad/swap_yz; menu_shift;
+  recording `get_configfile` path; disco identify/`*` known-class;
+  pony saddle/
   `see_monster_closeup`; other erosion proofs; `In_quest` lacquer;
   xname-path `observe_object` beyond invent_lines; full `role_init`
   beyond pantheon/SPE_LIGHT/nemesis gender; `adjabil` lose/
@@ -326,8 +330,8 @@ autoopen `doopen_indir` (D-0059) + `mfndpos` BOULDER/`ALLOW_ROCK` +
   `attack_checks`/Cleaver/twoweapon/`weapon_hit_bonus`/`P_SKILL`/
   `dbon`/passive/knockback-on-live; `pick_lock` CLOSED/LOCKED
   occupation/autounlock; incremental `dig_point`; full `load_symset`
-  IBM/UTF8; `iflags.use_color` obj/mon color gate; `dokeylist`/
-  `show_menu_controls`/domenucontrols; `mshot_xname` multishot Nth;
+  IBM/UTF8; `iflags.use_color` obj/mon color gate; custom BIND=/
+  number_pad/swap_yz; `mshot_xname` multishot Nth;
   surviving melee `canseemon?exclam`; hero-underfoot `_map_location`
   memory (seed0060-sensitive); infrared `_map_location`;
   `show_achievements` body; xkilled murder/peaceful luck/`adjalign`;
@@ -741,6 +745,10 @@ Module status, constitutional debt, and named omissions live in
     public **11/44**; screens **1139→1141**; RNG **104575** unchanged;
     seed2200 Scr **201→202**; green cohort + seed0106 PASS; next
     seed2200 `dokeylist` @184
+113. `dokeylist`/`show_menu_controls`/`docontact` + usagehlp trailing
+    blank (D-0131) — seed2200 Scr **202→227**/230; screens
+    **1141→1166**; RNG **104575** unchanged; green cohort PASS; next
+    seed2200 disco @222 / Elbereth `:` @229
 
 Next work is selected from the active objectives above using
 `PORTING-RUNBOOK.md`, not by extending this historical list.

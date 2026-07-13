@@ -7,16 +7,15 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 
 ## Active
 
-- **Current unit:** D-0130 cleared: kill XP + doattributes `an`/Pw
-  (seed0106 **PASS**).
-- **Hypothesis:** seed2200 next Scr peel @184 is `dokeylist` / Full Current
-  Key Bindings List (help `c` path after About/Guidebook); parked RC path
-  @158 remains harness `$HOME`.
+- **Current unit:** D-0131 cleared: `dokeylist`/`show_menu_controls`/
+  `docontact` + usagehlp trailing blank (seed2200 Scr **227**/230).
+- **Hypothesis:** seed2200 next Scr peels are (1) `\` disco missing C `*`
+  spellbook discoveries @222, (2) `:` look Elbereth engaving @229;
+  parked RC path @158 remains harness `$HOME`.
 - **Falsifier / next:**
   ```bash
   node frozen/ps_test_runner.mjs sessions/seed2200-wizard-quaff-zap-read.session.json
-  # expect Scr >202/230 if dokeylist matches C; green cohort must stay PASS
-  node frozen/ps_test_runner.mjs sessions/seed0106-priest-extcmd-sweep.session.json
+  # expect Scr >227/230 if disco/Elbereth match; green cohort must stay PASS
   ```
 - **Parked deep canary:** D-0006 pet movement — do not implement until C
   state/candidate capture exists.
@@ -125,6 +124,12 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   not botl/Xp alone. `xkilled` must call `experience`/`more_experienced`
   (kobold = 6 via AT_WEAP); energy uses `all N` when pwmax>2 (D-0130).
   Do not hardcode `both energy` or `0 experience`.
+- **seed2200 help `j` was not a missing dat/hh file** — real dynamic
+  `dokeylist` from extcmdlist + default !num_pad binds (D-0131). Do not
+  display static hh. `reset_commands` only rebinds N_DIRS=8 (not `<>`).
+- **usagehlp empty final `--More--` was display_file over-stripping** —
+  keep intentional trailing blank from `\n\n`; only pop split artifact
+  (D-0131). Do not strip all trailing empties.
 
 ## Landmarks
 
@@ -188,3 +193,6 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   Retention intervals from P_SKILL (D-0129).
 - Kill XP: kobold L0 + AT_WEAP → 6; lichen AT_TUCH → 4 (pet mondied
   awards no hero XP); `newuexp(1)=20` so 6 XP no level-up (D-0130).
+- dokeylist: extcmdlist extract + commands_init then N_DIRS=8 movement
+  overwrite; `<>` stay down/up; title `%7s %s` with `"    Full…"`;
+  menu dolist `%-7s`; domenucontrols `%8s` right-align (D-0131).

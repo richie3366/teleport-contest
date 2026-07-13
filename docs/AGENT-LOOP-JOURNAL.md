@@ -1665,3 +1665,19 @@ Use this shape:
   PASS; cohort 1500/1800/0060/0102/0700/1150/0017/0077 PASS; full
   **11/44** Scr **1141** RNG **104575**/792838; seed2200 Scr **202**/230.
 - Next: seed2200 `dokeylist` @184.
+
+## 2026-07-13 — dokeylist + show_menu_controls + usagehlp blank (D-0131)
+- Objective: seed2200 Scr @184 help `j` Full Current Key Bindings
+  (PROGRESS primary).
+- C locus: `cmd.c` `dokeylist`/`keylist_putcmds`/`show_direction_keys`/
+  `commands_init`+`reset_commands` (N_DIRS=8); `options.c`
+  `show_menu_controls`; `pager.c` `domenucontrols`/`docontact`;
+  `display_file` trailing blank.
+- Result: **verified** — help `j`/`l`/`o` were stubs. Extracted
+  extcmdlist; ported dokeylist + menu controls + contact; fixed
+  `display_file` over-stripping so usagehlp keeps empty final page.
+- Verification: seed2200 Scr **202→227**/230 (RNG full); remaining
+  @158 RC path, @222 disco `*` books, @229 Elbereth `:`; green+strict
+  PASS; cohort 1500/1800/0060/0102/0700/1150/0017/0077/0106 PASS;
+  full **11/44** Scr **1166** RNG **104575**/792838.
+- Next: seed2200 disco @222 / Elbereth `:` @229.
