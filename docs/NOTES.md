@@ -7,12 +7,12 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 
 ## Active
 
-- **Current unit:** seed0030 seg1 @7007 / seed0103 `next_ident`/`trquan`.
-- **Hypothesis (seed0030 seg1):** @7007 C `next_ident` (makemon/mkobj) while
-  JS still on `rn2(20)` (likely `gethungry`/accessorytime or similar) —
-  missing spawn/object after a matched EOT wipe-engraving turn.
-- **Falsifier:** dump JS stack at seg1 rngLen≈7007; compare C caller after
-  `moveloop_core` `rn2(76)` (allmain.c:360).
+- **Current unit:** seed0030 seg1 @7189 / seed0103 `next_ident`/`trquan`.
+- **Hypothesis (seed0030 seg1):** @7189 C `rn2(2) @ dosounds` vault
+  `gd_sound` body (sounds.c:245) after matched vault `rn2(200)=0`; JS
+  early-returns on `has_vault` without the vault message roll.
+- **Falsifier:** port/stub `gd_sound` true path that burns `rn2(2)+hallu`
+  like C when a vault room exists; expect prefix past 7189.
 - **Parked deep canary:** D-0006 pet movement — do not implement until C
   state/candidate capture exists.
 - **Parked seed2200 @158:** RC config path — harness `$HOME`, not a port bug.
@@ -159,6 +159,11 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   mimics (`is_hider`+`M_AP_OBJECT`) deduct movement **without** `dochug`.
   JS called `dochug` on mimics → extra fleecks before EOT (D-0206).
   Do not re-chase fmon-order / mcalcmove assignment for that index.
+- **seed0030 seg1 @7007 was NOT missing EOT spawn / wipe_engr** — key
+  `n` into chest-mimic: C `attack_checks`→`stumble_onto_mimic`→
+  `object_from_map`/`mksobj(FALSE)` `next_ident` before overexertion;
+  JS went straight to `overexertion`→`gethungry` (D-0207). Do not
+  re-chase gethungry/wipe after matched EOT for that index.
 - **`monattk.h`: AT_WEAP=254, AT_MAGC=255, AT_SPIT=10** — never use 10 for
   weapon (D-0179).
 - Hostile `m_move`: before place, `m_digweapon_check` may return
@@ -242,10 +247,14 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   `shkveg`/health-food and Izchak still deferred.
 - **`dosounds`:** after vault, roll beehive/morgue/barracks/zoo/**shop**/
   temple/oracle gates; shop always `return`s when gate hits (D-0204).
-  Vault gate hit also returns (gd_sound body still deferred).
+  Vault gate hit also returns (gd_sound body still deferred) — until
+  vault `rn2(200)=0` needs `gd_sound`→`rn2(2)` (next @7189).
 - **`m_move` isshk/isgd/ispriest:** call `shk_move`/`gd_move`/`pri_move`
   before getitems; peaceful shk near home often returns 0 with no RNG
   (D-0205). `gd_move`/`pri_move` bodies still stubbed.
 - **`movemon_singlemon` hiders:** after deducting NORMAL_SPEED, if
   `is_hider` and (`M_AP_OBJECT`/`M_AP_FURNITURE` or `mundetected`),
   skip `dochug` (D-0206). `restrap`/`hideunder`/`minliquid` still deferred.
+- **`do_attack` disguised mimic:** `attack_checks`→`stumble_onto_mimic`
+  →`that_is_a_mimic`/`object_from_map` `mksobj(FALSE)` `next_ident`
+  **before** `overexertion` (D-0207).

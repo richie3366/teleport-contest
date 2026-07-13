@@ -2675,3 +2675,20 @@ Use this shape:
 - Result: **fixed** — disguised Storeroom mimics deducted movement but still `dochug`d in JS; C skips dochug so only shopkeeper (mmove=16 → +24) acts twice (4 fleecks) then EOT. Added `M1_HIDE`/`is_hider` + hider gate in `movemon_singlemon`.
 - Verification: seg1 **6568→7007** (`next_ident`); seed0030 positional **21693**/105529 Scr **45**/1953; green+strict+cohort PASS; full **17/44** Scr **1313** RNG **144269**.
 - Next: seed0030 seg1 @7007 C `next_ident` vs JS `rn2(20)`; or seed0103 `next_ident`/`trquan`.
+
+## 2026-07-14 00:55 — D-0207 stumble_onto_mimic object next_ident
+- Objective: seed0030 seg1 @7007 C `next_ident` vs JS `rn2(20)`
+  (PROGRESS primary).
+- C locus: `uhitm.c` `attack_checks`/`stumble_onto_mimic`/
+  `that_is_a_mimic`; `pager.c` `object_from_map`; `mon.c`
+  `seemimic`/`wakeup`; `mkobj.c` `mksobj(FALSE)`.
+- Result: **fixed** — walking into a chest-mimic skipped C's
+  mimic stumble (fake `mksobj`→`next_ident` before overexertion);
+  JS burned `gethungry` instead. Ported seemimic/wakeup + object-
+  appearance that_is_a_mimic into do_attack ahead of overexertion.
+- Verification: seg1 **7007→7189** (vault `gd_sound` `rn2(2)`);
+  seed0030 positional **21760**/105529 Scr **45**/1953;
+  green+strict+cohort PASS; full **17/44** Scr **1313** RNG
+  **144336**.
+- Next: seed0030 seg1 @7189 vault `gd_sound`→`rn2(2)`; or seed0103
+  `next_ident`/`trquan`.

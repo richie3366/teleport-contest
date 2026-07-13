@@ -1,5 +1,5 @@
 // mon.js — Monster metabolism / movement allotment.
-// C ref: mon.c — mcalcmove, movemon, mon_allowflags (partial).
+// C ref: mon.c — mcalcmove, movemon, seemimic, wakeup, mon_allowflags (partial).
 
 import { game } from './gstate.js';
 import { rn2 } from './rng.js';
@@ -7,7 +7,7 @@ import { dochugw } from './monmove.js';
 import {
     COLNO, ROWNO, IS_OBSTRUCTED, IS_DOOR, IS_TREE, D_CLOSED, D_LOCKED, D_BROKEN,
     ALLOW_ROCK, ALLOW_DIG, Is_rogue_level,
-    M_AP_OBJECT, M_AP_FURNITURE, M_AP_TYPE,
+    M_AP_NOTHING, M_AP_OBJECT, M_AP_FURNITURE, M_AP_MONSTER, M_AP_TYPE,
 } from './const.js';
 import { t_at } from './trap.js';
 import {
@@ -23,6 +23,7 @@ import { PM_GRID_BUG } from './generated/monsters_data.js';
 import { G_GENOD } from './const.js';
 import { enexto, rloc_to } from './teleport.js';
 import { may_dig } from './dig.js';
+import { newsym } from './display.js';
 
 export const NORMAL_SPEED = 12;
 
@@ -206,6 +207,37 @@ export function m_avoid_kicked_loc(mtmp, nx, ny) {
  */
 export function m_avoid_soko_push_loc(_mtmp, _nx, _ny) {
     return false;
+}
+
+/**
+ * C ref: mon.c seemimic — clear disguise; freemcorpsenm / light-block deferred.
+ */
+export function seemimic(mtmp) {
+    if (!mtmp) return;
+    // has_mcorpsenm / freemcorpsenm deferred
+    mtmp.m_ap_type = M_AP_NOTHING;
+    mtmp.mappearance = 0;
+    // is_lightblocker_mappear / unblock_point deferred
+    if (mtmp.mx > 0) newsym(mtmp.mx, mtmp.my);
+}
+
+/**
+ * C ref: mon.c wakeup — clear sleep / non-monster disguise.
+ * via_attack setmangry / growl / finish_meating deferred.
+ */
+export function wakeup(mtmp, via_attack) {
+    if (!mtmp) return;
+    // wake_msg deferred (canseemon sleep pline)
+    mtmp.msleeping = 0;
+    if (M_AP_TYPE(mtmp) !== M_AP_NOTHING) {
+        if (M_AP_TYPE(mtmp) !== M_AP_MONSTER) seemimic(mtmp);
+    } else if (game.context?.forcefight && !game.context?.mon_moving
+        && mtmp.mundetected) {
+        mtmp.mundetected = 0;
+        if (mtmp.mx > 0) newsym(mtmp.mx, mtmp.my);
+    }
+    // finish_meating / setmangry deferred
+    void via_attack;
 }
 
 export function m_at(x, y) {

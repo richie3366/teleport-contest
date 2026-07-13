@@ -5595,3 +5595,29 @@ cohort gates if those functions are touched again.
 - **Next:** seed0030 seg1 @7007 C `next_ident` vs JS `rn2(20)`; or
   seed0103 `next_ident`/`trquan`.
 
+
+## D-0207 — stumble_onto_mimic / object_from_map next_ident (seed0030 seg1 @7007)
+
+- **Symptom:** seed0030 seg1 @7007 C `rnd(2) @ next_ident` vs JS
+  `rn2(20) @ gethungry` — after matched EOT wipe gate; step key `n`,
+  topline "That chest is a small mimic!".
+- **Rejected:** missing EOT spawn/`u_wipe_engr` after matched
+  `rn2(76)`; umovement loop divergence alone (JS umov==12 correctly
+  took hero input).
+- **Cause/evidence:** C `do_attack`→`attack_checks` sees `M_AP_TYPE`
+  and calls `stumble_onto_mimic`→`that_is_a_mimic`→`object_from_map`→
+  `mksobj(otyp,FALSE,FALSE)`→`next_ident` **before** `overexertion`.
+  JS skipped mimic stumble and burned accessorytime `rn2(20)`.
+- **Change:** `js/mon.js` `seemimic`/`wakeup`; `js/uhitm.js`
+  `that_is_a_mimic`/`stumble_onto_mimic`/`attack_checks_mimic` wired
+  ahead of `overexertion` in `do_attack`.
+- **Verification:** seg1 prefix **7007→7189** (`dosounds` vault
+  `gd_sound` `rn2(2)`); seed0030 positional **21760**/105529 Scr
+  **45**/1953; green+strict+cohort PASS; full **17/44** Scr **1313**
+  RNG **144336**.
+- **Named omissions:** Blind/hallu/`sensemon`/Protection_from_shape_changers
+  / warning-glyph / invis-marker arms of `attack_checks`; furniture
+  `defsyms` message; AD_STCK `set_ustuck`; `wake_msg`/`setmangry`;
+  full `object_from_map` (buried/hallu/observe_object).
+- **Next:** seed0030 seg1 @7189 vault `gd_sound`→`rn2(2)`; or
+  seed0103 `next_ident`/`trquan`.
