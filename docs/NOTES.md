@@ -7,19 +7,17 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 
 ## Active
 
-- **Current unit:** D-0177 cleared seed0030 @13226 — minefill skipped
-  `fixup_special`/`place_lregion(LR_BRANCH)` (post-`join_map_cleanup`
-  `nroom==0` → full-level `rn2(79)`/`rn2(21)`), then mineralize lacked
-  Mines `goldprob*=2`/`gemprob*=3`. Prefix **13226→13906**; positional
-  **14344**/105529; Scr **168**/1953; public Scr **1405**, RNG **135801**;
-  still **15/44**.
-- **Hypothesis / next:** seed0030 @13906 — C `mdig_tunnel` `rnd(12)` vs
-  JS `distfleeck` `rn2(5)` (hostile dig after Mines load); or seed0101 Scr
-  residual (RNG full), or seed0200 combat `@3382`.
+- **Current unit:** D-0178 cleared seed0030 @13906 — missing `tunnels`/
+  `ALLOW_DIG`/`mdig_tunnel` (JS forced `can_tunnel=false`). Prefix
+  **13906→13921**; positional **14256**/105529; Scr **168**/1953;
+  public Scr **1405**, RNG **135713**; still **15/44**.
+- **Hypothesis / next:** seed0030 @13921 — C `mattacku` `rnd(20)` vs JS
+  `rn2(12)` (hostile attack after digger move); or seed0101 Scr residual
+  (RNG full), or seed0200 combat `@3382`.
 - **Falsifier / next:**
   ```bash
   node scripts/rng-diff.mjs sessions/seed0030-ten-diverse-deaths.session.json
-  # expect first mismatch past 13906 if mdig_tunnel / dig advances
+  # expect first mismatch past 13921 if mattacku / combat advances
   node frozen/ps_test_runner.mjs sessions/seed0101-ranger-quiver-throw-travel-engrave.session.json
   # expect Scr >21/27 if residual display peel advances
   ```
@@ -320,6 +318,10 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   `rn2(79)`/`rn2(21)` (not room `place_branch`). Then Mines mineralize
   doubles gold/triples gem probs (D-0177). Do not skip fixup because
   minefill.lua has no explicit lregion.
+- **seed0030 @13906 was NOT a stray distfleeck/`rn2(5)`** — C digger
+  `postmov` → `mdig_tunnel` always burns `rnd(12)` when `can_tunnel &&
+  may_dig` (open floor included); JS forced `can_tunnel=false` (D-0178).
+  Do not invent a seed-local dig burn without `tunnels`/`ALLOW_DIG`.
 
 ## Landmarks
 
@@ -422,3 +424,6 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   `place_lregion(0,…,LR_BRANCH)`; with `nroom==0` (post cleanup) use
   full-map rn1 search → `place_branch(br,x,y)` (D-0177).
 - Mines mineralize: `goldprob*=2`, `gemprob*=3` (D-0177).
+- Digger postmov: `tunnels` && !Rogue → `can_tunnel`; `ALLOW_DIG` in
+  mfndpos; every moved digger with `may_dig` calls `mdig_tunnel` which
+  **always** burns `rnd(12)` first (D-0178).

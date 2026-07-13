@@ -2215,3 +2215,19 @@ Use this shape:
   full **15/44** Scr **1405** RNG **135801**/792838.
 - Next: seed0030 @13906 (`mdig_tunnel` vs distfleeck) /
   seed0101 Scr residual / seed0200 combat @3382.
+
+## 2026-07-13 — mdig_tunnel / tunnels / ALLOW_DIG (D-0178)
+- Objective: seed0030 @13906 C `mdig_tunnel` rnd(12) vs JS distfleeck
+  rn2(5) (PROGRESS primary).
+- C locus: `mondata.h` tunnels/needspick; `mon.c` mon_allowflags/
+  mfndpos ALLOW_DIG; `monmove.c` can_tunnel + postmov; `dig.c`
+  mdig_tunnel; `hack.c` may_dig.
+- Result: **verified** — JS forced can_tunnel=false so diggers never
+  burned post-move dig RNG (even on open floor). Ported tunnels/
+  needspick, ALLOW_DIG rockok/treeok/thrudoor, real can_tunnel,
+  js/dig.js may_dig/mdig_tunnel.
+- Verification: seed0030 prefix **13906→13921**; positional
+  **14256**/105529 Scr **168**/1953; green+strict PASS; cohort PASS;
+  full **15/44** Scr **1405** RNG **135713**/792838.
+- Next: seed0030 @13921 (`mattacku` vs rn2(12)) /
+  seed0101 Scr residual / seed0200 combat @3382.

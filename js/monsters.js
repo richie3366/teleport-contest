@@ -89,6 +89,8 @@ export const M1_FLY = 0x00000001; /* monflag.h — can fly or float */
 export const M1_AMORPHOUS = 0x00000004; /* monflag.h — can flow under doors */
 export const M1_WALLWALK = 0x00000008;
 export const M1_CLING = 0x00000010; /* monflag.h — cling to ceiling */
+export const M1_TUNNEL = 0x00000020; /* monflag.h — can tunnel through rock */
+export const M1_NEEDPICK = 0x00000040; /* monflag.h — needs pick to tunnel */
 export const M1_NOHANDS = 0x00002000;
 export const M1_THICK_HIDE = 0x00200000; /* monflag.h — thick hide or scales */
 export const M1_SEE_INVIS = 0x01000000; /* monflag.h — sees invisible */
@@ -185,6 +187,14 @@ export function grounded(ptr) {
 }
 export function passes_walls(ptr) {
     return !!((ptr?.mflags1 ?? 0) & M1_WALLWALK);
+}
+
+/** C ref: mondata.h tunnels / needspick */
+export function tunnels(ptr) {
+    return !!((ptr?.mflags1 ?? 0) & M1_TUNNEL);
+}
+export function needspick(ptr) {
+    return !!((ptr?.mflags1 ?? 0) & M1_NEEDPICK);
 }
 
 // C ref: mondata.c mon_knows_traps / mon_learns_traps — mtrapseen bitset

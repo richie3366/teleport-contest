@@ -13,7 +13,7 @@ import {
 } from './mon.js';
 import {
     is_wanderer, is_armed, passes_walls, nohands, verysmall,
-    monsterNames, M1_SEE_INVIS, M1_AMORPHOUS,
+    monsterNames, M1_SEE_INVIS, M1_AMORPHOUS, tunnels, needspick,
 } from './monsters.js';
 import {
     mintrap,
@@ -26,12 +26,13 @@ import { mattacku } from './mhitu.js';
 import { cansee, couldsee, vision_recalc, recalc_block_point } from './vision.js';
 import {
     isok, ACCESSIBLE, IS_DOOR, D_CLOSED, D_LOCKED, D_ISOPEN, D_NODOOR,
-    D_BROKEN, D_TRAPPED, u_at, DISPLACED,
+    D_BROKEN, D_TRAPPED, u_at, DISPLACED, Is_rogue_level,
 } from './const.js';
 import {
     CLOAK_OF_DISPLACEMENT, COIN_CLASS, objectNames,
 } from './objects.js';
 import { Monnam } from './do_name.js';
+import { may_dig, mdig_tunnel } from './dig.js';
 
 const CREDIT_CARD = objectNames.indexOf('CREDIT_CARD');
 const SKELETON_KEY = objectNames.indexOf('SKELETON_KEY');
@@ -281,8 +282,8 @@ function canspotmon(mtmp) {
  * C ref: monmove.c postmov — after a successful step: traps then doors.
  * Branch envelope: D_CLOSED open / D_LOCKED unlock / smash doorbuster;
  * amorphous squeeze message; mb_trapped. Named omissions: vampshift fog
- * sequencing; iron bars; mdig_tunnel; engulfing_u; shop add_damage;
- * has_magic_key disarm; full mondied from trap death.
+ * sequencing; iron bars; engulfing_u; shop add_damage;
+ * has_magic_key disarm; full mondied from trap death; m_digweapon_check.
  */
 async function postmov(mtmp, omx, omy, mmoved, can_tunnel, can_unlock, can_open) {
     if (mmoved !== MMOVE_MOVED) return mmoved;
@@ -369,7 +370,14 @@ async function postmov(mtmp, omx, omy, mmoved, can_tunnel, can_unlock, can_open)
             // shop add_damage deferred
         }
     }
-    // IRONBARS / mdig_tunnel / engulfing_u deferred
+    // IRONBARS / engulfing_u deferred
+
+    // C: possibly dig — can_tunnel && may_dig → mdig_tunnel (burns rnd(12)
+    // even on open floor).
+    if (can_tunnel && may_dig(mtmp.mx, mtmp.my)
+        && await mdig_tunnel(mtmp)) {
+        return MMOVE_DIED;
+    }
 
     if (mtmp.mx) newsym(mtmp.mx, mtmp.my);
     return mmoved;
@@ -378,8 +386,8 @@ async function postmov(mtmp, omx, omy, mmoved, can_tunnel, can_unlock, can_open)
 // C ref: monmove.c m_move() — pets → postmov(dog_move); else approach / track path
 export async function m_move(mtmp, after) {
     const ptr = mtmp.data;
-    // C: can_tunnel = tunnels(ptr) off Rogue level — deferred (always false)
-    const can_tunnel = false;
+    // C: can_tunnel = tunnels(ptr) off Rogue level
+    let can_tunnel = tunnels(ptr) && !Is_rogue_level(game.u?.uz);
     const can_open = !(nohands(ptr) || verysmall(ptr));
     // C: can_unlock = (can_open && monhaskey) || iswiz || is_rider
     const can_unlock = (can_open && monhaskey(mtmp, true))
@@ -428,6 +436,13 @@ export async function m_move(mtmp, after) {
 
     // Hostiles keep appr=1; peaceful wander uses !rn2(++chcnt) instead of track.
     // Named omission: gettrack goal, shortsighted, m_search_items, balks.
+
+    // C: don't tunnel if hostile and close enough to prefer a weapon
+    if (can_tunnel && needspick(ptr)
+        && ((!mtmp.mpeaceful || game.Conflict || game.flags?.Conflict)
+            && dist2(mtmp.mx, mtmp.my, mtmp.mux, mtmp.muy) <= 8)) {
+        can_tunnel = false;
+    }
 
     const flag = mon_allowflags(mtmp);
     const mfp = { cnt: 0, poss: [], info: [] };

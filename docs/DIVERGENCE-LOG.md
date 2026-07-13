@@ -180,6 +180,8 @@ Do not record a guessed cause as fixed merely because an RNG prefix moved.
 | D-0174 | fixed | m_initinv/likes_gold | likes_gold + findgold + mkmonmoney rn2(5) |
 | D-0175 | fixed | minefill/create_monster | class-letter: induced_align before mkclass |
 | D-0176 | fixed | minefill/create_trap | traptype NO_TRAP retry + mktrap victim rnd(4) |
+| D-0177 | fixed | minefill/fixup | `fixup_special`/`place_lregion` + Mines mineralize |
+| D-0178 | fixed | dig/mdig_tunnel | tunnels/`ALLOW_DIG`/`mdig_tunnel` postmov rnd(12) |
 
 D-0001 through D-0005 predate the strict-length/cohort runbook. Their focused
 causes are preserved, but generic "green sessions held" is historical evidence,
@@ -4825,6 +4827,34 @@ cohort gates if those functions are touched again.
 - **Lesson:** after mkmap cleanup `nroom==0`, branch placement uses
   full-map `place_lregion` RNG — not the ordinary-room `place_branch`
   path. Mines mineralize probs are doubled/tripled.
-- **Next:** seed0030 @13906 (`mdig_tunnel` vs distfleeck) /
+- **Next:** seed0030 @13906 cleared by D-0178; see D-0178 next.
+
+## D-0178 — mdig_tunnel / tunnels / ALLOW_DIG (seed0030)
+
+- **Status:** fixed
+- **Observed:** seed0030 first RNG mismatch @13906 — C `rnd(12)` @
+  `mdig_tunnel`; JS `rn2(5)` @ `distfleeck`.
+- **Rejected:** inventing a one-seed dig burn without wiring `can_tunnel` —
+  every tunnel-capable move burns `pile=rnd(12)` even on open floor.
+- **C locus:** `mondata.h` `tunnels`/`needspick`; `mon.c` `mon_allowflags`
+  `ALLOW_DIG` + `mfndpos` diggable rock/tree; `monmove.c` `m_move`
+  `can_tunnel` + close-range needspick disable + `postmov` →
+  `dig.c` `mdig_tunnel` / `hack.c` `may_dig`.
+- **Cause:** JS forced `can_tunnel=false` and skipped `mdig_tunnel`, so
+  rock moles (and other M1_TUNNEL) never burned the post-move dig RNG.
+- **Change:** `tunnels`/`needspick`; `mon_allowflags`/`mfndpos` ALLOW_DIG
+  rockok/treeok/thrudoor; real `can_tunnel` in `m_move`; `js/dig.js`
+  `may_dig`/`mdig_tunnel` (door/SCORR/wall/tree/stone + draft/crash/
+  boulder-rock/treefruit); postmov call.
+- **Verification:** seed0030 prefix **13906→13921** positional
+  **14256**/105529 Scr **168**/1953; green+strict PASS; cohort PASS;
+  full **15/44** Scr **1405** RNG **135713**.
+- **Named omission:** iron bars; `m_digweapon_check`; shop `add_damage`;
+  Hallucination draft; `in_town` cavernous gate; peaceful shop/temple
+  dig avoid; cursed-mwep dig-tool gate; full `mb_trapped` mondead;
+  `ALLOW_WALL` passwall; engulfer update.
+- **Lesson:** tunnel dig RNG is on every successful move of a digger,
+  not only when standing on rock — `may_dig` is true for open floor.
+- **Next:** seed0030 @13921 (`mattacku` vs `rn2(12)`) /
   seed0101 Scr / seed0200 @3382.
 
