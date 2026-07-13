@@ -19,6 +19,16 @@ Use this shape:
 
 ---
 
+## 2026-07-13 16:45 — armor pair of + ^X new moon (D-0158)
+- Objective: seed0016 invent @24 / disco / ^X (PROGRESS primary).
+- C locus: `objnam.c` `obj_typename`/`xname`; `insight.c` moon + paging.
+- Result: **verified** — `pair of`/`set of` in typename/xname; ^X
+  moon/friday13 before XP; continuous 23-row pages. seed0016 **PASS**.
+- Verification: green+strict PASS; cohort 12 PASS; full **14/44**
+  Scr **1323** RNG **128139**.
+- Next: seed0015 Scr @21, or seed0030 `maybe_smudge_engr` @6732, or
+  seed0101 Scr residual.
+
 ## 2026-07-13 16:35 — apply_ok SUGGEST wand/spbook (D-0157)
 - Objective: seed0016 Scr @3 apply letters `[c]` vs C `[cfghi]`
   (PROGRESS primary).

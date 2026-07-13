@@ -161,6 +161,7 @@ Do not record a guessed cause as fixed merely because an RNG prefix moved.
 | D-0155 | fixed | apply/eat | STETHOSCOPE self + touchfood split; seed0016 @2493→2551 |
 | D-0156 | fixed | zap/sleep | WAN_SLEEP self-zap + Unaware gethungry; seed0016 RNG full |
 | D-0157 | fixed | apply/getobj | `apply_ok` SUGGEST wand/spbook; seed0016 Scr 31→32 |
+| D-0158 | fixed | objnam/insight | armor `pair of`/`set of` + ^X new moon + 23-row page; seed0016 PASS |
 
 D-0001 through D-0005 predate the strict-length/cohort runbook. Their focused
 causes are preserved, but generic "green sessions held" is historical evidence,
@@ -4224,3 +4225,31 @@ cohort gates if those functions are touched again.
   not the subset of otyps with ported `doapply` bodies.
 - **Next:** seed0016 invent @24 (H2344 offx + `pair of` gloves) /
   seed0015 Scr / `maybe_smudge_engr`.
+
+## D-0158 — armor pair of / set of + ^X new moon (seed0016 PASS)
+
+- **Status:** fixed
+- **Observed:** seed0016 invent @24 Coins at col ~32 vs C col 24;
+  gloves line missing `pair of`; disco `leather gloves` vs
+  `pair of leather gloves`; ^X missing `There is a new moon in effect.`
+  so INT stayed on page 1.
+- **Rejected:** bare H2344 invent offx pad; hardcoded INT→page2 without
+  moon line (would break non-moon ^X).
+- **C locus:** `objnam.c` `obj_typename`/`xname` ARMOR/LENSES;
+  `insight.c` background_enlightenment moon/friday13 + tty 23-row page.
+- **Cause:** JS omitted `pair of `/`set of ` prefixes (`oc_armcat`
+  gloves/boots; dragon scales window; LENSES). Shorter invent maxcol
+  shifted H2344 offx. ^X skipped `flags.moonphase` NEW/FULL line and
+  used a fixed page split with INT always on page 1.
+- **Change:** `pretty_base`/`obj_typename` pair-of/set-of; makeplural
+  keeps singular `pair of`; `doattributes` continuous stream with
+  moon/friday13 before experience and 23-content-row paging.
+- **Verification:** seed0016 **PASS** (RNG 3656/3656 Scr 36/36);
+  green+strict PASS; cohort 12 PASS; full **14/44** Scr **1323**
+  RNG **128139**.
+- **Named omission:** night()/midnight enlightenment lines; full
+  `enlght_*` disclosure final tense; other armor naming edges.
+- **Lesson:** invent offx follows maxcol from real doname strings;
+  ^X page breaks follow content length, not hardcoded attribute index.
+- **Next:** seed0015 Scr @21 / seed0030 `maybe_smudge_engr` /
+  seed0101 Scr residual.

@@ -37,8 +37,8 @@ frozen-file overlay):
 
 | Metric | Value |
 |--------|------:|
-| Sessions passing | **13 / 44** |
-| Screens matched | **1318 / 11,405** (11.56%) |
+| Sessions passing | **14 / 44** |
+| Screens matched | **1323 / 11,405** (11.60%) |
 | Positional RNG calls matched | **128,139 / 792,838** (16.16%) |
 | Speed label | `19+0.08/turn` |
 | Working-tree base | `8b71735` + committed port (see `main`) |
@@ -68,7 +68,7 @@ shared blockers, and semantic coverage together—not one vanity metric.
 | `seed0103-knight-ride-pony` | **2344 / 2640** | 2 / 60 |
 | `seed0200-monk-north-search` | **3385 / 3822** | **14 / 40** |
 | `seed0101-ranger-quiver-throw-travel-engrave` | **2371 / 2371** | **21 / 27** |
-| `seed0016-healer-newmoon-eat-zap` | **3656 / 3656** | **32 / 36** |
+| `seed0016-healer-newmoon-eat-zap` | **3656 / 3656** | **36 / 36** |
 | `seed0107-samurai-twoweapon-enhance` | **2684 / 2902** | **36 / 98** |
 | `seed0104-knight-ride-combat` | **2394 / 3223** | 1 / 43 |
 | `seed0361-archeologist-tour` | **3293 / 53865** | 0 / 366 |
@@ -80,7 +80,7 @@ shared blockers, and semantic coverage together—not one vanity metric.
 
 seed8000 + seed0900 + seed1500 + seed1800 + seed0060 + seed0102 +
 seed0700 + seed1150 + seed0017 + seed0077 + seed0106 + seed0501 +
-seed0105 pass end-to-end.
+seed0105 + seed0016 pass end-to-end.
 `choose_trapnote`/`hole_destination` (D-0054), `SPBOOK_no_NOVEL`
 (D-0055), roles `initrecord` (D-0056), CORPSE `G_NOCORPSE` retry
 (D-0057), `adjabil`/`u_calc_moveamt` Fast (D-0058), `rnl` +
@@ -190,6 +190,9 @@ seed0016 RNG **full** Scr **15→31**/36; Scr **1302→1318**;
 RNG **127080→128139**.
 **`apply_ok` SUGGEST wand/spbook** (D-0157) → seed0016 Scr **31→32**/36;
 aggregate Scr/RNG held **1318**/**128139**.
+**armor `pair of`/`set of` + ^X new moon paging** (D-0158) →
+seed0016 **PASS**; public **14/44**; Scr **1318→1323**; RNG held
+**128139**.
 
 ### Green gate
 
@@ -319,21 +322,21 @@ autoopen `doopen_indir` (D-0059) + `mfndpos` BOULDER/`ALLOW_ROCK` +
 **STETHOSCOPE `use_stethoscope`/`ustatusline` + eat `touchfood`** (D-0155)
 **WAN_SLEEP `zapyourself`/`fall_asleep` + Unaware `gethungry`** (D-0156)
 **`apply_ok` SUGGEST wand/spbook** (D-0157)
-**ported**. Thirteen public sessions pass end-to-end. **0/44** throw at
+**armor `pair of`/`set of` + ^X new moon / 23-row page** (D-0158)
+**ported**. Fourteen public sessions pass end-to-end. **0/44** throw at
 `u_init_role`. seed0700 + seed1150 + seed0017 + seed0077 + seed0106 +
-seed0501 + seed0105 **PASS**. seed2200 RNG **full** (Scr **229**/230; sole
+seed0501 + seed0105 + seed0016 **PASS**. seed2200 RNG **full** (Scr **229**/230; sole
 miss parked RC @158). seed0015 RNG **full** (Scr **21**/44).
-seed0101 RNG **full** Scr **21**/27. seed0016 RNG **full** Scr **32**/36.
+seed0101 RNG **full** Scr **21**/27.
 
-- **Bounded unit:** seed0016 invent @24 (offx + `pair of` gloves) /
-  seed0015 Scr @21 /
+- **Bounded unit:** seed0015 Scr @21 /
   seed0030 `maybe_smudge_engr` @6732 /
   seed0101 Scr residual /
   seed0103 `next_ident`/`trquan` /
   seed0200 combat `@3382` (lower priority) /
   seed0361/0373 **quest `getbones`** (blocked: need `^V`→`goto_level`→
   `makemaz` first — ordinary `goto_level` now exists for stairs).
-- **Prefer:** seed0016 invent/`pair of` / seed0015 Scr / `maybe_smudge_engr`
+- **Prefer:** seed0015 Scr / `maybe_smudge_engr` / seed0101 Scr
   over parked D-0006 and over baking seed2200 RC paths.
   Hero `dotrap` deferred until monster pit peel is clear.
 - **Named omissions:** full `findtravelpath` TEST_TRAV/GUESS/travelmap/
@@ -371,7 +374,7 @@ seed0101 RNG **full** Scr **21**/27. seed0016 RNG **full** Scr **32**/36.
   `throws_rocks`; `m_initinv` body; `set_malign`; telepathy/
   `Detect_monsters`/`MATCH_WARN_OF_MON` in `newsym`; full
   `weapon_insight` P_SKILL display; shop `costly_spot`
-  autopickup; `obj_typename` armor pair-of/set-of; full
+  autopickup; full
   `magic_negation` Protection/amulet; GEM xname unknown/called beyond known GemStone;
   pool/lava/ice/air/cloud terrain glyphs; `help_dir` Guidebook/
   `^letter`/nodiag; cmdassist getdir beyond fire path; `align_shift`/
@@ -413,7 +416,7 @@ seed0101 RNG **full** Scr **21**/27. seed0016 RNG **full** Scr **32**/36.
   shortsighted/`m_search_items`; mtrapped escape `rn2(40)`; …
 - **Cohort:** green gate + seed1500 + seed1800 + seed0060 + seed0102
   + seed0700 + seed1150 + seed0017 + seed0077 + seed0106 + seed0501
-  + seed0105 (must stay PASS) + strict lengths.
+  + seed0105 + seed0016 (must stay PASS) + strict lengths.
 
 Focused survey:
 
@@ -921,6 +924,10 @@ Module status, constitutional debt, and named omissions live in
     — seed0016 Scr **31→32**/36; screens **1318**; RNG **128139**;
     green cohort PASS; next invent @24 offx/`pair of` / seed0015 Scr /
     `maybe_smudge_engr`
+136. armor `pair of`/`set of` + ^X new moon paging (D-0158)
+    — seed0016 **PASS**; public **14/44**; screens **1318→1323**;
+    RNG **128139**; green cohort + seed0016 PASS; next seed0015 Scr /
+    `maybe_smudge_engr` / seed0101 Scr residual
 
 Next work is selected from the active objectives above using
 `PORTING-RUNBOOK.md`, not by extending this historical list.

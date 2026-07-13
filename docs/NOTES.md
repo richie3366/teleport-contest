@@ -7,17 +7,16 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 
 ## Active
 
-- **Current unit:** D-0157 cleared seed0016 Scr @3 — `apply_ok` SUGGEST
-  for WAND/SPBOOK (Healer `cfghi`). Scr **31→32**/36.
-- **Hypothesis / next:** seed0016 invent @24 — H2344 offx + `pair of`
-  leather gloves (`obj_typename` armor) / seed0015 Scr @21 /
-  seed0030 `maybe_smudge_engr` @6732 / seed0101 Scr residual.
+- **Current unit:** D-0158 cleared seed0016 — `pair of`/`set of` gloves +
+  ^X new-moon line + continuous 23-row paging. Session **PASS**.
+- **Hypothesis / next:** seed0015 Scr @21 / seed0030 `maybe_smudge_engr`
+  @6732 / seed0101 Scr residual / seed0200 combat @3382.
 - **Falsifier / next:**
   ```bash
-  node frozen/ps_test_runner.mjs sessions/seed0016-healer-newmoon-eat-zap.session.json
-  # expect Scr >32 or invent header col matches C (Coins @col 24)
   node frozen/ps_test_runner.mjs sessions/seed0015-valk-level2-pit-dog-wait.session.json
   # expect Scr >21 or named first cell mismatch
+  node scripts/rng-diff.mjs sessions/seed0030-ten-diverse-deaths.session.json
+  # expect first mismatch past maybe_smudge_engr @6732 if that peel advances
   ```
 - **Parked deep canary:** D-0006 pet movement — do not implement until C
   state/candidate capture exists.
@@ -229,9 +228,20 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 - **seed0016 Scr @3 `[c or ?*]` was NOT empty-SUGGEST / stethoscope** —
   JS `apply_ok` only TOOL_CLASS; C SUGGEST all WAND/SPBOOK too →
   Healer `cfghi` (D-0157). Do not shrink apply letters to ported tools.
+- **seed0016 invent @24 Coins col was NOT bare H2344 offx bug** — missing
+  `pair of` gloves shortened maxcol so invent shifted right; disco also
+  needed `obj_typename` pair-of (D-0158). Do not pad invent offx.
+- **seed0016 ^X missing INT page was NOT wrong attr order** — missing
+  `There is a new moon in effect.` before XP; continuous 23-row paging
+  then puts INT on page 2 (D-0158). Do not hardcode INT→page2 always.
 
 ## Landmarks
 
+- Armor gloves/boots: `oc_armcat`/`oc_skill` → `pair of ` in
+  `obj_typename`/`xname`; dragon scales window → `set of `; LENSES →
+  `pair of `; makeplural keeps singular `pair of` (D-0158).
+- ^X: moon/friday13 between entered and experience; tty pages 23 content
+  rows + `(k of n)` (D-0158). night()/midnight still deferred.
 - `apply_ok`: TOOL/WAND/SPBOOK SUGGEST; COIN DOWNPLAY; pick/axe/pole/
   whip SUGGEST; unknown potion DOWNPLAY; known oil SUGGEST; cream pie/
   eucalyptus/jelly SUGGEST; graystone SUGGEST unless known non-touch
