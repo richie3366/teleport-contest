@@ -19,15 +19,19 @@ Use this shape:
 
 ---
 
----
-
----
-
----
-
----
-
----
+## 2026-07-13 15:20 — ordinary > dodown/goto_level/getbones (D-0149)
+- Objective: seed0015 ordinary `getbones` @2918 (PROGRESS primary).
+- C locus: `do.c` `dodown`/`goto_level`; `dungeon.c` `next_level`;
+  `bones.c` `getbones`; `dog.c` `keepdogs`/`losedogs`/`mon_arrive`;
+  `mklev.c` special-room `rn2(u_depth)`.
+- Result: **verified** — Notes said getbones arity; actual peel was
+  unbound `>`. Ported stairs descent + pet migrate + dlvl2 shop chance
+  roll. getbones stub already correct when reached.
+- Verification: seed0015 2918→8499 (`trapeffect_pit`); Scr 20/44;
+  green+strict PASS; cohort 1500/1800/0060 PASS; full **13/44** Scr
+  **1275** RNG **126755**/792838.
+- Next: seed0015 `dotrap`/`trapeffect_pit` @8499, or seed0101
+  `next_ident` @2293 / seed0030 `maybe_smudge_engr` @6732.
 
 ## 2026-07-13 15:05 — random_engraving get_rnd_text ENGRAVEFILE (D-0148)
 - Objective: seed0200 @1768 (PROGRESS primary `get_rnd_text`).

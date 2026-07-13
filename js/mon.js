@@ -18,6 +18,7 @@ import { objects_at } from './mkobj.js';
 import { objectNames } from './generated/objects_data.js';
 import { PM_GRID_BUG } from './generated/monsters_data.js';
 import { G_GENOD } from './const.js';
+import { enexto, rloc_to } from './teleport.js';
 
 export const NORMAL_SPEED = 12;
 
@@ -181,6 +182,23 @@ export function m_at(x, y) {
         if (m.mx === x && m.my === y) return m;
     }
     return null;
+}
+
+/**
+ * C ref: mon.c mnexto — place next to hero via enexto + rloc_to.
+ * Omits mon_telecontrol / overcrowding limbo.
+ */
+export function mnexto(mtmp, _rlocflags = 0) {
+    if (!mtmp) return;
+    const u = game.u;
+    if (mtmp === u?.usteed) {
+        mtmp.mx = u.ux;
+        mtmp.my = u.uy;
+        return;
+    }
+    const mm = { x: 0, y: 0 };
+    if (!enexto(mm, u.ux, u.uy, mtmp.data) || !isok_xy(mm.x, mm.y)) return;
+    rloc_to(mtmp, mm.x, mm.y);
 }
 
 // C ref: mon.c mon_allowflags() — hostile/peaceful subset for seed8000

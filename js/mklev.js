@@ -17,6 +17,8 @@ import {
     D_NODOOR, D_CLOSED, D_ISOPEN, D_LOCKED, D_TRAPPED,
     OROOM, VAULT, THEMEROOM, ROOMOFFSET, MAXNROFROOMS, SHARED, NO_ROOM,
     SDOOR, SCORR, IRONBARS, FOUNTAIN, SINK, ALTAR, GRAVE,
+    SHOPBASE, COURT, ZOO, BEEHIVE, MORGUE, BARRACKS, SWAMP, TEMPLE,
+    LEPREHALL, COCKNEST, ANTHOLE,
     DIR_N, DIR_S, DIR_E, DIR_W, DIR_180,
     IS_WALL, IS_STWALL, IS_DOOR, IS_ROOM, IS_OBSTRUCTED, IS_FURNITURE, IS_POOL,
     SPACE_POS, isok, W_NONDIGGABLE, FILL_NORMAL,
@@ -287,9 +289,11 @@ function in_rooms(x, y, rtype) { return []; }
 // C ref: bones.c getbones()
 function getbones() {
     const flags = game.flags || {};
-    if (flags.explore) return false;
+    // C: discover global; JS playmode explore/discover both set flags.explore
+    if (flags.explore || flags.discover) return false;
     if (flags.bones === false) return false;
-    if (rn2(3) && !game.flags?.debug) return false;
+    if (rn2(3) && !flags.debug && !flags.wizard) return false;
+    // Bones file load deferred — always fail open after the chance roll
     return false;
 }
 
@@ -332,6 +336,8 @@ function recount_level_features() {
 function clear_level_structures() {
     const g = game;
     g.fmon = null;
+    g.fobj = null;
+    g.ftrap = null;
     g.level = new GameMap();
     g.level.nroom = 0;
     g.level.rooms = [];
@@ -460,6 +466,38 @@ async function makelevel() {
         }
     }
 
+    // C ref: mklev.c:1344-1375 — up to one special room by depth
+    const u_depth = depth_of_level(g.u?.uz);
+    const medusaDepth = depth_of_level(g.medusa_level) || 999;
+    let room_threshold = branchp ? 4 : 3;
+    // Vault creation bumps room_threshold in C when filled
+    if (g.level.flags.has_vault) room_threshold++;
+
+    if (u_depth > 1 && u_depth < medusaDepth
+        && g.level.nroom >= room_threshold && rn2(u_depth) < 3) {
+        do_mkroom(SHOPBASE);
+    } else if (u_depth > 4 && !rn2(6)) {
+        do_mkroom(COURT);
+    } else if (u_depth > 5 && !rn2(8)) {
+        do_mkroom(LEPREHALL);
+    } else if (u_depth > 6 && !rn2(7)) {
+        do_mkroom(ZOO);
+    } else if (u_depth > 8 && !rn2(5)) {
+        do_mkroom(TEMPLE);
+    } else if (u_depth > 9 && !rn2(5)) {
+        do_mkroom(BEEHIVE);
+    } else if (u_depth > 11 && !rn2(6)) {
+        do_mkroom(MORGUE);
+    } else if (u_depth > 12 && !rn2(8)) {
+        do_mkroom(ANTHOLE);
+    } else if (u_depth > 14 && !rn2(4)) {
+        do_mkroom(BARRACKS);
+    } else if (u_depth > 15 && !rn2(6)) {
+        do_mkroom(SWAMP);
+    } else if (u_depth > 16 && !rn2(8)) {
+        do_mkroom(COCKNEST);
+    }
+
     // Place dungeon branch
     // C ref: mklev.c:1378-1387 — prevstairs + Dlvl1 branch stairs traversed
     const prevstairs = g.stairs;
@@ -496,6 +534,48 @@ async function makelevel() {
     // post_level_generate (no-op when postprocess empty for default rooms)
     // then full-map wallification. JS has no Lua postprocess queue yet.
     wallification(1, 0, COLNO - 1, ROWNO - 1);
+}
+
+/**
+ * C ref: mkroom.c do_mkroom — dispatch special room makers.
+ * Shop path: mkshop eligibility scan; stocking deferred when a room qualifies.
+ */
+function do_mkroom(roomtype) {
+    if (roomtype >= SHOPBASE) {
+        mkshop();
+        return;
+    }
+    // COURT/ZOO/… bodies deferred — named in C-JS-MAP.md
+}
+
+/**
+ * C ref: mkroom.c mkshop — find eligible OROOM with one door, no stairs.
+ * Full invalid_shop_shape + shtypes rnd(100) + rtype set deferred; candidates
+ * are skipped so we never claim a shop without burning shop-type RNG.
+ * seed0015 dlvl2: C also finds no eligible room → no RNG here.
+ */
+function mkshop() {
+    const g = game;
+    const nroom = g.level?.nroom | 0;
+    for (let i = 0; i < nroom; i++) {
+        const sroom = g.level.rooms[i];
+        if (!sroom || sroom.hx < 0) return;
+        if (sroom.rtype !== OROOM) continue;
+        let hasStairs = false;
+        for (let s = g.stairs; s; s = s.next) {
+            if (s.sx >= sroom.lx && s.sx <= sroom.hx
+                && s.sy >= sroom.ly && s.sy <= sroom.hy) {
+                hasStairs = true;
+                break;
+            }
+        }
+        if (hasStairs) continue;
+        if ((sroom.doorct | 0) === 1) {
+            // Eligible under doorct rule — invalid_shop_shape/shtypes omitted;
+            // skip rather than set rtype without rnd(100).
+            continue;
+        }
+    }
 }
 
 function ROOM_IS_FILLABLE(croom) {

@@ -7,19 +7,17 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 
 ## Active
 
-- **Current unit:** D-0148 cleared `get_rnd_text(ENGRAVEFILE)` in
-  `random_engraving` (seed0200 1768→3382).
-- **Hypothesis / next:** Prefer seed0015 ordinary `getbones` @2918 —
-  C `rn2(3)` then continue makelevel; JS stub returns false after wrong
-  arity/order so next call is `makelevel` `rn2(5)`. Else seed0101
-  `next_ident` @2293 / seed0030 `maybe_smudge_engr` @6732. Quest
-  `getbones` still blocked on `^V`→`goto_level`→`makemaz`.
+- **Current unit:** D-0149 cleared ordinary `>` descent (`dodown`/`goto_level`/
+  `getbones`/`keepdogs`/`losedogs`) + dlvl2 special-room `rn2(u_depth)`.
+  seed0015 **2918→8499**.
+- **Hypothesis / next:** seed0015 @8499 — C `rnd(6)` @ `trapeffect_pit`
+  (hero pit fall); JS still on dog_move `rn2(5)`. Port `dotrap`/
+  `trapeffect_pit` for PIT. Else seed0101 `next_ident` @2293 /
+  seed0030 `maybe_smudge_engr` @6732 / seed0200 combat @3382.
 - **Falsifier / next:**
   ```bash
   node scripts/rng-diff.mjs sessions/seed0015-valk-level2-pit-dog-wait.session.json
-  # expect getbones rn2(3) then makelevel rn2(5) — not JS rn2(5) first
-  node scripts/rng-diff.mjs sessions/seed0101-ranger-quiver-throw-travel-engrave.session.json
-  # expect next_ident rnd(2) match
+  # expect trapeffect_pit rnd(6) then corpse_chance — not dog_move rn2(5)
   ```
 - **Parked deep canary:** D-0006 pet movement — do not implement until C
   state/candidate capture exists.
@@ -196,122 +194,21 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   past getrumor into `get_rnd_text(ENGRAVEFILE)` `rn2(2894)`; JS stub
   re-called getrumor/`rn2(2)` (D-0148). Do not burn rumor as engrave
   fallback.
+- **seed0015 @2918 was NOT getbones body/arity** — `>` was unbound;
+  C `dodown`→`next_level`→`goto_level`→`mklev`→`getbones` `rn2(3)`.
+  getbones stub already correct when reached (D-0149). Same lesson as
+  D-0068 (`^V` vs getbones).
 
 ## Landmarks
 
-- EGG typed: `!rn2(3)` then up to 200× `can_be_hatched(rndmonnum())`;
-  oviparous path rolls `!rn2(77)` (BREEDER_EGG) except killer bee/
-  gargoyle fast path (D-0068).
+- Ordinary `>` → `dodown` → `next_level` → `goto_level` → `keepdogs` →
+  `mklev`/`getbones` → `u_on_upstairs` → `losedogs`/`mon_arrive`
+  `!rn2(mtame?10:…)` (D-0149).
+- Dlvl2+ `makelevel`: after niches/vault, `rn2(u_depth)<3` →
+  `do_mkroom(SHOPBASE)` even when mkshop finds no room (D-0149).
 - Wizard `^V` → `wiz_level_tele` → `level_tele` → `?\n` menu → letter
   `y` = Quest start (`*-strt`); needs `goto_level` + `makemaz`/`splev`.
-- `wintty.c` **`#define H2344_BROKEN`** (always on): NHW_MENU
-  `offx = min(min(82, cols/2), cols-maxcol-1)`; fullscreen only on
-  `maxrow>=rows || !menu_overlay`.
-- option_help: `next_opt` bool pack; compounds `%-20s` unless line
-  would exceed CO (then unpadded); OthrOpt leading space; epilog
-  leading blank; wrap-forcing config path for pagination (D-0091).
-- Default Primary showsyms = ASCII walls `|`/`-`, floor `.`, open door
-  `|`/`-` by `horizontal`; `symset:DECgraphics` → VT100 SO/SI glyphs
-  (D-0115).
-- `#pray` / `ublesscnt=300` → `can_pray` p_type **0** (too soon) even
-  on coaligned altar; `prayer_done` → `rnz(250)` + `change_luck(-3)` +
-  `gods_upset` → `angrygods` (D-0101).
-- angrygods case 2/3: `pline` quote + `verbalize` relearn +
-  `adjattrib(A_WIS,-1,FALSE)` → `You feel foolish!` forces `--More--`
-  on the quote line (D-0116).
-- `ext_cmd_getlin_hook`: unique among **all** AUTOCOMPLETE `ef_txt`
-  (wizard-gated); `"c"`≠chat, `"cha"`→chat (D-0117).
-- Contest nomux: CLR_GRAY and CLR_BLACK record as NO_COLOR (8); yellow
-  hilite works (`\033[93m`). `!dknown` potions use generic class glyph
-  color, not shuffled `oc_color` (D-0118).
-- `_canseemon` = `(cansee||infrared) && mon_visible` — not `couldsee`
-  (D-0119). Melee kill: no `You hit` when already destroyed.
-- C `newsym` with visible monster: `_map_location(x,y,FALSE)` then
-  `display_monster` — memory keeps object under mon (D-0120).
-- `tty_yn_function` leaves prompt on WIN_MESSAGE after answer; `rhack`
-  clears after next-command capture (D-0121).
-- Cleric `doname`: never print `"uncursed "` (BUC always known) (D-0121).
-- `#enhance`: `skill_init` then `add_skills_to_menu`; tty_end_menu
-  prompt+blank; lmax=23 → `(1 of 2)`; `\n` dismisses without page 2
-  (D-0122).
-- `#overview` features: `update_lastseentyp` on cansee map; overview
-  calls `recalc_mapseen`; Level=`TAB`/`   `, feat=`PREFIX`/`      `
-  (D-0123).
-- `#chronicle`: `show_gamelog(0)` → `Logged events:` + ` Turn` +
-  `%5ld: %s`; first_weapon_hit before kill so order is hit then killed
-  (D-0124).
-- `#conduct`: `show_conduct(0)` NHW_MENU; `enlght_line` leading space +
-  period; `initedog` always `uconduct.pets++` (starting pet clears
-  petless); `show_achievements` skipped unless final||wizard (D-0125).
-- `#vanquished`: `list_vanquished('y')` NHW_MENU; `mvitals.died` from
-  `mondead`; default `VANQ_MLVL_MNDX`; `"a "` lines get pfx=2 spaces;
-  total line when `ntypes>1` (D-0126).
-- `#genocided` empty: `pline("No creatures have been genocided.")`
-  when `ngone==0` (D-0126).
-- `#adjust`: `doorganize` → getobj suggest non-gold → destination
-  blanks used non-mergable letters → `compactify` → Esc Never mind
-  (D-0127).
-- `#terrain`: `doterrain` → `recalc_mapseen` → View which? a/b/c
-  (`a *` preselected; nomux `*`) → Esc cancel or reveal_terrain
-  (D-0128).
-- `+` spells: `initialspell` at SPBOOK ini_inv_use; `age_spells` each
-  EOT; Priest Fail% uses robe−spelarmr + shield + spelspec/heal;
-  Retention intervals from P_SKILL (D-0129).
-- Kill XP: kobold L0 + AT_WEAP → 6; lichen AT_TUCH → 4 (pet mondied
-  awards no hero XP); `newuexp(1)=20` so 6 XP no level-up (D-0130).
-- dokeylist: extcmdlist extract + commands_init then N_DIRS=8 movement
-  overwrite; `<>` stay down/up; title `%7s %s` with `"    Full…"`;
-  menu dolist `%-7s`; domenucontrols `%8s` right-align (D-0131).
-- Wizard disco `*`: `skill_based_spellbook_id` — BASIC→L≤3,
-  UNSKILLED→L≤1 (non-pauper); `discover_object(...,TRUE,FALSE)` so
-  prefix `*` (D-0132). `skill_init` also `unrestrict_weapon_skill(
-  spell_skilltype(spelspec))`.
-- `:` Elbereth: `read_engr_at` DUST → `Something is written here in the
-  dust.` then `You read: "Elbereth".` (pline append → one `--More--`)
-  (D-0133).
-- Niche tele trap: `"ad aerarium"` (len 11) DUST + wipe cnt 5 → first
-  wipeout `rn2(11)` then `rn2(4)` (D-0134). `"Vlad was here"` needs
-  TRAPDOOR + `Can_fall_thru`.
-- Cast: `SPELL_LEV_PW(lev)=lev*5`; fail `rnd(100)>chance`; SPE_HEALING
-  `mksobj(FALSE)` → `getdir` → self `zapyourself` `healup(d(6,4),…)`
-  (D-0135).
-- Known spellbook: `You know "…" quite well already.` → `more()` eats
-  non-space/return → `Refresh your memory anyway? [yn] (n)` (D-0136).
-- ^X title/background: female + `urole.name.f` → Priestess; omit
-  `"female "` when name.f set (D-0137).
-- Welcome: `!urole.name.f` && both genders → `" female"`/`" male"`;
-  Valkyrie `name.f=0` + female-only allow → no gender word (D-0138).
-- `S_engroom` = ASCII `` ` `` + CLR_BRIGHT_BLUE; `S_engrcorr` = `#` +
-  same; need `erevealed` (set on cansee) before `_map_location` paints
-  (D-0139).
-- `#chat` wall: `!Deaf && (IS_WALL||SDOOR)` → `"It's like talking to a
-  wall."`; Blind needs `IS_WALL(lastseentyp)`; Hallu `rn2(10)` walltalk
-  (D-0140).
-- `getobj` empty SUGGEST + !forceprompt + !allownone → `You don't have
-  anything to <word>.` (D-0141).
-- `getobj` missing letter: `You("don't have…")` + `continue`; next
-  `yn_function` calls `more()` when NEED_MORE (D-0142).
-- Themeroom maps: `lspo_map` places with `x=1+rn2(COLNO-1-wid)`,
-  `y=rn2(ROWNO-hei)`; overwrite check may `redo_maploc` (up to 100);
-  then `filler_region` → `percent(30)` themed fill + irregular
-  `flood_fill_rm`/`add_room` (D-0143). Fill reservoir skips Boulder
-  (mindiff 4), Garden unless lit, Light source unless unlit.
-- Ghost fill: `selection_from_mkroom` (!edge roomno cells) →
-  `selection_rndcoord` (x-outer y walk, `rn2(count)`); `find_montype`
-  gender `rn2(2)`; always `induced_align(80)`; `makemon` + asleep +
-  `STRAT_WAITFORU`; percent loot with buc `not-blessed` (D-0144).
-  `rndghostname`: `rn2(7)? ghostnames[rn2(34)] : plname`.
-- Irregular door find: `finddpos_shift` DIR_180 then if edge fails and
-  `aroom.irregular`, walk inward through STONE/CORR until
-  `good_rm_wall_doorpos` (D-0145).
-- OIL_LAMP/BRASS_LANTERN: `spe=1`, `age=rn1(500,1000)`, `lamplit=0`,
-  `blessorcurse(5)`; MAGIC_LAMP: `spe=1`, `lamplit=0`, `blessorcurse(2)`
-  (D-0146). Candle `age=20*oc_cost` needs `oc_cost` in objects extract.
-- `occupied`: `t_at` OR furniture OR lava/pool OR `invocation_pos`
-  (D-0147). `somexyspace` retries `somexy` when occupied; looks like
-  irregular retry in rng-diff. `invocation_pos` still always-false
-  until `inv_pos`/`Invocation_lev` exist.
 - ENGRAVEFILE chunk = 2894 after don't-edit; `!rn2(4)` skips getrumor;
   `get_rnd_text` → `rn2(2894)` then wipeout on drawn line (D-0148).
-  Default line `"No matter where you go, there you are."`; MAIL=1 keeps
-  `"You've got mail!"`; `^?MAIL`/`^.` are grep controls not content.
+- `occupied`: `t_at` OR furniture OR lava/pool OR `invocation_pos`
+  (D-0147). `invocation_pos` still always-false until wired.

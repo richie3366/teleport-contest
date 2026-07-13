@@ -152,6 +152,7 @@ Do not record a guessed cause as fixed merely because an RNG prefix moved.
 | D-0146 | fixed | mkobj/lamp | OIL_LAMP `rn1(500,1000)` + TOOL charged cases in `mksobj_init` |
 | D-0147 | fixed | mklev/occupied | `occupied` needs `t_at`; irregular `somexy`/`inside_room` |
 | D-0148 | fixed | engrave/get_rnd_text | ENGRAVEFILE `get_rnd_text` via pad+xcrypt extract; not getrumor stub |
+| D-0149 | fixed | do/goto_level | ordinary `>` `dodown`/`goto_level`/`getbones`/`keepdogs`; dlvl2 shop `rn2(u_depth)` |
 
 D-0001 through D-0005 predate the strict-length/cohort runbook. Their focused
 causes are preserved, but generic "green sessions held" is historical evidence,
@@ -3953,3 +3954,35 @@ cohort gates if those functions are touched again.
   `maybe_smudge_engr`; bogusmon file.
 - **Next:** seed0015 `getbones` @2918 / seed0101 `next_ident` @2293 /
   seed0030 `maybe_smudge_engr` @6732 / seed0200 combat @3382.
+
+## D-0149 — ordinary `>` dodown / goto_level / getbones
+
+- **Status:** fixed
+- **Observed:** seed0015 @2918 C `rn2(3)` @ `getbones` vs JS `rn2(5)`
+  (dog_move / unbound `>`). NOTES hypothesized getbones arity; false.
+- **Rejected:** getbones early-return / wrong `flags.bones` — stub
+  already emits `rn2(3)` when reached (same as D-0068 lesson for `^V`).
+- **C locus:** `do.c` `dodown`/`goto_level`/`u_collide_m`;
+  `dungeon.c` `next_level`; `bones.c` `getbones`; `dog.c`
+  `keepdogs`/`losedogs`/`mon_arrive`; `mklev.c` special-room
+  `rn2(u_depth)` → `do_mkroom(SHOPBASE)`; `mkroom.c` `mkshop`.
+- **Cause:** `>` unbound in `rhack`; descent never called `mklev`.
+  After wiring stairs, dlvl2 also needed the post-niche special-room
+  chance roll (Dlvl1 short-circuits `u_depth > 1`).
+- **Change:** `js/do.js` `dodown`/`next_level`/`goto_level`;
+  `js/cmd.js` `'>'`; `js/dog.js` `keepdogs`/`losedogs`/`levl_follower`;
+  `js/teleport.js` `rloc_to`; `js/mon.js` `mnexto`; `js/mklev.js`
+  special-room chain + `mkshop` eligibility stub + `clear_level_structures`
+  clears `fobj`/`ftrap`.
+- **Verification:** seed0015 prefix **2918→8499** (`trapeffect_pit`);
+  positional **8500**/8563 Scr **20**/44; green+strict PASS; cohort
+  1500/1800/0060 PASS; full **13/44** Scr **1275** RNG
+  **126755**/792838.
+- **Named omission:** `savelev`/`getlev` restore; mysterious force;
+  quest gate; portals/fall damage; Lua `NHCB_LVL_LEAVE`;
+  `mkshop` `invalid_shop_shape`/shtypes/`rnd(100)` when eligible;
+  COURT/ZOO/… `do_mkroom` bodies; `dotrap`/`trapeffect_pit`.
+- **Lesson:** when Notes say getbones but JS never reaches `mklev`,
+  check command bindings (`>` / `^V`) before patching the stub.
+- **Next:** seed0015 `trapeffect_pit` @8499 / `next_ident` /
+  `maybe_smudge_engr`.
