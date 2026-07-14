@@ -68,6 +68,16 @@ function isRunKey(ch) {
     return 'HJKLYUBN'.includes(ch);
 }
 
+/** C ref: cmd.c reset_commands — C(dirchars[i]) → do_rush_* (!number_pad). */
+function rushDirFromCtrl(key) {
+    // Only real Ctrl-A..Ctrl-Z codes (1..26). Plain 'j' (106) must not match:
+    // (106 & 0x1f)+96 === 'j'. C('j')==10=='\n' is rush-south.
+    if (key < 1 || key > 26) return null;
+    const letter = String.fromCharCode(key + 96); // 1..26 → a..z
+    if (!isMovementKey(letter)) return null;
+    return letter;
+}
+
 // C ref: hack.c — check if a cell blocks movement
 // C test_move: IS_OBSTRUCTED(typ) || typ == IRONBARS (plus closed doors).
 // IS_OBSTRUCTED covers STONE..SCORR including TREE/SDOOR/SCORR (typ < POOL).
@@ -485,9 +495,11 @@ export async function rhack(key) {
     game._pending_message = '';
 
     const ch = String.fromCharCode(key);
+    // C ref: reset_commands bind C(dir) → do_rush_*; e.g. C('j')=='\n' south
+    const rushDir = rushDirFromCtrl(key);
 
     // C: non-prefix command after F drops the fight prefix (feedback deferred)
-    if (ch !== 'F' && !isMovementKey(ch) && !isRunKey(ch)
+    if (ch !== 'F' && !isMovementKey(ch) && !isRunKey(ch) && !rushDir
         && game.context?.forcefight) {
         game.context.forcefight = 0;
         game.domove_attempting = 0;
@@ -499,11 +511,11 @@ export async function rhack(key) {
         if (game.context) game.context.forcefight = 0;
         // domove sets context.move = 0 if blocked; else leave as 1 (allmain preset)
         if (game.context.move !== 0) game.context.move = 1;
-    } else if (isRunKey(ch)) {
-        // C ref: cmd.c do_run_* + DOMOVE_RUSH — multi = max(COLNO,ROWNO)
-        const low = ch.toLowerCase();
+    } else if (isRunKey(ch) || rushDir) {
+        // C ref: cmd.c do_run_* / do_rush_* — multi = max(COLNO,ROWNO)
+        const low = rushDir || ch.toLowerCase();
         if (!game.context) game.context = {};
-        // Pending F + capital dir: forcefight one step (not rush)
+        // Pending F + capital/ctrl dir: forcefight one step (not rush)
         if (game.context.forcefight) {
             await domove(DIR_DX[low], DIR_DY[low]);
             game.context.forcefight = 0;

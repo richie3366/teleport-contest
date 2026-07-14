@@ -19,6 +19,21 @@ Use this shape:
 
 ---
 
+## 2026-07-14 08:55 — armoroff delay + ICRNL C(j) rush (D-0259)
+- Objective: seed0030 seg8 @3088 dog_goal (PROGRESS primary; NOTES hero-stairs).
+- C locus: `do_wear.c` `armoroff`/`suit_simple_name`; `cmd.c` `C(j)` rush;
+  session ICRNL (`\r`→`\n`).
+- Result: **verified** — dog_goal/hero-stairs theories **falsified** as
+  root; real cause was immediate takeoff (no `oc_delay`/`nomul`) so later
+  keys ran early, plus raw `\r` not mapped to rush-south. Prefix
+  **3088→3263**; next peel `passivemm` (D-0260).
+- Verification: green+strict PASS; 17-session PASS cohort; full **19/44**
+  Scr **1463** RNG **181305**; seed0030 **47966**/105529; seed0013
+  **4367**/4838.
+- Next: `node scripts/rng-diff.mjs sessions/seed0030-ten-diverse-deaths.session.json`
+  (seg8; expect first mismatch @3263 `passivemm`) — compare C
+  `mhitm.c:1363` vs JS passive path.
+
 ## 2026-07-14 01:40 — tutorial stay-open + death disclose (D-0215/16)
 - Objective: seed0103 Scr residual after D-0214 (PROGRESS primary).
 - C locus: `options.c` `ask_do_tutorial` + `wintty.c` `process_menu_window`;

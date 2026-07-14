@@ -262,7 +262,8 @@ Do not record a guessed cause as fixed merely because an RNG prefix moved.
 | D-0256 | fixed | trapeffect_slp_gas_trap | mon sleep_monst(rnd(25)); seg7 9290→9811 |
 | D-0257 | fixed | mcalcdistress mfrozen | EOT thaw after sleep-gas; seg7 9811→10404 |
 | D-0258 | fixed | find_offensive nomore | WAN then POT invent; C keeps wand; seg7 FULL |
-| D-0259 | open | dog_goal / hero xy | seg8 @3088; JS hero stairs (64,15) vs C (64,14) |
+| D-0259 | fixed | armoroff delay + ICRNL rush | seg8 3088→3263; takeoff nomul + C(j) |
+| D-0260 | open | passivemm arity | seg8 @3263; C rn2(3) vs JS rn2(2) |
 
 
 D-0001 through D-0005 predate the strict-length/cohort runbook. Their focused
@@ -7034,43 +7035,40 @@ cohort gates if those functions are touched again.
 
 ## D-0259 — dog_goal udist after pet step (seed0030 seg8 @3088)
 
-- **Status:** open (diagnosed; hero-xy hypothesis pending falsifier)
-- **Symptom:** seed0030 seg8 @3088 — C `rn2(4) @ dog_goal` (follow
-  `!rn2(4)`) vs JS `rn2(1)` (dog_move approach `rn2(++chcnt)`).
-- **Matched through:** @3087 both `rn2(8)=4 @ dog_goal` APPORT
-  (`apport=3` → fail); gtyp stays UNDEF.
-- **Rejected:**
+- **Status:** fixed
+- **Symptom:** seed0030 seg8 @3088 — C `rn2(4) @ dog_goal` vs JS
+  `rn2(1)`; later (after false leads) first real command split @3232
+  C `rn2(7) @ do_attack` vs JS `rn2(5)`.
+- **Matched through (pre-fix):** values through 3231 often matched by
+  coincidence while call sites differed.
+- **Rejected (diagnosis phase):**
   - APPORT/invent-edible/`rn2(8)` arity — values match; apport=3.
-  - Tight squeeze excluding (65,15) — reverse diagonal
-    (65,15)→(66,16) already succeeded; empty little dog
-    `cant_squeeze_thru`==0 so squeeze cannot block return.
-  - kickedloc / Displaced mux / Elbereth onscary — kicked (0,0);
-    mux=(64,15); no engraving; pets ALLOW_SSM + peaceful.
-  - **`m_in_out_region` place abort** — force `return MMOVE_MOVED`
-    without place (stay at 66,16) **worsens** prefix (first mismatch
-    @3087 `rn2(8)` vs `rn2(20)`).
-  - “mfndpos drops (65,15) while terrain matches” as first cause —
-    JS mfndpos includes clear ROOM `(65,15)` (cnt=8, no mon/trap/obj).
-- **Evidence:**
-  - Pet `m_id=62` at (66,16); gold underfoot; after dog_goal @3067
-    (APPORT fail + follow `rn2(4)`), JS selects (65,15) with `j<0`
-    (no dog_move rn2 — matches C’s lack of dog_move rn2 after @3067).
-  - Next dog_goal @3088: JS `udist=1` at (65,15) → skip follow
-    `rn2(4)` → candidate `rn2(1)`. C still burns `rn2(4)`.
-  - Candidate-loop exclude of (65,15) → JS picks (65,16) → **prefix
-    3088→3106** (C multi-`obj_resists` vs JS `rn2(1)`).
-  - C seg8 map (DEC, step with Hachi/jackal `--More--`): hero `@` at
-    **(64,14)**; stairs `<` at **(64,15)**; pet `d` on stairs; jackal
-    left of hero. JS dump at same dog_move: hero still on STAIRS
-    **(64,15)** typ=26. Different `gg` goal → different best candidate.
-  - Seg8 keys: ` k` should move north off stairs (C step2 cursor
-    (64,14)); JS still on stairs at peel.
-- **C locus (suspected):** earlier hero movement / `--More--` key use
-  so `u.uy` stays 15; secondary symptom in `dog_goal`/`dog_move`
-  toward wrong hero cell. Not first-line `mfndpos` squeeze/gas.
-- **JS omissions still named:** `mfndpos` diagonal squeeze / poolok /
-  gas / onscary; pet `dog_move` missing `m_in_out_region` +
-  `m_digweapon_check` before place (place-abort not this peel).
-- **Next:** confirm JS `u.ux,u.uy` at dog_goal @3067 vs C `(64,14)`;
-  find why `k` did not leave stairs (extra `--More--` eating `k`,
-  blocked north, or restore spawn). Do not hardcode skip of (65,15).
+  - Tight squeeze / kickedloc / Displaced / Elbereth onscary.
+  - `m_in_out_region` place abort — worsens prefix.
+  - “mfndpos drops (65,15)” as first cause.
+  - Hero still on stairs as *primary* root — symptom of early `\r`.
+- **Cause:** two stacked omissions:
+  1. **`armoroff` skipped `oc_delay`** — JS always immediate
+     `*_off`+`off_msg`. C `nomul(-oc_delay)` + `afternmv=*_off` +
+     `nomovemsg="You finish taking off your %s."` (splint → `"mail"`,
+     delay 5). Without occupation, `T` returned early and later keys
+     (`e`/` `/`\r`) ran as commands while C was still in takeoff turns /
+     `--More--`.
+  2. **Session `\r` / ICRNL / rush** — `record-session.mjs` maps CR→LF
+     (tmux ICRNL). `C('j')==10=='\n'` is `do_rush_south` under
+     `!number_pad`. JS fed raw CR (unknown) and lacked Ctrl+dir rush.
+- **Change:** port `armoroff` delay path; `runSegment` ICRNL `\r`→`\n`;
+  `rushDirFromCtrl` for keys 1..26 only (plain `j` must not match).
+- **Verification:** seg8 prefix **3088→3263** (`passivemm`); seed0030
+  positional **47906→47966**; seed0013 **4004→4367**; full **19/44**
+  Scr **1463** RNG **181305**; green+strict+17-session PASS cohort.
+- **Next:** D-0260 seg8 @3263 `passivemm`.
+
+## D-0260 — passivemm arity (seed0030 seg8 @3263)
+
+- **Status:** open
+- **Symptom:** after D-0259, C `rn2(3)=2 @ passivemm(mhitm.c:1363)` vs
+  JS `rn2(2)=1` (then dog_move/mattackm drift).
+- **Matched through:** knockback `rn2(3)`/`rn2(6)` @3261–3262.
+- **Next:** compare C `passivemm` site vs JS passive path; do not
+  patch dog_move until arity cause is known.
