@@ -260,6 +260,7 @@ Do not record a guessed cause as fixed merely because an RNG prefix moved.
 | D-0254 | fixed | trapeffect_magic_trap | mon rn2(21)→fire; seg6 18913→19831 |
 | D-0255 | fixed | losehp→done + bones | fatal thitu noreturn; corpse+ghost; seg6 FULL |
 | D-0256 | fixed | trapeffect_slp_gas_trap | mon sleep_monst(rnd(25)); seg7 9290→9811 |
+| D-0257 | fixed | mcalcdistress mfrozen | EOT thaw after sleep-gas; seg7 9811→10404 |
 
 D-0001 through D-0005 predate the strict-length/cohort runbook. Their focused
 causes are preserved, but generic "green sessions held" is historical evidence,
@@ -6975,4 +6976,28 @@ cohort gates if those functions are touched again.
   full **19/44** Scr **1463** RNG **180932**; seed0030 positional
   **47853**/105529; green+strict PASS; 17-session PASS cohort held.
 - **Next:** seed0030 seg7 @9811 `m_move` track/`cnt`; or quest
+  `getbones`.
+
+## D-0257 — mcalcdistress mfrozen thaw (seed0030 seg7 @9811)
+
+- **Status:** fixed
+- **Symptom:** seed0030 seg7 @9811 — C `rn2(32) @ m_move` track vs JS
+  `rn2(3)` (dog_move) after matched fleeck (post D-0256).
+- **Evidence:** JS actor after fleeck was pet id57 `mtame=10` entering
+  `dog_move`; C provenance was hostile `m_move` track. Sleep-gas
+  (D-0256) set `mcanmove=0`/`mfrozen=amt`, but JS never called
+  `mcalcdistress`, so the victim stayed helpless forever while C
+  thawed at EOT and moved.
+- **C locus:** `mon.c` `mcalcdistress`/`m_calcdistress`; `allmain.c`
+  moveloop EOT before movement reallocation; `monmove.c` `mon_regen`.
+- **Change:** ported `mcalcdistress` (mblinded/mfrozen/mfleetim
+  timeouts + `mon_regen` HP/`mspec_used`); wired into `moveloop_core`
+  before `mcalcmove` reallocation; `M1_REGEN`/`regenerates`.
+- **Named omissions:** mmove==0 `minliquid`; `decide_to_shapeshift`;
+  `were_change` (no RNG unless cham/were); full `healmon`/`finish_meating`
+  from digest path.
+- **Verification:** seg7 **9811→10404** (`use_offensive`); full
+  **19/44** Scr **1463** RNG **181210**; seed0030 positional
+  **48131**/105529; green+strict PASS; 17-session PASS cohort held.
+- **Next:** seed0030 seg7 @10404 `use_offensive`/`mbhitm`; or quest
   `getbones`.

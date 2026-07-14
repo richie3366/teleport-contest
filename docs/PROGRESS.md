@@ -39,8 +39,8 @@ frozen-file overlay):
 |--------|------:|
 | Sessions passing | **19 / 44** |
 | Screens matched | **1463 / 11,405** (12.83%) |
-| Positional RNG calls matched | **180,932 / 792,838** (22.82%) |
-| Speed label | `18+0.10/turn` |
+| Positional RNG calls matched | **181,210 / 792,838** (22.86%) |
+| Speed label | `17+0.10/turn` |
 | Working-tree base | `8b71735` + committed port (see `main`) |
 | Role-init throws | **0 / 44** (`u_init_role: role not ported`) |
 
@@ -64,7 +64,7 @@ shared blockers, and semantic coverage together—not one vanity metric.
 | `seed0501-priest-cast-read-turn` | **2238 / 2238** | **28 / 28** |
 | `seed2200-wizard-quaff-zap-read` | **3018 / 3018** | **229 / 230** |
 | `seed0017-samurai-altar-pray` | **3465 / 3465** | **67 / 67** |
-| `seed0030-ten-diverse-deaths` | **47905 / 105529** | **78 / 1953** |
+| `seed0030-ten-diverse-deaths` | **48131 / 105529** | **78 / 1953** |
 | `seed0103-knight-ride-pony` | **2640 / 2640** | **60 / 60** |
 | `seed0200-monk-north-search` | **3822 / 3822** | **40 / 40** |
 | `seed0101-ranger-quiver-throw-travel-engrave` | **2371 / 2371** | **27 / 27** |
@@ -134,7 +134,7 @@ seed0101 next Scr residual (RNG full). seed0013 still breaks earlier in
 Lua/`sp_lev`. seed0103 next `next_ident`/`trquan` @ 2337.
 seed0361/0373 `getbones` blocked on unbound `^V`/`goto_level`/
 `makemaz`. seed0077 chargen + vault fallback + door vision/pick_lock/DEC
-open-door (D-0111/D-0112/D-0113) → **PASS**. seed0030 **38253**/105529.
+open-door (D-0111/D-0112/D-0113) → **PASS**. seed0030 **48131**/105529.
 seed0105 RNG **full** (Scr **30**/30).
 **`option_help` msg_window PREV_MSGS extract** (D-0114) + **Primary ASCII /
 `symset:DECgraphics`** (D-0115) → Scr **788→851**.
@@ -228,7 +228,7 @@ seed0015 **PASS**. seed0101 next Scr residual (RNG full). seed0013 still breaks 
 Lua/`sp_lev`. seed0103 next `next_ident`/`trquan` @ 2337.
 seed0361/0373 `getbones` blocked on unbound `^V`/`goto_level`/
 `makemaz`. seed0077 chargen + vault fallback + door vision/pick_lock/DEC
-open-door (D-0111/D-0112/D-0113) → **PASS**. seed0030 **46399**/105529.
+open-door (D-0111/D-0112/D-0113) → **PASS**. seed0030 **48131**/105529.
 seed0105 RNG **full** (Scr **30**/30).
 **CANDY_BAR `assign_candy_wrapper`** (D-0196) → seed0030 seg1 prefix
 **1238→3347** positional **17994**/105529; full **17/44** Scr **1312**
@@ -541,14 +541,14 @@ seed0101 + seed0103 + seed0104 **PASS**. seed2200 RNG **full**
 seed0101 RNG **full** Scr **27**/27. seed0103 RNG **full** Scr **60**/60.
 seed0104 RNG **full** Scr **43**/43.
 
-- **Bounded unit:** seed0030 seg7 @9811 — **D-0257** open —
-  C `rn2(32) @ m_move` track vs JS `rn2(3)` (post D-0256 seg7
-  **9290→9811**). D-0256 mon `trapeffect_slp_gas_trap` **ported**. /
+- **Bounded unit:** seed0030 seg7 @10404 — **D-0258** open —
+  C `rn2(8) @ use_offensive` vs JS `rn2(92)` (post D-0257 seg7
+  **9811→10404**). D-0257 `mcalcdistress` mfrozen thaw **ported**. /
   seed0361/0373 **quest `getbones`** (blocked: need `^V`→`goto_level`→
   `makemaz` first — ordinary `goto_level` now exists for stairs; Mines
   `fill_lvl` path exists D-0171).
-- **Prefer:** diagnose `m_move` track/`cnt` (or actor drift after sleep)
-  over quest bones until `^V`/`makemaz`; over parked D-0006
+- **Prefer:** diagnose muse `use_offensive`/`mbhitm` over quest bones
+  until `^V`/`makemaz`; over parked D-0006
   and over baking seed2200 RC paths.
   Hero `dotrap` MAGIC_TRAP/`domagictrap` deferred (D-0254 named
   omission). Hero SLP_GAS deferred (D-0256). Hero dart `dotrap` done
@@ -764,7 +764,10 @@ seed0104 RNG **full** Scr **43**/43.
   **monster `trapeffect_slp_gas_trap`** (done D-0256; seg7
   **9290→9811**; full **19/44** Scr **1463** RNG **180932**;
   next @9811 `m_move` track);
-  **seg7 @9811 m_move track** (D-0257 **open**);
+  **`mcalcdistress` mfrozen thaw** (done D-0257; seg7
+  **9811→10404**; full **19/44** Scr **1463** RNG **181210**;
+  seed0030 **48131**/105529; next @10404 `use_offensive`);
+  **seg7 @10404 use_offensive** (D-0258 **open**);
   **`goto_level` `stairway_find_from`** (D-0224 find_from done);
   D-0218 upstairs theory rejected;
   …
@@ -1723,6 +1726,11 @@ Module status, constitutional debt, and named omissions live in
     — seed0030 seg7 **9290→9811** (`m_move` track `rn2(32)`);
     selector no-op had shifted fleeck into sleep-gas slot. Full
     **19/44** Scr **1463** RNG **180932**; seed0030 **47853**/105529;
+    green+cohort PASS.
+235. `mcalcdistress` mfrozen thaw (D-0257)
+    — seed0030 seg7 **9811→10404** (`use_offensive`); sleep-gas
+    victim never thawed without EOT timeouts. Full **19/44** Scr
+    **1463** RNG **181210**; seed0030 **48131**/105529;
     green+cohort PASS.
 
 Next work is selected from the active objectives above using

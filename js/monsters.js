@@ -117,6 +117,7 @@ export const M1_NOEYES = 0x00001000;
 export const M1_MINDLESS = 0x00010000;
 export const M1_ANIMAL = 0x00040000;
 export const M1_OVIPAROUS = 0x00400000; /* monflag.h — can lay eggs */
+export const M1_REGEN = 0x00800000; /* monflag.h — regenerates hit points */
 export const M1_ACID = 0x08000000;
 export const M1_POIS = 0x10000000;
 export const M1_CARNIVORE = 0x20000000;
@@ -430,6 +431,11 @@ export function carnivorous(ptr) {
 }
 export function herbivorous(ptr) {
     return !!((ptr?.mflags1 ?? 0) & M1_HERBIVORE);
+}
+
+/** C ref: mondata.h regenerates — M1_REGEN */
+export function regenerates(ptr) {
+    return !!((ptr?.mflags1 ?? 0) & M1_REGEN);
 }
 
 /**

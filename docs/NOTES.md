@@ -7,13 +7,12 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 
 ## Active
 
-- **Current unit:** seed0030 seg7 @9811 — C `rn2(32) @ m_move` (track
-  `rn2(4*(cnt-j))`) vs JS `rn2(3)` (post D-0256 slp_gas; @9290 cleared).
-- **Hypothesis:** after sleep-gas, actor/`mfndpos` `cnt` (or which mon
-  moves) drifted so C’s track skip uses `4*(cnt-j)=32` while JS burns a
-  different site (`rn2(3)`).
-- **Falsifier:** dump which mon/coords/`cnt`/`j`/`appr` at first post-
-  matched fleeck; compare JS `m_move` track loop vs C recorder.
+- **Current unit:** seed0030 seg7 @10404 — C `rn2(8) @ use_offensive`
+  vs JS `rn2(92)` (post D-0257 `mcalcdistress`; @9811 cleared).
+- **Hypothesis:** after mfrozen thaw, muse `use_offensive` / `mbhitm`
+  path differs (JS takes another mon/weapon RNG site).
+- **Falsifier:** dump which mon/`find_offensive`/`use_offensive` at first
+  post-matched fleeck after 10403; compare muse call vs JS rn2(92) site.
 - **Parked deep canary:** D-0006 pet movement — do not implement until C
   state/candidate capture exists.
 - **Parked seed2200 @158:** RC config path — harness `$HOME`, not a port bug.
@@ -140,6 +139,11 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 - **seed0030 seg7 @9290 was NOT a fleeck arity bug** — C
   `rnd(25) @ trapeffect_slp_gas_trap`; JS selector no-op’d SLP_GAS so
   fleeck `rn2(5)` occupied the slot (D-0256). Same pattern as D-0254.
+- **seed0030 seg7 @9811 was NOT m_move track cnt/j formula** — C
+  `rn2(32) @ m_move` after matched fleeck; JS pet `dog_move` rn2(3).
+  Sleep-gas set `mfrozen` but JS never ran `mcalcdistress`, so the
+  victim stayed `!mcanmove` forever while C thawed and moved (D-0257).
+  Do not patch track arity for that peel.
 - **`monattk.h`: AT_WEAP=254, AT_MAGC=255, AT_SPIT=10** — never use 10 for
   weapon (D-0179).
 - Hostile `m_move`: before place, `m_digweapon_check` may return
@@ -208,5 +212,8 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 - **Monster SLP_GAS_TRAP:** `!resists_sleep && !breathless && !helpless`
   → `sleep_monst(rnd(25), -1)`; pline+seetrap if in sight (D-0256).
   Hero `fall_asleep` deferred. `mr_bit(SLEEP_RES)=1<<(3-1)=4`.
-- **seg7 @9290 cleared** (D-0256); next peel **seg7 @9811** C
-  `rn2(32) @ m_move` vs JS `rn2(3)`.
+- **`mcalcdistress` EOT:** before movement reallocation; `--mfrozen`→
+  `mcanmove=1`, also mblinded/mfleetim; `mon_regen` (D-0257).
+  Shapeshift/were still deferred.
+- **seg7 @9811 cleared** (D-0257); next peel **seg7 @10404** C
+  `rn2(8) @ use_offensive` vs JS `rn2(92)`.

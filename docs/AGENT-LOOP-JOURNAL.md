@@ -3346,3 +3346,18 @@ Use this shape:
   green+strict PASS; 17-session PASS cohort held.
 - Next: seed0030 seg7 @9811 diagnose m_move track/cnt (or actor drift);
   or quest getbones.
+
+## 2026-07-14 07:45 — mcalcdistress mfrozen thaw (D-0257)
+
+- Objective: seed0030 seg7 @9811 C `rn2(32) @ m_move` track vs JS
+  `rn2(3)` dog_move (PROGRESS primary).
+- C locus: mon.c mcalcdistress/m_calcdistress; allmain.c EOT before
+  movement reallocation; monmove.c mon_regen.
+- Result: **verified** — sleep-gas set mfrozen but JS never thawed;
+  C hostile moved while JS pet dog_moved. Ported mcalcdistress
+  (mblinded/mfrozen/mfleetim + mon_regen); wired moveloop_core;
+  M1_REGEN/regenerates.
+- Verification: seg7 **9811→10404** (`use_offensive`); full **19/44**
+  Scr **1463** RNG **181210**; seed0030 **48131**/105529;
+  green+strict PASS; 17-session PASS cohort held.
+- Next: seed0030 seg7 @10404 use_offensive/mbhitm; or quest getbones.
