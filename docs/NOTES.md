@@ -7,11 +7,11 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Current unit:** seed0030 seg9 @10811 — **D-0271** — after D-0268…D-0270,
-  C `rnd(2) @ next_ident(mkobj.c:521)` vs JS `rn2(5)`.
-- **Hypothesis:** post-kill / corpse / drop arm skips `next_ident` or takes a
-  different object-create path so a later `rn2(5)` fires first.
-- **Falsifier:** attribute JS caller at first mismatch; port missing C branch.
+- **Current unit:** seed0030 seg9 @12411 — **D-0272** — after D-0271,
+  C `rn2(19) @ exercise` vs JS `rn2(3)` (post matched `hitum`).
+- **Hypothesis:** missing/skipped `exercise` after hit, or gas-spore
+  AT_BOOM/`mon_explodes` path leaves JS on a different next actor.
+- **Falsifier:** attribute JS caller at 12411; port missing C branch.
 - **Parked:** D-0006 (pet movement); seed2200 @158 RC/`$HOME`.
 
 ## Don’t re-check (≤15)
@@ -28,10 +28,12 @@ Objective/score live in `CURRENT.md`.
   muse wand paths.
 - Session `\r` → `\n` = `C('j')` rush (D-0259); `rushDirFromCtrl` 1..26.
 - seg8 fleeck/missing-katana were key desync (D-0261), not dog_move/dodrop.
-- Recent seg9 falsified theories: D-0262…D-0270 — see `DIVERGENCE-INDEX.md`.
+- Recent seg9 falsified theories: D-0262…D-0271 — see `DIVERGENCE-INDEX.md`.
 - **Don’t:** treat missing Invis `rn2(11)` alone as enough when `couldsee`
   is false — check SCORR/`viz_clear` (D-0269).
 - `vision_recalc(1)` ≠ `unblock_point` / `recalc_block_point`.
+- **Don’t:** early-return `make_corpse` on `G_NOCORPSE` before undead
+  specials — zombies/mummies/vampires map via `undead_to_corpse` (D-0271).
 
 ## Landmarks (≤15)
 

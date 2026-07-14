@@ -22,7 +22,7 @@ seed0700, seed1150, seed0017, seed0077, seed0106, seed0501, seed0105,
 seed0016, seed0015, seed0200, seed0101, seed0103, seed0104.
 
 **Notable non-PASS:** seed2200 RNG full Scr 229/230 (parked RC @158);
-seed0013 RNG full Scr 57/59; seed0030 **48086**/105529 Scr 85/1953;
+seed0013 RNG full Scr 57/59; seed0030 **48092**/105529 Scr 85/1953;
 seed0107 2684/2902 Scr 36/98; seed0361/0373 quest bones blocked.
 
 ## Green gate
@@ -40,19 +40,19 @@ Both must remain full RNG + screen PASS with exact scored-output lengths.
 
 ## Primary objective
 
-**D-0271** — seed0030 seg9 @10811 — C `next_ident` vs JS `rn2(5)`
+**D-0272** — seed0030 seg9 @12411 — C `exercise` vs JS `rn2(3)`
 
 | | |
 |--|--|
-| **C locus** | likely death/corpse/`mkobj` after matched fleeck — `next_ident(mkobj.c:521)` |
-| **JS locus** | TBD after stack attribution at first mismatch |
-| **Symptom** | C `rnd(2) @ next_ident` vs JS `rn2(5)` after D-0268…D-0270 |
-| **Hypothesis** | post-kill object/corpse path skips `next_ident` or takes a different drop arm |
-| **Falsifier** | attribute JS call at 10811; port missing C branch; mismatch moves |
-| **Recent fixed** | D-0268 Invis `rn2(11)`; D-0269 SCORR `recalc_block_point`; D-0270 boulder place/extract vision |
+| **C locus** | after matched `hitum`; C `exercise` then `dmgval`/`xkilled`; nearby C `corpse_chance`/`mon_explodes` `d(4,6)` (gas spore AT_BOOM) |
+| **JS locus** | TBD — attribute JS `rn2(3)` at first mismatch |
+| **Symptom** | C `rn2(19) @ exercise` vs JS `rn2(3)` after D-0271 |
+| **Hypothesis** | post-hit exercise missing/skipped, or gas-spore death path diverges before next attack |
+| **Falsifier** | attribute JS caller at 12411; port missing C branch; mismatch moves |
+| **Recent fixed** | D-0271 `make_corpse` undead before `G_NOCORPSE` |
 
 ```bash
-# Focused seg9 (write a one-seg session or use existing harness)
+# Focused seg9
 node frozen/ps_test_runner.mjs sessions/seed0030-ten-diverse-deaths.session.json
 ```
 

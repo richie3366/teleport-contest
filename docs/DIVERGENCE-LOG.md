@@ -7057,3 +7057,29 @@ Open that file first; then jump to a single `## D-NNNN` entry below
   boulder at 44,10) but retires the D-0242 omission.
 - **Next:** same as D-0268.
 
+## D-0271 — make_corpse undead before G_NOCORPSE (fixed)
+
+- **Status:** fixed
+- **Observed:** seed0030 seg9 @10811 — C `rnd(2) @ next_ident` after
+  matched `xkilled`/`corpse_chance`; JS `rn2(5) @ distfleeck`.
+- **DIAG:** kill was `PM_KOBOLD_ZOMBIE` @(44,10); `mvflags` has
+  `G_NOCORPSE` from geno; JS `make_corpse` early-returned; C still
+  creates a mapped living corpse.
+- **C locus:** `mon.c` `make_corpse` — zombie/mummy/vampire switch arms
+  call `undead_to_corpse` + `mkcorpstat` **before** `default_1`'s
+  `G_NOCORPSE` check (`/* All special cases should precede … */`).
+- **Cause:** JS gated `G_NOCORPSE` first, skipping undead specials.
+  Zombies carry geno `G_NOCORPSE` so wishes cannot create those
+  corpses, but kills still leave `undead_to_corpse` corpses (+
+  `TAINT_AGE+1` age).
+- **Change:** `js/mhitm.js` `make_corpse` — if `undead_to_corpse(mndx)
+  !== mndx`, `mkcorpstat` with living species + age adjust, then
+  return; else `default_1` G_NOCORPSE. `js/trap.js` shares that
+  export (removed duplicate ordinary-only copy).
+- **Named omission:** dragon scales, unicorn horn, worm tooth, golem
+  drops, and other pre-`G_NOCORPSE` switch arms.
+- **Verification:** seg9 **10811→12411**; green+strict PASS; 17-session
+  PASS cohort; seed0030 flat **48092**/105529 Scr **85**/1953.
+- **Next:** diagnose seg9 @12411 C `exercise` after `hitum` vs JS
+  `rn2(3)` (gas-spore / AT_BOOM path nearby in C).
+

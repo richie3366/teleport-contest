@@ -8,16 +8,16 @@
 import { game } from './gstate.js';
 import { rn2, rnd, rn1, d } from './rng.js';
 import {
-    mksobj, place_object, weight, stackobj, mkcorpstat, relobj_on_death,
+    mksobj, place_object, weight, stackobj, relobj_on_death,
 } from './mkobj.js';
-import { find_mac } from './mhitm.js';
+import { find_mac, make_corpse } from './mhitm.js';
 import { newsym, pline, mon_visible, see_with_infrared, You_feel } from './display.js';
 import { doname, an } from './objnam.js';
 import { Monnam, mon_nam, x_monnam_tame } from './do_name.js';
 import { dist2, m_at } from './mon.js';
 import { cansee, couldsee } from './vision.js';
 import {
-    G_NOCORPSE, G_FREQ, G_UNIQ, verysmall, grounded, passes_walls, is_neuter,
+    G_FREQ, G_UNIQ, verysmall, grounded, passes_walls,
     is_flyer, is_floater, is_clinger,
     mon_knows_traps, mon_learns_traps,
     amorphous, unsolid, is_whirly, breathless, MZ_SMALL, MZ_HUGE,
@@ -32,7 +32,6 @@ import {
     STONE_RES,
     is_hole, is_pit, is_xport, In_quest, isok, ZAP_POS, IS_DOOR, IS_POOL, IS_LAVA,
     D_CLOSED, D_LOCKED,
-    CORPSTAT_INIT, CORPSTAT_FEMALE, CORPSTAT_MALE, CORPSTAT_NONE,
     ER_NOTHING, ER_DAMAGED, ER_DESTROYED,
     LOW_PM, BOLT_LIM, STRAT_WAITMASK,
     Can_fall_thru, NO_MM_FLAGS, FROMOUTSIDE, TIMEOUT, Upolyd,
@@ -58,7 +57,6 @@ const PM_STALKER = monsterNames.indexOf('PM_STALKER');
 const PM_BLACK_LIGHT = monsterNames.indexOf('PM_BLACK_LIGHT');
 const DART = objectNames.indexOf('DART');
 const ROCK = objectNames.indexOf('ROCK');
-const CORPSE = objectNames.indexOf('CORPSE');
 const BOULDER = objectNames.indexOf('BOULDER');
 const AD_PHYS = 0;
 const AD_FIRE = 2; /* monattk.h */
@@ -450,28 +448,6 @@ function corpse_chance(mon) {
     const tmp = 2 + (((mdat.geno ?? 0) & G_FREQ) < 2 ? 1 : 0)
         + (verysmall(mdat) ? 1 : 0);
     return !rn2(tmp);
-}
-
-// C ref: mon.c make_corpse default_1 — ordinary corpse via mkcorpstat
-function make_corpse(mtmp) {
-    const mdat = mtmp.data;
-    const mndx = mtmp.mnum ?? mdat?.mndx;
-    const x = mtmp.mx, y = mtmp.my;
-    if (mndx == null || mndx < 0) return null;
-    if ((game.mvitals?.[mndx]?.mvflags ?? 0) & G_NOCORPSE) return null;
-
-    let corpstatflags = CORPSTAT_INIT | CORPSTAT_NONE;
-    if (mtmp.female) corpstatflags |= CORPSTAT_FEMALE;
-    else if (!is_neuter(mdat)) corpstatflags |= CORPSTAT_MALE;
-
-    // C KEEPTRAITS: pets/shk/unique keep mtmp for traits — save_mtraits deferred
-    const keep = !!(mtmp.mtame || mtmp.isshk);
-    const obj = mkcorpstat(CORPSE, keep ? mtmp : null, mdat, x, y, corpstatflags);
-    if (obj) {
-        stackobj(obj);
-        newsym(x, y);
-    }
-    return obj;
 }
 
 // C ref: mon.c mondead → m_detach(due_to_death) → relobj
