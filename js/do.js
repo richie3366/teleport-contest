@@ -8,7 +8,9 @@ import { pline, docrt, flush_screen } from './display.js';
 import { vision_recalc, vision_reset } from './vision.js';
 import {
     stairway_at,
+    stairway_find_from,
     u_on_upstairs,
+    u_on_newpos,
     mklev,
 } from './mklev.js';
 import { keepdogs, losedogs } from './dog.js';
@@ -76,10 +78,11 @@ export async function next_level(at_stairs) {
  * C ref: do.c goto_level — first-visit ordinary down stairs path.
  *
  * Ported: keepdogs → assign uz → mklev (getbones+makelevel) →
- * u_on_upstairs → descend pline → losedogs → vision/docrt.
+ * stairway_find_from(uz0) / u_on_upstairs → descend pline → losedogs →
+ * vision/docrt.
  * Deferred: savelev/getlev file restore, mysterious force, quest gate,
  * portals, endgame, fall damage, Lua NHCB_LVL_LEAVE, familiar_level_msg,
- * temperature/hellish messages, u_collide_m full limbo.
+ * temperature/hellish messages, u_collide_m full limbo, climb pline.
  */
 export async function goto_level(newlevel, at_stairs, falling, portal) {
     const u = game.u;
@@ -154,14 +157,37 @@ export async function goto_level(newlevel, at_stairs, falling, portal) {
     await flush_screen(-1);
 
     if (at_stairs && !portal) {
+        const atLadder = !!game.at_ladder;
         if (up) {
-            // Upstairs arrival deferred beyond ordinary down focus
-            u_on_upstairs();
+            // C: stairway_find_from(&u.uz0, at_ladder) else sstairs/dnstairs
+            const stway = stairway_find_from(u.uz0, atLadder);
+            if (stway) {
+                u_on_newpos(stway.sx, stway.sy);
+                stway.u_traversed = true;
+            } else if (newdungeon) {
+                u_on_upstairs(); // u_on_sstairs(1) subset
+            } else {
+                // u_on_dnstairs — destination downstairs when climbing
+                let dnst = null;
+                for (let s = game.stairs; s; s = s.next) {
+                    if (!s.up) { dnst = s; break; }
+                }
+                if (dnst) u_on_newpos(dnst.sx, dnst.sy);
+                else u_on_upstairs();
+            }
+            // climb pline deferred beyond ordinary-down focus
         } else {
-            u_on_upstairs();
-            // C ordinary descent (verbose default On)
+            // C ordinary descent: find_from(uz0) else sstairs/upstairs
+            const stway = stairway_find_from(u.uz0, atLadder);
+            if (stway) {
+                u_on_newpos(stway.sx, stway.sy);
+                stway.u_traversed = true;
+            } else if (newdungeon) {
+                u_on_upstairs(); // u_on_sstairs(0) subset
+            } else {
+                u_on_upstairs();
+            }
             if (game.flags?.verbose !== false) {
-                const atLadder = !!(game.at_ladder);
                 await pline(atLadder
                     ? 'You climb down the ladder.'
                     : 'You descend the stairs.');

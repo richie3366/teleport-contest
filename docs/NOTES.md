@@ -7,11 +7,17 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 
 ## Active
 
-- **Current unit:** seed0030 seg2 @6060 — C `rnd(20) @ mattacku` vs JS
-  `rn2(8)` after D-0223 underfoot `m_search_items`→`MMOVE_DONE`. /
-  seed0361/0373 quest `getbones` (need `^V`→`goto_level`→`makemaz`).
-- **Falsifier:** seg2 rng-diff @6060; dump attacking mon / hero adjacency /
-  `mattacku` branch before attributing to fleeck arity.
+- **Current unit:** seed0030 seg2 @6060 — symptom C `rnd(20) @ mattacku`
+  vs JS `rn2(8) @ m_move` mtrack. **Not** fleeck arity: JS goblin @(54,4)
+  with hero @(56,4); C hero @(54,5) adjacent after correct path.
+- **Root cause (diagnosed):** post-`>` landing — JS upstairs @(66,2), C
+  hero/cursor @(65,3). `stairway_find_from(uz0)` now matches C goto_level
+  but selects the same wrong JS upstairs. Mklev RNG matches through
+  mineralize; absolute stair coords still differ (room bounds / somexy).
+- **Falsifier:** dump `generate_stairs` room lx..hy + somexyspace result on
+  dlvl2 and compare to C upstairs @(65,3); or first makerooms rect drift.
+- **Also seen:** JS `F` → `Unknown command` (fight unbound) — secondary after
+  landing is fixed.
 - **Parked deep canary:** D-0006 pet movement — do not implement until C
   state/candidate capture exists.
 - **Parked seed2200 @158:** RC config path — harness `$HOME`, not a port bug.
@@ -78,6 +84,9 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   after leftover floor glass redirected `gg`; root was skipped underfoot
   `m_search_items`→`MMOVE_DONE` (D-0183 deferred until postmov
   `mpickstuff` existed; restored D-0223).
+- **seed0030 seg2 @6060 was NOT fleeck/mattacku branch bug** — C hero
+  @(54,5) after correct post-descend path; JS @(56,4) after landing
+  upstairs @(66,2) vs C @(65,3) (D-0224). Do not patch dochug for this peel.
 - **`monattk.h`: AT_WEAP=254, AT_MAGC=255, AT_SPIT=10** — never use 10 for
   weapon (D-0179).
 - Hostile `m_move`: before place, `m_digweapon_check` may return
@@ -89,6 +98,8 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 - STAIRS glyph: `known_branch_stairs(stairway_at)` → CLR_YELLOW;
   else CLR_GRAY (tty NO_COLOR); direction from `ladder & LA_DOWN`
   (D-0162). Dlvl1 upstairs is traversed branch.
+- **`goto_level` descend:** `stairway_find_from(&u.uz0, at_ladder)` then
+  mark `u_traversed`; not bare `u_on_upstairs`/`find_dir` (D-0224).
 - **`test_move` diagonal into DOOR:** only `doorless_door` (D_NODOOR /
   D_BROKEN) allowed; open/closed/locked block diagonal entry/exit
   (D-0219). Same rule in `domove` and steed `landing_spot`/`test_move_ok`.

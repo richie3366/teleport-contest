@@ -227,6 +227,7 @@ Do not record a guessed cause as fixed merely because an RNG prefix moved.
 | D-0221 | fixed | floorfood + poison_strdmg | floor yn before invent getobj; seg2 2930→3207 |
 | D-0222 | fixed | useupf→delobj | floor meal `obj_resists(0,0)`; seg2 3207→5939 |
 | D-0223 | fixed | m_search_items underfoot | restore MMOVE_DONE→mpickstuff; seg2 5939→6060 |
+| D-0224 | open | goto_level upstairs | find_from ported; dlvl2 upstairs @(66,2) vs C @(65,3) |
 
 D-0001 through D-0005 predate the strict-length/cohort runbook. Their focused
 causes are preserved, but generic "green sessions held" is historical evidence,
@@ -6040,3 +6041,26 @@ cohort gates if those functions are touched again.
   unpaid shop / metallivore.
 - **Next:** seed0030 seg2 @6060 `mattacku`; or quest `getbones`
   `^V`/`makemaz`.
+
+## D-0224 — seed0030 seg2 @6060 post-descend upstairs coords
+
+- **Status:** open (partial port + diagnosed prerequisite)
+- **Symptom:** seed0030 seg2 @6060 C `rnd(20) @ mattacku` vs JS
+  `rn2(8) @ m_move` mtrack after D-0223.
+- **Rejected:** dochug nearby/want_move bug; fleeck arity; dog APPORT
+  `rn2(8)` (stack was m_move mtrack `rn2(4*(cnt-j))`).
+- **Cause/evidence:** DIAG PM_GOBLIN @(54,4) hero JS @(56,4) `nearby=0`.
+  C session cursor after `>` is @(65,3); JS lands upstairs @(66,2)
+  (STAIRS typ). Path then drifts (JS walks y=2/3; C y=3/4) so at the
+  peel C is @(54,5) adjacent and attacks; JS is not. Mklev RNG matches
+  through mineralize — absolute upstairs coords still wrong (room
+  bounds / `somexy` absolute). Also: JS `F` unbound (`Unknown command`).
+- **C locus:** `do.c` `goto_level` `stairway_find_from(&u.uz0)`;
+  `stairs.c` `stairway_find_from`; `mklev.c` `generate_stairs`/
+  `somexyspace` (coords still diverge).
+- **Change:** ported `stairway_find_from` + `goto_level` descend/climb
+  use it (marks `u_traversed`). Does **not** move upstairs off @(66,2).
+- **Verification:** seg2 still **6060**; green+strict PASS; seed0015
+  descend cohort held.
+- **Next:** dump dlvl2 `generate_stairs` room lx..hy + pick vs C
+  upstairs @(65,3); or first makerooms rect drift. Then bind `F`/fight.

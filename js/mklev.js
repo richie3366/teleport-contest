@@ -159,6 +159,21 @@ function stairway_find_dir(up) {
     return null;
 }
 
+/** C ref: stairs.c stairway_find_from */
+export function stairway_find_from(fromdlev, isladder) {
+    const dnum = fromdlev?.dnum | 0;
+    const dlevel = fromdlev?.dlevel | 0;
+    const ladder = !!isladder;
+    for (let s = game.stairs; s; s = s.next) {
+        if ((s.tolev?.dnum | 0) === dnum
+            && (s.tolev?.dlevel | 0) === dlevel
+            && !!s.isladder === ladder) {
+            return s;
+        }
+    }
+    return null;
+}
+
 function stairway_find_special_dir(up) {
     for (let s = game.stairs; s; s = s.next)
         if (s.tolev.dnum !== (game.u?.uz?.dnum ?? 0) && s.up !== up) return s;
@@ -205,6 +220,7 @@ function u_on_newpos(x, y) {
     game.u.ux = x;
     game.u.uy = y;
 }
+export { u_on_newpos };
 
 // C ref: dungeon.h within_bounded_area
 function within_bounded_area(x, y, lx, ly, hx, hy) {

@@ -2882,3 +2882,16 @@ Use this shape:
   **28318**/105529 Scr **48**/1953; full **19/44** Scr **1433** RNG
   **152652**; green+strict+cohort PASS.
 - Next: seed0030 seg2 @6060 `mattacku`; or quest `getbones` `^V`/`makemaz`.
+
+## 2026-07-14 02:50 — D-0224 goto_level stairway_find_from (partial)
+- Objective: seed0030 seg2 @6060 C mattacku vs JS rn2(8) (PROGRESS primary).
+- C locus: `do.c`/`stairs.c` `stairway_find_from`; `mklev.c` `generate_stairs`
+  (coords still wrong).
+- Result: **diagnosed + partial** — peel is hero path drift from post-`>`
+  landing upstairs JS @(66,2) vs C @(65,3), not dochug/mattacku. Ported
+  `stairway_find_from` + goto_level use (marks u_traversed). Same wrong
+  stair selected. Mklev RNG matches through mineralize.
+- Rejected: fleeck/want_move; dog APPORT rn2(8) (was mtrack).
+- Also: JS `F` unbound (Unknown command) — secondary.
+- Verification: seg2 still **6060**; green+strict PASS; seed0015 cohort.
+- Next: dlvl2 `generate_stairs` room bounds / somexy vs C @(65,3); then `F`.

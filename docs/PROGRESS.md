@@ -517,12 +517,14 @@ seed0101 + seed0103 + seed0104 **PASS**. seed2200 RNG **full**
 seed0101 RNG **full** Scr **27**/27. seed0103 RNG **full** Scr **60**/60.
 seed0104 RNG **full** Scr **43**/43.
 
-- **Bounded unit:** seed0030 seg2 @6060 (C `rnd(20) @ mattacku` vs JS
-  `rn2(8)` after D-0223 underfoot DONE) / seed0361/0373 **quest
+- **Bounded unit:** seed0030 seg2 @6060 — **D-0224** diagnosed: not
+  `mattacku` logic; post-`>` upstairs @(66,2) vs C @(65,3) despite
+  matching mklev RNG. `stairway_find_from` ported. Next: dlvl2
+  `generate_stairs`/`somexy` room bounds. / seed0361/0373 **quest
   `getbones`** (blocked: need `^V`→`goto_level`→`makemaz` first —
   ordinary `goto_level` now exists for stairs; Mines `fill_lvl` path
   exists D-0171).
-- **Prefer:** seed0030 seg2 post-meal peel; over quest bones until
+- **Prefer:** dlvl2 upstairs placement (D-0224) over quest bones until
   `^V`/`makemaz`; over parked D-0006 and over baking seed2200 RC paths.
   Hero `dotrap` deferred until monster pit peel is clear.
   Hero `xkilled` treasure `mkobj` still deferred (ordinary `make_corpse`
@@ -645,6 +647,8 @@ seed0104 RNG **full** Scr **43**/43.
   **`floorfood` + `poison_strdmg`** (done D-0221; seg2→3207);
   **`useupf`→`delobj` floor meal** (done D-0222; seg2→5939);
   **`m_search_items` underfoot MMOVE_DONE** (done D-0223; seg2→6060);
+  **`goto_level` `stairway_find_from`** (D-0224 partial — upstairs coords
+  still @(66,2) vs C @(65,3));
   D-0218 upstairs theory rejected;
   …
 - **Cohort:** green gate + seed1500 + seed1800 + seed0060 + seed0102
@@ -1451,6 +1455,10 @@ Module status, constitutional debt, and named omissions live in
     — seed0030 seg2 **5939→6060** (`mattacku`); positional
     **28318**/105529 Scr **48**/1953; full **19/44** Scr **1433**
     RNG **152652**; next seed0030 seg2 @6060 / quest `getbones`
+200. `goto_level` `stairway_find_from` (D-0224 partial)
+    — peel @6060 = post-descend upstairs @(66,2) vs C @(65,3);
+    find_from ported; seg2 still **6060**; next dlvl2
+    `generate_stairs`/`somexy` room bounds
 
 Next work is selected from the active objectives above using
 `PORTING-RUNBOOK.md`, not by extending this historical list.
