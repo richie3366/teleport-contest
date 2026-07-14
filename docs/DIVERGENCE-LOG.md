@@ -7809,4 +7809,23 @@ Open that file first; then jump to a single `## D-NNNN` entry below
   appearance parity beyond known arms.
 - **Next:** @580 HP:11 vs HP:0 after reflected striking + melee hit.
 
+## D-0310 — `bot()` skip when `u.uhp == -1` (stale botl on fatal more)
+
+- **Status:** fixed
+- **Observed:** seed0030 @580 — topline matches (`long wand`+Boing+hits);
+  C botl `HP:11(11)` vs JS `HP:0(11)`.
+- **C locus:** `botl.c` `bot` — `if (u.uhp != -1 && …)` else no-op;
+  `mdamageu` can leave `uhp == -1` on exact overkill before `done_in_by`
+  forces more on prior topline.
+- **Cause:** JS `_buildScreenOutput` always repainted status with
+  `hp<0→0`, so the deferred `--More--` after fatal hit showed HP:0 while
+  C kept the previous botl.
+- **Change:** cache last painted status; when `u.uhp === -1`, reuse it
+  (and no-op `bot()`); clear cache in `reset_display_messages`.
+- **Verification:** prefix **580→582**; Scr **1383→1387**; RNG full;
+  green+strict; 17 PASS cohort + strict sample.
+- **Named omissions:** `gb.bot_disabled` for getlin/menu; Upolyd `mh`
+  path; non-`-1` negative HP still clamps via get_blstats.
+- **Next:** @582 `Maganasipi takes all your possessions` (shk loot on death).
+
 

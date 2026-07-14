@@ -37,7 +37,7 @@ seed0016, seed0015, seed0200, seed0101, seed0103, seed0104.
 **Notable non-PASS:**
 | Session | RNG | Screen | Note |
 |---------|----:|-------:|------|
-| seed0030 | 105529/105529 | **1383**/1953 | primary peel; prefix first-miss **@580** |
+| seed0030 | 105529/105529 | **1387**/1953 | primary peel; prefix first-miss **@582** |
 | seed2200 | 3018/3018 | **175**/230 | RNG full; Scr cells 178/230 |
 | seed0013-rogue | 4838/4838 | 57/59 | |
 | seed0013-friday13-restore | 4803/4804 | 46/99 | |
@@ -61,16 +61,16 @@ Both must remain full RNG + screen PASS with exact scored-output lengths.
 
 ## Primary objective
 
-**seed0030 screen peel** — RNG full; Scr **1383**/1953; prefix first-miss **@580**
+**seed0030 screen peel** — RNG full; Scr **1387**/1953; prefix first-miss **@582**
 
 | | |
 |--|--|
-| **C locus** | `mhitu` / reflection / `mdamageu` — botl HP after zap |
-| **JS locus** | `js/mhitu.js` / `js/muse.js` `mbhitm` — HP **0** vs C **11** |
-| **Symptom** | @580 topline matches (`long wand`+Boing+hits); botl `HP:0(11)` vs `HP:11(11)` |
-| **Hypothesis** | Reflected striking or follow-up melee applies fatal damage in JS |
-| **Falsifier** | Match C HP through zap+hit; expect prefix advance / Scr↑ |
-| **Recent fixed** | D-0308 uhitm `mon_nam`→do_name; D-0309 WAND xname+`dknown` (576→580; Scr 1376→1383) |
+| **C locus** | `shk.c` / `end.c` death loot — Maganasipi takes possessions |
+| **JS locus** | `js/shk.js` / `js/end.js` — missing possessions pline after `You die...` |
+| **Symptom** | @582 C `You die...  Maganasipi takes all your possessions.--More--` vs JS `You die...--More--` |
+| **Hypothesis** | Angry shk loot-on-death message not ported (or gated wrong) |
+| **Falsifier** | Match C topline through death more; expect prefix advance / Scr↑ |
+| **Recent fixed** | D-0310 bot skip `uhp==-1` (580→582; Scr 1383→1387) |
 
 ```bash
 node frozen/ps_test_runner.mjs sessions/seed0030-ten-diverse-deaths.session.json

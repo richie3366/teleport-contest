@@ -7,12 +7,12 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Current unit:** seed0030 Scr **1383**/1953 RNG **FULL**; prefix **@580**.
-- **@580:** topline matches (`long wand`+Boing+hits); botl **HP:0** vs C **11**.
-- **Hypothesis:** reflected striking and/or melee hit over-damages hero in JS.
-- **Falsifier:** match C HP through that boundary; expect prefix advance.
-- **Fixed:** D-0308 uhitm→do_name `mon_nam` (@576 Maganasipi); D-0309 WAND
-  xname `"%s wand"` + mzapwand `dknown` (@580 topline).
+- **Current unit:** seed0030 Scr **1387**/1953 RNG **FULL**; prefix **@582**.
+- **@582:** C `You die...  Maganasipi takes all your possessions.--More--`
+  vs JS `You die...--More--` (botl HP:0 matches).
+- **Hypothesis:** angry shk loot-on-death pline missing / wrong gate.
+- **Falsifier:** match C death topline; expect prefix advance.
+- **Fixed:** D-0310 `bot` skip when `u.uhp==-1` (580→582; Scr 1383→1387).
 - **#330 score still current:** 19/44; Scr **2810**/11405 (next full @#335).
 - **Alt:** seed0013 Scr 57/59; seed0107 @2684.
 - **Parked:** D-0006; seed2200 @158 RC/`$HOME`.
@@ -29,7 +29,8 @@ Objective/score live in `CURRENT.md`.
 - **Don’t:** `read_engr` maxelen from 80 — `BUFSZ`+feel-lit (D-0282).
 - **Don’t:** botl `Dlvl` from `uz.dlevel` — use `depth()`; Mines BROWN (D-0283).
 - **Don’t:** omit `m_throw` `tmp_at(DISP_FLASH)`; potion `oc_name_known` (D-0284/85).
-- **Don’t:** skip AT_WEAP `mswings`; botl HP `<0→0` (D-0286/87).
+- **Don’t:** skip AT_WEAP `mswings`; botl HP `<0→0` (D-0286/87);
+  skip `bot` when `uhp==-1` — keep prior botl (D-0310).
 - **Don’t:** invent-disclose yn when `disclose:-i`; RIP needs Tourist XP (D-0288/89).
 - **Don’t:** omit RIP trailing blank putstr / `topten` after RIP (D-0290/91).
 - **Don’t:** emit true amulet name when `!oc_name_known` — `<descr> amulet` (D-0292);
@@ -58,4 +59,4 @@ Objective/score live in `CURRENT.md`.
 - Key attribution ≠ RNG order (0-RNG `--More--`) (D-0228).
 - Bones / disclose / RIP / topten / amulet / DEC altar / noises / Monnam /
   map_invisible / mimic / vault+fountain/sink/shop / TOOL descr / shop enter /
-  uhitm mon_nam / WAND descr: D-0274…D-0309.
+  uhitm mon_nam / WAND descr / bot uhp==-1: D-0274…D-0310.

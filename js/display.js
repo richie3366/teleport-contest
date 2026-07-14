@@ -443,6 +443,8 @@ export function reset_display_messages() {
     _toplin = TOPLINE_EMPTY;
     _win_stop = false;
     _delay_flushing = false;
+    _lastStatus1 = '';
+    _lastStatus2 = '';
 }
 
 // ── ANSI color codes ──
@@ -1236,6 +1238,10 @@ function _statusLine1() {
     return `${title}${' '.repeat(gap)}${stats} ${align}`;
 }
 
+// Last successfully painted status (C bot() skips when u.uhp == -1).
+let _lastStatus1 = '';
+let _lastStatus2 = '';
+
 // C ref: botl.c describe_level — "Dlvl:%-2d" uses depth(&u.uz), not dunlev;
 // Xp:/T: gated by flags.showexp / flags.time (default off);
 // BL_CONDITION Ride when u.usteed (botl.c condtests[bl_ride]).
@@ -1245,7 +1251,7 @@ function _statusLine2() {
     if (!u) return '';
     const flags = game.flags || {};
     const dlvl = depth(u.uz) || 1;
-    // C botl.c bot1/bot2 + get_blstats: hp < 0 → 0 (gameover uhp=-1)
+    // C botl.c get_blstats: hp < 0 → 0 for display when bot() runs
     let hp = u.uhp | 0;
     if (hp < 0) hp = 0;
     if (hp > 9999) hp = 9999;
@@ -1257,6 +1263,11 @@ function _statusLine2() {
     // C windows.c BL_MASK_RIDE → " Ride" (leading space in strcat)
     if (u.usteed) s += ' Ride';
     return s;
+}
+
+/** C ref: botl.c bot — no-op when u.uhp == -1 (dosave / exact overkill). */
+function _botSuppressed() {
+    return (game.u?.uhp | 0) === -1;
 }
 
 export { _statusLine2 as status_line_2 };
@@ -1390,9 +1401,22 @@ function _buildScreenOutput() {
         output += render_map_row(y) + '\n';
     }
 
-    // Row 22-23: status
-    output += _statusLine1() + '\n';
-    output += _statusLine2();
+    // Row 22-23: status — C bot() skips when u.uhp == -1 (keep prior botl)
+    const suppressBot = _botSuppressed();
+    let s1raw;
+    let s2;
+    if (suppressBot && _lastStatus2) {
+        s1raw = _lastStatus1;
+        s2 = _lastStatus2;
+    } else {
+        s1raw = _statusLine1();
+        s2 = _statusLine2();
+        _lastStatus1 = s1raw.replace(/\x1b\[[0-9;]*[A-Za-z]/g, m =>
+            m.match(/\x1b\[\d+C/) ? ' '.repeat(parseInt(m.slice(2), 10) || 0) : '');
+        _lastStatus2 = s2;
+    }
+    output += s1raw + '\n';
+    output += s2;
 
     game._screen_output = output;
 
@@ -1427,12 +1451,13 @@ function _buildScreenOutput() {
                 display.setCell(x - 1, sr, ch, loc.disp_color ?? NO_COLOR, loc.disp_attr ?? 0);
             }
         }
-        // Status lines
-        const s1 = _statusLine1().replace(/\x1b\[[0-9;]*[A-Za-z]/g, m =>
-            m.match(/\x1b\[\d+C/) ? ' '.repeat(parseInt(m.slice(2))) : '');
+        // Status lines (cached when C bot() would no-op on u.uhp == -1)
+        const s1 = suppressBot && _lastStatus1
+            ? _lastStatus1
+            : s1raw.replace(/\x1b\[[0-9;]*[A-Za-z]/g, m =>
+                m.match(/\x1b\[\d+C/) ? ' '.repeat(parseInt(m.slice(2), 10) || 0) : '');
         for (let c = 0; c < Math.min(s1.length, display.cols); c++)
             display.setCell(c, 22, s1[c], NO_COLOR, 0);
-        const s2 = _statusLine2();
         for (let c = 0; c < Math.min(s2.length, display.cols); c++)
             display.setCell(c, 23, s2[c], NO_COLOR, 0);
         // Cursor: prompts stay on topline; otherwise hero.
@@ -1520,8 +1545,10 @@ export async function cls() {
 }
 
 // ── bot ──
+// C ref: botl.c bot — no-op when u.uhp == -1; otherwise status via flush.
 export async function bot() {
-    // Status line updates happen in _buildScreenOutput
+    if (_botSuppressed()) return;
+    // Status line updates happen in _buildScreenOutput on flush_screen
 }
 
 // C ref: getline.c xwaitforspace("\033 ") — only ESC/space/return dismiss
