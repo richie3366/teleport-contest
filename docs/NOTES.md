@@ -7,11 +7,10 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 
 ## Active
 
-- **Current unit:** seed0030 seg5 @4174 — C `rn2(12)` `dog_move` candidate
-  pick (`!rn2(12)` / `!rn2(3)` arm @1257) vs JS `rn2(5)` `distfleeck`
-  (after NHW_MENU dmore quitchars D-0240; seg5 **3096→4174**).
-- **Falsifier:** dump JS pet `mfndpos`/`chi`/`appr`/`whappr` and whether
-  the `j>0 && !whappr` branch runs; compare C recorder cnt/nix at that step.
+- **Current unit:** seed0030 seg5 @4372 — C `rn2(3)` `linedup` vs JS
+  `rn2(16)` `m_move` (after mhitm `gv.vis` D-0241; seg5 **4174→4372**).
+- **Falsifier:** why C burns `linedup` before JS’s `m_move` track — actor
+  presence / ranged path / missing muse or throw gate; dump mon state.
 - **Parked deep canary:** D-0006 pet movement — do not implement until C
   state/candidate capture exists.
 - **Parked seed2200 @158:** RC config path — harness `$HOME`, not a port bug.
@@ -148,6 +147,12 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   the pile, then `b` moves SW. JS treated the second `l` as a real east
   move onto an adjacent second dart trap → extra `t_missile`/`rnd(2)`
   (D-0240). Two dart traps at (74,4)/(75,4).
+- **seed0030 seg5 @4174 was NOT dog_move mfndpos cnt / `>=5` mtrack** —
+  symptom C `rn2(12)` vs JS fleeck looked like mtrack at distmin=5;
+  forcing `>=5` advanced prefix but was wrong. Real cause: JS `hitmm`
+  always plined pet bites in the dark → bite+destroyed forced topline
+  `more()` which discarded movement `h` until a later space → key desync
+  (D-0241). Do not change mtrack `>5` gate.
 - **`monattk.h`: AT_WEAP=254, AT_MAGC=255, AT_SPIT=10** — never use 10 for
   weapon (D-0179).
 - Hostile `m_move`: before place, `m_digweapon_check` may return
@@ -228,6 +233,11 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   an nhgetch capture). Corner `offx≠0` paints all rows then one dmore;
   fullscreen pages at `rows-1` (D-0240). Same helper as NHW_TEXT
   `text_page_wait`.
+- **mhitm `gv.vis`:** `hitmm`/`missmm` pline only when
+  `(cansee∧canspotmon)(magr) ∨ (cansee∧canspotmon)(mdef)`; else
+  `noises()` deferred. `mondied` pline only when `cansee` (D-0241).
+  Dark-corridor pet fights must not force topline `more()` or movement
+  keys are discarded until space.
 - **`test_move` diagonal into DOOR:** only `doorless_door` (D_NODOOR /
   D_BROKEN) allowed; open/closed/locked block diagonal entry/exit
   (D-0219). Same rule in `domove` and steed `landing_spot`/`test_move_ok`.

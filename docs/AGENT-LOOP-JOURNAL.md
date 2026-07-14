@@ -3094,3 +3094,15 @@ Use this shape:
   **69**/1953; full **19/44** Scr **1441** RNG **169781**; green+strict
   PASS; 17-session PASS cohort held.
 - Next: seed0030 seg5 @4174 C dog_move rn2(12) vs JS fleeck; or quest getbones.
+
+## 2026-07-14 05:37 — mhitm gv.vis / dark pet combat (D-0241)
+- Objective: seed0030 seg5 @4174 C dog_move rn2(12) vs JS fleeck rn2(5).
+- C locus: mhitm.c mattackm gv.vis; hitmm/missmm; mon.c monkilled cansee.
+- Result: **verified** — JS always plined pet bites; dark fight forced
+  topline more() which discarded west h until space → key desync →
+  distmin=5 vs C >5 mtrack peel. Rejected shipping distmin >=5.
+  Lesson: late dog_move arity peels after matched RNG → check more()/vis.
+- Verification: seg5 **4174→4372** (C linedup rn2(3) vs JS m_move rn2(16));
+  positional **46404**/105529 Scr **70**/1953; full **19/44** Scr **1442**
+  RNG **169786**; green+strict PASS; 17-session PASS cohort held.
+- Next: seed0030 seg5 @4372 C linedup vs JS m_move; or quest getbones.

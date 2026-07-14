@@ -243,6 +243,8 @@ Do not record a guessed cause as fixed merely because an RNG prefix moved.
 | D-0237 | fixed | drinkfountain | dodrink fountain yn + rnd(30); seg4 6630→7554 |
 | D-0238 | fixed | moverock/dopush | walk-into boulder push + exercise STR; seg4 FULL |
 | D-0239 | fixed | trap/dotrap | hero dart `t_missile`+`thitu` miss; seg5 3076→3096 |
+| D-0240 | fixed | NHW_MENU dmore | putstr quitchars; seg5 3096→4174 |
+| D-0241 | fixed | mhitm gv.vis | hitmm/missmm/mondied cansee; seg5 4174→4372 |
 
 D-0001 through D-0005 predate the strict-length/cohort runbook. Their focused
 causes are preserved, but generic "green sessions held" is historical evidence,
@@ -6507,3 +6509,36 @@ cohort gates if those functions are touched again.
   same); bell sound; `dismiss_more` ttyDisplay field.
 - **Next:** seed0030 seg5 @4174 C `dog_move` `rn2(12)` vs JS fleeck;
   or quest `getbones`.
+
+## D-0241 — mhitm `gv.vis` / dark pet combat `--More--`
+
+- **Status:** fixed
+- **Symptom:** seed0030 seg5 @4174 — C `rn2(12)` `dog_move` candidate
+  pick vs JS `rn2(5)` `distfleeck`. Pet at `(48,9)`, hero `(43,9)`,
+  `distmin=5`, `cnt=3`.
+- **Cause:** After a west `h` move (~rngLen 4101), pet combat toplined
+  bite + “destroyed”. JS `hitmm`/`missmm` always plined with no C
+  `gv.vis` gate; messages forced `more()`. `xwaitforspace` only accepts
+  space/CR/ESC and discarded movement `h` until a later space → key
+  desync. Hero stayed at `(43,9)` with `umoved=false` while C moved
+  further west → `distmin=5` vs C `>5` → mtrack/`rn2(12)` arity peel.
+- **Rejected:** shipping `distmin >= 5` mtrack (advanced prefix as a
+  symptom only); treating @4174 as pure mfndpos/cnt without input
+  boundary check.
+- **C locus:** `mhitm.c` `mattackm` sets
+  `gv.vis = (cansee(magr)&&canspotmon(magr)) ||
+  (cansee(mdef)&&canspotmon(mdef))`; `hitmm`/`missmm` pline only if
+  `gv.vis` (else `noises()`); `mon.c` `monkilled` pline only if
+  `cansee(mdef)`.
+- **Change:** `js/mhitm.js` — local `canspotmon` + `_mm_vis` in
+  `mattackm`; gate `hitmm`/`missmm` plines; `mondied` pline only when
+  `cansee`.
+- **Verification:** segs 0–3 FULL; seg4 JS +1 end quirk; seg5
+  **4174→4372** (C `linedup` `rn2(3)` vs JS `m_move` `rn2(16)`);
+  positional **46404**/105529 Scr **70**/1953; full **19/44** Scr
+  **1442** RNG **169786**; green+strict PASS; 17-session PASS cohort
+  held.
+- **Named omissions:** `noises()` when `!gv.vis`; full `nonliving`
+  destroy verb (golem/vortex/manes); worm_known.
+- **Next:** seed0030 seg5 @4372 C `linedup` vs JS `m_move` track; or
+  quest `getbones`.
