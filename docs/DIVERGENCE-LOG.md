@@ -7126,7 +7126,7 @@ Open that file first; then jump to a single `## D-NNNN` entry below
 
 ## D-0274 — getbones VFS load / next_ident (partial)
 
-- **Status:** partial
+- **Status:** fixed (entity-count follow-on → D-0275)
 - **Observed:** seed0030 seg9 @16581 matched `rn2(3)=0 @ getbones`;
   C `rnd(2) @ next_ident`×49 then `set_apparxy`; JS skipped open and
   continued `makelevel` (`rn2(3)`).
@@ -7141,11 +7141,29 @@ Open that file first; then jump to a single `## D-NNNN` entry below
   `savebones`→`write_bonesfile`; `getbones`→`try_load_bones`.
 - **Named omission:** binary savelev; resetobjs/set_ghostly; map-memory
   clear; cemetery; no_bones_level; Is_special boneid; give_to_nearby_mon
-  body; **one missing on-map entity** (JS 48 vs C 49 `next_ident` —
-  migrating giant rat to Doom:4 is off-level and not the missing one).
+  body; (entity 48 vs 49 closed by D-0275).
 - **Verification:** seg9 **16582→16630**; green+strict PASS; 17-session
   PASS cohort; seed0030 flat **48199**/105529 Scr **85**/1953.
-- **Next:** find the missing bones entity (48 vs 49) before further
-  post-load movement peel.
+- **Next:** D-0275 — place limbo killing missile before bones write.
+
+## D-0275 — done_object_cleanup / limbo thrownobj
+
+- **Status:** fixed
+- **Observed:** after D-0274, JS bones remapped **48** entities; C **49**
+  `next_ident` then `set_apparxy`. Elara seg6 RNG matched through
+  `savebones`; free `_thrownobj` arrow (o_id≠floor stack) never entered
+  `fobj`.
+- **C locus:** `end.c` `done_object_cleanup` / `really_done`;
+  `mthrowu.c` `m_throw`/`thitu` (fatal losehp noreturn skips
+  `drop_throw`).
+- **Cause:** JS `really_done` omitted `done_object_cleanup`; fatal
+  missile stayed `OBJ_FREE` and was omitted from VFS bones.
+- **Change:** port `done_object_cleanup` — place `_thrownobj`/
+  `_kickedobj` when `where==OBJ_FREE` before bones/disclosure.
+- **Named omission:** `inven_inuse`; ball/chain `placebc`;
+  `accessible` closed_door gate (ACCESSIBLE-only approx).
+- **Verification:** bones total **48→49**; seg9 **16630→16635**;
+  green+strict PASS; 19-session PASS cohort + strict lengths.
+- **Next:** post-load `m_move` arity @16635 (`rn2(8)` vs `rn2(5)`).
 
 

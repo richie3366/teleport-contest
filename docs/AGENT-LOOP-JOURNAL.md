@@ -20,6 +20,17 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-14 17:15 — D-0275 done_object_cleanup thrownobj
+
+- Objective: seed0030 seg9 @16630 (CURRENT primary D-0274 follow-on).
+- C locus: `end.c` `done_object_cleanup`/`really_done`; `mthrowu.c`
+  fatal `thitu` skips `drop_throw`.
+- Change: place limbo `_thrownobj`/`_kickedobj` onto map before bones.
+  Killing arrow was `OBJ_FREE` → omitted from VFS (48 vs 49).
+- Verification: bones **49**; seg9 **16630→16635**; green+strict PASS;
+  19-session PASS cohort + strict lengths.
+- Next: post-bones `m_move` `rn2(8)` vs `rn2(5)` @16635.
+
 ## 2026-07-14 17:05 — D-0274 getbones VFS load (partial)
 
 - Objective: seed0030 seg9 @16582 (CURRENT primary D-0274).
@@ -190,45 +201,4 @@ Use this shape:
   Scr **1465** RNG **181571**; seed0030 **47901**/105529.
 - Next: compare C vs JS `more()` call sites during seg8 rush (`\r`→`\n`)
   so `d` reaches `dodrop` before dog_goal @3309.
-
-## 2026-07-14 09:45 — diagnose seg8 @3068 dog_move rn2(1) (D-0261)
-- Objective: seed0030 seg8 peel after D-0260 (PROGRESS primary).
-- C locus: `dogmove.c` `dog_move`/`dog_goal`; `mon.c` `mfndpos` diagonal
-  squeeze; possible `couldsee`/`gettrack`.
-- Result: **falsified** stale “@3310 obj_resists vs rn2(4)”. Live first
-  mismatch @**3068**: C `distfleeck` vs JS `!rn2(++chcnt)` on equal-dist
-  cand `(65,15)`. Matched through `dog_goal` `rn2(4)=2`. Prior turn
-  APPORT onto gold `(66,16)` matched. JS `couldsee` true / `gg=hero` /
-  cnt=8 / mtrack[0]=(65,15). Hypothesis: C omits that cand or different
-  `gg`/`nidist`. No production change (DIAG removed).
-- Verification: green+strict preflight PASS; seg8 first=3068; no JS edit.
-- Next: falsify C `mfndpos` set / `couldsee(66,16)` / `gettrack` at peel;
-  port `bad_rock`/`cant_squeeze_thru` + `m_in_out_region` if confirmed.
-
-## 2026-07-14 09:25 — newmonhp level-0 min HP (D-0260)
-- Objective: seed0030 seg8 @3263 passivemm arity (PROGRESS primary).
-- C locus: `makemon.c` `newmonhp` — level-0 `basehp=1` + `rnd(4)` then
-  boost when `mhpmax==basehp` (min HP 2).
-- Result: **verified** — passivemm/`rn2(3)` theories **falsified** as
-  root; little dog bite vs jackal with JS `mhpmax=1` died into
-  `corpse_chance` `rn2(2)` while C boosted HP to 2 and reached live
-  `passivemm`. Prefix **3263→3310**.
-- Verification: green+strict PASS; 17-session PASS cohort; full **19/44**
-  Scr **1463** RNG **181294**; seed0030 **47955**/105529.
-- Next: diagnose seg8 @3310 C `obj_resists(100)` vs JS `rn2(4)` (D-0261).
-
-## 2026-07-14 08:55 — armoroff delay + ICRNL C(j) rush (D-0259)
-- Objective: seed0030 seg8 @3088 dog_goal (PROGRESS primary; NOTES hero-stairs).
-- C locus: `do_wear.c` `armoroff`/`suit_simple_name`; `cmd.c` `C(j)` rush;
-  session ICRNL (`\r`→`\n`).
-- Result: **verified** — dog_goal/hero-stairs theories **falsified** as
-  root; real cause was immediate takeoff (no `oc_delay`/`nomul`) so later
-  keys ran early, plus raw `\r` not mapped to rush-south. Prefix
-  **3088→3263**; next peel `passivemm` (D-0260).
-- Verification: green+strict PASS; 17-session PASS cohort; full **19/44**
-  Scr **1463** RNG **181305**; seed0030 **47966**/105529; seed0013
-  **4367**/4838.
-- Next: `node scripts/rng-diff.mjs sessions/seed0030-ten-diverse-deaths.session.json`
-  (seg8; expect first mismatch @3263 `passivemm`) — compare C
-  `mhitm.c:1363` vs JS passive path.
 

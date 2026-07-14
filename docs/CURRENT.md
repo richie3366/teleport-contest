@@ -6,8 +6,8 @@ and `archive/PROGRESS-HISTORY.md`.
 
 Score last measured: **2026-07-14** via focused seed0030 + green/cohort;
 full `sessions` suite not re-run this iteration. PASS set unchanged;
-seed0030 positional **48199**/105529 after D-0274 (seg9 isolation
-**16630**/17104).
+seed0030 seg9 isolation **16635**/17104 after D-0275 (flat positional
+**48195**/105529 Scr 85/1953).
 
 ## Score
 
@@ -15,7 +15,7 @@ seed0030 positional **48199**/105529 after D-0274 (seg9 isolation
 |--------|------:|
 | Sessions passing | **19 / 44** |
 | Screens matched | **1563 / 11,405** (13.70%) |
-| Positional RNG calls matched | **182,716 / 792,838** (prior suite +43 seed0030) |
+| Positional RNG calls matched | **182,712 / 792,838** (prior suite −4 flat seed0030; seg9 +5) |
 | Speed label | `18+0.10/turn` |
 | Role-init throws | **0 / 44** |
 
@@ -24,7 +24,7 @@ seed0700, seed1150, seed0017, seed0077, seed0106, seed0501, seed0105,
 seed0016, seed0015, seed0200, seed0101, seed0103, seed0104.
 
 **Notable non-PASS:** seed2200 RNG full Scr 229/230 (parked RC @158);
-seed0013 RNG full Scr 57/59; seed0030 **48199**/105529 Scr 85/1953;
+seed0013 RNG full Scr 57/59; seed0030 **48195**/105529 Scr 85/1953;
 seed0107 2684/2902 Scr 36/98; seed0361/0373 quest bones blocked.
 
 ## Green gate
@@ -42,16 +42,16 @@ Both must remain full RNG + screen PASS with exact scored-output lengths.
 
 ## Primary objective
 
-**D-0274 follow-on** — seed0030 seg9 @16630 — missing bones entity
+**D-0275 follow-on** — seed0030 seg9 @16635 — post-bones `m_move` arity
 
 | | |
 |--|--|
-| **C locus** | `bones.c` `savebones` prep / `restore.c` rest*chn entity set |
-| **JS locus** | `js/bones.js` write/load; `js/end.js` `savebones` |
-| **Symptom** | After VFS load, C still has one more `next_ident` (49 vs JS 48) |
-| **Hypothesis** | On-map mon/obj present in C bones file absent from JS level at write (not the Doom:4 migrating giant rat) |
-| **Falsifier** | attribute entity lists; add missing entity; mismatch moves past 16630 |
-| **Recent fixed** | D-0274 partial — getbones VFS open + remap (16582→16630) |
+| **C locus** | `monmove.c` `m_move` / `set_apparxy` after bones `getlev` |
+| **JS locus** | `js/monmove.js` `m_move` / post-load mon setup |
+| **Symptom** | After 49 `next_ident`, C `rn2(8) @ m_move` vs JS `rn2(5)` |
+| **Hypothesis** | Monster state / candidate selection after bones load differs (not missing entity) |
+| **Falsifier** | attribute fmon after load; peel `m_move` guard; mismatch past 16635 |
+| **Recent fixed** | D-0275 — `done_object_cleanup` limbo thrownobj (16630→16635) |
 
 ```bash
 # Focused seg9

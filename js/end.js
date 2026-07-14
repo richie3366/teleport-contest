@@ -9,7 +9,7 @@ import { pline, flush_topl_more } from './display.js';
 import { yn_function } from './getline.js';
 import {
     DIED, GENOCIDED, STONING, NON_PM, CORPSTAT_INIT, CORPSTAT_NONE,
-    OBJ_FREE, Upolyd, MM_NONAME,
+    OBJ_FREE, Upolyd, MM_NONAME, isok, ACCESSIBLE,
 } from './const.js';
 import { G_NOCORPSE, mons } from './monsters.js';
 import { Monnam, oname, christen_monst } from './do_name.js';
@@ -23,6 +23,39 @@ import { monsterNames } from './generated/monsters_data.js';
 const CORPSE = objectNames.indexOf('CORPSE');
 const STATUE = objectNames.indexOf('STATUE');
 const PM_GHOST = monsterNames.indexOf('PM_GHOST');
+
+/**
+ * C ref: end.c done_object_cleanup — place in-flight thrown/kicked missiles
+ * onto the map before disclosure/bones so they are not lost from limbo.
+ * Named omissions: inven_inuse; uchain/uball placebc; perm_invent clear;
+ * closed_door rejection inside accessible (ACCESSIBLE-only approx).
+ */
+function done_object_cleanup() {
+    const u = game.u || {};
+    let ox = (u.ux | 0) + (u.dx | 0);
+    let oy = (u.uy | 0) + (u.dy | 0);
+    const spotOk = (x, y) => {
+        if (!isok(x, y)) return false;
+        const loc = game.level?.at?.(x, y);
+        return !!(loc && ACCESSIBLE(loc.typ));
+    };
+    if (!spotOk(ox, oy)) {
+        ox = u.ux | 0;
+        oy = u.uy | 0;
+    }
+    const thrown = game._thrownobj;
+    if (thrown && thrown.where === OBJ_FREE) {
+        place_object(thrown, ox, oy);
+        stackobj(thrown);
+        game._thrownobj = null;
+    }
+    const kicked = game._kickedobj;
+    if (kicked && kicked.where === OBJ_FREE) {
+        place_object(kicked, ox, oy);
+        stackobj(kicked);
+        game._kickedobj = null;
+    }
+}
 
 /**
  * C ref: bones.c can_make_bones — whether a bones file may be written.
@@ -175,11 +208,15 @@ export async function done(how) {
  * C ref: end.c really_done — gameover; disclose; bones corpse + savebones.
  * Named omissions: paybill/clearpriests; invent discover_object;
  * Schroedinger; dump/livelog; score; topten/rip; nh_terminate;
- * disclose beyond inventory yn; arise pline; wizard bones query.
+ * disclose beyond inventory yn; arise pline; wizard bones query;
+ * inven_inuse / ball-chain arms of done_object_cleanup.
  */
 async function really_done(how) {
     if (!game.program_state) game.program_state = {};
     game.program_state.gameover = true;
+
+    // C: done_object_cleanup before bones/disclosure — limbo missiles → map
+    if (!game.program_state.panicking) done_object_cleanup();
 
     // C: bones_ok = can_make_bones() before display_nhwindow(WIN_MESSAGE)
     const bones_ok = (how < GENOCIDED) && can_make_bones();

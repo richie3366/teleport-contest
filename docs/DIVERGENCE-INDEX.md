@@ -260,7 +260,8 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 | D-0271 | fixed | make_corpse undead before G_NOCORPSE | zombie/mummy/vampire mkcorpstat; seg9 10811→12411 |
 | D-0272 | fixed | find_roll_to_hit Luck bonus | full-moon +1; seg9 12411→12414 |
 | D-0273 | fixed | corpse_chance AT_BOOM / mon_explodes | gas spore PHYS boom; seg9 12414→16582 |
-| D-0274 | partial | getbones VFS load | Elara→Hermione bones open+next_ident; seg9 16582→16630; 48 vs 49 entity |
+| D-0274 | fixed | getbones VFS load | Elara→Hermione bones open+next_ident; seg9 16582→16630 |
+| D-0275 | fixed | done_object_cleanup thrownobj | limbo missile→map before bones; seg9 16630→16635 |
 
 
 D-0001 through D-0005 predate the strict-length/cohort runbook. Their focused

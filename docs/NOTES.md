@@ -7,12 +7,12 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Current unit:** seed0030 seg9 @16630 — **D-0274 follow-on** — JS bones
-  load remaps **48** entities; C burns **49** `next_ident` then `set_apparxy`.
-- **Hypothesis:** missing on-map mon/obj at Elara `savebones` write (not the
-  migrating PM_GIANT_RAT mux=0 muy=4 / Doom:4 — off-level, exclude from bones).
-- **Falsifier:** dump C-vs-JS fmon/fobj at write; add missing entity; seg9
-  first mismatch moves past 16630.
+- **Current unit:** seed0030 seg9 @16635 — post-bones `m_move` (`rn2(8)` vs
+  `rn2(5)`). Entity count fixed (D-0275).
+- **Hypothesis:** after ghostly remap, mon candidate / `m_move` guard differs
+  (not missing bones entity).
+- **Falsifier:** dump fmon after `try_load_bones`; peel C `m_move` branch at
+  first post-ident call; mismatch moves past 16635.
 - **Parked:** D-0006 (pet movement); seed2200 @158 RC/`$HOME`.
 
 ## Don’t re-check (≤15)
@@ -41,6 +41,8 @@ Objective/score live in `CURRENT.md`.
   `d(damn,damd)` then `mon_explodes` (D-0273).
 - **Don’t:** stuff Doom:4 migrating giant rat into Mines bones to pad
   next_ident count — wrong entity; movement desyncs immediately after.
+- **Don’t:** skip `done_object_cleanup` — fatal `thitu` leaves limbo
+  `_thrownobj` off `fobj` (D-0275; 48 vs 49).
 
 ## Landmarks (≤15)
 
@@ -61,4 +63,5 @@ Objective/score live in `CURRENT.md`.
   uncover must `recalc_block_point` (D-0269).
 - Key attribution ≠ RNG order (0-RNG `--More--`) (D-0228).
 - Bones VFS: `bon${boneid}0.${dlevel}` under `vfs:bones/`; Elara Mines
-  `bonM0.1` → Hermione branch load (D-0274).
+  `bonM0.1` → Hermione branch load (D-0274); limbo missile via
+  `done_object_cleanup` (D-0275).
