@@ -7083,3 +7083,22 @@ Open that file first; then jump to a single `## D-NNNN` entry below
 - **Next:** diagnose seg9 @12411 C `exercise` after `hitum` vs JS
   `rn2(3)` (gas-spore / AT_BOOM path nearby in C).
 
+## D-0272 — find_roll_to_hit Luck bonus (fixed)
+
+- **Status:** fixed
+- **Observed:** seed0030 seg9 @12411 — matched `hitum` `rnd(20)=15`;
+  C `rn2(19) @ exercise` then `dmgval`/`xkilled`/`corpse_chance` AT_BOOM;
+  JS `rn2(3)` (`passive` miss).
+- **DIAG:** Healer + scalpel vs gas spore; `tmp=15` `dieroll=15` miss;
+  datetime `20260305120000` is full moon (`change_luck(+1)`).
+- **C locus:** `uhitm.c` `find_roll_to_hit` —
+  `sgn(Luck)*((abs(Luck)+2)/3)`; `you.h` Luck; `allmain.c`
+  full-moon `change_luck(1)`.
+- **Cause:** JS deferred Luck to-hit. With `Luck=1` that term is `+1`;
+  without it `tmp==dieroll` → miss while C hits and one-shots.
+- **Change:** `js/uhitm.js` `find_roll_to_hit` adds Luck bonus
+  (trunc toward 0). Encumbrance/`utrap`/monk/orc-elf still deferred.
+- **Verification:** seg9 **12411→12414**; green+strict PASS; 17-session
+  PASS cohort; seed0030 flat **48141**/105529 Scr **85**/1953.
+- **Next:** port `corpse_chance` AT_BOOM / `mon_explodes` @12414.
+

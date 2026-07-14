@@ -121,6 +121,12 @@ function hitval(otmp, _mon) {
     return tmp;
 }
 
+/** C ref: you.h Luck — u.uluck + u.moreluck */
+function Luck() {
+    const u = game.u || {};
+    return (u.uluck | 0) + (u.moreluck | 0);
+}
+
 /**
  * C ref: uhitm.c find_roll_to_hit — to-hit threshold before rnd(20).
  * check_caitiff / monk armor / encumbrance / trap penalties deferred when
@@ -130,9 +136,13 @@ function hitval(otmp, _mon) {
 function find_roll_to_hit(mtmp, aatyp, weapon, attk_count, role_roll_penalty) {
     role_roll_penalty.v = 0;
     const u = game.u || {};
+    const luck = Luck();
+    // C: sgn(Luck) * ((abs(Luck) + 2) / 3) — trunc toward 0
+    const luckbon = (luck < 0 ? -1 : luck > 0 ? 1 : 0)
+        * Math.trunc((Math.abs(luck) + 2) / 3);
     let tmp = 1 + abon() + find_mac(mtmp) + (u.uhitinc | 0)
+        + luckbon
         + (u.ulevel | 0); // maybe_polyd → ulevel when not poly
-    // Luck sgn*(abs+2)/3 deferred (Luck 0 early)
     if (!attk_count.v++) {
         // check_caitiff deferred — no RNG for hostile kobold
     }

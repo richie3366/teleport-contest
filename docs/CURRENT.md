@@ -5,7 +5,9 @@ Do not paste completed D-chains here — those live in `DIVERGENCE-INDEX.md`
 and `archive/PROGRESS-HISTORY.md`.
 
 Score last measured: **2026-07-14** via
-`node frozen/ps_test_runner.mjs sessions` (direct runner).
+`node frozen/ps_test_runner.mjs sessions` (direct runner) — full suite
+not re-run this iteration; PASS set unchanged; seed0030 positional
+**48141**/105529 after D-0272.
 
 ## Score
 
@@ -22,7 +24,7 @@ seed0700, seed1150, seed0017, seed0077, seed0106, seed0501, seed0105,
 seed0016, seed0015, seed0200, seed0101, seed0103, seed0104.
 
 **Notable non-PASS:** seed2200 RNG full Scr 229/230 (parked RC @158);
-seed0013 RNG full Scr 57/59; seed0030 **48092**/105529 Scr 85/1953;
+seed0013 RNG full Scr 57/59; seed0030 **48141**/105529 Scr 85/1953;
 seed0107 2684/2902 Scr 36/98; seed0361/0373 quest bones blocked.
 
 ## Green gate
@@ -40,16 +42,16 @@ Both must remain full RNG + screen PASS with exact scored-output lengths.
 
 ## Primary objective
 
-**D-0272** — seed0030 seg9 @12411 — C `exercise` vs JS `rn2(3)`
+**D-0273** — seed0030 seg9 @12414 — gas spore `corpse_chance` / `mon_explodes`
 
 | | |
 |--|--|
-| **C locus** | after matched `hitum`; C `exercise` then `dmgval`/`xkilled`; nearby C `corpse_chance`/`mon_explodes` `d(4,6)` (gas spore AT_BOOM) |
-| **JS locus** | TBD — attribute JS `rn2(3)` at first mismatch |
-| **Symptom** | C `rn2(19) @ exercise` vs JS `rn2(3)` after D-0271 |
-| **Hypothesis** | post-hit exercise missing/skipped, or gas-spore death path diverges before next attack |
-| **Falsifier** | attribute JS caller at 12411; port missing C branch; mismatch moves |
-| **Recent fixed** | D-0271 `make_corpse` undead before `G_NOCORPSE` |
+| **C locus** | `mon.c` `corpse_chance` AT_BOOM `d(4,6)`; `explode.c` `mon_explodes` |
+| **JS locus** | TBD — after matched `xkilled`; JS `rn2(3)` instead of boom dice |
+| **Symptom** | C `d(4,6) @ corpse_chance` vs JS `rn2(3)` after D-0272 |
+| **Hypothesis** | `xkilled`/`corpse_chance` skips AT_BOOM arm or `mon_explodes` missing |
+| **Falsifier** | attribute JS @12414; port AT_BOOM path; mismatch moves |
+| **Recent fixed** | D-0272 `find_roll_to_hit` Luck bonus (full moon +1) |
 
 ```bash
 # Focused seg9

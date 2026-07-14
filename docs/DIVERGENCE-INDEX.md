@@ -258,6 +258,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 | D-0269 | fixed | detect SCORR/SDOOR recalc_block_point | vision_recalc(1) left stale viz_clear |
 | D-0270 | fixed | place_object/remove boulder vision | mkobj block/recalc; retires D-0242 omit |
 | D-0271 | fixed | make_corpse undead before G_NOCORPSE | zombie/mummy/vampire mkcorpstat; seg9 10811→12411 |
+| D-0272 | fixed | find_roll_to_hit Luck bonus | full-moon +1; seg9 12411→12414 |
 
 
 D-0001 through D-0005 predate the strict-length/cohort runbook. Their focused
