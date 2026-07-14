@@ -7,12 +7,11 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Current unit:** seed0030 seg9 @16683 — post-bones `m_move` track arity
-  (`rn2(32)` vs `rn2(10)`); C next is `mdig_tunnel`.
-- **Hypothesis:** with mtrack restored, `mfndpos` cnt / dig path still
-  differs (not missing track).
-- **Falsifier:** dump mon + `mfndpos` cnt at first post-16683 call;
-  mismatch moves past 16683.
+- **Current unit:** seed0030 seg9 @16836 — C `rn2(7) @ disturb` vs JS
+  `rn2(3)` after bones ghostly peace reset (D-0277).
+- **Hypothesis:** sleeping-mon wake / `disturb` arity differs once hostiles
+  dig correctly.
+- **Falsifier:** dump which mon enters `disturb` at first post-16836 call.
 - **Parked:** D-0006 (pet movement); seed2200 @158 RC/`$HOME`.
 
 ## Don’t re-check (≤15)
@@ -29,7 +28,7 @@ Objective/score live in `CURRENT.md`.
   muse wand paths.
 - Session `\r` → `\n` = `C('j')` rush (D-0259); `rushDirFromCtrl` 1..26.
 - seg8 fleeck/missing-katana were key desync (D-0261), not dog_move/dodrop.
-- Recent seg9 falsified theories: D-0262…D-0275 — see `DIVERGENCE-INDEX.md`.
+- Recent seg9 falsified theories: D-0262…D-0276 — see `DIVERGENCE-INDEX.md`.
 - **Don’t:** treat missing Invis `rn2(11)` alone as enough when `couldsee`
   is false — check SCORR/`viz_clear` (D-0269).
 - `vision_recalc(1)` ≠ `unblock_point` / `recalc_block_point`.
@@ -44,6 +43,8 @@ Objective/score live in `CURRENT.md`.
 - **Don’t:** skip `done_object_cleanup` — fatal `thitu` leaves limbo
   `_thrownobj` off `fobj` (D-0275; 48 vs 49).
 - **Don’t:** clear bones `mtrack` on load — C `restmon` keeps it (D-0276).
+- **Don’t:** keep Elara peaceful flags on Hermione bones load — C
+  `getlev` ghostly re-`peace_minded` (D-0277). @16683 was not mfndpos cnt.
 
 ## Landmarks (≤15)
 
@@ -65,4 +66,4 @@ Objective/score live in `CURRENT.md`.
 - Key attribution ≠ RNG order (0-RNG `--More--`) (D-0228).
 - Bones VFS: `bon${boneid}0.${dlevel}` under `vfs:bones/`; Elara Mines
   `bonM0.1` → Hermione; limbo missile (D-0275); **mtrack persisted**
-  (D-0276).
+  (D-0276); **ghostly peace_minded** (D-0277).

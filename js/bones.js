@@ -9,6 +9,7 @@ import { next_ident } from './mkobj.js';
 import { mons } from './monsters.js';
 import { GameMap } from './game.js';
 import { OBJ_FLOOR, OBJ_MINVENT, OBJ_BURIED } from './const.js';
+import { peace_minded, set_malign } from './makemon.js';
 
 const BONES_VFS_PREFIX = 'bones/';
 
@@ -121,7 +122,14 @@ export function write_bonesfile(lev) {
     }
 
     const fmon = [];
-    for (const m of game.fmon || []) fmon.push(serMon(m));
+    for (const m of game.fmon || []) {
+        // C ref: bones.c savebones — pets lose tame/peaceful for next hero
+        if (m.mtame) {
+            m.mtame = 0;
+            m.mpeaceful = 0;
+        }
+        fmon.push(serMon(m));
+    }
     // migrating_mons are off-level (mx==0); C savelev does not include them.
 
     const payload = {
@@ -281,6 +289,21 @@ export function try_load_bones(lev) {
     remapObjChainIds(fobj);
     remapObjChainIds(buried);
     remapObjChainIds(billobjs);
+
+    // C ref: restore.c getlev ghostly — reset peaceful/malign for new hero
+    // (shopkeepers keep saved peace; unicorn coalign special before peace_minded).
+    // Named omission: shk name-based residency peace; hide_monst after.
+    const sgn = (x) => (x < 0 ? -1 : x > 0 ? 1 : 0);
+    const ual = game.u?.ualign?.type ?? 0;
+    for (const mtmp of fmon) {
+        if (!mtmp.isshk) {
+            const ptr = mtmp.data;
+            const uniCoalign = !!(ptr && ptr.mlet === 'S_UNICORN'
+                && sgn(ual) === sgn(ptr.maligntyp | 0));
+            mtmp.mpeaceful = uniCoalign ? 1 : (peace_minded(ptr) ? 1 : 0);
+        }
+        set_malign(mtmp);
+    }
 
     game.level = map;
     game.fmon = fmon;

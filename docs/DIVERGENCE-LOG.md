@@ -7184,4 +7184,24 @@ Open that file first; then jump to a single `## D-NNNN` entry below
   PASS cohort + strict lengths; seed0030 flat **48192**/105529 Scr 85/1953.
 - **Next:** @16683 C `rn2(32) @ m_move:1963` (cnt=8 track) vs JS `rn2(10)`.
 
+## D-0277 — bones ghostly peace_minded / set_malign
+
+- **Status:** fixed
+- **Observed:** seed0030 seg9 @16683 — C `rn2(32) @ m_move:1963` then
+  `mdig_tunnel` vs JS `rn2(10)` (peaceful getitems). DIAG: same PM_DWARF
+  (58,6) with restored mtrack; JS `mpeaceful=1`/`appr=0`.
+- **C locus:** `restore.c` `getlev` ghostly loop — non-`isshk` monsters
+  re-`peace_minded` (+ unicorn coalign) then `set_malign` for the new
+  hero; `bones.c` `savebones` clears `mtame`/`mpeaceful` on pets only.
+- **Cause:** JS kept Elara-era peaceful flags. Hermione (neutral human)
+  hates gnomes / misaligns lawful dwarves → C hostiles dig+track; JS
+  peaceful dwarves burned `rn2(10)` instead.
+- **Change:** `try_load_bones` ghostly peace reset + `set_malign`;
+  `write_bonesfile` pet untame; export `peace_minded`.
+- **Named omission:** shk name-based peace; `hide_monst` after ghostly;
+  binary savelev / cemetery / map-memory clear still deferred.
+- **Verification:** seg9 **16683→16836**; green+strict PASS; 19-session
+  PASS cohort + strict lengths; seed0030 Scr 85/1953.
+- **Next:** @16836 C `rn2(7) @ disturb` vs JS `rn2(3)`.
+
 

@@ -20,6 +20,18 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-14 17:17 — D-0277 bones ghostly peace_minded
+
+- Objective: seed0030 seg9 @16683 (CURRENT primary D-0276 follow-on).
+- C locus: `restore.c` `getlev` ghostly `peace_minded`/`set_malign`;
+  `bones.c` `savebones` pet untame.
+- Change: DIAG showed peaceful dwarf vs C track/`mdig_tunnel`. JS kept
+  Elara peaceful flags; Hermione must re-evaluate. `try_load_bones`
+  ghostly reset + export `peace_minded`; savebones clears `mtame`.
+- Verification: seg9 **16683→16836**; green+strict PASS; 19-session
+  PASS cohort + strict lengths.
+- Next: @16836 C `rn2(7) @ disturb` vs JS `rn2(3)`.
+
 ## 2026-07-14 17:20 — D-0276 bones mtrack serialize/restore
 
 - Objective: seed0030 seg9 @16635 (CURRENT primary D-0275 follow-on).
