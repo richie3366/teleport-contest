@@ -5,7 +5,7 @@
 import { game } from './gstate.js';
 import { rn2 } from './rng.js';
 import { depth } from './hacklib.js';
-import { pline, flush_topl_more } from './display.js';
+import { pline, flush_topl_more, bot } from './display.js';
 import { yn_function } from './getline.js';
 import { show_text_pages } from './pager.js';
 import { genl_outrip_lines } from './rip.js';
@@ -568,10 +568,14 @@ export async function done2() {
 /**
  * C ref: end.c done — Lifesaved / wizard·discover Die? deferred.
  * Ordinary deaths fall through to really_done.
+ * bot() before HP zero so You die more() (no bot) keeps prior botl when
+ * uhp was -1 at pline flush (D-0310/D-0314).
  */
 export async function done(how) {
-    const flags = game.flags || {};
-    void flags;
+    const flags = game.flags || (game.flags = {});
+    // C: force full status update unless panic/hangup/quit-stopprint
+    flags.botlx = true;
+    await bot();
     const u = game.u || {};
     // C: umortality++ when how < PANICKED (before really_done)
     if (how < PANICKED) {
@@ -579,6 +583,7 @@ export async function done(how) {
         if ((u.uhp | 0) !== 0 || (Upolyd(u) && (u.mh | 0) !== 0)) {
             u.uhp = 0;
             if (Upolyd(u)) u.mh = 0;
+            flags.botl = true;
         }
     }
     await really_done(how);

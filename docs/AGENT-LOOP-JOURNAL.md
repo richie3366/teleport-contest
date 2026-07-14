@@ -20,6 +20,17 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-14 21:39 — #341 D-0314 botl flush/bot/more timing
+
+- Objective: seed0030 @779 You die botl HP:1 vs HP:0 (CURRENT).
+- C locus: `pline.c` flush→`bot`; `botl.c` uhp==-1 skip; `topl.c` more
+  no flush; `cls` botlx; `spell.c` uen botl; `end.c` done bot before zero.
+- Change: commit status only in `bot()`; pline flushes first; more paints
+  cache; cls botlx; spell uen botl (D-0314).
+- Verification: @779 match; Scr **1394→1395**; first miss **@787**; RNG
+  full; green+strict; 17 PASS cohort (seed0501 after spell botl).
+- Next: @787 `Things that are here:` map overlay cells.
+
 ## 2026-07-14 21:24 — #340 score + D-0313 done_in_by isshk
 
 - Objective: mandatory full `sessions` (#340 %5) + seed0030 @583 RIP.
@@ -170,18 +181,3 @@ Use this shape:
 - Verification: prefix **237→259**; Scr **889→1085**; RNG full;
   green+strict; 17-PASS cohort + strict sample.
 - Next: prefix@259 JS `o` vs C blank (5,52).
-
-
-## 2026-07-14 19:08 — #320 score + D-0298 dosounds vault You_hear
-
-- Objective: mandatory full `sessions` score (loop %5==0) + seed0030 @174.
-- C locus: `sounds.c` `dosounds` vault `gd_sound` → `You_hear`.
-- Change: async vault `You_hear` + `await dosounds()`; falsified bare
-  topline/`more()` hypothesis for @174.
-- Verification: full suite **19/44**, Scr **2313/11405** (20.28%), RNG
-  **240559/792838**, speed `17+0.11/turn`; seed0030 prefix **174→237**,
-  Scr **887→889**; green+strict; 19-PASS cohort.
-- Next: prefix@237 `*` color 15 vs 8 (`obj_color`).
-
-
-

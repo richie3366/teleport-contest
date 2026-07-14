@@ -7848,6 +7848,30 @@ Open that file first; then jump to a single `## D-NNNN` entry below
   currency pline; `paygd`/`clearpriests`; `M1_NOHEAD` `has_head`.
 - **Next:** @594 kitten `unlabeled scroll` vs `scroll of blank paper`.
 
+## D-0314 — botl commit via `pline`→`flush_screen`→`bot` (not live on more)
+
+- **Status:** fixed
+- **Observed:** seed0030 @779 — C `You die...` botl `HP:1(11)` vs JS
+  `HP:0(11)`; RNG full. Overkill left `uhp==-1` at pline flush.
+- **C locus:** `pline.c` `flush_screen` before `putmesg`; `display.c`
+  `flush_screen` calls `bot()` when `disp.botl`; `botl.c` `bot` no-op on
+  `uhp==-1` but always clears flags; `topl.c` `more` does not flush/bot;
+  `display.c` `cls` sets `botlx`; `spell.c` energy spend sets `disp.botl`;
+  `end.c` `done` bots before zeroing HP.
+- **Cause:** JS live-painted status on every `_buildScreenOutput` /
+  `more()` flush. After `done()` zeroed `-1→0`, You die more showed HP:0
+  while C had skipped bot at pline and never re-bot before that more.
+- **Change:** status cache committed only in `bot()`; `flush_screen` bots
+  when `botl|botlx`; `more()` paints cache (respect postpone); `pline`
+  flushes before putmesg; `cls` sets `botlx`; `done` bots before zero;
+  spell `uen` sets `botl`.
+- **Verification:** @779 match; Scr **1394→1395**; first miss **@787**;
+  RNG full; green+strict; 17 PASS cohort + strict sample (seed0501 held
+  after spell botl).
+- **Named omissions:** `timebot`; Upolyd `mh` botl; full `gb.bot_disabled`;
+  callers that mutate gold/HP without `botl` still need flags when gated.
+- **Next:** @787 `Things that are here:` map overlay cells.
+
 ## D-0313 — `done_in_by` isshk honorific + `KILLED_BY`
 
 - **Status:** fixed

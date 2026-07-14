@@ -7,12 +7,13 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Current unit:** seed0030 Scr **1394**/1953 RNG **FULL**; cell first-miss **@779**.
-- **@779:** sole miss C `HP:1(11)` vs JS `HP:0(11)` on `You die...--More--`.
-- **Hypothesis:** death more() still shows pre-kill HP:1 in C; JS already 0.
-- **Falsifier:** @779 botl HP match; Scr↑.
-- **Fixed:** D-0313 `done_in_by` isshk → `Ms./Mr. <shk>, the shopkeeper`
-  + `KILLED_BY` (RIP @583; Scr 1389→1394; suite Scr 2826→2831).
+- **Current unit:** seed0030 Scr **1395**/1953 RNG **FULL**; cell first-miss **@787**.
+- **@787:** `Things that are here:` — map cells under overlay (C `ursed` vs JS `andy`).
+- **Hypothesis:** look-here / pile window paints over map differently than C.
+- **Falsifier:** @787 cells match; Scr↑.
+- **Fixed:** D-0314 botl commit timing — pline→flush→`bot()`; `more()` paints
+  cache without bot; `cls` sets `botlx`; spell `uen` sets `botl`. @779 HP:1
+  match (overkill `-1` skip); Scr 1394→1395.
 - **#340 score:** 19/44; Scr **2831**/11405; next full @#345.
 - **Alt:** seed0013 Scr 57/59; seed0107 @2684.
 - **Parked:** D-0006; seed2200 @158 RC/`$HOME`.
@@ -30,7 +31,9 @@ Objective/score live in `CURRENT.md`.
 - **Don’t:** botl `Dlvl` from `uz.dlevel` — use `depth()`; Mines BROWN (D-0283).
 - **Don’t:** omit `m_throw` `tmp_at(DISP_FLASH)`; potion `oc_name_known` (D-0284/85).
 - **Don’t:** skip AT_WEAP `mswings`; botl HP `<0→0` (D-0286/87);
-  skip `bot` when `uhp==-1` — keep prior botl (D-0310).
+  skip `bot` when `uhp==-1` — keep prior botl (D-0310);
+  live-paint botl on every flush/`more` — C `pline`→`flush`→`bot`, `more` no bot (D-0314);
+  omit `cls` `botlx` / spell `uen` `botl` when gating status on `bot()` (D-0314).
 - **Don’t:** invent-disclose yn when `disclose:-i`; RIP needs Tourist XP (D-0288/89).
 - **Don’t:** omit RIP trailing blank putstr / `topten` after RIP (D-0290/91).
 - **Don’t:** emit true amulet name when `!oc_name_known` — `<descr> amulet` (D-0292);
@@ -63,4 +66,4 @@ Objective/score live in `CURRENT.md`.
 - Bones / disclose / RIP / topten / amulet / DEC altar / noises / Monnam /
   map_invisible / mimic / vault+fountain/sink/shop / TOOL descr / shop enter /
   uhitm mon_nam / WAND descr / bot uhp==-1 / paybill / SCROLL unlabeled /
-  done_in_by isshk: D-0274…D-0313.
+  done_in_by isshk / botl flush·bot·more: D-0274…D-0314.
