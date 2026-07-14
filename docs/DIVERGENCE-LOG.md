@@ -263,7 +263,8 @@ Do not record a guessed cause as fixed merely because an RNG prefix moved.
 | D-0257 | fixed | mcalcdistress mfrozen | EOT thaw after sleep-gas; seg7 9811→10404 |
 | D-0258 | fixed | find_offensive nomore | WAN then POT invent; C keeps wand; seg7 FULL |
 | D-0259 | fixed | armoroff delay + ICRNL rush | seg8 3088→3263; takeoff nomul + C(j) |
-| D-0260 | open | passivemm arity | seg8 @3263; C rn2(3) vs JS rn2(2) |
+| D-0260 | fixed | newmonhp level-0 min HP | rnd(4)=1→2; jackal survives; seg8 3263→3310 |
+| D-0261 | open | obj_resists vs rn2(4) | seg8 @3310 after D-0260 |
 
 
 D-0001 through D-0005 predate the strict-length/cohort runbook. Their focused
@@ -7064,11 +7065,32 @@ cohort gates if those functions are touched again.
   Scr **1463** RNG **181305**; green+strict+17-session PASS cohort.
 - **Next:** D-0260 seg8 @3263 `passivemm`.
 
-## D-0260 — passivemm arity (seed0030 seg8 @3263)
+## D-0260 — newmonhp level-0 min HP (seed0030 seg8 @3263)
 
-- **Status:** open
+- **Status:** fixed
 - **Symptom:** after D-0259, C `rn2(3)=2 @ passivemm(mhitm.c:1363)` vs
   JS `rn2(2)=1` (then dog_move/mattackm drift).
 - **Matched through:** knockback `rn2(3)`/`rn2(6)` @3261–3262.
-- **Next:** compare C `passivemm` site vs JS passive path; do not
-  patch dog_move until arity cause is known.
+- **Rejected:** missing `passivemm` `rn2(3)` stub / AD_ACID polarity —
+  JS already burned `rn2(3)` when defender lived; peel was wrongful kill.
+- **Root cause:** little dog (`PM_LITTLE_DOG`) bite `d(1,6)=1` vs jackal
+  with JS `mhpmax=1`. C `makemon.c` `newmonhp`: level-0 uses `basehp=1`,
+  `rnd(4)`, then `if (mhpmax == basehp) mhpmax++` so min HP is **2**.
+  JS only boosted the `d(m_lev,8)==m_lev` arm, so `rnd(4)=1` stayed 1 →
+  kill → `corpse_chance` `rn2(2)` instead of live `passivemm` `rn2(3)`.
+- **Fix:** `js/makemon.js` `newmonhp` — shared `basehp` boost for both
+  level-0 `rnd(4)` and `d(m_lev,8)` paths (golems/riders/dragons still
+  deferred).
+- **Verification:** seg8 prefix **3263→3310** (`obj_resists` vs
+  `rn2(4)`); green+strict PASS; 17-session PASS cohort; full **19/44**
+  Scr **1463** RNG **181294**; seed0030 **47955**/105529.
+- **Next:** D-0261 seg8 @3310 `obj_resists` vs JS `rn2(4)`.
+
+## D-0261 — obj_resists vs rn2(4) (seed0030 seg8 @3310)
+
+- **Status:** open
+- **Symptom:** after D-0260, C `rn2(100)=86 @ obj_resists` vs JS
+  `rn2(4)=2`.
+- **Matched through:** dog_goal `rn2(8)=7` @3309.
+- **Next:** identify JS caller of `rn2(4)` vs C’s second `obj_resists`
+  / dog_goal path; do not patch dog_move arity alone.

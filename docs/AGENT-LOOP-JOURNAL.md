@@ -19,6 +19,18 @@ Use this shape:
 
 ---
 
+## 2026-07-14 09:25 — newmonhp level-0 min HP (D-0260)
+- Objective: seed0030 seg8 @3263 passivemm arity (PROGRESS primary).
+- C locus: `makemon.c` `newmonhp` — level-0 `basehp=1` + `rnd(4)` then
+  boost when `mhpmax==basehp` (min HP 2).
+- Result: **verified** — passivemm/`rn2(3)` theories **falsified** as
+  root; little dog bite vs jackal with JS `mhpmax=1` died into
+  `corpse_chance` `rn2(2)` while C boosted HP to 2 and reached live
+  `passivemm`. Prefix **3263→3310**.
+- Verification: green+strict PASS; 17-session PASS cohort; full **19/44**
+  Scr **1463** RNG **181294**; seed0030 **47955**/105529.
+- Next: diagnose seg8 @3310 C `obj_resists(100)` vs JS `rn2(4)` (D-0261).
+
 ## 2026-07-14 08:55 — armoroff delay + ICRNL C(j) rush (D-0259)
 - Objective: seed0030 seg8 @3088 dog_goal (PROGRESS primary; NOTES hero-stairs).
 - C locus: `do_wear.c` `armoroff`/`suit_simple_name`; `cmd.c` `C(j)` rush;

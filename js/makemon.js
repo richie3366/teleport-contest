@@ -400,17 +400,22 @@ function adj_lev(ptr) {
 }
 
 // C ref: makemon.c newmonhp()
+// After rolling HP, if result equals basehp (all 1s / rnd(4)=1), boost +1 so
+// level-0 and level-1 monsters always start with mhpmax >= 2.
 function newmonhp(mon, ptr) {
     mon.m_lev = adj_lev(ptr);
+    let basehp;
     if (!mon.m_lev) {
+        basehp = 1; /* minimum is 1, increased to 2 below when rnd(4)=1 */
         mon.mhpmax = mon.mhp = rnd(4);
     } else {
-        // C: d(m_lev, 8)
-        mon.mhpmax = mon.mhp = d(mon.m_lev, 8);
-        if (mon.mhpmax === mon.m_lev) {
-            mon.mhpmax += 1;
-            mon.mhp = mon.mhpmax;
-        }
+        basehp = mon.m_lev | 0;
+        mon.mhpmax = mon.mhp = d(basehp, 8);
+        // Named omission: is_home_elemental mhp*=3; golem/rider/dragon arms
+    }
+    if (mon.mhpmax === basehp) {
+        mon.mhpmax += 1;
+        mon.mhp = mon.mhpmax;
     }
 }
 

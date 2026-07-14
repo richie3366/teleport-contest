@@ -7,13 +7,15 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 
 ## Active
 
-- **Current unit:** seed0030 seg8 @3263 — C `rn2(3) @ passivemm` vs JS
-  `rn2(2)` (D-0260).
-- **Hypothesis:** after D-0259 takeoff delay + ICRNL/`C(j)` rush, pet/mon
-  melee reaches `passivemm`; JS burns a different arity (`rn2(2)` vs
-  `rn2(3)`) — likely missing passive branch or wrong mattk slot.
-- **Falsifier:** at first mismatch log magr/mdef mattk and which
-  `passivemm` `rn2` site C cites (`mhitm.c:1363`); compare JS call.
+- **Current unit:** seed0030 seg8 @3310 — C `rn2(100) @ obj_resists` vs JS
+  `rn2(4)` (after D-0260).
+- **Hypothesis:** after level-0 `newmonhp` min-HP boost, next peel is
+  dog_goal / invent path — JS burns `rn2(4)` where C does another
+  `obj_resists(100)` (extra split / missing resist gate / wrong
+  dog_invent branch).
+- **Falsifier:** at first mismatch log which JS caller emits `rn2(4)`
+  and C’s next `obj_resists`/`dog_goal` pair; compare invent vs floor
+  object.
 - **Parked deep canary:** D-0006 pet movement — do not implement until C
   state/candidate capture exists.
 - **Parked seed2200 @158:** RC config path — harness `$HOME`, not a port bug.
@@ -166,6 +168,11 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   `C('j')==10=='\n'` is **rush-south** under `!number_pad` (D-0259).
   `rushDirFromCtrl` must only accept keys 1..26 (plain `j` also satisfies
   `(code&0x1f)+96==='j'`).
+- **seg8 @3263 was NOT passivemm missing `rn2(3)` / AD_ACID polarity** —
+  little dog bite vs jackal with `mhpmax=1`; C `newmonhp` boosts
+  level-0 `rnd(4)=1` → 2 so jackal survives 1 dmg → `passivemm`
+  `rn2(3)`; JS kept HP=1 → kill → `corpse_chance` `rn2(2)` (D-0260).
+  Do not patch `passivemm` arity for that peel.
 
 ## Landmarks
 
@@ -187,6 +194,8 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 - **`armoroff` delay:** `nomul(-oc_delay)` + `afternmv=*_off` +
   `nomovemsg="You finish taking off your %s."` (suit → `"mail"`);
   delay-0 still immediate `*_off`+`off_msg` (D-0259).
+- **`newmonhp` level-0:** `basehp=1`; `rnd(4)`; if `mhpmax==basehp`
+  boost +1 (min HP 2). Same boost when `d(m_lev,8)==m_lev` (D-0260).
 - **`F`/`do_fight`:** PREFIXCMD sets `forcefight`; next move dir attacks
   (empty → `domove_fight_empty` “thin air” / solid); no turn on F alone
   (D-0225).
