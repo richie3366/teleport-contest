@@ -7,14 +7,15 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 
 ## Active
 
-- **Current unit:** seed0030 seg9 @8281 — **D-0264** — C `rn2(5) @ distfleeck`
-  vs JS `rn2(16)` (after D-0263 `dofindgem`).
-- **Hypothesis:** post-gem monster path drift — one actor takes `m_move`
-  track/`rn2(16)` while C still fleecks (`rn2(5)`). Reconstruct which
-  monster/position diverged after the fountain gem.
-- **Falsifier:** dump JS vs C actor coords/flags at first seg9 mismatch
-  @8281 (after matched fleeck trio); identify missing `m_move` gate or
-  stale inventory/terrain underfoot.
+- **Current unit:** seed0030 seg9 @8352 — **D-0265** — C `rn2(19) @ exercise`
+  after `hitum` vs JS `rn2(3)` (after D-0264 wield).
+- **Hypothesis:** hero melee hit path incomplete — C continues
+  `exercise`+`dmgval`+`xkilled` while JS takes a different short branch
+  (`rn2(3)` likely `passive`/`rn2` elsewhere). Reconstruct `hitum` after
+  matched `rnd(20)` hit roll.
+- **Falsifier:** dump JS vs C after matched `hitum` `rnd(20)=13` — which
+  call emits JS `rn2(3)`, and whether `weapon_check`/wield state blocked
+  damage.
 - **Parked deep canary:** D-0006 pet movement — do not implement until C
   state/candidate capture exists.
 - **Parked seed2200 @158:** RC config path — harness `$HOME`, not a port bug.
@@ -54,6 +55,10 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 - **seg9 @8138 was drinkfountain fate=27 `dofindgem`** — not dryup early
   alone; case 27 must call `rnd_class(DILITHIUM_CRYSTAL, LUCKSTONE-1)`
   (D-0263).
+- **seg9 @8281 was not m_move track arity / goblin nearby** — goblin at
+  (67,12) `dist2=8` with `weapon_check=NEED_WEAPON` spends the turn in
+  C `mon_wield_item(NEED_HTH)` before move; JS skipped that `dochug`
+  gate (D-0264).
 - Do not treat session `\r` as plain `j` — ICRNL → `\n` = `C('j')` rush
   (D-0259). `rushDirFromCtrl` keys 1..26 only.
 
@@ -90,6 +95,10 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   `mksobj_at(rnd_class(DILITHIUM..LUCKSTONE-1), …, FALSE, FALSE)` +
   `SET_FOUNTAIN_LOOTED` (D-0263). Looted fallthrough → nymph/gush still
   deferred.
+- **`dochug` HTH wield:** when `!peaceful||Conflict`, `inrange`,
+  `dist2(mux,muy)<=8`, `AT_WEAP`, and `weapon_check==NEED_WEAPON`, set
+  `NEED_HTH_WEAPON` and `mon_wield_item` — non-zero return spends the
+  turn (no `m_move`) (D-0264).
 - **`F`/`do_fight`:** PREFIXCMD sets `forcefight`; next move dir attacks
   (empty → `domove_fight_empty` “thin air” / solid); no turn on F alone
   (D-0225).

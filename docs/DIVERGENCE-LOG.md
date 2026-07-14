@@ -267,7 +267,8 @@ Do not record a guessed cause as fixed merely because an RNG prefix moved.
 | D-0261 | fixed | Ctrl-rush run=3 + await muse pline | seg8 FULL; seed0013 Scr 57/59 |
 | D-0262 | fixed | set_mimic_sym shop get_shop_item | shop mimic appearance; seg9 7196→8138 |
 | D-0263 | fixed | drinkfountain dofindgem rnd_class | fate=27 gem; seg9 8138→8281 |
-| D-0264 | open | seed0030 seg9 @8281 distfleeck vs rn2(16) | after D-0263; monster path drift |
+| D-0264 | fixed | dochug NEED_HTH mon_wield_item | goblin dist2=8 wield; seg9 8281→8352 |
+| D-0265 | open | seed0030 seg9 @8352 exercise vs rn2(3) | after D-0264; hitum path |
 
 
 D-0001 through D-0005 predate the strict-length/cohort runbook. Their focused
@@ -7152,10 +7153,37 @@ cohort gates if those functions are touched again.
   **47931**/105529; next @8281 `distfleeck` vs `rn2(16)`.
 - **Next:** diagnose D-0264 seg9 @8281.
 
-## D-0264 — seed0030 seg9 @8281 `distfleeck` vs `rn2(16)` (open)
+## D-0264 — `dochug` NEED_HTH `mon_wield_item` (fixed)
+
+- **Status:** fixed
+- **Symptom:** seed0030 seg9 @8281 — C `rn2(5) @ distfleeck` vs JS
+  `rn2(16)` (`m_move` track).
+- **C locus:** `monmove.c` `dochug` — when `!peaceful||Conflict`,
+  `inrange`, `dist2(mux,muy)<=8`, `attacktype(AT_WEAP)`, and
+  `weapon_check==NEED_WEAPON`, set `NEED_HTH_WEAPON` and
+  `mon_wield_item`; non-zero return spends the turn. `weapon.c`
+  `select_hwep` / `mon_wield_item` NEED_HTH arm.
+- **Root cause:** goblin @(67,12) hero mux @(69,10) `dist2=8`,
+  `weapon_check=NEED_WEAPON`, invent ORCISH_DAGGER unwielded. C spent
+  the turn wielding; JS skipped the gate and entered `m_move` track
+  `rn2(16)`.
+- **Rejected:** goblin nearby / mfndpos cnt-only / extra fleeck actor
+  between shopkeeper and goblin (shopkeeper fleeck+post then goblin was
+  correct; peel was missing wield spend).
+- **Change:** `js/weapon.js` `select_hwep` + NEED_HTH in
+  `mon_wield_item`; `js/monmove.js` `dochug` pre-move wield gate +
+  `Conflict` in `want_move`.
+- **Verification:** seg9 **8281→8352**; green+strict PASS; 17-session
+  PASS cohort; full **19/44** Scr **1563** RNG **182533**; seed0030
+  **47946**/105529; next @8352 `exercise` vs `rn2(3)` after `hitum`.
+- **Next:** diagnose D-0265 seg9 @8352.
+
+## D-0265 — seed0030 seg9 @8352 `exercise` vs `rn2(3)` (open)
 
 - **Status:** open
-- **Symptom:** after D-0263, first mismatch @8281 — C `rn2(5) @
-  distfleeck` vs JS `rn2(16)` (typical `m_move` track arity).
-- **Hypothesis:** post-gem monster path drift (actor/pos/flags).
-- **Next:** dump actor state at mismatch; do not guess fleeck formulas.
+- **Symptom:** after D-0264, first mismatch @8352 — C `rn2(19) @
+  exercise` after matched `hitum` `rnd(20)=13` vs JS `rn2(3)`.
+- **Hypothesis:** hero melee post-hit path incomplete (`dmgval`/
+  `xkilled` on C; JS short-circuits elsewhere).
+- **Next:** dump call after matched hit roll; reconstruct `hitum`.
+
