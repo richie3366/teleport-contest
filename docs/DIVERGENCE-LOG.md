@@ -24,6 +24,36 @@ The compact status table lives in **`DIVERGENCE-INDEX.md`**.
 Open that file first; then jump to a single `## D-NNNN` entry below
 (via search). Do **not** read this whole file by default.
 
+## D-0343 — getpos tip `docrt` + space quitchar under terrainmode
+
+- **Status:** fixed
+- **Observed:** seed0013-restore after D-0342 — Scr 89→90 then stuck @86:
+  C `Done.--More--` vs JS still in getpos / `#` aborted.
+- **C locus:** `getpos.c` tip close keeps gbuf; quitchars/`!force` →
+  `pline("Done.")`; `detect.c` `browse_map` uses `force=FALSE`.
+- **Cause/evidence:** tip dismiss called `docrt()` (re-`newsym` `@`);
+  space was `continue` instead of Done exit.
+- **Change:** skip `docrt` when `iflags.terrainmode` (flush from
+  `disp_*`); space/CR/LF → `Done.` + return 0 when `!force`.
+- **Verification:** Scr **90→99**/99 full PASS; green+strict; 22/44 suite.
+- **General lesson:** temporary show_glyph maps die under tip `docrt`.
+
+## D-0342 — `reveal_terrain` getglyph / show map rewrite
+
+- **Status:** fixed
+- **Observed:** seed0013-restore @71 — C map `~` (hide mon/obj) vs JS
+  `@`/`f` during `#terrain` a / TER_MAP.
+- **C locus:** `detect.c` `reveal_terrain` / `reveal_terrain_getglyph`
+- **Cause/evidence:** JS skipped getglyph/`show_glyph` loop (named omit).
+- **Change:** port getglyph strip mon/obj/invisible → terrain via
+  lastseentyp/`terrain_glyph` + litcorr→corr hack; flush before Showing
+  pline (`js/display.js` + `detect.js`).
+- **Verification:** Scr **75→89**/99 (then D-0343 →99); RNG full;
+  green+strict; cohort PASS; suite **22/44**.
+- **Named omission:** region/gascloud; trap keep restore; M_AP_FURNITURE;
+  unconstrain; arboreal default tree.
+- **General lesson:** TER_MAP is display rewrite, not just browse_map.
+
 ## D-0341 — DEL / `#terrain` unbound
 
 - **Status:** fixed

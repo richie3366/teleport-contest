@@ -7,13 +7,13 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Score:** **21/44** PASS (#360 suite); Scr **3424**/11405; RNG
-  **240657**/792838; speed `18+0.12/turn`.
-- **Current unit:** seed0013-restore Scr **75**/99 RNG **4804**/4804 —
-  first miss `@71` `#terrain` reveal still paints `@`/`f` vs C `~`.
-- **Fixed this iter:** D-0340 invent show-* `[`/`=`/`"`/`(`; D-0341 DEL→
-  existing `doterrain`.
-- **Alt:** seed0107 @2684. **Parked:** D-0006; seed2200 @158 RC.
+- **Score:** **22/44** PASS (#365 suite); Scr **3499**/11405; RNG
+  **239942**/792838; speed `18+0.12/turn`.
+- **Current unit:** seed0107 Scr **36**/98 RNG **2684**/2902 — first miss
+  `@15` `#twoweapon: unknown extended command` vs C begin two-weapon.
+- **Fixed this iter:** D-0342 reveal_terrain getglyph/show; D-0343 getpos
+  terrainmode tip skip-docrt + space quitchar → Done (restore PASS).
+- **Parked:** D-0006; seed2200 @158 RC.
 
 ## Don’t re-check (≤15)
 
@@ -42,6 +42,8 @@ Objective/score live in `CURRENT.md`.
   advance attr pages on any key (D-0337); leave `$` unbound (D-0338);
   leave `)` unbound (D-0339); leave `[`/`=`/`"`/`(` unbound (D-0340);
   leave DEL unbound when `doterrain` exists (D-0341);
+  skip `reveal_terrain` getglyph/show (D-0342); tip `docrt` under
+  terrainmode / ignore getpos space quitchar (D-0343);
   blanket `observe_object` in `xname` without `distantname`.
 - Runner `Screen N/M` = total matches, not prefix length.
 
@@ -52,5 +54,6 @@ Objective/score live in `CURRENT.md`.
 - Session: `steps[i].key === moves[i-1]` (D-0238); `more()` space/CR/ESC.
 - Save: VFS `save/<plname>` JSON; restore skips `rndencode`;
   `l_nhcore_init` still 2×rn2; farewell clears map no flush (D-0335).
-- D-0274…D-0341: bones/disclose/RIP/topten/descr/botl/paybill/ghost/`;`/
-  getlin/compactify/enl/checkfile/save/welcome/attr/`$`/`)`/show-*/DEL.
+- D-0274…D-0343: bones/disclose/RIP/topten/descr/botl/paybill/ghost/`;`/
+  getlin/compactify/enl/checkfile/save/welcome/attr/`$`/`)`/show-*/DEL/
+  reveal_terrain/getpos Done.
