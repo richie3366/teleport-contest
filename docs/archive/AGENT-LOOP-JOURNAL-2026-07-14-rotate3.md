@@ -11,3 +11,15 @@
 - Verification: Scr@46–49 match; prefix **46→50**; Scr 87→100;
   RNG full; green+strict PASS; 19-session PASS cohort + strict.
 - Next: Scr@50 C `!` vs JS `·` (6,33); or seed0013.
+
+## 2026-07-14 18:03 — D-0284/85 tmp_at flash + potion xname
+
+- Objective: seed0030 Scr 100/1953 (CURRENT primary); first miss @50.
+- C locus: `mthrowu.c` `m_throw` `tmp_at(DISP_FLASH)`; `objnam.c`
+  potion xname `oc_name_known` / descr.
+- Change: port DISP_FLASH `tmp_at` + await `potionhit` plines so prior
+  flight `!` survives crash `--More--` (D-0284); potion `xname` uses
+  shuffled descr when !nn (not `obj.known`) (D-0285).
+- Verification: Scr@50–51 match; prefix miss **50→62**; Scr **100→103**;
+  RNG full; green+strict PASS; 19-session PASS cohort + strict.
+- Next: Scr@62 gnome bow-swing pline; or seed0013.

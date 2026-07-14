@@ -21,6 +21,17 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-14 19:35 — #325 full public score + @372 probe
+
+- Objective: mandatory every-5 full `sessions` score (#325); refine
+  seed0030 @372 peel (no port patch).
+- C locus: `vision.c` `view_from` / `vision_recalc` (doorway LOS).
+- Change: removed leftover DIAG `__screenProbe` from `jsmain.js`;
+  probed @372 → map (26,11) CORR after `u` (23,7)→(24,6).
+- Verification: green+strict PASS; suite **19/44**, Scr **2584**/11405
+  (22.66%), RNG **240658**/792838 (30.35%), `18+0.11/turn`.
+- Next: falsify JS doorway LOS vs C at (26,11) from (24,6).
+
 ## 2026-07-14 19:25 — D-0301 missmu just near-miss
 
 - Objective: seed0030 Scr peel (CURRENT primary); prefix first-miss @266.
@@ -164,16 +175,4 @@ Use this shape:
 - Verification: Scr@62 topline+HP match; prefix miss **62→75**;
   Scr **103→116**; RNG full; green+strict PASS; 17-session PASS cohort.
 - Next: Scr@75 death `--More--` vs invent-identify yn; or seed0013.
-
-## 2026-07-14 18:03 — D-0284/85 tmp_at flash + potion xname
-
-- Objective: seed0030 Scr 100/1953 (CURRENT primary); first miss @50.
-- C locus: `mthrowu.c` `m_throw` `tmp_at(DISP_FLASH)`; `objnam.c`
-  potion xname `oc_name_known` / descr.
-- Change: port DISP_FLASH `tmp_at` + await `potionhit` plines so prior
-  flight `!` survives crash `--More--` (D-0284); potion `xname` uses
-  shuffled descr when !nn (not `obj.known`) (D-0285).
-- Verification: Scr@50–51 match; prefix miss **50→62**; Scr **100→103**;
-  RNG full; green+strict PASS; 19-session PASS cohort + strict.
-- Next: Scr@62 gnome bow-swing pline; or seed0013.
 

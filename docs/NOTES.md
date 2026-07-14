@@ -7,17 +7,18 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Current unit:** seed0030 Scr **1147**/1953 with RNG **FULL** 105529
-  (D-0301). True prefix first-miss **372** (was 266).
-- **Hypothesis:** @372 map r12c25 — JS `#` east of room wall vs C blank
-  (seg3 Wizard Beatrix Dlvl:2). FOV/memory/`newsym` or wall reveal.
-- **Falsifier:** decodeScreen @372 r12; C vs JS glyph at that cell +
-  `cansee`/remembered_glyph.
-- **Falsified:** @266 missing `"just "` was ignored `nearmiss` in
-  `missmu` (D-0301).
-- **Also:** seg7 JS 159 vs C 172 steps (investigate after @372).
+- **Current unit:** seed0030 Scr **1147**/1953 RNG **FULL**; prefix **@372**.
+- **Probe @372:** tty r12c25 → map **(26,11)** CORR. After key `u`
+  (23,7)→(24,6): JS `couldsee`+`cansee`+`lit`+rem `#`; C blank.
+  Door (26,10) D_NODOOR. Room1 bbox lx21–26,ly4–12 lights CORR strip.
+  @371 both blank at that cell.
+- **Hypothesis:** JS `view_from`/`vision_recalc` grants LOS through
+  doorway from (24,6) when C does not (or C `lit`/bbox differs).
+- **Falsifier:** C-state `viz_array[11][26]` + `levl[26][11].lit` at
+  that step; or reconstruct doorway LOS in `vision.c` vs JS.
+- **Also:** seg7 JS 159 vs C 172 steps (after @372).
 - **Alt:** seed0013 Scr 57/59; seed0107 @2684.
-- **Parked:** D-0006 (pet movement); seed2200 @158 RC/`$HOME`.
+- **Parked:** D-0006; seed2200 @158 RC/`$HOME`.
 
 ## Don’t re-check (≤15)
 

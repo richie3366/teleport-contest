@@ -18,17 +18,16 @@ label, PASS list, notable non-PASS. Prepend a journal crumb. Do not invent
 suite totals from a single focused session.
 
 Score last measured: **2026-07-14** — full `sessions` suite (global loop
-**#320**; next mandatory at multiples of 5). Post D-0298; D-0301 peel
-not yet re-scored suite-wide.
+**#325**). Same 19 PASS as #320; primary peel still seed0030 @372.
 
 ## Score
 
 | Metric | Value |
 |--------|------:|
 | Sessions passing | **19 / 44** |
-| Screens matched | **2313 / 11,405** (20.28%) |
-| Positional RNG calls matched | **240,559 / 792,838** (30.34%) |
-| Speed label | `17+0.11/turn` (R² 0.79) |
+| Screens matched | **2584 / 11,405** (22.66%) |
+| Positional RNG calls matched | **240,658 / 792,838** (30.35%) |
+| Speed label | `18+0.11/turn` (R² 0.78) |
 | Role-init throws | **0 / 44** |
 
 **PASS (19):** seed8000, seed0900, seed1500, seed1800, seed0060, seed0102,
@@ -39,10 +38,11 @@ seed0016, seed0015, seed0200, seed0101, seed0103, seed0104.
 | Session | RNG | Screen | Note |
 |---------|----:|-------:|------|
 | seed0030 | 105529/105529 | **1147**/1953 | primary peel; prefix first-miss **@372** |
-| seed2200 | 3018/3018 | **175**/230 | RNG full; Scr regressed vs older 229/230 |
+| seed2200 | 3018/3018 | **175**/230 | RNG full; Scr cells 178/230 |
 | seed0013-rogue | 4838/4838 | 57/59 | |
 | seed0013-friday13-restore | 4803/4804 | 46/99 | |
 | seed0107 | 2684/2902 | 36/98 | |
+| seed0002 | 5112/27158 | 8/595 | RNG prefix moved vs older |
 | seed0012 | 0/13878 | 0/308 | stack overflow |
 | seed0361/0373 | early | 0 | quest bones / `makemaz` |
 
@@ -65,11 +65,11 @@ Both must remain full RNG + screen PASS with exact scored-output lengths.
 
 | | |
 |--|--|
-| **C locus** | TBD — map glyph FOV/memory (`newsym` / wall / corridor) |
-| **JS locus** | `js/display.js` / map draw |
-| **Symptom** | @372 r12c25 C blank vs JS `#` east of room (seg3 Wizard Dlvl:2) |
-| **Hypothesis** | JS shows corridor/wall `#` outside C’s seen/memory blank |
-| **Falsifier** | decodeScreen @372 r12; `cansee`/remembered_glyph at that cell |
+| **C locus** | `vision.c` `view_from` / `vision_recalc` doorway LOS (or lit bbox) |
+| **JS locus** | `js/vision.js` `vision_recalc` / `view_from` |
+| **Symptom** | @372 r12c25 C blank vs JS `#` — map **(26,11)** CORR |
+| **Hypothesis** | After `u` (23,7)→(24,6), JS sets COULD_SEE+IN_SIGHT on lit CORR past D_NODOOR (26,10); C stays unexplored blank |
+| **Falsifier** | Compare C vs JS `viz_array`/`lit` at (26,11) from (24,6); or C room1 hx/hy |
 | **Recent fixed** | D-0301 `missmu` `"just "` (266→372; Scr 1146→1147) |
 
 ```bash
