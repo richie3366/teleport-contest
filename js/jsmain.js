@@ -136,7 +136,12 @@ export class NethackGame {
         else if (opts.gender === 'male' || opts.gender === 'm') g.flags.female = false;
 
         // Initialize hero struct
-        g.u = { ux: 0, uy: 0, ux0: 0, uy0: 0 };
+        g.u = {
+            ux: 0, uy: 0, ux0: 0, uy0: 0,
+            // C you.h room occupancy (hack.c move_update)
+            urooms: '', urooms0: '', uentered: '',
+            ushops: '', ushops0: '', ushops_entered: '', ushops_left: '',
+        };
         g.context = { move: 0 };
         g.program_state = {};
         g.moves = 1;

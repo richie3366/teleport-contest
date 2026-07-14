@@ -61,16 +61,16 @@ Both must remain full RNG + screen PASS with exact scored-output lengths.
 
 ## Primary objective
 
-**seed0030 screen peel** — RNG full; Scr **1373**/1953; prefix first-miss **@573**
+**seed0030 screen peel** — RNG full; Scr **1376**/1953; prefix first-miss **@580**
 
 | | |
 |--|--|
-| **C locus** | `shk.c` `u_entered_shop` (+ `hack.c` `ushops_entered` tracking) |
-| **JS locus** | absent — no `u_entered_shop` / `ushops_entered` |
-| **Symptom** | @573 topline: C `"Hello, Beatrix!  Welcome to Maganasipi's general store!"` vs JS blank |
-| **Hypothesis** | Shop-entry welcome never emitted; room/shop enter tracking incomplete |
-| **Falsifier** | Port enter tracking + welcome pline; expect prefix advance |
-| **Recent fixed** | D-0306 shop `dosounds` `You_hear` (550→573; Scr 1371→1373; suite Scr +226) |
+| **C locus** | wand / `xname` (or zap message) — `"long wand"` |
+| **JS locus** | `js/objnam.js` (likely) — `"wand"` without `long` |
+| **Symptom** | @580 topline: C `"Maganasipi zaps a long wand!"` vs JS `"… a wand!"` |
+| **Hypothesis** | Unknown wand description omits `long` adjective |
+| **Falsifier** | Match C wand xname; expect prefix advance |
+| **Recent fixed** | D-0307 shop enter welcome + `ubirthday`/`m_id`/`mon_nam` shk (573→580; Scr 1373→1376) |
 
 ```bash
 node frozen/ps_test_runner.mjs sessions/seed0030-ten-diverse-deaths.session.json

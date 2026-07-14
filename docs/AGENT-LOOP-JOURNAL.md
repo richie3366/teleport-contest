@@ -12,6 +12,17 @@ move older ones into `docs/archive/`.
 Use this shape:
 
 ```text
+## 2026-07-14 20:12 — #331 D-0307 shop enter welcome
+
+- Objective: seed0030 @573 Maganasipi shop welcome (CURRENT primary).
+- C locus: `hack.c` move_update/check_special_room; `shk.c` u_entered_shop;
+  `u_init` ubirthday=getnow; `makemon` m_id=next_ident; `do_name` shk mon_nam.
+- Change: shop enter tracking + welcome; ubirthday UTC-4 quirk; m_id/o_id;
+  mon_nam isshk→shkname (D-0307).
+- Verification: prefix **573→580**; Scr **1373→1376**; RNG full; green+strict;
+  19 PASS cohort held.
+- Next: @580 C `long wand` vs JS `wand`.
+
 ## YYYY-MM-DD HH:MM — <objective>
 - Objective: …
 - C locus: …
@@ -150,27 +161,5 @@ Use this shape:
 - Change: `CURRENT.md` Score; loop injects score reminder when `iter % 5 == 0`;
   prompt/playbook/AGENT-PORT-LOOP cadence notes.
 - Next: seed0030 screen peel @163 (mimic appearance).
-
-
-## 2026-07-14 18:56 — D-0295/96 Monnam do_it + map_invisible
-
-- Objective: seed0030 Scr peel (CURRENT primary); prefix first-miss @129.
-- C locus: `do_name.c` `x_monnam` do_it; `mhitm.c` `pre_mm_attack` →
-  `display.c` `map_invisible`.
-- Change: `!canspotmon` → `It` in `Monnam` (D-0295); shared
-  `canspotmon`; `map_invisible` `I` + `missmm`/`hitmm` pre_mm (D-0296).
-- Verification: prefix **129→163**; Scr **843→853**; RNG full;
-  green+strict; 19-session PASS cohort + strict.
-- Next: prefix@163 C `(` vs JS `m` (mimic object appearance).
-
-## 2026-07-14 18:51 — D-0294 mhitm noises You_hear
-
-- Objective: seed0030 Scr peel (CURRENT primary); prefix first-miss @126.
-- C locus: `mhitm.c` `noises` + `missmm`/`hitmm` `!gv.vis` (not `dosounds`).
-- Change: port `noises`/`You_hear` + `far_noise`/`noisetime` rate limit;
-  call from out-of-sight miss/hit (D-0294). Falsified dosounds hypothesis.
-- Verification: prefix **126→129**; Scr **840→843**; RNG full; green+strict;
-  17-session PASS cohort + strict.
-- Next: prefix@129 C `It misses…` vs JS `The kitten misses…` (`Monnam`).
 
 

@@ -7,13 +7,12 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Current unit:** seed0030 Scr **1373**/1953 RNG **FULL**; prefix **@573**.
-- **@573:** C `"Hello, Beatrix!  Welcome to Maganasipi's general store!"`
-  vs JS blank topline.
-- **Hypothesis:** `u_entered_shop` / `ushops_entered` absent in JS
-  (`hack.c` room tracking → `shk.c` welcome).
-- **Falsifier:** emit shop welcome on enter; expect prefix advance.
-- **Fixed @550:** shop `dosounds` `You_hear(shop_msg)` (D-0306).
+- **Current unit:** seed0030 Scr **1376**/1953 RNG **FULL**; prefix **@580**.
+- **@580:** C `"Maganasipi zaps a long wand!"` vs JS `"a wand!"`.
+- **Hypothesis:** wand xname missing `long` adjective (descr / known path).
+- **Falsifier:** emit `long wand` like C; expect prefix advance.
+- **Fixed @573:** shop welcome + `ubirthday`/`m_id`/`mon_nam` shk (D-0307);
+  Scr 1373→1376; prefix 573→580.
 - **#330 score:** 19/44; Scr **2810**/11405 (24.64%); RNG 240657/792838.
 - **Alt:** seed0013 Scr 57/59; seed0107 @2684.
 - **Parked:** D-0006; seed2200 @158 RC/`$HOME`.
@@ -36,7 +35,8 @@ Objective/score live in `CURRENT.md`.
 - **Don’t:** emit true amulet name when `!oc_name_known` — `<descr> amulet` (D-0292);
   leave TOOL/WEAPON `!nn` as actualn — use `OBJ_DESCR` (D-0305);
   skip `xkilled` final `newsym` after treasure (D-0304);
-  burn fountain/sink/shop `rn2` without `You_hear` (D-0303/D-0306).
+  burn fountain/sink/shop `rn2` without `You_hear` (D-0303/D-0306);
+  skip `u_entered_shop` / leave `ubirthday` 0 / `m_id≠next_ident()` (D-0307).
 - Runner `Screen N/M` = total matches, not prefix length.
 
 ## Landmarks (≤15)
@@ -58,4 +58,4 @@ Objective/score live in `CURRENT.md`.
 - Bones / disclose / RIP / topten / amulet / DEC altar / noises / Monnam /
   map_invisible / mimic M_AP_OBJECT / vault+fountain/sink/shop dosounds /
   nearby observe / newsym unseen blank / missmu just / irregular no-bbox-lit /
-  xkilled post-drop newsym / TOOL descr: D-0274…D-0306.
+  xkilled post-drop newsym / TOOL descr / shop enter+ubirthday: D-0274…D-0307.

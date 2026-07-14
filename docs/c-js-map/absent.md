@@ -11,7 +11,7 @@ This is a planning list, not an exhaustive C file inventory:
 - hero-versus-monster and monster-versus-hero combat;
 - traps, riding, travel partial (`_` cancel + adjacent/greedy; full
   TEST_TRAV/GUESS/travelmap deferred); prayer partial (`#pray` p_type 0 + angrygods 0–3);
-  chat partial (`#chat` wall/SDOOR/statue + MS_BARK; **`dosounds` feature gates + shop envelope** D-0204 + **vault `gd_sound`/`rn2(2)`** D-0208 + **fountain/sink You_hear** D-0303 + **shop You_hear** D-0306; swamp You1 / barracks/court You_hear / findgd migrating / temple_priest / oracle canseemon / other MS_* deferred); `u_entered_shop` / `ushops_entered` welcome deferred;
+  chat partial (`#chat` wall/SDOOR/statue + MS_BARK; **`dosounds` feature gates + shop envelope** D-0204 + **vault `gd_sound`/`rn2(2)`** D-0208 + **fountain/sink You_hear** D-0303 + **shop You_hear** D-0306; swamp You1 / barracks/court You_hear / findgd migrating / temple_priest / oracle canseemon / other MS_* deferred); **`u_entered_shop` welcome** D-0307 (deserted/angry/Invis/doorway block deferred);
 - kicking beyond empty-space/`kick_dumb`/`kick_door` CLOSED bust
   (monsters, objects, SDOOR/SCORR, furniture, martial/shop-town);
 - apply beyond lock-pick no-door (containers, other tools);

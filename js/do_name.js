@@ -10,6 +10,7 @@ import {
     ONAME_VIA_NAMING, MGIVENNAME, has_mgivenname, W_SADDLE, engulfing_u,
 } from './const.js';
 import { ATR_INVERSE } from './terminal.js';
+import { shkname } from './shknam.js';
 
 const PL_PSIZ = 32; // C: PL_PSIZ player-name / oname buffer
 
@@ -78,11 +79,16 @@ function x_monnam_do_it(mtmp) {
 
 /**
  * C ref: do_name.c mon_nam — ARTICLE_THE; unseen → "it"; named → bare name.
- * Hallu / invis adj / priest / shk / AUGMENT_IT deferred; saddle adj ported.
+ * Shopkeeper → shkname (D-0307). Hallu / invis adj / priest / AUGMENT_IT deferred.
  */
 export function mon_nam(mtmp) {
     if (!mtmp) return 'it';
     if (x_monnam_do_it(mtmp)) return 'it';
+    // C x_monnam: isshk && !hallu && !mappear → shkname (ordinary PM_SHOPKEEPER)
+    if (mtmp.isshk) {
+        const nam = shkname(mtmp);
+        if (nam) return nam;
+    }
     if (has_mgivenname(mtmp)) return MGIVENNAME(mtmp);
     return `the ${saddle_adj(mtmp)}${mon_plain_name(mtmp)}`;
 }

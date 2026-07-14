@@ -475,10 +475,19 @@ export function findAlign(name) {
     return aligns.find(a => a.name === lc);
 }
 
-// C ref: role.c Hello() — mnum from caller (game.urole.mnum)
-export function Hello(mnum) {
+// C ref: role.c Hello(mtmp) — Role_switch greeting; mtmp for Samurai shk /
+// Valkyrie mail. Also accepts numeric mnum (allmain welcome path).
+export function Hello(arg) {
+    const mtmp = (arg && typeof arg === 'object') ? arg : null;
+    const mnum = (typeof arg === 'number') ? arg : (game.urole?.mnum);
     if (mnum === PM_KNIGHT) return 'Salutations';
-    if (mnum === PM_SAMURAI) return 'Konnichi wa';
+    if (mnum === PM_SAMURAI) {
+        // C: mtmp && mtmp->data == &mons[PM_SHOPKEEPER]
+        if (mtmp && (mtmp.isshk || mtmp.data?.name === 'PM_SHOPKEEPER')) {
+            return 'Irasshaimase';
+        }
+        return 'Konnichi wa';
+    }
     if (mnum === PM_TOURIST) return 'Aloha';
     if (mnum === PM_VALKYRIE) return 'Velkommen';
     return 'Hello';

@@ -7755,3 +7755,23 @@ Open that file first; then jump to a single `## D-NNNN` entry below
 - **Next:** @573 C shop welcome `"Hello, Beatrix!  Welcome to … store!"`
   — `u_entered_shop` / `ushops_entered` absent in JS.
 
+## D-0307 — shop enter welcome + shk `mon_nam`
+
+- **Status:** fixed
+- **Observed:** seed0030 @573 — C Maganasipi welcome vs JS blank; after
+  welcome emit, wrong shkname (Kinojevis) then `"the shopkeeper"` in combat.
+- **C locus:** `hack.c` `move_update`/`check_special_room`/`in_rooms`;
+  `shk.c` `u_entered_shop`; `u_init.c` `ubirthday=getnow()`; `makemon.c`
+  `m_id=next_ident()`; `do_name.c` `x_monnam` isshk→`shkname`.
+- **Cause:** No shop-enter tracking/welcome; `ubirthday` unset (nameshk
+  nseed); `m_id` ignored `next_ident` return; `mon_nam` omitted shk arm.
+- **Change:** Port `in_rooms`/`move_update`/`check_special_room` + peaceful
+  `u_entered_shop` verbalize; `getnow`→`ubirthday` (contest UTC-4 quirk);
+  `m_id`/`o_id` = `next_ident()`; `mon_nam` isshk→`shkname`.
+- **Verification:** prefix **573→580**; Scr **1373→1376**; RNG full;
+  green+strict; 19 PASS cohort held.
+- **Named omissions:** deserted/angry/Invis/doorway `dochug`; zoo/… room
+  plines; unpaid leave; hallu shkname; `long wand` xname (next @580).
+- **Next:** @580 C `"Maganasipi zaps a long wand!"` vs JS `"a wand"`.
+
+

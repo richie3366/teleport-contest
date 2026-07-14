@@ -801,7 +801,7 @@ export function mksobj(otyp, init, artif) {
     };
     // C: unknow_object(otmp) — dknown + known; known heuristic above
     clear_dknown(otmp);
-    next_ident();
+    otmp.o_id = next_ident();
     if (init) mksobj_init(otmp, artif);
 
     // Post-init regardless: CORPSE/STATUE gender + timer
