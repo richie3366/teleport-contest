@@ -8038,6 +8038,30 @@ Open that file first; then jump to a single `## D-NNNN` entry below
 - **Named omissions:** thrown `hit()` path / multishot destroyed exception.
 - **Next:** @1433 fatal wand-hit `--More--` / death screen capture (seg7 −13).
 
+## D-0324 — `#quit` topten death string + outentry dungeon append
+
+- **Status:** fixed
+- **Observed:** seed0030 @1484 — C `Galen-Sam-Hum-Mal-Law quit in The
+  Dungeons…` vs JS `…Law died in…` (+ stray second-line `.`). Seg8
+  `#quit` after Sayonara. RNG full.
+- **C locus:** `end.c` `done` — `how >= PANICKED` → `deaths[how]` ("quit");
+  `really_done` — `QUIT` → `NO_KILLER_PREFIX` (+ Charon's boat if
+  `uhp < 1`); `topten.c` `outentry` — quit/starved/died share dungeon/
+  level append (not died-only).
+- **Cause:** JS `done` never set `killer.name` for QUIT, so leftover
+  prior-death killer made `formatkiller` non-`quit*`; `outentry` nested
+  dungeon/level only under the `died` arm, so a correct `quit` string
+  would still omit ` in The Dungeons…`.
+- **Change:** port `DEATHS[]` + `done` killer setup; `really_done` QUIT/
+  ESCAPED/PANICKED format; restructure `outentry` like C (D-0324).
+- **Verification:** @1484 match (`quit in The Dungeons`); Scr
+  **1604→1605**; prefix **1601**; first miss **@1601** iron skull cap;
+  RNG full; green+strict; 17 PASS cohort.
+- **Named omissions:** outentry choked/poisoned/crushed/petrified arms;
+  astral plane text; ParanoidQuit getlin; Lifesaved / Die?.
+- **Next:** @1601 ARMOR `xname` appearance (`iron skull cap` vs
+  `orcish helm`).
+
 ## D-0323 — `mbhitm` await `finish_losehp_done` after fatal striking hit
 
 - **Status:** fixed

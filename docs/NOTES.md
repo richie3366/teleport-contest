@@ -7,18 +7,18 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Score (#350 suite):** **19/44**; Scr **2883**/11405. Peel #351 seed0030
-  Scr **1604**/1953 (was 1446); suite aggregate not re-run.
-- **Current unit:** seed0030 Scr **1604**/1953 RNG **FULL**; cell first-miss **@1484**.
-- **@1484:** C topten `Galen-Sam-Hum-Mal-Law quit in…` vs JS `…Law died in…`
-  (also JS stray `.` on HP line). Seg8 `#quit` after Sayonara.
-- **Hypothesis:** `#quit`→`done(QUIT)` must set topten how_how to `quit`, not
-  `died` (DIED default).
-- **Falsifier:** @1484 contains `quit`; no extra `.` on level/HP line.
-- **Fixed:** D-0323 `mbhitm` await `finish_losehp_done` after fatal striking;
-  @1433 match; seg7 **172**; Scr 1446→1604.
-- **Don’t:** clamp fatal `uhp=0` in `losehp` (D-0320); skip finish after
-  muse `losehp` (this peel).
+- **Score (#350 suite):** **19/44**; Scr **2883**/11405. Peel #352 seed0030
+  Scr **1605**/1953 (was 1604); suite aggregate not re-run.
+- **Current unit:** seed0030 Scr **1605**/1953 RNG **FULL**; cell first-miss **@1601**.
+- **@1601:** C `an iron skull cap` vs JS `an orcish helm` (Things that are here).
+- **Hypothesis:** ARMOR `pretty_base`/`xname` when `!oc_name_known` must use
+  `OBJ_DESCR` (`iron skull cap`), not actualn (`orcish helm`) — same pattern
+  as TOOL/WEAPON D-0305.
+- **Falsifier:** @1601 shows `iron skull cap`; prefix >1601.
+- **Fixed:** D-0324 `done` deaths[QUIT]+`really_done` NO_KILLER; `outentry`
+  quit+dungeon; @1484 match; Scr 1604→1605; prefix 1484→1601.
+- **Don’t:** nest dungeon/level only under `died` in outentry; leave QUIT
+  killer.name from prior death.
 - **Alt:** seed0013 Scr 57/59; seed0107 @2684.
 - **Parked:** D-0006; seed2200 @158 RC/`$HOME`.
 
@@ -46,11 +46,12 @@ Objective/score live in `CURRENT.md`.
   skip WAND `!nn` descr — `"%s wand"` + zap `dknown` (D-0309);
   leave SCROLL `!nn` as actualn/`obj.known` — unlabeled/labeled arms (D-0312);
   leave SPBOOK `!nn` as bare/`obj.known` — `"%s spellbook"` via dn (D-0321);
+  leave WAND out of `mksobj` `oc_uses_known` — `known=0` at create (D-0316);
+  leave ARMOR `!nn` as actualn — use `OBJ_DESCR` (next peel / D-0325?).
   leave `uhitm` private `mon_nam` — import `do_name` (D-0308);
   omit death `paybill` — angry shk takes possessions before flush (D-0311);
   bare `pmname` for isshk death — honorific + `shkname` + `KILLED_BY` (D-0313);
   omit Priest `xname`/`doname` `bknown=1` — BUC always known (D-0315);
-  leave WAND out of `mksobj` `oc_uses_known` — `known=0` at create (D-0316);
   vain-push when monster behind boulder — `You_hear`/`canspotmon` then
   `cannot_push` (no vain); `dopush` must clear dest `I` (D-0317);
   skip `mon_wield_item` canseemon wield pline — turn spent but topline misses
@@ -59,6 +60,7 @@ Objective/score live in `CURRENT.md`.
   `--More--` keeps `tmp_at` flash + pre-damage HP (D-0319);
   bare period on hero melee hit — `canseemon?exclam(dmg)` (D-0322);
   muse fatal `losehp` without `finish_losehp_done` — death screens drop (D-0323);
+  leave `#quit` killer from prior death / nest dungeon only under died (D-0324);
   blanket `observe_object` in `xname` without `distantname` (regresses map).
 - Runner `Screen N/M` = total matches, not prefix length; contiguous cell
   miss can precede a later named topline peel (D-0311→@594 while @583 RIP open).
@@ -84,5 +86,5 @@ Objective/score live in `CURRENT.md`.
   uhitm mon_nam / WAND descr / bot uhp==-1 / paybill / SCROLL unlabeled /
   done_in_by isshk / botl flush·bot·more / Priest bknown / WAND known0 /
   moverock hear-behind / mon_wield canseemon pline / thitu await pline /
-  losehp leave neg uhp / SPBOOK descr / hmon exclam / mbhitm finish_done:
-  D-0274…D-0323.
+  losehp leave neg uhp / SPBOOK descr / hmon exclam / mbhitm finish_done /
+  quit deaths+outentry dungeon: D-0274…D-0324.

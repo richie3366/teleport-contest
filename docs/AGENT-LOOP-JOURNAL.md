@@ -20,6 +20,16 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-14 22:53 — #352 D-0324 quit topten how + outentry
+
+- Objective: seed0030 @1484 Galen topten `quit` vs `died` (CURRENT).
+- C locus: `end.c` `done`/`really_done`; `topten.c` `outentry`.
+- Change: `DEATHS[]` + killer setup for QUIT; NO_KILLER_PREFIX; outentry
+  quit/starved share dungeon/level append (D-0324).
+- Verification: @1484 match; Scr **1604→1605**; prefix **1601**; RNG full;
+  green+strict; 17 PASS cohort. First miss **@1601** iron skull cap.
+- Next: @1601 ARMOR `xname` `OBJ_DESCR` (`iron skull cap` vs `orcish helm`).
+
 ## 2026-07-14 22:48 — #351 D-0323 mbhitm finish_losehp_done
 
 - Objective: seed0030 @1433 wand-hit `--More--` / seg7 −13 death screens.
@@ -167,13 +177,3 @@ Use this shape:
   RNG full; green+strict; 19 PASS cohort + strict sample.
 - Next: @594 kitten unlabeled scroll vs blank paper.
 
-## 2026-07-14 20:33 — #333 D-0310 bot skip uhp==-1
-
-- Objective: seed0030 @580 HP:0 vs C HP:11 (CURRENT).
-- C locus: `botl.c` `bot` — no-op when `u.uhp == -1`.
-- Change: cache last status; suppress botl paint on exact overkill (D-0310).
-  Hypothesis “wand/melee over-damage” falsified — damage after hitmsg is
-  faithful; display refreshed too early.
-- Verification: prefix **580→582**; Scr **1383→1387**; green+strict;
-  17 PASS cohort + strict sample.
-- Next: @582 Maganasipi takes all your possessions.
