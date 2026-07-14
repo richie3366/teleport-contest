@@ -255,6 +255,7 @@ Do not record a guessed cause as fixed merely because an RNG prefix moved.
 | D-0249 | fixed | m_initinv defensive | `rnd_defensive_item` + PM_SOLDIER early-return; seg6 13801→15369 |
 | D-0250 | fixed | trapeffect_hole TRAPDOOR | mon fall→migrate Trap_Moved_Mon; seg6 15369→17712 |
 | D-0251 | fixed | set_malign/adjalign xkilled | ualign.record after kill; peace_minded rn2(21); seg6 17712→18683 |
+| D-0252 | fixed | thitm dmgval | hit path called dmgval; stub dam=1 skipped rnd; seg6 18683→18840 |
 
 D-0001 through D-0005 predate the strict-length/cohort runbook. Their focused
 causes are preserved, but generic "green sessions held" is historical evidence,
@@ -6833,3 +6834,25 @@ cohort gates if those functions are touched again.
   quest/nemesis/guardian/priest/tame special adjalign arms; peaceful
   luck `rn2(2)`/`change_luck`; `adj_erinys` body.
 - **Next:** seed0030 seg6 @18683 dart/`dmgval`; or quest `getbones`.
+
+## D-0252 — `thitm` hit → `dmgval` (seed0030 seg6 @18683)
+
+- **Status:** fixed
+- **Symptom:** seed0030 seg6 @18683 — C `rnd(3) @ dmgval` vs JS
+  `rn2(5)` after matched dart `rn2(6)` + `thitm` `rnd(20)=17`.
+- **Cause:** C treated the roll as a **hit** and called
+  `dmgval(obj, mon)` (`rnd(oc_wsdam)` for dart). JS `thitm` hit arm
+  stubbed `dam = 1` without burning `dmgval` RNG, so the next fleeck
+  `rn2(5)` landed in the dmgval slot. (Not a miss — NOTES miss theory
+  was wrong.)
+- **C locus:** `trap.c` `thitm` (dam = dmgval; if dam < 1 then 1).
+- **Change:** `js/trap.js` `thitm` calls real `dmgval(obj, mon)` with
+  clamp ≥1 on the hit/obj path.
+- **Verification:** seg6 **18683→18840** (`m_move` `rn2(24)` vs
+  `rn2(16)`); full **19/44** Scr **1464** RNG **180765**; green+strict
+  PASS; 17-session PASS cohort held.
+- **Named omissions:** `stone_missile`/`passes_rocks` harmless arm
+  (strike=0, keep missile); `nocorpse` `-AD_RBRE` (still `-AD_PHYS`);
+  full `dealloc_obj` on used-up hit missile.
+- **Next:** seed0030 seg6 @18840 `m_move` track arity; or quest
+  `getbones`.

@@ -528,6 +528,8 @@ async function thitm(tlev, mon, obj, d_override, nocorpse) {
             await pline(`${Monnam(mon)} is almost hit by ${doname(obj)}!`);
         }
     } else {
+        // C: stone_missile && passes_rocks → harmless (strike=0, keep missile)
+        // Named omission: stone_missile/harmless arm — not dart/arrow path.
         if (obj && cansee(mon.mx, mon.my)) {
             await pline(`${Monnam(mon)} is hit by ${doname(obj)}!`);
         }
@@ -535,8 +537,9 @@ async function thitm(tlev, mon, obj, d_override, nocorpse) {
         if (d_override) {
             dam = d_override;
         } else if (obj) {
-            // C: dam = dmgval(obj, mon); clamp to >= 1 — stub 1 until dmgval ported
-            dam = 1;
+            // C ref: trap.c thitm — dam = dmgval(obj, mon); if (dam < 1) dam = 1
+            dam = dmgval(obj, mon);
+            if (dam < 1) dam = 1;
         }
         mon.mhp = (mon.mhp || 0) - dam;
         if (mon.mhp <= 0) {

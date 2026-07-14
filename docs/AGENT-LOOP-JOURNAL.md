@@ -3236,3 +3236,13 @@ Use this shape:
   peace_minded rn2(21) matched; full **19/44** Scr **1464** RNG
   **180734**; green+strict PASS; 19-session PASS cohort held.
 - Next: seed0030 seg6 @18683 dart/dmgval; or quest getbones.
+
+## 2026-07-14 06:45 — thitm hit dmgval (D-0252)
+- Objective: seed0030 seg6 @18683 C `rnd(3) @ dmgval` vs JS `rn2(5)` after dart thitm.
+- C locus: trap.c thitm — dam = dmgval(obj, mon); clamp >= 1.
+- Result: **verified** — matched rnd(20)=17 was a hit; JS stubbed dam=1
+  without dmgval RNG. Wired real dmgval. Not a miss.
+- Verification: seg6 **18683→18840** (m_move rn2(24) vs rn2(16)); full
+  **19/44** Scr **1464** RNG **180765**; green+strict PASS; 17-session
+  PASS cohort held.
+- Next: seed0030 seg6 @18840 m_move track arity; or quest getbones.

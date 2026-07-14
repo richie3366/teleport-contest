@@ -39,7 +39,7 @@ frozen-file overlay):
 |--------|------:|
 | Sessions passing | **19 / 44** |
 | Screens matched | **1464 / 11,405** (12.84%) |
-| Positional RNG calls matched | **180,734 / 792,838** (22.80%) |
+| Positional RNG calls matched | **180,765 / 792,838** (22.80%) |
 | Speed label | `18+0.10/turn` |
 | Working-tree base | `8b71735` + committed port (see `main`) |
 | Role-init throws | **0 / 44** (`u_init_role: role not ported`) |
@@ -64,7 +64,7 @@ shared blockers, and semantic coverage together—not one vanity metric.
 | `seed0501-priest-cast-read-turn` | **2238 / 2238** | **28 / 28** |
 | `seed2200-wizard-quaff-zap-read` | **3018 / 3018** | **229 / 230** |
 | `seed0017-samurai-altar-pray` | **3465 / 3465** | **67 / 67** |
-| `seed0030-ten-diverse-deaths` | **47653 / 105529** | **79 / 1953** |
+| `seed0030-ten-diverse-deaths` | **47684 / 105529** | **79 / 1953** |
 | `seed0103-knight-ride-pony` | **2640 / 2640** | **60 / 60** |
 | `seed0200-monk-north-search` | **3822 / 3822** | **40 / 40** |
 | `seed0101-ranger-quiver-throw-travel-engrave` | **2371 / 2371** | **27 / 27** |
@@ -541,13 +541,12 @@ seed0101 + seed0103 + seed0104 **PASS**. seed2200 RNG **full**
 seed0101 RNG **full** Scr **27**/27. seed0103 RNG **full** Scr **60**/60.
 seed0104 RNG **full** Scr **43**/43.
 
-- **Bounded unit:** seed0030 seg6 @18683 — C `rnd(3) @ dmgval` vs JS
-  `rn2(5)` after dart `thitm` (after set_malign/adjalign D-0251; seg6
-  **17712→18683**). /
+- **Bounded unit:** seed0030 seg6 @18840 — C `rn2(24) @ m_move` vs JS
+  `rn2(16)` after thitm `dmgval` (D-0252; seg6 **18683→18840**). /
   seed0361/0373 **quest `getbones`** (blocked: need `^V`→`goto_level`→
   `makemaz` first — ordinary `goto_level` now exists for stairs; Mines
   `fill_lvl` path exists D-0171).
-- **Prefer:** seg6 @18683 dart/`dmgval` peel over quest bones until
+- **Prefer:** seg6 @18840 `m_move` track arity over quest bones until
   `^V`/`makemaz`; over parked D-0006 and over baking seed2200 RC paths.
   Hero `dotrap` deferred until monster pit peel is clear.
   Hero `xkilled` treasure `mkobj` done (D-0229; ordinary
@@ -746,6 +745,9 @@ seed0104 RNG **full** Scr **43**/43.
   **`set_malign`/`adjalign` on `xkilled`** (done D-0251; seg6
   **17712→18683**; full **19/44** Scr **1464** RNG **180734**;
   next @18683 `dmgval` vs fleeck);
+  **`thitm` hit → `dmgval`** (done D-0252; seg6 **18683→18840**;
+  full **19/44** Scr **1464** RNG **180765**; next @18840
+  `m_move` `rn2(24)` vs `rn2(16)`);
   **`goto_level` `stairway_find_from`** (D-0224 find_from done);
   D-0218 upstairs theory rejected;
   …
@@ -1678,6 +1680,11 @@ Module status, constitutional debt, and named omissions live in
     — seed0030 seg6 **17712→18683** (`dmgval` vs `rn2(5)` after dart
     thitm); peace_minded `rn2(21)` matched; full **19/44** Scr
     **1464** RNG **180734**; green+cohort PASS; next seg6 @18683 /
+    quest `getbones`
+229. `thitm` hit → `dmgval` (D-0252)
+    — seed0030 seg6 **18683→18840** (`m_move` `rn2(24)` vs `rn2(16)`);
+    hit path called real `dmgval` (was stub dam=1); full **19/44** Scr
+    **1464** RNG **180765**; green+cohort PASS; next seg6 @18840 /
     quest `getbones`
 
 Next work is selected from the active objectives above using

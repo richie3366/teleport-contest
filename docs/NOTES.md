@@ -7,12 +7,12 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 
 ## Active
 
-- **Current unit:** seed0030 seg6 @18683 — C `rnd(3) @ dmgval` vs JS
-  `rn2(5)` after matched dart `thitm` miss (post D-0251;
-  seg6 **17712→18683**). Likely monster trap-hit / weapon damage path
-  after dart, or a missed dart-hit branch that still rolls `dmgval`.
-- **Falsifier:** dump whether C `thitm` hit+damaged despite rnd(20)=17,
-  or a second actor burns `dmgval` while JS fleecks.
+- **Current unit:** seed0030 seg6 @18840 — C `rn2(24) @ m_move` vs JS
+  `rn2(16)` after matched fleeck (post D-0252 thitm `dmgval`;
+  seg6 **18683→18840**). Likely track-length / gettrack / udist drift
+  for a hostile `m_move` after the dart hit path.
+- **Falsifier:** dump C vs JS track cnt / hero dist / mtrack length at
+  the matched fleeck just before @18840.
 - **Parked deep canary:** D-0006 pet movement — do not implement until C
   state/candidate capture exists.
 - **Parked seed2200 @158:** RC config path — harness `$HOME`, not a port bug.
@@ -107,6 +107,9 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   hatemask arity** — C `rn2(21)` vs JS `rn2(16)` was `ualign.record`
   5 vs 0 after one hostile kill; missing `set_malign` +
   `adjalign(mtmp->malign)` in `xkilled` (D-0251).
+- **seed0030 seg6 @18683 was NOT a thitm miss** — matched `rnd(20)=17`
+  was a **hit**; C called `dmgval` (`rnd(3)`); JS stubbed `dam=1`
+  without RNG so fleeck `rn2(5)` shifted into the slot (D-0252).
 - **`monattk.h`: AT_WEAP=254, AT_MAGC=255, AT_SPIT=10** — never use 10 for
   weapon (D-0179).
 - Hostile `m_move`: before place, `m_digweapon_check` may return
@@ -158,3 +161,5 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 - **`peace_minded` `rn2(16+record)`:** wrong arity after combat is often
   missing `set_malign`/`adjalign(malign)` on `xkilled`, not initrecord
   (D-0251; cf. D-0056 for true initrecord bugs).
+- **`thitm` hit path:** must call `dmgval(obj, mon)` (clamp ≥1); stubbing
+  `dam=1` skips weapon dice RNG even when HP outcome matches (D-0252).
