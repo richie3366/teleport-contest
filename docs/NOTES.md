@@ -7,9 +7,11 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 
 ## Active
 
-- **Current unit:** seed0030 seg2 @2408 (D-0211: kitten `dog_move` —
-  JS `mfndpos` includes SW that C skips; poison-gas falsified; need C typ
-  dump) / seed0361/0373 quest `getbones` (need `^V`→`goto_level`→`makemaz`).
+- **Current unit:** seed0030 seg2 @2930 — C `eatcorpse` `rn2(20)` vs JS
+  `rn2(3)` after D-0211 wantdoor fix. / seed0361/0373 quest `getbones`
+  (need `^V`→`goto_level`→`makemaz`).
+- **Falsifier:** seg2 rng-diff; if first mismatch is not `eatcorpse`, re-dump
+  dog_goal `gg`/`couldsee`/`ogoal` at that index.
 - **Parked deep canary:** D-0006 pet movement — do not implement until C
   state/candidate capture exists.
 - **Parked seed2200 @158:** RC config path — harness `$HOME`, not a port bug.
@@ -60,6 +62,9 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 - **seed0104 Scr 39/43 was NOT a botl/Ride residual** — dismount omitted
   C `float_down`→`pickup`→`look_here` multi NHW_MENU; space meant for
   pony `--More--` became `Unknown command` (D-0220).
+- **D-0211 was NOT mfndpos skipping SW / poison-gas / typ drift** — C
+  recorder dump: cnt=8 including `(72,8)`; peel was `dog_goal` `gg`
+  via `!couldsee`→`ogoal`/`wantdoor` (JS always fell back to hero).
 - **`monattk.h`: AT_WEAP=254, AT_MAGC=255, AT_SPIT=10** — never use 10 for
   weapon (D-0179).
 - Hostile `m_move`: before place, `m_digweapon_check` may return
@@ -78,6 +83,9 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   spoteffects pickup) then `float_down(0,W_SADDLE)`→`pickup(1)` once;
   multi floor objs → `look_here` NHW_MENU after WIN_MESSAGE `--More--`
   (D-0220).
+- **`dog_goal` !couldsee:** gettrack → else reuse `edog.ogoal` → else
+  `do_clear_area(pet,9,wantdoor)` closest clear cell to hero, store
+  ogoal (D-0211). Omitting wantdoor forced hero-gg and wrong fleeck arity.
 - `clear_level_structures` / `goto_level`: clear `fobj` **and**
   `_objects_at` (C `level.objects[][]=0`) and `head_engr` (D-0161).
 - Monster ROCKTRAP: `t_missile(ROCK)`→`mksobj` `next_ident`+`rn1(6,6)`

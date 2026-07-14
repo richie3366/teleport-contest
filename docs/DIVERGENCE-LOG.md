@@ -214,7 +214,7 @@ Do not record a guessed cause as fixed merely because an RNG prefix moved.
 | D-0208 | fixed | dosounds vault | gd_sound rn2(2)+hallu; seg1 7189→full 7640; next seg2 somey |
 | D-0209 | fixed | make_grave epitaph | EPITAPHFILE get_rnd_text; seg2 1272→2217 |
 | D-0210 | fixed | elf Instrument | eager ROLL_FROM before trquan; seg2 2217→2408 |
-| D-0211 | open | dog_move mfndpos | extra rn2(12); C skips SW diagonal; gas falsified |
+| D-0211 | fixed | dog_goal wantdoor | !couldsee ogoal/do_clear_area; seg2 2408→2930 |
 | D-0212 | fixed | pony saddle | makedog put_saddle_on_mon; seed0103 2337→2440 |
 | D-0213 | fixed | #ride mount | doride/mount_steed/dismount; seed0103 RNG full |
 | D-0214 | fixed | ride display | pet mcolor + ridden glyph + saddled + Ride botl; Scr 2→57 |
@@ -5708,35 +5708,31 @@ cohort gates if those functions are touched again.
 - **Next:** seed0030 seg2 @2408 C `distfleeck` vs JS `dog_move`; or
   seed0103 `next_ident`/`trquan`.
 
-## D-0211 — dog_move extra mfndpos candidate (seed0030 seg2 @2408)
+## D-0211 — dog_goal wantdoor / ogoal (seed0030 seg2 @2408)
 
-- **Status:** open
-- **Symptom:** seed0030 seg2 @2408 C `rn2(5)=3 @ distfleeck(monmove.c:538)`
-  vs JS `rn2(12)=7` — after matched `obj_resists`×3 then six matched
-  `dog_move` `rn2(12)` (indices 2402–2407).
-- **Rejected:** actor-order / extra `dochug` / Instrument leftover —
-  enter/exit DIAG shows one kitten `dog_move` (mnum=32 PM_KITTEN) at
-  (73,7), `appr=1`, `whappr=0`, `gg=(68,6)`, `udist=26`.
-- **Evidence:** JS `mfndpos` cnt=**8** (all eight ROOM neighbors, no
-  trap/obj/mon). Loop: one better cell `(72,6)` (no RNG) then **7×**
-  `rn2(12)`; C only **6×** then fleeck→`mcalcmove`×5→EOT. FORCE-omit
-  SW diagonal `(72,8)` (diagnostic only) makes `rn2(12)=0` accept
-  `(73,6)` instead of `(72,8)` and advances prefix **2408→2457**.
-  Omitting a later worse cell while still accepting `(72,8)` only
-  reaches **2421**. So C does not treat `(72,8)` as a selectable
-  candidate (or skips it before selection RNG).
-- **Open cause:** JS terrain at `(72,8)` is ROOM; squeeze
-  (`bad_rock`+`cant_squeeze_thru`) does not fire for small kitten;
-  **poison-gas falsified** — no gas/cloud/region RNG in seg2 before
-  2408. Missing C `mfndpos` gates still include pool/lava wrapper,
-  IRONBARS, waterwall, diagonal squeeze helpers. Need C `poss[]` /
-  `levl[].typ` dump (non-RNG typ divergence still possible).
-- **Change:** none (diagnosis only; no production FORCE).
-- **Verification:** seg2 still **2408**; green+strict PASS; JS restored
-  clean. Reconfirmed 2026-07-14: empty 3×3 ROOM, kickedloc 0, dmin=5,
-  mtrack present but gated off.
-- **Next:** C-state falsifier for `(72,8)`; or seed0103 `mount_steed`
-  (D-0212 cleared saddle).
+- **Status:** fixed
+- **Symptom:** seed0030 seg2 @2408 C `rn2(5)=3 @ distfleeck` vs JS
+  `rn2(12)=7` — after six matched `dog_move` `rn2(12)`.
+- **Rejected:** mfndpos skipping SW `(72,8)` / poison-gas / typ drift —
+  C recorder dump: `cnt=8` including `(72,8)` empty ROOM; FORCE-omit SW
+  was a lucky selection rewrite, not the cause. Gas falsified earlier.
+- **Cause/evidence:** C `dog_goal` with `!couldsee(pet)` and failed
+  `gettrack` reuses `edog->ogoal` or runs `do_clear_area(omx,omy,9,
+  wantdoor)` (view_from off-hero) to set `gg` to the clear cell closest
+  to the hero, then stores `ogoal`. JS omitted wantdoor and always fell
+  back to hero → `gg=(68,6)` vs C `gg=(69,5)` → one vs two `j<0`
+  accepts → 7 vs 6 selection `rn2(12)`.
+- **C locus:** `dogmove.c` `dog_goal` / `wantdoor`; `vision.c`
+  `do_clear_area` / `view_from` with `vis_func`.
+- **Change:** `js/vision.js` `view_from` accepts `func`/`arg` and
+  `mark_visible_range` dispatches to `vis_func`; export `do_clear_area`
+  off-hero path. `js/dogmove.js` `dog_goal` ports wantdoor + ogoal store.
+- **Verification:** seg2 **2408→2930** (`eatcorpse`); positional
+  **25256**/105529 Scr **48**/1953; green+strict+cohort PASS; full
+  **19/44** Scr **1433** RNG **149674**.
+- **Named omissions:** pool/lava/garlic/`bad_rock` squeeze/IRONBARS in
+  `mfndpos`; detect.js still has its own hero-only `do_clear_area`.
+- **Next:** seed0030 seg2 @2930 `eatcorpse`; or quest `getbones`.
 
 ## D-0212 — Knight pony `put_saddle_on_mon` (seed0103 @2337)
 

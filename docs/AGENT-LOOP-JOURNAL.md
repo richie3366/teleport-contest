@@ -2826,3 +2826,17 @@ Use this shape:
   **19/44** Scr **1433** RNG **149124**.
 - Next: D-0211 C typ dump / seed0030 seg2 @2408; or quest `getbones`
   `^V`/`makemaz`.
+
+## 2026-07-14 02:25 — D-0211 dog_goal wantdoor / do_clear_area
+- Objective: seed0030 seg2 @2408 (PROGRESS primary after D-0220).
+- C locus: `dogmove.c:dog_goal`/`wantdoor`; `vision.c:do_clear_area`/
+  `view_from` vis_func.
+- Result: **verified** — C recorder falsified mfndpos SW-skip (cnt=8
+  includes `(72,8)`). Peel was `!couldsee`→failed gettrack→`ogoal`/
+  wantdoor `gg=(69,5)` vs JS hero fallback. Ported off-hero
+  `do_clear_area` + wantdoor; store `edog.ogoal`.
+- Verification: seg2 **2408→2930** (`eatcorpse`); positional
+  **25256**/105529 Scr **48**/1953; green+strict+cohort PASS; full
+  **19/44** Scr **1433** RNG **149674**.
+- Next: seed0030 seg2 @2930 `eatcorpse`; or quest `getbones`
+  `^V`/`makemaz`.

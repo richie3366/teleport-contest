@@ -39,7 +39,7 @@ frozen-file overlay):
 |--------|------:|
 | Sessions passing | **19 / 44** |
 | Screens matched | **1433 / 11,405** (12.56%) |
-| Positional RNG calls matched | **149,124 / 792,838** (18.81%) |
+| Positional RNG calls matched | **149,674 / 792,838** (18.88%) |
 | Speed label | `20+0.09/turn` |
 | Working-tree base | `8b71735` + committed port (see `main`) |
 | Role-init throws | **0 / 44** (`u_init_role: role not ported`) |
@@ -64,7 +64,7 @@ shared blockers, and semantic coverage together—not one vanity metric.
 | `seed0501-priest-cast-read-turn` | **2238 / 2238** | **28 / 28** |
 | `seed2200-wizard-quaff-zap-read` | **3018 / 3018** | **229 / 230** |
 | `seed0017-samurai-altar-pray` | **3465 / 3465** | **67 / 67** |
-| `seed0030-ten-diverse-deaths` | **24713 / 105529** | **45 / 1953** |
+| `seed0030-ten-diverse-deaths` | **25256 / 105529** | **48 / 1953** |
 | `seed0103-knight-ride-pony` | **2640 / 2640** | **60 / 60** |
 | `seed0200-monk-north-search` | **3822 / 3822** | **40 / 40** |
 | `seed0101-ranger-quiver-throw-travel-engrave` | **2371 / 2371** | **27 / 27** |
@@ -297,8 +297,11 @@ seed0103 **PASS**; full **18/44** Scr **1405** RNG **148875**.
 rects matched; not the peel.
 **`test_move` diagonal into intact doorway** (D-0219) → seed0104 RNG
 **full** Scr **39**/43; full **18/44** Scr **1429** RNG **149118**.
-**dismount `float_down`→`pickup` + multi `look_here` NHW_MENU** (D-0220)
-→ seed0104 **PASS**; full **19/44** Scr **1433** RNG **149124**.
+**dismount look_here** (D-0220) → seed0104 **PASS**; full **19/44**
+Scr **1433** RNG **149124**.
+**`dog_goal` wantdoor/`do_clear_area`** (D-0211) → seed0030 seg2
+**2408→2930** (`eatcorpse`); positional **25256**/105529 Scr
+**48**/1953; full **19/44** Scr **1433** RNG **149674**.
 
 ### Green gate
 
@@ -492,8 +495,9 @@ autoopen `doopen_indir` (D-0059) + `mfndpos` BOULDER/`ALLOW_ROCK` +
 **mounted `mattacku` steed redirect** (D-0217)
 **`test_move` diagonal doorway ban** (D-0219) **ported**; D-0218
 upstairs theory **rejected**. **dismount look_here** (D-0220)
-**ported** — seed0104 **PASS**. **dog_move extra mfndpos candidate**
-(D-0211) **open**. Nineteen public sessions pass end-to-end. **0/44**
+**ported** — seed0104 **PASS**. **dog_goal wantdoor** (D-0211)
+**ported** — seed0030 seg2 **2408→2930**. Nineteen public sessions
+pass end-to-end. **0/44**
 throw at `u_init_role`. seed0700 + seed1150 + seed0017 + seed0077 +
 seed0106 + seed0501 + seed0105 + seed0016 + seed0015 + seed0200 +
 seed0101 + seed0103 + seed0104 **PASS**. seed2200 RNG **full**
@@ -501,14 +505,12 @@ seed0101 + seed0103 + seed0104 **PASS**. seed2200 RNG **full**
 seed0101 RNG **full** Scr **27**/27. seed0103 RNG **full** Scr **60**/60.
 seed0104 RNG **full** Scr **43**/43.
 
-- **Bounded unit:** seed0030 seg2 @2408 (D-0211: C excludes SW diagonal —
-  poison-gas falsified; need C typ dump) / seed0361/0373 **quest
-  `getbones`** (blocked: need `^V`→`goto_level`→`makemaz` first —
-  ordinary `goto_level` now exists for stairs; Mines `fill_lvl` path
-  exists D-0171).
-- **Prefer:** D-0211 C typ dump / seed0030 fleeck peel; over quest
-  bones until `^V`/`makemaz`; over parked D-0006 and over baking
-  seed2200 RC paths.
+- **Bounded unit:** seed0030 seg2 @2930 (`eatcorpse` rn2(20) vs JS
+  rn2(3)) / seed0361/0373 **quest `getbones`** (blocked: need
+  `^V`→`goto_level`→`makemaz` first — ordinary `goto_level` now exists
+  for stairs; Mines `fill_lvl` path exists D-0171).
+- **Prefer:** seed0030 seg2 `eatcorpse` peel; over quest bones until
+  `^V`/`makemaz`; over parked D-0006 and over baking seed2200 RC paths.
   Hero `dotrap` deferred until monster pit peel is clear.
   Hero `xkilled` treasure `mkobj` still deferred (ordinary `make_corpse`
   done D-0191; mhitm path done D-0167; `done_in_by` bones gate done
@@ -617,14 +619,15 @@ seed0104 RNG **full** Scr **43**/43.
   epitaph done D-0209);
   **lazy `trotyp()` ROLL_FROM after `trquan`** (eager Instrument pick
   done D-0210);
-  **`mfndpos` SW-diagonal skip @ pet dog_move** (D-0211 open — poison-gas
-  falsified for seg2; need C typ dump);
+  **`mfndpos` SW-diagonal skip @ pet dog_move** (D-0211 — **rejected**;
+  real cause was dog_goal wantdoor/`ogoal`, fixed);
   **`doride`/`mount_steed`** (done D-0213; Scr residual D-0214 →
   D-0215/16 seed0103 PASS);
   **mounted `mattacku` steed** (done D-0217);
   **`test_move` diagonal doorway** (done D-0219);
   **dismount `float_down`/`look_here` multi** (done D-0220; seed0104
   PASS);
+  **`dog_goal` wantdoor/`do_clear_area`** (done D-0211; seg2→2930);
   D-0218 upstairs theory rejected;
   …
 - **Cohort:** green gate + seed1500 + seed1800 + seed0060 + seed0102
@@ -1414,6 +1417,10 @@ Module status, constitutional debt, and named omissions live in
     — seed0104 **PASS** Scr **43**/43; full **19/44** Scr **1433**
     RNG **149124**; next D-0211 typ dump / seed0030 seg2 @2408 /
     quest `getbones`
+196. `dog_goal` wantdoor / `do_clear_area` (D-0211)
+    — seed0030 seg2 **2408→2930** (`eatcorpse`); positional
+    **25256**/105529 Scr **48**/1953; full **19/44** Scr **1433**
+    RNG **149674**; next seed0030 seg2 @2930 / quest `getbones`
 
 Next work is selected from the active objectives above using
 `PORTING-RUNBOOK.md`, not by extending this historical list.
