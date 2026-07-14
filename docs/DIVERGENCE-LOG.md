@@ -7661,4 +7661,26 @@ Open that file first; then jump to a single `## D-NNNN` entry below
 - **Next:** prefix@372 map — JS `#` east of room vs C blank (seg3 Wizard
   Dlvl:2).
 
+## D-0302 — irregular `filler_region` must not bbox-relight
+
+- **Status:** fixed
+- **Observed:** seed0030 @372 — JS paints lit CORR `#` at map (26,11) past
+  D_NODOOR (26,10); C blank. RNG full. Forcing `lit=0` on that cell alone
+  matched C (LOS/`couldsee` was already correct).
+- **C locus:** `sp_lev.c` `lspo_region` irregular — `flood_fill_rm(..., rlit,
+  TRUE)` then `add_room(..., FALSE, rtype, TRUE)`; set `troom->rlit` only.
+  No rectangular bbox re-light.
+- **Cause:** JS `filler_region` after flood-fill re-lit every cell in
+  `lx-1..hx+1, ly-1..hy+1`, including hole/niche CORR (`roomno==0`) that
+  flood_fill never marked lit. Irregular room1 bbox swallowed niche
+  (26,11)/(26,12)/(26,13).
+- **Change:** delete invented bbox re-light; rely on `flood_fill_rm` shape
+  lighting only (matches C).
+- **Verification:** prefix **372→448**; Scr **1147→1346**; RNG full;
+  green+strict; 17-session PASS cohort. @448: missing fountain
+  `You_hear("bubbling water.")` (`dosounds` still RNG-only for fountain).
+- **Named omissions:** other `dosounds` fountain/sink/swamp You_hear
+  bodies; mimic lightblocker / gas regions / light sources in vision.
+- **Falsified:** doorway LOS / `view_from` past D_NODOOR as the @372 cause.
+
 

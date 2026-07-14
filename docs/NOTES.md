@@ -7,16 +7,15 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Current unit:** seed0030 Scr **1147**/1953 RNG **FULL**; prefix **@372**.
-- **Probe @372:** tty r12c25 → map **(26,11)** CORR. After key `u`
-  (23,7)→(24,6): JS `couldsee`+`cansee`+`lit`+rem `#`; C blank.
-  Door (26,10) D_NODOOR. Room1 bbox lx21–26,ly4–12 lights CORR strip.
-  @371 both blank at that cell.
-- **Hypothesis:** JS `view_from`/`vision_recalc` grants LOS through
-  doorway from (24,6) when C does not (or C `lit`/bbox differs).
-- **Falsifier:** C-state `viz_array[11][26]` + `levl[26][11].lit` at
-  that step; or reconstruct doorway LOS in `vision.c` vs JS.
-- **Also:** seg7 JS 159 vs C 172 steps (after @372).
+- **Current unit:** seed0030 Scr **1346**/1953 RNG **FULL**; prefix **@448**.
+- **@448:** C topline `You hear bubbling water.`; JS blank. Key `s`.
+  `dosounds` already burns fountain `rn2(200)`/`rn2(3)` but defers
+  `You_hear` (map: fountain/sink You_hear named omission).
+- **Hypothesis:** port fountain message table + `You_hear` like C
+  `sounds.c` `dosounds`.
+- **Falsifier:** emit message; expect @448 topline match (Scr may rise).
+- **Falsified @372:** doorway LOS — JS `couldsee` matched need; cell was
+  wrongly **lit** via irregular bbox re-light (D-0302).
 - **Alt:** seed0013 Scr 57/59; seed0107 @2684.
 - **Parked:** D-0006; seed2200 @158 RC/`$HOME`.
 
@@ -43,7 +42,9 @@ Objective/score live in `CURRENT.md`.
   vault `dosounds` RNG-only — emit `You_hear` (D-0298); leave nearby
   generic gems gray — `map_object`/`see_nearby_objects` observe (D-0299);
   leave `newsym` !cansee+no-memory as no-op — paint blank (D-0300);
-  ignore `missmu` `nearmiss` — `"just "` when verbose (D-0301).
+  ignore `missmu` `nearmiss` — `"just "` when verbose (D-0301);
+  irregular `filler_region` bbox re-light holes/niches (D-0302);
+  blame @372 on doorway LOS — was lit, not `view_from`.
 - Runner `Screen N/M` = total matches, not prefix length.
 
 ## Landmarks (≤15)
@@ -64,4 +65,4 @@ Objective/score live in `CURRENT.md`.
 - Key attribution ≠ RNG order (0-RNG `--More--`) (D-0228).
 - Bones / disclose / RIP / topten / amulet / DEC altar / noises / Monnam /
   map_invisible / mimic M_AP_OBJECT / vault dosounds / nearby observe /
-  newsym unseen blank / missmu just: D-0274…D-0301.
+  newsym unseen blank / missmu just / irregular no-bbox-lit: D-0274…D-0302.

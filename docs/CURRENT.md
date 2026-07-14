@@ -18,7 +18,8 @@ label, PASS list, notable non-PASS. Prepend a journal crumb. Do not invent
 suite totals from a single focused session.
 
 Score last measured: **2026-07-14** — full `sessions` suite (global loop
-**#325**). Same 19 PASS as #320; primary peel still seed0030 @372.
+**#325**). Same 19 PASS as #320; primary peel still seed0030 (then @372;
+now @448 after D-0302 — remeasure on next %5).
 
 ## Score
 
@@ -37,7 +38,7 @@ seed0016, seed0015, seed0200, seed0101, seed0103, seed0104.
 **Notable non-PASS:**
 | Session | RNG | Screen | Note |
 |---------|----:|-------:|------|
-| seed0030 | 105529/105529 | **1147**/1953 | primary peel; prefix first-miss **@372** |
+| seed0030 | 105529/105529 | **1346**/1953 | primary peel; prefix first-miss **@448** |
 | seed2200 | 3018/3018 | **175**/230 | RNG full; Scr cells 178/230 |
 | seed0013-rogue | 4838/4838 | 57/59 | |
 | seed0013-friday13-restore | 4803/4804 | 46/99 | |
@@ -61,16 +62,16 @@ Both must remain full RNG + screen PASS with exact scored-output lengths.
 
 ## Primary objective
 
-**seed0030 screen peel** — RNG full; Scr **1147**/1953; prefix first-miss **@372**
+**seed0030 screen peel** — RNG full; Scr **1346**/1953; prefix first-miss **@448**
 
 | | |
 |--|--|
-| **C locus** | `vision.c` `view_from` / `vision_recalc` doorway LOS (or lit bbox) |
-| **JS locus** | `js/vision.js` `vision_recalc` / `view_from` |
-| **Symptom** | @372 r12c25 C blank vs JS `#` — map **(26,11)** CORR |
-| **Hypothesis** | After `u` (23,7)→(24,6), JS sets COULD_SEE+IN_SIGHT on lit CORR past D_NODOOR (26,10); C stays unexplored blank |
-| **Falsifier** | Compare C vs JS `viz_array`/`lit` at (26,11) from (24,6); or C room1 hx/hy |
-| **Recent fixed** | D-0301 `missmu` `"just "` (266→372; Scr 1146→1147) |
+| **C locus** | `sounds.c` `dosounds` fountain arm → `You_hear` |
+| **JS locus** | `js/sounds.js` `dosounds` |
+| **Symptom** | @448 topline C `You hear bubbling water.` vs JS blank |
+| **Hypothesis** | Fountain `rn2(200)` / `rn2(3)` burns but `You_hear` still deferred |
+| **Falsifier** | Emit fountain message table like C; expect @448 topline match |
+| **Recent fixed** | D-0302 irregular `filler_region` bbox re-light (372→448; Scr 1147→1346) |
 
 ```bash
 node frozen/ps_test_runner.mjs sessions/seed0030-ten-diverse-deaths.session.json

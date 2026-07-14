@@ -21,6 +21,17 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-14 19:50 — D-0302 irregular filler_region no bbox re-light
+
+- Objective: seed0030 Scr peel (CURRENT primary); prefix first-miss @372.
+- C locus: `sp_lev.c` `lspo_region` irregular — `flood_fill_rm` then
+  `add_room(..., FALSE, …)`; no bbox re-light.
+- Change: remove invented `filler_region` lx−1..hx+1 lit loop (D-0302).
+  Falsified doorway-LOS theory (`couldsee` OK; niche was wrongly lit).
+- Verification: prefix **372→448**; Scr **1147→1346**; RNG full;
+  green+strict; 17-session PASS cohort.
+- Next: @448 fountain `You_hear("bubbling water.")` in `dosounds`.
+
 ## 2026-07-14 19:35 — #325 full public score + @372 probe
 
 - Objective: mandatory every-5 full `sessions` score (#325); refine
@@ -165,14 +176,4 @@ Use this shape:
 - Verification: Scr@75 match; prefix miss **75→76**; Scr **116→120**;
   RNG full; green+strict PASS; 17-session PASS cohort.
 - Next: Scr@76 topten/endwin `--More--`; or seed0013.
-
-## 2026-07-14 18:12 — D-0286/87 mswings + botl HP clamp
-
-- Objective: seed0030 Scr 103/1953 (CURRENT primary); first miss @62.
-- C locus: `mhitu.c` `mswings`/`mswings_verb`/`hitval`; `botl.c` hp<0→0.
-- Change: AT_WEAP melee calls `hitval` + `mswings` before hit/miss
-  (D-0286); status line clamps negative HP for display (D-0287).
-- Verification: Scr@62 topline+HP match; prefix miss **62→75**;
-  Scr **103→116**; RNG full; green+strict PASS; 17-session PASS cohort.
-- Next: Scr@75 death `--More--` vs invent-identify yn; or seed0013.
 
