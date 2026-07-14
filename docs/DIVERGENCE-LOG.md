@@ -237,6 +237,7 @@ Do not record a guessed cause as fixed merely because an RNG prefix moved.
 | D-0231 | fixed | blocksMove/SDOOR | IS_OBSTRUCTED+IRONBARS; walk-into-SDOOR; seg3 9299→9778 |
 | D-0232 | fixed | muse find_misc | shk WAN_SPEED spend turn; seg3 9778→9850 |
 | D-0233 | fixed | mfndpos NOTONL | monseeu/monlineu mark; avoid skips; seg3 9850→9881 |
+| D-0234 | fixed | setmangry + WAN_STRIKING | miss→wakeup anger; mbhit Boing; seg3 9881→9887 |
 
 D-0001 through D-0005 predate the strict-length/cohort runbook. Their focused
 causes are preserved, but generic "green sessions held" is historical evidence,
@@ -6293,3 +6294,35 @@ cohort gates if those functions are touched again.
   temple/`ALLOW_SANCT`; pool/lava/`bad_rock` squeeze; poison-gas.
 - **Next:** seed0030 seg3 @9881 C `use_offensive` vs JS `distfleeck`;
   or quest `getbones`.
+
+## D-0234 — missum setmangry + WAN_STRIKING mbhit
+
+- **Status:** fixed
+- **Symptom:** seed0030 seg3 @9881 C `rn2(8)` `use_offensive` vs JS
+  `rn2(5)` `distfleeck`. Screen: “Maganasipi zaps a long wand! Boing!”
+- **Cause:** (1) JS `missum`/`hmon` never called `wakeup(TRUE)`→
+  `setmangry`, so Maganasipi stayed peaceful after “You miss… gets
+  angry!” and never entered offense. (2) Once angry, need
+  `find_offensive`/`use_offensive` `MUSE_WAN_STRIKING` → `mzapwand` +
+  `mbhit(rn1(8,6))` + Antimagic Boing → `makeknown`→`exercise(A_WIS)`.
+  (3) Worn `CLOAK_OF_MAGIC_RESISTANCE` must count as Antimagic while
+  `setworn` oc_oprop is deferred.
+- **Rejected:** missing muse alone without anger; WAN_TELEPORTATION
+  (screen Boing! = striking Antimagic).
+- **C locus:** `uhitm.c` `missum`/`hmon`→`wakeup`; `mon.c`
+  `setmangry`/`wakeup`; `muse.c` `find_offensive`/`use_offensive`/
+  `mbhit`/`mbhitm` WAN_STRIKING; `youprop.h` Antimagic.
+- **Change:** `js/mon.js` `setmangry` + `wakeup` via_attack; `js/uhitm.js`
+  miss/hit wakeup; `js/muse.js` WAN_STRIKING find/use + mbhit/mbhitm +
+  Antimagic cloak/gray-dragon check; `js/monmove.js` MMOVE_MOVED
+  `find_offensive` fallthrough.
+- **Verification:** seg3 **9881→9887** (C `mattacku` vs JS `rn2(8)`);
+  positional **38305**/105529 Scr **48**/1953; full **19/44** Scr
+  **1433** RNG **162645**; green+strict PASS; 17-session PASS cohort
+  held.
+- **Named omissions:** Elbereth hypocrite/`peacefuls_respond`/
+  `hot_pursuit`/`ghod_hitsu`; other muse offense wands/horns; mbhit
+  `fhito_loc`/`doorlock`/drawbridge; full `oc_oprop` via setworn;
+  mon-target `mbhitm` resist/hit plines.
+- **Next:** seed0030 seg3 @9887 C `mattacku` vs JS `rn2(8)`; or quest
+  `getbones`.

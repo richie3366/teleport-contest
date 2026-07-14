@@ -338,6 +338,7 @@ async function hmon(mon, obj, thrown, _dieroll) {
     }
     // C: !destroyed → wakeup; maybe_knockback → mhitm_knockback
     // (rn2(3)+rn2(chance) before gates; hurtle body still stubbed)
+    wakeup(mon, true);
     if (maybe_knockback) {
         let mattk = get_mattk(game.youmonst, 0);
         // set_uasmon deferred — non-poly hero form is AT_WEAP AD_PHYS
@@ -358,6 +359,10 @@ async function known_hitum(mon, weapon, mhit, rollneeded, armorpenalty, uattk, d
         // missum — near-miss flavor when rollneeded+penalty > dieroll
         void (rollneeded + armorpenalty > dieroll);
         await pline(`You miss ${mon_nam(mon)}.`);
+        // C missum: if (!helpless(mdef)) wakeup(mdef, TRUE)
+        if (!mon.msleeping && mon.mcanmove !== 0) {
+            wakeup(mon, true);
+        }
     } else {
         if (weapon && (weapon.oclass === WEAPON_CLASS
             || game.objects?.[weapon.otyp]?.oc_skill != null)) {

@@ -23,7 +23,7 @@ import {
 } from './monsters.js';
 import { gettrack } from './track.js';
 import { objects_at, obj_extract_self, splitobj } from './mkobj.js';
-import { find_defensive, find_misc, use_misc } from './muse.js';
+import { find_defensive, find_misc, use_misc, find_offensive } from './muse.js';
 import {
     mintrap,
     NO_TRAP_FLAGS,
@@ -960,9 +960,10 @@ export async function dochug(mtmp) {
             ({ inrange, nearby, scared } = distfleeck(mtmp));
         }
         if (status === MMOVE_MOVED) {
-            // C: monsters can move then shoot — fall through when !nearby
-            // and AT_WEAP / ranged available (is_armed stand-in).
-            if (nearby || !is_armed(mdat)) {
+            /* Monsters can move and then shoot on same turn;
+               C: ranged_attk_available || AT_WEAP || find_offensive */
+            if (nearby
+                || !(is_armed(mdat) || find_offensive(mtmp))) {
                 return 0;
             }
             // else fall through to PHASE FOUR

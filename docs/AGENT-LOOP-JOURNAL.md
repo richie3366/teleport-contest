@@ -3008,3 +3008,16 @@ Use this shape:
 - Result: **verified** — shk home (10,9), hero on door (11,9), avoid+uondoor+appr=0: C marked online cells NOTONL so only one rn2(1); JS never set NOTONL and burned rn2(1..4). Rejected invent-walk/inhishop/IS_ROOM theories.
 - Verification: seg3 **9850→9881**; positional **38265**/105529 Scr **48**/1953; full **19/44** Scr **1433** RNG **162605**; green+strict PASS; 17-session PASS cohort held.
 - Next: seed0030 seg3 @9881 C use_offensive vs JS distfleeck; or quest getbones.
+
+## 2026-07-14 05:30 — setmangry + WAN_STRIKING mbhit (D-0234)
+- Objective: seed0030 seg3 @9881 C use_offensive rn2(8) vs JS distfleeck.
+- C locus: uhitm.c missum/hmon→wakeup; mon.c setmangry/wakeup; muse.c
+  find_offensive/use_offensive/mbhit/mbhitm WAN_STRIKING.
+- Result: **verified** — Maganasipi stayed peaceful after miss (no
+  setmangry); once angry, WAN_STRIKING mbhit+Antimagic Boing needs
+  worn MR cloak as Antimagic while oc_oprop deferred. Screen confirmed
+  “zaps a long wand! Boing!”.
+- Verification: seg3 **9881→9887**; positional **38305**/105529 Scr
+  **48**/1953; full **19/44** Scr **1433** RNG **162645**; green+strict
+  PASS; 17-session PASS cohort held.
+- Next: seed0030 seg3 @9887 C mattacku vs JS rn2(8); or quest getbones.

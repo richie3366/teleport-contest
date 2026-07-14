@@ -8,24 +8,24 @@ import {
     COLNO, ROWNO, IS_OBSTRUCTED, IS_DOOR, IS_TREE, D_CLOSED, D_LOCKED, D_BROKEN,
     ALLOW_ROCK, ALLOW_DIG, Is_rogue_level, NOTONL,
     M_AP_NOTHING, M_AP_OBJECT, M_AP_FURNITURE, M_AP_MONSTER, M_AP_TYPE,
-    MSLOW, MFAST,
+    MSLOW, MFAST, STRAT_WAITMASK, G_GENOD,
 } from './const.js';
 import { t_at } from './trap.js';
 import {
     nohands, verysmall, throws_rocks, passes_walls, lays_eggs, mons,
     monsterNames, NON_PM, LOW_PM, mon_knows_traps, tunnels, needspick,
-    is_hider, M1_SEE_INVIS,
+    is_hider, M1_SEE_INVIS, humanoid,
 } from './monsters.js';
 import { m_harmless_trap } from './trap.js';
 import { little_to_big, big_to_little } from './mondata.js';
 import { objects_at } from './mkobj.js';
 import { objectNames } from './generated/objects_data.js';
 import { PM_GRID_BUG } from './generated/monsters_data.js';
-import { G_GENOD } from './const.js';
 import { enexto, rloc_to } from './teleport.js';
 import { may_dig } from './dig.js';
-import { newsym } from './display.js';
+import { newsym, pline } from './display.js';
 import { online2 } from './hacklib.js';
+import { Monnam } from './do_name.js';
 
 /** C ref: mondata.h perceives — M1_SEE_INVIS. */
 function perceives(ptr) {
@@ -241,8 +241,38 @@ export function seemimic(mtmp) {
 }
 
 /**
- * C ref: mon.c wakeup — clear sleep / non-monster disguise.
- * via_attack setmangry / growl / finish_meating deferred.
+ * C ref: mon.c setmangry — peaceful → hostile on attack.
+ * Branch envelope: core mpeaceful clear + humanoid/shk/gd pline + adjalign(-1).
+ * Named omissions: Elbereth hypocrite/rnd(5)/del_engr; priest adjalign
+ * coalign; growl; quest guardian / peacefuls_respond bodies.
+ */
+export function setmangry(mtmp, via_attack) {
+    if (!mtmp) return;
+    // Elbereth hypocrite arm deferred (no RNG when not on Elbereth)
+    void via_attack;
+    if (mtmp.mstrategy != null) mtmp.mstrategy &= ~STRAT_WAITMASK;
+    if (!mtmp.mpeaceful) return;
+    if (mtmp.mtame) return;
+    mtmp.mpeaceful = 0;
+    const u = game.u || (game.u = {});
+    if (!u.ualign) u.ualign = { record: 0, type: 0 };
+    if (mtmp.ispriest) {
+        // p_coaligned adjalign ± deferred → -1 like non-priest
+        u.ualign.record = (u.ualign.record | 0) - 1;
+    } else {
+        u.ualign.record = (u.ualign.record | 0) - 1;
+    }
+    if (humanoid(mtmp.data) || mtmp.isshk || mtmp.isgd) {
+        // couldsee gate: still pline when visible-ish (canspot deferred)
+        pline(`${Monnam(mtmp)} gets angry!`);
+    }
+    // growl / qst_guardians_respond / peacefuls_respond deferred
+}
+
+/**
+ * C ref: mon.c wakeup — clear sleep / non-monster disguise; via_attack → setmangry.
+ * Named omissions: wake_msg; finish_meating; growl-on-sleep; ghod_hitsu;
+ * hot_pursuit when shk && !*u.ushops.
  */
 export function wakeup(mtmp, via_attack) {
     if (!mtmp) return;
@@ -255,8 +285,15 @@ export function wakeup(mtmp, via_attack) {
         mtmp.mundetected = 0;
         if (mtmp.mx > 0) newsym(mtmp.mx, mtmp.my);
     }
-    // finish_meating / setmangry deferred
-    void via_attack;
+    // finish_meating deferred
+    if (via_attack) {
+        const was_peaceful = !!mtmp.mpeaceful;
+        // was_sleeping growl deferred
+        setmangry(mtmp, true);
+        if (was_peaceful) {
+            // ghod_hitsu / hot_pursuit deferred
+        }
+    }
 }
 
 export function m_at(x, y) {

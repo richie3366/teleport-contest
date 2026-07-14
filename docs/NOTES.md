@@ -7,10 +7,10 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 
 ## Active
 
-- **Current unit:** seed0030 seg3 @9881 — C `rn2(8)` `use_offensive`
-  vs JS `rn2(5)` `distfleeck` (hostile muse offense before move?).
-- **Falsifier:** dump which mon reaches `use_offensive` / fleeck at
-  matched prefix; expect C `find_offensive` spend-turn vs JS fall-through.
+- **Current unit:** seed0030 seg3 @9887 — C `rnd(20)` `mattacku` (Maganasipi
+  melee after speed) vs JS `rn2(8)` (extra offense/m_move?).
+- **Falsifier:** dump Maganasipi `mspeed`/`spe`/`lined_up` at matched fleeck
+  after WAN_STRIKING Boing; expect C second move → melee, JS re-finds offense.
 - **Parked deep canary:** D-0006 pet movement — do not implement until C
   state/candidate capture exists.
 - **Parked seed2200 @158:** RC config path — harness `$HOME`, not a port bug.
@@ -115,6 +115,11 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   `avoid`+`uondoor`, `appr=0`: C `mfndpos` marks online cells NOTONL
   so `move_special` skips all but one → only `rn2(1)`; JS never set
   NOTONL so burned `rn2(1..4)` (D-0233).
+- **seed0030 seg3 @9881 was NOT missing muse alone** — Maganasipi stayed
+  peaceful after miss because JS `missum`/`hmon` never called
+  `wakeup`→`setmangry`; C angers then `use_offensive` WAN_STRIKING
+  (`rn1(8,6)` + Antimagic Boing → `makeknown`→`exercise`). Also need
+  worn MR cloak as Antimagic when `oc_oprop` unset (D-0234).
 - **`monattk.h`: AT_WEAP=254, AT_MAGC=255, AT_SPIT=10** — never use 10 for
   weapon (D-0179).
 - Hostile `m_move`: before place, `m_digweapon_check` may return
@@ -163,6 +168,13 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 - **`mfndpos` NOTONL:** `monseeu && monlineu(nx,ny)` → mark (or skip if
   unicorn `flag&NOTONL`); `move_special` with `avoid` skips NOTONL
   candidates (D-0233). `monlineu` = `online2` vs `mux`/`muy`.
+- **`missum`/`wakeup`/`setmangry`:** miss (and survive hit) →
+  `wakeup(TRUE)` → peaceful→hostile + “gets angry!”; without it shk
+  stays peaceful and never `use_offensive` (D-0234).
+- **`use_offensive` WAN_STRIKING:** `mzapwand` + `mbhit(rn1(8,6))` +
+  Antimagic Boing → `makeknown`→`exercise(A_WIS)`; worn
+  `CLOAK_OF_MAGIC_RESISTANCE` counts as Antimagic while oc_oprop
+  deferred (D-0234).
 - **`test_move` diagonal into DOOR:** only `doorless_door` (D_NODOOR /
   D_BROKEN) allowed; open/closed/locked block diagonal entry/exit
   (D-0219). Same rule in `domove` and steed `landing_spot`/`test_move_ok`.
