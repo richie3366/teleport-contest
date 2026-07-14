@@ -7,10 +7,10 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 
 ## Active
 
-- **Current unit:** seed0030 seg3 @4527 — themerms `contents` /
-  `rn2(4)` vs JS `rn2(100)` (after D-0225 seg2 FULL).
-- **Falsifier:** identify C caller at themerms.lua:346 /
-  `contents` vs JS `build_room`/`themerooms_generate` chance burn.
+- **Current unit:** seed0030 seg3 @7617 — C `mhitm_knockback` `rn2(3)` vs
+  JS `rn2(25)` (after D-0226 Nesting rooms / positioned create_room).
+- **Falsifier:** identify which JS path emits `rn2(25)` at that index vs C
+  knockback after matched `dmgval`.
 - **Parked deep canary:** D-0006 pet movement — do not implement until C
   state/candidate capture exists.
 - **Parked seed2200 @158:** RC config path — harness `$HOME`, not a port bug.
@@ -81,6 +81,11 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   screen col/row ≠ map xy (`setCell(x-1,y+1)`); C map stairs **(66,2)**
   matched JS. Real peel: unbound `F` forcefight (D-0224 rejected
   geometry; D-0225 fixed). Do not re-chase split_rects for that peel.
+- **seed0030 seg3 @4527 was NOT a blind `rn2(100)` themerms chance** —
+  Nesting rooms contents evaluates `nh.rn2(4)` w/h **before**
+  `build_room`’s `rn2(100)`; JS fell through as plain random create_room
+  (D-0226). Nested create_subroom/door still deferred (outer often fails
+  after 100 positioned tries).
 - **`monattk.h`: AT_WEAP=254, AT_MAGC=255, AT_SPIT=10** — never use 10 for
   weapon (D-0179).
 - Hostile `m_move`: before place, `m_digweapon_check` may return
@@ -99,6 +104,12 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 - **`F`/`do_fight`:** PREFIXCMD sets `forcefight`; next move dir attacks
   (empty → `domove_fight_empty` “thin air” / solid); no turn on F alone
   (D-0225).
+- **Nesting rooms:** `w=9+rn2(4)`, `h=9+rn2(4)` then `build_room`
+  `rn2(100)` then positioned `create_room` (`rnd(5)`/`rnd(3)` loop);
+  fail → `themeroom_failed` (D-0226).
+- **`create_room` positioned:** when not all-`-1`, `rnd(5)`×2 + size
+  `rn1` if needed + `rnd(3)`×2 align + `get_rect`/`check_room` up to
+  100 tries (D-0226).
 - **`test_move` diagonal into DOOR:** only `doorless_door` (D_NODOOR /
   D_BROKEN) allowed; open/closed/locked block diagonal entry/exit
   (D-0219). Same rule in `domove` and steed `landing_spot`/`test_move_ok`.

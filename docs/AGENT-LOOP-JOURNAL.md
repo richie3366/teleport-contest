@@ -2919,3 +2919,14 @@ Use this shape:
 - Verification: full **19/44** Scr **1433** RNG **157355**; green+strict PASS;
   17-session PASS cohort held; positional seed0030 **33021**/105529.
 - Next: seed0030 seg3 @4527 themerms `contents`/`rn2(4)`.
+
+## 2026-07-14 03:22 — D-0226 Nesting rooms + positioned create_room
+- Objective: PROGRESS primary — seed0030 seg3 @4527 themerms contents rn2(4) vs rn2(100).
+- C locus: themerms.lua:346 Nesting rooms; sp_lev.c build_room/create_room positioned @1580.
+- Result: **verified** — Nesting evaluates nh.rn2(4) w/h before build_room rn2(100);
+  JS fell through as blind rn2(100)+fully-random create_room. Ported Nesting size
+  rolls + create_room positioned branch (rnd(5)/rnd(3)+get_rect); themeroom_failed
+  on fail. Nested create_subroom/door deferred (outer fails after 100 tries here).
+- Verification: seg3 **4527→7617** (mhitm_knockback); positional **36316**/105529;
+  full **19/44** Scr **1433** RNG **160650**; green+strict PASS; cohort held.
+- Next: seed0030 seg3 @7617 knockback vs rn2(25); or quest getbones ^V/makemaz.

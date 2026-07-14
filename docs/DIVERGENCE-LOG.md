@@ -229,6 +229,7 @@ Do not record a guessed cause as fixed merely because an RNG prefix moved.
 | D-0223 | fixed | m_search_items underfoot | restore MMOVE_DONE→mpickstuff; seg2 5939→6060 |
 | D-0224 | rejected | upstairs geometry | screen≠map; stairs matched (66,2); superseded by D-0225 |
 | D-0225 | fixed | F/do_fight | unbound F; Fl forcefight thin-air; seg2 RNG full |
+| D-0226 | fixed | Nesting rooms | rn2(4) w/h before build_room; positioned create_room |
 
 D-0001 through D-0005 predate the strict-length/cohort runbook. Their focused
 causes are preserved, but generic "green sessions held" is historical evidence,
@@ -6077,3 +6078,24 @@ cohort gates if those functions are touched again.
   **33021**/105529; full **19/44** Scr **1433** RNG **157355**;
   green+strict PASS; 17-session PASS cohort held.
 - **Next:** seed0030 seg3 @4527 themerms `contents`/`rn2(4)`.
+
+## D-0226 — Nesting rooms size + positioned create_room
+
+- **Status:** fixed
+- **Symptom:** seed0030 seg3 @4527 C `rn2(4) @ contents themerms.lua:346`
+  vs JS `rn2(100)` (blind build_room chance on Nesting pick).
+- **Cause:** Nesting rooms contents evaluates `w=9+nh.rn2(4)`,
+  `h=9+nh.rn2(4)` **before** `des.room`→`build_room`’s `rn2(100)`.
+  JS treated Nesting like default and burned `rn2(100)` then fully
+  random `create_room(-1…)`. Also lacked `create_room`’s positioned
+  branch (`rnd(5)`/`rnd(3)` + `get_rect`) used when w/h are set.
+- **C locus:** `themerms.lua:346` Nesting rooms; `sp_lev.c` `build_room`
+  / `create_room` else branch @1580; `lspo_room` `themeroom_failed`.
+- **Change:** `js/mklev.js` — Nesting size rolls before `rn2(100)`;
+  positioned `create_room` path; set `themeroom_failed` on fail.
+  Nested create_subroom/create_door deferred (this seed’s outer room
+  fails after 100 tries, matching C).
+- **Verification:** seg3 **4527→7617** (`mhitm_knockback`); positional
+  **36316**/105529; full **19/44** Scr **1433** RNG **160650**;
+  green+strict PASS; 17-session PASS cohort held.
+- **Next:** seed0030 seg3 @7617 knockback vs `rn2(25)`.
