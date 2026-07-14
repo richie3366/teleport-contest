@@ -20,6 +20,17 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-14 19:56 — D-0305 TOOL/WEAPON xname descr
+
+- Objective: seed0030 Scr peel (CURRENT primary); prefix first-miss @485.
+- C locus: `objnam.c` `xname_flags` WEAPON/VENOM/TOOL — `!nn` → `dn`.
+- Change: `pretty_base` uses `OBJ_DESCR` when `!oc_name_known` (tin/magic
+  whistle → `"whistle"`) (D-0305).
+- Verification: prefix **485→550**; Scr **1370→1371**; RNG full;
+  green+strict; 19-session PASS cohort + strict sample.
+- Next: @550 C `You hear someone cursing shoplifters.` vs JS blank
+  (`dosounds` shop_msg — RNG burned, `You_hear` omitted).
+
 ## 2026-07-14 20:00 — D-0304 xkilled post-drop newsym
 
 - Objective: seed0030 Scr peel (CURRENT primary); prefix first-miss @484.
@@ -40,6 +51,7 @@ Use this shape:
 - Next: @484 C `(` vs JS `#` west of `@` (mimic/`M_AP_OBJECT`?); alt
   @485 C `a whistle` vs JS `a tin whistle`.
 
+
 ## 2026-07-14 19:50 — D-0302 irregular filler_region no bbox re-light
 
 - Objective: seed0030 Scr peel (CURRENT primary); prefix first-miss @372.
@@ -50,6 +62,7 @@ Use this shape:
 - Verification: prefix **372→448**; Scr **1147→1346**; RNG full;
   green+strict; 17-session PASS cohort.
 - Next: @448 fountain `You_hear("bubbling water.")` in `dosounds`.
+
 
 ## 2026-07-14 19:35 — #325 full public score + @372 probe
 
@@ -62,6 +75,7 @@ Use this shape:
   (22.66%), RNG **240658**/792838 (30.35%), `18+0.11/turn`.
 - Next: falsify JS doorway LOS vs C at (26,11) from (24,6).
 
+
 ## 2026-07-14 19:25 — D-0301 missmu just near-miss
 
 - Objective: seed0030 Scr peel (CURRENT primary); prefix first-miss @266.
@@ -70,6 +84,7 @@ Use this shape:
 - Verification: prefix **266→372**; Scr **1146→1147**; RNG full;
   green+strict; 19-session PASS cohort + strict.
 - Next: @372 map JS `#` vs C blank east of room (seg3 Wizard Dlvl:2).
+
 
 ## 2026-07-14 19:20 — D-0300 newsym unseen blank clear
 
@@ -80,6 +95,7 @@ Use this shape:
   green+strict; 19-session PASS cohort + strict.
 - Next: @266 topline C `just misses!` vs JS `misses!`.
 
+
 ## 2026-07-14 19:16 — D-0299 map_object nearby observe
 
 - Objective: seed0030 Scr peel (CURRENT primary); prefix first-miss @237.
@@ -89,6 +105,7 @@ Use this shape:
 - Verification: prefix **237→259**; Scr **889→1085**; RNG full;
   green+strict; 17-PASS cohort + strict sample.
 - Next: prefix@259 JS `o` vs C blank (5,52).
+
 
 ## 2026-07-14 19:08 — #320 score + D-0298 dosounds vault You_hear
 
@@ -101,6 +118,7 @@ Use this shape:
   Scr **887→889**; green+strict; 19-PASS cohort.
 - Next: prefix@237 `*` color 15 vs 8 (`obj_color`).
 
+
 ## 2026-07-14 19:04 — D-0297 display_monster M_AP_OBJECT
 
 - Objective: seed0030 Scr peel (CURRENT primary); prefix first-miss @163.
@@ -110,6 +128,7 @@ Use this shape:
 - Verification: prefix **163→174**; Scr **853→887**; RNG full; green+strict;
   19-session PASS cohort + strict.
 - Next: prefix@174 C `You miss…--More--` vs JS without `--More--`.
+
 
 ## 2026-07-14 19:00 — full public score + every-5 cadence
 
@@ -121,6 +140,7 @@ Use this shape:
 - Change: `CURRENT.md` Score; loop injects score reminder when `iter % 5 == 0`;
   prompt/playbook/AGENT-PORT-LOOP cadence notes.
 - Next: seed0030 screen peel @163 (mimic appearance).
+
 
 ## 2026-07-14 18:56 — D-0295/96 Monnam do_it + map_invisible
 
@@ -143,33 +163,4 @@ Use this shape:
   17-session PASS cohort + strict.
 - Next: prefix@129 C `It misses…` vs JS `The kitten misses…` (`Monnam`).
 
-## 2026-07-14 18:47 — D-0293 DECgraphics S_altar meta-{
 
-- Objective: seed0030 Scr peel (CURRENT primary); prefix first-miss @109.
-- C locus: `dat/symbols` DECgraphics `S_altar: \xfb`; `display.c` ALTAR.
-- Change: DEC altar `{`+dec (ASCII `_`); scoring grid keeps raw `{`
-  not Unicode π (frozen DEC_MAP lacks `{`) (D-0293).
-- Verification: prefix **109→126**; Scr **821→840**; RNG full; green+strict;
-  19-session PASS cohort + strict.
-- Next: prefix@126 C hear-noises topline vs JS blank (`dosounds`).
-
-## 2026-07-14 18:50 — D-0292 amulet xname + clear_dknown
-
-- Objective: seed0030 Scr peel (CURRENT primary); runner matched 818 was
-  total count — true prefix first-miss was @93.
-- C locus: `objnam.c` xname AMULET_CLASS; `mkobj.c` clear_dknown/unknow_object.
-- Change: `<descr> amulet` via oc_descr_idx; mksobj clear_dknown (D-0292).
-- Verification: prefix **93→109**; Scr **818→821**; RNG full; green+strict;
-  17-session PASS cohort + strict.
-- Next: prefix@109 JS `_` vs C `{`+DEC (fountain/altar/DECgraphics).
-
-## 2026-07-14 18:40 — D-0291 topten + record VFS + terminate capture
-
-- Objective: seed0030 Scr 161/1953 (CURRENT primary); first miss @78.
-- C locus: `topten.c` `topten`/`outheader`/`outentry`; `end.c` → `nh_terminate`
-  contest input-boundary capture (no nhgetch after raw_print panel).
-- Change: port `js/topten.js` (!toptenwin raw panel + VFS `record`); wire
-  after RIP; `game._captureInputBoundary` for final frame (D-0291).
-- Verification: Scr@78 match; Scr **161→818**; miss **78→818**; RNG full;
-  green+strict; 17-session PASS.
-- Next: Scr@818 seg5 cell diff; or seg7 159 vs 172 steps.

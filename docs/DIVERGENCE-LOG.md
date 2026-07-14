@@ -7719,3 +7719,21 @@ Open that file first; then jump to a single `## D-NNNN` entry below
   murder/peaceful luck `rn2`; `mondied` treasure path (hero-only).
 - **Next:** prefix@485 C `a whistle` vs JS `a tin whistle` (`objnam` descr).
 
+## D-0305 — TOOL/WEAPON/VENOM `xname` uses `OBJ_DESCR` when `!oc_name_known`
+
+- **Status:** fixed
+- **Observed:** seed0030 @485 — C `You see here a whistle.` vs JS
+  `You see here a tin whistle.`; RNG full.
+- **C locus:** `objnam.c` `xname_flags` WEAPON/VENOM/TOOL — `!dknown`/`!nn`
+  strcat `dn` (`OBJ_DESCR`, else `actualn`); `nn` → `actualn`.
+- **Cause:** JS `pretty_base` always used the actual name for tools/weapons
+  (tin whistle / magic whistle share descr `"whistle"`).
+- **Change:** port descr/`oc_name_known`/`oc_uname` arms for those classes;
+  LENSES `pair of ` prefix kept. Poisoned/wet-towel/figurine deferred.
+- **Verification:** prefix **485→550**; Scr **1370→1371**; RNG full;
+  green+strict; 19-session PASS cohort + strict sample. @485 matches;
+  @550 C shop `You hear someone cursing shoplifters.` vs JS blank.
+- **Named omissions:** poisoned weapon prefix; wet-towel moist/wet;
+  figurine ` of <pm>`; armor `!nn` → dn (separate C case).
+- **Next:** prefix@550 shop `dosounds` `You_hear` (`shop_msg`).
+

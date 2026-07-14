@@ -38,7 +38,7 @@ seed0016, seed0015, seed0200, seed0101, seed0103, seed0104.
 **Notable non-PASS:**
 | Session | RNG | Screen | Note |
 |---------|----:|-------:|------|
-| seed0030 | 105529/105529 | **1370**/1953 | primary peel; prefix first-miss **@485** |
+| seed0030 | 105529/105529 | **1371**/1953 | primary peel; prefix first-miss **@550** |
 | seed2200 | 3018/3018 | **175**/230 | RNG full; Scr cells 178/230 |
 | seed0013-rogue | 4838/4838 | 57/59 | |
 | seed0013-friday13-restore | 4803/4804 | 46/99 | |
@@ -62,16 +62,16 @@ Both must remain full RNG + screen PASS with exact scored-output lengths.
 
 ## Primary objective
 
-**seed0030 screen peel** — RNG full; Scr **1370**/1953; prefix first-miss **@485**
+**seed0030 screen peel** — RNG full; Scr **1371**/1953; prefix first-miss **@550**
 
 | | |
 |--|--|
-| **C locus** | `objnam.c` `xname` / `doname` — tool `!oc_name_known` → descr |
-| **JS locus** | `js/objnam.js` whistle / TOOL_CLASS unnamed |
-| **Symptom** | @485 topline: C `a whistle` vs JS `a tin whistle` |
-| **Hypothesis** | Undiscovered tin/magic whistle should use shared descr `"whistle"` |
-| **Falsifier** | Match C `You see here a whistle.`; expect prefix advance |
-| **Recent fixed** | D-0304 `xkilled` final `newsym` after treasure (484→485; Scr 1348→1370) |
+| **C locus** | `sounds.c` `dosounds` — shop `shop_msg[rn2(2)+hallu]` → `You_hear1` |
+| **JS locus** | `js/sounds.js` `dosounds` shop arm |
+| **Symptom** | @550 topline: C `You hear someone cursing shoplifters.` vs JS blank |
+| **Hypothesis** | Shop arm burns `rn2(2)` but omits `You_hear` (same as D-0303) |
+| **Falsifier** | Match C shop hear-msg; expect prefix advance |
+| **Recent fixed** | D-0305 TOOL/WEAPON `!nn` → `OBJ_DESCR` (485→550; Scr 1370→1371) |
 
 ```bash
 node frozen/ps_test_runner.mjs sessions/seed0030-ten-diverse-deaths.session.json

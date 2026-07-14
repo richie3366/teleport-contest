@@ -7,12 +7,12 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Current unit:** seed0030 Scr **1370**/1953 RNG **FULL**; prefix **@485**.
-- **@485:** C `You see here a whistle.` vs JS `… a tin whistle.`
-- **Hypothesis:** TOOL `!oc_name_known` → shared descr `"whistle"` (tin/magic).
-- **Falsifier:** match C topline; expect prefix advance.
-- **Fixed @484:** `xkilled` final `newsym` after treasure (D-0304); was
-  corridor `#` with floor whistle — not mimic.
+- **Current unit:** seed0030 Scr **1371**/1953 RNG **FULL**; prefix **@550**.
+- **@550:** C `You hear someone cursing shoplifters.` vs JS blank topline.
+- **Hypothesis:** `dosounds` shop arm burns `rn2(2)` but omits `You_hear1`
+  (`shop_msg[]`) — same pattern as D-0303 fountain/sink.
+- **Falsifier:** emit `You_hear(shop_msg[rn2(2)+hallu])`; expect prefix advance.
+- **Fixed @485:** TOOL/WEAPON `!oc_name_known` → descr `"whistle"` (D-0305).
 - **Alt:** seed0013 Scr 57/59; seed0107 @2684.
 - **Parked:** D-0006; seed2200 @158 RC/`$HOME`.
 
@@ -31,19 +31,10 @@ Objective/score live in `CURRENT.md`.
 - **Don’t:** skip AT_WEAP `mswings`; botl HP `<0→0` (D-0286/87).
 - **Don’t:** invent-disclose yn when `disclose:-i`; RIP needs Tourist XP (D-0288/89).
 - **Don’t:** omit RIP trailing blank putstr / `topten` after RIP (D-0290/91).
-- **Don’t:** emit true amulet name when `!oc_name_known` — `<descr> amulet` (D-0292).
-- **Don’t:** DEC altar as ASCII `_` — meta-`{` (D-0293); omit `noises()` on
-  out-of-sight `missmm`/`hitmm` (D-0294); `Monnam` without `!canspotmon`→`it`
-  (D-0295); `missmm` without `map_invisible` when Magr unseen (D-0296);
-  draw disguised mimics as mlet — `display_monster` M_AP_OBJECT (D-0297);
-  vault `dosounds` RNG-only — emit `You_hear` (D-0298); leave nearby
-  generic gems gray — `map_object`/`see_nearby_objects` observe (D-0299);
-  leave `newsym` !cansee+no-memory as no-op — paint blank (D-0300);
-  ignore `missmu` `nearmiss` — `"just "` when verbose (D-0301);
-  irregular `filler_region` bbox re-light holes/niches (D-0302);
-  burn fountain/sink `rn2` without `You_hear` msg tables (D-0303);
-  skip `xkilled` final `newsym` after treasure/corpse (D-0304);
-  blame @484 on mimic — was treasure drop without paint.
+- **Don’t:** emit true amulet name when `!oc_name_known` — `<descr> amulet` (D-0292);
+  leave TOOL/WEAPON `!nn` as actualn — use `OBJ_DESCR` (D-0305);
+  skip `xkilled` final `newsym` after treasure (D-0304);
+  burn fountain/sink `rn2` without `You_hear` (D-0303); same for shop_msg.
 - Runner `Screen N/M` = total matches, not prefix length.
 
 ## Landmarks (≤15)
@@ -65,4 +56,4 @@ Objective/score live in `CURRENT.md`.
 - Bones / disclose / RIP / topten / amulet / DEC altar / noises / Monnam /
   map_invisible / mimic M_AP_OBJECT / vault+fountain/sink dosounds / nearby
   observe / newsym unseen blank / missmu just / irregular no-bbox-lit /
-  xkilled post-drop newsym: D-0274…D-0304.
+  xkilled post-drop newsym / TOOL descr: D-0274…D-0305.
