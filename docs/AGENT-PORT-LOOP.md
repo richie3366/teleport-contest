@@ -20,6 +20,9 @@ agent --list-models | rg grok
 
 # Fully unattended after checkpointing/reviewing the tree
 AGENT_FORCE=1 ./scripts/agent-port-loop.sh
+
+# Cap this supervisor run at ~50M tokens (all usage kinds; not persisted)
+AGENT_FORCE=1 ./scripts/agent-port-loop.sh --token-budget-m 50
 ```
 
 **Stop before the next iteration:** edit `STOP_AGENT_LOOP.md` at the repo root
@@ -76,19 +79,39 @@ MODEL=grok-4.5-high ./scripts/agent-port-loop.sh
 │                                                         │
 │  1. acquire one-loop lock; reset STOP to 0              │
 │  2. read/update global iteration-count; green gate      │
-│  3. loop until human STOP or token-exhaustion streak:   │
+│  3. loop until human STOP, token budget, or exhaustion streak:   │
 │       if STOP_AGENT_LOOP.md == 1 → exit                 │
+│       if --token-budget-m reached → exit (after last iter) │
 │       snapshot js/; run model with finite timeout       │
 │       run: agent -p --model grok-4.5-xhigh ...      \   │
 │              "$(cat scripts/agent-port-loop.prompt.md)" │
+│       meter usage from stream-json result (if budget set) │
 │       warn (do not halt) on agent failure, protected    │
 │         edits, banned patterns, or green regression     │
-│       halt only after SHORT_STREAK_LIMIT consecutive    │
-│         agent runs shorter than SHORT_ITER_SEC (tokens) │
+│       halt after SHORT_STREAK_LIMIT consecutive         │
+│         agent runs shorter than SHORT_ITER_SEC          │
+│       halt after 3× consecutive missing usage (budget)  │
 │       if STOP_AGENT_LOOP.md == 1 → exit                 │
 │       sleep LOOP_SLEEP_SEC (default 2)                  │
 └─────────────────────────────────────────────────────────┘
 ```
+
+### Token budget (`--token-budget-m`)
+
+Optional **per supervisor run** (not saved across launches):
+
+```bash
+./scripts/agent-port-loop.sh --token-budget-m 50    # 50_000_000 tokens
+./scripts/agent-port-loop.sh --token-budget-m 2.5   # fractions OK
+```
+
+- Sums every numeric field on the agent `result.usage` object (input, output,
+  cache read/write — no distinction).
+- The current iteration always finishes; if the cumulative total is then over
+  budget, the loop exits before starting another.
+- Requires `stream-json` (or `json`); the script overrides other formats when
+  a budget is set.
+- Three consecutive iterations with **no** usage in the stream → halt (exit 1).
 
 ### Why a stop file (not Ctrl-C only)
 
@@ -150,6 +173,7 @@ Under `.agent-port-loop-logs/` (gitignored):
 | `ITERATION_TIMEOUT_SEC` | `3600` | Kill an overlong agent run (loop continues afterward) |
 | `SHORT_ITER_SEC` | `30` | Agent wall-clock under this counts toward token-exhaustion streak |
 | `SHORT_STREAK_LIMIT` | `3` | Consecutive short runs before the loop halts |
+| `--token-budget-m` (CLI) | unset | Cap this run at *n* million tokens (all usage kinds); not persisted |
 | `LOOP_PREFLIGHT_ONLY` | `0` | Set `1` to test lock/model/green gates, then exit |
 | `LOOP_SLEEP_SEC` | `2` | Pause between iterations |
 | `STOP_FILE` | `$ROOT/STOP_AGENT_LOOP.md` | Stop latch path |
@@ -177,6 +201,8 @@ Under `.agent-port-loop-logs/` (gitignored):
 | `Workspace Trust Required` | Loop defaults to `--trust`; upgrade CLI or set `AGENT_TRUST=1` |
 | banned-pattern / green / agent exit mid-loop | Logged as **warning**; loop continues (human STOP or token streak still halt) |
 | `N consecutive agent runs <30s` | Likely out of tokens / quota — loop halts; top up and restart |
+| Token budget reached | Expected exit after an iteration when `--token-budget-m` is set |
+| `3× consecutive missing usage` | stream-json had no `result.usage` — check `AGENT_OUTPUT_FORMAT` / CLI |
 | Green sessions fail mid-loop | Warning only; restore semantic parity when you can, or set STOP |
 | Loop ignores STOP | Content not exactly `1` after trim, or flip during an agent run (waits until iter ends) |
 | Agent repeats dead ends | Notes/divergence handoff failed — fix durable memory |
@@ -184,9 +210,10 @@ Under `.agent-port-loop-logs/` (gitignored):
 
 The shell still runs the two-session exact-length green gate, one-loop locking,
 protected-path hashes, finite iteration time, and a diff-based banned-pattern
-scan — but mid-loop failures are warnings. The only automatic halt (besides
-human `STOP_AGENT_LOOP.md`) is three consecutive agent runs shorter than 30s
-(likely subscription tokens exhausted). Human log/diff review remains important.
+scan — but mid-loop failures are warnings. Automatic halts (besides human
+`STOP_AGENT_LOOP.md`): three consecutive agent runs shorter than 30s; optional
+`--token-budget-m` after an overshooting iteration; three consecutive missing
+usage events when a budget is set. Human log/diff review remains important.
 
 ## Relation to in-chat `/loop`
 

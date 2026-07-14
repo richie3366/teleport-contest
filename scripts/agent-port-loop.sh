@@ -1,15 +1,74 @@
 #!/usr/bin/env bash
-# agent-port-loop.sh — repeatedly continue the port until human stop or
-# likely subscription exhaustion (three consecutive sub-30s agent runs).
+# agent-port-loop.sh — repeatedly continue the port until human stop,
+# token-budget exhaustion, short-run streak, or missing-usage streak.
 #
 # Ordinary iteration failures (nonzero exit, green regression, bans, etc.)
 # are logged and the loop continues. Stop: write "1" into STOP_AGENT_LOOP.md.
 # Design + usage: docs/AGENT-PORT-LOOP.md
+#
+# Token budget (optional, this run only — not persisted):
+#   ./scripts/agent-port-loop.sh --token-budget-m 50
+#   # 50 → 50_000_000 tokens; last iteration may overshoot; then halt
 
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 cd "$ROOT"
+
+usage() {
+  cat <<'EOF'
+Usage: ./scripts/agent-port-loop.sh [options]
+
+Options:
+  --token-budget-m <n>  Halt after this run's cumulative agent usage reaches
+                        n million tokens (all kinds: input/output/cache).
+                        Fractions OK (e.g. 2.5 → 2_500_000). Not persisted
+                        across supervisor launches. Last in-flight iteration
+                        may overshoot; the loop stops before starting another.
+  -h, --help            Show this help.
+
+Environment knobs (unchanged): MODEL, AGENT_FORCE, AGENT_TRUST, …
+See docs/AGENT-PORT-LOOP.md.
+EOF
+}
+
+# --- CLI (parsed before lock so --help is cheap) ---
+TOKEN_BUDGET_M=""
+while [[ $# -gt 0 ]]; do
+  case "$1" in
+    --token-budget-m)
+      TOKEN_BUDGET_M="${2:?error: --token-budget-m needs a value}"
+      shift 2
+      ;;
+    -h|--help)
+      usage
+      exit 0
+      ;;
+    *)
+      echo "error: unknown option: $1" >&2
+      usage >&2
+      exit 2
+      ;;
+  esac
+done
+
+TOKEN_BUDGET=0
+TOKENS_USED=0
+MISSING_USAGE_STREAK=0
+MISSING_USAGE_LIMIT=3
+EXTRACT_USAGE="$ROOT/scripts/extract-agent-usage.mjs"
+
+if [[ -n "$TOKEN_BUDGET_M" ]]; then
+  TOKEN_BUDGET="$(node --input-type=module -e '
+const raw = String(process.argv[1] ?? "").trim().replace(/_/g, "");
+const n = Number(raw);
+if (!Number.isFinite(n) || n <= 0) {
+  console.error("error: --token-budget-m must be a positive number (millions)");
+  process.exit(2);
+}
+process.stdout.write(String(Math.floor(n * 1_000_000)));
+' "$TOKEN_BUDGET_M")" || exit 2
+fi
 
 STOP_FILE="${STOP_FILE:-$ROOT/STOP_AGENT_LOOP.md}"
 LOG_DIR="${LOG_DIR:-$ROOT/.agent-port-loop-logs}"
@@ -60,6 +119,12 @@ if [[ "${AGENT_FORCE:-0}" == "1" ]]; then
 fi
 # text = final narrative only (hides tool denials). stream-json keeps tool events.
 OUTPUT_FORMAT="${AGENT_OUTPUT_FORMAT:-stream-json}"
+# Token budget metering needs usage on stream-json result events.
+if (( TOKEN_BUDGET > 0 )) && [[ "$OUTPUT_FORMAT" != "stream-json" && "$OUTPUT_FORMAT" != "json" ]]; then
+  echo "warning: --token-budget-m requires stream-json/json; overriding AGENT_OUTPUT_FORMAT=$OUTPUT_FORMAT → stream-json" \
+    | tee -a "$MASTER_LOG"
+  OUTPUT_FORMAT="stream-json"
+fi
 ITERATION_TIMEOUT_SEC="${ITERATION_TIMEOUT_SEC:-3600}"
 # Token-exhaustion detector: N consecutive agent runs shorter than this → halt.
 SHORT_ITER_SEC="${SHORT_ITER_SEC:-30}"
@@ -68,6 +133,10 @@ SHORT_STREAK_LIMIT="${SHORT_STREAK_LIMIT:-3}"
 PROMPT_FILE="${PROMPT_FILE:-$ROOT/scripts/agent-port-loop.prompt.md}"
 if [[ ! -f "$PROMPT_FILE" ]]; then
   echo "error: missing prompt file: $PROMPT_FILE" >&2
+  exit 1
+fi
+if (( TOKEN_BUDGET > 0 )) && [[ ! -f "$EXTRACT_USAGE" ]]; then
+  echo "error: missing usage extractor: $EXTRACT_USAGE" >&2
   exit 1
 fi
 
@@ -79,6 +148,43 @@ should_stop() {
 
 now_epoch() {
   date +%s
+}
+
+token_budget_active() {
+  (( TOKEN_BUDGET > 0 ))
+}
+
+token_budget_exceeded() {
+  token_budget_active && (( TOKENS_USED >= TOKEN_BUDGET ))
+}
+
+# Parse one iteration raw stream; update TOKENS_USED / missing-usage streak.
+record_iteration_tokens() {
+  local raw_file="$1"
+  token_budget_active || return 0
+
+  local iter_json found total breakdown
+  iter_json="$(node "$EXTRACT_USAGE" "$raw_file" 2>/dev/null || echo '{"found":false,"total":0,"breakdown":{}}')"
+  found="$(node -e 'const j=JSON.parse(process.argv[1]); process.stdout.write(j.found?"1":"0")' "$iter_json")"
+  total="$(node -e 'const j=JSON.parse(process.argv[1]); process.stdout.write(String(j.total??0))' "$iter_json")"
+  [[ "$total" =~ ^[0-9]+$ ]] || total=0
+  breakdown="$(node -e '
+    const j=JSON.parse(process.argv[1]);
+    const b=j.breakdown||{};
+    process.stdout.write(Object.entries(b).map(([k,v])=>k+"="+v).join(" "));
+  ' "$iter_json")"
+
+  if [[ "$found" != "1" ]]; then
+    MISSING_USAGE_STREAK=$((MISSING_USAGE_STREAK + 1))
+    echo "warning: no usage in agent stream (streak ${MISSING_USAGE_STREAK}/${MISSING_USAGE_LIMIT}); raw=$raw_file" \
+      | tee -a "$MASTER_LOG"
+    return 0
+  fi
+
+  MISSING_USAGE_STREAK=0
+  TOKENS_USED=$((TOKENS_USED + total))
+  echo "tokens: +${total} (${breakdown:-?}) → ${TOKENS_USED} / ${TOKEN_BUDGET} (budget ${TOKEN_BUDGET_M}M)" \
+    | tee -a "$MASTER_LOG"
 }
 
 # How many iteration artifacts already exist (each past run reused 0001…).
@@ -250,6 +356,12 @@ if [[ "${AGENT_FORCE:-0}" != "1" ]]; then
 fi
 echo "timeout: ${ITERATION_TIMEOUT_SEC}s per iteration"
 echo "halt:   ${SHORT_STREAK_LIMIT}× agent runs <${SHORT_ITER_SEC}s (likely out of tokens)"
+if token_budget_active; then
+  echo "budget: ${TOKEN_BUDGET_M}M tokens (${TOKEN_BUDGET}) this run only; last iter may overshoot"
+  echo "        also halt after ${MISSING_USAGE_LIMIT}× consecutive missing usage events"
+else
+  echo "budget: (none — pass --token-budget-m <millions> to cap this run)"
+fi
 echo "stop:   $STOP_FILE  (write 1 to halt before next iteration)"
 echo "count:  $ITER_COUNT_FILE  (monotonic global iteration number)"
 echo "log:    $MASTER_LOG"
@@ -271,11 +383,20 @@ iter="$(read_iter_count)"
 write_iter_count "$iter"
 echo "$(date -Iseconds) === iteration counter: last completed=$iter; next will be $((iter + 1)) ===" \
   | tee -a "$MASTER_LOG"
+if token_budget_active; then
+  echo "$(date -Iseconds) === token budget this run: 0 / ${TOKEN_BUDGET} (${TOKEN_BUDGET_M}M) ===" \
+    | tee -a "$MASTER_LOG"
+fi
 short_streak=0
 while true; do
   if should_stop; then
     echo "$(date -Iseconds) STOP: $STOP_FILE is 1 — exiting before iteration $((iter + 1))"
     echo "$(date -Iseconds) STOP (last completed=$iter)" >>"$MASTER_LOG"
+    exit 0
+  fi
+  if token_budget_exceeded; then
+    echo "$(date -Iseconds) TOKEN BUDGET: ${TOKENS_USED} >= ${TOKEN_BUDGET} (${TOKEN_BUDGET_M}M) — exiting before next iteration" \
+      | tee -a "$MASTER_LOG"
     exit 0
   fi
 
@@ -412,6 +533,14 @@ NODE
   echo "$(date -Iseconds) === iteration $iter finished (exit $status, ${iter_elapsed}s) ===" \
     | tee -a "$MASTER_LOG"
 
+  record_iteration_tokens "$iter_raw"
+  if (( MISSING_USAGE_STREAK >= MISSING_USAGE_LIMIT )); then
+    echo "error: ${MISSING_USAGE_LIMIT} consecutive iterations with no usage in stream — halting" \
+      | tee -a "$MASTER_LOG"
+    echo "raw:   $iter_raw" | tee -a "$MASTER_LOG"
+    exit 1
+  fi
+
   if (( iter_elapsed < SHORT_ITER_SEC )); then
     short_streak=$((short_streak + 1))
     echo "warning: short agent run ${iter_elapsed}s < ${SHORT_ITER_SEC}s (streak ${short_streak}/${SHORT_STREAK_LIMIT})" \
@@ -449,6 +578,12 @@ NODE
   if should_stop; then
     echo "$(date -Iseconds) STOP: $STOP_FILE is 1 — exiting after iteration $iter"
     echo "$(date -Iseconds) STOP after iter $iter" >>"$MASTER_LOG"
+    exit 0
+  fi
+
+  if token_budget_exceeded; then
+    echo "$(date -Iseconds) TOKEN BUDGET: ${TOKENS_USED} >= ${TOKEN_BUDGET} (${TOKEN_BUDGET_M}M) — stopping after iteration $iter" \
+      | tee -a "$MASTER_LOG"
     exit 0
   fi
 
