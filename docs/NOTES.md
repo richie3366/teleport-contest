@@ -7,14 +7,17 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Current unit:** seed0030 Scr **840**/1953 with RNG **FULL** 105529
-  (D-0293). True prefix first-miss **126** (was 109). Runner matched
+- **Current unit:** seed0030 Scr **843**/1953 with RNG **FULL** 105529
+  (D-0294). True prefix first-miss **129** (was 126). Runner matched
   count is total matches, not prefix — do not treat as prefix length.
-- **Hypothesis:** @126 C topline `You hear some noises in the distance.`
-  vs JS blank — missing/skipped `dosounds` hear-noise path.
-- **Falsifier:** decodeScreen topline @126; compare C `sounds.c` call
-  site / rn2 gate vs JS.
-- **Also:** seg7 JS 159 vs C 172 steps (investigate after @126).
+- **Hypothesis:** @129 C `It misses the grid bug.` vs JS
+  `The kitten misses the grid bug.` — Magr not `canspotmon` but
+  `_mm_vis` via defender; C `Monnam` → `It`.
+- **Falsifier:** decodeScreen topline @129; Magr spotability vs
+  `do_name.js` `Monnam` / `x_monnam`.
+- **Falsified:** @126 was **not** `dosounds` — it was `mhitm.c` `noises`
+  (D-0294). Do not re-chase ambient fountain/shop hear for that screen.
+- **Also:** seg7 JS 159 vs C 172 steps (investigate after @129).
 - **Alt:** seed0013 Scr 57/59; seed0107 @2684.
 - **Parked:** D-0006 (pet movement); seed2200 @158 RC/`$HOME`.
 
@@ -34,8 +37,8 @@ Objective/score live in `CURRENT.md`.
 - **Don’t:** invent-disclose yn when `disclose:-i`; RIP needs Tourist XP (D-0288/89).
 - **Don’t:** omit RIP trailing blank putstr / `topten` after RIP (D-0290/91).
 - **Don’t:** emit true amulet name when `!oc_name_known` — `<descr> amulet` (D-0292).
-- **Don’t:** DEC altar as ASCII `_` — `dat/symbols` DECgraphics `S_altar` meta-`{`;
-  do not Unicode-π the scoring grid (frozen DEC_MAP lacks `{`) (D-0293).
+- **Don’t:** DEC altar as ASCII `_` — meta-`{` (D-0293); omit `noises()` on
+  out-of-sight `missmm`/`hitmm` (D-0294).
 - Runner `Screen N/M` = total matches, not prefix length.
 
 ## Landmarks (≤15)
@@ -54,4 +57,4 @@ Objective/score live in `CURRENT.md`.
 - Hero MAGIC_TRAP → `domagictrap` (D-0266).
 - `m_move`: `set_apparxy` **before** mtame/shk|gd|priest (D-0267).
 - Key attribution ≠ RNG order (0-RNG `--More--`) (D-0228).
-- Bones / disclose / RIP / topten / amulet / DEC altar: D-0274…D-0293.
+- Bones / disclose / RIP / topten / amulet / DEC altar / noises: D-0274…D-0294.

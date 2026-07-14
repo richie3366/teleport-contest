@@ -21,6 +21,16 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-14 18:51 — D-0294 mhitm noises You_hear
+
+- Objective: seed0030 Scr peel (CURRENT primary); prefix first-miss @126.
+- C locus: `mhitm.c` `noises` + `missmm`/`hitmm` `!gv.vis` (not `dosounds`).
+- Change: port `noises`/`You_hear` + `far_noise`/`noisetime` rate limit;
+  call from out-of-sight miss/hit (D-0294). Falsified dosounds hypothesis.
+- Verification: prefix **126→129**; Scr **840→843**; RNG full; green+strict;
+  17-session PASS cohort + strict.
+- Next: prefix@129 C `It misses…` vs JS `The kitten misses…` (`Monnam`).
+
 ## 2026-07-14 18:47 — D-0293 DECgraphics S_altar meta-{
 
 - Objective: seed0030 Scr peel (CURRENT primary); prefix first-miss @109.

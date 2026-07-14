@@ -7509,3 +7509,23 @@ Open that file first; then jump to a single `## D-NNNN` entry below
   browser π for altar (scoring uses raw `{`).
 - **Next:** prefix@126 C `You hear some noises in the distance.` vs JS blank.
 
+## D-0294 — mhitm `noises` / `You_hear`
+
+- **Status:** fixed
+- **Observed:** seed0030 prefix@126 — C topline
+  `You hear some noises in the distance.` vs JS blank. Prior notes
+  guessed `dosounds`; step RNG shows `mattackm`/`passivemm` only.
+- **C locus:** `mhitm.c` `noises` + `missmm`/`hitmm` `!gv.vis` arms;
+  `pline.c` `You_hear`; `gf.far_noise` / `gn.noisetime`.
+- **Cause:** JS `missmm`/`hitmm` emitted combat plines only when
+  `_mm_vis`; out-of-sight path deferred `noises()` entirely.
+- **Change:** port `noises` (mdistu>15 distance clause + far_noise/
+  noisetime rate limit) and call from `missmm`/`hitmm` when `!_mm_vis`.
+- **Verification:** prefix **126→129**; Scr matched **840→843**; RNG full;
+  green+strict; 17-session PASS cohort + strict.
+- **Named omissions:** `pre_mm_attack`; unseen-magr `Monnam`→`It`;
+  `explmm` noises; Unaware/Underwater `You_hear` arms; shared export.
+- **Next:** prefix@129 C `It misses the grid bug.` vs JS
+  `The kitten misses the grid bug.` (`Monnam` when Magr not spotted).
+
+
