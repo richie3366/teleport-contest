@@ -466,7 +466,11 @@ full **19/44** Scr **1433** RNG **162645**.
 **`monstseesu`/`m_seenres` MAGR** (D-0235) →
 seed0030 seg3 **FULL**; positional **40677**/105529 Scr **48**/1953;
 full **19/44** Scr **1433** RNG **165017**.
-Next: seg4 @2369 `ini_inv_adjust_obj` / quest
+**`ini_inv_adjust_obj` UNDEF_SPE charged ring `rne(3)`** (D-0236) →
+seed0030 seg4 **2369→6630** (`drinkfountain`); positional
+**45217**/105529 Scr **59**/1953; full **19/44** Scr **1444** RNG
+**169732**.
+Next: seg4 @6630 `drinkfountain` / quest
 `getbones` `^V`/`makemaz`.
 seed0104 **PASS** after D-0220.
 seed0103 **PASS** (D-0215 tutorial stay-open + D-0216 disclose).

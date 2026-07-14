@@ -6354,3 +6354,29 @@ cohort gates if those functions are touched again.
   `reflection_skip`; `monstunseesu_prop` on armor remove.
 - **Next:** seed0030 seg4 @2369 `ini_inv_adjust_obj`; or quest
   `getbones`.
+
+## D-0236 — ini_inv_adjust_obj UNDEF_SPE charged ring rne(3)
+
+- **Status:** fixed
+- **Symptom:** seed0030 seg4 @2369 — C `rn2(3)`/`rne(3)` at
+  `ini_inv_adjust_obj` vs JS `rn2(1)` `trquan` (Wizard/elf Caspar
+  starting kit).
+- **Cause:** C clears `cursed` then, when `trspe == UNDEF_SPE`, bumps
+  charged rings with `spe <= 0` via `obj->spe = rne(3)`. JS omitted the
+  else branch, so after matching `mksobj_init` for a ≤0 charged ring it
+  advanced to the next trobj `trquan`.
+- **Rejected:** wrong initial `trquan` for Wizard rings (quan=2 matched);
+  second-ring `mkobj` skip; MAGIC_MARKER `rn2(4)` path.
+- **C locus:** `u_init.c` `ini_inv_adjust_obj` (UNDEF_SPE ring arm);
+  `rnd.c` `rne`; charged rings = `objects[].oc_charged`.
+- **Change:** `js/u_init.js` `ini_inv_adjust_obj` else-branch —
+  ADORNMENT/GAIN_STR/GAIN_CON/INCREASE_ACC/INCREASE_DAM/PROTECTION
+  (same set as `mkobj.js` RING_CLASS; `oc_charged` not extracted yet)
+  + `rne(3)`.
+- **Verification:** segs 0–3 still FULL; seg4 **2369→6630**
+  (`drinkfountain`); positional **45217**/105529 Scr **59**/1953;
+  full **19/44** Scr **1444** RNG **169732**; green+strict PASS;
+  17-session PASS cohort held; seed2200 Scr still 229/230 (parked RC).
+- **Named omissions:** extractor `oc_charged` field; other
+  `ini_inv_adjust_obj` deferred arms already named in C-JS-MAP.
+- **Next:** seed0030 seg4 @6630 `drinkfountain`; or quest `getbones`.

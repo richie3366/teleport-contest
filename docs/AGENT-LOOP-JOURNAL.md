@@ -3033,3 +3033,14 @@ Use this shape:
   **48**/1953; full **19/44** Scr **1433** RNG **165017**; green+strict
   PASS; 17-session PASS cohort held.
 - Next: seed0030 seg4 @2369 ini_inv_adjust_obj; or quest getbones.
+
+## 2026-07-14 04:45 — ini_inv_adjust_obj UNDEF_SPE ring rne (D-0236)
+- Objective: seed0030 seg4 @2369 C rn2(3) ini_inv_adjust_obj vs JS rn2(1).
+- C locus: u_init.c ini_inv_adjust_obj UNDEF_SPE charged-ring arm; rnd.c rne.
+- Result: **verified** — Wizard kit UNDEF_SPE charged ring with spe≤0
+  after cursed=0 must rne(3); JS omitted the else branch and jumped to
+  next trquan. Rejected quan/second-ring/MAGIC_MARKER theories.
+- Verification: segs 0–3 FULL; seg4 **2369→6630** (drinkfountain);
+  positional **45217**/105529 Scr **59**/1953; full **19/44** Scr
+  **1444** RNG **169732**; green+strict PASS; 17-session PASS cohort held.
+- Next: seed0030 seg4 @6630 drinkfountain; or quest getbones.

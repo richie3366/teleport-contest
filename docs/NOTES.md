@@ -7,10 +7,10 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 
 ## Active
 
-- **Current unit:** seed0030 seg4 @2369 — C `ini_inv_adjust_obj` `rn2(3)` vs
-  JS `rn2(1)` (next death’s role invent after seg3 FULL).
-- **Falsifier:** dump which trobj/`ini_inv` path is active at matched
-  mksobj_init prefix; expect C blessing/adjust rolls JS skips or arity-mismatches.
+- **Current unit:** seed0030 seg4 @6630 — C `drinkfountain` `rnd(30)` vs JS
+  `rn2(5)` (after `ini_inv_adjust_obj` UNDEF_SPE ring `rne` fixed D-0236).
+- **Falsifier:** dump which key/`#` path is active at matched moveloop
+  prefix; expect unbound fountain drink or wrong fountain effect table.
 - **Parked deep canary:** D-0006 pet movement — do not implement until C
   state/candidate capture exists.
 - **Parked seed2200 @158:** RC config path — harness `$HOME`, not a port bug.
@@ -123,6 +123,10 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 - **seed0030 seg3 @9887 was NOT position/spe/extra m_move** — after
   Antimagic Boing, C `monstseesu(M_SEEN_MAGR)` so Maganasipi’s MFAST
   second dochug skips WAN_STRIKING and melees; JS re-zapped (D-0235).
+- **seed0030 seg4 @2369 was NOT trquan arity / second-ring mkobj skip** —
+  Wizard `UNDEF_SPE` charged ring with `spe<=0` after `cursed=0` clear:
+  C `ini_inv_adjust_obj` else-branch `rne(3)`; JS omitted the branch
+  and jumped to next `trquan` `rn2(1)` (D-0236).
 - **`monattk.h`: AT_WEAP=254, AT_MAGC=255, AT_SPIT=10** — never use 10 for
   weapon (D-0179).
 - Hostile `m_move`: before place, `m_digweapon_check` may return
@@ -182,6 +186,10 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   LOS monsters; `find_offensive` WAN_STRIKING requires
   `!m_seenres(..., M_SEEN_MAGR)`. Without it MFAST shk re-zaps instead
   of melee (D-0235).
+- **`ini_inv_adjust_obj` UNDEF_SPE rings:** after `cursed=0`, charged
+  ring with `spe<=0` → `spe = rne(3)` (D-0236). Charged set =
+  ADORNMENT/GAIN_STR/GAIN_CON/INCREASE_ACC/INCREASE_DAM/PROTECTION
+  (`oc_charged` not yet in extractor).
 - **`test_move` diagonal into DOOR:** only `doorless_door` (D_NODOOR /
   D_BROKEN) allowed; open/closed/locked block diagonal entry/exit
   (D-0219). Same rule in `domove` and steed `landing_spot`/`test_move_ok`.
