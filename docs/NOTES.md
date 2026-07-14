@@ -7,13 +7,12 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Current unit:** seed0030 Scr **1348**/1953 RNG **FULL**; prefix **@484**.
-- **@484:** C map `(` vs JS `#` at tty (8,41) west of `@`. Key context:
-  kill-newt screen; cursors agree. @485: C `You see here a whistle.` vs
-  JS `… a tin whistle.`
-- **Hypothesis:** disguised mimic / `M_AP_OBJECT` glyph missing → corridor.
-- **Falsifier:** paint C `(`; expect prefix advance (or peel whistle xname).
-- **Fixed @448:** fountain `You_hear` msg table (D-0303).
+- **Current unit:** seed0030 Scr **1370**/1953 RNG **FULL**; prefix **@485**.
+- **@485:** C `You see here a whistle.` vs JS `… a tin whistle.`
+- **Hypothesis:** TOOL `!oc_name_known` → shared descr `"whistle"` (tin/magic).
+- **Falsifier:** match C topline; expect prefix advance.
+- **Fixed @484:** `xkilled` final `newsym` after treasure (D-0304); was
+  corridor `#` with floor whistle — not mimic.
 - **Alt:** seed0013 Scr 57/59; seed0107 @2684.
 - **Parked:** D-0006; seed2200 @158 RC/`$HOME`.
 
@@ -43,7 +42,8 @@ Objective/score live in `CURRENT.md`.
   ignore `missmu` `nearmiss` — `"just "` when verbose (D-0301);
   irregular `filler_region` bbox re-light holes/niches (D-0302);
   burn fountain/sink `rn2` without `You_hear` msg tables (D-0303);
-  blame @372 on doorway LOS — was lit, not `view_from`.
+  skip `xkilled` final `newsym` after treasure/corpse (D-0304);
+  blame @484 on mimic — was treasure drop without paint.
 - Runner `Screen N/M` = total matches, not prefix length.
 
 ## Landmarks (≤15)
@@ -64,5 +64,5 @@ Objective/score live in `CURRENT.md`.
 - Key attribution ≠ RNG order (0-RNG `--More--`) (D-0228).
 - Bones / disclose / RIP / topten / amulet / DEC altar / noises / Monnam /
   map_invisible / mimic M_AP_OBJECT / vault+fountain/sink dosounds / nearby
-  observe / newsym unseen blank / missmu just / irregular no-bbox-lit:
-  D-0274…D-0303.
+  observe / newsym unseen blank / missmu just / irregular no-bbox-lit /
+  xkilled post-drop newsym: D-0274…D-0304.

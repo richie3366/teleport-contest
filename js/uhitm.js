@@ -270,6 +270,9 @@ async function xkilled(mtmp, xkill_flags = XKILL_GIVEMSG) {
         // C: if (!wasinside && corpse_chance(...)) make_corpse(...)
         if (await corpse_chance(mtmp)) make_corpse(mtmp);
     }
+    // C mon.c xkilled: newsym after treasure/corpse — mondead's early
+    // newsym runs before drops, so treasure-only kills need this paint.
+    if (x > 0) newsym(x, y);
     // C ref: mon.c xkilled cleanup — experience after corpse; murder/
     // peaceful luck rn2 deferred (would burn RNG on peaceful/tame)
     const died = game.mvitals?.[mndx]?.died | 0;

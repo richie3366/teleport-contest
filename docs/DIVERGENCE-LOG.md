@@ -7702,3 +7702,20 @@ Open that file first; then jump to a single `## D-NNNN` entry below
 - **Next:** prefix@484 map `(` vs `#` (likely mimic/`M_AP_OBJECT`); alt
   @485 C `a whistle` vs JS `a tin whistle`.
 
+## D-0304 — `xkilled` final `newsym` after treasure/corpse
+
+- **Status:** fixed
+- **Observed:** seed0030 @484 — C tool `(` west of `@` vs JS corridor `#`
+  after `You kill the newt!` (cursors agree). Forced `newsym` painted `(`.
+- **C locus:** `mon.c` `xkilled` — `mondead`/`m_detach` newsym before
+  drops; then treasure `place_object` / `make_corpse`; then `newsym(x,y)`.
+- **Cause:** JS `mondead` newsym'd empty corridor, then treasure whistle
+  placed without the post-drop `newsym` (falsified mimic/`M_AP_OBJECT`).
+- **Change:** `xkilled` call `newsym(x,y)` after treasure/corpse, before
+  experience (C order).
+- **Verification:** prefix **484→485**; Scr **1348→1370**; RNG full;
+  green+strict; 19-session PASS cohort + strict sample.
+- **Named omissions:** `accessible`/`is_pool` gate; `wasinside`/`spoteffects`;
+  murder/peaceful luck `rn2`; `mondied` treasure path (hero-only).
+- **Next:** prefix@485 C `a whistle` vs JS `a tin whistle` (`objnam` descr).
+
