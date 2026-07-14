@@ -15,7 +15,7 @@ import {
     DISMOUNT_BYCHOICE, DISMOUNT_THROWN, DISMOUNT_KNOCKED,
     DISMOUNT_FELL, DISMOUNT_POLY, DISMOUNT_ENGULFED, DISMOUNT_BONES,
     DISMOUNT_GENERIC,
-    ACCESSIBLE, IS_DOOR, D_CLOSED, D_LOCKED,
+    ACCESSIBLE, IS_DOOR, D_CLOSED, D_LOCKED, D_NODOOR, D_BROKEN,
     N_DIRS, xdir, ydir, FROMOUTSIDE,
     M_AP_TYPE, M_AP_FURNITURE, M_AP_OBJECT,
     has_mgivenname, MGIVENNAME, TELEDS_ALLOW_DRAG,
@@ -80,13 +80,27 @@ function accessible_cell(x, y) {
 
 /**
  * C ref: hack.c test_move(TEST_MOVE) — terrain/doorway subset for ride.
- * Diagonal squeeze / NODIAG / boulder push deferred.
+ * Includes diagonal-into/out-of intact doorway ban (testdiag).
+ * NODIAG poly / boulder push / shop block_door deferred.
  */
+function doorless_door(x, y) {
+    const loc = game.level?.at?.(x, y);
+    if (!loc || !IS_DOOR(loc.typ)) return false;
+    return !((loc.doormask || 0) & ~(D_NODOOR | D_BROKEN));
+}
+
 function test_move_ok(x, y, dx, dy) {
     const nx = x + dx;
     const ny = y + dy;
     if (!isok(nx, ny)) return false;
-    return accessible_cell(nx, ny);
+    if (!accessible_cell(nx, ny)) return false;
+    if (dx && dy) {
+        const dest = game.level?.at?.(nx, ny);
+        if (dest && IS_DOOR(dest.typ) && !doorless_door(nx, ny)) return false;
+        const here = game.level?.at?.(x, y);
+        if (here && IS_DOOR(here.typ) && !doorless_door(x, y)) return false;
+    }
+    return true;
 }
 
 function distu(x, y) {

@@ -7,15 +7,8 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 
 ## Active
 
-- **Current unit:** seed0104 upstairs / `place_branch` room absolute
-  position — C entrance stair **(18,8)** vs JS **(19,7)** (D-0218).
-  Late peel @3031 is a symptom (C goblin east of hero; JS north).
-- **Hypothesis:** `makerooms`/`create_room`/`rnd_rect` places the branch
-  room at a different origin while floor **size** (hence `somex`/`somey`
-  arities) still matches — same `rn2(7)=0`/`rn2(5)=1` → different xy.
-- **Falsifier:** dump room `lx,ly,hx,hy` after `sort_rooms` for seed0104
-  vs C; find first `create_room` whose rect origin differs under a
-  matched RNG prefix.
+- **Current unit:** seed0104 Scr residual (RNG **full** after D-0219).
+  Next peel: screen/cursor mismatch after dismount (Scr **39**/43).
 - **Hypothesis (D-0211):** kitten `dog_move` — JS `mfndpos` includes SW
   that C skips; poison-gas falsified; need C typ dump.
 - **Parked deep canary:** D-0006 pet movement — do not implement until C
@@ -59,167 +52,12 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 - **seed0106 Scr 5 was NOT enhance/overview-first** — JS forced DEC
   walls/floors without `symset:DECgraphics`; C Primary ASCII (D-0115).
   All current PASS cohort sessions set `symset:DECgraphics`.
-- **seed0030 @13987 was NOT missing dig/`rnd(12)` alone** — C
-  `trapeffect_rocktrap` `t_missile(ROCK)`→`next_ident`; JS dwarf walked
-  to (28,6) (D-0181).
-- **Hostile gettrack without `goto_level` initrack is wrong** — stale
-  prior-level tracks redirect newt @10676; C `savelev`→`save_track`→
-  `initrack` clears on leave (D-0181).
-- **Dwarf @13987 is NOT missing gettrack redirect** — no adjacent track
-  in current-level ring (3 cells) nor in full stale ring (D-0181).
-- **Dwarf @13987 was missing `m_search_items`** — ROCKTRAP (27,6) pile
-  (CORPSE/SLIME_MOLD/glass) redirects gg; mux-nearer dig (28,6) loses
-  (D-0182). Do not re-chase mfndpos exclude of (28,6).
-- **@14026 was NOT actor-order / cnt drift** — PM_GNOME @(57,11) on
-  WORTHLESS_BLUE_GLASS returned underfoot `MMOVE_DONE` (JS postmov
-  ignored DONE→no mpickstuff) while C continued to mtrack `rn2(28)`
-  (D-0183). Do not re-chase fleeck actor skips.
-- **@14056 was NOT wrong catch_chance / DEX** — JS never reached
-  `u_catch`; C threw via `muse` `use_offensive` POT_SLEEPING while JS
-  `thrwmu` ARROW + URETREATING `rn2(5)` aborted (D-0184). Do not
-  “fix” catch_chance from the coincident `rn2(5)` values.
-- **`potionhit` must `obfree` not `delobj`** — `delobj` burns
-  `obj_resists` `rn2(100)`; C `obfree` does not (D-0184).
-- **`makeknown` after vapor needs flight `observe_object`** — thrower
-  `!cansee` still IDs potion when missile crosses visible cells (D-0184).
-- **@14118 was NOT missing wall openers / join / dig / pass_two** — C
-  also has TRCORNER/BRCORNER at `(56,9)/(56,10)` with cnt=6 when gnome
-  is at `(57,10)`. Real split: silent gg after `(59,8)` — C `gg=(59,12)`
-  vs JS `gg=(57,11)` because JS never `mpickstuff`’d floor glass
-  (D-0185). Do not FORCE-open walls or re-peel mkmap.
-- **@14151 was NOT missing distfleeck** — PM_GNOME hands + quan=2
-  WORTHLESS_VIOLET_GLASS: JS `can_carry` always returned 1 for quan>1 →
-  `splitobj`/`next_ident`; C only returns 1 for `M1_NOHANDS` (D-0186).
-- **@14231 was NOT missing second-hit / double_punch** — Tourist bare
-  hands: JS `weapon_hit_bonus` stubbed 0 vs C unskilled b.h. **+1**, so
-  `tmp<=dieroll` miss while C hit→`exercise` (D-0187). Do not re-chase
-  distfleeck-before-hit theories.
-- **@14235 was NOT missing distfleeck** — after a live hit, C `hitum`
-  always calls `passive` which burns `rn2(3)` for any AT_NONE slot
-  (incl. NO_ATTK fillers) when `malive && !mcan` (D-0188).
-- **@14296 was NOT missing dmgval switch alone** — stand-in map defaulted
-  missing otyps to `rnd(1)`; C `objects[].oc_wsdam` for BULLWHIP/
-  WORM_TOOTH is **2** (D-0189). Extractor already had the fields unread.
-- **@14299 was NOT JS survival** — HP did go to 0 via `losehp`; missing
-  was `done_in_by`→`can_make_bones` + stopping `runSegment` (D-0190).
-  Do not re-chase `dmgval`/knockback damage amounts.
-- **@3387 was NOT missing treasure `mkobj`** — `rn2(6)=3` skipped
-  treasure; C then `make_corpse`→`next_ident` while JS only burned
-  `corpse_chance` (D-0191).
-- **@3547 was NOT missing distfleeck / fleeck gate** — JS unbound `,`
-  (unknown, move=0) skipped the pickup turn; next keys raced to Ctrl-D
-  `dokick`→`exercise` `rn2(2)` while C `dopickup`→monsters→`distfleeck`
-  (D-0192). Do not re-chase fleeck/APPORT for this index.
-- **@3565 was NOT missing exercise / fleeck** — JS refused CORPSE; C
-  `eatcorpse` (D-0193). Monk form is not carnivorous → no palatable
-  `rn2(10)`.
-- **seed0200 Scr residual was NOT guilty+taste topline join** — ^X
-  attributes: hardcoded "bare handed"/"unskilled bare handed combat"
-  vs C `empty_handed()` (gloves→empty) + `P_BASIC` martial arts
-  (D-0194).
-- **seed0101 Scr residual was NOT tip PICK_NONE key loop alone** — tip
-  painted without C's NHW_MENU `NEED_MORE` flush; travel pline
-  `--More--` skipped (D-0195). `mark_topline_seen` must be NON_EMPTY
-  not EMPTY.
-- **seed0030 seg1 @1238 was NOT missing quan/`rn2(6)` alone** — FOOD
-  `CANDY_BAR` must `assign_candy_wrapper` (`rn2(12)`) before quan
-  (D-0196). Do not re-chase fill_ordinary_room order for that index.
-- **seed0030 seg1 @3347 was NOT missing APPORT/`can_carry`/`m_cansee`**
-  — lichen CORPSE: JS `dogfood` returned CADAVER; C vegan(fptr)→MANFOOD
-  so `dog_goal` APPORT branch rolls `rn2(8)` (D-0197).
-- **seed0030 seg1 @3466 was NOT missing passive `rn2(3)`** — grid bug
-  AD_ELEC: C `mhitm_adtyping`→`mhitm_ad_elec` burns `mhitm_mgc_atk_negated`
-  `rn2(10)` then destroy_items gate `rn2(20)`; JS `hitmu` only did PHYS
-  (D-0198). Do not re-chase knockback-before-adtyping.
-- **seed0030 seg1 @3497 was NOT position drift / wrong actor order** —
-  grid bug diagonal to hero: JS `monnear` used `distmin<=1` so nearby→
-  `mattacku`; C `monnear` returns 0 when `dist2==2 && NODIAG` so
-  want_move→`m_move` (D-0199). Do not re-chase mux/hero coord theories
-  for that index.
-- **seed0030 seg1 @3870 was NOT wrong create_room args / next-room
-  reservoir** — pick was "Default room with themed fill"; JS never called
-  `themeroom_fill` after `create_room` (D-0200). Do not re-chase litstate
-  or nhlib shuffle for that index.
-- **seed0030 seg1 @5220 was NOT missing stock_room first** — JS skipped
-  eligible shop rooms without `rnd(100)`/`rtype`, so fillable count was
-  `rn2(7)` vs C `rn2(6)` after shop claim (D-0201). Do not skip
-  `invalid_shop_shape` when porting.
-- **seed0030 seg1 @5255 was NOT arrow/dart launch** — `traptype_rnd`
-  `rnd(25)=7` is `ROLLING_BOULDER_TRAP`; C `maketrap`→`mkroll_launch`→
-  `find_random_launch_coord` `rn1(5,4)`/`rn2(8)` while JS jumped to
-  victim `rnd(4)` (D-0202).
-- **seed0030 seg1 @5381 was NOT mineralize early** — C `fill_special_room`
-  → `stock_room`→`shkinit`→`makemon(PM_SHOPKEEPER)` `next_ident`; JS
-  skipped stocking (D-0203). Do not re-chase vault `rn2(200)` order.
-- **seed0030 seg1 @6561 was NOT gethungry/`rn2(20)` arity** — after shop
-  stock, C `dosounds` rolls `has_shop` `rn2(200)` (sounds.c:313); JS
-  stopped after vault so `gethungry` landed early (D-0204). Do not
-  re-chase vault-only dosounds.
-- **seed0030 seg1 @6565 was NOT fleeck arity / wrong first actor** — C
-  `m_move`→`shk_move` for isshk (return 0, no RNG) then second fleeck;
-  JS burned peaceful getitems `rn2(10)` (D-0205). Do not re-chase
-  meating/`dog_goal` apport for that index.
-- **seed0030 seg1 @6568 was NOT leftover ant movement allotment** — C
-  shopkeeper mmove=16 got +24 and acted twice (2 fleecks×2); disguised
-  mimics (`is_hider`+`M_AP_OBJECT`) deduct movement **without** `dochug`.
-  JS called `dochug` on mimics → extra fleecks before EOT (D-0206).
-  Do not re-chase fmon-order / mcalcmove assignment for that index.
-- **seed0030 seg1 @7007 was NOT missing EOT spawn / wipe_engr** — key
-  `n` into chest-mimic: C `attack_checks`→`stumble_onto_mimic`→
-  `object_from_map`/`mksobj(FALSE)` `next_ident` before overexertion;
-  JS went straight to `overexertion`→`gethungry` (D-0207). Do not
-  re-chase gethungry/wipe after matched EOT for that index.
-- **seed0030 seg1 @7189 was NOT missing shop/`gethungry`** — vault gate
-  `rn2(200)=0` requires `gd_sound`→`rn2(2)+hallu` before return; JS
-  early-returned without the message roll (D-0208). Do not re-chase
-  beehive/shop order for that index.
-- **seed0030 seg2 @1272 was NOT room-height / create_room / somey** —
-  C `rn2(24075)` is `get_rnd_text(EPITAPHFILE)` via `rn2` function
-  pointer (provenance mis-attributed to somey); JS `make_grave` stub
-  skipped epitaph (D-0209). Do not re-chase somexy room bbox.
-- **seed0030 seg2 @2217 was NOT Xtra_food / skipped elf branch** — C
-  `ROLL_FROM(trotyp)` at Instrument construction (before `ini_inv`→
-  `trquan`); JS deferred `rn2(6)` inside lazy `trotyp()` after `trquan`
-  so order was `rn2(1)` then `rn2(6)` (D-0210). Do not re-chase orc
-  `Xtra_food` for Wizard-elf.
-- **seed0030 seg2 @2408 was NOT actor-order / extra dochug** — same
-  kitten `dog_move` after matched `obj_resists`×3; JS one extra
-  `rn2(12)` vs C fleeck (D-0211). Do not re-chase fleeck/mcalcmove
-  allotment for that index. Do not FORCE-omit cells by recorded coords
-  in production.
-- **seed0030 seg2 @2408 is NOT poison-gas `visible_region_at`** — no
-  gas/cloud/region RNG provenance anywhere in seg2 before 2408; JS
-  dump shows empty ROOM at `(72,8)` (D-0211). Do not port gas regions
-  hoping to fix this peel without a C typ dump.
-- **seed0103 @2337 was NOT `trquan` order / lazy trotyp** — missing
-  Knight pony `put_saddle_on_mon`→`mksobj(SADDLE)` `next_ident` after
-  `makedog`/`NO_MINVENT` (D-0212).
-- **seed0103 @2440 was NOT missing saddle alone** — unbound `#ride` →
-  need `doride`/`mount_steed` (`rnd(20)` slip + `rn2(5)` losehp) and
-  `dismount_steed`/`landing_spot`; also clear `u.umoved` before rhack
-  so steed `u_calc_moveamt` does not double-`mcalcmove` (D-0213).
-- **seed0103 Scr residual was NOT botl-only / ride glyph alone** —
-  JS `mon_glyph` forced `CLR_WHITE` for all `mtame` while C
-  `pet_color`≡`mons[].mcolor` (pony `CLR_BROWN`); dogs/cats already
-  `HI_DOMESTIC` so green cohort hid the bug (D-0214). Riding shows
-  `ridden_mon_to_glyph` (steed letter+color), not `@`; botl `Ride`;
-  `x_monnam` `"saddled "`.
-- **seed0103 Scr 3 was NOT riding / wrong offx** — tutorial key `s`:
-  JS rebuilt with Please choose; C `process_menu_window` stays open
-  (D-0215). Only space/return → n==0 rebuild.
-- **seed0103 Scr 58–59 was NOT missing slip damage** — `really_done`
-  never flushed `You die...` NEED_MORE or called `disclose` possessions
-  yn (D-0216). `pline` alone does not wait.
-- **seed0104 @2841 was NOT missing dog_move / steed skip alone** — C
-  `mattacku` while mounted burns `rn2(is_orc?2:4)` then may
-  `mattackm` the steed (D-0217). JS lacked the whole usteed branch.
-  `m_at` must also skip `u.usteed` (C `remove_monster` while mounted).
-- **seed0104 @3031 was NOT missing gethungry / leftover fleeck /
-  steed mattackm RNG** — after matched EOT wipe_engr, C `l` attacks
-  goblin to the **east**; JS fleecks because goblin is **north**.
-  Root: `place_branch` upstairs JS **(19,7)** vs C **(18,8)**; branch
-  `somex`/`somey` arities matched on a same-sized room at a different
-  origin (D-0218). Do not patch moveloop allotment or force-attack.
+- **seed0104 @3031 was NOT upstairs / create_room origin drift** —
+  create_room RNG+rects matched C through place_branch; early screens
+  matched. Real split: capital-`L` lookaround turned diagonally into an
+  **open** door; C `test_move` forbids diagonal into intact doorways
+  (D-0218 rejected; D-0219 fixed). Do not re-chase makerooms rects for
+  that peel.
 - **`monattk.h`: AT_WEAP=254, AT_MAGC=255, AT_SPIT=10** — never use 10 for
   weapon (D-0179).
 - Hostile `m_move`: before place, `m_digweapon_check` may return
@@ -231,6 +69,9 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 - STAIRS glyph: `known_branch_stairs(stairway_at)` → CLR_YELLOW;
   else CLR_GRAY (tty NO_COLOR); direction from `ladder & LA_DOWN`
   (D-0162). Dlvl1 upstairs is traversed branch.
+- **`test_move` diagonal into DOOR:** only `doorless_door` (D_NODOOR /
+  D_BROKEN) allowed; open/closed/locked block diagonal entry/exit
+  (D-0219). Same rule in `domove` and steed `landing_spot`/`test_move_ok`.
 - `clear_level_structures` / `goto_level`: clear `fobj` **and**
   `_objects_at` (C `level.objects[][]=0`) and `head_engr` (D-0161).
 - Monster ROCKTRAP: `t_missile(ROCK)`→`mksobj` `next_ident`+`rn1(6,6)`
@@ -338,6 +179,3 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 - **Mounted `mattacku`:** before hero melee, `rn2(is_orc?2:4)` may redirect
   to `mattackm(mtmp, usteed)` + steed retaliation; steed never attacks
   rider; `m_at` skips `usteed` (D-0217).
-- **Dlvl1 upstairs** comes from `place_branch` (not `generate_stairs`
-  up-arm); matched `somex`/`somey` arities can still yield wrong xy if
-  the chosen room's origin drifted in `makerooms` (D-0218).

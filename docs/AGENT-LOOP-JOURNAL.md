@@ -2803,6 +2803,14 @@ Use this shape:
 ## 2026-07-14 01:43 — D-0218 seed0104 @3031 upstairs geometry
 - Objective: PROGRESS primary — seed0104 @3031 C `gethungry` vs JS `rn2(5)`.
 - C locus: `mklev.c` `place_branch`/`find_branch_room`; `mkroom.c` `somex`/`somey`; `stairs.c` `u_on_upstairs` (symptom: `hack.c` `overexertion`).
-- Result: **falsified** allotment/gethungry theories. After matched EOT, JS reaches rhack; `l` is free move because goblin is north (C: east). Root: JS upstairs **(19,7)** vs C **(18,8)** from `place_branch` on a same-sized room at a drifted origin (matched `rn2(7)=0`/`rn2(5)=1`).
+- Result: **falsified** allotment/gethungry theories. After matched EOT, JS reaches rhack; `l` is free move because goblin is north (C: east). Initial upstairs attribution later **rejected** (see D-0219): create_room rects matched.
 - Verification: green+strict preflight PASS; focused still 3034/3223; DIAG removed; no production change.
 - Next: dump post-`sort_rooms` rects vs C; peel first diverging `create_room`; or D-0211 typ dump.
+
+## 2026-07-14 02:10 — D-0219 test_move diagonal intact doorway
+- Objective: PROGRESS primary — seed0104 @3031 (D-0218 upstairs theory).
+- C locus: `hack.c` `test_move`/`doorless_door` testdiag; `steed.c` `landing_spot` via `test_move(TEST_MOVE)`.
+- Result: **verified** — D-0218 upstairs/create_room origin **falsified** (matched makerooms/place_branch; early screens match). Real split: capital-`L` lookaround turned diagonally into an **open** door; C forbids diagonal into intact doorways. Ported ban in `domove` + steed `test_move_ok` (landing_spot arity).
+- Verification: seed0104 RNG **3223**/3223 Scr **39**/43; rng-diff OK; green+strict+cohort PASS; full **18/44** Scr **1429** RNG **149118**.
+- Next: seed0104 Scr residual (39/43); or D-0211 C typ dump; or seed0030 seg2 @2408.
+

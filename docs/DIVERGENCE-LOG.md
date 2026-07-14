@@ -221,7 +221,8 @@ Do not record a guessed cause as fixed merely because an RNG prefix moved.
 | D-0215 | fixed | tutorial menu | invalid letter stays open; no premature Please choose |
 | D-0216 | fixed | death disclose | really_done flush You die --More-- + possessions yn |
 | D-0217 | fixed | mattacku steed | mounted rn2(is_orc?2:4)→mattackm steed; seed0104 2841→3031 |
-| D-0218 | open | upstairs geometry | seed0104 branch stair (19,7) vs C (18,8); @3031 symptom |
+| D-0218 | rejected | upstairs geometry | @3031 was not create_room drift; superseded by D-0219 |
+| D-0219 | fixed | test_move diagonal door | ban diagonal into/out of intact doorway; seed0104 RNG full |
 
 D-0001 through D-0005 predate the strict-length/cohort runbook. Their focused
 causes are preserved, but generic "green sessions held" is historical evidence,
@@ -5882,7 +5883,7 @@ cohort gates if those functions are touched again.
 
 ## D-0218 — seed0104 @3031 is upstairs geometry, not gethungry
 
-- **Status:** diagnosed (prerequisite); no production change
+- **Status:** rejected (superseded by D-0219)
 - **Symptom:** seed0104 @3031 C `rn2(20) @ gethungry` (hero
   `overexertion`/`do_attack`) vs JS `rn2(5) @ distfleeck`.
 - **Rejected:** post-steed moveloop allotment / missing second
@@ -5890,18 +5891,42 @@ cohort gates if those functions are touched again.
   wipe_engr, JS `umovement=12` and reaches `rhack`; next key `l` is a
   free east move on JS (goblin is **north** at 34,8) while C attacks
   goblin **east** of hero (screen `uo` at cursor 32,9).
-- **Cause/evidence:** JS `u_on_upstairs` places hero on branch stair
-  **(19,7)**; C start cursor **(18,8)**. `place_branch`→
-  `find_branch_room`→`somex`/`somey` use matched arities
-  (`rn2(7)=0`,`rn2(5)=1` @1256–57) on a same-sized room whose
-  absolute origin already differs (`JS room lx=19,ly=6` → (19,7);
-  C (18,8) implies room origin one west and one south). Drift begins
-  in earlier `makerooms`/`create_room`/`rnd_rect`.
-- **C locus:** `mklev.c` `place_branch`/`find_branch_room`;
-  `mkroom.c` `somex`/`somey`; `stairs.c` `u_on_upstairs`;
-  `hack.c` `overexertion` (symptom only).
+- **Falsified cause:** upstairs / `create_room` room-origin drift.
+  Post-`sort_rooms` rect dump + matched `makerooms`/`somex`/`somey`
+  arities place the branch room at **(19,6)** → stair **(19,7)** for
+  **both** JS and C; early screens/cursors match. Geometry is not the
+  @3031 split.
+- **Actual cause:** see D-0219 (diagonal into open doorway during
+  capital-`L` rush).
+- **C locus (misattributed):** `mklev.c` `place_branch`; `mkroom.c`
+  `somex`/`somey`; `stairs.c` `u_on_upstairs`.
 - **Change:** none (DIAG removed).
-- **Verification:** green+strict preflight PASS; focused still
-  **3034**/3223; diagnosis-only.
-- **Next:** dump post-`sort_rooms` room rects vs C; peel first
-  diverging `create_room` under matched RNG; or D-0211 typ dump.
+- **Verification:** create_room RNG+rects matched through place_branch;
+  green held; focused peel redirected to D-0219.
+- **Next:** do not re-chase makerooms rects for seed0104 @3031.
+
+## D-0219 — `test_move` forbids diagonal into intact doorway
+
+- **Status:** fixed
+- **Symptom:** seed0104 @3031 C `gethungry`/`do_attack` vs JS
+  `distfleeck`; goblin north of JS hero vs east of C. Later peel after
+  path fix: `landing_spot` `rn2(2)` vs `rn2(4)` (same missing filter).
+- **Cause/evidence:** During first capital-`L` rush, JS
+  `lookaround` turned SE into an open door at (33,8) and `domove`
+  allowed the diagonal entry; C `test_move` **testdiag** rejects
+  diagonal moves into intact doorways (`!doorless_door || block_door`).
+  Open doors are not doorless (`D_ISOPEN`). Wrong room → wrong goblin
+  geometry → @3031 arity split. Same ban missing in steed
+  `test_move_ok` inflated `landing_spot` viable count.
+- **C locus:** `hack.c` `test_move` / `doorless_door`; `steed.c`
+  `landing_spot` via `test_move(TEST_MOVE)`.
+- **Change:** `js/cmd.js` `doorless_door` + diagonal into/out-of intact
+  door reject in `domove`; stub `block_door` false (shop path deferred).
+  `js/steed.js` `test_move_ok` same diagonal-door filter.
+- **Verification:** seed0104 RNG **3223**/3223 Scr **39**/43 (curs
+  40/43); `rng-diff` OK; green+strict+cohort PASS; full **18/44** Scr
+  **1429** RNG **149118**.
+- **Named omissions:** Rogue-level `doorless_door` override; shop
+  `block_door`/`block_entry`; full `test_move` NODIAG/boulder arms.
+- **Next:** seed0104 Scr residual (39/43 after dismount); or D-0211
+  typ dump.
