@@ -7,13 +7,13 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Current unit:** seed0030 Scr **1376**/1953 RNG **FULL**; prefix **@580**.
-- **@580:** C `"Maganasipi zaps a long wand!"` vs JS `"a wand!"`.
-- **Hypothesis:** wand xname missing `long` adjective (descr / known path).
-- **Falsifier:** emit `long wand` like C; expect prefix advance.
-- **Fixed @573:** shop welcome + `ubirthday`/`m_id`/`mon_nam` shk (D-0307);
-  Scr 1373→1376; prefix 573→580.
-- **#330 score:** 19/44; Scr **2810**/11405 (24.64%); RNG 240657/792838.
+- **Current unit:** seed0030 Scr **1383**/1953 RNG **FULL**; prefix **@580**.
+- **@580:** topline matches (`long wand`+Boing+hits); botl **HP:0** vs C **11**.
+- **Hypothesis:** reflected striking and/or melee hit over-damages hero in JS.
+- **Falsifier:** match C HP through that boundary; expect prefix advance.
+- **Fixed:** D-0308 uhitm→do_name `mon_nam` (@576 Maganasipi); D-0309 WAND
+  xname `"%s wand"` + mzapwand `dknown` (@580 topline).
+- **#330 score still current:** 19/44; Scr **2810**/11405 (next full @#335).
 - **Alt:** seed0013 Scr 57/59; seed0107 @2684.
 - **Parked:** D-0006; seed2200 @158 RC/`$HOME`.
 
@@ -34,10 +34,11 @@ Objective/score live in `CURRENT.md`.
 - **Don’t:** omit RIP trailing blank putstr / `topten` after RIP (D-0290/91).
 - **Don’t:** emit true amulet name when `!oc_name_known` — `<descr> amulet` (D-0292);
   leave TOOL/WEAPON `!nn` as actualn — use `OBJ_DESCR` (D-0305);
-  skip `xkilled` final `newsym` after treasure (D-0304);
-  burn fountain/sink/shop `rn2` without `You_hear` (D-0303/D-0306);
-  skip `u_entered_shop` / leave `ubirthday` 0 / `m_id≠next_ident()` (D-0307).
-- Runner `Screen N/M` = total matches, not prefix length.
+  skip WAND `!nn` descr — `"%s wand"` + zap `dknown` (D-0309);
+  leave `uhitm` private `mon_nam` — import `do_name` (D-0308);
+  blanket `observe_object` in `xname` without `distantname` (regresses map).
+- Runner `Screen N/M` = total matches, not prefix length; D-0307’s “→580”
+  skipped literal @576 (`uhitm` stub) until D-0308.
 
 ## Landmarks (≤15)
 
@@ -56,6 +57,5 @@ Objective/score live in `CURRENT.md`.
 - `m_move`: `set_apparxy` **before** mtame/shk|gd|priest (D-0267).
 - Key attribution ≠ RNG order (0-RNG `--More--`) (D-0228).
 - Bones / disclose / RIP / topten / amulet / DEC altar / noises / Monnam /
-  map_invisible / mimic M_AP_OBJECT / vault+fountain/sink/shop dosounds /
-  nearby observe / newsym unseen blank / missmu just / irregular no-bbox-lit /
-  xkilled post-drop newsym / TOOL descr / shop enter+ubirthday: D-0274…D-0307.
+  map_invisible / mimic / vault+fountain/sink/shop / TOOL descr / shop enter /
+  uhitm mon_nam / WAND descr: D-0274…D-0309.

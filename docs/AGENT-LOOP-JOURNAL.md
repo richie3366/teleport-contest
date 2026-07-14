@@ -12,17 +12,6 @@ move older ones into `docs/archive/`.
 Use this shape:
 
 ```text
-## 2026-07-14 20:12 — #331 D-0307 shop enter welcome
-
-- Objective: seed0030 @573 Maganasipi shop welcome (CURRENT primary).
-- C locus: `hack.c` move_update/check_special_room; `shk.c` u_entered_shop;
-  `u_init` ubirthday=getnow; `makemon` m_id=next_ident; `do_name` shk mon_nam.
-- Change: shop enter tracking + welcome; ubirthday UTC-4 quirk; m_id/o_id;
-  mon_nam isshk→shkname (D-0307).
-- Verification: prefix **573→580**; Scr **1373→1376**; RNG full; green+strict;
-  19 PASS cohort held.
-- Next: @580 C `long wand` vs JS `wand`.
-
 ## YYYY-MM-DD HH:MM — <objective>
 - Objective: …
 - C locus: …
@@ -30,6 +19,16 @@ Use this shape:
 - Verification: …
 - Next: …
 ```
+
+## 2026-07-14 20:20 — #332 D-0308/09 Maganasipi miss + long wand
+
+- Objective: seed0030 @580 long wand (CURRENT); literal first-miss was @576.
+- C locus: `do_name.c` mon_nam; `objnam.c` WAND_CLASS xname; `muse.c` mzapwand.
+- Change: uhitm import shared mon_nam (D-0308); WAND `"%s wand"` + mzapwand
+  `dknown=1` (D-0309). Blanket xname observe falsified (distantname).
+- Verification: prefix **576→580**; Scr **1376→1383**; @580 topline OK;
+  green+strict; 17 PASS cohort + strict sample.
+- Next: @580 botl HP 0 vs 11 after Boing+hit.
 
 ## 2026-07-14 19:59 — #330 score + D-0306 shop You_hear
 

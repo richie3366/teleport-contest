@@ -7774,4 +7774,39 @@ Open that file first; then jump to a single `## D-NNNN` entry below
   plines; unpaid leave; hallu shkname; `long wand` xname (next @580).
 - **Next:** @580 C `"Maganasipi zaps a long wand!"` vs JS `"a wand"`.
 
+## D-0308 — `uhitm` local `mon_nam` missed shkname
+
+- **Status:** fixed
+- **Observed:** seed0030 @576 — C `You miss Maganasipi.` vs JS
+  `You miss the shopkeeper.` (same screen then `Maganasipi gets angry!`).
+  D-0307 fixed `do_name.js` mon_nam, but literal first cell-miss stayed @576.
+- **C locus:** `do_name.c` `mon_nam`/`x_monnam` isshk → `shkname`;
+  `uhitm.c` miss/hit plines use `mon_nam`.
+- **Cause:** `uhitm.js` kept a private `mon_nam` stub (`the ${plain}`) and
+  never imported `do_name.js`.
+- **Change:** delete stub; import `mon_nam` from `do_name.js`.
+- **Verification:** prefix **576→580**; Scr **1376→1383** (with D-0309);
+  RNG full; green+strict; 17 PASS cohort + strict sample.
+- **Named omissions:** other local naming stubs if any; hallu/invis shk.
+- **Next:** @580 botl HP 0 vs 11 after zap+Boing+hit (topline matches).
+
+## D-0309 — WAND_CLASS `xname` appearance + zap `dknown`
+
+- **Status:** fixed
+- **Observed:** seed0030 @580 — C `Maganasipi zaps a long wand!` vs JS
+  `… a wand!` (topline); CURRENT primary.
+- **C locus:** `objnam.c` `xname_flags` WAND_CLASS — `!dknown`→`wand`;
+  `nn`→`wand of …`; else `"%s wand", dn` via `OBJ_DESCR`;
+  `xname` calls `observe_object` when `!Blind` before reading `dknown`.
+- **Cause:** JS wand arm returned bare `wand` whenever `!nn`; no descr
+  arm; `xname` omits blanket `observe_object` (distantname risk).
+- **Change:** port WAND_CLASS dknown/nn/un/dn arms (`oc_name_known` only);
+  `mzapwand` canseemon path sets `otmp.dknown=1` before `xname`.
+- **Verification:** @580 topline matches; Scr **1376→1383** (with D-0308);
+  RNG full; green+strict; 17 PASS cohort + strict sample.
+- **Named omissions:** full `observe_object`/`discover_object` in `xname`
+  (needs `gd.distantname`); `unknow_object` when unseen zap; RING/SCROLL
+  appearance parity beyond known arms.
+- **Next:** @580 HP:11 vs HP:0 after reflected striking + melee hit.
+
 

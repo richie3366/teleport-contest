@@ -223,13 +223,25 @@ function pretty_base(obj) {
             return `ring of ${actual}`;
         return 'ring';
     }
-    // C ref: objnam.c xname WAND_CLASS — "wand of <actualn>" when known
-    if (n && n.startsWith('WAN_')) {
-        const actual = objectNameStrs[obj.otyp]
-            || n.slice(4).toLowerCase().replace(/_/g, ' ');
-        if (obj.dknown && (game.objects?.[obj.otyp]?.oc_name_known || obj.known))
-            return `wand of ${actual}`;
-        return 'wand';
+    // C ref: objnam.c xname WAND_CLASS —
+    // !dknown → "wand"; nn → "wand of <actualn>"; un → called; else "<descr> wand"
+    // nn is objects[].oc_name_known only (not obj.known).
+    if (obj.oclass === WAND_CLASS || (n && n.startsWith('WAN_'))) {
+        const ocl = game.objects?.[obj.otyp];
+        const nn = !!ocl?.oc_name_known;
+        const dknown = !!obj.dknown;
+        const un = ocl?.oc_uname || null;
+        let actual = objectNameStrs[obj.otyp]
+            || (n ? n.slice(4).toLowerCase().replace(/_/g, ' ') : 'wand');
+        if (Role_if_samurai()) {
+            const jn = Japanese_item_name(obj.otyp, null);
+            if (jn) actual = jn;
+        }
+        const dn = objectDescrs[ocl?.oc_descr_idx ?? obj.otyp] || null;
+        if (!dknown) return 'wand';
+        if (nn) return `wand of ${actual}`;
+        if (un) return `wand called ${un}`;
+        return `${dn || 'iron'} wand`;
     }
     // C ref: objnam.c xname GEM_CLASS — stone/gem + GemStone " stone"
     if (obj.oclass === GEM_CLASS) {
@@ -328,6 +340,9 @@ function pretty_base(obj) {
 
 /**
  * C ref: objnam.c xname — base name with quan pluralization (doname subset).
+ * Named omission: C xname_flags calls observe_object when !Blind &&
+ * !gd.distantname; JS callers must observe (or set dknown) where needed —
+ * blanket observe here breaks distant_name / map generic glyph paths.
  */
 export function xname(obj) {
     if (!obj) return 'something';

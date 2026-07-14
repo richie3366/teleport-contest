@@ -14,8 +14,8 @@ node frozen/ps_test_runner.mjs sessions
 ```
 
 Update **this Score section** with: pass count, screen/RNG aggregates, speed
-label, PASS list, notable non-PASS. Prepend a journal crumb. Do not invent
-suite totals from a single focused session.
+label, PASS list, notable non-PASS. Do not invent suite totals from a single
+focused session.
 
 Score last measured: **2026-07-14** — full `sessions` suite (global loop
 **#330**) after D-0306 shop `You_hear`. Same 19 PASS; Scr **2584→2810**.
@@ -37,7 +37,7 @@ seed0016, seed0015, seed0200, seed0101, seed0103, seed0104.
 **Notable non-PASS:**
 | Session | RNG | Screen | Note |
 |---------|----:|-------:|------|
-| seed0030 | 105529/105529 | **1373**/1953 | primary peel; prefix first-miss **@573** |
+| seed0030 | 105529/105529 | **1383**/1953 | primary peel; prefix first-miss **@580** |
 | seed2200 | 3018/3018 | **175**/230 | RNG full; Scr cells 178/230 |
 | seed0013-rogue | 4838/4838 | 57/59 | |
 | seed0013-friday13-restore | 4803/4804 | 46/99 | |
@@ -61,16 +61,16 @@ Both must remain full RNG + screen PASS with exact scored-output lengths.
 
 ## Primary objective
 
-**seed0030 screen peel** — RNG full; Scr **1376**/1953; prefix first-miss **@580**
+**seed0030 screen peel** — RNG full; Scr **1383**/1953; prefix first-miss **@580**
 
 | | |
 |--|--|
-| **C locus** | wand / `xname` (or zap message) — `"long wand"` |
-| **JS locus** | `js/objnam.js` (likely) — `"wand"` without `long` |
-| **Symptom** | @580 topline: C `"Maganasipi zaps a long wand!"` vs JS `"… a wand!"` |
-| **Hypothesis** | Unknown wand description omits `long` adjective |
-| **Falsifier** | Match C wand xname; expect prefix advance |
-| **Recent fixed** | D-0307 shop enter welcome + `ubirthday`/`m_id`/`mon_nam` shk (573→580; Scr 1373→1376) |
+| **C locus** | `mhitu` / reflection / `mdamageu` — botl HP after zap |
+| **JS locus** | `js/mhitu.js` / `js/muse.js` `mbhitm` — HP **0** vs C **11** |
+| **Symptom** | @580 topline matches (`long wand`+Boing+hits); botl `HP:0(11)` vs `HP:11(11)` |
+| **Hypothesis** | Reflected striking or follow-up melee applies fatal damage in JS |
+| **Falsifier** | Match C HP through zap+hit; expect prefix advance / Scr↑ |
+| **Recent fixed** | D-0308 uhitm `mon_nam`→do_name; D-0309 WAND xname+`dknown` (576→580; Scr 1376→1383) |
 
 ```bash
 node frozen/ps_test_runner.mjs sessions/seed0030-ten-diverse-deaths.session.json
