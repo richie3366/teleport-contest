@@ -8021,3 +8021,26 @@ Open that file first; then jump to a single `## D-NNNN` entry below
 - **Next:** @1262 fatal `losehp` leave negative `uhp` for `bot` `-1` skip.
 
 
+
+## D-0320 — `losehp` leaves negative `uhp` (no fatal clamp)
+
+- **Status:** fixed
+- **Observed:** seed0030 @1262 — same topline
+  `You are hit by an arrow!--More--`; botl C `HP:4(14)` vs JS `HP:0(14)`.
+  RNG full. Prior @1259 non-fatal hit already showed post-damage HP:4.
+- **C locus:** `hack.c` `losehp` — `u.uhp -= n` then `urgent_pline`/`done`
+  without clamping; `botl.c` `bot` no-ops when `u.uhp == -1`; `end.c`
+  `done` zeros `uhp` only after its `bot()` call.
+- **Cause:** JS `losehp` set `uhp=0` on fatal. Hit pline returns with
+  `NEED_MORE` (no immediate more); `finish_losehp_done`→`pline("You die…")`
+  flushes `bot()` with `uhp=0` before showing the deferred hit `--More--`.
+  C keeps `uhp==-1` so `bot` skips and prior HP:4 remains.
+- **Change:** remove fatal `uhp=0` clamp in `losehp`; leave negative HP;
+  `done()` still zeros after `bot()` (D-0320).
+- **Verification:** @1262 HP:4; Scr **1432→1438**; first miss **@1342**
+  shining spellbook vs spellbook of jumping; RNG full; green+strict;
+  17 PASS cohort + strict sample.
+- **Named omissions:** Upolyd `mh` still clamped to 0 on fatal; `showdamage`/
+  `maybe_wail`/`rehumanize`; SPBOOK `"%s spellbook"` descr arm (next peel).
+- **Next:** @1342 pony `shining spellbook` (`objnam` SPBOOK dknown+!nn).
+

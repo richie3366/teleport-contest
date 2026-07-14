@@ -7,16 +7,16 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Current unit:** seed0030 Scr **1432**/1953 RNG **FULL**; cell first-miss **@1262**.
-- **@1262:** same topline `You are hit by an arrow!--More--`; map `)` matches;
-  botl C `HP:4(14)` vs JS `HP:0(14)`. C keeps HP:4 through `You die...--More--`.
-- **Hypothesis:** `losehp` must leave negative `uhp` (C does not clamp); overshoot
-  to `-1` makes `bot()` no-op so hit/`You die` `--More--` keep prior botl.
-- **Falsifier:** @1262 `HP:4(14)`; Scr↑.
-- **Fixed:** D-0319 await `thitu` hit/miss + `monshoot` plines before `losehp`/
-  flight; @1195 `)`+HP:9; Scr 1428→1432; first-miss →@1262.
-- **Don’t:** clamp fatal `uhp=0` in `losehp` before `You die` flush (regresses
-  D-0310 `-1` bot skip on overshoot).
+- **Current unit:** seed0030 Scr **1438**/1953 RNG **FULL**; cell first-miss **@1342**.
+- **@1342:** C `The saddled pony picks up a shining spellbook.` vs JS
+  `… spellbook of jumping.` (same pattern on drop @1343).
+- **Hypothesis:** SPBOOK `xname_flags` dknown+!nn → `"%s spellbook"` with
+  `dn` (`shining`); JS SPE_ arm leaks via `obj.known` / omits descr arm.
+- **Falsifier:** @1342 `shining spellbook`; Scr↑.
+- **Fixed:** D-0320 `losehp` no fatal `uhp=0` clamp; @1262 HP:4; Scr
+  1432→1438; first-miss →@1342.
+- **Don’t:** clamp fatal `uhp=0` in `losehp` before `You die` flush
+  (regresses D-0310/D-0320 `-1` bot skip).
 - **Alt:** seed0013 Scr 57/59; seed0107 @2684.
 - **Parked:** D-0006; seed2200 @158 RC/`$HOME`.
 
@@ -35,7 +35,8 @@ Objective/score live in `CURRENT.md`.
 - **Don’t:** skip AT_WEAP `mswings`; botl HP `<0→0` (D-0286/87);
   skip `bot` when `uhp==-1` — keep prior botl (D-0310);
   live-paint botl on every flush/`more` — C `pline`→`flush`→`bot`, `more` no bot (D-0314);
-  omit `cls` `botlx` / spell `uen` `botl` when gating status on `bot()` (D-0314).
+  omit `cls` `botlx` / spell `uen` `botl` when gating status on `bot()` (D-0314);
+  clamp fatal `uhp=0` in `losehp` — leave negative; `done` zeros after bot (D-0320).
 - **Don’t:** invent-disclose yn when `disclose:-i`; RIP needs Tourist XP (D-0288/89).
 - **Don’t:** omit RIP trailing blank putstr / `topten` after RIP (D-0290/91).
 - **Don’t:** emit true amulet name when `!oc_name_known` — `<descr> amulet` (D-0292);
@@ -77,5 +78,5 @@ Objective/score live in `CURRENT.md`.
   map_invisible / mimic / vault+fountain/sink/shop / TOOL descr / shop enter /
   uhitm mon_nam / WAND descr / bot uhp==-1 / paybill / SCROLL unlabeled /
   done_in_by isshk / botl flush·bot·more / Priest bknown / WAND known0 /
-  moverock hear-behind / mon_wield canseemon pline / thitu await pline:
-  D-0274…D-0319.
+  moverock hear-behind / mon_wield canseemon pline / thitu await pline /
+  losehp leave neg uhp: D-0274…D-0320.

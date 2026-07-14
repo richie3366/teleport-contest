@@ -20,6 +20,16 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-14 22:22 — #347 D-0320 losehp leave neg uhp
+
+- Objective: seed0030 @1262 hit `--More--` HP:0 vs C HP:4 (CURRENT).
+- C locus: `hack.c` `losehp` — no fatal uhp clamp; `bot` skip when `uhp==-1`.
+- Change: remove `uhp=0` on fatal in `losehp`; `done` still zeros after bot
+  (D-0320).
+- Verification: @1262 HP:4; Scr **1432→1438**; first miss **@1342** shining
+  spellbook; RNG full; green+strict; 17 PASS cohort + strict sample.
+- Next: @1342 SPBOOK `"%s spellbook"` descr (`shining`) vs known leak.
+
 ## 2026-07-14 22:15 — #346 D-0319 thitu await pline
 
 - Objective: seed0030 @1195 arrow glyph on shoot `--More--` (CURRENT).
@@ -159,14 +169,4 @@ Use this shape:
   green+strict; 19-session PASS cohort + strict sample.
 - Next: @550 C `You hear someone cursing shoplifters.` vs JS blank
   (`dosounds` shop_msg — RNG burned, `You_hear` omitted).
-
-## 2026-07-14 20:00 — D-0304 xkilled post-drop newsym
-
-- Objective: seed0030 Scr peel (CURRENT primary); prefix first-miss @484.
-- C locus: `mon.c` `xkilled` — `newsym(x,y)` after treasure/corpse.
-- Change: call final `newsym` after drops (mondead paints before treasure).
-  Falsified mimic/`M_AP_OBJECT` theory — floor `TIN_WHISTLE` unpainted.
-- Verification: prefix **484→485**; Scr **1348→1370**; RNG full;
-  green+strict; 19-session PASS cohort + strict sample.
-- Next: @485 C `a whistle` vs JS `a tin whistle` (`objnam` descr).
 

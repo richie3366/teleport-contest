@@ -420,8 +420,11 @@ export function losehp(n, knam, k_format = KILLED_BY) {
 
     u.uhp = (u.uhp || 0) - n;
     if ((u.uhp || 0) > (u.uhpmax || 0)) u.uhpmax = u.uhp;
+    // C hack.c losehp: do not clamp uhp on fatal — leave negative so bot()
+    // no-ops when uhp==-1 (exact overkill) and prior botl stays through the
+    // deferred hit --More-- before urgent_pline("You die...") / done().
+    // done() zeros uhp after its bot() call (end.c).
     if ((u.uhp || 0) < 1) {
-        u.uhp = 0;
         // C: urgent_pline("You die..."); done(DIED); — noreturn
         if (!game.program_state) game.program_state = {};
         game.program_state.gameover = true;
