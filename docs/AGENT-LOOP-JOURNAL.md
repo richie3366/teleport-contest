@@ -20,6 +20,17 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-14 16:48 — D-0273 corpse_chance AT_BOOM / mon_explodes
+
+- Objective: seed0030 seg9 @12414 (CURRENT primary D-0273).
+- C locus: `mon.c` `corpse_chance` AT_BOOM; `explode.c` `mon_explodes` /
+  `explode` PHYS; `zap.c` `destroy_items`/`resist`.
+- Change: new `js/explode.js`; AT_BOOM arm in `corpse_chance`
+  (uhitm/mhitm/trap). Gas spore kill matches boom RNG through exercise.
+- Verification: seg9 **12414→16582**; green+strict PASS; 17-session
+  PASS cohort; flat **48156**/105529.
+- Next: D-0274 — `getbones` load → `next_ident` @16582.
+
 ## 2026-07-14 16:42 — D-0272 find_roll_to_hit Luck bonus
 
 - Objective: seed0030 seg9 @12411 (CURRENT primary D-0272).

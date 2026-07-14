@@ -7102,3 +7102,25 @@ Open that file first; then jump to a single `## D-NNNN` entry below
   PASS cohort; seed0030 flat **48141**/105529 Scr **85**/1953.
 - **Next:** port `corpse_chance` AT_BOOM / `mon_explodes` @12414.
 
+## D-0273 — corpse_chance AT_BOOM / mon_explodes (fixed)
+
+- **Status:** fixed
+- **Observed:** seed0030 seg9 @12414 — C `d(4,6) @ corpse_chance` then
+  `d(4,6) @ mon_explodes` / `destroy_items` / `resist`; JS `rn2(3)`
+  ordinary corpse path after matched `xkilled` treasure `rn2(6)`.
+- **C locus:** `mon.c` `corpse_chance` AT_BOOM arm; `explode.c`
+  `mon_explodes` / `explode` PHYS_EXPL_TYPE; `zap.c` `destroy_items`
+  limit `rn2(5)` + `resist`.
+- **Cause:** JS `corpse_chance` omitted gas-spore boom; burned ordinary
+  `!rn2(tmp)` instead of `d(4,6)` + explosion.
+- **Change:** `js/explode.js` — `mon_explodes` + PHYS `explode` subset
+  (Boom/caught msgs, adjacent mon destroy_items+resist+HP, hero
+  Half_phys + destroy_items + `exercise(A_STR)`). `corpse_chance` in
+  `uhitm.js`/`mhitm.js`/`trap.js` ports AT_BOOM then returns false.
+- **Named omission:** swallowed boom; non-PHYS boom; blast-kill
+  xkilled/monkilled; fire/cold/elec explode; hallu/sparkle glyphs;
+  `mr` table (use 0).
+- **Verification:** seg9 **12414→16582**; green+strict PASS; 17-session
+  PASS cohort; seed0030 flat **48156**/105529 Scr **85**/1953.
+- **Next:** diagnose `getbones` load → `next_ident` @16582.
+

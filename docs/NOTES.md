@@ -7,11 +7,11 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Current unit:** seed0030 seg9 @12414 — **D-0273** — after D-0272,
-  C `d(4,6) @ corpse_chance` (AT_BOOM) vs JS `rn2(3)`.
-- **Hypothesis:** `xkilled`/`corpse_chance` skips gas-spore AT_BOOM arm
-  or `mon_explodes` not ported after kill.
-- **Falsifier:** attribute JS caller at 12414; port missing C branch.
+- **Current unit:** seed0030 seg9 @16582 — **D-0274** — after D-0273,
+  C `rnd(2) @ next_ident` (bones load) vs JS `rn2(3)`.
+- **Hypothesis:** `getbones` with `rn2(3)=0` should open/restore bones;
+  JS skips load after the gate roll.
+- **Falsifier:** attribute JS @16582; compare `open_bonesfile` / restore.
 - **Parked:** D-0006 (pet movement); seed2200 @158 RC/`$HOME`.
 
 ## Don’t re-check (≤15)
@@ -28,7 +28,7 @@ Objective/score live in `CURRENT.md`.
   muse wand paths.
 - Session `\r` → `\n` = `C('j')` rush (D-0259); `rushDirFromCtrl` 1..26.
 - seg8 fleeck/missing-katana were key desync (D-0261), not dog_move/dodrop.
-- Recent seg9 falsified theories: D-0262…D-0272 — see `DIVERGENCE-INDEX.md`.
+- Recent seg9 falsified theories: D-0262…D-0273 — see `DIVERGENCE-INDEX.md`.
 - **Don’t:** treat missing Invis `rn2(11)` alone as enough when `couldsee`
   is false — check SCORR/`viz_clear` (D-0269).
 - `vision_recalc(1)` ≠ `unblock_point` / `recalc_block_point`.
@@ -36,6 +36,8 @@ Objective/score live in `CURRENT.md`.
   specials — zombies/mummies/vampires map via `undead_to_corpse` (D-0271).
 - **Don’t:** omit `find_roll_to_hit` Luck when full moon / friday13
   changed `uluck` — miss vs hit at equal dieroll (D-0272).
+- **Don’t:** ordinary `corpse_chance` `rn2(tmp)` for AT_BOOM — C burns
+  `d(damn,damd)` then `mon_explodes` (D-0273).
 
 ## Landmarks (≤15)
 

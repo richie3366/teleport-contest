@@ -34,9 +34,12 @@ import {
 import { monnear, record_mvitals_died, seemimic, wakeup } from './mon.js';
 import { livelog_printf } from './pline.js';
 import { experience, more_experienced, newexplevel } from './exper.js';
+import { mon_explodes } from './explode.js';
 
 // C monflag.h — MZ_HUMAN is MZ_MEDIUM
 const MZ_HUMAN = MZ_MEDIUM;
+const AT_BOOM = 14; // monattk.h — explode on death
+const NATTK_CC = 6;
 const FIGURINE = objectNames.indexOf('FIGURINE');
 
 // C ref: monattk.h damage types used by passive / passive_obj
@@ -157,10 +160,28 @@ function find_roll_to_hit(mtmp, aatyp, weapon, attk_count, role_roll_penalty) {
     return tmp;
 }
 
-// C ref: mon.c corpse_chance — ordinary dlvl1
-function corpse_chance(mon) {
+/**
+ * C ref: mon.c corpse_chance — AT_BOOM then ordinary !rn2(tmp).
+ * Named omissions: Vlad/lich dust; swallowed boom; LEVEL_SPECIFIC_NOCORPSE;
+ * bigmonst/lizard/golem/mplayer/rider/isshk always-TRUE arms.
+ */
+async function corpse_chance(mon) {
     const mdat = mon.data;
     if (!mdat) return false;
+    // Gas spores always explode upon death
+    const slots = mdat.mattk;
+    if (slots) {
+        for (let i = 0; i < NATTK_CC; i++) {
+            const at = slots[i];
+            if (!at || (at.aatyp | 0) !== AT_BOOM) continue;
+            // C burns d(damn,damd) even when not swallowed (tmp unused outdoors)
+            if (at.damn) d(at.damn | 0, at.damd | 0);
+            else if (at.damd) d((mdat.mlevel | 0) + 1, at.damd | 0);
+            // swallowed boom deferred
+            await mon_explodes(mon, at);
+            return false;
+        }
+    }
     let tmp = 2 + (((mdat.geno ?? 0) & G_FREQ) < 2 ? 1 : 0)
         + (verysmall(mdat) ? 1 : 0);
     return !rn2(tmp);
@@ -263,7 +284,7 @@ async function xkilled(mtmp, xkill_flags = XKILL_GIVEMSG) {
         // accessible/pool gate deferred — always attempt RNG like floor tile
         if (!rn2(6)) xkilled_treasure_drop(mtmp, mdat, mndx, x, y);
         // C: if (!wasinside && corpse_chance(...)) make_corpse(...)
-        if (corpse_chance(mtmp)) make_corpse(mtmp);
+        if (await corpse_chance(mtmp)) make_corpse(mtmp);
     }
     // C ref: mon.c xkilled cleanup — experience after corpse; murder/
     // peaceful luck rn2 deferred (would burn RNG on peaceful/tame)

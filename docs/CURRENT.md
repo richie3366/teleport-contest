@@ -7,7 +7,7 @@ and `archive/PROGRESS-HISTORY.md`.
 Score last measured: **2026-07-14** via
 `node frozen/ps_test_runner.mjs sessions` (direct runner) — full suite
 not re-run this iteration; PASS set unchanged; seed0030 positional
-**48141**/105529 after D-0272.
+**48156**/105529 after D-0273 (seg9 isolation **16582**/17104).
 
 ## Score
 
@@ -24,7 +24,7 @@ seed0700, seed1150, seed0017, seed0077, seed0106, seed0501, seed0105,
 seed0016, seed0015, seed0200, seed0101, seed0103, seed0104.
 
 **Notable non-PASS:** seed2200 RNG full Scr 229/230 (parked RC @158);
-seed0013 RNG full Scr 57/59; seed0030 **48141**/105529 Scr 85/1953;
+seed0013 RNG full Scr 57/59; seed0030 **48156**/105529 Scr 85/1953;
 seed0107 2684/2902 Scr 36/98; seed0361/0373 quest bones blocked.
 
 ## Green gate
@@ -42,16 +42,16 @@ Both must remain full RNG + screen PASS with exact scored-output lengths.
 
 ## Primary objective
 
-**D-0273** — seed0030 seg9 @12414 — gas spore `corpse_chance` / `mon_explodes`
+**D-0274** — seed0030 seg9 @16582 — `getbones` load → `next_ident`
 
 | | |
 |--|--|
-| **C locus** | `mon.c` `corpse_chance` AT_BOOM `d(4,6)`; `explode.c` `mon_explodes` |
-| **JS locus** | TBD — after matched `xkilled`; JS `rn2(3)` instead of boom dice |
-| **Symptom** | C `d(4,6) @ corpse_chance` vs JS `rn2(3)` after D-0272 |
-| **Hypothesis** | `xkilled`/`corpse_chance` skips AT_BOOM arm or `mon_explodes` missing |
-| **Falsifier** | attribute JS @12414; port AT_BOOM path; mismatch moves |
-| **Recent fixed** | D-0272 `find_roll_to_hit` Luck bonus (full moon +1) |
+| **C locus** | `bones.c` `getbones` (`rn2(3)=0` → open/load); `mkobj.c` `next_ident` |
+| **JS locus** | TBD — after matched boom path; JS `rn2(3)` vs C `rnd(2) @ next_ident` |
+| **Symptom** | C loads bones objects; JS does not follow load path |
+| **Hypothesis** | JS `getbones` burns `rn2(3)` then skips open/restore despite 0 |
+| **Falsifier** | attribute JS @16582; port bones open/restore; mismatch moves |
+| **Recent fixed** | D-0273 `corpse_chance` AT_BOOM / `mon_explodes` |
 
 ```bash
 # Focused seg9
