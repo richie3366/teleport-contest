@@ -8022,6 +8022,27 @@ Open that file first; then jump to a single `## D-NNNN` entry below
 
 
 
+## D-0325 — ARMOR_CLASS `xname` appearance (`OBJ_DESCR`)
+
+- **Status:** fixed
+- **Observed:** seed0030 @1601 — C `an iron skull cap` vs JS `an orcish
+  helm` in `Things that are here:` pile. RNG full.
+- **C locus:** `objnam.c` `xname_flags` ARMOR_CLASS — after pair/set/
+  shield !dknown specials: `nn` → actualn; `un` → `armor_simple_name`
+  called; else → `dn` (`OBJ_DESCR`).
+- **Cause:** JS `pretty_base` always used actualn/`PRETTY` for armor
+  (pair/set prefixes only), ignoring `!oc_name_known` → appearance.
+- **Change:** port ARMOR nn/un/dn + boots/gloves pair, dragon scales set,
+  shield !dknown elven…orcish/`smooth shield` (D-0325). Called arm uses
+  `dn` pending `armor_simple_name`.
+- **Verification:** @1601 match (`iron skull cap`); Scr **1605→1606**;
+  first miss **@1606** Invis map `@` vs underfoot `%`; RNG full;
+  green+strict; 17 PASS cohort.
+- **Named omissions:** full `armor_simple_name` / suit/cloak/helm simple
+  names for called; wet-towel/poisoned not in this class.
+- **Next:** @1606 `newsym` `canspotself` — show mapped glyph when
+  Invisible (`can't see yourself`).
+
 ## D-0322 — `hmon_hitmon_msg_hit` `exclam(dmg)` punctuation
 
 - **Status:** fixed

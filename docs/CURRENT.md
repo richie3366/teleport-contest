@@ -20,7 +20,7 @@ focused session.
 Score last measured: **2026-07-14** — full `sessions` suite (global loop
 **#350**) after D-0322. Same 19 PASS; Scr **2865→2883** (+18 from peels
 #346–#349); RNG unchanged; speed `18+0.12/turn`.
-Focused peels **#351–#352**: seed0030 Scr **1446→1604→1605** (not a
+Focused peels **#351–#353**: seed0030 Scr **1446→1604→1605→1606** (not a
 full-suite refresh).
 
 ## Score
@@ -40,7 +40,7 @@ seed0016, seed0015, seed0200, seed0101, seed0103, seed0104.
 **Notable non-PASS:**
 | Session | RNG | Screen | Note |
 |---------|----:|-------:|------|
-| seed0030 | 105529/105529 | **1605**/1953 | primary peel; cell first-miss **@1601** |
+| seed0030 | 105529/105529 | **1606**/1953 | primary peel; cell first-miss **@1606** |
 | seed2200 | 3018/3018 | **175**/230 | RNG full; Scr cells 178/230 |
 | seed0013-rogue | 4838/4838 | 57/59 | |
 | seed0013-friday13-restore | 4803/4804 | 46/99 | |
@@ -64,16 +64,16 @@ Both must remain full RNG + screen PASS with exact scored-output lengths.
 
 ## Primary objective
 
-**seed0030 screen peel** — RNG full; Scr **1605**/1953; cell first-miss **@1601**
+**seed0030 screen peel** — RNG full; Scr **1606**/1953; cell first-miss **@1606**
 
 | | |
 |--|--|
-| **C locus** | `objnam.c` `xname` / `pretty_base` — ARMOR_CLASS appearance |
-| **JS locus** | `js/objnam.js` `pretty_base` ARMOR fall-through |
-| **Symptom** | @1601 C `an iron skull cap` vs JS `an orcish helm` (look_here pile) |
-| **Hypothesis** | ARMOR `!oc_name_known` must use `OBJ_DESCR` (`iron skull cap`), not actualn |
-| **Falsifier** | @1601 pile line shows `iron skull cap`; prefix advances past 1601 |
-| **Recent fixed** | D-0324 `#quit` deaths[QUIT]+outentry dungeon; @1484; Scr 1604→1605 |
+| **C locus** | `display.c` `newsym` — `_map_location(…, !canspotself())` + `display_self` |
+| **JS locus** | `js/display.js` `newsym` hero branch always `hero_display_glyph` |
+| **Symptom** | @1606 C `%` (object underfoot) vs JS `@` after Invis pline |
+| **Hypothesis** | When `!canspotself()`, show mapped location glyph, not `@` |
+| **Falsifier** | @1606 hero cell is `%`; prefix advances past 1606 |
+| **Recent fixed** | D-0325 ARMOR `!nn` → `OBJ_DESCR`; @1601; Scr 1605→1606 |
 
 ```bash
 node frozen/ps_test_runner.mjs sessions/seed0030-ten-diverse-deaths.session.json

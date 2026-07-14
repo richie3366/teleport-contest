@@ -7,18 +7,16 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Score (#350 suite):** **19/44**; Scr **2883**/11405. Peel #352 seed0030
-  Scr **1605**/1953 (was 1604); suite aggregate not re-run.
-- **Current unit:** seed0030 Scr **1605**/1953 RNG **FULL**; cell first-miss **@1601**.
-- **@1601:** C `an iron skull cap` vs JS `an orcish helm` (Things that are here).
-- **Hypothesis:** ARMOR `pretty_base`/`xname` when `!oc_name_known` must use
-  `OBJ_DESCR` (`iron skull cap`), not actualn (`orcish helm`) — same pattern
-  as TOOL/WEAPON D-0305.
-- **Falsifier:** @1601 shows `iron skull cap`; prefix >1601.
-- **Fixed:** D-0324 `done` deaths[QUIT]+`really_done` NO_KILLER; `outentry`
-  quit+dungeon; @1484 match; Scr 1604→1605; prefix 1484→1601.
-- **Don’t:** nest dungeon/level only under `died` in outentry; leave QUIT
-  killer.name from prior death.
+- **Score (#350 suite):** **19/44**; Scr **2883**/11405. Peel #353 seed0030
+  Scr **1606**/1953 (was 1605); suite aggregate not re-run.
+- **Current unit:** seed0030 Scr **1606**/1953 RNG **FULL**; cell first-miss **@1606**.
+- **@1606:** single cell — C `%` vs JS `@` after `can't see yourself` (Invis).
+- **Hypothesis:** `newsym` hero path must `_map_location(…, !canspotself())`
+  and only `display_self` when `canspotself()` — else show under-hero glyph.
+- **Falsifier:** @1606 hero cell `%`; prefix >1606.
+- **Fixed:** D-0325 ARMOR `!nn` → `OBJ_DESCR` (`iron skull cap`); @1601;
+  Scr 1605→1606; prefix 1601→1606.
+- **Don’t:** always paint `@` on hero cell when Invisible / `!canspotself`.
 - **Alt:** seed0013 Scr 57/59; seed0107 @2684.
 - **Parked:** D-0006; seed2200 @158 RC/`$HOME`.
 
@@ -46,8 +44,8 @@ Objective/score live in `CURRENT.md`.
   skip WAND `!nn` descr — `"%s wand"` + zap `dknown` (D-0309);
   leave SCROLL `!nn` as actualn/`obj.known` — unlabeled/labeled arms (D-0312);
   leave SPBOOK `!nn` as bare/`obj.known` — `"%s spellbook"` via dn (D-0321);
+  leave ARMOR `!nn` as actualn — use `OBJ_DESCR` (D-0325);
   leave WAND out of `mksobj` `oc_uses_known` — `known=0` at create (D-0316);
-  leave ARMOR `!nn` as actualn — use `OBJ_DESCR` (next peel / D-0325?).
   leave `uhitm` private `mon_nam` — import `do_name` (D-0308);
   omit death `paybill` — angry shk takes possessions before flush (D-0311);
   bare `pmname` for isshk death — honorific + `shkname` + `KILLED_BY` (D-0313);
@@ -61,6 +59,7 @@ Objective/score live in `CURRENT.md`.
   bare period on hero melee hit — `canseemon?exclam(dmg)` (D-0322);
   muse fatal `losehp` without `finish_losehp_done` — death screens drop (D-0323);
   leave `#quit` killer from prior death / nest dungeon only under died (D-0324);
+  always paint `@` when Invisible — `canspotself` gates `display_self` (next);
   blanket `observe_object` in `xname` without `distantname` (regresses map).
 - Runner `Screen N/M` = total matches, not prefix length; contiguous cell
   miss can precede a later named topline peel (D-0311→@594 while @583 RIP open).
@@ -87,4 +86,4 @@ Objective/score live in `CURRENT.md`.
   done_in_by isshk / botl flush·bot·more / Priest bknown / WAND known0 /
   moverock hear-behind / mon_wield canseemon pline / thitu await pline /
   losehp leave neg uhp / SPBOOK descr / hmon exclam / mbhitm finish_done /
-  quit deaths+outentry dungeon: D-0274…D-0324.
+  quit deaths+outentry dungeon / ARMOR descr: D-0274…D-0325.

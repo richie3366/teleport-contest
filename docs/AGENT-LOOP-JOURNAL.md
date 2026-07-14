@@ -20,6 +20,16 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-14 22:58 — #353 D-0325 ARMOR xname OBJ_DESCR
+
+- Objective: seed0030 @1601 `iron skull cap` vs `orcish helm` (CURRENT).
+- C locus: `objnam.c` `xname_flags` ARMOR_CLASS — `!nn` → `dn`.
+- Change: port ARMOR nn/un/dn + pair/set/shield !dknown arms (D-0325);
+  `armor_simple_name` for called deferred (uses dn).
+- Verification: @1601 match; Scr **1605→1606**; first miss **@1606**
+  Invis map `@` vs `%`; RNG full; green+strict; 17 PASS cohort.
+- Next: @1606 `newsym` `canspotself` — show under-hero glyph when Invisible.
+
 ## 2026-07-14 22:53 — #352 D-0324 quit topten how + outentry
 
 - Objective: seed0030 @1484 Galen topten `quit` vs `died` (CURRENT).
@@ -153,27 +163,4 @@ Use this shape:
   RIP @583 match; first miss **@779** HP:1 vs HP:0; green+strict; 19 PASS
   cohort.
 - Next: @779 `You die...` botl HP:1 vs HP:0.
-
-## 2026-07-14 21:17 — #339 D-0312 SCROLL xname unlabeled
-
-- Objective: seed0030 @594 unlabeled scroll vs blank paper (CURRENT).
-- C locus: `objnam.c` `xname_flags` SCROLL_CLASS — `!nn`+!magic →
-  `"<dn> scroll"`; nn = `oc_name_known` only.
-- Change: port SCROLL dknown/nn/un/labeled/unlabeled arms; drop
-  `obj.known` OR (D-0312).
-- Verification: @594 topline match; Scr **1388→1389**; RNG full;
-  green+strict; 17 PASS cohort + strict sample. Contiguous cell miss
-  remains @583 RIP (pre-existing).
-- Next: @583 RIP `done_in_by` shk `Ms. Maganasipi, the shopkeeper`.
-
-## 2026-07-14 20:42 — #334 D-0311 paybill inherits possessions
-
-- Objective: seed0030 @582 Maganasipi takes possessions (CURRENT).
-- C locus: `shk.c` `paybill`/`inherits`; `end.c` `really_done` before
-  `display_nhwindow(WIN_MESSAGE)`.
-- Change: port paybill/inherits/money2mon/set_repo_loc + finish_paybill;
-  call before flush so pline appends to `You die...` (D-0311).
-- Verification: @582 topline match; prefix **582→594**; Scr **1387→1388**;
-  RNG full; green+strict; 19 PASS cohort + strict sample.
-- Next: @594 kitten unlabeled scroll vs blank paper.
 
