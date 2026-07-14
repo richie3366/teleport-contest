@@ -254,6 +254,7 @@ Do not record a guessed cause as fixed merely because an RNG prefix moved.
 | D-0248 | fixed | themerms sized outer rooms | Fake Delphi+… positioned create_room; seg6 11830→13801 |
 | D-0249 | fixed | m_initinv defensive | `rnd_defensive_item` + PM_SOLDIER early-return; seg6 13801→15369 |
 | D-0250 | fixed | trapeffect_hole TRAPDOOR | mon fall→migrate Trap_Moved_Mon; seg6 15369→17712 |
+| D-0251 | fixed | set_malign/adjalign xkilled | ualign.record after kill; peace_minded rn2(21); seg6 17712→18683 |
 
 D-0001 through D-0005 predate the strict-length/cohort runbook. Their focused
 causes are preserved, but generic "green sessions held" is historical evidence,
@@ -6804,3 +6805,31 @@ cohort gates if those functions are touched again.
   light-source; in_sight fall pline; cursed-leash `get_mleash`.
 - **Next:** seed0030 seg6 @17712 `peace_minded` arity; or quest
   `getbones`.
+
+## D-0251 — `set_malign` + `xkilled` `adjalign(malign)`
+
+- **Status:** fixed
+- **Symptom:** seed0030 seg6 @17712 — C `rn2(21) @ peace_minded` vs
+  JS `rn2(16)` (same site). Priest (initrecord 0) after one hostile
+  kill.
+- **Cause:** C `xkilled` always `adjalign(mtmp->malign)` after XP;
+  `set_malign` at makemon sets malign (often `max(5,|mal|)` for
+  always_hostile non-coaligned). One kill → record 0→5 →
+  `rn2(16+5)=rn2(21)`. JS never called `set_malign` and skipped
+  kill-time `adjalign`, so record stayed 0.
+- **Rejected:** peace_minded formula bug; initrecord/hatemask arity
+  (Priest initrecord is 0; only two co-align rolls in seg6, both
+  arity 21).
+- **C locus:** `makemon.c` `set_malign`; `mon.c` `xkilled` alignment
+  block; `attrib.c` `adjalign` / `ALIGNLIM`.
+- **Change:** `js/makemon.js` `set_malign` + call after mpeaceful /
+  m_initgrp hostile force; `js/attrib.js` `adjalign`/`ALIGNLIM`;
+  `js/uhitm.js` `xkilled` peaceful-5 + `adjalign(malign)`.
+- **Verification:** seg6 **17712→18683** (`dmgval` vs `rn2(5)` after
+  dart thitm); peace_minded `rn2(21)` matched; full **19/44** Scr
+  **1464** RNG **180734**; green+strict PASS; 19-session PASS cohort
+  held.
+- **Named omissions:** MS_LEADER malign=-20 (msound not extracted);
+  quest/nemesis/guardian/priest/tame special adjalign arms; peaceful
+  luck `rn2(2)`/`change_luck`; `adj_erinys` body.
+- **Next:** seed0030 seg6 @18683 dart/`dmgval`; or quest `getbones`.

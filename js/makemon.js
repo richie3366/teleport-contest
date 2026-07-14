@@ -240,6 +240,45 @@ function sgn(x) {
     return x < 0 ? -1 : x > 0 ? 1 : 0;
 }
 
+/**
+ * C ref: makemon.c set_malign — kill-alignment weight from type + peaceful.
+ * Named omissions: MS_LEADER (msound not extracted); priest/minion EPRI/EMIN
+ * individual align ×5 when those mextra fields are absent.
+ */
+export function set_malign(mtmp) {
+    if (!mtmp?.data) return;
+    let mal = mtmp.data.maligntyp | 0;
+    // C: ispriest EPRI / isminion EMIN → individual align; then mal *= 5
+    if (mtmp.ispriest || mtmp.isminion) {
+        const epri = mtmp.mextra?.epri;
+        const emin = mtmp.mextra?.emin;
+        if (mtmp.ispriest && epri && epri.shralign != null) mal = epri.shralign | 0;
+        else if (mtmp.isminion && emin && emin.min_align != null) mal = emin.min_align | 0;
+        if (mal !== A_NONE) mal *= 5;
+    }
+    const ual = game.u?.ualign?.type ?? 0;
+    const coaligned = sgn(mal) === sgn(ual);
+    // MS_LEADER → -20 deferred (msound not on ptr)
+    if (mal === A_NONE) {
+        mtmp.malign = mtmp.mpeaceful ? 0 : 20;
+    } else if (always_peaceful(mtmp.data)) {
+        const absmal = Math.abs(mal);
+        mtmp.malign = mtmp.mpeaceful
+            ? -3 * Math.max(5, absmal)
+            : 3 * Math.max(5, absmal);
+    } else if (always_hostile(mtmp.data)) {
+        const absmal = Math.abs(mal);
+        mtmp.malign = coaligned ? 0 : Math.max(5, absmal);
+    } else if (coaligned) {
+        const absmal = Math.abs(mal);
+        mtmp.malign = mtmp.mpeaceful
+            ? -3 * Math.max(3, absmal)
+            : Math.max(3, absmal);
+    } else {
+        mtmp.malign = Math.abs(mal);
+    }
+}
+
 // C ref: makemon.c mk_gen_ok
 function mk_gen_ok(mndx, mvflagsmask, genomask) {
     const ptr = mons(mndx);
@@ -877,7 +916,7 @@ function m_initgrp(mtmp, x, y, n, mmflags) {
             if (mon) {
                 mon.mpeaceful = 0;
                 mon.mavenge = 0;
-                // set_malign deferred (no RNG on ordinary commons)
+                set_malign(mon);
             }
         }
     }
@@ -966,6 +1005,7 @@ export function makemon(mdat, x, y, mmflags = 0) {
         mtame: 0,
         m_id: 0,
         mavenge: 0,
+        malign: 0, // set_malign after mpeaceful
         mstrategy: 0,
         mtrapseen: 0,
         mtrack: [
@@ -1000,6 +1040,9 @@ export function makemon(mdat, x, y, mmflags = 0) {
     if (ptr.mndx === pm('GHOST') && !(mmflags & MM_NONAME)) {
         christen_monst(mtmp, rndghostname());
     }
+
+    // C: set_malign after peaceful changes (orc/unicorn/emin deferred)
+    set_malign(mtmp);
 
     // C: anymon && !(mmflags & MM_NOGRP) → small/large group
     if (anymon && (mmflags & MM_NOGRP) === 0) {

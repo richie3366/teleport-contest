@@ -7,13 +7,12 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 
 ## Active
 
-- **Current unit:** seed0030 seg6 @17712 — C `peace_minded` `rn2(21)` vs JS
-  `rn2(16)` (after TRAPDOOR migrate D-0250; seg6 **15369→17712**). Likely
-  alignment / `induced_align` / race hate mask arity for a makemon after
-  hole-fall migration resumed mklev or post-fall spawn.
-- **Falsifier:** dump `mtmp.data.mndx` + `u.ualign.type` + `urace.hatemask`
-  at the `peace_minded` call that burns the arity — does C use a different
-  monster/align path?
+- **Current unit:** seed0030 seg6 @18683 — C `rnd(3) @ dmgval` vs JS
+  `rn2(5)` after matched dart `thitm` miss (post D-0251;
+  seg6 **17712→18683**). Likely monster trap-hit / weapon damage path
+  after dart, or a missed dart-hit branch that still rolls `dmgval`.
+- **Falsifier:** dump whether C `thitm` hit+damaged despite rnd(20)=17,
+  or a second actor burns `dmgval` while JS fleecks.
 - **Parked deep canary:** D-0006 pet movement — do not implement until C
   state/candidate capture exists.
 - **Parked seed2200 @158:** RC config path — harness `$HOME`, not a port bug.
@@ -104,6 +103,10 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   `trapeffect_hole`→`mlevel_tele_trap`→`Trap_Moved_Mon` (no post-
   fleeck); JS selector no-op’d HOLE/TRAPDOOR so mon survived and
   fleecked (D-0250).
+- **seed0030 seg6 @17712 was NOT peace_minded formula / initrecord /
+  hatemask arity** — C `rn2(21)` vs JS `rn2(16)` was `ualign.record`
+  5 vs 0 after one hostile kill; missing `set_malign` +
+  `adjalign(mtmp->malign)` in `xkilled` (D-0251).
 - **`monattk.h`: AT_WEAP=254, AT_MAGC=255, AT_SPIT=10** — never use 10 for
   weapon (D-0179).
 - Hostile `m_move`: before place, `m_digweapon_check` may return
@@ -152,3 +155,6 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   `migrate_to_level` returns `Trap_Moved_Mon` (skips post-move
   `distfleeck`); destination from `trap.dst` / `clamp_hole_destination`
   (D-0250).
+- **`peace_minded` `rn2(16+record)`:** wrong arity after combat is often
+  missing `set_malign`/`adjalign(malign)` on `xkilled`, not initrecord
+  (D-0251; cf. D-0056 for true initrecord bugs).

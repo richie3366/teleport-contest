@@ -541,12 +541,13 @@ seed0101 + seed0103 + seed0104 **PASS**. seed2200 RNG **full**
 seed0101 RNG **full** Scr **27**/27. seed0103 RNG **full** Scr **60**/60.
 seed0104 RNG **full** Scr **43**/43.
 
-- **Bounded unit:** seed0030 seg6 @17712 — C `peace_minded` `rn2(21)` vs
-  JS `rn2(16)` (after TRAPDOOR migrate D-0250; seg6 **15369→17712**). /
+- **Bounded unit:** seed0030 seg6 @18683 — C `rnd(3) @ dmgval` vs JS
+  `rn2(5)` after dart `thitm` (after set_malign/adjalign D-0251; seg6
+  **17712→18683**). /
   seed0361/0373 **quest `getbones`** (blocked: need `^V`→`goto_level`→
   `makemaz` first — ordinary `goto_level` now exists for stairs; Mines
   `fill_lvl` path exists D-0171).
-- **Prefer:** seg6 @17712 `peace_minded` peel over quest bones until
+- **Prefer:** seg6 @18683 dart/`dmgval` peel over quest bones until
   `^V`/`makemaz`; over parked D-0006 and over baking seed2200 RC paths.
   Hero `dotrap` deferred until monster pit peel is clear.
   Hero `xkilled` treasure `mkobj` done (D-0229; ordinary
@@ -596,7 +597,8 @@ seed0104 RNG **full** Scr **43**/43.
   `donull` safety `onscary`/`canspotmon`/`danger_uprops` bodies + `m`
   prefix force (gate done D-0228); `makemon` Sokoban
   `throws_rocks`;   `m_initinv` beyond S_GNOME candle + likes_gold
-  (D-0174) + PM_SOLDIER early-return + `rnd_defensive_item` (D-0249); `set_malign`; telepathy/
+  (D-0174) + PM_SOLDIER early-return + `rnd_defensive_item` (D-0249); `set_malign`
+  ordinary done D-0251 (MS_LEADER/`adj_erinys`/quest specials deferred); telepathy/
   `Detect_monsters`/`MATCH_WARN_OF_MON` in `newsym`; weapon_insight
   twoweap compare / `can_advance` enhance suffix (empty_handed +
   P_SKILL martial done D-0194); shop `costly_spot`
@@ -741,6 +743,9 @@ seed0104 RNG **full** Scr **43**/43.
   **monster `trapeffect_hole`/TRAPDOOR migrate** (done D-0250; seg6
   **15369→17712**; positional **47653**/105529 Scr **79**/1953;
   next @17712 `peace_minded`);
+  **`set_malign`/`adjalign` on `xkilled`** (done D-0251; seg6
+  **17712→18683**; full **19/44** Scr **1464** RNG **180734**;
+  next @18683 `dmgval` vs fleeck);
   **`goto_level` `stairway_find_from`** (D-0224 find_from done);
   D-0218 upstairs theory rejected;
   …
@@ -1669,6 +1674,11 @@ Module status, constitutional debt, and named omissions live in
     `rn2(16)`); positional **47653**/105529 Scr **79**/1953; full
     **19/44** Scr **1464** RNG **180734**; green+cohort PASS; next
     seg6 @17712 / quest `getbones`
+228. `set_malign` + `xkilled` `adjalign(malign)` (D-0251)
+    — seed0030 seg6 **17712→18683** (`dmgval` vs `rn2(5)` after dart
+    thitm); peace_minded `rn2(21)` matched; full **19/44** Scr
+    **1464** RNG **180734**; green+cohort PASS; next seg6 @18683 /
+    quest `getbones`
 
 Next work is selected from the active objectives above using
 `PORTING-RUNBOOK.md`, not by extending this historical list.

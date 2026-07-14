@@ -3224,3 +3224,15 @@ Use this shape:
 - Result: **verified** — mon stepped onto TRAPDOOR; C migrated (Trap_Moved_Mon, no post-fleeck); JS selector no-op. Ported trapeffect_hole + mlevel_tele_trap hole path + migrate_to_level + Can_fall_thru.
 - Verification: seg6 **15369→17712** (peace_minded rn2(21) vs rn2(16)); positional **47653**/105529 Scr **79**/1953; full **19/44** Scr **1464** RNG **180734**; green+strict PASS; 17-session PASS cohort held.
 - Next: seed0030 seg6 @17712 peace_minded arity; or quest getbones.
+
+## 2026-07-14 06:37 — set_malign + xkilled adjalign (D-0251)
+- Objective: seed0030 seg6 @17712 C `rn2(21)` peace_minded vs JS `rn2(16)`.
+- C locus: makemon.c set_malign; mon.c xkilled adjalign(malign); attrib.c adjalign/ALIGNLIM.
+- Result: **verified** — arity was ualign.record 5 vs 0 after one hostile
+  kill. Ported set_malign (makemon + m_initgrp), adjalign/ALIGNLIM, and
+  xkilled peaceful−5 + adjalign(malign). Rejected formula/initrecord/
+  hatemask theories.
+- Verification: seg6 **17712→18683** (dmgval vs rn2(5) after dart thitm);
+  peace_minded rn2(21) matched; full **19/44** Scr **1464** RNG
+  **180734**; green+strict PASS; 19-session PASS cohort held.
+- Next: seed0030 seg6 @18683 dart/dmgval; or quest getbones.
