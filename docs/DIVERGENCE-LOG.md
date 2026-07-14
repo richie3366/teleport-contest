@@ -253,6 +253,7 @@ Do not record a guessed cause as fixed merely because an RNG prefix moved.
 | D-0247 | fixed | themerms Buried zombies | fill body; seg6 10815→11830 |
 | D-0248 | fixed | themerms sized outer rooms | Fake Delphi+… positioned create_room; seg6 11830→13801 |
 | D-0249 | fixed | m_initinv defensive | `rnd_defensive_item` + PM_SOLDIER early-return; seg6 13801→15369 |
+| D-0250 | fixed | trapeffect_hole TRAPDOOR | mon fall→migrate Trap_Moved_Mon; seg6 15369→17712 |
 
 D-0001 through D-0005 predate the strict-length/cohort runbook. Their focused
 causes are preserved, but generic "green sessions held" is historical evidence,
@@ -6773,4 +6774,33 @@ cohort gates if those functions are touched again.
 - **Named omissions:** hell-court `noteleport_level` / `is_covetous`
   bypass; mercenary/nymph/giant/… `m_initinv` bodies still deferred.
 - **Next:** seed0030 seg6 @15369 moveloop actor drift; or quest
+  `getbones`.
+
+## D-0250 — monster `trapeffect_hole` / TRAPDOOR migrate
+
+- **Status:** fixed
+- **Symptom:** seed0030 seg6 @15369 — C `rn2(12)` `mcalcmove` vs JS
+  `rn2(5)` `distfleeck` after matched `m_move` `rn2(12)=8`.
+- **Cause:** mon id 164 stepped (44,12)→(45,12) onto `TRAPDOOR`. C
+  `postmov`→`mintrap`→`trapeffect_hole`→`mlevel_tele_trap`→
+  `migrate_to_level` returns `Trap_Moved_Mon`, so dochug skips
+  post-move `distfleeck` and EOT starts `mcalcmove`. JS
+  `trapeffect_selector` no-op’d HOLE/TRAPDOOR (`Trap_Effect_Finished`),
+  mon survived, and burned another fleeck.
+- **C locus:** `trap.c` `trapeffect_hole` / `trapeffect_selector`;
+  `teleport.c` `mlevel_tele_trap` / `teleport_pet`; `dog.c`
+  `migrate_to_level`; `dungeon.c` `Can_fall_thru`.
+- **Change:** `js/trap.js` — `trapeffect_hole` + selector wire;
+  `js/teleport.js` — `teleport_pet` / `mlevel_tele_trap` (hole path) /
+  `migrate_to_level`; `js/const.js` — `Can_dig_down` / `Can_fall_thru`;
+  `MZ_HUGE` export.
+- **Verification:** seg6 **15369→17712** (`peace_minded` `rn2(21)` vs
+  `rn2(16)`); positional **47653**/105529 Scr **79**/1953; full
+  **19/44** Scr **1464** RNG **180734**; green+strict PASS; 17-session
+  PASS cohort held.
+- **Named omissions:** hero `fall_through`; Sokoban yank messages;
+  valley_level stronghold dest; MAGIC_PORTAL / LEVEL_TELEP /
+  NO_TRAP `mlevel_tele_trap` arms; `mon_leave` worm/isshk; migrate
+  light-source; in_sight fall pline; cursed-leash `get_mleash`.
+- **Next:** seed0030 seg6 @17712 `peace_minded` arity; or quest
   `getbones`.

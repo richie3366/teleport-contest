@@ -7,12 +7,13 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 
 ## Active
 
-- **Current unit:** seed0030 seg6 @15369 — C `mcalcmove` vs JS
-  `distfleeck` `rn2(5)` (after `rnd_defensive_item` D-0249; seg6
-  **13801→15369**). Likely moveloop actor/count drift after mklev
-  defensive invent.
-- **Falsifier:** dump fmon m_id/mx/my/mhp at the matched `m_move`
-  `rn2(12)=8` boundary — does JS still have an extra fleecking mon?
+- **Current unit:** seed0030 seg6 @17712 — C `peace_minded` `rn2(21)` vs JS
+  `rn2(16)` (after TRAPDOOR migrate D-0250; seg6 **15369→17712**). Likely
+  alignment / `induced_align` / race hate mask arity for a makemon after
+  hole-fall migration resumed mklev or post-fall spawn.
+- **Falsifier:** dump `mtmp.data.mndx` + `u.ualign.type` + `urace.hatemask`
+  at the `peace_minded` call that burns the arity — does C use a different
+  monster/align path?
 - **Parked deep canary:** D-0006 pet movement — do not implement until C
   state/candidate capture exists.
 - **Parked seed2200 @158:** RC config path — harness `$HOME`, not a port bug.
@@ -98,6 +99,11 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 - **seed0030 seg6 @13801 was NOT a missing `rn2(50)` gate** — JS burned
   `rn2(50)` then skipped to `rn2(100)`; C calls `rnd_defensive_item`
   (`rn2(11)`) between them (D-0249).
+- **seed0030 seg6 @15369 was NOT moveloop actor-count / extra fleeck
+  mon** — matched `m_move` `rn2(12)=8` stepped onto TRAPDOOR; C
+  `trapeffect_hole`→`mlevel_tele_trap`→`Trap_Moved_Mon` (no post-
+  fleeck); JS selector no-op’d HOLE/TRAPDOOR so mon survived and
+  fleecked (D-0250).
 - **`monattk.h`: AT_WEAP=254, AT_MAGC=255, AT_SPIT=10** — never use 10 for
   weapon (D-0179).
 - Hostile `m_move`: before place, `m_digweapon_check` may return
@@ -142,3 +148,7 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   (D-0219). Same rule in `domove` and steed `landing_spot`/`test_move_ok`.
 - Key attribution ≠ RNG order: 0-RNG `--More--` / safety-reject keys can
   sit between matched EOT RNG and the next gameplay command (D-0228).
+- **Monster HOLE/TRAPDOOR:** `trapeffect_hole`→`mlevel_tele_trap`→
+  `migrate_to_level` returns `Trap_Moved_Mon` (skips post-move
+  `distfleeck`); destination from `trap.dst` / `clamp_hole_destination`
+  (D-0250).

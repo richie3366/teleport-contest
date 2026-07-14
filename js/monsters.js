@@ -164,6 +164,7 @@ export const MZ_TINY = 0;
 export const MZ_SMALL = 1;
 export const MZ_MEDIUM = 2; /* monflag.h — 4-7' */
 export const MZ_LARGE = 3; /* monflag.h — 7-12' */
+export const MZ_HUGE = 4; /* monflag.h — 12-25' */
 export function verysmall(ptr) {
     return (ptr?.msize ?? 2) < MZ_SMALL;
 }

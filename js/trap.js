@@ -19,7 +19,7 @@ import {
     G_NOCORPSE, G_FREQ, G_UNIQ, verysmall, grounded, passes_walls, is_neuter,
     is_flyer, is_floater, is_clinger,
     mon_knows_traps, mon_learns_traps,
-    amorphous, unsolid, is_whirly, MZ_SMALL,
+    amorphous, unsolid, is_whirly, MZ_SMALL, MZ_HUGE,
 } from './monsters.js';
 import {
     DART_TRAP, ARROW_TRAP, ROCKTRAP, FORCETRAP, FORCEBUNGLE,
@@ -32,7 +32,9 @@ import {
     CORPSTAT_INIT, CORPSTAT_FEMALE, CORPSTAT_MALE, CORPSTAT_NONE,
     ER_NOTHING, ER_DAMAGED, ER_DESTROYED,
     LOW_PM, BOLT_LIM, STRAT_WAITMASK,
+    Can_fall_thru,
 } from './const.js';
+import { mlevel_tele_trap } from './teleport.js';
 import { objectNames, POTION_CLASS, SCROLL_CLASS, SPBOOK_CLASS } from './objects.js';
 import { monsterNames } from './generated/monsters_data.js';
 import { thitu } from './mthrowu.js';
@@ -848,7 +850,40 @@ async function trapeffect_sqky_board(mtmp, trap, _trflags) {
     return Trap_Effect_Finished;
 }
 
-// C ref: trap.c trapeffect_selector — dart/rock/pit/sqky; other types no-op
+/**
+ * C ref: trap.c trapeffect_hole — HOLE/TRAPDOOR monster fall → level tele.
+ * Envelope: Can_fall_thru; grounded / !huge; then mlevel_tele_trap.
+ * Named omissions: hero fall_through; Sokoban yank; forcetrap openfalling.
+ */
+async function trapeffect_hole(mtmp, trap, trflags) {
+    if (is_youmonst(mtmp)) {
+        // Hero fall_through deferred
+        return Trap_Effect_Finished;
+    }
+    const tt = trap.ttyp;
+    const mptr = mtmp.data;
+    const forcetrap = (trflags & FORCETRAP) !== 0;
+    const Sokoban = !!(game.level?.flags?.sokoban || game.Sokoban);
+    const inescapable = forcetrap || (Sokoban && !trap.madeby_u);
+    const in_sight = canseemon(mtmp) || (mtmp === game.u?.usteed);
+
+    if (!Can_fall_thru(game.u?.uz)) {
+        return Trap_Effect_Finished;
+    }
+    if (!grounded(mptr)
+        || (mtmp.wormno && (mtmp.wormno | 0) > 5)
+        || (mptr?.msize | 0) >= MZ_HUGE) {
+        if (forcetrap && !Sokoban) {
+            if (in_sight) seetrap(trap);
+            return Trap_Effect_Finished;
+        }
+        if (!inescapable) return Trap_Effect_Finished;
+        // Sokoban yank still falls through
+    }
+    return mlevel_tele_trap(mtmp, trap, forcetrap, in_sight ? 1 : 0);
+}
+
+// C ref: trap.c trapeffect_selector — dart/rock/pit/sqky/hole; other types no-op
 async function trapeffect_selector(mtmp, trap, trflags) {
     switch (trap.ttyp) {
     case DART_TRAP:
@@ -860,16 +895,20 @@ async function trapeffect_selector(mtmp, trap, trflags) {
         return trapeffect_pit(mtmp, trap, trflags);
     case SQKY_BOARD:
         return trapeffect_sqky_board(mtmp, trap, trflags);
+    case HOLE:
+    case TRAPDOOR:
+        return trapeffect_hole(mtmp, trap, trflags);
     default:
-        // Named omission: arrow/bear/hole/… trap effects
+        // Named omission: arrow/bear/telep/… trap effects
         return Trap_Effect_Finished;
     }
 }
 
 /**
  * C ref: trap.c mintrap() — monster steps on a trap.
- * Early-session envelope: dart / rock / pit / sqky learn+effect; already_seen
- * rn2(4) skip when mon_knows_traps. Other types and escape paths partial.
+ * Early-session envelope: dart / rock / pit / sqky / hole|trapdoor learn+effect;
+ * already_seen rn2(4) skip when mon_knows_traps. Other types and escape paths
+ * partial.
  */
 export async function mintrap(mtmp, mintrapflags = NO_TRAP_FLAGS) {
     const trap = t_at(mtmp.mx, mtmp.my);

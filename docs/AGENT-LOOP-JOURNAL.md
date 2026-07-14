@@ -3217,3 +3217,10 @@ Use this shape:
   **180435**; green+strict PASS; 17-session PASS cohort held.
 - Next: seed0030 seg6 @15369 moveloop actor drift (fmon dump at matched
   m_move rn2(12)=8); or quest getbones.
+
+## 2026-07-14 06:33 — trapeffect_hole TRAPDOOR migrate (D-0250)
+- Objective: seed0030 seg6 @15369 C `mcalcmove` vs JS `distfleeck` after matched m_move.
+- C locus: trap.c trapeffect_hole; teleport.c mlevel_tele_trap/teleport_pet; dog.c migrate_to_level; dungeon.c Can_fall_thru.
+- Result: **verified** — mon stepped onto TRAPDOOR; C migrated (Trap_Moved_Mon, no post-fleeck); JS selector no-op. Ported trapeffect_hole + mlevel_tele_trap hole path + migrate_to_level + Can_fall_thru.
+- Verification: seg6 **15369→17712** (peace_minded rn2(21) vs rn2(16)); positional **47653**/105529 Scr **79**/1953; full **19/44** Scr **1464** RNG **180734**; green+strict PASS; 17-session PASS cohort held.
+- Next: seed0030 seg6 @17712 peace_minded arity; or quest getbones.
