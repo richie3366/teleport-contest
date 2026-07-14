@@ -3044,3 +3044,15 @@ Use this shape:
   positional **45217**/105529 Scr **59**/1953; full **19/44** Scr
   **1444** RNG **169732**; green+strict PASS; 17-session PASS cohort held.
 - Next: seed0030 seg4 @6630 drinkfountain; or quest getbones.
+
+## 2026-07-14 04:50 — drinkfountain / dodrink fountain yn (D-0237)
+- Objective: seed0030 seg4 @6630 C rnd(30) drinkfountain vs JS rn2(5).
+- C locus: potion.c dodrink fountain yn; fountain.c drinkfountain/dryup.
+- Result: **verified** — JS skipped fountain prompt so `y` cancelled
+  getobj; C drank with fate=rnd(30) (this seed default tasteless + dryup).
+  Ported dodrink fountain arm + drinkfountain branch envelope.
+- Verification: segs 0–3 FULL; seg4 **6630→7554** (exercise vs
+  distfleeck on `k`); positional **45960**/105529 Scr **59**/1953;
+  full **19/44** Scr **1444** RNG **170543**; green+strict PASS;
+  17-session PASS cohort held.
+- Next: seed0030 seg4 @7554 exercise after move; or quest getbones.

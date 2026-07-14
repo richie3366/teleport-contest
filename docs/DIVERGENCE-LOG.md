@@ -239,6 +239,8 @@ Do not record a guessed cause as fixed merely because an RNG prefix moved.
 | D-0233 | fixed | mfndpos NOTONL | monseeu/monlineu mark; avoid skips; seg3 9850→9881 |
 | D-0234 | fixed | setmangry + WAN_STRIKING | miss→wakeup anger; mbhit Boing; seg3 9881→9887 |
 | D-0235 | fixed | monstseesu M_SEEN_MAGR | Boing→seenres; find_offensive skips; seg3 FULL |
+| D-0236 | fixed | ini_inv UNDEF_SPE ring | charged ring spe≤0 → rne(3); seg4 2369→6630 |
+| D-0237 | fixed | drinkfountain | dodrink fountain yn + rnd(30); seg4 6630→7554 |
 
 D-0001 through D-0005 predate the strict-length/cohort runbook. Their focused
 causes are preserved, but generic "green sessions held" is historical evidence,
@@ -6380,3 +6382,32 @@ cohort gates if those functions are touched again.
 - **Named omissions:** extractor `oc_charged` field; other
   `ini_inv_adjust_obj` deferred arms already named in C-JS-MAP.
 - **Next:** seed0030 seg4 @6630 `drinkfountain`; or quest `getbones`.
+
+## D-0237 — drinkfountain / dodrink fountain yn
+
+- **Status:** fixed
+- **Symptom:** seed0030 seg4 @6630 — C `rnd(30)` at `drinkfountain`
+  vs JS `rn2(5)` (distfleeck after wrong key ownership).
+- **Cause:** C `dodrink` prompts `Drink from the fountain?` before
+  getobj when standing on a fountain (`can_reach_floor`); `y` runs
+  `drinkfountain` (`fate = rnd(30)` before Levitation). JS skipped the
+  fountain arm and fed `y` to potion getobj (cancel / no turn), so the
+  next real move's fleeck appeared where C burned fountain RNG.
+- **Rejected:** invent-letter `y` potion peffect; wrong fountain effect
+  table alone without the prompt.
+- **C locus:** `potion.c` `dodrink` fountain yn; `fountain.c`
+  `drinkfountain` / `dryup`.
+- **Change:** `js/potion.js` `dodrink` fountain yn → `drinkfountain`;
+  `js/fountain.js` `drinkfountain` (fate order, mgkftn/adjattrib,
+  fate<10 refresh, switch default + message/RNG arms); export
+  `poison_strdmg` from `eat.js` for case 21.
+- **Verification:** segs 0–3 FULL; seg4 **6630→7554** (`exercise` vs
+  `distfleeck` on `k`); positional **45960**/105529 Scr **59**/1953;
+  full **19/44** Scr **1444** RNG **170543**; green+strict PASS;
+  17-session PASS cohort held; seed2200 Scr still 229/230 (parked RC).
+- **Named omissions:** `dowatersnakes`/`dowaterdemon`/`dowaternymph`/
+  `dofindgem`/`dogushforth`; `monster_detect`/`enlightenment` bodies;
+  `vomit` body; sink/underwater drink prompts; town warn/`angry_guards`;
+  fruitname in poison resist pline.
+- **Next:** seed0030 seg4 @7554 `exercise` after move; or quest
+  `getbones`.

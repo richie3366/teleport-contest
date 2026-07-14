@@ -7,10 +7,10 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 
 ## Active
 
-- **Current unit:** seed0030 seg4 @6630 — C `drinkfountain` `rnd(30)` vs JS
-  `rn2(5)` (after `ini_inv_adjust_obj` UNDEF_SPE ring `rne` fixed D-0236).
-- **Falsifier:** dump which key/`#` path is active at matched moveloop
-  prefix; expect unbound fountain drink or wrong fountain effect table.
+- **Current unit:** seed0030 seg4 @7554 — C `exercise` `rn2(19)` after
+  move `k` vs JS `rn2(5)` `distfleeck` (after `drinkfountain` D-0237).
+- **Falsifier:** dump whether C `domove`/`postmove`/`exercise` arms fire
+  on that step; expect missing walk `exercise(A_DEX/…)` or similar.
 - **Parked deep canary:** D-0006 pet movement — do not implement until C
   state/candidate capture exists.
 - **Parked seed2200 @158:** RC config path — harness `$HOME`, not a port bug.
@@ -127,6 +127,10 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   Wizard `UNDEF_SPE` charged ring with `spe<=0` after `cursed=0` clear:
   C `ini_inv_adjust_obj` else-branch `rne(3)`; JS omitted the branch
   and jumped to next `trquan` `rn2(1)` (D-0236).
+- **seed0030 seg4 @6630 was NOT invent getobj/`rn2(5)` fleeck first** —
+  C `q`→fountain yn→`y`→`drinkfountain` `rnd(30)`; JS skipped fountain
+  prompt so `y` cancelled getobj (0 turn) and later move fleeck landed
+  at C’s fountain index (D-0237).
 - **`monattk.h`: AT_WEAP=254, AT_MAGC=255, AT_SPIT=10** — never use 10 for
   weapon (D-0179).
 - Hostile `m_move`: before place, `m_digweapon_check` may return
@@ -190,6 +194,9 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   ring with `spe<=0` → `spe = rne(3)` (D-0236). Charged set =
   ADORNMENT/GAIN_STR/GAIN_CON/INCREASE_ACC/INCREASE_DAM/PROTECTION
   (`oc_charged` not yet in extractor).
+- **`dodrink` fountain:** before getobj, yn “Drink from the fountain?”
+  → `drinkfountain`; `fate = rnd(30)` **before** Levitation return
+  (D-0237).
 - **`test_move` diagonal into DOOR:** only `doorless_door` (D_NODOOR /
   D_BROKEN) allowed; open/closed/locked block diagonal entry/exit
   (D-0219). Same rule in `domove` and steed `landing_spot`/`test_move_ok`.
