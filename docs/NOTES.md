@@ -7,15 +7,14 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 
 ## Active
 
-- **Current unit:** seed0030 seg9 @8352 — **D-0265** — C `rn2(19) @ exercise`
-  after `hitum` vs JS `rn2(3)` (after D-0264 wield).
-- **Hypothesis:** hero melee hit path incomplete — C continues
-  `exercise`+`dmgval`+`xkilled` while JS takes a different short branch
-  (`rn2(3)` likely `passive`/`rn2` elsewhere). Reconstruct `hitum` after
-  matched `rnd(20)` hit roll.
-- **Falsifier:** dump JS vs C after matched `hitum` `rnd(20)=13` — which
-  call emits JS `rn2(3)`, and whether `weapon_check`/wield state blocked
-  damage.
+- **Current unit:** seed0030 seg9 @8918 — **D-0266** — C
+  `rn2(30) @ trapeffect_magic_trap` vs JS `rn2(5)` after D-0265
+  `hitval`/`oc_hitbon`.
+- **Hypothesis:** hero stepped on MAGIC_TRAP; C runs
+  `dotrap`→`trapeffect_magic_trap`/`domagictrap` while JS skips the
+  hero trap arm (monster MAGIC_TRAP exists D-0254).
+- **Falsifier:** confirm hero tile typ/trap at peel and whether JS
+  `spoteffects`/`dotrap` reaches MAGIC_TRAP case.
 - **Parked deep canary:** D-0006 pet movement — do not implement until C
   state/candidate capture exists.
 - **Parked seed2200 @158:** RC config path — harness `$HOME`, not a port bug.
@@ -59,6 +58,9 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   (67,12) `dist2=8` with `weapon_check=NEED_WEAPON` spends the turn in
   C `mon_wield_item(NEED_HTH)` before move; JS skipped that `dochug`
   gate (D-0264).
+- **seg9 @8352 was not incomplete `hmon`/`dmgval` after hit** — matched
+  `rnd(20)=13`; JS missed because `hitval` omitted `oc_hitbon` (+2 for
+  daggers). C hit → DEX exercise → kill (D-0265).
 - Do not treat session `\r` as plain `j` — ICRNL → `\n` = `C('j')` rush
   (D-0259). `rushDirFromCtrl` keys 1..26 only.
 
@@ -99,6 +101,8 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   `dist2(mux,muy)<=8`, `AT_WEAP`, and `weapon_check==NEED_WEAPON`, set
   `NEED_HTH_WEAPON` and `mon_wield_item` — non-zero return spends the
   turn (no `m_move`) (D-0264).
+- **`hitval`:** weapon/weptool `spe` + always `objects[].oc_hitbon`
+  (`a_ac` in extract); dagger family +2 (D-0265).
 - **`F`/`do_fight`:** PREFIXCMD sets `forcefight`; next move dir attacks
   (empty → `domove_fight_empty` “thin air” / solid); no turn on F alone
   (D-0225).

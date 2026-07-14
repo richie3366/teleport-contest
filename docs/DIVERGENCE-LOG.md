@@ -268,7 +268,8 @@ Do not record a guessed cause as fixed merely because an RNG prefix moved.
 | D-0262 | fixed | set_mimic_sym shop get_shop_item | shop mimic appearance; seg9 7196→8138 |
 | D-0263 | fixed | drinkfountain dofindgem rnd_class | fate=27 gem; seg9 8138→8281 |
 | D-0264 | fixed | dochug NEED_HTH mon_wield_item | goblin dist2=8 wield; seg9 8281→8352 |
-| D-0265 | open | seed0030 seg9 @8352 exercise vs rn2(3) | after D-0264; hitum path |
+| D-0265 | fixed | hitval oc_hitbon (a_ac) | dagger +2 to-hit; seg9 8352→8918 |
+| D-0266 | open | seed0030 seg9 @8918 hero MAGIC_TRAP | after D-0265; dotrap/domagictrap |
 
 
 D-0001 through D-0005 predate the strict-length/cohort runbook. Their focused
@@ -7178,12 +7179,37 @@ cohort gates if those functions are touched again.
   **47946**/105529; next @8352 `exercise` vs `rn2(3)` after `hitum`.
 - **Next:** diagnose D-0265 seg9 @8352.
 
-## D-0265 — seed0030 seg9 @8352 `exercise` vs `rn2(3)` (open)
+## D-0265 — `hitval` `oc_hitbon` (fixed)
+
+- **Status:** fixed
+- **Observed:** seed0030 seg9 @8352 — matched `hitum` `rnd(20)=13`;
+  C `rn2(19) @ exercise` (DEX hit) then `dmgval`/`xkilled`; JS
+  `rn2(3)` (`passive` miss path).
+- **C locus:** `weapon.c` `hitval` — `spe` for weapon/weptool plus
+  always `objects[otyp].oc_hitbon`; `uhitm.c` `find_roll_to_hit` adds
+  `hitval` for AT_WEAP.
+- **Cause:** JS `hitval` returned only `spe`. Daggers/`orcish dagger`
+  have `oc_hitbon=+2` (extracted `a_ac` / `oc_oc1`). Missing +2 made
+  `tmp <= 13` so JS missed while C hit and one-shot killed (`rnd(3)`
+  dagger damage).
+- **Change:** `js/uhitm.js` `hitval` — weapon/weptool `spe` +
+  `objects[].a_ac` as `oc_hitbon`. Blessed/spear/trident/pick/artifact
+  vs-mon arms still deferred.
+- **Falsified:** incomplete post-hit `hmon`/`dmgval` branch — C and JS
+  both reached `hitum` with the same die; divergence was to-hit score.
+- **Verification:** seg9 **8352→8918**; green+strict PASS; 17-session
+  PASS cohort; full **19/44** Scr **1563** RNG **182547**; seed0030
+  **47960**/105529; next @8918 hero `trapeffect_magic_trap`/
+  `domagictrap`.
+- **Next:** port hero MAGIC_TRAP `dotrap`/`domagictrap` (D-0254 mon
+  path exists; hero path still deferred).
+
+## D-0266 — seed0030 seg9 @8918 hero MAGIC_TRAP (open)
 
 - **Status:** open
-- **Symptom:** after D-0264, first mismatch @8352 — C `rn2(19) @
-  exercise` after matched `hitum` `rnd(20)=13` vs JS `rn2(3)`.
-- **Hypothesis:** hero melee post-hit path incomplete (`dmgval`/
-  `xkilled` on C; JS short-circuits elsewhere).
-- **Next:** dump call after matched hit roll; reconstruct `hitum`.
+- **Symptom:** after D-0265, first mismatch @8918 — C `rn2(30) @
+  trapeffect_magic_trap` then `domagictrap` vs JS `rn2(5)`.
+- **Hypothesis:** hero `dotrap` MAGIC_TRAP path missing (monster arm
+  D-0254); JS continues ordinary fleeck.
+- **Next:** confirm hero trap at peel; port `dotrap`/`domagictrap`.
 

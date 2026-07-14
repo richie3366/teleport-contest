@@ -18,7 +18,21 @@ Use this shape:
 - Next: …
 ```
 
-## 2026-07-14 11:05 — D-0264 dochug NEED_HTH mon_wield_item
+## 2026-07-14 15:35 — D-0265 hitval oc_hitbon
+
+- Objective: seed0030 seg9 @8352 (PROGRESS primary; NOTES hitum/exercise).
+- C locus: `weapon.c` `hitval` — weapon/weptool `spe` + always
+  `objects[otyp].oc_hitbon`; `uhitm.c` `find_roll_to_hit`.
+- Change: `js/uhitm.js` `hitval` adds extracted `a_ac` as `oc_hitbon`
+  (dagger family +2). Blessed/spear/trident/pick/artifact deferred.
+- Falsified: incomplete post-hit `hmon`/`dmgval` — matched `rnd(20)=13`;
+  JS missed solely from missing +2 to-hit.
+- Verification: seg9 **8352→8918**; green+strict PASS; 17-session PASS
+  cohort; full **19/44** Scr **1563** RNG **182547**; seed0030
+  **47960**/105529.
+- Next: diagnose seg9 @8918 hero `trapeffect_magic_trap`/`domagictrap`
+  (D-0266).
+
 
 - Objective: seed0030 seg9 @8281 (PROGRESS primary; NOTES post-gem fleeck).
 - C locus: `monmove.c` `dochug` HTH wield when `dist2(mux,muy)<=8` +

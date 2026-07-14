@@ -39,8 +39,8 @@ frozen-file overlay):
 |--------|------:|
 | Sessions passing | **19 / 44** |
 | Screens matched | **1563 / 11,405** (13.70%) |
-| Positional RNG calls matched | **182,533 / 792,838** (23.02%) |
-| Speed label | `18+0.10/turn` |
+| Positional RNG calls matched | **182,547 / 792,838** (23.02%) |
+| Speed label | `19+0.10/turn` |
 | Working-tree base | `8b71735` + committed port (see `main`) |
 | Role-init throws | **0 / 44** (`u_init_role: role not ported`) |
 
@@ -64,7 +64,7 @@ shared blockers, and semantic coverage together—not one vanity metric.
 | `seed0501-priest-cast-read-turn` | **2238 / 2238** | **28 / 28** |
 | `seed2200-wizard-quaff-zap-read` | **3018 / 3018** | **229 / 230** |
 | `seed0017-samurai-altar-pray` | **3465 / 3465** | **67 / 67** |
-| `seed0030-ten-diverse-deaths` | **47946 / 105529** | **85 / 1953** |
+| `seed0030-ten-diverse-deaths` | **47960 / 105529** | **85 / 1953** |
 | `seed0103-knight-ride-pony` | **2640 / 2640** | **60 / 60** |
 | `seed0200-monk-north-search` | **3822 / 3822** | **40 / 40** |
 | `seed0101-ranger-quiver-throw-travel-engrave` | **2371 / 2371** | **27 / 27** |
@@ -134,7 +134,7 @@ seed0101 next Scr residual (RNG full). seed0013 still breaks earlier in
 Lua/`sp_lev`. seed0103 next `next_ident`/`trquan` @ 2337.
 seed0361/0373 `getbones` blocked on unbound `^V`/`goto_level`/
 `makemaz`. seed0077 chargen + vault fallback + door vision/pick_lock/DEC
-open-door (D-0111/D-0112/D-0113) → **PASS**. seed0030 **47901**/105529.
+open-door (D-0111/D-0112/D-0113) → **PASS**. seed0030 **47960**/105529.
 seed0105 RNG **full** (Scr **30**/30).
 seed0013 **4838**/4838 Scr **57**/59 after D-0261 Ctrl-rush/muse.
 **`option_help` msg_window PREV_MSGS extract** (D-0114) + **Primary ASCII /
@@ -229,7 +229,7 @@ seed0015 **PASS**. seed0101 next Scr residual (RNG full). seed0013 still breaks 
 Lua/`sp_lev`. seed0103 next `next_ident`/`trquan` @ 2337.
 seed0361/0373 `getbones` blocked on unbound `^V`/`goto_level`/
 `makemaz`. seed0077 chargen + vault fallback + door vision/pick_lock/DEC
-open-door (D-0111/D-0112/D-0113) → **PASS**. seed0030 **48131**/105529.
+open-door (D-0111/D-0112/D-0113) → **PASS**. seed0030 **47960**/105529.
 seed0105 RNG **full** (Scr **30**/30).
 **CANDY_BAR `assign_candy_wrapper`** (D-0196) → seed0030 seg1 prefix
 **1238→3347** positional **17994**/105529; full **17/44** Scr **1312**
@@ -542,9 +542,10 @@ seed0101 + seed0103 + seed0104 **PASS**. seed2200 RNG **full**
 seed0101 RNG **full** Scr **27**/27. seed0103 RNG **full** Scr **60**/60.
 seed0104 RNG **full** Scr **43**/43.
 
-- **Bounded unit:** seed0030 seg9 @8352 — **D-0265** open —
-  C `rn2(19) @ exercise` after `hitum` vs JS `rn2(3)` (D-0264
-  `dochug` NEED_HTH wield **fixed**; seg9 **8281→8352**).
+- **Bounded unit:** seed0030 seg9 @8918 — **D-0266** open —
+  C `rn2(30) @ trapeffect_magic_trap` vs JS `rn2(5)` (D-0265
+  `hitval`/`oc_hitbon` **fixed**; seg9 **8352→8918**).
+  D-0264 `dochug` NEED_HTH wield **fixed**; seg9 **8281→8352**.
   D-0263 `dofindgem` **fixed**; seg9 **8138→8281**.
   D-0262 shop-mimic `get_shop_item` **fixed**; seg9 **7196→8138**.
   D-0261 Ctrl-rush `run=3` + await muse wand plines **ported**;
@@ -552,11 +553,11 @@ seed0104 RNG **full** Scr **43**/43.
   **quest `getbones`** (blocked: need `^V`→`goto_level`→`makemaz`
   first — ordinary `goto_level` now exists for stairs; Mines
   `fill_lvl` path exists D-0171).
-- **Prefer:** seg9 post-wield `hitum`/`exercise` peel after D-0264;
+- **Prefer:** seg9 hero MAGIC_TRAP/`domagictrap` after D-0265;
   seed0013 Scr residual (2 screens); over quest bones until
   `^V`/`makemaz`; over parked D-0006 and over baking seed2200 RC paths.
-  Hero `dotrap` MAGIC_TRAP/`domagictrap` deferred (D-0254 named
-  omission). Hero SLP_GAS deferred (D-0256). Hero dart `dotrap` done
+  Hero `dotrap` MAGIC_TRAP/`domagictrap` is now the peel (D-0266).
+  Hero SLP_GAS deferred (D-0256). Hero dart `dotrap` done
   (D-0239). Hero `xkilled` treasure
   `mkobj` done (D-0229; ordinary
   `make_corpse` done D-0191; mhitm path done D-0167;
@@ -792,6 +793,9 @@ seed0104 RNG **full** Scr **43**/43.
   **`dochug` NEED_HTH `mon_wield_item`/`select_hwep`** (D-0264 **fixed** —
   seg9 **8281→8352**; full **19/44** Scr **1563** RNG **182533**;
   seed0030 **47946**/105529; next @8352 `exercise` vs `rn2(3)`);
+  **`hitval` `oc_hitbon`/`a_ac`** (D-0265 **fixed** —
+  seg9 **8352→8918**; full **19/44** Scr **1563** RNG **182547**;
+  seed0030 **47960**/105529; next @8918 hero `trapeffect_magic_trap`);
   **`goto_level` `stairway_find_from`** (D-0224 find_from done);
   D-0218 upstairs theory rejected;
   …
