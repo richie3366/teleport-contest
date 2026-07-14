@@ -28,7 +28,7 @@ import {
 } from './mhitm.js';
 import {
     verysmall, G_FREQ, G_NOCORPSE, M2_COLLECT, MZ_MEDIUM,
-    bigmonst, thick_skinned, monsterNames,
+    bigmonst, thick_skinned, monsterNames, nonliving,
 } from './monsters.js';
 import {
     mksobj, mkobj, place_object, stackobj, delobj, relobj_on_death,
@@ -282,7 +282,10 @@ async function xkilled(mtmp, xkill_flags = XKILL_GIVEMSG) {
         }
     }
     if (!nomsg) {
-        const verb = 'kill'; // nonliving → destroy deferred
+        // C mon.c xkilled: nonliving(mtmp->data) ? "destroy" : "kill"
+        // Named omissions: wasinside/canspotmon "it"; tame poor/named pet
+        // x_monnam ARTICLE arms (still mon_nam for all seen kills).
+        const verb = nonliving(mtmp.data) ? 'destroy' : 'kill';
         await pline(`You ${verb} ${mon_nam(mtmp)}!`);
     }
     mondead(mtmp);

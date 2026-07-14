@@ -18,19 +18,18 @@ label, PASS list, notable non-PASS. Do not invent suite totals from a single
 focused session.
 
 Score last measured: **2026-07-14** — full `sessions` suite (global loop
-**#350**) after D-0322. Same 19 PASS; Scr **2865→2883** (+18 from peels
-#346–#349); RNG unchanged; speed `18+0.12/turn`.
-Focused peels **#351–#354**: seed0030 Scr **1446→…→1606→1820** (not a
-full-suite refresh; #354 = D-0326).
+**#355**) after D-0327. Same 19 PASS; Scr **3257→3258** (+1 from seed0030
+destroy verb; peels #351–#354 already lifted suite Scr vs #350’s 2883).
+RNG unchanged; speed `17+0.12/turn`.
 
 ## Score
 
 | Metric | Value |
 |--------|------:|
 | Sessions passing | **19 / 44** |
-| Screens matched | **2883 / 11,405** (25.28%) |
+| Screens matched | **3258 / 11,405** (28.57%) |
 | Positional RNG calls matched | **240,657 / 792,838** (30.35%) |
-| Speed label | `18+0.12/turn` (R² 0.79) |
+| Speed label | `17+0.12/turn` (R² 0.78) |
 | Role-init throws | **0 / 44** |
 
 **PASS (19):** seed8000, seed0900, seed1500, seed1800, seed0060, seed0102,
@@ -40,7 +39,7 @@ seed0016, seed0015, seed0200, seed0101, seed0103, seed0104.
 **Notable non-PASS:**
 | Session | RNG | Screen | Note |
 |---------|----:|-------:|------|
-| seed0030 | 105529/105529 | **1820**/1953 | primary peel; cell first-miss **@1684** |
+| seed0030 | 105529/105529 | **1821**/1953 | primary peel; cell first-miss **@1821** |
 | seed2200 | 3018/3018 | **175**/230 | RNG full; Scr cells 178/230 |
 | seed0013-rogue | 4838/4838 | 57/59 | |
 | seed0013-friday13-restore | 4803/4804 | 46/99 | |
@@ -64,16 +63,16 @@ Both must remain full RNG + screen PASS with exact scored-output lengths.
 
 ## Primary objective
 
-**seed0030 screen peel** — RNG full; Scr **1820**/1953; cell first-miss **@1684**
+**seed0030 screen peel** — RNG full; Scr **1821**/1953; cell first-miss **@1821**
 
 | | |
 |--|--|
-| **C locus** | `mon.c` `xkilled` — `nonliving(data) ? "destroy" : "kill"` |
-| **JS locus** | `js/uhitm.js` `xkilled` — verb hard-coded `"kill"` |
-| **Symptom** | @1684 C `You destroy the kobold zombie!` vs JS `You kill …` |
-| **Hypothesis** | Port `nonliving` gate for kill pline verb |
-| **Falsifier** | @1684 topline `destroy`; prefix >1684 |
-| **Recent fixed** | D-0326 `newsym` `canspotself`; @1606; Scr 1606→1820 |
+| **C locus** | TBD — C map rows blank vs JS still painted (likely `cls`/`docrt`/`vision` on level change) |
+| **JS locus** | TBD — display/level transition |
+| **Symptom** | @1821 C empty map vs JS DEC walls/floors (~81 cells) |
+| **Hypothesis** | C cleared/redrawn map on transition; JS skipped clear |
+| **Falsifier** | @1821 map blank match; prefix >1821 |
+| **Recent fixed** | D-0327 `xkilled` `nonliving` → `"destroy"`; @1684; Scr 1820→1821 |
 
 ```bash
 node frozen/ps_test_runner.mjs sessions/seed0030-ten-diverse-deaths.session.json

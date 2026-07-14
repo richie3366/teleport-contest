@@ -8022,6 +8022,24 @@ Open that file first; then jump to a single `## D-NNNN` entry below
 
 
 
+## D-0327 — `xkilled` `nonliving` → `"destroy"`
+
+- **Status:** fixed
+- **Observed:** seed0030 @1684 — C `You destroy the kobold zombie!` vs JS
+  `You kill …`. RNG full.
+- **C locus:** `mondata.h` `nonliving` / `weirdnonliving` / `is_golem`;
+  `mon.c` `xkilled` — `nonliving(mtmp->data) ? "destroy" : "kill"`.
+- **Cause:** JS `xkilled` hard-coded verb `"kill"`.
+- **Change:** port `is_golem`/`weirdnonliving`/`nonliving` in `monsters.js`;
+  `xkilled` uses `nonliving(mtmp.data)` for the verb (D-0327).
+- **Verification:** @1684 match; Scr **1820→1821**; first miss **@1821**
+  blank C map vs JS walls; RNG full; green+strict; 17 PASS cohort; full
+  suite **19/44** Scr **3258**/11405.
+- **Named omissions:** wasinside/canspotmon `"it"`; tame poor/named pet
+  `x_monnam` ARTICLE arms; `monkilled` still `is_undead`-only (not full
+  `nonliving`).
+- **Next:** @1821 map clear/`docrt`/`cls` on level transition.
+
 ## D-0326 — `newsym` `canspotself` gates `display_self`
 
 - **Status:** fixed
