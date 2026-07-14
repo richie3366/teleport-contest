@@ -7,18 +7,18 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Score (#350):** **19/44**; Scr **2883**/11405 (25.28%); RNG
-  **240657**/792838; speed `18+0.12/turn`. Primary unchanged.
-- **Current unit:** seed0030 Scr **1446**/1953 RNG **FULL**; cell first-miss **@1433**.
-- **@1433:** C `The wand hits you!--More--` (Florian still alive HP:4) vs JS
-  Samurai welcome (next life). Seg7 JS screens **159** vs C **172** (−13).
-- **Hypothesis:** After @1432 `…zaps a wand of striking!--More--`, fatal hit
-  + `You die…` / disclose must emit nhgetch screens before segment ends.
-- **Falsifier:** @1433 `The wand hits you!`; seg7 screen count **172**.
-- **Fixed:** D-0322 `hmon_hitmon_msg_hit` `canseemon?exclam(dmg)` + verb;
-  @1429 `You hit Swidnica!`; Scr 1445→1446; miss→@1433.
-- **Don’t:** clamp fatal `uhp=0` in `losehp` before `You die` flush
-  (regresses D-0310/D-0320 `-1` bot skip).
+- **Score (#350 suite):** **19/44**; Scr **2883**/11405. Peel #351 seed0030
+  Scr **1604**/1953 (was 1446); suite aggregate not re-run.
+- **Current unit:** seed0030 Scr **1604**/1953 RNG **FULL**; cell first-miss **@1484**.
+- **@1484:** C topten `Galen-Sam-Hum-Mal-Law quit in…` vs JS `…Law died in…`
+  (also JS stray `.` on HP line). Seg8 `#quit` after Sayonara.
+- **Hypothesis:** `#quit`→`done(QUIT)` must set topten how_how to `quit`, not
+  `died` (DIED default).
+- **Falsifier:** @1484 contains `quit`; no extra `.` on level/HP line.
+- **Fixed:** D-0323 `mbhitm` await `finish_losehp_done` after fatal striking;
+  @1433 match; seg7 **172**; Scr 1446→1604.
+- **Don’t:** clamp fatal `uhp=0` in `losehp` (D-0320); skip finish after
+  muse `losehp` (this peel).
 - **Alt:** seed0013 Scr 57/59; seed0107 @2684.
 - **Parked:** D-0006; seed2200 @158 RC/`$HOME`.
 
@@ -58,6 +58,7 @@ Objective/score live in `CURRENT.md`.
   fire-and-forget `thitu`/`monshoot` pline — await before `losehp`/flight so
   `--More--` keeps `tmp_at` flash + pre-damage HP (D-0319);
   bare period on hero melee hit — `canseemon?exclam(dmg)` (D-0322);
+  muse fatal `losehp` without `finish_losehp_done` — death screens drop (D-0323);
   blanket `observe_object` in `xname` without `distantname` (regresses map).
 - Runner `Screen N/M` = total matches, not prefix length; contiguous cell
   miss can precede a later named topline peel (D-0311→@594 while @583 RIP open).
@@ -83,4 +84,5 @@ Objective/score live in `CURRENT.md`.
   uhitm mon_nam / WAND descr / bot uhp==-1 / paybill / SCROLL unlabeled /
   done_in_by isshk / botl flush·bot·more / Priest bknown / WAND known0 /
   moverock hear-behind / mon_wield canseemon pline / thitu await pline /
-  losehp leave neg uhp / SPBOOK descr / hmon exclam: D-0274…D-0322.
+  losehp leave neg uhp / SPBOOK descr / hmon exclam / mbhitm finish_done:
+  D-0274…D-0323.

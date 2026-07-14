@@ -8038,6 +8038,27 @@ Open that file first; then jump to a single `## D-NNNN` entry below
 - **Named omissions:** thrown `hit()` path / multishot destroyed exception.
 - **Next:** @1433 fatal wand-hit `--More--` / death screen capture (seg7 −13).
 
+## D-0323 — `mbhitm` await `finish_losehp_done` after fatal striking hit
+
+- **Status:** fixed
+- **Observed:** seed0030 @1433 — C `The wand hits you!--More--` (Florian)
+  vs JS Samurai welcome. Seg7 JS **159**/172 (−13 death/disclose/RIP/
+  topten). RNG full.
+- **C locus:** `muse.c` `mbhitm` WAN_STRIKING hits_you — `pline_The("wand
+  hits you!")` then `losehp` → `done(DIED)` noreturn; `use_offensive`
+  never resumes after fatal zap.
+- **Cause:** JS awaited the hit pline (D-0261) but called `losehp` without
+  `finish_losehp_done` (unlike `thitu` D-0319). `gameover` aborted
+  moveloop mid-seg7, dropping the death screen capture chain.
+- **Change:** after fatal `losehp`, `await finish_losehp_done()` and return;
+  stop `mbhit` beam / `use_offensive` when `gameover` (D-0323).
+- **Verification:** @1433 match; seg7 **172**/172; Scr **1446→1604**;
+  first miss **@1484** (`quit` vs `died` on Galen topten); RNG full;
+  green+strict; 17 PASS cohort + strict sample.
+- **Named omissions:** other `losehp` callers without finish (e.g. potion
+  acid); mon-target `mbhitm` resist/hit plines; other muse offense wands.
+- **Next:** @1484 `#quit` topten how_how `quit` vs `died`.
+
 ## D-0321 — SPBOOK_CLASS `xname` appearance (`"%s spellbook"`)
 
 - **Status:** fixed

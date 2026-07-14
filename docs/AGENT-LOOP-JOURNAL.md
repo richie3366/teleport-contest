@@ -20,6 +20,16 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-14 22:48 — #351 D-0323 mbhitm finish_losehp_done
+
+- Objective: seed0030 @1433 wand-hit `--More--` / seg7 −13 death screens.
+- C locus: `muse.c` `mbhitm` — `pline` then `losehp`→`done(DIED)` noreturn.
+- Change: await `finish_losehp_done` after fatal striking; stop mbhit/
+  use_offensive on gameover (D-0323).
+- Verification: @1433 match; seg7 172; Scr **1446→1604**; first miss
+  **@1484** quit vs died; RNG full; green+strict; 17 PASS cohort.
+- Next: @1484 `#quit` topten how_how `quit` vs `died`.
+
 ## 2026-07-14 22:38 — #350 public score refresh
 
 - Objective: mandatory full `sessions` (#350 % 5 == 0).
