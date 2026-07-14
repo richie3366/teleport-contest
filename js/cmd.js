@@ -9,9 +9,9 @@ import { game } from './gstate.js';
 import { nhgetch } from './input.js';
 import { newsym, flush_screen, pline } from './display.js';
 import { vision_recalc } from './vision.js';
-import { COLNO, ROWNO, STONE, DOOR, CORR, ROOM,
+import { COLNO, ROWNO, STONE, DOOR, CORR, ROOM, IRONBARS,
          D_CLOSED, D_LOCKED, D_NODOOR, D_BROKEN,
-         IS_WALL, IS_DOOR, IS_OBSTRUCTED, IS_FURNITURE, IS_STWALL,
+         IS_DOOR, IS_OBSTRUCTED, IS_FURNITURE, IS_STWALL,
          ACCESSIBLE, isok,
          ECMD_OK, ECMD_TIME, ECMD_CANCEL, DOMOVE_RUSH, DOMOVE_WALK } from './const.js';
 import { dist2 } from './mon.js';
@@ -69,11 +69,12 @@ function isRunKey(ch) {
 }
 
 // C ref: hack.c — check if a cell blocks movement
+// C test_move: IS_OBSTRUCTED(typ) || typ == IRONBARS (plus closed doors).
+// IS_OBSTRUCTED covers STONE..SCORR including TREE/SDOOR/SCORR (typ < POOL).
 function blocksMove(x, y) {
     const loc = game.level?.at(x, y);
     if (!loc) return true;
-    if (loc.typ === STONE) return true;
-    if (IS_WALL(loc.typ)) return true;
+    if (IS_OBSTRUCTED(loc.typ) || loc.typ === IRONBARS) return true;
     if (loc.typ === DOOR && (loc.doormask & (D_CLOSED | D_LOCKED))) return true;
     return false;
 }

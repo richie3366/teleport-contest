@@ -234,6 +234,7 @@ Do not record a guessed cause as fixed merely because an RNG prefix moved.
 | D-0228 | fixed | cmd_safety_prevention | safe_wait blocks s/. beside hostiles; seg3 7935→8561 |
 | D-0229 | fixed | xkilled treasure | mkobj(RANDOM_CLASS) after !rn2(6); seg3 8561→9166 |
 | D-0230 | fixed | CORPSE weight | mons[corpsenm].cwt; goblin gg divert; seg3 9166→9299 |
+| D-0231 | fixed | blocksMove/SDOOR | IS_OBSTRUCTED+IRONBARS; walk-into-SDOOR; seg3 9299→9778 |
 
 D-0001 through D-0005 predate the strict-length/cohort runbook. Their focused
 causes are preserved, but generic "green sessions held" is historical evidence,
@@ -6202,4 +6203,29 @@ cohort gates if those functions are touched again.
 - **Named omissions:** `oeaten`/`eaten_stat`; container/statue weight
   arms; globby `owt` passthrough.
 - **Next:** seed0030 seg3 @9299 C `dosearch0` vs JS `distfleeck`; or
+  quest `getbones`.
+
+## D-0231 — blocksMove must use IS_OBSTRUCTED (SDOOR/SCORR)
+
+- **Status:** fixed
+- **Symptom:** seed0030 seg3 @9299 C `rnl(7)` `dosearch0` vs JS
+  `rn2(5)` `distfleeck`. Matched through EOT `rn2(79)`.
+- **Cause:** After matched `j` move, C blocked next `j` into adjacent
+  SDOOR (0 RNG) then `s` searched (`rnl`). JS `blocksMove` only tested
+  STONE / `IS_WALL` / closed DOOR — SDOOR (typ=14) was walkable — so JS
+  stepped onto the secret door and never reached the search `rnl`.
+- **Rejected:** missing `dosearch` / safety-reject / key desync of the
+  `s` itself — DIAG showed `domove` into typ=14 at rngLen=9299 before
+  any `dosearch`.
+- **C locus:** `hack.c` `test_move` — `IS_OBSTRUCTED(typ) || IRONBARS`
+  (`rm.h`: `typ < POOL` includes TREE/SDOOR/SCORR).
+- **Change:** `js/cmd.js` `blocksMove` → `IS_OBSTRUCTED` + `IRONBARS` +
+  closed/locked DOOR.
+- **Verification:** seg3 **9299→9778** (C `m_move` `rn2(8)` vs JS
+  `distfleeck`); positional **38253**/105529 Scr **48**/1953; full
+  **19/44** Scr **1433** RNG **162593**; green+strict PASS;
+  17-session PASS cohort held.
+- **Named omissions:** Passes_walls / autodig / chew / mention_walls
+  plines on blocked obstructed cells; feel_location Blind path.
+- **Next:** seed0030 seg3 @9778 C `m_move` vs JS `distfleeck`; or
   quest `getbones`.

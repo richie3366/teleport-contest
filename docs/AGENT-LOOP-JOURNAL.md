@@ -2976,3 +2976,14 @@ Use this shape:
   full **19/44** Scr **1441** RNG **162377**; green+strict PASS; 17-session
   PASS cohort held.
 - Next: seed0030 seg3 @9299 C rnl(7) dosearch0 vs JS distfleeck; or quest getbones.
+
+## 2026-07-14 04:05 — blocksMove IS_OBSTRUCTED/SDOOR (D-0231)
+- Objective: seed0030 seg3 @9299 C rnl(7) dosearch0 vs JS distfleeck.
+- C locus: hack.c test_move IS_OBSTRUCTED(typ)||IRONBARS (rm.h typ<POOL).
+- Result: **verified** — JS blocksMove allowed walk onto SDOOR (typ=14);
+  C blocked j into SDOOR (0 RNG) then s→rnl. Fixed blocksMove to
+  IS_OBSTRUCTED+IRONBARS+closed DOOR. Rejected dosearch/safety/key theories.
+- Verification: seg3 **9299→9778**; positional **38253**/105529 Scr **48**/1953;
+  full **19/44** Scr **1433** RNG **162593**; green+strict PASS; 17-session
+  PASS cohort held.
+- Next: seed0030 seg3 @9778 C m_move rn2(8) vs JS distfleeck; or quest getbones.

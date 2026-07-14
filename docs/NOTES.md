@@ -7,10 +7,11 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 
 ## Active
 
-- **Current unit:** seed0030 seg3 @9299 — after matched EOT, C `rnl(7)`
-  `dosearch0` vs JS `rn2(5)` `distfleeck` (key/command or search path).
-- **Falsifier:** reconstruct key at matched EOT; expect C `s` search while JS
-  starts monster fleeck (or safety/0-RNG gate class).
+- **Current unit:** seed0030 seg3 @9778 — after matched `moveloop_core`
+  `rn2(31)` + two `distfleeck`, C `rn2(8)` `m_move` vs JS `rn2(5)`
+  `distfleeck` (monster path / actor set).
+- **Falsifier:** dump which mon calls `m_move`/`distfleeck` at matched
+  prefix; expect C extra actor or different `appr`/cnt vs JS.
 - **Parked deep canary:** D-0006 pet movement — do not implement until C
   state/candidate capture exists.
 - **Parked seed2200 @158:** RC config path — harness `$HOME`, not a port bug.
@@ -101,6 +102,10 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   `m_search_items` redirected `gg` to a gnome CORPSE with `owt=1`.
   C `weight(CORPSE)` uses `mons[corpsenm].cwt` (D-0230). Do not
   re-chase `cmd_safety` for that peel.
+- **seed0030 seg3 @9299 was NOT missing dosearch/safety/key desync** —
+  C blocked `j` into adjacent SDOOR (0 RNG) then `s`→`rnl(7)`; JS
+  `blocksMove` allowed walk onto SDOOR (typ=14) because it only
+  checked STONE/walls/closed DOOR, not `IS_OBSTRUCTED` (D-0231).
 - **`monattk.h`: AT_WEAP=254, AT_MAGC=255, AT_SPIT=10** — never use 10 for
   weapon (D-0179).
 - Hostile `m_move`: before place, `m_digweapon_check` may return
@@ -139,6 +144,9 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   not `objects[CORPSE].oc_weight` / `(quan+1)/2` (D-0230). Wrong owt
   lets `can_carry` succeed and `m_search_items` divert hostiles off
   gettrack/hero gg.
+- **`blocksMove` / `test_move`:** `IS_OBSTRUCTED(typ)` (`typ < POOL`) +
+  IRONBARS + closed/locked DOOR — includes TREE/SDOOR/SCORR (D-0231).
+  STONE/walls-only was wrong and let the hero walk onto secret doors.
 - **`test_move` diagonal into DOOR:** only `doorless_door` (D_NODOOR /
   D_BROKEN) allowed; open/closed/locked block diagonal entry/exit
   (D-0219). Same rule in `domove` and steed `landing_spot`/`test_move_ok`.
