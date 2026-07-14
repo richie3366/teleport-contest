@@ -20,6 +20,17 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-14 23:58 — #358 D-0330 `;` glance + look_at_monster
+
+- Objective: seed0030 @1832 unbound `;` (CURRENT).
+- C locus: `cmd.c` `';'`→`doquickwhatis`; `pager.c` `do_look(1)` /
+  `look_at_monster`; putmixed (no forced more).
+- Change: bind `;`; `distant_monnam_none`+asleep; skip quick checkfile;
+  drop forced more after look pline (D-0330).
+- Verification: @1832–@1839 match; Scr **1832→1933**; first miss **@1935**
+  farlook wrap; RNG full; green+strict; 19 PASS cohort.
+- Next: @1935 `#  farlook -> …` row1 `"  k"` wrap.
+
 ## 2026-07-14 23:48 — #357 D-0329 named ghost monnam
 
 - Objective: seed0030 @1830 `You miss Elara's ghost.` (CURRENT).
@@ -164,13 +175,3 @@ Use this shape:
 - Verification: @836 match; Scr **1400→1427**; first miss **@1174**
   thin-air + gnome wield; RNG full; green+strict; 19 PASS cohort.
 - Next: @1174 `You attack thin air.  The gnome wields a bow!`.
-
-## 2026-07-14 21:51 — #343 D-0316 mksobj WAND known=0
-
-- Objective: seed0030 @791 glass wand charges (CURRENT).
-- C locus: `mkobj.c` `unknow_object` / `WAND()` `oc_uses_known=1`.
-- Change: `mksobj` uskn heuristic includes `WAND_CLASS` so new wands
-  start `known=0` (D-0316). Symptom was `doname` `(0:6)`, root was create.
-- Verification: @791/@793 bare glass wand; Scr **1398→1400**; first miss
-  **@836** boulder hear-behind; RNG full; green+strict; 17 PASS cohort.
-- Next: @836 `hear a monster behind the boulder` vs vain push.

@@ -8040,6 +8040,28 @@ Open that file first; then jump to a single `## D-NNNN` entry below
   `nonliving`).
 - **Next:** @1821 map clear/`docrt`/`cls` on level transition.
 
+## D-0330 — `;` glance (`doquickwhatis`) + `look_at_monster`
+
+- **Status:** fixed
+- **Observed:** seed0030 @1832 — C `Pick a monster, object or location.--More--`
+  vs JS `Unknown command ';'.`. RNG full.
+- **C locus:** `cmd.c` `';'` → `doquickwhatis`; `pager.c` `do_look(1)` /
+  `look_at_monster` (`distant_monnam` ARTICLE_NONE + `, asleep`);
+  `putmixed(WIN_MESSAGE)` (no forced `more`).
+- **Cause:** JS left `;` unbound; `look_at_monster_buf` used bare type name
+  without given-name/asleep; `do_look` always `more()` after `pline` and
+  called `checkfile` even when `quick`.
+- **Change:** bind `;` → `doquickwhatis`/`do_look(1)`; `distant_monnam_none`
+  + asleep/frozen/meditating in `look_at_monster_buf`; getpos `force=quick`;
+  skip `checkfile` when quick; drop forced `more` after putmixed-equivalent
+  `pline` (D-0330).
+- **Verification:** @1832–@1839 match; Scr **1832→1933**; first miss **@1935**
+  farlook wrap; RNG full; green+strict; 19 PASS cohort.
+- **Named omissions:** hallu/health/stuck/leashed/trapped/mhidden in
+  `look_at_monster`; astral high-cleric `distant_monnam`; getpos `;`/`,`/`:`
+  LOOK_* pick mapping still partial; full showsyms `do_screen_description`.
+- **Next:** @1935 `#  farlook -> …` row1 wrap `"  k"`.
+
 ## D-0329 — named `PM_GHOST` `x_monnam` → `"<name>'s ghost"`
 
 - **Status:** fixed

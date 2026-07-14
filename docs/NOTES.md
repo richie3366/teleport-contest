@@ -8,14 +8,14 @@ Objective/score live in `CURRENT.md`.
 ## Active
 
 - **Score (#355 suite):** **19/44**; Scr **3258**/11405; RNG **240657**/792838.
-  (#357 focused seed0030 Scr **1832**/1953; suite not remeasured.)
-- **Current unit:** seed0030 Scr **1832**/1953 RNG **FULL**; cell first-miss **@1832**.
-- **@1832:** C `Pick a monster, object or location.--More--` vs JS `Unknown command ';'.`
-- **Hypothesis:** `;` unbound; wire to `do_look(1)` (`pager.js` already has quick arm).
-- **Falsifier:** @1832 match; prefix >1832.
-- **Fixed:** D-0329 `x_monnam` named `PM_GHOST` → `s_suffix(name)+" ghost"`;
-  @1830; Scr 1831→1832.
-- **Don’t:** bare `MGIVENNAME` for named ghosts (C always `"X's ghost"`).
+  (#358 focused seed0030 Scr **1933**/1953; suite not remeasured.)
+- **Current unit:** seed0030 Scr **1933**/1953 RNG **FULL**; cell first-miss **@1935**.
+- **@1935:** C/JS same `#  farlook -> "Elara's ghost, asleep …"` row0; C row1
+  `"  k"` vs JS blank (wrap of trailing keys?).
+- **Hypothesis:** long farlook/extend topline wraps one extra token in C.
+- **Falsifier:** @1935 match; Scr >1933.
+- **Fixed:** D-0330 `;`→`doquickwhatis`/`do_look(1)`; `look_at_monster`
+  distant_monnam+asleep; putmixed no forced more; Scr 1832→1933.
 - **Alt:** seed0013 Scr 57/59; seed0107 @2684.
 - **Parked:** D-0006; seed2200 @158 RC/`$HOME`.
 
@@ -62,6 +62,8 @@ Objective/score live in `CURRENT.md`.
   hard-code xkilled `"kill"` — nonliving → `"destroy"` (D-0327);
   persist bones `remembered_glyph`/`disp_*` — C clears before save (D-0328);
   bare `MGIVENNAME` for named `PM_GHOST` — `s_suffix`+`" ghost"` (D-0329);
+  leave `;` unbound / force `more` after `do_look` putmixed — C `;`→
+  `doquickwhatis`; putmixed no forced more (D-0330);
   blanket `observe_object` in `xname` without `distantname` (regresses map).
 - Runner `Screen N/M` = total matches, not prefix length; contiguous cell
   miss can precede a later named topline peel (D-0311→@594 while @583 RIP open).
@@ -87,4 +89,4 @@ Objective/score live in `CURRENT.md`.
   losehp leave neg uhp / SPBOOK descr / hmon exclam / mbhitm finish_done /
   quit deaths+outentry dungeon / ARMOR descr / canspotself newsym /
   xkilled nonliving destroy / savebones clear glyph memory /
-  named ghost `"s ghost"`: D-0274…D-0329.
+  named ghost `"s ghost"` / `;` glance+look_at_monster: D-0274…D-0330.
