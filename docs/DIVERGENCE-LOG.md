@@ -8040,6 +8040,25 @@ Open that file first; then jump to a single `## D-NNNN` entry below
   `nonliving`).
 - **Next:** @1821 map clear/`docrt`/`cls` on level transition.
 
+## D-0329 — named `PM_GHOST` `x_monnam` → `"<name>'s ghost"`
+
+- **Status:** fixed
+- **Observed:** seed0030 @1830 — C `You miss Elara's ghost.` vs JS
+  `You miss Elara.`. RNG full.
+- **C locus:** `do_name.c` `x_monnam` — `do_name && has_mgivenname` &&
+  `mdat == &mons[PM_GHOST]` → `Sprintf("%s ghost", s_suffix(name))`;
+  `name_at_start` clears article (`mon_nam` ARTICLE_THE → bare).
+- **Cause:** JS `mon_nam` / tame / `noit_Monnam` returned bare
+  `MGIVENNAME` for all named monsters, skipping the ghost arm.
+- **Change:** `named_ghost_monnam` + `s_suffix` in `do_name.js`
+  (D-0329); applied in `mon_nam`, `x_monnam_tame`, `noit_Monnam`.
+- **Verification:** @1830/@1831 match; Scr **1831→1832**; first miss
+  **@1832** `;` unbound; RNG full; green+strict; 17 PASS cohort.
+- **Named omissions:** hallu/invis adj/priest/`called`/`is_mplayer`
+  name arms; full `x_monnam` article/`just_an` path; `a_monnam` in
+  `uhitm.js` still bare-given-name.
+- **Next:** @1832 cmd `;` → `do_look(1)`.
+
 ## D-0328 — `savebones` clear map memory (+ `docrt` vision shutoff)
 
 - **Status:** fixed

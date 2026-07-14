@@ -20,6 +20,16 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-14 23:48 — #357 D-0329 named ghost monnam
+
+- Objective: seed0030 @1830 `You miss Elara's ghost.` (CURRENT).
+- C locus: `do_name.c` `x_monnam` PM_GHOST + `s_suffix(MGIVENNAME)`.
+- Change: `named_ghost_monnam` in `mon_nam` / tame / `noit_Monnam`
+  (D-0329).
+- Verification: @1830/@1831 match; Scr **1831→1832**; first miss **@1832**
+  `;` unbound; RNG full; green+strict; 17 PASS cohort.
+- Next: @1832 cmd `;` → `do_look(1)`.
+
 ## 2026-07-14 23:45 — #356 D-0328 savebones clear map memory
 
 - Objective: seed0030 @1821 blank C map vs JS walls after bones descend.
@@ -164,14 +174,3 @@ Use this shape:
 - Verification: @791/@793 bare glass wand; Scr **1398→1400**; first miss
   **@836** boulder hear-behind; RNG full; green+strict; 17 PASS cohort.
 - Next: @836 `hear a monster behind the boulder` vs vain push.
-
-## 2026-07-14 21:44 — #342 D-0315 Priest xname bknown
-
-- Objective: seed0030 @787 Things that are here (CURRENT).
-- C locus: `objnam.c` `xname` `Role_if(PM_CLERIC)` → `obj->bknown=1`.
-- Change: force cleric `bknown` in `xname` + `doname` (D-0315). Prior
-  map-overlay hypothesis falsified — miss was BUC text.
-- Verification: @787 `a cursed candy bar`; Scr **1395→1398**; first miss
-  **@791** wand `(0:6)`; RNG full; green+strict; 19 PASS cohort.
-- Next: @791 pet pickup `glass wand` vs `glass wand (0:6)`.
-
