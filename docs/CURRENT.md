@@ -6,8 +6,8 @@ and `archive/PROGRESS-HISTORY.md`.
 
 Score last measured: **2026-07-14** via focused seed0030 + green/cohort;
 full `sessions` suite not re-run this iteration. PASS set unchanged;
-seed0030 positional **105529**/105529 Scr **843**/1953 after D-0294
-(RNG full; true prefix first-miss 126→129; runner matched count 840→843).
+seed0030 positional **105529**/105529 Scr **853**/1953 after D-0295/96
+(RNG full; true prefix first-miss 129→163; runner matched count 843→853).
 
 ## Score
 
@@ -24,7 +24,7 @@ seed0700, seed1150, seed0017, seed0077, seed0106, seed0501, seed0105,
 seed0016, seed0015, seed0200, seed0101, seed0103, seed0104.
 
 **Notable non-PASS:** seed2200 RNG full Scr 229/230 (parked RC @158);
-seed0013 RNG full Scr 57/59; seed0030 **105529**/105529 Scr 843/1953;
+seed0013 RNG full Scr 57/59; seed0030 **105529**/105529 Scr 853/1953;
 seed0107 2684/2902 Scr 36/98; seed0361/0373 quest bones blocked.
 
 ## Green gate
@@ -42,16 +42,16 @@ Both must remain full RNG + screen PASS with exact scored-output lengths.
 
 ## Primary objective
 
-**seed0030 screen peel** — RNG full; Scr **843**/1953; prefix first-miss **@129**
+**seed0030 screen peel** — RNG full; Scr **853**/1953; prefix first-miss **@163**
 
 | | |
 |--|--|
-| **C locus** | `do_name.c` `Monnam` / `x_monnam` unseen → `It` (via `missmm`) |
-| **JS locus** | `js/do_name.js` `Monnam` / `js/mhitm.js` `missmm` |
-| **Symptom** | Scr prefix@129 topline: C `It misses the grid bug.` vs JS `The kitten misses the grid bug.` |
-| **Hypothesis** | `_mm_vis` true via defender, but Magr not `canspotmon` → C `Monnam`=`It` |
-| **Falsifier** | decodeScreen @129; Magr spotability vs `Monnam` output |
-| **Recent fixed** | D-0294 `noises`/`You_hear` (prefix 126→129) |
+| **C locus** | mimic/`seemimic` / `M_AP_OBJECT` display (door-open shop?) |
+| **JS locus** | `js/display.js` / `js/mon.js` mimic appearance |
+| **Symptom** | Scr prefix@163: C tool `(` glyphs vs JS `m` mimics (several cells) |
+| **Hypothesis** | Concealed mimics still drawn as `m` instead of object appearance |
+| **Falsifier** | decodeScreen @163 cell diffs; C `M_AP_TYPE` / `seemimic` vs JS glyph |
+| **Recent fixed** | D-0295 `Monnam` do_it; D-0296 `map_invisible`/`pre_mm_attack` (129→163) |
 
 ```bash
 # Focused seed0030 (RNG already full — peel screens)

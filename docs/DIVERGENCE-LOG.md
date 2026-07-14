@@ -7528,4 +7528,38 @@ Open that file first; then jump to a single `## D-NNNN` entry below
 - **Next:** prefix@129 C `It misses the grid bug.` vs JS
   `The kitten misses the grid bug.` (`Monnam` when Magr not spotted).
 
+## D-0295 — `Monnam` / `x_monnam` do_it
+
+- **Status:** fixed
+- **Observed:** seed0030 prefix@129 — C topline `It misses the grid bug.`
+  vs JS `The kitten misses the grid bug.` (`_mm_vis` via defender).
+- **C locus:** `do_name.c` `x_monnam` `do_it` (`!canspotmon` → `"it"`
+  before type/given name); `Monnam` → `highc(mon_nam)`.
+- **Cause:** JS `mon_nam`/`Monnam` always emitted type/given name;
+  never the unseen `"it"` arm.
+- **Change:** shared `canspotmon`/`canseemon`/`sensemon` on `display.js`;
+  `mon_nam` takes `do_it` before MGIVENNAME; `noit_Monnam` keeps
+  `SUPPRESS_IT` (never `"it"`).
+- **Verification:** @129 topline matches; remaining cell miss was `I`
+  (see D-0296). Green+strict; 19-session PASS cohort + strict.
+- **Named omissions:** hallu/invis adjectives; priest/shk; `AUGMENT_IT`;
+  `tp_sensemon` / `MATCH_WARN_OF_MON`; worm_known.
+- **Next:** after D-0296, prefix@163 mimic `(` vs `m`.
+
+## D-0296 — `map_invisible` / `pre_mm_attack`
+
+- **Status:** fixed
+- **Observed:** seed0030 @129 after D-0295 topline match — C `I` vs
+  JS `#` at (5,49) (unseen magr square).
+- **C locus:** `mhitm.c` `pre_mm_attack` `!canspotmon` → `map_invisible`;
+  `display.c` `map_invisible` / `newsym` keep `GLYPH_INVISIBLE`.
+- **Cause:** JS `missmm`/`hitmm` deferred `pre_mm_attack`; no `I` memory.
+- **Change:** port `map_invisible` + `remembered_glyph.invisible`;
+  `pre_mm_attack` map arms from `missmm`/`hitmm`; `newsym` preserves `I`.
+- **Verification:** prefix **129→163**; Scr matched **843→853**; RNG full;
+  green+strict; 19-session PASS cohort + strict.
+- **Named omissions:** `seemimic`/`mundetected` unhide + showit `newsym`;
+  full `unmap_invisible`/`unmap_object`; telepathy/warn sensemon.
+- **Next:** prefix@163 C `(` vs JS `m` (mimic object appearance).
+
 

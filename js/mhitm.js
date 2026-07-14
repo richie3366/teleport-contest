@@ -5,7 +5,7 @@
 import { rn2, rnd, d } from './rng.js';
 import { distmin, m_at, record_mvitals_died, undead_to_corpse } from './mon.js';
 import { game } from './gstate.js';
-import { pline, newsym, mon_visible, see_with_infrared } from './display.js';
+import { pline, newsym, canspotmon, map_invisible } from './display.js';
 import { cansee } from './vision.js';
 import { dist2 } from './hacklib.js';
 import {
@@ -58,15 +58,6 @@ const NO_ATTK = { aatyp: AT_NONE, adtyp: AD_PHYS, damn: 0, damd: 0 };
 
 /** Per-attack visibility; set in mattackm like C gv.vis. */
 let _mm_vis = false;
-
-/**
- * C ref: display.h canspotmon — cansee/infrared + mon_visible.
- */
-function canspotmon(mtmp) {
-    if (!mtmp?.mx) return false;
-    if (!(cansee(mtmp.mx, mtmp.my) || see_with_infrared(mtmp))) return false;
-    return mon_visible(mtmp);
-}
 
 /** C ref: monmove.c / muse.c mdistu — squared distance to hero. */
 function mdistu(mtmp) {
@@ -361,9 +352,17 @@ function grow_up(mtmp, victim) {
     return mtmp.data;
 }
 
+// C ref: mhitm.c pre_mm_attack — reveal + map_invisible when gv.vis
+// Named omission: seemimic / mundetected clear + showit newsym arms
+function pre_mm_attack(magr, mdef) {
+    if (!_mm_vis) return;
+    if (!canspotmon(magr)) map_invisible(magr.mx, magr.my);
+    if (!canspotmon(mdef)) map_invisible(mdef.mx, mdef.my);
+}
+
 // C ref: mhitm.c missmm() — pline when gv.vis; else noises()
-// Named omission: pre_mm_attack (seemimic/mundetected/map_invisible)
 async function missmm(magr, mdef, mattk) {
+    pre_mm_attack(magr, mdef);
     if (_mm_vis) {
         await pline(`${Monnam(magr)} misses ${mon_nam(mdef)}.`);
     } else {
@@ -396,8 +395,9 @@ async function mdamagem(magr, mdef, mattk, mwep, dieroll) {
 }
 
 // C ref: mhitm.c hitmm() — hit pline when gv.vis; else noises()
-// Named omission: pre_mm_attack; full hit verb/silver/seduce arms
+// Named omission: full hit verb/silver/seduce arms
 async function hitmm(magr, mdef, mattk, mwep, dieroll) {
+    pre_mm_attack(magr, mdef);
     if (_mm_vis) {
         let verb = 'hits';
         if (mattk.aatyp === AT_BITE) verb = 'bites';

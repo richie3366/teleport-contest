@@ -152,6 +152,55 @@ export function mon_visible(mon) {
     return true;
 }
 
+/**
+ * C ref: display.h _canseemon — location sight/infrared + mon_visible.
+ * Named omission: worm_known for long worms.
+ */
+export function canseemon(mon) {
+    if (!mon?.mx) return false;
+    if (!(cansee(mon.mx, mon.my) || see_with_infrared(mon))) return false;
+    return mon_visible(mon);
+}
+
+/**
+ * C ref: display.h _sensemon — Detect_monsters / telepathy / warn.
+ * Named omissions: tp_sensemon Blind_telepat/Unblind_telepat range,
+ * MATCH_WARN_OF_MON, Underwater pool adjacency gate.
+ */
+export function sensemon(mon) {
+    if (!mon) return false;
+    const u = game.u || {};
+    if (u.uswallow && mon !== u.ustuck) return false;
+    if (u.Detect_monsters) return true;
+    return false;
+}
+
+/** C ref: display.h canspotmon — canseemon || sensemon. */
+export function canspotmon(mon) {
+    return canseemon(mon) || sensemon(mon);
+}
+
+/**
+ * C ref: display.c map_invisible — remember/show 'I' for unseen monster.
+ * Persists in hero_memory until unmap_invisible / visible mon display.
+ */
+export function map_invisible(x, y) {
+    const u = game.u || {};
+    if (x === u.ux && y === u.uy) return; // never I under hero
+    const loc = game.level?.at(x, y);
+    if (!loc) return;
+    const g = { ch: 'I', color: NO_COLOR, decgfx: false, invisible: true };
+    if (game.level?.flags?.hero_memory) {
+        loc.remembered_glyph = g;
+    }
+    show_glyph_cell(x, y, 'I', NO_COLOR, false);
+}
+
+/** C ref: display.h glyph_is_invisible — remembered unseen-monster marker. */
+function glyph_is_invisible(loc) {
+    return !!loc?.remembered_glyph?.invisible;
+}
+
 // C ref: youprop.h Infravision — race intrinsic via set_uasmon/mons[urace]
 function hero_has_infravision() {
     if (game.u?.HInfravision || game.u?.EInfravision) return true;
@@ -918,9 +967,20 @@ export function newsym(x, y) {
             // C: _map_location(x, y, FALSE) then display_monster — memory
             // keeps object under the monster so leaving sight does not
             // replace ) with remembered corridor.
-            map_location_memory(x, y);
+            // show_mon_or_warn clears invisible memory when showing mon
+            if (glyph_is_invisible(loc)) {
+                loc.remembered_glyph = null;
+                map_location_memory(x, y);
+            } else {
+                map_location_memory(x, y);
+            }
             const mg = mon_glyph(mtmp);
             show_glyph_cell(x, y, mg.ch, mg.color, false);
+            return;
+        }
+        // C: newsym cansee — keep remembered I when !displayable mon
+        if (glyph_is_invisible(loc)) {
+            map_invisible(x, y);
             return;
         }
         // C ref: display.c _map_location — vobj_at before trap/engraving/bg

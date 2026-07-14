@@ -7,17 +7,16 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Current unit:** seed0030 Scr **843**/1953 with RNG **FULL** 105529
-  (D-0294). True prefix first-miss **129** (was 126). Runner matched
+- **Current unit:** seed0030 Scr **853**/1953 with RNG **FULL** 105529
+  (D-0295/96). True prefix first-miss **163** (was 129). Runner matched
   count is total matches, not prefix — do not treat as prefix length.
-- **Hypothesis:** @129 C `It misses the grid bug.` vs JS
-  `The kitten misses the grid bug.` — Magr not `canspotmon` but
-  `_mm_vis` via defender; C `Monnam` → `It`.
-- **Falsifier:** decodeScreen topline @129; Magr spotability vs
-  `do_name.js` `Monnam` / `x_monnam`.
-- **Falsified:** @126 was **not** `dosounds` — it was `mhitm.c` `noises`
-  (D-0294). Do not re-chase ambient fountain/shop hear for that screen.
-- **Also:** seg7 JS 159 vs C 172 steps (investigate after @129).
+- **Hypothesis:** @163 C tool `(` vs JS `m` — mimics still drawn as
+  monster letter instead of `M_AP_OBJECT` appearance (door-open screen).
+- **Falsifier:** decodeScreen @163; C `M_AP_TYPE`/`seemimic` vs JS glyph.
+- **Falsified:** @129 was **not** only Monnam — after `It` matched,
+  remaining miss was missing `map_invisible` `I` (D-0296). Do not
+  re-chase Monnam for that screen.
+- **Also:** seg7 JS 159 vs C 172 steps (investigate after @163).
 - **Alt:** seed0013 Scr 57/59; seed0107 @2684.
 - **Parked:** D-0006 (pet movement); seed2200 @158 RC/`$HOME`.
 
@@ -38,7 +37,8 @@ Objective/score live in `CURRENT.md`.
 - **Don’t:** omit RIP trailing blank putstr / `topten` after RIP (D-0290/91).
 - **Don’t:** emit true amulet name when `!oc_name_known` — `<descr> amulet` (D-0292).
 - **Don’t:** DEC altar as ASCII `_` — meta-`{` (D-0293); omit `noises()` on
-  out-of-sight `missmm`/`hitmm` (D-0294).
+  out-of-sight `missmm`/`hitmm` (D-0294); `Monnam` without `!canspotmon`→`it`
+  (D-0295); `missmm` without `map_invisible` when Magr unseen (D-0296).
 - Runner `Screen N/M` = total matches, not prefix length.
 
 ## Landmarks (≤15)
@@ -57,4 +57,5 @@ Objective/score live in `CURRENT.md`.
 - Hero MAGIC_TRAP → `domagictrap` (D-0266).
 - `m_move`: `set_apparxy` **before** mtame/shk|gd|priest (D-0267).
 - Key attribution ≠ RNG order (0-RNG `--More--`) (D-0228).
-- Bones / disclose / RIP / topten / amulet / DEC altar / noises: D-0274…D-0294.
+- Bones / disclose / RIP / topten / amulet / DEC altar / noises / Monnam /
+  map_invisible: D-0274…D-0296.
