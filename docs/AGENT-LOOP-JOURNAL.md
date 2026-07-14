@@ -3376,3 +3376,19 @@ Use this shape:
   full **19/44** Scr **1463** RNG **180985**; seed0030
   **47906**/105529; green+strict PASS; 17-session PASS cohort held.
 - Next: seed0030 seg8 @3088 dog_goal; or quest getbones.
+
+## 2026-07-14 08:25 — D-0259 hero xy vs pet pathing
+
+- Objective: seed0030 seg8 @3088 C `rn2(4) @ dog_goal` vs JS `rn2(1)`
+  (PROGRESS primary).
+- C locus: dogmove.c dog_goal/dog_move; suspected earlier hero `k`
+  off stairs (hack.c domove), not mfndpos squeeze.
+- Result: **diagnosis only** — APPORT matched; JS selects (65,15)
+  toward hero-on-stairs (64,15); C same-step screen has hero (64,14)
+  stairs (64,15). Place-abort stay-(66,16) falsified (worse @3087).
+  Candidate exclude-(65,15)→(65,16) advances 3088→3106 only (symptom
+  mask). No production change.
+- Verification: green gate not re-scored (docs-only); dogmove restored
+  clean.
+- Next: falsify JS `u.uy` at dog_goal @3067; find why `k` did not
+  leave stairs (extra `--More--` / blocked north / restore).

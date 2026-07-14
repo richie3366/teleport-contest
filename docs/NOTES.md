@@ -8,11 +8,16 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 ## Active
 
 - **Current unit:** seed0030 seg8 @3088 — C `rn2(4) @ dog_goal` vs JS
-  `rn2(1)` (post D-0258 seg7 FULL).
-- **Hypothesis:** after Swidnica death/bones, pet `dog_goal` APPORT /
-  `rn2` arity differs (invent/edible/gg path).
-- **Falsifier:** dump dog_goal branch + pet invent/edible at first
-  post-matched dog_goal rn2(8) after 3087; compare C rn2(4) site.
+  `rn2(1)` (D-0259).
+- **Hypothesis:** at pet `dog_move` after dog_goal @3067, JS hero is
+  still on STAIRS `(64,15)` so goal→`(65,15)` (`udist=1` next); C
+  screen in the same step has hero at `(64,14)` (after `k` north off
+  stairs). Different `gg` → C never picks `(65,15)`. Symptom looks
+  like pet pathing; peel may be earlier hero `k` / `--More--` key use.
+- **Falsifier:** log JS `u.ux,u.uy` at dog_goal @3067 and compare to C
+  map/`cursor` in that step (expect C `(64,14)`); or make JS hero
+  stand at `(64,14)` before that dog_move → first mismatch moves past
+  3088 without skipping `(65,15)`.
 - **Parked deep canary:** D-0006 pet movement — do not implement until C
   state/candidate capture exists.
 - **Parked seed2200 @158:** RC config path — harness `$HOME`, not a port bug.
@@ -155,6 +160,22 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 - Hostile `m_move`: before place, `m_digweapon_check` may return
   MMOVE_DONE (wield pick/axe); hero-square returns MMOVE_NOTHING so
   dochug can `mattacku` (D-0180).
+- **seg8 @3088 is NOT dog_goal APPORT arity / invent-edible / rn2(8)
+  mismatch** — both match `rn2(8)=4` APPORT (apport=3 fails); peel is
+  follow `rn2(4)` vs approach `rn2(1)` from **pet udist** after prior
+  dog_move (D-0259).
+- **seg8 @3088 is NOT tight-squeeze for empty little dog** — reverse
+  diagonal (65,15)→(66,16) already succeeded same session; empty dog
+  `cant_squeeze_thru`==0 so squeeze cannot exclude return (D-0259).
+- **seg8 @3088 is NOT kickedloc / Displaced mux / Elbereth onscary** —
+  kicked (0,0); mux=(64,15); no engraving; pets have ALLOW_SSM +
+  peaceful Elbereth immunity (D-0259).
+- **seg8 @3088 is NOT `m_in_out_region` place abort** — abort-stay at
+  (66,16) **worsens** prefix (diverges @3087); exclude-(65,15) advances
+  3088→3106 (D-0259).
+- **seg8 @3088 is NOT “mfndpos mysteriously drops (65,15)” as first
+  cause** — JS mfndpos has clear ROOM `(65,15)`; C map in-step shows
+  hero at `(64,14)` not `(64,15)`, so goal cell differs (D-0259).
 
 ## Landmarks
 
@@ -225,5 +246,7 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   — once WAN_STRIKING selected, later POT_* on later invent objects are
   skipped (D-0258). Not “last invent wins” for types earlier in the
   per-object check list.
-- **seg7 FULL** (D-0258); next peel **seg8 @3088** C `rn2(4) @ dog_goal`
-  vs JS `rn2(1)`.
+- **seg8 @3088 dog_goal:** pet mid=62 at (66,16); JS hero STAIRS
+  (64,15); C same-step map hero (64,14) stairs (64,15). JS picks
+  (65,15); exclude-(65,15)→(65,16) matches through 3105; place-abort
+  falsified (D-0259).

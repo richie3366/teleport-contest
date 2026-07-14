@@ -542,13 +542,15 @@ seed0101 RNG **full** Scr **27**/27. seed0103 RNG **full** Scr **60**/60.
 seed0104 RNG **full** Scr **43**/43.
 
 - **Bounded unit:** seed0030 seg8 @3088 — **D-0259** open —
-  C `rn2(4) @ dog_goal` vs JS `rn2(1)` (post D-0258 seg7 **FULL**).
+  C `rn2(4) @ dog_goal` vs JS `rn2(1)`. Diagnosis: JS hero still on
+  STAIRS `(64,15)` while C map has hero `(64,14)` after `k`; pet
+  pathing symptom. Place-abort falsified; exclude-(65,15) →3106 only.
   D-0258 `find_offensive` nomore **ported**. /
   seed0361/0373 **quest `getbones`** (blocked: need `^V`→`goto_level`→
   `makemaz` first — ordinary `goto_level` now exists for stairs; Mines
   `fill_lvl` path exists D-0171).
-- **Prefer:** diagnose `dog_goal` after Swidnica death over quest bones
-  until `^V`/`makemaz`; over parked D-0006
+- **Prefer:** confirm hero `k`/stairs xy before more `dog_move` peels;
+  over quest bones until `^V`/`makemaz`; over parked D-0006
   and over baking seed2200 RC paths.
   Hero `dotrap` MAGIC_TRAP/`domagictrap` deferred (D-0254 named
   omission). Hero SLP_GAS deferred (D-0256). Hero dart `dotrap` done
