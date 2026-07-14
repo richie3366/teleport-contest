@@ -9,7 +9,7 @@ import { pline, flush_topl_more } from './display.js';
 import { yn_function } from './getline.js';
 import {
     DIED, GENOCIDED, STONING, NON_PM, CORPSTAT_INIT, CORPSTAT_NONE,
-    OBJ_FREE, Upolyd, MM_NONAME, isok, ACCESSIBLE,
+    OBJ_FREE, Upolyd, MM_NONAME, isok, ACCESSIBLE, MAGIC_PORTAL,
 } from './const.js';
 import { G_NOCORPSE, mons } from './monsters.js';
 import { Monnam, oname, christen_monst } from './do_name.js';
@@ -57,11 +57,52 @@ function done_object_cleanup() {
     }
 }
 
+/** C ref: dungeon.c on_level — same dnum+dlevel. */
+function on_level(a, b) {
+    return !!a && !!b
+        && (a.dnum | 0) === (b.dnum | 0)
+        && (a.dlevel | 0) === (b.dlevel | 0);
+}
+
+/** C ref: dungeon.c Is_special — match in sp_levchn. */
+function Is_special(lev) {
+    for (const s of game.sp_levchn || []) {
+        if (on_level(lev, s.dlevel)) return s;
+    }
+    return null;
+}
+
+/** C ref: dungeon.c Is_branchlev — branch end1/end2 match. */
+function Is_branchlev(lev) {
+    for (const br of game.branches || []) {
+        if (on_level(lev, br.end1) || on_level(lev, br.end2)) return br;
+    }
+    return null;
+}
+
+/**
+ * C ref: bones.c no_bones_level — special/dungeon boneid, botlevel,
+ * multiway branch (dlevel>1), Gehennom invocation level.
+ * Named omission: save_dlevel reassignment before the checks.
+ */
+export function no_bones_level(lev) {
+    const sptr = Is_special(lev);
+    if (sptr && !sptr.boneid) return true;
+    const dun = game.dungeons?.[lev.dnum | 0];
+    if (!dun?.boneid) return true;
+    if ((lev.dlevel | 0) === (dun.num_dunlevs | 0)) return true; // Is_botlevel
+    if (Is_branchlev(lev) && (lev.dlevel | 0) > 1) return true;
+    // In_hell invocation: deepest-1
+    if (dun.flags?.hellish
+        && (lev.dlevel | 0) === ((dun.num_dunlevs | 0) - 1)) {
+        return true;
+    }
+    return false;
+}
+
 /**
  * C ref: bones.c can_make_bones — whether a bones file may be written.
- * Named omissions: full no_bones_level (special/bot/branch/invocation);
- * portal scan on non-branch; save_dlevel assign. Ordinary dlvl1 reaches
- * the depth rn2 gate.
+ * Named omissions: save_dlevel assign inside no_bones_level.
  */
 export function can_make_bones() {
     const flags = game.flags || {};
@@ -80,7 +121,17 @@ export function can_make_bones() {
     }
     if (ledger <= 0 || (maxled > 0 && ledger > maxled)) return false;
 
+    // C: no_bones_level before swallow / portal / depth rn2
+    if (no_bones_level(uz)) return false;
+
     if (u.uswallow) return false;
+
+    // C: non-branch levels with a MAGIC_PORTAL never leave bones
+    if (!Is_branchlev(uz)) {
+        for (let t = game.ftrap; t; t = t.ntrap) {
+            if ((t.ttyp | 0) === MAGIC_PORTAL) return false;
+        }
+    }
 
     const dep = depth(uz);
     if (dep <= 0

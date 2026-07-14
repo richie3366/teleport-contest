@@ -11,6 +11,7 @@ import { rn2, rnd, rn1, rnz } from './rng.js';
 import { init_rect, rnd_rect, get_rect, split_rects } from './rect.js';
 import { depth as depth_of_level } from './hacklib.js';
 import { try_load_bones } from './bones.js';
+import { no_bones_level } from './end.js';
 import {
     COLNO, ROWNO, STONE, ROOM, CORR, DOOR, STAIRS,
     HWALL, VWALL, TLCORNER, TRCORNER, BLCORNER, BRCORNER,
@@ -380,7 +381,8 @@ function getbones() {
     if (flags.explore || flags.discover) return false;
     if (flags.bones === false) return false;
     if (rn2(3) && !flags.debug && !flags.wizard) return false;
-    // C: no_bones_level deferred — ordinary Mines/Doom dlevels open
+    // C: no_bones_level after chance roll (still burns rn2(3) first)
+    if (no_bones_level(game.u?.uz || { dnum: 0, dlevel: 1 })) return false;
     return try_load_bones(game.u?.uz);
 }
 

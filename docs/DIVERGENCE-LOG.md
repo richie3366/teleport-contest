@@ -7225,4 +7225,27 @@ Open that file first; then jump to a single `## D-NNNN` entry below
   seed0030 positional **48194**/105529 Scr 85/1953.
 - **Next:** seg4 trailing JS `rn2(1)` after C `mhitm_knockback` `rn2(6)`.
 
+## D-0279 — no_bones_level before can_make_bones depth rn2
+
+- **Status:** fixed
+- **Observed:** seed0030 seg4 JS len **8032** vs C **8031** — trailing
+  JS `rn2(1)=0` after matched `mhitm_knockback` `rn2(6)=0`. DIAG stack:
+  `can_make_bones`←`really_done`←`done_in_by`←`mdamageu`. C session has
+  no `can_make_bones` line on seg4 (death on Mines-stair Dlvl2).
+- **C locus:** `bones.c` `no_bones_level` / `can_make_bones`; also
+  `getbones` after `rn2(3)`.
+- **Cause:** JS burned depth `rn2(1+(depth>>2))` without C's
+  `Is_branchlev(lev) && dlevel > 1` short-circuit (Mines branch end on
+  main-dungeon Dlvl2). Same helper also gates special/dungeon boneid,
+  botlevel, Gehennom invocation, and non-branch MAGIC_PORTAL.
+- **Change:** port `no_bones_level` + `Is_special`/`Is_branchlev` into
+  `js/end.js`; call from `can_make_bones` before depth rn2; wire into
+  `mklev.js` `getbones` after chance roll. Named omission:
+  `save_dlevel` reassignment inside `no_bones_level`.
+- **Verification:** seg4 **FULL** 8031/8031; seg0/1/2/3/6/7 FULL;
+  seed0030 positional **48194→55489**/105529 Scr 85/1953; green+strict
+  PASS; 17-session PASS cohort + strict lengths.
+- **Next:** seg5 trailing JS after C end; or seg9 @16582 getbones open
+  (C `next_ident`, JS miss — pre-existing on HEAD).
+
 

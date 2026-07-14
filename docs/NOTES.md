@@ -7,12 +7,12 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Current unit:** seed0030 seg4 trailing `rn2(1)=0` after C ends at
-  `mhitm_knockback` `rn2(6)` (D-0278 follow-on). Seg9 RNG now full
-  **17104**/17104.
-- **Hypothesis:** JS burns an unguarded `rn2(1)` (or continues past C’s
-  recorded end) after knockback on the last seg4 turn.
-- **Falsifier:** dump annotated caller of that `rn2(1)`.
+- **Current unit:** seed0030 seg5 trailing JS RNG after C end (D-0279
+  follow-on). Seg4 now FULL **8031**/8031; positional **55489**/105529.
+- **Hypothesis:** JS keeps burning post-death EOT/movemon RNG after C’s
+  recorded boundary.
+- **Falsifier:** dump caller of first JS-only call after C len 8397.
+- **Alt:** seg9 @16582 getbones open miss (C `next_ident`; pre-existing).
 - **Parked:** D-0006 (pet movement); seed2200 @158 RC/`$HOME`.
 
 ## Don’t re-check (≤15)
@@ -29,25 +29,13 @@ Objective/score live in `CURRENT.md`.
   muse wand paths.
 - Session `\r` → `\n` = `C('j')` rush (D-0259); `rushDirFromCtrl` 1..26.
 - seg8 fleeck/missing-katana were key desync (D-0261), not dog_move/dodrop.
-- Recent seg9 falsified theories: D-0262…D-0277 — see `DIVERGENCE-INDEX.md`.
-- **Don’t:** treat missing Invis `rn2(11)` alone as enough when `couldsee`
-  is false — check SCORR/`viz_clear` (D-0269).
-- `vision_recalc(1)` ≠ `unblock_point` / `recalc_block_point`.
-- **Don’t:** early-return `make_corpse` on `G_NOCORPSE` before undead
-  specials — zombies/mummies/vampires map via `undead_to_corpse` (D-0271).
-- **Don’t:** omit `find_roll_to_hit` Luck when full moon / friday13
-  changed `uluck` — miss vs hit at equal dieroll (D-0272).
-- **Don’t:** ordinary `corpse_chance` `rn2(tmp)` for AT_BOOM — C burns
-  `d(damn,damd)` then `mon_explodes` (D-0273).
-- **Don’t:** stuff Doom:4 migrating giant rat into Mines bones to pad
-  next_ident count — wrong entity; movement desyncs immediately after.
-- **Don’t:** skip `done_object_cleanup` — fatal `thitu` leaves limbo
-  `_thrownobj` off `fobj` (D-0275; 48 vs 49).
-- **Don’t:** clear bones `mtrack` on load — C `restmon` keeps it (D-0276).
-- **Don’t:** keep Elara peaceful flags on Hermione bones load — C
-  `getlev` ghostly re-`peace_minded` (D-0277).
+- Recent seg9 falsified theories: D-0262…D-0278 — see `DIVERGENCE-INDEX.md`.
 - **Don’t:** early-return `dochug` on `msleeping` — C calls `disturb`
   (`rn2(7)` wake gate) first (D-0278).
+- **Don’t:** burn `can_make_bones` depth rn2 without `no_bones_level` —
+  Mines-stair Dlvl2 is `Is_branchlev && dlevel>1` (D-0279).
+- **Don’t:** treat seg4 trailing `rn2(1)` as knockback fall-through —
+  it was bones feasibility after fatal bite.
 
 ## Landmarks (≤15)
 
@@ -64,10 +52,7 @@ Objective/score live in `CURRENT.md`.
 - `hitval`: always `oc_hitbon` / extract `a_ac` (D-0265).
 - Hero MAGIC_TRAP → `domagictrap` (D-0266).
 - `m_move`: `set_apparxy` **before** mtame/shk|gd|priest (D-0267).
-- `m_move` Invis `should_see && rn2(11)` → `appr=0` (D-0268); SCORR
-  uncover must `recalc_block_point` (D-0269).
 - Key attribution ≠ RNG order (0-RNG `--More--`) (D-0228).
-- Bones VFS: `bon${boneid}0.${dlevel}` under `vfs:bones/`; Elara Mines
-  `bonM0.1` → Hermione; limbo missile (D-0275); **mtrack persisted**
-  (D-0276); **ghostly peace_minded** (D-0277); **`disturb` in dochug**
-  (D-0278; seg9 RNG full).
+- Bones: `no_bones_level` before depth rn2 / after getbones `rn2(3)`
+  (D-0279); VFS `bonM0.1`; limbo missile (D-0275); mtrack (D-0276);
+  ghostly peace (D-0277); `disturb` (D-0278).

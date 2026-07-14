@@ -20,6 +20,17 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-14 17:29 — D-0279 no_bones_level
+
+- Objective: seed0030 seg4 trailing `rn2(1)` after knockback (CURRENT primary).
+- C locus: `bones.c` `no_bones_level` / `can_make_bones`; `getbones` gate.
+- Change: DIAG showed `can_make_bones` depth rn2 on Mines-stair Dlvl2;
+  C skips via `Is_branchlev && dlevel>1`. Ported `no_bones_level` +
+  portal scan; wired into `can_make_bones` and `getbones`.
+- Verification: seg4 **FULL** 8031; positional **55489**/105529; green+
+  strict PASS; 17-session PASS cohort + strict lengths.
+- Next: seg5 trailing JS after C end; or seg9 @16582 getbones open.
+
 ## 2026-07-14 17:22 — D-0278 dochug disturb
 
 - Objective: seed0030 seg9 @16836 (CURRENT primary D-0277 follow-on).

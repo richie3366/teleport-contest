@@ -265,6 +265,8 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 | D-0276 | fixed | bones mtrack serialize/restore | C savemon/restmon mtrack; seg9 16635→16683 |
 | D-0277 | fixed | bones ghostly peace_minded reset | C restore getlev; seg9 16683→16836 |
 | D-0278 | fixed | dochug disturb sleeping wake | C monmove disturb rn2(7); seg9 16836→17104 |
+| D-0279 | fixed | no_bones_level branch/bot/special | skip depth rn2 on Mines-stair Dlvl2; seg4 FULL 8031 |
+
 
 
 D-0001 through D-0005 predate the strict-length/cohort runbook. Their focused
