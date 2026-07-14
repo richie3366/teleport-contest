@@ -38,9 +38,9 @@ frozen-file overlay):
 | Metric | Value |
 |--------|------:|
 | Sessions passing | **19 / 44** |
-| Screens matched | **1442 / 11,405** (12.64%) |
-| Positional RNG calls matched | **169,919 / 792,838** (21.43%) |
-| Speed label | `19+0.09/turn` |
+| Screens matched | **1446 / 11,405** (12.68%) |
+| Positional RNG calls matched | **172,878 / 792,838** (21.80%) |
+| Speed label | `18+0.09/turn` |
 | Working-tree base | `8b71735` + committed port (see `main`) |
 | Role-init throws | **0 / 44** (`u_init_role: role not ported`) |
 
@@ -64,7 +64,7 @@ shared blockers, and semantic coverage together—not one vanity metric.
 | `seed0501-priest-cast-read-turn` | **2238 / 2238** | **28 / 28** |
 | `seed2200-wizard-quaff-zap-read` | **3018 / 3018** | **229 / 230** |
 | `seed0017-samurai-altar-pray` | **3465 / 3465** | **67 / 67** |
-| `seed0030-ten-diverse-deaths` | **46537 / 105529** | **70 / 1953** |
+| `seed0030-ten-diverse-deaths` | **46679 / 105529** | **71 / 1953** |
 | `seed0103-knight-ride-pony` | **2640 / 2640** | **60 / 60** |
 | `seed0200-monk-north-search` | **3822 / 3822** | **40 / 40** |
 | `seed0101-ranger-quiver-throw-travel-engrave` | **2371 / 2371** | **27 / 27** |
@@ -541,12 +541,12 @@ seed0101 + seed0103 + seed0104 **PASS**. seed2200 RNG **full**
 seed0101 RNG **full** Scr **27**/27. seed0103 RNG **full** Scr **60**/60.
 seed0104 RNG **full** Scr **43**/43.
 
-- **Bounded unit:** seed0030 seg6 @339 — C `rn2(68)` `lspo_map` vs JS
-  `rn2(100)` (after linedup boulder vision D-0242; seg5 **FULL**). /
+- **Bounded unit:** seed0030 seg6 @2638 — C `rn2(2)` `rndmonst_adj` vs JS
+  `rn2(3)` (after Blocked center D-0243; seg6 **339→2638**). /
   seed0361/0373 **quest `getbones`** (blocked: need `^V`→`goto_level`→
   `makemaz` first — ordinary `goto_level` now exists for stairs; Mines
   `fill_lvl` path exists D-0171).
-- **Prefer:** seg6 @339 `lspo_map` peel over quest bones until
+- **Prefer:** seg6 @2638 `rndmonst_adj` peel over quest bones until
   `^V`/`makemaz`; over parked D-0006 and over baking seed2200 RC paths.
   Hero `dotrap` deferred until monster pit peel is clear.
   Hero `xkilled` treasure `mkobj` done (D-0229; ordinary
@@ -653,7 +653,7 @@ seed0104 RNG **full** Scr **43**/43.
   `destroy_items` body (AD_ELEC mgc gate done D-0198);
   bare `distmin<=1` `monnear` (NODIAG done D-0199);   Fake Delphi/
   Pillars/nested `des.room` + other themerms fills beyond Ghost/
-  Teleportation hub/Storeroom (D-0200); `set_mimic_sym` shop/
+  Teleportation hub/Storeroom/Blocked center (D-0200/D-0243); `set_mimic_sym` shop/
   maze arms; **`shkveg`/`mkveggy_at` + Izchak + wizard SHOPTYPE**
   (`stock_room`/`shkinit`/`mkshobj_at` done D-0203); **You_hear
   plines / temple_priest / oracle canseemon** (`dosounds` gates done
@@ -714,8 +714,10 @@ seed0104 RNG **full** Scr **43**/43.
   **mhitm `gv.vis` hitmm/missmm/mondied** (done D-0241; seg5
   **4174→4372**);
   **`linedup` boulderhandling + vision BOULDER `does_block`** (done
-  D-0242; seg5 **FULL**; positional **46537**/105529 Scr **70**/1953;
-  next seg6 @339 `lspo_map`);
+  D-0242; seg5 **FULL**; positional **46537**/105529 Scr **70**/1953);
+  **Blocked center themerms map + `replace_terrain`** (done D-0243;
+  seg6 **339→2638**; positional **46679**/105529 Scr **71**/1953;
+  next @2638 `rndmonst_adj`);
   **`goto_level` `stairway_find_from`** (D-0224 find_from done);
   D-0218 upstairs theory rejected;
   …
@@ -1600,6 +1602,15 @@ Module status, constitutional debt, and named omissions live in
     — seed0030 seg5 **4174→4372** (C `linedup` vs JS `m_move`);
     positional **46404**/105529 Scr **70**/1953; full **19/44** Scr
     **1442** RNG **169786**; next seg5 @4372 / quest `getbones`
+219. `linedup` boulder + vision BOULDER `does_block` (D-0242)
+    — seed0030 seg5 **FULL**; next seg6 @339 `lspo_map`; positional
+    **46537**/105529 Scr **70**/1953; full **19/44** Scr **1442** RNG
+    **169919**
+220. Blocked center themerms map + `replace_terrain` (D-0243)
+    — seed0030 seg6 **339→2638** (`rndmonst_adj`); positional
+    **46679**/105529 Scr **71**/1953; full **19/44** Scr **1446** RNG
+    **172878**; green+cohort PASS; next seg6 @2638 / quest
+    `getbones`
 
 Next work is selected from the active objectives above using
 `PORTING-RUNBOOK.md`, not by extending this historical list.

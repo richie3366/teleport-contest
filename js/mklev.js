@@ -1563,6 +1563,20 @@ const THEMEROOM_MAPS = {
         map: '-----x-----\n|...|x|...|\n|...---...|\n|.........|\n---.....---\nxx|.....|xx\n---.....---\n|.........|\n|...---...|\n|...|x|...|\n-----x-----',
         fx: 6, fy: 6,
     },
+    // C ref: themerms.lua 'Blocked center' — map + optional lava→wall/pool replace
+    'Blocked center': {
+        map: '-----------\n|.........|\n|.........|\n|.........|\n|...LLL...|\n|...LLL...|\n|...LLL...|\n|.........|\n|.........|\n|.........|\n-----------',
+        fx: 1, fy: 1,
+        contents() {
+            // percent(30) then shuffle({"-","P"}) then replace L in {1,1,9,9}
+            if (rn2(100) < 30) {
+                const terr = [HWALL, POOL];
+                nhlib_shuffle(terr);
+                lspo_replace_terrain_region(1, 1, 9, 9, LAVAPOOL, terr[0], 100);
+            }
+            filler_region(1, 1);
+        },
+    },
 };
 
 // C ref: nhlua.c char2typ[] / splev_chr2typ() — first match wins ('-' → HWALL).
@@ -2163,9 +2177,49 @@ function filler_region(rel_x, rel_y) {
     return true;
 }
 
-// C ref: sp_lev.c lspo_map — themerms random-placement path (lr=tb=-1, no croom)
-function lspo_map_themeroom(mapstr, filler_x, filler_y) {
+// C ref: nhlib.lua shuffle() — Fisher–Yates with math.random(i)=1+rn2(i)
+function nhlib_shuffle(list) {
+    for (let i = list.length; i >= 2; i--) {
+        const j = 1 + rn2(i);
+        const tmp = list[i - 1];
+        list[i - 1] = list[j - 1];
+        list[j - 1] = tmp;
+    }
+}
+
+// C ref: sp_lev.c lspo_replace_terrain — region arm (relative to map xystart)
+// Iterates x outer, y inner; rn2(100)<chance only after fromtyp match (clang &&).
+function lspo_replace_terrain_region(rx1, ry1, rx2, ry2, fromtyp, totyp, chance) {
     const g = game;
+    const mx = g.splev_xstart ?? 1;
+    const my = g.splev_ystart ?? 0;
+    const ax1 = mx + rx1;
+    const ay1 = my + ry1;
+    const ax2 = mx + rx2;
+    const ay2 = my + ry2;
+    const ch = chance == null ? 100 : chance;
+    for (let x = Math.max(1, ax1); x <= ax2; x++) {
+        for (let y = ay1; y <= ay2; y++) {
+            if (!isok(x, y)) continue;
+            const loc = g.level.at(x, y);
+            if (!loc) continue;
+            const match = (fromtyp === MATCH_WALL && IS_STWALL(loc.typ))
+                || loc.typ === fromtyp;
+            if (match && rn2(100) < ch) {
+                // C set_levltyp_lit(..., SET_LIT_NOCHANGE) — typ only
+                sel_set_ter(x, y, totyp, false);
+            }
+        }
+    }
+}
+
+// C ref: sp_lev.c lspo_map — themerms random-placement path (lr=tb=-1, no croom)
+// mapdef: { map, fx, fy [, contents()] } — contents replaces default filler_region.
+function lspo_map_themeroom(mapdef) {
+    const g = game;
+    const mapstr = mapdef.map;
+    const contents_fn = mapdef.contents || null;
+
     const mf = mapfrag_fromstr(mapstr);
     if (!mf || mf.wid < 1 || mf.hei < 1) {
         g.themeroom_failed = true;
@@ -2229,7 +2283,8 @@ function lspo_map_themeroom(mapstr, filler_x, filler_y) {
             }
         }
 
-        filler_region(filler_x, filler_y);
+        if (contents_fn) contents_fn();
+        else filler_region(mapdef.fx, mapdef.fy);
         // C resets xystart after contents
         g.splev_xstart = 1;
         g.splev_ystart = 0;
@@ -2269,7 +2324,7 @@ async function themerooms_generate(difficulty) {
         const mapdef = THEMEROOM_MAPS[pick.name];
         if (mapdef) {
             // C: des.map → lspo_map (no build_room rn2(100) chance burn)
-            return lspo_map_themeroom(mapdef.map, mapdef.fx, mapdef.fy);
+            return lspo_map_themeroom(mapdef);
         }
 
         // C themerms.lua rectangular rooms:
@@ -2302,8 +2357,10 @@ async function themerooms_generate(difficulty) {
             do_themed_fill = true;
         }
         // Named omission: Fake Delphi / Huge / Room-in-room / Pillars /
-        // Mausoleum size+nested bodies still fall through as plain create_room.
-        // Nesting nested create_subroom/create_door deferred (outer often fails).
+        // Mausoleum / Water vault / Twin businesses size+nested bodies still
+        // fall through as plain create_room. Nesting nested create_subroom/
+        // create_door deferred (outer often fails). Blocked center map+
+        // replace_terrain done (D-0243).
 
         // C build_room: chance defaults to 100 → always burns rn2(100)
         // (after contents arg RNG such as Nesting rn2(4) size rolls)

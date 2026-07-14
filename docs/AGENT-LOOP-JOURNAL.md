@@ -3120,3 +3120,17 @@ Use this shape:
   **70**/1953; full **19/44** Scr **1442** RNG **169919**; green+strict
   PASS; 17-session PASS cohort held.
 - Next: seed0030 seg6 @339 lspo_map; or quest getbones.
+
+## 2026-07-14 05:50 — Blocked center themerms map + replace_terrain (D-0243)
+- Objective: seed0030 seg6 @339 C lspo_map rn2(68) vs JS rn2(100).
+- C locus: themerms.lua Blocked center; sp_lev.c lspo_map /
+  lspo_replace_terrain; nhlib.lua shuffle/percent.
+- Result: **verified** — reservoir pick was Blocked center; JS lacked
+  the map entry and fell through to build_room. Ported 11×11 map +
+  percent/shuffle/region replace_terrain (L→wall|pool) + filler_region.
+  Rejected generic map-fill chance theory without identifying the pick.
+- Verification: seg5 still C-prefix FULL; seg6 **339→2638**
+  (rndmonst_adj); positional **46679**/105529 Scr **71**/1953; full
+  **19/44** Scr **1446** RNG **172878**; green+strict PASS; 17-session
+  PASS cohort held.
+- Next: seed0030 seg6 @2638 rndmonst_adj; or quest getbones.

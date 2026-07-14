@@ -7,11 +7,10 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 
 ## Active
 
-- **Current unit:** seed0030 seg6 @339 — C `rn2(68)` `lspo_map` vs JS
-  `rn2(100)` (after linedup boulder vision D-0242; seg5 **FULL**).
-- **Falsifier:** why C’s map fill uses 68 while JS hits a different themerms
-  / `build_room` / `create_room` chance arm — dump `in_mk_themerooms` +
-  map opcode args at first seg6 peel.
+- **Current unit:** seed0030 seg6 @2638 — C `rn2(2)` `rndmonst_adj` vs JS
+  `rn2(3)` (after Blocked center D-0243; seg5 **FULL**; seg6 **339→2638**).
+- **Falsifier:** dump `rndmonst`/`rndmonst_adj` eligible set / align filter at
+  first peel — why C’s adj arity is 2 while JS starts at 3.
 - **Parked deep canary:** D-0006 pet movement — do not implement until C
   state/candidate capture exists.
 - **Parked seed2200 @158:** RC config path — harness `$HOME`, not a port bug.
@@ -159,6 +158,10 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   because vision `_blocks` ignored BOULDER, so the boulderhandling
   `rn2(2+spots)` path never ran (D-0242). Porting linedup alone is
   insufficient without `does_block` boulder opacity.
+- **seed0030 seg6 @339 was NOT build_room `rn2(100)` / map-fill chance** —
+  reservoir picked **Blocked center**; C `des.map`→`lspo_map` (`rn2(68)`
+  for wid=11) + percent/shuffle/`replace_terrain` L→wall|pool; JS lacked
+  that map entry and fell through to rectangular `rn2(100)` (D-0243).
 - **`monattk.h`: AT_WEAP=254, AT_MAGC=255, AT_SPIT=10** — never use 10 for
   weapon (D-0179).
 - Hostile `m_move`: before place, `m_digweapon_check` may return
@@ -250,6 +253,11 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   never fails and the rn2 path is skipped. `lined_up` uses mux/muy +
   ignore via throws_rocks/WAN_STRIKING. `objects_at` is a nexthere
   chain head, not an array.
+- **Blocked center themerms:** map 11×11 with central 3×3 lava; contents
+  `percent(30)` → `shuffle({"-","P"})` → `replace_terrain` region
+  {1,1,9,9} from L (only matching cells burn `rn2(100)`); then
+  `filler_region(1,1)`. Wid 11 → `lspo_map` `rn2(COLNO-1-11)=rn2(68)`
+  (D-0243).
 - **`test_move` diagonal into DOOR:** only `doorless_door` (D_NODOOR /
   D_BROKEN) allowed; open/closed/locked block diagonal entry/exit
   (D-0219). Same rule in `domove` and steed `landing_spot`/`test_move_ok`.

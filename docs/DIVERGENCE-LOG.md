@@ -246,6 +246,7 @@ Do not record a guessed cause as fixed merely because an RNG prefix moved.
 | D-0240 | fixed | NHW_MENU dmore | putstr quitchars; seg5 3096→4174 |
 | D-0241 | fixed | mhitm gv.vis | hitmm/missmm/mondied cansee; seg5 4174→4372 |
 | D-0242 | fixed | linedup/vision | BOULDER does_block + linedup rn2; seg5 FULL |
+| D-0243 | fixed | themerms Blocked center | map+replace_terrain; seg6 339→2638 |
 
 D-0001 through D-0005 predate the strict-length/cohort runbook. Their focused
 causes are preserved, but generic "green sessions held" is historical evidence,
@@ -6573,3 +6574,34 @@ cohort gates if those functions are touched again.
   `place_object` boulder auto-`block_point` beyond `movobj`/
   level `vision_reset`.
 - **Next:** seed0030 seg6 @339 `lspo_map`; or quest `getbones`.
+
+## D-0243 — themerms Blocked center map + replace_terrain
+
+- **Status:** fixed
+- **Symptom:** seed0030 seg6 @339 — C `rn2(68)` `lspo_map` vs JS
+  `rn2(100)` `build_room`. Reservoir rolls matched through
+  `rn2(1036)`; pick was **Blocked center**.
+- **Cause:** JS `THEMEROOM_MAPS` omitted Blocked center, so
+  `themerooms_generate` fell through to rectangular `rn2(100)` +
+  `create_room`. C runs `des.map` (11×11, wid→`rn2(68)`) then
+  `percent(30)` / `shuffle({"-","P"})` /
+  `des.replace_terrain` (L→wall|pool, 9 matching cells each burn
+  `rn2(100)`) then `filler_region(1,1)`.
+- **Rejected:** treating @339 as a generic map-fill chance arm
+  without identifying the reservoir pick.
+- **C locus:** `themerms.lua` Blocked center; `sp_lev.c`
+  `lspo_map` / `lspo_replace_terrain`; `nhlib.lua` `shuffle` /
+  `percent`.
+- **Change:** `js/mklev.js` — Blocked center map entry with
+  contents callback; `nhlib_shuffle`; region
+  `lspo_replace_terrain` (fromtyp match then `rn2(100)<chance`);
+  `lspo_map_themeroom` accepts optional `contents`.
+- **Verification:** seg5 still C-prefix FULL; seg6 **339→2638**
+  (`rndmonst_adj`); positional **46679**/105529 Scr **71**/1953;
+  full **19/44** Scr **1446** RNG **172878**; green+strict PASS;
+  17-session PASS cohort held.
+- **Named omissions:** Pillars/Mausoleum/Water vault/Fake Delphi/
+  Huge/Room-in-room map bodies; full `set_levltyp` ice/fountain
+  timers; selection-based `replace_terrain` / mapfragment arms.
+- **Next:** seed0030 seg6 @2638 `rndmonst_adj`; or quest
+  `getbones`.
