@@ -7,23 +7,136 @@ import { rn2 } from './rng.js';
 import { depth } from './hacklib.js';
 import { pline, flush_topl_more } from './display.js';
 import { yn_function } from './getline.js';
+import { show_text_pages } from './pager.js';
+import { genl_outrip_lines } from './rip.js';
+import { Goodbye } from './roles.js';
+import { an } from './objnam.js';
+import { COIN_CLASS } from './objects.js';
 import {
     DIED, GENOCIDED, STONING, QUIT, NON_PM, CORPSTAT_INIT, CORPSTAT_NONE,
     OBJ_FREE, Upolyd, MM_NONAME, isok, ACCESSIBLE, MAGIC_PORTAL,
-    ECMD_OK,
+    ECMD_OK, KILLED_BY_AN, KILLED_BY, NO_KILLER_PREFIX, PANICKED,
+    DISCLOSE_YES_WITHOUT_PROMPT, DISCLOSE_NO_WITHOUT_PROMPT,
+    DISCLOSE_SPECIAL_WITHOUT_PROMPT, DISCLOSE_PROMPT_DEFAULT_YES,
+    DISCLOSE_PROMPT_DEFAULT_SPECIAL, NUM_DISCLOSURE_OPTIONS,
 } from './const.js';
 import { G_NOCORPSE, mons } from './monsters.js';
-import { Monnam, oname, christen_monst } from './do_name.js';
+import { oname, christen_monst } from './do_name.js';
 import { mkcorpstat, curse, place_object, stackobj } from './mkobj.js';
 import { make_grave } from './engrave.js';
 import { makemon } from './makemon.js';
 import { write_bonesfile } from './bones.js';
 import { objectNames } from './generated/objects_data.js';
-import { monsterNames } from './generated/monsters_data.js';
+import { monsterNames, pmnames } from './generated/monsters_data.js';
 
 const CORPSE = objectNames.indexOf('CORPSE');
 const STATUE = objectNames.indexOf('STATUE');
 const PM_GHOST = monsterNames.indexOf('PM_GHOST');
+
+/** C ref: decl.c disclosure_options */
+const DISCLOSURE_OPTIONS = 'iavgco';
+
+/** C ref: end.c ends[] — "when you %s" / "You %s in …" */
+const ENDS = [
+    'died', 'choked', 'were poisoned', 'starved', 'drowned', 'burned',
+    'dissolved in the lava', 'were crushed', 'turned to stone',
+    'turned into slime', 'were genocided', 'panicked', 'were tricked',
+    'quit', 'escaped', 'ascended',
+];
+
+/** C ref: topten.c killed_by_prefix[] */
+const KILLED_BY_PREFIX = [
+    'killed by ', 'choked on ', 'poisoned by ', 'died of ',
+    'drowned in ', 'burned by ', 'dissolved in ', 'crushed to death by ',
+    'petrified by ', 'turned to slime by ', 'killed by ',
+    '', '', '', '', '',
+];
+
+function plur(n) {
+    return (n | 0) === 1 ? '' : 's';
+}
+
+/** C ref: invent.c money_cnt */
+function money_cnt(invent) {
+    let sum = 0;
+    for (const o of invent || []) {
+        if (o.oclass === COIN_CLASS) sum += o.quan | 0;
+    }
+    return sum;
+}
+
+/**
+ * C ref: dungeon.c deepest_lev_reached — max depth() over dunlev_ureached.
+ * Quest exclusion (noquest) deferred — score path uses FALSE.
+ */
+function deepest_lev_reached(noquest) {
+    let ret = 0;
+    const dungeons = game.dungeons || [];
+    for (let i = 0; i < dungeons.length; i++) {
+        if (noquest && i === (game.quest_dnum | 0)) continue;
+        const dlevel = dungeons[i]?.dunlev_ureached | 0;
+        if (!dlevel) continue;
+        const d = depth({ dnum: i, dlevel });
+        if (d > ret) ret = d;
+    }
+    return ret;
+}
+
+/**
+ * C ref: end.c should_query_disclose_option.
+ * @returns {{ ask: boolean, defquery: string }}
+ */
+function should_query_disclose_option(category) {
+    const idx = DISCLOSURE_OPTIONS.indexOf(category);
+    if (idx < 0 || idx >= NUM_DISCLOSURE_OPTIONS) {
+        return { ask: true, defquery: DISCLOSE_PROMPT_DEFAULT_YES };
+    }
+    const ed = String(game.flags?.end_disclose || '');
+    const disclose = ed[idx] || DISCLOSE_PROMPT_DEFAULT_NO;
+    if (disclose === DISCLOSE_YES_WITHOUT_PROMPT) {
+        return { ask: false, defquery: 'y' };
+    }
+    if (disclose === DISCLOSE_SPECIAL_WITHOUT_PROMPT) {
+        return { ask: false, defquery: 'a' };
+    }
+    if (disclose === DISCLOSE_NO_WITHOUT_PROMPT) {
+        return { ask: false, defquery: 'n' };
+    }
+    if (disclose === DISCLOSE_PROMPT_DEFAULT_YES) {
+        return { ask: true, defquery: 'y' };
+    }
+    if (disclose === DISCLOSE_PROMPT_DEFAULT_SPECIAL) {
+        return { ask: true, defquery: 'a' };
+    }
+    return { ask: true, defquery: 'n' };
+}
+
+/**
+ * C ref: topten.c formatkiller — prefix + killer.name; helpless deferred.
+ * @param {number} how
+ * @param {boolean} incl_helpless
+ */
+export function formatkiller(how, incl_helpless = false) {
+    void incl_helpless;
+    let buf = '';
+    const fmt = game.killer?.format;
+    let kname = String(game.killer?.name || '');
+    if (fmt === KILLED_BY_AN) {
+        kname = an(kname);
+        buf += KILLED_BY_PREFIX[how] || '';
+    } else if (fmt === KILLED_BY) {
+        buf += KILLED_BY_PREFIX[how] || '';
+    }
+    // NO_KILLER_PREFIX: bare kname
+    for (let i = 0; i < kname.length; i++) {
+        let c = kname[i];
+        if (c === ',') c = ';';
+        else if (c === '=') c = '_';
+        else if (c === '\t') c = ' ';
+        buf += c;
+    }
+    return buf;
+}
 
 /**
  * C ref: end.c done_object_cleanup — place in-flight thrown/kicked missiles
@@ -144,7 +257,8 @@ export function can_make_bones() {
 }
 
 /**
- * C ref: end.c disclose — inventory yn first; other categories deferred.
+ * C ref: end.c disclose — inventory yn first when should_query; other
+ * categories deferred. Honor flags.end_disclose `-i` etc. (D-0288).
  */
 async function disclose(how, taken) {
     void how;
@@ -153,13 +267,136 @@ async function disclose(how, taken) {
         const qbuf = taken
             ? 'Do you want to see what you had when you died?'
             : 'Do you want your possessions identified?';
-        const c = await yn_function(qbuf, 'ynq', 'n');
+        const { ask, defquery } = should_query_disclose_option('i');
+        const c = ask
+            ? await yn_function(qbuf, 'ynq', defquery)
+            : defquery;
         if (c === 'q') {
             if (!game.program_state) game.program_state = {};
             game.program_state.done_stopprint =
                 (game.program_state.done_stopprint | 0) + 1;
         }
+        // 'y' → display_inventory deferred
     }
+}
+
+/**
+ * C ref: end.c really_done death summary + rip — NHW_TEXT one page.
+ * Named omissions: topten/xlogfile; paybill; discover_object invent walk;
+ * arise pline; quit/escape/ascend score arms; In_endgame/quest depth text.
+ */
+async function show_death_rip_and_summary(how, umoney) {
+    const flags = game.flags || {};
+    const done_stopprint = game.program_state?.done_stopprint | 0;
+    if (done_stopprint && !flags.tombstone) return;
+
+    const lines = [];
+    // C genl_outrip: leading blank then stone then two blanks
+    if (how < GENOCIDED && flags.tombstone !== false) {
+        lines.push('');
+        lines.push(...genl_outrip_lines(formatkiller(how, false)));
+        lines.push('');
+        lines.push('');
+    }
+
+    const u = game.u || {};
+    const plname = game.plname || 'Player';
+    const roleName = (flags.female && game.urole?.name?.f)
+        ? game.urole.name.f
+        : (game.urole?.name?.m || 'Adventurer');
+    lines.push(`${Goodbye()} ${plname} the ${roleName}...`);
+    lines.push('');
+
+    const where = game.dungeons?.[u.uz?.dnum | 0]?.dname || 'The Dungeons of Doom';
+    const dlev = depth(u.uz);
+    const pts = u.urexp | 0;
+    lines.push(
+        `You ${ENDS[how] || 'died'} in ${where} on dungeon level ${dlev} with ${pts} point${plur(pts)},`,
+    );
+    lines.push(
+        `and ${umoney} piece${plur(umoney)} of gold, after ${game.moves | 0} move${plur(game.moves | 0)}.`,
+    );
+    lines.push(
+        `You were level ${u.ulevel | 0} with a maximum of ${u.uhpmax | 0} hit point${plur(u.uhpmax | 0)} when you ${ENDS[how] || 'died'}.`,
+    );
+
+    await show_text_pages(lines, { moreAtEnd: true });
+}
+
+/**
+ * C ref: end.c really_done — gameover; disclose; score; bones; rip.
+ * Named omissions: paybill/clearpriests; invent discover_object;
+ * Schroedinger; dump/livelog; topten; nh_terminate;
+ * disclose beyond inventory yn; arise pline; wizard bones query;
+ * inven_inuse / ball-chain arms of done_object_cleanup.
+ */
+async function really_done(how) {
+    if (!game.program_state) game.program_state = {};
+    game.program_state.gameover = true;
+
+    // C: done_object_cleanup before bones/disclosure — limbo missiles → map
+    if (!game.program_state.panicking) done_object_cleanup();
+
+    // C: bones_ok = can_make_bones() before display_nhwindow(WIN_MESSAGE)
+    const bones_ok = (how < GENOCIDED) && can_make_bones();
+
+    await flush_topl_more();
+
+    // C: strcmp(flags.end_disclose, "none") — array never equals "none"
+    // after optfn_disclose; always call disclose (modes inside may no-ask).
+    const endDisclose = game.flags?.end_disclose;
+    if (endDisclose !== 'none') {
+        await disclose(how, false);
+    }
+
+    // C: score before bones (invent still held)
+    const u = game.u || {};
+    let umoney = money_cnt(game.invent);
+    // hidden_gold deferred
+    let tmp = umoney - (u.umoney0 | 0);
+    if (tmp < 0) tmp = 0;
+    if (how < PANICKED) tmp -= (tmp / 10) | 0;
+    const deepest = deepest_lev_reached(false);
+    tmp += 50 * (deepest - 1);
+    if (deepest > 20) tmp += 1000 * ((deepest > 30) ? 10 : deepest - 20);
+    u.urexp = (u.urexp | 0) + tmp;
+    game._done_money = umoney;
+
+    let corpse = null;
+    const arise = u.ugrave_arise;
+    const ariseUnset = arise == null || arise === NON_PM;
+    const umon = Upolyd(u) ? (u.umonnum | 0) : (game.urace?.mnum | 0);
+    const noCorpse = !!((game.mvitals?.[umon]?.mvflags | 0) & G_NOCORPSE);
+    if (bones_ok && ariseUnset && !noCorpse) {
+        const mnum = Upolyd(u) ? (u.umonnum | 0) : (game.urace?.mnum | 0);
+        const plname = game.plname || 'Player';
+        corpse = mk_named_object(CORPSE, mons(mnum), u.ux | 0, u.uy | 0, plname);
+        // formatkiller body deferred — fixed epitaph text (no RNG)
+        make_grave(u.ux | 0, u.uy | 0, `${plname}, killed`);
+    }
+
+    if (bones_ok) {
+        savebones(how, corpse);
+    }
+
+    // C: outrip + goodbye into NHW_TEXT then display_nhwindow(TRUE)
+    await show_death_rip_and_summary(how, umoney);
+}
+
+/**
+ * C ref: end.c done_in_by — "You die..." then done(how).
+ * Ordinary monsters: pmname + KILLED_BY_AN (uniq/priest/hallu deferred).
+ */
+export async function done_in_by(mtmp, how = DIED) {
+    await pline(how === STONING ? 'You turn to stone...' : 'You die...');
+    if (!game.killer) game.killer = { name: '', format: 0 };
+    const mnum = mtmp?.mnum;
+    const names = (mnum != null) ? pmnames[mnum] : null;
+    game.killer.name = names
+        ? (names[2] || names[0] || names[1] || 'creature')
+        : '';
+    game.killer.format = KILLED_BY_AN;
+    await done(how);
 }
 
 /**
@@ -271,58 +508,4 @@ export async function done(how) {
     const flags = game.flags || {};
     void flags;
     await really_done(how);
-}
-
-/**
- * C ref: end.c really_done — gameover; disclose; bones corpse + savebones.
- * Named omissions: paybill/clearpriests; invent discover_object;
- * Schroedinger; dump/livelog; score; topten/rip; nh_terminate;
- * disclose beyond inventory yn; arise pline; wizard bones query;
- * inven_inuse / ball-chain arms of done_object_cleanup.
- */
-async function really_done(how) {
-    if (!game.program_state) game.program_state = {};
-    game.program_state.gameover = true;
-
-    // C: done_object_cleanup before bones/disclosure — limbo missiles → map
-    if (!game.program_state.panicking) done_object_cleanup();
-
-    // C: bones_ok = can_make_bones() before display_nhwindow(WIN_MESSAGE)
-    const bones_ok = (how < GENOCIDED) && can_make_bones();
-
-    await flush_topl_more();
-
-    const endDisclose = game.flags?.end_disclose;
-    if (endDisclose !== 'none') {
-        await disclose(how, false);
-    }
-
-    let corpse = null;
-    const u = game.u || {};
-    const arise = u.ugrave_arise;
-    const ariseUnset = arise == null || arise === NON_PM;
-    const umon = Upolyd(u) ? (u.umonnum | 0) : (game.urace?.mnum | 0);
-    const noCorpse = !!((game.mvitals?.[umon]?.mvflags | 0) & G_NOCORPSE);
-    if (bones_ok && ariseUnset && !noCorpse) {
-        const mnum = Upolyd(u) ? (u.umonnum | 0) : (game.urace?.mnum | 0);
-        const plname = game.plname || 'Player';
-        corpse = mk_named_object(CORPSE, mons(mnum), u.ux | 0, u.uy | 0, plname);
-        // formatkiller body deferred — fixed epitaph text (no RNG)
-        make_grave(u.ux | 0, u.uy | 0, `${plname}, killed`);
-    }
-
-    if (bones_ok) {
-        savebones(how, corpse);
-    }
-}
-
-/**
- * C ref: end.c done_in_by — "You die..." then done(how).
- */
-export async function done_in_by(mtmp, how = DIED) {
-    await pline(how === STONING ? 'You turn to stone...' : 'You die...');
-    if (!game.killer) game.killer = { name: '', format: 0 };
-    game.killer.name = mtmp ? Monnam(mtmp) : '';
-    game.killer.format = /* KILLED_BY_AN */ 2;
-    await done(how);
 }

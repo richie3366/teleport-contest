@@ -1,3 +1,15 @@
+## 2026-07-14 16:45 — D-0271 make_corpse undead before G_NOCORPSE
+
+- Objective: seed0030 seg9 @10811 (CURRENT primary D-0271).
+- C locus: `mon.c` `make_corpse` zombie/mummy/vampire arms before
+  `default_1` `G_NOCORPSE`; `undead_to_corpse` + `mkcorpstat` +
+  `TAINT_AGE+1`.
+- Change: DIAG showed `PM_KOBOLD_ZOMBIE` early-return on geno
+  `G_NOCORPSE`; ported undead specials in `js/mhitm.js` `make_corpse`;
+  `trap.js` shares export. Named omit: dragon/unicorn/worm/golem arms.
+- Verification: seg9 **10811→12411**; green+strict PASS; 17-session PASS
+  cohort; seed0030 flat **48092**/105529 Scr **85**/1953.
+- Next: D-0272 — diagnose seg9 @12411 C `exercise` vs JS `rn2(3)`.
 # Agent loop journal (archived)
 
 Living tail: `docs/AGENT-LOOP-JOURNAL.md` (latest ~10 entries).

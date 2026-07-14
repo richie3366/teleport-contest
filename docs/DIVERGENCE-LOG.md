@@ -7398,3 +7398,38 @@ Open that file first; then jump to a single `## D-NNNN` entry below
 - **Next:** Scr@75 death `--More--` vs invent-identify yn; or seed0013.
 
 
+## D-0288 — disclose `end_disclose` / `should_query_disclose_option`
+
+- **Status:** fixed
+- **Observed:** seed0030 Scr@75 after D-0287 — C RIP tombstone vs JS
+  invent-identify yn. Session rc has `disclose:-i -a -v -g -c -o`.
+- **Cause:** JS always `yn_function` for invent; ignored `flags.end_disclose`
+  modes. C `DISCLOSE_NO_WITHOUT_PROMPT` (`-`) skips the prompt.
+- **C locus:** `options.c` `optfn_disclose`; `end.c`
+  `should_query_disclose_option` / `disclose`.
+- **Change:** parse `disclose:` into `flags.end_disclose[6]`; invent path
+  uses `should_query_disclose_option('i')`. Other disclose categories still
+  deferred.
+- **Verification:** invent yn gone; unlocks RIP path (D-0289).
+- **Next:** D-0289 RIP/summary; topten still deferred.
+
+## D-0289 — `genl_outrip` + death summary + Tourist level XP
+
+- **Status:** fixed
+- **Observed:** after D-0288, Scr@75 C RIP+Aloha+score vs missing endwin;
+  score was 104 vs C 124 until Tourist goto XP.
+- **Cause:** `really_done` omitted `outrip`/`Goodbye` NHW_TEXT; Tourist
+  `more_experienced(level_difficulty())` on new `goto_level` missing
+  (Dlvl2+Mines → +20 score).
+- **C locus:** `rip.c` `genl_outrip`; `end.c` `really_done` dump_forward;
+  `do.c` Tourist `more_experienced`; `topten.c` `formatkiller`;
+  `role.c` `Goodbye`.
+- **Change:** `js/rip.js` stone lines; death summary via `show_text_pages`;
+  score before bones; `done_in_by` pmname+`KILLED_BY_AN`; Tourist XP on
+  `madeNew` goto_level.
+- **Verification:** Scr@75 match (124 points); Scr **116→120**; first-miss
+  **75→76** (topten `--More--`); RNG full; green+strict; 17-session PASS.
+- **Named omissions:** topten/record; remaining disclose categories;
+  `hidden_gold`; builds_up `level_difficulty`; escape/ascend score arms.
+- **Next:** Scr@76 topten / endwin more; or seed0013.
+

@@ -6,8 +6,8 @@ and `archive/PROGRESS-HISTORY.md`.
 
 Score last measured: **2026-07-14** via focused seed0030 + green/cohort;
 full `sessions` suite not re-run this iteration. PASS set unchanged;
-seed0030 positional **105529**/105529 Scr **116**/1953 after D-0286/87
-(RNG full; prefix first-miss 62→75).
+seed0030 positional **105529**/105529 Scr **120**/1953 after D-0288/89
+(RNG full; prefix first-miss 75→76).
 
 ## Score
 
@@ -24,7 +24,7 @@ seed0700, seed1150, seed0017, seed0077, seed0106, seed0501, seed0105,
 seed0016, seed0015, seed0200, seed0101, seed0103, seed0104.
 
 **Notable non-PASS:** seed2200 RNG full Scr 229/230 (parked RC @158);
-seed0013 RNG full Scr 57/59; seed0030 **105529**/105529 Scr 116/1953;
+seed0013 RNG full Scr 57/59; seed0030 **105529**/105529 Scr 120/1953;
 seed0107 2684/2902 Scr 36/98; seed0361/0373 quest bones blocked.
 
 ## Green gate
@@ -42,16 +42,16 @@ Both must remain full RNG + screen PASS with exact scored-output lengths.
 
 ## Primary objective
 
-**seed0030 screen peel** — RNG full; Scr **116**/1953; first miss **@75**
+**seed0030 screen peel** — RNG full; Scr **120**/1953; first miss **@76**
 
 | | |
 |--|--|
-| **C locus** | `end.c` / death disclose / `--More--` before invent yn (TBD) |
-| **JS locus** | `end.js` / `done` / `disclose` |
-| **Symptom** | Scr@75: C botl `--More--` (empty topline) vs JS invent-identify yn |
-| **Hypothesis** | death message `--More--` not blocking before possessions prompt |
-| **Falsifier** | first mismatched screen after D-0286/87 + gnome kill |
-| **Recent fixed** | D-0286 `mswings`; D-0287 botl HP clamp `<0→0` |
+| **C locus** | `topten.c` / endwin after RIP / `display_nhwindow` |
+| **JS locus** | `end.js` `really_done` (topten deferred) |
+| **Symptom** | Scr@76: C bare botl `--More--` (post-RIP) vs JS next-life welcome |
+| **Hypothesis** | topten / post-RIP endwin `--More--` not ported |
+| **Falsifier** | first mismatched screen after D-0288/89 RIP match |
+| **Recent fixed** | D-0288 disclose `-i`; D-0289 genl_outrip + Tourist goto XP |
 
 ```bash
 # Focused seed0030 (RNG already full — peel screens)

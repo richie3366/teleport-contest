@@ -7,11 +7,11 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Current unit:** seed0030 Scr **116**/1953 with RNG **FULL** 105529
-  (D-0286/87 follow-on). Prefix first-miss **75** (was 62).
-- **Hypothesis:** death path shows invent-identify yn before C’s
-  botl `--More--` (disclose / done message order).
-- **Falsifier:** Scr@75 C empty topline + botl `--More--` vs JS yn.
+- **Current unit:** seed0030 Scr **120**/1953 with RNG **FULL** 105529
+  (D-0288/89). Prefix first-miss **76** (was 75).
+- **Hypothesis:** post-RIP topten/endwin `--More--` missing; JS starts
+  next segment while C still on death UI.
+- **Falsifier:** Scr@76 C empty + botl `--More--` vs JS Brigid welcome.
 - **Alt:** seed0013 Scr 57/59; seed0107 @2684.
 - **Parked:** D-0006 (pet movement); seed2200 @158 RC/`$HOME`.
 
@@ -46,6 +46,9 @@ Objective/score live in `CURRENT.md`.
   `oc_name_known` not `obj.known` (D-0285).
 - **Don’t:** skip AT_WEAP `mswings` — bow melee emits swing pline before
   hit (D-0286); botl HP display clamps `<0→0` (D-0287).
+- **Don’t:** always invent-disclose yn — honor `disclose:-i` as
+  `DISCLOSE_NO_WITHOUT_PROMPT` (D-0288); RIP needs Tourist
+  `more_experienced(depth)` on new `goto_level` (D-0289).
 
 ## Landmarks (≤15)
 
@@ -68,4 +71,5 @@ Objective/score live in `CURRENT.md`.
   ghostly peace (D-0277); `disturb` (D-0278); quaff CANCEL≠TIME (D-0280);
   `#quit`→`done2` (D-0281); topl wrap+redotoplin more (D-0282);
   botl `depth()` + Mines wall BROWN (D-0283); `tmp_at` flash (D-0284);
-  potion xname descr (D-0285); `mswings` (D-0286); botl HP clamp (D-0287).
+  potion xname descr (D-0285); `mswings` (D-0286); botl HP clamp (D-0287);
+  disclose `-i` (D-0288); RIP+Tourist goto XP (D-0289).
