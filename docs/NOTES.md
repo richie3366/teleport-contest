@@ -7,11 +7,12 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Current unit:** seed0030 Scr **161**/1953 with RNG **FULL** 105529
-  (D-0290). Prefix first-miss **78** (was 76).
-- **Hypothesis:** `topten()` after RIP not ported; C shows score list while
-  JS starts next segment.
-- **Falsifier:** Scr@78 C "You made the top ten list!" vs JS Brigid welcome.
+- **Current unit:** seed0030 Scr **818**/1953 with RNG **FULL** 105529
+  (D-0291). Prefix first-miss **818** (was 78).
+- **Hypothesis:** @818 is a pre-existing seg5 cell diff unmasked once
+  topten restored screen indexing; segs 0–2 topten panels match C.
+- **Falsifier:** decodeScreen first differing cell at global index 818.
+- **Also:** seg7 JS 159 vs C 172 steps (investigate after @818).
 - **Alt:** seed0013 Scr 57/59; seed0107 @2684.
 - **Parked:** D-0006 (pet movement); seed2200 @158 RC/`$HOME`.
 
@@ -51,6 +52,8 @@ Objective/score live in `CURRENT.md`.
   `more_experienced(depth)` on new `goto_level` (D-0289).
 - **Don’t:** omit RIP trailing empty putstr — 24 lines force page-2 blank
   `--More--` via `process_text_window` (D-0290).
+- **Don’t:** skip `topten` after RIP — C `!toptenwin` raw_print + contest
+  `nh_terminate` input-boundary capture (no nhgetch) (D-0291).
 
 ## Landmarks (≤15)
 
@@ -68,4 +71,4 @@ Objective/score live in `CURRENT.md`.
 - Hero MAGIC_TRAP → `domagictrap` (D-0266).
 - `m_move`: `set_apparxy` **before** mtame/shk|gd|priest (D-0267).
 - Key attribution ≠ RNG order (0-RNG `--More--`) (D-0228).
-- Bones / disclose / RIP / botl / flash / mswings: D-0274…D-0290 (see index).
+- Bones / disclose / RIP / topten: D-0274…D-0291 (see index).

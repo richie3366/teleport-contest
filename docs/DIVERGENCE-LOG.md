@@ -7450,3 +7450,21 @@ Open that file first; then jump to a single `## D-NNNN` entry below
   `hidden_gold`; escape/ascend score arms.
 - **Next:** Scr@78 `topten()` score list; or seed0013.
 
+## D-0291 — `topten` record insert + raw score panel + terminate capture
+
+- **Status:** fixed
+- **Observed:** Scr@78 C "You made the top ten list!" + Quincy row vs JS
+  next-life welcome (missing post-RIP screen).
+- **Cause:** `really_done` omitted `topten()`; contest captures the panel at
+  `nh_terminate` via nomux input boundary (no further `nhgetch`).
+- **C locus:** `topten.c` `topten`/`outheader`/`outentry`; `end.c`
+  `really_done` → `topten` → `nh_terminate`; patch 006 terminate capture.
+- **Change:** `js/topten.js` record VFS + insert/display; `end.js` calls
+  after RIP; `jsmain` `_captureInputBoundary` for terminate frame; role/race
+  /gender/align `filecode`; `done` `umortality++`.
+- **Verification:** Scr@78 match; Scr **161→818**; first-miss **78→818**
+  (seg5); RNG full; green+strict; 17-session PASS cohort.
+- **Named omissions:** LOGFILE/XLOGFILE; toptenwin NHW_TEXT; wizard/discover;
+  `ordin()` rank>10 text; full escape/ascend/quit outentry arms; astral/knox.
+- **Next:** Scr@818 seg5 cell diff; or seg7 step-count gap (159 vs 172).
+

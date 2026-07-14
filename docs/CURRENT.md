@@ -6,8 +6,8 @@ and `archive/PROGRESS-HISTORY.md`.
 
 Score last measured: **2026-07-14** via focused seed0030 + green/cohort;
 full `sessions` suite not re-run this iteration. PASS set unchanged;
-seed0030 positional **105529**/105529 Scr **161**/1953 after D-0290
-(RNG full; prefix first-miss 76→78).
+seed0030 positional **105529**/105529 Scr **818**/1953 after D-0291
+(RNG full; prefix first-miss 78→818).
 
 ## Score
 
@@ -24,7 +24,7 @@ seed0700, seed1150, seed0017, seed0077, seed0106, seed0501, seed0105,
 seed0016, seed0015, seed0200, seed0101, seed0103, seed0104.
 
 **Notable non-PASS:** seed2200 RNG full Scr 229/230 (parked RC @158);
-seed0013 RNG full Scr 57/59; seed0030 **105529**/105529 Scr 161/1953;
+seed0013 RNG full Scr 57/59; seed0030 **105529**/105529 Scr 818/1953;
 seed0107 2684/2902 Scr 36/98; seed0361/0373 quest bones blocked.
 
 ## Green gate
@@ -42,16 +42,16 @@ Both must remain full RNG + screen PASS with exact scored-output lengths.
 
 ## Primary objective
 
-**seed0030 screen peel** — RNG full; Scr **161**/1953; first miss **@78**
+**seed0030 screen peel** — RNG full; Scr **818**/1953; first miss **@818**
 
 | | |
 |--|--|
-| **C locus** | `topten.c` `topten` / `outentry` / `outheader` (!toptenwin raw_print) |
-| **JS locus** | `end.js` `really_done` (topten deferred) |
-| **Symptom** | Scr@78: C "You made the top ten list!" + score rows vs JS Brigid welcome |
-| **Hypothesis** | `topten()` record insert + score panel not ported after RIP |
-| **Falsifier** | first mismatched screen after D-0290 blank `--More--` match |
-| **Recent fixed** | D-0290 RIP trailing blank → page-2 `--More--` |
+| **C locus** | (new) seg5 mid-run map/status after topten unlocked |
+| **JS locus** | TBD after decodeScreen cell diff @818 |
+| **Symptom** | Scr@818 cells diverge (seg5 Daxter ~local 33); segs 0–2 topten match |
+| **Hypothesis** | Independent of D-0291; was masked by missing topten screen shift |
+| **Falsifier** | decodeScreen first differing cell at global 818 |
+| **Recent fixed** | D-0291 `topten` + record VFS + nh_terminate capture |
 
 ```bash
 # Focused seed0030 (RNG already full — peel screens)
@@ -59,6 +59,7 @@ node frozen/ps_test_runner.mjs sessions/seed0030-ten-diverse-deaths.session.json
 ```
 
 **Alternate:** seed0013 Scr 57/59 (RNG full); or seed0107 RNG@2684.
+**Also:** seg7 JS 159 vs C 172 screens (topten/end_around or earlier desync).
 
 **Prefer over:** quest bones (`^V`/`makemaz`), parked D-0006, seed2200 RC.
 

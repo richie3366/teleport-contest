@@ -21,6 +21,17 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-14 18:40 — D-0291 topten + record VFS + terminate capture
+
+- Objective: seed0030 Scr 161/1953 (CURRENT primary); first miss @78.
+- C locus: `topten.c` `topten`/`outheader`/`outentry`; `end.c` → `nh_terminate`
+  contest input-boundary capture (no nhgetch after raw_print panel).
+- Change: port `js/topten.js` (!toptenwin raw panel + VFS `record`); wire
+  after RIP; `game._captureInputBoundary` for final frame (D-0291).
+- Verification: Scr@78 match; Scr **161→818**; miss **78→818**; RNG full;
+  green+strict; 17-session PASS.
+- Next: Scr@818 seg5 cell diff; or seg7 159 vs 172 steps.
+
 ## 2026-07-14 18:24 — D-0290 RIP endwin trailing blank `--More--`
 
 - Objective: seed0030 Scr 120/1953 (CURRENT primary); first miss @76.
@@ -174,15 +185,4 @@ Use this shape:
 - Verification: seg9 **16582→16630**; green+strict PASS; 17-session
   PASS cohort; seed0030 flat **48199**/105529 Scr **85**/1953.
 - Next: find missing bones entity (JS 48 vs C 49 next_ident).
-
-## 2026-07-14 16:48 — D-0273 corpse_chance AT_BOOM / mon_explodes
-
-- Objective: seed0030 seg9 @12414 (CURRENT primary D-0273).
-- C locus: `mon.c` `corpse_chance` AT_BOOM; `explode.c` `mon_explodes` /
-  `explode` PHYS; `zap.c` `destroy_items`/`resist`.
-- Change: new `js/explode.js`; AT_BOOM arm in `corpse_chance`
-  (uhitm/mhitm/trap). Gas spore kill matches boom RNG through exercise.
-- Verification: seg9 **12414→16582**; green+strict PASS; 17-session
-  PASS cohort; flat **48156**/105529.
-- Next: D-0274 — `getbones` load → `next_ident` @16582.
 

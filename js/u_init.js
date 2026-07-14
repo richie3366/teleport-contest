@@ -1488,6 +1488,7 @@ export function setup_role_race_from_rc(opts = {}) {
         name: race.name,
         adj: race.adj,
         noun: race.noun || race.name,
+        filecode: race.filecode || 'Hum',
         mnum: race.mnum,
         attrmin: race.attrmin,
         attrmax: race.attrmax,
