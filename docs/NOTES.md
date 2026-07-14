@@ -7,10 +7,12 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 
 ## Active
 
-- **Current unit:** seed0030 seg5 @3076 — C `rnd(2)` `next_ident` after
-  dart-trap miss topline vs JS `rn2(12)` (after moverock D-0238; seg4 FULL).
-- **Falsifier:** dump whether C `dotrap`/`dart_trap`/`thitu` path allocates
-  a dart object (`next_ident`) that JS skips on miss.
+- **Current unit:** seed0030 seg5 @3096 — C `rn2(5)` `distfleeck` vs JS
+  `rnd(2)` (after hero dart dotrap D-0239; dart miss path matched through
+  EOT). Screen: “The little dog picks up a glass wand.”
+- **Falsifier:** dump whether JS emits `next_ident`/`mksobj` (or another
+  `rnd(2)`) before pet fleeck because floor dart / second trap / APPORT
+  order differs from C.
 - **Parked deep canary:** D-0006 pet movement — do not implement until C
   state/candidate capture exists.
 - **Parked seed2200 @158:** RC config path — harness `$HOME`, not a port bug.
@@ -136,6 +138,11 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   `exercise(A_STR,TRUE)` then advance; JS walked onto the boulder with
   no push (D-0238). Session `steps[i].key` is `moves[i-1]` (key that
   produced the step), not `moves[i]`.
+- **seed0030 seg5 @3076 was NOT mineralize/`rn2(12)` first** — C hero
+  `spoteffects`→`dotrap`→`trapeffect_dart_trap` `t_missile(DART)` then
+  miss/`place_object`; JS never called dotrap so EOT landed on
+  `mcalcmove` `rn2(12)` (D-0239). Screen: “A little dart shoots out at
+  you!  A little dart misses you.”
 - **`monattk.h`: AT_WEAP=254, AT_MAGC=255, AT_SPIT=10** — never use 10 for
   weapon (D-0179).
 - Hostile `m_move`: before place, `m_digweapon_check` may return
@@ -207,6 +214,10 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 - **`moverock`/`dopush`:** dest boulder → push to `ux+2*dx,uy+2*dy` if
   clear; “great effort” + `exercise(A_STR,TRUE)` then hero advances onto
   vacated cell (D-0238). Do not walk onto boulders.
+- **Hero `dotrap` dart:** `spoteffects` non-pit pickup then `dotrap`;
+  `t_missile(DART)` before poison/`dmgval`/`thitu`; miss →
+  `place_object`+`observe_object`+`stackobj` (D-0239). Pit/arrow/rock/
+  sqky hero arms and `poisoned()` still deferred.
 - **`test_move` diagonal into DOOR:** only `doorless_door` (D_NODOOR /
   D_BROKEN) allowed; open/closed/locked block diagonal entry/exit
   (D-0219). Same rule in `domove` and steed `landing_spot`/`test_move_ok`.

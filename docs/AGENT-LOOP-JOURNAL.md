@@ -3067,3 +3067,17 @@ Use this shape:
   **69**/1953; full **19/44** Scr **1454** RNG **171238**; green+strict PASS;
   PASS cohort held.
 - Next: seed0030 seg5 @3076 dart next_ident; or quest getbones.
+
+## 2026-07-14 05:05 — hero dotrap dart (D-0239)
+- Objective: seed0030 seg5 @3076 C rnd(2) next_ident vs JS rn2(12).
+- C locus: hack.c spoteffects; trap.c dotrap/trapeffect_dart_trap/t_missile;
+  mthrowu.c thitu.
+- Result: **verified** — JS spoteffects never called dotrap; C always
+  t_missile(DART) before thitu (miss places dart). Screen confirmed
+  “A little dart shoots out at you!  A little dart misses you.”
+  Rejected mineralize/rn2(12) and allocate-only-on-hit theories.
+- Verification: segs 0–4 FULL; seg5 **3076→3096**; positional
+  **46375**/105529 Scr **69**/1953; full **19/44** Scr **1454** RNG
+  **171026**; green+strict PASS; 17-session PASS cohort held.
+- Next: seed0030 seg5 @3096 C distfleeck vs JS rnd(2) (pet glass wand);
+  or quest getbones.

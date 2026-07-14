@@ -242,6 +242,7 @@ Do not record a guessed cause as fixed merely because an RNG prefix moved.
 | D-0236 | fixed | ini_inv UNDEF_SPE ring | charged ring spe≤0 → rne(3); seg4 2369→6630 |
 | D-0237 | fixed | drinkfountain | dodrink fountain yn + rnd(30); seg4 6630→7554 |
 | D-0238 | fixed | moverock/dopush | walk-into boulder push + exercise STR; seg4 FULL |
+| D-0239 | fixed | trap/dotrap | hero dart `t_missile`+`thitu` miss; seg5 3076→3096 |
 
 D-0001 through D-0005 predate the strict-length/cohort runbook. Their focused
 causes are preserved, but generic "green sessions held" is historical evidence,
@@ -6443,3 +6444,34 @@ cohort gates if those functions are touched again.
   naming.
 - **Next:** seed0030 seg5 @3076 `next_ident` after dart miss; or quest
   `getbones`.
+
+## D-0239 — hero dotrap dart `t_missile` / miss place
+
+- **Status:** fixed
+- **Symptom:** seed0030 seg5 @3076 — C `rnd(2)` `next_ident` then
+  `mksobj_init` / `trapeffect_dart_trap` / `thitu` vs JS `rn2(12)`
+  (`mcalcmove`). Screen: “A little dart shoots out at you!  A little
+  dart misses you.”
+- **Cause:** C `spoteffects` → `dotrap` → `trapeffect_dart_trap(youmonst)`
+  always `t_missile(DART)` (burns `next_ident` + init) before poison/
+  `dmgval`/`thitu`; miss places the dart. JS `spoteffects` only did
+  pickup — no hero `dotrap` — so EOT monster `mcalcmove` `rn2(12)`
+  landed at C’s dart index.
+- **Rejected:** mineralize/`choose_trapnote` `rn2(12)` as the peel;
+  dart allocation only on hit (C allocates before `thitu`).
+- **C locus:** `hack.c` `spoteffects`; `trap.c` `dotrap` /
+  `trapeffect_dart_trap` / `t_missile`; `mthrowu.c` `thitu`.
+- **Change:** `js/pickup.js` `spoteffects` (non-pit pickup → `dotrap` →
+  pit pickup); `js/trap.js` `dotrap` + hero dart branch (once+tseen
+  click, seetrap, `t_missile`, poison roll, `dmgval`, `thitu`, miss
+  place/`observe_object`/`stackobj`).
+- **Verification:** segs 0–4 FULL; seg5 **3076→3096** (`distfleeck` vs
+  `rnd(2)`); positional **46375**/105529 Scr **69**/1953; full **19/44**
+  Scr **1454** RNG **171026**; green+strict PASS; 17-session PASS
+  cohort held. Aggregate RNG dip vs pre-fix lucky later matches is
+  expected when the real dart path replaces the skipped-trap stream.
+- **Named omissions:** hero pit/arrow/rock/sqky/`poisoned()`; steedintrap;
+  Sokoban air-currents; undestroyable/ANTI_MAGIC/Fumbling/conj_pit;
+  `mons_see_trap`; `u_locomotion` verb beyond “step”; recursion guards.
+- **Next:** seed0030 seg5 @3096 C `distfleeck` vs JS `rnd(2)` (pet
+  glass-wand pickup screen); or quest `getbones`.
