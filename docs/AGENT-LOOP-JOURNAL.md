@@ -20,6 +20,16 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-14 17:39 — D-0281 `#quit` done2
+
+- Objective: seed0030 seg8 trailing JS after C end (CURRENT primary).
+- C locus: `end.c` `done2` / extcmdlist `quit` GENERALCMD.
+- Change: DIAG — `#quit` AC-only → unknown; `y` vi-moved. Ported
+  `done2` + EXT_CMDS `quit` (ParanoidQuit getlin / goodbye deferred).
+- Verification: seg8 **FULL** 3476; positional **105529**/105529 Scr
+  85/1953; green+strict PASS; 19-session PASS cohort + strict.
+- Next: seed0030 Scr 85/1953 (RNG full); or seed0013 Scr 57/59.
+
 ## 2026-07-14 17:34 — D-0280 dodrink ECMD_TIME
 
 - Objective: seed0030 seg5 trailing JS after C end (CURRENT primary).

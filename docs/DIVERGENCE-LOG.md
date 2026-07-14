@@ -7268,4 +7268,22 @@ Open that file first; then jump to a single `## D-NNNN` entry below
 - **Next:** seg8 trailing JS after `#quit` (3505 vs 3476); or seg9
   @16582 getbones `next_ident`.
 
+## D-0281 — `#quit` done2 (unknown extcmd → y move)
+
+- **Status:** fixed
+- **Observed:** seed0030 seg8 JS len **3505** vs C **3476** — trailing
+  fleeck/`movemon`/EOT after matched wipe_engr. Screens: JS
+  `#quit: unknown extended command.` then `y` spent a turn; C
+  `Really quit without saving?` / `Sayonara…`.
+- **C locus:** `end.c` `done2` → `paranoid_query` yn → `done(QUIT)`;
+  `cmd.c` extcmdlist `quit` GENERALCMD (ECMD_OK, no turn).
+- **Cause:** `quit` was in EXT_CMD_AC only — Enter resolved
+  unknown → ECMD_OK; session `y` became a vi-move → full monster turn.
+- **Change:** port `done2` (`yn` path; ParanoidQuit getlin deferred);
+  wire `#quit` into EXT_CMDS.
+- **Verification:** seg8 **FULL** 3476; seed0030 positional
+  **88957→105529**/105529 Scr 85/1953; green+strict PASS; 19-session
+  PASS cohort + strict lengths.
+- **Next:** seed0030 Scr 85/1953 (RNG full); or seed0013 Scr 57/59.
+
 

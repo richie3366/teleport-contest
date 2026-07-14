@@ -1,5 +1,5 @@
 // end.js — Hero death / bones feasibility (partial).
-// C ref: end.c done_in_by / done / really_done / disclose;
+// C ref: end.c done2 / done_in_by / done / really_done / disclose;
 //        bones.c can_make_bones / drop_upon_death / savebones.
 
 import { game } from './gstate.js';
@@ -8,8 +8,9 @@ import { depth } from './hacklib.js';
 import { pline, flush_topl_more } from './display.js';
 import { yn_function } from './getline.js';
 import {
-    DIED, GENOCIDED, STONING, NON_PM, CORPSTAT_INIT, CORPSTAT_NONE,
+    DIED, GENOCIDED, STONING, QUIT, NON_PM, CORPSTAT_INIT, CORPSTAT_NONE,
     OBJ_FREE, Upolyd, MM_NONAME, isok, ACCESSIBLE, MAGIC_PORTAL,
+    ECMD_OK,
 } from './const.js';
 import { G_NOCORPSE, mons } from './monsters.js';
 import { Monnam, oname, christen_monst } from './do_name.js';
@@ -243,6 +244,23 @@ export async function finish_losehp_done() {
     game._losehp_needs_done = false;
     await pline('You die...');
     await done(DIED);
+}
+
+/**
+ * C ref: end.c done2 — `#quit` (GENERALCMD, ECMD_OK; no turn).
+ * Named omissions: In_tutorial abandon / schedule_goto; ParanoidQuit
+ * getlin "yes" (uses yn when !ParanoidQuit, matching default bits);
+ * wizard Dump-core ynq.
+ */
+export async function done2() {
+    // C: paranoid_query(ParanoidQuit, …). Default paranoia_bits omit
+    // PARANOID_QUIT → yn_function. getlin "yes" when set is deferred.
+    const ok = (await yn_function(
+        'Really quit without saving?', 'yn', 'n',
+    )) === 'y';
+    if (!ok) return ECMD_OK;
+    await done(QUIT);
+    return ECMD_OK;
 }
 
 /**

@@ -6,8 +6,8 @@ and `archive/PROGRESS-HISTORY.md`.
 
 Score last measured: **2026-07-14** via focused seed0030 + green/cohort;
 full `sessions` suite not re-run this iteration. PASS set unchanged;
-seed0030 positional **88957**/105529 Scr 85/1953 after D-0280 (seg5 FULL;
-segs 0–7 FULL).
+seed0030 positional **105529**/105529 Scr 85/1953 after D-0281 (RNG full;
+segs 0–8 FULL under shared storage).
 
 ## Score
 
@@ -15,7 +15,7 @@ segs 0–7 FULL).
 |--------|------:|
 | Sessions passing | **19 / 44** |
 | Screens matched | **1563 / 11,405** (13.70%) |
-| Positional RNG calls matched | **88957 / 105529** (seed0030; prior suite totals stale) |
+| Positional RNG calls matched | **105529 / 105529** (seed0030; prior suite totals stale) |
 | Speed label | `18+0.10/turn` |
 | Role-init throws | **0 / 44** |
 
@@ -24,7 +24,7 @@ seed0700, seed1150, seed0017, seed0077, seed0106, seed0501, seed0105,
 seed0016, seed0015, seed0200, seed0101, seed0103, seed0104.
 
 **Notable non-PASS:** seed2200 RNG full Scr 229/230 (parked RC @158);
-seed0013 RNG full Scr 57/59; seed0030 **88957**/105529 Scr 85/1953;
+seed0013 RNG full Scr 57/59; seed0030 **105529**/105529 Scr 85/1953;
 seed0107 2684/2902 Scr 36/98; seed0361/0373 quest bones blocked.
 
 ## Green gate
@@ -42,24 +42,23 @@ Both must remain full RNG + screen PASS with exact scored-output lengths.
 
 ## Primary objective
 
-**D-0280 follow-on** — seed0030 seg8 trailing RNG after C end
+**seed0030 screen peel** — RNG full; Scr **85**/1953
 
 | | |
 |--|--|
-| **C locus** | post-`#quit` / gameover stop after seg8 last recorded call |
-| **JS locus** | likely post-quit movemon still burning RNG (`rn2(5)` fleeck) |
-| **Symptom** | seg8 JS len 3505 vs C 3476 (trailing fleeck…) |
-| **Hypothesis** | JS continues monster turns after C quit/gameover boundary |
-| **Falsifier** | dump caller of first JS-only call after C len 3476 |
-| **Recent fixed** | D-0280 — `rhack` `q` uses `ECMD_TIME` bit (CANCEL≠time) |
+| **C locus** | first diverging display/topl after matched RNG (TBD via screens) |
+| **JS locus** | likely quit goodbye/endwin vs invent disclose; or earlier Scr drift |
+| **Symptom** | Scr 85/1953 with positional RNG **105529**/105529 |
+| **Hypothesis** | quit path paints invent disclose / skips `Sayonara`+endwin more |
+| **Falsifier** | first mismatched screen index + topl (C vs JS) |
+| **Recent fixed** | D-0281 — `#quit` → `done2` (was unknown extcmd; `y` moved) |
 
 ```bash
-# Focused seg8 isolation + full seed0030
+# Focused seed0030 (RNG already full — peel screens)
 node frozen/ps_test_runner.mjs sessions/seed0030-ten-diverse-deaths.session.json
 ```
 
-**Alternate (if seg8 blocked):** seg9 @16582 getbones open — C
-`next_ident` after `rn2(3)=0`, JS misses load (pre-existing on HEAD).
+**Alternate:** seed0013 Scr 57/59 (RNG full); or seed0107 RNG@2684.
 
 **Prefer over:** quest bones (`^V`/`makemaz`), parked D-0006, seed2200 RC.
 

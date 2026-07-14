@@ -7,12 +7,12 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Current unit:** seed0030 seg8 trailing JS RNG after C end (D-0280
-  follow-on). Segs 0–7 FULL; seg5 **8397**/8397; positional **88957**/105529.
-- **Hypothesis:** JS keeps burning post-`#quit` movemon RNG after C’s
-  recorded boundary (trailing `rn2(5)` fleeck).
-- **Falsifier:** dump caller of first JS-only call after C len 3476.
-- **Alt:** seg9 @16582 getbones open (C `next_ident`; pre-existing).
+- **Current unit:** seed0030 Scr **85**/1953 with RNG **FULL** 105529
+  (D-0281 follow-on). Segs 0–8 FULL under shared storage.
+- **Hypothesis:** quit paints invent disclose / skips `Sayonara`+endwin
+  more (`disclose:-i…` not parsed → JS still asks possessions yn).
+- **Falsifier:** first mismatched screen index + C vs JS topl.
+- **Alt:** seed0013 Scr 57/59; seed0107 @2684.
 - **Parked:** D-0006 (pet movement); seed2200 @158 RC/`$HOME`.
 
 ## Don’t re-check (≤15)
@@ -36,6 +36,7 @@ Objective/score live in `CURRENT.md`.
   Mines-stair Dlvl2 is `Is_branchlev && dlevel>1` (D-0279).
 - **Don’t:** treat `dodrink` `ECMD_CANCEL` as time — use `& ECMD_TIME`
   (D-0280); truthy CANCEL burned an extra movemon turn.
+- **Don’t:** leave `#quit` AC-only — unknown → `y` vi-move (D-0281).
 
 ## Landmarks (≤15)
 
@@ -55,4 +56,5 @@ Objective/score live in `CURRENT.md`.
 - Key attribution ≠ RNG order (0-RNG `--More--`) (D-0228).
 - Bones: `no_bones_level` before depth rn2 / after getbones `rn2(3)`
   (D-0279); VFS `bonM0.1`; limbo missile (D-0275); mtrack (D-0276);
-  ghostly peace (D-0277); `disturb` (D-0278); quaff CANCEL≠TIME (D-0280).
+  ghostly peace (D-0277); `disturb` (D-0278); quaff CANCEL≠TIME (D-0280);
+  `#quit`→`done2` (D-0281).
