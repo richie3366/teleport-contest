@@ -7602,4 +7602,26 @@ Open that file first; then jump to a single `## D-NNNN` entry below
   `Soundeffect`; findgd migrating; temple/oracle bodies.
 - **Next:** prefix@237 map `*` C color 15 vs JS 8 (`obj_color`).
 
+## D-0299 — `map_object` / `see_nearby_objects` nearby `observe_object`
+
+- **Status:** fixed
+- **Observed:** seed0030 @237 — map `*` C color **15** (white) vs JS
+  **8** (NO_COLOR) at (5,63); RNG full; cursors agree.
+- **Rejected:** missing gem `oc_color` / lit-bright arm — unknown gems
+  correctly use GENERIC_GEM gray→tty NO_COLOR until `dknown`.
+- **C locus:** `display.c` `map_object` — when glyph is generic and
+  `cansee` within `neardist` (`r=xray>2?xray:2`, `neardist=(r*r)*2-r`),
+  `observe_object` then re-glyph; `see_nearby_objects` from
+  `dungeon.c` `u_on_newpos` same-level.
+- **Cause:** JS `newsym` painted `obj_glyph` without nearby observe, so
+  white gems stayed generic gray (decoded NO_COLOR).
+- **Change:** `map_object_observe_near` in `newsym`/`map_location_memory`;
+  `see_nearby_objects` after successful `domove` (Blind/Hallu/swallowed
+  gated).
+- **Verification:** prefix **237→259**; Scr **889→1085**; RNG full;
+  green+strict; 17-session PASS cohort + strict sample.
+- **Named omissions:** glyph_is_generic remembered-only `newsym_force`
+  arm; mimic `map_object` observe; Blind feel path.
+- **Next:** prefix@259 JS `o` vs C blank at (5,52).
+
 

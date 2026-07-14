@@ -21,6 +21,16 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-14 19:16 — D-0299 map_object nearby observe
+
+- Objective: seed0030 Scr peel (CURRENT primary); prefix first-miss @237.
+- C locus: `display.c` `map_object` / `see_nearby_objects` → `observe_object`.
+- Change: neardist observe on map + after `domove`; falsified bare
+  `obj_color`/bright-arm hypothesis for white `*`.
+- Verification: prefix **237→259**; Scr **889→1085**; RNG full;
+  green+strict; 17-PASS cohort + strict sample.
+- Next: prefix@259 JS `o` vs C blank (5,52).
+
 ## 2026-07-14 19:08 — #320 score + D-0298 dosounds vault You_hear
 
 - Objective: mandatory full `sessions` score (loop %5==0) + seed0030 @174.

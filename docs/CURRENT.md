@@ -18,7 +18,8 @@ label, PASS list, notable non-PASS. Prepend a journal crumb. Do not invent
 suite totals from a single focused session.
 
 Score last measured: **2026-07-14** — full `sessions` suite (global loop
-**#320**; next mandatory at multiples of 5). Post D-0298.
+**#320**; next mandatory at multiples of 5). Post D-0298; D-0299 peel
+not yet re-scored suite-wide.
 
 ## Score
 
@@ -37,7 +38,7 @@ seed0016, seed0015, seed0200, seed0101, seed0103, seed0104.
 **Notable non-PASS:**
 | Session | RNG | Screen | Note |
 |---------|----:|-------:|------|
-| seed0030 | 105529/105529 | **889**/1953 | primary peel; prefix first-miss **@237** |
+| seed0030 | 105529/105529 | **1085**/1953 | primary peel; prefix first-miss **@259** |
 | seed2200 | 3018/3018 | **175**/230 | RNG full; Scr regressed vs older 229/230 |
 | seed0013-rogue | 4838/4838 | 57/59 | |
 | seed0013-friday13-restore | 4803/4804 | 46/99 | |
@@ -60,16 +61,16 @@ Both must remain full RNG + screen PASS with exact scored-output lengths.
 
 ## Primary objective
 
-**seed0030 screen peel** — RNG full; Scr **889**/1953; prefix first-miss **@237**
+**seed0030 screen peel** — RNG full; Scr **1085**/1953; prefix first-miss **@259**
 
 | | |
 |--|--|
-| **C locus** | `display.c` / `obj_color` (gem `*` bright white?) |
-| **JS locus** | `js/display.js` object glyph color |
-| **Symptom** | @237 map `*` C color 15 vs JS NO_COLOR (8); cursors agree |
-| **Hypothesis** | Floor gem/rock `obj_color` / lit bright arm missing |
-| **Falsifier** | decodeScreen @237 cell (5,63); C `obj_color` vs JS |
-| **Recent fixed** | D-0298 `dosounds` vault `You_hear` (174→237; Scr 887→889) |
+| **C locus** | TBD — mon/obj clear at map after observe (was D-0299) |
+| **JS locus** | `js/display.js` / mon leave cell |
+| **Symptom** | @259 map `o` in JS vs C blank at (5,52); cursors agree |
+| **Hypothesis** | Stale monster glyph / missing `newsym` after mon moved |
+| **Falsifier** | decodeScreen @259 cell (5,52); C vs JS mon_at |
+| **Recent fixed** | D-0299 `map_object`/`see_nearby_objects` observe (237→259; Scr 889→1085) |
 
 ```bash
 node frozen/ps_test_runner.mjs sessions/seed0030-ten-diverse-deaths.session.json

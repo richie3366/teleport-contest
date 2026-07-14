@@ -23,6 +23,7 @@ import {
     DISP_CHANGE, DISP_END, DISP_FREEMEM, BACKTRACK,
     M_AP_OBJECT, M_AP_TYPE,
     MCORPSENM,
+    isok,
 } from './const.js';
 import {
     ILLOBJ_CLASS, WEAPON_CLASS, ARMOR_CLASS, RING_CLASS, AMULET_CLASS,
@@ -39,8 +40,9 @@ import { stairway_at, known_branch_stairs } from './mklev.js';
 import {
     A_INT, A_WIS, A_DEX, A_CON, A_CHA, acurr, get_strength_str,
 } from './attrib.js';
-import { depth } from './hacklib.js';
+import { depth, dist2 } from './hacklib.js';
 import { monsterNames } from './generated/monsters_data.js';
+import { observe_object } from './invent.js';
 
 const CORPSE_OTYP = objectNames.indexOf('CORPSE');
 const STATUE_OTYP = objectNames.indexOf('STATUE');
@@ -273,7 +275,7 @@ export function mon_glyph(mtmp) {
  * disguised object glyph (and remember it) instead of the mlet letter.
  * Named omissions: M_AP_FURNITURE cmap_to_glyph + lastseentyp;
  * M_AP_MONSTER what_mon + rn2_on_display_rng; Protection_from_shape_changers
- * sensed overlay; Hallucination statue random_obj; map_object observe_object.
+ * sensed overlay; Hallucination statue random_obj.
  */
 function mimic_object_appearance_glyph(mtmp) {
     if (M_AP_TYPE(mtmp) !== M_AP_OBJECT) return null;
@@ -340,6 +342,56 @@ function obj_is_generic(obj) {
     if (otyp >= FIRST_REAL_GEM_OTYP && otyp <= LAST_GLASS_GEM_OTYP) return true;
     if (otyp >= FIRST_SPELL_OTYP && otyp <= LAST_SPELL_OTYP) return true;
     return false;
+}
+
+/** C ref: display.c map_object / see_nearby_objects — neardist from xray or 2. */
+function object_neardist() {
+    const xr = game.u?.xray_range | 0;
+    const r = xr > 2 ? xr : 2;
+    // neardist = (r*r)*2 - r  (rounded-corner square; matches distant_name)
+    return { r, neardist: (r * r) * 2 - r };
+}
+
+function distu(x, y) {
+    const u = game.u;
+    return dist2(u?.ux | 0, u?.uy | 0, x, y);
+}
+
+/**
+ * C ref: display.c map_object — if glyph would be generic and hero cansee
+ * within neardist, observe_object then recompute as specific (per-otyp color).
+ * Named omissions: Hallucination statue random_obj; pile-top glyph flags.
+ */
+function map_object_observe_near(obj, x, y) {
+    if (!obj || game.u?.Hallucination) return;
+    if (!obj_is_generic(obj)) return;
+    if (!cansee(x, y)) return;
+    const { neardist } = object_neardist();
+    if (distu(x, y) <= neardist) observe_object(obj);
+}
+
+/**
+ * C ref: display.c see_nearby_objects — after same-level u_on_newpos.
+ * Mark nearby unseen tops dknown and newsym when the map still showed
+ * a generic object. Caller gates Blind / Hallucination / uswallow.
+ */
+export function see_nearby_objects() {
+    const u = game.u;
+    if (!u || !game.level) return;
+    const { r, neardist } = object_neardist();
+    const x0 = u.ux | 0;
+    const y0 = u.uy | 0;
+    for (let iy = y0 - r; iy <= y0 + r; iy++) {
+        for (let ix = x0 - r; ix <= x0 + r; ix++) {
+            if (!isok(ix, iy)) continue;
+            const obj = objects_at(ix, iy);
+            if (!obj || obj.dknown) continue;
+            if (!cansee(ix, iy) || distu(ix, iy) > neardist) continue;
+            observe_object(obj);
+            // C: operate on remembered glyph; if generic → newsym_force
+            newsym(ix, iy);
+        }
+    }
 }
 
 // Contest nomux / tty ANSI_DEFAULT: CLR_GRAY hilite is empty → capture
@@ -936,6 +988,8 @@ function map_location_memory(x, y) {
     if (!loc || !game.level?.flags?.hero_memory) return;
     const obj = objects_at(x, y);
     if (obj && !covers_objects(x, y)) {
+        // C: map_object(obj, FALSE) — may observe_object when near
+        map_object_observe_near(obj, x, y);
         const og = obj_glyph(obj);
         loc.remembered_glyph = { ch: og.ch, color: og.color, decgfx: og.dec };
         update_lastseentyp(x, y);
@@ -1023,8 +1077,10 @@ export function newsym(x, y) {
             return;
         }
         // C ref: display.c _map_location — vobj_at before trap/engraving/bg
+        // C: map_object(obj, show) — nearby generic → observe_object
         const obj = objects_at(x, y);
         if (obj && !covers_objects(x, y)) {
+            map_object_observe_near(obj, x, y);
             const og = obj_glyph(obj);
             show_glyph_cell(x, y, og.ch, og.color, og.dec);
             if (game.level?.flags?.hero_memory) {
