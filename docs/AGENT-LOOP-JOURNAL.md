@@ -3081,3 +3081,16 @@ Use this shape:
   **171026**; green+strict PASS; 17-session PASS cohort held.
 - Next: seed0030 seg5 @3096 C distfleeck vs JS rnd(2) (pet glass wand);
   or quest getbones.
+
+## 2026-07-14 05:20 — NHW_MENU dmore quitchars (D-0240)
+- Objective: seed0030 seg5 @3096 C distfleeck rn2(5) vs JS rnd(2).
+- C locus: wintty.c process_text_window/dmore; getline.c xwaitforspace(quitchars);
+  invent.c look_here.
+- Result: **verified** — look_here NHW_MENU dismissed on any key in JS; C
+  ignores l/k so space closes pile then b moves SW. JS second l walked east
+  onto adjacent second dart trap → extra t_missile/next_ident. Rejected
+  pet APPORT/glass-wand and leave-retrigger theories.
+- Verification: seg5 **3096→4174**; positional **46399**/105529 Scr
+  **69**/1953; full **19/44** Scr **1441** RNG **169781**; green+strict
+  PASS; 17-session PASS cohort held.
+- Next: seed0030 seg5 @4174 C dog_move rn2(12) vs JS fleeck; or quest getbones.

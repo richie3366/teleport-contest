@@ -6475,3 +6475,35 @@ cohort gates if those functions are touched again.
   `mons_see_trap`; `u_locomotion` verb beyond “step”; recursion guards.
 - **Next:** seed0030 seg5 @3096 C `distfleeck` vs JS `rnd(2)` (pet
   glass-wand pickup screen); or quest `getbones`.
+
+## D-0240 — NHW_MENU putstr `dmore` quitchars
+
+- **Status:** fixed
+- **Symptom:** seed0030 seg5 @3096 — C `rn2(5)` `distfleeck` vs JS
+  `rnd(2)` (`next_ident` / second dart `t_missile`). Screen at C step:
+  “The little dog picks up a glass wand.”
+- **Cause:** After stepping onto a multi-object pile + dart trap,
+  `look_here` NHW_MENU shows “Things that are here:” with `--More--`.
+  C `process_text_window` → `dmore(cw, quitchars)` /
+  `xwaitforspace(" \r\n\033")` ignores `l`/`k` (bell, stay on page);
+  space dismisses, then `b` moves SW. JS `show_nhw_menu_text` corner
+  path called bare `nhgetch()` so the first `l` closed the menu; the
+  second `l` became a real east move onto an adjacent second dart trap
+  at (75,4) → extra `t_missile`/`next_ident` before fleeck.
+- **Rejected:** pet glass-wand APPORT/`splitobj`/`next_ident` order;
+  missing second-trap geometry in mklev; dart `tseen` re-fire on leave.
+- **C locus:** `win/tty/wintty.c` `process_text_window`/`dmore`;
+  `win/tty/getline.c` `xwaitforspace`; `decl.c` `quitchars`;
+  `invent.c` `look_here`.
+- **Change:** `js/pager.js` `show_nhw_menu_text` uses `text_page_wait`
+  (quitchars) for corner and fullscreen NHW_MENU putstr pages.
+- **Verification:** segs 0–4 FULL; seg5 **3096→4174** (`dog_move`
+  `rn2(12)` @1257 vs fleeck); positional **46399**/105529 Scr
+  **69**/1953; full **19/44** Scr **1441** RNG **169781**; green+strict
+  PASS; 17-session PASS cohort held. Aggregate Scr/RNG dip is FAIL
+  sessions diverging earlier under correct menu key consumption.
+- **Named omissions:** NHW_MENU selectable/`process_menu_window` path
+  still separate; corner mid-list page break unused when `offx≠0` (C
+  same); bell sound; `dismiss_more` ttyDisplay field.
+- **Next:** seed0030 seg5 @4174 C `dog_move` `rn2(12)` vs JS fleeck;
+  or quest `getbones`.

@@ -7,12 +7,11 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 
 ## Active
 
-- **Current unit:** seed0030 seg5 @3096 — C `rn2(5)` `distfleeck` vs JS
-  `rnd(2)` (after hero dart dotrap D-0239; dart miss path matched through
-  EOT). Screen: “The little dog picks up a glass wand.”
-- **Falsifier:** dump whether JS emits `next_ident`/`mksobj` (or another
-  `rnd(2)`) before pet fleeck because floor dart / second trap / APPORT
-  order differs from C.
+- **Current unit:** seed0030 seg5 @4174 — C `rn2(12)` `dog_move` candidate
+  pick (`!rn2(12)` / `!rn2(3)` arm @1257) vs JS `rn2(5)` `distfleeck`
+  (after NHW_MENU dmore quitchars D-0240; seg5 **3096→4174**).
+- **Falsifier:** dump JS pet `mfndpos`/`chi`/`appr`/`whappr` and whether
+  the `j>0 && !whappr` branch runs; compare C recorder cnt/nix at that step.
 - **Parked deep canary:** D-0006 pet movement — do not implement until C
   state/candidate capture exists.
 - **Parked seed2200 @158:** RC config path — harness `$HOME`, not a port bug.
@@ -143,6 +142,12 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   miss/`place_object`; JS never called dotrap so EOT landed on
   `mcalcmove` `rn2(12)` (D-0239). Screen: “A little dart shoots out at
   you!  A little dart misses you.”
+- **seed0030 seg5 @3096 was NOT pet glass-wand / APPORT/`next_ident`
+  order** — look_here NHW_MENU `--More--` dismissed on any key in JS;
+  C `dmore`/`xwaitforspace(quitchars)` ignores `l`/`k` so space closes
+  the pile, then `b` moves SW. JS treated the second `l` as a real east
+  move onto an adjacent second dart trap → extra `t_missile`/`rnd(2)`
+  (D-0240). Two dart traps at (74,4)/(75,4).
 - **`monattk.h`: AT_WEAP=254, AT_MAGC=255, AT_SPIT=10** — never use 10 for
   weapon (D-0179).
 - Hostile `m_move`: before place, `m_digweapon_check` may return
@@ -218,6 +223,11 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   `t_missile(DART)` before poison/`dmgval`/`thitu`; miss →
   `place_object`+`observe_object`+`stackobj` (D-0239). Pit/arrow/rock/
   sqky hero arms and `poisoned()` still deferred.
+- **NHW_MENU putstr `dmore`:** `xwaitforspace(quitchars)` =
+  space/CR/LF/ESC only; movement letters stay on the page (each is still
+  an nhgetch capture). Corner `offx≠0` paints all rows then one dmore;
+  fullscreen pages at `rows-1` (D-0240). Same helper as NHW_TEXT
+  `text_page_wait`.
 - **`test_move` diagonal into DOOR:** only `doorless_door` (D_NODOOR /
   D_BROKEN) allowed; open/closed/locked block diagonal entry/exit
   (D-0219). Same rule in `domove` and steed `landing_spot`/`test_move_ok`.
