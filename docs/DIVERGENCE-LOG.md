@@ -259,6 +259,7 @@ Do not record a guessed cause as fixed merely because an RNG prefix moved.
 | D-0253 | fixed | m_balks launcher flee | @18840→18913; gnome appr=-1 vs approach |
 | D-0254 | fixed | trapeffect_magic_trap | mon rn2(21)→fire; seg6 18913→19831 |
 | D-0255 | fixed | losehp→done + bones | fatal thitu noreturn; corpse+ghost; seg6 FULL |
+| D-0256 | fixed | trapeffect_slp_gas_trap | mon sleep_monst(rnd(25)); seg7 9290→9811 |
 
 D-0001 through D-0005 predate the strict-length/cohort runbook. Their focused
 causes are preserved, but generic "green sessions held" is historical evidence,
@@ -6950,4 +6951,28 @@ cohort gates if those functions are touched again.
   **180984**; seed0030 positional **47905**/105529; green+strict
   PASS; 17-session PASS cohort held.
 - **Next:** seed0030 seg7 @9290 `trapeffect_slp_gas_trap`; or quest
+  `getbones`.
+
+## D-0256 — trapeffect_slp_gas_trap monster rnd(25) (seed0030 seg7 @9290)
+
+- **Status:** fixed
+- **Symptom:** seed0030 seg7 @9290 — C `rnd(25) @ trapeffect_slp_gas_trap`
+  vs JS fleeck `rn2(5)` after matched fleeck (post D-0255 seg6 FULL).
+- **Evidence:** both engines matched through `rn2(5) @ distfleeck` at
+  9289; C then burned `sleep_monst(rnd(25), -1)` on a mon that stepped
+  on SLP_GAS; JS `trapeffect_selector` default no-op’d SLP_GAS_TRAP so
+  next fleeck occupied the slot.
+- **C locus:** `trap.c` `trapeffect_slp_gas_trap` / selector case;
+  `mhitm.c` `sleep_monst`; `mondata.h` `breathless`; `prop.h` `mr_bit`.
+- **Change:** ported monster `trapeffect_slp_gas_trap` (guards →
+  `sleep_monst(rnd(25), -1)` → pline/seetrap); `mr_bit`/`resists_sleep`;
+  `M1_BREATHLESS`/`breathless`; wired SLP_GAS_TRAP in selector.
+- **Named omissions:** hero cloud/`fall_asleep`/`steedintrap`;
+  `data->mresists`; `defended(AD_SLEE)`; how≥0 mimic/`resist`;
+  `shieldeff`; full `finish_meating` mimic AP; `m_harmless_trap` sleep
+  resist arm.
+- **Verification:** seg7 **9290→9811** (`m_move` track `rn2(32)`);
+  full **19/44** Scr **1463** RNG **180932**; seed0030 positional
+  **47853**/105529; green+strict PASS; 17-session PASS cohort held.
+- **Next:** seed0030 seg7 @9811 `m_move` track/`cnt`; or quest
   `getbones`.

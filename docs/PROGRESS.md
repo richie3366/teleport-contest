@@ -39,7 +39,7 @@ frozen-file overlay):
 |--------|------:|
 | Sessions passing | **19 / 44** |
 | Screens matched | **1463 / 11,405** (12.83%) |
-| Positional RNG calls matched | **180,984 / 792,838** (22.83%) |
+| Positional RNG calls matched | **180,932 / 792,838** (22.82%) |
 | Speed label | `18+0.10/turn` |
 | Working-tree base | `8b71735` + committed port (see `main`) |
 | Role-init throws | **0 / 44** (`u_init_role: role not ported`) |
@@ -541,18 +541,18 @@ seed0101 + seed0103 + seed0104 **PASS**. seed2200 RNG **full**
 seed0101 RNG **full** Scr **27**/27. seed0103 RNG **full** Scr **60**/60.
 seed0104 RNG **full** Scr **43**/43.
 
-- **Bounded unit:** seed0030 seg7 @9290 — **D-0256** open —
-  `trapeffect_slp_gas_trap` (`rnd(25)`) vs JS fleeck `rn2(5)` (post
-  D-0255 seg6 **FULL**). D-0255 fatal `losehp`→`done` + bones
-  corpse/ghost **ported** (seg6 **19831→FULL**). /
+- **Bounded unit:** seed0030 seg7 @9811 — **D-0257** open —
+  C `rn2(32) @ m_move` track vs JS `rn2(3)` (post D-0256 seg7
+  **9290→9811**). D-0256 mon `trapeffect_slp_gas_trap` **ported**. /
   seed0361/0373 **quest `getbones`** (blocked: need `^V`→`goto_level`→
   `makemaz` first — ordinary `goto_level` now exists for stairs; Mines
   `fill_lvl` path exists D-0171).
-- **Prefer:** mon `trapeffect_slp_gas_trap` (wire selector) over quest
-  bones until `^V`/`makemaz`; over parked D-0006
+- **Prefer:** diagnose `m_move` track/`cnt` (or actor drift after sleep)
+  over quest bones until `^V`/`makemaz`; over parked D-0006
   and over baking seed2200 RC paths.
   Hero `dotrap` MAGIC_TRAP/`domagictrap` deferred (D-0254 named
-  omission). Hero dart `dotrap` done (D-0239). Hero `xkilled` treasure
+  omission). Hero SLP_GAS deferred (D-0256). Hero dart `dotrap` done
+  (D-0239). Hero `xkilled` treasure
   `mkobj` done (D-0229; ordinary
   `make_corpse` done D-0191; mhitm path done D-0167;
   `done_in_by` bones gate done D-0190). CORPSE `weight` cwt done
@@ -761,7 +761,10 @@ seed0104 RNG **full** Scr **43**/43.
   **fatal `losehp`→`done` + bones corpse/ghost** (done D-0255;
   seg6 **FULL**; full **19/44** Scr **1463** RNG **180984**;
   next seg7 @9290 `trapeffect_slp_gas_trap`);
-  **seg7 @9290 slp_gas** (D-0256 **open**);
+  **monster `trapeffect_slp_gas_trap`** (done D-0256; seg7
+  **9290→9811**; full **19/44** Scr **1463** RNG **180932**;
+  next @9811 `m_move` track);
+  **seg7 @9811 m_move track** (D-0257 **open**);
   **`goto_level` `stairway_find_from`** (D-0224 find_from done);
   D-0218 upstairs theory rejected;
   …
@@ -1716,6 +1719,11 @@ Module status, constitutional debt, and named omissions live in
     — seed0030 seg6 **FULL** 19884/19884; next seg7 @9290
     `trapeffect_slp_gas_trap`. Full **19/44** Scr **1463** RNG
     **180984**; seed0030 **47905**/105529; green+cohort PASS.
+234. monster `trapeffect_slp_gas_trap` (D-0256)
+    — seed0030 seg7 **9290→9811** (`m_move` track `rn2(32)`);
+    selector no-op had shifted fleeck into sleep-gas slot. Full
+    **19/44** Scr **1463** RNG **180932**; seed0030 **47853**/105529;
+    green+cohort PASS.
 
 Next work is selected from the active objectives above using
 `PORTING-RUNBOOK.md`, not by extending this historical list.

@@ -3331,3 +3331,18 @@ Use this shape:
   seed0030 **47905**/105529; green+strict PASS; 17-session PASS cohort
   held.
 - Next: seed0030 seg7 @9290 trapeffect_slp_gas_trap; or quest getbones.
+
+## 2026-07-14 07:36 — trapeffect_slp_gas_trap (D-0256)
+
+- Objective: seed0030 seg7 @9290 C `rnd(25) @ trapeffect_slp_gas_trap`
+  vs JS fleeck `rn2(5)` (PROGRESS primary).
+- C locus: trap.c trapeffect_slp_gas_trap / selector; mhitm.c sleep_monst;
+  mondata.h breathless; prop.h mr_bit.
+- Result: **verified** — selector no-op’d SLP_GAS so fleeck occupied the
+  slot. Ported monster sleep-gas (`sleep_monst(rnd(25),-1)`),
+  resists_sleep/mr_bit, M1_BREATHLESS/breathless; wired selector.
+- Verification: seg7 **9290→9811** (`m_move` track rn2(32)); full
+  **19/44** Scr **1463** RNG **180932**; seed0030 **47853**/105529;
+  green+strict PASS; 17-session PASS cohort held.
+- Next: seed0030 seg7 @9811 diagnose m_move track/cnt (or actor drift);
+  or quest getbones.

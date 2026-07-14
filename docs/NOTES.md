@@ -7,13 +7,13 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 
 ## Active
 
-- **Current unit:** seed0030 seg7 @9290 — C `rnd(25) @ trapeffect_slp_gas_trap`
-  vs JS fleeck `rn2(5)` (post D-0255 seg6 FULL).
-- **Hypothesis:** monster stepped on sleeping-gas trap; C burns
-  `trapeffect_slp_gas_trap` (`rnd(25)`); JS selector still no-ops
-  SLP_GAS_TRAP so fleeck occupies the slot.
-- **Falsifier:** confirm trap type at peel cell; port mon
-  `trapeffect_slp_gas_trap` (and wire selector) from C `trap.c`.
+- **Current unit:** seed0030 seg7 @9811 — C `rn2(32) @ m_move` (track
+  `rn2(4*(cnt-j))`) vs JS `rn2(3)` (post D-0256 slp_gas; @9290 cleared).
+- **Hypothesis:** after sleep-gas, actor/`mfndpos` `cnt` (or which mon
+  moves) drifted so C’s track skip uses `4*(cnt-j)=32` while JS burns a
+  different site (`rn2(3)`).
+- **Falsifier:** dump which mon/coords/`cnt`/`j`/`appr` at first post-
+  matched fleeck; compare JS `m_move` track loop vs C recorder.
 - **Parked deep canary:** D-0006 pet movement — do not implement until C
   state/candidate capture exists.
 - **Parked seed2200 @158:** RC config path — harness `$HOME`, not a port bug.
@@ -137,6 +137,9 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   `done(DIED)` noreturn → `can_make_bones` then corpse/`savebones`
   (D-0255). Do not chase bones before confirming fatal `losehp` stops
   post-hit mulch/exercise.
+- **seed0030 seg7 @9290 was NOT a fleeck arity bug** — C
+  `rnd(25) @ trapeffect_slp_gas_trap`; JS selector no-op’d SLP_GAS so
+  fleeck `rn2(5)` occupied the slot (D-0256). Same pattern as D-0254.
 - **`monattk.h`: AT_WEAP=254, AT_MAGC=255, AT_SPIT=10** — never use 10 for
   weapon (D-0179).
 - Hostile `m_move`: before place, `m_digweapon_check` may return
@@ -202,5 +205,8 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   `exercise` / `drop_throw`/`should_mulch` after; bones corpse via
   `mk_named_object` then `drop_upon_death`+`PM_GHOST` (D-0255).
   `can_make_bones` before `display_nhwindow` in `really_done`.
-- **seg6 FULL** after D-0255; next peel **seg7 @9290**
-  `trapeffect_slp_gas_trap`.
+- **Monster SLP_GAS_TRAP:** `!resists_sleep && !breathless && !helpless`
+  → `sleep_monst(rnd(25), -1)`; pline+seetrap if in sight (D-0256).
+  Hero `fall_asleep` deferred. `mr_bit(SLEEP_RES)=1<<(3-1)=4`.
+- **seg7 @9290 cleared** (D-0256); next peel **seg7 @9811** C
+  `rn2(32) @ m_move` vs JS `rn2(3)`.

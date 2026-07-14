@@ -2,8 +2,8 @@
 // C ref: trap.c — maketrap/choose_trapnote/hole_destination/trapnote,
 // t_at, t_missile, thitm, mintrap, dotrap, trapeffect_dart_trap /
 // trapeffect_pit / trapeffect_rocktrap / trapeffect_sqky_board /
-// trapeffect_hole / trapeffect_magic_trap / trapeffect_fire_trap,
-// make_corpse ordinary path via thitm death.
+// trapeffect_hole / trapeffect_magic_trap / trapeffect_fire_trap /
+// trapeffect_slp_gas_trap, make_corpse ordinary path via thitm death.
 
 import { game } from './gstate.js';
 import { rn2, rnd, rn1, d } from './rng.js';
@@ -20,14 +20,16 @@ import {
     G_NOCORPSE, G_FREQ, G_UNIQ, verysmall, grounded, passes_walls, is_neuter,
     is_flyer, is_floater, is_clinger,
     mon_knows_traps, mon_learns_traps,
-    amorphous, unsolid, is_whirly, MZ_SMALL, MZ_HUGE,
+    amorphous, unsolid, is_whirly, breathless, MZ_SMALL, MZ_HUGE,
 } from './monsters.js';
 import {
     DART_TRAP, ARROW_TRAP, ROCKTRAP, FORCETRAP, FORCEBUNGLE,
     SQKY_BOARD, HOLE, TRAPDOOR, TRAPPED_DOOR, TRAPPED_CHEST,
-    PIT, SPIKED_PIT, STATUE_TRAP, MAGIC_TRAP, FIRE_TRAP, ROLLING_BOULDER_TRAP,
+    PIT, SPIKED_PIT, STATUE_TRAP, MAGIC_TRAP, FIRE_TRAP, SLP_GAS_TRAP,
+    ROLLING_BOULDER_TRAP,
     BEAR_TRAP, WEB, RUST_TRAP, VIBRATING_SQUARE,
-    ANTI_MAGIC, HURTLING, TOOKPLUNGE, VIASITTING, FIRE_RES,
+    ANTI_MAGIC, HURTLING, TOOKPLUNGE, VIASITTING, FIRE_RES, SLEEP_RES,
+    STONE_RES,
     is_hole, is_pit, is_xport, In_quest, isok, ZAP_POS, IS_DOOR, IS_POOL, IS_LAVA,
     D_CLOSED, D_LOCKED,
     CORPSTAT_INIT, CORPSTAT_FEMALE, CORPSTAT_MALE, CORPSTAT_NONE,
@@ -894,13 +896,58 @@ async function trapeffect_hole(mtmp, trap, trflags) {
 }
 
 /**
- * C ref: monst.h resists_fire — Resists_Elem(FIRE_RES).
+ * C ref: prop.h mr_bit — prop index → mresists bit (FIRE_RES…STONE_RES).
+ */
+function mr_bit(prop) {
+    return (prop >= FIRE_RES && prop <= STONE_RES) ? (1 << (prop - 1)) : 0;
+}
+
+/**
+ * C ref: monst.h resists_fire / resists_sleep — Resists_Elem(prop).
  * Named omission: data->mresists not in extracted mons(); only
  * mintrinsics/mextrinsics bits when set.
  */
-function resists_fire(mtmp) {
+function resists_elem(mtmp, prop) {
     const bits = (mtmp?.mintrinsics | 0) | (mtmp?.mextrinsics | 0);
-    return !!(bits & FIRE_RES);
+    return !!(bits & mr_bit(prop));
+}
+function resists_fire(mtmp) {
+    return resists_elem(mtmp, FIRE_RES);
+}
+function resists_sleep(mtmp) {
+    return resists_elem(mtmp, SLEEP_RES);
+}
+
+/** C ref: monst.h helpless — msleeping || !mcanmove */
+function helpless(mtmp) {
+    return !!(mtmp?.msleeping || !mtmp?.mcanmove);
+}
+
+/**
+ * C ref: mhitm.c sleep_monst — how < 0 skips mimic reveal / resist().
+ * Envelope: resists_sleep shield; else if mcanmove freeze via mfrozen.
+ * Named omissions: defended(AD_SLEE); how>=0 seemimic/resist; shieldeff;
+ * full finish_meating mimic AP reset (inline meating=0 only).
+ */
+function sleep_monst(mon, amt, how) {
+    if (!mon) return 0;
+    // how >= 0 mimic reveal / resist(how) deferred
+    if (resists_sleep(mon) /* || defended(mon, AD_SLEE) */) {
+        // shieldeff deferred
+        return 0;
+    }
+    if (mon.mcanmove) {
+        mon.meating = 0; // finish_meating subset
+        amt = (amt | 0) + (mon.mfrozen | 0);
+        if (amt > 0) {
+            mon.mcanmove = 0;
+            mon.mfrozen = Math.min(amt, 127);
+        } else {
+            mon.msleeping = 1;
+        }
+        return 1;
+    }
+    return 0;
 }
 
 /**
@@ -1012,7 +1059,28 @@ async function trapeffect_magic_trap(mtmp, trap, trflags) {
     return Trap_Effect_Finished;
 }
 
-// C ref: trap.c trapeffect_selector — dart/rock/pit/sqky/hole/magic/fire
+/**
+ * C ref: trap.c trapeffect_slp_gas_trap
+ * Envelope: monsters — !resists_sleep && !breathless && !helpless →
+ * sleep_monst(rnd(25), -1); pline+seetrap when in sight. Hero —
+ * Sleep_resistance/fall_asleep/steedintrap deferred.
+ */
+async function trapeffect_slp_gas_trap(mtmp, trap, _trflags) {
+    if (is_youmonst(mtmp)) {
+        // Hero cloud / fall_asleep deferred
+        return Trap_Effect_Finished;
+    }
+    const in_sight = canseemon(mtmp) || (mtmp === game.u?.usteed);
+    if (!resists_sleep(mtmp) && !breathless(mtmp.data) && !helpless(mtmp)) {
+        if (sleep_monst(mtmp, rnd(25), -1) && in_sight) {
+            await pline(`${Monnam(mtmp)} suddenly falls asleep!`);
+            seetrap(trap);
+        }
+    }
+    return Trap_Effect_Finished;
+}
+
+// C ref: trap.c trapeffect_selector — dart/rock/pit/sqky/hole/magic/fire/slp
 async function trapeffect_selector(mtmp, trap, trflags) {
     switch (trap.ttyp) {
     case DART_TRAP:
@@ -1031,8 +1099,10 @@ async function trapeffect_selector(mtmp, trap, trflags) {
         return trapeffect_fire_trap(mtmp, trap, trflags);
     case MAGIC_TRAP:
         return trapeffect_magic_trap(mtmp, trap, trflags);
+    case SLP_GAS_TRAP:
+        return trapeffect_slp_gas_trap(mtmp, trap, trflags);
     default:
-        // Named omission: arrow/bear/telep/anti-magic/… trap effects
+        // Named omission: arrow/bear/telep/anti-magic/rust/… trap effects
         return Trap_Effect_Finished;
     }
 }
