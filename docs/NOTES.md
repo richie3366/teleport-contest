@@ -7,17 +7,14 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 
 ## Active
 
-- **Current unit:** seed0030 seg6 @18840 — C `rn2(24) @ m_move` vs JS
-  `rn2(16)` after matched fleeck. **Not** Mines map/(28,13).
-- **Hypothesis:** hostile gnome **position drift** after step ~170. At
-  step 170 C+JS both show G@(26,11)+G@(28,12); by 174 C has G@(26,10)
-  while JS kept @(28,12) / moved the other gnome away. At peel JS
-  `#165@(27,12) cnt=4` vs C `rn2(24)`⇒cnt=6 (then throw path). Prior
-  matched `rn2(24)` was JS `#166@(38,9)`. Same-arity earlier `m_move`
-  likely picked different dest → later cnt drift.
-- **Falsifier:** dump JS+C (or screen) for gnome that was @(26,11) on
-  each key 170→174; compare that mon’s `m_move` poss/track/gg/rn2
-  sequence. Or FORCE JS mon onto C’s path and watch prefix.
+- **Current unit:** seed0030 seg6 @18913 — C `rn2(21) @ trapeffect_magic_trap`
+  vs JS `rn2(5)` after matched fleeck/`m_move` track (post D-0253 balks).
+- **Hypothesis:** a monster (or hero) stepped on a MAGIC_PORTAL/MAGIC_TRAP and
+  C ran `trapeffect_magic_trap` (`rn2(21)`); JS skipped that trap effect so
+  the next fleeck `rn2(5)` landed in the slot.
+- **Falsifier:** at matched fleeck before 18913, dump who is on a magic trap
+  cell; confirm JS `mintrap`/`dotrap` selector omits MAGIC_TRAP / wrong
+  branch; port C `trapeffect_magic_trap` envelope.
 - **Parked deep canary:** D-0006 pet movement — do not implement until C
   state/candidate capture exists.
 - **Parked seed2200 @158:** RC config path — harness `$HOME`, not a port bug.
@@ -127,6 +124,10 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 - **D-0253 was NOT mid-game `mdig_tunnel` opening (28,13)** — cell is
   wall in both; digs before peel are ROOM no-ops.
 - **D-0253 peel is Mines depth 4**, not the first DoD `>` descend.
+- **D-0253 root was missing `m_balks_at_approaching`** — gnome #240 at
+  (26,11) had bow+arrows wielded (`mw=BOW`) but `appr=1`; C sets
+  `appr=-1` via launcher balks and flees (e.g. toward (26,10)); JS
+  approached to (27,12)/(28,12) → later cnt 4 vs 6 (D-0253).
 - **`monattk.h`: AT_WEAP=254, AT_MAGC=255, AT_SPIT=10** — never use 10 for
   weapon (D-0179).
 - Hostile `m_move`: before place, `m_digweapon_check` may return
@@ -182,5 +183,8 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   (D-0251; cf. D-0056 for true initrecord bugs).
 - **`thitm` hit path:** must call `dmgval(obj, mon)` (clamp ≥1); stubbing
   `dam=1` skips weapon dice RNG even when HP outcome matches (D-0252).
-- **seg6 @18840:** Mines depth 4; (28,13) TRCORNER in **both**; peel is
-  gnome pos/cnt after ~step 170 (D-0253).
+- **Hostile launcher balks:** `m_has_launcher_and_ammo` (wielded
+  launcher + matching ammo) → `appr=-1` when `edist<25` and
+  `m_canseeu` (D-0253). Unwielded bow in invent does **not** count.
+- **seg6 @18840:** Mines (dnum=2); peel was gnome flee vs approach
+  (D-0253); next @18913 `trapeffect_magic_trap`.

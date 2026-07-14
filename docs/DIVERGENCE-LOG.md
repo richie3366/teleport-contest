@@ -256,7 +256,8 @@ Do not record a guessed cause as fixed merely because an RNG prefix moved.
 | D-0250 | fixed | trapeffect_hole TRAPDOOR | mon fall→migrate Trap_Moved_Mon; seg6 15369→17712 |
 | D-0251 | fixed | set_malign/adjalign xkilled | ualign.record after kill; peace_minded rn2(21); seg6 17712→18683 |
 | D-0252 | fixed | thitm dmgval | hit path called dmgval; stub dam=1 skipped rnd; seg6 18683→18840 |
-| D-0253 | open | gnome pos drift | @18840 cnt 6 vs 4; map/(28,13) DEC-misread rejected |
+| D-0253 | fixed | m_balks launcher flee | @18840→18913; gnome appr=-1 vs approach |
+| D-0254 | open | trapeffect_magic_trap | seg6 @18913 rn2(21) vs fleeck rn2(5) |
 
 D-0001 through D-0005 predate the strict-length/cohort runbook. Their focused
 causes are preserved, but generic "green sessions held" is historical evidence,
@@ -6858,9 +6859,9 @@ cohort gates if those functions are touched again.
 - **Next:** seed0030 seg6 @18840 `m_move` track arity; or quest
   `getbones`.
 
-## D-0253 — gnome position drift → m_move track arity (seed0030 seg6 @18840)
+## D-0253 — gnome position drift → m_balks_at_approaching (seed0030 seg6 @18840)
 
-- **Status:** open (map theory **rejected**; mon-pos peel)
+- **Status:** fixed (map theory **rejected**; mon-pos peel → balks)
 - **Symptom:** seed0030 seg6 @18840 — C `rn2(24)/rn2(28)/rn2(32) @
   m_move` vs JS `rn2(16)` after matched fleeck (post D-0252).
 - **Rejected:**
@@ -6875,20 +6876,24 @@ cohort gates if those functions are touched again.
      “kobold `k`@(28,13)” was **DEC Special Graphics** `k`→`┐`
      (SO/G1 charset), not a monster. Same class of misread as
      D-0185 wall red herrings.
-- **Evidence (current):**
-  1. Peel Mines depth 4; hero `@(29,13)` matches; (28,13)=┐ wall both.
-  2. Steps 155–170: visible C `G` positions match JS `#165` at those
-     coords (incl. `(26,11)`+`(28,12)` at 170).
-  3. Step 174: C `G@(26,10)`+`G@(22,9)`; JS `#165@(28,12)`+`@(22,9)`
-     — gnome that was @(26,11) diverged.
-  4. At RNG 18837 matched `rn2(24)` = JS `#166@(38,9) cnt=6`; at
-     18840 JS `#165@(27,12) cnt=4` vs C `rn2(24)`⇒cnt=6 then
-     `monmulti`/`m_throw`.
-- **C locus (next):** `monmove.c` `m_move` selection for the gnome
-  that leaves `(26,11)` between steps 170–174 — poss/track/gg /
-  missing filters (`should_displace`/NOTONL/shortsighted/`appr==-2`)
-  that skip without RNG vs same-arity different dest.
-- **Change:** none (diagnosis only; DIAG removed).
-- **Verification:** green+strict preflight PASS; seg6 still @18840.
-- **Next:** instrument that gnome’s `m_move` 170→174; compare
-  poss/track/gg to C screen path `(26,11)→(26,10)`.
+- **Evidence (cause):**
+  1. Peel Mines (dnum=2); hero `@(29,13)` matches; (28,13)=┐ wall both.
+  2. Steps 155–170: visible C `G` positions match JS (incl.
+     `(26,11)`+`(28,12)` at 170).
+  3. Step 174: C `G@(26,10)`+`G@(22,9)`; JS approached from (26,11)
+     toward hero.
+  4. DIAG: `PM_GNOME#240@(26,11)` `mw=BOW` inv=[ARROW,BOW] `appr=1`
+     `edist=13` chose `(27,12)`; C `m_balks_at_approaching` with
+     `m_has_launcher_and_ammo` returns `-1` (flee).
+- **C locus:** `monmove.c` `m_balks_at_approaching`;
+  `mthrowu.c` `m_has_launcher_and_ammo`; selection `appr==-2` band.
+- **Change:** ported `m_has_launcher_and_ammo`, `m_balks_at_approaching`
+  (launcher/pole/aklys/`ranged_attk_available`), wired into hostile
+  `m_move`, and `appr==-2` preferred-range selection. Exported
+  `is_pole` / `m_canseeu`. Named omission: `m_seenres` gate inside
+  `ranged_attk_available`; leppie/Invis/`!mcansee`/shortsighted.
+- **Verification:** seg6 **18840→18913** (`trapeffect_magic_trap`);
+  full **19/44** Scr **1464** RNG **180712**; green+strict PASS;
+  17-session PASS cohort held.
+- **Next:** seed0030 seg6 @18913 `trapeffect_magic_trap`; or quest
+  `getbones`.

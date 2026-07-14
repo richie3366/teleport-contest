@@ -3288,3 +3288,16 @@ Use this shape:
 - Verification: green+strict preflight PASS; seg6 still @18840.
 - Next: gnome `(26,11)` `m_move` poss/track/gg 170→174; or quest
   getbones.
+
+## 2026-07-14 07:55 — m_balks_at_approaching (D-0253)
+
+- Objective: seed0030 seg6 @18840 C `rn2(24) @ m_move` vs JS `rn2(16)` (gnome cnt).
+- C locus: monmove.c m_balks_at_approaching; mthrowu.c m_has_launcher_and_ammo.
+- Result: **verified** — gnome #240@(26,11) had bow+arrows but appr=1;
+  C launcher balks → appr=-1 (flee). Ported m_has_launcher_and_ammo,
+  m_balks (launcher/pole/aklys/ranged_attk), appr==-2 selection;
+  exported is_pole/m_canseeu. Map/(28,13) already rejected.
+- Verification: seg6 **18840→18913** (trapeffect_magic_trap); full
+  **19/44** Scr **1464** RNG **180712**; green+strict PASS; 17-session
+  PASS cohort held.
+- Next: seed0030 seg6 @18913 trapeffect_magic_trap; or quest getbones.

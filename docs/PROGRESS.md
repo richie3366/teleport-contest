@@ -39,7 +39,7 @@ frozen-file overlay):
 |--------|------:|
 | Sessions passing | **19 / 44** |
 | Screens matched | **1464 / 11,405** (12.84%) |
-| Positional RNG calls matched | **180,765 / 792,838** (22.80%) |
+| Positional RNG calls matched | **180,712 / 792,838** (22.79%) |
 | Speed label | `18+0.10/turn` |
 | Working-tree base | `8b71735` + committed port (see `main`) |
 | Role-init throws | **0 / 44** (`u_init_role: role not ported`) |
@@ -541,17 +541,16 @@ seed0101 + seed0103 + seed0104 **PASS**. seed2200 RNG **full**
 seed0101 RNG **full** Scr **27**/27. seed0103 RNG **full** Scr **60**/60.
 seed0104 RNG **full** Scr **43**/43.
 
-- **Bounded unit:** seed0030 seg6 @18840 — **D-0253** hostile gnome
-  position drift (Mines depth 4): map/(28,13) **rejected** (both
-  TRCORNER; DEC `k` was wall). Step 170 C+JS G@(26,11); step 174 C
-  G@(26,10) vs JS @(28,12). Peel JS `#165` cnt=4 vs C cnt=6. /
+- **Bounded unit:** seed0030 seg6 @18913 — **D-0254** open —
+  `trapeffect_magic_trap` (`rn2(21)` vs fleeck `rn2(5)`). D-0253
+  `m_balks_at_approaching` **ported** (seg6 **18840→18913**). /
   seed0361/0373 **quest `getbones`** (blocked: need `^V`→`goto_level`→
   `makemaz` first — ordinary `goto_level` now exists for stairs; Mines
   `fill_lvl` path exists D-0171).
-- **Prefer:** `m_move` selection for gnome `(26,11)→…` (poss/track/gg
-  / missing C filters) over mkmap; over quest bones until `^V`/
-  `makemaz`; over parked D-0006 and over baking seed2200 RC paths.
-  Hero `dotrap` deferred until monster pit peel is clear.
+- **Prefer:** `trapeffect_magic_trap` / monster-or-hero MAGIC_TRAP over
+  quest bones until `^V`/`makemaz`; over parked D-0006 and over baking
+  seed2200 RC paths.
+  Hero `dotrap` deferred until monster trap peels are clear.
   Hero `xkilled` treasure `mkobj` done (D-0229; ordinary
   `make_corpse` done D-0191; mhitm path done D-0167;
   `done_in_by` bones gate done D-0190). CORPSE `weight` cwt done
@@ -646,7 +645,8 @@ seed0104 RNG **full** Scr **43**/43.
   `mons_see_trap`; HOLE `!mindless` already_seen; full
   `m_harmless_trap` flyer/`check_in_air`/sleep/fire/anti-magic/webmaker
   (BEAR size/amorph + WEB/RUST/VIBRATING/PIT clinger done D-0245);
-  hostile balks/
+  hostile balks/ → **`m_balks_at_approaching` done D-0253**; shortsighted/
+  leppie/Invis/`!mcansee` still deferred;
   shortsighted;   `m_search_items` body omissions (D-0182) + underfoot
   MMOVE_DONE/`mpickstuff` (done D-0223; shop/hides_under/onscary/
   costly_spot/`can_touch_safely` in search still deferred); muse wand/horn offense + mon-target
@@ -750,8 +750,10 @@ seed0104 RNG **full** Scr **43**/43.
   next @18683 `dmgval` vs fleeck);
   **`thitm` hit → `dmgval`** (done D-0252; seg6 **18683→18840**;
   full **19/44** Scr **1464** RNG **180765**);
-  **seg6 @18840 track arity** (D-0253 **open** — gnome pos/cnt drift;
-  mkmap/(28,13) rejected DEC misread);
+  **`m_balks_at_approaching`** (done D-0253; seg6 **18840→18913**;
+  full **19/44** Scr **1464** RNG **180712**; next @18913
+  `trapeffect_magic_trap`);
+  **seg6 @18913 magic trap** (D-0254 **open**);
   **`goto_level` `stairway_find_from`** (D-0224 find_from done);
   D-0218 upstairs theory rejected;
   …
@@ -1690,10 +1692,13 @@ Module status, constitutional debt, and named omissions live in
     hit path called real `dmgval` (was stub dam=1); full **19/44** Scr
     **1464** RNG **180765**; green+cohort PASS; next seg6 @18840 /
     quest `getbones`
-230. seg6 @18840 track arity diagnosis (D-0253 open)
-    — map/(28,13) **rejected** (DEC `k`→`┐`; both TRCORNER; mklev
-    RNG+rooms match); real peel gnome `(26,11)` drift → cnt 6 vs 4;
-    next that mon’s `m_move` 170→174; quest `getbones`
+230. seg6 @18840 track arity diagnosis (D-0253) — map rejected; gnome
+    path drift; superseded by balks fix below
+231. `m_balks_at_approaching` launcher flee (D-0253)
+    — seed0030 seg6 **18840→18913** (`trapeffect_magic_trap`);
+    gnome #240 bow+ammo had `appr=1`; C balks → `-1`. Full **19/44**
+    Scr **1464** RNG **180712**; green+cohort PASS; next @18913 /
+    quest `getbones`
 
 Next work is selected from the active objectives above using
 `PORTING-RUNBOOK.md`, not by extending this historical list.

@@ -22,7 +22,7 @@ import {
     MON_WEP, select_rwep, mon_wield_item, monmulti, dmgval,
     should_mulch_missile,
 } from './weapon.js';
-import { ammo_and_launcher } from './wield.js';
+import { ammo_and_launcher, is_launcher } from './wield.js';
 import { acurr, A_DEX, A_STR, exercise } from './attrib.js';
 import { calc_capacity } from './invent.js';
 import { losehp, nomul, maybe_half_phys } from './hack.js';
@@ -38,6 +38,18 @@ import { potionhit } from './potion.js';
 
 const BOULDER = objectNames.indexOf('BOULDER');
 const WAN_STRIKING = objectNames.indexOf('WAN_STRIKING');
+
+/**
+ * C ref: mthrowu.c m_has_launcher_and_ammo — wielded launcher + matching ammo.
+ */
+export function m_has_launcher_and_ammo(mtmp) {
+    const mwep = MON_WEP(mtmp);
+    if (!mwep || !is_launcher(mwep)) return false;
+    for (let otmp = mtmp.minvent; otmp; otmp = otmp.nobj) {
+        if (ammo_and_launcher(otmp, mwep)) return true;
+    }
+    return false;
+}
 
 function sgn(n) {
     return n < 0 ? -1 : n > 0 ? 1 : 0;
