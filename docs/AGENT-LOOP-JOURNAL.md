@@ -20,6 +20,17 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-14 17:45 — D-0282 topl wrap + redotoplin more
+
+- Objective: seed0030 Scr 85/1953 (CURRENT primary); first miss @24.
+- C locus: `engrave.c` `read_engr_at` BUFSZ maxelen; `topl.c`
+  `update_topl` / `redotoplin`.
+- Change: maxelen via BUFSZ+sizeof; `pline` inserts wrap `\n` and
+  calls `more()` when multi-line (space no longer becomes a command).
+- Verification: Scr@23–25 match; prefix miss **24→46**; Scr 85→87;
+  RNG full; green+strict PASS; 19-session PASS cohort + strict.
+- Next: Scr@46 wall color / botl HP after descend; or seed0013.
+
 ## 2026-07-14 17:39 — D-0281 `#quit` done2
 
 - Objective: seed0030 seg8 trailing JS after C end (CURRENT primary).

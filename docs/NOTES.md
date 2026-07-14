@@ -7,11 +7,11 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Current unit:** seed0030 Scr **85**/1953 with RNG **FULL** 105529
-  (D-0281 follow-on). Segs 0–8 FULL under shared storage.
-- **Hypothesis:** quit paints invent disclose / skips `Sayonara`+endwin
-  more (`disclose:-i…` not parsed → JS still asks possessions yn).
-- **Falsifier:** first mismatched screen index + C vs JS topl.
+- **Current unit:** seed0030 Scr **87**/1953 with RNG **FULL** 105529
+  (D-0282 follow-on). Prefix first-miss **46** (was 24).
+- **Hypothesis:** after descend, wall glyph color (C CLR 3 vs JS
+  NO_COLOR) and/or botl HP digit (3 vs 1) diverge.
+- **Falsifier:** Scr@46 cell diff after matching stairs `--More--`.
 - **Alt:** seed0013 Scr 57/59; seed0107 @2684.
 - **Parked:** D-0006 (pet movement); seed2200 @158 RC/`$HOME`.
 
@@ -37,6 +37,8 @@ Objective/score live in `CURRENT.md`.
 - **Don’t:** treat `dodrink` `ECMD_CANCEL` as time — use `& ECMD_TIME`
   (D-0280); truthy CANCEL burned an extra movemon turn.
 - **Don’t:** leave `#quit` AC-only — unknown → `y` vi-move (D-0281).
+- **Don’t:** `read_engr` maxelen from 80 — use `BUFSZ`+sizeof feel-lit
+  (D-0282); long pline needs update_topl `\n` + redotoplin `more()`.
 
 ## Landmarks (≤15)
 
@@ -57,4 +59,4 @@ Objective/score live in `CURRENT.md`.
 - Bones: `no_bones_level` before depth rn2 / after getbones `rn2(3)`
   (D-0279); VFS `bonM0.1`; limbo missile (D-0275); mtrack (D-0276);
   ghostly peace (D-0277); `disturb` (D-0278); quaff CANCEL≠TIME (D-0280);
-  `#quit`→`done2` (D-0281).
+  `#quit`→`done2` (D-0281); topl wrap+redotoplin more (D-0282).

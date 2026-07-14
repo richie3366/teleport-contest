@@ -7286,4 +7286,26 @@ Open that file first; then jump to a single `## D-NNNN` entry below
   PASS cohort + strict lengths.
 - **Next:** seed0030 Scr 85/1953 (RNG full); or seed0013 Scr 57/59.
 
+## D-0282 — update_topl word-wrap + redotoplin more (long pline)
+
+- **Status:** fixed
+- **Observed:** seed0030 Scr first miss @24 — C
+  `You read: "…?hc` / `charwcmen."--More--`; JS truncated or
+  single-line without `--More--`, then `Unknown command ' '`.
+- **C locus:** `engrave.c` `read_engr_at` maxelen =
+  `BUFSZ - sizeof "You feel the words: \"\"."`; `topl.c`
+  `update_topl` replaces spaces with `\n` while `n0 >= CO`;
+  `redotoplin` calls `more()` when `cury > 0`.
+- **Cause:** JS `read_engr_at` used `80` not `BUFSZ`; `pline`
+  never inserted wrap `\n` nor called `more()` for multi-line
+  messages, so the dismiss space became a command key.
+- **Change:** `engrave.js` maxelen via `BUFSZ` + sizeof NUL;
+  `display.js` `pline` ports update_topl wrap + redotoplin more;
+  `more()` appends `--More--` on pre-wrapped last line.
+- **Verification:** Scr@23–25 match; prefix first-miss **24→46**;
+  Scr count metric 85→87; RNG still **105529**/105529;
+  green+strict PASS; 19-session PASS cohort + strict lengths.
+- **Next:** seed0030 Scr@46 after descend (wall color CLR vs
+  NO_COLOR; botl HP digit); or seed0013 Scr 57/59.
+
 

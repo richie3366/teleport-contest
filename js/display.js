@@ -1232,9 +1232,14 @@ export async function more() {
     const CO = game?.nhDisplay?.cols || 80;
     const base = (_toplines || game._pending_message || '').replace(/--More--$/, '');
     // C ref: topl.c more() — if curx >= CO-8, put --More-- on the next row.
-    // Only word-wrap the message text when it exceeds CO (welcome lines are
-    // CO-8..CO-1 and stay intact with a bare "--More--" row).
-    if (base.length >= CO) {
+    // Messages may already contain update_topl `\n` word-breaks (D-0282).
+    if (base.includes('\n')) {
+        const last = base.slice(base.lastIndexOf('\n') + 1);
+        game._pending_message = last.length >= CO - 8
+            ? `${base}\n--More--`
+            : `${base}--More--`;
+    } else if (base.length >= CO) {
+        // Fallback when a caller skipped update_topl-style pre-wrap.
         let breakAt = base.lastIndexOf(' ', CO - 1);
         if (breakAt < (CO >> 1)) breakAt = Math.min(base.length, CO - 1);
         const line0 = base.slice(0, breakAt).trimEnd();
@@ -1311,7 +1316,8 @@ export async function verbalize(msg) {
 }
 
 // ── pline ──
-// C ref: topl.c update_topl / addtopl — append if room, else more() then replace
+// C ref: topl.c update_topl / addtopl / redotoplin — append if room, else
+// more() then replace; word-break `\n` when len≥CO; more() if cury>0.
 export async function pline(msg) {
     if (msg == null || msg === '') return;
     const CO = game?.nhDisplay?.cols || 80;
@@ -1331,9 +1337,35 @@ export async function pline(msg) {
         await more();
     }
     if (!notdied) _win_stop = false;
-    _toplines = msg;
+
+    // C ref: topl.c update_topl — replace spaces with `\n` while n0 >= CO
+    let formatted = String(msg);
+    {
+        let n0 = formatted.length;
+        let tl = 0;
+        while (n0 >= CO) {
+            const otl = tl;
+            let i = tl + CO - 1;
+            for (; i !== otl; --i) {
+                if (formatted[i] === ' ') break;
+            }
+            if (i === otl) {
+                i = formatted.indexOf(' ', otl);
+                if (i < 0) break;
+            }
+            formatted = `${formatted.slice(0, i)}\n${formatted.slice(i + 1)}`;
+            tl = i + 1;
+            n0 = formatted.length - tl;
+        }
+    }
+
+    _toplines = formatted;
     if (!skip) {
-        game._pending_message = msg;
+        game._pending_message = formatted;
         _toplin = TOPLINE_NEED_MORE;
+        // C ref: topl.c redotoplin — more() when message wrapped (cury > 0)
+        if (formatted.includes('\n')) {
+            await more();
+        }
     }
 }
