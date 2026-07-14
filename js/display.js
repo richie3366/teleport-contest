@@ -2,7 +2,7 @@
 // C ref: display.c — newsym, show_glyph, docrt, cls, flush_screen.
 
 import { game } from './gstate.js';
-import { cansee, couldsee } from './vision.js';
+import { cansee, couldsee, vision_recalc } from './vision.js';
 import { objects_at } from './mkobj.js';
 import { mcolors, mons, infravision, infravisible } from './monsters.js';
 import {
@@ -1191,13 +1191,23 @@ export function newsym(x, y) {
 }
 
 // ── docrt ──
-// C ref: display.c docrt → cls (message flush / more) then redraw glyphs.
+// C ref: display.c docrt_flags — vision_recalc(2); cls; show memory;
+// vision_recalc(0). Shutting down sight first matters: vision_reset only
+// rebuilds block maps and leaves stale IN_SIGHT, so newsym would paint/
+// remember terrain for the previous level's visible coordinates.
 export async function docrt() {
-    if (!game.level) return;
+    if (!game.u?.ux || !game.level) return;
+    // C: vision_recalc(2) — hero sees nothing during refresh
+    vision_recalc(2);
     await cls();
+    // C: show_glyph(x,y, lev->glyph) for all cells (memory; cansee false)
     for (let y = 0; y < ROWNO; y++)
         for (let x = 1; x < COLNO; x++)
             newsym(x, y);
+    // C: vision_recalc(0) — see what is to be seen (+ newsym updates)
+    vision_recalc(0);
+    // Named omission: see_monsters() overlay; swallowed/underwater/buried;
+    // docrt_flags maponly/redrawonly/nocls; disp.botlx + update_inventory.
 }
 
 // ── Serialize a map row with DEC line-drawing and ANSI colors ──

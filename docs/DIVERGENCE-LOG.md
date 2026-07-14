@@ -8040,6 +8040,28 @@ Open that file first; then jump to a single `## D-NNNN` entry below
   `nonliving`).
 - **Next:** @1821 map clear/`docrt`/`cls` on level transition.
 
+## D-0328 — `savebones` clear map memory (+ `docrt` vision shutoff)
+
+- **Status:** fixed
+- **Observed:** seed0030 @1821 — after descend `--More--` onto bones Mines
+  L1, C map mostly blank (19 lit-room cells) vs JS ~81 extra DEC walls/
+  floors from prior-hero `remembered_glyph`. RNG full.
+- **Rejected:** skipped `cls` alone — sight after `docrt` was already 19;
+  mem=100 present immediately after `getbones` load.
+- **C locus:** `bones.c` `savebones` — clear `seenv`/`waslit`/
+  `glyph=GLYPH_UNEXPLORED`/`lastseentyp` before save; `display.c`
+  `docrt_flags` — `vision_recalc(2)` then memory then `vision_recalc(0)`.
+- **Cause:** JS `write_bonesfile` serialized full cells including
+  `remembered_glyph`/`disp_*`; load restored dead hero’s map memory.
+- **Change:** clear memory fields on bones write; strip on load (old
+  payloads); `docrt` ports `vision_recalc(2)` + memory `newsym` +
+  `vision_recalc(0)` (D-0328).
+- **Verification:** @1821 match; Scr **1821→1831**; first miss **@1830**
+  `Elara's ghost` vs `Elara`; RNG full; green+strict; 19 PASS cohort.
+- **Named omissions:** cemetery attach; binary savelev glyph field;
+  `see_monsters` after docrt; full `clear_glyph_buffer` gbuf.
+- **Next:** @1830 bones ghost `"s ghost"` monnam.
+
 ## D-0326 — `newsym` `canspotself` gates `display_self`
 
 - **Status:** fixed

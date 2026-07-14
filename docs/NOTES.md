@@ -7,16 +7,15 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Score (#355 suite):** **19/44**; Scr **3258**/11405; RNG **240657**/792838;
-  speed `17+0.12/turn`.
-- **Current unit:** seed0030 Scr **1821**/1953 RNG **FULL**; cell first-miss **@1821**.
-- **@1821:** C map rows blank; JS still paints DEC walls/floors (~81 cells).
-  Empty topline both sides.
-- **Hypothesis:** level-transition clear/`docrt`/`cls`/`vision` — C blanked,
-  JS did not.
-- **Falsifier:** @1821 map blank; prefix >1821.
-- **Fixed:** D-0327 `xkilled` `nonliving` → `"destroy"`; @1684; Scr 1820→1821.
-- **Don’t:** hard-code xkilled `"kill"` — use `nonliving` (D-0327).
+- **Score (#355 suite):** **19/44**; Scr **3258**/11405; RNG **240657**/792838.
+  (#356 focused seed0030 Scr **1831**/1953; suite not remeasured.)
+- **Current unit:** seed0030 Scr **1831**/1953 RNG **FULL**; cell first-miss **@1830**.
+- **@1830:** C `You miss Elara's ghost.` vs JS `You miss Elara.`
+- **Hypothesis:** bones ghost monnam missing `"s ghost"` / `ghost_name`.
+- **Falsifier:** @1830 match; prefix >1830.
+- **Fixed:** D-0328 `savebones` clear seenv/waslit/glyph memory (+ load strip);
+  `docrt` `vision_recalc(2)`+memory+`vision_recalc(0)`; @1821; Scr 1821→1831.
+- **Don’t:** persist `remembered_glyph`/`disp_*` in bones (C clears — D-0328).
 - **Alt:** seed0013 Scr 57/59; seed0107 @2684.
 - **Parked:** D-0006; seed2200 @158 RC/`$HOME`.
 
@@ -61,6 +60,7 @@ Objective/score live in `CURRENT.md`.
   leave `#quit` killer from prior death / nest dungeon only under died (D-0324);
   always paint `@` when Invisible — `canspotself` gates `display_self` (D-0326);
   hard-code xkilled `"kill"` — nonliving → `"destroy"` (D-0327);
+  persist bones `remembered_glyph`/`disp_*` — C clears before save (D-0328);
   blanket `observe_object` in `xname` without `distantname` (regresses map).
 - Runner `Screen N/M` = total matches, not prefix length; contiguous cell
   miss can precede a later named topline peel (D-0311→@594 while @583 RIP open).
@@ -77,9 +77,6 @@ Objective/score live in `CURRENT.md`.
 - Shop mimic: after depth `rn2(10)`, `get_shop_item` (D-0262).
 - Fountain gem fate 27/24 → `dofindgem`/`rnd_class` (D-0263).
 - `dochug` NEED_HTH wield can spend turn (D-0264).
-- `hitval`: always `oc_hitbon` / extract `a_ac` (D-0265).
-- Hero MAGIC_TRAP → `domagictrap` (D-0266).
-- `m_move`: `set_apparxy` **before** mtame/shk|gd|priest (D-0267).
 - Key attribution ≠ RNG order (0-RNG `--More--`) (D-0228).
 - Bones / disclose / RIP / topten / amulet / DEC altar / noises / Monnam /
   map_invisible / mimic / vault+fountain/sink/shop / TOOL descr / shop enter /
@@ -88,4 +85,5 @@ Objective/score live in `CURRENT.md`.
   moverock hear-behind / mon_wield canseemon pline / thitu await pline /
   losehp leave neg uhp / SPBOOK descr / hmon exclam / mbhitm finish_done /
   quit deaths+outentry dungeon / ARMOR descr / canspotself newsym /
-  xkilled nonliving destroy: D-0274…D-0327.
+  xkilled nonliving destroy / savebones clear glyph memory:
+  D-0274…D-0328.

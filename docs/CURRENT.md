@@ -21,6 +21,7 @@ Score last measured: **2026-07-14** — full `sessions` suite (global loop
 **#355**) after D-0327. Same 19 PASS; Scr **3257→3258** (+1 from seed0030
 destroy verb; peels #351–#354 already lifted suite Scr vs #350’s 2883).
 RNG unchanged; speed `17+0.12/turn`.
+*(#356: seed0030 Scr 1821→1831 after D-0328; full suite not re-run.)*
 
 ## Score
 
@@ -39,7 +40,7 @@ seed0016, seed0015, seed0200, seed0101, seed0103, seed0104.
 **Notable non-PASS:**
 | Session | RNG | Screen | Note |
 |---------|----:|-------:|------|
-| seed0030 | 105529/105529 | **1821**/1953 | primary peel; cell first-miss **@1821** |
+| seed0030 | 105529/105529 | **1831**/1953 | primary peel; cell first-miss **@1830** |
 | seed2200 | 3018/3018 | **175**/230 | RNG full; Scr cells 178/230 |
 | seed0013-rogue | 4838/4838 | 57/59 | |
 | seed0013-friday13-restore | 4803/4804 | 46/99 | |
@@ -63,16 +64,16 @@ Both must remain full RNG + screen PASS with exact scored-output lengths.
 
 ## Primary objective
 
-**seed0030 screen peel** — RNG full; Scr **1821**/1953; cell first-miss **@1821**
+**seed0030 screen peel** — RNG full; Scr **1831**/1953; cell first-miss **@1830**
 
 | | |
 |--|--|
-| **C locus** | TBD — C map rows blank vs JS still painted (likely `cls`/`docrt`/`vision` on level change) |
-| **JS locus** | TBD — display/level transition |
-| **Symptom** | @1821 C empty map vs JS DEC walls/floors (~81 cells) |
-| **Hypothesis** | C cleared/redrawn map on transition; JS skipped clear |
-| **Falsifier** | @1821 map blank match; prefix >1821 |
-| **Recent fixed** | D-0327 `xkilled` `nonliving` → `"destroy"`; @1684; Scr 1820→1821 |
+| **C locus** | TBD — bones ghost `x_monnam` / `ghost_name` (`You miss Elara's ghost.`) |
+| **JS locus** | TBD — `do_name` / bones ghost naming |
+| **Symptom** | @1830 C `You miss Elara's ghost.` vs JS `You miss Elara.` |
+| **Hypothesis** | bones ghost missing `"s ghost"` / `ghost_name` in monnam |
+| **Falsifier** | @1830 match; prefix >1830 |
+| **Recent fixed** | D-0328 `savebones` clear map memory; @1821; Scr 1821→1831 |
 
 ```bash
 node frozen/ps_test_runner.mjs sessions/seed0030-ten-diverse-deaths.session.json
