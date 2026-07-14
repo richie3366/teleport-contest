@@ -18,7 +18,7 @@ label, PASS list, notable non-PASS. Prepend a journal crumb. Do not invent
 suite totals from a single focused session.
 
 Score last measured: **2026-07-14** — full `sessions` suite (global loop
-**#320**; next mandatory at multiples of 5). Post D-0298; D-0299 peel
+**#320**; next mandatory at multiples of 5). Post D-0298; D-0301 peel
 not yet re-scored suite-wide.
 
 ## Score
@@ -38,7 +38,7 @@ seed0016, seed0015, seed0200, seed0101, seed0103, seed0104.
 **Notable non-PASS:**
 | Session | RNG | Screen | Note |
 |---------|----:|-------:|------|
-| seed0030 | 105529/105529 | **1146**/1953 | primary peel; prefix first-miss **@266** |
+| seed0030 | 105529/105529 | **1147**/1953 | primary peel; prefix first-miss **@372** |
 | seed2200 | 3018/3018 | **175**/230 | RNG full; Scr regressed vs older 229/230 |
 | seed0013-rogue | 4838/4838 | 57/59 | |
 | seed0013-friday13-restore | 4803/4804 | 46/99 | |
@@ -61,16 +61,16 @@ Both must remain full RNG + screen PASS with exact scored-output lengths.
 
 ## Primary objective
 
-**seed0030 screen peel** — RNG full; Scr **1146**/1953; prefix first-miss **@266**
+**seed0030 screen peel** — RNG full; Scr **1147**/1953; prefix first-miss **@372**
 
 | | |
 |--|--|
-| **C locus** | TBD — goblin miss pline (`just misses` vs `misses`) |
-| **JS locus** | `js/mhitu.js` / miss message |
-| **Symptom** | @266 topline C `The goblin just misses!` vs JS `… misses!` |
-| **Hypothesis** | Missing `just` arm in mon→hero miss message |
-| **Falsifier** | decodeScreen @266 row0; C `missmu`/`nearmiss` predicate |
-| **Recent fixed** | D-0300 `newsym` unseen blank clear (259→266; Scr 1085→1146) |
+| **C locus** | TBD — map glyph FOV/memory (`newsym` / wall / corridor) |
+| **JS locus** | `js/display.js` / map draw |
+| **Symptom** | @372 r12c25 C blank vs JS `#` east of room (seg3 Wizard Dlvl:2) |
+| **Hypothesis** | JS shows corridor/wall `#` outside C’s seen/memory blank |
+| **Falsifier** | decodeScreen @372 r12; `cansee`/remembered_glyph at that cell |
+| **Recent fixed** | D-0301 `missmu` `"just "` (266→372; Scr 1146→1147) |
 
 ```bash
 node frozen/ps_test_runner.mjs sessions/seed0030-ten-diverse-deaths.session.json

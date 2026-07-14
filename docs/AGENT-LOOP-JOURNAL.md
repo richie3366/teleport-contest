@@ -21,6 +21,15 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-14 19:25 — D-0301 missmu just near-miss
+
+- Objective: seed0030 Scr peel (CURRENT primary); prefix first-miss @266.
+- C locus: `mhitu.c` `missmu` `(nearmiss && flags.verbose) ? "just " : ""`.
+- Change: honor `nearmiss` + verbose `"just "`; `map_invisible` when unseen.
+- Verification: prefix **266→372**; Scr **1146→1147**; RNG full;
+  green+strict; 19-session PASS cohort + strict.
+- Next: @372 map JS `#` vs C blank east of room (seg3 Wizard Dlvl:2).
+
 ## 2026-07-14 19:20 — D-0300 newsym unseen blank clear
 
 - Objective: seed0030 Scr peel (CURRENT primary); prefix first-miss @259.

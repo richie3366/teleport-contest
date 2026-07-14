@@ -7,15 +7,15 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Current unit:** seed0030 Scr **1146**/1953 with RNG **FULL** 105529
-  (D-0300). True prefix first-miss **266** (was 259).
-- **Hypothesis:** @266 topline C `The goblin just misses!` vs JS
-  `The goblin misses!` — missing `just` in mon miss message path.
-- **Falsifier:** decodeScreen @266 row0; C vs JS `missmu`/`swings` arm.
-- **Falsified:** @259 JS `o` vs C blank was **not** missing postmov
-  `newsym(omx,omy)` call — call existed but !cansee+no-memory was a
-  no-op leaving stale IR glyph (D-0300).
-- **Also:** seg7 JS 159 vs C 172 steps (investigate after @266).
+- **Current unit:** seed0030 Scr **1147**/1953 with RNG **FULL** 105529
+  (D-0301). True prefix first-miss **372** (was 266).
+- **Hypothesis:** @372 map r12c25 — JS `#` east of room wall vs C blank
+  (seg3 Wizard Beatrix Dlvl:2). FOV/memory/`newsym` or wall reveal.
+- **Falsifier:** decodeScreen @372 r12; C vs JS glyph at that cell +
+  `cansee`/remembered_glyph.
+- **Falsified:** @266 missing `"just "` was ignored `nearmiss` in
+  `missmu` (D-0301).
+- **Also:** seg7 JS 159 vs C 172 steps (investigate after @372).
 - **Alt:** seed0013 Scr 57/59; seed0107 @2684.
 - **Parked:** D-0006 (pet movement); seed2200 @158 RC/`$HOME`.
 
@@ -41,7 +41,8 @@ Objective/score live in `CURRENT.md`.
   draw disguised mimics as mlet — `display_monster` M_AP_OBJECT (D-0297);
   vault `dosounds` RNG-only — emit `You_hear` (D-0298); leave nearby
   generic gems gray — `map_object`/`see_nearby_objects` observe (D-0299);
-  leave `newsym` !cansee+no-memory as no-op — paint blank (D-0300).
+  leave `newsym` !cansee+no-memory as no-op — paint blank (D-0300);
+  ignore `missmu` `nearmiss` — `"just "` when verbose (D-0301).
 - Runner `Screen N/M` = total matches, not prefix length.
 
 ## Landmarks (≤15)
@@ -62,4 +63,4 @@ Objective/score live in `CURRENT.md`.
 - Key attribution ≠ RNG order (0-RNG `--More--`) (D-0228).
 - Bones / disclose / RIP / topten / amulet / DEC altar / noises / Monnam /
   map_invisible / mimic M_AP_OBJECT / vault dosounds / nearby observe /
-  newsym unseen blank: D-0274…D-0300.
+  newsym unseen blank / missmu just: D-0274…D-0301.

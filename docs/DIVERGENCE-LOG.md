@@ -7644,4 +7644,21 @@ Open that file first; then jump to a single `## D-NNNN` entry below
   partial; `Detect_monsters` / `tp_sensemon` / warn in !cansee path.
 - **Next:** prefix@266 topline C `just misses!` vs JS `misses!`.
 
+## D-0301 — `missmu` near-miss `"just "`
+
+- **Status:** fixed
+- **Observed:** seed0030 @266 — C topline `The goblin just misses!` vs JS
+  `The goblin misses!`; RNG full.
+- **C locus:** `mhitu.c` `missmu` — `(nearmiss && flags.verbose) ? "just " : ""`.
+- **Cause:** JS `missmu` ignored the `nearmiss` arg and always printed
+  `misses!`.
+- **Change:** emit `"just "` when `nearmiss && flags.verbose`; also
+  `map_invisible` when `!canspotmon` (same C function).
+- **Verification:** prefix **266→372**; Scr **1146→1147**; RNG full;
+  green+strict; 19-session PASS cohort + strict.
+- **Named omissions:** `could_seduce` pretend-friendly arm;
+  `stop_occupation`; `gh.hitmsg_mid` / `hitmsg_prev` clear.
+- **Next:** prefix@372 map — JS `#` east of room vs C blank (seg3 Wizard
+  Dlvl:2).
+
 
