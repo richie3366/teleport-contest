@@ -39,7 +39,7 @@ frozen-file overlay):
 |--------|------:|
 | Sessions passing | **19 / 44** |
 | Screens matched | **1433 / 11,405** (12.56%) |
-| Positional RNG calls matched | **152,565 / 792,838** (19.24%) |
+| Positional RNG calls matched | **152,652 / 792,838** (19.25%) |
 | Speed label | `20+0.09/turn` |
 | Working-tree base | `8b71735` + committed port (see `main`) |
 | Role-init throws | **0 / 44** (`u_init_role: role not ported`) |
@@ -64,7 +64,7 @@ shared blockers, and semantic coverage together—not one vanity metric.
 | `seed0501-priest-cast-read-turn` | **2238 / 2238** | **28 / 28** |
 | `seed2200-wizard-quaff-zap-read` | **3018 / 3018** | **229 / 230** |
 | `seed0017-samurai-altar-pray` | **3465 / 3465** | **67 / 67** |
-| `seed0030-ten-diverse-deaths` | **28231 / 105529** | **48 / 1953** |
+| `seed0030-ten-diverse-deaths` | **28318 / 105529** | **48 / 1953** |
 | `seed0103-knight-ride-pony` | **2640 / 2640** | **60 / 60** |
 | `seed0200-monk-north-search` | **3822 / 3822** | **40 / 40** |
 | `seed0101-ranger-quiver-throw-travel-engrave` | **2371 / 2371** | **27 / 27** |
@@ -309,6 +309,9 @@ Scr **1433** RNG **149124**.
 **3207→5939** (`distfleeck` vs `rn2(20)`); positional
 **28231**/105529 Scr **48**/1953; full **19/44** Scr **1433**
 RNG **152565**.
+**`m_search_items` underfoot MMOVE_DONE** (D-0223) → seed0030 seg2
+**5939→6060** (`mattacku`); positional **28318**/105529 Scr
+**48**/1953; full **19/44** Scr **1433** RNG **152652**.
 
 ### Green gate
 
@@ -503,7 +506,9 @@ autoopen `doopen_indir` (D-0059) + `mfndpos` BOULDER/`ALLOW_ROCK` +
 **`test_move` diagonal doorway ban** (D-0219) **ported**; D-0218
 upstairs theory **rejected**. **dismount look_here** (D-0220)
 **ported** — seed0104 **PASS**. **dog_goal wantdoor** (D-0211)
-**ported** — seed0030 seg2 **2408→2930**. Nineteen public sessions
+**ported** — seed0030 seg2 **2408→2930**. **underfoot
+`m_search_items` MMOVE_DONE** (D-0223) **ported** — seg2
+**5939→6060**. Nineteen public sessions
 pass end-to-end. **0/44**
 throw at `u_init_role`. seed0700 + seed1150 + seed0017 + seed0077 +
 seed0106 + seed0501 + seed0105 + seed0016 + seed0015 + seed0200 +
@@ -512,8 +517,8 @@ seed0101 + seed0103 + seed0104 **PASS**. seed2200 RNG **full**
 seed0101 RNG **full** Scr **27**/27. seed0103 RNG **full** Scr **60**/60.
 seed0104 RNG **full** Scr **43**/43.
 
-- **Bounded unit:** seed0030 seg2 @5939 (C `distfleeck` rn2(5) vs JS
-  rn2(20) after D-0222 floor useupf) / seed0361/0373 **quest
+- **Bounded unit:** seed0030 seg2 @6060 (C `rnd(20) @ mattacku` vs JS
+  `rn2(8)` after D-0223 underfoot DONE) / seed0361/0373 **quest
   `getbones`** (blocked: need `^V`→`goto_level`→`makemaz` first —
   ordinary `goto_level` now exists for stairs; Mines `fill_lvl` path
   exists D-0171).
@@ -600,8 +605,9 @@ seed0104 RNG **full** Scr **43**/43.
   wizard ^X next-level XP line; hero SQKY `dotrap`;
   `mons_see_trap`; HOLE `!mindless` already_seen; full
   `m_harmless_trap` flyer/resist immunities; hostile balks/
-  shortsighted; `m_search_items` body omissions (D-0182) + underfoot
-  MMOVE_DONE/`mpickstuff` (D-0183); muse wand/horn offense + mon-target
+  shortsighted;   `m_search_items` body omissions (D-0182) + underfoot
+  MMOVE_DONE/`mpickstuff` (done D-0223; shop/hides_under/onscary/
+  costly_spot/`can_touch_safely` in search still deferred); muse wand/horn offense + mon-target
   `potionhit` (D-0184 potions done); mtrapped escape `rn2(40)`;
   full `alt_spl`/rank titles in `name_to_monplus` (NAMS done D-0173);
   per-level `rest_track` on return visits; large-monster `dmgval`
@@ -638,6 +644,7 @@ seed0104 RNG **full** Scr **43**/43.
   **`dog_goal` wantdoor/`do_clear_area`** (done D-0211; seg2→2930);
   **`floorfood` + `poison_strdmg`** (done D-0221; seg2→3207);
   **`useupf`→`delobj` floor meal** (done D-0222; seg2→5939);
+  **`m_search_items` underfoot MMOVE_DONE** (done D-0223; seg2→6060);
   D-0218 upstairs theory rejected;
   …
 - **Cohort:** green gate + seed1500 + seed1800 + seed0060 + seed0102
@@ -1440,6 +1447,10 @@ Module status, constitutional debt, and named omissions live in
     positional **28231**/105529 Scr **48**/1953; full **19/44** Scr
     **1433** RNG **152565**; next seed0030 seg2 @5939 / quest
     `getbones`
+199. `m_search_items` underfoot MMOVE_DONE (D-0223)
+    — seed0030 seg2 **5939→6060** (`mattacku`); positional
+    **28318**/105529 Scr **48**/1953; full **19/44** Scr **1433**
+    RNG **152652**; next seed0030 seg2 @6060 / quest `getbones`
 
 Next work is selected from the active objectives above using
 `PORTING-RUNBOOK.md`, not by extending this historical list.

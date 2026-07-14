@@ -7,11 +7,11 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 
 ## Active
 
-- **Current unit:** seed0030 seg2 @5939 — C `distfleeck` `rn2(5)` vs JS
-  `rn2(20)` after D-0222 floor `useupf`/`delobj`. / seed0361/0373 quest
-  `getbones` (need `^V`→`goto_level`→`makemaz`).
-- **Falsifier:** seg2 rng-diff; if first mismatch is not that arity split,
-  dump actor/occupation/`meating`/floor pile at that index.
+- **Current unit:** seed0030 seg2 @6060 — C `rnd(20) @ mattacku` vs JS
+  `rn2(8)` after D-0223 underfoot `m_search_items`→`MMOVE_DONE`. /
+  seed0361/0373 quest `getbones` (need `^V`→`goto_level`→`makemaz`).
+- **Falsifier:** seg2 rng-diff @6060; dump attacking mon / hero adjacency /
+  `mattacku` branch before attributing to fleeck arity.
 - **Parked deep canary:** D-0006 pet movement — do not implement until C
   state/candidate capture exists.
 - **Parked seed2200 @158:** RC config path — harness `$HOME`, not a port bug.
@@ -73,6 +73,11 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   `distfleeck` (D-0222). Invent `useup` must not call `delobj`
   (`addinv` often omits `where=OBJ_INVENT`; split children not in
   `game.invent`).
+- **seed0030 seg2 @5939 was NOT dog_invent APPORT / invent-eat /
+  gettrack / meating** — symptom `rn2(20)` was hostile `m_move` track
+  after leftover floor glass redirected `gg`; root was skipped underfoot
+  `m_search_items`→`MMOVE_DONE` (D-0183 deferred until postmov
+  `mpickstuff` existed; restored D-0223).
 - **`monattk.h`: AT_WEAP=254, AT_MAGC=255, AT_SPIT=10** — never use 10 for
   weapon (D-0179).
 - Hostile `m_move`: before place, `m_digweapon_check` may return
@@ -98,6 +103,11 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   poison path burns `poison_strdmg(rnd(4),rnd(15))` (D-0221).
 - **Floor meal finish:** `done_eating` → `useupf` → `delobj` →
   `obj_resists(0,0)` (D-0222). Invent `useup` never rolls.
+- **`m_search_items` underfoot:** interesting loot under mon → return
+  TRUE → `postmov(MMOVE_DONE)` → `mpickstuff` (D-0223). Skipping leaves
+  floor loot for later distant `gg` redirects (silent arity peel).
+- **`dog_invent` underfoot eat:** edible ≤ CADAVER (or starving ACCFOOD)
+  → `dog_eat` before APPORT; return 1 → `MMOVE_MOVED` (C `goto newdogpos`).
 - `clear_level_structures` / `goto_level`: clear `fobj` **and**
   `_objects_at` (C `level.objects[][]=0`) and `head_engr` (D-0161).
 - Monster ROCKTRAP: `t_missile(ROCK)`→`mksobj` `next_ident`+`rn1(6,6)`
@@ -109,8 +119,8 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 - `can_track` ≡ `haseyes` (Excalibur named omission) (D-0181).
 - Hostile getitems: `(!peaceful || !rn2(10))` + `!Rogue` →
   `m_search_items` may redirect gg to floor loot (D-0182).
-- Underfoot loot claim in `m_search_items` deferred until
-  postmov `mpickstuff` (D-0183); distant redirects still set gg.
+- Underfoot loot claim in `m_search_items` → DONE + `mpickstuff`
+  (D-0223); distant redirects still set gg.
 - `can_carry`: peaceful non-pets return 0 (D-0183); **quan>1 → 1 only
   for `M1_NOHANDS` non-glomper** — hands monsters take full stack
   (D-0186).

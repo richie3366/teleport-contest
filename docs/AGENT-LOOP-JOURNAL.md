@@ -2867,3 +2867,18 @@ Use this shape:
   positional **28231**/105529 Scr **48**/1953; green+strict+cohort
   PASS; full **19/44** Scr **1433** RNG **152565**.
 - Next: seed0030 seg2 @5939; or quest `getbones` `^V`/`makemaz`.
+
+## 2026-07-14 02:45 — D-0223 m_search_items underfoot MMOVE_DONE
+- Objective: seed0030 seg2 @5939 C `distfleeck` vs JS `rn2(20)`
+  (PROGRESS primary after D-0222).
+- C locus: `monmove.c` `m_search_items` underfoot → `MMOVE_DONE` →
+  `postmov` → `mpickstuff`.
+- Result: **verified** — leftover WORTHLESS_BLACK_GLASS redirected goblin
+  `gg` after JS skipped underfoot claim (D-0183 deferral; `mpickstuff`
+  already wired by D-0185). Restored underfoot `return true`. Also ported
+  `dog_invent` underfoot eat before APPORT (not the peel writer).
+- Rejected: APPORT/invent-eat/gettrack/meating/want_move at the index.
+- Verification: seg2 **5939→6060** (`mattacku`); positional
+  **28318**/105529 Scr **48**/1953; full **19/44** Scr **1433** RNG
+  **152652**; green+strict+cohort PASS.
+- Next: seed0030 seg2 @6060 `mattacku`; or quest `getbones` `^V`/`makemaz`.

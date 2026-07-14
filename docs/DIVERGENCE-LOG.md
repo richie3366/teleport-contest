@@ -226,6 +226,7 @@ Do not record a guessed cause as fixed merely because an RNG prefix moved.
 | D-0220 | fixed | dismount look_here | float_down→pickup + multi NHW_MENU; seed0104 PASS |
 | D-0221 | fixed | floorfood + poison_strdmg | floor yn before invent getobj; seg2 2930→3207 |
 | D-0222 | fixed | useupf→delobj | floor meal `obj_resists(0,0)`; seg2 3207→5939 |
+| D-0223 | fixed | m_search_items underfoot | restore MMOVE_DONE→mpickstuff; seg2 5939→6060 |
 
 D-0001 through D-0005 predate the strict-length/cohort runbook. Their focused
 causes are preserved, but generic "green sessions held" is historical evidence,
@@ -6009,3 +6010,33 @@ cohort gates if those functions are touched again.
   invent `addinv` setting `where=OBJ_INVENT`; shop `useupf` bill arms.
 - **Next:** seed0030 seg2 @5939 `distfleeck` vs `rn2(20)`; or quest
   `getbones` `^V`/`makemaz`.
+
+## D-0223 — m_search_items underfoot MMOVE_DONE (seed0030 seg2 @5939)
+
+- **Status:** fixed
+- **Symptom:** seed0030 seg2 @5939 C `rn2(5) @ distfleeck` vs JS
+  `rn2(20) @ m_move` track after D-0222.
+- **Rejected:** dog_invent APPORT (no invent-APPORT at peel); invent-eat
+  omission (not DOGFOOD/CADAVER); gettrack (null); meating early-return
+  (meating=0); want_move/nearby.
+- **Cause/evidence:** DIAG PM_GOBLIN @(21,7): `m_search_items` redirected
+  `gg` to adjacent WORTHLESS_BLACK_GLASS @(20,8) → mfndpos hit mtrack
+  `rn2(20)`. C had no leftover glass (prior underfoot claim). JS had
+  skipped underfoot `return TRUE` since D-0183 (postmov lacked
+  `mpickstuff` then); D-0185 wired `mpickstuff` for MOVED|DONE but left
+  the underfoot short-circuit deferred — floor loot remained for later
+  distant redirects.
+- **C locus:** `monmove.c` `m_search_items` underfoot → `MMOVE_DONE` →
+  `postmov` → `mpickstuff`.
+- **Change:** restore underfoot `return true` in `js/monmove.js`
+  `m_search_items` (caller already `postmov(DONE)`). Also ported
+  `dog_invent` underfoot DOGFOOD/CADAVER/`mhpmax_penalty` ACCFOOD →
+  `dog_eat` before APPORT (named D-0168 omission; not the peel writer).
+- **Verification:** seg2 **5939→6060** (`rnd(20) @ mattacku` vs
+  `rn2(8)`); positional **28318**/105529 Scr **48**/1953; full
+  **19/44** Scr **1433** RNG **152652**; green+strict+cohort PASS.
+- **Named omissions:** shop `rn2(25)` / hides_under / onscary /
+  costly_spot / `can_touch_safely` in search loop; invent-eat bee jelly /
+  unpaid shop / metallivore.
+- **Next:** seed0030 seg2 @6060 `mattacku`; or quest `getbones`
+  `^V`/`makemaz`.
