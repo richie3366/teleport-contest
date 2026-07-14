@@ -7,14 +7,15 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 
 ## Active
 
-- **Current unit:** seed0030 seg9 @8943 — **D-0267** — after D-0266
-  hero MAGIC_TRAP/`domagictrap` fate=11 (HInvis), C `rn2(3) @
-  set_apparxy` vs JS `rn2(5) @ distfleeck`.
-- **Hypothesis:** post-Invis `set_apparxy`/`perceives` or mux state for
-  one monster differs so JS skips a notseen `rn2(3)` and reaches fleeck
-  early (or monster order/cnt drift).
-- **Falsifier:** dump that monster’s mux/muy, Invis, perceives, and
-  displ/gotu at the first mismatched set_apparxy after fate=11.
+- **Current unit:** seed0030 seg9 @10461 — **D-0268** — after D-0267
+  `m_move` `set_apparxy` before shk, C `rn2(11) @ m_move` (Invis
+  should_see appr=0) vs JS `rn2(2)`.
+- **Hypothesis:** JS hostile/peaceful `m_move` skips
+  `should_see && Invis && !perceives && rn2(11)` → `appr=0` (named
+  omission), so a later mfndpos/getitems `rn2(2)` fires instead.
+- **Falsifier:** port that Invis `rn2(11)` gate (and check stalker/bat
+  `rn2(3)` / leppie order) and re-run seg9; expect mismatch to move or
+  prove a different branch before it.
 - **Parked deep canary:** D-0006 pet movement — do not implement until C
   state/candidate capture exists.
 - **Parked seed2200 @158:** RC config path — harness `$HOME`, not a port bug.
@@ -63,6 +64,10 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   daggers). C hit → DEX exercise → kill (D-0265).
 - **seg9 @8918 was hero MAGIC_TRAP** — JS stubbed hero arm; C
   `rn2(30)`→`domagictrap` fate=11 HInvis (D-0266).
+- **seg9 @8943 was not post-Invis mux/perceives drift** — peaceful
+  shopkeeper entered `m_move` after dochug `set_apparxy`; JS called
+  `shk_move` and returned **before** `set_apparxy`. C calls
+  `set_apparxy` before mtame/shk|gd|priest (D-0267).
 - Do not treat session `\r` as plain `j` — ICRNL → `\n` = `C('j')` rush
   (D-0259). `rushDirFromCtrl` keys 1..26 only.
 
@@ -108,6 +113,9 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 - **Hero MAGIC_TRAP:** `seetrap`; `!rn2(30)` explosion else
   `domagictrap` (`rnd(20)`); fate 11 toggles `HInvis|=FROMOUTSIDE`
   (D-0266).
+- **`m_move` order:** after meating, **`set_apparxy` then** mtame /
+  covetous / shk|gd|priest — shk `xm!=-1` return still consumed
+  apparxy RNG (D-0267).
 - **`F`/`do_fight`:** PREFIXCMD sets `forcefight`; next move dir attacks
   (empty → `domove_fight_empty` “thin air” / solid); no turn on F alone
   (D-0225).

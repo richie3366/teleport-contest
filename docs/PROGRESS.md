@@ -542,10 +542,12 @@ seed0101 + seed0103 + seed0104 **PASS**. seed2200 RNG **full**
 seed0101 RNG **full** Scr **27**/27. seed0103 RNG **full** Scr **60**/60.
 seed0104 RNG **full** Scr **43**/43.
 
-- **Bounded unit:** seed0030 seg9 @8943 — **D-0267** open —
-  C `rn2(3) @ set_apparxy` vs JS `rn2(5)` fleeck after D-0266
-  hero MAGIC_TRAP/`domagictrap` fate=11 HInvis (**fixed**; seg9
-  **8918→8943**).
+- **Bounded unit:** seed0030 seg9 @10461 — **D-0268** open —
+  C `rn2(11) @ m_move` (Invis should_see → `appr=0`) vs JS `rn2(2)`
+  after D-0267 `set_apparxy` before shk (**fixed**; seg9
+  **8943→10461**).
+  D-0266 hero MAGIC_TRAP/`domagictrap` **fixed**; seg9
+  **8918→8943**.
   D-0265 `hitval`/`oc_hitbon` **fixed**; seg9 **8352→8918**.
   D-0264 `dochug` NEED_HTH wield **fixed**; seg9 **8281→8352**.
   D-0263 `dofindgem` **fixed**; seg9 **8138→8281**.
@@ -555,9 +557,10 @@ seed0104 RNG **full** Scr **43**/43.
   **quest `getbones`** (blocked: need `^V`→`goto_level`→`makemaz`
   first — ordinary `goto_level` now exists for stairs; Mines
   `fill_lvl` path exists D-0171).
-- **Prefer:** post-Invis `set_apparxy`/`perceives` after D-0266;
-  seed0013 Scr residual (2 screens); over quest bones until
-  `^V`/`makemaz`; over parked D-0006 and over baking seed2200 RC paths.
+- **Prefer:** `m_move` Invis `rn2(11)` appr gate (D-0268); seed0013 Scr
+  residual (2 screens); over quest bones until `^V`/`makemaz`; over
+  parked D-0006 and over baking seed2200 RC paths.
+  `m_move` `set_apparxy` before shk done (D-0267).
   Hero MAGIC_TRAP/`domagictrap` done (D-0266).
   Hero SLP_GAS deferred (D-0256). Hero dart `dotrap` done
   (D-0239). Hero `xkilled` treasure
@@ -656,7 +659,7 @@ seed0104 RNG **full** Scr **43**/43.
   `m_harmless_trap` flyer/`check_in_air`/sleep/fire/anti-magic/webmaker
   (BEAR size/amorph + WEB/RUST/VIBRATING/PIT clinger done D-0245);
   hostile balks/ → **`m_balks_at_approaching` done D-0253**; shortsighted/
-  leppie/Invis/`!mcansee` still deferred;
+  leppie/Invis/`!mcansee`/`rn2(11)` still deferred (D-0268);
   shortsighted;   `m_search_items` body omissions (D-0182) + underfoot
   MMOVE_DONE/`mpickstuff` (done D-0223; shop/hides_under/onscary/
   costly_spot/`can_touch_safely` in search still deferred); muse wand/horn offense + mon-target
@@ -801,6 +804,9 @@ seed0104 RNG **full** Scr **43**/43.
   **hero MAGIC_TRAP/`domagictrap`** (D-0266 **fixed** —
   seg9 **8918→8943**; full **19/44** Scr **1563** RNG **182691**;
   seed0030 **48104**/105529; next @8943 `set_apparxy` vs fleeck);
+  **`m_move` `set_apparxy` before shk|tame** (D-0267 **fixed** —
+  seg9 **8943→10461**; full **19/44** Scr **1563** RNG **182691**;
+  next @10461 Invis `rn2(11)` appr);
   **`goto_level` `stairway_find_from`** (D-0224 find_from done);
   D-0218 upstairs theory rejected;
   …

@@ -7229,3 +7229,26 @@ cohort gates if those functions are touched again.
   **48104**/105529; next @8943 `set_apparxy` vs fleeck after Invis.
 - **Next:** diagnose post-HInvis `set_apparxy`/`perceives` (D-0267).
 
+## D-0267 — `m_move` `set_apparxy` before shk|tame (fixed)
+
+- **Status:** fixed
+- **Observed:** seed0030 seg9 @8943 — after D-0266 HInvis, C
+  `rn2(3) @ set_apparxy` vs JS `rn2(5) @ distfleeck`.
+- **C locus:** `monmove.c` `m_move` — `set_apparxy` after meating /
+  hides_under, **before** mtame / covetous / `isshk|isgd|ispriest`.
+- **Cause:** JS called `shk_move` and returned on `xm=0` **before**
+  `set_apparxy`. Peaceful shopkeeper still entered `m_move` via
+  dochug `want_move` (`mpeaceful`); C consumed notseen `rn2(3)` then
+  returned from shk; JS skipped to post-`m_move` fleeck.
+- **Rejected:** mux/perceives/Invis flag drift for the next monster —
+  DIAG showed the actor was `isshk` at (8,14) with correct Invis.
+- **Change:** reorder `js/monmove.js` `m_move` to call `set_apparxy`
+  before mtame/shk|gd|priest (match C). Named omission remains:
+  `hides_under` `rn2(10)` early return before apparxy.
+- **Verification:** seg9 **8943→10461**; green+strict PASS; 17-session
+  PASS cohort; full **19/44** Scr **1563** RNG **182691**; seed0030
+  runner flat still **48104**/105529 (earlier-segment trailing extras);
+  next @10461 `rn2(11) @ m_move` Invis should_see appr gate.
+- **Next:** port `m_move` `should_see && Invis && !perceives && rn2(11)`
+  → `appr=0` (D-0268).
+

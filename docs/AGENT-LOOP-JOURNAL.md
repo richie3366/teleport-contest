@@ -18,6 +18,20 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-14 16:15 — D-0267 m_move set_apparxy before shk
+
+- Objective: seed0030 seg9 @8943 (PROGRESS primary; NOTES post-Invis
+  set_apparxy).
+- C locus: `monmove.c` `m_move` — `set_apparxy` after meating, before
+  mtame / shk|gd|priest.
+- Change: reorder `js/monmove.js` `m_move` to call `set_apparxy` before
+  specials. Falsified mux/perceives theory — actor was peaceful
+  shopkeeper returning from `shk_move` before apparxy.
+- Verification: seg9 **8943→10461**; green+strict PASS; 17-session PASS
+  cohort; full **19/44** Scr **1563** RNG **182691**.
+- Next: D-0268 — port `m_move` Invis `rn2(11)` should_see → `appr=0`
+  @10461.
+
 ## 2026-07-14 15:35 — D-0265 hitval oc_hitbon
 
 - Objective: seed0030 seg9 @8352 (PROGRESS primary; NOTES hitum/exercise).

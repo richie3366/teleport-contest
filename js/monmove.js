@@ -838,6 +838,12 @@ export async function m_move(mtmp, after) {
         return MMOVE_DONE;
     }
 
+    // Named omission: hides_under + can_hide_under_obj + rn2(10) early return
+    // (C monmove.c before set_apparxy).
+
+    // C: set_apparxy before mtame / covetous / shk|gd|priest specials
+    set_apparxy(mtmp);
+
     // C: if (mtmp->mtame) return postmov(..., dog_move(...), ...)
     if (mtmp.mtame) {
         const mmoved = await dog_move(mtmp, after);
@@ -861,11 +867,6 @@ export async function m_move(mtmp, after) {
         }
         // xm === -1: fall through to normal AI (follow outside shop)
     }
-
-    // C: m_move starts with mtrapped → mintrap; still-caught → no move
-    // (already handled above for all monsters)
-
-    set_apparxy(mtmp);
 
     let ggx = mtmp.mux;
     let ggy = mtmp.muy;
@@ -1042,7 +1043,6 @@ export async function dochug(mtmp) {
         || (!mtmp.mcansee && !rn2(4))
         || mtmp.mpeaceful
     );
-
 
     let status = MMOVE_NOTHING;
     // PHASE THREE: move if not adjacent-hostile (attack path)
