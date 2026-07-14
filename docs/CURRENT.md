@@ -38,9 +38,9 @@ seed0016, seed0015, seed0200, seed0101, seed0103, seed0104, seed0030,
 **Notable non-PASS:**
 | Session | RNG | Screen | Note |
 |---------|----:|-------:|------|
-| seed2200 | 3018/3018 | **206**/230 | primary; @39 farlook/`--More--` |
-| seed0013-friday13-restore | 4803/4804 | 47/99 | was 46; +1 from D-0333 |
-| seed0107 | 2684/2902 | 36/98 | |
+| seed2200 | 3018/3018 | **229**/230 | D-0334; sole miss parked @158 RC |
+| seed0013-friday13-restore | 4803/4804 | 47/99 | **primary** |
+| seed0107 | 2684/2902 | 36/98 | alt |
 | seed0002 | 5112/27158 | 8/595 | |
 | seed0012 | 0/13878 | 0/308 | stack overflow |
 | seed0361/0373 | early | 0 | quest bones / `makemaz` |
@@ -60,25 +60,25 @@ Both must remain full RNG + screen PASS with exact scored-output lengths.
 
 ## Primary objective
 
-**seed2200 screen peel** — RNG full; Scr **206**/230; first-miss **@39**
+**seed0013-friday13-restore** — RNG 4803/4804; Scr **47**/99
 
 | | |
 |--|--|
-| **C locus** | farlook / `do_look` / moreinfo yn vs `--More--` on `@` |
-| **JS locus** | look / whatis / `More info about` prompt |
-| **Symptom** | C `@ … (human wizard called merlin)--More--` vs JS `More info about "human wizard"? [yn] (n)` |
-| **Hypothesis** | C stacks look description + `--More--`; JS jumps to moreinfo yn early |
-| **Falsifier** | @39 match; Scr >206 |
-| **Recent fixed** | D-0332 drop `compactify`; D-0333 friday13 enl indent; seed0013 PASS |
+| **C locus** | restore / friday13 / save-load boundary (diagnose first) |
+| **JS locus** | save/restore path exercised by this session |
+| **Symptom** | near-full RNG; screens stall mid-restore |
+| **Hypothesis** | TBD — decode first-miss before patching |
+| **Falsifier** | Scr >47; or named C mismatch at first cell miss |
+| **Recent fixed** | D-0334 farlook checkfile yn + lookat `found=1`; seed2200 Scr 229 |
 
 ```bash
-node frozen/ps_test_runner.mjs sessions/seed2200-wizard-quaff-zap-read.session.json
+node frozen/ps_test_runner.mjs sessions/seed0013-friday13-save-then-fullmoon-restore.session.json
 ```
 
 **Note:** runner `Screen N/M` is **total** positional matches, not prefix
 length. Prefer decodeScreen cell first-miss for peel targets.
 
-**Alternate:** seed0013-restore Scr 47/99; seed0107 RNG@2684.
+**Alternate:** seed0107 RNG@2684; seed2200 @158 RC parked only.
 
 **Prefer over:** quest bones (`^V`/`makemaz`), parked D-0006, seed2200 RC.
 

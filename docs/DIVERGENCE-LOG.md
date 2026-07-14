@@ -24,6 +24,29 @@ The compact status table lives in **`DIVERGENCE-INDEX.md`**.
 Open that file first; then jump to a single `## D-NNNN` entry below
 (via search). Do **not** read this whole file by default.
 
+## D-0334 — farlook `checkfile` yn + lookat `found=1`
+
+- **Status:** fixed
+- **Observed:** seed2200 @39 — C
+  `@ … (human wizard called merlin)--More--` vs JS
+  `More info about "human wizard"? [yn] (n)`. RNG full. Then @48
+  stairs look skipped moreinfo yn (`found: 2`).
+- **C locus:** `win/tty/topl.c` `tty_yn_function` — NEED_MORE → `more()`
+  before yn; `pager.c` `checkfile` via `y_n`; `do_screen_description`
+  after lookat parenthetical sets `found = 1`.
+- **Cause:** JS `checkfile` hand-rolled yn overwrote topline without
+  `flush_topl_more`; stairs/room/corr describe kept `found > 1` so
+  `do_look` skipped `checkfile`.
+- **Change:** `checkfile` → `yn_function` (D-0334); lookat arms return
+  `found: 1` after parenthetical (stairs/ROOM/CORR).
+- **Verification:** seed2200 Scr **206→229**/230 (sole miss parked
+  @158 RC/`$HOME`); @39/@48 match; RNG full; green+strict; 19 PASS
+  cohort.
+- **Named omissions:** full showsyms-driven `do_screen_description`;
+  look_at_monster hallu/health/stuck/leashed/trapped/mhidden; seed2200
+  @158 RC harness (parked).
+- **Next:** seed0013-restore Scr 47/99 or seed0107 RNG@2684.
+
 ## D-0333 — friday13 enlightenment body indent (two spaces)
 
 - **Status:** fixed

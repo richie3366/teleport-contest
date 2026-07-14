@@ -320,6 +320,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 | D-0331 | fixed | getlin/`#` topl wrap | `topl_putsym` CO-1 wrap + `buf < COLNO`; seed0030 full PASS; seed2200 Scr 206 |
 | D-0332 | fixed | getobj drop compactify | `suggested>5` → `compactify`; drop `[a-g]`; seed0013 @23 |
 | D-0333 | fixed | friday13 enl indent | `doattributes` two-space body line; seed0013 full PASS |
+| D-0334 | fixed | farlook checkfile yn | `yn_function` NEED_MORE→more; lookat `found=1`; seed2200 Scr 206→229 |
 
 
 
