@@ -7,10 +7,10 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 
 ## Active
 
-- **Current unit:** seed0030 seg4 @7554 — C `exercise` `rn2(19)` after
-  move `k` vs JS `rn2(5)` `distfleeck` (after `drinkfountain` D-0237).
-- **Falsifier:** dump whether C `domove`/`postmove`/`exercise` arms fire
-  on that step; expect missing walk `exercise(A_DEX/…)` or similar.
+- **Current unit:** seed0030 seg5 @3076 — C `rnd(2)` `next_ident` after
+  dart-trap miss topline vs JS `rn2(12)` (after moverock D-0238; seg4 FULL).
+- **Falsifier:** dump whether C `dotrap`/`dart_trap`/`thitu` path allocates
+  a dart object (`next_ident`) that JS skips on miss.
 - **Parked deep canary:** D-0006 pet movement — do not implement until C
   state/candidate capture exists.
 - **Parked seed2200 @158:** RC config path — harness `$HOME`, not a port bug.
@@ -131,6 +131,11 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   C `q`→fountain yn→`y`→`drinkfountain` `rnd(30)`; JS skipped fountain
   prompt so `y` cancelled getobj (0 turn) and later move fleeck landed
   at C’s fountain index (D-0237).
+- **seed0030 seg4 @7554 was NOT walk `exercise` / exerchk / wall bump** —
+  C `k` into adjacent boulder → `moverock`/`dopush` →
+  `exercise(A_STR,TRUE)` then advance; JS walked onto the boulder with
+  no push (D-0238). Session `steps[i].key` is `moves[i-1]` (key that
+  produced the step), not `moves[i]`.
 - **`monattk.h`: AT_WEAP=254, AT_MAGC=255, AT_SPIT=10** — never use 10 for
   weapon (D-0179).
 - Hostile `m_move`: before place, `m_digweapon_check` may return
@@ -146,6 +151,8 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   mark `u_traversed`; not bare `u_on_upstairs`/`find_dir` (D-0224).
 - **tty map coords:** screen col = map_x − 1; screen row = map_y + 1
   (message row 0). Never treat session screen (65,3) as map (65,3).
+- **Session step key:** `steps[i].key === moves[i-1]` (RNG/screen after
+  that key); `moves[i]` is the key about to be read at capture (D-0238).
 - **`F`/`do_fight`:** PREFIXCMD sets `forcefight`; next move dir attacks
   (empty → `domove_fight_empty` “thin air” / solid); no turn on F alone
   (D-0225).
@@ -197,6 +204,9 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 - **`dodrink` fountain:** before getobj, yn “Drink from the fountain?”
   → `drinkfountain`; `fate = rnd(30)` **before** Levitation return
   (D-0237).
+- **`moverock`/`dopush`:** dest boulder → push to `ux+2*dx,uy+2*dy` if
+  clear; “great effort” + `exercise(A_STR,TRUE)` then hero advances onto
+  vacated cell (D-0238). Do not walk onto boulders.
 - **`test_move` diagonal into DOOR:** only `doorless_door` (D_NODOOR /
   D_BROKEN) allowed; open/closed/locked block diagonal entry/exit
   (D-0219). Same rule in `domove` and steed `landing_spot`/`test_move_ok`.

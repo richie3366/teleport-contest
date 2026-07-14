@@ -39,7 +39,7 @@ import { dowhatis, dohelp } from './pager.js';
 import { x_monnam_tame } from './do_name.js';
 import { spoteffects, dopickup } from './pickup.js';
 import { getpos } from './getpos.js';
-import { nomul } from './hack.js';
+import { nomul, moverock, boulder_at } from './hack.js';
 
 /** C ref: cmd.c cmdq_clear(CQ_CANNED) */
 function cmdq_clear() {
@@ -785,6 +785,17 @@ async function domove(dx, dy) {
         if (game.context?.run) end_running();
         game.context.move = 0;
         return;
+    }
+
+    // C ref: hack.c test_move — sobj_at(BOULDER) → moverock before advance
+    if (boulder_at(newx, newy)) {
+        const mr = await moverock();
+        if (mr < 0) {
+            if (game.context?.run) end_running();
+            game.context.move = 0;
+            return;
+        }
+        // moverock pushed boulder(s); fall through to occupy vacated cell
     }
 
     const oldx = u.ux, oldy = u.uy;

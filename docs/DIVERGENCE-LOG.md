@@ -241,6 +241,7 @@ Do not record a guessed cause as fixed merely because an RNG prefix moved.
 | D-0235 | fixed | monstseesu M_SEEN_MAGR | Boing→seenres; find_offensive skips; seg3 FULL |
 | D-0236 | fixed | ini_inv UNDEF_SPE ring | charged ring spe≤0 → rne(3); seg4 2369→6630 |
 | D-0237 | fixed | drinkfountain | dodrink fountain yn + rnd(30); seg4 6630→7554 |
+| D-0238 | fixed | moverock/dopush | walk-into boulder push + exercise STR; seg4 FULL |
 
 D-0001 through D-0005 predate the strict-length/cohort runbook. Their focused
 causes are preserved, but generic "green sessions held" is historical evidence,
@@ -6410,4 +6411,35 @@ cohort gates if those functions are touched again.
   `vomit` body; sink/underwater drink prompts; town warn/`angry_guards`;
   fruitname in poison resist pline.
 - **Next:** seed0030 seg4 @7554 `exercise` after move; or quest
+  `getbones`.
+
+## D-0238 — moverock / dopush walk-into boulder
+
+- **Status:** fixed
+- **Symptom:** seed0030 seg4 @7554 — C `rn2(19)` at `exercise` vs JS
+  `rn2(5)` `distfleeck`. Session `steps[96].key` is `"k"` (`moves[95]`),
+  not `"h"` (`moves[96]`).
+- **Cause:** C `test_move` into adjacent boulder calls `moverock` →
+  `dopush` (“With great effort you move the boulder.” +
+  `exercise(A_STR,TRUE)`) then advances onto the vacated cell. JS
+  `domove` had no boulder gate and walked onto the boulder with no RNG.
+- **Rejected:** walk/exerchk `exercise` on `"h"`; wall-bump; AEXE
+  saturation skipping `"k"` push RNG (message first appears after `"k"`;
+  only ~12 prior `rn2(19)`).
+- **C locus:** `hack.c` `moverock`/`moverock_core`/`dopush`/`movobj`;
+  `test_move` boulder arm; `attrib.c` `exercise`.
+- **Change:** `js/hack.js` `moverock`/`dopush`/`movobj` (clear-dest
+  push + STR exercise); `js/cmd.js` `domove` calls `moverock` when
+  dest has a boulder.
+- **Verification:** segs 0–3 FULL; seg4 **FULL** (8031/8031); positional
+  **46654**/105529 Scr **69**/1953; full **19/44** Scr **1454** RNG
+  **171238**; green+strict PASS; PASS cohort held (1500/1800/0060/
+  0102/0700/1150/0017/0077/0106/0501/0105/0016/0015/0200/0101/0103/
+  0104).
+- **Named omissions:** Sokoban diagonal; shop costly/bill; trap/
+  teleport/pool under dest; Blind feel; Levitation leverage; giant/
+  squeeze/nopick; tunneling chew; revive_nasty; monster-behind;
+  closed-door dest; `cannot_push` squeeze onto boulder; next_boulder
+  naming.
+- **Next:** seed0030 seg5 @3076 `next_ident` after dart miss; or quest
   `getbones`.

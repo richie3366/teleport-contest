@@ -3056,3 +3056,14 @@ Use this shape:
   full **19/44** Scr **1444** RNG **170543**; green+strict PASS;
   17-session PASS cohort held.
 - Next: seed0030 seg4 @7554 exercise after move; or quest getbones.
+
+## 2026-07-14 04:58 — moverock/dopush boulder push (D-0238)
+- Objective: seed0030 seg4 @7554 C rn2(19) exercise vs JS rn2(5) distfleeck.
+- C locus: hack.c moverock/dopush/movobj; test_move boulder arm; attrib.c exercise.
+- Result: **verified** — steps[96].key is "k" (moves[95]); C pushes adjacent
+  boulder with great-effort STR exercise; JS walked onto the boulder.
+  Rejected walk/exerchk/"h" theories. Landmark: session steps[i].key = moves[i-1].
+- Verification: segs 0–3 FULL; seg4 **FULL**; positional **46654**/105529 Scr
+  **69**/1953; full **19/44** Scr **1454** RNG **171238**; green+strict PASS;
+  PASS cohort held.
+- Next: seed0030 seg5 @3076 dart next_ident; or quest getbones.
