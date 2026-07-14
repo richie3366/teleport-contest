@@ -231,6 +231,7 @@ Do not record a guessed cause as fixed merely because an RNG prefix moved.
 | D-0225 | fixed | F/do_fight | unbound F; Fl forcefight thin-air; seg2 RNG full |
 | D-0226 | fixed | Nesting rooms | rn2(4) w/h before build_room; positioned create_room |
 | D-0227 | fixed | hmon knockback | weapon maybe_knockback→mhitm_knockback rn2(3)+rn2(6) |
+| D-0228 | fixed | cmd_safety_prevention | safe_wait blocks s/. beside hostiles; seg3 7935→8561 |
 
 D-0001 through D-0005 predate the strict-length/cohort runbook. Their focused
 causes are preserved, but generic "green sessions held" is historical evidence,
@@ -6123,3 +6124,30 @@ cohort gates if those functions are touched again.
   gates after the chance roll; ART_OGRESMASHER chance=2; knockback
   plines / stun; `set_uasmon` youmonst.mattk (AT_WEAP fallback).
 - **Next:** seed0030 seg3 @7935 hero-turn vs monster-move peel.
+
+## D-0228 — `cmd_safety_prevention` for `s` / `.`
+
+- **Status:** fixed
+- **Symptom:** seed0030 seg3 @7935 C `gethungry`/`hitum` (west into
+  grid bug) vs JS `distfleeck`. Matched through `moveloop_core`
+  `rn2(79)`.
+- **Cause:** At the matched EOT, C's next keys were safety-rejected
+  `s`/`.` (0 RNG: "You already found a monster" / "waiting to get
+  hit?") then `h` melee. JS lacked `cmd_safety_prevention`, so the
+  same `s` ran real `dosearch0` and advanced monster turns — key
+  stream desynced while RNG had still matched.
+- **C locus:** `do.c` `cmd_safety_prevention` / `donull`;
+  `detect.c` `dosearch`; `hack.c` `monster_nearby`.
+- **Change:** `js/hack.js` `monster_nearby` + `noattacks`;
+  `js/do.js` `cmd_safety_prevention` + async `donull`;
+  `js/detect.js` `dosearch` gate; `js/cmd.js` honors
+  `dosearch`/`donull` return for `context.move`.
+- **Verification:** seg3 **7935→8561** (C `mkobj` treasure vs JS
+  `rn2(3)`); positional **37147**/105529 Scr **56**/1953; full
+  **19/44** Scr **1441** RNG **161481**; green+strict PASS;
+  17-session PASS cohort held.
+- **Named omissions:** `onscary`; full `canspotmon`; full
+  `danger_uprops` bodies; `visctrl`/`cmd_from_func` beyond `'m'`;
+  `m` prefix `menu_requested` wiring for forced search/wait.
+- **Next:** seed0030 seg3 @8561 `xkilled` treasure `mkobj` (named
+  deferred) / quest `getbones`.

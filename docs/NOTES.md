@@ -7,11 +7,10 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 
 ## Active
 
-- **Current unit:** seed0030 seg3 @7935 — C `gethungry`/`exercise`/`hitum`
-  vs JS `rn2(5)` (`distfleeck`) after D-0227 knockback RNG wire.
-- **Falsifier:** reconstruct why C still takes a hero turn (gethungry) while
-  JS has already entered monster `m_move`/`distfleeck` after matched
-  `moveloop_core` `rn2(79)`.
+- **Current unit:** seed0030 seg3 @8561 — C `xkilled` treasure `mkobj`
+  (`rnd(100)`/`rnd(1000)`/`next_ident`) vs JS `rn2(3)` after D-0228.
+- **Falsifier:** port or diagnose `xkilled`→`make_corpse` treasure path
+  (`mkobj(RANDOM_CLASS)` when `corpse_chance`); expect prefix past 8561.
 - **Parked deep canary:** D-0006 pet movement — do not implement until C
   state/candidate capture exists.
 - **Parked seed2200 @158:** RC config path — harness `$HOME`, not a port bug.
@@ -90,6 +89,10 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 - **seed0030 seg3 @7617 was NOT a missing `known_hitum` flee `rn2(25)`** —
   C `hmon` weapon `maybe_knockback`→`mhitm_knockback` burns `rn2(3)`+
   `rn2(6)` before flee; JS skipped the call (D-0227).
+- **seed0030 seg3 @7935 was NOT missing melee/`hitum` on the grid bug** —
+  grid bug was adjacent; peel was key desync: C safety-rejected `s`/`.`
+  (0 RNG) then `h`; JS ran real searches (D-0228). Do not re-chase
+  `do_attack`/`overexertion` for that peel.
 - **`monattk.h`: AT_WEAP=254, AT_MAGC=255, AT_SPIT=10** — never use 10 for
   weapon (D-0179).
 - Hostile `m_move`: before place, `m_digweapon_check` may return
@@ -117,6 +120,9 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 - **`hmon` weapon knockback:** `!unarmed && dmg>1 && !thrown && !Upolyd
   && !twoweap && uwep` → `mhitm_knockback` after survive (burns
   `rn2(3)`+`rn2(6)` before gates; hurtle deferred) (D-0227).
+- **`cmd_safety_prevention`:** `flags.safe_wait` (default On) +
+  `monster_nearby` → reject `s`/`.` with Norep, no time; `m` prefix /
+  `multi` skip (D-0228).
 - **`test_move` diagonal into DOOR:** only `doorless_door` (D_NODOOR /
   D_BROKEN) allowed; open/closed/locked block diagonal entry/exit
   (D-0219). Same rule in `domove` and steed `landing_spot`/`test_move_ok`.
@@ -136,110 +142,5 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   floor loot for later distant `gg` redirects (silent arity peel).
 - **`dog_invent` underfoot eat:** edible ≤ CADAVER (or starving ACCFOOD)
   → `dog_eat` before APPORT; return 1 → `MMOVE_MOVED` (C `goto newdogpos`).
-- `clear_level_structures` / `goto_level`: clear `fobj` **and**
-  `_objects_at` (C `level.objects[][]=0`) and `head_engr` (D-0161).
-- Monster ROCKTRAP: `t_missile(ROCK)`→`mksobj` `next_ident`+`rn1(6,6)`
-  then `thitm(..., d(2,6))`; seetrap only if `canseemon` (D-0181).
-- Hostile `m_move` should_see: `couldsee(omx,omy) && (goal.lit ||
-  !mon.lit) && dist2<=36`; else `can_track`→`gettrack` redirects gg
-  (D-0181).
-- `goto_level` must `initrack` like C savelev release (D-0181).
-- `can_track` ≡ `haseyes` (Excalibur named omission) (D-0181).
-- Hostile getitems: `(!peaceful || !rn2(10))` + `!Rogue` →
-  `m_search_items` may redirect gg to floor loot (D-0182).
-- Underfoot loot claim in `m_search_items` → DONE + `mpickstuff`
-  (D-0223); distant redirects still set gg.
-- `can_carry`: peaceful non-pets return 0 (D-0183); **quan>1 → 1 only
-  for `M1_NOHANDS` non-glomper** — hands monsters take full stack
-  (D-0186).
-- Offensive potions: `mattacku`→`find_offensive`/`use_offensive` before
-  AT_WEAP; `m_throw` POTION→`potionhit` (not `thitu`); vapor
-  `makeknown` needs flight `observe_object` (D-0184).
-- Digger postmov: `tunnels` && !Rogue → `can_tunnel`; `ALLOW_DIG` in
-  mfndpos; every moved digger with `may_dig` calls `mdig_tunnel` which
-  **always** burns `rnd(12)` first (D-0178).
-- Mines `fill_lvl`/`makemaz(minefill)` + dungeon align `&7` (D-0171).
-- **postmov MOVED|DONE must `mpickstuff`** — without it floor loot
-  stays and later `m_search_items` gg diverges silently (same RNG
-  signature, different dest) (D-0185).
-- **`weapon_hit_bonus(NULL)` bare-hand unskilled = +1** (not 0);
-  Monk/Samurai martial `rnd(4)` barehands (D-0187).
-- **`hitum` must call `passive`** — live `malive && !mcan && rn2(3)`
-  even when AT_NONE is a NO_ATTK filler (D-0188).
-- **`objects[].oc_wsdam`/`oc_wldam` extracted** — do not revive name→sdam
-  stand-in defaults (D-0189).
-- **`mdamageu` must `done_in_by` not `losehp`** — C never routes monster
-  kill blows through `losehp`; `can_make_bones` lives in `really_done`
-  (D-0190). `runSegment` must stop on `gameover`.
-- **`xkilled` must `make_corpse` when `corpse_chance`** — not burn-only
-  (D-0191). Treasure `mkobj(RANDOM_CLASS)` still deferred.
-- **`,` → `dopickup`** with menu AUTOSELECT_SINGLE for one floor object
-  (D-0192); multi-object query_objlist still deferred.
-- **CORPSE `eatcorpse`** rotting `rn2(20)` + `start_eating`/`eatfood`
-  occupation (D-0193); `mons[].cwt`/`cnutrit` extracted; Monk form
-  fails `carnivorous` so palatable skips `rn2(10)`.
-- **^X weapon_insight:** `empty_handed()` uses `uarmg`→"empty handed";
-  skill line uses real `P_SKILL` + martial `P_NAME` (D-0194).
-- **NHW_MENU must flush NEED_MORE** before paint (D-0195); nhgetch
-  marks NEED_MORE→NON_EMPTY not EMPTY.
-- **CANDY_BAR `mksobj_init`:** `assign_candy_wrapper` → `spe = 1 +
-  rn2(12)` before quan `!rn2(6)` (D-0196).
-- **`dogfood` CORPSE:** lichen/vegan → `herbi ? CADAVER : MANFOOD` (not
-  always CADAVER); age poison skips lizard/lichen/fungus-pet; acidic/
-  poisonous → POISON (`resists_*` stubbed false) (D-0197).
-- **`hitmu` must `mhitm_adtyping`** — AD_ELEC → `mhitm_mgc_atk_negated`
-  `rn2(10)` + destroy_items gate `rn2(20)`; PHYS keeps prior path
-  (D-0198). Other adtyps still zero-out.
-- **`monnear`:** `dist2<3`, but `dist2==2 && NODIAG(PM_GRID_BUG)` →
-  false (D-0199). Do not use bare `distmin<=1` for grid bugs.
-- **Themed rectangular rooms:** "Default/Unlit/Both … themed fill" must
-  `create_room(THEMEROOM)` then `themeroom_fill` (D-0200). Mimic
-  `makemon` burns `set_mimic_sym` before invent; Storeroom `appear_as`
-  overrides afterward.
-- **`mkshop`:** eligible OROOM + doorct==1 + `!invalid_shop_shape` +
-  `rnd(100)` shtypes + `rtype=SHOPBASE+i` + `needfill` before fillable
-  countdown (D-0201).
-- **`maketrap` ROLLING_BOULDER:** `mkroll_launch`→`find_random_launch_coord`
-  `rn1(5,4)`+`rn2(8)` + `isclearpath` both ways; fail → launch at trap
-  (victim skipped) (D-0202).
-- **`stock_room`/`shkinit`:** `makemon(PM_SHOPKEEPER,MM_ESHK)` + shopkeeper
-  `m_initinv` kit + `rnd_misc_item` + `mkmonmoney` + tribute
-  `rnd(stockcount)` novel + `mkshobj_at`/`get_shop_item` (D-0203).
-  `shkveg`/health-food and Izchak still deferred.
-- **`dosounds`:** after vault, roll beehive/morgue/barracks/zoo/**shop**/
-  temple/oracle gates; shop always `return`s when gate hits (D-0204).
-  **Vault gate hit:** `search_special(VAULT)` + `gd_sound`→`rn2(2)+hallu`
-  then return (D-0208); You_hear plines / gold_in_vault still deferred.
-- **`m_move` isshk/isgd/ispriest:** call `shk_move`/`gd_move`/`pri_move`
-  before getitems; peaceful shk near home often returns 0 with no RNG
-  (D-0205). `gd_move`/`pri_move` bodies still stubbed.
-- **`movemon_singlemon` hiders:** after deducting NORMAL_SPEED, if
-  `is_hider` and (`M_AP_OBJECT`/`M_AP_FURNITURE` or `mundetected`),
-  skip `dochug` (D-0206). `restrap`/`hideunder`/`minliquid` still deferred.
-- **`do_attack` disguised mimic:** `attack_checks`→`stumble_onto_mimic`
-  →`that_is_a_mimic`/`object_from_map` `mksobj(FALSE)` `next_ident`
-  **before** `overexertion` (D-0207).
-- **`gd_sound`:** `!(vault_occupied(urooms) || findgd())`; `urooms`
-  maintenance and `findgd` migrating_mons still deferred (D-0208).
-- **`make_grave`:** null str → `get_rnd_text(EPITAPHFILE)` (chunk
-  24075) + HEADSTONE; bell str skips draw (D-0209). Contest provenance
-  may mis-attribute pointer-`rn2` calls to an unrelated `rn2` site.
-- **Elf Instrument:** `ROLL_FROM(trotyp)` is eager at array construction
-  (before `ini_inv`/`trquan`); lazy `trotyp()` reorders RNG (D-0210).
-- **Pet `dog_move` selection `rn2(12)`:** each worse `mfndpos` candidate
-  with `appr!=0 && !whappr` (D-0211). Extra candidate ⇒ fleeck arity split.
-- **Knight pony:** `makedog` `NO_MINVENT` then `put_saddle_on_mon(NULL)`
-  → `mksobj(SADDLE)` (D-0212); domestic `!rn2(100)` in `makemon` same helper.
-- **`#ride`/`doride`/`mount_steed`:** slip gate `ulevel+mtame < rnd(20)`;
-  fatal slip → `done`/`can_make_bones`; clear `umoved` before rhack
-  (D-0213). `dog_goal` returns -2 for `usteed`.
-- **`pet_color` ≡ `mons[].mcolor`** — never force white for all tame;
-  `hilite_pet` is tty attr only (D-0214). Riding → steed mlet+color;
-  botl `Ride`; `x_monnam` `"saddled "` when `W_SADDLE`.
-- **Tutorial PICK_ONE:** invalid letter stays open; space/return with no
-  pick → rebuild + Please choose (D-0215).
-- **`really_done`:** `flush_topl_more` then `disclose` possessions yn
-  before returning (D-0216); `pline("You die...")` alone does not wait.
-- **Mounted `mattacku`:** before hero melee, `rn2(is_orc?2:4)` may redirect
-  to `mattackm(mtmp, usteed)` + steed retaliation; steed never attacks
-  rider; `m_at` skips `usteed` (D-0217).
+- Key attribution ≠ RNG order: 0-RNG `--More--` / safety-reject keys can
+  sit between matched EOT RNG and the next gameplay command (D-0228).

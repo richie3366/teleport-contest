@@ -2,9 +2,55 @@
 // C ref: hack.c — losehp, nomul, unmul, overexertion (and related).
 
 import { game } from './gstate.js';
-import { Upolyd, KILLED_BY } from './const.js';
+import { Upolyd, KILLED_BY, M_AP_FURNITURE, M_AP_OBJECT, M_AP_TYPE, isok } from './const.js';
 import { pline } from './display.js';
 import { gethungry } from './eat.js';
+import { m_at } from './mon.js';
+import { cansee } from './vision.js';
+import { is_hider } from './monsters.js';
+
+const AT_BOOM = 14; // monattk.h — explosion-on-death, not a real attack
+
+/**
+ * C ref: mondata.c noattacks — True if mattk slots are empty (ignore AT_BOOM).
+ */
+export function noattacks(ptr) {
+    const slots = ptr?.mattk;
+    if (!slots) return true;
+    for (let i = 0; i < 6; i++) {
+        const aatyp = slots[i]?.aatyp | 0;
+        if (aatyp === AT_BOOM) continue;
+        if (aatyp) return false;
+    }
+    return true;
+}
+
+/**
+ * C ref: hack.c monster_nearby — adjacent hostile the hero can spot.
+ * onscary stubbed false (Elbereth / sanctuary still deferred).
+ */
+export function monster_nearby() {
+    const u = game.u;
+    if (!u) return false;
+    const hallu = !!(u.Hallucination);
+    for (let x = u.ux - 1; x <= u.ux + 1; x++) {
+        for (let y = u.uy - 1; y <= u.uy + 1; y++) {
+            if (!isok(x, y) || (x === u.ux && y === u.uy)) continue;
+            const mtmp = m_at(x, y);
+            if (!mtmp) continue;
+            const ap = M_AP_TYPE(mtmp);
+            if (ap === M_AP_FURNITURE || ap === M_AP_OBJECT) continue;
+            if (!(hallu || (!mtmp.mpeaceful && !noattacks(mtmp.data)))) continue;
+            if (is_hider(mtmp.data) && mtmp.mundetected) continue;
+            if (mtmp.msleeping || mtmp.mcanmove === 0) continue; // helpless
+            // onscary(u.ux, u.uy, mtmp) deferred
+            // canspotmon ≈ canseemon stub
+            if (!cansee(mtmp.mx, mtmp.my) || mtmp.minvis) continue;
+            return true;
+        }
+    }
+    return false;
+}
 
 /**
  * C ref: hack.c overexertion — melee hunger via gethungry; maybe faint.

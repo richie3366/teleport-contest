@@ -2941,3 +2941,14 @@ Use this shape:
   Scr **1433** RNG **160825**; green+strict PASS; 19-session PASS cohort held.
 - Next: seed0030 seg3 @7935 C gethungry/hitum vs JS distfleeck (hero turn vs
   monster move after matched moveloop rn2(79)).
+
+## 2026-07-14 03:45 — D-0228 cmd_safety_prevention s/.
+- Objective: PROGRESS primary — seed0030 seg3 @7935 C gethungry/hitum vs JS distfleeck.
+- C locus: do.c cmd_safety_prevention/donull; detect.c dosearch; hack.c monster_nearby.
+- Result: **verified** — at matched EOT, C safety-rejected s/. (0 RNG) then h melee;
+  JS ran real dosearch → monster turns (key desync). Ported monster_nearby +
+  cmd_safety_prevention; dosearch/donull return gates context.move.
+- Verification: seg3 **7935→8561** (xkilled treasure mkobj); positional
+  **37147**/105529 Scr **56**/1953; full **19/44** Scr **1441** RNG **161481**;
+  green+strict PASS; 17-session PASS cohort held.
+- Next: seed0030 seg3 @8561 xkilled treasure mkobj; or quest getbones ^V/makemaz.
