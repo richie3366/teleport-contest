@@ -245,6 +245,7 @@ Do not record a guessed cause as fixed merely because an RNG prefix moved.
 | D-0239 | fixed | trap/dotrap | hero dart `t_missile`+`thitu` miss; seg5 3076→3096 |
 | D-0240 | fixed | NHW_MENU dmore | putstr quitchars; seg5 3096→4174 |
 | D-0241 | fixed | mhitm gv.vis | hitmm/missmm/mondied cansee; seg5 4174→4372 |
+| D-0242 | fixed | linedup/vision | BOULDER does_block + linedup rn2; seg5 FULL |
 
 D-0001 through D-0005 predate the strict-length/cohort runbook. Their focused
 causes are preserved, but generic "green sessions held" is historical evidence,
@@ -6542,3 +6543,33 @@ cohort gates if those functions are touched again.
   destroy verb (golem/vortex/manes); worm_known.
 - **Next:** seed0030 seg5 @4372 C `linedup` vs JS `m_move` track; or
   quest `getbones`.
+
+## D-0242 — `linedup` boulderhandling + vision BOULDER `does_block`
+
+- **Status:** fixed
+- **Symptom:** seed0030 seg5 @4372 — C `rn2(3)` `linedup` vs JS
+  `rn2(16)` `m_move` track. Hostile at `(28,10)`, hero `(33,10)`.
+- **Cause:** `m_move` getitems calls `lined_up`→`linedup` with
+  `boulderhandling=2`. C `couldsee` fails (boulder opaque via
+  `does_block`), then walks the ray with one boulder →
+  `rn2(2+1)`. JS vision `_blocks` ignored BOULDER so `couldsee`
+  stayed true and returned before the boulder rn2 path. Also
+  JS `linedup` previously omitted the boulder walk entirely;
+  `objects_at` is a nexthere chain head (not an array).
+- **Rejected:** treating @4372 as a missing `thrwmu`-only call
+  without checking `m_move` getitems `lined_up`.
+- **C locus:** `vision.c` `does_block` BOULDER; `mthrowu.c`
+  `linedup`/`m_lined_up`/`lined_up`; `monmove.c` `m_move` getitems.
+- **Change:** `js/vision.js` `_blocks` BOULDER (+ CLOUD/WATERWALL/
+  LAVAWALL); `js/mthrowu.js` full `linedup` boulder walk +
+  `lined_up` mux/muy / Upolyd / ignore_boulders; `js/hack.js`
+  `movobj` `recalc_block_point` for boulder moves.
+- **Verification:** segs 0–5 C-prefix FULL (seg5 **4372→8397**);
+  next seg6 @339 `lspo_map` `rn2(68)` vs `rn2(100)`; positional
+  **46537**/105529 Scr **70**/1953; full **19/44** Scr **1442**
+  RNG **169919**; green+strict PASS; 17-session PASS cohort held.
+- **Named omissions:** mimic `is_lightblocker_mappear`;
+  `visible_region_at`; incremental `dig_point`; light sources;
+  `place_object` boulder auto-`block_point` beyond `movobj`/
+  level `vision_reset`.
+- **Next:** seed0030 seg6 @339 `lspo_map`; or quest `getbones`.

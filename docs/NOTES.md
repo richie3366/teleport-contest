@@ -7,10 +7,11 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 
 ## Active
 
-- **Current unit:** seed0030 seg5 @4372 — C `rn2(3)` `linedup` vs JS
-  `rn2(16)` `m_move` (after mhitm `gv.vis` D-0241; seg5 **4174→4372**).
-- **Falsifier:** why C burns `linedup` before JS’s `m_move` track — actor
-  presence / ranged path / missing muse or throw gate; dump mon state.
+- **Current unit:** seed0030 seg6 @339 — C `rn2(68)` `lspo_map` vs JS
+  `rn2(100)` (after linedup boulder vision D-0242; seg5 **FULL**).
+- **Falsifier:** why C’s map fill uses 68 while JS hits a different themerms
+  / `build_room` / `create_room` chance arm — dump `in_mk_themerooms` +
+  map opcode args at first seg6 peel.
 - **Parked deep canary:** D-0006 pet movement — do not implement until C
   state/candidate capture exists.
 - **Parked seed2200 @158:** RC config path — harness `$HOME`, not a port bug.
@@ -153,6 +154,11 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   always plined pet bites in the dark → bite+destroyed forced topline
   `more()` which discarded movement `h` until a later space → key desync
   (D-0241). Do not change mtrack `>5` gate.
+- **seed0030 seg5 @4372 was NOT a missing thrwmu-only call** — hostile
+  `m_move` getitems `lined_up`→`linedup`; JS `couldsee` stayed true
+  because vision `_blocks` ignored BOULDER, so the boulderhandling
+  `rn2(2+spots)` path never ran (D-0242). Porting linedup alone is
+  insufficient without `does_block` boulder opacity.
 - **`monattk.h`: AT_WEAP=254, AT_MAGC=255, AT_SPIT=10** — never use 10 for
   weapon (D-0179).
 - Hostile `m_move`: before place, `m_digweapon_check` may return
@@ -238,6 +244,12 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   `noises()` deferred. `mondied` pline only when `cansee` (D-0241).
   Dark-corridor pet fights must not force topline `more()` or movement
   keys are discarded until space.
+- **`linedup` boulderhandling:** when `!couldsee`/`!clear_path`, walk
+  the ray counting `sobj_at(BOULDER)`; `bh==2` → `rn2(2+spots)<2`
+  (D-0242). Vision `_blocks` must treat BOULDER as opaque or couldsee
+  never fails and the rn2 path is skipped. `lined_up` uses mux/muy +
+  ignore via throws_rocks/WAN_STRIKING. `objects_at` is a nexthere
+  chain head, not an array.
 - **`test_move` diagonal into DOOR:** only `doorless_door` (D_NODOOR /
   D_BROKEN) allowed; open/closed/locked block diagonal entry/exit
   (D-0219). Same rule in `domove` and steed `landing_spot`/`test_move_ok`.

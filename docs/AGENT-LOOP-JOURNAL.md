@@ -3106,3 +3106,17 @@ Use this shape:
   positional **46404**/105529 Scr **70**/1953; full **19/44** Scr **1442**
   RNG **169786**; green+strict PASS; 17-session PASS cohort held.
 - Next: seed0030 seg5 @4372 C linedup vs JS m_move; or quest getbones.
+
+## 2026-07-14 05:43 — linedup boulder + vision BOULDER does_block (D-0242)
+- Objective: seed0030 seg5 @4372 C linedup rn2(3) vs JS m_move rn2(16).
+- C locus: vision.c does_block BOULDER; mthrowu.c linedup/m_lined_up;
+  monmove.c m_move getitems lined_up.
+- Result: **verified** — JS couldsee stayed true because vision _blocks
+  ignored BOULDER, so linedup never reached rn2(2+spots). Ported does_block
+  boulder opacity + full linedup boulder walk + lined_up mux/muy; movobj
+  recalc_block_point on boulder push. Rejected thrwmu-only theory.
+- Verification: segs 0–5 C-prefix FULL (seg5 **4372→8397**); next seg6
+  @339 lspo_map rn2(68) vs rn2(100); positional **46537**/105529 Scr
+  **70**/1953; full **19/44** Scr **1442** RNG **169919**; green+strict
+  PASS; 17-session PASS cohort held.
+- Next: seed0030 seg6 @339 lspo_map; or quest getbones.
