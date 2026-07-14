@@ -326,7 +326,8 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 | D-0337 | fixed | attributes quitchars | `doattributes` xwaitforspace; ^O stays on page; @56 |
 | D-0338 | fixed | `$` doprgold | empty wallet pline; @60 |
 | D-0339 | fixed | `)` doprwep | bare-handed empty_handed pline; @62; Scr 68→69 |
-
+| D-0340 | fixed | invent show-* | `[`/`=`/`"`/`(` doprarm…doprtool; Scr 69→72 |
+| D-0341 | fixed | DEL→doterrain | bind existing `#terrain`; Scr 72→75; next reveal_terrain |
 
 
 D-0001 through D-0005 predate the strict-length/cohort runbook. Their focused

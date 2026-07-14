@@ -9,9 +9,10 @@ Objective/score live in `CURRENT.md`.
 
 - **Score:** **21/44** PASS (#360 suite); Scr **3424**/11405; RNG
   **240657**/792838; speed `18+0.12/turn`.
-- **Current unit:** seed0013-restore Scr **69**/99 RNG **4804**/4804 —
-  first miss `@64` `[` → worn armor line (`doprarm`).
-- **Fixed this iter:** D-0339 `)`/`doprwep` bare-handed pline.
+- **Current unit:** seed0013-restore Scr **75**/99 RNG **4804**/4804 —
+  first miss `@71` `#terrain` reveal still paints `@`/`f` vs C `~`.
+- **Fixed this iter:** D-0340 invent show-* `[`/`=`/`"`/`(`; D-0341 DEL→
+  existing `doterrain`.
 - **Alt:** seed0107 @2684. **Parked:** D-0006; seed2200 @158 RC.
 
 ## Don’t re-check (≤15)
@@ -39,7 +40,8 @@ Objective/score live in `CURRENT.md`.
   (D-0333); hand-roll checkfile yn (D-0334); treat `S` as unknown /
   skip VFS save (D-0335); always align on welcome-back (D-0336);
   advance attr pages on any key (D-0337); leave `$` unbound (D-0338);
-  leave `)` unbound (D-0339);
+  leave `)` unbound (D-0339); leave `[`/`=`/`"`/`(` unbound (D-0340);
+  leave DEL unbound when `doterrain` exists (D-0341);
   blanket `observe_object` in `xname` without `distantname`.
 - Runner `Screen N/M` = total matches, not prefix length.
 
@@ -50,5 +52,5 @@ Objective/score live in `CURRENT.md`.
 - Session: `steps[i].key === moves[i-1]` (D-0238); `more()` space/CR/ESC.
 - Save: VFS `save/<plname>` JSON; restore skips `rndencode`;
   `l_nhcore_init` still 2×rn2; farewell clears map no flush (D-0335).
-- D-0274…D-0339: bones/disclose/RIP/topten/descr/botl/paybill/ghost/`;`/
-  getlin/compactify/enl/checkfile/save/welcome/attr/`$`/`)`.
+- D-0274…D-0341: bones/disclose/RIP/topten/descr/botl/paybill/ghost/`;`/
+  getlin/compactify/enl/checkfile/save/welcome/attr/`$`/`)`/show-*/DEL.

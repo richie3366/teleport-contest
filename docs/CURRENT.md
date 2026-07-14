@@ -39,7 +39,7 @@ seed0016, seed0015, seed0200, seed0101, seed0103, seed0104, seed0030,
 | Session | RNG | Screen | Note |
 |---------|----:|-------:|------|
 | seed2200 | 3018/3018 | **229**/230 | D-0334; sole miss parked @158 RC |
-| seed0013-friday13-restore | **4804**/4804 | **68**/99 | **primary** — `@62` `)` |
+| seed0013-friday13-restore | **4804**/4804 | **75**/99 | **primary** — `@71` terrain |
 | seed0107 | 2684/2902 | 36/98 | alt |
 | seed0002 | 5112/27158 | 8/595 | |
 | seed0012 | 0/13878 | 0/308 | stack overflow |
@@ -60,17 +60,16 @@ Both must remain full RNG + screen PASS with exact scored-output lengths.
 
 ## Primary objective
 
-**seed0013-friday13-restore** — RNG **4804**/4804; Scr **69**/99
+**seed0013-friday13-restore** — RNG **4804**/4804; Scr **75**/99
 
 | | |
 |--|--|
-| **C locus** | `invent.c` `doprarm` / cmd `[` |
-| **JS locus** | `js/cmd.js` / armor show path |
-| **Symptom** | `@64` C `c - an uncursed +1 leather armor (being worn).` vs JS `Unknown command '['` |
-| **Hypothesis** | `[` unbound — port `doprarm` / `wearing_armor` / `noarmor` subset |
-| **Falsifier** | Scr >69; or named C mismatch at first cell miss |
-| **Recent fixed** | D-0335…D-0339 save/restore + welcome + attr + `$`/`doprgold`
-  + `)`/`doprwep` |
+| **C locus** | `detect.c` / `display.c` `reveal_terrain` (+ `browse_map`) |
+| **JS locus** | `js/detect.js` `reveal_terrain` / glyph path |
+| **Symptom** | `@71` after `#terrain` a: C map `~` (hide mon/obj) vs JS `@`/`f` |
+| **Hypothesis** | `reveal_terrain` TER_MAP path still paints monsters/objects |
+| **Falsifier** | Scr >75; or named C mismatch at first cell miss |
+| **Recent fixed** | D-0340 invent show-* `[`/`=`/`"`/`(`; D-0341 DEL→`doterrain` |
 
 ```bash
 node frozen/ps_test_runner.mjs sessions/seed0013-friday13-save-then-fullmoon-restore.session.json

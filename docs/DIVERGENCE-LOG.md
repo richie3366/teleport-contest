@@ -24,6 +24,35 @@ The compact status table lives in **`DIVERGENCE-INDEX.md`**.
 Open that file first; then jump to a single `## D-NNNN` entry below
 (via search). Do **not** read this whole file by default.
 
+## D-0341 — DEL / `#terrain` unbound
+
+- **Status:** fixed
+- **Observed:** seed0013-restore @70 — C `View which?` terrain menu vs
+  JS `Unknown command '\x7f'`.
+- **C locus:** `cmd.c` `{ '\177', "terrain", … doterrain }`
+- **Cause/evidence:** `doterrain` already ported (D-0128) but DEL unbound.
+- **Change:** bind `\x7f` → `doterrain` in `cmd.js`.
+- **Verification:** Scr **72→75**/99; first miss `@71` terrain reveal still
+  paints `@`/`f` vs C `~`; RNG full; green+strict; 21 PASS cohort.
+- **General lesson:** GENERALCMD keys may already have bodies — check bind.
+
+## D-0340 — invent show-* `[`/`=`/`"`/`(`
+
+- **Status:** fixed
+- **Observed:** seed0013-restore @64 — C
+  `c - an uncursed +1 leather armor (being worn).` vs
+  JS `Unknown command '['`; then empty rings/amulet/tools peels.
+- **C locus:** `invent.c` `doprarm`/`wearing_armor`/`noarmor` /
+  `doprring`/`dopramulet`/`doprtool`/`tool_being_used`;
+  `dispinv_with_action`→`display_pickinv` n==1→`tty_message_menu(PICK_NONE)`
+- **Cause/evidence:** see-* GENERALCMDs unbound; single worn armor is
+  pline(xprname), not a menu.
+- **Change:** port empty/worn pline paths; bind `[` `=` `"` `(`;
+  multi-piece / menu_requested `dispinv` deferred.
+- **Verification:** Scr **69→72**/99 (then +DEL →75); first miss after
+  invent peels `@70` DEL; RNG full; green+strict; 21 PASS cohort.
+- **General lesson:** friday13 restore walks see-* then `#terrain` DEL.
+
 ## D-0339 — `)` / `doprwep` bare handed
 
 - **Status:** fixed

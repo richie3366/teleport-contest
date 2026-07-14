@@ -58,7 +58,7 @@ import {
     P_BARE_HANDED_COMBAT,
     P_ISRESTRICTED, P_UNSKILLED, P_BASIC, P_SKILLED,
     P_EXPERT, P_MASTER, P_GRAND_MASTER,
-    W_ARMOR,
+    W_ARMOR, W_TOOL, W_SADDLE,
     NEW_MOON,
     FULL_MOON,
 } from './const.js';
@@ -978,6 +978,131 @@ export async function doprwep() {
     await pline(xprname(u.uwep, undefined, true));
     if (u.twoweap) {
         await pline(xprname(u.uswapwep, undefined, true));
+    }
+    return ECMD_OK;
+}
+
+/** C ref: invent.c wearing_armor */
+function wearing_armor() {
+    const u = game.u || {};
+    return !!(u.uarm || u.uarmc || u.uarmf || u.uarmg
+        || u.uarmh || u.uarms || u.uarmu);
+}
+
+/**
+ * C ref: invent.c noarmor(report_uskin).
+ * Named omit: uskin dragon-scale shorten + "embedded in your skin" pline.
+ */
+async function noarmor(report_uskin) {
+    if (!game.u?.uskin || !report_uskin) {
+        await pline('You are not wearing any armor.');
+    } else {
+        // uskin path deferred — still acknowledge empty armor slots
+        await pline('You are not wearing any armor.');
+    }
+}
+
+/**
+ * C ref: invent.c doprarm / #seearmor / '['.
+ * Single worn piece → display_pickinv n==1 → tty_message_menu(PICK_NONE)
+ * → pline(xprname(..., TRUE)). Multi-piece / menu_requested →
+ * dispinv_with_action menu deferred (sequential prinv interim).
+ */
+export async function doprarm() {
+    const u = game.u || {};
+    if (!wearing_armor()) {
+        await noarmor(true);
+        return ECMD_OK;
+    }
+    // C SORTPACK_INUSE slot order for lets[]
+    const pieces = [];
+    if (u.uarm) pieces.push(u.uarm);
+    if (u.uarmc) pieces.push(u.uarmc);
+    if (u.uarms) pieces.push(u.uarms);
+    if (u.uarmh) pieces.push(u.uarmh);
+    if (u.uarmg) pieces.push(u.uarmg);
+    if (u.uarmf) pieces.push(u.uarmf);
+    if (u.uarmu) pieces.push(u.uarmu);
+
+    if (game.iflags?.menu_requested) {
+        // dispinv_with_action menu deferred — clear sticky m-prefix
+        game.iflags.menu_requested = false;
+    }
+    // len==1 && !menu → message_menu PICK_NONE; else menu (deferred)
+    for (const otmp of pieces) {
+        await pline(xprname(otmp, undefined, true));
+    }
+    return ECMD_OK;
+}
+
+/**
+ * C ref: invent.c doprring / #seerings / '='.
+ * Empty → "not wearing any rings."; worn → dispinv path (single-item
+ * pline; multi/menu deferred). Meat-ring / Ring header label deferred.
+ */
+export async function doprring() {
+    const u = game.u || {};
+    if (!u.uleft && !u.uright) {
+        await pline('You are not wearing any rings.');
+        return ECMD_OK;
+    }
+    const pieces = [];
+    // C: uright then uleft for lets[]
+    if (u.uright) pieces.push(u.uright);
+    if (u.uleft) pieces.push(u.uleft);
+    if (game.iflags?.menu_requested) {
+        game.iflags.menu_requested = false;
+    }
+    for (const otmp of pieces) {
+        await pline(xprname(otmp, undefined, true));
+    }
+    return ECMD_OK;
+}
+
+/**
+ * C ref: invent.c dopramulet / #seeamulet / '"'.
+ * Named omit: menu_requested / Amulet header via dispinv_with_action.
+ */
+export async function dopramulet() {
+    const u = game.u || {};
+    if (!u.uamul) {
+        await pline('You are not wearing an amulet.');
+        return ECMD_OK;
+    }
+    if (game.iflags?.menu_requested) {
+        game.iflags.menu_requested = false;
+    }
+    await pline(xprname(u.uamul, undefined, true));
+    return ECMD_OK;
+}
+
+/** C ref: invent.c tool_being_used */
+function tool_being_used(obj) {
+    if (((obj.owornmask || 0) & (W_TOOL | W_SADDLE)) !== 0) return true;
+    if (obj.oclass !== TOOL_CLASS) return false;
+    const LEASH = objectNames.indexOf('LEASH');
+    return obj === game.u?.uwep || !!obj.lamplit
+        || (obj.otyp === LEASH && !!obj.leashmon);
+}
+
+/**
+ * C ref: invent.c doprtool / #seetools / '('.
+ * Named omit: multi-tool dispinv_with_action menu.
+ */
+export async function doprtool() {
+    const pieces = [];
+    for (const otmp of game.invent || []) {
+        if (tool_being_used(otmp)) pieces.push(otmp);
+    }
+    if (!pieces.length) {
+        await pline('You are not using any tools.');
+        return ECMD_OK;
+    }
+    if (game.iflags?.menu_requested) {
+        game.iflags.menu_requested = false;
+    }
+    for (const otmp of pieces) {
+        await pline(xprname(otmp, undefined, true));
     }
     return ECMD_OK;
 }
