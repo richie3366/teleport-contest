@@ -6,8 +6,8 @@ and `archive/PROGRESS-HISTORY.md`.
 
 Score last measured: **2026-07-14** via focused seed0030 + green/cohort;
 full `sessions` suite not re-run this iteration. PASS set unchanged;
-seed0030 positional **105529**/105529 Scr 100/1953 after D-0283 (RNG full;
-prefix first-miss 46→50; segs 0–8 FULL under shared storage).
+seed0030 positional **105529**/105529 Scr **103**/1953 after D-0284/85
+(RNG full; prefix first-miss 50→62).
 
 ## Score
 
@@ -24,7 +24,7 @@ seed0700, seed1150, seed0017, seed0077, seed0106, seed0501, seed0105,
 seed0016, seed0015, seed0200, seed0101, seed0103, seed0104.
 
 **Notable non-PASS:** seed2200 RNG full Scr 229/230 (parked RC @158);
-seed0013 RNG full Scr 57/59; seed0030 **105529**/105529 Scr 100/1953;
+seed0013 RNG full Scr 57/59; seed0030 **105529**/105529 Scr 103/1953;
 seed0107 2684/2902 Scr 36/98; seed0361/0373 quest bones blocked.
 
 ## Green gate
@@ -42,16 +42,16 @@ Both must remain full RNG + screen PASS with exact scored-output lengths.
 
 ## Primary objective
 
-**seed0030 screen peel** — RNG full; Scr **100**/1953; first miss **@50**
+**seed0030 screen peel** — RNG full; Scr **103**/1953; first miss **@62**
 
 | | |
 |--|--|
-| **C locus** | object/glyph at map cell after Mines entry (TBD) |
-| **JS locus** | `display.js` `newsym` / floor object; or `mkobj` presence |
-| **Symptom** | Scr@50: C `!` vs JS DEC floor `·` at (6,33) |
-| **Hypothesis** | potion/object on floor missing or not shown after Mines descend |
-| **Falsifier** | first mismatched screen index + cell (C vs JS) after D-0283 |
-| **Recent fixed** | D-0283 — botl `depth()` + Mines `wallcolors` BROWN |
+| **C locus** | `mhitu.c` hitmsg / bow swing pline (TBD) |
+| **JS locus** | `mhitu.js` / `mhitm.js` hit message path |
+| **Symptom** | Scr@62: C `The gnome swings his bow.  The gnome hits!` vs JS `The gnome hits!` only |
+| **Hypothesis** | missing `mswings` / bow-swing pline before hit |
+| **Falsifier** | first mismatched screen after D-0284/85 + gnome melee |
+| **Recent fixed** | D-0284 `m_throw` `tmp_at` DISP_FLASH; D-0285 potion `xname` descr |
 
 ```bash
 # Focused seed0030 (RNG already full — peel screens)

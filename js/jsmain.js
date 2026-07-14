@@ -144,6 +144,8 @@ export class NethackGame {
             g.nhDisplay = this._pendingDisplay;
             this._pendingDisplay = null;
         }
+        // C nh_delay_output → contest animationFrame (throw/zap beams)
+        g.animationFrame = this.animationFrame.bind(this);
 
         // Install capture hook
         this._installCaptureHook();

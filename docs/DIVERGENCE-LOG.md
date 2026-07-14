@@ -7329,4 +7329,41 @@ Open that file first; then jump to a single `## D-NNNN` entry below
 - **Next:** seed0030 Scr@50 C `!` vs JS floor `·` at (6,33);
   or seed0013 Scr 57/59.
 
+## D-0284 — m_throw tmp_at DISP_FLASH during potion flight
+
+- **Status:** fixed
+- **Observed:** seed0030 Scr@50 — C `!` at map (34,5) / tty (6,33)
+  during `The phial crashes…--More--`; JS room floor `·`. Hero at
+  (34,4); no floor potion in JS. RNG full.
+- **C locus:** `mthrowu.c` `m_throw` — `tmp_at(DISP_FLASH,
+  obj_to_glyph)` then `tmp_at(x,y)` each flight step; `DISP_END`
+  only after loop (after `potionhit` returns through `--More--`).
+  Prior cell keeps missile glyph while crash pline blocks.
+- **Cause:** JS `m_throw` never painted flash; unawaited `potionhit`
+  plines raced cleanup order.
+- **Change:** `display.js` `tmp_at` DISP_FLASH/END (+ position);
+  `m_throw` open/step/close + `nh_delay_output`→`animationFrame`;
+  async `potionhit` awaits plines; break-to-cleanup like C.
+  Deferred: DISP_BEAM/TETHER/ALWAYS/CHANGE/FREEMEM nest alloc;
+  hallu `rn2_on_display_rng` in `obj_to_glyph`.
+- **Verification:** Scr@50 match; Scr **100→102**; first-miss **50→51**;
+  RNG **105529**/105529; green+strict PASS; 19-session PASS cohort +
+  strict lengths.
+- **Next:** Scr@51 evaporate naming (D-0285).
+
+## D-0285 — potion xname uses oc_name_known + shuffled descr
+
+- **Status:** fixed
+- **Observed:** seed0030 Scr@51 — C `The sky blue potion evaporates`
+  vs JS `The potion of sleeping evaporates` (same tired append).
+- **C locus:** `objnam.c` xname `POTION_CLASS` — `nn =
+  objects[].oc_name_known`; dknown && !nn && !un → `dn + " potion"`.
+- **Cause:** JS potion `pretty_base` always emitted `potion of X`;
+  interim fix wrongly OR’d `obj.known` (missile `known` is set).
+- **Change:** port C potion arms using `oc_descr_idx` shuffle;
+  `nn` from `oc_name_known` only.
+- **Verification:** Scr@51 match; Scr **102→103**; first-miss **→62**;
+  RNG full; green+strict PASS; 19-session PASS cohort + strict.
+- **Next:** Scr@62 gnome bow-swing pline missing; or seed0013.
+
 

@@ -3538,3 +3538,26 @@ Do **not** read this archive by default.
   RNG **148875**.
 - Next: `node scripts/rng-diff.mjs sessions/seed0104-knight-ride-combat.session.json`
   (first mismatch @2841) or D-0211 typ dump.
+
+## 2026-07-14 16:35 — D-0268/69/70 Invis rn2(11) + SCORR vision
+
+- Objective: seed0030 seg9 @10461 (CURRENT primary D-0268).
+- C locus: `monmove.c` `m_move` Invis `rn2(11)`; `detect.c` SCORR
+  `unblock_point`; `mkobj.c` boulder `place_object`/`remove_object`.
+- Change: ported Invis appr gate (D-0268); SCORR/SDOOR uncover →
+  `recalc_block_point` not `vision_recalc(1)` (D-0269); boulder
+  place/extract vision (D-0270). Falsified: Invis gate alone —
+  `couldsee` false from stale `viz_clear` after SCORR→CORR.
+- Verification: seg9 **10461→10811**; green+strict PASS; 19-session PASS
+  cohort; full **19/44** Scr **1563** RNG **182673**.
+- Next: D-0271 — diagnose seg9 @10811 C `next_ident` vs JS `rn2(5)`.
+
+## 2026-07-14 16:25 — docs hot-pack restructure (CURRENT.md)
+
+- Objective: cut per-iteration doc tokens (human-approved Sol plan).
+- Change: add `CURRENT.md`; archive PROGRESS/journal bulk; split
+  `DIVERGENCE-INDEX.md` + `c-js-map/*.md`; slim NOTES; update playbook/
+  prompt/rules/runbook; add `scripts/check-hot-docs.mjs`.
+- Verification: `node scripts/check-hot-docs.mjs` PASS (~4.7k tok hot sum).
+- Next: loop agents follow `CURRENT.md` primary (D-0268); do not re-expand
+  archive into the hot pack.

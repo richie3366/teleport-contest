@@ -12,6 +12,7 @@ move older ones into `docs/archive/`.
 Use this shape:
 
 ```text
+
 ## YYYY-MM-DD HH:MM — <objective>
 - Objective: …
 - C locus: …
@@ -19,6 +20,18 @@ Use this shape:
 - Verification: …
 - Next: …
 ```
+
+## 2026-07-14 18:03 — D-0284/85 tmp_at flash + potion xname
+
+- Objective: seed0030 Scr 100/1953 (CURRENT primary); first miss @50.
+- C locus: `mthrowu.c` `m_throw` `tmp_at(DISP_FLASH)`; `objnam.c`
+  potion xname `oc_name_known` / descr.
+- Change: port DISP_FLASH `tmp_at` + await `potionhit` plines so prior
+  flight `!` survives crash `--More--` (D-0284); potion `xname` uses
+  shuffled descr when !nn (not `obj.known`) (D-0285).
+- Verification: Scr@50–51 match; prefix miss **50→62**; Scr **100→103**;
+  RNG full; green+strict PASS; 19-session PASS cohort + strict.
+- Next: Scr@62 gnome bow-swing pline; or seed0013.
 
 ## 2026-07-14 17:55 — D-0283 botl depth + Mines walls
 
@@ -165,26 +178,3 @@ Use this shape:
 - Verification: seg9 **10811→12411**; green+strict PASS; 17-session PASS
   cohort; seed0030 flat **48092**/105529 Scr **85**/1953.
 - Next: D-0272 — diagnose seg9 @12411 C `exercise` vs JS `rn2(3)`.
-
-## 2026-07-14 16:35 — D-0268/69/70 Invis rn2(11) + SCORR vision
-
-- Objective: seed0030 seg9 @10461 (CURRENT primary D-0268).
-- C locus: `monmove.c` `m_move` Invis `rn2(11)`; `detect.c` SCORR
-  `unblock_point`; `mkobj.c` boulder `place_object`/`remove_object`.
-- Change: ported Invis appr gate (D-0268); SCORR/SDOOR uncover →
-  `recalc_block_point` not `vision_recalc(1)` (D-0269); boulder
-  place/extract vision (D-0270). Falsified: Invis gate alone —
-  `couldsee` false from stale `viz_clear` after SCORR→CORR.
-- Verification: seg9 **10461→10811**; green+strict PASS; 19-session PASS
-  cohort; full **19/44** Scr **1563** RNG **182673**.
-- Next: D-0271 — diagnose seg9 @10811 C `next_ident` vs JS `rn2(5)`.
-
-## 2026-07-14 16:25 — docs hot-pack restructure (CURRENT.md)
-
-- Objective: cut per-iteration doc tokens (human-approved Sol plan).
-- Change: add `CURRENT.md`; archive PROGRESS/journal bulk; split
-  `DIVERGENCE-INDEX.md` + `c-js-map/*.md`; slim NOTES; update playbook/
-  prompt/rules/runbook; add `scripts/check-hot-docs.mjs`.
-- Verification: `node scripts/check-hot-docs.mjs` PASS (~4.7k tok hot sum).
-- Next: loop agents follow `CURRENT.md` primary (D-0268); do not re-expand
-  archive into the hot pack.

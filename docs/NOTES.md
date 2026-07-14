@@ -7,11 +7,11 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Current unit:** seed0030 Scr **100**/1953 with RNG **FULL** 105529
-  (D-0283 follow-on). Prefix first-miss **50** (was 46).
-- **Hypothesis:** after Mines entry, floor cell shows C `!` (potion?) vs
-  JS DEC room `·` — object missing or `newsym` omit.
-- **Falsifier:** Scr@50 cell (6,33) after matching Mines walls/Dlvl:3.
+- **Current unit:** seed0030 Scr **103**/1953 with RNG **FULL** 105529
+  (D-0284/85 follow-on). Prefix first-miss **62** (was 50).
+- **Hypothesis:** gnome melee missing `swings his bow` pline before hit
+  (C hitmsg / mswings).
+- **Falsifier:** Scr@62 topline C vs JS after matching potion throw flash.
 - **Alt:** seed0013 Scr 57/59; seed0107 @2684.
 - **Parked:** D-0006 (pet movement); seed2200 @158 RC/`$HOME`.
 
@@ -26,7 +26,7 @@ Objective/score live in `CURRENT.md`.
 - Unique `#` extcmds still need Enter (`#levelchange`).
 - `'f'`→`dofire` needs fireassist when bow is only in `uswapwep` (D-0069).
 - Ctrl-rush `run=3`, capital run `run=1` (D-0261); always `await pline` on
-  muse wand paths.
+  muse wand paths / `potionhit` (D-0284).
 - Session `\r` → `\n` = `C('j')` rush (D-0259); `rushDirFromCtrl` 1..26.
 - seg8 fleeck/missing-katana were key desync (D-0261), not dog_move/dodrop.
 - Recent seg9 falsified theories: D-0262…D-0278 — see `DIVERGENCE-INDEX.md`.
@@ -41,6 +41,9 @@ Objective/score live in `CURRENT.md`.
   (D-0282); long pline needs update_topl `\n` + redotoplin `more()`.
 - **Don’t:** botl `Dlvl` from `uz.dlevel` — use `depth()` (D-0283); Mines
   walls use `wallcolors` BROWN not main GRAY→NO_COLOR.
+- **Don’t:** omit `m_throw` `tmp_at(DISP_FLASH)` — prior-cell `!` stays
+  through potionhit `--More--` (D-0284); potion `xname` uses
+  `oc_name_known` not `obj.known` (D-0285).
 
 ## Landmarks (≤15)
 
@@ -62,4 +65,5 @@ Objective/score live in `CURRENT.md`.
   (D-0279); VFS `bonM0.1`; limbo missile (D-0275); mtrack (D-0276);
   ghostly peace (D-0277); `disturb` (D-0278); quaff CANCEL≠TIME (D-0280);
   `#quit`→`done2` (D-0281); topl wrap+redotoplin more (D-0282);
-  botl `depth()` + Mines wall BROWN (D-0283).
+  botl `depth()` + Mines wall BROWN (D-0283); `tmp_at` flash (D-0284);
+  potion xname descr (D-0285).
