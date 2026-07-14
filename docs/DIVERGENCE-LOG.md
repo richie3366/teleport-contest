@@ -7366,4 +7366,35 @@ Open that file first; then jump to a single `## D-NNNN` entry below
   RNG full; green+strict PASS; 19-session PASS cohort + strict.
 - **Next:** Scr@62 gnome bow-swing pline missing; or seed0013.
 
+## D-0286 — mswings / hitval on AT_WEAP melee
+
+- **Status:** fixed
+- **Observed:** seed0030 Scr@62 — C
+  `You miss the gnome.  The gnome swings his bow.  The gnome hits!`
+  vs JS without swing pline (topline only; HP also diverged).
+- **C locus:** `mhitu.c` AT_WEAP foundyou — `hitval` then `mswings`
+  before hit/miss; `mswings_verb` thrust/swing/lash/bash (+ mixed-dir
+  `rn2(2)`); `weapon.c` `hitval`.
+- **Cause:** JS deferred `mswings` and used `spe` alone for hittmp.
+- **Change:** port `mswings`/`mswings_verb`/`mhis`; export `hitval` from
+  `weapon.js`; call both on melee AT_WEAP. Snickersnee bash exemption,
+  full pronoun_gender canspotmon/neuter, silver/artifact hitval deferred.
+- **Verification:** Scr@62 topline matches (with D-0287); green+strict
+  PASS; 17-session PASS cohort. (Alone: topline fixed; botl HP still
+  diverged until D-0287.)
+- **Next:** botl HP clamp (D-0287).
+
+## D-0287 — botl HP display clamps negative to 0
+
+- **Status:** fixed
+- **Observed:** seed0030 Scr@62 after D-0286 topline match — C
+  `HP:0(10)` vs JS `HP:-4(10)` (uhp went negative on lethal hit).
+- **C locus:** `botl.c` bot1/bot2 + `get_blstats` — `if (hp < 0) hp = 0`
+  before sprintf (gameover may set `uhp` to −1).
+- **Cause:** JS `_statusLine2` emitted raw `u.uhp` (`−4` is truthy).
+- **Change:** clamp displayed HP (and hpmax 9999) like C.
+- **Verification:** Scr **103→116**; first-miss **62→75**; RNG full;
+  green+strict PASS; 17-session PASS cohort.
+- **Next:** Scr@75 death `--More--` vs invent-identify yn; or seed0013.
+
 

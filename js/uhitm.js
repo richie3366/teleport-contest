@@ -18,7 +18,7 @@ import {
 import { exercise, A_STR, A_DEX, A_WIS, acurr, adjalign } from './attrib.js';
 import { overexertion, nomul, losehp } from './hack.js';
 import { pline, newsym } from './display.js';
-import { dmgval, P_SKILL, weapon_hit_bonus, martial_bonus } from './weapon.js';
+import { dmgval, hitval, P_SKILL, weapon_hit_bonus, martial_bonus } from './weapon.js';
 import {
     find_mac, get_mattk, make_corpse, mhitm_knockback,
     AT_NONE, AT_WEAP, AT_KICK, AT_CLAW,
@@ -106,22 +106,6 @@ function abon() {
     if (dex < 8) return sbon - 1;
     if (dex < 14) return sbon;
     return sbon + dex - 14;
-}
-
-/**
- * C ref: weapon.c hitval — spe (weapon/weptool) + oc_hitbon; silver/artifact/
- * blessed/spear/trident/pick vs-mon bonuses deferred.
- * objects[].oc_hitbon is the oc_oc1 union exported as a_ac.
- */
-function hitval(otmp, _mon) {
-    if (!otmp) return 0;
-    const o = game.objects?.[otmp.otyp];
-    let tmp = 0;
-    const Is_weapon = otmp.oclass === WEAPON_CLASS
-        || (otmp.oclass === TOOL_CLASS && ((o?.oc_skill | 0) !== 0));
-    if (Is_weapon) tmp += otmp.spe | 0;
-    tmp += o?.a_ac | 0;
-    return tmp;
 }
 
 /** C ref: you.h Luck — u.uluck + u.moreluck */

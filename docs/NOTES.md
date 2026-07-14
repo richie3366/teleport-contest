@@ -7,11 +7,11 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Current unit:** seed0030 Scr **103**/1953 with RNG **FULL** 105529
-  (D-0284/85 follow-on). Prefix first-miss **62** (was 50).
-- **Hypothesis:** gnome melee missing `swings his bow` pline before hit
-  (C hitmsg / mswings).
-- **Falsifier:** Scr@62 topline C vs JS after matching potion throw flash.
+- **Current unit:** seed0030 Scr **116**/1953 with RNG **FULL** 105529
+  (D-0286/87 follow-on). Prefix first-miss **75** (was 62).
+- **Hypothesis:** death path shows invent-identify yn before C’s
+  botl `--More--` (disclose / done message order).
+- **Falsifier:** Scr@75 C empty topline + botl `--More--` vs JS yn.
 - **Alt:** seed0013 Scr 57/59; seed0107 @2684.
 - **Parked:** D-0006 (pet movement); seed2200 @158 RC/`$HOME`.
 
@@ -44,6 +44,8 @@ Objective/score live in `CURRENT.md`.
 - **Don’t:** omit `m_throw` `tmp_at(DISP_FLASH)` — prior-cell `!` stays
   through potionhit `--More--` (D-0284); potion `xname` uses
   `oc_name_known` not `obj.known` (D-0285).
+- **Don’t:** skip AT_WEAP `mswings` — bow melee emits swing pline before
+  hit (D-0286); botl HP display clamps `<0→0` (D-0287).
 
 ## Landmarks (≤15)
 
@@ -66,4 +68,4 @@ Objective/score live in `CURRENT.md`.
   ghostly peace (D-0277); `disturb` (D-0278); quaff CANCEL≠TIME (D-0280);
   `#quit`→`done2` (D-0281); topl wrap+redotoplin more (D-0282);
   botl `depth()` + Mines wall BROWN (D-0283); `tmp_at` flash (D-0284);
-  potion xname descr (D-0285).
+  potion xname descr (D-0285); `mswings` (D-0286); botl HP clamp (D-0287).

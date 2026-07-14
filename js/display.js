@@ -1079,7 +1079,13 @@ function _statusLine2() {
     if (!u) return '';
     const flags = game.flags || {};
     const dlvl = depth(u.uz) || 1;
-    let s = `Dlvl:${dlvl} $:${game._goldCount || 0} HP:${u.uhp || 0}(${u.uhpmax || 0}) Pw:${u.uen || 0}(${u.uenmax || 0}) AC:${u.uac ?? 10} Xp:${u.ulevel || 1}`;
+    // C botl.c bot1/bot2 + get_blstats: hp < 0 → 0 (gameover uhp=-1)
+    let hp = u.uhp | 0;
+    if (hp < 0) hp = 0;
+    if (hp > 9999) hp = 9999;
+    let hpmax = u.uhpmax | 0;
+    if (hpmax > 9999) hpmax = 9999;
+    let s = `Dlvl:${dlvl} $:${game._goldCount || 0} HP:${hp}(${hpmax}) Pw:${u.uen || 0}(${u.uenmax || 0}) AC:${u.uac ?? 10} Xp:${u.ulevel || 1}`;
     if (flags.showexp) s += `/${u.uexp || 0}`;
     if (flags.time) s += ` T:${game.moves || 1}`;
     // C windows.c BL_MASK_RIDE → " Ride" (leading space in strcat)
