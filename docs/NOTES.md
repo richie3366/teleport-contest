@@ -7,15 +7,17 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Score:** **20/44** PASS (seed0030 +D-0331); suite Scr/RNG still #355
-  (3258/11405) — remeasure on next `%5` iteration.
-- **Current unit:** seed0013-rogue Scr **57**/59 RNG **FULL**; first-miss **@23**.
-- **@23:** C `What do you want to drop? [a-g or ?*]` vs JS `[abcdefg or ?*]`.
-- **Hypothesis:** C getobj compresses consecutive letters to `a-g` range.
-- **Falsifier:** @23 match; Scr >57.
-- **Fixed:** D-0331 `topl_wrap_echo` + `buf < COLNO`; seed0030 **1953/1953**;
-  seed2200 Scr **175→206**.
-- **Alt:** seed2200 Scr 206/230; seed0107 @2684.
+- **Score:** **21/44** PASS (#360 suite); Scr **3424**/11405; RNG
+  **240657**/792838; speed `18+0.12/turn`.
+- **Current unit:** seed2200 Scr **206**/230 RNG **FULL**; first-miss **@39**.
+- **@39:** C `@ … (human wizard called merlin)--More--` vs JS
+  `More info about "human wizard"? [yn] (n)`.
+- **Hypothesis:** C look stacks description + `--More--`; JS jumps to
+  moreinfo yn early.
+- **Falsifier:** @39 match; Scr >206.
+- **Fixed:** D-0332 drop `compactify` `[a-g]`; D-0333 friday13 enl
+  two-space indent; seed0013-rogue **PASS**.
+- **Alt:** seed0013-restore Scr 47/99; seed0107 @2684.
 - **Parked:** D-0006; seed2200 @158 RC/`$HOME`.
 
 ## Don’t re-check (≤15)
@@ -65,6 +67,8 @@ Objective/score live in `CURRENT.md`.
   `doquickwhatis`; putmixed no forced more (D-0330);
   paint `#`/getlin echo as one row / cap at 78 — `topl_putsym` wraps at
   `CO-1` and `buf < COLNO` (D-0331);
+  drop getobj letters without `compactify` when suggested>5 — `a-g` (D-0332);
+  friday13 enl with one leading space — menu/tty body rows need two (D-0333);
   blanket `observe_object` in `xname` without `distantname` (regresses map).
 - Runner `Screen N/M` = total matches, not prefix length; contiguous cell
   miss can precede a later named topline peel (D-0311→@594 while @583 RIP open).
@@ -90,5 +94,6 @@ Objective/score live in `CURRENT.md`.
   losehp leave neg uhp / SPBOOK descr / hmon exclam / mbhitm finish_done /
   quit deaths+outentry dungeon / ARMOR descr / canspotself newsym /
   xkilled nonliving destroy / savebones clear glyph memory /
-  named ghost `"s ghost"` / `;` glance+look_at_monster / getlin CO wrap:
-  D-0274…D-0331.
+  named ghost `"s ghost"` / `;` glance+look_at_monster / getlin CO wrap /
+  getobj compactify / friday13 enl indent:
+  D-0274…D-0333.

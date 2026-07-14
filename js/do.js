@@ -27,6 +27,7 @@ import { enexto } from './teleport.js';
 import { monster_nearby } from './hack.js';
 import { place_object, stackobj } from './mkobj.js';
 import { doname } from './objnam.js';
+import { compactify_invlets } from './invent.js';
 import { can_reach_floor } from './engrave.js';
 import {
     welded, setuwep, setuswapwep, setuqwep,
@@ -450,14 +451,19 @@ async function drop(obj) {
     return ECMD_TIME;
 }
 
-/** C invent getobj any_obj_ok — every invent letter is SUGGEST. */
+/**
+ * C invent getobj any_obj_ok — every invent letter is SUGGEST;
+ * suggested > 5 → compactify (invent.c).
+ */
 function drop_suggest_lets() {
     const lets = [];
     for (const o of game.invent || []) {
         if (o?.invlet) lets.push(o.invlet);
     }
     lets.sort((a, b) => a.charCodeAt(0) - b.charCodeAt(0));
-    return lets.join('');
+    let s = lets.join('');
+    if (lets.length > 5) s = compactify_invlets(s);
+    return s;
 }
 
 /**

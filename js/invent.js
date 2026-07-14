@@ -827,7 +827,9 @@ export async function doattributes() {
         lines.push(`  There is a ${phase} moon in effect.`);
     }
     if (game.flags?.friday13) {
-        lines.push(' Bad things can happen on Friday the 13th.');
+        // C insight.c: Sprintf(buf, " Bad things %s…") then enlght_out;
+        // menu/tty paints one more leading space like enlght_line body rows.
+        lines.push('  Bad things can happen on Friday the 13th.');
     }
     lines.push(
         `  You have ${uexp} experience point${uexp === 1 ? '' : 's'}.`,
@@ -1129,7 +1131,7 @@ const INVLET_BASIC = 52;
 const QUITCHARS = ' \r\n\x1b';
 
 /** C ref: invent.c compactify — dash runs of consecutive invent letters. */
-function compactify_invlets(buf) {
+export function compactify_invlets(buf) {
     if (!buf || buf.length <= 5) return buf || '';
     const chars = buf.split('');
     let i1 = 1;

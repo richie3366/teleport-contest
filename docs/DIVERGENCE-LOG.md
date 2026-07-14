@@ -24,6 +24,39 @@ The compact status table lives in **`DIVERGENCE-INDEX.md`**.
 Open that file first; then jump to a single `## D-NNNN` entry below
 (via search). Do **not** read this whole file by default.
 
+## D-0333 — friday13 enlightenment body indent (two spaces)
+
+- **Status:** fixed
+- **Observed:** seed0013-rogue @53 — attributes screen
+  `" Bad things can happen on Friday the 13th."` (1 space) vs C
+  `"  Bad things…"` (2 spaces). After D-0332 Scr 58/59.
+- **C locus:** `insight.c` `background_enlightenment` —
+  `Sprintf(buf, " Bad things %s on Friday the 13th.", …)` + `enlght_out`;
+  menu/tty paints the same leading pad as `enlght_line` body rows.
+- **Cause:** JS `doattributes` used one leading space; other body lines
+  already embed the two-space painted form.
+- **Change:** friday13 line → `'  Bad things can happen on Friday the 13th.'`.
+- **Verification:** seed0013-rogue **59/59 PASS**; green+strict; 21 PASS
+  cohort; full suite **21/44**.
+- **Named omissions:** final/gameover friday13 tense arms; night/midnight.
+- **Next:** seed2200 @39 farlook/`--More--` vs moreinfo yn.
+
+## D-0332 — getobj drop suggest compactify (`a-g`)
+
+- **Status:** fixed
+- **Observed:** seed0013-rogue @23 — drop prompt
+  C `What do you want to drop? [a-g or ?*]` vs JS `[abcdefg or ?*]`.
+  RNG full; Scr 57/59.
+- **C locus:** `invent.c` `getobj` — `if (suggested > 5) compactify(bp)`.
+- **Cause:** `drop_suggest_lets` joined invent letters without compactify
+  (adjust path already used exported helper).
+- **Change:** export `compactify_invlets`; apply when `lets.length > 5`
+  in `do.js` `drop_suggest_lets`.
+- **Verification:** @23 match; Scr **57→58**; then D-0333 → full PASS.
+- **Named omissions:** other getobj callers still omitting compactify
+  (throw/apply/wear/read/zap); `?`/`*` menus; count-split.
+- **Next:** seed0013 @53 friday13 enl indent (D-0333).
+
 ## D-0331 — getlin/`#` extcmd topline wrap at CO-1
 
 - **Status:** fixed
