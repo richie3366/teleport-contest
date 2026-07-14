@@ -281,7 +281,8 @@ async function disclose(how, taken) {
 }
 
 /**
- * C ref: end.c really_done death summary + rip — NHW_TEXT one page.
+ * C ref: end.c really_done death summary + rip — NHW_TEXT via
+ * display_nhwindow; wintty process_text_window paginates at rows-1.
  * Named omissions: topten/xlogfile; paybill; discover_object invent walk;
  * arise pline; quit/escape/ascend score arms; In_endgame/quest depth text.
  */
@@ -319,6 +320,10 @@ async function show_death_rip_and_summary(how, umoney) {
     lines.push(
         `You were level ${u.ulevel | 0} with a maximum of ${u.uhpmax | 0} hit point${plur(u.uhpmax | 0)} when you ${ENDS[how] || 'died'}.`,
     );
+    // C: dump_forward_putstr(endwin, 0, "", done_stopprint) before
+    // display_nhwindow — 24th line forces process_text_window page-break
+    // + blank final --More-- (rows-1 == 23).
+    lines.push('');
 
     await show_text_pages(lines, { moreAtEnd: true });
 }
@@ -326,7 +331,7 @@ async function show_death_rip_and_summary(how, umoney) {
 /**
  * C ref: end.c really_done — gameover; disclose; score; bones; rip.
  * Named omissions: paybill/clearpriests; invent discover_object;
- * Schroedinger; dump/livelog; topten; nh_terminate;
+ * Schroedinger; dump/livelog; topten/record/outentry; nh_terminate;
  * disclose beyond inventory yn; arise pline; wizard bones query;
  * inven_inuse / ball-chain arms of done_object_cleanup.
  */

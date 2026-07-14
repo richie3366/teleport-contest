@@ -7433,3 +7433,20 @@ Open that file first; then jump to a single `## D-NNNN` entry below
   `hidden_gold`; builds_up `level_difficulty`; escape/ascend score arms.
 - **Next:** Scr@76 topten / endwin more; or seed0013.
 
+## D-0290 — RIP endwin trailing blank page `--More--`
+
+- **Status:** fixed
+- **Observed:** Scr@76 C bare botl `--More--` vs JS next-life welcome;
+  RIP page matched at @75 after D-0289.
+- **Cause:** C `dump_forward_putstr(endwin, 0, "", …)` before
+  `display_nhwindow` yields 24 lines; `process_text_window` page-breaks
+  at `rows-1` (23) so a blank final page waits. JS had 23 lines → one page.
+- **C locus:** `end.c` `really_done` final empty putstr; `wintty.c`
+  `process_text_window` fullscreen page-break + final `dmore`.
+- **Change:** `js/end.js` `show_death_rip_and_summary` appends trailing `''`.
+- **Verification:** Scr@76–77 blank `--More--` match; Scr **120→161**;
+  first-miss **76→78** (topten list); RNG full; green+strict; 19-session PASS.
+- **Named omissions:** `topten`/`record`/`outentry`; remaining disclose;
+  `hidden_gold`; escape/ascend score arms.
+- **Next:** Scr@78 `topten()` score list; or seed0013.
+

@@ -6,8 +6,8 @@ and `archive/PROGRESS-HISTORY.md`.
 
 Score last measured: **2026-07-14** via focused seed0030 + green/cohort;
 full `sessions` suite not re-run this iteration. PASS set unchanged;
-seed0030 positional **105529**/105529 Scr **120**/1953 after D-0288/89
-(RNG full; prefix first-miss 75→76).
+seed0030 positional **105529**/105529 Scr **161**/1953 after D-0290
+(RNG full; prefix first-miss 76→78).
 
 ## Score
 
@@ -16,7 +16,7 @@ seed0030 positional **105529**/105529 Scr **120**/1953 after D-0288/89
 | Sessions passing | **19 / 44** |
 | Screens matched | **1563 / 11,405** (13.70%) |
 | Positional RNG calls matched | **105529 / 105529** (seed0030; prior suite totals stale) |
-| Speed label | `18+0.10/turn` |
+| Speed label | `20+0.12/turn` |
 | Role-init throws | **0 / 44** |
 
 **PASS (19):** seed8000, seed0900, seed1500, seed1800, seed0060, seed0102,
@@ -24,7 +24,7 @@ seed0700, seed1150, seed0017, seed0077, seed0106, seed0501, seed0105,
 seed0016, seed0015, seed0200, seed0101, seed0103, seed0104.
 
 **Notable non-PASS:** seed2200 RNG full Scr 229/230 (parked RC @158);
-seed0013 RNG full Scr 57/59; seed0030 **105529**/105529 Scr 120/1953;
+seed0013 RNG full Scr 57/59; seed0030 **105529**/105529 Scr 161/1953;
 seed0107 2684/2902 Scr 36/98; seed0361/0373 quest bones blocked.
 
 ## Green gate
@@ -42,16 +42,16 @@ Both must remain full RNG + screen PASS with exact scored-output lengths.
 
 ## Primary objective
 
-**seed0030 screen peel** — RNG full; Scr **120**/1953; first miss **@76**
+**seed0030 screen peel** — RNG full; Scr **161**/1953; first miss **@78**
 
 | | |
 |--|--|
-| **C locus** | `topten.c` / endwin after RIP / `display_nhwindow` |
+| **C locus** | `topten.c` `topten` / `outentry` / `outheader` (!toptenwin raw_print) |
 | **JS locus** | `end.js` `really_done` (topten deferred) |
-| **Symptom** | Scr@76: C bare botl `--More--` (post-RIP) vs JS next-life welcome |
-| **Hypothesis** | topten / post-RIP endwin `--More--` not ported |
-| **Falsifier** | first mismatched screen after D-0288/89 RIP match |
-| **Recent fixed** | D-0288 disclose `-i`; D-0289 genl_outrip + Tourist goto XP |
+| **Symptom** | Scr@78: C "You made the top ten list!" + score rows vs JS Brigid welcome |
+| **Hypothesis** | `topten()` record insert + score panel not ported after RIP |
+| **Falsifier** | first mismatched screen after D-0290 blank `--More--` match |
+| **Recent fixed** | D-0290 RIP trailing blank → page-2 `--More--` |
 
 ```bash
 # Focused seed0030 (RNG already full — peel screens)

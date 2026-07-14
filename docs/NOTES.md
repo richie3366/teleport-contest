@@ -7,11 +7,11 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Current unit:** seed0030 Scr **120**/1953 with RNG **FULL** 105529
-  (D-0288/89). Prefix first-miss **76** (was 75).
-- **Hypothesis:** post-RIP topten/endwin `--More--` missing; JS starts
-  next segment while C still on death UI.
-- **Falsifier:** Scr@76 C empty + botl `--More--` vs JS Brigid welcome.
+- **Current unit:** seed0030 Scr **161**/1953 with RNG **FULL** 105529
+  (D-0290). Prefix first-miss **78** (was 76).
+- **Hypothesis:** `topten()` after RIP not ported; C shows score list while
+  JS starts next segment.
+- **Falsifier:** Scr@78 C "You made the top ten list!" vs JS Brigid welcome.
 - **Alt:** seed0013 Scr 57/59; seed0107 @2684.
 - **Parked:** D-0006 (pet movement); seed2200 @158 RC/`$HOME`.
 
@@ -49,6 +49,8 @@ Objective/score live in `CURRENT.md`.
 - **Don’t:** always invent-disclose yn — honor `disclose:-i` as
   `DISCLOSE_NO_WITHOUT_PROMPT` (D-0288); RIP needs Tourist
   `more_experienced(depth)` on new `goto_level` (D-0289).
+- **Don’t:** omit RIP trailing empty putstr — 24 lines force page-2 blank
+  `--More--` via `process_text_window` (D-0290).
 
 ## Landmarks (≤15)
 
@@ -66,10 +68,4 @@ Objective/score live in `CURRENT.md`.
 - Hero MAGIC_TRAP → `domagictrap` (D-0266).
 - `m_move`: `set_apparxy` **before** mtame/shk|gd|priest (D-0267).
 - Key attribution ≠ RNG order (0-RNG `--More--`) (D-0228).
-- Bones: `no_bones_level` before depth rn2 / after getbones `rn2(3)`
-  (D-0279); VFS `bonM0.1`; limbo missile (D-0275); mtrack (D-0276);
-  ghostly peace (D-0277); `disturb` (D-0278); quaff CANCEL≠TIME (D-0280);
-  `#quit`→`done2` (D-0281); topl wrap+redotoplin more (D-0282);
-  botl `depth()` + Mines wall BROWN (D-0283); `tmp_at` flash (D-0284);
-  potion xname descr (D-0285); `mswings` (D-0286); botl HP clamp (D-0287);
-  disclose `-i` (D-0288); RIP+Tourist goto XP (D-0289).
+- Bones / disclose / RIP / botl / flash / mswings: D-0274…D-0290 (see index).

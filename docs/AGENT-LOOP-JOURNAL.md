@@ -21,6 +21,17 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-14 18:24 — D-0290 RIP endwin trailing blank `--More--`
+
+- Objective: seed0030 Scr 120/1953 (CURRENT primary); first miss @76.
+- C locus: `end.c` `really_done` final empty `dump_forward_putstr`;
+  `wintty.c` `process_text_window` page-break at rows-1.
+- Change: append trailing `''` in `show_death_rip_and_summary` so 24
+  lines force blank page-2 `--More--` (D-0290).
+- Verification: Scr@76–77 blank more match; prefix miss **76→78**;
+  Scr **120→161**; RNG full; green+strict; 19-session PASS cohort.
+- Next: Scr@78 `topten()` score list; or seed0013.
+
 ## 2026-07-14 18:18 — D-0288/89 disclose + RIP death summary
 
 - Objective: seed0030 Scr 116/1953 (CURRENT primary); first miss @75.
@@ -174,16 +185,4 @@ Use this shape:
 - Verification: seg9 **12414→16582**; green+strict PASS; 17-session
   PASS cohort; flat **48156**/105529.
 - Next: D-0274 — `getbones` load → `next_ident` @16582.
-
-## 2026-07-14 16:42 — D-0272 find_roll_to_hit Luck bonus
-
-- Objective: seed0030 seg9 @12411 (CURRENT primary D-0272).
-- C locus: `uhitm.c` `find_roll_to_hit` Luck term; full-moon
-  `change_luck(1)` already in `moveloop_preamble`.
-- Change: DIAG showed Healer/scalpel vs gas spore `tmp=15==dieroll`;
-  ported Luck bonus in `js/uhitm.js`. Falsified: missing post-hit
-  exercise / gas-spore path — miss before damage.
-- Verification: seg9 **12411→12414**; green+strict PASS; 17-session PASS
-  cohort; seed0030 flat **48141**/105529 Scr **85**/1953.
-- Next: D-0273 — `corpse_chance` AT_BOOM / `mon_explodes` @12414.
 

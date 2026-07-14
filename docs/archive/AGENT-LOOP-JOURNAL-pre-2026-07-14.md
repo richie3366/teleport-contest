@@ -1,3 +1,15 @@
+## 2026-07-14 16:42 — D-0272 find_roll_to_hit Luck bonus
+
+- Objective: seed0030 seg9 @12411 (CURRENT primary D-0272).
+- C locus: `uhitm.c` `find_roll_to_hit` Luck term; full-moon
+  `change_luck(1)` already in `moveloop_preamble`.
+- Change: DIAG showed Healer/scalpel vs gas spore `tmp=15==dieroll`;
+  ported Luck bonus in `js/uhitm.js`. Falsified: missing post-hit
+  exercise / gas-spore path — miss before damage.
+- Verification: seg9 **12411→12414**; green+strict PASS; 17-session PASS
+  cohort; seed0030 flat **48141**/105529 Scr **85**/1953.
+- Next: D-0273 — `corpse_chance` AT_BOOM / `mon_explodes` @12414.
+
 ## 2026-07-14 16:45 — D-0271 make_corpse undead before G_NOCORPSE
 
 - Objective: seed0030 seg9 @10811 (CURRENT primary D-0271).
