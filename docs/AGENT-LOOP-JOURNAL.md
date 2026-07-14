@@ -2965,3 +2965,14 @@ Use this shape:
   PASS cohort held.
 - Next: seed0030 seg3 @9166 after matched EOT — C gethungry/hitum vs JS
   distfleeck (key/command desync class); or quest getbones ^V/makemaz.
+
+## 2026-07-14 03:58 — CORPSE weight mons[corpsenm].cwt (D-0230)
+- Objective: seed0030 seg3 @9166 C gethungry/hitum vs JS distfleeck.
+- C locus: mkobj.c weight CORPSE branch.
+- Result: **verified** — JS weight used oc_weight/fallback (owt=1) so can_carry
+  let m_search_items divert goblin gg to gnome corpse; C uses mons[cwt] (too
+  heavy) so goblin stayed on gettrack→(26,6) for hero melee. Falsified key-desync.
+- Verification: seg3 **9166→9299**; positional **38048**/105529 Scr **56**/1953;
+  full **19/44** Scr **1441** RNG **162377**; green+strict PASS; 17-session
+  PASS cohort held.
+- Next: seed0030 seg3 @9299 C rnl(7) dosearch0 vs JS distfleeck; or quest getbones.

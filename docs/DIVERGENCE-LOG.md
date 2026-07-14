@@ -233,6 +233,7 @@ Do not record a guessed cause as fixed merely because an RNG prefix moved.
 | D-0227 | fixed | hmon knockback | weapon maybe_knockback→mhitm_knockback rn2(3)+rn2(6) |
 | D-0228 | fixed | cmd_safety_prevention | safe_wait blocks s/. beside hostiles; seg3 7935→8561 |
 | D-0229 | fixed | xkilled treasure | mkobj(RANDOM_CLASS) after !rn2(6); seg3 8561→9166 |
+| D-0230 | fixed | CORPSE weight | mons[corpsenm].cwt; goblin gg divert; seg3 9166→9299 |
 
 D-0001 through D-0005 predate the strict-length/cohort runbook. Their focused
 causes are preserved, but generic "green sessions held" is historical evidence,
@@ -6176,3 +6177,29 @@ cohort gates if those functions are touched again.
   wasinside/burycorpse/zombify.
 - **Next:** seed0030 seg3 @9166 key/command after matched EOT
   (C hero melee vs JS fleeck); or quest `getbones`.
+
+## D-0230 — CORPSE weight uses mons[corpsenm].cwt
+
+- **Status:** fixed
+- **Symptom:** seed0030 seg3 @9166 C `gethungry`/`hitum` (west into
+  goblin) vs JS `distfleeck`. Matched through EOT `rn2(79)`.
+- **Cause:** Not key desync. C goblin at (26,6) adjacent west of hero
+  (27,6); JS goblin at (25,6). JS `m_search_items` redirected hostile
+  `gg` to a gnome CORPSE at (25,9) because `weight(CORPSE)` used
+  `oc_weight`/fallback → `owt=1`, so `can_carry` succeeded. C
+  `weight` uses `quan * mons[corpsenm].cwt` (gnome corpse too heavy
+  for goblin max load) — no divert; goblin followed gettrack to
+  (26,6).
+- **Rejected:** key/safety desync (D-0228 class) — same `h` key; empty
+  dest because goblin one tile west.
+- **C locus:** `mkobj.c` `weight` CORPSE branch.
+- **Change:** `js/mkobj.js` `weight` — CORPSE → `mons(corpsenm).cwt`
+  with `LARGEST_INT` clamp; `oeaten` deferred.
+- **Verification:** seg3 **9166→9299** (C `rnl(7)` `dosearch0` vs JS
+  `distfleeck`); positional **38048**/105529 Scr **56**/1953; full
+  **19/44** Scr **1441** RNG **162377**; green+strict PASS;
+  17-session PASS cohort held.
+- **Named omissions:** `oeaten`/`eaten_stat`; container/statue weight
+  arms; globby `owt` passthrough.
+- **Next:** seed0030 seg3 @9299 C `dosearch0` vs JS `distfleeck`; or
+  quest `getbones`.

@@ -7,12 +7,10 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 
 ## Active
 
-- **Current unit:** seed0030 seg3 @9166 — after matched EOT (`gethungry` +
-  `moveloop_core` `rn2(79)`), C `gethungry`/`hitum` (hero melee) vs JS
-  `rn2(5)` (`distfleeck`).
-- **Falsifier:** reconstruct key/command at the matched EOT; expect C hero
-  attack turn while JS starts monster fleeck (key desync or missing 0-RNG
-  gate — same class as D-0228).
+- **Current unit:** seed0030 seg3 @9299 — after matched EOT, C `rnl(7)`
+  `dosearch0` vs JS `rn2(5)` `distfleeck` (key/command or search path).
+- **Falsifier:** reconstruct key at matched EOT; expect C `s` search while JS
+  starts monster fleeck (or safety/0-RNG gate class).
 - **Parked deep canary:** D-0006 pet movement — do not implement until C
   state/candidate capture exists.
 - **Parked seed2200 @158:** RC config path — harness `$HOME`, not a port bug.
@@ -98,6 +96,11 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 - **seed0030 seg3 @8561 was NOT corpse_chance arity alone** — C
   `!rn2(6)` then `mkobj(RANDOM_CLASS)` (`rnd(100)`/`rnd(1000)`/
   `next_ident`); JS burned the gate then skipped the body (D-0229).
+- **seed0030 seg3 @9166 was NOT key desync / missing safety** — C
+  attacked goblin at (26,6); JS goblin at (25,6) because
+  `m_search_items` redirected `gg` to a gnome CORPSE with `owt=1`.
+  C `weight(CORPSE)` uses `mons[corpsenm].cwt` (D-0230). Do not
+  re-chase `cmd_safety` for that peel.
 - **`monattk.h`: AT_WEAP=254, AT_MAGC=255, AT_SPIT=10** — never use 10 for
   weapon (D-0179).
 - Hostile `m_move`: before place, `m_digweapon_check` may return
@@ -132,6 +135,10 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   !S_KOP + !mcloned → `mkobj(RANDOM_CLASS,TRUE)`; food (non-COLLECT)
   or small-mon oversized → `delobj`; else place+stack. flooreffects
   non-floor arms deferred (D-0229).
+- **`weight(CORPSE)`:** `quan * mons[corpsenm].cwt` (LARGEST_INT clamp);
+  not `objects[CORPSE].oc_weight` / `(quan+1)/2` (D-0230). Wrong owt
+  lets `can_carry` succeed and `m_search_items` divert hostiles off
+  gettrack/hero gg.
 - **`test_move` diagonal into DOOR:** only `doorless_door` (D_NODOOR /
   D_BROKEN) allowed; open/closed/locked block diagonal entry/exit
   (D-0219). Same rule in `domove` and steed `landing_spot`/`test_move_ok`.
