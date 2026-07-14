@@ -3519,3 +3519,21 @@ Use this shape:
   clean.
 - Next: falsify JS `u.uy` at dog_goal @3067; find why `k` did not
   leave stairs (extra `--More--` / blocked north / restore).
+
+## 2026-07-14 — D-0266 hero MAGIC_TRAP / domagictrap
+
+- **Objective:** seed0030 seg9 @8918 — C `rn2(30) @ trapeffect_magic_trap`
+  vs JS `rn2(5)` (PROGRESS primary after D-0265).
+- **C locus:** `trap.c` `trapeffect_magic_trap` hero + `domagictrap`;
+  `dofiretrap`; `potion.c` `self_invis_message`/`make_blinded`/
+  `incr_itimeout`; `dog.c` `tamedog` (fate 19).
+- **Change:** ported hero MAGIC_TRAP (`seetrap`/`rn2(30)` explosion or
+  `domagictrap`); full `domagictrap` fate envelope (this seed fate=11
+  HInvis); `dofiretrap` null-box floor path; hero FIRE_TRAP→`dofiretrap`;
+  minimal `tamedog` export. Named omissions: fate-20 seffects remove-curse;
+  destroy_items/ignite/burn_floor; minuhpmax/losexp; steedintrap body.
+- **Verification:** seg9 **8918→8943**; green+strict PASS; 17-session PASS
+  cohort; full **19/44** Scr **1563** RNG **182691**; seed0030
+  **48104**/105529.
+- **Next:** D-0267 — post-Invis `set_apparxy` vs fleeck @8943 (mux/
+  perceives dump).

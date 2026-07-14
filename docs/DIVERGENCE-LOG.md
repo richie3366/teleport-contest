@@ -269,7 +269,7 @@ Do not record a guessed cause as fixed merely because an RNG prefix moved.
 | D-0263 | fixed | drinkfountain dofindgem rnd_class | fate=27 gem; seg9 8138→8281 |
 | D-0264 | fixed | dochug NEED_HTH mon_wield_item | goblin dist2=8 wield; seg9 8281→8352 |
 | D-0265 | fixed | hitval oc_hitbon (a_ac) | dagger +2 to-hit; seg9 8352→8918 |
-| D-0266 | open | seed0030 seg9 @8918 hero MAGIC_TRAP | after D-0265; dotrap/domagictrap |
+| D-0266 | fixed | hero MAGIC_TRAP / domagictrap | rn2(30)+fate11 HInvis; seg9 8918→8943 |
 
 
 D-0001 through D-0005 predate the strict-length/cohort runbook. Their focused
@@ -7204,12 +7204,28 @@ cohort gates if those functions are touched again.
 - **Next:** port hero MAGIC_TRAP `dotrap`/`domagictrap` (D-0254 mon
   path exists; hero path still deferred).
 
-## D-0266 — seed0030 seg9 @8918 hero MAGIC_TRAP (open)
+## D-0266 — hero MAGIC_TRAP / domagictrap (fixed)
 
-- **Status:** open
-- **Symptom:** after D-0265, first mismatch @8918 — C `rn2(30) @
-  trapeffect_magic_trap` then `domagictrap` vs JS `rn2(5)`.
-- **Hypothesis:** hero `dotrap` MAGIC_TRAP path missing (monster arm
-  D-0254); JS continues ordinary fleeck.
-- **Next:** confirm hero trap at peel; port `dotrap`/`domagictrap`.
+- **Status:** fixed
+- **Observed:** seed0030 seg9 @8918 — C `rn2(30) @ trapeffect_magic_trap`
+  then `rnd(20)=11 @ domagictrap` vs JS `rn2(5)` fleeck.
+- **C locus:** `trap.c` `trapeffect_magic_trap` hero arm + `domagictrap`;
+  `potion.c` `self_invis_message` / `make_blinded`/`incr_itimeout`
+  helpers; `dog.c` `tamedog` for fate 19.
+- **Cause:** JS hero MAGIC_TRAP returned immediately (monster-only
+  D-0254). C `seetrap` + `rn2(30)` (nonzero → `domagictrap`); this seed
+  took fate=11 HInvis toggle.
+- **Change:** ported hero `trapeffect_magic_trap` (explosion +
+  `domagictrap`); `domagictrap` fate envelope; `dofiretrap` null-box
+  floor path; hero FIRE_TRAP → `dofiretrap`; minimal `tamedog` for
+  fate 19.
+- **Named omissions:** `seffects(SPE_REMOVE_CURSE)` fate 20;
+  `destroy_items`/`ignite`/`burn_floor`/`melt_ice`/`surface`;
+  `minuhpmax`/`losexp`; qstart prodigal/`at_dgn_entrance`; full
+  `toggle_blindness`; `steedintrap` body; `tamedog` food/demon/covetous/
+  wield arms.
+- **Verification:** seg9 **8918→8943**; green+strict PASS; 17-session
+  PASS cohort; full **19/44** Scr **1563** RNG **182691**; seed0030
+  **48104**/105529; next @8943 `set_apparxy` vs fleeck after Invis.
+- **Next:** diagnose post-HInvis `set_apparxy`/`perceives` (D-0267).
 

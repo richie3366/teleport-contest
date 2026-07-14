@@ -7,14 +7,14 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 
 ## Active
 
-- **Current unit:** seed0030 seg9 @8918 — **D-0266** — C
-  `rn2(30) @ trapeffect_magic_trap` vs JS `rn2(5)` after D-0265
-  `hitval`/`oc_hitbon`.
-- **Hypothesis:** hero stepped on MAGIC_TRAP; C runs
-  `dotrap`→`trapeffect_magic_trap`/`domagictrap` while JS skips the
-  hero trap arm (monster MAGIC_TRAP exists D-0254).
-- **Falsifier:** confirm hero tile typ/trap at peel and whether JS
-  `spoteffects`/`dotrap` reaches MAGIC_TRAP case.
+- **Current unit:** seed0030 seg9 @8943 — **D-0267** — after D-0266
+  hero MAGIC_TRAP/`domagictrap` fate=11 (HInvis), C `rn2(3) @
+  set_apparxy` vs JS `rn2(5) @ distfleeck`.
+- **Hypothesis:** post-Invis `set_apparxy`/`perceives` or mux state for
+  one monster differs so JS skips a notseen `rn2(3)` and reaches fleeck
+  early (or monster order/cnt drift).
+- **Falsifier:** dump that monster’s mux/muy, Invis, perceives, and
+  displ/gotu at the first mismatched set_apparxy after fate=11.
 - **Parked deep canary:** D-0006 pet movement — do not implement until C
   state/candidate capture exists.
 - **Parked seed2200 @158:** RC config path — harness `$HOME`, not a port bug.
@@ -61,6 +61,8 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 - **seg9 @8352 was not incomplete `hmon`/`dmgval` after hit** — matched
   `rnd(20)=13`; JS missed because `hitval` omitted `oc_hitbon` (+2 for
   daggers). C hit → DEX exercise → kill (D-0265).
+- **seg9 @8918 was hero MAGIC_TRAP** — JS stubbed hero arm; C
+  `rn2(30)`→`domagictrap` fate=11 HInvis (D-0266).
 - Do not treat session `\r` as plain `j` — ICRNL → `\n` = `C('j')` rush
   (D-0259). `rushDirFromCtrl` keys 1..26 only.
 
@@ -103,6 +105,9 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   turn (no `m_move`) (D-0264).
 - **`hitval`:** weapon/weptool `spe` + always `objects[].oc_hitbon`
   (`a_ac` in extract); dagger family +2 (D-0265).
+- **Hero MAGIC_TRAP:** `seetrap`; `!rn2(30)` explosion else
+  `domagictrap` (`rnd(20)`); fate 11 toggles `HInvis|=FROMOUTSIDE`
+  (D-0266).
 - **`F`/`do_fight`:** PREFIXCMD sets `forcefight`; next move dir attacks
   (empty → `domove_fight_empty` “thin air” / solid); no turn on F alone
   (D-0225).
