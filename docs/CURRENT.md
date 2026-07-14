@@ -6,8 +6,8 @@ and `archive/PROGRESS-HISTORY.md`.
 
 Score last measured: **2026-07-14** via focused seed0030 + green/cohort;
 full `sessions` suite not re-run this iteration. PASS set unchanged;
-seed0030 positional **105529**/105529 Scr **818**/1953 after D-0291
-(RNG full; prefix first-miss 78→818).
+seed0030 positional **105529**/105529 Scr **821**/1953 after D-0292
+(RNG full; true prefix first-miss 93→109; runner matched count 818→821).
 
 ## Score
 
@@ -24,7 +24,7 @@ seed0700, seed1150, seed0017, seed0077, seed0106, seed0501, seed0105,
 seed0016, seed0015, seed0200, seed0101, seed0103, seed0104.
 
 **Notable non-PASS:** seed2200 RNG full Scr 229/230 (parked RC @158);
-seed0013 RNG full Scr 57/59; seed0030 **105529**/105529 Scr 818/1953;
+seed0013 RNG full Scr 57/59; seed0030 **105529**/105529 Scr 821/1953;
 seed0107 2684/2902 Scr 36/98; seed0361/0373 quest bones blocked.
 
 ## Green gate
@@ -42,21 +42,24 @@ Both must remain full RNG + screen PASS with exact scored-output lengths.
 
 ## Primary objective
 
-**seed0030 screen peel** — RNG full; Scr **818**/1953; first miss **@818**
+**seed0030 screen peel** — RNG full; Scr **821**/1953; prefix first-miss **@109**
 
 | | |
 |--|--|
-| **C locus** | (new) seg5 mid-run map/status after topten unlocked |
-| **JS locus** | TBD after decodeScreen cell diff @818 |
-| **Symptom** | Scr@818 cells diverge (seg5 Daxter ~local 33); segs 0–2 topten match |
-| **Hypothesis** | Independent of D-0291; was masked by missing topten screen shift |
-| **Falsifier** | decodeScreen first differing cell at global 818 |
-| **Recent fixed** | D-0291 `topten` + record VFS + nh_terminate capture |
+| **C locus** | display/showsyms FOUNTAIN (or terrain typ) under `symset:DECgraphics` |
+| **JS locus** | `js/display.js` terrain glyph — JS `_` vs C `{`+dec @ row 5 |
+| **Symptom** | Scr prefix@109 cell (seg1 local 30); door-opens topline matches |
+| **Hypothesis** | JS paints ALTAR `_` / wrong showsym; C FOUNTAIN `{` with DEC |
+| **Falsifier** | decodeScreen first differing cell at global 109; check levl typ |
+| **Recent fixed** | D-0292 amulet xname + `clear_dknown` (prefix 93→109) |
 
 ```bash
 # Focused seed0030 (RNG already full — peel screens)
 node frozen/ps_test_runner.mjs sessions/seed0030-ten-diverse-deaths.session.json
 ```
+
+**Note:** runner `Screen N/M` is **total** positional matches, not prefix
+length. Prefer decodeScreen prefix first-miss for peel targets.
 
 **Alternate:** seed0013 Scr 57/59 (RNG full); or seed0107 RNG@2684.
 **Also:** seg7 JS 159 vs C 172 screens (topten/end_around or earlier desync).

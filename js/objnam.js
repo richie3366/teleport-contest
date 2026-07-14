@@ -34,6 +34,9 @@ function Role_if_samurai() {
     return Role_if(PM_SAMURAI);
 }
 
+const AMULET_OF_YENDOR = objectNames.indexOf('AMULET_OF_YENDOR');
+const FAKE_AMULET_OF_YENDOR = objectNames.indexOf('FAKE_AMULET_OF_YENDOR');
+
 /** C ref: obj.h is_ammo — skill window for quiver wording. */
 function is_ammo_obj(obj) {
     if (!obj) return false;
@@ -248,6 +251,30 @@ function pretty_base(obj) {
         }
         if (GemStone(obj.otyp)) return `${actual} stone`;
         return actual;
+    }
+    // C ref: objnam.c xname AMULET_CLASS —
+    // !dknown → "amulet"; Yendor/fake → known?actualn:dn;
+    // nn → actualn; un → "amulet called …"; else "<descr> amulet"
+    if (obj.oclass === AMULET_CLASS) {
+        const ocl = game.objects?.[obj.otyp];
+        const nn = !!ocl?.oc_name_known;
+        const dknown = !!obj.dknown;
+        const known = !!obj.known;
+        const un = ocl?.oc_uname || null;
+        let actual = objectNameStrs[obj.otyp]
+            || (n ? n.toLowerCase().replace(/_/g, ' ') : 'amulet');
+        if (Role_if_samurai()) {
+            const jn = Japanese_item_name(obj.otyp, null);
+            if (jn) actual = jn;
+        }
+        const dn = objectDescrs[ocl?.oc_descr_idx ?? obj.otyp] || actual;
+        if (!dknown) return 'amulet';
+        if (obj.otyp === AMULET_OF_YENDOR || obj.otyp === FAKE_AMULET_OF_YENDOR) {
+            return known ? actual : dn;
+        }
+        if (nn) return actual;
+        if (un) return `amulet called ${un}`;
+        return `${dn} amulet`;
     }
     let base = PRETTY[n] || (n ? n.toLowerCase().replace(/_/g, ' ') : 'object');
     // C ref: objnam.c xname — Samurai Japanese_item_name overrides actualn

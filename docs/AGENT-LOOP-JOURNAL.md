@@ -21,6 +21,16 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-14 18:50 — D-0292 amulet xname + clear_dknown
+
+- Objective: seed0030 Scr peel (CURRENT primary); runner matched 818 was
+  total count — true prefix first-miss was @93.
+- C locus: `objnam.c` xname AMULET_CLASS; `mkobj.c` clear_dknown/unknow_object.
+- Change: `<descr> amulet` via oc_descr_idx; mksobj clear_dknown (D-0292).
+- Verification: prefix **93→109**; Scr **818→821**; RNG full; green+strict;
+  17-session PASS cohort + strict.
+- Next: prefix@109 JS `_` vs C `{`+DEC (fountain/altar/DECgraphics).
+
 ## 2026-07-14 18:40 — D-0291 topten + record VFS + terminate capture
 
 - Objective: seed0030 Scr 161/1953 (CURRENT primary); first miss @78.
@@ -174,15 +184,3 @@ Use this shape:
 - Verification: bones **49**; seg9 **16630→16635**; green+strict PASS;
   19-session PASS cohort + strict lengths.
 - Next: post-bones `m_move` `rn2(8)` vs `rn2(5)` @16635.
-
-## 2026-07-14 17:05 — D-0274 getbones VFS load (partial)
-
-- Objective: seed0030 seg9 @16582 (CURRENT primary D-0274).
-- C locus: `bones.c` getbones/savebones; `restore.c` rest*chn ghostly
-  `next_ident`; `files.c` set_bonesfile_name.
-- Change: `js/bones.js` VFS JSON write/load + next_ident remap;
-  wire `savebones`/`getbones`. Elara `bonM0.1` loads for Hermione.
-- Verification: seg9 **16582→16630**; green+strict PASS; 17-session
-  PASS cohort; seed0030 flat **48199**/105529 Scr **85**/1953.
-- Next: find missing bones entity (JS 48 vs C 49 next_ident).
-

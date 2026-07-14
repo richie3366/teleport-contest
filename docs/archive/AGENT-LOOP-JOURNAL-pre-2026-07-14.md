@@ -3597,3 +3597,14 @@ Do **not** read this archive by default.
 - Verification: `node scripts/check-hot-docs.mjs` PASS (~4.7k tok hot sum).
 - Next: loop agents follow `CURRENT.md` primary (D-0268); do not re-expand
   archive into the hot pack.
+
+## 2026-07-14 17:05 — D-0274 getbones VFS load (partial)
+
+- Objective: seed0030 seg9 @16582 (CURRENT primary D-0274).
+- C locus: `bones.c` getbones/savebones; `restore.c` rest*chn ghostly
+  `next_ident`; `files.c` set_bonesfile_name.
+- Change: `js/bones.js` VFS JSON write/load + next_ident remap;
+  wire `savebones`/`getbones`. Elara `bonM0.1` loads for Hermione.
+- Verification: seg9 **16582→16630**; green+strict PASS; 17-session
+  PASS cohort; seed0030 flat **48199**/105529 Scr **85**/1953.
+- Next: find missing bones entity (JS 48 vs C 49 next_ident).

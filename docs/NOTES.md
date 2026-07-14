@@ -7,53 +7,35 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Current unit:** seed0030 Scr **818**/1953 with RNG **FULL** 105529
-  (D-0291). Prefix first-miss **818** (was 78).
-- **Hypothesis:** @818 is a pre-existing seg5 cell diff unmasked once
-  topten restored screen indexing; segs 0–2 topten panels match C.
-- **Falsifier:** decodeScreen first differing cell at global index 818.
-- **Also:** seg7 JS 159 vs C 172 steps (investigate after @818).
+- **Current unit:** seed0030 Scr **821**/1953 with RNG **FULL** 105529
+  (D-0292). True prefix first-miss **109** (was 93). Runner matched
+  count is total matches, not prefix — do not treat `818` as prefix.
+- **Hypothesis:** @109 JS `_` (ALTAR path / color gray→NO_COLOR) vs C
+  `{`+`decgfx` under `symset:DECgraphics` — fountain typ or showsyms.
+- **Falsifier:** decodeScreen cell @109 + `levl[x][y].typ` / showsyms
+  fountain for DEC.
+- **Also:** seg7 JS 159 vs C 172 steps (investigate after @109).
 - **Alt:** seed0013 Scr 57/59; seed0107 @2684.
 - **Parked:** D-0006 (pet movement); seed2200 @158 RC/`$HOME`.
 
 ## Don’t re-check (≤15)
 
-- Do not reject dart in `can_carry`; earlier C turn APPORTs it.
-- Do not treat `LOST_THROWN` as carry rejection.
 - Do not gate on raw RNG index/coordinates.
 - Role `mnum` = PM_* IDs, never roles[] index; roles[] order matches C.
-- `roles.name.f` null where C has 0 (D-0138); no same-string `f===m` proxy.
-- No Tourist Aloha/neutral/HP:10 hardcodes in `allmain`.
-- Unique `#` extcmds still need Enter (`#levelchange`).
-- `'f'`→`dofire` needs fireassist when bow is only in `uswapwep` (D-0069).
-- Ctrl-rush `run=3`, capital run `run=1` (D-0261); always `await pline` on
-  muse wand paths / `potionhit` (D-0284).
-- Session `\r` → `\n` = `C('j')` rush (D-0259); `rushDirFromCtrl` 1..26.
-- seg8 fleeck/missing-katana were key desync (D-0261), not dog_move/dodrop.
-- Recent seg9 falsified theories: D-0262…D-0278 — see `DIVERGENCE-INDEX.md`.
-- **Don’t:** early-return `dochug` on `msleeping` — C calls `disturb`
-  (`rn2(7)` wake gate) first (D-0278).
-- **Don’t:** burn `can_make_bones` depth rn2 without `no_bones_level` —
-  Mines-stair Dlvl2 is `Is_branchlev && dlevel>1` (D-0279).
-- **Don’t:** treat `dodrink` `ECMD_CANCEL` as time — use `& ECMD_TIME`
-  (D-0280); truthy CANCEL burned an extra movemon turn.
+- Ctrl-rush `run=3`, capital run `run=1` (D-0261); session `\r`→`\n` = `C('j')`.
+- **Don’t:** early-return `dochug` on `msleeping` — `disturb`/`rn2(7)` first (D-0278).
+- **Don’t:** `can_make_bones` without `no_bones_level` (D-0279).
+- **Don’t:** treat `dodrink` `ECMD_CANCEL` as time — `& ECMD_TIME` (D-0280).
 - **Don’t:** leave `#quit` AC-only — unknown → `y` vi-move (D-0281).
-- **Don’t:** `read_engr` maxelen from 80 — use `BUFSZ`+sizeof feel-lit
-  (D-0282); long pline needs update_topl `\n` + redotoplin `more()`.
-- **Don’t:** botl `Dlvl` from `uz.dlevel` — use `depth()` (D-0283); Mines
-  walls use `wallcolors` BROWN not main GRAY→NO_COLOR.
-- **Don’t:** omit `m_throw` `tmp_at(DISP_FLASH)` — prior-cell `!` stays
-  through potionhit `--More--` (D-0284); potion `xname` uses
-  `oc_name_known` not `obj.known` (D-0285).
-- **Don’t:** skip AT_WEAP `mswings` — bow melee emits swing pline before
-  hit (D-0286); botl HP display clamps `<0→0` (D-0287).
-- **Don’t:** always invent-disclose yn — honor `disclose:-i` as
-  `DISCLOSE_NO_WITHOUT_PROMPT` (D-0288); RIP needs Tourist
-  `more_experienced(depth)` on new `goto_level` (D-0289).
-- **Don’t:** omit RIP trailing empty putstr — 24 lines force page-2 blank
-  `--More--` via `process_text_window` (D-0290).
-- **Don’t:** skip `topten` after RIP — C `!toptenwin` raw_print + contest
-  `nh_terminate` input-boundary capture (no nhgetch) (D-0291).
+- **Don’t:** `read_engr` maxelen from 80 — `BUFSZ`+feel-lit (D-0282).
+- **Don’t:** botl `Dlvl` from `uz.dlevel` — use `depth()`; Mines BROWN (D-0283).
+- **Don’t:** omit `m_throw` `tmp_at(DISP_FLASH)`; potion `oc_name_known` (D-0284/85).
+- **Don’t:** skip AT_WEAP `mswings`; botl HP `<0→0` (D-0286/87).
+- **Don’t:** invent-disclose yn when `disclose:-i`; RIP needs Tourist XP (D-0288/89).
+- **Don’t:** omit RIP trailing blank putstr / `topten` after RIP (D-0290/91).
+- **Don’t:** emit true amulet name when `!oc_name_known` — `<descr> amulet`;
+  amulets start `dknown=1` via `clear_dknown` (D-0292).
+- Runner `Screen N/M` = total matches, not prefix length.
 
 ## Landmarks (≤15)
 
@@ -71,4 +53,4 @@ Objective/score live in `CURRENT.md`.
 - Hero MAGIC_TRAP → `domagictrap` (D-0266).
 - `m_move`: `set_apparxy` **before** mtame/shk|gd|priest (D-0267).
 - Key attribution ≠ RNG order (0-RNG `--More--`) (D-0228).
-- Bones / disclose / RIP / topten: D-0274…D-0291 (see index).
+- Bones / disclose / RIP / topten / amulet: D-0274…D-0292 (see index).

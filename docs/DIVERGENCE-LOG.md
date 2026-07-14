@@ -7468,3 +7468,24 @@ Open that file first; then jump to a single `## D-NNNN` entry below
   `ordin()` rank>10 text; full escape/ascend/quit outentry arms; astral/knox.
 - **Next:** Scr@818 seg5 cell diff; or seg7 step-count gap (159 vs 172).
 
+## D-0292 — amulet xname appearance + mksobj clear_dknown
+
+- **Status:** fixed
+- **Observed:** seed0030 prefix@93 — C `The kitten picks up a triangular
+  amulet.` vs JS `… an amulet versus poison.` (total Scr matched was 818).
+- **C locus:** `objnam.c` xname `AMULET_CLASS` — dknown+!nn+!un →
+  `"%s amulet", dn` via shuffled `OBJ_DESCR`; `mkobj.c` `clear_dknown` /
+  `unknow_object` — amulets not in `dknowns[]` start `dknown=1`.
+- **Cause:** JS `pretty_base` always emitted true amulet name; `mksobj`
+  never set `dknown` (falsy → would have been bare `"amulet"` even after
+  xname port).
+- **Change:** port AMULET_CLASS xname arms (`oc_descr_idx` shuffle;
+  Yendor/fake `known` arm; called-name); `clear_dknown` in `mksobj`
+  (shield-range clear; `oc_merge` / pudding deferred).
+- **Verification:** prefix **93→109**; Scr matched **818→821**; RNG full;
+  green+strict; 17-session PASS cohort + strict.
+- **Named omissions:** `oc_merge` clear; `Is_pudding` dknown=1; ring
+  appearance xname; `distant_name` side-effects in dogmove; full
+  `observe_object` in xname.
+- **Next:** prefix@109 JS `_` vs C `{`+DEC (fountain/altar/showsyms).
+
