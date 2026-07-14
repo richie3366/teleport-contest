@@ -910,6 +910,8 @@ export async function doattributes() {
     }
 
     // C tty enlightenment: 23 content rows + " (k of n)" footer per page.
+    // C dmore → xwaitforspace(quitchars): only space/CR/LF advance; ESC
+    // cancels remaining pages; other keys (e.g. ^O) bell and stay.
     const PAGE = 23;
     const pageCount = Math.max(1, Math.ceil(lines.length / PAGE));
     for (let p = 0; p < pageCount; p++) {
@@ -920,11 +922,39 @@ export async function doattributes() {
             cursor: [9, endRow],
         });
         await flush_screen(1);
-        await nhgetch();
+        let cancelled = false;
+        for (;;) {
+            const c = await nhgetch();
+            if (c === 27) { cancelled = true; break; }
+            if (c === 32 || c === 13 || c === 10) break;
+            // tty_nhbell — stay on this page (still a capture boundary)
+        }
+        if (cancelled) break;
     }
     clear_overlay();
     await docrt();
     await flush_screen(1);
+}
+
+/**
+ * C ref: invent.c doprgold / #showgold / '$'.
+ * Named omissions: hidden_gold stashed message; shopper_financial_report;
+ * menu_requested dispinv; non-verbose "no money" / total arms.
+ */
+export async function doprgold() {
+    let umoney = 0;
+    for (const o of game.invent || []) {
+        if (o.oclass === COIN_CLASS) umoney += o.quan | 0;
+    }
+    if (game.flags?.verbose !== false) {
+        if (!umoney) await pline('Your wallet is empty.');
+        else await pline(`Your wallet contains ${umoney} zorkmid${umoney === 1 ? '' : 's'}.`);
+    } else if (umoney) {
+        await pline(`You are carrying a total of ${umoney} zorkmid${umoney === 1 ? '' : 's'}.`);
+    } else {
+        await pline('You have no money.');
+    }
+    return ECMD_OK;
 }
 
 /**

@@ -20,6 +20,17 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-15 01:13 — #362 D-0335…0338 save/restore + showgold
+
+- Objective: seed0013-restore Scr 47/99 (CURRENT primary).
+- C locus: `save.c` dosave; `restore.c` dorecover; `allmain` welcome/
+  preamble; `invent` doprgold; `wintty` dmore quitchars.
+- Change: JSON VFS save/restore + `S` (D-0335); welcome-back align gate
+  (D-0336); attributes quitchars (D-0337); `$`/`doprgold` (D-0338).
+- Verification: RNG **full 4804**; Scr **47→68**/99; first miss `@62` `)`;
+  green+strict; 8 PASS cohort incl. seed0013-rogue.
+- Next: `@62` `)` bare-handed / `doprwep`.
+
 ## 2026-07-15 01:02 — #361 D-0334 farlook checkfile yn
 
 - Objective: seed2200 @39 look `--More--` vs moreinfo yn (CURRENT).

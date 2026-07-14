@@ -24,6 +24,63 @@ The compact status table lives in **`DIVERGENCE-INDEX.md`**.
 Open that file first; then jump to a single `## D-NNNN` entry below
 (via search). Do **not** read this whole file by default.
 
+## D-0338 — `$` / `doprgold` empty wallet
+
+- **Status:** fixed
+- **Observed:** seed0013-restore @60 — C `Your wallet is empty.` vs
+  JS `Unknown command '$'.`
+- **C locus:** `invent.c` `doprgold`
+- **Cause/evidence:** `$` unbound in `cmd.js`.
+- **Change:** `doprgold` verbose empty/nonempty wallet pline; bind `$`
+  (hidden_gold / shop report / menu deferred).
+- **Verification:** Scr **67→68**/99; RNG full; green+strict; seed0013-rogue
+  PASS.
+- **General lesson:** show-* commands are GENERALCMD peels after restore.
+
+## D-0337 — `doattributes` xwaitforspace quitchars
+
+- **Status:** fixed
+- **Observed:** seed0013-restore @56 — C still on attributes page after
+  `^O`; JS advanced/dismissed.
+- **C locus:** `wintty.c` `dmore` → `xwaitforspace(quitchars)`
+- **Cause/evidence:** page loop used bare `nhgetch()` (any key advances).
+- **Change:** only space/CR/LF advance; ESC cancels; other keys stay
+  (still capture boundaries).
+- **Verification:** @56 match; Scr **65→67**; green+strict; seed0013-rogue
+  PASS.
+- **General lesson:** corner enlightenment shares dmore quitchars with
+  NHW_TEXT.
+
+## D-0336 — welcome-back omit unchanged alignment
+
+- **Status:** fixed
+- **Observed:** seed0013-restore @49 — C
+  `Hello Sneaky, the human Rogue, welcome back…` vs JS
+  `…the chaotic human Rogue…`
+- **C locus:** `allmain.c` `welcome(FALSE)` align gate
+- **Cause/evidence:** JS always prefixed `align_str`; C only when
+  `new_game || baseOrig!=baseCur || adrift`.
+- **Change:** match C gate (+ adrift phrasing).
+- **Verification:** @49–@51 match; Scr **63→65**; green+strict.
+- **General lesson:** restore welcome is not the new-game sentence shape.
+
+## D-0335 — JSON `dosave` / restore via VFS
+
+- **Status:** fixed
+- **Observed:** seed0013-friday13-restore @47 — C `Really save? [yn] (n)`
+  vs JS `Unknown command 'S'.`; RNG stall into full newgame on seg1.
+- **C locus:** `save.c` `dosave`/`dosave0`; `restore.c` `dorecover`;
+  `unixmain` attempt_restore; `allmain` `moveloop_preamble(resuming)`
+- **Cause/evidence:** no `S` bind; no VFS save; seg1 always `newgame`.
+- **Change:** `js/save.js` JSON snapshot to `save/<plname>`; `dosave` yn +
+  farewell capture; `jsmain` restore before player_selection; preamble
+  skips `rnd`/`initrack` when resuming; `l_nhcore_init` on restore for
+  nhlib shuffle (2 rn2).
+- **Verification:** RNG **4803→4804**/4804; Scr **47→65** before follow-on
+  peels; green+strict; 8-session cohort PASS.
+- **General lesson:** cross-segment state is only `input.storage`; restore
+  must not re-shuffle objects.
+
 ## D-0334 — farlook `checkfile` yn + lookat `found=1`
 
 - **Status:** fixed

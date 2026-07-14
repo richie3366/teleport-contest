@@ -9,90 +9,46 @@ Objective/score live in `CURRENT.md`.
 
 - **Score:** **21/44** PASS (#360 suite); Scr **3424**/11405; RNG
   **240657**/792838; speed `18+0.12/turn`.
-- **Current unit:** seed0013-friday13-restore Scr **47**/99 RNG
-  **4803**/4804 — decode first-miss before patching.
-- **Fixed this iter:** D-0334 — `checkfile` → `yn_function` (NEED_MORE→
-  more); lookat stairs/ROOM/CORR `found: 1`; seed2200 Scr **206→229**
-  (sole miss parked @158 RC/`$HOME`).
-- **Alt:** seed0107 @2684.
-- **Parked:** D-0006; seed2200 @158 RC/`$HOME`.
+- **Current unit:** seed0013-restore Scr **68**/99 RNG **4804**/4804 —
+  first miss `@62` `)` → `You are bare handed.`
+- **Fixed this iter:** D-0335 JSON `dosave`/`restore` + `S`; D-0336
+  welcome-back align gate; D-0337 attributes quitchars; D-0338 `$` gold.
+- **Alt:** seed0107 @2684. **Parked:** D-0006; seed2200 @158 RC.
 
 ## Don’t re-check (≤15)
 
-- Do not gate on raw RNG index/coordinates.
-- Role `mnum` = PM_* IDs, never roles[] index; roles[] order matches C.
-- Ctrl-rush `run=3`, capital run `run=1` (D-0261); session `\r`→`\n` = `C('j')`.
-- **Don’t:** early-return `dochug` on `msleeping` — `disturb`/`rn2(7)` first (D-0278).
-- **Don’t:** `can_make_bones` without `no_bones_level` (D-0279).
-- **Don’t:** treat `dodrink` `ECMD_CANCEL` as time — `& ECMD_TIME` (D-0280).
-- **Don’t:** leave `#quit` AC-only — unknown → `y` vi-move (D-0281).
-- **Don’t:** `read_engr` maxelen from 80 — `BUFSZ`+feel-lit (D-0282).
-- **Don’t:** botl `Dlvl` from `uz.dlevel` — use `depth()`; Mines BROWN (D-0283).
-- **Don’t:** omit `m_throw` `tmp_at(DISP_FLASH)`; potion `oc_name_known` (D-0284/85).
-- **Don’t:** skip AT_WEAP `mswings`; botl HP `<0→0` (D-0286/87);
-  skip `bot` when `uhp==-1` — keep prior botl (D-0310);
-  live-paint botl on every flush/`more` — C `pline`→`flush`→`bot`, `more` no bot (D-0314);
-  omit `cls` `botlx` / spell `uen` `botl` when gating status on `bot()` (D-0314);
-  clamp fatal `uhp=0` in `losehp` — leave negative; `done` zeros after bot (D-0320).
-- **Don’t:** invent-disclose yn when `disclose:-i`; RIP needs Tourist XP (D-0288/89).
-- **Don’t:** omit RIP trailing blank putstr / `topten` after RIP (D-0290/91).
-- **Don’t:** emit true amulet name when `!oc_name_known` — `<descr> amulet` (D-0292);
-  leave TOOL/WEAPON `!nn` as actualn — use `OBJ_DESCR` (D-0305);
-  skip WAND `!nn` descr — `"%s wand"` + zap `dknown` (D-0309);
-  leave SCROLL `!nn` as actualn/`obj.known` — unlabeled/labeled arms (D-0312);
-  leave SPBOOK `!nn` as bare/`obj.known` — `"%s spellbook"` via dn (D-0321);
-  leave ARMOR `!nn` as actualn — use `OBJ_DESCR` (D-0325);
-  leave WAND out of `mksobj` `oc_uses_known` — `known=0` at create (D-0316);
-  leave `uhitm` private `mon_nam` — import `do_name` (D-0308);
-  omit death `paybill` — angry shk takes possessions before flush (D-0311);
-  bare `pmname` for isshk death — honorific + `shkname` + `KILLED_BY` (D-0313);
-  omit Priest `xname`/`doname` `bknown=1` — BUC always known (D-0315);
-  vain-push when monster behind boulder — `You_hear`/`canspotmon` then
-  `cannot_push` (no vain); `dopush` must clear dest `I` (D-0317);
-  skip `mon_wield_item` canseemon wield pline — turn spent but topline misses
-  `The gnome wields a bow!` (D-0318);
-  fire-and-forget `thitu`/`monshoot` pline — await before `losehp`/flight so
-  `--More--` keeps `tmp_at` flash + pre-damage HP (D-0319);
-  bare period on hero melee hit — `canseemon?exclam(dmg)` (D-0322);
-  muse fatal `losehp` without `finish_losehp_done` — death screens drop (D-0323);
-  leave `#quit` killer from prior death / nest dungeon only under died (D-0324);
-  always paint `@` when Invisible — `canspotself` gates `display_self` (D-0326);
-  hard-code xkilled `"kill"` — nonliving → `"destroy"` (D-0327);
-  persist bones `remembered_glyph`/`disp_*` — C clears before save (D-0328);
-  bare `MGIVENNAME` for named `PM_GHOST` — `s_suffix`+`" ghost"` (D-0329);
-  leave `;` unbound / force `more` after `do_look` putmixed — C `;`→
-  `doquickwhatis`; putmixed no forced more (D-0330);
-  paint `#`/getlin echo as one row / cap at 78 — `topl_putsym` wraps at
-  `CO-1` and `buf < COLNO` (D-0331);
-  drop getobj letters without `compactify` when suggested>5 — `a-g` (D-0332);
-  friday13 enl with one leading space — menu/tty body rows need two (D-0333);
-  hand-roll `checkfile` yn / keep lookat `found>1` — `yn_function` +
-  `found=1` after parenthetical (D-0334);
-  blanket `observe_object` in `xname` without `distantname` (regresses map).
-- Runner `Screen N/M` = total matches, not prefix length; contiguous cell
-  miss can precede a later named topline peel (D-0311→@594 while @583 RIP open).
+- No raw RNG-index / coordinate gates in production.
+- Role `mnum` = PM_* IDs; Ctrl-rush `run=3`, capital `run=1`; `\r`→`\n`.
+- **Don’t:** early-return `dochug` on `msleeping` (D-0278);
+  `can_make_bones` without `no_bones_level` (D-0279);
+  `dodrink` CANCEL as time (D-0280); `#quit` AC-only (D-0281);
+  `read_engr` maxelen from 80 (D-0282); botl `Dlvl` from `uz.dlevel` (D-0283);
+  omit `m_throw` flash / potion `nn` (D-0284/85); skip AT_WEAP `mswings` /
+  clamp fatal `uhp=0` / skip bot when `uhp==-1` / live-paint botl on more
+  (D-0286/87/310/314/320); invent yn when `disclose:-i` (D-0288);
+  omit RIP blank / topten (D-0290/91); true amulet/TOOL/WAND/SCROLL/SPBOOK/
+  ARMOR name when `!nn` (D-0292/305/309/312/321/325); WAND `known` at create
+  (D-0316); private `mon_nam` (D-0308); omit `paybill` (D-0311);
+  bare isshk death (D-0313); omit Priest `bknown` (D-0315);
+  vain-push behind boulder (D-0317); skip mon_wield pline (D-0318);
+  fire-and-forget thitu pline (D-0319); bare hit period (D-0322);
+  muse losehp without finish_done (D-0323); quit killer from prior death
+  (D-0324); always paint Invisible `@` (D-0326); hard-code xkilled kill
+  (D-0327); persist bones glyph memory (D-0328); bare MGIVENNAME ghost
+  (D-0329); `;` unbound / forced more (D-0330); getlin no CO wrap (D-0331);
+  drop letters without compactify (D-0332); friday13 one-space indent
+  (D-0333); hand-roll checkfile yn (D-0334); treat `S` as unknown /
+  skip VFS save (D-0335); always align on welcome-back (D-0336);
+  advance attr pages on any key (D-0337); leave `$` unbound (D-0338);
+  blanket `observe_object` in `xname` without `distantname`.
+- Runner `Screen N/M` = total matches, not prefix length.
 
 ## Landmarks (≤15)
 
-- STAIRS: `known_branch_stairs` → yellow else gray; `ladder & LA_DOWN` (D-0162).
-- `goto_level` descend: `stairway_find_from(&u.uz0, at_ladder)` (D-0224).
-- tty map: col = map_x−1; row = map_y+1; DEC: CSI/`SO`/`SI` (D-0253).
-- Session step: `steps[i].key === moves[i-1]` (D-0238).
-- `armoroff`: `nomul(-oc_delay)` + `afternmv` (D-0259).
-- `newmonhp` level-0: basehp=1; boost to min 2 (D-0260).
-- `more()`: space/CR/ESC only (topl `xwaitforspace`).
-- Shop mimic: after depth `rn2(10)`, `get_shop_item` (D-0262).
-- Fountain gem fate 27/24 → `dofindgem`/`rnd_class` (D-0263).
-- `dochug` NEED_HTH wield can spend turn (D-0264).
-- Key attribution ≠ RNG order (0-RNG `--More--`) (D-0228).
-- Bones / disclose / RIP / topten / amulet / DEC altar / noises / Monnam /
-  map_invisible / mimic / vault+fountain/sink/shop / TOOL descr / shop enter /
-  uhitm mon_nam / WAND descr / bot uhp==-1 / paybill / SCROLL unlabeled /
-  done_in_by isshk / botl flush·bot·more / Priest bknown / WAND known0 /
-  moverock hear-behind / mon_wield canseemon pline / thitu await pline /
-  losehp leave neg uhp / SPBOOK descr / hmon exclam / mbhitm finish_done /
-  quit deaths+outentry dungeon / ARMOR descr / canspotself newsym /
-  xkilled nonliving destroy / savebones clear glyph memory /
-  named ghost `"s ghost"` / `;` glance+look_at_monster / getlin CO wrap /
-  getobj compactify / friday13 enl indent / farlook checkfile yn:
-  D-0274…D-0334.
+- STAIRS yellow via `known_branch_stairs`; map col=x−1 row=y+1 DEC (D-0162/253).
+- `goto_level` descend: `stairway_find_from(&u.uz0)` (D-0224).
+- Session: `steps[i].key === moves[i-1]` (D-0238); `more()` space/CR/ESC.
+- Save: VFS `save/<plname>` JSON; restore skips `rndencode`;
+  `l_nhcore_init` still 2×rn2; farewell clears map no flush (D-0335).
+- D-0274…D-0338: bones/disclose/RIP/topten/descr/botl/paybill/ghost/`;`/
+  getlin/compactify/enl/checkfile/save/welcome/attr/`$`.

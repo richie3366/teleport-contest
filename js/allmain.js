@@ -36,8 +36,8 @@ import {
     ROLE_GENDMASK, ROLE_MALE, ROLE_FEMALE,
 } from './const.js';
 
-// C ref: allmain.c moveloop_preamble() — moon/friday + new-game RNG leaves
-async function moveloop_preamble(_resuming) {
+// C ref: allmain.c moveloop_preamble() — moon/friday; new-game RNG only when !resuming
+export async function moveloop_preamble(resuming) {
     if (!game.context) game.context = {};
     game.flags = game.flags || {};
 
@@ -55,12 +55,18 @@ async function moveloop_preamble(_resuming) {
         change_luck(-1);
     }
 
-    // svc.context.rndencode = rnd(9000);
-    game.context.rndencode = rnd(9000);
-    // svc.context.seer_turn = (long) rnd(30);
-    game.context.seer_turn = rnd(30);
-    // C: u.umovement = NORMAL_SPEED on new game
-    game.u.umovement = NORMAL_SPEED;
+    if (!resuming) {
+        // svc.context.rndencode = rnd(9000);
+        game.context.rndencode = rnd(9000);
+        // svc.context.seer_turn = (long) rnd(30);
+        game.context.seer_turn = rnd(30);
+        // C: u.umovement = NORMAL_SPEED on new game
+        game.u.umovement = NORMAL_SPEED;
+        // C: initrack() on new game only
+        initrack();
+    } else {
+        // C: read_engr_at / fix_shop_damage deferred
+    }
     game.context.move = 0;
 }
 
@@ -200,17 +206,25 @@ function exerchk() {
     // next_attrib_check tests not hit early in seed8000
 }
 
-// C ref: allmain.c welcome() — new-game path only (restore deferred)
-async function welcome(new_game) {
+// C ref: allmain.c welcome() — new_game false → restore path
+export async function welcome(new_game) {
     const g = game;
     // C: currentgend = Upolyd ? u.mfemale : flags.female (poly deferred)
     const currentgend = !!g.flags?.female;
     const role = g.urole || {};
     const race = g.urace || {};
-    const atype = g.u?.ualign?.type ?? 0;
+    const u = g.u || {};
+    const atype = u.ualign?.type ?? 0;
+    const baseCur = u.ualignbase?.current ?? atype;
+    const baseOrig = u.ualignbase?.original ?? atype;
+    // C: adrift = (u.ualign.type != u.ualignbase[A_CURRENT])
+    const adrift = atype !== baseCur;
 
-    // C builds buf as " <align> <gender?> <race> <role>"
-    let buf = ` ${align_str(atype)}`;
+    // C builds buf; align only for new_game or changed/adrift base align
+    let buf = '';
+    if (new_game || baseOrig !== baseCur || adrift) {
+        buf += ` ${adrift ? 'adrift ' : ''}${align_str(adrift ? atype : baseCur)}`;
+    }
     // C: if (!urole.name.f && both genders allowed on new_game) add gender adj
     const allowGend = (role.allow ?? 0) & ROLE_GENDMASK;
     if (!role.name?.f

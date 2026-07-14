@@ -39,7 +39,7 @@ seed0016, seed0015, seed0200, seed0101, seed0103, seed0104, seed0030,
 | Session | RNG | Screen | Note |
 |---------|----:|-------:|------|
 | seed2200 | 3018/3018 | **229**/230 | D-0334; sole miss parked @158 RC |
-| seed0013-friday13-restore | 4803/4804 | 47/99 | **primary** |
+| seed0013-friday13-restore | **4804**/4804 | **68**/99 | **primary** — `@62` `)` |
 | seed0107 | 2684/2902 | 36/98 | alt |
 | seed0002 | 5112/27158 | 8/595 | |
 | seed0012 | 0/13878 | 0/308 | stack overflow |
@@ -60,16 +60,17 @@ Both must remain full RNG + screen PASS with exact scored-output lengths.
 
 ## Primary objective
 
-**seed0013-friday13-restore** — RNG 4803/4804; Scr **47**/99
+**seed0013-friday13-restore** — RNG **4804**/4804; Scr **68**/99
 
 | | |
 |--|--|
-| **C locus** | restore / friday13 / save-load boundary (diagnose first) |
-| **JS locus** | save/restore path exercised by this session |
-| **Symptom** | near-full RNG; screens stall mid-restore |
-| **Hypothesis** | TBD — decode first-miss before patching |
-| **Falsifier** | Scr >47; or named C mismatch at first cell miss |
-| **Recent fixed** | D-0334 farlook checkfile yn + lookat `found=1`; seed2200 Scr 229 |
+| **C locus** | `invent.c` `doprwep` / cmd `)` |
+| **JS locus** | `js/cmd.js` / weapon show path |
+| **Symptom** | `@62` C `You are bare handed.` vs JS `Unknown command ')'` |
+| **Hypothesis** | `)` unbound — port `doprwep` subset |
+| **Falsifier** | Scr >68; or named C mismatch at first cell miss |
+| **Recent fixed** | D-0335…D-0338 save/restore + welcome align + attr
+  quitchars + `$`/`doprgold` |
 
 ```bash
 node frozen/ps_test_runner.mjs sessions/seed0013-friday13-save-then-fullmoon-restore.session.json

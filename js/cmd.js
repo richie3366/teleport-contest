@@ -16,7 +16,7 @@ import { COLNO, ROWNO, STONE, DOOR, CORR, ROOM, IRONBARS,
          ECMD_OK, ECMD_TIME, ECMD_CANCEL, DOMOVE_RUSH, DOMOVE_WALK } from './const.js';
 import { dist2 } from './mon.js';
 import {
-    ddoinv, dodiscovered, doattributes, dolook,
+    ddoinv, dodiscovered, doattributes, dolook, doprgold,
 } from './invent.js';
 import { dovspell, docast } from './spell.js';
 import { doeat } from './eat.js';
@@ -28,6 +28,7 @@ import { dothrow, dofire } from './dothrow.js';
 import { doapply } from './apply.js';
 import { dokick } from './dokick.js';
 import { donull, dodown, dodrop } from './do.js';
+import { dosave } from './save.js';
 import { do_attack, mon_at, is_safemon } from './uhitm.js';
 import { doopen_indir } from './lock.js';
 import { doextcmd } from './getline.js';
@@ -610,6 +611,14 @@ export async function rhack(key) {
         const tookTime = await dowield();
         game.context.move = tookTime ? 1 : 0;
         if (tookTime) game.kickedloc = { x: 0, y: 0 };
+    } else if (ch === 'S') {
+        // C ref: save.c dosave / cmd.c — #save (GENERALCMD, ECMD_OK)
+        await dosave();
+        game.context.move = 0;
+    } else if (ch === '$') {
+        // C ref: invent.c doprgold / cmd.c — #showgold (GENERALCMD)
+        await doprgold();
+        game.context.move = 0;
     } else if (ch === 'Q') {
         // C ref: wield.c dowieldquiver / doquiver_core("ready")
         const tookTime = await dowieldquiver();

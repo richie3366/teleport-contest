@@ -321,6 +321,10 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 | D-0332 | fixed | getobj drop compactify | `suggested>5` → `compactify`; drop `[a-g]`; seed0013 @23 |
 | D-0333 | fixed | friday13 enl indent | `doattributes` two-space body line; seed0013 full PASS |
 | D-0334 | fixed | farlook checkfile yn | `yn_function` NEED_MORE→more; lookat `found=1`; seed2200 Scr 206→229 |
+| D-0335 | fixed | JSON dosave/restore | `S`/`dosave0` VFS + restore segment; Scr 47→65; RNG full |
+| D-0336 | fixed | welcome restore align | omit align unless base changed/adrift; @49 welcome-back |
+| D-0337 | fixed | attributes quitchars | `doattributes` xwaitforspace; ^O stays on page; @56 |
+| D-0338 | fixed | `$` doprgold | empty wallet pline; @60 |
 
 
 
