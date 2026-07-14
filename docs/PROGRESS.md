@@ -39,8 +39,8 @@ frozen-file overlay):
 |--------|------:|
 | Sessions passing | **19 / 44** |
 | Screens matched | **1445 / 11,405** (12.67%) |
-| Positional RNG calls matched | **173,370 / 792,838** (21.87%) |
-| Speed label | `19+0.09/turn` |
+| Positional RNG calls matched | **173,331 / 792,838** (21.86%) |
+| Speed label | `18+0.09/turn` |
 | Working-tree base | `8b71735` + committed port (see `main`) |
 | Role-init throws | **0 / 44** (`u_init_role: role not ported`) |
 
@@ -64,7 +64,7 @@ shared blockers, and semantic coverage together—not one vanity metric.
 | `seed0501-priest-cast-read-turn` | **2238 / 2238** | **28 / 28** |
 | `seed2200-wizard-quaff-zap-read` | **3018 / 3018** | **229 / 230** |
 | `seed0017-samurai-altar-pray` | **3465 / 3465** | **67 / 67** |
-| `seed0030-ten-diverse-deaths` | **47171 / 105529** | **70 / 1953** |
+| `seed0030-ten-diverse-deaths` | **47132 / 105529** | **70 / 1953** |
 | `seed0103-knight-ride-pony` | **2640 / 2640** | **60 / 60** |
 | `seed0200-monk-north-search` | **3822 / 3822** | **40 / 40** |
 | `seed0101-ranger-quiver-throw-travel-engrave` | **2371 / 2371** | **27 / 27** |
@@ -541,12 +541,13 @@ seed0101 + seed0103 + seed0104 **PASS**. seed2200 RNG **full**
 seed0101 RNG **full** Scr **27**/27. seed0103 RNG **full** Scr **60**/60.
 seed0104 RNG **full** Scr **43**/43.
 
-- **Bounded unit:** seed0030 seg6 @10280 — C `rn2(100)` `obj_resists` vs JS
-  `rn2(4)` (after `m_harmless_trap` BEAR D-0245; seg6 **4080→10280**). /
+- **Bounded unit:** seed0030 seg6 @10815 — C `rn2(4)` themerms/`nhlib`
+  shuffle vs JS `rn2(1)` (after `goodpos` closed-door D-0246; seg6
+  **10280→10815**). /
   seed0361/0373 **quest `getbones`** (blocked: need `^V`→`goto_level`→
   `makemaz` first — ordinary `goto_level` now exists for stairs; Mines
   `fill_lvl` path exists D-0171).
-- **Prefer:** seg6 @10280 `obj_resists`/dog peel over quest bones until
+- **Prefer:** seg6 @10815 themerms/`nhlib` shuffle peel over quest bones until
   `^V`/`makemaz`; over parked D-0006 and over baking seed2200 RC paths.
   Hero `dotrap` deferred until monster pit peel is clear.
   Hero `xkilled` treasure `mkobj` done (D-0229; ordinary
@@ -724,6 +725,9 @@ seed0104 RNG **full** Scr **43**/43.
   **`m_harmless_trap` BEAR_TRAP size** (done D-0245; seg6
   **4080→10280**; positional **47171**/105529 Scr **70**/1953; next
   @10280 `obj_resists`);
+  **`goodpos`/`accessible` closed door** (done D-0246; seg6
+  **10280→10815**; positional **47132**/105529 Scr **70**/1953; next
+  @10815 themerms/`nhlib` shuffle);
   **`goto_level` `stairway_find_from`** (D-0224 find_from done);
   D-0218 upstairs theory rejected;
   …
@@ -1626,6 +1630,11 @@ Module status, constitutional debt, and named omissions live in
     — seed0030 seg6 **4080→10280** (`obj_resists` vs `rn2(4)`);
     positional **47171**/105529 Scr **70**/1953; full **19/44** Scr
     **1445** RNG **173370**; green+cohort PASS; next seg6 @10280 /
+    quest `getbones`
+223. `goodpos`/`accessible` closed door (D-0246)
+    — seed0030 seg6 **10280→10815** (themerms/`nhlib` shuffle);
+    positional **47132**/105529 Scr **70**/1953; full **19/44** Scr
+    **1445** RNG **173331**; green+cohort PASS; next seg6 @10815 /
     quest `getbones`
 
 Next work is selected from the active objectives above using

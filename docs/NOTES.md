@@ -7,10 +7,11 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 
 ## Active
 
-- **Current unit:** seed0030 seg6 @10280 — C `rn2(100)` `obj_resists` vs JS
-  `rn2(4)` (after `m_harmless_trap` BEAR_TRAP D-0245; seg6 **4080→10280**).
-- **Falsifier:** which mon/path burns `obj_resists` in C after dochug
-  `rn2(4)` while JS takes a different dochug/dog_goal branch.
+- **Current unit:** seed0030 seg6 @10815 — C `rn2(4)` themerms/`nhlib`
+  shuffle vs JS `rn2(1)` (after `goodpos` closed-door D-0246; seg6
+  **10280→10815**).
+- **Falsifier:** which themerms `region`/`shuffle` list length differs so
+  C burns `rn2(4..2)` while JS already finished that shuffle.
 - **Parked deep canary:** D-0006 pet movement — do not implement until C
   state/candidate capture exists.
 - **Parked seed2200 @158:** RC config path — harness `$HOME`, not a port bug.
@@ -173,6 +174,12 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   mtrack burns `rn2(12)`; JS treated all bear traps as harmful so
   known-trap skip dropped cnt 3→2 and skipped the burn (D-0245). Do not
   re-chase actor order / extra fleeck without checking trap harmlessness.
+- **seed0030 seg6 @10280 was NOT missing floor gold / dog_goal box bug** —
+  symptom C `obj_resists` vs JS `rn2(4)`: pet placement after descend
+  put JS kitten on closed door `(34,7)` because `goodpos` used bare
+  `ACCESSIBLE` (D-0246). C `accessible` rejects closed doors → different
+  `enexto` cell → gold in SQSRCHRADIUS. Screens use CSI `\x1b[NC` column
+  offsets — expand before reading map glyphs.
 - **`monattk.h`: AT_WEAP=254, AT_MAGC=255, AT_SPIT=10** — never use 10 for
   weapon (D-0179).
 - Hostile `m_move`: before place, `m_digweapon_check` may return
@@ -188,6 +195,7 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   mark `u_traversed`; not bare `u_on_upstairs`/`find_dir` (D-0224).
 - **tty map coords:** screen col = map_x − 1; screen row = map_y + 1
   (message row 0). Never treat session screen (65,3) as map (65,3).
+  DEC sessions also use CSI `\x1b[NC` — expand before glyph search.
 - **Session step key:** `steps[i].key === moves[i-1]` (RNG/screen after
   that key); `moves[i]` is the key about to be read at capture (D-0238).
 - **`F`/`do_fight`:** PREFIXCMD sets `forcefight`; next move dir attacks
@@ -276,6 +284,9 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   whirly / unsolid → harmless for `mfndpos` (known-trap skip does not
   apply). Newt/gecko/etc. keep bear-trap cells in the candidate set
   (D-0245).
+- **`goodpos`/`accessible`:** `ACCESSIBLE(typ) && !closed_door` — closed/
+  locked doors are **not** valid enexto spots (D-0246). Bare
+  `ACCESSIBLE(DOOR)` was wrong and placed pets on door cells.
 - **`test_move` diagonal into DOOR:** only `doorless_door` (D_NODOOR /
   D_BROKEN) allowed; open/closed/locked block diagonal entry/exit
   (D-0219). Same rule in `domove` and steed `landing_spot`/`test_move_ok`.

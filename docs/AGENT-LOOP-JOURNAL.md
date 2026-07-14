@@ -3162,3 +3162,17 @@ Use this shape:
   **70**/1953; full **19/44** Scr **1445** RNG **173370**; green+strict
   PASS; 17-session PASS cohort held.
 - Next: seed0030 seg6 @10280 obj_resists vs rn2(4); or quest getbones.
+
+## 2026-07-14 06:15 — goodpos accessible closed door (D-0246)
+- Objective: seed0030 seg6 @10280 C obj_resists vs JS rn2(4).
+- C locus: teleport.c goodpos → monmove.c accessible/closed_door;
+  dog.c mon_arrive/mnexto/enexto.
+- Result: **verified** — after descend, JS enexto placed kitten on
+  closed door (34,7) because goodpos used bare ACCESSIBLE(DOOR);
+  C rejects closed doors and placed elsewhere so dog_goal saw gold
+  and burned obj_resists. Ported accessible+occupied+boulder+amorph
+  door gates in js/teleport.js goodpos.
+- Verification: seg6 **10280→10815**; positional **47132**/105529 Scr
+  **70**/1953; full **19/44** Scr **1445** RNG **173331**; green+strict
+  PASS; 17-session PASS cohort held.
+- Next: seed0030 seg6 @10815 themerms/nhlib shuffle; or quest getbones.

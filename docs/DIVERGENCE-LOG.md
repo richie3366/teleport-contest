@@ -249,6 +249,7 @@ Do not record a guessed cause as fixed merely because an RNG prefix moved.
 | D-0243 | fixed | themerms Blocked center | map+replace_terrain; seg6 339→2638 |
 | D-0244 | fixed | FIGURINE rndmonnum_adj | adj(5,10)+is_human; seg6 2638→4080 |
 | D-0245 | fixed | m_harmless_trap BEAR | msize≤SMALL; seg6 4080→10280 |
+| D-0246 | fixed | goodpos accessible | closed door reject; seg6 10280→10815 |
 
 D-0001 through D-0005 predate the strict-length/cohort runbook. Their focused
 causes are preserved, but generic "green sessions held" is historical evidence,
@@ -6662,3 +6663,34 @@ cohort gates if those functions are touched again.
   `trapeffect` body still no-op.
 - **Next:** seed0030 seg6 @10280 `obj_resists` vs dochug/`dog_goal`;
   or quest `getbones`.
+
+## D-0246 — `goodpos`/`accessible` reject closed doors
+
+- **Status:** fixed
+- **Symptom:** seed0030 seg6 @10280 — C `rn2(100)` `obj_resists` via
+  `dog_goal` vs JS `rn2(4)` (follow path; no fobj in SQSRCHRADIUS).
+- **Cause:** after `>` descend, `mon_arrive`→`mnexto`→`enexto` shuffled
+  the same near-candy rings, but JS `goodpos` used bare `ACCESSIBLE(typ)`
+  and accepted the first candy cell `(34,7)` — a **closed door**
+  (`typ=DOOR`, `doormask=D_CLOSED`). C `accessible()` =
+  `ACCESSIBLE && !closed_door`, so it skipped that cell and placed the
+  kitten elsewhere (near gold in range → `dogfood`→`obj_resists`).
+  JS pet at the door had inbox=0 so never burned `obj_resists`.
+- **Rejected:** missing floor gold at a fixed map cell; fobj chain
+  corruption; dog_goal search-box bug (pet coords were wrong because
+  placement was wrong).
+- **C locus:** `teleport.c` `goodpos` → `accessible`; `monmove.c`
+  `accessible`/`closed_door`; `dog.c` `mon_arrive`/`mnexto`.
+- **Change:** `js/teleport.js` `goodpos` — `accessible` with closed/
+  locked door reject; occupied `m_at` when `mtmp`; boulder skip;
+  amorphous closed-door early-out; `goodpos_onscary` stub.
+- **Verification:** seg6 **10280→10815** (themerms/`nhlib` shuffle);
+  positional **47132**/105529 Scr **70**/1953; full **19/44** Scr
+  **1445** RNG **173331**; green+strict PASS; 17-session PASS cohort
+  held.
+- **Named omissions:** `SURFACE_AT` drawbridge under-typ; full
+  `goodpos_onscary` Elbereth/scare-scroll/altar-vampire; pool/lava
+  swimmer·flyer arms; `passes_walls`/`may_passwall` early-out;
+  `is_exclusion_zone`.
+- **Next:** seed0030 seg6 @10815 themerms/`nhlib` shuffle arity; or
+  quest `getbones`.

@@ -9,8 +9,14 @@ import {
     CC_SKIP_MONS, CC_SKIP_INACCS,
     GP_CHECKSCARY, GP_ALLOW_U, GP_AVOID_MONPOS, GP_ALLOW_XY,
     MM_IGNOREWATER, MM_IGNORELAVA,
-    ACCESSIBLE, IS_POOL, IS_LAVA, ZAP_POS,
+    ACCESSIBLE, IS_POOL, IS_LAVA, ZAP_POS, IS_DOOR,
+    D_CLOSED, D_LOCKED,
 } from './const.js';
+import { objects_at } from './mkobj.js';
+import { objectNames } from './objects.js';
+import { amorphous, throws_rocks } from './monsters.js';
+
+const BOULDER = objectNames.indexOf('BOULDER');
 
 function isok(x, y) {
     return x >= 1 && x < COLNO && y >= 0 && y < ROWNO;
@@ -28,13 +34,52 @@ function m_at(x, y) {
     return null;
 }
 
-// C ref: teleport.c goodpos() — enough for little_dog / kitten on room floor
+/** C ref: monmove.c closed_door — IS_DOOR && (CLOSED|LOCKED). */
+function closed_door(x, y) {
+    const loc = game.level?.at(x, y);
+    if (!loc || !IS_DOOR(loc.typ)) return false;
+    return !!((loc.doormask || 0) & (D_CLOSED | D_LOCKED));
+}
+
+/**
+ * C ref: monmove.c accessible — ACCESSIBLE(SURFACE_AT) && !closed_door.
+ * DRAWBRIDGE_UP under-typ (SURFACE_AT) deferred.
+ */
+function accessible(x, y) {
+    const loc = game.level?.at(x, y);
+    if (!loc) return false;
+    return ACCESSIBLE(loc.typ) && !closed_door(x, y);
+}
+
+function sobj_at(otyp, x, y) {
+    for (let o = objects_at(x, y); o; o = o.nexthere) {
+        if ((o.otyp | 0) === otyp) return o;
+    }
+    return null;
+}
+
+/**
+ * C ref: teleport.c goodpos_onscary — fakemon (m_id==0) scary approx.
+ * Elbereth / SCR_SCARE_MONSTER / altar-vampire arms deferred (named omission).
+ */
+function goodpos_onscary(_x, _y, mptr) {
+    if (!mptr) return false;
+    if (mptr.mlet === 'S_HUMAN' || mptr.mlet === 'S_ANGEL') return false;
+    return false;
+}
+
+/**
+ * C ref: teleport.c goodpos() — placement / enexto suitability.
+ * Pool/lava swimmer·flyer arms and passes_walls early-out deferred beyond
+ * closed-door / boulder / occupied / accessible gates needed for pets.
+ */
 export function goodpos(x, y, mtmp, gpflags = 0) {
     if (!isok(x, y)) return false;
     const allow_u = (gpflags & GP_ALLOW_U) !== 0;
     const avoid_monpos = (gpflags & GP_AVOID_MONPOS) !== 0;
     const ignorewater = (gpflags & MM_IGNOREWATER) !== 0;
     const ignorelava = (gpflags & MM_IGNORELAVA) !== 0;
+    const checkscary = (gpflags & GP_CHECKSCARY) !== 0;
 
     if (!allow_u && u_at(x, y)) return false;
     if (avoid_monpos && m_at(x, y)) return false;
@@ -42,10 +87,30 @@ export function goodpos(x, y, mtmp, gpflags = 0) {
     const loc = game.level?.at(x, y);
     if (!loc) return false;
     const typ = loc.typ;
+    let mdat = mtmp?.data ?? null;
 
-    if (IS_POOL(typ) && !ignorewater) return false;
-    if (IS_LAVA(typ) && !ignorelava) return false;
-    if (!ACCESSIBLE(typ)) return false;
+    if (mtmp) {
+        const mtmp2 = m_at(x, y);
+        // C: occupied by another mon (fakemon mx=0 never equals occupant)
+        if (mtmp2 && (mtmp2 !== mtmp || mtmp.wormno)) return false;
+
+        if (IS_POOL(typ) && !ignorewater) return false;
+        if (IS_LAVA(typ) && !ignorelava) return false;
+        // C: amorphous may ooze through closed doors before accessible()
+        if (amorphous(mdat) && closed_door(x, y)) return true;
+        if (checkscary && goodpos_onscary(x, y, mdat)) return false;
+    } else {
+        if (IS_POOL(typ) && !ignorewater) return false;
+        if (IS_LAVA(typ) && !ignorelava) return false;
+    }
+
+    // C: accessible() — rejects closed/locked doors (bare ACCESSIBLE is wrong)
+    if (!accessible(x, y)) {
+        if (!(IS_POOL(typ) && ignorewater) && !(IS_LAVA(typ) && ignorelava)) {
+            return false;
+        }
+    }
+    if (sobj_at(BOULDER, x, y) && (!mdat || !throws_rocks(mdat))) return false;
     return true;
 }
 
