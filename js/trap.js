@@ -761,7 +761,7 @@ async function trapeffect_dart_trap(mtmp, trap) {
         // steedintrap arm deferred (usteed rare at L1 commons)
         const box = { obj: otmp };
         // thitu plines are sync-append-safe after the shoot message
-        if (thitu(7, maybe_half_phys(dam), box, 'little dart')) {
+        if (await thitu(7, maybe_half_phys(dam), box, 'little dart')) {
             otmp = box.obj;
             if (otmp) {
                 // poisoned() body deferred — still consume dart (obfree)

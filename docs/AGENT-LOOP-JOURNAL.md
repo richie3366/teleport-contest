@@ -3316,3 +3316,18 @@ Use this shape:
   Scr **1463** RNG **180519**; green+strict PASS; 17-session PASS
   cohort held.
 - Next: seed0030 seg6 @19831 `next_ident` vs `rn2(2)`; or quest getbones.
+
+## 2026-07-14 — losehp→done + bones (D-0255)
+
+- Objective: seed0030 seg6 @19831 C `rnd(2) @ next_ident` vs JS `rn2(2)`.
+- C locus: hack.c losehp; end.c really_done; bones.c drop_upon_death /
+  savebones ghost.
+- Result: **verified** — value-matched rn2(2) was JS exercise after
+  fatal thitu/losehp that returned; C done(DIED) noreturn. Ported
+  finish_losehp_done, skip exercise/mulch, bones_ok mk_named CORPSE +
+  drop_upon_death + PM_GHOST MM_NONAME; can_make_bones before flush.
+- Verification: seg6 **FULL** 19884/19884; next seg7 @9290
+  trapeffect_slp_gas_trap; full **19/44** Scr **1463** RNG **180984**;
+  seed0030 **47905**/105529; green+strict PASS; 17-session PASS cohort
+  held.
+- Next: seed0030 seg7 @9290 trapeffect_slp_gas_trap; or quest getbones.

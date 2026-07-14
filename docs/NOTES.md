@@ -7,14 +7,13 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 
 ## Active
 
-- **Current unit:** seed0030 seg6 @19831 — C `rnd(2) @ next_ident` vs JS
-  `rn2(2)` after matched `thitu`/`can_make_bones` (post D-0254 magic trap).
-- **Hypothesis:** end-of-seg6 death/bones or corpse path calls `next_ident`
-  (`rnd(2)`) in C; JS either skips that alloc or burns a different `rn2(2)`
-  (e.g. leftover invent/split) so the streams desync before seg6 completes.
-- **Falsifier:** dump who died / which `mkobj`/`mksobj` path emits the
-  preceding `can_make_bones`; confirm JS `next_ident` uses `rnd(2)` like C
-  `mkobj.c` and is reached on that death.
+- **Current unit:** seed0030 seg7 @9290 — C `rnd(25) @ trapeffect_slp_gas_trap`
+  vs JS fleeck `rn2(5)` (post D-0255 seg6 FULL).
+- **Hypothesis:** monster stepped on sleeping-gas trap; C burns
+  `trapeffect_slp_gas_trap` (`rnd(25)`); JS selector still no-ops
+  SLP_GAS_TRAP so fleeck occupies the slot.
+- **Falsifier:** confirm trap type at peel cell; port mon
+  `trapeffect_slp_gas_trap` (and wire selector) from C `trap.c`.
 - **Parked deep canary:** D-0006 pet movement — do not implement until C
   state/candidate capture exists.
 - **Parked seed2200 @158:** RC config path — harness `$HOME`, not a port bug.
@@ -132,6 +131,12 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   `rn2(21) @ trapeffect_magic_trap`; JS selector no-op’d MAGIC_TRAP so
   fleeck `rn2(5)` occupied the slot (D-0254). Both seg6 hits had
   `rn2(21)≠0` (no fire fallthrough).
+- **seed0030 seg6 @19831 was NOT a missing invent `rn2(2)` /
+  `next_ident` alone** — value-matched `rn2(2)=1` was JS `exercise`
+  after fatal `thitu`/`losehp` that still returned; C `losehp`→
+  `done(DIED)` noreturn → `can_make_bones` then corpse/`savebones`
+  (D-0255). Do not chase bones before confirming fatal `losehp` stops
+  post-hit mulch/exercise.
 - **`monattk.h`: AT_WEAP=254, AT_MAGC=255, AT_SPIT=10** — never use 10 for
   weapon (D-0179).
 - Hostile `m_move`: before place, `m_digweapon_check` may return
@@ -193,6 +198,9 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 - **Monster MAGIC_TRAP:** `rn2(21)` then rarely `trapeffect_fire_trap`;
   nonzero → finished (usually immune). Hero `rn2(30)`/`domagictrap`
   deferred (D-0254).
-- **seg6 @18840:** Mines (dnum=2); peel was gnome flee vs approach
-  (D-0253); magic trap peel was @18913 (D-0254); next @19831
-  `next_ident` after bones.
+- **Fatal `losehp`:** C `urgent_pline`+`done(DIED)` noreturn — no
+  `exercise` / `drop_throw`/`should_mulch` after; bones corpse via
+  `mk_named_object` then `drop_upon_death`+`PM_GHOST` (D-0255).
+  `can_make_bones` before `display_nhwindow` in `really_done`.
+- **seg6 FULL** after D-0255; next peel **seg7 @9290**
+  `trapeffect_slp_gas_trap`.

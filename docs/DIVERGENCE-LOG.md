@@ -258,6 +258,7 @@ Do not record a guessed cause as fixed merely because an RNG prefix moved.
 | D-0252 | fixed | thitm dmgval | hit path called dmgval; stub dam=1 skipped rnd; seg6 18683→18840 |
 | D-0253 | fixed | m_balks launcher flee | @18840→18913; gnome appr=-1 vs approach |
 | D-0254 | fixed | trapeffect_magic_trap | mon rn2(21)→fire; seg6 18913→19831 |
+| D-0255 | fixed | losehp→done + bones | fatal thitu noreturn; corpse+ghost; seg6 FULL |
 
 D-0001 through D-0005 predate the strict-length/cohort runbook. Their focused
 causes are preserved, but generic "green sessions held" is historical evidence,
@@ -6921,4 +6922,32 @@ cohort gates if those functions are touched again.
   `can_make_bones`); full **19/44** Scr **1463** RNG **180519**;
   green+strict PASS; 17-session PASS cohort held.
 - **Next:** seed0030 seg6 @19831 `next_ident` vs `rn2(2)`; or quest
+  `getbones`.
+
+## D-0255 — fatal losehp→done + bones corpse/ghost (seed0030 seg6 @19831)
+
+- **Status:** fixed
+- **Symptom:** seed0030 seg6 @19831 — C `rnd(2) @ next_ident` vs JS
+  `rn2(2)` after value-matched `rn2(2)=1` (looked like can_make_bones).
+- **Evidence:** DIAG stacks — JS idx 19830 was `exercise`←`thitu` after
+  fatal `losehp` that only set gameover and **returned**; 19831–32 were
+  `should_mulch_missile`. C `losehp`→`urgent_pline`+`done(DIED)` is
+  noreturn, so exercise/mulch never run; real `can_make_bones` then
+  `mk_named_object(CORPSE)`→`savebones` drop+`PM_GHOST`.
+- **C locus:** `hack.c` `losehp`; `end.c` `really_done` corpse/
+  `savebones`; `bones.c` `drop_upon_death` / ghost `makemon`.
+- **Change:** `losehp` sets `_losehp_needs_done`; `thitu`/`m_throw`
+  await `finish_losehp_done` and skip post-hit RNG; `really_done`
+  `can_make_bones` before flush; `mk_named_object` corpse +
+  `drop_upon_death` + `makemon(PM_GHOST, MM_NONAME)` when bones_ok.
+- **Named omissions:** bones file I/O; give_to_nearby_mon body;
+  arise/statue arms; ebones; unleash/unpunish/dismount/dmonsfree;
+  invent discover_object; formatkiller epitaph; Lifesaved/Die?;
+  sync `losehp` callers that do not await `finish_losehp_done`
+  (moveloop stop still prevents further turns).
+- **Verification:** seg6 **FULL** 19884/19884; next seg7 @9290
+  `trapeffect_slp_gas_trap`; full **19/44** Scr **1463** RNG
+  **180984**; seed0030 positional **47905**/105529; green+strict
+  PASS; 17-session PASS cohort held.
+- **Next:** seed0030 seg7 @9290 `trapeffect_slp_gas_trap`; or quest
   `getbones`.

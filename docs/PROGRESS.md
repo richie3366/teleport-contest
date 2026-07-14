@@ -39,7 +39,7 @@ frozen-file overlay):
 |--------|------:|
 | Sessions passing | **19 / 44** |
 | Screens matched | **1463 / 11,405** (12.83%) |
-| Positional RNG calls matched | **180,519 / 792,838** (22.77%) |
+| Positional RNG calls matched | **180,984 / 792,838** (22.83%) |
 | Speed label | `18+0.10/turn` |
 | Working-tree base | `8b71735` + committed port (see `main`) |
 | Role-init throws | **0 / 44** (`u_init_role: role not ported`) |
@@ -64,7 +64,7 @@ shared blockers, and semantic coverage together—not one vanity metric.
 | `seed0501-priest-cast-read-turn` | **2238 / 2238** | **28 / 28** |
 | `seed2200-wizard-quaff-zap-read` | **3018 / 3018** | **229 / 230** |
 | `seed0017-samurai-altar-pray` | **3465 / 3465** | **67 / 67** |
-| `seed0030-ten-diverse-deaths` | **47440 / 105529** | **78 / 1953** |
+| `seed0030-ten-diverse-deaths` | **47905 / 105529** | **78 / 1953** |
 | `seed0103-knight-ride-pony` | **2640 / 2640** | **60 / 60** |
 | `seed0200-monk-north-search` | **3822 / 3822** | **40 / 40** |
 | `seed0101-ranger-quiver-throw-travel-engrave` | **2371 / 2371** | **27 / 27** |
@@ -541,15 +541,15 @@ seed0101 + seed0103 + seed0104 **PASS**. seed2200 RNG **full**
 seed0101 RNG **full** Scr **27**/27. seed0103 RNG **full** Scr **60**/60.
 seed0104 RNG **full** Scr **43**/43.
 
-- **Bounded unit:** seed0030 seg6 @19831 — **D-0255** open —
-  `next_ident` (`rnd(2)`) vs JS `rn2(2)` after matched
-  `thitu`/`can_make_bones` (post D-0254). D-0254
-  `trapeffect_magic_trap` **ported** (seg6 **18913→19831**). /
+- **Bounded unit:** seed0030 seg7 @9290 — **D-0256** open —
+  `trapeffect_slp_gas_trap` (`rnd(25)`) vs JS fleeck `rn2(5)` (post
+  D-0255 seg6 **FULL**). D-0255 fatal `losehp`→`done` + bones
+  corpse/ghost **ported** (seg6 **19831→FULL**). /
   seed0361/0373 **quest `getbones`** (blocked: need `^V`→`goto_level`→
   `makemaz` first — ordinary `goto_level` now exists for stairs; Mines
   `fill_lvl` path exists D-0171).
-- **Prefer:** end-of-seg6 death/`next_ident` peel or remaining monster
-  trap arms over quest bones until `^V`/`makemaz`; over parked D-0006
+- **Prefer:** mon `trapeffect_slp_gas_trap` (wire selector) over quest
+  bones until `^V`/`makemaz`; over parked D-0006
   and over baking seed2200 RC paths.
   Hero `dotrap` MAGIC_TRAP/`domagictrap` deferred (D-0254 named
   omission). Hero dart `dotrap` done (D-0239). Hero `xkilled` treasure
@@ -758,7 +758,10 @@ seed0104 RNG **full** Scr **43**/43.
   **`trapeffect_magic_trap`/`trapeffect_fire_trap`** (done D-0254;
   seg6 **18913→19831**; full **19/44** Scr **1463** RNG **180519**;
   next @19831 `next_ident`);
-  **seg6 @19831 next_ident** (D-0255 **open**);
+  **fatal `losehp`→`done` + bones corpse/ghost** (done D-0255;
+  seg6 **FULL**; full **19/44** Scr **1463** RNG **180984**;
+  next seg7 @9290 `trapeffect_slp_gas_trap`);
+  **seg7 @9290 slp_gas** (D-0256 **open**);
   **`goto_level` `stairway_find_from`** (D-0224 find_from done);
   D-0218 upstairs theory rejected;
   …
@@ -1709,6 +1712,10 @@ Module status, constitutional debt, and named omissions live in
     selector no-op had shifted fleeck into magic slot. Full **19/44**
     Scr **1463** RNG **180519**; green+cohort PASS; next @19831 /
     quest `getbones`
+233. fatal `losehp`→`done` + bones corpse/ghost (D-0255)
+    — seed0030 seg6 **FULL** 19884/19884; next seg7 @9290
+    `trapeffect_slp_gas_trap`. Full **19/44** Scr **1463** RNG
+    **180984**; seed0030 **47905**/105529; green+cohort PASS.
 
 Next work is selected from the active objectives above using
 `PORTING-RUNBOOK.md`, not by extending this historical list.

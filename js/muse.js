@@ -248,7 +248,7 @@ function mbhit(mon, range, obj) {
  * C ref: muse.c use_offensive — potion hurls + WAN_STRIKING mbhit
  * (return 2 = spent turn). Other wand/horn/scroll cases deferred.
  */
-export function use_offensive(mtmp) {
+export async function use_offensive(mtmp) {
     const m = museState();
     const otmp = m.offensive;
     if (!otmp) return 0;
@@ -278,7 +278,7 @@ export function use_offensive(mtmp) {
             observe_object(otmp);
             pline(`${Monnam(mtmp)} hurls ${singular(otmp, doname)}!`);
         }
-        m_throw(
+        await m_throw(
             mtmp, mtmp.mx, mtmp.my,
             sgn((mtmp.mux ?? game.u?.ux) - mtmp.mx),
             sgn((mtmp.muy ?? game.u?.uy) - mtmp.my),
