@@ -2369,9 +2369,11 @@ async function themerooms_generate(difficulty) {
         }
 
         // C themerms.lua rectangular rooms:
-        //  default → ordinary filled=1
+        //  default → ordinary filled=1 (fully-random create_room)
+        //  sized outer rooms → create_room positioned (rnd(5)) when w/h set
         //  Nesting rooms → fixed w/h then build_room (D-0226)
         //  Default/Unlit/Both themed fill → type=themed + themeroom_fill
+        // Size RNG must run before build_room's rn2(100) (Lua table eval order).
         let rtype = OROOM;
         let rlit = -1;
         let needfill = FILL_NORMAL;
@@ -2383,6 +2385,39 @@ async function themerooms_generate(difficulty) {
             room_w = 9 + rn2(4);
             room_h = 9 + rn2(4);
             needfill = FILL_NORMAL;
+        } else if (pick.name === 'Fake Delphi') {
+            // C ref: themerms.lua:294 — outer w=11,h=9; nested create_subroom deferred
+            room_w = 11;
+            room_h = 9;
+            needfill = FILL_NORMAL;
+        } else if (pick.name === 'Huge room with another room inside') {
+            // C ref: themerms.lua:325 — w/h before des.room; nested body deferred
+            room_w = rn2(10) + 11;
+            room_h = rn2(5) + 8;
+            needfill = FILL_NORMAL;
+        } else if (pick.name === 'Pillars') {
+            // C ref: themerms.lua:402 — themed 10×10; pillar terrain deferred
+            rtype = THEMEROOM;
+            room_w = 10;
+            room_h = 10;
+            needfill = 0;
+        } else if (pick.name === 'Mausoleum') {
+            // C ref: themerms.lua:422 — themed odd size; nested 1×1 deferred
+            rtype = THEMEROOM;
+            room_w = 5 + rn2(3) * 2;
+            room_h = 5 + rn2(3) * 2;
+            needfill = 0;
+        } else if (pick.name === 'Random dungeon feature') {
+            // C ref: themerms.lua:448 — odd-sized ordinary; center terrain deferred
+            room_w = 3 + rn2(3) * 2;
+            room_h = 3 + rn2(3) * 2;
+            needfill = FILL_NORMAL;
+        } else if (pick.name === 'Twin businesses') {
+            // C ref: themerms.lua:824 — themed 9×5 aisle; nested shops deferred
+            rtype = THEMEROOM;
+            room_w = 9;
+            room_h = 5;
+            needfill = 0;
         } else if (pick.name === 'Default room with themed fill') {
             rtype = THEMEROOM;
             needfill = 0;
@@ -2397,11 +2432,10 @@ async function themerooms_generate(difficulty) {
             needfill = FILL_NORMAL;
             do_themed_fill = true;
         }
-        // Named omission: Fake Delphi / Huge / Room-in-room / Pillars /
-        // Mausoleum / Water vault / Twin businesses size+nested bodies still
-        // fall through as plain create_room. Nesting nested create_subroom/
-        // create_door deferred (outer often fails). Blocked center map+
-        // replace_terrain done (D-0243).
+        // Named omission: Room-in-room nested create_subroom/door; Fake Delphi /
+        // Huge / Nesting / Mausoleum / Twin nested bodies; Pillars terrain;
+        // Random-feature center terrain. Water vault is map-path. Blocked
+        // center map+replace_terrain done (D-0243).
 
         // C build_room: chance defaults to 100 → always burns rn2(100)
         // (after contents arg RNG such as Nesting rn2(4) size rolls)

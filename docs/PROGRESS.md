@@ -38,8 +38,8 @@ frozen-file overlay):
 | Metric | Value |
 |--------|------:|
 | Sessions passing | **19 / 44** |
-| Screens matched | **1456 / 11,405** (12.77%) |
-| Positional RNG calls matched | **180,270 / 792,838** (22.74%) |
+| Screens matched | **1455 / 11,405** (12.76%) |
+| Positional RNG calls matched | **180,450 / 792,838** (22.76%) |
 | Speed label | `18+0.10/turn` |
 | Working-tree base | `8b71735` + committed port (see `main`) |
 | Role-init throws | **0 / 44** (`u_init_role: role not ported`) |
@@ -64,7 +64,7 @@ shared blockers, and semantic coverage together—not one vanity metric.
 | `seed0501-priest-cast-read-turn` | **2238 / 2238** | **28 / 28** |
 | `seed2200-wizard-quaff-zap-read` | **3018 / 3018** | **229 / 230** |
 | `seed0017-samurai-altar-pray` | **3465 / 3465** | **67 / 67** |
-| `seed0030-ten-diverse-deaths` | **47186 / 105529** | **71 / 1953** |
+| `seed0030-ten-diverse-deaths` | **47366 / 105529** | **70 / 1953** |
 | `seed0103-knight-ride-pony` | **2640 / 2640** | **60 / 60** |
 | `seed0200-monk-north-search` | **3822 / 3822** | **40 / 40** |
 | `seed0101-ranger-quiver-throw-travel-engrave` | **2371 / 2371** | **27 / 27** |
@@ -76,7 +76,7 @@ shared blockers, and semantic coverage together—not one vanity metric.
 | `seed0105-valk-chat-lamp-ration` | **2499 / 2499** | **30 / 30** |
 | `seed0015-valk-level2-pit-dog-wait` | **8563 / 8563** | **44 / 44** |
 | `seed0077-rogue-chargen` | **3242 / 3242** | **33 / 33** |
-| `seed0013-rogue-friday13-combat` | **560 / 4838** | 1 / 59 |
+| `seed0013-rogue-friday13-combat` | **4004 / 4838** | 6 / 59 |
 
 seed8000 + seed0900 + seed1500 + seed1800 + seed0060 + seed0102 +
 seed0700 + seed1150 + seed0017 + seed0077 + seed0106 + seed0501 +
@@ -541,13 +541,13 @@ seed0101 + seed0103 + seed0104 **PASS**. seed2200 RNG **full**
 seed0101 RNG **full** Scr **27**/27. seed0103 RNG **full** Scr **60**/60.
 seed0104 RNG **full** Scr **43**/43.
 
-- **Bounded unit:** seed0030 seg6 @11830 — C `rnd(5)` positioned
-  `create_room` vs JS `rn2(6)` (after Buried zombies D-0247; seg6
-  **10815→11830**). /
+- **Bounded unit:** seed0030 seg6 @13801 — C `rnd_defensive_item`
+  after `m_initinv` `rn2(50)` vs JS `rn2(100)` (after Fake Delphi sizes
+  D-0248; seg6 **11830→13801**). /
   seed0361/0373 **quest `getbones`** (blocked: need `^V`→`goto_level`→
   `makemaz` first — ordinary `goto_level` now exists for stairs; Mines
   `fill_lvl` path exists D-0171).
-- **Prefer:** seg6 @11830 positioned `create_room` peel over quest bones until
+- **Prefer:** seg6 @13801 `m_initinv`/`rnd_defensive_item` peel over quest bones until
   `^V`/`makemaz`; over parked D-0006 and over baking seed2200 RC paths.
   Hero `dotrap` deferred until monster pit peel is clear.
   Hero `xkilled` treasure `mkobj` done (D-0229; ordinary
@@ -655,8 +655,10 @@ seed0104 RNG **full** Scr **43**/43.
   age-exception/acid/poison done D-0197); other `mhitm_ad_*` +
   `destroy_items` body (AD_ELEC mgc gate done D-0198);
   bare `distmin<=1` `monnear` (NODIAG done D-0199);   Fake Delphi/
-  Pillars/nested `des.room` + other themerms fills beyond Ghost/
-  Teleportation hub/Storeroom/Blocked center (D-0200/D-0243); `set_mimic_sym` shop/
+  Pillars/nested `des.room` bodies (outer sizes done D-0248) + other
+  themerms fills beyond Ghost/
+  Teleportation hub/Storeroom/Blocked center/Buried zombies
+  (D-0200/D-0243/D-0247); `set_mimic_sym` shop/
   maze arms; **`shkveg`/`mkveggy_at` + Izchak + wizard SHOPTYPE**
   (`stock_room`/`shkinit`/`mkshobj_at` done D-0203); **You_hear
   plines / temple_priest / oracle canseemon** (`dosounds` gates done
@@ -731,6 +733,9 @@ seed0104 RNG **full** Scr **43**/43.
   **Buried zombies fill** (done D-0247; seg6 **10815→11830**;
   positional **47186**/105529 Scr **71**/1953; next @11830
   positioned `create_room`);
+  **sized rectangular themerms outer** (done D-0248; seg6
+  **11830→13801**; positional **47366**/105529 Scr **70**/1953;
+  seed0013 **560→4004**; next @13801 `rnd_defensive_item`);
   **`goto_level` `stairway_find_from`** (D-0224 find_from done);
   D-0218 upstairs theory rejected;
   …
@@ -1644,6 +1649,11 @@ Module status, constitutional debt, and named omissions live in
     positional **47186**/105529 Scr **71**/1953; full **19/44** Scr
     **1456** RNG **180270**; green+cohort PASS; next seg6 @11830 /
     quest `getbones`
+225. Sized rectangular themerms outer (D-0248)
+    — seed0030 seg6 **11830→13801** (`rnd_defensive_item`);
+    positional **47366**/105529 Scr **70**/1953; full **19/44** Scr
+    **1455** RNG **180450**; seed0013 **560→4004** Scr **1→6**;
+    green+cohort PASS; next seg6 @13801 / quest `getbones`
 
 Next work is selected from the active objectives above using
 `PORTING-RUNBOOK.md`, not by extending this historical list.

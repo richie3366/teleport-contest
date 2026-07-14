@@ -7,11 +7,11 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 
 ## Active
 
-- **Current unit:** seed0030 seg6 @11830 — C `rnd(5)` positioned
-  `create_room` vs JS `rn2(6)` (after Buried zombies D-0247; seg6
-  **10815→11830**).
-- **Falsifier:** which themeroom/`des.room` path still uses irregular
-  `somexy`/`rn2(w)` instead of positioned `create_room` `rnd(5)`×2.
+- **Current unit:** seed0030 seg6 @13801 — C `rnd_defensive_item`
+  `rn2(11)` after `m_initinv` `rn2(50)=1` vs JS `rn2(100)` (after
+  Fake Delphi sizes D-0248; seg6 **11830→13801**).
+- **Falsifier:** does JS `m_initinv` skip the `rn2(50)`→`rnd_defensive_item`
+  branch that C takes for this monster class (soldier/humanoid)?
 - **Parked deep canary:** D-0006 pet movement — do not implement until C
   state/candidate capture exists.
 - **Parked seed2200 @158:** RC config path — harness `$HOME`, not a port bug.
@@ -90,6 +90,10 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 - **seed0030 seg6 @10815 was NOT a region/selection list-length gap** —
   fill reservoir `rn2(1)..rn2(13)` matched; pick was Buried zombies;
   JS lacked the fill body so next room reservoir started early (D-0247).
+- **seed0030 seg6 @11830 was NOT irregular `somexy`/`rn2(w)`** —
+  reservoir picked Fake Delphi (`rn2(1001)=0`); C outer `des.room`
+  w=11,h=9 → positioned `create_room` `rnd(5)`; JS fell through as
+  fully-random `create_room` (D-0248).
 - **`monattk.h`: AT_WEAP=254, AT_MAGC=255, AT_SPIT=10** — never use 10 for
   weapon (D-0179).
 - Hostile `m_move`: before place, `m_digweapon_check` may return
@@ -121,6 +125,11 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   `shuffle(zombifiable)` then `mksobj(CORPSE)`→`set_corpsenm`→
   `bury_an_obj`/`obj_resists(0,0)`→`stop rot`→`zombify 990+rn2(21)`
   (D-0247). List expands at diff>3 / >6.
+- **Sized rectangular themerms:** Fake Delphi 11×9, Huge
+  `rn2(10)+11`×`rn2(5)+8`, Pillars 10×10, Mausoleum
+  `5+rn2(3)*2`, Random feature `3+rn2(3)*2`, Twin businesses 9×5 —
+  size RNG **before** `build_room` `rn2(100)` → positioned
+  `create_room` (D-0248). Nested create_subroom/door/terrain deferred.
 - **`goodpos`/`accessible`:** `ACCESSIBLE(typ) && !closed_door` — closed/
   locked doors are **not** valid enexto spots (D-0246). Bare
   `ACCESSIBLE(DOOR)` was wrong and placed pets on door cells.

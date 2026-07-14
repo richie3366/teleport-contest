@@ -3192,3 +3192,16 @@ Use this shape:
   **1456** RNG **180270**; green+strict PASS; 17-session PASS cohort
   held.
 - Next: seed0030 seg6 @11830 positioned create_room; or quest getbones.
+
+## 2026-07-14 04:21 — sized rectangular themerms outer (D-0248)
+- Objective: seed0030 seg6 @11830 C `rnd(5)` positioned create_room vs JS `rn2(6)`.
+- C locus: themerms.lua Fake Delphi w=11,h=9; sp_lev.c create_room positioned @1585.
+- Result: **verified** — reservoir pick was Fake Delphi (`rn2(1001)=0`);
+  JS fell through as fully-random create_room. Ported outer sizes for
+  Fake Delphi / Huge / Pillars / Mausoleum / Random feature / Twin
+  businesses (size RNG before build_room rn2(100)). Nested bodies deferred.
+- Verification: seg6 **11830→13801** (`rnd_defensive_item`); positional
+  **47366**/105529 Scr **70**/1953; full **19/44** Scr **1455** RNG
+  **180450**; seed0013 **560→4004** Scr **1→6**; green+strict PASS;
+  17-session PASS cohort held.
+- Next: seed0030 seg6 @13801 m_initinv→rnd_defensive_item; or quest getbones.

@@ -251,6 +251,7 @@ Do not record a guessed cause as fixed merely because an RNG prefix moved.
 | D-0245 | fixed | m_harmless_trap BEAR | msize≤SMALL; seg6 4080→10280 |
 | D-0246 | fixed | goodpos accessible | closed door reject; seg6 10280→10815 |
 | D-0247 | fixed | themerms Buried zombies | fill body; seg6 10815→11830 |
+| D-0248 | fixed | themerms sized outer rooms | Fake Delphi+… positioned create_room; seg6 11830→13801 |
 
 D-0001 through D-0005 predate the strict-length/cohort runbook. Their focused
 causes are preserved, but generic "green sessions held" is historical evidence,
@@ -6724,3 +6725,28 @@ cohort gates if those functions are touched again.
   for `ZOMBIFY_MON`; `oeaten` rescale in `set_corpsenm`.
 - **Next:** seed0030 seg6 @11830 positioned `create_room` / Nesting
   follow-on; or quest `getbones`.
+
+## D-0248 — sized rectangular themerms outer `create_room`
+
+- **Status:** fixed
+- **Symptom:** seed0030 seg6 @11830 — C `rnd(5)` @ `create_room`
+  positioned vs JS `rn2(6)` (fully-random room branch).
+- **Cause:** after matched themerms reservoir + `build_room` `rn2(100)` +
+  `litstate_rnd`, pick was **Fake Delphi** (`rn2(1001)=0`). C
+  `des.room({w=11,h=9})` → `create_room(-1,-1,11,9,-1,-1)` positioned
+  path (`rnd(5)`×2). JS treated Fake Delphi (and other sized rectangular
+  themerms) as default fully-random `create_room(-1,-1,-1,-1,…)`.
+- **C locus:** `themerms.lua` Fake Delphi / Huge / Pillars / Mausoleum /
+  Random dungeon feature / Twin businesses; `sp_lev.c` `build_room` /
+  `create_room` positioned @1580.
+- **Change:** `js/mklev.js` `themerooms_generate` — outer `room_w`/`room_h`
+  (and THEMEROOM rtype where needed) before `rn2(100)` for those rooms.
+- **Verification:** seg6 **11830→13801** (`rnd_defensive_item` vs JS
+  `rn2(100)`); positional **47366**/105529 Scr **70**/1953; full
+  **19/44** Scr **1455** RNG **180450**; seed0013 prefix **560→4004**
+  Scr **1→6**; green+strict PASS; 17-session PASS cohort held.
+- **Named omissions:** nested `create_subroom`/door for Fake Delphi /
+  Huge / Nesting / Mausoleum / Twin / Room-in-room; Pillars terrain;
+  Random-feature center terrain; Water vault is map-path.
+- **Next:** seed0030 seg6 @13801 `m_initinv`→`rnd_defensive_item`; or
+  quest `getbones`.
