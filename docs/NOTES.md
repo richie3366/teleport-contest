@@ -7,6 +7,8 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
+- **Score (#350):** **19/44**; Scr **2883**/11405 (25.28%); RNG
+  **240657**/792838; speed `18+0.12/turn`. Primary unchanged.
 - **Current unit:** seed0030 Scr **1446**/1953 RNG **FULL**; cell first-miss **@1433**.
 - **@1433:** C `The wand hits you!--More--` (Florian still alive HP:4) vs JS
   Samurai welcome (next life). Seg7 JS screens **159** vs C **172** (−13).

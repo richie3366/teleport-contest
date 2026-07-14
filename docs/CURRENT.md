@@ -18,17 +18,17 @@ label, PASS list, notable non-PASS. Do not invent suite totals from a single
 focused session.
 
 Score last measured: **2026-07-14** — full `sessions` suite (global loop
-**#345**) after D-0318 `mon_wield_item` canseemon pline. Same 19 PASS;
-Scr **2864→2865**.
+**#350**) after D-0322. Same 19 PASS; Scr **2865→2883** (+18 from peels
+#346–#349); RNG unchanged; speed `18+0.12/turn`.
 
 ## Score
 
 | Metric | Value |
 |--------|------:|
 | Sessions passing | **19 / 44** |
-| Screens matched | **2865 / 11,405** (25.12%) |
+| Screens matched | **2883 / 11,405** (25.28%) |
 | Positional RNG calls matched | **240,657 / 792,838** (30.35%) |
-| Speed label | `17+0.12/turn` (R² 0.79) |
+| Speed label | `18+0.12/turn` (R² 0.79) |
 | Role-init throws | **0 / 44** |
 
 **PASS (19):** seed8000, seed0900, seed1500, seed1800, seed0060, seed0102,
@@ -37,7 +37,7 @@ seed0016, seed0015, seed0200, seed0101, seed0103, seed0104.
 
 **Notable non-PASS:**
 | Session | RNG | Screen | Note |
-|---------:|----:|-------:|------|
+|---------|----:|-------:|------|
 | seed0030 | 105529/105529 | **1446**/1953 | primary peel; cell first-miss **@1433** |
 | seed2200 | 3018/3018 | **175**/230 | RNG full; Scr cells 178/230 |
 | seed0013-rogue | 4838/4838 | 57/59 | |

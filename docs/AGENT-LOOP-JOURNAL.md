@@ -20,6 +20,16 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-14 22:38 — #350 public score refresh
+
+- Objective: mandatory full `sessions` (#350 % 5 == 0).
+- C locus: n/a (score cadence; no port patch).
+- Change: none — documented suite after D-0322 peels #346–#349.
+- Verification: green+strict PASS; full suite **19/44**, Scr **2883**/11405
+  (25.28%, was 2865), RNG **240657**/792838 (30.35%), speed
+  `18+0.12/turn`; seed0030 still Scr **1446**/1953 first-miss **@1433**.
+- Next: @1433 fatal wand-hit `--More--` / death screen capture (seg7 −13).
+
 ## 2026-07-14 22:36 — #349 D-0322 hmon hit exclam
 
 - Objective: seed0030 @1429 `You hit Swidnica!` vs `.` (CURRENT).
@@ -157,23 +167,3 @@ Use this shape:
 - Verification: prefix **580→582**; Scr **1383→1387**; green+strict;
   17 PASS cohort + strict sample.
 - Next: @582 Maganasipi takes all your possessions.
-
-## 2026-07-14 20:20 — #332 D-0308/09 Maganasipi miss + long wand
-
-- Objective: seed0030 @580 long wand (CURRENT); literal first-miss was @576.
-- C locus: `do_name.c` mon_nam; `objnam.c` WAND_CLASS xname; `muse.c` mzapwand.
-- Change: uhitm import shared mon_nam (D-0308); WAND `"%s wand"` + mzapwand
-  `dknown=1` (D-0309). Blanket xname observe falsified (distantname).
-- Verification: prefix **576→580**; Scr **1376→1383**; @580 topline OK;
-  green+strict; 17 PASS cohort + strict sample.
-- Next: @580 botl HP 0 vs 11 after Boing+hit.
-
-## 2026-07-14 19:59 — #330 score + D-0306 shop You_hear
-
-- Objective: mandatory every-5 full `sessions` (#330); seed0030 @550 peel.
-- C locus: `sounds.c` `dosounds` — `You_hear1(shop_msg[rn2(2)+hallu])`.
-- Change: emit shop_msg via `You_hear` (was RNG-only burn) (D-0306).
-- Verification: prefix **550→573**; Scr **1371→1373**; suite **19/44**,
-  Scr **2810**/11405 (24.64%), RNG **240657**/792838, `17+0.11/turn`;
-  green+strict PASS; 19 PASS held.
-- Next: @573 C shop welcome — port `u_entered_shop` / `ushops_entered`.
