@@ -20,6 +20,16 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-14 21:51 — #343 D-0316 mksobj WAND known=0
+
+- Objective: seed0030 @791 glass wand charges (CURRENT).
+- C locus: `mkobj.c` `unknow_object` / `WAND()` `oc_uses_known=1`.
+- Change: `mksobj` uskn heuristic includes `WAND_CLASS` so new wands
+  start `known=0` (D-0316). Symptom was `doname` `(0:6)`, root was create.
+- Verification: @791/@793 bare glass wand; Scr **1398→1400**; first miss
+  **@836** boulder hear-behind; RNG full; green+strict; 17 PASS cohort.
+- Next: @836 `hear a monster behind the boulder` vs vain push.
+
 ## 2026-07-14 21:44 — #342 D-0315 Priest xname bknown
 
 - Objective: seed0030 @787 Things that are here (CURRENT).

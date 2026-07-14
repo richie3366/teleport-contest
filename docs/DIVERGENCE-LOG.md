@@ -7932,3 +7932,26 @@ Open that file first; then jump to a single `## D-NNNN` entry below
   invent-update path; `override_ID` force-all-known.
 - **Next:** @791 pet pickup `glass wand` vs `glass wand (0:6)`.
 
+
+## D-0316 — `mksobj` WAND `oc_uses_known` → `known=0`
+
+- **Status:** fixed
+- **Observed:** seed0030 @791 — C
+  `The little dog picks up a glass wand.` vs JS `… glass wand (0:6)`;
+  RNG full. Drop @793 had the same charge suffix.
+- **C locus:** `mkobj.c` `unknow_object` —
+  `obj->known = objects[otyp].oc_uses_known ? 0 : 1`; `objects.h`
+  `WAND()` `BITS(..., uskn=1, ..., chrg=1, ...)`.
+- **Cause:** JS `mksobj` uskn heuristic covered WEAPON/ARMOR/charged tools
+  but omitted `WAND_CLASS`, so floor wands started `known=1` and
+  `doname` appended `(recharged:spe)`.
+- **Change:** treat `WAND_CLASS` / `WAN_*` as `oc_uses_known` in
+  `mksobj` (D-0316).
+- **Verification:** @791/@793 bare `glass wand`; Scr **1398→1400**;
+  first miss **@836** boulder hear-behind; RNG full; green+strict;
+  17 PASS cohort (shared-mkobj sample).
+- **Named omissions:** table still lacks extracted `oc_uses_known`/
+  `oc_charged`; charged RING uskn heuristic; `unknow_object` as shared
+  helper; `distant_name` wrapper in dog_invent.
+- **Next:** @836 boulder `hear a monster behind` vs vain push.
+

@@ -37,7 +37,7 @@ seed0016, seed0015, seed0200, seed0101, seed0103, seed0104.
 **Notable non-PASS:**
 | Session | RNG | Screen | Note |
 |---------|----:|-------:|------|
-| seed0030 | 105529/105529 | **1398**/1953 | primary peel; cell first-miss **@791** |
+| seed0030 | 105529/105529 | **1400**/1953 | primary peel; cell first-miss **@836** |
 | seed2200 | 3018/3018 | **175**/230 | RNG full; Scr cells 178/230 |
 | seed0013-rogue | 4838/4838 | 57/59 | |
 | seed0013-friday13-restore | 4803/4804 | 46/99 | |
@@ -61,16 +61,16 @@ Both must remain full RNG + screen PASS with exact scored-output lengths.
 
 ## Primary objective
 
-**seed0030 screen peel** — RNG full; Scr **1398**/1953; cell first-miss **@791**
+**seed0030 screen peel** — RNG full; Scr **1400**/1953; cell first-miss **@836**
 
 | | |
 |--|--|
-| **C locus** | dog invent / wand `doname` — pet pickup pline charges |
-| **JS locus** | `js/dogmove.js` / `js/objnam.js` — glass wand `(0:6)` vs bare name |
-| **Symptom** | @791 C `The little dog picks up a glass wand.` vs JS `… (0:6)` |
-| **Hypothesis** | wand `known`/spe shown on pet pickup when C omits charges |
-| **Falsifier** | @791 topline match; expect Scr↑ |
-| **Recent fixed** | D-0315 Priest `xname`/`doname` force `bknown`; @787 cursed candy |
+| **C locus** | boulder push / hear-behind — `moverock` / push messages |
+| **JS locus** | `js/hack.js` (or boulder push path) — vain push vs hear monster |
+| **Symptom** | @836 C `You hear a monster behind the boulder.--More--` vs JS `You try to move the boulder, but in vain.` |
+| **Hypothesis** | C detects monster behind boulder before vain-push pline |
+| **Falsifier** | @836 topline match; expect Scr↑ |
+| **Recent fixed** | D-0316 `mksobj` WAND `oc_uses_known` → `known=0`; @791 glass wand |
 
 ```bash
 node frozen/ps_test_runner.mjs sessions/seed0030-ten-diverse-deaths.session.json

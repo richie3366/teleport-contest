@@ -7,14 +7,14 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Current unit:** seed0030 Scr **1398**/1953 RNG **FULL**; cell first-miss **@791**.
-- **@791:** C `The little dog picks up a glass wand.` vs JS `… glass wand (0:6)`.
-- **Hypothesis:** pet pickup / wand `doname` shows charges when C does not
-  (`known`/`spe` display for floor/minvent wand).
-- **Falsifier:** @791 topline match; Scr↑.
-- **Fixed:** D-0315 Priest `xname`/`doname` force `bknown` — @787
-  `a cursed candy bar`; Scr 1395→1398. Prior “map overlay” theory wrong
-  (text was `cursed` vs `candy`).
+- **Current unit:** seed0030 Scr **1400**/1953 RNG **FULL**; cell first-miss **@836**.
+- **@836:** C `You hear a monster behind the boulder.--More--` vs JS
+  `You try to move the boulder, but in vain.`
+- **Hypothesis:** boulder push hears monster behind before vain-push pline
+  (`moverock` / push path).
+- **Falsifier:** @836 topline match; Scr↑.
+- **Fixed:** D-0316 `mksobj` WAND in `oc_uses_known` heuristic → `known=0`;
+  @791/@793 glass wand bare name (no `(0:6)`); Scr 1398→1400.
 - **#340 score:** 19/44; Scr **2831**/11405; next full @#345.
 - **Alt:** seed0013 Scr 57/59; seed0107 @2684.
 - **Parked:** D-0006; seed2200 @158 RC/`$HOME`.
@@ -45,6 +45,7 @@ Objective/score live in `CURRENT.md`.
   omit death `paybill` — angry shk takes possessions before flush (D-0311);
   bare `pmname` for isshk death — honorific + `shkname` + `KILLED_BY` (D-0313);
   omit Priest `xname`/`doname` `bknown=1` — BUC always known (D-0315);
+  leave WAND out of `mksobj` `oc_uses_known` — `known=0` at create (D-0316);
   blanket `observe_object` in `xname` without `distantname` (regresses map).
 - Runner `Screen N/M` = total matches, not prefix length; contiguous cell
   miss can precede a later named topline peel (D-0311→@594 while @583 RIP open).
@@ -68,4 +69,5 @@ Objective/score live in `CURRENT.md`.
 - Bones / disclose / RIP / topten / amulet / DEC altar / noises / Monnam /
   map_invisible / mimic / vault+fountain/sink/shop / TOOL descr / shop enter /
   uhitm mon_nam / WAND descr / bot uhp==-1 / paybill / SCROLL unlabeled /
-  done_in_by isshk / botl flush·bot·more / Priest bknown: D-0274…D-0315.
+  done_in_by isshk / botl flush·bot·more / Priest bknown / WAND known0:
+  D-0274…D-0316.
