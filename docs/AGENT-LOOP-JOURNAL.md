@@ -20,6 +20,18 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-14 22:05 — #345 D-0318 mon_wield canseemon pline + score
+
+- Objective: seed0030 @1174 thin-air + gnome wield (CURRENT); mandatory
+  full `sessions` score (iter % 5 == 0).
+- C locus: `weapon.c` `mon_wield_item` canseemon wield pline.
+- Change: async wield message `Monnam wields doname!|.`; await callers
+  (D-0318).
+- Verification: @1174 match; Scr **1427→1428**; first miss **@1195** map
+  `)` vs `·`; RNG full; green+strict; 19 PASS cohort; full **19/44**
+  Scr **2865**/11405 RNG **240657**/792838 speed `17+0.12/turn`.
+- Next: @1195 thrown-arrow map glyph during shoot `--More--`.
+
 ## 2026-07-14 21:56 — #344 D-0317 moverock hear-behind
 
 - Objective: seed0030 @836 boulder hear-behind (CURRENT).

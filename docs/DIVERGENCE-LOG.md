@@ -7978,3 +7978,23 @@ Open that file first; then jump to a single `## D-NNNN` entry below
   `Soundeffect`; next_boulder naming.
 - **Next:** @1174 `You attack thin air.  The gnome wields a bow!`.
 
+## D-0318 — `mon_wield_item` canseemon wield pline
+
+- **Status:** fixed
+- **Observed:** seed0030 @1174 — C
+  `You attack thin air.  The gnome wields a bow!` vs JS
+  `You attack thin air.`; RNG full (wield turn already spent).
+- **C locus:** `weapon.c` `mon_wield_item` — after switch to `obj`, if
+  `canseemon(mon)` then `pline_mon("%s wields %s%c", Monnam, doname,
+  exclaim?'!':'.')` before final `owornmask=W_WEP`.
+- **Cause:** JS `mon_wield_item` set `mon.mw` / returned 1 but omitted the
+  visible wield message (and dig-tool `exclaim=FALSE` period).
+- **Change:** async `mon_wield_item` + `canseemon`/`Monnam`/`doname` pline;
+  await at `dochug` / `thrwmu` / `mattacku` / `m_digweapon_check` (D-0318).
+- **Verification:** @1174 both clauses; Scr **1427→1428**; first miss
+  **@1195** map `)` vs `·` on shoot `--More--`; RNG full; green+strict;
+  19 PASS cohort; full **19/44** Scr **2865**.
+- **Named omissions:** mwelded refuse-wield plines; weld-on-wield;
+  artifact_light; autoreturn tether pline.
+- **Next:** @1195 thrown-arrow map glyph `)` at (13,27).
+

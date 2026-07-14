@@ -7,16 +7,15 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Current unit:** seed0030 Scr **1427**/1953 RNG **FULL**; cell first-miss **@1174**.
-- **@1174:** C `You attack thin air.  The gnome wields a bow!` vs JS
-  `You attack thin air.` (same topline prefix; missing wield message).
-- **Hypothesis:** forcefight / thin-air path should still let adjacent
-  gnome `mon_wield_item` (or similar) emit wield pline this turn.
-- **Falsifier:** @1174 topline match both clauses; Scr↑.
-- **Fixed:** D-0317 `moverock_core` monster-behind `You_hear`/`canspotmon`
-  + `closed_door` vain + `dopush` clear dest `I` before `movobj`;
-  @836→@1174; Scr 1400→1427.
-- **#344:** no full score (next @#345).
+- **Current unit:** seed0030 Scr **1428**/1953 RNG **FULL**; cell first-miss **@1195**.
+- **@1195:** same topline `You attack thin air.  The gnome shoots an arrow!--More--`;
+  map cell **(13,27)** C `)` cyan vs JS `·`.
+- **Hypothesis:** `m_throw` / missile flash should leave or show weapon `)` glyph
+  at that cell before `--More--` (tmp_at / place_object / newsym).
+- **Falsifier:** @1195 cell `(13,27)` `)`; Scr↑.
+- **Fixed:** D-0318 `mon_wield_item` `canseemon` → `Monnam wields doname!|.`;
+  @1174→@1195; Scr 1427→1428.
+- **#345:** full score **19/44** Scr **2865** RNG **240657**; speed `17+0.12/turn`.
 - **Alt:** seed0013 Scr 57/59; seed0107 @2684.
 - **Parked:** D-0006; seed2200 @158 RC/`$HOME`.
 
@@ -49,6 +48,8 @@ Objective/score live in `CURRENT.md`.
   leave WAND out of `mksobj` `oc_uses_known` — `known=0` at create (D-0316);
   vain-push when monster behind boulder — `You_hear`/`canspotmon` then
   `cannot_push` (no vain); `dopush` must clear dest `I` (D-0317);
+  skip `mon_wield_item` canseemon wield pline — turn spent but topline misses
+  `The gnome wields a bow!` (D-0318);
   blanket `observe_object` in `xname` without `distantname` (regresses map).
 - Runner `Screen N/M` = total matches, not prefix length; contiguous cell
   miss can precede a later named topline peel (D-0311→@594 while @583 RIP open).
@@ -73,4 +74,4 @@ Objective/score live in `CURRENT.md`.
   map_invisible / mimic / vault+fountain/sink/shop / TOOL descr / shop enter /
   uhitm mon_nam / WAND descr / bot uhp==-1 / paybill / SCROLL unlabeled /
   done_in_by isshk / botl flush·bot·more / Priest bknown / WAND known0 /
-  moverock hear-behind: D-0274…D-0317.
+  moverock hear-behind / mon_wield canseemon pline: D-0274…D-0318.

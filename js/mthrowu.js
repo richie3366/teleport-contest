@@ -439,7 +439,7 @@ export async function thrwmu(mtmp) {
 async function thrwmu_body(mtmp) {
     if (mtmp.weapon_check === NEED_WEAPON || !MON_WEP(mtmp)) {
         mtmp.weapon_check = NEED_RANGED_WEAPON;
-        if (mon_wield_item(mtmp) !== 0) return;
+        if ((await mon_wield_item(mtmp)) !== 0) return;
     }
 
     const otmp = select_rwep(mtmp);
