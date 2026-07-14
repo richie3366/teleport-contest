@@ -7166,4 +7166,22 @@ Open that file first; then jump to a single `## D-NNNN` entry below
   green+strict PASS; 19-session PASS cohort + strict lengths.
 - **Next:** post-load `m_move` arity @16635 (`rn2(8)` vs `rn2(5)`).
 
+## D-0276 — bones mtrack serialize / restore
+
+- **Status:** fixed
+- **Observed:** seed0030 seg9 @16635 — after 49 `next_ident` + matched
+  `set_apparxy`/`distfleeck`, C `rn2(8) @ m_move:1963` (track skip
+  `4*(cnt-j)` with cnt=2,j=0) vs JS `rn2(5)` (next mon fleeck).
+- **C locus:** `save.c` `savemon` / `restore.c` `restmon` — `mtrack[MTSZ]`
+  is part of `struct monst`; `monmove.c:1963` track skip.
+- **Cause:** JS `serMon` omitted `mtrack` (object array skipped) and
+  `try_load_bones` forced zeros; live Elara-level monsters had non-empty
+  tracks at bones write. Wrong comment claimed C restores empty track.
+- **Change:** serialize/restore `mtrack[4]` in `js/bones.js`.
+- **Named omission:** other non-plain monst fields still dropped by
+  `serMon` object skip (mextra partial); binary savelev.
+- **Verification:** seg9 **16635→16683**; green+strict PASS; 17-session
+  PASS cohort + strict lengths; seed0030 flat **48192**/105529 Scr 85/1953.
+- **Next:** @16683 C `rn2(32) @ m_move:1963` (cnt=8 track) vs JS `rn2(10)`.
+
 

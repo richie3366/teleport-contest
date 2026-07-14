@@ -6,8 +6,8 @@ and `archive/PROGRESS-HISTORY.md`.
 
 Score last measured: **2026-07-14** via focused seed0030 + green/cohort;
 full `sessions` suite not re-run this iteration. PASS set unchanged;
-seed0030 seg9 isolation **16635**/17104 after D-0275 (flat positional
-**48195**/105529 Scr 85/1953).
+seed0030 seg9 isolation **16683**/17104 after D-0276 (flat positional
+**48192**/105529 Scr 85/1953).
 
 ## Score
 
@@ -15,7 +15,7 @@ seed0030 seg9 isolation **16635**/17104 after D-0275 (flat positional
 |--------|------:|
 | Sessions passing | **19 / 44** |
 | Screens matched | **1563 / 11,405** (13.70%) |
-| Positional RNG calls matched | **182,712 / 792,838** (prior suite −4 flat seed0030; seg9 +5) |
+| Positional RNG calls matched | **182,709 / 792,838** (prior suite −3 flat seed0030; seg9 +48) |
 | Speed label | `18+0.10/turn` |
 | Role-init throws | **0 / 44** |
 
@@ -24,7 +24,7 @@ seed0700, seed1150, seed0017, seed0077, seed0106, seed0501, seed0105,
 seed0016, seed0015, seed0200, seed0101, seed0103, seed0104.
 
 **Notable non-PASS:** seed2200 RNG full Scr 229/230 (parked RC @158);
-seed0013 RNG full Scr 57/59; seed0030 **48195**/105529 Scr 85/1953;
+seed0013 RNG full Scr 57/59; seed0030 **48192**/105529 Scr 85/1953;
 seed0107 2684/2902 Scr 36/98; seed0361/0373 quest bones blocked.
 
 ## Green gate
@@ -42,16 +42,16 @@ Both must remain full RNG + screen PASS with exact scored-output lengths.
 
 ## Primary objective
 
-**D-0275 follow-on** — seed0030 seg9 @16635 — post-bones `m_move` arity
+**D-0276 follow-on** — seed0030 seg9 @16683 — post-bones track/`mfndpos`
 
 | | |
 |--|--|
-| **C locus** | `monmove.c` `m_move` / `set_apparxy` after bones `getlev` |
-| **JS locus** | `js/monmove.js` `m_move` / post-load mon setup |
-| **Symptom** | After 49 `next_ident`, C `rn2(8) @ m_move` vs JS `rn2(5)` |
-| **Hypothesis** | Monster state / candidate selection after bones load differs (not missing entity) |
-| **Falsifier** | attribute fmon after load; peel `m_move` guard; mismatch past 16635 |
-| **Recent fixed** | D-0275 — `done_object_cleanup` limbo thrownobj (16630→16635) |
+| **C locus** | `monmove.c:1963` track skip; `mfndpos` / dig after bones |
+| **JS locus** | `js/monmove.js` `m_move`; possibly `mfndpos` / `mdig_tunnel` |
+| **Symptom** | C `rn2(32) @ m_move` (cnt=8 track) vs JS `rn2(10)`; C next `mdig_tunnel` |
+| **Hypothesis** | Candidate count / dig path differs once mtrack restored (not missing track) |
+| **Falsifier** | attribute mon + `mfndpos` cnt at first post-16683 call; mismatch past 16683 |
+| **Recent fixed** | D-0276 — bones `mtrack` serialize/restore (16635→16683) |
 
 ```bash
 # Focused seg9

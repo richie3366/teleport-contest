@@ -68,6 +68,8 @@ function serMon(mtmp) {
     if (!mtmp) return null;
     const out = {};
     for (const k of Object.keys(mtmp)) {
+        // Skip live graph / derived; mtrack is serialized explicitly below
+        // (C savemon writes full struct monst including mtrack[MTSZ]).
         if (k === 'nmon' || k === 'data' || k === 'minvent' || k === 'mtrack') {
             continue;
         }
@@ -89,6 +91,12 @@ function serMon(mtmp) {
             continue;
         }
         out[k] = v;
+    }
+    // C ref: monst.h mtrack[MTSZ]; save.c savemon / restore.c restmon
+    out.mtrack = [];
+    for (let j = 0; j < 4; j++) {
+        const c = mtmp.mtrack?.[j];
+        out.mtrack.push({ x: c?.x | 0, y: c?.y | 0 });
     }
     out.minvent = serObjChain(mtmp.minvent);
     return out;
@@ -255,10 +263,12 @@ export function try_load_bones(lev) {
         for (let o = mtmp.minvent; o; o = o.nobj) o.ocarry = mtmp;
         const mnum = mtmp.mnum | 0;
         mtmp.data = mons(mnum);
-        // C: mtrack restored empty; mon_track_add allocates on use
-        mtmp.mtrack = [
-            { x: 0, y: 0 }, { x: 0, y: 0 }, { x: 0, y: 0 }, { x: 0, y: 0 },
-        ];
+        // C ref: restore.c restmon — mtrack is part of struct monst (not cleared)
+        mtmp.mtrack = [];
+        for (let j = 0; j < 4; j++) {
+            const c = rawM.mtrack?.[j];
+            mtmp.mtrack.push({ x: c?.x | 0, y: c?.y | 0 });
+        }
         fmon.push(mtmp);
     }
 

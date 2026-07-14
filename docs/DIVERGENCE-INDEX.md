@@ -262,6 +262,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 | D-0273 | fixed | corpse_chance AT_BOOM / mon_explodes | gas spore PHYS boom; seg9 12414→16582 |
 | D-0274 | fixed | getbones VFS load | Elara→Hermione bones open+next_ident; seg9 16582→16630 |
 | D-0275 | fixed | done_object_cleanup thrownobj | limbo missile→map before bones; seg9 16630→16635 |
+| D-0276 | fixed | bones mtrack serialize/restore | C savemon/restmon mtrack; seg9 16635→16683 |
 
 
 D-0001 through D-0005 predate the strict-length/cohort runbook. Their focused

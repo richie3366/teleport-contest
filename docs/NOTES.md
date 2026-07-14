@@ -7,12 +7,12 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Current unit:** seed0030 seg9 @16635 — post-bones `m_move` (`rn2(8)` vs
-  `rn2(5)`). Entity count fixed (D-0275).
-- **Hypothesis:** after ghostly remap, mon candidate / `m_move` guard differs
-  (not missing bones entity).
-- **Falsifier:** dump fmon after `try_load_bones`; peel C `m_move` branch at
-  first post-ident call; mismatch moves past 16635.
+- **Current unit:** seed0030 seg9 @16683 — post-bones `m_move` track arity
+  (`rn2(32)` vs `rn2(10)`); C next is `mdig_tunnel`.
+- **Hypothesis:** with mtrack restored, `mfndpos` cnt / dig path still
+  differs (not missing track).
+- **Falsifier:** dump mon + `mfndpos` cnt at first post-16683 call;
+  mismatch moves past 16683.
 - **Parked:** D-0006 (pet movement); seed2200 @158 RC/`$HOME`.
 
 ## Don’t re-check (≤15)
@@ -29,7 +29,7 @@ Objective/score live in `CURRENT.md`.
   muse wand paths.
 - Session `\r` → `\n` = `C('j')` rush (D-0259); `rushDirFromCtrl` 1..26.
 - seg8 fleeck/missing-katana were key desync (D-0261), not dog_move/dodrop.
-- Recent seg9 falsified theories: D-0262…D-0273 — see `DIVERGENCE-INDEX.md`.
+- Recent seg9 falsified theories: D-0262…D-0275 — see `DIVERGENCE-INDEX.md`.
 - **Don’t:** treat missing Invis `rn2(11)` alone as enough when `couldsee`
   is false — check SCORR/`viz_clear` (D-0269).
 - `vision_recalc(1)` ≠ `unblock_point` / `recalc_block_point`.
@@ -43,6 +43,7 @@ Objective/score live in `CURRENT.md`.
   next_ident count — wrong entity; movement desyncs immediately after.
 - **Don’t:** skip `done_object_cleanup` — fatal `thitu` leaves limbo
   `_thrownobj` off `fobj` (D-0275; 48 vs 49).
+- **Don’t:** clear bones `mtrack` on load — C `restmon` keeps it (D-0276).
 
 ## Landmarks (≤15)
 
@@ -63,5 +64,5 @@ Objective/score live in `CURRENT.md`.
   uncover must `recalc_block_point` (D-0269).
 - Key attribution ≠ RNG order (0-RNG `--More--`) (D-0228).
 - Bones VFS: `bon${boneid}0.${dlevel}` under `vfs:bones/`; Elara Mines
-  `bonM0.1` → Hermione branch load (D-0274); limbo missile via
-  `done_object_cleanup` (D-0275).
+  `bonM0.1` → Hermione; limbo missile (D-0275); **mtrack persisted**
+  (D-0276).

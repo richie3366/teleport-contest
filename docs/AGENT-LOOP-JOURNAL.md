@@ -20,6 +20,17 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-14 17:20 — D-0276 bones mtrack serialize/restore
+
+- Objective: seed0030 seg9 @16635 (CURRENT primary D-0275 follow-on).
+- C locus: `save.c` `savemon` / `restore.c` `restmon` (`mtrack` in
+  `struct monst`); `monmove.c:1963` track skip.
+- Change: `js/bones.js` persist `mtrack[4]` on write/load. Prior omit
+  forced zeros; live Elara mons had tracks → C `rn2(8)` vs JS fleeck.
+- Verification: seg9 **16635→16683**; green+strict PASS; 17-session
+  PASS cohort + strict lengths; flat **48192**/105529.
+- Next: @16683 C `rn2(32)` track (cnt=8) vs JS `rn2(10)`; C `mdig_tunnel`.
+
 ## 2026-07-14 17:15 — D-0275 done_object_cleanup thrownobj
 
 - Objective: seed0030 seg9 @16630 (CURRENT primary D-0274 follow-on).
