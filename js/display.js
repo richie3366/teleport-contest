@@ -21,6 +21,8 @@ import {
     In_mines,
     DISP_BEAM, DISP_ALL, DISP_TETHER, DISP_FLASH, DISP_ALWAYS,
     DISP_CHANGE, DISP_END, DISP_FREEMEM, BACKTRACK,
+    M_AP_OBJECT, M_AP_TYPE,
+    MCORPSENM,
 } from './const.js';
 import {
     ILLOBJ_CLASS, WEAPON_CLASS, ARMOR_CLASS, RING_CLASS, AMULET_CLASS,
@@ -38,9 +40,12 @@ import {
     A_INT, A_WIS, A_DEX, A_CON, A_CHA, acurr, get_strength_str,
 } from './attrib.js';
 import { depth } from './hacklib.js';
+import { monsterNames } from './generated/monsters_data.js';
 
 const CORPSE_OTYP = objectNames.indexOf('CORPSE');
 const STATUE_OTYP = objectNames.indexOf('STATUE');
+// C display_monster M_AP_OBJECT default corpsenm when !has_mcorpsenm
+const PM_TENGU = monsterNames.indexOf('PM_TENGU');
 // C ref: objects.h MARKER — obj_is_generic gem/spell ranges
 const FIRST_REAL_GEM_OTYP = objectNames.indexOf('DILITHIUM_CRYSTAL');
 const LAST_GLASS_GEM_OTYP = objectNames.indexOf('WORTHLESS_VIOLET_GLASS');
@@ -260,6 +265,28 @@ export function mon_glyph(mtmp) {
         ? (mcolors[mnum] ?? CLR_GRAY)
         : CLR_GRAY;
     return { ch, color };
+}
+
+/**
+ * C ref: display.c display_monster — M_AP_OBJECT fake obj → map_object.
+ * When a mimic is PHYSICALLY_SEEN and not sensed as a monster, show the
+ * disguised object glyph (and remember it) instead of the mlet letter.
+ * Named omissions: M_AP_FURNITURE cmap_to_glyph + lastseentyp;
+ * M_AP_MONSTER what_mon + rn2_on_display_rng; Protection_from_shape_changers
+ * sensed overlay; Hallucination statue random_obj; map_object observe_object.
+ */
+function mimic_object_appearance_glyph(mtmp) {
+    if (M_AP_TYPE(mtmp) !== M_AP_OBJECT) return null;
+    // C: sensed = Protection_from_shape_changers || sensemon(mon)
+    // Protection stubbed false; when sensed, caller shows real mon_glyph.
+    if (sensemon(mtmp)) return null;
+    const corpsenm = (mtmp.mextra && mtmp.mextra.mcorpsenm != null)
+        ? MCORPSENM(mtmp)
+        : PM_TENGU;
+    return obj_glyph({
+        otyp: mtmp.mappearance | 0,
+        corpsenm,
+    });
 }
 
 /** C ref: display.h maybe_display_usteed / ridden_mon_to_glyph — mlet+mcolor. */
@@ -973,6 +1000,18 @@ export function newsym(x, y) {
                 map_location_memory(x, y);
             } else {
                 map_location_memory(x, y);
+            }
+            // C display_monster: M_AP_OBJECT → map_object(!sensed) before
+            // falling through to real mon_to_glyph when !mimic || sensed.
+            const apg = mimic_object_appearance_glyph(mtmp);
+            if (apg) {
+                show_glyph_cell(x, y, apg.ch, apg.color, !!apg.dec);
+                if (game.level?.flags?.hero_memory) {
+                    loc.remembered_glyph = {
+                        ch: apg.ch, color: apg.color, decgfx: !!apg.dec,
+                    };
+                }
+                return;
             }
             const mg = mon_glyph(mtmp);
             show_glyph_cell(x, y, mg.ch, mg.color, false);

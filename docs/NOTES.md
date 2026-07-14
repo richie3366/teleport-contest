@@ -7,16 +7,15 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Current unit:** seed0030 Scr **853**/1953 with RNG **FULL** 105529
-  (D-0295/96). True prefix first-miss **163** (was 129). Runner matched
+- **Current unit:** seed0030 Scr **887**/1953 with RNG **FULL** 105529
+  (D-0297). True prefix first-miss **174** (was 163). Runner matched
   count is total matches, not prefix — do not treat as prefix length.
-- **Hypothesis:** @163 C tool `(` vs JS `m` — mimics still drawn as
-  monster letter instead of `M_AP_OBJECT` appearance (door-open screen).
-- **Falsifier:** decodeScreen @163; C `M_AP_TYPE`/`seemimic` vs JS glyph.
-- **Falsified:** @129 was **not** only Monnam — after `It` matched,
-  remaining miss was missing `map_invisible` `I` (D-0296). Do not
-  re-chase Monnam for that screen.
-- **Also:** seg7 JS 159 vs C 172 steps (investigate after @163).
+- **Hypothesis:** @174 C `You miss the small mimic.--More--` vs JS same
+  text without `--More--` — prior topline or `more()` not blocking.
+- **Falsifier:** decodeScreen @174 topline; C pline/`xwaitforspace`.
+- **Falsified:** @163 was **not** seemimic missing — JS drew mlet `m`
+  instead of `M_AP_OBJECT` via `display_monster`/`map_object` (D-0297).
+- **Also:** seg7 JS 159 vs C 172 steps (investigate after @174).
 - **Alt:** seed0013 Scr 57/59; seed0107 @2684.
 - **Parked:** D-0006 (pet movement); seed2200 @158 RC/`$HOME`.
 
@@ -38,7 +37,8 @@ Objective/score live in `CURRENT.md`.
 - **Don’t:** emit true amulet name when `!oc_name_known` — `<descr> amulet` (D-0292).
 - **Don’t:** DEC altar as ASCII `_` — meta-`{` (D-0293); omit `noises()` on
   out-of-sight `missmm`/`hitmm` (D-0294); `Monnam` without `!canspotmon`→`it`
-  (D-0295); `missmm` without `map_invisible` when Magr unseen (D-0296).
+  (D-0295); `missmm` without `map_invisible` when Magr unseen (D-0296);
+  draw disguised mimics as mlet — `display_monster` M_AP_OBJECT (D-0297).
 - Runner `Screen N/M` = total matches, not prefix length.
 
 ## Landmarks (≤15)
@@ -58,4 +58,4 @@ Objective/score live in `CURRENT.md`.
 - `m_move`: `set_apparxy` **before** mtame/shk|gd|priest (D-0267).
 - Key attribution ≠ RNG order (0-RNG `--More--`) (D-0228).
 - Bones / disclose / RIP / topten / amulet / DEC altar / noises / Monnam /
-  map_invisible: D-0274…D-0296.
+  map_invisible / mimic M_AP_OBJECT: D-0274…D-0297.

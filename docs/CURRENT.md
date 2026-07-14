@@ -60,16 +60,16 @@ Both must remain full RNG + screen PASS with exact scored-output lengths.
 
 ## Primary objective
 
-**seed0030 screen peel** — RNG full; Scr **853**/1953; prefix first-miss **@163**
+**seed0030 screen peel** — RNG full; Scr **887**/1953; prefix first-miss **@174**
 
 | | |
 |--|--|
-| **C locus** | mimic/`seemimic` / `M_AP_OBJECT` display (door-open shop?) |
-| **JS locus** | `js/display.js` / `js/mon.js` mimic appearance |
-| **Symptom** | Scr prefix@163: C tool `(` glyphs vs JS `m` mimics (several cells) |
-| **Hypothesis** | Concealed mimics still drawn as `m` instead of object appearance |
-| **Falsifier** | decodeScreen @163 cell diffs; C `M_AP_TYPE` / `seemimic` vs JS glyph |
-| **Recent fixed** | D-0295 `Monnam` do_it; D-0296 `map_invisible`/`pre_mm_attack` (129→163) |
+| **C locus** | `pline.c` / topl `--More--` (combat miss after reveal?) |
+| **JS locus** | `js/display.js` / `js/pline.js` message more |
+| **Symptom** | Scr prefix@174: C `You miss the small mimic.--More--` vs JS no `--More--` |
+| **Hypothesis** | Prior topline / `more()` gate missing so miss message does not block |
+| **Falsifier** | decodeScreen @174 topline; C `pline`/`xwaitforspace` vs JS `_toplin` |
+| **Recent fixed** | D-0297 `display_monster` M_AP_OBJECT (163→174; Scr 853→887) |
 
 ```bash
 node frozen/ps_test_runner.mjs sessions/seed0030-ten-diverse-deaths.session.json

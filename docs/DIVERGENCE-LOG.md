@@ -7562,4 +7562,23 @@ Open that file first; then jump to a single `## D-NNNN` entry below
   full `unmap_invisible`/`unmap_object`; telepathy/warn sensemon.
 - **Next:** prefix@163 C `(` vs JS `m` (mimic object appearance).
 
+## D-0297 — `display_monster` M_AP_OBJECT
+
+- **Status:** fixed
+- **Observed:** seed0030 @163 after door-open — C tool `(` vs JS `m`
+  at several shop-floor cells (same brown/object color on C).
+- **C locus:** `display.c` `display_monster` `M_AP_OBJECT` → fake
+  `obj` + `map_object(!sensed)`; only show mlet when `!mimic || sensed`.
+- **Cause:** JS `newsym` always `mon_glyph` (mlet) for `mon_visible`
+  mimics; ignored `m_ap_type`/`mappearance`.
+- **Change:** `mimic_object_appearance_glyph` + `newsym` show/remember
+  `obj_glyph({otyp:mappearance})` when `M_AP_OBJECT` and `!sensemon`.
+- **Verification:** prefix **163→174**; Scr matched **853→887**; RNG full;
+  green+strict; 19-session PASS cohort + strict.
+- **Named omissions:** `M_AP_FURNITURE` cmap_to_glyph/lastseentyp;
+  `M_AP_MONSTER` what_mon + display RNG; Protection_from_shape_changers
+  sensed overlay; Hallucination statue; `map_object` observe_object;
+  `set_mimic_sym` door/furniture appear stubs.
+- **Next:** prefix@174 C miss message with `--More--` vs JS without.
+
 
