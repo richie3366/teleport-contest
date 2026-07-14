@@ -16,9 +16,10 @@ import {
 } from './objects.js';
 import { observe_object, makeknown } from './invent.js';
 import { losehp, nomul } from './hack.js';
+import { m_seenres, monstseesu, monstunseesu } from './mondata.js';
 import {
     BOLT_LIM, MSLOW, MFAST, isok, u_at, ZAP_POS, IS_DOOR,
-    D_LOCKED, D_CLOSED, KILLED_BY_AN, ANTIMAGIC,
+    D_LOCKED, D_CLOSED, KILLED_BY_AN, ANTIMAGIC, M_SEEN_MAGR,
 } from './const.js';
 
 const POT_PARALYSIS = objectNames.indexOf('POT_PARALYSIS');
@@ -116,8 +117,8 @@ export function find_offensive(mtmp) {
 
     for (let obj = mtmp.minvent; obj; obj = obj.nobj) {
         // reflection_skip wand rays deferred; WAN_STRIKING is outside that block
-        if (obj.otyp === WAN_STRIKING && (obj.spe | 0) > 0) {
-            // m_seenres(M_SEEN_MAGR) deferred → always eligible
+        if (obj.otyp === WAN_STRIKING && (obj.spe | 0) > 0
+            && !m_seenres(mtmp, M_SEEN_MAGR)) {
             m.offensive = obj;
             m.has_offense = MUSE_WAN_STRIKING;
         }
@@ -163,14 +164,15 @@ function mbhitm(mtmp, otmp, hits_you) {
     if (hits_you) {
         const u = game.u || {};
         if (Antimagic()) {
-            // monstseesu / shieldeff deferred
+            // C: monstseesu(M_SEEN_MAGR); shieldeff deferred
+            monstseesu(M_SEEN_MAGR);
             pline('Boing!');
             learnit = true;
         } else if (
             rnd(20) < 10 + (u.uac ?? 10)
             && !(game._buzzer && !game._buzzer.mwandexp)
         ) {
-            // monstunseesu deferred
+            monstunseesu(M_SEEN_MAGR);
             pline('The wand hits you!');
             let tmp = d(2, 12);
             if (u.HHalf_spell_damage || u.EHalf_spell_damage || u.Half_spell_damage) {

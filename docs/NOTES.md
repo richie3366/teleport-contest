@@ -7,10 +7,10 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 
 ## Active
 
-- **Current unit:** seed0030 seg3 @9887 — C `rnd(20)` `mattacku` (Maganasipi
-  melee after speed) vs JS `rn2(8)` (extra offense/m_move?).
-- **Falsifier:** dump Maganasipi `mspeed`/`spe`/`lined_up` at matched fleeck
-  after WAN_STRIKING Boing; expect C second move → melee, JS re-finds offense.
+- **Current unit:** seed0030 seg4 @2369 — C `ini_inv_adjust_obj` `rn2(3)` vs
+  JS `rn2(1)` (next death’s role invent after seg3 FULL).
+- **Falsifier:** dump which trobj/`ini_inv` path is active at matched
+  mksobj_init prefix; expect C blessing/adjust rolls JS skips or arity-mismatches.
 - **Parked deep canary:** D-0006 pet movement — do not implement until C
   state/candidate capture exists.
 - **Parked seed2200 @158:** RC config path — harness `$HOME`, not a port bug.
@@ -120,6 +120,9 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   `wakeup`→`setmangry`; C angers then `use_offensive` WAN_STRIKING
   (`rn1(8,6)` + Antimagic Boing → `makeknown`→`exercise`). Also need
   worn MR cloak as Antimagic when `oc_oprop` unset (D-0234).
+- **seed0030 seg3 @9887 was NOT position/spe/extra m_move** — after
+  Antimagic Boing, C `monstseesu(M_SEEN_MAGR)` so Maganasipi’s MFAST
+  second dochug skips WAN_STRIKING and melees; JS re-zapped (D-0235).
 - **`monattk.h`: AT_WEAP=254, AT_MAGC=255, AT_SPIT=10** — never use 10 for
   weapon (D-0179).
 - Hostile `m_move`: before place, `m_digweapon_check` may return
@@ -175,6 +178,10 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   Antimagic Boing → `makeknown`→`exercise(A_WIS)`; worn
   `CLOAK_OF_MAGIC_RESISTANCE` counts as Antimagic while oc_oprop
   deferred (D-0234).
+- **`monstseesu` / `m_seenres`:** Antimagic Boing sets `M_SEEN_MAGR` on
+  LOS monsters; `find_offensive` WAN_STRIKING requires
+  `!m_seenres(..., M_SEEN_MAGR)`. Without it MFAST shk re-zaps instead
+  of melee (D-0235).
 - **`test_move` diagonal into DOOR:** only `doorless_door` (D_NODOOR /
   D_BROKEN) allowed; open/closed/locked block diagonal entry/exit
   (D-0219). Same rule in `domove` and steed `landing_spot`/`test_move_ok`.

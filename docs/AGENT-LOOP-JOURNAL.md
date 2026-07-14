@@ -3021,3 +3021,15 @@ Use this shape:
   **48**/1953; full **19/44** Scr **1433** RNG **162645**; green+strict
   PASS; 17-session PASS cohort held.
 - Next: seed0030 seg3 @9887 C mattacku vs JS rn2(8); or quest getbones.
+
+## 2026-07-14 04:35 — monstseesu M_SEEN_MAGR (D-0235)
+- Objective: seed0030 seg3 @9887 C mattacku rnd(20) vs JS rn2(8).
+- C locus: muse.c mbhitm/find_offensive; mondata.c monstseesu;
+  monst.h seen_resistance; vision.h m_canseeu.
+- Result: **verified** — Antimagic Boing must monstseesu(M_SEEN_MAGR);
+  find_offensive WAN_STRIKING needs !m_seenres. Without it Maganasipi
+  MFAST second dochug re-zapped instead of melee.
+- Verification: seg3 **FULL**; positional **40677**/105529 Scr
+  **48**/1953; full **19/44** Scr **1433** RNG **165017**; green+strict
+  PASS; 17-session PASS cohort held.
+- Next: seed0030 seg4 @2369 ini_inv_adjust_obj; or quest getbones.

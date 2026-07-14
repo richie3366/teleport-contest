@@ -238,6 +238,7 @@ Do not record a guessed cause as fixed merely because an RNG prefix moved.
 | D-0232 | fixed | muse find_misc | shk WAN_SPEED spend turn; seg3 9778→9850 |
 | D-0233 | fixed | mfndpos NOTONL | monseeu/monlineu mark; avoid skips; seg3 9850→9881 |
 | D-0234 | fixed | setmangry + WAN_STRIKING | miss→wakeup anger; mbhit Boing; seg3 9881→9887 |
+| D-0235 | fixed | monstseesu M_SEEN_MAGR | Boing→seenres; find_offensive skips; seg3 FULL |
 
 D-0001 through D-0005 predate the strict-length/cohort runbook. Their focused
 causes are preserved, but generic "green sessions held" is historical evidence,
@@ -6325,4 +6326,31 @@ cohort gates if those functions are touched again.
   `fhito_loc`/`doorlock`/drawbridge; full `oc_oprop` via setworn;
   mon-target `mbhitm` resist/hit plines.
 - **Next:** seed0030 seg3 @9887 C `mattacku` vs JS `rn2(8)`; or quest
+  `getbones`.
+
+## D-0235 — monstseesu M_SEEN_MAGR after WAN_STRIKING Boing
+
+- **Status:** fixed
+- **Symptom:** seed0030 seg3 @9887 C `rnd(20)` `mattacku` (melee after
+  Maganasipi MFAST second dochug) vs JS `rn2(8)` (second
+  `use_offensive` WAN_STRIKING).
+- **Cause:** C `mbhitm` Antimagic Boing calls `monstseesu(M_SEEN_MAGR)`;
+  next `find_offensive` requires `!m_seenres(mtmp, M_SEEN_MAGR)` for
+  WAN_STRIKING. JS deferred both, so Maganasipi zapped again instead
+  of melee.
+- **Rejected:** position/nearby drift; spe not decremented; extra
+  actor/`m_move` arity alone (matched through fleeck @9886).
+- **C locus:** `muse.c` `mbhitm`/`find_offensive`; `mondata.c`
+  `monstseesu`/`monstunseesu`; `monst.h` `seen_resistance` /
+  `m_seenres`; `vision.h` `m_canseeu`.
+- **Change:** `js/makemon.js` `seen_resistance`; `js/mondata.js`
+  `m_seenres`/`monstseesu`/`monstunseesu`/`m_canseeu`; `js/muse.js`
+  Boing→`monstseesu`, hit→`monstunseesu`, find_offensive MAGR gate.
+- **Verification:** seg3 RNG **FULL** (9892/9892); positional
+  **40677**/105529 Scr **48**/1953; full **19/44** Scr **1433** RNG
+  **165017**; green+strict PASS; 17-session PASS cohort held.
+- **Named omissions:** `shieldeff`; buried `m_canseeu` arms;
+  `m_seenres` gates for other muse wands/potions (SLEEP/FIRE/…);
+  `reflection_skip`; `monstunseesu_prop` on armor remove.
+- **Next:** seed0030 seg4 @2369 `ini_inv_adjust_obj`; or quest
   `getbones`.
