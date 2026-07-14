@@ -241,7 +241,7 @@ async function dopotion(otmp) {
  * Fountain-at-feet yn → drinkfountain. Sink / underwater / Strangled /
  * milky-ghost / smoky-djinni deferred. Worn-stack split deferred
  * (starting oils are unworn).
- * @returns {number} 0 = cancel/no turn, 1 = took time
+ * @returns {number} ECMD_* — CANCEL on getobj abort; TIME after quaff
  */
 export async function dodrink() {
     // C: Strangled → message, ECMD_OK (no turn) — deferred unless needed

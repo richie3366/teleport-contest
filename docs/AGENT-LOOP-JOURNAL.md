@@ -20,6 +20,16 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-14 17:34 — D-0280 dodrink ECMD_TIME
+
+- Objective: seed0030 seg5 trailing JS after C end (CURRENT primary).
+- C locus: `potion.c` `dodrink` → `ECMD_CANCEL`; cmd only on `ECMD_TIME`.
+- Change: DIAG — quaff cancel left `move=1` because `ECMD_CANCEL` is
+  truthy. `rhack` `q` now uses `(drinkRes & ECMD_TIME)`.
+- Verification: seg5 **FULL** 8397; segs 0–7 FULL; positional
+  **88957**/105529; green+strict PASS; 19-session PASS cohort + strict.
+- Next: seg8 trailing after `#quit` (3505 vs 3476); or seg9 @16582.
+
 ## 2026-07-14 17:29 — D-0279 no_bones_level
 
 - Objective: seed0030 seg4 trailing `rn2(1)` after knockback (CURRENT primary).

@@ -7248,4 +7248,24 @@ Open that file first; then jump to a single `## D-NNNN` entry below
 - **Next:** seg5 trailing JS after C end; or seg9 @16582 getbones open
   (C `next_ident`, JS miss — pre-existing on HEAD).
 
+## D-0280 — rhack dodrink uses ECMD_TIME bit (CANCEL≠time)
+
+- **Status:** fixed
+- **Observed:** seed0030 seg5 JS len **8420** vs C **8397** — trailing
+  fleeck/`movemon` after matched EOT wipe_engr `rn2(76)`. DIAG: after
+  `Unknown command ' '` (move=0), `q` quaff cancel `Never mind.` left
+  `context.move=1`, so the next `moveloop_core` burned a full monster
+  turn C never took.
+- **C locus:** `potion.c` `dodrink` returns `ECMD_CANCEL` on getobj
+  abort; cmd dispatch only spends time on `ECMD_TIME`.
+- **Cause:** `js/cmd.js` `rhack` used `tookTime ? 1 : 0` on `dodrink()`'s
+  ECMD_* return. `ECMD_CANCEL` is `0x02` (truthy) → treated as time.
+- **Change:** `rhack` `q` uses `(drinkRes & ECMD_TIME)`; clarify
+  `dodrink` JSDoc as ECMD_*.
+- **Verification:** seg5 **FULL** 8397; segs 0–7 FULL; seed0030
+  positional **55489→88957**/105529 Scr 85/1953; green+strict PASS;
+  19-session PASS cohort + strict lengths.
+- **Next:** seg8 trailing JS after `#quit` (3505 vs 3476); or seg9
+  @16582 getbones `next_ident`.
+
 

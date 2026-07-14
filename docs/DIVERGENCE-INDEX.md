@@ -266,6 +266,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 | D-0277 | fixed | bones ghostly peace_minded reset | C restore getlev; seg9 16683→16836 |
 | D-0278 | fixed | dochug disturb sleeping wake | C monmove disturb rn2(7); seg9 16836→17104 |
 | D-0279 | fixed | no_bones_level branch/bot/special | skip depth rn2 on Mines-stair Dlvl2; seg4 FULL 8031 |
+| D-0280 | fixed | rhack dodrink ECMD_TIME | CANCEL truthy≠time; seg5 FULL 8397; 55489→88957 |
 
 
 
