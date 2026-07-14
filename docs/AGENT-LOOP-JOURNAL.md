@@ -20,6 +20,17 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-14 20:42 — #334 D-0311 paybill inherits possessions
+
+- Objective: seed0030 @582 Maganasipi takes possessions (CURRENT).
+- C locus: `shk.c` `paybill`/`inherits`; `end.c` `really_done` before
+  `display_nhwindow(WIN_MESSAGE)`.
+- Change: port paybill/inherits/money2mon/set_repo_loc + finish_paybill;
+  call before flush so pline appends to `You die...` (D-0311).
+- Verification: @582 topline match; prefix **582→594**; Scr **1387→1388**;
+  RNG full; green+strict; 19 PASS cohort + strict sample.
+- Next: @594 kitten unlabeled scroll vs blank paper.
+
 ## 2026-07-14 20:33 — #333 D-0310 bot skip uhp==-1
 
 - Objective: seed0030 @580 HP:0 vs C HP:11 (CURRENT).
@@ -159,17 +170,5 @@ Use this shape:
 - Verification: prefix **163→174**; Scr **853→887**; RNG full; green+strict;
   19-session PASS cohort + strict.
 - Next: prefix@174 C `You miss…--More--` vs JS without `--More--`.
-
-
-## 2026-07-14 19:00 — full public score + every-5 cadence
-
-- Objective: refresh suite totals; wire mandatory full score every 5 loop iters.
-- Measurement: `node frozen/ps_test_runner.mjs sessions` @ `6b84eab` →
-  **19/44** Scr **2277**/11405 (19.96%) RNG **240559**/792838 (30.34%)
-  speed `18+0.11/turn` (R² 0.78). PASS set unchanged (19). seed0030 Scr
-  **853**/1953 RNG full; seed2200 Scr **175**/230 (older notes had ~229).
-- Change: `CURRENT.md` Score; loop injects score reminder when `iter % 5 == 0`;
-  prompt/playbook/AGENT-PORT-LOOP cadence notes.
-- Next: seed0030 screen peel @163 (mimic appearance).
 
 

@@ -7828,4 +7828,24 @@ Open that file first; then jump to a single `## D-NNNN` entry below
   path; non-`-1` negative HP still clamps via get_blstats.
 - **Next:** @582 `Maganasipi takes all your possessions` (shk loot on death).
 
+## D-0311 — `paybill`/`inherits` angry shk takes possessions on death
+
+- **Status:** fixed
+- **Observed:** seed0030 @582 — C `You die...  Maganasipi takes all your
+  possessions.--More--` vs JS `You die...--More--`; RNG full; botl OK.
+- **C locus:** `shk.c` `paybill`/`inherits`; `end.c` `really_done` calls
+  `paybill` before `display_nhwindow(WIN_MESSAGE)`.
+- **Cause:** JS omitted `paybill`; `really_done` flushed `"You die..."`
+  without the angry-shk inherit pline (appends via topline NEED_MORE).
+- **Change:** port `paybill`/`inherits`/`money2mon`/`set_repo_loc` +
+  `finish_paybill`; call before `flush_topl_more`; pass `taken` to
+  `disclose`.
+- **Verification:** @582 topline matches; prefix next miss **@594**;
+  Scr **1387→1388**; RNG full; green+strict; 19 PASS cohort + strict
+  sample.
+- **Named omissions:** `addupbill` body; `clear_unpaid`/`no_charge` in
+  `setpaid`; full `mongone`/`mnearto`/`unleash_all`; partial-gold
+  currency pline; `paygd`/`clearpriests`; `M1_NOHEAD` `has_head`.
+- **Next:** @594 kitten `unlabeled scroll` vs `scroll of blank paper`.
+
 

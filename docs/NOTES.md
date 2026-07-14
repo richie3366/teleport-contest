@@ -7,12 +7,13 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Current unit:** seed0030 Scr **1387**/1953 RNG **FULL**; prefix **@582**.
-- **@582:** C `You die...  Maganasipi takes all your possessions.--More--`
-  vs JS `You die...--More--` (botl HP:0 matches).
-- **Hypothesis:** angry shk loot-on-death pline missing / wrong gate.
-- **Falsifier:** match C death topline; expect prefix advance.
-- **Fixed:** D-0310 `bot` skip when `u.uhp==-1` (580→582; Scr 1383→1387).
+- **Current unit:** seed0030 Scr **1388**/1953 RNG **FULL**; prefix **@594**.
+- **@594:** C `The kitten drops an unlabeled scroll.` vs JS
+  `The kitten drops a scroll of blank paper.`
+- **Hypothesis:** SCROLL `xname`/`doname` appearance when `!oc_name_known`
+  (blank paper vs unlabeled).
+- **Falsifier:** match C drop pline; expect prefix advance / Scr↑.
+- **Fixed:** D-0311 `paybill`/`inherits` before flush (582→594; Scr 1387→1388).
 - **#330 score still current:** 19/44; Scr **2810**/11405 (next full @#335).
 - **Alt:** seed0013 Scr 57/59; seed0107 @2684.
 - **Parked:** D-0006; seed2200 @158 RC/`$HOME`.
@@ -37,6 +38,7 @@ Objective/score live in `CURRENT.md`.
   leave TOOL/WEAPON `!nn` as actualn — use `OBJ_DESCR` (D-0305);
   skip WAND `!nn` descr — `"%s wand"` + zap `dknown` (D-0309);
   leave `uhitm` private `mon_nam` — import `do_name` (D-0308);
+  omit death `paybill` — angry shk takes possessions before flush (D-0311);
   blanket `observe_object` in `xname` without `distantname` (regresses map).
 - Runner `Screen N/M` = total matches, not prefix length; D-0307’s “→580”
   skipped literal @576 (`uhitm` stub) until D-0308.
@@ -59,4 +61,4 @@ Objective/score live in `CURRENT.md`.
 - Key attribution ≠ RNG order (0-RNG `--More--`) (D-0228).
 - Bones / disclose / RIP / topten / amulet / DEC altar / noises / Monnam /
   map_invisible / mimic / vault+fountain/sink/shop / TOOL descr / shop enter /
-  uhitm mon_nam / WAND descr / bot uhp==-1: D-0274…D-0310.
+  uhitm mon_nam / WAND descr / bot uhp==-1 / paybill: D-0274…D-0311.

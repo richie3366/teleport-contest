@@ -37,7 +37,7 @@ seed0016, seed0015, seed0200, seed0101, seed0103, seed0104.
 **Notable non-PASS:**
 | Session | RNG | Screen | Note |
 |---------|----:|-------:|------|
-| seed0030 | 105529/105529 | **1387**/1953 | primary peel; prefix first-miss **@582** |
+| seed0030 | 105529/105529 | **1388**/1953 | primary peel; prefix first-miss **@594** |
 | seed2200 | 3018/3018 | **175**/230 | RNG full; Scr cells 178/230 |
 | seed0013-rogue | 4838/4838 | 57/59 | |
 | seed0013-friday13-restore | 4803/4804 | 46/99 | |
@@ -61,16 +61,16 @@ Both must remain full RNG + screen PASS with exact scored-output lengths.
 
 ## Primary objective
 
-**seed0030 screen peel** — RNG full; Scr **1387**/1953; prefix first-miss **@582**
+**seed0030 screen peel** — RNG full; Scr **1388**/1953; prefix first-miss **@594**
 
 | | |
 |--|--|
-| **C locus** | `shk.c` / `end.c` death loot — Maganasipi takes possessions |
-| **JS locus** | `js/shk.js` / `js/end.js` — missing possessions pline after `You die...` |
-| **Symptom** | @582 C `You die...  Maganasipi takes all your possessions.--More--` vs JS `You die...--More--` |
-| **Hypothesis** | Angry shk loot-on-death message not ported (or gated wrong) |
-| **Falsifier** | Match C topline through death more; expect prefix advance / Scr↑ |
-| **Recent fixed** | D-0310 bot skip `uhp==-1` (580→582; Scr 1383→1387) |
+| **C locus** | `objnam.c` SCROLL `xname` — unlabeled / blank-paper appearance |
+| **JS locus** | `js/objnam.js` — kitten drop shows true blank-paper name |
+| **Symptom** | @594 C `The kitten drops an unlabeled scroll.` vs JS `…scroll of blank paper.` |
+| **Hypothesis** | SCROLL `!oc_name_known` should use appearance (`unlabeled`), not actualn |
+| **Falsifier** | Match C drop pline; expect prefix advance / Scr↑ |
+| **Recent fixed** | D-0311 paybill inherits (582→594; Scr 1387→1388) |
 
 ```bash
 node frozen/ps_test_runner.mjs sessions/seed0030-ten-diverse-deaths.session.json
