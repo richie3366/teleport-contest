@@ -39,7 +39,7 @@ frozen-file overlay):
 |--------|------:|
 | Sessions passing | **19 / 44** |
 | Screens matched | **1433 / 11,405** (12.56%) |
-| Positional RNG calls matched | **162,600 / 792,838** (20.51%) |
+| Positional RNG calls matched | **162,605 / 792,838** (20.51%) |
 | Speed label | `20+0.09/turn` |
 | Working-tree base | `8b71735` + committed port (see `main`) |
 | Role-init throws | **0 / 44** (`u_init_role: role not ported`) |
@@ -64,7 +64,7 @@ shared blockers, and semantic coverage together—not one vanity metric.
 | `seed0501-priest-cast-read-turn` | **2238 / 2238** | **28 / 28** |
 | `seed2200-wizard-quaff-zap-read` | **3018 / 3018** | **229 / 230** |
 | `seed0017-samurai-altar-pray` | **3465 / 3465** | **67 / 67** |
-| `seed0030-ten-diverse-deaths` | **38260 / 105529** | **48 / 1953** |
+| `seed0030-ten-diverse-deaths` | **38265 / 105529** | **48 / 1953** |
 | `seed0103-knight-ride-pony` | **2640 / 2640** | **60 / 60** |
 | `seed0200-monk-north-search` | **3822 / 3822** | **40 / 40** |
 | `seed0101-ranger-quiver-throw-travel-engrave` | **2371 / 2371** | **27 / 27** |
@@ -76,7 +76,7 @@ shared blockers, and semantic coverage together—not one vanity metric.
 | `seed0105-valk-chat-lamp-ration` | **2499 / 2499** | **30 / 30** |
 | `seed0015-valk-level2-pit-dog-wait` | **8563 / 8563** | **44 / 44** |
 | `seed0077-rogue-chargen` | **3242 / 3242** | **33 / 33** |
-| `seed0013-rogue-friday13-combat` | **543 / 4838** | 1 / 59 |
+| `seed0013-rogue-friday13-combat` | **560 / 4838** | 1 / 59 |
 
 seed8000 + seed0900 + seed1500 + seed1800 + seed0060 + seed0102 +
 seed0700 + seed1150 + seed0017 + seed0077 + seed0106 + seed0501 +
@@ -541,9 +541,8 @@ seed0101 + seed0103 + seed0104 **PASS**. seed2200 RNG **full**
 seed0101 RNG **full** Scr **27**/27. seed0103 RNG **full** Scr **60**/60.
 seed0104 RNG **full** Scr **43**/43.
 
-- **Bounded unit:** seed0030 seg3 @9850 — after matched
-  `move_special` `rn2(1)`, C `rn2(5)` `distfleeck` vs JS `rn2(2)`
-  (shk/`move_special` path). / seed0361/0373
+- **Bounded unit:** seed0030 seg3 @9881 — C `rn2(8)` `use_offensive`
+  vs JS `rn2(5)` `distfleeck` (hostile muse offense before move?). / seed0361/0373
   **quest `getbones`** (blocked: need `^V`→`goto_level`→`makemaz`
   first — ordinary `goto_level` now exists for stairs; Mines
   `fill_lvl` path exists D-0171).
@@ -556,7 +555,8 @@ seed0104 RNG **full** Scr **43**/43.
   `done_in_by` bones gate done D-0190). CORPSE `weight` cwt done
   (D-0230; seg3 **9166→9299**). **`blocksMove` IS_OBSTRUCTED**
   done (D-0231; seg3 **9299→9778**). **`find_misc` WAN_SPEED**
-  done (D-0232; seg3 **9778→9850**).
+  done (D-0232; seg3 **9778→9850**). **`mfndpos` NOTONL**
+  done (D-0233; seg3 **9850→9881**).
 - **Named omissions:** full `findtravelpath` TEST_TRAV/GUESS/travelmap/
   `#retravel`; themerms fill *bodies* beyond Ghost/Teleportation hub/
   Storeroom (Ice/Temple/…); garden/dig postprocess; `invocation_pos`;
@@ -691,6 +691,8 @@ seed0104 RNG **full** Scr **43**/43.
   **9299→9778**);
   **`find_misc`/`use_misc` WAN_SPEED** (done D-0232; seg3
   **9778→9850**);
+  **`mfndpos` NOTONL `monseeu`/`monlineu`** (done D-0233; seg3
+  **9850→9881**);
   **`goto_level` `stairway_find_from`** (D-0224 find_from done);
   D-0218 upstairs theory rejected;
   …
@@ -1538,6 +1540,10 @@ Module status, constitutional debt, and named omissions live in
     `move_special`); positional **38260**/105529 Scr **48**/1953;
     full **19/44** Scr **1433** RNG **162600**; next seg3 @9850 /
     quest `getbones`
+210. `mfndpos` NOTONL monseeu/monlineu (D-0233)
+    — seed0030 seg3 **9850→9881** (`use_offensive` vs `distfleeck`);
+    positional **38265**/105529 Scr **48**/1953; full **19/44** Scr
+    **1433** RNG **162605**; next seg3 @9881 / quest `getbones`
 
 Next work is selected from the active objectives above using
 `PORTING-RUNBOOK.md`, not by extending this historical list.

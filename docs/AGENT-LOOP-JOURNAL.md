@@ -3001,3 +3001,10 @@ Use this shape:
   PASS; 17-session PASS cohort held.
 - Next: seed0030 seg3 @9850 C distfleeck vs JS rn2(2) after
   move_special; or quest getbones.
+
+## 2026-07-14 04:45 — mfndpos NOTONL (D-0233)
+- Objective: seed0030 seg3 @9850 C distfleeck vs JS rn2(2) after move_special rn2(1).
+- C locus: mon.c mfndpos monseeu/monlineu → NOTONL; priest.c move_special avoid skip.
+- Result: **verified** — shk home (10,9), hero on door (11,9), avoid+uondoor+appr=0: C marked online cells NOTONL so only one rn2(1); JS never set NOTONL and burned rn2(1..4). Rejected invent-walk/inhishop/IS_ROOM theories.
+- Verification: seg3 **9850→9881**; positional **38265**/105529 Scr **48**/1953; full **19/44** Scr **1433** RNG **162605**; green+strict PASS; 17-session PASS cohort held.
+- Next: seed0030 seg3 @9881 C use_offensive vs JS distfleeck; or quest getbones.

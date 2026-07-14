@@ -6,7 +6,7 @@ import { rn2 } from './rng.js';
 import { dochugw } from './monmove.js';
 import {
     COLNO, ROWNO, IS_OBSTRUCTED, IS_DOOR, IS_TREE, D_CLOSED, D_LOCKED, D_BROKEN,
-    ALLOW_ROCK, ALLOW_DIG, Is_rogue_level,
+    ALLOW_ROCK, ALLOW_DIG, Is_rogue_level, NOTONL,
     M_AP_NOTHING, M_AP_OBJECT, M_AP_FURNITURE, M_AP_MONSTER, M_AP_TYPE,
     MSLOW, MFAST,
 } from './const.js';
@@ -14,7 +14,7 @@ import { t_at } from './trap.js';
 import {
     nohands, verysmall, throws_rocks, passes_walls, lays_eggs, mons,
     monsterNames, NON_PM, LOW_PM, mon_knows_traps, tunnels, needspick,
-    is_hider,
+    is_hider, M1_SEE_INVIS,
 } from './monsters.js';
 import { m_harmless_trap } from './trap.js';
 import { little_to_big, big_to_little } from './mondata.js';
@@ -25,6 +25,17 @@ import { G_GENOD } from './const.js';
 import { enexto, rloc_to } from './teleport.js';
 import { may_dig } from './dig.js';
 import { newsym } from './display.js';
+import { online2 } from './hacklib.js';
+
+/** C ref: mondata.h perceives — M1_SEE_INVIS. */
+function perceives(ptr) {
+    return !!((ptr?.mflags1 ?? 0) & M1_SEE_INVIS);
+}
+
+/** C ref: mon.c monlineu — online with where mon thinks hero is. */
+function monlineu(mon, nx, ny) {
+    return online2(nx, ny, mon.mux, mon.muy);
+}
 
 export const NORMAL_SPEED = 12;
 
@@ -339,6 +350,9 @@ export function mfndpos(mon, data, flag) {
 
     const maxx = Math.min(x + 1, COLNO - 1);
     const maxy = Math.min(y + 1, ROWNO - 1);
+    // C: monseeu is constant across the neighbour scan
+    const Invis = !!(game.u?.Invis);
+    const monseeu = !!(mon.mcansee && (!Invis || perceives(mdat)));
     for (let nx = Math.max(1, x - 1); nx <= maxx; nx++) {
         for (let ny = Math.max(0, y - 1); ny <= maxy; ny++) {
             if (nx === x && ny === y) continue;
@@ -397,6 +411,12 @@ export function mfndpos(mon, data, flag) {
                     if (!(flag & ALLOW_ROCK)) continue;
                     info |= ALLOW_ROCK;
                 }
+            }
+
+            // C: monseeu && monlineu → NOTONL (unicorn flag skips; else mark)
+            if (monseeu && monlineu(mon, nx, ny)) {
+                if (flag & NOTONL) continue;
+                info |= NOTONL;
             }
 
             // C: harmful traps → ALLOW_TRAPS; hostiles skip known types

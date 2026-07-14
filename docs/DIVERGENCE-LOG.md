@@ -236,6 +236,7 @@ Do not record a guessed cause as fixed merely because an RNG prefix moved.
 | D-0230 | fixed | CORPSE weight | mons[corpsenm].cwt; goblin gg divert; seg3 9166→9299 |
 | D-0231 | fixed | blocksMove/SDOOR | IS_OBSTRUCTED+IRONBARS; walk-into-SDOOR; seg3 9299→9778 |
 | D-0232 | fixed | muse find_misc | shk WAN_SPEED spend turn; seg3 9778→9850 |
+| D-0233 | fixed | mfndpos NOTONL | monseeu/monlineu mark; avoid skips; seg3 9850→9881 |
 
 D-0001 through D-0005 predate the strict-length/cohort runbook. Their focused
 causes are preserved, but generic "green sessions held" is historical evidence,
@@ -6264,3 +6265,31 @@ cohort gates if those functions are touched again.
   `learnwand`/speed pline; steed gallop in `mcalcmove`.
 - **Next:** seed0030 seg3 @9850 C `distfleeck` vs JS `rn2(2)`; or
   quest `getbones`.
+
+## D-0233 — mfndpos NOTONL for move_special avoid
+
+- **Status:** fixed
+- **Symptom:** seed0030 seg3 @9850 C `rn2(5)` `distfleeck` vs JS
+  `rn2(2)` after matched `move_special` `rn2(1)`.
+- **Cause:** Shopkeeper at home (10,9), hero on shop door (11,9),
+  `uondoor`+`avoid`, `appr=0`. C `mfndpos` marks cells online with
+  `mux`/`muy` as `NOTONL`; `move_special` skips them under `avoid`,
+  leaving one ROOM candidate → only `rn2(1)`. JS never set NOTONL, so
+  four ROOM candidates burned `rn2(1..4)`.
+- **Rejected:** invent-walk / `inhishop` false / wrong `IS_ROOM` —
+  DIAG at rng 9849 showed `in_his_shop=true`, four ROOM cells with
+  `info=0`.
+- **C locus:** `mon.c` `mfndpos` (`monseeu`/`monlineu` → NOTONL);
+  `priest.c` `move_special` avoid skip.
+- **Change:** `js/mon.js` `mfndpos` marks NOTONL when
+  `mcansee && (!Invis || perceives)` and `online2(nx,ny,mux,muy)`;
+  unicorn `flag&NOTONL` still skips.
+- **Verification:** seg3 **9850→9881** (C `use_offensive` vs JS
+  `distfleeck`); positional **38265**/105529 Scr **48**/1953; full
+  **19/44** Scr **1433** RNG **162605**; green+strict PASS;
+  17-session PASS cohort held.
+- **Named omissions:** unicorn `mon_allowflags` NOTONL bit;
+  Displacement scare/`onscary`/`ALLOW_SSM` in mfndpos; garlic;
+  temple/`ALLOW_SANCT`; pool/lava/`bad_rock` squeeze; poison-gas.
+- **Next:** seed0030 seg3 @9881 C `use_offensive` vs JS `distfleeck`;
+  or quest `getbones`.
