@@ -3,7 +3,7 @@
 > **Fork status:** this README describes the original contest template and is
 > intentionally broad. The live port is far beyond the skeleton snapshot
 > below. Agents should read `docs/CONSTITUTION.md`,
-> `docs/PORTING-RUNBOOK.md`, and `docs/PROGRESS.md` before editing.
+> `docs/PORTING-RUNBOOK.md`, and `docs/CURRENT.md` before editing.
 
 *A guide to porting the Mazes of Menace from C to JavaScript, for
 adventurers traveling with a small swarm of LLM coding assistants.
@@ -84,7 +84,7 @@ The original template scored partial credit on
 `seed8000-tourist-starter` — its `fastforward.js` replay nails most
 of the early-game PRNG and the first dozen-or-so screens. That's
 the historical hello world. This fork has since removed all replay entries;
-see `docs/PROGRESS.md` for current results.
+see `docs/CURRENT.md` for current results.
 
 ## What's in this repo
 

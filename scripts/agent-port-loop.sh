@@ -291,7 +291,7 @@ while true; do
     | tee -a "$MASTER_LOG"
 
   # Each iteration is a fresh agent session (new context). Prompt insists on
-  # reading docs/NOTES.md + docs/PROGRESS.md so state survives across loops.
+  # reading docs/CURRENT.md + docs/NOTES.md so state survives across loops.
   # Bash 3.2 (macOS) + set -u: empty "${arr[@]}" is "unbound"; use + guard.
   iter_start="$(now_epoch)"
   set +e

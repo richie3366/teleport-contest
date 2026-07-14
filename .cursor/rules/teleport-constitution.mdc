@@ -10,12 +10,13 @@ Agentic C→JS port. Category `agentic`. No transpiled engine in scored `js/`.
 ## Read first
 
 - `docs/GROK-PLAYBOOK.md` — loop-agent priority, anti-patterns, verification
-- `docs/CONSTITUTION.md` — non-negotiable architecture
-- `docs/PORTING-RUNBOOK.md` — iteration protocol and verification gates
-- `docs/PROGRESS.md` — baseline + next mile (chooses work over NOTES)
-- `docs/NOTES.md` — unresolved hypothesis only
-- `docs/C-JS-MAP.md` — status/omissions for the subsystem being edited
-- `docs/PORTING-STRATEGY.md` — longer map (when needed; not each iteration)
+- `docs/CURRENT.md` — score, green gate, primary objective (chooses work)
+- `docs/NOTES.md` — unresolved hypothesis only (≤100 lines)
+- `docs/C-JS-MAP.md` — index; open one `docs/c-js-map/*.md` for the subsystem
+- `docs/CONSTITUTION.md` / `docs/PORTING-RUNBOOK.md` — when authority needed
+
+Do **not** load `docs/archive/**`, full `DIVERGENCE-LOG.md`, or journal history
+by default. Use `DIVERGENCE-INDEX.md` + one entry.
 
 ## Hard bans
 
@@ -30,17 +31,17 @@ Agentic C→JS port. Category `agentic`. No transpiled engine in scored `js/`.
 - Do **not** put public seed names, raw RNG indices, recorded coordinates, or
   trace-derived constants into production control flow.
 - Do **not** call a seed-observed branch a complete port; name omissions in
-  `docs/C-JS-MAP.md`.
+  the relevant `docs/c-js-map/*.md` section.
 - Do **not** edit frozen contracts for scoring: `js/isaac64.js`, `js/terminal.js`, `js/storage.js` (judge overlays them).
 
 ## When fixing divergence
 
 1. Cite the C function (`nethack-c/upstream/src/…`).
 2. Fix call order / logic to match C — do not “align” tests.
-3. Run the focused session, the green gate in `docs/PROGRESS.md`, and a
+3. Run the focused session, the green gate in `docs/CURRENT.md`, and a
    distinct subsystem cohort when shared behavior changed.
 4. Remove DIAG/FORCE code, raw-index gates, and debug prints before handoff.
-5. Update the owning durable docs per `docs/PORTING-RUNBOOK.md`.
+5. Update `CURRENT.md` / NOTES / divergence / one map section / journal tail.
 
 ## Async
 

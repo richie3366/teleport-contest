@@ -15,7 +15,7 @@ in process/tooling; agents execute via `GROK-PLAYBOOK.md` + `PORTING-RUNBOOK.md`
 **Principles are sound; enforcement is not.** The port should proceed by:
 
 1. **Foundation first** — shared startup (role/race init) before parked deep
-   Tourist traces (`PROGRESS.md`, `GROK-PLAYBOOK.md`).
+   Tourist traces (`CURRENT.md`, `GROK-PLAYBOOK.md`).
 2. **C as specification** — sessions locate bugs; never justify production logic.
 3. **Fresh-context memory in docs** — NOTES / journal / divergence log, not chat.
 4. **Supervised loop only** — current shell script is a helper, not a trusted
@@ -65,7 +65,7 @@ Build in this order:
 
 Until P0 tooling lands:
 
-- Follow **primary foundation** in `PROGRESS.md` (Rogue + human `u_init`).
+- Follow **primary foundation** in `CURRENT.md`.
 - Run green gate + `strict-output-check` manually; inspect PASS lines, not only `$?`.
 - End iterations with journal + tiny NOTES; do not edit playbook/constitution.
 - Propose loop/supervisor changes in the journal; humans implement P0/P1.

@@ -7,7 +7,7 @@ uncheckpointed primary checkout.
 
 The loop is an operator tool, not an architecture authority. Each agent must
 obey `CONSTITUTION.md`, `PORTING-RUNBOOK.md`, and the active objective in
-`PROGRESS.md`.
+`CURRENT.md`.
 
 ## Quick start
 
@@ -41,7 +41,7 @@ prompt). `--trust` only skips the workspace-trust question.
 On a dirty worktree, checkpoint before enabling force:
 
 1. Make a human-controlled backup/checkpoint of the current tree.
-2. Review `git status --short` and `docs/PROGRESS.md`.
+2. Review `git status --short` and `docs/CURRENT.md`.
 3. Ensure the green gate passes before starting.
 4. Run only one loop against this checkout; do not edit concurrently.
 5. Prefer `AGENT_FORCE=1` so scorers can run. Use `AGENT_FORCE=0` only when you
@@ -119,9 +119,10 @@ porting guide). The prompt emphasizes:
 6. Remove diagnostics and update durable memory before exit
 7. **Commit and push** to `origin` (see prompt “End-of-iteration git”; no
    force-push)
-`docs/NOTES.md` is deliberately tiny and unresolved-only. Fixed causes belong
-in `DIVERGENCE-LOG.md`; structural omissions belong in `C-JS-MAP.md`; each
-iteration appends a short journal entry.
+`docs/NOTES.md` is deliberately tiny and unresolved-only. Score/objective live
+in `docs/CURRENT.md`. Fixed causes belong in `DIVERGENCE-LOG.md` (+ index);
+structural omissions belong in one `docs/c-js-map/*.md` section; each
+iteration prepends a short journal entry (rotate into `docs/archive/` when >15).
 
 ### Logs
 
@@ -157,12 +158,12 @@ Under `.agent-port-loop-logs/` (gitignored):
 
 1. `agent login` (once) so `--list-models` / runs work.
 2. Checkpoint the dirty tree and confirm the green gate.
-3. Ensure `PROGRESS.md` has one primary objective and a focused command.
+3. Ensure `CURRENT.md` has one primary objective and a focused command.
 4. Start `./scripts/agent-port-loop.sh` in a dedicated terminal.
 5. Watch the live tee, diffs, green-gate results, journal, and per-iteration
    commits on `origin/main`.
 6. To stop after the active iteration: `echo 1 > STOP_AGENT_LOOP.md`.
-7. After stop, inspect `git log` / `git diff`, Notes, Progress, map, and journal.
+7. After stop, inspect `git log` / `git diff`, Notes, `CURRENT.md`, map section, and journal.
 
 ## Failure modes
 

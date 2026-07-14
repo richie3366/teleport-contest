@@ -1,7 +1,7 @@
 # Working notes (scratchpad)
 
-Not a progress log. See `.cursor/rules/agent-notes.mdc` for what belongs here.
-Wipe or rewrite freely; keep only live traps and the current hypothesis.
+Not a progress log. Keep ≤100 lines. See `.cursor/rules/agent-notes.mdc`.
+Objective/score live in `CURRENT.md`.
 
 ---
 
@@ -11,113 +11,41 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   `m_move` `set_apparxy` before shk, C `rn2(11) @ m_move` (Invis
   should_see appr=0) vs JS `rn2(2)`.
 - **Hypothesis:** JS hostile/peaceful `m_move` skips
-  `should_see && Invis && !perceives && rn2(11)` → `appr=0` (named
-  omission), so a later mfndpos/getitems `rn2(2)` fires instead.
-- **Falsifier:** port that Invis `rn2(11)` gate (and check stalker/bat
-  `rn2(3)` / leppie order) and re-run seg9; expect mismatch to move or
-  prove a different branch before it.
-- **Parked deep canary:** D-0006 pet movement — do not implement until C
-  state/candidate capture exists.
-- **Parked seed2200 @158:** RC config path — harness `$HOME`, not a port bug.
+  `should_see && Invis && !perceives && rn2(11)` → `appr=0`, so a later
+  mfndpos/getitems `rn2(2)` fires instead.
+- **Falsifier:** port that Invis `rn2(11)` gate (check stalker/bat
+  `rn2(3)` / leppie order); re-run seg9.
+- **Parked:** D-0006 (pet movement); seed2200 @158 RC/`$HOME`.
 
-## Don’t re-check
+## Don’t re-check (≤15)
 
-- Do not reject the dart in `can_carry`; an earlier C turn APPORTs it.
-- Do not treat `LOST_THROWN` as a carry rejection; C does not.
+- Do not reject dart in `can_carry`; earlier C turn APPORTs it.
+- Do not treat `LOST_THROWN` as carry rejection.
 - Do not gate on raw RNG index/coordinates.
-- Role `mnum` must be monster-table IDs (`PM_ROGUE=338`), never roles[] index.
-- **roles[] order must match C** (Rogue before Ranger) — pantheon
-  `randrole` uses roles[] indices.
-- **roles `name.f` is null where C has 0** — only Caveman/Priestess keep
-  distinct `f`. Welcome gender uses `!name.f` **and** both-genders
-  allow mask (D-0138). Do not restore same-string `f===m` proxy.
-- Do not hardcode Tourist `Aloha` / `neutral` / `HP:10` in `allmain`.
-- Do not auto-submit unique `#` extcmds without Enter — regresses
-  `#levelchange` (seed0361).
-- Binding `'f'`→`dofire` **without** fireassist swap when bow is only in
-  `uswapwep` makes `l` a real shot; C eats `l` in swap `prinv` `--More--`
-  (D-0069).
-- **Ctrl-rush is `context.run=3`**, capital run is `run=1` (C
-  `do_rush_*` / `do_run_*`). `run=1` does **not** stop for hostiles
-  beside/behind — only in-front (D-0261). Do not “fix” more() for that peel.
-- **Unawaited `pline` in muse `mbhitm`/`mzapwand` races `more()`** and
-  steals early keys (wand hit during combat) — always `await pline` on
-  that path (D-0261). DIAG that `await import`s inside `more()` also
-  perturbs async order — do not diagnose with await-in-more hooks.
-- **seg8 @3068 fleeck / mfndpos squeeze** falsified — was key desync from
-  run=1 + unawaited wand more (D-0261).
-- **seg8 @3310 missing katana** was not missing `dodrop` alone —
-  `dodrop` ported earlier; live blocker was rush never ending so `d`
-  never reached rhack (D-0261).
-- **seg9 @7196 was not stock_room/`mkshobj_at` eligibility** — C
-  `set_mimic_sym` shop arm calls `get_shop_item` after `rn2(10)` (D-0262).
-  JS had deferred that body to S_MIMIC_DEF.
-- **seg9 @8138 was drinkfountain fate=27 `dofindgem`** — not dryup early
-  alone; case 27 must call `rnd_class(DILITHIUM_CRYSTAL, LUCKSTONE-1)`
-  (D-0263).
-- **seg9 @8281 was not m_move track arity / goblin nearby** — goblin at
-  (67,12) `dist2=8` with `weapon_check=NEED_WEAPON` spends the turn in
-  C `mon_wield_item(NEED_HTH)` before move; JS skipped that `dochug`
-  gate (D-0264).
-- **seg9 @8352 was not incomplete `hmon`/`dmgval` after hit** — matched
-  `rnd(20)=13`; JS missed because `hitval` omitted `oc_hitbon` (+2 for
-  daggers). C hit → DEX exercise → kill (D-0265).
-- **seg9 @8918 was hero MAGIC_TRAP** — JS stubbed hero arm; C
-  `rn2(30)`→`domagictrap` fate=11 HInvis (D-0266).
-- **seg9 @8943 was not post-Invis mux/perceives drift** — peaceful
-  shopkeeper entered `m_move` after dochug `set_apparxy`; JS called
-  `shk_move` and returned **before** `set_apparxy`. C calls
-  `set_apparxy` before mtame/shk|gd|priest (D-0267).
-- Do not treat session `\r` as plain `j` — ICRNL → `\n` = `C('j')` rush
-  (D-0259). `rushDirFromCtrl` keys 1..26 only.
+- Role `mnum` = PM_* IDs, never roles[] index; roles[] order matches C.
+- `roles name.f` null where C has 0 (D-0138); no same-string `f===m` proxy.
+- No Tourist Aloha/neutral/HP:10 hardcodes in `allmain`.
+- Unique `#` extcmds still need Enter (`#levelchange`).
+- `'f'`→`dofire` needs fireassist when bow is only in `uswapwep` (D-0069).
+- Ctrl-rush `run=3`, capital run `run=1` (D-0261); always `await pline` on
+  muse wand paths.
+- Session `\r` → `\n` = `C('j')` rush (D-0259); `rushDirFromCtrl` 1..26.
+- seg8 fleeck/missing-katana were key desync (D-0261), not dog_move/dodrop.
+- Recent seg9 falsified theories: D-0262…D-0267 — see `DIVERGENCE-INDEX.md`.
 
-## Landmarks
+## Landmarks (≤15)
 
-- STAIRS glyph: `known_branch_stairs(stairway_at)` → CLR_YELLOW;
-  else CLR_GRAY (tty NO_COLOR); direction from `ladder & LA_DOWN`
-  (D-0162). Dlvl1 upstairs is traversed branch.
-- **`goto_level` descend:** `stairway_find_from(&u.uz0, at_ladder)` then
-  mark `u_traversed`; not bare `u_on_upstairs`/`find_dir` (D-0224).
-- **tty map coords:** screen col = map_x − 1; screen row = map_y + 1
-  (message row 0). Never treat session screen (65,3) as map (65,3).
-  DEC sessions: expand CSI `\x1b[NC`; strip `\x1b[…m`; track **SO/SI**
-  (`\x0e`/`\x0f`) — in G1, `jklmqx` are line-drawing not monsters
-  (D-0253).
-- **Session step key:** `steps[i].key === moves[i-1]` (RNG/screen after
-  that key); `moves[i]` is the key about to be read at capture (D-0238).
-- **ICRNL:** session moves may store `\r`; C under tmux reads `\n`.
-  JS `runSegment` must translate `\r`→`\n` like `record-session.mjs`
-  (D-0259). `\n` = rush south via `C('j')` → **`context.run=3`** (D-0261).
-- **`armoroff` delay:** `nomul(-oc_delay)` + `afternmv=*_off` +
-  `nomovemsg="You finish taking off your %s."` (suit → `"mail"`);
-  delay-0 still immediate `*_off`+`off_msg` (D-0259).
-- **`newmonhp` level-0:** `basehp=1`; `rnd(4)`; if `mhpmax==basehp`
-  boost +1 (min HP 2). Same boost when `d(m_lev,8)==m_lev` (D-0260).
-- **`more()` dismiss:** only space/CR/ESC; other keys bell+continue
-  (topl.c `xwaitforspace`). Mid-movemon more can consume later command
-  letters from the queue — but first check unawaited pline / wrong
-  `context.run` before blaming more alone (D-0261).
-- **Shop mimic appearance:** after `rn2(10) >= depth(&u.uz)` fails,
-  `set_mimic_sym` calls `get_shop_item(rt-SHOPBASE)` then may `mkobj`
-  for appearance (D-0262). Use `depth()`, not bare `dlevel`.
-- **Fountain gem:** fate=27 (drink) / case 24 (dip) → `dofindgem` →
-  `mksobj_at(rnd_class(DILITHIUM..LUCKSTONE-1), …, FALSE, FALSE)` +
-  `SET_FOUNTAIN_LOOTED` (D-0263). Looted fallthrough → nymph/gush still
-  deferred.
-- **`dochug` HTH wield:** when `!peaceful||Conflict`, `inrange`,
-  `dist2(mux,muy)<=8`, `AT_WEAP`, and `weapon_check==NEED_WEAPON`, set
-  `NEED_HTH_WEAPON` and `mon_wield_item` — non-zero return spends the
-  turn (no `m_move`) (D-0264).
-- **`hitval`:** weapon/weptool `spe` + always `objects[].oc_hitbon`
-  (`a_ac` in extract); dagger family +2 (D-0265).
-- **Hero MAGIC_TRAP:** `seetrap`; `!rn2(30)` explosion else
-  `domagictrap` (`rnd(20)`); fate 11 toggles `HInvis|=FROMOUTSIDE`
-  (D-0266).
-- **`m_move` order:** after meating, **`set_apparxy` then** mtame /
-  covetous / shk|gd|priest — shk `xm!=-1` return still consumed
-  apparxy RNG (D-0267).
-- **`F`/`do_fight`:** PREFIXCMD sets `forcefight`; next move dir attacks
-  (empty → `domove_fight_empty` “thin air” / solid); no turn on F alone
-  (D-0225).
-- Key attribution ≠ RNG order: 0-RNG `--More--` / safety-reject keys can
-  sit between matched EOT RNG and the next gameplay command (D-0228).
+- STAIRS: `known_branch_stairs` → yellow else gray; `ladder & LA_DOWN` (D-0162).
+- `goto_level` descend: `stairway_find_from(&u.uz0, at_ladder)` (D-0224).
+- tty map: col = map_x−1; row = map_y+1; DEC: CSI/`SO`/`SI` (D-0253).
+- Session step: `steps[i].key === moves[i-1]` (D-0238).
+- `armoroff`: `nomul(-oc_delay)` + `afternmv` (D-0259).
+- `newmonhp` level-0: basehp=1; boost to min 2 (D-0260).
+- `more()`: space/CR/ESC only (topl `xwaitforspace`).
+- Shop mimic: after depth `rn2(10)`, `get_shop_item` (D-0262).
+- Fountain gem fate 27/24 → `dofindgem`/`rnd_class` (D-0263).
+- `dochug` NEED_HTH wield can spend turn (D-0264).
+- `hitval`: always `oc_hitbon` / extract `a_ac` (D-0265).
+- Hero MAGIC_TRAP → `domagictrap` (D-0266).
+- `m_move`: `set_apparxy` **before** mtame/shk|gd|priest (D-0267).
+- Key attribution ≠ RNG order (0-RNG `--More--`) (D-0228).

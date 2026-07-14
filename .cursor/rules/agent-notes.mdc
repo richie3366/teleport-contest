@@ -5,31 +5,31 @@ alwaysApply: true
 
 # Agent notes (self-evolve)
 
-`docs/NOTES.md` is the live unresolved scratchpad. Keep it tiny.
-Measured objectives/scores live in `PROGRESS.md`, fixed causes in
-`DIVERGENCE-LOG.md`, structural omissions in `C-JS-MAP.md`, and loop chronology
-in `AGENT-LOOP-JOURNAL.md`.
+`docs/NOTES.md` is the live unresolved scratchpad (≤100 lines).
+Measured objectives/scores live in **`docs/CURRENT.md`**, fixed causes in
+`DIVERGENCE-LOG.md` (+ `DIVERGENCE-INDEX.md`), structural omissions in one
+`docs/c-js-map/*.md` section, and loop chronology in the journal **tail**
+(archive older entries under `docs/archive/`).
 
 ## What belongs in NOTES.md
 
 - Active hypothesis + one command that would falsify it
-- Current expensive dead ends labeled “don’t re-check” with the counterexample
-- Session landmarks (e.g. 0-RNG keys at `--More--`; key attribution ≠ RNG order)
-- Open questions only — not peel chronology (journal) or resolved causes
-  (divergence log)
+- Current expensive dead ends labeled “don’t re-check” (cap ~15)
+- Session landmarks still needed live (cap ~15)
+- Open questions only — not peel chronology or resolved causes
 
 ## What does not
 
-Constitution, strategy essays, resolved peel chronology, baseline scores, and
-module status — those have other owners.
+Constitution, strategy essays, resolved peel chronology, baseline scores,
+completed D-chains, and module status — those have other owners (`CURRENT.md`,
+archive, divergence, c-js-map).
 
 ## When to write
 
 After any diagnosis that burned a long wrong path, add 3–5 lines to
 `docs/NOTES.md` **before** the next peel. Once resolved, move the evidence to
-`DIVERGENCE-LOG.md` and remove stale detail from Notes. Prefer falsifying
-against session **screens + key/RNG maps** early (not only `rng-diff` call
-sites).
+`DIVERGENCE-LOG.md` + index row and remove stale detail from Notes. Prefer
+falsifying against session **screens + key/RNG maps** early.
 
 ## Self-reflect
 

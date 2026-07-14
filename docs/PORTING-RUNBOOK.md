@@ -2,7 +2,7 @@
 
 Operational procedure for repeated fresh-context agents. This document says
 **how to work**. `CONSTITUTION.md` says what is non-negotiable;
-`PROGRESS.md` says what to work on now.
+`CURRENT.md` says what to work on now.
 
 ## 1. Authority and evidence
 
@@ -30,20 +30,24 @@ which unobserved branches, object types, roles, or map states are valid.
 |------|------|-----------------|
 | `CONSTITUTION.md` | Architecture and hard bans | A progress log |
 | `PORTING-RUNBOOK.md` | Repeatable workflow and gates | Current-session notes |
-| `PROGRESS.md` | Current score, green gate, active objectives, milestones | A theory dump |
-| `NOTES.md` | Tiny unresolved hypothesis/dead-end scratchpad | Chronological history |
-| `C-JS-MAP.md` | Structural coverage and known omissions | A score dashboard |
-| `DIVERGENCE-LOG.md` | Evidence-backed divergence outcomes | Speculation without a falsifier |
+| **`CURRENT.md`** | Score, green gate, primary objective (≤150 lines) | Completed D-chains / history |
+| `PROGRESS.md` | Stub pointing at `CURRENT.md` + archive | A second hot pack |
+| `NOTES.md` | Tiny unresolved hypothesis (≤100 lines) | Chronological history |
+| `C-JS-MAP.md` + `c-js-map/*.md` | Structural coverage / omissions by subsystem | A score dashboard |
+| `DIVERGENCE-INDEX.md` | Compact ID → status table | Full entry bodies |
+| `DIVERGENCE-LOG.md` | Evidence-backed entry bodies (open one by ID) | Required full read |
 | `PORTING-STRATEGY.md` | Rationale and long-range options | Live operational truth |
-| `AGENT-LOOP-JOURNAL.md` | Short per-iteration audit trail | Required reading in full |
+| `AGENT-LOOP-JOURNAL.md` | Latest ~10–15 iteration crumbs | Full history (use `archive/`) |
+| `archive/**` | Cold history | Default iteration reading |
 
 If a fact is duplicated, update its owner and replace copies with a link.
 
-In unattended loop mode, ordinary porters may update only Progress, Notes, the
-C↔JS map, the divergence log, and the loop journal. Constitution, runbook, API,
-strategy/phase docs, Cursor rules, loop scripts/prompts, `frozen/**`,
-`sessions/**`, and the C target/patches are read-only authority. Process or
-fixture corrections are proposed to a human/auditor.
+In unattended loop mode, ordinary porters may update only `CURRENT.md`, Notes,
+one C↔JS map section, the divergence index/log, and the journal tail.
+Constitution, runbook, playbook, API, strategy/phase docs, Cursor rules, loop
+scripts/prompts, `frozen/**`, `sessions/**`, and the C target/patches are
+read-only authority. Process or fixture corrections are proposed to a
+human/auditor.
 
 ## 3. Long-horizon strategy
 
@@ -82,13 +86,13 @@ For every touched function:
 
 - port the complete practical branch envelope supported by current data types;
 - preserve C short-circuit and mutation order;
-- list genuinely deferred branches in `C-JS-MAP.md`;
+- list genuinely deferred branches in the relevant `c-js-map/*.md` section;
 - do not label the function `ported` while production code says
   "not needed for seedXXXX."
 
 ## 4. Status vocabulary
 
-Use these exact statuses in `C-JS-MAP.md`:
+Use these exact statuses in `c-js-map/*.md` section files:
 
 - **absent** — no implementation.
 - **scaffold** — placeholder, throw, fake value, or RNG-only shell.
@@ -108,16 +112,16 @@ touched to `ported` or `parity`.
 
 1. Read, in order:
    - `CONSTITUTION.md`
-   - the active objective and green gate in `PROGRESS.md`
+   - the active objective and green gate in `CURRENT.md`
    - `NOTES.md`
-   - relevant rows in `C-JS-MAP.md`
+   - relevant rows in one `c-js-map/*.md` section
    - this runbook section if the procedure is not fresh
 2. Run `git status --short` and inspect the existing diff scope.
    The worktree can intentionally be dirty. Never reset, checkout, delete, or
    rewrite unrelated work.
 3. Run the green gate **before editing**. If it already fails, diagnose that
    state or document it; do not claim the new iteration caused or fixed it.
-4. Reproduce the focused divergence with the command in `PROGRESS.md`.
+4. Reproduce the focused divergence with the command in `CURRENT.md`.
 
 ### B. Build a work packet before editing
 
@@ -162,7 +166,7 @@ reading entire 5,000-line C files unless control flow truly requires it.
 2. **Focused differential:** first RNG divergence plus the session runner.
 3. **Strict lengths:** reject trailing RNG/screens/cursors that the frozen
    runner's canonical-prefix comparison does not notice.
-4. **Green gate:** every previously green session in `PROGRESS.md`.
+4. **Green gate:** every previously green session in `CURRENT.md`.
 5. **Subsystem cohort:** at least one distinct role/state/session that reaches
    the same code differently.
 6. **Full public run:** after a shared startup/RNG/display change, a milestone,
@@ -213,11 +217,12 @@ Before finishing:
   expected RNG values, screen strings, and unexplained magic constants;
 - confirm every new constant comes from C or a frozen contract;
 - confirm no unrelated dirty file was reverted;
-- confirm a partial implementation says what is omitted in `C-JS-MAP.md`, not
+- confirm a partial implementation says what is omitted in the map section, not
   with seed-specific production comments.
 
 Seed names, coordinates, and trace indices belong in `NOTES.md`,
-`DIVERGENCE-LOG.md`, tests, or debugging commands—not production control flow.
+`CURRENT.md`, `DIVERGENCE-LOG.md`, tests, or debugging commands—not
+production control flow.
 
 For each edited JS file, a useful final scan is:
 
@@ -233,10 +238,10 @@ and explain or generalize any pre-existing narrow comments in the function.
 Update only the owners of changed facts:
 
 - unresolved current theory/dead end → `NOTES.md`;
-- fixed divergence with evidence → `DIVERGENCE-LOG.md`;
-- structural status/omissions → `C-JS-MAP.md`;
-- score, green gate, objective, milestone → `PROGRESS.md`;
-- iteration summary → append a short `AGENT-LOOP-JOURNAL.md` entry.
+- fixed divergence with evidence → `DIVERGENCE-LOG.md` + index row;
+- structural status/omissions → one `c-js-map/*.md` section;
+- score, green gate, objective → `CURRENT.md` (never re-paste D-chains);
+- iteration summary → prepend a short `AGENT-LOOP-JOURNAL.md` entry.
 
 Leave the tree coherent. If the change cannot pass its declared gate, either
 finish the diagnosis in the same iteration or remove only your experimental
@@ -305,7 +310,8 @@ For a generated file:
 6. behavior helpers still live in readable JS rather than being hidden in a
    whole-program generated engine.
 
-Missing fields are semantic omissions. Record them in `C-JS-MAP.md`; do not
+Missing fields are semantic omissions. Record them in the relevant
+`c-js-map/*.md` section; do not
 silently substitute defaults that happen to pass one session.
 
 ## 9. Async and segment boundaries
@@ -345,7 +351,7 @@ or wholesale replacement requires a human checkpoint/auditor.
 ## 12. Autonomous-loop discipline
 
 Fresh agents must not reinterpret architecture. They follow the active
-objective in `PROGRESS.md`, this runbook, and the Constitution.
+objective in `CURRENT.md`, this runbook, and the Constitution.
 
 **Model playbook:** loop agents read `GROK-PLAYBOOK.md` first each iteration.
 It encodes objective priority (foundation before parked canaries), good/bad
@@ -366,5 +372,5 @@ each iteration must still be finite, auditable, and useful to a fresh model.
 When `DIVERGENCE-LOG.md` marks an item **parked** (missing falsifier,
 instrumentation, or prerequisite), loop agents may record hypotheses in the
 journal but must not ship production changes for that item. Return to the
-primary foundation objective in `PROGRESS.md` instead of re-peeling the parked
+primary foundation objective in `CURRENT.md` instead of re-peeling the parked
 trace.

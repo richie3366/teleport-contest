@@ -30,7 +30,7 @@ alwaysApply: false
 - Public seed names, recorded coordinates/values/screens, and raw RNG-index
   conditions do not belong in production logic.
 - If a function remains partial, put semantic omissions in
-  `docs/C-JS-MAP.md`; do not use "not needed for seedXXXX" as design.
+  the relevant `docs/c-js-map/*.md` section; do not use "not needed for seedXXXX" as design.
 
 ## Handoff
 

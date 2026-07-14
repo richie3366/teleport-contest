@@ -57,7 +57,8 @@ Category: **agentic**. No shipping a transpiled C engine.
 4. Keep the DAG acyclic. Generated data under `js/generated/` is fine.
 5. Frozen files (`isaac64.js`, `terminal.js`, `storage.js`) are
    untouchable for scoring — do not fork their contracts.
-6. A partial module must name semantic omissions in `C-JS-MAP.md`.
+6. A partial module must name semantic omissions in the relevant
+   `docs/c-js-map/*.md` section.
    Passing one session is not proof that a C function is complete.
 
 ---
@@ -84,7 +85,7 @@ Category: **agentic**. No shipping a transpiled C engine.
 1. `fastforward.js` is **delete-only**. No new seed-specific burn
    lists. No extending it to “almost pass” another session.
 2. Progress is measured by:
-   - C semantic units advanced and omissions retired (`C-JS-MAP.md`);
+   - C semantic units advanced and omissions retired (`c-js-map/*.md`);
    - sessions/scenarios reaching real ported code (not throws/fakes);
    - verified focused, green, and cohort evidence;
    - `fastforward.js` bytes/LOC removed (now mostly empty-hook deletion).
