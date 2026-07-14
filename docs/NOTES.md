@@ -7,15 +7,15 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Current unit:** seed0030 Scr **887**/1953 with RNG **FULL** 105529
-  (D-0297). True prefix first-miss **174** (was 163). Runner matched
-  count is total matches, not prefix — do not treat as prefix length.
-- **Hypothesis:** @174 C `You miss the small mimic.--More--` vs JS same
-  text without `--More--` — prior topline or `more()` not blocking.
-- **Falsifier:** decodeScreen @174 topline; C pline/`xwaitforspace`.
-- **Falsified:** @163 was **not** seemimic missing — JS drew mlet `m`
-  instead of `M_AP_OBJECT` via `display_monster`/`map_object` (D-0297).
-- **Also:** seg7 JS 159 vs C 172 steps (investigate after @174).
+- **Current unit:** seed0030 Scr **889**/1953 with RNG **FULL** 105529
+  (D-0298). True prefix first-miss **237** (was 174).
+- **Hypothesis:** @237 map `*` C color **15** (bright white) vs JS **8**
+  (NO_COLOR) — floor gem/rock `obj_color` / lit bright arm.
+- **Falsifier:** decodeScreen @237 (5,63); C `obj_color` vs JS glyph color.
+- **Falsified:** @174 was **not** a bare `more()`/topline gate — vault
+  `dosounds` burned RNG without `You_hear`, so footsteps never forced
+  `--More--` on the miss line (D-0298).
+- **Also:** seg7 JS 159 vs C 172 steps (investigate after @237).
 - **Alt:** seed0013 Scr 57/59; seed0107 @2684.
 - **Parked:** D-0006 (pet movement); seed2200 @158 RC/`$HOME`.
 
@@ -38,7 +38,8 @@ Objective/score live in `CURRENT.md`.
 - **Don’t:** DEC altar as ASCII `_` — meta-`{` (D-0293); omit `noises()` on
   out-of-sight `missmm`/`hitmm` (D-0294); `Monnam` without `!canspotmon`→`it`
   (D-0295); `missmm` without `map_invisible` when Magr unseen (D-0296);
-  draw disguised mimics as mlet — `display_monster` M_AP_OBJECT (D-0297).
+  draw disguised mimics as mlet — `display_monster` M_AP_OBJECT (D-0297);
+  vault `dosounds` RNG-only — emit `You_hear` (D-0298).
 - Runner `Screen N/M` = total matches, not prefix length.
 
 ## Landmarks (≤15)
@@ -58,4 +59,4 @@ Objective/score live in `CURRENT.md`.
 - `m_move`: `set_apparxy` **before** mtame/shk|gd|priest (D-0267).
 - Key attribution ≠ RNG order (0-RNG `--More--`) (D-0228).
 - Bones / disclose / RIP / topten / amulet / DEC altar / noises / Monnam /
-  map_invisible / mimic M_AP_OBJECT: D-0274…D-0297.
+  map_invisible / mimic M_AP_OBJECT / vault dosounds You_hear: D-0274…D-0298.

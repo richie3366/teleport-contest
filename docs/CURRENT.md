@@ -17,17 +17,17 @@ Update **this Score section** with: pass count, screen/RNG aggregates, speed
 label, PASS list, notable non-PASS. Prepend a journal crumb. Do not invent
 suite totals from a single focused session.
 
-Score last measured: **2026-07-14** @ `6b84eab` — full `sessions` suite
-(global loop ~318; next mandatory at multiples of 5).
+Score last measured: **2026-07-14** — full `sessions` suite (global loop
+**#320**; next mandatory at multiples of 5). Post D-0298.
 
 ## Score
 
 | Metric | Value |
 |--------|------:|
 | Sessions passing | **19 / 44** |
-| Screens matched | **2277 / 11,405** (19.96%) |
+| Screens matched | **2313 / 11,405** (20.28%) |
 | Positional RNG calls matched | **240,559 / 792,838** (30.34%) |
-| Speed label | `18+0.11/turn` (R² 0.78) |
+| Speed label | `17+0.11/turn` (R² 0.79) |
 | Role-init throws | **0 / 44** |
 
 **PASS (19):** seed8000, seed0900, seed1500, seed1800, seed0060, seed0102,
@@ -37,7 +37,7 @@ seed0016, seed0015, seed0200, seed0101, seed0103, seed0104.
 **Notable non-PASS:**
 | Session | RNG | Screen | Note |
 |---------|----:|-------:|------|
-| seed0030 | 105529/105529 | 853/1953 | primary peel; prefix miss ~@163 |
+| seed0030 | 105529/105529 | **889**/1953 | primary peel; prefix first-miss **@237** |
 | seed2200 | 3018/3018 | **175**/230 | RNG full; Scr regressed vs older 229/230 |
 | seed0013-rogue | 4838/4838 | 57/59 | |
 | seed0013-friday13-restore | 4803/4804 | 46/99 | |
@@ -60,16 +60,16 @@ Both must remain full RNG + screen PASS with exact scored-output lengths.
 
 ## Primary objective
 
-**seed0030 screen peel** — RNG full; Scr **887**/1953; prefix first-miss **@174**
+**seed0030 screen peel** — RNG full; Scr **889**/1953; prefix first-miss **@237**
 
 | | |
 |--|--|
-| **C locus** | `pline.c` / topl `--More--` (combat miss after reveal?) |
-| **JS locus** | `js/display.js` / `js/pline.js` message more |
-| **Symptom** | Scr prefix@174: C `You miss the small mimic.--More--` vs JS no `--More--` |
-| **Hypothesis** | Prior topline / `more()` gate missing so miss message does not block |
-| **Falsifier** | decodeScreen @174 topline; C `pline`/`xwaitforspace` vs JS `_toplin` |
-| **Recent fixed** | D-0297 `display_monster` M_AP_OBJECT (163→174; Scr 853→887) |
+| **C locus** | `display.c` / `obj_color` (gem `*` bright white?) |
+| **JS locus** | `js/display.js` object glyph color |
+| **Symptom** | @237 map `*` C color 15 vs JS NO_COLOR (8); cursors agree |
+| **Hypothesis** | Floor gem/rock `obj_color` / lit bright arm missing |
+| **Falsifier** | decodeScreen @237 cell (5,63); C `obj_color` vs JS |
+| **Recent fixed** | D-0298 `dosounds` vault `You_hear` (174→237; Scr 887→889) |
 
 ```bash
 node frozen/ps_test_runner.mjs sessions/seed0030-ten-diverse-deaths.session.json

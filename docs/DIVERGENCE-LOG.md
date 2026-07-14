@@ -7581,4 +7581,25 @@ Open that file first; then jump to a single `## D-NNNN` entry below
   `set_mimic_sym` door/furniture appear stubs.
 - **Next:** prefix@174 C miss message with `--More--` vs JS without.
 
+## D-0298 — `dosounds` vault `You_hear`
+
+- **Status:** fixed
+- **Observed:** seed0030 @174 — C `You miss the small mimic.--More--`
+  (cursor on topline) vs JS same text without `--More--` (cursor on map).
+  Next C screen footsteps; JS `Unknown command ' '`.
+- **C locus:** `sounds.c` `dosounds` vault `gd_sound` + `rn2(2)+hallu`
+  switch → `You_hear("the footsteps of a guard on patrol.")` (etc.);
+  second pline while `TOPLINE_NEED_MORE` forces `more()`.
+- **Cause:** JS vault branch burned `rn2(2)+hallu` but omitted `You_hear`
+  (named omission); `dosounds` was sync/non-awaited.
+- **Change:** async vault `You_hear` arms (gold_in_vault / vault_occupied
+  FALLTHROUGH / footsteps / hallu Scrooge); `await dosounds()` in
+  `allmain` EOT.
+- **Verification:** prefix **174→237**; Scr matched **887→889**; RNG full;
+  green+strict; 19-session PASS cohort + strict. Full suite **19/44**,
+  Scr **2313/11405**.
+- **Named omissions:** fountain/sink/swamp/barracks/shop/court `You_hear`;
+  `Soundeffect`; findgd migrating; temple/oracle bodies.
+- **Next:** prefix@237 map `*` C color 15 vs JS 8 (`obj_color`).
+
 
