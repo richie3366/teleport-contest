@@ -24,6 +24,21 @@ The compact status table lives in **`DIVERGENCE-INDEX.md`**.
 Open that file first; then jump to a single `## D-NNNN` entry below
 (via search). Do **not** read this whole file by default.
 
+## D-0339 — `)` / `doprwep` bare handed
+
+- **Status:** fixed
+- **Observed:** seed0013-restore @62 — C `You are bare handed.` vs
+  JS `Unknown command ')'`.
+- **C locus:** `invent.c` `doprwep` / `wield.c` `empty_handed`
+- **Cause/evidence:** `)` (WEAPON_SYM / #seeweapon) unbound in `cmd.js`.
+- **Change:** `doprwep` — `!uwep` → `You are ${empty_handed()}.`; else
+  `prinv` via `xprname`; bind `)`. Named omit: menu_requested
+  `dispinv_with_action`.
+- **Verification:** Scr **68→69**/99; first miss `@64` `[`; RNG full;
+  green+strict; 21 PASS cohort incl. seed0013-rogue.
+- **General lesson:** show-* GENERALCMD peels continue after restore
+  (`$` then `)` then `[`).
+
 ## D-0338 — `$` / `doprgold` empty wallet
 
 - **Status:** fixed

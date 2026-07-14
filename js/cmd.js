@@ -16,7 +16,7 @@ import { COLNO, ROWNO, STONE, DOOR, CORR, ROOM, IRONBARS,
          ECMD_OK, ECMD_TIME, ECMD_CANCEL, DOMOVE_RUSH, DOMOVE_WALK } from './const.js';
 import { dist2 } from './mon.js';
 import {
-    ddoinv, dodiscovered, doattributes, dolook, doprgold,
+    ddoinv, dodiscovered, doattributes, dolook, doprgold, doprwep,
 } from './invent.js';
 import { dovspell, docast } from './spell.js';
 import { doeat } from './eat.js';
@@ -618,6 +618,10 @@ export async function rhack(key) {
     } else if (ch === '$') {
         // C ref: invent.c doprgold / cmd.c — #showgold (GENERALCMD)
         await doprgold();
+        game.context.move = 0;
+    } else if (ch === ')') {
+        // C ref: invent.c doprwep / cmd.c — #seeweapon (GENERALCMD, WEAPON_SYM)
+        await doprwep();
         game.context.move = 0;
     } else if (ch === 'Q') {
         // C ref: wield.c dowieldquiver / doquiver_core("ready")

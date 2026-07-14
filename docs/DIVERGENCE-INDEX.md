@@ -325,6 +325,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 | D-0336 | fixed | welcome restore align | omit align unless base changed/adrift; @49 welcome-back |
 | D-0337 | fixed | attributes quitchars | `doattributes` xwaitforspace; ^O stays on page; @56 |
 | D-0338 | fixed | `$` doprgold | empty wallet pline; @60 |
+| D-0339 | fixed | `)` doprwep | bare-handed empty_handed pline; @62; Scr 68→69 |
 
 
 

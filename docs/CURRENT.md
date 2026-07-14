@@ -60,17 +60,17 @@ Both must remain full RNG + screen PASS with exact scored-output lengths.
 
 ## Primary objective
 
-**seed0013-friday13-restore** — RNG **4804**/4804; Scr **68**/99
+**seed0013-friday13-restore** — RNG **4804**/4804; Scr **69**/99
 
 | | |
 |--|--|
-| **C locus** | `invent.c` `doprwep` / cmd `)` |
-| **JS locus** | `js/cmd.js` / weapon show path |
-| **Symptom** | `@62` C `You are bare handed.` vs JS `Unknown command ')'` |
-| **Hypothesis** | `)` unbound — port `doprwep` subset |
-| **Falsifier** | Scr >68; or named C mismatch at first cell miss |
-| **Recent fixed** | D-0335…D-0338 save/restore + welcome align + attr
-  quitchars + `$`/`doprgold` |
+| **C locus** | `invent.c` `doprarm` / cmd `[` |
+| **JS locus** | `js/cmd.js` / armor show path |
+| **Symptom** | `@64` C `c - an uncursed +1 leather armor (being worn).` vs JS `Unknown command '['` |
+| **Hypothesis** | `[` unbound — port `doprarm` / `wearing_armor` / `noarmor` subset |
+| **Falsifier** | Scr >69; or named C mismatch at first cell miss |
+| **Recent fixed** | D-0335…D-0339 save/restore + welcome + attr + `$`/`doprgold`
+  + `)`/`doprwep` |
 
 ```bash
 node frozen/ps_test_runner.mjs sessions/seed0013-friday13-save-then-fullmoon-restore.session.json

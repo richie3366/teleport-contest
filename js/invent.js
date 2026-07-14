@@ -958,6 +958,31 @@ export async function doprgold() {
 }
 
 /**
+ * C ref: invent.c doprwep / #seeweapon / ')'.
+ * Named omissions: menu_requested → dispinv_with_action(lets) for
+ * uwep/uswapwep/uquiver (falls through to prinv until that lands);
+ * quan-split total_of in prinv.
+ */
+export async function doprwep() {
+    const u = game.u || {};
+    if (!u.uwep) {
+        // C: You("are %s.", empty_handed());
+        await pline(`You are ${empty_handed()}.`);
+        return ECMD_OK;
+    }
+    if (game.iflags?.menu_requested) {
+        // dispinv_with_action deferred — clear sticky m-prefix
+        game.iflags.menu_requested = false;
+    }
+    // C: prinv(NULL, uwep, 0L); if (twoweap) prinv(uswapwep)
+    await pline(xprname(u.uwep, undefined, true));
+    if (u.twoweap) {
+        await pline(xprname(u.uswapwep, undefined, true));
+    }
+    return ECMD_OK;
+}
+
+/**
  * C ref: invent.c dfeature_at — dungeon feature worth mentioning at <x,y>.
  * Branch envelope this iteration: doors, stairs (via stairs_description),
  * fountain/sink/altar/grave/tree/bars stubs. Lava/ice/pool/drawbridge deferred.
