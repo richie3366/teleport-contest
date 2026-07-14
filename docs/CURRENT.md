@@ -6,8 +6,8 @@ and `archive/PROGRESS-HISTORY.md`.
 
 Score last measured: **2026-07-14** via focused seed0030 + green/cohort;
 full `sessions` suite not re-run this iteration. PASS set unchanged;
-seed0030 positional **105529**/105529 Scr **821**/1953 after D-0292
-(RNG full; true prefix first-miss 93→109; runner matched count 818→821).
+seed0030 positional **105529**/105529 Scr **840**/1953 after D-0293
+(RNG full; true prefix first-miss 109→126; runner matched count 821→840).
 
 ## Score
 
@@ -24,7 +24,7 @@ seed0700, seed1150, seed0017, seed0077, seed0106, seed0501, seed0105,
 seed0016, seed0015, seed0200, seed0101, seed0103, seed0104.
 
 **Notable non-PASS:** seed2200 RNG full Scr 229/230 (parked RC @158);
-seed0013 RNG full Scr 57/59; seed0030 **105529**/105529 Scr 821/1953;
+seed0013 RNG full Scr 57/59; seed0030 **105529**/105529 Scr 840/1953;
 seed0107 2684/2902 Scr 36/98; seed0361/0373 quest bones blocked.
 
 ## Green gate
@@ -42,16 +42,16 @@ Both must remain full RNG + screen PASS with exact scored-output lengths.
 
 ## Primary objective
 
-**seed0030 screen peel** — RNG full; Scr **821**/1953; prefix first-miss **@109**
+**seed0030 screen peel** — RNG full; Scr **840**/1953; prefix first-miss **@126**
 
 | | |
 |--|--|
-| **C locus** | display/showsyms FOUNTAIN (or terrain typ) under `symset:DECgraphics` |
-| **JS locus** | `js/display.js` terrain glyph — JS `_` vs C `{`+dec @ row 5 |
-| **Symptom** | Scr prefix@109 cell (seg1 local 30); door-opens topline matches |
-| **Hypothesis** | JS paints ALTAR `_` / wrong showsym; C FOUNTAIN `{` with DEC |
-| **Falsifier** | decodeScreen first differing cell at global 109; check levl typ |
-| **Recent fixed** | D-0292 amulet xname + `clear_dknown` (prefix 93→109) |
+| **C locus** | `sounds.c` `dosounds` / hear-distance pline (or quiet path) |
+| **JS locus** | `js/sounds.js` (or missing call from moveloop) |
+| **Symptom** | Scr prefix@126 topline: C `You hear some noises in the distance.` vs JS blank |
+| **Hypothesis** | JS skips `dosounds` hear-noise arm this turn |
+| **Falsifier** | decodeScreen @126 topline; C vs JS sounds call / rn2 gate |
+| **Recent fixed** | D-0293 DEC altar meta-`{` (prefix 109→126) |
 
 ```bash
 # Focused seed0030 (RNG already full — peel screens)

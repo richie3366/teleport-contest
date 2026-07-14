@@ -1,3 +1,37 @@
+## 2026-07-14 17:17 — D-0277 bones ghostly peace_minded
+
+- Objective: seed0030 seg9 @16683 (CURRENT primary D-0276 follow-on).
+- C locus: `restore.c` `getlev` ghostly `peace_minded`/`set_malign`;
+  `bones.c` `savebones` pet untame.
+- Change: DIAG showed peaceful dwarf vs C track/`mdig_tunnel`. JS kept
+  Elara peaceful flags; Hermione must re-evaluate. `try_load_bones`
+  ghostly reset + export `peace_minded`; savebones clears `mtame`.
+- Verification: seg9 **16683→16836**; green+strict PASS; 19-session
+  PASS cohort + strict lengths.
+- Next: @16836 C `rn2(7) @ disturb` vs JS `rn2(3)`.
+
+## 2026-07-14 17:20 — D-0276 bones mtrack serialize/restore
+
+- Objective: seed0030 seg9 @16635 (CURRENT primary D-0275 follow-on).
+- C locus: `save.c` `savemon` / `restore.c` `restmon` (`mtrack` in
+  `struct monst`); `monmove.c:1963` track skip.
+- Change: `js/bones.js` persist `mtrack[4]` on write/load. Prior omit
+  forced zeros; live Elara mons had tracks → C `rn2(8)` vs JS fleeck.
+- Verification: seg9 **16635→16683**; green+strict PASS; 17-session
+  PASS cohort + strict lengths; flat **48192**/105529.
+- Next: @16683 C `rn2(32)` track (cnt=8) vs JS `rn2(10)`; C `mdig_tunnel`.
+
+## 2026-07-14 17:15 — D-0275 done_object_cleanup thrownobj
+
+- Objective: seed0030 seg9 @16630 (CURRENT primary D-0274 follow-on).
+- C locus: `end.c` `done_object_cleanup`/`really_done`; `mthrowu.c`
+  fatal `thitu` skips `drop_throw`.
+- Change: place limbo `_thrownobj`/`_kickedobj` onto map before bones.
+  Killing arrow was `OBJ_FREE` → omitted from VFS (48 vs 49).
+- Verification: bones **49**; seg9 **16630→16635**; green+strict PASS;
+  19-session PASS cohort + strict lengths.
+- Next: post-bones `m_move` `rn2(8)` vs `rn2(5)` @16635.
+
 ## 2026-07-14 16:48 — D-0273 corpse_chance AT_BOOM / mon_explodes
 
 - Objective: seed0030 seg9 @12414 (CURRENT primary D-0273).

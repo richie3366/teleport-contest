@@ -7489,3 +7489,23 @@ Open that file first; then jump to a single `## D-NNNN` entry below
   `observe_object` in xname.
 - **Next:** prefix@109 JS `_` vs C `{`+DEC (fountain/altar/showsyms).
 
+## D-0293 — DECgraphics S_altar meta-`{`
+
+- **Status:** fixed
+- **Observed:** seed0030 prefix@109 — map (54,4) JS `_` vs C `{`+DEC
+  (color NO_COLOR). Prior notes guessed fountain; typ is ALTAR.
+- **C locus:** `dat/symbols` DECgraphics `S_altar: \xfb` (meta-`{`, pi);
+  `display.c` `back_to_glyph` ALTAR → `altar_to_glyph` / `S_altar`;
+  defsym `_`/CLR_GRAY when not DEC.
+- **Cause:** JS `terrain_glyph` hard-coded ASCII `_` for ALTAR under
+  DECgraphics. Grid Unicode path also mapped `{`→π via `DEC_TO_UNICODE`,
+  but frozen `screen-decode` DEC_MAP lacks `{` so π≠C SO+`{`.
+- **Change:** DEC altar `{`+dec; ASCII `_`; scoring grid keeps raw `{`
+  (do not π-convert) so `diffCell` matches C.
+- **Verification:** prefix **109→126**; Scr matched **821→840**; RNG full;
+  green+strict; 19-session PASS cohort + strict.
+- **Named omissions:** `altar_color` by altarmask; other DECgraphics
+  remaps not in WALL/door/room tables (pool/lava/ladder/bars/…);
+  browser π for altar (scoring uses raw `{`).
+- **Next:** prefix@126 C `You hear some noises in the distance.` vs JS blank.
+

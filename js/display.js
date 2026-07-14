@@ -656,8 +656,14 @@ function terrain_glyph(loc, x, y) {
             dec: false,
         };
     }
-    // C ref: defsym.h PCHAR — furniture glyphs (display.c back_to_glyph)
-    case ALTAR:     return { ch: '_', color: CLR_GRAY, dec: false };
+    // C ref: defsym.h PCHAR — furniture glyphs (display.c back_to_glyph).
+    // dat/symbols DECgraphics: S_altar \xfb meta-{ (pi); other furniture
+    // keep Primary ASCII unless listed in that symset. altar_color by
+    // altarmask deferred — defsym CLR_GRAY (tty → NO_COLOR) for now.
+    case ALTAR:
+        return dec
+            ? { ch: '{', color: CLR_GRAY, dec: true }
+            : { ch: '_', color: CLR_GRAY, dec: false };
     case GRAVE:     return { ch: '|', color: CLR_WHITE, dec: false };
     case THRONE:    return { ch: '\\', color: HI_GOLD, dec: false };
     case SINK:      return { ch: '{', color: CLR_WHITE, dec: false };
@@ -1241,13 +1247,20 @@ function _buildScreenOutput() {
             for (let c = 0; c < Math.min(line.length, display.cols); c++)
                 display.setCell(c, r, line[c], NO_COLOR, 0);
         }
-        // Map — write characters to grid (DEC → Unicode for browser display)
-        // Row 1 may already hold --More--; only fill cells that have glyphs
+        // Map — write characters to grid (DEC → Unicode for browser display).
+        // Only convert glyphs that frozen screen-decode DEC_MAP equates back
+        // (walls/doors/floor ·). S_altar DECgraphics meta-{ is π in
+        // DEC_TO_UNICODE but NOT in that comparator map — keep raw '{' so
+        // serialize_for_scoring matches C SO+{ (renderCell leaves '{').
         for (let y = 0; y < ROWNO; y++) {
             for (let x = 1; x < COLNO; x++) {
                 const loc = game.level?.at(x, y);
                 if (!loc?.disp_ch || loc.disp_ch === ' ') continue;
-                const ch = loc.disp_decgfx ? (DEC_TO_UNICODE[loc.disp_ch] || loc.disp_ch) : loc.disp_ch;
+                let ch = loc.disp_ch;
+                if (loc.disp_decgfx) {
+                    const uni = DEC_TO_UNICODE[ch];
+                    if (uni && ch !== '{') ch = uni;
+                }
                 const sr = y + 1;
                 // Don't clobber --More-- on row 1
                 if (sr === 1 && msgLines.length > 1) continue;
