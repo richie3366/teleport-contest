@@ -264,7 +264,8 @@ Do not record a guessed cause as fixed merely because an RNG prefix moved.
 | D-0258 | fixed | find_offensive nomore | WAN then POT invent; C keeps wand; seg7 FULL |
 | D-0259 | fixed | armoroff delay + ICRNL rush | seg8 3088→3263; takeoff nomul + C(j) |
 | D-0260 | fixed | newmonhp level-0 min HP | rnd(4)=1→2; jackal survives; seg8 3263→3310 |
-| D-0261 | open | drop/`more` before dog_goal | seg8 @3310; dodrop ported |
+| D-0261 | fixed | Ctrl-rush run=3 + await muse pline | seg8 FULL; seed0013 Scr 57/59 |
+| D-0262 | open | seed0030 seg9 @7196 get_shop_item | after D-0261; diagnose shop stock |
 
 
 D-0001 through D-0005 predate the strict-length/cohort runbook. Their focused
@@ -7086,30 +7087,38 @@ cohort gates if those functions are touched again.
   Scr **1463** RNG **181294**; seed0030 **47955**/105529.
 - **Next:** D-0261 seg8 @3068 `dog_move` rn2(1) vs fleeck.
 
-## D-0261 — dog_goal missing floor katana after drop (seed0030 seg8 @3310)
+## D-0261 — Ctrl-rush `run=3` + await muse wand plines (seed0030 seg8)
 
-- **Status:** open (partial: `dodrop` ported; peel blocked on `--More--`)
-- **Symptom (corrected):** first seg8 mismatch @**3310** — C
-  `rn2(100)=86 @ obj_resists` then second `dog_goal rn2(8)` vs JS
-  `rn2(4)` follow. Prior note “@3068 fleeck vs `rn2(1)`” **falsified**
-  (live match through 3309 after D-0260).
-- **Matched through:** `dog_goal` `rn2(8)=7` @3309 (APPORT fail, apport=3).
-- **C path:** hero `d`/`a` drops +0 katana at feet → `dog_goal` fobj scan
-  hits gold then katana (two `dogfood`→`obj_resists`, two APPORT
-  `rn2(8)`) then follow `rn2(4)`.
-- **JS path:** `d` was unbound (`Unknown command`); after porting
-  `dodrop`, live getch shows `d`/`a` arrive while
-  `…--More--` is pending → `more()` discards non-space/CR keys → katana
-  never leaves invent → only gold in radius → follow `rn2(4)` at 3310.
-- **Rejected:** mfndpos diagonal squeeze / cand `(65,15)` @3068;
-  second `obj_resists` invent arity; `distmin>=5` mtrack.
-- **Change (this iter):** `js/do.js` `dodrop`/`drop`/`dropx`/`dropy`/
-  `dropz`/`canletgo` + `rhack` `'d'` (shops/sinks/flooreffects/
-  count-split/`#droptype` deferred). Injecting spaces before `d` places
-  katana on floor (verified) but peel stays @3310 unless drop runs
-  **before** dog_goal @3309 (more timing).
-- **Verification:** green+strict PASS; 17-session PASS cohort; full
-  **19/44** Scr **1465** RNG **181571**; seed0030 **47901**/105529;
-  seed0013 Scr **7**/59.
-- **Next:** align rush-turn `more()` so `d` reaches `dodrop` before the
-  post-drop `dog_goal`; then expect mismatch >3310.
+- **Status:** fixed
+- **Symptom:** seg8 first mismatch @3310 — C katana `obj_resists` after
+  `d`/`a` drop vs JS follow `rn2(4)` (no floor katana). Earlier
+  @3068 fleeck theory **falsified**. Stable no-DIAG peel was @3067
+  (JS extra floor katana) when unawaited wand `more()` raced and ate
+  `T`/`e`; DIAG `await import` inside `more()` perturbed async order.
+- **C locus:** `cmd.c` `do_rush_*` → `set_move_cmd(dir, 3)`;
+  `hack.c` `lookaround` stops any non-safemon when `run != 1`;
+  `muse.c` `mzapwand`/`mbhitm` → blocking `pline`/`more`.
+- **Cause:** (1) JS Ctrl-rush set `context.run=1` (capital-run
+  semantics) so lookaround ignored a hostile jackal behind the hero and
+  `continue_run` took an extra step — `d` never reached `dodrop`.
+  (2) `muse.js` `mbhitm`/`mzapwand` called async `pline` without
+  `await`, so `--More--` raced and stole early keys.
+- **Rejected as root:** more()-only timing without run-mode fix;
+  mfndpos squeeze @3068; missing `dodrop` alone (ported prior iter).
+- **Change:** `js/cmd.js` Ctrl-rush `run=3`, capital run `run=1`;
+  `js/muse.js` await `mzapwand`/`mbhit`/`mbhitm`/hurl plines;
+  `js/monmove.js` await `use_misc`. Prior iter: `dodrop`/`rhack` `'d'`.
+- **Verification:** seg8 RNG **FULL** 3476/3476; green+strict PASS;
+  17-session PASS cohort; full **19/44** Scr **1563** RNG **182531**;
+  seed0013 RNG **full** Scr **57**/59; seed0030 Scr **85**/1953;
+  next seg9 @7196 `get_shop_item`.
+- **Next:** diagnose seed0030 seg9 @7196 `get_shop_item` / shop stock.
+
+## D-0262 — seed0030 seg9 @7196 `get_shop_item` (open)
+
+- **Status:** open
+- **Symptom:** after D-0261, seg8 RNG FULL; first mismatch seg9 @7196 —
+  C `rnd(100) @ get_shop_item(shknam.c:835)` vs JS shorter/different path.
+- **C locus:** `shknam.c` `get_shop_item` / shop stock callers.
+- **Hypothesis:** post-seg8 shop stock / `mkshop` eligibility differs.
+- **Next:** compare C vs JS `get_shop_item`/`mkshop` at first seg9 mismatch.

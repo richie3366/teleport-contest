@@ -7,16 +7,14 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 
 ## Active
 
-- **Current unit:** seed0030 seg8 @3310 — C `obj_resists`+`dog_goal rn2(8)`
-  (katana on floor after `d`/`a` drop) vs JS `rn2(4)` follow (no katana).
-- **Hypothesis:** JS `more()` mid/post-rush eats `d`/`a` (only space/CR
-  dismiss; other keys discarded). C ends rush with short “Hachi misses”
-  and no blocking more, so `d` reaches `dodrop`. Injecting spaces before
-  `d` → `dodrop` places katana; peel still @3310 unless more timing matches
-  so drop runs **before** the dog_goal at 3309.
-- **Falsifier:** getch log around moves `\r d a` — C/JS more call sites
-  during the rush movemon; or force drop before that dog_goal and expect
-  first mismatch >3310.
+- **Current unit:** seed0030 seg9 @7196 — **D-0262** — C `rnd(100) @ get_shop_item`
+  vs JS shorter/different path after seg8 FULL.
+- **Hypothesis:** post-seg8 shop stock / `get_shop_item` branch or
+  mkshop eligibility differs after D-0261 rush/muse fixes advanced
+  past katana drop.
+- **Falsifier:** `node frozen/ps_test_runner.mjs sessions/seed0030-…`
+  per-seg; compare C vs JS `get_shop_item`/`mkshop` callers at first
+  seg9 mismatch.
 - **Parked deep canary:** D-0006 pet movement — do not implement until C
   state/candidate capture exists.
 - **Parked seed2200 @158:** RC config path — harness `$HOME`, not a port bug.
@@ -38,150 +36,20 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 - Binding `'f'`→`dofire` **without** fireassist swap when bow is only in
   `uswapwep` makes `l` a real shot; C eats `l` in swap `prinv` `--More--`
   (D-0069).
-- seed0102 @ 4451 was `udist` from leaked `l`, not APPORT/`can_carry` or
-  `dog_goal` formula (D-0069).
-- seed0102 Scr 0/25 was not topline-only: map `?` was missing MLET_CH /
-  furniture terrain (D-0070).
-- getdir invalid key must **not** retry after `help_dir` (C returns 0);
-  topline pline+`--More--` is wrong — need NHW_TEXT (D-0071).
-- Legacy Book overlay: `maxcol = strlen+1` (tty_putstr), not bare strlen;
-  NHW_MENU paints leading pad then text at `offx+1` (D-0071).
-- **lookaround must not `end_running` on ahead STONE/wall** — C treats
-  IS_OBSTRUCTED as uninteresting and may corridor-turn for run==1 (D-0072).
-- seed2200 help `g` stub was **not** missing opthelp file — real
-  `option_help` NHW_TEXT from `allopt[]` (D-0091). RC path line is
-  harness `$HOME` (elided by `verify-rerecord`); do not bake in
-  recording absolute paths.
-- **seed2200 Scr 162 msg_window `(not applicable)` was extractor bug**
-  — `#if PREV_MSGS /* tty or curses */` comments made `eval_expr` fail →
-  False → else branch (D-0114). Do not hardcode the descr.
-- **seed0106 Scr 5 was NOT enhance/overview-first** — JS forced DEC
-  walls/floors without `symset:DECgraphics`; C Primary ASCII (D-0115).
-  All current PASS cohort sessions set `symset:DECgraphics`.
-- **seed0104 @3031 was NOT upstairs / create_room origin drift** —
-  create_room RNG+rects matched C through place_branch; early screens
-  matched. Real split: capital-`L` lookaround turned diagonally into an
-  **open** door; C `test_move` forbids diagonal into intact doorways
-  (D-0218 rejected; D-0219 fixed). Do not re-chase makerooms rects for
-  that peel.
-- **seed0104 Scr 39/43 was NOT a botl/Ride residual** — dismount omitted
-  C `float_down`→`pickup`→`look_here` multi NHW_MENU; space meant for
-  pony `--More--` became `Unknown command` (D-0220).
-- **D-0211 was NOT mfndpos skipping SW / poison-gas / typ drift** — C
-  recorder dump: cnt=8 including `(72,8)`; peel was `dog_goal` `gg`
-  via `!couldsee`→`ogoal`/`wantdoor` (JS always fell back to hero).
-- **seed0030 seg2 @2930 was NOT invent-letter `y` / missing `rn2(20)` in
-  eatcorpse** — C `floorfood` yn "There is a kobold corpse here; eat it?";
-  JS invent-only getobj never reached eatcorpse (D-0221).
-- **seed0030 seg2 @3207 was NOT pet dog_invent first** — C
-  `done_eating`→`useupf`→`delobj`→`obj_resists(0,0)` before next
-  `distfleeck` (D-0222). Invent `useup` must not call `delobj`
-  (`addinv` often omits `where=OBJ_INVENT`; split children not in
-  `game.invent`).
-- **seed0030 seg2 @5939 was NOT dog_invent APPORT / invent-eat /
-  gettrack / meating** — symptom `rn2(20)` was hostile `m_move` track
-  after leftover floor glass redirected `gg`; root was skipped underfoot
-  `m_search_items`→`MMOVE_DONE` (D-0183 deferred until postmov
-  `mpickstuff` existed; restored D-0223).
-- **seed0030 seg2 @6060 was NOT upstairs create_room drift** — C tty
-  screen col/row ≠ map xy (`setCell(x-1,y+1)`); C map stairs **(66,2)**
-  matched JS. Real peel: unbound `F` forcefight (D-0224 rejected
-  geometry; D-0225 fixed). Do not re-chase split_rects for that peel.
-- **seed0030 seg3 @4527 was NOT a blind `rn2(100)` themerms chance** —
-  Nesting rooms contents evaluates `nh.rn2(4)` w/h **before**
-  `build_room`’s `rn2(100)`; JS fell through as plain random create_room
-  (D-0226). Nested create_subroom/door still deferred (outer often fails
-  after 100 positioned tries).
-- **seed0030 seg6 @10815 was NOT a region/selection list-length gap** —
-  fill reservoir `rn2(1)..rn2(13)` matched; pick was Buried zombies;
-  JS lacked the fill body so next room reservoir started early (D-0247).
-- **seed0030 seg6 @11830 was NOT irregular `somexy`/`rn2(w)`** —
-  reservoir picked Fake Delphi (`rn2(1001)=0`); C outer `des.room`
-  w=11,h=9 → positioned `create_room` `rnd(5)`; JS fell through as
-  fully-random `create_room` (D-0248).
-- **seed0030 seg6 @13801 was NOT a missing `rn2(50)` gate** — JS burned
-  `rn2(50)` then skipped to `rn2(100)`; C calls `rnd_defensive_item`
-  (`rn2(11)`) between them (D-0249).
-- **seed0030 seg6 @15369 was NOT moveloop actor-count / extra fleeck
-  mon** — matched `m_move` `rn2(12)=8` stepped onto TRAPDOOR; C
-  `trapeffect_hole`→`mlevel_tele_trap`→`Trap_Moved_Mon` (no post-
-  fleeck); JS selector no-op’d HOLE/TRAPDOOR so mon survived and
-  fleecked (D-0250).
-- **seed0030 seg6 @17712 was NOT peace_minded formula / initrecord /
-  hatemask arity** — C `rn2(21)` vs JS `rn2(16)` was `ualign.record`
-  5 vs 0 after one hostile kill; missing `set_malign` +
-  `adjalign(mtmp->malign)` in `xkilled` (D-0251).
-- **seed0030 seg6 @18683 was NOT a thitm miss** — matched `rnd(20)=17`
-  was a **hit**; C called `dmgval` (`rnd(3)`); JS stubbed `dam=1`
-  without RNG so fleeck `rn2(5)` shifted into the slot (D-0252).
-- **seed0030 seg6 @18840 was NOT m_move track-formula / jcnt / missing
-  `m_avoid_kicked_loc` on hostiles** — first misread as map; do not
-  patch track `rn2(4*(cnt-j))` alone.
-- **D-0253 was NOT Mines mkmap omitting ROOM at (28,13)** — JS+C both
-  have **TRCORNER** there after mklev; join dig `(28,3)→(29,18)` on
-  x=29; cavern hy=12; room bounds/`somex` widths match C; RNG
-  18225/18225 through Mines mklev. Apparent C “kobold `k`@(28,13)” was
-  **DEC Special Graphics** `k`→`┐` (SO charset), not a monster. Parse
-  with SO/SI state before reading letter glyphs (D-0253).
-- **D-0253 was NOT mid-game `mdig_tunnel` opening (28,13)** — cell is
-  wall in both; digs before peel are ROOM no-ops.
-- **D-0253 peel is Mines depth 4**, not the first DoD `>` descend.
-- **D-0253 root was missing `m_balks_at_approaching`** — gnome #240 at
-  (26,11) had bow+arrows wielded (`mw=BOW`) but `appr=1`; C sets
-  `appr=-1` via launcher balks and flees (e.g. toward (26,10)); JS
-  approached to (27,12)/(28,12) → later cnt 4 vs 6 (D-0253).
-- **seed0030 seg6 @18913 was NOT a fleeck arity bug** — C
-  `rn2(21) @ trapeffect_magic_trap`; JS selector no-op’d MAGIC_TRAP so
-  fleeck `rn2(5)` occupied the slot (D-0254). Both seg6 hits had
-  `rn2(21)≠0` (no fire fallthrough).
-- **seed0030 seg6 @19831 was NOT a missing invent `rn2(2)` /
-  `next_ident` alone** — value-matched `rn2(2)=1` was JS `exercise`
-  after fatal `thitu`/`losehp` that still returned; C `losehp`→
-  `done(DIED)` noreturn → `can_make_bones` then corpse/`savebones`
-  (D-0255). Do not chase bones before confirming fatal `losehp` stops
-  post-hit mulch/exercise.
-- **seed0030 seg7 @9290 was NOT a fleeck arity bug** — C
-  `rnd(25) @ trapeffect_slp_gas_trap`; JS selector no-op’d SLP_GAS so
-  fleeck `rn2(5)` occupied the slot (D-0256). Same pattern as D-0254.
-- **seed0030 seg7 @9811 was NOT m_move track cnt/j formula** — C
-  `rn2(32) @ m_move` after matched fleeck; JS pet `dog_move` rn2(3).
-  Sleep-gas set `mfrozen` but JS never ran `mcalcdistress`, so the
-  victim stayed `!mcanmove` forever while C thawed and moved (D-0257).
-  Do not patch track arity for that peel.
-- **seed0030 seg7 @10404 was NOT invent-order / missing POT in C** —
-  Swidnica had GOLD→WAN_STRIKING→KEY→POT_PARALYSIS (same RNG create).
-  C screen “zaps a short wand”; JS threw potion (`rn2(92)` catch).
-  Root was missing C `nomore` continue: once WAN_STRIKING selected,
-  later invent objects skip potion checks (D-0258). Do not reverse
-  invent chains or drop shopkeeper POT_PARALYSIS.
-- **`monattk.h`: AT_WEAP=254, AT_MAGC=255, AT_SPIT=10** — never use 10 for
-  weapon (D-0179).
-- Hostile `m_move`: before place, `m_digweapon_check` may return
-  MMOVE_DONE (wield pick/axe); hero-square returns MMOVE_NOTHING so
-  dochug can `mattacku` (D-0180).
-- **seg8 @3088 was NOT dog_goal APPORT / squeeze / kickedloc / place
-  abort / mfndpos drop** — those falsified (D-0259). Real cause:
-  missing `armoroff` `oc_delay`/`nomul` so `T` finished instantly and
-  later keys (`e`/` `/`\r`) ran early; RNG values coincidentally matched
-  through 3231 until C `do_attack` vs JS fleeck. Hero-stairs theory was
-  a symptom of that early `\r`.
-- **Session `\r` is not unknown / not plain `j`** — tmux ICRNL maps CR→LF;
-  `C('j')==10=='\n'` is **rush-south** under `!number_pad` (D-0259).
-  `rushDirFromCtrl` must only accept keys 1..26 (plain `j` also satisfies
-  `(code&0x1f)+96==='j'`).
-- **seg8 @3263 was NOT passivemm missing `rn2(3)` / AD_ACID polarity** —
-  little dog bite vs jackal with `mhpmax=1`; C `newmonhp` boosts
-  level-0 `rnd(4)=1` → 2 so jackal survives 1 dmg → `passivemm`
-  `rn2(3)`; JS kept HP=1 → kill → `corpse_chance` `rn2(2)` (D-0260).
-  Do not patch `passivemm` arity for that peel.
-- **seg8 @3068 was NOT dog_move `rn2(1)` / mfndpos squeeze / missing
-  cand `(65,15)`** — live match through 3309; prior “first=3068” was
-  wrong (D-0261). Do not port diagonal `bad_rock`/`cant_squeeze_thru`
-  for that peel without new evidence.
-- **seg8 @3310 was NOT missing `dodrop` alone as the live blocker** —
-  `d` was unbound (ported); with injected spaces before `d`, katana
-  lands on floor but peel stays @3310 unless drop runs before dog_goal
-  @3309. Live keys `d`/`a` are discarded inside `more()` (D-0261).
+- **Ctrl-rush is `context.run=3`**, capital run is `run=1` (C
+  `do_rush_*` / `do_run_*`). `run=1` does **not** stop for hostiles
+  beside/behind — only in-front (D-0261). Do not “fix” more() for that peel.
+- **Unawaited `pline` in muse `mbhitm`/`mzapwand` races `more()`** and
+  steals early keys (wand hit during combat) — always `await pline` on
+  that path (D-0261). DIAG that `await import`s inside `more()` also
+  perturbs async order — do not diagnose with await-in-more hooks.
+- **seg8 @3068 fleeck / mfndpos squeeze** falsified — was key desync from
+  run=1 + unawaited wand more (D-0261).
+- **seg8 @3310 missing katana** was not missing `dodrop` alone —
+  `dodrop` ported earlier; live blocker was rush never ending so `d`
+  never reached rhack (D-0261).
+- Do not treat session `\r` as plain `j` — ICRNL → `\n` = `C('j')` rush
+  (D-0259). `rushDirFromCtrl` keys 1..26 only.
 
 ## Landmarks
 
@@ -199,70 +67,18 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   that key); `moves[i]` is the key about to be read at capture (D-0238).
 - **ICRNL:** session moves may store `\r`; C under tmux reads `\n`.
   JS `runSegment` must translate `\r`→`\n` like `record-session.mjs`
-  (D-0259). `\n` = rush south via `C('j')`.
+  (D-0259). `\n` = rush south via `C('j')` → **`context.run=3`** (D-0261).
 - **`armoroff` delay:** `nomul(-oc_delay)` + `afternmv=*_off` +
   `nomovemsg="You finish taking off your %s."` (suit → `"mail"`);
   delay-0 still immediate `*_off`+`off_msg` (D-0259).
 - **`newmonhp` level-0:** `basehp=1`; `rnd(4)`; if `mhpmax==basehp`
   boost +1 (min HP 2). Same boost when `d(m_lev,8)==m_lev` (D-0260).
-- **seg8 D-0261:** first mismatch @**3310** (not 3068). C drops katana
-  (`d`/`a`) then `dog_goal` sees gold+katana (two APPORT `rn2(8)`);
-  JS never drops — `more()` discards `d`/`a`. `dodrop`/`dropx` ported.
 - **`more()` dismiss:** only space/CR/ESC; other keys bell+continue
   (topl.c `xwaitforspace`). Mid-movemon more can consume later command
-  letters from the queue (D-0261).
+  letters from the queue — but first check unawaited pline / wrong
+  `context.run` before blaming more alone (D-0261).
 - **`F`/`do_fight`:** PREFIXCMD sets `forcefight`; next move dir attacks
   (empty → `domove_fight_empty` “thin air” / solid); no turn on F alone
   (D-0225).
-- **Nesting rooms:** `w=9+rn2(4)`, `h=9+rn2(4)` then `build_room`
-  `rn2(100)` then positioned `create_room` (`rnd(5)`/`rnd(3)` loop);
-  fail → `themeroom_failed` (D-0226).
-- **`create_room` positioned:** when not all-`-1`, `rnd(5)`×2 + size
-  `rn1` if needed + `rnd(3)`×2 align + `get_rect`/`check_room` up to
-  100 tries (D-0226).
-- **Buried zombies fill:** `(width*height)/2` iterations; each
-  `shuffle(zombifiable)` then `mksobj(CORPSE)`→`set_corpsenm`→
-  `bury_an_obj`/`obj_resists(0,0)`→`stop rot`→`zombify 990+rn2(21)`
-  (D-0247). List expands at diff>3 / >6.
-- **Sized rectangular themerms:** Fake Delphi 11×9, Huge
-  `rn2(10)+11`×`rn2(5)+8`, Pillars 10×10, Mausoleum
-  `5+rn2(3)*2`, Random feature `3+rn2(3)*2`, Twin businesses 9×5 —
-  size RNG **before** `build_room` `rn2(100)` → positioned
-  `create_room` (D-0248). Nested create_subroom/door/terrain deferred.
-- **`goodpos`/`accessible`:** `ACCESSIBLE(typ) && !closed_door` — closed/
-  locked doors are **not** valid enexto spots (D-0246). Bare
-  `ACCESSIBLE(DOOR)` was wrong and placed pets on door cells.
-- **`test_move` diagonal into DOOR:** only `doorless_door` (D_NODOOR /
-  D_BROKEN) allowed; open/closed/locked block diagonal entry/exit
-  (D-0219). Same rule in `domove` and steed `landing_spot`/`test_move_ok`.
 - Key attribution ≠ RNG order: 0-RNG `--More--` / safety-reject keys can
   sit between matched EOT RNG and the next gameplay command (D-0228).
-- **Monster HOLE/TRAPDOOR:** `trapeffect_hole`→`mlevel_tele_trap`→
-  `migrate_to_level` returns `Trap_Moved_Mon` (skips post-move
-  `distfleeck`); destination from `trap.dst` / `clamp_hole_destination`
-  (D-0250).
-- **`peace_minded` `rn2(16+record)`:** wrong arity after combat is often
-  missing `set_malign`/`adjalign(malign)` on `xkilled`, not initrecord
-  (D-0251; cf. D-0056 for true initrecord bugs).
-- **`thitm` hit path:** must call `dmgval(obj, mon)` (clamp ≥1); stubbing
-  `dam=1` skips weapon dice RNG even when HP outcome matches (D-0252).
-- **Hostile launcher balks:** `m_has_launcher_and_ammo` (wielded
-  launcher + matching ammo) → `appr=-1` when `edist<25` and
-  `m_canseeu` (D-0253). Unwielded bow in invent does **not** count.
-- **Monster MAGIC_TRAP:** `rn2(21)` then rarely `trapeffect_fire_trap`;
-  nonzero → finished (usually immune). Hero `rn2(30)`/`domagictrap`
-  deferred (D-0254).
-- **Fatal `losehp`:** C `urgent_pline`+`done(DIED)` noreturn — no
-  `exercise` / `drop_throw`/`should_mulch` after; bones corpse via
-  `mk_named_object` then `drop_upon_death`+`PM_GHOST` (D-0255).
-  `can_make_bones` before `display_nhwindow` in `really_done`.
-- **Monster SLP_GAS_TRAP:** `!resists_sleep && !breathless && !helpless`
-  → `sleep_monst(rnd(25), -1)`; pline+seetrap if in sight (D-0256).
-  Hero `fall_asleep` deferred. `mr_bit(SLEEP_RES)=1<<(3-1)=4`.
-- **`mcalcdistress` EOT:** before movement reallocation; `--mfrozen`→
-  `mcanmove=1`, also mblinded/mfleetim; `mon_regen` (D-0257).
-  Shapeshift/were still deferred.
-- **`find_offensive` nomore:** `#define nomore(x) if (has==x) continue`
-  — once WAN_STRIKING selected, later POT_* on later invent objects are
-  skipped (D-0258). Not “last invent wins” for types earlier in the
-  per-object check list.

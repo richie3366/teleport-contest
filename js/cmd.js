@@ -512,7 +512,7 @@ export async function rhack(key) {
         // domove sets context.move = 0 if blocked; else leave as 1 (allmain preset)
         if (game.context.move !== 0) game.context.move = 1;
     } else if (isRunKey(ch) || rushDir) {
-        // C ref: cmd.c do_run_* / do_rush_* — multi = max(COLNO,ROWNO)
+        // C ref: cmd.c do_run_* → run=1; do_rush_* (C(dir)) → run=3
         const low = rushDir || ch.toLowerCase();
         if (!game.context) game.context = {};
         // Pending F + capital/ctrl dir: forcefight one step (not rush)
@@ -521,7 +521,8 @@ export async function rhack(key) {
             game.context.forcefight = 0;
             if (game.context.move !== 0) game.context.move = 1;
         } else {
-            game.context.run = 1;
+            // C: set_move_cmd(dir, run) — capital run=1, Ctrl-rush=3
+            game.context.run = rushDir ? 3 : 1;
             game.context.mv = 1;
             if (!game.multi) game.multi = Math.max(COLNO, ROWNO);
             game.u.last_str_turn = 0;

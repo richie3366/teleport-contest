@@ -11,6 +11,17 @@ Use this shape:
 
 ```text
 ## YYYY-MM-DD HH:MM — <objective>
+
+## 2026-07-14 10:32 — D-0261 Ctrl-rush run=3 + await muse pline
+- Objective: seed0030 seg8 @3310 (PROGRESS primary; prior peel thought more()/dodrop).
+- C locus: `cmd.c` `do_rush_*`→`set_move_cmd(dir,3)`; `hack.c` `lookaround`
+  (`run!=1` stops any non-safemon); `muse.c` `mzapwand`/`mbhitm` blocking pline.
+- Change: `js/cmd.js` Ctrl-rush `run=3` (capital `run=1`); `js/muse.js` await
+  wand/hurl plines; `js/monmove.js` await `use_misc`. Prior `dodrop` kept.
+- Falsified: fleeck/mfndpos @3068; more()-only without run-mode; DIAG await-in-more.
+- Verification: seg8 RNG FULL; green+strict PASS; 17-session PASS cohort;
+  full **19/44** Scr **1563** RNG **182531**; seed0013 RNG full Scr **57**/59.
+- Next: diagnose seed0030 seg9 @7196 `get_shop_item` (D-0262).
 - C locus: <file:function>
 - Result: <verified change | falsified hypothesis | prerequisite>
 - Verification: <commands and compact result>

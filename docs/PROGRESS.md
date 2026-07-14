@@ -38,8 +38,8 @@ frozen-file overlay):
 | Metric | Value |
 |--------|------:|
 | Sessions passing | **19 / 44** |
-| Screens matched | **1465 / 11,405** (12.85%) |
-| Positional RNG calls matched | **181,571 / 792,838** (22.90%) |
+| Screens matched | **1563 / 11,405** (13.70%) |
+| Positional RNG calls matched | **182,531 / 792,838** (23.02%) |
 | Speed label | `18+0.10/turn` |
 | Working-tree base | `8b71735` + committed port (see `main`) |
 | Role-init throws | **0 / 44** (`u_init_role: role not ported`) |
@@ -76,7 +76,7 @@ shared blockers, and semantic coverage together—not one vanity metric.
 | `seed0105-valk-chat-lamp-ration` | **2499 / 2499** | **30 / 30** |
 | `seed0015-valk-level2-pit-dog-wait` | **8563 / 8563** | **44 / 44** |
 | `seed0077-rogue-chargen` | **3242 / 3242** | **33 / 33** |
-| `seed0013-rogue-friday13-combat` | **4367 / 4838** | 7 / 59 |
+| `seed0013-rogue-friday13-combat` | **4838 / 4838** | 57 / 59 |
 
 seed8000 + seed0900 + seed1500 + seed1800 + seed0060 + seed0102 +
 seed0700 + seed1150 + seed0017 + seed0077 + seed0106 + seed0501 +
@@ -136,7 +136,7 @@ seed0361/0373 `getbones` blocked on unbound `^V`/`goto_level`/
 `makemaz`. seed0077 chargen + vault fallback + door vision/pick_lock/DEC
 open-door (D-0111/D-0112/D-0113) → **PASS**. seed0030 **47901**/105529.
 seed0105 RNG **full** (Scr **30**/30).
-seed0013 **4367**/4838 Scr **7**/59 after D-0261 dodrop.
+seed0013 **4838**/4838 Scr **57**/59 after D-0261 Ctrl-rush/muse.
 **`option_help` msg_window PREV_MSGS extract** (D-0114) + **Primary ASCII /
 `symset:DECgraphics`** (D-0115) → Scr **788→851**.
 **angrygods `verbalize` + `adjattrib` You_feel** (D-0116) /
@@ -542,19 +542,16 @@ seed0101 + seed0103 + seed0104 **PASS**. seed2200 RNG **full**
 seed0101 RNG **full** Scr **27**/27. seed0103 RNG **full** Scr **60**/60.
 seed0104 RNG **full** Scr **43**/43.
 
-- **Bounded unit:** seed0030 seg8 @3310 — **D-0261** open —
-  C second floor `obj_resists`/`dog_goal rn2(8)` (katana after `d`/`a`
-  drop) vs JS follow `rn2(4)`. `dodrop`/`dropx` **ported**; live peel
-  blocked because `more()` discards `d`/`a` after rush. @3068 fleeck /
-  mfndpos squeeze **falsified**. D-0260 `newmonhp` level-0 min-HP boost
-  **ported**. D-0259 `armoroff` delay + ICRNL/`C(j)` rush **ported**. /
-  seed0361/0373 **quest `getbones`** (blocked: need `^V`→`goto_level`→
-  `makemaz` first — ordinary `goto_level` now exists for stairs; Mines
+- **Bounded unit:** seed0030 seg9 @7196 — **D-0262** open —
+  C `rnd(100) @ get_shop_item` after seg8 **FULL** (D-0261).
+  D-0261 Ctrl-rush `run=3` + await muse wand plines **ported**;
+  seg8 RNG full; seed0013 RNG full Scr **57**/59. / seed0361/0373
+  **quest `getbones`** (blocked: need `^V`→`goto_level`→`makemaz`
+  first — ordinary `goto_level` now exists for stairs; Mines
   `fill_lvl` path exists D-0171).
-- **Prefer:** post-rush `more()` / pline timing so `d` reaches `dodrop`
-  before dog_goal @3309; then seg8 dog_goal/mfndpos;
-  over quest bones until `^V`/`makemaz`; over parked D-0006
-  and over baking seed2200 RC paths.
+- **Prefer:** seg9 `get_shop_item` / shop stock after D-0261;
+  seed0013 Scr residual (2 screens); over quest bones until
+  `^V`/`makemaz`; over parked D-0006 and over baking seed2200 RC paths.
   Hero `dotrap` MAGIC_TRAP/`domagictrap` deferred (D-0254 named
   omission). Hero SLP_GAS deferred (D-0256). Hero dart `dotrap` done
   (D-0239). Hero `xkilled` treasure
@@ -779,9 +776,10 @@ seed0104 RNG **full** Scr **43**/43.
   **3088→3263**);
   **`newmonhp` level-0 `basehp` boost** (done D-0260; seg8
   **3263→3310**; full **19/44** Scr **1463** RNG **181294**);
-  **`d`/`dodrop`/`dropx`** (D-0261 **partial** — ported; peel @3310
-  open on post-rush `more()`; full **19/44** Scr **1465** RNG
-  **181571**; seed0030 **47901**/105529; seed0013 Scr **7**/59);
+  **`d`/`dodrop`/`dropx` + Ctrl-rush `run=3` + await muse pline**
+  (D-0261 **fixed** — seg8 **FULL**; full **19/44** Scr **1563** RNG
+  **182531**; seed0030 Scr **85**/1953; seed0013 RNG **full** Scr
+  **57**/59; next seg9 @7196 `get_shop_item`);
   **`goto_level` `stairway_find_from`** (D-0224 find_from done);
   D-0218 upstairs theory rejected;
   …
