@@ -7,10 +7,10 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 
 ## Active
 
-- **Current unit:** seed0030 seg6 @4080 — C `rn2(12)` `m_move` vs JS
-  `rn2(5)` `distfleeck` (after FIGURINE D-0244; seg6 **2638→4080**).
-- **Falsifier:** dump actor list / fleeck vs m_move order at that EOT —
-  which mon burns `rn2(12)` track in C while JS still fleecks.
+- **Current unit:** seed0030 seg6 @10280 — C `rn2(100)` `obj_resists` vs JS
+  `rn2(4)` (after `m_harmless_trap` BEAR_TRAP D-0245; seg6 **4080→10280**).
+- **Falsifier:** which mon/path burns `obj_resists` in C after dochug
+  `rn2(4)` while JS takes a different dochug/dog_goal branch.
 - **Parked deep canary:** D-0006 pet movement — do not implement until C
   state/candidate capture exists.
 - **Parked seed2200 @158:** RC config path — harness `$HOME`, not a port bug.
@@ -167,6 +167,12 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   maxmlev=11); JS omitted TOOL FIGURINE init so post-init fell through
   to plain `rndmonnum()` → `rn2(3)` jackal pool (D-0244). Do not
   re-chase dungeon align for that peel.
+- **seed0030 seg6 @4080 was NOT missing mtrack / wrong cnt alone** —
+  newt @`(60,4)` with `mtrack[0]=(61,4)` and BEAR_TRAP on that cell:
+  C `m_harmless_trap` (msize≤MZ_SMALL) keeps the cell in `mfndpos` so
+  mtrack burns `rn2(12)`; JS treated all bear traps as harmful so
+  known-trap skip dropped cnt 3→2 and skipped the burn (D-0245). Do not
+  re-chase actor order / extra fleeck without checking trap harmlessness.
 - **`monattk.h`: AT_WEAP=254, AT_MAGC=255, AT_SPIT=10** — never use 10 for
   weapon (D-0179).
 - Hostile `m_move`: before place, `m_digweapon_check` may return
@@ -266,6 +272,10 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 - **FIGURINE `mksobj_init`:** `rndmonnum_adj(5,10)` then reject
   `is_human` (tryct 30) + `blessorcurse(4)` (D-0244). Plain
   `rndmonnum()` is wrong — adj expands minmlev/maxmlev by +5/+10.
+- **`m_harmless_trap` BEAR_TRAP:** `msize <= MZ_SMALL` or amorphous /
+  whirly / unsolid → harmless for `mfndpos` (known-trap skip does not
+  apply). Newt/gecko/etc. keep bear-trap cells in the candidate set
+  (D-0245).
 - **`test_move` diagonal into DOOR:** only `doorless_door` (D_NODOOR /
   D_BROKEN) allowed; open/closed/locked block diagonal entry/exit
   (D-0219). Same rule in `domove` and steed `landing_spot`/`test_move_ok`.

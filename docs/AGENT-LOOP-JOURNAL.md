@@ -3149,3 +3149,16 @@ Use this shape:
   **46708**/105529 Scr **71**/1953; full **19/44** Scr **1446** RNG
   **172907**; green+strict PASS; 17-session PASS cohort held.
 - Next: seed0030 seg6 @4080 m_move/distfleeck; or quest getbones.
+
+## 2026-07-14 06:05 — m_harmless_trap BEAR_TRAP size (D-0245)
+- Objective: seed0030 seg6 @4080 C rn2(12) m_move vs JS rn2(5) fleeck.
+- C locus: trap.c m_harmless_trap BEAR_TRAP (msize<=MZ_SMALL);
+  mon.c mfndpos known-trap skip; monmove.c mtrack rn2(4*(cnt-j)).
+- Result: **verified** — newt kept mtrack backtrack cell when C treats
+  bear trap as harmless; JS stub marked all bear traps harmful so
+  known-trap skip dropped cnt and skipped the burn. Ported BEAR/WEB/
+  RUST/VIBRATING/PIT-clinger arms + amorphous/unsolid/is_whirly.
+- Verification: seg6 **4080→10280**; positional **47171**/105529 Scr
+  **70**/1953; full **19/44** Scr **1445** RNG **173370**; green+strict
+  PASS; 17-session PASS cohort held.
+- Next: seed0030 seg6 @10280 obj_resists vs rn2(4); or quest getbones.

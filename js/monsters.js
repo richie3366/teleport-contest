@@ -109,6 +109,7 @@ export const M1_HIDE = 0x00000100; /* monflag.h — mimics, blends with ceiling 
 export const M1_NOTAKE = 0x00000800; /* monflag.h — cannot pick up objects */
 export const M1_NOHANDS = 0x00002000;
 export const M1_HUMANOID = 0x00020000; /* monflag.h — humanoid head/arms/torso */
+export const M1_UNSOLID = 0x00100000; /* monflag.h — no solid/liquid body */
 export const M1_THICK_HIDE = 0x00200000; /* monflag.h — thick hide or scales */
 export const M1_SEE_INVIS = 0x01000000; /* monflag.h — sees invisible */
 export const M1_NOEYES = 0x00001000;
@@ -219,6 +220,21 @@ export function is_floater(ptr) {
 }
 export function is_clinger(ptr) {
     return !!((ptr?.mflags1 ?? 0) & M1_CLING);
+}
+/** C ref: mondata.h amorphous */
+export function amorphous(ptr) {
+    return !!((ptr?.mflags1 ?? 0) & M1_AMORPHOUS);
+}
+/** C ref: mondata.h unsolid */
+export function unsolid(ptr) {
+    return !!((ptr?.mflags1 ?? 0) & M1_UNSOLID);
+}
+/** C ref: mondata.h is_whirly — vortex letter or air elemental */
+const PM_AIR_ELEMENTAL = monsterNames.indexOf('PM_AIR_ELEMENTAL');
+export function is_whirly(ptr) {
+    if (!ptr) return false;
+    if (ptr.mlet === 'S_VORTEX') return true;
+    return (ptr.mndx ?? -1) === PM_AIR_ELEMENTAL;
 }
 /** C: grounded — not flyer/floater; clingers need ceiling (always assume has). */
 export function grounded(ptr) {

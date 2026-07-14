@@ -38,9 +38,9 @@ frozen-file overlay):
 | Metric | Value |
 |--------|------:|
 | Sessions passing | **19 / 44** |
-| Screens matched | **1446 / 11,405** (12.68%) |
-| Positional RNG calls matched | **172,907 / 792,838** (21.81%) |
-| Speed label | `18+0.09/turn` |
+| Screens matched | **1445 / 11,405** (12.67%) |
+| Positional RNG calls matched | **173,370 / 792,838** (21.87%) |
+| Speed label | `19+0.09/turn` |
 | Working-tree base | `8b71735` + committed port (see `main`) |
 | Role-init throws | **0 / 44** (`u_init_role: role not ported`) |
 
@@ -64,7 +64,7 @@ shared blockers, and semantic coverage together—not one vanity metric.
 | `seed0501-priest-cast-read-turn` | **2238 / 2238** | **28 / 28** |
 | `seed2200-wizard-quaff-zap-read` | **3018 / 3018** | **229 / 230** |
 | `seed0017-samurai-altar-pray` | **3465 / 3465** | **67 / 67** |
-| `seed0030-ten-diverse-deaths` | **46708 / 105529** | **71 / 1953** |
+| `seed0030-ten-diverse-deaths` | **47171 / 105529** | **70 / 1953** |
 | `seed0103-knight-ride-pony` | **2640 / 2640** | **60 / 60** |
 | `seed0200-monk-north-search` | **3822 / 3822** | **40 / 40** |
 | `seed0101-ranger-quiver-throw-travel-engrave` | **2371 / 2371** | **27 / 27** |
@@ -541,12 +541,12 @@ seed0101 + seed0103 + seed0104 **PASS**. seed2200 RNG **full**
 seed0101 RNG **full** Scr **27**/27. seed0103 RNG **full** Scr **60**/60.
 seed0104 RNG **full** Scr **43**/43.
 
-- **Bounded unit:** seed0030 seg6 @4080 — C `rn2(12)` `m_move` vs JS
-  `rn2(5)` `distfleeck` (after FIGURINE D-0244; seg6 **2638→4080**). /
+- **Bounded unit:** seed0030 seg6 @10280 — C `rn2(100)` `obj_resists` vs JS
+  `rn2(4)` (after `m_harmless_trap` BEAR D-0245; seg6 **4080→10280**). /
   seed0361/0373 **quest `getbones`** (blocked: need `^V`→`goto_level`→
   `makemaz` first — ordinary `goto_level` now exists for stairs; Mines
   `fill_lvl` path exists D-0171).
-- **Prefer:** seg6 @4080 actor/`m_move` peel over quest bones until
+- **Prefer:** seg6 @10280 `obj_resists`/dog peel over quest bones until
   `^V`/`makemaz`; over parked D-0006 and over baking seed2200 RC paths.
   Hero `dotrap` deferred until monster pit peel is clear.
   Hero `xkilled` treasure `mkobj` done (D-0229; ordinary
@@ -640,7 +640,9 @@ seed0104 RNG **full** Scr **43**/43.
   eel AD_WRAP Amphibious XP; `get_mattk` still FIRST_ATTK compact;
   wizard ^X next-level XP line; hero SQKY `dotrap`;
   `mons_see_trap`; HOLE `!mindless` already_seen; full
-  `m_harmless_trap` flyer/resist immunities; hostile balks/
+  `m_harmless_trap` flyer/`check_in_air`/sleep/fire/anti-magic/webmaker
+  (BEAR size/amorph + WEB/RUST/VIBRATING/PIT clinger done D-0245);
+  hostile balks/
   shortsighted;   `m_search_items` body omissions (D-0182) + underfoot
   MMOVE_DONE/`mpickstuff` (done D-0223; shop/hides_under/onscary/
   costly_spot/`can_touch_safely` in search still deferred); muse wand/horn offense + mon-target
@@ -719,6 +721,9 @@ seed0104 RNG **full** Scr **43**/43.
   seg6 **339→2638**); **FIGURINE `rndmonnum_adj(5,10)`** (done
   D-0244; seg6 **2638→4080**; positional **46708**/105529 Scr
   **71**/1953; next @4080 `m_move`/`distfleeck`);
+  **`m_harmless_trap` BEAR_TRAP size** (done D-0245; seg6
+  **4080→10280**; positional **47171**/105529 Scr **70**/1953; next
+  @10280 `obj_resists`);
   **`goto_level` `stairway_find_from`** (D-0224 find_from done);
   D-0218 upstairs theory rejected;
   …
@@ -1616,6 +1621,11 @@ Module status, constitutional debt, and named omissions live in
     — seed0030 seg6 **2638→4080** (`m_move` vs `distfleeck`);
     positional **46708**/105529 Scr **71**/1953; full **19/44** Scr
     **1446** RNG **172907**; green+cohort PASS; next seg6 @4080 /
+    quest `getbones`
+222. `m_harmless_trap` BEAR_TRAP size / amorph (D-0245)
+    — seed0030 seg6 **4080→10280** (`obj_resists` vs `rn2(4)`);
+    positional **47171**/105529 Scr **70**/1953; full **19/44** Scr
+    **1445** RNG **173370**; green+cohort PASS; next seg6 @10280 /
     quest `getbones`
 
 Next work is selected from the active objectives above using

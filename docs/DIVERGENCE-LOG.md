@@ -248,6 +248,7 @@ Do not record a guessed cause as fixed merely because an RNG prefix moved.
 | D-0242 | fixed | linedup/vision | BOULDER does_block + linedup rn2; seg5 FULL |
 | D-0243 | fixed | themerms Blocked center | map+replace_terrain; seg6 339→2638 |
 | D-0244 | fixed | FIGURINE rndmonnum_adj | adj(5,10)+is_human; seg6 2638→4080 |
+| D-0245 | fixed | m_harmless_trap BEAR | msize≤SMALL; seg6 4080→10280 |
 
 D-0001 through D-0005 predate the strict-length/cohort runbook. Their focused
 causes are preserved, but generic "green sessions held" is historical evidence,
@@ -6634,3 +6635,30 @@ cohort gates if those functions are touched again.
   stubbed 0; candle `oc_cost` age; FIGURINE transform/timeout.
 - **Next:** seed0030 seg6 @4080 `m_move`/`distfleeck`; or quest
   `getbones`.
+
+## D-0245 — `m_harmless_trap` BEAR_TRAP size / amorph / whirly / unsolid
+
+- **Status:** fixed
+- **Symptom:** seed0030 seg6 @4080 — C `rn2(12)` `m_move` mtrack vs JS
+  `rn2(5)` post-move `distfleeck`.
+- **Cause:** newt @`(60,4)` with `mtrack[0]=(61,4)` and BEAR_TRAP on that
+  cell. C `m_harmless_trap` returns true for `msize <= MZ_SMALL`, so
+  `mfndpos` keeps `(61,4)` and mtrack burns `rn2(4*(cnt-j))=rn2(12)`.
+  JS stub treated all bear traps as harmful; known-trap skip dropped
+  cnt 3→2 and never hit the track cell.
+- **Rejected:** extra fleeck/actor-order as root (same mon; zero RNG
+  in JS `m_move` was the missing track burn).
+- **C locus:** `trap.c` `m_harmless_trap` BEAR_TRAP; `mon.c` `mfndpos`
+  known-trap skip; `monmove.c` mtrack `rn2(4*(cnt-j))`.
+- **Change:** `js/trap.js` `m_harmless_trap` BEAR/WEB/RUST/VIBRATING/
+  PIT-clinger arms; `js/monsters.js` `amorphous`/`unsolid`/`is_whirly`
+  + `M1_UNSOLID`.
+- **Verification:** seg6 **4080→10280** (`obj_resists` vs `rn2(4)`);
+  positional **47171**/105529 Scr **70**/1953; full **19/44** Scr
+  **1445** RNG **173370**; green+strict PASS; 17-session PASS cohort
+  held.
+- **Named omissions:** flyer/`check_in_air` preamble; sleep/fire/
+  anti-magic resists; webmaker; `defended()`; bear-trap
+  `trapeffect` body still no-op.
+- **Next:** seed0030 seg6 @10280 `obj_resists` vs dochug/`dog_goal`;
+  or quest `getbones`.

@@ -19,11 +19,13 @@ import {
     G_NOCORPSE, G_FREQ, G_UNIQ, verysmall, grounded, passes_walls, is_neuter,
     is_flyer, is_floater, is_clinger,
     mon_knows_traps, mon_learns_traps,
+    amorphous, unsolid, is_whirly, MZ_SMALL,
 } from './monsters.js';
 import {
     DART_TRAP, ARROW_TRAP, ROCKTRAP, FORCETRAP, FORCEBUNGLE,
     SQKY_BOARD, HOLE, TRAPDOOR, TRAPPED_DOOR, TRAPPED_CHEST,
     PIT, SPIKED_PIT, STATUE_TRAP, MAGIC_TRAP, ROLLING_BOULDER_TRAP,
+    BEAR_TRAP, WEB, RUST_TRAP, VIBRATING_SQUARE,
     ANTI_MAGIC, HURTLING, TOOKPLUNGE, VIASITTING,
     is_hole, is_pit, is_xport, In_quest, isok, ZAP_POS, IS_DOOR, IS_POOL, IS_LAVA,
     D_CLOSED, D_LOCKED,
@@ -32,11 +34,13 @@ import {
     LOW_PM, BOLT_LIM, STRAT_WAITMASK,
 } from './const.js';
 import { objectNames, POTION_CLASS, SCROLL_CLASS, SPBOOK_CLASS } from './objects.js';
+import { monsterNames } from './generated/monsters_data.js';
 import { thitu } from './mthrowu.js';
 import { dmgval } from './weapon.js';
 import { maybe_half_phys, nomul } from './hack.js';
 import { observe_object } from './invent.js';
 
+const PM_IRON_GOLEM = monsterNames.indexOf('PM_IRON_GOLEM');
 const DART = objectNames.indexOf('DART');
 const ROCK = objectNames.indexOf('ROCK');
 const CORPSE = objectNames.indexOf('CORPSE');
@@ -58,13 +62,42 @@ export const NO_TRAP_FLAGS = 0;
 
 /**
  * C ref: trap.c m_harmless_trap — whether mfndpos may ignore this trap.
- * Envelope: SQKY/PIT/DART/… harmful (false); STATUE/MAGIC usually true.
- * Named omission: flyer/Sokoban/bear-size/resist per-type immunities.
+ * Envelope: STATUE/MAGIC/VIBRATING always; BEAR_TRAP/WEB size·amorph·whirly·
+ * unsolid; RUST except iron golem; PIT/HOLE clinger (non-Sokoban).
+ * Named omission: flyer/Sokoban `check_in_air` preamble; sleep/fire/anti-magic
+ * resists; webmaker; defended().
  */
-export function m_harmless_trap(_mtmp, ttmp) {
+export function m_harmless_trap(mtmp, ttmp) {
     if (!ttmp) return true;
-    if (ttmp.ttyp === STATUE_TRAP || ttmp.ttyp === MAGIC_TRAP) return true;
-    return false;
+    const mdat = mtmp?.data;
+    switch (ttmp.ttyp) {
+    case STATUE_TRAP:
+    case MAGIC_TRAP:
+    case VIBRATING_SQUARE:
+        return true;
+    case BEAR_TRAP:
+        if ((mdat?.msize ?? 2) <= MZ_SMALL
+            || amorphous(mdat) || is_whirly(mdat) || unsolid(mdat)) {
+            return true;
+        }
+        return false;
+    case WEB:
+        if (amorphous(mdat) || is_whirly(mdat) || unsolid(mdat)) return true;
+        // webmaker deferred
+        return false;
+    case RUST_TRAP:
+        // C: only iron golem is harmed
+        return (mdat?.mndx ?? -1) !== PM_IRON_GOLEM;
+    case PIT:
+    case SPIKED_PIT:
+    case HOLE:
+    case TRAPDOOR:
+        // Sokoban flag: C `Sokoban` — JS uses level flag when present
+        if (is_clinger(mdat) && !game.level?.flags?.sokoban) return true;
+        return false;
+    default:
+        return false;
+    }
 }
 
 // C ref: dungeon.c dunlev / dunlevs_in_dungeon / In_hell
