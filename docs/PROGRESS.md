@@ -38,8 +38,8 @@ frozen-file overlay):
 | Metric | Value |
 |--------|------:|
 | Sessions passing | **19 / 44** |
-| Screens matched | **1464 / 11,405** (12.84%) |
-| Positional RNG calls matched | **180,712 / 792,838** (22.79%) |
+| Screens matched | **1463 / 11,405** (12.83%) |
+| Positional RNG calls matched | **180,519 / 792,838** (22.77%) |
 | Speed label | `18+0.10/turn` |
 | Working-tree base | `8b71735` + committed port (see `main`) |
 | Role-init throws | **0 / 44** (`u_init_role: role not ported`) |
@@ -64,7 +64,7 @@ shared blockers, and semantic coverage together—not one vanity metric.
 | `seed0501-priest-cast-read-turn` | **2238 / 2238** | **28 / 28** |
 | `seed2200-wizard-quaff-zap-read` | **3018 / 3018** | **229 / 230** |
 | `seed0017-samurai-altar-pray` | **3465 / 3465** | **67 / 67** |
-| `seed0030-ten-diverse-deaths` | **47684 / 105529** | **79 / 1953** |
+| `seed0030-ten-diverse-deaths` | **47440 / 105529** | **78 / 1953** |
 | `seed0103-knight-ride-pony` | **2640 / 2640** | **60 / 60** |
 | `seed0200-monk-north-search` | **3822 / 3822** | **40 / 40** |
 | `seed0101-ranger-quiver-throw-travel-engrave` | **2371 / 2371** | **27 / 27** |
@@ -541,17 +541,19 @@ seed0101 + seed0103 + seed0104 **PASS**. seed2200 RNG **full**
 seed0101 RNG **full** Scr **27**/27. seed0103 RNG **full** Scr **60**/60.
 seed0104 RNG **full** Scr **43**/43.
 
-- **Bounded unit:** seed0030 seg6 @18913 — **D-0254** open —
-  `trapeffect_magic_trap` (`rn2(21)` vs fleeck `rn2(5)`). D-0253
-  `m_balks_at_approaching` **ported** (seg6 **18840→18913**). /
+- **Bounded unit:** seed0030 seg6 @19831 — **D-0255** open —
+  `next_ident` (`rnd(2)`) vs JS `rn2(2)` after matched
+  `thitu`/`can_make_bones` (post D-0254). D-0254
+  `trapeffect_magic_trap` **ported** (seg6 **18913→19831**). /
   seed0361/0373 **quest `getbones`** (blocked: need `^V`→`goto_level`→
   `makemaz` first — ordinary `goto_level` now exists for stairs; Mines
   `fill_lvl` path exists D-0171).
-- **Prefer:** `trapeffect_magic_trap` / monster-or-hero MAGIC_TRAP over
-  quest bones until `^V`/`makemaz`; over parked D-0006 and over baking
-  seed2200 RC paths.
-  Hero `dotrap` deferred until monster trap peels are clear.
-  Hero `xkilled` treasure `mkobj` done (D-0229; ordinary
+- **Prefer:** end-of-seg6 death/`next_ident` peel or remaining monster
+  trap arms over quest bones until `^V`/`makemaz`; over parked D-0006
+  and over baking seed2200 RC paths.
+  Hero `dotrap` MAGIC_TRAP/`domagictrap` deferred (D-0254 named
+  omission). Hero dart `dotrap` done (D-0239). Hero `xkilled` treasure
+  `mkobj` done (D-0229; ordinary
   `make_corpse` done D-0191; mhitm path done D-0167;
   `done_in_by` bones gate done D-0190). CORPSE `weight` cwt done
   (D-0230; seg3 **9166→9299**). **`blocksMove` IS_OBSTRUCTED**
@@ -753,7 +755,10 @@ seed0104 RNG **full** Scr **43**/43.
   **`m_balks_at_approaching`** (done D-0253; seg6 **18840→18913**;
   full **19/44** Scr **1464** RNG **180712**; next @18913
   `trapeffect_magic_trap`);
-  **seg6 @18913 magic trap** (D-0254 **open**);
+  **`trapeffect_magic_trap`/`trapeffect_fire_trap`** (done D-0254;
+  seg6 **18913→19831**; full **19/44** Scr **1463** RNG **180519**;
+  next @19831 `next_ident`);
+  **seg6 @19831 next_ident** (D-0255 **open**);
   **`goto_level` `stairway_find_from`** (D-0224 find_from done);
   D-0218 upstairs theory rejected;
   …
@@ -1698,6 +1703,11 @@ Module status, constitutional debt, and named omissions live in
     — seed0030 seg6 **18840→18913** (`trapeffect_magic_trap`);
     gnome #240 bow+ammo had `appr=1`; C balks → `-1`. Full **19/44**
     Scr **1464** RNG **180712**; green+cohort PASS; next @18913 /
+    quest `getbones`
+232. `trapeffect_magic_trap` mon `rn2(21)`→fire (D-0254)
+    — seed0030 seg6 **18913→19831** (`next_ident` after bones);
+    selector no-op had shifted fleeck into magic slot. Full **19/44**
+    Scr **1463** RNG **180519**; green+cohort PASS; next @19831 /
     quest `getbones`
 
 Next work is selected from the active objectives above using

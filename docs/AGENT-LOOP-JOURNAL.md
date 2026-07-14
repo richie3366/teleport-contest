@@ -3301,3 +3301,18 @@ Use this shape:
   **19/44** Scr **1464** RNG **180712**; green+strict PASS; 17-session
   PASS cohort held.
 - Next: seed0030 seg6 @18913 trapeffect_magic_trap; or quest getbones.
+
+## 2026-07-14 07:30 — trapeffect_magic_trap (D-0254)
+
+- Objective: seed0030 seg6 @18913 C `rn2(21) @ trapeffect_magic_trap`
+  vs JS fleeck `rn2(5)`.
+- C locus: trap.c trapeffect_magic_trap / trapeffect_fire_trap; selector
+  MAGIC_TRAP/FIRE_TRAP.
+- Result: **verified** — JS selector no-op’d MAGIC_TRAP; C burned
+  immunity `rn2(21)` (both seg6 hits nonzero → no fire). Ported mon
+  magic_trap + fire_trap envelope (d(2,4)/thitm/burnarmor naked) and
+  wired selector. Hero domagictrap deferred.
+- Verification: seg6 **18913→19831** (`next_ident`); full **19/44**
+  Scr **1463** RNG **180519**; green+strict PASS; 17-session PASS
+  cohort held.
+- Next: seed0030 seg6 @19831 `next_ident` vs `rn2(2)`; or quest getbones.

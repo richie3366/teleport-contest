@@ -7,14 +7,14 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 
 ## Active
 
-- **Current unit:** seed0030 seg6 @18913 — C `rn2(21) @ trapeffect_magic_trap`
-  vs JS `rn2(5)` after matched fleeck/`m_move` track (post D-0253 balks).
-- **Hypothesis:** a monster (or hero) stepped on a MAGIC_PORTAL/MAGIC_TRAP and
-  C ran `trapeffect_magic_trap` (`rn2(21)`); JS skipped that trap effect so
-  the next fleeck `rn2(5)` landed in the slot.
-- **Falsifier:** at matched fleeck before 18913, dump who is on a magic trap
-  cell; confirm JS `mintrap`/`dotrap` selector omits MAGIC_TRAP / wrong
-  branch; port C `trapeffect_magic_trap` envelope.
+- **Current unit:** seed0030 seg6 @19831 — C `rnd(2) @ next_ident` vs JS
+  `rn2(2)` after matched `thitu`/`can_make_bones` (post D-0254 magic trap).
+- **Hypothesis:** end-of-seg6 death/bones or corpse path calls `next_ident`
+  (`rnd(2)`) in C; JS either skips that alloc or burns a different `rn2(2)`
+  (e.g. leftover invent/split) so the streams desync before seg6 completes.
+- **Falsifier:** dump who died / which `mkobj`/`mksobj` path emits the
+  preceding `can_make_bones`; confirm JS `next_ident` uses `rnd(2)` like C
+  `mkobj.c` and is reached on that death.
 - **Parked deep canary:** D-0006 pet movement — do not implement until C
   state/candidate capture exists.
 - **Parked seed2200 @158:** RC config path — harness `$HOME`, not a port bug.
@@ -128,6 +128,10 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   (26,11) had bow+arrows wielded (`mw=BOW`) but `appr=1`; C sets
   `appr=-1` via launcher balks and flees (e.g. toward (26,10)); JS
   approached to (27,12)/(28,12) → later cnt 4 vs 6 (D-0253).
+- **seed0030 seg6 @18913 was NOT a fleeck arity bug** — C
+  `rn2(21) @ trapeffect_magic_trap`; JS selector no-op’d MAGIC_TRAP so
+  fleeck `rn2(5)` occupied the slot (D-0254). Both seg6 hits had
+  `rn2(21)≠0` (no fire fallthrough).
 - **`monattk.h`: AT_WEAP=254, AT_MAGC=255, AT_SPIT=10** — never use 10 for
   weapon (D-0179).
 - Hostile `m_move`: before place, `m_digweapon_check` may return
@@ -186,5 +190,9 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 - **Hostile launcher balks:** `m_has_launcher_and_ammo` (wielded
   launcher + matching ammo) → `appr=-1` when `edist<25` and
   `m_canseeu` (D-0253). Unwielded bow in invent does **not** count.
+- **Monster MAGIC_TRAP:** `rn2(21)` then rarely `trapeffect_fire_trap`;
+  nonzero → finished (usually immune). Hero `rn2(30)`/`domagictrap`
+  deferred (D-0254).
 - **seg6 @18840:** Mines (dnum=2); peel was gnome flee vs approach
-  (D-0253); next @18913 `trapeffect_magic_trap`.
+  (D-0253); magic trap peel was @18913 (D-0254); next @19831
+  `next_ident` after bones.

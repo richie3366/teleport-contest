@@ -257,7 +257,7 @@ Do not record a guessed cause as fixed merely because an RNG prefix moved.
 | D-0251 | fixed | set_malign/adjalign xkilled | ualign.record after kill; peace_minded rn2(21); seg6 17712→18683 |
 | D-0252 | fixed | thitm dmgval | hit path called dmgval; stub dam=1 skipped rnd; seg6 18683→18840 |
 | D-0253 | fixed | m_balks launcher flee | @18840→18913; gnome appr=-1 vs approach |
-| D-0254 | open | trapeffect_magic_trap | seg6 @18913 rn2(21) vs fleeck rn2(5) |
+| D-0254 | fixed | trapeffect_magic_trap | mon rn2(21)→fire; seg6 18913→19831 |
 
 D-0001 through D-0005 predate the strict-length/cohort runbook. Their focused
 causes are preserved, but generic "green sessions held" is historical evidence,
@@ -6896,4 +6896,29 @@ cohort gates if those functions are touched again.
   full **19/44** Scr **1464** RNG **180712**; green+strict PASS;
   17-session PASS cohort held.
 - **Next:** seed0030 seg6 @18913 `trapeffect_magic_trap`; or quest
+  `getbones`.
+
+## D-0254 — trapeffect_magic_trap monster rn2(21) (seed0030 seg6 @18913)
+
+- **Status:** fixed
+- **Symptom:** seed0030 seg6 @18913 — C `rn2(21) @ trapeffect_magic_trap`
+  vs JS `rn2(5)` fleeck after matched m_move/fleeck (post D-0253).
+- **Evidence:** both engines matched through `rn2(28) @ m_move` at 18912;
+  C then burned magic-trap immunity `rn2(21)=4` (nonzero → no fire);
+  JS `trapeffect_selector` default no-op’d MAGIC_TRAP so next fleeck
+  occupied the slot. Second hit @19604 also `rn2(21)≠0`.
+- **C locus:** `trap.c` `trapeffect_magic_trap` / `trapeffect_fire_trap`;
+  selector MAGIC_TRAP/FIRE_TRAP cases.
+- **Change:** ported monster `trapeffect_magic_trap` (`rn2(21)` → fire);
+  monster `trapeffect_fire_trap` envelope (`d(2,4)`, resists_fire via
+  mintrinsics/mextrinsics, golem alts, thitm/`rn2(num+1)`, naked
+  `burnarmor` rn2(5) loop); wired FIRE_TRAP/MAGIC_TRAP in selector.
+- **Named omissions:** hero `rn2(30)`/`domagictrap`/`dofiretrap`;
+  `data->mresists` (not extracted); `destroy_items`/`ignite_items`/
+  `burn_floor_objects`/`melt_ice`/`surface()`; armor erode in burnarmor;
+  towel drying.
+- **Verification:** seg6 **18913→19831** (`next_ident` after
+  `can_make_bones`); full **19/44** Scr **1463** RNG **180519**;
+  green+strict PASS; 17-session PASS cohort held.
+- **Next:** seed0030 seg6 @19831 `next_ident` vs `rn2(2)`; or quest
   `getbones`.

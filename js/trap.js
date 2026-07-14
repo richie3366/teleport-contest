@@ -1,7 +1,8 @@
 // trap.js — Trap creation + monster-step subset + hero dotrap dart.
 // C ref: trap.c — maketrap/choose_trapnote/hole_destination/trapnote,
 // t_at, t_missile, thitm, mintrap, dotrap, trapeffect_dart_trap /
-// trapeffect_pit / trapeffect_rocktrap / trapeffect_sqky_board,
+// trapeffect_pit / trapeffect_rocktrap / trapeffect_sqky_board /
+// trapeffect_hole / trapeffect_magic_trap / trapeffect_fire_trap,
 // make_corpse ordinary path via thitm death.
 
 import { game } from './gstate.js';
@@ -12,7 +13,7 @@ import {
 import { find_mac } from './mhitm.js';
 import { newsym, pline, mon_visible, see_with_infrared } from './display.js';
 import { doname, an } from './objnam.js';
-import { Monnam, x_monnam_tame } from './do_name.js';
+import { Monnam, mon_nam, x_monnam_tame } from './do_name.js';
 import { dist2 } from './mon.js';
 import { cansee, couldsee } from './vision.js';
 import {
@@ -24,9 +25,9 @@ import {
 import {
     DART_TRAP, ARROW_TRAP, ROCKTRAP, FORCETRAP, FORCEBUNGLE,
     SQKY_BOARD, HOLE, TRAPDOOR, TRAPPED_DOOR, TRAPPED_CHEST,
-    PIT, SPIKED_PIT, STATUE_TRAP, MAGIC_TRAP, ROLLING_BOULDER_TRAP,
+    PIT, SPIKED_PIT, STATUE_TRAP, MAGIC_TRAP, FIRE_TRAP, ROLLING_BOULDER_TRAP,
     BEAR_TRAP, WEB, RUST_TRAP, VIBRATING_SQUARE,
-    ANTI_MAGIC, HURTLING, TOOKPLUNGE, VIASITTING,
+    ANTI_MAGIC, HURTLING, TOOKPLUNGE, VIASITTING, FIRE_RES,
     is_hole, is_pit, is_xport, In_quest, isok, ZAP_POS, IS_DOOR, IS_POOL, IS_LAVA,
     D_CLOSED, D_LOCKED,
     CORPSTAT_INIT, CORPSTAT_FEMALE, CORPSTAT_MALE, CORPSTAT_NONE,
@@ -43,11 +44,17 @@ import { maybe_half_phys, nomul } from './hack.js';
 import { observe_object } from './invent.js';
 
 const PM_IRON_GOLEM = monsterNames.indexOf('PM_IRON_GOLEM');
+const PM_PAPER_GOLEM = monsterNames.indexOf('PM_PAPER_GOLEM');
+const PM_STRAW_GOLEM = monsterNames.indexOf('PM_STRAW_GOLEM');
+const PM_WOOD_GOLEM = monsterNames.indexOf('PM_WOOD_GOLEM');
+const PM_LEATHER_GOLEM = monsterNames.indexOf('PM_LEATHER_GOLEM');
 const DART = objectNames.indexOf('DART');
 const ROCK = objectNames.indexOf('ROCK');
 const CORPSE = objectNames.indexOf('CORPSE');
 const BOULDER = objectNames.indexOf('BOULDER');
 const AD_PHYS = 0;
+const AD_FIRE = 2; /* monattk.h */
+const TOWER_OF_FLAME = 'tower of flame';
 // C ref: hack.h xdir/ydir — 8 dirs W,NW,N,NE,E,SE,S,SW
 const xdir = [-1, -1, 0, 1, 1, 1, 0, -1];
 const ydir = [0, -1, -1, -1, 0, 1, 1, 1];
@@ -886,7 +893,126 @@ async function trapeffect_hole(mtmp, trap, trflags) {
     return mlevel_tele_trap(mtmp, trap, forcetrap, in_sight ? 1 : 0);
 }
 
-// C ref: trap.c trapeffect_selector — dart/rock/pit/sqky/hole; other types no-op
+/**
+ * C ref: monst.h resists_fire — Resists_Elem(FIRE_RES).
+ * Named omission: data->mresists not in extracted mons(); only
+ * mintrinsics/mextrinsics bits when set.
+ */
+function resists_fire(mtmp) {
+    const bits = (mtmp?.mintrinsics | 0) | (mtmp?.mextrinsics | 0);
+    return !!(bits & FIRE_RES);
+}
+
+/**
+ * C ref: trap.c burnarmor — armor-slot burn picker (monster naked path).
+ * Envelope: skip wet-towel; loop rn2(5) until case 1 (cloak/body/shirt arm
+ * always returns TRUE even with no armor). Named omission: erode_obj burn
+ * on worn pieces; towel drying.
+ */
+function burnarmor(victim) {
+    if (!victim) return false;
+    // Towel dry_a_towel rn2 deferred (m_carrying TOWEL rare)
+    for (;;) {
+        // case 1 → return TRUE (cloak/armor/shirt attempts, then TRUE)
+        if (rn2(5) === 1) return true;
+        // other cases: erode_obj(null) → ER_NOTHING → continue
+    }
+}
+
+/**
+ * C ref: trap.c trapeffect_fire_trap — monster branch (hero dofiretrap deferred).
+ * Envelope: d(2,4); resists_fire shield; else thitm / rn2(num+1) mhpmax;
+ * golem alt HP; burnarmor naked → destroy_items stub. Named omissions:
+ * destroy_items/ignite_items/burn_floor_objects/melt_ice bodies; surface();
+ * shieldeff; hero dofiretrap.
+ */
+async function trapeffect_fire_trap(mtmp, trap, _trflags) {
+    if (is_youmonst(mtmp)) {
+        // dofiretrap deferred
+        return Trap_Effect_Finished;
+    }
+    const tx = trap.tx;
+    const ty = trap.ty;
+    const in_sight = canseemon(mtmp) || (mtmp === game.u?.usteed);
+    const see_it = cansee(tx, ty);
+    let trapkilled = false;
+    const mptr = mtmp.data;
+    const orig_dmg = d(2, 4);
+    const surf = 'floor'; // surface() deferred
+
+    if (in_sight) {
+        await pline(
+            `A ${TOWER_OF_FLAME} erupts from the ${surf} under ${mon_nam(mtmp)}!`,
+        );
+    } else if (see_it) {
+        await pline(`You see a ${TOWER_OF_FLAME} erupt from the ${surf}!`);
+    }
+
+    if (resists_fire(mtmp)) {
+        if (in_sight) {
+            await pline(`${Monnam(mtmp)} is uninjured.`);
+        }
+    } else {
+        let num = orig_dmg;
+        let immolate = false;
+        const mndx = mptr?.mndx ?? -1;
+        let alt = 0;
+        if (mndx === PM_PAPER_GOLEM) {
+            immolate = true;
+            alt = mtmp.mhpmax | 0;
+        } else if (mndx === PM_STRAW_GOLEM) {
+            alt = (mtmp.mhpmax | 0) >> 1;
+        } else if (mndx === PM_WOOD_GOLEM) {
+            alt = (mtmp.mhpmax | 0) >> 2;
+        } else if (mndx === PM_LEATHER_GOLEM) {
+            alt = (mtmp.mhpmax | 0) >> 3;
+        }
+        if (alt > num) num = alt;
+
+        if (await thitm(0, mtmp, null, num, immolate)) {
+            trapkilled = true;
+        } else {
+            mtmp.mhpmax = (mtmp.mhpmax | 0) - rn2(num + 1);
+            if ((mtmp.mhp | 0) > (mtmp.mhpmax | 0)) mtmp.mhp = mtmp.mhpmax;
+        }
+    }
+
+    // C: if (burnarmor(mtmp) || rn2(3)) { destroy_items; ignite; HP }
+    // Naked burnarmor returns TRUE → short-circuit (no rn2(3)).
+    if (burnarmor(mtmp) || rn2(3)) {
+        // destroy_items(AD_FIRE) / ignite_items deferred (no RNG stub)
+        if ((mtmp.mhp | 0) <= 0) {
+            await monkilled(mtmp, '', AD_FIRE);
+            trapkilled = true;
+        }
+    }
+    // burn_floor_objects / melt_ice deferred
+    if ((mtmp.mhp | 0) <= 0) trapkilled = true;
+    if (see_it && t_at(tx, ty)) seetrap(t_at(tx, ty));
+
+    return trapkilled ? Trap_Killed_Mon
+        : (mtmp.mtrapped ? Trap_Caught_Mon : Trap_Effect_Finished);
+}
+
+/**
+ * C ref: trap.c trapeffect_magic_trap
+ * Envelope: monsters — rn2(21) then fire trap (usually immune); hero —
+ * seetrap/rn2(30)/domagictrap deferred (PROGRESS: hero dotrap after monster
+ * peels).
+ */
+async function trapeffect_magic_trap(mtmp, trap, trflags) {
+    if (is_youmonst(mtmp)) {
+        // Hero magical explosion / domagictrap deferred
+        return Trap_Effect_Finished;
+    }
+    /* A magic trap.  Monsters usually immune. */
+    if (!rn2(21)) {
+        return trapeffect_fire_trap(mtmp, trap, trflags);
+    }
+    return Trap_Effect_Finished;
+}
+
+// C ref: trap.c trapeffect_selector — dart/rock/pit/sqky/hole/magic/fire
 async function trapeffect_selector(mtmp, trap, trflags) {
     switch (trap.ttyp) {
     case DART_TRAP:
@@ -901,17 +1027,21 @@ async function trapeffect_selector(mtmp, trap, trflags) {
     case HOLE:
     case TRAPDOOR:
         return trapeffect_hole(mtmp, trap, trflags);
+    case FIRE_TRAP:
+        return trapeffect_fire_trap(mtmp, trap, trflags);
+    case MAGIC_TRAP:
+        return trapeffect_magic_trap(mtmp, trap, trflags);
     default:
-        // Named omission: arrow/bear/telep/… trap effects
+        // Named omission: arrow/bear/telep/anti-magic/… trap effects
         return Trap_Effect_Finished;
     }
 }
 
 /**
  * C ref: trap.c mintrap() — monster steps on a trap.
- * Early-session envelope: dart / rock / pit / sqky / hole|trapdoor learn+effect;
- * already_seen rn2(4) skip when mon_knows_traps. Other types and escape paths
- * partial.
+ * Early-session envelope: dart / rock / pit / sqky / hole|trapdoor /
+ * magic|fire learn+effect; already_seen rn2(4) skip when mon_knows_traps.
+ * Other types and escape paths partial.
  */
 export async function mintrap(mtmp, mintrapflags = NO_TRAP_FLAGS) {
     const trap = t_at(mtmp.mx, mtmp.my);
