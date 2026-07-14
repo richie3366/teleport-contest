@@ -8,13 +8,14 @@ Objective/score live in `CURRENT.md`.
 ## Active
 
 - **Score:** **22/44** PASS (#365 suite); Scr **3499**/11405; RNG
-  **239942**/792838; speed `18+0.12/turn`.
-- **Current unit:** seed0107 Scr **42**/98 RNG **2846**/2902 — first miss
-  `@40` C dual hit `You miss the lichen.  You kill the lichen!` vs JS
-  miss-only (twoweapon second swing).
-- **Fixed this iter:** D-0344 `#twoweapon` → `dotwoweapon` / `can_twoweapon`
-  (not in EXT_CMD_AC — C flags 0).
+  **239942**/792838; speed `18+0.12/turn`. (seed0107 now Scr 96 focused;
+  suite aggregates refresh on next %5.)
+- **Current unit:** seed0107 Scr **96**/98 RNG **full** — first miss `@85`
+  C `You sit on the corpse.  It's not very comfortable...` vs JS
+  `You sit on it.` (`dosit` object path).
+- **Fixed this iter:** D-0345 `hitum` twoweapon/`double_punch` second swing.
 - **Parked:** D-0006; seed2200 @158 RC.
+- **Also later:** `@93` enhance skills page incomplete (cursor row).
 
 ## Don’t re-check (≤15)
 
@@ -46,7 +47,8 @@ Objective/score live in `CURRENT.md`.
   skip `reveal_terrain` getglyph/show (D-0342); tip `docrt` under
   terrainmode / ignore getpos space quitchar (D-0343);
   put `#twoweapon` in EXT_CMD_AC (C flags 0 — expands `#tw` wrongly)
-  (D-0344); blanket `observe_object` in `xname` without `distantname`.
+  (D-0344); omit `hitum` second `known_hitum(uswapwep)` when `u.twoweap`
+  (D-0345); blanket `observe_object` in `xname` without `distantname`.
 - Runner `Screen N/M` = total matches, not prefix length.
 
 ## Landmarks (≤15)
@@ -56,6 +58,6 @@ Objective/score live in `CURRENT.md`.
 - Session: `steps[i].key === moves[i-1]` (D-0238); `more()` space/CR/ESC.
 - Save: VFS `save/<plname>` JSON; restore skips `rndencode`;
   `l_nhcore_init` still 2×rn2; farewell clears map no flush (D-0335).
-- D-0274…D-0344: bones/disclose/RIP/topten/descr/botl/paybill/ghost/`;`/
+- D-0274…D-0345: bones/disclose/RIP/topten/descr/botl/paybill/ghost/`;`/
   getlin/compactify/enl/checkfile/save/welcome/attr/`$`/`)`/show-*/DEL/
-  reveal_terrain/getpos Done/`#twoweapon`.
+  reveal_terrain/getpos Done/`#twoweapon`/`hitum` twohits.

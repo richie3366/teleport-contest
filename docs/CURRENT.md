@@ -19,6 +19,8 @@ focused session.
 
 Score last measured: **2026-07-15** — full `sessions` suite (global loop
 **#365**) after D-0342/D-0343 (seed0013-restore full PASS).
+Focused seed0107 after D-0345: Scr **96**/98 RNG **full** (suite refresh on
+next %5).
 
 ## Score
 
@@ -39,7 +41,7 @@ seed0013-rogue, **seed0013-friday13-restore**.
 | Session | RNG | Screen | Note |
 |---------|----:|-------:|------|
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
-| seed0107 | 2846/2902 | 42/98 | **primary** — `hitum` twohits / 2nd swing |
+| seed0107 | **2902**/2902 | **96**/98 | **primary** — `@85` `dosit` corpse |
 | seed0002 | 4510/27158 | 8/595 | |
 | seed0012 | 0/13878 | 0/308 | stack overflow |
 | seed0361/0373 | early | 0 | quest bones / `makemaz` |
@@ -59,16 +61,16 @@ Both must remain full RNG + screen PASS with exact scored-output lengths.
 
 ## Primary objective
 
-**seed0107-samurai-twoweapon-enhance** — RNG **2846**/2902; Scr **42**/98
+**seed0107-samurai-twoweapon-enhance** — RNG **full 2902**/2902; Scr **96**/98
 
 | | |
 |--|--|
-| **C locus** | `uhitm.c` `hitum` / `gt.twohits` + secondary `uswapwep` swing |
-| **JS locus** | `js/uhitm.js` `hitum` (Cleaver/twoweapon/`double_punch` deferred) |
-| **Symptom** | `@40` C `You miss the lichen.  You kill the lichen!` vs JS miss only |
-| **Hypothesis** | `u.twoweap` sets `twohits` but second `known_hitum(uswapwep)` omitted |
-| **Falsifier** | Scr >42; or named mismatch past dual-hit kill |
-| **Recent fixed** | D-0344 `#twoweapon` / `dotwoweapon` (Scr 36→42) |
+| **C locus** | `sit.c` `dosit` — sit on floor object / CORPSE |
+| **JS locus** | `js/sit.js` `dosit` (generic `sit on it` stub) |
+| **Symptom** | `@85` C `You sit on the corpse.  It's not very comfortable...` vs JS `You sit on it.` |
+| **Hypothesis** | Object sit uses `the(xname)` + CORPSE amorphous comfort pline, not `it`/`them` |
+| **Falsifier** | Scr >96; or named mismatch past sit |
+| **Recent fixed** | D-0345 `hitum` twohits / uswapwep (Scr 42→96, RNG full) |
 
 ```bash
 node frozen/ps_test_runner.mjs sessions/seed0107-samurai-twoweapon-enhance.session.json
@@ -76,6 +78,8 @@ node frozen/ps_test_runner.mjs sessions/seed0107-samurai-twoweapon-enhance.sessi
 
 **Note:** runner `Screen N/M` is **total** positional matches, not prefix
 length. Prefer decodeScreen cell first-miss for peel targets.
+
+**Also later on same seed:** `@93` enhance skills page (cursor/content).
 
 **Alternate:** seed2200 @158 RC parked only.
 

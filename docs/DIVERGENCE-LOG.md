@@ -24,6 +24,22 @@ The compact status table lives in **`DIVERGENCE-INDEX.md`**.
 Open that file first; then jump to a single `## D-NNNN` entry below
 (via search). Do **not** read this whole file by default.
 
+## D-0345 — `hitum` twoweapon / `double_punch` second swing
+
+- **Status:** fixed
+- **Observed:** seed0107 @40 — C `You miss the lichen.  You kill the lichen!`
+  vs JS miss-only (twoweapon primary miss, secondary kill omitted).
+- **C locus:** `uhitm.c` `hitum` — `gt.twohits` / `known_hitum(uswapwep)`;
+  also `double_punch` / `mon_maybe_unparalyze`.
+- **Cause/evidence:** JS `hitum` stopped after first `known_hitum`+`passive`;
+  C continues when `gt.twohits` and target still at `(ux+dx,uy+dy)`.
+- **Change:** port second swing + helpers; Cleaver `hitum_cleave` and hmon
+  `gt.twohits` strength/silver arms still deferred.
+- **Verification:** Scr **42→96**/98; RNG **full 2902**/2902; green+strict;
+  20 PASS cohort. First miss now `@85` sit-on-corpse pline.
+- **General lesson:** dual-wield is a second full to-hit/`known_hitum` pass,
+  not a damage-multiplier on the first swing.
+
 ## D-0344 — `#twoweapon` / `dotwoweapon`
 
 - **Status:** fixed

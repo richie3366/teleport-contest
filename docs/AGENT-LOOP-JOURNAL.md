@@ -18,6 +18,15 @@ Use this shape:
 - Verification: …
 - Next: …
 ```
+## 2026-07-15 01:56 — #367 D-0345 hitum twoweapon second swing
+
+- Objective: seed0107 @40 miss-only vs C miss+kill (CURRENT primary).
+- C locus: `uhitm.c` `hitum` `gt.twohits` / `known_hitum(uswapwep)`;
+  `double_punch` / `mon_maybe_unparalyze`.
+- Change: port second swing path; Cleaver cleave + hmon twohits dbon deferred.
+- Verification: Scr **42→96**/98; RNG **full 2902**; green+strict;
+  cohort 20 PASS. First miss `@85` sit-on-corpse.
+- Next: `sit.c` `dosit` CORPSE `the(xname)` + comfort pline.
 
 ## 2026-07-15 01:51 — #366 D-0344 `#twoweapon` / dotwoweapon
 
@@ -164,13 +173,3 @@ Use this shape:
 - Verification: @1601 match; Scr **1605→1606**; first miss **@1606**
   Invis map `@` vs `%`; RNG full; green+strict; 17 PASS cohort.
 - Next: @1606 `newsym` `canspotself` — show under-hero glyph when Invisible.
-
-## 2026-07-14 22:53 — #352 D-0324 quit topten how + outentry
-
-- Objective: seed0030 @1484 Galen topten `quit` vs `died` (CURRENT).
-- C locus: `end.c` `done`/`really_done`; `topten.c` `outentry`.
-- Change: `DEATHS[]` + killer setup for QUIT; NO_KILLER_PREFIX; outentry
-  quit/starved share dungeon/level append (D-0324).
-- Verification: @1484 match; Scr **1604→1605**; prefix **1601**; RNG full;
-  green+strict; 17 PASS cohort. First miss **@1601** iron skull cap.
-- Next: @1601 ARMOR `xname` `OBJ_DESCR` (`iron skull cap` vs `orcish helm`).
