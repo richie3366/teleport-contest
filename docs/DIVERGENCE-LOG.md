@@ -265,7 +265,8 @@ Do not record a guessed cause as fixed merely because an RNG prefix moved.
 | D-0259 | fixed | armoroff delay + ICRNL rush | seg8 3088→3263; takeoff nomul + C(j) |
 | D-0260 | fixed | newmonhp level-0 min HP | rnd(4)=1→2; jackal survives; seg8 3263→3310 |
 | D-0261 | fixed | Ctrl-rush run=3 + await muse pline | seg8 FULL; seed0013 Scr 57/59 |
-| D-0262 | open | seed0030 seg9 @7196 get_shop_item | after D-0261; diagnose shop stock |
+| D-0262 | fixed | set_mimic_sym shop get_shop_item | shop mimic appearance; seg9 7196→8138 |
+| D-0263 | open | seed0030 seg9 @8138 drinkfountain rnd_class | after D-0262; fountain gem? |
 
 
 D-0001 through D-0005 predate the strict-length/cohort runbook. Their focused
@@ -7114,11 +7115,31 @@ cohort gates if those functions are touched again.
   next seg9 @7196 `get_shop_item`.
 - **Next:** diagnose seed0030 seg9 @7196 `get_shop_item` / shop stock.
 
-## D-0262 — seed0030 seg9 @7196 `get_shop_item` (open)
+## D-0262 — `set_mimic_sym` shop arm `get_shop_item` (fixed)
+
+- **Status:** fixed
+- **Symptom:** after D-0261, seg9 @7196 — C `rnd(100) @ get_shop_item`
+  vs JS `rn2(50)` (`m_initinv`).
+- **C locus:** `makemon.c` `set_mimic_sym` `rt >= SHOPBASE` —
+  `rn2(10) >= depth(&u.uz)` else `get_shop_item(rt - SHOPBASE)` then
+  assign_sym/`mkobj` for appearance (not only `stock_room`/`mkshobj_at`).
+- **Rejected:** stock_room eligibility / mkshobj_at path drift as root —
+  both matched through mimic `rn2(10)=1`; peel was deferred shop body.
+- **Change:** `js/makemon.js` `set_mimic_sym` — shop arm calls
+  `get_shop_item`, FODDERSHOP vegetarian jelly/mold, RANDOM_CLASS remap,
+  shared assign_sym/`mkobj`; use `depth()` not bare `dlevel`.
+- **Verification:** seg9 **7196→8138**; green+strict PASS; 17-session
+  PASS cohort; full **19/44** Scr **1563** RNG **182545**; seed0030
+  **47958**/105529; next @8138 `drinkfountain`/`rnd_class`.
+- **Next:** diagnose D-0263 seg9 @8138.
+
+## D-0263 — seed0030 seg9 @8138 `drinkfountain`/`rnd_class` (open)
 
 - **Status:** open
-- **Symptom:** after D-0261, seg8 RNG FULL; first mismatch seg9 @7196 —
-  C `rnd(100) @ get_shop_item(shknam.c:835)` vs JS shorter/different path.
-- **C locus:** `shknam.c` `get_shop_item` / shop stock callers.
-- **Hypothesis:** post-seg8 shop stock / `mkshop` eligibility differs.
-- **Next:** compare C vs JS `get_shop_item`/`mkshop` at first seg9 mismatch.
+- **Symptom:** after D-0262, first mismatch @8138 — C
+  `rnd(862) @ rnd_class(objnam.c:5413)` after `drinkfountain`
+  `rnd(30)=27` vs JS `rn2(3)`.
+- **C locus:** `fountain.c` `drinkfountain` fate arm → gem/`rnd_class`.
+- **Hypothesis:** JS skips the gem-create fate branch and hits dryup
+  early.
+- **Next:** compare C vs JS `drinkfountain` at fate=27.

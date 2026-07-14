@@ -7,14 +7,12 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 
 ## Active
 
-- **Current unit:** seed0030 seg9 @7196 — **D-0262** — C `rnd(100) @ get_shop_item`
-  vs JS shorter/different path after seg8 FULL.
-- **Hypothesis:** post-seg8 shop stock / `get_shop_item` branch or
-  mkshop eligibility differs after D-0261 rush/muse fixes advanced
-  past katana drop.
-- **Falsifier:** `node frozen/ps_test_runner.mjs sessions/seed0030-…`
-  per-seg; compare C vs JS `get_shop_item`/`mkshop` callers at first
-  seg9 mismatch.
+- **Current unit:** seed0030 seg9 @8138 — **D-0263** — C `rnd(862) @ rnd_class`
+  after `drinkfountain` vs JS `rn2(3)` (after D-0262 shop-mimic fix).
+- **Hypothesis:** fountain drink `fate` arm creates a gem/`rnd_class` object
+  that JS skips or short-circuits into dryup/`rn2(3)`.
+- **Falsifier:** compare C vs JS `drinkfountain` at first seg9 mismatch @8138
+  (after `rnd(30)=27`); port missing fate branch or `rnd_class` caller.
 - **Parked deep canary:** D-0006 pet movement — do not implement until C
   state/candidate capture exists.
 - **Parked seed2200 @158:** RC config path — harness `$HOME`, not a port bug.
@@ -48,6 +46,9 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 - **seg8 @3310 missing katana** was not missing `dodrop` alone —
   `dodrop` ported earlier; live blocker was rush never ending so `d`
   never reached rhack (D-0261).
+- **seg9 @7196 was not stock_room/`mkshobj_at` eligibility** — C
+  `set_mimic_sym` shop arm calls `get_shop_item` after `rn2(10)` (D-0262).
+  JS had deferred that body to S_MIMIC_DEF.
 - Do not treat session `\r` as plain `j` — ICRNL → `\n` = `C('j')` rush
   (D-0259). `rushDirFromCtrl` keys 1..26 only.
 
@@ -77,6 +78,9 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   (topl.c `xwaitforspace`). Mid-movemon more can consume later command
   letters from the queue — but first check unawaited pline / wrong
   `context.run` before blaming more alone (D-0261).
+- **Shop mimic appearance:** after `rn2(10) >= depth(&u.uz)` fails,
+  `set_mimic_sym` calls `get_shop_item(rt-SHOPBASE)` then may `mkobj`
+  for appearance (D-0262). Use `depth()`, not bare `dlevel`.
 - **`F`/`do_fight`:** PREFIXCMD sets `forcefight`; next move dir attacks
   (empty → `domove_fight_empty` “thin air” / solid); no turn on F alone
   (D-0225).

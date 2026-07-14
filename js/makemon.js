@@ -48,7 +48,8 @@ import {
     GP_CHECKSCARY, GP_AVOID_MONPOS, Is_rogue_level, In_mines,
     OBJ_MINVENT, COLNO, ROWNO, A_NONE, GEHENNOM, G_GONE,
     M_AP_OBJECT, M_AP_FURNITURE, IS_DOOR, IS_WALL,
-    SDOOR, SCORR, ZOO, VAULT, DELPHI, TEMPLE, SHOPBASE, ROOMOFFSET,
+    SDOOR, SCORR, ZOO, VAULT, DELPHI, TEMPLE, SHOPBASE, FODDERSHOP,
+    ROOMOFFSET,
 } from './const.js';
 import { enexto_core, enexto_gpflags, goodpos } from './teleport.js';
 import { mksobj, mkobj, weight, objects_at } from './mkobj.js';
@@ -60,6 +61,7 @@ import {
 } from './objects.js';
 import { cansee } from './vision.js';
 import { christen_monst } from './do_name.js';
+import { get_shop_item } from './shknam.js';
 
 /** C ref: shknam.c neweshk — allocate eshk for MM_ESHK makemon. */
 export function neweshk(mtmp) {
@@ -93,6 +95,7 @@ const CORPSE = objectNames.indexOf('CORPSE');
 const EGG = objectNames.indexOf('EGG');
 const TIN = objectNames.indexOf('TIN');
 const SLIME_MOLD = objectNames.indexOf('SLIME_MOLD');
+const LUMP_OF_ROYAL_JELLY = objectNames.indexOf('LUMP_OF_ROYAL_JELLY');
 const BOULDER = objectNames.indexOf('BOULDER');
 
 // C ref: makemon.c syms[] for ordinary-room mimic appearance
@@ -1076,10 +1079,10 @@ export function makemon(mdat, x, y, mmflags = 0) {
 }
 
 /**
- * C ref: makemon.c set_mimic_sym — ordinary THEMEROOM/OROOM path + traps.
- * Named omissions: shop get_shop_item body, maze town/sokoban arms,
- * altar Align2amask MCORPSENM, Protection_from_shape_changers early-out
- * when hero wears the amulet (stubbed false at mklev).
+ * C ref: makemon.c set_mimic_sym — ordinary + shop (get_shop_item) paths.
+ * Named omissions: maze town/sokoban arms, altar Align2amask MCORPSENM,
+ * Protection_from_shape_changers early-out when hero wears the amulet
+ * (stubbed false at mklev), full t_at for corridor boulder.
  */
 export function set_mimic_sym(mtmp) {
     if (!mtmp) return;
@@ -1095,6 +1098,8 @@ export function set_mimic_sym(mtmp) {
 
     let ap_type = M_AP_OBJECT;
     let appear = STRANGE_OBJECT;
+    let s_sym = S_MIMIC_DEF_SYM;
+    let assignSym = false;
 
     const floorObj = objects_at(mx, my);
     if (floorObj) {
@@ -1129,20 +1134,31 @@ export function set_mimic_sym(mtmp) {
         ap_type = M_AP_FURNITURE;
         appear = 0; // S_altar stub
     } else if (rt >= SHOPBASE) {
-        // Shop arms deferred — fall through burns like ordinary if reached
-        let s_sym = S_MIMIC_DEF_SYM;
-        if (rn2(10) >= (game.u?.uz?.dlevel ?? 1)) {
+        // C: rn2(10) >= depth(&u.uz) → S_MIMIC_DEF; else get_shop_item
+        if (rn2(10) >= depth_of_level(game.u?.uz)) {
             s_sym = S_MIMIC_DEF_SYM;
+            assignSym = true;
         } else {
-            // get_shop_item deferred → mimic def
-            s_sym = S_MIMIC_DEF_SYM;
-        }
-        if (s_sym === S_MIMIC_DEF_SYM) {
-            ap_type = M_AP_OBJECT;
-            appear = STRANGE_OBJECT;
+            s_sym = get_shop_item(rt - SHOPBASE);
+            if (s_sym < 0) {
+                ap_type = M_AP_OBJECT;
+                appear = -s_sym;
+            } else if (rt === FODDERSHOP && s_sym > MAXOCLASSES) {
+                ap_type = M_AP_OBJECT;
+                appear = rn2(2) ? LUMP_OF_ROYAL_JELLY : SLIME_MOLD;
+            } else {
+                if (s_sym === RANDOM_CLASS || s_sym >= MAXOCLASSES) {
+                    s_sym = MIMIC_SYMS[rn2(MIMIC_SYMS.length - 2) + 2];
+                }
+                assignSym = true;
+            }
         }
     } else {
-        let s_sym = MIMIC_SYMS[rn2(MIMIC_SYMS.length)];
+        s_sym = MIMIC_SYMS[rn2(MIMIC_SYMS.length)];
+        assignSym = true;
+    }
+
+    if (assignSym) {
         if (s_sym === MAXOCLASSES) {
             ap_type = M_AP_FURNITURE;
             appear = MIMIC_FURNSYMS[rn2(MIMIC_FURNSYMS.length)];

@@ -12,6 +12,20 @@ Use this shape:
 ```text
 ## YYYY-MM-DD HH:MM — <objective>
 
+## 2026-07-14 10:45 — D-0262 set_mimic_sym shop get_shop_item
+
+- Objective: seed0030 seg9 @7196 (PROGRESS primary; NOTES shop stock).
+- C locus: `makemon.c` `set_mimic_sym` `rt >= SHOPBASE` → `get_shop_item`
+  after `rn2(10) >= depth(&u.uz)` (not stock_room mkshobj_at alone).
+- Change: `js/makemon.js` port shop arm — `get_shop_item`, FODDERSHOP
+  jelly/mold, RANDOM_CLASS remap, assign_sym/`mkobj`; use `depth()`.
+- Falsified: stock_room eligibility as root (matched through mimic
+  `rn2(10)=1`; peel was deferred shop appearance body).
+- Verification: seg9 **7196→8138**; green+strict PASS; 17-session PASS
+  cohort; full **19/44** Scr **1563** RNG **182545**; seed0030
+  **47958**/105529.
+- Next: diagnose seg9 @8138 `drinkfountain`/`rnd_class` (D-0263).
+
 ## 2026-07-14 10:32 — D-0261 Ctrl-rush run=3 + await muse pline
 - Objective: seed0030 seg8 @3310 (PROGRESS primary; prior peel thought more()/dodrop).
 - C locus: `cmd.c` `do_rush_*`→`set_move_cmd(dir,3)`; `hack.c` `lookaround`
