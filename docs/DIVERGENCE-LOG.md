@@ -256,6 +256,7 @@ Do not record a guessed cause as fixed merely because an RNG prefix moved.
 | D-0250 | fixed | trapeffect_hole TRAPDOOR | mon fall→migrate Trap_Moved_Mon; seg6 15369→17712 |
 | D-0251 | fixed | set_malign/adjalign xkilled | ualign.record after kill; peace_minded rn2(21); seg6 17712→18683 |
 | D-0252 | fixed | thitm dmgval | hit path called dmgval; stub dam=1 skipped rnd; seg6 18683→18840 |
+| D-0253 | open | Mines corridor map | @18840 track arity is map/pos drift; (28,13) STONE→wall |
 
 D-0001 through D-0005 predate the strict-length/cohort runbook. Their focused
 causes are preserved, but generic "green sessions held" is historical evidence,
@@ -6856,3 +6857,30 @@ cohort gates if those functions are touched again.
   full `dealloc_obj` on used-up hit missile.
 - **Next:** seed0030 seg6 @18840 `m_move` track arity; or quest
   `getbones`.
+
+## D-0253 — Mines corridor missing → m_move track arity (seed0030 seg6 @18840)
+
+- **Status:** open (prerequisite = map; track formula not the bug)
+- **Symptom:** seed0030 seg6 @18840 — C `rn2(24)/rn2(28)/rn2(32) @
+  m_move` vs JS `rn2(16)` after matched fleeck (post D-0252).
+- **Rejected:** hostile `m_move` track `rn2(4*(cnt-j))` / `jcnt` /
+  missing `m_avoid_kicked_loc` (hostiles ignore kickedloc); forcing
+  skip of JS gnome only desyncs further — next JS cnt=8 mon is
+  out-of-range and cannot be the C move-then-shoot thrower.
+- **Evidence:**
+  1. Same fleeck index then JS bow-gnome at **(27,12)** with
+     `mfndpos` **cnt=4** (south HWALL/TRCORNER + peaceful dwarf west).
+  2. C DEC screen at that step: gnome **`G` ~(26,10)**, kobold **`k`
+     ~(28,13)** beside `@` on walkable terrain — JS `(28,13)` is
+     **TRCORNER**, no kobold; `(26,10)` empty.
+  3. Typ watch: `(28,13)` was ROOM on prior level; after Mines
+     mineralize (~14760) cell is **STONE**, later **STONE→TRCORNER**
+     (~18242) via wall-state — never became CORR/ROOM corridor.
+- **C locus (next):** Mines `makemaz`/`minefill` / `dig_corridor` /
+  `join` / post-fill `wallification` / `set_wall_state` — ensure the
+  east-west corridor through ~(28,13) exists before mid-game wallify.
+- **Change:** none this iteration (diagnosis only).
+- **Verification:** green+strict preflight PASS; focused seg6 still
+  mismatches @18840 (expected).
+- **Next:** falsify corridor typ after Mines mklev for seg6; port the
+  missing dig/join/wallify step — not `m_move` track.

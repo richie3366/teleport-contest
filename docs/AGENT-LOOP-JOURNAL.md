@@ -3246,3 +3246,16 @@ Use this shape:
   **19/44** Scr **1464** RNG **180765**; green+strict PASS; 17-session
   PASS cohort held.
 - Next: seed0030 seg6 @18840 m_move track arity; or quest getbones.
+
+## 2026-07-14 06:55 — seg6 @18840 map drift diagnosis (D-0253)
+
+- Objective: seed0030 seg6 @18840 C `rn2(24) @ m_move` vs JS `rn2(16)`.
+- C locus: symptom in `monmove.c` m_move track; real gap Mines
+  `dig_corridor`/`join`/`wallification` / `set_wall_state`.
+- Result: **falsified track-arity theory** — same fleeck then JS
+  bow-gnome `(27,12)` cnt=4 vs C screen gnome~(26,10) / kobold~(28,13)
+  walkable; JS `(28,13)` STONE→TRCORNER never corridor. No production
+  change.
+- Verification: green+strict preflight PASS; seg6 still @18840.
+- Next: falsify/post Mines mklev typ at (28,13); port corridor dig/join
+  — not m_move track; or quest getbones.

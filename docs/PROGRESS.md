@@ -541,13 +541,15 @@ seed0101 + seed0103 + seed0104 **PASS**. seed2200 RNG **full**
 seed0101 RNG **full** Scr **27**/27. seed0103 RNG **full** Scr **60**/60.
 seed0104 RNG **full** Scr **43**/43.
 
-- **Bounded unit:** seed0030 seg6 @18840 — C `rn2(24) @ m_move` vs JS
-  `rn2(16)` after thitm `dmgval` (D-0252; seg6 **18683→18840**). /
+- **Bounded unit:** seed0030 seg6 @18840 — **D-0253** map prerequisite:
+  JS `(28,13)` STONE→TRCORNER vs C walkable corridor (kobold there);
+  bow-gnome pos/cnt drift (`rn2(24)` vs `rn2(16)` is symptom). /
   seed0361/0373 **quest `getbones`** (blocked: need `^V`→`goto_level`→
   `makemaz` first — ordinary `goto_level` now exists for stairs; Mines
   `fill_lvl` path exists D-0171).
-- **Prefer:** seg6 @18840 `m_move` track arity over quest bones until
-  `^V`/`makemaz`; over parked D-0006 and over baking seed2200 RC paths.
+- **Prefer:** seg6 Mines corridor/`dig_corridor`/`wallification` over
+  patching `m_move` track; over quest bones until `^V`/`makemaz`; over
+  parked D-0006 and over baking seed2200 RC paths.
   Hero `dotrap` deferred until monster pit peel is clear.
   Hero `xkilled` treasure `mkobj` done (D-0229; ordinary
   `make_corpse` done D-0191; mhitm path done D-0167;
@@ -746,8 +748,9 @@ seed0104 RNG **full** Scr **43**/43.
   **17712→18683**; full **19/44** Scr **1464** RNG **180734**;
   next @18683 `dmgval` vs fleeck);
   **`thitm` hit → `dmgval`** (done D-0252; seg6 **18683→18840**;
-  full **19/44** Scr **1464** RNG **180765**; next @18840
-  `m_move` `rn2(24)` vs `rn2(16)`);
+  full **19/44** Scr **1464** RNG **180765**);
+  **seg6 @18840 track arity** (D-0253 **open** — Mines corridor map;
+  not `m_move` formula);
   **`goto_level` `stairway_find_from`** (D-0224 find_from done);
   D-0218 upstairs theory rejected;
   …
@@ -1686,6 +1689,10 @@ Module status, constitutional debt, and named omissions live in
     hit path called real `dmgval` (was stub dam=1); full **19/44** Scr
     **1464** RNG **180765**; green+cohort PASS; next seg6 @18840 /
     quest `getbones`
+230. seg6 @18840 track arity diagnosis (D-0253 open)
+    — not `m_move` formula; C screen gnome~(26,10) / kobold~(28,13)
+    vs JS walls+gnome(27,12); `(28,13)` STONE→TRCORNER never corridor;
+    next Mines dig_corridor/wallify; quest `getbones`
 
 Next work is selected from the active objectives above using
 `PORTING-RUNBOOK.md`, not by extending this historical list.

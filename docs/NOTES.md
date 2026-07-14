@@ -8,11 +8,17 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 ## Active
 
 - **Current unit:** seed0030 seg6 @18840 — C `rn2(24) @ m_move` vs JS
-  `rn2(16)` after matched fleeck (post D-0252 thitm `dmgval`;
-  seg6 **18683→18840**). Likely track-length / gettrack / udist drift
-  for a hostile `m_move` after the dart hit path.
-- **Falsifier:** dump C vs JS track cnt / hero dist / mtrack length at
-  the matched fleeck just before @18840.
+  `rn2(16)` is a **symptom**. Same fleeck consumer is a hostile bow-gnome,
+  but C screen has `G` at **(26,10)** with open neighbors (cnt≈8) while JS
+  has that gnome at **(27,12)** against walls (cnt=4). C also has kobold
+  `k` on walkable `(28,13)` next to `@`; JS has **TRCORNER** there.
+- **Hypothesis:** Mines corridor at/near (28,13) never became CORR/ROOM in
+  JS — left STONE then `set_wall_state`→TRCORNER — so mon positions and
+  `mfndpos` cnt drift before the track peel.
+- **Falsifier:** after Mines `mklev`/`mineralize` for seg6, assert
+  `level.at(28,13).typ` is CORR/ROOM (or matches C walkable) before any
+  mid-game wallification; or dump C vs JS typ strip x=25..32 y=10..14
+  right after descend mineralize (~rng 14767).
 - **Parked deep canary:** D-0006 pet movement — do not implement until C
   state/candidate capture exists.
 - **Parked seed2200 @158:** RC config path — harness `$HOME`, not a port bug.
@@ -110,6 +116,10 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 - **seed0030 seg6 @18683 was NOT a thitm miss** — matched `rnd(20)=17`
   was a **hit**; C called `dmgval` (`rnd(3)`); JS stubbed `dam=1`
   without RNG so fleeck `rn2(5)` shifted into the slot (D-0252).
+- **seed0030 seg6 @18840 was NOT m_move track-formula / jcnt / missing
+  `m_avoid_kicked_loc` on hostiles** — same fleeck then JS bow-gnome
+  `mfndpos` cnt=4 vs C arity cnt=8; C tty shows open `(28,13)` +
+  gnome at `(26,10)` (D-0253). Do not patch track `rn2(4*(cnt-j))`.
 - **`monattk.h`: AT_WEAP=254, AT_MAGC=255, AT_SPIT=10** — never use 10 for
   weapon (D-0179).
 - Hostile `m_move`: before place, `m_digweapon_check` may return
@@ -163,3 +173,6 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   (D-0251; cf. D-0056 for true initrecord bugs).
 - **`thitm` hit path:** must call `dmgval(obj, mon)` (clamp ≥1); stubbing
   `dam=1` skips weapon dice RNG even when HP outcome matches (D-0252).
+- **seg6 @18840 map landmark:** C DEC screen near peel has gnome `G` at
+  map ~(26,10) and kobold `k` at ~(28,13) beside `@`; JS walls off
+  (28,13) and parks the bow-gnome at (27,12) (D-0253).
