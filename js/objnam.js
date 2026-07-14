@@ -197,13 +197,27 @@ function pretty_base(obj) {
         const dn = objectDescrs[ocl?.oc_descr_idx ?? obj.otyp] || 'clear';
         return `${buf}${dn} potion`;
     }
-    // C ref: objnam.c xname SCROLL_CLASS — "scroll of <actualn>" when known
-    if (n && n.startsWith('SCR_')) {
-        const actual = objectNameStrs[obj.otyp]
-            || n.slice(4).toLowerCase().replace(/_/g, ' ');
-        if (obj.dknown && (game.objects?.[obj.otyp]?.oc_name_known || obj.known))
-            return `scroll of ${actual}`;
-        return 'scroll';
+    // C ref: objnam.c xname_flags SCROLL_CLASS —
+    // !dknown → "scroll"; nn → "scroll of <actualn>"; un → "scroll called …";
+    // oc_magic → "scroll labeled <dn>"; else "<dn> scroll" (blank paper → unlabeled).
+    // nn is objects[].oc_name_known only (not obj.known).
+    if (obj.oclass === SCROLL_CLASS || (n && n.startsWith('SCR_'))) {
+        const ocl = game.objects?.[obj.otyp];
+        const nn = !!ocl?.oc_name_known;
+        const dknown = !!obj.dknown;
+        const un = ocl?.oc_uname || null;
+        let actual = objectNameStrs[obj.otyp]
+            || (n ? n.slice(4).toLowerCase().replace(/_/g, ' ') : 'scroll');
+        if (Role_if_samurai()) {
+            const jn = Japanese_item_name(obj.otyp, null);
+            if (jn) actual = jn;
+        }
+        const dn = objectDescrs[ocl?.oc_descr_idx ?? obj.otyp] || null;
+        if (!dknown) return 'scroll';
+        if (nn) return `scroll of ${actual}`;
+        if (un) return `scroll called ${un}`;
+        if (ocl?.oc_magic) return `scroll labeled ${dn || 'something'}`;
+        return `${dn || 'unlabeled'} scroll`;
     }
     // C ref: objnam.c xname SPBOOK_CLASS — "spellbook of <actualn>" when known
     if (n && n.startsWith('SPE_')) {

@@ -7848,4 +7848,23 @@ Open that file first; then jump to a single `## D-NNNN` entry below
   currency pline; `paygd`/`clearpriests`; `M1_NOHEAD` `has_head`.
 - **Next:** @594 kitten `unlabeled scroll` vs `scroll of blank paper`.
 
+## D-0312 — SCROLL_CLASS `xname` unlabeled / labeled appearance
+
+- **Status:** fixed
+- **Observed:** seed0030 @594 — C `The kitten drops an unlabeled scroll.`
+  vs JS `… a scroll of blank paper.`; RNG full. Contiguous cell first-miss
+  was already @583 RIP (pre-existing; not this unit).
+- **C locus:** `objnam.c` `xname_flags` SCROLL_CLASS — `nn` =
+  `oc_name_known` only; `!nn`+`oc_magic` → `"scroll labeled <dn>"`;
+  `!nn`+!magic → `"<dn> scroll"` (blank paper descr `"unlabeled"`).
+- **Cause:** JS used `oc_name_known || obj.known` for the known arm and
+  returned bare `"scroll"` when unknown (no unlabeled/labeled arms).
+- **Change:** port SCROLL dknown/nn/un/magic/dn arms (`oc_name_known`
+  only); Samurai Japanese name kept on known arm.
+- **Verification:** @594 topline matches; Scr **1388→1389**; RNG full;
+  green+strict; 17 PASS cohort + strict sample. Next cell miss @583 RIP.
+- **Named omissions:** RING/SPBOOK appearance parity beyond known arms;
+  blanket `observe_object` in `xname`; scroll mail specials.
+- **Next:** @583 RIP `done_in_by` shk → `Ms. Maganasipi, the shopkeeper`.
+
 

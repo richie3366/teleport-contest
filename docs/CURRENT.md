@@ -37,7 +37,7 @@ seed0016, seed0015, seed0200, seed0101, seed0103, seed0104.
 **Notable non-PASS:**
 | Session | RNG | Screen | Note |
 |---------|----:|-------:|------|
-| seed0030 | 105529/105529 | **1388**/1953 | primary peel; prefix first-miss **@594** |
+| seed0030 | 105529/105529 | **1389**/1953 | primary peel; cell first-miss **@583** |
 | seed2200 | 3018/3018 | **175**/230 | RNG full; Scr cells 178/230 |
 | seed0013-rogue | 4838/4838 | 57/59 | |
 | seed0013-friday13-restore | 4803/4804 | 46/99 | |
@@ -61,23 +61,25 @@ Both must remain full RNG + screen PASS with exact scored-output lengths.
 
 ## Primary objective
 
-**seed0030 screen peel** — RNG full; Scr **1388**/1953; prefix first-miss **@594**
+**seed0030 screen peel** — RNG full; Scr **1389**/1953; cell first-miss **@583**
 
 | | |
 |--|--|
-| **C locus** | `objnam.c` SCROLL `xname` — unlabeled / blank-paper appearance |
-| **JS locus** | `js/objnam.js` — kitten drop shows true blank-paper name |
-| **Symptom** | @594 C `The kitten drops an unlabeled scroll.` vs JS `…scroll of blank paper.` |
-| **Hypothesis** | SCROLL `!oc_name_known` should use appearance (`unlabeled`), not actualn |
-| **Falsifier** | Match C drop pline; expect prefix advance / Scr↑ |
-| **Recent fixed** | D-0311 paybill inherits (582→594; Scr 1387→1388) |
+| **C locus** | `end.c` `done_in_by` — `mtmp->isshk` → `"Ms./Mr. <shknm>, the shopkeeper"` + `KILLED_BY` |
+| **JS locus** | `js/end.js` `done_in_by` — bare `pmname` + `KILLED_BY_AN` |
+| **Symptom** | @583 RIP C `killed by Ms. Maganasipi; the shopkeeper` vs JS `killed by a shopkeeper` |
+| **Hypothesis** | shk death must use `shkname` honorific arm, not generic pmname |
+| **Falsifier** | RIP lines match C; expect Scr↑ / later screens stay matched |
+| **Recent fixed** | D-0312 SCROLL `xname` unlabeled (594 topline; Scr 1388→1389) |
 
 ```bash
 node frozen/ps_test_runner.mjs sessions/seed0030-ten-diverse-deaths.session.json
 ```
 
 **Note:** runner `Screen N/M` is **total** positional matches, not prefix
-length. Prefer decodeScreen prefix first-miss for peel targets.
+length. Prefer decodeScreen cell first-miss for peel targets. Prior NOTES
+“@594” was the next *named* topline peel; contiguous cell miss was already
+@583 RIP (pre-existing).
 
 **Alternate:** seed0013 Scr 57/59; seed0107 RNG@2684; seed2200 Scr 175/230.
 

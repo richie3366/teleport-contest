@@ -7,13 +7,13 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Current unit:** seed0030 Scr **1388**/1953 RNG **FULL**; prefix **@594**.
-- **@594:** C `The kitten drops an unlabeled scroll.` vs JS
-  `The kitten drops a scroll of blank paper.`
-- **Hypothesis:** SCROLL `xname`/`doname` appearance when `!oc_name_known`
-  (blank paper vs unlabeled).
-- **Falsifier:** match C drop pline; expect prefix advance / Scr↑.
-- **Fixed:** D-0311 `paybill`/`inherits` before flush (582→594; Scr 1387→1388).
+- **Current unit:** seed0030 Scr **1389**/1953 RNG **FULL**; cell first-miss **@583**.
+- **@583:** RIP C `killed by Ms. Maganasipi; the shopkeeper` vs JS
+  `killed by a shopkeeper`.
+- **Hypothesis:** `done_in_by` `isshk` arm → honorific + `shkname` +
+  `KILLED_BY` (not bare pmname/`KILLED_BY_AN`).
+- **Falsifier:** RIP lines match; Scr↑.
+- **Fixed:** D-0312 SCROLL `xname` unlabeled (@594 topline; Scr 1388→1389).
 - **#330 score still current:** 19/44; Scr **2810**/11405 (next full @#335).
 - **Alt:** seed0013 Scr 57/59; seed0107 @2684.
 - **Parked:** D-0006; seed2200 @158 RC/`$HOME`.
@@ -37,11 +37,12 @@ Objective/score live in `CURRENT.md`.
 - **Don’t:** emit true amulet name when `!oc_name_known` — `<descr> amulet` (D-0292);
   leave TOOL/WEAPON `!nn` as actualn — use `OBJ_DESCR` (D-0305);
   skip WAND `!nn` descr — `"%s wand"` + zap `dknown` (D-0309);
+  leave SCROLL `!nn` as actualn/`obj.known` — unlabeled/labeled arms (D-0312);
   leave `uhitm` private `mon_nam` — import `do_name` (D-0308);
   omit death `paybill` — angry shk takes possessions before flush (D-0311);
   blanket `observe_object` in `xname` without `distantname` (regresses map).
-- Runner `Screen N/M` = total matches, not prefix length; D-0307’s “→580”
-  skipped literal @576 (`uhitm` stub) until D-0308.
+- Runner `Screen N/M` = total matches, not prefix length; contiguous cell
+  miss can precede a later named topline peel (D-0311→@594 while @583 RIP open).
 
 ## Landmarks (≤15)
 
@@ -61,4 +62,5 @@ Objective/score live in `CURRENT.md`.
 - Key attribution ≠ RNG order (0-RNG `--More--`) (D-0228).
 - Bones / disclose / RIP / topten / amulet / DEC altar / noises / Monnam /
   map_invisible / mimic / vault+fountain/sink/shop / TOOL descr / shop enter /
-  uhitm mon_nam / WAND descr / bot uhp==-1 / paybill: D-0274…D-0311.
+  uhitm mon_nam / WAND descr / bot uhp==-1 / paybill / SCROLL unlabeled:
+  D-0274…D-0312.
