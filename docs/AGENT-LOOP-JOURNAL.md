@@ -2854,3 +2854,16 @@ Use this shape:
   **19/44** Scr **1433** RNG **149541**.
 - Next: seed0030 seg2 @3207 pet `obj_resists` after meal; or quest
   `getbones` `^V`/`makemaz`.
+
+## 2026-07-14 02:35 — D-0222 useupf→delobj floor meal
+- Objective: seed0030 seg2 @3207 C `obj_resists` vs JS `distfleeck`
+  (PROGRESS primary after D-0221).
+- C locus: `invent.c` `useupf`/`delobj_core`; `eat.c` `done_eating`.
+- Result: **verified** — peel was floor meal finish missing
+  `useupf`→`delobj`→`obj_resists(0,0)`. Invent path must not call
+  `delobj` (`addinv` often omits `where=OBJ_INVENT`; invent-split
+  children not in `game.invent` — gate floor via OBJ_FLOOR/pile).
+- Verification: seg2 **3207→5939** (`distfleeck` vs `rn2(20)`);
+  positional **28231**/105529 Scr **48**/1953; green+strict+cohort
+  PASS; full **19/44** Scr **1433** RNG **152565**.
+- Next: seed0030 seg2 @5939; or quest `getbones` `^V`/`makemaz`.

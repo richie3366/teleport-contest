@@ -7,13 +7,11 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 
 ## Active
 
-- **Current unit:** seed0030 seg2 @3207 — C `obj_resists` `rn2(100)` vs JS
-  `rn2(5)` `distfleeck` after D-0221 floorfood poison eat. Screen at that
-  step: `You finish eating the kobold corpse.` / seed0361/0373 quest
+- **Current unit:** seed0030 seg2 @5939 — C `distfleeck` `rn2(5)` vs JS
+  `rn2(20)` after D-0222 floor `useupf`/`delobj`. / seed0361/0373 quest
   `getbones` (need `^V`→`goto_level`→`makemaz`).
-- **Falsifier:** seg2 rng-diff; if first mismatch is not pet
-  `obj_resists`/`dog_invent` after meal, dump occupation/`reqtime`/floor
-  corpse `where` at that index.
+- **Falsifier:** seg2 rng-diff; if first mismatch is not that arity split,
+  dump actor/occupation/`meating`/floor pile at that index.
 - **Parked deep canary:** D-0006 pet movement — do not implement until C
   state/candidate capture exists.
 - **Parked seed2200 @158:** RC config path — harness `$HOME`, not a port bug.
@@ -70,6 +68,11 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 - **seed0030 seg2 @2930 was NOT invent-letter `y` / missing `rn2(20)` in
   eatcorpse** — C `floorfood` yn "There is a kobold corpse here; eat it?";
   JS invent-only getobj never reached eatcorpse (D-0221).
+- **seed0030 seg2 @3207 was NOT pet dog_invent first** — C
+  `done_eating`→`useupf`→`delobj`→`obj_resists(0,0)` before next
+  `distfleeck` (D-0222). Invent `useup` must not call `delobj`
+  (`addinv` often omits `where=OBJ_INVENT`; split children not in
+  `game.invent`).
 - **`monattk.h`: AT_WEAP=254, AT_MAGC=255, AT_SPIT=10** — never use 10 for
   weapon (D-0179).
 - Hostile `m_move`: before place, `m_digweapon_check` may return
@@ -93,6 +96,8 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   ogoal (D-0211). Omitting wantdoor forced hero-gg and wrong fleeck arity.
 - **`doeat` → `floorfood`:** edible floor pile ynq before invent getobj;
   poison path burns `poison_strdmg(rnd(4),rnd(15))` (D-0221).
+- **Floor meal finish:** `done_eating` → `useupf` → `delobj` →
+  `obj_resists(0,0)` (D-0222). Invent `useup` never rolls.
 - `clear_level_structures` / `goto_level`: clear `fobj` **and**
   `_objects_at` (C `level.objects[][]=0`) and `head_engr` (D-0161).
 - Monster ROCKTRAP: `t_missile(ROCK)`→`mksobj` `next_ident`+`rn1(6,6)`

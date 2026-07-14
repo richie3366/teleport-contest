@@ -225,6 +225,7 @@ Do not record a guessed cause as fixed merely because an RNG prefix moved.
 | D-0219 | fixed | test_move diagonal door | ban diagonal into/out of intact doorway; seed0104 RNG full |
 | D-0220 | fixed | dismount look_here | float_down→pickup + multi NHW_MENU; seed0104 PASS |
 | D-0221 | fixed | floorfood + poison_strdmg | floor yn before invent getobj; seg2 2930→3207 |
+| D-0222 | fixed | useupf→delobj | floor meal `obj_resists(0,0)`; seg2 3207→5939 |
 
 D-0001 through D-0005 predate the strict-length/cohort runbook. Their focused
 causes are preserved, but generic "green sessions held" is historical evidence,
@@ -5985,3 +5986,26 @@ cohort gates if those functions are touched again.
   killer strings; tainted `make_sick`.
 - **Next:** seed0030 seg2 @3207 pet `obj_resists` after meal; or
   quest `getbones` `^V`/`makemaz`.
+
+## D-0222 — floor useupf → delobj obj_resists (seed0030 seg2 @3207)
+
+- **Status:** fixed
+- **Symptom:** seed0030 seg2 @3207 C `rn2(100) @ obj_resists` vs JS
+  `rn2(5) @ distfleeck` after finishing floor kobold corpse meal.
+- **Rejected:** pet `dog_invent`/`dogfood` missing first obj_resists
+  (ordering would put invent rolls after distfleeck in dochug).
+- **Cause/evidence:** C `done_eating` → `useupf(piece,1)` → `delobj` →
+  `obj_resists(0,0)` always burns `rn2(100)`. JS floor `useup` extracted
+  without that roll. Invent path must stay without resists (`addinv`
+  often leaves `where` unset; invent-split children are not in
+  `game.invent` — gate floor via `OBJ_FLOOR` / floor-pile presence).
+- **C locus:** `invent.c` `useupf`/`delobj_core`; `eat.c` `done_eating`.
+- **Change:** `js/eat.js` `useup` floor arm → `splitobj`+`delobj`; invent
+  / free-child arm → quan/splice without `obj_resists`.
+- **Verification:** seg2 **3207→5939** (C `distfleeck` vs JS `rn2(20)`);
+  positional **28231**/105529 Scr **48**/1953; green+strict+cohort PASS;
+  full **19/44** Scr **1433** RNG **152565**.
+- **Named omissions:** `touchfood` invent `freeinv`/`addinv_nomerge`;
+  invent `addinv` setting `where=OBJ_INVENT`; shop `useupf` bill arms.
+- **Next:** seed0030 seg2 @5939 `distfleeck` vs `rn2(20)`; or quest
+  `getbones` `^V`/`makemaz`.

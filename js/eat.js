@@ -14,7 +14,7 @@ import { rn2, rnd, rn1 } from './rng.js';
 import { flush_topl_more, pline } from './display.js';
 import { yn_function } from './getline.js';
 import { FOOD_CLASS, COIN_CLASS, objectNames } from './objects.js';
-import { weight, splitobj, objects_at, obj_extract_self } from './mkobj.js';
+import { weight, splitobj, objects_at, delobj } from './mkobj.js';
 import { BY_COOKIE, bcsign, outrumor } from './rumors.js';
 import { singular, xname, doname } from './objnam.js';
 import {
@@ -337,27 +337,45 @@ async function floorfood_eat() {
     return getobj_eat();
 }
 
-/** C ref: invent.c useup / useupf — consume one; invent or floor. */
+/**
+ * C ref: invent.c useup / useupf — consume one; invent or floor.
+ * Floor path matches useupf(obj,1): maybe splitobj then delobj →
+ * obj_resists(0,0) always rolls rn2(100). Invent useup never rolls.
+ *
+ * Detect floor via where===OBJ_FLOOR or presence on the floor pile —
+ * invent-split children may copy where or be OBJ_FREE without addinv
+ * (touchfood freeinv/addinv_nomerge still deferred).
+ */
 function useup(otmp) {
     if (!otmp) return;
-    if ((otmp.quan || 1) > 1) {
-        otmp.quan--;
-        otmp.owt = weight(otmp);
-        return;
+    const inInvent = otmp.where === OBJ_INVENT
+        || (game.invent || []).includes(otmp);
+    let onFloor = otmp.where === OBJ_FLOOR;
+    if (!onFloor && !inInvent && otmp.ox != null && otmp.oy != null) {
+        for (let o = objects_at(otmp.ox, otmp.oy); o; o = o.nexthere) {
+            if (o === otmp) { onFloor = true; break; }
+        }
     }
-    const inv = game.invent || [];
-    const idx = inv.indexOf(otmp);
-    if (idx >= 0) {
-        inv.splice(idx, 1);
-        return;
-    }
-    // Floor: C useupf(otmp, 1) — extract without obj_resists
-    if (otmp.where === OBJ_FLOOR
-        || (otmp.ox != null && otmp.oy != null && otmp.where !== OBJ_INVENT)) {
-        obj_extract_self(otmp);
+    if (!onFloor) {
+        // Invent / free invent-child: invent.c useup — no obj_resists
+        if ((otmp.quan || 1) > 1) {
+            otmp.quan--;
+            otmp.owt = weight(otmp);
+            return;
+        }
+        const inv = game.invent || [];
+        const idx = inv.indexOf(otmp);
+        if (idx >= 0) inv.splice(idx, 1);
         otmp.quan = 0;
         otmp.where = OBJ_FREE;
+        return;
     }
+    // Floor: invent.c useupf(otmp, 1L)
+    let victim = otmp;
+    if ((otmp.quan || 1) > 1) {
+        victim = splitobj(otmp, 1) || otmp;
+    }
+    delobj(victim);
 }
 
 /**
