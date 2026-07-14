@@ -256,7 +256,7 @@ Do not record a guessed cause as fixed merely because an RNG prefix moved.
 | D-0250 | fixed | trapeffect_hole TRAPDOOR | mon fall→migrate Trap_Moved_Mon; seg6 15369→17712 |
 | D-0251 | fixed | set_malign/adjalign xkilled | ualign.record after kill; peace_minded rn2(21); seg6 17712→18683 |
 | D-0252 | fixed | thitm dmgval | hit path called dmgval; stub dam=1 skipped rnd; seg6 18683→18840 |
-| D-0253 | open | Mines corridor map | @18840 track arity is map/pos drift; (28,13) STONE→wall |
+| D-0253 | open | gnome pos drift | @18840 cnt 6 vs 4; map/(28,13) DEC-misread rejected |
 
 D-0001 through D-0005 predate the strict-length/cohort runbook. Their focused
 causes are preserved, but generic "green sessions held" is historical evidence,
@@ -6858,35 +6858,37 @@ cohort gates if those functions are touched again.
 - **Next:** seed0030 seg6 @18840 `m_move` track arity; or quest
   `getbones`.
 
-## D-0253 — Mines corridor missing → m_move track arity (seed0030 seg6 @18840)
+## D-0253 — gnome position drift → m_move track arity (seed0030 seg6 @18840)
 
-- **Status:** open (prerequisite = map; track formula not the bug)
+- **Status:** open (map theory **rejected**; mon-pos peel)
 - **Symptom:** seed0030 seg6 @18840 — C `rn2(24)/rn2(28)/rn2(32) @
   m_move` vs JS `rn2(16)` after matched fleeck (post D-0252).
 - **Rejected:**
   1. hostile `m_move` track `rn2(4*(cnt-j))` / `jcnt` /
      missing `m_avoid_kicked_loc` (hostiles ignore kickedloc).
-  2. mid-game `mdig_tunnel` opening (28,13) — JS digs before peel are
-     no-ops on ROOM (same `rnd(12)` count as C); C already has kobold
-     on (28,13) by step 142.
-  3. first DoD `>` ordinary `makecorridors` path — peel is Mines
-     depth 4; that earlier descend RNG-matches.
-- **Evidence (refined):**
-  1. Peel level: Mines `dnum=2,dlevel=1` (botl Dlvl:4). Hero `@`
-     **(29,13)** matches C (ANSI/CSI/`\x0e` stripped).
-  2. C kobold **`k@(28,13)`** walkable; JS **(28,13)=TRCORNER**.
-  3. Stage snaps: (28,13) is **STONE** after init_fill, pass_one/two/
-     three, and join; `wallify`→HWALL; load_minefill
-     `wallification`→TRCORNER. Never carved by `dig_corridor`.
-  4. Mines join dig `(28,3)→(29,18)` carved **x=29** ROOM corridor;
-     cavern irregular room bbox ends **hy=12** (cell is one south).
-  5. RNG **full match** through Mines mklev (18225/18225) including
-     dig/somexy/join_map — absolute carved cells can still differ if
-     pass/join geometry diverges with matching arities.
-- **C locus (next):** `mkmap.c` pass/join / `sp_lev.c` `dig_corridor`
-  path that should leave ROOM at (28,13); compare C typ after join
-  before wallify.
+  2. mid-game `mdig_tunnel` opening (28,13).
+  3. first DoD `>` ordinary `makecorridors` path.
+  4. **Mines mkmap omitting ROOM at (28,13)** — JS and C both end with
+     **TRCORNER** at (28,13); join dig `(28,3)→(29,18)` on x=29;
+     cavern room `(12,2)-(28,12)` hy=12; C `somex` widths match JS
+     room bounds; Mines mklev RNG **18225/18225**. Apparent C
+     “kobold `k`@(28,13)” was **DEC Special Graphics** `k`→`┐`
+     (SO/G1 charset), not a monster. Same class of misread as
+     D-0185 wall red herrings.
+- **Evidence (current):**
+  1. Peel Mines depth 4; hero `@(29,13)` matches; (28,13)=┐ wall both.
+  2. Steps 155–170: visible C `G` positions match JS `#165` at those
+     coords (incl. `(26,11)`+`(28,12)` at 170).
+  3. Step 174: C `G@(26,10)`+`G@(22,9)`; JS `#165@(28,12)`+`@(22,9)`
+     — gnome that was @(26,11) diverged.
+  4. At RNG 18837 matched `rn2(24)` = JS `#166@(38,9) cnt=6`; at
+     18840 JS `#165@(27,12) cnt=4` vs C `rn2(24)`⇒cnt=6 then
+     `monmulti`/`m_throw`.
+- **C locus (next):** `monmove.c` `m_move` selection for the gnome
+  that leaves `(26,11)` between steps 170–174 — poss/track/gg /
+  missing filters (`should_displace`/NOTONL/shortsighted/`appr==-2`)
+  that skip without RNG vs same-arity different dest.
 - **Change:** none (diagnosis only; DIAG removed).
 - **Verification:** green+strict preflight PASS; seg6 still @18840.
-- **Next:** C typ dump after minefill join at (28,13); or find JS
-  pass/join reason the cavern stops at y=12 / dig stays on x=29.
+- **Next:** instrument that gnome’s `m_move` 170→174; compare
+  poss/track/gg to C screen path `(26,11)→(26,10)`.

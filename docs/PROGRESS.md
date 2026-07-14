@@ -541,18 +541,16 @@ seed0101 + seed0103 + seed0104 **PASS**. seed2200 RNG **full**
 seed0101 RNG **full** Scr **27**/27. seed0103 RNG **full** Scr **60**/60.
 seed0104 RNG **full** Scr **43**/43.
 
-- **Bounded unit:** seed0030 seg6 @18840 — **D-0253** Mines map
-  prerequisite (depth 4): JS `(28,13)` STONE→wallify→TRCORNER from
-  mkmap (never dug; cavern hy=12); C kobold on walkable `(28,13)` by
-  step 142; hero `@`(29,13) matches; `rn2(24)` vs `rn2(16)` is
-  symptom. RNG matches through Mines mklev. /
+- **Bounded unit:** seed0030 seg6 @18840 — **D-0253** hostile gnome
+  position drift (Mines depth 4): map/(28,13) **rejected** (both
+  TRCORNER; DEC `k` was wall). Step 170 C+JS G@(26,11); step 174 C
+  G@(26,10) vs JS @(28,12). Peel JS `#165` cnt=4 vs C cnt=6. /
   seed0361/0373 **quest `getbones`** (blocked: need `^V`→`goto_level`→
   `makemaz` first — ordinary `goto_level` now exists for stairs; Mines
   `fill_lvl` path exists D-0171).
-- **Prefer:** why JS mkmap pass/join omits ROOM at (28,13) (or dig
-  path stays on x=29) over patching `m_move` track; over quest bones
-  until `^V`/`makemaz`; over parked D-0006 and over baking seed2200 RC
-  paths.
+- **Prefer:** `m_move` selection for gnome `(26,11)→…` (poss/track/gg
+  / missing C filters) over mkmap; over quest bones until `^V`/
+  `makemaz`; over parked D-0006 and over baking seed2200 RC paths.
   Hero `dotrap` deferred until monster pit peel is clear.
   Hero `xkilled` treasure `mkobj` done (D-0229; ordinary
   `make_corpse` done D-0191; mhitm path done D-0167;
@@ -752,8 +750,8 @@ seed0104 RNG **full** Scr **43**/43.
   next @18683 `dmgval` vs fleeck);
   **`thitm` hit → `dmgval`** (done D-0252; seg6 **18683→18840**;
   full **19/44** Scr **1464** RNG **180765**);
-  **seg6 @18840 track arity** (D-0253 **open** — Mines mkmap
-  (28,13) STONE→TRCORNER; not `m_move` / not mdig);
+  **seg6 @18840 track arity** (D-0253 **open** — gnome pos/cnt drift;
+  mkmap/(28,13) rejected DEC misread);
   **`goto_level` `stairway_find_from`** (D-0224 find_from done);
   D-0218 upstairs theory rejected;
   …
@@ -1693,9 +1691,9 @@ Module status, constitutional debt, and named omissions live in
     **1464** RNG **180765**; green+cohort PASS; next seg6 @18840 /
     quest `getbones`
 230. seg6 @18840 track arity diagnosis (D-0253 open)
-    — not `m_move` formula; C screen gnome~(26,10) / kobold~(28,13)
-    vs JS walls+gnome(27,12); `(28,13)` STONE→TRCORNER never corridor;
-    next Mines dig_corridor/wallify; quest `getbones`
+    — map/(28,13) **rejected** (DEC `k`→`┐`; both TRCORNER; mklev
+    RNG+rooms match); real peel gnome `(26,11)` drift → cnt 6 vs 4;
+    next that mon’s `m_move` 170→174; quest `getbones`
 
 Next work is selected from the active objectives above using
 `PORTING-RUNBOOK.md`, not by extending this historical list.

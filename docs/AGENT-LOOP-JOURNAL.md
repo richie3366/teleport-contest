@@ -3273,3 +3273,18 @@ Use this shape:
 - Verification: green+strict preflight PASS; seg6 still @18840.
 - Next: C typ after minefill join at (28,13); find pass/join reason
   cavern stops at y=12; or quest getbones.
+
+## 2026-07-14 07:35 — D-0253 map theory rejected (DEC misread)
+
+- Objective: primary D-0253 — Mines `(28,13)` wall vs C “kobold”.
+- C locus: symptom `monmove.c` m_move track; rejected `mkmap.c` join;
+  real gap hostile gnome path after step ~170.
+- Result: **falsified mkmap/(28,13) theory** — SO/SI-aware parse: DEC
+  `k` is `┐` TRCORNER, not kobold; JS+C both wall there; join dig
+  `(28,3)→(29,18)` + cavern hy=12 + room `somex` widths match; mklev
+  RNG 18225/18225. Peel: step 170 both G@(26,11); step 174 C
+  G@(26,10) vs JS @(28,12); @18840 JS `#165` cnt=4 vs C cnt=6. No
+  production change (DIAG removed).
+- Verification: green+strict preflight PASS; seg6 still @18840.
+- Next: gnome `(26,11)` `m_move` poss/track/gg 170→174; or quest
+  getbones.
