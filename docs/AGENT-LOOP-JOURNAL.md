@@ -20,6 +20,17 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-14 21:24 — #340 score + D-0313 done_in_by isshk
+
+- Objective: mandatory full `sessions` (#340 %5) + seed0030 @583 RIP.
+- C locus: `end.c` `done_in_by` isshk; `shknam.c` `shkname_is_pname`.
+- Change: honorific + `shkname` + `, the shopkeeper` + `KILLED_BY` (D-0313).
+- Verification: full suite **19/44**, Scr **2831/11405** (24.82%), RNG
+  **240657/792838**, speed `18+0.11/turn`; seed0030 Scr **1389→1394**,
+  RIP @583 match; first miss **@779** HP:1 vs HP:0; green+strict; 19 PASS
+  cohort.
+- Next: @779 `You die...` botl HP:1 vs HP:0.
+
 ## 2026-07-14 21:17 — #339 D-0312 SCROLL xname unlabeled
 
 - Objective: seed0030 @594 unlabeled scroll vs blank paper (CURRENT).
@@ -172,15 +183,5 @@ Use this shape:
   Scr **887→889**; green+strict; 19-PASS cohort.
 - Next: prefix@237 `*` color 15 vs 8 (`obj_color`).
 
-
-## 2026-07-14 19:04 — D-0297 display_monster M_AP_OBJECT
-
-- Objective: seed0030 Scr peel (CURRENT primary); prefix first-miss @163.
-- C locus: `display.c` `display_monster` `M_AP_OBJECT` → `map_object`.
-- Change: `newsym` draws/remembers `obj_glyph(mappearance)` for disguised
-  mimics instead of mlet `m`.
-- Verification: prefix **163→174**; Scr **853→887**; RNG full; green+strict;
-  19-session PASS cohort + strict.
-- Next: prefix@174 C `You miss…--More--` vs JS without `--More--`.
 
 

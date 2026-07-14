@@ -30,6 +30,7 @@ import { topten, nh_terminate_capture } from './topten.js';
 import { objectNames } from './generated/objects_data.js';
 import { monsterNames, pmnames } from './generated/monsters_data.js';
 import { paybill, money2mon } from './shk.js';
+import { shkname, shkname_is_pname } from './shknam.js';
 
 const CORPSE = objectNames.indexOf('CORPSE');
 const STATUE = objectNames.indexOf('STATUE');
@@ -433,17 +434,33 @@ function finish_paybill() {
 
 /**
  * C ref: end.c done_in_by — "You die..." then done(how).
- * Ordinary monsters: pmname + KILLED_BY_AN (uniq/priest/hallu deferred).
+ * Ported: isshk → honorific + shkname + ", the shopkeeper" + KILLED_BY
+ * (D-0313). Named omissions: G_UNIQ / ghost / mimicker / vampshifter /
+ * priest|minion m_monnam / minvis / hallu-distort / monhealthdescr /
+ * multi_reason trim.
  */
 export async function done_in_by(mtmp, how = DIED) {
     await pline(how === STONING ? 'You turn to stone...' : 'You die...');
     if (!game.killer) game.killer = { name: '', format: 0 };
-    const mnum = mtmp?.mnum;
-    const names = (mnum != null) ? pmnames[mnum] : null;
-    game.killer.name = names
-        ? (names[2] || names[0] || names[1] || 'creature')
-        : '';
+    // C: svk.killer.format = KILLED_BY_AN; then branch may override
     game.killer.format = KILLED_BY_AN;
+    let buf = '';
+    if (mtmp?.isshk) {
+        // C end.c: isshk → "%s%s, the shopkeeper" + KILLED_BY
+        const shknm = shkname(mtmp);
+        const honorific = shkname_is_pname(mtmp)
+            ? ''
+            : (mtmp.female ? 'Ms. ' : 'Mr. ');
+        buf = `${honorific}${shknm}, the shopkeeper`;
+        game.killer.format = KILLED_BY;
+    } else {
+        const mnum = mtmp?.mnum;
+        const names = (mnum != null) ? pmnames[mnum] : null;
+        buf = names
+            ? (names[2] || names[0] || names[1] || 'creature')
+            : '';
+    }
+    game.killer.name = buf;
     await done(how);
 }
 

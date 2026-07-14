@@ -7848,6 +7848,26 @@ Open that file first; then jump to a single `## D-NNNN` entry below
   currency pline; `paygd`/`clearpriests`; `M1_NOHEAD` `has_head`.
 - **Next:** @594 kitten `unlabeled scroll` vs `scroll of blank paper`.
 
+## D-0313 — `done_in_by` isshk honorific + `KILLED_BY`
+
+- **Status:** fixed
+- **Observed:** seed0030 @583 RIP — C `killed by Ms. Maganasipi; the
+  shopkeeper` vs JS `killed by a shopkeeper`; RNG full.
+- **C locus:** `end.c` `done_in_by` `mtmp->isshk` →
+  `Sprintf("%s%s, the shopkeeper", honorific, shkname)` +
+  `svk.killer.format = KILLED_BY`; `shknam.c` `shkname_is_pname`
+  (`-`/`+`/`=` prefix → no Ms./Mr.).
+- **Cause:** JS `done_in_by` always used bare `pmname` + `KILLED_BY_AN`.
+- **Change:** port isshk arm + `shkname_is_pname`; `formatkiller` still
+  maps `,`→`;` for RIP.
+- **Verification:** RIP @583 matches; Scr **1389→1394**; first miss
+  @779 botl HP:1 vs HP:0; RNG full; green+strict; 19 PASS cohort;
+  full suite Scr **2826→2831** (still 19/44).
+- **Named omissions:** G_UNIQ / ghost / mimicker / vampshifter /
+  priest|minion / minvis / hallu-distort / monhealthdescr /
+  multi_reason trim in `done_in_by`.
+- **Next:** @779 `You die...` botl HP:1 vs HP:0.
+
 ## D-0312 — SCROLL_CLASS `xname` unlabeled / labeled appearance
 
 - **Status:** fixed

@@ -7,14 +7,13 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Current unit:** seed0030 Scr **1389**/1953 RNG **FULL**; cell first-miss **@583**.
-- **@583:** RIP C `killed by Ms. Maganasipi; the shopkeeper` vs JS
-  `killed by a shopkeeper`.
-- **Hypothesis:** `done_in_by` `isshk` arm → honorific + `shkname` +
-  `KILLED_BY` (not bare pmname/`KILLED_BY_AN`).
-- **Falsifier:** RIP lines match; Scr↑.
-- **Fixed:** D-0312 SCROLL `xname` unlabeled (@594 topline; Scr 1388→1389).
-- **#330 score still current:** 19/44; Scr **2810**/11405 (next full @#335).
+- **Current unit:** seed0030 Scr **1394**/1953 RNG **FULL**; cell first-miss **@779**.
+- **@779:** sole miss C `HP:1(11)` vs JS `HP:0(11)` on `You die...--More--`.
+- **Hypothesis:** death more() still shows pre-kill HP:1 in C; JS already 0.
+- **Falsifier:** @779 botl HP match; Scr↑.
+- **Fixed:** D-0313 `done_in_by` isshk → `Ms./Mr. <shk>, the shopkeeper`
+  + `KILLED_BY` (RIP @583; Scr 1389→1394; suite Scr 2826→2831).
+- **#340 score:** 19/44; Scr **2831**/11405; next full @#345.
 - **Alt:** seed0013 Scr 57/59; seed0107 @2684.
 - **Parked:** D-0006; seed2200 @158 RC/`$HOME`.
 
@@ -40,6 +39,7 @@ Objective/score live in `CURRENT.md`.
   leave SCROLL `!nn` as actualn/`obj.known` — unlabeled/labeled arms (D-0312);
   leave `uhitm` private `mon_nam` — import `do_name` (D-0308);
   omit death `paybill` — angry shk takes possessions before flush (D-0311);
+  bare `pmname` for isshk death — honorific + `shkname` + `KILLED_BY` (D-0313);
   blanket `observe_object` in `xname` without `distantname` (regresses map).
 - Runner `Screen N/M` = total matches, not prefix length; contiguous cell
   miss can precede a later named topline peel (D-0311→@594 while @583 RIP open).
@@ -62,5 +62,5 @@ Objective/score live in `CURRENT.md`.
 - Key attribution ≠ RNG order (0-RNG `--More--`) (D-0228).
 - Bones / disclose / RIP / topten / amulet / DEC altar / noises / Monnam /
   map_invisible / mimic / vault+fountain/sink/shop / TOOL descr / shop enter /
-  uhitm mon_nam / WAND descr / bot uhp==-1 / paybill / SCROLL unlabeled:
-  D-0274…D-0312.
+  uhitm mon_nam / WAND descr / bot uhp==-1 / paybill / SCROLL unlabeled /
+  done_in_by isshk: D-0274…D-0313.

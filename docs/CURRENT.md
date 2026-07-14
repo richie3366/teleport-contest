@@ -18,16 +18,16 @@ label, PASS list, notable non-PASS. Do not invent suite totals from a single
 focused session.
 
 Score last measured: **2026-07-14** — full `sessions` suite (global loop
-**#330**) after D-0306 shop `You_hear`. Same 19 PASS; Scr **2584→2810**.
+**#340**) after D-0313 `done_in_by` isshk. Same 19 PASS; Scr **2826→2831**.
 
 ## Score
 
 | Metric | Value |
 |--------|------:|
 | Sessions passing | **19 / 44** |
-| Screens matched | **2810 / 11,405** (24.64%) |
+| Screens matched | **2831 / 11,405** (24.82%) |
 | Positional RNG calls matched | **240,657 / 792,838** (30.35%) |
-| Speed label | `17+0.11/turn` (R² 0.78) |
+| Speed label | `18+0.11/turn` (R² 0.78) |
 | Role-init throws | **0 / 44** |
 
 **PASS (19):** seed8000, seed0900, seed1500, seed1800, seed0060, seed0102,
@@ -37,7 +37,7 @@ seed0016, seed0015, seed0200, seed0101, seed0103, seed0104.
 **Notable non-PASS:**
 | Session | RNG | Screen | Note |
 |---------|----:|-------:|------|
-| seed0030 | 105529/105529 | **1389**/1953 | primary peel; cell first-miss **@583** |
+| seed0030 | 105529/105529 | **1394**/1953 | primary peel; cell first-miss **@779** |
 | seed2200 | 3018/3018 | **175**/230 | RNG full; Scr cells 178/230 |
 | seed0013-rogue | 4838/4838 | 57/59 | |
 | seed0013-friday13-restore | 4803/4804 | 46/99 | |
@@ -61,25 +61,23 @@ Both must remain full RNG + screen PASS with exact scored-output lengths.
 
 ## Primary objective
 
-**seed0030 screen peel** — RNG full; Scr **1389**/1953; cell first-miss **@583**
+**seed0030 screen peel** — RNG full; Scr **1394**/1953; cell first-miss **@779**
 
 | | |
 |--|--|
-| **C locus** | `end.c` `done_in_by` — `mtmp->isshk` → `"Ms./Mr. <shknm>, the shopkeeper"` + `KILLED_BY` |
-| **JS locus** | `js/end.js` `done_in_by` — bare `pmname` + `KILLED_BY_AN` |
-| **Symptom** | @583 RIP C `killed by Ms. Maganasipi; the shopkeeper` vs JS `killed by a shopkeeper` |
-| **Hypothesis** | shk death must use `shkname` honorific arm, not generic pmname |
-| **Falsifier** | RIP lines match C; expect Scr↑ / later screens stay matched |
-| **Recent fixed** | D-0312 SCROLL `xname` unlabeled (594 topline; Scr 1388→1389) |
+| **C locus** | `botl.c` / death flush timing — botl HP on `You die...--More--` |
+| **JS locus** | `js/display.js` botl HP / `bot` skip; death path zeroing `u.uhp` |
+| **Symptom** | @779 sole cell miss: C `HP:1(11)` vs JS `HP:0(11)` (topline `You die...`) |
+| **Hypothesis** | C still shows pre-kill HP:1 at first death more(); JS already clamped to 0 |
+| **Falsifier** | @779 botl HP matches; expect Scr↑ / later screens stay matched |
+| **Recent fixed** | D-0313 `done_in_by` isshk honorific (RIP @583; Scr 1389→1394) |
 
 ```bash
 node frozen/ps_test_runner.mjs sessions/seed0030-ten-diverse-deaths.session.json
 ```
 
 **Note:** runner `Screen N/M` is **total** positional matches, not prefix
-length. Prefer decodeScreen cell first-miss for peel targets. Prior NOTES
-“@594” was the next *named* topline peel; contiguous cell miss was already
-@583 RIP (pre-existing).
+length. Prefer decodeScreen cell first-miss for peel targets.
 
 **Alternate:** seed0013 Scr 57/59; seed0107 RNG@2684; seed2200 Scr 175/230.
 
