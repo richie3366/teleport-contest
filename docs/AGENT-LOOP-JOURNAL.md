@@ -20,6 +20,15 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-14 22:36 — #349 D-0322 hmon hit exclam
+
+- Objective: seed0030 @1429 `You hit Swidnica!` vs `.` (CURRENT).
+- C locus: `uhitm.c` `hmon_hitmon_msg_hit` + `zap.c` `exclam`.
+- Change: port `canseemon?exclam(dmg)` + bash/lash/smite/hit verb (D-0322).
+- Verification: @1429 match; Scr **1445→1446**; first miss **@1433**
+  (seg7 −13 death screens); RNG full; green+strict; 17 PASS cohort.
+- Next: @1433 fatal wand-hit `--More--` / death screen capture.
+
 ## 2026-07-14 22:30 — #348 D-0321 SPBOOK xname descr
 
 - Objective: seed0030 @1342 shining spellbook vs spellbook of jumping (CURRENT).
@@ -168,15 +177,3 @@ Use this shape:
   Scr **2810**/11405 (24.64%), RNG **240657**/792838, `17+0.11/turn`;
   green+strict PASS; 19 PASS held.
 - Next: @573 C shop welcome — port `u_entered_shop` / `ushops_entered`.
-
-## 2026-07-14 19:56 — D-0305 TOOL/WEAPON xname descr
-
-- Objective: seed0030 Scr peel (CURRENT primary); prefix first-miss @485.
-- C locus: `objnam.c` `xname_flags` WEAPON/VENOM/TOOL — `!nn` → `dn`.
-- Change: `pretty_base` uses `OBJ_DESCR` when `!oc_name_known` (tin/magic
-  whistle → `"whistle"`) (D-0305).
-- Verification: prefix **485→550**; Scr **1370→1371**; RNG full;
-  green+strict; 19-session PASS cohort + strict sample.
-- Next: @550 C `You hear someone cursing shoplifters.` vs JS blank
-  (`dosounds` shop_msg — RNG burned, `You_hear` omitted).
-

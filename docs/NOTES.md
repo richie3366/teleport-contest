@@ -7,14 +7,14 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Current unit:** seed0030 Scr **1445**/1953 RNG **FULL**; cell first-miss **@1429**.
-- **@1429:** C `You hit Swidnica!  Swidnica zaps a short wand!…` vs JS
-  `You hit Swidnica.  …` (`!` vs `.` after hit).
-- **Hypothesis:** Hero hit pline needs `exclam(dmg)` when `canseemon`, not
-  bare period (`uhitm.js` period stand-in).
-- **Falsifier:** @1429 `You hit Swidnica!`; Scr↑.
-- **Fixed:** D-0321 SPBOOK dknown+!nn → `"%s spellbook"` (`dn`); drop
-  `obj.known` leak; @1342/@1343 shining; Scr 1438→1445; miss→@1429.
+- **Current unit:** seed0030 Scr **1446**/1953 RNG **FULL**; cell first-miss **@1433**.
+- **@1433:** C `The wand hits you!--More--` (Florian still alive HP:4) vs JS
+  Samurai welcome (next life). Seg7 JS screens **159** vs C **172** (−13).
+- **Hypothesis:** After @1432 `…zaps a wand of striking!--More--`, fatal hit
+  + `You die…` / disclose must emit nhgetch screens before segment ends.
+- **Falsifier:** @1433 `The wand hits you!`; seg7 screen count **172**.
+- **Fixed:** D-0322 `hmon_hitmon_msg_hit` `canseemon?exclam(dmg)` + verb;
+  @1429 `You hit Swidnica!`; Scr 1445→1446; miss→@1433.
 - **Don’t:** clamp fatal `uhp=0` in `losehp` before `You die` flush
   (regresses D-0310/D-0320 `-1` bot skip).
 - **Alt:** seed0013 Scr 57/59; seed0107 @2684.
@@ -55,6 +55,7 @@ Objective/score live in `CURRENT.md`.
   `The gnome wields a bow!` (D-0318);
   fire-and-forget `thitu`/`monshoot` pline — await before `losehp`/flight so
   `--More--` keeps `tmp_at` flash + pre-damage HP (D-0319);
+  bare period on hero melee hit — `canseemon?exclam(dmg)` (D-0322);
   blanket `observe_object` in `xname` without `distantname` (regresses map).
 - Runner `Screen N/M` = total matches, not prefix length; contiguous cell
   miss can precede a later named topline peel (D-0311→@594 while @583 RIP open).
@@ -80,4 +81,4 @@ Objective/score live in `CURRENT.md`.
   uhitm mon_nam / WAND descr / bot uhp==-1 / paybill / SCROLL unlabeled /
   done_in_by isshk / botl flush·bot·more / Priest bknown / WAND known0 /
   moverock hear-behind / mon_wield canseemon pline / thitu await pline /
-  losehp leave neg uhp / SPBOOK descr: D-0274…D-0321.
+  losehp leave neg uhp / SPBOOK descr / hmon exclam: D-0274…D-0322.

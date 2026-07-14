@@ -37,8 +37,8 @@ seed0016, seed0015, seed0200, seed0101, seed0103, seed0104.
 
 **Notable non-PASS:**
 | Session | RNG | Screen | Note |
-|---------|----:|-------:|------|
-| seed0030 | 105529/105529 | **1445**/1953 | primary peel; cell first-miss **@1429** |
+|---------:|----:|-------:|------|
+| seed0030 | 105529/105529 | **1446**/1953 | primary peel; cell first-miss **@1433** |
 | seed2200 | 3018/3018 | **175**/230 | RNG full; Scr cells 178/230 |
 | seed0013-rogue | 4838/4838 | 57/59 | |
 | seed0013-friday13-restore | 4803/4804 | 46/99 | |
@@ -62,16 +62,16 @@ Both must remain full RNG + screen PASS with exact scored-output lengths.
 
 ## Primary objective
 
-**seed0030 screen peel** — RNG full; Scr **1445**/1953; cell first-miss **@1429**
+**seed0030 screen peel** — RNG full; Scr **1446**/1953; cell first-miss **@1433**
 
 | | |
 |--|--|
-| **C locus** | `uhitm.c` / `pline.c` — hit message uses `exclam(dmg)` not bare `"."` |
-| **JS locus** | `js/uhitm.js` — `You hit ${mon_nam}.` period stand-in |
-| **Symptom** | @1429 C `You hit Swidnica!` vs JS `You hit Swidnica.` (before wand zap) |
-| **Hypothesis** | Hero hit pline must append `exclam(hmd->dmg)` when `canseemon` |
-| **Falsifier** | @1429 topline `You hit Swidnica!`; expect Scr↑ |
-| **Recent fixed** | D-0321 SPBOOK `"%s spellbook"` descr; @1342 shining; Scr 1438→1445 |
+| **C locus** | `muse.c` / `zap.c` / `end.c` — fatal wand hit + death `--More--` screens |
+| **JS locus** | striking-wand hit / `done` / nhgetch capture — seg7 short **13** screens |
+| **Symptom** | @1433 C `The wand hits you!--More--` (still Florian) vs JS Samurai welcome |
+| **Hypothesis** | After @1432 striking zap `--More--`, fatal hit/death plines must flush screens before next life |
+| **Falsifier** | @1433 topline `The wand hits you!`; seg7 JS screens **159→172** |
+| **Recent fixed** | D-0322 `hmon_hitmon_msg_hit` `exclam(dmg)`; @1429 `You hit …!`; Scr 1445→1446 |
 
 ```bash
 node frozen/ps_test_runner.mjs sessions/seed0030-ten-diverse-deaths.session.json

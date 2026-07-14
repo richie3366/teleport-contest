@@ -8022,6 +8022,22 @@ Open that file first; then jump to a single `## D-NNNN` entry below
 
 
 
+## D-0322 — `hmon_hitmon_msg_hit` `exclam(dmg)` punctuation
+
+- **Status:** fixed
+- **Observed:** seed0030 @1429 — C `You hit Swidnica!` vs JS `You hit Swidnica.`
+  (same following zap/miss). RNG full.
+- **C locus:** `uhitm.c` `hmon_hitmon_msg_hit` — verbose melee uses
+  `canseemon(mon) ? exclam(hmd->dmg) : "."` with bash/lash/smite/hit verb;
+  `zap.c` `exclam` — force≤4 → `.`, else `!`.
+- **Cause:** JS always appended a bare period (period stand-in comment).
+- **Change:** port `exclam` + `canseemon` punct + hit verb (D-0322).
+- **Verification:** @1429/@1430/@1432 match; Scr **1445→1446**; first miss
+  **@1433** (seg7 −13 death screens after striking zap); RNG full;
+  green+strict; 17 PASS cohort.
+- **Named omissions:** thrown `hit()` path / multishot destroyed exception.
+- **Next:** @1433 fatal wand-hit `--More--` / death screen capture (seg7 −13).
+
 ## D-0321 — SPBOOK_CLASS `xname` appearance (`"%s spellbook"`)
 
 - **Status:** fixed
