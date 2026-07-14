@@ -2814,3 +2814,15 @@ Use this shape:
 - Verification: seed0104 RNG **3223**/3223 Scr **39**/43; rng-diff OK; green+strict+cohort PASS; full **18/44** Scr **1429** RNG **149118**.
 - Next: seed0104 Scr residual (39/43); or D-0211 C typ dump; or seed0030 seg2 @2408.
 
+
+## 2026-07-14 02:14 — D-0220 dismount look_here + float_down pickup
+- Objective: PROGRESS primary — seed0104 Scr residual 39/43 after D-0219.
+- C locus: `steed.c` `dismount_steed`/`float_down`; `hack.c` `spoteffects`
+  `in_steed_dismounting`; `invent.c` `look_here` multi NHW_MENU.
+- Result: **verified** — JS omitted float_down→pickup after dismount and
+  stubbed multi look_here as pline; C shows WIN_MESSAGE `--More--` then
+  "Things that are here:" menu. Ported pickup after teleds + NHW_MENU path.
+- Verification: seed0104 **PASS** 43/43; green+strict+cohort PASS; full
+  **19/44** Scr **1433** RNG **149124**.
+- Next: D-0211 C typ dump / seed0030 seg2 @2408; or quest `getbones`
+  `^V`/`makemaz`.

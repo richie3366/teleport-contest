@@ -223,6 +223,7 @@ Do not record a guessed cause as fixed merely because an RNG prefix moved.
 | D-0217 | fixed | mattacku steed | mounted rn2(is_orc?2:4)→mattackm steed; seed0104 2841→3031 |
 | D-0218 | rejected | upstairs geometry | @3031 was not create_room drift; superseded by D-0219 |
 | D-0219 | fixed | test_move diagonal door | ban diagonal into/out of intact doorway; seed0104 RNG full |
+| D-0220 | fixed | dismount look_here | float_down→pickup + multi NHW_MENU; seed0104 PASS |
 
 D-0001 through D-0005 predate the strict-length/cohort runbook. Their focused
 causes are preserved, but generic "green sessions held" is historical evidence,
@@ -5930,3 +5931,31 @@ cohort gates if those functions are touched again.
   `block_door`/`block_entry`; full `test_move` NODIAG/boulder arms.
 - **Next:** seed0104 Scr residual (39/43 after dismount); or D-0211
   typ dump.
+
+## D-0220 — dismount `float_down`→`pickup` + multi `look_here` NHW_MENU
+
+- **Status:** fixed
+- **Symptom:** seed0104 Scr **39**/43 after D-0219 (RNG full). First
+  miss @28: C pony pline + `--More--` vs JS bare pline; space then
+  became `Unknown command ' '`. Later `:` also missed C "Things that
+  are here:" menu.
+- **Cause/evidence:** C `dismount_steed` does `teleds` under
+  `in_steed_dismounting` (so `spoteffects` skips pickup) then
+  `float_down(0,W_SADDLE)`→`pickup(1)`→`check_here`→`look_here`. Multi
+  floor objects take the NHW_MENU putstr path after
+  `display_nhwindow(WIN_MESSAGE,FALSE)`. JS stubbed float_down and
+  used `pline("You see several objects here.")` for multi.
+- **C locus:** `steed.c` `dismount_steed`; `trap.c` `float_down`
+  pickup; `hack.c` `spoteffects` `in_steed_dismounting` skip;
+  `invent.c` `look_here` multi NHW_MENU.
+- **Change:** `js/steed.js` `in_steed_dismounting` around teleds +
+  `pickup(1)` after (float_down subset); `js/pickup.js` spoteffects
+  skip when flag set; `js/invent.js` `look_here` multi →
+  `flush_topl_more` + `show_nhw_menu_text` "Things that are here:".
+- **Verification:** seed0104 **PASS** RNG/Scr **43**/43; green+strict
+  + cohort PASS; full **19/44** Scr **1433** RNG **149124**.
+- **Named omissions:** float_down levitation/pool/trap/come-down msgs;
+  `doname_with_price`; Blind feel; cockatrice; engulfer stomach;
+  teleds→spoteffects on mount path.
+- **Next:** D-0211 C typ dump / seed0030 seg2 @2408; or quest
+  `getbones` `^V`/`makemaz`.

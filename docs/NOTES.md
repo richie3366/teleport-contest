@@ -7,10 +7,9 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 
 ## Active
 
-- **Current unit:** seed0104 Scr residual (RNG **full** after D-0219).
-  Next peel: screen/cursor mismatch after dismount (Scr **39**/43).
-- **Hypothesis (D-0211):** kitten `dog_move` — JS `mfndpos` includes SW
-  that C skips; poison-gas falsified; need C typ dump.
+- **Current unit:** seed0030 seg2 @2408 (D-0211: kitten `dog_move` —
+  JS `mfndpos` includes SW that C skips; poison-gas falsified; need C typ
+  dump) / seed0361/0373 quest `getbones` (need `^V`→`goto_level`→`makemaz`).
 - **Parked deep canary:** D-0006 pet movement — do not implement until C
   state/candidate capture exists.
 - **Parked seed2200 @158:** RC config path — harness `$HOME`, not a port bug.
@@ -58,6 +57,9 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   **open** door; C `test_move` forbids diagonal into intact doorways
   (D-0218 rejected; D-0219 fixed). Do not re-chase makerooms rects for
   that peel.
+- **seed0104 Scr 39/43 was NOT a botl/Ride residual** — dismount omitted
+  C `float_down`→`pickup`→`look_here` multi NHW_MENU; space meant for
+  pony `--More--` became `Unknown command` (D-0220).
 - **`monattk.h`: AT_WEAP=254, AT_MAGC=255, AT_SPIT=10** — never use 10 for
   weapon (D-0179).
 - Hostile `m_move`: before place, `m_digweapon_check` may return
@@ -72,6 +74,10 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 - **`test_move` diagonal into DOOR:** only `doorless_door` (D_NODOOR /
   D_BROKEN) allowed; open/closed/locked block diagonal entry/exit
   (D-0219). Same rule in `domove` and steed `landing_spot`/`test_move_ok`.
+- **Dismount BYCHOICE:** `teleds` under `in_steed_dismounting` (skip
+  spoteffects pickup) then `float_down(0,W_SADDLE)`→`pickup(1)` once;
+  multi floor objs → `look_here` NHW_MENU after WIN_MESSAGE `--More--`
+  (D-0220).
 - `clear_level_structures` / `goto_level`: clear `fobj` **and**
   `_objects_at` (C `level.objects[][]=0`) and `head_engr` (D-0161).
 - Monster ROCKTRAP: `t_missile(ROCK)`→`mksobj` `next_ident`+`rn1(6,6)`

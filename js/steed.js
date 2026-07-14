@@ -450,7 +450,8 @@ export async function mount_steed(mtmp, force) {
 /**
  * C ref: steed.c dismount_steed — DISMOUNT_BYCHOICE envelope.
  * Thrown/fell damage, poly, engulfed, bones, water/lava steed death,
- * float_down body, encumber_msg, polearm unweapon deferred.
+ * float_down levitation/pool/trap arms, encumber_msg, polearm unweapon
+ * deferred. float_down → pickup when !Air/Water ported (D-0220).
  */
 export async function dismount_steed(reason) {
     const u = game.u || (game.u = {});
@@ -513,13 +514,23 @@ export async function dismount_steed(reason) {
 
     if (reason !== DISMOUNT_BONES) {
         if (!u.uswallow && !u.ustuck && have_spot) {
-            // Keep steed here; move hero to landing spot
+            // C: in_steed_dismounting around teleds so spoteffects skips
+            // pickup; float_down does the single pickup attempt.
+            game.in_steed_dismounting = true;
             teleds_simple(cc.x, cc.y, TELEDS_ALLOW_DRAG);
+            game.in_steed_dismounting = false;
         }
     }
 
     if (reason !== DISMOUNT_ENGULFED && reason !== DISMOUNT_BONES) {
-        // float_down(0, W_SADDLE) — no RNG when not levitating / no pile
+        // C: float_down(0, W_SADDLE) — W_SADDLE skips "come down" msgs;
+        // non-Air/Water → pickup(1) directly (not via spoteffects; the
+        // in_steed_dismounting flag only suppresses teleds' pickup).
+        // Levitation/pool/trap arms deferred.
+        game.in_steed_dismounting = true;
+        const { pickup } = await import('./pickup.js');
+        await pickup(1);
+        game.in_steed_dismounting = false;
         if (!game.flags) game.flags = {};
         game.flags.botl = true;
         vision_recalc(1);

@@ -37,9 +37,9 @@ frozen-file overlay):
 
 | Metric | Value |
 |--------|------:|
-| Sessions passing | **18 / 44** |
-| Screens matched | **1429 / 11,405** (12.53%) |
-| Positional RNG calls matched | **149,118 / 792,838** (18.81%) |
+| Sessions passing | **19 / 44** |
+| Screens matched | **1433 / 11,405** (12.56%) |
+| Positional RNG calls matched | **149,124 / 792,838** (18.81%) |
 | Speed label | `20+0.09/turn` |
 | Working-tree base | `8b71735` + committed port (see `main`) |
 | Role-init throws | **0 / 44** (`u_init_role: role not ported`) |
@@ -70,7 +70,7 @@ shared blockers, and semantic coverage together—not one vanity metric.
 | `seed0101-ranger-quiver-throw-travel-engrave` | **2371 / 2371** | **27 / 27** |
 | `seed0016-healer-newmoon-eat-zap` | **3656 / 3656** | **36 / 36** |
 | `seed0107-samurai-twoweapon-enhance` | **2684 / 2902** | **36 / 98** |
-| `seed0104-knight-ride-combat` | **3223 / 3223** | 39 / 43 |
+| `seed0104-knight-ride-combat` | **3223 / 3223** | **43 / 43** |
 | `seed0361-archeologist-tour` | **3293 / 53865** | 0 / 366 |
 | `seed0373-barbarian-quest-tour` | **2555 / 35386** | 0 / 124 |
 | `seed0105-valk-chat-lamp-ration` | **2499 / 2499** | **30 / 30** |
@@ -80,8 +80,8 @@ shared blockers, and semantic coverage together—not one vanity metric.
 
 seed8000 + seed0900 + seed1500 + seed1800 + seed0060 + seed0102 +
 seed0700 + seed1150 + seed0017 + seed0077 + seed0106 + seed0501 +
-seed0105 + seed0016 + seed0015 + seed0200 + seed0101 + seed0103 pass
-end-to-end.
+seed0105 + seed0016 + seed0015 + seed0200 + seed0101 + seed0103 +
+seed0104 pass end-to-end.
 `choose_trapnote`/`hole_destination` (D-0054), `SPBOOK_no_NOVEL`
 (D-0055), roles `initrecord` (D-0056), CORPSE `G_NOCORPSE` retry
 (D-0057), `adjabil`/`u_calc_moveamt` Fast (D-0058), `rnl` +
@@ -297,6 +297,8 @@ seed0103 **PASS**; full **18/44** Scr **1405** RNG **148875**.
 rects matched; not the peel.
 **`test_move` diagonal into intact doorway** (D-0219) → seed0104 RNG
 **full** Scr **39**/43; full **18/44** Scr **1429** RNG **149118**.
+**dismount `float_down`→`pickup` + multi `look_here` NHW_MENU** (D-0220)
+→ seed0104 **PASS**; full **19/44** Scr **1433** RNG **149124**.
 
 ### Green gate
 
@@ -489,23 +491,23 @@ autoopen `doopen_indir` (D-0059) + `mfndpos` BOULDER/`ALLOW_ROCK` +
 **tutorial stay-open + death disclose** (D-0215/D-0216)
 **mounted `mattacku` steed redirect** (D-0217)
 **`test_move` diagonal doorway ban** (D-0219) **ported**; D-0218
-upstairs theory **rejected**. **dog_move extra mfndpos candidate**
-(D-0211) **open**. Eighteen public sessions pass end-to-end. **0/44**
+upstairs theory **rejected**. **dismount look_here** (D-0220)
+**ported** — seed0104 **PASS**. **dog_move extra mfndpos candidate**
+(D-0211) **open**. Nineteen public sessions pass end-to-end. **0/44**
 throw at `u_init_role`. seed0700 + seed1150 + seed0017 + seed0077 +
 seed0106 + seed0501 + seed0105 + seed0016 + seed0015 + seed0200 +
-seed0101 + seed0103 **PASS**. seed2200 RNG **full**
+seed0101 + seed0103 + seed0104 **PASS**. seed2200 RNG **full**
 (Scr **229**/230; sole miss parked RC @158).
 seed0101 RNG **full** Scr **27**/27. seed0103 RNG **full** Scr **60**/60.
-seed0104 RNG **full** Scr **39**/43.
+seed0104 RNG **full** Scr **43**/43.
 
-- **Bounded unit:** seed0104 Scr residual (**39**/43 after D-0219;
-  RNG full) / seed0030 seg2 @2408 (D-0211: C excludes SW diagonal —
+- **Bounded unit:** seed0030 seg2 @2408 (D-0211: C excludes SW diagonal —
   poison-gas falsified; need C typ dump) / seed0361/0373 **quest
   `getbones`** (blocked: need `^V`→`goto_level`→`makemaz` first —
   ordinary `goto_level` now exists for stairs; Mines `fill_lvl` path
   exists D-0171).
-- **Prefer:** seed0104 screen/cursor peel after matched RNG; over
-  re-chasing D-0218 makerooms; over parked D-0006 and over baking
+- **Prefer:** D-0211 C typ dump / seed0030 fleeck peel; over quest
+  bones until `^V`/`makemaz`; over parked D-0006 and over baking
   seed2200 RC paths.
   Hero `dotrap` deferred until monster pit peel is clear.
   Hero `xkilled` treasure `mkobj` still deferred (ordinary `make_corpse`
@@ -620,13 +622,15 @@ seed0104 RNG **full** Scr **39**/43.
   **`doride`/`mount_steed`** (done D-0213; Scr residual D-0214 →
   D-0215/16 seed0103 PASS);
   **mounted `mattacku` steed** (done D-0217);
-  **`test_move` diagonal doorway** (done D-0219; seed0104 Scr residual);
+  **`test_move` diagonal doorway** (done D-0219);
+  **dismount `float_down`/`look_here` multi** (done D-0220; seed0104
+  PASS);
   D-0218 upstairs theory rejected;
   …
 - **Cohort:** green gate + seed1500 + seed1800 + seed0060 + seed0102
   + seed0700 + seed1150 + seed0017 + seed0077 + seed0106 + seed0501
   + seed0105 + seed0016 + seed0015 + seed0200 + seed0101 + seed0103
-  (must stay PASS)
+  + seed0104 (must stay PASS)
   + strict lengths.
 
 Focused survey:
@@ -1406,6 +1410,10 @@ Module status, constitutional debt, and named omissions live in
     — seed0104 RNG **3223**/3223 Scr **39**/43; full **18/44** Scr
     **1429** RNG **149118**; next seed0104 Scr residual / D-0211 typ
     dump / seed0030 seg2 @2408
+195. dismount `float_down`→`pickup` + multi `look_here` (D-0220)
+    — seed0104 **PASS** Scr **43**/43; full **19/44** Scr **1433**
+    RNG **149124**; next D-0211 typ dump / seed0030 seg2 @2408 /
+    quest `getbones`
 
 Next work is selected from the active objectives above using
 `PORTING-RUNBOOK.md`, not by extending this historical list.
