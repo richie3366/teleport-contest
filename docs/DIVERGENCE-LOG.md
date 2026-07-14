@@ -7204,4 +7204,25 @@ Open that file first; then jump to a single `## D-NNNN` entry below
   PASS cohort + strict lengths; seed0030 Scr 85/1953.
 - **Next:** @16836 C `rn2(7) @ disturb` vs JS `rn2(3)`.
 
+## D-0278 — dochug disturb sleeping-monster wake
+
+- **Status:** fixed
+- **Observed:** seed0030 seg9 @16836 — C `rn2(7)=4 @ disturb(monmove.c:351)`
+  then later `set_apparxy` for other mons; JS skipped sleepers and hit
+  `rn2(3)` elsewhere. C: sleeping non-dog/human in LOS, `!Stealth`,
+  not nymph/jabber/lep → `!rn2(7)` wake gate (roll 4 → stay asleep).
+- **C locus:** `monmove.c` `disturb` + `dochug` `msleeping && !disturb`.
+- **Cause:** JS `dochug` early-returned on `msleeping` (“fill mons start
+  awake”) and never burned the wake RNG.
+- **Change:** port `disturb` (couldsee/`mdistu`/Stealth/ettin/nymph|
+  jabber|lep/Aggravate|dog|human/`rn2(7)`+mimic gate); wire into
+  `dochug`; `wake_msg` deferred.
+- **Named omission:** `wake_msg`; full `dochug` preamble (wipe_engr /
+  conf·stun clear / flee teleport / m_respond / covetous tactics /
+  STRAT_WAITMASK) still partial.
+- **Verification:** seg9 **16836→17104**/17104 (C length full; JS +133
+  trailing); green+strict PASS; 17-session PASS cohort + strict lengths;
+  seed0030 positional **48194**/105529 Scr 85/1953.
+- **Next:** seg4 trailing JS `rn2(1)` after C `mhitm_knockback` `rn2(6)`.
+
 

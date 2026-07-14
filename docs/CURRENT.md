@@ -6,8 +6,8 @@ and `archive/PROGRESS-HISTORY.md`.
 
 Score last measured: **2026-07-14** via focused seed0030 + green/cohort;
 full `sessions` suite not re-run this iteration. PASS set unchanged;
-seed0030 seg9 isolation **16836**/17104 after D-0277 (flat positional
-**48187**/105529 Scr 85/1953).
+seed0030 seg9 isolation **17104**/17104 after D-0278 (positional
+**48194**/105529 Scr 85/1953).
 
 ## Score
 
@@ -15,7 +15,7 @@ seed0030 seg9 isolation **16836**/17104 after D-0277 (flat positional
 |--------|------:|
 | Sessions passing | **19 / 44** |
 | Screens matched | **1563 / 11,405** (13.70%) |
-| Positional RNG calls matched | **182,709 / 792,838** (prior suite; seg9 +153) |
+| Positional RNG calls matched | **182,709 / 792,838** (prior suite; seg9 full) |
 | Speed label | `18+0.10/turn` |
 | Role-init throws | **0 / 44** |
 
@@ -24,7 +24,7 @@ seed0700, seed1150, seed0017, seed0077, seed0106, seed0501, seed0105,
 seed0016, seed0015, seed0200, seed0101, seed0103, seed0104.
 
 **Notable non-PASS:** seed2200 RNG full Scr 229/230 (parked RC @158);
-seed0013 RNG full Scr 57/59; seed0030 **48187**/105529 Scr 85/1953;
+seed0013 RNG full Scr 57/59; seed0030 **48194**/105529 Scr 85/1953;
 seed0107 2684/2902 Scr 36/98; seed0361/0373 quest bones blocked.
 
 ## Green gate
@@ -42,19 +42,19 @@ Both must remain full RNG + screen PASS with exact scored-output lengths.
 
 ## Primary objective
 
-**D-0277 follow-on** — seed0030 seg9 @16836 — `disturb`
+**D-0278 follow-on** — seed0030 seg4 trailing `rn2(1)` after knockback
 
 | | |
 |--|--|
-| **C locus** | `monmove.c:351` `disturb` |
-| **JS locus** | `js/monmove.js` `disturb` (or caller) |
-| **Symptom** | C `rn2(7) @ disturb` vs JS `rn2(3)` |
-| **Hypothesis** | Sleeping mon wake path / arity differs post-bones hostility |
-| **Falsifier** | attribute which mon hits `disturb` at first post-16836 call |
-| **Recent fixed** | D-0277 — bones ghostly `peace_minded`/`set_malign` (16683→16836) |
+| **C locus** | end of seg4 turn — C stops at `mhitm_knockback` `rn2(6)`; JS emits one extra `rn2(1)=0` |
+| **JS locus** | post-`mhitm_knockback` caller (likely uhitm/mhitm fall-through) |
+| **Symptom** | seg4 JS len 8032 vs C 8031 → cross-seg positional skew |
+| **Hypothesis** | JS continues past C’s recorded death/end boundary or burns an unguarded `rn2(1)` |
+| **Falsifier** | attribute the `rn2(1)` site (caller + C short-circuit that skips it) |
+| **Recent fixed** | D-0278 — `dochug`→`disturb` wake path (seg9 16836→**17104**/17104) |
 
 ```bash
-# Focused seg9
+# Focused seg9 (still exercise disturb) + full seed0030
 node frozen/ps_test_runner.mjs sessions/seed0030-ten-diverse-deaths.session.json
 ```
 

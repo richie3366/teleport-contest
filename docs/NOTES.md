@@ -7,11 +7,12 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Current unit:** seed0030 seg9 @16836 — C `rn2(7) @ disturb` vs JS
-  `rn2(3)` after bones ghostly peace reset (D-0277).
-- **Hypothesis:** sleeping-mon wake / `disturb` arity differs once hostiles
-  dig correctly.
-- **Falsifier:** dump which mon enters `disturb` at first post-16836 call.
+- **Current unit:** seed0030 seg4 trailing `rn2(1)=0` after C ends at
+  `mhitm_knockback` `rn2(6)` (D-0278 follow-on). Seg9 RNG now full
+  **17104**/17104.
+- **Hypothesis:** JS burns an unguarded `rn2(1)` (or continues past C’s
+  recorded end) after knockback on the last seg4 turn.
+- **Falsifier:** dump annotated caller of that `rn2(1)`.
 - **Parked:** D-0006 (pet movement); seed2200 @158 RC/`$HOME`.
 
 ## Don’t re-check (≤15)
@@ -28,7 +29,7 @@ Objective/score live in `CURRENT.md`.
   muse wand paths.
 - Session `\r` → `\n` = `C('j')` rush (D-0259); `rushDirFromCtrl` 1..26.
 - seg8 fleeck/missing-katana were key desync (D-0261), not dog_move/dodrop.
-- Recent seg9 falsified theories: D-0262…D-0276 — see `DIVERGENCE-INDEX.md`.
+- Recent seg9 falsified theories: D-0262…D-0277 — see `DIVERGENCE-INDEX.md`.
 - **Don’t:** treat missing Invis `rn2(11)` alone as enough when `couldsee`
   is false — check SCORR/`viz_clear` (D-0269).
 - `vision_recalc(1)` ≠ `unblock_point` / `recalc_block_point`.
@@ -44,7 +45,9 @@ Objective/score live in `CURRENT.md`.
   `_thrownobj` off `fobj` (D-0275; 48 vs 49).
 - **Don’t:** clear bones `mtrack` on load — C `restmon` keeps it (D-0276).
 - **Don’t:** keep Elara peaceful flags on Hermione bones load — C
-  `getlev` ghostly re-`peace_minded` (D-0277). @16683 was not mfndpos cnt.
+  `getlev` ghostly re-`peace_minded` (D-0277).
+- **Don’t:** early-return `dochug` on `msleeping` — C calls `disturb`
+  (`rn2(7)` wake gate) first (D-0278).
 
 ## Landmarks (≤15)
 
@@ -66,4 +69,5 @@ Objective/score live in `CURRENT.md`.
 - Key attribution ≠ RNG order (0-RNG `--More--`) (D-0228).
 - Bones VFS: `bon${boneid}0.${dlevel}` under `vfs:bones/`; Elara Mines
   `bonM0.1` → Hermione; limbo missile (D-0275); **mtrack persisted**
-  (D-0276); **ghostly peace_minded** (D-0277).
+  (D-0276); **ghostly peace_minded** (D-0277); **`disturb` in dochug**
+  (D-0278; seg9 RNG full).

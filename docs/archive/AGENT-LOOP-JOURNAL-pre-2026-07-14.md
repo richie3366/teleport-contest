@@ -5,6 +5,95 @@ Do **not** read this archive by default.
 
 ---
 
+## 2026-07-14 15:35 — D-0265 hitval oc_hitbon
+
+- Objective: seed0030 seg9 @8352 (PROGRESS primary; NOTES hitum/exercise).
+- C locus: `weapon.c` `hitval` — weapon/weptool `spe` + always
+  `objects[otyp].oc_hitbon`; `uhitm.c` `find_roll_to_hit`.
+- Change: `js/uhitm.js` `hitval` adds extracted `a_ac` as `oc_hitbon`
+  (dagger family +2). Blessed/spear/trident/pick/artifact deferred.
+- Falsified: incomplete post-hit `hmon`/`dmgval` — matched `rnd(20)=13`;
+  JS missed solely from missing +2 to-hit.
+- Verification: seg9 **8352→8918**; green+strict PASS; 17-session PASS
+  cohort; full **19/44** Scr **1563** RNG **182547**; seed0030
+  **47960**/105529.
+- Next: diagnose seg9 @8918 hero `trapeffect_magic_trap`/`domagictrap`
+  (D-0266).
+
+
+- Objective: seed0030 seg9 @8281 (PROGRESS primary; NOTES post-gem fleeck).
+- C locus: `monmove.c` `dochug` HTH wield when `dist2(mux,muy)<=8` +
+  `weapon_check==NEED_WEAPON`; `weapon.c` `select_hwep`/`mon_wield_item`.
+- Change: `js/weapon.js` `select_hwep` + NEED_HTH arm; `js/monmove.js`
+  pre-move wield gate + `Conflict` in `want_move`.
+- Falsified: goblin nearby / track-arity-only (goblin `dist2=8`,
+  `wc=NEED_WEAPON`, unwielded ORCISH_DAGGER — C spends turn wielding).
+- Verification: seg9 **8281→8352**; green+strict PASS; 17-session PASS
+  cohort; full **19/44** Scr **1563** RNG **182533**; seed0030
+  **47946**/105529.
+- Next: diagnose seg9 @8352 `exercise` vs `rn2(3)` after `hitum` (D-0265).
+
+## 2026-07-14 10:50 — D-0263 drinkfountain dofindgem
+
+- Objective: seed0030 seg9 @8138 (PROGRESS primary; NOTES fountain gem).
+- C locus: `fountain.c` `drinkfountain` case 27 → `dofindgem` →
+  `mksobj_at(rnd_class(DILITHIUM_CRYSTAL, LUCKSTONE-1), …, FALSE, FALSE)`.
+- Change: `js/fountain.js` port `dofindgem` + FOUNTAIN_LOOTED; drink
+  case 27 + dip case 24; export `rnd_class` from `js/mkobj.js`.
+- Falsified: none — C fate=27 matched hypothesis (JS hit dryup early).
+- Verification: seg9 **8138→8281**; green+strict PASS; 17-session PASS
+  cohort; full **19/44** Scr **1563** RNG **182518**; seed0030
+  **47931**/105529.
+- Next: diagnose seg9 @8281 `distfleeck` vs `rn2(16)` (D-0264).
+
+## 2026-07-14 10:45 — D-0262 set_mimic_sym shop get_shop_item
+
+- Objective: seed0030 seg9 @7196 (PROGRESS primary; NOTES shop stock).
+- C locus: `makemon.c` `set_mimic_sym` `rt >= SHOPBASE` → `get_shop_item`
+  after `rn2(10) >= depth(&u.uz)` (not stock_room mkshobj_at alone).
+- Change: `js/makemon.js` port shop arm — `get_shop_item`, FODDERSHOP
+  jelly/mold, RANDOM_CLASS remap, assign_sym/`mkobj`; use `depth()`.
+- Falsified: stock_room eligibility as root (matched through mimic
+  `rn2(10)=1`; peel was deferred shop appearance body).
+- Verification: seg9 **7196→8138**; green+strict PASS; 17-session PASS
+  cohort; full **19/44** Scr **1563** RNG **182545**; seed0030
+  **47958**/105529.
+- Next: diagnose seg9 @8138 `drinkfountain`/`rnd_class` (D-0263).
+
+## 2026-07-14 10:32 — D-0261 Ctrl-rush run=3 + await muse pline
+- Objective: seed0030 seg8 @3310 (PROGRESS primary; prior peel thought more()/dodrop).
+- C locus: `cmd.c` `do_rush_*`→`set_move_cmd(dir,3)`; `hack.c` `lookaround`
+  (`run!=1` stops any non-safemon); `muse.c` `mzapwand`/`mbhitm` blocking pline.
+- Change: `js/cmd.js` Ctrl-rush `run=3` (capital `run=1`); `js/muse.js` await
+  wand/hurl plines; `js/monmove.js` await `use_misc`. Prior `dodrop` kept.
+- Falsified: fleeck/mfndpos @3068; more()-only without run-mode; DIAG await-in-more.
+- Verification: seg8 RNG FULL; green+strict PASS; 17-session PASS cohort;
+  full **19/44** Scr **1563** RNG **182531**; seed0013 RNG full Scr **57**/59.
+- Next: diagnose seed0030 seg9 @7196 `get_shop_item` (D-0262).
+- C locus: <file:function>
+- Result: <verified change | falsified hypothesis | prerequisite>
+- Verification: <commands and compact result>
+- Next: <one exact first action>
+```
+
+---
+
+## 2026-07-14 10:05 — dodrop + D-0261 more desync (seg8 @3310)
+- Objective: seed0030 seg8 peel (PROGRESS primary; NOTES @3068 was stale).
+- C locus: `do.c` `dodrop`/`drop`/`dropx`/`dropy`/`canletgo`; `topl.c`
+  `more`/`xwaitforspace`; `dogmove.c` `dog_goal` APPORT scan.
+- Result: **partial** — @3068 fleeck/mfndpos squeeze **falsified** (match
+  through 3309). Live @3310 is missing floor katana after C `d`/`a` drop.
+  Ported `dodrop`/`dropx` + rhack `'d'`. Peel still open: post-rush
+  `more()` discards `d`/`a` (only space/CR dismiss); inject spaces →
+  katana on floor but drop must precede dog_goal @3309.
+- Verification: green+strict PASS; 17-session PASS cohort; full **19/44**
+  Scr **1465** RNG **181571**; seed0030 **47901**/105529.
+- Next: compare C vs JS `more()` call sites during seg8 rush (`\r`→`\n`)
+  so `d` reaches `dodrop` before dog_goal @3309.
+
+
+
 ## 2026-07-14 09:45 — diagnose seg8 @3068 dog_move rn2(1) (D-0261)
 - Objective: seed0030 seg8 peel after D-0260 (PROGRESS primary).
 - C locus: `dogmove.c` `dog_move`/`dog_goal`; `mon.c` `mfndpos` diagonal
