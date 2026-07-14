@@ -7,10 +7,11 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 
 ## Active
 
-- **Current unit:** seed0030 seg3 @7617 — C `mhitm_knockback` `rn2(3)` vs
-  JS `rn2(25)` (after D-0226 Nesting rooms / positioned create_room).
-- **Falsifier:** identify which JS path emits `rn2(25)` at that index vs C
-  knockback after matched `dmgval`.
+- **Current unit:** seed0030 seg3 @7935 — C `gethungry`/`exercise`/`hitum`
+  vs JS `rn2(5)` (`distfleeck`) after D-0227 knockback RNG wire.
+- **Falsifier:** reconstruct why C still takes a hero turn (gethungry) while
+  JS has already entered monster `m_move`/`distfleeck` after matched
+  `moveloop_core` `rn2(79)`.
 - **Parked deep canary:** D-0006 pet movement — do not implement until C
   state/candidate capture exists.
 - **Parked seed2200 @158:** RC config path — harness `$HOME`, not a port bug.
@@ -86,6 +87,9 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   `build_room`’s `rn2(100)`; JS fell through as plain random create_room
   (D-0226). Nested create_subroom/door still deferred (outer often fails
   after 100 positioned tries).
+- **seed0030 seg3 @7617 was NOT a missing `known_hitum` flee `rn2(25)`** —
+  C `hmon` weapon `maybe_knockback`→`mhitm_knockback` burns `rn2(3)`+
+  `rn2(6)` before flee; JS skipped the call (D-0227).
 - **`monattk.h`: AT_WEAP=254, AT_MAGC=255, AT_SPIT=10** — never use 10 for
   weapon (D-0179).
 - Hostile `m_move`: before place, `m_digweapon_check` may return
@@ -110,6 +114,9 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 - **`create_room` positioned:** when not all-`-1`, `rnd(5)`×2 + size
   `rn1` if needed + `rnd(3)`×2 align + `get_rect`/`check_room` up to
   100 tries (D-0226).
+- **`hmon` weapon knockback:** `!unarmed && dmg>1 && !thrown && !Upolyd
+  && !twoweap && uwep` → `mhitm_knockback` after survive (burns
+  `rn2(3)`+`rn2(6)` before gates; hurtle deferred) (D-0227).
 - **`test_move` diagonal into DOOR:** only `doorless_door` (D_NODOOR /
   D_BROKEN) allowed; open/closed/locked block diagonal entry/exit
   (D-0219). Same rule in `domove` and steed `landing_spot`/`test_move_ok`.

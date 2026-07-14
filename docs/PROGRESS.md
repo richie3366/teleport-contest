@@ -39,7 +39,7 @@ frozen-file overlay):
 |--------|------:|
 | Sessions passing | **19 / 44** |
 | Screens matched | **1433 / 11,405** (12.56%) |
-| Positional RNG calls matched | **160,650 / 792,838** (20.26%) |
+| Positional RNG calls matched | **160,825 / 792,838** (20.28%) |
 | Speed label | `20+0.09/turn` |
 | Working-tree base | `8b71735` + committed port (see `main`) |
 | Role-init throws | **0 / 44** (`u_init_role: role not ported`) |
@@ -64,7 +64,7 @@ shared blockers, and semantic coverage together—not one vanity metric.
 | `seed0501-priest-cast-read-turn` | **2238 / 2238** | **28 / 28** |
 | `seed2200-wizard-quaff-zap-read` | **3018 / 3018** | **229 / 230** |
 | `seed0017-samurai-altar-pray` | **3465 / 3465** | **67 / 67** |
-| `seed0030-ten-diverse-deaths` | **36316 / 105529** | **48 / 1953** |
+| `seed0030-ten-diverse-deaths` | **36491 / 105529** | **48 / 1953** |
 | `seed0103-knight-ride-pony` | **2640 / 2640** | **60 / 60** |
 | `seed0200-monk-north-search` | **3822 / 3822** | **40 / 40** |
 | `seed0101-ranger-quiver-throw-travel-engrave` | **2371 / 2371** | **27 / 27** |
@@ -322,6 +322,11 @@ seed0030 seg3 **4527→7617** (`mhitm_knockback`); positional
 **36316**/105529 Scr **48**/1953; full **19/44** Scr **1433**
 RNG **160650**.
 
+**`hmon` weapon `mhitm_knockback`** (D-0227) →
+seed0030 seg3 **7617→7935** (`gethungry` vs `distfleeck`); positional
+**36491**/105529 Scr **48**/1953; full **19/44** Scr **1433**
+RNG **160825**.
+
 ### Green gate
 
 Every shared-code iteration must preserve:
@@ -526,12 +531,12 @@ seed0101 + seed0103 + seed0104 **PASS**. seed2200 RNG **full**
 seed0101 RNG **full** Scr **27**/27. seed0103 RNG **full** Scr **60**/60.
 seed0104 RNG **full** Scr **43**/43.
 
-- **Bounded unit:** seed0030 seg3 @7617 — C `mhitm_knockback` vs JS
-  `rn2(25)` after D-0226. / seed0361/0373
+- **Bounded unit:** seed0030 seg3 @7935 — C `gethungry`/`hitum` vs JS
+  `distfleeck` after D-0227. / seed0361/0373
   **quest `getbones`** (blocked: need `^V`→`goto_level`→`makemaz`
   first — ordinary `goto_level` now exists for stairs; Mines
   `fill_lvl` path exists D-0171).
-- **Prefer:** seg3 knockback/combat peel over quest
+- **Prefer:** seg3 combat/moveloop peel over quest
   bones until `^V`/`makemaz`; over parked D-0006 and over baking
   seed2200 RC paths.
   Hero `dotrap` deferred until monster pit peel is clear.
@@ -604,7 +609,7 @@ seed0104 RNG **full** Scr **43**/43.
   `apply_ok` DOWNPLAY; `hitval` silver/artifact/`spec_abon`/`mswings`/HTH `mon_wield`; full hero
   `attack_checks`/Cleaver/twoweapon/`weapon_dam_bonus`/`dbon`/
   `passive` full AD_PLYS/`erode_obj`/`dokick` callers (live `rn2(3)`
-  gate done D-0188)/knockback-on-live; `pick_lock` CLOSED/LOCKED
+  gate done D-0188)/knockback hurtle body (RNG burn done D-0227); `pick_lock` CLOSED/LOCKED
   occupation/autounlock; incremental `dig_point`; full `load_symset`
   IBM/UTF8; `iflags.use_color` obj/mon color gate; custom BIND=/
   number_pad/swap_yz; `mshot_xname` multishot Nth;
@@ -659,6 +664,8 @@ seed0104 RNG **full** Scr **43**/43.
   upstairs screen≠map rejected);
   **Nesting rooms `rn2(4)` + positioned `create_room`** (done D-0226;
   seg3 **4527→7617**);
+  **`hmon` weapon `mhitm_knockback` RNG** (done D-0227; seg3
+  **7617→7935**);
   **`goto_level` `stairway_find_from`** (D-0224 find_from done);
   D-0218 upstairs theory rejected;
   …
@@ -1478,6 +1485,10 @@ Module status, constitutional debt, and named omissions live in
     — seed0030 seg3 **4527→7617** (`mhitm_knockback`); positional
     **36316**/105529; full **19/44** Scr **1433** RNG **160650**;
     next seg3 @7617 / quest `getbones`
+204. `hmon` weapon `mhitm_knockback` (D-0227)
+    — seed0030 seg3 **7617→7935** (`gethungry` vs `distfleeck`);
+    positional **36491**/105529; full **19/44** Scr **1433** RNG
+    **160825**; next seg3 @7935 / quest `getbones`
 
 Next work is selected from the active objectives above using
 `PORTING-RUNBOOK.md`, not by extending this historical list.

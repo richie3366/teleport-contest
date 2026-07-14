@@ -18,7 +18,8 @@ import { overexertion, nomul, losehp } from './hack.js';
 import { pline, newsym } from './display.js';
 import { dmgval, P_SKILL, weapon_hit_bonus, martial_bonus } from './weapon.js';
 import {
-    find_mac, get_mattk, make_corpse, AT_NONE, AT_WEAP, AT_KICK, AT_CLAW,
+    find_mac, get_mattk, make_corpse, mhitm_knockback,
+    AT_NONE, AT_WEAP, AT_KICK, AT_CLAW,
     AT_TUCH, AT_BITE, AT_BUTT, AT_STNG, AT_MAGC, AD_PHYS,
 } from './mhitm.js';
 import {
@@ -238,7 +239,7 @@ function hmon_hitmon_stagger(mon, dmg) {
 
 /**
  * C ref: uhitm.c hmon / hmon_hitmon — melee weapon or bare-hand physical.
- * Poison / joust / live knockback / pudding split deferred.
+ * Poison / joust / hurtle body / pudding split deferred.
  * Hit pline: hmon_hitmon_msg_hit skips when destroyed (melee); thrown
  * multishot exception deferred.
  */
@@ -260,8 +261,13 @@ async function hmon(mon, obj, thrown, _dieroll) {
     // C: unarmed = !uwep && !uarm && !uarms; stagger before mhp -= dmg
     const unarmed = !game.u?.uwep && !game.u?.uarm && !game.u?.uarms;
     let hittxt = false;
+    // C: weapon melee with dmg>1 may knock back (RNG always burned if set)
+    let maybe_knockback = false;
     if (unarmed && dmg > 1 && !thrown && !obj && !Upolyd(game.u)) {
         hittxt = hmon_hitmon_stagger(mon, dmg);
+    } else if (!unarmed && dmg > 1 && !thrown && !Upolyd(game.u)
+            && !game.u?.twoweap && game.u?.uwep) {
+        maybe_knockback = true;
     }
 
     // C hmon_hitmon: first_weapon_hit before damage when weaphit just broke
@@ -293,7 +299,16 @@ async function hmon(mon, obj, thrown, _dieroll) {
         await killed(mon);
         return false; // died
     }
-    // live knockback deferred (would burn rn2 after damage)
+    // C: !destroyed → wakeup; maybe_knockback → mhitm_knockback
+    // (rn2(3)+rn2(chance) before gates; hurtle body still stubbed)
+    if (maybe_knockback) {
+        let mattk = get_mattk(game.youmonst, 0);
+        // set_uasmon deferred — non-poly hero form is AT_WEAP AD_PHYS
+        if (mattk.aatyp === AT_NONE) {
+            mattk = { aatyp: AT_WEAP, adtyp: AD_PHYS, damn: 0, damd: 0 };
+        }
+        mhitm_knockback(game.youmonst, mon, mattk, M_ATTK_HIT, true);
+    }
     return true;
 }
 

@@ -2930,3 +2930,14 @@ Use this shape:
 - Verification: seg3 **4527→7617** (mhitm_knockback); positional **36316**/105529;
   full **19/44** Scr **1433** RNG **160650**; green+strict PASS; cohort held.
 - Next: seed0030 seg3 @7617 knockback vs rn2(25); or quest getbones ^V/makemaz.
+
+## 2026-07-14 03:24 — D-0227 hmon weapon mhitm_knockback
+- Objective: PROGRESS primary — seed0030 seg3 @7617 C mhitm_knockback vs JS rn2(25).
+- C locus: uhitm.c hmon_hitmon maybe_knockback @1829–1932; mhitm_knockback @5258–5269.
+- Result: **verified** — after matched dmgval, C burns knockback rn2(3)+rn2(6)
+  before known_hitum flee rn2(25). JS hmon skipped the call. Wired maybe_knockback
+  → existing mhitm_knockback stub (hurtle still deferred).
+- Verification: seg3 **7617→7935**; positional **36491**/105529; full **19/44**
+  Scr **1433** RNG **160825**; green+strict PASS; 19-session PASS cohort held.
+- Next: seed0030 seg3 @7935 C gethungry/hitum vs JS distfleeck (hero turn vs
+  monster move after matched moveloop rn2(79)).

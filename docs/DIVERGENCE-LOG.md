@@ -230,6 +230,7 @@ Do not record a guessed cause as fixed merely because an RNG prefix moved.
 | D-0224 | rejected | upstairs geometry | screen≠map; stairs matched (66,2); superseded by D-0225 |
 | D-0225 | fixed | F/do_fight | unbound F; Fl forcefight thin-air; seg2 RNG full |
 | D-0226 | fixed | Nesting rooms | rn2(4) w/h before build_room; positioned create_room |
+| D-0227 | fixed | hmon knockback | weapon maybe_knockback→mhitm_knockback rn2(3)+rn2(6) |
 
 D-0001 through D-0005 predate the strict-length/cohort runbook. Their focused
 causes are preserved, but generic "green sessions held" is historical evidence,
@@ -6099,3 +6100,26 @@ cohort gates if those functions are touched again.
   **36316**/105529; full **19/44** Scr **1433** RNG **160650**;
   green+strict PASS; 17-session PASS cohort held.
 - **Next:** seed0030 seg3 @7617 knockback vs `rn2(25)`.
+## D-0227 — hmon weapon `mhitm_knockback` RNG
+
+- **Status:** fixed
+- **Symptom:** seed0030 seg3 @7617 C `rn2(3) @ mhitm_knockback` vs JS
+  `rn2(25)` (`known_hitum` flee) after matched `dmgval`.
+- **Cause:** C `hmon_hitmon` sets `maybe_knockback` for weapon melee
+  (`!unarmed && dmg>1 && !thrown && !Upolyd && !twoweap && uwep`) and,
+  when the defender survives, calls `mhitm_knockback` which burns
+  `rn2(3)` then `rn2(chance)` **before** any size/weapon gates. JS
+  `hmon` deferred that call, so the next burn was flee `rn2(25)`.
+- **C locus:** `uhitm.c` `hmon_hitmon` @1829–1932; `mhitm_knockback`
+  @5258–5269.
+- **Change:** `js/uhitm.js` `hmon` — set `maybe_knockback` and call
+  existing `mhitm_knockback` stub after survive; stub still burns RNG
+  and returns false (hurtle body deferred).
+- **Verification:** seg3 **7617→7935** (C `gethungry` vs JS
+  `distfleeck`); positional **36491**/105529; full **19/44** Scr
+  **1433** RNG **160825**; green+strict PASS; 19-session PASS cohort
+  held.
+- **Named omissions:** hurtle/mhurtle body; steadfast/size/weapon
+  gates after the chance roll; ART_OGRESMASHER chance=2; knockback
+  plines / stun; `set_uasmon` youmonst.mattk (AT_WEAP fallback).
+- **Next:** seed0030 seg3 @7935 hero-turn vs monster-move peel.
