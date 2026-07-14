@@ -24,6 +24,21 @@ The compact status table lives in **`DIVERGENCE-INDEX.md`**.
 Open that file first; then jump to a single `## D-NNNN` entry below
 (via search). Do **not** read this whole file by default.
 
+## D-0344 — `#twoweapon` / `dotwoweapon`
+
+- **Status:** fixed
+- **Observed:** seed0107 @15 — C `You begin two-weapon combat.` vs JS
+  `#twoweapon: unknown extended command`.
+- **C locus:** `cmd.c` extcmdlist `"twoweapon"` flags 0; `wield.c`
+  `dotwoweapon` / `can_twoweapon` / `set_twoweap`.
+- **Cause/evidence:** runnable body missing from `EXT_CMDS`; must not be
+  in `EXT_CMD_AC` (flags 0 — unique `#tw` expand poisoned progressive paint).
+- **Change:** port `could_twoweap`/`can_twoweapon`/`dotwoweapon`/`set_twoweap`
+  /`untwoweapon`; wire `#twoweapon` in `EXT_CMDS` only.
+- **Verification:** Scr **36→42**/98 RNG **2684→2846**/2902; @15 begin
+  matches; green+strict; cohort 20 PASS. Next: `hitum` twohits @40.
+- **General lesson:** EXT_CMD_AC is AUTOCOMPLETE-only; flags 0 stay out.
+
 ## D-0343 — getpos tip `docrt` + space quitchar under terrainmode
 
 - **Status:** fixed

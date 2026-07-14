@@ -19,6 +19,15 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-15 01:51 — #366 D-0344 `#twoweapon` / dotwoweapon
+
+- Objective: seed0107 `@15` unknown `#twoweapon`.
+- C locus: `wield.c` `dotwoweapon`/`can_twoweapon`; `cmd.c` flags 0.
+- Change: EXT_CMDS body + helpers; not EXT_CMD_AC (unique `#tw` expand).
+- Verification: Scr **36→42**/98 RNG **2684→2846**; green+strict;
+  cohort 20 PASS. @40 next: `hitum` twohits kill after miss.
+- Next: `uhitm.c` `hitum` secondary `uswapwep` swing.
+
 ## 2026-07-15 01:40 — #365 score + D-0342/0343 restore PASS
 
 - Objective: #365 public score + seed0013-restore `@71` reveal_terrain.

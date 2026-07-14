@@ -39,7 +39,7 @@ seed0013-rogue, **seed0013-friday13-restore**.
 | Session | RNG | Screen | Note |
 |---------|----:|-------:|------|
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
-| seed0107 | 2684/2902 | 36/98 | **primary** — `#twoweapon` unbound |
+| seed0107 | 2846/2902 | 42/98 | **primary** — `hitum` twohits / 2nd swing |
 | seed0002 | 4510/27158 | 8/595 | |
 | seed0012 | 0/13878 | 0/308 | stack overflow |
 | seed0361/0373 | early | 0 | quest bones / `makemaz` |
@@ -59,16 +59,16 @@ Both must remain full RNG + screen PASS with exact scored-output lengths.
 
 ## Primary objective
 
-**seed0107-samurai-twoweapon-enhance** — RNG **2684**/2902; Scr **36**/98
+**seed0107-samurai-twoweapon-enhance** — RNG **2846**/2902; Scr **42**/98
 
 | | |
 |--|--|
-| **C locus** | `cmd.c` / `invent.c` `#twoweapon` / `dotwoweapon` |
-| **JS locus** | `js/cmd.js` / invent twoweapon bind |
-| **Symptom** | `@15` C `You begin two-weapon combat.` vs JS `#twoweapon: unknown` |
-| **Hypothesis** | EXT_CMD / key for twoweapon unbound or stub |
-| **Falsifier** | Scr >36; or named C mismatch past twoweapon start |
-| **Recent fixed** | D-0342 `reveal_terrain_getglyph`; D-0343 getpos tip/quitchars |
+| **C locus** | `uhitm.c` `hitum` / `gt.twohits` + secondary `uswapwep` swing |
+| **JS locus** | `js/uhitm.js` `hitum` (Cleaver/twoweapon/`double_punch` deferred) |
+| **Symptom** | `@40` C `You miss the lichen.  You kill the lichen!` vs JS miss only |
+| **Hypothesis** | `u.twoweap` sets `twohits` but second `known_hitum(uswapwep)` omitted |
+| **Falsifier** | Scr >42; or named mismatch past dual-hit kill |
+| **Recent fixed** | D-0344 `#twoweapon` / `dotwoweapon` (Scr 36→42) |
 
 ```bash
 node frozen/ps_test_runner.mjs sessions/seed0107-samurai-twoweapon-enhance.session.json

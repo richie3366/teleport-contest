@@ -263,6 +263,16 @@ const EXT_CMDS = [
         },
     },
     {
+        name: 'twoweapon',
+        wiz: false,
+        autocomplete: true,
+        // C ref: wield.c dotwoweapon / cmd.c extcmdlist "twoweapon"
+        run: async () => {
+            const { dotwoweapon } = await import('./wield.js');
+            return dotwoweapon();
+        },
+    },
+    {
         name: 'annotate',
         wiz: false,
         autocomplete: true,

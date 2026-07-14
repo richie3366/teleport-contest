@@ -9,10 +9,11 @@ Objective/score live in `CURRENT.md`.
 
 - **Score:** **22/44** PASS (#365 suite); Scr **3499**/11405; RNG
   **239942**/792838; speed `18+0.12/turn`.
-- **Current unit:** seed0107 Scr **36**/98 RNG **2684**/2902 — first miss
-  `@15` `#twoweapon: unknown extended command` vs C begin two-weapon.
-- **Fixed this iter:** D-0342 reveal_terrain getglyph/show; D-0343 getpos
-  terrainmode tip skip-docrt + space quitchar → Done (restore PASS).
+- **Current unit:** seed0107 Scr **42**/98 RNG **2846**/2902 — first miss
+  `@40` C dual hit `You miss the lichen.  You kill the lichen!` vs JS
+  miss-only (twoweapon second swing).
+- **Fixed this iter:** D-0344 `#twoweapon` → `dotwoweapon` / `can_twoweapon`
+  (not in EXT_CMD_AC — C flags 0).
 - **Parked:** D-0006; seed2200 @158 RC.
 
 ## Don’t re-check (≤15)
@@ -44,7 +45,8 @@ Objective/score live in `CURRENT.md`.
   leave DEL unbound when `doterrain` exists (D-0341);
   skip `reveal_terrain` getglyph/show (D-0342); tip `docrt` under
   terrainmode / ignore getpos space quitchar (D-0343);
-  blanket `observe_object` in `xname` without `distantname`.
+  put `#twoweapon` in EXT_CMD_AC (C flags 0 — expands `#tw` wrongly)
+  (D-0344); blanket `observe_object` in `xname` without `distantname`.
 - Runner `Screen N/M` = total matches, not prefix length.
 
 ## Landmarks (≤15)
@@ -54,6 +56,6 @@ Objective/score live in `CURRENT.md`.
 - Session: `steps[i].key === moves[i-1]` (D-0238); `more()` space/CR/ESC.
 - Save: VFS `save/<plname>` JSON; restore skips `rndencode`;
   `l_nhcore_init` still 2×rn2; farewell clears map no flush (D-0335).
-- D-0274…D-0343: bones/disclose/RIP/topten/descr/botl/paybill/ghost/`;`/
+- D-0274…D-0344: bones/disclose/RIP/topten/descr/botl/paybill/ghost/`;`/
   getlin/compactify/enl/checkfile/save/welcome/attr/`$`/`)`/show-*/DEL/
-  reveal_terrain/getpos Done.
+  reveal_terrain/getpos Done/`#twoweapon`.
