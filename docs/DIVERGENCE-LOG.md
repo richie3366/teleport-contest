@@ -261,6 +261,7 @@ Do not record a guessed cause as fixed merely because an RNG prefix moved.
 | D-0255 | fixed | losehp→done + bones | fatal thitu noreturn; corpse+ghost; seg6 FULL |
 | D-0256 | fixed | trapeffect_slp_gas_trap | mon sleep_monst(rnd(25)); seg7 9290→9811 |
 | D-0257 | fixed | mcalcdistress mfrozen | EOT thaw after sleep-gas; seg7 9811→10404 |
+| D-0258 | fixed | find_offensive nomore | WAN then POT invent; C keeps wand; seg7 FULL |
 
 D-0001 through D-0005 predate the strict-length/cohort runbook. Their focused
 causes are preserved, but generic "green sessions held" is historical evidence,
@@ -7001,3 +7002,30 @@ cohort gates if those functions are touched again.
   **48131**/105529; green+strict PASS; 17-session PASS cohort held.
 - **Next:** seed0030 seg7 @10404 `use_offensive`/`mbhitm`; or quest
   `getbones`.
+
+## D-0258 — find_offensive nomore (seed0030 seg7 @10404)
+
+- **Status:** fixed
+- **Symptom:** seed0030 seg7 @10404 — C `rn2(8) @ use_offensive`
+  (`mbhit`/`rn1(8,6)`) vs JS `rn2(92)` (`u_catch_thrown_obj` after
+  potion `m_throw`). Screen: “Swidnica zaps a short wand!”.
+- **Rejected:** invent drift / C missing POT_PARALYSIS — both created
+  GOLD→WAN_STRIKING→KEY→POT via matched `rnd_offensive_item` rn2(13)=6
+  + kit case 3; invent order matched at `use_offensive`.
+- **Cause:** C `muse.c` `#define nomore(x) if (has_offense == x)
+  continue` — once WAN_STRIKING is selected, later invent objects hit
+  `nomore(MUSE_WAN_STRIKING)` before potion checks and skip. JS
+  overwrote with last POT_* → throw → DEX catch `rn2(92)`.
+- **C locus:** `muse.c` `find_offensive` invent loop / `nomore`;
+  `use_offensive` WAN_STRIKING→`mbhit(rn1(8,6))`.
+- **Change:** `js/muse.js` `find_offensive` — port `nomore` continue
+  for implemented offense types (striking + pot_*).
+- **Named omissions:** ray-wand / teleport / undead / scroll / camera
+  offense + their nomores; `find_misc`/`find_defensive` nomore;
+  `rnd_offensive_item` case0 hard_helmet FALLTHROUGH→WAN_STRIKING
+  (JS still returns SCR_EARTH).
+- **Verification:** seg7 **FULL** 10584/10584; next seg8 @3088
+  `dog_goal`; full **19/44** Scr **1463** RNG **180985**; seed0030
+  positional **47906**/105529; green+strict PASS; 17-session PASS
+  cohort held.
+- **Next:** seed0030 seg8 @3088 `dog_goal`; or quest `getbones`.

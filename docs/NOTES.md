@@ -7,12 +7,12 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 
 ## Active
 
-- **Current unit:** seed0030 seg7 @10404 — C `rn2(8) @ use_offensive`
-  vs JS `rn2(92)` (post D-0257 `mcalcdistress`; @9811 cleared).
-- **Hypothesis:** after mfrozen thaw, muse `use_offensive` / `mbhitm`
-  path differs (JS takes another mon/weapon RNG site).
-- **Falsifier:** dump which mon/`find_offensive`/`use_offensive` at first
-  post-matched fleeck after 10403; compare muse call vs JS rn2(92) site.
+- **Current unit:** seed0030 seg8 @3088 — C `rn2(4) @ dog_goal` vs JS
+  `rn2(1)` (post D-0258 seg7 FULL).
+- **Hypothesis:** after Swidnica death/bones, pet `dog_goal` APPORT /
+  `rn2` arity differs (invent/edible/gg path).
+- **Falsifier:** dump dog_goal branch + pet invent/edible at first
+  post-matched dog_goal rn2(8) after 3087; compare C rn2(4) site.
 - **Parked deep canary:** D-0006 pet movement — do not implement until C
   state/candidate capture exists.
 - **Parked seed2200 @158:** RC config path — harness `$HOME`, not a port bug.
@@ -144,6 +144,12 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   Sleep-gas set `mfrozen` but JS never ran `mcalcdistress`, so the
   victim stayed `!mcanmove` forever while C thawed and moved (D-0257).
   Do not patch track arity for that peel.
+- **seed0030 seg7 @10404 was NOT invent-order / missing POT in C** —
+  Swidnica had GOLD→WAN_STRIKING→KEY→POT_PARALYSIS (same RNG create).
+  C screen “zaps a short wand”; JS threw potion (`rn2(92)` catch).
+  Root was missing C `nomore` continue: once WAN_STRIKING selected,
+  later invent objects skip potion checks (D-0258). Do not reverse
+  invent chains or drop shopkeeper POT_PARALYSIS.
 - **`monattk.h`: AT_WEAP=254, AT_MAGC=255, AT_SPIT=10** — never use 10 for
   weapon (D-0179).
 - Hostile `m_move`: before place, `m_digweapon_check` may return
@@ -215,5 +221,9 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 - **`mcalcdistress` EOT:** before movement reallocation; `--mfrozen`→
   `mcanmove=1`, also mblinded/mfleetim; `mon_regen` (D-0257).
   Shapeshift/were still deferred.
-- **seg7 @9811 cleared** (D-0257); next peel **seg7 @10404** C
-  `rn2(8) @ use_offensive` vs JS `rn2(92)`.
+- **`find_offensive` nomore:** `#define nomore(x) if (has==x) continue`
+  — once WAN_STRIKING selected, later POT_* on later invent objects are
+  skipped (D-0258). Not “last invent wins” for types earlier in the
+  per-object check list.
+- **seg7 FULL** (D-0258); next peel **seg8 @3088** C `rn2(4) @ dog_goal`
+  vs JS `rn2(1)`.

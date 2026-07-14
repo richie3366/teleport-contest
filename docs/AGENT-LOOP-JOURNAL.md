@@ -3361,3 +3361,18 @@ Use this shape:
   Scr **1463** RNG **181210**; seed0030 **48131**/105529;
   green+strict PASS; 17-session PASS cohort held.
 - Next: seed0030 seg7 @10404 use_offensive/mbhitm; or quest getbones.
+
+## 2026-07-14 08:05 — find_offensive nomore (D-0258)
+
+- Objective: seed0030 seg7 @10404 C `rn2(8) @ use_offensive` vs JS
+  `rn2(92)` (PROGRESS primary).
+- C locus: muse.c find_offensive invent loop / `#define nomore`;
+  use_offensive WAN_STRIKING→mbhit(rn1(8,6)).
+- Result: **verified** — Swidnica invent GOLD→WAN→KEY→POT (matched
+  create RNG); C nomore keeps WAN once selected so later POT skipped;
+  JS overwrote with potion throw→catch rn2(92). Screen “zaps a short
+  wand!”. Ported nomore continue for striking + pot_* subset.
+- Verification: seg7 **FULL** 10584/10584; next seg8 @3088 dog_goal;
+  full **19/44** Scr **1463** RNG **180985**; seed0030
+  **47906**/105529; green+strict PASS; 17-session PASS cohort held.
+- Next: seed0030 seg8 @3088 dog_goal; or quest getbones.
