@@ -3205,3 +3205,15 @@ Use this shape:
   **180450**; seed0013 **560→4004** Scr **1→6**; green+strict PASS;
   17-session PASS cohort held.
 - Next: seed0030 seg6 @13801 m_initinv→rnd_defensive_item; or quest getbones.
+
+## 2026-07-14 06:26 — m_initinv rnd_defensive_item (D-0249)
+- Objective: seed0030 seg6 @13801 C `rn2(11)` rnd_defensive_item vs JS `rn2(100)`.
+- C locus: makemon.c m_initinv @826; muse.c rnd_defensive_item @1222.
+- Result: **verified** — JS burned rn2(50) then skipped defensive body.
+  Ported rnd_defensive_item + mongets wire + PM_SOLDIER rn2(13) early
+  return; attacktype(AT_EXPL) shared with rnd_misc_item.
+- Verification: seg6 **13801→15369** (mcalcmove vs distfleeck); positional
+  **47351**/105529 Scr **79**/1953; full **19/44** Scr **1464** RNG
+  **180435**; green+strict PASS; 17-session PASS cohort held.
+- Next: seed0030 seg6 @15369 moveloop actor drift (fmon dump at matched
+  m_move rn2(12)=8); or quest getbones.

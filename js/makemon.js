@@ -41,6 +41,7 @@ import {
     monsterNames,
     is_animal,
     mindless,
+    is_floater,
 } from './monsters.js';
 import {
     NO_MINVENT, MM_NOGRP, MM_ASLEEP, MM_NONAME, MM_ESHK,
@@ -633,18 +634,88 @@ export function mkmonmoney(mtmp, amount) {
     }
 }
 
+// C ref: mondata.h attacktype — true if any mattk slot has aatyp
+function attacktype(ptr, aatyp) {
+    const slots = ptr?.mattk;
+    if (!slots) return false;
+    for (let i = 0; i < slots.length; i++) {
+        if (slots[i]?.aatyp === aatyp) return true;
+    }
+    return false;
+}
+
+// C ref: teleport.c noteleport_level — ordinary flags; hell court deferred
+function noteleport_level(mon) {
+    // In_hell demon-court m_blocks_teleporting deferred (ordinary mklev rare)
+    if (game.level?.flags?.noteleport /* && !is_covetous */) return true;
+    if ((game.level?.flags?.stasis_until ?? -1) >= (game.moves ?? 0)) return true;
+    return false;
+}
+
+/**
+ * C ref: muse.c rnd_defensive_item
+ * Named omissions: hell-court noteleport_level; is_covetous bypass.
+ */
+function rnd_defensive_item(mtmp) {
+    const pm_ = mtmp.data;
+    const difficulty = mon_difficulty(pm_?.mndx);
+    const AT_EXPL = 13;
+    if (is_animal(pm_) || attacktype(pm_, AT_EXPL) || mindless(pm_)
+        || pm_?.mlet === 'S_GHOST' || pm_?.mlet === 'S_KOP') {
+        return 0;
+    }
+    let trycnt = 0;
+    for (;;) {
+        switch (rn2(8 + (difficulty > 3 ? 1 : 0) + (difficulty > 6 ? 1 : 0)
+            + (difficulty > 8 ? 1 : 0))) {
+        case 6:
+        case 9:
+            if (noteleport_level(mtmp) && ++trycnt < 2) continue;
+            if (!rn2(3)) return otyp('WAN_TELEPORTATION');
+            // FALLTHROUGH
+        case 0:
+        case 1:
+            return otyp('SCR_TELEPORTATION');
+        case 8:
+        case 10:
+            if (!rn2(3)) return otyp('WAN_CREATE_MONSTER');
+            // FALLTHROUGH
+        case 2:
+            return otyp('SCR_CREATE_MONSTER');
+        case 3:
+            return otyp('POT_HEALING');
+        case 4:
+            return otyp('POT_EXTRA_HEALING');
+        case 5:
+            return pm_?.mndx !== pm('PESTILENCE')
+                ? otyp('POT_FULL_HEALING')
+                : otyp('POT_SICKNESS');
+        case 7: {
+            const Sokoban = !!(game.level?.flags?.sokoban || game.Sokoban);
+            if (Sokoban && rn2(4)) continue;
+            if (is_floater(pm_) || mtmp.isshk || mtmp.isgd || mtmp.ispriest) {
+                return 0;
+            }
+            return otyp('WAN_DIGGING');
+        }
+        default:
+            return 0;
+        }
+    }
+}
+
 /**
  * C ref: muse.c rnd_misc_item — weak-monster misc inventory.
  * Named omissions: See_invisible gate detail; vampshifter; nonliving table.
  */
 function rnd_misc_item(mtmp) {
-    const pm = mtmp.data;
-    const difficulty = pm?.difficulty ?? 0;
-    if (is_animal(pm) || mindless(pm)
-        || pm?.mlet === 'S_GHOST' || pm?.mlet === 'S_KOP') {
+    const pm_ = mtmp.data;
+    const difficulty = pm_?.difficulty ?? 0;
+    const AT_EXPL = 13;
+    if (is_animal(pm_) || attacktype(pm_, AT_EXPL) || mindless(pm_)
+        || pm_?.mlet === 'S_GHOST' || pm_?.mlet === 'S_KOP') {
         return 0;
     }
-    // attacktype(AT_EXPL) deferred — no shopkeeper/common path uses it here
     if (difficulty < 6 && !rn2(30)) {
         return rn2(6) ? otyp('POT_POLYMORPH') : otyp('WAN_POLYMORPH');
     }
@@ -711,9 +782,11 @@ function m_initinv(mtmp) {
         break;
     }
 
-    // C: PM_SOLDIER && rn2(13) early return — deferred (mercenary m_initinv)
+    // C: ordinary soldiers rarely have access to magic (or gold)
+    if (ptr.mndx === pm('SOLDIER') && rn2(13)) return;
+
     if (mtmp.m_lev > rn2(50)) {
-        /* rnd_defensive_item — named omission until a gate-passing cohort */
+        mongets(mtmp, rnd_defensive_item(mtmp));
     }
     if (mtmp.m_lev > rn2(100)) {
         mongets(mtmp, rnd_misc_item(mtmp));

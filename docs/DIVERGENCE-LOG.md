@@ -252,6 +252,7 @@ Do not record a guessed cause as fixed merely because an RNG prefix moved.
 | D-0246 | fixed | goodpos accessible | closed door reject; seg6 10280→10815 |
 | D-0247 | fixed | themerms Buried zombies | fill body; seg6 10815→11830 |
 | D-0248 | fixed | themerms sized outer rooms | Fake Delphi+… positioned create_room; seg6 11830→13801 |
+| D-0249 | fixed | m_initinv defensive | `rnd_defensive_item` + PM_SOLDIER early-return; seg6 13801→15369 |
 
 D-0001 through D-0005 predate the strict-length/cohort runbook. Their focused
 causes are preserved, but generic "green sessions held" is historical evidence,
@@ -6750,3 +6751,26 @@ cohort gates if those functions are touched again.
   Random-feature center terrain; Water vault is map-path.
 - **Next:** seed0030 seg6 @13801 `m_initinv`→`rnd_defensive_item`; or
   quest `getbones`.
+
+## D-0249 — `m_initinv` → `rnd_defensive_item`
+
+- **Status:** fixed
+- **Symptom:** seed0030 seg6 @13801 — C `rn2(11)` @ `rnd_defensive_item`
+  vs JS `rn2(100)` @ `m_initinv` misc gate.
+- **Cause:** after shopkeeper kit + matched `rn2(50)=1`, C calls
+  `mongets(mtmp, rnd_defensive_item(mtmp))` (`muse.c`). JS burned
+  `rn2(50)` then left an empty stub and jumped to `rn2(100)`.
+- **C locus:** `makemon.c` `m_initinv` @826–827; `muse.c`
+  `rnd_defensive_item` @1222.
+- **Change:** `js/makemon.js` — port `rnd_defensive_item` (difficulty
+  switch, noteleport try-again, Sokoban dig, floater/isshk dig→0,
+  Pestilence sickness); wire `mongets`; add `PM_SOLDIER && rn2(13)`
+  early return; `attacktype(AT_EXPL)` shared with `rnd_misc_item`.
+- **Verification:** seg6 **13801→15369** (`mcalcmove` vs `distfleeck`);
+  positional **47351**/105529 Scr **79**/1953; full **19/44** Scr
+  **1464** RNG **180435**; green+strict PASS; 17-session PASS cohort
+  held.
+- **Named omissions:** hell-court `noteleport_level` / `is_covetous`
+  bypass; mercenary/nymph/giant/… `m_initinv` bodies still deferred.
+- **Next:** seed0030 seg6 @15369 moveloop actor drift; or quest
+  `getbones`.

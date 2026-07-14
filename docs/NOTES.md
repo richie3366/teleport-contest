@@ -7,11 +7,12 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 
 ## Active
 
-- **Current unit:** seed0030 seg6 @13801 — C `rnd_defensive_item`
-  `rn2(11)` after `m_initinv` `rn2(50)=1` vs JS `rn2(100)` (after
-  Fake Delphi sizes D-0248; seg6 **11830→13801**).
-- **Falsifier:** does JS `m_initinv` skip the `rn2(50)`→`rnd_defensive_item`
-  branch that C takes for this monster class (soldier/humanoid)?
+- **Current unit:** seed0030 seg6 @15369 — C `mcalcmove` vs JS
+  `distfleeck` `rn2(5)` (after `rnd_defensive_item` D-0249; seg6
+  **13801→15369**). Likely moveloop actor/count drift after mklev
+  defensive invent.
+- **Falsifier:** dump fmon m_id/mx/my/mhp at the matched `m_move`
+  `rn2(12)=8` boundary — does JS still have an extra fleecking mon?
 - **Parked deep canary:** D-0006 pet movement — do not implement until C
   state/candidate capture exists.
 - **Parked seed2200 @158:** RC config path — harness `$HOME`, not a port bug.
@@ -94,6 +95,9 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   reservoir picked Fake Delphi (`rn2(1001)=0`); C outer `des.room`
   w=11,h=9 → positioned `create_room` `rnd(5)`; JS fell through as
   fully-random `create_room` (D-0248).
+- **seed0030 seg6 @13801 was NOT a missing `rn2(50)` gate** — JS burned
+  `rn2(50)` then skipped to `rn2(100)`; C calls `rnd_defensive_item`
+  (`rn2(11)`) between them (D-0249).
 - **`monattk.h`: AT_WEAP=254, AT_MAGC=255, AT_SPIT=10** — never use 10 for
   weapon (D-0179).
 - Hostile `m_move`: before place, `m_digweapon_check` may return
