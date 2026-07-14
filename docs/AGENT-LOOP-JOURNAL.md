@@ -20,6 +20,17 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-14 17:05 — D-0274 getbones VFS load (partial)
+
+- Objective: seed0030 seg9 @16582 (CURRENT primary D-0274).
+- C locus: `bones.c` getbones/savebones; `restore.c` rest*chn ghostly
+  `next_ident`; `files.c` set_bonesfile_name.
+- Change: `js/bones.js` VFS JSON write/load + next_ident remap;
+  wire `savebones`/`getbones`. Elara `bonM0.1` loads for Hermione.
+- Verification: seg9 **16582→16630**; green+strict PASS; 17-session
+  PASS cohort; seed0030 flat **48199**/105529 Scr **85**/1953.
+- Next: find missing bones entity (JS 48 vs C 49 next_ident).
+
 ## 2026-07-14 16:48 — D-0273 corpse_chance AT_BOOM / mon_explodes
 
 - Objective: seed0030 seg9 @12414 (CURRENT primary D-0273).
@@ -220,16 +231,4 @@ Use this shape:
 - Next: `node scripts/rng-diff.mjs sessions/seed0030-ten-diverse-deaths.session.json`
   (seg8; expect first mismatch @3263 `passivemm`) — compare C
   `mhitm.c:1363` vs JS passive path.
-
-## 2026-07-14 01:40 — tutorial stay-open + death disclose (D-0215/16)
-- Objective: seed0103 Scr residual after D-0214 (PROGRESS primary).
-- C locus: `options.c` `ask_do_tutorial` + `wintty.c` `process_menu_window`;
-  `end.c` `really_done`/`disclose`.
-- Result: **verified** — invalid tutorial letter stays open (no premature
-  Please choose); `really_done` flushes `You die...` then possessions yn.
-  seed0103 **PASS**.
-- Verification: green+strict+cohort PASS; full **18/44** Scr **1405**
-  RNG **148875**.
-- Next: `node scripts/rng-diff.mjs sessions/seed0104-knight-ride-combat.session.json`
-  (first mismatch @2841) or D-0211 typ dump.
 

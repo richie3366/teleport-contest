@@ -10,6 +10,7 @@ import { GameMap } from './game.js';
 import { rn2, rnd, rn1, rnz } from './rng.js';
 import { init_rect, rnd_rect, get_rect, split_rects } from './rect.js';
 import { depth as depth_of_level } from './hacklib.js';
+import { try_load_bones } from './bones.js';
 import {
     COLNO, ROWNO, STONE, ROOM, CORR, DOOR, STAIRS,
     HWALL, VWALL, TLCORNER, TRCORNER, BLCORNER, BRCORNER,
@@ -372,15 +373,15 @@ function in_rooms(x, y, rtype) { return []; }
 // Core mklev functions (ported from main project's mklev.js)
 // ============================================================
 
-// C ref: bones.c getbones()
+// C ref: bones.c getbones() — chance roll then VFS open/restore (D-0274).
 function getbones() {
     const flags = game.flags || {};
     // C: discover global; JS playmode explore/discover both set flags.explore
     if (flags.explore || flags.discover) return false;
     if (flags.bones === false) return false;
     if (rn2(3) && !flags.debug && !flags.wizard) return false;
-    // Bones file load deferred — always fail open after the chance roll
-    return false;
+    // C: no_bones_level deferred — ordinary Mines/Doom dlevels open
+    return try_load_bones(game.u?.uz);
 }
 
 // C ref: allmain.c l_nhcore_init()

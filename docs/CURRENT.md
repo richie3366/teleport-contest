@@ -4,10 +4,10 @@
 Do not paste completed D-chains here — those live in `DIVERGENCE-INDEX.md`
 and `archive/PROGRESS-HISTORY.md`.
 
-Score last measured: **2026-07-14** via
-`node frozen/ps_test_runner.mjs sessions` (direct runner) — full suite
-not re-run this iteration; PASS set unchanged; seed0030 positional
-**48156**/105529 after D-0273 (seg9 isolation **16582**/17104).
+Score last measured: **2026-07-14** via focused seed0030 + green/cohort;
+full `sessions` suite not re-run this iteration. PASS set unchanged;
+seed0030 positional **48199**/105529 after D-0274 (seg9 isolation
+**16630**/17104).
 
 ## Score
 
@@ -15,7 +15,7 @@ not re-run this iteration; PASS set unchanged; seed0030 positional
 |--------|------:|
 | Sessions passing | **19 / 44** |
 | Screens matched | **1563 / 11,405** (13.70%) |
-| Positional RNG calls matched | **182,673 / 792,838** (23.04%) |
+| Positional RNG calls matched | **182,716 / 792,838** (prior suite +43 seed0030) |
 | Speed label | `18+0.10/turn` |
 | Role-init throws | **0 / 44** |
 
@@ -24,7 +24,7 @@ seed0700, seed1150, seed0017, seed0077, seed0106, seed0501, seed0105,
 seed0016, seed0015, seed0200, seed0101, seed0103, seed0104.
 
 **Notable non-PASS:** seed2200 RNG full Scr 229/230 (parked RC @158);
-seed0013 RNG full Scr 57/59; seed0030 **48156**/105529 Scr 85/1953;
+seed0013 RNG full Scr 57/59; seed0030 **48199**/105529 Scr 85/1953;
 seed0107 2684/2902 Scr 36/98; seed0361/0373 quest bones blocked.
 
 ## Green gate
@@ -42,16 +42,16 @@ Both must remain full RNG + screen PASS with exact scored-output lengths.
 
 ## Primary objective
 
-**D-0274** — seed0030 seg9 @16582 — `getbones` load → `next_ident`
+**D-0274 follow-on** — seed0030 seg9 @16630 — missing bones entity
 
 | | |
 |--|--|
-| **C locus** | `bones.c` `getbones` (`rn2(3)=0` → open/load); `mkobj.c` `next_ident` |
-| **JS locus** | TBD — after matched boom path; JS `rn2(3)` vs C `rnd(2) @ next_ident` |
-| **Symptom** | C loads bones objects; JS does not follow load path |
-| **Hypothesis** | JS `getbones` burns `rn2(3)` then skips open/restore despite 0 |
-| **Falsifier** | attribute JS @16582; port bones open/restore; mismatch moves |
-| **Recent fixed** | D-0273 `corpse_chance` AT_BOOM / `mon_explodes` |
+| **C locus** | `bones.c` `savebones` prep / `restore.c` rest*chn entity set |
+| **JS locus** | `js/bones.js` write/load; `js/end.js` `savebones` |
+| **Symptom** | After VFS load, C still has one more `next_ident` (49 vs JS 48) |
+| **Hypothesis** | On-map mon/obj present in C bones file absent from JS level at write (not the Doom:4 migrating giant rat) |
+| **Falsifier** | attribute entity lists; add missing entity; mismatch moves past 16630 |
+| **Recent fixed** | D-0274 partial — getbones VFS open + remap (16582→16630) |
 
 ```bash
 # Focused seg9

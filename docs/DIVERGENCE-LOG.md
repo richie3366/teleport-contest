@@ -7124,3 +7124,28 @@ Open that file first; then jump to a single `## D-NNNN` entry below
   PASS cohort; seed0030 flat **48156**/105529 Scr **85**/1953.
 - **Next:** diagnose `getbones` load → `next_ident` @16582.
 
+## D-0274 — getbones VFS load / next_ident (partial)
+
+- **Status:** partial
+- **Observed:** seed0030 seg9 @16581 matched `rn2(3)=0 @ getbones`;
+  C `rnd(2) @ next_ident`×49 then `set_apparxy`; JS skipped open and
+  continued `makelevel` (`rn2(3)`).
+- **C locus:** `bones.c` `getbones`/`savebones`; `files.c`
+  `set_bonesfile_name`/`open_bonesfile`; `restore.c` `restmonchn`/
+  `restobjchn` ghostly `next_ident`; `mkobj.c` `next_ident`.
+- **Cause:** JS `getbones` burned the chance roll then always returned
+  false; `savebones` never wrote a VFS bones file (Elara seg6 Mines
+  `bonM0.1`). Hermione’s branch descent could not load bones.
+- **Change:** new `js/bones.js` — JSON VFS write/load with ghostly
+  `next_ident` remap (mon then invent, fobj, buried, bill);
+  `savebones`→`write_bonesfile`; `getbones`→`try_load_bones`.
+- **Named omission:** binary savelev; resetobjs/set_ghostly; map-memory
+  clear; cemetery; no_bones_level; Is_special boneid; give_to_nearby_mon
+  body; **one missing on-map entity** (JS 48 vs C 49 `next_ident` —
+  migrating giant rat to Doom:4 is off-level and not the missing one).
+- **Verification:** seg9 **16582→16630**; green+strict PASS; 17-session
+  PASS cohort; seed0030 flat **48199**/105529 Scr **85**/1953.
+- **Next:** find the missing bones entity (48 vs 49) before further
+  post-load movement peel.
+
+

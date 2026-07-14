@@ -16,6 +16,7 @@ import { Monnam, oname, christen_monst } from './do_name.js';
 import { mkcorpstat, curse, place_object, stackobj } from './mkobj.js';
 import { make_grave } from './engrave.js';
 import { makemon } from './makemon.js';
+import { write_bonesfile } from './bones.js';
 import { objectNames } from './generated/objects_data.js';
 import { monsterNames } from './generated/monsters_data.js';
 
@@ -117,13 +118,13 @@ function drop_upon_death(mtmp, cont, x, y) {
 }
 
 /**
- * C ref: bones.c savebones — in-memory ghost envelope (no bones file I/O).
+ * C ref: bones.c savebones — ghost envelope + VFS bones file (D-0274).
  * Branch: ordinary `ugrave_arise` NON_PM → drop_upon_death + PM_GHOST
- * MM_NONAME. Assumes no pre-existing bones file (open_bonesfile miss).
+ * MM_NONAME. Skips write when bones file already exists (open_bonesfile hit).
  * Named omissions: file replace/compress; unleash_all/unpunish/dismount;
  * remove_mon_from_bones/dmonsfree/forget_engravings; fruit fid;
- * set_ghostly_objlist; arise/statue arms; ebones; write; m_dowear;
- * obj_attach_mid.
+ * set_ghostly_objlist/resetobjs(FALSE); map memory clear; cemetery;
+ * arise/statue arms; ebones; m_dowear; obj_attach_mid; binary savelev.
  */
 function savebones(how, corpse) {
     void how;
@@ -145,6 +146,8 @@ function savebones(how, corpse) {
     mtmp.female = game.flags?.female ? 1 : 0;
     mtmp.msleeping = 1;
     void corpse;
+    // C: create_bonesfile + savelev after ghost envelope
+    write_bonesfile(u.uz);
 }
 
 /**

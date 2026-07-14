@@ -3384,3 +3384,15 @@ Do **not** read this archive by default.
   **48104**/105529.
 - **Next:** D-0267 — post-Invis `set_apparxy` vs fleeck @8943 (mux/
   perceives dump).
+
+## 2026-07-14 01:40 — tutorial stay-open + death disclose (D-0215/16)
+- Objective: seed0103 Scr residual after D-0214 (PROGRESS primary).
+- C locus: `options.c` `ask_do_tutorial` + `wintty.c` `process_menu_window`;
+  `end.c` `really_done`/`disclose`.
+- Result: **verified** — invalid tutorial letter stays open (no premature
+  Please choose); `really_done` flushes `You die...` then possessions yn.
+  seed0103 **PASS**.
+- Verification: green+strict+cohort PASS; full **18/44** Scr **1405**
+  RNG **148875**.
+- Next: `node scripts/rng-diff.mjs sessions/seed0104-knight-ride-combat.session.json`
+  (first mismatch @2841) or D-0211 typ dump.
