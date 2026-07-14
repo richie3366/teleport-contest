@@ -2895,3 +2895,17 @@ Use this shape:
 - Also: JS `F` unbound (Unknown command) — secondary.
 - Verification: seg2 still **6060**; green+strict PASS; seed0015 cohort.
 - Next: dlvl2 `generate_stairs` room bounds / somexy vs C @(65,3); then `F`.
+
+## 2026-07-14 03:01 — D-0224 create_room absolute vs C screen
+- Objective: PROGRESS primary — dlvl2 upstairs @(66,2) vs C @(65,3).
+- C locus: `sp_lev.c` `create_room` @3360–3365; `mklev.c` `generate_stairs`;
+  C session corners/`<` glyph.
+- Result: **falsified/narrowed** — not somexy-with-matched-lx. JS+C
+  create_room RNG+formula both yield room **(64,2)–(75,4)** → stairs
+  **(66,2)** (`rn2(12)=2`/`rn2(3)=0`). C screen corners (62,2)/(75,6)
+  ⇒ interior **(63,3)** and `<` @**(65,3)**. Theme for that room is
+  `default` (no fill). No production change this iteration.
+- Rejected: find_from as writer; somexy offset alone; themed-fill mutation.
+- Verification: green+strict PASS; seed0015/seed1500 PASS; seg2 still 6060.
+- Next: reconcile create_room math (64,2) vs C terrain (63,3) — earlier
+  split_rects/room0–1, or C add_room dump; then `F`.

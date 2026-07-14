@@ -517,14 +517,14 @@ seed0101 + seed0103 + seed0104 **PASS**. seed2200 RNG **full**
 seed0101 RNG **full** Scr **27**/27. seed0103 RNG **full** Scr **60**/60.
 seed0104 RNG **full** Scr **43**/43.
 
-- **Bounded unit:** seed0030 seg2 @6060 — **D-0224** diagnosed: not
-  `mattacku` logic; post-`>` upstairs @(66,2) vs C @(65,3) despite
-  matching mklev RNG. `stairway_find_from` ported. Next: dlvl2
-  `generate_stairs`/`somexy` room bounds. / seed0361/0373 **quest
-  `getbones`** (blocked: need `^V`→`goto_level`→`makemaz` first —
-  ordinary `goto_level` now exists for stairs; Mines `fill_lvl` path
-  exists D-0171).
-- **Prefer:** dlvl2 upstairs placement (D-0224) over quest bones until
+- **Bounded unit:** seed0030 seg2 @6060 — **D-0224** narrowed: JS/C
+  create_room RNG+formula both place upstairs room at **(64,2)** →
+  stairs **(66,2)**; C session corners/stairs show **(63,3)/(65,3)**.
+  Next: reconcile create_room math vs C terrain (split_rects / earlier
+  room). / seed0361/0373 **quest `getbones`** (blocked: need
+  `^V`→`goto_level`→`makemaz` first — ordinary `goto_level` now exists
+  for stairs; Mines `fill_lvl` path exists D-0171).
+- **Prefer:** dlvl2 upstairs room absolute (D-0224) over quest bones until
   `^V`/`makemaz`; over parked D-0006 and over baking seed2200 RC paths.
   Hero `dotrap` deferred until monster pit peel is clear.
   Hero `xkilled` treasure `mkobj` still deferred (ordinary `make_corpse`
@@ -647,8 +647,8 @@ seed0104 RNG **full** Scr **43**/43.
   **`floorfood` + `poison_strdmg`** (done D-0221; seg2→3207);
   **`useupf`→`delobj` floor meal** (done D-0222; seg2→5939);
   **`m_search_items` underfoot MMOVE_DONE** (done D-0223; seg2→6060);
-  **`goto_level` `stairway_find_from`** (D-0224 partial — upstairs coords
-  still @(66,2) vs C @(65,3));
+  **`goto_level` `stairway_find_from`** (D-0224 — find_from done; upstairs
+  room JS (64,2) vs C screen (63,3) despite matching create_room RNG);
   D-0218 upstairs theory rejected;
   …
 - **Cohort:** green gate + seed1500 + seed1800 + seed0060 + seed0102
@@ -1459,6 +1459,10 @@ Module status, constitutional debt, and named omissions live in
     — peel @6060 = post-descend upstairs @(66,2) vs C @(65,3);
     find_from ported; seg2 still **6060**; next dlvl2
     `generate_stairs`/`somexy` room bounds
+201. D-0224 create_room absolute vs C screen (diagnosis)
+    — create_room RNG @3360–3365 + formula → (64,2) both sides;
+    C corners (62,2)/(75,6) ⇒ (63,3); theme `default`; seg2 still
+    **6060**; next reconcile math vs C terrain
 
 Next work is selected from the active objectives above using
 `PORTING-RUNBOOK.md`, not by extending this historical list.

@@ -7,17 +7,18 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 
 ## Active
 
-- **Current unit:** seed0030 seg2 @6060 — symptom C `rnd(20) @ mattacku`
-  vs JS `rn2(8) @ m_move` mtrack. **Not** fleeck arity: JS goblin @(54,4)
-  with hero @(56,4); C hero @(54,5) adjacent after correct path.
-- **Root cause (diagnosed):** post-`>` landing — JS upstairs @(66,2), C
-  hero/cursor @(65,3). `stairway_find_from(uz0)` now matches C goto_level
-  but selects the same wrong JS upstairs. Mklev RNG matches through
-  mineralize; absolute stair coords still differ (room bounds / somexy).
-- **Falsifier:** dump `generate_stairs` room lx..hy + somexyspace result on
-  dlvl2 and compare to C upstairs @(65,3); or first makerooms rect drift.
-- **Also seen:** JS `F` → `Unknown command` (fight unbound) — secondary after
-  landing is fixed.
+- **Current unit:** seed0030 seg2 @6060 — D-0224 upstairs coords.
+- **Root cause (narrowed):** dlvl2 upstairs room. JS `create_room` (and
+  matching C RNG @3360–3365) yields interior **(64,2)–(75,4)** → stairs
+  **(66,2)** via `rn2(12)=2`/`rn2(3)=0`. C session shows corners
+  **(62,2)/(75,6)** → interior **(63,3)–(74,5)** and `<` @**(65,3)**.
+  Theme pick for that room is `default` (no fill). Mklev RNG matches
+  through mineralize. `stairway_find_from` is not the writer.
+- **Falsifier:** prove how C’s placed room becomes (63,3) despite
+  create_room math (64,2) — compare C/JS `split_rects` free-rect after
+  rooms 0–1, or instrument C `add_room` lx/ly at generate_stairs; or
+  dump JS vs C wall corners for room0/1 on dlvl2.
+- **Also seen:** JS `F` → `Unknown command` (fight unbound) — secondary.
 - **Parked deep canary:** D-0006 pet movement — do not implement until C
   state/candidate capture exists.
 - **Parked seed2200 @158:** RC config path — harness `$HOME`, not a port bug.
@@ -84,9 +85,10 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   after leftover floor glass redirected `gg`; root was skipped underfoot
   `m_search_items`→`MMOVE_DONE` (D-0183 deferred until postmov
   `mpickstuff` existed; restored D-0223).
-- **seed0030 seg2 @6060 was NOT fleeck/mattacku branch bug** — C hero
-  @(54,5) after correct post-descend path; JS @(56,4) after landing
-  upstairs @(66,2) vs C @(65,3) (D-0224). Do not patch dochug for this peel.
+- **seed0030 seg2 @6060 was NOT fleeck/mattacku / find_from / somexy
+  offset alone** — C `<` @(65,3) with room corners (62,2)/(75,6); JS
+  stairs @(66,2) room (64,2)–(75,4). create_room RNG+formula both give
+  (64,2); C observed geometry is (63,3). Do not patch dochug (D-0224).
 - **`monattk.h`: AT_WEAP=254, AT_MAGC=255, AT_SPIT=10** — never use 10 for
   weapon (D-0179).
 - Hostile `m_move`: before place, `m_digweapon_check` may return
@@ -100,6 +102,10 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   (D-0162). Dlvl1 upstairs is traversed branch.
 - **`goto_level` descend:** `stairway_find_from(&u.uz0, at_ladder)` then
   mark `u_traversed`; not bare `u_on_upstairs`/`find_dir` (D-0224).
+- **D-0224 upstairs room:** C RNG `rn2(12)=9`/`rn2(4)=1` then xabs
+  `rn2(21)=17`/`rn2(12)=6` + half-map `rn1(3,2)` → math **(64,2)**;
+  generate_stairs `rn2(8)=6` + `rn2(12)=2`/`rn2(3)=0`. C screen
+  contradicts with interior **(63,3)**.
 - **`test_move` diagonal into DOOR:** only `doorless_door` (D_NODOOR /
   D_BROKEN) allowed; open/closed/locked block diagonal entry/exit
   (D-0219). Same rule in `domove` and steed `landing_spot`/`test_move_ok`.

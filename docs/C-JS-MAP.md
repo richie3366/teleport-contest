@@ -433,9 +433,10 @@ RNG **152565**.
 **`m_search_items` underfoot MMOVE_DONE** (D-0223) → seed0030 seg2
 **5939→6060** (`mattacku`); positional **28318**/105529 Scr
 **48**/1953; full **19/44** Scr **1433** RNG **152652**.
-**`goto_level` `stairway_find_from`** (D-0224 partial) → upstairs still
-@(66,2) vs C @(65,3); seg2 still **6060**. Next: dlvl2
-`generate_stairs`/`somexy` / quest `getbones` `^V`/`makemaz`.
+**`goto_level` `stairway_find_from`** (D-0224) → landing correct but
+JS upstairs room **(64,2)** vs C screen **(63,3)** despite matching
+create_room RNG/math; seg2 still **6060**. Next: create_room/split_rects
+absolute vs C terrain / quest `getbones` `^V`/`makemaz`.
 seed0104 **PASS** after D-0220.
 seed0103 **PASS** (D-0215 tutorial stay-open + D-0216 disclose).
 **mounted `mattacku` steed** (D-0217) → seed0104 **2841→3031**.

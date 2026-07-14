@@ -227,7 +227,7 @@ Do not record a guessed cause as fixed merely because an RNG prefix moved.
 | D-0221 | fixed | floorfood + poison_strdmg | floor yn before invent getobj; seg2 2930→3207 |
 | D-0222 | fixed | useupf→delobj | floor meal `obj_resists(0,0)`; seg2 3207→5939 |
 | D-0223 | fixed | m_search_items underfoot | restore MMOVE_DONE→mpickstuff; seg2 5939→6060 |
-| D-0224 | open | goto_level upstairs | find_from ported; dlvl2 upstairs @(66,2) vs C @(65,3) |
+| D-0224 | open | goto_level upstairs | create_room math (64,2) vs C screen (63,3) |
 
 D-0001 through D-0005 predate the strict-length/cohort runbook. Their focused
 causes are preserved, but generic "green sessions held" is historical evidence,
@@ -6044,23 +6044,28 @@ cohort gates if those functions are touched again.
 
 ## D-0224 — seed0030 seg2 @6060 post-descend upstairs coords
 
-- **Status:** open (partial port + diagnosed prerequisite)
+- **Status:** open (diagnosed; create_room absolute vs C screen)
 - **Symptom:** seed0030 seg2 @6060 C `rnd(20) @ mattacku` vs JS
   `rn2(8) @ m_move` mtrack after D-0223.
-- **Rejected:** dochug nearby/want_move bug; fleeck arity; dog APPORT
-  `rn2(8)` (stack was m_move mtrack `rn2(4*(cnt-j))`).
-- **Cause/evidence:** DIAG PM_GOBLIN @(54,4) hero JS @(56,4) `nearby=0`.
-  C session cursor after `>` is @(65,3); JS lands upstairs @(66,2)
-  (STAIRS typ). Path then drifts (JS walks y=2/3; C y=3/4) so at the
-  peel C is @(54,5) adjacent and attacks; JS is not. Mklev RNG matches
-  through mineralize — absolute upstairs coords still wrong (room
-  bounds / `somexy` absolute). Also: JS `F` unbound (`Unknown command`).
-- **C locus:** `do.c` `goto_level` `stairway_find_from(&u.uz0)`;
-  `stairs.c` `stairway_find_from`; `mklev.c` `generate_stairs`/
-  `somexyspace` (coords still diverge).
-- **Change:** ported `stairway_find_from` + `goto_level` descend/climb
-  use it (marks `u_traversed`). Does **not** move upstairs off @(66,2).
-- **Verification:** seg2 still **6060**; green+strict PASS; seed0015
-  descend cohort held.
-- **Next:** dump dlvl2 `generate_stairs` room lx..hy + pick vs C
-  upstairs @(65,3); or first makerooms rect drift. Then bind `F`/fight.
+- **Rejected:** dochug nearby/want_move; fleeck arity; dog APPORT
+  `rn2(8)` (was mtrack); `stairway_find_from` alone (selects same
+  wrong JS stair); somexy offset-with-matched-lx (lx itself wrong vs C
+  screen).
+- **Cause/evidence:** C `<` @(65,3); corners (62,2)/(75,2)/(62,6)/(75,6)
+  ⇒ interior **(63,3)–(74,5)**. JS stairs @(66,2); room **(64,2)–(75,4)**
+  (corners 63,1 / 76,5). dlvl2 create_room success @ C RNG 3360–3365:
+  `rn2(12)=9`/`rn2(4)=1` + xabs `rn2(21)=17`/`rn2(12)=6` + half-map
+  `rn1(3,2)` ⇒ math **(64,2)** (matches JS); theme pick `default` (no
+  fill). generate_stairs `rn2(9)=2` down / `rn2(8)=6` up +
+  `rn2(12)=2`/`rn2(3)=0`. Mklev RNG matches through mineralize. Also:
+  JS `F` unbound.
+- **C locus:** `sp_lev.c` `create_room`/`check_room`; `rect.c`
+  `split_rects`; `mklev.c` `generate_stairs`/`somexyspace`; prior
+  `stairway_find_from` still correct for landing.
+- **Change (prior):** `stairway_find_from` + goto_level use. **This
+  iteration:** diagnosis only (no production change).
+- **Verification:** seg2 still **6060**; green+strict PASS; seed0015/
+  seed1500 cohort PASS.
+- **Next:** explain C screen (63,3) vs create_room math (64,2) —
+  free-rect after rooms 0–1, or C `add_room` dump at generate_stairs.
+  Then bind `F`/fight.
