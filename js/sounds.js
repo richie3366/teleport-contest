@@ -232,10 +232,9 @@ function oracle_sound(mtmp) {
  * barracks/zoo/shop/temple/oracle gates; vault body + You_hear
  * (gd_sound / gold_in_vault / vault_occupied FALLTHROUGH); shop body
  * search_special+tended_shop+rn2(2)+noisy_shop; mon_sound RNG-only.
- * Named omissions: fountain/sink/swamp/barracks/shop/court You_hear
- * plines; findgd migrating_mons; vampshifter morgue; temple_priest
- * body; oracle canseemon; Is_sanctum; Soundeffect; Hallu msg index
- * beyond vault switch.
+ * Named omissions: swamp You1; barracks/shop/court You_hear plines;
+ * findgd migrating_mons; vampshifter morgue; temple_priest body;
+ * oracle canseemon; Is_sanctum; Soundeffect.
  */
 export async function dosounds() {
     const lf = game.level?.flags;
@@ -247,11 +246,20 @@ export async function dosounds() {
 
     const hallu = game.u?.Hallucination ? 1 : 0;
 
+    // C: fountain_msg[rn2(3)+hallu] → You_hear1
     if (lf.nfountains && !rn2(400)) {
-        rn2(3); // fountain_msg index; You_hear deferred
+        const fountain_msg = [
+            'bubbling water.', 'water falling on coins.',
+            'the splashing of a naiad.', 'a soda fountain!',
+        ];
+        await You_hear(fountain_msg[rn2(3) + hallu]);
     }
+    // C: sink_msg[rn2(2)+hallu] → You_hear1
     if (lf.nsinks && !rn2(300)) {
-        rn2(2); // sink_msg; You_hear deferred
+        const sink_msg = [
+            'a slow drip.', 'a gurgling noise.', 'dishes being washed!',
+        ];
+        await You_hear(sink_msg[rn2(2) + hallu]);
     }
     if (lf.has_court && !rn2(200)) {
         if (get_iter_mons(throne_mon_sound)) return;

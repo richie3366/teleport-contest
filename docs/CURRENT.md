@@ -19,7 +19,7 @@ suite totals from a single focused session.
 
 Score last measured: **2026-07-14** — full `sessions` suite (global loop
 **#325**). Same 19 PASS as #320; primary peel still seed0030 (then @372;
-now @448 after D-0302 — remeasure on next %5).
+now @484 after D-0303 — remeasure on next %5).
 
 ## Score
 
@@ -38,7 +38,7 @@ seed0016, seed0015, seed0200, seed0101, seed0103, seed0104.
 **Notable non-PASS:**
 | Session | RNG | Screen | Note |
 |---------|----:|-------:|------|
-| seed0030 | 105529/105529 | **1346**/1953 | primary peel; prefix first-miss **@448** |
+| seed0030 | 105529/105529 | **1348**/1953 | primary peel; prefix first-miss **@484** |
 | seed2200 | 3018/3018 | **175**/230 | RNG full; Scr cells 178/230 |
 | seed0013-rogue | 4838/4838 | 57/59 | |
 | seed0013-friday13-restore | 4803/4804 | 46/99 | |
@@ -62,16 +62,16 @@ Both must remain full RNG + screen PASS with exact scored-output lengths.
 
 ## Primary objective
 
-**seed0030 screen peel** — RNG full; Scr **1346**/1953; prefix first-miss **@448**
+**seed0030 screen peel** — RNG full; Scr **1348**/1953; prefix first-miss **@484**
 
 | | |
 |--|--|
-| **C locus** | `sounds.c` `dosounds` fountain arm → `You_hear` |
-| **JS locus** | `js/sounds.js` `dosounds` |
-| **Symptom** | @448 topline C `You hear bubbling water.` vs JS blank |
-| **Hypothesis** | Fountain `rn2(200)` / `rn2(3)` burns but `You_hear` still deferred |
-| **Falsifier** | Emit fountain message table like C; expect @448 topline match |
-| **Recent fixed** | D-0302 irregular `filler_region` bbox re-light (372→448; Scr 1147→1346) |
+| **C locus** | `display.c` `display_monster` / `newsym` (mimic `M_AP_OBJECT`) — or terrain paint |
+| **JS locus** | `js/display.js` / `js/mon.js` mimic appearance |
+| **Symptom** | @484 tty (8,41): C `(` vs JS `#` (west of `@`); cursors agree |
+| **Hypothesis** | Disguised mimic / object glyph not painted; corridor shows instead |
+| **Falsifier** | Match C `(` at that cell; expect prefix advance (alt @485 whistle xname) |
+| **Recent fixed** | D-0303 fountain/sink `dosounds` `You_hear` (448→484; Scr 1346→1348) |
 
 ```bash
 node frozen/ps_test_runner.mjs sessions/seed0030-ten-diverse-deaths.session.json
@@ -80,7 +80,8 @@ node frozen/ps_test_runner.mjs sessions/seed0030-ten-diverse-deaths.session.json
 **Note:** runner `Screen N/M` is **total** positional matches, not prefix
 length. Prefer decodeScreen prefix first-miss for peel targets.
 
-**Alternate:** seed0013 Scr 57/59; seed0107 RNG@2684; seed2200 Scr 175/230.
+**Alternate:** @485 C `a whistle` vs JS `a tin whistle`; seed0013 Scr 57/59;
+seed0107 RNG@2684; seed2200 Scr 175/230.
 
 **Prefer over:** quest bones (`^V`/`makemaz`), parked D-0006, seed2200 RC.
 

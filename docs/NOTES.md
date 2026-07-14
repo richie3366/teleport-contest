@@ -7,15 +7,13 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Current unit:** seed0030 Scr **1346**/1953 RNG **FULL**; prefix **@448**.
-- **@448:** C topline `You hear bubbling water.`; JS blank. Key `s`.
-  `dosounds` already burns fountain `rn2(200)`/`rn2(3)` but defers
-  `You_hear` (map: fountain/sink You_hear named omission).
-- **Hypothesis:** port fountain message table + `You_hear` like C
-  `sounds.c` `dosounds`.
-- **Falsifier:** emit message; expect @448 topline match (Scr may rise).
-- **Falsified @372:** doorway LOS — JS `couldsee` matched need; cell was
-  wrongly **lit** via irregular bbox re-light (D-0302).
+- **Current unit:** seed0030 Scr **1348**/1953 RNG **FULL**; prefix **@484**.
+- **@484:** C map `(` vs JS `#` at tty (8,41) west of `@`. Key context:
+  kill-newt screen; cursors agree. @485: C `You see here a whistle.` vs
+  JS `… a tin whistle.`
+- **Hypothesis:** disguised mimic / `M_AP_OBJECT` glyph missing → corridor.
+- **Falsifier:** paint C `(`; expect prefix advance (or peel whistle xname).
+- **Fixed @448:** fountain `You_hear` msg table (D-0303).
 - **Alt:** seed0013 Scr 57/59; seed0107 @2684.
 - **Parked:** D-0006; seed2200 @158 RC/`$HOME`.
 
@@ -44,6 +42,7 @@ Objective/score live in `CURRENT.md`.
   leave `newsym` !cansee+no-memory as no-op — paint blank (D-0300);
   ignore `missmu` `nearmiss` — `"just "` when verbose (D-0301);
   irregular `filler_region` bbox re-light holes/niches (D-0302);
+  burn fountain/sink `rn2` without `You_hear` msg tables (D-0303);
   blame @372 on doorway LOS — was lit, not `view_from`.
 - Runner `Screen N/M` = total matches, not prefix length.
 
@@ -64,5 +63,6 @@ Objective/score live in `CURRENT.md`.
 - `m_move`: `set_apparxy` **before** mtame/shk|gd|priest (D-0267).
 - Key attribution ≠ RNG order (0-RNG `--More--`) (D-0228).
 - Bones / disclose / RIP / topten / amulet / DEC altar / noises / Monnam /
-  map_invisible / mimic M_AP_OBJECT / vault dosounds / nearby observe /
-  newsym unseen blank / missmu just / irregular no-bbox-lit: D-0274…D-0302.
+  map_invisible / mimic M_AP_OBJECT / vault+fountain/sink dosounds / nearby
+  observe / newsym unseen blank / missmu just / irregular no-bbox-lit:
+  D-0274…D-0303.

@@ -7683,4 +7683,22 @@ Open that file first; then jump to a single `## D-NNNN` entry below
   bodies; mimic lightblocker / gas regions / light sources in vision.
 - **Falsified:** doorway LOS / `view_from` past D_NODOOR as the @372 cause.
 
+## D-0303 — `dosounds` fountain/sink `You_hear`
+
+- **Status:** fixed
+- **Observed:** seed0030 @448 — C topline `You hear bubbling water.` vs JS
+  blank; RNG full; key `s`. Fountain `rn2(400)`/`rn2(3)` already burned.
+- **C locus:** `sounds.c` `dosounds` — `fountain_msg[rn2(3)+hallu]` /
+  `sink_msg[rn2(2)+hallu]` → `You_hear1`.
+- **Cause:** JS burned index RNG but deferred `You_hear` (named omission
+  after D-0298 vault body).
+- **Change:** emit fountain/sink message tables via existing `You_hear`
+  (same pattern as vault).
+- **Verification:** prefix **448→484**; Scr **1346→1348**; RNG full;
+  green+strict; 19-session PASS cohort + strict sample. @448/@449/@450
+  match; @484 C `(` vs JS `#` west of `@`.
+- **Named omissions:** swamp `You1`; barracks/shop/court `You_hear`;
+  `Soundeffect`; findgd migrating; temple/oracle bodies.
+- **Next:** prefix@484 map `(` vs `#` (likely mimic/`M_AP_OBJECT`); alt
+  @485 C `a whistle` vs JS `a tin whistle`.
 
