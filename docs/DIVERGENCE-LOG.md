@@ -6999,3 +6999,61 @@ Open that file first; then jump to a single `## D-NNNN` entry below
 - **Next:** port `m_move` `should_see && Invis && !perceives && rn2(11)`
   → `appr=0` (D-0268).
 
+## D-0268 — `m_move` Invis `should_see` `rn2(11)` → `appr=0` (fixed)
+
+- **Status:** fixed
+- **Observed:** seed0030 seg9 @10461 — C `rn2(11) @ m_move:1866` vs JS
+  `rn2(2)` (mfndpos/getitems).
+- **C locus:** `monmove.c` `m_move` not_special — after `should_see`,
+  `!mcansee || (should_see && Invis && !perceives && rn2(11)) ||
+  mappear/uundetected/peaceful/stalker-bat-light rn2(3)` → `appr=0`;
+  then `leppie_avoidance` / `m_balks` / `gettrack`.
+- **Cause (partial):** JS early-exited peaceful and omitted the Invis
+  `rn2(11)` OR (and stalker/leppie order). Porting the gate alone did
+  not fire: DIAG showed `Invis=true` but `couldsee(43,10)=false`
+  (`should_see` false) while C burned `rn2(11)`.
+- **Prerequisite:** D-0269 — SCORR→CORR left stale `viz_clear`.
+- **Change:** restructure `js/monmove.js` `m_move` appr setup to match C
+  (engulfing_u, Invis rn2(11), mappear, peaceful, stalker/bat/light
+  rn2(3), leppie_avoidance, balks, gettrack). Named omission:
+  shortsighted → `appr=0` after track selection.
+- **Verification:** with D-0269/D-0270, seg9 **10461→10811**; green+strict
+  PASS; 19-session PASS cohort; full **19/44** Scr **1563** RNG
+  **182673**; seed0030 flat **48086**/105529.
+- **Next:** diagnose seg9 @10811 C `next_ident` vs JS `rn2(5)`.
+
+## D-0269 — detect SCORR/SDOOR `recalc_block_point` (fixed)
+
+- **Status:** fixed
+- **Observed:** after D-0268 gate port, still @10461 — `couldsee` false
+  for monster at (43,10) with hero at (45,10); `viz_clear[10][44]=0`
+  while `_blocks(44,10)=false` and typ=CORR.
+- **C locus:** `detect.c` `dosearch0` / `findone` / `show_map_spot` —
+  SCORR→CORR / SDOOR convert call `unblock_point` /
+  `recalc_block_point`.
+- **Cause:** JS used `vision_recalc(1)`, which recomputes IN_SIGHT from
+  existing `viz_clear` and does **not** rebuild opacity. Cell was SCORR
+  (typ 15, blocks) then revealed to CORR without refreshing
+  `viz_clear`, so LOS stopped at the stale blocker between hero and
+  target.
+- **Change:** `js/detect.js` — replace those `vision_recalc(1)` calls
+  with `recalc_block_point(x,y)`.
+- **Verification:** seg9 **10461→10811** (with D-0268); green+cohort
+  PASS; nuclear `vision_reset` each recalc had predicted the same lift.
+- **Next:** same as D-0268 (@10811).
+
+## D-0270 — `place_object` / floor extract boulder vision (fixed)
+
+- **Status:** fixed
+- **Observed:** companion while diagnosing D-0269; D-0242 named
+  `place_object` boulder `block_point` as deferred.
+- **C locus:** `mkobj.c` `place_object` (first boulder → `block_point`);
+  `remove_object` (boulder → `recalc_block_point`); floor
+  `obj_extract_self` → `remove_object`.
+- **Change:** `js/mkobj.js` — after placing first boulder on a pile,
+  `recalc_block_point`; on floor extract of boulder, same. Also place
+  non-boulders under consecutive boulders like C.
+- **Verification:** green+cohort PASS; not the seg9 @10461 root (no
+  boulder at 44,10) but retires the D-0242 omission.
+- **Next:** same as D-0268.
+

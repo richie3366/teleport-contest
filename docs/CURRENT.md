@@ -13,7 +13,7 @@ Score last measured: **2026-07-14** via
 |--------|------:|
 | Sessions passing | **19 / 44** |
 | Screens matched | **1563 / 11,405** (13.70%) |
-| Positional RNG calls matched | **182,691 / 792,838** (23.04%) |
+| Positional RNG calls matched | **182,673 / 792,838** (23.04%) |
 | Speed label | `18+0.10/turn` |
 | Role-init throws | **0 / 44** |
 
@@ -22,7 +22,7 @@ seed0700, seed1150, seed0017, seed0077, seed0106, seed0501, seed0105,
 seed0016, seed0015, seed0200, seed0101, seed0103, seed0104.
 
 **Notable non-PASS:** seed2200 RNG full Scr 229/230 (parked RC @158);
-seed0013 RNG full Scr 57/59; seed0030 **48104**/105529 Scr 85/1953;
+seed0013 RNG full Scr 57/59; seed0030 **48086**/105529 Scr 85/1953;
 seed0107 2684/2902 Scr 36/98; seed0361/0373 quest bones blocked.
 
 ## Green gate
@@ -40,21 +40,20 @@ Both must remain full RNG + screen PASS with exact scored-output lengths.
 
 ## Primary objective
 
-**D-0268** — seed0030 seg9 @10461 — `m_move` Invis `rn2(11)` → `appr=0`
+**D-0271** — seed0030 seg9 @10811 — C `next_ident` vs JS `rn2(5)`
 
 | | |
 |--|--|
-| **C locus** | `monmove.c` `m_move` — `should_see && Invis && !perceives && rn2(11)` → `appr=0` (also check stalker/bat `rn2(3)` / leppie order) |
-| **JS locus** | `js/monmove.js` `m_move` |
-| **Symptom** | C `rn2(11)` vs JS `rn2(2)` (mfndpos/getitems) after D-0267 |
-| **Hypothesis** | Hostile/peaceful `m_move` omits that Invis gate, so a later `rn2(2)` fires |
-| **Falsifier** | Port the gate; re-run focused cmd — mismatch moves or proves earlier branch |
-| **Recent fixed** | D-0267 `set_apparxy` before shk (seg9 8943→10461) |
+| **C locus** | likely death/corpse/`mkobj` after matched fleeck — `next_ident(mkobj.c:521)` |
+| **JS locus** | TBD after stack attribution at first mismatch |
+| **Symptom** | C `rnd(2) @ next_ident` vs JS `rn2(5)` after D-0268…D-0270 |
+| **Hypothesis** | post-kill object/corpse path skips `next_ident` or takes a different drop arm |
+| **Falsifier** | attribute JS call at 10811; port missing C branch; mismatch moves |
+| **Recent fixed** | D-0268 Invis `rn2(11)`; D-0269 SCORR `recalc_block_point`; D-0270 boulder place/extract vision |
 
 ```bash
-# Focused (adjust path if your harness uses segment runners)
+# Focused seg9 (write a one-seg session or use existing harness)
 node frozen/ps_test_runner.mjs sessions/seed0030-ten-diverse-deaths.session.json
-# Prefer segment/rng-diff tools already used for seed0030 seg9 when available
 ```
 
 **Prefer over:** quest bones (`^V`/`makemaz`), parked D-0006, seed2200 RC.

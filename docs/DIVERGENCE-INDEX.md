@@ -253,6 +253,10 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 | D-0264 | fixed | dochug NEED_HTH mon_wield_item | goblin dist2=8 wield; seg9 8281→8352 |
 | D-0265 | fixed | hitval oc_hitbon (a_ac) | dagger +2 to-hit; seg9 8352→8918 |
 | D-0266 | fixed | hero MAGIC_TRAP / domagictrap | rn2(30)+fate11 HInvis; seg9 8918→8943 |
+| D-0267 | fixed | m_move set_apparxy before shk|tame | shk notseen rn2(3); seg9 8943→10461 |
+| D-0268 | fixed | m_move Invis should_see rn2(11) appr | appr=0 gate; needs D-0269 couldsee |
+| D-0269 | fixed | detect SCORR/SDOOR recalc_block_point | vision_recalc(1) left stale viz_clear |
+| D-0270 | fixed | place_object/remove boulder vision | mkobj block/recalc; retires D-0242 omit |
 
 
 D-0001 through D-0005 predate the strict-length/cohort runbook. Their focused
