@@ -227,7 +227,8 @@ Do not record a guessed cause as fixed merely because an RNG prefix moved.
 | D-0221 | fixed | floorfood + poison_strdmg | floor yn before invent getobj; seg2 2930→3207 |
 | D-0222 | fixed | useupf→delobj | floor meal `obj_resists(0,0)`; seg2 3207→5939 |
 | D-0223 | fixed | m_search_items underfoot | restore MMOVE_DONE→mpickstuff; seg2 5939→6060 |
-| D-0224 | open | goto_level upstairs | create_room math (64,2) vs C screen (63,3) |
+| D-0224 | rejected | upstairs geometry | screen≠map; stairs matched (66,2); superseded by D-0225 |
+| D-0225 | fixed | F/do_fight | unbound F; Fl forcefight thin-air; seg2 RNG full |
 
 D-0001 through D-0005 predate the strict-length/cohort runbook. Their focused
 causes are preserved, but generic "green sessions held" is historical evidence,
@@ -6042,30 +6043,37 @@ cohort gates if those functions are touched again.
 - **Next:** seed0030 seg2 @6060 `mattacku`; or quest `getbones`
   `^V`/`makemaz`.
 
-## D-0224 — seed0030 seg2 @6060 post-descend upstairs coords
+## D-0224 — seed0030 seg2 @6060 upstairs create_room vs C screen
 
-- **Status:** open (diagnosed; create_room absolute vs C screen)
+- **Status:** rejected (screen≠map coordinate confusion)
+- **Symptom:** seed0030 seg2 @6060 after D-0223; prior theory blamed
+  JS upstairs @(66,2) vs C screen `(65,3)`.
+- **Rejected cause:** create_room absolute (64,2) vs C terrain (63,3)
+  / split_rects free-rect drift.
+- **Evidence:** tty maps `setCell(map_x-1, map_y+1)`. C screen
+  `(65,3)` / corners `(62,2)/(75,6)` ⇒ **map** stairs **(66,2)** and
+  walls **(63,1)/(76,5)** — matches JS create_room + generate_stairs.
+  Mklev RNG matched through stairs. Real peel was unbound `F`
+  (D-0225).
+- **C locus:** n/a (display mapping, not mklev).
+- **Next:** superseded by D-0225.
+
+## D-0225 — seed0030 seg2 `F`/`do_fight` forcefight prefix
+
+- **Status:** fixed
 - **Symptom:** seed0030 seg2 @6060 C `rnd(20) @ mattacku` vs JS
-  `rn2(8) @ m_move` mtrack after D-0223.
-- **Rejected:** dochug nearby/want_move; fleeck arity; dog APPORT
-  `rn2(8)` (was mtrack); `stairway_find_from` alone (selects same
-  wrong JS stair); somexy offset-with-matched-lx (lx itself wrong vs C
-  screen).
-- **Cause/evidence:** C `<` @(65,3); corners (62,2)/(75,2)/(62,6)/(75,6)
-  ⇒ interior **(63,3)–(74,5)**. JS stairs @(66,2); room **(64,2)–(75,4)**
-  (corners 63,1 / 76,5). dlvl2 create_room success @ C RNG 3360–3365:
-  `rn2(12)=9`/`rn2(4)=1` + xabs `rn2(21)=17`/`rn2(12)=6` + half-map
-  `rn1(3,2)` ⇒ math **(64,2)** (matches JS); theme pick `default` (no
-  fill). generate_stairs `rn2(9)=2` down / `rn2(8)=6` up +
-  `rn2(12)=2`/`rn2(3)=0`. Mklev RNG matches through mineralize. Also:
-  JS `F` unbound.
-- **C locus:** `sp_lev.c` `create_room`/`check_room`; `rect.c`
-  `split_rects`; `mklev.c` `generate_stairs`/`somexyspace`; prior
-  `stairway_find_from` still correct for landing.
-- **Change (prior):** `stairway_find_from` + goto_level use. **This
-  iteration:** diagnosis only (no production change).
-- **Verification:** seg2 still **6060**; green+strict PASS; seed0015/
-  seed1500 cohort PASS.
-- **Next:** explain C screen (63,3) vs create_room math (64,2) —
-  free-rect after rooms 0–1, or C `add_room` dump at generate_stairs.
-  Then bind `F`/fight.
+  `rn2(8) @ m_move` after matched mklev; JS screens `Unknown command 'F'.`
+- **Rejected:** upstairs geometry / create_room (D-0224); fleeck/APPORT.
+- **Cause:** C `cmd.c` binds `'F'`→`do_fight` (PREFIXCMD) setting
+  `forcefight`; next dir uses `domove`→`domove_fight_empty` (“thin air”)
+  or attack. JS left `F` unbound → wasted keys; `l` was normal walk →
+  hero/monster path split.
+- **C locus:** `cmd.c` `do_fight`; `hack.c` `domove_fight_empty` /
+  forcefight clear after DOMOVE_WALK.
+- **Change:** `js/cmd.js` — bind `F`, `domove_fight_empty` (thin air +
+  simple solid), clear forcefight after move / on non-prefix cmds.
+  Boulder/pick/I-glyph/explode arms deferred.
+- **Verification:** seed0030 seg2 RNG **6221/6221** FULL; positional
+  **33021**/105529; full **19/44** Scr **1433** RNG **157355**;
+  green+strict PASS; 17-session PASS cohort held.
+- **Next:** seed0030 seg3 @4527 themerms `contents`/`rn2(4)`.

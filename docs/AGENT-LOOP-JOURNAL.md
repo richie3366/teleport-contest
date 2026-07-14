@@ -2909,3 +2909,13 @@ Use this shape:
 - Verification: green+strict PASS; seed0015/seed1500 PASS; seg2 still 6060.
 - Next: reconcile create_room math (64,2) vs C terrain (63,3) — earlier
   split_rects/room0–1, or C add_room dump; then `F`.
+
+## 2026-07-14 03:16 — D-0225 F/do_fight (seg2 FULL); D-0224 rejected
+- Objective: PROGRESS primary — seed0030 seg2 @6060 (D-0224 upstairs theory).
+- C locus: `cmd.c` `do_fight`; `hack.c` `domove_fight_empty`; tty `setCell(x-1,y+1)`.
+- Result: **verified** — D-0224 upstairs geometry **rejected** (screen≠map;
+  C map stairs (66,2) matched JS). Real peel: unbound `F`. Ported forcefight
+  prefix + thin-air/solid `domove_fight_empty`. seg2 RNG **6221/6221** FULL.
+- Verification: full **19/44** Scr **1433** RNG **157355**; green+strict PASS;
+  17-session PASS cohort held; positional seed0030 **33021**/105529.
+- Next: seed0030 seg3 @4527 themerms `contents`/`rn2(4)`.

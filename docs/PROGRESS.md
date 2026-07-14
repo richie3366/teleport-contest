@@ -39,7 +39,7 @@ frozen-file overlay):
 |--------|------:|
 | Sessions passing | **19 / 44** |
 | Screens matched | **1433 / 11,405** (12.56%) |
-| Positional RNG calls matched | **152,652 / 792,838** (19.25%) |
+| Positional RNG calls matched | **157,355 / 792,838** (19.85%) |
 | Speed label | `20+0.09/turn` |
 | Working-tree base | `8b71735` + committed port (see `main`) |
 | Role-init throws | **0 / 44** (`u_init_role: role not ported`) |
@@ -64,7 +64,7 @@ shared blockers, and semantic coverage together—not one vanity metric.
 | `seed0501-priest-cast-read-turn` | **2238 / 2238** | **28 / 28** |
 | `seed2200-wizard-quaff-zap-read` | **3018 / 3018** | **229 / 230** |
 | `seed0017-samurai-altar-pray` | **3465 / 3465** | **67 / 67** |
-| `seed0030-ten-diverse-deaths` | **28318 / 105529** | **48 / 1953** |
+| `seed0030-ten-diverse-deaths` | **33021 / 105529** | **48 / 1953** |
 | `seed0103-knight-ride-pony` | **2640 / 2640** | **60 / 60** |
 | `seed0200-monk-north-search` | **3822 / 3822** | **40 / 40** |
 | `seed0101-ranger-quiver-throw-travel-engrave` | **2371 / 2371** | **27 / 27** |
@@ -134,7 +134,7 @@ seed0101 next Scr residual (RNG full). seed0013 still breaks earlier in
 Lua/`sp_lev`. seed0103 next `next_ident`/`trquan` @ 2337.
 seed0361/0373 `getbones` blocked on unbound `^V`/`goto_level`/
 `makemaz`. seed0077 chargen + vault fallback + door vision/pick_lock/DEC
-open-door (D-0111/D-0112/D-0113) → **PASS**. seed0030 **24703**/105529.
+open-door (D-0111/D-0112/D-0113) → **PASS**. seed0030 **33021**/105529.
 seed0105 RNG **full** (Scr **30**/30).
 **`option_help` msg_window PREV_MSGS extract** (D-0114) + **Primary ASCII /
 `symset:DECgraphics`** (D-0115) → Scr **788→851**.
@@ -312,6 +312,10 @@ RNG **152565**.
 **`m_search_items` underfoot MMOVE_DONE** (D-0223) → seed0030 seg2
 **5939→6060** (`mattacku`); positional **28318**/105529 Scr
 **48**/1953; full **19/44** Scr **1433** RNG **152652**.
+**`F`/`do_fight`/`domove_fight_empty`** (D-0225; D-0224 upstairs
+screen≠map **rejected**) → seed0030 seg2 RNG **FULL**; positional
+**33021**/105529 Scr **48**/1953; full **19/44** Scr **1433**
+RNG **157355**.
 
 ### Green gate
 
@@ -517,15 +521,14 @@ seed0101 + seed0103 + seed0104 **PASS**. seed2200 RNG **full**
 seed0101 RNG **full** Scr **27**/27. seed0103 RNG **full** Scr **60**/60.
 seed0104 RNG **full** Scr **43**/43.
 
-- **Bounded unit:** seed0030 seg2 @6060 — **D-0224** narrowed: JS/C
-  create_room RNG+formula both place upstairs room at **(64,2)** →
-  stairs **(66,2)**; C session corners/stairs show **(63,3)/(65,3)**.
-  Next: reconcile create_room math vs C terrain (split_rects / earlier
-  room). / seed0361/0373 **quest `getbones`** (blocked: need
-  `^V`→`goto_level`→`makemaz` first — ordinary `goto_level` now exists
-  for stairs; Mines `fill_lvl` path exists D-0171).
-- **Prefer:** dlvl2 upstairs room absolute (D-0224) over quest bones until
-  `^V`/`makemaz`; over parked D-0006 and over baking seed2200 RC paths.
+- **Bounded unit:** seed0030 seg3 @4527 — themerms `contents` /
+  `rn2(4)` vs JS `rn2(100)` after D-0225 seg2 FULL. / seed0361/0373
+  **quest `getbones`** (blocked: need `^V`→`goto_level`→`makemaz`
+  first — ordinary `goto_level` now exists for stairs; Mines
+  `fill_lvl` path exists D-0171).
+- **Prefer:** seg3 themerms contents (D-0226 candidate) over quest
+  bones until `^V`/`makemaz`; over parked D-0006 and over baking
+  seed2200 RC paths.
   Hero `dotrap` deferred until monster pit peel is clear.
   Hero `xkilled` treasure `mkobj` still deferred (ordinary `make_corpse`
   done D-0191; mhitm path done D-0167; `done_in_by` bones gate done
@@ -647,8 +650,9 @@ seed0104 RNG **full** Scr **43**/43.
   **`floorfood` + `poison_strdmg`** (done D-0221; seg2→3207);
   **`useupf`→`delobj` floor meal** (done D-0222; seg2→5939);
   **`m_search_items` underfoot MMOVE_DONE** (done D-0223; seg2→6060);
-  **`goto_level` `stairway_find_from`** (D-0224 — find_from done; upstairs
-  room JS (64,2) vs C screen (63,3) despite matching create_room RNG);
+  **`F`/`do_fight` forcefight** (done D-0225; seg2 FULL; D-0224
+  upstairs screen≠map rejected);
+  **`goto_level` `stairway_find_from`** (D-0224 find_from done);
   D-0218 upstairs theory rejected;
   …
 - **Cohort:** green gate + seed1500 + seed1800 + seed0060 + seed0102
@@ -1456,13 +1460,13 @@ Module status, constitutional debt, and named omissions live in
     **28318**/105529 Scr **48**/1953; full **19/44** Scr **1433**
     RNG **152652**; next seed0030 seg2 @6060 / quest `getbones`
 200. `goto_level` `stairway_find_from` (D-0224 partial)
-    — peel @6060 = post-descend upstairs @(66,2) vs C @(65,3);
-    find_from ported; seg2 still **6060**; next dlvl2
-    `generate_stairs`/`somexy` room bounds
+    — peel @6060 misread as upstairs coords; find_from ported
 201. D-0224 create_room absolute vs C screen (diagnosis)
-    — create_room RNG @3360–3365 + formula → (64,2) both sides;
-    C corners (62,2)/(75,6) ⇒ (63,3); theme `default`; seg2 still
-    **6060**; next reconcile math vs C terrain
+    — **rejected**: tty screen≠map; stairs matched map (66,2)
+202. `F`/`do_fight`/`domove_fight_empty` (D-0225)
+    — seed0030 seg2 RNG **FULL**; positional **33021**/105529;
+    full **19/44** Scr **1433** RNG **157355**; next seg3 @4527
+    themerms `contents` / quest `getbones`
 
 Next work is selected from the active objectives above using
 `PORTING-RUNBOOK.md`, not by extending this historical list.
