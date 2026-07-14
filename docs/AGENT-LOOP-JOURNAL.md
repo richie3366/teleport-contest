@@ -19,6 +19,20 @@ Use this shape:
 
 ---
 
+## 2026-07-14 10:05 — dodrop + D-0261 more desync (seg8 @3310)
+- Objective: seed0030 seg8 peel (PROGRESS primary; NOTES @3068 was stale).
+- C locus: `do.c` `dodrop`/`drop`/`dropx`/`dropy`/`canletgo`; `topl.c`
+  `more`/`xwaitforspace`; `dogmove.c` `dog_goal` APPORT scan.
+- Result: **partial** — @3068 fleeck/mfndpos squeeze **falsified** (match
+  through 3309). Live @3310 is missing floor katana after C `d`/`a` drop.
+  Ported `dodrop`/`dropx` + rhack `'d'`. Peel still open: post-rush
+  `more()` discards `d`/`a` (only space/CR dismiss); inject spaces →
+  katana on floor but drop must precede dog_goal @3309.
+- Verification: green+strict PASS; 17-session PASS cohort; full **19/44**
+  Scr **1465** RNG **181571**; seed0030 **47901**/105529.
+- Next: compare C vs JS `more()` call sites during seg8 rush (`\r`→`\n`)
+  so `d` reaches `dodrop` before dog_goal @3309.
+
 ## 2026-07-14 09:45 — diagnose seg8 @3068 dog_move rn2(1) (D-0261)
 - Objective: seed0030 seg8 peel after D-0260 (PROGRESS primary).
 - C locus: `dogmove.c` `dog_move`/`dog_goal`; `mon.c` `mfndpos` diagonal

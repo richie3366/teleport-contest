@@ -7,16 +7,16 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 
 ## Active
 
-- **Current unit:** seed0030 seg8 @3068 — C `rn2(5) @ distfleeck` vs JS
-  `rn2(1)=0` (after D-0260; “@3310 obj_resists vs rn2(4)” was stale).
-- **Hypothesis:** after matched `dog_goal` `rn2(4)=2`, C finishes
-  `dog_move` with no selection RNG while JS burns `!rn2(++chcnt)` on
-  first cand `(65,15)` (`j==0`). C must omit that cand from `mfndpos`
-  (diagonal squeeze/terrain) or have different `gg`/`nidist`
-  (`!couldsee`→`gettrack`) so the first kept cand has `j<0`.
-- **Falsifier:** dump C `mfndpos` / `couldsee(66,16)` / `gettrack` at
-  peel (Hachi @`(66,16)`, hero @`(64,17)`, JS `couldsee` true, cnt=8,
-  mtrack[0]=`(65,15)`).
+- **Current unit:** seed0030 seg8 @3310 — C `obj_resists`+`dog_goal rn2(8)`
+  (katana on floor after `d`/`a` drop) vs JS `rn2(4)` follow (no katana).
+- **Hypothesis:** JS `more()` mid/post-rush eats `d`/`a` (only space/CR
+  dismiss; other keys discarded). C ends rush with short “Hachi misses”
+  and no blocking more, so `d` reaches `dodrop`. Injecting spaces before
+  `d` → `dodrop` places katana; peel still @3310 unless more timing matches
+  so drop runs **before** the dog_goal at 3309.
+- **Falsifier:** getch log around moves `\r d a` — C/JS more call sites
+  during the rush movemon; or force drop before that dog_goal and expect
+  first mismatch >3310.
 - **Parked deep canary:** D-0006 pet movement — do not implement until C
   state/candidate capture exists.
 - **Parked seed2200 @158:** RC config path — harness `$HOME`, not a port bug.
@@ -174,12 +174,14 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   level-0 `rnd(4)=1` → 2 so jackal survives 1 dmg → `passivemm`
   `rn2(3)`; JS kept HP=1 → kill → `corpse_chance` `rn2(2)` (D-0260).
   Do not patch `passivemm` arity for that peel.
-- **seg8 @3068 was NOT a second `obj_resists` / dog_goal `rn2(4)` miss**
-  — match through `dog_goal` `rn2(4)=2` @3067; peel is JS
-  `!rn2(++chcnt)` on equal-dist `(65,15)` vs C `distfleeck` (D-0261).
-  Prior turn @3039 matched `rn2(1)` then APPORT onto gold `(66,16)`.
-  Do not patch chcnt without C candidate/`gg` proof. Do not ship
-  `distmin >= 5` mtrack (rejected D-0241; peel distmin=2).
+- **seg8 @3068 was NOT dog_move `rn2(1)` / mfndpos squeeze / missing
+  cand `(65,15)`** — live match through 3309; prior “first=3068” was
+  wrong (D-0261). Do not port diagonal `bad_rock`/`cant_squeeze_thru`
+  for that peel without new evidence.
+- **seg8 @3310 was NOT missing `dodrop` alone as the live blocker** —
+  `d` was unbound (ported); with injected spaces before `d`, katana
+  lands on floor but peel stays @3310 unless drop runs before dog_goal
+  @3309. Live keys `d`/`a` are discarded inside `more()` (D-0261).
 
 ## Landmarks
 
@@ -203,10 +205,12 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   delay-0 still immediate `*_off`+`off_msg` (D-0259).
 - **`newmonhp` level-0:** `basehp=1`; `rnd(4)`; if `mhpmax==basehp`
   boost +1 (min HP 2). Same boost when `d(m_lev,8)==m_lev` (D-0260).
-- **seg8 D-0261 peel:** per-seg index **3068** (not 3310); Hachi
-  @`(66,16)` on gold after APPORT turn; `dog_goal` follow `rn2(4)=2`
-  then JS `rn2(1)` vs C fleeck. JS `mfndpos` missing C diagonal
-  `bad_rock`/`cant_squeeze_thru` and `m_in_out_region` before place.
+- **seg8 D-0261:** first mismatch @**3310** (not 3068). C drops katana
+  (`d`/`a`) then `dog_goal` sees gold+katana (two APPORT `rn2(8)`);
+  JS never drops — `more()` discards `d`/`a`. `dodrop`/`dropx` ported.
+- **`more()` dismiss:** only space/CR/ESC; other keys bell+continue
+  (topl.c `xwaitforspace`). Mid-movemon more can consume later command
+  letters from the queue (D-0261).
 - **`F`/`do_fight`:** PREFIXCMD sets `forcefight`; next move dir attacks
   (empty → `domove_fight_empty` “thin air” / solid); no turn on F alone
   (D-0225).

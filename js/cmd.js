@@ -27,7 +27,7 @@ import { doengrave, maybe_smudge_engr } from './engrave.js';
 import { dothrow, dofire } from './dothrow.js';
 import { doapply } from './apply.js';
 import { dokick } from './dokick.js';
-import { donull, dodown } from './do.js';
+import { donull, dodown, dodrop } from './do.js';
 import { do_attack, mon_at, is_safemon } from './uhitm.js';
 import { doopen_indir } from './lock.js';
 import { doextcmd } from './getline.js';
@@ -594,6 +594,11 @@ export async function rhack(key) {
         const tookTime = await dosearch();
         game.context.move = tookTime ? 1 : 0;
         if (tookTime) game.kickedloc = { x: 0, y: 0 };
+    } else if (ch === 'd') {
+        // C ref: do.c dodrop — drop an item
+        const dropRes = await dodrop();
+        game.context.move = (dropRes & ECMD_TIME) ? 1 : 0;
+        if (dropRes & ECMD_TIME) game.kickedloc = { x: 0, y: 0 };
     } else if (ch === 'T') {
         // C ref: do_wear.c dotakeoff — take off armor/accessory
         const tookTime = await dotakeoff();

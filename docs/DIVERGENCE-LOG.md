@@ -264,7 +264,7 @@ Do not record a guessed cause as fixed merely because an RNG prefix moved.
 | D-0258 | fixed | find_offensive nomore | WAN then POT invent; C keeps wand; seg7 FULL |
 | D-0259 | fixed | armoroff delay + ICRNL rush | seg8 3088→3263; takeoff nomul + C(j) |
 | D-0260 | fixed | newmonhp level-0 min HP | rnd(4)=1→2; jackal survives; seg8 3263→3310 |
-| D-0261 | open | dog_move rn2(1) vs fleeck | seg8 @3068 after D-0260 |
+| D-0261 | open | drop/`more` before dog_goal | seg8 @3310; dodrop ported |
 
 
 D-0001 through D-0005 predate the strict-length/cohort runbook. Their focused
@@ -7086,28 +7086,30 @@ cohort gates if those functions are touched again.
   Scr **1463** RNG **181294**; seed0030 **47955**/105529.
 - **Next:** D-0261 seg8 @3068 `dog_move` rn2(1) vs fleeck.
 
-## D-0261 — dog_move selection rn2(1) vs fleeck (seed0030 seg8 @3068)
+## D-0261 — dog_goal missing floor katana after drop (seed0030 seg8 @3310)
 
-- **Status:** open (diagnosed; not fixed)
-- **Symptom (corrected):** after D-0260, first seg8 mismatch is @**3068**
-  — C `rn2(5)=3 @ distfleeck` vs JS `rn2(1)=0`. Earlier note “@3310
-  `obj_resists` vs `rn2(4)`” was stale/wrong.
-- **Matched through:** `dog_goal` `rn2(8)=6` @3066 + `rn2(4)=2` @3067.
-  Prior pet turn @3039 matched `dog_move` `rn2(1)` then `obj_resists`
-  on APPORT gold; JS placed Hachi `(65,15)`→`(66,16)`.
-- **JS peel state:** Hachi @`(66,16)`, hero @`(64,17)`, `couldsee` true,
-  `gg=hero`/`gtyp=UNDEF`, `appr=1`, `cnt=8`, mtrack[0]=`(65,15)`.
-  First cand `(65,15)` has `ndist==nidist==5` → `j==0` → `!rn2(++chcnt)`.
-  After full loop JS would move to `(65,17)`.
-- **Rejected:** missing second `obj_resists`; invent/`rn2(4)` arity;
-  `distmin>=5` mtrack (gate off at distmin=2); apport `rn2(1)` after
-  `rn2(4)` (`dog_has_minvent` false); adjacent jackal ALLOW_M skip
-  (no mon on JS cands).
-- **Hypothesis:** C omits `(65,15)` from `mfndpos` (missing JS
-  diagonal `bad_rock`/`cant_squeeze_thru`) **or** C `!couldsee`→
-  `gettrack` changes `gg`/`nidist` so first kept cand has `j<0` (no
-  selection RNG) then fleeck.
-- **Named omissions:** `mfndpos` diagonal squeeze; `m_in_out_region`
-  before `place_monster` in `dog_move` newdogpos.
-- **Next:** falsify with C `mfndpos`/`couldsee`/`gettrack` at peel; port
-  squeeze + `m_in_out_region` from C if confirmed.
+- **Status:** open (partial: `dodrop` ported; peel blocked on `--More--`)
+- **Symptom (corrected):** first seg8 mismatch @**3310** — C
+  `rn2(100)=86 @ obj_resists` then second `dog_goal rn2(8)` vs JS
+  `rn2(4)` follow. Prior note “@3068 fleeck vs `rn2(1)`” **falsified**
+  (live match through 3309 after D-0260).
+- **Matched through:** `dog_goal` `rn2(8)=7` @3309 (APPORT fail, apport=3).
+- **C path:** hero `d`/`a` drops +0 katana at feet → `dog_goal` fobj scan
+  hits gold then katana (two `dogfood`→`obj_resists`, two APPORT
+  `rn2(8)`) then follow `rn2(4)`.
+- **JS path:** `d` was unbound (`Unknown command`); after porting
+  `dodrop`, live getch shows `d`/`a` arrive while
+  `…--More--` is pending → `more()` discards non-space/CR keys → katana
+  never leaves invent → only gold in radius → follow `rn2(4)` at 3310.
+- **Rejected:** mfndpos diagonal squeeze / cand `(65,15)` @3068;
+  second `obj_resists` invent arity; `distmin>=5` mtrack.
+- **Change (this iter):** `js/do.js` `dodrop`/`drop`/`dropx`/`dropy`/
+  `dropz`/`canletgo` + `rhack` `'d'` (shops/sinks/flooreffects/
+  count-split/`#droptype` deferred). Injecting spaces before `d` places
+  katana on floor (verified) but peel stays @3310 unless drop runs
+  **before** dog_goal @3309 (more timing).
+- **Verification:** green+strict PASS; 17-session PASS cohort; full
+  **19/44** Scr **1465** RNG **181571**; seed0030 **47901**/105529;
+  seed0013 Scr **7**/59.
+- **Next:** align rush-turn `more()` so `d` reaches `dodrop` before the
+  post-drop `dog_goal`; then expect mismatch >3310.
