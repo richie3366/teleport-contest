@@ -250,6 +250,7 @@ Do not record a guessed cause as fixed merely because an RNG prefix moved.
 | D-0244 | fixed | FIGURINE rndmonnum_adj | adj(5,10)+is_human; seg6 2638→4080 |
 | D-0245 | fixed | m_harmless_trap BEAR | msize≤SMALL; seg6 4080→10280 |
 | D-0246 | fixed | goodpos accessible | closed door reject; seg6 10280→10815 |
+| D-0247 | fixed | themerms Buried zombies | fill body; seg6 10815→11830 |
 
 D-0001 through D-0005 predate the strict-length/cohort runbook. Their focused
 causes are preserved, but generic "green sessions held" is historical evidence,
@@ -6694,3 +6695,32 @@ cohort gates if those functions are touched again.
   `is_exclusion_zone`.
 - **Next:** seed0030 seg6 @10815 themerms/`nhlib` shuffle arity; or
   quest `getbones`.
+
+## D-0247 — themerms `Buried zombies` fill body
+
+- **Status:** fixed
+- **Symptom:** seed0030 seg6 @10815 — C `rn2(4)` `nhlib.lua` shuffle vs
+  JS `rn2(1)` (JS already past the fill and into the next room pick).
+- **Cause:** after `filler_region` themed chance + fill reservoir
+  `rn2(1)..rn2(13)`, both sides picked **Buried zombies** (7th eligible
+  at lit/diff≤3). C runs `shuffle({kobold,gnome,orc,dwarf})` then
+  `(width*height)/2` buried CORPSE creations (`mksobj`→`set_corpsenm`→
+  `bury_an_obj`→`stop_timer(rot)`→`start_timer(zombify,990+rn2(21))`).
+  JS had no `THEMEROOM_FILL_BODIES` entry, so the fill was a no-op and
+  the next themerms room reservoir started early (`rn2(1)`).
+- **Rejected:** region/`selection` list-length mismatch as the arity
+  gap (reservoir `rn2(1)..rn2(13)` matched; peel was missing fill body).
+- **C locus:** `themerms.lua` Buried zombies; `nhlib.lua` shuffle;
+  `sp_lev.c` `create_object` buried CORPSE/`set_corpsenm`; `dig.c`
+  `bury_an_obj`; `nhlobj.c` object timers.
+- **Change:** `js/mklev.js` `themeroom_fill_buried_zombies` + register;
+  `js/mkobj.js` export `set_corpsenm`/`obj_stop_timers`/`start_timer`.
+- **Verification:** seg6 **10815→11830** (`create_room` positioned
+  `rnd(5)` vs JS `rn2(6)`); positional **47186**/105529 Scr **71**/1953;
+  full **19/44** Scr **1456** RNG **180270**; green+strict PASS;
+  17-session PASS cohort held.
+- **Named omissions:** other fill bodies (Ice/Trap room/Garden/…);
+  `bury_an_obj` Rider/invocation early-return without `rn2`; timer fire
+  for `ZOMBIFY_MON`; `oeaten` rescale in `set_corpsenm`.
+- **Next:** seed0030 seg6 @11830 positioned `create_room` / Nesting
+  follow-on; or quest `getbones`.

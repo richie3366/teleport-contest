@@ -33,7 +33,7 @@ import {
 import { PM_SAMURAI } from './generated/monsters_data.js';
 import {
     ROT_AGE, TAINT_AGE, TROLL_REVIVE_CHANCE,
-    ROT_CORPSE, REVIVE_MON, TIMER_OBJECT,
+    ROT_CORPSE, REVIVE_MON, ZOMBIFY_MON, TIMER_OBJECT,
     OBJ_FREE, OBJ_FLOOR, OBJ_BURIED, OBJ_MINVENT,
     G_GONE,
     LOST_NONE, LOST_EXPLODING,
@@ -389,19 +389,37 @@ function special_corpse(num) {
 }
 
 // Timer stubs — enough for corpse timeout restart semantics (no fire yet)
-function obj_stop_timers(obj) {
+export function obj_stop_timers(obj) {
     if (!obj) return;
     obj.timed = 0;
     obj._timer_action = 0;
     obj._timer_when = 0;
 }
 
-function start_timer(when, _kind, action, obj) {
+export function start_timer(when, _kind, action, obj) {
     if (!obj) return 0;
     obj.timed = 1;
     obj._timer_action = action;
     obj._timer_when = when;
     return when;
+}
+
+// C ref: mkobj.c set_corpsenm — stop timers, set id, restart CORPSE timeout
+export function set_corpsenm(obj, id) {
+    if (!obj) return;
+    if (obj.timed) {
+        // EGG hatch-preserve deferred; corpse/figurine clear all
+        obj_stop_timers(obj);
+    }
+    obj.corpsenm = id;
+    const name = otypName(obj.otyp);
+    if (name === 'CORPSE') {
+        start_corpse_timeout(obj);
+        obj.owt = weight(obj);
+    } else if (name === 'STATUE' || name === 'FIGURINE' || name === 'TIN'
+        || name === 'EGG') {
+        obj.owt = weight(obj);
+    }
 }
 
 // C ref: mkobj.c rider_revival_time

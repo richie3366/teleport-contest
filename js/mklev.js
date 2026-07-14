@@ -37,6 +37,7 @@ import {
     BOOL_RANDOM,
     LVLINIT_SOLIDFILL, LVLINIT_MINES,
     In_mines,
+    ZOMBIFY_MON, TIMER_OBJECT,
 } from './const.js';
 import {
     RANDOM_CLASS, WEAPON_CLASS, ARMOR_CLASS, RING_CLASS,
@@ -50,6 +51,7 @@ import { maketrap, t_at } from './trap.js';
 import {
     mkobj, mksobj, mksobj_at, mkobj_at, mkgold, mkcorpstat, next_ident,
     curse, bless, blessorcurse, place_object, add_to_buried, weight, OBJ,
+    set_corpsenm, obj_stop_timers, start_timer, obj_extract_self,
 } from './mkobj.js';
 import { makemon, mkclass, MM_NOGRP } from './makemon.js';
 import { enexto } from './teleport.js';
@@ -59,7 +61,7 @@ import {
     is_male, is_female, mons, G_NOGEN,
     MALE, FEMALE, NEUTRAL,
 } from './monsters.js';
-import { name_to_monplus } from './mondata.js';
+import { name_to_monplus, name_to_mon } from './mondata.js';
 import { make_engr_at, make_grave, wipe_engr_at, random_engraving } from './engrave.js';
 import { DUST, MARK as ENGRAVE_MARK, M_AP_OBJECT } from './const.js';
 
@@ -1954,6 +1956,44 @@ function themeroom_fill_storeroom(croom) {
     });
 }
 
+// C ref: themerms.lua "Buried zombies" + sp_lev.c create_object buried CORPSE
+// Loop (width*height)/2: shuffle zombifiable → mksobj CORPSE → set_corpsenm →
+// bury_an_obj → stop rot-corpse → start zombify-mon(990+rn2(21)).
+function themeroom_fill_buried_zombies(croom) {
+    const diff = level_difficulty();
+    // C: start with [1..4]; expand at diff>3 / diff>6
+    const zombifiable = ['kobold', 'gnome', 'orc', 'dwarf'];
+    if (diff > 3) {
+        zombifiable.push('elf', 'human');
+        if (diff > 6) zombifiable.push('ettin', 'giant');
+    }
+    // C sp_lev mkroom table: width = 1+(hx-lx), height = 1+(hy-ly)
+    const width = 1 + (croom.hx - croom.lx);
+    const height = 1 + (croom.hy - croom.ly);
+    // Lua `/` is float; for-loop runs while i <= limit
+    const n = Math.floor((width * height) / 2);
+    for (let i = 0; i < n; i++) {
+        nhlib_shuffle(zombifiable);
+        const mndx = name_to_mon(zombifiable[0]);
+        if (mndx < 0 || mndx === NON_PM) continue;
+        const pos = room_random_loc(croom);
+        if (!pos) continue;
+        // C create_object: mksobj_at(id, x, y, TRUE, !named) with named=false
+        const otmp = mksobj_at(CORPSE, pos.x, pos.y, true, true);
+        if (!otmp) continue;
+        // Override random corpsenm (restarts corpse timeout like C set_corpsenm)
+        set_corpsenm(otmp, mndx);
+        // C bury_an_obj: obj_resists(0,0) then extract + add_to_buried
+        rn2(100);
+        obj_extract_self(otmp);
+        add_to_buried(otmp);
+        // Lua: o:stop_timer("rot-corpse"); o:start_timer("zombify-mon", math.random(990,1010))
+        // math.random(990,1010) → nh.random(990,21) → 990+rn2(21)
+        obj_stop_timers(otmp);
+        start_timer(990 + rn2(21), TIMER_OBJECT, ZOMBIFY_MON, otmp);
+    }
+}
+
 // C ref: themerms.lua "Ghost of an Adventurer" contents + sp_lev create_monster/object
 function themeroom_fill_ghost(croom) {
     const sel = selection_from_mkroom(croom);
@@ -2106,6 +2146,7 @@ const THEMEROOM_FILL_BODIES = {
     'Ghost of an Adventurer': themeroom_fill_ghost,
     'Teleportation hub': themeroom_fill_teleport_hub,
     'Storeroom': themeroom_fill_storeroom,
+    'Buried zombies': themeroom_fill_buried_zombies,
 };
 
 // C ref: themerms.lua themeroom_fill() — reservoir + dispatched fill bodies
@@ -2124,7 +2165,7 @@ function themeroom_fill(croom) {
     croom._themeroom_fill = pick.name;
     const body = THEMEROOM_FILL_BODIES[pick.name];
     if (body) body(croom);
-    // Named omission: other fill contents (Ice/Temple/Storeroom/…)
+    // Named omission: other fill contents (Ice/Trap room/Garden/Temple/…)
 }
 
 // C ref: themerms.lua filler_region + sp_lev.c lspo_region irregular path

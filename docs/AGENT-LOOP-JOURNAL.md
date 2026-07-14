@@ -3176,3 +3176,19 @@ Use this shape:
   **70**/1953; full **19/44** Scr **1445** RNG **173331**; green+strict
   PASS; 17-session PASS cohort held.
 - Next: seed0030 seg6 @10815 themerms/nhlib shuffle; or quest getbones.
+
+## 2026-07-14 06:20 — Buried zombies themerms fill (D-0247)
+- Objective: seed0030 seg6 @10815 C rn2(4) nhlib shuffle vs JS rn2(1).
+- C locus: themerms.lua Buried zombies; nhlib.lua shuffle; sp_lev.c
+  create_object buried CORPSE/set_corpsenm; dig.c bury_an_obj;
+  nhlobj.c object timers.
+- Result: **verified** — fill reservoir matched; pick was Buried
+  zombies; JS lacked THEMEROOM_FILL_BODIES entry so next room
+  reservoir started early. Ported shuffle + (w*h)/2 buried CORPSE
+  path (mksobj→set_corpsenm→obj_resists bury→zombify 990+rn2(21)).
+  Rejected region/selection list-length as the arity gap.
+- Verification: seg6 **10815→11830** (positioned create_room);
+  positional **47186**/105529 Scr **71**/1953; full **19/44** Scr
+  **1456** RNG **180270**; green+strict PASS; 17-session PASS cohort
+  held.
+- Next: seed0030 seg6 @11830 positioned create_room; or quest getbones.

@@ -7,11 +7,11 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 
 ## Active
 
-- **Current unit:** seed0030 seg6 @10815 — C `rn2(4)` themerms/`nhlib`
-  shuffle vs JS `rn2(1)` (after `goodpos` closed-door D-0246; seg6
-  **10280→10815**).
-- **Falsifier:** which themerms `region`/`shuffle` list length differs so
-  C burns `rn2(4..2)` while JS already finished that shuffle.
+- **Current unit:** seed0030 seg6 @11830 — C `rnd(5)` positioned
+  `create_room` vs JS `rn2(6)` (after Buried zombies D-0247; seg6
+  **10815→11830**).
+- **Falsifier:** which themeroom/`des.room` path still uses irregular
+  `somexy`/`rn2(w)` instead of positioned `create_room` `rnd(5)`×2.
 - **Parked deep canary:** D-0006 pet movement — do not implement until C
   state/candidate capture exists.
 - **Parked seed2200 @158:** RC config path — harness `$HOME`, not a port bug.
@@ -87,99 +87,9 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   `build_room`’s `rn2(100)`; JS fell through as plain random create_room
   (D-0226). Nested create_subroom/door still deferred (outer often fails
   after 100 positioned tries).
-- **seed0030 seg3 @7617 was NOT a missing `known_hitum` flee `rn2(25)`** —
-  C `hmon` weapon `maybe_knockback`→`mhitm_knockback` burns `rn2(3)`+
-  `rn2(6)` before flee; JS skipped the call (D-0227).
-- **seed0030 seg3 @7935 was NOT missing melee/`hitum` on the grid bug** —
-  grid bug was adjacent; peel was key desync: C safety-rejected `s`/`.`
-  (0 RNG) then `h`; JS ran real searches (D-0228). Do not re-chase
-  `do_attack`/`overexertion` for that peel.
-- **seed0030 seg3 @8561 was NOT corpse_chance arity alone** — C
-  `!rn2(6)` then `mkobj(RANDOM_CLASS)` (`rnd(100)`/`rnd(1000)`/
-  `next_ident`); JS burned the gate then skipped the body (D-0229).
-- **seed0030 seg3 @9166 was NOT key desync / missing safety** — C
-  attacked goblin at (26,6); JS goblin at (25,6) because
-  `m_search_items` redirected `gg` to a gnome CORPSE with `owt=1`.
-  C `weight(CORPSE)` uses `mons[corpsenm].cwt` (D-0230). Do not
-  re-chase `cmd_safety` for that peel.
-- **seed0030 seg3 @9299 was NOT missing dosearch/safety/key desync** —
-  C blocked `j` into adjacent SDOOR (0 RNG) then `s`→`rnl(7)`; JS
-  `blocksMove` allowed walk onto SDOOR (typ=14) because it only
-  checked STONE/walls/closed DOOR, not `IS_OBSTRUCTED` (D-0231).
-- **seed0030 seg3 @9778 was NOT an extra hostile actor / mtrack arity** —
-  shopkeeper at (10,8) with charged `WAN_SPEED_MONSTER` + `mspeed!=MFAST`
-  within dist≤36: C `find_misc`→`use_misc` spends the turn (no post
-  fleeck); JS fell through to `shk_move` + post fleeck, inserting
-  `rn2(5)` before the grid bug’s `m_move` track `rn2(8)` (D-0232).
-- **seed0030 seg3 @9850 was NOT invent walk / wrong IS_ROOM filter /
-  inhishop false** — shk at home (10,9), hero on door (11,9),
-  `avoid`+`uondoor`, `appr=0`: C `mfndpos` marks online cells NOTONL
-  so `move_special` skips all but one → only `rn2(1)`; JS never set
-  NOTONL so burned `rn2(1..4)` (D-0233).
-- **seed0030 seg3 @9881 was NOT missing muse alone** — Maganasipi stayed
-  peaceful after miss because JS `missum`/`hmon` never called
-  `wakeup`→`setmangry`; C angers then `use_offensive` WAN_STRIKING
-  (`rn1(8,6)` + Antimagic Boing → `makeknown`→`exercise`). Also need
-  worn MR cloak as Antimagic when `oc_oprop` unset (D-0234).
-- **seed0030 seg3 @9887 was NOT position/spe/extra m_move** — after
-  Antimagic Boing, C `monstseesu(M_SEEN_MAGR)` so Maganasipi’s MFAST
-  second dochug skips WAN_STRIKING and melees; JS re-zapped (D-0235).
-- **seed0030 seg4 @2369 was NOT trquan arity / second-ring mkobj skip** —
-  Wizard `UNDEF_SPE` charged ring with `spe<=0` after `cursed=0` clear:
-  C `ini_inv_adjust_obj` else-branch `rne(3)`; JS omitted the branch
-  and jumped to next `trquan` `rn2(1)` (D-0236).
-- **seed0030 seg4 @6630 was NOT invent getobj/`rn2(5)` fleeck first** —
-  C `q`→fountain yn→`y`→`drinkfountain` `rnd(30)`; JS skipped fountain
-  prompt so `y` cancelled getobj (0 turn) and later move fleeck landed
-  at C’s fountain index (D-0237).
-- **seed0030 seg4 @7554 was NOT walk `exercise` / exerchk / wall bump** —
-  C `k` into adjacent boulder → `moverock`/`dopush` →
-  `exercise(A_STR,TRUE)` then advance; JS walked onto the boulder with
-  no push (D-0238). Session `steps[i].key` is `moves[i-1]` (key that
-  produced the step), not `moves[i]`.
-- **seed0030 seg5 @3076 was NOT mineralize/`rn2(12)` first** — C hero
-  `spoteffects`→`dotrap`→`trapeffect_dart_trap` `t_missile(DART)` then
-  miss/`place_object`; JS never called dotrap so EOT landed on
-  `mcalcmove` `rn2(12)` (D-0239). Screen: “A little dart shoots out at
-  you!  A little dart misses you.”
-- **seed0030 seg5 @3096 was NOT pet glass-wand / APPORT/`next_ident`
-  order** — look_here NHW_MENU `--More--` dismissed on any key in JS;
-  C `dmore`/`xwaitforspace(quitchars)` ignores `l`/`k` so space closes
-  the pile, then `b` moves SW. JS treated the second `l` as a real east
-  move onto an adjacent second dart trap → extra `t_missile`/`rnd(2)`
-  (D-0240). Two dart traps at (74,4)/(75,4).
-- **seed0030 seg5 @4174 was NOT dog_move mfndpos cnt / `>=5` mtrack** —
-  symptom C `rn2(12)` vs JS fleeck looked like mtrack at distmin=5;
-  forcing `>=5` advanced prefix but was wrong. Real cause: JS `hitmm`
-  always plined pet bites in the dark → bite+destroyed forced topline
-  `more()` which discarded movement `h` until a later space → key desync
-  (D-0241). Do not change mtrack `>5` gate.
-- **seed0030 seg5 @4372 was NOT a missing thrwmu-only call** — hostile
-  `m_move` getitems `lined_up`→`linedup`; JS `couldsee` stayed true
-  because vision `_blocks` ignored BOULDER, so the boulderhandling
-  `rn2(2+spots)` path never ran (D-0242). Porting linedup alone is
-  insufficient without `does_block` boulder opacity.
-- **seed0030 seg6 @339 was NOT build_room `rn2(100)` / map-fill chance** —
-  reservoir picked **Blocked center**; C `des.map`→`lspo_map` (`rn2(68)`
-  for wid=11) + percent/shuffle/`replace_terrain` L→wall|pool; JS lacked
-  that map entry and fell through to rectangular `rn2(100)` (D-0243).
-- **seed0030 seg6 @2638 was NOT `align_shift` / maxmlev drift** — C
-  weight seq `2,4,5,8,…` is FIGURINE `rndmonnum_adj(5,10)` (minmlev=5,
-  maxmlev=11); JS omitted TOOL FIGURINE init so post-init fell through
-  to plain `rndmonnum()` → `rn2(3)` jackal pool (D-0244). Do not
-  re-chase dungeon align for that peel.
-- **seed0030 seg6 @4080 was NOT missing mtrack / wrong cnt alone** —
-  newt @`(60,4)` with `mtrack[0]=(61,4)` and BEAR_TRAP on that cell:
-  C `m_harmless_trap` (msize≤MZ_SMALL) keeps the cell in `mfndpos` so
-  mtrack burns `rn2(12)`; JS treated all bear traps as harmful so
-  known-trap skip dropped cnt 3→2 and skipped the burn (D-0245). Do not
-  re-chase actor order / extra fleeck without checking trap harmlessness.
-- **seed0030 seg6 @10280 was NOT missing floor gold / dog_goal box bug** —
-  symptom C `obj_resists` vs JS `rn2(4)`: pet placement after descend
-  put JS kitten on closed door `(34,7)` because `goodpos` used bare
-  `ACCESSIBLE` (D-0246). C `accessible` rejects closed doors → different
-  `enexto` cell → gold in SQSRCHRADIUS. Screens use CSI `\x1b[NC` column
-  offsets — expand before reading map glyphs.
+- **seed0030 seg6 @10815 was NOT a region/selection list-length gap** —
+  fill reservoir `rn2(1)..rn2(13)` matched; pick was Buried zombies;
+  JS lacked the fill body so next room reservoir started early (D-0247).
 - **`monattk.h`: AT_WEAP=254, AT_MAGC=255, AT_SPIT=10** — never use 10 for
   weapon (D-0179).
 - Hostile `m_move`: before place, `m_digweapon_check` may return
@@ -207,104 +117,15 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 - **`create_room` positioned:** when not all-`-1`, `rnd(5)`×2 + size
   `rn1` if needed + `rnd(3)`×2 align + `get_rect`/`check_room` up to
   100 tries (D-0226).
-- **`hmon` weapon knockback:** `!unarmed && dmg>1 && !thrown && !Upolyd
-  && !twoweap && uwep` → `mhitm_knockback` after survive (burns
-  `rn2(3)`+`rn2(6)` before gates; hurtle deferred) (D-0227).
-- **`cmd_safety_prevention`:** `flags.safe_wait` (default On) +
-  `monster_nearby` → reject `s`/`.` with Norep, no time; `m` prefix /
-  `multi` skip (D-0228).
-- **`xkilled` treasure:** `!rn2(6)` + !G_NOCORPSE + not hero tile +
-  !S_KOP + !mcloned → `mkobj(RANDOM_CLASS,TRUE)`; food (non-COLLECT)
-  or small-mon oversized → `delobj`; else place+stack. flooreffects
-  non-floor arms deferred (D-0229).
-- **`weight(CORPSE)`:** `quan * mons[corpsenm].cwt` (LARGEST_INT clamp);
-  not `objects[CORPSE].oc_weight` / `(quan+1)/2` (D-0230). Wrong owt
-  lets `can_carry` succeed and `m_search_items` divert hostiles off
-  gettrack/hero gg.
-- **`blocksMove` / `test_move`:** `IS_OBSTRUCTED(typ)` (`typ < POOL`) +
-  IRONBARS + closed/locked DOOR — includes TREE/SDOOR/SCORR (D-0231).
-  STONE/walls-only was wrong and let the hero walk onto secret doors.
-- **`dochug` muse:** after first `distfleeck`, `find_defensive` else
-  `find_misc`; nonzero `use_*` returns before `m_move` (no post fleeck)
-  (D-0232). `find_misc` dist≤36; `WAN_SPEED_MONSTER` needs `spe>0` and
-  `mspeed!=MFAST`.
-- **`mfndpos` NOTONL:** `monseeu && monlineu(nx,ny)` → mark (or skip if
-  unicorn `flag&NOTONL`); `move_special` with `avoid` skips NOTONL
-  candidates (D-0233). `monlineu` = `online2` vs `mux`/`muy`.
-- **`missum`/`wakeup`/`setmangry`:** miss (and survive hit) →
-  `wakeup(TRUE)` → peaceful→hostile + “gets angry!”; without it shk
-  stays peaceful and never `use_offensive` (D-0234).
-- **`use_offensive` WAN_STRIKING:** `mzapwand` + `mbhit(rn1(8,6))` +
-  Antimagic Boing → `makeknown`→`exercise(A_WIS)`; worn
-  `CLOAK_OF_MAGIC_RESISTANCE` counts as Antimagic while oc_oprop
-  deferred (D-0234).
-- **`monstseesu` / `m_seenres`:** Antimagic Boing sets `M_SEEN_MAGR` on
-  LOS monsters; `find_offensive` WAN_STRIKING requires
-  `!m_seenres(..., M_SEEN_MAGR)`. Without it MFAST shk re-zaps instead
-  of melee (D-0235).
-- **`ini_inv_adjust_obj` UNDEF_SPE rings:** after `cursed=0`, charged
-  ring with `spe<=0` → `spe = rne(3)` (D-0236). Charged set =
-  ADORNMENT/GAIN_STR/GAIN_CON/INCREASE_ACC/INCREASE_DAM/PROTECTION
-  (`oc_charged` not yet in extractor).
-- **`dodrink` fountain:** before getobj, yn “Drink from the fountain?”
-  → `drinkfountain`; `fate = rnd(30)` **before** Levitation return
-  (D-0237).
-- **`moverock`/`dopush`:** dest boulder → push to `ux+2*dx,uy+2*dy` if
-  clear; “great effort” + `exercise(A_STR,TRUE)` then hero advances onto
-  vacated cell (D-0238). Do not walk onto boulders.
-- **Hero `dotrap` dart:** `spoteffects` non-pit pickup then `dotrap`;
-  `t_missile(DART)` before poison/`dmgval`/`thitu`; miss →
-  `place_object`+`observe_object`+`stackobj` (D-0239). Pit/arrow/rock/
-  sqky hero arms and `poisoned()` still deferred.
-- **NHW_MENU putstr `dmore`:** `xwaitforspace(quitchars)` =
-  space/CR/LF/ESC only; movement letters stay on the page (each is still
-  an nhgetch capture). Corner `offx≠0` paints all rows then one dmore;
-  fullscreen pages at `rows-1` (D-0240). Same helper as NHW_TEXT
-  `text_page_wait`.
-- **mhitm `gv.vis`:** `hitmm`/`missmm` pline only when
-  `(cansee∧canspotmon)(magr) ∨ (cansee∧canspotmon)(mdef)`; else
-  `noises()` deferred. `mondied` pline only when `cansee` (D-0241).
-  Dark-corridor pet fights must not force topline `more()` or movement
-  keys are discarded until space.
-- **`linedup` boulderhandling:** when `!couldsee`/`!clear_path`, walk
-  the ray counting `sobj_at(BOULDER)`; `bh==2` → `rn2(2+spots)<2`
-  (D-0242). Vision `_blocks` must treat BOULDER as opaque or couldsee
-  never fails and the rn2 path is skipped. `lined_up` uses mux/muy +
-  ignore via throws_rocks/WAN_STRIKING. `objects_at` is a nexthere
-  chain head, not an array.
-- **Blocked center themerms:** map 11×11 with central 3×3 lava; contents
-  `percent(30)` → `shuffle({"-","P"})` → `replace_terrain` region
-  {1,1,9,9} from L (only matching cells burn `rn2(100)`); then
-  `filler_region(1,1)`. Wid 11 → `lspo_map` `rn2(COLNO-1-11)=rn2(68)`
-  (D-0243).
-- **FIGURINE `mksobj_init`:** `rndmonnum_adj(5,10)` then reject
-  `is_human` (tryct 30) + `blessorcurse(4)` (D-0244). Plain
-  `rndmonnum()` is wrong — adj expands minmlev/maxmlev by +5/+10.
-- **`m_harmless_trap` BEAR_TRAP:** `msize <= MZ_SMALL` or amorphous /
-  whirly / unsolid → harmless for `mfndpos` (known-trap skip does not
-  apply). Newt/gecko/etc. keep bear-trap cells in the candidate set
-  (D-0245).
+- **Buried zombies fill:** `(width*height)/2` iterations; each
+  `shuffle(zombifiable)` then `mksobj(CORPSE)`→`set_corpsenm`→
+  `bury_an_obj`/`obj_resists(0,0)`→`stop rot`→`zombify 990+rn2(21)`
+  (D-0247). List expands at diff>3 / >6.
 - **`goodpos`/`accessible`:** `ACCESSIBLE(typ) && !closed_door` — closed/
   locked doors are **not** valid enexto spots (D-0246). Bare
   `ACCESSIBLE(DOOR)` was wrong and placed pets on door cells.
 - **`test_move` diagonal into DOOR:** only `doorless_door` (D_NODOOR /
   D_BROKEN) allowed; open/closed/locked block diagonal entry/exit
   (D-0219). Same rule in `domove` and steed `landing_spot`/`test_move_ok`.
-- **Dismount BYCHOICE:** `teleds` under `in_steed_dismounting` (skip
-  spoteffects pickup) then `float_down(0,W_SADDLE)`→`pickup(1)` once;
-  multi floor objs → `look_here` NHW_MENU after WIN_MESSAGE `--More--`
-  (D-0220).
-- **`dog_goal` !couldsee:** gettrack → else reuse `edog.ogoal` → else
-  `do_clear_area(pet,9,wantdoor)` closest clear cell to hero, store
-  ogoal (D-0211). Omitting wantdoor forced hero-gg and wrong fleeck arity.
-- **`doeat` → `floorfood`:** edible floor pile ynq before invent getobj;
-  poison path burns `poison_strdmg(rnd(4),rnd(15))` (D-0221).
-- **Floor meal finish:** `done_eating` → `useupf` → `delobj` →
-  `obj_resists(0,0)` (D-0222). Invent `useup` never rolls.
-- **`m_search_items` underfoot:** interesting loot under mon → return
-  TRUE → `postmov(MMOVE_DONE)` → `mpickstuff` (D-0223). Skipping leaves
-  floor loot for later distant `gg` redirects (silent arity peel).
-- **`dog_invent` underfoot eat:** edible ≤ CADAVER (or starving ACCFOOD)
-  → `dog_eat` before APPORT; return 1 → `MMOVE_MOVED` (C `goto newdogpos`).
 - Key attribution ≠ RNG order: 0-RNG `--More--` / safety-reject keys can
   sit between matched EOT RNG and the next gameplay command (D-0228).
