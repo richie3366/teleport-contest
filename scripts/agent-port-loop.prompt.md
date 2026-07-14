@@ -46,6 +46,12 @@ Mark temporary DIAG distinctly; remove before exit.
 4. subsystem cohort if shared; 5. strict lengths; 6. full `sessions` after
 shared startup/RNG/display or foundation milestones.
 
+**Public score every 5 iterations:** if this is a global loop iteration whose
+number is divisible by 5 (see `.agent-port-loop-logs/iteration-count`, or the
+loop injects a reminder), run `node frozen/ps_test_runner.mjs sessions` and
+rewrite `CURRENT.md` Score (pass count, screen/RNG aggregates, speed, PASS
+list, notable non-PASS). Do not estimate suite totals from one focused seed.
+
 Remove DIAG/FORCE, seed names, recorded coords, raw RNG-index gates, edits to
 frozen `isaac64`/`terminal`/`storage`, and any `fastforward.js` additions.
 

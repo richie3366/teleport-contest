@@ -4,28 +4,46 @@
 Do not paste completed D-chains here — those live in `DIVERGENCE-INDEX.md`
 and `archive/PROGRESS-HISTORY.md`.
 
-Score last measured: **2026-07-14** via focused seed0030 + green/cohort;
-full `sessions` suite not re-run this iteration. PASS set unchanged;
-seed0030 positional **105529**/105529 Scr **853**/1953 after D-0295/96
-(RNG full; true prefix first-miss 129→163; runner matched count 843→853).
+## Public score cadence
+
+**Every 5 global loop iterations** (when `iteration-count % 5 == 0`), run and
+document a full public score before or as the handoff:
+
+```bash
+node frozen/ps_test_runner.mjs sessions
+```
+
+Update **this Score section** with: pass count, screen/RNG aggregates, speed
+label, PASS list, notable non-PASS. Prepend a journal crumb. Do not invent
+suite totals from a single focused session.
+
+Score last measured: **2026-07-14** @ `6b84eab` — full `sessions` suite
+(global loop ~318; next mandatory at multiples of 5).
 
 ## Score
 
 | Metric | Value |
 |--------|------:|
 | Sessions passing | **19 / 44** |
-| Screens matched | **1563 / 11,405** (13.70%) |
-| Positional RNG calls matched | **105529 / 105529** (seed0030; prior suite totals stale) |
-| Speed label | `20+0.12/turn` |
+| Screens matched | **2277 / 11,405** (19.96%) |
+| Positional RNG calls matched | **240,559 / 792,838** (30.34%) |
+| Speed label | `18+0.11/turn` (R² 0.78) |
 | Role-init throws | **0 / 44** |
 
 **PASS (19):** seed8000, seed0900, seed1500, seed1800, seed0060, seed0102,
 seed0700, seed1150, seed0017, seed0077, seed0106, seed0501, seed0105,
 seed0016, seed0015, seed0200, seed0101, seed0103, seed0104.
 
-**Notable non-PASS:** seed2200 RNG full Scr 229/230 (parked RC @158);
-seed0013 RNG full Scr 57/59; seed0030 **105529**/105529 Scr 853/1953;
-seed0107 2684/2902 Scr 36/98; seed0361/0373 quest bones blocked.
+**Notable non-PASS:**
+| Session | RNG | Screen | Note |
+|---------|----:|-------:|------|
+| seed0030 | 105529/105529 | 853/1953 | primary peel; prefix miss ~@163 |
+| seed2200 | 3018/3018 | **175**/230 | RNG full; Scr regressed vs older 229/230 |
+| seed0013-rogue | 4838/4838 | 57/59 | |
+| seed0013-friday13-restore | 4803/4804 | 46/99 | |
+| seed0107 | 2684/2902 | 36/98 | |
+| seed0012 | 0/13878 | 0/308 | stack overflow |
+| seed0361/0373 | early | 0 | quest bones / `makemaz` |
 
 ## Green gate
 
@@ -54,22 +72,20 @@ Both must remain full RNG + screen PASS with exact scored-output lengths.
 | **Recent fixed** | D-0295 `Monnam` do_it; D-0296 `map_invisible`/`pre_mm_attack` (129→163) |
 
 ```bash
-# Focused seed0030 (RNG already full — peel screens)
 node frozen/ps_test_runner.mjs sessions/seed0030-ten-diverse-deaths.session.json
 ```
 
 **Note:** runner `Screen N/M` is **total** positional matches, not prefix
 length. Prefer decodeScreen prefix first-miss for peel targets.
 
-**Alternate:** seed0013 Scr 57/59 (RNG full); or seed0107 RNG@2684.
-**Also:** seg7 JS 159 vs C 172 screens (topten/end_around or earlier desync).
+**Alternate:** seed0013 Scr 57/59; seed0107 RNG@2684; seed2200 Scr 175/230.
 
 **Prefer over:** quest bones (`^V`/`makemaz`), parked D-0006, seed2200 RC.
 
 **Cohort after shared change:** green gate + seed1500 + seed1800 + seed0060 +
 seed0102 + seed0700 + seed1150 + seed0017 + seed0077 + seed0106 + seed0501 +
 seed0105 + seed0016 + seed0015 + seed0200 + seed0101 + seed0103 + seed0104
-(must stay PASS) + strict lengths. Full `sessions` after foundation milestones.
+(must stay PASS) + strict lengths.
 
 ## Parked (diagnose only — do not implement)
 
@@ -91,5 +107,5 @@ seed0105 + seed0016 + seed0015 + seed0200 + seed0101 + seed0103 + seed0104
 ## Handoff rule
 
 Update **this file** when score, green gate, or primary objective changes.
-Append journal; add divergence entry + index row; update one C-JS-MAP section.
-Do **not** re-expand completed D-lists into this file.
+On every 5th global iteration, refresh Score from a full `sessions` run.
+Journal; divergence + index; one C-JS-MAP section. No completed D-lists.

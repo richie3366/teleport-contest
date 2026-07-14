@@ -293,6 +293,17 @@ while true; do
   # Each iteration is a fresh agent session (new context). Prompt insists on
   # reading docs/CURRENT.md + docs/NOTES.md so state survives across loops.
   # Bash 3.2 (macOS) + set -u: empty "${arr[@]}" is "unbound"; use + guard.
+  prompt_body="$(cat "$PROMPT_FILE")"
+  if (( iter % 5 == 0 )); then
+    echo "$(date -Iseconds) === full public score due (iteration $iter % 5 == 0) ===" \
+      | tee -a "$MASTER_LOG"
+    prompt_body+=$'\n\n## MANDATORY this iteration (global #'"$iter"' divisible by 5)\n'
+    prompt_body+=$'Run the full public score and document it in `docs/CURRENT.md` Score:\n\n'
+    prompt_body+=$'```bash\nnode frozen/ps_test_runner.mjs sessions\n```\n\n'
+    prompt_body+=$'Record pass count, screen/RNG aggregates, speed label, PASS list, and\n'
+    prompt_body+=$'notable non-PASS from `__RESULTS_JSON__`. Prepend a journal crumb.\n'
+    prompt_body+=$'Do this even if you also ship a port fix; prefer score+docs if short on time.\n'
+  fi
   iter_start="$(now_epoch)"
   set +e
   run_with_timeout "$AGENT_BIN" -p \
@@ -300,7 +311,7 @@ while true; do
     --output-format "$OUTPUT_FORMAT" \
     ${TRUST_ARGS[@]+"${TRUST_ARGS[@]}"} \
     ${FORCE_ARGS[@]+"${FORCE_ARGS[@]}"} \
-    "$(cat "$PROMPT_FILE")" \
+    "$prompt_body" \
     >"$iter_raw" 2>&1
   status=$?
   set -e

@@ -120,9 +120,12 @@ porting guide). The prompt emphasizes:
 7. **Commit and push** to `origin` (see prompt “End-of-iteration git”; no
    force-push)
 `docs/NOTES.md` is deliberately tiny and unresolved-only. Score/objective live
-in `docs/CURRENT.md`. Fixed causes belong in `DIVERGENCE-LOG.md` (+ index);
-structural omissions belong in one `docs/c-js-map/*.md` section; each
-iteration prepends a short journal entry (rotate into `docs/archive/` when >15).
+in `docs/CURRENT.md`. **Every 5 global loop iterations** the loop injects a
+mandatory full `sessions` score into the prompt; agents must update CURRENT
+Score from `__RESULTS_JSON__`. Fixed causes belong in `DIVERGENCE-LOG.md`
+(+ index); structural omissions belong in one `docs/c-js-map/*.md` section;
+each iteration prepends a short journal entry (rotate into `docs/archive/`
+when >15).
 
 ### Logs
 

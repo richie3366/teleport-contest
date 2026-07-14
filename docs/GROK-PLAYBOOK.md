@@ -135,7 +135,7 @@ return to `CURRENT.md` primary. Do not spin on the same theory.
 
 | Fact type | Owner |
 |-----------|-------|
-| Score / green gate / primary objective | **`CURRENT.md`** (keep tiny) |
+| Score / green gate / primary objective | **`CURRENT.md`** (keep tiny; refresh Score every 5 loop iters via full `sessions`) |
 | Unresolved hypothesis / dead end | `NOTES.md` (≤100 lines) |
 | Proved cause / rejected theory | `DIVERGENCE-LOG.md` + index row |
 | Module status / omissions | one `c-js-map/*.md` |
@@ -178,6 +178,10 @@ node frozen/ps_test_runner.mjs \
 node scripts/strict-output-check.mjs \
   sessions/seed8000-tourist-starter.session.json \
   sessions/seed0900-tourist-explore-actions.session.json
+
+# Full public score (mandatory every 5 global loop iterations)
+node frozen/ps_test_runner.mjs sessions
+# Then update CURRENT.md Score from __RESULTS_JSON__ aggregates — not guesses.
 
 # Shared-blocker survey
 node frozen/ps_test_runner.mjs sessions 2>&1 | rg 'role not ported|PASS|FAIL' | head -40

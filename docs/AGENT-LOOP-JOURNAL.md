@@ -21,6 +21,17 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-14 19:00 — full public score + every-5 cadence
+
+- Objective: refresh suite totals; wire mandatory full score every 5 loop iters.
+- Measurement: `node frozen/ps_test_runner.mjs sessions` @ `6b84eab` →
+  **19/44** Scr **2277**/11405 (19.96%) RNG **240559**/792838 (30.34%)
+  speed `18+0.11/turn` (R² 0.78). PASS set unchanged (19). seed0030 Scr
+  **853**/1953 RNG full; seed2200 Scr **175**/230 (older notes had ~229).
+- Change: `CURRENT.md` Score; loop injects score reminder when `iter % 5 == 0`;
+  prompt/playbook/AGENT-PORT-LOOP cadence notes.
+- Next: seed0030 screen peel @163 (mimic appearance).
+
 ## 2026-07-14 18:56 — D-0295/96 Monnam do_it + map_invisible
 
 - Objective: seed0030 Scr peel (CURRENT primary); prefix first-miss @129.
