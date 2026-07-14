@@ -19,6 +19,20 @@ Use this shape:
 
 ---
 
+## 2026-07-14 09:45 — diagnose seg8 @3068 dog_move rn2(1) (D-0261)
+- Objective: seed0030 seg8 peel after D-0260 (PROGRESS primary).
+- C locus: `dogmove.c` `dog_move`/`dog_goal`; `mon.c` `mfndpos` diagonal
+  squeeze; possible `couldsee`/`gettrack`.
+- Result: **falsified** stale “@3310 obj_resists vs rn2(4)”. Live first
+  mismatch @**3068**: C `distfleeck` vs JS `!rn2(++chcnt)` on equal-dist
+  cand `(65,15)`. Matched through `dog_goal` `rn2(4)=2`. Prior turn
+  APPORT onto gold `(66,16)` matched. JS `couldsee` true / `gg=hero` /
+  cnt=8 / mtrack[0]=(65,15). Hypothesis: C omits that cand or different
+  `gg`/`nidist`. No production change (DIAG removed).
+- Verification: green+strict preflight PASS; seg8 first=3068; no JS edit.
+- Next: falsify C `mfndpos` set / `couldsee(66,16)` / `gettrack` at peel;
+  port `bad_rock`/`cant_squeeze_thru` + `m_in_out_region` if confirmed.
+
 ## 2026-07-14 09:25 — newmonhp level-0 min HP (D-0260)
 - Objective: seed0030 seg8 @3263 passivemm arity (PROGRESS primary).
 - C locus: `makemon.c` `newmonhp` — level-0 `basehp=1` + `rnd(4)` then

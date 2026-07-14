@@ -542,14 +542,16 @@ seed0101 + seed0103 + seed0104 **PASS**. seed2200 RNG **full**
 seed0101 RNG **full** Scr **27**/27. seed0103 RNG **full** Scr **60**/60.
 seed0104 RNG **full** Scr **43**/43.
 
-- **Bounded unit:** seed0030 seg8 @3310 — **D-0261** open —
-  C `rn2(100) @ obj_resists` vs JS `rn2(4)`. D-0260 `newmonhp`
-  level-0 min-HP boost **ported** (seg8 **3263→3310**). D-0259
-  `armoroff` delay + ICRNL/`C(j)` rush **ported**. /
+- **Bounded unit:** seed0030 seg8 @3068 — **D-0261** open —
+  C `rn2(5) @ distfleeck` vs JS `rn2(1)` after matched `dog_goal`
+  `rn2(4)` (stale “@3310 obj_resists” discarded). D-0260 `newmonhp`
+  level-0 min-HP boost **ported**. D-0259 `armoroff` delay + ICRNL/
+  `C(j)` rush **ported**. /
   seed0361/0373 **quest `getbones`** (blocked: need `^V`→`goto_level`→
   `makemaz` first — ordinary `goto_level` now exists for stairs; Mines
   `fill_lvl` path exists D-0171).
-- **Prefer:** seg8 @3310 `obj_resists`/`dog_goal` over more peels;
+- **Prefer:** seg8 @3068 `dog_move`/`mfndpos` squeeze or
+  `couldsee`/`gettrack` over more peels;
   over quest bones until `^V`/`makemaz`; over parked D-0006
   and over baking seed2200 RC paths.
   Hero `dotrap` MAGIC_TRAP/`domagictrap` deferred (D-0254 named
@@ -775,10 +777,10 @@ seed0104 RNG **full** Scr **43**/43.
   **`armoroff` delay + ICRNL/`C(j)` rush** (done D-0259; seg8
   **3088→3263**);
   **`newmonhp` level-0 `basehp` boost** (done D-0260; seg8
-  **3263→3310**; full **19/44** Scr **1463** RNG **181294**;
-  seed0030 **47955**/105529; seed0013 **4367**/4838;
-  next @3310 `obj_resists`);
-  **seg8 @3310 obj_resists** (D-0261 **open**);
+  **3263→3310** claimed; live first mismatch @**3068**; full **19/44**
+  Scr **1463** RNG **181294**; seed0030 **47955**/105529; seed0013
+  **4367**/4838; next @3068 fleeck vs `rn2(1)`);
+  **seg8 @3068 dog_move rn2(1) vs fleeck** (D-0261 **open**);
   **`goto_level` `stairway_find_from`** (D-0224 find_from done);
   D-0218 upstairs theory rejected;
   …

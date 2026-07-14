@@ -7,15 +7,16 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 
 ## Active
 
-- **Current unit:** seed0030 seg8 @3310 — C `rn2(100) @ obj_resists` vs JS
-  `rn2(4)` (after D-0260).
-- **Hypothesis:** after level-0 `newmonhp` min-HP boost, next peel is
-  dog_goal / invent path — JS burns `rn2(4)` where C does another
-  `obj_resists(100)` (extra split / missing resist gate / wrong
-  dog_invent branch).
-- **Falsifier:** at first mismatch log which JS caller emits `rn2(4)`
-  and C’s next `obj_resists`/`dog_goal` pair; compare invent vs floor
-  object.
+- **Current unit:** seed0030 seg8 @3068 — C `rn2(5) @ distfleeck` vs JS
+  `rn2(1)=0` (after D-0260; “@3310 obj_resists vs rn2(4)” was stale).
+- **Hypothesis:** after matched `dog_goal` `rn2(4)=2`, C finishes
+  `dog_move` with no selection RNG while JS burns `!rn2(++chcnt)` on
+  first cand `(65,15)` (`j==0`). C must omit that cand from `mfndpos`
+  (diagonal squeeze/terrain) or have different `gg`/`nidist`
+  (`!couldsee`→`gettrack`) so the first kept cand has `j<0`.
+- **Falsifier:** dump C `mfndpos` / `couldsee(66,16)` / `gettrack` at
+  peel (Hachi @`(66,16)`, hero @`(64,17)`, JS `couldsee` true, cnt=8,
+  mtrack[0]=`(65,15)`).
 - **Parked deep canary:** D-0006 pet movement — do not implement until C
   state/candidate capture exists.
 - **Parked seed2200 @158:** RC config path — harness `$HOME`, not a port bug.
@@ -173,6 +174,12 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   level-0 `rnd(4)=1` → 2 so jackal survives 1 dmg → `passivemm`
   `rn2(3)`; JS kept HP=1 → kill → `corpse_chance` `rn2(2)` (D-0260).
   Do not patch `passivemm` arity for that peel.
+- **seg8 @3068 was NOT a second `obj_resists` / dog_goal `rn2(4)` miss**
+  — match through `dog_goal` `rn2(4)=2` @3067; peel is JS
+  `!rn2(++chcnt)` on equal-dist `(65,15)` vs C `distfleeck` (D-0261).
+  Prior turn @3039 matched `rn2(1)` then APPORT onto gold `(66,16)`.
+  Do not patch chcnt without C candidate/`gg` proof. Do not ship
+  `distmin >= 5` mtrack (rejected D-0241; peel distmin=2).
 
 ## Landmarks
 
@@ -196,6 +203,10 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   delay-0 still immediate `*_off`+`off_msg` (D-0259).
 - **`newmonhp` level-0:** `basehp=1`; `rnd(4)`; if `mhpmax==basehp`
   boost +1 (min HP 2). Same boost when `d(m_lev,8)==m_lev` (D-0260).
+- **seg8 D-0261 peel:** per-seg index **3068** (not 3310); Hachi
+  @`(66,16)` on gold after APPORT turn; `dog_goal` follow `rn2(4)=2`
+  then JS `rn2(1)` vs C fleeck. JS `mfndpos` missing C diagonal
+  `bad_rock`/`cant_squeeze_thru` and `m_in_out_region` before place.
 - **`F`/`do_fight`:** PREFIXCMD sets `forcefight`; next move dir attacks
   (empty → `domove_fight_empty` “thin air” / solid); no turn on F alone
   (D-0225).
