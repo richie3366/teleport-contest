@@ -38,7 +38,7 @@ seed0016, seed0015, seed0200, seed0101, seed0103, seed0104.
 **Notable non-PASS:**
 | Session | RNG | Screen | Note |
 |---------|----:|-------:|------|
-| seed0030 | 105529/105529 | **1428**/1953 | primary peel; cell first-miss **@1195** |
+| seed0030 | 105529/105529 | **1432**/1953 | primary peel; cell first-miss **@1262** |
 | seed2200 | 3018/3018 | **175**/230 | RNG full; Scr cells 178/230 |
 | seed0013-rogue | 4838/4838 | 57/59 | |
 | seed0013-friday13-restore | 4803/4804 | 46/99 | |
@@ -62,16 +62,16 @@ Both must remain full RNG + screen PASS with exact scored-output lengths.
 
 ## Primary objective
 
-**seed0030 screen peel** — RNG full; Scr **1428**/1953; cell first-miss **@1195**
+**seed0030 screen peel** — RNG full; Scr **1432**/1953; cell first-miss **@1262**
 
 | | |
 |--|--|
-| **C locus** | `m_throw` / missile display — arrow glyph on map during shoot |
-| **JS locus** | `js/mthrowu.js` `m_throw` / `tmp_at` / object place after throw |
-| **Symptom** | @1195 same topline `…gnome shoots an arrow!--More--`; map `(13,27)` C `)` cyan vs JS `·` |
-| **Hypothesis** | Thrown arrow should paint `)` (weapon) at flight/land cell before `--More--` |
-| **Falsifier** | @1195 cell `(13,27)` `)`; expect Scr↑ |
-| **Recent fixed** | D-0318 `mon_wield_item` canseemon wield pline; @1174; Scr 1427→1428 |
+| **C locus** | `hack.c` `losehp` — leave `u.uhp` negative on fatal; `bot` skip `-1` |
+| **JS locus** | `js/hack.js` `losehp` clamps `uhp=0` before `You die` pline |
+| **Symptom** | @1262 same topline `You are hit by an arrow!--More--`; botl C `HP:4` vs JS `HP:0` (flash `)` matches) |
+| **Hypothesis** | Fatal arrow overshoot leaves `uhp==-1`; C `bot` no-op keeps prior HP:4 through hit/`You die` `--More--` |
+| **Falsifier** | @1262 botl `HP:4(14)`; expect Scr↑ |
+| **Recent fixed** | D-0319 await `thitu`/`monshoot` plines; @1195 `)`+HP:9; Scr 1428→1432 |
 
 ```bash
 node frozen/ps_test_runner.mjs sessions/seed0030-ten-diverse-deaths.session.json

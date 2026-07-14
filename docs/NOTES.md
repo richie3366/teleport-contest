@@ -7,15 +7,16 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Current unit:** seed0030 Scr **1428**/1953 RNG **FULL**; cell first-miss **@1195**.
-- **@1195:** same topline `You attack thin air.  The gnome shoots an arrow!--More--`;
-  map cell **(13,27)** C `)` cyan vs JS `·`.
-- **Hypothesis:** `m_throw` / missile flash should leave or show weapon `)` glyph
-  at that cell before `--More--` (tmp_at / place_object / newsym).
-- **Falsifier:** @1195 cell `(13,27)` `)`; Scr↑.
-- **Fixed:** D-0318 `mon_wield_item` `canseemon` → `Monnam wields doname!|.`;
-  @1174→@1195; Scr 1427→1428.
-- **#345:** full score **19/44** Scr **2865** RNG **240657**; speed `17+0.12/turn`.
+- **Current unit:** seed0030 Scr **1432**/1953 RNG **FULL**; cell first-miss **@1262**.
+- **@1262:** same topline `You are hit by an arrow!--More--`; map `)` matches;
+  botl C `HP:4(14)` vs JS `HP:0(14)`. C keeps HP:4 through `You die...--More--`.
+- **Hypothesis:** `losehp` must leave negative `uhp` (C does not clamp); overshoot
+  to `-1` makes `bot()` no-op so hit/`You die` `--More--` keep prior botl.
+- **Falsifier:** @1262 `HP:4(14)`; Scr↑.
+- **Fixed:** D-0319 await `thitu` hit/miss + `monshoot` plines before `losehp`/
+  flight; @1195 `)`+HP:9; Scr 1428→1432; first-miss →@1262.
+- **Don’t:** clamp fatal `uhp=0` in `losehp` before `You die` flush (regresses
+  D-0310 `-1` bot skip on overshoot).
 - **Alt:** seed0013 Scr 57/59; seed0107 @2684.
 - **Parked:** D-0006; seed2200 @158 RC/`$HOME`.
 
@@ -50,6 +51,8 @@ Objective/score live in `CURRENT.md`.
   `cannot_push` (no vain); `dopush` must clear dest `I` (D-0317);
   skip `mon_wield_item` canseemon wield pline — turn spent but topline misses
   `The gnome wields a bow!` (D-0318);
+  fire-and-forget `thitu`/`monshoot` pline — await before `losehp`/flight so
+  `--More--` keeps `tmp_at` flash + pre-damage HP (D-0319);
   blanket `observe_object` in `xname` without `distantname` (regresses map).
 - Runner `Screen N/M` = total matches, not prefix length; contiguous cell
   miss can precede a later named topline peel (D-0311→@594 while @583 RIP open).
@@ -74,4 +77,5 @@ Objective/score live in `CURRENT.md`.
   map_invisible / mimic / vault+fountain/sink/shop / TOOL descr / shop enter /
   uhitm mon_nam / WAND descr / bot uhp==-1 / paybill / SCROLL unlabeled /
   done_in_by isshk / botl flush·bot·more / Priest bknown / WAND known0 /
-  moverock hear-behind / mon_wield canseemon pline: D-0274…D-0318.
+  moverock hear-behind / mon_wield canseemon pline / thitu await pline:
+  D-0274…D-0319.

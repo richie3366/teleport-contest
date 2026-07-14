@@ -20,6 +20,17 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-14 22:15 — #346 D-0319 thitu await pline
+
+- Objective: seed0030 @1195 arrow glyph on shoot `--More--` (CURRENT).
+- C locus: `mthrowu.c` `thitu` You-hit then losehp; `monshoot` pline before
+  `m_throw` (flash kept through hit `--More--`).
+- Change: await `thitu` hit/miss + `monshoot` plines before `losehp`/flight
+  (D-0319).
+- Verification: @1195 `)`+HP:9; Scr **1428→1432**; first miss **@1262**
+  botl HP:4 vs 0; RNG full; green+strict; 19 PASS cohort + strict.
+- Next: @1262 `losehp` leave negative `uhp` (`bot` skip `-1`).
+
 ## 2026-07-14 22:05 — #345 D-0318 mon_wield canseemon pline + score
 
 - Objective: seed0030 @1174 thin-air + gnome wield (CURRENT); mandatory

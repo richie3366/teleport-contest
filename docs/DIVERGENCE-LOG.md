@@ -7998,3 +7998,26 @@ Open that file first; then jump to a single `## D-NNNN` entry below
   artifact_light; autoreturn tether pline.
 - **Next:** @1195 thrown-arrow map glyph `)` at (13,27).
 
+## D-0319 — await `thitu`/`monshoot` plines before `losehp`/flight
+
+- **Status:** fixed
+- **Observed:** seed0030 @1195 — same topline
+  `You attack thin air.  The gnome shoots an arrow!--More--`; map
+  tty (13,27) C `)` cyan vs JS `·`; botl C `HP:9` vs JS `HP:7`. RNG full.
+  JS anim frames already showed `)` during flight.
+- **C locus:** `mthrowu.c` `thitu` — `You("are hit…")` then `losehp`;
+  `monshoot` pline before `m_throw`. Hit pline’s `--More--` clears prior
+  shoot line while `m_throw` `tmp_at` flash still painted and before
+  damage/`DISP_END`.
+- **Cause:** JS `thitu`/`monshoot` fired async `pline` without `await`, so
+  `losehp` + post-loop `tmp_at(DISP_END)` ran before `--More--` capture.
+- **Change:** `await pline` on `thitu` hit/miss arms and `monshoot` shoot
+  line before `losehp` / flight loop (D-0319).
+- **Verification:** @1195 `)`+HP:9 match; Scr **1428→1432**; first miss
+  **@1262** botl HP:4 vs 0 on hit `--More--`; RNG full; green+strict;
+  19 PASS cohort + strict lengths.
+- **Named omissions:** `thitu` acid/silver/egg/cream/venom arms; catch
+  `hold_another_object`; `ohitmon`; hallu `obj_to_glyph` display RNG.
+- **Next:** @1262 fatal `losehp` leave negative `uhp` for `bot` `-1` skip.
+
+
