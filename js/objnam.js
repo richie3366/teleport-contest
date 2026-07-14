@@ -360,6 +360,8 @@ function pretty_base(obj) {
  */
 export function xname(obj) {
     if (!obj) return 'something';
+    // C: Role_if(PM_CLERIC) → obj->bknown = 1 (bypass set_bknown / invent update)
+    if (Role_if(PM_CLERIC)) obj.bknown = 1;
     let base = pretty_base(obj);
     if ((obj.quan || 1) !== 1) base = makeplural(base);
     return base;
@@ -450,9 +452,13 @@ function bimanual(obj) {
 
 /**
  * C ref: objnam.c doname() — invent-kit subset (Tourist/Rogue starter lines).
+ * C doname_base starts with xname(obj), which forces cleric bknown before
+ * the BUC prefix is read; JS doname uses pretty_base so apply the same force.
  */
 export function doname(obj) {
     if (!obj) return 'something';
+    // C: xname Role_if(PM_CLERIC) obj->bknown=1 before doname_base reads it
+    if (Role_if(PM_CLERIC)) obj.bknown = 1;
     const otyp = obj.otyp;
     const oclass = obj.oclass;
     const known = !!obj.known;

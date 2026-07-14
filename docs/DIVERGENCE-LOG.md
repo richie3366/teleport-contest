@@ -7912,3 +7912,23 @@ Open that file first; then jump to a single `## D-NNNN` entry below
 - **Next:** @583 RIP `done_in_by` shk → `Ms. Maganasipi, the shopkeeper`.
 
 
+## D-0315 — Priest `xname`/`doname` force `bknown`
+
+- **Status:** fixed
+- **Observed:** seed0030 @787 (seg5 Priest) — C look_here
+  `a cursed candy bar` vs JS `a candy bar`; RNG full. Prior “map overlay”
+  reading of `ursed`/`andy` was the same line’s BUC text.
+- **C locus:** `objnam.c` `xname` — `Role_if(PM_CLERIC)` sets
+  `obj->bknown = 1` (bypass `set_bknown`); `doname_base` calls `xname`
+  then reads `obj->bknown` for the BUC prefix.
+- **Cause:** JS `doname` used `pretty_base` without the cleric force;
+  `xname` also omitted it. Floor candy was cursed but `bknown` stayed 0.
+- **Change:** set `obj.bknown = 1` when `Role_if(PM_CLERIC)` in both
+  `xname` and `doname` (D-0315).
+- **Verification:** @787 match; Scr **1395→1398**; first miss **@791**
+  glass wand `(0:6)`; RNG full; green+strict; 19 PASS cohort + priest
+  strict sample (seed0106/seed0501).
+- **Named omissions:** `doname_with_price` shop arms; full `set_bknown`
+  invent-update path; `override_ID` force-all-known.
+- **Next:** @791 pet pickup `glass wand` vs `glass wand (0:6)`.
+

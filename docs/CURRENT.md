@@ -37,7 +37,7 @@ seed0016, seed0015, seed0200, seed0101, seed0103, seed0104.
 **Notable non-PASS:**
 | Session | RNG | Screen | Note |
 |---------|----:|-------:|------|
-| seed0030 | 105529/105529 | **1395**/1953 | primary peel; cell first-miss **@787** |
+| seed0030 | 105529/105529 | **1398**/1953 | primary peel; cell first-miss **@791** |
 | seed2200 | 3018/3018 | **175**/230 | RNG full; Scr cells 178/230 |
 | seed0013-rogue | 4838/4838 | 57/59 | |
 | seed0013-friday13-restore | 4803/4804 | 46/99 | |
@@ -61,16 +61,16 @@ Both must remain full RNG + screen PASS with exact scored-output lengths.
 
 ## Primary objective
 
-**seed0030 screen peel** — RNG full; Scr **1395**/1953; cell first-miss **@787**
+**seed0030 screen peel** — RNG full; Scr **1398**/1953; cell first-miss **@791**
 
 | | |
 |--|--|
-| **C locus** | look/pickup pile display — `Things that are here:` map overlay |
-| **JS locus** | `js/display.js` / invent look — pile list vs map glyphs under overlay |
-| **Symptom** | @787 sole cell miss on map under `Things that are here:` (C `ursed` vs JS `andy`) |
-| **Hypothesis** | look-here / pile window paints over map differently than C |
-| **Falsifier** | @787 cells match; expect Scr↑ |
-| **Recent fixed** | D-0314 botl: pline→flush→bot; more() no bot; cls botlx; spell `uen` botl |
+| **C locus** | dog invent / wand `doname` — pet pickup pline charges |
+| **JS locus** | `js/dogmove.js` / `js/objnam.js` — glass wand `(0:6)` vs bare name |
+| **Symptom** | @791 C `The little dog picks up a glass wand.` vs JS `… (0:6)` |
+| **Hypothesis** | wand `known`/spe shown on pet pickup when C omits charges |
+| **Falsifier** | @791 topline match; expect Scr↑ |
+| **Recent fixed** | D-0315 Priest `xname`/`doname` force `bknown`; @787 cursed candy |
 
 ```bash
 node frozen/ps_test_runner.mjs sessions/seed0030-ten-diverse-deaths.session.json
