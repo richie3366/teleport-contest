@@ -7,10 +7,12 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 
 ## Active
 
-- **Current unit:** seed0030 seg3 @8561 — C `xkilled` treasure `mkobj`
-  (`rnd(100)`/`rnd(1000)`/`next_ident`) vs JS `rn2(3)` after D-0228.
-- **Falsifier:** port or diagnose `xkilled`→`make_corpse` treasure path
-  (`mkobj(RANDOM_CLASS)` when `corpse_chance`); expect prefix past 8561.
+- **Current unit:** seed0030 seg3 @9166 — after matched EOT (`gethungry` +
+  `moveloop_core` `rn2(79)`), C `gethungry`/`hitum` (hero melee) vs JS
+  `rn2(5)` (`distfleeck`).
+- **Falsifier:** reconstruct key/command at the matched EOT; expect C hero
+  attack turn while JS starts monster fleeck (key desync or missing 0-RNG
+  gate — same class as D-0228).
 - **Parked deep canary:** D-0006 pet movement — do not implement until C
   state/candidate capture exists.
 - **Parked seed2200 @158:** RC config path — harness `$HOME`, not a port bug.
@@ -93,6 +95,9 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   grid bug was adjacent; peel was key desync: C safety-rejected `s`/`.`
   (0 RNG) then `h`; JS ran real searches (D-0228). Do not re-chase
   `do_attack`/`overexertion` for that peel.
+- **seed0030 seg3 @8561 was NOT corpse_chance arity alone** — C
+  `!rn2(6)` then `mkobj(RANDOM_CLASS)` (`rnd(100)`/`rnd(1000)`/
+  `next_ident`); JS burned the gate then skipped the body (D-0229).
 - **`monattk.h`: AT_WEAP=254, AT_MAGC=255, AT_SPIT=10** — never use 10 for
   weapon (D-0179).
 - Hostile `m_move`: before place, `m_digweapon_check` may return
@@ -123,6 +128,10 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 - **`cmd_safety_prevention`:** `flags.safe_wait` (default On) +
   `monster_nearby` → reject `s`/`.` with Norep, no time; `m` prefix /
   `multi` skip (D-0228).
+- **`xkilled` treasure:** `!rn2(6)` + !G_NOCORPSE + not hero tile +
+  !S_KOP + !mcloned → `mkobj(RANDOM_CLASS,TRUE)`; food (non-COLLECT)
+  or small-mon oversized → `delobj`; else place+stack. flooreffects
+  non-floor arms deferred (D-0229).
 - **`test_move` diagonal into DOOR:** only `doorless_door` (D_NODOOR /
   D_BROKEN) allowed; open/closed/locked block diagonal entry/exit
   (D-0219). Same rule in `domove` and steed `landing_spot`/`test_move_ok`.

@@ -12,7 +12,9 @@ import {
     M_AP_OBJECT, M_AP_FURNITURE, M_AP_MONSTER, M_AP_TYPE,
     MIM_REVEAL,
 } from './const.js';
-import { WEAPON_CLASS, objectNameStrs } from './objects.js';
+import {
+    WEAPON_CLASS, FOOD_CLASS, RANDOM_CLASS, objectNameStrs, objectNames,
+} from './objects.js';
 import { exercise, A_STR, A_DEX, A_WIS, acurr } from './attrib.js';
 import { overexertion, nomul, losehp } from './hack.js';
 import { pline, newsym } from './display.js';
@@ -23,12 +25,19 @@ import {
     AT_TUCH, AT_BITE, AT_BUTT, AT_STNG, AT_MAGC, AD_PHYS,
 } from './mhitm.js';
 import {
-    verysmall, G_FREQ, bigmonst, thick_skinned, monsterNames,
+    verysmall, G_FREQ, G_NOCORPSE, M2_COLLECT, MZ_MEDIUM,
+    bigmonst, thick_skinned, monsterNames,
 } from './monsters.js';
-import { mksobj, relobj_on_death } from './mkobj.js';
+import {
+    mksobj, mkobj, place_object, stackobj, delobj, relobj_on_death,
+} from './mkobj.js';
 import { monnear, record_mvitals_died, seemimic, wakeup } from './mon.js';
 import { livelog_printf } from './pline.js';
 import { experience, more_experienced, newexplevel } from './exper.js';
+
+// C monflag.h — MZ_HUMAN is MZ_MEDIUM
+const MZ_HUMAN = MZ_MEDIUM;
+const FIGURINE = objectNames.indexOf('FIGURINE');
 
 // C ref: monattk.h damage types used by passive / passive_obj
 const AD_MAGM = 1;
@@ -170,9 +179,41 @@ function first_weapon_hit(weapon) {
 }
 
 /**
+ * C ref: mon.c xkilled treasure drop — mkobj(RANDOM_CLASS) then food/size
+ * filters and place. flooreffects pool/lava/hot-potion/boulder omitted
+ * (ordinary floor → place). Artifact un-create before oversized delobj
+ * deferred.
+ */
+function xkilled_treasure_drop(mtmp, mdat, mndx, x, y) {
+    const mv = game.mvitals?.[mndx]?.mvflags ?? 0;
+    if (mv & G_NOCORPSE) return;
+    // no extra item from swallower or steed
+    if (x === (game.u?.ux | 0) && y === (game.u?.uy | 0)) return;
+    if (mdat?.mlet === 'S_KOP') return;
+    if (mtmp.mcloned) return;
+    const otmp = mkobj(RANDOM_CLASS, true);
+    if (!otmp) return;
+    const otyp = otmp.otyp | 0;
+    if (otmp.oclass === FOOD_CLASS
+        && !((mdat?.mflags2 ?? 0) & M2_COLLECT)
+        && !otmp.oartifact) {
+        delobj(otmp);
+    } else if ((mdat?.msize ?? 0) < MZ_HUMAN && otyp !== FIGURINE
+        && ((otmp.owt | 0) > 30 || !!(game.objects?.[otyp]?.oc_big))) {
+        // C: artifact_exists un-create deferred — ordinary RANDOM_CLASS
+        delobj(otmp);
+    } else {
+        // C: !flooreffects(...) → place_object + stackobj
+        place_object(otmp, x, y);
+        stackobj(otmp);
+    }
+}
+
+/**
  * C ref: mon.c xkilled — hero kill; treasure !rn2(6) then corpse_chance
- * → make_corpse. Named omissions: mkobj treasure body, LEVEL_SPECIFIC_NOCORPSE,
- * accessible||is_pool gate, wasinside/burycorpse/zombify, murder/luck rn2.
+ * → make_corpse. Named omissions: LEVEL_SPECIFIC_NOCORPSE,
+ * accessible||is_pool gate, flooreffects non-floor arms, wasinside/
+ * burycorpse/zombify, murder/luck rn2, artifact un-create on oversized.
  */
 async function xkilled(mtmp, xkill_flags = XKILL_GIVEMSG) {
     const nomsg = (xkill_flags & XKILL_NOMSG) !== 0;
@@ -200,9 +241,7 @@ async function xkilled(mtmp, xkill_flags = XKILL_GIVEMSG) {
     const mndx = mtmp.mnum ?? mdat?.mndx;
     if (!nocorpse) {
         // accessible/pool gate deferred — always attempt RNG like floor tile
-        if (!rn2(6)) {
-            // mkobj(RANDOM_CLASS) treasure drop deferred
-        }
+        if (!rn2(6)) xkilled_treasure_drop(mtmp, mdat, mndx, x, y);
         // C: if (!wasinside && corpse_chance(...)) make_corpse(...)
         if (corpse_chance(mtmp)) make_corpse(mtmp);
     }
@@ -212,8 +251,6 @@ async function xkilled(mtmp, xkill_flags = XKILL_GIVEMSG) {
     const tmp = experience(mtmp, died);
     more_experienced(tmp, 0);
     await newexplevel();
-    void x;
-    void y;
 }
 
 async function killed(mtmp) {

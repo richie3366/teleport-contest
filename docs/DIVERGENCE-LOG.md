@@ -232,6 +232,7 @@ Do not record a guessed cause as fixed merely because an RNG prefix moved.
 | D-0226 | fixed | Nesting rooms | rn2(4) w/h before build_room; positioned create_room |
 | D-0227 | fixed | hmon knockback | weapon maybe_knockback→mhitm_knockback rn2(3)+rn2(6) |
 | D-0228 | fixed | cmd_safety_prevention | safe_wait blocks s/. beside hostiles; seg3 7935→8561 |
+| D-0229 | fixed | xkilled treasure | mkobj(RANDOM_CLASS) after !rn2(6); seg3 8561→9166 |
 
 D-0001 through D-0005 predate the strict-length/cohort runbook. Their focused
 causes are preserved, but generic "green sessions held" is historical evidence,
@@ -6151,3 +6152,27 @@ cohort gates if those functions are touched again.
   `m` prefix `menu_requested` wiring for forced search/wait.
 - **Next:** seed0030 seg3 @8561 `xkilled` treasure `mkobj` (named
   deferred) / quest `getbones`.
+
+## D-0229 — xkilled treasure mkobj(RANDOM_CLASS)
+
+- **Status:** fixed
+- **Symptom:** seed0030 seg3 @8561 C `rnd(100)`/`rnd(1000)`/`next_ident`
+  (`mkobj`) vs JS `rn2(3)` (`corpse_chance`). Matched through
+  `xkilled` `rn2(6)=0`.
+- **Cause:** JS burned `!rn2(6)` then skipped the treasure body;
+  C calls `mkobj(RANDOM_CLASS, TRUE)` then food/size filters and
+  `place_object`/`stackobj`.
+- **C locus:** `mon.c` `xkilled` @3586–3615.
+- **Change:** `js/uhitm.js` `xkilled_treasure_drop` — G_NOCORPSE /
+  hero-tile / S_KOP / mcloned gates; `mkobj`; FOOD non-COLLECT →
+  `delobj`; small-mon oversized → `delobj`; else place+stack.
+- **Verification:** seg3 **8561→9166** (C `gethungry`/`hitum` vs JS
+  `distfleeck`); positional **37565**/105529 Scr **56**/1953; full
+  **19/44** Scr **1441** RNG **161899**; green+strict PASS;
+  17-session PASS cohort held.
+- **Named omissions:** `flooreffects` pool/lava/hot-potion/boulder;
+  artifact un-create before oversized `delobj`;
+  `accessible`/`is_pool` / `LEVEL_SPECIFIC_NOCORPSE` gates;
+  wasinside/burycorpse/zombify.
+- **Next:** seed0030 seg3 @9166 key/command after matched EOT
+  (C hero melee vs JS fleeck); or quest `getbones`.

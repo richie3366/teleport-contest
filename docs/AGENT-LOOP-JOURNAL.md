@@ -2952,3 +2952,16 @@ Use this shape:
   **37147**/105529 Scr **56**/1953; full **19/44** Scr **1441** RNG **161481**;
   green+strict PASS; 17-session PASS cohort held.
 - Next: seed0030 seg3 @8561 xkilled treasure mkobj; or quest getbones ^V/makemaz.
+
+## 2026-07-14 03:48 — D-0229 xkilled treasure mkobj
+- Objective: PROGRESS primary — seed0030 seg3 @8561 C mkobj treasure vs JS rn2(3).
+- C locus: mon.c xkilled @3586–3615 (mkobj RANDOM_CLASS after !rn2(6)).
+- Result: **verified** — JS burned !rn2(6) then skipped the body. Ported
+  xkilled_treasure_drop: G_NOCORPSE/hero-tile/S_KOP/mcloned gates; mkobj;
+  FOOD non-COLLECT or small-mon oversized → delobj; else place+stack.
+  flooreffects non-floor arms + artifact un-create deferred.
+- Verification: seg3 **8561→9166**; positional **37565**/105529 Scr **56**/1953;
+  full **19/44** Scr **1441** RNG **161899**; green+strict PASS; 17-session
+  PASS cohort held.
+- Next: seed0030 seg3 @9166 after matched EOT — C gethungry/hitum vs JS
+  distfleeck (key/command desync class); or quest getbones ^V/makemaz.

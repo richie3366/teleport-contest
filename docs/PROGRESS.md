@@ -39,8 +39,8 @@ frozen-file overlay):
 |--------|------:|
 | Sessions passing | **19 / 44** |
 | Screens matched | **1441 / 11,405** (12.63%) |
-| Positional RNG calls matched | **161,481 / 792,838** (20.37%) |
-| Speed label | `20+0.09/turn` |
+| Positional RNG calls matched | **161,899 / 792,838** (20.42%) |
+| Speed label | `19+0.09/turn` |
 | Working-tree base | `8b71735` + committed port (see `main`) |
 | Role-init throws | **0 / 44** (`u_init_role: role not ported`) |
 
@@ -64,7 +64,7 @@ shared blockers, and semantic coverage together—not one vanity metric.
 | `seed0501-priest-cast-read-turn` | **2238 / 2238** | **28 / 28** |
 | `seed2200-wizard-quaff-zap-read` | **3018 / 3018** | **229 / 230** |
 | `seed0017-samurai-altar-pray` | **3465 / 3465** | **67 / 67** |
-| `seed0030-ten-diverse-deaths` | **37147 / 105529** | **56 / 1953** |
+| `seed0030-ten-diverse-deaths` | **37565 / 105529** | **56 / 1953** |
 | `seed0103-knight-ride-pony` | **2640 / 2640** | **60 / 60** |
 | `seed0200-monk-north-search` | **3822 / 3822** | **40 / 40** |
 | `seed0101-ranger-quiver-throw-travel-engrave` | **2371 / 2371** | **27 / 27** |
@@ -332,6 +332,11 @@ seed0030 seg3 **7935→8561** (`xkilled` treasure `mkobj`); positional
 **37147**/105529 Scr **56**/1953; full **19/44** Scr **1441** RNG
 **161481**.
 
+**`xkilled` treasure `mkobj(RANDOM_CLASS)`** (D-0229) →
+seed0030 seg3 **8561→9166** (`gethungry`/`hitum` vs `distfleeck`);
+positional **37565**/105529 Scr **56**/1953; full **19/44** Scr
+**1441** RNG **161899**.
+
 ### Green gate
 
 Every shared-code iteration must preserve:
@@ -536,17 +541,18 @@ seed0101 + seed0103 + seed0104 **PASS**. seed2200 RNG **full**
 seed0101 RNG **full** Scr **27**/27. seed0103 RNG **full** Scr **60**/60.
 seed0104 RNG **full** Scr **43**/43.
 
-- **Bounded unit:** seed0030 seg3 @8561 — C `xkilled` treasure
-  `mkobj(RANDOM_CLASS)` vs JS after D-0228. / seed0361/0373
+- **Bounded unit:** seed0030 seg3 @9166 — after matched EOT, C
+  `gethungry`/`hitum` vs JS `distfleeck` (key/command desync class). /
+  seed0361/0373
   **quest `getbones`** (blocked: need `^V`→`goto_level`→`makemaz`
   first — ordinary `goto_level` now exists for stairs; Mines
   `fill_lvl` path exists D-0171).
-- **Prefer:** seg3 `xkilled` treasure peel over quest
+- **Prefer:** seg3 post-EOT key/command peel over quest
   bones until `^V`/`makemaz`; over parked D-0006 and over baking
   seed2200 RC paths.
   Hero `dotrap` deferred until monster pit peel is clear.
-  Hero `xkilled` treasure `mkobj` is now the active seg3 peel
-  (ordinary `make_corpse` done D-0191; mhitm path done D-0167;
+  Hero `xkilled` treasure `mkobj` done (D-0229; ordinary
+  `make_corpse` done D-0191; mhitm path done D-0167;
   `done_in_by` bones gate done D-0190).
 - **Named omissions:** full `findtravelpath` TEST_TRAV/GUESS/travelmap/
   `#retravel`; themerms fill *bodies* beyond Ghost/Teleportation hub/
@@ -674,6 +680,8 @@ seed0104 RNG **full** Scr **43**/43.
   **7617→7935**);
   **`cmd_safety_prevention` `s`/`.`** (done D-0228; seg3
   **7935→8561**);
+  **`xkilled` treasure `mkobj(RANDOM_CLASS)`** (done D-0229; seg3
+  **8561→9166**);
   **`goto_level` `stairway_find_from`** (D-0224 find_from done);
   D-0218 upstairs theory rejected;
   …
@@ -1501,6 +1509,11 @@ Module status, constitutional debt, and named omissions live in
     — seed0030 seg3 **7935→8561** (`xkilled` treasure `mkobj`);
     positional **37147**/105529 Scr **56**/1953; full **19/44** Scr
     **1441** RNG **161481**; next seg3 @8561 / quest `getbones`
+206. `xkilled` treasure `mkobj(RANDOM_CLASS)` (D-0229)
+    — seed0030 seg3 **8561→9166** (`gethungry`/`hitum` vs
+    `distfleeck`); positional **37565**/105529 Scr **56**/1953;
+    full **19/44** Scr **1441** RNG **161899**; next seg3 @9166 /
+    quest `getbones`
 
 Next work is selected from the active objectives above using
 `PORTING-RUNBOOK.md`, not by extending this historical list.
