@@ -18,17 +18,16 @@ label, PASS list, notable non-PASS. Prepend a journal crumb. Do not invent
 suite totals from a single focused session.
 
 Score last measured: **2026-07-14** — full `sessions` suite (global loop
-**#325**). Same 19 PASS as #320; primary peel still seed0030 (then @372;
-now @485 after D-0304 — remeasure on next %5).
+**#330**) after D-0306 shop `You_hear`. Same 19 PASS; Scr **2584→2810**.
 
 ## Score
 
 | Metric | Value |
 |--------|------:|
 | Sessions passing | **19 / 44** |
-| Screens matched | **2584 / 11,405** (22.66%) |
-| Positional RNG calls matched | **240,658 / 792,838** (30.35%) |
-| Speed label | `18+0.11/turn` (R² 0.78) |
+| Screens matched | **2810 / 11,405** (24.64%) |
+| Positional RNG calls matched | **240,657 / 792,838** (30.35%) |
+| Speed label | `17+0.11/turn` (R² 0.78) |
 | Role-init throws | **0 / 44** |
 
 **PASS (19):** seed8000, seed0900, seed1500, seed1800, seed0060, seed0102,
@@ -38,12 +37,12 @@ seed0016, seed0015, seed0200, seed0101, seed0103, seed0104.
 **Notable non-PASS:**
 | Session | RNG | Screen | Note |
 |---------|----:|-------:|------|
-| seed0030 | 105529/105529 | **1371**/1953 | primary peel; prefix first-miss **@550** |
+| seed0030 | 105529/105529 | **1373**/1953 | primary peel; prefix first-miss **@573** |
 | seed2200 | 3018/3018 | **175**/230 | RNG full; Scr cells 178/230 |
 | seed0013-rogue | 4838/4838 | 57/59 | |
 | seed0013-friday13-restore | 4803/4804 | 46/99 | |
 | seed0107 | 2684/2902 | 36/98 | |
-| seed0002 | 5112/27158 | 8/595 | RNG prefix moved vs older |
+| seed0002 | 5112/27158 | 8/595 | |
 | seed0012 | 0/13878 | 0/308 | stack overflow |
 | seed0361/0373 | early | 0 | quest bones / `makemaz` |
 
@@ -62,16 +61,16 @@ Both must remain full RNG + screen PASS with exact scored-output lengths.
 
 ## Primary objective
 
-**seed0030 screen peel** — RNG full; Scr **1371**/1953; prefix first-miss **@550**
+**seed0030 screen peel** — RNG full; Scr **1373**/1953; prefix first-miss **@573**
 
 | | |
 |--|--|
-| **C locus** | `sounds.c` `dosounds` — shop `shop_msg[rn2(2)+hallu]` → `You_hear1` |
-| **JS locus** | `js/sounds.js` `dosounds` shop arm |
-| **Symptom** | @550 topline: C `You hear someone cursing shoplifters.` vs JS blank |
-| **Hypothesis** | Shop arm burns `rn2(2)` but omits `You_hear` (same as D-0303) |
-| **Falsifier** | Match C shop hear-msg; expect prefix advance |
-| **Recent fixed** | D-0305 TOOL/WEAPON `!nn` → `OBJ_DESCR` (485→550; Scr 1370→1371) |
+| **C locus** | `shk.c` `u_entered_shop` (+ `hack.c` `ushops_entered` tracking) |
+| **JS locus** | absent — no `u_entered_shop` / `ushops_entered` |
+| **Symptom** | @573 topline: C `"Hello, Beatrix!  Welcome to Maganasipi's general store!"` vs JS blank |
+| **Hypothesis** | Shop-entry welcome never emitted; room/shop enter tracking incomplete |
+| **Falsifier** | Port enter tracking + welcome pline; expect prefix advance |
+| **Recent fixed** | D-0306 shop `dosounds` `You_hear` (550→573; Scr 1371→1373; suite Scr +226) |
 
 ```bash
 node frozen/ps_test_runner.mjs sessions/seed0030-ten-diverse-deaths.session.json

@@ -7737,3 +7737,21 @@ Open that file first; then jump to a single `## D-NNNN` entry below
   figurine ` of <pm>`; armor `!nn` → dn (separate C case).
 - **Next:** prefix@550 shop `dosounds` `You_hear` (`shop_msg`).
 
+## D-0306 — dosounds shop `You_hear` (`shop_msg`)
+
+- **Status:** fixed
+- **Observed:** seed0030 @550 — C `You hear someone cursing shoplifters.`
+  vs JS blank topline; RNG full (shop arm burned `rn2(2)` only).
+- **C locus:** `sounds.c` `dosounds` — `has_shop && !rn2(200)` →
+  `tended_shop && !strchr(u.ushops,…)` → `You_hear1(shop_msg[rn2(2)+hallu])`
+  then `noisy_shop`.
+- **Cause:** JS matched the gate/`rn2`/`noisy_shop` envelope but omitted the
+  `You_hear` (same pattern as D-0303 fountain/sink).
+- **Change:** emit `shop_msg[]` via existing `You_hear` with `rn2(2)+hallu`.
+- **Verification:** prefix **550→573**; Scr **1371→1373**; RNG full;
+  green+strict; suite **19/44**, Scr **2810**/11405 (+226 vs #325);
+  19 PASS cohort held in full suite.
+- **Named omissions:** barracks/court/swamp You_hear bodies still deferred.
+- **Next:** @573 C shop welcome `"Hello, Beatrix!  Welcome to … store!"`
+  — `u_entered_shop` / `ushops_entered` absent in JS.
+

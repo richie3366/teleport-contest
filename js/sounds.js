@@ -231,8 +231,9 @@ function oracle_sound(mtmp) {
  * Branch envelope: fountain/sink/court/swamp/vault/beehive/morgue/
  * barracks/zoo/shop/temple/oracle gates; vault body + You_hear
  * (gd_sound / gold_in_vault / vault_occupied FALLTHROUGH); shop body
- * search_special+tended_shop+rn2(2)+noisy_shop; mon_sound RNG-only.
- * Named omissions: swamp You1; barracks/shop/court You_hear plines;
+ * search_special+tended_shop+You_hear(shop_msg)+noisy_shop;
+ * mon_sound RNG-only.
+ * Named omissions: swamp You1; barracks/court You_hear plines;
  * findgd migrating_mons; vampshifter morgue; temple_priest body;
  * oracle canseemon; Is_sanctum; Soundeffect.
  */
@@ -334,7 +335,13 @@ export async function dosounds() {
             return;
         }
         if (tended_shop(sroom) && !hero_in_shop(sroom)) {
-            rn2(2); // shop_msg; hallu index deferred
+            // C: You_hear1(shop_msg[rn2(2)+hallu]); noisy_shop(sroom)
+            const shop_msg = [
+                'someone cursing shoplifters.',
+                'the chime of a cash register.',
+                'Neiman and Marcus arguing!',
+            ];
+            await You_hear(shop_msg[rn2(2) + hallu]);
             noisy_shop(sroom);
         }
         return;

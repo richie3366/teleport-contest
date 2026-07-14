@@ -7,12 +7,14 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Current unit:** seed0030 Scr **1371**/1953 RNG **FULL**; prefix **@550**.
-- **@550:** C `You hear someone cursing shoplifters.` vs JS blank topline.
-- **Hypothesis:** `dosounds` shop arm burns `rn2(2)` but omits `You_hear1`
-  (`shop_msg[]`) — same pattern as D-0303 fountain/sink.
-- **Falsifier:** emit `You_hear(shop_msg[rn2(2)+hallu])`; expect prefix advance.
-- **Fixed @485:** TOOL/WEAPON `!oc_name_known` → descr `"whistle"` (D-0305).
+- **Current unit:** seed0030 Scr **1373**/1953 RNG **FULL**; prefix **@573**.
+- **@573:** C `"Hello, Beatrix!  Welcome to Maganasipi's general store!"`
+  vs JS blank topline.
+- **Hypothesis:** `u_entered_shop` / `ushops_entered` absent in JS
+  (`hack.c` room tracking → `shk.c` welcome).
+- **Falsifier:** emit shop welcome on enter; expect prefix advance.
+- **Fixed @550:** shop `dosounds` `You_hear(shop_msg)` (D-0306).
+- **#330 score:** 19/44; Scr **2810**/11405 (24.64%); RNG 240657/792838.
 - **Alt:** seed0013 Scr 57/59; seed0107 @2684.
 - **Parked:** D-0006; seed2200 @158 RC/`$HOME`.
 
@@ -34,7 +36,7 @@ Objective/score live in `CURRENT.md`.
 - **Don’t:** emit true amulet name when `!oc_name_known` — `<descr> amulet` (D-0292);
   leave TOOL/WEAPON `!nn` as actualn — use `OBJ_DESCR` (D-0305);
   skip `xkilled` final `newsym` after treasure (D-0304);
-  burn fountain/sink `rn2` without `You_hear` (D-0303); same for shop_msg.
+  burn fountain/sink/shop `rn2` without `You_hear` (D-0303/D-0306).
 - Runner `Screen N/M` = total matches, not prefix length.
 
 ## Landmarks (≤15)
@@ -54,6 +56,6 @@ Objective/score live in `CURRENT.md`.
 - `m_move`: `set_apparxy` **before** mtame/shk|gd|priest (D-0267).
 - Key attribution ≠ RNG order (0-RNG `--More--`) (D-0228).
 - Bones / disclose / RIP / topten / amulet / DEC altar / noises / Monnam /
-  map_invisible / mimic M_AP_OBJECT / vault+fountain/sink dosounds / nearby
-  observe / newsym unseen blank / missmu just / irregular no-bbox-lit /
-  xkilled post-drop newsym / TOOL descr: D-0274…D-0305.
+  map_invisible / mimic M_AP_OBJECT / vault+fountain/sink/shop dosounds /
+  nearby observe / newsym unseen blank / missmu just / irregular no-bbox-lit /
+  xkilled post-drop newsym / TOOL descr: D-0274…D-0306.
