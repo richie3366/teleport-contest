@@ -197,12 +197,23 @@ export function rndmonst() {
     return rndmonst_adj(0, 0);
 }
 
-// C ref: mkobj.c rndmonnum() via rndmonst_adj
-export function rndmonnum() {
-    const ptr = rndmonst_adj(0, 0);
+// C ref: mkobj.c rndmonnum() / rndmonnum_adj()
+export function rndmonnum_adj(minadj = 0, maxadj = 0) {
+    const ptr = rndmonst_adj(minadj, maxadj);
     if (ptr) return ptr.mndx;
-    // Plan B not needed for seed8000 fill path
-    return 0;
+
+    // Plan B: any common monster (ignore difficulty)
+    const inhell = game.u?.uz?.dnum === 1;
+    const excludeflags = G_UNIQ | G_NOGEN | (inhell ? G_NOHELL : G_HELL);
+    let i;
+    do {
+        i = rn1(SPECIAL_PM - LOW_PM, LOW_PM);
+    } while ((mons(i).geno & excludeflags) !== 0);
+    return i;
+}
+
+export function rndmonnum() {
+    return rndmonnum_adj(0, 0);
 }
 
 // C ref: defsym.h MONSYMS_S_ENUM — mlet ordinal for mongen_order sort key

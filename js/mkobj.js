@@ -24,10 +24,10 @@ import {
     objectNames,
 } from './objects.js';
 // objectNames used for known-flag heuristic (oc_uses_known not in table yet)
-import { rndmonnum } from './makemon.js';
+import { rndmonnum, rndmonnum_adj } from './makemon.js';
 import { undead_to_corpse, can_be_hatched, dead_species } from './mon.js';
 import {
-    mons, is_male, is_female, is_neuter, verysmall, PM_LICHEN, monsterNames,
+    mons, is_male, is_female, is_neuter, is_human, verysmall, PM_LICHEN, monsterNames,
     G_NOCORPSE, NON_PM as MON_NON_PM,
 } from './monsters.js';
 import { PM_SAMURAI } from './generated/monsters_data.js';
@@ -588,8 +588,14 @@ function mksobj_init(otmp, artif) {
             || name === 'FROST_HORN' || name === 'FIRE_HORN'
             || name === 'DRUM_OF_EARTHQUAKE') {
             otmp.spe = rn1(5, 4);
+        } else if (name === 'FIGURINE') {
+            // C ref: mkobj.c TOOL_CLASS FIGURINE — harder monsters, skip humans
+            let tryct = 0;
+            do {
+                otmp.corpsenm = rndmonnum_adj(5, 10);
+            } while (is_human(mons(otmp.corpsenm)) && tryct++ < 30);
+            blessorcurse(otmp, 4);
         }
-        // FIGURINE: needs rndmonnum_adj(5,10) + is_human — named omission
         break;
     }
     case AMULET_CLASS: {

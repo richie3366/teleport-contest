@@ -3134,3 +3134,18 @@ Use this shape:
   **19/44** Scr **1446** RNG **172878**; green+strict PASS; 17-session
   PASS cohort held.
 - Next: seed0030 seg6 @2638 rndmonst_adj; or quest getbones.
+
+## 2026-07-14 05:55 — FIGURINE rndmonnum_adj(5,10) (D-0244)
+- Objective: seed0030 seg6 @2638 C rn2(2) rndmonst_adj vs JS rn2(3).
+- C locus: mkobj.c mksobj_init TOOL/FIGURINE; rndmonnum_adj/rndmonst_adj;
+  mondata.h is_human.
+- Result: **verified** — fill mkobj picked FIGURINE; C uses
+  rndmonnum_adj(5,10) (minmlev+5/maxmlev+10 → weight seq 2,4,5,8,…)
+  + is_human retry + blessorcurse(4). JS omitted the arm so post-init
+  fell through to plain rndmonnum() → jackal rn2(3). Rejected
+  align_shift/maxmlev as the arity gap (earlier same-mklev rndmonst
+  still used the short pool).
+- Verification: seg6 **2638→4080** (m_move vs distfleeck); positional
+  **46708**/105529 Scr **71**/1953; full **19/44** Scr **1446** RNG
+  **172907**; green+strict PASS; 17-session PASS cohort held.
+- Next: seed0030 seg6 @4080 m_move/distfleeck; or quest getbones.

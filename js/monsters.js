@@ -97,6 +97,7 @@ export const M2_NASTY = 0x02000000;
 export const M2_STRONG = 0x04000000;
 export const M2_MERC = 0x00000200;
 export const M2_ORC = 0x00000080; /* monflag.h — is an orc (≡ MH_ORC) */
+export const M2_HUMAN = 0x00000008; /* monflag.h — is a human */
 
 export const M1_FLY = 0x00000001; /* monflag.h — can fly or float */
 export const M1_AMORPHOUS = 0x00000004; /* monflag.h — can flow under doors */
@@ -265,6 +266,11 @@ export function throws_rocks(ptr) {
 /** C ref: mondata.h is_orc */
 export function is_orc(ptr) {
     return !!((ptr?.mflags2 ?? 0) & M2_ORC);
+}
+
+/** C ref: mondata.h is_human */
+export function is_human(ptr) {
+    return !!((ptr?.mflags2 ?? 0) & M2_HUMAN);
 }
 
 /** C ref: mondata.h likes_gold */

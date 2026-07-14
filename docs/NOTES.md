@@ -7,10 +7,10 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 
 ## Active
 
-- **Current unit:** seed0030 seg6 @2638 — C `rn2(2)` `rndmonst_adj` vs JS
-  `rn2(3)` (after Blocked center D-0243; seg5 **FULL**; seg6 **339→2638**).
-- **Falsifier:** dump `rndmonst`/`rndmonst_adj` eligible set / align filter at
-  first peel — why C’s adj arity is 2 while JS starts at 3.
+- **Current unit:** seed0030 seg6 @4080 — C `rn2(12)` `m_move` vs JS
+  `rn2(5)` `distfleeck` (after FIGURINE D-0244; seg6 **2638→4080**).
+- **Falsifier:** dump actor list / fleeck vs m_move order at that EOT —
+  which mon burns `rn2(12)` track in C while JS still fleecks.
 - **Parked deep canary:** D-0006 pet movement — do not implement until C
   state/candidate capture exists.
 - **Parked seed2200 @158:** RC config path — harness `$HOME`, not a port bug.
@@ -162,6 +162,11 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   reservoir picked **Blocked center**; C `des.map`→`lspo_map` (`rn2(68)`
   for wid=11) + percent/shuffle/`replace_terrain` L→wall|pool; JS lacked
   that map entry and fell through to rectangular `rn2(100)` (D-0243).
+- **seed0030 seg6 @2638 was NOT `align_shift` / maxmlev drift** — C
+  weight seq `2,4,5,8,…` is FIGURINE `rndmonnum_adj(5,10)` (minmlev=5,
+  maxmlev=11); JS omitted TOOL FIGURINE init so post-init fell through
+  to plain `rndmonnum()` → `rn2(3)` jackal pool (D-0244). Do not
+  re-chase dungeon align for that peel.
 - **`monattk.h`: AT_WEAP=254, AT_MAGC=255, AT_SPIT=10** — never use 10 for
   weapon (D-0179).
 - Hostile `m_move`: before place, `m_digweapon_check` may return
@@ -258,6 +263,9 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   {1,1,9,9} from L (only matching cells burn `rn2(100)`); then
   `filler_region(1,1)`. Wid 11 → `lspo_map` `rn2(COLNO-1-11)=rn2(68)`
   (D-0243).
+- **FIGURINE `mksobj_init`:** `rndmonnum_adj(5,10)` then reject
+  `is_human` (tryct 30) + `blessorcurse(4)` (D-0244). Plain
+  `rndmonnum()` is wrong — adj expands minmlev/maxmlev by +5/+10.
 - **`test_move` diagonal into DOOR:** only `doorless_door` (D_NODOOR /
   D_BROKEN) allowed; open/closed/locked block diagonal entry/exit
   (D-0219). Same rule in `domove` and steed `landing_spot`/`test_move_ok`.

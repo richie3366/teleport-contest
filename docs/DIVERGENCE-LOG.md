@@ -247,6 +247,7 @@ Do not record a guessed cause as fixed merely because an RNG prefix moved.
 | D-0241 | fixed | mhitm gv.vis | hitmm/missmm/mondied cansee; seg5 4174→4372 |
 | D-0242 | fixed | linedup/vision | BOULDER does_block + linedup rn2; seg5 FULL |
 | D-0243 | fixed | themerms Blocked center | map+replace_terrain; seg6 339→2638 |
+| D-0244 | fixed | FIGURINE rndmonnum_adj | adj(5,10)+is_human; seg6 2638→4080 |
 
 D-0001 through D-0005 predate the strict-length/cohort runbook. Their focused
 causes are preserved, but generic "green sessions held" is historical evidence,
@@ -6604,4 +6605,32 @@ cohort gates if those functions are touched again.
   Huge/Room-in-room map bodies; full `set_levltyp` ice/fountain
   timers; selection-based `replace_terrain` / mapfragment arms.
 - **Next:** seed0030 seg6 @2638 `rndmonst_adj`; or quest
+  `getbones`.
+
+## D-0244 — FIGURINE `rndmonnum_adj(5,10)` + `is_human` retry
+
+- **Status:** fixed
+- **Symptom:** seed0030 seg6 @2638 — C `rn2(2)` `rndmonst_adj` vs JS
+  `rn2(3)` (jackal pool). Preceded by matching
+  `fill_ordinary_room`→`mkobj(RANDOM_CLASS)`→`next_ident`.
+- **Cause:** C TOOL `FIGURINE` init calls `rndmonnum_adj(5,10)`
+  (minmlev+5 / maxmlev+10 → weight seq starts `2,4,5,8,…`), then
+  rejects `is_human` (tryct 30) + `blessorcurse(4)`. JS omitted the
+  arm; post-init `corpsenm < 0` fell through to plain `rndmonnum()` →
+  dlvl1 `rndmonst_adj(0,0)` → `rn2(3)`.
+- **Rejected:** `align_shift` / dungeon-align / maxmlev drift as the
+  arity gap (earlier same-mklev `rndmonst` calls still used the short
+  pool; only the figurine call expanded).
+- **C locus:** `mkobj.c` `mksobj_init` TOOL/FIGURINE;
+  `rndmonnum_adj` / `rndmonst_adj`; `mondata.h` `is_human`.
+- **Change:** `js/makemon.js` `rndmonnum_adj` (+ Plan B);
+  `js/monsters.js` `M2_HUMAN`/`is_human`; `js/mkobj.js` FIGURINE
+  init.
+- **Verification:** seg6 **2638→4080** (`m_move` vs `distfleeck`);
+  positional **46708**/105529 Scr **71**/1953; full **19/44** Scr
+  **1446** RNG **172907**; green+strict PASS; 17-session PASS cohort
+  held.
+- **Named omissions:** `align_shift`/`temperature_shift` still
+  stubbed 0; candle `oc_cost` age; FIGURINE transform/timeout.
+- **Next:** seed0030 seg6 @4080 `m_move`/`distfleeck`; or quest
   `getbones`.
