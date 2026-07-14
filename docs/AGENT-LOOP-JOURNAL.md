@@ -20,6 +20,16 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-14 22:30 — #348 D-0321 SPBOOK xname descr
+
+- Objective: seed0030 @1342 shining spellbook vs spellbook of jumping (CURRENT).
+- C locus: `objnam.c` `xname_flags` SPBOOK_CLASS — dknown+!nn → `"%s spellbook"`.
+- Change: port SPBOOK dknown/nn/un/dn arms; `nn` = `oc_name_known` only
+  (D-0321).
+- Verification: @1342/@1343 match; Scr **1438→1445**; first miss **@1429**
+  hit `!` vs `.`; RNG full; green+strict; 19 PASS cohort.
+- Next: @1429 `uhitm` `exclam(dmg)` after `You hit`.
+
 ## 2026-07-14 22:22 — #347 D-0320 losehp leave neg uhp
 
 - Objective: seed0030 @1262 hit `--More--` HP:0 vs C HP:4 (CURRENT).

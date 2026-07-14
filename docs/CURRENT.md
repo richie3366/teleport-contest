@@ -38,7 +38,7 @@ seed0016, seed0015, seed0200, seed0101, seed0103, seed0104.
 **Notable non-PASS:**
 | Session | RNG | Screen | Note |
 |---------|----:|-------:|------|
-| seed0030 | 105529/105529 | **1438**/1953 | primary peel; cell first-miss **@1342** |
+| seed0030 | 105529/105529 | **1445**/1953 | primary peel; cell first-miss **@1429** |
 | seed2200 | 3018/3018 | **175**/230 | RNG full; Scr cells 178/230 |
 | seed0013-rogue | 4838/4838 | 57/59 | |
 | seed0013-friday13-restore | 4803/4804 | 46/99 | |
@@ -62,16 +62,16 @@ Both must remain full RNG + screen PASS with exact scored-output lengths.
 
 ## Primary objective
 
-**seed0030 screen peel** — RNG full; Scr **1438**/1953; cell first-miss **@1342**
+**seed0030 screen peel** — RNG full; Scr **1445**/1953; cell first-miss **@1429**
 
 | | |
 |--|--|
-| **C locus** | `objnam.c` `xname_flags` SPBOOK_CLASS — dknown+!nn → `"%s spellbook"` (`dn`) |
-| **JS locus** | `js/objnam.js` SPE_ xname — `spellbook of <actual>` via `obj.known` / missing dn arm |
-| **Symptom** | @1342 C `shining spellbook` vs JS `spellbook of jumping` (pony pick up/drop) |
-| **Hypothesis** | Unknown dknown spellbook must use descr (`shining`), not `oc_name_known`/`obj.known` leak |
-| **Falsifier** | @1342 topline `shining spellbook`; expect Scr↑ |
-| **Recent fixed** | D-0320 `losehp` leave negative `uhp`; @1262 HP:4; Scr 1432→1438 |
+| **C locus** | `uhitm.c` / `pline.c` — hit message uses `exclam(dmg)` not bare `"."` |
+| **JS locus** | `js/uhitm.js` — `You hit ${mon_nam}.` period stand-in |
+| **Symptom** | @1429 C `You hit Swidnica!` vs JS `You hit Swidnica.` (before wand zap) |
+| **Hypothesis** | Hero hit pline must append `exclam(hmd->dmg)` when `canseemon` |
+| **Falsifier** | @1429 topline `You hit Swidnica!`; expect Scr↑ |
+| **Recent fixed** | D-0321 SPBOOK `"%s spellbook"` descr; @1342 shining; Scr 1438→1445 |
 
 ```bash
 node frozen/ps_test_runner.mjs sessions/seed0030-ten-diverse-deaths.session.json

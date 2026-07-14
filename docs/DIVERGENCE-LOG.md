@@ -8022,6 +8022,26 @@ Open that file first; then jump to a single `## D-NNNN` entry below
 
 
 
+## D-0321 — SPBOOK_CLASS `xname` appearance (`"%s spellbook"`)
+
+- **Status:** fixed
+- **Observed:** seed0030 @1342 — C `The saddled pony picks up a shining
+  spellbook.` vs JS `… a spellbook of jumping.` (same on drop @1343).
+  RNG full.
+- **C locus:** `objnam.c` `xname_flags` SPBOOK_CLASS — `nn` =
+  `oc_name_known` only; dknown+!nn+!un → `Sprintf("%s spellbook", dn)`
+  via shuffled `OBJ_DESCR`; BOTD known arm is bare `actualn`.
+- **Cause:** JS SPE_ arm OR’d `obj.known` into the known path and returned
+  bare `"spellbook"` when unknown (no descr arm) — same leak class as
+  D-0285/D-0309/D-0312.
+- **Change:** port SPBOOK dknown/nn/un/dn arms (`oc_name_known` only);
+  SPE_NOVEL tribute arms minimal; Samurai Japanese name on known arm.
+- **Verification:** @1342/@1343 match; Scr **1438→1445**; first miss
+  **@1429** (`You hit …!` vs `.`); RNG full; green+strict; 19 PASS cohort.
+- **Named omissions:** RING appearance beyond known arms; full novel
+  hallu/called polish; blanket `observe_object` in `xname`.
+- **Next:** @1429 hero hit `exclam(dmg)` punctuation.
+
 ## D-0320 — `losehp` leaves negative `uhp` (no fatal clamp)
 
 - **Status:** fixed

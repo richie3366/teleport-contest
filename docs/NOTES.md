@@ -7,14 +7,14 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Current unit:** seed0030 Scr **1438**/1953 RNG **FULL**; cell first-miss **@1342**.
-- **@1342:** C `The saddled pony picks up a shining spellbook.` vs JS
-  `… spellbook of jumping.` (same pattern on drop @1343).
-- **Hypothesis:** SPBOOK `xname_flags` dknown+!nn → `"%s spellbook"` with
-  `dn` (`shining`); JS SPE_ arm leaks via `obj.known` / omits descr arm.
-- **Falsifier:** @1342 `shining spellbook`; Scr↑.
-- **Fixed:** D-0320 `losehp` no fatal `uhp=0` clamp; @1262 HP:4; Scr
-  1432→1438; first-miss →@1342.
+- **Current unit:** seed0030 Scr **1445**/1953 RNG **FULL**; cell first-miss **@1429**.
+- **@1429:** C `You hit Swidnica!  Swidnica zaps a short wand!…` vs JS
+  `You hit Swidnica.  …` (`!` vs `.` after hit).
+- **Hypothesis:** Hero hit pline needs `exclam(dmg)` when `canseemon`, not
+  bare period (`uhitm.js` period stand-in).
+- **Falsifier:** @1429 `You hit Swidnica!`; Scr↑.
+- **Fixed:** D-0321 SPBOOK dknown+!nn → `"%s spellbook"` (`dn`); drop
+  `obj.known` leak; @1342/@1343 shining; Scr 1438→1445; miss→@1429.
 - **Don’t:** clamp fatal `uhp=0` in `losehp` before `You die` flush
   (regresses D-0310/D-0320 `-1` bot skip).
 - **Alt:** seed0013 Scr 57/59; seed0107 @2684.
@@ -43,6 +43,7 @@ Objective/score live in `CURRENT.md`.
   leave TOOL/WEAPON `!nn` as actualn — use `OBJ_DESCR` (D-0305);
   skip WAND `!nn` descr — `"%s wand"` + zap `dknown` (D-0309);
   leave SCROLL `!nn` as actualn/`obj.known` — unlabeled/labeled arms (D-0312);
+  leave SPBOOK `!nn` as bare/`obj.known` — `"%s spellbook"` via dn (D-0321);
   leave `uhitm` private `mon_nam` — import `do_name` (D-0308);
   omit death `paybill` — angry shk takes possessions before flush (D-0311);
   bare `pmname` for isshk death — honorific + `shkname` + `KILLED_BY` (D-0313);
@@ -79,4 +80,4 @@ Objective/score live in `CURRENT.md`.
   uhitm mon_nam / WAND descr / bot uhp==-1 / paybill / SCROLL unlabeled /
   done_in_by isshk / botl flush·bot·more / Priest bknown / WAND known0 /
   moverock hear-behind / mon_wield canseemon pline / thitu await pline /
-  losehp leave neg uhp: D-0274…D-0320.
+  losehp leave neg uhp / SPBOOK descr: D-0274…D-0321.

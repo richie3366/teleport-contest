@@ -219,15 +219,35 @@ function pretty_base(obj) {
         if (ocl?.oc_magic) return `scroll labeled ${dn || 'something'}`;
         return `${dn || 'unlabeled'} scroll`;
     }
-    // C ref: objnam.c xname SPBOOK_CLASS — "spellbook of <actualn>" when known
-    if (n && n.startsWith('SPE_')) {
-        if (n === 'SPE_NOVEL') return 'book';
-        const actual = objectNameStrs[obj.otyp]
-            || n.slice(4).toLowerCase().replace(/_/g, ' ');
-        if (n === 'SPE_BOOK_OF_THE_DEAD') return actual;
-        if (obj.dknown && (game.objects?.[obj.otyp]?.oc_name_known || obj.known))
+    // C ref: objnam.c xname_flags SPBOOK_CLASS —
+    // !dknown → "spellbook"; nn → "spellbook of <actualn>" (BOTD bare);
+    // un → called; else "<dn> spellbook". nn = oc_name_known only (not obj.known).
+    if (obj.oclass === SPBOOK_CLASS || (n && n.startsWith('SPE_'))) {
+        const ocl = game.objects?.[obj.otyp];
+        const nn = !!ocl?.oc_name_known;
+        const dknown = !!obj.dknown;
+        const un = ocl?.oc_uname || null;
+        let actual = objectNameStrs[obj.otyp]
+            || (n ? n.slice(4).toLowerCase().replace(/_/g, ' ') : 'spellbook');
+        if (Role_if_samurai()) {
+            const jn = Japanese_item_name(obj.otyp, null);
+            if (jn) actual = jn;
+        }
+        const dn = objectDescrs[ocl?.oc_descr_idx ?? obj.otyp] || actual;
+        if (n === 'SPE_NOVEL') {
+            // C: SPE_NOVEL tribute arms (partial — hallu/called polish deferred)
+            if (!dknown) return 'book';
+            if (nn) return actual;
+            if (un) return `novel called ${un}`;
+            return `${dn} book`;
+        }
+        if (!dknown) return 'spellbook';
+        if (nn) {
+            if (n === 'SPE_BOOK_OF_THE_DEAD') return actual;
             return `spellbook of ${actual}`;
-        return 'spellbook';
+        }
+        if (un) return `spellbook called ${un}`;
+        return `${dn} spellbook`;
     }
     // C ref: objnam.c xname RING_CLASS — "ring of <actualn>" when known
     if (n && n.startsWith('RIN_')) {
