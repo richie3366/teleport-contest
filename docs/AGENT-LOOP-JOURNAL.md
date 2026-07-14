@@ -2840,3 +2840,17 @@ Use this shape:
   **19/44** Scr **1433** RNG **149674**.
 - Next: seed0030 seg2 @2930 `eatcorpse`; or quest `getbones`
   `^V`/`makemaz`.
+
+## 2026-07-14 02:30 — D-0221 floorfood + poison_strdmg
+- Objective: seed0030 seg2 @2930 C `eatcorpse` rn2(20) vs JS rn2(3)
+  (PROGRESS primary).
+- C locus: `eat.c` `doeat`/`floorfood`/`eatcorpse`; `attrib.c`
+  `poison_strdmg`/`losestr`.
+- Result: **verified** — peel was missing `floorfood` yn on floor
+  kobold corpse (`e`/`y`); invent-only getobj never reached eatcorpse.
+  Also ported poison_strdmg(rnd(4),rnd(15)) stubbed after Ecch.
+- Verification: seg2 **2930→3207** (`obj_resists`); positional
+  **25538**/105529 Scr **48**/1953; green+strict+cohort PASS; full
+  **19/44** Scr **1433** RNG **149541**.
+- Next: seed0030 seg2 @3207 pet `obj_resists` after meal; or quest
+  `getbones` `^V`/`makemaz`.

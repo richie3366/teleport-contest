@@ -39,7 +39,7 @@ frozen-file overlay):
 |--------|------:|
 | Sessions passing | **19 / 44** |
 | Screens matched | **1433 / 11,405** (12.56%) |
-| Positional RNG calls matched | **149,674 / 792,838** (18.88%) |
+| Positional RNG calls matched | **149,541 / 792,838** (18.86%) |
 | Speed label | `20+0.09/turn` |
 | Working-tree base | `8b71735` + committed port (see `main`) |
 | Role-init throws | **0 / 44** (`u_init_role: role not ported`) |
@@ -64,7 +64,7 @@ shared blockers, and semantic coverage together—not one vanity metric.
 | `seed0501-priest-cast-read-turn` | **2238 / 2238** | **28 / 28** |
 | `seed2200-wizard-quaff-zap-read` | **3018 / 3018** | **229 / 230** |
 | `seed0017-samurai-altar-pray` | **3465 / 3465** | **67 / 67** |
-| `seed0030-ten-diverse-deaths` | **25256 / 105529** | **48 / 1953** |
+| `seed0030-ten-diverse-deaths` | **25538 / 105529** | **48 / 1953** |
 | `seed0103-knight-ride-pony` | **2640 / 2640** | **60 / 60** |
 | `seed0200-monk-north-search` | **3822 / 3822** | **40 / 40** |
 | `seed0101-ranger-quiver-throw-travel-engrave` | **2371 / 2371** | **27 / 27** |
@@ -302,6 +302,9 @@ Scr **1433** RNG **149124**.
 **`dog_goal` wantdoor/`do_clear_area`** (D-0211) → seed0030 seg2
 **2408→2930** (`eatcorpse`); positional **25256**/105529 Scr
 **48**/1953; full **19/44** Scr **1433** RNG **149674**.
+**`floorfood` + `poison_strdmg`** (D-0221) → seed0030 seg2
+**2930→3207** (`obj_resists`); positional **25538**/105529 Scr
+**48**/1953; full **19/44** Scr **1433** RNG **149541**.
 
 ### Green gate
 
@@ -505,11 +508,12 @@ seed0101 + seed0103 + seed0104 **PASS**. seed2200 RNG **full**
 seed0101 RNG **full** Scr **27**/27. seed0103 RNG **full** Scr **60**/60.
 seed0104 RNG **full** Scr **43**/43.
 
-- **Bounded unit:** seed0030 seg2 @2930 (`eatcorpse` rn2(20) vs JS
-  rn2(3)) / seed0361/0373 **quest `getbones`** (blocked: need
-  `^V`→`goto_level`→`makemaz` first — ordinary `goto_level` now exists
-  for stairs; Mines `fill_lvl` path exists D-0171).
-- **Prefer:** seed0030 seg2 `eatcorpse` peel; over quest bones until
+- **Bounded unit:** seed0030 seg2 @3207 (`obj_resists` rn2(100) vs JS
+  rn2(5) distfleeck after floorfood meal) / seed0361/0373 **quest
+  `getbones`** (blocked: need `^V`→`goto_level`→`makemaz` first —
+  ordinary `goto_level` now exists for stairs; Mines `fill_lvl` path
+  exists D-0171).
+- **Prefer:** seed0030 seg2 post-meal pet peel; over quest bones until
   `^V`/`makemaz`; over parked D-0006 and over baking seed2200 RC paths.
   Hero `dotrap` deferred until monster pit peel is clear.
   Hero `xkilled` treasure `mkobj` still deferred (ordinary `make_corpse`
@@ -562,7 +566,7 @@ seed0104 RNG **full** Scr **43**/43.
   `makemaz("")`; Is_special / quest fill; TIN `cnutrit`; interactive `o`/`doopen` getdir; `doopen_indir`
   `b_trapped`/autounlock/mapseen; `#levelchange` `losexp`; remaining
   `extcmdlist` (beyond `#terrain`); overview shop/temple/`shop_string`/altar-god /
-  `traverse_mapseenchn`; `floorfood` sacrifice;
+  `traverse_mapseenchn`; `floorfood` sacrifice (feeding yn done D-0221);
   `pluslvl` achievements; takeoff `oc_delay`/
   occupation/magic helms/dragon/`A` takeoffall; dosearch0
   feel_location/mfind0/statue activate/SPFX_SEARCH; full `readobjnam`
@@ -628,6 +632,7 @@ seed0104 RNG **full** Scr **43**/43.
   **dismount `float_down`/`look_here` multi** (done D-0220; seed0104
   PASS);
   **`dog_goal` wantdoor/`do_clear_area`** (done D-0211; seg2→2930);
+  **`floorfood` + `poison_strdmg`** (done D-0221; seg2→3207);
   D-0218 upstairs theory rejected;
   …
 - **Cohort:** green gate + seed1500 + seed1800 + seed0060 + seed0102
@@ -1421,6 +1426,10 @@ Module status, constitutional debt, and named omissions live in
     — seed0030 seg2 **2408→2930** (`eatcorpse`); positional
     **25256**/105529 Scr **48**/1953; full **19/44** Scr **1433**
     RNG **149674**; next seed0030 seg2 @2930 / quest `getbones`
+197. `floorfood` + `poison_strdmg` (D-0221)
+    — seed0030 seg2 **2930→3207** (`obj_resists`); positional
+    **25538**/105529 Scr **48**/1953; full **19/44** Scr **1433**
+    RNG **149541**; next seed0030 seg2 @3207 / quest `getbones`
 
 Next work is selected from the active objectives above using
 `PORTING-RUNBOOK.md`, not by extending this historical list.

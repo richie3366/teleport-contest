@@ -224,6 +224,7 @@ Do not record a guessed cause as fixed merely because an RNG prefix moved.
 | D-0218 | rejected | upstairs geometry | @3031 was not create_room drift; superseded by D-0219 |
 | D-0219 | fixed | test_move diagonal door | ban diagonal into/out of intact doorway; seed0104 RNG full |
 | D-0220 | fixed | dismount look_here | float_down→pickup + multi NHW_MENU; seed0104 PASS |
+| D-0221 | fixed | floorfood + poison_strdmg | floor yn before invent getobj; seg2 2930→3207 |
 
 D-0001 through D-0005 predate the strict-length/cohort runbook. Their focused
 causes are preserved, but generic "green sessions held" is historical evidence,
@@ -5955,3 +5956,32 @@ cohort gates if those functions are touched again.
   teleds→spoteffects on mount path.
 - **Next:** D-0211 C typ dump / seed0030 seg2 @2408; or quest
   `getbones` `^V`/`makemaz`.
+
+## D-0221 — floorfood eat + poison_strdmg (seed0030 seg2 @2930)
+
+- **Status:** fixed
+- **Symptom:** seed0030 seg2 @2930 C `rn2(20) @ eatcorpse` vs JS
+  `rn2(3)` — after D-0211 wantdoor. Session keys `e`/`y` with yn
+  prompt "There is a kobold corpse here; eat it?".
+- **Rejected:** invent letter `y` missing from edible_lets;
+  `nonrotting_corpse` skipping rotting `rn2(20)`; eatcorpse body
+  alone (JS never entered it).
+- **Cause/evidence:** C `doeat`→`floorfood("eat",0)` ynq on floor
+  edible before invent `getobj`. JS invent-only `getobj_eat` treated
+  `y` as invent letter / never reached `eatcorpse`. C poison path then
+  burns `poison_strdmg(rnd(4), rnd(15))` which JS had stubbed.
+- **C locus:** `eat.c` `doeat`/`floorfood`/`eatcorpse`; `attrib.c`
+  `poison_strdmg`/`losestr`.
+- **Change:** `js/eat.js` `floorfood_eat` (floor ynq → invent getobj);
+  `doeat` calls it; `touchfood`/`useup` floor arms; `eatcorpse`
+  poison → `poison_strdmg(rnd(4),rnd(15))` with `losestr` ATTRMIN
+  `rn1(4,3)` gate.
+- **Verification:** seg2 **2930→3207** (`obj_resists` vs JS
+  `distfleeck`); positional **25538**/105529 Scr **48**/1953; green
+  +strict+cohort PASS; full **19/44** Scr **1433** RNG **149541**.
+- **Named omissions:** metallivore beartrap/bars/gold; pool/lava
+  reach gate; `will_feel_cockatrice`; `getobj_else` wording;
+  sacrifice/tin `floorfood` arms; `losestr` `setuhpmax` / full death
+  killer strings; tainted `make_sick`.
+- **Next:** seed0030 seg2 @3207 pet `obj_resists` after meal; or
+  quest `getbones` `^V`/`makemaz`.

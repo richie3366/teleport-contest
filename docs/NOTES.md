@@ -7,11 +7,13 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 
 ## Active
 
-- **Current unit:** seed0030 seg2 @2930 — C `eatcorpse` `rn2(20)` vs JS
-  `rn2(3)` after D-0211 wantdoor fix. / seed0361/0373 quest `getbones`
-  (need `^V`→`goto_level`→`makemaz`).
-- **Falsifier:** seg2 rng-diff; if first mismatch is not `eatcorpse`, re-dump
-  dog_goal `gg`/`couldsee`/`ogoal` at that index.
+- **Current unit:** seed0030 seg2 @3207 — C `obj_resists` `rn2(100)` vs JS
+  `rn2(5)` `distfleeck` after D-0221 floorfood poison eat. Screen at that
+  step: `You finish eating the kobold corpse.` / seed0361/0373 quest
+  `getbones` (need `^V`→`goto_level`→`makemaz`).
+- **Falsifier:** seg2 rng-diff; if first mismatch is not pet
+  `obj_resists`/`dog_invent` after meal, dump occupation/`reqtime`/floor
+  corpse `where` at that index.
 - **Parked deep canary:** D-0006 pet movement — do not implement until C
   state/candidate capture exists.
 - **Parked seed2200 @158:** RC config path — harness `$HOME`, not a port bug.
@@ -65,6 +67,9 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 - **D-0211 was NOT mfndpos skipping SW / poison-gas / typ drift** — C
   recorder dump: cnt=8 including `(72,8)`; peel was `dog_goal` `gg`
   via `!couldsee`→`ogoal`/`wantdoor` (JS always fell back to hero).
+- **seed0030 seg2 @2930 was NOT invent-letter `y` / missing `rn2(20)` in
+  eatcorpse** — C `floorfood` yn "There is a kobold corpse here; eat it?";
+  JS invent-only getobj never reached eatcorpse (D-0221).
 - **`monattk.h`: AT_WEAP=254, AT_MAGC=255, AT_SPIT=10** — never use 10 for
   weapon (D-0179).
 - Hostile `m_move`: before place, `m_digweapon_check` may return
@@ -86,6 +91,8 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 - **`dog_goal` !couldsee:** gettrack → else reuse `edog.ogoal` → else
   `do_clear_area(pet,9,wantdoor)` closest clear cell to hero, store
   ogoal (D-0211). Omitting wantdoor forced hero-gg and wrong fleeck arity.
+- **`doeat` → `floorfood`:** edible floor pile ynq before invent getobj;
+  poison path burns `poison_strdmg(rnd(4),rnd(15))` (D-0221).
 - `clear_level_structures` / `goto_level`: clear `fobj` **and**
   `_objects_at` (C `level.objects[][]=0`) and `head_engr` (D-0161).
 - Monster ROCKTRAP: `t_missile(ROCK)`→`mksobj` `next_ident`+`rn1(6,6)`
