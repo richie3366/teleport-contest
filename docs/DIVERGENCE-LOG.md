@@ -7624,4 +7624,24 @@ Open that file first; then jump to a single `## D-NNNN` entry below
   arm; mimic `map_object` observe; Blind feel path.
 - **Next:** prefix@259 JS `o` vs C blank at (5,52).
 
+## D-0300 — `newsym` unseen + no-memory paints blank
+
+- **Status:** fixed
+- **Observed:** seed0030 @259 — map `o` in JS vs C blank at tty (5,52)
+  / map (53,4); RNG full; cursors agree. Orc moved (53,4)→(54,4).
+- **Rejected:** missing `postmov` `newsym(omx,omy)` — call already
+  present; cell had `cansee==false` and no `remembered_glyph`.
+- **C locus:** `display.c` `newsym` !cansee path — `show_mem` always
+  `show_glyph(x,y,lev->glyph)` (unexplored → blank).
+- **Cause:** JS `newsym` left tty/`disp_ch` untouched when !cansee and
+  no memory, so a sensed-mon glyph painted earlier stayed after the
+  monster left.
+- **Change:** else-arm paints `' '` / `NO_COLOR` (C unexplored blank).
+- **Verification:** prefix **259→266**; Scr **1085→1146**; RNG full;
+  green+strict; 19-session PASS cohort + strict.
+- **Named omissions:** full `lev->glyph` memory model (only blank vs
+  remembered_glyph); Rogue-level litcorr/room darkening arms already
+  partial; `Detect_monsters` / `tp_sensemon` / warn in !cansee path.
+- **Next:** prefix@266 topline C `just misses!` vs JS `misses!`.
+
 

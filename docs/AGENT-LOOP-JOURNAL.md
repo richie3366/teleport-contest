@@ -21,6 +21,15 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-14 19:20 — D-0300 newsym unseen blank clear
+
+- Objective: seed0030 Scr peel (CURRENT primary); prefix first-miss @259.
+- C locus: `display.c` `newsym` !cansee `show_mem` → `show_glyph(lev->glyph)`.
+- Change: unseen + no memory paints blank (was no-op → stale IR mon glyph).
+- Verification: prefix **259→266**; Scr **1085→1146**; RNG full;
+  green+strict; 19-session PASS cohort + strict.
+- Next: @266 topline C `just misses!` vs JS `misses!`.
+
 ## 2026-07-14 19:16 — D-0299 map_object nearby observe
 
 - Objective: seed0030 Scr peel (CURRENT primary); prefix first-miss @237.
@@ -159,14 +168,3 @@ Use this shape:
   RNG full; green+strict PASS; 19-session PASS cohort + strict.
 - Next: Scr@62 gnome bow-swing pline; or seed0013.
 
-## 2026-07-14 17:55 — D-0283 botl depth + Mines walls
-
-- Objective: seed0030 Scr 87/1953 (CURRENT primary); first miss @46.
-- C locus: `botl.c` `describe_level` `depth(&u.uz)`; `display.c`
-  `wall_color(mines_walls)`.
-- Change: botl `Dlvl` via `depth()` (not `dunlev`); Mines walls
-  `CLR_BROWN` when `In_mines`. DIAG confirmed second `>` is Mines
-  branch stairs (`dnum:2,dlevel:1`), not wrong goto.
-- Verification: Scr@46–49 match; prefix **46→50**; Scr 87→100;
-  RNG full; green+strict PASS; 19-session PASS cohort + strict.
-- Next: Scr@50 C `!` vs JS `·` (6,33); or seed0013.

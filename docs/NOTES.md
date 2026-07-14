@@ -7,15 +7,15 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Current unit:** seed0030 Scr **1085**/1953 with RNG **FULL** 105529
-  (D-0299). True prefix first-miss **259** (was 237).
-- **Hypothesis:** @259 map `o` present in JS at (5,52) vs C blank —
-  stale mon / wrong `newsym` clear / mimic?
-- **Falsifier:** decodeScreen @259 (5,52); C vs JS mon/obj at map (53,4).
-- **Falsified:** @237 white `*` was **not** missing `obj_color` table —
-  nearby `map_object`/`see_nearby_objects` `observe_object` left gems
-  generic gray→NO_COLOR (D-0299).
-- **Also:** seg7 JS 159 vs C 172 steps (investigate after @259).
+- **Current unit:** seed0030 Scr **1146**/1953 with RNG **FULL** 105529
+  (D-0300). True prefix first-miss **266** (was 259).
+- **Hypothesis:** @266 topline C `The goblin just misses!` vs JS
+  `The goblin misses!` — missing `just` in mon miss message path.
+- **Falsifier:** decodeScreen @266 row0; C vs JS `missmu`/`swings` arm.
+- **Falsified:** @259 JS `o` vs C blank was **not** missing postmov
+  `newsym(omx,omy)` call — call existed but !cansee+no-memory was a
+  no-op leaving stale IR glyph (D-0300).
+- **Also:** seg7 JS 159 vs C 172 steps (investigate after @266).
 - **Alt:** seed0013 Scr 57/59; seed0107 @2684.
 - **Parked:** D-0006 (pet movement); seed2200 @158 RC/`$HOME`.
 
@@ -40,7 +40,8 @@ Objective/score live in `CURRENT.md`.
   (D-0295); `missmm` without `map_invisible` when Magr unseen (D-0296);
   draw disguised mimics as mlet — `display_monster` M_AP_OBJECT (D-0297);
   vault `dosounds` RNG-only — emit `You_hear` (D-0298); leave nearby
-  generic gems gray — `map_object`/`see_nearby_objects` observe (D-0299).
+  generic gems gray — `map_object`/`see_nearby_objects` observe (D-0299);
+  leave `newsym` !cansee+no-memory as no-op — paint blank (D-0300).
 - Runner `Screen N/M` = total matches, not prefix length.
 
 ## Landmarks (≤15)
@@ -60,5 +61,5 @@ Objective/score live in `CURRENT.md`.
 - `m_move`: `set_apparxy` **before** mtame/shk|gd|priest (D-0267).
 - Key attribution ≠ RNG order (0-RNG `--More--`) (D-0228).
 - Bones / disclose / RIP / topten / amulet / DEC altar / noises / Monnam /
-  map_invisible / mimic M_AP_OBJECT / vault dosounds / nearby observe:
-  D-0274…D-0299.
+  map_invisible / mimic M_AP_OBJECT / vault dosounds / nearby observe /
+  newsym unseen blank: D-0274…D-0300.

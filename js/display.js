@@ -1136,6 +1136,11 @@ export function newsym(x, y) {
             loc.remembered_glyph = mem;
         }
         show_glyph_cell(x, y, mem.ch, mem.color, mem.decgfx);
+    } else {
+        // C: show_mem → show_glyph(x, y, lev->glyph); unexplored glyph
+        // paints blank. A no-op here left stale tty cells after a sensed
+        // monster left an unseen square (postmov newsym(omx,omy)).
+        show_glyph_cell(x, y, ' ', NO_COLOR, false);
     }
 }
 

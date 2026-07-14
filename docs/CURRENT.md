@@ -38,7 +38,7 @@ seed0016, seed0015, seed0200, seed0101, seed0103, seed0104.
 **Notable non-PASS:**
 | Session | RNG | Screen | Note |
 |---------|----:|-------:|------|
-| seed0030 | 105529/105529 | **1085**/1953 | primary peel; prefix first-miss **@259** |
+| seed0030 | 105529/105529 | **1146**/1953 | primary peel; prefix first-miss **@266** |
 | seed2200 | 3018/3018 | **175**/230 | RNG full; Scr regressed vs older 229/230 |
 | seed0013-rogue | 4838/4838 | 57/59 | |
 | seed0013-friday13-restore | 4803/4804 | 46/99 | |
@@ -61,16 +61,16 @@ Both must remain full RNG + screen PASS with exact scored-output lengths.
 
 ## Primary objective
 
-**seed0030 screen peel** — RNG full; Scr **1085**/1953; prefix first-miss **@259**
+**seed0030 screen peel** — RNG full; Scr **1146**/1953; prefix first-miss **@266**
 
 | | |
 |--|--|
-| **C locus** | TBD — mon/obj clear at map after observe (was D-0299) |
-| **JS locus** | `js/display.js` / mon leave cell |
-| **Symptom** | @259 map `o` in JS vs C blank at (5,52); cursors agree |
-| **Hypothesis** | Stale monster glyph / missing `newsym` after mon moved |
-| **Falsifier** | decodeScreen @259 cell (5,52); C vs JS mon_at |
-| **Recent fixed** | D-0299 `map_object`/`see_nearby_objects` observe (237→259; Scr 889→1085) |
+| **C locus** | TBD — goblin miss pline (`just misses` vs `misses`) |
+| **JS locus** | `js/mhitu.js` / miss message |
+| **Symptom** | @266 topline C `The goblin just misses!` vs JS `… misses!` |
+| **Hypothesis** | Missing `just` arm in mon→hero miss message |
+| **Falsifier** | decodeScreen @266 row0; C `missmu`/`nearmiss` predicate |
+| **Recent fixed** | D-0300 `newsym` unseen blank clear (259→266; Scr 1085→1146) |
 
 ```bash
 node frozen/ps_test_runner.mjs sessions/seed0030-ten-diverse-deaths.session.json
