@@ -541,15 +541,18 @@ seed0101 + seed0103 + seed0104 **PASS**. seed2200 RNG **full**
 seed0101 RNG **full** Scr **27**/27. seed0103 RNG **full** Scr **60**/60.
 seed0104 RNG **full** Scr **43**/43.
 
-- **Bounded unit:** seed0030 seg6 @18840 — **D-0253** map prerequisite:
-  JS `(28,13)` STONE→TRCORNER vs C walkable corridor (kobold there);
-  bow-gnome pos/cnt drift (`rn2(24)` vs `rn2(16)` is symptom). /
+- **Bounded unit:** seed0030 seg6 @18840 — **D-0253** Mines map
+  prerequisite (depth 4): JS `(28,13)` STONE→wallify→TRCORNER from
+  mkmap (never dug; cavern hy=12); C kobold on walkable `(28,13)` by
+  step 142; hero `@`(29,13) matches; `rn2(24)` vs `rn2(16)` is
+  symptom. RNG matches through Mines mklev. /
   seed0361/0373 **quest `getbones`** (blocked: need `^V`→`goto_level`→
   `makemaz` first — ordinary `goto_level` now exists for stairs; Mines
   `fill_lvl` path exists D-0171).
-- **Prefer:** seg6 Mines corridor/`dig_corridor`/`wallification` over
-  patching `m_move` track; over quest bones until `^V`/`makemaz`; over
-  parked D-0006 and over baking seed2200 RC paths.
+- **Prefer:** why JS mkmap pass/join omits ROOM at (28,13) (or dig
+  path stays on x=29) over patching `m_move` track; over quest bones
+  until `^V`/`makemaz`; over parked D-0006 and over baking seed2200 RC
+  paths.
   Hero `dotrap` deferred until monster pit peel is clear.
   Hero `xkilled` treasure `mkobj` done (D-0229; ordinary
   `make_corpse` done D-0191; mhitm path done D-0167;
@@ -749,8 +752,8 @@ seed0104 RNG **full** Scr **43**/43.
   next @18683 `dmgval` vs fleeck);
   **`thitm` hit → `dmgval`** (done D-0252; seg6 **18683→18840**;
   full **19/44** Scr **1464** RNG **180765**);
-  **seg6 @18840 track arity** (D-0253 **open** — Mines corridor map;
-  not `m_move` formula);
+  **seg6 @18840 track arity** (D-0253 **open** — Mines mkmap
+  (28,13) STONE→TRCORNER; not `m_move` / not mdig);
   **`goto_level` `stairway_find_from`** (D-0224 find_from done);
   D-0218 upstairs theory rejected;
   …

@@ -8,17 +8,20 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 ## Active
 
 - **Current unit:** seed0030 seg6 @18840 — C `rn2(24) @ m_move` vs JS
-  `rn2(16)` is a **symptom**. Same fleeck consumer is a hostile bow-gnome,
-  but C screen has `G` at **(26,10)** with open neighbors (cnt≈8) while JS
-  has that gnome at **(27,12)** against walls (cnt=4). C also has kobold
-  `k` on walkable `(28,13)` next to `@`; JS has **TRCORNER** there.
-- **Hypothesis:** Mines corridor at/near (28,13) never became CORR/ROOM in
-  JS — left STONE then `set_wall_state`→TRCORNER — so mon positions and
-  `mfndpos` cnt drift before the track peel.
-- **Falsifier:** after Mines `mklev`/`mineralize` for seg6, assert
-  `level.at(28,13).typ` is CORR/ROOM (or matches C walkable) before any
-  mid-game wallification; or dump C vs JS typ strip x=25..32 y=10..14
-  right after descend mineralize (~rng 14767).
+  `rn2(16)` (track arity) is a **symptom** of Mines map drift at
+  **(28,13)**. Peel is Mines depth 4 (`dnum=2,dlevel=1`), hero `@`
+  **(29,13)** matches C; C has kobold `k` on walkable **(28,13)**; JS
+  has **TRCORNER**.
+- **Hypothesis:** JS mkmap leaves **(28,13)=STONE** through
+  init_fill→pass_three→join (never dug); `wallify`→HWALL→
+  `wallification`→TRCORNER. C cavern/dig includes that cell as ROOM
+  (kobold there by step 142). Cavern room bbox in JS ends **hy=12**
+  (cell is one south of edge). Join dig `(28,3)→(29,18)` carved **x=29**
+  corridor, not (28,13). RNG **matches** through Mines mklev (18225).
+- **Falsifier:** dump C typ at (28,13) immediately after minefill
+  `join_map`/`wallify` (recorder); or find why JS pass/join omits ROOM
+  there despite matching dig/somexy RNG arities — compare join room
+  bounds / dig org-dest that should carve (28,13).
 - **Parked deep canary:** D-0006 pet movement — do not implement until C
   state/candidate capture exists.
 - **Parked seed2200 @158:** RC config path — harness `$HOME`, not a port bug.
@@ -117,9 +120,14 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   was a **hit**; C called `dmgval` (`rnd(3)`); JS stubbed `dam=1`
   without RNG so fleeck `rn2(5)` shifted into the slot (D-0252).
 - **seed0030 seg6 @18840 was NOT m_move track-formula / jcnt / missing
-  `m_avoid_kicked_loc` on hostiles** — same fleeck then JS bow-gnome
-  `mfndpos` cnt=4 vs C arity cnt=8; C tty shows open `(28,13)` +
-  gnome at `(26,10)` (D-0253). Do not patch track `rn2(4*(cnt-j))`.
+  `m_avoid_kicked_loc` on hostiles** — map peel (D-0253). Do not patch
+  track `rn2(4*(cnt-j))`.
+- **D-0253 was NOT mid-game `mdig_tunnel` opening (28,13)** — JS digs
+  before peel are all no-op on ROOM (same `rnd(12)` count as C); C has
+  kobold on (28,13) by step 142; cell was STONE from JS mkmap join.
+- **D-0253 peel is Mines depth 4**, not the first DoD `>` descend
+  (that ordinary `makecorridors` path RNG-matches). Parse DEC screens
+  with CSI/`\x0e` strip before reading map glyphs.
 - **`monattk.h`: AT_WEAP=254, AT_MAGC=255, AT_SPIT=10** — never use 10 for
   weapon (D-0179).
 - Hostile `m_move`: before place, `m_digweapon_check` may return
@@ -135,7 +143,8 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   mark `u_traversed`; not bare `u_on_upstairs`/`find_dir` (D-0224).
 - **tty map coords:** screen col = map_x − 1; screen row = map_y + 1
   (message row 0). Never treat session screen (65,3) as map (65,3).
-  DEC sessions also use CSI `\x1b[NC` — expand before glyph search.
+  DEC sessions also use CSI `\x1b[NC` — expand before glyph search;
+  strip `\x1b[…m` and SO/SI `\x0e`/`\x0f` or columns drift.
 - **Session step key:** `steps[i].key === moves[i-1]` (RNG/screen after
   that key); `moves[i]` is the key about to be read at capture (D-0238).
 - **`F`/`do_fight`:** PREFIXCMD sets `forcefight`; next move dir attacks
@@ -173,6 +182,6 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
   (D-0251; cf. D-0056 for true initrecord bugs).
 - **`thitm` hit path:** must call `dmgval(obj, mon)` (clamp ≥1); stubbing
   `dam=1` skips weapon dice RNG even when HP outcome matches (D-0252).
-- **seg6 @18840 map landmark:** C DEC screen near peel has gnome `G` at
-  map ~(26,10) and kobold `k` at ~(28,13) beside `@`; JS walls off
-  (28,13) and parks the bow-gnome at (27,12) (D-0253).
+- **seg6 @18840 Mines map landmark:** depth-4 Mines; C `@`(29,13) +
+  `k`(28,13) walkable; JS `(28,13)` TRCORNER from mkmap STONE→wallify;
+  join dig `(28,3)→(29,18)` uses x=29; cavern room hy=12 (D-0253).

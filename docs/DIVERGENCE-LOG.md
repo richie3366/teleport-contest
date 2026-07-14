@@ -6863,24 +6863,30 @@ cohort gates if those functions are touched again.
 - **Status:** open (prerequisite = map; track formula not the bug)
 - **Symptom:** seed0030 seg6 @18840 — C `rn2(24)/rn2(28)/rn2(32) @
   m_move` vs JS `rn2(16)` after matched fleeck (post D-0252).
-- **Rejected:** hostile `m_move` track `rn2(4*(cnt-j))` / `jcnt` /
-  missing `m_avoid_kicked_loc` (hostiles ignore kickedloc); forcing
-  skip of JS gnome only desyncs further — next JS cnt=8 mon is
-  out-of-range and cannot be the C move-then-shoot thrower.
-- **Evidence:**
-  1. Same fleeck index then JS bow-gnome at **(27,12)** with
-     `mfndpos` **cnt=4** (south HWALL/TRCORNER + peaceful dwarf west).
-  2. C DEC screen at that step: gnome **`G` ~(26,10)**, kobold **`k`
-     ~(28,13)** beside `@` on walkable terrain — JS `(28,13)` is
-     **TRCORNER**, no kobold; `(26,10)` empty.
-  3. Typ watch: `(28,13)` was ROOM on prior level; after Mines
-     mineralize (~14760) cell is **STONE**, later **STONE→TRCORNER**
-     (~18242) via wall-state — never became CORR/ROOM corridor.
-- **C locus (next):** Mines `makemaz`/`minefill` / `dig_corridor` /
-  `join` / post-fill `wallification` / `set_wall_state` — ensure the
-  east-west corridor through ~(28,13) exists before mid-game wallify.
-- **Change:** none this iteration (diagnosis only).
-- **Verification:** green+strict preflight PASS; focused seg6 still
-  mismatches @18840 (expected).
-- **Next:** falsify corridor typ after Mines mklev for seg6; port the
-  missing dig/join/wallify step — not `m_move` track.
+- **Rejected:**
+  1. hostile `m_move` track `rn2(4*(cnt-j))` / `jcnt` /
+     missing `m_avoid_kicked_loc` (hostiles ignore kickedloc).
+  2. mid-game `mdig_tunnel` opening (28,13) — JS digs before peel are
+     no-ops on ROOM (same `rnd(12)` count as C); C already has kobold
+     on (28,13) by step 142.
+  3. first DoD `>` ordinary `makecorridors` path — peel is Mines
+     depth 4; that earlier descend RNG-matches.
+- **Evidence (refined):**
+  1. Peel level: Mines `dnum=2,dlevel=1` (botl Dlvl:4). Hero `@`
+     **(29,13)** matches C (ANSI/CSI/`\x0e` stripped).
+  2. C kobold **`k@(28,13)`** walkable; JS **(28,13)=TRCORNER**.
+  3. Stage snaps: (28,13) is **STONE** after init_fill, pass_one/two/
+     three, and join; `wallify`→HWALL; load_minefill
+     `wallification`→TRCORNER. Never carved by `dig_corridor`.
+  4. Mines join dig `(28,3)→(29,18)` carved **x=29** ROOM corridor;
+     cavern irregular room bbox ends **hy=12** (cell is one south).
+  5. RNG **full match** through Mines mklev (18225/18225) including
+     dig/somexy/join_map — absolute carved cells can still differ if
+     pass/join geometry diverges with matching arities.
+- **C locus (next):** `mkmap.c` pass/join / `sp_lev.c` `dig_corridor`
+  path that should leave ROOM at (28,13); compare C typ after join
+  before wallify.
+- **Change:** none (diagnosis only; DIAG removed).
+- **Verification:** green+strict preflight PASS; seg6 still @18840.
+- **Next:** C typ dump after minefill join at (28,13); or find JS
+  pass/join reason the cavern stops at y=12 / dig stays on x=29.

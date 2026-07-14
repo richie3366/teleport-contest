@@ -3259,3 +3259,17 @@ Use this shape:
 - Verification: green+strict preflight PASS; seg6 still @18840.
 - Next: falsify/post Mines mklev typ at (28,13); port corridor dig/join
   — not m_move track; or quest getbones.
+
+## 2026-07-14 07:15 — D-0253 Mines mkmap typ refined
+
+- Objective: primary D-0253 — why JS `(28,13)` is wall vs C walkable.
+- C locus: `mkmap.c` pass/join + `sp_lev.c` `dig_corridor` / wallify;
+  peel is Mines depth 4 (not first DoD descend).
+- Result: **falsified mdig-opener + refined map theory** — stage snaps
+  show (28,13) STONE through init_fill→join; wallify→TRCORNER; join dig
+  `(28,3)→(29,18)` carved x=29 only; cavern room hy=12; RNG matches
+  through Mines mklev (18225); C kobold on (28,13) by step 142. No
+  production change (DIAG removed).
+- Verification: green+strict preflight PASS; seg6 still @18840.
+- Next: C typ after minefill join at (28,13); find pass/join reason
+  cavern stops at y=12; or quest getbones.
