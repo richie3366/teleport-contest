@@ -7308,4 +7308,25 @@ Open that file first; then jump to a single `## D-NNNN` entry below
 - **Next:** seed0030 Scr@46 after descend (wall color CLR vs
   NO_COLOR; botl HP digit); or seed0013 Scr 57/59.
 
+## D-0283 — botl depth() + Mines wallcolors BROWN
+
+- **Status:** fixed
+- **Observed:** seed0030 Scr first miss @46 after second `>` — C
+  `Dlvl:3` + DEC walls ESC[33m (CLR_BROWN); JS `Dlvl:1` +
+  NO_COLOR walls. Second stairs were Mines branch
+  (`tolev` dnum=2,dlevel=1), not main dlevel+1.
+- **C locus:** `botl.c` `describe_level` — `"Dlvl:%-2d"` uses
+  `depth(&u.uz)`; `display.h` `cmap_walls_to_glyph` +
+  `display.c` `wall_color(mines_walls)` (intended BROWN).
+- **Cause:** JS botl used `u.uz.dlevel` (Mines local 1); wall
+  glyphs always NO_COLOR/GRAY, never Mines branch color.
+- **Change:** `display.js` `_statusLine2` → `depth(u.uz)`;
+  `wall_glyph` → `CLR_BROWN` when `In_mines` (else GRAY→NO_COLOR).
+  Gehennom/knox/sokoban wallcolors deferred.
+- **Verification:** Scr@46–49 match; prefix first-miss **46→50**;
+  Scr count 87→100; RNG still **105529**/105529; green+strict
+  PASS; 19-session PASS cohort + strict lengths.
+- **Next:** seed0030 Scr@50 C `!` vs JS floor `·` at (6,33);
+  or seed0013 Scr 57/59.
+
 

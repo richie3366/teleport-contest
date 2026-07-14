@@ -18,6 +18,7 @@ import {
     WM_W_LEFT, WM_W_RIGHT, WM_W_TOP, WM_W_BOTTOM, WM_T_LONG, WM_T_BL, WM_T_BR,
     WM_X_TL, WM_X_TR, WM_X_BL, WM_X_BR, WM_X_TLBR, WM_X_BLTR,
     HI_GOLD,
+    In_mines,
 } from './const.js';
 import {
     ILLOBJ_CLASS, WEAPON_CLASS, ARMOR_CLASS, RING_CLASS, AMULET_CLASS,
@@ -34,6 +35,7 @@ import { stairway_at, known_branch_stairs } from './mklev.js';
 import {
     A_INT, A_WIS, A_DEX, A_CON, A_CHA, acurr, get_strength_str,
 } from './attrib.js';
+import { depth } from './hacklib.js';
 
 const CORPSE_OTYP = objectNames.indexOf('CORPSE');
 const STATUE_OTYP = objectNames.indexOf('STATUE');
@@ -591,7 +593,14 @@ function wall_glyph(loc) {
     // C: idx = ptr->seenv ? wall_angle(ptr) : S_stone
     const idx = (loc.seenv) ? wall_angle(loc) : S_STONE;
     const tab = wall_glyph_table();
-    return tab[idx] || tab[S_STONE];
+    const g = tab[idx] || tab[S_STONE];
+    if (idx === S_STONE) return g;
+    // C ref: display.h cmap_walls_to_glyph + display.c wallcolors[] /
+    // reset_glyphmap wall_color(mines_walls). Intended branch colors
+    // (commented beside wallcolors init): mines CLR_BROWN; main CLR_GRAY
+    // (tty_map_color → NO_COLOR). Gehennom/knox/sokoban deferred.
+    const color = In_mines(game.u?.uz) ? CLR_BROWN : CLR_GRAY;
+    return { ch: g.ch, color, dec: g.dec };
 }
 
 function terrain_glyph(loc, x, y) {
@@ -951,13 +960,16 @@ function _statusLine1() {
     return `${title}${' '.repeat(gap)}${stats} ${align}`;
 }
 
-// C ref: botl.c — Xp:/T: gated by flags.showexp / flags.time (default off);
+// C ref: botl.c describe_level — "Dlvl:%-2d" uses depth(&u.uz), not dunlev;
+// Xp:/T: gated by flags.showexp / flags.time (default off);
 // BL_CONDITION Ride when u.usteed (botl.c condtests[bl_ride]).
+// Named omissions: Knox/quest/endgame/tutorial describe_level arms.
 function _statusLine2() {
     const u = game.u;
     if (!u) return '';
     const flags = game.flags || {};
-    let s = `Dlvl:${u.uz?.dlevel || 1} $:${game._goldCount || 0} HP:${u.uhp || 0}(${u.uhpmax || 0}) Pw:${u.uen || 0}(${u.uenmax || 0}) AC:${u.uac ?? 10} Xp:${u.ulevel || 1}`;
+    const dlvl = depth(u.uz) || 1;
+    let s = `Dlvl:${dlvl} $:${game._goldCount || 0} HP:${u.uhp || 0}(${u.uhpmax || 0}) Pw:${u.uen || 0}(${u.uenmax || 0}) AC:${u.uac ?? 10} Xp:${u.ulevel || 1}`;
     if (flags.showexp) s += `/${u.uexp || 0}`;
     if (flags.time) s += ` T:${game.moves || 1}`;
     // C windows.c BL_MASK_RIDE → " Ride" (leading space in strcat)

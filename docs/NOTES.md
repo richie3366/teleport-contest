@@ -7,11 +7,11 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Current unit:** seed0030 Scr **87**/1953 with RNG **FULL** 105529
-  (D-0282 follow-on). Prefix first-miss **46** (was 24).
-- **Hypothesis:** after descend, wall glyph color (C CLR 3 vs JS
-  NO_COLOR) and/or botl HP digit (3 vs 1) diverge.
-- **Falsifier:** Scr@46 cell diff after matching stairs `--More--`.
+- **Current unit:** seed0030 Scr **100**/1953 with RNG **FULL** 105529
+  (D-0283 follow-on). Prefix first-miss **50** (was 46).
+- **Hypothesis:** after Mines entry, floor cell shows C `!` (potion?) vs
+  JS DEC room `·` — object missing or `newsym` omit.
+- **Falsifier:** Scr@50 cell (6,33) after matching Mines walls/Dlvl:3.
 - **Alt:** seed0013 Scr 57/59; seed0107 @2684.
 - **Parked:** D-0006 (pet movement); seed2200 @158 RC/`$HOME`.
 
@@ -39,6 +39,8 @@ Objective/score live in `CURRENT.md`.
 - **Don’t:** leave `#quit` AC-only — unknown → `y` vi-move (D-0281).
 - **Don’t:** `read_engr` maxelen from 80 — use `BUFSZ`+sizeof feel-lit
   (D-0282); long pline needs update_topl `\n` + redotoplin `more()`.
+- **Don’t:** botl `Dlvl` from `uz.dlevel` — use `depth()` (D-0283); Mines
+  walls use `wallcolors` BROWN not main GRAY→NO_COLOR.
 
 ## Landmarks (≤15)
 
@@ -59,4 +61,5 @@ Objective/score live in `CURRENT.md`.
 - Bones: `no_bones_level` before depth rn2 / after getbones `rn2(3)`
   (D-0279); VFS `bonM0.1`; limbo missile (D-0275); mtrack (D-0276);
   ghostly peace (D-0277); `disturb` (D-0278); quaff CANCEL≠TIME (D-0280);
-  `#quit`→`done2` (D-0281); topl wrap+redotoplin more (D-0282).
+  `#quit`→`done2` (D-0281); topl wrap+redotoplin more (D-0282);
+  botl `depth()` + Mines wall BROWN (D-0283).

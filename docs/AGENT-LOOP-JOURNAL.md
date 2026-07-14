@@ -20,6 +20,18 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-14 17:55 — D-0283 botl depth + Mines walls
+
+- Objective: seed0030 Scr 87/1953 (CURRENT primary); first miss @46.
+- C locus: `botl.c` `describe_level` `depth(&u.uz)`; `display.c`
+  `wall_color(mines_walls)`.
+- Change: botl `Dlvl` via `depth()` (not `dunlev`); Mines walls
+  `CLR_BROWN` when `In_mines`. DIAG confirmed second `>` is Mines
+  branch stairs (`dnum:2,dlevel:1`), not wrong goto.
+- Verification: Scr@46–49 match; prefix **46→50**; Scr 87→100;
+  RNG full; green+strict PASS; 19-session PASS cohort + strict.
+- Next: Scr@50 C `!` vs JS `·` (6,33); or seed0013.
+
 ## 2026-07-14 17:45 — D-0282 topl wrap + redotoplin more
 
 - Objective: seed0030 Scr 85/1953 (CURRENT primary); first miss @24.
@@ -176,17 +188,3 @@ Use this shape:
 - Verification: `node scripts/check-hot-docs.mjs` PASS (~4.7k tok hot sum).
 - Next: loop agents follow `CURRENT.md` primary (D-0268); do not re-expand
   archive into the hot pack.
-
-## 2026-07-14 16:15 — D-0267 m_move set_apparxy before shk
-
-- Objective: seed0030 seg9 @8943 (PROGRESS primary; NOTES post-Invis
-  set_apparxy).
-- C locus: `monmove.c` `m_move` — `set_apparxy` after meating, before
-  mtame / shk|gd|priest.
-- Change: reorder `js/monmove.js` `m_move` to call `set_apparxy` before
-  specials. Falsified mux/perceives theory — actor was peaceful
-  shopkeeper returning from `shk_move` before apparxy.
-- Verification: seg9 **8943→10461**; green+strict PASS; 17-session PASS
-  cohort; full **19/44** Scr **1563** RNG **182691**.
-- Next: D-0268 — port `m_move` Invis `rn2(11)` should_see → `appr=0`
-  @10461.
