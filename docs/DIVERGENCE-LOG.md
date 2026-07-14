@@ -7955,3 +7955,26 @@ Open that file first; then jump to a single `## D-NNNN` entry below
   helper; `distant_name` wrapper in dog_invent.
 - **Next:** @836 boulder `hear a monster behind` vs vain push.
 
+## D-0317 — `moverock` monster-behind + `dopush` unmap I
+
+- **Status:** fixed
+- **Observed:** seed0030 @836 — C
+  `You hear a monster behind the boulder.--More--` vs JS
+  `You try to move the boulder, but in vain.`; RNG full.
+- **C locus:** `hack.c` `moverock_core` mtmp arm (`You_hear` /
+  `canspotmon` → verbose follow-up → `cannot_push`, no vain pline);
+  `dopush` `glyph_is_invisible` → `unmap_object` before `movobj`.
+- **Cause:** JS treated any `m_at(dest)` as vain-push; omitted hear/spot
+  messages and left remembered `I` so a later successful push still
+  painted `I` over the boulder (`newsym` keeps invisible glyphs).
+- **Change:** port monster-behind + `closed_door` vain path in
+  `moverock_core`; clear dest invisible memory in `dopush` (D-0317).
+- **Verification:** @836 hear-behind; Scr **1400→1427**; first miss
+  **@1174** thin-air + gnome wield; RNG full; green+strict; 19 PASS
+  cohort.
+- **Named omissions:** Sokoban diagonal; shop costly; trap/teleport/pool;
+  Blind feel; verysmall; giant/`could_move_onto_boulder` in `cannot_push`;
+  `revive_nasty`; full `unmap_object` trap/engr; `y_monnam` steed;
+  `Soundeffect`; next_boulder naming.
+- **Next:** @1174 `You attack thin air.  The gnome wields a bow!`.
+

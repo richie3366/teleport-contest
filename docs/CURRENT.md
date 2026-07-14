@@ -37,7 +37,7 @@ seed0016, seed0015, seed0200, seed0101, seed0103, seed0104.
 **Notable non-PASS:**
 | Session | RNG | Screen | Note |
 |---------|----:|-------:|------|
-| seed0030 | 105529/105529 | **1400**/1953 | primary peel; cell first-miss **@836** |
+| seed0030 | 105529/105529 | **1427**/1953 | primary peel; cell first-miss **@1174** |
 | seed2200 | 3018/3018 | **175**/230 | RNG full; Scr cells 178/230 |
 | seed0013-rogue | 4838/4838 | 57/59 | |
 | seed0013-friday13-restore | 4803/4804 | 46/99 | |
@@ -61,16 +61,16 @@ Both must remain full RNG + screen PASS with exact scored-output lengths.
 
 ## Primary objective
 
-**seed0030 screen peel** — RNG full; Scr **1400**/1953; cell first-miss **@836**
+**seed0030 screen peel** — RNG full; Scr **1427**/1953; cell first-miss **@1174**
 
 | | |
 |--|--|
-| **C locus** | boulder push / hear-behind — `moverock` / push messages |
-| **JS locus** | `js/hack.js` (or boulder push path) — vain push vs hear monster |
-| **Symptom** | @836 C `You hear a monster behind the boulder.--More--` vs JS `You try to move the boulder, but in vain.` |
-| **Hypothesis** | C detects monster behind boulder before vain-push pline |
-| **Falsifier** | @836 topline match; expect Scr↑ |
-| **Recent fixed** | D-0316 `mksobj` WAND `oc_uses_known` → `known=0`; @791 glass wand |
+| **C locus** | forcefight / thin air + mon wield — `domove` / `mon_wield_item` |
+| **JS locus** | `js/cmd.js` / `js/weapon.js` (or mon turn after thin-air) |
+| **Symptom** | @1174 C `You attack thin air.  The gnome wields a bow!` vs JS `You attack thin air.` |
+| **Hypothesis** | After thin-air attack, adjacent gnome still wields this turn |
+| **Falsifier** | @1174 topline both clauses; expect Scr↑ |
+| **Recent fixed** | D-0317 `moverock` hear-behind + dopush unmap I; @836; Scr 1400→1427 |
 
 ```bash
 node frozen/ps_test_runner.mjs sessions/seed0030-ten-diverse-deaths.session.json
