@@ -24,6 +24,25 @@ The compact status table lives in **`DIVERGENCE-INDEX.md`**.
 Open that file first; then jump to a single `## D-NNNN` entry below
 (via search). Do **not** read this whole file by default.
 
+## D-0331 — getlin/`#` extcmd topline wrap at CO-1
+
+- **Status:** fixed
+- **Observed:** seed0030 @1935 — long `#` extcmd echo
+  `#  farlook -> "Elara's ghost…"` : C wraps onto row1 (`"  k"`, cursor
+  `[3,1]`) vs JS blank row1 / cursor `[80,0]`. RNG full; Scr 1933/1953.
+- **C locus:** `win/tty/topl.c` `topl_putsym` (wrap when `curx == CO-1`);
+  `win/tty/getline.c` `hooked_tty_getlin` (`bufp - obufp < COLNO`).
+- **Cause:** JS `get_ext_cmd`/`getlin` painted a single row and capped
+  input at `cursor < 78` / `buf.length < 78`, so echo never wrapped and
+  further keys were dropped once the prompt reached column 80.
+- **Change:** shared `topl_wrap_echo` matching `topl_putsym`; allow
+  buffer length `< COLNO` (D-0331).
+- **Verification:** seed0030 **Scr 1953/1953** full PASS; RNG full;
+  green+strict; 17 PASS cohort; seed2200 Scr **175→206**/230 (shared).
+- **Named omissions:** backspace across wrapped rows; full tty
+  `putsyms("\b \b")` erase on wrap; EDIT_GETLIN default buffer.
+- **Next:** seed0013 @23 getobj drop `[a-g or ?*]` vs `[abcdefg or ?*]`.
+
 ## D-0001 — blocking `--More--` owns input keys
 
 - **Observed:** `seed0900-tourist-explore-actions`, RNG divergence near 2936.

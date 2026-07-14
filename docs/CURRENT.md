@@ -18,32 +18,30 @@ label, PASS list, notable non-PASS. Do not invent suite totals from a single
 focused session.
 
 Score last measured: **2026-07-14** — full `sessions` suite (global loop
-**#355**) after D-0327. Same 19 PASS; Scr **3257→3258** (+1 from seed0030
-destroy verb; peels #351–#354 already lifted suite Scr vs #350’s 2883).
-RNG unchanged; speed `17+0.12/turn`.
-*(#356–#358: seed0030 Scr 1821→1831→1832→1933 after D-0328…D-0330;
-suite not re-run since #355.)*
+**#355**) after D-0327. Same 19 PASS then; **#359** added seed0030 full PASS
+(D-0331) → **20** PASS focused; suite Scr/RNG not remeasured since #355
+(seed0030 was 1933/1953 in that suite → now 1953/1953; seed2200 Scr rose
+175→206 on the shared wrap fix).
 
 ## Score
 
 | Metric | Value |
 |--------|------:|
-| Sessions passing | **19 / 44** |
-| Screens matched | **3258 / 11,405** (28.57%) |
+| Sessions passing | **20 / 44** (suite aggregates stale since #355) |
+| Screens matched | **3258 / 11,405** (28.57%) — #355; +seed0030/+seed2200 pending |
 | Positional RNG calls matched | **240,657 / 792,838** (30.35%) |
 | Speed label | `17+0.12/turn` (R² 0.78) |
 | Role-init throws | **0 / 44** |
 
-**PASS (19):** seed8000, seed0900, seed1500, seed1800, seed0060, seed0102,
+**PASS (20):** seed8000, seed0900, seed1500, seed1800, seed0060, seed0102,
 seed0700, seed1150, seed0017, seed0077, seed0106, seed0501, seed0105,
-seed0016, seed0015, seed0200, seed0101, seed0103, seed0104.
+seed0016, seed0015, seed0200, seed0101, seed0103, seed0104, **seed0030**.
 
 **Notable non-PASS:**
 | Session | RNG | Screen | Note |
 |---------|----:|-------:|------|
-| seed0030 | 105529/105529 | **1933**/1953 | primary peel; cell first-miss **@1935** |
-| seed2200 | 3018/3018 | **175**/230 | RNG full; Scr cells 178/230 |
-| seed0013-rogue | 4838/4838 | 57/59 | |
+| seed0013-rogue | 4838/4838 | **57**/59 | primary; @23 getobj drop letters |
+| seed2200 | 3018/3018 | **206**/230 | after D-0331; was 175 |
 | seed0013-friday13-restore | 4803/4804 | 46/99 | |
 | seed0107 | 2684/2902 | 36/98 | |
 | seed0002 | 5112/27158 | 8/595 | |
@@ -65,32 +63,32 @@ Both must remain full RNG + screen PASS with exact scored-output lengths.
 
 ## Primary objective
 
-**seed0030 screen peel** — RNG full; Scr **1933**/1953; cell first-miss **@1935**
+**seed0013-rogue screen peel** — RNG full; Scr **57**/59; cell first-miss **@23**
 
 | | |
 |--|--|
-| **C locus** | farlook / `#` extend / message wrap at end-of-session |
-| **JS locus** | TBD — topline wrap of `#  farlook -> "Elara's ghost, asleep …"` |
-| **Symptom** | @1935 C row1 `"  k"` vs JS blank (same row0 farlook line) |
-| **Hypothesis** | long farlook/extend message wraps one more word onto row1 in C |
-| **Falsifier** | @1935 match; Scr >1933 |
-| **Recent fixed** | D-0330 `;`→`doquickwhatis` + `look_at_monster` + putmixed more; Scr 1832→1933 |
+| **C locus** | `invent.c` / getobj allow-list formatting (`a-g` range) |
+| **JS locus** | getobj / drop prompt letter list |
+| **Symptom** | C `What do you want to drop? [a-g or ?*]` vs JS `[abcdefg or ?*]` |
+| **Hypothesis** | C compresses consecutive invent letters to `a-g`; JS lists each |
+| **Falsifier** | @23 match; Scr >57 |
+| **Recent fixed** | D-0331 getlin/`#` `topl_putsym` wrap + COLNO; seed0030 full PASS |
 
 ```bash
-node frozen/ps_test_runner.mjs sessions/seed0030-ten-diverse-deaths.session.json
+node frozen/ps_test_runner.mjs sessions/seed0013-rogue-friday13-combat.session.json
 ```
 
 **Note:** runner `Screen N/M` is **total** positional matches, not prefix
 length. Prefer decodeScreen cell first-miss for peel targets.
 
-**Alternate:** seed0013 Scr 57/59; seed0107 RNG@2684; seed2200 Scr 175/230.
+**Alternate:** seed2200 Scr 206/230; seed0107 RNG@2684.
 
 **Prefer over:** quest bones (`^V`/`makemaz`), parked D-0006, seed2200 RC.
 
 **Cohort after shared change:** green gate + seed1500 + seed1800 + seed0060 +
 seed0102 + seed0700 + seed1150 + seed0017 + seed0077 + seed0106 + seed0501 +
-seed0105 + seed0016 + seed0015 + seed0200 + seed0101 + seed0103 + seed0104
-(must stay PASS) + strict lengths.
+seed0105 + seed0016 + seed0015 + seed0200 + seed0101 + seed0103 + seed0104 +
+seed0030 (must stay PASS) + strict lengths.
 
 ## Parked (diagnose only — do not implement)
 

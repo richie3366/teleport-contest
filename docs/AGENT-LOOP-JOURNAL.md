@@ -20,6 +20,16 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-15 00:40 — #359 D-0331 getlin/`#` topl wrap
+
+- Objective: seed0030 @1935 `#` extcmd echo wrap (CURRENT).
+- C locus: `topl.c` `topl_putsym` (CO-1 wrap); `getline.c` `buf < COLNO`.
+- Change: `topl_wrap_echo` in `getlin`/`get_ext_cmd`; raise cap to COLNO
+  (D-0331).
+- Verification: seed0030 **1953/1953** PASS; green+strict; 17 cohort PASS;
+  seed2200 Scr **175→206**/230.
+- Next: seed0013 @23 getobj drop `[a-g or ?*]` vs `[abcdefg or ?*]`.
+
 ## 2026-07-14 23:58 — #358 D-0330 `;` glance + look_at_monster
 
 - Objective: seed0030 @1832 unbound `;` (CURRENT).
@@ -165,13 +175,3 @@ Use this shape:
   `)` vs `·`; RNG full; green+strict; 19 PASS cohort; full **19/44**
   Scr **2865**/11405 RNG **240657**/792838 speed `17+0.12/turn`.
 - Next: @1195 thrown-arrow map glyph during shoot `--More--`.
-
-## 2026-07-14 21:56 — #344 D-0317 moverock hear-behind
-
-- Objective: seed0030 @836 boulder hear-behind (CURRENT).
-- C locus: `hack.c` `moverock_core` mtmp arm; `dopush` unmap invisible.
-- Change: `You_hear`/`canspotmon` + verbose cannot-move (no vain);
-  `closed_door` vain; `dopush` clears dest `I` before `movobj` (D-0317).
-- Verification: @836 match; Scr **1400→1427**; first miss **@1174**
-  thin-air + gnome wield; RNG full; green+strict; 19 PASS cohort.
-- Next: @1174 `You attack thin air.  The gnome wields a bow!`.
