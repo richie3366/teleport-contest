@@ -235,6 +235,7 @@ Do not record a guessed cause as fixed merely because an RNG prefix moved.
 | D-0229 | fixed | xkilled treasure | mkobj(RANDOM_CLASS) after !rn2(6); seg3 8561→9166 |
 | D-0230 | fixed | CORPSE weight | mons[corpsenm].cwt; goblin gg divert; seg3 9166→9299 |
 | D-0231 | fixed | blocksMove/SDOOR | IS_OBSTRUCTED+IRONBARS; walk-into-SDOOR; seg3 9299→9778 |
+| D-0232 | fixed | muse find_misc | shk WAN_SPEED spend turn; seg3 9778→9850 |
 
 D-0001 through D-0005 predate the strict-length/cohort runbook. Their focused
 causes are preserved, but generic "green sessions held" is historical evidence,
@@ -6228,4 +6229,38 @@ cohort gates if those functions are touched again.
 - **Named omissions:** Passes_walls / autodig / chew / mention_walls
   plines on blocked obstructed cells; feel_location Blind path.
 - **Next:** seed0030 seg3 @9778 C `m_move` vs JS `distfleeck`; or
+  quest `getbones`.
+
+## D-0232 — dochug find_misc WAN_SPEED spends turn (no post fleeck)
+
+- **Status:** fixed
+- **Symptom:** seed0030 seg3 @9778 C `rn2(8)` `m_move` (track skip) vs
+  JS `rn2(5)` `distfleeck`. Matched through two fleecks after
+  `moveloop_core` `rn2(31)`.
+- **Cause:** Peaceful shopkeeper at (10,8) carried charged
+  `WAN_SPEED_MONSTER` (`spe=8`) with `mspeed!=MFAST` and
+  `dist2(mux)≤36`. C `dochug` after first `distfleeck`:
+  `find_defensive` fails (`dist>25`), then `find_misc`→`use_misc`
+  zaps speed and returns (no `m_move`, no post fleeck). JS lacked
+  muse misc → `shk_move` + post fleeck inserted an extra `rn2(5)`
+  before the grid bug’s track `rn2(8)`.
+- **Rejected:** extra hostile actor / different `appr`/cnt on the
+  grid bug — DIAG showed JS fleeck×2 for the shopkeeper
+  (pre+post) then fleeck+mtrack for the grid bug.
+- **C locus:** `monmove.c` `dochug` (`find_defensive`/`find_misc`);
+  `muse.c` `find_misc`/`use_misc`/`mzapwand`; `worn.c`
+  `mon_adjust_speed`.
+- **Change:** `js/muse.js` `find_defensive` early gates +
+  `find_misc`/`use_misc` WAN/POT_SPEED + `mzapwand` +
+  `mon_adjust_speed`; wire into `dochug`; `mcalcmove` MSLOW/MFAST;
+  `makemon` `permspeed`.
+- **Verification:** seg3 **9778→9850** (C `distfleeck` vs JS
+  `rn2(2)` after matched `move_special` `rn2(1)`); positional
+  **38260**/105529 Scr **48**/1953; full **19/44** Scr **1433**
+  RNG **162600**; green+strict PASS; 17-session PASS cohort held.
+- **Named omissions:** `find_defensive` healing/horn/flee;
+  `find_misc` poly trap/gain-level/invis/poly/bag/`rn2` bullwhip;
+  cursed wand backfire death/`m_useup`; `mzapwand` `unknow_object`;
+  `learnwand`/speed pline; steed gallop in `mcalcmove`.
+- **Next:** seed0030 seg3 @9850 C `distfleeck` vs JS `rn2(2)`; or
   quest `getbones`.

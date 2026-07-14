@@ -8,6 +8,7 @@ import {
     COLNO, ROWNO, IS_OBSTRUCTED, IS_DOOR, IS_TREE, D_CLOSED, D_LOCKED, D_BROKEN,
     ALLOW_ROCK, ALLOW_DIG, Is_rogue_level,
     M_AP_NOTHING, M_AP_OBJECT, M_AP_FURNITURE, M_AP_MONSTER, M_AP_TYPE,
+    MSLOW, MFAST,
 } from './const.js';
 import { t_at } from './trap.js';
 import {
@@ -148,7 +149,14 @@ export const BUSTDOOR = 0x01000000;
 // C ref: mon.c mcalcmove()
 export function mcalcmove(mon, m_moving) {
     let mmove = mon.data?.mmove ?? NORMAL_SPEED;
-    // MSLOW / MFAST / steed gallop not hit on seed8000 dlvl1 commons
+    // C: MSLOW / MFAST scale before optional rounding
+    if (mon.mspeed === MSLOW) {
+        if (mmove < NORMAL_SPEED) mmove = Math.trunc((2 * mmove + 1) / 3);
+        else mmove = 4 + Math.trunc(mmove / 3);
+    } else if (mon.mspeed === MFAST) {
+        mmove = Math.trunc((4 * mmove + 2) / 3);
+    }
+    // steed gallop deferred
     if (m_moving) {
         const mmove_adj = mmove % NORMAL_SPEED;
         mmove -= mmove_adj;

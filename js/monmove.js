@@ -23,6 +23,7 @@ import {
 } from './monsters.js';
 import { gettrack } from './track.js';
 import { objects_at, obj_extract_self, splitobj } from './mkobj.js';
+import { find_defensive, find_misc, use_misc } from './muse.js';
 import {
     mintrap,
     NO_TRAP_FLAGS,
@@ -928,6 +929,13 @@ export async function dochug(mtmp) {
 
     set_apparxy(mtmp);
     let { inrange, nearby, scared } = distfleeck(mtmp);
+
+    // C: find_defensive / find_misc before movement phase
+    if (find_defensive(mtmp, false)) {
+        // use_defensive body deferred — treat as not spent
+    } else if (find_misc(mtmp)) {
+        if (use_misc(mtmp) !== 0) return 1;
+    }
 
     const mdat = mtmp.data;
     // C: short-circuit OR — wanderer rn2(4) is evaluated before mpeaceful

@@ -2987,3 +2987,17 @@ Use this shape:
   full **19/44** Scr **1433** RNG **162593**; green+strict PASS; 17-session
   PASS cohort held.
 - Next: seed0030 seg3 @9778 C m_move rn2(8) vs JS distfleeck; or quest getbones.
+
+## 2026-07-14 04:20 — find_misc WAN_SPEED shopkeeper (D-0232)
+- Objective: seed0030 seg3 @9778 C m_move rn2(8) vs JS distfleeck.
+- C locus: monmove.c dochug find_defensive/find_misc; muse.c
+  find_misc/use_misc/mzapwand; worn.c mon_adjust_speed.
+- Result: **verified** — shopkeeper with charged WAN_SPEED_MONSTER
+  within dist≤36: C use_misc spends turn (no post fleeck); JS fell
+  through to shk_move+post fleeck. Ported find_misc/use_misc speed
+  + mon_adjust_speed + mcalcmove MFAST + dochug wire.
+- Verification: seg3 **9778→9850**; positional **38260**/105529 Scr
+  **48**/1953; full **19/44** Scr **1433** RNG **162600**; green+strict
+  PASS; 17-session PASS cohort held.
+- Next: seed0030 seg3 @9850 C distfleeck vs JS rn2(2) after
+  move_special; or quest getbones.
