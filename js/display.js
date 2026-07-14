@@ -982,34 +982,74 @@ export function magic_map_background(x, y, show) {
     update_lastseentyp(x, y);
 }
 
-// C ref: display.c _map_location(x,y,show=0) — remember non-living contents
-// (object / trap / engraving / background) without necessarily painting.
+/** C youprop.h Blind / Invis / Invisible / See_invisible for canspotself. */
+function hero_Blind() {
+    const u = game.u || {};
+    if (u.Blind || u.ublind) return true;
+    return !!(((u.HBlinded | 0) || (u.EBlinded | 0)) && !(u.BBlinded | 0));
+}
+function hero_Invis() {
+    const u = game.u || {};
+    if (u.Invis && !((u.HInvis | 0) || (u.EInvis | 0))) return true;
+    return !!(((u.HInvis | 0) || (u.EInvis | 0)) && !(u.BInvis | 0));
+}
+function hero_See_invisible() {
+    const u = game.u || {};
+    return !!((u.HSee_invisible | 0) || (u.ESee_invisible | 0) || u.See_invisible);
+}
+function hero_Invisible() {
+    // C: Invisible (Invis && !See_invisible)
+    return hero_Invis() && !hero_See_invisible();
+}
+/** C display.h canseeself / senseself / canspotself */
+function canseeself() {
+    const u = game.u || {};
+    return !!(hero_Blind() || u.uswallow || (!hero_Invisible() && !u.uundetected));
+}
+function senseself() {
+    const u = game.u || {};
+    // Unblind_telepat = ETelepat; Detect_monsters = H|E
+    return !!(u.ETelepat || u.Unblind_telepat || u.Detect_monsters
+        || (u.HDetect_monsters | 0) || (u.EDetect_monsters | 0));
+}
+function canspotself() {
+    return canseeself() || senseself();
+}
+
+// C ref: display.c _map_location(x,y,show) — remember non-living contents
+// (object / trap / engraving / background); paint when show.
 // Used under hero/monster so out-of-sight memory keeps the object glyph.
-function map_location_memory(x, y) {
+// Named omissions: tseen traps; visible_region_at after show.
+function map_location(x, y, show) {
     const loc = game.level?.at(x, y);
-    if (!loc || !game.level?.flags?.hero_memory) return;
+    if (!loc) return;
+    const mem = !!game.level?.flags?.hero_memory;
+    let g = null;
     const obj = objects_at(x, y);
     if (obj && !covers_objects(x, y)) {
-        // C: map_object(obj, FALSE) — may observe_object when near
+        // C: map_object(obj, show) — may observe_object when near
         map_object_observe_near(obj, x, y);
         const og = obj_glyph(obj);
-        loc.remembered_glyph = { ch: og.ch, color: og.color, decgfx: og.dec };
-        update_lastseentyp(x, y);
-        return;
-    }
-    // traps deferred — engraving before background (C map_engraving)
-    if (spot_shows_engravings(loc)) {
+        g = { ch: og.ch, color: og.color, decgfx: !!og.dec };
+    } else if (spot_shows_engravings(loc)) {
+        // traps deferred — engraving before background (C map_engraving)
         const ep = engr_at(x, y);
         if (ep && ep.erevealed) {
             const eg = engraving_glyph(loc);
-            loc.remembered_glyph = { ch: eg.ch, color: eg.color, decgfx: eg.dec };
-            update_lastseentyp(x, y);
-            return;
+            g = { ch: eg.ch, color: eg.color, decgfx: !!eg.dec };
         }
     }
-    const tg = terrain_glyph(loc, x, y);
-    loc.remembered_glyph = { ch: tg.ch, color: tg.color, decgfx: tg.dec };
+    if (!g) {
+        const tg = terrain_glyph(loc, x, y);
+        g = { ch: tg.ch, color: tg.color, decgfx: !!tg.dec };
+    }
+    if (mem) loc.remembered_glyph = { ch: g.ch, color: g.color, decgfx: g.decgfx };
+    if (show) show_glyph_cell(x, y, g.ch, g.color, g.decgfx);
     update_lastseentyp(x, y);
+}
+
+function map_location_memory(x, y) {
+    map_location(x, y, false);
 }
 
 // ── newsym ──
@@ -1018,22 +1058,26 @@ export function newsym(x, y) {
     if (!loc) return;
 
     if (game.u?.ux === x && game.u?.uy === y) {
-        // Hero — C display_self / maybe_display_usteed
-        // C: cansee path still sets waslit before display_self
-        loc.waslit = !!loc.lit;
-        // C: erevealed when cansee, even under hero
+        // C display.c newsym u_at — canspotself gates display_self
         if (cansee(x, y)) {
+            loc.waslit = !!loc.lit;
             const hep = engr_at(x, y);
             if (hep) hep.erevealed = 1;
-        }
-        const hg = hero_display_glyph();
-        show_glyph_cell(x, y, hg.ch, hg.color, false);
-        // Memory under hero: object / engraving / terrain (C _map_location)
-        if (game.level?.flags?.hero_memory) {
-            map_location_memory(x, y);
+            // poison/steam regions deferred (mon_overrides_region)
+            const see_self = canspotself();
+            // C: _map_location(x, y, !see_self); if (see_self) display_self()
+            map_location(x, y, !see_self);
+            if (see_self) {
+                const hg = hero_display_glyph();
+                show_glyph_cell(x, y, hg.ch, hg.color, false);
+            }
         } else {
-            const tg = terrain_glyph(loc, x, y);
-            loc.remembered_glyph = { ch: tg.ch, color: tg.color, decgfx: tg.dec };
+            // C: feel_location then display_self if canspotself
+            // Named omission: feel_location body deferred
+            if (canspotself()) {
+                const hg = hero_display_glyph();
+                show_glyph_cell(x, y, hg.ch, hg.color, false);
+            }
         }
         return;
     }

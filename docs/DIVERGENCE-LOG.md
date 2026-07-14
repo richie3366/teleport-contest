@@ -8022,6 +8022,23 @@ Open that file first; then jump to a single `## D-NNNN` entry below
 
 
 
+## D-0326 — `newsym` `canspotself` gates `display_self`
+
+- **Status:** fixed
+- **Observed:** seed0030 @1606 — after MAGIC_TRAP Invis / `can't see yourself`,
+  C hero cell `%` (food underfoot) vs JS `@`. RNG full.
+- **C locus:** `display.h` `canspotself`/`canseeself`/`senseself`;
+  `display.c` `newsym` u_at cansee — `_map_location(x,y,!see_self)` then
+  `display_self` only if `see_self`.
+- **Cause:** JS hero branch always painted `hero_display_glyph()` (`@`).
+- **Change:** port Blind/Invis/Invisible helpers + `canspotself`;
+  `map_location(x,y,show)` paints when `!see_self` (D-0326).
+- **Verification:** @1606 match (`%`); Scr **1606→1820**; first miss
+  **@1684** `destroy` vs `kill`; RNG full; green+strict; 17 PASS cohort.
+- **Named omissions:** `feel_location` on !cansee hero; tseen traps /
+  `visible_region_at` in `_map_location`; pet/named xkilled naming arms.
+- **Next:** @1684 `xkilled` `nonliving` → `"destroy"`.
+
 ## D-0325 — ARMOR_CLASS `xname` appearance (`OBJ_DESCR`)
 
 - **Status:** fixed

@@ -20,8 +20,8 @@ focused session.
 Score last measured: **2026-07-14** — full `sessions` suite (global loop
 **#350**) after D-0322. Same 19 PASS; Scr **2865→2883** (+18 from peels
 #346–#349); RNG unchanged; speed `18+0.12/turn`.
-Focused peels **#351–#353**: seed0030 Scr **1446→1604→1605→1606** (not a
-full-suite refresh).
+Focused peels **#351–#354**: seed0030 Scr **1446→…→1606→1820** (not a
+full-suite refresh; #354 = D-0326).
 
 ## Score
 
@@ -40,7 +40,7 @@ seed0016, seed0015, seed0200, seed0101, seed0103, seed0104.
 **Notable non-PASS:**
 | Session | RNG | Screen | Note |
 |---------|----:|-------:|------|
-| seed0030 | 105529/105529 | **1606**/1953 | primary peel; cell first-miss **@1606** |
+| seed0030 | 105529/105529 | **1820**/1953 | primary peel; cell first-miss **@1684** |
 | seed2200 | 3018/3018 | **175**/230 | RNG full; Scr cells 178/230 |
 | seed0013-rogue | 4838/4838 | 57/59 | |
 | seed0013-friday13-restore | 4803/4804 | 46/99 | |
@@ -64,16 +64,16 @@ Both must remain full RNG + screen PASS with exact scored-output lengths.
 
 ## Primary objective
 
-**seed0030 screen peel** — RNG full; Scr **1606**/1953; cell first-miss **@1606**
+**seed0030 screen peel** — RNG full; Scr **1820**/1953; cell first-miss **@1684**
 
 | | |
 |--|--|
-| **C locus** | `display.c` `newsym` — `_map_location(…, !canspotself())` + `display_self` |
-| **JS locus** | `js/display.js` `newsym` hero branch always `hero_display_glyph` |
-| **Symptom** | @1606 C `%` (object underfoot) vs JS `@` after Invis pline |
-| **Hypothesis** | When `!canspotself()`, show mapped location glyph, not `@` |
-| **Falsifier** | @1606 hero cell is `%`; prefix advances past 1606 |
-| **Recent fixed** | D-0325 ARMOR `!nn` → `OBJ_DESCR`; @1601; Scr 1605→1606 |
+| **C locus** | `mon.c` `xkilled` — `nonliving(data) ? "destroy" : "kill"` |
+| **JS locus** | `js/uhitm.js` `xkilled` — verb hard-coded `"kill"` |
+| **Symptom** | @1684 C `You destroy the kobold zombie!` vs JS `You kill …` |
+| **Hypothesis** | Port `nonliving` gate for kill pline verb |
+| **Falsifier** | @1684 topline `destroy`; prefix >1684 |
+| **Recent fixed** | D-0326 `newsym` `canspotself`; @1606; Scr 1606→1820 |
 
 ```bash
 node frozen/ps_test_runner.mjs sessions/seed0030-ten-diverse-deaths.session.json

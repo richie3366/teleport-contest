@@ -20,6 +20,16 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-14 23:04 — #354 D-0326 newsym canspotself
+
+- Objective: seed0030 @1606 Invis map `@` vs underfoot `%` (CURRENT).
+- C locus: `display.h` `canspotself`; `display.c` `newsym` u_at.
+- Change: port Blind/Invis/Invisible + `canspotself`; `map_location(show)`
+  when `!see_self`; `display_self` only when spottable (D-0326).
+- Verification: @1606 match; Scr **1606→1820**; first miss **@1684**
+  destroy vs kill; RNG full; green+strict; 17 PASS cohort.
+- Next: @1684 `xkilled` `nonliving` → `"destroy"`.
+
 ## 2026-07-14 22:58 — #353 D-0325 ARMOR xname OBJ_DESCR
 
 - Objective: seed0030 @1601 `iron skull cap` vs `orcish helm` (CURRENT).
