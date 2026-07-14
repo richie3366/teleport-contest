@@ -266,7 +266,8 @@ Do not record a guessed cause as fixed merely because an RNG prefix moved.
 | D-0260 | fixed | newmonhp level-0 min HP | rnd(4)=1→2; jackal survives; seg8 3263→3310 |
 | D-0261 | fixed | Ctrl-rush run=3 + await muse pline | seg8 FULL; seed0013 Scr 57/59 |
 | D-0262 | fixed | set_mimic_sym shop get_shop_item | shop mimic appearance; seg9 7196→8138 |
-| D-0263 | open | seed0030 seg9 @8138 drinkfountain rnd_class | after D-0262; fountain gem? |
+| D-0263 | fixed | drinkfountain dofindgem rnd_class | fate=27 gem; seg9 8138→8281 |
+| D-0264 | open | seed0030 seg9 @8281 distfleeck vs rn2(16) | after D-0263; monster path drift |
 
 
 D-0001 through D-0005 predate the strict-length/cohort runbook. Their focused
@@ -7133,13 +7134,28 @@ cohort gates if those functions are touched again.
   **47958**/105529; next @8138 `drinkfountain`/`rnd_class`.
 - **Next:** diagnose D-0263 seg9 @8138.
 
-## D-0263 — seed0030 seg9 @8138 `drinkfountain`/`rnd_class` (open)
+## D-0263 — `drinkfountain`/`dofindgem` gem `rnd_class` (fixed)
+
+- **Status:** fixed
+- **Symptom:** seed0030 seg9 @8138 — C `rnd(862) @ rnd_class` after
+  `drinkfountain` `rnd(30)=27` vs JS `rn2(3)` (dryup).
+- **C locus:** `fountain.c` `drinkfountain` case 27 → `dofindgem` →
+  `mksobj_at(rnd_class(DILITHIUM_CRYSTAL, LUCKSTONE-1), …, FALSE, FALSE)`
+  + `SET_FOUNTAIN_LOOTED` + `exercise(A_WIS)`.
+- **Root cause:** JS deferred case 27/28 as empty break; skipped gem
+  create and went straight to dryup `rn2(3)`.
+- **Change:** `js/fountain.js` `dofindgem` + FOUNTAIN_IS/SET_LOOTED;
+  drink case 27 (looted fallthrough nymph still deferred); dip case 24
+  same helper; export `rnd_class` from `js/mkobj.js`.
+- **Verification:** seg9 **8138→8281**; green+strict PASS; 17-session
+  PASS cohort; full **19/44** Scr **1563** RNG **182518**; seed0030
+  **47931**/105529; next @8281 `distfleeck` vs `rn2(16)`.
+- **Next:** diagnose D-0264 seg9 @8281.
+
+## D-0264 — seed0030 seg9 @8281 `distfleeck` vs `rn2(16)` (open)
 
 - **Status:** open
-- **Symptom:** after D-0262, first mismatch @8138 — C
-  `rnd(862) @ rnd_class(objnam.c:5413)` after `drinkfountain`
-  `rnd(30)=27` vs JS `rn2(3)`.
-- **C locus:** `fountain.c` `drinkfountain` fate arm → gem/`rnd_class`.
-- **Hypothesis:** JS skips the gem-create fate branch and hits dryup
-  early.
-- **Next:** compare C vs JS `drinkfountain` at fate=27.
+- **Symptom:** after D-0263, first mismatch @8281 — C `rn2(5) @
+  distfleeck` vs JS `rn2(16)` (typical `m_move` track arity).
+- **Hypothesis:** post-gem monster path drift (actor/pos/flags).
+- **Next:** dump actor state at mismatch; do not guess fleeck formulas.

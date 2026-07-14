@@ -12,6 +12,19 @@ Use this shape:
 ```text
 ## YYYY-MM-DD HH:MM — <objective>
 
+## 2026-07-14 10:50 — D-0263 drinkfountain dofindgem
+
+- Objective: seed0030 seg9 @8138 (PROGRESS primary; NOTES fountain gem).
+- C locus: `fountain.c` `drinkfountain` case 27 → `dofindgem` →
+  `mksobj_at(rnd_class(DILITHIUM_CRYSTAL, LUCKSTONE-1), …, FALSE, FALSE)`.
+- Change: `js/fountain.js` port `dofindgem` + FOUNTAIN_LOOTED; drink
+  case 27 + dip case 24; export `rnd_class` from `js/mkobj.js`.
+- Falsified: none — C fate=27 matched hypothesis (JS hit dryup early).
+- Verification: seg9 **8138→8281**; green+strict PASS; 17-session PASS
+  cohort; full **19/44** Scr **1563** RNG **182518**; seed0030
+  **47931**/105529.
+- Next: diagnose seg9 @8281 `distfleeck` vs `rn2(16)` (D-0264).
+
 ## 2026-07-14 10:45 — D-0262 set_mimic_sym shop get_shop_item
 
 - Objective: seed0030 seg9 @7196 (PROGRESS primary; NOTES shop stock).

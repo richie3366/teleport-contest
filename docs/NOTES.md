@@ -7,12 +7,14 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 
 ## Active
 
-- **Current unit:** seed0030 seg9 @8138 — **D-0263** — C `rnd(862) @ rnd_class`
-  after `drinkfountain` vs JS `rn2(3)` (after D-0262 shop-mimic fix).
-- **Hypothesis:** fountain drink `fate` arm creates a gem/`rnd_class` object
-  that JS skips or short-circuits into dryup/`rn2(3)`.
-- **Falsifier:** compare C vs JS `drinkfountain` at first seg9 mismatch @8138
-  (after `rnd(30)=27`); port missing fate branch or `rnd_class` caller.
+- **Current unit:** seed0030 seg9 @8281 — **D-0264** — C `rn2(5) @ distfleeck`
+  vs JS `rn2(16)` (after D-0263 `dofindgem`).
+- **Hypothesis:** post-gem monster path drift — one actor takes `m_move`
+  track/`rn2(16)` while C still fleecks (`rn2(5)`). Reconstruct which
+  monster/position diverged after the fountain gem.
+- **Falsifier:** dump JS vs C actor coords/flags at first seg9 mismatch
+  @8281 (after matched fleeck trio); identify missing `m_move` gate or
+  stale inventory/terrain underfoot.
 - **Parked deep canary:** D-0006 pet movement — do not implement until C
   state/candidate capture exists.
 - **Parked seed2200 @158:** RC config path — harness `$HOME`, not a port bug.
@@ -49,6 +51,9 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 - **seg9 @7196 was not stock_room/`mkshobj_at` eligibility** — C
   `set_mimic_sym` shop arm calls `get_shop_item` after `rn2(10)` (D-0262).
   JS had deferred that body to S_MIMIC_DEF.
+- **seg9 @8138 was drinkfountain fate=27 `dofindgem`** — not dryup early
+  alone; case 27 must call `rnd_class(DILITHIUM_CRYSTAL, LUCKSTONE-1)`
+  (D-0263).
 - Do not treat session `\r` as plain `j` — ICRNL → `\n` = `C('j')` rush
   (D-0259). `rushDirFromCtrl` keys 1..26 only.
 
@@ -81,6 +86,10 @@ Wipe or rewrite freely; keep only live traps and the current hypothesis.
 - **Shop mimic appearance:** after `rn2(10) >= depth(&u.uz)` fails,
   `set_mimic_sym` calls `get_shop_item(rt-SHOPBASE)` then may `mkobj`
   for appearance (D-0262). Use `depth()`, not bare `dlevel`.
+- **Fountain gem:** fate=27 (drink) / case 24 (dip) → `dofindgem` →
+  `mksobj_at(rnd_class(DILITHIUM..LUCKSTONE-1), …, FALSE, FALSE)` +
+  `SET_FOUNTAIN_LOOTED` (D-0263). Looted fallthrough → nymph/gush still
+  deferred.
 - **`F`/`do_fight`:** PREFIXCMD sets `forcefight`; next move dir attacks
   (empty → `domove_fight_empty` “thin air” / solid); no turn on F alone
   (D-0225).
