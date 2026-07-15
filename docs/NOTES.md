@@ -7,14 +7,14 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Score:** **24/44** PASS (last full suite #380; #383 no refresh).
-- **Fixed this iter:** D-0362 — `#loot`/`use_container` `:`/`ESC` (EXT_CMDS
-  was missing runnable `loot`). @3152 was hero at (4,6) vs C (3,5), not
-  dog_move approach math.
-- **Next:** seed0012 RNG @3204 C `xkilled` `rn2(6)` vs JS `rn2(25)`.
+- **Score:** **24/44** PASS (last full suite #380; #384 no refresh).
+- **Fixed this iter:** D-0363 — `hmon_hitmon_dmg_recalc` `dbon` +
+  `weapon_dam_bonus` (Basic martial +3). @3204 was JS flee `rn2(25)`
+  because barehands dmg stayed 2 and the mon survived.
+- **Next:** seed0012 RNG @3248 C `distfleeck` `rn2(5)` vs JS `rn2(100)`.
   Falsifier: `node scripts/rng-diff.mjs sessions/seed0012-…`.
-- **Don’t re-check:** #l autocompletes to loot (D-0362); ICE_BOX mkbox
-  corpses (D-0361).
+- **Don’t re-check:** #l→loot (D-0362); ICE_BOX mkbox (D-0361);
+  xkilled treasure vs flee was under-damage (D-0363).
 - **Landmark:** screen `i` key = `moves[i]` (= `steps[i+1].key`).
 - **Parked:** D-0006; seed2200 @158 RC.
 
@@ -69,7 +69,8 @@ Objective/score live in `CURRENT.md`.
   smudge engravings on every continue_run step (D-0359);
   hero rocktrap via youmonst→`thitm` (D-0360 — place at `u.ux,u.uy`);
   ICE_BOX `mkbox_cnts` via boxiprobs (D-0361 — `mksobj(CORPSE)`);
-  treat `#loot` unknown / blame @3152 on dog_move appr (D-0362).
+  treat `#loot` unknown / blame @3152 on dog_move appr (D-0362);
+  blame @3204 on xkilled path when JS still flees — under-dmg (D-0363).
 - Runner `Screen N/M` = total matches, not prefix length.
 
 ## Landmarks (≤15)
@@ -82,7 +83,7 @@ Objective/score live in `CURRENT.md`.
 - Save: VFS `save/<plname>` JSON; restore skips `rndencode`;
   `l_nhcore_init` still 2×rn2; farewell clears map no flush (D-0335).
 - Scoring grid: DEC chars in DEC_MAP → Unicode; `{`/` `` ` `` stay raw.
-- D-0274…D-0362: bones/disclose/RIP/topten/descr/botl/paybill/ghost/`;`/
+- D-0274…D-0363: bones/disclose/RIP/topten/descr/botl/paybill/ghost/`;`/
   getlin/compactify/enl/checkfile/save/welcome/attr/`$`/`)`/show-*/DEL/
   reveal_terrain/getpos Done/`#twoweapon`/`hitum` twohits/`dosit` OBJ_AT/
   weapon_insight twoweap limits / chargen corner / tutorial yes-path /
@@ -90,4 +91,5 @@ Objective/score live in `CURRENT.md`.
   loot→end + align_shift + WAITMASK + mention_walls bump + pool/lava/ice
   DEC diamond + describe_decor + swim avoid/drown/lava burn + death
   disclose attrs/conduct/overview + init_mapseen + continue_run no smudge +
-  hero rocktrap place ROCK + ICE_BOX mkbox corpses + `#loot` use_container.
+  hero rocktrap place ROCK + ICE_BOX mkbox corpses + `#loot` use_container +
+  hmon dmg_recalc dbon/weapon_dam_bonus.

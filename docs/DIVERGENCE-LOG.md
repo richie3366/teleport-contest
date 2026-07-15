@@ -24,6 +24,28 @@ The compact status table lives in **`DIVERGENCE-INDEX.md`**.
 Open that file first; then jump to a single `## D-NNNN` entry below
 (via search). Do **not** read this whole file by default.
 
+## D-0363 — `hmon` `dbon` / `weapon_dam_bonus` dmg_recalc (seed0012 @3204)
+
+- **Status:** fixed
+- **Observed:** seed0012 @3204 — C `xkilled` `rn2(6)` vs JS `rn2(25)`
+  (`known_hitum` flee). Prefix matched through barehands `rnd(4)=2` and
+  stagger `rnd(100)=83`.
+- **C locus:** `weapon.c` `dbon` / `weapon_dam_bonus`; `uhitm.c`
+  `hmon_hitmon_dmg_recalc` (before stagger / `mhp -= dmg`).
+- **Cause:** JS `hmon` added only `udaminc` and stubbed dbon/skill as 0.
+  Monk Basic martial arts is **+3** damage, so C dealt ~5 and killed while
+  JS dealt 2 and the mon survived into flee `rn2(25)`.
+- **Change:** `js/weapon.js` `dbon` + `weapon_dam_bonus` + `use_skill`;
+  `js/uhitm.js` `hmon_hitmon_dmg_recalc` wired before stagger. Deferred:
+  `special_dmgval` gloves/silver; PROJECTILE→launcher skillwep;
+  may-advance msg.
+- **Verification:** seed0012 first mismatch **3204→3248**; runner RNG
+  **3255→3304**/13878 Scr 14/308; green+strict PASS; cohort 22/22 PASS
+  (incl. seed0009).
+- **Lesson:** after matching barehands/stagger RNG, compare pending
+  damage arithmetic — flee `rn2(25)` means the mon lived.
+- **Next:** seed0012 @3248 C `distfleeck` `rn2(5)` vs JS `rn2(100)`.
+
 ## D-0362 — `#loot` / `use_container` `:` look (seed0012 @3152)
 
 - **Status:** fixed

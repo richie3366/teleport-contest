@@ -19,6 +19,14 @@ Use this shape:
 - Verification: …
 - Next: …
 ```
+## 2026-07-15 06:12 — D-0363 hmon dmg_recalc (seed0012 @3204)
+- Objective: seed0012 @3204 C xkilled rn2(6) vs JS rn2(25).
+- C locus: weapon.c dbon/weapon_dam_bonus; uhitm.c hmon_hitmon_dmg_recalc.
+- Change: port dbon + martial weapon_dam_bonus into hmon before stagger
+  (D-0363). JS under-dmg left mon alive → flee rn2(25).
+- Verification: prefix 3204→3248; RNG 3255→3304; green+strict; cohort 22 PASS.
+- Next: seed0012 @3248 C distfleeck rn2(5) vs JS rn2(100).
+
 ## 2026-07-15 06:06 — D-0362 #loot use_container (seed0012 @3152)
 - Objective: seed0012 @3152 C dog_move rn2(1) vs JS rn2(3).
 - C locus: pickup.c doloot/use_container; end.c container_contents.
@@ -150,15 +158,4 @@ Use this shape:
 - Verification: full suite **23/44** Scr **3565** RNG **240160**;
   seed0009 Scr **13→14**; green+strict; cohort descend/0107 PASS.
 - Next: finish `load_tut1` des.* so @14 map cells match (133 misses).
-
-## 2026-07-15 02:16 — #369 D-0348 chargen corner splash
-
-- Objective: seed0009 @9 leftover splash under role-ok (hypothesis inverted).
-- C locus: `wintty.c` `tty_display_nhwindow` corner → clear WIN_MESSAGE only;
-  `erase_menu_or_text` on destroy.
-- Change: `paint_corner_nhw_menu` chargen keeps BASE splash; erase prior
-  `_tty_menu_geom` (fullscreen clear / corner cl_end) — D-0348.
-- Verification: seed0009 Scr **12→13**/73; seed0077 PASS; green+strict;
-  cohort 21 PASS.
-- Next: seed0009 @13 `Entering the tutorial.--More--`.
 
