@@ -13,15 +13,16 @@ import {
 import { nomul, check_special_room, is_pool, is_lava } from './hack.js';
 import { flush_screen, pline, newsym, docrt } from './display.js';
 import { addinv } from './u_init.js';
-import { an, doname, xname, the as theArt } from './objnam.js';
+import { an, doname, xname, cxname, the as theArt } from './objnam.js';
 import { can_reach_floor } from './engrave.js';
 import {
-    ECMD_OK, ECMD_TIME, OBJ_FLOOR, is_pit,
+    ECMD_OK, ECMD_TIME, OBJ_FLOOR, OBJ_INVENT, is_pit,
     STONE, ICE, DRAWBRIDGE_UP,
     IS_POOL, IS_LAVA, IS_FURNITURE, IS_WATERWALL,
     LOOKHERE_PICKED_SOME, LOOKHERE_SKIP_DFEATURE,
     Has_contents,
     SORTLOOT_PACK, SORTLOOT_LOOT,
+    ALL_TYPES_SELECTED, BUC_BLESSED, BUC_CURSED, BUC_UNCURSED, BUC_UNKNOWN,
 } from './const.js';
 import { t_at, dotrap, NO_TRAP_FLAGS, drown, lava_effects } from './trap.js';
 import { nhgetch } from './input.js';
@@ -39,10 +40,64 @@ function thesimpleoname(obj) {
     return theArt(xname(obj));
 }
 
+/**
+ * C ref: objnam.c yname + shk.c shk_your — carried → "your ", else "the ".
+ * Named omissions: shk/mon ownership prefixes; artifact pname skip.
+ */
+function yname(obj) {
+    const carried = obj?.where === OBJ_INVENT
+        || (game.invent || []).includes(obj);
+    return `${carried ? 'your' : 'the'} ${cxname(obj)}`;
+}
+
+/** C ref: pickup.c reset_justpicked — clear pickup_prev on invent chain. */
+export function reset_justpicked(olist) {
+    const list = olist || game.invent || [];
+    for (const otmp of list) {
+        if (otmp) otmp.pickup_prev = 0;
+    }
+}
+
 /** C ref: hacklib.c upstart — capitalize first letter. */
 function upstart(str) {
     if (!str) return str;
     return str.charAt(0).toUpperCase() + str.slice(1);
+}
+
+/** C ref: pickup.c count_justpicked / find_justpicked. */
+function count_justpicked(olist) {
+    let cnt = 0;
+    for (const otmp of olist || []) {
+        if (otmp?.pickup_prev) cnt++;
+    }
+    return cnt;
+}
+function find_justpicked(olist) {
+    for (const otmp of olist || []) {
+        if (otmp?.pickup_prev) return otmp;
+    }
+    return null;
+}
+
+/** C ref: pickup.c count_buc subset — bknown blessed/cursed/uncursed/unknown.
+ * Coins: flags.goldX → UNKNOWN else UNCURSED.
+ */
+function count_buc(olist, buc) {
+    let cnt = 0;
+    for (const otmp of olist || []) {
+        if (!otmp) continue;
+        if (otmp.oclass === COIN_CLASS) {
+            const coinBuc = game.flags?.goldX ? BUC_UNKNOWN : BUC_UNCURSED;
+            if (buc === coinBuc) cnt++;
+            continue;
+        }
+        if (!otmp.bknown) {
+            if (buc === BUC_UNKNOWN) cnt++;
+        } else if (buc === BUC_BLESSED && otmp.blessed) cnt++;
+        else if (buc === BUC_CURSED && otmp.cursed) cnt++;
+        else if (buc === BUC_UNCURSED && !otmp.blessed && !otmp.cursed) cnt++;
+    }
+    return cnt;
 }
 
 /**
@@ -375,6 +430,8 @@ export async function pickup(what) {
         // even when n==0 (ineligible / filtered objects still shown).
         const nTried = eligible.length; // C: n_tried = n before loop
         let nPicked = 0;
+        // C: if (n > 0) reset_justpicked(invent) before pickup_object loop
+        if (nTried > 0) reset_justpicked(game.invent);
         for (const otmp of eligible) {
             const res = await pickup_object(otmp, 0, false);
             if (res < 0) break;
@@ -396,6 +453,8 @@ export async function pickup(what) {
         const lcount = count > 0
             ? Math.min(first.quan || 1, count)
             : 0;
+        // C: if (n > 0) reset_justpicked before pickup_object
+        reset_justpicked(game.invent);
         const res = await pickup_object(first, lcount, false);
         return res > 0 ? 1 : 0;
     }
@@ -404,6 +463,8 @@ export async function pickup(what) {
     // Traditional query_classes path deferred (default menu ≠ TRADITIONAL).
     const pickList = await query_objlist_pickup(eligible);
     if (!pickList.length) return 0;
+    // C: if (n > 0) reset_justpicked(invent)
+    reset_justpicked(game.invent);
     let nTried = 0;
     for (const obj of pickList) {
         // Object may already be gone if prior pick extracted a stack sibling
@@ -659,14 +720,14 @@ async function menu_loot_takeout(container) {
     let n_looted = 0;
     for (;;) {
         const entries = [
-            { text: 'Take out what?', attr: 0 },
+            { text: 'Take out what?', attr: ATR_INVERSE },
             { text: '', attr: 0 },
         ];
         // Group coins header like C INVORDER_SORT
         let coinHdr = false;
         for (const it of items) {
             if (it.obj.oclass === COIN_CLASS && !coinHdr) {
-                entries.push({ text: 'Coins', attr: 0 });
+                entries.push({ text: 'Coins', attr: ATR_INVERSE });
                 coinHdr = true;
             }
             const mark = it.selected ? '+' : '-';
@@ -734,23 +795,113 @@ async function in_container(obj) {
 }
 
 /**
- * C ref: pickup.c query_category subset for MENU_FULL put-in.
- * Envelope: coins `$` toggle; Return confirms; ESC cancels. Other classes
- * / ALL_TYPES / unpaid / BUCX deferred.
- * @returns {Set<number>|null} selected oclasses, or null if canceled/empty
+ * C ref: pickup.c query_category for MENU_FULL put-in (menu_loot).
+ * Branch envelope: CHOOSE_ALL 'A' + hint; ALL_TYPES 'a'; inv_order classes
+ * with def_oc_syms group accel; BUCX B/U/X; JUSTPICKED 'P'; PICK_ANY
+ * letter/`$` toggle; Return confirms. Named omissions: unpaid/billed;
+ * ParanoidAutoAll confirm; WORN_TYPES; venom.
+ * @returns {Set<number|string>|null} selected filters, or null if canceled
  */
 async function query_putin_category() {
+    const cont = game._current_container;
+    // C: walk full invent (includes current container) for categories
+    const invent = (game.invent || []).filter((o) => o);
+    if (!invent.length) return null;
+
+    // Present oclasses in inv_order (skip empty).
+    const classes = [];
+    for (const oc of DEF_INV_ORDER) {
+        if (invent.some((o) => o.oclass === oc)) classes.push(oc);
+    }
+    
+    const showAll = classes.length > 1;
+
+    const doBlessed = count_buc(invent, BUC_BLESSED) > 0;
+    const doCursed = count_buc(invent, BUC_CURSED) > 0;
+    const doUncursed = count_buc(invent, BUC_UNCURSED) > 0;
+    const doUnknown = count_buc(invent, BUC_UNKNOWN) > 0;
+    const nJust = count_justpicked(invent);
+    const justObj = nJust === 1 ? find_justpicked(invent) : null;
+
+    // Menu rows: { sel, accel, value, label, skipInvert }
+    const rows = [];
+    rows.push({
+        sel: 'A', accel: null, value: 'A', skipInvert: true,
+        label: 'Auto-select every relevant item',
+    });
+    rows.push({ kind: 'hint', label: '    (ignored unless some other choices are also picked)' });
+    rows.push({ kind: 'blank' });
+    let invlet = 'a'.charCodeAt(0);
+    if (showAll) {
+        rows.push({
+            sel: String.fromCharCode(invlet++), accel: null,
+            value: ALL_TYPES_SELECTED, skipInvert: true,
+            label: 'All types',
+        });
+    }
+    for (const oc of classes) {
+        const sel = String.fromCharCode(invlet++);
+        rows.push({
+            sel, accel: oclass_to_sym(oc) || null, value: oc, skipInvert: false,
+            label: let_to_name(oc, false, false),
+        });
+    }
+    if (doBlessed || doCursed || doUncursed || doUnknown || nJust) {
+        rows.push({ kind: 'blank' });
+    }
+    if (doBlessed) {
+        rows.push({
+            sel: 'B', accel: null, value: 'B', skipInvert: true,
+            label: 'Items known to be Blessed',
+        });
+    }
+    if (doCursed) {
+        rows.push({
+            sel: 'C', accel: null, value: 'C', skipInvert: true,
+            label: 'Items known to be Cursed',
+        });
+    }
+    if (doUncursed) {
+        rows.push({
+            sel: 'U', accel: null, value: 'U', skipInvert: true,
+            label: 'Items known to be Uncursed',
+        });
+    }
+    if (doUnknown) {
+        rows.push({
+            sel: 'X', accel: null, value: 'X', skipInvert: true,
+            label: 'Items of unknown Bless/Curse status',
+        });
+    }
+    if (nJust) {
+        const lab = nJust === 1 && justObj
+            ? `Just picked up: ${doname(justObj)}`
+            : 'Items you just picked up';
+        rows.push({
+            sel: 'P', accel: null, value: 'P', skipInvert: true,
+            label: lab,
+        });
+    }
+
     const selected = new Set();
     for (;;) {
-        const mark = selected.has(COIN_CLASS) ? '+' : '-';
         const entries = [
-            { text: 'Put in what type of objects?', attr: 0 },
+            { text: 'Put in what type of objects?', attr: ATR_INVERSE },
             { text: '', attr: 0 },
-            { text: `$ ${mark} Coins`, attr: 0 },
-            { text: '', attr: 0 },
-            { text: '(end) ', attr: 0 },
         ];
-        await paint_corner_nhw_menu(entries, '');
+        for (const row of rows) {
+            if (row.kind === 'blank') {
+                entries.push({ text: '', attr: 0 });
+                continue;
+            }
+            if (row.kind === 'hint') {
+                entries.push({ text: row.label, attr: 0 });
+                continue;
+            }
+            const mark = selected.has(row.value) ? '+' : '-';
+            entries.push({ text: `${row.sel} ${mark} ${row.label}`, attr: 0 });
+        }
+        await paint_corner_nhw_menu(entries, '(end) ');
         await flush_screen(1);
         const key = await nhgetch();
         game._menu_overlay = false;
@@ -762,28 +913,31 @@ async function query_putin_category() {
             return selected.size ? selected : null;
         }
         const ch = String.fromCharCode(key);
-        if (ch === '$') {
-            if (selected.has(COIN_CLASS)) selected.delete(COIN_CLASS);
-            else selected.add(COIN_CLASS);
+        const hit = rows.find((r) => r.sel === ch
+            || (r.accel && r.accel === ch));
+        if (hit && hit.value != null) {
+            if (selected.has(hit.value)) selected.delete(hit.value);
+            else selected.add(hit.value);
         }
     }
 }
 
 /**
  * C ref: pickup.c menu_loot(0, TRUE) — put in via category + PICK_ANY.
- * Branch envelope: MENU_FULL coins category; invent letter toggle; Return
- * confirms → in_container. Named omissions: ALL_TYPES/unpaid/BUCX;
- * autopick 'A'; justpicked; non-coin classes; mbag explosion.
+ * Branch envelope: MENU_FULL category filters; invent letter toggle; Return
+ * → in_container. Named omissions: unpaid/billed; ParanoidAutoAll; autopick
+ * 'A' mass put; justpicked shortcut; BUC filter apply; mbag explosion.
  */
 async function menu_loot_putin(container) {
     if (!container) return ECMD_OK;
     const cats = await query_putin_category();
     if (!cats) return ECMD_OK;
 
+    const allTypes = cats.has(ALL_TYPES_SELECTED);
     const items = [];
     for (const obj of game.invent || []) {
         if (!obj || obj === container) continue;
-        if (!cats.has(obj.oclass)) continue;
+        if (!allTypes && !cats.has(obj.oclass)) continue;
         let letch = obj.invlet;
         if (obj.oclass === COIN_CLASS) letch = '$';
         if (typeof letch !== 'string' || letch.length !== 1) {
@@ -796,13 +950,13 @@ async function menu_loot_putin(container) {
     let n_looted = 0;
     for (;;) {
         const entries = [
-            { text: 'Put in what?', attr: 0 },
+            { text: 'Put in what?', attr: ATR_INVERSE },
             { text: '', attr: 0 },
         ];
         let coinHdr = false;
         for (const it of items) {
             if (it.obj.oclass === COIN_CLASS && !coinHdr) {
-                entries.push({ text: 'Coins', attr: 0 });
+                entries.push({ text: 'Coins', attr: ATR_INVERSE });
                 coinHdr = true;
             }
             const mark = it.selected ? '+' : '-';
@@ -865,15 +1019,18 @@ export async function use_container(obj, held = false, _more = false) {
     game._current_container = obj;
     let used = ECMD_OK;
     const inokay = (game.invent || []).some((o) => o && o !== obj);
-    const outokay = !!obj.cobj;
-
+    // C: outokay = Has_contents; outmaybe = outokay || !cknown
+    const outokay = Has_contents(obj);
     let c = 'q';
     for (;;) {
-        const qbuf = outokay
-            ? `Do what with ${theArt(xname(obj))}?`
-            : `${theArt(xname(obj))} is empty.  Do what with it?`;
+        // C: prompt uses outmaybe, not bare outokay (empty+!cknown →
+        // "Do what with your bag?" still offers take-out).
+        const outmaybe = outokay || !obj.cknown;
+        const qbuf = outmaybe
+            ? `Do what with ${yname(obj)}?`
+            : `${upstart(yname(obj))} is empty.  Do what with it?`;
         c = await in_or_out_menu(
-            qbuf, obj, outokay || !obj.cknown, inokay, used !== ECMD_OK,
+            qbuf, obj, outmaybe, inokay, used !== ECMD_OK,
         );
         if (c === ':') {
             if (!obj.cknown) used = ECMD_TIME;

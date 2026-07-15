@@ -4,6 +4,30 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
+## D-0394 — use_container outmaybe/yname + MENU_FULL put-in (seed0012 Scr 275→283)
+
+- **Symptom:** seed0012 @259 C `Do what with your bag?` vs JS
+  `the bag is empty.  Do what with…`; after prompt fix, @260 incomplete
+  put-in category menu.
+- **Cause:** (1) JS prompt used bare `outokay` while C uses
+  `outmaybe = outokay || !cknown` and `yname`/`shk_your` (carried→your,
+  floor→the). (2) `query_putin_category` was coins-only; C MENU_FULL
+  `query_category` lists A/a/classes/BUCX/P; invent walk includes the
+  open container (Tools/`X` from bag `!bknown`).
+- **C locus:** `pickup.c` `use_container` (~3074–3094);
+  `query_category` / `menu_loot` MENU_FULL; `objnam.c` `yname`;
+  `shk.c` `shk_your`; `invent.c` `addinv` `pickup_prev` +
+  `count_buc` goldX arm; `allmain.c` newgame `reset_justpicked`.
+- **Change:** `js/pickup.js` outmaybe/`yname` prompts; MENU_FULL
+  put-in category UI + ATR_INVERSE class headings; `pickup_prev` /
+  `reset_justpicked`; `js/u_init.js` `addinv` sets `where`/`pickup_prev`;
+  `js/allmain.js` newgame reset.
+- **Verification:** seed0012 Scr **275→283**/308, cursors **305→307**/308;
+  @259–261 match; first fail @278 bag `containing`; green+strict PASS;
+  cohort smoke PASS; full sessions **24/44**, screens **3953**/11405.
+- **Next:** seed0012 @278 doname container contents suffix.
+
+
 ## Record format
 
 Each entry should include:

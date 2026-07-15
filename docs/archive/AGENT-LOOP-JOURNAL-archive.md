@@ -1,5 +1,26 @@
 # Agent loop journal archive
 
+## 2026-07-15 10:48 — D-0378 restfakecorr/clear_fcorr (seed0012 @13700)
+- Objective: seed0012 @13700 C move_special rn2(1) vs JS fleeck rn2(5).
+- C locus: vault.c clear_fcorr/restfakecorr; gd_move um_dist + post-dig.
+- Change: symptom was shk !onlineu mill skip — root hero walked onto
+  unrestored vault door (71,13). Ported clear_fcorr+restfakecorr; wire
+  um_dist branch and after dig step (D-0378). Not priest pri_move.
+- Verification: RNG 13754→13878/13878 (full C log); cursors 279→291/308;
+  green+strict PASS; cohort 24/24. Screens still 14/308.
+- Next: seed0012 screen/vision after clear_fcorr, or seed0004/0002.
+
+## 2026-07-15 10:28 — D-0377 gd_move dig while-loop (seed0012 @13576)
+- Objective: seed0012 @13576 C dog_move rn2(1) vs JS rn2(4).
+- C locus: vault.c gd_move nextpos while-loop; find_guard_dest incr_radius;
+  um_dist !rn2(10).
+- Change: JS gd_move dug only primary step; C redirects wall/corner onto
+  west STONE→CORR so hero can follow. Ported while-loop + incr_radius +
+  rn2(10) gate (D-0377).
+- Verification: mismatch 13576→13700; RNG 13635→13754/13878 cursors
+  270→279/308; green+strict PASS; cohort 22/22.
+- Next: seed0012 @13700 C move_special rn2(1) vs JS rn2(5).
+
 ## 2026-07-15 10:05 — D-0376 bag put-in (seed0012 @13517)
 - Objective: seed0012 @13517 C move_special rn2(1) vs JS fleeck rn2(5).
 - C locus: pickup.c use_container/in_container/menu_loot/query_category;

@@ -17,16 +17,16 @@ Update **this Score section** with: pass count, screen/RNG aggregates, speed
 label, PASS list, notable non-PASS. Do not invent suite totals from a single
 focused session.
 
-Score last measured: **2026-07-15** — full `sessions` suite (#415; post D-0389).
+Score last measured: **2026-07-15** — full `sessions` suite (#420; post D-0394).
 
 ## Score
 
 | Metric | Value |
 |--------|------:|
 | Sessions passing | **24 / 44** |
-| Screens matched | **3914 / 11,405** (34.32%) |
+| Screens matched | **3953 / 11,405** (34.66%) |
 | Positional RNG calls matched | **255,082 / 792,838** (32.17%) |
-| Speed label | `20+0.12/turn` (R² 0.80) |
+| Speed label | `21+0.12/turn` (R² 0.79) |
 | Role-init throws | **0 / 44** |
 
 **PASS (24):** seed8000, seed0900, seed1500, seed1800, seed0060, seed0102,
@@ -37,7 +37,7 @@ seed0013-rogue, seed0013-friday13-restore, seed0107, seed0009.
 **Notable non-PASS:**
 | Session | RNG | Screen | Note |
 |--------|----:|-------:|------|
-| seed0012 | **13878**/13878 | **259**/308 | @226 search-stop topline |
+| seed0012 | **13878**/13878 | **283**/308 | @278 bag `containing N item` |
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
 | seed0002 | 5198/27158 | **50**/595 | |
 | seed0004 | 4025/12084 | 28/409 | |
@@ -58,17 +58,17 @@ Both must remain full RNG + screen PASS with exact scored-output lengths.
 
 ## Primary objective
 
-**seed0012 screens** — RNG prefix complete; Scr **275**/308, cursors
-**305**/308. Vault `teleds` materialize + gold `disp.botl` (D-0393);
-@237–258 match. First fail **@259** C
-`Do what with your bag?` vs JS `the bag is empty.  Do what with…`.
+**seed0012 screens** — RNG prefix complete; Scr **283**/308, cursors
+**307**/308. D-0394: `use_container` `outmaybe`/`yname` + MENU_FULL
+`query_category` put-in (was 275). First fail **@278** C
+`j - a bag containing 1 item` vs JS `j - a bag`.
 
 ```bash
 node frozen/ps_test_runner.mjs sessions/seed0012-monk-vault-escort.session.json
 ```
 
-**Falsify next:** bag apply / empty-container prompt order after vault
-gold path vs JS premature “bag is empty” prefix.
+**Falsify next:** `doname` / container contents suffix when `cknown` +
+`Has_contents` (objnam.c) on take-out/put-in object menus.
 
 **Alternates:** seed0004 / seed0002 / seed0006 / seed0007; quest early-0.
 
