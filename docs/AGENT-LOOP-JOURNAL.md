@@ -20,6 +20,16 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-16 01:08 — #460 score + seed0002 @4565 diagnose (D-0429)
+- Objective: mandatory full score (#460÷5) + primary seed0002 @4565.
+- C locus: `dogmove.c` `dog_goal` invent `dogfood` / `udist>1` `!rn2(4)`.
+- Change: no JS port delta. DIAG: JS pet udist=4 invent=20 → `rn2(4)`;
+  C’s 20×`obj_resists` ≈ invent scan (`udist<=1`). Rejected broken
+  `obj_resists` body / missing fobj pile.
+- Verification: green+strict; full suite **26**/44 Scr **4363**/11405
+  RNG **262922**/792838 speed `24+0.13/turn`.
+- Next: find prior pet/hero placement split before @4565 (D-0429).
+
 ## 2026-07-16 01:05 — #459 eatcorpse rnd logging (D-0428)
 - Objective: seed0002 eatcorpse / early peel (PRIMARY).
 - C locus: `eat.c` `eatcorpse` `losehp(rnd(15)|rnd(8), …)`.

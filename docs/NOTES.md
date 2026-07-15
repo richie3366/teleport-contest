@@ -7,21 +7,19 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Score:** **26/44** PASS (#458 full). Scr **4363**/11405; RNG
-  **262921**/792838. seed0004 **PASS** after D-0427.
-- **Next:** seed0002 @4565 — C `rn2(100) @ obj_resists` vs JS
-  `rn2(4)` (after D-0428 prefix 3808→4565). Scr still 54/595.
+- **Score:** **26/44** PASS (#460 full). Scr **4363**/11405; RNG
+  **262922**/792838. Unchanged vs #458 aside from +1 RNG.
+- **Next (D-0429):** seed0002 @4565 — JS `rn2(4)` vs C `obj_resists`.
+  DIAG: pet `(74,12)` hero `(76,12)` `udist=4` in_bbox=1 invent=20.
+  C’s 20×`obj_resists` ≈ invent `dogfood` when `udist<=1` skips
+  `!rn2(4)`. Find prior pet/hero position split (RNG still matched).
   ```bash
   node scripts/rng-diff.mjs sessions/seed0002-healer-reflection-drummer.session.json
   ```
-- **Don’t re-check:** @3808 eatcorpse `1+rn2(8)` vs `rnd(8)` (D-0428).
-  @354 throw land food `%` without `newsym` (D-0427). @330/@336 invent
-  `(N of M)` (D-0426). @312 wall `describe_looked` (D-0425). @310 dart
-  trap `brief_at` (D-0424). @297 stairs autodescribe (D-0423). @288
-  getobj `?` n==1 `message_menu` (D-0422). @285 ring-finger `[rl]`
-  (D-0421). @277 RING `<descr> ring` (D-0420). @248 tseen trap `^`
-  (D-0419). @240 pickup poison (D-0418). @239 bag empty (D-0417).
-  @182 cursemsg (D-0416). @11722 throw carrot (D-0415).
+- **Don’t re-check:** @4565 as broken `obj_resists()` body (always
+  `rn2(100)`). @3808 eatcorpse `1+rn2` vs `rnd` (D-0428). @354 throw
+  land food `%` without `newsym` (D-0427). @330/@336 invent `(N of M)`
+  (D-0426). @312–@182 / @11722: D-0415…D-0425 (index).
 - **Landmark:** vault door (71,13); dig + restfakecorr; SPELL_LEV_PW(1)=5.
 - **Parked:** D-0006; seed2200 @158 RC.
 
@@ -55,8 +53,8 @@ Objective/score live in `CURRENT.md`.
   skip `heal_legs` / WOUNDED_LEGS `nh_timeout` (D-0403); omit
   `vtense` bare-singular conjugate (D-0403); float `mhpmax/2` for
   flee gate (D-0404); treat @9795–@11722 / @182/@239/@240/@248/@277/
-  @285/@288/@297/@310/@312/@330/@336/@354/@3808 as index
-  D-0405…D-0428 without those C paths; treat RING `obj.known` as
+  @285/@288/@297/@310/@312/@330/@336/@354/@3808/@4565 as index
+  D-0405…D-0429 without those C paths; treat RING `obj.known` as
   type-ID (D-0420); treat @248 floor vs `^` as missing feeltrap when
   `tseen` already set (D-0419); bypass `yn_function` for ring-hand
   (D-0421); force corner invent for getobj `?` when `strlen(lets)==1`
@@ -66,7 +64,8 @@ Objective/score live in `CURRENT.md`.
   without swallow/cmap DECgraphics envelope (D-0425); invent/`*`
   pickinv without `lmax` paging / `(N of M)` (D-0426); throw land
   without `cansee`→`newsym` (D-0427); eatcorpse acid/sick damage via
-  `1+rn2(N)` instead of `rnd(N)` (D-0428).
+  `1+rn2(N)` instead of `rnd(N)` (D-0428); patch `obj_resists` body
+  for @4565 when symptom is invent-scan vs `!rn2(4)` path (D-0429).
 - Runner `Screen N/M` = total matches, not prefix length.
 - First cell-miss may be botl `$:` / `Burdened` even when NOTES names a topline.
 
@@ -81,7 +80,8 @@ Objective/score live in `CURRENT.md`.
   **DECgraphics wall look: swallow mid + Unicode │ prefix** (D-0425);
   **`i`/`*` invent npages>1 → `(N of M)` + Space page** (D-0426);
   **`throwit` land `cansee`→`newsym`** (D-0427);
-  **`eatcorpse` acid/sick `rnd(N)` not `1+rn2`** (D-0428).
+  **`eatcorpse` acid/sick `rnd(N)` not `1+rn2`** (D-0428);
+  **`dog_goal` invent `dogfood` when `udist<=1` skips `!rn2(4)`** (D-0429).
 - eatcorpse palatable needs `hero_form_data` when `youmonst` unset
   (D-0409); **basic `youmonst.data` now at u_init** (D-0411); full
   `set_uasmon` FROMFORM props still deferred.

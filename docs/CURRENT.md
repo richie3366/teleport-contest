@@ -17,10 +17,9 @@ Update **this Score section** with: pass count, screen/RNG aggregates, speed
 label, PASS list, notable non-PASS. Do not invent suite totals from a single
 focused session.
 
-Score last measured: **2026-07-16** — full `sessions` suite (#458;
-post D-0427 `throwit` land `newsym`). Screens **4363**/11405 (+13 vs
-#455); RNG **262921**/792838 (−245 vs #455; seed0002 prefix dip).
-**26/44** PASS (+seed0004).
+Score last measured: **2026-07-16** — full `sessions` suite (#460 score
+cadence). Screens **4363**/11405 (unchanged vs #458); RNG **262922**/792838
+(+1 vs #458). **26/44** PASS (unchanged). Speed `24+0.13/turn`.
 
 ## Score
 
@@ -28,21 +27,21 @@ post D-0427 `throwit` land `newsym`). Screens **4363**/11405 (+13 vs
 |--------|------:|
 | Sessions passing | **26 / 44** |
 | Screens matched | **4363 / 11,405** (38.26%) |
-| Positional RNG calls matched | **262,921 / 792,838** (33.16%) |
-| Speed label | `23+0.13/turn` (R² 0.77) |
+| Positional RNG calls matched | **262,922 / 792,838** (33.16%) |
+| Speed label | `24+0.13/turn` (R² 0.78) |
 | Role-init throws | **0 / 44** |
 
 **PASS (26):** seed8000, seed0900, seed1500, seed1800, seed0060, seed0102,
 seed0700, seed1150, seed0017, seed0077, seed0106, seed0501, seed0105,
 seed0016, seed0015, seed0200, seed0101, seed0103, seed0104, seed0030,
 seed0013-rogue, seed0013-friday13-restore, seed0107, seed0009,
-seed0012, **seed0004**.
+seed0012, seed0004.
 
 **Notable non-PASS:**
 | Session | RNG | Screen | Note |
 |--------|----:|-------:|------|
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
-| seed0002 | 4965/27158 | **54**/595 | eatcorpse / early combat |
+| seed0002 | 4966/27158 | **54**/595 | pet `dog_goal` path @4565 |
 | seed0006 | 2278/6736 | **13**/123 | water demon |
 | seed0007 | 2941/16373 | **20**/302 | snake swamp |
 | seed0361/0373 | early | 0 | quest bones / `makemaz` |
@@ -62,20 +61,24 @@ Both must remain full RNG + screen PASS with exact scored-output lengths.
 
 ## Primary objective
 
-**seed0002 @4565 obj_resists vs rn2(4)** — after D-0428 eatcorpse
-`rnd` logging. Scr still **54**/595; sequential RNG prefix **4565**/27158
-(runner positional ~4966).
+**seed0002 @4565 — prior pet `udist` divergence** (D-0429). Not a missing
+`obj_resists` helper: at mismatch JS pet `(74,12)` hero `(76,12)`
+`udist=4` → `dog_goal` `!rn2(4)`; C still in `obj_resists` (= invent
+`dogfood` scan when `udist<=1` skips that roll). Invent count **20**
+matches C’s 20 consecutive `obj_resists`. Find earlier move that left
+JS pet non-adjacent while C is adjacent (same RNG prefix through 4564).
 
 ```bash
 node frozen/ps_test_runner.mjs sessions/seed0002-healer-reflection-drummer.session.json
 node scripts/rng-diff.mjs sessions/seed0002-healer-reflection-drummer.session.json
-# Focus: @4565 C obj_resists(zap.c) vs JS rn2(4); screen peel if Scr advances
+# Focus: why JS udist=4 at dog_goal when C burns invent dogfood×20
 ```
 
 **Alternates:** seed0006 / seed0007; quest early-0 (seed0361/0373).
 
 **Prefer over:** parked D-0006, seed2200 RC; re-opening eatcorpse
-acid/sick `rnd` (fixed — D-0428).
+acid/sick `rnd` (fixed — D-0428); treating @4565 as incomplete
+`obj_resists` itself.
 
 **Cohort after shared change:** green gate + seed1500 + seed1800 + seed0060 +
 seed0102 + seed0700 + seed1150 + seed0017 + seed0077 + seed0106 + seed0501 +
