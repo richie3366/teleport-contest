@@ -20,6 +20,16 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-15 15:27 — #428 Norep gp.prevmsg (D-0402)
+- Objective: seed0004 @46 caught+wriggle same topline (PRIMARY).
+- C locus: pline.c Norep/vpline vs gp.prevmsg; topl.c update_topl concat.
+- Change: display.js `_prevmsg` + shared `Norep`; hack/do drop
+  `_last_norep` cache (pony pline must clear suppress so escape Norep
+  re-shows and concatenates wriggle).
+- Verification: seed0004 @46 match; Scr **52→53**/409; RNG still @4394;
+  green+strict PASS; cohort 23/23 PASS.
+- Next: @51 heal_legs / nh_timeout WOUNDED_LEGS (DEX wipe_engr rn2).
+
 ## 2026-07-15 15:20 — #427 trapmove + Burdened botl (D-0401)
 - Objective: seed0004 @29 caught-in-bear (PRIMARY).
 - C locus: hack.c trapmove/domove; botl.c enc_stat; attrib.c exerper;

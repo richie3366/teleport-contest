@@ -474,6 +474,8 @@ const TOPLINE_NON_EMPTY = 2;
 let _toplines = '';
 let _toplin = TOPLINE_EMPTY;
 let _win_stop = false;
+// C ref: pline.c gp.prevmsg — last message that actually reached putmesg
+let _prevmsg = '';
 
 /** Reset module topline/delay state for a fresh runSegment (not in C game
  *  object; must not leak NEED_MORE across harness sessions). */
@@ -484,6 +486,7 @@ export function reset_display_messages() {
     _delay_flushing = false;
     _lastStatus1 = '';
     _lastStatus2 = '';
+    _prevmsg = '';
 }
 
 /**
@@ -2067,6 +2070,17 @@ export async function verbalize(msg) {
     await pline(`"${msg}"`);
 }
 
+/**
+ * C ref: pline.c Norep — PLINE_NOREPEAT → MSGTYP_NOREP; suppress when
+ * identical to gp.prevmsg (last shown pline), not a Norep-only cache.
+ * Msgtype-pattern table deferred.
+ */
+export async function Norep(msg) {
+    if (msg == null || msg === '') return;
+    if (_prevmsg === String(msg)) return;
+    await pline(msg);
+}
+
 // ── pline ──
 // C ref: pline.c vpline — flush_screen before putmesg; topl.c update_topl.
 export async function pline(msg) {
@@ -2079,12 +2093,15 @@ export async function pline(msg) {
     // pre-more skip flag even if ESC sets WIN_STOP during more().
     const skip = _win_stop;
     const notdied = !String(msg).startsWith('You die');
+    const line = String(msg);
 
     if ((_toplin === TOPLINE_NEED_MORE || skip)
-        && _toplines.length + 3 + msg.length < CO - 8
+        && _toplines.length + 3 + line.length < CO - 8
         && notdied) {
-        _toplines = _toplines ? `${_toplines}  ${msg}` : msg;
+        _toplines = _toplines ? `${_toplines}  ${line}` : line;
         if (!skip) game._pending_message = _toplines;
+        // C: gp.prevmsg = line (new text only, not the concatenated topline)
+        _prevmsg = line;
         return;
     }
     if (!skip && _toplin === TOPLINE_NEED_MORE) {
@@ -2093,7 +2110,7 @@ export async function pline(msg) {
     if (!notdied) _win_stop = false;
 
     // C ref: topl.c update_topl — replace spaces with `\n` while n0 >= CO
-    let formatted = String(msg);
+    let formatted = line;
     {
         let n0 = formatted.length;
         let tl = 0;
@@ -2114,6 +2131,8 @@ export async function pline(msg) {
     }
 
     _toplines = formatted;
+    // C: strncpy(gp.prevmsg, line, BUFSZ) after putmesg
+    _prevmsg = line;
     if (!skip) {
         game._pending_message = formatted;
         _toplin = TOPLINE_NEED_MORE;

@@ -19,7 +19,7 @@ focused session.
 
 Score last measured: **2026-07-15** — full `sessions` suite (#425; post D-0399
 look_here observe). Screens **3983**/11405; seed0004 Scr 28→29; seed0002
-Scr 50→54. *(#427 D-0401 improved seed0004 Scr→52 / RNG→5331 — full suite
+Scr 50→54. *(#427 D-0401 Scr→52; #428 D-0402 Scr→53 / @46 fixed — full suite
 not remeasured this iteration.)*
 
 ## Score
@@ -43,7 +43,7 @@ seed0013-rogue, seed0013-friday13-restore, seed0107, seed0009,
 |--------|----:|-------:|------|
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
 | seed0002 | 5198/27158 | **54**/595 | Scr↑ via D-0399; still @3808 eatcorpse |
-| seed0004 | **5331**/12084 | **52**/409 | D-0401; next @46 caught+wriggle topline |
+| seed0004 | **5331**/12084 | **53**/409 | D-0402 @46; next @51 heal_legs / DEX rn2 |
 | seed0361/0373 | early | 0 | quest bones / `makemaz` |
 
 ## Green gate
@@ -61,11 +61,12 @@ Both must remain full RNG + screen PASS with exact scored-output lengths.
 
 ## Primary objective
 
-**seed0004 @46** — C topline concatenates
-`You are caught in a bear trap.  You finally wriggle free.` vs JS wriggle
-only (Norep / pending topline). Or RNG @4394 `rn2(67)` vs `rn2(64)`
-(`moveloop` wipe_engr `40+ACURR(A_DEX)*3` — wounded-leg ATEMP?). Prefer
-over parked items; seed0002 `eatcorpse` still alternate.
+**seed0004 @51** — C topline
+`Your leg feels better.  Your movements are now unencumbered.` vs JS
+blank. Port `heal_legs(0)` from `timeout.c` `nh_timeout` WOUNDED_LEGS
+expiry (ATEMP DEX++ + encumber_msg). Same gap explains RNG @4394
+`rn2(67)` vs `rn2(64)` (`40+ACURR(A_DEX)*3`). Prefer over parked items;
+seed0002 `eatcorpse` still alternate.
 
 ```bash
 node frozen/ps_test_runner.mjs sessions/seed0004-feeding-pony.session.json

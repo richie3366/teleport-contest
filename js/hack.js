@@ -11,7 +11,7 @@ import {
     IS_WATERWALL, PARANOID_SWIM, TIP_SWIM,
     TT_BEARTRAP, TT_PIT, TT_WEB, TT_LAVA, TT_INFLOOR, TT_BURIEDBALL,
 } from './const.js';
-import { pline, newsym, canspotmon, map_invisible } from './display.js';
+import { pline, Norep, newsym, canspotmon, map_invisible } from './display.js';
 import { gethungry } from './eat.js';
 import { m_at } from './mon.js';
 import { cansee, recalc_block_point } from './vision.js';
@@ -764,16 +764,6 @@ export function crawl_destination(x, y) {
 }
 
 /**
- * C ref: pline.c Norep — suppress identical consecutive messages.
- * Local twin avoids hack.js → do.js cycle (do.js imports monster_nearby).
- */
-async function Norep_local(msg) {
-    if (game._last_norep === msg) return;
-    game._last_norep = msg;
-    await pline(msg);
-}
-
-/**
  * C ref: hack.c trapmove — try to escape u.utrap by walking; return true iff
  * movement should continue toward destination. Always false for bear trap
  * (escape still leaves hero on the trap square this turn).
@@ -799,7 +789,7 @@ export async function trapmove(x, y, desttrap) {
     case TT_BEARTRAP: {
         if (verbose) {
             // steed Norep deferred
-            await Norep_local('You are caught in a bear trap.');
+            await Norep('You are caught in a bear trap.');
         }
         // C: diagonal or !rn2(5) decrements escape counter
         if ((u.dx && u.dy) || !rn2(5)) {
@@ -823,7 +813,7 @@ export async function trapmove(x, y, desttrap) {
         u.utrap = (u.utrap | 0) - 1;
         if (u.utrap | 0) {
             if (verbose) {
-                await Norep_local('You are stuck to the web.');
+                await Norep('You are stuck to the web.');
             }
         } else {
             await pline('You disentangle yourself.');
@@ -832,7 +822,7 @@ export async function trapmove(x, y, desttrap) {
     }
     case TT_LAVA: {
         if (verbose) {
-            await Norep_local('You are stuck in the lava.');
+            await Norep('You are stuck in the lava.');
         }
         if (!is_lava(x, y)) {
             u.utrap = (u.utrap | 0) - 1;
@@ -854,7 +844,7 @@ export async function trapmove(x, y, desttrap) {
                 const msg = anchored
                     ? 'You are chained to the buried ball.'
                     : 'You are stuck in the floor.';
-                await Norep_local(msg);
+                await Norep(msg);
             }
         } else if (anchored) {
             await pline('You finally wrench the ball free.');

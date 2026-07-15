@@ -4,6 +4,28 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
+## D-0402 — Norep compares to gp.prevmsg (caught+wriggle topline)
+
+- **Symptom:** seed0004 @46 — C
+  `You are caught in a bear trap.  You finally wriggle free.` vs JS
+  wriggle-only.
+- **Cause:** JS `Norep` used `_last_norep` (Norep-only). After pony
+  `The saddled pony is caught in a bear trap!` pline, C's `gp.prevmsg`
+  differs so escape-turn `Norep("You are caught…")` shows again and
+  `update_topl` concatenates wriggle. JS still suppressed the caught
+  Norep.
+- **C locus:** `pline.c` `Norep`/`vpline` `MSGTYP_NOREP` vs `gp.prevmsg`
+  (~246–282, ~327); `topl.c` `update_topl` short-line concat (~259–271).
+- **Change:** `js/display.js` — `_prevmsg` updated on shown `pline`;
+  shared `Norep` suppresses only when `msg === _prevmsg`; `hack.js`/
+  `do.js` use it (drop local `_last_norep`). Msgtype-pattern table still
+  deferred.
+- **Verification:** seed0004 @46 match; Scr **52→53**/409; RNG still
+  **5331**/12084 @4394 (`rn2(67)` vs `rn2(64)`); green+strict PASS;
+  cohort **23/23**.
+- **Next:** seed0004 @51 `Your leg feels better.` via `heal_legs` /
+  `nh_timeout` WOUNDED_LEGS (also restores ATEMP DEX → wipe_engr rn2).
+
 ## D-0401 — trapmove + botl enc_stat + exerper status + mintrap escape RNG
 
 - **Symptom:** seed0004 Scr stuck **29**/409 — NOTES blamed missing

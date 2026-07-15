@@ -15,7 +15,7 @@ import {
     VISITED, LFILE_EXISTS,
 } from './const.js';
 import { COIN_CLASS } from './objects.js';
-import { pline, docrt, flush_screen, flush_topl_more, newsym } from './display.js';
+import { pline, Norep, docrt, flush_screen, flush_topl_more, newsym } from './display.js';
 import { vision_recalc, vision_reset } from './vision.js';
 import {
     stairway_at,
@@ -88,15 +88,6 @@ function tutorial_enter_gamestate() {
 function danger_uprops() {
     const u = game.u || {};
     return !!(u.Stoned || u.Slimed || u.Strangled || u.Sick);
-}
-
-/**
- * C ref: pline.c Norep — suppress identical consecutive messages.
- */
-async function Norep(msg) {
-    if (game._last_norep === msg) return;
-    game._last_norep = msg;
-    await pline(msg);
 }
 
 /**

@@ -7,18 +7,19 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Score:** **25/44** PASS (#425 last full). seed0004 Scr **52**/409
-  after D-0401 (was 29).
-- **Next:** seed0004 @46 — C topline
-  `You are caught in a bear trap.  You finally wriggle free.` vs JS
-  wriggle-only (Norep + pending topline?). Or RNG @4394 moveloop
-  `rn2(67)` vs `rn2(64)` (`40+ACURR(DEX)*3` — wounded ATEMP?).
+- **Score:** **25/44** PASS (#425 last full). seed0004 Scr **53**/409
+  after D-0402 (was 52).
+- **Next:** seed0004 @51 — C
+  `Your leg feels better.  Your movements are now unencumbered.` vs JS
+  blank. Need `heal_legs(0)` from `nh_timeout` WOUNDED_LEGS expiry
+  (also restores ATEMP DEX → wipe_engr `rn2(67)` vs JS `rn2(64)` @4394).
   Cmds in `CURRENT.md`.
-- **Don’t re-check:** trapmove BEARTRAP (D-0401); botl `enc_stat`
-  Burdened (D-0401); exerper Wounded_legs %5 (D-0401); mintrap
-  already-trapped `rn2(40)` (D-0401); dog_move newsym→postmov
-  (D-0401); encumber_msg + WT_WOUNDEDLEG_REDUCT (D-0400);
-  look_here observe before doname (D-0399).
+- **Don’t re-check:** Norep `_last_norep` (D-0402 — use `_prevmsg`);
+  trapmove BEARTRAP (D-0401); botl `enc_stat` Burdened (D-0401);
+  exerper Wounded_legs %5 (D-0401); mintrap already-trapped `rn2(40)`
+  (D-0401); dog_move newsym→postmov (D-0401); encumber_msg +
+  WT_WOUNDEDLEG_REDUCT (D-0400); look_here observe before doname
+  (D-0399).
 - **Landmark:** vault door (71,13); dig + restfakecorr; SPELL_LEV_PW(1)=5.
 - **Parked:** D-0006; seed2200 @158 RC.
 
@@ -48,7 +49,7 @@ Objective/score live in `CURRENT.md`.
   `enc_stat` when `near_capacity()>UNENCUMBERED` (D-0401); skip
   exerper wounded-leg / encumbrance exercise (D-0401); skip mintrap
   `rn2(40)` when `mtrapped` (D-0401); `newsym` inside `dog_move`
-  before postmov (D-0401).
+  before postmov (D-0401); Norep via Norep-only cache (D-0402).
 - Runner `Screen N/M` = total matches, not prefix length.
 - First cell-miss may be botl `$:` / `Burdened` even when NOTES names a topline.
 
@@ -73,5 +74,5 @@ Objective/score live in `CURRENT.md`.
   bear trap `d(2,4)`/`set_utrap` (D-0398); look_here observe before
   doname (D-0399); wounded legs → `encumber_msg` load pline (D-0400);
   `trapmove` + botl Burdened + exerper status + mintrap rn2(40)
-  (D-0401).
-- D-0274…D-0401: see index.
+  (D-0401); Norep ≡ `gp.prevmsg` (D-0402).
+- D-0274…D-0402: see index.
