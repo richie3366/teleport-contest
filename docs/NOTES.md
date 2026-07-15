@@ -7,20 +7,21 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Score:** **25/44** PASS (#450 full; #453 focused). Scr
+- **Score:** **25/44** PASS (#450 full; #454 focused). Scr
   **4336**/11405; RNG **263155**/792838. seed0004 focused: RNG
-  **12084**/12084; Scr **391**/409 (cursors 404).
-- **Next:** seed0004 @297 — C topline `staircase down` vs JS blank
-  during `_>` travel getpos autodescribe (`lookat` / stairs feature).
+  **12084**/12084; Scr **395**/409 (cursors 404).
+- **Next:** seed0004 @310 — C topline `dart trap` vs JS
+  `floor of a room` during `/` whatis getpos (`brief_at` /
+  `lookat` `trap_description`).
   ```bash
   node frozen/ps_test_runner.mjs sessions/seed0004-feeding-pony.session.json
   ```
-- **Don’t re-check:** @288 getobj `?` n==1 `message_menu` (D-0422).
-  @285 ring-finger `[rl]` via `yn_function` (D-0421). @277 RING
-  `<descr> ring` (D-0420). @248 tseen trap `^` (D-0419). @240 pickup
-  poison (D-0418). @239 bag empty (D-0417). @182 cursemsg (D-0416).
-  @11722 throw carrot (D-0415). @11708 dog `ALLOW_U` (D-0414). @11568
-  fightm (D-0413). @10966 travel boulder (D-0412).
+- **Don’t re-check:** @297 stairs autodescribe (D-0423). @288 getobj
+  `?` n==1 `message_menu` (D-0422). @285 ring-finger `[rl]` (D-0421).
+  @277 RING `<descr> ring` (D-0420). @248 tseen trap `^` (D-0419).
+  @240 pickup poison (D-0418). @239 bag empty (D-0417). @182 cursemsg
+  (D-0416). @11722 throw carrot (D-0415). @11708 dog `ALLOW_U`
+  (D-0414). @11568 fightm (D-0413). @10966 travel boulder (D-0412).
 - **Landmark:** vault door (71,13); dig + restfakecorr; SPELL_LEV_PW(1)=5.
 - **Parked:** D-0006; seed2200 @158 RC.
 
@@ -54,11 +55,12 @@ Objective/score live in `CURRENT.md`.
   skip `heal_legs` / WOUNDED_LEGS `nh_timeout` (D-0403); omit
   `vtense` bare-singular conjugate (D-0403); float `mhpmax/2` for
   flee gate (D-0404); treat @9795–@11722 / @182/@239/@240/@248/@277/
-  @285/@288 as index D-0405…D-0422 without those C paths; treat RING
-  `obj.known` as type-ID (D-0420); treat @248 floor vs `^` as missing
-  feeltrap when `tseen` already set (D-0419); bypass `yn_function`
-  for ring-hand (D-0421); force corner invent for getobj `?` when
-  `strlen(lets)==1` (D-0422 — use `message_menu` + dismiss_more).
+  @285/@288/@297 as index D-0405…D-0423 without those C paths; treat
+  RING `obj.known` as type-ID (D-0420); treat @248 floor vs `^` as
+  missing feeltrap when `tseen` already set (D-0419); bypass
+  `yn_function` for ring-hand (D-0421); force corner invent for getobj
+  `?` when `strlen(lets)==1` (D-0422); leave `autodescribe` unset /
+  skip stairs in travel `auto_describe_text` (D-0423).
 - Runner `Screen N/M` = total matches, not prefix length.
 - First cell-miss may be botl `$:` / `Burdened` even when NOTES names a topline.
 
@@ -67,7 +69,8 @@ Objective/score live in `CURRENT.md`.
 - STAIRS yellow via `known_branch_stairs`; map col=x−1 row=y+1 DEC.
 - Session: `more()` space/CR/ESC; jsmain `\r`→LF.
 - Vault door (71,13); dig + restfakecorr restores wall (D-0377/78).
-- getpos travel `_>` → stairs via feature scan (D-0408).
+- getpos travel `_>` → stairs via feature scan (D-0408);
+  **autodescribe default On + stairs firstmatch** (D-0423).
 - eatcorpse palatable needs `hero_form_data` when `youmonst` unset
   (D-0409); **basic `youmonst.data` now at u_init** (D-0411); full
   `set_uasmon` FROMFORM props still deferred.

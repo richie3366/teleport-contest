@@ -20,7 +20,7 @@ focused session.
 Score last measured: **2026-07-15** — full `sessions` suite (#450;
 post D-0419 `map_trap`). Screens **4336**/11405 (+142 vs #445;
 +128 vs pre-fix #450); RNG **263155**/792838 (+295 vs #445).
-Still **25/44** PASS. seed0004 focused (#453): Scr **391**/409 (@297 next).
+Still **25/44** PASS. seed0004 focused (#454): Scr **395**/409 (@310 next).
 
 ## Score
 
@@ -43,7 +43,7 @@ seed0013-rogue, seed0013-friday13-restore, seed0107, seed0009,
 |--------|----:|-------:|------|
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
 | seed0002 | 5210/27158 | **54**/595 | still @3808 eatcorpse |
-| seed0004 | **12084**/12084 | **391**/409 | D-0422 @288; next @297 stairs |
+| seed0004 | **12084**/12084 | **395**/409 | D-0423 @297; next @310 dart trap |
 | seed0361/0373 | early | 0 | quest bones / `makemaz` |
 
 ## Green gate
@@ -61,20 +61,21 @@ Both must remain full RNG + screen PASS with exact scored-output lengths.
 
 ## Primary objective
 
-**seed0004 @297 getpos/travel `staircase down`** — RNG full; Scr
-**391**/409 after D-0422 (`message_menu`). First cell miss: C
-topline `staircase down`; JS blank (autodescribe during `_>` travel).
+**seed0004 @310 `/` getpos `brief_at` `dart trap`** — RNG full; Scr
+**395**/409 after D-0423 (`autodescribe` default + stairs). First cell
+miss: C topline `dart trap`; JS `floor of a room` (whatis cursor on
+tseen trap).
 
 ```bash
 node frozen/ps_test_runner.mjs sessions/seed0004-feeding-pony.session.json
-# Focus: screen @297 getpos auto_describe / lookat stairs
+# Focus: screen @310 brief_at / lookat trap_description
 ```
 
 **Alternates:** seed0002 `eatcorpse`; seed0006 / seed0007; quest early-0
 (seed0361/0373).
 
-**Prefer over:** parked D-0006, seed2200 RC; re-opening @288 getobj
-`?` message_menu (fixed — D-0422).
+**Prefer over:** parked D-0006, seed2200 RC; re-opening @297 stairs
+autodescribe (fixed — D-0423).
 
 **Cohort after shared change:** green gate + seed1500 + seed1800 + seed0060 +
 seed0102 + seed0700 + seed1150 + seed0017 + seed0077 + seed0106 + seed0501 +

@@ -4,6 +4,29 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
+## D-0423 — seed0004 @297 getpos autodescribe stairs (default On)
+
+- **Status:** fixed
+- **Symptom:** seed0004 first cell miss @297 — C topline
+  `staircase down` after travel `_>` feature jump; JS blank.
+  RNG full after D-0422.
+- **Cause:** (1) C `optlist.h` `autodescribe` is opt_out default On;
+  JS never set `iflags.autodescribe`, so after `>` cleared the goal
+  prompt the loop skipped `auto_describe`. (2) Travel `getpos` has no
+  `describeAt`; `auto_describe_text` only handled self/mon/blank →
+  never stairs/ladder `defsyms` explanations.
+- **C locus:** `optlist.h` `NHOPTB(autodescribe…)`; `getpos.c`
+  `auto_describe` → `do_screen_description`/`lookat` cmap;
+  `defsym.h` `S_*stair` / `S_*ladder` explanations.
+- **Change:** `jsmain.js` default `iflags.autodescribe: true` (rc may
+  negate); `getpos.js` `stair_ladder_explanation` in
+  `auto_describe_text`. Deferred: trap/object/wall cmap arms,
+  `coord_desc`, `(no travel path)` / `(invalid target)` suffixes.
+- **Verification:** seed0004 Scr **391→395**/409; @297–@309 match;
+  first miss **@310** C `dart trap` vs JS `floor of a room` (whatis
+  `brief_at`); RNG full; green+strict; cohort **25/25**.
+- **Next:** seed0004 @310 `/` getpos `brief_at` / lookat trap.
+
 ## D-0422 — seed0004 @288 getobj ? n==1 → message_menu PICK_ONE
 
 - **Status:** fixed
