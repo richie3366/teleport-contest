@@ -17,17 +17,18 @@ Update **this Score section** with: pass count, screen/RNG aggregates, speed
 label, PASS list, notable non-PASS. Do not invent suite totals from a single
 focused session.
 
-Score last measured: **2026-07-15** — full `sessions` suite (#420; post D-0394);
-seed0012 newly PASS via D-0397 (Scr +1 → **3954**/11405 est.).
+Score last measured: **2026-07-15** — full `sessions` suite (#425; post D-0399
+look_here observe). Screens **3983**/11405; seed0004 Scr 28→29; seed0002
+Scr 50→54.
 
 ## Score
 
 | Metric | Value |
 |--------|------:|
 | Sessions passing | **25 / 44** |
-| Screens matched | **3954 / 11,405** (34.67%) |
-| Positional RNG calls matched | **255,082 / 792,838** (32.17%) |
-| Speed label | `21+0.12/turn` (R² 0.79) |
+| Screens matched | **3983 / 11,405** (34.92%) |
+| Positional RNG calls matched | **255,144 / 792,838** (32.18%) |
+| Speed label | `21+0.12/turn` (R² 0.80) |
 | Role-init throws | **0 / 44** |
 
 **PASS (25):** seed8000, seed0900, seed1500, seed1800, seed0060, seed0102,
@@ -40,8 +41,8 @@ seed0013-rogue, seed0013-friday13-restore, seed0107, seed0009,
 | Session | RNG | Screen | Note |
 |--------|----:|-------:|------|
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
-| seed0002 | 5198/27158 | **50**/595 | |
-| seed0004 | 4087/12084 | 28/409 | D-0398 bear trap; next @26 yellow gem |
+| seed0002 | 5198/27158 | **54**/595 | Scr↑ via D-0399; still @3808 eatcorpse |
+| seed0004 | 4087/12084 | **29**/409 | D-0399 gem; next @27 bear `--More--` |
 | seed0361/0373 | early | 0 | quest bones / `makemaz` |
 
 ## Green gate
@@ -59,9 +60,9 @@ Both must remain full RNG + screen PASS with exact scored-output lengths.
 
 ## Primary objective
 
-**seed0004 / seed0002 shared blockers** — seed0004 RNG advanced past
-bear trap (D-0398). Prefer early screen @26 gem color (`a yellow gem`)
-or seed0002 `eatcorpse` rnd(8) over parked items.
+**seed0004 / seed0002 shared blockers** — gem color via look_here observe
+(D-0399). Prefer seed0004 @27 bear-trap `--More--` (`flush_topl_more` /
+pline NEED_MORE) or seed0002 `eatcorpse` rnd(8) over parked items.
 
 ```bash
 node frozen/ps_test_runner.mjs sessions/seed0004-feeding-pony.session.json

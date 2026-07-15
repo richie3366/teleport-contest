@@ -4,6 +4,25 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
+## D-0399 — look_here observe_object before doname (gem color)
+
+- **Symptom:** seed0004 first cell miss @26 — C `a yellow gem` /
+  `Things that are here:` pile vs JS `a gem` (dknown=0).
+- **Cause:** C `xname_flags` calls `observe_object` when
+  `!Blind && !gd.distantname`; JS `xname`/`doname` omit that (named
+  omission for distant_name / generic map glyphs). `see_nearby_objects`
+  only observes pile-tops, so buried gems stay unseen until named.
+- **C locus:** `objnam.c` `xname_flags` observe (~627–628);
+  `invent.c` `look_here` → `doname`/`doname_with_price`.
+- **Change:** `js/invent.js` `look_here` — `observe_object` before
+  each `doname` (single + multi). Named omissions: blanket observe in
+  `xname`/`doname`; `distant_name` / `gd.distantname`;
+  `doname_with_price`.
+- **Verification:** seed0004 Scr **28→29**/409 (gem @26 fixed; next
+  @27 bear `--More--`); seed0002 Scr **50→54**/595; green+strict PASS;
+  cohort 9/9 PASS; full sessions **25/44**, Scr **3983**/11405.
+- **Next:** seed0004 @27 bear-trap `--More--`; or seed0002 eatcorpse.
+
 ## D-0398 — trapeffect_bear_trap + floor_trigger BEAR (seed0004 RNG)
 
 - **Symptom:** seed0004 first RNG miss @4013 — C `d(2,4)` at

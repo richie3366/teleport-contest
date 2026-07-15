@@ -1744,10 +1744,12 @@ export function dfeature_at(x, y) {
  * C ref: invent.c look_here — feature + objects at hero feet.
  * Ported envelope: non-swallow, non-blind; dfeature pline; single
  * `You see here`; multi NHW_MENU "Things that are here:" via
- * display_nhwindow(WIN_MESSAGE)+putstr (D-0220). Named omissions:
+ * display_nhwindow(WIN_MESSAGE)+putstr (D-0220); **observe_object
+ * before doname** (D-0399; C xname_flags). Named omissions:
  * pile_limit skip_objects, Blind feel, trap+region, doname_with_price,
- * cockatrice feel, engulfer stomach. Furniture with ct==0 uses
- * pickup.describe_decor (D-0356), not this path.
+ * cockatrice feel, engulfer stomach; blanket xname observe /
+ * distant_name. Furniture with ct==0 uses pickup.describe_decor
+ * (D-0356), not this path.
  */
 export async function look_here(obj_cnt = 0, lookhere_flags = 0) {
     const u = game.u;
@@ -1814,6 +1816,10 @@ export async function look_here(obj_cnt = 0, lookhere_flags = 0) {
             const { read_engr_at } = await import('./engrave.js');
             await read_engr_at(u?.ux, u?.uy);
         }
+        // C: doname → xname_flags observe_object when !Blind && !distantname
+        // (JS xname/doname omit blanket observe; look_here must set dknown
+        // for buried pile items see_nearby_objects never touches).
+        if (!game.u?.Blind) observe_object(otmp);
         // doname_with_price deferred → doname
         await pline(`You ${verb} here ${doname(otmp)}.`);
         return;
@@ -1830,6 +1836,8 @@ export async function look_here(obj_cnt = 0, lookhere_flags = 0) {
         `${picked_some ? 'Other things' : 'Things'} that are here:`,
     );
     for (let o = otmp; o; o = o.nexthere) {
+        // C: doname_with_price → xname observe_object (dknown for gem color)
+        if (!game.u?.Blind) observe_object(o);
         lines.push(doname(o)); // doname_with_price deferred
     }
     const { show_nhw_menu_text } = await import('./pager.js');
