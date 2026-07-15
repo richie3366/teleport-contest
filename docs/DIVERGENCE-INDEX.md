@@ -362,6 +362,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 | D-0373 | fixed | vault_tele / tele_trap once TELEP | niche→vault somex; @12489→13287 |
 | D-0374 | fixed | invault + guard makemon / merc kit | timer+spawn; @13287→13392 |
 | D-0375 | fixed | apply `?` bag take-out + gd_move | hidden_gold; @13392→13517 |
+| D-0376 | open | shk off-home; missed onlineu return | mill~11069→(11,12); @13517 satdoor vs appr=1 |
 
 D-0001 through D-0005 predate the strict-length/cohort runbook. Their focused
 causes are preserved, but generic "green sessions held" is historical evidence,

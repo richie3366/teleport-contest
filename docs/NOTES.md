@@ -7,19 +7,21 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Score:** **24/44** PASS (#395). seed0012 focused RNG **13591**/13878
-  cursors **259**/308 (post D-0375).
-- **Next:** seed0012 @13517 — C `move_special` `rn2(1)` vs JS `rn2(5)`.
+- **Score:** **24/44** PASS (#400). RNG **254110**/792838 Scr **3640**/11405.
+  seed0012 focused RNG **13591**/13878 cursors **259**/308.
+- **Next:** seed0012 @13517 — JS shk off-home after mill ~11069; missed
+  `appr=1` home return (`!onlineu`) until hero hits row 12. C satdoor mill.
   Cmd: `node scripts/rng-diff.mjs sessions/seed0012-monk-vault-escort.session.json`
-  Falsify: priest/special mon mill matches C after gd_move escort.
-- **Don’t re-check:** @13392 as fleeck/gd_move alone (D-0375 — apply `?`
-  Never mind desynced bag take-out then stub gd_move); @13287 as wipe
+  Falsify: first turn 11072–13517 where C `onlineu(11,12)` and JS does not
+  (hero path / vault exit), or C mill destination ≠ JS (11,12).
+- **Don’t re-check:** @13517 as bare `move_special`/`mfndpos` cand-count bug
+  (JS `move_special` + `rn2(++chcnt)` faithful when satdoor; symptom is
+  off-home appr=1); @13392 fleeck/gd_move alone (D-0375); @13287 wipe
   before invault (D-0374); @12489 fleeck/mon mvault (D-0373); @12439
   gethungry/Unaware (D-0372); @8802 dog_goal IS_ROOM (D-0371); @8384
   fountain detect (D-0370); wipeout@7312; wantdoor @6952.
-- **Landmark:** vault niche TELEP once → vault_tele; after 30 turns
-  `invault` spawns PM_GUARD + getlin name + fakecorr door; apply bag
-  `a?jo$\r` takes gold out then `d$` drop before escort.
+- **Landmark:** shop home (11,11) door (12,11); mill appr=0 → often (11,12);
+  return needs `onlineu` with off-home cell; vault niche TELEP; bag `a?jo$`.
 - **Parked:** D-0006; seed2200 @158 RC.
 
 ## Don’t re-check (≤15)
@@ -67,7 +69,8 @@ Objective/score live in `CURRENT.md`.
   gethungry rn2(20)@12439 as Unaware (D-0372 — attack before test_move);
   somex@12489 as fleeck/mon mvault (D-0373 — hero once vault TELEP);
   wipe_engr@13287 as fleeck (D-0374 — invault guard spawn);
-  fleeck@13392 as gd_move-only (D-0375 — apply `?` bag take-out first).
+  fleeck@13392 as gd_move-only (D-0375 — apply `?` bag take-out first);
+  @13517 as move_special cand-count alone (D-0376 — shk off-home return).
 - Runner `Screen N/M` = total matches, not prefix length.
 
 ## Landmarks (≤15)
@@ -85,4 +88,5 @@ Objective/score live in `CURRENT.md`.
 - Vault niche `TELEP` once → `vault_tele` somexyspace (D-0373).
 - Vault `invault` timer 30 → `makemon(PM_GUARD)` + getlin (D-0374).
 - Apply bag `a?jo$\r` → take-out gold; `d$` drop; gd_move escort (D-0375).
-- D-0274…D-0375: see index.
+- Shop home (11,11): mill → (11,12); return needs `onlineu` (D-0376).
+- D-0274…D-0376: see index.

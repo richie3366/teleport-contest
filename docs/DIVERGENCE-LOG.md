@@ -24,6 +24,32 @@ The compact status table lives in **`DIVERGENCE-INDEX.md`**.
 Open that file first; then jump to a single `## D-NNNN` entry below
 (via search). Do **not** read this whole file by default.
 
+## D-0376 — shk off-home after mill; missed onlineu return (seed0012 @13517)
+
+- **Status:** open
+- **Observed:** seed0012 @13517 — C `move_special` `rn2(1)` (`priest.c:85`)
+  vs JS `rn2(5)` (`distfleeck`).
+- **Cause/evidence (partial):** JS `move_special` `!appr && !rn2(++chcnt)` is
+  faithful when satdoor. DIAG at mismatch: JS shk at (11,12) home (11,11)
+  with `appr=1` (approach, no mill RNG) then post-move fleeck; C mills with
+  `appr=0` satdoor. Trajectory: mill ~11069 from home with cands
+  `(10,11 NOTONL),(10,12),(11,12)` + `rn2(1/2/3)=0` → (11,12); then
+  `shk_move` early-return `!onlineu` until hero reaches row 12 @13517.
+  C has no further `move_special` RNG until 13517 but must be back at home
+  (satdoor mill) → C took a no-RNG `appr=1` return earlier. Not a
+  cand-count bug in `move_special`.
+- **Rejected:** patching mill arity / inventing satdoor; fleeck-first as
+  root; `pri_move` stub (no `rn1` before mismatch).
+- **C locus:** `shk.c` `shk_move` (`onlineu` / satdoor / `appr`);
+  `priest.c` `move_special`; hero path after vault exit.
+- **Change:** none yet — next falsify first `onlineu(11,12)` miss
+  (hero `(ux,uy)` 11072–13517) or C mill destination ≠ (11,12).
+- **Verification:** #400 full suite still **24/44**; focused prefix 13517;
+  green+strict PASS.
+- **Lesson:** when C shows satdoor mill and JS shows fleeck/`appr=1`,
+  dump shk `(mx,my)` vs `eshk.shk` before touching `mfndpos`.
+- **Next:** hero/`onlineu` desync after vault exit (or prove C mill dest).
+
 ## D-0375 — apply bag take-out + gd_move escort (seed0012 @13392)
 
 - **Status:** fixed

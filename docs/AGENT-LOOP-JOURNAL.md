@@ -19,6 +19,16 @@ Use this shape:
 - Verification: …
 - Next: …
 ```
+## 2026-07-15 09:35 — #400 score + D-0376 shk off-home diagnosis
+- Objective: mandatory full `sessions` score (#400÷5); peel seed0012 @13517.
+- C locus: shk.c shk_move onlineu/satdoor; priest.c move_special.
+- Change or falsified theory: no JS patch. Falsified “move_special cand-count”
+  — JS satdoor mill faithful; @13517 JS shk off-home appr=1 after mill~11069
+  stuck on !onlineu; C satdoor mill ⇒ missed earlier appr=1 return (D-0376 open).
+- Verification: green+strict PASS; full **24/44** Scr **3640**/11405 RNG
+  **254110**/792838 speed `21+0.13/turn`.
+- Next: falsify first onlineu(11,12) miss hero path 11072–13517.
+
 ## 2026-07-15 09:28 — D-0375 bag apply + gd_move escort (seed0012 @13392)
 - Objective: seed0012 @13392 C distfleeck rn2(5) vs JS rn2(7).
 - C locus: invent.c display_pickinv/getobj `?`; apply.c use_container;
@@ -133,21 +143,3 @@ Use this shape:
   leaked b/\\n/n as movement → hero desync → skipped invent resists.
 - Verification: prefix 3483→6924; RNG 3638→7052; green+strict; cohort 24/24.
 - Next: seed0012 @6924 C getlev rnd(10) vs JS fleeck.
-
-## 2026-07-15 06:35 — D-0364 dog_nutrition oc_delay (seed0012 @3248)
-- Objective: seed0012 @3248 C fleeck vs JS obj_resists after pet fleeck.
-- C locus: dogmove.c dog_nutrition/dog_eat; monmove.c m_move meating.
-- Change: dog_nutrition reads objects[].oc_delay + FOOD nutrition×msize;
-  non-food owt/20 (D-0364). Was instance oc_delay→meating=1 after tripe.
-- Verification: prefix 3248→3483; RNG 3304→3638; green+strict; cohort 24/24.
-- Next: seed0012 @3483 C dog_goal obj_resists vs JS dog_move rn2(3).
-
-## 2026-07-15 06:20 — #385 score + D-0364 diagnose (seed0012 @3248)
-- Objective: mandatory full `sessions` score (#385÷5); primary seed0012 @3248.
-- C locus: dogmove.c dog_goal/dog_move; zap.c obj_resists (DIAG only).
-- Change: none in js/. Score refresh 24/44 (Scr 3640/11405, RNG 243833/792838).
-  DIAG: pet dog_goal obj_resists on CHEST/STATUE/CORPSE/ICE_BOX; skip dog_move
-  RNG → prefix 3483 (falsifier only — reverted).
-- Verification: green+strict PASS; full suite 24/44.
-- Next: fix fobj membership near pet (D-0364); do not skip dog_move.
-

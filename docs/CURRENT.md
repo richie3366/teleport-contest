@@ -17,7 +17,7 @@ Update **this Score section** with: pass count, screen/RNG aggregates, speed
 label, PASS list, notable non-PASS. Do not invent suite totals from a single
 focused session.
 
-Score last measured: **2026-07-15** — full `sessions` suite (#395, post D-0371).
+Score last measured: **2026-07-15** — full `sessions` suite (#400).
 
 ## Score
 
@@ -25,8 +25,8 @@ Score last measured: **2026-07-15** — full `sessions` suite (#395, post D-0371
 |--------|------:|
 | Sessions passing | **24 / 44** |
 | Screens matched | **3640 / 11,405** (31.92%) |
-| Positional RNG calls matched | **253,036 / 792,838** (31.92%) |
-| Speed label | `21+0.12/turn` (R² 0.81) |
+| Positional RNG calls matched | **254,110 / 792,838** (32.05%) |
+| Speed label | `21+0.13/turn` (R² 0.81) |
 | Role-init throws | **0 / 44** |
 
 **PASS (24):** seed8000, seed0900, seed1500, seed1800, seed0060, seed0102,
@@ -37,10 +37,10 @@ seed0013-rogue, seed0013-friday13-restore, seed0107, seed0009.
 **Notable non-PASS:**
 | Session | RNG | Screen | Note |
 |--------|----:|-------:|------|
-| seed0012 | **13591**/13878 | **14**/308 | @13517 C move_special vs JS rn2(5) (post D-0375) |
+| seed0012 | **13591**/13878 | **14**/308 | @13517 shk off-home appr=1 vs C satdoor mill (D-0376 open) |
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
 | seed0004 | 4025/12084 | 28/409 | |
-| seed0002 | 4521/27158 | 9/595 | |
+| seed0002 | 4520/27158 | 9/595 | |
 | seed0361/0373 | early | 0 | quest bones / `makemaz` |
 
 ## Green gate
@@ -58,13 +58,19 @@ Both must remain full RNG + screen PASS with exact scored-output lengths.
 
 ## Primary objective
 
-**seed0012 @13517** — C `move_special` `rn2(1)` (`priest.c:85`) vs JS
-`rn2(5)`. Post D-0375 bag take-out + gd_move escort; prefix 13392→13517.
+**seed0012 @13517** — C `move_special` satdoor `appr=0` mill `rn2(1/2/3)` vs
+JS shk off-home `appr=1` approach (then fleeck `rn2(5)`). DIAG (#400): JS left
+home at mill ~11069→(11,12) and early-returned `!onlineu` until @13517; C must
+have returned home (appr=1, no RNG) earlier — hero/`onlineu` path desync.
 
 ```bash
 node scripts/rng-diff.mjs sessions/seed0012-monk-vault-escort.session.json
 node frozen/ps_test_runner.mjs sessions/seed0012-monk-vault-escort.session.json
 ```
+
+**Falsify next:** compare C vs JS hero `(ux,uy)` and shk `(mx,my)` on turns
+between rng 11072–13517 (vault exit → row-12 lineup); find first `onlineu(11,12)`
+miss. Do not patch `move_special` arity.
 
 **Alternates:** seed0004 / seed0002 / seed0006 / seed0007; quest early-0.
 
