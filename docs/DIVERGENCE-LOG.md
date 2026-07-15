@@ -24,6 +24,32 @@ The compact status table lives in **`DIVERGENCE-INDEX.md`**.
 Open that file first; then jump to a single `## D-NNNN` entry below
 (via search). Do **not** read this whole file by default.
 
+## D-0372 — `domove` attack before `test_move` (seed0012 @12439)
+
+- **Status:** fixed
+- **Observed:** seed0012 @12439 — C `gethungry` `rn2(20)` (via
+  `overexertion`/`hitum`) vs JS `distfleeck` `rn2(5)`.
+- **Cause:** JS `domove` ran diagonal intact-doorway bans (`testdiag` /
+  out-of-doorway) **before** `m_at`/`do_attack`. Hero stood in a
+  `DOOR`+`D_CLOSED` cell; `b` toward hostile on ROOM was refused with
+  `move=0`, so monsters moved instead of melee. C `domove_core` attacks
+  first, then `test_move`.
+- **Rejected:** leftover vomit `multi`; `umovement`/`gethungry` arity;
+  Unaware metabolic gate (EOT matched through wipe_engr).
+- **C locus:** `hack.c` `domove_core` (`m_at` → `domove_attackmon_at`
+  before `test_move`).
+- **Change:** `js/cmd.js` `domove` — attack (and F-empty) before
+  closed_door / testdiag / blocksMove; safemon swap after test_move.
+  Named omissions: run-into-visible stop; displacer; bump_mon;
+  mundetected Wait!.
+- **Verification:** first mismatch **12439→12489**; runner RNG
+  **12505→12608**/13878 cursors **226→227**/308; green+strict PASS;
+  cohort **22/22** (+ green = prior PASS set).
+- **Lesson:** doorway `test_move` bans are for *moving*, not for
+  suppressing adjacent melee — falsify with hero-on-DOOR + diagonal
+  attack before chasing hunger RNG.
+- **Next:** seed0012 @12489 C `somex` `rn2(2)` vs JS `rn2(5)`.
+
 ## D-0371 — `drinkfountain` case 20 `vomit`/`nomul(-2)` (seed0012 @8802)
 
 - **Status:** fixed

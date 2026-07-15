@@ -7,16 +7,16 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Score:** **24/44** PASS (#395). seed0012 focused RNG **12505**/13878
-  cursors **226**/308 (post D-0371).
-- **Next:** seed0012 @12439 — C `gethungry` `rn2(20)` vs JS `rn2(5)`.
+- **Score:** **24/44** PASS (#395). seed0012 focused RNG **12608**/13878
+  cursors **227**/308 (post D-0372).
+- **Next:** seed0012 @12489 — C `somex` `rn2(2)` vs JS `rn2(5)`.
   Cmd: `node scripts/rng-diff.mjs sessions/seed0012-monk-vault-escort.session.json`
-  Falsify: Unaware/`gethungry` call count vs fleeck after vomit multi.
-- **Don’t re-check:** @8802 as dog_goal IS_ROOM/door (was missing foul
-  `vomit`/`nomul(-2)` — D-0371); @8384 fountain detect (D-0370);
-  wipeout@7312; wantdoor @6952; invent/fobj @7288.
-- **Landmark:** fate=20 foul → vomit nomul(-2) → You can move again;
-  fate=26 detect getpos; fmon is array; `\r`→LF.
+  Falsify: vault/room placement after melee kill vs extra fleeck.
+- **Don’t re-check:** @12439 as gethungry/Unaware (was attack-after-
+  testdiag — D-0372); @8802 as dog_goal IS_ROOM (D-0371 foul vomit);
+  @8384 fountain detect (D-0370); wipeout@7312; wantdoor @6952.
+- **Landmark:** diagonal attack from intact doorway before test_move;
+  fate=20 foul → vomit nomul(-2); fate=26 detect getpos; `\r`→LF.
 - **Parked:** D-0006; seed2200 @158 RC.
 
 ## Don’t re-check (≤15)
@@ -60,7 +60,8 @@ Objective/score live in `CURRENT.md`.
   (D-0363); oc_delay meating (D-0364); `,` leak move (D-0365); `<`/
   getlev (D-0366); rest_track (D-0367); O/@ gold (D-0368); allmain wipe
   @7312 (D-0369); mtrack k−j @8384 (D-0370 — fountain detect);
-  dog_goal rn2(4)@8802 as IS_ROOM (D-0371 — foul vomit).
+  dog_goal rn2(4)@8802 as IS_ROOM (D-0371 — foul vomit);
+  gethungry rn2(20)@12439 as Unaware (D-0372 — attack before test_move).
 - Runner `Screen N/M` = total matches, not prefix length.
 
 ## Landmarks (≤15)
@@ -74,4 +75,5 @@ Objective/score live in `CURRENT.md`.
 - Save: VFS `save/<plname>` JSON; restore skips `rndencode`.
 - Fountain fate=26: `monster_detect` + getpos (D-0370); fmon is array.
 - Fountain fate=20: `vomit` → `nomul(-2)` (D-0371).
-- D-0274…D-0371: see index.
+- `domove`: attack before doorway `test_move` (D-0372).
+- D-0274…D-0372: see index.

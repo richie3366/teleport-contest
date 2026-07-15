@@ -37,7 +37,7 @@ seed0013-rogue, seed0013-friday13-restore, seed0107, seed0009.
 **Notable non-PASS:**
 | Session | RNG | Screen | Note |
 |--------|----:|-------:|------|
-| seed0012 | **12505**/13878 | **14**/308 | @12439 C gethungry rn2(20) vs JS rn2(5) (post D-0371) |
+| seed0012 | **12608**/13878 | **14**/308 | @12489 C somex rn2(2) vs JS rn2(5) (post D-0372) |
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
 | seed0004 | 4025/12084 | 28/409 | |
 | seed0002 | 4521/27158 | 9/595 | |
@@ -58,9 +58,9 @@ Both must remain full RNG + screen PASS with exact scored-output lengths.
 
 ## Primary objective
 
-**seed0012 @12439** — C `gethungry` `rn2(20)` (`eat.c:3191`) vs JS
-`rn2(5)`. Post D-0371 foul-fountain `vomit`/`nomul(-2)`; prefix
-8802→12439.
+**seed0012 @12489** — C `somex` `rn2(2)` (`mkroom.c:668`) vs JS
+`rn2(5)`. Post D-0372 `domove` attack-before-`test_move`; prefix
+12439→12489.
 
 ```bash
 node scripts/rng-diff.mjs sessions/seed0012-monk-vault-escort.session.json

@@ -19,6 +19,15 @@ Use this shape:
 - Verification: …
 - Next: …
 ```
+## 2026-07-15 08:24 — D-0372 domove attack before test_move (seed0012 @12439)
+- Objective: seed0012 @12439 C gethungry rn2(20) vs JS rn2(5).
+- C locus: hack.c domove_core — m_at/domove_attackmon_at before test_move.
+- Change: cmd.js domove attacks before closed_door/testdiag/blocksMove
+  (D-0372). Hero on DOOR+D_CLOSED; diagonal `b` to hostile was banned.
+- Verification: prefix 12439→12489; RNG 12505→12608 cursors 226→227;
+  green+strict PASS; cohort 22/22.
+- Next: seed0012 @12489 C somex rn2(2) vs JS rn2(5).
+
 ## 2026-07-15 08:15 — #395 score + D-0371 foul vomit (seed0012 @8802)
 - Objective: mandatory full `sessions` (#395); primary seed0012 @8802.
 - C locus: fountain.c case 20; eat.c vomit nomul(-2).
@@ -127,23 +136,4 @@ Use this shape:
   hero (4,6) vs C (3,5) after missed timed #loot — not dog_move appr.
 - Verification: prefix 3152→3204 (xkilled); green+strict; cohort 24 PASS.
 - Next: seed0012 @3204 C xkilled rn2(6) vs JS rn2(25).
-
-## 2026-07-15 05:49 — D-0361 mkbox_cnts ICE_BOX (seed0012 @1245)
-- Objective: seed0012 @1245 C `next_ident` vs JS `rnd(100)`.
-- C locus: `mkobj.c` `mkbox_cnts` ICE_BOX → `mksobj(CORPSE)`.
-- Change: ICE_BOX arm + `add_to_container`/cobj clear + container weight
-  sum (D-0361). Was always boxiprobs `rnd(100)`.
-- Verification: seed0012 RNG 1285→3346 Scr 13→14; @3152 dog_move next;
-  green+strict; cohort 22 PASS.
-- Next: seed0012 @3152 C `dog_move` `rn2(1)` vs JS `rn2(3)`.
-
-## 2026-07-15 05:45 — D-0360 hero rocktrap (seed0012 stack overflow)
-- Objective: pick shared blocker; seed0012 Maximum call stack exceeded.
-- C locus: `trap.c` `trapeffect_rocktrap` hero; `thitm` place after death.
-- Change: port hero feeltrap+place ROCK at `u.ux,u.uy`+losehp; `thitm`
-  captures mx/my before `monkilled` (D-0360). Was youmonst→thitm→
-  `place_object(undefined)` → `can_reach_location` NaN recurse.
-- Verification: seed0012 no throw; Scr 0→13 RNG 0→1285; @1245 next;
-  green+strict; cohort 22 PASS.
-- Next: seed0012 @1245 C `next_ident` vs JS `rnd(100)`.
 
