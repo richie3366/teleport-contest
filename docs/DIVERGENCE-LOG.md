@@ -4,6 +4,30 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
+## D-0432 — SCR_REMOVE_CURSE seffect_remove_curse (seed0002 @6954)
+
+- **Status:** fixed
+- **Symptom:** seed0002 first RNG miss @6954 — C `rn2(19) @
+  exercise(attrib.c:509)` vs JS `rn2(5)` (distfleeck). Prefix
+  6954; Scr 126/595. Keys `r` then `v` (XOR OTA → remove curse:
+  “You feel like someone is helping you.” / “The scroll
+  disintegrates.” / Call …).
+- **Cause:** JS `doread` gated SCR_REMOVE_CURSE unimplemented
+  (`return 0` before disappear/seffects). C runs `seffects` →
+  `exercise(A_WIS,TRUE)` then `seffect_remove_curse` (cursed →
+  nodisappear “You read the scroll.” + You_feel + disintegrates);
+  `known` unset → `trycall`/`docall`. JS skipped the turn → fleeck.
+- **C locus:** `read.c` `doread` nodisappear / `seffects` /
+  `seffect_remove_curse`; `mkobj.c` `uncurse`; `do_name.c` `trycall`.
+- **Change:** port `seffect_remove_curse` + `uncurse`; wire
+  SCR_REMOVE_CURSE; cursed `nodisappear`; `trycall` when !known.
+  Deferred: shop POT_WATER costly_alteration; Punished/unpunish;
+  buried_ball_to_freedom; steed saddle Yobjnam2 glow;
+  update_inventory; SPE_REMOVE_CURSE cast.
+- **Verification:** seed0002 prefix **6954→8609**; Scr **126→172**/595;
+  RNG matched **8887**/27158; green+strict; cohort **24/24**.
+- **Next:** seed0002 @8609 H-rush door bump vs autoopen `rnl(20)`.
+
 ## D-0431 — SCR_LIGHT seffect_light / litroom (seed0002 @6186)
 
 - **Status:** fixed

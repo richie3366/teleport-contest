@@ -418,6 +418,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 | D-0429 | fixed | @4565 udist symptom (root D-0430 drink) | closed by D-0430; not obj_resists/dog_goal |
 | D-0430 | fixed | drink getobj `?` + fruit trycall + paralysis | seed0002 prefix 4565→6186; Scr 54→99; @6186 exercise next |
 | D-0431 | fixed | SCR_LIGHT seffect_light/litroom + learnscroll WIS | seed0002 prefix 6186→6954; Scr 99→126; @6954 remove-curse next |
+| D-0432 | fixed | SCR_REMOVE_CURSE seffect + nodisappear + trycall | seed0002 prefix 6954→8609; Scr 126→172; @8609 door next |
 
 
 D-0001 through D-0005 predate the strict-length/cohort runbook. Their focused
