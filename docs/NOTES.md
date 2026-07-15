@@ -8,18 +8,20 @@ Objective/score live in `CURRENT.md`.
 ## Active
 
 - **Score:** **25/44** PASS (#435 full). Scr **4196**/11405; RNG
-  **261626**/792838. seed0004 Scr **242**/409; RNG **11027**/12084
-  (prefix **10713**).
-- **Next:** seed0004 @10713 — C `exercise` `rn2(19)` (inc) vs JS
-  `rn2(2)` (dec) on same EOT after lichen eat. Hypothesis: JS
-  `lesshungry`/`uhunger` not updated → `exerper` abuse vs C exercise.
-  Cmds in `CURRENT.md`.
-- **Don’t re-check:** eatcorpse palatable without `hero_form_data` /
-  `youmonst.data` (D-0409); getpos `>`/`<` stairs (D-0408);
-  SCR_TELEPORTATION `scrolltele`/`safe_teleds` + getobj `?` (D-0407);
-  pickup `@` invert-all / conflict ring (D-0406); unrotted floor
-  corpse / pickup `c`/`d` HVY EOTs (D-0405); known_hitum int
-  `mhpmax/2` (D-0404); heal_legs / nh_timeout (D-0403); Norep
+  **261626**/792838. seed0004 Scr **242**/409; RNG **11029**/12084
+  (prefix **10966**).
+- **Next:** seed0004 @10966 — C `distfleeck` vs JS `dopush`
+  `exercise(A_STR)`. Hypothesis: JS `umovement` pool higher after EOT
+  (post-`u_calc` =21, wtcap 0, !Fast) so hero-can't-move loop exits to
+  `continue_run`; C still <NORMAL_SPEED → monsters. Likely cumulative
+  encumbrance/`weight_cap` drift (no Fast `rn2(3)` at this EOT). Cmds
+  in `CURRENT.md`.
+- **Don’t re-check:** gethungry ordinary `uhunger--` deferred (D-0410);
+  eatcorpse palatable without `hero_form_data` (D-0409); getpos `>`/`<`
+  stairs (D-0408); SCR_TELEPORTATION `scrolltele`/`safe_teleds` + getobj
+  `?` (D-0407); pickup `@` invert-all / conflict ring (D-0406);
+  unrotted floor corpse / pickup `c`/`d` HVY EOTs (D-0405); known_hitum
+  int `mhpmax/2` (D-0404); heal_legs / nh_timeout (D-0403); Norep
   `_prevmsg` (D-0402); trapmove/Burdened (D-0401).
 - **Landmark:** vault door (71,13); dig + restfakecorr; SPELL_LEV_PW(1)=5.
 - **Parked:** D-0006; seed2200 @158 RC.
@@ -62,7 +64,9 @@ Objective/score live in `CURRENT.md`.
   (D-0407); treat @10563 as bare `distfleeck` without getpos `>`
   stairs jump → travel destination (D-0408); treat @10657 as bare
   `distfleeck` / missing `doeat` without checking `youmonst.data`
-  short-circuit on palatable `rn2(10)` (D-0409).
+  short-circuit on palatable `rn2(10)` (D-0409); treat @10713 as bare
+  `exerper` polarity without checking deferred `gethungry` `uhunger--`
+  (D-0410).
 - Runner `Screen N/M` = total matches, not prefix length.
 - First cell-miss may be botl `$:` / `Burdened` even when NOTES names a topline.
 
@@ -74,26 +78,11 @@ Objective/score live in `CURRENT.md`.
 - getpos travel `_>` → stairs via feature scan (D-0408).
 - eatcorpse palatable needs `hero_form_data` when `youmonst` unset
   (D-0409); full `set_uasmon` still deferred.
+- gethungry metabolic `uhunger--` needs diet via `hero_form_data`
+  (D-0410); ring/amulet accessorytime + `newuhs` deferred.
 - Apply bag take-out `a?jo$\r`; put-in `aji$\r$\r` (D-0375/76).
 - Shop home (11,11): mill → (11,12); return needs `onlineu` (D-0376).
 - Monk starter: `SPELL_LEV_PW(1)` bump when `num_spells()` (D-0380).
 - Ice-box look: merge+sortloot stacks (D-0383); pickup class headers
   (D-0384).
-- Options: `doset_simple_menu` (D-0385); Map `f` → `hilite_pile`
-  ATR_INVERSE (D-0386); autopick filtered still `check_here` (D-0387);
-  gold merge → prinv `(N in total)` (D-0388); detect `cls` blanks
-  (D-0389); TER_DETECT auto_describe (D-0390); counted search
-  `stop_occupation` (D-0392); TELEP→`teleds` (D-0393); bag put-in
-  MENU_FULL (D-0394); doname containing (D-0395); drop gold + Move
-  along! (D-0396); escort Suddenly + flush_topl_more (D-0397);
-  bear trap `d(2,4)`/`set_utrap` (D-0398); look_here observe before
-  doname (D-0399); wounded legs → `encumber_msg` load pline (D-0400);
-  `trapmove` + botl Burdened + exerper status + mintrap rn2(40)
-  (D-0401); Norep ≡ `gp.prevmsg` (D-0402); `heal_legs` via
-  `nh_timeout` WOUNDED_LEGS + ATEMP DEX (D-0403); known_hitum flee
-  `Math.trunc(mhpmax/2)` + `engulfing_u` (D-0404); `run_timers`
-  ROT_CORPSE + floor pickup `sortloot` (D-0405); PICK_ANY `@`
-  invert-all + `resist_conflict`/`hero_conflict` (D-0406);
-  SCR_TELEPORTATION `scrolltele`/`safe_teleds` + getobj `?` (D-0407);
-  getpos `>`/`<` stairs feature scan (D-0408).
-- D-0274…D-0409: see index.
+- D-0383…D-0410 landmarks: see index / don’t-recheck above.

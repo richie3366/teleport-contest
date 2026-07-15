@@ -12,6 +12,18 @@ move older ones into `docs/archive/`.
 Use this shape:
 
 ```text
+## 2026-07-15 17:00 — #438 seed0004 @10713 gethungry (D-0410)
+- Objective: seed0004 @10713 PRIMARY — C `exercise` `rn2(19)` vs JS
+  `rn2(2)` after lichen eat EOT.
+- C locus: `eat.c` `gethungry` metabolic `uhunger--` + accessorytime
+  odd/even Regen/encumb/Hunger/Conflict.
+- Change: `eat.js` `gethungry` diet via `hero_form_data`; accessory
+  burns; `monsters.js` `metallivorous`. Ring/amulet + `newuhs` deferred.
+- Verification: seed0004 RNG 11027→11029; prefix 10713→10966; miss
+  @10966 C `distfleeck` vs JS `dopush` exercise (umove=21); green+strict
+  PASS; cohort 25/25.
+- Next: seed0004 @10966 umovement / encumbrance drift.
+
 ## 2026-07-15 16:50 — #437 seed0004 @10657 eatcorpse youmonst (D-0409)
 - Objective: seed0004 @10657 PRIMARY — C `eatcorpse` `rn2(10)` vs JS
   `distfleeck` after lichen kill/`e`/`y`.
@@ -157,26 +169,4 @@ Use this shape:
   **255144**/792838, speed `21+0.12/turn`; seed0004 Scr 28→29;
   seed0002 Scr 50→54; green+strict PASS; cohort 9/9 PASS.
 - Next: seed0004 @27 bear `--More--`; or seed0002 eatcorpse rnd(8).
-
-## 2026-07-15 14:58 — #424 trapeffect_bear_trap (D-0398)
-- Objective: seed0004 first RNG miss @4013 bear trap.
-- C locus: trap.c trapeffect_bear_trap / floor_trigger / set_utrap;
-  do.c set_wounded_legs.
-- Change: ported hero+monster bear trap; wired selector; aligned
-  floor_trigger (BEAR/LANDMINE/SLP/RUST/FIRE); set_utrap +
-  set_wounded_legs helpers.
-- Verification: seed0004 RNG **4025→4087**/12084; Scr 28/409 (first
-  miss @26 yellow gem); green+strict PASS; cohort 6/6 PASS; full
-  suite still **25/44**.
-- Next: seed0004 @26 `a yellow gem` vs `a gem`; or RNG @4039 dochug.
-
-## 2026-07-15 14:52 — #423 gd_move_cleanup Suddenly (D-0397)
-- Objective: seed0012 @307 Suddenly, the guard disappears.--More--.
-- C locus: vault.c gd_move_cleanup/parkguard; gd_move !u_in_vault
-  look-around; do_name.c noit_mon_nam.
-- Change: parkguard + gd_move_cleanup; look-around → gddone cleanup;
-  early/begone → cleanup; flush_topl_more after Suddenly pline.
-- Verification: seed0012 Scr **307→308**/308 PASS; green+strict PASS;
-  cohort **25/25** PASS. Score **25/44**.
-- Next: seed0004 / seed0002 shared blockers.
 

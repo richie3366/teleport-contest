@@ -4,6 +4,29 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
+## D-0410 — seed0004 @10713 gethungry metabolic uhunger--
+
+- **Status:** fixed
+- **Symptom:** seed0004 first RNG miss @10713 — C `exercise` `rn2(19)`
+  (inc) vs JS `rn2(2)` (dec) after lichen eat EOT.
+- **Cause:** `gethungry` deferred ordinary `uhunger--`, so after
+  `lesshungry` nutrition JS stayed SATIATED (`exerper` DEX abuse) while
+  C burned hunger to NOT_HUNGRY (`exerper` CON exercise). Same
+  `youmonst.data` gap as D-0409 would have skipped the diet gate.
+- **C locus:** `eat.c` `gethungry` metabolic burn via
+  `carnivorous`/`herbivorous`/`metallivorous(gy.youmonst.data)` +
+  accessorytime odd/even Regen/encumbrance/Hunger/Conflict.
+- **Change:** `eat.js` `gethungry` — metabolic tick with
+  `hero_form_data()`; odd/even accessory burns; `monsters.js`
+  `metallivorous`/`M1_METALLIVORE`. Ring/amulet switch + `newuhs`
+  deferred.
+- **Verification:** seed0004 RNG **11027→11029**/12084; prefix
+  **10713→10966**; Scr still **242**/409; first miss @10966 C
+  `distfleeck` vs JS `dopush` `exercise(A_STR)` (umovement 21→hero
+  run); green+strict PASS; cohort **25/25**.
+- **Next:** seed0004 @10966 umovement / encumbrance drift (JS hero
+  `continue_run`→boulder vs C still in monster phase).
+
 ## D-0409 — seed0004 @10657 eatcorpse palatable / youmonst.data
 
 - **Status:** fixed

@@ -43,7 +43,7 @@ seed0013-rogue, seed0013-friday13-restore, seed0107, seed0009,
 |--------|----:|-------:|------|
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
 | seed0002 | 5198/27158 | **54**/595 | still @3808 eatcorpse |
-| seed0004 | **11027**/12084 | **242**/409 | @10713 C exercise rn2(19) vs JS rn2(2) |
+| seed0004 | **11029**/12084 | **242**/409 | @10966 umove / dopush vs distfleeck |
 | seed0361/0373 | early | 0 | quest bones / `makemaz` |
 
 ## Green gate
@@ -61,14 +61,17 @@ Both must remain full RNG + screen PASS with exact scored-output lengths.
 
 ## Primary objective
 
-**seed0004 @10713** — C `exercise` `rn2(19)` (inc) after lichen `eatcorpse`
-EOT; JS `exercise` `rn2(2)` (dec). Likely `lesshungry`/`uhunger`/`exerper`
-polarity after finish-eating (D-0409 cleared palatable short-circuit).
+**seed0004 @10966** — after EOT wipe, C `distfleeck` (monsters still
+moving) vs JS `dopush` `exercise(A_STR,TRUE)` via `continue_run` into
+boulder. DIAG: JS `umovement=21` post-`u_calc_moveamt` (wtcap 0) so
+hero-can't-move loop exits; C still in monster phase → umovement /
+encumbrance drift (no Fast `rn2(3)` at this EOT). D-0410 cleared
+@10713 exercise polarity.
 
 ```bash
 node frozen/ps_test_runner.mjs sessions/seed0004-feeding-pony.session.json
 node scripts/rng-diff.mjs sessions/seed0004-feeding-pony.session.json
-# Focus: first miss @10713
+# Focus: first miss @10966
 ```
 
 **Alternates:** seed0002 `eatcorpse`; seed0006 / seed0007; quest early-0

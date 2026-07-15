@@ -169,3 +169,26 @@
 - Verification: seed0012 Scr **283→284**/308; @278 match; green+strict
   PASS; cohort PASS. Next fail @294 `"Move along!"`.
 - Next: vault guard escort pline after gold drop.
+
+## 2026-07-15 14:58 — #424 trapeffect_bear_trap (D-0398)
+- Objective: seed0004 first RNG miss @4013 bear trap.
+- C locus: trap.c trapeffect_bear_trap / floor_trigger / set_utrap;
+  do.c set_wounded_legs.
+- Change: ported hero+monster bear trap; wired selector; aligned
+  floor_trigger (BEAR/LANDMINE/SLP/RUST/FIRE); set_utrap +
+  set_wounded_legs helpers.
+- Verification: seed0004 RNG **4025→4087**/12084; Scr 28/409 (first
+  miss @26 yellow gem); green+strict PASS; cohort 6/6 PASS; full
+  suite still **25/44**.
+- Next: seed0004 @26 `a yellow gem` vs `a gem`; or RNG @4039 dochug.
+
+## 2026-07-15 14:52 — #423 gd_move_cleanup Suddenly (D-0397)
+- Objective: seed0012 @307 Suddenly, the guard disappears.--More--.
+- C locus: vault.c gd_move_cleanup/parkguard; gd_move !u_in_vault
+  look-around; do_name.c noit_mon_nam.
+- Change: parkguard + gd_move_cleanup; look-around → gddone cleanup;
+  early/begone → cleanup; flush_topl_more after Suddenly pline.
+- Verification: seed0012 Scr **307→308**/308 PASS; green+strict PASS;
+  cohort **25/25** PASS. Score **25/44**.
+- Next: seed0004 / seed0002 shared blockers.
+
