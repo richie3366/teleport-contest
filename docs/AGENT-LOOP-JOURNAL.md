@@ -19,6 +19,17 @@ Use this shape:
 - Verification: …
 - Next: …
 ```
+## 2026-07-15 09:28 — D-0375 bag apply + gd_move escort (seed0012 @13392)
+- Objective: seed0012 @13392 C distfleeck rn2(5) vs JS rn2(7).
+- C locus: invent.c display_pickinv/getobj `?`; apply.c use_container;
+  pickup.c out_container/menu_loot; vault.c gd_move/hidden_gold.
+- Change: getobj `?` invent pick; sack apply → take-out gold; hidden_gold;
+  OBJ_CONTAINED extract; peaceful gd_move corridor step (D-0375). Root was
+  apply `?`→Never mind desync (a?jo$ bag loot) then stub gd_move.
+- Verification: prefix 13392→13517; RNG 13430→13591 cursors 254→259;
+  green+strict PASS; cohort 24/24.
+- Next: seed0012 @13517 C move_special rn2(1) vs JS rn2(5).
+
 ## 2026-07-15 09:02 — D-0374 invault / vault guard spawn (seed0012 @13287)
 - Objective: seed0012 @13287 C next_ident vs JS wipe_engr rn2(94).
 - C locus: vault.c invault/find_guard_dest; allmain.c; makemon mercenary
@@ -139,12 +150,4 @@ Use this shape:
   RNG → prefix 3483 (falsifier only — reverted).
 - Verification: green+strict PASS; full suite 24/44.
 - Next: fix fobj membership near pet (D-0364); do not skip dog_move.
-
-## 2026-07-15 06:12 — D-0363 hmon dmg_recalc (seed0012 @3204)
-- Objective: seed0012 @3204 C xkilled rn2(6) vs JS rn2(25).
-- C locus: weapon.c dbon/weapon_dam_bonus; uhitm.c hmon_hitmon_dmg_recalc.
-- Change: port dbon + martial weapon_dam_bonus into hmon before stagger
-  (D-0363). JS under-dmg left mon alive → flee rn2(25).
-- Verification: prefix 3204→3248; RNG 3255→3304; green+strict; cohort 22 PASS.
-- Next: seed0012 @3248 C distfleeck rn2(5) vs JS rn2(100).
 

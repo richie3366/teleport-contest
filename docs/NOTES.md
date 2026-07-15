@@ -7,18 +7,19 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Score:** **24/44** PASS (#395). seed0012 focused RNG **13430**/13878
-  cursors **254**/308 (post D-0374).
-- **Next:** seed0012 @13392 — C `distfleeck` `rn2(5)` vs JS `rn2(7)`.
-  Guard on fmon after invault; `gd_move` still stub.
+- **Score:** **24/44** PASS (#395). seed0012 focused RNG **13591**/13878
+  cursors **259**/308 (post D-0375).
+- **Next:** seed0012 @13517 — C `move_special` `rn2(1)` vs JS `rn2(5)`.
   Cmd: `node scripts/rng-diff.mjs sessions/seed0012-monk-vault-escort.session.json`
-  Falsify: first fleeck after wipe_engr matches C if guard movement order fixed.
-- **Don’t re-check:** @13287 as wipe_engr before invault (D-0374); @12489 as
-  fleeck/mon mvault (D-0373); @12439 as gethungry/Unaware (D-0372); @8802 as
-  dog_goal IS_ROOM (D-0371); @8384 fountain detect (D-0370); wipeout@7312;
-  wantdoor @6952.
+  Falsify: priest/special mon mill matches C after gd_move escort.
+- **Don’t re-check:** @13392 as fleeck/gd_move alone (D-0375 — apply `?`
+  Never mind desynced bag take-out then stub gd_move); @13287 as wipe
+  before invault (D-0374); @12489 fleeck/mon mvault (D-0373); @12439
+  gethungry/Unaware (D-0372); @8802 dog_goal IS_ROOM (D-0371); @8384
+  fountain detect (D-0370); wipeout@7312; wantdoor @6952.
 - **Landmark:** vault niche TELEP once → vault_tele; after 30 turns
-  `invault` spawns PM_GUARD + getlin name + fakecorr door.
+  `invault` spawns PM_GUARD + getlin name + fakecorr door; apply bag
+  `a?jo$\r` takes gold out then `d$` drop before escort.
 - **Parked:** D-0006; seed2200 @158 RC.
 
 ## Don’t re-check (≤15)
@@ -65,7 +66,8 @@ Objective/score live in `CURRENT.md`.
   dog_goal rn2(4)@8802 as IS_ROOM (D-0371 — foul vomit);
   gethungry rn2(20)@12439 as Unaware (D-0372 — attack before test_move);
   somex@12489 as fleeck/mon mvault (D-0373 — hero once vault TELEP);
-  wipe_engr@13287 as fleeck (D-0374 — invault guard spawn).
+  wipe_engr@13287 as fleeck (D-0374 — invault guard spawn);
+  fleeck@13392 as gd_move-only (D-0375 — apply `?` bag take-out first).
 - Runner `Screen N/M` = total matches, not prefix length.
 
 ## Landmarks (≤15)
@@ -82,4 +84,5 @@ Objective/score live in `CURRENT.md`.
 - `domove`: attack before doorway `test_move` (D-0372).
 - Vault niche `TELEP` once → `vault_tele` somexyspace (D-0373).
 - Vault `invault` timer 30 → `makemon(PM_GUARD)` + getlin (D-0374).
-- D-0274…D-0374: see index.
+- Apply bag `a?jo$\r` → take-out gold; `d$` drop; gd_move escort (D-0375).
+- D-0274…D-0375: see index.

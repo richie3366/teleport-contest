@@ -1,10 +1,10 @@
 // vault.js — Vault occupancy and guard summoning.
 // C ref: vault.c — vault_occupied, findgd, newegd, find_guard_dest, invault.
-// Named omissions: migrating_mons findgd park; gd_move body; vault_summon_gd;
+// Named omissions: migrating_mons findgd park; vault_summon_gd;
 // uleftvault; wallify_vault / clear_fcorr; Croesus mon_wield; fracture_rock
 // boulder shatter; reset_faint; SetVoice; spot_stop_timers; xy_set_wall_state;
-// hidden_gold container walk; mimic_obj_name; full Deaf/Blind message variants
-// that need noit_mhis.
+// mimic_obj_name; full Deaf/Blind message variants that need noit_mhis;
+// gd_move hostile/witness/goldincorridor/cleanup arms (peaceful escort subset).
 
 import { game } from './gstate.js';
 import { rn2 } from './rng.js';
@@ -22,7 +22,7 @@ import {
     ROOM, CORR, STONE, HWALL, VWALL, DOOR, D_NODOOR,
     TLCORNER, TRCORNER, BLCORNER, BRCORNER,
     MM_EGD, MM_NOMSG, IS_WALL, M_AP_OBJECT, M_AP_TYPE, EGD,
-    A_LAWFUL,
+    A_LAWFUL, Has_contents, ACCESSIBLE, IS_ROOM,
 } from './const.js';
 import { monsterNames, mons, pmnames } from './monsters.js';
 import { objectNames } from './generated/objects_data.js';
@@ -39,9 +39,27 @@ function money_cnt(invent) {
     return sum;
 }
 
-/** C: hidden_gold — container walk deferred → 0. */
-function hidden_gold(_confiscate) {
-    return 0;
+/** C ref: shk.c contained_gold — sum COIN_CLASS (+ nested) in container. */
+function contained_gold(obj, even_if_unknown) {
+    let value = 0;
+    for (let otmp = obj?.cobj; otmp; otmp = otmp.nobj) {
+        if (otmp.oclass === COIN_CLASS) value += otmp.quan || 0;
+        else if (Has_contents(otmp) && (otmp.cknown || even_if_unknown)) {
+            value += contained_gold(otmp, even_if_unknown);
+        }
+    }
+    return value;
+}
+
+/** C ref: vault.c hidden_gold — gold inside carried containers. */
+function hidden_gold(even_if_unknown) {
+    let value = 0;
+    for (const obj of game.invent || []) {
+        if (Has_contents(obj) && (obj.cknown || even_if_unknown)) {
+            value += contained_gold(obj, even_if_unknown);
+        }
+    }
+    return value;
 }
 
 function Blind() {
@@ -416,4 +434,133 @@ export async function invault() {
     recalc_block_point(x, y);
     egd.fcend = 1;
     egd.warncnt = 1;
+}
+
+/** C ref: apply.c um_dist — true if Chebyshev distance to hero > n. */
+function um_dist(x, y, n) {
+    const u = game.u || {};
+    return Math.abs((u.ux | 0) - (x | 0)) > n
+        || Math.abs((u.uy | 0) - (y | 0)) > n;
+}
+
+/**
+ * C ref: vault.c gd_move — peaceful vault escort subset.
+ * Branch envelope: on-level peaceful; fcend==1 warn when gold or not
+ * adjacent; adjacent + no gold + u_in_vault → step toward gdx/gdy
+ * (dig CORR into STONE/wall when needed, place guard). Named omissions:
+ * hostile/witness/goldincorridor; wallify; rloc; verbalize; cleanup;
+ * gd_mv_monaway; mpickgold; restfakecorr; stuck find_guard_dest retry.
+ *
+ * @returns {number} 1 moved, 0 stayed, -1 normal AI, -2 died
+ */
+export function gd_move(grd) {
+    if (!grd?.isgd) return -1;
+    const egrd = EGD(grd);
+    if (!egrd) return -1;
+    const u = game.u;
+    if (!u) return -1;
+
+    const gd = egrd.gdlevel;
+    if (!gd || (gd.dnum | 0) !== (u.uz?.dnum | 0)
+        || (gd.dlevel | 0) !== (u.uz?.dlevel | 0)) {
+        return -1;
+    }
+
+    if ((grd.mhp | 0) < 1 || !(grd.mx | 0) || egrd.gddone) {
+        egrd.gddone = 1;
+        return 0;
+    }
+
+    const u_in_vault = !!vault_occupied(u.urooms);
+    if (!grd.mpeaceful) return -1;
+
+    if (Math.abs((egrd.ogx | 0) - (grd.mx | 0)) > 1
+        || Math.abs((egrd.ogy | 0) - (grd.my | 0)) > 1) {
+        return -1;
+    }
+
+    if (egrd.witness) {
+        egrd.witness = 0;
+        grd.mpeaceful = 0;
+        return -1;
+    }
+
+    const umoney = money_cnt(game.invent);
+    const u_carry_gold = umoney > 0 || hidden_gold(true) > 0;
+
+    if ((egrd.fcend | 0) === 1) {
+        if (u_in_vault && (u_carry_gold || um_dist(grd.mx, grd.my, 1))) {
+            if ((egrd.warncnt | 0) === 7) {
+                grd.mpeaceful = 0;
+                return -1;
+            }
+            if ((game.multi | 0) >= 0) egrd.warncnt = (egrd.warncnt | 0) + 1;
+            return 0;
+        }
+        if (!u_in_vault) {
+            if (u_carry_gold) {
+                grd.mpeaceful = 0;
+                return -1;
+            }
+            egrd.gddone = 1;
+            return 0;
+        }
+    }
+
+    if (um_dist(grd.mx, grd.my, 1) || egrd.gddone) {
+        return 0;
+    }
+
+    // C nextpos: one step toward gdx,gdy
+    const x = grd.mx | 0;
+    const y = grd.my | 0;
+    const ggx = egrd.gdx | 0;
+    const ggy = egrd.gdy | 0;
+    const dx = (ggx > x) ? 1 : (ggx < x) ? -1 : 0;
+    const dy = (ggy > y) ? 1 : (ggy < y) ? -1 : 0;
+    let nx = x;
+    let ny = y;
+    if (Math.abs(ggx - x) >= Math.abs(ggy - y)) nx += dx;
+    else ny += dy;
+
+    if (nx < 1 || nx >= COLNO || ny < 0 || ny >= ROWNO) return 0;
+    if (u.ux === nx && u.uy === ny) return 0;
+    // avoid importing m_at (mon→monmove→shk→vault cycle)
+    for (const m of game.fmon || []) {
+        if (m !== grd && (m.mx | 0) === nx && (m.my | 0) === ny
+            && (m.mhp | 0) > 0) {
+            return 0;
+        }
+    }
+
+    const loc = game.level?.at?.(nx, ny);
+    if (!loc) return 0;
+    let typ = loc.typ | 0;
+
+    // C proceed: open a corridor cell when stepping into stone/wall
+    if (typ === STONE || IS_WALL(typ)) {
+        const ftyp = typ;
+        loc.typ = CORR;
+        loc.flags = 0;
+        recalc_block_point(nx, ny);
+        if (!egrd.fakecorr) egrd.fakecorr = [];
+        const fi = egrd.fcend | 0;
+        if (fi < 40) {
+            egrd.fakecorr[fi] = { fx: nx, fy: ny, ftyp, flags: 0 };
+            egrd.fcend = fi + 1;
+        }
+        typ = CORR;
+    } else if (!ACCESSIBLE(typ) && !IS_ROOM(typ) && typ !== CORR) {
+        return 0;
+    }
+
+    egrd.ogx = grd.mx;
+    egrd.ogy = grd.my;
+    const ox = grd.mx;
+    const oy = grd.my;
+    grd.mx = nx;
+    grd.my = ny;
+    newsym(ox, oy);
+    newsym(nx, ny);
+    return 1;
 }

@@ -361,6 +361,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 | D-0372 | fixed | domove attack before test_move | doorway diagonal; @12439→12489 |
 | D-0373 | fixed | vault_tele / tele_trap once TELEP | niche→vault somex; @12489→13287 |
 | D-0374 | fixed | invault + guard makemon / merc kit | timer+spawn; @13287→13392 |
+| D-0375 | fixed | apply `?` bag take-out + gd_move | hidden_gold; @13392→13517 |
 
 D-0001 through D-0005 predate the strict-length/cohort runbook. Their focused
 causes are preserved, but generic "green sessions held" is historical evidence,

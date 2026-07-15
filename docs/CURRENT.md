@@ -37,7 +37,7 @@ seed0013-rogue, seed0013-friday13-restore, seed0107, seed0009.
 **Notable non-PASS:**
 | Session | RNG | Screen | Note |
 |--------|----:|-------:|------|
-| seed0012 | **13430**/13878 | **14**/308 | @13392 C distfleeck vs JS rn2(7) (post D-0374) |
+| seed0012 | **13591**/13878 | **14**/308 | @13517 C move_special vs JS rn2(5) (post D-0375) |
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
 | seed0004 | 4025/12084 | 28/409 | |
 | seed0002 | 4521/27158 | 9/595 | |
@@ -58,9 +58,8 @@ Both must remain full RNG + screen PASS with exact scored-output lengths.
 
 ## Primary objective
 
-**seed0012 @13392** — C `distfleeck` `rn2(5)` (`monmove.c:538`) vs JS
-`rn2(7)`. Post D-0374 `invault` guard spawn; prefix 13287→13392. Guard is
-on `fmon`; next mon tick fleeck diverges (likely `gd_move` stub / fmon order).
+**seed0012 @13517** — C `move_special` `rn2(1)` (`priest.c:85`) vs JS
+`rn2(5)`. Post D-0375 bag take-out + gd_move escort; prefix 13392→13517.
 
 ```bash
 node scripts/rng-diff.mjs sessions/seed0012-monk-vault-escort.session.json

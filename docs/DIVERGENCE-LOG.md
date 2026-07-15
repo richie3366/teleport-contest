@@ -24,6 +24,34 @@ The compact status table lives in **`DIVERGENCE-INDEX.md`**.
 Open that file first; then jump to a single `## D-NNNN` entry below
 (via search). Do **not** read this whole file by default.
 
+## D-0375 — apply bag take-out + gd_move escort (seed0012 @13392)
+
+- **Status:** fixed
+- **Observed:** seed0012 @13392 — C `distfleeck` `rn2(5)` vs JS `rn2(7)`
+  (`do_attack` safemon after wipe).
+- **Cause:** JS `getobj_apply` treated `?`/`*` as Never mind, so
+  `a?jo$\r` (apply bag → take out gold) never ran; keys desynced and
+  later `h` attacked the still-adjacent guard. After bag/drop fixed,
+  stub `gd_move` also left the guard unmoved (C digs/steps corridor
+  without RNG when adjacent and gold dropped).
+- **Rejected:** fleeck arity / fmon order alone; seed-shaped gd_move.
+- **C locus:** `invent.c` `display_pickinv`/`getobj`; `apply.c`
+  `use_container`; `pickup.c` `out_container`/`menu_loot`/
+  `in_or_out_menu`; `vault.c` `gd_move`/`hidden_gold`; `mkobj.c`
+  `obj_extract_self` OBJ_CONTAINED.
+- **Change:** `display_pickinv_reply`; sack `doapply`→`use_container`
+  take-out; `hidden_gold`/`contained_gold`; OBJ_CONTAINED extract;
+  peaceful `gd_move` corridor step. Named omissions: put-in/stash/
+  both; MENU_FULL category; hostile gd_move; restfakecorr/cleanup;
+  containing-N doname suffix.
+- **Verification:** first mismatch **13392→13517**; runner RNG
+  **13430→13591**/13878 cursors **254→259**/308; green+strict PASS;
+  cohort **24/24**.
+- **Lesson:** when C shows fleeck after wipe but JS shows hero
+  `do_attack` `rn2(7)`, diff the intervening keys — getobj `?` cancel
+  is a silent desync before any mon AI.
+- **Next:** seed0012 @13517 C `move_special` `rn2(1)` vs JS `rn2(5)`.
+
 ## D-0374 — `invault` / vault guard spawn (seed0012 @13287)
 
 - **Status:** fixed
