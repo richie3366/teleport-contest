@@ -24,6 +24,30 @@ The compact status table lives in **`DIVERGENCE-INDEX.md`**.
 Open that file first; then jump to a single `## D-NNNN` entry below
 (via search). Do **not** read this whole file by default.
 
+## D-0362 — `#loot` / `use_container` `:` look (seed0012 @3152)
+
+- **Status:** fixed
+- **Observed:** seed0012 @3152 — C `dog_move` `rn2(1)` vs JS `rn2(3)`.
+  DIAG: same food goal; JS hero at (4,6) occupied the equal-distance
+  mfndpos cell that C still had free at (3,5). Spurious JS `n` move
+  ran before pet turn because `#l`→loot was unknown in EXT_CMDS.
+- **C locus:** `pickup.c` `doloot`/`doloot_core`/`use_container`;
+  `end.c` `container_contents`; `getline`/`cmd` `#loot` autocomplete
+  (session screens: `# loot`, `Do what with the ice box?`, contents, ESC).
+- **Cause:** JS EXT_CMD_AC listed `loot` but EXT_CMDS had no runnable
+  body → `#l\r` printed unknown and left `:`/`ESC`/`n` to rhack. C ran
+  real loot (`:` sets `cknown` + ECMD_TIME), then monsters, then `n`.
+- **Change:** `js/pickup.js` `doloot`/`use_container`/`container_contents`
+  (unlocked floor container; `:` look + ESC/q); `js/getline.js` EXT_CMDS
+  `loot` → `doloot`. Deferred: in/out/stash/both, traps, multi-cont,
+  directional lootmon, capacity/confusion.
+- **Verification:** seed0012 first mismatch **3152→3204** (`xkilled`);
+  runner RNG **3255**/13878 Scr **14**/308; green+strict PASS; cohort
+  24/24 PASS (incl. seed0009).
+- **Lesson:** “dog_move rn2(1) vs rn2(3)” was hero-cell occupancy from
+  a missed timed `#loot`, not approach-selection math.
+- **Next:** seed0012 @3204 C `xkilled` `rn2(6)` vs JS `rn2(25)`.
+
 ## D-0361 — `mkbox_cnts` ICE_BOX must `mksobj(CORPSE)` (not boxiprobs)
 
 - **Status:** fixed

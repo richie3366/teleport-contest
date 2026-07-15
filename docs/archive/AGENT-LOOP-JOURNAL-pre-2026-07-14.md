@@ -3653,4 +3653,13 @@ Do **not** read this archive by default.
   prompt/playbook/AGENT-PORT-LOOP cadence notes.
 - Next: seed0030 screen peel @163 (mimic appearance).
 
+## 2026-07-15 02:05 — #368 D-0346/0347 dosit + weapon_insight twoweap
 
+- Objective: seed0107 @85 sit-on-corpse; then @93 attributes skill limits.
+- C locus: `sit.c` `dosit` OBJ_AT; `objnam.c` `xname`/`the` CORPSE bare;
+  `insight.c` `weapon_insight` twoweap skill compare.
+- Change: port picnic sit+comfort; CORPSE xname="corpse"+`the()`; twoweap
+  limited-by lines + COLNO period clip (D-0346/D-0347).
+- Verification: seed0107 **98/98 PASS** RNG full; suite **23/44** Scr
+  **3561**/11405 RNG **240160**/792838; green+strict; cohort 20 PASS.
+- Next: seed0009 @9 leftover splash under role-ok menu (Scr 12/73).

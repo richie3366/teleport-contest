@@ -337,3 +337,81 @@ export async function spoteffects(pick) {
     if (trap) await dotrap(trap, NO_TRAP_FLAGS);
     if (pick && pit) await pickup(1);
 }
+
+/**
+ * C ref: end.c container_contents — NHW_MENU "Contents of %s:" + doname lines;
+ * display_nhwindow(TRUE) wait. Nested containers / Schroedinger / empty pline
+ * deferred beyond reportempty=false callers.
+ */
+async function container_contents(box) {
+    if (!box) return;
+    box.cknown = 1;
+    const { doname, xname, the: theArt } = await import('./objnam.js');
+    const { show_nhw_menu_text } = await import('./pager.js');
+    const lines = [`Contents of ${theArt(xname(box))}:`, ''];
+    if (box.cobj) {
+        for (let obj = box.cobj; obj; obj = obj.nobj) {
+            lines.push(`  ${doname(obj)}`);
+        }
+    }
+    await show_nhw_menu_text(lines);
+}
+
+/**
+ * C ref: pickup.c use_container — TRADITIONAL prompt loop subset.
+ * Branch envelope: unlocked floor container; ':' look (cknown→ECMD_TIME);
+ * 'q'/ESC abort. in/out/stash/both/reversed/chest-trap/BoT deferred.
+ */
+async function use_container(obj) {
+    if (!obj) return ECMD_OK;
+    const { yn_function } = await import('./getline.js');
+    const { xname, the: theArt } = await import('./objnam.js');
+
+    obj.lknown = 1;
+    if (obj.olocked) {
+        await pline(`${theArt(xname(obj))} is locked.`);
+        return ECMD_OK;
+    }
+    // otrapped / BAG_OF_TRICKS deferred
+
+    let used = ECMD_OK;
+    const qbuf = `Do what with ${theArt(xname(obj))}?`;
+    // C: pbuf ":oibrs q" (+ "n" when more containers); ESC→q
+    const resp = ':oibrs q';
+    for (;;) {
+        const c = await yn_function(qbuf, resp, 'q');
+        if (c === ':') {
+            if (!obj.cknown) used = ECMD_TIME;
+            await container_contents(obj);
+            continue;
+        }
+        if (c === 'q' || c === 'n') break;
+        // o/i/b/r/s: named omission — abort without further RNG
+        break;
+    }
+    return used;
+}
+
+/**
+ * C ref: pickup.c doloot / doloot_core — loot container underfoot.
+ * Branch envelope: single unlocked floor container → use_container.
+ * Named omissions: capacity/nohands/Confusion reverse_loot; multi-cont
+ * menu; directional lootmon/get_adjacent_loc; grave; saddle; cockatrice.
+ */
+export async function doloot() {
+    const u = game.u;
+    if (!u) return ECMD_OK;
+
+    const { Is_container } = await import('./const.js');
+    let cobj = null;
+    for (let o = objects_at(u.ux, u.uy); o; o = o.nexthere) {
+        if (Is_container(o)) {
+            cobj = o;
+            break;
+        }
+    }
+    if (!cobj) return ECMD_OK;
+
+    // C: do_loot_cont → use_container for unlocked non-BoT
+    return use_container(cobj);
+}

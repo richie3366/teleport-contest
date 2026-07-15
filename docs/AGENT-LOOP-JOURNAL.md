@@ -19,6 +19,14 @@ Use this shape:
 - Verification: …
 - Next: …
 ```
+## 2026-07-15 06:06 — D-0362 #loot use_container (seed0012 @3152)
+- Objective: seed0012 @3152 C dog_move rn2(1) vs JS rn2(3).
+- C locus: pickup.c doloot/use_container; end.c container_contents.
+- Change: EXT_CMDS loot + doloot `:` look/ESC (D-0362). Root cause was
+  hero (4,6) vs C (3,5) after missed timed #loot — not dog_move appr.
+- Verification: prefix 3152→3204 (xkilled); green+strict; cohort 24 PASS.
+- Next: seed0012 @3204 C xkilled rn2(6) vs JS rn2(25).
+
 ## 2026-07-15 05:49 — D-0361 mkbox_cnts ICE_BOX (seed0012 @1245)
 - Objective: seed0012 @1245 C `next_ident` vs JS `rnd(100)`.
 - C locus: `mkobj.c` `mkbox_cnts` ICE_BOX → `mksobj(CORPSE)`.
@@ -154,13 +162,3 @@ Use this shape:
   cohort 21 PASS.
 - Next: seed0009 @13 `Entering the tutorial.--More--`.
 
-## 2026-07-15 02:05 — #368 D-0346/0347 dosit + weapon_insight twoweap
-
-- Objective: seed0107 @85 sit-on-corpse; then @93 attributes skill limits.
-- C locus: `sit.c` `dosit` OBJ_AT; `objnam.c` `xname`/`the` CORPSE bare;
-  `insight.c` `weapon_insight` twoweap skill compare.
-- Change: port picnic sit+comfort; CORPSE xname="corpse"+`the()`; twoweap
-  limited-by lines + COLNO period clip (D-0346/D-0347).
-- Verification: seed0107 **98/98 PASS** RNG full; suite **23/44** Scr
-  **3561**/11405 RNG **240160**/792838; green+strict; cohort 20 PASS.
-- Next: seed0009 @9 leftover splash under role-ok menu (Scr 12/73).
