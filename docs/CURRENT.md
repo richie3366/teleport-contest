@@ -17,7 +17,7 @@ Update **this Score section** with: pass count, screen/RNG aggregates, speed
 label, PASS list, notable non-PASS. Do not invent suite totals from a single
 focused session.
 
-Score last measured: **2026-07-15** — full `sessions` suite (#390).
+Score last measured: **2026-07-15** — full `sessions` suite (#395, post D-0371).
 
 ## Score
 
@@ -25,8 +25,8 @@ Score last measured: **2026-07-15** — full `sessions` suite (#390).
 |--------|------:|
 | Sessions passing | **24 / 44** |
 | Screens matched | **3640 / 11,405** (31.92%) |
-| Positional RNG calls matched | **247,757 / 792,838** (31.25%) |
-| Speed label | `19+0.12/turn` (R² 0.80) |
+| Positional RNG calls matched | **253,036 / 792,838** (31.92%) |
+| Speed label | `21+0.12/turn` (R² 0.81) |
 | Role-init throws | **0 / 44** |
 
 **PASS (24):** seed8000, seed0900, seed1500, seed1800, seed0060, seed0102,
@@ -37,7 +37,7 @@ seed0013-rogue, seed0013-friday13-restore, seed0107, seed0009.
 **Notable non-PASS:**
 | Session | RNG | Screen | Note |
 |--------|----:|-------:|------|
-| seed0012 | **9447**/13878 | **14**/308 | @8802 dog_goal rn2(4) vs rn2(12) (post D-0370) |
+| seed0012 | **12505**/13878 | **14**/308 | @12439 C gethungry rn2(20) vs JS rn2(5) (post D-0371) |
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
 | seed0004 | 4025/12084 | 28/409 | |
 | seed0002 | 4521/27158 | 9/595 | |
@@ -58,9 +58,9 @@ Both must remain full RNG + screen PASS with exact scored-output lengths.
 
 ## Primary objective
 
-**seed0012 @8802** — C `dog_goal` `rn2(4)` (`dogmove.c:575`) vs JS
-`rn2(12)` (`dog_move` approach). Post D-0370 fountain `monster_detect`;
-hero/`IS_ROOM`/gtyp/`udist` likely still diverge after detect UI.
+**seed0012 @12439** — C `gethungry` `rn2(20)` (`eat.c:3191`) vs JS
+`rn2(5)`. Post D-0371 foul-fountain `vomit`/`nomul(-2)`; prefix
+8802→12439.
 
 ```bash
 node scripts/rng-diff.mjs sessions/seed0012-monk-vault-escort.session.json

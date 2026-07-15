@@ -7,17 +7,16 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Score:** **24/44** PASS (#390). seed0012 focused RNG **9447**/13878
-  cursors **186**/308 (post D-0370).
-- **Next:** seed0012 @8802 — C `dog_goal` `rn2(4)` vs JS `rn2(12)`.
+- **Score:** **24/44** PASS (#395). seed0012 focused RNG **12505**/13878
+  cursors **226**/308 (post D-0371).
+- **Next:** seed0012 @12439 — C `gethungry` `rn2(20)` vs JS `rn2(5)`.
   Cmd: `node scripts/rng-diff.mjs sessions/seed0012-monk-vault-escort.session.json`
-  Falsify: `gtyp`/`heroTyp`/`IS_ROOM`/`udist` at dog_goal; TER_DETECT
-  autodescribe sticky topline on getpos moves.
-- **Don’t re-check:** @8384 as mtrack `k−j` (was fountain case 26
-  `monster_detect` — D-0370); wipeout@7312 as allmain wipe (D-0369);
-  wantdoor @6952; invent/fobj @7288.
-- **Landmark:** fate=26 → sense `--More--` → getpos tip → `B`/`H`
-  farlook; fmon is array; `\r`→LF; stash track; Options `@`.
+  Falsify: Unaware/`gethungry` call count vs fleeck after vomit multi.
+- **Don’t re-check:** @8802 as dog_goal IS_ROOM/door (was missing foul
+  `vomit`/`nomul(-2)` — D-0371); @8384 fountain detect (D-0370);
+  wipeout@7312; wantdoor @6952; invent/fobj @7288.
+- **Landmark:** fate=20 foul → vomit nomul(-2) → You can move again;
+  fate=26 detect getpos; fmon is array; `\r`→LF.
 - **Parked:** D-0006; seed2200 @158 RC.
 
 ## Don’t re-check (≤15)
@@ -60,7 +59,8 @@ Objective/score live in `CURRENT.md`.
   boxiprobs (D-0361); #loot / dog appr @3152 (D-0362); under-dmg @3204
   (D-0363); oc_delay meating (D-0364); `,` leak move (D-0365); `<`/
   getlev (D-0366); rest_track (D-0367); O/@ gold (D-0368); allmain wipe
-  @7312 (D-0369); mtrack k−j @8384 (D-0370 — fountain detect).
+  @7312 (D-0369); mtrack k−j @8384 (D-0370 — fountain detect);
+  dog_goal rn2(4)@8802 as IS_ROOM (D-0371 — foul vomit).
 - Runner `Screen N/M` = total matches, not prefix length.
 
 ## Landmarks (≤15)
@@ -73,4 +73,5 @@ Objective/score live in `CURRENT.md`.
 - Session: `more()` space/CR/ESC; jsmain `\r`→LF.
 - Save: VFS `save/<plname>` JSON; restore skips `rndencode`.
 - Fountain fate=26: `monster_detect` + getpos (D-0370); fmon is array.
-- D-0274…D-0370: see index.
+- Fountain fate=20: `vomit` → `nomul(-2)` (D-0371).
+- D-0274…D-0371: see index.

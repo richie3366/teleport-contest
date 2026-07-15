@@ -6,9 +6,10 @@
 // message+RNG arms; case 26 monster_detect + browse_map; case 27
 // dofindgem when !FOUNTAIN_IS_LOOTED.
 // Deferred: dowatersnakes/demon/nymph (incl. case 27 fallthrough when
-// looted), dogushforth, enlightenment body, vomit body, town warn/
-// angry_guards, wizard yn, FOUNTAIN_IS_WARNED force dryup, Excalibur
-// LONG_SWORD body, wash_hands, dipfountain cases 17–23/25–29.
+// looted), dogushforth, enlightenment body, vomit cantvomit/Sick/acid
+// poly arms, town warn/angry_guards, wizard yn, FOUNTAIN_IS_WARNED force
+// dryup, Excalibur LONG_SWORD body, wash_hands, dipfountain cases
+// 17–23/25–29.
 
 import { game } from './gstate.js';
 import { rn2, rnd, rn1 } from './rng.js';
@@ -26,7 +27,7 @@ import {
 import { hands_obj } from './weapon.js';
 import { PM_KNIGHT } from './generated/monsters_data.js';
 import { A_MAX, A_WIS, A_CON, adjattrib, exercise } from './attrib.js';
-import { lesshungry, morehungry, poison_strdmg } from './eat.js';
+import { lesshungry, morehungry, poison_strdmg, vomit } from './eat.js';
 import { losehp } from './hack.js';
 import { monster_detect } from './detect.js';
 
@@ -161,7 +162,8 @@ export async function drinkfountain() {
         case 20: // Foul water
             await pline('The water is foul!  You gag and vomit.');
             morehungry(rn1(20, 11));
-            // vomit() body deferred (no RNG when not polymorphed)
+            // C: eat.c vomit() — nomul(-2); poly acid spew deferred
+            vomit();
             break;
         case 21: { // Poisonous
             await pline('The water is contaminated!');

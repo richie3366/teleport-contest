@@ -24,6 +24,34 @@ The compact status table lives in **`DIVERGENCE-INDEX.md`**.
 Open that file first; then jump to a single `## D-NNNN` entry below
 (via search). Do **not** read this whole file by default.
 
+## D-0371 — `drinkfountain` case 20 `vomit`/`nomul(-2)` (seed0012 @8802)
+
+- **Status:** fixed
+- **Observed:** seed0012 @8802 — C `dog_goal` `rn2(4)` vs JS `rn2(12)`.
+  DIAG: JS hero on DOOR (69,3) `!IS_ROOM` (skips rn2(4)); C still in
+  ROOM. Hero had walked during the foul-fountain turn window.
+- **Cause:** JS deferred `vomit()` after foul water. C `eat.c` `vomit`
+  does `nomul(-2)` + `You can move again`, so the hero stays on the
+  fountain (ROOM) through two paralyzed turns. Without it, JS kept
+  accepting move keys and stepped onto a doorway → spurious dog_goal
+  arity miss.
+- **Rejected:** door typ/doormask mismatch at (69,3) as root; TER_DETECT
+  autodescribe sticky topline as the @8802 cause (position matched C
+  screens; immobilization did not).
+- **C locus:** `fountain.c` case 20; `eat.c` `vomit` (`nomul(-2)` when
+  `multi >= -2`).
+- **Change:** port `vomit()` nomul arm; wire `drinkfountain` case 20.
+  Named omissions: cantvomit; Sick cure; FAINTING dry-heave; poly acid
+  breath.
+- **Verification:** first mismatch **8802→12439**; runner RNG
+  **9447→12505**/13878 cursors **186→226**/308; green+strict PASS;
+  cohort **24/24**; full suite still **24/44**, RNG aggregate
+  **253036**/792838.
+- **Lesson:** missing `nomul` looks like late `dog_goal`/`IS_ROOM`
+  desync; falsify with fountain foul + “You can move again” before
+  chasing terrain at the mismatch cell.
+- **Next:** seed0012 @12439 C `gethungry` `rn2(20)` vs JS `rn2(5)`.
+
 ## D-0370 — `drinkfountain` case 26 `monster_detect` (seed0012 @8384)
 
 - **Status:** fixed

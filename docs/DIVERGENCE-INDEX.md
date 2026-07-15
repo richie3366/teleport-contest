@@ -357,7 +357,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 | D-0368 | fixed | O/@ autopickup + autopick_testobj | leftover floor gold; @7288→7312 |
 | D-0369 | fixed | dochug wipe_engr_at before fleeck | dust under mon; @7312→8384 |
 | D-0370 | fixed | drinkfountain case 26 monster_detect | browse_map getpos; @8384→8802 |
-
+| D-0371 | fixed | drinkfountain case 20 vomit/nomul(-2) | foul water multi; @8802→12439 |
 
 D-0001 through D-0005 predate the strict-length/cohort runbook. Their focused
 causes are preserved, but generic "green sessions held" is historical evidence,
