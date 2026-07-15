@@ -359,6 +359,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 | D-0370 | fixed | drinkfountain case 26 monster_detect | browse_map getpos; @8384→8802 |
 | D-0371 | fixed | drinkfountain case 20 vomit/nomul(-2) | foul water multi; @8802→12439 |
 | D-0372 | fixed | domove attack before test_move | doorway diagonal; @12439→12489 |
+| D-0373 | fixed | vault_tele / tele_trap once TELEP | niche→vault somex; @12489→13287 |
 
 D-0001 through D-0005 predate the strict-length/cohort runbook. Their focused
 causes are preserved, but generic "green sessions held" is historical evidence,

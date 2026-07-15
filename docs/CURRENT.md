@@ -37,7 +37,7 @@ seed0013-rogue, seed0013-friday13-restore, seed0107, seed0009.
 **Notable non-PASS:**
 | Session | RNG | Screen | Note |
 |--------|----:|-------:|------|
-| seed0012 | **12608**/13878 | **14**/308 | @12489 C somex rn2(2) vs JS rn2(5) (post D-0372) |
+| seed0012 | **13295**/13878 | **14**/308 | @13287 C invault makemon vs JS wipe_engr (post D-0373) |
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
 | seed0004 | 4025/12084 | 28/409 | |
 | seed0002 | 4521/27158 | 9/595 | |
@@ -58,9 +58,9 @@ Both must remain full RNG + screen PASS with exact scored-output lengths.
 
 ## Primary objective
 
-**seed0012 @12489** — C `somex` `rn2(2)` (`mkroom.c:668`) vs JS
-`rn2(5)`. Post D-0372 `domove` attack-before-`test_move`; prefix
-12439→12489.
+**seed0012 @13287** — C `invault` → `makemon(PM_GUARD)` `next_ident`
+(`vault.c` / `mkobj.c:521`) vs JS EOT `wipe_engr` `rn2(94)`. Post D-0373
+`vault_tele`; prefix 12489→13287. Hero is in the vault; guard timer fires.
 
 ```bash
 node scripts/rng-diff.mjs sessions/seed0012-monk-vault-escort.session.json

@@ -19,6 +19,15 @@ Use this shape:
 - Verification: …
 - Next: …
 ```
+## 2026-07-15 08:44 — D-0373 vault_tele / tele_trap once (seed0012 @12489)
+- Objective: seed0012 @12489 C somex rn2(2) vs JS rn2(5).
+- C locus: teleport.c vault_tele/tele_trap; trap.c trapeffect_telep_trap.
+- Change: hero once-TELEP → deltrap+vault_tele(somexyspace); mon mtele_trap
+  (D-0373). DIAG: hero stood on vault TELEP (41,0) while JS skipped effect.
+- Verification: prefix 12489→13287; RNG 12608→13295 cursors 227→244;
+  green+strict PASS; cohort 24/24.
+- Next: seed0012 @13287 C invault makemon next_ident vs JS wipe_engr rn2(94).
+
 ## 2026-07-15 08:24 — D-0372 domove attack before test_move (seed0012 @12439)
 - Objective: seed0012 @12439 C gethungry rn2(20) vs JS rn2(5).
 - C locus: hack.c domove_core — m_at/domove_attackmon_at before test_move.
@@ -128,12 +137,4 @@ Use this shape:
   (D-0363). JS under-dmg left mon alive → flee rn2(25).
 - Verification: prefix 3204→3248; RNG 3255→3304; green+strict; cohort 22 PASS.
 - Next: seed0012 @3248 C distfleeck rn2(5) vs JS rn2(100).
-
-## 2026-07-15 06:06 — D-0362 #loot use_container (seed0012 @3152)
-- Objective: seed0012 @3152 C dog_move rn2(1) vs JS rn2(3).
-- C locus: pickup.c doloot/use_container; end.c container_contents.
-- Change: EXT_CMDS loot + doloot `:` look/ESC (D-0362). Root cause was
-  hero (4,6) vs C (3,5) after missed timed #loot — not dog_move appr.
-- Verification: prefix 3152→3204 (xkilled); green+strict; cohort 24 PASS.
-- Next: seed0012 @3204 C xkilled rn2(6) vs JS rn2(25).
 

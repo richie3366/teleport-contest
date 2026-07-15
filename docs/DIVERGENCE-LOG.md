@@ -24,6 +24,34 @@ The compact status table lives in **`DIVERGENCE-INDEX.md`**.
 Open that file first; then jump to a single `## D-NNNN` entry below
 (via search). Do **not** read this whole file by default.
 
+## D-0373 — `vault_tele` / `tele_trap` once TELEP (seed0012 @12489)
+
+- **Status:** fixed
+- **Observed:** seed0012 @12489 — C `somex` `rn2(2)` (`mkroom.c:668`) vs
+  JS `distfleeck` `rn2(5)`.
+- **Cause:** hero stood on vault niche `TELEP_TRAP` (`once`, 41,0). C
+  `spoteffects`→`dotrap`→`tele_trap`→`vault_tele`→`somexyspace` into the
+  2×2 VAULT. JS `trapeffect_selector` omitted TELEP (default no-op), so
+  the hero never left the trap cell and the next monster tick fleecked.
+- **Rejected:** monster `mvault_tele` before fleeck (no mon on TELEP;
+  traps present but hero occupancy was the smoking gun).
+- **C locus:** `teleport.c` `vault_tele` / `tele_trap`; `trap.c`
+  `trapeffect_telep_trap`.
+- **Change:** `js/teleport.js` — `vault_tele`/`teleds`/`tele_trap_once_vault`
+  + `mtele_trap`/`mvault_tele`/`rloc` subset; `js/trap.js` —
+  `trapeffect_telep_trap` hero once→deltrap+vault_tele and mon path.
+  Named omissions: Antimagic wrenching pline; hero teledest/`tele()`;
+  `tele_jump_ok`/`in_out_region`; ball/chain `teleds`; full `rloc`
+  wizard/shop arms; `invault` still absent from `allmain`.
+- **Verification:** first mismatch **12489→13287**; runner RNG
+  **12608→13295**/13878 cursors **227→244**/308; green+strict PASS;
+  cohort **24/24**.
+- **Lesson:** when C shows `somex`/`somey` on a 2×2 VAULT after EOT wipe
+  and before fleeck, check whether the *hero* just stepped a `once`
+  TELEP during `rhack` — DIAG hero cell == trap cell.
+- **Next:** seed0012 @13287 C `invault` `makemon` `next_ident` vs JS
+  `wipe_engr` `rn2(94)`.
+
 ## D-0372 — `domove` attack before `test_move` (seed0012 @12439)
 
 - **Status:** fixed

@@ -7,16 +7,17 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Score:** **24/44** PASS (#395). seed0012 focused RNG **12608**/13878
-  cursors **227**/308 (post D-0372).
-- **Next:** seed0012 @12489 — C `somex` `rn2(2)` vs JS `rn2(5)`.
+- **Score:** **24/44** PASS (#395). seed0012 focused RNG **13295**/13878
+  cursors **244**/308 (post D-0373).
+- **Next:** seed0012 @13287 — C `invault` `makemon` `next_ident` vs JS
+  `wipe_engr` `rn2(94)`. JS `allmain` still omits `invault()`.
   Cmd: `node scripts/rng-diff.mjs sessions/seed0012-monk-vault-escort.session.json`
-  Falsify: vault/room placement after melee kill vs extra fleeck.
-- **Don’t re-check:** @12439 as gethungry/Unaware (was attack-after-
-  testdiag — D-0372); @8802 as dog_goal IS_ROOM (D-0371 foul vomit);
-  @8384 fountain detect (D-0370); wipeout@7312; wantdoor @6952.
-- **Landmark:** diagonal attack from intact doorway before test_move;
-  fate=20 foul → vomit nomul(-2); fate=26 detect getpos; `\r`→LF.
+  Falsify: after vault_tele, `u.uinvault` timer → guard spawn before wipe_engr.
+- **Don’t re-check:** @12489 as fleeck/mon mvault (was hero once-TELEP —
+  D-0373); @12439 as gethungry/Unaware (D-0372); @8802 as dog_goal IS_ROOM
+  (D-0371); @8384 fountain detect (D-0370); wipeout@7312; wantdoor @6952.
+- **Landmark:** vault niche TELEP `once` at (41,0) → `vault_tele` 2×2 VAULT
+  somex/somey; hero on trap cell while JS skipped TELEP.
 - **Parked:** D-0006; seed2200 @158 RC.
 
 ## Don’t re-check (≤15)
@@ -61,7 +62,8 @@ Objective/score live in `CURRENT.md`.
   getlev (D-0366); rest_track (D-0367); O/@ gold (D-0368); allmain wipe
   @7312 (D-0369); mtrack k−j @8384 (D-0370 — fountain detect);
   dog_goal rn2(4)@8802 as IS_ROOM (D-0371 — foul vomit);
-  gethungry rn2(20)@12439 as Unaware (D-0372 — attack before test_move).
+  gethungry rn2(20)@12439 as Unaware (D-0372 — attack before test_move);
+  somex@12489 as fleeck/mon mvault (D-0373 — hero once vault TELEP).
 - Runner `Screen N/M` = total matches, not prefix length.
 
 ## Landmarks (≤15)
@@ -76,4 +78,5 @@ Objective/score live in `CURRENT.md`.
 - Fountain fate=26: `monster_detect` + getpos (D-0370); fmon is array.
 - Fountain fate=20: `vomit` → `nomul(-2)` (D-0371).
 - `domove`: attack before doorway `test_move` (D-0372).
-- D-0274…D-0372: see index.
+- Vault niche `TELEP` once → `vault_tele` somexyspace (D-0373).
+- D-0274…D-0373: see index.
