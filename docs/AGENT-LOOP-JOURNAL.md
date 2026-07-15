@@ -20,6 +20,17 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-15 19:43 — #453 seed0004 @288 message_menu (D-0422)
+- Objective: seed0004 @288 PRIMARY — C invent
+  `o - a scroll…--More--` vs JS corner `Scrolls` heading.
+- C locus: `invent.c` `display_pickinv` n==1; `wintty.c`
+  `tty_message_menu`; `getline.c` `xwaitforspace` dismiss_more.
+- Change: getobj `?` with `strlen(lets)==1` → `message_menu`
+  PICK_ONE + `more` dismiss_more; not corner NHW_MENU.
+- Verification: seed0004 Scr **390→391**/409; @288 fixed; miss
+  @297 `staircase down`; RNG full; green+strict; cohort **25/25**.
+- Next: seed0004 @297 getpos autodescribe stairs.
+
 ## 2026-07-15 19:34 — #452 choose_ring_hand yn [rl] (D-0421)
 - Objective: seed0004 @285 PRIMARY — C `…Left? [rl]` vs JS without
   choices.

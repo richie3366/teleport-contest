@@ -552,6 +552,10 @@ let _toplin = TOPLINE_EMPTY;
 let _win_stop = false;
 // C ref: pline.c gp.prevmsg — last message that actually reached putmesg
 let _prevmsg = '';
+// C ref: wintty.h ttyDisplay->dismiss_more / getline.c morc — extra key
+// accepted at --More-- (message_menu selection letter).
+let _dismiss_more = 0;
+let _morc = 0;
 
 /** Reset module topline/delay state for a fresh runSegment (not in C game
  *  object; must not leak NEED_MORE across harness sessions). */
@@ -563,6 +567,8 @@ export function reset_display_messages() {
     _lastStatus1 = '';
     _lastStatus2 = '';
     _prevmsg = '';
+    _dismiss_more = 0;
+    _morc = 0;
 }
 
 /**
@@ -2112,19 +2118,61 @@ export async function more() {
         }
     }
 
+    _morc = 0;
     for (;;) {
         const c = await nhgetch();
+        // C ref: getline.c xwaitforspace("\033 ") + dismiss_more
         if (c === 27) { // ESC → WIN_STOP
             _win_stop = true;
+            _morc = 27;
             break;
         }
-        if (c === 32 || c === 13 || c === 10) break;
+        if (c === 32 || c === 13 || c === 10) {
+            _morc = c;
+            break;
+        }
+        if (_dismiss_more && c === _dismiss_more) {
+            _morc = c;
+            break;
+        }
         // tty_nhbell(); discard
     }
 
     _toplines = '';
     _toplin = TOPLINE_EMPTY;
     game._pending_message = '';
+}
+
+/**
+ * C ref: wintty.c tty_message_menu(let, how, mesg).
+ * PICK_NONE → pline only. PICK_ONE → putstr/pline + more() with
+ * dismiss_more=let so the inventory letter selects at --More--.
+ * @param {string|number} letch invlet (or HANDS_SYM)
+ * @param {number} how PICK_NONE (0) or PICK_ONE (1)
+ * @param {string} mesg already-formatted xprname line
+ * @returns {Promise<string|null>} selected let / ESC / null (space etc.)
+ */
+export async function message_menu(letch, how, mesg) {
+    const PICK_NONE = 0;
+    const PICK_ONE = 1;
+    if (how === PICK_NONE) {
+        await pline(mesg);
+        return null;
+    }
+    const letCode = typeof letch === 'string' ? letch.charCodeAt(0) : (letch | 0);
+    _dismiss_more = letCode;
+    _morc = 0;
+    // C: tty_putstr(WIN_MESSAGE) — redotoplin sets NEED_MORE; more() if
+    // already wrapped. JS pline matches that envelope.
+    await pline(mesg);
+    if (_toplin === TOPLINE_NEED_MORE && !_win_stop) {
+        await more();
+    }
+    _dismiss_more = 0;
+    if ((how === PICK_ONE && _morc === letCode) || _morc === 27) {
+        return _morc === 27 ? '\x1b' : String.fromCharCode(_morc);
+    }
+    return null;
 }
 
 /** C ref: flush pending topline --More-- before menus / non-pline UI */

@@ -7,22 +7,20 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Score:** **25/44** PASS (#450 full; #452 focused). Scr
+- **Score:** **25/44** PASS (#450 full; #453 focused). Scr
   **4336**/11405; RNG **263155**/792838. seed0004 focused: RNG
-  **12084**/12084; Scr **390**/409 (cursors 403).
-- **Next:** seed0004 @288 — C invent
-  `o - a scroll labeled STRC PRST SKRZ KRK.--More--` vs JS corner
-  invent `Scrolls` + line without More (`display_inventory` /
-  putstr wrap / more).
+  **12084**/12084; Scr **391**/409 (cursors 404).
+- **Next:** seed0004 @297 — C topline `staircase down` vs JS blank
+  during `_>` travel getpos autodescribe (`lookat` / stairs feature).
   ```bash
   node frozen/ps_test_runner.mjs sessions/seed0004-feeding-pony.session.json
   ```
-- **Don’t re-check:** @285 ring-finger `[rl]` via `yn_function`
-  (D-0421). @277 RING `<descr> ring` (D-0420). @248 tseen trap `^`
-  (D-0419). @240 pickup poison (D-0418). @239 bag empty (D-0417).
-  @182 cursemsg (D-0416). @11722 throw carrot (D-0415). @11708 dog
-  `ALLOW_U` (D-0414). @11568 fightm (D-0413). @10966 travel boulder
-  (D-0412).
+- **Don’t re-check:** @288 getobj `?` n==1 `message_menu` (D-0422).
+  @285 ring-finger `[rl]` via `yn_function` (D-0421). @277 RING
+  `<descr> ring` (D-0420). @248 tseen trap `^` (D-0419). @240 pickup
+  poison (D-0418). @239 bag empty (D-0417). @182 cursemsg (D-0416).
+  @11722 throw carrot (D-0415). @11708 dog `ALLOW_U` (D-0414). @11568
+  fightm (D-0413). @10966 travel boulder (D-0412).
 - **Landmark:** vault door (71,13); dig + restfakecorr; SPELL_LEV_PW(1)=5.
 - **Parked:** D-0006; seed2200 @158 RC.
 
@@ -56,10 +54,11 @@ Objective/score live in `CURRENT.md`.
   skip `heal_legs` / WOUNDED_LEGS `nh_timeout` (D-0403); omit
   `vtense` bare-singular conjugate (D-0403); float `mhpmax/2` for
   flee gate (D-0404); treat @9795–@11722 / @182/@239/@240/@248/@277/
-  @285 as index D-0405…D-0421 without those C paths; treat RING
+  @285/@288 as index D-0405…D-0422 without those C paths; treat RING
   `obj.known` as type-ID (D-0420); treat @248 floor vs `^` as missing
   feeltrap when `tseen` already set (D-0419); bypass `yn_function`
-  for ring-hand (D-0421 — use `rightleftchars` + `'\0'` def).
+  for ring-hand (D-0421); force corner invent for getobj `?` when
+  `strlen(lets)==1` (D-0422 — use `message_menu` + dismiss_more).
 - Runner `Screen N/M` = total matches, not prefix length.
 - First cell-miss may be botl `$:` / `Burdened` even when NOTES names a topline.
 
@@ -88,4 +87,5 @@ Objective/score live in `CURRENT.md`.
   deferred. **`map_trap` tseen in newsym** (D-0419); Hallucination
   trap glyphs deferred. **RING xname `<dn> ring` / nn only** (D-0420).
   **`choose_ring_hand` → `yn_function` `[rl]`** (D-0421).
+  **getobj `?` n==1 → `message_menu` PICK_ONE** (D-0422).
   Older D-IDs: index / don’t-recheck.

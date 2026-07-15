@@ -4,6 +4,32 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
+## D-0422 — seed0004 @288 getobj ? n==1 → message_menu PICK_ONE
+
+- **Status:** fixed
+- **Symptom:** seed0004 first cell miss @288 — C
+  `o - a scroll labeled STRC PRST SKRZ KRK.--More--` (topline; cursor
+  after More); JS corner invent `Scrolls` heading + truncated line +
+  `(end)`. RNG full after D-0421. Trigger: read getobj `?` with
+  suggests `[o or ?*]`.
+- **Cause:** `display_pickinv_reply` always painted corner NHW_MENU.
+  C `display_pickinv` when `n == strlen(lets) == 1` and
+  `!force_invmenu && !menu_requested` uses
+  `message_menu(invlet, PICK_ONE, xprname(..., TRUE))` —
+  `tty_message_menu` putstr + `more()` with `dismiss_more=let` so the
+  letter selects at `--More--`. (Bare `i` with one item bumps `n` and
+  keeps the menu — only getobj-filtered single letter takes this path.)
+- **C locus:** `invent.c` `display_pickinv` n==1 branch;
+  `wintty.c` `tty_message_menu`; `getline.c` `xwaitforspace` dismiss_more.
+- **Change:** `display.js` `message_menu` + `more` accepts dismiss_more;
+  `invent.js` `display_pickinv_reply` n==1+lets → message_menu.
+  Deferred: force_invmenu / menu_requested / wizid / hands / `*` multi
+  message_menu; PICK_NONE single-item full invent.
+- **Verification:** seed0004 Scr **390→391**/409; @288 fixed; first
+  miss **@297** C `staircase down` vs JS blank (getpos autodescribe);
+  RNG full; green+strict; cohort **25/25**.
+- **Next:** seed0004 @297 travel/getpos `staircase down` describe.
+
 ## D-0421 — seed0004 @285 choose_ring_hand via yn_function [rl]
 
 - **Status:** fixed
