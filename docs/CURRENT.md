@@ -60,16 +60,16 @@ Both must remain full RNG + screen PASS with exact scored-output lengths.
 
 ## Primary objective
 
-**seed0009-swimmer-mforce** — RNG **3649**/3713; Scr **48**/73
+**seed0009-swimmer-mforce** — RNG **3649**/3713; Scr **49**/73
 
 | | |
 |--|--|
-| **C locus** | `invent.c` `look_here` / `dfeature_at` — “broken door” |
-| **JS locus** | `invent.js` look_here / dfeature — blank topline @41 |
-| **Symptom** | first cell-miss @41 C “There is a broken door here.” vs JS blank |
-| **Hypothesis** | `dfeature_at`/`look_here` omits D_BROKEN door feature pline |
-| **Falsifier** | Scr >48 with @41 cells; or named next miss |
-| **Recent fixed** | D-0355 POOL/MOAT/WATER/lava/ice glyphs + DEC `` ` `` grid → Scr **40→48** |
+| **C locus** | `hack.c` / `trap.c` pool step — “You avoid stepping into the pool…” |
+| **JS locus** | `cmd.js` / `pickup.js` / pool move gate — blank topline @45 |
+| **Symptom** | first cell-miss @45 C pool-avoid `--More--` vs JS blank |
+| **Hypothesis** | domove/pooleffects omits avoid-pool pline before water step |
+| **Falsifier** | Scr >49 with @45 cells; or named next miss |
+| **Recent fixed** | D-0356 `describe_decor` + pickup `!OBJ_AT` → Scr **48→49** |
 
 ```bash
 node frozen/ps_test_runner.mjs sessions/seed0009-swimmer-mforce.session.json

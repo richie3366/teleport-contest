@@ -1,5 +1,25 @@
 # Agent loop journal archive
 
+## 2026-07-15 01:20 — #363 D-0339 `)` doprwep
+
+- Objective: seed0013-restore @62 `)` bare handed (CURRENT primary).
+- C locus: `invent.c` `doprwep` / `wield.c` `empty_handed`.
+- Change: `doprwep` !uwep pline + wielded `xprname`; bind `)` (D-0339).
+- Verification: Scr **68→69**/99; first miss `@64` `[`; RNG full;
+  green+strict; 21 PASS cohort incl. seed0013-rogue.
+- Next: `@64` `[` / `doprarm` worn-armor display.
+
+## 2026-07-15 01:13 — #362 D-0335…0338 save/restore + showgold
+
+- Objective: seed0013-restore Scr 47/99 (CURRENT primary).
+- C locus: `save.c` dosave; `restore.c` dorecover; `allmain` welcome/
+  preamble; `invent` doprgold; `wintty` dmore quitchars.
+- Change: JSON VFS save/restore + `S` (D-0335); welcome-back align gate
+  (D-0336); attributes quitchars (D-0337); `$`/`doprgold` (D-0338).
+- Verification: RNG **full 4804**; Scr **47→68**/99; first miss `@62` `)`;
+  green+strict; 8 PASS cohort incl. seed0013-rogue.
+- Next: `@62` `)` bare-handed / `doprwep`.
+
 ## 2026-07-14 23:25 — #355 score + D-0327 xkilled destroy
 
 - Objective: mandatory full `sessions` (#355 %5) + seed0030 @1684.

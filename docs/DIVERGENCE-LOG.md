@@ -24,6 +24,28 @@ The compact status table lives in **`DIVERGENCE-INDEX.md`**.
 Open that file first; then jump to a single `## D-NNNN` entry below
 (via search). Do **not** read this whole file by default.
 
+## D-0356 — describe_decor mention_decor (broken door)
+
+- **Status:** fixed
+- **Observed:** seed0009 Scr **48**/73 RNG **3649**/3713 — first cell-miss
+  @41 C “There is a broken door here.” vs JS blank topline (after kick
+  opens door and hero steps on it; no floor objects).
+- **C locus:** `pickup.c` `describe_decor` + `pickup` early path when
+  `autopickup && !OBJ_AT` + `flags.mention_decor`; `check_here` also
+  calls `describe_decor` before `look_here` (LOOKHERE_SKIP_DFEATURE).
+  `dfeature_at` already returns `"broken door"` for `D_BROKEN`.
+- **Cause/evidence:** JS `check_here` with `ct==0` only `read_engr_at`;
+  `pickup` never called `describe_decor`. With no objects, C never
+  reaches `look_here` for this message — it is mention_decor feedback.
+- **Change:** `js/pickup.js` `describe_decor` + wire into `pickup`
+  `!OBJ_AT`/pool/lava early return and `check_here`; skip open
+  door/doorway; verbose “There is %s here.”
+- **Verification:** seed0009 Scr **48→49**/73; @41 cells match; first
+  miss @45 pool-avoid; RNG still **3649**/3713; green+strict; cohort
+  21 PASS.
+- **General lesson:** furniture with `ct==0` is `describe_decor`, not
+  `look_here`; do not patch `look_here` alone from a blank topline.
+
 ## D-0355 — pool/lava/ice terrain_glyph + DEC diamond scoring
 
 - **Status:** fixed

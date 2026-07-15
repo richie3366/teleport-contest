@@ -19,6 +19,15 @@ Use this shape:
 - Verification: …
 - Next: …
 ```
+## 2026-07-15 04:45 — D-0356 describe_decor broken door
+- Objective: seed0009 @41 “There is a broken door here.” vs blank.
+- C locus: `pickup.c` `describe_decor` + `pickup` `!OBJ_AT` mention_decor.
+- Change: port `describe_decor`; wire pickup early path + check_here
+  LOOKHERE_SKIP_DFEATURE (D-0356). Not bare `look_here` when ct==0.
+- Verification: Scr **48→49**/73; @41 match; first miss @45 pool-avoid;
+  RNG **3649**; green+strict; cohort 21 PASS.
+- Next: @45 “You avoid stepping into the pool of water.--More--”.
+
 ## 2026-07-15 04:40 — D-0355 pool/lava/ice DEC glyphs
 - Objective: seed0009 @40 terrain `?` vs C DEC pool/lava diamond.
 - C locus: `display.c` `back_to_glyph` + `defsym.h` / DECgraphics S_pool.
@@ -146,23 +155,3 @@ Use this shape:
 - Verification: Scr **69→75**/99; first miss `@71` reveal_terrain still
   paints `@`/`f` vs C `~`; RNG full; green+strict; 21 PASS cohort.
 - Next: `@71` `reveal_terrain` TER_MAP hide monsters/objects.
-
-## 2026-07-15 01:20 — #363 D-0339 `)` doprwep
-
-- Objective: seed0013-restore @62 `)` bare handed (CURRENT primary).
-- C locus: `invent.c` `doprwep` / `wield.c` `empty_handed`.
-- Change: `doprwep` !uwep pline + wielded `xprname`; bind `)` (D-0339).
-- Verification: Scr **68→69**/99; first miss `@64` `[`; RNG full;
-  green+strict; 21 PASS cohort incl. seed0013-rogue.
-- Next: `@64` `[` / `doprarm` worn-armor display.
-
-## 2026-07-15 01:13 — #362 D-0335…0338 save/restore + showgold
-
-- Objective: seed0013-restore Scr 47/99 (CURRENT primary).
-- C locus: `save.c` dosave; `restore.c` dorecover; `allmain` welcome/
-  preamble; `invent` doprgold; `wintty` dmore quitchars.
-- Change: JSON VFS save/restore + `S` (D-0335); welcome-back align gate
-  (D-0336); attributes quitchars (D-0337); `$`/`doprgold` (D-0338).
-- Verification: RNG **full 4804**; Scr **47→68**/99; first miss `@62` `)`;
-  green+strict; 8 PASS cohort incl. seed0013-rogue.
-- Next: `@62` `)` bare-handed / `doprwep`.

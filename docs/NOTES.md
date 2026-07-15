@@ -8,13 +8,14 @@ Objective/score live in `CURRENT.md`.
 ## Active
 
 - **Score:** **23/44** PASS (#375 suite; Scr aggregate **3592** — not remeasured).
-- **Current unit:** seed0009 Scr **48**/73 RNG **3649**/3713 — first
-  cell-miss @41 C “There is a broken door here.” vs JS blank topline.
-- **Fixed this iter:** D-0355 — `terrain_glyph` POOL/MOAT/WATER/lava/ice +
-  scoring grid keeps raw DEC `` ` `` (not Unicode ◆).
-- **Next peel:** `look_here`/`dfeature_at` D_BROKEN door feature.
-- **Don’t re-check:** pool `?` as remaining @40 root; Unicode ◆ without
-  checking DEC_MAP exclusion (altar `{` pattern).
+- **Current unit:** seed0009 Scr **49**/73 RNG **3649**/3713 — first
+  cell-miss @45 C “You avoid stepping into the pool of water.--More--”
+  vs JS blank.
+- **Fixed this iter:** D-0356 — `describe_decor` + pickup `!OBJ_AT` /
+  check_here mention_decor path (broken door was not bare `look_here`).
+- **Next peel:** pool avoid / pooleffects (or drown check) before step.
+- **Don’t re-check:** blame @41 on `look_here` alone when `ct==0`
+  (C uses `describe_decor`); Unicode ◆ without DEC_MAP check.
 - **Landmark:** screen `i` key = `moves[i]` (= `steps[i+1].key`).
 - **Parked:** D-0006; seed2200 @158 RC.
 
@@ -61,7 +62,8 @@ Objective/score live in `CURRENT.md`.
   `align_shift` / `dochug` without WAITMASK (D-0353); silent
   `blocksMove` without mention_walls pline (D-0354); blame @33 on
   glance/`;`; omit POOL/lava/ice glyphs or paint DEC `` ` `` as Unicode ◆
-  (D-0355 — keep raw `` ` `` like altar `{`).
+  (D-0355 — keep raw `` ` `` like altar `{`); expect broken-door from
+  `look_here` when `ct==0` (D-0356 — `describe_decor`).
 - Runner `Screen N/M` = total matches, not prefix length.
 
 ## Landmarks (≤15)
@@ -74,10 +76,10 @@ Objective/score live in `CURRENT.md`.
 - Save: VFS `save/<plname>` JSON; restore skips `rndencode`;
   `l_nhcore_init` still 2×rn2; farewell clears map no flush (D-0335).
 - Scoring grid: DEC chars in DEC_MAP → Unicode; `{`/` `` ` `` stay raw.
-- D-0274…D-0355: bones/disclose/RIP/topten/descr/botl/paybill/ghost/`;`/
+- D-0274…D-0356: bones/disclose/RIP/topten/descr/botl/paybill/ghost/`;`/
   getlin/compactify/enl/checkfile/save/welcome/attr/`$`/`)`/show-*/DEL/
   reveal_terrain/getpos Done/`#twoweapon`/`hitum` twohits/`dosit` OBJ_AT/
   weapon_insight twoweap limits / chargen corner / tutorial yes-path /
   tut-1 CENTER + invent stash + door-area + mktrap gate through sling +
   loot→end + align_shift + WAITMASK + mention_walls bump + pool/lava/ice
-  DEC diamond.
+  DEC diamond + describe_decor broken door.
