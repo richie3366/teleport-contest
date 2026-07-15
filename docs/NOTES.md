@@ -7,10 +7,12 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Score:** **25/44** PASS (#430 full; #434 no full remeasure). seed0004
-  Scr **242**/409; RNG **10569**/12084 after D-0407.
-- **Next:** seed0004 @10563 — C `gethungry`/`hitum` vs JS `distfleeck`
-  (post-teleport travel `.`/`\r` then `l`). Cmds in `CURRENT.md`.
+- **Score:** **25/44** PASS (#435 full). Scr **4196**/11405; RNG
+  **261626**/792838. seed0004 Scr **242**/409; RNG **10569**/12084.
+- **Next:** seed0004 @10563 — C `gethungry` `rn2(20)` + `exercise` +
+  `hitum` vs JS `distfleeck` `rn2(5)` after travel `.`/`\r` then `l`
+  (post-teleport). Prefix match through gethungry@10561 + moveloop
+  rn2(67)@10562. Cmds in `CURRENT.md`.
 - **Don’t re-check:** SCR_TELEPORTATION `scrolltele`/`safe_teleds` + getobj
   `?` pickinv / learnscroll→makeknown (D-0407); pickup `@` invert-all /
   conflict ring put-on (D-0406); unrotted floor corpse / pickup `c`/`d`

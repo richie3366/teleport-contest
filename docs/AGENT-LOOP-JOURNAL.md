@@ -20,6 +20,16 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-15 16:30 — #435 public score cadence
+- Objective: mandatory full `sessions` score (iteration % 5 == 0).
+- C locus: n/a (score-only; no port patch).
+- Change: remasured suite post D-0405…D-0407 — still **25/44** PASS;
+  screens 4187→**4196**/11405; RNG 260949→**261626**/792838;
+  speed `22+0.13/turn`. Green+strict PASS.
+- Verification: `node frozen/ps_test_runner.mjs sessions`; seed0004
+  focused still FAIL @10563 (C gethungry/hitum vs JS distfleeck).
+- Next: seed0004 @10563 travel-end / walk-into-monster path.
+
 ## 2026-07-15 16:26 — #434 seed0004 @10382 SCR_TELEPORTATION (D-0407)
 - Objective: seed0004 @10382 PRIMARY — C `exercise` `rn2(19)` vs JS
   `rn2(5)` (read teleport → `safe_teleds`).
