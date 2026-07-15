@@ -8,13 +8,16 @@ Objective/score live in `CURRENT.md`.
 ## Active
 
 - **Score:** **24/44** PASS (#390). Scr 3640/11405; RNG 247757/792838.
-- **Next:** seed0012 @7288 — C `dog_move` `rn2(1)` vs JS `obj_resists`
-  (`rn2(100)`). Post D-0367 `rest_track`.
+- **Next:** seed0012 @7312 — C `wipeout_text` `rn2(11)` vs JS
+  `distfleeck` `rn2(5)`. Post D-0368 autopick.
   Cmd: `node scripts/rng-diff.mjs sessions/seed0012-monk-vault-escort.session.json`
 - **Don’t re-check:** wantdoor corridor gg as root @6952 (was missing
-  `rest_track`); closed-east-only; same-gg chcnt; inject `(54,17)`.
+  `rest_track`); closed-east-only; same-gg chcnt; inject `(54,17)`;
+  blame @7288 on dog_move invent/fobj scan — was unbound `O`/`@`
+  leaving floor gold (D-0368).
 - **Landmark:** `\r`→LF; stash `VISITED|LFILE_EXISTS`+`omoves`+**track**;
-  vault doors `(54,16)`/`(59,16)`, stairs `(58,17)`.
+  vault doors `(54,16)`/`(59,16)`, stairs `(58,17)`; Options
+  `pickup_types=$"?!=/` + `@` before Dlvl2 gold.
 - **Parked:** D-0006; seed2200 @158 RC.
 
 ## Don’t re-check (≤15)
@@ -73,7 +76,8 @@ Objective/score live in `CURRENT.md`.
   blame @3248 on fleeck/fobj while C meating — instance oc_delay (D-0364);
   blame @3483 on dog_goal fobj/invent while `,` stub leaked `b`/`\n`/`n`
   as movement (D-0365); blame @6924 on fleeck/`<` (D-0366); blame @6952
-  on wantdoor/chcnt — was missing `rest_track` (D-0367).
+  on wantdoor/chcnt — was missing `rest_track` (D-0367); blame @7288 on
+  dog_goal invent scan — unbound Options/`@` left gold (D-0368).
 - Runner `Screen N/M` = total matches, not prefix length.
 
 ## Landmarks (≤15)
@@ -89,4 +93,4 @@ Objective/score live in `CURRENT.md`.
 - Save: VFS `save/<plname>` JSON; restore skips `rndencode`;
   `l_nhcore_init` still 2×rn2; farewell clears map no flush (D-0335).
 - Scoring grid: DEC chars in DEC_MAP → Unicode; `{`/` `` ` `` stay raw.
-- D-0274…D-0367: bones through rest_track (see index).
+- D-0274…D-0368: bones through autopick (see index).

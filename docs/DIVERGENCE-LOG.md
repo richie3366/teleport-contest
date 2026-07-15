@@ -24,6 +24,30 @@ The compact status table lives in **`DIVERGENCE-INDEX.md`**.
 Open that file first; then jump to a single `## D-NNNN` entry below
 (via search). Do **not** read this whole file by default.
 
+## D-0368 — `doset_simple` / `dotogglepickup` / `autopick_testobj` (seed0012 @7288)
+
+- **Status:** fixed
+- **Observed:** seed0012 @7288 — C `dog_move` approach `rn2(1)` vs JS
+  second `obj_resists` (`rn2(100)`). After matching CORPSE `dogfood`, JS
+  also scanned floor `GOLD_PIECE` at (43,3).
+- **Cause:** session sets `pickup_types=$"?!=/` via `O`→`o` and toggles
+  `@` ON before stepping on that gold (`$:2`→`$:7`). JS had unbound `O`/`@`
+  and no `autopick` filter, so gold stayed on `fobj` and `dog_goal` rolled
+  an extra `obj_resists`.
+- **Rejected:** invent/fobj identity leak; blaming `dog_move` approach;
+  wantdoor/track (already D-0367).
+- **C locus:** `options.c` `doset_simple` / `dotogglepickup` /
+  `optfn_pickup_types`; `windows.c` `choose_classes_menu`; `pickup.c`
+  `autopick` / `autopick_testobj`; `cmd.c` `O`/`@` binds.
+- **Change:** bind `O`→`doset_simple` (Behavior/Map page subset) and
+  `@`→`dotogglepickup`; `choose_classes_menu` PICK_ANY; `pickup(what>0)`
+  filters via `autopick_testobj` on symbol `pickup_types`.
+- **Verification:** first mismatch **7288→7312**; runner RNG
+  **7495→7558**/13878 Scr 14/308; green+strict PASS; cohort **22/22**.
+- **Lesson:** late pet `obj_resists` extras often mean hero never
+  autopicked an ordinary floor object after Options/`@`.
+- **Next:** seed0012 @7312 C `wipeout_text` vs JS `distfleeck`.
+
 ## D-0367 — `save_track` / `rest_track` (seed0012 @6952)
 
 - **Status:** fixed

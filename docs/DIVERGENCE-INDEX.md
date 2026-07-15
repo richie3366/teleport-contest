@@ -354,6 +354,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 | D-0365 | fixed | multi `,` query_objlist PICK_ANY | menu keys no longer leak as move; @3483→6924 |
 | D-0366 | fixed | doup + in-memory getlev hide rnd(10) | `<` unbound; stash restore; @6924→6952 |
 | D-0367 | fixed | save_track/rest_track per-level utrack | return visit gettrack; @6952→7288 |
+| D-0368 | fixed | O/@ autopickup + autopick_testobj | leftover floor gold; @7288→7312 |
 
 
 D-0001 through D-0005 predate the strict-length/cohort runbook. Their focused

@@ -30,6 +30,7 @@ import { doapply } from './apply.js';
 import { dokick } from './dokick.js';
 import { donull, dodown, doup, dodrop } from './do.js';
 import { dosave } from './save.js';
+import { doset_simple, dotogglepickup } from './options.js';
 import { do_attack, mon_at, is_safemon } from './uhitm.js';
 import { doopen_indir } from './lock.js';
 import { doextcmd } from './getline.js';
@@ -678,6 +679,14 @@ export async function rhack(key) {
     } else if (ch === 'S') {
         // C ref: save.c dosave / cmd.c — #save (GENERALCMD, ECMD_OK)
         await dosave();
+        game.context.move = 0;
+    } else if (ch === 'O') {
+        // C ref: options.c doset_simple / cmd.c — O options menu
+        await doset_simple();
+        game.context.move = 0;
+    } else if (ch === '@') {
+        // C ref: options.c dotogglepickup / cmd.c — @ autopickup toggle
+        await dotogglepickup();
         game.context.move = 0;
     } else if (ch === '$') {
         // C ref: invent.c doprgold / cmd.c — #showgold (GENERALCMD)
