@@ -37,7 +37,7 @@ seed0013-rogue, seed0013-friday13-restore, seed0107, seed0009.
 **Notable non-PASS:**
 | Session | RNG | Screen | Note |
 |--------|----:|-------:|------|
-| seed0012 | **7202**/13878 | **14**/308 | @6952 dog_goal gg (D-0367) |
+| seed0012 | **7495**/13878 | **14**/308 | @7288 dog_move vs obj_resists (post D-0367) |
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
 | seed0004 | 4025/12084 | 28/409 | |
 | seed0002 | 4521/27158 | 9/595 | |
@@ -58,10 +58,9 @@ Both must remain full RNG + screen PASS with exact scored-output lengths.
 
 ## Primary objective
 
-**seed0012 @6952 (D-0367)** — JS `dog_goal` wantdoor `gg=(62,16)` yields
-`rn2(1)` after `rn2(3)`; C arity is `rn2(12)` then `rn2(1)`, matching
-`gg≈(56,17)` (force → prefix 6965). Same `mfndpos`/uncursed=6. Need C
-`gg`/`view_from` falsifier — not approach-selection patches.
+**seed0012 @7288** — after D-0367 `rest_track`, C `dog_move` `rn2(1)`
+vs JS `obj_resists` (`rn2(100)`). Likely invent/floor scan still active in
+JS while C already in approach selection (or reverse).
 
 ```bash
 node scripts/rng-diff.mjs sessions/seed0012-monk-vault-escort.session.json

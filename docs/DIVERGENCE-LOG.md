@@ -24,27 +24,31 @@ The compact status table lives in **`DIVERGENCE-INDEX.md`**.
 Open that file first; then jump to a single `## D-NNNN` entry below
 (via search). Do **not** read this whole file by default.
 
-## D-0367 — `dog_goal` gg / wantdoor (seed0012 @6952)
+## D-0367 — `save_track` / `rest_track` (seed0012 @6952)
 
-- **Status:** open — prerequisite: C `gg`/`ogoal`/`view_from` capture.
-- **Observed:** seed0012 @6952 — after D-0366, C `dog_move` `rn2(12)=3`
-  then `rn2(1)=0` vs JS `rn2(1)` then `rn2(12)` (approach selection).
-- **JS state at mismatch:** pet `(55,16)` vault ROOM, hero `(62,15)` CORR,
-  `couldsee=false`, `gettrack=null`, wantdoor `gg=(62,16)` (STONE by hero),
-  `gtyp=UNDEF`, `appr=1`, `cnt=uncursed=6`, mtrack `[54,16;…]`, east door
-  `(59,16)` `D_NODOOR`, no in-radius `fobj`.
-- **Cause (working):** wrong `gg`, not `!rn2(++chcnt)` / `!rn2(12)` math.
-  With JS candidates, C’s arity sequence matches `gg∈{(56,17),(57,18),
-  (58,19),(59,20)}`. Temporary force `gg=(56,17)` → first mismatch **6965**.
-- **Rejected:** inject walkable `(54,17)` (uncursed→7 breaks matched
-  `rn2(24)`); skip-only `(55,17)` (hits `rn2(12)` then misses `rn2(1)`);
-  food/APPORT goal (no nearby `fobj`); same-gg short-circuit bug.
-- **C locus:** `dogmove.c` `dog_goal` / `wantdoor`; `vision.c`
-  `do_clear_area` / `view_from` (off-hero).
-- **Next falsifier:** record C `gg.gx/gy`, `edog->ogoal`, and whether
-  wantdoor sees corridor past `(59,16)` at this turn; compare to JS
-  wantdoor visit set. Do not patch approach RNG for one seed.
-- **Required gate:** green seed8000+seed0900 + strict lengths.
+- **Status:** fixed
+- **Observed:** seed0012 @6952 — after D-0366 return visit, C `dog_move`
+  `rn2(12)` then `rn2(1)` vs JS `rn2(1)` then `rn2(12)` (approach selection).
+- **JS state:** pet `(55,16)` vault, hero `(62,15)` CORR, `couldsee=false`,
+  `gettrack=null`, wantdoor `gg=(62,16)` (corridor LOS through east
+  `D_NODOOR`); C arity ≡ `gg≈(56,17)` (force → prefix 6965).
+- **Cause:** `goto_level` wiped `utrack` via `initrack` and never restored
+  it. C `savelev`→`save_track` / `getlev`→`rest_track` keeps per-level
+  hero footsteps; after `<` return, pet `dog_goal` `gettrack` finds an
+  adjacent pre-leave cell (`≈(56,17)`) instead of wantdoor into the
+  corridor.
+- **Rejected:** approach short-circuit with same gg; inject `(54,17)`;
+  skip-only `(55,17)`; closed-east door as sole cause (wrong gg family);
+  food/APPORT goal (empty nearby `fobj`).
+- **C locus:** `track.c` `save_track` / `rest_track`; `save.c` /
+  `restore.c`; `dogmove.c` `dog_goal` gettrack before wantdoor.
+- **Change:** in-memory `save_track`/`rest_track` on `goto_level` stash;
+  store `track` snap with level_info; restore on getlev arm.
+- **Verification:** first mismatch **6952→7288**; runner RNG
+  **7202→7495**/13878 Scr 14/308; green+strict PASS; cohort **24/24**.
+- **Lesson:** return-visit peel that looks like wantdoor/vision is often
+  missing `rest_track`; wipe-only `initrack` is not C savelev.
+- **Next:** seed0012 @7288 C `dog_move` `rn2(1)` vs JS `obj_resists`.
 
 ## D-0366 — `doup` + in-memory `getlev` hide `rnd(10)` (seed0012 @6924)
 

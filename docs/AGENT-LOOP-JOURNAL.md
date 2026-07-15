@@ -19,6 +19,14 @@ Use this shape:
 - Verification: …
 - Next: …
 ```
+## 2026-07-15 07:32 — D-0367 save_track/rest_track (seed0012 @6952)
+- Objective: seed0012 @6952 C rn2(12) vs JS rn2(1) (wrong dog_goal gg).
+- C locus: track.c save_track/rest_track; dogmove.c dog_goal gettrack.
+- Change: in-memory save_track/rest_track on goto_level stash (D-0367).
+  Was wipe-only initrack → gettrack null → wantdoor gg=(62,16).
+- Verification: prefix 6952→7288; RNG 7202→7495; green+strict; cohort 24/24.
+- Next: seed0012 @7288 C dog_move rn2(1) vs JS obj_resists.
+
 ## 2026-07-15 07:14 — #390 public score
 - Objective: mandatory full `sessions` score (iteration 390 % 5).
 - C locus: n/a (score cadence; no port patch).
@@ -135,20 +143,3 @@ Use this shape:
   attrs yn vs RIP; green+strict; cohort 23 PASS.
 - Next: BURNING disclose order (attributes before tombstone).
 
-## 2026-07-15 04:45 — D-0356 describe_decor broken door
-- Objective: seed0009 @41 “There is a broken door here.” vs blank.
-- C locus: `pickup.c` `describe_decor` + `pickup` `!OBJ_AT` mention_decor.
-- Change: port `describe_decor`; wire pickup early path + check_here
-  LOOKHERE_SKIP_DFEATURE (D-0356). Not bare `look_here` when ct==0.
-- Verification: Scr **48→49**/73; @41 match; first miss @45 pool-avoid;
-  RNG **3649**; green+strict; cohort 21 PASS.
-- Next: @45 “You avoid stepping into the pool of water.--More--”.
-
-## 2026-07-15 04:40 — D-0355 pool/lava/ice DEC glyphs
-- Objective: seed0009 @40 terrain `?` vs C DEC pool/lava diamond.
-- C locus: `display.c` `back_to_glyph` + `defsym.h` / DECgraphics S_pool.
-- Change: `terrain_glyph` POOL/MOAT/WATER/lava/ice; scoring grid keeps
-  raw DEC `` ` `` (not Unicode ◆) like altar `{` (D-0355).
-- Verification: Scr **40→48**/73; first miss @41 “broken door”; RNG
-  **3649**; green+strict; cohort 21 PASS. Score not remeasured (#376).
-- Next: `look_here`/`dfeature_at` D_BROKEN “There is a broken door here.”

@@ -8,15 +8,13 @@ Objective/score live in `CURRENT.md`.
 ## Active
 
 - **Score:** **24/44** PASS (#390). Scr 3640/11405; RNG 247757/792838.
-- **Next (D-0367):** seed0012 @6952 — JS wantdoor `gg=(62,16)` → `rn2(1)`;
-  C arity matches `gg≈(56,17)` (force → prefix 6965). Pet vault `(55,16)`,
-  hero corr `(62,15)`, `couldsee=false`, door `(59,16)` `D_NODOOR`.
-  Falsifier: C `gg`/`view_from` at this `dog_move`.
+- **Next:** seed0012 @7288 — C `dog_move` `rn2(1)` vs JS `obj_resists`
+  (`rn2(100)`). Post D-0367 `rest_track`.
   Cmd: `node scripts/rng-diff.mjs sessions/seed0012-monk-vault-escort.session.json`
-- **Don’t re-check:** same-gg chcnt/`rn2(12)` (D-0367); inject `(54,17)`;
-  skip-only `(55,17)`; @6924 fleeck/`<` (D-0366); `,` stub (D-0365).
-- **Landmark:** `\r`→LF; stash `VISITED|LFILE_EXISTS`+`omoves`; vault doors
-  `(54,16)`/`(59,16)`, stairs `(58,17)`, `(62,16)` STONE.
+- **Don’t re-check:** wantdoor corridor gg as root @6952 (was missing
+  `rest_track`); closed-east-only; same-gg chcnt; inject `(54,17)`.
+- **Landmark:** `\r`→LF; stash `VISITED|LFILE_EXISTS`+`omoves`+**track**;
+  vault doors `(54,16)`/`(59,16)`, stairs `(58,17)`.
 - **Parked:** D-0006; seed2200 @158 RC.
 
 ## Don’t re-check (≤15)
@@ -75,7 +73,7 @@ Objective/score live in `CURRENT.md`.
   blame @3248 on fleeck/fobj while C meating — instance oc_delay (D-0364);
   blame @3483 on dog_goal fobj/invent while `,` stub leaked `b`/`\n`/`n`
   as movement (D-0365); blame @6924 on fleeck/`<` (D-0366); blame @6952
-  on chcnt with same wantdoor gg (D-0367).
+  on wantdoor/chcnt — was missing `rest_track` (D-0367).
 - Runner `Screen N/M` = total matches, not prefix length.
 
 ## Landmarks (≤15)
@@ -83,12 +81,12 @@ Objective/score live in `CURRENT.md`.
 - STAIRS yellow via `known_branch_stairs`; map col=x−1 row=y+1 DEC (D-0162/253).
 - `goto_level` descend: `stairway_find_from(&u.uz0)` (D-0224); ends with
   `pickup(1)` (D-0349); UTOTYPE_NONE → `u_on_rndspot` (D-0350).
-- Return visit: stash `VISITED|LFILE_EXISTS`+`omoves`; restore + getlev
-  catchup/`rnd(10)` (D-0366). `<` → `doup`/`prev_level`.
+- Return visit: stash `VISITED|LFILE_EXISTS`+`omoves`+**track**; restore +
+  getlev catchup/`rnd(10)` + `rest_track` (D-0366/367). `<` → `doup`.
 - tut-1 string `des.map` → SPLEV_CENTER xstart/ystart odd (D-0350).
 - Session: screen `i` reads `moves[i]`; `more()` space/CR/ESC;
   jsmain `\r`→LF (C tty ICRNL; LF=C('j') rush-south if it reaches rhack).
 - Save: VFS `save/<plname>` JSON; restore skips `rndencode`;
   `l_nhcore_init` still 2×rn2; farewell clears map no flush (D-0335).
 - Scoring grid: DEC chars in DEC_MAP → Unicode; `{`/` `` ` `` stay raw.
-- D-0274…D-0367: bones through dog_goal gg (see index).
+- D-0274…D-0367: bones through rest_track (see index).
