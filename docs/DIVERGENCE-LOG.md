@@ -4,27 +4,42 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
+## D-0430 — drink getobj `?` + fruit juice trycall (seed0002 @4565)
+
+- **Status:** fixed
+- **Symptom:** seed0002 first RNG miss @4565 — C invent `obj_resists` vs
+  JS `dog_goal` `rn2(4)`; JS pet `udist=4`, C adjacent. DIAG: hero had
+  walked east during post-eat drink/call keys.
+- **Cause:** `getobj_drink` treated `?` as cancel (`Never mind`). C opens
+  `display_pickinv`; session then types call name including `l`. Those
+  keys hit `rhack` as walk → hero `(75,12)→(76,12)` while C stayed put
+  (paralysis later / no walk). Pet `udist` then diverged without earlier
+  RNG mismatch. Secondary: `peffects` stubbed fruit juice / see invisible
+  (no `trycall`/`docall`) and paralysis.
+- **C locus:** `invent.c` `getobj` `?`/`*`; `potion.c`
+  `peffect_see_invisible` / `POT_FRUIT_JUICE` / `dopotion` trycall;
+  `do_name.c` `docall`; `peffect_paralysis` `rn1(10,25-12*bcsign)`.
+- **Change:** drink getobj `?`/`*` → `display_pickinv_reply`; fruit juice
+  / see invisible taste + `trycall`/`docall`/`oc_uname`; paralysis
+  `nomul(-(rn1(...)))` + feet-frozen msg. Deferred: other `peffect_*`,
+  `make_blinded`/See_invisible full props, `newuhs`, Levitation/steed
+  paralysis msgs, `surface()`, sink/milky bottles.
+- **Verification:** seed0002 prefix **4565→6186**; Scr **54→99**/595;
+  RNG matched **6851**/27158; green+strict; cohort **26/26**.
+- **Next:** seed0002 @6186 C `exercise` `rn2(19)` vs JS `rn2(5)`.
+
 ## D-0429 — seed0002 @4565 invent `dogfood` vs `dog_goal` `!rn2(4)`
 
-- **Status:** open (diagnosed; no code fix yet)
+- **Status:** fixed (cause = D-0430; not dog_goal/`obj_resists`)
 - **Symptom:** seed0002 first RNG miss @4565 — C `rn2(100) @
   obj_resists` vs JS `rn2(4)=1`. Prefix still 4565; Scr 54/595.
-- **Rejected:** broken `obj_resists()` body (JS already `rn2(100)`);
-  missing in-bbox `fobj` (only 1 grid object; C’s 20 calls ≠ floor).
-- **Working cause:** `dog_goal` follow-hero branch — when `udist > 1`,
-  C/JS evaluate `!IS_ROOM || !rn2(4) || …`. When `udist <= 1`, that
-  roll is skipped and `appr==0` walks invent with `dogfood`→
-  `obj_resists` per item. DIAG at miss: JS pet `(74,12)` hero
-  `(76,12)` `udist=4` invent=20 in_bbox=1 — JS hits `!rn2(4)` after
-  one floor `dogfood`; C’s 20 consecutive `obj_resists` match invent
-  count → C likely adjacent (`udist<=1`) invent scan.
-- **C locus:** `dogmove.c` `dog_goal` — `if (udist > 1) { !rn2(4)… }`
-  then invent `dogfood` loop; `zap.c` `obj_resists` is only the roll.
-- **Next:** find earlier non-RNG-divergent pet/hero placement that
-  leaves JS at `udist=4` while C is adjacent; do not patch
-  `obj_resists` or invent-scan for the symptom alone.
-- **Verification:** green+strict held; full suite #460 **26**/44
-  Scr 4363 RNG 262922 (score cadence; no port delta).
+- **Rejected:** broken `obj_resists()` body; missing in-bbox fobj;
+  invent-scan incompleteness as primary bug.
+- **Working cause (superseded):** diagnosed as prior pet placement with
+  C adjacent / JS `udist=4`. True cause: hero walk from drink getobj
+  desync (D-0430).
+- **C locus:** symptom in `dogmove.c` `dog_goal`; root in drink/getobj.
+- **Verification:** closed by D-0430.
 
 ## D-0428 — eatcorpse acid/sick `losehp` must log `rnd(N)`
 

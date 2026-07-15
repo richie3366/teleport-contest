@@ -415,7 +415,8 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 | D-0426 | fixed | invent multi-page `(N of M)` display/pickinv | seed0004 Scr 397→403; @330/@336 fixed; @354 map `%` next |
 | D-0427 | fixed | throwit land cansee→newsym | seed0004 full PASS Scr 409/409; suite 26/44 |
 | D-0428 | fixed | eatcorpse acid/sick losehp rnd not 1+rn2 | seed0002 prefix 3808→4565; Scr still 54; @4565 next |
-| D-0429 | open | dog_goal invent scan vs !rn2(4) (udist) | seed0002 @4565; JS udist=4 invent=20; prior pet pos |
+| D-0429 | fixed | @4565 udist symptom (root D-0430 drink) | closed by D-0430; not obj_resists/dog_goal |
+| D-0430 | fixed | drink getobj `?` + fruit trycall + paralysis | seed0002 prefix 4565→6186; Scr 54→99; @6186 exercise next |
 
 
 D-0001 through D-0005 predate the strict-length/cohort runbook. Their focused

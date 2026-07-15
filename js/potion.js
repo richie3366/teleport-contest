@@ -18,12 +18,14 @@ import {
     POTHIT_OTHER_THROW, KILLED_BY_AN,
 } from './const.js';
 import { hands_obj } from './weapon.js';
-import { rn2, rnd, d } from './rng.js';
+import { rn2, rnd, d, rn1 } from './rng.js';
 import { losehp, nomul, maybe_half_phys } from './hack.js';
 import { cansee } from './vision.js';
 import { mons } from './monsters.js';
 import { PM_HUMAN } from './generated/monsters_data.js';
 import { can_reach_floor } from './engrave.js';
+import { bcsign } from './rumors.js';
+import { trycall } from './do_name.js';
 
 const POT_OIL = objectNames.indexOf('POT_OIL');
 const POT_ACID = objectNames.indexOf('POT_ACID');
@@ -32,6 +34,12 @@ const POT_PARALYSIS = objectNames.indexOf('POT_PARALYSIS');
 const POT_CONFUSION = objectNames.indexOf('POT_CONFUSION');
 const POT_BLINDNESS = objectNames.indexOf('POT_BLINDNESS');
 const POT_BOOZE = objectNames.indexOf('POT_BOOZE');
+const POT_FRUIT_JUICE = objectNames.indexOf('POT_FRUIT_JUICE');
+const POT_SEE_INVISIBLE = objectNames.indexOf('POT_SEE_INVISIBLE');
+
+/** C: gp.potion_nothing / gp.potion_unkn for dopotion trycall gate. */
+let potion_nothing = 0;
+let potion_unkn = 0;
 
 const BOTTLENAMES = [
     'bottle', 'phial', 'flagon', 'carafe', 'flask', 'jar', 'vial',
@@ -98,41 +106,61 @@ function dippable_lets() {
 /**
  * C ref: invent.c getobj("drink", drink_ok, GETOBJ_NOFLAGS)
  * Called after fountain/sink prompts (or when menu_requested).
+ * `?`/`*` → display_pickinv_reply (D-0430); missing letter → continue.
  */
 async function getobj_drink() {
-    const lets = drinkable_lets();
-    const query = lets
-        ? `What do you want to drink? [${lets} or ?*]`
-        : 'What do you want to drink? [*]';
-    const prompt = `${query} `;
+    const { display_pickinv_reply } = await import('./invent.js');
+    for (;;) {
+        const lets = drinkable_lets();
+        const query = lets
+            ? `What do you want to drink? [${lets} or ?*]`
+            : 'What do you want to drink? [*]';
+        const prompt = `${query} `;
 
-    game._pending_message = prompt;
-    const disp = game.nhDisplay;
-    await flush_screen(1);
-    if (disp?.setCursor) disp.setCursor(prompt.length, 0);
+        game._pending_message = prompt;
+        const disp = game.nhDisplay;
+        await flush_screen(1);
+        if (disp?.setCursor) disp.setCursor(prompt.length, 0);
 
-    const key = await nhgetch();
-    const ch = String.fromCharCode(key);
+        const key = await nhgetch();
+        const ch = String.fromCharCode(key);
 
-    if (key === 27 || ch === ' ' || ch === '\n' || ch === '\r') {
-        if (game.flags?.verbose !== false) await pline('Never mind.');
-        return null;
-    }
-    if (ch === '?' || ch === '*') {
-        await pline('Never mind.');
-        return null;
-    }
+        if (key === 27 || ch === ' ' || ch === '\n' || ch === '\r') {
+            if (game.flags?.verbose !== false) await pline('Never mind.');
+            return null;
+        }
+        if (ch === '?' || ch === '*') {
+            const picked = await display_pickinv_reply(ch === '*' ? '*' : lets);
+            if (picked === '\x1b') {
+                if (game.flags?.verbose !== false) await pline('Never mind.');
+                return null;
+            }
+            if (!picked) continue;
+            const otmp = (game.invent || []).find(o => o.invlet === picked);
+            if (!otmp) {
+                await pline("You don't have that object.");
+                continue;
+            }
+            if (otmp.oclass !== POTION_CLASS) {
+                await pline('That is a silly thing to drink.');
+                return null;
+            }
+            game._pending_message = '';
+            return otmp;
+        }
 
-    const otmp = (game.invent || []).find(o => o.invlet === ch);
-    if (!otmp) {
-        await pline("You don't have that object.");
-        return null;
+        const otmp = (game.invent || []).find(o => o.invlet === ch);
+        if (!otmp) {
+            await pline("You don't have that object.");
+            continue;
+        }
+        if (otmp.oclass !== POTION_CLASS) {
+            await pline('That is a silly thing to drink.');
+            return null;
+        }
+        game._pending_message = '';
+        return otmp;
     }
-    if (otmp.oclass !== POTION_CLASS) {
-        await pline('That is a silly thing to drink.');
-        return null;
-    }
-    return otmp;
 }
 
 /** C ref: invent.c useup() — consume one from a stack / remove if gone. */
@@ -164,6 +192,137 @@ async function peffect_oil(otmp) {
         await pline('That was smooth!');
     }
     exercise(A_WIS, good_for_you);
+}
+
+/**
+ * C ref: objnam.c fruitname — pl_fruit (+ " juice" when juice).
+ */
+function fruitname(juice) {
+    const raw = String(game.pl_fruit || game.flags?.fruit || 'slime mold');
+    const of = raw.toLowerCase().indexOf(' of ');
+    const fruitNam = of >= 0 ? raw.slice(of + 4) : raw;
+    // makesingular deferred — default fruit has no trailing s
+    return juice ? `${fruitNam} juice` : fruitNam;
+}
+
+/**
+ * C ref: potion.c peffect_see_invisible — also POT_FRUIT_JUICE.
+ * See-invisible: make_blinded / set_mimic_blocking / see_monsters /
+ * newsym / Invisible self-msg deferred; timeout via rn1 when unblessed.
+ */
+async function peffect_see_invisible(otmp) {
+    potion_unkn++;
+    const u = game.u || {};
+    if (otmp.cursed) {
+        await pline(`Yecch!  This tastes ${u.Hallucination ? 'overripe' : 'rotten'}.`);
+    } else if (u.Hallucination) {
+        await pline(
+            `This tastes like 10% real ${otmp.odiluted ? 'reconstituted ' : ''}`
+            + `${fruitname(true)} all-natural beverage.`,
+        );
+    } else {
+        await pline(
+            `This tastes like ${otmp.odiluted ? 'reconstituted ' : ''}${fruitname(true)}.`,
+        );
+    }
+    if (otmp.otyp === POT_FRUIT_JUICE) {
+        u.uhunger = (u.uhunger || 0)
+            + (otmp.odiluted ? 5 : 10) * (2 + bcsign(otmp));
+        // newuhs(FALSE) deferred
+        return;
+    }
+    // POT_SEE_INVISIBLE — make_blinded(0) deferred
+    if (!otmp.cursed) {
+        // make_blinded(0L, TRUE) deferred
+    }
+    const HInvis = !!(u.HInvis || u.Invis);
+    const HSee = !!(u.HSee_invisible || u.See_invisible);
+    const permchance = 10 - (HInvis ? 3 : 0) - (HSee ? 6 : 0);
+    if (otmp.blessed && !rn2(permchance)) {
+        u.HSee_invisible = (u.HSee_invisible || 0) | 0x01; // FROMOUTSIDE bit stub
+        u.See_invisible = true;
+    } else {
+        // incr_itimeout(&HSee_invisible, rn1(100, 750))
+        const add = rn1(100, 750);
+        u.HSee_invisible = (u.HSee_invisible || 0) + add;
+        u.See_invisible = true;
+    }
+    // set_mimic_blocking / see_monsters / newsym deferred
+}
+
+/**
+ * C ref: potion.c peffect_paralysis
+ * Free_action resist; else freeze msg + nomul(-(rn1(10, 25-12*bcsign))).
+ * Levitation/air/water/steed messages deferred → floor feet msg.
+ * surface() → "floor".
+ */
+async function peffect_paralysis(otmp) {
+    const u = game.u || {};
+    const Free_action = !!(u.Free_action || u.HFree_action || u.EFree_action);
+    if (Free_action) {
+        await pline('You stiffen momentarily.');
+        return;
+    }
+    // Levitation / Is_airlevel / Is_waterlevel / usteed branches deferred
+    // C: makeplural(body_part(FOOT)) → "feet"; surface() → "floor" deferred
+    await pline('Your feet are frozen to the floor!');
+    nomul(-(rn1(10, 25 - 12 * bcsign(otmp))));
+    game.multi_reason = 'frozen by a potion';
+    game.nomovemsg = 'You can move again.';
+    exercise(A_DEX, false);
+}
+
+/**
+ * C ref: potion.c peffects() — POT_OIL + fruit juice / see invisible /
+ * paralysis; other otyps named in C-JS-MAP.
+ */
+async function peffects(otmp) {
+    switch (otmp.otyp) {
+    case POT_OIL:
+        await peffect_oil(otmp);
+        return -1;
+    case POT_SEE_INVISIBLE:
+    case POT_FRUIT_JUICE:
+        await peffect_see_invisible(otmp);
+        return -1;
+    case POT_PARALYSIS:
+        await peffect_paralysis(otmp);
+        return -1;
+    default:
+        // Other peffect_* deferred — do not useup
+        await pline('That potion is not implemented yet.');
+        return 0;
+    }
+}
+
+/**
+ * C ref: potion.c dopotion()
+ * Ghost/djinni bottle RNG deferred. Hallucination peculiar-feeling when
+ * potion_nothing. trycall when potion_unkn && dknown && !oc_name_known.
+ */
+async function dopotion(otmp) {
+    otmp.in_use = true;
+    potion_nothing = 0;
+    potion_unkn = 0;
+    const retval = await peffects(otmp);
+    if (retval >= 0) return retval ? 1 : 0;
+
+    if (potion_nothing) {
+        potion_unkn++;
+        const peculiar = game.u?.Hallucination ? 'normal' : 'peculiar';
+        await pline(`You have a ${peculiar} feeling for a moment, then it passes.`);
+    }
+    const oc = game.objects?.[otmp.otyp];
+    if (otmp.dknown && oc && !oc.oc_name_known) {
+        if (!potion_unkn) {
+            makeknown(otmp.otyp);
+            // more_experienced(0, 10) deferred
+        } else {
+            await trycall(otmp);
+        }
+    }
+    useup(otmp);
+    return 1;
 }
 
 /**
@@ -199,41 +358,6 @@ export function healup(nhp, nxtra, curesick, cureblind) {
         // make_vomiting / make_sick deferred
         u.Sick = 0;
     }
-}
-
-/**
- * C ref: potion.c peffects() — POT_OIL only; other otyps named in C-JS-MAP.
- * Returns -1 to continue dopotion makeknown/useup; >=0 early ECMD
- * (0 = ECMD_OK without useup, matching C impossible/default return 0).
- */
-async function peffects(otmp) {
-    switch (otmp.otyp) {
-    case POT_OIL:
-        await peffect_oil(otmp);
-        return -1;
-    default:
-        // Other peffect_* deferred — do not useup
-        await pline('That potion is not implemented yet.');
-        return 0;
-    }
-}
-
-/**
- * C ref: potion.c dopotion()
- * Ghost/djinni bottle RNG, Hallucination peculiar-feeling, trycall deferred.
- */
-async function dopotion(otmp) {
-    otmp.in_use = true;
-    const retval = await peffects(otmp);
-    if (retval >= 0) return retval ? 1 : 0;
-
-    const oc = game.objects?.[otmp.otyp];
-    if (otmp.dknown && oc && !oc.oc_name_known) {
-        discover_object(otmp.otyp, true, true);
-        // more_experienced(0, 10) deferred
-    }
-    useup(otmp);
-    return 1;
 }
 
 /**

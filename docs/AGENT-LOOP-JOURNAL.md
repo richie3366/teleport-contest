@@ -11,14 +11,25 @@ move older ones into `docs/archive/`.
 
 Use this shape:
 
-```text
-## YYYY-MM-DD HH:MM — <objective>
+```text## YYYY-MM-DD HH:MM — <objective>
 - Objective: …
 - C locus: …
 - Change or falsified theory: …
 - Verification: …
 - Next: …
 ```
+
+## 2026-07-16 01:30 — #461 drink getobj/? + trycall (D-0429/D-0430)
+- Objective: seed0002 @4565 pet udist invent vs !rn2(4) (PRIMARY).
+- C locus: `invent.c` getobj `?`; `potion.c` peffect_see_invisible/
+  fruit juice + dopotion trycall; `do_name.c` docall; peffect_paralysis.
+- Change: root was not dog_goal — JS `getobj_drink` cancelled on `?`,
+  so call-name keys (incl. `l`) became walk; hero east → udist=4.
+  Port display_pickinv_reply for drink `?`/`*`; fruit juice / see
+  invisible + trycall/docall; paralysis `rn1(10,25-12*bcsign)`.
+- Verification: seed0002 prefix **4565→6186**; Scr **54→99**/595;
+  RNG matched **6851**/27158; green+strict; cohort **26/26**.
+- Next: seed0002 @6186 C `exercise` vs JS `rn2(5)`.
 
 ## 2026-07-16 01:08 — #460 score + seed0002 @4565 diagnose (D-0429)
 - Objective: mandatory full score (#460÷5) + primary seed0002 @4565.
@@ -156,15 +167,3 @@ Use this shape:
 - Verification: seed0004 Scr **244→245**/409; miss @239→@240; RNG
   full; green+strict PASS; cohort **23/23**.
 - Next: seed0004 @240 floor pickup `10 darts` vs `a dart`.
-
-## 2026-07-15 18:58 — #447 seed0004 @182 cursemsg canseemon (D-0416)
-- Objective: seed0004 screen-only PRIMARY — first cell miss after full RNG.
-- C locus: `dogmove.c` `dog_move` cursemsg `(wasseen || canseemon)`;
-  `display.h` `_canseemon`.
-- Change: replace always-true local `canseemon` stub in `dogmove.js`
-  with `display.canseemon` (LOS + mon_visible). Out-of-sight cursed
-  pet step no longer plines.
-- Verification: seed0004 Scr **243→244**/409; miss @182→@239; RNG
-  full; green+strict PASS; cohort **23/23**.
-- Next: seed0004 @239 `The bag is empty.` vs `the bag is empty.`
-  (`Ysimple_name2` / upstart).

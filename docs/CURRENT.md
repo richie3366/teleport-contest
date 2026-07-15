@@ -20,6 +20,7 @@ focused session.
 Score last measured: **2026-07-16** — full `sessions` suite (#460 score
 cadence). Screens **4363**/11405 (unchanged vs #458); RNG **262922**/792838
 (+1 vs #458). **26/44** PASS (unchanged). Speed `24+0.13/turn`.
+(#461 focused seed0002 Scr 54→99 / prefix 4565→6186 — full suite not re-run.)
 
 ## Score
 
@@ -41,7 +42,7 @@ seed0012, seed0004.
 | Session | RNG | Screen | Note |
 |--------|----:|-------:|------|
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
-| seed0002 | 4966/27158 | **54**/595 | pet `dog_goal` path @4565 |
+| seed0002 | 6851/27158 | **99**/595 | @6186 exercise (was @4565) |
 | seed0006 | 2278/6736 | **13**/123 | water demon |
 | seed0007 | 2941/16373 | **20**/302 | snake swamp |
 | seed0361/0373 | early | 0 | quest bones / `makemaz` |
@@ -61,24 +62,20 @@ Both must remain full RNG + screen PASS with exact scored-output lengths.
 
 ## Primary objective
 
-**seed0002 @4565 — prior pet `udist` divergence** (D-0429). Not a missing
-`obj_resists` helper: at mismatch JS pet `(74,12)` hero `(76,12)`
-`udist=4` → `dog_goal` `!rn2(4)`; C still in `obj_resists` (= invent
-`dogfood` scan when `udist<=1` skips that roll). Invent count **20**
-matches C’s 20 consecutive `obj_resists`. Find earlier move that left
-JS pet non-adjacent while C is adjacent (same RNG prefix through 4564).
+**seed0002 @6186 — `exercise` vs `rn2(5)`** (after D-0430). Prefix
+**6186**; Scr **99**/595. C `rn2(19)=9 @ exercise(attrib.c:509)` vs JS
+`rn2(5)=3`. Do not re-open @4565 udist/`obj_resists` (fixed — drink
+getobj/`trycall`).
 
 ```bash
 node frozen/ps_test_runner.mjs sessions/seed0002-healer-reflection-drummer.session.json
 node scripts/rng-diff.mjs sessions/seed0002-healer-reflection-drummer.session.json
-# Focus: why JS udist=4 at dog_goal when C burns invent dogfood×20
+# Focus: C exercise rn2(19) vs JS rn2(5) at 6186
 ```
 
 **Alternates:** seed0006 / seed0007; quest early-0 (seed0361/0373).
 
-**Prefer over:** parked D-0006, seed2200 RC; re-opening eatcorpse
-acid/sick `rnd` (fixed — D-0428); treating @4565 as incomplete
-`obj_resists` itself.
+**Prefer over:** parked D-0006, seed2200 RC; re-opening D-0429/D-0430.
 
 **Cohort after shared change:** green gate + seed1500 + seed1800 + seed0060 +
 seed0102 + seed0700 + seed1150 + seed0017 + seed0077 + seed0106 + seed0501 +
