@@ -4,6 +4,29 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
+## D-0433 — closed-door rush bump before autoopen (seed0002 @8609)
+
+- **Status:** fixed
+- **Symptom:** seed0002 first RNG miss @8609 — C `rn2(2) @
+  exercise(attrib.c:509)` vs JS `rnl(20)` (`doopen_indir`). Prefix
+  8609; Scr 172/595. Capital `H` rush into CLOSED door.
+- **Cause:** JS `domove` called `end_running()` before the autoopen
+  `!context.run` gate, clearing run so walk-into-door took
+  `doopen_indir`/`rnl(20)`. C checks `!svc.context.run` while run is
+  still set, then orthogonal bump: Blind/Stunned/`ACURR(A_DEX)<10`/
+  Fumbling → “Ouch! You bump into a door.” + `exercise(A_DEX,FALSE)`
+  (`rn2(2)`), `door_opened=move=TRUE`, `nomul(0)`.
+- **C locus:** `hack.c` `test_move` closed_door autoopen/bump;
+  `attrib.c` `exercise`.
+- **Change:** keep run until after autoopen check; port orthogonal
+  Ouch/`exercise` and “That door is closed.” paths; `nomul(0)` on
+  non-`door_opened` failure.
+- **Verification:** seed0002 prefix **8609→8831**; Scr **172→190**/595;
+  RNG matched **9227**/27158; green+strict; cohort **24/24**.
+- **Omissions named:** Passes_walls/ooze/Underwater/tunnels/Blind
+  `feel_location`/steed lead-through (c-js-map turns).
+- **Next:** seed0002 @8831 `drinksink` `rn2(20)` vs JS `rn2(5)`.
+
 ## D-0432 — SCR_REMOVE_CURSE seffect_remove_curse (seed0002 @6954)
 
 - **Status:** fixed

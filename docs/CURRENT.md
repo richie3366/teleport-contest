@@ -18,9 +18,9 @@ label, PASS list, notable non-PASS. Do not invent suite totals from a single
 focused session.
 
 Score last measured: **2026-07-16** — full `sessions` suite (#460 score
-cadence). Screens **4363**/11405 (unchanged vs #458); RNG **262922**/792838
-(+1 vs #458). **26/44** PASS (unchanged). Speed `24+0.13/turn`.
-(#463 focused seed0002 Scr 126→172 / prefix 6954→8609 — full suite not re-run.)
+cadence). Screens **4363**/11405; RNG **262922**/792838. **26/44** PASS.
+Speed `24+0.13/turn`. (#464 focused seed0002 Scr 172→190 / prefix
+8609→8831 — full suite not re-run.)
 
 ## Score
 
@@ -42,7 +42,7 @@ seed0012, seed0004.
 | Session | RNG | Screen | Note |
 |--------|----:|-------:|------|
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
-| seed0002 | 8887/27158 | **172**/595 | @8609 H-rush door (was @6954) |
+| seed0002 | 9227/27158 | **190**/595 | @8831 drinksink (was @8609) |
 | seed0006 | 2278/6736 | **13**/123 | water demon |
 | seed0007 | 2941/16373 | **20**/302 | snake swamp |
 | seed0361/0373 | early | 0 | quest bones / `makemaz` |
@@ -62,20 +62,19 @@ Both must remain full RNG + screen PASS with exact scored-output lengths.
 
 ## Primary objective
 
-**seed0002 @8609 — H-rush closed-door bump vs autoopen** (after D-0432
-remove-curse). Prefix **8609**; Scr **172**/595. C `rn2(2) @ exercise`
-abuse (bump “Ouch! You bump into a door.”) vs JS `rnl(20)`
-`doopen_indir`. Do not re-open @6954 remove-curse (fixed).
+**seed0002 @8831 — sink drink (`drinksink`)** (after D-0433 door bump).
+Prefix **8831**; Scr **190**/595. C `rn2(20)` @ `drinksink(fountain.c:604)`
+vs JS `rn2(5)` (distfleeck). Do not re-open @8609 door bump (fixed).
 
 ```bash
 node frozen/ps_test_runner.mjs sessions/seed0002-healer-reflection-drummer.session.json
 node scripts/rng-diff.mjs sessions/seed0002-healer-reflection-drummer.session.json
-# Focus: C bump/mention_walls exercise abuse vs JS autoopen during run H
+# Focus: C drinksink vs JS missing sink-drink path
 ```
 
 **Alternates:** seed0006 / seed0007; quest early-0 (seed0361/0373).
 
-**Prefer over:** parked D-0006, seed2200 RC; re-opening D-0430–D-0432.
+**Prefer over:** parked D-0006, seed2200 RC; re-opening D-0430–D-0433.
 
 **Cohort after shared change:** green gate + seed1500 + seed1800 + seed0060 +
 seed0102 + seed0700 + seed1150 + seed0017 + seed0077 + seed0106 + seed0501 +

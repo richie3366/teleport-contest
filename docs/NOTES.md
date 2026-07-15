@@ -8,17 +8,15 @@ Objective/score live in `CURRENT.md`.
 ## Active
 
 - **Score:** **26/44** PASS (#460 full). Scr **4363**/11405; RNG
-  **262922**/792838. #463 seed0002 Scr **172**/595 prefix **8609**
+  **262922**/792838. #464 seed0002 Scr **190**/595 prefix **8831**
   (full suite not re-measured).
-- **Next:** seed0002 @8609 — `H` rush into closed door: C
-  `exercise` abuse `rn2(2)` (“Ouch! You bump into a door.”) vs JS
-  `doopen_indir` `rnl(20)`. Check `flags.autoopen` + `context.run`
-  gating vs bump/`mention_walls` exercise.
+- **Next:** seed0002 @8831 — C `rn2(20)` @ `drinksink(fountain.c:604)`
+  vs JS `rn2(5)` distfleeck. Likely missing sink-drink / `q` at sink.
   ```bash
   node scripts/rng-diff.mjs sessions/seed0002-healer-reflection-drummer.session.json
   ```
-- **Don’t re-check:** @6954 remove-curse (D-0432); @6186 light
-  (D-0431); @4565 drink getobj (D-0430).
+- **Don’t re-check:** @8609 door bump (D-0433); @6954 remove-curse
+  (D-0432); @6186 light (D-0431); @4565 drink getobj (D-0430).
 - **Landmark:** vault door (71,13); dig + restfakecorr; SPELL_LEV_PW(1)=5.
 - **Parked:** D-0006; seed2200 @158 RC.
 
@@ -52,14 +50,14 @@ Objective/score live in `CURRENT.md`.
   skip `heal_legs` / WOUNDED_LEGS `nh_timeout` (D-0403); omit
   `vtense` bare-singular conjugate (D-0403); float `mhpmax/2` for
   flee gate (D-0404); treat @9795–@11722 / @182/@239/@240/@248/@277/
-  @285/@288/@297/@310/@312/@330/@336/@354/@3808/@4565/@6186/@6954 as
-  index D-0405…D-0432 without those C paths; treat RING `obj.known` as
-  type-ID (D-0420); treat @248 floor vs `^` as missing feeltrap when
-  `tseen` already set (D-0419); bypass `yn_function` for ring-hand
-  (D-0421); force corner invent for getobj `?` when `strlen(lets)==1`
-  (D-0422); leave `autodescribe` unset / skip stairs in travel
-  `auto_describe_text` (D-0423); skip tseen trap in `brief_at` /
-  `lookat` before floor cmap (D-0424); treat wall look as dark-room
+  @285/@288/@297/@310/@312/@330/@336/@354/@3808/@4565/@6186/@6954/
+  @8609 as index D-0405…D-0433 without those C paths; treat RING
+  `obj.known` as type-ID (D-0420); treat @248 floor vs `^` as missing
+  feeltrap when `tseen` already set (D-0419); bypass `yn_function` for
+  ring-hand (D-0421); force corner invent for getobj `?` when
+  `strlen(lets)==1` (D-0422); leave `autodescribe` unset / skip stairs
+  in travel `auto_describe_text` (D-0423); skip tseen trap in `brief_at`
+  / `lookat` before floor cmap (D-0424); treat wall look as dark-room
   without swallow/cmap DECgraphics envelope (D-0425); invent/`*`
   pickinv without `lmax` paging / `(N of M)` (D-0426); throw land
   without `cansee`→`newsym` (D-0427); eatcorpse acid/sick damage via
@@ -68,7 +66,9 @@ Objective/score live in `CURRENT.md`.
   + missing trycall (D-0429/D-0430); treat @6186 exercise/`rn2(5)` as
   attrib bug when cause was unimplemented SCR_LIGHT (D-0431); treat
   @6954 exercise/`rn2(5)` as attrib when cause was unimplemented
-  SCR_REMOVE_CURSE + missing trycall/nodisappear (D-0432).
+  SCR_REMOVE_CURSE + missing trycall/nodisappear (D-0432); treat
+  @8609 `rnl(20)` as lock.doopen when cause was `end_running` before
+  autoopen `!run` check (D-0433).
 - Runner `Screen N/M` = total matches, not prefix length.
 - First cell-miss may be botl `$:` / `Burdened` even when NOTES names a topline.
 
@@ -81,7 +81,8 @@ Objective/score live in `CURRENT.md`.
   **autodescribe / tseen trap / DECgraphics wall look** (D-0423–25);
   **`i`/`*` invent `(N of M)`** (D-0426); **throwit `newsym`** (D-0427);
   **`eatcorpse` `rnd(N)`** (D-0428); **drink `?`/`*` + trycall** (D-0430);
-  **`SCR_LIGHT` litroom** (D-0431); **`SCR_REMOVE_CURSE` + trycall** (D-0432).
+  **`SCR_LIGHT` litroom** (D-0431); **`SCR_REMOVE_CURSE` + trycall**
+  (D-0432); **rush closed-door bump before autoopen** (D-0433).
 - eatcorpse palatable / gethungry diet via `hero_form_data` (D-0409/10);
   basic `youmonst.data` at u_init (D-0411); full FROMFORM deferred.
 - Apply bag take-out/put-in (D-0375/76); throw food → tamedog (D-0415).

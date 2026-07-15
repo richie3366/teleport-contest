@@ -48,6 +48,7 @@ import { getpos } from './getpos.js';
 import {
     nomul, moverock, boulder_at, swim_move_danger, trapmove,
 } from './hack.js';
+import { acurr, exercise, A_DEX } from './attrib.js';
 
 /** C ref: cmd.c cmdq_clear(CQ_CANNED) */
 function cmdq_clear() {
@@ -1030,20 +1031,40 @@ async function domove(dx, dy) {
         if (!moved) return;
     }
 
-    // C ref: hack.c test_move — closed_door + flags.autoopen → doopen_indir
+    // C ref: hack.c test_move — closed_door autoopen / orthogonal bump
+    // Passes_walls / ooze / Underwater / tunnels / Blind feel_location /
+    // steed lead-through deferred (named in c-js-map turns).
     if (closed_door_at(newx, newy)) {
-        if (game.context?.run) end_running();
-        // C: autoopen default On; skip when run / Confusion / Stunned / Fumbling
+        if (!game.context) game.context = {};
+        game.context.door_opened = false;
+        // C: check !context.run BEFORE clearing run — rush must bump, not autoopen
         const autoopen = game.flags?.autoopen !== false;
         const impaired = !!(u.Confusion || u.Stunned || u.Fumbling);
-        if (autoopen && !game.context?.run && !impaired) {
+        if (autoopen && !game.context.run && !impaired) {
             await doopen_indir(newx, newy);
             // C: door_opened = !closed_door; move = (pos changed) → usually 0.
-            // Both open and resist leave context.move false for autoopen.
+            game.context.door_opened = !closed_door_at(newx, newy);
             game.context.move = 0;
             return;
         }
+        // C: else if (x == ux || y == uy) — orthogonal only
+        if (newx === u.ux || newy === u.uy) {
+            const Blind = !!(u.Blind || u.ublind
+                || (((u.HBlinded | 0) || (u.EBlinded | 0)) && !(u.BBlinded | 0)));
+            if (Blind || u.Stunned || acurr(A_DEX) < 10 || u.Fumbling) {
+                await pline('Ouch!  You bump into a door.');
+                exercise(A_DEX, false);
+                // C: door_opened = move = TRUE; nomul(0) stops running
+                game.context.door_opened = true;
+                game.context.move = 1;
+                nomul(0);
+                return;
+            }
+            await pline('That door is closed.');
+        }
+        // C domove_core: !door_opened → move=0; nomul(0)
         game.context.move = 0;
+        nomul(0);
         return;
     }
 
