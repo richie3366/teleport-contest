@@ -5,6 +5,7 @@ import { game } from './gstate.js';
 import { TIMEOUT } from './const.js';
 import { heal_legs } from './trap.js';
 import { stop_occupation } from './hack.js';
+import { run_timers } from './mkobj.js';
 
 /**
  * C ref: timeout.c nh_timeout — decrement timed intrinsics; on TIMEOUT
@@ -30,4 +31,6 @@ export async function nh_timeout() {
             await stop_occupation();
         }
     }
+    // C: run_timers() at end of nh_timeout — corpse rot / object timers
+    await run_timers();
 }

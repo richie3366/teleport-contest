@@ -7,13 +7,14 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Score:** **25/44** PASS (#430 full). seed0004 Scr **233**/409.
-- **Next:** seed0004 @9795 — **D-0405:** C `dog_move` mtrack `rn2(16)` vs
-  JS `dog_goal` `rn2(4)`. Cause is hero terrain/`IS_ROOM`, not mtrack.
-  Cmds in `CURRENT.md`.
-- **Don’t re-check:** known_hitum int `mhpmax/2` (D-0404); heal_legs /
-  nh_timeout (D-0403); Norep `_prevmsg` (D-0402); trapmove/Burdened
-  (D-0401); bare mtrack `MTSZ*(k-j)` arity at @9795 (falsified D-0405).
+- **Score:** **25/44** PASS (#430 full; #432 no full remeasure). seed0004
+  Scr **241**/409; RNG **10399**/12084 after D-0405.
+- **Next:** seed0004 @10370 — C `resist_conflict` `rnd(20)` vs JS
+  `dog_move` `rn2(16)`. Cmds in `CURRENT.md`.
+- **Don’t re-check:** unrotted floor corpse / pickup `c`/`d` HVY EOTs
+  (D-0405); known_hitum int `mhpmax/2` (D-0404); heal_legs / nh_timeout
+  (D-0403); Norep `_prevmsg` (D-0402); trapmove/Burdened (D-0401);
+  bare mtrack arity at @9795 (falsified).
 - **Landmark:** vault door (71,13); dig + restfakecorr; SPELL_LEV_PW(1)=5.
 - **Parked:** D-0006; seed2200 @158 RC.
 
@@ -46,8 +47,9 @@ Objective/score live in `CURRENT.md`.
   before postmov (D-0401); Norep via Norep-only cache (D-0402);
   skip `heal_legs` / WOUNDED_LEGS `nh_timeout` (D-0403); omit
   `vtense` bare-singular conjugate (D-0403); float `mhpmax/2` for
-  flee gate (D-0404); treat @9795 as mtrack `rn2(16)` vs `rn2(4)`
-  arity (D-0405 — hero still ROOM).
+  flee gate (D-0404); treat @9795 as mtrack arity or bare key-ownership
+  without checking unrotted CORPSE / HVY EOTs (D-0405); leave
+  `start_timer` stub that never `run_timers` (D-0405).
 - Runner `Screen N/M` = total matches, not prefix length.
 - First cell-miss may be botl `$:` / `Burdened` even when NOTES names a topline.
 
@@ -74,6 +76,6 @@ Objective/score live in `CURRENT.md`.
   `trapmove` + botl Burdened + exerper status + mintrap rn2(40)
   (D-0401); Norep ≡ `gp.prevmsg` (D-0402); `heal_legs` via
   `nh_timeout` WOUNDED_LEGS + ATEMP DEX (D-0403); known_hitum flee
-  `Math.trunc(mhpmax/2)` + `engulfing_u` (D-0404); seed0004 @9795
-  dog_goal `IS_ROOM` / post-pickup `n` key ownership (D-0405).
+  `Math.trunc(mhpmax/2)` + `engulfing_u` (D-0404); `run_timers`
+  ROT_CORPSE + floor pickup `sortloot` (D-0405).
 - D-0274…D-0405: see index.

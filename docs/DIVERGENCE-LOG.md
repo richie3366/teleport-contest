@@ -4,28 +4,31 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
-## D-0405 — seed0004 @9795 dog_goal IS_ROOM / post-pickup `n` keys
+## D-0405 — seed0004 @9795 dog_goal IS_ROOM / unrotted floor corpse
 
-- **Status:** open (prerequisite)
+- **Status:** fixed
 - **Symptom:** seed0004 first RNG miss @9795 — C `dog_move` `rn2(16)`
   (mtrack) vs JS `dog_goal` `rn2(4)`.
-- **Rejected:** mtrack `MTSZ*(k-j)` wrong arity / missing backtrack
-  block (JS already ports `goto nxti` as `continue candloop`).
-- **Cause (diagnosed):** C `dog_goal` short-circuits `!IS_ROOM(hero)`
-  without `rn2(4)` after hero reached DOOR/CORR near dnstairs `(42,7)`.
-  JS still at ROOM `(40,5)` (udist 585, gtyp UNDEF) and rolls `rn2(4)`.
-  Rhack command log after 2nd `,` pickup: next `n` only at rng @9816
-  (during C `rndmonst_adj`), so session `n`/`n`/`l` are not applied as
-  hero moves before that dog_goal.
-- **C locus:** `dogmove.c` `dog_goal` (~567–577) `!IS_ROOM || !rn2(4)`;
-  `dog_move` mtrack (~1246–1251); caller order after pickup keys.
-- **Change:** none this iteration (no faithful code patch without key-
-  ownership fix).
-- **Verification:** green+strict PASS; seed0004 still RNG **9892**/12084
-  Scr **233**/409 @9795.
-- **Next:** reconstruct nhgetch ownership for steps ~240–250 (`,` menu
-  / `--More--` / rhack) so `n` moves hero onto DOOR before dog_goal;
-  then re-diff @9795.
+- **Rejected:** mtrack arity; raw post-pickup key-ownership in `more()`/
+  menu (keys were queued; rhack delayed by extra EOTs).
+- **Cause:** `start_timer` / `obj_stop_timers` were stubs that never
+  fired. Mklev jackal CORPSE at hero square `(40,5)` stayed forever.
+  C `run_timers` → `rot_corpse` removed it before pickup. JS pickup
+  menu still listed it as `c`, so session `c`/`d` took corpse+sack
+  (HVY encumbrance) instead of C's bag+lamp. Extra EOT cycles burned
+  the RNG of C's next `n`/`n` moves while hero stayed ROOM → dog_goal
+  `rn2(4)` at @9795.
+- **C locus:** `timeout.c` `run_timers` / `start_timer` (~2222/2247);
+  `dig.c` `rot_corpse`; `nh_timeout` calls `run_timers` at end;
+  `pickup.c` `query_objlist` `sortloot(SORTLOOT_LOOT|PACK)`.
+- **Change:** real `game._timer_base` queue in `mkobj.js`;
+  `run_timers` + floor `rot_corpse` from `nh_timeout`; floor pickup
+  uses shared `sortloot` (within-class `loot_xname`).
+- **Verification:** seed0004 RNG **9892→10399**/12084; Scr
+  **233→241**/409; first miss @10370 `resist_conflict`; green+strict
+  PASS; cohort **23/23** (+green = 25 PASS set).
+- **Next:** seed0004 @10370 C `resist_conflict` `rnd(20)` vs JS
+  `dog_move` `rn2(16)`.
 
 ## D-0404 — known_hitum flee gate integer mhpmax/2
 

@@ -260,42 +260,40 @@ export async function pickup_object(obj, count, telekinesis) {
  * Letter toggles selection; Return/Enter confirms; ESC cancels.
  * INVORDER_SORT (sortpack): pack-order class headings via let_to_name;
  * menu letters assigned in that display order (no USE_INVLET on floor).
- * Named omissions: FEEL_COCKATRICE; count-N; BY_NEXTHERE allow-filter;
- * menu_head_objsym; INCLUDE_VENOM; traditional query_classes; engulfer.
+ * Sort: sortloot(SORTLOOT_LOOT|PACK) + nexthere (D-0405/D-0406).
+ * Named omissions: FEEL_COCKATRICE; count-N; allow-filter;
+ * menu_head_objsym; INCLUDE_VENOM; traditional query_classes; engulfer;
+ * loot_classify subclass/disco/BUCX.
  */
 async function query_objlist_pickup(objList) {
     const flags = game.flags || {};
     const doSort = flags.sortpack !== false;
-    const invOrder = (flags.inv_order?.length ? flags.inv_order : DEF_INV_ORDER);
+    // C: sortflags — sortloot 'l'/'f' + !USE_INVLET → SORTLOOT_LOOT;
+    // sortpack → SORTLOOT_PACK. Floor pile is a nexthere chain.
+    const sortlootOpt = flags.sortloot ?? 'l';
+    let sortflags = 0;
+    if (sortlootOpt === 'l' || sortlootOpt === 'f') sortflags |= SORTLOOT_LOOT;
+    if (doSort) sortflags |= SORTLOOT_PACK;
 
-    // C: sortloot(SORTLOOT_LOOT|PACK) then walk inv_order — sort array only
-    // (floor piles use nexthere; do not touch nobj). Within-class loot_xname
-    // strcmpi deferred (named omission).
-    const ranked = objList.map((obj, indx) => ({ obj, indx }));
-    if (doSort) {
-        ranked.sort((a, b) => {
-            const ia = invOrder.indexOf(a.obj.oclass);
-            const ib = invOrder.indexOf(b.obj.oclass);
-            const oa = ia >= 0 ? ia : invOrder.length;
-            const ob = ib >= 0 ? ib : invOrder.length;
-            if (oa !== ob) return oa - ob;
-            return a.indx - b.indx;
-        });
-    }
+    const allow = new Set(objList);
+    const head = objList[0] || null;
+    const ranked = head
+        ? sortloot(head, sortflags, true).filter((s) => allow.has(s.obj))
+        : [];
 
     const items = [];
     let nextLet = 'a'.charCodeAt(0);
-    let coinLetterUsed = false;
+    let first = true;
     for (const { obj } of ranked) {
         let letch;
-        // C: !USE_INVLET → first coin '$', else menu a,b,…
-        if (obj.oclass === COIN_CLASS && !coinLetterUsed) {
+        // C: !USE_INVLET → '$' only when the first menu item is a coin
+        if (first && obj.oclass === COIN_CLASS) {
             letch = '$';
-            coinLetterUsed = true;
         } else {
             letch = String.fromCharCode(nextLet++);
             if (nextLet > 'z'.charCodeAt(0)) nextLet = 'A'.charCodeAt(0);
         }
+        first = false;
         items.push({ obj, letch, selected: false, oclass: obj.oclass });
     }
 
