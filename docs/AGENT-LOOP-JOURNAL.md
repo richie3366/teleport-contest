@@ -11,14 +11,35 @@ move older ones into `docs/archive/`.
 
 Use this shape:
 
-```text
-## YYYY-MM-DD HH:MM — <objective>
+```text## YYYY-MM-DD HH:MM — <objective>
 - Objective: …
 - C locus: …
 - Change or falsified theory: …
 - Verification: …
 - Next: …
 ```
+## 2026-07-15 10:05 — D-0376 bag put-in (seed0012 @13517)
+- Objective: seed0012 @13517 C move_special rn2(1) vs JS fleeck rn2(5).
+- C locus: pickup.c use_container/in_container/menu_loot/query_category;
+  jsmain CR→LF; cmd C('j') rush; symptom shk_move onlineu.
+- Change: port put-in coins path (query_putin_category + menu_loot_putin +
+  in_container). Root: stubbed 'i' left $\r$\r → LF rush-south → uy+1 →
+  missed earlier onlineu home return (D-0376).
+- Verification: prefix 13517→13576; RNG 13591→13635 cursors 259→270;
+  green+strict PASS; cohort 22/22.
+- Next: seed0012 @13576 C dog_move rn2(1) vs JS rn2(4).
+
+## 2026-07-15 10:05 — D-0376 bag put-in (seed0012 @13517)
+- Objective: seed0012 @13517 C move_special rn2(1) vs JS fleeck rn2(5).
+- C locus: pickup.c use_container/in_container/menu_loot/query_category;
+  jsmain CR→LF; cmd C('j') rush; symptom shk_move onlineu.
+- Change: port put-in coins path (query_putin_category + menu_loot_putin +
+  in_container). Root: stubbed 'i' left $\r$\r → LF rush-south → uy+1 →
+  missed earlier onlineu home return (D-0376).
+- Verification: prefix 13517→13576; RNG 13591→13635 cursors 259→270;
+  green+strict PASS; cohort 22/22.
+- Next: seed0012 @13576 C dog_move rn2(1) vs JS rn2(4).
+
 ## 2026-07-15 09:35 — #400 score + D-0376 shk off-home diagnosis
 - Objective: mandatory full `sessions` score (#400÷5); peel seed0012 @13517.
 - C locus: shk.c shk_move onlineu/satdoor; priest.c move_special.
@@ -128,18 +149,3 @@ Use this shape:
 - Verification: green+strict PASS; rng-diff still @6952.
 - Next: C gg/view_from capture at this dog_move (D-0367).
 
-## 2026-07-15 06:56 — D-0366 doup + in-memory getlev (seed0012 @6924)
-- Objective: seed0012 @6924 C getlev rnd(10) vs JS fleeck.
-- C locus: do.c doup; dungeon.c prev_level; restore.c getlev hide rnd(10).
-- Change: `<`→doup/prev_level; stash VISITED|LFILE_EXISTS+omoves; restore
-  + mon_catchup + hide_monst gate; climb-up pline (D-0366).
-- Verification: prefix 6924→6952; RNG 7052→7202; green+strict; cohort 24/24.
-- Next: seed0012 @6952 C dog_move rn2(12) vs JS rn2(1).
-
-## 2026-07-15 06:50 — D-0365 multi `,` query_objlist (seed0012 @3483)
-- Objective: seed0012 @3483 C dog_goal obj_resists vs JS dog_move rn2(3).
-- C locus: pickup.c pickup/query_objlist PICK_ANY; hack.c dopickup.
-- Change: multi-object `,` menu (letter toggle + Enter); was stub that
-  leaked b/\\n/n as movement → hero desync → skipped invent resists.
-- Verification: prefix 3483→6924; RNG 3638→7052; green+strict; cohort 24/24.
-- Next: seed0012 @6924 C getlev rnd(10) vs JS fleeck.

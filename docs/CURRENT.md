@@ -37,7 +37,7 @@ seed0013-rogue, seed0013-friday13-restore, seed0107, seed0009.
 **Notable non-PASS:**
 | Session | RNG | Screen | Note |
 |--------|----:|-------:|------|
-| seed0012 | **13591**/13878 | **14**/308 | @13517 shk off-home appr=1 vs C satdoor mill (D-0376 open) |
+| seed0012 | **13635**/13878 | **14**/308 | @13576 dog_move rn2(1) vs rn2(4) (D-0376 fixed) |
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
 | seed0004 | 4025/12084 | 28/409 | |
 | seed0002 | 4520/27158 | 9/595 | |
@@ -58,19 +58,18 @@ Both must remain full RNG + screen PASS with exact scored-output lengths.
 
 ## Primary objective
 
-**seed0012 @13517** — C `move_special` satdoor `appr=0` mill `rn2(1/2/3)` vs
-JS shk off-home `appr=1` approach (then fleeck `rn2(5)`). DIAG (#400): JS left
-home at mill ~11069→(11,12) and early-returned `!onlineu` until @13517; C must
-have returned home (appr=1, no RNG) earlier — hero/`onlineu` path desync.
+**seed0012 @13576** — C `dog_move` `rn2(1)` (`dogmove.c:1255`) vs JS
+`rn2(4)` (same site / cand arity). After D-0376 put-in, shk mill @13517
+matches; next peel is pet AI.
 
 ```bash
 node scripts/rng-diff.mjs sessions/seed0012-monk-vault-escort.session.json
 node frozen/ps_test_runner.mjs sessions/seed0012-monk-vault-escort.session.json
 ```
 
-**Falsify next:** compare C vs JS hero `(ux,uy)` and shk `(mx,my)` on turns
-between rng 11072–13517 (vault exit → row-12 lineup); find first `onlineu(11,12)`
-miss. Do not patch `move_special` arity.
+**Falsify next:** dump dog `(mx,my)` / `mfndpos` cand count at first
+`dog_move` mill after @13517; cite C `dog_move` branch before changing
+arity.
 
 **Alternates:** seed0004 / seed0002 / seed0006 / seed0007; quest early-0.
 

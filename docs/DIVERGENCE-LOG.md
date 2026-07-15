@@ -24,31 +24,34 @@ The compact status table lives in **`DIVERGENCE-INDEX.md`**.
 Open that file first; then jump to a single `## D-NNNN` entry below
 (via search). Do **not** read this whole file by default.
 
-## D-0376 — shk off-home after mill; missed onlineu return (seed0012 @13517)
+## D-0376 — bag put-in stub leaked `\n` rush-south (seed0012 @13517)
 
-- **Status:** open
-- **Observed:** seed0012 @13517 — C `move_special` `rn2(1)` (`priest.c:85`)
+- **Status:** fixed
+- **Observed:** seed0012 @13517 — C `move_special` `rn2(1)` (satdoor mill)
   vs JS `rn2(5)` (`distfleeck`).
-- **Cause/evidence (partial):** JS `move_special` `!appr && !rn2(++chcnt)` is
-  faithful when satdoor. DIAG at mismatch: JS shk at (11,12) home (11,11)
-  with `appr=1` (approach, no mill RNG) then post-move fleeck; C mills with
-  `appr=0` satdoor. Trajectory: mill ~11069 from home with cands
-  `(10,11 NOTONL),(10,12),(11,12)` + `rn2(1/2/3)=0` → (11,12); then
-  `shk_move` early-return `!onlineu` until hero reaches row 12 @13517.
-  C has no further `move_special` RNG until 13517 but must be back at home
-  (satdoor mill) → C took a no-RNG `appr=1` return earlier. Not a
-  cand-count bug in `move_special`.
-- **Rejected:** patching mill arity / inventing satdoor; fleeck-first as
-  root; `pri_move` stub (no `rn1` before mismatch).
-- **C locus:** `shk.c` `shk_move` (`onlineu` / satdoor / `appr`);
-  `priest.c` `move_special`; hero path after vault exit.
-- **Change:** none yet — next falsify first `onlineu(11,12)` miss
-  (hero `(ux,uy)` 11072–13517) or C mill destination ≠ (11,12).
-- **Verification:** #400 full suite still **24/44**; focused prefix 13517;
-  green+strict PASS.
-- **Lesson:** when C shows satdoor mill and JS shows fleeck/`appr=1`,
-  dump shk `(mx,my)` vs `eshk.shk` before touching `mfndpos`.
-- **Next:** hero/`onlineu` desync after vault exit (or prove C mill dest).
+- **Cause:** After mill ~11069→(11,12), JS shk stuck `!onlineu` while C
+  returned home (no-RNG `appr=1`) once hero shared a row/col/diag. Root was
+  hero `uy+1` after vault bag sequence `aji$\r$\r`: C **put gold into** the
+  bag (`in_container`); JS stubbed put-in so leftover `\r`→LF (`C('j')`)
+  reached `rhack` as rush-south. Hero path then missed the earlier
+  `onlineu(11,12)` window; at @13517 JS still off-home `appr=1` while C
+  milled satdoor.
+- **Rejected:** `move_special` cand-count / satdoor arity; fleeck-first;
+  inventing `onlineu` gates; patching mill without hero-path proof.
+- **C locus:** `pickup.c` `use_container`/`in_or_out_menu`/`menu_loot`/
+  `in_container`/`query_category`; `jsmain` CR→LF; `cmd.c` `C('j')` rush;
+  symptom `shk.c` `shk_move`/`onlineu`.
+- **Change:** `js/pickup.js` — MENU_FULL coins `query_putin_category` +
+  `menu_loot_putin` + `in_container` (`add_to_container`); wire `'i'`/`'b'`.
+  Named omissions: non-coin categories; unpaid/BUCX/ALL; autopick; stash;
+  `'r'` reversed; mbag explosion; worn-mask detail.
+- **Verification:** first mismatch **13517→13576**; runner RNG
+  **13591→13635**/13878 cursors **259→270**/308; green+strict PASS;
+  cohort **22/22** (+ green).
+- **Lesson:** when Enter/`\n` appears after a stubbed menu path, check
+  whether C consumed it inside `getobj`/container UI — leaked LF is
+  rush-south under `!number_pad`, not a monster-AI bug.
+- **Next:** seed0012 @13576 C `dog_move` `rn2(1)` vs JS `rn2(4)`.
 
 ## D-0375 — apply bag take-out + gd_move escort (seed0012 @13392)
 

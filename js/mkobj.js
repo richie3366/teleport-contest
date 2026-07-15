@@ -121,7 +121,7 @@ function Is_container(obj) {
 /**
  * C ref: mkobj.c add_to_container — prepend; merge deferred.
  */
-function add_to_container(container, obj) {
+export function add_to_container(container, obj) {
     if (!container || !obj) return null;
     if (obj.where && obj.where !== OBJ_FREE) obj_extract_self(obj);
     obj.where = OBJ_CONTAINED;

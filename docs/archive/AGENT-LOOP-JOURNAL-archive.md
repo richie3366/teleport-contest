@@ -85,3 +85,19 @@
   RNG **239942**/792838 `18+0.12/turn`; green+strict+cohort.
 - Next: seed0107 `#twoweapon` unbound @15.
 
+## 2026-07-15 06:56 — D-0366 doup + in-memory getlev (seed0012 @6924)
+- Objective: seed0012 @6924 C getlev rnd(10) vs JS fleeck.
+- C locus: do.c doup; dungeon.c prev_level; restore.c getlev hide rnd(10).
+- Change: `<`→doup/prev_level; stash VISITED|LFILE_EXISTS+omoves; restore
+  + mon_catchup + hide_monst gate; climb-up pline (D-0366).
+- Verification: prefix 6924→6952; RNG 7052→7202; green+strict; cohort 24/24.
+- Next: seed0012 @6952 C dog_move rn2(12) vs JS rn2(1).
+
+## 2026-07-15 06:50 — D-0365 multi `,` query_objlist (seed0012 @3483)
+- Objective: seed0012 @3483 C dog_goal obj_resists vs JS dog_move rn2(3).
+- C locus: pickup.c pickup/query_objlist PICK_ANY; hack.c dopickup.
+- Change: multi-object `,` menu (letter toggle + Enter); was stub that
+  leaked b/\\n/n as movement → hero desync → skipped invent resists.
+- Verification: prefix 3483→6924; RNG 3638→7052; green+strict; cohort 24/24.
+- Next: seed0012 @6924 C getlev rnd(10) vs JS fleeck.
+
