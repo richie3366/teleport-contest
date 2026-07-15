@@ -8,15 +8,16 @@ Objective/score live in `CURRENT.md`.
 ## Active
 
 - **Score:** **24/44** PASS (#385 full suite). Scr 3640/11405; RNG 243833/792838.
-- **Next (post D-0365):** seed0012 @6924 — C `getlev` `rnd(10)` vs JS
-  `distfleeck` `rn2(5)`. Prefix 3483→6924 after multi `,` pickup menu.
+- **Next (post D-0366):** seed0012 @6952 — C `dog_move` `rn2(12)` vs JS
+  `rn2(1)` after return-to-Dlvl1. Prefix 6924→6952; RNG 7052→7202.
   Cmd: `node scripts/rng-diff.mjs sessions/seed0012-monk-vault-escort.session.json`
-- **Don’t re-check:** blame @3483 on dog_goal fobj count / invent skip while
-  `,` stub leaked menu keys as movement (D-0365); @3248 fleeck/meating
-  (D-0364); under-dmg @3204 (D-0363); #l→loot (D-0362); ICE_BOX mkbox
-  (D-0361).
+- **Don’t re-check:** blame @6924 on fleeck while `<` unbound / no getlev
+  (D-0366); @3483 invent skip while `,` stub leaked keys (D-0365);
+  @3248 fleeck/meating (D-0364); under-dmg @3204 (D-0363); #l→loot
+  (D-0362); ICE_BOX mkbox (D-0361).
 - **Landmark:** screen `i` key = `moves[i]` (= `steps[i+1].key`);
   jsmain maps `\r`→LF (`\n`=C('j') rush-south) — menus must consume Enter.
+  Leave stash: `VISITED|LFILE_EXISTS` + `omoves`; return → catchup/`rnd(10)`.
 - **Parked:** D-0006; seed2200 @158 RC.
 
 ## Don’t re-check (≤15)
@@ -74,7 +75,8 @@ Objective/score live in `CURRENT.md`.
   blame @3204 on xkilled path when JS still flees — under-dmg (D-0363);
   blame @3248 on fleeck/fobj while C meating — instance oc_delay (D-0364);
   blame @3483 on dog_goal fobj/invent while `,` stub leaked `b`/`\n`/`n`
-  as movement (D-0365).
+  as movement (D-0365); blame @6924 on fleeck while `<` unbound /
+  return visit regenerated (D-0366).
 - Runner `Screen N/M` = total matches, not prefix length.
 
 ## Landmarks (≤15)
@@ -82,10 +84,12 @@ Objective/score live in `CURRENT.md`.
 - STAIRS yellow via `known_branch_stairs`; map col=x−1 row=y+1 DEC (D-0162/253).
 - `goto_level` descend: `stairway_find_from(&u.uz0)` (D-0224); ends with
   `pickup(1)` (D-0349); UTOTYPE_NONE → `u_on_rndspot` (D-0350).
+- Return visit: stash `VISITED|LFILE_EXISTS`+`omoves`; restore + getlev
+  catchup/`rnd(10)` (D-0366). `<` → `doup`/`prev_level`.
 - tut-1 string `des.map` → SPLEV_CENTER xstart/ystart odd (D-0350).
 - Session: screen `i` reads `moves[i]`; `more()` space/CR/ESC;
   jsmain `\r`→LF (C tty ICRNL; LF=C('j') rush-south if it reaches rhack).
 - Save: VFS `save/<plname>` JSON; restore skips `rndencode`;
   `l_nhcore_init` still 2×rn2; farewell clears map no flush (D-0335).
 - Scoring grid: DEC chars in DEC_MAP → Unicode; `{`/` `` ` `` stay raw.
-- D-0274…D-0365: bones through multi `,` query_objlist (see index).
+- D-0274…D-0366: bones through doup/getlev (see index).

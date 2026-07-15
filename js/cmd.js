@@ -28,7 +28,7 @@ import { doengrave, maybe_smudge_engr } from './engrave.js';
 import { dothrow, dofire } from './dothrow.js';
 import { doapply } from './apply.js';
 import { dokick } from './dokick.js';
-import { donull, dodown, dodrop } from './do.js';
+import { donull, dodown, doup, dodrop } from './do.js';
 import { dosave } from './save.js';
 import { do_attack, mon_at, is_safemon } from './uhitm.js';
 import { doopen_indir } from './lock.js';
@@ -642,6 +642,11 @@ export async function rhack(key) {
         const downRes = await dodown();
         game.context.move = (downRes & 0x01) ? 1 : 0;
         if (downRes & 0x01) game.kickedloc = { x: 0, y: 0 };
+    } else if (ch === '<') {
+        // C ref: do.c doup / cmd.c — go up staircase
+        const upRes = await doup();
+        game.context.move = (upRes & 0x01) ? 1 : 0;
+        if (upRes & 0x01) game.kickedloc = { x: 0, y: 0 };
     } else if (ch === 's') {
         // C ref: detect.c dosearch — takes a turn unless safety cancels
         const n = game.context?.command_count || 0;

@@ -19,6 +19,14 @@ Use this shape:
 - Verification: …
 - Next: …
 ```
+## 2026-07-15 06:56 — D-0366 doup + in-memory getlev (seed0012 @6924)
+- Objective: seed0012 @6924 C getlev rnd(10) vs JS fleeck.
+- C locus: do.c doup; dungeon.c prev_level; restore.c getlev hide rnd(10).
+- Change: `<`→doup/prev_level; stash VISITED|LFILE_EXISTS+omoves; restore
+  + mon_catchup + hide_monst gate; climb-up pline (D-0366).
+- Verification: prefix 6924→6952; RNG 7052→7202; green+strict; cohort 24/24.
+- Next: seed0012 @6952 C dog_move rn2(12) vs JS rn2(1).
+
 ## 2026-07-15 06:50 — D-0365 multi `,` query_objlist (seed0012 @3483)
 - Objective: seed0012 @3483 C dog_goal obj_resists vs JS dog_move rn2(3).
 - C locus: pickup.c pickup/query_objlist PICK_ANY; hack.c dopickup.
@@ -134,24 +142,3 @@ Use this shape:
 - Verification: full suite **23/44** Scr **3592**/11405 RNG **240471**/792838
   `18+0.12/turn`; seed0009 Scr **39→40**; green+strict; cohort 8 PASS.
 - Next: @40 POOL/WATER `terrain_glyph` (`?` vs DEC diamond); then broken door.
-
-## 2026-07-15 04:25 — D-0353 tut-1 remainder + WAITMASK
-- Objective: seed0009 finish tut-1 level-gen (CURRENT).
-- C locus: `dat/tut-1.lua` loot→end; `mklev.c` mineralize special skip;
-  `makemon.c` align_shift; `monmove.c` dochug STRAT_WAITMASK.
-- Change: load_tut1 through potion; mineralize early return; real
-  align_shift; WAITFORU/WAITMASK gate before distfleeck (D-0353).
-- Verification: Scr **38→39** (@33 wall); RNG **3450→3649**; green+strict;
-  cohort 7 PASS.
-- Next: @33 glance/wall “It's a wall.” vs blank JS topline.
-
-## 2026-07-15 03:15 — D-0352 tut-1 mktrap gate through sling
-- Objective: seed0009 @27 door resists vs opens (CURRENT).
-- C locus: `mklev.c` mktrap victim `rnd(4)`; `dungeon.c` induced_align
-  Is_special; `dat/tut-1.lua` kick→sling.
-- Change: falsified doopen chance; `mktrap_seen_victim` + load_tut1 through
-  sling; induced_align via sp_levchn (D-0352).
-- Verification: Scr **27→38** (first miss @33 wall); RNG **3341→3450**;
-  green+strict; cohort 5 PASS.
-- Next: load_tut1 large-box mkbox_cnts+contents → place_lregion.
-

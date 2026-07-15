@@ -24,6 +24,27 @@ The compact status table lives in **`DIVERGENCE-INDEX.md`**.
 Open that file first; then jump to a single `## D-NNNN` entry below
 (via search). Do **not** read this whole file by default.
 
+## D-0366 — `doup` + in-memory `getlev` hide `rnd(10)` (seed0012 @6924)
+
+- **Status:** fixed
+- **Observed:** seed0012 @6924 — C `getlev` `rnd(10)` on `<` (return to
+  Dlvl1) vs JS `distfleeck` `rn2(5)`. C step100 RNG was solely that call.
+- **C locus:** `do.c` `doup` / `dungeon.c` `prev_level` / `do.c`
+  `goto_level` restore arm / `restore.c` `getlev` hide_monst `rnd(10)`.
+- **Cause:** `<` unbound in `rhack` → “Unknown command” (no turn); session
+  space then rested while C restored the stashed level and rolled
+  per-monster hide chance. JS `goto_level` also treated return visits as
+  regenerate (`mklev`) and used wrong `LFILE_EXISTS` bit (`2` vs `0x04`).
+- **Change:** `doup`/`prev_level`; `<` bind; leave stash with
+  `VISITED|LFILE_EXISTS` + `omoves`; restore + `mon_catchup_elapsed_time`
+  + `hide_monst` gate; climb-up pline. Deferred: binary NHFILE, restrap/
+  hideunder bodies, ledger-1 escape yn, Flying/Punished climb variants.
+- **Verification:** first mismatch **6924→6952**; runner RNG
+  **7052→7202**/13878 Scr 14/308; green+strict PASS; cohort **24/24**.
+- **Lesson:** missing stair command looks like mid-level fleeck drift;
+  return visits need getlev RNG even with in-memory stash.
+- **Next:** seed0012 @6952 C `dog_move` `rn2(12)` vs JS `rn2(1)`.
+
 ## D-0365 — multi `,` `query_objlist` PICK_ANY (seed0012 @3483)
 
 - **Status:** fixed
