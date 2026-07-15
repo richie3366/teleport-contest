@@ -17,19 +17,19 @@ Update **this Score section** with: pass count, screen/RNG aggregates, speed
 label, PASS list, notable non-PASS. Do not invent suite totals from a single
 focused session.
 
-Score last measured: **2026-07-15** — full `sessions` suite (#445;
-post D-0414). Screens **4194**/11405 (−2 vs #440); RNG
-**262860**/792838 (+773). Still **25/44** PASS. seed0004 focused
-post D-0418: RNG **12084**/12084, Scr **254**/409 (@240 fixed).
+Score last measured: **2026-07-15** — full `sessions` suite (#450;
+post D-0419 `map_trap`). Screens **4336**/11405 (+142 vs #445;
++128 vs pre-fix #450); RNG **263155**/792838 (+295 vs #445).
+Still **25/44** PASS. seed0004 focused: Scr **382**/409 (@277 next).
 
 ## Score
 
 | Metric | Value |
 |--------|------:|
 | Sessions passing | **25 / 44** |
-| Screens matched | **4194 / 11,405** (36.77%) |
-| Positional RNG calls matched | **262,860 / 792,838** (33.15%) |
-| Speed label | `21+0.13/turn` (R² 0.79) |
+| Screens matched | **4336 / 11,405** (38.02%) |
+| Positional RNG calls matched | **263,155 / 792,838** (33.19%) |
+| Speed label | `22+0.13/turn` (R² 0.78) |
 | Role-init throws | **0 / 44** |
 
 **PASS (25):** seed8000, seed0900, seed1500, seed1800, seed0060, seed0102,
@@ -43,7 +43,7 @@ seed0013-rogue, seed0013-friday13-restore, seed0107, seed0009,
 |--------|----:|-------:|------|
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
 | seed0002 | 5210/27158 | **54**/595 | still @3808 eatcorpse |
-| seed0004 | **12084**/12084 | **254**/409 | D-0418 @240; next @248 trap `^` |
+| seed0004 | **12084**/12084 | **382**/409 | D-0419 @248; next @277 look_here |
 | seed0361/0373 | early | 0 | quest bones / `makemaz` |
 
 ## Green gate
@@ -61,20 +61,20 @@ Both must remain full RNG + screen PASS with exact scored-output lengths.
 
 ## Primary objective
 
-**seed0004 @248 trap glyph** — RNG full; Scr **254**/409 after
-D-0418 (`xname` WEAPON `poisoned ` → sortloot + doname). First cell
-miss: C map shows `^` trap; JS `.` floor (near hero after pickup).
+**seed0004 @277 look_here pile** — RNG full; Scr **382**/409 after
+D-0419 (`map_trap` tseen `^`). First cell miss: C
+`an engagement ring`; JS `a ring of conflict` (Things that are here).
 
 ```bash
 node frozen/ps_test_runner.mjs sessions/seed0004-feeding-pony.session.json
-# Focus: screen @248 trap glyph vs floor
+# Focus: screen @277 look_here / doname ring identity
 ```
 
 **Alternates:** seed0002 `eatcorpse`; seed0006 / seed0007; quest early-0
 (seed0361/0373).
 
-**Prefer over:** parked D-0006, seed2200 RC; re-opening @240 poisoned
-menu (fixed — D-0418).
+**Prefer over:** parked D-0006, seed2200 RC; re-opening @248 trap glyph
+(fixed — D-0419).
 
 **Cohort after shared change:** green gate + seed1500 + seed1800 + seed0060 +
 seed0102 + seed0700 + seed1150 + seed0017 + seed0077 + seed0106 + seed0501 +

@@ -4,6 +4,26 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
+## D-0419 — seed0004 @248 map_trap tseen glyph in newsym/map_location
+
+- **Status:** fixed
+- **Symptom:** seed0004 first cell miss @248 — C map `^` (cyan dart
+  trap); JS room floor `.`/`·`. Trap at (40,5) already `tseen=true`
+  (DART_TRAP); RNG full.
+- **Rejected:** missing `feeltrap`/`seetrap` (state already seen).
+- **Cause:** JS `_map_location`/`newsym` skipped C
+  `t_at && tseen && !covers_traps → map_trap` (named omission).
+- **C locus:** `display.c` `map_trap` / `_map_location`;
+  `defsym.h` trap PCHARs; `display.h` `covers_traps`.
+- **Change:** `display.js` — `trap_glyph` (defsym colors), `map_trap`,
+  wire into `map_location` + cansee `newsym`; local `t_at_display` /
+  `covers_traps`. Deferred: Hallucination `random_trap_to_glyph`.
+- **Verification:** seed0004 Scr **254→382**/409; miss @248→@277
+  (`an engagement ring` vs `a ring of conflict`); RNG full;
+  green+strict; cohort **25/25**; full suite Scr **4336**/11405
+  (+128 vs pre-fix #450).
+- **Next:** seed0004 @277 look_here / doname pile ring.
+
 ## D-0418 — seed0004 @240 xname WEAPON poisoned prefix (sortloot + doname)
 
 - **Status:** fixed

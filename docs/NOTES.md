@@ -7,16 +7,16 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Score:** **25/44** PASS (#445 full post D-0414). Scr **4194**/11405;
-  RNG **262860**/792838. seed0004 focused post D-0418: RNG
-  **12084**/12084; Scr **254**/409 (cursors 402).
-- **Next:** seed0004 @248 — C trap `^` vs JS `.` (tseen / trap
-  display after pickup).
+- **Score:** **25/44** PASS (#450 full post D-0419). Scr **4336**/11405;
+  RNG **263155**/792838. seed0004 focused: RNG **12084**/12084;
+  Scr **382**/409 (cursors 402).
+- **Next:** seed0004 @277 — C `an engagement ring` vs JS
+  `a ring of conflict` (look_here / doname / dknown).
   ```bash
   node frozen/ps_test_runner.mjs sessions/seed0004-feeding-pony.session.json
   ```
-- **Don’t re-check:** @240 pickup menu quan/order (was missing xname
-  `poisoned `; sortloot + doname, D-0418). @239 bag empty
+- **Don’t re-check:** @248 tseen trap `^` (map_trap in newsym,
+  D-0419). @240 pickup menu quan/order (D-0418). @239 bag empty
   capitalization (D-0417). @182 out-of-sight cursemsg (D-0416).
   @11722 throw carrot feed (D-0415). @11708 dog `ALLOW_U` (D-0414).
   @11568 fightm (D-0413). @10966 travel boulder (D-0412).
@@ -52,9 +52,10 @@ Objective/score live in `CURRENT.md`.
   before postmov (D-0401); Norep via Norep-only cache (D-0402);
   skip `heal_legs` / WOUNDED_LEGS `nh_timeout` (D-0403); omit
   `vtense` bare-singular conjugate (D-0403); float `mhpmax/2` for
-  flee gate (D-0404); treat @9795–@11722 / @182/@239 as index
-  D-0405…D-0417 without those C paths; treat @240 `a - a dart` as
-  quan count without xname `poisoned ` → sortloot (D-0418).
+  flee gate (D-0404); treat @9795–@11722 / @182/@239/@240/@248 as
+  index D-0405…D-0419 without those C paths; treat @248 floor vs
+  `^` as missing feeltrap when `tseen` already set (D-0419 —
+  was `_map_location` skip).
 - Runner `Screen N/M` = total matches, not prefix length.
 - First cell-miss may be botl `$:` / `Burdened` even when NOTES names a topline.
 
@@ -80,4 +81,5 @@ Objective/score live in `CURRENT.md`.
 - `dog_move` cursemsg: `display.canseemon` (D-0416); glyph/`distant_name`
   deferred. Empty bag take-out: `Ysimple_name2` (D-0417). WEAPON
   `poisoned ` xname/doname (D-0418); wet-towel/figurine/`permapoisoned`
-  deferred. Older D-IDs: index / don’t-recheck.
+  deferred. **`map_trap` tseen in newsym** (D-0419); Hallucination
+  trap glyphs deferred. Older D-IDs: index / don’t-recheck.
