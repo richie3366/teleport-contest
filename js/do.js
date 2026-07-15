@@ -14,6 +14,7 @@ import {
     UTOTYPE_RMPORTAL, UTOTYPE_DEFERRED,
     VISITED, LFILE_EXISTS,
 } from './const.js';
+import { COIN_CLASS } from './objects.js';
 import { pline, docrt, flush_screen, flush_topl_more, newsym } from './display.js';
 import { vision_recalc, vision_reset } from './vision.js';
 import {
@@ -544,6 +545,11 @@ export async function canletgo(obj, word) {
     return true;
 }
 
+/**
+ * C ref: invent.c freeinv + freeinv_core — remove from invent; gold sets
+ * disp.botl. JS botl `$:` reads game._goldCount (addinv / container put-in
+ * maintain it); decrement here so drop paints $:0 like C money_cnt.
+ */
 function freeinv_drop(obj) {
     const inv = game.invent || [];
     const idx = inv.indexOf(obj);
@@ -551,6 +557,12 @@ function freeinv_drop(obj) {
     obj.owornmask = 0;
     obj.nobj = null;
     // where left for place_object to set OBJ_FLOOR
+    // C invent.c freeinv_core — COIN_CLASS → disp.botl = TRUE; return
+    if (obj.oclass === COIN_CLASS) {
+        game._goldCount = Math.max(0, (game._goldCount || 0) - (obj.quan || 0));
+        if (!game.flags) game.flags = {};
+        game.flags.botl = true;
+    }
 }
 
 /**

@@ -28,6 +28,31 @@ to preserve, record it here.
 - **Next:** seed0012 @278 doname container contents suffix.
 
 
+## D-0396 — drop gold freeinv_core botl + gd_move Move along! (seed0012 Scr 284→307)
+
+- **Symptom:** seed0012 first cell miss @284 — C botl `$:0` after
+  `You drop 1163 gold pieces.` vs JS `$:1163`; NOTES had named @294
+  `"Move along!"` (topline) but botl gold was the shared miss from 284.
+- **Cause:** (1) C `freeinv_core` sets `disp.botl` for `COIN_CLASS`; JS
+  `freeinv_drop` omitted botl and left `game._goldCount` stale (bot
+  paints `$:` from that cache, not live `money_cnt`). (2) C `gd_move`
+  um_dist `!rn2(10)` verbalize `"Move along!"` was deferred because
+  `gd_move` was sync.
+- **C locus:** `invent.c` `freeinv_core` (~1358); `vault.c` `gd_move`
+  (~1066–1071); `monmove.c` `m_move` awaits specials.
+- **Change:** `js/do.js` — gold drop decrements `_goldCount` +
+  `flags.botl`; `js/vault.js` — async `gd_move` + `await verbalize`;
+  `js/monmove.js` / `js/shk.js` await `gd_move`. Named omissions:
+  `gd_move_cleanup` / Suddenly disappears; look-around exit;
+  `sticks()` on ustuck.
+- **Verification:** seed0012 Scr **284→307**/308; @284–294 match;
+  sole miss @307 `Suddenly, the guard disappears.`; green+strict PASS;
+  cohort **22/22** PASS.
+- **Next:** seed0012 @307 `gd_move_cleanup` disappear pline.
+- **Lesson:** when NOTES names a topline, still dump botl on the first
+  cell-miss index — status `$:` can fail a long prefix of otherwise
+  matching frames.
+
 ## D-0395 — doname containing + use_container cknown (seed0012 Scr 283→284)
 
 - **Symptom:** seed0012 @278 C `j - a bag containing 1 item` vs JS

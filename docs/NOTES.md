@@ -8,26 +8,24 @@ Objective/score live in `CURRENT.md`.
 ## Active
 
 - **Score:** **24/44** PASS (#420). Screens **3953**/11405; seed0012 Scr
-  **284**/308 after D-0395 doname containing + use_container cknown
-  (was 283).
-- **Next:** seed0012 @294 — C `"Move along!"` vs JS blank. Cmd:
+  **307**/308 after D-0396 drop-gold botl + Move along! (was 284).
+- **Next:** seed0012 @307 — C `"Suddenly, the guard disappears.--More--"`
+  vs JS blank. Cmd:
   `node frozen/ps_test_runner.mjs sessions/seed0012-monk-vault-escort.session.json`
-  Falsify: vault guard escort pline after gold drop + walk.
-- **Don’t re-check:** doname containing + use_container used→cknown
-  (D-0395); use_container outmaybe/yname + MENU_FULL put-in (D-0394);
-  teleds materialize + gold botl (D-0393); stop_occupation + dochugw
-  (D-0392); counted Ns set_occupation (D-0391); getpos auto_describe
-  TER_DETECT (D-0390); cls clear_glyph (D-0389); prinv total_of
-  (D-0388); post-autopick check_here (D-0387); hilite_pile ATR_INVERSE
-  (D-0386); Options stub (D-0385); ice-box Contents (D-0383); pickup
-  INVORDER_SORT (D-0384); in_or_out_menu ATR/`*` (D-0382); chargen
-  `roles.length` (D-0379); Monk Pw SPELL_LEV_PW (D-0380); locked Hmmm
-  (D-0381).
+  Falsify: `gd_move_cleanup` when `gddone` / look-around exit (not silent
+  `restfakecorr` alone).
+- **Don’t re-check:** drop gold freeinv_core botl + `_goldCount`
+  (D-0396); gd_move async Move along! (D-0396); doname containing +
+  use_container used→cknown (D-0395); use_container outmaybe/yname +
+  MENU_FULL put-in (D-0394); teleds materialize + gold botl (D-0393);
+  stop_occupation + dochugw (D-0392); counted Ns set_occupation
+  (D-0391); getpos auto_describe TER_DETECT (D-0390); cls clear_glyph
+  (D-0389); prinv total_of (D-0388); post-autopick check_here (D-0387);
+  hilite_pile ATR_INVERSE (D-0386); Options stub (D-0385).
 - **Landmark:** vault door (71,13); dig + restfakecorr; SPELL_LEV_PW(1)=5.
 - **Parked:** D-0006; seed2200 @158 RC.
 - **Note:** seed0012 JS RNG log may trail +24 after matched prefix (strict
-  length); runner still 13878/13878 positional. Later miss @307 guard
-  disappears.
+  length); runner still 13878/13878 positional.
 
 ## Don’t re-check (≤15)
 
@@ -49,8 +47,11 @@ Objective/score live in `CURRENT.md`.
   menu without INVORDER_SORT headings (D-0384); `maybe_skip_seps` with
   `roles.length` (D-0379); omit `SPELL_LEV_PW(1)` (D-0380); locked
   without lknown Hmmm (D-0381); in_or_out_menu without ATR_INVERSE/`*`
-  (D-0382); early-return `dochug` on `msleeping` (D-0278).
+  (D-0382); early-return `dochug` on `msleeping` (D-0278); drop gold
+  without `freeinv_core` botl / `_goldCount` (D-0396); defer Move along!
+  because `gd_move` was sync (D-0396).
 - Runner `Screen N/M` = total matches, not prefix length.
+- First cell-miss may be botl `$:` even when NOTES names a topline.
 
 ## Landmarks (≤15)
 
@@ -74,5 +75,6 @@ Objective/score live in `CURRENT.md`.
   `stop_occupation` (D-0392); once TELEP→`teleds` materialize +
   `spoteffects` + gold `disp.botl` before More (D-0393); bag put-in
   `outmaybe`/`yname` + MENU_FULL query_category (D-0394); doname
-  containing + use_container `used`→cknown (D-0395).
-- D-0274…D-0395: see index.
+  containing + use_container `used`→cknown (D-0395); drop gold
+  `_goldCount`+botl + async Move along! (D-0396).
+- D-0274…D-0396: see index.

@@ -6,9 +6,10 @@
 // boulder shatter; reset_faint; SetVoice; spot_stop_timers; xy_set_wall_state;
 // mimic_obj_name; full Deaf/Blind message variants that need noit_mhis;
 // gd_move hostile/witness/goldincorridor;
-// !u_in_vault look-around exit; gd_mv_monaway; mpickgold; dig del_engr_at;
+// !u_in_vault look-around exit; gd_move_cleanup / Suddenly disappears;
+// gd_mv_monaway; mpickgold; dig del_engr_at;
 // clear_fcorr: Punished/uball, yelp/rloc/m_into_limbo,
-// corridor-disappears / encased-in-rock pline (sync gd_move).
+// corridor-disappears / encased-in-rock pline.
 
 import { game } from './gstate.js';
 import { rn2 } from './rng.js';
@@ -217,7 +218,7 @@ function clear_fcorr(grd, forceshow) {
         }
         egrd.fcbeg = fcbeg + 1;
     }
-    // pline_The("corridor disappears.") / encased deferred (sync gd_move)
+    // pline_The("corridor disappears.") / encased deferred
     void sawcorridor;
     return true;
 }
@@ -572,17 +573,19 @@ function um_dist(x, y, n) {
 /**
  * C ref: vault.c gd_move — peaceful vault escort subset.
  * Branch envelope: on-level peaceful; fcend==1 warn when gold or not
- * adjacent; um_dist rn2(10) + restfakecorr; adjacent + no gold +
- * u_in_vault → nextpos dig while-loop (wall→DOOR if beyond ROOM, else
- * ortho redirect, else STONE→CORR) + place guard + restfakecorr.
+ * adjacent; um_dist rn2(10) + Move along! verbalize + restfakecorr;
+ * adjacent dig while-loop (wall→DOOR if beyond ROOM, else ortho
+ * redirect, else STONE→CORR) + place guard + restfakecorr.
  * Named omissions: hostile/witness/goldincorridor; wallify; rloc;
- * verbalize body; gd_mv_monaway; mpickgold; !u_in_vault look-around;
- * stuck find_guard_dest retry; dig del_engr_at; clear_fcorr Punished/
- * rloc/yelp arms; corridor-disappears / encased pline.
+ * other verbalize arms; gd_mv_monaway; mpickgold; !u_in_vault
+ * look-around; gd_move_cleanup / Suddenly disappears; stuck
+ * find_guard_dest retry; dig del_engr_at; clear_fcorr Punished/
+ * rloc/yelp arms; corridor-disappears / encased pline; sticks() on
+ * ustuck (treat ustuck as blocking Move along! like !sticks).
  *
- * @returns {number} 1 moved, 0 stayed, -1 normal AI, -2 died
+ * @returns {Promise<number>} 1 moved, 0 stayed, -1 normal AI, -2 died
  */
-export function gd_move(grd) {
+export async function gd_move(grd) {
     if (!grd?.isgd) return -1;
     const egrd = EGD(grd);
     if (!egrd) return -1;
@@ -637,10 +640,11 @@ export function gd_move(grd) {
     }
 
     if (um_dist(grd.mx, grd.my, 1) || egrd.gddone) {
-        // C: !gddone && !rn2(10) && !Deaf && !swallowed/ustuck →
-        // verbalize "Move along!"; then restfakecorr.
-        if (!egrd.gddone && !rn2(10) && !Deaf()) {
-            // verbalize("Move along!") deferred (gd_move is sync)
+        // C vault.c ~1066–1071: !gddone && !rn2(10) && !Deaf &&
+        // !uswallow && !(ustuck && !sticks) → verbalize; then restfakecorr.
+        if (!egrd.gddone && !rn2(10) && !Deaf()
+            && !u.uswallow && !u.ustuck) {
+            await verbalize('Move along!');
         }
         restfakecorr(grd);
         return 0;

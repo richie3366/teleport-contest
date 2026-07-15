@@ -37,7 +37,7 @@ seed0013-rogue, seed0013-friday13-restore, seed0107, seed0009.
 **Notable non-PASS:**
 | Session | RNG | Screen | Note |
 |--------|----:|-------:|------|
-| seed0012 | **13878**/13878 | **283**/308 | @278 bag `containing N item` |
+| seed0012 | **13878**/13878 | **307**/308 | @307 Suddenly guard disappears |
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
 | seed0002 | 5198/27158 | **50**/595 | |
 | seed0004 | 4025/12084 | 28/409 | |
@@ -58,17 +58,18 @@ Both must remain full RNG + screen PASS with exact scored-output lengths.
 
 ## Primary objective
 
-**seed0012 screens** — RNG prefix complete; Scr **284**/308, cursors
-**307**/308. D-0395: doname `containing N item` + use_container
-`cknown` when `used` (was 283). First fail **@294** C
-`"Move along!"` vs JS blank map (vault guard escort).
+**seed0012 screens** — RNG prefix complete; Scr **307**/308, cursors
+**307**/308. D-0396: drop gold `freeinv_core` botl + `_goldCount` +
+async `gd_move` `"Move along!"` (was 284). Sole fail **@307** C
+`"Suddenly, the guard disappears.--More--"` vs JS blank.
 
 ```bash
 node frozen/ps_test_runner.mjs sessions/seed0012-monk-vault-escort.session.json
 ```
 
-**Falsify next:** vault guard follow/`gd_movemon` / `gd_chase` pline
-when hero drops gold and walks (vault.c).
+**Falsify next:** `gd_move_cleanup` / parkguard + `Suddenly, %s disappears`
+when escort ends (`vault.c`); early `gddone` → cleanup (not silent
+`restfakecorr`).
 
 **Alternates:** seed0004 / seed0002 / seed0006 / seed0007; quest early-0.
 
