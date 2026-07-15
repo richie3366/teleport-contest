@@ -7,17 +7,16 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Score:** **24/44** PASS (#385 full suite). Scr 3640/11405; RNG 243833/792838.
-- **Next (post D-0366):** seed0012 @6952 — C `dog_move` `rn2(12)` vs JS
-  `rn2(1)` after return-to-Dlvl1. Prefix 6924→6952; RNG 7052→7202.
+- **Score:** **24/44** PASS (#385). Scr 3640/11405; RNG 243833/792838.
+- **Next (D-0367):** seed0012 @6952 — JS wantdoor `gg=(62,16)` → `rn2(1)`;
+  C arity matches `gg≈(56,17)` (force → prefix 6965). Pet vault `(55,16)`,
+  hero corr `(62,15)`, `couldsee=false`, door `(59,16)` `D_NODOOR`.
+  Falsifier: C `gg`/`view_from` at this `dog_move`.
   Cmd: `node scripts/rng-diff.mjs sessions/seed0012-monk-vault-escort.session.json`
-- **Don’t re-check:** blame @6924 on fleeck while `<` unbound / no getlev
-  (D-0366); @3483 invent skip while `,` stub leaked keys (D-0365);
-  @3248 fleeck/meating (D-0364); under-dmg @3204 (D-0363); #l→loot
-  (D-0362); ICE_BOX mkbox (D-0361).
-- **Landmark:** screen `i` key = `moves[i]` (= `steps[i+1].key`);
-  jsmain maps `\r`→LF (`\n`=C('j') rush-south) — menus must consume Enter.
-  Leave stash: `VISITED|LFILE_EXISTS` + `omoves`; return → catchup/`rnd(10)`.
+- **Don’t re-check:** same-gg chcnt/`rn2(12)` (D-0367); inject `(54,17)`;
+  skip-only `(55,17)`; @6924 fleeck/`<` (D-0366); `,` stub (D-0365).
+- **Landmark:** `\r`→LF; stash `VISITED|LFILE_EXISTS`+`omoves`; vault doors
+  `(54,16)`/`(59,16)`, stairs `(58,17)`, `(62,16)` STONE.
 - **Parked:** D-0006; seed2200 @158 RC.
 
 ## Don’t re-check (≤15)
@@ -75,8 +74,8 @@ Objective/score live in `CURRENT.md`.
   blame @3204 on xkilled path when JS still flees — under-dmg (D-0363);
   blame @3248 on fleeck/fobj while C meating — instance oc_delay (D-0364);
   blame @3483 on dog_goal fobj/invent while `,` stub leaked `b`/`\n`/`n`
-  as movement (D-0365); blame @6924 on fleeck while `<` unbound /
-  return visit regenerated (D-0366).
+  as movement (D-0365); blame @6924 on fleeck/`<` (D-0366); blame @6952
+  on chcnt with same wantdoor gg (D-0367).
 - Runner `Screen N/M` = total matches, not prefix length.
 
 ## Landmarks (≤15)
@@ -92,4 +91,4 @@ Objective/score live in `CURRENT.md`.
 - Save: VFS `save/<plname>` JSON; restore skips `rndencode`;
   `l_nhcore_init` still 2×rn2; farewell clears map no flush (D-0335).
 - Scoring grid: DEC chars in DEC_MAP → Unicode; `{`/` `` ` `` stay raw.
-- D-0274…D-0366: bones through doup/getlev (see index).
+- D-0274…D-0367: bones through dog_goal gg (see index).

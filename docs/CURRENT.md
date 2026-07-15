@@ -37,7 +37,7 @@ seed0013-rogue, seed0013-friday13-restore, seed0107, seed0009.
 **Notable non-PASS:**
 | Session | RNG | Screen | Note |
 |--------|----:|-------:|------|
-| seed0012 | **7202**/13878 | **14**/308 | @6952 C dog_move rn2(12) vs JS rn2(1) |
+| seed0012 | **7202**/13878 | **14**/308 | @6952 dog_goal gg (D-0367) |
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
 | seed0004 | 4016/12084 | 28/409 | |
 | seed0002 | 4504/27158 | 9/595 | |
@@ -58,9 +58,10 @@ Both must remain full RNG + screen PASS with exact scored-output lengths.
 
 ## Primary objective
 
-**seed0012 @6952** — after D-0366 `doup`/in-memory `getlev`, C
-`dog_move` `rn2(12)` vs JS `rn2(1)` (call-order within pet move). Prefix
-6952/13878 (RNG matched 7202).
+**seed0012 @6952 (D-0367)** — JS `dog_goal` wantdoor `gg=(62,16)` yields
+`rn2(1)` after `rn2(3)`; C arity is `rn2(12)` then `rn2(1)`, matching
+`gg≈(56,17)` (force → prefix 6965). Same `mfndpos`/uncursed=6. Need C
+`gg`/`view_from` falsifier — not approach-selection patches.
 
 ```bash
 node scripts/rng-diff.mjs sessions/seed0012-monk-vault-escort.session.json

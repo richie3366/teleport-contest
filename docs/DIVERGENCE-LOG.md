@@ -24,6 +24,28 @@ The compact status table lives in **`DIVERGENCE-INDEX.md`**.
 Open that file first; then jump to a single `## D-NNNN` entry below
 (via search). Do **not** read this whole file by default.
 
+## D-0367 — `dog_goal` gg / wantdoor (seed0012 @6952)
+
+- **Status:** open — prerequisite: C `gg`/`ogoal`/`view_from` capture.
+- **Observed:** seed0012 @6952 — after D-0366, C `dog_move` `rn2(12)=3`
+  then `rn2(1)=0` vs JS `rn2(1)` then `rn2(12)` (approach selection).
+- **JS state at mismatch:** pet `(55,16)` vault ROOM, hero `(62,15)` CORR,
+  `couldsee=false`, `gettrack=null`, wantdoor `gg=(62,16)` (STONE by hero),
+  `gtyp=UNDEF`, `appr=1`, `cnt=uncursed=6`, mtrack `[54,16;…]`, east door
+  `(59,16)` `D_NODOOR`, no in-radius `fobj`.
+- **Cause (working):** wrong `gg`, not `!rn2(++chcnt)` / `!rn2(12)` math.
+  With JS candidates, C’s arity sequence matches `gg∈{(56,17),(57,18),
+  (58,19),(59,20)}`. Temporary force `gg=(56,17)` → first mismatch **6965**.
+- **Rejected:** inject walkable `(54,17)` (uncursed→7 breaks matched
+  `rn2(24)`); skip-only `(55,17)` (hits `rn2(12)` then misses `rn2(1)`);
+  food/APPORT goal (no nearby `fobj`); same-gg short-circuit bug.
+- **C locus:** `dogmove.c` `dog_goal` / `wantdoor`; `vision.c`
+  `do_clear_area` / `view_from` (off-hero).
+- **Next falsifier:** record C `gg.gx/gy`, `edog->ogoal`, and whether
+  wantdoor sees corridor past `(59,16)` at this turn; compare to JS
+  wantdoor visit set. Do not patch approach RNG for one seed.
+- **Required gate:** green seed8000+seed0900 + strict lengths.
+
 ## D-0366 — `doup` + in-memory `getlev` hide `rnd(10)` (seed0012 @6924)
 
 - **Status:** fixed

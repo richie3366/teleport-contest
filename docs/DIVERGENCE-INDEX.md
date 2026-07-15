@@ -353,6 +353,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 | D-0364 | fixed | dog_nutrition objects[] oc_delay | tripe meating=2; seed0012 @3248→3483 |
 | D-0365 | fixed | multi `,` query_objlist PICK_ANY | menu keys no longer leak as move; @3483→6924 |
 | D-0366 | fixed | doup + in-memory getlev hide rnd(10) | `<` unbound; stash restore; @6924→6952 |
+| D-0367 | open | dog_goal gg wantdoor vs approach arity | JS gg=(62,16); C~ (56,17); @6952 |
 
 
 D-0001 through D-0005 predate the strict-length/cohort runbook. Their focused

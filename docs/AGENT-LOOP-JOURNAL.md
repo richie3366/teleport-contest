@@ -19,6 +19,15 @@ Use this shape:
 - Verification: …
 - Next: …
 ```
+## 2026-07-15 07:12 — D-0367 dog_goal gg @6952 (diagnosed)
+- Objective: seed0012 @6952 C rn2(12) vs JS rn2(1) in dog_move.
+- C locus: dogmove.c dog_goal/wantdoor; vision.c view_from.
+- Falsified: same-gg approach short-circuit; inject (54,17); skip-only
+  (55,17). Established: JS wantdoor gg=(62,16); C arity ≡ gg≈(56,17);
+  force → prefix 6965. No code change.
+- Verification: green+strict PASS; rng-diff still @6952.
+- Next: C gg/view_from capture at this dog_move (D-0367).
+
 ## 2026-07-15 06:56 — D-0366 doup + in-memory getlev (seed0012 @6924)
 - Objective: seed0012 @6924 C getlev rnd(10) vs JS fleeck.
 - C locus: do.c doup; dungeon.c prev_level; restore.c getlev hide rnd(10).
