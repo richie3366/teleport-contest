@@ -4,6 +4,28 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
+## D-0415 — seed0004 @11722 throw carrot → tamedog/dog_eat
+
+- **Status:** fixed (RNG); screens still open
+- **Symptom:** seed0004 first RNG miss @11722 — C `next_ident` /
+  `obj_resists` vs JS `distfleeck` after Conflict pet kick. Session keys:
+  `a` (sorry) then `t*` select carrots `h`, direction `l` → pony eats.
+- **Rejected:** post-wipe EOT object spawn; bare `mattacku` aftermath.
+- **Cause:** JS `getobj_throw` cancelled on `*` (Never mind) so food
+  throw never ran; `throwit` lacked mon-hit food/`befriend_with_obj`→
+  `tamedog`; `tamedog` omitted already-tame thrown-food → `dog_eat`.
+- **C locus:** `dothrow.c` `dothrow`/`throw_obj`/`thitmonst` befriend
+  arm; `dog.c` `tamedog` mtame+obj feed; `dogmove.c` `dog_eat`;
+  `mondata.h` `befriend_with_obj`.
+- **Change:** `dothrow.js` — `*`/`?` pickinv; freeinv after split;
+  `bhit`-style mon stop + `thitmonst_food` (`rnd(20)` + befriend/
+  dogfood → `tamedog`). `dog.js` — already-tame food before mtame<10
+  bump; export `dog_eat`. Deferred: weapon `thitmonst` hit arms;
+  scroll/spell bless tame bump; `throw_gold`.
+- **Verification:** seed0004 RNG **12084**/12084 (was 11790); Scr
+  **243**/409 (was 240); green+strict PASS; cohort **25/25**.
+- **Next:** seed0004 screen-only peel (cells 243/409; cursors 402).
+
 ## D-0414 — seed0004 @11708 dog_move ALLOW_U → mattacku
 
 - **Status:** fixed

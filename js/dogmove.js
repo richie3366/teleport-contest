@@ -325,8 +325,9 @@ function m_consume_obj(_mtmp, otmp) {
  * C ref: dogmove.c dog_eat()
  * Returns 2 if pet died, 1 otherwise. Always re-rolls dogfood (obj_resists)
  * for the DOGFOOD+invlet apport reward check; then m_consume_obj→delobj.
+ * Exported for dog.c tamedog thrown-food path (D-0415).
  */
-async function dog_eat(mtmp, obj, x, y, devour) {
+export async function dog_eat(mtmp, obj, x, y, devour) {
     const edog = mtmp.edog;
     if (!obj || !edog) return 1;
 

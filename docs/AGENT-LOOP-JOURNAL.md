@@ -20,6 +20,16 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-15 18:50 — #446 seed0004 throw carrot feed (D-0415)
+- Objective: seed0004 @11722 PRIMARY — C `next_ident` vs JS `distfleeck`.
+- C locus: dothrow.c thitmonst befriend; dog.c tamedog mtame+obj;
+  dogmove.c dog_eat; mondata.h befriend_with_obj.
+- Change: getobj_throw `*` pickinv; throwit mon-hit food→tamedog;
+  tamedog already-tame dogfood/dog_eat (before mtame<10 bump).
+- Verification: seed0004 RNG **12084**/12084; Scr **243**/409;
+  green+strict PASS; cohort **25/25**.
+- Next: seed0004 screen-only peel (cells 243/409).
+
 ## 2026-07-15 18:34 — #445 score + dog ALLOW_U mattacku (D-0414)
 - Objective: mandatory full `sessions` score (#445÷5); seed0004 @11708
   PRIMARY — C `mattacku` vs JS `distfleeck`.
@@ -168,14 +178,3 @@ Use this shape:
 - Verification: seed0004 RNG 9892→10399 Scr 233→241; miss @10370; green+
   strict PASS; cohort 23/23.
 - Next: seed0004 @10370 resist_conflict rnd(20) vs dog_move rn2(16).
-
-## 2026-07-15 15:50 — #431 seed0004 @9795 dog_goal IS_ROOM (D-0405)
-- Objective: seed0004 @9795 PRIMARY — C `dog_move` `rn2(16)` vs JS `rn2(4)`.
-- C locus: dogmove.c dog_goal `!IS_ROOM || !rn2(4)` (~575); dog_move mtrack
-  (~1250).
-- Falsified: mtrack `MTSZ*(k-j)` arity. DIAG: JS hero stuck ROOM `(40,5)`
-  rolls `rn2(4)`; C already DOOR/CORR after `n`/`n`/`l` skips it → mtrack
-  `rn2(16)`. Post-2nd `,` pickup, rhack sees `n` only @9816 (mid-monster).
-- Verification: green+strict PASS; no js/ change; seed0004 still @9795.
-- Next: key ownership after pickup (steps 240–250) before dog_goal peel.
-

@@ -8,16 +8,16 @@ Objective/score live in `CURRENT.md`.
 ## Active
 
 - **Score:** **25/44** PASS (#445 full post D-0414). Scr **4194**/11405;
-  RNG **262860**/792838. seed0004 focused: RNG **11790**/12084
-  (prefix **11722**); Scr **240**/409.
-- **Next:** seed0004 @11722 — C `next_ident` (`mkobj.c`) vs JS
-  `distfleeck` after pet Conflict `ALLOW_U`→`mattacku` (D-0414).
+  RNG **262860**/792838. seed0004 focused post D-0415: RNG
+  **12084**/12084; Scr **243**/409 (cursors 402).
+- **Next:** seed0004 screen-only peel after full RNG (throw carrot feed
+  done — D-0415). Normalize-aware first cell miss.
   ```bash
-  node scripts/rng-diff.mjs sessions/seed0004-feeding-pony.session.json
+  node frozen/ps_test_runner.mjs sessions/seed0004-feeding-pony.session.json
   ```
-- **Don’t re-check:** @11708 as bare dochug/`mattacku` gap without
-  `dog_move` `ALLOW_U` (D-0414). @11568 fightm (D-0413). @10966
-  after_calc / travel boulder (D-0412).
+- **Don’t re-check:** @11722 as EOT `next_ident` spawn (was `t*` carrot
+  throw → `tamedog`/`dog_eat`, D-0415). @11708 dog `ALLOW_U` (D-0414).
+  @11568 fightm (D-0413). @10966 travel boulder (D-0412).
 - **Landmark:** vault door (71,13); dig + restfakecorr; SPELL_LEV_PW(1)=5.
 - **Parked:** D-0006; seed2200 @158 RC.
 
@@ -64,7 +64,9 @@ Objective/score live in `CURRENT.md`.
   (D-0410); treat @10966 as after_calc/leftover/SLT/EXT (D-0412 —
   was findtravelpath boulder step); treat @11568 as bare dochug P4
   without `movemon` Conflict→`fightm` (D-0413); treat @11708 as bare
-  dochug/`mattacku` without `dog_move` `ALLOW_U`→`mattacku` (D-0414).
+  dochug/`mattacku` without `dog_move` `ALLOW_U`→`mattacku` (D-0414);
+  treat @11722 as EOT `next_ident` without `t*` carrot throw →
+  `tamedog`/`dog_eat` (D-0415).
 - Runner `Screen N/M` = total matches, not prefix length.
 - First cell-miss may be botl `$:` / `Burdened` even when NOTES names a topline.
 
@@ -80,14 +82,11 @@ Objective/score live in `CURRENT.md`.
 - gethungry metabolic `uhunger--` needs diet via `hero_form_data`
   (D-0410); ring/amulet accessorytime + `newuhs` deferred.
 - Apply bag take-out `a?jo$\r`; put-in `aji$\r$\r` (D-0375/76).
+- Throw food: `t*` then letter + direction → `tamedog`/`dog_eat`
+  (D-0415); apply food still “Sorry”.
 - Shop home (11,11): mill → (11,12); return needs `onlineu` (D-0376).
 - Monk starter: `SPELL_LEV_PW(1)` bump when `num_spells()` (D-0380).
-- Ice-box look: merge+sortloot stacks (D-0383); pickup class headers
-  (D-0384).
-- findtravelpath: dest→hero BFS + boulder skip + GUESS (D-0412);
-  travelmap / TEST_TRAP / door-delay / could_move_onto still deferred.
-- Conflict: `fightm` before dochugw + dochug `hero_conflict`/P4
-  (D-0413); dog_move `ALLOW_U`→`mattacku` (D-0414); ustuck release /
-  `m_everyturn_effect` / full `m_unleash` / pet_ranged youmonst
-  `mattacku` deferred.
-- D-0383…D-0414 landmarks: see index / don’t-recheck above.
+- findtravelpath: dest→hero BFS + boulder skip + GUESS (D-0412).
+- Conflict: `fightm` before dochugw + dog `ALLOW_U`→`mattacku`
+  (D-0413/14); ustuck / `m_everyturn_effect` / full `m_unleash` deferred.
+- D-0383…D-0415 landmarks: see index / don’t-recheck above.
