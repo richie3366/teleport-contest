@@ -17,16 +17,16 @@ Update **this Score section** with: pass count, screen/RNG aggregates, speed
 label, PASS list, notable non-PASS. Do not invent suite totals from a single
 focused session.
 
-Score last measured: **2026-07-15** — full `sessions` suite (#410).
+Score last measured: **2026-07-15** — full `sessions` suite (#415; post D-0389).
 
 ## Score
 
 | Metric | Value |
 |--------|------:|
 | Sessions passing | **24 / 44** |
-| Screens matched | **3854 / 11,405** (33.79%) |
-| Positional RNG calls matched | **255,075 / 792,838** (32.17%) |
-| Speed label | `21+0.12/turn` (R² 0.80) |
+| Screens matched | **3914 / 11,405** (34.32%) |
+| Positional RNG calls matched | **255,082 / 792,838** (32.17%) |
+| Speed label | `20+0.12/turn` (R² 0.80) |
 | Role-init throws | **0 / 44** |
 
 **PASS (24):** seed8000, seed0900, seed1500, seed1800, seed0060, seed0102,
@@ -37,9 +37,9 @@ seed0013-rogue, seed0013-friday13-restore, seed0107, seed0009.
 **Notable non-PASS:**
 | Session | RNG | Screen | Note |
 |--------|----:|-------:|------|
-| seed0012 | **13878**/13878 | **187**/308 | @58 `O` Options; Scr stable vs #405 |
+| seed0012 | **13878**/13878 | **244**/308 | @140 TER_DETECT autodescribe |
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
-| seed0002 | 5198/27158 | **50**/595 | Scr 47→50 RNG 4520→5198 (#405→#410) |
+| seed0002 | 5198/27158 | **50**/595 | |
 | seed0004 | 4025/12084 | 28/409 | |
 | seed0361/0373 | early | 0 | quest bones / `makemaz` |
 
@@ -58,17 +58,17 @@ Both must remain full RNG + screen PASS with exact scored-output lengths.
 
 ## Primary objective
 
-**seed0012 screens** — RNG complete; Scr **240**/308, cursors
-**302**/308. Gold `prinv` total_of ported (D-0388); first fail
-@138 `You sense the presence of monsters.--More--` (topline match;
-map cells differ — C blanks map under detection More).
+**seed0012 screens** — RNG complete; Scr **244**/308, cursors
+**302**/308. `cls`/`clear_glyph_buffer` ported (D-0389); first fail
+@140 C `unexplored area` vs JS getpos tip still on screen
+(`browse_map` / TER_DETECT autodescribe).
 
 ```bash
 node frozen/ps_test_runner.mjs sessions/seed0012-monk-vault-escort.session.json
 ```
 
-**Falsify next:** dump @138 map vs C; reconstruct monster-detection /
-`detect` display path during `--More--` (not invent message text).
+**Falsify next:** C `getpos`/`lookat` under `terrainmode` TER_DETECT —
+blank/unexplored describe vs tip persistence (not invent message text).
 
 **Alternates:** seed0004 / seed0002 / seed0006 / seed0007; quest early-0.
 

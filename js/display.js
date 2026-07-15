@@ -1898,6 +1898,26 @@ export async function flush_screen(mode) {
 // ── cls ──
 // C ref: display.c cls — display_nhwindow(WIN_MESSAGE) before clear_nhwindow(MAP).
 // NEED_MORE → more() while map flushes may still be postponed (goto_level).
+/**
+ * C ref: display.c clear_glyph_buffer — force gbuf to unexplored (blank).
+ * JS display buffer is loc.disp_*; remembered_glyph (map memory) stays.
+ */
+export function clear_glyph_buffer() {
+    const level = game.level;
+    if (!level?.at) return;
+    for (let y = 0; y < ROWNO; y++) {
+        for (let x = 1; x < COLNO; x++) {
+            const loc = level.at(x, y);
+            if (!loc) continue;
+            loc.disp_ch = ' ';
+            loc.disp_color = NO_COLOR;
+            loc.disp_decgfx = false;
+            loc.disp_attr = 0;
+            loc.gnew = 0;
+        }
+    }
+}
+
 export async function cls() {
     if (_toplin === TOPLINE_NEED_MORE && !_win_stop) {
         await more();
@@ -1909,6 +1929,8 @@ export async function cls() {
     game.flags.botlx = true;
     const display = game?.nhDisplay;
     if (display?.clearScreen) display.clearScreen();
+    // C: clear_glyph_buffer() after clear_nhwindow(WIN_MAP)
+    clear_glyph_buffer();
     game._pending_message = '';
     _toplines = '';
     _toplin = TOPLINE_EMPTY;

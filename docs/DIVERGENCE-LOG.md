@@ -24,6 +24,25 @@ The compact status table lives in **`DIVERGENCE-INDEX.md`**.
 Open that file first; then jump to a single `## D-NNNN` entry below
 (via search). Do **not** read this whole file by default.
 
+## D-0389 — `cls` / `clear_glyph_buffer` (seed0012 Scr 240→244)
+
+- **Status:** fixed
+- **Observed:** seed0012 @138 — C/J same topline
+  `You sense the presence of monsters.--More--` but C map mostly blank
+  (monsters+@ only) vs JS full dungeon still painted.
+- **C locus:** `display.c` `cls` — `clear_nhwindow(WIN_MAP)` then
+  `clear_glyph_buffer()` (gbuf → unexplored); `detect.c` `monster_detect`
+  maps mons onto cleared buffer before `You("sense…")`/`more`.
+- **Cause/evidence:** JS `cls` only called Terminal `clearScreen()`;
+  `loc.disp_*` kept prior dungeon; `more`/`pline`→`flush_screen` rebuilt
+  full map from stale `disp_ch`.
+- **Change:** `js/display.js` `clear_glyph_buffer` + call from `cls`.
+  Named omissions: TER_DETECT autodescribe (`unexplored area`).
+- **Verification:** seed0012 Scr **240→244**/308; first fail **@140**;
+  green+strict PASS; cohort 22/22 PASS; full sessions **24/44**, Scr
+  **3914**/11405.
+- **Next:** seed0012 @140 C `unexplored area` vs JS getpos tip.
+
 ## D-0388 — prinv total_of / gold merge (seed0012 Scr 239→240)
 
 - **Status:** fixed

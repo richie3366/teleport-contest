@@ -20,6 +20,16 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-15 13:40 — #415 score + cls clear_glyph_buffer (D-0389)
+- Objective: mandatory full `sessions` score; seed0012 @138 detect More map.
+- C locus: display.c cls → clear_glyph_buffer; detect.c monster_detect.
+- Change: JS cls only cleared Terminal; ported clear_glyph_buffer on
+  loc.disp_* so sense --More-- shows blank map + mons/@.
+- Verification: full sessions **24/44**, Scr **3914**/11405 RNG
+  **255082**/792838; seed0012 Scr **240→244**; first fail @140; green+
+  strict PASS; cohort 22/22 PASS.
+- Next: seed0012 @140 TER_DETECT autodescribe `unexplored area`.
+
 ## 2026-07-15 13:35 — #414 prinv total_of gold (D-0388)
 - Objective: seed0012 @98/99 `$ - 5 gold pieces (7 in total).`
 - C locus: invent.c prinv total_of + xprname quan; pickup.c pickup_prinv.
@@ -160,11 +170,3 @@ Use this shape:
   green+strict PASS; cohort 24/24.
 - Next: seed0012 @13392 C distfleeck rn2(5) vs JS rn2(7) (gd_move?).
 
-## 2026-07-15 08:44 — D-0373 vault_tele / tele_trap once (seed0012 @12489)
-- Objective: seed0012 @12489 C somex rn2(2) vs JS rn2(5).
-- C locus: teleport.c vault_tele/tele_trap; trap.c trapeffect_telep_trap.
-- Change: hero once-TELEP → deltrap+vault_tele(somexyspace); mon mtele_trap
-  (D-0373). DIAG: hero stood on vault TELEP (41,0) while JS skipped effect.
-- Verification: prefix 12489→13287; RNG 12608→13295 cursors 227→244;
-  green+strict PASS; cohort 24/24.
-- Next: seed0012 @13287 C invault makemon next_ident vs JS wipe_engr rn2(94).
