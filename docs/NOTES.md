@@ -7,7 +7,7 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Score:** **24/44** PASS (#385). Scr 3640/11405; RNG 243833/792838.
+- **Score:** **24/44** PASS (#390). Scr 3640/11405; RNG 247757/792838.
 - **Next (D-0367):** seed0012 @6952 — JS wantdoor `gg=(62,16)` → `rn2(1)`;
   C arity matches `gg≈(56,17)` (force → prefix 6965). Pet vault `(55,16)`,
   hero corr `(62,15)`, `couldsee=false`, door `(59,16)` `D_NODOOR`.

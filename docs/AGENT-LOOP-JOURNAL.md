@@ -19,6 +19,15 @@ Use this shape:
 - Verification: …
 - Next: …
 ```
+## 2026-07-15 07:14 — #390 public score
+- Objective: mandatory full `sessions` score (iteration 390 % 5).
+- C locus: n/a (score cadence; no port patch).
+- Change: none — measured suite only.
+- Verification: green+strict PASS; full suite **24/44** Scr **3640**/11405
+  (31.92%) RNG **247757**/792838 (31.25%) `19+0.12/turn` (R² 0.80).
+  vs #385: same PASS set; RNG matched +3924; Scr unchanged.
+- Next: D-0367 C `gg`/`view_from` falsifier (seed0012 @6952).
+
 ## 2026-07-15 07:12 — D-0367 dog_goal gg @6952 (diagnosed)
 - Objective: seed0012 @6952 C rn2(12) vs JS rn2(1) in dog_move.
 - C locus: dogmove.c dog_goal/wantdoor; vision.c view_from.
@@ -143,11 +152,3 @@ Use this shape:
 - Verification: Scr **40→48**/73; first miss @41 “broken door”; RNG
   **3649**; green+strict; cohort 21 PASS. Score not remeasured (#376).
 - Next: `look_here`/`dfeature_at` D_BROKEN “There is a broken door here.”
-
-## 2026-07-15 04:32 — #375 score + D-0354 mention_walls
-- Objective: mandatory full `sessions` score (#375 %5) + seed0009 @33 wall.
-- C locus: `hack.c` `test_move` mention_walls obstructed bump.
-- Change: `mention_walls_obstructed` on `blocksMove` rock/bars (D-0354).
-- Verification: full suite **23/44** Scr **3592**/11405 RNG **240471**/792838
-  `18+0.12/turn`; seed0009 Scr **39→40**; green+strict; cohort 8 PASS.
-- Next: @40 POOL/WATER `terrain_glyph` (`?` vs DEC diamond); then broken door.

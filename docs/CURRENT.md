@@ -17,7 +17,7 @@ Update **this Score section** with: pass count, screen/RNG aggregates, speed
 label, PASS list, notable non-PASS. Do not invent suite totals from a single
 focused session.
 
-Score last measured: **2026-07-15** — full `sessions` suite (#385).
+Score last measured: **2026-07-15** — full `sessions` suite (#390).
 
 ## Score
 
@@ -25,8 +25,8 @@ Score last measured: **2026-07-15** — full `sessions` suite (#385).
 |--------|------:|
 | Sessions passing | **24 / 44** |
 | Screens matched | **3640 / 11,405** (31.92%) |
-| Positional RNG calls matched | **243,833 / 792,838** (30.75%) |
-| Speed label | `19+0.12/turn` (R² 0.83) |
+| Positional RNG calls matched | **247,757 / 792,838** (31.25%) |
+| Speed label | `19+0.12/turn` (R² 0.80) |
 | Role-init throws | **0 / 44** |
 
 **PASS (24):** seed8000, seed0900, seed1500, seed1800, seed0060, seed0102,
@@ -39,8 +39,8 @@ seed0013-rogue, seed0013-friday13-restore, seed0107, seed0009.
 |--------|----:|-------:|------|
 | seed0012 | **7202**/13878 | **14**/308 | @6952 dog_goal gg (D-0367) |
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
-| seed0004 | 4016/12084 | 28/409 | |
-| seed0002 | 4504/27158 | 9/595 | |
+| seed0004 | 4025/12084 | 28/409 | |
+| seed0002 | 4521/27158 | 9/595 | |
 | seed0361/0373 | early | 0 | quest bones / `makemaz` |
 
 ## Green gate
