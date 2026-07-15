@@ -24,6 +24,27 @@ The compact status table lives in **`DIVERGENCE-INDEX.md`**.
 Open that file first; then jump to a single `## D-NNNN` entry below
 (via search). Do **not** read this whole file by default.
 
+## D-0349 — tutorial yes-path `schedule_goto` / `deferred_goto`
+
+- **Status:** fixed
+- **Observed:** seed0009 @13 — C `Entering the tutorial.--More--` on
+  stale Dlvl map; JS bare pline (no `--More--`).
+- **C locus:** `allmain.c` `maybe_do_tutorial`; `do.c` `schedule_goto` /
+  `deferred_goto` / `goto_level` (ends `pickup(1)`); `mklev.c`
+  `Is_special` → `makemaz(proto)`.
+- **Cause/evidence:** JS only `pline`d; C plines inside `deferred_goto`
+  then `goto_level`→`docrt`→`cls`→`more()`. Screen key at index `i` is
+  `moves[i]`, not `steps[i].key`.
+- **Change:** `schedule_goto`/`deferred_goto`; full yes-path; `nofollowers`
+  keepdogs gate; `Is_special`→`load_tut1` map+first engraving skeleton;
+  `goto_level` `pickup(1)` → `check_here`/`read_engr_at`.
+- **Verification:** seed0009 Scr **13→14**/73 (Entering `--More--`);
+  RNG **3338→3341**; green+strict; cohort seed0700/1500/1800/0107 PASS;
+  full suite **23/44**.
+- **Named omissions:** rest of `tut-1.lua` (165-call RNG before Entering
+  more; doors/traps/objs/mons; `place_lregion` tail).
+- **Next:** @14 map cells (133 misses) under engraving `--More--`.
+
 ## D-0348 — chargen corner NHW_MENU keeps BASE splash
 
 - **Status:** fixed

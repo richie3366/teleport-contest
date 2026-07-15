@@ -7,14 +7,17 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Score:** **23/44** PASS (#368 suite; #369 no full remeasure); Scr
-  **3561**/11405; RNG **240160**/792838.
-- **Current unit:** seed0009 Scr **13**/73 RNG **3338**/3713 — first miss
-  `@13` C `Entering the tutorial.--More--` vs JS bare pline (no more).
-- **Fixed this iter:** D-0348 chargen corner NHW_MENU — keep BASE splash;
-  erase prior menu geom (`erase_menu_or_text`); Scr **12→13**.
-- **Don’t re-check:** inverted “C clears splash under confirm” — C keeps
-  splash; JS must not `clearScreen` on first corner confirm.
+- **Score:** **23/44** PASS (#370 suite); Scr **3565**/11405; RNG
+  **240160**/792838.
+- **Current unit:** seed0009 Scr **14**/73 RNG **3341**/3713 — @14
+  engraving topline matches; **133** map cell misses (C dark/blank vs JS
+  walls). Finish `load_tut1` des.* + 165-call RNG before Entering more.
+- **Fixed this iter:** D-0349 `schedule_goto`/`deferred_goto` +
+  `maybe_do_tutorial` yes-path + `Is_special`→`makemaz(tut-1)` skeleton +
+  `goto_level` `pickup(1)` + nofollowers keepdogs; Scr **13→14**.
+- **Don’t re-check:** bare `pline('Entering…')` without deferred_goto —
+  `--More--` needs `goto_level`→`docrt`→`cls`→`more()`.
+- **Landmark:** screen `i` key = `moves[i]` (= `steps[i+1].key`).
 - **Parked:** D-0006; seed2200 @158 RC.
 
 ## Don’t re-check (≤15)
@@ -51,17 +54,19 @@ Objective/score live in `CURRENT.md`.
   (D-0345); blanket `observe_object` in `xname` without `distantname`;
   `xname(CORPSE)` with mon name (D-0346 — bare `"corpse"`); skip twoweap
   skill-limit enl lines (D-0347); `clearScreen` on chargen corner confirm
-  (D-0348 — keep splash; erase prior geom only).
+  (D-0348 — keep splash; erase prior geom only); bare Entering pline
+  without `schedule_goto`/`deferred_goto` (D-0349).
 - Runner `Screen N/M` = total matches, not prefix length.
 
 ## Landmarks (≤15)
 
 - STAIRS yellow via `known_branch_stairs`; map col=x−1 row=y+1 DEC (D-0162/253).
-- `goto_level` descend: `stairway_find_from(&u.uz0)` (D-0224).
-- Session: `steps[i].key === moves[i-1]` (D-0238); `more()` space/CR/ESC.
+- `goto_level` descend: `stairway_find_from(&u.uz0)` (D-0224); ends with
+  `pickup(1)` (D-0349).
+- Session: screen `i` reads `moves[i]`; `more()` space/CR/ESC.
 - Save: VFS `save/<plname>` JSON; restore skips `rndencode`;
   `l_nhcore_init` still 2×rn2; farewell clears map no flush (D-0335).
-- D-0274…D-0348: bones/disclose/RIP/topten/descr/botl/paybill/ghost/`;`/
+- D-0274…D-0349: bones/disclose/RIP/topten/descr/botl/paybill/ghost/`;`/
   getlin/compactify/enl/checkfile/save/welcome/attr/`$`/`)`/show-*/DEL/
   reveal_terrain/getpos Done/`#twoweapon`/`hitum` twohits/`dosit` OBJ_AT/
-  weapon_insight twoweap limits / chargen corner splash+erase.
+  weapon_insight twoweap limits / chargen corner / tutorial yes-path.

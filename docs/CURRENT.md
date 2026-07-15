@@ -17,17 +17,17 @@ Update **this Score section** with: pass count, screen/RNG aggregates, speed
 label, PASS list, notable non-PASS. Do not invent suite totals from a single
 focused session.
 
-Score last measured: **2026-07-15** — full `sessions` suite after #368
-D-0346/D-0347 (seed0107 full PASS).
+Score last measured: **2026-07-15** — full `sessions` suite (#370; after
+D-0349 tutorial yes-path still **23/44**).
 
 ## Score
 
 | Metric | Value |
 |--------|------:|
 | Sessions passing | **23 / 44** |
-| Screens matched | **3561 / 11,405** (31.22%) |
+| Screens matched | **3565 / 11,405** (31.26%) |
 | Positional RNG calls matched | **240,160 / 792,838** (30.29%) |
-| Speed label | `18+0.12/turn` (R² 0.79) |
+| Speed label | `19+0.12/turn` (R² 0.79) |
 | Role-init throws | **0 / 44** |
 
 **PASS (23):** seed8000, seed0900, seed1500, seed1800, seed0060, seed0102,
@@ -39,9 +39,9 @@ seed0013-rogue, seed0013-friday13-restore, **seed0107**.
 | Session | RNG | Screen | Note |
 |---------|----:|-------:|------|
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
-| seed0009 | **3338**/3713 | **13**/73 | **primary** — @13 tutorial `--More--` |
-| seed0004 | 4016/12084 | 27/409 | |
-| seed0002 | 4510/27158 | 8/595 | |
+| seed0009 | **3341**/3713 | **14**/73 | **primary** — @14 tut map cells |
+| seed0004 | 4016/12084 | 28/409 | |
+| seed0002 | 4510/27158 | 9/595 | |
 | seed0012 | 0/13878 | 0/308 | stack overflow |
 | seed0361/0373 | early | 0 | quest bones / `makemaz` |
 
@@ -60,16 +60,16 @@ Both must remain full RNG + screen PASS with exact scored-output lengths.
 
 ## Primary objective
 
-**seed0009-swimmer-mforce** — RNG **3338**/3713; Scr **13**/73
+**seed0009-swimmer-mforce** — RNG **3341**/3713; Scr **14**/73
 
 | | |
 |--|--|
-| **C locus** | tutorial enter pline + `--More--` / `more()` |
-| **JS locus** | `ask_do_tutorial` / `pline` / topl `--More--` blocking |
-| **Symptom** | `@13` C `Entering the tutorial.--More--`; JS bare pline, no more |
-| **Hypothesis** | tutorial-enter message must force `MORE` like C before map play |
-| **Falsifier** | Scr >13 with @13 cells+cursor match; or named next miss |
-| **Recent fixed** | D-0348 chargen corner keeps BASE splash (Scr 12→13) |
+| **C locus** | `dat/tut-1.lua` load_special + vision after `goto_level` |
+| **JS locus** | `mklev.js` `load_tut1` remainder / wallify / lit |
+| **Symptom** | @14 toplines match engraving `--More--`; **133** map cell misses |
+| **Hypothesis** | finish tut-1.lua des.* + RNG order so map matches C under engr more |
+| **Falsifier** | Scr >14 with @14 cells+cursor; or named next miss |
+| **Recent fixed** | D-0349 `schedule_goto`/`deferred_goto` + tut-1 skeleton → Scr **13→14** |
 
 ```bash
 node frozen/ps_test_runner.mjs sessions/seed0009-swimmer-mforce.session.json
@@ -77,6 +77,7 @@ node frozen/ps_test_runner.mjs sessions/seed0009-swimmer-mforce.session.json
 
 **Note:** runner `Screen N/M` is **total** positional matches, not prefix
 length. Prefer decodeScreen cell first-miss for peel targets.
+Key read at screen `i` is `moves[i]` (= `steps[i+1].key`), not `steps[i].key`.
 
 **Alternate:** seed2200 @158 RC parked only.
 

@@ -10,7 +10,8 @@ import { vision_recalc, vision_reset, init_vision_globals } from './vision.js';
 import { initrack, settrack } from './track.js';
 import { fastforward_pre_mklev } from './fastforward.js';
 import { init_objects } from './o_init.js';
-import { init_dungeons } from './dungeon.js';
+import { init_dungeons, find_level } from './dungeon.js';
+import { schedule_goto, deferred_goto } from './do.js';
 import { setup_role_race_from_rc, u_init_misc, u_init_inventory_attrs, u_init_skills_discoveries } from './u_init.js';
 import { makedog } from './dog.js';
 import { makemon } from './makemon.js';
@@ -34,6 +35,7 @@ import {
     UNENCUMBERED, SLT_ENCUMBER, MOD_ENCUMBER, HVY_ENCUMBER, EXT_ENCUMBER,
     NO_MM_FLAGS, Upolyd, LL_ACHIEVE,
     ROLE_GENDMASK, ROLE_MALE, ROLE_FEMALE,
+    UTOTYPE_NONE,
 } from './const.js';
 
 // C ref: allmain.c moveloop_preamble() — moon/friday; new-game RNG only when !resuming
@@ -432,10 +434,23 @@ async function ask_do_tutorial() {
     }
 }
 
-/** C ref: allmain.c maybe_do_tutorial() — yes-path (schedule_goto tut) deferred. */
+/** C ref: allmain.c maybe_do_tutorial() — schedule_goto tut-1 + deferred_goto. */
 async function maybe_do_tutorial() {
+    // C: s_level *sp = find_level("tut-1"); if (!sp) return;
+    const sp = find_level('tut-1');
+    if (!sp) return;
     if (!(await ask_do_tutorial())) return;
-    await pline('Entering the tutorial.');
+    const u = game.u;
+    if (!u.ucamefrom) u.ucamefrom = { dnum: 0, dlevel: 0 };
+    u.ucamefrom.dnum = u.uz.dnum | 0;
+    u.ucamefrom.dlevel = u.uz.dlevel | 0;
+    if (!game.iflags) game.iflags = {};
+    game.iflags.nofollowers = true;
+    schedule_goto(sp.dlevel, UTOTYPE_NONE, 'Entering the tutorial.', null);
+    await deferred_goto();
+    vision_recalc(0);
+    await docrt();
+    game.iflags.nofollowers = false;
 }
 
 // C ref: allmain.c moveloop_core()
