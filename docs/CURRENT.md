@@ -17,10 +17,10 @@ Update **this Score section** with: pass count, screen/RNG aggregates, speed
 label, PASS list, notable non-PASS. Do not invent suite totals from a single
 focused session.
 
-Score last measured: **2026-07-15** — full `sessions` suite (#435;
-post D-0405…D-0407). Screens **4187→4196**/11405; RNG
-**260949→261626**/792838. Still **25/44** PASS. seed0004 unchanged
-@10563 (RNG 10569/12084, Scr 242/409).
+Score last measured: **2026-07-15** — full `sessions` suite (#440;
+post D-0408…D-0411). Screens **4196**/11405 (flat); RNG
+**261626→262087**/792838. Still **25/44** PASS. seed0004 unchanged
+@10966 (RNG 11029/12084, Scr 242/409).
 
 ## Score
 
@@ -28,8 +28,8 @@ post D-0405…D-0407). Screens **4187→4196**/11405; RNG
 |--------|------:|
 | Sessions passing | **25 / 44** |
 | Screens matched | **4196 / 11,405** (36.79%) |
-| Positional RNG calls matched | **261,626 / 792,838** (33.00%) |
-| Speed label | `22+0.13/turn` (R² 0.79) |
+| Positional RNG calls matched | **262,087 / 792,838** (33.06%) |
+| Speed label | `21+0.13/turn` (R² 0.82) |
 | Role-init throws | **0 / 44** |
 
 **PASS (25):** seed8000, seed0900, seed1500, seed1800, seed0060, seed0102,
@@ -42,7 +42,7 @@ seed0013-rogue, seed0013-friday13-restore, seed0107, seed0009,
 | Session | RNG | Screen | Note |
 |--------|----:|-------:|------|
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
-| seed0002 | 5198/27158 | **54**/595 | still @3808 eatcorpse |
+| seed0002 | 5199/27158 | **54**/595 | still @3808 eatcorpse |
 | seed0004 | **11029**/12084 | **242**/409 | @10966 umove / dopush vs distfleeck |
 | seed0361/0373 | early | 0 | quest bones / `makemaz` |
 

@@ -7,8 +7,8 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Score:** **25/44** PASS (#435 full). Scr **4196**/11405; RNG
-  **261626**/792838. seed0004 Scr **242**/409; RNG **11029**/12084
+- **Score:** **25/44** PASS (#440 full). Scr **4196**/11405; RNG
+  **262087**/792838. seed0004 Scr **242**/409; RNG **11029**/12084
   (prefix **10966**).
 - **Next:** seed0004 @10966 — C `distfleeck` vs JS `dopush`
   `exercise(A_STR)`. DIAG (removed): EOT `before=9→21` wtcap=0

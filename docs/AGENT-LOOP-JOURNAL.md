@@ -20,6 +20,16 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-15 17:30 — #440 public score cadence
+- Objective: mandatory full `sessions` score (iteration % 5 == 0).
+- C locus: n/a (score-only; no port patch).
+- Change: remasured suite post D-0408…D-0411 — still **25/44** PASS;
+  screens **4196**/11405 (unchanged); RNG 261626→**262087**/792838;
+  speed `21+0.13/turn` (R² 0.82). Green+strict PASS.
+- Verification: `node frozen/ps_test_runner.mjs sessions`; seed0004
+  still FAIL @10966 (RNG 11029/12084, Scr 242/409); seed0002 RNG 5199.
+- Next: seed0004 @10966 after_calc<12 (weight/leftover+SLT|EXT).
+
 ## 2026-07-15 17:15 — #439 seed0004 @10966 youmonst/moveloop (D-0411)
 - Objective: seed0004 @10966 PRIMARY — C `distfleeck` vs JS `dopush`
   exercise; umovement after_calc.
@@ -169,14 +179,4 @@ Use this shape:
   (@29 caught-in-bear next); green+strict PASS; cohort 23/23 PASS.
 - Next: seed0004 @29 `You are caught in a bear trap.`; or seed0002
   eatcorpse.
-
-## 2026-07-15 15:05 — #425 score + look_here observe (D-0399)
-
-- Objective: mandatory full score (#425÷5) + seed0004 @26 yellow gem.
-- C locus: objnam.c xname_flags observe_object; invent.c look_here.
-- Change: look_here observe_object before doname (pile gems).
-- Verification: full sessions **25/44**, Scr **3983**/11405, RNG
-  **255144**/792838, speed `21+0.12/turn`; seed0004 Scr 28→29;
-  seed0002 Scr 50→54; green+strict PASS; cohort 9/9 PASS.
-- Next: seed0004 @27 bear `--More--`; or seed0002 eatcorpse rnd(8).
 
