@@ -58,17 +58,16 @@ Both must remain full RNG + screen PASS with exact scored-output lengths.
 
 ## Primary objective
 
-**seed0012 screens** — RNG complete; Scr **187**/308, cursors
-**297**/308. First fail @58 `O` Options menu — JS `doset_simple` is a
-hand-built corner stub; C `doset_simple_menu` builds NHW_MENU from
-`allopt[]` (General→Status), title `"Options"`, PICK_ONE.
+**seed0012 screens** — RNG complete; Scr **199**/308, cursors
+**302**/308. Options menu ported (D-0385); first fail @70 after
+Options exit — map DEC vs Unicode cell encoding on restore.
 
 ```bash
 node frozen/ps_test_runner.mjs sessions/seed0012-monk-vault-escort.session.json
 ```
 
-**Falsify next:** port `doset_simple_menu` geometry + General/Behavior
-rows from `allopt[]` (not invent layout); dump screen 58 vs expected.
+**Falsify next:** dump screen 70; fix post-fullscreen-menu map
+serialize/DEC path (not invent glyphs).
 
 **Alternates:** seed0004 / seed0002 / seed0006 / seed0007; quest early-0.
 

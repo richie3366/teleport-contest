@@ -1518,6 +1518,8 @@ function _statusLine1() {
 // pline→flush_screen calls bot() when disp.botl before putmesg (D-0314).
 let _lastStatus1 = '';
 let _lastStatus2 = '';
+/** When true, paint blank status (fullscreen menu cleared WIN_STATUS). */
+let _statusSuppressed = false;
 
 // C ref: botl.c describe_level — "Dlvl:%-2d" / "Tutorial:%-2d" uses
 // depth(&u.uz), not dunlev; Xp:/T: gated by flags.showexp / flags.time;
@@ -1546,6 +1548,19 @@ function _statusLine2() {
 /** C ref: botl.c bot — no-op when u.uhp == -1 (dosave / exact overkill). */
 function _botSuppressed() {
     return (game.u?.uhp | 0) === -1;
+}
+
+/**
+ * Suppress status paint after fullscreen NHW_MENU clear. C leaves status
+ * blank until the next bot(); used for Options → choose_classes.
+ */
+export function clear_committed_status() {
+    _statusSuppressed = true;
+    if (game.flags) {
+        game.flags.botl = false;
+        game.flags.botlx = false;
+        game.flags.time_botl = false;
+    }
 }
 
 /** Commit live status into the botl cache (C bot() putstr WIN_STATUS). */
@@ -1691,7 +1706,10 @@ function _buildScreenOutput() {
     // Row 22-23: status from last bot() commit (C never live-paints here)
     let s1raw;
     let s2;
-    if (_lastStatus2) {
+    if (_statusSuppressed) {
+        s1raw = '';
+        s2 = '';
+    } else if (_lastStatus2) {
         s1raw = _lastStatus1;
         s2 = _lastStatus2;
     } else {
@@ -1736,12 +1754,14 @@ function _buildScreenOutput() {
             }
         }
         // Status lines from last bot() (uhp==-1 skip keeps prior)
-        const s1 = _lastStatus1 || s1raw.replace(/\x1b\[[0-9;]*[A-Za-z]/g, m =>
-            m.match(/\x1b\[\d+C/) ? ' '.repeat(parseInt(m.slice(2), 10) || 0) : '');
-        for (let c = 0; c < Math.min(s1.length, display.cols); c++)
-            display.setCell(c, 22, s1[c], NO_COLOR, 0);
-        for (let c = 0; c < Math.min(s2.length, display.cols); c++)
-            display.setCell(c, 23, s2[c], NO_COLOR, 0);
+        if (!_statusSuppressed) {
+            const s1 = _lastStatus1 || s1raw.replace(/\x1b\[[0-9;]*[A-Za-z]/g, m =>
+                m.match(/\x1b\[\d+C/) ? ' '.repeat(parseInt(m.slice(2), 10) || 0) : '');
+            for (let c = 0; c < Math.min(s1.length, display.cols); c++)
+                display.setCell(c, 22, s1[c], NO_COLOR, 0);
+            for (let c = 0; c < Math.min(s2.length, display.cols); c++)
+                display.setCell(c, 23, s2[c], NO_COLOR, 0);
+        }
         // Cursor: prompts stay on topline; otherwise hero.
         if (msg.startsWith('Count:')) {
             display.setCursor(msg.length, 0);
@@ -1839,6 +1859,7 @@ export async function cls() {
 // ── bot ──
 // C ref: botl.c bot — no-op body when u.uhp == -1; always clear botl flags.
 export async function bot() {
+    _statusSuppressed = false;
     if (!_botSuppressed()) _commitStatusLines();
     if (game.flags) {
         game.flags.botl = false;

@@ -18,6 +18,16 @@ Use this shape:
 - Verification: …
 - Next: …
 ```
+## 2026-07-15 13:20 — #411 doset_simple_menu (D-0385)
+- Objective: seed0012 @58 Options — port C `doset_simple_menu`.
+- C locus: options.c doset_simple_menu; windows.c choose_classes_menu;
+  wintty.c multipage fullscreen + status-after-clear.
+- Change: allopt-driven Options menu + extract; choose_classes ATR/stay-open;
+  status suppress across submenu; symset get_val.
+- Verification: seed0012 Scr **187→199**; green+strict PASS; cohort
+  seed1500/1800/0009 PASS.
+- Next: seed0012 @70 post-Options map DEC vs Unicode restore.
+
 ## 2026-07-15 12:42 — #410 public score
 - Objective: mandatory full `sessions` (#410 divisible by 5).
 - C locus: n/a (score cadence); primary remains seed0012 @58 Options.

@@ -292,6 +292,36 @@ def ok_wc(name: str) -> bool:
     return True
 
 
+SETWHERE_ORDER = [
+    "set_in_sysconf",
+    "set_in_config",
+    "set_via_cmdline",
+    "set_gameview",
+    "set_in_game",
+    "set_wizonly",
+    "set_wiznofuz",
+]
+SIMPLE_SECTIONS = ("General", "Behavior", "Map", "Status")
+# C: doset_simple_menu suffixes for these idx names
+AUTOPICKUP_SUFFIX = {
+    "pickup_types",
+    "pickup_thrown",
+    "pickup_stolen",
+    "dropped_nopick",
+}
+
+
+def parse_bool_addr(bp: str) -> dict[str, str] | None:
+    """Map C `&flags.foo` / `&iflags.wc_color` to JS game.flags / game.iflags."""
+    m = re.match(r"&(\w+)\.(\w+)", bp.strip())
+    if not m:
+        return None
+    obj, key = m.group(1), m.group(2)
+    if obj not in ("flags", "iflags", "a11y"):
+        return None
+    return {"obj": obj, "key": key}
+
+
 def main() -> int:
     body = preprocess(SRC.read_text())
     body = "\n".join(
@@ -305,6 +335,8 @@ def main() -> int:
 
     bool_names: list[str] = []
     for a in bools:
+        if len(a) < 11:
+            continue
         name, setwhere, bp = a[0], a[4], a[10]
         if not has_addr(bp):
             continue
@@ -338,17 +370,156 @@ def main() -> int:
 
     others = [unquote(a[0]) for a in othrs if len(a) >= 1]
 
+    # C ref: options.c longest_option_name(set_gameview, set_in_game)
+    start_i = SETWHERE_ORDER.index("set_gameview")
+    end_i = SETWHERE_ORDER.index("set_in_game")
+    longest = 0
+    for a in bools:
+        if len(a) < 11:
+            continue
+        name, setwhere, bp = a[0], a[4], a[10]
+        if setwhere not in SETWHERE_ORDER:
+            continue
+        if not has_addr(bp):
+            continue
+        if not (start_i <= SETWHERE_ORDER.index(setwhere) <= end_i):
+            continue
+        if not ok_wc(name):
+            continue
+        longest = max(longest, len(name))
+    for a in comps + prefs:
+        if len(a) < 5:
+            continue
+        name, setwhere = a[0], a[4]
+        if setwhere not in SETWHERE_ORDER:
+            continue
+        if not (start_i <= SETWHERE_ORDER.index(setwhere) <= end_i):
+            continue
+        if not ok_wc(name):
+            continue
+        longest = max(longest, len(name))
+    for a in othrs:
+        if len(a) < 6:
+            continue
+        name, setwhere = unquote(a[0]), a[5]
+        if setwhere not in SETWHERE_ORDER:
+            continue
+        if not (start_i <= SETWHERE_ORDER.index(setwhere) <= end_i):
+            continue
+        if not ok_wc(name):
+            continue
+        longest = max(longest, len(name))
+
+    # C ref: options.c doset_simple_menu — walk allopt[] declaration order
+    # within each OptS_* section (macros interleaved in optlist.h).
+    simple: list[dict] = []
+    events: list[tuple[int, str, list[str]]] = []
+    for kind, macro in (
+        ("Bool", "NHOPTB"),
+        ("Comp", "NHOPTC"),
+        ("Othr", "NHOPTO"),
+    ):
+        i = 0
+        while True:
+            j = body.find(macro + "(", i)
+            if j < 0:
+                break
+            k = j + len(macro) + 1
+            depth = 1
+            in_str = False
+            quote = ""
+            while k < len(body) and depth:
+                c = body[k]
+                if in_str:
+                    if c == "\\" and k + 1 < len(body):
+                        k += 2
+                        continue
+                    if c == quote:
+                        in_str = False
+                    k += 1
+                    continue
+                if c in "\"'":
+                    in_str = True
+                    quote = c
+                    k += 1
+                    continue
+                if c == "(":
+                    depth += 1
+                elif c == ")":
+                    depth -= 1
+                k += 1
+            events.append((j, kind, split_args(body[j + len(macro) + 1 : k - 1])))
+            i = k
+    events.sort(key=lambda e: e[0])
+
+    for _pos, kind, a in events:
+        if kind == "Bool":
+            if len(a) < 13:
+                continue
+            name, sec, init, bp = a[0], a[1], a[5], a[10]
+            if sec not in SIMPLE_SECTIONS:
+                continue
+            if not has_addr(bp) or not ok_wc(name):
+                continue
+            addr = parse_bool_addr(bp)
+            if not addr:
+                continue
+            simple.append(
+                {
+                    "name": name,
+                    "section": sec,
+                    "opttyp": "Bool",
+                    "init": init == "On",
+                    "addr": addr,
+                    "autopickupSuffix": name in AUTOPICKUP_SUFFIX,
+                }
+            )
+        elif kind == "Comp":
+            if len(a) < 11:
+                continue
+            name, sec, has_h = a[0], a[1], a[8]
+            if sec not in SIMPLE_SECTIONS or not ok_wc(name):
+                continue
+            simple.append(
+                {
+                    "name": name,
+                    "section": sec,
+                    "opttyp": "Comp",
+                    "hasHandler": has_h == "Yes",
+                    "autopickupSuffix": name in AUTOPICKUP_SUFFIX,
+                }
+            )
+        else:
+            if len(a) < 6:
+                continue
+            name, sec = unquote(a[0]), a[1]
+            if sec not in SIMPLE_SECTIONS or not ok_wc(name):
+                continue
+            simple.append(
+                {
+                    "name": name,
+                    "section": sec,
+                    "opttyp": "Othr",
+                    "hasHandler": True,
+                    "autopickupSuffix": False,
+                }
+            )
+
     OUT.write_text(
         "// AUTO-GENERATED from nethack-c/upstream/include/optlist.h\n"
         "// Regenerate: python3 scripts/extract-optlist.py\n"
-        "// C ref: options.c option_help / allopt[] (contest MacOS tty flags).\n"
+        "// C ref: options.c option_help / allopt[] / doset_simple_menu.\n"
         f"export const optionHelpBools = {json.dumps(bool_names, indent=2)};\n"
         f"export const optionHelpCompounds = {json.dumps(compound, indent=2)};\n"
         f"export const optionHelpOthers = {json.dumps(others, indent=2)};\n"
+        f"export const dosetSimpleNameWidth = {longest};\n"
+        f"export const dosetSimpleOpts = {json.dumps(simple, indent=2)};\n"
+        f"export const dosetSimpleSections = {json.dumps(list(SIMPLE_SECTIONS))};\n"
     )
     print(
         f"wrote {OUT.relative_to(ROOT)} "
-        f"({len(bool_names)} bools, {len(compound)} compounds, {len(others)} others)"
+        f"({len(bool_names)} bools, {len(compound)} compounds, {len(others)} others, "
+        f"{len(simple)} simple-menu, nameWidth={longest})"
     )
     return 0
 

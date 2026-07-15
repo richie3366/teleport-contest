@@ -24,6 +24,24 @@ The compact status table lives in **`DIVERGENCE-INDEX.md`**.
 Open that file first; then jump to a single `## D-NNNN` entry below
 (via search). Do **not** read this whole file by default.
 
+## D-0385 — doset_simple_menu from allopt[] (seed0012 Scr 187→199)
+
+- **Status:** fixed
+- **Observed:** seed0012 @58 `O` Options — hand-built corner stub vs C
+  NHW_MENU; Scr 187/308.
+- **C locus:** `options.c` `doset_simple` / `doset_simple_menu`;
+  `windows.c` `choose_classes_menu`; `wintty.c` multipage `maxrow=lmax+1`
+  → fullscreen; status blank after fullscreen clear until later `bot()`.
+- **Cause/evidence:** dump screen 58 expected `General`/`Behavior` rows from
+  `allopt[]` with `%-23s [%s]`; page 2 Map/Status; `o` → Autopickup menu.
+- **Change:** extract `dosetSimpleOpts` + name width; port menu build +
+  PICK_ONE paging; `choose_classes_menu` ATR_INVERSE + stay-open toggles;
+  `clear_committed_status` across Options→submenu; `game.symset` for get_val.
+- **Verification:** seed0012 Scr **187→199** cursors **297→302**; green+strict
+  PASS; cohort seed1500/1800/0009 PASS.
+- **General lesson:** multipage tty menus are fullscreen; do not docrt between
+  PICK_ANY letter toggles; fullscreen menu clear leaves status blank.
+
 ## D-0384 — query_objlist INVORDER_SORT class headings (seed0012 Scr)
 
 - **Status:** fixed
