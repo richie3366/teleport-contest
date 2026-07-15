@@ -7,17 +7,18 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Score:** **24/44** PASS (#395). seed0012 focused RNG **13295**/13878
-  cursors **244**/308 (post D-0373).
-- **Next:** seed0012 @13287 — C `invault` `makemon` `next_ident` vs JS
-  `wipe_engr` `rn2(94)`. JS `allmain` still omits `invault()`.
+- **Score:** **24/44** PASS (#395). seed0012 focused RNG **13430**/13878
+  cursors **254**/308 (post D-0374).
+- **Next:** seed0012 @13392 — C `distfleeck` `rn2(5)` vs JS `rn2(7)`.
+  Guard on fmon after invault; `gd_move` still stub.
   Cmd: `node scripts/rng-diff.mjs sessions/seed0012-monk-vault-escort.session.json`
-  Falsify: after vault_tele, `u.uinvault` timer → guard spawn before wipe_engr.
-- **Don’t re-check:** @12489 as fleeck/mon mvault (was hero once-TELEP —
-  D-0373); @12439 as gethungry/Unaware (D-0372); @8802 as dog_goal IS_ROOM
-  (D-0371); @8384 fountain detect (D-0370); wipeout@7312; wantdoor @6952.
-- **Landmark:** vault niche TELEP `once` at (41,0) → `vault_tele` 2×2 VAULT
-  somex/somey; hero on trap cell while JS skipped TELEP.
+  Falsify: first fleeck after wipe_engr matches C if guard movement order fixed.
+- **Don’t re-check:** @13287 as wipe_engr before invault (D-0374); @12489 as
+  fleeck/mon mvault (D-0373); @12439 as gethungry/Unaware (D-0372); @8802 as
+  dog_goal IS_ROOM (D-0371); @8384 fountain detect (D-0370); wipeout@7312;
+  wantdoor @6952.
+- **Landmark:** vault niche TELEP once → vault_tele; after 30 turns
+  `invault` spawns PM_GUARD + getlin name + fakecorr door.
 - **Parked:** D-0006; seed2200 @158 RC.
 
 ## Don’t re-check (≤15)
@@ -63,7 +64,8 @@ Objective/score live in `CURRENT.md`.
   @7312 (D-0369); mtrack k−j @8384 (D-0370 — fountain detect);
   dog_goal rn2(4)@8802 as IS_ROOM (D-0371 — foul vomit);
   gethungry rn2(20)@12439 as Unaware (D-0372 — attack before test_move);
-  somex@12489 as fleeck/mon mvault (D-0373 — hero once vault TELEP).
+  somex@12489 as fleeck/mon mvault (D-0373 — hero once vault TELEP);
+  wipe_engr@13287 as fleeck (D-0374 — invault guard spawn).
 - Runner `Screen N/M` = total matches, not prefix length.
 
 ## Landmarks (≤15)
@@ -79,4 +81,5 @@ Objective/score live in `CURRENT.md`.
 - Fountain fate=20: `vomit` → `nomul(-2)` (D-0371).
 - `domove`: attack before doorway `test_move` (D-0372).
 - Vault niche `TELEP` once → `vault_tele` somexyspace (D-0373).
-- D-0274…D-0373: see index.
+- Vault `invault` timer 30 → `makemon(PM_GUARD)` + getlin (D-0374).
+- D-0274…D-0374: see index.

@@ -24,6 +24,36 @@ The compact status table lives in **`DIVERGENCE-INDEX.md`**.
 Open that file first; then jump to a single `## D-NNNN` entry below
 (via search). Do **not** read this whole file by default.
 
+## D-0374 — `invault` / vault guard spawn (seed0012 @13287)
+
+- **Status:** fixed
+- **Observed:** seed0012 @13287 — C `next_ident` `rnd(2)` (`mkobj.c:521` via
+  `makemon(PM_GUARD)`) vs JS EOT `wipe_engr` `rn2(94)`.
+- **Cause:** JS `allmain` omitted `invault()`; after D-0373 `vault_tele`,
+  `teleds` also skipped `urooms` refresh so even a stub timer would reset.
+  C increments `u.uinvault` for 30 turns then spawns the guard before
+  `u_wipe_engr`.
+- **Rejected:** extending wipe_engr stub; seed-shaped timer gates.
+- **C locus:** `vault.c` `invault` / `find_guard_dest` / `vault_occupied` /
+  `findgd` / `newegd`; `allmain.c` call site; `makemon.c` `m_initweap` /
+  `m_initinv` mercenary arms; `teleport.c` `teleds`→`spoteffects` urooms.
+- **Change:** `js/vault.js` — `invault` (timer + spawn + getlin + fakecorr
+  door); `js/allmain.js` — `await invault()` after `exerchk`;
+  `js/teleport.js` — `teleds` sync `in_rooms` → `urooms`; `js/makemon.js` —
+  `MM_EGD`/`newegd` + S_HUMAN mercenary `m_initweap` + armor/whistle
+  `m_initinv`; `js/sounds.js` imports shared `vault_occupied`/`findgd`.
+  Named omissions: full `gd_move` / `uleftvault` / migrating findgd;
+  `spoteffects` pickup/dotrap after teleds; elf/priest/guardian weap arms;
+  Croesus angry `mon_wield`; `fracture_rock`; `xy_set_wall_state`.
+- **Verification:** first mismatch **13287→13392**; runner RNG
+  **13295→13430**/13878 cursors **244→254**/308; green+strict PASS;
+  cohort **24/24**.
+- **Lesson:** vault occupancy requires `urooms` after teleport, not only
+  the `invault` body — `teleds` without `move_update` silently zeroes the
+  guard timer every EOT.
+- **Next:** seed0012 @13392 C `distfleeck` `rn2(5)` vs JS `rn2(7)` (guard
+  on fmon; `gd_move` stub).
+
 ## D-0373 — `vault_tele` / `tele_trap` once TELEP (seed0012 @12489)
 
 - **Status:** fixed

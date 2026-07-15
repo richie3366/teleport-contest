@@ -19,6 +19,16 @@ Use this shape:
 - Verification: …
 - Next: …
 ```
+## 2026-07-15 09:02 — D-0374 invault / vault guard spawn (seed0012 @13287)
+- Objective: seed0012 @13287 C next_ident vs JS wipe_engr rn2(94).
+- C locus: vault.c invault/find_guard_dest; allmain.c; makemon mercenary
+  m_initweap/m_initinv; teleds urooms.
+- Change: vault.js invault + allmain await; teleds in_rooms→urooms;
+  MM_EGD + merc weapon/armor/whistle (D-0374).
+- Verification: prefix 13287→13392; RNG 13295→13430 cursors 244→254;
+  green+strict PASS; cohort 24/24.
+- Next: seed0012 @13392 C distfleeck rn2(5) vs JS rn2(7) (gd_move?).
+
 ## 2026-07-15 08:44 — D-0373 vault_tele / tele_trap once (seed0012 @12489)
 - Objective: seed0012 @12489 C somex rn2(2) vs JS rn2(5).
 - C locus: teleport.c vault_tele/tele_trap; trap.c trapeffect_telep_trap.
