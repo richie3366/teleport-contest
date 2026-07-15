@@ -399,6 +399,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 | D-0410 | fixed | gethungry metabolic `uhunger--` + accessory burns | seed0004 RNG 11027→11029; prefix→10966; @10966 umove/dopush next |
 | D-0411 | fixed | umonnum/youmonst.data + moveloop encumber_msg/mvl_wtcap | seed0004 miss still @10966; green+cohort 25; after_calc next |
 | D-0412 | fixed | findtravelpath dest-BFS + boulder skip + GUESS | seed0004 prefix 10966→11568; after_calc red herring |
+| D-0413 | fixed | Conflict fightm before dochugw + dochug hero_conflict/P4 | seed0004 prefix 11568→11708; @11708 mattacku next |
 
 D-0001 through D-0005 predate the strict-length/cohort runbook. Their focused
 causes are preserved, but generic "green sessions held" is historical evidence,

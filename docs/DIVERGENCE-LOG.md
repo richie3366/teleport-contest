@@ -4,6 +4,31 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
+## D-0413 — seed0004 @11568 Conflict fightm before dochugw
+
+- **Status:** fixed
+- **Symptom:** seed0004 first RNG miss @11568 — C `resist_conflict`
+  vs JS `distfleeck` mid-travel under worn Conflict.
+- **Rejected:** bare dochug phase-four gap alone (hostile jackal early-
+  returns before P4; P4 would not roll resist for `!mpeaceful`).
+- **Cause:** `movemon_singlemon` omitted C’s Conflict→`fightm` gate
+  before `dochugw`. `fightm` always rolls `resist_conflict` first; on
+  resist (or no adjacent foe) C continues to dochug. JS skipped that
+  roll so the next mon’s `distfleeck` fired early. Secondary: `dochug`
+  used `game.Conflict` instead of `hero_conflict()` (worn ring) and
+  PHASE FOUR lacked peaceful×Conflict `resist_conflict`.
+- **C locus:** `mon.c` `movemon_singlemon` Conflict/`fightm`;
+  `mhitm.c` `fightm`; `monmove.c` `dochug` want_move + PHASE FOUR;
+  `youprop.h` Conflict.
+- **Change:** `mhitm.js` `fightm`; `mon.js` Conflict gate before
+  `dochugw`; `monmove.js` `hero_conflict` + P4 resist path.
+  Deferred: ustuck/itsstuck release in `fightm`; `m_everyturn_effect`;
+  full `ranged_attk_available` in MOVED fall-through.
+- **Verification:** seed0004 prefix **11568→11708** (RNG 11662→11774);
+  Scr still **242**/409; green+strict PASS; cohort **25/25**. Next miss
+  @11708 C `mattacku` vs JS `distfleeck`.
+- **Next:** seed0004 @11708 Conflict/peaceful hero attack path.
+
 ## D-0412 — seed0004 @10966 findtravelpath boulder step (not after_calc)
 
 - **Status:** fixed

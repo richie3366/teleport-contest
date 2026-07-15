@@ -20,6 +20,17 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-15 18:30 — #444 seed0004 Conflict fightm (D-0413)
+- Objective: seed0004 @11568 PRIMARY — C `resist_conflict` vs JS
+  `distfleeck` mid-travel.
+- C locus: `mon.c` `movemon_singlemon` Conflict→`fightm`; `mhitm.c`
+  `fightm`; `monmove.c` `dochug` `hero_conflict` + PHASE FOUR.
+- Change: port `fightm` (always `resist_conflict`); wire before
+  `dochugw`; dochug uses `hero_conflict` + peaceful P4 resist.
+- Verification: seed0004 prefix **11568→11708** (RNG 11774); green+strict
+  PASS; cohort **25/25**.
+- Next: seed0004 @11708 `mattacku` vs `distfleeck`.
+
 ## 2026-07-15 18:20 — #443 seed0004 findtravelpath (D-0412)
 - Objective: seed0004 @10966 PRIMARY — C `distfleeck` vs JS `dopush`.
 - C locus: `hack.c` `findtravelpath` / `test_move(TEST_TRAV)` boulder delay.

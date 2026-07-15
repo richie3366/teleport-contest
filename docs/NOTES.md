@@ -8,16 +8,16 @@ Objective/score live in `CURRENT.md`.
 ## Active
 
 - **Score:** **25/44** PASS (#440 full). Scr **4196**/11405; RNG
-  **262087**/792838 (pre D-0412). seed0004 focused: RNG **11662**/12084
-  (prefix **11568**); Scr still **242**/409.
-- **Next:** seed0004 @11568 — C `resist_conflict` vs JS `distfleeck`
-  during `_>` travel after D-0412 findtravelpath fix.
+  **262087**/792838 (pre D-0413). seed0004 focused: RNG **11774**/12084
+  (prefix **11708**); Scr still **242**/409.
+- **Next:** seed0004 @11708 — C `mattacku` vs JS `distfleeck` after
+  D-0413 Conflict `fightm` / dochug `hero_conflict`.
   ```bash
   node scripts/rng-diff.mjs sessions/seed0004-feeding-pony.session.json
   ```
-- **Don’t re-check:** @10966 after_calc / leftover0+SLT / before=9 EXT /
-  heal leftover desync / Fast rn2(3) / Ride — root was travel boulder
-  step (D-0412). Bare greedy hero→dest BFS without boulder skip.
+- **Don’t re-check:** @11568 as bare dochug P4-only (hostile jackal
+  early-returns; miss was `fightm` before dochug — D-0413). @10966
+  after_calc / travel boulder (D-0412).
 - **Landmark:** vault door (71,13); dig + restfakecorr; SPELL_LEV_PW(1)=5.
 - **Parked:** D-0006; seed2200 @158 RC.
 
@@ -62,7 +62,8 @@ Objective/score live in `CURRENT.md`.
   short-circuit on palatable `rn2(10)` (D-0409); treat @10713 as bare
   `exerper` polarity without checking deferred `gethungry` `uhunger--`
   (D-0410); treat @10966 as after_calc/leftover/SLT/EXT (D-0412 —
-  was findtravelpath boulder step); treat @10966 as Ride/usteed (#441).
+  was findtravelpath boulder step); treat @11568 as bare dochug P4
+  without `movemon` Conflict→`fightm` (D-0413).
 - Runner `Screen N/M` = total matches, not prefix length.
 - First cell-miss may be botl `$:` / `Burdened` even when NOTES names a topline.
 
@@ -84,4 +85,6 @@ Objective/score live in `CURRENT.md`.
   (D-0384).
 - findtravelpath: dest→hero BFS + boulder skip + GUESS (D-0412);
   travelmap / TEST_TRAP / door-delay / could_move_onto still deferred.
-- D-0383…D-0412 landmarks: see index / don’t-recheck above.
+- Conflict: `fightm` before dochugw + dochug `hero_conflict`/P4
+  (D-0413); ustuck release / `m_everyturn_effect` deferred.
+- D-0383…D-0413 landmarks: see index / don’t-recheck above.

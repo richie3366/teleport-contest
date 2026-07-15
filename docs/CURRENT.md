@@ -20,7 +20,7 @@ focused session.
 Score last measured: **2026-07-15** — full `sessions` suite (#440;
 post D-0408…D-0411). Screens **4196**/11405 (flat); RNG
 **261626→262087**/792838. Still **25/44** PASS. seed0004 focused
-post D-0412: prefix **11568** (RNG 11662/12084, Scr 242/409).
+post D-0413: prefix **11708** (RNG 11774/12084, Scr 242/409).
 
 ## Score
 
@@ -43,7 +43,7 @@ seed0013-rogue, seed0013-friday13-restore, seed0107, seed0009,
 |--------|----:|-------:|------|
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
 | seed0002 | 5199/27158 | **54**/595 | still @3808 eatcorpse |
-| seed0004 | **11662**/12084 | **242**/409 | @11568 resist_conflict vs distfleeck |
+| seed0004 | **11774**/12084 | **242**/409 | @11708 mattacku vs distfleeck |
 | seed0361/0373 | early | 0 | quest bones / `makemaz` |
 
 ## Green gate
@@ -61,21 +61,21 @@ Both must remain full RNG + screen PASS with exact scored-output lengths.
 
 ## Primary objective
 
-**seed0004 @11568** — after D-0412 travel pathing, first miss is C
-`resist_conflict` vs JS `distfleeck` mid-travel. Likely monster
-Conflict / pathing / fleeck order — not after_calc.
+**seed0004 @11708** — after D-0413 Conflict `fightm`, first miss is C
+`mattacku` vs JS `distfleeck`. Likely peaceful×Conflict hero attack
+(dochug PHASE FOUR / allowflags) or adjacent fightm hit path.
 
 ```bash
 node frozen/ps_test_runner.mjs sessions/seed0004-feeding-pony.session.json
 node scripts/rng-diff.mjs sessions/seed0004-feeding-pony.session.json
-# Focus: first miss @11568
+# Focus: first miss @11708
 ```
 
 **Alternates:** seed0002 `eatcorpse`; seed0006 / seed0007; quest early-0
 (seed0361/0373).
 
 **Prefer over:** parked D-0006, seed2200 RC; bare `dog_move` mtrack peels;
-re-opening @10966 after_calc (falsified — D-0412).
+re-opening @11568 fightm (fixed — D-0413).
 
 **Cohort after shared change:** green gate + seed1500 + seed1800 + seed0060 +
 seed0102 + seed0700 + seed1150 + seed0017 + seed0077 + seed0106 + seed0501 +
