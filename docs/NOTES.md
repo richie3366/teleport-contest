@@ -7,19 +7,20 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Score:** **25/44** PASS (#450 full post D-0419). Scr **4336**/11405;
-  RNG **263155**/792838. seed0004 focused: RNG **12084**/12084;
-  Scr **382**/409 (cursors 402).
-- **Next:** seed0004 @277 — C `an engagement ring` vs JS
-  `a ring of conflict` (look_here / doname / dknown).
+- **Score:** **25/44** PASS (#450 full; #451 focused only). Scr
+  **4336**/11405; RNG **263155**/792838. seed0004 focused: RNG
+  **12084**/12084; Scr **389**/409 (cursors 402).
+- **Next:** seed0004 @285 — C `Which ring-finger, Right or Left? [rl]`
+  vs JS without `[rl]` (`choose_ring_hand` vs C `yn_function` +
+  `rightleftchars`).
   ```bash
   node frozen/ps_test_runner.mjs sessions/seed0004-feeding-pony.session.json
   ```
-- **Don’t re-check:** @248 tseen trap `^` (map_trap in newsym,
-  D-0419). @240 pickup menu quan/order (D-0418). @239 bag empty
-  capitalization (D-0417). @182 out-of-sight cursemsg (D-0416).
-  @11722 throw carrot feed (D-0415). @11708 dog `ALLOW_U` (D-0414).
-  @11568 fightm (D-0413). @10966 travel boulder (D-0412).
+- **Don’t re-check:** @277 RING `<descr> ring` / nn≠obj.known (D-0420).
+  @248 tseen trap `^` (D-0419). @240 pickup poison (D-0418). @239 bag
+  empty (D-0417). @182 cursemsg (D-0416). @11722 throw carrot (D-0415).
+  @11708 dog `ALLOW_U` (D-0414). @11568 fightm (D-0413). @10966 travel
+  boulder (D-0412).
 - **Landmark:** vault door (71,13); dig + restfakecorr; SPELL_LEV_PW(1)=5.
 - **Parked:** D-0006; seed2200 @158 RC.
 
@@ -52,10 +53,11 @@ Objective/score live in `CURRENT.md`.
   before postmov (D-0401); Norep via Norep-only cache (D-0402);
   skip `heal_legs` / WOUNDED_LEGS `nh_timeout` (D-0403); omit
   `vtense` bare-singular conjugate (D-0403); float `mhpmax/2` for
-  flee gate (D-0404); treat @9795–@11722 / @182/@239/@240/@248 as
-  index D-0405…D-0419 without those C paths; treat @248 floor vs
-  `^` as missing feeltrap when `tseen` already set (D-0419 —
-  was `_map_location` skip).
+  flee gate (D-0404); treat @9795–@11722 / @182/@239/@240/@248/@277
+  as index D-0405…D-0420 without those C paths; treat RING
+  `obj.known` as type-ID (D-0420 — spe only; use `oc_name_known`);
+  treat @248 floor vs `^` as missing feeltrap when `tseen` already
+  set (D-0419 — was `_map_location` skip).
 - Runner `Screen N/M` = total matches, not prefix length.
 - First cell-miss may be botl `$:` / `Burdened` even when NOTES names a topline.
 
@@ -82,4 +84,5 @@ Objective/score live in `CURRENT.md`.
   deferred. Empty bag take-out: `Ysimple_name2` (D-0417). WEAPON
   `poisoned ` xname/doname (D-0418); wet-towel/figurine/`permapoisoned`
   deferred. **`map_trap` tseen in newsym** (D-0419); Hallucination
-  trap glyphs deferred. Older D-IDs: index / don’t-recheck.
+  trap glyphs deferred. **RING xname `<dn> ring` / nn only** (D-0420).
+  Older D-IDs: index / don’t-recheck.

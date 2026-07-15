@@ -4,6 +4,30 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
+## D-0420 — seed0004 @277 RING xname descr path (not obj.known)
+
+- **Status:** fixed
+- **Symptom:** seed0004 first cell miss @277 — look_here pile C
+  `an engagement ring`; JS `a ring of conflict`. RNG full.
+  (Appearance shuffle: engagement is shuffled descr of RIN_CONFLICT.)
+- **Rejected:** wrong otyp on floor (RNG full; invent later shows
+  engagement correctly once named).
+- **Cause:** `pretty_base` RING path used
+  `obj.dknown && (oc_name_known || obj.known)` → `"ring of <actualn>"`
+  and omitted C `dknown && !nn && !un → "%s ring"` (`dn`). For rings
+  `obj.known` is spe/charge, not type ID — same class of bug as
+  D-0285/D-0309 potions/wands.
+- **C locus:** `objnam.c` `xname_flags` RING_CLASS (`nn` /
+  `oc_name_known` only; else `Sprintf("%s ring", dn)`).
+- **Change:** `objnam.js` `pretty_base` RING — match potion/wand:
+  `!dknown` / `nn` / `un` / else `<dn> ring`. Deferred: none in this
+  branch; `choose_ring_hand` yn choices `[rl]` is separate (@285).
+- **Verification:** seed0004 Scr **382→389**/409; @277 fixed; first
+  miss **@285** C `…Left? [rl]` vs JS without choices; RNG full;
+  green+strict; cohort **25/25**.
+- **Next:** seed0004 @285 `choose_ring_hand` → C `yn_function` +
+  `rightleftchars`.
+
 ## D-0419 — seed0004 @248 map_trap tseen glyph in newsym/map_location
 
 - **Status:** fixed

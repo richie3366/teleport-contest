@@ -406,6 +406,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 | D-0417 | fixed | use_container emptymsg → Ysimple_name2 | seed0004 Scr 244→245; @239 fixed; @240 quan next |
 | D-0418 | fixed | xname/doname WEAPON poisoned prefix | seed0004 Scr 245→254; @240 fixed; @248 trap `^` next |
 | D-0419 | fixed | map_trap / tseen trap glyph in newsym | seed0004 Scr 254→382; @248 fixed; @277 look_here next |
+| D-0420 | fixed | xname RING descr / nn≠obj.known | seed0004 Scr 382→389; @277 fixed; @285 `[rl]` next |
 
 
 D-0001 through D-0005 predate the strict-length/cohort runbook. Their focused

@@ -20,6 +20,17 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-15 19:30 — #451 RING xname descr (D-0420)
+- Objective: seed0004 @277 PRIMARY — C `an engagement ring` vs JS
+  `a ring of conflict` (look_here).
+- C locus: `objnam.c` `xname_flags` RING_CLASS (`nn` / `dn`).
+- Change: `objnam.js` `pretty_base` RING — `oc_name_known` only
+  (not `obj.known`); dknown+!nn → `<descr> ring`.
+- Verification: seed0004 Scr **382→389**/409; miss @277→@285; RNG
+  full; green+strict; cohort **25/25**.
+- Next: seed0004 @285 `choose_ring_hand` yn `[rl]` via C
+  `yn_function`/`rightleftchars`.
+
 ## 2026-07-15 19:20 — #450 score + map_trap tseen (D-0419)
 - Objective: mandatory full `sessions` (#450÷5); seed0004 @248 PRIMARY —
   C trap `^` vs JS floor.
@@ -161,14 +172,3 @@ Use this shape:
   @10966 C `distfleeck` vs JS `dopush` exercise (umove=21); green+strict
   PASS; cohort 25/25.
 - Next: seed0004 @10966 umovement / encumbrance drift.
-
-## 2026-07-15 16:50 — #437 seed0004 @10657 eatcorpse youmonst (D-0409)
-- Objective: seed0004 @10657 PRIMARY — C `eatcorpse` `rn2(10)` vs JS
-  `distfleeck` after lichen kill/`e`/`y`.
-- C locus: `eat.c` `eatcorpse` palatable via `herbivorous(gy.youmonst.data)`.
-- Change: `eat.js` `hero_form_data()` (`u.umonnum ?? urole.mnum`) so
-  omnivore diet is true and palatable `rn2(10)` is not short-circuited
-  when `set_uasmon`/youmonst unset.
-- Verification: seed0004 RNG 10685→11027; prefix 10657→10713; miss
-  @10713 `exercise` rn2(19) vs rn2(2); green+strict PASS; cohort 25/25.
-- Next: seed0004 @10713 post-eat `exerper`/`lesshungry` polarity.

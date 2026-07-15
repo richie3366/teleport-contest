@@ -262,13 +262,25 @@ function pretty_base(obj) {
         if (un) return `spellbook called ${un}`;
         return `${dn} spellbook`;
     }
-    // C ref: objnam.c xname RING_CLASS — "ring of <actualn>" when known
-    if (n && n.startsWith('RIN_')) {
-        const actual = objectNameStrs[obj.otyp]
-            || n.slice(4).toLowerCase().replace(/_/g, ' ');
-        if (obj.dknown && (game.objects?.[obj.otyp]?.oc_name_known || obj.known))
-            return `ring of ${actual}`;
-        return 'ring';
+    // C ref: objnam.c xname_flags RING_CLASS —
+    // !dknown → "ring"; nn → "ring of <actualn>"; un → called; else "<dn> ring".
+    // nn is objects[].oc_name_known only (not obj.known — that is spe/charge).
+    if (obj.oclass === RING_CLASS || (n && n.startsWith('RIN_'))) {
+        const ocl = game.objects?.[obj.otyp];
+        const nn = !!ocl?.oc_name_known;
+        const dknown = !!obj.dknown;
+        const un = ocl?.oc_uname || null;
+        let actual = objectNameStrs[obj.otyp]
+            || (n ? n.slice(4).toLowerCase().replace(/_/g, ' ') : 'ring');
+        if (Role_if_samurai()) {
+            const jn = Japanese_item_name(obj.otyp, null);
+            if (jn) actual = jn;
+        }
+        const dn = objectDescrs[ocl?.oc_descr_idx ?? obj.otyp] || null;
+        if (!dknown) return 'ring';
+        if (nn) return `ring of ${actual}`;
+        if (un) return `ring called ${un}`;
+        return `${dn || 'strange'} ring`;
     }
     // C ref: objnam.c xname WAND_CLASS —
     // !dknown → "wand"; nn → "wand of <actualn>"; un → called; else "<descr> wand"
