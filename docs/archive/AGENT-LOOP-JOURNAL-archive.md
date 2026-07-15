@@ -1,5 +1,13 @@
 # Agent loop journal archive
 
+## 2026-07-15 11:30 — D-0382 in_or_out_menu prompt/SELECTED (seed0012 Scr)
+- Objective: seed0012 @screen30 ice-box `Do what with…` menu.
+- C locus: pickup.c in_or_out_menu; wintty.c tty_end_menu /
+  process_menu_window SELECTED `*`; menu_headings ATR_INVERSE.
+- Change: `js/pickup.js` — prompt ATR_INVERSE; default `q * done|do nothing`.
+- Verification: Scr **182→184**/308; green+strict; cohort 22/22 PASS.
+- Next: seed0012 @screen31 ice-box `container_contents` sortloot stacks.
+
 ## 2026-07-15 10:48 — D-0378 restfakecorr/clear_fcorr (seed0012 @13700)
 - Objective: seed0012 @13700 C move_special rn2(1) vs JS fleeck rn2(5).
 - C locus: vault.c clear_fcorr/restfakecorr; gd_move um_dist + post-dig.

@@ -4,6 +4,27 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
+## D-0397 — gd_move_cleanup parkguard + look-around Suddenly (seed0012 PASS)
+
+- **Symptom:** seed0012 sole miss @307 — C
+  `Suddenly, the guard disappears.--More--` (cursor on topline) vs JS blank
+  then, after cleanup port, Suddenly without `--More--` (cursor on map).
+- **Cause:** JS `gd_move` omitted C `!u_in_vault` look-around exit that
+  sets `gddone` and calls `gd_move_cleanup` (park at `<0,0>`, restfakecorr,
+  `Suddenly, %s disappears`). Early `gddone`/begone paths returned 0
+  without cleanup. After pline, C capture blocks on `--More--`
+  (`flush_topl_more` ≡ tty `display_nhwindow(WIN_MESSAGE)` when NEED_MORE).
+- **C locus:** `vault.c` `gd_move_cleanup` / `parkguard` / `gd_move`
+  look-around (~1078–1185); `do_name.c` `noit_mon_nam`.
+- **Change:** `js/vault.js` — `parkguard`, `gd_move_cleanup`, look-around
+  → cleanup; wire early/begone `gddone` to cleanup; `flush_topl_more`
+  after Suddenly. Named omissions: `wallify_vault` body; corridor-
+  disappears / encased; confused-disappears; Well begone verbalize;
+  `gd_mv_monaway`.
+- **Verification:** seed0012 Scr **307→308**/308 PASS; green+strict PASS;
+  cohort **25/25** PASS (incl. seed0012).
+- **Next:** seed0004 / seed0002 shared blockers.
+
 ## D-0394 — use_container outmaybe/yname + MENU_FULL put-in (seed0012 Scr 275→283)
 
 - **Symptom:** seed0012 @259 C `Do what with your bag?` vs JS

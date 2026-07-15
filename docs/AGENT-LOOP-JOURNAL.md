@@ -20,6 +20,16 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-15 14:52 — #423 gd_move_cleanup Suddenly (D-0397)
+- Objective: seed0012 @307 Suddenly, the guard disappears.--More--.
+- C locus: vault.c gd_move_cleanup/parkguard; gd_move !u_in_vault
+  look-around; do_name.c noit_mon_nam.
+- Change: parkguard + gd_move_cleanup; look-around → gddone cleanup;
+  early/begone → cleanup; flush_topl_more after Suddenly pline.
+- Verification: seed0012 Scr **307→308**/308 PASS; green+strict PASS;
+  cohort **25/25** PASS. Score **25/44**.
+- Next: seed0004 / seed0002 shared blockers.
+
 ## 2026-07-15 14:40 — #422 drop gold botl + Move along! (D-0396)
 - Objective: seed0012 screens after @284 (NOTES said @294 Move along!).
 - C locus: invent.c freeinv_core COIN_CLASS botl; vault.c gd_move
@@ -161,12 +171,4 @@ Use this shape:
   headings + prompt ATR_INVERSE (D-0384).
 - Verification: Scr **184→187**/308; green+strict; cohort 22/22 PASS.
 - Next: seed0012 @screen58 `O` Options menu geometry / missing rows.
-
-## 2026-07-15 11:30 — D-0382 in_or_out_menu prompt/SELECTED (seed0012 Scr)
-- Objective: seed0012 @screen30 ice-box `Do what with…` menu.
-- C locus: pickup.c in_or_out_menu; wintty.c tty_end_menu /
-  process_menu_window SELECTED `*`; menu_headings ATR_INVERSE.
-- Change: `js/pickup.js` — prompt ATR_INVERSE; default `q * done|do nothing`.
-- Verification: Scr **182→184**/308; green+strict; cohort 22/22 PASS.
-- Next: seed0012 @screen31 ice-box `container_contents` sortloot stacks.
 

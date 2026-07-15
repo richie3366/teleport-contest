@@ -383,6 +383,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 | D-0394 | fixed | use_container outmaybe/yname + MENU_FULL put-in | Scr 275→283; @278 containing next |
 | D-0395 | fixed | doname containing + use_container cknown | Scr 283→284; @294 Move along! next |
 | D-0396 | fixed | drop gold freeinv_core botl + gd_move Move along! | Scr 284→307; @307 Suddenly next |
+| D-0397 | fixed | gd_move_cleanup parkguard + look-around Suddenly | Scr 307→308; seed0012 PASS |
 
 D-0001 through D-0005 predate the strict-length/cohort runbook. Their focused
 causes are preserved, but generic "green sessions held" is historical evidence,

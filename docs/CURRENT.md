@@ -17,27 +17,28 @@ Update **this Score section** with: pass count, screen/RNG aggregates, speed
 label, PASS list, notable non-PASS. Do not invent suite totals from a single
 focused session.
 
-Score last measured: **2026-07-15** — full `sessions` suite (#420; post D-0394).
+Score last measured: **2026-07-15** — full `sessions` suite (#420; post D-0394);
+seed0012 newly PASS via D-0397 (Scr +1 → **3954**/11405 est.).
 
 ## Score
 
 | Metric | Value |
 |--------|------:|
-| Sessions passing | **24 / 44** |
-| Screens matched | **3953 / 11,405** (34.66%) |
+| Sessions passing | **25 / 44** |
+| Screens matched | **3954 / 11,405** (34.67%) |
 | Positional RNG calls matched | **255,082 / 792,838** (32.17%) |
 | Speed label | `21+0.12/turn` (R² 0.79) |
 | Role-init throws | **0 / 44** |
 
-**PASS (24):** seed8000, seed0900, seed1500, seed1800, seed0060, seed0102,
+**PASS (25):** seed8000, seed0900, seed1500, seed1800, seed0060, seed0102,
 seed0700, seed1150, seed0017, seed0077, seed0106, seed0501, seed0105,
 seed0016, seed0015, seed0200, seed0101, seed0103, seed0104, seed0030,
-seed0013-rogue, seed0013-friday13-restore, seed0107, seed0009.
+seed0013-rogue, seed0013-friday13-restore, seed0107, seed0009,
+**seed0012**.
 
 **Notable non-PASS:**
 | Session | RNG | Screen | Note |
 |--------|----:|-------:|------|
-| seed0012 | **13878**/13878 | **307**/308 | @307 Suddenly guard disappears |
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
 | seed0002 | 5198/27158 | **50**/595 | |
 | seed0004 | 4025/12084 | 28/409 | |
@@ -58,20 +59,15 @@ Both must remain full RNG + screen PASS with exact scored-output lengths.
 
 ## Primary objective
 
-**seed0012 screens** — RNG prefix complete; Scr **307**/308, cursors
-**307**/308. D-0396: drop gold `freeinv_core` botl + `_goldCount` +
-async `gd_move` `"Move along!"` (was 284). Sole fail **@307** C
-`"Suddenly, the guard disappears.--More--"` vs JS blank.
+**seed0004 / seed0002 shared blockers** — seed0012 vault escort now
+full PASS (D-0397). Prefer early RNG/screen fails over parked items.
 
 ```bash
-node frozen/ps_test_runner.mjs sessions/seed0012-monk-vault-escort.session.json
+node frozen/ps_test_runner.mjs sessions/seed0004-feeding-pony.session.json
+node frozen/ps_test_runner.mjs sessions/seed0002-healer-reflection-drummer.session.json
 ```
 
-**Falsify next:** `gd_move_cleanup` / parkguard + `Suddenly, %s disappears`
-when escort ends (`vault.c`); early `gddone` → cleanup (not silent
-`restfakecorr`).
-
-**Alternates:** seed0004 / seed0002 / seed0006 / seed0007; quest early-0.
+**Alternates:** seed0006 / seed0007; quest early-0 (seed0361/0373).
 
 **Prefer over:** parked D-0006, seed2200 RC.
 
@@ -79,7 +75,7 @@ when escort ends (`vault.c`); early `gddone` → cleanup (not silent
 seed0102 + seed0700 + seed1150 + seed0017 + seed0077 + seed0106 + seed0501 +
 seed0105 + seed0016 + seed0015 + seed0200 + seed0101 + seed0103 + seed0104 +
 seed0030 + seed0013-rogue + seed0013-friday13-restore + seed0107 +
-**seed0009** (must stay PASS) + strict lengths.
+**seed0009** + **seed0012** (must stay PASS) + strict lengths.
 
 ## Parked (diagnose only — do not implement)
 
