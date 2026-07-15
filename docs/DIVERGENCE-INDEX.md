@@ -332,6 +332,8 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 | D-0343 | fixed | getpos terrain Done | tip skip-docrt + space quitchar; restore 99/99 |
 | D-0344 | fixed | `#twoweapon` / dotwoweapon | EXT_CMDS + can_twoweapon; not AC; Scr 36→42 |
 | D-0345 | fixed | hitum twohits / uswapwep | second known_hitum; Scr 42→96; RNG full |
+| D-0346 | fixed | dosit OBJ_AT / CORPSE xname | the(xname)+comfort; bare corpse; Scr 96→97 |
+| D-0347 | fixed | weapon_insight twoweap limits | skill limited-by lines + COLNO `.` clip; seed0107 PASS |
 
 
 D-0001 through D-0005 predate the strict-length/cohort runbook. Their focused

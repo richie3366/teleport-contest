@@ -7,15 +7,13 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Score:** **22/44** PASS (#365 suite); Scr **3499**/11405; RNG
-  **239942**/792838; speed `18+0.12/turn`. (seed0107 now Scr 96 focused;
-  suite aggregates refresh on next %5.)
-- **Current unit:** seed0107 Scr **96**/98 RNG **full** — first miss `@85`
-  C `You sit on the corpse.  It's not very comfortable...` vs JS
-  `You sit on it.` (`dosit` object path).
-- **Fixed this iter:** D-0345 `hitum` twoweapon/`double_punch` second swing.
+- **Score:** **23/44** PASS (#368 suite); Scr **3561**/11405; RNG
+  **240160**/792838; speed `18+0.12/turn`.
+- **Current unit:** seed0009 Scr **12**/73 RNG **3338**/3713 — first miss
+  `@9` leftover NetHack splash under `Is this ok?` role-confirm menu.
+- **Fixed this iter:** D-0346 `dosit` OBJ_AT + CORPSE `xname`/`the`;
+  D-0347 `weapon_insight` twoweap skill-limit lines → seed0107 PASS.
 - **Parked:** D-0006; seed2200 @158 RC.
-- **Also later:** `@93` enhance skills page incomplete (cursor row).
 
 ## Don’t re-check (≤15)
 
@@ -48,7 +46,9 @@ Objective/score live in `CURRENT.md`.
   terrainmode / ignore getpos space quitchar (D-0343);
   put `#twoweapon` in EXT_CMD_AC (C flags 0 — expands `#tw` wrongly)
   (D-0344); omit `hitum` second `known_hitum(uswapwep)` when `u.twoweap`
-  (D-0345); blanket `observe_object` in `xname` without `distantname`.
+  (D-0345); blanket `observe_object` in `xname` without `distantname`;
+  `xname(CORPSE)` with mon name (D-0346 — bare `"corpse"`); skip twoweap
+  skill-limit enl lines (D-0347).
 - Runner `Screen N/M` = total matches, not prefix length.
 
 ## Landmarks (≤15)
@@ -58,6 +58,7 @@ Objective/score live in `CURRENT.md`.
 - Session: `steps[i].key === moves[i-1]` (D-0238); `more()` space/CR/ESC.
 - Save: VFS `save/<plname>` JSON; restore skips `rndencode`;
   `l_nhcore_init` still 2×rn2; farewell clears map no flush (D-0335).
-- D-0274…D-0345: bones/disclose/RIP/topten/descr/botl/paybill/ghost/`;`/
+- D-0274…D-0347: bones/disclose/RIP/topten/descr/botl/paybill/ghost/`;`/
   getlin/compactify/enl/checkfile/save/welcome/attr/`$`/`)`/show-*/DEL/
-  reveal_terrain/getpos Done/`#twoweapon`/`hitum` twohits.
+  reveal_terrain/getpos Done/`#twoweapon`/`hitum` twohits/`dosit` OBJ_AT/
+  weapon_insight twoweap limits.

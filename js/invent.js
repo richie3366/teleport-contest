@@ -55,7 +55,7 @@ import {
     P_CLUB, P_MACE, P_MORNING_STAR, P_FLAIL, P_QUARTERSTAFF,
     P_SPEAR, P_TRIDENT, P_LANCE, P_BOW, P_SLING, P_CROSSBOW,
     P_DART, P_SHURIKEN, P_BOOMERANG, P_UNICORN_HORN,
-    P_BARE_HANDED_COMBAT,
+    P_BARE_HANDED_COMBAT, P_TWO_WEAPON_COMBAT,
     P_ISRESTRICTED, P_UNSKILLED, P_BASIC, P_SKILLED,
     P_EXPERT, P_MASTER, P_GRAND_MASTER,
     W_ARMOR, W_TOOL, W_SADDLE,
@@ -863,7 +863,7 @@ export async function doattributes() {
         const wname = pretty_weapon_descr(uwep);
         lines.push(`  You are wielding ${wname}.`);
     }
-    // Skill line: weapon_type(uwep); skip P_NONE / ammo. Enhance suffix deferred.
+    // C ref: insight.c weapon_insight skill lines; can_advance enhance suffix deferred.
     const wtype = weapon_type(uwep);
     if (wtype !== P_NONE) {
         // ammo check deferred — start weapons rarely quiver-as-uwep
@@ -872,11 +872,87 @@ export async function doattributes() {
         if (sklvl === P_ISRESTRICTED) sklvlbuf = 'no';
         else sklvlbuf = insight_skill_level_name(wtype).toLowerCase();
         const hav = sklvl !== P_UNSKILLED && sklvl !== P_SKILLED;
-        const buf = `${sklvlbuf} ${hav ? 'skill with' : 'in'} ${skill_name(wtype)}`;
-        // twoweap comparison branch deferred
-        if (!(u.twoweap || game.u?.twoweap)) {
+        let buf = `${sklvlbuf} ${hav ? 'skill with' : 'in'} ${skill_name(wtype)}`;
+        const twoweap = !!(u.twoweap || game.u?.twoweap);
+        if (!twoweap) {
             if (hav) lines.push(`  You have ${buf}.`);
             else lines.push(`  You are ${buf}.`);
+        } else {
+            // C: two-weapon comparison vs primary / uswapwep / P_TWO_WEAPON_COMBAT
+            const uswapwep = u.uswapwep || game.u?.uswapwep;
+            const wtype2 = weapon_type(uswapwep);
+            const sklvl2 = insight_P_SKILL(wtype2);
+            let twoskl = insight_P_SKILL(P_TWO_WEAPON_COMBAT);
+            let twobuf;
+            if (twoskl === P_ISRESTRICTED) {
+                twoskl = P_UNSKILLED;
+                twobuf = 'restricted';
+            } else {
+                twobuf = insight_skill_level_name(P_TWO_WEAPON_COMBAT).toLowerCase();
+            }
+            const hav2 = sklvl2 !== P_UNSKILLED && sklvl2 !== P_SKILLED;
+            let also = '';
+            let also2 = '';
+            let also3 = null;
+            // C enlght_line adds " %s%s%s%s." then menu pad; at COLNO the
+            // trailing '.' is clipped — bake two spaces and drop '.' at 80.
+            const enl = (body) => {
+                const withDot = `  ${body}.`;
+                return withDot.length >= 80 ? `  ${body}` : withDot;
+            };
+            if (twoskl < sklvl) {
+                lines.push(enl(
+                    `Your skill in ${skill_name(wtype)}`
+                    + ` is limited by being ${twobuf} with two weapons`,
+                ));
+                also = 'also ';
+            } else if (twoskl > sklvl) {
+                let lim = sklvl > P_ISRESTRICTED
+                    ? `being ${sklvlbuf}`
+                    : 'having no skill';
+                lines.push(enl(
+                    `Your two weapon skill is limited by ${lim}`
+                    + ` with ${skill_name(wtype)}`,
+                ));
+                also2 = 'also ';
+            } else {
+                buf += ' and two weapons';
+                also3 = 'also ';
+                if (hav) lines.push(enl(`You have ${buf}`));
+                else lines.push(enl(`You are ${buf}`));
+            }
+            if (wtype2 !== wtype) {
+                const sknambuf2 = skill_name(wtype2);
+                let sklvlbuf2;
+                if (sklvl2 === P_ISRESTRICTED) sklvlbuf2 = 'no';
+                else sklvlbuf2 = insight_skill_level_name(wtype2).toLowerCase();
+                if (twoskl < sklvl2) {
+                    lines.push(enl(
+                        `Your skill in ${sknambuf2}`
+                        + ` is ${also}limited by being ${twobuf} with two weapons`,
+                    ));
+                } else if (twoskl > sklvl2) {
+                    let lim = sklvl2 > P_ISRESTRICTED
+                        ? `being ${sklvlbuf2}`
+                        : 'having no skill';
+                    lines.push(enl(
+                        `Your two weapon skill is ${also2}limited by ${lim}`
+                        + ` with ${sknambuf2}`,
+                    ));
+                } else {
+                    let buf2 = `${sklvlbuf2} ${hav2 ? 'skill with' : 'in'} ${sknambuf2}`
+                        + ' and two weapons';
+                    if (also3) {
+                        const verb = hav2 ? 'have' : 'are';
+                        lines.push(enl(`You also ${verb} ${buf2}`));
+                    } else if (hav2) {
+                        lines.push(enl(`You have ${buf2}`));
+                    } else {
+                        lines.push(enl(`You are ${buf2}`));
+                    }
+                }
+            }
+            // can_advance primary/secondary/twoweap enhance tips deferred
         }
     }
     lines.push('');

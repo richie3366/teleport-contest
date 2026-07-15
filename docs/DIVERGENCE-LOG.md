@@ -24,6 +24,41 @@ The compact status table lives in **`DIVERGENCE-INDEX.md`**.
 Open that file first; then jump to a single `## D-NNNN` entry below
 (via search). Do **not** read this whole file by default.
 
+## D-0347 — `weapon_insight` twoweapon skill-limit lines
+
+- **Status:** fixed
+- **Observed:** seed0107 @93 attributes page missing
+  `Your skill in long/short sword is [also] limited by being unskilled with
+  two weapons` (Scr 97/98 after D-0346; cursor already matched).
+- **C locus:** `insight.c` `weapon_insight` — `u.twoweap` branch vs
+  `P_SKILL(P_TWO_WEAPON_COMBAT)` / `weapon_type(uswapwep)`.
+- **Cause/evidence:** JS stub skipped the twoweap comparison (`// deferred`);
+  C emits `enl_msg` limited-by lines; COLNO clips trailing `.` when padded
+  line length ≥ 80.
+- **Change:** port twoweap compare in `js/invent.js` enlightenment;
+  `enl()` drops `.` at width 80. `can_advance` enhance tips deferred.
+- **Verification:** seed0107 **98/98 PASS**; green+strict; cohort 20 PASS;
+  full suite **23/44**.
+- **General lesson:** enlightenment twoweap skill lines shift page layout;
+  COLNO period clip matters for long skill names.
+
+## D-0346 — `dosit` OBJ_AT sit + CORPSE `xname` / `the`
+
+- **Status:** fixed
+- **Observed:** seed0107 @85 C `You sit on the corpse.  It's not very
+  comfortable...` vs JS `You sit on it.`
+- **C locus:** `sit.c` `dosit` OBJ_AT picnic body; `objnam.c` `xname` omits
+  monster type for CORPSE; `the(xname(obj))`.
+- **Cause/evidence:** JS stub used `it`/`them`; `pretty_base` CORPSE included
+  mon name so naive `the(xname)` would be wrong without xname fix.
+- **Change:** `js/sit.js` OBJ_AT branch (dragon/towel/slithy/sit+comfort/
+  squishy/cream-pie); `js/objnam.js` CORPSE `xname` → `"corpse"` + `the()`;
+  `M1_SLITHY` export. Steed/trap/pool/uteetering/throne/egg deferred.
+- **Verification:** Scr **96→97**/98; then D-0347 → full PASS; green+strict;
+  cohort held.
+- **General lesson:** C `xname(CORPSE)` is bare `"corpse"`; mon type belongs
+  in `corpse_xname` / `doname`, not `xname`.
+
 ## D-0345 — `hitum` twoweapon / `double_punch` second swing
 
 - **Status:** fixed

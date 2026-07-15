@@ -18,6 +18,17 @@ Use this shape:
 - Verification: …
 - Next: …
 ```
+## 2026-07-15 02:05 — #368 D-0346/0347 dosit + weapon_insight twoweap
+
+- Objective: seed0107 @85 sit-on-corpse; then @93 attributes skill limits.
+- C locus: `sit.c` `dosit` OBJ_AT; `objnam.c` `xname`/`the` CORPSE bare;
+  `insight.c` `weapon_insight` twoweap skill compare.
+- Change: port picnic sit+comfort; CORPSE xname="corpse"+`the()`; twoweap
+  limited-by lines + COLNO period clip (D-0346/D-0347).
+- Verification: seed0107 **98/98 PASS** RNG full; suite **23/44** Scr
+  **3561**/11405 RNG **240160**/792838; green+strict; cohort 20 PASS.
+- Next: seed0009 @9 leftover splash under role-ok menu (Scr 12/73).
+
 ## 2026-07-15 01:56 — #367 D-0345 hitum twoweapon second swing
 
 - Objective: seed0107 @40 miss-only vs C miss+kill (CURRENT primary).
@@ -142,34 +153,3 @@ Use this shape:
   `Elara's ghost`; RNG full; green+strict; 19 PASS cohort.
 - Next: @1830 bones ghost monnam `"s ghost"`.
 
-## 2026-07-14 23:25 — #355 score + D-0327 xkilled destroy
-
-- Objective: mandatory full `sessions` (#355 %5) + seed0030 @1684.
-- C locus: `mondata.h` `nonliving`; `mon.c` `xkilled` destroy/kill.
-- Change: port `is_golem`/`weirdnonliving`/`nonliving`; `xkilled` verb
-  (D-0327).
-- Verification: full suite **19/44**, Scr **3258/11405** (28.57%), RNG
-  **240657/792838**, speed `17+0.12/turn`; @1684 `destroy`; Scr
-  **1820→1821**; first miss **@1821** blank C map; green+strict; 17 PASS
-  cohort.
-- Next: @1821 map clear/`docrt` on level transition.
-
-## 2026-07-14 23:04 — #354 D-0326 newsym canspotself
-
-- Objective: seed0030 @1606 Invis map `@` vs underfoot `%` (CURRENT).
-- C locus: `display.h` `canspotself`; `display.c` `newsym` u_at.
-- Change: port Blind/Invis/Invisible + `canspotself`; `map_location(show)`
-  when `!see_self`; `display_self` only when spottable (D-0326).
-- Verification: @1606 match; Scr **1606→1820**; first miss **@1684**
-  destroy vs kill; RNG full; green+strict; 17 PASS cohort.
-- Next: @1684 `xkilled` `nonliving` → `"destroy"`.
-
-## 2026-07-14 22:58 — #353 D-0325 ARMOR xname OBJ_DESCR
-
-- Objective: seed0030 @1601 `iron skull cap` vs `orcish helm` (CURRENT).
-- C locus: `objnam.c` `xname_flags` ARMOR_CLASS — `!nn` → `dn`.
-- Change: port ARMOR nn/un/dn + pair/set/shield !dknown arms (D-0325);
-  `armor_simple_name` for called deferred (uses dn).
-- Verification: @1601 match; Scr **1605→1606**; first miss **@1606**
-  Invis map `@` vs `%`; RNG full; green+strict; 17 PASS cohort.
-- Next: @1606 `newsym` `canspotself` — show under-hero glyph when Invisible.
