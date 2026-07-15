@@ -20,6 +20,16 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-15 18:20 — #443 seed0004 findtravelpath (D-0412)
+- Objective: seed0004 @10966 PRIMARY — C `distfleeck` vs JS `dopush`.
+- C locus: `hack.c` `findtravelpath` / `test_move(TEST_TRAV)` boulder delay.
+- Change: falsified after_calc/leftover theory (DIAG 9→21 UNENC). Root:
+  hero→dest BFS walked onto boulder. Ported dest→hero BFS + `dirs_ord`
+  + boulder-node skip + `TRAVP_GUESS` fallback in `cmd.js`.
+- Verification: seed0004 prefix **10966→11568** (RNG 11662); green+strict
+  PASS; cohort **25/25**.
+- Next: seed0004 @11568 `resist_conflict` vs `distfleeck`.
+
 ## 2026-07-15 18:05 — #442 seed0004 @10966 after_calc diag (D-0412)
 - Objective: seed0004 @10966 PRIMARY — C `distfleeck` vs JS `dopush`.
 - C locus: `allmain.c` `u_calc_moveamt` / EOT; `hack.c` near_capacity.

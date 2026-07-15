@@ -8,20 +8,16 @@ Objective/score live in `CURRENT.md`.
 ## Active
 
 - **Score:** **25/44** PASS (#440 full). Scr **4196**/11405; RNG
-  **262087**/792838. seed0004 Scr **242**/409; RNG **11029**/12084
-  (prefix **10966**).
-- **Next:** seed0004 @10966 — C continues monsters after EOT (double-EOT
-  gethungry @10977) vs JS hero `dopush`. JS EOT: before=9→21, wtcap=0,
-  inv=-15, cap=675, mmove=12, owt≡live. Force: after=9 |
-  leftover0+SLT | before=-3+UNENC → **10979**.
-  **Heal (#442):** frame 51 n≈4391–4403 SLT 0→9 then in-loop UNENC
-  9→21 — both sides; leftover should match. Travel mostly single-EOT
-  UNENC. With before=9, after<12 needs EXT (unrealistic at wt≈660) or
-  mmove anomaly; else prove silent leftover→0 + ≥16 aum SLT at miss.
-- **Don’t re-check:** bare Fast/`rn2(3)`; SLT-with-before=9 alone;
-  before=0 UNENC alone; force-SLT-from-heal-onward; usteed/Ride; umove=21
-  alone; invent owt≠live / empty-sack contents; D-0401…D-0411; heal
-  leftover desync as sole cause (heal double-EOT syncs 9→21).
+  **262087**/792838 (pre D-0412). seed0004 focused: RNG **11662**/12084
+  (prefix **11568**); Scr still **242**/409.
+- **Next:** seed0004 @11568 — C `resist_conflict` vs JS `distfleeck`
+  during `_>` travel after D-0412 findtravelpath fix.
+  ```bash
+  node scripts/rng-diff.mjs sessions/seed0004-feeding-pony.session.json
+  ```
+- **Don’t re-check:** @10966 after_calc / leftover0+SLT / before=9 EXT /
+  heal leftover desync / Fast rn2(3) / Ride — root was travel boulder
+  step (D-0412). Bare greedy hero→dest BFS without boulder skip.
 - **Landmark:** vault door (71,13); dig + restfakecorr; SPELL_LEV_PW(1)=5.
 - **Parked:** D-0006; seed2200 @158 RC.
 
@@ -65,10 +61,8 @@ Objective/score live in `CURRENT.md`.
   `distfleeck` / missing `doeat` without checking `youmonst.data`
   short-circuit on palatable `rn2(10)` (D-0409); treat @10713 as bare
   `exerper` polarity without checking deferred `gethungry` `uhunger--`
-  (D-0410); treat @10966 as bare Fast/`rn2(3)` or SLT-with-before=9
-  alone (needs after_calc<12) (D-0411); treat @10966 as Ride/usteed
-  (#441); treat heal leftover desync alone as @10966 cause (#442 —
-  heal double-EOT syncs 9→21).
+  (D-0410); treat @10966 as after_calc/leftover/SLT/EXT (D-0412 —
+  was findtravelpath boulder step); treat @10966 as Ride/usteed (#441).
 - Runner `Screen N/M` = total matches, not prefix length.
 - First cell-miss may be botl `$:` / `Burdened` even when NOTES names a topline.
 
@@ -88,6 +82,6 @@ Objective/score live in `CURRENT.md`.
 - Monk starter: `SPELL_LEV_PW(1)` bump when `num_spells()` (D-0380).
 - Ice-box look: merge+sortloot stacks (D-0383); pickup class headers
   (D-0384).
-- Heal SLT→UNENC double-EOT leaves sticky **9→21** (#442); C miss EOT
-  still needs after<12 (second gethungry @10977).
+- findtravelpath: dest→hero BFS + boulder skip + GUESS (D-0412);
+  travelmap / TEST_TRAP / door-delay / could_move_onto still deferred.
 - D-0383…D-0412 landmarks: see index / don’t-recheck above.

@@ -4,28 +4,28 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
-## D-0412 — seed0004 @10966 umovement after_calc (diagnosis)
+## D-0412 — seed0004 @10966 findtravelpath boulder step (not after_calc)
 
-- **Status:** open (diagnosis; no production patch)
+- **Status:** fixed
 - **Symptom:** seed0004 first RNG miss @10966 — C `distfleeck` vs JS
-  `dopush`/`exercise(A_STR)` after matching EOT `gethungry`/`exercise`/
-  wipe. During travel (`.`, 650 RNG). C then does a second EOT @10977
-  (double-EOT ⇒ C `after_calc < 12`).
-- **Evidence (#442):** Invent dump at miss EOT: before=9→21, wtcap=0,
-  inv=-15, cap=675, STR14/CON11, ew=0, mmove=12, owt≡live, empty cursed
-  sack, no BoH. Force reconfirm: `after=9` / leftover0+SLT /
-  before=-3+UNENC → prefix **10979**; leftover0|SLT|leftover0+UNENC alone
-  still @10966. Heal frame 51 n≈4391–4403 is SLT 0→9 then in-loop UNENC
-  9→21 (both sides) — leftover should match at 9→21 after heal. Travel
-  single-EOT cadence ⇒ C mostly UNENC until miss EOT. Botl Burdened only
-  frames 27–50; frame 307 keystroke UNENC (pre-travel capture).
-- **C locus:** `allmain.c` `u_calc_moveamt` / moveloop_core EOT;
-  `hack.c` `near_capacity`/`inv_weight`/`weight_cap`.
-- **Next:** with before=9, after<12 needs EXT or mmove anomaly; or prove
-  silent leftover→0 after heal despite shared double-EOT + SLT at miss
-  (≥16 aum inv/cap). BoH factor still deferred (wrong direction here).
-- **Verification:** green+strict PASS; seed0004 still @10966
-  (11029/12084, Scr 242/409). DIAG/FORCE removed.
+  `dopush`/`exercise(A_STR)` during `_>` travel (RNG attributed to step
+  `.`). Prior theory: `u_calc_moveamt` after_calc<12 / leftover+SLT.
+- **Cause:** JS `findtravelpath` BFS grew from the hero and treated
+  boulder cells as walkable, so travel stepped onto a boulder (`dopush`).
+  C expands from the destination (`hack.c` findtravelpath), delays
+  boulder nodes, and takes a quiet step — next RNG is monster
+  `distfleeck`. DIAG showed JS `9→21` UNENC at the miss EOT (after≥12);
+  force-after_calc experiments only changed timing.
+- **C locus:** `hack.c` `findtravelpath` / `test_move(TEST_TRAV)` boulder
+  delay; `domove_core` TRAVEL then GUESS.
+- **Change:** `cmd.js` — dest→hero BFS with `dirs_ord`, skip boulder
+  path nodes, `TRAVP_GUESS` fallback on continue_run/dotravel_target.
+  Deferred: travelmap revisit stop, full TEST_TRAP/door delay,
+  `could_move_onto_boulder` / Passes_walls / Sokoban.
+- **Verification:** seed0004 prefix **10966→11568** (RNG 11029→11662);
+  green+strict PASS; cohort **25/25**. Next miss @11568
+  `resist_conflict` vs `distfleeck`.
+- **Next:** seed0004 @11568 monster conflict path during travel.
 
 ## D-0411 — umonnum/youmonst.data + moveloop encumber_msg/mvl_wtcap order
 
