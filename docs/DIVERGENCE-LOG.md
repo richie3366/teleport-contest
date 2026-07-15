@@ -4,6 +4,27 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
+## D-0426 — seed0004 @330/@336 invent multi-page `(N of M)`
+
+- **Status:** fixed
+- **Symptom:** seed0004 first cell miss @330 — C invent footer
+  `(1 of 2)`; JS gem letter `i` on row 23. After `i` invent fix,
+  same miss @336 getobj `*` throw pickinv.
+- **Cause:** `display_inventory` / `display_pickinv_reply` never
+  paged. C `tty_end_menu` `lmax=rows-1` → `npages>1` →
+  `process_menu_window` morestr `(%d of %d)`; Space advances.
+  JS painted all rows and always used `(end) `.
+- **C locus:** `wintty.c` `tty_end_menu` / `process_menu_window`;
+  `invent.c` `display_pickinv` PICK_NONE / PICK_ONE.
+- **Change:** multi-page → `select_menu_pick_none` for `i` invent;
+  `display_pickinv_reply` fullscreen page loop with current-page
+  selectors. Deferred: MENU_PREV/FIRST/LAST; other NHW_MENU callers
+  still single-page `(end)`.
+- **Verification:** seed0004 Scr **397→403**/409; cursors full;
+  RNG full; @330/@336 fixed; first miss **@354** map `%` vs floor;
+  green+strict; cohort **23/23**.
+- **Next:** seed0004 @354 map object glyph `%` (gem pile?).
+
 ## D-0425 — seed0004 @312 describe_looked DECgraphics wall
 
 - **Status:** fixed

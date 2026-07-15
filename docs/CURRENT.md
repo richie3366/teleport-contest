@@ -43,7 +43,7 @@ seed0013-rogue, seed0013-friday13-restore, seed0107, seed0009,
 |--------|----:|-------:|------|
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
 | seed0002 | 5210/27158 | **54**/595 | still @3808 eatcorpse |
-| seed0004 | **12084**/12084 | **397**/409 | D-0425 @312 wall; next @330 invent `(1 of 2)` |
+| seed0004 | **12084**/12084 | **403**/409 | D-0426 invent pages; next @354 map `%` |
 | seed0361/0373 | early | 0 | quest bones / `makemaz` |
 
 ## Green gate
@@ -61,21 +61,20 @@ Both must remain full RNG + screen PASS with exact scored-output lengths.
 
 ## Primary objective
 
-**seed0004 @330 `i` invent multi-page footer** — RNG full; Scr
-**397**/409 after D-0425 (wall `describe_looked`). First cell miss @330:
-C status/footer `(1 of 2)`; JS has invent letter `i` at that cell
-(Coins class page).
+**seed0004 @354 map object glyph `%`** — RNG full; Scr **403**/409
+after D-0426 (invent `(N of M)`). First cell miss @354: C map `%`
+(gem) at decoded cell (11,49); JS floor `·`. Topline/prompts match.
 
 ```bash
 node frozen/ps_test_runner.mjs sessions/seed0004-feeding-pony.session.json
-# Focus: screen @330 invent NHW_MENU / display_pickinv page marker
+# Focus: screen @354 map glyph / newsym / obj on floor
 ```
 
 **Alternates:** seed0002 `eatcorpse`; seed0006 / seed0007; quest early-0
 (seed0361/0373).
 
-**Prefer over:** parked D-0006, seed2200 RC; re-opening @312 wall look
-(fixed — D-0425).
+**Prefer over:** parked D-0006, seed2200 RC; re-opening invent paging
+(fixed — D-0426).
 
 **Cohort after shared change:** green gate + seed1500 + seed1800 + seed0060 +
 seed0102 + seed0700 + seed1150 + seed0017 + seed0077 + seed0106 + seed0501 +

@@ -20,6 +20,17 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-16 00:50 — #457 seed0004 invent multi-page (D-0426)
+- Objective: seed0004 @330 `i` invent footer `(1 of 2)`.
+- C locus: `wintty.c` `tty_end_menu`/`process_menu_window`;
+  `invent.c` `display_pickinv`.
+- Change: `display_inventory` → `select_menu_pick_none` when
+  npages>1; `display_pickinv_reply` fullscreen `(N of M)` + Space
+  page + current-page selectors (also fixes @336 `t*`).
+- Verification: seed0004 Scr **397→403**/409; cursors full; RNG
+  full; green+strict; cohort **23/23**.
+- Next: seed0004 @354 map `%` vs floor at (11,49).
+
 ## 2026-07-16 00:42 — #456 seed0004 @312 wall describe_looked (D-0425)
 - Objective: seed0004 @312 `/` whatis `describe_looked` wall.
 - C locus: `pager.c` `is_swallow_sym` + `do_screen_description` cmap
@@ -171,14 +182,3 @@ Use this shape:
 - Verification: seed0004 prefix **10966→11568** (RNG 11662); green+strict
   PASS; cohort **25/25**.
 - Next: seed0004 @11568 `resist_conflict` vs `distfleeck`.
-
-## 2026-07-15 18:05 — #442 seed0004 @10966 after_calc diag (D-0412)
-- Objective: seed0004 @10966 PRIMARY — C `distfleeck` vs JS `dopush`.
-- C locus: `allmain.c` `u_calc_moveamt` / EOT; `hack.c` near_capacity.
-- Change: diagnosis only (DIAG/FORCE removed). Invent @miss: inv=-15
-  owt≡live; force after=9|leftover0+SLT|before=-3+UNENC→10979. Heal
-  frame 51 double-EOT syncs 9→21 both sides — leftover0-alone falsified
-  as sole cause. C second gethungry @10977 proves after<12 at miss EOT.
-- Verification: green+strict PASS; seed0004 still @10966.
-- Next: before=9⇒need EXT/mmove anomaly, or post-heal leftover→0 + ≥16
-  aum SLT gap (BoH factor wrong direction).

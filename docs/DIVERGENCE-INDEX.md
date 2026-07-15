@@ -412,6 +412,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 | D-0423 | fixed | getpos autodescribe default On + stairs | seed0004 Scr 391→395; @297 fixed; @310 dart trap next |
 | D-0424 | fixed | lookat tseen trap brief_at / trapname | seed0004 Scr 395→396; @310 fixed; @312 wall look next |
 | D-0425 | fixed | describe_looked DECgraphics wall / swallow | seed0004 Scr 396→397; @312 fixed; @330 invent next |
+| D-0426 | fixed | invent multi-page `(N of M)` display/pickinv | seed0004 Scr 397→403; @330/@336 fixed; @354 map `%` next |
 
 
 D-0001 through D-0005 predate the strict-length/cohort runbook. Their focused

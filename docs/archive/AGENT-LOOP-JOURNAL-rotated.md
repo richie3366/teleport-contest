@@ -40,3 +40,15 @@
   Scr **103→116**; RNG full; green+strict PASS; 17-session PASS cohort.
 - Next: Scr@75 death `--More--` vs invent-identify yn; or seed0013.
 
+
+<!-- rotated from AGENT-LOOP-JOURNAL.md #457 -->
+## 2026-07-15 18:05 — #442 seed0004 @10966 after_calc diag (D-0412)
+- Objective: seed0004 @10966 PRIMARY — C `distfleeck` vs JS `dopush`.
+- C locus: `allmain.c` `u_calc_moveamt` / EOT; `hack.c` near_capacity.
+- Change: diagnosis only (DIAG/FORCE removed). Invent @miss: inv=-15
+  owt≡live; force after=9|leftover0+SLT|before=-3+UNENC→10979. Heal
+  frame 51 double-EOT syncs 9→21 both sides — leftover0-alone falsified
+  as sole cause. C second gethungry @10977 proves after<12 at miss EOT.
+- Verification: green+strict PASS; seed0004 still @10966.
+- Next: before=9⇒need EXT/mmove anomaly, or post-heal leftover→0 + ≥16
+  aum SLT gap (BoH factor wrong direction).

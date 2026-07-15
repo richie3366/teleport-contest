@@ -9,19 +9,19 @@ Objective/score live in `CURRENT.md`.
 
 - **Score:** **25/44** PASS (#455 full). Scr **4350**/11405; RNG
   **263166**/792838. seed0004 focused: RNG **12084**/12084; Scr
-  **397**/409 (cursors 404).
-- **Next:** seed0004 @330 — C invent footer `(1 of 2)` vs JS `i` at
-  that cell (Coins class page / display_pickinv).
+  **403**/409 (cursors 409) after D-0426.
+- **Next:** seed0004 @354 — C map `%` (gem) at cell (11,49); JS
+  floor `·`. Topline/prompts match; shared map-object glyph.
   ```bash
   node frozen/ps_test_runner.mjs sessions/seed0004-feeding-pony.session.json
   ```
-- **Don’t re-check:** @312 wall `describe_looked` (D-0425). @310 dart
-  trap `brief_at` (D-0424). @297 stairs autodescribe (D-0423). @288
-  getobj `?` n==1 `message_menu` (D-0422). @285 ring-finger `[rl]`
-  (D-0421). @277 RING `<descr> ring` (D-0420). @248 tseen trap `^`
-  (D-0419). @240 pickup poison (D-0418). @239 bag empty (D-0417).
-  @182 cursemsg (D-0416). @11722 throw carrot (D-0415). @11708 dog
-  `ALLOW_U` (D-0414). @11568 fightm (D-0413).
+- **Don’t re-check:** @330/@336 invent `(N of M)` paging (D-0426).
+  @312 wall `describe_looked` (D-0425). @310 dart trap `brief_at`
+  (D-0424). @297 stairs autodescribe (D-0423). @288 getobj `?`
+  n==1 `message_menu` (D-0422). @285 ring-finger `[rl]` (D-0421).
+  @277 RING `<descr> ring` (D-0420). @248 tseen trap `^` (D-0419).
+  @240 pickup poison (D-0418). @239 bag empty (D-0417). @182
+  cursemsg (D-0416). @11722 throw carrot (D-0415).
 - **Landmark:** vault door (71,13); dig + restfakecorr; SPELL_LEV_PW(1)=5.
 - **Parked:** D-0006; seed2200 @158 RC.
 
@@ -55,14 +55,16 @@ Objective/score live in `CURRENT.md`.
   skip `heal_legs` / WOUNDED_LEGS `nh_timeout` (D-0403); omit
   `vtense` bare-singular conjugate (D-0403); float `mhpmax/2` for
   flee gate (D-0404); treat @9795–@11722 / @182/@239/@240/@248/@277/
-  @285/@288/@297/@310/@312 as index D-0405…D-0425 without those C paths;
-  treat RING `obj.known` as type-ID (D-0420); treat @248 floor vs `^` as
-  missing feeltrap when `tseen` already set (D-0419); bypass
-  `yn_function` for ring-hand (D-0421); force corner invent for getobj
-  `?` when `strlen(lets)==1` (D-0422); leave `autodescribe` unset /
-  skip stairs in travel `auto_describe_text` (D-0423); skip tseen
-  trap in `brief_at` / `lookat` before floor cmap (D-0424); treat wall
-  look as dark-room without swallow/cmap DECgraphics envelope (D-0425).
+  @285/@288/@297/@310/@312/@330/@336 as index D-0405…D-0426 without
+  those C paths; treat RING `obj.known` as type-ID (D-0420); treat
+  @248 floor vs `^` as missing feeltrap when `tseen` already set
+  (D-0419); bypass `yn_function` for ring-hand (D-0421); force
+  corner invent for getobj `?` when `strlen(lets)==1` (D-0422);
+  leave `autodescribe` unset / skip stairs in travel
+  `auto_describe_text` (D-0423); skip tseen trap in `brief_at` /
+  `lookat` before floor cmap (D-0424); treat wall look as dark-room
+  without swallow/cmap DECgraphics envelope (D-0425); invent/`*`
+  pickinv without `lmax` paging / `(N of M)` (D-0426).
 - Runner `Screen N/M` = total matches, not prefix length.
 - First cell-miss may be botl `$:` / `Burdened` even when NOTES names a topline.
 
@@ -74,7 +76,8 @@ Objective/score live in `CURRENT.md`.
 - getpos travel `_>` → stairs via feature scan (D-0408);
   **autodescribe default On + stairs firstmatch** (D-0423);
   **tseen trap `trapname` in brief_at/lookat** (D-0424);
-  **DECgraphics wall look: swallow mid + Unicode │ prefix** (D-0425).
+  **DECgraphics wall look: swallow mid + Unicode │ prefix** (D-0425);
+  **`i`/`*` invent npages>1 → `(N of M)` + Space page** (D-0426).
 - eatcorpse palatable needs `hero_form_data` when `youmonst` unset
   (D-0409); **basic `youmonst.data` now at u_init** (D-0411); full
   `set_uasmon` FROMFORM props still deferred.
@@ -83,7 +86,6 @@ Objective/score live in `CURRENT.md`.
 - Apply bag take-out `a?jo$\r`; put-in `aji$\r$\r` (D-0375/76).
 - Throw food: `t*` then letter + direction → `tamedog`/`dog_eat`
   (D-0415); apply food still “Sorry”.
-- Shop home (11,11): mill → (11,12); return needs `onlineu` (D-0376).
 - Monk starter: `SPELL_LEV_PW(1)` bump when `num_spells()` (D-0380).
 - findtravelpath: dest→hero BFS + boulder skip + GUESS (D-0412).
 - Conflict: `fightm` before dochugw + dog `ALLOW_U`→`mattacku`
