@@ -7,16 +7,14 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Score:** **23/44** PASS (#370 suite); Scr **3565**/11405; RNG
-  **240160**/792838.
-- **Current unit:** seed0009 Scr **14**/73 RNG **3341**/3713 — @14
-  engraving topline matches; **133** map cell misses (C dark/blank vs JS
-  walls). Finish `load_tut1` des.* + 165-call RNG before Entering more.
-- **Fixed this iter:** D-0349 `schedule_goto`/`deferred_goto` +
-  `maybe_do_tutorial` yes-path + `Is_special`→`makemaz(tut-1)` skeleton +
-  `goto_level` `pickup(1)` + nofollowers keepdogs; Scr **13→14**.
-- **Don’t re-check:** bare `pline('Entering…')` without deferred_goto —
-  `--More--` needs `goto_level`→`docrt`→`cls`→`more()`.
+- **Score:** **23/44** PASS (#370 suite; D-0350 focused only).
+- **Current unit:** seed0009 Scr **21**/73 RNG **3342**/3713 — @21
+  one S_engroom `` ` `` miss (next tut engraving under vision).
+- **Fixed this iter:** D-0350 — `des.map` string → SPLEV_CENTER (3,3);
+  updest/`u_on_rndspot`; Tutorial botl; invent stash without early
+  `find_ac`; once-per-input `find_ac`. Scr **14→21**.
+- **Don’t re-check:** tut-1 map at xstart=1,ystart=0 (must CENTER);
+  early `find_ac` in tutorial invent stash (C defers to allmain input).
 - **Landmark:** screen `i` key = `moves[i]` (= `steps[i+1].key`).
 - **Parked:** D-0006; seed2200 @158 RC.
 
@@ -55,18 +53,21 @@ Objective/score live in `CURRENT.md`.
   `xname(CORPSE)` with mon name (D-0346 — bare `"corpse"`); skip twoweap
   skill-limit enl lines (D-0347); `clearScreen` on chargen corner confirm
   (D-0348 — keep splash; erase prior geom only); bare Entering pline
-  without `schedule_goto`/`deferred_goto` (D-0349).
+  without `schedule_goto`/`deferred_goto` (D-0349); tut-1 map at (1,0)
+  / early `find_ac` on tutorial invent stash (D-0350).
 - Runner `Screen N/M` = total matches, not prefix length.
 
 ## Landmarks (≤15)
 
 - STAIRS yellow via `known_branch_stairs`; map col=x−1 row=y+1 DEC (D-0162/253).
 - `goto_level` descend: `stairway_find_from(&u.uz0)` (D-0224); ends with
-  `pickup(1)` (D-0349).
+  `pickup(1)` (D-0349); UTOTYPE_NONE → `u_on_rndspot` (D-0350).
+- tut-1 string `des.map` → SPLEV_CENTER xstart/ystart odd (D-0350).
 - Session: screen `i` reads `moves[i]`; `more()` space/CR/ESC.
 - Save: VFS `save/<plname>` JSON; restore skips `rndencode`;
   `l_nhcore_init` still 2×rn2; farewell clears map no flush (D-0335).
-- D-0274…D-0349: bones/disclose/RIP/topten/descr/botl/paybill/ghost/`;`/
+- D-0274…D-0350: bones/disclose/RIP/topten/descr/botl/paybill/ghost/`;`/
   getlin/compactify/enl/checkfile/save/welcome/attr/`$`/`)`/show-*/DEL/
   reveal_terrain/getpos Done/`#twoweapon`/`hitum` twohits/`dosit` OBJ_AT/
-  weapon_insight twoweap limits / chargen corner / tutorial yes-path.
+  weapon_insight twoweap limits / chargen corner / tutorial yes-path /
+  tut-1 CENTER + invent stash.

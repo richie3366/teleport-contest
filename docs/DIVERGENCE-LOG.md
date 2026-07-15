@@ -24,6 +24,28 @@ The compact status table lives in **`DIVERGENCE-INDEX.md`**.
 Open that file first; then jump to a single `## D-NNNN` entry below
 (via search). Do **not** read this whole file by default.
 
+## D-0350 — tut-1 CENTER map + tutorial arrival / invent stash
+
+- **Status:** fixed
+- **Observed:** seed0009 @14 — 133 map cell misses; JS room at (9,4)
+  vs C @ (11,7); botl `Dlvl` vs `Tutorial`; later AC:7 vs AC:10 timing.
+- **C locus:** `sp_lev.c` `lspo_map` string form → SPLEV_CENTER (odd
+  xstart/ystart); `mkmaze.c` `fixup_special` updest/dndest;
+  `dungeon.c` `u_on_rndspot`; `botl.c` `In_tutorial`→`Tutorial`;
+  `nhlua.c` `nhl_gamestate` invent stash (no `find_ac`);
+  `allmain.c` once-per-input `find_ac`.
+- **Cause/evidence:** JS placed tut-1 at (1,0); C centers to (3,3).
+  Tutorial UTOTYPE_NONE needs `u_on_rndspot`. Invent strip must leave
+  stale `u.uac` until moveloop `find_ac`.
+- **Change:** `splev_map_center_start`; correct tut-1 map string; set
+  updest/dndest; `goto_level` else → `u_on_rndspot`; Tutorial botl;
+  invent stash; `find_ac` in `moveloop_core`; second S_engroom engraving.
+- **Verification:** seed0009 Scr **14→21**/73 RNG **3341→3342**;
+  green+strict; cohort 21 PASS.
+- **Named omissions:** rest of tut-1.lua des.* (doors/traps/objs/mons/
+  percent RNG); leave-tutorial invent restore; `tut_key`/`eckey`.
+- **Next:** @21 next visible S_engroom engraving.
+
 ## D-0349 — tutorial yes-path `schedule_goto` / `deferred_goto`
 
 - **Status:** fixed

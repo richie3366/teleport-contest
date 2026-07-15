@@ -18,7 +18,8 @@ label, PASS list, notable non-PASS. Do not invent suite totals from a single
 focused session.
 
 Score last measured: **2026-07-15** — full `sessions` suite (#370; after
-D-0349 tutorial yes-path still **23/44**).
+D-0349 tutorial yes-path still **23/44**). D-0350 focused seed0009 only
+(Scr **14→21**); suite score unchanged until next %5 run.
 
 ## Score
 
@@ -39,7 +40,7 @@ seed0013-rogue, seed0013-friday13-restore, **seed0107**.
 | Session | RNG | Screen | Note |
 |---------|----:|-------:|------|
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
-| seed0009 | **3341**/3713 | **14**/73 | **primary** — @14 tut map cells |
+| seed0009 | **3342**/3713 | **21**/73 | **primary** — @21 next S_engroom |
 | seed0004 | 4016/12084 | 28/409 | |
 | seed0002 | 4510/27158 | 9/595 | |
 | seed0012 | 0/13878 | 0/308 | stack overflow |
@@ -60,16 +61,16 @@ Both must remain full RNG + screen PASS with exact scored-output lengths.
 
 ## Primary objective
 
-**seed0009-swimmer-mforce** — RNG **3341**/3713; Scr **14**/73
+**seed0009-swimmer-mforce** — RNG **3342**/3713; Scr **21**/73
 
 | | |
 |--|--|
-| **C locus** | `dat/tut-1.lua` load_special + vision after `goto_level` |
-| **JS locus** | `mklev.js` `load_tut1` remainder / wallify / lit |
-| **Symptom** | @14 toplines match engraving `--More--`; **133** map cell misses |
-| **Hypothesis** | finish tut-1.lua des.* + RNG order so map matches C under engr more |
-| **Falsifier** | Scr >14 with @14 cells+cursor; or named next miss |
-| **Recent fixed** | D-0349 `schedule_goto`/`deferred_goto` + tut-1 skeleton → Scr **13→14** |
+| **C locus** | `dat/tut-1.lua` remaining des.* (engravings/doors/traps/…) |
+| **JS locus** | `mklev.js` `load_tut1` remainder |
+| **Symptom** | @21 one S_engroom `` ` `` vs floor (next unread engraving) |
+| **Hypothesis** | port next tut-1.lua engraving(s) + doors/traps so map glyphs match |
+| **Falsifier** | Scr >21 with @21 cells; or named next miss |
+| **Recent fixed** | D-0350 CENTER map + updest/`u_on_rndspot` + Tutorial botl + invent stash → Scr **14→21** |
 
 ```bash
 node frozen/ps_test_runner.mjs sessions/seed0009-swimmer-mforce.session.json

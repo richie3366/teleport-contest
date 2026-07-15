@@ -37,7 +37,7 @@ import {
     NO_COLOR, CLR_GRAY, CLR_BLACK, CLR_BROWN, CLR_WHITE, CLR_YELLOW, CLR_BRIGHT_BLUE,
     DEC_TO_UNICODE,
 } from './terminal.js';
-import { update_lastseentyp } from './dungeon.js';
+import { update_lastseentyp, In_tutorial } from './dungeon.js';
 import { stairway_at, known_branch_stairs } from './mklev.js';
 import {
     A_INT, A_WIS, A_DEX, A_CON, A_CHA, acurr, get_strength_str,
@@ -1475,10 +1475,10 @@ function _statusLine1() {
 let _lastStatus1 = '';
 let _lastStatus2 = '';
 
-// C ref: botl.c describe_level — "Dlvl:%-2d" uses depth(&u.uz), not dunlev;
-// Xp:/T: gated by flags.showexp / flags.time (default off);
+// C ref: botl.c describe_level — "Dlvl:%-2d" / "Tutorial:%-2d" uses
+// depth(&u.uz), not dunlev; Xp:/T: gated by flags.showexp / flags.time;
 // BL_CONDITION Ride when u.usteed (botl.c condtests[bl_ride]).
-// Named omissions: Knox/quest/endgame/tutorial describe_level arms.
+// Named omissions: Knox/quest/endgame describe_level arms.
 function _statusLine2() {
     const u = game.u;
     if (!u) return '';
@@ -1490,7 +1490,8 @@ function _statusLine2() {
     if (hp > 9999) hp = 9999;
     let hpmax = u.uhpmax | 0;
     if (hpmax > 9999) hpmax = 9999;
-    let s = `Dlvl:${dlvl} $:${game._goldCount || 0} HP:${hp}(${hpmax}) Pw:${u.uen || 0}(${u.uenmax || 0}) AC:${u.uac ?? 10} Xp:${u.ulevel || 1}`;
+    const levtag = In_tutorial(u.uz) ? 'Tutorial' : 'Dlvl';
+    let s = `${levtag}:${dlvl} $:${game._goldCount || 0} HP:${hp}(${hpmax}) Pw:${u.uen || 0}(${u.uenmax || 0}) AC:${u.uac ?? 10} Xp:${u.ulevel || 1}`;
     if (flags.showexp) s += `/${u.uexp || 0}`;
     if (flags.time) s += ` T:${game.moves || 1}`;
     // C windows.c BL_MASK_RIDE → " Ride" (leading space in strcat)

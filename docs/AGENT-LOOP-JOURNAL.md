@@ -18,6 +18,15 @@ Use this shape:
 - Verification: …
 - Next: …
 ```
+## 2026-07-15 02:50 — D-0350 tut-1 CENTER + arrival
+- Objective: seed0009 @14 map cells (133 misses under engraving more).
+- C locus: `sp_lev.c` `lspo_map` CENTER; `u_on_rndspot`; Tutorial botl;
+  `nhl_gamestate` invent stash; allmain once-per-input `find_ac`.
+- Change: center tut-1 map (3,3); updest/`u_on_rndspot`; Tutorial label;
+  invent stash without early `find_ac`; moveloop `find_ac`.
+- Verification: seed0009 Scr **14→21**; green+strict; cohort 21 PASS.
+- Next: @21 next S_engroom engraving / more tut-1.lua des.*.
+
 ## 2026-07-15 02:30 — #370 score + D-0349 tutorial yes-path
 - Objective: mandatory full `sessions` score; seed0009 Entering `--More--`.
 - C locus: `allmain.c` `maybe_do_tutorial`; `do.c` `schedule_goto`/
@@ -163,15 +172,4 @@ Use this shape:
 - Verification: @1830/@1831 match; Scr **1831→1832**; first miss **@1832**
   `;` unbound; RNG full; green+strict; 17 PASS cohort.
 - Next: @1832 cmd `;` → `do_look(1)`.
-
-## 2026-07-14 23:45 — #356 D-0328 savebones clear map memory
-
-- Objective: seed0030 @1821 blank C map vs JS walls after bones descend.
-- C locus: `bones.c` `savebones` glyph clear; `display.c` `docrt_flags`
-  `vision_recalc(2)`.
-- Change: clear seenv/waslit/remembered/disp on bones write+load; `docrt`
-  vision shutoff + memory + recalc (D-0328).
-- Verification: @1821 match; Scr **1821→1831**; first miss **@1830**
-  `Elara's ghost`; RNG full; green+strict; 19 PASS cohort.
-- Next: @1830 bones ghost monnam `"s ghost"`.
 

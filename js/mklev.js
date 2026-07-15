@@ -292,6 +292,36 @@ function put_lregion_here(x, y, nlx, nly, nhx, nhy, rtype, oneshot, lev) {
 }
 
 // C ref: mkmaze.c place_lregion
+/**
+ * C ref: dungeon.c u_on_rndspot — place hero via updest/dndest after goto_level.
+ * Named omission: switch_terrain after place; W-tower exclusion path untested.
+ */
+export function u_on_rndspot(upflag) {
+    const up = !!(upflag & 1);
+    const was_in_W_tower = !!(upflag & 2);
+    const dndest = game.dndest || {};
+    const updest = game.updest || {};
+    if (was_in_W_tower && dndest.nlx) {
+        // On_W_tower_level gate deferred — use exclusion region when present
+        place_lregion(
+            dndest.nlx, dndest.nly, dndest.nhx, dndest.nhy,
+            0, 0, 0, 0, LR_DOWNTELE, null,
+        );
+    } else if (up) {
+        place_lregion(
+            updest.lx | 0, updest.ly | 0, updest.hx | 0, updest.hy | 0,
+            updest.nlx | 0, updest.nly | 0, updest.nhx | 0, updest.nhy | 0,
+            LR_UPTELE, null,
+        );
+    } else {
+        place_lregion(
+            dndest.lx | 0, dndest.ly | 0, dndest.hx | 0, dndest.hy | 0,
+            dndest.nlx | 0, dndest.nly | 0, dndest.nhx | 0, dndest.nhy | 0,
+            LR_DOWNTELE, null,
+        );
+    }
+}
+
 export function place_lregion(lx, ly, hx, hy, nlx, nly, nhx, nhy, rtype, lev) {
     if (!lx) {
         // When rooms exist, let place_branch pick (avoid corridor branches)
@@ -511,10 +541,22 @@ async function makemaz(s) {
 }
 
 /**
+ * C ref: sp_lev.c lspo_map — string des.map defaults halign/valign CENTER.
+ * Forces odd xstart/ystart like C after the maze-max formula.
+ */
+function splev_map_center_start(wid, hei) {
+    let xstart = 2 + Math.floor((X_MAZE_MAX - 2 - wid) / 2);
+    let ystart = 2 + Math.floor((Y_MAZE_MAX - 2 - hei) / 2);
+    if (!(xstart % 2)) xstart++;
+    if (!(ystart % 2)) ystart++;
+    return { xstart, ystart };
+}
+
+/**
  * C ref: dat/tut-1.lua via load_special — skeleton through map + teleport.
- * Named omissions: engravings/doors/traps/objects/monsters, parse_config
- * newbie options, percent/shuffle content arms, water_has_kelp tail
- * (full 165-call RNG slice before Entering --More--).
+ * Named omissions: remaining engravings/doors/traps/objects/monsters,
+ * parse_config newbie options, percent/shuffle content arms,
+ * water_has_kelp tail (full 165-call RNG slice before Entering --More--).
  */
 function load_tut1() {
     // C: load_special loads nhlib.lua → shuffle(align) then runs tut-1.lua
@@ -532,7 +574,7 @@ function load_tut1() {
     game.level.flags.nodeathdrops = true;
     game.level.flags.noautosearch = true;
 
-    // des.map — fixed full-level placement (xstart=1, ystart=0)
+    // des.map([[...]]) — C lspo_map string form → SPLEV_CENTER (not 1,0)
     const TUT1_MAP = `
 ---------------------------------------------------------------------------
 |-.--|.......|......|..S....|.F.......|.............|.......|.............|
@@ -546,16 +588,15 @@ function load_tut1() {
 |----.-| -+-   #  |.....---.|######+..|.......S...|....|.....|............|
 |----+----.----+---.|.--|.|.|#     ------------...|....|.....F............|
 |........|.|......|.|...F...|#  ........|.....+...|....|.....|............|
-|.P......-S|......|------.---# .........|.....|LLL|..................|..| |
-|..........|......+.|...|.|.S# ..--S-----.....|LLL|..................|..--|
-|.W......---......|.|.|.|.|.|# ..|......|.....|...|..................|..|.|
-|....Z.L.S.F......|.|.|.|.---#   |......+.....|...|..................||...|
+|.P......-S|......|------.---# .........|.....|...|....-------........----|
+|..........|......+.|...|.|.S# ..--S-----.....|LLL|..................|..| |
+|.W......---......|.|.|.|.|.|# ..|......|.....|LLL|..................|..--|
+|....Z.L.S.F......|.|.|.|.---#   |......+.....|...|..................|..|.|
 |........|--......|...|.....|####+......|.....|...+..................||...|
 ---------------------------------------------------------------------------
 `.replace(/^\n/, '');
     const mf = mapfrag_fromstr(TUT1_MAP);
-    const xstart = 1;
-    const ystart = 0;
+    const { xstart, ystart } = splev_map_center_start(mf.wid, mf.hei);
     game.splev_xstart = xstart;
     game.splev_ystart = ystart;
     game.splev_xsize = mf.wid;
@@ -581,15 +622,22 @@ function load_tut1() {
             if (loc) loc.flags = (loc.flags | 0) | W_NONDIGGABLE;
         }
     }
-    // des.teleport_region — hero at map (9,3); place_lregion RNG deferred
-    // to end of full tut-1 load (after water_has_kelp). Position only here.
-    u_on_newpos(xstart + 9, ystart + 3);
+    // des.teleport_region({ region = { 9,3, 9,3 } }) — C levregion_add
+    // get_location then fixup_special → updest/dndest; place via u_on_rndspot.
+    const tx = xstart + 9;
+    const ty = ystart + 3;
+    const tele = { lx: tx, ly: ty, hx: tx, hy: ty, nlx: 0, nly: 0, nhx: 0, nhy: 0 };
+    game.updest = { ...tele };
+    game.dndest = { ...tele };
 
     // First engraving underfoot (tut-1.lua movekeys with default h j k l).
     // Full tut_key/eckey + remaining des.* content deferred (RNG peel).
+    make_engr_at(tx, ty, 'Move around with h j k l', null, 0, ENGRAVE);
+    // Second engraving — visible S_engroom '`' when lit/cansee (defsym).
+    // C: diagmovekeys via tut_key; default buhn order for hjkl.
     make_engr_at(
-        xstart + 9, ystart + 3,
-        'Move around with h j k l',
+        xstart + 5, ystart + 2,
+        'Move diagonally with b u n y',
         null, 0, ENGRAVE,
     );
     // Remainder of tut-1.lua deferred.
