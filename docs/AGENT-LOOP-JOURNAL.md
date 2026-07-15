@@ -19,6 +19,16 @@ Use this shape:
 - Verification: …
 - Next: …
 ```
+## 2026-07-15 05:20 — D-0358 death disclose before RIP
+- Objective: seed0009 @63 attributes yn vs tombstone (CURRENT).
+- C locus: `end.c` `disclose`; `insight.c` enlightenment; `dungeon.c`
+  `init_mapseen`/`show_overview`; `wintty` fullscreen `--More--` col 1.
+- Change: wire a/v/g/c/o; gameover enlightenment; mklev `init_mapseen`;
+  overview `(end)` + ATR_NONE final headings (D-0358).
+- Verification: Scr **63→73**/73; RNG still **3708**/3713 (@3514
+  mcalcmove); green+strict; cohort 23 PASS.
+- Next: seed0009 RNG @3514 `rn2(12)` vs JS `rnd(5)`.
+
 ## 2026-07-15 05:05 — D-0357 swim_move_danger + drown/lava
 - Objective: seed0009 @45 pool-avoid `--More--` (CURRENT).
 - C locus: `hack.c` `swim_move_danger`/`pooleffects`; `cmd.c` `do_reqmenu`;
@@ -155,13 +165,3 @@ Use this shape:
   RNG **239942**/792838 `18+0.12/turn`; green+strict+cohort.
 - Next: seed0107 `#twoweapon` unbound @15.
 
-## 2026-07-15 01:26 — #364 D-0340/0341 invent show-* + DEL terrain
-
-- Objective: seed0013-restore @64 `[` doprarm (CURRENT primary).
-- C locus: `invent.c` doprarm/doprring/dopramulet/doprtool;
-  `cmd.c` `\177`→doterrain.
-- Change: worn/empty show-* plines + binds (D-0340); bind DEL to existing
-  `doterrain` (D-0341).
-- Verification: Scr **69→75**/99; first miss `@71` reveal_terrain still
-  paints `@`/`f` vs C `~`; RNG full; green+strict; 21 PASS cohort.
-- Next: `@71` `reveal_terrain` TER_MAP hide monsters/objects.

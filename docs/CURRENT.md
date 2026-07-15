@@ -18,7 +18,8 @@ label, PASS list, notable non-PASS. Do not invent suite totals from a single
 focused session.
 
 Score last measured: **2026-07-15** — full `sessions` suite (#375; after
-D-0354 still **23/44**; seed0009 Scr **39→40**).
+D-0354 still **23/44**; seed0009 Scr **39→40**). Not remeasured this iter
+(D-0358: seed0009 Scr **73**/73, still RNG FAIL).
 
 ## Score
 
@@ -39,7 +40,7 @@ seed0013-rogue, seed0013-friday13-restore, **seed0107**.
 | Session | RNG | Screen | Note |
 |---------|----:|-------:|------|
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
-| seed0009 | **3708**/3713 | **63**/73 | **primary** — @63 attrs yn vs RIP |
+| seed0009 | **3708**/3713 | **73**/73 | **primary** — RNG @3514 mcalcmove |
 | seed0004 | 4016/12084 | 28/409 | |
 | seed0002 | 4510/27158 | 9/595 | |
 | seed0012 | 0/13878 | 0/308 | stack overflow |
@@ -60,19 +61,20 @@ Both must remain full RNG + screen PASS with exact scored-output lengths.
 
 ## Primary objective
 
-**seed0009-swimmer-mforce** — RNG **3708**/3713; Scr **63**/73
+**seed0009-swimmer-mforce** — Scr **73**/73; RNG **3708**/3713
 
 | | |
 |--|--|
-| **C locus** | `end.c` `done`/`really_done` disclose — attributes yn before tombstone |
-| **JS locus** | `end.js` BURNING disclose order — RIP geom @63 |
-| **Symptom** | first cell-miss @63 C attrs `[ynq]` vs JS tombstone `----------` |
-| **Hypothesis** | BURNING `done` paints RIP before `end_disclose` attributes query |
-| **Falsifier** | Scr >63 with @63 cells; or named next miss |
-| **Recent fixed** | D-0357 swim_move_danger + drown/lava → Scr **49→63** |
+| **C locus** | mid-game `mon.c` `mcalcmove` / caller path before death |
+| **JS locus** | first mismatch @3514 C `rn2(12)` vs JS `rnd(5)` |
+| **Symptom** | screens full after D-0358; 5 positional RNG misses |
+| **Hypothesis** | JS emits an extra/wrong `rnd(5)` on a mon-move path C uses `rn2(12)` |
+| **Falsifier** | RNG >3708 with first miss past 3514; or named C call site |
+| **Recent fixed** | D-0358 disclose attrs/conduct/overview → Scr **63→73** |
 
 ```bash
 node frozen/ps_test_runner.mjs sessions/seed0009-swimmer-mforce.session.json
+node scripts/rng-diff.mjs sessions/seed0009-swimmer-mforce.session.json
 ```
 
 **Note:** runner `Screen N/M` is **total** positional matches, not prefix

@@ -24,6 +24,34 @@ The compact status table lives in **`DIVERGENCE-INDEX.md`**.
 Open that file first; then jump to a single `## D-NNNN` entry below
 (via search). Do **not** read this whole file by default.
 
+## D-0358 — death disclose attributes/conduct/overview before RIP
+
+- **Status:** fixed
+- **Observed:** seed0009 Scr **63**/73 RNG **3708**/3713 — first cell-miss
+  @63 C attributes `[ynq] (n)` vs JS tombstone RIP.
+- **C locus:** `end.c` `disclose` (`a`/`v`/`g`/`c`/`o` after invent);
+  `insight.c` `enlightenment(..., ENL_GAMEOVERDEAD)`; `dungeon.c`
+  `init_mapseen` / `show_overview` / `print_mapseen`; `wintty.c`
+  fullscreen `--More--` at col 1.
+- **Cause/evidence:** JS `disclose` only asked invent yn then jumped to
+  RIP. Empty invent skipped invent (matches C); attributes/conduct/
+  overview never queried. Tutorial `mklev` never called `init_mapseen`,
+  so death overview omitted DoD Dlvl1. Fullscreen NHW_MENU `--More--`
+  painted at col 0 (C col 1, cursor 9).
+- **Change:** wire disclose a/v/g/c/o; gameover `enlightenment` via
+  `show_nhw_menu_text`; `init_mapseen` from `mklev`; end-overview
+  traverse + `(end)` menu; ATR_NONE headings on final overview;
+  fullscreen `--More--` col+1.
+- **Verification:** seed0009 Scr **63→73**/73 (cells+cursors full);
+  RNG still **3708**/3713 (pre-existing mid-game `mcalcmove`/`rnd(5)`);
+  green+strict; 23-session PASS cohort + seed0107 strict.
+- **Named omissions:** invent `display_inventory` on `y`; vanquished
+  ask when ntypes>0; enlightenment poly/night/full status/resistances;
+  overview interest_mapseen/endgame/branches/cemetery.
+- **Next:** seed0009 RNG @3514 `mcalcmove` `rn2(12)` vs JS `rnd(5)`.
+- **General lesson:** death disclose is ordered queries before RIP;
+  `init_mapseen` is mklev-side, not overview-lazy-only.
+
 ## D-0357 — swim_move_danger + drown/lava entry
 
 - **Status:** fixed

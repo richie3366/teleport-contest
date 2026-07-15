@@ -8,13 +8,13 @@ Objective/score live in `CURRENT.md`.
 ## Active
 
 - **Score:** **23/44** PASS (#375 suite; Scr aggregate **3592** — not remeasured).
-- **Current unit:** seed0009 Scr **63**/73 RNG **3708**/3713 — first
-  cell-miss @63 C attrs `[ynq] (n)` vs JS tombstone `----------`.
-- **Fixed this iter:** D-0357 — `swim_move_danger` + TIP_SWIM + `m` nopick;
-  `pooleffects`→`drown`/`lava_effects`→`done(BURNING)` (Scr **49→63**).
-- **Next peel:** BURNING disclose order (attributes before RIP).
-- **Don’t re-check:** @45 blank without ParanoidSwim; drown without
-  `rnd_nextto_goodpos`’s 8×`rn2`; lava without leading `d(6,6)`.
+- **Current unit:** seed0009 Scr **73**/73 RNG **3708**/3713 — screens full;
+  FAIL on mid-game RNG @3514 `mcalcmove` `rn2(12)` vs JS `rnd(5)`.
+- **Fixed this iter:** D-0358 — disclose a/c/o + gameover enlightenment +
+  `init_mapseen` + overview `(end)` (Scr **63→73**).
+- **Next peel:** reconstruct C path at first RNG miss @3514 (not disclose).
+- **Don’t re-check:** disclose order / invent-empty skip / DoD mapseen from
+  mklev `init_mapseen`; fullscreen `--More--` col 1 for enlightenment.
 - **Landmark:** screen `i` key = `moves[i]` (= `steps[i+1].key`).
 - **Parked:** D-0006; seed2200 @158 RC.
 
@@ -63,7 +63,9 @@ Objective/score live in `CURRENT.md`.
   glance/`;`; omit POOL/lava/ice glyphs or paint DEC `` ` `` as Unicode ◆
   (D-0355 — keep raw `` ` `` like altar `{`); expect broken-door from
   `look_here` when `ct==0` (D-0356 — `describe_decor`); walk into seen
-  pool without ParanoidSwim avoid/tip/`m` nopick (D-0357).
+  pool without ParanoidSwim avoid/tip/`m` nopick (D-0357);
+  paint RIP before disclose attrs/conduct/overview (D-0358);
+  skip `init_mapseen` in `mklev` (DoD missing from death overview).
 - Runner `Screen N/M` = total matches, not prefix length.
 
 ## Landmarks (≤15)
@@ -76,10 +78,11 @@ Objective/score live in `CURRENT.md`.
 - Save: VFS `save/<plname>` JSON; restore skips `rndencode`;
   `l_nhcore_init` still 2×rn2; farewell clears map no flush (D-0335).
 - Scoring grid: DEC chars in DEC_MAP → Unicode; `{`/` `` ` `` stay raw.
-- D-0274…D-0357: bones/disclose/RIP/topten/descr/botl/paybill/ghost/`;`/
+- D-0274…D-0358: bones/disclose/RIP/topten/descr/botl/paybill/ghost/`;`/
   getlin/compactify/enl/checkfile/save/welcome/attr/`$`/`)`/show-*/DEL/
   reveal_terrain/getpos Done/`#twoweapon`/`hitum` twohits/`dosit` OBJ_AT/
   weapon_insight twoweap limits / chargen corner / tutorial yes-path /
   tut-1 CENTER + invent stash + door-area + mktrap gate through sling +
   loot→end + align_shift + WAITMASK + mention_walls bump + pool/lava/ice
-  DEC diamond + describe_decor + swim avoid/drown/lava burn.
+  DEC diamond + describe_decor + swim avoid/drown/lava burn + death
+  disclose attrs/conduct/overview + init_mapseen.
