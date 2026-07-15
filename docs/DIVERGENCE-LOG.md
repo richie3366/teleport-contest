@@ -4,6 +4,23 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
+## D-0428 — eatcorpse acid/sick `losehp` must log `rnd(N)`
+
+- **Status:** fixed
+- **Symptom:** seed0002 first RNG miss @3808 — C `rnd(8)=6 @
+  eatcorpse(eat.c:1942)` vs JS `rn2(8)=5`. Prefix 3808→4565 after fix.
+- **Cause:** JS mildly-ill and acid branches used `1 + rn2(N)` (same
+  numeric range as `rnd(N)`) but logged `rn2(N)=…` instead of
+  `rnd(N)=…`. Poison already used `rnd`.
+- **C locus:** `eat.c` `eatcorpse` — `losehp(rnd(15), …)` acid;
+  `losehp(rnd(8), …)` cadaver/rotted-glob.
+- **Change:** call `rnd(15)` / `rnd(8)` for those inline HP subtracts.
+  Deferred: real `losehp` (botl/`done`); tainted `make_sick`; full
+  `rottenfood` body.
+- **Verification:** rng-diff prefix **3808→4565**; runner RNG
+  4965→4966 Scr still 54/595; green+strict; cohort **24/24**.
+- **Next:** seed0002 @4565 — C `obj_resists` vs JS `rn2(4)`.
+
 ## D-0427 — throwit land `cansee`→`newsym` (seed0004 @354 food `%`)
 
 - **Status:** fixed

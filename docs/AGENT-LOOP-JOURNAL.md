@@ -20,6 +20,15 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-16 01:05 — #459 eatcorpse rnd logging (D-0428)
+- Objective: seed0002 eatcorpse / early peel (PRIMARY).
+- C locus: `eat.c` `eatcorpse` `losehp(rnd(15)|rnd(8), …)`.
+- Change: acid/sick inline damage used `1+rn2(N)` (logs `rn2`) →
+  `rnd(N)` to match C provenance; poison path already correct.
+- Verification: rng-diff prefix **3808→4565**; Scr still 54/595;
+  green+strict; cohort **24/24** (incl. seed0004).
+- Next: seed0002 @4565 C `obj_resists` vs JS `rn2(4)`.
+
 ## 2026-07-16 00:59 — #458 throwit land newsym (D-0427)
 - Objective: seed0004 @354 map `%` vs floor (misread as gem; FOOD carrot).
 - C locus: `dothrow.c` `throwit` after `stackobj` — `cansee`→`newsym`.

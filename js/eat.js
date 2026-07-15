@@ -704,8 +704,9 @@ async function eatcorpse(otmp) {
         tp++;
         await pline('You have a very bad case of stomach acid.');
         // C: losehp(rnd(15), ...) — inline to avoid eat↔hack import cycle
+        // Must call rnd() (logs rnd(N)=…) not 1+rn2 (logs rn2(N)=…).
         if (game.u) {
-            const dmg = 1 + rn2(15);
+            const dmg = rnd(15);
             game.u.uhp = (game.u.uhp | 0) - dmg;
         }
     } else if (poisonous(ptr) && rn2(5)) {
@@ -725,8 +726,9 @@ async function eatcorpse(otmp) {
         && !(game.u?.HSick_resistance || game.u?.ESick_resistance)) {
         tp++;
         await pline(`You feel ${game.u?.Sick ? 'very ' : ''}sick.`);
+        // C: losehp(rnd(8), !glob ? "cadaver" : "rotted glob", KILLED_BY_AN)
         if (game.u) {
-            const dmg = 1 + rn2(8);
+            const dmg = rnd(8);
             game.u.uhp = (game.u.uhp | 0) - dmg;
         }
     }

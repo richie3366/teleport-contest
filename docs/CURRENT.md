@@ -62,18 +62,20 @@ Both must remain full RNG + screen PASS with exact scored-output lengths.
 
 ## Primary objective
 
-**seed0002 eatcorpse / early peel** — after D-0427 seed0004 full PASS.
-Long-standing non-PASS; Scr **54**/595; RNG prefix ~4965/27158.
+**seed0002 @4565 obj_resists vs rn2(4)** — after D-0428 eatcorpse
+`rnd` logging. Scr still **54**/595; sequential RNG prefix **4565**/27158
+(runner positional ~4966).
 
 ```bash
 node frozen/ps_test_runner.mjs sessions/seed0002-healer-reflection-drummer.session.json
-# Focus: first screen/RNG miss; eatcorpse / combat channel
+node scripts/rng-diff.mjs sessions/seed0002-healer-reflection-drummer.session.json
+# Focus: @4565 C obj_resists(zap.c) vs JS rn2(4); screen peel if Scr advances
 ```
 
 **Alternates:** seed0006 / seed0007; quest early-0 (seed0361/0373).
 
-**Prefer over:** parked D-0006, seed2200 RC; re-opening throw land
-`newsym` (fixed — D-0427) or invent paging (D-0426).
+**Prefer over:** parked D-0006, seed2200 RC; re-opening eatcorpse
+acid/sick `rnd` (fixed — D-0428).
 
 **Cohort after shared change:** green gate + seed1500 + seed1800 + seed0060 +
 seed0102 + seed0700 + seed1150 + seed0017 + seed0077 + seed0106 + seed0501 +
