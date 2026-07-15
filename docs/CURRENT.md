@@ -41,7 +41,7 @@ seed0013-rogue, seed0013-friday13-restore, seed0107, seed0009,
 |--------|----:|-------:|------|
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
 | seed0002 | 5198/27158 | **50**/595 | |
-| seed0004 | 4025/12084 | 28/409 | |
+| seed0004 | 4087/12084 | 28/409 | D-0398 bear trap; next @26 yellow gem |
 | seed0361/0373 | early | 0 | quest bones / `makemaz` |
 
 ## Green gate
@@ -59,8 +59,9 @@ Both must remain full RNG + screen PASS with exact scored-output lengths.
 
 ## Primary objective
 
-**seed0004 / seed0002 shared blockers** — seed0012 vault escort now
-full PASS (D-0397). Prefer early RNG/screen fails over parked items.
+**seed0004 / seed0002 shared blockers** — seed0004 RNG advanced past
+bear trap (D-0398). Prefer early screen @26 gem color (`a yellow gem`)
+or seed0002 `eatcorpse` rnd(8) over parked items.
 
 ```bash
 node frozen/ps_test_runner.mjs sessions/seed0004-feeding-pony.session.json

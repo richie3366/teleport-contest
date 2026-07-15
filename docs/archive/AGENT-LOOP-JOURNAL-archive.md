@@ -1,5 +1,24 @@
 # Agent loop journal archive
 
+## 2026-07-15 12:42 — #410 public score
+- Objective: mandatory full `sessions` (#410 divisible by 5).
+- C locus: n/a (score cadence); primary remains seed0012 @58 Options.
+- Change: documented suite aggregates; sharpened Options hypothesis to
+  C `doset_simple_menu` vs JS stub (no port this iteration).
+- Verification: green+strict PASS; full suite **24/44** Scr **3854**/11405
+  (33.79%) RNG **255075**/792838 (32.17%) `21+0.12/turn` (R² 0.80).
+  vs #405: same PASS set; Scr +8, RNG +678 (seed0002 47→50 / 4520→5198).
+- Next: port `doset_simple_menu` from `options.c` for seed0012 @screen58.
+
+## 2026-07-15 11:47 — D-0383/84 ice-box stacks + pickup INVORDER_SORT
+- Objective: seed0012 screens @31 Contents / @43 Pick up what?
+- C locus: mkobj.c add_to_container/mksobj spe; end.c container_contents;
+  invent.c sortloot; pickup.c query_objlist INVORDER_SORT + let_to_name.
+- Change: merge+corpse gender+sortloot doname (D-0383); pack-order class
+  headings + prompt ATR_INVERSE (D-0384).
+- Verification: Scr **184→187**/308; green+strict; cohort 22/22 PASS.
+- Next: seed0012 @screen58 `O` Options menu geometry / missing rows.
+
 ## 2026-07-15 11:30 — D-0382 in_or_out_menu prompt/SELECTED (seed0012 Scr)
 - Objective: seed0012 @screen30 ice-box `Do what with…` menu.
 - C locus: pickup.c in_or_out_menu; wintty.c tty_end_menu /

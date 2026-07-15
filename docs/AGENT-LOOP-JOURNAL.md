@@ -20,6 +20,18 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-15 14:58 — #424 trapeffect_bear_trap (D-0398)
+- Objective: seed0004 first RNG miss @4013 bear trap.
+- C locus: trap.c trapeffect_bear_trap / floor_trigger / set_utrap;
+  do.c set_wounded_legs.
+- Change: ported hero+monster bear trap; wired selector; aligned
+  floor_trigger (BEAR/LANDMINE/SLP/RUST/FIRE); set_utrap +
+  set_wounded_legs helpers.
+- Verification: seed0004 RNG **4025→4087**/12084; Scr 28/409 (first
+  miss @26 yellow gem); green+strict PASS; cohort 6/6 PASS; full
+  suite still **25/44**.
+- Next: seed0004 @26 `a yellow gem` vs `a gem`; or RNG @4039 dochug.
+
 ## 2026-07-15 14:52 — #423 gd_move_cleanup Suddenly (D-0397)
 - Objective: seed0012 @307 Suddenly, the guard disappears.--More--.
 - C locus: vault.c gd_move_cleanup/parkguard; gd_move !u_in_vault
@@ -152,23 +164,4 @@ Use this shape:
 - Verification: seed0012 Scr **187→199**; green+strict PASS; cohort
   seed1500/1800/0009 PASS.
 - Next: seed0012 @70 post-Options map DEC vs Unicode restore.
-
-## 2026-07-15 12:42 — #410 public score
-- Objective: mandatory full `sessions` (#410 divisible by 5).
-- C locus: n/a (score cadence); primary remains seed0012 @58 Options.
-- Change: documented suite aggregates; sharpened Options hypothesis to
-  C `doset_simple_menu` vs JS stub (no port this iteration).
-- Verification: green+strict PASS; full suite **24/44** Scr **3854**/11405
-  (33.79%) RNG **255075**/792838 (32.17%) `21+0.12/turn` (R² 0.80).
-  vs #405: same PASS set; Scr +8, RNG +678 (seed0002 47→50 / 4520→5198).
-- Next: port `doset_simple_menu` from `options.c` for seed0012 @screen58.
-
-## 2026-07-15 11:47 — D-0383/84 ice-box stacks + pickup INVORDER_SORT
-- Objective: seed0012 screens @31 Contents / @43 Pick up what?
-- C locus: mkobj.c add_to_container/mksobj spe; end.c container_contents;
-  invent.c sortloot; pickup.c query_objlist INVORDER_SORT + let_to_name.
-- Change: merge+corpse gender+sortloot doname (D-0383); pack-order class
-  headings + prompt ATR_INVERSE (D-0384).
-- Verification: Scr **184→187**/308; green+strict; cohort 22/22 PASS.
-- Next: seed0012 @screen58 `O` Options menu geometry / missing rows.
 

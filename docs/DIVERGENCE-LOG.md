@@ -4,6 +4,25 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
+## D-0398 — trapeffect_bear_trap + floor_trigger BEAR (seed0004 RNG)
+
+- **Symptom:** seed0004 first RNG miss @4013 — C `d(2,4)` at
+  `trapeffect_bear_trap` vs JS `rn2(5)` (dotrap escape / later path);
+  selector returned Finished for BEAR_TRAP.
+- **Cause:** JS omitted `trapeffect_bear_trap`; `floor_trigger` also
+  lacked BEAR_TRAP (and LANDMINE/SLP/RUST/FIRE) vs C.
+- **C locus:** `trap.c` `trapeffect_bear_trap` (~1479–1560),
+  `floor_trigger`, `set_utrap`; `do.c` `set_wounded_legs`.
+- **Change:** `js/trap.js` — port bear-trap hero+monster; wire
+  selector; align `floor_trigger`; `set_utrap`/`reset_utrap`/
+  `set_wounded_legs` helpers. Named omissions: `float_vs_flight`;
+  `Yname2` iron-shoe text; `which_armor` shoes; full `body_part` poly.
+- **Verification:** seed0004 RNG **4025→4087**/12084 (prefix ~4013→4039);
+  Scr still **28**/409 (first cell miss @26 `a yellow gem` vs `a gem`);
+  green+strict PASS; cohort seed1500/1800/0103/0012/0015/0200 PASS.
+- **Next:** seed0004 @26 gem color in look_here/doname; or RNG @4039
+  `dochug` wanderer `rn2(4)`.
+
 ## D-0397 — gd_move_cleanup parkguard + look-around Suddenly (seed0012 PASS)
 
 - **Symptom:** seed0012 sole miss @307 — C

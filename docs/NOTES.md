@@ -7,18 +7,19 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Score:** **25/44** PASS (#423). Screens **3954**/11405 (est. +1 from
-  D-0397 seed0012). seed0012 **308**/308 PASS.
-- **Next:** seed0004 / seed0002 shared blockers (prefer early fails).
-  Cmds in `CURRENT.md`. Alternates: seed0006/0007; quest early-0.
-- **Don’t re-check:** gd_move_cleanup parkguard + look-around Suddenly
-  + flush_topl_more (D-0397); drop gold freeinv_core botl + `_goldCount`
-  (D-0396); gd_move async Move along! (D-0396); doname containing +
-  use_container used→cknown (D-0395); use_container outmaybe/yname +
-  MENU_FULL put-in (D-0394); teleds materialize + gold botl (D-0393);
-  stop_occupation + dochugw (D-0392); counted Ns set_occupation
-  (D-0391); getpos auto_describe TER_DETECT (D-0390); cls clear_glyph
-  (D-0389); prinv total_of (D-0388); post-autopick check_here (D-0387);
+- **Score:** **25/44** PASS (#424). Screens **3954**/11405 (unchanged PASS
+  set). seed0004 RNG **4087**/12084 after D-0398 (was 4025).
+- **Next:** seed0004 early screen @26 — C `a yellow gem` vs JS `a gem`
+  (look_here / doname / gem appearance). Or continue RNG @4039
+  `dochug` wanderer `rn2(4)`. seed0002 still @3808 `eatcorpse` rnd(8).
+  Cmds in `CURRENT.md`.
+- **Don’t re-check:** trapeffect_bear_trap + floor_trigger BEAR
+  (D-0398); gd_move_cleanup Suddenly (D-0397); drop gold botl +
+  Move along! (D-0396); doname containing + cknown (D-0395);
+  use_container outmaybe/yname + MENU_FULL (D-0394); teleds + gold
+  botl (D-0393); stop_occupation + dochugw (D-0392); counted Ns
+  (D-0391); getpos auto_describe (D-0390); cls clear_glyph (D-0389);
+  prinv total_of (D-0388); post-autopick check_here (D-0387);
   hilite_pile ATR_INVERSE (D-0386); Options stub (D-0385).
 - **Landmark:** vault door (71,13); dig + restfakecorr; SPELL_LEV_PW(1)=5.
 - **Parked:** D-0006; seed2200 @158 RC.
@@ -27,30 +28,24 @@ Objective/score live in `CURRENT.md`.
 
 - No raw RNG-index / coordinate gates in production.
 - Role `mnum` = PM_* IDs; Ctrl-rush `run=3`, capital `run=1`; `\r`→`\n`.
-- **Don’t:** invent bag `containing` without `cknown` after put-in
-  (containerdone sets it when `used`); omit doname containing stacks
-  when cknown+Has_contents; invent empty-bag prompt from bare `outokay`
-  (use `outmaybe`); floor yname as `your` (carried only); omit container
-  from put-in category invent walk; skip teleds materialize/`spoteffects`
-  or gold botl before prinv (D-0393); skip `stop_occupation` on
-  occupation/`dochugw` threat (D-0392); clear topline between get_count
-  digits (D-0391); skip getpos `auto_describe` when `iflags.autodescribe`
-  (D-0390); invent tip persistence over lookat; skip `clear_glyph_buffer`
-  in `cls` (D-0389); invent bare merged-quan gold prinv (D-0388); skip
-  `check_here` after autopick when types filter (D-0387); invent Options
-  hand-list (D-0385); omit `hilite_pile` ATR_INVERSE on MG_OBJPILE
-  (D-0386); ice-box per-cobj without merge/`spe` gender (D-0383); pickup
-  menu without INVORDER_SORT headings (D-0384); `maybe_skip_seps` with
-  `roles.length` (D-0379); omit `SPELL_LEV_PW(1)` (D-0380); locked
-  without lknown Hmmm (D-0381); in_or_out_menu without ATR_INVERSE/`*`
-  (D-0382); early-return `dochug` on `msleeping` (D-0278); drop gold
-  without `freeinv_core` botl / `_goldCount` (D-0396); defer Move along!
-  because `gd_move` was sync (D-0396); skip `gd_move_cleanup` /
-  look-around Suddenly + NEED_MORE flush (D-0397).
+- **Don’t:** invent bag `containing` without `cknown` after put-in;
+  omit doname containing when cknown+Has_contents; invent empty-bag
+  prompt from bare `outokay` (use `outmaybe`); floor yname as `your`;
+  omit container from put-in invent walk; skip teleds materialize/
+  gold botl (D-0393); skip `stop_occupation` on threat (D-0392);
+  clear topline between get_count digits (D-0391); skip getpos
+  `auto_describe` (D-0390); invent tip persistence over lookat; skip
+  `clear_glyph_buffer` in `cls` (D-0389); invent bare merged-quan gold
+  prinv (D-0388); skip `check_here` after autopick (D-0387); invent
+  Options hand-list (D-0385); omit `hilite_pile` ATR_INVERSE (D-0386);
+  ice-box per-cobj without merge/`spe` (D-0383); pickup without
+  INVORDER_SORT headings (D-0384); early-return `dochug` on
+  `msleeping` (D-0278); drop gold without `_goldCount`/botl (D-0396);
+  defer Move along! (D-0396); skip `gd_move_cleanup` Suddenly +
+  `flush_topl_more` (D-0397); omit `trapeffect_bear_trap` /
+  BEAR in `floor_trigger` (D-0398).
 - Runner `Screen N/M` = total matches, not prefix length.
 - First cell-miss may be botl `$:` even when NOTES names a topline.
-- Suddenly alone can still need `--More--` (flush_topl_more) even when
-  `pline` does not wrap.
 
 ## Landmarks (≤15)
 
@@ -63,18 +58,12 @@ Objective/score live in `CURRENT.md`.
 - Monk starter: `SPELL_LEV_PW(1)` bump when `num_spells()` (D-0380).
 - Ice-box look: merge+sortloot stacks (D-0383); pickup class headers
   (D-0384).
-- Options: `doset_simple_menu` allopt General→Status + multipage FS
-  (D-0385); Map page `f` toggles `hilite_pile` → pile ATR_INVERSE
-  (D-0386); autopick filtered types still `check_here` remainders
-  (D-0387); gold merge pickup → prinv `quan` + `(N in total)` (D-0388);
-  detect `cls` blanks `disp_*` before map_monst (D-0389); TER_DETECT
-  getpos auto_describe blank→`unexplored area` + mimic/shk (D-0390);
-  parse `get_count` digits then one `clear_nhwindow` (D-0391);
-  counted search `set_occupation` + `dochugw`/`monster_nearby`
-  `stop_occupation` (D-0392); once TELEP→`teleds` materialize +
-  `spoteffects` + gold `disp.botl` before More (D-0393); bag put-in
-  `outmaybe`/`yname` + MENU_FULL query_category (D-0394); doname
-  containing + use_container `used`→cknown (D-0395); drop gold
-  `_goldCount`+botl + async Move along! (D-0396); escort end
-  look-around/`gd_move_cleanup` Suddenly + `flush_topl_more` (D-0397).
-- D-0274…D-0397: see index.
+- Options: `doset_simple_menu` (D-0385); Map `f` → `hilite_pile`
+  ATR_INVERSE (D-0386); autopick filtered still `check_here` (D-0387);
+  gold merge → prinv `(N in total)` (D-0388); detect `cls` blanks
+  (D-0389); TER_DETECT auto_describe (D-0390); counted search
+  `stop_occupation` (D-0392); TELEP→`teleds` (D-0393); bag put-in
+  MENU_FULL (D-0394); doname containing (D-0395); drop gold + Move
+  along! (D-0396); escort Suddenly + flush_topl_more (D-0397);
+  bear trap `d(2,4)`/`set_utrap` (D-0398).
+- D-0274…D-0398: see index.
