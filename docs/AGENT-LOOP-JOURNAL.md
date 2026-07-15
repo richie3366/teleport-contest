@@ -20,6 +20,17 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-15 19:04 — #448 seed0004 @239 Ysimple_name2 emptymsg (D-0417)
+- Objective: seed0004 @239 PRIMARY — C `The bag is empty.` vs JS
+  `the bag is empty.`
+- C locus: `pickup.c` `use_container` emptymsg/`pline1`;
+  `objnam.c` `Ysimple_name2`.
+- Change: `pickup.js` `simpleonames`/`ysimple_name`/`Ysimple_name2`;
+  preformat emptymsg when `!outokay`; loot-out empty uses it.
+- Verification: seed0004 Scr **244→245**/409; miss @239→@240; RNG
+  full; green+strict PASS; cohort **23/23**.
+- Next: seed0004 @240 floor pickup `10 darts` vs `a dart`.
+
 ## 2026-07-15 18:58 — #447 seed0004 @182 cursemsg canseemon (D-0416)
 - Objective: seed0004 screen-only PRIMARY — first cell miss after full RNG.
 - C locus: `dogmove.c` `dog_move` cursemsg `(wasseen || canseemon)`;
@@ -167,15 +178,3 @@ Use this shape:
 - Verification: seed0004 RNG 10409→10569; Scr 241→242; miss @10563;
   green+strict PASS; cohort 23/23.
 - Next: seed0004 @10563 gethungry/hitum vs distfleeck (post-travel `l`).
-
-## 2026-07-15 16:20 — #433 seed0004 @10370 Conflict / MENU_INVERT_ALL (D-0406)
-- Objective: seed0004 @10370 PRIMARY — C `resist_conflict` `rnd(20)` vs
-  JS `dog_move` `rn2(16)`.
-- C locus: `wintty.c` MENU_INVERT_ALL; `mondata.c` `resist_conflict`;
-  `dogmove.c` / `mon.c` `mon_allowflags`.
-- Change: PICK_ANY `@`/`.`/`-`; `resist_conflict` + worn-ring
-  `hero_conflict`; wire dog_move + mon_allowflags. Root was ignored `@`
-  so conflict ring never picked up.
-- Verification: seed0004 RNG 10399→10409; miss @10382; green+strict;
-  cohort 23/23.
-- Next: seed0004 @10382 exercise rn2(19) vs rn2(5) (teleport scroll).

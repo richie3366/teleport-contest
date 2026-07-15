@@ -4,6 +4,28 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
+## D-0417 — seed0004 @239 use_container emptymsg needs Ysimple_name2
+
+- **Status:** fixed
+- **Symptom:** seed0004 first cell miss @239 — C topline
+  `The bag is empty.`; JS `the bag is empty.` RNG already full.
+- **Rejected:** prompt/`outmaybe` timing; invent vs floor ownership
+  (`Do what with the bag?` already matched).
+- **Cause:** `use_container` loot-out empty path used bare
+  `theArt(xname(obj))` without capitalization. C preformats
+  `emptymsg` with `Ysimple_name2` (`objnam.c` = highc of
+  `ysimple_name` / shk_your + minimal_xname).
+- **C locus:** `pickup.c` `use_container` emptymsg/`pline1`;
+  `objnam.c` `Ysimple_name2`/`ysimple_name`.
+- **Change:** `pickup.js` — `simpleonames`/`ysimple_name`/
+  `Ysimple_name2`; preformat emptymsg when `!outokay`; loot-out
+  empty → `pline(emptymsg)`. Deferred: quantum/cursed-mbag
+  `"now "` emptymsg; full `minimal_xname`.
+- **Verification:** seed0004 Scr **244→245**/409; RNG still
+  **12084**/12084; first miss **@239→@240** (`10 darts` vs `a dart`);
+  green+strict PASS; cohort **23/23**.
+- **Next:** seed0004 @240 floor pickup menu quan/`doname`.
+
 ## D-0416 — seed0004 @182 dog_move cursemsg needs LOS canseemon
 
 - **Status:** fixed
