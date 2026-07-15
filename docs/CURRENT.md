@@ -18,7 +18,7 @@ label, PASS list, notable non-PASS. Do not invent suite totals from a single
 focused session.
 
 Score last measured: **2026-07-15** — full `sessions` suite (#380; after
-D-0359 **24/44**; seed0009 PASS). Not refreshed this iter (#381).
+D-0359 **24/44**; seed0009 PASS). Not refreshed this iter (#382).
 
 ## Score
 
@@ -38,7 +38,7 @@ seed0013-rogue, seed0013-friday13-restore, seed0107, **seed0009**.
 **Notable non-PASS:**
 | Session | RNG | Screen | Note |
 |---------|----:|-------:|------|
-| seed0012 | **1285**/13878 | **13**/308 | stack overflow cleared (D-0360); @1245 `next_ident` vs `rnd(100)` |
+| seed0012 | **3346**/13878 | **14**/308 | D-0361 ICE_BOX; next @3152 `dog_move` |
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
 | seed0004 | 4016/12084 | 28/409 | |
 | seed0002 | 4510/27158 | 9/595 | |
@@ -59,9 +59,8 @@ Both must remain full RNG + screen PASS with exact scored-output lengths.
 
 ## Primary objective
 
-**seed0012 @1245** — after D-0360 unblocked stack overflow: C
-`next_ident`/`rnd(2)` vs JS `rnd(100)` (likely `delobj`/`obj_resists`) during
-mkobj/mkbox path.
+**seed0012 @3152** — after D-0361 ICE_BOX: C `dog_move` `rn2(1)` vs JS
+`rn2(3)` (candidate selection / whappr / approach).
 
 ```bash
 node scripts/rng-diff.mjs sessions/seed0012-monk-vault-escort.session.json

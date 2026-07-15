@@ -7,13 +7,12 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Score:** **24/44** PASS (last full suite #380; #381 no refresh).
-- **Fixed this iter:** D-0360 — hero `trapeffect_rocktrap` place ROCK at
-  `u.ux,u.uy` (+ `thitm` stale mx/my). seed0012 no stack overflow.
-- **Next:** seed0012 RNG @1245 C `next_ident` vs JS `rnd(100)` (mkobj/mkbox
-  / delobj path). Falsifier: `node scripts/rng-diff.mjs sessions/seed0012-…`.
-- **Don’t re-check:** continue_run smudge; hero rocktrap→youmonst thitm
-  (undefined ox/oy → can_reach NaN recurse).
+- **Score:** **24/44** PASS (last full suite #380; #382 no refresh).
+- **Fixed this iter:** D-0361 — `mkbox_cnts` ICE_BOX → `mksobj(CORPSE)`
+  (+ age=0/stop timers/cobj). Was always `rnd(100)` boxiprobs.
+- **Next:** seed0012 RNG @3152 C `dog_move` `rn2(1)` vs JS `rn2(3)`.
+  Falsifier: `node scripts/rng-diff.mjs sessions/seed0012-…`.
+- **Don’t re-check:** mkbox ICE_BOX uses CORPSE not BOX_PROBS (D-0361).
 - **Landmark:** screen `i` key = `moves[i]` (= `steps[i+1].key`).
 - **Parked:** D-0006; seed2200 @158 RC.
 
@@ -66,7 +65,8 @@ Objective/score live in `CURRENT.md`.
   paint RIP before disclose attrs/conduct/overview (D-0358);
   skip `init_mapseen` in `mklev` (DoD missing from death overview);
   smudge engravings on every continue_run step (D-0359);
-  hero rocktrap via youmonst→`thitm` (D-0360 — place at `u.ux,u.uy`).
+  hero rocktrap via youmonst→`thitm` (D-0360 — place at `u.ux,u.uy`);
+  ICE_BOX `mkbox_cnts` via boxiprobs (D-0361 — `mksobj(CORPSE)`).
 - Runner `Screen N/M` = total matches, not prefix length.
 
 ## Landmarks (≤15)
@@ -79,7 +79,7 @@ Objective/score live in `CURRENT.md`.
 - Save: VFS `save/<plname>` JSON; restore skips `rndencode`;
   `l_nhcore_init` still 2×rn2; farewell clears map no flush (D-0335).
 - Scoring grid: DEC chars in DEC_MAP → Unicode; `{`/` `` ` `` stay raw.
-- D-0274…D-0360: bones/disclose/RIP/topten/descr/botl/paybill/ghost/`;`/
+- D-0274…D-0361: bones/disclose/RIP/topten/descr/botl/paybill/ghost/`;`/
   getlin/compactify/enl/checkfile/save/welcome/attr/`$`/`)`/show-*/DEL/
   reveal_terrain/getpos Done/`#twoweapon`/`hitum` twohits/`dosit` OBJ_AT/
   weapon_insight twoweap limits / chargen corner / tutorial yes-path /
@@ -87,4 +87,4 @@ Objective/score live in `CURRENT.md`.
   loot→end + align_shift + WAITMASK + mention_walls bump + pool/lava/ice
   DEC diamond + describe_decor + swim avoid/drown/lava burn + death
   disclose attrs/conduct/overview + init_mapseen + continue_run no smudge +
-  hero rocktrap place ROCK.
+  hero rocktrap place ROCK + ICE_BOX mkbox corpses.

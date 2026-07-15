@@ -24,6 +24,24 @@ The compact status table lives in **`DIVERGENCE-INDEX.md`**.
 Open that file first; then jump to a single `## D-NNNN` entry below
 (via search). Do **not** read this whole file by default.
 
+## D-0361 — `mkbox_cnts` ICE_BOX must `mksobj(CORPSE)` (not boxiprobs)
+
+- **Status:** fixed
+- **Observed:** seed0012 first RNG miss @1245 — C `rnd(2)` `next_ident`
+  vs JS `rnd(100)` after `mkbox_cnts` `rn2(21)`.
+- **C locus:** `mkobj.c` `mkbox_cnts` — ICE_BOX arm: `mksobj(CORPSE,TRUE,FALSE)`
+  then `age=0` + stop rot/revive timers; else `boxiprobs`/`mkobj`.
+- **Cause/evidence:** JS `mkbox_cnts` always rolled `rnd(100)` + `BOX_PROBS`
+  for every container, including ICE_BOX (`n=20` → `rn2(21)` matched).
+  C never uses boxiprobs for ice boxes — next call is corpse `next_ident`.
+- **Change:** `js/mkobj.js` — ICE_BOX branch; `add_to_container` + clear
+  `cobj`; container content weight sum; BoH nested rewrite still deferred.
+- **Verification:** seed0012 RNG **1285→3346**/13878, Scr **13→14**/308;
+  first remaining @3152 C `dog_move` `rn2(1)` vs JS `rn2(3)`; green+strict;
+  cohort 22 PASS (incl. seed0009).
+- **General lesson:** container fill arms diverge by otyp before shared
+  probability tables — match the ICE_BOX short-circuit first.
+
 ## D-0360 — hero `trapeffect_rocktrap` must place ROCK at `u.ux,u.uy`
 
 - **Status:** fixed
