@@ -4,6 +4,27 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
+## D-0424 — seed0004 @310 lookat tseen trap brief_at
+
+- **Status:** fixed
+- **Symptom:** seed0004 first cell miss @310 — C topline `dart trap`
+  during `/` whatis getpos autodescribe; JS `floor of a room`. RNG
+  full after D-0423. Trap at cell already `tseen` (map `^`, D-0419).
+- **Cause:** `brief_at` / `describe_looked` / travel `auto_describe_text`
+  omitted C `lookat` `glyph_is_trap` → `trap_description` /
+  `trapname` before cmap floor. Seen traps fell through to ROOM
+  `"floor of a room"`.
+- **C locus:** `pager.c` `lookat` trap arm; `trap_description` →
+  `trapname`; `defsym.h` trap PCHAR explanations.
+- **Change:** export full `trapname` from `trap.js`; `brief_at` +
+  `describe_looked` + `auto_describe_text` return `trapname` when
+  `t_at && tseen`. Deferred: `trapped_chest_at` / `trapped_door_at`;
+  Hallucination; full wall/object cmap `do_screen_description`.
+- **Verification:** seed0004 Scr **395→396**/409; @310 fixed; first
+  miss **@312** C wall ambiguous look vs JS dark room; RNG full;
+  green+strict; cohort **25/25**; full suite Scr **4350**/11405.
+- **Next:** seed0004 @312 `describe_looked` DECgraphics wall.
+
 ## D-0423 — seed0004 @297 getpos autodescribe stairs (default On)
 
 - **Status:** fixed

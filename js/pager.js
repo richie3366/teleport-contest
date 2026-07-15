@@ -32,6 +32,7 @@ import { distant_monnam_none } from './do_name.js';
 import { engr_at } from './engrave.js';
 import { option_help_lines } from './options.js';
 import { dokeylist_lines, domenucontrols_lines } from './dokeylist.js';
+import { t_at, trapname } from './trap.js';
 import {
     BOLT_LIM, COLNO, ROWNO, STAIRS, LA_DOWN, ROOM, CORR, STONE,
     GPCOORDS_NONE, GPCOORDS_MAP, GPCOORDS_COMPASS, GPCOORDS_SCREEN,
@@ -497,8 +498,9 @@ function is_stair_spot(x, y) {
  * ≤/≥, so cmap match is ordinary+branch staircase only; lookat overwrites
  * firstmatch with S_br* / S_*stair explanation.
  *
- * C ref: pager.c lookat cmap default — defsyms[].explanation for walls/
- * floors (not stairs_description / dfeature_at destination text).
+ * C ref: pager.c lookat — trap glyph before cmap; cmap default
+ * defsyms[].explanation for walls/floors (not stairs_description /
+ * dfeature_at destination text).
  */
 function brief_at(x, y) {
     const u = game.u || {};
@@ -511,6 +513,12 @@ function brief_at(x, y) {
     }
     const top = objects_at(x, y);
     if (top) return doname(top);
+    // C lookat glyph_is_trap → trap_description (seen map_trap glyph)
+    const trap = t_at(x, y);
+    if (trap && trap.tseen) {
+        // Named omit: trapped_chest_at / trapped_door_at; Hallucination
+        return trapname(trap.ttyp, false);
+    }
     if (is_stair_spot(x, y)) return stair_cmap_explanation(x, y);
     const feat = dfeature_at(x, y);
     if (feat) return feat;
@@ -570,6 +578,12 @@ function describe_looked(x, y) {
     if (pile.length) {
         const nm = doname(pile[0]);
         return { out: `?        ${nm}`, first: simplify_for_db(nm), found: 1 };
+    }
+    // C lookat glyph_is_trap → trap_description before cmap
+    const trap = t_at(x, y);
+    if (trap && trap.tseen) {
+        const nm = trapname(trap.ttyp, false);
+        return { out: `^        ${an(nm)}`, first: nm, found: 1 };
     }
     if (is_stair_spot(x, y)) return describe_stairs_looked(x, y);
     // C ref: pager.c do_screen_description — DECgraphics shares showsym

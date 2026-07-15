@@ -20,6 +20,13 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-16 00:31 — #455 score + D-0424 trap lookat
+- Objective: mandatory full `sessions` score (#455÷5); primary seed0004 @310 dart trap `brief_at`.
+- C locus: `pager.c` `lookat` `glyph_is_trap` → `trap_description`/`trapname`.
+- Change: export full `trapname`; wire tseen trap into `brief_at` / `describe_looked` / `auto_describe_text` (D-0424).
+- Verification: full suite **25/44** Scr **4350**/11405 RNG **263166**/792838; seed0004 **396**/409; green+strict; cohort 25/25.
+- Next: seed0004 @312 wall `describe_looked` ambiguous cmap.
+
 ## 2026-07-16 00:26 — #454 seed0004 @297 autodescribe stairs (D-0423)
 - Objective: seed0004 @297 PRIMARY — C `staircase down` vs JS blank
   after travel `_>` getpos.

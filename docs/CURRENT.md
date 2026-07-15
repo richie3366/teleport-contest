@@ -17,19 +17,19 @@ Update **this Score section** with: pass count, screen/RNG aggregates, speed
 label, PASS list, notable non-PASS. Do not invent suite totals from a single
 focused session.
 
-Score last measured: **2026-07-15** — full `sessions` suite (#450;
-post D-0419 `map_trap`). Screens **4336**/11405 (+142 vs #445;
-+128 vs pre-fix #450); RNG **263155**/792838 (+295 vs #445).
-Still **25/44** PASS. seed0004 focused (#454): Scr **395**/409 (@310 next).
+Score last measured: **2026-07-16** — full `sessions` suite (#455;
+post D-0424 `lookat` trap). Screens **4350**/11405 (+14 vs #450);
+RNG **263166**/792838 (+11 vs #450). Still **25/44** PASS. seed0004
+focused: Scr **396**/409 (@312 next).
 
 ## Score
 
 | Metric | Value |
 |--------|------:|
 | Sessions passing | **25 / 44** |
-| Screens matched | **4336 / 11,405** (38.02%) |
-| Positional RNG calls matched | **263,155 / 792,838** (33.19%) |
-| Speed label | `22+0.13/turn` (R² 0.78) |
+| Screens matched | **4350 / 11,405** (38.14%) |
+| Positional RNG calls matched | **263,166 / 792,838** (33.19%) |
+| Speed label | `22+0.14/turn` (R² 0.74) |
 | Role-init throws | **0 / 44** |
 
 **PASS (25):** seed8000, seed0900, seed1500, seed1800, seed0060, seed0102,
@@ -43,7 +43,7 @@ seed0013-rogue, seed0013-friday13-restore, seed0107, seed0009,
 |--------|----:|-------:|------|
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
 | seed0002 | 5210/27158 | **54**/595 | still @3808 eatcorpse |
-| seed0004 | **12084**/12084 | **395**/409 | D-0423 @297; next @310 dart trap |
+| seed0004 | **12084**/12084 | **396**/409 | D-0424 @310; next @312 wall look |
 | seed0361/0373 | early | 0 | quest bones / `makemaz` |
 
 ## Green gate
@@ -61,21 +61,21 @@ Both must remain full RNG + screen PASS with exact scored-output lengths.
 
 ## Primary objective
 
-**seed0004 @310 `/` getpos `brief_at` `dart trap`** — RNG full; Scr
-**395**/409 after D-0423 (`autodescribe` default + stairs). First cell
-miss: C topline `dart trap`; JS `floor of a room` (whatis cursor on
-tseen trap).
+**seed0004 @312 `/` whatis `describe_looked` wall** — RNG full; Scr
+**396**/409 after D-0424 (tseen trap `brief_at`/`lookat`). First cell
+miss: C topline `x        the interior of a monster or a wall (wall)`;
+JS `dark part of a room` (DECgraphics wall cmap ambiguous + lookat).
 
 ```bash
 node frozen/ps_test_runner.mjs sessions/seed0004-feeding-pony.session.json
-# Focus: screen @310 brief_at / lookat trap_description
+# Focus: screen @312 describe_looked / do_screen_description wall
 ```
 
 **Alternates:** seed0002 `eatcorpse`; seed0006 / seed0007; quest early-0
 (seed0361/0373).
 
-**Prefer over:** parked D-0006, seed2200 RC; re-opening @297 stairs
-autodescribe (fixed — D-0423).
+**Prefer over:** parked D-0006, seed2200 RC; re-opening @310 dart trap
+(fixed — D-0424).
 
 **Cohort after shared change:** green gate + seed1500 + seed1800 + seed0060 +
 seed0102 + seed0700 + seed1150 + seed0017 + seed0077 + seed0106 + seed0501 +

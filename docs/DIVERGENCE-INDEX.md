@@ -410,6 +410,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 | D-0421 | fixed | choose_ring_hand → yn_function [rl] | seed0004 Scr 389→390; @285 fixed; @288 invent More next |
 | D-0422 | fixed | display_pickinv n==1 → message_menu | seed0004 Scr 390→391; @288 fixed; @297 stairs describe next |
 | D-0423 | fixed | getpos autodescribe default On + stairs | seed0004 Scr 391→395; @297 fixed; @310 dart trap next |
+| D-0424 | fixed | lookat tseen trap brief_at / trapname | seed0004 Scr 395→396; @310 fixed; @312 wall look next |
 
 
 D-0001 through D-0005 predate the strict-length/cohort runbook. Their focused
