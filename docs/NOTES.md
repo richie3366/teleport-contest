@@ -8,18 +8,18 @@ Objective/score live in `CURRENT.md`.
 ## Active
 
 - **Score:** **25/44** PASS (#445 full post D-0414). Scr **4194**/11405;
-  RNG **262860**/792838. seed0004 focused post D-0417: RNG
-  **12084**/12084; Scr **245**/409 (cursors 402).
-- **Next:** seed0004 @240 — C `a - 10 darts` vs JS `a - a dart`
-  (floor `query_objlist` / `doname` quan).
+  RNG **262860**/792838. seed0004 focused post D-0418: RNG
+  **12084**/12084; Scr **254**/409 (cursors 402).
+- **Next:** seed0004 @248 — C trap `^` vs JS `.` (tseen / trap
+  display after pickup).
   ```bash
   node frozen/ps_test_runner.mjs sessions/seed0004-feeding-pony.session.json
   ```
-- **Don’t re-check:** @239 bag empty capitalization (was bare
-  `theArt(xname)` without `Ysimple_name2`, D-0417). @182 out-of-sight
-  cursemsg (D-0416). @11722 throw carrot feed (D-0415). @11708 dog
-  `ALLOW_U` (D-0414). @11568 fightm (D-0413). @10966 travel boulder
-  (D-0412).
+- **Don’t re-check:** @240 pickup menu quan/order (was missing xname
+  `poisoned `; sortloot + doname, D-0418). @239 bag empty
+  capitalization (D-0417). @182 out-of-sight cursemsg (D-0416).
+  @11722 throw carrot feed (D-0415). @11708 dog `ALLOW_U` (D-0414).
+  @11568 fightm (D-0413). @10966 travel boulder (D-0412).
 - **Landmark:** vault door (71,13); dig + restfakecorr; SPELL_LEV_PW(1)=5.
 - **Parked:** D-0006; seed2200 @158 RC.
 
@@ -52,26 +52,9 @@ Objective/score live in `CURRENT.md`.
   before postmov (D-0401); Norep via Norep-only cache (D-0402);
   skip `heal_legs` / WOUNDED_LEGS `nh_timeout` (D-0403); omit
   `vtense` bare-singular conjugate (D-0403); float `mhpmax/2` for
-  flee gate (D-0404); treat @9795 as mtrack arity or bare key-ownership
-  without checking unrotted CORPSE / HVY EOTs (D-0405); leave
-  `start_timer` stub that never `run_timers` (D-0405); treat @10370
-  as bare `dog_move` rn2(16) without checking pickup `@` invert /
-  worn Conflict / `resist_conflict` (D-0406); treat @10382 as bare
-  `exercise` without SCR_TELEPORTATION / getobj `?` / `safe_teleds`
-  (D-0407); treat @10563 as bare `distfleeck` without getpos `>`
-  stairs jump → travel destination (D-0408); treat @10657 as bare
-  `distfleeck` / missing `doeat` without checking `youmonst.data`
-  short-circuit on palatable `rn2(10)` (D-0409); treat @10713 as bare
-  `exerper` polarity without checking deferred `gethungry` `uhunger--`
-  (D-0410); treat @10966 as after_calc/leftover/SLT/EXT (D-0412 —
-  was findtravelpath boulder step); treat @11568 as bare dochug P4
-  without `movemon` Conflict→`fightm` (D-0413); treat @11708 as bare
-  dochug/`mattacku` without `dog_move` `ALLOW_U`→`mattacku` (D-0414);
-  treat @11722 as EOT `next_ident` without `t*` carrot throw →
-  `tamedog`/`dog_eat` (D-0415); treat @182 reluctant topline as
-  message-clear timing without checking `dogmove` local `canseemon`
-  stub vs LOS (D-0416); treat @239 `the bag is empty.` as prompt
-  timing without checking `Ysimple_name2` / upstart (D-0417).
+  flee gate (D-0404); treat @9795–@11722 / @182/@239 as index
+  D-0405…D-0417 without those C paths; treat @240 `a - a dart` as
+  quan count without xname `poisoned ` → sortloot (D-0418).
 - Runner `Screen N/M` = total matches, not prefix length.
 - First cell-miss may be botl `$:` / `Burdened` even when NOTES names a topline.
 
@@ -95,5 +78,6 @@ Objective/score live in `CURRENT.md`.
 - Conflict: `fightm` before dochugw + dog `ALLOW_U`→`mattacku`
   (D-0413/14); ustuck / `m_everyturn_effect` / full `m_unleash` deferred.
 - `dog_move` cursemsg: `display.canseemon` (D-0416); glyph/`distant_name`
-  deferred. Empty bag take-out: `Ysimple_name2` (D-0417); `"now "`/
-  `minimal_xname` deferred. Older D-IDs: index / don’t-recheck.
+  deferred. Empty bag take-out: `Ysimple_name2` (D-0417). WEAPON
+  `poisoned ` xname/doname (D-0418); wet-towel/figurine/`permapoisoned`
+  deferred. Older D-IDs: index / don’t-recheck.

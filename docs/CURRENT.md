@@ -20,7 +20,7 @@ focused session.
 Score last measured: **2026-07-15** — full `sessions` suite (#445;
 post D-0414). Screens **4194**/11405 (−2 vs #440); RNG
 **262860**/792838 (+773). Still **25/44** PASS. seed0004 focused
-post D-0417: RNG **12084**/12084, Scr **245**/409 (@239 fixed).
+post D-0418: RNG **12084**/12084, Scr **254**/409 (@240 fixed).
 
 ## Score
 
@@ -43,7 +43,7 @@ seed0013-rogue, seed0013-friday13-restore, seed0107, seed0009,
 |--------|----:|-------:|------|
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
 | seed0002 | 5210/27158 | **54**/595 | still @3808 eatcorpse |
-| seed0004 | **12084**/12084 | **245**/409 | D-0417 @239; next @240 quan |
+| seed0004 | **12084**/12084 | **254**/409 | D-0418 @240; next @248 trap `^` |
 | seed0361/0373 | early | 0 | quest bones / `makemaz` |
 
 ## Green gate
@@ -61,21 +61,20 @@ Both must remain full RNG + screen PASS with exact scored-output lengths.
 
 ## Primary objective
 
-**seed0004 @240 pickup quan naming** — RNG full; Scr **245**/409 after
-D-0417 (`use_container` emptymsg `Ysimple_name2`). First cell miss:
-C `a - 10 darts` vs JS `a - a dart` (floor `query_objlist` /
-`doname` quan).
+**seed0004 @248 trap glyph** — RNG full; Scr **254**/409 after
+D-0418 (`xname` WEAPON `poisoned ` → sortloot + doname). First cell
+miss: C map shows `^` trap; JS `.` floor (near hero after pickup).
 
 ```bash
 node frozen/ps_test_runner.mjs sessions/seed0004-feeding-pony.session.json
-# Focus: screen @240 Pick up what? menu quan line
+# Focus: screen @248 trap glyph vs floor
 ```
 
 **Alternates:** seed0002 `eatcorpse`; seed0006 / seed0007; quest early-0
 (seed0361/0373).
 
-**Prefer over:** parked D-0006, seed2200 RC; re-opening @239 bag empty
-(fixed — D-0417).
+**Prefer over:** parked D-0006, seed2200 RC; re-opening @240 poisoned
+menu (fixed — D-0418).
 
 **Cohort after shared change:** green gate + seed1500 + seed1800 + seed0060 +
 seed0102 + seed0700 + seed1150 + seed0017 + seed0077 + seed0106 + seed0501 +

@@ -4,6 +4,30 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
+## D-0418 — seed0004 @240 xname WEAPON poisoned prefix (sortloot + doname)
+
+- **Status:** fixed
+- **Symptom:** seed0004 first cell miss @240 — C pickup menu
+  `a - 10 darts` / `b - a poisoned dart`; JS `a - a dart` /
+  `b - 10 darts`. RNG already full. Quan formatting itself was fine
+  on the stack of 10 once ordered correctly.
+- **Rejected:** bare `doname` quan bug; invent letter assignment.
+- **Cause:** `pretty_base`/`xname` WEAPON path omitted C
+  `is_poisonable && opoisoned → "poisoned "` prefix. That string
+  also drives `loot_xname`/`sortloot` (`"dart"` < `"poisoned dart"`),
+  so floor order put the singular dart first and hid poison in
+  `doname`.
+- **C locus:** `objnam.c` xname WEAPON_CLASS poisoned; doname_base
+  strip/`ispoisoned` reinsert; `invent.c` loot_xname →
+  `cxname_singular`.
+- **Change:** `objnam.js` — `is_poisonable_obj`; WEAPON `poisoned `
+  in pretty_base; doname strips into prefix before erosion/spe.
+  Deferred: `permapoisoned`; wet-towel; figurine.
+- **Verification:** seed0004 Scr **245→254**/409; RNG still
+  **12084**/12084; first miss **@240→@248** (trap `^` vs `.`);
+  green+strict PASS; cohort **25/25**.
+- **Next:** seed0004 @248 trap glyph / tseen display.
+
 ## D-0417 — seed0004 @239 use_container emptymsg needs Ysimple_name2
 
 - **Status:** fixed

@@ -20,6 +20,17 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-15 19:12 — #449 seed0004 @240 WEAPON poisoned xname (D-0418)
+- Objective: seed0004 @240 PRIMARY — C `a - 10 darts` /
+  `b - a poisoned dart` vs JS `a - a dart` / `b - 10 darts`.
+- C locus: `objnam.c` xname WEAPON poisoned; doname_base strip;
+  `invent.c` loot_xname → sortloot.
+- Change: `objnam.js` `is_poisonable_obj` + `poisoned ` in
+  pretty_base; doname strip/reinsert before erosion/spe.
+- Verification: seed0004 Scr **245→254**/409; miss @240→@248; RNG
+  full; green+strict PASS; cohort **25/25**.
+- Next: seed0004 @248 trap `^` vs `.`.
+
 ## 2026-07-15 19:04 — #448 seed0004 @239 Ysimple_name2 emptymsg (D-0417)
 - Objective: seed0004 @239 PRIMARY — C `The bag is empty.` vs JS
   `the bag is empty.`
@@ -168,13 +179,3 @@ Use this shape:
   focused still FAIL @10563 (C gethungry/hitum vs JS distfleeck).
 - Next: seed0004 @10563 travel-end / walk-into-monster path.
 
-## 2026-07-15 16:26 — #434 seed0004 @10382 SCR_TELEPORTATION (D-0407)
-- Objective: seed0004 @10382 PRIMARY — C `exercise` `rn2(19)` vs JS
-  `rn2(5)` (read teleport → `safe_teleds`).
-- C locus: `read.c` `seffect_teleportation`/`learnscrolltyp`;
-  `teleport.c` `scrolltele`/`safe_teleds`; invent getobj `?` pickinv.
-- Change: getobj-read `?`/`*`; SCR_TELEPORTATION → scrolltele/safe_teleds;
-  learnscroll → makeknown+XP; oc_magic exercise before seffects switch.
-- Verification: seed0004 RNG 10409→10569; Scr 241→242; miss @10563;
-  green+strict PASS; cohort 23/23.
-- Next: seed0004 @10563 gethungry/hitum vs distfleeck (post-travel `l`).

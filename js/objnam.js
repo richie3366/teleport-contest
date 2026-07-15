@@ -24,7 +24,7 @@ import { monsterNames } from './monsters.js';
 import { PM_SAMURAI, PM_CLERIC } from './generated/monsters_data.js';
 import {
     W_ARMOR, W_AMUL, W_RINGL, W_RINGR, W_QUIVER, W_WEP, W_SWAPWEP,
-    Has_contents, Is_container, P_BOW, P_CROSSBOW,
+    Has_contents, Is_container, P_BOW, P_CROSSBOW, P_SHURIKEN,
 } from './const.js';
 
 function Role_if(pm) {
@@ -44,6 +44,15 @@ function is_ammo_obj(obj) {
     if (obj.oclass !== WEAPON_CLASS && obj.oclass !== GEM_CLASS) return false;
     const sk = game.objects?.[obj.otyp]?.oc_skill ?? 0;
     return sk >= -P_CROSSBOW && sk <= -P_BOW;
+}
+
+/**
+ * C ref: obj.h is_poisonable — missile skill window (permapoisoned deferred).
+ */
+function is_poisonable_obj(obj) {
+    if (!obj || obj.oclass !== WEAPON_CLASS) return false;
+    const sk = game.objects?.[obj.otyp]?.oc_skill ?? 0;
+    return sk >= -P_SHURIKEN && sk <= -P_BOW;
 }
 
 /** C ref: obj.h is_rustprone — iron material. */
@@ -347,8 +356,14 @@ function pretty_base(obj) {
         if (Role_if_samurai() && (n === 'WOODEN_HARP' || n === 'MAGIC_HARP'))
             dn = 'koto';
         let buf = '';
-        // Named omission: poisoned weapon prefix; wet-towel moist/wet;
-        // figurine " of <pm>"; ConcUpdate side-effects.
+        // C: WEAPON_CLASS only — is_poisonable && opoisoned → "poisoned "
+        // before VENOM/TOOL fallthrough (lenses/towel would overwrite).
+        // Named omission: wet-towel moist/wet; figurine " of <pm>";
+        // ConcUpdate; permapoisoned.
+        if (obj.oclass === WEAPON_CLASS
+            && is_poisonable_obj(obj) && obj.opoisoned) {
+            buf = 'poisoned ';
+        }
         if (n === 'LENSES') buf = 'pair of ';
         if (!dknown) buf += dn;
         else if (nn) buf += actual;
@@ -604,6 +619,13 @@ export function doname(obj) {
     const bknown = !!obj.bknown;
     const quan = obj.quan || 1;
     let base = pretty_base(obj);
+    // C doname_base: xname may start with "poisoned "; strip into prefix
+    // so order is article/BUC/poisoned/erosion/spe + bare name.
+    let ispoisoned = false;
+    if (base.startsWith('poisoned ') && obj.opoisoned) {
+        base = base.slice(9);
+        ispoisoned = true;
+    }
     if (quan !== 1) base = makeplural(base);
 
     // C ref: objnam.c doname_base — COIN_CLASS uses the same quan/article
@@ -643,6 +665,9 @@ export function doname(obj) {
             if (showUncursed) prefix += 'uncursed ';
         }
     }
+
+    // C: WEAPON_CLASS — re-insert stripped "poisoned " before erosion/spe
+    if (oclass === WEAPON_CLASS && ispoisoned) prefix += 'poisoned ';
 
     // C ref: objnam.c add_erosion_words — rknown + oerodeproof
     if (obj.rknown && obj.oerodeproof) {

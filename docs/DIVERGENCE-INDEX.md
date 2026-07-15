@@ -404,6 +404,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 | D-0415 | fixed | throw `*` + thitmonst food → tamedog/dog_eat | seed0004 RNG full 12084; Scr 240→243; screen peel next |
 | D-0416 | fixed | dog_move cursemsg → display.canseemon LOS | seed0004 Scr 243→244; @182 fixed; @239 bag empty next |
 | D-0417 | fixed | use_container emptymsg → Ysimple_name2 | seed0004 Scr 244→245; @239 fixed; @240 quan next |
+| D-0418 | fixed | xname/doname WEAPON poisoned prefix | seed0004 Scr 245→254; @240 fixed; @248 trap `^` next |
 
 D-0001 through D-0005 predate the strict-length/cohort runbook. Their focused
 causes are preserved, but generic "green sessions held" is historical evidence,
