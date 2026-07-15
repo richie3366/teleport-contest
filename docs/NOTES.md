@@ -11,22 +11,22 @@ Objective/score live in `CURRENT.md`.
   **262087**/792838. seed0004 Scr **242**/409; RNG **11029**/12084
   (prefix **10966**).
 - **Next:** seed0004 @10966 — C `distfleeck` vs JS `dopush`
-  `exercise(A_STR)`. DIAG (removed): EOT `before=9→21` wtcap=0
-  `inv_wt=-15` carrcap=675 !Fast; youmonst now set (D-0411) mmove=12.
-  **Experiments:** force `after=9` or (`before=0`+SLT) moves miss→10979;
-  force SLT alone (before=9→18) or before=0 alone (→12) does **not**.
-  So C needs `after_calc<12`: leftover≈0 **and** SLT, or leftover=9+EXT.
-  Invent is only 15 under capacity — find ≥16 aum gap or leftover-0
-  heal-phase desync + brief SLT. Leftover stuck at 9 since heal EOT
-  (rng~4392 SLT `0→9` then UNENC `9→21`).
-- **Don’t re-check:** treat @10966 as bare Fast `rn2(3)` (none at EOT);
-  force-SLT-from-heal-onward (breaks @~10370 dog_move); umove=21 alone
-  without encumbrance story; gethungry ordinary `uhunger--` (D-0410);
-  eatcorpse palatable without `hero_form_data` (D-0409); getpos `>`/`<`
-  (D-0408); SCR_TELEPORTATION (D-0407); pickup `@`/Conflict (D-0406);
-  unrotted corpse timers (D-0405); known_hitum int half (D-0404);
-  heal_legs / nh_timeout (D-0403); Norep (D-0402); trapmove/Burdened
-  (D-0401).
+  `exercise(A_STR)` during travel (`_>` then `.`, step 307, 650 RNG).
+  **State at miss EOT (n≈10963):** before=9→21, wtcap=0, inv=-15,
+  carrcap=675, STR14/CON11, ew=0, !usteed, mmove=12, !Fast.
+  **Force (reconfirmed #441):** `after=9` or (`before=0`+SLT) →
+  prefix **10979**; SLT alone (9→18) or before=0 alone (→12) **no**.
+  Need after_calc<12: leftover0+SLT (EXT+before9 unrealistic at wt≈660).
+  **Leftover timeline:** heal n=4392 SLT `0→9` then UNENC `9→21`
+  sticky forever (no post-heal SLT anomalies). C botl Burdened only
+  screens 27–50; step 307 unencumbered (may be post-miss turns).
+  **Hypothesis:** C on silent **0→12** UNENC cycle (same control flow
+  as 9→21 while after≥12) + brief SLT at miss (≥16 aum inv/cap gap),
+  or consecutive after<12 (force remiss @10979). Find weight gap or
+  how leftover became 0 after heal.
+- **Don’t re-check:** bare Fast/`rn2(3)`; SLT-with-before=9 alone;
+  before=0 UNENC alone; force-SLT-from-heal-onward; usteed/Ride (no
+  Ride on C botl; JS usteed never set); umove=21 alone; D-0401…D-0411.
 - **Landmark:** vault door (71,13); dig + restfakecorr; SPELL_LEV_PW(1)=5.
 - **Parked:** D-0006; seed2200 @158 RC.
 
@@ -71,7 +71,8 @@ Objective/score live in `CURRENT.md`.
   short-circuit on palatable `rn2(10)` (D-0409); treat @10713 as bare
   `exerper` polarity without checking deferred `gethungry` `uhunger--`
   (D-0410); treat @10966 as bare Fast/`rn2(3)` or SLT-with-before=9
-  alone (needs after_calc<12) (D-0411).
+  alone (needs after_calc<12) (D-0411); treat @10966 as Ride/usteed
+  (no Ride botl; JS never mounts) (#441).
 - Runner `Screen N/M` = total matches, not prefix length.
 - First cell-miss may be botl `$:` / `Burdened` even when NOTES names a topline.
 
@@ -91,4 +92,6 @@ Objective/score live in `CURRENT.md`.
 - Monk starter: `SPELL_LEV_PW(1)` bump when `num_spells()` (D-0380).
 - Ice-box look: merge+sortloot stacks (D-0383); pickup class headers
   (D-0384).
+- UNENC leftover **0→12** vs **9→21** same hero/EOT cadence while
+  after≥12 — can desync silently (#441).
 - D-0383…D-0411 landmarks: see index / don’t-recheck above.

@@ -61,11 +61,11 @@ Both must remain full RNG + screen PASS with exact scored-output lengths.
 
 ## Primary objective
 
-**seed0004 @10966** — after EOT wipe, C `distfleeck` (monsters still
-moving) vs JS `dopush` `exercise(A_STR,TRUE)` via `continue_run` into
-boulder. DIAG: JS `before=9→21` wtcap 0 `inv=-15` (D-0411 youmonst +
-moveloop order did not move miss). C needs `after_calc<12` (leftover0+SLT
-or leftover9+EXT). Find ≥16 aum weight/cap gap or heal leftover desync.
+**seed0004 @10966** — during travel (`_>` / `.`), after EOT wipe C
+`distfleeck` vs JS `dopush` `exercise(A_STR)`. JS sticky UNENC
+`9→21` since heal; inv=-15. Force (#441): leftover0+SLT / after=9 →
+10979; SLT|leftover0 alone no. Find ≥16 aum inv/cap gap at miss and/or
+how C reached silent **0→12** leftover after heal.
 
 ```bash
 node frozen/ps_test_runner.mjs sessions/seed0004-feeding-pony.session.json

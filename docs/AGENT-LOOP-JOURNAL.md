@@ -20,6 +20,15 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-15 17:45 — #441 seed0004 @10966 after_calc diag (D-0412)
+- Objective: seed0004 @10966 PRIMARY — C `distfleeck` vs JS `dopush`.
+- C locus: `allmain.c` `u_calc_moveamt` / EOT; `hack.c` near_capacity.
+- Change: diagnosis only (DIAG removed). Reconfirmed force leftover0+SLT
+  / after=9 →10979; SLT|leftover0 alone no. JS sticky 9→21 UNENC since
+  heal; inv=-15; !usteed. Silent 0→12 vs 9→21 possible under UNENC.
+- Verification: green+strict PASS; seed0004 still @10966.
+- Next: ≥16 aum inv/cap gap at miss; or how C leftover →0 after heal.
+
 ## 2026-07-15 17:30 — #440 public score cadence
 - Objective: mandatory full `sessions` score (iteration % 5 == 0).
 - C locus: n/a (score-only; no port patch).
@@ -156,27 +165,3 @@ Use this shape:
 - Verification: seed0004 @46 match; Scr **52→53**/409; RNG still @4394;
   green+strict PASS; cohort 23/23 PASS.
 - Next: @51 heal_legs / nh_timeout WOUNDED_LEGS (DEX wipe_engr rn2).
-
-## 2026-07-15 15:20 — #427 trapmove + Burdened botl (D-0401)
-- Objective: seed0004 @29 caught-in-bear (PRIMARY).
-- C locus: hack.c trapmove/domove; botl.c enc_stat; attrib.c exerper;
-  trap.c mintrap rn2(40); dogmove.c defer newsym to postmov.
-- Change: ported trapmove+wire; botl Burdened; exerper wounded/encumb;
-  mintrap escape RNG; dog_move newsym→postmov only.
-- Verification: seed0004 Scr **29→52**/409 (prefix ~46); RNG
-  **4114→5331**/12084; green+strict PASS; cohort 23/23 PASS.
-- Next: @46 caught+wriggle same topline; or RNG @4394 DEX rn2(67/64).
-
-## 2026-07-15 15:10 — #426 encumber_msg wounded legs (D-0400)
-
-- Objective: seed0004 @27 bear-trap `--More--` (hypothesized flush_topl).
-- C locus: do.c set_wounded_legs → encumber_msg; hack.c weight_cap
-  WT_WOUNDEDLEG_REDUCT; pickup.c encumber_msg; allmain preamble.
-- Change: ported encumber_msg + wounded-leg carrcap; call from
-  set_wounded_legs + moveloop_preamble. Falsified “flush alone” —
-  second load pline drives more().
-- Verification: seed0004 @27/@28 match; RNG 4087→4114; Scr 29/409
-  (@29 caught-in-bear next); green+strict PASS; cohort 23/23 PASS.
-- Next: seed0004 @29 `You are caught in a bear trap.`; or seed0002
-  eatcorpse.
-

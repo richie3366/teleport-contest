@@ -4,6 +4,28 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
+## D-0412 — seed0004 @10966 umovement after_calc (diagnosis)
+
+- **Status:** open (diagnosis; no production patch)
+- **Symptom:** seed0004 first RNG miss @10966 — C `distfleeck` vs JS
+  `dopush`/`exercise(A_STR)` after matching EOT `gethungry`/`exercise`/
+  wipe_engr. During travel step (`_>` / `.`, 650 RNG).
+- **Evidence (#441):** JS EOT n≈10963: before=9→21, inv=-15, cap=675,
+  STR14/CON11, ew=0, !usteed, mmove=12. Leftover sticky `9→21` UNENC
+  since heal n=4392 (SLT `0→9` then UNENC). Force: `after=9` or
+  (`before=0`+SLT) → prefix **10979**; SLT alone / before=0 UNENC alone
+  unchanged @10966. C botl Burdened only screens 27–50; step 307
+  unencumbered. UNENC `0→12` vs `9→21` share hero/EOT cadence while
+  after≥12 (silent leftover desync possible). Ride/usteed falsified
+  (no Ride on C botl; JS never mounts). EXT+before9 unrealistic at
+  invent≈660.
+- **C locus:** `allmain.c` `u_calc_moveamt` / moveloop_core EOT;
+  `hack.c` `near_capacity`/`inv_weight`/`weight_cap`.
+- **Next:** ≥16 aum inv undercount or cap overcount at miss; and/or
+  how C leftover became 0 after heal while JS stayed 9→21.
+- **Verification:** green+strict PASS; seed0004 still @10966
+  (11029/12084, Scr 242/409). DIAG removed.
+
 ## D-0411 — umonnum/youmonst.data + moveloop encumber_msg/mvl_wtcap order
 
 - **Status:** fixed (partial vs @10966 — miss unchanged)
