@@ -8,14 +8,15 @@ Objective/score live in `CURRENT.md`.
 ## Active
 
 - **Score:** **24/44** PASS (#385 full suite). Scr 3640/11405; RNG 243833/792838.
-- **Next (post D-0364):** seed0012 @3483 — C `dog_goal` `obj_resists` vs JS
-  `dog_move` `rn2(3)`. After tripe meating fix, matched two resists then JS
-  exits scan early (fewer in-bbox `fobj` or reach/gtyp short-circuit).
+- **Next (post D-0365):** seed0012 @6924 — C `getlev` `rnd(10)` vs JS
+  `distfleeck` `rn2(5)`. Prefix 3483→6924 after multi `,` pickup menu.
   Cmd: `node scripts/rng-diff.mjs sessions/seed0012-monk-vault-escort.session.json`
-- **Don’t re-check:** blame @3248 on fleeck arity / extra fobj while C meating
-  (D-0364 — was instance `oc_delay`); under-dmg @3204 (D-0363); #l→loot
-  (D-0362); ICE_BOX mkbox (D-0361).
-- **Landmark:** screen `i` key = `moves[i]` (= `steps[i+1].key`).
+- **Don’t re-check:** blame @3483 on dog_goal fobj count / invent skip while
+  `,` stub leaked menu keys as movement (D-0365); @3248 fleeck/meating
+  (D-0364); under-dmg @3204 (D-0363); #l→loot (D-0362); ICE_BOX mkbox
+  (D-0361).
+- **Landmark:** screen `i` key = `moves[i]` (= `steps[i+1].key`);
+  jsmain maps `\r`→LF (`\n`=C('j') rush-south) — menus must consume Enter.
 - **Parked:** D-0006; seed2200 @158 RC.
 
 ## Don’t re-check (≤15)
@@ -71,7 +72,9 @@ Objective/score live in `CURRENT.md`.
   ICE_BOX `mkbox_cnts` via boxiprobs (D-0361 — `mksobj(CORPSE)`);
   treat `#loot` unknown / blame @3152 on dog_move appr (D-0362);
   blame @3204 on xkilled path when JS still flees — under-dmg (D-0363);
-  blame @3248 on fleeck/fobj while C meating — instance oc_delay (D-0364).
+  blame @3248 on fleeck/fobj while C meating — instance oc_delay (D-0364);
+  blame @3483 on dog_goal fobj/invent while `,` stub leaked `b`/`\n`/`n`
+  as movement (D-0365).
 - Runner `Screen N/M` = total matches, not prefix length.
 
 ## Landmarks (≤15)
@@ -80,17 +83,9 @@ Objective/score live in `CURRENT.md`.
 - `goto_level` descend: `stairway_find_from(&u.uz0)` (D-0224); ends with
   `pickup(1)` (D-0349); UTOTYPE_NONE → `u_on_rndspot` (D-0350).
 - tut-1 string `des.map` → SPLEV_CENTER xstart/ystart odd (D-0350).
-- Session: screen `i` reads `moves[i]`; `more()` space/CR/ESC.
+- Session: screen `i` reads `moves[i]`; `more()` space/CR/ESC;
+  jsmain `\r`→LF (C tty ICRNL; LF=C('j') rush-south if it reaches rhack).
 - Save: VFS `save/<plname>` JSON; restore skips `rndencode`;
   `l_nhcore_init` still 2×rn2; farewell clears map no flush (D-0335).
 - Scoring grid: DEC chars in DEC_MAP → Unicode; `{`/` `` ` `` stay raw.
-- D-0274…D-0364: bones/disclose/RIP/topten/descr/botl/paybill/ghost/`;`/
-  getlin/compactify/enl/checkfile/save/welcome/attr/`$`/`)`/show-*/DEL/
-  reveal_terrain/getpos Done/`#twoweapon`/`hitum` twohits/`dosit` OBJ_AT/
-  weapon_insight twoweap limits / chargen corner / tutorial yes-path /
-  tut-1 CENTER + invent stash + door-area + mktrap gate through sling +
-  loot→end + align_shift + WAITMASK + mention_walls bump + pool/lava/ice
-  DEC diamond + describe_decor + swim avoid/drown/lava burn + death
-  disclose attrs/conduct/overview + init_mapseen + continue_run no smudge +
-  hero rocktrap place ROCK + ICE_BOX mkbox corpses + `#loot` use_container +
-  hmon dmg_recalc dbon/weapon_dam_bonus + dog_nutrition objects[] oc_delay.
+- D-0274…D-0365: bones through multi `,` query_objlist (see index).

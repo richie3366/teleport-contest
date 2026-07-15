@@ -19,6 +19,14 @@ Use this shape:
 - Verification: …
 - Next: …
 ```
+## 2026-07-15 06:50 — D-0365 multi `,` query_objlist (seed0012 @3483)
+- Objective: seed0012 @3483 C dog_goal obj_resists vs JS dog_move rn2(3).
+- C locus: pickup.c pickup/query_objlist PICK_ANY; hack.c dopickup.
+- Change: multi-object `,` menu (letter toggle + Enter); was stub that
+  leaked b/\\n/n as movement → hero desync → skipped invent resists.
+- Verification: prefix 3483→6924; RNG 3638→7052; green+strict; cohort 24/24.
+- Next: seed0012 @6924 C getlev rnd(10) vs JS fleeck.
+
 ## 2026-07-15 06:35 — D-0364 dog_nutrition oc_delay (seed0012 @3248)
 - Objective: seed0012 @3248 C fleeck vs JS obj_resists after pet fleeck.
 - C locus: dogmove.c dog_nutrition/dog_eat; monmove.c m_move meating.
@@ -146,13 +154,4 @@ Use this shape:
 - Verification: Scr **27→38** (first miss @33 wall); RNG **3341→3450**;
   green+strict; cohort 5 PASS.
 - Next: load_tut1 large-box mkbox_cnts+contents → place_lregion.
-
-## 2026-07-15 02:58 — D-0351 tut-1 door-area des.*
-- Objective: seed0009 @21 S_engroom `` ` `` vs floor (CURRENT).
-- C locus: `dat/tut-1.lua` door-area; `sp_lev.c` lspo_engraving/door/trap;
-  parse_config newbie options.
-- Change: engravings (2,4)/(2,5)/(2,7)/(4,5) + `D_CLOSED` (2,6) + seen
-  MAGIC_PORTAL (4,4) + mention_walls/decor/lit_corridor (D-0351).
-- Verification: seed0009 Scr **21→27**; green+strict; cohort sample PASS.
-- Next: @27 door resists vs opens (`doopen_indir` chance/attrs).
 

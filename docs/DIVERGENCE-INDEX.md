@@ -351,6 +351,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 | D-0362 | fixed | #loot use_container :/ESC | EXT_CMDS loot; seed0012 @3152 was hero desync |
 | D-0363 | fixed | hmon dmg_recalc dbon/skill | martial Basic +3; seed0012 @3204→3248 |
 | D-0364 | fixed | dog_nutrition objects[] oc_delay | tripe meating=2; seed0012 @3248→3483 |
+| D-0365 | fixed | multi `,` query_objlist PICK_ANY | menu keys no longer leak as move; @3483→6924 |
 
 
 D-0001 through D-0005 predate the strict-length/cohort runbook. Their focused

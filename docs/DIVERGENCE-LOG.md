@@ -24,6 +24,31 @@ The compact status table lives in **`DIVERGENCE-INDEX.md`**.
 Open that file first; then jump to a single `## D-NNNN` entry below
 (via search). Do **not** read this whole file by default.
 
+## D-0365 — multi `,` `query_objlist` PICK_ANY (seed0012 @3483)
+
+- **Status:** fixed
+- **Observed:** seed0012 @3483 — C `obj_resists` (dog_goal invent scan)
+  vs JS `rn2(3)` (dog_move approach). Two matched resists then diverge.
+- **C locus:** `pickup.c` `pickup` / `query_objlist` PICK_ANY; `hack.c`
+  `dopickup`.
+- **Cause:** hero on CORPSE+SACK pressed `,` `b` `\r` `n`. JS multi-object
+  path only plined “several objects here” and returned without a menu, so
+  `b`/`\n`/`n` leaked into `rhack` as movement (`\r`→LF = C('j') rush-south
+  via jsmain ICRNL). Hero walked to (16,8); pet stayed at (14,7); `udist>1`
+  + CORR skipped invent `dogfood`/`obj_resists`. C’s menu consumed those
+  keys; hero stayed adjacent → invent scan (11 resists). Rejected: missing
+  in-bbox fobj; invent-gate bug in `dog_goal` itself.
+- **Change:** `js/pickup.js` — `query_objlist_pickup` letter-toggle PICK_ANY
+  + `pickup_object` each selection. Deferred: traditional `query_classes`,
+  FEEL_COCKATRICE, INVORDER_SORT, count-N.
+- **Verification:** seed0012 first mismatch **3483→6924**; runner RNG
+  **3638→7052**/13878 Scr 14/308; green+strict PASS; cohort **24/24**
+  PASS (incl. seed0009).
+- **Lesson:** a stubbed interactive command that returns without consuming
+  its follow-up keys desyncs hero position; later pet RNG looks like AI
+  divergence.
+- **Next:** seed0012 @6924 C `getlev` `rnd(10)` vs JS fleeck.
+
 ## D-0364 — `dog_nutrition` table `oc_delay` (seed0012 @3248)
 
 - **Status:** fixed
