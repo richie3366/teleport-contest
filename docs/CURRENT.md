@@ -37,7 +37,7 @@ seed0013-rogue, seed0013-friday13-restore, seed0107, seed0009.
 **Notable non-PASS:**
 | Session | RNG | Screen | Note |
 |--------|----:|-------:|------|
-| seed0012 | **13878**/13878 | **244**/308 | @140 TER_DETECT autodescribe |
+| seed0012 | **13878**/13878 | **259**/308 | @226 search-stop topline |
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
 | seed0002 | 5198/27158 | **50**/595 | |
 | seed0004 | 4025/12084 | 28/409 | |
@@ -58,17 +58,17 @@ Both must remain full RNG + screen PASS with exact scored-output lengths.
 
 ## Primary objective
 
-**seed0012 screens** — RNG prefix complete; Scr **257**/308, cursors
-**302**/308. TER_DETECT getpos autodescribe ported (D-0390); first fail
-@221 C dust engraving `You read: "?? a?r?r um"` vs JS blank topline
-(`read_engr_at` / wipeout).
+**seed0012 screens** — RNG prefix complete; Scr **259**/308, cursors
+**302**/308. parse/`get_count` digit path ported (D-0391); dust @220–222
+match. First fail **@226** C `You stop searching.` vs JS blank / later
+search-find desync (`9s` multi stop message + continue_search).
 
 ```bash
 node frozen/ps_test_runner.mjs sessions/seed0012-monk-vault-escort.session.json
 ```
 
-**Falsify next:** C `read_engr_at` / `wipeout_text` for DUST engraving
-under partial wipe — message + garbled text vs silent skip.
+**Falsify next:** C `You stop searching.` / `multi` after counted
+`dosearch` vs JS clear timing and continue_search stop pline.
 
 **Alternates:** seed0004 / seed0002 / seed0006 / seed0007; quest early-0.
 

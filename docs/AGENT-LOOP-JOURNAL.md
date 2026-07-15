@@ -20,6 +20,17 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-15 14:05 — #417 parse/get_count digit clear (D-0391)
+- Objective: seed0012 @221 dust topline blank after `9` of `9s`.
+- C locus: cmd.c parse/get_count; clear_nhwindow(WIN_MESSAGE) once after
+  command key (not between digits).
+- Change: falsified wipeout/`read_engr_at` — engraving already matched
+  @220; JS rhack cleared pending on every key. Ported get_count +
+  clear_nhwindow_message.
+- Verification: seed0012 Scr **257→259**/308; @220–222 match; first fail
+  @226 `You stop searching.`; green+strict PASS; cohort 24/24 PASS.
+- Next: seed0012 @226 counted-search stop pline / continue_search.
+
 ## 2026-07-15 13:48 — #416 getpos auto_describe TER_DETECT (D-0390)
 - Objective: seed0012 @140 tip stuck vs C `unexplored area`.
 - C locus: getpos.c auto_describe/getpos msg_given; pager.c lookat;
@@ -148,25 +159,4 @@ Use this shape:
 - Verification: prefix 13517→13576; RNG 13591→13635 cursors 259→270;
   green+strict PASS; cohort 22/22.
 - Next: seed0012 @13576 C dog_move rn2(1) vs JS rn2(4).
-
-## 2026-07-15 09:35 — #400 score + D-0376 shk off-home diagnosis
-- Objective: mandatory full `sessions` score (#400÷5); peel seed0012 @13517.
-- C locus: shk.c shk_move onlineu/satdoor; priest.c move_special.
-- Change or falsified theory: no JS patch. Falsified “move_special cand-count”
-  — JS satdoor mill faithful; @13517 JS shk off-home appr=1 after mill~11069
-  stuck on !onlineu; C satdoor mill ⇒ missed earlier appr=1 return (D-0376 open).
-- Verification: green+strict PASS; full **24/44** Scr **3640**/11405 RNG
-  **254110**/792838 speed `21+0.13/turn`.
-- Next: falsify first onlineu(11,12) miss hero path 11072–13517.
-
-## 2026-07-15 09:28 — D-0375 bag apply + gd_move escort (seed0012 @13392)
-- Objective: seed0012 @13392 C distfleeck rn2(5) vs JS rn2(7).
-- C locus: invent.c display_pickinv/getobj `?`; apply.c use_container;
-  pickup.c out_container/menu_loot; vault.c gd_move/hidden_gold.
-- Change: getobj `?` invent pick; sack apply → take-out gold; hidden_gold;
-  OBJ_CONTAINED extract; peaceful gd_move corridor step (D-0375). Root was
-  apply `?`→Never mind desync (a?jo$ bag loot) then stub gd_move.
-- Verification: prefix 13392→13517; RNG 13430→13591 cursors 254→259;
-  green+strict PASS; cohort 24/24.
-- Next: seed0012 @13517 C move_special rn2(1) vs JS rn2(5).
 

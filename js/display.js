@@ -485,6 +485,17 @@ export function reset_display_messages() {
     _lastStatus2 = '';
 }
 
+/**
+ * C ref: wintty.c tty_clear_nhwindow(WIN_MESSAGE) — blank topline when
+ * toplin != EMPTY. Used by cmd.c parse() after get_count returns.
+ */
+export function clear_nhwindow_message() {
+    if (_toplin === TOPLINE_EMPTY) return;
+    _toplines = '';
+    _toplin = TOPLINE_EMPTY;
+    game._pending_message = '';
+}
+
 // ── ANSI color codes ──
 // Maps CLR_* constants (0-15) to ANSI SGR color codes.
 // C ref: wintty.c term_start_color

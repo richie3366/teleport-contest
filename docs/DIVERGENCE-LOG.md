@@ -24,6 +24,26 @@ The compact status table lives in **`DIVERGENCE-INDEX.md`**.
 Open that file first; then jump to a single `## D-NNNN` entry below
 (via search). Do **not** read this whole file by default.
 
+## D-0391 — parse / get_count digit path (seed0012 Scr 257→259)
+
+- **Status:** fixed
+- **Observed:** seed0012 @221 — C still shows dust engraving topline after
+  digit `9` of `9s`; JS blanked. `read_engr_at` already correct at @220
+  (`You read: "?? a?r?r um"`).
+- **C locus:** `cmd.c` `parse` / `get_count` — digits accumulate without
+  `clear_nhwindow(WIN_MESSAGE)`; one clear after the command key returns.
+- **Cause/evidence:** JS `rhack` cleared `_pending_message` on every key,
+  including count digits, so the post-`9` input-boundary lost the prior
+  pline. C keeps the message through get_count until parse clears once.
+- **Change:** `js/cmd.js` `get_count` + parse-shaped `rhack(0)`;
+  `js/display.js` `clear_nhwindow_message`. Named omissions: full
+  `GC_*` flags / `LARGEST_INT` / `altmeta` count path; trailing +24 RNG
+  log length after matched prefix (runner still 13878/13878).
+- **Verification:** seed0012 Scr **257→259**/308; @220–222 match; first
+  fail **@226** `You stop searching.`; green+strict PASS; cohort 24/24
+  PASS.
+- **Next:** seed0012 @226 counted-search stop pline / continue_search.
+
 ## D-0390 — getpos auto_describe TER_DETECT (seed0012 Scr 244→257)
 
 - **Status:** fixed
