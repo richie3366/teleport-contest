@@ -7,21 +7,20 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Score:** **25/44** PASS (#425). Screens **3983**/11405 (D-0399).
-  seed0004 Scr **29**/409; seed0002 Scr **54**/595.
-- **Next:** seed0004 @27 — C `A bear trap closes on your foot!--More--`
-  vs JS without `--More--` (trapeffect / pline NEED_MORE /
-  `flush_topl_more`). Or seed0002 @3808 `eatcorpse` rnd(8). Cmds in
-  `CURRENT.md`.
-- **Don’t re-check:** look_here observe before doname (D-0399);
-  trapeffect_bear_trap + floor_trigger BEAR (D-0398); gd_move_cleanup
-  Suddenly (D-0397); drop gold botl + Move along! (D-0396); doname
-  containing + cknown (D-0395); use_container outmaybe/yname +
-  MENU_FULL (D-0394); teleds + gold botl (D-0393); stop_occupation +
-  dochugw (D-0392); counted Ns (D-0391); getpos auto_describe (D-0390);
-  cls clear_glyph (D-0389); prinv total_of (D-0388); post-autopick
-  check_here (D-0387); hilite_pile ATR_INVERSE (D-0386); Options stub
-  (D-0385).
+- **Score:** **25/44** PASS (#425). Screens **3983**/11405.
+  seed0004 Scr still **29**/409 (peel advanced); seed0002 Scr **54**/595.
+- **Next:** seed0004 @29 — C `You are caught in a bear trap.` vs JS blank
+  (utrap move / `trapmove`?). Or seed0002 @3808 `eatcorpse` rnd(8).
+  Cmds in `CURRENT.md`.
+- **Don’t re-check:** encumber_msg + WT_WOUNDEDLEG_REDUCT (D-0400);
+  look_here observe before doname (D-0399); trapeffect_bear_trap +
+  floor_trigger BEAR (D-0398); gd_move_cleanup Suddenly (D-0397);
+  drop gold botl + Move along! (D-0396); doname containing + cknown
+  (D-0395); use_container outmaybe/yname + MENU_FULL (D-0394);
+  teleds + gold botl (D-0393); stop_occupation + dochugw (D-0392);
+  counted Ns (D-0391); getpos auto_describe (D-0390); cls clear_glyph
+  (D-0389); prinv total_of (D-0388); post-autopick check_here
+  (D-0387); hilite_pile ATR_INVERSE (D-0386).
 - **Landmark:** vault door (71,13); dig + restfakecorr; SPELL_LEV_PW(1)=5.
 - **Parked:** D-0006; seed2200 @158 RC.
 
@@ -45,7 +44,9 @@ Objective/score live in `CURRENT.md`.
   defer Move along! (D-0396); skip `gd_move_cleanup` Suddenly +
   `flush_topl_more` (D-0397); omit `trapeffect_bear_trap` /
   BEAR in `floor_trigger` (D-0398); name pile gems without
-  `observe_object` in look_here (D-0399).
+  `observe_object` in look_here (D-0399); omit `encumber_msg` after
+  `set_wounded_legs` / skip `WT_WOUNDEDLEG_REDUCT` in `weight_cap`
+  (D-0400 — bear `--More--` is load pline, not flush_topl alone).
 - Runner `Screen N/M` = total matches, not prefix length.
 - First cell-miss may be botl `$:` even when NOTES names a topline.
 
@@ -68,5 +69,5 @@ Objective/score live in `CURRENT.md`.
   MENU_FULL (D-0394); doname containing (D-0395); drop gold + Move
   along! (D-0396); escort Suddenly + flush_topl_more (D-0397);
   bear trap `d(2,4)`/`set_utrap` (D-0398); look_here observe before
-  doname (D-0399).
-- D-0274…D-0399: see index.
+  doname (D-0399); wounded legs → `encumber_msg` load pline (D-0400).
+- D-0274…D-0400: see index.

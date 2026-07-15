@@ -4,6 +4,30 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
+## D-0400 — encumber_msg + weight_cap wounded-leg reduct (bear --More--)
+
+- **Symptom:** seed0004 @27 — C `A bear trap closes on your foot!--More--`
+  (cursor topline) vs JS same text without `--More--` (cursor on map); space
+  then becomes `Unknown command ' '`.
+- **Cause:** Not missing `flush_topl_more` alone. C `set_wounded_legs` calls
+  `encumber_msg`; `weight_cap` subtracts `WT_WOUNDEDLEG_REDUCT` per wounded
+  side, so capacity rises to SLT and plines
+  `Your movements are slowed slightly because of your load.` — that second
+  pline triggers `more()` on the bear-trap message. JS omitted both.
+- **C locus:** `do.c` `set_wounded_legs` (~2426); `pickup.c` `encumber_msg`
+  (~1978); `hack.c` `weight_cap` wounded (~4331–4335); `allmain.c`
+  `moveloop_preamble` `encumber_msg` (~91).
+- **Change:** `js/invent.js` — `WT_WOUNDEDLEG_REDUCT` in `weight_cap`;
+  port `encumber_msg` (`game.oldcap`); `js/trap.js` await after
+  `set_wounded_legs`; `js/allmain.js` preamble sync. Named omissions:
+  other `encumber_msg` callers; Lev/air/steed MAX; `stagger()` poly;
+  `heal_legs`; turn-loop encumber checks.
+- **Verification:** seed0004 @27/@28 match; RNG **4087→4114**/12084;
+  Scr still **29**/409 (next @29 caught-in-bear); green+strict PASS;
+  cohort **23/23** PASS; seed0002 Scr 54 unchanged.
+- **Next:** seed0004 @29 `You are caught in a bear trap.`; or seed0002
+  eatcorpse.
+
 ## D-0399 — look_here observe_object before doname (gem color)
 
 - **Symptom:** seed0004 first cell miss @26 — C `a yellow gem` /

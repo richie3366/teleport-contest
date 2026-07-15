@@ -51,7 +51,7 @@ import { monsterNames } from './generated/monsters_data.js';
 import { thitu } from './mthrowu.js';
 import { dmgval } from './weapon.js';
 import { maybe_half_phys, nomul, losehp } from './hack.js';
-import { observe_object } from './invent.js';
+import { observe_object, encumber_msg } from './invent.js';
 import { makemon } from './makemon.js';
 import { A_CHA, A_STR, A_DEX, adjattrib, exercise } from './attrib.js';
 import { tamedog } from './dog.js';
@@ -855,10 +855,11 @@ function reset_utrap(_msg) {
 }
 
 /**
- * C ref: do.c set_wounded_legs — timeout + side bits + ATEMP(DEX)--.
- * Named omission: encumber_msg; steed-leg messaging is caller's job.
+ * C ref: do.c set_wounded_legs — timeout + side bits + ATEMP(DEX)--
+ * then encumber_msg (carrcap drops via WT_WOUNDEDLEG_REDUCT).
+ * Named omission: steed-leg messaging is caller's job.
  */
-function set_wounded_legs(side, timex) {
+async function set_wounded_legs(side, timex) {
     const u = game.u || (game.u = {});
     if (game.flags) game.flags.botl = true;
     if (game.disp) game.disp.botl = true;
@@ -874,6 +875,8 @@ function set_wounded_legs(side, timex) {
     }
     u.EWounded_legs = (u.EWounded_legs | 0) | (side | 0);
     u.Wounded_legs = true;
+    // C: encumber_msg() after EWounded_legs |= side
+    await encumber_msg();
 }
 
 /** C ref: mondata.c body_part — FOOT→"foot"; full poly table deferred. */
@@ -942,7 +945,9 @@ async function trapeffect_bear_trap(mtmp, trap, trflags) {
                 // C: Yname2(uarmf) — iron shoes protect; which_armor deferred
                 await pline('Your boots protect your leg.');
             } else {
-                set_wounded_legs(rn2(2) ? RIGHT_SIDE : LEFT_SIDE, rn1(10, 10));
+                await set_wounded_legs(
+                    rn2(2) ? RIGHT_SIDE : LEFT_SIDE, rn1(10, 10),
+                );
                 losehp(maybe_half_phys(dmg), 'bear trap', KILLED_BY_AN);
             }
         }

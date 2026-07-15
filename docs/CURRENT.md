@@ -42,7 +42,7 @@ seed0013-rogue, seed0013-friday13-restore, seed0107, seed0009,
 |--------|----:|-------:|------|
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
 | seed0002 | 5198/27158 | **54**/595 | Scr↑ via D-0399; still @3808 eatcorpse |
-| seed0004 | 4087/12084 | **29**/409 | D-0399 gem; next @27 bear `--More--` |
+| seed0004 | 4114/12084 | **29**/409 | D-0400 bear More; next @29 caught-in-bear |
 | seed0361/0373 | early | 0 | quest bones / `makemaz` |
 
 ## Green gate
@@ -60,9 +60,9 @@ Both must remain full RNG + screen PASS with exact scored-output lengths.
 
 ## Primary objective
 
-**seed0004 / seed0002 shared blockers** — gem color via look_here observe
-(D-0399). Prefer seed0004 @27 bear-trap `--More--` (`flush_topl_more` /
-pline NEED_MORE) or seed0002 `eatcorpse` rnd(8) over parked items.
+**seed0004 / seed0002 shared blockers** — gem color + bear load `--More--`
+(D-0399/D-0400). Prefer seed0004 @29 `You are caught in a bear trap.`
+(`trapmove` / utrap) or seed0002 `eatcorpse` rnd(8) over parked items.
 
 ```bash
 node frozen/ps_test_runner.mjs sessions/seed0004-feeding-pony.session.json

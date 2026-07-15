@@ -24,7 +24,7 @@ import { unmul, monster_nearby, stop_occupation } from './hack.js';
 import { reset_justpicked } from './pickup.js';
 import { gethungry } from './eat.js';
 import { age_spells } from './spell.js';
-import { near_capacity, paint_corner_nhw_menu } from './invent.js';
+import { near_capacity, paint_corner_nhw_menu, encumber_msg } from './invent.js';
 import { com_pager_legacy } from './questpgr.js';
 import { snapshot_status_lines } from './display.js';
 import { Hello, align_str } from './roles.js';
@@ -73,6 +73,8 @@ export async function moveloop_preamble(resuming) {
     } else {
         // C: read_engr_at / fix_shop_damage deferred
     }
+    // C: encumber_msg() — sync go.oldcap (auto-pickup / starting load)
+    await encumber_msg();
     game.context.move = 0;
 }
 
