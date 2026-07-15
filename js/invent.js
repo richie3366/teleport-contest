@@ -257,6 +257,28 @@ export function nhw_menu_geometry(entries, morestr = '(end) ') {
 }
 
 /**
+ * C ref: wintty.c erase_menu_or_text — destroy prior NHW_MENU before the
+ * next. Fullscreen (offx==0): term_clear_screen. Corner: docorner cl_end
+ * from offx for maxrow+1 rows. Only needed when flush_screen is skipped
+ * (chargen — no map/botl yet).
+ */
+function erase_prior_nhw_menu_chargen() {
+    const g = game._tty_menu_geom;
+    if (!g) return;
+    const disp = display();
+    if (!disp) return;
+    if (g.offx === 0) {
+        disp.clearScreen?.();
+    } else {
+        for (let r = 0; r <= g.endRow; r++) {
+            for (let c = g.offx; c < disp.cols; c++)
+                disp.setCell(c, r, ' ', NO_COLOR, 0);
+        }
+    }
+    game._tty_menu_geom = null;
+}
+
+/**
  * C ref: wintty.c process_menu_window corner path — tty_curs(1)+offx, cl_end,
  *        putchar(' '), then item text; morestr on final row; cursor at
  *        strlen(morestr)+2 (+offx). Does not clear the map (unlike fullscreen).
@@ -273,6 +295,19 @@ export async function paint_corner_nhw_menu(entries, morestr = '(end) ') {
     game._pending_message = '';
     game._menu_overlay = false;
 
+    // Corner chargen: C clears WIN_MESSAGE only — BASE splash (copyright /
+    // Who are you?) stays under the menu (seed0009 confirm). Do not
+    // term_clear_screen here. Prior menu destroy via erase_menu_or_text
+    // (fullscreen clear / corner docorner) so seed0077 race≠role leftover.
+    // flush_screen during chargen would invent botl before map exists.
+    if (game.program_state?.in_role_selection) {
+        erase_prior_nhw_menu_chargen();
+        for (let c = 0; c < disp.cols; c++)
+            disp.setCell(c, 0, ' ', NO_COLOR, 0);
+    } else {
+        await flush_screen(1);
+    }
+
     if (offx === 0) {
         // C H2344 fullscreen — clear then leading pad + text at col 1
         const painted = entries.map(e => ({
@@ -285,15 +320,8 @@ export async function paint_corner_nhw_menu(entries, morestr = '(end) ') {
             withStatus: false,
             cursor: [morestr.length + 1, entries.length],
         });
+        game._tty_menu_geom = { offx: 0, endRow: entries.length };
         return { offx: 0, endRow: entries.length, cursorCol: morestr.length + 1 };
-    }
-
-    // Corner: during player_selection there is no map/botl yet — clear only.
-    // flush_screen would invent status lines (seed0077 race/gender menus).
-    if (game.program_state?.in_role_selection) {
-        if (disp.clearScreen) disp.clearScreen();
-    } else {
-        await flush_screen(1);
     }
 
     const endRow = entries.length; // morestr row
@@ -319,6 +347,7 @@ export async function paint_corner_nhw_menu(entries, morestr = '(end) ') {
     const cursorCol = offx + morestr.length + 1;
     disp.setCursor(cursorCol, endRow);
     game._menu_overlay = true;
+    game._tty_menu_geom = { offx, endRow };
     return { offx, endRow, cursorCol };
 }
 

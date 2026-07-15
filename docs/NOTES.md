@@ -7,12 +7,14 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Score:** **23/44** PASS (#368 suite); Scr **3561**/11405; RNG
-  **240160**/792838; speed `18+0.12/turn`.
-- **Current unit:** seed0009 Scr **12**/73 RNG **3338**/3713 — first miss
-  `@9` leftover NetHack splash under `Is this ok?` role-confirm menu.
-- **Fixed this iter:** D-0346 `dosit` OBJ_AT + CORPSE `xname`/`the`;
-  D-0347 `weapon_insight` twoweap skill-limit lines → seed0107 PASS.
+- **Score:** **23/44** PASS (#368 suite; #369 no full remeasure); Scr
+  **3561**/11405; RNG **240160**/792838.
+- **Current unit:** seed0009 Scr **13**/73 RNG **3338**/3713 — first miss
+  `@13` C `Entering the tutorial.--More--` vs JS bare pline (no more).
+- **Fixed this iter:** D-0348 chargen corner NHW_MENU — keep BASE splash;
+  erase prior menu geom (`erase_menu_or_text`); Scr **12→13**.
+- **Don’t re-check:** inverted “C clears splash under confirm” — C keeps
+  splash; JS must not `clearScreen` on first corner confirm.
 - **Parked:** D-0006; seed2200 @158 RC.
 
 ## Don’t re-check (≤15)
@@ -48,7 +50,8 @@ Objective/score live in `CURRENT.md`.
   (D-0344); omit `hitum` second `known_hitum(uswapwep)` when `u.twoweap`
   (D-0345); blanket `observe_object` in `xname` without `distantname`;
   `xname(CORPSE)` with mon name (D-0346 — bare `"corpse"`); skip twoweap
-  skill-limit enl lines (D-0347).
+  skill-limit enl lines (D-0347); `clearScreen` on chargen corner confirm
+  (D-0348 — keep splash; erase prior geom only).
 - Runner `Screen N/M` = total matches, not prefix length.
 
 ## Landmarks (≤15)
@@ -58,7 +61,7 @@ Objective/score live in `CURRENT.md`.
 - Session: `steps[i].key === moves[i-1]` (D-0238); `more()` space/CR/ESC.
 - Save: VFS `save/<plname>` JSON; restore skips `rndencode`;
   `l_nhcore_init` still 2×rn2; farewell clears map no flush (D-0335).
-- D-0274…D-0347: bones/disclose/RIP/topten/descr/botl/paybill/ghost/`;`/
+- D-0274…D-0348: bones/disclose/RIP/topten/descr/botl/paybill/ghost/`;`/
   getlin/compactify/enl/checkfile/save/welcome/attr/`$`/`)`/show-*/DEL/
   reveal_terrain/getpos Done/`#twoweapon`/`hitum` twohits/`dosit` OBJ_AT/
-  weapon_insight twoweap limits.
+  weapon_insight twoweap limits / chargen corner splash+erase.

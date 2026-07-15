@@ -24,6 +24,27 @@ The compact status table lives in **`DIVERGENCE-INDEX.md`**.
 Open that file first; then jump to a single `## D-NNNN` entry below
 (via search). Do **not** read this whole file by default.
 
+## D-0348 — chargen corner NHW_MENU keeps BASE splash
+
+- **Status:** fixed
+- **Observed:** seed0009 @9 — C shows copyright / `Who are you? Swimmer`
+  under corner `Is this ok?` menu; JS had wiped splash (`clearScreen`).
+  Prior inverted hypothesis (“C clears”) was wrong.
+- **C locus:** `wintty.c` `tty_display_nhwindow(NHW_MENU)` corner path
+  clears `WIN_MESSAGE` only; `erase_menu_or_text` on destroy
+  (`offx==0` → `term_clear_screen`; else `docorner` cl_end from offx).
+- **Cause/evidence:** D-0111 used `clearScreen` under `in_role_selection`
+  to avoid inventing botl via `flush_screen`; that also erased BASE splash
+  before the first corner confirm (no prior menu). Multi-menu chargen
+  (seed0077) still needs prior-menu erase after fullscreen role.
+- **Change:** `paint_corner_nhw_menu` — chargen: erase prior
+  `_tty_menu_geom` then clear row 0 only; track geom after paint.
+- **Verification:** seed0009 Scr **12→13**/73 (@9 match; next @13
+  tutorial `--More--`); seed0077 **33/33 PASS**; green+strict; cohort
+  21 PASS.
+- **Next:** seed0009 @13 `Entering the tutorial.--More--` vs bare
+  pline (more/blocking).
+
 ## D-0347 — `weapon_insight` twoweapon skill-limit lines
 
 - **Status:** fixed

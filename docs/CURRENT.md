@@ -39,7 +39,7 @@ seed0013-rogue, seed0013-friday13-restore, **seed0107**.
 | Session | RNG | Screen | Note |
 |---------|----:|-------:|------|
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
-| seed0009 | **3338**/3713 | **12**/73 | **primary** — @9 leftover splash |
+| seed0009 | **3338**/3713 | **13**/73 | **primary** — @13 tutorial `--More--` |
 | seed0004 | 4016/12084 | 27/409 | |
 | seed0002 | 4510/27158 | 8/595 | |
 | seed0012 | 0/13878 | 0/308 | stack overflow |
@@ -60,16 +60,16 @@ Both must remain full RNG + screen PASS with exact scored-output lengths.
 
 ## Primary objective
 
-**seed0009-swimmer-mforce** — RNG **3338**/3713; Scr **12**/73
+**seed0009-swimmer-mforce** — RNG **3338**/3713; Scr **13**/73
 
 | | |
 |--|--|
-| **C locus** | chargen / display clear under role-confirm menu |
-| **JS locus** | player_selection / display splash vs `Is this ok?` overlay |
-| **Symptom** | `@9` C clear behind `y * Yes; start game`; JS leaves copyright/splash |
-| **Hypothesis** | role-ok menu must clear prior splash like C before painting choices |
-| **Falsifier** | Scr >12; or named mismatch past confirm |
-| **Recent fixed** | D-0346/D-0347 seed0107 full PASS |
+| **C locus** | tutorial enter pline + `--More--` / `more()` |
+| **JS locus** | `ask_do_tutorial` / `pline` / topl `--More--` blocking |
+| **Symptom** | `@13` C `Entering the tutorial.--More--`; JS bare pline, no more |
+| **Hypothesis** | tutorial-enter message must force `MORE` like C before map play |
+| **Falsifier** | Scr >13 with @13 cells+cursor match; or named next miss |
+| **Recent fixed** | D-0348 chargen corner keeps BASE splash (Scr 12→13) |
 
 ```bash
 node frozen/ps_test_runner.mjs sessions/seed0009-swimmer-mforce.session.json
