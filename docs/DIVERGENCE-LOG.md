@@ -24,6 +24,23 @@ The compact status table lives in **`DIVERGENCE-INDEX.md`**.
 Open that file first; then jump to a single `## D-NNNN` entry below
 (via search). Do **not** read this whole file by default.
 
+## D-0388 — prinv total_of / gold merge (seed0012 Scr 239→240)
+
+- **Status:** fixed
+- **Observed:** seed0012 @99 — C `$ - 5 gold pieces (7 in total).` vs JS
+  `$ - 7 gold pieces.`; RNG full; Scr 239/308.
+- **C locus:** `invent.c` `prinv` — `total_of = (quan && quan < obj->quan)`;
+  `xprname(..., !total_of, 0L, quan)` + verbose `" (%ld in total)."`;
+  `pickup.c` `pickup_prinv` passes lifted `count` after `pick_obj` merge.
+- **Cause/evidence:** JS `pickup_prinv` ignored count and named the
+  post-merge stack; `xprname` lacked quan override.
+- **Change:** `js/objnam.js` `xprname` quan; `js/invent.js` `prinv` +
+  hold_another_object oquan; `js/pickup.js` `pickup_prinv` / out_container
+  pre-merge count. Named omissions: encumbrance verb prefixes.
+- **Verification:** seed0012 Scr **239→240**/308; @99 match; first fail
+  @138; green+strict PASS; cohort 24/24 PASS.
+- **Next:** seed0012 @138 monster-sense More map blanking.
+
 ## D-0387 — autopick end check_here (seed0012 Scr 236→239)
 
 - **Status:** fixed

@@ -58,16 +58,17 @@ Both must remain full RNG + screen PASS with exact scored-output lengths.
 
 ## Primary objective
 
-**seed0012 screens** — RNG complete; Scr **239**/308, cursors
-**302**/308. Post-autopick `check_here` ported (D-0387); first fail
-@98 `$ - 5 gold pieces (7 in total).` vs JS `$ - 7 gold pieces.`
+**seed0012 screens** — RNG complete; Scr **240**/308, cursors
+**302**/308. Gold `prinv` total_of ported (D-0388); first fail
+@138 `You sense the presence of monsters.--More--` (topline match;
+map cells differ — C blanks map under detection More).
 
 ```bash
 node frozen/ps_test_runner.mjs sessions/seed0012-monk-vault-escort.session.json
 ```
 
-**Falsify next:** dump screen 98; port C gold `prinv` / partial-quan /
-`(N in total)` path (not invent message text).
+**Falsify next:** dump @138 map vs C; reconstruct monster-detection /
+`detect` display path during `--More--` (not invent message text).
 
 **Alternates:** seed0004 / seed0002 / seed0006 / seed0007; quest early-0.
 

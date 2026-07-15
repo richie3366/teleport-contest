@@ -374,6 +374,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 | D-0385 | fixed | doset_simple_menu allopt Options | General→Status + FS multipage; Scr 187→199 |
 | D-0386 | fixed | hilite_pile MG_OBJPILE ATR_INVERSE | obj_is_piletop + use_inverse; Scr 199→236 |
 | D-0387 | fixed | pickup autopick → check_here | post-autopick look_here; Scr 236→239 |
+| D-0388 | fixed | invent prinv total_of | gold merge `(N in total)`; Scr 239→240 |
 
 D-0001 through D-0005 predate the strict-length/cohort runbook. Their focused
 causes are preserved, but generic "green sessions held" is historical evidence,

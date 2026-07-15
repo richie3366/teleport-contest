@@ -718,10 +718,21 @@ export function doname(obj) {
 /**
  * C ref: invent.c xprname(obj, txt, let, dot, cost, quan)
  * Message/prinv paths pass dot=true (trailing period); invent menus omit it.
+ * When quan is non-0, temporarily override obj.quan for doname (pickup
+ * partial / merge total_of), then restore.
+ * Named omissions: txt override; cost/Iu/Ix unpaid columns; HANDS/CONTAINED
+ * let symbols.
  */
-export function xprname(obj, let_, dot = false) {
-    const ilet = let_ ?? obj.invlet ?? '?';
-    return `${ilet} - ${doname(obj)}${dot ? '.' : ''}`;
+export function xprname(obj, let_, dot = false, quan = 0) {
+    let savequan = 0;
+    if (quan && obj) {
+        savequan = obj.quan || 0;
+        obj.quan = quan;
+    }
+    const ilet = let_ ?? obj?.invlet ?? '?';
+    const result = `${ilet} - ${doname(obj)}${dot ? '.' : ''}`;
+    if (savequan) obj.quan = savequan;
+    return result;
 }
 
 // C ref: objnam.c Japanese_items[] / Japanese_item_name()

@@ -8,12 +8,12 @@ import {
 } from './mkobj.js';
 import {
     look_here, observe_object, dfeature_at, paint_corner_nhw_menu, sortloot,
-    let_to_name, DEF_INV_ORDER,
+    let_to_name, DEF_INV_ORDER, prinv,
 } from './invent.js';
 import { nomul, check_special_room, is_pool, is_lava } from './hack.js';
 import { flush_screen, pline, newsym, docrt } from './display.js';
 import { addinv } from './u_init.js';
-import { xprname, an, doname, xname, the as theArt } from './objnam.js';
+import { an, doname, xname, the as theArt } from './objnam.js';
 import { can_reach_floor } from './engrave.js';
 import {
     ECMD_OK, ECMD_TIME, OBJ_FLOOR, is_pit,
@@ -159,11 +159,11 @@ export async function pick_obj(otmp) {
 /**
  * C ref: pickup.c pickup_prinv — encumbrance-prefix prinv.
  * Overload/nearload prefix deferred; bare prinv when capacity unchanged.
+ * Passes lifted `count` so invent.c prinv can show partial + "(N in total)".
  */
 async function pickup_prinv(obj, count) {
-    void count;
-    // C: prinv(prefix, obj, count) — null prefix → "ilet - doname."
-    await pline(xprname(obj, undefined, true));
+    // C: prinv(prefix, obj, count) — null prefix when encumbrance unchanged
+    await prinv(null, obj, count | 0);
 }
 
 /**
@@ -547,11 +547,13 @@ async function out_container(obj) {
     if (is_gold) obj.owt = weight(obj);
 
     // lift_object deferred — always allow
+    // C: count before addinv merge (gold may grow; prinv total_of needs it)
+    const count = obj.quan || 1;
     obj_extract_self(obj);
     game._current_container.owt = weight(game._current_container);
 
     const otmp = addinv(obj);
-    await pickup_prinv(otmp, otmp.quan || 1);
+    await pickup_prinv(otmp, count);
     if (is_gold) {
         // C: bot() — gold count; botl refreshed on next flush
         if (game.botl != null) game.botl = 1;
