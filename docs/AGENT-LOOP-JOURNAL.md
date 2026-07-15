@@ -18,6 +18,16 @@ Use this shape:
 - Verification: …
 - Next: …
 ```
+## 2026-07-15 10:48 — D-0378 restfakecorr/clear_fcorr (seed0012 @13700)
+- Objective: seed0012 @13700 C move_special rn2(1) vs JS fleeck rn2(5).
+- C locus: vault.c clear_fcorr/restfakecorr; gd_move um_dist + post-dig.
+- Change: symptom was shk !onlineu mill skip — root hero walked onto
+  unrestored vault door (71,13). Ported clear_fcorr+restfakecorr; wire
+  um_dist branch and after dig step (D-0378). Not priest pri_move.
+- Verification: RNG 13754→13878/13878 (full C log); cursors 279→291/308;
+  green+strict PASS; cohort 24/24. Screens still 14/308.
+- Next: seed0012 screen/vision after clear_fcorr, or seed0004/0002.
+
 ## 2026-07-15 10:28 — D-0377 gd_move dig while-loop (seed0012 @13576)
 - Objective: seed0012 @13576 C dog_move rn2(1) vs JS rn2(4).
 - C locus: vault.c gd_move nextpos while-loop; find_guard_dest incr_radius;
@@ -141,22 +151,4 @@ Use this shape:
   Was wipe-only initrack → gettrack null → wantdoor gg=(62,16).
 - Verification: prefix 6952→7288; RNG 7202→7495; green+strict; cohort 24/24.
 - Next: seed0012 @7288 C dog_move rn2(1) vs JS obj_resists.
-
-## 2026-07-15 07:14 — #390 public score
-- Objective: mandatory full `sessions` score (iteration 390 % 5).
-- C locus: n/a (score cadence; no port patch).
-- Change: none — measured suite only.
-- Verification: green+strict PASS; full suite **24/44** Scr **3640**/11405
-  (31.92%) RNG **247757**/792838 (31.25%) `19+0.12/turn` (R² 0.80).
-  vs #385: same PASS set; RNG matched +3924; Scr unchanged.
-- Next: D-0367 C `gg`/`view_from` falsifier (seed0012 @6952).
-
-## 2026-07-15 07:12 — D-0367 dog_goal gg @6952 (diagnosed)
-- Objective: seed0012 @6952 C rn2(12) vs JS rn2(1) in dog_move.
-- C locus: dogmove.c dog_goal/wantdoor; vision.c view_from.
-- Falsified: same-gg approach short-circuit; inject (54,17); skip-only
-  (55,17). Established: JS wantdoor gg=(62,16); C arity ≡ gg≈(56,17);
-  force → prefix 6965. No code change.
-- Verification: green+strict PASS; rng-diff still @6952.
-- Next: C gg/view_from capture at this dog_move (D-0367).
 

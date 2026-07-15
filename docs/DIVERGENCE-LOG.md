@@ -24,6 +24,36 @@ The compact status table lives in **`DIVERGENCE-INDEX.md`**.
 Open that file first; then jump to a single `## D-NNNN` entry below
 (via search). Do **not** read this whole file by default.
 
+## D-0378 — clear_fcorr / restfakecorr (seed0012 @13700)
+
+- **Status:** fixed
+- **Observed:** seed0012 @13700 — C `move_special` `rn2(1)` (satdoor mill)
+  vs JS `distfleeck` `rn2(5)`. Hero JS `(70,12)` not `onlineu` with shop
+  `(11,11)`; C hero still online after corridor walk.
+- **Cause:** Symptom looked like shop/priest mill. Root: after vault dig
+  escort, C `gd_move` calls `restfakecorr`→`clear_fcorr` on the um_dist
+  `rn2(10)` branch and after each dig step, restoring fakecorr cells
+  (vault door `(71,13)` → wall). JS burned `rn2(10)` only and left the
+  door as `DOOR`/`D_NODOOR`, so step 295 `l` walked east onto `(71,13)`
+  while C stayed put — cursor/path desync → later shk `!onlineu`.
+- **Rejected:** porting `pri_move` altar `rn1` mill (no `rn2(3)` before
+  the mismatch); patching shk `onlineu` without hero-path proof.
+- **C locus:** `vault.c` `clear_fcorr` / `restfakecorr`; `gd_move`
+  um_dist branch (~1066–1073) + post-dig (~1199).
+- **Change:** `js/vault.js` — `clear_fcorr` (restore typ/flags, couldsee
+  gate, recalc_block_point, vision_full_recalc) + `restfakecorr`
+  (mongone on full clear); call from um_dist branch and after dig move.
+  Named omissions: Punished/uball; yelp/rloc/limbo; deltrap/blackout/
+  del_engr; corridor-disappears/encased pline; `gd_move_cleanup`/
+  parkguard/wallify; verbalize "Move along!".
+- **Verification:** first mismatch **13700→13878** (full C RNG log);
+  runner RNG **13754→13878**/13878 cursors **279→291**/308; green+strict
+  PASS; cohort **24/24**. Screens still **14**/308 (glyph/memory).
+- **Lesson:** when post-vault hero path diverges on a cardinal step with
+  0 RNG, diff terrain at the destination — unrestored fakecorr doors
+  read as open while C already wallified them.
+- **Next:** seed0012 screen/vision after clear_fcorr, or seed0004/0002.
+
 ## D-0377 — gd_move dig while-loop wall→ortho redirect (seed0012 @13576)
 
 - **Status:** fixed

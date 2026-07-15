@@ -37,7 +37,7 @@ seed0013-rogue, seed0013-friday13-restore, seed0107, seed0009.
 **Notable non-PASS:**
 | Session | RNG | Screen | Note |
 |--------|----:|-------:|------|
-| seed0012 | **13635**/13878 | **14**/308 | @13576 dog_move rn2(1) vs rn2(4) (D-0376 fixed) |
+| seed0012 | **13878**/13878 | **14**/308 | full RNG (D-0378); screens/glyph |
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
 | seed0004 | 4025/12084 | 28/409 | |
 | seed0002 | 4520/27158 | 9/595 | |
@@ -58,17 +58,17 @@ Both must remain full RNG + screen PASS with exact scored-output lengths.
 
 ## Primary objective
 
-**seed0012 @13700** — C `move_special` `rn2(1)` (`priest.c:85`) vs JS
-`rn2(5)` (fleeck). After D-0377 vault dig while-loop, hero follows guard
-corridor; next peel is temple priest mill.
+**seed0012 screens** — RNG complete (D-0378); Scr **14**/308, cursors
+**291**/308 (sole late cursor miss @307 message-line). Likely vision/
+glyph/`map_location` after `clear_fcorr`, deferred corridor-disappears
+pline, or `blackout` on STONE restore.
 
 ```bash
-node scripts/rng-diff.mjs sessions/seed0012-monk-vault-escort.session.json
 node frozen/ps_test_runner.mjs sessions/seed0012-monk-vault-escort.session.json
 ```
 
-**Falsify next:** dump priest `(mx,my)` / `move_special` cand path at first
-mismatch after @13700; cite C `move_special` before changing arity.
+**Falsify next:** first screen mismatch step vs C; cite missing
+`map_location`/`blackout`/pline before inventing display shims.
 
 **Alternates:** seed0004 / seed0002 / seed0006 / seed0007; quest early-0.
 

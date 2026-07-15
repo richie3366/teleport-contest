@@ -1,11 +1,14 @@
 // vault.js — Vault occupancy and guard summoning.
-// C ref: vault.c — vault_occupied, findgd, newegd, find_guard_dest, invault.
+// C ref: vault.c — vault_occupied, findgd, newegd, find_guard_dest, invault,
+//        clear_fcorr, restfakecorr, gd_move dig + restore.
 // Named omissions: migrating_mons findgd park; vault_summon_gd;
-// uleftvault; wallify_vault / clear_fcorr; Croesus mon_wield; fracture_rock
+// uleftvault; wallify_vault; Croesus mon_wield; fracture_rock
 // boulder shatter; reset_faint; SetVoice; spot_stop_timers; xy_set_wall_state;
 // mimic_obj_name; full Deaf/Blind message variants that need noit_mhis;
-// gd_move hostile/witness/goldincorridor; restfakecorr/clear_fcorr/mongone;
-// !u_in_vault look-around exit; gd_mv_monaway; mpickgold; dig del_engr_at.
+// gd_move hostile/witness/goldincorridor;
+// !u_in_vault look-around exit; gd_mv_monaway; mpickgold; dig del_engr_at;
+// clear_fcorr: Punished/uball, yelp/rloc/m_into_limbo, deltrap, blackout,
+// del_engr_at, map_location bypass (uses newsym), encased-in-rock pline.
 
 import { game } from './gstate.js';
 import { rn2 } from './rng.js';
@@ -16,13 +19,14 @@ import { Monnam, noit_Monnam } from './do_name.js';
 import { adjalign } from './attrib.js';
 import { nomul } from './hack.js';
 import { makeplural } from './objnam.js';
-import { recalc_block_point } from './vision.js';
+import { cansee, couldsee, recalc_block_point } from './vision.js';
 import { COIN_CLASS } from './objects.js';
 import {
     VAULT, VAULT_GUARD_TIME, ROOMOFFSET, COLNO, ROWNO,
     ROOM, CORR, STONE, HWALL, VWALL, DOOR, D_NODOOR,
     TLCORNER, TRCORNER, BLCORNER, BRCORNER,
-    MM_EGD, MM_NOMSG, IS_WALL, M_AP_OBJECT, M_AP_TYPE, EGD,
+    MM_EGD, MM_NOMSG, IS_WALL, IS_DOOR,
+    M_AP_OBJECT, M_AP_TYPE, EGD, u_at,
     A_LAWFUL, Has_contents, IS_ROOM, isok,
 } from './const.js';
 import { monsterNames, mons, pmnames } from './monsters.js';
@@ -103,16 +107,99 @@ function mhe(mtmp) {
 
 /**
  * Remove guard from fmon (full mongone deferred).
- * C ref: mon.c mongone — subset for invault early exits.
+ * C ref: mon.c mongone — subset for invault early exits / restfakecorr.
  */
 function mongone_guard(mtmp) {
     if (!mtmp) return;
+    const ox = mtmp.mx | 0;
+    const oy = mtmp.my | 0;
     const list = game.fmon || [];
     const i = list.indexOf(mtmp);
     if (i >= 0) list.splice(i, 1);
     mtmp.mx = 0;
     mtmp.my = 0;
     mtmp.isgd = 0;
+    if (ox || oy) newsym(ox, oy);
+}
+
+/** C ref: dungeon.c on_level */
+function on_level(a, b) {
+    return !!a && !!b
+        && (a.dnum | 0) === (b.dnum | 0)
+        && (a.dlevel | 0) === (b.dlevel | 0);
+}
+
+/**
+ * C ref: vault.c clear_fcorr — restore fakecorr cells to saved typ/flags.
+ * @returns {boolean} true if fully cleared
+ */
+function clear_fcorr(grd, forceshow) {
+    const egrd = EGD(grd);
+    if (!egrd) return true;
+    const u = game.u;
+    if (!on_level(egrd.gdlevel, u?.uz)) return true;
+
+    let sawcorridor = false;
+    while ((egrd.fcbeg | 0) < (egrd.fcend | 0)) {
+        const fcbeg = egrd.fcbeg | 0;
+        const fc = egrd.fakecorr[fcbeg];
+        if (!fc) {
+            egrd.fcbeg = fcbeg + 1;
+            continue;
+        }
+        const fcx = fc.fx | 0;
+        const fcy = fc.fy | 0;
+        const dead = (grd.mhp | 0) < 1;
+        let force = forceshow;
+        if ((dead || !in_fcorridor(grd, u.ux, u.uy)) && egrd.gddone) {
+            force = true;
+        }
+        // Punished/uball arm deferred
+        if ((u_at(fcx, fcy) && !dead)
+            || (!force && couldsee(fcx, fcy))) {
+            return false;
+        }
+
+        let monThere = null;
+        for (const m of game.fmon || []) {
+            if ((m.mx | 0) === fcx && (m.my | 0) === fcy && (m.mhp | 0) > 0) {
+                monThere = m;
+                break;
+            }
+        }
+        if (monThere) {
+            if (monThere.isgd) return false;
+            // yelp / rloc / m_into_limbo deferred — cannot clear while occupied
+            return false;
+        }
+
+        const lev = game.level?.at?.(fcx, fcy);
+        if (lev) {
+            if ((lev.typ | 0) === CORR && cansee(fcx, fcy)) sawcorridor = true;
+            const ftyp = fc.ftyp | 0;
+            lev.typ = ftyp;
+            if (IS_DOOR(ftyp)) lev.doormask = fc.flags | 0;
+            else lev.flags = fc.flags | 0;
+            // deltrap / blackout / del_engr_at deferred
+            newsym(fcx, fcy);
+            recalc_block_point(fcx, fcy);
+            game.vision_full_recalc = 1;
+        }
+        egrd.fcbeg = fcbeg + 1;
+    }
+    // pline_The("corridor disappears.") / encased deferred (sync gd_move)
+    void sawcorridor;
+    return true;
+}
+
+/**
+ * C ref: vault.c restfakecorr — clear temporary corridor; mongone guard.
+ */
+function restfakecorr(grd) {
+    if (clear_fcorr(grd, false)) {
+        grd.isgd = 0;
+        mongone_guard(grd);
+    }
 }
 
 /**
@@ -455,13 +542,13 @@ function um_dist(x, y, n) {
 /**
  * C ref: vault.c gd_move — peaceful vault escort subset.
  * Branch envelope: on-level peaceful; fcend==1 warn when gold or not
- * adjacent; um_dist rn2(10) gate; adjacent + no gold + u_in_vault →
- * nextpos dig while-loop (wall→DOOR if beyond ROOM, else ortho
- * redirect, else STONE→CORR) + place guard. Named omissions:
- * hostile/witness/goldincorridor; wallify; rloc; verbalize body;
- * restfakecorr/clear_fcorr/mongone; gd_mv_monaway; mpickgold;
- * !u_in_vault look-around exit; stuck find_guard_dest retry;
- * del_engr_at on dig.
+ * adjacent; um_dist rn2(10) + restfakecorr; adjacent + no gold +
+ * u_in_vault → nextpos dig while-loop (wall→DOOR if beyond ROOM, else
+ * ortho redirect, else STONE→CORR) + place guard + restfakecorr.
+ * Named omissions: hostile/witness/goldincorridor; wallify; rloc;
+ * verbalize body; gd_mv_monaway; mpickgold; !u_in_vault look-around;
+ * stuck find_guard_dest retry; dig del_engr_at; clear_fcorr Punished/
+ * rloc/deltrap/blackout/del_engr arms.
  *
  * @returns {number} 1 moved, 0 stayed, -1 normal AI, -2 died
  */
@@ -521,11 +608,11 @@ export function gd_move(grd) {
 
     if (um_dist(grd.mx, grd.my, 1) || egrd.gddone) {
         // C: !gddone && !rn2(10) && !Deaf && !swallowed/ustuck →
-        // verbalize "Move along!"; then restfakecorr. Message +
-        // restfakecorr/clear_fcorr/mongone deferred — RNG only here.
+        // verbalize "Move along!"; then restfakecorr.
         if (!egrd.gddone && !rn2(10) && !Deaf()) {
             // verbalize("Move along!") deferred (gd_move is sync)
         }
+        restfakecorr(grd);
         return 0;
     }
 
@@ -608,6 +695,7 @@ export function gd_move(grd) {
             fx: nx,
             fy: ny,
             ftyp,
+            // C stores crm->flags after mutation (doormask for DOOR).
             flags: action === 'door' ? (loc.doormask | 0) : (loc.flags | 0),
         };
         egrd.fcend = fi + 1;
@@ -621,5 +709,7 @@ export function gd_move(grd) {
     grd.my = ny;
     newsym(ox, oy);
     newsym(nx, ny);
+    // C vault.c ~1199 — try restore corridor behind after each dig step
+    restfakecorr(grd);
     return 1;
 }
