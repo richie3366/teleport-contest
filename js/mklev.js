@@ -16,7 +16,8 @@ import {
     COLNO, ROWNO, STONE, ROOM, CORR, DOOR, STAIRS,
     HWALL, VWALL, TLCORNER, TRCORNER, BLCORNER, BRCORNER,
     CROSSWALL, TUWALL, TDWALL, TLWALL, TRWALL,
-    D_NODOOR, D_CLOSED, D_ISOPEN, D_LOCKED, D_TRAPPED,
+    D_NODOOR, D_CLOSED, D_ISOPEN, D_LOCKED, D_TRAPPED, D_BROKEN,
+    In_V_tower, Is_oracle_level, BURN, OBJ_CONTAINED, OBJ_FREE,
     OROOM, VAULT, THEMEROOM, ROOMOFFSET, MAXNROFROOMS, SHARED, NO_ROOM,
     SDOOR, SCORR, IRONBARS, FOUNTAIN, SINK, ALTAR, GRAVE,
     SHOPBASE, COURT, ZOO, BEEHIVE, MORGUE, BARRACKS, SWAMP, TEMPLE,
@@ -95,9 +96,17 @@ const LEMBAS_WAFER = objectNames.indexOf('LEMBAS_WAFER');
 const ARROW = objectNames.indexOf('ARROW');
 const DART = objectNames.indexOf('DART');
 const DAGGER = objectNames.indexOf('DAGGER');
+const KNIFE = objectNames.indexOf('KNIFE');
 const BOW = objectNames.indexOf('BOW');
 const TALLOW_CANDLE = objectNames.indexOf('TALLOW_CANDLE');
 const WAX_CANDLE = objectNames.indexOf('WAX_CANDLE');
+const WAN_SECRET_DOOR_DETECTION =
+    objectNames.indexOf('WAN_SECRET_DOOR_DETECTION');
+const APPLE = objectNames.indexOf('APPLE');
+const CANDY_BAR = objectNames.indexOf('CANDY_BAR');
+const RIN_LEVITATION = objectNames.indexOf('RIN_LEVITATION');
+const SPE_LIGHT = objectNames.indexOf('SPE_LIGHT');
+const POT_OBJECT_DETECTION = objectNames.indexOf('POT_OBJECT_DETECTION');
 
 const XLIM = 4;
 const YLIM = 3;
@@ -387,7 +396,16 @@ function level_difficulty() {
 
 // place_object / weight imported from mkobj.js
 function dealloc_obj(_otmp) { /* stub */ }
-function add_to_container(_container, _otmp) { /* stub */ }
+/** C ref: mkobj.c add_to_container — prepend; merge deferred. */
+function add_to_container(container, obj) {
+    if (!container || !obj) return null;
+    if (obj.where !== OBJ_FREE) obj_extract_self(obj);
+    obj.where = OBJ_CONTAINED;
+    obj.ocontainer = container;
+    obj.nobj = container.cobj || null;
+    container.cobj = obj;
+    return obj;
+}
 function sobj_at(_otyp, _x, _y) { return false; }
 
 // make_grave imported from engrave.js (C engrave.c)
@@ -553,10 +571,10 @@ function splev_map_center_start(wid, hei) {
 }
 
 /**
- * C ref: dat/tut-1.lua via load_special — map + des.* through sling tutorial.
- * Named omissions: tut_key/eckey (hardcoded hjkl defaults), Knight jump,
- * large-box/loot/food/twoweapon/stairs/kelp/place_lregion, leave-tutorial
- * invent restore, map_location tseen traps.
+ * C ref: dat/tut-1.lua via load_special — map + des.* through end of file.
+ * Named omissions: tut_key/eckey (hardcoded defaults), Knight jump,
+ * leave-tutorial invent restore, map_location tseen traps, real
+ * add_to_container merge path.
  */
 function load_tut1() {
     // C: load_special loads nhlib.lua → shuffle(align) then runs tut-1.lua
@@ -637,10 +655,10 @@ function load_tut1() {
     game.flags.lit_corridor = true;
 
     // C: lspo_engraving degrade=false → nowipeout; coords map-relative.
-    // tut_key/eckey deferred — default hjkl / 'c' like recorded defaults.
-    const tut1_engr = (mx, my, text) => {
+    // tut_key/eckey deferred — default hjkl / single-letter binds.
+    const tut1_engr = (mx, my, text, etype = ENGRAVE) => {
         const ep = make_engr_at(
-            xstart + mx, ystart + my, text, null, 0, ENGRAVE,
+            xstart + mx, ystart + my, text, null, 0, etype,
         );
         if (ep) ep.nowipeout = 1;
     };
@@ -798,8 +816,119 @@ function load_tut1() {
         "Firing launches items from your quiver; Use 'Q' to put items in it");
     tut1_engr(33, 4, "You can wait a turn with '.'");
     tut1_door(38, 6, D_CLOSED);
-    // Remainder of tut-1.lua deferred (loot box / food / stairs / kelp /
-    // place_lregion onward) — next C RNG is large-box mkbox_cnts + contents.
+
+    // --- tut-1.lua loot box through end (RNG-critical) ---
+    tut1_engr(39, 6, "You loot containers with ':'");
+    // C: create_object large box broken+trapped=false + contents wand
+    {
+        const box = tut1_object(xstart, ystart, 41, 6, LARGE_BOX, -127, null);
+        if (box) {
+            // C: broken → obroken=1 olocked=0; trapped=0 overrides mksobj
+            box.obroken = 1;
+            box.olocked = 0;
+            box.otrapped = 0;
+            // C: SP_OBJ_CONTAINER → delete_contents (mkbox_cnts already burned)
+            box.cobj = null;
+            // contents: get_location RANDOM then mksobj_at wand spe=30
+            const sx = game.splev_xsize | 0;
+            const sy = game.splev_ysize | 0;
+            let wx = xstart + rn2(sx);
+            let wy = ystart + rn2(sy);
+            const wand = mksobj_at(
+                WAN_SECRET_DOOR_DETECTION, wx, wy, true, true,
+            );
+            if (wand) {
+                wand.spe = 30;
+                wand.oeroded = 0;
+                wand.oeroded2 = 0;
+                wand.oerodeproof = 0;
+                obj_extract_self(wand);
+                add_to_container(box, wand);
+                box.owt = weight(box);
+            }
+        }
+    }
+    tut1_engr(42, 6, "Containers can also be emptied with '\\'");
+    tut1_engr(45, 6, "Magic wands are used with 'z'");
+
+    tut1_door(35, 9, D_NODOOR);
+    tut1_engr(34, 9, "You can run by prefixing a movement key with 'G'");
+    tut1_door(33, 16, D_NODOOR);
+    tut1_engr(35, 15, "Travel across the level with '_'");
+
+    {
+        const ttmp = maketrap(xstart + 27, ystart + 14, MAGIC_PORTAL);
+        mktrap_seen_victim(ttmp, { seen: true });
+    }
+
+    tut1_engr(48, 1, "Use 'e' to eat edible things", BURN);
+    tut1_object(xstart, ystart, 50, 3, APPLE, -127, 'not-cursed');
+    tut1_object(xstart, ystart, 50, 3, CANDY_BAR, -127, 'not-cursed');
+    {
+        const otmp = tut1_object(xstart, ystart, 50, 3, CORPSE, -127, 'not-cursed');
+        if (otmp) set_corpsenm(otmp, PM_LICHEN);
+    }
+
+    tut1_door(46, 11, D_CLOSED);
+    tut1_engr(43, 11, "Use '#twoweapon' to use two weapons at once", BURN);
+    tut1_object(xstart, ystart, 43, 13, KNIFE, -127, 'uncursed');
+    tut1_object(xstart, ystart, 43, 14, DAGGER, -127, 'blessed');
+    tut1_engr(43, 16, "Swap weapons quickly with 'x'", BURN);
+    // C: lspo_door state=random → rnddoor() / ROLL_FROM
+    tut1_door(40, 15, rnddoor());
+
+    tut1_object(xstart, ystart, 48, 7, RIN_LEVITATION, -127, 'not-cursed');
+    tut1_engr(48, 10, "Put on accessories with 'P'", BURN);
+    tut1_engr(48, 16, "Remove accessories with 'R'", BURN);
+    tut1_door(50, 16, D_CLOSED);
+
+    tut1_engr(58, 9, "Use '>' to go down the stairs", BURN);
+    mkstairs(xstart + 58, ystart + 10, 0, null);
+
+    // tut_key_help(64,4): no pending Ctrl key after kick help already emitted
+    tut1_engr(65, 3, 'UNDER CONSTRUCTION', BURN);
+    {
+        const ttmp = maketrap(xstart + 66, ystart + 2, MAGIC_PORTAL);
+        mktrap_seen_victim(ttmp, { seen: true });
+    }
+
+    tut1_engr(69, 12, "Can't get through?  You're carrying too much.", BURN);
+    tut1_object(xstart, ystart, 71, 16, BOULDER, -127, null);
+    tut1_object(xstart, ystart, 72, 16, BOULDER, -127, null);
+    tut1_object(xstart, ystart, 73, 16, BOULDER, -127, null);
+    {
+        const ttmp = maketrap(xstart + 73, ystart + 15, TRAPDOOR);
+        mktrap_seen_victim(ttmp, {});
+    }
+
+    tut1_engr(60, 2, 'Spellcasting');
+    // C: if (u.uenmax < 5) — Ranger starter Pw often < 5
+    if ((game.u?.uenmax | 0) < 5) {
+        tut1_engr(59, 2,
+            "Unfortunately you don't have enough energy to cast spells.");
+    }
+    tut1_engr(57, 2, "Pick up the spellbook with ','");
+    tut1_object(xstart, ystart, 57, 2, SPE_LIGHT, -127, 'blessed');
+    tut1_engr(55, 2, "Read the spellbook with 'r'");
+    tut1_engr(53, 2, "Use 'Z' to cast a spell");
+    // des.region(selection.area(53,01, 59, 3), "unlit")
+    for (let y = ystart + 1; y <= ystart + 3 && y < ROWNO; y++) {
+        for (let x = xstart + 53; x <= xstart + 59 && x < COLNO; x++) {
+            const loc = game.level.at(x, y);
+            if (loc) loc.lit = false;
+        }
+    }
+
+    tut1_engr(72, 2, 'You "quaff" potions with \'q\'');
+    tut1_object(xstart, ystart, 72, 2, POT_OBJECT_DETECTION, -127, 'blessed');
+}
+
+/**
+ * C ref: sp_lev.c rnddoor — ROLL_FROM({NODOOR,BROKEN,ISOPEN,CLOSED,LOCKED}).
+ */
+function rnddoor() {
+    const state = [D_NODOOR, D_BROKEN, D_ISOPEN, D_CLOSED, D_LOCKED];
+    return state[rn2(state.length)];
 }
 
 /**
@@ -4218,14 +4347,27 @@ function mineralize(kelp_pool, kelp_moat, goldprob, gemprob, skip_lvl_checks) {
     const map = game.level;
     mineralize_kelp(kelp_pool, kelp_moat);
     // C ref: mklev.c mineralize — hell / V_tower / rogue / arboreal / most
-    // specials skip rock deposits (deferred beyond mines boost).
-    const absDepth = depth_of_level(game.u?.uz);
-    const dunLevel = game.u?.uz?.dlevel ?? 1;
+    // specials skip rock deposits after kelp.
+    const uz = game.u?.uz;
+    const slev = (game.sp_levchn || []).find(s =>
+        s?.dlevel
+        && (s.dlevel.dnum | 0) === (uz?.dnum | 0)
+        && (s.dlevel.dlevel | 0) === (uz?.dlevel | 0));
+    const inHell = !!(game.dungeons?.[uz?.dnum]?.flags?.hellish);
+    if (!skip_lvl_checks
+        && (inHell || In_V_tower(uz) || Is_rogue_level(uz)
+            || game.level?.flags?.arboreal
+            || (slev && !Is_oracle_level(uz)
+                && (!In_mines(uz) || slev.flags?.town)))) {
+        return;
+    }
+    const absDepth = depth_of_level(uz);
+    const dunLevel = uz?.dlevel ?? 1;
     if (goldprob < 0) goldprob = 20 + Math.trunc(absDepth / 3);
     if (gemprob < 0) gemprob = Math.trunc(goldprob / 4);
     // C: mines have ***MORE*** goodies
     if (!skip_lvl_checks) {
-        if (In_mines(game.u?.uz)) {
+        if (In_mines(uz)) {
             goldprob *= 2;
             gemprob *= 3;
         }

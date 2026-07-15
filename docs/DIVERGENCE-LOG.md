@@ -24,6 +24,29 @@ The compact status table lives in **`DIVERGENCE-INDEX.md`**.
 Open that file first; then jump to a single `## D-NNNN` entry below
 (via search). Do **not** read this whole file by default.
 
+## D-0353 — tut-1 load_tut1 remainder + align_shift + WAITMASK
+
+- **Status:** fixed
+- **Observed:** seed0009 Scr **38**/73 RNG **3450**/3713 — first cell-miss
+  @33 wall; level-gen stopped before large-box `next_ident`.
+- **C locus:** `dat/tut-1.lua` loot→end; `mkobj.c` `mkbox_cnts`+contents
+  `get_location`; `mklev.c` `mineralize` special skip after kelp;
+  `makemon.c` `align_shift`; `monmove.c` `dochug` `STRAT_WAITMASK`.
+- **Cause/evidence:** RNG first miss @3432 C large-box vs JS kelp
+  `rn2(10)`. Completing tut-1 aligned through kelp/`place_lregion`.
+  Corpse `rndmonst` needed real `align_shift` (tut-1 align=chaotic via
+  UNCONNECTED∩D_ALIGN). Waiting monsters then burned `distfleeck`
+  without C's WAITMASK early return.
+- **Change:** `load_tut1` through potion; `mineralize` special return;
+  `align_shift`; `dochug` WAITFORU clear + WAITMASK return; container
+  contents helper.
+- **Verification:** seed0009 Scr **38→39**/73 (first miss still **@33**
+  wall/glance); RNG **3450→3649**; green+strict; cohort 7 PASS.
+- **Named omissions:** tut_key/eckey; Knight jump; leave-tutorial invent
+  restore; `map_location` tseen; `add_to_container` merge; temperature_shift
+  body; STRAT_CLOSE quest_talk.
+- **Next:** @33 “It's a wall.” / empty JS topline — glance path.
+
 ## D-0352 — tut-1 mktrap victim gate + load_tut1 through sling
 
 - **Status:** fixed

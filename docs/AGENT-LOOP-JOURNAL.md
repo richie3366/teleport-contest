@@ -19,6 +19,15 @@ Use this shape:
 - Verification: …
 - Next: …
 ```
+## 2026-07-15 04:25 — D-0353 tut-1 remainder + WAITMASK
+- Objective: seed0009 finish tut-1 level-gen (CURRENT).
+- C locus: `dat/tut-1.lua` loot→end; `mklev.c` mineralize special skip;
+  `makemon.c` align_shift; `monmove.c` dochug STRAT_WAITMASK.
+- Change: load_tut1 through potion; mineralize early return; real
+  align_shift; WAITFORU/WAITMASK gate before distfleeck (D-0353).
+- Verification: Scr **38→39** (@33 wall); RNG **3450→3649**; green+strict;
+  cohort 7 PASS.
+- Next: @33 glance/wall “It's a wall.” vs blank JS topline.
 
 ## 2026-07-15 03:15 — D-0352 tut-1 mktrap gate through sling
 - Objective: seed0009 @27 door resists vs opens (CURRENT).
@@ -162,14 +171,3 @@ Use this shape:
   **240657/792838**, speed `18+0.12/turn`; seed0013-rogue **59/59 PASS**;
   green+strict; 21 PASS cohort.
 - Next: seed2200 @39 farlook `--More--` vs moreinfo yn.
-
-## 2026-07-15 00:40 — #359 D-0331 getlin/`#` topl wrap
-
-- Objective: seed0030 @1935 `#` extcmd echo wrap (CURRENT).
-- C locus: `topl.c` `topl_putsym` (CO-1 wrap); `getline.c` `buf < COLNO`.
-- Change: `topl_wrap_echo` in `getlin`/`get_ext_cmd`; raise cap to COLNO
-  (D-0331).
-- Verification: seed0030 **1953/1953** PASS; green+strict; 17 cohort PASS;
-  seed2200 Scr **175→206**/230.
-- Next: seed0013 @23 getobj drop `[a-g or ?*]` vs `[abcdefg or ?*]`.
-

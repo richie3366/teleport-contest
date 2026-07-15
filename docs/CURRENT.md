@@ -18,7 +18,7 @@ label, PASS list, notable non-PASS. Do not invent suite totals from a single
 focused session.
 
 Score last measured: **2026-07-15** — full `sessions` suite (#370; after
-D-0349 still **23/44**). D-0352 focused seed0009 only (Scr **27→38**);
+D-0349 still **23/44**). D-0353 focused seed0009 only (Scr **38→39**);
 suite score unchanged until next %5 run.
 
 ## Score
@@ -40,7 +40,7 @@ seed0013-rogue, seed0013-friday13-restore, **seed0107**.
 | Session | RNG | Screen | Note |
 |---------|----:|-------:|------|
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
-| seed0009 | **3450**/3713 | **38**/73 | **primary** — @33 wall; door msgs OK |
+| seed0009 | **3649**/3713 | **39**/73 | **primary** — @33 wall/glance; tut-1 gen done |
 | seed0004 | 4016/12084 | 28/409 | |
 | seed0002 | 4510/27158 | 9/595 | |
 | seed0012 | 0/13878 | 0/308 | stack overflow |
@@ -61,16 +61,16 @@ Both must remain full RNG + screen PASS with exact scored-output lengths.
 
 ## Primary objective
 
-**seed0009-swimmer-mforce** — RNG **3450**/3713; Scr **38**/73
+**seed0009-swimmer-mforce** — RNG **3649**/3713; Scr **39**/73
 
 | | |
 |--|--|
-| **C locus** | `dat/tut-1.lua` large-box `mkbox_cnts`+contents → food/stairs/`place_lregion` |
-| **JS locus** | `mklev.js` `load_tut1` remainder |
-| **Symptom** | first cell-miss @33 “It's a wall.”; door `rnl` values still differ |
-| **Hypothesis** | finishing tut-1 level-gen RNG aligns door `rnl` + wall/glance path |
-| **Falsifier** | Scr >38 with @33 cells; or named next miss; door `rnl` equals C |
-| **Recent fixed** | D-0352 mktrap victim gate + tut-1 through sling → Scr **27→38** |
+| **C locus** | glance / mention_walls wall msg vs empty topline @33 |
+| **JS locus** | look / do.c glance path; `flags.mention_walls` already set |
+| **Symptom** | first cell-miss @33 C “It's a wall.” vs JS blank msg row |
+| **Hypothesis** | wall-look / `feel_location` / mention_walls path incomplete |
+| **Falsifier** | Scr >39 with @33 cells; or named next miss |
+| **Recent fixed** | D-0353 tut-1 remainder + align_shift + WAITMASK → Scr **38→39** |
 
 ```bash
 node frozen/ps_test_runner.mjs sessions/seed0009-swimmer-mforce.session.json
