@@ -7,14 +7,13 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Score:** **23/44** PASS (#370 suite; D-0350 focused only).
-- **Current unit:** seed0009 Scr **21**/73 RNG **3342**/3713 — @21
-  one S_engroom `` ` `` miss (next tut engraving under vision).
-- **Fixed this iter:** D-0350 — `des.map` string → SPLEV_CENTER (3,3);
-  updest/`u_on_rndspot`; Tutorial botl; invent stash without early
-  `find_ac`; once-per-input `find_ac`. Scr **14→21**.
-- **Don’t re-check:** tut-1 map at xstart=1,ystart=0 (must CENTER);
-  early `find_ac` in tutorial invent stash (C defers to allmain input).
+- **Score:** **23/44** PASS (#370 suite; D-0351 focused only).
+- **Current unit:** seed0009 Scr **27**/73 RNG **3341**/3713 — @27
+  door resists vs opens (`doopen_indir` chance / attrs).
+- **Fixed this iter:** D-0351 — tut-1 door-area engravings + closed door
+  + seen magic portal + newbie options. Scr **21→27**.
+- **Don’t re-check:** tut-1 map CENTER; early `find_ac` invent stash;
+  @21 was missing engraving (2,4) not display/glyph.
 - **Landmark:** screen `i` key = `moves[i]` (= `steps[i+1].key`).
 - **Parked:** D-0006; seed2200 @158 RC.
 
@@ -54,7 +53,8 @@ Objective/score live in `CURRENT.md`.
   skill-limit enl lines (D-0347); `clearScreen` on chargen corner confirm
   (D-0348 — keep splash; erase prior geom only); bare Entering pline
   without `schedule_goto`/`deferred_goto` (D-0349); tut-1 map at (1,0)
-  / early `find_ac` on tutorial invent stash (D-0350).
+  / early `find_ac` on tutorial invent stash (D-0350); omit tut-1
+  door-area engravings/`D_CLOSED`/`MAGIC_PORTAL` seen (D-0351).
 - Runner `Screen N/M` = total matches, not prefix length.
 
 ## Landmarks (≤15)
@@ -66,8 +66,8 @@ Objective/score live in `CURRENT.md`.
 - Session: screen `i` reads `moves[i]`; `more()` space/CR/ESC.
 - Save: VFS `save/<plname>` JSON; restore skips `rndencode`;
   `l_nhcore_init` still 2×rn2; farewell clears map no flush (D-0335).
-- D-0274…D-0350: bones/disclose/RIP/topten/descr/botl/paybill/ghost/`;`/
+- D-0274…D-0351: bones/disclose/RIP/topten/descr/botl/paybill/ghost/`;`/
   getlin/compactify/enl/checkfile/save/welcome/attr/`$`/`)`/show-*/DEL/
   reveal_terrain/getpos Done/`#twoweapon`/`hitum` twohits/`dosit` OBJ_AT/
   weapon_insight twoweap limits / chargen corner / tutorial yes-path /
-  tut-1 CENTER + invent stash.
+  tut-1 CENTER + invent stash + door-area des.*.

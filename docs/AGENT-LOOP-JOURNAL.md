@@ -11,13 +11,24 @@ move older ones into `docs/archive/`.
 
 Use this shape:
 
-```text## YYYY-MM-DD HH:MM — <objective>
+```text
+## YYYY-MM-DD HH:MM — <objective>
 - Objective: …
 - C locus: …
 - Change or falsified theory: …
 - Verification: …
 - Next: …
 ```
+
+## 2026-07-15 02:58 — D-0351 tut-1 door-area des.*
+- Objective: seed0009 @21 S_engroom `` ` `` vs floor (CURRENT).
+- C locus: `dat/tut-1.lua` door-area; `sp_lev.c` lspo_engraving/door/trap;
+  parse_config newbie options.
+- Change: engravings (2,4)/(2,5)/(2,7)/(4,5) + `D_CLOSED` (2,6) + seen
+  MAGIC_PORTAL (4,4) + mention_walls/decor/lit_corridor (D-0351).
+- Verification: seed0009 Scr **21→27**; green+strict; cohort sample PASS.
+- Next: @27 door resists vs opens (`doopen_indir` chance/attrs).
+
 ## 2026-07-15 02:50 — D-0350 tut-1 CENTER + arrival
 - Objective: seed0009 @14 map cells (133 misses under engraving more).
 - C locus: `sp_lev.c` `lspo_map` CENTER; `u_on_rndspot`; Tutorial botl;
@@ -162,14 +173,4 @@ Use this shape:
 - Verification: @1832–@1839 match; Scr **1832→1933**; first miss **@1935**
   farlook wrap; RNG full; green+strict; 19 PASS cohort.
 - Next: @1935 `#  farlook -> …` row1 `"  k"` wrap.
-
-## 2026-07-14 23:48 — #357 D-0329 named ghost monnam
-
-- Objective: seed0030 @1830 `You miss Elara's ghost.` (CURRENT).
-- C locus: `do_name.c` `x_monnam` PM_GHOST + `s_suffix(MGIVENNAME)`.
-- Change: `named_ghost_monnam` in `mon_nam` / tame / `noit_Monnam`
-  (D-0329).
-- Verification: @1830/@1831 match; Scr **1831→1832**; first miss **@1832**
-  `;` unbound; RNG full; green+strict; 17 PASS cohort.
-- Next: @1832 cmd `;` → `do_look(1)`.
 

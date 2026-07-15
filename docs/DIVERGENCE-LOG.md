@@ -24,6 +24,25 @@ The compact status table lives in **`DIVERGENCE-INDEX.md`**.
 Open that file first; then jump to a single `## D-NNNN` entry below
 (via search). Do **not** read this whole file by default.
 
+## D-0351 — tut-1 door-area engravings + closed door + portal
+
+- **Status:** fixed
+- **Observed:** seed0009 @21 — one S_engroom `` ` `` at display (8,4)
+  vs floor; map-relative engraving (2,4).
+- **C locus:** `dat/tut-1.lua` engravings/door/trap after diagmove;
+  `sp_lev.c` `lspo_engraving` (`degrade=false`→`nowipeout`) /
+  `lspo_door`→`sel_set_door` / `create_trap`+`MKTRAP_SEEN`;
+  `nh.parse_config` mention_walls/mention_decor/lit_corridor.
+- **Cause/evidence:** `load_tut1` stopped after two move engravings;
+  map `+` doors lacked `D_CLOSED` doormask (showed as ndoor floor).
+- **Change:** port (2,4)/(2,5)/(2,7)/(4,5) engravings + closed (2,6)
+  + seen MAGIC_PORTAL (4,4) + newbie options; set `nowipeout`.
+- **Verification:** seed0009 Scr **21→27**/73 RNG **3342→3341**;
+  green+strict; cohort sample 4 PASS (1500/1800/0060/0107).
+- **Named omissions:** tut_key/eckey; Knight jump; kick door onward;
+  `map_location` tseen trap glyphs; leave-tutorial invent restore.
+- **Next:** @27 “door resists!” vs JS “door opens.” (`doopen_indir`).
+
 ## D-0350 — tut-1 CENTER map + tutorial arrival / invent stash
 
 - **Status:** fixed

@@ -553,10 +553,10 @@ function splev_map_center_start(wid, hei) {
 }
 
 /**
- * C ref: dat/tut-1.lua via load_special — skeleton through map + teleport.
- * Named omissions: remaining engravings/doors/traps/objects/monsters,
- * parse_config newbie options, percent/shuffle content arms,
- * water_has_kelp tail (full 165-call RNG slice before Entering --More--).
+ * C ref: dat/tut-1.lua via load_special — map + early des.* content.
+ * Named omissions: tut_key/eckey (hardcoded hjkl defaults), Knight jump
+ * engraving, remaining doors/traps/objs/mons/% RNG, leave-tutorial invent
+ * restore, water_has_kelp pre-Entering RNG slice; map_location tseen traps.
  */
 function load_tut1() {
     // C: load_special loads nhlib.lua → shuffle(align) then runs tut-1.lua
@@ -630,17 +630,48 @@ function load_tut1() {
     game.updest = { ...tele };
     game.dndest = { ...tele };
 
-    // First engraving underfoot (tut-1.lua movekeys with default h j k l).
-    // Full tut_key/eckey + remaining des.* content deferred (RNG peel).
-    make_engr_at(tx, ty, 'Move around with h j k l', null, 0, ENGRAVE);
-    // Second engraving — visible S_engroom '`' when lit/cansee (defsym).
-    // C: diagmovekeys via tut_key; default buhn order for hjkl.
-    make_engr_at(
-        xstart + 5, ystart + 2,
-        'Move diagonally with b u n y',
-        null, 0, ENGRAVE,
-    );
-    // Remainder of tut-1.lua deferred.
+    // C: nh.parse_config OPTIONS=mention_walls/mention_decor/lit_corridor
+    if (!game.flags) game.flags = {};
+    game.flags.mention_walls = true;
+    game.flags.mention_decor = true;
+    game.flags.lit_corridor = true;
+
+    // C: lspo_engraving degrade=false → nowipeout; coords map-relative.
+    // tut_key/eckey deferred — default hjkl / 'c' like recorded defaults.
+    const tut1_engr = (mx, my, text) => {
+        const ep = make_engr_at(
+            xstart + mx, ystart + my, text, null, 0, ENGRAVE,
+        );
+        if (ep) ep.nowipeout = 1;
+    };
+    // C: lspo_door → sel_set_door (doormask; typ already DOOR from map '+')
+    const tut1_door = (mx, my, mask) => {
+        const loc = game.level.at(xstart + mx, ystart + my);
+        if (!loc) return;
+        if (!IS_DOOR(loc.typ) && loc.typ !== SDOOR) {
+            loc.typ = DOOR;
+        }
+        loc.doormask = mask;
+        loc.flags = mask;
+    };
+
+    tut1_engr(9, 3, 'Move around with h j k l');
+    // C: diagmovekeys via tut_key; default b u n y for hjkl.
+    tut1_engr(5, 2, 'Move diagonally with b u n y');
+    // Knight jump engraving deferred (role gate).
+    tut1_engr(2, 4, 'Some actions may require multiple tries before succeeding');
+    tut1_engr(2, 5, 'Open the door by moving into it');
+    tut1_door(2, 6, D_CLOSED);
+    tut1_engr(2, 7, "Close the door with 'c'");
+    tut1_engr(4, 5, 'You can leave the tutorial via the magic portal.');
+    // C: create_trap → mktrap + MKTRAP_SEEN
+    {
+        const px = xstart + 4;
+        const py = ystart + 4;
+        const ttmp = maketrap(px, py, MAGIC_PORTAL);
+        if (ttmp) ttmp.tseen = true;
+    }
+    // Remainder of tut-1.lua deferred (kick door onward).
 }
 
 /** C ref: nhlib.lua top-level shuffle(align) on special-level load */
