@@ -18,7 +18,7 @@ label, PASS list, notable non-PASS. Do not invent suite totals from a single
 focused session.
 
 Score last measured: **2026-07-15** — full `sessions` suite (#380; after
-D-0359 **24/44**; seed0009 PASS).
+D-0359 **24/44**; seed0009 PASS). Not refreshed this iter (#381).
 
 ## Score
 
@@ -38,10 +38,10 @@ seed0013-rogue, seed0013-friday13-restore, seed0107, **seed0009**.
 **Notable non-PASS:**
 | Session | RNG | Screen | Note |
 |---------|----:|-------:|------|
+| seed0012 | **1285**/13878 | **13**/308 | stack overflow cleared (D-0360); @1245 `next_ident` vs `rnd(100)` |
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
 | seed0004 | 4016/12084 | 28/409 | |
 | seed0002 | 4510/27158 | 9/595 | |
-| seed0012 | 0/13878 | 0/308 | stack overflow |
 | seed0361/0373 | early | 0 | quest bones / `makemaz` |
 
 ## Green gate
@@ -59,23 +59,16 @@ Both must remain full RNG + screen PASS with exact scored-output lengths.
 
 ## Primary objective
 
-**Pick next shared blocker** — seed0009 PASS after D-0359.
-
-Prefer early-fail / high-leverage non-PASS over parked canaries:
-
-| Candidate | Why |
-|-----------|-----|
-| seed0004 / seed0002 | mid RNG + screens; feeding / healer combat |
-| seed0006 / seed0007 | wizard/rogue early combat |
-| seed0012 | stack overflow |
-| quest (`makemaz` / bones) | seed0361/0373 early 0 screens |
+**seed0012 @1245** — after D-0360 unblocked stack overflow: C
+`next_ident`/`rnd(2)` vs JS `rnd(100)` (likely `delobj`/`obj_resists`) during
+mkobj/mkbox path.
 
 ```bash
-# Survey non-PASS after choosing:
-node frozen/ps_test_runner.mjs sessions 2>&1 | rg 'PASS|FAIL' | head -40
+node scripts/rng-diff.mjs sessions/seed0012-monk-vault-escort.session.json
+node frozen/ps_test_runner.mjs sessions/seed0012-monk-vault-escort.session.json
 ```
 
-**Alternate:** seed2200 @158 RC parked only.
+**Alternates:** seed0004 / seed0002 / seed0006 / seed0007; quest early-0.
 
 **Prefer over:** parked D-0006, seed2200 RC.
 

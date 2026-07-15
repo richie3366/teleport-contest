@@ -24,6 +24,28 @@ The compact status table lives in **`DIVERGENCE-INDEX.md`**.
 Open that file first; then jump to a single `## D-NNNN` entry below
 (via search). Do **not** read this whole file by default.
 
+## D-0360 — hero `trapeffect_rocktrap` must place ROCK at `u.ux,u.uy`
+
+- **Status:** fixed
+- **Observed:** seed0012 `Maximum call stack size exceeded` in
+  `dogmove.js` `can_reach_location` (RNG/Screen 0). Stack: infinite recurse
+  on `fx/fy === undefined` from floor ROCK with no coords.
+- **C locus:** `trap.c` `trapeffect_rocktrap` hero branch —
+  `feeltrap` + `t_missile(ROCK)` + `place_object(otmp, u.ux, u.uy)` +
+  `losehp`/`exercise`. `thitm` places with stale `mon->mx,my` after death
+  (`mon_leaving_level` deliberately keeps coords).
+- **Cause/evidence:** JS only had the monster branch. Hero `dotrap` passed
+  `{_youmonst:true}` into that path → `thitm` → `place_object(obj,
+  undefined, undefined)` → fobj ROCK with `where=OBJ_FLOOR` but no `ox/oy`
+  → `dog_goal` `can_reach_location` never decreases dist (NaN).
+- **Change:** `js/trap.js` — port hero rocktrap; `feeltrap`/`ceiling`
+  subset; `thitm` captures `place_x/y` before `monkilled`.
+- **Verification:** seed0012 no longer throws; Scr **0→13**/308,
+  RNG **0→1285**/13878; first remaining miss @1245 `next_ident` vs
+  `rnd(100)`; green+strict; cohort 22 PASS (incl. seed0009).
+- **General lesson:** omitted hero trap arms still run via `dotrap`;
+  never place missiles using youmonst stub coords.
+
 ## D-0359 — continue_run must not maybe_smudge_engr
 
 - **Status:** fixed
