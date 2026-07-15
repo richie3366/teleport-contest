@@ -11,7 +11,7 @@ import { A_WIS, A_DEX, A_CON, exercise } from './attrib.js';
 import { makeknown } from './invent.js';
 import { yn_function } from './getline.js';
 import { doname, xname } from './objnam.js';
-import { dipfountain, drinkfountain } from './fountain.js';
+import { dipfountain, drinkfountain, drinksink } from './fountain.js';
 import {
     IS_FOUNTAIN, IS_SINK, IS_POOL,
     ECMD_TIME, ECMD_CANCEL,
@@ -299,8 +299,9 @@ async function peffects(otmp) {
  * C ref: potion.c dopotion()
  * Ghost/djinni bottle RNG deferred. Hallucination peculiar-feeling when
  * potion_nothing. trycall when potion_unkn && dknown && !oc_name_known.
+ * Exported for fountain.js drinksink case 4 (dynamic import).
  */
-async function dopotion(otmp) {
+export async function dopotion(otmp) {
     otmp.in_use = true;
     potion_nothing = 0;
     potion_unkn = 0;
@@ -362,9 +363,9 @@ export function healup(nhp, nxtra, curesick, cureblind) {
 
 /**
  * C ref: potion.c dodrink() / #quaff
- * Fountain-at-feet yn → drinkfountain. Sink / underwater / Strangled /
- * milky-ghost / smoky-djinni deferred. Worn-stack split deferred
- * (starting oils are unworn).
+ * Fountain-at-feet yn → drinkfountain; sink yn → drinksink.
+ * Underwater / Strangled / milky-ghost / smoky-djinni deferred.
+ * Worn-stack split deferred (starting oils are unworn).
  * @returns {number} ECMD_* — CANCEL on getobj abort; TIME after quaff
  */
 export async function dodrink() {
@@ -382,7 +383,15 @@ export async function dodrink() {
             }
             // drink_ok_extra++ deferred (affects getobj empty-suggest only)
         }
-        // sink / underwater prompts deferred
+        // C: kitchen sink yn → drinksink
+        if (IS_SINK(here) && can_reach_floor(false)) {
+            if ((await yn_function('Drink from the sink?', 'yn', 'n')) === 'y') {
+                await drinksink();
+                return ECMD_TIME;
+            }
+            // drink_ok_extra++ deferred
+        }
+        // underwater prompts deferred
     }
 
     const otmp = await getobj_drink();

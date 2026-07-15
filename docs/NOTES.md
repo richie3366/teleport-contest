@@ -7,16 +7,17 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Score:** **26/44** PASS (#460 full). Scr **4363**/11405; RNG
-  **262922**/792838. #464 seed0002 Scr **190**/595 prefix **8831**
-  (full suite not re-measured).
-- **Next:** seed0002 @8831 — C `rn2(20)` @ `drinksink(fountain.c:604)`
-  vs JS `rn2(5)` distfleeck. Likely missing sink-drink / `q` at sink.
+- **Score:** **26/44** PASS (#465 full post D-0434). Scr **4503**/11405;
+  RNG **267277**/792838. seed0002 Scr **194**/595 prefix **8863**.
+- **Next:** seed0002 @8863 — C `rn2(19)` @ `exercise` after `seffects`
+  magic try / `SCR_ENCHANT_WEAPON` vs JS doread unimplemented gate
+  → `rn2(5)` distfleeck. Keys `r` then `m` (scalpel glows blue).
   ```bash
   node scripts/rng-diff.mjs sessions/seed0002-healer-reflection-drummer.session.json
   ```
-- **Don’t re-check:** @8609 door bump (D-0433); @6954 remove-curse
-  (D-0432); @6186 light (D-0431); @4565 drink getobj (D-0430).
+- **Don’t re-check:** @8831 drinksink (D-0434); @8609 door bump
+  (D-0433); @6954 remove-curse (D-0432); @6186 light (D-0431);
+  @4565 drink getobj (D-0430).
 - **Landmark:** vault door (71,13); dig + restfakecorr; SPELL_LEV_PW(1)=5.
 - **Parked:** D-0006; seed2200 @158 RC.
 
@@ -51,7 +52,7 @@ Objective/score live in `CURRENT.md`.
   `vtense` bare-singular conjugate (D-0403); float `mhpmax/2` for
   flee gate (D-0404); treat @9795–@11722 / @182/@239/@240/@248/@277/
   @285/@288/@297/@310/@312/@330/@336/@354/@3808/@4565/@6186/@6954/
-  @8609 as index D-0405…D-0433 without those C paths; treat RING
+  @8609/@8831 as index D-0405…D-0434 without those C paths; treat RING
   `obj.known` as type-ID (D-0420); treat @248 floor vs `^` as missing
   feeltrap when `tseen` already set (D-0419); bypass `yn_function` for
   ring-hand (D-0421); force corner invent for getobj `?` when
@@ -68,7 +69,8 @@ Objective/score live in `CURRENT.md`.
   @6954 exercise/`rn2(5)` as attrib when cause was unimplemented
   SCR_REMOVE_CURSE + missing trycall/nodisappear (D-0432); treat
   @8609 `rnl(20)` as lock.doopen when cause was `end_running` before
-  autoopen `!run` check (D-0433).
+  autoopen `!run` check (D-0433); treat @8831 `rn2(5)` as monmove when
+  cause was missing sink yn→`drinksink` (D-0434).
 - Runner `Screen N/M` = total matches, not prefix length.
 - First cell-miss may be botl `$:` / `Burdened` even when NOTES names a topline.
 
@@ -82,7 +84,8 @@ Objective/score live in `CURRENT.md`.
   **`i`/`*` invent `(N of M)`** (D-0426); **throwit `newsym`** (D-0427);
   **`eatcorpse` `rnd(N)`** (D-0428); **drink `?`/`*` + trycall** (D-0430);
   **`SCR_LIGHT` litroom** (D-0431); **`SCR_REMOVE_CURSE` + trycall**
-  (D-0432); **rush closed-door bump before autoopen** (D-0433).
+  (D-0432); **rush closed-door bump before autoopen** (D-0433);
+  **`drinksink` + sink yn** (D-0434).
 - eatcorpse palatable / gethungry diet via `hero_form_data` (D-0409/10);
   basic `youmonst.data` at u_init (D-0411); full FROMFORM deferred.
 - Apply bag take-out/put-in (D-0375/76); throw food → tamedog (D-0415).

@@ -19,6 +19,19 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-16 01:55 — #465 score + drinksink (D-0434)
+- Objective: mandatory full `sessions` score (#465÷5); primary
+  seed0002 @8831 drinksink.
+- C locus: `potion.c` `dodrink` sink yn; `fountain.c` `drinksink`/
+  `breaksink`.
+- Change: full suite **26/44** Scr **4503**/11405 RNG
+  **267277**/792838 speed `22+0.13/turn`. Ported sink yn +
+  `drinksink` switch + `breaksink` (D-0434).
+- Verification: seed0002 prefix **8831→8863**; Scr **190→194**/595;
+  green+strict; cohort **24/24**.
+- Next: seed0002 @8863 `SCR_ENCHANT_WEAPON` / seffects exercise
+  vs doread unimplemented gate.
+
 ## 2026-07-16 01:50 — #464 closed-door rush bump (D-0433)
 - Objective: seed0002 @8609 C `exercise` rn2(2) vs JS `rnl(20)` (PRIMARY).
 - C locus: `hack.c` `test_move` closed_door autoopen/bump; `attrib.c`

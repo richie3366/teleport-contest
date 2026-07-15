@@ -4,6 +4,27 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
+## D-0434 — drinksink + dodrink sink yn (seed0002 @8831)
+
+- **Status:** fixed
+- **Symptom:** seed0002 first RNG miss @8831 — C `rn2(20) @
+  drinksink(fountain.c:604)` vs JS `rn2(5)` (`distfleeck`). Prefix
+  8831; Scr 190/595. Keys `q`/`y` on sink (“Drink from the sink?”).
+- **Cause:** JS `dodrink` deferred sink prompt; C
+  `IS_SINK`+`can_reach_floor` → yn → `drinksink()`. First fate
+  `rn2(20)=15` → default sip (`rn2(3)`/`rn2(2)` warm water).
+- **C locus:** `potion.c` `dodrink` sink yn; `fountain.c` `drinksink`
+  / `breaksink`.
+- **Change:** wire sink yn in `dodrink`; port `drinksink` switch
+  (cases 0–13 + 19/default) + `breaksink`; export `dopotion` for
+  case 4 faucet.
+- **Verification:** seed0002 prefix **8831→8863**; Scr **190→194**/595;
+  RNG matched **9069**/27158; green+strict; cohort **24/24**; full
+  suite **26/44** Scr **4503**/11405 RNG **267277**/792838.
+- **Omissions named:** case 10 `polyself`; case 13 `create_gas_cloud`;
+  `dipsink`; Hallucination `hliquid`/`hcolor` (c-js-map data + turns).
+- **Next:** seed0002 @8863 `SCR_ENCHANT_WEAPON` / `seffects` exercise.
+
 ## D-0433 — closed-door rush bump before autoopen (seed0002 @8609)
 
 - **Status:** fixed
