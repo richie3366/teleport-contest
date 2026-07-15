@@ -8,19 +8,19 @@ Objective/score live in `CURRENT.md`.
 ## Active
 
 - **Score:** **25/44** PASS (#435 full). Scr **4196**/11405; RNG
-  **261626**/792838. seed0004 Scr **242**/409; RNG **10685**/12084
-  (prefix **10657**).
-- **Next:** seed0004 @10657 — C `eatcorpse` `rn2(10)` vs JS
-  `distfleeck` `rn2(5)` after lichen kill (post D-0408 travel/`>`).
+  **261626**/792838. seed0004 Scr **242**/409; RNG **11027**/12084
+  (prefix **10713**).
+- **Next:** seed0004 @10713 — C `exercise` `rn2(19)` (inc) vs JS
+  `rn2(2)` (dec) on same EOT after lichen eat. Hypothesis: JS
+  `lesshungry`/`uhunger` not updated → `exerper` abuse vs C exercise.
   Cmds in `CURRENT.md`.
-- **Don’t re-check:** getpos `>`/`<` stairs feature scan (D-0408);
+- **Don’t re-check:** eatcorpse palatable without `hero_form_data` /
+  `youmonst.data` (D-0409); getpos `>`/`<` stairs (D-0408);
   SCR_TELEPORTATION `scrolltele`/`safe_teleds` + getobj `?` (D-0407);
   pickup `@` invert-all / conflict ring (D-0406); unrotted floor
   corpse / pickup `c`/`d` HVY EOTs (D-0405); known_hitum int
   `mhpmax/2` (D-0404); heal_legs / nh_timeout (D-0403); Norep
-  `_prevmsg` (D-0402); trapmove/Burdened (D-0401); bare mtrack
-  arity at @9795 (falsified); treat @10563 as bare `distfleeck`
-  without checking travel getpos `>` destination (D-0408).
+  `_prevmsg` (D-0402); trapmove/Burdened (D-0401).
 - **Landmark:** vault door (71,13); dig + restfakecorr; SPELL_LEV_PW(1)=5.
 - **Parked:** D-0006; seed2200 @158 RC.
 
@@ -60,7 +60,9 @@ Objective/score live in `CURRENT.md`.
   worn Conflict / `resist_conflict` (D-0406); treat @10382 as bare
   `exercise` without SCR_TELEPORTATION / getobj `?` / `safe_teleds`
   (D-0407); treat @10563 as bare `distfleeck` without getpos `>`
-  stairs jump → travel destination (D-0408).
+  stairs jump → travel destination (D-0408); treat @10657 as bare
+  `distfleeck` / missing `doeat` without checking `youmonst.data`
+  short-circuit on palatable `rn2(10)` (D-0409).
 - Runner `Screen N/M` = total matches, not prefix length.
 - First cell-miss may be botl `$:` / `Burdened` even when NOTES names a topline.
 
@@ -70,6 +72,8 @@ Objective/score live in `CURRENT.md`.
 - Session: `more()` space/CR/ESC; jsmain `\r`→LF.
 - Vault door (71,13); dig + restfakecorr restores wall (D-0377/78).
 - getpos travel `_>` → stairs via feature scan (D-0408).
+- eatcorpse palatable needs `hero_form_data` when `youmonst` unset
+  (D-0409); full `set_uasmon` still deferred.
 - Apply bag take-out `a?jo$\r`; put-in `aji$\r$\r` (D-0375/76).
 - Shop home (11,11): mill → (11,12); return needs `onlineu` (D-0376).
 - Monk starter: `SPELL_LEV_PW(1)` bump when `num_spells()` (D-0380).
@@ -92,4 +96,4 @@ Objective/score live in `CURRENT.md`.
   invert-all + `resist_conflict`/`hero_conflict` (D-0406);
   SCR_TELEPORTATION `scrolltele`/`safe_teleds` + getobj `?` (D-0407);
   getpos `>`/`<` stairs feature scan (D-0408).
-- D-0274…D-0408: see index.
+- D-0274…D-0409: see index.

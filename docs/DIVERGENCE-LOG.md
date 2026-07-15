@@ -4,6 +4,27 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
+## D-0409 — seed0004 @10657 eatcorpse palatable / youmonst.data
+
+- **Status:** fixed
+- **Symptom:** seed0004 first RNG miss @10657 — C `eatcorpse` `rn2(10)`
+  (palatable) vs JS `distfleeck` `rn2(5)`.
+- **Cause:** `eatcorpse` used `game.youmonst?.data` which is unset
+  (`set_uasmon` deferred). `herbivorous(undefined)` is false, so the
+  palatable expression short-circuited before `rn2(10)`; monsters then
+  burned `rn2(5)`. Floorfood/`doeat`/`y` path was already correct.
+- **C locus:** `eat.c` `eatcorpse` palatable via
+  `herbivorous`/`carnivorous(gy.youmonst.data)`; `set_uasmon` /
+  invent.c basic `youmonst.data = &mons[u.umonnum]`.
+- **Change:** `eat.js` `hero_form_data()` fallback
+  (`u.umonnum ?? urole.mnum`) for yummy/palatable diet predicates
+  (same pattern as `wield.js`).
+- **Verification:** seed0004 RNG **10685→11027**/12084; prefix
+  **10657→10713**; Scr still **242**/409; first miss @10713
+  `exercise`; green+strict PASS; cohort **25/25**.
+- **Next:** seed0004 @10713 C `exercise` `rn2(19)` vs JS `rn2(2)`
+  (likely `lesshungry`/`exerper` after finish-eating).
+
 ## D-0408 — seed0004 @10563 getpos `>` stairs / travel destination
 
 - **Status:** fixed

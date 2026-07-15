@@ -12,6 +12,17 @@ move older ones into `docs/archive/`.
 Use this shape:
 
 ```text
+## 2026-07-15 16:50 — #437 seed0004 @10657 eatcorpse youmonst (D-0409)
+- Objective: seed0004 @10657 PRIMARY — C `eatcorpse` `rn2(10)` vs JS
+  `distfleeck` after lichen kill/`e`/`y`.
+- C locus: `eat.c` `eatcorpse` palatable via `herbivorous(gy.youmonst.data)`.
+- Change: `eat.js` `hero_form_data()` (`u.umonnum ?? urole.mnum`) so
+  omnivore diet is true and palatable `rn2(10)` is not short-circuited
+  when `set_uasmon`/youmonst unset.
+- Verification: seed0004 RNG 10685→11027; prefix 10657→10713; miss
+  @10713 `exercise` rn2(19) vs rn2(2); green+strict PASS; cohort 25/25.
+- Next: seed0004 @10713 post-eat `exerper`/`lesshungry` polarity.
+
 ## YYYY-MM-DD HH:MM — <objective>
 - Objective: …
 - C locus: …
@@ -168,15 +179,4 @@ Use this shape:
 - Verification: seed0012 Scr **307→308**/308 PASS; green+strict PASS;
   cohort **25/25** PASS. Score **25/44**.
 - Next: seed0004 / seed0002 shared blockers.
-
-## 2026-07-15 14:40 — #422 drop gold botl + Move along! (D-0396)
-- Objective: seed0012 screens after @284 (NOTES said @294 Move along!).
-- C locus: invent.c freeinv_core COIN_CLASS botl; vault.c gd_move
-  um_dist verbalize Move along!; monmove awaits gd_move.
-- Change: do.js freeinv_drop gold `_goldCount`+flags.botl; vault.js
-  async gd_move + await verbalize; monmove/shk await. Named omission:
-  gd_move_cleanup Suddenly disappears.
-- Verification: seed0012 Scr **284→307**/308; @307 sole miss Suddenly;
-  green+strict PASS; cohort **22/22** PASS.
-- Next: vault.c gd_move_cleanup / Suddenly, the guard disappears.
 

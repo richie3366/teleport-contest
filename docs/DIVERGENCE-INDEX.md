@@ -395,6 +395,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 | D-0406 | fixed | pickup MENU_INVERT_ALL + resist_conflict/hero_conflict | seed0004 RNG 10399→10409; @10382 exercise/teleds next |
 | D-0407 | fixed | SCR_TELEPORTATION scrolltele/safe_teleds + getobj `?` | seed0004 RNG 10409→10569; Scr 241→242; @10563 next |
 | D-0408 | fixed | getpos `>`/`<` stairs feature scan | seed0004 RNG 10569→10685; prefix→10657; @10657 eatcorpse next |
+| D-0409 | fixed | eatcorpse palatable `hero_form_data` | seed0004 RNG 10685→11027; prefix→10713; @10713 exercise next |
 
 D-0001 through D-0005 predate the strict-length/cohort runbook. Their focused
 causes are preserved, but generic "green sessions held" is historical evidence,

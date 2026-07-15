@@ -28,6 +28,17 @@ import { OBJ_FLOOR, OBJ_FREE, OBJ_INVENT } from './const.js';
 import { adjattrib, A_STR } from './attrib.js';
 import { nomul } from './hack.js';
 
+/**
+ * C ref: gy.youmonst.data via set_uasmon / invent.c basic assign.
+ * Full set_uasmon (FROMFORM props) still deferred — diet predicates need
+ * role/race form when youmonst is unset (same fallback as wield.js).
+ */
+function hero_form_data() {
+    if (game.youmonst?.data) return game.youmonst.data;
+    const mndx = game.u?.umonnum ?? game.urole?.mnum;
+    return mons(mndx);
+}
+
 const FORTUNE_COOKIE = objectNames.indexOf('FORTUNE_COOKIE');
 const APPLE = objectNames.indexOf('APPLE');
 const PEAR = objectNames.indexOf('PEAR');
@@ -707,7 +718,9 @@ async function eatcorpse(otmp) {
     } else if (tp) {
         // message already delivered
     } else {
-        const youData = game.youmonst?.data;
+        // C: gy.youmonst.data — herbivorous must be true for omnivores so
+        // palatable's rn2(10) is not short-circuited away (D-0409).
+        const youData = hero_form_data();
         const yummy = vegan(ptr)
             ? (!carnivorous(youData) && herbivorous(youData))
             : (carnivorous(youData) && !herbivorous(youData));
