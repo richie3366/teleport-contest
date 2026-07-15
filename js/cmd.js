@@ -24,7 +24,7 @@ import { doeat } from './eat.js';
 import { dodrink } from './potion.js';
 import { dozap } from './zap.js';
 import { doread } from './read.js';
-import { doengrave, maybe_smudge_engr } from './engrave.js';
+import { doengrave, maybe_smudge_engr, set_occupation } from './engrave.js';
 import { dothrow, dofire } from './dothrow.js';
 import { doapply } from './apply.js';
 import { dokick } from './dokick.js';
@@ -707,14 +707,15 @@ export async function rhack(key) {
         game.context.move = (upRes & 0x01) ? 1 : 0;
         if (upRes & 0x01) game.kickedloc = { x: 0, y: 0 };
     } else if (ch === 's') {
-        // C ref: detect.c dosearch — takes a turn unless safety cancels
+        // C ref: detect.c dosearch + cmd.c set_occupation(f_text "searching")
+        // parse already set multi = count-1; counted Ns → timed occupation.
         const n = game.context?.command_count || 0;
         if (game.context) game.context.command_count = 0;
         if (n > 1) {
-            // C: multi = command_count; first search is this turn, rest via multi
             game.multi = n - 1;
-            game.context.mv = 0;
-            game._repeat_search = true;
+            if (game.context) game.context.mv = 0;
+            // C: if (f_text && !occupation && multi) set_occupation(dosearch,…)
+            if (!game.occupation) set_occupation(dosearch, 'searching', game.multi);
         }
         const tookTime = await dosearch();
         game.context.move = tookTime ? 1 : 0;

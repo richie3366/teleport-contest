@@ -8,18 +8,19 @@ Objective/score live in `CURRENT.md`.
 ## Active
 
 - **Score:** **24/44** PASS (#415). Screens **3914**/11405; seed0012 Scr
-  **259**/308 after D-0391 parse/`get_count`.
-- **Next:** seed0012 @226 — C topline `You stop searching.` vs JS blank
-  (then @228 JS finds passage while C still stopped). Cmd:
+  **268**/308 after D-0392 stop_occupation (was 259).
+- **Next:** seed0012 @237 — C `You materialize in a different location!
+  --More--` vs JS blank / gold-pickup desync. Cmd:
   `node frozen/ps_test_runner.mjs sessions/seed0012-monk-vault-escort.session.json`
-  Falsify: counted `dosearch` / `multi` stop pline vs clear timing.
-- **Don’t re-check:** parse get_count digit no mid-clear (D-0391);
-  getpos auto_describe TER_DETECT (D-0390); distant_monnam isshk shkname;
-  cls clear_glyph_buffer (D-0389); prinv total_of (D-0388); post-autopick
-  check_here (D-0387); hilite_pile ATR_INVERSE (D-0386); Options stub
-  (D-0385); ice-box Contents (D-0383); pickup INVORDER_SORT (D-0384);
-  in_or_out_menu ATR/`*` (D-0382); chargen `roles.length` (D-0379); Monk
-  Pw SPELL_LEV_PW (D-0380); locked Hmmm (D-0381).
+  Falsify: teleport / levelport pline + `--More--` after newt kill / dig.
+- **Don’t re-check:** stop_occupation + dochugw/occupation interrupt
+  (D-0392); counted `Ns` set_occupation(dosearch); parse get_count
+  (D-0391); getpos auto_describe TER_DETECT (D-0390); distant_monnam
+  isshk; cls clear_glyph_buffer (D-0389); prinv total_of (D-0388);
+  post-autopick check_here (D-0387); hilite_pile ATR_INVERSE (D-0386);
+  Options stub (D-0385); ice-box Contents (D-0383); pickup INVORDER_SORT
+  (D-0384); in_or_out_menu ATR/`*` (D-0382); chargen `roles.length`
+  (D-0379); Monk Pw SPELL_LEV_PW (D-0380); locked Hmmm (D-0381).
 - **Landmark:** vault door (71,13); dig + restfakecorr; SPELL_LEV_PW(1)=5.
 - **Parked:** D-0006; seed2200 @158 RC.
 - **Note:** seed0012 JS RNG log may trail +24 after matched prefix (strict
@@ -29,7 +30,8 @@ Objective/score live in `CURRENT.md`.
 
 - No raw RNG-index / coordinate gates in production.
 - Role `mnum` = PM_* IDs; Ctrl-rush `run=3`, capital `run=1`; `\r`→`\n`.
-- **Don’t:** clear topline between get_count digits (D-0391); skip getpos
+- **Don’t:** skip `stop_occupation` on occupation/`dochugw` threat
+  (D-0392); clear topline between get_count digits (D-0391); skip getpos
   `auto_describe` when `iflags.autodescribe` (D-0390); invent tip
   persistence over lookat; skip `clear_glyph_buffer` in `cls` (D-0389);
   invent bare merged-quan gold prinv (D-0388); skip `check_here` after
@@ -60,5 +62,7 @@ Objective/score live in `CURRENT.md`.
   (D-0387); gold merge pickup → prinv `quan` + `(N in total)` (D-0388);
   detect `cls` blanks `disp_*` before map_monst (D-0389); TER_DETECT
   getpos auto_describe blank→`unexplored area` + mimic/shk (D-0390);
-  parse `get_count` digits then one `clear_nhwindow` (D-0391).
-- D-0274…D-0391: see index.
+  parse `get_count` digits then one `clear_nhwindow` (D-0391);
+  counted search `set_occupation` + `dochugw`/`monster_nearby`
+  `stop_occupation` (D-0392).
+- D-0274…D-0392: see index.

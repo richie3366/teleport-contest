@@ -24,6 +24,27 @@ The compact status table lives in **`DIVERGENCE-INDEX.md`**.
 Open that file first; then jump to a single `## D-NNNN` entry below
 (via search). Do **not** read this whole file by default.
 
+## D-0392 — stop_occupation / counted Ns search (seed0012 Scr 259→268)
+
+- **Status:** fixed
+- **Observed:** seed0012 @226 — C topline `You stop searching.` vs JS blank;
+  @228 JS found passage while C still stopped.
+- **C locus:** `allmain.c` `stop_occupation`; occupation path
+  `monster_nearby`; `monmove.c` `dochugw` threat interrupt;
+  `cmd.c` `set_occupation(dosearch,"searching",multi)` for counted `s`.
+- **Cause/evidence:** JS used `_repeat_search` without occupation text and
+  deferred `stop_occupation` / `dochugw` interrupt, so multi-search ran
+  past a newly spotted hostile.
+- **Change:** `js/hack.js` `stop_occupation`; `js/engrave.js`
+  timed `set_occupation`; `js/cmd.js` counted `s` → occupation;
+  `js/allmain.js` occupation `monster_nearby`; `js/monmove.js` `dochugw`
+  threat stop. Named omissions: `maybe_finished_meal`/`reset_eat`;
+  `onscary` body; other `stop_occupation` call sites (timeout/muse/…).
+- **Verification:** seed0012 Scr **259→268**/308; @226–234 match; first
+  fail **@237** materialize `--More--`; green+strict PASS; cohort 22/22
+  PASS (+ green 2).
+- **Next:** seed0012 @237 teleport/materialize pline.
+
 ## D-0391 — parse / get_count digit path (seed0012 Scr 257→259)
 
 - **Status:** fixed

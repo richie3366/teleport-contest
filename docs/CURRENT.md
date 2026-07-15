@@ -58,17 +58,18 @@ Both must remain full RNG + screen PASS with exact scored-output lengths.
 
 ## Primary objective
 
-**seed0012 screens** — RNG prefix complete; Scr **259**/308, cursors
-**302**/308. parse/`get_count` digit path ported (D-0391); dust @220–222
-match. First fail **@226** C `You stop searching.` vs JS blank / later
-search-find desync (`9s` multi stop message + continue_search).
+**seed0012 screens** — RNG prefix complete; Scr **268**/308, cursors
+**302**/308. Counted-search stop via occupation/`stop_occupation`
+(D-0392); @226–234 match. First fail **@237** C
+`You materialize in a different location!--More--` vs JS blank / later
+gold-total desync.
 
 ```bash
 node frozen/ps_test_runner.mjs sessions/seed0012-monk-vault-escort.session.json
 ```
 
-**Falsify next:** C `You stop searching.` / `multi` after counted
-`dosearch` vs JS clear timing and continue_search stop pline.
+**Falsify next:** C teleport/levelport pline + `--More--` after newt
+kill path vs JS missing materialize message.
 
 **Alternates:** seed0004 / seed0002 / seed0006 / seed0007; quest early-0.
 
