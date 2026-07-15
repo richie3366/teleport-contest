@@ -7,70 +7,34 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Score:** **24/44** PASS (#400). RNG **254110**/792838 Scr **3640**/11405.
-  seed0012 focused RNG **13878**/13878 cursors **291**/308 (D-0378).
-- **Next:** seed0012 screens (Scr 14/308) after full RNG — clear_fcorr
-  display/`blackout`/`map_location`/corridor-disappears pline.
-  Cmd: `node frozen/ps_test_runner.mjs sessions/seed0012-monk-vault-escort.session.json`
-  Falsify: first mismatched screen step vs C glyph memory.
-- **Don’t re-check:** @13700 as priest `pri_move`/`move_special` mill
-  (D-0378 — root was unrestored fakecorr door; hero `l` onto (71,13));
-  @13576 dog_move (D-0377); @13517 bag put-in (D-0376); @13392 fleeck
-  (D-0375); @13287 wipe (D-0374); @12489 fleeck (D-0373); @12439
-  gethungry (D-0372); @8802 dog_goal (D-0371); @8384 fountain (D-0370).
-- **Landmark:** vault door (71,13); dig while-loop + restfakecorr restores
-  wall; um_dist `!rn2(10)`; shop home (11,11) satdoor mill needs onlineu.
+- **Score:** **24/44** PASS (#405). RNG **254397**/792838 Scr **3846**/11405.
+  seed0012 Scr **184**/308 cursors **294**/308.
+- **Next:** seed0012 @screen31 ice-box `Contents of…` — C `sortloot` stacks
+  vs JS one `doname` per cobj. Cmd:
+  `node frozen/ps_test_runner.mjs sessions/seed0012-monk-vault-escort.session.json`
+  Falsify: first content line C `2 jackal corpses` vs JS `a newt corpse`.
+- **Note:** seed0012 positional RNG full; strict length still trailing
+  (13902 vs 13878) — pre-existing, not D-0382.
+- **Don’t re-check:** in_or_out_menu prompt bare ATR_NONE / `q -` (D-0382 —
+  need ATR_INVERSE + SELECTED `*`); chargen `roles.length` (D-0379);
+  Monk Pw without SPELL_LEV_PW (D-0380); locked without Hmmm (D-0381).
+- **Landmark:** vault door (71,13); dig + restfakecorr; SPELL_LEV_PW(1)=5.
 - **Parked:** D-0006; seed2200 @158 RC.
 
 ## Don’t re-check (≤15)
 
 - No raw RNG-index / coordinate gates in production.
 - Role `mnum` = PM_* IDs; Ctrl-rush `run=3`, capital `run=1`; `\r`→`\n`.
-- **Don’t:** early-return `dochug` on `msleeping` (D-0278);
-  `can_make_bones` without `no_bones_level` (D-0279);
-  `dodrink` CANCEL as time (D-0280); `#quit` AC-only (D-0281);
-  `read_engr` maxelen from 80 (D-0282); botl `Dlvl` from `uz.dlevel` (D-0283);
-  omit `m_throw` flash / potion `nn` (D-0284/85); skip AT_WEAP `mswings` /
-  clamp fatal `uhp=0` / skip bot when `uhp==-1` / live-paint botl on more
-  (D-0286/87/310/314/320); invent yn when `disclose:-i` (D-0288);
-  omit RIP blank / topten (D-0290/91); true amulet/TOOL/WAND/SCROLL/SPBOOK/
-  ARMOR name when `!nn` (D-0292/305/309/312/321/325); WAND `known` at create
-  (D-0316); private `mon_nam` (D-0308); omit `paybill` (D-0311);
-  bare isshk death (D-0313); omit Priest `bknown` (D-0315);
-  vain-push behind boulder (D-0317); skip mon_wield pline (D-0318);
-  fire-and-forget thitu pline (D-0319); bare hit period (D-0322);
-  muse losehp without finish_done (D-0323); quit killer from prior death
-  (D-0324); always paint Invisible `@` (D-0326); hard-code xkilled kill
-  (D-0327); persist bones glyph memory (D-0328); bare MGIVENNAME ghost
-  (D-0329); `;` unbound / forced more (D-0330); getlin no CO wrap (D-0331);
-  drop letters without compactify (D-0332); friday13 one-space indent
-  (D-0333); hand-roll checkfile yn (D-0334); treat `S` as unknown /
-  skip VFS save (D-0335); always align on welcome-back (D-0336);
-  advance attr pages on any key (D-0337); leave `$` unbound (D-0338);
-  leave `)` unbound (D-0339); leave `[`/`=`/`"`/`(` unbound (D-0340);
-  leave DEL unbound when `doterrain` exists (D-0341);
-  skip `reveal_terrain` getglyph/show (D-0342); tip `docrt` under
-  terrainmode / ignore getpos space quitchar (D-0343);
-  put `#twoweapon` in EXT_CMD_AC (D-0344); omit `hitum` twoweap second
-  hit (D-0345); blanket `observe_object` / `xname(CORPSE)` mon (D-0346);
-  skip twoweap skill enl (D-0347); `clearScreen` chargen confirm (D-0348);
-  bare Entering without schedule_goto (D-0349); tut-1 map/find_ac
-  (D-0350); omit tut-1 door/portal (D-0351/52/53); silent `blocksMove`
-  (D-0354); POOL glyphs / DEC `` ` `` (D-0355); broken-door look_here
-  (D-0356); ParanoidSwim (D-0357); RIP before disclose (D-0358);
-  continue_run smudge (D-0359); rocktrap youmonst (D-0360); ICE_BOX
-  boxiprobs (D-0361); #loot / dog appr @3152 (D-0362); under-dmg @3204
-  (D-0363); oc_delay meating (D-0364); `,` leak move (D-0365); `<`/
-  getlev (D-0366); rest_track (D-0367); O/@ gold (D-0368); allmain wipe
-  @7312 (D-0369); mtrack k−j @8384 (D-0370 — fountain detect);
-  dog_goal rn2(4)@8802 as IS_ROOM (D-0371 — foul vomit);
-  gethungry rn2(20)@12439 as Unaware (D-0372 — attack before test_move);
-  somex@12489 as fleeck/mon mvault (D-0373 — hero once vault TELEP);
-  wipe_engr@13287 as fleeck (D-0374 — invault guard spawn);
-  fleeck@13392 as gd_move-only (D-0375 — apply `?` bag take-out first);
-  @13517 as move_special/onlineu alone (D-0376 — bag put-in / leaked LF);
-  @13576 as dog_move rn2(4)/IS_ROOM alone (D-0377 — gd_move dig redirect);
-  @13700 as pri_move/move_special mill alone (D-0378 — restfakecorr).
+- **Don’t:** `maybe_skip_seps` with `roles.length` (D-0379); omit
+  `SPELL_LEV_PW(1)` after `num_spells` (D-0380); locked container without
+  lknown Hmmm branch (D-0381); in_or_out_menu prompt without ATR_INVERSE
+  or default without `*` (D-0382); early-return `dochug` on `msleeping`
+  (D-0278); `can_make_bones` without `no_bones_level` (D-0279);
+  @13700 as pri_move alone (D-0378 — restfakecorr);
+  @13576 as dog_move alone (D-0377 — gd_move dig);
+  @13517 bag put-in (D-0376); @13392 fleeck (D-0375); @13287 wipe (D-0374);
+  @12489 fleeck (D-0373); @12439 gethungry (D-0372); @8802 dog_goal
+  (D-0371); @8384 fountain (D-0370).
 - Runner `Screen N/M` = total matches, not prefix length.
 
 ## Landmarks (≤15)
@@ -81,4 +45,6 @@ Objective/score live in `CURRENT.md`.
 - Vault `invault` timer 30 → `makemon(PM_GUARD)` + getlin (D-0374).
 - Apply bag take-out `a?jo$\r`; put-in `aji$\r$\r` (D-0375/76).
 - Shop home (11,11): mill → (11,12); return needs `onlineu` (D-0376).
-- D-0274…D-0378: see index.
+- Monk starter: `SPELL_LEV_PW(1)` bump when `num_spells()` (D-0380).
+- Ice-box look: `container_contents` needs `sortloot` stacks (next).
+- D-0274…D-0382: see index.

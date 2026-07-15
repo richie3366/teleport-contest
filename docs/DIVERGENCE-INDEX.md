@@ -365,6 +365,10 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 | D-0376 | fixed | bag put-in; leaked LF rush-south | put-in coins; prefix 13517→13576; cursors 259→270 |
 | D-0377 | fixed | gd_move dig while-loop redirect | wall→ortho STONE CORR; prefix 13576→13700; cursors 270→279 |
 | D-0378 | fixed | clear_fcorr/restfakecorr after escort | restore fakecorr; RNG 13700→13878 full; cursors 279→291 |
+| D-0379 | fixed | maybe_skip_seps compatible roles | count ok_* not roles.length; seed0012 Scr 14→17 |
+| D-0380 | fixed | SPELL_LEV_PW after num_spells | Monk Pw 4→5; seed0012 Scr 17→181 |
+| D-0381 | fixed | use_container locked Hmmm pline | lknown branch; seed0012 Scr 181→182 |
+| D-0382 | fixed | in_or_out_menu prompt/SELECTED | ATR_INVERSE + `q *`; Scr 182→184 |
 
 D-0001 through D-0005 predate the strict-length/cohort runbook. Their focused
 causes are preserved, but generic "green sessions held" is historical evidence,

@@ -17,16 +17,16 @@ Update **this Score section** with: pass count, screen/RNG aggregates, speed
 label, PASS list, notable non-PASS. Do not invent suite totals from a single
 focused session.
 
-Score last measured: **2026-07-15** — full `sessions` suite (#400).
+Score last measured: **2026-07-15** — full `sessions` suite (#405).
 
 ## Score
 
 | Metric | Value |
 |--------|------:|
 | Sessions passing | **24 / 44** |
-| Screens matched | **3640 / 11,405** (31.92%) |
-| Positional RNG calls matched | **254,110 / 792,838** (32.05%) |
-| Speed label | `21+0.13/turn` (R² 0.81) |
+| Screens matched | **3846 / 11,405** (33.72%) |
+| Positional RNG calls matched | **254,397 / 792,838** (32.09%) |
+| Speed label | `21+0.12/turn` (R² 0.80) |
 | Role-init throws | **0 / 44** |
 
 **PASS (24):** seed8000, seed0900, seed1500, seed1800, seed0060, seed0102,
@@ -37,10 +37,10 @@ seed0013-rogue, seed0013-friday13-restore, seed0107, seed0009.
 **Notable non-PASS:**
 | Session | RNG | Screen | Note |
 |--------|----:|-------:|------|
-| seed0012 | **13878**/13878 | **14**/308 | full RNG (D-0378); screens/glyph |
+| seed0012 | **13878**/13878 | **184**/308 | Scr 182→184 (D-0382); contents @31 |
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
+| seed0002 | 4520/27158 | **47**/595 | Scr 9→47 (chargen collateral) |
 | seed0004 | 4025/12084 | 28/409 | |
-| seed0002 | 4520/27158 | 9/595 | |
 | seed0361/0373 | early | 0 | quest bones / `makemaz` |
 
 ## Green gate
@@ -58,17 +58,16 @@ Both must remain full RNG + screen PASS with exact scored-output lengths.
 
 ## Primary objective
 
-**seed0012 screens** — RNG complete (D-0378); Scr **14**/308, cursors
-**291**/308 (sole late cursor miss @307 message-line). Likely vision/
-glyph/`map_location` after `clear_fcorr`, deferred corridor-disappears
-pline, or `blackout` on STONE restore.
+**seed0012 screens** — RNG complete; Scr **184**/308 (was 182), cursors
+**294**/308. First fail @31 ice-box `Contents of…` — C sortloot stacks
+(`2 jackal corpses`) vs JS per-object `doname` lines; cursor @`--More--`.
 
 ```bash
 node frozen/ps_test_runner.mjs sessions/seed0012-monk-vault-escort.session.json
 ```
 
-**Falsify next:** first screen mismatch step vs C; cite missing
-`map_location`/`blackout`/pline before inventing display shims.
+**Falsify next:** cite C `end.c` `container_contents` + `sortloot` before
+inventing display merge; dump screen 31 line order.
 
 **Alternates:** seed0004 / seed0002 / seed0006 / seed0007; quest early-0.
 

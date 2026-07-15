@@ -23,6 +23,7 @@ import { t_at, dotrap, NO_TRAP_FLAGS, drown, lava_effects } from './trap.js';
 import { nhgetch } from './input.js';
 import { oclass_to_sym } from './options.js';
 import { objectNames, COIN_CLASS } from './objects.js';
+import { ATR_INVERSE } from './terminal.js';
 
 /** C-ish thesimpleoname — sack → "bag". */
 function thesimpleoname(obj) {
@@ -445,8 +446,8 @@ export async function spoteffects(pick) {
 
 /**
  * C ref: end.c container_contents — NHW_MENU "Contents of %s:" + doname lines;
- * display_nhwindow(TRUE) wait. Nested containers / Schroedinger / empty pline
- * deferred beyond reportempty=false callers.
+ * display_nhwindow(TRUE) wait. Named omissions: sortloot/SORTLOOT_PACK stacks;
+ * nested containers / Schroedinger / empty pline beyond reportempty=false.
  */
 async function container_contents(box) {
     if (!box) return;
@@ -493,7 +494,9 @@ async function out_container(obj) {
  * deferred (use :oibrsq letters).
  */
 async function in_or_out_menu(prompt, obj, outokay, inokay, alreadyused) {
-    const entries = [{ text: prompt, attr: 0 }, { text: '', attr: 0 }];
+    // C tty_end_menu: prompt uses tty_menu_promptstyle (= menu_headings,
+    // default ATR_INVERSE); blank separator; then add_menu items.
+    const entries = [{ text: prompt, attr: ATR_INVERSE }, { text: '', attr: 0 }];
     const simple = thesimpleoname(obj); // "the bag"
     entries.push({ text: `: - Look inside ${simple}`, attr: 0, sel: ':' });
     if (outokay) {
@@ -526,8 +529,10 @@ async function in_or_out_menu(prompt, obj, outokay, inokay, alreadyused) {
         });
     }
     entries.push({ text: '', attr: 0 });
+    // C: MENU_ITEMFLAGS_SELECTED on default → process_menu_window paints
+    // '*' at the '-' slot (wintty.c n==2 && selected).
     entries.push({
-        text: `q - ${alreadyused ? 'done' : 'do nothing'}`,
+        text: `q * ${alreadyused ? 'done' : 'do nothing'}`,
         attr: 0,
         sel: 'q',
     });
@@ -767,9 +772,14 @@ async function menu_loot_putin(container) {
 export async function use_container(obj, held = false, _more = false) {
     if (!obj) return ECMD_OK;
 
-    obj.lknown = 1;
     if (obj.olocked) {
-        await pline(`${theArt(xname(obj))} is locked.`);
+        // C ref: pickup.c use_container — lknown vs discover-lock pline
+        if (obj.lknown)
+            await pline(`${upstart(theArt(xname(obj)))} is locked.`);
+        else
+            await pline(`Hmmm, ${theArt(xname(obj))} turns out to be locked.`);
+        obj.lknown = 1;
+        // autounlock / pick_lock deferred
         return ECMD_OK;
     }
 

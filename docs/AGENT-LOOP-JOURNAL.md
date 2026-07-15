@@ -18,6 +18,25 @@ Use this shape:
 - Verification: …
 - Next: …
 ```
+## 2026-07-15 11:30 — D-0382 in_or_out_menu prompt/SELECTED (seed0012 Scr)
+- Objective: seed0012 @screen30 ice-box `Do what with…` menu.
+- C locus: pickup.c in_or_out_menu; wintty.c tty_end_menu /
+  process_menu_window SELECTED `*`; menu_headings ATR_INVERSE.
+- Change: `js/pickup.js` — prompt ATR_INVERSE; default `q * done|do nothing`.
+- Verification: Scr **182→184**/308; green+strict; cohort 22/22 PASS.
+- Next: seed0012 @screen31 ice-box `container_contents` sortloot stacks.
+
+## 2026-07-15 11:17 — #405 score + seed0012 Scr 14→182 (D-0379/80/81)
+- Objective: mandatory full `sessions` (#405); primary seed0012 screens.
+- C locus: role.c maybe_skip_seps; u_init.c SPELL_LEV_PW; pickup.c
+  use_container locked; vault.c clear_fcorr blackout/map_location.
+- Change: maybe_skip_seps counts ok_* roles (D-0379); num_spells→
+  SPELL_LEV_PW(1) bump (D-0380); locked Hmmm pline (D-0381); clear_fcorr
+  blackout/map_location/deltrap/del_engr (faithful side).
+- Verification: full suite **24/44** Scr **3640→3846** RNG 254397;
+  seed0012 Scr **14→182**/308; green+strict; cohort 24/24.
+- Next: seed0012 @screen30 ice-box menu layout/attr.
+
 ## 2026-07-15 10:48 — D-0378 restfakecorr/clear_fcorr (seed0012 @13700)
 - Objective: seed0012 @13700 C move_special rn2(1) vs JS fleeck rn2(5).
 - C locus: vault.c clear_fcorr/restfakecorr; gd_move um_dist + post-dig.
@@ -143,12 +162,3 @@ Use this shape:
 - Change: bind O/@; choose_classes_menu pickup_types; autopick filter (D-0368).
 - Verification: mismatch 7288→7312; RNG 7495→7558; green+strict; cohort 22/22.
 - Next: seed0012 @7312 C wipeout_text vs JS distfleeck.
-
-## 2026-07-15 07:32 — D-0367 save_track/rest_track (seed0012 @6952)
-- Objective: seed0012 @6952 C rn2(12) vs JS rn2(1) (wrong dog_goal gg).
-- C locus: track.c save_track/rest_track; dogmove.c dog_goal gettrack.
-- Change: in-memory save_track/rest_track on goto_level stash (D-0367).
-  Was wipe-only initrack → gettrack null → wantdoor gg=(62,16).
-- Verification: prefix 6952→7288; RNG 7202→7495; green+strict; cohort 24/24.
-- Next: seed0012 @7288 C dog_move rn2(1) vs JS obj_resists.
-

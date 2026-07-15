@@ -24,6 +24,72 @@ The compact status table lives in **`DIVERGENCE-INDEX.md`**.
 Open that file first; then jump to a single `## D-NNNN` entry below
 (via search). Do **not** read this whole file by default.
 
+## D-0382 — in_or_out_menu prompt ATR_INVERSE + SELECTED `*` (seed0012 Scr)
+
+- **Status:** fixed
+- **Observed:** seed0012 screen 30 — cells matched text but prompt
+  `attr:0` vs C `attr:1` (inverse); also default was `q - do nothing`
+  vs C `q * do nothing`.
+- **Cause:** C `tty_end_menu` paints prompt with `tty_menu_promptstyle`
+  (= `menu_headings`, default ATR_INVERSE). `MENU_ITEMFLAGS_SELECTED`
+  on the default choice makes `process_menu_window` replace `-` with `*`.
+- **C locus:** `pickup.c` `in_or_out_menu`; `wintty.c` `tty_end_menu` /
+  `process_menu_window` (n==2 && selected).
+- **Change:** `js/pickup.js` `in_or_out_menu` — prompt `ATR_INVERSE`;
+  `q * done|do nothing`. Named omissions: lootabc; more_containers `n`.
+- **Verification:** Scr **182→184**/308 (screens 30+32); green+strict;
+  cohort 22/22 PASS.
+- **Next:** seed0012 @screen31 `container_contents` / `sortloot` stacks.
+
+## D-0381 — use_container locked Hmmm pline (seed0012 Scr)
+
+- **Status:** fixed
+- **Observed:** seed0012 screen after welcome — C
+  `Hmmm, the chest turns out to be locked.` vs JS `the chest is locked.`
+- **Cause:** `use_container` always printed bare locked string and set
+  `lknown` before the check; C branches on `lknown` and uses
+  `the(xname)` / `The(xname)`.
+- **C locus:** `pickup.c` `use_container` (~2097–2110).
+- **Change:** `js/pickup.js` — lknown vs Hmmm pline; set `lknown` after.
+  Autounlock still deferred.
+- **Verification:** Scr **181→182**/308; green+strict; cohort seed0200 PASS.
+- **Next:** seed0012 @screen30 ice-box menu.
+
+## D-0380 — SPELL_LEV_PW after num_spells (seed0012 Scr)
+
+- **Status:** fixed
+- **Observed:** seed0012 welcome botl Pw:4(4) vs C Pw:5(5) after chargen
+  menus matched.
+- **Cause:** Monk starts with a spellbook → `initialspell` → `num_spells()>0`
+  but JS skipped C’s `SPELL_LEV_PW(1)` floor in `u_init_skills_discoveries`.
+- **Rejected:** treating clear_fcorr/blackout as the first screen root
+  (map glyphs already matched via DEC comparator).
+- **C locus:** `u_init.c` `u_init_skills_discoveries`; `spell.h`
+  `SPELL_LEV_PW`.
+- **Change:** `js/u_init.js` bump `uen`/`uenmax`/`uenpeak`/`ueninc`;
+  export `num_spells`/`SPELL_LEV_PW` from `spell.js`. Also ported
+  `clear_fcorr` `blackout`/`map_location`/`deltrap`/`del_engr_at`
+  (faithful; not the Scr win).
+- **Verification:** Scr **17→181**/308; green+strict; cohort **24/24**;
+  full suite Scr **3640→3845**.
+- **Next:** locked-chest pline (D-0381).
+
+## D-0379 — maybe_skip_seps compatible-role count (seed0012 Scr)
+
+- **Status:** fixed
+- **Observed:** seed0012 chargen role menus after align/gender/race filter —
+  JS missing blank between `* * Random` and `/ - Pick race first`; cursor
+  one row high.
+- **Cause:** JS `maybe_skip_seps` used `roles.length` so excess was always
+  1 on 24-row tty; C counts only `ok_role`/`ok_race`/`ok_gend`/`ok_align`
+  roles. Filtered menus have excess 0 → keep blank.
+- **C locus:** `role.c` `maybe_skip_seps` / `plsel_startmenu` / role menu
+  separator after `ROLE_RANDOM`.
+- **Change:** `js/player_selection.js` — faithful `maybe_skip_seps`; omit
+  header blank only when excess==2.
+- **Verification:** Scr **14→17**/308; seed0077 still PASS; green+strict.
+- **Next:** welcome Pw (D-0380).
+
 ## D-0378 — clear_fcorr / restfakecorr (seed0012 @13700)
 
 - **Status:** fixed
