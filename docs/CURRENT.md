@@ -58,18 +58,17 @@ Both must remain full RNG + screen PASS with exact scored-output lengths.
 
 ## Primary objective
 
-**seed0012 screens** — RNG prefix complete; Scr **268**/308, cursors
-**302**/308. Counted-search stop via occupation/`stop_occupation`
-(D-0392); @226–234 match. First fail **@237** C
-`You materialize in a different location!--More--` vs JS blank / later
-gold-total desync.
+**seed0012 screens** — RNG prefix complete; Scr **275**/308, cursors
+**305**/308. Vault `teleds` materialize + gold `disp.botl` (D-0393);
+@237–258 match. First fail **@259** C
+`Do what with your bag?` vs JS `the bag is empty.  Do what with…`.
 
 ```bash
 node frozen/ps_test_runner.mjs sessions/seed0012-monk-vault-escort.session.json
 ```
 
-**Falsify next:** C teleport/levelport pline + `--More--` after newt
-kill path vs JS missing materialize message.
+**Falsify next:** bag apply / empty-container prompt order after vault
+gold path vs JS premature “bag is empty” prefix.
 
 **Alternates:** seed0004 / seed0002 / seed0006 / seed0007; quest early-0.
 

@@ -20,6 +20,16 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-15 14:15 — #419 teleds materialize + gold botl (D-0393)
+- Objective: seed0012 @237 C materialize `--More--` vs JS blank / $:7.
+- C locus: teleport.c teleds TELEDS_TELEPORT+verbose You + spoteffects;
+  pickup.c pickup_object disp.botl before gold prinv.
+- Change: async teleds/vault_tele materialize pline + spoteffects;
+  gold flags.botl so flush paints $:307 before deferred more().
+- Verification: seed0012 Scr **268→275**/308; @237–258 match; first fail
+  @259 bag prompt; green+strict PASS; cohort 24/24 PASS.
+- Next: seed0012 @259 empty-bag apply prompt order.
+
 ## 2026-07-15 14:08 — #418 stop_occupation counted Ns (D-0392)
 - Objective: seed0012 @226 C `You stop searching.` vs JS blank.
 - C locus: allmain.c stop_occupation + occupation monster_nearby;
@@ -158,15 +168,4 @@ Use this shape:
 - Verification: mismatch 13576→13700; RNG 13635→13754/13878 cursors
   270→279/308; green+strict PASS; cohort 22/22.
 - Next: seed0012 @13700 C move_special rn2(1) vs JS rn2(5).
-
-## 2026-07-15 10:05 — D-0376 bag put-in (seed0012 @13517)
-- Objective: seed0012 @13517 C move_special rn2(1) vs JS fleeck rn2(5).
-- C locus: pickup.c use_container/in_container/menu_loot/query_category;
-  jsmain CR→LF; cmd C('j') rush; symptom shk_move onlineu.
-- Change: port put-in coins path (query_putin_category + menu_loot_putin +
-  in_container). Root: stubbed 'i' left $\r$\r → LF rush-south → uy+1 →
-  missed earlier onlineu home return (D-0376).
-- Verification: prefix 13517→13576; RNG 13591→13635 cursors 259→270;
-  green+strict PASS; cohort 22/22.
-- Next: seed0012 @13576 C dog_move rn2(1) vs JS rn2(4).
 

@@ -168,10 +168,10 @@ async function pickup_prinv(obj, count) {
 
 /**
  * C ref: pickup.c pickup_object — lift one floor/minvent object into invent.
- * Branch envelope: observe_object; splitobj when count < quan; pick_obj +
- * prinv. Named omissions: uchain; engulfer worn; touch_artifact; CORPSE
- * fatal/rider; SCR_SCARE_MONSTER dust; lift_object carry_count fail;
- * LOADSTONE no-split; ghostly; gold botl.
+ * Branch envelope: observe_object; gold disp.botl; splitobj when count < quan;
+ * pick_obj + prinv. Named omissions: uchain; engulfer worn; touch_artifact;
+ * CORPSE fatal/rider; SCR_SCARE_MONSTER dust; lift_object carry_count fail;
+ * LOADSTONE no-split; ghostly.
  */
 export async function pickup_object(obj, count, telekinesis) {
     if (!obj) return 0;
@@ -183,6 +183,12 @@ export async function pickup_object(obj, count, telekinesis) {
     if (quan > (obj.quan || 1)) quan = obj.quan || 1;
 
     // lift_object carry_count deferred — always liftable for now
+    // C: What's left of the special case for gold :-) — botl before pick
+    // so prinv→pline→flush_screen paints $:N before any deferred more().
+    if (obj.oclass === COIN_CLASS) {
+        if (!game.flags) game.flags = {};
+        game.flags.botl = true;
+    }
     // C: LOADSTONE never splits (named omission: always allow split here;
     // AUTOSELECT full-quan path never hits this branch)
     if (quan > 0 && quan < (obj.quan || 1)) {

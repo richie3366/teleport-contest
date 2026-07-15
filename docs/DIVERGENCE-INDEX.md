@@ -379,6 +379,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 | D-0390 | fixed | getpos auto_describe TER_DETECT | lookat unexplored/mimic/shk; Scr 244→257 |
 | D-0391 | fixed | cmd parse/get_count digit clear | clear once after count; Scr 257→259 |
 | D-0392 | fixed | stop_occupation + dochugw/Ns search | counted search interrupt; Scr 259→268 |
+| D-0393 | fixed | teleds materialize + gold disp.botl | vault TELEP More $:307; Scr 268→275 |
 
 D-0001 through D-0005 predate the strict-length/cohort runbook. Their focused
 causes are preserved, but generic "green sessions held" is historical evidence,

@@ -24,6 +24,27 @@ The compact status table lives in **`DIVERGENCE-INDEX.md`**.
 Open that file first; then jump to a single `## D-NNNN` entry below
 (via search). Do **not** read this whole file by default.
 
+## D-0393 — teleds materialize + gold disp.botl (seed0012 Scr 268→275)
+
+- **Status:** fixed
+- **Observed:** seed0012 @237 — C `You materialize in a different
+  location!--More--` with `$:307` vs JS blank then later gold desync;
+  after materialize pline alone, JS still showed `$:7` on More.
+- **C locus:** `teleport.c` `teleds` — `TELEDS_TELEPORT` + `flags.verbose`
+  materialize `You()` then `spoteffects(TRUE)`; `pickup.c`
+  `pickup_object` sets `disp.botl` before gold `pick_obj`/`prinv` so
+  the next `pline` `flush_screen` paints `$` before deferred `more()`.
+- **Cause/evidence:** JS `teleds` placed the hero (somex/somey matched)
+  but omitted materialize + landing `spoteffects`; gold botl was a
+  named omission, so materialize `--More--` kept cached `$:7`.
+- **Change:** async `teleds`/`vault_tele`/`tele_trap_once_vault` with
+  materialize pline + `spoteffects(true)`; `pickup_object` gold
+  `flags.botl`. Named omissions: ball/chain, swallow, vault_guard
+  `uleftvault`, `switch_terrain`, `notice_mon_*`, `tele()` fallback.
+- **Verification:** seed0012 Scr **268→275**/308; @237–258 match;
+  first fail **@259** bag prompt; green+strict PASS; cohort 24/24 PASS.
+- **Next:** seed0012 @259 empty-bag apply prompt order.
+
 ## D-0392 — stop_occupation / counted Ns search (seed0012 Scr 259→268)
 
 - **Status:** fixed

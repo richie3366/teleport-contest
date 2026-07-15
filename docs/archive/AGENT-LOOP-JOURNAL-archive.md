@@ -1,5 +1,16 @@
 # Agent loop journal archive
 
+## 2026-07-15 10:05 — D-0376 bag put-in (seed0012 @13517)
+- Objective: seed0012 @13517 C move_special rn2(1) vs JS fleeck rn2(5).
+- C locus: pickup.c use_container/in_container/menu_loot/query_category;
+  jsmain CR→LF; cmd C('j') rush; symptom shk_move onlineu.
+- Change: port put-in coins path (query_putin_category + menu_loot_putin +
+  in_container). Root: stubbed 'i' left $\r$\r → LF rush-south → uy+1 →
+  missed earlier onlineu home return (D-0376).
+- Verification: prefix 13517→13576; RNG 13591→13635 cursors 259→270;
+  green+strict PASS; cohort 22/22.
+- Next: seed0012 @13576 C dog_move rn2(1) vs JS rn2(4).
+
 ## 2026-07-15 01:20 — #363 D-0339 `)` doprwep
 
 - Objective: seed0013-restore @62 `)` bare handed (CURRENT primary).
