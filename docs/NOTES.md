@@ -7,20 +7,20 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Score:** **24/44** PASS (#410). seed0012 Scr **199**/308 (was 187)
-  cursors **302**/308 after D-0385 `doset_simple_menu`.
-- **Next:** seed0012 @screen70 — post-Options map DEC vs Unicode cell
-  mismatch (`x%r~x` vs `│%r·│`) after fullscreen menu dismiss/docrt.
-  Cmd:
+- **Score:** **24/44** PASS (#410). seed0012 Scr **236**/308 (was 199)
+  cursors **302**/308 after D-0386 `hilite_pile` ATR_INVERSE.
+- **Next:** seed0012 @screen75 — C topline `You see here a statue of a
+  newt.` vs JS blank. Cmd:
   `node frozen/ps_test_runner.mjs sessions/seed0012-monk-vault-escort.session.json`
-  Falsify: dump screen 70; compare serialize_for_scoring DEC path after
-  Options cancel.
+  Falsify: dump screen 75; reconstruct look-here / feel_location pline.
 - **Note:** seed0012 positional RNG full; strict length still trailing
-  (13902 vs 13878) — pre-existing.
-- **Don’t re-check:** ice-box Contents stacks (D-0383); pickup
-  INVORDER_SORT headers (D-0384); in_or_out_menu ATR/`*` (D-0382);
-  chargen `roles.length` (D-0379); Monk Pw SPELL_LEV_PW (D-0380);
-  locked Hmmm (D-0381); Options stub layout (D-0385).
+  (13902 vs 13878) — pre-existing. @70 was NOT DEC encoding — Options
+  toggled `hilite_pile` then C inverse-hilited the food pile.
+- **Don’t re-check:** hilite_pile ATR_INVERSE (D-0386); Options stub
+  layout (D-0385); ice-box Contents stacks (D-0383); pickup INVORDER_SORT
+  headers (D-0384); in_or_out_menu ATR/`*` (D-0382); chargen
+  `roles.length` (D-0379); Monk Pw SPELL_LEV_PW (D-0380); locked Hmmm
+  (D-0381).
 - **Landmark:** vault door (71,13); dig + restfakecorr; SPELL_LEV_PW(1)=5.
 - **Parked:** D-0006; seed2200 @158 RC.
 
@@ -28,15 +28,15 @@ Objective/score live in `CURRENT.md`.
 
 - No raw RNG-index / coordinate gates in production.
 - Role `mnum` = PM_* IDs; Ctrl-rush `run=3`, capital `run=1`; `\r`→`\n`.
-- **Don’t:** ice-box per-cobj without merge/`spe` gender (D-0383);
-  pickup menu without INVORDER_SORT headings (D-0384); `maybe_skip_seps`
-  with `roles.length` (D-0379); omit `SPELL_LEV_PW(1)` (D-0380); locked
-  without lknown Hmmm (D-0381); in_or_out_menu without ATR_INVERSE/`*`
-  (D-0382); invent Options hand-list (D-0385); early-return `dochug` on
-  `msleeping` (D-0278); `can_make_bones` without `no_bones_level` (D-0279);
-  @13700 as pri_move alone (D-0378); @13576 as dog_move alone (D-0377);
-  @13517 bag put-in (D-0376); @13392 fleeck (D-0375); @13287 wipe
-  (D-0374); @12489 fleeck (D-0373); @12439 gethungry (D-0372).
+- **Don’t:** invent Options hand-list (D-0385); omit `hilite_pile`
+  ATR_INVERSE on MG_OBJPILE (D-0386); ice-box per-cobj without merge/`spe`
+  gender (D-0383); pickup menu without INVORDER_SORT headings (D-0384);
+  `maybe_skip_seps` with `roles.length` (D-0379); omit `SPELL_LEV_PW(1)`
+  (D-0380); locked without lknown Hmmm (D-0381); in_or_out_menu without
+  ATR_INVERSE/`*` (D-0382); early-return `dochug` on `msleeping`
+  (D-0278); `can_make_bones` without `no_bones_level` (D-0279); @13700 as
+  pri_move alone (D-0378); @13576 as dog_move alone (D-0377); @13517 bag
+  put-in (D-0376); @13392 fleeck (D-0375); @13287 wipe (D-0374).
 - Runner `Screen N/M` = total matches, not prefix length.
 
 ## Landmarks (≤15)
@@ -51,5 +51,6 @@ Objective/score live in `CURRENT.md`.
 - Ice-box look: merge+sortloot stacks (D-0383); pickup class headers
   (D-0384).
 - Options: `doset_simple_menu` allopt General→Status + multipage FS
-  (D-0385).
-- D-0274…D-0385: see index.
+  (D-0385); Map page `f` toggles `hilite_pile` → pile ATR_INVERSE
+  (D-0386).
+- D-0274…D-0386: see index.

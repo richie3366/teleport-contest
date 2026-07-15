@@ -26,6 +26,7 @@ import {
     isok,
     SVALL,
     TER_TRP, TER_OBJ, TER_MON, TER_FULL,
+    OBJ_FLOOR,
 } from './const.js';
 import {
     ILLOBJ_CLASS, WEAPON_CLASS, ARMOR_CLASS, RING_CLASS, AMULET_CLASS,
@@ -36,7 +37,7 @@ import {
 import {
     NO_COLOR, CLR_GRAY, CLR_BLACK, CLR_BROWN, CLR_WHITE, CLR_YELLOW,
     CLR_BLUE, CLR_BRIGHT_BLUE, CLR_RED, CLR_ORANGE, CLR_CYAN,
-    DEC_TO_UNICODE,
+    DEC_TO_UNICODE, ATR_INVERSE,
 } from './terminal.js';
 import { update_lastseentyp, In_tutorial } from './dungeon.js';
 import { stairway_at, known_branch_stairs } from './mklev.js';
@@ -49,6 +50,7 @@ import { observe_object } from './invent.js';
 
 const CORPSE_OTYP = objectNames.indexOf('CORPSE');
 const STATUE_OTYP = objectNames.indexOf('STATUE');
+const BOULDER_OTYP = objectNames.indexOf('BOULDER');
 // C display_monster M_AP_OBJECT default corpsenm when !has_mcorpsenm
 const PM_TENGU = monsterNames.indexOf('PM_TENGU');
 // C ref: objects.h MARKER — obj_is_generic gem/spell ranges
@@ -56,6 +58,39 @@ const FIRST_REAL_GEM_OTYP = objectNames.indexOf('DILITHIUM_CRYSTAL');
 const LAST_GLASS_GEM_OTYP = objectNames.indexOf('WORTHLESS_VIOLET_GLASS');
 const FIRST_SPELL_OTYP = objectNames.indexOf('SPE_DIG');
 const LAST_SPELL_OTYP = objectNames.indexOf('SPE_BLANK_PAPER');
+
+/**
+ * C ref: display.h obj_is_piletop — floor top with nexthere (boulder
+ * exception: boulder hides pile unless next is also boulder).
+ */
+function obj_is_piletop(obj) {
+    if (!obj || obj.where !== OBJ_FLOOR) return false;
+    const next = objects_at(obj.ox, obj.oy)?.nexthere;
+    if (!next) return false;
+    if (obj.otyp === BOULDER_OTYP && next.otyp !== BOULDER_OTYP) return false;
+    return true;
+}
+
+/**
+ * C ref: flag.h use_inverse ≡ wc_inverse; optlist.h NHOPTB default On.
+ */
+function use_inverse_opt() {
+    const v = game.iflags?.wc_inverse ?? game.iflags?.use_inverse;
+    return v === undefined ? true : !!v;
+}
+
+/**
+ * C ref: wintty.c tty_print_glyph — MG_OBJPILE && hilite_pile && use_inverse
+ * → ATR_INVERSE. Named omissions: MG_DETECT / BW_* / MG_FEMALE; hilite_pet
+ * petattr (separate branch).
+ */
+function obj_map_attr(obj, rememberedPile = false) {
+    const pile = rememberedPile || obj_is_piletop(obj);
+    if (pile && game.iflags?.hilite_pile && use_inverse_opt()) {
+        return ATR_INVERSE;
+    }
+    return 0;
+}
 
 // C ref: defsym.h OBJCLASS_DRAWING — default object-class map symbols
 const DEF_OC_SYM = {
@@ -1252,7 +1287,17 @@ export function map_location(x, y, show) {
         // C: map_object(obj, show) — may observe_object when near
         map_object_observe_near(obj, x, y);
         const og = obj_glyph(obj);
-        g = { ch: og.ch, color: og.color, decgfx: !!og.dec };
+        const attr = obj_map_attr(obj);
+        const pile = obj_is_piletop(obj);
+        g = { ch: og.ch, color: og.color, decgfx: !!og.dec, objpile: pile };
+        if (mem) {
+            loc.remembered_glyph = {
+                ch: g.ch, color: g.color, decgfx: g.decgfx, objpile: pile,
+            };
+        }
+        if (show) show_glyph_cell(x, y, g.ch, g.color, g.decgfx, attr);
+        update_lastseentyp(x, y);
+        return;
     } else if (spot_shows_engravings(loc)) {
         // traps deferred — engraving before background (C map_engraving)
         const ep = engr_at(x, y);
@@ -1350,9 +1395,13 @@ export function newsym(x, y) {
         if (obj && !covers_objects(x, y)) {
             map_object_observe_near(obj, x, y);
             const og = obj_glyph(obj);
-            show_glyph_cell(x, y, og.ch, og.color, og.dec);
+            const attr = obj_map_attr(obj);
+            const pile = obj_is_piletop(obj);
+            show_glyph_cell(x, y, og.ch, og.color, og.dec, attr);
             if (game.level?.flags?.hero_memory) {
-                loc.remembered_glyph = { ch: og.ch, color: og.color, decgfx: og.dec };
+                loc.remembered_glyph = {
+                    ch: og.ch, color: og.color, decgfx: og.dec, objpile: pile,
+                };
             }
             // C _map_location always updates lastseentyp after mapping
             update_lastseentyp(x, y);
@@ -1403,7 +1452,16 @@ export function newsym(x, y) {
             mem = { ch: '#', color: NO_COLOR, decgfx: false };
             loc.remembered_glyph = mem;
         }
-        show_glyph_cell(x, y, mem.ch, mem.color, mem.decgfx);
+        // C: piletop glyph carries MG_OBJPILE; hilite applied at print
+        // from current iflags. JS may lack objpile on older memory — also
+        // detect live floor pile (still present under remembered glyph).
+        const floorObj = objects_at(x, y);
+        const livePile = !!(floorObj && !covers_objects(x, y)
+            && obj_is_piletop(floorObj));
+        const attr = (livePile || mem.objpile)
+            ? obj_map_attr(floorObj, !livePile)
+            : 0;
+        show_glyph_cell(x, y, mem.ch, mem.color, mem.decgfx, attr);
     } else {
         // C: show_mem → show_glyph(x, y, lev->glyph); unexplored glyph
         // paints blank. A no-op here left stale tty cells after a sensed

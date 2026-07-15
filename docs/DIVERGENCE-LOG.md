@@ -24,6 +24,26 @@ The compact status table lives in **`DIVERGENCE-INDEX.md`**.
 Open that file first; then jump to a single `## D-NNNN` entry below
 (via search). Do **not** read this whole file by default.
 
+## D-0386 — hilite_pile ATR_INVERSE on object piles (seed0012 Scr 199→236)
+
+- **Status:** fixed
+- **Observed:** seed0012 @70 after Options — C `%` food pile inverse+red
+  vs JS red only; Scr 199/308. Pre-Options screens matched without
+  inverse (hilite_pile off).
+- **C locus:** `display.h` `obj_is_piletop`; `wintty.c` `tty_print_glyph`
+  `(MG_OBJPILE && hilite_pile) && use_inverse` → `ATR_INVERSE`;
+  `optlist.h` `use_inverse` default On, `hilite_pile` default Off.
+- **Cause/evidence:** Options page 2 key `f` toggles `hilite_pile` `[ ]`
+  → `[X]` (screens 67→69); dump @70 sole cell miss was attr on `%`.
+  Not DEC vs Unicode (comparator equates SO/SI with Unicode walls).
+- **Change:** `js/display.js` — `obj_is_piletop` + `obj_map_attr`; pass
+  atr through `map_location`/`newsym` object paint and remembered pile
+  redraw. Named omissions: MG_DETECT/BW_*/MG_FEMALE inverse; hilite_pet
+  petattr branch.
+- **Verification:** seed0012 Scr **199→236**; green+strict PASS; cohort
+  24/24 PASS.
+- **Next:** seed0012 @75 `You see here a statue of a newt.`
+
 ## D-0385 — doset_simple_menu from allopt[] (seed0012 Scr 187→199)
 
 - **Status:** fixed

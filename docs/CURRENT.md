@@ -58,16 +58,16 @@ Both must remain full RNG + screen PASS with exact scored-output lengths.
 
 ## Primary objective
 
-**seed0012 screens** — RNG complete; Scr **199**/308, cursors
-**302**/308. Options menu ported (D-0385); first fail @70 after
-Options exit — map DEC vs Unicode cell encoding on restore.
+**seed0012 screens** — RNG complete; Scr **236**/308, cursors
+**302**/308. `hilite_pile` inverse ported (D-0386); first fail @75
+`You see here a statue of a newt.` (look/feel pline missing).
 
 ```bash
 node frozen/ps_test_runner.mjs sessions/seed0012-monk-vault-escort.session.json
 ```
 
-**Falsify next:** dump screen 70; fix post-fullscreen-menu map
-serialize/DEC path (not invent glyphs).
+**Falsify next:** dump screen 75; port C look-here / statue feel pline
+path (not invent message text).
 
 **Alternates:** seed0004 / seed0002 / seed0006 / seed0007; quest early-0.
 
