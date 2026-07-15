@@ -73,3 +73,15 @@
 - Next: prefix@129 C `It misses…` vs JS `The kitten misses…` (`Monnam`).
 
 
+- Next: `uhitm.c` `hitum` secondary `uswapwep` swing.
+
+## 2026-07-15 01:40 — #365 score + D-0342/0343 restore PASS
+
+- Objective: #365 public score + seed0013-restore `@71` reveal_terrain.
+- C locus: `detect.c` reveal_terrain_getglyph; `getpos.c` tip/quitchars.
+- Change: TER_MAP getglyph/show (D-0342); tip skip-docrt under
+  terrainmode + space → Done (D-0343).
+- Verification: restore **99**/99 PASS; suite **22/44** Scr **3499**/11405
+  RNG **239942**/792838 `18+0.12/turn`; green+strict+cohort.
+- Next: seed0107 `#twoweapon` unbound @15.
+

@@ -19,6 +19,16 @@ Use this shape:
 - Verification: …
 - Next: …
 ```
+## 2026-07-15 05:29 — #380 score + D-0359 continue_run smudge
+- Objective: public score (#380÷5) + seed0009 RNG @3521 `rnd(5)` vs `mcalcmove`.
+- C locus: `hack.c` `domove`/`maybe_smudge_engr`; `allmain.c` continue-run;
+  `cmd.c` `set_move_cmd` DOMOVE_WALK/RUSH.
+- Change: smudge only when RUSH|WALK succeeded; clear `domove_attempting`
+  each step; set flags on first walk/run (D-0359). seed0009 PASS.
+- Verification: suite **24/44** Scr **3626**/11405 RNG **240535**/792838
+  `19+0.12/turn`; green+strict; cohort 24 PASS.
+- Next: pick shared blocker (seed0004/0002/0006/0007/0012/quest).
+
 ## 2026-07-15 05:20 — D-0358 death disclose before RIP
 - Objective: seed0009 @63 attributes yn vs tombstone (CURRENT).
 - C locus: `end.c` `disclose`; `insight.c` enlightenment; `dungeon.c`
@@ -154,14 +164,3 @@ Use this shape:
 - Verification: Scr **36→42**/98 RNG **2684→2846**; green+strict;
   cohort 20 PASS. @40 next: `hitum` twohits kill after miss.
 - Next: `uhitm.c` `hitum` secondary `uswapwep` swing.
-
-## 2026-07-15 01:40 — #365 score + D-0342/0343 restore PASS
-
-- Objective: #365 public score + seed0013-restore `@71` reveal_terrain.
-- C locus: `detect.c` reveal_terrain_getglyph; `getpos.c` tip/quitchars.
-- Change: TER_MAP getglyph/show (D-0342); tip skip-docrt under
-  terrainmode + space → Done (D-0343).
-- Verification: restore **99**/99 PASS; suite **22/44** Scr **3499**/11405
-  RNG **239942**/792838 `18+0.12/turn`; green+strict+cohort.
-- Next: seed0107 `#twoweapon` unbound @15.
-

@@ -24,6 +24,25 @@ The compact status table lives in **`DIVERGENCE-INDEX.md`**.
 Open that file first; then jump to a single `## D-NNNN` entry below
 (via search). Do **not** read this whole file by default.
 
+## D-0359 — continue_run must not maybe_smudge_engr
+
+- **Status:** fixed
+- **Observed:** seed0009 Scr 73/73; RNG 3708/3713; first miss @3521
+  C `mcalcmove` `rn2(12)` vs JS `rnd(5)`.
+- **C locus:** `hack.c` `domove` — smudge only when
+  `domove_succeeded & (DOMOVE_RUSH|DOMOVE_WALK)`; clears `domove_attempting`
+  after each step. `allmain.c` continue-run calls `domove()` with attempting
+  already 0. `cmd.c` `set_move_cmd` sets WALK/RUSH on the first step only.
+- **Cause/evidence:** DIAG stack: stray `rnd(5)` from `maybe_smudge_engr` ←
+  `domove` ← `continue_run`. JS smudged every successful step; C only on the
+  step that still had attempting flags.
+- **Change:** `js/cmd.js` — set DOMOVE_WALK/RUSH on rhack first step; record
+  `domove_succeeded` on position change; smudge only when RUSH|WALK succeeded;
+  clear `domove_attempting` in `finally`.
+- **Verification:** seed0009 PASS 3713/3713 + 73/73; green+strict; cohort 24
+  PASS; full suite **24/44** Scr 3626 RNG 240535 (`19+0.12/turn`).
+- **Next:** pick next shared blocker (CURRENT).
+
 ## D-0358 — death disclose attributes/conduct/overview before RIP
 
 - **Status:** fixed

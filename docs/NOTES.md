@@ -7,14 +7,13 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Score:** **23/44** PASS (#375 suite; Scr aggregate **3592** — not remeasured).
-- **Current unit:** seed0009 Scr **73**/73 RNG **3708**/3713 — screens full;
-  FAIL on mid-game RNG @3514 `mcalcmove` `rn2(12)` vs JS `rnd(5)`.
-- **Fixed this iter:** D-0358 — disclose a/c/o + gameover enlightenment +
-  `init_mapseen` + overview `(end)` (Scr **63→73**).
-- **Next peel:** reconstruct C path at first RNG miss @3514 (not disclose).
-- **Don’t re-check:** disclose order / invent-empty skip / DoD mapseen from
-  mklev `init_mapseen`; fullscreen `--More--` col 1 for enlightenment.
+- **Score:** **24/44** PASS (#380 suite after D-0359; Scr **3626**/11405).
+- **Fixed this iter:** D-0359 — `domove` smudge only on `DOMOVE_RUSH|WALK`
+  succeeded; clear `domove_attempting` each step (continue_run no `rnd(5)`).
+  seed0009 **PASS** RNG 3713/3713 Scr 73/73.
+- **Next:** pick shared blocker (seed0004/0002/0006/0007/0012 or quest).
+- **Don’t re-check:** continue_run `maybe_smudge_engr` / unconditional smudge;
+  disclose order / invent-empty skip / DoD mapseen from mklev `init_mapseen`.
 - **Landmark:** screen `i` key = `moves[i]` (= `steps[i+1].key`).
 - **Parked:** D-0006; seed2200 @158 RC.
 
@@ -65,7 +64,9 @@ Objective/score live in `CURRENT.md`.
   `look_here` when `ct==0` (D-0356 — `describe_decor`); walk into seen
   pool without ParanoidSwim avoid/tip/`m` nopick (D-0357);
   paint RIP before disclose attrs/conduct/overview (D-0358);
-  skip `init_mapseen` in `mklev` (DoD missing from death overview).
+  skip `init_mapseen` in `mklev` (DoD missing from death overview);
+  smudge engravings on every continue_run step (D-0359 — only first
+  RUSH|WALK step with attempting set).
 - Runner `Screen N/M` = total matches, not prefix length.
 
 ## Landmarks (≤15)
@@ -78,11 +79,11 @@ Objective/score live in `CURRENT.md`.
 - Save: VFS `save/<plname>` JSON; restore skips `rndencode`;
   `l_nhcore_init` still 2×rn2; farewell clears map no flush (D-0335).
 - Scoring grid: DEC chars in DEC_MAP → Unicode; `{`/` `` ` `` stay raw.
-- D-0274…D-0358: bones/disclose/RIP/topten/descr/botl/paybill/ghost/`;`/
+- D-0274…D-0359: bones/disclose/RIP/topten/descr/botl/paybill/ghost/`;`/
   getlin/compactify/enl/checkfile/save/welcome/attr/`$`/`)`/show-*/DEL/
   reveal_terrain/getpos Done/`#twoweapon`/`hitum` twohits/`dosit` OBJ_AT/
   weapon_insight twoweap limits / chargen corner / tutorial yes-path /
   tut-1 CENTER + invent stash + door-area + mktrap gate through sling +
   loot→end + align_shift + WAITMASK + mention_walls bump + pool/lava/ice
   DEC diamond + describe_decor + swim avoid/drown/lava burn + death
-  disclose attrs/conduct/overview + init_mapseen.
+  disclose attrs/conduct/overview + init_mapseen + continue_run no smudge.
