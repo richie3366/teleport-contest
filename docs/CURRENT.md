@@ -18,8 +18,8 @@ label, PASS list, notable non-PASS. Do not invent suite totals from a single
 focused session.
 
 Score last measured: **2026-07-15** — full `sessions` suite (#370; after
-D-0349 still **23/44**). D-0350/D-0351 focused seed0009 only (Scr
-**14→21→27**); suite score unchanged until next %5 run.
+D-0349 still **23/44**). D-0352 focused seed0009 only (Scr **27→38**);
+suite score unchanged until next %5 run.
 
 ## Score
 
@@ -40,7 +40,7 @@ seed0013-rogue, seed0013-friday13-restore, **seed0107**.
 | Session | RNG | Screen | Note |
 |---------|----:|-------:|------|
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
-| seed0009 | **3341**/3713 | **27**/73 | **primary** — @27 door resists vs opens |
+| seed0009 | **3450**/3713 | **38**/73 | **primary** — @33 wall; door msgs OK |
 | seed0004 | 4016/12084 | 28/409 | |
 | seed0002 | 4510/27158 | 9/595 | |
 | seed0012 | 0/13878 | 0/308 | stack overflow |
@@ -61,16 +61,16 @@ Both must remain full RNG + screen PASS with exact scored-output lengths.
 
 ## Primary objective
 
-**seed0009-swimmer-mforce** — RNG **3341**/3713; Scr **27**/73
+**seed0009-swimmer-mforce** — RNG **3450**/3713; Scr **38**/73
 
 | | |
 |--|--|
-| **C locus** | `lock.c` `doopen_indir` open chance / attrs; then tut-1 kick door+ |
-| **JS locus** | `lock.js` `doopen_indir`; `mklev.js` `load_tut1` remainder |
-| **Symptom** | @27 topline “The door resists!” vs “The door opens.” (JS opens) |
-| **Hypothesis** | open `rnl(20)<chance` diverges (ACURRSTR/DEX/CON or `rnl`); then continue tut-1 des.* |
-| **Falsifier** | Scr >27 with @27 cells; or named next miss |
-| **Recent fixed** | D-0351 tut-1 door/portal engravings → Scr **21→27** |
+| **C locus** | `dat/tut-1.lua` large-box `mkbox_cnts`+contents → food/stairs/`place_lregion` |
+| **JS locus** | `mklev.js` `load_tut1` remainder |
+| **Symptom** | first cell-miss @33 “It's a wall.”; door `rnl` values still differ |
+| **Hypothesis** | finishing tut-1 level-gen RNG aligns door `rnl` + wall/glance path |
+| **Falsifier** | Scr >38 with @33 cells; or named next miss; door `rnl` equals C |
+| **Recent fixed** | D-0352 mktrap victim gate + tut-1 through sling → Scr **27→38** |
 
 ```bash
 node frozen/ps_test_runner.mjs sessions/seed0009-swimmer-mforce.session.json

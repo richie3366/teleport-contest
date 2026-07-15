@@ -61,7 +61,7 @@ import { makemon, mkclass, MM_NOGRP } from './makemon.js';
 import { enexto } from './teleport.js';
 import {
     PM_ELF, PM_DWARF, PM_ORC, PM_GNOME, PM_HUMAN,
-    PM_ARCHEOLOGIST, PM_WIZARD, PM_GIANT_SPIDER,
+    PM_ARCHEOLOGIST, PM_WIZARD, PM_GIANT_SPIDER, PM_MONK, PM_LICHEN,
     is_male, is_female, mons, G_NOGEN,
     MALE, FEMALE, NEUTRAL,
 } from './monsters.js';
@@ -553,10 +553,10 @@ function splev_map_center_start(wid, hei) {
 }
 
 /**
- * C ref: dat/tut-1.lua via load_special — map + early des.* content.
- * Named omissions: tut_key/eckey (hardcoded hjkl defaults), Knight jump
- * engraving, remaining doors/traps/objs/mons/% RNG, leave-tutorial invent
- * restore, water_has_kelp pre-Entering RNG slice; map_location tseen traps.
+ * C ref: dat/tut-1.lua via load_special — map + des.* through sling tutorial.
+ * Named omissions: tut_key/eckey (hardcoded hjkl defaults), Knight jump,
+ * large-box/loot/food/twoweapon/stairs/kelp/place_lregion, leave-tutorial
+ * invent restore, map_location tseen traps.
  */
 function load_tut1() {
     // C: load_special loads nhlib.lua → shuffle(align) then runs tut-1.lua
@@ -664,14 +664,214 @@ function load_tut1() {
     tut1_door(2, 6, D_CLOSED);
     tut1_engr(2, 7, "Close the door with 'c'");
     tut1_engr(4, 5, 'You can leave the tutorial via the magic portal.');
-    // C: create_trap → mktrap + MKTRAP_SEEN
+    // C: create_trap → mktrap(SEEN); victim gate always burns rnd(4)
     {
-        const px = xstart + 4;
-        const py = ystart + 4;
-        const ttmp = maketrap(px, py, MAGIC_PORTAL);
-        if (ttmp) ttmp.tseen = true;
+        const ttmp = maketrap(xstart + 4, ystart + 4, MAGIC_PORTAL);
+        mktrap_seen_victim(ttmp, { seen: true });
     }
-    // Remainder of tut-1.lua deferred (kick door onward).
+
+    // --- tut-1.lua kick door through search traps (RNG-critical) ---
+    tut1_engr(5, 9, "This door is locked. Kick it with 'Ctrl-D'");
+    tut1_door(5, 10, D_LOCKED);
+    // tut_key_help(6,8): kick is Ctrl-D → ctrl-key help engraving
+    tut1_engr(6, 8,
+        "Note: Outside the tutorial, Ctrl-key combinations are shown prefixed with a caret, like '^D'");
+    tut1_engr(5, 12,
+        "Look around the map with ';', press ESC when you're done");
+    tut1_engr(10, 13, "Use 's' to search for secret doors");
+    tut1_engr(10, 15, 'Wrong secret');
+    tut1_engr(10, 10, 'Behind this door is a dark corridor');
+    // des.door percent(50) locked/closed — C nhlib percent → rn2(100)
+    tut1_door(10, 9, percent(50) ? D_LOCKED : D_CLOSED);
+    // des.region(selection.match("#"|" "), "unlit")
+    tut1_unlit_match(xstart, ystart, mf, '#');
+    tut1_unlit_match(xstart, ystart, mf, ' ');
+    tut1_door(15, 10, percent(50) ? D_LOCKED : D_CLOSED);
+
+    tut1_engr(15, 11, 'There are four traps next to you! Search for them.');
+    // C: shuffle then 4× percent trap with victim=false (no rnd(4))
+    {
+        const locs = [[14, 11], [14, 12], [15, 12], [16, 12], [16, 11]];
+        nhlib_shuffle(locs);
+        for (let i = 0; i < 4; i++) {
+            const [mx, my] = locs[i];
+            const ttyp = percent(50) ? SLP_GAS_TRAP : SQKY_BOARD;
+            const ttmp = maketrap(xstart + mx, ystart + my, ttyp);
+            mktrap_seen_victim(ttmp, { novictim: true });
+        }
+    }
+    tut1_engr(15, 15, "Some traps can be disabled with 'Ctrl-T'");
+    {
+        // spider_on_web=false → no spider; still burns victim-gate rnd(4)
+        const ttmp = maketrap(xstart + 15, ystart + 16, WEB);
+        mktrap_seen_victim(ttmp, {});
+    }
+    tut1_door(18, 13, D_CLOSED);
+
+    tut1_engr(19, 13, "Pick up items with ','");
+    // C: Monk → leather gloves; else leather armor; spe=0 cursed
+    {
+        const otyp = (game.urole?.mnum === PM_MONK)
+            ? objectNames.indexOf('LEATHER_GLOVES')
+            : objectNames.indexOf('LEATHER_ARMOR');
+        tut1_object(xstart, ystart, 19, 14, otyp, 0, 'cursed');
+    }
+    tut1_engr(19, 15, "Wear armor with 'W'");
+    tut1_object(xstart, ystart, 21, 15, DAGGER, 0, 'not-cursed');
+    tut1_engr(21, 14, "Wield weapons with 'w'");
+    tut1_engr(22, 13, 'Hit monsters by walking into them.');
+    // lichen: find_montype gender + induced_align + makemon waiting
+    {
+        find_montype_gender('lichen');
+        induced_align(80); // C sp_amask_to_amask(RANDOM) always
+        const mtmp = makemon(mons(PM_LICHEN), xstart + 23, ystart + 15, MM_NOGRP);
+        if (mtmp) {
+            mtmp.mstrategy = (mtmp.mstrategy || 0) | STRAT_WAITFORU;
+        }
+    }
+
+    tut1_engr(24, 16,
+        'Now you know the very basics. You can leave the tutorial via the magic portal.');
+    tut1_engr(26, 16, 'Step into this portal to leave the tutorial');
+    {
+        const ttmp = maketrap(xstart + 27, ystart + 16, MAGIC_PORTAL);
+        mktrap_seen_victim(ttmp, { seen: true });
+    }
+    tut1_engr(25, 13, 'Push boulders by moving into them');
+    tut1_object(xstart, ystart, 25, 12, BOULDER, -127, null);
+    tut1_engr(27, 9, "Take off armor with 'T'");
+    {
+        const otmp = tut1_object(xstart, ystart, 23, 11,
+            objectNames.indexOf('SCR_REMOVE_CURSE'), -127, 'blessed');
+        void otmp;
+    }
+    tut1_engr(22, 11,
+        'Some items have shuffled descriptions, different each game');
+    tut1_engr(23, 11,
+        "Pick up this scroll, read it with 'r', and try to remove the armor again");
+    tut1_engr(19, 10, 'Another magic portal, a way to leave this tutorial');
+    {
+        const ttmp = maketrap(xstart + 19, ystart + 11, MAGIC_PORTAL);
+        mktrap_seen_victim(ttmp, { seen: true });
+    }
+    // rock fall — Lua math.random(lo,hi) → lo+rn2(hi-lo+1) then mksobj
+    tut1_object_quan(xstart, ystart, 14, 5, ROCK, 50 + rn2(50));
+    tut1_object_quan(xstart, ystart, 15, 5, ROCK, 10 + rn2(21));
+    tut1_object_quan(xstart, ystart, 14, 4, ROCK, 10 + rn2(21));
+    tut1_object_quan(xstart, ystart, 15, 6, ROCK, 30 + rn2(31));
+    tut1_object_quan(xstart, ystart, 14, 6, ROCK, 30 + rn2(31));
+    tut1_object(xstart, ystart, 14, 6, BOULDER, -127, null);
+    tut1_door(20, 3, percent(50) ? D_ISOPEN : D_CLOSED);
+    tut1_engr(21, 3, 'Avoid being burdened, it slows you down');
+    tut1_engr(22, 3, "Drop items with 'd'");
+    tut1_engr(22, 4,
+        'You can drop partial stacks by prefixing the item slot letter with a number');
+    {
+        find_montype_gender('yellow mold');
+        induced_align(80);
+        const pm = name_to_mon('yellow mold');
+        const mtmp = pm >= 0 ? makemon(mons(pm), xstart + 26, ystart + 2, MM_NOGRP) : null;
+        if (mtmp) mtmp.mstrategy = (mtmp.mstrategy || 0) | STRAT_WAITFORU;
+    }
+    tut1_engr(25, 5, "Throw items with 't'");
+    {
+        const ttmp = maketrap(xstart + 21, ystart + 1, MAGIC_PORTAL);
+        mktrap_seen_victim(ttmp, { seen: true });
+    }
+    {
+        find_montype_gender('wolf');
+        induced_align(80);
+        const pm = name_to_mon('wolf');
+        const mtmp = pm >= 0 ? makemon(mons(pm), xstart + 29, ystart + 2, MM_NOGRP) : null;
+        if (mtmp) {
+            mtmp.mpeaceful = 0;
+            mtmp.mstrategy = (mtmp.mstrategy || 0) | STRAT_WAITFORU;
+        }
+    }
+    tut1_engr(37, 4,
+        'Missiles, such as rocks, work better when fired from appropriate launcher');
+    tut1_object(xstart, ystart, 37, 3,
+        objectNames.indexOf('SLING'), 9, 'not-cursed');
+    tut1_engr(37, 3, 'Wield the sling');
+    tut1_engr(36, 1, "Use 'f' to fire missiles with the wielded launcher");
+    tut1_engr(35, 4,
+        "Firing launches items from your quiver; Use 'Q' to put items in it");
+    tut1_engr(33, 4, "You can wait a turn with '.'");
+    tut1_door(38, 6, D_CLOSED);
+    // Remainder of tut-1.lua deferred (loot box / food / stairs / kelp /
+    // place_lregion onward) — next C RNG is large-box mkbox_cnts + contents.
+}
+
+/**
+ * C ref: sp_lev.c create_object — mksobj_at then spe + curse_state.
+ * Erosions from mksobj are cleared when des.object omits eroded=.
+ * spe=-127 means leave mksobj spe; buc null means leave mksobj buc.
+ */
+function tut1_object(xstart, ystart, mx, my, otyp, spe, buc) {
+    if (otyp < 0) return null;
+    const otmp = mksobj_at(otyp, xstart + mx, ystart + my, true, true);
+    if (!otmp) return null;
+    if (spe !== -127) otmp.spe = spe;
+    if (buc === 'cursed') curse(otmp);
+    else if (buc === 'blessed') bless(otmp);
+    else if (buc === 'not-cursed') {
+        otmp.cursed = false;
+    } else if (buc === 'uncursed') {
+        otmp.blessed = false;
+        otmp.cursed = false;
+    }
+    otmp.oeroded = 0;
+    otmp.oeroded2 = 0;
+    otmp.oerodeproof = 0;
+    return otmp;
+}
+
+/** C ref: create_object quan>0 && oc_merge — set after mksobj_at. */
+function tut1_object_quan(xstart, ystart, mx, my, otyp, quan) {
+    const otmp = tut1_object(xstart, ystart, mx, my, otyp, -127, null);
+    if (otmp && quan > 0) {
+        otmp.quan = quan;
+        otmp.owt = weight(otmp);
+    }
+    return otmp;
+}
+
+/**
+ * C ref: mklev.c mktrap — SEEN flag + victim gate after maketrap().
+ * `rnd(4)` is evaluated only when !novictim (clang && short-circuit).
+ * MAGIC_PORTAL/WEB fail (kind < HOLE || MAGIC_TRAP) so no victim body.
+ */
+function mktrap_seen_victim(ttmp, opts) {
+    if (!ttmp) return;
+    if (opts?.seen) ttmp.tseen = true;
+    const kind = ttmp.ttyp;
+    const novictim = !!opts?.novictim;
+    const lvl = level_difficulty();
+    if (game.in_mklev
+        && kind !== NO_TRAP
+        && !novictim
+        && lvl <= rnd(4)
+        && kind !== SQKY_BOARD && kind !== RUST_TRAP
+        && !(kind === ROLLING_BOULDER_TRAP
+            && ttmp.launch?.x === ttmp.tx && ttmp.launch?.y === ttmp.ty)
+        && !is_pit(kind) && (kind < HOLE || kind === MAGIC_TRAP)) {
+        if (kind === LANDMINE) {
+            ttmp.ttyp = PIT;
+            ttmp.tseen = true;
+        }
+        mktrap_victim(ttmp);
+    }
+}
+
+/** C ref: selection.match(ch) then des.region unlit — map-relative cells. */
+function tut1_unlit_match(xstart, ystart, mf, ch) {
+    for (let my = 0; my < mf.hei; my++) {
+        for (let mx = 0; mx < mf.wid; mx++) {
+            if (mf.data[my]?.[mx] !== ch) continue;
+            const loc = game.level.at(xstart + mx, ystart + my);
+            if (loc) loc.lit = false;
+        }
+    }
 }
 
 /** C ref: nhlib.lua top-level shuffle(align) on special-level load */
@@ -1946,13 +2146,17 @@ function percent(threshold) {
     return rn2(100) < threshold;
 }
 
-// C ref: dungeon.c induced_align — burn RNG even when create_monster discards amask
+// C ref: dungeon.c induced_align — Is_special then dungeon then rn2(3)
 function induced_align(pct) {
-    const levAlign = game.level?.flags?.align;
-    if (levAlign) {
-        if (rn2(100) < pct) return levAlign;
+    const uz = game.u?.uz;
+    const slev = (game.sp_levchn || []).find(s =>
+        s?.dlevel
+        && (s.dlevel.dnum | 0) === (uz?.dnum | 0)
+        && (s.dlevel.dlevel | 0) === (uz?.dlevel | 0));
+    if (slev?.flags?.align) {
+        if (rn2(100) < pct) return slev.flags.align;
     }
-    const dunAlign = game.dungeons?.[game.u?.uz?.dnum]?.flags?.align;
+    const dunAlign = game.dungeons?.[uz?.dnum ?? 0]?.flags?.align;
     if (dunAlign) {
         if (rn2(100) < pct) return dunAlign;
     }

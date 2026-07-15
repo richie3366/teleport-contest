@@ -20,6 +20,16 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-15 03:15 — D-0352 tut-1 mktrap gate through sling
+- Objective: seed0009 @27 door resists vs opens (CURRENT).
+- C locus: `mklev.c` mktrap victim `rnd(4)`; `dungeon.c` induced_align
+  Is_special; `dat/tut-1.lua` kick→sling.
+- Change: falsified doopen chance; `mktrap_seen_victim` + load_tut1 through
+  sling; induced_align via sp_levchn (D-0352).
+- Verification: Scr **27→38** (first miss @33 wall); RNG **3341→3450**;
+  green+strict; cohort 5 PASS.
+- Next: load_tut1 large-box mkbox_cnts+contents → place_lregion.
+
 ## 2026-07-15 02:58 — D-0351 tut-1 door-area des.*
 - Objective: seed0009 @21 S_engroom `` ` `` vs floor (CURRENT).
 - C locus: `dat/tut-1.lua` door-area; `sp_lev.c` lspo_engraving/door/trap;
@@ -162,15 +172,4 @@ Use this shape:
 - Verification: seed0030 **1953/1953** PASS; green+strict; 17 cohort PASS;
   seed2200 Scr **175→206**/230.
 - Next: seed0013 @23 getobj drop `[a-g or ?*]` vs `[abcdefg or ?*]`.
-
-## 2026-07-14 23:58 — #358 D-0330 `;` glance + look_at_monster
-
-- Objective: seed0030 @1832 unbound `;` (CURRENT).
-- C locus: `cmd.c` `';'`→`doquickwhatis`; `pager.c` `do_look(1)` /
-  `look_at_monster`; putmixed (no forced more).
-- Change: bind `;`; `distant_monnam_none`+asleep; skip quick checkfile;
-  drop forced more after look pline (D-0330).
-- Verification: @1832–@1839 match; Scr **1832→1933**; first miss **@1935**
-  farlook wrap; RNG full; green+strict; 19 PASS cohort.
-- Next: @1935 `#  farlook -> …` row1 `"  k"` wrap.
 

@@ -7,13 +7,16 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Score:** **23/44** PASS (#370 suite; D-0351 focused only).
-- **Current unit:** seed0009 Scr **27**/73 RNG **3341**/3713 — @27
-  door resists vs opens (`doopen_indir` chance / attrs).
-- **Fixed this iter:** D-0351 — tut-1 door-area engravings + closed door
-  + seen magic portal + newbie options. Scr **21→27**.
-- **Don’t re-check:** tut-1 map CENTER; early `find_ac` invent stash;
-  @21 was missing engraving (2,4) not display/glyph.
+- **Score:** **23/44** PASS (#370 suite; D-0352 focused only).
+- **Current unit:** seed0009 Scr **38**/73 RNG **3450**/3713 — first
+  cell-miss @33 “It's a wall.” Door toplines match; door `rnl` values
+  still differ until tut-1 level-gen completes.
+- **Fixed this iter:** D-0352 — `mktrap` victim-gate `rnd(4)`;
+  `induced_align` via `Is_special`; `load_tut1` through sling.
+- **Falsified:** @27 open chance/attrs — root was missing tut-1
+  level-gen RNG (portal `maketrap` skipped victim gate @3341).
+- **Don’t re-check:** doopen chance as @27 root; tut-1 map CENTER;
+  early `find_ac` invent stash; @21 missing engraving (2,4).
 - **Landmark:** screen `i` key = `moves[i]` (= `steps[i+1].key`).
 - **Parked:** D-0006; seed2200 @158 RC.
 
@@ -54,7 +57,9 @@ Objective/score live in `CURRENT.md`.
   (D-0348 — keep splash; erase prior geom only); bare Entering pline
   without `schedule_goto`/`deferred_goto` (D-0349); tut-1 map at (1,0)
   / early `find_ac` on tutorial invent stash (D-0350); omit tut-1
-  door-area engravings/`D_CLOSED`/`MAGIC_PORTAL` seen (D-0351).
+  door-area engravings/`D_CLOSED`/`MAGIC_PORTAL` seen (D-0351);
+  omit tut-1 portal `mktrap` victim `rnd(4)` / stop before kick→sling
+  (D-0352); blame @27 on `doopen` chance without level-gen rng-diff.
 - Runner `Screen N/M` = total matches, not prefix length.
 
 ## Landmarks (≤15)
@@ -66,8 +71,8 @@ Objective/score live in `CURRENT.md`.
 - Session: screen `i` reads `moves[i]`; `more()` space/CR/ESC.
 - Save: VFS `save/<plname>` JSON; restore skips `rndencode`;
   `l_nhcore_init` still 2×rn2; farewell clears map no flush (D-0335).
-- D-0274…D-0351: bones/disclose/RIP/topten/descr/botl/paybill/ghost/`;`/
+- D-0274…D-0352: bones/disclose/RIP/topten/descr/botl/paybill/ghost/`;`/
   getlin/compactify/enl/checkfile/save/welcome/attr/`$`/`)`/show-*/DEL/
   reveal_terrain/getpos Done/`#twoweapon`/`hitum` twohits/`dosit` OBJ_AT/
   weapon_insight twoweap limits / chargen corner / tutorial yes-path /
-  tut-1 CENTER + invent stash + door-area des.*.
+  tut-1 CENTER + invent stash + door-area + mktrap gate through sling.

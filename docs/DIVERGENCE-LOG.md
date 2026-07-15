@@ -24,6 +24,27 @@ The compact status table lives in **`DIVERGENCE-INDEX.md`**.
 Open that file first; then jump to a single `## D-NNNN` entry below
 (via search). Do **not** read this whole file by default.
 
+## D-0352 — tut-1 mktrap victim gate + load_tut1 through sling
+
+- **Status:** fixed
+- **Observed:** seed0009 @27 — C “The door resists!” vs JS “The door
+  opens.” Hypothesis was `doopen_indir` chance/attrs; **falsified**.
+- **C locus:** `mklev.c` `mktrap` victim gate (`lvl <= rnd(4)` before
+  `kind < HOLE || MAGIC_TRAP`); `dungeon.c` `induced_align` via
+  `Is_special`→`flags.align`; `dat/tut-1.lua` kick→sling des.*.
+- **Cause/evidence:** RNG first miss @3341 C `rnd(4) @ mktrap` vs JS
+  `rn2(10)` — portal `maketrap` omitted victim-gate burn. Door `rnl`
+  values then desynced (level-gen stream). Chance/attrs not the peel.
+- **Change:** `mktrap_seen_victim` helper; extend `load_tut1` through
+  percent doors / shuffle traps / armor / lichen / rocks / mold / wolf
+  / sling; fix `induced_align` to read `sp_levchn` special flags.
+- **Verification:** seed0009 Scr **27→38**/73 (first cell-miss **@33**
+  wall); RNG **3341→3450**; door toplines match (rnl values still
+  differ — remaining tut-1); green+strict; cohort 5 PASS.
+- **Named omissions:** large-box `mkbox_cnts`+contents; food/twoweapon/
+  stairs/kelp/`place_lregion`; tut_key/eckey; Knight jump.
+- **Next:** continue `load_tut1` from loot box so door `rnl` values match.
+
 ## D-0351 — tut-1 door-area engravings + closed door + portal
 
 - **Status:** fixed
