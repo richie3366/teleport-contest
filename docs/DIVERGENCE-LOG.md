@@ -24,6 +24,25 @@ The compact status table lives in **`DIVERGENCE-INDEX.md`**.
 Open that file first; then jump to a single `## D-NNNN` entry below
 (via search). Do **not** read this whole file by default.
 
+## D-0387 — autopick end check_here (seed0012 Scr 236→239)
+
+- **Status:** fixed
+- **Observed:** seed0012 @75/@79 — C topline `You see here a statue of a
+  newt.` / `You see here a sling.`; JS blank. RNG full; Scr 236/308.
+- **C locus:** `pickup.c` `pickup` — after autopick `menu_pickup`, when
+  `!u.uswallow`: `if (autopickup) check_here(n_picked > 0);` also
+  pre-pick `nomul(0)` when `OBJ_AT && run && run!=8 && !nopick`.
+- **Cause/evidence:** Session Options set `pickup_types` to `$"?!=/`;
+  statue/sling ineligible for autopick. C still calls `check_here` so
+  `look_here` plines remainders; JS returned after the filter/pick loop
+  without `check_here` (only the `!flags.pickup` arm had it).
+- **Change:** `js/pickup.js` `pickup` — after autopick loop always
+  `check_here(nPicked>0)`; port run-stop `nomul` before pick. Named
+  omissions: hideunder, newsym_force.
+- **Verification:** seed0012 Scr **236→239**/308; @75/@79 match; green+
+  strict PASS; cohort 22/22 PASS.
+- **Next:** seed0012 @98 gold prinv `$ - 5 gold pieces (7 in total).`
+
 ## D-0386 — hilite_pile ATR_INVERSE on object piles (seed0012 Scr 199→236)
 
 - **Status:** fixed

@@ -7,20 +7,21 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Score:** **24/44** PASS (#410). seed0012 Scr **236**/308 (was 199)
-  cursors **302**/308 after D-0386 `hilite_pile` ATR_INVERSE.
-- **Next:** seed0012 @screen75 — C topline `You see here a statue of a
-  newt.` vs JS blank. Cmd:
+- **Score:** **24/44** PASS (#410). seed0012 Scr **239**/308 (was 236)
+  after D-0387 post-autopick `check_here`.
+- **Next:** seed0012 @screen98 — C `$ - 5 gold pieces (7 in total).`
+  vs JS `$ - 7 gold pieces.` Cmd:
   `node frozen/ps_test_runner.mjs sessions/seed0012-monk-vault-escort.session.json`
-  Falsify: dump screen 75; reconstruct look-here / feel_location pline.
+  Falsify: dump screen 98; reconstruct gold prinv / quan-before-merge /
+  money_cnt “in total” arm in C `pickup_object`/`prinv`.
 - **Note:** seed0012 positional RNG full; strict length still trailing
-  (13902 vs 13878) — pre-existing. @70 was NOT DEC encoding — Options
-  toggled `hilite_pile` then C inverse-hilited the food pile.
-- **Don’t re-check:** hilite_pile ATR_INVERSE (D-0386); Options stub
-  layout (D-0385); ice-box Contents stacks (D-0383); pickup INVORDER_SORT
-  headers (D-0384); in_or_out_menu ATR/`*` (D-0382); chargen
-  `roles.length` (D-0379); Monk Pw SPELL_LEV_PW (D-0380); locked Hmmm
-  (D-0381).
+  (13902 vs 13878) — pre-existing. @75 was not a missing look_here body —
+  autopick with filtered `pickup_types` still requires `check_here`.
+- **Don’t re-check:** post-autopick check_here (D-0387); hilite_pile
+  ATR_INVERSE (D-0386); Options stub layout (D-0385); ice-box Contents
+  stacks (D-0383); pickup INVORDER_SORT headers (D-0384); in_or_out_menu
+  ATR/`*` (D-0382); chargen `roles.length` (D-0379); Monk Pw SPELL_LEV_PW
+  (D-0380); locked Hmmm (D-0381).
 - **Landmark:** vault door (71,13); dig + restfakecorr; SPELL_LEV_PW(1)=5.
 - **Parked:** D-0006; seed2200 @158 RC.
 
@@ -28,9 +29,10 @@ Objective/score live in `CURRENT.md`.
 
 - No raw RNG-index / coordinate gates in production.
 - Role `mnum` = PM_* IDs; Ctrl-rush `run=3`, capital `run=1`; `\r`→`\n`.
-- **Don’t:** invent Options hand-list (D-0385); omit `hilite_pile`
-  ATR_INVERSE on MG_OBJPILE (D-0386); ice-box per-cobj without merge/`spe`
-  gender (D-0383); pickup menu without INVORDER_SORT headings (D-0384);
+- **Don’t:** skip `check_here` after autopick when types filter (D-0387);
+  invent Options hand-list (D-0385); omit `hilite_pile` ATR_INVERSE on
+  MG_OBJPILE (D-0386); ice-box per-cobj without merge/`spe` gender
+  (D-0383); pickup menu without INVORDER_SORT headings (D-0384);
   `maybe_skip_seps` with `roles.length` (D-0379); omit `SPELL_LEV_PW(1)`
   (D-0380); locked without lknown Hmmm (D-0381); in_or_out_menu without
   ATR_INVERSE/`*` (D-0382); early-return `dochug` on `msleeping`
@@ -52,5 +54,6 @@ Objective/score live in `CURRENT.md`.
   (D-0384).
 - Options: `doset_simple_menu` allopt General→Status + multipage FS
   (D-0385); Map page `f` toggles `hilite_pile` → pile ATR_INVERSE
-  (D-0386).
-- D-0274…D-0386: see index.
+  (D-0386); autopick filtered types still `check_here` remainders
+  (D-0387).
+- D-0274…D-0387: see index.

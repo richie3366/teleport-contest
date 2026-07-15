@@ -11,13 +11,24 @@ move older ones into `docs/archive/`.
 
 Use this shape:
 
-```text## YYYY-MM-DD HH:MM — <objective>
+```text
+## YYYY-MM-DD HH:MM — <objective>
 - Objective: …
 - C locus: …
 - Change or falsified theory: …
 - Verification: …
 - Next: …
 ```
+
+## 2026-07-15 13:32 — #413 autopick check_here (D-0387)
+- Objective: seed0012 @75 `You see here a statue of a newt.`
+- C locus: pickup.c pickup — after autopick, `check_here(n_picked>0)`.
+- Change: JS `pickup` always called check_here only when `!flags.pickup`;
+  ported post-autopick check_here + run nomul. Filtered pickup_types left
+  statue/sling on floor; look_here was already correct.
+- Verification: Scr **236→239**/308; @75/@79 match; green+strict PASS;
+  cohort 22/22 PASS.
+- Next: seed0012 @98 `$ - 5 gold pieces (7 in total).`
 
 ## 2026-07-15 13:26 — #412 hilite_pile ATR_INVERSE (D-0386)
 - Objective: seed0012 @70 post-Options map — hypothesized DEC vs Unicode.

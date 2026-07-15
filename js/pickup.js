@@ -303,10 +303,11 @@ function autopick_testobj(otmp) {
  * C ref: pickup.c pickup(what).
  * Ported envelope: autopickup && (nopick / !OBJ_AT / pool / lava) →
  * describe_decor + read_engr_at; autopickup && !flags.pickup →
- * check_here(FALSE); autopick filter (D-0368); manual `,`
- * AUTOSELECT_SINGLE one object; multi → query_objlist PICK_ANY (D-0365).
- * Deferred: unconscious skip, notake, traditional yn/query_classes,
- * hideunder, newsym_force, full is_pool.
+ * check_here(FALSE); autopick filter (D-0368) then **always**
+ * check_here(n_picked>0) (D-0387); manual `,` AUTOSELECT_SINGLE /
+ * multi query_objlist PICK_ANY (D-0365). Deferred: unconscious skip,
+ * notake, traditional yn/query_classes, hideunder, newsym_force,
+ * full is_pool.
  */
 export async function pickup(what) {
     const autopickup = what > 0;
@@ -346,6 +347,13 @@ export async function pickup(what) {
         return 0;
     }
 
+    // C: OBJ_AT && run && run != 8 && !nopick → nomul(0) before pick
+    if (!u.uswallow && objects_at(u.ux, u.uy)
+        && game.context?.run && game.context.run !== 8
+        && !game.context?.nopick) {
+        nomul(0);
+    }
+
     const objList = [];
     for (let obj = objects_at(u.ux, u.uy); obj; obj = obj.nexthere) {
         objList.push(obj);
@@ -355,30 +363,35 @@ export async function pickup(what) {
         ? objList.filter((o) => autopick_testobj(o))
         : objList;
     const ct = eligible.length;
-    if (ct === 0) {
-        if (autopickup && objList.length > 0) {
-            // Objects present but filtered out — C still may check_here? No:
-            // autopick returns 0 picks and pickup continues to query path
-            // only when !autopickup. With autopickup and n==0, done.
-            return 0;
+
+    if (autopickup) {
+        // C: autopick → menu_pickup loop → check_here(n_picked > 0)
+        // even when n==0 (ineligible / filtered objects still shown).
+        const nTried = eligible.length; // C: n_tried = n before loop
+        let nPicked = 0;
+        for (const otmp of eligible) {
+            const res = await pickup_object(otmp, 0, false);
+            if (res < 0) break;
+            nPicked += res;
         }
-        return 0;
+        if (!u.uswallow) {
+            // hideunder / newsym_force deferred
+            await check_here(nPicked > 0);
+        }
+        return nTried > 0 ? 1 : 0;
     }
+
+    if (ct === 0) return 0;
 
     // C: menu_style != TRADITIONAL → query_objlist + AUTOSELECT_SINGLE
     // One eligible object: auto-select without menu (no extra keys).
-    if (ct === 1 || autopickup) {
-        let nTried = 0;
-        for (const first of eligible) {
-            const lcount = (!autopickup && count > 0)
-                ? Math.min(first.quan || 1, count)
-                : 0;
-            const res = await pickup_object(first, lcount, false);
-            if (res < 0) break;
-            nTried += res;
-            if (!autopickup) break; // manual single-object AUTOSELECT
-        }
-        return nTried > 0 ? 1 : 0;
+    if (ct === 1) {
+        const first = eligible[0];
+        const lcount = count > 0
+            ? Math.min(first.quan || 1, count)
+            : 0;
+        const res = await pickup_object(first, lcount, false);
+        return res > 0 ? 1 : 0;
     }
 
     // C: query_objlist("Pick up what?", …, PICK_ANY) then pickup_object each

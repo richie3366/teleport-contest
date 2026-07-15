@@ -58,16 +58,16 @@ Both must remain full RNG + screen PASS with exact scored-output lengths.
 
 ## Primary objective
 
-**seed0012 screens** — RNG complete; Scr **236**/308, cursors
-**302**/308. `hilite_pile` inverse ported (D-0386); first fail @75
-`You see here a statue of a newt.` (look/feel pline missing).
+**seed0012 screens** — RNG complete; Scr **239**/308, cursors
+**302**/308. Post-autopick `check_here` ported (D-0387); first fail
+@98 `$ - 5 gold pieces (7 in total).` vs JS `$ - 7 gold pieces.`
 
 ```bash
 node frozen/ps_test_runner.mjs sessions/seed0012-monk-vault-escort.session.json
 ```
 
-**Falsify next:** dump screen 75; port C look-here / statue feel pline
-path (not invent message text).
+**Falsify next:** dump screen 98; port C gold `prinv` / partial-quan /
+`(N in total)` path (not invent message text).
 
 **Alternates:** seed0004 / seed0002 / seed0006 / seed0007; quest early-0.
 
