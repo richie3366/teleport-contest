@@ -7,13 +7,14 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Score:** **24/44** PASS (#405). RNG **254397**/792838 Scr **3846**/11405.
-  seed0012 Scr **187**/308 cursors **297**/308 (D-0383/84).
-- **Next:** seed0012 @screen58 `O` Options — C fullscreen left-edge
-  `Options` ATR_INVERSE + full General/Behavior rows; JS corner-offset
-  truncated list. Cmd:
+- **Score:** **24/44** PASS (#410). RNG **255075**/792838 Scr **3854**/11405
+  (+678 RNG / +8 Scr vs #405). seed0012 Scr **187**/308 cursors **297**/308.
+- **Next:** seed0012 @screen58 `O` Options — C `doset_simple_menu`
+  (`options.c`) NHW_MENU from `allopt[]` OptS_General…Status + heading
+  `" %-30s "` + title `"Options"`; JS `doset_simple` is truncated
+  corner-offset hand list. Cmd:
   `node frozen/ps_test_runner.mjs sessions/seed0012-monk-vault-escort.session.json`
-  Falsify: dump screen 58; cite C `options.c`/`doset` / wintty geometry.
+  Falsify: dump screen 58; port menu build from C, not invent rows.
 - **Note:** seed0012 positional RNG full; strict length still trailing
   (13902 vs 13878) — pre-existing.
 - **Don’t re-check:** ice-box Contents stacks (D-0383); pickup

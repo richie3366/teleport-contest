@@ -18,6 +18,16 @@ Use this shape:
 - Verification: …
 - Next: …
 ```
+## 2026-07-15 12:42 — #410 public score
+- Objective: mandatory full `sessions` (#410 divisible by 5).
+- C locus: n/a (score cadence); primary remains seed0012 @58 Options.
+- Change: documented suite aggregates; sharpened Options hypothesis to
+  C `doset_simple_menu` vs JS stub (no port this iteration).
+- Verification: green+strict PASS; full suite **24/44** Scr **3854**/11405
+  (33.79%) RNG **255075**/792838 (32.17%) `21+0.12/turn` (R² 0.80).
+  vs #405: same PASS set; Scr +8, RNG +678 (seed0002 47→50 / 4520→5198).
+- Next: port `doset_simple_menu` from `options.c` for seed0012 @screen58.
+
 ## 2026-07-15 11:47 — D-0383/84 ice-box stacks + pickup INVORDER_SORT
 - Objective: seed0012 screens @31 Contents / @43 Pick up what?
 - C locus: mkobj.c add_to_container/mksobj spe; end.c container_contents;
@@ -66,17 +76,6 @@ Use this shape:
 - Verification: mismatch 13576→13700; RNG 13635→13754/13878 cursors
   270→279/308; green+strict PASS; cohort 22/22.
 - Next: seed0012 @13700 C move_special rn2(1) vs JS rn2(5).
-
-## 2026-07-15 10:05 — D-0376 bag put-in (seed0012 @13517)
-- Objective: seed0012 @13517 C move_special rn2(1) vs JS fleeck rn2(5).
-- C locus: pickup.c use_container/in_container/menu_loot/query_category;
-  jsmain CR→LF; cmd C('j') rush; symptom shk_move onlineu.
-- Change: port put-in coins path (query_putin_category + menu_loot_putin +
-  in_container). Root: stubbed 'i' left $\r$\r → LF rush-south → uy+1 →
-  missed earlier onlineu home return (D-0376).
-- Verification: prefix 13517→13576; RNG 13591→13635 cursors 259→270;
-  green+strict PASS; cohort 22/22.
-- Next: seed0012 @13576 C dog_move rn2(1) vs JS rn2(4).
 
 ## 2026-07-15 10:05 — D-0376 bag put-in (seed0012 @13517)
 - Objective: seed0012 @13517 C move_special rn2(1) vs JS fleeck rn2(5).
@@ -157,11 +156,4 @@ Use this shape:
 - Verification: 8384→8802; RNG 8944→9447; cursors 128→186; green+strict;
   cohort 24/24.
 - Next: seed0012 @8802 C dog_goal rn2(4) vs JS rn2(12).
-
-## 2026-07-15 07:47 — D-0369 dochug wipe_engr_at (seed0012 @7312)
-- Objective: seed0012 @7312 C wipeout_text rn2(11) vs JS distfleeck rn2(5).
-- C locus: monmove.c dochug wipe_engr_at before set_apparxy/distfleeck.
-- Change: call wipe_engr_at(mx,my,1,false) after wake gate (D-0369).
-- Verification: mismatch 7312→8384; RNG 7558→8944; green+strict; cohort 24/24.
-- Next: seed0012 @8384 C dog_move mtrack rn2(8) vs JS rn2(4).
 

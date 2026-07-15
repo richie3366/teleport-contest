@@ -17,15 +17,15 @@ Update **this Score section** with: pass count, screen/RNG aggregates, speed
 label, PASS list, notable non-PASS. Do not invent suite totals from a single
 focused session.
 
-Score last measured: **2026-07-15** — full `sessions` suite (#405).
+Score last measured: **2026-07-15** — full `sessions` suite (#410).
 
 ## Score
 
 | Metric | Value |
 |--------|------:|
 | Sessions passing | **24 / 44** |
-| Screens matched | **3846 / 11,405** (33.72%) |
-| Positional RNG calls matched | **254,397 / 792,838** (32.09%) |
+| Screens matched | **3854 / 11,405** (33.79%) |
+| Positional RNG calls matched | **255,075 / 792,838** (32.17%) |
 | Speed label | `21+0.12/turn` (R² 0.80) |
 | Role-init throws | **0 / 44** |
 
@@ -37,9 +37,9 @@ seed0013-rogue, seed0013-friday13-restore, seed0107, seed0009.
 **Notable non-PASS:**
 | Session | RNG | Screen | Note |
 |--------|----:|-------:|------|
-| seed0012 | **13878**/13878 | **184**/308 | Scr 182→184 (D-0382); contents @31 |
+| seed0012 | **13878**/13878 | **187**/308 | @58 `O` Options; Scr stable vs #405 |
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
-| seed0002 | 4520/27158 | **47**/595 | Scr 9→47 (chargen collateral) |
+| seed0002 | 5198/27158 | **50**/595 | Scr 47→50 RNG 4520→5198 (#405→#410) |
 | seed0004 | 4025/12084 | 28/409 | |
 | seed0361/0373 | early | 0 | quest bones / `makemaz` |
 
@@ -58,16 +58,17 @@ Both must remain full RNG + screen PASS with exact scored-output lengths.
 
 ## Primary objective
 
-**seed0012 screens** — RNG complete; Scr **187**/308 (was 184), cursors
-**297**/308. First fail @58 `O` Options menu — C fullscreen left-edge
-vs JS corner-offset truncated option list.
+**seed0012 screens** — RNG complete; Scr **187**/308, cursors
+**297**/308. First fail @58 `O` Options menu — JS `doset_simple` is a
+hand-built corner stub; C `doset_simple_menu` builds NHW_MENU from
+`allopt[]` (General→Status), title `"Options"`, PICK_ONE.
 
 ```bash
 node frozen/ps_test_runner.mjs sessions/seed0012-monk-vault-escort.session.json
 ```
 
-**Falsify next:** cite C `doset` / options menu geometry before inventing
-layout; dump screen 58 row order (General/Behavior completeness).
+**Falsify next:** port `doset_simple_menu` geometry + General/Behavior
+rows from `allopt[]` (not invent layout); dump screen 58 vs expected.
 
 **Alternates:** seed0004 / seed0002 / seed0006 / seed0007; quest early-0.
 
