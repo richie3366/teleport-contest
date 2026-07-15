@@ -11,18 +11,22 @@ Objective/score live in `CURRENT.md`.
   **261626**/792838. seed0004 Scr **242**/409; RNG **11029**/12084
   (prefix **10966**).
 - **Next:** seed0004 @10966 — C `distfleeck` vs JS `dopush`
-  `exercise(A_STR)`. Hypothesis: JS `umovement` pool higher after EOT
-  (post-`u_calc` =21, wtcap 0, !Fast) so hero-can't-move loop exits to
-  `continue_run`; C still <NORMAL_SPEED → monsters. Likely cumulative
-  encumbrance/`weight_cap` drift (no Fast `rn2(3)` at this EOT). Cmds
-  in `CURRENT.md`.
-- **Don’t re-check:** gethungry ordinary `uhunger--` deferred (D-0410);
+  `exercise(A_STR)`. DIAG (removed): EOT `before=9→21` wtcap=0
+  `inv_wt=-15` carrcap=675 !Fast; youmonst now set (D-0411) mmove=12.
+  **Experiments:** force `after=9` or (`before=0`+SLT) moves miss→10979;
+  force SLT alone (before=9→18) or before=0 alone (→12) does **not**.
+  So C needs `after_calc<12`: leftover≈0 **and** SLT, or leftover=9+EXT.
+  Invent is only 15 under capacity — find ≥16 aum gap or leftover-0
+  heal-phase desync + brief SLT. Leftover stuck at 9 since heal EOT
+  (rng~4392 SLT `0→9` then UNENC `9→21`).
+- **Don’t re-check:** treat @10966 as bare Fast `rn2(3)` (none at EOT);
+  force-SLT-from-heal-onward (breaks @~10370 dog_move); umove=21 alone
+  without encumbrance story; gethungry ordinary `uhunger--` (D-0410);
   eatcorpse palatable without `hero_form_data` (D-0409); getpos `>`/`<`
-  stairs (D-0408); SCR_TELEPORTATION `scrolltele`/`safe_teleds` + getobj
-  `?` (D-0407); pickup `@` invert-all / conflict ring (D-0406);
-  unrotted floor corpse / pickup `c`/`d` HVY EOTs (D-0405); known_hitum
-  int `mhpmax/2` (D-0404); heal_legs / nh_timeout (D-0403); Norep
-  `_prevmsg` (D-0402); trapmove/Burdened (D-0401).
+  (D-0408); SCR_TELEPORTATION (D-0407); pickup `@`/Conflict (D-0406);
+  unrotted corpse timers (D-0405); known_hitum int half (D-0404);
+  heal_legs / nh_timeout (D-0403); Norep (D-0402); trapmove/Burdened
+  (D-0401).
 - **Landmark:** vault door (71,13); dig + restfakecorr; SPELL_LEV_PW(1)=5.
 - **Parked:** D-0006; seed2200 @158 RC.
 
@@ -66,7 +70,8 @@ Objective/score live in `CURRENT.md`.
   `distfleeck` / missing `doeat` without checking `youmonst.data`
   short-circuit on palatable `rn2(10)` (D-0409); treat @10713 as bare
   `exerper` polarity without checking deferred `gethungry` `uhunger--`
-  (D-0410).
+  (D-0410); treat @10966 as bare Fast/`rn2(3)` or SLT-with-before=9
+  alone (needs after_calc<12) (D-0411).
 - Runner `Screen N/M` = total matches, not prefix length.
 - First cell-miss may be botl `$:` / `Burdened` even when NOTES names a topline.
 
@@ -77,7 +82,8 @@ Objective/score live in `CURRENT.md`.
 - Vault door (71,13); dig + restfakecorr restores wall (D-0377/78).
 - getpos travel `_>` → stairs via feature scan (D-0408).
 - eatcorpse palatable needs `hero_form_data` when `youmonst` unset
-  (D-0409); full `set_uasmon` still deferred.
+  (D-0409); **basic `youmonst.data` now at u_init** (D-0411); full
+  `set_uasmon` FROMFORM props still deferred.
 - gethungry metabolic `uhunger--` needs diet via `hero_form_data`
   (D-0410); ring/amulet accessorytime + `newuhs` deferred.
 - Apply bag take-out `a?jo$\r`; put-in `aji$\r$\r` (D-0375/76).
@@ -85,4 +91,4 @@ Objective/score live in `CURRENT.md`.
 - Monk starter: `SPELL_LEV_PW(1)` bump when `num_spells()` (D-0380).
 - Ice-box look: merge+sortloot stacks (D-0383); pickup class headers
   (D-0384).
-- D-0383…D-0410 landmarks: see index / don’t-recheck above.
+- D-0383…D-0411 landmarks: see index / don’t-recheck above.

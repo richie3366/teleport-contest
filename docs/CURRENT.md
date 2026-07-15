@@ -63,10 +63,9 @@ Both must remain full RNG + screen PASS with exact scored-output lengths.
 
 **seed0004 @10966** — after EOT wipe, C `distfleeck` (monsters still
 moving) vs JS `dopush` `exercise(A_STR,TRUE)` via `continue_run` into
-boulder. DIAG: JS `umovement=21` post-`u_calc_moveamt` (wtcap 0) so
-hero-can't-move loop exits; C still in monster phase → umovement /
-encumbrance drift (no Fast `rn2(3)` at this EOT). D-0410 cleared
-@10713 exercise polarity.
+boulder. DIAG: JS `before=9→21` wtcap 0 `inv=-15` (D-0411 youmonst +
+moveloop order did not move miss). C needs `after_calc<12` (leftover0+SLT
+or leftover9+EXT). Find ≥16 aum weight/cap gap or heal leftover desync.
 
 ```bash
 node frozen/ps_test_runner.mjs sessions/seed0004-feeding-pony.session.json

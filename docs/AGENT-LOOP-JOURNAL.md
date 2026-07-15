@@ -12,6 +12,24 @@ move older ones into `docs/archive/`.
 Use this shape:
 
 ```text
+## YYYY-MM-DD HH:MM — <objective>
+- Objective: …
+- C locus: …
+- Change or falsified theory: …
+- Verification: …
+- Next: …
+```
+
+## 2026-07-15 17:15 — #439 seed0004 @10966 youmonst/moveloop (D-0411)
+- Objective: seed0004 @10966 PRIMARY — C `distfleeck` vs JS `dopush`
+  exercise; umovement after_calc.
+- C locus: `u_init.c` umonnum/set_uasmon basic; `allmain.c` encumber_msg
+  + mvl_wtcap after monsters.
+- Change: basic `youmonst.data`; moveloop order. Experiments: need
+  after_calc<12 (leftover0+SLT or leftover9+EXT); inv=-15 barely under.
+- Verification: seed0004 still @10966; green+strict PASS; cohort 23/23.
+- Next: ≥16 aum weight/cap gap or heal leftover desync + SLT.
+
 ## 2026-07-15 17:00 — #438 seed0004 @10713 gethungry (D-0410)
 - Objective: seed0004 @10713 PRIMARY — C `exercise` `rn2(19)` vs JS
   `rn2(2)` after lichen eat EOT.
@@ -34,14 +52,6 @@ Use this shape:
 - Verification: seed0004 RNG 10685→11027; prefix 10657→10713; miss
   @10713 `exercise` rn2(19) vs rn2(2); green+strict PASS; cohort 25/25.
 - Next: seed0004 @10713 post-eat `exerper`/`lesshungry` polarity.
-
-## YYYY-MM-DD HH:MM — <objective>
-- Objective: …
-- C locus: …
-- Change or falsified theory: …
-- Verification: …
-- Next: …
-```
 
 ## 2026-07-15 16:39 — #436 seed0004 @10563 getpos `>` travel (D-0408)
 - Objective: seed0004 @10563 PRIMARY — C `gethungry`/`hitum` vs JS

@@ -4,6 +4,26 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
+## D-0411 — umonnum/youmonst.data + moveloop encumber_msg/mvl_wtcap order
+
+- **Status:** fixed (partial vs @10966 — miss unchanged)
+- **Symptom:** seed0004 @10966 C `distfleeck` vs JS `dopush`/`exercise`;
+  DIAG showed `youmonst` unset and moveloop missing C’s
+  `encumber_msg` + post-monster `near_capacity` sample.
+- **Cause (ported gap):** `u_init` never set `u.umonnum`/`youmonst.data`
+  (C `u_init.c` + basic `set_uasmon`); `moveloop_core` sampled
+  `mvl_wtcap` only inside the EOT arm and skipped loop-top
+  `encumber_msg`.
+- **C locus:** `u_init.c` `umonnum=umonster=urole.mnum` + `set_uasmon`
+  basic data; `allmain.c` moveloop_core `encumber_msg` then monsters
+  then `mvl_wtcap=near_capacity()` then conditional EOT.
+- **Change:** `u_init.js` basic `youmonst.data`; `allmain.js` loop order.
+  Full FROMFORM `set_uasmon` props deferred. @10966 still needs
+  after_calc<12 (weight/leftover) — see NOTES.
+- **Verification:** seed0004 still RNG **11029**/12084 prefix **10966**;
+  green+strict PASS; cohort **23/23** (+green = 25 PASS set).
+- **Next:** seed0004 @10966 — ≥16 aum inv/cap gap or leftover-0+SLT.
+
 ## D-0410 — seed0004 @10713 gethungry metabolic uhunger--
 
 - **Status:** fixed
