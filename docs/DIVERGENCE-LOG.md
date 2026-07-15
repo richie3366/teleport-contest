@@ -4,6 +4,29 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
+## D-0425 — seed0004 @312 describe_looked DECgraphics wall
+
+- **Status:** fixed
+- **Symptom:** seed0004 first cell miss @312 — C topline
+  `│        the interior of a monster or a wall (wall)` (DEC `x`);
+  JS `dark part of a room`. RNG full after D-0424.
+- **Cause:** `describe_looked` had no wall arm. C
+  `do_screen_description` treats DECgraphics `S_vwall` showsym `\xf8`
+  (`x`) as `is_swallow_sym` (same as `S_sw_ml`/`S_sw_mr`) then cmap
+  `"wall"`, then lookat parenthetical `(wall)`. Message prefix needs
+  DEC→Unicode (JS topline has no `decgfx`), same pattern as ROOM `·`.
+- **C locus:** `pager.c` `is_swallow_sym` + `do_screen_description`
+  cmap walls; `lookat` defsyms `"wall"`; `dat/symbols` DECgraphics
+  `S_vwall`/`S_sw_ml`.
+- **Change:** `describe_wall_looked` + `is_swallow_sym` subset;
+  export `terrain_glyph`; Unicode prefix via `DEC_TO_UNICODE`.
+  Deferred: full showsyms-driven cmap scan; SDOOR-as-wall; beams
+  (empty explanations already skipped in C).
+- **Verification:** seed0004 Scr **396→397**/409; @312 fixed; first
+  miss **@330** invent `(1 of 2)`; RNG full; green+strict; cohort
+  **23/23** (+ green 2).
+- **Next:** seed0004 @330 `i` invent multi-page footer.
+
 ## D-0424 — seed0004 @310 lookat tseen trap brief_at
 
 - **Status:** fixed

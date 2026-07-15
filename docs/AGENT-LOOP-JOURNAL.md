@@ -20,6 +20,16 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-16 00:42 — #456 seed0004 @312 wall describe_looked (D-0425)
+- Objective: seed0004 @312 `/` whatis `describe_looked` wall.
+- C locus: `pager.c` `is_swallow_sym` + `do_screen_description` cmap
+  walls; DECgraphics `S_vwall`/`S_sw_ml` share `\xf8`.
+- Change: `describe_wall_looked` + swallow mid envelope; Unicode │
+  prefix (JS topline lacks decgfx); export `terrain_glyph`.
+- Verification: seed0004 Scr **396→397**/409; @312 fixed; RNG full;
+  green+strict; cohort **23/23**.
+- Next: seed0004 @330 invent `(1 of 2)` footer.
+
 ## 2026-07-16 00:31 — #455 score + D-0424 trap lookat
 - Objective: mandatory full `sessions` score (#455÷5); primary seed0004 @310 dart trap `brief_at`.
 - C locus: `pager.c` `lookat` `glyph_is_trap` → `trap_description`/`trapname`.
@@ -172,13 +182,3 @@ Use this shape:
 - Verification: green+strict PASS; seed0004 still @10966.
 - Next: before=9⇒need EXT/mmove anomaly, or post-heal leftover→0 + ≥16
   aum SLT gap (BoH factor wrong direction).
-
-## 2026-07-15 17:45 — #441 seed0004 @10966 after_calc diag (D-0412)
-- Objective: seed0004 @10966 PRIMARY — C `distfleeck` vs JS `dopush`.
-- C locus: `allmain.c` `u_calc_moveamt` / EOT; `hack.c` near_capacity.
-- Change: diagnosis only (DIAG removed). Reconfirmed force leftover0+SLT
-  / after=9 →10979; SLT|leftover0 alone no. JS sticky 9→21 UNENC since
-  heal; inv=-15; !usteed. Silent 0→12 vs 9→21 possible under UNENC.
-- Verification: green+strict PASS; seed0004 still @10966.
-- Next: ≥16 aum inv/cap gap at miss; or how C leftover →0 after heal.
-
