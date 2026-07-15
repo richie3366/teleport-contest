@@ -4,6 +4,28 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
+## D-0403 — heal_legs + nh_timeout WOUNDED_LEGS expiry
+
+- **Symptom:** seed0004 @51 — C
+  `Your leg feels better.  Your movements are now unencumbered.` vs JS
+  blank; RNG @4394 `rn2(67)` vs `rn2(64)` (`40+ACURR(A_DEX)*3`).
+- **Cause:** JS never ran `nh_timeout`; `HWounded_legs` TIMEOUT never
+  expired, so `heal_legs(0)` never restored ATEMP(DEX) or plined /
+  `encumber_msg`.
+- **C locus:** `timeout.c` `nh_timeout` WOUNDED_LEGS (~774);
+  `do.c` `heal_legs` (~2449); `allmain.c` once-per-turn before
+  `regen_hp` / wipe_engr (~273); `objnam.c` `vtense` bare singular.
+- **Change:** `js/timeout.js` WOUNDED_LEGS TIMEOUT decrement →
+  `heal_legs(0)` + `stop_occupation`; `js/trap.js` `heal_legs`;
+  `js/allmain.js` `await nh_timeout()` before regen_hp; `js/objnam.js`
+  `vtense` ends-in-s plural / bare singular conjugate. Named omissions:
+  other `nh_timeout` prop cases; Glib; run_regions; luck; dialogues;
+  `vtense` special_subjs / of-from polish.
+- **Verification:** seed0004 @51 match; Scr **53→215**/409; RNG
+  **5331→9213**/12084 (first miss @9183); green+strict PASS; cohort
+  **25/25**; seed0002 Scr still 54.
+- **Next:** seed0004 @216 / RNG @9183 C `distfleeck` vs JS `rnd(100)`.
+
 ## D-0402 — Norep compares to gp.prevmsg (caught+wriggle topline)
 
 - **Symptom:** seed0004 @46 — C

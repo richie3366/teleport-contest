@@ -20,6 +20,16 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-15 15:32 — #429 heal_legs nh_timeout (D-0403)
+- Objective: seed0004 @51 leg feels better / unencumbered (PRIMARY).
+- C locus: timeout.c nh_timeout WOUNDED_LEGS; do.c heal_legs; allmain.c
+  before regen_hp; objnam.c vtense bare singular.
+- Change: timeout.js WOUNDED_LEGS expiry → heal_legs(0)+stop_occupation;
+  trap.js heal_legs; allmain await nh_timeout; vtense conjugate.
+- Verification: seed0004 @51 match; Scr **53→215**/409; RNG
+  **5331→9213**/12084 @9183; green+strict PASS; cohort **25/25**.
+- Next: @216 / RNG @9183 distfleeck rn2(5) vs JS rnd(100).
+
 ## 2026-07-15 15:27 — #428 Norep gp.prevmsg (D-0402)
 - Objective: seed0004 @46 caught+wriggle same topline (PRIMARY).
 - C locus: pline.c Norep/vpline vs gp.prevmsg; topl.c update_topl concat.
@@ -158,24 +168,3 @@ Use this shape:
 - Verification: seed0012 Scr **244→257**/308; @140–153 match; first fail
   @221 dust engraving; green+strict PASS; cohort 24/24 PASS.
 - Next: seed0012 @221 `read_engr_at` wipeout garbled dust text.
-
-## 2026-07-15 13:40 — #415 score + cls clear_glyph_buffer (D-0389)
-- Objective: mandatory full `sessions` score; seed0012 @138 detect More map.
-- C locus: display.c cls → clear_glyph_buffer; detect.c monster_detect.
-- Change: JS cls only cleared Terminal; ported clear_glyph_buffer on
-  loc.disp_* so sense --More-- shows blank map + mons/@.
-- Verification: full sessions **24/44**, Scr **3914**/11405 RNG
-  **255082**/792838; seed0012 Scr **240→244**; first fail @140; green+
-  strict PASS; cohort 22/22 PASS.
-- Next: seed0012 @140 TER_DETECT autodescribe `unexplored area`.
-
-## 2026-07-15 13:35 — #414 prinv total_of gold (D-0388)
-- Objective: seed0012 @98/99 `$ - 5 gold pieces (7 in total).`
-- C locus: invent.c prinv total_of + xprname quan; pickup.c pickup_prinv.
-- Change: JS ignored lift count after gold merge; ported prinv `(N in
-  total)` + xprname quan override; pickup_prinv/hold/out_container pass
-  pre-merge count.
-- Verification: Scr **239→240**/308; @99 match; green+strict PASS;
-  cohort 24/24 PASS.
-- Next: seed0012 @138 monster-sense More map blanking.
-

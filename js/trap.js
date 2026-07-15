@@ -14,7 +14,7 @@ import {
 import { find_mac, make_corpse } from './mhitm.js';
 import { mon_explodes } from './explode.js';
 import { newsym, pline, mon_visible, see_with_infrared, You_feel } from './display.js';
-import { doname, an, the, xname } from './objnam.js';
+import { doname, an, the, xname, makeplural, vtense } from './objnam.js';
 import { Monnam, mon_nam, x_monnam_tame } from './do_name.js';
 import { dist2, m_at } from './mon.js';
 import { cansee, couldsee } from './vision.js';
@@ -40,7 +40,7 @@ import {
     Can_fall_thru, NO_MM_FLAGS, FROMOUTSIDE, TIMEOUT, Upolyd,
     KILLED_BY, KILLED_BY_AN,
     WATER, BURNING,
-    TT_NONE, TT_BEARTRAP, LEFT_SIDE, RIGHT_SIDE, FOOT,
+    TT_NONE, TT_BEARTRAP, LEFT_SIDE, RIGHT_SIDE, BOTH_SIDES, FOOT, LEG,
 } from './const.js';
 import {
     is_pool, is_lava, waterbody_name, crawl_destination,
@@ -879,9 +879,43 @@ async function set_wounded_legs(side, timex) {
     await encumber_msg();
 }
 
-/** C ref: mondata.c body_part — FOOT→"foot"; full poly table deferred. */
+/**
+ * C ref: do.c heal_legs(how) — clear wounded-leg timeout/side bits,
+ * restore ATEMP(DEX), feel-better pline, encumber_msg when how==0.
+ * how: 0 ordinary (nh_timeout), 1 dismount, 2 petrify limbs.
+ * Named omissions: steed-leg suppress path polish beyond usteed check.
+ */
+export async function heal_legs(how) {
+    const u = game.u || (game.u = {});
+    const wounded = !!(u.Wounded_legs
+        || ((u.HWounded_legs | 0) & TIMEOUT)
+        || (u.EWounded_legs | 0));
+    if (!wounded) return;
+    if (game.flags) game.flags.botl = true;
+    if (game.disp) game.disp.botl = true;
+    if (!u.atemp) u.atemp = { a: [0, 0, 0, 0, 0, 0] };
+    if ((u.atemp.a[A_DEX] | 0) < 0) {
+        u.atemp.a[A_DEX] = (u.atemp.a[A_DEX] | 0) + 1;
+    }
+    // C: when mounted / petrify how==2, suppress feel-better message
+    if (!u.usteed && (how | 0) !== 2) {
+        let legs = body_part(LEG);
+        if (((u.EWounded_legs | 0) & BOTH_SIDES) === BOTH_SIDES) {
+            legs = makeplural(legs);
+        }
+        await pline(`Your ${legs} ${vtense(legs, 'feel')} better.`);
+    }
+    u.HWounded_legs = 0;
+    u.EWounded_legs = 0;
+    u.Wounded_legs = false;
+    // C: encumber_msg only for ordinary heal (how==0), not dismount
+    if ((how | 0) === 0) await encumber_msg();
+}
+
+/** C ref: mondata.c body_part — FOOT→"foot", LEG→"leg"; full poly deferred. */
 function body_part(part) {
     if (part === FOOT) return 'foot';
+    if (part === LEG) return 'leg';
     return 'body';
 }
 

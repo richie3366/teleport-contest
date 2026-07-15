@@ -33,6 +33,7 @@ import { phase_of_the_moon, friday_13th, FULL_MOON, NEW_MOON } from './calendar.
 import { ATR_INVERSE } from './terminal.js';
 import { dosounds } from './sounds.js';
 import { invault } from './vault.js';
+import { nh_timeout } from './timeout.js';
 import {
     UNENCUMBERED, SLT_ENCUMBER, MOD_ENCUMBER, HVY_ENCUMBER, EXT_ENCUMBER,
     NO_MM_FLAGS, Upolyd, LL_ACHIEVE,
@@ -528,6 +529,10 @@ export async function moveloop_core() {
                 // C: settrack() before svm.moves++
                 settrack();
                 g.moves = (g.moves || 1) + 1;
+
+                // once-per-turn — C: nh_timeout before regen_hp / wipe_engr
+                // (Glib/run_regions/ublesscnt deferred)
+                await nh_timeout();
 
                 // once-per-turn — C: regen_hp before dosounds when HP below max
                 if (g.u.uinvulnerable) {
