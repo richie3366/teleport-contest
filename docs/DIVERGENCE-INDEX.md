@@ -417,6 +417,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 | D-0428 | fixed | eatcorpse acid/sick losehp rnd not 1+rn2 | seed0002 prefix 3808→4565; Scr still 54; @4565 next |
 | D-0429 | fixed | @4565 udist symptom (root D-0430 drink) | closed by D-0430; not obj_resists/dog_goal |
 | D-0430 | fixed | drink getobj `?` + fruit trycall + paralysis | seed0002 prefix 4565→6186; Scr 54→99; @6186 exercise next |
+| D-0431 | fixed | SCR_LIGHT seffect_light/litroom + learnscroll WIS | seed0002 prefix 6186→6954; Scr 99→126; @6954 remove-curse next |
 
 
 D-0001 through D-0005 predate the strict-length/cohort runbook. Their focused

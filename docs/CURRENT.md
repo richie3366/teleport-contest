@@ -20,7 +20,7 @@ focused session.
 Score last measured: **2026-07-16** — full `sessions` suite (#460 score
 cadence). Screens **4363**/11405 (unchanged vs #458); RNG **262922**/792838
 (+1 vs #458). **26/44** PASS (unchanged). Speed `24+0.13/turn`.
-(#461 focused seed0002 Scr 54→99 / prefix 4565→6186 — full suite not re-run.)
+(#462 focused seed0002 Scr 99→126 / prefix 6186→6954 — full suite not re-run.)
 
 ## Score
 
@@ -42,7 +42,7 @@ seed0012, seed0004.
 | Session | RNG | Screen | Note |
 |--------|----:|-------:|------|
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
-| seed0002 | 6851/27158 | **99**/595 | @6186 exercise (was @4565) |
+| seed0002 | 7649/27158 | **126**/595 | @6954 remove-curse (was @6186) |
 | seed0006 | 2278/6736 | **13**/123 | water demon |
 | seed0007 | 2941/16373 | **20**/302 | snake swamp |
 | seed0361/0373 | early | 0 | quest bones / `makemaz` |
@@ -62,20 +62,20 @@ Both must remain full RNG + screen PASS with exact scored-output lengths.
 
 ## Primary objective
 
-**seed0002 @6186 — `exercise` vs `rn2(5)`** (after D-0430). Prefix
-**6186**; Scr **99**/595. C `rn2(19)=9 @ exercise(attrib.c:509)` vs JS
-`rn2(5)=3`. Do not re-open @4565 udist/`obj_resists` (fixed — drink
-getobj/`trycall`).
+**seed0002 @6954 — `SCR_REMOVE_CURSE` / `seffect_remove_curse`** (after
+D-0431 light). Prefix **6954**; Scr **126**/595. C `rn2(19) @ exercise`
+on read scroll `v` (“someone is helping you”) vs JS `rn2(5)` (turn
+skipped → next-key fleeck). Do not re-open @6186 light (fixed).
 
 ```bash
 node frozen/ps_test_runner.mjs sessions/seed0002-healer-reflection-drummer.session.json
 node scripts/rng-diff.mjs sessions/seed0002-healer-reflection-drummer.session.json
-# Focus: C exercise rn2(19) vs JS rn2(5) at 6186
+# Focus: C seffect_remove_curse / exercise vs JS rn2(5) at 6954
 ```
 
 **Alternates:** seed0006 / seed0007; quest early-0 (seed0361/0373).
 
-**Prefer over:** parked D-0006, seed2200 RC; re-opening D-0429/D-0430.
+**Prefer over:** parked D-0006, seed2200 RC; re-opening D-0430/D-0431.
 
 **Cohort after shared change:** green gate + seed1500 + seed1800 + seed0060 +
 seed0102 + seed0700 + seed1150 + seed0017 + seed0077 + seed0106 + seed0501 +

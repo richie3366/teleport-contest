@@ -1,16 +1,19 @@
 // read.js — Read command / scroll effects (partial).
-// C ref: read.c doread, seffects, seffect_magic_mapping, seffect_teleportation;
-// invent.c getobj; detect.c do_mapping; spell.c study_book (via spell.js);
-// teleport.c scrolltele/safe_teleds.
+// C ref: read.c doread, seffects, seffect_magic_mapping, seffect_teleportation,
+// seffect_light / litroom / set_lit; invent.c getobj; detect.c do_mapping;
+// spell.c study_book (via spell.js); teleport.c scrolltele/safe_teleds;
+// zap.c lightdamage (non-gremlin stub).
 //
 // Branch envelope: getobj read loop (scrolls/spellbooks + ?/* pickinv) +
-// SCROLL_CLASS path for SCR_MAGIC_MAPPING / SCR_TELEPORTATION + SPBOOK_CLASS
-// → study_book (already-known refresh yn). Named omissions: fortune/shirt/
-// credit-card/marker/coin/orb/candy/Braille Blind gates;
+// SCROLL_CLASS path for SCR_MAGIC_MAPPING / SCR_TELEPORTATION / SCR_LIGHT +
+// SPBOOK_CLASS → study_book (already-known refresh yn). Named omissions:
+// fortune/shirt/credit-card/marker/coin/orb/candy/Braille Blind gates;
 // study_book occupation/learn / novel / cursed_book; other seffect_*;
 // nommap/Hallucination/blessed-SDOOR convert body; notice_mon_off/on;
 // trycall; can_chant silently; check_capacity; SPE_MAGIC_MAPPING cast;
-// cursed/confused level_tele; Teleport_control getpos.
+// cursed/confused level_tele; Teleport_control getpos; confused light
+// yellow/black-light pets; snuff_lit / impact_arti_light / Punished ball;
+// gremlin light-hit list; Rogue whole-room light; Sunsword radius-0.
 
 import { game } from './gstate.js';
 import { nhgetch } from './input.js';
@@ -24,12 +27,13 @@ import { do_mapping, cvt_sdoor_to_door } from './detect.js';
 import { study_book } from './spell.js';
 import { scrolltele } from './teleport.js';
 import {
-    COLNO, ROWNO, SDOOR, Is_rogue_level,
+    COLNO, ROWNO, SDOOR, CORR, ROOMOFFSET, Is_rogue_level, Is_waterlevel,
 } from './const.js';
-import { vision_recalc } from './vision.js';
+import { vision_recalc, do_clear_area } from './vision.js';
 
 const SCR_MAGIC_MAPPING = objectNames.indexOf('SCR_MAGIC_MAPPING');
 const SCR_TELEPORTATION = objectNames.indexOf('SCR_TELEPORTATION');
+const SCR_LIGHT = objectNames.indexOf('SCR_LIGHT');
 const SCR_BLANK_PAPER = objectNames.indexOf('SCR_BLANK_PAPER');
 const SPE_BOOK_OF_THE_DEAD = objectNames.indexOf('SPE_BOOK_OF_THE_DEAD');
 const SPE_NOVEL = objectNames.indexOf('SPE_NOVEL');
@@ -209,6 +213,115 @@ async function seffect_teleportation(sobj) {
 }
 
 /**
+ * C ref: read.c set_lit — levl[x][y].lit = !!val; gremlin queue deferred.
+ */
+function set_lit(x, y, val) {
+    const loc = game.level?.at(x, y);
+    if (!loc) return;
+    if (val) {
+        loc.lit = 1;
+        // PM_GREMLIN light-hit list deferred
+    } else {
+        loc.lit = 0;
+        // snuff_light_source deferred
+    }
+}
+
+/**
+ * C ref: zap.c lightdamage — non-gremlin returns amt (no RNG).
+ * Gremlin rnd/losehp path deferred.
+ */
+function lightdamage(_obj, _ordinary, amt) {
+    return amt;
+}
+
+/**
+ * C ref: read.c litroom — light/darken nearby terrain + message.
+ * Envelope: ordinary scroll light/dark; Rogue whole-room; swallow/water
+ * no_op message; vision_recalc(2) + delayed full recalc.
+ * Deferred: snuff_lit / artifact_light / Punished move_bc / gremlin hits /
+ * Sunsword spot / Underwater beyond no_op gate.
+ */
+async function litroom(on, obj) {
+    const u = game.u || {};
+    const Blind = !!(u.Blind || u.ublind);
+    const blessed_effect = !!(obj && obj.oclass === SCROLL_CLASS && obj.blessed);
+    const no_op = !!(u.uswallow || u.Underwater || Is_waterlevel(u.uz));
+
+    if (!on) {
+        // Inventory lamp snuff / artifact impact deferred
+        if (!Blind) {
+            if (u.uswallow) {
+                await pline('It seems even darker in here than before.');
+            } else {
+                await pline('You are surrounded by darkness!');
+            }
+        }
+    } else {
+        // Blessed artifact_light impact deferred
+        if (u.uswallow) {
+            // engulfer-lit messages deferred (Blind-silent matches C)
+        } else if (!Blind && (!Is_rogue_level(u.uz)
+            || game.level?.at(u.ux, u.uy)?.typ !== CORR)) {
+            await pline(`A lit field ${no_op ? 'briefly ' : ''}surrounds you!`);
+        }
+    }
+
+    if (no_op) return;
+
+    if (Is_rogue_level(u.uz)) {
+        const rnum = (game.level?.at(u.ux, u.uy)?.roomno | 0) - ROOMOFFSET;
+        const rooms = game.rooms || game.level?.rooms;
+        if (rnum >= 0 && rooms?.[rnum]) {
+            const rm = rooms[rnum];
+            for (let rx = rm.lx - 1; rx <= rm.hx + 1; rx++) {
+                for (let ry = rm.ly - 1; ry <= rm.hy + 1; ry++) {
+                    set_lit(rx, ry, on ? 1 : null);
+                }
+            }
+            rm.rlit = on ? 1 : 0;
+        }
+    } else {
+        // Sunsword radius-0 path deferred (scrolls use clear_area)
+        do_clear_area(
+            u.ux, u.uy,
+            blessed_effect ? 9 : 5,
+            set_lit,
+            on ? 1 : null,
+        );
+    }
+
+    if (!Blind) {
+        vision_recalc(2);
+        // Punished move_bc restore deferred
+    }
+    game.vision_full_recalc = 1;
+    // gremlin light_hits after forced recalc deferred
+}
+
+/**
+ * C ref: read.c seffect_light
+ * Unconfused: litroom(!cursed) + lightdamage when !cursed.
+ * Confused yellow/black-light pets deferred (named omission).
+ */
+async function seffect_light(sobj) {
+    const scursed = !!sobj.cursed;
+    const confused = !!(game.u?.Confusion);
+    const Blind = !!(game.u?.Blind || game.u?.ublind);
+
+    if (!confused) {
+        if (!Blind) known = true;
+        await litroom(!scursed, sobj);
+        if (!scursed) {
+            if (lightdamage(sobj, true, 5)) known = true;
+        }
+    } else {
+        // confused PM_YELLOW_LIGHT / PM_BLACK_LIGHT swarm deferred
+        await pline('Tiny lights sparkle in the air momentarily.');
+    }
+}
+
+/**
  * C ref: read.c seffects — oc_magic exercise + otyp dispatch.
  * @returns {number} 0 = caller useup/learn; 1 = already used up;
  *   -1 = unimplemented (caller must not useup)
@@ -226,6 +339,9 @@ async function seffects(sobj) {
         break;
     case SCR_TELEPORTATION:
         await seffect_teleportation(sobj);
+        break;
+    case SCR_LIGHT:
+        await seffect_light(sobj);
         break;
     default:
         // Other seffect_* deferred — do not useup
@@ -273,7 +389,7 @@ export async function doread() {
 
     // Gate unported scroll otyps before disappear/useup (C would seffect)
     if (otyp !== SCR_MAGIC_MAPPING && otyp !== SCR_BLANK_PAPER
-        && otyp !== SCR_TELEPORTATION) {
+        && otyp !== SCR_TELEPORTATION && otyp !== SCR_LIGHT) {
         await pline('That scroll is not implemented yet.');
         return 0;
     }

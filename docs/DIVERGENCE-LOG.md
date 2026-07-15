@@ -4,6 +4,30 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
+## D-0431 — SCR_LIGHT seffect_light / litroom (seed0002 @6186)
+
+- **Status:** fixed
+- **Symptom:** seed0002 first RNG miss @6186 — C `rn2(19) @
+  exercise(attrib.c:509)` ×2 vs JS `rn2(5)` (distfleeck). Prefix
+  6186; Scr 99/595. Step keys `r` then `t` (scroll ASHPD SODALG →
+  light: “A lit field surrounds you!”).
+- **Cause:** JS `doread` gated SCR_LIGHT as unimplemented (`return 0`
+  before disappear/seffects). C runs `seffects` → `exercise(A_WIS,TRUE)`
+  then `seffect_light`/`litroom`; unknown type + `known` →
+  `learnscroll`→`makeknown`→second `exercise(A_WIS,TRUE)`. JS skipped
+  the turn; next key consumed as move → fleeck `rn2(5)`.
+- **C locus:** `read.c` `seffects` / `seffect_light` / `litroom` /
+  `set_lit`; `o_init.c` `discover_object` credit_hero (via
+  `makeknown`); `zap.c` `lightdamage` (non-gremlin no-RNG).
+- **Change:** port `seffect_light` + `litroom`/`set_lit` +
+  `lightdamage` stub; wire SCR_LIGHT into `doread`/`seffects`.
+  Deferred: confused yellow/black-light pets; snuff_lit /
+  artifact_light / Punished ball; gremlin hit list; Sunsword
+  radius-0; Rogue whole-room already wired.
+- **Verification:** seed0002 prefix **6186→6954**; Scr **99→126**/595;
+  RNG matched **7649**/27158; green+strict; cohort **24/24**.
+- **Next:** seed0002 @6954 remove-curse read (`v` / “helping you”).
+
 ## D-0430 — drink getobj `?` + fruit juice trycall (seed0002 @4565)
 
 - **Status:** fixed

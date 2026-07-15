@@ -8,14 +8,15 @@ Objective/score live in `CURRENT.md`.
 ## Active
 
 - **Score:** **26/44** PASS (#460 full). Scr **4363**/11405; RNG
-  **262922**/792838. #461 seed0002 Scr **99**/595 prefix **6186**
+  **262922**/792838. #462 seed0002 Scr **126**/595 prefix **6954**
   (full suite not re-measured).
-- **Next:** seed0002 @6186 — C `exercise` `rn2(19)` vs JS `rn2(5)`.
+- **Next:** seed0002 @6954 — read scroll `v` remove-curse
+  (“someone is helping you”) → C `exercise` `rn2(19)` vs JS `rn2(5)`.
   ```bash
   node scripts/rng-diff.mjs sessions/seed0002-healer-reflection-drummer.session.json
   ```
-- **Don’t re-check:** @4565 udist/`obj_resists` (D-0429/D-0430 — drink
-  getobj `?` cancel → name `l` walk). @3808 eatcorpse rnd (D-0428).
+- **Don’t re-check:** @6186 light/`exercise` (D-0431 — SCR_LIGHT
+  seffects+litroom+learnscroll). @4565 drink getobj (D-0430).
 - **Landmark:** vault door (71,13); dig + restfakecorr; SPELL_LEV_PW(1)=5.
 - **Parked:** D-0006; seed2200 @158 RC.
 
@@ -49,8 +50,8 @@ Objective/score live in `CURRENT.md`.
   skip `heal_legs` / WOUNDED_LEGS `nh_timeout` (D-0403); omit
   `vtense` bare-singular conjugate (D-0403); float `mhpmax/2` for
   flee gate (D-0404); treat @9795–@11722 / @182/@239/@240/@248/@277/
-  @285/@288/@297/@310/@312/@330/@336/@354/@3808/@4565 as index
-  D-0405…D-0430 without those C paths; treat RING `obj.known` as
+  @285/@288/@297/@310/@312/@330/@336/@354/@3808/@4565/@6186 as index
+  D-0405…D-0431 without those C paths; treat RING `obj.known` as
   type-ID (D-0420); treat @248 floor vs `^` as missing feeltrap when
   `tseen` already set (D-0419); bypass `yn_function` for ring-hand
   (D-0421); force corner invent for getobj `?` when `strlen(lets)==1`
@@ -62,7 +63,8 @@ Objective/score live in `CURRENT.md`.
   without `cansee`→`newsym` (D-0427); eatcorpse acid/sick damage via
   `1+rn2(N)` instead of `rnd(N)` (D-0428); patch `obj_resists` /
   dog_goal invent for @4565 when cause was drink getobj `?` cancel
-  + missing trycall (D-0429/D-0430).
+  + missing trycall (D-0429/D-0430); treat @6186 exercise/`rn2(5)` as
+  attrib bug when cause was unimplemented SCR_LIGHT (D-0431).
 - Runner `Screen N/M` = total matches, not prefix length.
 - First cell-miss may be botl `$:` / `Burdened` even when NOTES names a topline.
 
@@ -78,7 +80,8 @@ Objective/score live in `CURRENT.md`.
   **`i`/`*` invent npages>1 → `(N of M)` + Space page** (D-0426);
   **`throwit` land `cansee`→`newsym`** (D-0427);
   **`eatcorpse` acid/sick `rnd(N)` not `1+rn2`** (D-0428);
-  **drink getobj `?`/`*` + fruit juice trycall/docall** (D-0430).
+  **drink getobj `?`/`*` + fruit juice trycall/docall** (D-0430);
+  **`SCR_LIGHT` seffect_light/litroom + learnscroll WIS** (D-0431).
 - eatcorpse palatable needs `hero_form_data` when `youmonst` unset
   (D-0409); **basic `youmonst.data` now at u_init** (D-0411); full
   `set_uasmon` FROMFORM props still deferred.
