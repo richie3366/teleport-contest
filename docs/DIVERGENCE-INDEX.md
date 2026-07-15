@@ -376,6 +376,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 | D-0387 | fixed | pickup autopick → check_here | post-autopick look_here; Scr 236→239 |
 | D-0388 | fixed | invent prinv total_of | gold merge `(N in total)`; Scr 239→240 |
 | D-0389 | fixed | display cls clear_glyph_buffer | detect More blank map; Scr 240→244 |
+| D-0390 | fixed | getpos auto_describe TER_DETECT | lookat unexplored/mimic/shk; Scr 244→257 |
 
 D-0001 through D-0005 predate the strict-length/cohort runbook. Their focused
 causes are preserved, but generic "green sessions held" is historical evidence,

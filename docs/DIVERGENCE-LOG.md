@@ -24,6 +24,29 @@ The compact status table lives in **`DIVERGENCE-INDEX.md`**.
 Open that file first; then jump to a single `## D-NNNN` entry below
 (via search). Do **not** read this whole file by default.
 
+## D-0390 — getpos auto_describe TER_DETECT (seed0012 Scr 244→257)
+
+- **Status:** fixed
+- **Observed:** seed0012 @140–152 — C topline `unexplored area` /
+  `small mimic, mimicking something` / `peaceful Adjama` vs JS stuck on
+  getpos tip `(For instructions type a '?')  Move cursor to monster of
+  interest:`. Map+cursors already matched; RNG prefix full.
+- **C locus:** `getpos.c` `getpos` loop + `auto_describe` →
+  `do_screen_description`/`lookat`; `pager.c` `lookat` unexplored +
+  `look_at_monster`/`mhidden_description`; `do_name.c` `x_monnam` isshk
+  → `shkname` via `distant_monnam`.
+- **Cause/evidence:** JS `getpos` never ran C `auto_describe` after
+  moves when `iflags.autodescribe`; tip/goal topline persisted.
+  `distant_monnam_none` omitted shopkeeper `shkname`.
+- **Change:** `js/getpos.js` msg_given/show_goal_msg + display-glyph
+  auto_describe (blank→`unexplored area`, mon+mimic); `js/do_name.js`
+  `distant_monnam_none` isshk→`shkname`. Named omissions: full
+  `do_screen_description` symbol table, coord_desc, furniture mimic
+  names, astral high-cleric.
+- **Verification:** seed0012 Scr **244→257**/308; @140–153 match; first
+  fail **@221** dust engraving; green+strict PASS; cohort 24/24 PASS.
+- **Next:** seed0012 @221 `read_engr_at` / wipeout garbled dust text.
+
 ## D-0389 — `cls` / `clear_glyph_buffer` (seed0012 Scr 240→244)
 
 - **Status:** fixed

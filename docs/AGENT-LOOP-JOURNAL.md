@@ -20,6 +20,16 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-15 13:48 — #416 getpos auto_describe TER_DETECT (D-0390)
+- Objective: seed0012 @140 tip stuck vs C `unexplored area`.
+- C locus: getpos.c auto_describe/getpos msg_given; pager.c lookat;
+  do_name.c x_monnam isshk→shkname via distant_monnam.
+- Change: getpos auto_describe on display glyphs (blank/mimic/mon);
+  distant_monnam_none shopkeeper shkname.
+- Verification: seed0012 Scr **244→257**/308; @140–153 match; first fail
+  @221 dust engraving; green+strict PASS; cohort 24/24 PASS.
+- Next: seed0012 @221 `read_engr_at` wipeout garbled dust text.
+
 ## 2026-07-15 13:40 — #415 score + cls clear_glyph_buffer (D-0389)
 - Objective: mandatory full `sessions` score; seed0012 @138 detect More map.
 - C locus: display.c cls → clear_glyph_buffer; detect.c monster_detect.
@@ -159,14 +169,4 @@ Use this shape:
 - Verification: prefix 13392→13517; RNG 13430→13591 cursors 254→259;
   green+strict PASS; cohort 24/24.
 - Next: seed0012 @13517 C move_special rn2(1) vs JS rn2(5).
-
-## 2026-07-15 09:02 — D-0374 invault / vault guard spawn (seed0012 @13287)
-- Objective: seed0012 @13287 C next_ident vs JS wipe_engr rn2(94).
-- C locus: vault.c invault/find_guard_dest; allmain.c; makemon mercenary
-  m_initweap/m_initinv; teleds urooms.
-- Change: vault.js invault + allmain await; teleds in_rooms→urooms;
-  MM_EGD + merc weapon/armor/whistle (D-0374).
-- Verification: prefix 13287→13392; RNG 13295→13430 cursors 244→254;
-  green+strict PASS; cohort 24/24.
-- Next: seed0012 @13392 C distfleeck rn2(5) vs JS rn2(7) (gd_move?).
 

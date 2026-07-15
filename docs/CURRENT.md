@@ -58,17 +58,17 @@ Both must remain full RNG + screen PASS with exact scored-output lengths.
 
 ## Primary objective
 
-**seed0012 screens** — RNG complete; Scr **244**/308, cursors
-**302**/308. `cls`/`clear_glyph_buffer` ported (D-0389); first fail
-@140 C `unexplored area` vs JS getpos tip still on screen
-(`browse_map` / TER_DETECT autodescribe).
+**seed0012 screens** — RNG prefix complete; Scr **257**/308, cursors
+**302**/308. TER_DETECT getpos autodescribe ported (D-0390); first fail
+@221 C dust engraving `You read: "?? a?r?r um"` vs JS blank topline
+(`read_engr_at` / wipeout).
 
 ```bash
 node frozen/ps_test_runner.mjs sessions/seed0012-monk-vault-escort.session.json
 ```
 
-**Falsify next:** C `getpos`/`lookat` under `terrainmode` TER_DETECT —
-blank/unexplored describe vs tip persistence (not invent message text).
+**Falsify next:** C `read_engr_at` / `wipeout_text` for DUST engraving
+under partial wipe — message + garbled text vs silent skip.
 
 **Alternates:** seed0004 / seed0002 / seed0006 / seed0007; quest early-0.
 
