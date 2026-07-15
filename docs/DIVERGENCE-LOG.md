@@ -4,6 +4,29 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
+## D-0414 — seed0004 @11708 dog_move ALLOW_U → mattacku
+
+- **Status:** fixed
+- **Symptom:** seed0004 first RNG miss @11708 — C `rnd(20)` @
+  `mattacku` vs JS `rn2(5)` @ `distfleeck` after matching dog_move
+  candidate `rn2(12)` rolls.
+- **Rejected:** bare dochug PHASE FOUR / peaceful×Conflict hero attack
+  as the sole gap (prefix already past D-0413 fightm; C caller is
+  `dogmove.c` newdogpos, not `dochug`).
+- **Cause:** JS `dog_move` set `ALLOW_U` via `mon_allowflags` under
+  Conflict but, on choosing that square, stepped/finished without C’s
+  `mfp.info[chi] & ALLOW_U` → `mattacku` → `MMOVE_DONE` branch.
+- **C locus:** `dogmove.c` `dog_move` newdogpos ALLOW_U/`mattacku`;
+  `mon.c` `mon_allowflags` Conflict→ALLOW_U; `mhitu.c` `mattacku`.
+- **Change:** `dogmove.js` — before place, if chosen candidate has
+  `ALLOW_U`, optional leash-break pline, `await mattacku`, return
+  `MMOVE_DONE`. Deferred: full `m_unleash` bookkeeping; `pet_ranged_attk`
+  youmonst→`mattacku`.
+- **Verification:** seed0004 prefix **11708→11722** (RNG 11774→11790);
+  Scr **242→240**/409; green+strict PASS; cohort **25/25**. Full
+  `sessions` #445: **25/44**, Scr **4194**/11405, RNG **262860**/792838.
+- **Next:** seed0004 @11722 C `next_ident` vs JS `distfleeck`.
+
 ## D-0413 — seed0004 @11568 Conflict fightm before dochugw
 
 - **Status:** fixed

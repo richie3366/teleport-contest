@@ -20,6 +20,17 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-15 18:34 — #445 score + dog ALLOW_U mattacku (D-0414)
+- Objective: mandatory full `sessions` score (#445÷5); seed0004 @11708
+  PRIMARY — C `mattacku` vs JS `distfleeck`.
+- C locus: `dogmove.c` newdogpos `ALLOW_U`→`mattacku`; not bare dochug.
+- Change: `dogmove.js` chosen-candidate `ALLOW_U` attacks hero then
+  `MMOVE_DONE` (leash-break pline stub; full `m_unleash` deferred).
+- Verification: full score **25/44** Scr **4194**/11405 RNG
+  **262860**/792838 `21+0.13/turn`; seed0004 prefix **11708→11722**
+  (RNG 11790); green+strict; cohort **25/25**.
+- Next: seed0004 @11722 `next_ident` vs `distfleeck`.
+
 ## 2026-07-15 18:30 — #444 seed0004 Conflict fightm (D-0413)
 - Objective: seed0004 @11568 PRIMARY — C `resist_conflict` vs JS
   `distfleeck` mid-travel.

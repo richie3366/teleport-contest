@@ -7,16 +7,16 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Score:** **25/44** PASS (#440 full). Scr **4196**/11405; RNG
-  **262087**/792838 (pre D-0413). seed0004 focused: RNG **11774**/12084
-  (prefix **11708**); Scr still **242**/409.
-- **Next:** seed0004 @11708 — C `mattacku` vs JS `distfleeck` after
-  D-0413 Conflict `fightm` / dochug `hero_conflict`.
+- **Score:** **25/44** PASS (#445 full post D-0414). Scr **4194**/11405;
+  RNG **262860**/792838. seed0004 focused: RNG **11790**/12084
+  (prefix **11722**); Scr **240**/409.
+- **Next:** seed0004 @11722 — C `next_ident` (`mkobj.c`) vs JS
+  `distfleeck` after pet Conflict `ALLOW_U`→`mattacku` (D-0414).
   ```bash
   node scripts/rng-diff.mjs sessions/seed0004-feeding-pony.session.json
   ```
-- **Don’t re-check:** @11568 as bare dochug P4-only (hostile jackal
-  early-returns; miss was `fightm` before dochug — D-0413). @10966
+- **Don’t re-check:** @11708 as bare dochug/`mattacku` gap without
+  `dog_move` `ALLOW_U` (D-0414). @11568 fightm (D-0413). @10966
   after_calc / travel boulder (D-0412).
 - **Landmark:** vault door (71,13); dig + restfakecorr; SPELL_LEV_PW(1)=5.
 - **Parked:** D-0006; seed2200 @158 RC.
@@ -63,7 +63,8 @@ Objective/score live in `CURRENT.md`.
   `exerper` polarity without checking deferred `gethungry` `uhunger--`
   (D-0410); treat @10966 as after_calc/leftover/SLT/EXT (D-0412 —
   was findtravelpath boulder step); treat @11568 as bare dochug P4
-  without `movemon` Conflict→`fightm` (D-0413).
+  without `movemon` Conflict→`fightm` (D-0413); treat @11708 as bare
+  dochug/`mattacku` without `dog_move` `ALLOW_U`→`mattacku` (D-0414).
 - Runner `Screen N/M` = total matches, not prefix length.
 - First cell-miss may be botl `$:` / `Burdened` even when NOTES names a topline.
 
@@ -86,5 +87,7 @@ Objective/score live in `CURRENT.md`.
 - findtravelpath: dest→hero BFS + boulder skip + GUESS (D-0412);
   travelmap / TEST_TRAP / door-delay / could_move_onto still deferred.
 - Conflict: `fightm` before dochugw + dochug `hero_conflict`/P4
-  (D-0413); ustuck release / `m_everyturn_effect` deferred.
-- D-0383…D-0413 landmarks: see index / don’t-recheck above.
+  (D-0413); dog_move `ALLOW_U`→`mattacku` (D-0414); ustuck release /
+  `m_everyturn_effect` / full `m_unleash` / pet_ranged youmonst
+  `mattacku` deferred.
+- D-0383…D-0414 landmarks: see index / don’t-recheck above.

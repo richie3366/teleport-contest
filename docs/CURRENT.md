@@ -17,19 +17,19 @@ Update **this Score section** with: pass count, screen/RNG aggregates, speed
 label, PASS list, notable non-PASS. Do not invent suite totals from a single
 focused session.
 
-Score last measured: **2026-07-15** — full `sessions` suite (#440;
-post D-0408…D-0411). Screens **4196**/11405 (flat); RNG
-**261626→262087**/792838. Still **25/44** PASS. seed0004 focused
-post D-0413: prefix **11708** (RNG 11774/12084, Scr 242/409).
+Score last measured: **2026-07-15** — full `sessions` suite (#445;
+post D-0414). Screens **4194**/11405 (−2 vs #440); RNG
+**262860**/792838 (+773). Still **25/44** PASS. seed0004 focused
+post D-0414: prefix **11722** (RNG 11790/12084, Scr 240/409).
 
 ## Score
 
 | Metric | Value |
 |--------|------:|
 | Sessions passing | **25 / 44** |
-| Screens matched | **4196 / 11,405** (36.79%) |
-| Positional RNG calls matched | **262,087 / 792,838** (33.06%) |
-| Speed label | `21+0.13/turn` (R² 0.82) |
+| Screens matched | **4194 / 11,405** (36.77%) |
+| Positional RNG calls matched | **262,860 / 792,838** (33.15%) |
+| Speed label | `21+0.13/turn` (R² 0.79) |
 | Role-init throws | **0 / 44** |
 
 **PASS (25):** seed8000, seed0900, seed1500, seed1800, seed0060, seed0102,
@@ -42,8 +42,8 @@ seed0013-rogue, seed0013-friday13-restore, seed0107, seed0009,
 | Session | RNG | Screen | Note |
 |--------|----:|-------:|------|
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
-| seed0002 | 5199/27158 | **54**/595 | still @3808 eatcorpse |
-| seed0004 | **11774**/12084 | **242**/409 | @11708 mattacku vs distfleeck |
+| seed0002 | 5210/27158 | **54**/595 | still @3808 eatcorpse |
+| seed0004 | **11790**/12084 | **240**/409 | @11722 `next_ident` vs `distfleeck` |
 | seed0361/0373 | early | 0 | quest bones / `makemaz` |
 
 ## Green gate
@@ -61,21 +61,21 @@ Both must remain full RNG + screen PASS with exact scored-output lengths.
 
 ## Primary objective
 
-**seed0004 @11708** — after D-0413 Conflict `fightm`, first miss is C
-`mattacku` vs JS `distfleeck`. Likely peaceful×Conflict hero attack
-(dochug PHASE FOUR / allowflags) or adjacent fightm hit path.
+**seed0004 @11722** — after D-0414 pet `ALLOW_U`→`mattacku`, first miss
+is C `next_ident` (`mkobj.c`) vs JS `distfleeck`. Likely object spawn
+from combat aftermath / EOT path that JS skipped.
 
 ```bash
 node frozen/ps_test_runner.mjs sessions/seed0004-feeding-pony.session.json
 node scripts/rng-diff.mjs sessions/seed0004-feeding-pony.session.json
-# Focus: first miss @11708
+# Focus: first miss @11722
 ```
 
 **Alternates:** seed0002 `eatcorpse`; seed0006 / seed0007; quest early-0
 (seed0361/0373).
 
-**Prefer over:** parked D-0006, seed2200 RC; bare `dog_move` mtrack peels;
-re-opening @11568 fightm (fixed — D-0413).
+**Prefer over:** parked D-0006, seed2200 RC; re-opening @11708 dog
+`ALLOW_U` (fixed — D-0414).
 
 **Cohort after shared change:** green gate + seed1500 + seed1800 + seed0060 +
 seed0102 + seed0700 + seed1150 + seed0017 + seed0077 + seed0106 + seed0501 +
