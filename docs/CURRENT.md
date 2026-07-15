@@ -43,7 +43,7 @@ seed0013-rogue, seed0013-friday13-restore, seed0107, seed0009,
 |--------|----:|-------:|------|
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
 | seed0002 | 5198/27158 | **54**/595 | still @3808 eatcorpse |
-| seed0004 | **10569**/12084 | **242**/409 | @10563 C gethungry/hitum vs JS distfleeck |
+| seed0004 | **10685**/12084 | **242**/409 | @10657 C eatcorpse vs JS distfleeck |
 | seed0361/0373 | early | 0 | quest bones / `makemaz` |
 
 ## Green gate
@@ -61,14 +61,14 @@ Both must remain full RNG + screen PASS with exact scored-output lengths.
 
 ## Primary objective
 
-**seed0004 @10563** — C `gethungry` `rn2(20)` + `exercise` + `hitum`
-after travel `.`/`\r` then move `l`; JS `distfleeck` `rn2(5)` (no melee).
-Reconstruct travel-end / walk-into-monster path post-teleport.
+**seed0004 @10657** — C `eatcorpse` `rn2(10)` (palatable) after lichen
+kill; JS `distfleeck` `rn2(5)` (no corpse eat). Reconstruct corpse
+touch/`eatcorpse` path post-melee.
 
 ```bash
 node frozen/ps_test_runner.mjs sessions/seed0004-feeding-pony.session.json
 node scripts/rng-diff.mjs sessions/seed0004-feeding-pony.session.json
-# Focus: first miss @10563
+# Focus: first miss @10657
 ```
 
 **Alternates:** seed0002 `eatcorpse`; seed0006 / seed0007; quest early-0

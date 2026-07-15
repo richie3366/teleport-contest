@@ -8,17 +8,19 @@ Objective/score live in `CURRENT.md`.
 ## Active
 
 - **Score:** **25/44** PASS (#435 full). Scr **4196**/11405; RNG
-  **261626**/792838. seed0004 Scr **242**/409; RNG **10569**/12084.
-- **Next:** seed0004 @10563 — C `gethungry` `rn2(20)` + `exercise` +
-  `hitum` vs JS `distfleeck` `rn2(5)` after travel `.`/`\r` then `l`
-  (post-teleport). Prefix match through gethungry@10561 + moveloop
-  rn2(67)@10562. Cmds in `CURRENT.md`.
-- **Don’t re-check:** SCR_TELEPORTATION `scrolltele`/`safe_teleds` + getobj
-  `?` pickinv / learnscroll→makeknown (D-0407); pickup `@` invert-all /
-  conflict ring put-on (D-0406); unrotted floor corpse / pickup `c`/`d`
-  HVY EOTs (D-0405); known_hitum int `mhpmax/2` (D-0404); heal_legs /
-  nh_timeout (D-0403); Norep `_prevmsg` (D-0402); trapmove/Burdened
-  (D-0401); bare mtrack arity at @9795 (falsified).
+  **261626**/792838. seed0004 Scr **242**/409; RNG **10685**/12084
+  (prefix **10657**).
+- **Next:** seed0004 @10657 — C `eatcorpse` `rn2(10)` vs JS
+  `distfleeck` `rn2(5)` after lichen kill (post D-0408 travel/`>`).
+  Cmds in `CURRENT.md`.
+- **Don’t re-check:** getpos `>`/`<` stairs feature scan (D-0408);
+  SCR_TELEPORTATION `scrolltele`/`safe_teleds` + getobj `?` (D-0407);
+  pickup `@` invert-all / conflict ring (D-0406); unrotted floor
+  corpse / pickup `c`/`d` HVY EOTs (D-0405); known_hitum int
+  `mhpmax/2` (D-0404); heal_legs / nh_timeout (D-0403); Norep
+  `_prevmsg` (D-0402); trapmove/Burdened (D-0401); bare mtrack
+  arity at @9795 (falsified); treat @10563 as bare `distfleeck`
+  without checking travel getpos `>` destination (D-0408).
 - **Landmark:** vault door (71,13); dig + restfakecorr; SPELL_LEV_PW(1)=5.
 - **Parked:** D-0006; seed2200 @158 RC.
 
@@ -57,7 +59,8 @@ Objective/score live in `CURRENT.md`.
   as bare `dog_move` rn2(16) without checking pickup `@` invert /
   worn Conflict / `resist_conflict` (D-0406); treat @10382 as bare
   `exercise` without SCR_TELEPORTATION / getobj `?` / `safe_teleds`
-  (D-0407).
+  (D-0407); treat @10563 as bare `distfleeck` without getpos `>`
+  stairs jump → travel destination (D-0408).
 - Runner `Screen N/M` = total matches, not prefix length.
 - First cell-miss may be botl `$:` / `Burdened` even when NOTES names a topline.
 
@@ -66,7 +69,7 @@ Objective/score live in `CURRENT.md`.
 - STAIRS yellow via `known_branch_stairs`; map col=x−1 row=y+1 DEC.
 - Session: `more()` space/CR/ESC; jsmain `\r`→LF.
 - Vault door (71,13); dig + restfakecorr restores wall (D-0377/78).
-- Vault `invault` timer 30 → `makemon(PM_GUARD)` + getlin (D-0374).
+- getpos travel `_>` → stairs via feature scan (D-0408).
 - Apply bag take-out `a?jo$\r`; put-in `aji$\r$\r` (D-0375/76).
 - Shop home (11,11): mill → (11,12); return needs `onlineu` (D-0376).
 - Monk starter: `SPELL_LEV_PW(1)` bump when `num_spells()` (D-0380).
@@ -87,5 +90,6 @@ Objective/score live in `CURRENT.md`.
   `Math.trunc(mhpmax/2)` + `engulfing_u` (D-0404); `run_timers`
   ROT_CORPSE + floor pickup `sortloot` (D-0405); PICK_ANY `@`
   invert-all + `resist_conflict`/`hero_conflict` (D-0406);
-  SCR_TELEPORTATION `scrolltele`/`safe_teleds` + getobj `?` (D-0407).
-- D-0274…D-0407: see index.
+  SCR_TELEPORTATION `scrolltele`/`safe_teleds` + getobj `?` (D-0407);
+  getpos `>`/`<` stairs feature scan (D-0408).
+- D-0274…D-0408: see index.

@@ -20,6 +20,16 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-15 16:39 — #436 seed0004 @10563 getpos `>` travel (D-0408)
+- Objective: seed0004 @10563 PRIMARY — C `gethungry`/`hitum` vs JS
+  `distfleeck` after post-teleport travel.
+- C locus: `getpos.c` dungeon-feature scan for `>`/`<` stairs glyphs.
+- Change: `getpos.js` two-pass `find_dungeon_feature` for STAIRS/LADDER
+  so travel `_>` targets downstairs (was “already here” on hero tile).
+- Verification: seed0004 RNG 10569→10685; prefix 10563→10657; miss
+  @10657 `eatcorpse`; green+strict PASS; cohort 23/23.
+- Next: seed0004 @10657 eatcorpse rn2(10) vs distfleeck.
+
 ## 2026-07-15 16:30 — #435 public score cadence
 - Objective: mandatory full `sessions` score (iteration % 5 == 0).
 - C locus: n/a (score-only; no port patch).
@@ -170,12 +180,3 @@ Use this shape:
   green+strict PASS; cohort **22/22** PASS.
 - Next: vault.c gd_move_cleanup / Suddenly, the guard disappears.
 
-## 2026-07-15 14:32 — #421 doname containing + cknown (D-0395)
-- Objective: seed0012 @278 bag `containing 1 item`.
-- C locus: objnam.c doname_base containing; invent.c count_contents;
-  pickup.c use_container containerdone cknown when used.
-- Change: doname suffix; invent count_contents (shoppy deferred);
-  use_container sets cknown after successful put-in/loot.
-- Verification: seed0012 Scr **283→284**/308; @278 match; green+strict
-  PASS; cohort PASS. Next fail @294 `"Move along!"`.
-- Next: vault guard escort pline after gold drop.

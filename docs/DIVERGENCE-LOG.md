@@ -4,6 +4,24 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
+## D-0408 — seed0004 @10563 getpos `>` stairs / travel destination
+
+- **Status:** fixed
+- **Symptom:** seed0004 first RNG miss @10563 — C `gethungry`/`exercise`/
+  `hitum` (walk into lichen) vs JS `distfleeck` `rn2(5)`.
+- **Cause:** travel getpos treated `>` as unknown direction, so `.`
+  confirmed the hero tile (“already here”) and travel never targeted
+  downstairs. Hero path stayed short of the lichen; C jumped cursor to
+  `>` then traveled adjacent and melee’d.
+- **C locus:** `getpos.c` feature-char scan (`defsyms`/`showsyms` match,
+  two-pass from cursor); stairs/ladder `>`/`<`.
+- **Change:** `getpos.js` `find_dungeon_feature` for `>`/`<` via
+  STAIRS/LADDER + `LA_DOWN` / `disp_ch`.
+- **Verification:** seed0004 RNG **10569→10685**/12084; prefix
+  **10563→10657**; Scr still **242**/409; first miss @10657
+  `eatcorpse`; green+strict PASS; cohort **23/23**.
+- **Next:** seed0004 @10657 C `eatcorpse` `rn2(10)` vs JS `distfleeck`.
+
 ## D-0407 — seed0004 @10382 SCR_TELEPORTATION / safe_teleds
 
 - **Status:** fixed

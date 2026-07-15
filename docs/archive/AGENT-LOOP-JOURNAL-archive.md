@@ -160,3 +160,12 @@
 - Verification: prefix 3483→6924; RNG 3638→7052; green+strict; cohort 24/24.
 - Next: seed0012 @6924 C getlev rnd(10) vs JS fleeck.
 
+## 2026-07-15 14:32 — #421 doname containing + cknown (D-0395)
+- Objective: seed0012 @278 bag `containing 1 item`.
+- C locus: objnam.c doname_base containing; invent.c count_contents;
+  pickup.c use_container containerdone cknown when used.
+- Change: doname suffix; invent count_contents (shoppy deferred);
+  use_container sets cknown after successful put-in/loot.
+- Verification: seed0012 Scr **283→284**/308; @278 match; green+strict
+  PASS; cohort PASS. Next fail @294 `"Move along!"`.
+- Next: vault guard escort pline after gold drop.
