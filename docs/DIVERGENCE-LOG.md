@@ -4,6 +4,25 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
+## D-0404 — known_hitum flee gate integer mhpmax/2
+
+- **Symptom:** seed0004 @216 / RNG @9183 — C `distfleeck` `rn2(5)` vs JS
+  `rnd(100)` after matching `known_hitum` `rn2(25)=0` + apparent
+  `passive` `rn2(3)=0`.
+- **Cause:** JS used float `(mhpmax|0)/2`. With `mhp=1`, `mhpmax=3`,
+  C `1 < 3/2` → `1 < 1` false (skip monflee); JS `1 < 1.5` true →
+  `!rn2(3)?rnd(100):0`. Positional `rn2(3)` match was monflee vs
+  passive coinciding.
+- **C locus:** `uhitm.c` `known_hitum` (~625) `mhp < mhpmax/2 &&
+  !engulfing_u(mon)` then `monflee(..., !rn2(3)?rnd(100):0, ...)`.
+- **Change:** `js/uhitm.js` `Math.trunc((mhpmax|0)/2)` +
+  `!engulfing_u(mon)`. Named omissions: full `monflee` body (duration
+  RNG only).
+- **Verification:** seed0004 Scr **215→233**/409; RNG
+  **9213→9892**/12084 (first miss @9795 `dog_move`); green+strict
+  PASS; cohort **25/25**; full suite still **25/44**.
+- **Next:** seed0004 @9795 C `dog_move` `rn2(16)` vs JS `rn2(4)`.
+
 ## D-0403 — heal_legs + nh_timeout WOUNDED_LEGS expiry
 
 - **Symptom:** seed0004 @51 — C

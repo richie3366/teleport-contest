@@ -7,17 +7,14 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Score:** **25/44** PASS (#425 last full). seed0004 Scr **215**/409
-  after D-0403 (was 53).
-- **Next:** seed0004 @216 — RNG @9183 C `distfleeck` `rn2(5)` vs JS
-  `rnd(100)` after jackal kill. Reconstruct monmove/uhitm path.
+- **Score:** **25/44** PASS (#430 full). seed0004 Scr **233**/409 after
+  D-0404 (was 215).
+- **Next:** seed0004 @9795 — C `dog_move` `rn2(16)` vs JS `rn2(4)`.
   Cmds in `CURRENT.md`.
-- **Don’t re-check:** heal_legs / nh_timeout WOUNDED_LEGS (D-0403);
-  Norep `_prevmsg` (D-0402); trapmove BEARTRAP (D-0401); botl
-  `enc_stat` Burdened (D-0401); exerper Wounded_legs %5 (D-0401);
-  mintrap already-trapped `rn2(40)` (D-0401); dog_move newsym→postmov
-  (D-0401); encumber_msg + WT_WOUNDEDLEG_REDUCT (D-0400); look_here
-  observe before doname (D-0399).
+- **Don’t re-check:** known_hitum `mhp < mhpmax/2` must use integer `/`
+  (`Math.trunc`) + `!engulfing_u` (D-0404); heal_legs / nh_timeout
+  WOUNDED_LEGS (D-0403); Norep `_prevmsg` (D-0402); trapmove BEARTRAP
+  (D-0401); botl `enc_stat` Burdened (D-0401).
 - **Landmark:** vault door (71,13); dig + restfakecorr; SPELL_LEV_PW(1)=5.
 - **Parked:** D-0006; seed2200 @158 RC.
 
@@ -49,7 +46,8 @@ Objective/score live in `CURRENT.md`.
   `rn2(40)` when `mtrapped` (D-0401); `newsym` inside `dog_move`
   before postmov (D-0401); Norep via Norep-only cache (D-0402);
   skip `heal_legs` / WOUNDED_LEGS `nh_timeout` (D-0403); omit
-  `vtense` bare-singular conjugate (D-0403).
+  `vtense` bare-singular conjugate (D-0403); float `mhpmax/2` for
+  flee gate (D-0404).
 - Runner `Screen N/M` = total matches, not prefix length.
 - First cell-miss may be botl `$:` / `Burdened` even when NOTES names a topline.
 
@@ -75,5 +73,6 @@ Objective/score live in `CURRENT.md`.
   doname (D-0399); wounded legs → `encumber_msg` load pline (D-0400);
   `trapmove` + botl Burdened + exerper status + mintrap rn2(40)
   (D-0401); Norep ≡ `gp.prevmsg` (D-0402); `heal_legs` via
-  `nh_timeout` WOUNDED_LEGS + ATEMP DEX (D-0403).
-- D-0274…D-0403: see index.
+  `nh_timeout` WOUNDED_LEGS + ATEMP DEX (D-0403); known_hitum flee
+  `Math.trunc(mhpmax/2)` + `engulfing_u` (D-0404).
+- D-0274…D-0404: see index.

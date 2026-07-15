@@ -20,6 +20,16 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-15 15:35 — #430 score + known_hitum int half (D-0404)
+- Objective: mandatory full score (#430÷5) + seed0004 @216 PRIMARY.
+- C locus: uhitm.c known_hitum mhp < mhpmax/2 (integer) + engulfing_u.
+- Change: Math.trunc(mhpmax/2) + engulfing_u in known_hitum flee gate
+  (float 1<1.5 falsely entered monflee rnd(100)).
+- Verification: full sessions **25/44**; Scr **4187**/11405; RNG
+  **260949**/792838; seed0004 Scr **215→233**; RNG **9213→9892**
+  @9795; green+strict PASS; cohort 25/25.
+- Next: @9795 dog_move rn2(16) vs rn2(4).
+
 ## 2026-07-15 15:32 — #429 heal_legs nh_timeout (D-0403)
 - Objective: seed0004 @51 leg feels better / unencumbered (PRIMARY).
 - C locus: timeout.c nh_timeout WOUNDED_LEGS; do.c heal_legs; allmain.c

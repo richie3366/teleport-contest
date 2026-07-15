@@ -17,19 +17,18 @@ Update **this Score section** with: pass count, screen/RNG aggregates, speed
 label, PASS list, notable non-PASS. Do not invent suite totals from a single
 focused session.
 
-Score last measured: **2026-07-15** — full `sessions` suite (#425; post D-0399
-look_here observe). Screens **3983**/11405; seed0004 Scr 28→29; seed0002
-Scr 50→54. *(#427–#429 D-0401…D-0403 seed0004 Scr→215 / RNG→9213 — full
-suite not remeasured this iteration.)*
+Score last measured: **2026-07-15** — full `sessions` suite (#430; post
+D-0404 known_hitum integer `mhpmax/2`). Screens **4187**/11405; seed0004
+Scr 215→233; RNG 9213→9892.
 
 ## Score
 
 | Metric | Value |
 |--------|------:|
 | Sessions passing | **25 / 44** |
-| Screens matched | **3983 / 11,405** (34.92%) |
-| Positional RNG calls matched | **255,144 / 792,838** (32.18%) |
-| Speed label | `21+0.12/turn` (R² 0.80) |
+| Screens matched | **4187 / 11,405** (36.71%) |
+| Positional RNG calls matched | **260,949 / 792,838** (32.91%) |
+| Speed label | `21+0.12/turn` (R² 0.77) |
 | Role-init throws | **0 / 44** |
 
 **PASS (25):** seed8000, seed0900, seed1500, seed1800, seed0060, seed0102,
@@ -42,8 +41,8 @@ seed0013-rogue, seed0013-friday13-restore, seed0107, seed0009,
 | Session | RNG | Screen | Note |
 |--------|----:|-------:|------|
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
-| seed0002 | 5198/27158 | **54**/595 | Scr↑ via D-0399; still @3808 eatcorpse |
-| seed0004 | **9213**/12084 | **215**/409 | D-0403 heal_legs; next @216 / RNG @9183 |
+| seed0002 | 5198/27158 | **54**/595 | still @3808 eatcorpse |
+| seed0004 | **9892**/12084 | **233**/409 | D-0404; next @9795 dog_move |
 | seed0361/0373 | early | 0 | quest bones / `makemaz` |
 
 ## Green gate
@@ -61,10 +60,9 @@ Both must remain full RNG + screen PASS with exact scored-output lengths.
 
 ## Primary objective
 
-**seed0004 @216** — after `You kill the jackal!` (@215 match). First RNG
-mismatch @9183: C `rn2(5)` `distfleeck` vs JS `rnd(100)` (wrong combat /
-monmove path after kill). Reconstruct C call path from that mismatch;
-prefer shared monmove/uhitm blockers over late peels.
+**seed0004 @9795** — after D-0404 flee-gate peel (Scr 233). First RNG
+mismatch @9795: C `dog_move` `rn2(16)` vs JS `rn2(4)`. Reconstruct C
+`dog_move` / pet path; prefer shared dog blockers over late peels.
 
 ```bash
 node frozen/ps_test_runner.mjs sessions/seed0004-feeding-pony.session.json
