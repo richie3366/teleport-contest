@@ -17,33 +17,34 @@ Update **this Score section** with: pass count, screen/RNG aggregates, speed
 label, PASS list, notable non-PASS. Do not invent suite totals from a single
 focused session.
 
-Score last measured: **2026-07-16** — full `sessions` suite (#455;
-post D-0424 `lookat` trap). Screens **4350**/11405 (+14 vs #450);
-RNG **263166**/792838 (+11 vs #450). Still **25/44** PASS. seed0004
-focused: Scr **396**/409 (@312 next).
+Score last measured: **2026-07-16** — full `sessions` suite (#458;
+post D-0427 `throwit` land `newsym`). Screens **4363**/11405 (+13 vs
+#455); RNG **262921**/792838 (−245 vs #455; seed0002 prefix dip).
+**26/44** PASS (+seed0004).
 
 ## Score
 
 | Metric | Value |
 |--------|------:|
-| Sessions passing | **25 / 44** |
-| Screens matched | **4350 / 11,405** (38.14%) |
-| Positional RNG calls matched | **263,166 / 792,838** (33.19%) |
-| Speed label | `22+0.14/turn` (R² 0.74) |
+| Sessions passing | **26 / 44** |
+| Screens matched | **4363 / 11,405** (38.26%) |
+| Positional RNG calls matched | **262,921 / 792,838** (33.16%) |
+| Speed label | `23+0.13/turn` (R² 0.77) |
 | Role-init throws | **0 / 44** |
 
-**PASS (25):** seed8000, seed0900, seed1500, seed1800, seed0060, seed0102,
+**PASS (26):** seed8000, seed0900, seed1500, seed1800, seed0060, seed0102,
 seed0700, seed1150, seed0017, seed0077, seed0106, seed0501, seed0105,
 seed0016, seed0015, seed0200, seed0101, seed0103, seed0104, seed0030,
 seed0013-rogue, seed0013-friday13-restore, seed0107, seed0009,
-**seed0012**.
+seed0012, **seed0004**.
 
 **Notable non-PASS:**
 | Session | RNG | Screen | Note |
 |--------|----:|-------:|------|
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
-| seed0002 | 5210/27158 | **54**/595 | still @3808 eatcorpse |
-| seed0004 | **12084**/12084 | **403**/409 | D-0426 invent pages; next @354 map `%` |
+| seed0002 | 4965/27158 | **54**/595 | eatcorpse / early combat |
+| seed0006 | 2278/6736 | **13**/123 | water demon |
+| seed0007 | 2941/16373 | **20**/302 | snake swamp |
 | seed0361/0373 | early | 0 | quest bones / `makemaz` |
 
 ## Green gate
@@ -61,26 +62,24 @@ Both must remain full RNG + screen PASS with exact scored-output lengths.
 
 ## Primary objective
 
-**seed0004 @354 map object glyph `%`** — RNG full; Scr **403**/409
-after D-0426 (invent `(N of M)`). First cell miss @354: C map `%`
-(gem) at decoded cell (11,49); JS floor `·`. Topline/prompts match.
+**seed0002 eatcorpse / early peel** — after D-0427 seed0004 full PASS.
+Long-standing non-PASS; Scr **54**/595; RNG prefix ~4965/27158.
 
 ```bash
-node frozen/ps_test_runner.mjs sessions/seed0004-feeding-pony.session.json
-# Focus: screen @354 map glyph / newsym / obj on floor
+node frozen/ps_test_runner.mjs sessions/seed0002-healer-reflection-drummer.session.json
+# Focus: first screen/RNG miss; eatcorpse / combat channel
 ```
 
-**Alternates:** seed0002 `eatcorpse`; seed0006 / seed0007; quest early-0
-(seed0361/0373).
+**Alternates:** seed0006 / seed0007; quest early-0 (seed0361/0373).
 
-**Prefer over:** parked D-0006, seed2200 RC; re-opening invent paging
-(fixed — D-0426).
+**Prefer over:** parked D-0006, seed2200 RC; re-opening throw land
+`newsym` (fixed — D-0427) or invent paging (D-0426).
 
 **Cohort after shared change:** green gate + seed1500 + seed1800 + seed0060 +
 seed0102 + seed0700 + seed1150 + seed0017 + seed0077 + seed0106 + seed0501 +
 seed0105 + seed0016 + seed0015 + seed0200 + seed0101 + seed0103 + seed0104 +
 seed0030 + seed0013-rogue + seed0013-friday13-restore + seed0107 +
-**seed0009** + **seed0012** (must stay PASS) + strict lengths.
+**seed0009** + **seed0012** + **seed0004** (must stay PASS) + strict lengths.
 
 ## Parked (diagnose only — do not implement)
 

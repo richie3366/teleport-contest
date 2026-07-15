@@ -7,21 +7,23 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Score:** **25/44** PASS (#455 full). Scr **4350**/11405; RNG
-  **263166**/792838. seed0004 focused: RNG **12084**/12084; Scr
-  **403**/409 (cursors 409) after D-0426.
-- **Next:** seed0004 @354 — C map `%` (gem) at cell (11,49); JS
-  floor `·`. Topline/prompts match; shared map-object glyph.
+- **Score:** **26/44** PASS (#458 full). Scr **4363**/11405; RNG
+  **262921**/792838. seed0004 **PASS** after D-0427.
+- **Next:** seed0002 eatcorpse / early miss (Scr 54/595; RNG ~4965).
   ```bash
-  node frozen/ps_test_runner.mjs sessions/seed0004-feeding-pony.session.json
+  node frozen/ps_test_runner.mjs sessions/seed0002-healer-reflection-drummer.session.json
   ```
-- **Don’t re-check:** @330/@336 invent `(N of M)` paging (D-0426).
-  @312 wall `describe_looked` (D-0425). @310 dart trap `brief_at`
-  (D-0424). @297 stairs autodescribe (D-0423). @288 getobj `?`
-  n==1 `message_menu` (D-0422). @285 ring-finger `[rl]` (D-0421).
-  @277 RING `<descr> ring` (D-0420). @248 tseen trap `^` (D-0419).
-  @240 pickup poison (D-0418). @239 bag empty (D-0417). @182
-  cursemsg (D-0416). @11722 throw carrot (D-0415).
+- **Don’t re-check:** @354 throw land food `%` without `newsym`
+  (D-0427; was mislabeled “gem” — FOOD `%` carrot). @330/@336 invent
+  `(N of M)` (D-0426). @312 wall `describe_looked` (D-0425). @310 dart
+  trap `brief_at` (D-0424). @297 stairs autodescribe (D-0423). @288
+  getobj `?` n==1 `message_menu` (D-0422). @285 ring-finger `[rl]`
+  (D-0421). @277 RING `<descr> ring` (D-0420). @248 tseen trap `^`
+  (D-0419). @240 pickup poison (D-0418). @239 bag empty (D-0417).
+  @182 cursemsg (D-0416). @11722 throw carrot (D-0415).
+- **Note:** seed0002 RNG prefix dipped 5210→4965 after D-0427 (same
+  Scr 54); likely earlier observe/`newsym` on throws — peel eatcorpse,
+  don’t revert land `newsym`.
 - **Landmark:** vault door (71,13); dig + restfakecorr; SPELL_LEV_PW(1)=5.
 - **Parked:** D-0006; seed2200 @158 RC.
 
@@ -55,16 +57,17 @@ Objective/score live in `CURRENT.md`.
   skip `heal_legs` / WOUNDED_LEGS `nh_timeout` (D-0403); omit
   `vtense` bare-singular conjugate (D-0403); float `mhpmax/2` for
   flee gate (D-0404); treat @9795–@11722 / @182/@239/@240/@248/@277/
-  @285/@288/@297/@310/@312/@330/@336 as index D-0405…D-0426 without
-  those C paths; treat RING `obj.known` as type-ID (D-0420); treat
-  @248 floor vs `^` as missing feeltrap when `tseen` already set
+  @285/@288/@297/@310/@312/@330/@336/@354 as index D-0405…D-0427
+  without those C paths; treat RING `obj.known` as type-ID (D-0420);
+  treat @248 floor vs `^` as missing feeltrap when `tseen` already set
   (D-0419); bypass `yn_function` for ring-hand (D-0421); force
   corner invent for getobj `?` when `strlen(lets)==1` (D-0422);
   leave `autodescribe` unset / skip stairs in travel
   `auto_describe_text` (D-0423); skip tseen trap in `brief_at` /
   `lookat` before floor cmap (D-0424); treat wall look as dark-room
   without swallow/cmap DECgraphics envelope (D-0425); invent/`*`
-  pickinv without `lmax` paging / `(N of M)` (D-0426).
+  pickinv without `lmax` paging / `(N of M)` (D-0426); throw land
+  without `cansee`→`newsym` (D-0427).
 - Runner `Screen N/M` = total matches, not prefix length.
 - First cell-miss may be botl `$:` / `Burdened` even when NOTES names a topline.
 
@@ -77,7 +80,8 @@ Objective/score live in `CURRENT.md`.
   **autodescribe default On + stairs firstmatch** (D-0423);
   **tseen trap `trapname` in brief_at/lookat** (D-0424);
   **DECgraphics wall look: swallow mid + Unicode │ prefix** (D-0425);
-  **`i`/`*` invent npages>1 → `(N of M)` + Space page** (D-0426).
+  **`i`/`*` invent npages>1 → `(N of M)` + Space page** (D-0426);
+  **`throwit` land `cansee`→`newsym`** (D-0427).
 - eatcorpse palatable needs `hero_form_data` when `youmonst` unset
   (D-0409); **basic `youmonst.data` now at u_init** (D-0411); full
   `set_uasmon` FROMFORM props still deferred.
@@ -85,16 +89,9 @@ Objective/score live in `CURRENT.md`.
   (D-0410); ring/amulet accessorytime + `newuhs` deferred.
 - Apply bag take-out `a?jo$\r`; put-in `aji$\r$\r` (D-0375/76).
 - Throw food: `t*` then letter + direction → `tamedog`/`dog_eat`
-  (D-0415); apply food still “Sorry”.
+  (D-0415); land glyph needs `newsym` (D-0427); apply food still “Sorry”.
 - Monk starter: `SPELL_LEV_PW(1)` bump when `num_spells()` (D-0380).
 - findtravelpath: dest→hero BFS + boulder skip + GUESS (D-0412).
 - Conflict: `fightm` before dochugw + dog `ALLOW_U`→`mattacku`
   (D-0413/14); ustuck / `m_everyturn_effect` / full `m_unleash` deferred.
-- `dog_move` cursemsg: `display.canseemon` (D-0416); glyph/`distant_name`
-  deferred. Empty bag take-out: `Ysimple_name2` (D-0417). WEAPON
-  `poisoned ` xname/doname (D-0418); wet-towel/figurine/`permapoisoned`
-  deferred. **`map_trap` tseen in newsym** (D-0419); Hallucination
-  trap glyphs deferred. **RING xname `<dn> ring` / nn only** (D-0420).
-  **`choose_ring_hand` → `yn_function` `[rl]`** (D-0421).
-  **getobj `?` n==1 → `message_menu` PICK_ONE** (D-0422).
-  Older D-IDs: index / don’t-recheck.
+- Older D-IDs: index / don’t-recheck.

@@ -4,6 +4,23 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
+## D-0427 — throwit land `cansee`→`newsym` (seed0004 @354 food `%`)
+
+- **Status:** fixed
+- **Symptom:** seed0004 first cell miss @354 — C map `%` (carrot,
+  FOOD_CLASS color 9) at (11,49)/(50,10); JS floor `·`. RNG already
+  full; object present in `_objects_at` with `disp` still DEC floor.
+- **Cause:** JS `throwit` `place_object`+`stackobj` omitted C's
+  `if (cansee(bhitpos)) newsym(...)`. Land glyph never painted.
+- **C locus:** `dothrow.c` `throwit` after `stackobj`.
+- **Change:** `cansee(x,y)` → `newsym(x,y)` after land stack.
+  Deferred: `flooreffects`/`ship_object`/`container_impact_dmg`/
+  `obj_sheds_light` vision recalc / gold `throwit` twin path.
+- **Verification:** seed0004 **PASS** Scr **409**/409 (was 403);
+  RNG full; green+strict; cohort **23/23**; full suite **26**/44
+  (Scr 4363/11405).
+- **Next:** seed0002 `eatcorpse` (or seed0006/0007 / quest 0).
+
 ## D-0426 — seed0004 @330/@336 invent multi-page `(N of M)`
 
 - **Status:** fixed
