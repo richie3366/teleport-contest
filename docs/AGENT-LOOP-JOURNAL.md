@@ -20,6 +20,18 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-15 16:20 — #433 seed0004 @10370 Conflict / MENU_INVERT_ALL (D-0406)
+- Objective: seed0004 @10370 PRIMARY — C `resist_conflict` `rnd(20)` vs
+  JS `dog_move` `rn2(16)`.
+- C locus: `wintty.c` MENU_INVERT_ALL; `mondata.c` `resist_conflict`;
+  `dogmove.c` / `mon.c` `mon_allowflags`.
+- Change: PICK_ANY `@`/`.`/`-`; `resist_conflict` + worn-ring
+  `hero_conflict`; wire dog_move + mon_allowflags. Root was ignored `@`
+  so conflict ring never picked up.
+- Verification: seed0004 RNG 10399→10409; miss @10382; green+strict;
+  cohort 23/23.
+- Next: seed0004 @10382 exercise rn2(19) vs rn2(5) (teleport scroll).
+
 ## 2026-07-15 16:15 — #432 seed0004 @9795 run_timers ROT_CORPSE (D-0405)
 - Objective: seed0004 @9795 PRIMARY — dog_goal IS_ROOM / post-pickup keys.
 - C locus: timeout.c run_timers/start_timer; dig.c rot_corpse; pickup.c
@@ -168,13 +180,3 @@ Use this shape:
 - Verification: seed0012 Scr **268→275**/308; @237–258 match; first fail
   @259 bag prompt; green+strict PASS; cohort 24/24 PASS.
 - Next: seed0012 @259 empty-bag apply prompt order.
-
-## 2026-07-15 14:08 — #418 stop_occupation counted Ns (D-0392)
-- Objective: seed0012 @226 C `You stop searching.` vs JS blank.
-- C locus: allmain.c stop_occupation + occupation monster_nearby;
-  monmove.c dochugw; cmd.c set_occupation(dosearch,"searching").
-- Change: ported stop_occupation; timed set_occupation for counted `s`;
-  dochugw + occupation-path interrupt (was deferred / `_repeat_search`).
-- Verification: seed0012 Scr **259→268**/308; @226–234 match; first fail
-  @237 materialize `--More--`; green+strict PASS; cohort 22/22 PASS.
-- Next: seed0012 @237 teleport/materialize pline.

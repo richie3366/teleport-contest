@@ -392,6 +392,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 | D-0403 | fixed | heal_legs + nh_timeout WOUNDED_LEGS | seed0004 @51; Scr 53→215; RNG 5331→9213; @216 next |
 | D-0404 | fixed | known_hitum flee `Math.trunc(mhpmax/2)` + engulfing_u | seed0004 Scr 215→233; RNG 9213→9892; @9795 dog_move next |
 | D-0405 | fixed | run_timers ROT_CORPSE + pickup sortloot | seed0004 Scr 233→241; RNG 9892→10399; @10370 resist_conflict next |
+| D-0406 | fixed | pickup MENU_INVERT_ALL + resist_conflict/hero_conflict | seed0004 RNG 10399→10409; @10382 exercise/teleds next |
 
 D-0001 through D-0005 predate the strict-length/cohort runbook. Their focused
 causes are preserved, but generic "green sessions held" is historical evidence,

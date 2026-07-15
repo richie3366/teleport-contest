@@ -23,6 +23,7 @@ import {
     Has_contents,
     SORTLOOT_PACK, SORTLOOT_LOOT,
     ALL_TYPES_SELECTED, BUC_BLESSED, BUC_CURSED, BUC_UNCURSED, BUC_UNKNOWN,
+    MENU_INVERT_ALL, MENU_SELECT_ALL, MENU_UNSELECT_ALL,
 } from './const.js';
 import { t_at, dotrap, NO_TRAP_FLAGS, drown, lava_effects } from './trap.js';
 import { nhgetch } from './input.js';
@@ -258,12 +259,13 @@ export async function pickup_object(obj, count, telekinesis) {
 /**
  * C ref: pickup.c query_objlist + select_menu(PICK_ANY) — floor pickup menu.
  * Letter toggles selection; Return/Enter confirms; ESC cancels.
+ * `@` MENU_INVERT_ALL / `.` SELECT_ALL / `-` UNSELECT_ALL (tty wintty).
  * INVORDER_SORT (sortpack): pack-order class headings via let_to_name;
  * menu letters assigned in that display order (no USE_INVLET on floor).
- * Sort: sortloot(SORTLOOT_LOOT|PACK) + nexthere (D-0405/D-0406).
+ * Sort: sortloot(SORTLOOT_LOOT|PACK) + nexthere (D-0405).
  * Named omissions: FEEL_COCKATRICE; count-N; allow-filter;
  * menu_head_objsym; INCLUDE_VENOM; traditional query_classes; engulfer;
- * loot_classify subclass/disco/BUCX.
+ * loot_classify subclass/disco/BUCX; SKIPINVERT; page invert/search.
  */
 async function query_objlist_pickup(objList) {
     const flags = game.flags || {};
@@ -339,6 +341,19 @@ async function query_objlist_pickup(objList) {
             return items.filter((it) => it.selected).map((it) => it.obj);
         }
         const ch = String.fromCharCode(key);
+        // C: wintty.c MENU_INVERT_ALL / SELECT_ALL / UNSELECT_ALL
+        if (ch === MENU_INVERT_ALL) {
+            for (const it of items) it.selected = !it.selected;
+            continue;
+        }
+        if (ch === MENU_SELECT_ALL) {
+            for (const it of items) it.selected = true;
+            continue;
+        }
+        if (ch === MENU_UNSELECT_ALL) {
+            for (const it of items) it.selected = false;
+            continue;
+        }
         const hit = items.find((it) => it.letch === ch);
         if (hit) hit.selected = !hit.selected;
         // invalid → re-prompt
@@ -752,6 +767,18 @@ async function menu_loot_takeout(container) {
             break;
         }
         const ch = String.fromCharCode(key);
+        if (ch === MENU_INVERT_ALL) {
+            for (const it of items) it.selected = !it.selected;
+            continue;
+        }
+        if (ch === MENU_SELECT_ALL) {
+            for (const it of items) it.selected = true;
+            continue;
+        }
+        if (ch === MENU_UNSELECT_ALL) {
+            for (const it of items) it.selected = false;
+            continue;
+        }
         const hit = items.find((it) => it.letch === ch);
         if (hit) hit.selected = !hit.selected;
     }
@@ -983,6 +1010,18 @@ async function menu_loot_putin(container) {
             break;
         }
         const ch = String.fromCharCode(key);
+        if (ch === MENU_INVERT_ALL) {
+            for (const it of items) it.selected = !it.selected;
+            continue;
+        }
+        if (ch === MENU_SELECT_ALL) {
+            for (const it of items) it.selected = true;
+            continue;
+        }
+        if (ch === MENU_UNSELECT_ALL) {
+            for (const it of items) it.selected = false;
+            continue;
+        }
         const hit = items.find((it) => it.letch === ch);
         if (hit) hit.selected = !hit.selected;
     }

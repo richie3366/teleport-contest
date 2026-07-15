@@ -4,6 +4,28 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
+## D-0406 — seed0004 @10370 Conflict / pickup MENU_INVERT_ALL
+
+- **Status:** fixed
+- **Symptom:** seed0004 first RNG miss @10370 — C `resist_conflict`
+  `rnd(20)` vs JS `dog_move` `rn2(16)`.
+- **Rejected:** bare missing `resist_conflict` alone (Conflict was never
+  true in JS — no ring worn).
+- **Cause:** floor pickup menu ignored `@` (`MENU_INVERT_ALL`). Session
+  `@aa\r` never selected the engagement ring (RIN_CONFLICT after shuffle);
+  put-on `Pq`/`r` never armed Conflict. C then rolled `resist_conflict`
+  twice (`dog_move` + `mon_allowflags`).
+- **C locus:** `win/tty/wintty.c` `MENU_INVERT_ALL` / `invert_all`;
+  `mondata.c` `resist_conflict`; `dogmove.c` after `dog_goal`;
+  `mon.c` `mon_allowflags` Conflict→`ALLOW_U`.
+- **Change:** PICK_ANY menus honor `@`/`.`/`-`; port `resist_conflict` +
+  `hero_conflict` (worn `RIN_CONFLICT` stand-in for deferred `oc_oprop`);
+  call from `dog_move` + `mon_allowflags`.
+- **Verification:** seed0004 RNG **10399→10409**/12084; first miss
+  @10382 `exercise`/`safe_teleds`; green+strict PASS; cohort **23/23**.
+- **Next:** seed0004 @10382 C `exercise` `rn2(19)` vs JS `rn2(5)`
+  (read teleport scroll path).
+
 ## D-0405 — seed0004 @9795 dog_goal IS_ROOM / unrotted floor corpse
 
 - **Status:** fixed

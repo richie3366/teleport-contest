@@ -19,7 +19,7 @@ focused session.
 
 Score last measured: **2026-07-15** — full `sessions` suite (#430; post
 D-0404 known_hitum integer `mhpmax/2`). Screens **4187**/11405; seed0004
-Scr 215→233; RNG 9213→9892.
+Scr 215→233; RNG 9213→9892. (#433 focused only — no full remeasure.)
 
 ## Score
 
@@ -42,7 +42,7 @@ seed0013-rogue, seed0013-friday13-restore, seed0107, seed0009,
 |--------|----:|-------:|------|
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
 | seed0002 | 5198/27158 | **54**/595 | still @3808 eatcorpse |
-| seed0004 | **10399**/12084 | **241**/409 | D-0405; next @10370 resist_conflict |
+| seed0004 | **10409**/12084 | **241**/409 | D-0406; next @10382 exercise/teleds |
 | seed0361/0373 | early | 0 | quest bones / `makemaz` |
 
 ## Green gate
@@ -60,14 +60,14 @@ Both must remain full RNG + screen PASS with exact scored-output lengths.
 
 ## Primary objective
 
-**seed0004 @10370** — C `resist_conflict` `rnd(20)` vs JS `dog_move`
-`rn2(16)` after D-0405 (timers + pickup sortloot). Reconstruct mon
-Conflict / dog_move path around that index.
+**seed0004 @10382** — C `exercise` `rn2(19)` vs JS `rn2(5)` on the turn
+after wearing conflict (read teleport scroll → `safe_teleds`). Reconstruct
+scroll-read / exercise / teleds path.
 
 ```bash
 node frozen/ps_test_runner.mjs sessions/seed0004-feeding-pony.session.json
 node scripts/rng-diff.mjs sessions/seed0004-feeding-pony.session.json
-# Focus: first miss @10370
+# Focus: first miss @10382
 ```
 
 **Alternates:** seed0002 `eatcorpse`; seed0006 / seed0007; quest early-0

@@ -7,14 +7,15 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Score:** **25/44** PASS (#430 full; #432 no full remeasure). seed0004
-  Scr **241**/409; RNG **10399**/12084 after D-0405.
-- **Next:** seed0004 @10370 — C `resist_conflict` `rnd(20)` vs JS
-  `dog_move` `rn2(16)`. Cmds in `CURRENT.md`.
-- **Don’t re-check:** unrotted floor corpse / pickup `c`/`d` HVY EOTs
-  (D-0405); known_hitum int `mhpmax/2` (D-0404); heal_legs / nh_timeout
-  (D-0403); Norep `_prevmsg` (D-0402); trapmove/Burdened (D-0401);
-  bare mtrack arity at @9795 (falsified).
+- **Score:** **25/44** PASS (#430 full; #433 no full remeasure). seed0004
+  Scr **241**/409; RNG **10409**/12084 after D-0406.
+- **Next:** seed0004 @10382 — C `exercise` `rn2(19)` vs JS `rn2(5)`
+  (post-conflict; read teleport → `safe_teleds`). Cmds in `CURRENT.md`.
+- **Don’t re-check:** pickup `@` invert-all / conflict ring put-on path
+  (D-0406); unrotted floor corpse / pickup `c`/`d` HVY EOTs (D-0405);
+  known_hitum int `mhpmax/2` (D-0404); heal_legs / nh_timeout (D-0403);
+  Norep `_prevmsg` (D-0402); trapmove/Burdened (D-0401); bare mtrack
+  arity at @9795 (falsified).
 - **Landmark:** vault door (71,13); dig + restfakecorr; SPELL_LEV_PW(1)=5.
 - **Parked:** D-0006; seed2200 @158 RC.
 
@@ -49,7 +50,9 @@ Objective/score live in `CURRENT.md`.
   `vtense` bare-singular conjugate (D-0403); float `mhpmax/2` for
   flee gate (D-0404); treat @9795 as mtrack arity or bare key-ownership
   without checking unrotted CORPSE / HVY EOTs (D-0405); leave
-  `start_timer` stub that never `run_timers` (D-0405).
+  `start_timer` stub that never `run_timers` (D-0405); treat @10370
+  as bare `dog_move` rn2(16) without checking pickup `@` invert /
+  worn Conflict / `resist_conflict` (D-0406).
 - Runner `Screen N/M` = total matches, not prefix length.
 - First cell-miss may be botl `$:` / `Burdened` even when NOTES names a topline.
 
@@ -77,5 +80,6 @@ Objective/score live in `CURRENT.md`.
   (D-0401); Norep ≡ `gp.prevmsg` (D-0402); `heal_legs` via
   `nh_timeout` WOUNDED_LEGS + ATEMP DEX (D-0403); known_hitum flee
   `Math.trunc(mhpmax/2)` + `engulfing_u` (D-0404); `run_timers`
-  ROT_CORPSE + floor pickup `sortloot` (D-0405).
-- D-0274…D-0405: see index.
+  ROT_CORPSE + floor pickup `sortloot` (D-0405); PICK_ANY `@`
+  invert-all + `resist_conflict`/`hero_conflict` (D-0406).
+- D-0274…D-0406: see index.
