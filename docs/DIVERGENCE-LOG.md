@@ -4,6 +4,28 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
+## D-0421 — seed0004 @285 choose_ring_hand via yn_function [rl]
+
+- **Status:** fixed
+- **Symptom:** seed0004 first cell miss @285 — C
+  `Which ring-finger, Right or Left? [rl]`; JS omitted `[rl]`.
+  RNG full after D-0420.
+- **Cause:** `choose_ring_hand` painted a bare prompt + `nhgetch`
+  instead of C `yn_function(qbuf, rightleftchars, '\0')`, which
+  tty appends ` [rl] `. Also JS `yn_function` treated `'\0'` def as
+  truthy for the optional `(c)` suffix (C char `'\0'` is falsy).
+- **C locus:** `do_wear.c` `accessory_or_armor_on` ring branch;
+  `decl.c` `rightleftchars`; `win/tty/topl.c` `tty_yn_function`.
+- **Change:** `do_wear.js` `choose_ring_hand` → `yn_function(q,'rl','\0')`;
+  `getline.js` `yn_function` — `'\0'` def skips `(c)`, ESC/quitchars
+  return def. Deferred: poly/`body_part(FINGER)`/`nolimbs`;
+  `query_menu` right/left menu.
+- **Verification:** seed0004 Scr **389→390**/409; @285 fixed; first
+  miss **@288** C invent `o - a scroll labeled…--More--` vs JS
+  corner invent `Scrolls` heading; RNG full; green+strict; cohort
+  **25/25**.
+- **Next:** seed0004 @288 invent long-line `--More--` / display path.
+
 ## D-0420 — seed0004 @277 RING xname descr path (not obj.known)
 
 - **Status:** fixed

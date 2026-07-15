@@ -7,20 +7,22 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Score:** **25/44** PASS (#450 full; #451 focused only). Scr
+- **Score:** **25/44** PASS (#450 full; #452 focused). Scr
   **4336**/11405; RNG **263155**/792838. seed0004 focused: RNG
-  **12084**/12084; Scr **389**/409 (cursors 402).
-- **Next:** seed0004 @285 — C `Which ring-finger, Right or Left? [rl]`
-  vs JS without `[rl]` (`choose_ring_hand` vs C `yn_function` +
-  `rightleftchars`).
+  **12084**/12084; Scr **390**/409 (cursors 403).
+- **Next:** seed0004 @288 — C invent
+  `o - a scroll labeled STRC PRST SKRZ KRK.--More--` vs JS corner
+  invent `Scrolls` + line without More (`display_inventory` /
+  putstr wrap / more).
   ```bash
   node frozen/ps_test_runner.mjs sessions/seed0004-feeding-pony.session.json
   ```
-- **Don’t re-check:** @277 RING `<descr> ring` / nn≠obj.known (D-0420).
-  @248 tseen trap `^` (D-0419). @240 pickup poison (D-0418). @239 bag
-  empty (D-0417). @182 cursemsg (D-0416). @11722 throw carrot (D-0415).
-  @11708 dog `ALLOW_U` (D-0414). @11568 fightm (D-0413). @10966 travel
-  boulder (D-0412).
+- **Don’t re-check:** @285 ring-finger `[rl]` via `yn_function`
+  (D-0421). @277 RING `<descr> ring` (D-0420). @248 tseen trap `^`
+  (D-0419). @240 pickup poison (D-0418). @239 bag empty (D-0417).
+  @182 cursemsg (D-0416). @11722 throw carrot (D-0415). @11708 dog
+  `ALLOW_U` (D-0414). @11568 fightm (D-0413). @10966 travel boulder
+  (D-0412).
 - **Landmark:** vault door (71,13); dig + restfakecorr; SPELL_LEV_PW(1)=5.
 - **Parked:** D-0006; seed2200 @158 RC.
 
@@ -53,11 +55,11 @@ Objective/score live in `CURRENT.md`.
   before postmov (D-0401); Norep via Norep-only cache (D-0402);
   skip `heal_legs` / WOUNDED_LEGS `nh_timeout` (D-0403); omit
   `vtense` bare-singular conjugate (D-0403); float `mhpmax/2` for
-  flee gate (D-0404); treat @9795–@11722 / @182/@239/@240/@248/@277
-  as index D-0405…D-0420 without those C paths; treat RING
-  `obj.known` as type-ID (D-0420 — spe only; use `oc_name_known`);
-  treat @248 floor vs `^` as missing feeltrap when `tseen` already
-  set (D-0419 — was `_map_location` skip).
+  flee gate (D-0404); treat @9795–@11722 / @182/@239/@240/@248/@277/
+  @285 as index D-0405…D-0421 without those C paths; treat RING
+  `obj.known` as type-ID (D-0420); treat @248 floor vs `^` as missing
+  feeltrap when `tseen` already set (D-0419); bypass `yn_function`
+  for ring-hand (D-0421 — use `rightleftchars` + `'\0'` def).
 - Runner `Screen N/M` = total matches, not prefix length.
 - First cell-miss may be botl `$:` / `Burdened` even when NOTES names a topline.
 
@@ -85,4 +87,5 @@ Objective/score live in `CURRENT.md`.
   `poisoned ` xname/doname (D-0418); wet-towel/figurine/`permapoisoned`
   deferred. **`map_trap` tseen in newsym** (D-0419); Hallucination
   trap glyphs deferred. **RING xname `<dn> ring` / nn only** (D-0420).
+  **`choose_ring_hand` → `yn_function` `[rl]`** (D-0421).
   Older D-IDs: index / don’t-recheck.

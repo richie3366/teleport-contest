@@ -20,7 +20,7 @@ focused session.
 Score last measured: **2026-07-15** — full `sessions` suite (#450;
 post D-0419 `map_trap`). Screens **4336**/11405 (+142 vs #445;
 +128 vs pre-fix #450); RNG **263155**/792838 (+295 vs #445).
-Still **25/44** PASS. seed0004 focused (#451): Scr **389**/409 (@285 next).
+Still **25/44** PASS. seed0004 focused (#452): Scr **390**/409 (@288 next).
 
 ## Score
 
@@ -43,7 +43,7 @@ seed0013-rogue, seed0013-friday13-restore, seed0107, seed0009,
 |--------|----:|-------:|------|
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
 | seed0002 | 5210/27158 | **54**/595 | still @3808 eatcorpse |
-| seed0004 | **12084**/12084 | **389**/409 | D-0420 @277; next @285 `[rl]` |
+| seed0004 | **12084**/12084 | **390**/409 | D-0421 @285; next @288 invent More |
 | seed0361/0373 | early | 0 | quest bones / `makemaz` |
 
 ## Green gate
@@ -61,20 +61,21 @@ Both must remain full RNG + screen PASS with exact scored-output lengths.
 
 ## Primary objective
 
-**seed0004 @285 ring-finger yn** — RNG full; Scr **389**/409 after
-D-0420 (RING `<descr> ring`). First cell miss: C
-`Which ring-finger, Right or Left? [rl]`; JS omits `[rl]`.
+**seed0004 @288 invent long-line `--More--`** — RNG full; Scr **390**/409
+after D-0421 (`[rl]`). First cell miss: C
+`o - a scroll labeled STRC PRST SKRZ KRK.--More--`; JS corner invent
+`Scrolls` heading + truncated line without More.
 
 ```bash
 node frozen/ps_test_runner.mjs sessions/seed0004-feeding-pony.session.json
-# Focus: screen @285 choose_ring_hand / yn_function rightleftchars
+# Focus: screen @288 display_inventory / putstr / more wrap
 ```
 
 **Alternates:** seed0002 `eatcorpse`; seed0006 / seed0007; quest early-0
 (seed0361/0373).
 
-**Prefer over:** parked D-0006, seed2200 RC; re-opening @277 ring
-doname (fixed — D-0420).
+**Prefer over:** parked D-0006, seed2200 RC; re-opening @285 ring-finger
+yn (fixed — D-0421).
 
 **Cohort after shared change:** green gate + seed1500 + seed1800 + seed0060 +
 seed0102 + seed0700 + seed1150 + seed0017 + seed0077 + seed0106 + seed0501 +
