@@ -7,7 +7,7 @@ import {
     objects_at, obj_extract_self, splitobj,
 } from './mkobj.js';
 import { look_here, observe_object, dfeature_at } from './invent.js';
-import { nomul, check_special_room } from './hack.js';
+import { nomul, check_special_room, is_pool, is_lava } from './hack.js';
 import { flush_screen, pline, newsym } from './display.js';
 import { addinv } from './u_init.js';
 import { xprname, an } from './objnam.js';
@@ -15,10 +15,10 @@ import { can_reach_floor } from './engrave.js';
 import {
     ECMD_OK, ECMD_TIME, OBJ_FLOOR, is_pit,
     STONE, ICE, DRAWBRIDGE_UP,
-    IS_POOL, IS_LAVA, IS_FURNITURE,
+    IS_POOL, IS_LAVA, IS_FURNITURE, IS_WATERWALL,
     LOOKHERE_PICKED_SOME, LOOKHERE_SKIP_DFEATURE,
 } from './const.js';
-import { t_at, dotrap, NO_TRAP_FLAGS } from './trap.js';
+import { t_at, dotrap, NO_TRAP_FLAGS, drown, lava_effects } from './trap.js';
 
 /** C ref: hacklib.c upstart — capitalize first letter. */
 function upstart(str) {
@@ -286,15 +286,44 @@ export async function dopickup() {
 }
 
 /**
+ * C ref: hack.c pooleffects(newspot).
+ * Branch envelope: enter pool/lava → drown/lava_effects; leave-water /
+ * steed / ceiling_hider / Wwalking arms deferred.
+ * @returns {Promise<boolean>} true → skip rest of spoteffects
+ */
+export async function pooleffects(newspot) {
+    const u = game.u;
+    if (!u) return false;
+
+    // leaving-water arm deferred
+
+    if (!u.ustuck && !u.Levitation && !u.Flying
+        && (is_pool(u.ux, u.uy) || is_lava(u.ux, u.uy))) {
+        // steed / ceiling_hider deferred
+        if (is_lava(u.ux, u.uy)) {
+            if (await lava_effects()) return true;
+        } else {
+            // C: (!Wwalking || waterwall) && (newspot || !uinwater || !(Swim|…))
+            const typ = game.level?.at(u.ux, u.uy)?.typ;
+            const waterwall = IS_WATERWALL(typ);
+            if (waterwall || newspot || !u.uinwater) {
+                if (await drown()) return true;
+            }
+        }
+    }
+    return false;
+}
+
+/**
  * C ref: hack.c spoteffects(pick).
- * Ported envelope: check_special_room; when !in_steed_dismounting — non-pit
- * pickup then dotrap then pit pickup. dotrap covers hero dart (D-0239); other
- * hero trap types still stub/no-op in trapeffect_selector. Deferred: recursion
- * guards, pool, sink fall, levitation timeout, Warning ice, hidden monster
- * surprise.
+ * Ported envelope: pooleffects; check_special_room; when
+ * !in_steed_dismounting — non-pit pickup then dotrap then pit pickup.
+ * Deferred: recursion guards, sink fall, levitation timeout, Warning ice,
+ * hidden monster surprise.
  */
 export async function spoteffects(pick) {
-    // C: check_special_room(FALSE) before pickup/dotrap (after pooleffects)
+    if (await pooleffects(true)) return;
+
     await check_special_room(false);
 
     // C: entire pickup/dotrap block gated on !gi.in_steed_dismounting

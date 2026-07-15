@@ -24,6 +24,31 @@ The compact status table lives in **`DIVERGENCE-INDEX.md`**.
 Open that file first; then jump to a single `## D-NNNN` entry below
 (via search). Do **not** read this whole file by default.
 
+## D-0357 — swim_move_danger + drown/lava entry
+
+- **Status:** fixed
+- **Observed:** seed0009 Scr **49**/73 RNG **3649**/3713 — first cell-miss
+  @45 C “You avoid stepping into the pool of water.--More--” (+ tip /
+  m-prefix fall / crawl / wall-water / lava burn) vs JS blank (walked
+  into pool without ParanoidSwim gate).
+- **C locus:** `hack.c` `swim_move_danger` / `handle_tip(TIP_SWIM)` /
+  `u_simple_floortyp`; `cmd.c` `do_reqmenu` + `set_move_cmd` nopick;
+  `hack.c` `pooleffects` → `trap.c` `drown` / `lava_effects` →
+  `done(BURNING)`.
+- **Cause/evidence:** JS `domove` omitted post-`test_move` liquid
+  paranoia; no `m`-prefix nopick; `spoteffects` skipped `pooleffects`.
+- **Change:** `js/hack.js` swim helpers + `crawl_destination`;
+  `js/cmd.js` gate + `m` prefix; `js/jsmain.js` tips default On;
+  `js/pickup.js` `pooleffects`; `js/trap.js` `drown` /
+  `rnd_nextto_goodpos` / `lava_effects`→`done(BURNING)`.
+- **Verification:** seed0009 Scr **49→63**/73 RNG **3649→3708**/3713;
+  @45–@62 match; first miss @63 attributes yn vs tombstone;
+  green+strict; 23-session PASS cohort + seed0107 strict.
+- **Next:** death disclose order (attributes yn before RIP) for
+  BURNING / `end_disclose`.
+- **General lesson:** ParanoidSwim is a move gate, not a lookaround
+  message; tip + m-prefix are part of the same C path.
+
 ## D-0356 — describe_decor mention_decor (broken door)
 
 - **Status:** fixed

@@ -19,6 +19,16 @@ Use this shape:
 - Verification: …
 - Next: …
 ```
+## 2026-07-15 05:05 — D-0357 swim_move_danger + drown/lava
+- Objective: seed0009 @45 pool-avoid `--More--` (CURRENT).
+- C locus: `hack.c` `swim_move_danger`/`pooleffects`; `cmd.c` `do_reqmenu`;
+  `trap.c` `drown`/`lava_effects`.
+- Change: ParanoidSwim avoid+tip; `m`→nopick; pooleffects→drown crawl +
+  lava `d(6,6)`+`done(BURNING)` (D-0357).
+- Verification: Scr **49→63**/73 RNG **3708**; @45–@62 match; next @63
+  attrs yn vs RIP; green+strict; cohort 23 PASS.
+- Next: BURNING disclose order (attributes before tombstone).
+
 ## 2026-07-15 04:45 — D-0356 describe_decor broken door
 - Objective: seed0009 @41 “There is a broken door here.” vs blank.
 - C locus: `pickup.c` `describe_decor` + `pickup` `!OBJ_AT` mention_decor.

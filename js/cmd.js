@@ -42,7 +42,7 @@ import { x_monnam_tame } from './do_name.js';
 import { an } from './objnam.js';
 import { spoteffects, dopickup } from './pickup.js';
 import { getpos } from './getpos.js';
-import { nomul, moverock, boulder_at } from './hack.js';
+import { nomul, moverock, boulder_at, swim_move_danger } from './hack.js';
 
 /** C ref: cmd.c cmdq_clear(CQ_CANNED) */
 function cmdq_clear() {
@@ -525,15 +525,24 @@ export async function rhack(key) {
     // Clear prior message when a new command begins (after screen capture).
     game._pending_message = '';
 
+    // C ref: cmd.c rhack — clear nopick each command; menu_requested kept
+    // across PREFIXCMD (m) until the following movement consumes it.
+    if (game.context) game.context.nopick = 0;
+
     const ch = String.fromCharCode(key);
     // C ref: reset_commands bind C(dir) → do_rush_*; e.g. C('j')=='\n' south
     const rushDir = rushDirFromCtrl(key);
 
     // C: non-prefix command after F drops the fight prefix (feedback deferred)
-    if (ch !== 'F' && !isMovementKey(ch) && !isRunKey(ch) && !rushDir
-        && game.context?.forcefight) {
+    if (ch !== 'F' && ch !== 'm' && !isMovementKey(ch) && !isRunKey(ch)
+        && !rushDir && game.context?.forcefight) {
         game.context.forcefight = 0;
         game.domove_attempting = 0;
+    }
+    // JS adaptation of C PREFIXCMD loop: drop pending m across rhack calls
+    if (ch !== 'm' && !isMovementKey(ch) && !isRunKey(ch) && !rushDir
+        && game.iflags?.menu_requested) {
+        game.iflags.menu_requested = false;
     }
 
     if (isMovementKey(ch)) {
@@ -571,6 +580,17 @@ export async function rhack(key) {
         } else {
             game.context.forcefight = 1;
             game.domove_attempting = (game.domove_attempting || 0) | DOMOVE_WALK;
+            game.context.move = 0;
+        }
+    } else if (ch === 'm') {
+        // C ref: cmd.c do_reqmenu — PREFIXCMD; sets iflags.menu_requested
+        if (!game.iflags) game.iflags = {};
+        if (game.iflags.menu_requested) {
+            game.iflags.menu_requested = false;
+            game.context.move = 0;
+            await pline("Double m prefix, canceled.");
+        } else {
+            game.iflags.menu_requested = true;
             game.context.move = 0;
         }
     } else if (ch >= '0' && ch <= '9') {
@@ -800,6 +820,13 @@ async function domove(dx, dy) {
     const newy = u.uy + dy;
     const forcefight = !!game.context?.forcefight;
 
+    // C ref: hack.c set_move_cmd — #reqmenu / m-prefix → nopick for this move
+    if (game.iflags?.menu_requested) {
+        if (!game.context) game.context = {};
+        game.context.nopick = 1;
+        game.iflags.menu_requested = false;
+    }
+
     // C sets u.dx/u.dy before the blocked-move check (used by lookaround/run)
     u.dx = dx;
     u.dy = dy;
@@ -887,6 +914,14 @@ async function domove(dx, dy) {
             return;
         }
         // moverock pushed boulder(s); fall through to occupy vacated cell
+    }
+
+    // C ref: hack.c swim_move_danger — after test_move, before occupying cell
+    if (await swim_move_danger(newx, newy)) {
+        if (game.context?.run) end_running();
+        game.context.move = 0;
+        nomul(0);
+        return;
     }
 
     const oldx = u.ux, oldy = u.uy;
