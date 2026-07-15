@@ -24,28 +24,32 @@ The compact status table lives in **`DIVERGENCE-INDEX.md`**.
 Open that file first; then jump to a single `## D-NNNN` entry below
 (via search). Do **not** read this whole file by default.
 
-## D-0364 — pet `dog_goal` `fobj` scan vs C fleeck (seed0012 @3248)
+## D-0364 — `dog_nutrition` table `oc_delay` (seed0012 @3248)
 
-- **Status:** open
+- **Status:** fixed
 - **Observed:** seed0012 @3248 — C `distfleeck` `rn2(5)` vs JS `rn2(100)`
   (`obj_resists`). Prefix matched through pet fleeck @3247.
-- **C locus:** `dogmove.c` `dog_goal` / `dog_move`; `zap.c` `obj_resists`;
-  callers via `dochug`→`m_move`→`dog_move`.
-- **DIAG (#385):** movemon start pet/fox/newt mov 12/12/0; little dog at
-  `(5,6)` scans floor CHEST`(3,9)`, STATUE`(4,5)`, CORPSE`(3,5)`, cursed
-  ICE_BOX`(3,5)` (`fobj_len=15`). C’s next three calls are fleeck /
-  `m_move` track `rn2(8)` — no `obj_resists`. Temporarily returning
-  `MMOVE_NOTHING` from `dog_move` (no RNG) moved first mismatch
-  **3248→3483**; do **not** ship that skip.
-- **Hypothesis:** JS has in-bbox `fobj` membership C lacks (leaked container
-  contents / extra vault objs / wrong coords), or C pet `dog_goal` sees an
-  empty bbox for another state reason. Related prior: D-0014 mineralize
-  `fobj` pollution.
-- **Change:** none this iter (#385 score + diagnose only).
-- **Verification:** green+strict PASS; full suite **24/44**; focused still
-  RNG 3304/13878 Scr 14/308.
-- **Next:** compare C vs JS `fobj` near `(5,6)` / ice-box contents vs floor
-  CORPSE; fix membership, not fleeck arity.
+- **C locus:** `dogmove.c` `dog_nutrition` / `dog_eat`; `monmove.c` `m_move`
+  meating countdown before `dog_move`.
+- **Cause:** after killing, pet ate floor `TRIPE_RATION`. JS
+  `dog_nutrition` read `obj.oc_delay` / `obj.oc_nutrition` on the
+  *instance* (undefined → `meating=1`, `nutrit=0`). C uses
+  `objects[otyp].oc_delay` (**2** for tripe) + `oc_nutrition` (200) ×
+  MZ_SMALL (**×6**). JS meating expired immediately → `dog_goal`
+  scanned CHEST/STATUE/CORPSE/ICE_BOX while C was still meating
+  (fleeck + post-move fleeck only). Rejected: fleeck arity; missing
+  fobj in C (C burns 4× `obj_resists` later @3261).
+- **Change:** `js/dogmove.js` `dog_nutrition` — table `oc_delay`;
+  FOOD nutrition map + msize multipliers; non-food `owt/20+1`; coin arm.
+  Deferred: `oeaten`/`eaten_stat`; extractor `oc_nutrition` field.
+- **Verification:** seed0012 first mismatch **3248→3483**; runner RNG
+  **3304→3638**/13878 Scr 14/308; green+strict PASS; cohort **24/24**
+  PASS (incl. seed0009).
+- **Lesson:** pet “extra fobj scan” after a matched fleeck is often
+  missing meating — check the prior `dog_eat` nutrition source
+  (`objects[]` vs instance).
+- **Next:** seed0012 @3483 C continues `obj_resists` vs JS `rn2(3)`
+  (`dog_move` approach) — fewer in-bbox fobj for JS or earlier scan exit.
 
 ## D-0363 — `hmon` `dbon` / `weapon_dam_bonus` dmg_recalc (seed0012 @3204)
 

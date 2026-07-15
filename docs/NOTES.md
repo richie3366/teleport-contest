@@ -8,15 +8,13 @@ Objective/score live in `CURRENT.md`.
 ## Active
 
 - **Score:** **24/44** PASS (#385 full suite). Scr 3640/11405; RNG 243833/792838.
-- **Next (D-0364):** seed0012 @3248 C `distfleeck` `rn2(5)` vs JS `rn2(100)`.
-  JS little dog @`(5,6)` `dog_goal` burns `obj_resists` on floor CHEST`(3,9)`,
-  STATUE`(4,5)`, CORPSE`(3,5)`, cursed ICE_BOX`(3,5)` (`fobj_len=15`).
-  C’s next calls are more fleeck — pet `dog_move` had **no** `obj_resists`.
-  Falsifier: skip `dog_move` body after fleeck → prefix **3248→3483** (do not
-  ship). Find why those objects are on JS `fobj` in-bbox (or missing in C).
+- **Next (post D-0364):** seed0012 @3483 — C `dog_goal` `obj_resists` vs JS
+  `dog_move` `rn2(3)`. After tripe meating fix, matched two resists then JS
+  exits scan early (fewer in-bbox `fobj` or reach/gtyp short-circuit).
   Cmd: `node scripts/rng-diff.mjs sessions/seed0012-monk-vault-escort.session.json`
-- **Don’t re-check:** blame @3248 on fox order / `distfleeck` arity; under-dmg
-  @3204 (D-0363); #l→loot (D-0362); ICE_BOX mkbox (D-0361).
+- **Don’t re-check:** blame @3248 on fleeck arity / extra fobj while C meating
+  (D-0364 — was instance `oc_delay`); under-dmg @3204 (D-0363); #l→loot
+  (D-0362); ICE_BOX mkbox (D-0361).
 - **Landmark:** screen `i` key = `moves[i]` (= `steps[i+1].key`).
 - **Parked:** D-0006; seed2200 @158 RC.
 
@@ -73,7 +71,7 @@ Objective/score live in `CURRENT.md`.
   ICE_BOX `mkbox_cnts` via boxiprobs (D-0361 — `mksobj(CORPSE)`);
   treat `#loot` unknown / blame @3152 on dog_move appr (D-0362);
   blame @3204 on xkilled path when JS still flees — under-dmg (D-0363);
-  blame @3248 on fleeck arity / fox-first order — pet acts; fobj scan.
+  blame @3248 on fleeck/fobj while C meating — instance oc_delay (D-0364).
 - Runner `Screen N/M` = total matches, not prefix length.
 
 ## Landmarks (≤15)
@@ -86,7 +84,7 @@ Objective/score live in `CURRENT.md`.
 - Save: VFS `save/<plname>` JSON; restore skips `rndencode`;
   `l_nhcore_init` still 2×rn2; farewell clears map no flush (D-0335).
 - Scoring grid: DEC chars in DEC_MAP → Unicode; `{`/` `` ` `` stay raw.
-- D-0274…D-0363: bones/disclose/RIP/topten/descr/botl/paybill/ghost/`;`/
+- D-0274…D-0364: bones/disclose/RIP/topten/descr/botl/paybill/ghost/`;`/
   getlin/compactify/enl/checkfile/save/welcome/attr/`$`/`)`/show-*/DEL/
   reveal_terrain/getpos Done/`#twoweapon`/`hitum` twohits/`dosit` OBJ_AT/
   weapon_insight twoweap limits / chargen corner / tutorial yes-path /
@@ -95,4 +93,4 @@ Objective/score live in `CURRENT.md`.
   DEC diamond + describe_decor + swim avoid/drown/lava burn + death
   disclose attrs/conduct/overview + init_mapseen + continue_run no smudge +
   hero rocktrap place ROCK + ICE_BOX mkbox corpses + `#loot` use_container +
-  hmon dmg_recalc dbon/weapon_dam_bonus.
+  hmon dmg_recalc dbon/weapon_dam_bonus + dog_nutrition objects[] oc_delay.

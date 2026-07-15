@@ -19,6 +19,14 @@ Use this shape:
 - Verification: …
 - Next: …
 ```
+## 2026-07-15 06:35 — D-0364 dog_nutrition oc_delay (seed0012 @3248)
+- Objective: seed0012 @3248 C fleeck vs JS obj_resists after pet fleeck.
+- C locus: dogmove.c dog_nutrition/dog_eat; monmove.c m_move meating.
+- Change: dog_nutrition reads objects[].oc_delay + FOOD nutrition×msize;
+  non-food owt/20 (D-0364). Was instance oc_delay→meating=1 after tripe.
+- Verification: prefix 3248→3483; RNG 3304→3638; green+strict; cohort 24/24.
+- Next: seed0012 @3483 C dog_goal obj_resists vs JS dog_move rn2(3).
+
 ## 2026-07-15 06:20 — #385 score + D-0364 diagnose (seed0012 @3248)
 - Objective: mandatory full `sessions` score (#385÷5); primary seed0012 @3248.
 - C locus: dogmove.c dog_goal/dog_move; zap.c obj_resists (DIAG only).
@@ -147,13 +155,4 @@ Use this shape:
   MAGIC_PORTAL (4,4) + mention_walls/decor/lit_corridor (D-0351).
 - Verification: seed0009 Scr **21→27**; green+strict; cohort sample PASS.
 - Next: @27 door resists vs opens (`doopen_indir` chance/attrs).
-
-## 2026-07-15 02:50 — D-0350 tut-1 CENTER + arrival
-- Objective: seed0009 @14 map cells (133 misses under engraving more).
-- C locus: `sp_lev.c` `lspo_map` CENTER; `u_on_rndspot`; Tutorial botl;
-  `nhl_gamestate` invent stash; allmain once-per-input `find_ac`.
-- Change: center tut-1 map (3,3); updest/`u_on_rndspot`; Tutorial label;
-  invent stash without early `find_ac`; moveloop `find_ac`.
-- Verification: seed0009 Scr **14→21**; green+strict; cohort 21 PASS.
-- Next: @21 next S_engroom engraving / more tut-1.lua des.*.
 
