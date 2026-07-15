@@ -398,7 +398,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 | D-0409 | fixed | eatcorpse palatable `hero_form_data` | seed0004 RNG 10685→11027; prefix→10713; @10713 exercise next |
 | D-0410 | fixed | gethungry metabolic `uhunger--` + accessory burns | seed0004 RNG 11027→11029; prefix→10966; @10966 umove/dopush next |
 | D-0411 | fixed | umonnum/youmonst.data + moveloop encumber_msg/mvl_wtcap | seed0004 miss still @10966; green+cohort 25; after_calc next |
-| D-0412 | open | @10966 after_calc leftover0+SLT (diag) | force→10979; JS 9→21 inv=-15; weight/0→12 next |
+| D-0412 | open | @10966 after_calc (need after<12) | force→10979; heal syncs 9→21; inv=-15; EXT/mmove or gap next |
 
 D-0001 through D-0005 predate the strict-length/cohort runbook. Their focused
 causes are preserved, but generic "green sessions held" is historical evidence,

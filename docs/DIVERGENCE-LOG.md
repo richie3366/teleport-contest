@@ -9,22 +9,23 @@ to preserve, record it here.
 - **Status:** open (diagnosis; no production patch)
 - **Symptom:** seed0004 first RNG miss @10966 — C `distfleeck` vs JS
   `dopush`/`exercise(A_STR)` after matching EOT `gethungry`/`exercise`/
-  wipe_engr. During travel step (`_>` / `.`, 650 RNG).
-- **Evidence (#441):** JS EOT n≈10963: before=9→21, inv=-15, cap=675,
-  STR14/CON11, ew=0, !usteed, mmove=12. Leftover sticky `9→21` UNENC
-  since heal n=4392 (SLT `0→9` then UNENC). Force: `after=9` or
-  (`before=0`+SLT) → prefix **10979**; SLT alone / before=0 UNENC alone
-  unchanged @10966. C botl Burdened only screens 27–50; step 307
-  unencumbered. UNENC `0→12` vs `9→21` share hero/EOT cadence while
-  after≥12 (silent leftover desync possible). Ride/usteed falsified
-  (no Ride on C botl; JS never mounts). EXT+before9 unrealistic at
-  invent≈660.
+  wipe. During travel (`.`, 650 RNG). C then does a second EOT @10977
+  (double-EOT ⇒ C `after_calc < 12`).
+- **Evidence (#442):** Invent dump at miss EOT: before=9→21, wtcap=0,
+  inv=-15, cap=675, STR14/CON11, ew=0, mmove=12, owt≡live, empty cursed
+  sack, no BoH. Force reconfirm: `after=9` / leftover0+SLT /
+  before=-3+UNENC → prefix **10979**; leftover0|SLT|leftover0+UNENC alone
+  still @10966. Heal frame 51 n≈4391–4403 is SLT 0→9 then in-loop UNENC
+  9→21 (both sides) — leftover should match at 9→21 after heal. Travel
+  single-EOT cadence ⇒ C mostly UNENC until miss EOT. Botl Burdened only
+  frames 27–50; frame 307 keystroke UNENC (pre-travel capture).
 - **C locus:** `allmain.c` `u_calc_moveamt` / moveloop_core EOT;
   `hack.c` `near_capacity`/`inv_weight`/`weight_cap`.
-- **Next:** ≥16 aum inv undercount or cap overcount at miss; and/or
-  how C leftover became 0 after heal while JS stayed 9→21.
+- **Next:** with before=9, after<12 needs EXT or mmove anomaly; or prove
+  silent leftover→0 after heal despite shared double-EOT + SLT at miss
+  (≥16 aum inv/cap). BoH factor still deferred (wrong direction here).
 - **Verification:** green+strict PASS; seed0004 still @10966
-  (11029/12084, Scr 242/409). DIAG removed.
+  (11029/12084, Scr 242/409). DIAG/FORCE removed.
 
 ## D-0411 — umonnum/youmonst.data + moveloop encumber_msg/mvl_wtcap order
 

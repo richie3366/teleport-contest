@@ -61,16 +61,16 @@ Both must remain full RNG + screen PASS with exact scored-output lengths.
 
 ## Primary objective
 
-**seed0004 @10966** — during travel (`_>` / `.`), after EOT wipe C
-`distfleeck` vs JS `dopush` `exercise(A_STR)`. JS sticky UNENC
-`9→21` since heal; inv=-15. Force (#441): leftover0+SLT / after=9 →
-10979; SLT|leftover0 alone no. Find ≥16 aum inv/cap gap at miss and/or
-how C reached silent **0→12** leftover after heal.
+**seed0004 @10966** — C second-EOT after miss (`distfleeck` @10966,
+gethungry @10977) ⇒ `after_calc < 12`. JS sticky UNENC `9→21`, inv=-15.
+Heal (#442) syncs both to 9→21 via SLT+in-loop UNENC. Force: after=9 /
+leftover0+SLT / before=-3+UNENC → **10979**. With before=9 need EXT or
+mmove anomaly, or prove post-heal leftover→0 + ≥16 aum SLT gap.
 
 ```bash
 node frozen/ps_test_runner.mjs sessions/seed0004-feeding-pony.session.json
 node scripts/rng-diff.mjs sessions/seed0004-feeding-pony.session.json
-# Focus: first miss @10966
+# Focus: first miss @10966; C double-EOT @10977
 ```
 
 **Alternates:** seed0002 `eatcorpse`; seed0006 / seed0007; quest early-0

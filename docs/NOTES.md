@@ -10,23 +10,18 @@ Objective/score live in `CURRENT.md`.
 - **Score:** **25/44** PASS (#440 full). Scr **4196**/11405; RNG
   **262087**/792838. seed0004 Scr **242**/409; RNG **11029**/12084
   (prefix **10966**).
-- **Next:** seed0004 @10966 — C `distfleeck` vs JS `dopush`
-  `exercise(A_STR)` during travel (`_>` then `.`, step 307, 650 RNG).
-  **State at miss EOT (n≈10963):** before=9→21, wtcap=0, inv=-15,
-  carrcap=675, STR14/CON11, ew=0, !usteed, mmove=12, !Fast.
-  **Force (reconfirmed #441):** `after=9` or (`before=0`+SLT) →
-  prefix **10979**; SLT alone (9→18) or before=0 alone (→12) **no**.
-  Need after_calc<12: leftover0+SLT (EXT+before9 unrealistic at wt≈660).
-  **Leftover timeline:** heal n=4392 SLT `0→9` then UNENC `9→21`
-  sticky forever (no post-heal SLT anomalies). C botl Burdened only
-  screens 27–50; step 307 unencumbered (may be post-miss turns).
-  **Hypothesis:** C on silent **0→12** UNENC cycle (same control flow
-  as 9→21 while after≥12) + brief SLT at miss (≥16 aum inv/cap gap),
-  or consecutive after<12 (force remiss @10979). Find weight gap or
-  how leftover became 0 after heal.
+- **Next:** seed0004 @10966 — C continues monsters after EOT (double-EOT
+  gethungry @10977) vs JS hero `dopush`. JS EOT: before=9→21, wtcap=0,
+  inv=-15, cap=675, mmove=12, owt≡live. Force: after=9 |
+  leftover0+SLT | before=-3+UNENC → **10979**.
+  **Heal (#442):** frame 51 n≈4391–4403 SLT 0→9 then in-loop UNENC
+  9→21 — both sides; leftover should match. Travel mostly single-EOT
+  UNENC. With before=9, after<12 needs EXT (unrealistic at wt≈660) or
+  mmove anomaly; else prove silent leftover→0 + ≥16 aum SLT at miss.
 - **Don’t re-check:** bare Fast/`rn2(3)`; SLT-with-before=9 alone;
-  before=0 UNENC alone; force-SLT-from-heal-onward; usteed/Ride (no
-  Ride on C botl; JS usteed never set); umove=21 alone; D-0401…D-0411.
+  before=0 UNENC alone; force-SLT-from-heal-onward; usteed/Ride; umove=21
+  alone; invent owt≠live / empty-sack contents; D-0401…D-0411; heal
+  leftover desync as sole cause (heal double-EOT syncs 9→21).
 - **Landmark:** vault door (71,13); dig + restfakecorr; SPELL_LEV_PW(1)=5.
 - **Parked:** D-0006; seed2200 @158 RC.
 
@@ -72,7 +67,8 @@ Objective/score live in `CURRENT.md`.
   `exerper` polarity without checking deferred `gethungry` `uhunger--`
   (D-0410); treat @10966 as bare Fast/`rn2(3)` or SLT-with-before=9
   alone (needs after_calc<12) (D-0411); treat @10966 as Ride/usteed
-  (no Ride botl; JS never mounts) (#441).
+  (#441); treat heal leftover desync alone as @10966 cause (#442 —
+  heal double-EOT syncs 9→21).
 - Runner `Screen N/M` = total matches, not prefix length.
 - First cell-miss may be botl `$:` / `Burdened` even when NOTES names a topline.
 
@@ -92,6 +88,6 @@ Objective/score live in `CURRENT.md`.
 - Monk starter: `SPELL_LEV_PW(1)` bump when `num_spells()` (D-0380).
 - Ice-box look: merge+sortloot stacks (D-0383); pickup class headers
   (D-0384).
-- UNENC leftover **0→12** vs **9→21** same hero/EOT cadence while
-  after≥12 — can desync silently (#441).
-- D-0383…D-0411 landmarks: see index / don’t-recheck above.
+- Heal SLT→UNENC double-EOT leaves sticky **9→21** (#442); C miss EOT
+  still needs after<12 (second gethungry @10977).
+- D-0383…D-0412 landmarks: see index / don’t-recheck above.
