@@ -24,6 +24,33 @@ The compact status table lives in **`DIVERGENCE-INDEX.md`**.
 Open that file first; then jump to a single `## D-NNNN` entry below
 (via search). Do **not** read this whole file by default.
 
+## D-0370 — `drinkfountain` case 26 `monster_detect` (seed0012 @8384)
+
+- **Status:** fixed
+- **Observed:** seed0012 @8384 — C `dog_move` mtrack `rn2(8)` vs JS
+  `dog_goal` `rn2(4)`. NOTES guessed uncursedcnt/mtrack `k−j`; DIAG
+  showed JS extra follow-player `rn2(4)` while C already in candidates.
+- **Cause:** earlier @8346 fountain `rnd(30)=26` (See Monsters). C
+  `monster_detect` → sense `--More--` → getpos tip → `B`/`H` farlook.
+  JS deferred detect, only `exercise`+`dryup`, so the same keys were
+  real run/move and hero terrain/`IS_ROOM` desynced → spurious
+  `dog_goal` `rn2(4)`.
+- **Rejected:** mtrack `uncursedcnt`/`j` as the @8384 root (symptom of
+  position desync after missed detect UI).
+- **C locus:** `fountain.c` `drinkfountain` case 26; `detect.c`
+  `monster_detect` / `map_monst` / `browse_map`.
+- **Change:** port `monster_detect` (array `fmon`, cls, map_monst,
+  sense+`flush_topl_more`, `browse_map(TER_DETECT|TER_MON)`);
+  wire case 26. Named omissions: strange_feeling; cursed wake;
+  blessed WIN_MAP; unconstrain; worm segs; pet/detected glyphs;
+  TER_DETECT autodescribe text.
+- **Verification:** first mismatch **8384→8802**; runner RNG
+  **8944→9447**/13878 cursors **128→186**/308; green+strict PASS;
+  cohort **24/24**.
+- **Lesson:** missing detect/getpos looks like late `dog_goal`/`mtrack`
+  arity; falsify with fountain topline before chasing pet RNG.
+- **Next:** seed0012 @8802 C `dog_goal` `rn2(4)` vs JS `rn2(12)`.
+
 ## D-0369 — `dochug` pre-move `wipe_engr_at` (seed0012 @7312)
 
 - **Status:** fixed

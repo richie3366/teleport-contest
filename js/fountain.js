@@ -3,12 +3,12 @@
 //
 // Branch envelope (drinkfountain): fate=rnd(30) before Levitation;
 // mgkftn restore+adjattrib; fate<10 refresh; switch default/19–30
-// message+RNG arms; case 27 dofindgem when !FOUNTAIN_IS_LOOTED.
+// message+RNG arms; case 26 monster_detect + browse_map; case 27
+// dofindgem when !FOUNTAIN_IS_LOOTED.
 // Deferred: dowatersnakes/demon/nymph (incl. case 27 fallthrough when
-// looted), dogushforth, monster_detect body, enlightenment body,
-// vomit body, town warn/angry_guards, wizard yn, FOUNTAIN_IS_WARNED
-// force dryup, Excalibur LONG_SWORD body, wash_hands, dipfountain
-// cases 17–23/25–29.
+// looted), dogushforth, enlightenment body, vomit body, town warn/
+// angry_guards, wizard yn, FOUNTAIN_IS_WARNED force dryup, Excalibur
+// LONG_SWORD body, wash_hands, dipfountain cases 17–23/25–29.
 
 import { game } from './gstate.js';
 import { rn2, rnd, rn1 } from './rng.js';
@@ -28,6 +28,7 @@ import { PM_KNIGHT } from './generated/monsters_data.js';
 import { A_MAX, A_WIS, A_CON, adjattrib, exercise } from './attrib.js';
 import { lesshungry, morehungry, poison_strdmg } from './eat.js';
 import { losehp } from './hack.js';
+import { monster_detect } from './detect.js';
 
 const LONG_SWORD = objectNames.indexOf('LONG_SWORD');
 const DILITHIUM_CRYSTAL = objectNames.indexOf('DILITHIUM_CRYSTAL');
@@ -214,9 +215,13 @@ export async function drinkfountain() {
             newsym(u.ux, u.uy);
             exercise(A_WIS, true);
             break;
-        case 26: // See Monsters — monster_detect body deferred
+        case 26: { // See Monsters — detect.c monster_detect
+            if (await monster_detect(null, 0)) {
+                await pline(`The ${hliquid('water')} tastes like nothing.`);
+            }
             exercise(A_WIS, true);
             break;
+        }
         case 27: // Find a gem in the sparkling waters
             if (!FOUNTAIN_IS_LOOTED(u.ux, u.uy)) {
                 await dofindgem();

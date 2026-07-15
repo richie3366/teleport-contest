@@ -37,7 +37,7 @@ seed0013-rogue, seed0013-friday13-restore, seed0107, seed0009.
 **Notable non-PASS:**
 | Session | RNG | Screen | Note |
 |--------|----:|-------:|------|
-| seed0012 | **8944**/13878 | **14**/308 | @8384 dog_move mtrack rn2 (post D-0369) |
+| seed0012 | **9447**/13878 | **14**/308 | @8802 dog_goal rn2(4) vs rn2(12) (post D-0370) |
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
 | seed0004 | 4025/12084 | 28/409 | |
 | seed0002 | 4521/27158 | 9/595 | |
@@ -58,9 +58,9 @@ Both must remain full RNG + screen PASS with exact scored-output lengths.
 
 ## Primary objective
 
-**seed0012 @8384** — C `dog_move` mtrack skip `rn2(8)` vs JS `rn2(4)`
-(`dogmove.c:1250` / `MTSZ*(k-j)`). Post D-0369 `dochug` dust wipe;
-uncursedcnt/cnt or track-match index likely differs.
+**seed0012 @8802** — C `dog_goal` `rn2(4)` (`dogmove.c:575`) vs JS
+`rn2(12)` (`dog_move` approach). Post D-0370 fountain `monster_detect`;
+hero/`IS_ROOM`/gtyp/`udist` likely still diverge after detect UI.
 
 ```bash
 node scripts/rng-diff.mjs sessions/seed0012-monk-vault-escort.session.json

@@ -19,6 +19,15 @@ Use this shape:
 - Verification: …
 - Next: …
 ```
+## 2026-07-15 08:00 — D-0370 fountain monster_detect (seed0012 @8384)
+- Objective: seed0012 @8384 C mtrack rn2(8) vs JS rn2(4).
+- C locus: fountain.c case 26; detect.c monster_detect/browse_map.
+- Change: port monster_detect (fmon array); wire drinkfountain case 26.
+  Root was missing detect getpos — B/H were farlook not run.
+- Verification: 8384→8802; RNG 8944→9447; cursors 128→186; green+strict;
+  cohort 24/24.
+- Next: seed0012 @8802 C dog_goal rn2(4) vs JS rn2(12).
+
 ## 2026-07-15 07:47 — D-0369 dochug wipe_engr_at (seed0012 @7312)
 - Objective: seed0012 @7312 C wipeout_text rn2(11) vs JS distfleeck rn2(5).
 - C locus: monmove.c dochug wipe_engr_at before set_apparxy/distfleeck.

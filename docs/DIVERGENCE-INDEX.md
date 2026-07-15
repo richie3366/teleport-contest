@@ -356,6 +356,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 | D-0367 | fixed | save_track/rest_track per-level utrack | return visit gettrack; @6952→7288 |
 | D-0368 | fixed | O/@ autopickup + autopick_testobj | leftover floor gold; @7288→7312 |
 | D-0369 | fixed | dochug wipe_engr_at before fleeck | dust under mon; @7312→8384 |
+| D-0370 | fixed | drinkfountain case 26 monster_detect | browse_map getpos; @8384→8802 |
 
 
 D-0001 through D-0005 predate the strict-length/cohort runbook. Their focused
