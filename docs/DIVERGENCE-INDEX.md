@@ -402,6 +402,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 | D-0413 | fixed | Conflict fightm before dochugw + dochug hero_conflict/P4 | seed0004 prefix 11568→11708; @11708 mattacku next |
 | D-0414 | fixed | dog_move ALLOW_U → mattacku under Conflict | seed0004 prefix 11708→11722; @11722 next_ident next |
 | D-0415 | fixed | throw `*` + thitmonst food → tamedog/dog_eat | seed0004 RNG full 12084; Scr 240→243; screen peel next |
+| D-0416 | fixed | dog_move cursemsg → display.canseemon LOS | seed0004 Scr 243→244; @182 fixed; @239 bag empty next |
 
 D-0001 through D-0005 predate the strict-length/cohort runbook. Their focused
 causes are preserved, but generic "green sessions held" is historical evidence,

@@ -20,7 +20,7 @@ focused session.
 Score last measured: **2026-07-15** — full `sessions` suite (#445;
 post D-0414). Screens **4194**/11405 (−2 vs #440); RNG
 **262860**/792838 (+773). Still **25/44** PASS. seed0004 focused
-post D-0415: RNG **12084**/12084, Scr **243**/409.
+post D-0416: RNG **12084**/12084, Scr **244**/409 (@182 fixed).
 
 ## Score
 
@@ -43,7 +43,7 @@ seed0013-rogue, seed0013-friday13-restore, seed0107, seed0009,
 |--------|----:|-------:|------|
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
 | seed0002 | 5210/27158 | **54**/595 | still @3808 eatcorpse |
-| seed0004 | **12084**/12084 | **243**/409 | RNG full (D-0415); screen peel |
+| seed0004 | **12084**/12084 | **244**/409 | D-0416 @182; next @239 bag empty |
 | seed0361/0373 | early | 0 | quest bones / `makemaz` |
 
 ## Green gate
@@ -61,20 +61,21 @@ Both must remain full RNG + screen PASS with exact scored-output lengths.
 
 ## Primary objective
 
-**seed0004 screen-only** — RNG complete after D-0415 (throw carrot →
-`tamedog`/`dog_eat`). Scr **243**/409, cursors **402**/409. First cell
-miss needs normalize-aware triage (message/map glyph).
+**seed0004 @239 bag empty capitalization** — RNG full; Scr **244**/409
+after D-0416 (`dog_move` cursemsg `canseemon` LOS). First cell miss:
+C `The bag is empty.` vs JS `the bag is empty.` (`Ysimple_name2` /
+`upstart(thesimpleoname)` vs bare `theArt(xname)`).
 
 ```bash
 node frozen/ps_test_runner.mjs sessions/seed0004-feeding-pony.session.json
-# Focus: first screen miss after full RNG
+# Focus: screen @239 empty-container pline
 ```
 
 **Alternates:** seed0002 `eatcorpse`; seed0006 / seed0007; quest early-0
 (seed0361/0373).
 
-**Prefer over:** parked D-0006, seed2200 RC; re-opening @11722 throw
-feed (fixed — D-0415).
+**Prefer over:** parked D-0006, seed2200 RC; re-opening @182 cursemsg
+(fixed — D-0416).
 
 **Cohort after shared change:** green gate + seed1500 + seed1800 + seed0060 +
 seed0102 + seed0700 + seed1150 + seed0017 + seed0077 + seed0106 + seed0501 +

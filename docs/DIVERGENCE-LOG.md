@@ -4,6 +4,28 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
+## D-0416 — seed0004 @182 dog_move cursemsg needs LOS canseemon
+
+- **Status:** fixed
+- **Symptom:** seed0004 first cell miss @182 — JS topline
+  `Your saddled pony steps reluctantly onto an orc corpse.` (no
+  `--More--`); C blank. RNG already full. Isolated miss (181/183 OK).
+- **Rejected:** message-clear timing / rhack clear before `H`; late
+  second cursemsg without matching C path.
+- **Cause:** `js/dogmove.js` local `canseemon` stub returned true for
+  any non-minvis pet, ignoring LOS. C `dog_move` gates cursemsg on
+  `wasseen || canseemon(mtmp)` (`display.h` cansee/infrared +
+  mon_visible). Out-of-sight cursed step → C silent, JS plined.
+- **C locus:** `dogmove.c` `dog_move` newdogpos cursemsg; `display.h`
+  `_canseemon`.
+- **Change:** import `canseemon` from `display.js`; delete always-true
+  stub. Deferred: cursemsg `what` via hero_memory glyph +
+  `distant_name` (JS still `doname(objects_at)`).
+- **Verification:** seed0004 Scr **243→244**/409; RNG still
+  **12084**/12084; first miss **@182→@239** (`The`/`the` bag empty);
+  green+strict PASS; cohort **23/23**.
+- **Next:** seed0004 @239 empty-container `Ysimple_name2` / upstart.
+
 ## D-0415 — seed0004 @11722 throw carrot → tamedog/dog_eat
 
 - **Status:** fixed (RNG); screens still open
