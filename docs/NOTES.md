@@ -7,14 +7,13 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Score:** **25/44** PASS (#430 full). seed0004 Scr **233**/409 after
-  D-0404 (was 215).
-- **Next:** seed0004 @9795 — C `dog_move` `rn2(16)` vs JS `rn2(4)`.
+- **Score:** **25/44** PASS (#430 full). seed0004 Scr **233**/409.
+- **Next:** seed0004 @9795 — **D-0405:** C `dog_move` mtrack `rn2(16)` vs
+  JS `dog_goal` `rn2(4)`. Cause is hero terrain/`IS_ROOM`, not mtrack.
   Cmds in `CURRENT.md`.
-- **Don’t re-check:** known_hitum `mhp < mhpmax/2` must use integer `/`
-  (`Math.trunc`) + `!engulfing_u` (D-0404); heal_legs / nh_timeout
-  WOUNDED_LEGS (D-0403); Norep `_prevmsg` (D-0402); trapmove BEARTRAP
-  (D-0401); botl `enc_stat` Burdened (D-0401).
+- **Don’t re-check:** known_hitum int `mhpmax/2` (D-0404); heal_legs /
+  nh_timeout (D-0403); Norep `_prevmsg` (D-0402); trapmove/Burdened
+  (D-0401); bare mtrack `MTSZ*(k-j)` arity at @9795 (falsified D-0405).
 - **Landmark:** vault door (71,13); dig + restfakecorr; SPELL_LEV_PW(1)=5.
 - **Parked:** D-0006; seed2200 @158 RC.
 
@@ -47,7 +46,8 @@ Objective/score live in `CURRENT.md`.
   before postmov (D-0401); Norep via Norep-only cache (D-0402);
   skip `heal_legs` / WOUNDED_LEGS `nh_timeout` (D-0403); omit
   `vtense` bare-singular conjugate (D-0403); float `mhpmax/2` for
-  flee gate (D-0404).
+  flee gate (D-0404); treat @9795 as mtrack `rn2(16)` vs `rn2(4)`
+  arity (D-0405 — hero still ROOM).
 - Runner `Screen N/M` = total matches, not prefix length.
 - First cell-miss may be botl `$:` / `Burdened` even when NOTES names a topline.
 
@@ -74,5 +74,6 @@ Objective/score live in `CURRENT.md`.
   `trapmove` + botl Burdened + exerper status + mintrap rn2(40)
   (D-0401); Norep ≡ `gp.prevmsg` (D-0402); `heal_legs` via
   `nh_timeout` WOUNDED_LEGS + ATEMP DEX (D-0403); known_hitum flee
-  `Math.trunc(mhpmax/2)` + `engulfing_u` (D-0404).
-- D-0274…D-0404: see index.
+  `Math.trunc(mhpmax/2)` + `engulfing_u` (D-0404); seed0004 @9795
+  dog_goal `IS_ROOM` / post-pickup `n` key ownership (D-0405).
+- D-0274…D-0405: see index.

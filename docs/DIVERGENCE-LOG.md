@@ -4,6 +4,29 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
+## D-0405 — seed0004 @9795 dog_goal IS_ROOM / post-pickup `n` keys
+
+- **Status:** open (prerequisite)
+- **Symptom:** seed0004 first RNG miss @9795 — C `dog_move` `rn2(16)`
+  (mtrack) vs JS `dog_goal` `rn2(4)`.
+- **Rejected:** mtrack `MTSZ*(k-j)` wrong arity / missing backtrack
+  block (JS already ports `goto nxti` as `continue candloop`).
+- **Cause (diagnosed):** C `dog_goal` short-circuits `!IS_ROOM(hero)`
+  without `rn2(4)` after hero reached DOOR/CORR near dnstairs `(42,7)`.
+  JS still at ROOM `(40,5)` (udist 585, gtyp UNDEF) and rolls `rn2(4)`.
+  Rhack command log after 2nd `,` pickup: next `n` only at rng @9816
+  (during C `rndmonst_adj`), so session `n`/`n`/`l` are not applied as
+  hero moves before that dog_goal.
+- **C locus:** `dogmove.c` `dog_goal` (~567–577) `!IS_ROOM || !rn2(4)`;
+  `dog_move` mtrack (~1246–1251); caller order after pickup keys.
+- **Change:** none this iteration (no faithful code patch without key-
+  ownership fix).
+- **Verification:** green+strict PASS; seed0004 still RNG **9892**/12084
+  Scr **233**/409 @9795.
+- **Next:** reconstruct nhgetch ownership for steps ~240–250 (`,` menu
+  / `--More--` / rhack) so `n` moves hero onto DOOR before dog_goal;
+  then re-diff @9795.
+
 ## D-0404 — known_hitum flee gate integer mhpmax/2
 
 - **Symptom:** seed0004 @216 / RNG @9183 — C `distfleeck` `rn2(5)` vs JS

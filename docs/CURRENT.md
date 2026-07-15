@@ -42,7 +42,7 @@ seed0013-rogue, seed0013-friday13-restore, seed0107, seed0009,
 |--------|----:|-------:|------|
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
 | seed0002 | 5198/27158 | **54**/595 | still @3808 eatcorpse |
-| seed0004 | **9892**/12084 | **233**/409 | D-0404; next @9795 dog_move |
+| seed0004 | **9892**/12084 | **233**/409 | D-0405; next hero pos / pickup keys |
 | seed0361/0373 | early | 0 | quest bones / `makemaz` |
 
 ## Green gate
@@ -60,20 +60,22 @@ Both must remain full RNG + screen PASS with exact scored-output lengths.
 
 ## Primary objective
 
-**seed0004 @9795** — after D-0404 flee-gate peel (Scr 233). First RNG
-mismatch @9795: C `dog_move` `rn2(16)` vs JS `rn2(4)`. Reconstruct C
-`dog_move` / pet path; prefer shared dog blockers over late peels.
+**seed0004 @9795** — **not** mtrack arity. C skips `dog_goal` `rn2(4)`
+(`!IS_ROOM` on DOOR/CORR after `n`/`n`/`l`); JS still at ROOM `(40,5)` and
+rolls `rn2(4)`. After second `,` pickup, rhack does not see session `n`
+until mid-monster RNG @9816 (D-0405). Reconstruct key ownership after
+pickup / `--More--` / menu; then re-check dog_goal.
 
 ```bash
 node frozen/ps_test_runner.mjs sessions/seed0004-feeding-pony.session.json
 node scripts/rng-diff.mjs sessions/seed0004-feeding-pony.session.json
-node frozen/ps_test_runner.mjs sessions/seed0002-healer-reflection-drummer.session.json
+# Focus: session keys around steps 240–250 (`,` a b \\r n n l)
 ```
 
 **Alternates:** seed0002 `eatcorpse`; seed0006 / seed0007; quest early-0
 (seed0361/0373).
 
-**Prefer over:** parked D-0006, seed2200 RC.
+**Prefer over:** parked D-0006, seed2200 RC; bare `dog_move` mtrack peels.
 
 **Cohort after shared change:** green gate + seed1500 + seed1800 + seed0060 +
 seed0102 + seed0700 + seed1150 + seed0017 + seed0077 + seed0106 + seed0501 +

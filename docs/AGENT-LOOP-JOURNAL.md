@@ -20,6 +20,16 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-15 15:50 — #431 seed0004 @9795 dog_goal IS_ROOM (D-0405)
+- Objective: seed0004 @9795 PRIMARY — C `dog_move` `rn2(16)` vs JS `rn2(4)`.
+- C locus: dogmove.c dog_goal `!IS_ROOM || !rn2(4)` (~575); dog_move mtrack
+  (~1250).
+- Falsified: mtrack `MTSZ*(k-j)` arity. DIAG: JS hero stuck ROOM `(40,5)`
+  rolls `rn2(4)`; C already DOOR/CORR after `n`/`n`/`l` skips it → mtrack
+  `rn2(16)`. Post-2nd `,` pickup, rhack sees `n` only @9816 (mid-monster).
+- Verification: green+strict PASS; no js/ change; seed0004 still @9795.
+- Next: key ownership after pickup (steps 240–250) before dog_goal peel.
+
 ## 2026-07-15 15:35 — #430 score + known_hitum int half (D-0404)
 - Objective: mandatory full score (#430÷5) + seed0004 @216 PRIMARY.
 - C locus: uhitm.c known_hitum mhp < mhpmax/2 (integer) + engulfing_u.
@@ -157,24 +167,3 @@ Use this shape:
 - Verification: seed0012 Scr **259→268**/308; @226–234 match; first fail
   @237 materialize `--More--`; green+strict PASS; cohort 22/22 PASS.
 - Next: seed0012 @237 teleport/materialize pline.
-
-## 2026-07-15 14:05 — #417 parse/get_count digit clear (D-0391)
-- Objective: seed0012 @221 dust topline blank after `9` of `9s`.
-- C locus: cmd.c parse/get_count; clear_nhwindow(WIN_MESSAGE) once after
-  command key (not between digits).
-- Change: falsified wipeout/`read_engr_at` — engraving already matched
-  @220; JS rhack cleared pending on every key. Ported get_count +
-  clear_nhwindow_message.
-- Verification: seed0012 Scr **257→259**/308; @220–222 match; first fail
-  @226 `You stop searching.`; green+strict PASS; cohort 24/24 PASS.
-- Next: seed0012 @226 counted-search stop pline / continue_search.
-
-## 2026-07-15 13:48 — #416 getpos auto_describe TER_DETECT (D-0390)
-- Objective: seed0012 @140 tip stuck vs C `unexplored area`.
-- C locus: getpos.c auto_describe/getpos msg_given; pager.c lookat;
-  do_name.c x_monnam isshk→shkname via distant_monnam.
-- Change: getpos auto_describe on display glyphs (blank/mimic/mon);
-  distant_monnam_none shopkeeper shkname.
-- Verification: seed0012 Scr **244→257**/308; @140–153 match; first fail
-  @221 dust engraving; green+strict PASS; cohort 24/24 PASS.
-- Next: seed0012 @221 `read_engr_at` wipeout garbled dust text.

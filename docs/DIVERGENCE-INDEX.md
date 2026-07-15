@@ -391,6 +391,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 | D-0402 | fixed | Norep vs gp.prevmsg (not Norep-only cache) | seed0004 @46 caught+wriggle; Scr 52→53; @51 heal_legs next |
 | D-0403 | fixed | heal_legs + nh_timeout WOUNDED_LEGS | seed0004 @51; Scr 53→215; RNG 5331→9213; @216 next |
 | D-0404 | fixed | known_hitum flee `Math.trunc(mhpmax/2)` + engulfing_u | seed0004 Scr 215→233; RNG 9213→9892; @9795 dog_move next |
+| D-0405 | open | dog_goal IS_ROOM / post-pickup `n` keys | @9795 rn2(4) vs mtrack rn2(16); hero still ROOM |
 
 D-0001 through D-0005 predate the strict-length/cohort runbook. Their focused
 causes are preserved, but generic "green sessions held" is historical evidence,
