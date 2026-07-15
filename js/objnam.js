@@ -658,6 +658,15 @@ export function doname(obj) {
         bp += ` named ${onameStr}`;
     }
 
+    // C: doname_base — cknown && Has_contents → " containing %ld item%s"
+    // invent.c count_contents(obj, FALSE, FALSE, TRUE, FALSE): separate
+    // stacks, no nest. Inline to avoid invent↔objnam import cycle.
+    if (obj.cknown && Has_contents(obj)) {
+        let itemcount = 0;
+        for (let otmp = obj.cobj; otmp; otmp = otmp.nobj) itemcount += 1;
+        bp += ` containing ${itemcount} item${itemcount !== 1 ? 's' : ''}`;
+    }
+
     if (oclass === ARMOR_CLASS && (obj.owornmask & W_ARMOR))
         bp += ' (being worn)';
     if (obj.owornmask & W_AMUL)

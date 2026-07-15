@@ -28,6 +28,24 @@ to preserve, record it here.
 - **Next:** seed0012 @278 doname container contents suffix.
 
 
+## D-0395 — doname containing + use_container cknown (seed0012 Scr 283→284)
+
+- **Symptom:** seed0012 @278 C `j - a bag containing 1 item` vs JS
+  `j - a bag` after gold put-in.
+- **Cause:** (1) JS `doname` omitted `cknown && Has_contents` suffix
+  (`count_contents` stacks). (2) C `use_container` containerdone sets
+  `cknown=1` when `used` (put-in alone does not); JS left `cknown` 0.
+- **C locus:** `objnam.c` `doname_base` (~1373);
+  `invent.c` `count_contents` (~3620); `pickup.c` `use_container`
+  containerdone (~3209).
+- **Change:** `js/objnam.js` containing suffix; `js/invent.js`
+  `count_contents` (shoppy `costly_spot` deferred); `js/pickup.js`
+  `if (used) obj.cknown = 1`.
+- **Verification:** seed0012 Scr **283→284**/308; @278 matches; first
+  fail @294 `"Move along!"`; green+strict PASS; cohort PASS.
+- **Next:** seed0012 @294 vault guard escort pline.
+
+
 ## Record format
 
 Each entry should include:

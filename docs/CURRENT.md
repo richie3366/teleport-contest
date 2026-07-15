@@ -58,17 +58,17 @@ Both must remain full RNG + screen PASS with exact scored-output lengths.
 
 ## Primary objective
 
-**seed0012 screens** — RNG prefix complete; Scr **283**/308, cursors
-**307**/308. D-0394: `use_container` `outmaybe`/`yname` + MENU_FULL
-`query_category` put-in (was 275). First fail **@278** C
-`j - a bag containing 1 item` vs JS `j - a bag`.
+**seed0012 screens** — RNG prefix complete; Scr **284**/308, cursors
+**307**/308. D-0395: doname `containing N item` + use_container
+`cknown` when `used` (was 283). First fail **@294** C
+`"Move along!"` vs JS blank map (vault guard escort).
 
 ```bash
 node frozen/ps_test_runner.mjs sessions/seed0012-monk-vault-escort.session.json
 ```
 
-**Falsify next:** `doname` / container contents suffix when `cknown` +
-`Has_contents` (objnam.c) on take-out/put-in object menus.
+**Falsify next:** vault guard follow/`gd_movemon` / `gd_chase` pline
+when hero drops gold and walks (vault.c).
 
 **Alternates:** seed0004 / seed0002 / seed0006 / seed0007; quest early-0.
 

@@ -1060,6 +1060,10 @@ export async function use_container(obj, held = false, _more = false) {
         used |= await menu_loot_putin(obj);
     }
 
+    // C: use_container containerdone — if used, mark contents known
+    // (put-in alone does not set cknown in menu_loot; this does).
+    if (used && obj) obj.cknown = 1;
+
     game._current_container = null;
     void held;
     return used;

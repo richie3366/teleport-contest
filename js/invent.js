@@ -35,6 +35,9 @@ import {
     ECMD_OK,
     ECMD_CANCEL,
     OBJ_INVENT,
+    OBJ_CONTAINED,
+    OBJ_FLOOR,
+    Has_contents,
     has_oname,
     ONAME,
     SORTLOOT_PACK,
@@ -476,6 +479,34 @@ export async function select_menu_pick_none(entries) {
     clear_overlay();
     await docrt();
     await flush_screen(1);
+}
+
+/**
+ * C ref: invent.c count_contents — stacks or quan inside a container.
+ * Named omissions: shoppy via get_obj_location + costly_spot when
+ * !everything && !newdrop (shop-owned floor contents); treat shoppy=false.
+ */
+export function count_contents(container, nested, quantity, everything, newdrop) {
+    let count = 0;
+    let shoppy = false;
+    if (!everything && !newdrop) {
+        // C: walk ocontainer to top; OBJ_FLOOR + costly_spot → shoppy
+        // costly_spot / get_obj_location deferred → shoppy stays false
+        let topc = container;
+        while (topc && topc.where === OBJ_CONTAINED) topc = topc.ocontainer;
+        if (topc && topc.where === OBJ_FLOOR) {
+            shoppy = false; // deferred costly_spot
+        }
+    }
+    for (let otmp = container?.cobj; otmp; otmp = otmp.nobj) {
+        if (nested && Has_contents(otmp)) {
+            count += count_contents(otmp, nested, quantity, everything, newdrop);
+        }
+        if (everything || otmp.unpaid || (shoppy && !otmp.no_charge)) {
+            count += quantity ? (otmp.quan || 1) : 1;
+        }
+    }
+    return count;
 }
 
 /**

@@ -20,6 +20,16 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-15 14:32 — #421 doname containing + cknown (D-0395)
+- Objective: seed0012 @278 bag `containing 1 item`.
+- C locus: objnam.c doname_base containing; invent.c count_contents;
+  pickup.c use_container containerdone cknown when used.
+- Change: doname suffix; invent count_contents (shoppy deferred);
+  use_container sets cknown after successful put-in/loot.
+- Verification: seed0012 Scr **283→284**/308; @278 match; green+strict
+  PASS; cohort PASS. Next fail @294 `"Move along!"`.
+- Next: vault guard escort pline after gold drop.
+
 ## 2026-07-15 14:25 — #420 score + bag put-in MENU_FULL (D-0394)
 - Objective: mandatory full `sessions` score (#420÷5); seed0012 @259 bag
   empty prompt.
