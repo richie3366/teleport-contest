@@ -58,16 +58,16 @@ Both must remain full RNG + screen PASS with exact scored-output lengths.
 
 ## Primary objective
 
-**seed0012 screens** — RNG complete; Scr **184**/308 (was 182), cursors
-**294**/308. First fail @31 ice-box `Contents of…` — C sortloot stacks
-(`2 jackal corpses`) vs JS per-object `doname` lines; cursor @`--More--`.
+**seed0012 screens** — RNG complete; Scr **187**/308 (was 184), cursors
+**297**/308. First fail @58 `O` Options menu — C fullscreen left-edge
+vs JS corner-offset truncated option list.
 
 ```bash
 node frozen/ps_test_runner.mjs sessions/seed0012-monk-vault-escort.session.json
 ```
 
-**Falsify next:** cite C `end.c` `container_contents` + `sortloot` before
-inventing display merge; dump screen 31 line order.
+**Falsify next:** cite C `doset` / options menu geometry before inventing
+layout; dump screen 58 row order (General/Behavior completeness).
 
 **Alternates:** seed0004 / seed0002 / seed0006 / seed0007; quest early-0.
 

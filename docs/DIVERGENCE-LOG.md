@@ -24,6 +24,43 @@ The compact status table lives in **`DIVERGENCE-INDEX.md`**.
 Open that file first; then jump to a single `## D-NNNN` entry below
 (via search). Do **not** read this whole file by default.
 
+## D-0384 — query_objlist INVORDER_SORT class headings (seed0012 Scr)
+
+- **Status:** fixed
+- **Observed:** seed0012 screen 43 — C `Pick up what?` / `Comestibles` /
+  `a - a newt corpse` / `Tools` / `b - a bag`; JS flat `a`/`b` without
+  headers; cursor row 4 vs 6.
+- **Cause:** C `pickup` passes `INVORDER_SORT` when `flags.sortpack`;
+  `query_objlist` emits `add_menu_heading(let_to_name(*pack))` per class
+  and `end_menu` paints the prompt with menu_headings (ATR_INVERSE).
+- **C locus:** `pickup.c` `query_objlist` (~1106–1143); `invent.c`
+  `let_to_name`; `wintty.c` `tty_end_menu`.
+- **Change:** `js/invent.js` export `let_to_name` / `DEF_INV_ORDER`;
+  `js/pickup.js` `query_objlist_pickup` pack-order headers + prompt
+  ATR_INVERSE; letters assigned in menu order. Named omissions:
+  FEEL_COCKATRICE; within-class loot_xname; menu_head_objsym; count-N.
+- **Verification:** Scr **185→187**/308; green+strict; cohort 22/22 PASS.
+- **Next:** seed0012 @screen58 `O` Options menu geometry / missing rows.
+
+## D-0383 — ice-box container_contents sortloot stacks (seed0012 Scr)
+
+- **Status:** fixed
+- **Observed:** seed0012 screen 31 — C `2 jackal corpses` / stacked
+  lichen/newt lines vs JS one `doname` per cobj (`a newt corpse` first).
+- **Cause:** C `mkbox_cnts`→`add_to_container` merges via `merged()`;
+  corpse gender on `spe` (CORPSTAT_*) so same-species same-sex stacks;
+  `container_contents` walks `sortloot(SORTLOOT_LOOT|PACK)` then `doname`.
+- **C locus:** `mkobj.c` `add_to_container` / `mksobj` CORPSE spe+
+  `set_corpsenm`; `end.c` `container_contents`; `invent.c` `sortloot`.
+- **Change:** `js/mkobj.js` merge in `add_to_container` + corpse `spe`
+  gender before `set_corpsenm`; `js/invent.js` `sortloot`/`loot_xname`;
+  `js/objnam.js` `cxname_singular`/`corpse_xname`; `js/pickup.js`
+  `container_contents` uses sortloot. Named omissions: sortloot
+  subclass/disco/BUCX; nested containers; Schroedinger; shop price.
+- **Verification:** Scr **184→185**/308 (screen 31 cells+cursor); RNG
+  still full 13878; green held under later D-0384 verify.
+- **Next:** pickup INVORDER_SORT (D-0384).
+
 ## D-0382 — in_or_out_menu prompt ATR_INVERSE + SELECTED `*` (seed0012 Scr)
 
 - **Status:** fixed

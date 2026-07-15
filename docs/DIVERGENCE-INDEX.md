@@ -369,6 +369,8 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 | D-0380 | fixed | SPELL_LEV_PW after num_spells | Monk Pw 4→5; seed0012 Scr 17→181 |
 | D-0381 | fixed | use_container locked Hmmm pline | lknown branch; seed0012 Scr 181→182 |
 | D-0382 | fixed | in_or_out_menu prompt/SELECTED | ATR_INVERSE + `q *`; Scr 182→184 |
+| D-0383 | fixed | ice-box sortloot / merge stacks | add_to_container+corpse spe; Scr 184→185 |
+| D-0384 | fixed | query_objlist INVORDER_SORT | class headings + prompt ATR; Scr 185→187 |
 
 D-0001 through D-0005 predate the strict-length/cohort runbook. Their focused
 causes are preserved, but generic "green sessions held" is historical evidence,

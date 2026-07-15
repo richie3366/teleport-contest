@@ -18,6 +18,15 @@ Use this shape:
 - Verification: …
 - Next: …
 ```
+## 2026-07-15 11:47 — D-0383/84 ice-box stacks + pickup INVORDER_SORT
+- Objective: seed0012 screens @31 Contents / @43 Pick up what?
+- C locus: mkobj.c add_to_container/mksobj spe; end.c container_contents;
+  invent.c sortloot; pickup.c query_objlist INVORDER_SORT + let_to_name.
+- Change: merge+corpse gender+sortloot doname (D-0383); pack-order class
+  headings + prompt ATR_INVERSE (D-0384).
+- Verification: Scr **184→187**/308; green+strict; cohort 22/22 PASS.
+- Next: seed0012 @screen58 `O` Options menu geometry / missing rows.
+
 ## 2026-07-15 11:30 — D-0382 in_or_out_menu prompt/SELECTED (seed0012 Scr)
 - Objective: seed0012 @screen30 ice-box `Do what with…` menu.
 - C locus: pickup.c in_or_out_menu; wintty.c tty_end_menu /
@@ -156,9 +165,3 @@ Use this shape:
 - Verification: mismatch 7312→8384; RNG 7558→8944; green+strict; cohort 24/24.
 - Next: seed0012 @8384 C dog_move mtrack rn2(8) vs JS rn2(4).
 
-## 2026-07-15 07:45 — D-0368 O/@ autopick (seed0012 @7288)
-- Objective: seed0012 @7288 C dog_move rn2(1) vs JS obj_resists.
-- C locus: options.c doset_simple/dotogglepickup; pickup.c autopick_testobj.
-- Change: bind O/@; choose_classes_menu pickup_types; autopick filter (D-0368).
-- Verification: mismatch 7288→7312; RNG 7495→7558; green+strict; cohort 22/22.
-- Next: seed0012 @7312 C wipeout_text vs JS distfleeck.
