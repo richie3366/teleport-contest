@@ -938,8 +938,7 @@ export async function dog_move(mtmp, after) {
             await pline(`${noit_Monnam(mtmp)} steps reluctantly onto ${what}.`);
         }
         mon_track_add(mtmp, omx, omy);
-        newsym(omx, omy);
-        newsym(nix, niy);
+        // C: no newsym here — postmov updates omx then mx after dog_move returns
         // C: do_eat after move — dog_eat rolls dogfood again then delobj
         if (do_eat && eat_obj) {
             if ((await dog_eat(mtmp, eat_obj, omx, omy, false)) === 2) {

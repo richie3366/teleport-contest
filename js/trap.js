@@ -1678,8 +1678,26 @@ export async function mintrap(mtmp, mintrapflags = NO_TRAP_FLAGS) {
         return Trap_Effect_Finished;
     }
     if (mtmp.mtrapped) {
-        // Already trapped escape path: C burns rn2(40) / easy_escape;
-        // omit body — stay caught (named omission).
+        // C trap.c mintrap — already in trap: maybe reveal, then rn2(40)
+        // escape (or easy pit). Boulder-in-pit / metallivorous chew deferred.
+        if (!trap.tseen && cansee(mtmp.mx, mtmp.my) && canseemon(mtmp)
+            && (is_pit(trap.ttyp) || trap.ttyp === BEAR_TRAP
+                || trap.ttyp === HOLE || trap.ttyp === WEB)) {
+            seetrap(trap);
+        }
+        // m_easy_escape_pit arm deferred — only rn2(40) gate for now
+        if (!rn2(40)) {
+            if (canseemon(mtmp)) {
+                if (is_pit(trap.ttyp)) {
+                    await pline(`${Monnam(mtmp)} climbs out of the pit.`);
+                } else if (trap.ttyp === BEAR_TRAP || trap.ttyp === WEB) {
+                    await pline(
+                        `${Monnam(mtmp)} pulls free of the ${trapname(trap.ttyp, false)}.`,
+                    );
+                }
+            }
+            mtmp.mtrapped = 0;
+        }
         return mtmp.mtrapped ? Trap_Caught_Mon : Trap_Effect_Finished;
     }
 

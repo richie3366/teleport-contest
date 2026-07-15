@@ -387,6 +387,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 | D-0398 | fixed | trapeffect_bear_trap + floor_trigger BEAR | seed0004 RNG 4025→4087; @26 yellow gem next |
 | D-0399 | fixed | look_here observe before doname | pile gem color; seed0004 Scr 28→29; seed0002 50→54 |
 | D-0400 | fixed | encumber_msg + WT_WOUNDEDLEG_REDUCT | bear `--More--` via load pline; RNG 4087→4114; @29 caught next |
+| D-0401 | fixed | trapmove + enc_stat botl + exerper status + mintrap rn2(40) | seed0004 Scr 29→52; RNG 4114→5331; @46 wriggle next |
 
 D-0001 through D-0005 predate the strict-length/cohort runbook. Their focused
 causes are preserved, but generic "green sessions held" is historical evidence,

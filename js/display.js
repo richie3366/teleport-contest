@@ -27,6 +27,7 @@ import {
     SVALL,
     TER_TRP, TER_OBJ, TER_MON, TER_FULL,
     OBJ_FLOOR,
+    UNENCUMBERED,
 } from './const.js';
 import {
     ILLOBJ_CLASS, WEAPON_CLASS, ARMOR_CLASS, RING_CLASS, AMULET_CLASS,
@@ -46,7 +47,7 @@ import {
 } from './attrib.js';
 import { depth, dist2 } from './hacklib.js';
 import { monsterNames } from './generated/monsters_data.js';
-import { observe_object } from './invent.js';
+import { observe_object, near_capacity } from './invent.js';
 
 const CORPSE_OTYP = objectNames.indexOf('CORPSE');
 const STATUE_OTYP = objectNames.indexOf('STATUE');
@@ -1590,10 +1591,16 @@ let _lastStatus2 = '';
 /** When true, paint blank status (fullscreen menu cleared WIN_STATUS). */
 let _statusSuppressed = false;
 
+// C ref: botl.c enc_stat[] — also used in insight.c
+const ENC_STAT = [
+    '', 'Burdened', 'Stressed', 'Strained', 'Overtaxed', 'Overloaded',
+];
+
 // C ref: botl.c describe_level — "Dlvl:%-2d" / "Tutorial:%-2d" uses
 // depth(&u.uz), not dunlev; Xp:/T: gated by flags.showexp / flags.time;
 // BL_CONDITION Ride when u.usteed (botl.c condtests[bl_ride]).
-// Named omissions: Knox/quest/endgame describe_level arms.
+// Named omissions: Knox/quest/endgame describe_level arms; full condition
+// list (Stone/Slime/hunger/Blind/…); Upolyd HD.
 function _statusLine2() {
     const u = game.u;
     if (!u) return '';
@@ -1609,6 +1616,11 @@ function _statusLine2() {
     let s = `${levtag}:${dlvl} $:${game._goldCount || 0} HP:${hp}(${hpmax}) Pw:${u.uen || 0}(${u.uenmax || 0}) AC:${u.uac ?? 10} Xp:${u.ulevel || 1}`;
     if (flags.showexp) s += `/${u.uexp || 0}`;
     if (flags.time) s += ` T:${game.moves || 1}`;
+    // C do_statusline2 cond: hunger then enc_stat then Blind… then Ride
+    const cap = near_capacity();
+    if (cap > UNENCUMBERED) {
+        s += ` ${ENC_STAT[cap] || ''}`;
+    }
     // C windows.c BL_MASK_RIDE → " Ride" (leading space in strcat)
     if (u.usteed) s += ' Ride';
     return s;

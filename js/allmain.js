@@ -17,7 +17,7 @@ import { makedog } from './dog.js';
 import { makemon } from './makemon.js';
 import { mcalcmove, mcalcdistress, movemon, NORMAL_SPEED } from './mon.js';
 import { LOW_PM, NUMMONS, mons, G_NOCORPSE } from './monsters.js';
-import { A_DEX, A_STR, A_CON, acurr, exercise, change_luck, Fast, Very_fast, Searching } from './attrib.js';
+import { A_DEX, A_STR, A_CON, A_WIS, acurr, exercise, change_luck, Fast, Very_fast, Searching } from './attrib.js';
 import { dosearch0 } from './detect.js';
 import { nhgetch } from './input.js';
 import { unmul, monster_nearby, stop_occupation } from './hack.js';
@@ -37,7 +37,7 @@ import {
     UNENCUMBERED, SLT_ENCUMBER, MOD_ENCUMBER, HVY_ENCUMBER, EXT_ENCUMBER,
     NO_MM_FLAGS, Upolyd, LL_ACHIEVE,
     ROLE_GENDMASK, ROLE_MALE, ROLE_FEMALE,
-    UTOTYPE_NONE,
+    UTOTYPE_NONE, TIMEOUT,
 } from './const.js';
 
 // C ref: allmain.c moveloop_preamble() — moon/friday; new-game RNG only when !resuming
@@ -190,21 +190,57 @@ function regen_hp(wtcap) {
     if (reached_full) interrupt_multi('You are in full health.');
 }
 
+/**
+ * C ref: attrib.c exerper — hunger / encumbrance / status exercise ticks.
+ * Named omissions: Monk fasting WIS arms; Clairvoyant/Regeneration props;
+ * full Sick/Vomiting timeout bodies (flags only when set).
+ */
 function exerper() {
     const moves = game.moves || 0;
+    const u = game.u || {};
     if (!(moves % 10)) {
         // Hunger Checks — Tourist starts Not Hungry → exercise(A_CON, TRUE)
-        const hunger = game.u.uhunger ?? 900;
+        const hunger = u.uhunger ?? 900;
         if (hunger > 1000) {
             exercise(A_DEX, false);
         } else if (hunger > 150) {
             exercise(A_CON, true);
         } else if (hunger > 50) {
-            /* HUNGRY — no exercise in switch default for STR until WEAK */
+            /* HUNGRY — no exercise in switch until WEAK */
         } else if (hunger > 0) {
             exercise(A_STR, false);
         } else {
             exercise(A_CON, false);
+        }
+
+        // Encumbrance Checks
+        switch (near_capacity()) {
+        case MOD_ENCUMBER:
+            exercise(A_STR, true);
+            break;
+        case HVY_ENCUMBER:
+            exercise(A_STR, true);
+            exercise(A_DEX, false);
+            break;
+        case EXT_ENCUMBER:
+            exercise(A_DEX, false);
+            exercise(A_CON, false);
+            break;
+        default:
+            break;
+        }
+    }
+
+    // status checks every 5 moves
+    if (!(moves % 5)) {
+        // HClairvoyant / HRegeneration deferred
+        if (u.Sick || u.Vomiting) exercise(A_CON, false);
+        if (u.Confusion || u.Hallucination) exercise(A_WIS, false);
+        const wounded = !!(u.Wounded_legs
+            || ((u.HWounded_legs | 0) & TIMEOUT)
+            || (u.EWounded_legs | 0));
+        if ((wounded && !u.usteed) || u.Fumbling || u.HStun || u.Stunned) {
+            exercise(A_DEX, false);
         }
     }
 }

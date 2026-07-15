@@ -19,7 +19,8 @@ focused session.
 
 Score last measured: **2026-07-15** — full `sessions` suite (#425; post D-0399
 look_here observe). Screens **3983**/11405; seed0004 Scr 28→29; seed0002
-Scr 50→54.
+Scr 50→54. *(#427 D-0401 improved seed0004 Scr→52 / RNG→5331 — full suite
+not remeasured this iteration.)*
 
 ## Score
 
@@ -42,7 +43,7 @@ seed0013-rogue, seed0013-friday13-restore, seed0107, seed0009,
 |--------|----:|-------:|------|
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
 | seed0002 | 5198/27158 | **54**/595 | Scr↑ via D-0399; still @3808 eatcorpse |
-| seed0004 | 4114/12084 | **29**/409 | D-0400 bear More; next @29 caught-in-bear |
+| seed0004 | **5331**/12084 | **52**/409 | D-0401; next @46 caught+wriggle topline |
 | seed0361/0373 | early | 0 | quest bones / `makemaz` |
 
 ## Green gate
@@ -60,12 +61,15 @@ Both must remain full RNG + screen PASS with exact scored-output lengths.
 
 ## Primary objective
 
-**seed0004 / seed0002 shared blockers** — gem color + bear load `--More--`
-(D-0399/D-0400). Prefer seed0004 @29 `You are caught in a bear trap.`
-(`trapmove` / utrap) or seed0002 `eatcorpse` rnd(8) over parked items.
+**seed0004 @46** — C topline concatenates
+`You are caught in a bear trap.  You finally wriggle free.` vs JS wriggle
+only (Norep / pending topline). Or RNG @4394 `rn2(67)` vs `rn2(64)`
+(`moveloop` wipe_engr `40+ACURR(A_DEX)*3` — wounded-leg ATEMP?). Prefer
+over parked items; seed0002 `eatcorpse` still alternate.
 
 ```bash
 node frozen/ps_test_runner.mjs sessions/seed0004-feeding-pony.session.json
+node scripts/rng-diff.mjs sessions/seed0004-feeding-pony.session.json
 node frozen/ps_test_runner.mjs sessions/seed0002-healer-reflection-drummer.session.json
 ```
 

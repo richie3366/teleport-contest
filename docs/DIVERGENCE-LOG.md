@@ -4,6 +4,32 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
+## D-0401 — trapmove + botl enc_stat + exerper status + mintrap escape RNG
+
+- **Symptom:** seed0004 Scr stuck **29**/409 — NOTES blamed missing
+  `You are caught in a bear trap.` topline; actual first cell miss @27 was
+  botl missing `Burdened`, then trapmove/exerper/mintrap gaps.
+- **Cause (cluster):** (1) JS `domove` omitted C `hack.c` `trapmove` while
+  `u.utrap`; (2) `_statusLine2` omitted `enc_stat[near_capacity()]`;
+  (3) `exerper` omitted encumbrance + every-5 `Wounded_legs`→`exercise(A_DEX,FALSE)`;
+  (4) `mintrap` already-trapped path skipped C `rn2(40)`; (5) `dog_move`
+  `newsym` before `postmov` spoiled pre-`newsym` `--More--` glyphs.
+- **C locus:** `hack.c` `trapmove` (~1550) / `domove_core` utrap (~2830);
+  `botl.c` `do_statusline2` `enc_stat` (~187); `attrib.c` `exerper` (~552–582);
+  `trap.c` `mintrap` already-trapped (~3741–3771); `dogmove.c` place then
+  pline without newsym (~1296–1312); `monmove.c` `postmov` newsym.
+- **Change:** `js/hack.js` `trapmove` (BEARTRAP + partial other TT_*);
+  wire in `js/cmd.js` `domove`; `js/display.js` `ENC_STAT` on botl;
+  `js/allmain.js` `exerper` encumbrance+status; `js/trap.js` mintrap
+  `rn2(40)` escape; `js/dogmove.js` defer newsym to postmov.
+  Named omissions: steed trapmove msgs; `climb_pit`; Sting/web cut;
+  buried-ball radius; `m_easy_escape_pit`; metallivorous chew; full
+  botl conditions (Stone/hunger/Blind/…); Clairvoyant/Regen exercise.
+- **Verification:** seed0004 Scr **29→52**/409 (prefix ~46); RNG
+  **4114→5331**/12084 (prefix ~4394); green+strict PASS; cohort **23/23**.
+- **Next:** seed0004 @46 C concatenates caught+wriggle on one topline;
+  RNG @4394 `rn2(67)` vs `rn2(64)` (`ACURR(A_DEX)` / wipe_engr).
+
 ## D-0400 — encumber_msg + weight_cap wounded-leg reduct (bear --More--)
 
 - **Symptom:** seed0004 @27 — C `A bear trap closes on your foot!--More--`
