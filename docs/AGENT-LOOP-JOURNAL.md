@@ -19,6 +19,15 @@ Use this shape:
 - Verification: …
 - Next: …
 ```
+## 2026-07-15 04:40 — D-0355 pool/lava/ice DEC glyphs
+- Objective: seed0009 @40 terrain `?` vs C DEC pool/lava diamond.
+- C locus: `display.c` `back_to_glyph` + `defsym.h` / DECgraphics S_pool.
+- Change: `terrain_glyph` POOL/MOAT/WATER/lava/ice; scoring grid keeps
+  raw DEC `` ` `` (not Unicode ◆) like altar `{` (D-0355).
+- Verification: Scr **40→48**/73; first miss @41 “broken door”; RNG
+  **3649**; green+strict; cohort 21 PASS. Score not remeasured (#376).
+- Next: `look_here`/`dfeature_at` D_BROKEN “There is a broken door here.”
+
 ## 2026-07-15 04:32 — #375 score + D-0354 mention_walls
 - Objective: mandatory full `sessions` score (#375 %5) + seed0009 @33 wall.
 - C locus: `hack.c` `test_move` mention_walls obstructed bump.
@@ -157,14 +166,3 @@ Use this shape:
 - Verification: RNG **full 4804**; Scr **47→68**/99; first miss `@62` `)`;
   green+strict; 8 PASS cohort incl. seed0013-rogue.
 - Next: `@62` `)` bare-handed / `doprwep`.
-
-## 2026-07-15 01:02 — #361 D-0334 farlook checkfile yn
-
-- Objective: seed2200 @39 look `--More--` vs moreinfo yn (CURRENT).
-- C locus: `topl.c` `tty_yn_function` NEED_MORE→`more`; `pager.c`
-  `checkfile`/`y_n`; `do_screen_description` lookat `found=1`.
-- Change: `checkfile` → `yn_function`; stairs/ROOM/CORR `found: 1`
-  after parenthetical (D-0334).
-- Verification: seed2200 Scr **206→229**/230 (parked @158 only); RNG
-  full; green+strict; 19 PASS cohort.
-- Next: seed0013-restore Scr 47/99 (or seed0107 @2684).

@@ -60,16 +60,16 @@ Both must remain full RNG + screen PASS with exact scored-output lengths.
 
 ## Primary objective
 
-**seed0009-swimmer-mforce** — RNG **3649**/3713; Scr **40**/73
+**seed0009-swimmer-mforce** — RNG **3649**/3713; Scr **48**/73
 
 | | |
 |--|--|
-| **C locus** | `display.c` `back_to_glyph` POOL/MOAT/WATER (+ DEC S_pool diamond) |
-| **JS locus** | `display.js` `terrain_glyph` — POOL/WATER currently `?` |
-| **Symptom** | first cell-miss @40 JS `?` vs C DEC `` ` `` (pool) at map water |
-| **Hypothesis** | pool/lava/water terrain glyphs + DEC remap incomplete |
-| **Falsifier** | Scr >40 with @40 cells; or named next miss |
-| **Recent fixed** | D-0354 `test_move` mention_walls “It's a wall.” → Scr **39→40** |
+| **C locus** | `invent.c` `look_here` / `dfeature_at` — “broken door” |
+| **JS locus** | `invent.js` look_here / dfeature — blank topline @41 |
+| **Symptom** | first cell-miss @41 C “There is a broken door here.” vs JS blank |
+| **Hypothesis** | `dfeature_at`/`look_here` omits D_BROKEN door feature pline |
+| **Falsifier** | Scr >48 with @41 cells; or named next miss |
+| **Recent fixed** | D-0355 POOL/MOAT/WATER/lava/ice glyphs + DEC `` ` `` grid → Scr **40→48** |
 
 ```bash
 node frozen/ps_test_runner.mjs sessions/seed0009-swimmer-mforce.session.json
@@ -78,9 +78,6 @@ node frozen/ps_test_runner.mjs sessions/seed0009-swimmer-mforce.session.json
 **Note:** runner `Screen N/M` is **total** positional matches, not prefix
 length. Prefer decodeScreen cell first-miss for peel targets.
 Key read at screen `i` is `moves[i]` (= `steps[i+1].key`), not `steps[i].key`.
-
-**Also seen @41:** C “There is a broken door here.” vs JS blank — may clear
-once water glyphs + `look_here`/door feature land; peel pool glyph first.
 
 **Alternate:** seed2200 @158 RC parked only.
 

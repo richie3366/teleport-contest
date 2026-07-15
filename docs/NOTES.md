@@ -7,15 +7,14 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Score:** **23/44** PASS (#375 suite after D-0354; Scr aggregate **3592**).
-- **Current unit:** seed0009 Scr **40**/73 RNG **3649**/3713 — first
-  cell-miss @40 JS `?` vs C DEC pool diamond (`` ` ``). Wall @33 fixed.
-- **Fixed this iter:** D-0354 — `domove`/`blocksMove` →
-  `mention_walls_obstructed` (“It's a wall.” / solid stone / bars).
-- **Next peel:** `terrain_glyph` POOL/MOAT/WATER (+ DEC S_pool); then
-  likely @41 “There is a broken door here.”
-- **Don’t re-check:** glance/`;` as @33 root; unfinished large-box alone;
-  door `rnl` as remaining tut-1 peel.
+- **Score:** **23/44** PASS (#375 suite; Scr aggregate **3592** — not remeasured).
+- **Current unit:** seed0009 Scr **48**/73 RNG **3649**/3713 — first
+  cell-miss @41 C “There is a broken door here.” vs JS blank topline.
+- **Fixed this iter:** D-0355 — `terrain_glyph` POOL/MOAT/WATER/lava/ice +
+  scoring grid keeps raw DEC `` ` `` (not Unicode ◆).
+- **Next peel:** `look_here`/`dfeature_at` D_BROKEN door feature.
+- **Don’t re-check:** pool `?` as remaining @40 root; Unicode ◆ without
+  checking DEC_MAP exclusion (altar `{` pattern).
 - **Landmark:** screen `i` key = `moves[i]` (= `steps[i+1].key`).
 - **Parked:** D-0006; seed2200 @158 RC.
 
@@ -61,7 +60,8 @@ Objective/score live in `CURRENT.md`.
   (D-0352); omit tut-1 loot→end / mineralize special skip / stub
   `align_shift` / `dochug` without WAITMASK (D-0353); silent
   `blocksMove` without mention_walls pline (D-0354); blame @33 on
-  glance/`;` or unfinished large-box alone.
+  glance/`;`; omit POOL/lava/ice glyphs or paint DEC `` ` `` as Unicode ◆
+  (D-0355 — keep raw `` ` `` like altar `{`).
 - Runner `Screen N/M` = total matches, not prefix length.
 
 ## Landmarks (≤15)
@@ -73,9 +73,11 @@ Objective/score live in `CURRENT.md`.
 - Session: screen `i` reads `moves[i]`; `more()` space/CR/ESC.
 - Save: VFS `save/<plname>` JSON; restore skips `rndencode`;
   `l_nhcore_init` still 2×rn2; farewell clears map no flush (D-0335).
-- D-0274…D-0354: bones/disclose/RIP/topten/descr/botl/paybill/ghost/`;`/
+- Scoring grid: DEC chars in DEC_MAP → Unicode; `{`/` `` ` `` stay raw.
+- D-0274…D-0355: bones/disclose/RIP/topten/descr/botl/paybill/ghost/`;`/
   getlin/compactify/enl/checkfile/save/welcome/attr/`$`/`)`/show-*/DEL/
   reveal_terrain/getpos Done/`#twoweapon`/`hitum` twohits/`dosit` OBJ_AT/
   weapon_insight twoweap limits / chargen corner / tutorial yes-path /
   tut-1 CENTER + invent stash + door-area + mktrap gate through sling +
-  loot→end + align_shift + WAITMASK + mention_walls bump.
+  loot→end + align_shift + WAITMASK + mention_walls bump + pool/lava/ice
+  DEC diamond.

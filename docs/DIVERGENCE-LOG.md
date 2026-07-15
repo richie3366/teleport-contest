@@ -24,6 +24,26 @@ The compact status table lives in **`DIVERGENCE-INDEX.md`**.
 Open that file first; then jump to a single `## D-NNNN` entry below
 (via search). Do **not** read this whole file by default.
 
+## D-0355 — pool/lava/ice terrain_glyph + DEC diamond scoring
+
+- **Status:** fixed
+- **Observed:** seed0009 Scr **40**/73 RNG **3649**/3713 — first cell-miss
+  @40 JS `?` then Unicode `◆` vs C DEC `` ` `` (lava/pool diamonds).
+- **C locus:** `display.c` `back_to_glyph` POOL/MOAT→`S_pool`, WATER→
+  `S_water`, LAVAPOOL/LAVAWALL→`S_lava`/`S_lavawall`, ICE→`S_ice`;
+  `defsym.h` PCHAR colors; `dat/symbols` DECgraphics `\xe0` meta-``.
+- **Cause/evidence:** `terrain_glyph` defaulted water/lava/ice to `?`;
+  after glyphs landed, `_buildScreenOutput` converted DEC `` ` `` via
+  `DEC_TO_UNICODE` to `◆`, but frozen `DEC_MAP` does not equate them
+  (same class as altar `{`).
+- **Change:** `js/display.js` `terrain_glyph` cases + keep raw `` ` ``
+  on scoring grid (with `{`). AIR/CLOUD/IRONBARS/TREE/DRAWBRIDGE_UP
+  under-typ still default `?`.
+- **Verification:** seed0009 Scr **40→48**/73 (first miss @41 broken
+  door); RNG still **3649**/3713; green+strict; cohort 21 PASS.
+- **General lesson:** only Unicode-convert DEC chars that
+  `screen-decode` `DEC_MAP` remaps for compare.
+
 ## D-0354 — test_move mention_walls obstructed bump
 
 - **Status:** fixed
