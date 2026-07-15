@@ -363,6 +363,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 | D-0374 | fixed | invault + guard makemon / merc kit | timer+spawn; @13287→13392 |
 | D-0375 | fixed | apply `?` bag take-out + gd_move | hidden_gold; @13392→13517 |
 | D-0376 | fixed | bag put-in; leaked LF rush-south | put-in coins; prefix 13517→13576; cursors 259→270 |
+| D-0377 | fixed | gd_move dig while-loop redirect | wall→ortho STONE CORR; prefix 13576→13700; cursors 270→279 |
 
 D-0001 through D-0005 predate the strict-length/cohort runbook. Their focused
 causes are preserved, but generic "green sessions held" is historical evidence,

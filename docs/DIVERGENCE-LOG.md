@@ -24,6 +24,34 @@ The compact status table lives in **`DIVERGENCE-INDEX.md`**.
 Open that file first; then jump to a single `## D-NNNN` entry below
 (via search). Do **not** read this whole file by default.
 
+## D-0377 — gd_move dig while-loop wall→ortho redirect (seed0012 @13576)
+
+- **Status:** fixed
+- **Observed:** seed0012 @13576 — C `dog_move` `rn2(1)` vs JS `rn2(4)`
+  (`dog_goal` `IS_ROOM` follow).
+- **Cause:** Symptom was pet `dog_goal` consuming `rn2(4)` because hero
+  stood on ROOM after a desynced path. Root: JS `gd_move` dug only the
+  primary step cell. From vault door (71,13) toward dest (64,5), primary
+  step hit TLCORNER (71,12); C's while-loop redirects west onto STONE
+  (70,13)→CORR. JS converted (71,12) alone, left (70,13) STONE, so the
+  second `h` failed and hero/cursor desynced; later dog_goal saw ROOM.
+- **Rejected:** bare dog_move cand arity; patching `IS_ROOM`/`rn2(4)`
+  without hero-path proof; inventing corridor at recorded coords.
+- **C locus:** `vault.c` `gd_move` nextpos while-loop (~1111–1155);
+  `find_guard_dest` `goto incr_radius`; um_dist `!rn2(10)`.
+- **Change:** `js/vault.js` — port dig while-loop (wall→DOOR if beyond
+  ROOM, else ortho redirect, else STONE→CORR); `find_guard_dest`
+  approachability failure abandons dd ring; um_dist `rn2(10)` gate.
+  Named omissions: restfakecorr/clear_fcorr/mongone; verbalize body;
+  !u_in_vault look-around; gd_mv_monaway; mpickgold; del_engr_at.
+- **Verification:** first mismatch **13576→13700**; runner RNG
+  **13635→13754**/13878 cursors **270→279**/308; green+strict PASS;
+  cohort **22/22** (+ green).
+- **Lesson:** when dog_goal/IS_ROOM appears right after vault escort,
+  diff hero vs C cursor on the preceding `h`/`j` keys — failed walks
+  into undug STONE are guard dig bugs, not pet AI.
+- **Next:** seed0012 @13700 C `move_special` `rn2(1)` vs JS `rn2(5)`.
+
 ## D-0376 — bag put-in stub leaked `\n` rush-south (seed0012 @13517)
 
 - **Status:** fixed

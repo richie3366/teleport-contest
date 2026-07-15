@@ -58,18 +58,17 @@ Both must remain full RNG + screen PASS with exact scored-output lengths.
 
 ## Primary objective
 
-**seed0012 @13576** — C `dog_move` `rn2(1)` (`dogmove.c:1255`) vs JS
-`rn2(4)` (same site / cand arity). After D-0376 put-in, shk mill @13517
-matches; next peel is pet AI.
+**seed0012 @13700** — C `move_special` `rn2(1)` (`priest.c:85`) vs JS
+`rn2(5)` (fleeck). After D-0377 vault dig while-loop, hero follows guard
+corridor; next peel is temple priest mill.
 
 ```bash
 node scripts/rng-diff.mjs sessions/seed0012-monk-vault-escort.session.json
 node frozen/ps_test_runner.mjs sessions/seed0012-monk-vault-escort.session.json
 ```
 
-**Falsify next:** dump dog `(mx,my)` / `mfndpos` cand count at first
-`dog_move` mill after @13517; cite C `dog_move` branch before changing
-arity.
+**Falsify next:** dump priest `(mx,my)` / `move_special` cand path at first
+mismatch after @13700; cite C `move_special` before changing arity.
 
 **Alternates:** seed0004 / seed0002 / seed0006 / seed0007; quest early-0.
 

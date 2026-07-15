@@ -8,18 +8,18 @@ Objective/score live in `CURRENT.md`.
 ## Active
 
 - **Score:** **24/44** PASS (#400). RNG **254110**/792838 Scr **3640**/11405.
-  seed0012 focused RNG **13635**/13878 cursors **270**/308.
-- **Next:** seed0012 @13576 — C `dog_move` `rn2(1)` vs JS `rn2(4)`.
+  seed0012 focused RNG **13754**/13878 cursors **279**/308 (D-0377).
+- **Next:** seed0012 @13700 — C `move_special` `rn2(1)` vs JS `rn2(5)`.
   Cmd: `node scripts/rng-diff.mjs sessions/seed0012-monk-vault-escort.session.json`
-  Falsify: dog cand-count / `mfndpos` at first dog mill after shk @13517–19.
-- **Don’t re-check:** @13517 as bare `move_special`/`mfndpos` cand-count or
-  `onlineu` without hero path (D-0376 — root was stubbed bag **put-in** →
-  leaked LF rush-south); @13392 fleeck/gd_move alone (D-0375); @13287 wipe
-  before invault (D-0374); @12489 fleeck/mon mvault (D-0373); @12439
-  gethungry/Unaware (D-0372); @8802 dog_goal IS_ROOM (D-0371); @8384
-  fountain detect (D-0370); wipeout@7312; wantdoor @6952.
-- **Landmark:** shop home (11,11); vault bag `aji$\r$\r` = put-in gold;
-  `\r`→LF is `C('j')` rush if not consumed by menu.
+  Falsify: priest cand path / room state at first mill after vault escort.
+- **Don’t re-check:** @13576 as bare dog_move cand arity / IS_ROOM rn2(4)
+  (D-0377 — root was gd_move dig while-loop missing wall→ortho redirect,
+  so (70,13) stayed STONE and hero `h` desynced); @13517 bag put-in
+  (D-0376); @13392 fleeck/gd_move alone (D-0375); @13287 wipe before
+  invault (D-0374); @12489 fleeck/mon mvault (D-0373); @12439 gethungry
+  (D-0372); @8802 dog_goal IS_ROOM (D-0371); @8384 fountain (D-0370).
+- **Landmark:** vault door (71,13); guard dest ~(64,5); dig while-loop
+  redirects TLCORNER north → west STONE (70,13)→CORR; um_dist `!rn2(10)`.
 - **Parked:** D-0006; seed2200 @158 RC.
 
 ## Don’t re-check (≤15)
@@ -68,23 +68,16 @@ Objective/score live in `CURRENT.md`.
   somex@12489 as fleeck/mon mvault (D-0373 — hero once vault TELEP);
   wipe_engr@13287 as fleeck (D-0374 — invault guard spawn);
   fleeck@13392 as gd_move-only (D-0375 — apply `?` bag take-out first);
-  @13517 as move_special/onlineu alone (D-0376 — bag put-in / leaked LF).
+  @13517 as move_special/onlineu alone (D-0376 — bag put-in / leaked LF);
+  @13576 as dog_move rn2(4)/IS_ROOM alone (D-0377 — gd_move dig redirect).
 - Runner `Screen N/M` = total matches, not prefix length.
 
 ## Landmarks (≤15)
 
 - STAIRS yellow via `known_branch_stairs`; map col=x−1 row=y+1 DEC.
-- `goto_level` descend: `stairway_find_from(&u.uz0)`; `pickup(1)`;
-  UTOTYPE_NONE → `u_on_rndspot`.
-- Return visit: stash `VISITED|LFILE_EXISTS`+`omoves`+**track**;
-  `rest_track`; `<` → `doup`.
 - Session: `more()` space/CR/ESC; jsmain `\r`→LF.
-- Save: VFS `save/<plname>` JSON; restore skips `rndencode`.
-- Fountain fate=26: `monster_detect` + getpos (D-0370); fmon is array.
-- Fountain fate=20: `vomit` → `nomul(-2)` (D-0371).
-- `domove`: attack before doorway `test_move` (D-0372).
-- Vault niche `TELEP` once → `vault_tele` somexyspace (D-0373).
+- Vault door (71,13); dig while-loop wall→ortho→STONE CORR (D-0377).
 - Vault `invault` timer 30 → `makemon(PM_GUARD)` + getlin (D-0374).
 - Apply bag take-out `a?jo$\r`; put-in `aji$\r$\r` (D-0375/76).
 - Shop home (11,11): mill → (11,12); return needs `onlineu` (D-0376).
-- D-0274…D-0376: see index.
+- D-0274…D-0377: see index.
