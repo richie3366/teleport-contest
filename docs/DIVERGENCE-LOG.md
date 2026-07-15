@@ -4,6 +4,28 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
+## D-0407 — seed0004 @10382 SCR_TELEPORTATION / safe_teleds
+
+- **Status:** fixed
+- **Symptom:** seed0004 first RNG miss @10382 — C `exercise` `rn2(19)`
+  (×2) then `safe_teleds` vs JS `distfleeck` `rn2(5)`.
+- **Cause:** `doread` gated SCR_TELEPORTATION as unimplemented and
+  getobj-read treated `?` as Never mind, so session `r?o` never ran
+  `seffects`→`scrolltele`. C: magic `exercise(A_WIS)` +
+  `learnscroll`→`makeknown` credit WIS + `safe_teleds`.
+- **C locus:** `read.c` `seffect_teleportation` / `learnscrolltyp`;
+  `teleport.c` `scrolltele` / `safe_teleds`; invent `display_pickinv`
+  for getobj `?`.
+- **Change:** getobj-read `?`/`*` via `display_pickinv_reply`;
+  `seffect_teleportation`→`scrolltele`/`safe_teleds`; learnscroll →
+  `makeknown`+`more_experienced(0,10)`; seffects `oc_magic` exercise
+  before otyp switch.
+- **Verification:** seed0004 RNG **10409→10569**/12084; Scr
+  **241→242**/409; first miss @10563; green+strict PASS; cohort
+  **23/23**.
+- **Next:** seed0004 @10563 C `gethungry`/`hitum` vs JS `distfleeck`
+  (post-travel move `l`).
+
 ## D-0406 — seed0004 @10370 Conflict / pickup MENU_INVERT_ALL
 
 - **Status:** fixed

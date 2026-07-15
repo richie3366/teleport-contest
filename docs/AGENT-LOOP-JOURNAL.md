@@ -20,6 +20,17 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-15 16:26 — #434 seed0004 @10382 SCR_TELEPORTATION (D-0407)
+- Objective: seed0004 @10382 PRIMARY — C `exercise` `rn2(19)` vs JS
+  `rn2(5)` (read teleport → `safe_teleds`).
+- C locus: `read.c` `seffect_teleportation`/`learnscrolltyp`;
+  `teleport.c` `scrolltele`/`safe_teleds`; invent getobj `?` pickinv.
+- Change: getobj-read `?`/`*`; SCR_TELEPORTATION → scrolltele/safe_teleds;
+  learnscroll → makeknown+XP; oc_magic exercise before seffects switch.
+- Verification: seed0004 RNG 10409→10569; Scr 241→242; miss @10563;
+  green+strict PASS; cohort 23/23.
+- Next: seed0004 @10563 gethungry/hitum vs distfleeck (post-travel `l`).
+
 ## 2026-07-15 16:20 — #433 seed0004 @10370 Conflict / MENU_INVERT_ALL (D-0406)
 - Objective: seed0004 @10370 PRIMARY — C `resist_conflict` `rnd(20)` vs
   JS `dog_move` `rn2(16)`.
@@ -158,25 +169,3 @@ Use this shape:
 - Verification: seed0012 Scr **283→284**/308; @278 match; green+strict
   PASS; cohort PASS. Next fail @294 `"Move along!"`.
 - Next: vault guard escort pline after gold drop.
-
-## 2026-07-15 14:25 — #420 score + bag put-in MENU_FULL (D-0394)
-- Objective: mandatory full `sessions` score (#420÷5); seed0012 @259 bag
-  empty prompt.
-- C locus: pickup.c use_container outmaybe/yname; query_category MENU_FULL;
-  invent.c addinv pickup_prev; objnam.c yname / shk_your.
-- Change: outmaybe+carried yname; MENU_FULL put-in categories; pickup_prev
-  + reset_justpicked; INVORDER class-heading ATR_INVERSE.
-- Verification: full sessions **24/44**, Scr **3953**/11405,
-  RNG **255082**/792838, `21+0.12/turn`; seed0012 **275→283**/308;
-  green+strict PASS; cohort smoke PASS.
-- Next: seed0012 @278 doname `containing N item`.
-
-## 2026-07-15 14:15 — #419 teleds materialize + gold botl (D-0393)
-- Objective: seed0012 @237 C materialize `--More--` vs JS blank / $:7.
-- C locus: teleport.c teleds TELEDS_TELEPORT+verbose You + spoteffects;
-  pickup.c pickup_object disp.botl before gold prinv.
-- Change: async teleds/vault_tele materialize pline + spoteffects;
-  gold flags.botl so flush paints $:307 before deferred more().
-- Verification: seed0012 Scr **268→275**/308; @237–258 match; first fail
-  @259 bag prompt; green+strict PASS; cohort 24/24 PASS.
-- Next: seed0012 @259 empty-bag apply prompt order.

@@ -19,7 +19,7 @@ focused session.
 
 Score last measured: **2026-07-15** — full `sessions` suite (#430; post
 D-0404 known_hitum integer `mhpmax/2`). Screens **4187**/11405; seed0004
-Scr 215→233; RNG 9213→9892. (#433 focused only — no full remeasure.)
+Scr 215→233; RNG 9213→9892. (#434 focused only — no full remeasure.)
 
 ## Score
 
@@ -42,7 +42,7 @@ seed0013-rogue, seed0013-friday13-restore, seed0107, seed0009,
 |--------|----:|-------:|------|
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
 | seed0002 | 5198/27158 | **54**/595 | still @3808 eatcorpse |
-| seed0004 | **10409**/12084 | **241**/409 | D-0406; next @10382 exercise/teleds |
+| seed0004 | **10569**/12084 | **242**/409 | D-0407; next @10563 gethungry/hitum |
 | seed0361/0373 | early | 0 | quest bones / `makemaz` |
 
 ## Green gate
@@ -60,14 +60,14 @@ Both must remain full RNG + screen PASS with exact scored-output lengths.
 
 ## Primary objective
 
-**seed0004 @10382** — C `exercise` `rn2(19)` vs JS `rn2(5)` on the turn
-after wearing conflict (read teleport scroll → `safe_teleds`). Reconstruct
-scroll-read / exercise / teleds path.
+**seed0004 @10563** — C `gethungry` `rn2(20)` + `exercise` + `hitum`
+after travel `.`/`\r` then move `l`; JS `distfleeck` `rn2(5)` (no melee).
+Reconstruct travel-end / walk-into-monster path post-teleport.
 
 ```bash
 node frozen/ps_test_runner.mjs sessions/seed0004-feeding-pony.session.json
 node scripts/rng-diff.mjs sessions/seed0004-feeding-pony.session.json
-# Focus: first miss @10382
+# Focus: first miss @10563
 ```
 
 **Alternates:** seed0002 `eatcorpse`; seed0006 / seed0007; quest early-0
