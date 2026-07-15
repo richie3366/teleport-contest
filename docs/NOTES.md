@@ -8,16 +8,15 @@ Objective/score live in `CURRENT.md`.
 ## Active
 
 - **Score:** **24/44** PASS (#390). Scr 3640/11405; RNG 247757/792838.
-- **Next:** seed0012 @7312 — C `wipeout_text` `rn2(11)` vs JS
-  `distfleeck` `rn2(5)`. Post D-0368 autopick.
+- **Next:** seed0012 @8384 — C `dog_move` mtrack `rn2(8)` vs JS `rn2(4)`
+  (`MTSZ*(k-j)` → C k−j=2, JS k−j=1). Post D-0369.
   Cmd: `node scripts/rng-diff.mjs sessions/seed0012-monk-vault-escort.session.json`
-- **Don’t re-check:** wantdoor corridor gg as root @6952 (was missing
-  `rest_track`); closed-east-only; same-gg chcnt; inject `(54,17)`;
-  blame @7288 on dog_move invent/fobj scan — was unbound `O`/`@`
-  leaving floor gold (D-0368).
+  Falsify: dump `uncursedcnt`/`cnt` + which `mtrack[j]` matches at candloop.
+- **Don’t re-check:** wipeout@7312 as missing allmain `u_wipe_engr` (gate
+  failed; was `dochug` wipe — D-0369); wantdoor @6952; invent/fobj @7288.
 - **Landmark:** `\r`→LF; stash `VISITED|LFILE_EXISTS`+`omoves`+**track**;
   vault doors `(54,16)`/`(59,16)`, stairs `(58,17)`; Options
-  `pickup_types=$"?!=/` + `@` before Dlvl2 gold.
+  `pickup_types=$"?!=/` + `@` before Dlvl2 gold; `dochug` wipe under mon.
 - **Parked:** D-0006; seed2200 @158 RC.
 
 ## Don’t re-check (≤15)
@@ -77,7 +76,9 @@ Objective/score live in `CURRENT.md`.
   blame @3483 on dog_goal fobj/invent while `,` stub leaked `b`/`\n`/`n`
   as movement (D-0365); blame @6924 on fleeck/`<` (D-0366); blame @6952
   on wantdoor/chcnt — was missing `rest_track` (D-0367); blame @7288 on
-  dog_goal invent scan — unbound Options/`@` left gold (D-0368).
+  dog_goal invent scan — unbound Options/`@` left gold (D-0368);
+  blame @7312 on allmain `u_wipe_engr` / fleeck order — was missing
+  `dochug` `wipe_engr_at` (D-0369).
 - Runner `Screen N/M` = total matches, not prefix length.
 
 ## Landmarks (≤15)
@@ -93,4 +94,4 @@ Objective/score live in `CURRENT.md`.
 - Save: VFS `save/<plname>` JSON; restore skips `rndencode`;
   `l_nhcore_init` still 2×rn2; farewell clears map no flush (D-0335).
 - Scoring grid: DEC chars in DEC_MAP → Unicode; `{`/` `` ` `` stay raw.
-- D-0274…D-0368: bones through autopick (see index).
+- D-0274…D-0369: bones through `dochug` dust wipe (see index).

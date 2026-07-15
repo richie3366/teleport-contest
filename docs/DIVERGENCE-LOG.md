@@ -24,6 +24,31 @@ The compact status table lives in **`DIVERGENCE-INDEX.md`**.
 Open that file first; then jump to a single `## D-NNNN` entry below
 (via search). Do **not** read this whole file by default.
 
+## D-0369 — `dochug` pre-move `wipe_engr_at` (seed0012 @7312)
+
+- **Status:** fixed
+- **Observed:** seed0012 @7312 — C `wipeout_text` `rn2(11)` / `rn2(4)`
+  vs JS `distfleeck` `rn2(5)`. Matching prior call was moveloop
+  `rn2(40+DEX*3)` (failed gate).
+- **Cause:** C `dochug` calls `wipe_engr_at(mx,my,1,FALSE)` after the
+  sleep/wake gate and before `set_apparxy`/`distfleeck`. JS skipped that
+  wipe, so a mon standing on a length-11 dust engraving never rolled
+  wipeout RNG before fleeck.
+- **Rejected:** allmain `u_wipe_engr` as the @7312 caller (gate returned
+  non-zero); engraving-presence / fleeck-order as root without the
+  missing `dochug` wipe.
+- **C locus:** `monmove.c` `dochug` (wipe after wake, before apparxy);
+  `engrave.c` `wipe_engr_at` / `wipeout_text`.
+- **Change:** call `wipe_engr_at(mtmp.mx, mtmp.my, 1, false)` in JS
+  `dochug` at the C site. Named deferrals: mconf/mstun/flee-teleport /
+  m_respond / courage between wipe and apparxy; allmain `u_wipe_engr`
+  still consumes `rnd(3)` only.
+- **Verification:** first mismatch **7312→8384**; runner RNG
+  **7558→8944**/13878 Scr 14/308; green+strict PASS; cohort **24/24**.
+- **Lesson:** awake monsters always dust-wipe underfoot before fleeck;
+  missing that looks like “fleeck too early” vs wipeout.
+- **Next:** seed0012 @8384 C `dog_move` mtrack `rn2(8)` vs JS `rn2(4)`.
+
 ## D-0368 — `doset_simple` / `dotogglepickup` / `autopick_testobj` (seed0012 @7288)
 
 - **Status:** fixed

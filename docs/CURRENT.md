@@ -37,7 +37,7 @@ seed0013-rogue, seed0013-friday13-restore, seed0107, seed0009.
 **Notable non-PASS:**
 | Session | RNG | Screen | Note |
 |--------|----:|-------:|------|
-| seed0012 | **7558**/13878 | **14**/308 | @7312 wipeout_text vs distfleeck (post D-0368) |
+| seed0012 | **8944**/13878 | **14**/308 | @8384 dog_move mtrack rn2 (post D-0369) |
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
 | seed0004 | 4025/12084 | 28/409 | |
 | seed0002 | 4521/27158 | 9/595 | |
@@ -58,9 +58,9 @@ Both must remain full RNG + screen PASS with exact scored-output lengths.
 
 ## Primary objective
 
-**seed0012 @7312** — C `wipeout_text` (`rn2(11)` / `rn2(4)`) vs JS
-`distfleeck` (`rn2(5)`). Post D-0368 autopick gold; engraving decay vs
-pet fleeck order/presence.
+**seed0012 @8384** — C `dog_move` mtrack skip `rn2(8)` vs JS `rn2(4)`
+(`dogmove.c:1250` / `MTSZ*(k-j)`). Post D-0369 `dochug` dust wipe;
+uncursedcnt/cnt or track-match index likely differs.
 
 ```bash
 node scripts/rng-diff.mjs sessions/seed0012-monk-vault-escort.session.json
