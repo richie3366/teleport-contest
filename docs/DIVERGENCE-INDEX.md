@@ -350,6 +350,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 | D-0361 | fixed | mkbox_cnts ICE_BOX | mksobj(CORPSE) not boxiprobs; seed0012 1285→3346 |
 | D-0362 | fixed | #loot use_container :/ESC | EXT_CMDS loot; seed0012 @3152 was hero desync |
 | D-0363 | fixed | hmon dmg_recalc dbon/skill | martial Basic +3; seed0012 @3204→3248 |
+| D-0364 | open | pet dog_goal fobj vs fleeck | seed0012 @3248 JS obj_resists; C empty dog_move RNG |
 
 
 D-0001 through D-0005 predate the strict-length/cohort runbook. Their focused

@@ -7,14 +7,16 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Score:** **24/44** PASS (last full suite #380; #384 no refresh).
-- **Fixed this iter:** D-0363 — `hmon_hitmon_dmg_recalc` `dbon` +
-  `weapon_dam_bonus` (Basic martial +3). @3204 was JS flee `rn2(25)`
-  because barehands dmg stayed 2 and the mon survived.
-- **Next:** seed0012 RNG @3248 C `distfleeck` `rn2(5)` vs JS `rn2(100)`.
-  Falsifier: `node scripts/rng-diff.mjs sessions/seed0012-…`.
-- **Don’t re-check:** #l→loot (D-0362); ICE_BOX mkbox (D-0361);
-  xkilled treasure vs flee was under-damage (D-0363).
+- **Score:** **24/44** PASS (#385 full suite). Scr 3640/11405; RNG 243833/792838.
+- **Next (D-0364):** seed0012 @3248 C `distfleeck` `rn2(5)` vs JS `rn2(100)`.
+  JS little dog @`(5,6)` `dog_goal` burns `obj_resists` on floor CHEST`(3,9)`,
+  STATUE`(4,5)`, CORPSE`(3,5)`, cursed ICE_BOX`(3,5)` (`fobj_len=15`).
+  C’s next calls are more fleeck — pet `dog_move` had **no** `obj_resists`.
+  Falsifier: skip `dog_move` body after fleeck → prefix **3248→3483** (do not
+  ship). Find why those objects are on JS `fobj` in-bbox (or missing in C).
+  Cmd: `node scripts/rng-diff.mjs sessions/seed0012-monk-vault-escort.session.json`
+- **Don’t re-check:** blame @3248 on fox order / `distfleeck` arity; under-dmg
+  @3204 (D-0363); #l→loot (D-0362); ICE_BOX mkbox (D-0361).
 - **Landmark:** screen `i` key = `moves[i]` (= `steps[i+1].key`).
 - **Parked:** D-0006; seed2200 @158 RC.
 
@@ -70,7 +72,8 @@ Objective/score live in `CURRENT.md`.
   hero rocktrap via youmonst→`thitm` (D-0360 — place at `u.ux,u.uy`);
   ICE_BOX `mkbox_cnts` via boxiprobs (D-0361 — `mksobj(CORPSE)`);
   treat `#loot` unknown / blame @3152 on dog_move appr (D-0362);
-  blame @3204 on xkilled path when JS still flees — under-dmg (D-0363).
+  blame @3204 on xkilled path when JS still flees — under-dmg (D-0363);
+  blame @3248 on fleeck arity / fox-first order — pet acts; fobj scan.
 - Runner `Screen N/M` = total matches, not prefix length.
 
 ## Landmarks (≤15)

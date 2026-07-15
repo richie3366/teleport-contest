@@ -24,6 +24,29 @@ The compact status table lives in **`DIVERGENCE-INDEX.md`**.
 Open that file first; then jump to a single `## D-NNNN` entry below
 (via search). Do **not** read this whole file by default.
 
+## D-0364 — pet `dog_goal` `fobj` scan vs C fleeck (seed0012 @3248)
+
+- **Status:** open
+- **Observed:** seed0012 @3248 — C `distfleeck` `rn2(5)` vs JS `rn2(100)`
+  (`obj_resists`). Prefix matched through pet fleeck @3247.
+- **C locus:** `dogmove.c` `dog_goal` / `dog_move`; `zap.c` `obj_resists`;
+  callers via `dochug`→`m_move`→`dog_move`.
+- **DIAG (#385):** movemon start pet/fox/newt mov 12/12/0; little dog at
+  `(5,6)` scans floor CHEST`(3,9)`, STATUE`(4,5)`, CORPSE`(3,5)`, cursed
+  ICE_BOX`(3,5)` (`fobj_len=15`). C’s next three calls are fleeck /
+  `m_move` track `rn2(8)` — no `obj_resists`. Temporarily returning
+  `MMOVE_NOTHING` from `dog_move` (no RNG) moved first mismatch
+  **3248→3483**; do **not** ship that skip.
+- **Hypothesis:** JS has in-bbox `fobj` membership C lacks (leaked container
+  contents / extra vault objs / wrong coords), or C pet `dog_goal` sees an
+  empty bbox for another state reason. Related prior: D-0014 mineralize
+  `fobj` pollution.
+- **Change:** none this iter (#385 score + diagnose only).
+- **Verification:** green+strict PASS; full suite **24/44**; focused still
+  RNG 3304/13878 Scr 14/308.
+- **Next:** compare C vs JS `fobj` near `(5,6)` / ice-box contents vs floor
+  CORPSE; fix membership, not fleeck arity.
+
 ## D-0363 — `hmon` `dbon` / `weapon_dam_bonus` dmg_recalc (seed0012 @3204)
 
 - **Status:** fixed

@@ -17,31 +17,30 @@ Update **this Score section** with: pass count, screen/RNG aggregates, speed
 label, PASS list, notable non-PASS. Do not invent suite totals from a single
 focused session.
 
-Score last measured: **2026-07-15** — full `sessions` suite (#380; after
-D-0359 **24/44**; seed0009 PASS). Not refreshed this iter (#384).
+Score last measured: **2026-07-15** — full `sessions` suite (#385).
 
 ## Score
 
 | Metric | Value |
 |--------|------:|
 | Sessions passing | **24 / 44** |
-| Screens matched | **3626 / 11,405** (31.79%) |
-| Positional RNG calls matched | **240,535 / 792,838** (30.34%) |
-| Speed label | `19+0.12/turn` (R² 0.79) |
+| Screens matched | **3640 / 11,405** (31.92%) |
+| Positional RNG calls matched | **243,833 / 792,838** (30.75%) |
+| Speed label | `19+0.12/turn` (R² 0.83) |
 | Role-init throws | **0 / 44** |
 
 **PASS (24):** seed8000, seed0900, seed1500, seed1800, seed0060, seed0102,
 seed0700, seed1150, seed0017, seed0077, seed0106, seed0501, seed0105,
 seed0016, seed0015, seed0200, seed0101, seed0103, seed0104, seed0030,
-seed0013-rogue, seed0013-friday13-restore, seed0107, **seed0009**.
+seed0013-rogue, seed0013-friday13-restore, seed0107, seed0009.
 
 **Notable non-PASS:**
 | Session | RNG | Screen | Note |
 |--------|----:|-------:|------|
-| seed0012 | **3304**/13878 | **14**/308 | D-0363 dmg_recalc; next @3248 `distfleeck` vs `rn2(100)` |
+| seed0012 | **3304**/13878 | **14**/308 | @3248 pet `dog_goal` `obj_resists` vs C fleeck (D-0364) |
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
 | seed0004 | 4016/12084 | 28/409 | |
-| seed0002 | 4510/27158 | 9/595 | |
+| seed0002 | 4504/27158 | 9/595 | |
 | seed0361/0373 | early | 0 | quest bones / `makemaz` |
 
 ## Green gate
@@ -59,8 +58,12 @@ Both must remain full RNG + screen PASS with exact scored-output lengths.
 
 ## Primary objective
 
-**seed0012 @3248** — after D-0363 `hmon` dmg_recalc: C `distfleeck`
-`rn2(5)` vs JS `rn2(100)`.
+**seed0012 @3248** — C `distfleeck` `rn2(5)` vs JS `rn2(100)` (`obj_resists`).
+DIAG (#385): after matching fleeck, JS little dog `dog_goal` scans floor
+CHEST/STATUE/CORPSE/ICE_BOX in SQSRCHRADIUS; C’s next calls are more
+`distfleeck` (skipping `dog_move` RNG temporarily → prefix **3483**).
+Likely **extra/wrong `fobj` near pet** (or C pet `dog_goal` sees empty bbox).
+Do not skip `dog_move` in production — find the fobj membership cause.
 
 ```bash
 node scripts/rng-diff.mjs sessions/seed0012-monk-vault-escort.session.json

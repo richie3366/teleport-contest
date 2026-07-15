@@ -19,6 +19,15 @@ Use this shape:
 - Verification: …
 - Next: …
 ```
+## 2026-07-15 06:20 — #385 score + D-0364 diagnose (seed0012 @3248)
+- Objective: mandatory full `sessions` score (#385÷5); primary seed0012 @3248.
+- C locus: dogmove.c dog_goal/dog_move; zap.c obj_resists (DIAG only).
+- Change: none in js/. Score refresh 24/44 (Scr 3640/11405, RNG 243833/792838).
+  DIAG: pet dog_goal obj_resists on CHEST/STATUE/CORPSE/ICE_BOX; skip dog_move
+  RNG → prefix 3483 (falsifier only — reverted).
+- Verification: green+strict PASS; full suite 24/44.
+- Next: fix fobj membership near pet (D-0364); do not skip dog_move.
+
 ## 2026-07-15 06:12 — D-0363 hmon dmg_recalc (seed0012 @3204)
 - Objective: seed0012 @3204 C xkilled rn2(6) vs JS rn2(25).
 - C locus: weapon.c dbon/weapon_dam_bonus; uhitm.c hmon_hitmon_dmg_recalc.
@@ -147,15 +156,4 @@ Use this shape:
   invent stash without early `find_ac`; moveloop `find_ac`.
 - Verification: seed0009 Scr **14→21**; green+strict; cohort 21 PASS.
 - Next: @21 next S_engroom engraving / more tut-1.lua des.*.
-
-## 2026-07-15 02:30 — #370 score + D-0349 tutorial yes-path
-- Objective: mandatory full `sessions` score; seed0009 Entering `--More--`.
-- C locus: `allmain.c` `maybe_do_tutorial`; `do.c` `schedule_goto`/
-  `deferred_goto`/`goto_level` `pickup(1)`; `mklev.c` `Is_special`→
-  `makemaz("tut-1")`.
-- Change: schedule/deferred + tut-1 map skeleton + nofollowers keepdogs
-  (D-0349). Rejected bare pline without deferred_goto.
-- Verification: full suite **23/44** Scr **3565** RNG **240160**;
-  seed0009 Scr **13→14**; green+strict; cohort descend/0107 PASS.
-- Next: finish `load_tut1` des.* so @14 map cells match (133 misses).
 
