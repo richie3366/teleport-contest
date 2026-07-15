@@ -24,6 +24,25 @@ The compact status table lives in **`DIVERGENCE-INDEX.md`**.
 Open that file first; then jump to a single `## D-NNNN` entry below
 (via search). Do **not** read this whole file by default.
 
+## D-0354 — test_move mention_walls obstructed bump
+
+- **Status:** fixed
+- **Observed:** seed0009 Scr **39**/73 RNG **3649**/3713 — first cell-miss
+  @33 C topline “It's a wall.” vs JS blank (key `l` into wall).
+- **C locus:** `hack.c` `test_move` — `IS_OBSTRUCTED`/`IRONBARS` +
+  `mode == DO_MOVE` + `flags.mention_walls` → `pline_dir` “It's %s.”
+  (`an(defsyms[].explanation)`; `S_stone` → “solid stone”).
+- **Cause/evidence:** JS `domove` `blocksMove` ended the run with
+  `context.move = 0` and no pline; tut-1 already sets `mention_walls`.
+- **Change:** `js/cmd.js` `mention_walls_obstructed` on obstructed/bars
+  bump (wall/tree/solid stone/bars). Deferred: Blind `feel_location`,
+  Passes_walls/autodig/chew, drawbridge/Sokoban, full `back_to_glyph`/
+  `wall_angle`→`S_stone`, `pline_dir` a11y, out-of-bounds mention.
+- **Verification:** focused Scr **39→40** (next @40 pool `?`); green +
+  strict; cohort 8 PASS; full `sessions` **23/44** (Scr 3592/11405).
+- **General lesson:** silent early-outs that skip C message branches
+  look like “display” misses but are often `test_move`/`domove` plines.
+
 ## D-0353 — tut-1 load_tut1 remainder + align_shift + WAITMASK
 
 - **Status:** fixed

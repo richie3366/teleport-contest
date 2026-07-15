@@ -19,6 +19,14 @@ Use this shape:
 - Verification: …
 - Next: …
 ```
+## 2026-07-15 04:32 — #375 score + D-0354 mention_walls
+- Objective: mandatory full `sessions` score (#375 %5) + seed0009 @33 wall.
+- C locus: `hack.c` `test_move` mention_walls obstructed bump.
+- Change: `mention_walls_obstructed` on `blocksMove` rock/bars (D-0354).
+- Verification: full suite **23/44** Scr **3592**/11405 RNG **240471**/792838
+  `18+0.12/turn`; seed0009 Scr **39→40**; green+strict; cohort 8 PASS.
+- Next: @40 POOL/WATER `terrain_glyph` (`?` vs DEC diamond); then broken door.
+
 ## 2026-07-15 04:25 — D-0353 tut-1 remainder + WAITMASK
 - Objective: seed0009 finish tut-1 level-gen (CURRENT).
 - C locus: `dat/tut-1.lua` loot→end; `mklev.c` mineralize special skip;
@@ -160,14 +168,3 @@ Use this shape:
 - Verification: seed2200 Scr **206→229**/230 (parked @158 only); RNG
   full; green+strict; 19 PASS cohort.
 - Next: seed0013-restore Scr 47/99 (or seed0107 @2684).
-
-## 2026-07-15 00:47 — #360 score + D-0332/0333 seed0013 PASS
-
-- Objective: mandatory full `sessions` (#360 %5) + seed0013 @23 drop letters.
-- C locus: `invent.c` `compactify`/`getobj`; `insight.c` friday13 `enlght_out`.
-- Change: drop `compactify_invlets` when suggested>5 (D-0332); friday13
-  attributes two-space indent (D-0333).
-- Verification: full suite **21/44**, Scr **3424/11405** (30.02%), RNG
-  **240657/792838**, speed `18+0.12/turn`; seed0013-rogue **59/59 PASS**;
-  green+strict; 21 PASS cohort.
-- Next: seed2200 @39 farlook `--More--` vs moreinfo yn.

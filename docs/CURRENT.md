@@ -17,18 +17,17 @@ Update **this Score section** with: pass count, screen/RNG aggregates, speed
 label, PASS list, notable non-PASS. Do not invent suite totals from a single
 focused session.
 
-Score last measured: **2026-07-15** — full `sessions` suite (#370; after
-D-0349 still **23/44**). D-0353 focused seed0009 only (Scr **38→39**);
-suite score unchanged until next %5 run.
+Score last measured: **2026-07-15** — full `sessions` suite (#375; after
+D-0354 still **23/44**; seed0009 Scr **39→40**).
 
 ## Score
 
 | Metric | Value |
 |--------|------:|
 | Sessions passing | **23 / 44** |
-| Screens matched | **3565 / 11,405** (31.26%) |
-| Positional RNG calls matched | **240,160 / 792,838** (30.29%) |
-| Speed label | `19+0.12/turn` (R² 0.79) |
+| Screens matched | **3592 / 11,405** (31.49%) |
+| Positional RNG calls matched | **240,471 / 792,838** (30.33%) |
+| Speed label | `18+0.12/turn` (R² 0.80) |
 | Role-init throws | **0 / 44** |
 
 **PASS (23):** seed8000, seed0900, seed1500, seed1800, seed0060, seed0102,
@@ -40,7 +39,7 @@ seed0013-rogue, seed0013-friday13-restore, **seed0107**.
 | Session | RNG | Screen | Note |
 |---------|----:|-------:|------|
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
-| seed0009 | **3649**/3713 | **39**/73 | **primary** — @33 wall/glance; tut-1 gen done |
+| seed0009 | **3649**/3713 | **40**/73 | **primary** — @40 pool DEC glyph |
 | seed0004 | 4016/12084 | 28/409 | |
 | seed0002 | 4510/27158 | 9/595 | |
 | seed0012 | 0/13878 | 0/308 | stack overflow |
@@ -61,16 +60,16 @@ Both must remain full RNG + screen PASS with exact scored-output lengths.
 
 ## Primary objective
 
-**seed0009-swimmer-mforce** — RNG **3649**/3713; Scr **39**/73
+**seed0009-swimmer-mforce** — RNG **3649**/3713; Scr **40**/73
 
 | | |
 |--|--|
-| **C locus** | glance / mention_walls wall msg vs empty topline @33 |
-| **JS locus** | look / do.c glance path; `flags.mention_walls` already set |
-| **Symptom** | first cell-miss @33 C “It's a wall.” vs JS blank msg row |
-| **Hypothesis** | wall-look / `feel_location` / mention_walls path incomplete |
-| **Falsifier** | Scr >39 with @33 cells; or named next miss |
-| **Recent fixed** | D-0353 tut-1 remainder + align_shift + WAITMASK → Scr **38→39** |
+| **C locus** | `display.c` `back_to_glyph` POOL/MOAT/WATER (+ DEC S_pool diamond) |
+| **JS locus** | `display.js` `terrain_glyph` — POOL/WATER currently `?` |
+| **Symptom** | first cell-miss @40 JS `?` vs C DEC `` ` `` (pool) at map water |
+| **Hypothesis** | pool/lava/water terrain glyphs + DEC remap incomplete |
+| **Falsifier** | Scr >40 with @40 cells; or named next miss |
+| **Recent fixed** | D-0354 `test_move` mention_walls “It's a wall.” → Scr **39→40** |
 
 ```bash
 node frozen/ps_test_runner.mjs sessions/seed0009-swimmer-mforce.session.json
@@ -79,6 +78,9 @@ node frozen/ps_test_runner.mjs sessions/seed0009-swimmer-mforce.session.json
 **Note:** runner `Screen N/M` is **total** positional matches, not prefix
 length. Prefer decodeScreen cell first-miss for peel targets.
 Key read at screen `i` is `moves[i]` (= `steps[i+1].key`), not `steps[i].key`.
+
+**Also seen @41:** C “There is a broken door here.” vs JS blank — may clear
+once water glyphs + `look_here`/door feature land; peel pool glyph first.
 
 **Alternate:** seed2200 @158 RC parked only.
 

@@ -9,9 +9,9 @@ import { game } from './gstate.js';
 import { nhgetch } from './input.js';
 import { newsym, flush_screen, pline, see_nearby_objects } from './display.js';
 import { vision_recalc } from './vision.js';
-import { COLNO, ROWNO, STONE, DOOR, CORR, ROOM, IRONBARS,
+import { COLNO, ROWNO, STONE, DOOR, CORR, ROOM, IRONBARS, TREE, SDOOR,
          D_CLOSED, D_LOCKED, D_NODOOR, D_BROKEN,
-         IS_DOOR, IS_OBSTRUCTED, IS_FURNITURE, IS_STWALL,
+         IS_DOOR, IS_OBSTRUCTED, IS_FURNITURE, IS_STWALL, IS_WALL, IS_TREE,
          ACCESSIBLE, isok,
          ECMD_OK, ECMD_TIME, ECMD_CANCEL, DOMOVE_RUSH, DOMOVE_WALK } from './const.js';
 import { dist2 } from './mon.js';
@@ -39,6 +39,7 @@ import { wiz_wish } from './wizcmds.js';
 import { dowield, dowieldquiver } from './wield.js';
 import { dowhatis, doquickwhatis, dohelp } from './pager.js';
 import { x_monnam_tame } from './do_name.js';
+import { an } from './objnam.js';
 import { spoteffects, dopickup } from './pickup.js';
 import { getpos } from './getpos.js';
 import { nomul, moverock, boulder_at } from './hack.js';
@@ -123,6 +124,34 @@ function end_running() {
 }
 
 /**
+ * C ref: hack.c test_move DO_MOVE + flags.mention_walls on IS_OBSTRUCTED.
+ * Uses defsyms[].explanation via an(); S_stone → "solid stone".
+ * Deferred: Blind feel_location, Passes_walls/may_passwall, Underwater,
+ * IRONBARS chew, tunnels/still_chewing, autodig, is_db_wall, Sokoban
+ * resist, full back_to_glyph/wall_angle→S_stone edge cases, pline_dir a11y.
+ */
+async function mention_walls_obstructed(x, y) {
+    if (!game.flags?.mention_walls) return;
+    const loc = game.level?.at(x, y);
+    if (!loc) return;
+    if (loc.typ === IRONBARS) {
+        await pline('You cannot pass through the bars.');
+        return;
+    }
+    let buf;
+    // C: glyph = back_to_glyph; sym==S_stone → "solid stone"; else an(explanation)
+    if (loc.typ === TREE || (IS_TREE(loc.typ) && loc.typ !== STONE)) {
+        buf = an('tree');
+    } else if ((IS_WALL(loc.typ) || loc.typ === SDOOR) && loc.seenv) {
+        buf = an('wall');
+    } else {
+        // STONE / SCORR / unseen wall (wall_angle→S_stone) / other rock
+        buf = 'solid stone';
+    }
+    await pline(`It's ${buf}.`);
+}
+
+/**
  * C ref: hack.c domove_fight_empty — F into empty/solid wastes a turn.
  * Branch envelope: thin air + simple solid; boulder/pick/explode/I-glyph
  * deferred (C-JS-MAP).
@@ -154,8 +183,8 @@ async function domove_fight_empty(x, y) {
 
 /**
  * C ref: hack.c lookaround()
- * Blind / traps / pools / NODIAG / mention_walls deferred.
- * Ported: monster stop rules + run==1/3/8 corridor-follow turn (capital rush).
+ * Blind / traps / pools / NODIAG / lookaround mention_walls plines deferred
+ * (obstructed bump mention_walls is D-0354).
  */
 function lookaround() {
     const ctx = game.context;
@@ -839,6 +868,12 @@ async function domove(dx, dy) {
         // Can't move there — end a run so lookaround/continue_run don't
         // keep going in the previous direction with stale multi.
         if (game.context?.run) end_running();
+        // C ref: hack.c test_move — DO_MOVE + mention_walls on rock/bars
+        const bloc = game.level?.at(newx, newy);
+        if (bloc && (IS_OBSTRUCTED(bloc.typ) || bloc.typ === IRONBARS)) {
+            await mention_walls_obstructed(newx, newy);
+        }
+        // out-of-bounds move_out_of_bounds mention_walls deferred
         game.context.move = 0;
         return;
     }

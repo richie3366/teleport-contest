@@ -7,17 +7,15 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Score:** **23/44** PASS (#370 suite; D-0353 focused only).
-- **Current unit:** seed0009 Scr **39**/73 RNG **3649**/3713 — first
-  cell-miss @33 C “It's a wall.” vs JS blank topline. Tut-1 level-gen
-  complete through kelp/`place_lregion`.
-- **Fixed this iter:** D-0353 — `load_tut1` loot→end; mineralize special
-  skip; `align_shift`; `dochug` WAITMASK.
-- **Falsified:** door `rnl` as remaining tut-1 peel — door msgs match
-  once level-gen + WAITMASK land; peel is glance/wall @33.
-- **Don’t re-check:** doopen chance as @27 root; tut-1 map CENTER;
-  early `find_ac` invent stash; @21 missing engraving (2,4); blame @33
-  on unfinished large-box alone without WAITMASK/`align_shift`.
+- **Score:** **23/44** PASS (#375 suite after D-0354; Scr aggregate **3592**).
+- **Current unit:** seed0009 Scr **40**/73 RNG **3649**/3713 — first
+  cell-miss @40 JS `?` vs C DEC pool diamond (`` ` ``). Wall @33 fixed.
+- **Fixed this iter:** D-0354 — `domove`/`blocksMove` →
+  `mention_walls_obstructed` (“It's a wall.” / solid stone / bars).
+- **Next peel:** `terrain_glyph` POOL/MOAT/WATER (+ DEC S_pool); then
+  likely @41 “There is a broken door here.”
+- **Don’t re-check:** glance/`;` as @33 root; unfinished large-box alone;
+  door `rnl` as remaining tut-1 peel.
 - **Landmark:** screen `i` key = `moves[i]` (= `steps[i+1].key`).
 - **Parked:** D-0006; seed2200 @158 RC.
 
@@ -61,8 +59,9 @@ Objective/score live in `CURRENT.md`.
   door-area engravings/`D_CLOSED`/`MAGIC_PORTAL` seen (D-0351);
   omit tut-1 portal `mktrap` victim `rnd(4)` / stop before kick→sling
   (D-0352); omit tut-1 loot→end / mineralize special skip / stub
-  `align_shift` / `dochug` without WAITMASK (D-0353); blame @27 on
-  `doopen` chance without level-gen rng-diff.
+  `align_shift` / `dochug` without WAITMASK (D-0353); silent
+  `blocksMove` without mention_walls pline (D-0354); blame @33 on
+  glance/`;` or unfinished large-box alone.
 - Runner `Screen N/M` = total matches, not prefix length.
 
 ## Landmarks (≤15)
@@ -74,9 +73,9 @@ Objective/score live in `CURRENT.md`.
 - Session: screen `i` reads `moves[i]`; `more()` space/CR/ESC.
 - Save: VFS `save/<plname>` JSON; restore skips `rndencode`;
   `l_nhcore_init` still 2×rn2; farewell clears map no flush (D-0335).
-- D-0274…D-0353: bones/disclose/RIP/topten/descr/botl/paybill/ghost/`;`/
+- D-0274…D-0354: bones/disclose/RIP/topten/descr/botl/paybill/ghost/`;`/
   getlin/compactify/enl/checkfile/save/welcome/attr/`$`/`)`/show-*/DEL/
   reveal_terrain/getpos Done/`#twoweapon`/`hitum` twohits/`dosit` OBJ_AT/
   weapon_insight twoweap limits / chargen corner / tutorial yes-path /
   tut-1 CENTER + invent stash + door-area + mktrap gate through sling +
-  loot→end + align_shift + WAITMASK.
+  loot→end + align_shift + WAITMASK + mention_walls bump.
