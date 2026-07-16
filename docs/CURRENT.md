@@ -42,7 +42,7 @@ seed0012, seed0004.
 | Session | RNG | Screen | Note |
 |--------|----:|-------:|------|
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
-| seed0002 | **27158**/27158 | **354**/595 | RNG full; first cell @342 look_here for-sale (D-0460) |
+| seed0002 | **27158**/27158 | **361**/595 | RNG full; first cell @345 unpaid prinv (D-0461) |
 | seed0006 | 2276/6736 | **13**/123 | water demon |
 | seed0007 | 2975/16373 | **20**/302 | snake swamp |
 | seed0361/0373 | early | 0 | quest bones / `makemaz` |
@@ -62,11 +62,11 @@ Both must remain full RNG + screen PASS with exact scored-output lengths.
 
 ## Primary objective
 
-**seed0002 screen@342 — look_here `doname_with_price`** (D-0460).
-RNG **full** 27158/27158; Scr **354**/595; first cell-miss: C topline
-`You see here a banded mail (for sale, 68 zorkmids).` vs JS
-`You see here a banded mail.` (botl matches). D-0459 safemon stop
-fixed (@272).
+**seed0002 screen@345 — doname `unpaid_cost` on pickup prinv** (D-0461).
+RNG **full** 27158/27158; Scr **361**/595; first cell-miss: C
+`You have a little trouble lifting y - a polished silver shield
+(unpaid, 50 zorkmids).--More--` vs JS bare shield name (botl matches).
+D-0460 look_here for-sale fixed (@342).
 
 ```bash
 node frozen/ps_test_runner.mjs sessions/seed0002-healer-reflection-drummer.session.json
@@ -74,7 +74,7 @@ node frozen/ps_test_runner.mjs sessions/seed0002-healer-reflection-drummer.sessi
 
 **Alternates:** seed0006 / seed0007; quest early-0 (seed0361/0373).
 
-**Prefer over:** parked D-0006, seed2200 RC; re-opening D-0459.
+**Prefer over:** parked D-0006, seed2200 RC; re-opening D-0460.
 
 **Cohort after shared change:** green gate + seed1500 + seed1800 + seed0060 +
 seed0102 + seed0700 + seed1150 + seed0017 + seed0077 + seed0106 + seed0501 +

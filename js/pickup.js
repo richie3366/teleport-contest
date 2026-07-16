@@ -665,7 +665,7 @@ export async function spoteffects(pick) {
 /**
  * C ref: end.c container_contents — NHW_MENU "Contents of %s:" + doname lines
  * via invent.c sortloot(SORTLOOT_LOOT|SORTLOOT_PACK). display_nhwindow(TRUE).
- * Named omissions: identified discover path; doname_with_price shop;
+ * Named omissions: identified discover path; unpaid doname (D-0461);
  * nested containers / Schroedinger / empty pline beyond reportempty=false;
  * sortloot subclass/disco/BUCX.
  */

@@ -2,6 +2,7 @@
 // C ref: shk.c shk_move / after_shk_move / u_entered_shop / u_left_shop;
 //        paybill / inherits / set_repo_loc / money2mon; priest.c move_special;
 //        addtobill / append_honorific / get_cost / getprice / billable;
+//        get_cost_of_shop_item / doname_with_price (D-0460);
 //        dopay / pay_billed_items / dopayobj / menu_pick_pay_items (subset).
 // Named omissions: shk_fixes_damage body; holetime dig follow; angry
 // Displaced pline; following verbalize;
@@ -13,6 +14,7 @@
 // mnearto home_shk; paygd; M1_NOHEAD has_head (assume headed for shk path);
 // container bill_box_content / contained_cost; remote_burglary; gem glass
 // pseudo-ID in get_cost; arti_cost; Hallu currency ROLL_FROM; costly_gold;
+// doname_with_price unpaid_cost / pricequotes; get_obj_location buried/minvent;
 // dopay: debit/robbed/angry appease; used-up/container bill arms;
 // traditional itemize ynq; paydoname/observe_object/makeknown; getpos pay-whom.
 
@@ -22,7 +24,8 @@ import { dist2, online2 } from './hacklib.js';
 import { in_rooms } from './hack.js';
 import {
     ESHK, IS_ROOM, NOTONL, u_at, isok, ROOMOFFSET, SHOPBASE, ACH_SHOP,
-    OBJ_MINVENT, LOW_PM, Has_contents, MAXULEV, ECMD_OK, ECMD_TIME,
+    OBJ_MINVENT, OBJ_FLOOR, OBJ_CONTAINED, OBJ_INVENT, NO_ROOM,
+    LOW_PM, Has_contents, MAXULEV, ECMD_OK, ECMD_TIME,
 } from './const.js';
 import {
     COIN_CLASS, FOOD_CLASS, WAND_CLASS, POTION_CLASS, ARMOR_CLASS,
@@ -218,14 +221,44 @@ const GLASS = 19;
 const DUNCE_CAP = objectNames.indexOf('DUNCE_CAP');
 const HUNGRY = 2; // C you.h SATIATED=0 … HUNGRY=2
 
-/** C: inside_shop — room rtype >= SHOPBASE at (x,y). */
+/** C: IS_SHOP(x) — rooms[x].rtype >= SHOPBASE. */
+function IS_SHOP(roomIdx) {
+    return ((game.level?.rooms?.[roomIdx]?.rtype | 0) >= SHOPBASE);
+}
+
+/**
+ * C ref: shk.c inside_shop — roomno char, or NO_ROOM if not in shop proper.
+ * Truthy when in a shop (callers use as boolean or shop_keeper arg).
+ */
 function inside_shop(x, y) {
     const loc = game.level?.at?.(x, y);
-    if (!loc) return false;
-    const rmno = (loc.roomno | 0) - ROOMOFFSET;
-    if (rmno < 0) return false;
-    const room = game.level.rooms?.[rmno];
-    return !!(room && (room.rtype | 0) >= SHOPBASE);
+    if (!loc) return NO_ROOM;
+    let rno = loc.roomno | 0;
+    if ((rno < ROOMOFFSET) || loc.edge || !IS_SHOP(rno - ROOMOFFSET)) {
+        rno = NO_ROOM;
+    }
+    return rno;
+}
+
+/**
+ * C ref: zap.c get_obj_location — subset for shop pricing (floor/invent/
+ * contained). BURIED_TOO / minvent deferred unless locflags request.
+ */
+function get_obj_location(obj, locflags = 0) {
+    if (!obj) return null;
+    switch (obj.where) {
+    case OBJ_INVENT:
+        return { x: game.u?.ux | 0, y: game.u?.uy | 0 };
+    case OBJ_FLOOR:
+        return { x: obj.ox | 0, y: obj.oy | 0 };
+    case OBJ_CONTAINED:
+        if (locflags & 0x1) { // CONTAINED_TOO
+            return get_obj_location(obj.ocontainer, locflags);
+        }
+        return null;
+    default:
+        return null;
+    }
 }
 
 /**
@@ -265,6 +298,72 @@ function oid_price_adjustment(obj, oid) {
 /** C shk.c get_pricing_units — quan; globby weight deferred → quan. */
 function get_pricing_units(obj) {
     return (obj?.quan | 0) || 1;
+}
+
+/**
+ * C ref: shk.c get_cost_of_shop_item — price of floor/shop goods for doname.
+ * Named omissions: contained_cost for Has_contents; globby weight units.
+ * @returns {{ cost: number, nochrg: number }}
+ *   nochrg: 1 no charge, 0 shop-owned, -1 not in shop
+ */
+export function get_cost_of_shop_item(obj) {
+    let nochrg = -1;
+    let cost = 0;
+    const u = game.u;
+    const ushops = u?.ushops || '';
+    if (!ushops || !obj
+        || (obj.oclass | 0) === COIN_CLASS
+        || obj === u?.uball || obj === u?.uchain) {
+        return { cost, nochrg };
+    }
+    const loc = get_obj_location(obj, 0x1); // CONTAINED_TOO
+    if (!loc) return { cost, nochrg };
+    const { x, y } = loc;
+    const rooms = in_rooms(x, y, SHOPBASE);
+    if (!rooms || rooms.charCodeAt(0) !== ushops.charCodeAt(0)) {
+        return { cost, nochrg };
+    }
+    const shkp = shop_keeper(inside_shop(x, y));
+    if (!shkp || !inhishop(shkp)) return { cost, nochrg };
+
+    let top = obj;
+    while (top?.where === OBJ_CONTAINED) top = top.ocontainer;
+    const eshkp = ESHK(shkp);
+    const freespot = top?.where === OBJ_FLOOR
+        && (x | 0) === (eshkp?.shk?.x | 0)
+        && (y | 0) === (eshkp?.shk?.y | 0);
+    // no_charge only for floor items; freespot implicitly no charge
+    nochrg = (top?.where === OBJ_FLOOR && (obj.no_charge || freespot)) ? 1 : 0;
+
+    const carriedTop = top?.where === OBJ_INVENT;
+    if (carriedTop ? !!obj.unpaid : !nochrg) {
+        cost = get_pricing_units(obj) * get_cost(obj, shkp);
+    }
+    // Has_contents && !freespot → contained_cost deferred
+    return { cost, nochrg };
+}
+
+/**
+ * C ref: objnam.c doname_with_price → doname_base(DONAME_WITH_PRICE).
+ * Lives here to reach get_cost_of_shop_item without objnam↔shk cycle.
+ * Named omissions: unpaid_cost invent path; suppress_price/restoring;
+ * pricequotes append; contents-of-container bill suffix via contained_cost.
+ */
+export function doname_with_price(obj) {
+    let bp = doname(obj);
+    if (game.iflags?.suppress_price || game.program_state?.restoring) {
+        return bp;
+    }
+    // is_unpaid invent/container unpaid arm deferred — look_here is floor
+    const { cost: price, nochrg } = get_cost_of_shop_item(obj);
+    if (price > 0) {
+        const pricebuf = `${price} ${currency(price)}`;
+        bp += ` (${nochrg ? 'contents' : 'for sale'}, ${pricebuf})`;
+    } else if (nochrg > 0) {
+        bp += ' (no charge)';
+    }
+    // iflags.pricequotes append_price_quote deferred
+    return bp;
 }
 
 /**

@@ -4,18 +4,39 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
-## D-0460 — seed0002 screen@342 look_here doname_with_price
+## D-0461 — seed0002 screen@345 doname unpaid_cost on prinv
 
 - **Status:** open
+- **Symptom:** seed0002 first cell-miss @345 — C
+  `You have a little trouble lifting y - a polished silver shield
+  (unpaid, 50 zorkmids).--More--` vs JS bare
+  `… y - a polished silver shield.`; botl matches. RNG full;
+  Scr 361/595.
+- **Cause:** TBD — C `doname_base` `is_unpaid` → `unpaid_cost` suffix;
+  JS `doname` / `xprname` omit unpaid.
+- **C locus:** `objnam.c` `doname_base` unpaid arm; `shk.c`
+  `is_unpaid` / `unpaid_cost`.
+- **Falsifier / next:** port unpaid suffix into `doname` (pickup
+  `prinv` / `xprname` path).
+
+## D-0460 — seed0002 screen@342 look_here doname_with_price
+
+- **Status:** fixed
 - **Symptom:** seed0002 first cell-miss @342 — C topline
   `You see here a banded mail (for sale, 68 zorkmids).` vs JS
   `You see here a banded mail.`; botl matches. RNG full; Scr 354/595.
-- **Cause:** TBD — `look_here` uses plain `doname`; C
+- **Cause:** `look_here` used plain `doname`; C
   `doname_with_price` → `get_cost_of_shop_item` appends for-sale.
 - **C locus:** `invent.c` `look_here`; `objnam.c` `doname_with_price` /
   `doname_base(DONAME_WITH_PRICE)`; `shk.c` `get_cost_of_shop_item`.
-- **Falsifier / next:** wire `doname_with_price` in look_here single
-  + pile paths.
+- **Change:** `js/shk.js` — C-shaped `inside_shop` roomno;
+  `get_obj_location` subset; `get_cost_of_shop_item`;
+  `doname_with_price`. `js/invent.js` `look_here` single+pile use
+  `doname_with_price`. Deferred: unpaid_cost / pricequotes /
+  contained_cost; buried/minvent location.
+- **Verification:** seed0002 @342 matches; first miss **@342→@345**;
+  Scr **354→361**; RNG full; green+strict; cohort **24/24**.
+- **Next:** doname unpaid suffix (D-0461).
 
 ## D-0459 — seed0002 screen@272 safemon “in the way” pline
 

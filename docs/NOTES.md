@@ -7,15 +7,16 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Score:** **26/44** PASS (#495). Scr **4636**/11405; RNG **285358**/792838.
-  seed0002 RNG **full** 27158; Scr **354**/595 (post D-0459).
-- **Next (D-0460):** seed0002 screen@342 — C
-  `You see here a banded mail (for sale, 68 zorkmids).` vs JS
-  `You see here a banded mail.` (botl matches).
+- **Score:** **26/44** PASS (#495 cadence). Scr **4636**/11405; RNG
+  **285358**/792838. seed0002 RNG **full** 27158; Scr **361**/595
+  (post D-0460; suite Scr +7 vs cadence not yet remeasured).
+- **Next (D-0461):** seed0002 screen@345 — C
+  `You have a little trouble lifting y - a polished silver shield
+  (unpaid, 50 zorkmids).--More--` vs JS bare shield.
   ```bash
   node frozen/ps_test_runner.mjs sessions/seed0002-healer-reflection-drummer.session.json
   ```
-  Falsify: `look_here` → `doname_with_price` / `get_cost_of_shop_item`.
+  Falsify: `doname`/`xprname` → `is_unpaid` / `unpaid_cost`.
 - **Don’t re-check:** invent-first @26692; `#force` TIME without lootmon
   getdir; help_dir More any-key; @26883 mid-buzz without ureflects
   (D-0452); @26692 bare pet without `#loot`/`doforce` (D-0451);
@@ -24,7 +25,8 @@ Objective/score live in `CURRENT.md`.
   dosounds bare u.Deaf; screen@54 without drink compactify (D-0455);
   screen@221 without pickup_prinv slightload (D-0456); screen@229
   without wield SUGGEST/`- ` (D-0457); screen@237 without botl Conf
-  (D-0458); screen@272 without safemon stop pline (D-0459).
+  (D-0458); screen@272 without safemon stop pline (D-0459);
+  screen@342 without look_here `doname_with_price` (D-0460).
 - **Landmark:** vault door (71,13); dig + restfakecorr; SPELL_LEV_PW(1)=5.
 - **Parked:** D-0006; seed2200 @158 RC.
 
@@ -43,7 +45,7 @@ Objective/score live in `CURRENT.md`.
   @12530 zap/SLT (D-0443); @14081 without peffect_healing (D-0444);
   @16501 without stair-fall (D-0445); @18354 without seer_turn
   (D-0446); @18457 without shop addtobill (D-0447); @19167 without
-  dopay (D-0448); D-0449–D-0459 done paths — see DIVERGENCE-INDEX.
+  dopay (D-0448); D-0449–D-0460 done paths — see DIVERGENCE-INDEX.
 - Runner `Screen N/M` = total matches, not prefix length.
 - First cell-miss may be botl `$:` / `Burdened` even when NOTES names a topline.
 
@@ -52,7 +54,7 @@ Objective/score live in `CURRENT.md`.
 - STAIRS yellow via `known_branch_stairs`; map col=x−1 row=y+1 DEC.
 - Session: `more()` space/CR/ESC; jsmain `\r`→LF.
 - Vault door (71,13); dig + restfakecorr (D-0377/78).
-- D-0408–D-0459 done; screen@342 look_here for-sale next (D-0460).
+- D-0408–D-0460 done; screen@345 unpaid doname next (D-0461).
 - hero_form_data eat/hunger (D-0409/10); youmonst.data (D-0411);
   bag put-in/out (D-0375/76); travel BFS (D-0412); Conflict ALLOW_U
   (D-0413/14); Monk SPELL_LEV_PW(1) (D-0380).
