@@ -4,39 +4,54 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
+## D-0486 — vision_recalc rogue_vision (Is_rogue_level)
+
+- **Status:** fixed
+- **Symptom / context:** While pealing seed0007 @2832, noticed JS
+  `vision_recalc` always used Algorithm-C `view_from`, never C's
+  `rogue_vision` branch (`vision.c` when `Is_rogue_level`).
+- **C locus:** `vision.c` `vision_recalc` / `rogue_vision`.
+- **Change:** `js/vision.js` — on `Is_rogue_level(u.uz)`, call
+  `rogue_vision` (room bounds COULD_SEE[+IN_SIGHT if rlit]; always
+  adjacent 3×3; doorway ortho `newsym`). Named omissions: Blind
+  old-sight newsym path; `do_light_sources`; pit/underwater clamps.
+- **Not seed0007:** peel is Rogue *role* on **dlevel 1**
+  (`rogue_level` is dlevel 16); `Is_rogue` false; prefix still 2832.
+- **Verification:** green+strict PASS; cohort seed1500/1800/0013/
+  0006/0002/0012/0004/0030/0009 PASS.
+- **Next:** D-0485 gettrack/`!couldsee` on ordinary levels.
+
 ## D-0485 — dog_move rn2(1) vs skipped j==0 (seed0007 @2832)
 
-- **Status:** open (diagnosed; ux0/mux gate identified; C mux TBD)
+- **Status:** open (gettrack/`!couldsee` theory; mux ALLOW_U demoted)
 - **Symptom:** seed0007 first RNG miss @2832 — C `rn2(1)=0 @ dog_move`
   (candidate `j==0 && !rn2(++chcnt)`) vs JS `rn2(5) @ distfleeck`.
-- **Context:** RNG lives in session step 48 key `H` (left); next key
-  `Y`. Hero just vacated `(37,17)` (`ux0,uy0`); kitten `(38,17)`.
-- **JS state (DIAG, removed):** after matched `dog_goal` `rn2(4)=0`,
-  kitten `(38,17)`, hero/goal `(36,17)`, `ux0=(37,17)`, `appr=1`,
-  `whappr=1` (`moves=2`), `mux/muy=hero`, `cnt=8` all `typ=ROOM`.
-  Cands: `(37,16)` j<0 → `(37,17)` j<0 → rest whappr-blocked.
-  No mon/obj/trap/engr at `(37,17)`.
-- **Force-skip / ux0-skip proof:** silent omit of `(37,17)` (or of
-  `nx,ny==ux0,uy0`) extends RNG prefix **2832→2838** (next miss
-  `obj_resists`). After `(37,16)` `nidist=2`, `(37,18)` hits `j==0`.
-- **mfndpos ALLOW_U proof:** temporarily set pet `mux/muy=ux0` before
-  `mfndpos` → `cnt=7`, `(37,17)` absent (C `u_at||(nx,ny)==(mux,muy)`
-  without `ALLOW_U` → continue). Restoring mux restores `cnt=8`.
-- **Falsified:** JS pool typ; mconf/kickedloc; couldsee false; hero
-  still on cell at `dog_goal` (C emits `rn2(4)`); ALLOW_M balk with
-  JS mon; inventing production `ux0`/coord skips.
-- **Working theory:** C’s `mfndpos` omits via ALLOW_U because pet
-  `mux` still equals vacated `(37,17)` — but JS `set_apparxy` (dochug
-  + `m_move`) already sets tame `mux=u.ux` before `dog_move`. Either
-  C mux is stale somehow, or another silent omit coincides with ux0.
-  Do not ship coordinate / ux0 hacks.
-- **C locus:** `dogmove.c` `dog_move` ~1254–1257; `mon.c` `mfndpos`
-  ~2283–2297; `monmove.c` `set_apparxy`.
-- **Next:** prove whether C pet `mux` equals `ux0` at `mfndpos` (C
-  state capture) or find another silent gate; port missing `mfndpos`
-  pool/onscary/garlic/squeeze arms only if they falsify independently.
-- **Named omission:** `mfndpos` still lacks C pool/lava/`IS_WATERWALL`/
-  onscary/garlic/squeeze/`mm_aggression` omit arms.
+- **Context:** RNG in step 48 key `H`; next `Y`. Hero vacated
+  `(37,17)` (`ux0`); kitten `(38,17)`; both in lit roomno 6
+  (rooms[3] lx32–40 ly14–18); `typ=ROOM`; `utrap=0`; Blind/uswallow
+  false; `viz_pet=COULD_SEE|IN_SIGHT`; `gettrack`→`(37,17)`.
+- **Force proofs:**
+  - Skip cand `(37,17)` → prefix **2832→2838**.
+  - Force `dog_goal` gettrack even when `couldsee` → goal=`(37,17)`,
+    first cand `j==0` → prefix **2832→2846** (stronger).
+  - `mfndpos` with `mux=ux0` also drops `(37,17)` via ALLOW_U, but
+    tame `set_apparxy` always sets `mux=u.ux` — C cannot keep stale
+    mux if `set_apparxy` ran.
+- **Working theory:** C takes `!in_masters_sight` → `gettrack` →
+  `gg=(37,17)` so first neighbour hits `j==0`. JS `couldsee(pet)` is
+  true in the lit room, so goal stays at hero and `(37,17)` is kept
+  with `j<0`. Need C-state why `couldsee` is false, or another silent
+  omit that coincides with ux0. Do not ship coord/ux0/gettrack hacks.
+- **Falsified this iteration:** `Is_rogue_level` / missing
+  `rogue_vision` as the peel cause (role Rogue ≠ rogue level);
+  production mux/ux0 gates.
+- **C locus:** `dogmove.c` `dog_goal` ~611–618 / `dog_move` ~1254;
+  `vision.c` `couldsee`; `track.c` `gettrack`.
+- **Next:** C capture of `couldsee(pet)` / viz at this peel, or
+  reconstruct LOS blocker JS misses; keep mfndpos pool/onscary arms
+  as named omissions only if independently falsified.
+- **Named omission:** `mfndpos` pool/lava/WATERWALL/onscary/garlic/
+  squeeze/`mm_aggression` arms still partial.
 
 ## D-0484 — dofire empty quiver continue + getobj letter ownership
 

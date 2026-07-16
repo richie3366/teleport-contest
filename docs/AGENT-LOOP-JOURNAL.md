@@ -20,6 +20,15 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-16 13:05 — D-0486 rogue_vision + D-0485 gettrack theory
+- Objective: seed0007 @2832 dog_move `rn2(1)` (D-0485).
+- C locus: `vision.c` `rogue_vision`/`vision_recalc`; `dogmove.c` `dog_goal` gettrack.
+- Change: ported `rogue_vision` (D-0486). Falsified as peel cause (dlvl1,
+  `Is_rogue` false). Force-gettrack → prefix **2846**; JS `couldsee(pet)`
+  true in lit room — next is C `!couldsee` cause, not mux/coord hacks.
+- Verification: green+strict PASS; cohort 9 PASS; seed0007 still @2832.
+- Next: C capture `couldsee(pet)` / LOS at peel; keep D-0485 open.
+
 ## 2026-07-16 12:45 — D-0485 ux0/mux ALLOW_U omit path
 - Objective: seed0007 @2832 dog_move `rn2(1)` vs JS `distfleeck` (D-0485).
 - C locus: `mon.c` `mfndpos` ALLOW_U; `monmove.c` `set_apparxy`;

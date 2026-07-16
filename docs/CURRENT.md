@@ -70,11 +70,11 @@ Both must remain full RNG + screen PASS with exact scored-output lengths.
 restored but four near-misses remain → upstream #5.
 
 **Gameplay next:** seed0007 rogue snake swamp — RNG prefix **2832**/16373;
-Scr **20**/302. **D-0485** (open): C `rn2(1) @ dog_move` vs JS
-`distfleeck`. Omitted cell **`(37,17) === ux0`** after `H`. Force-skip /
-ux0-skip → **2838**. `mfndpos` with `mux=ux0` drops it via ALLOW_U;
-JS `set_apparxy` already sets pet `mux=hero`. Next: prove C stale
-`mux` (or other silent omit) — no coord/ux0 production hacks.
+Scr **20**/302. **D-0485** (open): C likely `!couldsee` → `gettrack` →
+goal=`ux0` `(37,17)` (force → prefix **2846**); JS `couldsee` true in
+lit room so goal stays at hero. Stale-mux ALLOW_U demoted (tame
+`set_apparxy`). **D-0486** ported `rogue_vision` (not this peel — dlvl1).
+Next: C capture of `couldsee(pet)` / LOS — no coord/gettrack hacks.
 
 ```bash
 node scripts/rng-diff.mjs sessions/seed0007-rogue-snake-swamp.session.json

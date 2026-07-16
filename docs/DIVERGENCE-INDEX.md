@@ -471,7 +471,8 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 | D-0482 | fixed | disclose invent + enl + vanq ask | seed0006 **PASS** 123/123; Scr 5014; 28/44 |
 | D-0483 | fixed | revert D-0480 serialize space/tty_map_color | judge 23→22 correlated; keep strcmpi |
 | D-0484 | fixed | dofire empty-quiver continue + letter More | seed0007 RNG 2824→2832; dog_move next |
-| D-0485 | open | dog_move omit (37,17)=ux0; mux=ux0→mfndpos ALLOW_U | seed0007 @2832; C mux TBD |
+| D-0485 | open | dog_goal gettrack: C !couldsee→goal=ux0; JS couldsee true | seed0007 @2832; force→2846 |
+| D-0486 | fixed | vision_recalc rogue_vision for Is_rogue_level | C vision.c; not seed0007 (dlvl1) |
 
 
 
