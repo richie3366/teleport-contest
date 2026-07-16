@@ -4,17 +4,37 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
-## D-0459 — seed0002 screen@272 safemon “in the way” pline
+## D-0460 — seed0002 screen@342 look_here doname_with_price
 
 - **Status:** open
+- **Symptom:** seed0002 first cell-miss @342 — C topline
+  `You see here a banded mail (for sale, 68 zorkmids).` vs JS
+  `You see here a banded mail.`; botl matches. RNG full; Scr 354/595.
+- **Cause:** TBD — `look_here` uses plain `doname`; C
+  `doname_with_price` → `get_cost_of_shop_item` appends for-sale.
+- **C locus:** `invent.c` `look_here`; `objnam.c` `doname_with_price` /
+  `doname_base(DONAME_WITH_PRICE)`; `shk.c` `get_cost_of_shop_item`.
+- **Falsifier / next:** wire `doname_with_price` in look_here single
+  + pile paths.
+
+## D-0459 — seed0002 screen@272 safemon “in the way” pline
+
+- **Status:** fixed
 - **Symptom:** seed0002 first cell-miss @272 — C topline
   `You stop.  Your little dog is in the way!` vs JS blank;
   botl matches. RNG full; Scr 353/595.
-- **Cause:** TBD — `do_attack` safemon `foo` arm flees/returns true
-  but omits C `You("stop.  %s is in the way!", y_monnam)` +
-  `end_running` (D-0442 deferred fleemsg).
+- **Cause:** `do_attack` safemon `foo` arm fled/returned true but
+  omitted C `You("stop.  %s is in the way!", y_monnam)` +
+  `end_running(TRUE)` (D-0442 deferred fleemsg).
 - **C locus:** `uhitm.c` `do_attack` safemon stop path.
-- **Falsifier / next:** emit stop pline + `end_running` when foo.
+- **Change:** `js/uhitm.js` — `x_monnam_tame`+highc stop pline;
+  clear run/travel/mv/multi after monflee.
+- **Deferred:** inshop when !foo; isshk dopay; frozen/helpless/
+  mmove==0 pline; longworm + `passes_walls` in foo; mon_track_clear/
+  Vrock.
+- **Verification:** seed0002 @272 matches; first miss **@272→@342**;
+  Scr **353→354**; RNG full; green+strict; cohort **24/24**.
+- **Next:** look_here `doname_with_price` (D-0460).
 
 ## D-0458 — seed0002 screen@237 botl Conf condition
 
