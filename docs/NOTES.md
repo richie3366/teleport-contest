@@ -7,15 +7,15 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **D-0549 done:** wizard `level_tele` endgame `AMULET_OF_YENDOR`
-  grant (`mksobj`+`addinv`+`prinv`). seed0373 rng-diff **30061→30065**;
-  runner RNG **30115**/35386 Scr 23.
-- **seed0373 next:** @30065 C nhlib `shuffle` `rn2(3)` vs JS `rn2(79)`
-  after matched getbones — endgame plane `load_special`.
+- **D-0550 done:** Plane of Fire `load_special` (`dat/fire.lua`) +
+  endgame `level_difficulty` = `depth(sanctum)+ulevel/2`. seed0373
+  rng-diff **30065→30209**; runner RNG **30222**/35386 Scr 23.
+- **seed0373 next:** @30209 C `makemon` female `rn2(2)` vs JS
+  `newmonhp` `d(22,8)` on first fire mon (red dragon) — HP/gender order.
 - **seed0116 residual:** screen/cursor miss (110/127) after full RNG.
 - **D-0515 residual:** seed5006 still @8468 `dosounds` (RNG 8508).
-- **#605 formal score:** **30/44**, Scr **5900**/11405, RNG
-  **344063**/792838 (43.40%), `30+0.15/turn` (R² 0.76).
+- **#610 formal score:** **30/44**, Scr **5901**/11405, RNG
+  **348403**/792838 (43.94%), `31+0.14/turn` (R² 0.77).
 - **Leaderboard gap:** local **30/44** vs judge **22** after D-0480;
   D-0483 reverted serialize. Watch cron for seed0013 restore.
 - **Gameplay next:**
@@ -28,7 +28,7 @@ Objective/score live in `CURRENT.md`.
   raw RNG-index / coord / ux0 hacks; leave `context.travel` set across
   walk/run after `_` travel; batch doset toggle plines (D-0499);
   steal hero cursor for leftover getobj text in `flush_screen`;
-  reopen D-0474…D-0549; stub-cancel `^V?` as if menu (breaks 0373);
+  reopen D-0474…D-0550; stub-cancel `^V?` as if menu (breaks 0373);
   template `\.` in map strings (use `\\` for throne); burn maze
   `rn2(2)` in `set_mimic_sym` on Sokoban; fill inside `load_special`
   loaders (makelevel owns fill); accept TELE on occupied mon cell;
@@ -52,14 +52,15 @@ Objective/score live in `CURRENT.md`.
   succeeding on worm-seg cells (D-0545); skip S_MUMMY `rn2(7)` wrapping;
   skip `soko2-1` / `soko3-*` / `soko4-2`; accept DRY `get_location`
   on boulder cells; skip soko4 hardfloor / SCR_EARTH / branch levregion;
-  skip endgame Amulet grant on `^V?` force_dest (D-0549).
+  skip endgame Amulet grant on `^V?` force_dest (D-0549);
+  omit endgame `level_difficulty` / fire.lua (D-0550).
 
 ## Don’t re-check (≤15)
 
 - No raw RNG-index / coordinate / ux0 / forced-gettrack in production.
 - Rule #2: no `fs`/`path`/`url` in scored `js/` (D-0477).
 - Altar raw `{` (D-0293); don’t π-convert in scoring grid.
-- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0549
+- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0550
   done paths — see DIVERGENCE-INDEX.
 - Runner `Screen N/M` = total matches, not prefix length.
 - Hub `/sessions/` ≠ template bytes; still visual-PASS.
@@ -74,12 +75,7 @@ Objective/score live in `CURRENT.md`.
 - getbones `rn2(3)` gap with JS dog_move arity was unbound level change
   (`>` / `^V` / missing `print_dungeon` `?`) — fixed D-0515/18
   (D-0068/D-0149).
-- D-0519…D-0549 makemaz / tower1 / Bar / fila / qt_montype / egg /
-  WEB spider / offensive FALLTHROUGH / create_monster enexto /
-  mineralize / STATUE_TRAP / bigrm-8 / soldier polearm / is_elf /
-  QUANTMECH / soko1-2 / LONG_WORM / makemon worm-seg MON_AT /
-  S_MUMMY wrapping / soko2-1 + DRY / soko3-1+3-2+4-2 / endgame
-  Amulet grant — see index.
+- D-0519…D-0550 makemaz / tower / Bar / soko / endgame fire — see index.
 
 ## Landmarks (≤15)
 
@@ -90,7 +86,7 @@ Objective/score live in `CURRENT.md`.
   seed0398 **PASS** after D-0514.
 - LB gap: 14 cells / 4 sessions; report upstream if next cron unchanged.
 - Gameover `add_menu_heading` ATR_NONE; `iflags.at_night` from `really_done`.
-- #605 score: **30/44**, Scr 5900, RNG 344063 (43.40%), `30+0.15/turn`.
+- #610 score: **30/44**, Scr 5901, RNG 348403 (43.94%), `31+0.14/turn`.
 - Capital `H` = multi-step run; `set_move_cmd` must clear travel.
 - D-0486: `rogue_vision` on `Is_rogue_level` only.
 - D-0487: default `flags.autounlock=AUTOUNLOCK_APPLY_KEY`.
@@ -98,4 +94,4 @@ Objective/score live in `CURRENT.md`.
 - Water moccasin is `hides_under` (M1_CONCEAL) — postmov hide roll.
 - Rogue start leather is `+1` → AC 7 unless eroded (ARM_BONUS).
 - wizgenesis flags=5 (no AUTOCOMPLETE) — do not add to EXT_CMD_AC.
-- seed0373 tour: next endgame plane load @30065 after Amulet grant.
+- seed0373 tour: fire plane @30209 after traps; next red dragon makemon.

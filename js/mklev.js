@@ -47,6 +47,7 @@ import {
     MM_ASLEEP, IS_TREE, G_GENOD,
     MKTRAP_NOSPIDERONWEB,
     MKTRAP_NOVICTIM,
+    Is_firelevel,
 } from './const.js';
 import {
     RANDOM_CLASS, WEAPON_CLASS, ARMOR_CLASS, RING_CLASS,
@@ -328,9 +329,14 @@ function put_lregion_here(x, y, nlx, nly, nhx, nhy, rtype, oneshot, lev) {
         u_on_newpos(x, y);
         break;
     }
-    case LR_PORTAL:
-        // mkportal deferred — named in C-JS-MAP
+    case LR_PORTAL: {
+        // C ref: mkmaze.c mkportal — MAGIC_PORTAL + dst dnum/dlevel
+        const ttmp = maketrap(x, y, MAGIC_PORTAL);
+        if (ttmp && lev) {
+            ttmp.dst = { dnum: lev.dnum | 0, dlevel: lev.dlevel | 0 };
+        }
         break;
+    }
     case LR_DOWNSTAIR:
     case LR_UPSTAIR:
         mkstairs(x, y, rtype === LR_UPSTAIR ? 1 : 0, null);
@@ -406,6 +412,7 @@ export function place_lregion(lx, ly, hx, hy, nlx, nly, nhx, nhy, rtype, lev) {
 // C ref: mkmaze.c fixup_special — post-special-level branch/lregion placement
 function fixup_special() {
     // lev_region[] from level compiler deferred (minefill has none / noflip)
+    // load_fire applies tele/portal lregions inline after flip.
     if (!game.made_branch && is_branchlev()) {
         place_lregion(0, 0, 0, 0, 0, 0, 0, 0, LR_BRANCH, null);
     }
@@ -527,6 +534,7 @@ function clear_level_structures() {
     // C init_mapseen memset svl.lastseentyp — reuse buffer per level
     g.lastseentyp = null;
     g.made_branch = false;
+    g.lregions = [];
     g.smeq = new Array(MAXNROFROOMS + 1).fill(0);
     g.level.doorindex = 0;
     g.level.doors = [];
@@ -594,9 +602,9 @@ function reset_xystart_size() {
  * C ref: mkmaze.c makemaz — build protofile (rndlevs → rnd), load_special,
  * else maze fallback. Ported loaders: minefill, tut-1, bigrm-2, bigrm-8,
  * Bar-strt, Bar-loca, Bar-fila, Bar-filb, soko1-1, soko1-2, soko2-1,
- * soko3-1, soko3-2, soko4-2, tower1.
+ * soko3-1, soko3-2, soko4-2, tower1, fire.
  * Named omissions: other bigrm-N / soko2-2 / soko4-1 / quest
- * protos (Bar-goal); tower2/3; create_maze
+ * protos (Bar-goal); tower2/3; air/water/earth/astral; create_maze
  * fallback; check_ransacked side effects beyond ransacked flag; dmonsfree.
  */
 async function makemaz(s) {
@@ -713,6 +721,10 @@ function load_special_proto(protofile) {
     }
     if (protofile === 'soko4-2') {
         load_soko4_2();
+        return true;
+    }
+    if (protofile === 'fire') {
+        load_fire();
         return true;
     }
     return false;
@@ -2125,6 +2137,190 @@ function load_soko4_2() {
 }
 
 /**
+ * C ref: dat/fire.lua via load_special — Plane of Fire.
+ * Named omissions: create_gas_cloud region body (fumaroles burns coords);
+ * solidify/premap; air/water/earth/astral planes.
+ */
+function load_fire() {
+    const g = game;
+    nhlib_shuffle_align();
+    splev_initlev({
+        init_style: LVLINIT_SOLIDFILL,
+        filling: STONE,
+        lit: BOOL_RANDOM,
+        icedpools: false,
+    });
+    if (!g.level.flags) g.level.flags = {};
+    g.level.flags.is_maze_lev = true;
+    g.level.flags.noteleport = true;
+    g.level.flags.hardfloor = true;
+    g.level.flags.shortsighted = true;
+    g.level.flags.temperature = 1; // "hot"
+    g.level.flags.fumaroles = true;
+
+    // C ref: dat/fire.lua des.map — 79×21 full mappable area
+    const FIRE_MAP = `
+LL.............LL..............L...LL.........LL.................LL...........L
+LL....LLLLLLLL............L...L.............LL....LLL.......................LL.
+L....LL...................L......................LLLL................LL........
+.....L.............LLLL...LL....LL...............LLLLL.............LLL.........
+.L.LLLL..............LL....L.....LLL..............LLLL..............LLLL......L
+LL..........LLLL...LLLL...LLL....LLL......L........LLLL....LL........LLL......L
+LL........LLLLLLL...LL.....L......L......LL.........LL......LL........LL...L...
+L.........LL..LLL..LL......LL......LLLL..L.........LL......LLL............LL...
+......L..LL....LLLLL.................LLLLLLL.......L......LL............LLLLLL.
+......L..L.....LL.LLLL.......L............L........LLLLL.LL......LL.........LL.
+......LL........L...LL......LL.............LLL.....L...LLL.......LLL.........L.
+.L.....LLLLLL........L.......LLL.............L....LL...L.LLL......LLLLLLL......
+LL..........LLLL............LL.L.............L....L...LL.........LLL..LLL......
+.L...........................LLLLL...........LL...L...L........LLLL..LLLLLL...L
+.L.....LLLL.............LL....LL.......LLL...LL.......L..LLL....LLLLLLL.......L
+.........LLL.........LLLLLLLLLLL......LLLLL...L...........LL...LL...LL.........
+...........LL.......LL.........LL.......LLL....L..LLL....LL.........LL.........
+............LLLLLLLLL...........LL....LLL.......LLLLL.....LL........LL.........
+.LL...............L.............LLLLLL............LL...LLLL.........LL.......L.
+LL.....L..........................LL....................LL..................LLL
+L.....LLL......................LLLLL.........L.........LLLLLLLL..............LL
+`.replace(/^\n/, '');
+    const { xstart, ystart } = splev_apply_centered_map(FIRE_MAP);
+
+    // des.teleport_region({ region = {71,16,71,16} }) — dir both (default)
+    // des.levregion portal→water with exclude — stored for fixup after flip
+    const abs = (mx, my) => ({ x: xstart + mx, y: ystart + my });
+    const t0 = abs(71, 16);
+    g.lregions = g.lregions || [];
+    g.lregions.push({
+        rtype: LR_TELE,
+        rname: null,
+        inarea: { x1: t0.x, y1: t0.y, x2: t0.x, y2: t0.y },
+        delarea: { x1: -1, y1: -1, x2: -1, y2: -1 },
+    });
+    const p0 = abs(0, 0);
+    const p1 = abs(78, 19);
+    const e0 = abs(67, 13);
+    const e1 = abs(78, 19);
+    g.lregions.push({
+        rtype: LR_PORTAL,
+        rname: 'water',
+        inarea: { x1: p0.x, y1: p0.y, x2: p1.x, y2: p1.y },
+        delarea: { x1: e0.x, y1: e0.y, x2: e1.x, y2: e1.y },
+    });
+
+    // 40× des.trap("fire") — create_trap DRY + mktrap victim gate
+    for (let i = 0; i < 40; i++) {
+        let trycnt = 0;
+        let pos;
+        do {
+            pos = get_location_random(null);
+            const typ = g.level.at(pos.x, pos.y)?.typ;
+            if (typ !== STAIRS && typ !== LADDER) break;
+        } while (++trycnt <= 100);
+        if (trycnt > 100) continue;
+        const ttmp = maketrap(pos.x, pos.y, FIRE_TRAP);
+        mktrap_seen_victim(ttmp, {});
+    }
+
+    // des.monster list — peaceful:0 overrides; bare id leaves makemon default
+    const fireMons = [
+        ['red dragon'], ['balrog'],
+        ['fire elemental', 0], ['fire elemental', 0],
+        ['fire vortex'], ['hell hound'],
+        ['fire giant'], ['barbed devil'], ['hell hound'], ['stone golem'],
+        ['pit fiend'], ['fire elemental', 0],
+        ['fire elemental', 0], ['hell hound'], ['fire elemental', 0],
+        ['fire elemental', 0], ['scorpion'], ['fire giant'],
+        ['hell hound'], ['dust vortex'], ['fire vortex'],
+        ['fire elemental', 0], ['fire elemental', 0], ['fire elemental', 0],
+        ['hell hound'], ['fire elemental', 0], ['stone golem'],
+        ['pit viper'], ['pit viper'], ['fire vortex'],
+        ['fire elemental', 0], ['fire elemental', 0], ['fire giant'],
+        ['fire elemental', 0], ['fire vortex'], ['fire vortex'],
+        ['pit fiend'], ['fire elemental', 0], ['pit viper'],
+        ['salamander', 0], ['salamander', 0], ['minotaur'],
+        ['salamander', 0], ['steam vortex'],
+        ['salamander', 0], ['salamander', 0],
+        ['fire giant'], ['barbed devil'], ['fire elemental', 0],
+        ['fire vortex'], ['fire elemental', 0], ['fire elemental', 0],
+        ['hell hound'], ['fire giant'], ['pit fiend'],
+        ['fire elemental', 0], ['fire elemental', 0],
+        ['barbed devil'], ['salamander', 0], ['steam vortex'],
+        ['salamander', 0], ['salamander', 0],
+    ];
+    for (const spec of fireMons) {
+        if (spec.length > 1) splev_create_monster(spec[0], spec[1]);
+        else splev_create_monster(spec[0]);
+    }
+
+    for (let i = 0; i < 5; i++) splev_create_boulder();
+
+    // C ref: sp_lev.c load_special — wallify, flip, then lregions / fixup
+    if (!g.level.flags.corrmaze)
+        wallification(1, 0, COLNO - 1, ROWNO - 1);
+    flip_level_rnd(3, false);
+    {
+        const lregions = g.lregions || [];
+        g.lregions = [];
+        for (const r of lregions) {
+            if (r.rtype === LR_TELE || r.rtype === LR_UPTELE || r.rtype === LR_DOWNTELE) {
+                const tele = {
+                    lx: r.inarea.x1, ly: r.inarea.y1,
+                    hx: r.inarea.x2, hy: r.inarea.y2,
+                    nlx: r.delarea.x1, nly: r.delarea.y1,
+                    nhx: r.delarea.x2, nhy: r.delarea.y2,
+                };
+                if (r.rtype === LR_TELE || r.rtype === LR_UPTELE)
+                    g.updest = { ...tele };
+                if (r.rtype === LR_TELE || r.rtype === LR_DOWNTELE)
+                    g.dndest = { ...tele };
+            } else if (r.rtype === LR_PORTAL) {
+                let lev = null;
+                if (r.rname) {
+                    const sp = find_level(r.rname);
+                    if (sp?.dlevel)
+                        lev = { dnum: sp.dlevel.dnum | 0, dlevel: sp.dlevel.dlevel | 0 };
+                }
+                place_lregion(
+                    r.inarea.x1, r.inarea.y1, r.inarea.x2, r.inarea.y2,
+                    r.delarea.x1, r.delarea.y1, r.delarea.x2, r.delarea.y2,
+                    LR_PORTAL, lev,
+                );
+            }
+        }
+    }
+    fixup_special();
+}
+
+/**
+ * C ref: mkmaze.c fumaroles — gas-cloud bursts on lava (arrival / moveloop).
+ * Named omission: create_gas_cloud region body / Norep whoosh (coord RNG only).
+ */
+export function fumaroles() {
+    const g = game;
+    const lf = g.level?.flags;
+    if (!lf?.fumaroles) return;
+    let nmax = rn2(3);
+    let sizemin = 5;
+    if (Is_firelevel(g.u?.uz)) {
+        nmax++;
+        sizemin += 5;
+    }
+    if ((lf.temperature | 0) > 0) {
+        nmax++;
+        sizemin += 5;
+    }
+    for (let n = nmax; n; n--) {
+        const x = rn1(COLNO - 4, 3);
+        const y = rn1(ROWNO - 4, 3);
+        if (g.level.at(x, y)?.typ === LAVAPOOL) {
+            // C: create_gas_cloud(x, y, rn1(10, sizemin), rn1(10, 5))
+            rn1(10, sizemin);
+            rn1(10, 5);
+            // Norep whoosh deferred
+        }
+    }
+}
+
+/**
  * C ref: dat/soko2-1.lua via load_special.
  * Named omissions: solidify_map / premap_detect / ensure_way_out;
  * populate exclusion_zones from des.exclusion; soko2-2 / soko4-1.
@@ -2313,8 +2509,9 @@ function flip_level_rnd(flp, extras) {
 /**
  * C ref: sp_lev.c flip_level — transpose terrain / traps / objs / mons /
  * rooms / doors / stairs / engravings in the extends bbox.
- * Named omissions: drawbridge flip helpers, vault-guard extras, worm segs,
- * lregions, exclusion zones, ball/chain, SpLev_Map.
+ * Named omissions: lregions deferred beyond inarea/delarea flip; drawbridge
+ * flip helpers, vault-guard extras, worm segs, exclusion zones, ball/chain,
+ * SpLev_Map.
  */
 function flip_level(flp, _extras) {
     if ((flp & 3) === 0) return;
@@ -2408,6 +2605,35 @@ function flip_level(flp, _extras) {
     for (let ep = game.head_engr; ep; ep = ep.nxt_engr) {
         if (flp & 1) ep.engr_y = FlipY(ep.engr_y);
         if (flp & 2) ep.engr_x = FlipX(ep.engr_x);
+    }
+
+    // C ref: sp_lev.c flip_level — lregions inarea/delarea
+    for (const r of game.lregions || []) {
+        if (!r?.inarea) continue;
+        if (flp & 1) {
+            r.inarea.y1 = FlipY(r.inarea.y1);
+            r.inarea.y2 = FlipY(r.inarea.y2);
+            if (r.inarea.y1 > r.inarea.y2) {
+                const t = r.inarea.y1; r.inarea.y1 = r.inarea.y2; r.inarea.y2 = t;
+            }
+            r.delarea.y1 = FlipY(r.delarea.y1);
+            r.delarea.y2 = FlipY(r.delarea.y2);
+            if (r.delarea.y1 > r.delarea.y2) {
+                const t = r.delarea.y1; r.delarea.y1 = r.delarea.y2; r.delarea.y2 = t;
+            }
+        }
+        if (flp & 2) {
+            r.inarea.x1 = FlipX(r.inarea.x1);
+            r.inarea.x2 = FlipX(r.inarea.x2);
+            if (r.inarea.x1 > r.inarea.x2) {
+                const t = r.inarea.x1; r.inarea.x1 = r.inarea.x2; r.inarea.x2 = t;
+            }
+            r.delarea.x1 = FlipX(r.delarea.x1);
+            r.delarea.x2 = FlipX(r.delarea.x2);
+            if (r.delarea.x1 > r.delarea.x2) {
+                const t = r.delarea.x1; r.delarea.x1 = r.delarea.x2; r.delarea.x2 = t;
+            }
+        }
     }
 
     // rooms

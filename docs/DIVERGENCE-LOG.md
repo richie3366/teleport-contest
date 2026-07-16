@@ -4,6 +4,29 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
+## D-0550 — fire.lua load_special + endgame level_difficulty
+
+- **Status:** fixed (partial — fire monsters HP/gender order; air/water/
+  earth/astral; create_gas_cloud body)
+- **Symptom:** seed0373 @30065 C nhlib `shuffle` `rn2(3)` vs JS `rn2(79)`
+  after matched getbones (post D-0549 Amulet grant). Wizard `^V?` `L`
+  selects fire (−3).
+- **Cause:** (1) `load_special_proto` omitted `fire`; (2) JS
+  `level_difficulty` lacked C In_endgame arm → false `mktrap_victim` on
+  Plane of Fire traps (low depth vs `rnd(4)`).
+- **C locus:** `dat/fire.lua`; `sp_lev.c` `load_special`; `dungeon.c`
+  `level_difficulty` endgame; `mkmaze.c` `mkportal` / `fumaroles`.
+- **Change:** `js/mklev.js` `load_fire` (map, 40 FIRE_TRAP, mons, boulders,
+  tele/portal lregions after flip) + `mkportal` + `fumaroles`; `js/do.js`
+  arrival fumaroles; `js/hacklib.js` endgame difficulty.
+- **Verification:** seed0373 rng-diff **30065→30209**; runner RNG
+  **30222**/35386 Scr 23/124; green+strict PASS; cohort smoke PASS.
+  Full suite **#610** 30/44 Scr 5901 RNG 348403 (43.94%).
+- **Named omission:** fire mon makemon HP/female order; air/water/earth/
+  astral; create_gas_cloud region / Norep whoosh; movebubbles.
+- **Next:** @30209 C `makemon` female `rn2(2)` vs JS `newmonhp` `d(22,8)`;
+  or seed5006 `dosounds` @8468.
+
 ## D-0549 — level_tele endgame AMULET_OF_YENDOR grant
 
 - **Status:** fixed (partial — endgame plane `load_special`; heaven/Knox)
