@@ -1120,27 +1120,24 @@ export async function doset() {
         if (it.kind === 'bool') boolPicks.push(it.name);
         else if (it.kind === 'comp' && it.handler) handlerPicks.push(it.name);
     }
-    let msgBuf = [];
-    const flushMsg = async () => {
-        if (!msgBuf.length) return;
-        await pline(msgBuf.join('  '));
-        msgBuf = [];
-    };
+    // C options.c doset → parseoptions → optfn_boolean: one pline per bool.
+    // pline appends with "  " while NEED_MORE fits; otherwise more() first.
+    // Botl-affecting opts (showexp/time) set flags.botl before their pline so
+    // flush_screen→bot() runs before more() on the *previous* pair — matching
+    // C’s Xp:1/0 without T: during price_quotes More (D-0499).
     for (const name of boolPicks) {
         const addr = DOSET_BOOL_ADDR[name];
         if (!addr) continue;
         if (!game[addr.obj]) game[addr.obj] = {};
         const on = !doset_bool_value(name);
         game[addr.obj][addr.key] = on;
-        // C options.c optfn_boolean after-change: showexp/time/… → disp.botl
+        // C optfn_boolean after-change: showexp/time/… → disp.botl
         if (name === 'showexp' || name === 'time' || name === 'showscore'
             || name === 'showvers' || name === 'showrace') {
             game.flags.botl = true;
         }
-        msgBuf.push(`'${name}' option toggled ${on ? 'on' : 'off'}.`);
-        if (msgBuf.length >= 2) await flushMsg();
+        await pline(`'${name}' option toggled ${on ? 'on' : 'off'}.`);
     }
-    await flushMsg();
     for (const name of handlerPicks) {
         if (name === 'pickup_types') {
             await handler_pickup_types();

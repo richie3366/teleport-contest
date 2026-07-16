@@ -485,6 +485,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 | D-0496 | fixed | postmov hides_under rn2(5)/hideunder | seed0007 @16339→16346; mgc_atk next |
 | D-0497 | fixed | mhitm_ad_drst mhitu mgc gate | seed0007 RNG full 16373; screen peel next |
 | D-0498 | fixed | doset fmtstr + bool On defaults | seed0007 Scr 60→84; @38 botl next |
+| D-0499 | fixed | doset per-bool pline (optfn_boolean) | seed0007 Scr 84→85; @85 Satiated next |
 
 
 

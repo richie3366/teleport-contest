@@ -20,6 +20,17 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-16 15:18 — D-0499 doset per-bool pline
+- Objective: primary seed0007 screen peel @38 (showexp/time botl).
+- C locus: `options.c` `optfn_boolean` one pline/bool + botl before
+  pline; topline NEED_MORE append/`more`.
+- Change: `js/options.js` `doset` — drop join-2 msgBuf; `await pline`
+  per selected bool so showexp botl paints during price_quotes More
+  before `time` applies.
+- Verification: Scr **84→85**/302; @38 match; RNG full; green+strict
+  PASS; cohort 26/26 PASS.
+- Next: @85 botl `Satiated` / D-0500.
+
 ## 2026-07-16 15:14 — D-0498 doset fmt + bool defaults
 - Objective: primary seed0007 screen peel (Scr 60 with full RNG).
 - C locus: `options.c` `doset`/`doset_add_menu` `%-Ns [val]`;

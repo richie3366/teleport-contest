@@ -4,6 +4,29 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
+## D-0499 — doset per-bool pline (seed0007 Scr @38)
+
+- **Status:** fixed
+- **Symptom:** after D-0498, first screen miss @38 — price_quotes More:
+  C `Xp:1/0` vs JS `Xp:1/0 T:1` (time one message-pair early). Scr
+  **84**/302; RNG full.
+- **Cause:** JS batched two toggle strings into one `pline`, so both
+  `showexp` and `time` were applied before `flush_screen`→`bot()` when
+  the next pair forced `more()` on the prior topline. C’s
+  `optfn_boolean` plines each bool; showexp sets `disp.botl` then
+  plines — flush paints `Xp:1/0` before `more()` on the price_quotes
+  pair, then time is applied afterward.
+- **C locus:** `options.c` `doset` → `parseoptions` → `optfn_boolean`
+  (showexp/time → `disp.botl` + per-opt `pline`); `pline.c`/`topl.c`
+  NEED_MORE append `"  "` / `more()`.
+- **Change:** `js/options.js` `doset` — one `await pline(...)` per
+  selected bool (removed msgBuf join-2).
+- **Verification:** seed0007 Scr **84→85**/302 (@38 match; first miss
+  @85 Satiated); RNG full; green+strict PASS; cohort 26/26 PASS.
+- **Named omission:** botl hunger `hu_stat`/`Satiated` (next @85);
+  full `parseoptions` after-change; `reset_needed_visuals`.
+- **Next:** seed0007 @85 botl hunger / D-0500.
+
 ## D-0498 — doset fmtstr + bool defaults (seed0007 Scr @20)
 
 - **Status:** fixed
