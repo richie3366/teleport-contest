@@ -19,10 +19,10 @@ focused session.
 
 Score last measured: **2026-07-16** — full `sessions` suite (#490 score
 cadence). Screens **4632**/11405; RNG **285242**/792838. **26/44** PASS.
-Speed `23+0.13/turn`. Δ vs #485: Scr +3, RNG +274 (peels #486–#489;
-focused seed0002 still @26987). Post-#490 peels: D-0454 music → RNG full;
-D-0455 drink compactify → Scr **323→325**, first miss @221 (not yet in
-full-suite Scr aggregate).
+Speed `23+0.13/turn`. Δ vs #485: Scr +3, RNG +274 (peels #486–#489).
+Post-#490 peels (not yet in full-suite Scr): D-0454 music → RNG full;
+D-0455 drink compactify Scr 323→325; D-0456 pickup_prinv Scr **325→326**,
+first miss @229.
 
 ## Score
 
@@ -44,7 +44,7 @@ seed0012, seed0004.
 | Session | RNG | Screen | Note |
 |--------|----:|-------:|------|
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
-| seed0002 | **27158**/27158 | **325**/595 | RNG full; first cell @221 pickup_prinv (D-0456) |
+| seed0002 | **27158**/27158 | **326**/595 | RNG full; first cell @229 wield getobj compactify (D-0457) |
 | seed0006 | 2276/6736 | **13**/123 | water demon |
 | seed0007 | 2975/16373 | **20**/302 | snake swamp (+36 RNG vs #485) |
 | seed0361/0373 | early | 0 | quest bones / `makemaz` |
@@ -64,10 +64,10 @@ Both must remain full RNG + screen PASS with exact scored-output lengths.
 
 ## Primary objective
 
-**seed0002 screen@221 — `pickup_prinv` slightload lifting** (D-0456).
-RNG **full** 27158/27158; Scr **325**/595; first cell-miss: C
-`You have a little trouble lifting x - a chain mail.--More--` vs JS
-bare `x - a chain mail.--More--`.
+**seed0002 screen@229 — wield getobj compactify** (D-0457).
+RNG **full** 27158/27158; Scr **326**/595; first cell-miss: C
+`What do you want to wield? [- ar or ?*]` vs JS
+`[-abcdefghijkloprsuwx or ?*]`.
 
 ```bash
 node frozen/ps_test_runner.mjs sessions/seed0002-healer-reflection-drummer.session.json
@@ -75,7 +75,7 @@ node frozen/ps_test_runner.mjs sessions/seed0002-healer-reflection-drummer.sessi
 
 **Alternates:** seed0006 / seed0007; quest early-0 (seed0361/0373).
 
-**Prefer over:** parked D-0006, seed2200 RC; re-opening D-0455 compactify.
+**Prefer over:** parked D-0006, seed2200 RC; re-opening D-0456.
 
 **Cohort after shared change:** green gate + seed1500 + seed1800 + seed0060 +
 seed0102 + seed0700 + seed1150 + seed0017 + seed0077 + seed0106 + seed0501 +

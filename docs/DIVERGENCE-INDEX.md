@@ -442,7 +442,8 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 | D-0453 | fixed | travelcc clear on BFS dest + goto_level (hero Y→dog_goal udist) | seed0002 26987→27050; Scr 323; @27050 music next |
 | D-0454 | fixed | do_improvisation LEATHER_DRUM + resist alev=10 + auditory monflee + dosounds HDeaf | seed0002 RNG full 27158; Scr 323; screen@54 drink compactify next |
 | D-0455 | fixed | drink getobj compactify when suggested>5 | seed0002 first miss @54→@221; Scr 323→325 |
-| D-0456 | open | pickup_prinv slightload lifting prefix | seed0002 first screen miss @221 |
+| D-0456 | fixed | pickup_prinv slightload lifting + pickup_encumbrance | seed0002 first miss @221→@229; Scr 325→326 |
+| D-0457 | open | wield getobj compactify when suggested>5 | seed0002 first screen miss @229 |
 
 
 

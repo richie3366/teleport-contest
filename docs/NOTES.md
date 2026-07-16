@@ -7,74 +7,39 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Score:** **26/44** PASS (#490 full). Scr **4632**/11405; RNG
-  **285242**/792838. seed0002 RNG **full** 27158; Scr **325**/595.
-- **Next (D-0456):** seed0002 screen@221 — C
-  `You have a little trouble lifting x - a chain mail.--More--`
-  vs JS bare `x - a chain mail.--More--` (`pickup.c` `pickup_prinv`).
+- **Score:** **26/44** PASS (#490). seed0002 RNG **full** 27158; Scr **326**/595.
+- **Next (D-0457):** seed0002 screen@229 — C `[- ar or ?*]` vs JS
+  `[-abcdefghijkloprsuwx or ?*]` (wield getobj compactify).
   ```bash
   node frozen/ps_test_runner.mjs sessions/seed0002-healer-reflection-drummer.session.json
   ```
-  Falsify: JS `pickup_prinv` always null prefix — wire
-  `slightloadpfx`+`lifting` when `near_capacity` crosses SLT.
-- **Don’t re-check:** invent-first @26692; ship `#force` TIME without
-  lootmon getdir first; `help_dir` More accepting any key; treat @26883
-  as mid-buzz mon `exercise`/`zap_hit` without hero `ureflects`→
-  `makeknown` (D-0452 done); treat @26692 as bare pet mfndpos without
-  `#loot`/`doforce` key accounting (D-0451 done); rewrite `dog_goal`
-  follow `rn2(4)` body / skip-place for @26987 (D-0453 was travelcc);
-  treat @26987 as pet place/`m_in_out_region` without proving hero Y;
-  treat @27050 as music arity without apply→`do_play_instrument`
-  (D-0454 done); TOOL `resist` alev=`ulevel` (C alev=10); stub
-  auditory `onscary(0,0)` false; `dosounds` gate only `u.Deaf`; treat
-  screen@54 as invent letter set without drink `compactify` (D-0455
-  done).
+  Falsify: wire `compactify_invlets` when suggested>5 (like D-0455 drink).
+- **Don’t re-check:** invent-first @26692; `#force` TIME without lootmon
+  getdir; help_dir More any-key; @26883 mid-buzz without ureflects
+  (D-0452); @26692 bare pet without `#loot`/`doforce` (D-0451);
+  dog_goal rn2(4) for @26987 (D-0453 travelcc); @27050 music arity
+  without instruments (D-0454); TOOL resist ulevel; silent onscary;
+  dosounds bare u.Deaf; screen@54 without drink compactify (D-0455);
+  screen@221 without pickup_prinv slightload (D-0456).
 - **Landmark:** vault door (71,13); dig + restfakecorr; SPELL_LEV_PW(1)=5.
 - **Parked:** D-0006; seed2200 @158 RC.
 
 ## Don’t re-check (≤15)
 
 - No raw RNG-index / coordinate gates in production.
-- **Don’t:** invent bag `containing` without `cknown` after put-in;
-  invent empty-bag prompt from bare `outokay` (use `outmaybe`); floor
-  yname as `your`; omit container from put-in invent walk; skip teleds
-  materialize/gold botl (D-0393); skip `stop_occupation` on threat
-  (D-0392); clear topline between get_count digits (D-0391); skip getpos
-  `auto_describe` (D-0390); invent tip persistence over lookat; skip
-  `clear_glyph_buffer` in `cls` (D-0389); invent bare merged-quan gold
-  prinv (D-0388); skip `check_here` after autopick (D-0387); invent
-  Options hand-list (D-0385); omit `hilite_pile` ATR_INVERSE (D-0386);
-  ice-box per-cobj without merge/`spe` (D-0383); pickup without
-  INVORDER_SORT headings (D-0384); early-return `dochug` on
-  `msleeping` (D-0278); drop gold without `_goldCount`/botl (D-0396);
-  defer Move along! / skip `gd_move_cleanup` Suddenly (D-0396/97);
-  omit bear-trap / pile-gem observe / encumber+trapmove / Norep /
-  heal_legs / vtense / flee mhpmax (D-0398–D-0404); treat @4565–@26883
-  as index D-0405…D-0452 without those C paths — see DIVERGENCE-INDEX;
-  treat RING `obj.known` as type-ID (D-0420); bypass yn ring-hand
-  (D-0421); force corner invent when lets len==1 (D-0422); leave
-  autodescribe unset (D-0423); skip tseen trap / wall DECgraphics /
-  invent paging / throw newsym / eatcorpse `1+rn2` (D-0424–D-0428);
-  treat drink/? / SCR_* / door / sink / confusion / impaired / booze /
-  ohitmon / run-stop / CONFUSION-timeout / safemon-move0 as monmove
-  without those peffect/timeout/do_attack paths (D-0430–D-0442);
-  treat @12530 as zap/`destroy_items` or SLT leftover math (D-0443);
-  treat @14081 as distfleeck without `peffect_healing` (D-0444);
-  treat @16501 as `mon_arrive`/`collect_coords` without stair-fall
-  (D-0445); treat @18354 as distfleeck without seer_turn phase
-  (D-0446); treat @18457 as distfleeck without shop `addtobill`/
-  `append_honorific` (D-0447); invent `addtobill` without `oc_cost`/
-  `get_cost`; treat @19167 as `do_attack`/`rn2(7)` without missing
-  `dopay` (D-0448); treat @25615 as wipe_engr without `exerchk`
-  (D-0449 done); treat @25767 as monmove without zap getobj/`dobuzz`
-  (D-0450 done); treat @26692 as invent-first / bare pet door-step
-  without `#loot` lootmon + `help_dir` quitchar More + `doforce`
-  ECMD_TIME (D-0451 done); treat @26883 as mon mid-buzz exercise
-  without hero shield `ureflects`/`makeknown` (D-0452 done); patch
-  `dog_goal` `rn2(4)` / invent / skip-place for @26987 without travelcc
-  proof (D-0453 done); music without apply instruments / TOOL resist
-  ulevel / silent onscary / dosounds bare `u.Deaf` (D-0454 done);
-  drink getobj without `compactify` when suggested>5 (D-0455 done).
+- **Don’t:** invent bag containing without cknown; empty-bag from
+  outokay; floor yname as your; skip teleds gold botl (D-0393);
+  skip stop_occupation (D-0392); clear topline get_count (D-0391);
+  skip auto_describe (D-0390); skip clear_glyph_buffer cls (D-0389);
+  bare merged-quan gold prinv (D-0388); skip check_here autopick
+  (D-0387); early dochug msleeping (D-0278); D-0396–D-0404 trap/
+  encumber/flee; RING obj.known as type-ID (D-0420); bypass yn ring
+  (D-0421); force corner invent lets==1 (D-0422); D-0423–D-0428;
+  drink/scroll/door/sink/conf/impaired as monmove (D-0430–D-0442);
+  @12530 zap/SLT (D-0443); @14081 without peffect_healing (D-0444);
+  @16501 without stair-fall (D-0445); @18354 without seer_turn
+  (D-0446); @18457 without shop addtobill (D-0447); @19167 without
+  dopay (D-0448); D-0449–D-0456 done paths — see DIVERGENCE-INDEX.
 - Runner `Screen N/M` = total matches, not prefix length.
 - First cell-miss may be botl `$:` / `Burdened` even when NOTES names a topline.
 
@@ -83,18 +48,8 @@ Objective/score live in `CURRENT.md`.
 - STAIRS yellow via `known_branch_stairs`; map col=x−1 row=y+1 DEC.
 - Session: `more()` space/CR/ESC; jsmain `\r`→LF.
 - Vault door (71,13); dig + restfakecorr (D-0377/78).
-- Travel/autodescribe/invent/throw/eat/drink/scrolls D-0408–D-0435;
-  confusion/impaired/booze/ohitmon/run-stop/CONFUSION-timeout/
-  safemon-move+flee-teleport D-0436–D-0442; rottenfood→occupation
-  D-0443; peffect_healing D-0444; goto_level descend fall D-0445;
-  seer_turn once-per-hero D-0446; shop `oc_cost`→`append_honorific`
-  D-0447; `dopay`→`money2mon`/`next_ident` D-0448; `exerchk`
-  next_attrib_check D-0449; zap getobj? + RAY dobuzz sleep D-0450;
-  D-0451 `#loot` lootmon + help_dir quitchar More + `doforce` TIME
-  done; D-0452 `ureflects` shield `makeknown` done; D-0453 travelcc
-  clear on BFS dest + `goto_level` done; D-0454 music LEATHER_DRUM
-  + resist alev=10 + auditory monflee + dosounds HDeaf done;
-  D-0455 drink getobj compactify done; screen@221 pickup_prinv next.
+- D-0408–D-0455 done (travel…drink compactify); D-0456 pickup_prinv
+  slightload lifting done; screen@229 wield getobj compactify next.
 - hero_form_data eat/hunger (D-0409/10); youmonst.data (D-0411);
   bag put-in/out (D-0375/76); travel BFS (D-0412); Conflict ALLOW_U
   (D-0413/14); Monk SPELL_LEV_PW(1) (D-0380).

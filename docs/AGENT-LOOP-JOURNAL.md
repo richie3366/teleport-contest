@@ -20,12 +20,13 @@ Use this shape:
 - Next: …
 ```
 
-## 2026-07-16 05:56 — D-0455 drink getobj compactify
-- Objective: seed0002 screen@54 C `[d-gnq or ?*]` vs JS `[defgnq or ?*]`.
-- C locus: `invent.c` `compactify` / `getobj` `suggested>5`; drink via `dodrink`.
-- Change: `js/potion.js` prompt `compactify_invlets` when raw>5; `?` keeps non-compacted lets (C).
-- Verification: seed0002 first miss @54→@221; Scr 323→325; RNG full; green+strict; cohort 24/24.
-- Next: D-0456 screen@221 `pickup_prinv` slightload lifting prefix.
+## 2026-07-16 06:02 — D-0456 pickup_prinv slightload lifting
+- Objective: seed0002 screen@221 C `You have a little trouble lifting x - a chain mail.--More--` vs JS bare `x - a chain mail.--More--`.
+- C locus: `pickup.c` `pickup_prinv` / `slightloadpfx` + `gp.pickup_encumbrance`.
+- Change: `js/pickup.js` — load pfx + verb `lifting`/`removing`; reset `pickup_encumbrance` in `pickup` / `menu_loot_*`.
+- Verification: seed0002 first miss @221→@229; Scr 325→326; RNG full; green+strict; cohort 24/24.
+- Next: D-0457 screen@229 wield getobj compactify.
+
 
 
 ## 2026-07-16 05:52 — #492 D-0454 music LEATHER_DRUM

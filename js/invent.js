@@ -1708,7 +1708,7 @@ export async function doprgold() {
  * C ref: invent.c prinv(prefix, obj, quan)
  * When quan != 0 and quan < obj.quan (e.g. gold merged after pickup),
  * name the lifted amount and append " (N in total)." if verbose.
- * Named omissions: encumbrance verb prefixes belong to pickup_prinv.
+ * Named omissions: none for prefix — pickup_prinv builds load+verb.
  */
 export async function prinv(prefix, obj, quan = 0) {
     const q = quan | 0;

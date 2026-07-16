@@ -4,17 +4,38 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
-## D-0456 — seed0002 screen@221 pickup_prinv slightload lifting
+## D-0457 — seed0002 screen@229 wield getobj compactify
 
 - **Status:** open
+- **Symptom:** seed0002 first cell-miss @229 — C
+  `What do you want to wield? [- ar or ?*]` vs JS
+  `[-abcdefghijkloprsuwx or ?*]`. RNG full; Scr 326/595.
+- **Cause:** TBD — `getobj_wield` joins invent letters without C
+  `getobj` `if (suggested > 5) compactify(bp)` (drink fixed D-0455).
+- **C locus:** `invent.c` `compactify` / `getobj`; wield via
+  `wield.c` `dowield` → `getobj("wield",…)`.
+- **Falsifier / next:** wire prompt compactify when lets>5; keep `?`
+  non-compacted if applicable.
+
+## D-0456 — seed0002 screen@221 pickup_prinv slightload lifting
+
+- **Status:** fixed
 - **Symptom:** seed0002 first cell-miss @221 — C
   `You have a little trouble lifting x - a chain mail.--More--`
   vs JS bare `x - a chain mail.--More--`. RNG full; Scr 325/595.
-- **Cause:** TBD — JS `pickup_prinv` always `prinv(null,…)`; C
+- **Cause:** JS `pickup_prinv` always `prinv(null,…)`; C
   `pickup_prinv` prefixes `slightloadpfx`+`lifting` when
-  `near_capacity()` crosses into SLT_ENCUMBER.
-- **C locus:** `pickup.c` `pickup_prinv` / `slightloadpfx`.
-- **Falsifier / next:** port encumbrance-prefix arms; recheck Scr.
+  `near_capacity()` differs from `gp.pickup_encumbrance`.
+- **C locus:** `pickup.c` `pickup_prinv` / `slightloadpfx` (+
+  `pickup()` / `menu_loot` reset of `pickup_encumbrance`).
+- **Change:** `js/pickup.js` — load-prefix strings +
+  `game.pickup_encumbrance` gate; verbs `lifting`/`removing`; reset
+  at `pickup` / `menu_loot_*` entry+exit.
+- **Deferred:** `lift_object` yn Continue? arms that reuse the same
+  pfx strings.
+- **Verification:** seed0002 first miss **@221→@229**; Scr **325→326**;
+  RNG still full 27158; green+strict; cohort **24/24** (+green = 26).
+- **Next:** screen@229 wield getobj compactify (D-0457).
 
 ## D-0455 — seed0002 screen@54 drink getobj compactify
 
