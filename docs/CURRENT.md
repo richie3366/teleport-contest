@@ -61,20 +61,22 @@ Both must remain full RNG + screen PASS with exact scored-output lengths.
 
 ## Primary objective
 
-**seed0002 @12530 — `obj_resists` / zap stack** (after D-0442
-safemon move + dochug flee-teleport). Prefix **12530**; Scr
-**247**/595. C keeps rolling `obj_resists` `rn2(100)` while JS
-returns to `distfleeck`/`m_move`.
+**seed0002 @12530 — `umovement` / SLT phase** (after D-0443 diagnosis).
+Prefix **12530**; Scr **247**/595. Matched `obj_resists` look like a
+zap stack but are `dog_goal` invent-scan; C hero stays @**(41,18)**
+(`udist≤1`) while JS already moved W via rhack/`H` (umo **15** after
+SLT EOT vs C still in `movemon`).
 
 ```bash
 node frozen/ps_test_runner.mjs sessions/seed0002-healer-reflection-drummer.session.json
 node scripts/rng-diff.mjs sessions/seed0002-healer-reflection-drummer.session.json
-# Focus: after matched obj_resists trio — why C continues vs JS monmove
+# Focus: why JS umovement is +6 ahead of C’s SLT net−3 oscillation
 ```
 
 **Alternates:** seed0006 / seed0007; quest early-0 (seed0361/0373).
 
-**Prefer over:** parked D-0006, seed2200 RC; re-opening D-0430–D-0442.
+**Prefer over:** parked D-0006, seed2200 RC; re-opening D-0430–D-0442;
+treating @12530 as zap/`destroy_items`.
 
 **Cohort after shared change:** green gate + seed1500 + seed1800 + seed0060 +
 seed0102 + seed0700 + seed1150 + seed0017 + seed0077 + seed0106 + seed0501 +

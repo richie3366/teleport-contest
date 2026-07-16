@@ -11,13 +11,25 @@ move older ones into `docs/archive/`.
 
 Use this shape:
 
-```text## YYYY-MM-DD HH:MM — <objective>
+```text
+## YYYY-MM-DD HH:MM — <objective>
 - Objective: …
 - C locus: …
 - Change or falsified theory: …
 - Verification: …
 - Next: …
 ```
+
+## 2026-07-16 02:55 — #474 seed0002 @12530 umovement (D-0443)
+- Objective: seed0002 @12530 C `obj_resists` vs JS `rn2(5)` (labeled zap).
+- C locus: `allmain.c` `u_calc_moveamt`/`moveloop_core`; `dogmove.c`
+  `dog_goal` invent walk when `appr==0` (`udist≤1`).
+- Falsified: zap/`destroy_items`/`polyuse` missing rolls; short fobj.
+  Diagnosed: C invent-scan with hero @41,18; JS early `H` move because
+  SLT EOT left `umovement=15` (+6 phase lead). No code change.
+- Verification: green gate PASS; rng-diff still @12530; DIAG removed.
+- Next: find first turn JS umo leftover is +6 vs C; fix movement phase.
+
 ## 2026-07-16 02:44 — #473 safemon move + flee-teleport (D-0442)
 - Objective: seed0002 @12222 C `rn2(5)` @ `distfleeck` vs JS `rn2(7)` @
   `do_attack`.

@@ -4,6 +4,29 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
+## D-0443 — seed0002 @12530 umovement/SLT phase (not zap obj_resists)
+
+- **Status:** open (diagnosed; no code fix this iteration)
+- **Symptom:** seed0002 first RNG miss @12530 — C `rn2(100)` @
+  `obj_resists` vs JS `rn2(5)` @ `distfleeck`. Prefix 12530; Scr 247/595.
+  Looks like a zap/`destroy_items` stack after matched `obj_resists` trio.
+- **Cause (diagnosed):** those `obj_resists` are `dog_goal`→`dogfood` on
+  **invent** (and fobj), not zap. After goblin-corpse eat, C hero stays
+  @**(41,18)** so pet `udist≤1` → invent-scan continues; JS already
+  `rhack`/`H` west to **(40,18)** because after SLT EOT `umovement===15`
+  (hero acts) while C still needs another `movemon` round (`umo<12`).
+  SLT oscillation is net −3/hero turn (`+9` EOT, `−12` next start); JS is
+  **+6 ahead** of C’s phase by moves~301–302. `wtcap=1`, `mmove=12`,
+  `wc=600`, botl Burdened — same band, wrong leftover.
+- **Rejected:** zap/`destroy_items`/`polyuse` missing rolls; short `fobj`
+  chain; invent as array vs nobj (invent-scan at @12472 matched 18 items);
+  `dog_goal` early exit after APPORT.
+- **C locus:** `allmain.c` `moveloop_core` / `u_calc_moveamt`;
+  `dogmove.c` `dog_goal` invent walk when `appr==0`.
+- **Next:** find first turn JS `umoBefore` is +6 vs C; fix movement
+  accounting (not dog_goal invent itself).
+- **Verification:** green gate PASS; rng-diff still @12530; DIAG removed.
+
 ## D-0442 — safemon in-the-way keeps move + dochug flee-teleport (seed0002 @12222)
 
 - **Status:** fixed

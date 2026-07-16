@@ -9,15 +9,19 @@ Objective/score live in `CURRENT.md`.
 
 - **Score:** **26/44** PASS (#470 full post D-0439). Scr **4503**/11405;
   RNG **267277**/792838. seed0002 Scr **247**/595 prefix **12530**.
-- **Next:** seed0002 @12530 — C continues `obj_resists` `rn2(100)` vs
-  JS `rn2(5)` (`distfleeck`). After D-0442 safemon/flee-teleport.
+- **Next:** seed0002 @12530 — **not** zap/`obj_resists` stack. C still in
+  `dog_goal` invent-scan (`udist≤1`, hero @41,18); JS already rhack/`H`
+  west because `umovement` after SLT EOT is **15** (hero acts) vs C still
+  in `movemon` (needs umo **<12**). Falsifier: match C’s SLT oscillation
+  phase (net −3/hero turn; double-EOT catchup when umo hits 0→9).
   ```bash
   node scripts/rng-diff.mjs sessions/seed0002-healer-reflection-drummer.session.json
+  # C @12508 distfleeck; JS domove 41→40. DIAG: wtcap=1 mmove=12 wc=600.
   ```
-- **Don’t re-check:** @12222 safemon `move=0` / flee `rn2(40)` (D-0442);
-  @11487 wipe_engr vs rn2(2) (D-0441 Confusion); @11309 run-into-visible
-  (D-0440); @11150 ohitmon (D-0439); @10634 peffect_booze (D-0438);
-  @10550 u_maybe_impaired (D-0437); @10511 confusion (D-0436);
+- **Don’t re-check:** @12530 as zap/`destroy_items` (D-0443); @12222
+  safemon/flee (D-0442); @11487 wipe_engr vs rn2(2) (D-0441); @11309
+  run-into-visible (D-0440); @11150 ohitmon (D-0439); @10634 peffect_booze
+  (D-0438); @10550 u_maybe_impaired (D-0437); @10511 confusion (D-0436);
   @8863–@4565 D-0435…D-0430.
 - **Landmark:** vault door (71,13); dig + restfakecorr; SPELL_LEV_PW(1)=5.
 - **Parked:** D-0006; seed2200 @158 RC.
@@ -49,7 +53,9 @@ Objective/score live in `CURRENT.md`.
   invent paging / throw newsym / eatcorpse `1+rn2` (D-0424–D-0428);
   treat drink/? / SCR_* / door / sink / confusion / impaired / booze /
   ohitmon / run-stop / CONFUSION-timeout / safemon-move0 as monmove
-  without those peffect/timeout/do_attack paths (D-0429–D-0442).
+  without those peffect/timeout/do_attack paths (D-0430–D-0442);
+  treat @12530 obj_resists streak as zap/`destroy_items` (D-0443 —
+  invent-scan after early hero move).
 - Runner `Screen N/M` = total matches, not prefix length.
 - First cell-miss may be botl `$:` / `Burdened` even when NOTES names a topline.
 
@@ -60,7 +66,7 @@ Objective/score live in `CURRENT.md`.
 - Vault door (71,13); dig + restfakecorr (D-0377/78).
 - Travel/autodescribe/invent/throw/eat/drink/scrolls D-0408–D-0435;
   confusion/impaired/booze/ohitmon/run-stop/CONFUSION-timeout/
-  safemon-move+flee-teleport D-0436–D-0442.
+  safemon-move+flee-teleport D-0436–D-0442; umovement/SLT phase D-0443.
 - hero_form_data eat/hunger (D-0409/10); youmonst.data (D-0411);
   bag put-in/out (D-0375/76); travel BFS (D-0412); Conflict ALLOW_U
   (D-0413/14); Monk SPELL_LEV_PW(1) (D-0380).
