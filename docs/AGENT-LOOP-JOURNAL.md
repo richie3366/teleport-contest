@@ -20,6 +20,16 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-17 01:11 — #655 formal score refresh
+- Objective: mandatory #655 full `sessions` score (÷5 cadence).
+- C locus: n/a (score-only; no port patch).
+- Change: refreshed `CURRENT.md` Score from `__RESULTS_JSON__`.
+- Verification: green+strict PASS; full suite **33/44**, Scr
+  **6547**/11405, RNG **359063**/792838 (45.29%), `32+0.15/turn`
+  (R² 0.765). Δ vs #650: Scr **+12**, PASS **32→33** (seed0116 /
+  D-0584…D-0587), RNG unchanged.
+- Next: seed0361/0367 quest/`makemaz`; or leaderboard cron.
+
 ## 2026-07-17 01:09 — #654 D-0587 ^X armor + Teleport_control
 - Objective: seed0116 Scr 126/127 @122 ^X enlightenment residual.
 - C locus: insight.c status_enlightenment nudity;

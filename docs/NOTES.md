@@ -7,14 +7,13 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **#654 D-0587:** seed0116 Scr **126→127**/127 **PASS** — ^X Status
-  armor nudity + Attributes Teleport_control `from_what`→`what_gives`
-  worn ring (“because of your ivory ring”).
-- **Leaderboard gap:** local **33/44** (seed0116 added) vs judge **22**
-  after D-0480; D-0483 reverted serialize. Suite Scr/RNG aggregates
-  still #650 (+1 screen for seed0116) until next %5 full score.
-- **Gameplay next:** earliest remaining FAIL after seed0116 PASS —
-  survey suite or seed0361/0367 quest/`makemaz`; seed2200 @158 parked.
+- **#655 score:** full suite **33/44**, Scr **6547**/11405, RNG
+  **359063**/792838 (45.29%), `32+0.15/turn` (R² 0.765). Δ vs #650:
+  Scr **+12**, PASS **32→33** (seed0116), RNG unchanged.
+- **Leaderboard gap:** local **33/44** vs judge **22** after D-0480;
+  D-0483 reverted serialize. Await cron.
+- **Gameplay next:** seed0361/0367 quest/`makemaz` (or seed0014/0108);
+  seed2200 @158 parked.
 - **Don’t:** enable ordinary `vision_recalc(2)` newsym loop (needs
   gbuf≠Terminal); re-apply D-0480 serialize coerce; invent frame-align;
   raw RNG-index / coord / ux0 hacks; leave `context.travel` set across

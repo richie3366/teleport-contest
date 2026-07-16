@@ -21,18 +21,19 @@ Update **this Score section** with: pass count, screen/RNG aggregates, speed
 label, PASS list, notable non-PASS. Do not invent suite totals from a single
 focused session.
 
-Score last measured: **2026-07-17** — full `sessions` suite (loop **#650**),
-post D-0583, plus **D-0587** focused seed0116 PASS (Scr +1). Screens
-**6536**/11405; RNG **359063**/792838 (45.29%). **33/44** PASS.
+Score last measured: **2026-07-17** — full `sessions` suite (loop **#655**),
+post D-0584…D-0587 (seed0116 PASS). Screens **6547**/11405; RNG
+**359063**/792838 (45.29%). **33/44** PASS. Δ vs #650: Scr **+12**, PASS
+**32→33**, RNG unchanged.
 
 ## Score
 
 | Metric | Value |
 |--------|------:|
 | Sessions passing | **33 / 44** |
-| Screens matched | **6,536 / 11,405** |
+| Screens matched | **6,547 / 11,405** |
 | Positional RNG calls matched | **359,063 / 792,838** (45.29%) |
-| Speed label | `33+0.15/turn` (R² 0.755) |
+| Speed label | `32+0.15/turn` (R² 0.765) |
 | Role-init throws | **0 / 44** |
 
 **PASS (33):** seed8000, seed0900, seed1500, seed1800, seed0060,
@@ -40,13 +41,16 @@ seed0102, seed0700, seed1150, seed0017, seed0077, seed0106, seed0501,
 seed0105, seed0016, seed0015, seed0200, seed0101, seed0103, seed0104,
 seed0030, seed0013-rogue, seed0013-friday13-restore, seed0107, seed0009,
 seed0012, seed0004, seed0002, seed0006, seed0007, seed0398, seed0373,
-seed5006, **seed0116**.
+seed5006, seed0116.
 
 **Notable non-PASS:**
 | Session | RNG | Screen | Note |
 |--------|----:|-------:|------|
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
-| seed0361/0367 | early | 0 | quest / `makemaz` (menu) |
+| seed0361 | 3307/53865 | 160/366 | quest / `makemaz` |
+| seed0367 | 2040/50125 | 75/324 | quest / `makemaz` |
+| seed0014 | 1435/59178 | 10/714 | early FAIL |
+| seed0108 | 2793/16958 | 17/303 | wishlist / extcmd |
 
 ## Green gate
 
@@ -69,11 +73,12 @@ seed0398 + seed0373; judge at 08:55Z dropped to **22** after D-0480
 cron; if seed0013 restored but near-misses remain → upstream #5.
 
 **Gameplay next:** earliest remaining FAIL after D-0587 seed0116 PASS —
-survey suite FAILs or seed0361/0367 quest/`makemaz`. Prefer over parked
-D-0006 / seed2200 RC; re-opening D-0474…D-0587.
+seed0361/0367 quest/`makemaz`, or other suite FAILs (seed0014/0108/0360).
+Prefer over parked D-0006 / seed2200 RC; do not reopen D-0474…D-0587.
 
 ```bash
-node frozen/ps_test_runner.mjs sessions 2>&1 | rg 'FAIL|PASS' | head -50
+node frozen/ps_test_runner.mjs \
+  sessions/seed0361-archeologist-tour.session.json
 ```
 
 **Cohort after shared change:** green gate + seed1500 + seed1800 + seed0060 +
