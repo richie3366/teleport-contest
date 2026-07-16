@@ -4,6 +4,29 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
+## D-0440 — run-into-visible-hostile stop (seed0002 @11309)
+
+- **Status:** fixed
+- **Symptom:** seed0002 first RNG miss @11309 — C `rn2(5)` @
+  `u_maybe_impaired` vs JS `rn2(20)`. Prefix 11309; Scr 233/595.
+  Looked like a second confusion gate; prior three calls were end of
+  capital-`L` continue_run (`impaired` + 2×`confdir`).
+- **Cause:** JS `domove` omitted C’s run-into-visible non-safemon stop.
+  After `confdir` redirected into a visible hostile, C `nomul(0)` +
+  `move=0` and waited for the next key; JS fell through to `do_attack`
+  and burned a hit-roll `rn2(20)`.
+- **C locus:** `hack.c` `domove_core` (m_at + `context.run` +
+  `mon_visible` / `sensemon` / `M_AP_*` gate before attack).
+- **Change:** port that stop in `js/cmd.js` `domove` before `do_attack`
+  (`nomul(0)`, `context.move=0`; forcefight excluded).
+- **Verification:** seed0002 prefix **11309→11487**; Scr still
+  **233**/595; green+strict; cohort **24/24** PASS (incl. seed0004/
+  0009/0012/0013/0030/1800).
+- **Omissions named:** displacer swap; `domove_bump_mon`; mundetected
+  Wait!; full Blind_telepat / Protection_from_shape amulet prop.
+- **Next:** seed0002 @11487 — C `rn2(61)` wipe_engr gate @
+  `moveloop_core` vs JS `rn2(2)`.
+
 ## D-0439 — ohitmon + omon_adj on mon missile hit (seed0002 @11150)
 
 - **Status:** fixed

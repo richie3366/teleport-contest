@@ -18,6 +18,18 @@ Use this shape:
 - Verification: …
 - Next: …
 ```
+## 2026-07-16 02:33 — #471 run-into-visible stop (D-0440)
+- Objective: seed0002 @11309 C `rn2(5)` @ `u_maybe_impaired` vs
+  JS `rn2(20)` (after matched impaired+2×confdir on capital-`L` run).
+- C locus: `hack.c` `domove_core` run-into-visible non-safemon gate.
+- Change: port stop in `js/cmd.js` `domove` before `do_attack`
+  (`nomul(0)` + `move=0`; forcefight excluded). Not a second
+  confusion gate — confdir had steered into a visible hostile.
+- Verification: seed0002 prefix **11309→11487**; Scr still
+  **233**/595; green+strict; cohort **24/24** PASS.
+- Next: seed0002 @11487 C `rn2(61)` wipe_engr @ `moveloop_core` vs
+  JS `rn2(2)` after exercise.
+
 ## 2026-07-16 02:28 — #470 score + ohitmon (D-0439)
 - Objective: mandatory full `sessions` score (#470÷5); primary
   seed0002 @11150 C `rnd(20)` @ `ohitmon` vs JS `rn2(5)` (`distfleeck`).

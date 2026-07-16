@@ -7,14 +7,18 @@
 
 import { game } from './gstate.js';
 import { nhgetch } from './input.js';
-import { newsym, flush_screen, pline, see_nearby_objects, clear_nhwindow_message } from './display.js';
+import {
+    newsym, flush_screen, pline, see_nearby_objects, clear_nhwindow_message,
+    mon_visible, sensemon,
+} from './display.js';
 import { COLNO, ROWNO, STONE, DOOR, CORR, ROOM, IRONBARS, TREE, SDOOR,
          D_CLOSED, D_LOCKED, D_NODOOR, D_BROKEN,
          IS_DOOR, IS_OBSTRUCTED, IS_FURNITURE, IS_STWALL, IS_WALL, IS_TREE,
          ACCESSIBLE, isok,
          ECMD_OK, ECMD_TIME, ECMD_CANCEL, DOMOVE_RUSH, DOMOVE_WALK,
          xdir, ydir, N_DIRS, DIR_W, DIR_N, DIR_E, DIR_S,
-         DIR_NW, DIR_NE, DIR_SE, DIR_SW } from './const.js';
+         DIR_NW, DIR_NE, DIR_SE, DIR_SW,
+         M_AP_TYPE, M_AP_FURNITURE, M_AP_OBJECT } from './const.js';
 import { dist2 } from './mon.js';
 import { vision_recalc, couldsee } from './vision.js';
 import {
@@ -1002,11 +1006,11 @@ async function domove(dx, dy) {
     let newx = (u.ux | 0) + (u.dx | 0);
     let newy = (u.uy | 0) + (u.dy | 0);
 
-    // C ref: hack.c domove_core — m_at / domove_attackmon_at BEFORE test_move
+    // C ref: hack.c domove_core — m_at / run-stop / attackmon BEFORE test_move
     // (closed_door / testdiag / rock). Diagonal intact-doorway bans must not
     // suppress attacking a monster on an adjacent cell (seed0012 @12439).
-    // Named omissions: run-into-visible-hostile stop; displacer swap;
-    // domove_bump_mon; mundetected hide-under Wait! arms.
+    // Named omissions: displacer swap; domove_bump_mon; mundetected Wait!;
+    // full mon_visible Blind_telepat / Protection_from_shape amulet prop.
     let mtmp = mon_at(newx, newy);
     if (forcefight && !mtmp) {
         // C: F with no monster → fight_empty, waste turn
@@ -1015,6 +1019,22 @@ async function domove(dx, dy) {
         game.context.move = 1;
         game.kickedloc = { x: 0, y: 0 };
         return;
+    }
+    // C: don't attack if running and can see the non-safemon (pets ok).
+    // forcefight never reaches this arm. Confdir into a visible hostile
+    // must stop the run here — else JS burns a hit-roll rn2(20) while C
+    // returns for nhgetch (seed0002 @11309).
+    if (mtmp && !is_safemon(mtmp) && game.context?.run && !forcefight) {
+        const Blind = !!(u.Blind || u.ublind
+            || (((u.HBlinded | 0) || (u.EBlinded | 0)) && !(u.BBlinded | 0)));
+        const ap = M_AP_TYPE(mtmp);
+        const seenAsMon = (ap !== M_AP_FURNITURE && ap !== M_AP_OBJECT)
+            || !!(u.Protection_from_shape_changers);
+        if ((!Blind && mon_visible(mtmp) && seenAsMon) || sensemon(mtmp)) {
+            nomul(0);
+            game.context.move = 0;
+            return;
+        }
     }
     if (mtmp) {
         // C: domove_attackmon_at → do_attack (safemon may return false → swap)
