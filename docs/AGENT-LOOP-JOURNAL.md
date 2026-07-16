@@ -18,6 +18,14 @@ Use this shape:
 - Verification: …
 - Next: …
 ```
+## 2026-07-17 01:50 — #662 D-0593 fill_zoo COURT
+- Objective: seed0361 COURT `fill_zoo` @5859 (PRIMARY).
+- C locus: `mkroom.c` `fill_zoo` / `mk_zoo_thronemon` / `courtmon`.
+- Change: ported COURT throne placement, ruler+mace, `courtmon`
+  loop, THRONE terrain + coffer chest, `has_court`.
+- Verification: seed0361 **5859→7837** (RNG **5934→7974** Scr
+  **178**); green+strict PASS; cohort 31/31 PASS.
+- Next: seed0361 `dosounds` nsinks @7837; or Pri-strt seed0367.
 ## 2026-07-17 01:45 — #661 D-0592 pick_room/mkzoo
 - Objective: seed0361 `pick_room` @5483 (PRIMARY).
 - C locus: `mkroom.c` `pick_room`/`mkzoo`/`do_mkroom`; caller

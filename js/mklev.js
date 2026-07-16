@@ -25,7 +25,7 @@ import {
     LEPREHALL, COCKNEST, ANTHOLE,
     DIR_N, DIR_S, DIR_E, DIR_W, DIR_180,
     IS_WALL, IS_STWALL, IS_DOOR, IS_ROOM, IS_OBSTRUCTED, IS_FURNITURE, IS_POOL,
-    IS_LAVA, SPACE_POS, isok, W_NONDIGGABLE, W_NONPASSWALL, FILL_NORMAL,
+    IS_LAVA, IS_THRONE, SPACE_POS, isok, W_NONDIGGABLE, W_NONPASSWALL, FILL_NORMAL,
     ICE, MOAT, POOL, WATER, LAVAPOOL, LAVAWALL, DBWALL,
     AIR, CLOUD, THRONE, TREE, DRAWBRIDGE_UP, LADDER, LA_DOWN, LA_UP,
     MAX_TYPE, INVALID_TYPE, MATCH_WALL,
@@ -70,7 +70,10 @@ import {
     set_corpsenm, obj_stop_timers, start_timer, obj_extract_self,
     add_to_container, objects_at,
 } from './mkobj.js';
-import { makemon, mkclass, MM_NOGRP, set_mimic_sym, mpickobj, newcham } from './makemon.js';
+import {
+    makemon, mkclass, MM_NOGRP, set_mimic_sym, mpickobj, newcham,
+    mongets, set_malign,
+} from './makemon.js';
 import { m_at } from './mon.js';
 import { enexto, rloc } from './teleport.js';
 import { clear_wormdata } from './worm.js';
@@ -78,7 +81,7 @@ import { obj_resists } from './dogmove.js';
 import {
     PM_ELF, PM_DWARF, PM_ORC, PM_GNOME, PM_HUMAN,
     PM_ARCHEOLOGIST, PM_WIZARD, PM_GIANT_SPIDER, PM_MONK, PM_LICHEN,
-    is_male, is_female, mons, G_NOGEN,
+    is_male, is_female, mons, G_NOGEN, monsterNames,
     MALE, FEMALE, NEUTRAL,
     is_flyer, is_floater, is_swimmer, amphibious,
     passes_walls, noncorporeal, likes_fire,
@@ -113,6 +116,7 @@ const WAN_DIGGING = objectNames.indexOf('WAN_DIGGING');
 const SPE_HEALING = objectNames.indexOf('SPE_HEALING');
 const LARGE_BOX = objectNames.indexOf('LARGE_BOX');
 const CHEST = objectNames.indexOf('CHEST');
+const MACE = objectNames.indexOf('MACE');
 const RUNESWORD = objectNames.indexOf('RUNESWORD');
 const CHAIN_MAIL = objectNames.indexOf('CHAIN_MAIL');
 const FEDORA = objectNames.indexOf('FEDORA');
@@ -125,6 +129,12 @@ const DART = objectNames.indexOf('DART');
 const DAGGER = objectNames.indexOf('DAGGER');
 const KNIFE = objectNames.indexOf('KNIFE');
 const BOW = objectNames.indexOf('BOW');
+const PM_OGRE_TYRANT = monsterNames.indexOf('PM_OGRE_TYRANT');
+const PM_ELVEN_MONARCH = monsterNames.indexOf('PM_ELVEN_MONARCH');
+const PM_DWARF_RULER = monsterNames.indexOf('PM_DWARF_RULER');
+const PM_GNOME_RULER = monsterNames.indexOf('PM_GNOME_RULER');
+const PM_BUGBEAR = monsterNames.indexOf('PM_BUGBEAR');
+const PM_HOBGOBLIN = monsterNames.indexOf('PM_HOBGOBLIN');
 const TALLOW_CANDLE = objectNames.indexOf('TALLOW_CANDLE');
 const WAX_CANDLE = objectNames.indexOf('WAX_CANDLE');
 const WAN_SECRET_DOOR_DETECTION =
@@ -5211,9 +5221,44 @@ function fill_special_room(croom) {
 }
 
 /**
- * C ref: mkroom.c fill_zoo — ZOO/LEPREHALL gold path ported; other rtypes
- * place sleeping makemon(NULL) / typed mons. Named omissions: COURT throne
- * monster, BEEHIVE queen placement quirks, MORGUE/COCKNEST/ANTHOLE loot arms.
+ * C ref: mkroom.c courtmon — difficulty-scaled court monster pick.
+ */
+function courtmon() {
+    const i = rn2(60) + rn2(3 * level_difficulty());
+    if (i > 100) return mkclass('S_DRAGON', 0);
+    if (i > 95) return mkclass('S_GIANT', 0);
+    if (i > 85) return mkclass('S_TROLL', 0);
+    if (i > 75) return mkclass('S_CENTAUR', 0);
+    if (i > 60) return mkclass('S_ORC', 0);
+    if (i > 45) return PM_BUGBEAR >= 0 ? mons(PM_BUGBEAR) : null;
+    if (i > 30) return PM_HOBGOBLIN >= 0 ? mons(PM_HOBGOBLIN) : null;
+    if (i > 15) return mkclass('S_GNOME', 0);
+    return mkclass('S_KOBOLD', 0);
+}
+
+/**
+ * C ref: mkroom.c mk_zoo_thronemon — sleeping hostile ruler + mace.
+ */
+function mk_zoo_thronemon(x, y) {
+    const i = rnd(level_difficulty());
+    const pmIdx = (i > 9) ? PM_OGRE_TYRANT
+        : (i > 5) ? PM_ELVEN_MONARCH
+        : (i > 2) ? PM_DWARF_RULER
+        : PM_GNOME_RULER;
+    const mon = pmIdx >= 0 ? makemon(mons(pmIdx), x, y, 0) : null;
+    if (mon) {
+        mon.msleeping = 1;
+        mon.mpeaceful = 0;
+        set_malign(mon);
+        mongets(mon, MACE);
+    }
+}
+
+/**
+ * C ref: mkroom.c fill_zoo — COURT throne/courtmon/chest ported; ZOO/
+ * LEPREHALL gold path; typed mons for COCKNEST. Named omissions:
+ * BEEHIVE queen placement, MORGUE/BARRACKS/ANTHOLE loot + typed mons
+ * (squadmon/morguemon/antholemon).
  */
 function fill_zoo(sroom) {
     if (!sroom) return;
@@ -5222,8 +5267,44 @@ function fill_zoo(sroom) {
     const doors = game.level?.doors || [];
     const rmno = (sroom.roomnoidx ?? 0) + ROOMOFFSET;
     let goldlim = 0;
-    if (type === ZOO || type === LEPREHALL)
+    let tx = 0;
+    let ty = 0;
+    const mm = { x: 0, y: 0 };
+
+    switch (type) {
+    case COURT: {
+        let thronePlaced = false;
+        if (game.level?.flags?.is_maze_lev) {
+            for (let x = sroom.lx; x <= sroom.hx && !thronePlaced; x++) {
+                for (let y = sroom.ly; y <= sroom.hy; y++) {
+                    const loc = game.level.at(x, y);
+                    if (loc && IS_THRONE(loc.typ)) {
+                        tx = x;
+                        ty = y;
+                        thronePlaced = true;
+                        break;
+                    }
+                }
+            }
+        }
+        if (!thronePlaced) {
+            let i = 100;
+            do {
+                somexyspace(sroom, mm);
+                tx = mm.x;
+                ty = mm.y;
+            } while (occupied(tx, ty) && --i > 0);
+        }
+        mk_zoo_thronemon(tx, ty);
+        break;
+    }
+    case ZOO:
+    case LEPREHALL:
         goldlim = 500 * level_difficulty();
+        break;
+    default:
+        break;
+    }
 
     for (let sx = sroom.lx; sx <= sroom.hx; sx++) {
         for (let sy = sroom.ly; sy <= sroom.hy; sy++) {
@@ -5243,10 +5324,14 @@ function fill_zoo(sroom) {
                     || (sy === sroom.hy && doors[sh].y === sy + 1)))) {
                 continue;
             }
+            // don't place monster on explicitly placed throne
+            if (type === COURT && IS_THRONE(game.level.at(sx, sy)?.typ))
+                continue;
 
             let pm = null;
-            if (type === LEPREHALL) {
-                // PM_LEPRECHAUN via name
+            if (type === COURT) {
+                pm = courtmon();
+            } else if (type === LEPREHALL) {
                 const idx = name_to_mon('leprechaun');
                 pm = idx >= 0 ? mons(idx) : null;
             } else if (type === COCKNEST) {
@@ -5255,7 +5340,13 @@ function fill_zoo(sroom) {
             }
             // ZOO / default → makemon(NULL) random
             const mon = makemon(pm, sx, sy, MM_ASLEEP | MM_NOGRP);
-            if (mon) mon.msleeping = 1;
+            if (mon) {
+                mon.msleeping = 1;
+                if (type === COURT && mon.mpeaceful) {
+                    mon.mpeaceful = 0;
+                    set_malign(mon);
+                }
+            }
 
             if (type === ZOO || type === LEPREHALL) {
                 let i;
@@ -5273,8 +5364,26 @@ function fill_zoo(sroom) {
             }
         }
     }
-    if (type === ZOO && game.level?.flags)
+
+    if (type === COURT) {
+        const loc = game.level.at(tx, ty);
+        if (loc) loc.typ = THRONE;
+        somexyspace(sroom, mm);
+        const gold = mksobj(GOLD_PIECE, true, false);
+        if (gold) {
+            gold.quan = rn1(50 * level_difficulty(), 10);
+            gold.owt = weight(gold);
+            const chest = mksobj_at(CHEST, mm.x, mm.y, true, false);
+            if (chest) {
+                add_to_container(chest, gold);
+                chest.owt = weight(chest);
+                chest.spe = 2; /* so it can be found later */
+            }
+        }
+        if (game.level?.flags) game.level.flags.has_court = true;
+    } else if (type === ZOO && game.level?.flags) {
         game.level.flags.has_zoo = true;
+    }
 }
 
 /**

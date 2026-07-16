@@ -7,15 +7,14 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **#660 score:** full suite **33/44**, Scr **6570**/11405, RNG
-  **361303**/792838 (45.57%). Δ vs #655: Scr **+23**, RNG **+2240**
-  (D-0591 seed0361). PASS unchanged. (Score refresh due at #665.)
-- **seed0361 @5859:** COURT `fill_zoo` — C `somex`/`mk_zoo_thronemon`
-  vs JS generic fill loop. Not room-count drift (falsified: both
-  `nroom=6` through makecorridors).
+- **#662 D-0593:** seed0361 COURT `fill_zoo` done — prefix **5859→7837**,
+  runner RNG **5934→7974**. Next @7837: C `rn2(300) @ dosounds` nsinks
+  vs JS `rnl(7)`. Hypothesis: JS `nsinks==0` (skip sink arm) while C
+  has sinks — falsify by comparing `level.flags.nsinks` after makelevel
+  / whether `dosounds` is reached that turn.
 - **Leaderboard gap:** local **33/44** vs judge **22** after D-0480;
   D-0483 reverted serialize. Await cron.
-- **Gameplay next:** seed0361 COURT `fill_zoo` @5859; or seed0367
+- **Gameplay next:** seed0361 `dosounds` nsinks @7837; or seed0367
   `Pri-strt` (~@2053); seed0014/0108. Prefer over parked D-0006 /
   seed2200 RC.
 - **Don’t:** enable ordinary `vision_recalc(2)` newsym loop (needs
@@ -23,7 +22,7 @@ Objective/score live in `CURRENT.md`.
   raw RNG-index / coord / ux0 hacks; leave `context.travel` set across
   walk/run after `_` travel; batch doset toggle plines (D-0499);
   steal hero cursor for leftover getobj text in `flush_screen`;
-  reopen D-0474…D-0592; use wear empty `[*?]`; stub-cancel `^V?` as
+  reopen D-0474…D-0593; use wear empty `[*?]`; stub-cancel `^V?` as
   if menu; treat empty wish ESC as cancel; skip amulet_wish
   once-per-input; skip Wizard appear Norep / hot temperature;
   template `\.` in map strings; burn maze `rn2(2)` in `set_mimic_sym`
@@ -54,12 +53,12 @@ Objective/score live in `CURRENT.md`.
 
 - No raw RNG-index / coordinate / ux0 / forced-gettrack in production.
 - Rule #2: no `fs`/`path`/`url` in scored `js/` (D-0477).
-- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0592 done.
+- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0593 done.
 - Runner `Screen N/M` = total matches, not prefix length.
 - `rng-diff.mjs` runs **seg0 only**.
 - D-0583: leave-level gbuf mon→memory; ordinary vision_recalc(2) regresses.
-- D-0588…D-0591: Arc quest / hides_under / ^T / deferred_goto done.
 - D-0592: @5483 was stubbed COURT `do_mkroom`, **not** `nroom` drift.
+- D-0593: @5859 was missing COURT `fill_zoo` throne/`courtmon`/chest.
 - D-0584: empty wear was `[*?]` vs C `[*]`, not SUGGEST.
 - D-0585: mimic-as-boulder missing from `does_block`, not terrain STONE.
 - D-0586: @117 was missing wizard `turns` (not title-centering alone).
@@ -85,3 +84,4 @@ Objective/score live in `CURRENT.md`.
 - Wizard `^T`: controlled getpos + `STRAT_CLOSE` talk (D-0590).
 - Expulsion return: `movemon` must `deferred_goto` (D-0591).
 - Special rooms: `pick_room`/`mkzoo` via `do_mkroom` (D-0592).
+- COURT fill: `somexyspace`+`mk_zoo_thronemon`+`courtmon`+chest (D-0593).

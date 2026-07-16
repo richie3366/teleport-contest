@@ -4,6 +4,27 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
+## D-0593 — fill_zoo COURT throne / courtmon / chest
+
+- **Status:** fixed (partial — BEEHIVE queen, MORGUE/BARRACKS/ANTHOLE
+  typed mons + loot arms still deferred)
+- **Symptom:** seed0361 @5859 — C `rn2(6) @ somex` vs JS `rn2(3)`.
+- **Cause:** JS `fill_zoo` skipped COURT pre-loop (`somexyspace` →
+  `mk_zoo_thronemon`), used `makemon(NULL)` instead of `courtmon`, and
+  omitted throne terrain + coffer chest / `has_court`.
+- **C locus:** `mkroom.c` `fill_zoo` / `mk_zoo_thronemon` / `courtmon`;
+  helpers `somex`/`somey`/`somexyspace`.
+- **Change:** `js/mklev.js` — port COURT arm (maze throne scan,
+  `mk_zoo_thronemon`, `courtmon`, skip-IS_THRONE, hostile set_malign,
+  THRONE+chest+gold+`has_court`).
+- **Verification:** seed0361 prefix **5859→7837** (runner RNG
+  **5934→7974**, Scr **178**/366); green+strict PASS; cohort 31/31 PASS.
+  Next @7837 `dosounds` nsinks `rn2(300)` vs JS `rnl(7)`.
+- **Named omission:** BEEHIVE queen/`PM_KILLER_BEE`; MORGUE/
+  BARRACKS/ANTHOLE loot + `squadmon`/`morguemon`/`antholemon`;
+  TEMPLE/`mktemple`; SWAMP/`mkswamp`.
+- **Next:** seed0361 `dosounds` nsinks @7837; or Pri-strt seed0367.
+
 ## D-0592 — do_mkroom COURT → pick_room / mkzoo
 
 - **Status:** fixed (partial — TEMPLE/SWAMP + COURT fill_zoo next)
