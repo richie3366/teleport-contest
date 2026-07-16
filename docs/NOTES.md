@@ -7,12 +7,12 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **D-0517:** seed0116 wizard Force + `pleased` — prefix **6246→6373**,
-  Scr **101→107**/127. Next miss @6373 C `getbones` rn2(3) vs JS
-  (after `^V?` — needs `print_dungeon`).
+- **D-0517 residual:** seed0116 next miss @6373 C `getbones` rn2(3) vs JS
+  (after `^V?` — needs `print_dungeon`). Scr **107**/127.
 - **D-0515 residual:** seed5006 still @8468 `dosounds`; seed0373
-  @2549 needs `print_dungeon` `?` menu (same as seed0116 next).
-- **seed0398 PASS** (#572 survey → **30/44**). Formal Score @#575.
+  @2578 needs `print_dungeon` `?` menu (same as seed0116 next).
+- **#575 formal score:** **30/44**, Scr **5895**/11405, RNG
+  **314432**/792838 (39.66%), `26+0.14/turn`. seed0398 PASS confirmed.
 - **Leaderboard gap:** local **30/44** vs judge **22** after D-0480;
   D-0483 reverted serialize. Watch cron for seed0013 restore.
 - **Gameplay next:** prefer shared `print_dungeon` (`^V?` /
@@ -57,8 +57,7 @@ Objective/score live in `CURRENT.md`.
   seed0398 **PASS** after D-0514.
 - LB gap: 14 cells / 4 sessions; report upstream if next cron unchanged.
 - Gameover `add_menu_heading` ATR_NONE; `iflags.at_night` from `really_done`.
-- #570 score: **29/44**, Scr 5520, RNG 303491 (38.28%), `27+0.12/turn`.
-  #572 survey: **30/44** (seed0398); D-0515/D-0517 lifts pending #575.
+- #575 score: **30/44**, Scr 5895, RNG 314432 (39.66%), `26+0.14/turn`.
 - Capital `H` = multi-step run; `set_move_cmd` must clear travel.
 - D-0486: `rogue_vision` on `Is_rogue_level` only.
 - D-0487: default `flags.autounlock=AUTOUNLOCK_APPLY_KEY`.
