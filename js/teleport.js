@@ -45,6 +45,9 @@ function u_at(x, y) {
 }
 
 function m_at(x, y) {
+    // C: level.monsters[][] — include worm body segs (place_worm_seg).
+    const seg = game._level_monsters?.get(`${x},${y}`);
+    if (seg) return seg;
     const list = game.fmon || [];
     for (const m of list) {
         if (m.mx === x && m.my === y) return m;

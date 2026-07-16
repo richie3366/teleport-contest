@@ -57,7 +57,7 @@ import {
 } from './monsters.js';
 import {
     NO_MINVENT, MM_NOGRP, MM_ASLEEP, MM_NONAME, MM_ESHK, MM_EGD, MM_EMIN,
-    MM_ADJACENTOK,
+    MM_ADJACENTOK, MM_NOTAIL,
     GP_CHECKSCARY, GP_AVOID_MONPOS, Is_rogue_level, Is_earthlevel,
     In_mines, In_sokoban,
     OBJ_MINVENT, COLNO, ROWNO, A_NONE, GEHENNOM, G_GONE, G_GENOD,
@@ -102,6 +102,9 @@ import { cansee } from './vision.js';
 import { newsym } from './display.js';
 import { christen_monst } from './do_name.js';
 import { get_shop_item } from './shknam.js';
+import {
+    get_wormno, initworm, count_wsegs, place_worm_tail_randomly,
+} from './worm.js';
 
 /** C ref: shknam.c neweshk — allocate eshk for MM_ESHK makemon. */
 export function neweshk(mtmp) {
@@ -1523,6 +1526,7 @@ export function makemon(mdat, x, y, mmflags = 0) {
     let ptr = mdat;
     const anymon = !ptr;
     const allow_minvent = (mmflags & NO_MINVENT) === 0;
+    const allowtail = (mmflags & MM_NOTAIL) === 0;
     const byyou = !!(game.u && x === game.u.ux && y === game.u.uy);
     const gpflags = GP_CHECKSCARY | GP_AVOID_MONPOS;
 
@@ -1612,6 +1616,7 @@ export function makemon(mdat, x, y, mmflags = 0) {
             { x: 0, y: 0 },
         ],
         minvent: null,
+        wormno: 0,
     };
 
     // C: MM_EGD / MM_ESHK / MM_EMIN → new* before m_id assignment
@@ -1704,6 +1709,19 @@ export function makemon(mdat, x, y, mmflags = 0) {
             && !(game.u?.uhave?.amulet || game.u?.uhave_amulet)
             && rn2(5)) {
             mtmp.msleeping = 1;
+        }
+    }
+
+    // C: PM_LONG_WORM → get_wormno / initworm / place_worm_tail_randomly
+    // Named omissions: dprince bribe peace; raven BEC_DE_CORBIN; emin/angel
+    // roaming after worm (still before invent in C — deferred).
+    if (ptr.mndx === pm('LONG_WORM')) {
+        mtmp.wormno = get_wormno();
+        if (mtmp.wormno) {
+            initworm(mtmp, allowtail ? rn2(5) : 0);
+            if (count_wsegs(mtmp)) {
+                place_worm_tail_randomly(mtmp, x, y);
+            }
         }
     }
 

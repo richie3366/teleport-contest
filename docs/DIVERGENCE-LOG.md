@@ -4,6 +4,28 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
+## D-0544 — makemon LONG_WORM initworm / place_worm_tail
+
+- **Status:** fixed (partial — worm_move/grow/cut/save; emin after worm)
+- **Symptom:** seed0373 @24531 C `makemon` `rn2(5)` vs JS `rn2(50)` after
+  matched newmonhp / gender / in_mklev long-worm sleep.
+- **Cause:** JS skipped `PM_LONG_WORM` `get_wormno`→`initworm(allowtail ?
+  rn2(5) : 0)`→`place_worm_tail_randomly`, so invent's `rn2(50)` ran where
+  C burned the worm-tail length roll + `rnd_nextto_goodpos` placements.
+- **C locus:** `makemon.c` ~1405; `worm.c` `get_wormno`/`initworm`/
+  `create_worm_tail`/`count_wsegs`/`place_worm_tail_randomly`; `rm.h`
+  `place_worm_seg`.
+- **Change:** new `js/worm.js` creation path + `_level_monsters` occupancy;
+  `makemon` LONG_WORM arm (`MM_NOTAIL`); `m_at` / teleport `m_at` see segs;
+  `clear_level_structures` → `clear_wormdata`.
+- **Verification:** seed0373 rng-diff **24531→25654**; runner RNG
+  **25657**/35386 Scr 22/124; green+strict PASS; cohort **28**/28 PASS;
+  seed0116 RNG still full Scr 110/127.
+- **Named omission:** `worm_move`/grow/shrink/cutworm/wormgone; save/rest
+  wsegs; dprince/raven/emin between sleep and invent; full `level.monsters[][]`.
+- **Next:** @25654 C `fill_zoo` `rn2(100)` vs JS `rn2(3)`; or seed5006
+  `dosounds` @8468.
+
 ## D-0543 — soko1-2 load_special
 
 - **Status:** fixed (partial — other `soko*-*`; solidify/premap/exclusion)

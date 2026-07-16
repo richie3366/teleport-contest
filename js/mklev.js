@@ -66,6 +66,7 @@ import {
 import { makemon, mkclass, MM_NOGRP, set_mimic_sym, mpickobj, newcham } from './makemon.js';
 import { m_at } from './mon.js';
 import { enexto, rloc } from './teleport.js';
+import { clear_wormdata } from './worm.js';
 import {
     PM_ELF, PM_DWARF, PM_ORC, PM_GNOME, PM_HUMAN,
     PM_ARCHEOLOGIST, PM_WIZARD, PM_GIANT_SPIDER, PM_MONK, PM_LICHEN,
@@ -514,6 +515,8 @@ function clear_level_structures() {
     g.fobj = null;
     // C: svl.level.objects[x][y] = 0 for all cells — JS spatial index
     g._objects_at = new Map();
+    // C: worm.c wheads/wtails + level.monsters[][] (place_worm_seg)
+    clear_wormdata();
     g.ftrap = null;
     // C savelev release_data clears head_engr when leaving a level
     g.head_engr = null;

@@ -7,10 +7,11 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **D-0543 done:** `load_soko1_2` (`makemaz` `rnd(2)=2` → soko1-2).
-  seed0373 rng-diff **22651→24531**; runner RNG **24545**/35386 Scr 22.
-- **seed0373 next:** @24531 C `makemon` `rn2(5)` (makemon.c:1406)
-  vs JS `rn2(50)` after matched newmonhp / makemon rn2(2)/rn2(5).
+- **D-0544 done:** LONG_WORM `get_wormno`/`initworm`/`place_worm_tail`
+  (`js/worm.js`). seed0373 rng-diff **24531→25654**; runner RNG
+  **25657**/35386 Scr 22.
+- **seed0373 next:** @25654 C `fill_zoo` `rn2(100)` (mkroom.c:381)
+  vs JS `rn2(3)` after matched invent saddle / zoo fill prefix.
 - **seed0116 residual:** screen/cursor miss (110/127) after full RNG.
 - **D-0515 residual:** seed5006 still @8468 `dosounds` (RNG 8508).
 - **#600 formal score:** **30/44**, Scr **5900**/11405, RNG
@@ -27,7 +28,7 @@ Objective/score live in `CURRENT.md`.
   raw RNG-index / coord / ux0 hacks; leave `context.travel` set across
   walk/run after `_` travel; batch doset toggle plines (D-0499);
   steal hero cursor for leftover getobj text in `flush_screen`;
-  reopen D-0474…D-0543; stub-cancel `^V?` as if menu (breaks 0373);
+  reopen D-0474…D-0544; stub-cancel `^V?` as if menu (breaks 0373);
   template `\.` in map strings (use `\\` for throne); burn maze
   `rn2(2)` in `set_mimic_sym` on Sokoban; fill inside `load_special`
   loaders (makelevel owns fill); accept TELE on occupied mon cell;
@@ -46,14 +47,15 @@ Objective/score live in `CURRENT.md`.
   polearm (must `rn1` + skill filter); skip S_HUMAN `is_elf` kit
   (must `M2_ELF` + full coat/weapon arms); skip S_QUANTMECH
   `m_initinv` `rn2(20)` SchroedingersBox; skip `soko1-2` when
-  `makemaz` `rnd(2)=2`.
+  `makemaz` `rnd(2)=2`; skip LONG_WORM `initworm`/`place_worm_tail`
+  after in_mklev sleep (must `get_wormno` + `rn2(5)` before invent).
 
 ## Don’t re-check (≤15)
 
 - No raw RNG-index / coordinate / ux0 / forced-gettrack in production.
 - Rule #2: no `fs`/`path`/`url` in scored `js/` (D-0477).
 - Altar raw `{` (D-0293); don’t π-convert in scoring grid.
-- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0543
+- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0544
   done paths — see DIVERGENCE-INDEX.
 - Runner `Screen N/M` = total matches, not prefix length.
 - Hub `/sessions/` ≠ template bytes; still visual-PASS.
@@ -68,10 +70,10 @@ Objective/score live in `CURRENT.md`.
 - getbones `rn2(3)` gap with JS dog_move arity was unbound level change
   (`>` / `^V` / missing `print_dungeon` `?`) — fixed D-0515/18
   (D-0068/D-0149).
-- D-0519…D-0542 makemaz / tower1 / Bar / fila / qt_montype / egg /
+- D-0519…D-0544 makemaz / tower1 / Bar / fila / qt_montype / egg /
   WEB spider / offensive FALLTHROUGH / create_monster enexto /
   mineralize / STATUE_TRAP / bigrm-8 / soldier polearm / is_elf /
-  QUANTMECH / soko1-2 — see index.
+  QUANTMECH / soko1-2 / LONG_WORM initworm — see index.
 
 ## Landmarks (≤15)
 
@@ -92,4 +94,4 @@ Objective/score live in `CURRENT.md`.
 - wizgenesis flags=5 (no AUTOCOMPLETE) — do not add to EXT_CMD_AC.
 - Prayer: ublesscnt=300 → p_type 0; wizard Force → p_type 3 +
   `uinvulnerable` skips `gethungry` rn2(20) for nomul(-3) EOTs.
-  seed0373 tour: next makemon rn2(5) @24531 after soko1-2.
+  seed0373 tour: next fill_zoo rn2(100) @25654 after LONG_WORM.
