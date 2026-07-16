@@ -20,6 +20,18 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-16 03:35 — #481 shop addtobill + append_honorific (D-0447)
+- Objective: seed0002 @18457 C `rn2(4)` @ `append_honorific` (PRIMARY).
+- C locus: `shk.c` `addtobill`/`append_honorific`/`get_cost`/`getprice`/
+  `billable`/`costly_spot`; `pickup.c` `pick_obj`; objects `oc_cost`.
+- Change: emit `oc_cost` via extractor; port bill quote subset; wire
+  `pick_obj` robshop ushops → `addtobill`. Deferred: container bill,
+  `remote_burglary`, gem glass pseudo-ID, `arti_cost`, Hallu currency.
+- Verification: seed0002 prefix **18457→19167**; Scr **311→313**; RNG
+  matched **19428→20315**; green+strict; cohort **26/26** PASS.
+- Next: seed0002 @19167 C `rnd(2)` @ `next_ident` vs JS `rn2(7)`
+  (D-0448).
+
 ## 2026-07-16 03:29 — #480 score cadence + D-0447 oc_cost blocker
 - Objective: mandatory full `sessions` score (#480÷5); primary D-0447.
 - C locus: `shk.c` `addtobill`/`append_honorific`; `pickup.c` `pick_obj`;

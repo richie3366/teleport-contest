@@ -8,19 +8,18 @@ Objective/score live in `CURRENT.md`.
 ## Active
 
 - **Score:** **26/44** PASS (#480 full). Scr **4620**/11405; RNG
-  **277634**/792838; speed `23+0.13/turn`. seed0002 Scr **311**/595
-  prefix **18457**.
-- **Next (D-0447):** seed0002 @18457 — C `rn2(4)` @ `append_honorific`
-  (`,` unpaid shop bill quote) vs JS `rn2(5)` @ `distfleeck`.
-  **Blocker:** `oc_cost` not in objects extract → no `getprice`/`get_cost`.
+  **277634**/792838; speed `23+0.13/turn`. seed0002 Scr **313**/595
+  prefix **19167** (after D-0447).
+- **Next (D-0448):** seed0002 @19167 — C `rnd(2)` @ `next_ident`
+  vs JS `rn2(7)` (locus TBD). Reconstruct C caller after `rn2(61)`.
   ```bash
   node scripts/rng-diff.mjs sessions/seed0002-healer-reflection-drummer.session.json
   ```
-- **Don’t re-check:** SLT `u_calc_moveamt` math; @18354 as monmove
-  without seer_turn phase (D-0446 was EOT `rn1(31,15)`); @16501 as
-  mon_arrive without stair fall (D-0445); @14081 as monmove without
-  potion (D-0444); @12530 as zap leftover (D-0443); @12222–@4565
-  D-0442…D-0430.
+- **Don’t re-check:** SLT `u_calc_moveamt` math; @18457 as monmove
+  without shop bill (D-0447); @18354 as monmove without seer_turn
+  (D-0446); @16501 as mon_arrive without stair fall (D-0445); @14081
+  as monmove without potion (D-0444); @12530 as zap leftover (D-0443);
+  @12222–@4565 D-0442…D-0430.
 - **Landmark:** vault door (71,13); dig + restfakecorr; SPELL_LEV_PW(1)=5.
 - **Parked:** D-0006; seed2200 @158 RC.
 
@@ -43,8 +42,8 @@ Objective/score live in `CURRENT.md`.
   `msleeping` (D-0278); drop gold without `_goldCount`/botl (D-0396);
   defer Move along! / skip `gd_move_cleanup` Suddenly (D-0396/97);
   omit bear-trap / pile-gem observe / encumber+trapmove / Norep /
-  heal_legs / vtense / flee mhpmax (D-0398–D-0404); treat @4565–@18457
-  as index D-0405…D-0446 without those C paths — see DIVERGENCE-INDEX;
+  heal_legs / vtense / flee mhpmax (D-0398–D-0404); treat @4565–@19167
+  as index D-0405…D-0447 without those C paths — see DIVERGENCE-INDEX;
   treat RING `obj.known` as type-ID (D-0420); bypass yn ring-hand
   (D-0421); force corner invent when lets len==1 (D-0422); leave
   autodescribe unset (D-0423); skip tseen trap / wall DECgraphics /
@@ -56,8 +55,10 @@ Objective/score live in `CURRENT.md`.
   treat @14081 as distfleeck without `peffect_healing` (D-0444);
   treat @16501 as `mon_arrive`/`collect_coords` without stair-fall
   (D-0445); treat @18354 as distfleeck without seer_turn phase
-  (D-0446); invent `addtobill` quote without `oc_cost`/`get_cost`
-  (D-0447); re-audit SLT trunc math.
+  (D-0446); treat @18457 as distfleeck without shop `addtobill`/
+  `append_honorific` (D-0447); invent `addtobill` without `oc_cost`/
+  `get_cost`; treat @19167 as distfleeck without `next_ident` proof
+  (D-0448); re-audit SLT trunc math.
 - Runner `Screen N/M` = total matches, not prefix length.
 - First cell-miss may be botl `$:` / `Burdened` even when NOTES names a topline.
 
@@ -71,7 +72,7 @@ Objective/score live in `CURRENT.md`.
   safemon-move+flee-teleport D-0436–D-0442; rottenfood→occupation
   D-0443; peffect_healing D-0444; goto_level descend fall D-0445;
   seer_turn once-per-hero D-0446; shop `oc_cost`→`append_honorific`
-  D-0447 next.
+  D-0447 done; `next_ident` @19167 D-0448 next.
 - hero_form_data eat/hunger (D-0409/10); youmonst.data (D-0411);
   bag put-in/out (D-0375/76); travel BFS (D-0412); Conflict ALLOW_U
   (D-0413/14); Monk SPELL_LEV_PW(1) (D-0380).

@@ -4,26 +4,41 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
-## D-0447 — seed0002 @18457 pickup shop `append_honorific`
+## D-0448 — seed0002 @19167 `next_ident` rnd(2) vs JS rn2(7)
 
 - **Status:** open
+- **Symptom:** seed0002 first RNG miss @19167 — C `rnd(2)=1` @
+  `next_ident(mkobj.c:521)` vs JS `rn2(7)=6` (locus TBD). Prefix
+  19167; Scr 313/595. Matched through shop `append_honorific` (D-0447).
+- **Hypothesis:** C allocates a new o_id/m_id (`next_ident`) where JS
+  takes a different branch that burns `rn2(7)` (ghost name / cloak /
+  corpse rot / etc.). Reconstruct C path after `moveloop` `rn2(61)`.
+- **C locus:** `mkobj.c` `next_ident`; caller TBD (splitobj / mksobj /
+  makemon).
+- **Next:** rng-diff + C caller of `next_ident` at this turn; do not
+  treat as monmove `distfleeck` without object/mon creation proof.
+
+## D-0447 — seed0002 @18457 pickup shop `append_honorific`
+
+- **Status:** fixed
 - **Symptom:** seed0002 first RNG miss @18457 — C `rn2(4)=1` @
   `append_honorific(shk.c:3611)` (`,` pickup bill quote) vs JS
-  `rn2(5)` @ `distfleeck`. Prefix 18457; Scr 311/595. Matched
-  through once-per-hero `rn1(31,15)` seer_turn.
-- **Hypothesis:** JS `pick_obj` omits robshop `addtobill` (pickup.c:1920)
-  so unpaid `"For you,"` quote + `append_honorific` never burn `rn2(4)`.
-- **Prerequisite (diagnosed #480):** `scripts/extract-objects.py` dumps
-  `oc_cost` in the C struct but does **not** emit it into
-  `objects_data.js` / `createObjectsArray` — `getprice`/`get_cost`
-  cannot quote “50 zorkmids” until cost is exposed.
-- **C locus:** `shk.c` `addtobill` → `append_honorific`; callers
-  `pickup.c` `pick_obj` robshop; `getprice`/`get_cost`/`billable`.
-- **Next:** (1) emit `oc_cost` via extractor; (2) port
-  `getprice`/`get_cost`/`billable`/`add_one_tobill`/`addtobill` subset
-  + `append_honorific`; (3) wire `pick_obj`. Name deferred: container
-  bill, remote_burglary, gem glass pseudo-ID, Angry/surcharge arms.
-- **Verification:** after D-0446; green+strict; cohort 26/26 PASS.
+  `rn2(5)` @ `distfleeck`. Prefix 18457; Scr 311/595.
+- **Cause:** JS `pick_obj` omitted robshop `addtobill`; objects extract
+  lacked `oc_cost` so `getprice`/`get_cost` could not quote.
+- **C locus:** `shk.c` `addtobill` → `append_honorific`; `getprice`/
+  `get_cost`/`billable`/`add_one_tobill`; `pickup.c` `pick_obj`;
+  `costly_spot`.
+- **Change:** emit `oc_cost` via `extract-objects.py`; port
+  `costly_spot`/`getprice`/`get_cost`/`billable`/`add_one_tobill`/
+  `addtobill`/`append_honorific`; wire `pick_obj` robshop ushops dance.
+- **Verification:** seed0002 prefix **18457→19167**; Scr **311→313**;
+  RNG matched **19428→20315**; green+strict; cohort **26/26** PASS.
+- **Omissions named:** container `bill_box_content`/`contained_cost`;
+  `remote_burglary`; gem glass pseudo-ID; `arti_cost`; Hallu currency;
+  candle `Is_candle` age half-price; `costly_gold`.
+- **Next:** seed0002 @19167 C `rnd(2)` @ `next_ident` vs JS `rn2(7)`
+  (D-0448).
 
 ## D-0446 — seed0002 @18354 seer_turn `rn1(31,15)` in wrong phase
 
