@@ -4,6 +4,30 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
+## D-0517 — wizard Force-the-gods + pleased envelope
+
+- **Status:** fixed
+- **Symptom:** seed0116 first RNG miss @6246 — C `rn2(70)` @
+  `moveloop_core` wipe_engr vs JS `rn2(20)` `gethungry` accessorytime.
+  Prayer window had 3 EOTs with **0** C `gethungry` labels.
+- **Cause:** `dopray` omitted wizard `Force the gods to be pleased?`.
+  With `ublesscnt=300`, `can_pray` sets `p_type=0` (too soon); without
+  Force, no `uinvulnerable`, so `gethungry` burned `rn2(20)` on prayer
+  EOTs. C Force→`y` raises `p_type` to 3 + clears `ublesscnt` →
+  shimmering + `uinvulnerable` → `gethungry` early-return.
+- **C locus:** `pray.c` `dopray` wizard Force; `eat.c` `gethungry`
+  `uinvulnerable` gate; `pray.c` `pleased` (follow-on after Force).
+- **Change:** `js/pray.js` — Force yn after `can_pray` (clear
+  ublesscnt/luck/align/ugangr; `p_type<2`→3); `pleased` You_feel +
+  action `rn1` + `ublesscnt=rnz(350)`; `prayer_done` p_type 3/2→pleased.
+- **Verification:** seed0116 prefix **6246→6373** positional
+  **6373**/12562 Scr **101→107**/127; green+strict PASS; cohort
+  **30/30** PASS (incl. seed0017 pray). seed5006 unchanged @8468.
+- **Named omission:** `fix_worst_trouble` / pat_on_head gifts / crown /
+  `give_spell`; full `in_trouble`; ParanoidConfirm "yes".
+- **Next:** seed0116 @6373 `getbones` after `^V?` — needs
+  `print_dungeon` (shared with seed0373 @2549) / seed5006 `dosounds`.
+
 ## D-0516 — weffects WAN_DIGGING → zap_dig
 
 - **Status:** fixed
