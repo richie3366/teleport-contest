@@ -69,16 +69,17 @@ Both must remain full RNG + screen PASS with exact scored-output lengths.
 59→58). **D-0483** reverts that serialize coerce. Next cron; if seed0013
 restored but four near-misses remain → upstream #5.
 
-**Gameplay next:** seed0007 — **screen peel @85** (D-0500 next). RNG full
-**16373**/16373; Scr **85**/302 after D-0499 doset per-bool pline (was 84;
-@38 fixed). @85: C botl `… T:68 Satiated` after jackal corpse eat vs JS
-missing hunger (`botl.c` `hu_stat` / `u.uhs != NOT_HUNGRY`).
+**Gameplay next:** seed0007 — **screen peel @116** (D-0501 next). RNG full
+**16373**/16373; Scr **116**/302 after D-0500 botl `hu_stat` (was 85;
+@85 Satiated fixed). @116: `#loot` take-out — C `Take out what?` + Coins
+`$ - 118 gold pieces` / Scrolls vs JS miss (`pickup.c` `menu_loot` /
+`query_category` / class headings).
 
 ```bash
 node frozen/ps_test_runner.mjs sessions/seed0007-rogue-snake-swamp.session.json
 ```
 
-**Prefer over:** parked D-0006, seed2200 RC; re-opening D-0474…D-0499.
+**Prefer over:** parked D-0006, seed2200 RC; re-opening D-0474…D-0500.
 
 **Cohort after shared change:** green gate + seed1500 + seed1800 + seed0060 +
 seed0102 + seed0700 + seed1150 + seed0017 + seed0077 + seed0106 + seed0501 +

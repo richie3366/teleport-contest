@@ -29,6 +29,7 @@ import {
     TER_TRP, TER_OBJ, TER_MON, TER_FULL,
     OBJ_FLOOR,
     UNENCUMBERED,
+    NOT_HUNGRY,
 } from './const.js';
 import {
     ILLOBJ_CLASS, WEAPON_CLASS, ARMOR_CLASS, RING_CLASS, AMULET_CLASS,
@@ -1819,11 +1820,17 @@ const ENC_STAT = [
     '', 'Burdened', 'Stressed', 'Strained', 'Overtaxed', 'Overloaded',
 ];
 
+// C ref: eat.c hu_stat[] — trailing spaces preserved for botl %s (D-0500).
+const HU_STAT = [
+    'Satiated', '        ', 'Hungry  ', 'Weak    ',
+    'Fainting', 'Fainted ', 'Starved ',
+];
+
 // C ref: botl.c describe_level — "Dlvl:%-2d" / "Tutorial:%-2d" uses
 // depth(&u.uz), not dunlev; Xp:/T: gated by flags.showexp / flags.time;
-// do_statusline2 conditions after enc_stat: Blind…Conf…Hallu…Lev/Fly then Ride.
+// do_statusline2: hunger then enc_stat then Blind…Conf…Hallu…Lev/Fly then Ride.
 // Named omissions: Knox/quest/endgame describe_level; Stone/Slime/Strngl/
-// Sick/hunger conditions (before enc_stat); Halluc_resistance; Upolyd HD.
+// Sick (before hunger); Halluc_resistance; Upolyd HD.
 function _statusLine2() {
     const u = game.u;
     if (!u) return '';
@@ -1839,8 +1846,13 @@ function _statusLine2() {
     let s = `${levtag}:${dlvl} $:${game._goldCount || 0} HP:${hp}(${hpmax}) Pw:${u.uen || 0}(${u.uenmax || 0}) AC:${u.uac ?? 10} Xp:${u.ulevel || 1}`;
     if (flags.showexp) s += `/${u.uexp || 0}`;
     if (flags.time) s += ` T:${game.moves || 1}`;
+    // C do_statusline2: u.uhs != NOT_HUNGRY → hu_stat before enc_stat
+    const uhs = u.uhs ?? NOT_HUNGRY;
+    if (uhs !== NOT_HUNGRY) {
+        s += ` ${HU_STAT[uhs] || ''}`;
+    }
     // C do_statusline2: enc_stat then Blind/Deaf/Stun/Conf/Hallu/Lev/Fly/Ride
-    // (Stone…hunger before enc_stat deferred)
+    // (Stone/Slime/Strngl/Sick before hunger deferred)
     const cap = near_capacity();
     if (cap > UNENCUMBERED) {
         s += ` ${ENC_STAT[cap] || ''}`;

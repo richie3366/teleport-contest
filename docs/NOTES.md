@@ -7,10 +7,10 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **seed0007 / D-0500 (next):** after D-0499 doset per-bool pline, Scr
-  **85**/302; first miss @85 — C `T:68 Satiated` vs JS no hunger on
-  botl (`botl.c` `do_statusline2` `hu_stat[u.uhs]`). RNG still full.
-  Falsifier:
+- **seed0007 / D-0501 (next):** after D-0500 botl hu_stat, Scr
+  **116**/302; first miss @116 — `#loot` take-out menu: C
+  `Take out what?` + Coins/`$ - 118 gold pieces` vs JS (category /
+  class heading / gold line). RNG still full. Falsifier:
   ```bash
   node frozen/ps_test_runner.mjs sessions/seed0007-rogue-snake-swamp.session.json
   ```
@@ -26,7 +26,7 @@ Objective/score live in `CURRENT.md`.
 - No raw RNG-index / coordinate / ux0 / forced-gettrack in production.
 - Rule #2: no `fs`/`path`/`url` in scored `js/` (D-0477).
 - Altar raw `{` (D-0293); don’t π-convert in scoring grid.
-- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0499
+- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0500
   done paths — see DIVERGENCE-INDEX.
 - Runner `Screen N/M` = total matches, not prefix length.
 - Hub `/sessions/` ≠ template bytes; still visual-PASS.
@@ -38,7 +38,7 @@ Objective/score live in `CURRENT.md`.
 - seed0007 @3219 locked-door autounlock/`picklock` (D-0487).
 - seed0007 @6414 `mO`→`doset` pickup_types (D-0488).
 - seed0007 @7066 `#loot` locked chest `pick_lock` (D-0489).
-- D-0490…D-0497 RNG path done; D-0498 doset fmt; D-0499 per-bool pline.
+- D-0490…D-0497 RNG path done; D-0498/99 doset; D-0500 hu_stat.
 
 ## Landmarks (≤15)
 
@@ -53,6 +53,7 @@ Objective/score live in `CURRENT.md`.
 - D-0486: `rogue_vision` on `Is_rogue_level` only.
 - D-0487: default `flags.autounlock=AUTOUNLOCK_APPLY_KEY`.
 - D-0498: doset `%-23s [val]` + On defaults; Scr 60→84.
-- D-0499: doset one `pline` per bool (not join-2); Scr 84→85; @38 fixed.
+- D-0499: doset one `pline` per bool; Scr 84→85; @38 fixed.
+- D-0500: botl `hu_stat` before enc_stat; Scr 85→116; @85 fixed.
 - Water moccasin is `hides_under` (M1_CONCEAL) — postmov hide roll.
 - Rogue `petnum` NON_PM → `rn2(2)` kitten/dog (NH 5.0); seed0007 kitten.

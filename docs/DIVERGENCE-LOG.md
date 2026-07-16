@@ -4,6 +4,25 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
+## D-0500 — botl hu_stat hunger (seed0007 Scr @85)
+
+- **Status:** fixed
+- **Symptom:** after D-0499, first screen miss @85 — C botl
+  `… T:68 Satiated` after jackal corpse eat vs JS no hunger token.
+  Scr **85**/302; RNG full.
+- **Cause:** `_statusLine2` deferred hunger (D-0458 list); C
+  `do_statusline2` emits `hu_stat[u.uhs]` when `u.uhs != NOT_HUNGRY`
+  before `enc_stat`. Field `newuhs` already set SATIATED (D-0438).
+- **C locus:** `botl.c` `do_statusline2`; `eat.c` `hu_stat[]`.
+- **Change:** `js/display.js` `_statusLine2` — `HU_STAT` + append
+  before `enc_stat` when `uhs !== NOT_HUNGRY`.
+- **Verification:** seed0007 Scr **85→116**/302 (@85 match; first
+  miss @116 loot take-out); RNG full; green+strict PASS; cohort
+  **28/28** PASS.
+- **Named omission:** Stone/Slime/Strngl/Sick before hunger;
+  Halluc_resistance; Upolyd HD; Knox/quest/endgame describe_level.
+- **Next:** seed0007 @116 `#loot` take-out menu / D-0501.
+
 ## D-0499 — doset per-bool pline (seed0007 Scr @38)
 
 - **Status:** fixed
