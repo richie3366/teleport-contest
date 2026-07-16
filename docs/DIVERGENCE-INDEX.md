@@ -464,6 +464,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 | D-0475 | fixed | rename tty_askname BASE cury after docorner | seed0006 Scr 72→80; @13→@22 filter page |
 | D-0476 | fixed | filter reset_role_filtering tty page packing | seed0006 Scr 80→89; @22→@71 hilite_pet |
 | D-0477 | fixed | Rule #2: pager dat texts in-process | remove Node fs/path/url; embed dat_text.js |
+| D-0478 | fixed | hilite_pet / wc2_petattr ATR_INVERSE on tame | seed0006 Scr 89→95; @71→@77 I vs # |
 
 
 

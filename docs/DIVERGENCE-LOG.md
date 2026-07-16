@@ -4,6 +4,26 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
+## D-0478 — hilite_pet / wc2_petattr ATR_INVERSE on tame map glyphs
+
+- **Status:** fixed
+- **Symptom:** seed0006 screen@71 sole cell miss — fox `f` JS attr=0 vs
+  C ATR_INVERSE after Options toggled `hilite_pet` on.
+- **Cause:** `newsym` painted tame monsters via `show_glyph_cell` with
+  attr 0; C `tty_print_glyph` applies `iflags.wc2_petattr` when
+  `(special & MG_PET) && hilite_pet`.
+- **C locus:** `win/tty/wintty.c` `tty_print_glyph` (MG_PET branch);
+  `options.c` `opt_hilite_pet` + `init_options` `wc2_petattr=ATR_INVERSE`;
+  `flag.h` `hilite_pet` ≡ `wc_hilite_pet`.
+- **Change:** `display.js` `mon_map_attr` + pass into `newsym` mon paths;
+  `options.js` enable `hilite_pet` sets `wc2_petattr` when unset.
+- **Verification:** seed0006 Scr **89→95**/123 first miss **@71→@77**;
+  RNG full; green+strict; pet cohort seed0002/0004/0009/0012/1500/1800
+  PASS; #515 suite **27/44** Scr **4986**/11405.
+- **Named omissions:** accessibility `SYM_PET_OVERRIDE`; remembered
+  MG_PET when pet left the square; full `petattr` string handler.
+- **Next:** seed0006 @77 JS `I` vs C `#`, or seed0007.
+
 ## D-0477 — Rule #2: pager dat texts must not use filesystem
 
 - **Status:** fixed
@@ -27,6 +47,7 @@ to preserve, record it here.
 - **Next:** resume seed0006 @71 hilite_pet (or seed0007).
 
 ## D-0476 — seed0006 filter menu tty page packing (screen@22)
+
 
 - **Status:** fixed
 - **Symptom:** seed0006 first cell-miss @22 — C filter `~` menu
