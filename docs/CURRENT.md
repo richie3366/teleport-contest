@@ -61,20 +61,20 @@ Both must remain full RNG + screen PASS with exact scored-output lengths.
 
 ## Primary objective
 
-**seed0002 @10511 — `peffect_confusion`** (after D-0435 enchant
-weapon). Prefix **10511**; Scr **233**/595. C `rn2(7)` @
-`peffect_confusion` vs JS `rn2(5)` (dopotion/confusion unimplemented
-or gated). Do not re-open @8863 ENCHANT_WEAPON (fixed).
+**seed0002 @10550 — monmove path split** (after D-0436 confusion
+potion). Prefix **10550**; Scr **233**/595. C `rn2(5)` @
+`distfleeck` vs JS `rn2(12)` @ `m_move`. Do not re-open @10511
+`peffect_confusion` (fixed).
 
 ```bash
 node frozen/ps_test_runner.mjs sessions/seed0002-healer-reflection-drummer.session.json
 node scripts/rng-diff.mjs sessions/seed0002-healer-reflection-drummer.session.json
-# Focus: C peffect_confusion + dopotion gate vs JS missing otyp
+# Focus: C/JS mon state after confusion quaff; distfleeck vs m_move
 ```
 
 **Alternates:** seed0006 / seed0007; quest early-0 (seed0361/0373).
 
-**Prefer over:** parked D-0006, seed2200 RC; re-opening D-0430–D-0435.
+**Prefer over:** parked D-0006, seed2200 RC; re-opening D-0430–D-0436.
 
 **Cohort after shared change:** green gate + seed1500 + seed1800 + seed0060 +
 seed0102 + seed0700 + seed1150 + seed0017 + seed0077 + seed0106 + seed0501 +

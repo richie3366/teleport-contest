@@ -4,6 +4,28 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
+## D-0436 — peffect_confusion + make_confused (seed0002 @10511)
+
+- **Status:** fixed
+- **Symptom:** seed0002 first RNG miss @10511 — C `rn2(7)` @
+  `peffect_confusion(potion.c:1025)` vs JS `rn2(5)`. Prefix
+  10511; Scr 233/595.
+- **Cause:** JS `peffects` deferred `POT_CONFUSION` (return 0, no
+  useup / no `rn1(7,…)`); C `peffect_confusion` →
+  `make_confused(itimeout_incr(HConfusion, rn1(7, 16-8*bcsign)), FALSE)`.
+- **C locus:** `potion.c` `peffect_confusion` / `make_confused` /
+  `itimeout` / `itimeout_incr` / `set_itimeout`.
+- **Change:** wire `POT_CONFUSION` in `peffects`; port
+  `peffect_confusion` msgs + `potion_unkn`/`potion_nothing`; port
+  `make_confused` TIMEOUT set + `u.Confusion` mirror.
+- **Verification:** seed0002 prefix **10511→10550**; Scr still
+  **233**/595; RNG matched **10622**/27158; green+strict; cohort
+  **26/26**.
+- **Omissions named:** `nh_timeout` CONFUSION expiry; talk=TRUE
+  You_feel; Unaware polish; `potionbreathe` still uses `rnd(5)` stub
+  (not `make_confused`).
+- **Next:** seed0002 @10550 `distfleeck` vs `m_move`.
+
 ## D-0435 — SCR_ENCHANT_WEAPON seffect + chwepon (seed0002 @8863)
 
 - **Status:** fixed

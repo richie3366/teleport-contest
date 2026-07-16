@@ -1,5 +1,6 @@
 // potion.js — Quaff / #dip commands (dodrink / dodip subset).
-// C ref: potion.c dodrink, dopotion, peffects, peffect_oil, dodip;
+// C ref: potion.c dodrink, dopotion, peffects, peffect_oil,
+//         peffect_confusion, make_confused, dodip;
 //         invent.c getobj; fountain.c drinkfountain / dipfountain.
 
 import { game } from './gstate.js';
@@ -16,6 +17,7 @@ import {
     IS_FOUNTAIN, IS_SINK, IS_POOL,
     ECMD_TIME, ECMD_CANCEL,
     POTHIT_OTHER_THROW, KILLED_BY_AN,
+    TIMEOUT,
 } from './const.js';
 import { hands_obj } from './weapon.js';
 import { rn2, rnd, d, rn1 } from './rng.js';
@@ -272,9 +274,64 @@ async function peffect_paralysis(otmp) {
     exercise(A_DEX, false);
 }
 
+/** C ref: potion.c itimeout — clamp to TIMEOUT field. */
+function itimeout(val) {
+    val = val | 0;
+    if (val >= TIMEOUT) val = TIMEOUT;
+    else if (val < 1) val = 0;
+    return val;
+}
+
+/** C ref: potion.c itimeout_incr */
+function itimeout_incr(old, incr) {
+    return itimeout((old & TIMEOUT) + (incr | 0));
+}
+
+/**
+ * C ref: potion.c make_confused(xtime, talk)
+ * Sync HConfusion TIMEOUT bits; mirror onto u.Confusion for JS gates
+ * (C: Confusion ≡ HConfusion). talk=TRUE You_feel / Unaware polish
+ * deferred when callers need it; nh_timeout CONFUSION expiry deferred.
+ */
+function make_confused(xtime, talk) {
+    const u = game.u || (game.u = {});
+    const old = u.HConfusion | 0;
+    if (u.Unaware) talk = false;
+    void talk; // You_feel less confused — deferred (peffect uses talk=FALSE)
+    if ((xtime && !old) || (!xtime && old)) {
+        if (game.flags) game.flags.botl = true;
+    }
+    u.HConfusion = ((u.HConfusion | 0) & ~TIMEOUT) | itimeout(xtime);
+    u.Confusion = u.HConfusion;
+}
+
+/**
+ * C ref: potion.c peffect_confusion
+ * First-quaff msg or potion_nothing; then make_confused(itimeout_incr(
+ * HConfusion, rn1(7, 16-8*bcsign)), FALSE).
+ */
+async function peffect_confusion(otmp) {
+    const u = game.u || {};
+    // C: Confusion ≡ HConfusion
+    if (!(u.HConfusion || u.Confusion)) {
+        if (u.Hallucination || u.HHallucination) {
+            await pline('What a trippy feeling!');
+            potion_unkn++;
+        } else {
+            await pline('Huh, What?  Where am I?');
+        }
+    } else {
+        potion_nothing++;
+    }
+    make_confused(
+        itimeout_incr(u.HConfusion | 0, rn1(7, 16 - 8 * bcsign(otmp))),
+        false,
+    );
+}
+
 /**
  * C ref: potion.c peffects() — POT_OIL + fruit juice / see invisible /
- * paralysis; other otyps named in C-JS-MAP.
+ * paralysis / confusion; other otyps named in C-JS-MAP.
  */
 async function peffects(otmp) {
     switch (otmp.otyp) {
@@ -287,6 +344,9 @@ async function peffects(otmp) {
         return -1;
     case POT_PARALYSIS:
         await peffect_paralysis(otmp);
+        return -1;
+    case POT_CONFUSION:
+        await peffect_confusion(otmp);
         return -1;
     default:
         // Other peffect_* deferred — do not useup
