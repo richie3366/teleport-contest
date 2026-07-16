@@ -65,10 +65,13 @@ import {
     SDOOR, SCORR, ZOO, VAULT, DELPHI, TEMPLE, SHOPBASE, FODDERSHOP,
     ROOMOFFSET,
     AM_NONE, AM_LAWFUL, AM_NEUTRAL, AM_CHAOTIC, ALIGNWEIGHT,
-    In_quest, W_ARMH, P_POLEARMS,
+    In_quest, W_ARMH, P_POLEARMS, ROT_CORPSE,
 } from './const.js';
 import { enexto_core, enexto_gpflags, goodpos } from './teleport.js';
-import { mksobj, mkobj, mkobj_at, weight, objects_at, curse, is_crackable } from './mkobj.js';
+import {
+    mksobj, mkobj, mkobj_at, weight, objects_at, curse, is_crackable,
+    set_corpsenm, stop_timer, add_to_container,
+} from './mkobj.js';
 
 /** Local t_at — avoid makemon↔trap import cycle; matches trap.js t_at. */
 function t_at_local(x, y) {
@@ -1255,7 +1258,8 @@ function rnd_misc_item(mtmp) {
     }
 }
 
-// C ref: makemon.c m_initinv — S_GNOME candle, PM_SHOPKEEPER kit, trailing misc
+// C ref: makemon.c m_initinv — S_GNOME candle, S_QUANTMECH box, PM_SHOPKEEPER,
+//   trailing misc
 function m_initinv(mtmp) {
     const ptr = mtmp.data;
     if (Is_rogue_level(game.u?.uz)) return;
@@ -1283,6 +1287,21 @@ function m_initinv(mtmp) {
     case 'S_LEPRECHAUN':
         // C ref: makemon.c m_initinv S_LEPRECHAUN — mkmonmoney(d(level_difficulty(),30))
         mkmonmoney(mtmp, d(level_difficulty(), 30));
+        break;
+    case 'S_QUANTMECH':
+        // C ref: makemon.c m_initinv S_QUANTMECH — rare SchroedingersBox
+        if (!rn2(20) && ptr.mndx === pm('QUANTUM_MECHANIC')) {
+            const otmp = mksobj(otyp('LARGE_BOX'), false, false);
+            const catcorpse = mksobj(otyp('CORPSE'), true, false);
+            if (catcorpse) {
+                otmp.spe = 1; // flag for special SchroedingersBox
+                set_corpsenm(catcorpse, pm('HOUSECAT'));
+                stop_timer(ROT_CORPSE, catcorpse);
+                add_to_container(otmp, catcorpse);
+                otmp.owt = weight(otmp);
+            }
+            mpickobj(mtmp, otmp);
+        }
         break;
     case 'S_HUMAN':
         if (is_mercenary(ptr)) {
@@ -1382,7 +1401,7 @@ function m_initinv(mtmp) {
         // elf / priest / guardian arms deferred
         break;
     default:
-        // Other m_initinv bodies (nymph, giant, …) deferred
+        // Other m_initinv bodies (mummy, demon, giant, …) deferred
         break;
     }
 

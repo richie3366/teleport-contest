@@ -4,6 +4,26 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
+## D-0542 — m_initinv S_QUANTMECH SchroedingersBox
+
+- **Status:** fixed (partial — S_MUMMY / S_DEMON; box open/disclose)
+- **Symptom:** seed0373 @21730 C `m_initinv` `rn2(20)` vs JS
+  trailing `rn2(50)`.
+- **Cause:** JS `m_initinv` lacked `case S_QUANTMECH`, so quantum
+  mechanics skipped the SchroedingersBox `rn2(20)` gate and hit the
+  defensive-item roll early.
+- **C locus:** `makemon.c` `m_initinv` S_QUANTMECH (~777).
+- **Change:** `js/makemon.js` port QUANTMECH arm — `!rn2(20)` +
+  `PM_QUANTUM_MECHANIC` → `LARGE_BOX` + `CORPSE` HOUSECAT,
+  `stop_timer(ROT_CORPSE)`, `add_to_container`, `mpickobj`.
+- **Verification:** seed0373 rng-diff **21730→22651**; runner RNG
+  **22674**/35386 Scr 22/124; green+strict PASS; cohort **28**/28
+  PASS (+green = 30).
+- **Named omission:** `m_initinv` S_MUMMY / S_DEMON; observe /
+  disclose SchroedingersBox live-cat path.
+- **Next:** @22651 C nhlib `shuffle` `rn2(3)` vs JS `rn2(79)`
+  (`makemaz` / special load); or seed5006 `dosounds` @8468.
+
 ## D-0541 — m_initweap S_HUMAN is_elf kit
 
 - **Status:** fixed (partial — MS_PRIEST / ninja; ANGEL/KOP/LIZARD)

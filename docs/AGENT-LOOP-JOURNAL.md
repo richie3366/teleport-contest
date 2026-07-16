@@ -20,6 +20,16 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-16 19:26 — #602 D-0542 m_initinv S_QUANTMECH
+- Objective: peel seed0373 @21730 C `m_initinv` `rn2(20)` vs JS
+  trailing `rn2(50)`.
+- C locus: `makemon.c` `m_initinv` S_QUANTMECH.
+- Change: `js/makemon.js` SchroedingersBox arm (`!rn2(20)` +
+  LARGE_BOX + HOUSECAT corpse / stop ROT / container / mpickobj).
+- Verification: rng-diff **21730→22651**; runner RNG **22674**/35386
+  Scr 22/124; green+strict; cohort 28/28.
+- Next: nhlib shuffle @22651; or dosounds @8468.
+
 ## 2026-07-16 19:22 — #601 D-0541 m_initweap is_elf kit
 - Objective: peel seed0373 @19071 C `m_initweap` `rn2(2)` vs JS `rn2(75)`.
 - C locus: `makemon.c` `m_initweap` `is_elf`; `mondata.h` `M2_ELF`.
@@ -158,12 +168,3 @@ Use this shape:
 - Verification: rng-diff **4571→5082**; runner RNG **5133**/35386;
   green+strict; cohort 28/28 PASS; seed0116 RNG full.
 - Next: m_initweap @5082; or seed5006 dosounds @8468.
-
-## 2026-07-16 18:20 — #587 D-0528 tower1 + vampshift
-- Objective: seed0373 @4159 — was mislabeled Bar-loca; C loads tower1.
-- C locus: `dat/tower1.lua`; `makemon.c` cham/newcham; `mon.c`
-  pickvampshape; `teleport.c` noteleport_level covetous.
-- Change: `load_tower1`; vampshift/newcham; covetous noteleport bypass.
-- Verification: rng-diff **4159→4571**; runner RNG **4596**/35386;
-  green+strict; cohort 28/28 PASS; seed0116 RNG full.
-- Next: Bar-loca @4571 (menu `z`); or seed5006 dosounds @8468.
