@@ -576,11 +576,6 @@ export async function moveloop_core() {
                     rnd(3);
                 }
 
-                // Clairvoyance timer
-                if ((g.moves || 0) >= (g.context.seer_turn || 0)) {
-                    g.context.seer_turn = g.moves + rn1(31, 15);
-                }
-
                 // C: when immobile, count is in turns — multi < 0 occupation
                 if ((g.multi || 0) < 0) {
                     g.multi++;
@@ -591,6 +586,13 @@ export async function moveloop_core() {
             }
             if (g.program_state?.gameover) return;
         } while ((g.u.umovement || 0) < NORMAL_SPEED);
+
+        // C: once-per-hero-took-time — seer_turn after umovement loop
+        // (not inside once-per-turn EOT). Always rolls rn1 even without
+        // Clairvoyant; do_vicinity_map deferred.
+        if ((g.moves || 0) >= (g.context.seer_turn || 0)) {
+            g.context.seer_turn = g.moves + rn1(31, 15);
+        }
     }
 
     // Vision + display (before getch — screen capture in nhgetch)

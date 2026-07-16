@@ -4,20 +4,40 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
-## D-0446 — seed0002 @18354 post-descend `distfleeck` vs `rn2(31)`
+## D-0447 — seed0002 @18457 pickup shop `append_honorific`
 
 - **Status:** open
+- **Symptom:** seed0002 first RNG miss @18457 — C `rn2(4)=1` @
+  `append_honorific(shk.c:3611)` (`,` pickup bill quote) vs JS
+  `rn2(5)` @ `distfleeck`. Prefix 18457; Scr 311/595. Matched
+  through once-per-hero `rn1(31,15)` seer_turn.
+- **Hypothesis:** JS shop `addtobill` / unpaid pickup verbalize skips
+  `append_honorific` (`rn2(SIZE(honored)-1)` → `rn2(4)`).
+- **C locus:** `shk.c` `append_honorific` caller in bill quote
+  (`"For you, " + honorific + "; only …"`).
+- **Next:** port `append_honorific` + wire into invent/shop pickup
+  quote path; compare Deaf/muteshk/surcharge/Angry gates.
+- **Verification:** after D-0446; green+strict; cohort 26/26 PASS.
+
+## D-0446 — seed0002 @18354 seer_turn `rn1(31,15)` in wrong phase
+
+- **Status:** fixed
 - **Symptom:** seed0002 first RNG miss @18354 — C `rn2(5)=3` @
   `distfleeck(monmove.c:538)` vs JS `rn2(31)=30`. Prefix 18354;
-  Scr 311/595. Matched through `moveloop_core` `rn2(61)`; C next
-  is `obj_resists`, JS later reaches `distfleeck`.
-- **Hypothesis:** after D-0445 stair fall, JS burns an extra `rn2(31)`
-  (or skips a zap/`obj_resists` path C takes) before monmove fleeck.
-- **C locus:** reconstruct post-descend turn — `monmove`/`distfleeck`
-  vs JS caller of `rn2(31)`.
-- **Next:** identify JS `rn2(31)` site; compare C call path after
-  descend + `losedogs` / EOT.
-- **Verification:** after D-0445; green+strict; cohort 26/26 PASS.
+  Scr 311/595. Matched through `moveloop_core` `rn2(61)`.
+- **Cause:** JS ran clairvoyance `seer_turn = moves + rn1(31,15)`
+  inside once-per-turn EOT; C runs it in once-per-hero-took-time
+  after the `umovement < NORMAL_SPEED` loop (`allmain.c:409–415`).
+  Extra EOT burn when `moves >= seer_turn` before the next monmove.
+- **C locus:** `allmain.c` `moveloop_core` seer_turn / `rn1(31,15)`.
+- **Change:** move `seer_turn` update out of EOT into post-umovement
+  once-per-hero block (`js/allmain.js`).
+- **Verification:** seed0002 prefix **18354→18457**; Scr still
+  **311**/595; green+strict; cohort **26/26** PASS.
+- **Omissions named:** `do_vicinity_map` when amulet/Clairvoyant;
+  sink_into_lava / pooleffects / Underwater vision once-per-hero.
+- **Next:** seed0002 @18457 C `rn2(4)` @ `append_honorific` vs JS
+  `distfleeck` (D-0447).
 
 ## D-0445 — seed0002 @16501 goto_level descend fall `rnd(3)`
 

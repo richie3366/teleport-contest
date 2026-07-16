@@ -41,7 +41,7 @@ seed0012, seed0004.
 | Session | RNG | Screen | Note |
 |--------|----:|-------:|------|
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
-| seed0002 | 19465/27158 | **311**/595 | @18354 post-descend (D-0446) |
+| seed0002 | 19428/27158 | **311**/595 | @18457 shop honorific (D-0447) |
 | seed0006 | 2276/6736 | **13**/123 | water demon |
 | seed0007 | 2939/16373 | **20**/302 | snake swamp |
 | seed0361/0373 | early | 0 | quest bones / `makemaz` |
@@ -61,20 +61,20 @@ Both must remain full RNG + screen PASS with exact scored-output lengths.
 
 ## Primary objective
 
-**seed0002 @18354 — post-descend monmove vs `rn2(31)`** (D-0446). Prefix
-**18354**; Scr **311**/595. After D-0445 stair fall: C `rn2(5)` @
-`distfleeck` vs JS `rn2(31)`. Matched through `moveloop_core` `rn2(61)`.
+**seed0002 @18457 — shop pickup `append_honorific`** (D-0447). Prefix
+**18457**; Scr **311**/595. After D-0446 seer_turn: C `rn2(4)` @
+`append_honorific` (`,` unpaid bill quote) vs JS `rn2(5)` @ `distfleeck`.
 
 ```bash
 node frozen/ps_test_runner.mjs sessions/seed0002-healer-reflection-drummer.session.json
 node scripts/rng-diff.mjs sessions/seed0002-healer-reflection-drummer.session.json
-# Focus: identify JS rn2(31) caller vs C distfleeck / obj_resists path
+# Focus: port append_honorific + wire into addtobill invent quote
 ```
 
 **Alternates:** seed0006 / seed0007; quest early-0 (seed0361/0373).
 
-**Prefer over:** parked D-0006, seed2200 RC; re-opening D-0430–D-0445;
-treating @18354 as stair-fall without checking the extra `rn2(31)`.
+**Prefer over:** parked D-0006, seed2200 RC; re-opening D-0430–D-0446;
+treating @18457 as monmove without the shop bill quote.
 
 **Cohort after shared change:** green gate + seed1500 + seed1800 + seed0060 +
 seed0102 + seed0700 + seed1150 + seed0017 + seed0077 + seed0106 + seed0501 +

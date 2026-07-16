@@ -20,6 +20,17 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-16 03:26 — #479 seer_turn once-per-hero (D-0446)
+- Objective: seed0002 @18354 C `rn2(5)` @ `distfleeck` vs JS `rn2(31)` (PRIMARY).
+- C locus: `allmain.c` `moveloop_core` once-per-hero `seer_turn` / `rn1(31,15)`.
+- Change: JS burned `rn1(31,15)` inside EOT; C runs it after the
+  `umovement < NORMAL_SPEED` loop. Moved seer_turn update to
+  once-per-hero (`js/allmain.js`); `do_vicinity_map` still deferred.
+- Verification: seed0002 prefix **18354→18457**; Scr still **311**/595;
+  green+strict; cohort **26/26** PASS.
+- Next: seed0002 @18457 C `rn2(4)` @ `append_honorific` vs JS `rn2(5)`
+  (D-0447).
+
 ## 2026-07-16 03:23 — #478 goto_level descend fall (D-0445)
 - Objective: seed0002 @16501 goto_level descend fall rnd(3) (PRIMARY).
 - C locus: `do.c` `goto_level` encumber/Punished/Fumbling fall `losehp(Maybe_Half_Phys(rnd(3)))`.
@@ -165,13 +176,3 @@ Use this shape:
   green+strict; cohort **24/24**.
 - Next: seed0002 @8863 `SCR_ENCHANT_WEAPON` / seffects exercise
   vs doread unimplemented gate.
-## 2026-07-16 01:50 — #464 closed-door rush bump (D-0433)
-- Objective: seed0002 @8609 C `exercise` rn2(2) vs JS `rnl(20)` (PRIMARY).
-- C locus: `hack.c` `test_move` closed_door autoopen/bump; `attrib.c`
-  `exercise`.
-- Change: JS `end_running()` before autoopen `!run` check forced
-  `doopen_indir` on capital-H rush; C bumps when run set. Ported
-  orthogonal Ouch+`exercise(A_DEX,FALSE)` / “That door is closed.”
-- Verification: seed0002 prefix **8609→8831**; Scr **172→190**/595;
-  RNG matched **9227**/27158; green+strict; cohort **24/24**.
-- Next: seed0002 @8831 `drinksink` rn2(20) vs JS rn2(5).
