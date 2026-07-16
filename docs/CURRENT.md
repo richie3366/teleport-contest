@@ -46,7 +46,7 @@ seed0012, seed0004, seed0002, seed0006, seed0007, **seed0398**.
 **Notable non-PASS:**
 | Session | RNG | Screen | Note |
 |--------|----:|-------:|------|
-| seed0116 | 6034/12562 | **79**/127 | D-0515; next `zap_dig` @5910 |
+| seed0116 | 6275/12562 | **101**/127 | D-0516; next moveloop @6246 |
 | seed5006 | 8507/13923 | **121**/249 | D-0515; next `dosounds` @8468 |
 | seed0373 | 2549/35386 | 20/124 | needs `print_dungeon` `?` |
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
@@ -72,16 +72,16 @@ dropped to **22** after D-0480 (seed0013-rogue 59→58). **D-0483** reverts
 that serialize coerce. Next cron; if seed0013 restored but near-misses
 remain → upstream #5.
 
-**Gameplay next:** peel D-0515 follow-ons — prefer shared
-(`print_dungeon` for quest `^V?`, or seed0116 `zap_dig` / seed5006
-`dosounds`). Prefer over parked seed2200 RC.
+**Gameplay next:** peel D-0516 follow-ons — prefer shared
+(`print_dungeon` for quest `^V?`, or seed0116 @6246 moveloop /
+seed5006 `dosounds`). Prefer over parked seed2200 RC.
 
 ```bash
 node scripts/rng-diff.mjs sessions/seed0116-wizard-wear-shop.session.json
 node scripts/rng-diff.mjs sessions/seed0373-barbarian-quest-tour.session.json
 ```
 
-**Prefer over:** parked D-0006, seed2200 RC; re-opening D-0474…D-0515.
+**Prefer over:** parked D-0006, seed2200 RC; re-opening D-0474…D-0516.
 
 **Cohort after shared change:** green gate + seed1500 + seed1800 + seed0060 +
 seed0102 + seed0700 + seed1150 + seed0017 + seed0077 + seed0106 + seed0501 +

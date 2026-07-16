@@ -9,9 +9,10 @@
 // getobj `?`/`*` → display_pickinv_reply; RAY weffects → ubuzz/dobuzz
 // for WAN_MAGIC_MISSILE..WAN_LIGHTNING (sleep + bounce + Reflecting);
 // IMMEDIATE weffects → bhit(rn1(8,6)) + bhito WAN_POLYMORPH pile
-// (obj_unpolyable / obj_shudders / poly_obj floor / zapwrapup You_feel).
+// (obj_unpolyable / obj_shudders / poly_obj floor / zapwrapup You_feel);
+// RAY WAN_DIGGING/SPE_DIG → zap_dig (dig.c).
 // Named omissions: zap_updown/uswallow bhitm; bhitm poly body; zap_map;
-// zap_dig; spell ubuzz; mon_reflects; fireball/gas/Hallucination
+// spell ubuzz; mon_reflects; fireball/gas/Hallucination
 // hdmgtype rn2; full zap_over_floor; zhitu non-sleep; shopdamage;
 // map_invisible/unmap during buzz; backfire body; other NODIR; wrest
 // pline; check_capacity/nohands; check_unpaid; more_experienced;
@@ -39,6 +40,7 @@ import { fall_asleep, losehp, maybe_half_phys, nomul } from './hack.js';
 import { m_at } from './mon.js';
 import { find_mac } from './mhitm.js';
 import { obj_resists } from './dogmove.js';
+import { zap_dig } from './dig.js';
 import {
     mkobj, delobj, objects_at, replace_object, rnd_class, weight, splitobj,
     oc_merge_of,
@@ -67,6 +69,8 @@ const AMULET_OF_UNCHANGING = objectNames.indexOf('AMULET_OF_UNCHANGING');
 const STRANGE_OBJECT = objectNames.indexOf('STRANGE_OBJECT');
 const SPE_SLEEP = objectNames.indexOf('SPE_SLEEP');
 const SHIELD_OF_REFLECTION = objectNames.indexOf('SHIELD_OF_REFLECTION');
+const WAN_DIGGING = objectNames.indexOf('WAN_DIGGING');
+const SPE_DIG = objectNames.indexOf('SPE_DIG');
 
 const ZT_SLEEP = 3; // AD_SLEE - 1
 
@@ -916,7 +920,7 @@ async function zapwrapup() {
 /**
  * C ref: zap.c weffects — exercise + effect dispatch.
  * NODIR + RAY wand ubuzz; IMMEDIATE bhit WAN_POLYMORPH;
- * dig/spell ubuzz / zap_updown / steed deferred.
+ * WAN_DIGGING/SPE_DIG → zap_dig; spell ubuzz / zap_updown / steed deferred.
  */
 async function weffects(obj) {
     const otyp = obj.otyp;
@@ -945,14 +949,17 @@ async function weffects(obj) {
         await zapwrapup();
     } else {
         // RAY — neither immediate nor directionless
-        if (otyp >= WAN_MAGIC_MISSILE && otyp <= WAN_LIGHTNING) {
+        if (otyp === WAN_DIGGING || otyp === SPE_DIG) {
+            await zap_dig();
+            disclose = true;
+        } else if (otyp >= WAN_MAGIC_MISSILE && otyp <= WAN_LIGHTNING) {
             await ubuzz(
                 BZ_U_WAND(BZ_OFS_WAN(otyp)),
                 otyp === WAN_MAGIC_MISSILE ? 2 : 6,
             );
             disclose = true;
         }
-        // SPE_* ubuzz / zap_dig deferred
+        // SPE_* ubuzz deferred
     }
     if (disclose) {
         learnwand(obj);

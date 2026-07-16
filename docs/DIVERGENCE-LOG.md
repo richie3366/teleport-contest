@@ -4,6 +4,28 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
+## D-0516 — weffects WAN_DIGGING → zap_dig
+
+- **Status:** fixed
+- **Symptom:** seed0116 first RNG miss @5910 — C `rn2(18)` @
+  `zap_dig` (`rn1(18,8)`) vs JS `rn2(5)` (dig wand skipped in
+  RAY `weffects`).
+- **Cause:** `weffects` RAY branch handled only
+  `WAN_MAGIC_MISSILE`..`WAN_LIGHTNING`; `WAN_DIGGING`/`SPE_DIG` →
+  `zap_dig` deferred.
+- **C locus:** `zap.c` `weffects`; `dig.c` `zap_dig`.
+- **Change:** `js/dig.js` `zap_dig` horizontal door/maze/obstructed
+  dig + `DISP_BEAM` `*`; `js/zap.js` `weffects` dig dispatch +
+  `learnwand`.
+- **Verification:** seed0116 prefix **5910→6246** positional
+  **6275**/12562 Scr **79→101**/127; green+strict PASS; cohort
+  **30/30** PASS. seed5006 unchanged @8468.
+- **Named omission:** swallowed/`u.dz`/`dighole`; pitdig conjoined /
+  `pit_flow`; `watch_dig`; shop `add_damage`/`pay_for_damage`;
+  `in_town` cavernous gate.
+- **Next:** seed0116 @6246 `moveloop_core` rn2(70) vs rn2(20) /
+  seed5006 `dosounds` / seed0373 `print_dungeon`.
+
 ## D-0515 — ^V wiz_level_tele / level_tele numeric → getbones
 
 - **Status:** fixed
