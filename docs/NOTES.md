@@ -7,8 +7,9 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **seed0007 / D-0490:** @7142 C `rn2(100) @ obj_resists` vs JS `rn2(1)`
-  (after D-0489 peel 7066→7142; Scr **60**/302).
+- **seed0007 / D-0490:** @7142 C fourth `obj_resists` vs JS `dog_move`
+  `rn2(1)` — C burns 4×`rn2(100)` then `rn2(1)`; JS only 3 then selection.
+  Likely missing one invent/fobj `dogfood` scan after box unlock.
   ```bash
   node scripts/rng-diff.mjs sessions/seed0007-rogue-snake-swamp.session.json
   ```
@@ -48,8 +49,8 @@ Objective/score live in `CURRENT.md`.
 - seed0006 **PASS** after D-0482.
 - LB gap: 14 cells / 4 sessions; report upstream if next cron unchanged.
 - Gameover `add_menu_heading` ATR_NONE; `iflags.at_night` from `really_done`.
-- #540 score: **28/44**, Scr 5014, RNG 289809 (36.55%), `24+0.14/turn`
-  (flat vs #535).
+- #545 score: **28/44**, Scr 5054, RNG 294730 (37.17%), `24+0.13/turn`
+  (Δ vs #540: Scr +40, RNG +4921).
 - Capital `H` = multi-step run inside one session key (`continue_run`).
 - D-0486: `rogue_vision` on `Is_rogue_level` only.
 - D-0485: post-quiver `mark_topline_seen` + getdir MV_ANY capitals.

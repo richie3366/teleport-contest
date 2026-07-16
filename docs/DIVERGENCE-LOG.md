@@ -4,6 +4,19 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
+## D-0490 — seed0007 @7142 obj_resists vs dog_move rn2(1)
+
+- **Status:** open
+- **Symptom:** after D-0489, first RNG miss @7142 — C `rn2(100) @
+  obj_resists` vs JS `rn2(1)`. Scr **60**/302; matched RNG **7885**/16373.
+- **Observation:** C burns four consecutive `obj_resists` then
+  `dog_move` `rn2(1)`; JS burns three then selection RNG. Classic missing
+  invent/fobj `dogfood`→`obj_resists` scan (one object), post box-unlock.
+- **Rejected (not yet DIAG'd):** raw cause unknown this iteration (#545
+  score cadence). Do not invent invent-scan shims from index alone.
+- **Next:** DIAG which call site emits C's fourth `obj_resists`
+  (dog_goal invent vs fobj vs dog_invent/dog_eat).
+
 ## D-0486 — vision_recalc rogue_vision (Is_rogue_level)
 
 - **Status:** fixed
