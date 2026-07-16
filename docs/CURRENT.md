@@ -21,10 +21,10 @@ Update **this Score section** with: pass count, screen/RNG aggregates, speed
 label, PASS list, notable non-PASS. Do not invent suite totals from a single
 focused session.
 
-Score last measured: **2026-07-16** — full `sessions` suite (loop **#600**),
-post D-0540. Screens **5900**/11405; RNG **337400**/792838 (42.56%).
-**30/44** PASS. Speed `31+0.15/turn` (R² 0.74). Δ vs #595: Scr 0,
-RNG +7068 (D-0539…D-0540 peels), PASS unchanged.
+Score last measured: **2026-07-16** — full `sessions` suite (loop **#605**),
+post D-0545. Screens **5900**/11405; RNG **344063**/792838 (43.40%).
+**30/44** PASS. Speed `30+0.15/turn` (R² 0.76). Δ vs #600: Scr 0,
+RNG +6663 (D-0541…D-0545 peels), PASS unchanged.
 
 ## Score
 
@@ -32,8 +32,8 @@ RNG +7068 (D-0539…D-0540 peels), PASS unchanged.
 |--------|------:|
 | Sessions passing | **30 / 44** |
 | Screens matched | **5,900 / 11,405** |
-| Positional RNG calls matched | **337,400 / 792,838** (42.56%) |
-| Speed label | `31+0.15/turn` (R² 0.74) |
+| Positional RNG calls matched | **344,063 / 792,838** (43.40%) |
+| Speed label | `30+0.15/turn` (R² 0.76) |
 | Role-init throws | **0 / 44** |
 
 **PASS (30):** seed8000, seed0900, seed1500, seed1800, seed0060,
@@ -47,7 +47,7 @@ seed0012, seed0004, seed0002, seed0006, seed0007, seed0398.
 |--------|----:|-------:|------|
 | seed0116 | 12562/12562 | **110**/127 | D-0524 RNG full; screen residual |
 | seed5006 | 8508/13923 | **121**/249 | D-0515; next `dosounds` @8468 |
-| seed0373 | 25657/35386 | 22/124 | D-0544; next `fill_zoo` rn2(100) @25654 |
+| seed0373 | 25885/35386 | 22/124 | D-0545; next `m_initinv` S_MUMMY @25869 |
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
 | seed0361/0367 | early | 0 | quest / `makemaz` (menu) |
 
@@ -71,9 +71,10 @@ dropped to **22** after D-0480 (seed0013-rogue 59→58). **D-0483** reverts
 that serialize coerce. Next cron; if seed0013 restored but near-misses
 remain → upstream #5.
 
-**Gameplay next:** after D-0544 (LONG_WORM `initworm`), seed0373 @25654
-C `fill_zoo` `rn2(100)` vs JS `rn2(3)`. Or peel seed5006 `dosounds`
-@8468. Prefer over parked seed2200 RC / seed0116 screen residual.
+**Gameplay next:** after D-0545 (`makemon` MON_AT sees worm segs), seed0373
+@25869 C `m_initinv` S_MUMMY `rn2(7)` vs JS trailing `rn2(50)`. Or peel
+seed5006 `dosounds` @8468. Prefer over parked seed2200 RC / seed0116
+screen residual.
 
 ```bash
 node scripts/rng-diff.mjs sessions/seed0373-barbarian-quest-tour.session.json
@@ -81,7 +82,7 @@ node scripts/rng-diff.mjs sessions/seed5006-tourist-stress-disaster.session.json
 node frozen/ps_test_runner.mjs sessions/seed0116-wizard-wear-shop.session.json
 ```
 
-**Prefer over:** parked D-0006, seed2200 RC; re-opening D-0474…D-0544.
+**Prefer over:** parked D-0006, seed2200 RC; re-opening D-0474…D-0545.
 
 **Cohort after shared change:** green gate + seed1500 + seed1800 + seed0060 +
 seed0102 + seed0700 + seed1150 + seed0017 + seed0077 + seed0106 + seed0501 +

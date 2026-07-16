@@ -530,6 +530,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 | D-0542 | fixed | m_initinv S_QUANTMECH SchroedingersBox | seed0373 21730→22651 RNG 22674; next nhlib shuffle @22651 |
 | D-0543 | fixed | soko1-2 load_special | seed0373 22651→24531 RNG 24545; next makemon rn2(5) @24531 |
 | D-0544 | fixed | makemon LONG_WORM initworm + place_worm_tail | seed0373 24531→25654 RNG 25657; next fill_zoo @25654 |
+| D-0545 | fixed | makemon MON_AT sees worm body segs | seed0373 25654→25869 RNG 25885; next m_initinv S_MUMMY @25869 |
 
 | D-0523 | fixed | m_calcdistress → were_change / new_were | seed0116 12461→12521 (RNG 12554/12562); Scr 110; next fleeck/dog_move |
 

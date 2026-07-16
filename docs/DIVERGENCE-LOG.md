@@ -4,6 +4,29 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
+## D-0545 — makemon MON_AT sees worm body segs
+
+- **Status:** fixed (partial — full `level.monsters[][]` for non-worm mons)
+- **Symptom:** seed0373 @25654 C `fill_zoo` `rn2(100)` (gold `rn1(i,10)`
+  with i=100) vs JS `rn2(3)` after matched saddle + prior gold cell.
+- **Cause:** After D-0544, C `MON_AT` rejects cells occupied by worm
+  body segs (`place_worm_seg` → `level.monsters[][]`) so `makemon`
+  returns null with no RNG and `fill_zoo` still places gold. JS
+  `makemon` only scanned `fmon` heads, so it burned `rndmonst` /
+  invent RNG on worm-seg cells.
+- **C locus:** `makemon.c` `makemon` `MON_AT`; `rm.h` `place_worm_seg`;
+  `mkroom.c` `fill_zoo` gold after failed makemon.
+- **Change:** `js/makemon.js` MON_AT also consults `worm_mon_at`
+  (`_level_monsters`).
+- **Verification:** seed0373 rng-diff **25654→25869**; runner RNG
+  **25885**/35386 Scr 22/124; green+strict PASS; cohort **30**/30
+  PASS (+seed0116 screen residual); full `sessions` **30**/44,
+  Scr 5900, RNG 344063 (43.40%).
+- **Named omission:** non-worm mons still occupancy via `fmon` only;
+  `m_initinv` S_MUMMY / S_DEMON; worm_move/grow/cut.
+- **Next:** @25869 C `m_initinv` S_MUMMY `rn2(7)`; or seed5006
+  `dosounds` @8468.
+
 ## D-0544 — makemon LONG_WORM initworm / place_worm_tail
 
 - **Status:** fixed (partial — worm_move/grow/cut/save; emin after worm)

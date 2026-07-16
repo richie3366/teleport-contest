@@ -104,6 +104,7 @@ import { christen_monst } from './do_name.js';
 import { get_shop_item } from './shknam.js';
 import {
     get_wormno, initworm, count_wsegs, place_worm_tail_randomly,
+    worm_mon_at,
 } from './worm.js';
 
 /** C ref: shknam.c neweshk — allocate eshk for MM_ESHK makemon. */
@@ -1549,7 +1550,8 @@ export function makemon(mdat, x, y, mmflags = 0) {
         y = cc.y;
     }
 
-    // C: MON_AT(x,y) — without MM_ADJACENTOK fail; else enexto_core relocate
+    // C: MON_AT(x,y) via level.monsters[][] — includes worm body segs
+    // (rm.h place_worm_seg). Heads are on fmon; segs on _level_monsters.
     {
         let occupied = false;
         if (game.fmon) {
@@ -1560,6 +1562,8 @@ export function makemon(mdat, x, y, mmflags = 0) {
                 }
             }
         }
+        // D-0545: worm tail cells must reject like C MON_AT (no rndmonst burn)
+        if (!occupied && worm_mon_at(x, y)) occupied = true;
         if (occupied) {
             if (!(mmflags & MM_ADJACENTOK)) return null;
             const cc = { x: 0, y: 0 };

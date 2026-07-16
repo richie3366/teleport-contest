@@ -12,6 +12,25 @@ move older ones into `docs/archive/`.
 Use this shape:
 
 ```text
+## YYYY-MM-DD HH:MM — <objective>
+- Objective: …
+- C locus: …
+- Change or falsified theory: …
+- Verification: …
+- Next: …
+```
+
+## 2026-07-16 19:40 — #605 score + D-0545 worm-seg MON_AT
+- Objective: mandatory 5-iter score; peel seed0373 @25654 C
+  `fill_zoo` `rn2(100)` vs JS `rn2(3)`.
+- C locus: `makemon.c` `MON_AT`; `rm.h` `place_worm_seg`;
+  `mkroom.c` `fill_zoo` gold after null makemon.
+- Change: `makemon` MON_AT consults `worm_mon_at` (D-0544 segs).
+- Verification: full `sessions` **30/44** Scr **5900**/11405 RNG
+  **344063**/792838 (43.40%) `30+0.15/turn`; rng-diff
+  **25654→25869**; runner RNG **25885**; green+strict; cohort 30/30.
+- Next: m_initinv S_MUMMY `rn2(7)` @25869; or dosounds @8468.
+
 ## 2026-07-16 19:36 — #604 D-0544 LONG_WORM initworm
 - Objective: peel seed0373 @24531 C `makemon` `rn2(5)` vs JS `rn2(50)`.
 - C locus: `makemon.c` LONG_WORM; `worm.c` get_wormno/initworm/
@@ -22,13 +41,6 @@ Use this shape:
   Scr 22/124; green+strict; cohort 28/28; seed0116 RNG full.
 - Next: fill_zoo rn2(100) @25654; or dosounds @8468.
 
-## YYYY-MM-DD HH:MM — <objective>
-- Objective: …
-- C locus: …
-- Change or falsified theory: …
-- Verification: …
-- Next: …
-```
 ## 2026-07-16 19:31 — #603 D-0543 soko1-2 load_special
 - Objective: peel seed0373 @22651 C nhlib `shuffle` `rn2(3)` vs JS
   `rn2(79)` after matched `makemaz` `rnd(2)=2`.
@@ -145,14 +157,3 @@ Use this shape:
 - Verification: seed0373 **5497→6811** (RNG **6849**, Scr 22/124);
   green+strict; cohort **30**/30; seed0116 RNG full Scr 110/127.
 - Next: @6811 `rndmonst_adj`/`qt_montype`; or seed5006 dosounds @8468.
-## 2026-07-16 18:30 — #590 formal public score
-- Objective: mandatory 5-iter score refresh (global #590).
-- C locus: n/a (score+docs); light diagnose seed0373 @5497.
-- Change: full `sessions` run; rewrite CURRENT Score. Hypothesis:
-  @5497 missing next special after Bar-loca (`^V2` → Bar-goal/
-  fila/filb); JS Medusa `rn2(5)` vs C nhlib shuffle `rn2(2)`.
-- Verification: green+strict PASS; **30/44** PASS; Scr
-  **5899**/11405; RNG **323852**/792838 (40.85%); speed
-  `29+0.15/turn` (R² 0.80). Δ vs #585: Scr +1, RNG +1288.
-- Next: identify C protofile for seed0373 `^V2` hop / port
-  Bar-goal; or seed5006 `dosounds` @8468.
