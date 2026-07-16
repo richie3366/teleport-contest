@@ -20,6 +20,15 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-16 23:45 — #641 D-0578 kitten m_move cnt diag
+- Objective: seed5006 seg1 @2782 `m_move` rn2(16) vs rn2(28).
+- C locus: monmove.c m_move:1963; mon.c mfndpos.
+- Falsified: other-mon / missing pass1 fleeck (2780 = same kitten
+  post-move distfleeck). Diagnosed: hostile PM_KITTEN; JS cnt=7 at
+  (32,4) after matched first move; C wants cnt-j=4.
+- Verification: green+strict PASS; seed5006 still 13814/13923 Scr 192.
+- Next: prove C dest after first move or mfndpos cnt; or seed0116.
+
 ## 2026-07-16 23:28 — #640 score + familiar_level_msg (D-0577)
 - Objective: mandatory #640 full `sessions` score; seed5006 gameplay.
 - C locus: bones.c cemetery/`bones_include_name`; do.c

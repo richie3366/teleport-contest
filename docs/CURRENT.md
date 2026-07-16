@@ -71,13 +71,13 @@ judge at 08:55Z dropped to **22** after D-0480 (seed0013-rogue 59→58).
 **D-0483** reverts that serialize coerce. Next cron; if seed0013 restored
 but near-misses remain → upstream #5.
 
-**Gameplay next:** after D-0577 (`familiar_level_msg` + cemetery), seed5006
-seg1 prefix **2777→2782**; Scr **182→192**/249. Next seg1 @2782 `m_move`
-`rn2(16)` vs `rn2(28)`, or seed0116 residual (114/127). Prefer over parked
-seed2200 RC. Note: `rng-diff.mjs` only runs seg0 (FULL at 11026).
+**Gameplay next:** **D-0578** — seed5006 seg1 @2782 hostile PM_KITTEN
+`m_move` track-skip: JS `rn2(28)` (`cnt=7,j=0` at (32,4)) vs C
+`rn2(16)`. First move matched; 2780 is post-move `distfleeck` recalc.
+Falsify C dest / `mfndpos` cnt (see NOTES). Alt: seed0116 Scr 114/127.
 
 ```bash
-node --input-type=module -e '/* seg1 mismatch helper — see NOTES */'
+node frozen/ps_test_runner.mjs sessions/seed5006-tourist-stress-disaster.session.json
 node frozen/ps_test_runner.mjs sessions/seed0116-wizard-wear-shop.session.json
 ```
 

@@ -7,15 +7,18 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **D-0577 done:** cemetery `bonesinfo` + `bones_include_name` +
-  `familiar_level_msg`. Debug `plname`≡`wizard` matches across segments.
-  seed5006 seg1 prefix **2777→2782**; Scr **182→192**/249.
-- **Gameplay next:** seed5006 seg1 @2782 `m_move` `rn2(16)` vs JS
-  `rn2(28)`; or seed0116 residual 114/127. Prefer over parked seed2200 RC.
+- **D-0578 open (diag):** seed5006 seg1 @2782 is hostile **PM_KITTEN**
+  `m_move` track-skip `rn2(4*(cnt-j))`. Prefix through 2781 matches
+  (incl. post-move `distfleeck` recalc at 2780). JS at (32,4) has
+  `cnt=7,j=0` → `rn2(28)`; C wants `rn2(16)` → `cnt-j=4`.
+  First move (31,4)→(32,4) both `cnt=7`/`rn2(28)=13`. Bones map is
+  open ROOM there; mfndpos omissions rarely exclude empty ROOM.
+  **Next falsifier:** prove C dest after first move (goal/`gettrack`/
+  selection skips) or C `mfndpos` cnt at that cell — not another mon.
   ```bash
   node frozen/ps_test_runner.mjs sessions/seed5006-tourist-stress-disaster.session.json
-  node frozen/ps_test_runner.mjs sessions/seed0116-wizard-wear-shop.session.json
   ```
+- **Alt:** seed0116 residual Scr 114/127 (RNG full). Prefer 5006.
 - **Leaderboard gap:** local **31/44** vs judge **22** after D-0480;
   D-0483 reverted serialize.
 - **Don’t:** re-apply D-0480 serialize coerce; invent frame-align;
@@ -59,6 +62,8 @@ Objective/score live in `CURRENT.md`.
 - seed5006 @10953 was stubbed WAN_DEATH + bones `flags.debug`, not depth.
 - `rng-diff.mjs` runs **seg0 only** — seed5006 “@11026 gemcolors” was
   seg1 start; seg0 is FULL.
+- seg1 @2780 `rn2(5)` is kitten **post-move** `distfleeck` recalc
+  (dochug after `m_move`), not a second monster.
 
 ## Landmarks (≤15)
 
@@ -73,3 +78,5 @@ Objective/score live in `CURRENT.md`.
 - Confused/cursed teleport scroll → `level_tele` + `random_teleport_level`.
 - Self-zap death ray → `done(DIED)`; playmode:debug ≡ wizard for bones.
 - Debug `set_playmode` → `plname="wizard"`; cemetery who uses that.
+- seed5006 bones kitten: mov=24, mtame=0; ghost sleep mov=0; pony
+  follower mov=0 — only kitten double-moves this turn.

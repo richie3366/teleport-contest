@@ -4,6 +4,27 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
+## D-0578 — m_move track-skip cnt (seed5006 seg1 kitten)
+
+- **Status:** open (diagnosed; no faithful fix this iteration)
+- **Symptom:** seed5006 seg1 @2782 C `rn2(16)` `m_move:1963` vs JS
+  `rn2(28)` — after D-0577 familiar prefix.
+- **Evidence:** same hostile PM_KITTEN (mtame=0, mov 24→12→0). Sequence
+  2778 distfleeck → 2779 rn2(28) track → 2780 post-move distfleeck
+  recalc → 2781 distfleeck pass2 → 2782 diverge. JS first move
+  (31,4)→(32,4) with cnt=7; at (32,4) still cnt=7,j=0. Bones map open
+  ROOM; ghost@GRAVE(31,5) already excluded. Empty-ROOM mfndpos filters
+  rarely shrink cnt 7→4.
+- **Hypothesis (next):** C dest after first move differs (goal/
+  `gettrack`/selection continues) so second-move cell has cnt=4; or
+  C `mfndpos` excludes 3 neighbors JS keeps. Falsified: “other mon”
+  / missing pass1 distfleeck (2780 is same kitten recalc).
+- **C locus:** `monmove.c` `m_move` ~1963; `mon.c` `mfndpos`.
+- **Named omission:** hostile `m_move` still lacks `chi` /
+  `m_avoid_kicked_loc` / MDISP skip / shortsighted; `mfndpos` pool/
+  lava/onscary/squeeze/`mm_aggression` (map section).
+- **Next:** prove C dest or cnt; avoid raw-index/coord hacks.
+
 ## D-0577 — familiar_level_msg + cemetery bonesinfo (seed5006 seg1)
 
 - **Status:** fixed (partial — formatkiller/when; Gehennom valley plines;
