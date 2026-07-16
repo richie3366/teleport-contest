@@ -4,9 +4,32 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
+## D-0522 — put_lregion_here TELE must reject m_at when !oneshot
+
+- **Status:** fixed (partial — were_change / exclusion populate / oneshot limbo)
+- **Symptom:** seed0116 @12330 C continues `place_lregion` `rn2(79)` vs JS
+  `rn2(8)` after matched `rn2(79)=45` / `rn2(21)=8` (xy 46,8).
+- **Cause:** JS `put_lregion_here` for `LR_UPTELE`/`LR_DOWNTELE`/`LR_TELE`
+  called `u_on_newpos` without C’s `m_at` gate. Probabilistic placement
+  (`oneshot=FALSE`) must return FALSE when a monster occupies the cell so
+  the caller retries. DIAG: rtype=5 (`LR_UPTELE`), typ=CORR, mon present,
+  `bad_location`/`exclusion` clear.
+- **C locus:** `mkmaze.c` `put_lregion_here` TELE arm (`m_at` → `rloc` /
+  `m_into_limbo` if oneshot else FALSE); `is_exclusion_zone` wired.
+- **Change:** `js/mklev.js` — port `is_exclusion_zone`; TELE `m_at` reject /
+  oneshot `rloc` (limbo deferred).
+- **Verification:** seed0116 prefix **12330→12461** (runner RNG
+  **12368→12509**/12562) Scr still **110**/127; green+strict PASS;
+  cohort 10/10 PASS; full `sessions` **30/44**, Scr **5898**, RNG
+  **321672** (40.57%).
+- **Named omission:** `m_into_limbo` on failed oneshot `rloc`; populate
+  `exclusion_zones` from `des.exclusion` (soko MONGEN); `undestroyable_trap`
+  gate; next were_change @12461.
+- **Next:** `were_change` rn2(50) vs rn2(12); or Bar-strt / dosounds.
+
 ## D-0521 — load_soko1_1 must not fill_special_room
 
-- **Status:** fixed (partial — post-fill `place_lregion` / `put_lregion_here`)
+- **Status:** fixed (partial — post-fill TELE m_at done in D-0522)
 - **Symptom:** seed0116 @12294 C `place_lregion` `rn2(79)` vs JS
   `rn2(1156)` after matched fill_zoo gold; NOTES guessed irregular cell
   filter / door adjacency after flip.
@@ -22,11 +45,9 @@ to preserve, record it here.
 - **Verification:** seed0116 prefix **12294→12330** (runner RNG
   **12336→12368**/12562) Scr still **110**/127; green+strict PASS;
   cohort 8/8 PASS (0007/0060/0102/0398/0900/1500/1800/8000).
-- **Named omission:** `put_lregion_here` accepts a spot C rejects
-  (same `rn2(79)/rn2(21)` then JS exits to `rn2(8)`); exclusion zones;
-  `is_exclusion_zone` in put path; other soko*-*.
-- **Next:** diagnose `put_lregion_here` / `bad_location` / typ after flip
-  for that coordinate; or Bar-strt randline / seed5006 dosounds.
+- **Named omission:** (superseded by D-0522 for put_lregion TELE m_at);
+  other soko*-*.
+- **Next:** see D-0522.
 
 ## D-0520 — soko1-1 load_special + builds_up level_difficulty
 

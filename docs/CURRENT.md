@@ -21,19 +21,19 @@ Update **this Score section** with: pass count, screen/RNG aggregates, speed
 label, PASS list, notable non-PASS. Do not invent suite totals from a single
 focused session.
 
-Score last measured: **2026-07-16** — full `sessions` suite (loop **#575**),
-post D-0512…D-0517. Screens **5895**/11405; RNG **314432**/792838 (39.66%).
-**30/44** PASS. Speed `26+0.14/turn`. Δ vs #570: Scr +375, RNG +10941,
-PASS +1 (seed0398 formal). (D-0518/D-0519 focused only — next %5 refreshes.)
+Score last measured: **2026-07-16** — full `sessions` suite (loop **#580**),
+post D-0522. Screens **5898**/11405; RNG **321672**/792838 (40.57%).
+**30/44** PASS. Speed `29+0.15/turn`. Δ vs #575: Scr +3, RNG +7240,
+PASS unchanged; seed0116 **12368→12509**.
 
 ## Score
 
 | Metric | Value |
 |--------|------:|
 | Sessions passing | **30 / 44** |
-| Screens matched | **5,895 / 11,405** |
-| Positional RNG calls matched | **314,432 / 792,838** (39.66%) |
-| Speed label | `26+0.14/turn` (R² 0.79) |
+| Screens matched | **5,898 / 11,405** |
+| Positional RNG calls matched | **321,672 / 792,838** (40.57%) |
+| Speed label | `29+0.15/turn` (R² 0.77) |
 | Role-init throws | **0 / 44** |
 
 **PASS (30):** seed8000, seed0900, seed1500, seed1800, seed0060,
@@ -45,8 +45,8 @@ seed0012, seed0004, seed0002, seed0006, seed0007, seed0398.
 **Notable non-PASS:**
 | Session | RNG | Screen | Note |
 |--------|----:|-------:|------|
-| seed0116 | 12368/12562 | **110**/127 | D-0521; next `put_lregion_here` @12330 |
-| seed5006 | 8507/13923 | **121**/249 | D-0515; next `dosounds` @8468 |
+| seed0116 | 12509/12562 | **110**/127 | D-0522; next `were_change` @12461 |
+| seed5006 | 8508/13923 | **121**/249 | D-0515; next `dosounds` @8468 |
 | seed0373 | 3346/35386 | 20/124 | D-0519; next Bar-strt randline @3289 |
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
 | seed0361/0367 | early | 0 | quest / `makemaz` (menu) |
@@ -71,10 +71,10 @@ dropped to **22** after D-0480 (seed0013-rogue 59→58). **D-0483** reverts
 that serialize coerce. Next cron; if seed0013 restored but near-misses
 remain → upstream #5.
 
-**Gameplay next:** after D-0521 (no fill inside `load_special`), peel
-`put_lregion_here` accept vs C reject (seed0116 @12330), Bar-strt
-`selection_do_randline` (seed0373 @3289), or seed5006 `dosounds`
-@8468. Prefer shared special/`place_lregion` over parked seed2200 RC.
+**Gameplay next:** after D-0522 (`put_lregion_here` TELE `m_at` reject),
+peel seed0116 `were_change` @12461, Bar-strt `selection_do_randline`
+(seed0373 @3289), or seed5006 `dosounds` @8468. Prefer shared mon/were
+or special/`place_lregion` over parked seed2200 RC.
 
 ```bash
 node scripts/rng-diff.mjs sessions/seed0116-wizard-wear-shop.session.json
@@ -82,7 +82,7 @@ node scripts/rng-diff.mjs sessions/seed0373-barbarian-quest-tour.session.json
 node scripts/rng-diff.mjs sessions/seed5006-tourist-stress-disaster.session.json
 ```
 
-**Prefer over:** parked D-0006, seed2200 RC; re-opening D-0474…D-0521.
+**Prefer over:** parked D-0006, seed2200 RC; re-opening D-0474…D-0522.
 
 **Cohort after shared change:** green gate + seed1500 + seed1800 + seed0060 +
 seed0102 + seed0700 + seed1150 + seed0017 + seed0077 + seed0106 + seed0501 +

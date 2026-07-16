@@ -61,7 +61,8 @@ import {
     add_to_container, objects_at,
 } from './mkobj.js';
 import { makemon, mkclass, MM_NOGRP, set_mimic_sym } from './makemon.js';
-import { enexto } from './teleport.js';
+import { m_at } from './mon.js';
+import { enexto, rloc } from './teleport.js';
 import {
     PM_ELF, PM_DWARF, PM_ORC, PM_GNOME, PM_HUMAN,
     PM_ARCHEOLOGIST, PM_WIZARD, PM_GIANT_SPIDER, PM_MONK, PM_LICHEN,
@@ -264,15 +265,29 @@ function bad_location(x, y, nlx, nly, nhx, nhy) {
     return !okTyp;
 }
 
+// C ref: mkmaze.c is_exclusion_zone
+function is_exclusion_zone(type, x, y) {
+    for (let ez = game.exclusion_zones; ez; ez = ez.next) {
+        if (((type === LR_DOWNTELE
+                && (ez.zonetype === LR_DOWNTELE || ez.zonetype === LR_TELE))
+            || (type === LR_UPTELE
+                && (ez.zonetype === LR_UPTELE || ez.zonetype === LR_TELE))
+            || type === ez.zonetype)
+            && within_bounded_area(x, y, ez.lx, ez.ly, ez.hx, ez.hy))
+            return true;
+    }
+    return false;
+}
+
 // C ref: mkmaze.c put_lregion_here — place stair/branch/tele at (x,y)
 function put_lregion_here(x, y, nlx, nly, nhx, nhy, rtype, oneshot, lev) {
-    if (bad_location(x, y, nlx, nly, nhx, nhy)) {
+    if (bad_location(x, y, nlx, nly, nhx, nhy)
+        || is_exclusion_zone(rtype, x, y)) {
         if (!oneshot) return false;
-        // C: deltrap undestroyable-safe then retry bad_location; exclusion
-        // zones deferred (minefill has none).
+        // C: deltrap undestroyable-safe then retry bad_location + exclusion
         const t = t_at(x, y);
         if (t) {
-            // Remove ordinary trap so oneshot placement can proceed
+            // Named omission: undestroyable_trap gate + mtrapped clear
             let prev = null;
             for (let cur = game.ftrap; cur; prev = cur, cur = cur.ntrap) {
                 if (cur === t) {
@@ -282,14 +297,28 @@ function put_lregion_here(x, y, nlx, nly, nhx, nhy, rtype, oneshot, lev) {
                 }
             }
         }
-        if (bad_location(x, y, nlx, nly, nhx, nhy)) return false;
+        if (bad_location(x, y, nlx, nly, nhx, nhy)
+            || is_exclusion_zone(rtype, x, y))
+            return false;
     }
     switch (rtype) {
     case LR_TELE:
     case LR_UPTELE:
-    case LR_DOWNTELE:
+    case LR_DOWNTELE: {
+        // C: monster here → oneshot rloc/limbo, else retry
+        const mtmp = m_at(x, y);
+        if (mtmp) {
+            if (oneshot) {
+                if (!rloc(mtmp, 0)) {
+                    // m_into_limbo deferred
+                }
+            } else {
+                return false;
+            }
+        }
         u_on_newpos(x, y);
         break;
+    }
     case LR_PORTAL:
         // mkportal deferred — named in C-JS-MAP
         break;
@@ -781,8 +810,9 @@ function load_bar_strt() {
 /**
  * C ref: dat/soko1-1.lua via load_special.
  * Named omissions: solidify_map / premap_detect / ensure_way_out;
- * exclusion zones; link_doors_rooms full scan; COURT/BEEHIVE/… fill_zoo
- * arms beyond ZOO. Room fill is deferred to makelevel (not here).
+ * populate exclusion_zones from des.exclusion; link_doors_rooms full scan;
+ * COURT/BEEHIVE/… fill_zoo arms beyond ZOO. Room fill is deferred to
+ * makelevel (not here).
  */
 function load_soko1_1() {
     const g = game;
