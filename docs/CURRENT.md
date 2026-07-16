@@ -25,6 +25,7 @@ Score last measured: **2026-07-16** — full `sessions` suite (loop **#595**),
 post D-0535. Screens **5900**/11405; RNG **330332**/792838 (41.66%).
 **30/44** PASS. Speed `31+0.15/turn` (R² 0.76). Δ vs #590: Scr +1,
 RNG +6480 (D-0531…D-0535 peels), PASS unchanged.
+*(D-0539 peel advances seed0373 RNG 15601→16275; formal suite refresh at #600.)*
 
 ## Score
 
@@ -47,7 +48,7 @@ seed0012, seed0004, seed0002, seed0006, seed0007, seed0398.
 |--------|----:|-------:|------|
 | seed0116 | 12562/12562 | **110**/127 | D-0524 RNG full; screen residual |
 | seed5006 | 8508/13923 | **121**/249 | D-0515; next `dosounds` @8468 |
-| seed0373 | 15601/35386 | 22/124 | D-0538; next nhlib shuffle @15574 |
+| seed0373 | 16275/35386 | 22/124 | D-0539; next `m_initweap` @16261 |
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
 | seed0361/0367 | early | 0 | quest / `makemaz` (menu) |
 
@@ -71,11 +72,10 @@ dropped to **22** after D-0480 (seed0013-rogue 59→58). **D-0483** reverts
 that serialize coerce. Next cron; if seed0013 restored but near-misses
 remain → upstream #5.
 
-**Gameplay next:** after D-0538 (`maketrap` STATUE_TRAP /
-`mk_trap_statue`), seed0373 @15574 C nhlib `shuffle` vs JS
-`get_location` after matched `getbones`/`makemaz`. Or peel seed5006
-`dosounds` @8468. Prefer over parked seed2200 RC / seed0116 screen
-residual.
+**Gameplay next:** after D-0539 (`bigrm-8` load_special), seed0373
+@16261 C `m_initweap` soldier polearm `rn2(12)` vs JS `rn2(2)`. Or peel
+seed5006 `dosounds` @8468. Prefer over parked seed2200 RC / seed0116
+screen residual.
 
 ```bash
 node scripts/rng-diff.mjs sessions/seed0373-barbarian-quest-tour.session.json
@@ -83,7 +83,7 @@ node scripts/rng-diff.mjs sessions/seed5006-tourist-stress-disaster.session.json
 node frozen/ps_test_runner.mjs sessions/seed0116-wizard-wear-shop.session.json
 ```
 
-**Prefer over:** parked D-0006, seed2200 RC; re-opening D-0474…D-0538.
+**Prefer over:** parked D-0006, seed2200 RC; re-opening D-0474…D-0539.
 
 **Cohort after shared change:** green gate + seed1500 + seed1800 + seed0060 +
 seed0102 + seed0700 + seed1150 + seed0017 + seed0077 + seed0106 + seed0501 +

@@ -11,14 +11,22 @@ move older ones into `docs/archive/`.
 
 Use this shape:
 
-```text
-## YYYY-MM-DD HH:MM — <objective>
+```text## YYYY-MM-DD HH:MM — <objective>
 - Objective: …
 - C locus: …
 - Change or falsified theory: …
 - Verification: …
 - Next: …
 ```
+## 2026-07-16 19:15 — D-0539 bigrm-8 load_special
+- Objective: peel seed0373 @15574 C nhlib shuffle vs JS get_location
+  after matched makemaz rnd(13)=8 / getbones.
+- C locus: `dat/bigrm-8.lua`; `sp_lev.c` load_special; `mkmaze.c` makemaz.
+- Change: `js/mklev.js` `load_bigrm_8` + dispatch (map, percent F-replace,
+  flip_level_rnd).
+- Verification: rng-diff **15574→16261**; runner RNG **16275**/35386
+  Scr 22; green+strict; cohort 28/28 (+green 30); seed0116 RNG full.
+- Next: m_initweap soldier polearm @16261; or dosounds @8468.
 
 ## 2026-07-16 19:10 — #598 D-0538 STATUE_TRAP mk_trap_statue
 - Objective: peel seed0373 @14748 C `rndmonst_adj` rn2(7) vs JS rnd(4)
@@ -158,15 +166,3 @@ Use this shape:
   `29+0.15/turn` (R² 0.76). Δ vs #580: Scr 0, RNG +892.
 - Next: seed0373 nhlib shuffle @4157; or dosounds @8468;
   or 0116 screen residual.
-
-## 2026-07-16 18:00 — #584 D-0526 Bar-strt Pelias→branch
-- Objective: peel seed0373 @3303 C `induced_align` (Pelias) vs JS
-  wallify after D-0525 randline.
-- C locus: `dat/Bar-strt.lua`; `makemon.c` MS_GUARDIAN `m_initweap` +
-  eel sleep; `selvar.c` floodfill/rndcoord; `sp_lev.c` load_special
-  flip/fixup.
-- Change: `load_bar_strt` through branch; floodfill/area/and;
-  guardian kit; eel sleep before invent; flip + oneshot LR_BRANCH.
-- Verification: rng-diff **3303→4157**; runner RNG **4185**/35386;
-  green+strict PASS; cohort **30**/30 PASS.
-- Next: @4157 nhlib shuffle; or dosounds @8468; or 0116 screen.

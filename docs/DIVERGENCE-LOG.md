@@ -4,6 +4,28 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
+## D-0539 — bigrm-8 load_special
+
+- **Status:** fixed (partial — other bigrm-N; ensure_way_out/solidify/premap)
+- **Symptom:** seed0373 @15574 C nhlib `shuffle` `rn2(3)` vs JS
+  `get_location` `rn2(79)` after matched `makemaz` `rnd(13)=8` /
+  `getbones`.
+- **Cause:** `rnd(13)=8` selects `bigrm-8`; JS `load_special_proto`
+  only had `bigrm-2`, so load failed and later placement burned
+  `get_location` while C ran nhlib shuffle from `bigrm-8.lua`.
+- **C locus:** `dat/bigrm-8.lua`; `sp_lev.c` `load_special`;
+  `mkmaze.c` `makemaz` protofile `rnd(rndlevs)`.
+- **Change:** `js/mklev.js` `load_bigrm_8` (map, percent(40) F-replace,
+  lit/stairs/nondig/objects/traps/mons, wallify + `flip_level_rnd`)
+  + dispatch.
+- **Verification:** seed0373 rng-diff **15574→16261**; runner RNG
+  **16275**/35386 Scr 22/124; green+strict PASS; cohort **28**/28
+  PASS (+green = 30); seed0116 RNG still full Scr 110/127.
+- **Named omission:** other `bigrm-N`; ensure_way_out / solidify /
+  premap.
+- **Next:** @16261 C `m_initweap` soldier polearm `rn2(12)` vs JS
+  `rn2(2)`; or seed5006 `dosounds` @8468.
+
 ## D-0538 — maketrap STATUE_TRAP → mk_trap_statue
 
 - **Status:** fixed (partial — full `mongone`; `MM_NOCOUNTBIRTH` born tally)

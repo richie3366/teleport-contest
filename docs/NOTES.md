@@ -7,16 +7,16 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **D-0538 done:** `maketrap` STATUE_TRAP → `mk_trap_statue`
-  (`rndmonnum_adj(3,6)`). seed0373 rng-diff **14748→15574**;
-  runner RNG **15601**/35386 Scr 22.
-- **seed0373 next:** @15574 C nhlib `shuffle` vs JS `get_location`
-  after matched `getbones`/`makemaz`. Falsify: which special loads
-  after bones vs ordinary maze fill path.
+- **D-0539 done:** `makemaz`/`load_special` `bigrm-8` (map + percent(40)
+  F-replace + flip). seed0373 rng-diff **15574→16261**; runner RNG
+  **16275**/35386 Scr 22.
+- **seed0373 next:** @16261 C `m_initweap` soldier/watchman polearm
+  `rn1`→`rn2(12)` vs JS `rn2(2)` (short-sword arm). Falsify: missing
+  `is_mercenary` / PM_SOLDIER kit in JS `m_initweap` S_HUMAN.
 - **seed0116 residual:** screen/cursor miss (110/127) after full RNG.
 - **D-0515 residual:** seed5006 still @8468 `dosounds` (RNG 8508).
 - **#595 formal score:** **30/44**, Scr **5900**/11405, RNG
-  **330332**/792838 (41.66%), `31+0.15/turn` (R² 0.76).
+  **330332**/792838 (41.66%), `31+0.15/turn` (R² 0.76). Refresh @#600.
 - **Leaderboard gap:** local **30/44** vs judge **22** after D-0480;
   D-0483 reverted serialize. Watch cron for seed0013 restore.
 - **Gameplay next:**
@@ -29,7 +29,7 @@ Objective/score live in `CURRENT.md`.
   raw RNG-index / coord / ux0 hacks; leave `context.travel` set across
   walk/run after `_` travel; batch doset toggle plines (D-0499);
   steal hero cursor for leftover getobj text in `flush_screen`;
-  reopen D-0474…D-0538; stub-cancel `^V?` as if menu (breaks 0373);
+  reopen D-0474…D-0539; stub-cancel `^V?` as if menu (breaks 0373);
   template `\.` in map strings (use `\\` for throne); burn maze
   `rn2(2)` in `set_mimic_sym` on Sokoban; fill inside `load_special`
   loaders (makelevel owns fill); accept TELE on occupied mon cell;
@@ -43,14 +43,15 @@ Objective/score live in `CURRENT.md`.
   skip WEB `makemon(PM_GIANT_SPIDER)` when `!MKTRAP_NOSPIDERONWEB`;
   always return SCR_EARTH on `rnd_offensive_item` case 0;
   skip `MON_AT`→`enexto` in `splev_create_monster`; skip mineralize
-  In_quest gold/gem divide; skip STATUE_TRAP `mk_trap_statue`.
+  In_quest gold/gem divide; skip STATUE_TRAP `mk_trap_statue`;
+  skip `bigrm-8` when `rnd(13)=8`.
 
 ## Don’t re-check (≤15)
 
 - No raw RNG-index / coordinate / ux0 / forced-gettrack in production.
 - Rule #2: no `fs`/`path`/`url` in scored `js/` (D-0477).
 - Altar raw `{` (D-0293); don’t π-convert in scoring grid.
-- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0538
+- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0539
   done paths — see DIVERGENCE-INDEX.
 - Runner `Screen N/M` = total matches, not prefix length.
 - Hub `/sessions/` ≠ template bytes; still visual-PASS.
@@ -65,9 +66,9 @@ Objective/score live in `CURRENT.md`.
 - getbones `rn2(3)` gap with JS dog_move arity was unbound level change
   (`>` / `^V` / missing `print_dungeon` `?`) — fixed D-0515/18
   (D-0068/D-0149).
-- D-0519…D-0538 makemaz / tower1 / Bar / fila / qt_montype / egg /
+- D-0519…D-0539 makemaz / tower1 / Bar / fila / qt_montype / egg /
   WEB spider / offensive FALLTHROUGH / create_monster enexto /
-  mineralize / STATUE_TRAP mk_trap_statue — see index.
+  mineralize / STATUE_TRAP / bigrm-8 — see index.
 
 ## Landmarks (≤15)
 
@@ -88,4 +89,4 @@ Objective/score live in `CURRENT.md`.
 - wizgenesis flags=5 (no AUTOCOMPLETE) — do not add to EXT_CMD_AC.
 - Prayer: ublesscnt=300 → p_type 0; wizard Force → p_type 3 +
   `uinvulnerable` skips `gethungry` rn2(20) for nomul(-3) EOTs.
-  seed0373 tour: next nhlib shuffle @15574.
+  seed0373 tour: next m_initweap @16261.

@@ -588,8 +588,8 @@ function reset_xystart_size() {
 
 /**
  * C ref: mkmaze.c makemaz — build protofile (rndlevs → rnd), load_special,
- * else maze fallback. Ported loaders: minefill, tut-1, bigrm-2, Bar-strt,
- * Bar-loca, Bar-fila, Bar-filb, soko1-1, tower1.
+ * else maze fallback. Ported loaders: minefill, tut-1, bigrm-2, bigrm-8,
+ * Bar-strt, Bar-loca, Bar-fila, Bar-filb, soko1-1, tower1.
  * Named omissions: other bigrm-N / soko*-* / quest protos (Bar-goal);
  * tower2/3; create_maze
  * fallback; check_ransacked side effects beyond ransacked flag; dmonsfree.
@@ -660,6 +660,10 @@ function load_special_proto(protofile) {
     }
     if (protofile === 'bigrm-2') {
         load_bigrm_2();
+        return true;
+    }
+    if (protofile === 'bigrm-8') {
+        load_bigrm_8();
         return true;
     }
     if (protofile === 'Bar-strt') {
@@ -783,6 +787,87 @@ function load_bigrm_2() {
     // C load_special: wallification when !corrmaze; fixup_special
     if (!g.level.flags.corrmaze)
         wallification(1, 0, COLNO - 1, ROWNO - 1);
+    fixup_special();
+}
+
+/**
+ * C ref: dat/bigrm-8.lua via load_special.
+ * Named omissions: ensure_way_out / solidify / premap; other bigrm-N.
+ */
+function load_bigrm_8() {
+    const g = game;
+    nhlib_shuffle_align();
+    splev_initlev({
+        init_style: LVLINIT_SOLIDFILL,
+        filling: STONE,
+        lit: BOOL_RANDOM,
+        icedpools: false,
+    });
+    if (!g.level.flags) g.level.flags = {};
+    g.level.flags.is_maze_lev = true;
+    // des.level_flags("mazelevel") — allow_flips stays default 3 (no noflip)
+
+    // Exact dat/bigrm-8.lua des.map (18×75, trailing spaces pad width)
+    const BIGRM8_MAP = [
+        '----------------------------------------------                             ',
+        '|............................................---                           ',
+        '--.............................................---                         ',
+        ' ---......................................FF.....---                       ',
+        '   ---...................................FF........---                     ',
+        '     ---................................FF...........---                   ',
+        '       ---.............................FF..............---                 ',
+        '         ---..........................FF.................---               ',
+        '           ---.......................FF....................---             ',
+        '             ---....................FF.......................---           ',
+        '               ---.................FF..........................---         ',
+        '                 ---..............FF.............................---       ',
+        '                   ---...........FF................................----    ',
+        '                     ---........FF...................................---   ',
+        '                       ---.....FF......................................--- ',
+        '                         ---.............................................--',
+        '                           ---............................................|',
+        '                             ----------------------------------------------',
+    ].join('\n');
+    splev_apply_centered_map(BIGRM8_MAP);
+
+    // if percent(40) then replace F → random {L,},T,.,-,C}
+    if (percent(40)) {
+        const terrain = [LAVAPOOL, MOAT, TREE, ROOM, HWALL, CLOUD];
+        const tidx = lua_random2(1, terrain.length) - 1;
+        lspo_replace_terrain_region(0, 0, 74, 17, IRONBARS, terrain[tidx], 100);
+    }
+
+    // des.region(selection.area(01,01,73,16),"lit")
+    {
+        const mx = g.splev_xstart ?? 1;
+        const my = g.splev_ystart ?? 0;
+        for (let y = my + 1; y <= my + 16 && y < ROWNO; y++) {
+            for (let x = mx + 1; x <= mx + 73 && x < COLNO; x++) {
+                const loc = g.level.at(x, y);
+                if (loc) loc.lit = true;
+            }
+        }
+    }
+
+    splev_create_stair(true);
+    splev_create_stair(false);
+
+    // des.non_diggable()
+    for (let y = 0; y < ROWNO; y++) {
+        for (let x = 1; x < COLNO; x++) {
+            const loc = g.level.at(x, y);
+            if (loc) loc.flags = (loc.flags | 0) | W_NONDIGGABLE;
+        }
+    }
+
+    for (let i = 0; i < 15; i++) splev_create_object(null);
+    for (let i = 0; i < 6; i++) splev_create_trap();
+    for (let i = 0; i < 28; i++) splev_create_monster(null);
+
+    // C load_special: wallification → flip_level_rnd → fixup_special
+    if (!g.level.flags.corrmaze)
+        wallification(1, 0, COLNO - 1, ROWNO - 1);
+    flip_level_rnd(3, false);
     fixup_special();
 }
 
