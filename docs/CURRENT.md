@@ -47,7 +47,7 @@ seed0012, seed0004, seed0002, seed0006, seed0007, seed0398.
 |--------|----:|-------:|------|
 | seed0116 | 12562/12562 | **113**/127 | D-0563; screen residual |
 | seed5006 | 8508/13923 | **121**/249 | D-0515; next `dosounds` @8468 |
-| seed0373 | 35386/35386 | **65**/124 | D-0563 menu blank; next describe_level Home @43 |
+| seed0373 | 35386/35386 | **78**/124 | D-0564 Home botl; next Bar-strt `~` glyphs |
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
 | seed0361/0367 | early | 0 | quest / `makemaz` (menu) |
 
@@ -71,11 +71,10 @@ dropped to **22** after D-0480 (seed0013-rogue 59→58). **D-0483** reverts
 that serialize coerce. Next cron; if seed0013 restored but near-misses
 remain → upstream #5.
 
-**Gameplay next:** after D-0563 (`print_dungeon` tty_end_menu blank),
-seed0373 Scr **65**/124 (was 47; RNG full). Next `@screen 43`
-`describe_level` quest `Home %d` (C `In_quest`) + Bar-strt map
-terrain (`~` vs `·`), or seed5006 `dosounds` @8468. Prefer over
-parked seed2200 RC / seed0116 residual (110→113 after D-0563).
+**Gameplay next:** after D-0564 (`describe_level` `Home %d`), seed0373
+Scr **78**/124 (was 65; RNG full). Next Bar-strt outdoor DEC water
+`~` vs room floor, or seed5006 `dosounds` @8468. Prefer over parked
+seed2200 RC / seed0116 residual (113/127).
 
 ```bash
 node frozen/ps_test_runner.mjs sessions/seed0373-barbarian-quest-tour.session.json
@@ -83,7 +82,7 @@ node scripts/rng-diff.mjs sessions/seed5006-tourist-stress-disaster.session.json
 node frozen/ps_test_runner.mjs sessions/seed0116-wizard-wear-shop.session.json
 ```
 
-**Prefer over:** parked D-0006, seed2200 RC; re-opening D-0474…D-0563.
+**Prefer over:** parked D-0006, seed2200 RC; re-opening D-0474…D-0564.
 
 **Cohort after shared change:** green gate + seed1500 + seed1800 + seed0060 +
 seed0102 + seed0700 + seed1150 + seed0017 + seed0077 + seed0106 + seed0501 +

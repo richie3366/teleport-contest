@@ -12,15 +12,6 @@ move older ones into `docs/archive/`.
 Use this shape:
 
 ```text
-## 2026-07-16 21:45 — #623 D-0563 print_dungeon menu blank
-- Objective: seed0373 @screen 41 print_dungeon menu pagination.
-- C locus: wintty.c tty_end_menu; dungeon.c print_dungeon end_menu.
-- Change: js/dungeon.js print_dungeon raw = prompt + blank row
-  (C prepends blank then prompt onto reversed mlist).
-- Verification: seed0373 Scr **47→65**/124 RNG full; seed0116
-  110→113; green+strict PASS; cohort **28**/28 PASS.
-- Next: seed0373 @43 describe_level Home; or seed5006 dosounds @8468.
-
 ## YYYY-MM-DD HH:MM — <objective>
 - Objective: …
 - C locus: …
@@ -28,6 +19,15 @@ Use this shape:
 - Verification: …
 - Next: …
 ```
+
+## 2026-07-16 21:48 — #624 D-0564 describe_level Home
+- Objective: seed0373 @screen 43 botl `Home 1` vs `Dlvl:16`.
+- C locus: botl.c describe_level; dungeon.c endgamelevelname.
+- Change: js/display.js describe_level (Knox/quest/endgame/Dlvl) +
+  endgamelevelname; _statusLine2 uses describe_level(1).
+- Verification: seed0373 Scr **65→78**/124 RNG full; green+strict
+  PASS; cohort **28**/28 PASS.
+- Next: Bar-strt outdoor `~` glyphs; or seed5006 dosounds @8468.
 
 ## 2026-07-16 21:40 — #622 D-0562 botl rank_of titles
 - Objective: seed0373 Scr 23/124 residual after D-0561 RNG full.

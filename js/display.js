@@ -21,6 +21,9 @@ import {
     HI_GOLD, HI_METAL, HI_ZAP,
     WEB, VIBRATING_SQUARE, TRAPNUM,
     In_mines,
+    In_quest,
+    In_endgame,
+    Is_knox_level,
     DISP_BEAM, DISP_ALL, DISP_TETHER, DISP_FLASH, DISP_ALWAYS,
     DISP_CHANGE, DISP_END, DISP_FREEMEM, BACKTRACK,
     M_AP_OBJECT, M_AP_TYPE,
@@ -1846,24 +1849,78 @@ const HU_STAT = [
     'Fainting', 'Fainted ', 'Starved ',
 ];
 
-// C ref: botl.c describe_level — "Dlvl:%-2d" / "Tutorial:%-2d" uses
-// depth(&u.uz), not dunlev; Xp:/T: gated by flags.showexp / flags.time;
-// do_statusline2: hunger then enc_stat then Blind…Conf…Hallu…Lev/Fly then Ride.
-// Named omissions: Knox/quest/endgame describe_level; Stone/Slime/Strngl/
-// Sick (before hunger); Halluc_resistance; Upolyd HD.
+/**
+ * C ref: dungeon.c endgamelevelname — Astral / Elemental plane names.
+ * Named omissions: callers outside botl (insight ^X) still assemble copy.
+ */
+function endgamelevelname(indx) {
+    switch (indx | 0) {
+    case -5: return 'Astral Plane';
+    case -4: return 'Plane of Water';
+    case -3: return 'Plane of Fire';
+    case -2: return 'Plane of Air';
+    case -1: return 'Plane of Earth';
+    default: return `unknown plane #${indx | 0}`;
+    }
+}
+
+/**
+ * C ref: botl.c describe_level — Knox dname / quest "Home %d" /
+ * endgame plane / else "Dlvl:%d"|"Tutorial:%d" via depth (not dunlev).
+ * dflgs&1 trailing space; dflgs&2 branch name (livelog). Returns text;
+ * C int ret (0=ordinary Dlvl) unused by botl caller.
+ * Named omissions: livelog addbranch consumers; %-2d gold-field pad
+ * already matched by single trailing space + `$:` join (seed screens).
+ */
+export function describe_level(dflgs = 1) {
+    let addspace = (dflgs & 1) !== 0;
+    let addbranch = (dflgs & 2) !== 0;
+    const uz = game.u?.uz;
+    let buf = '';
+
+    if (Is_knox_level(uz)) {
+        buf = game.dungeons?.[uz.dnum | 0]?.dname || '';
+        addbranch = false;
+    } else if (In_quest(uz)) {
+        // C: Sprintf(buf, "Home %d", dunlev(&u.uz));
+        buf = `Home ${uz?.dlevel | 0}`;
+    } else if (In_endgame(uz)) {
+        buf = endgamelevelname(depth(uz));
+        // C: !addbranch → strsubst(buf, "Plane of ", "");
+        if (!addbranch) buf = buf.replace('Plane of ', '');
+        addbranch = false;
+    } else if (!addbranch) {
+        const tag = In_tutorial(uz) ? 'Tutorial' : 'Dlvl';
+        buf = `${tag}:${depth(uz) || 1}`;
+    } else {
+        buf = `level ${depth(uz) || 1}`;
+    }
+    if (addbranch) {
+        let dname = game.dungeons?.[uz?.dnum | 0]?.dname || '';
+        if (dname.startsWith('The ')) dname = `the ${dname.slice(4)}`;
+        buf += `, ${dname}`;
+    }
+    if (addspace) buf += ' ';
+    return buf;
+}
+
+// C ref: botl.c do_statusline2 — describe_level(dloc,1) then `$:` gold;
+// Xp:/T: gated by flags.showexp / flags.time; hunger then enc_stat then
+// Blind…Conf…Hallu…Lev/Fly then Ride.
+// Named omissions: Stone/Slime/Strngl/Sick (before hunger);
+// Halluc_resistance; Upolyd HD.
 function _statusLine2() {
     const u = game.u;
     if (!u) return '';
     const flags = game.flags || {};
-    const dlvl = depth(u.uz) || 1;
     // C botl.c get_blstats: hp < 0 → 0 for display when bot() runs
     let hp = u.uhp | 0;
     if (hp < 0) hp = 0;
     if (hp > 9999) hp = 9999;
     let hpmax = u.uhpmax | 0;
     if (hpmax > 9999) hpmax = 9999;
-    const levtag = In_tutorial(u.uz) ? 'Tutorial' : 'Dlvl';
-    let s = `${levtag}:${dlvl} $:${game._goldCount || 0} HP:${hp}(${hpmax}) Pw:${u.uen || 0}(${u.uenmax || 0}) AC:${u.uac ?? 10} Xp:${u.ulevel || 1}`;
+    // C: describe_level(dloc, 1) includes trailing space; gold via eos
+    let s = `${describe_level(1)}$:${game._goldCount || 0} HP:${hp}(${hpmax}) Pw:${u.uen || 0}(${u.uenmax || 0}) AC:${u.uac ?? 10} Xp:${u.ulevel || 1}`;
     if (flags.showexp) s += `/${u.uexp || 0}`;
     if (flags.time) s += ` T:${game.moves || 1}`;
     // C do_statusline2: u.uhs != NOT_HUNGRY → hu_stat before enc_stat

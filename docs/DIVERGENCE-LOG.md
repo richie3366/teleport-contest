@@ -4,6 +4,25 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
+## D-0564 — botl describe_level Home / Knox / endgame
+
+- **Status:** fixed (partial — livelog `dflgs&2` consumers; insight
+  ^X location copy still separate)
+- **Symptom:** seed0373 Scr **65**/124 after D-0563; @screen 43 botl
+  C `Home 1 $:…` vs JS `Dlvl:16 $:…` after `^V?`→Bar-strt.
+- **Cause:** `_statusLine2` always emitted `Dlvl|Tutorial`+`depth()`;
+  omitted C `describe_level` Knox / `In_quest` / `In_endgame` arms.
+- **C locus:** `botl.c` `describe_level`; `dungeon.c`
+  `endgamelevelname`; `dungeon.h` `Is_knox` / `In_quest`.
+- **Change:** `js/display.js` `describe_level` + `endgamelevelname`;
+  `_statusLine2` uses `describe_level(1)` then `$:` gold.
+- **Verification:** seed0373 Scr **65→78**/124 RNG full; green+strict
+  PASS; cohort **28**/28 PASS.
+- **Named omission:** Bar-strt outdoor `~` (DEC water) vs room floor;
+  livelog addbranch; insight ^X endgame/knox prose.
+- **Next:** seed0373 Bar-strt terrain glyphs; or seed5006 `dosounds`
+  @8468; seed0116 residual 113/127.
+
 ## D-0563 — print_dungeon tty_end_menu prompt blank row
 
 - **Status:** fixed
