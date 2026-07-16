@@ -78,6 +78,7 @@ import {
     UNENCUMBERED, SLT_ENCUMBER, MOD_ENCUMBER, HVY_ENCUMBER, EXT_ENCUMBER,
     OVERLOADED, WT_WEIGHTCAP_STRCON, WT_WEIGHTCAP_SPARE, MAX_CARR_CAP,
     WT_WOUNDEDLEG_REDUCT, LEFT_SIDE, RIGHT_SIDE,
+    NOT_HUNGRY,
 } from './const.js';
 import { stairway_at, stairs_description } from './mklev.js';
 import { objects_at } from './mkobj.js';
@@ -1128,6 +1129,85 @@ function enlght_line_txt(start, middle, end, ps = '') {
     return buf;
 }
 
+/** C youprop.h Deaf ≡ HDeaf || EDeaf || uroleplay.deaf */
+function hero_Deaf(u = game.u || {}) {
+    return !!((u.HDeaf | 0) || (u.EDeaf | 0) || u.uroleplay?.deaf || u.Deaf);
+}
+
+// C ref: eat.c hu_stat[] — trailing spaces stripped like mungspaces.
+const HU_STAT = [
+    'Satiated', '', 'Hungry', 'Weak', 'Fainting', 'Fainted', 'Starved',
+];
+
+// C ref: botl.c enc_stat[] — insight lowercases for you_are.
+const ENC_STAT_NAME = [
+    '', 'Burdened', 'Stressed', 'Strained', 'Overtaxed', 'Overloaded',
+];
+
+/**
+ * C ref: insight.c status_enlightenment hunger arm — hu_stat + not hungry.
+ * Wizard `<%d>` uhunger suffix deferred.
+ */
+function status_hunger_attr(u = game.u || {}) {
+    const uhs = u.uhs ?? NOT_HUNGRY;
+    let buf = (HU_STAT[uhs] || '').trim();
+    if (!buf) buf = 'not hungry';
+    buf = buf.charAt(0).toLowerCase() + buf.slice(1);
+    if (buf === 'weak') buf += ' from severe hunger';
+    else if (buf.startsWith('faint')) buf += ' due to starvation';
+    return buf;
+}
+
+/**
+ * C ref: insight.c status_enlightenment encumbrance arm.
+ * Wizard `<%d>` inv_weight suffix deferred.
+ * @param {number} final ENL_* (0 = in progress)
+ */
+function status_encumbrance_attr(final = 0) {
+    const cap = near_capacity();
+    if (cap > UNENCUMBERED) {
+        let buf = (ENC_STAT_NAME[cap] || '?_?').toLowerCase();
+        let adj = '?_?';
+        switch (cap) {
+        case SLT_ENCUMBER: adj = 'slightly'; break;
+        case MOD_ENCUMBER: adj = 'moderately'; break;
+        case HVY_ENCUMBER: adj = 'very'; break;
+        case EXT_ENCUMBER: adj = 'extremely'; break;
+        case OVERLOADED: adj = 'not possible'; break;
+        default: break;
+        }
+        buf += `; movement ${!final ? 'is' : 'was'} ${adj}`;
+        if (cap < OVERLOADED) buf += ' slowed';
+        return buf;
+    }
+    return 'unencumbered';
+}
+
+/**
+ * C ref: insight.c status_enlightenment — Deaf + hunger + encumbrance
+ * subset (poly/ride/troubles/weapon deferred to callers).
+ * Overlay (^X) lines need one extra leading space vs enlght_line.
+ * @param {number} final
+ * @param {{ overlay?: boolean }} opts
+ */
+function status_core_lines(final = 0, opts = {}) {
+    const overlay = !!opts.overlay;
+    const You_ = 'You ';
+    const are = 'are ';
+    const were = 'were ';
+    const mid = final ? were : are;
+    const wrap = (attr) => {
+        const line = enlght_line_txt(You_, mid, attr, '');
+        return overlay ? ` ${line}` : line;
+    };
+    const out = [];
+    // C: if (Deaf) you_are("deaf", from_what(DEAF)); from_what wizard-only
+    if (hero_Deaf()) out.push(wrap('deaf'));
+    out.push(wrap(status_hunger_attr()));
+    out.push(wrap(status_encumbrance_attr(final)));
+    return out;
+}
+
 /**
  * C ref: insight.c enlightenment — BASIC|MAGIC; final → putstr NHW_MENU
  * (--More-- pages), not ^X menu "(k of n)".
@@ -1280,8 +1360,8 @@ export async function enlightenment(mode, final = 0) {
     // Status (BASIC + MAGIC both include this in C)
     lines.push('');
     lines.push(final ? 'Final Status:' : 'Status:');
-    lines.push(you_are('not hungry')); // hunger stub; detailed hunger deferred
-    lines.push(you_are('unencumbered'));
+    // C ref: insight.c status_enlightenment Deaf/hunger/encumbrance
+    lines.push(...status_core_lines(final, { overlay: false }));
     const uwep = u.uwep || game.u?.uwep;
     if (!uwep) {
         lines.push(you_are(empty_handed()));
@@ -1533,9 +1613,9 @@ export async function doattributes() {
         one_characteristic_line(A_CHA),
         '',
         ' Status:',
-        "  You aren't hungry.",
-        '  You are unencumbered.',
     );
+    // C ref: insight.c status_enlightenment — Deaf before hunger/encumbrance
+    lines.push(...status_core_lines(0, { overlay: true }));
     // C ref: insight.c weapon_insight — empty_handed / P_SKILL / skill_name
     const uwep = u.uwep || game.u?.uwep;
     if (!uwep) {

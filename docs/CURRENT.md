@@ -21,31 +21,30 @@ Score last measured: **2026-07-16** — full `sessions` suite (#505 score
 cadence, post D-0467). Screens **4877**/11405; RNG **285359**/792838.
 **26/44** PASS. Speed `23+0.13/turn`. Δ vs #500: Scr **+9**, RNG **+1**
 (D-0467 invent itemed; seed0002 Scr 566→568).
-*(#506–#507: seed0002 Scr 568→594 via D-0468/D-0469; suite total not
-remeasured.)*
+*(#506–#508: seed0002 Scr 568→595 PASS via D-0468…D-0470; suite total
+not remeasured — focused Δ Scr +27 / +1 PASS below.)*
 
 ## Score
 
 | Metric | Value |
 |--------|------:|
-| Sessions passing | **26 / 44** |
-| Screens matched | **4877 / 11,405** (42.76%) |
+| Sessions passing | **27 / 44** *(+seed0002; suite aggs stale until next %5)* |
+| Screens matched | **4878 / 11,405** *(est. +1 vs #505; seed0002 595)* |
 | Positional RNG calls matched | **285,359 / 792,838** (35.99%) |
 | Speed label | `23+0.13/turn` (R² 0.77) |
 | Role-init throws | **0 / 44** |
 
-**PASS (26):** seed8000, seed0900, seed1500, seed1800, seed0060, seed0102,
+**PASS (27):** seed8000, seed0900, seed1500, seed1800, seed0060, seed0102,
 seed0700, seed1150, seed0017, seed0077, seed0106, seed0501, seed0105,
 seed0016, seed0015, seed0200, seed0101, seed0103, seed0104, seed0030,
 seed0013-rogue, seed0013-friday13-restore, seed0107, seed0009,
-seed0012, seed0004.
+seed0012, seed0004, **seed0002**.
 
 **Notable non-PASS:**
 | Session | RNG | Screen | Note |
 |--------|----:|-------:|------|
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
-| seed0002 | **27158**/27158 | **594**/595 | RNG full; first cell-miss @590 ^X deaf/burden (D-0470) |
-| seed0006 | 2276/6736 | **13**/123 | water demon |
+| seed0006 | 2276/6736 | **13**/123 | water demon — next primary |
 | seed0007 | 2975/16373 | **20**/302 | snake swamp |
 | seed0361/0373 | early | 0 | quest bones / `makemaz` |
 
@@ -64,24 +63,25 @@ Both must remain full RNG + screen PASS with exact scored-output lengths.
 
 ## Primary objective
 
-**seed0002 screen@590 — ^X Status deaf + encumbrance** (D-0470).
-RNG **full** 27158/27158; Scr **594**/595; C `You are deaf` +
-`burdened; movement is slightly slowed` vs JS missing deaf /
-`unencumbered`.
+**seed0006 wizard water demon** — early RNG break (D-0471 TBD).
+RNG **2276**/6736; Scr **13**/123. Prefer shared early path over
+late seed0007 peels.
 
 ```bash
-node frozen/ps_test_runner.mjs sessions/seed0002-healer-reflection-drummer.session.json
+node frozen/ps_test_runner.mjs sessions/seed0006-wizard-water-demon.session.json
+node scripts/rng-diff.mjs sessions/seed0006-wizard-water-demon.session.json
 ```
 
-**Alternates:** seed0006 / seed0007; quest early-0 (seed0361/0373).
+**Alternates:** seed0007 snake swamp; quest early-0 (seed0361/0373).
 
-**Prefer over:** parked D-0006, seed2200 RC; re-opening D-0469.
+**Prefer over:** parked D-0006, seed2200 RC; re-opening D-0470.
 
 **Cohort after shared change:** green gate + seed1500 + seed1800 + seed0060 +
 seed0102 + seed0700 + seed1150 + seed0017 + seed0077 + seed0106 + seed0501 +
 seed0105 + seed0016 + seed0015 + seed0200 + seed0101 + seed0103 + seed0104 +
 seed0030 + seed0013-rogue + seed0013-friday13-restore + seed0107 +
-**seed0009** + **seed0012** + **seed0004** (must stay PASS) + strict lengths.
+**seed0009** + **seed0012** + **seed0004** + **seed0002** (must stay PASS) +
+strict lengths.
 
 ## Parked (diagnose only — do not implement)
 

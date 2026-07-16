@@ -20,6 +20,16 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-16 07:21 — #508 D-0470 ^X Status deaf + encumbrance
+- Objective: seed0002 screen@590 ^X Status missing deaf / burdened.
+- C locus: `insight.c` `status_enlightenment` Deaf + `hu_stat` +
+  `near_capacity`/`enc_stat` movement phrase.
+- Change: `invent.js` `status_core_lines` for ^X + final Status
+  (Deaf, real hunger, encumbrance); removed hardcoded unencumbered.
+- Verification: seed0002 **PASS** Scr **594→595** RNG full;
+  green+strict; cohort **24/24**.
+- Next: seed0006 water demon early RNG (D-0471 TBD).
+
 ## 2026-07-16 07:17 — D-0469 discoveries spear + {buy}
 - Objective: seed0002 screen@587 `\` discoveries (throwing spear + `{buy N}`).
 - C locus: `objnam.c` `distant_name`/`xname_flags` observe; `dogmove.c`/`steal.c`

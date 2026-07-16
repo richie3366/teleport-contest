@@ -7,17 +7,15 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Score:** **26/44** PASS (#505 cadence). Scr **4877**/11405; RNG
-  **285359**/792838. seed0002 RNG **full** 27158; Scr **594**/595
-  (post D-0469).
-- **Next (D-0470):** seed0002 screen@590 — ^X Status: C `You are deaf`
-  + `burdened; movement is slightly slowed` vs JS no deaf /
-  `unencumbered`.
+- **Score:** **27/44** PASS (seed0002 via D-0470). Suite aggs stale
+  (#505); focused seed0002 Scr **595**/595 RNG full.
+- **Next (D-0471 TBD):** seed0006 wizard water demon — RNG breaks
+  early **2276**/6736; Scr **13**/123.
   ```bash
-  node frozen/ps_test_runner.mjs sessions/seed0002-healer-reflection-drummer.session.json
+  node frozen/ps_test_runner.mjs sessions/seed0006-wizard-water-demon.session.json
+  node scripts/rng-diff.mjs sessions/seed0006-wizard-water-demon.session.json
   ```
-  Falsify: reconstruct C insight Status deaf + encumbrance lines;
-  not discoveries (D-0469 closed).
+  Falsify: first rng-diff mismatch → C call path (not screen peel).
 - **Don’t re-check:** invent-first @26692; `#force` TIME without lootmon
   getdir; help_dir More any-key; @26883 mid-buzz without ureflects
   (D-0452); @26692 bare pet without `#loot`/`doforce` (D-0451);
@@ -36,7 +34,8 @@ Objective/score live in `CURRENT.md`.
   screen@525 without apply compactify (D-0466);
   screen@530 without invent itemed (D-0467);
   screen@538 without dobuzz DISP_BEAM (D-0468);
-  screen@587 without distant_name/price quotes (D-0469).
+  screen@587 without distant_name/price quotes (D-0469);
+  screen@590 without Status Deaf/`near_capacity` (D-0470).
 - **Landmark:** vault door (71,13); dig + restfakecorr; SPELL_LEV_PW(1)=5.
 - **Parked:** D-0006; seed2200 @158 RC.
 
@@ -55,7 +54,7 @@ Objective/score live in `CURRENT.md`.
   @12530 zap/SLT (D-0443); @14081 without peffect_healing (D-0444);
   @16501 without stair-fall (D-0445); @18354 without seer_turn
   (D-0446); @18457 without shop addtobill (D-0447); @19167 without
-  dopay (D-0448); D-0449–D-0469 done paths — see DIVERGENCE-INDEX.
+  dopay (D-0448); D-0449–D-0470 done paths — see DIVERGENCE-INDEX.
 - Runner `Screen N/M` = total matches, not prefix length.
 - First cell-miss may be botl `$:` / `Burdened` even when NOTES names a topline.
 
@@ -64,7 +63,7 @@ Objective/score live in `CURRENT.md`.
 - STAIRS yellow via `known_branch_stairs`; map col=x−1 row=y+1 DEC.
 - Session: `more()` space/CR/ESC; jsmain `\r`→LF.
 - Vault door (71,13); dig + restfakecorr (D-0377/78).
-- D-0408–D-0469 done; screen@590 ^X deaf/burden next (D-0470).
+- D-0408–D-0470 done; seed0006 water demon next.
 - hero_form_data eat/hunger (D-0409/10); youmonst.data (D-0411);
   bag put-in/out (D-0375/76); travel BFS (D-0412); Conflict ALLOW_U
   (D-0413/14); Monk SPELL_LEV_PW(1) (D-0380).

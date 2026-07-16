@@ -4,6 +4,39 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
+## D-0470 — seed0002 screen@590 ^X deaf + encumbrance
+
+- **Status:** fixed
+- **Symptom:** seed0002 first cell-miss @590 — C Status
+  `You are deaf` + `burdened; movement is slightly slowed` vs
+  JS missing deaf / `unencumbered`; RNG full; Scr 594/595
+  (post D-0469).
+- **Cause:** JS `doattributes` / final Status hardcoded
+  `unencumbered` and omitted `Deaf`; never called
+  `near_capacity()` / `hu_stat` for enlightenment Status.
+- **C locus:** `insight.c` `status_enlightenment` — `if (Deaf)
+  you_are("deaf", …)` then hunger/`hu_stat` then
+  `near_capacity()` / `enc_stat` movement phrase.
+- **Change:** `status_core_lines` — Deaf + real hunger +
+  encumbrance arms for ^X overlay and final enlightenment.
+- **Verification:** seed0002 **PASS** Scr **594→595** RNG full;
+  green+strict; cohort **24/24**.
+- **Deferred:** other status troubles (Blind/Stun/Conf/…);
+  `from_what` wizard suffixes; wizard `<%d>` weight/hunger;
+  poly/ride/trap Status arms.
+- **Next:** seed0006 water demon / seed0007 snake swamp.
+
+## D-0471 — seed0006 wizard water demon early RNG
+
+- **Status:** open
+- **Symptom:** seed0006 RNG **2276**/6736; Scr **13**/123
+  (cursors 15/123). Early break vs late seed0002 peels.
+- **Cause:** TBD — reconstruct via `rng-diff` first mismatch → C path.
+- **Falsifier / next:**
+  ```bash
+  node scripts/rng-diff.mjs sessions/seed0006-wizard-water-demon.session.json
+  ```
+
 ## D-0469 — seed0002 screen@587 discoveries spear + {buy}
 
 - **Status:** fixed
@@ -26,17 +59,6 @@ to preserve, record it here.
 - **Deferred:** monmove distant_name; sell quotes; VENOM_CLASS
   inv_order append; BUFSZ truncate; pricequotes on plain doname.
 - **Next:** ^X attributes deaf + encumbrance @590 (D-0470).
-
-## D-0470 — seed0002 screen@590 ^X deaf + encumbrance
-
-- **Status:** open
-- **Symptom:** seed0002 first cell-miss @590 — C Status
-  `You are deaf` + `burdened; movement is slightly slowed` vs
-  JS missing deaf / `unencumbered`; RNG full; Scr 594/595
-  (post D-0469).
-- **Cause:** TBD — Deaf flag / encumbrance for enlightenment.
-- **C locus:** `insight.c` status enlightenment; Deaf / encumbrance.
-- **Falsifier / next:** ^X page-2 Status must match C deaf+burdened.
 
 ## D-0468 — seed0002 screen@538 sleep-ray bounce map glyph
 
