@@ -4,17 +4,39 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
-## D-0469 — seed0002 screen@587 discoveries class order
+## D-0469 — seed0002 screen@587 discoveries spear + {buy}
 
-- **Status:** open
+- **Status:** fixed
 - **Symptom:** seed0002 first cell-miss @587 — C discoveries
   Weapons `throwing spear` then Armor… with `{buy N}` shop tags;
-  JS shows Armor first (no Weapons spear line / missing `{buy}`);
-  RNG full; Scr 593/595 (post D-0468). Also fails @590.
-- **Cause:** TBD — `dodiscovered` / discovery listing order +
-  shop price suffix.
-- **C locus:** `invent.c` / `pager` discoveries; shop `doname`.
-- **Falsifier / next:** discoveries menu must match C class order + tags.
+  JS missing spear / missing `{buy}`; RNG full; Scr 593/595
+  (post D-0468). Also failed @590.
+- **Cause:** (1) pet pick/drop used bare `doname` without C
+  `distant_name` near-path observe → javelin never in `disco`;
+  (2) `record_price_quote`/`append_price_quote` omitted; objects
+  lacked buy/sell min/maxseen init.
+- **C locus:** `objnam.c` `distant_name` / `xname_flags` observe;
+  `dogmove.c`/`steal.c` pet pick/drop; `shk.c` record/append_price_quote;
+  `o_init.c` `disco_append_typename`; `objects.h` OBJECT quote init.
+- **Change:** `distant_name` + doname/xname observe when
+  `!Blind && !distantname`; dogmove wires `distant_name`;
+  price-quote fields + record/append; discoveries append quotes.
+- **Verification:** @587 matches; first miss **@587→@590**; Scr
+  **593→594**; RNG full; green+strict; cohort **24/24**.
+- **Deferred:** monmove distant_name; sell quotes; VENOM_CLASS
+  inv_order append; BUFSZ truncate; pricequotes on plain doname.
+- **Next:** ^X attributes deaf + encumbrance @590 (D-0470).
+
+## D-0470 — seed0002 screen@590 ^X deaf + encumbrance
+
+- **Status:** open
+- **Symptom:** seed0002 first cell-miss @590 — C Status
+  `You are deaf` + `burdened; movement is slightly slowed` vs
+  JS missing deaf / `unencumbered`; RNG full; Scr 594/595
+  (post D-0469).
+- **Cause:** TBD — Deaf flag / encumbrance for enlightenment.
+- **C locus:** `insight.c` status enlightenment; Deaf / encumbrance.
+- **Falsifier / next:** ^X page-2 Status must match C deaf+burdened.
 
 ## D-0468 — seed0002 screen@538 sleep-ray bounce map glyph
 

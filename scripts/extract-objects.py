@@ -263,7 +263,9 @@ int main(void) {
     lines.append("export function createObjectsArray() {")
     lines.append("  const raw = " + json.dumps(rows, separators=(",", ":")) + ";")
     lines.append(
-        """  return raw.map((r, i) => ({
+        """  // C objects.h OBJECT: sell/buy minseen=(0UL-1UL), maxseen=0
+  const PRICE_MIN_INIT = 0xffffffff; /* ULONG_MAX low-32 sentinel */
+  return raw.map((r, i) => ({
     oc_class: r[0],
     oc_name_known: r[1],
     oc_magic: r[2],
@@ -290,6 +292,10 @@ int main(void) {
     oc_wldam: r[17],
     oc_name_idx: i,
     oc_descr_idx: i,
+    oc_sell_minseen: PRICE_MIN_INIT,
+    oc_sell_maxseen: 0,
+    oc_buy_minseen: PRICE_MIN_INIT,
+    oc_buy_maxseen: 0,
   }));
 }"""
     )

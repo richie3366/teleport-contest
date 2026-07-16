@@ -8,9 +8,10 @@ import { nhgetch } from './input.js';
 import {
     flush_screen, flush_topl_more, pline, docrt, status_line_2, message_menu,
 } from './display.js';
-import { xprname, an, vtense, doname, disco_typename, Japanese_item_name, xname, cxname_singular } from './objnam.js';
+import { xprname, an, vtense, doname, disco_typename, Japanese_item_name, xname, cxname_singular, set_xname_observe, set_distant_cansee } from './objnam.js';
 import { yn_function } from './getline.js';
 import { mergable } from './mkobj.js';
+import { cansee } from './vision.js';
 import {
     WEAPON_CLASS,
     ARMOR_CLASS,
@@ -581,6 +582,10 @@ export function observe_object(obj) {
     discover_object(obj.otyp, false, true);
 }
 
+// C: xname_flags observe + distant_name cansee (wired late to break cycles)
+set_xname_observe(observe_object);
+set_distant_cansee(cansee);
+
 export function invent_lines() {
     const inv = game.invent || [];
     const lines = [];
@@ -869,6 +874,8 @@ export async function dodiscovered() {
     const bases = game.bases || [];
     const disco = game.disco || [];
     // C walks flags.inv_order; DEF_INV_ORDER matches options.c def_inv_order.
+    // Named omission: VENOM_CLASS append when absent from inv_order.
+    const { append_price_quote } = await import('./shk.js');
     for (const oclass of DEF_INV_ORDER) {
         const found = [];
         const start = bases[oclass] || 0;
@@ -882,8 +889,10 @@ export async function dodiscovered() {
         for (const otyp of found) {
             const enc = !!game.objects?.[otyp]?.oc_encountered;
             const prefix = enc ? '  ' : '* ';
-            // C: disco_append_typename → disco_typename (Japanese brackets)
-            lines.push({ text: prefix + disco_typename(otyp), attr: 0 });
+            // C: disco_append_typename → disco_typename + append_price_quote
+            let buf = prefix + disco_typename(otyp);
+            buf = append_price_quote(buf, otyp);
+            lines.push({ text: buf, attr: 0 });
         }
     }
     // Pad so --More-- lands on row 23 like C tty text window.

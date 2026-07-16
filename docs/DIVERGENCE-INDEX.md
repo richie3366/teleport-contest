@@ -455,7 +455,8 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 | D-0466 | fixed | apply getobj compactify when suggested>5 | seed0002 @525→@530; Scr 563→566 |
 | D-0467 | fixed | invent `i` → itemed `Do what with` menu | seed0002 @530→@538; Scr 566→568 |
 | D-0468 | fixed | dobuzz DISP_BEAM zapdir_to_glyph | seed0002 @538→@587; Scr 568→593 |
-| D-0469 | open | `\` discoveries class order / shop {buy}` | seed0002 first cell-miss @587 |
+| D-0469 | fixed | distant_name observe + disco {buy} quotes | seed0002 @587→@590; Scr 593→594 |
+| D-0470 | open | ^X Status deaf + encumbrance | seed0002 first cell-miss @590 |
 
 
 

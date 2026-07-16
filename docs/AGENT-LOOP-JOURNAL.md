@@ -20,6 +20,19 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-16 07:17 — D-0469 discoveries spear + {buy}
+- Objective: seed0002 screen@587 `\` discoveries (throwing spear + `{buy N}`).
+- C locus: `objnam.c` `distant_name`/`xname_flags` observe; `dogmove.c`/`steal.c`
+  pet pick/drop; `shk.c` `record_price_quote`/`append_price_quote`;
+  `o_init.c` `disco_append_typename`; `objects.h` OBJECT quote init.
+- Change: `distant_name` + doname/xname observe when `!Blind && !distantname`;
+  dogmove wires `distant_name`; objects buy/sell min/maxseen init;
+  record/append price quotes on unpaid/`doname_with_price`/discoveries.
+- Verification: seed0002 Scr **593→594**; first miss **@587→@590**; RNG full;
+  green+strict; cohort **24/24**.
+- Next: D-0470 ^X Status deaf + encumbrance @590.
+
+
 ## 2026-07-16 07:04 — #506 D-0468 dobuzz DISP_BEAM
 - Objective: seed0002 @538 C DEC hbeam `q` vs JS `@` during
   sleep-ray bounce/hit `--More--`.
