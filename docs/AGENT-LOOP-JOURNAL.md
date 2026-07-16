@@ -20,6 +20,17 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-16 05:10 — #488 D-0451 lootmon + doforce TIME
+- Objective: seed0002 @26692 D-0451 primary.
+- C locus: `pickup.c` `doloot_core` lootmon; `cmd.c` `help_dir`/
+  `xwaitforspace`; `lock.c` `doforce`.
+- Change: `doloot` mon_beside → `getdir_cmdassist`; `help_dir` More
+  quitchars only (bell on `f`); `doforce` no-box → ECMD_TIME.
+  Deferred: forcelock occupation; loot_mon/saddle.
+- Verification: seed0002 **26692→26883**; Scr **320→322**; green+strict;
+  cohort **26/26**.
+- Next: @26883 C `exercise`/`zap_hit` vs JS `rn2(20)` (D-0452).
+
 ## 2026-07-16 04:42 — #487 D-0451 door-step + #force TIME falsify
 - Objective: seed0002 @26692 D-0451 — why JS pet→DOOR(35,5).
 - C locus: `dogmove.c` `dog_move`/`dog_goal`; `lock.c` `doforce`;

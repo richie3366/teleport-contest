@@ -7,37 +7,29 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **Score:** **26/44** PASS (#485 full). Scr **4629**/11405; RNG
-  **284968**/792838; speed `23+0.13/turn`. seed0002 Scr **320**/595
-  prefix **26692**.
-- **Next (D-0451):** seed0002 @26692 — JS pet DOOR(35,5) `udist=5`
-  → `!rn2(4)`; C `udist≤1` invent. Confirmed DIAG (#487): prior
-  `dog_move` rl=26678 appr=0 cnt=5 cands
-  `[33,5|33,7|34,5|34,7|35,5]` (DOOR 23/0 at 35,5; VWALL east);
-  chi=4 → (35,5). No objs/traps on cands. `#force` empty floor +
-  scalpel: unknown=ECMD_OK keeps prefix 26692; faithful empty-floor
-  `ECMD_TIME` regresses @26426 (JS pet (31,7) udist=1 vs C
-  `dog_goal` `rn2(4)` udist>1) — pre-force pet pos already split.
+- **Score:** **26/44** PASS (#485 full; #488 focused peel only). Scr
+  **4629**/11405 suite; seed0002 Scr **322**/595 prefix **26883**.
+- **Next (D-0452):** seed0002 @26883 — C `rn2(19)` @ `exercise` then
+  `zap_hit` vs JS `rn2(20)=17`.
   ```bash
   node scripts/rng-diff.mjs sessions/seed0002-healer-reflection-drummer.session.json
   ```
-- **Don’t re-check:** invent-first @26692; fewer fobj alone; ship
-  `#force` empty-floor TIME without fixing pre-force pet pos; `#ll`
-  unknown (C NEWAUTOCOMP: 2nd `l` makes `ll`, not loot).
+- **Don’t re-check:** invent-first @26692; ship `#force` TIME without
+  lootmon getdir first; `help_dir` More accepting any key (`f` then
+  leftover `\r`→LF rush); treat @26692 as bare pet mfndpos without
+  `#loot`/`doforce` key accounting (D-0451 done).
 - **Landmark:** vault door (71,13); dig + restfakecorr; SPELL_LEV_PW(1)=5.
-- **Parked:** D-0006; seed2200 @158 RC; `#force` until pet-pos before
-  step 511 understood.
+- **Parked:** D-0006; seed2200 @158 RC.
 
 ## Don’t re-check (≤15)
 
 - No raw RNG-index / coordinate gates in production.
 - Role `mnum` = PM_* IDs; Ctrl-rush `run=3`, capital `run=1`; `\r`→`\n`.
 - **Don’t:** invent bag `containing` without `cknown` after put-in;
-  omit doname containing when cknown+Has_contents; invent empty-bag
-  prompt from bare `outokay` (use `outmaybe`); floor yname as `your`;
-  omit container from put-in invent walk; skip teleds materialize/
-  gold botl (D-0393); skip `stop_occupation` on threat (D-0392);
-  clear topline between get_count digits (D-0391); skip getpos
+  invent empty-bag prompt from bare `outokay` (use `outmaybe`); floor
+  yname as `your`; omit container from put-in invent walk; skip teleds
+  materialize/gold botl (D-0393); skip `stop_occupation` on threat
+  (D-0392); clear topline between get_count digits (D-0391); skip getpos
   `auto_describe` (D-0390); invent tip persistence over lookat; skip
   `clear_glyph_buffer` in `cls` (D-0389); invent bare merged-quan gold
   prinv (D-0388); skip `check_here` after autopick (D-0387); invent
@@ -65,9 +57,10 @@ Objective/score live in `CURRENT.md`.
   `get_cost`; treat @19167 as `do_attack`/`rn2(7)` without missing
   `dopay` (D-0448); treat @25615 as wipe_engr without `exerchk`
   (D-0449 done); treat @25767 as monmove without zap getobj/`dobuzz`
-  (D-0450 done); treat @26692 as invent-first or bare “missing fobj
-  count” without pet-udist/`mfndpos` proof (D-0451); re-audit SLT trunc;
-  ship `#force` ECMD_TIME without proving pet pos before step 511.
+  (D-0450 done); treat @26692 as invent-first / bare pet door-step
+  without `#loot` lootmon + `help_dir` quitchar More + `doforce`
+  ECMD_TIME (D-0451 done); re-audit SLT trunc; ship `#force` TIME
+  without fixing loot getdir key accounting first.
 - Runner `Screen N/M` = total matches, not prefix length.
 - First cell-miss may be botl `$:` / `Burdened` even when NOTES names a topline.
 
@@ -82,9 +75,9 @@ Objective/score live in `CURRENT.md`.
   D-0443; peffect_healing D-0444; goto_level descend fall D-0445;
   seer_turn once-per-hero D-0446; shop `oc_cost`→`append_honorific`
   D-0447; `dopay`→`money2mon`/`next_ident` D-0448; `exerchk`
-  next_attrib_check D-0449; zap getobj? + RAY dobuzz sleep D-0450
-  done; D-0451 pet udist — door-step + `#force` TIME reveals earlier
-  split.
+  next_attrib_check D-0449; zap getobj? + RAY dobuzz sleep D-0450;
+  D-0451 `#loot` lootmon + help_dir quitchar More + `doforce` TIME
+  done; D-0452 @26883 exercise/zap_hit next.
 - hero_form_data eat/hunger (D-0409/10); youmonst.data (D-0411);
   bag put-in/out (D-0375/76); travel BFS (D-0412); Conflict ALLOW_U
   (D-0413/14); Monk SPELL_LEV_PW(1) (D-0380).

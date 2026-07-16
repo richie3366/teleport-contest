@@ -4,32 +4,39 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
+## D-0452 — seed0002 @26883 exercise then zap_hit vs JS rn2(20)
+
+- **Status:** open
+- **Symptom:** seed0002 first RNG miss @26883 — C `rn2(19)=9` @
+  `exercise(attrib.c:509)` then `zap_hit` vs JS `rn2(20)=17`. Prefix
+  26883; Scr 322/595. Matched through `#force` ECMD_TIME peels (D-0451).
+- **Cause:** TBD — reconstruct C path after sleep-wand / force turns.
+- **C locus:** `attrib.c` `exercise`; `zap.c` `dobuzz`/`zap_hit`.
+- **Falsifier / next:** rng-diff callers + hero action at step of 26883.
+
 ## D-0451 — seed0002 @26692 dog_goal fobj dogfood vs JS !rn2(4)
 
-- **Status:** open (state captured #486–#487)
+- **Status:** fixed
 - **Symptom:** seed0002 first RNG miss @26692 — C `rn2(100)` @
-  `obj_resists(zap.c:1469)` vs JS `rn2(4)=2`. Prefix 26692; Scr 320/595.
-  Matched through sleep-wand RAY zap (D-0450) and two prior `obj_resists`
-  at 26690–26691. C then continues 20 more `obj_resists` then
-  `dog_move` (no `rn2(4)`); inventN=20 explains 2+20=22.
-- **Cause (partial, #486–#487 DIAG):** not “missing fobj”. Both scanned 2
-  in-radius floor objs. JS `udist=5` → follow `!rn2(4)`; C `udist≤1`
-  invent-`dogfood`s. Prior `dog_move` (rl≈26678, appr=0): JS mfndpos
-  cnt=5 cands `[33,5|33,7|34,5|34,7|35,5]` → chi=4 DOOR(35,5)
-  (typ=DOOR/doormask=D_NODOOR; no floor objs/traps); hero was (33,6).
-  Next turn hero (34,7) pet (35,5) → udist=5.
-- **Rejected:** invent-first at @26692; fewer in-radius fobj alone;
-  bare monmove without pet pos; `#force` EXT_CMDS — unknown (ECMD_OK)
-  keeps 26692; faithful empty-floor `doforce`→ECMD_TIME (scalpel,
-  no box) regresses **@26426**: JS pet (31,7) udist=1 invent path vs
-  C `rn2(4)` (udist>1). So pet positions already differ *before*
-  step 511 when that TIME turn runs; skipping TIME masks the split
-  until @26692.
-- **C locus:** `dogmove.c` `dog_goal`/`dog_move`; `mon.c` `mfndpos`;
-  pet pos before `#force` (step 511); `lock.c` `doforce` absent.
-- **Falsifier / next:** dump JS vs C-screen pet coords approaching
-  step 511; why C lacks DOOR(35,5) as mfndpos cand (or aborts move).
-  Do not ship `#force` until pre-force pet pos matches.
+  `obj_resists` vs JS `rn2(4)`. Prefix 26692; Scr 320/595. JS pet
+  walked to DOOR(35,5) (`udist=5`) while C kept `udist≤1` invent path.
+- **Cause:** `#loot` with pet beside skipped directional `getdir`; keys
+  `#f\r` became unknown `#force` (ECMD_OK) while C used loot getdir +
+  cmdassist help. Shipping bare `doforce` ECMD_TIME alone regressed
+  @26426 because the first `#f\r` was loot-cancel in C, not force.
+  Also `help_dir` More accepted any key (`f` dismissed early) so
+  leftover `\r`→LF rushed south; C `xwaitforspace(quitchars)` bells on
+  `f` and waits for `\r`.
+- **C locus:** `pickup.c` `doloot_core` lootmon/`get_adjacent_loc`;
+  `cmd.c` `help_dir`/`xwaitforspace`; `lock.c` `doforce` (no box →
+  ECMD_TIME).
+- **Change:** `doloot` mon_beside → `getdir_cmdassist`; `help_dir` More
+  quitchars only; `doforce` registered (no-box pline + ECMD_TIME).
+  Deferred: forcelock occupation; loot_mon/saddle; full getobj fire.
+- **Verification:** seed0002 prefix **26692→26883**; Scr **320→322**/595;
+  RNG matched **26771→26954**; green+strict; cohort **26/26** PASS.
+- **Next:** seed0002 @26883 C `exercise`/`zap_hit` vs JS `rn2(20)`
+  (D-0452).
 
 ## D-0450 — seed0002 @25767 exercise then dobuzz vs JS rn2(5)
 

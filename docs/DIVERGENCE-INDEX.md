@@ -437,7 +437,8 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 | D-0448 | fixed | dopay money2mon/splitobj next_ident | seed0002 prefix 19167→25615; Scr 313→320; @25615 exerchk next |
 | D-0449 | fixed | exerchk next_attrib_check + rn2(50) loop | seed0002 prefix 25615→25767; Scr 320; @25767 exercise/dobuzz next |
 | D-0450 | fixed | zap getobj ? + RAY ubuzz/dobuzz sleep | seed0002 prefix 25767→26692; Scr 320; @26692 obj_resists next |
-| D-0451 | open | dog_goal udist after door-step; #force TIME reveals earlier pet split | seed0002 @26692; force TIME → @26426 |
+| D-0451 | fixed | doloot lootmon getdir + help_dir quitchar More; doforce ECMD_TIME | seed0002 26692→26883; Scr 320→322 |
+| D-0452 | open | exercise then zap_hit vs JS rn2(20) after peel | seed0002 @26883 |
 
 
 

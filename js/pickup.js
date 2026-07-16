@@ -28,6 +28,7 @@ import {
 } from './const.js';
 import { t_at, dotrap, NO_TRAP_FLAGS, drown, lava_effects } from './trap.js';
 import { nhgetch } from './input.js';
+import { m_at } from './mon.js';
 import { oclass_to_sym } from './options.js';
 import { objectNames, COIN_CLASS } from './objects.js';
 import { ATR_INVERSE } from './terminal.js';
@@ -1171,8 +1172,43 @@ export async function doloot() {
             break;
         }
     }
-    if (!cobj) return ECMD_OK;
+    if (cobj) {
+        return use_container(cobj);
+    }
 
-    // C: do_loot_cont → use_container for unlocked non-BoT
-    return use_container(cobj);
+    // C: doloot_core lootmon — get_adjacent_loc when mon_beside
+    if (mon_beside(u.ux, u.uy) || game.flags?.menu_requested) {
+        const { getdir_cmdassist } = await import('./dothrow.js');
+        const dir = await getdir_cmdassist('Loot in what direction?');
+        if (!dir) {
+            await pline('Never mind.');
+            return ECMD_OK;
+        }
+        const cc = { x: u.ux + dir.dx, y: u.uy + dir.dy };
+        const underfoot = cc.x === u.ux && cc.y === u.uy;
+        for (let o = objects_at(cc.x, cc.y); o; o = o.nexthere) {
+            if (Is_container(o)) {
+                if (underfoot) return use_container(o);
+                await pline('You have to be at a container to loot it.');
+                return ECMD_OK;
+            }
+        }
+        await pline(
+            `You don't find anything ${underfoot ? 'here' : 'there'} to loot.`,
+        );
+        return ECMD_OK;
+    }
+
+    await pline("You don't find anything here to loot.");
+    return ECMD_OK;
+}
+
+/** C ref: pickup.c mon_beside */
+function mon_beside(x, y) {
+    for (let i = -1; i <= 1; i++) {
+        for (let j = -1; j <= 1; j++) {
+            if (m_at(x + i, y + j)) return true;
+        }
+    }
+    return false;
 }
