@@ -371,6 +371,10 @@ export async function goto_level(newlevel, at_stairs, falling, portal) {
         game.head_engr = info.head_engr || null;
         rebuildObjectsAt(game.fobj);
         rest_track(info.track);
+        // C: Sokoban ≡ level.flags.sokoban_rules — sync JS alias after getlev
+        // (clear_level_structures only runs on mklev, not stash restore).
+        game.Sokoban = !!(game.level?.flags?.sokoban_rules
+            || game.level?.flags?.sokoban);
         const elapsed = (game.moves | 0) - (info.omoves | 0);
         getlev_catchup_monsters(elapsed);
     }

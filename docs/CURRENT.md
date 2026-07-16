@@ -47,7 +47,7 @@ seed0012, seed0004, seed0002, seed0006, seed0007, seed0398.
 |--------|----:|-------:|------|
 | seed0116 | 12562/12562 | **110**/127 | D-0524 RNG full; screen residual |
 | seed5006 | 8508/13923 | **121**/249 | D-0515; next `dosounds` @8468 |
-| seed0373 | 30755/35386 | 23/124 | D-0554; next get_location vs next_ident @30743 |
+| seed0373 | 32421/35386 | 23/124 | D-0557; next collect_coords @32419 |
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
 | seed0361/0367 | early | 0 | quest / `makemaz` (menu) |
 
@@ -71,10 +71,9 @@ dropped to **22** after D-0480 (seed0013-rogue 59→58). **D-0483** reverts
 that serialize coerce. Next cron; if seed0013 restored but near-misses
 remain → upstream #5.
 
-**Gameplay next:** after D-0556 (`m_initweap` salamander kit),
-seed0373 @32011 C `next_ident` after `rnd_defensive_item` WAN_DIGGING
-vs JS `rn2(4)` Sokoban dig-avoid — likely sticky `game.Sokoban` on
-fire plane. Or peel seed5006 `dosounds` @8468.
+**Gameplay next:** after D-0557 (sticky Sokoban clear), seed0373 @32419
+C `collect_coords` `rn2(8)` vs JS `rn2(12)` — candidate-count mismatch
+in scramble (fire-plane tele filter?). Or peel seed5006 `dosounds` @8468.
 Prefer over parked seed2200 RC / seed0116 screen residual.
 
 ```bash
@@ -83,7 +82,7 @@ node scripts/rng-diff.mjs sessions/seed5006-tourist-stress-disaster.session.json
 node frozen/ps_test_runner.mjs sessions/seed0116-wizard-wear-shop.session.json
 ```
 
-**Prefer over:** parked D-0006, seed2200 RC; re-opening D-0474…D-0556.
+**Prefer over:** parked D-0006, seed2200 RC; re-opening D-0474…D-0557.
 
 **Cohort after shared change:** green gate + seed1500 + seed1800 + seed0060 +
 seed0102 + seed0700 + seed1150 + seed0017 + seed0077 + seed0106 + seed0501 +

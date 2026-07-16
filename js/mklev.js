@@ -561,7 +561,11 @@ function clear_level_structures() {
     lf.nommap = false;
     lf.hero_memory = true;
     lf.shortsighted = false;
+    // C: svl.level.flags.sokoban_rules = 0 — Sokoban is a level flag
+    // (#define Sokoban), not a sticky global. Clear JS aliases too.
     lf.sokoban_rules = false;
+    lf.sokoban = false;
+    g.Sokoban = false;
     lf.is_maze_lev = false;
     lf.is_cavernous_lev = false;
     lf.arboreal = false;

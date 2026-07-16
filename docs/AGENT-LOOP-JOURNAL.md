@@ -21,6 +21,15 @@ Use this shape:
 ```
 
 ```text
+## 2026-07-16 20:53 — #618 D-0557 sticky Sokoban clear
+- Objective: seed0373 @32011 C next_ident vs JS rn2(4) Sokoban dig-avoid
+- C locus: mklev.c clear_level_structures sokoban_rules=0; muse.c rnd_defensive_item
+- Change: clear g.Sokoban/lf.sokoban in clear_level_structures; getlev sync;
+  rnd_defensive_item uses level sokoban_rules only
+- Verification: rng-diff 32011→32419; runner RNG 32421/35386;
+  green+strict PASS; cohort 30/30 PASS
+- Next: @32419 collect_coords rn2(8) vs JS rn2(12); or dosounds @8468
+
 ## 2026-07-16 20:50 — #617 D-0556 salamander m_initweap
 - Objective: seed0373 @31895 C `m_initweap` `rn2(7)` vs JS `rn2(75)`
 - C locus: makemon.c m_initweap S_LIZARD PM_SALAMANDER (~495–499)
@@ -159,14 +168,3 @@ Use this shape:
 - Verification: rng-diff **24531→25654**; runner RNG **25657**/35386
   Scr 22/124; green+strict; cohort 28/28; seed0116 RNG full.
 - Next: fill_zoo rn2(100) @25654; or dosounds @8468.
-
-## 2026-07-16 19:31 — #603 D-0543 soko1-2 load_special
-- Objective: peel seed0373 @22651 C nhlib `shuffle` `rn2(3)` vs JS
-  `rn2(79)` after matched `makemaz` `rnd(2)=2`.
-- C locus: `dat/soko1-2.lua`; `sp_lev.c` `load_special`; `mkmaze.c`
-  `makemaz`.
-- Change: `js/mklev.js` `load_soko1_2` + dispatch (map, traps,
-  mimics, zoo, percent(25) reward, flip).
-- Verification: rng-diff **22651→24531**; runner RNG **24545**/35386
-  Scr 22/124; green+strict; cohort 28/28.
-- Next: makemon rn2(5) @24531; or dosounds @8468.

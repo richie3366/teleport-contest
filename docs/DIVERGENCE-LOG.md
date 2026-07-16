@@ -4,6 +4,26 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
+## D-0557 — sticky Sokoban after level leave (rnd_defensive dig-avoid)
+
+- **Status:** fixed (partial — trap/monmove still consult `g.Sokoban` alias;
+  C uses only `sokoban_rules`)
+- **Symptom:** seed0373 @32011 C `next_ident` after `rnd_defensive_item`
+  case7 WAN_DIGGING vs JS `rn2(4)` Sokoban dig-avoid (post D-0556).
+- **Cause:** JS set sticky `g.Sokoban=true` on soko loaders; C `#define
+  Sokoban svl.level.flags.sokoban_rules` is cleared in
+  `clear_level_structures`. Fire plane kept false dig-avoid.
+- **C locus:** `mklev.c` `clear_level_structures` `sokoban_rules=0`;
+  `rm.h` `#define Sokoban`; `muse.c` `rnd_defensive_item` case7.
+- **Change:** `js/mklev.js` clear `sokoban_rules`/`sokoban`/`g.Sokoban`;
+  `js/do.js` getlev syncs `g.Sokoban` from restored flags;
+  `js/makemon.js` dig-avoid checks level flags only.
+- **Verification:** seed0373 rng-diff **32011→32419**; runner RNG
+  **32421**/35386 Scr 23/124; green+strict PASS; cohort **30**/30 PASS.
+- **Named omission:** trap.js / monmove still OR sticky `g.Sokoban`.
+- **Next:** @32419 `collect_coords` `rn2(8)` vs JS `rn2(12)`; or
+  seed5006 `dosounds` @8468.
+
 ## D-0556 — m_initweap S_LIZARD salamander weapon kit
 
 - **Status:** fixed (partial — non-salamander S_LIZARD; S_ANGEL/S_KOP still deferred)

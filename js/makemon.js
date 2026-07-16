@@ -1264,7 +1264,9 @@ function rnd_defensive_item(mtmp) {
                 ? otyp('POT_FULL_HEALING')
                 : otyp('POT_SICKNESS');
         case 7: {
-            const Sokoban = !!(game.level?.flags?.sokoban || game.Sokoban);
+            // C: #define Sokoban svl.level.flags.sokoban_rules
+            const Sokoban = !!(game.level?.flags?.sokoban_rules
+                || game.level?.flags?.sokoban);
             if (Sokoban && rn2(4)) continue;
             if (is_floater(pm_) || mtmp.isshk || mtmp.isgd || mtmp.ispriest) {
                 return 0;
