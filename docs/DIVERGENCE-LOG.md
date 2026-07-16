@@ -4,16 +4,37 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
-## D-0468 — seed0002 screen@538 sleep-ray bounce map glyph
+## D-0469 — seed0002 screen@587 discoveries class order
 
 - **Status:** open
-- **Symptom:** seed0002 first cell-miss @538 — C map `q` vs JS `@`
-  at (33,8) while topline `The sleep ray bounces!  The sleep ray
-  hits you!--More--` matches; RNG full; Scr 568/595 (post D-0467).
-- **Cause:** TBD — buzz/mon display during bounce More frames.
-- **C locus:** `zap.c` `dobuzz`/`ubuzz` / display during ray.
-- **Falsifier / next:** map cell under bounce More must match C;
-  invent itemed path already closed (D-0467).
+- **Symptom:** seed0002 first cell-miss @587 — C discoveries
+  Weapons `throwing spear` then Armor… with `{buy N}` shop tags;
+  JS shows Armor first (no Weapons spear line / missing `{buy}`);
+  RNG full; Scr 593/595 (post D-0468). Also fails @590.
+- **Cause:** TBD — `dodiscovered` / discovery listing order +
+  shop price suffix.
+- **C locus:** `invent.c` / `pager` discoveries; shop `doname`.
+- **Falsifier / next:** discoveries menu must match C class order + tags.
+
+## D-0468 — seed0002 screen@538 sleep-ray bounce map glyph
+
+- **Status:** fixed
+- **Symptom:** seed0002 first cell-miss @538 — C map DEC `q` (─)
+  vs JS `@` at (33,8) while topline `The sleep ray bounces!  The
+  sleep ray hits you!--More--` matches; RNG full; Scr 568/595.
+- **Cause:** JS `dobuzz` deferred `tmp_at` beam trail; C paints
+  `DISP_BEAM` over hero/wall before bounce/hit `--More--`.
+- **C locus:** `zap.c` `dobuzz` `tmp_at(DISP_BEAM)` /
+  `zapdir_to_glyph` / `DISP_CHANGE` / `DISP_END`; `display.c`
+  `tmp_at` / `zapdir_to_glyph`.
+- **Change:** `display.js` `zapdir_to_glyph` (DEC h/vbeam +
+  zapcolors); `zap.js` `dobuzz` wires BEAM paint before hit,
+  CHANGE after bounce, END in finally.
+- **Verification:** @538 matches; first miss **@538→@587**; Scr
+  **568→593**; RNG full; green+strict; cohort **24/24**.
+- **Deferred:** Hallucination `hdmgtype` rn2; map_invisible/unmap
+  during buzz; fireball/gas; mon_reflects; TETHER BACKTRACK.
+- **Next:** discoveries menu (D-0469).
 
 ## D-0467 — seed0002 screen@530 invent `i` itemactions menu
 

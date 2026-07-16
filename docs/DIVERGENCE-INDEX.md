@@ -454,7 +454,8 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 | D-0465 | fixed | #terrain TER_MAP strip traps (kind=trap) | seed0002 @502→@525; Scr 561→563 |
 | D-0466 | fixed | apply getobj compactify when suggested>5 | seed0002 @525→@530; Scr 563→566 |
 | D-0467 | fixed | invent `i` → itemed `Do what with` menu | seed0002 @530→@538; Scr 566→568 |
-| D-0468 | open | sleep-ray bounce map `@` vs `q` | seed0002 first cell-miss @538 |
+| D-0468 | fixed | dobuzz DISP_BEAM zapdir_to_glyph | seed0002 @538→@587; Scr 568→593 |
+| D-0469 | open | `\` discoveries class order / shop {buy}` | seed0002 first cell-miss @587 |
 
 
 

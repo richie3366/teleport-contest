@@ -8,15 +8,16 @@ Objective/score live in `CURRENT.md`.
 ## Active
 
 - **Score:** **26/44** PASS (#505 cadence). Scr **4877**/11405; RNG
-  **285359**/792838. seed0002 RNG **full** 27158; Scr **568**/595
-  (post D-0467).
-- **Next (D-0468):** seed0002 screen@538 — sleep-ray bounce map cell
-  C `q` vs JS `@` at (33,8); message matches.
+  **285359**/792838. seed0002 RNG **full** 27158; Scr **593**/595
+  (post D-0468).
+- **Next (D-0469):** seed0002 screen@587 — `\`` discoveries: C Weapons
+  `throwing spear` then Armor… `{buy N}` vs JS Armor-first / no buy tags
+  (also @590).
   ```bash
   node frozen/ps_test_runner.mjs sessions/seed0002-healer-reflection-drummer.session.json
   ```
-  Falsify: reconstruct C `dobuzz`/`ubuzz` / mon display during bounce
-  `--More--` frames; not invent itemed.
+  Falsify: reconstruct C `dodiscovered` / class order + shop doname;
+  not sleep-ray beam (D-0468 closed).
 - **Don’t re-check:** invent-first @26692; `#force` TIME without lootmon
   getdir; help_dir More any-key; @26883 mid-buzz without ureflects
   (D-0452); @26692 bare pet without `#loot`/`doforce` (D-0451);
@@ -33,7 +34,8 @@ Objective/score live in `CURRENT.md`.
   screen@454 without doname locked-box prefix (D-0464);
   screen@502 without TER_MAP trap kind/strip (D-0465);
   screen@525 without apply compactify (D-0466);
-  screen@530 without invent itemed (D-0467).
+  screen@530 without invent itemed (D-0467);
+  screen@538 without dobuzz DISP_BEAM (D-0468).
 - **Landmark:** vault door (71,13); dig + restfakecorr; SPELL_LEV_PW(1)=5.
 - **Parked:** D-0006; seed2200 @158 RC.
 
@@ -52,7 +54,7 @@ Objective/score live in `CURRENT.md`.
   @12530 zap/SLT (D-0443); @14081 without peffect_healing (D-0444);
   @16501 without stair-fall (D-0445); @18354 without seer_turn
   (D-0446); @18457 without shop addtobill (D-0447); @19167 without
-  dopay (D-0448); D-0449–D-0467 done paths — see DIVERGENCE-INDEX.
+  dopay (D-0448); D-0449–D-0468 done paths — see DIVERGENCE-INDEX.
 - Runner `Screen N/M` = total matches, not prefix length.
 - First cell-miss may be botl `$:` / `Burdened` even when NOTES names a topline.
 
@@ -61,7 +63,7 @@ Objective/score live in `CURRENT.md`.
 - STAIRS yellow via `known_branch_stairs`; map col=x−1 row=y+1 DEC.
 - Session: `more()` space/CR/ESC; jsmain `\r`→LF.
 - Vault door (71,13); dig + restfakecorr (D-0377/78).
-- D-0408–D-0467 done; screen@538 zap map next (D-0468).
+- D-0408–D-0468 done; screen@587 discoveries next (D-0469).
 - hero_form_data eat/hunger (D-0409/10); youmonst.data (D-0411);
   bag put-in/out (D-0375/76); travel BFS (D-0412); Conflict ALLOW_U
   (D-0413/14); Monk SPELL_LEV_PW(1) (D-0380).

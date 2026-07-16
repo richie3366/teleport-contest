@@ -38,7 +38,7 @@ import {
 } from './objects.js';
 import {
     NO_COLOR, CLR_GRAY, CLR_BLACK, CLR_BROWN, CLR_WHITE, CLR_YELLOW,
-    CLR_BLUE, CLR_BRIGHT_BLUE, CLR_RED, CLR_ORANGE, CLR_CYAN,
+    CLR_BLUE, CLR_BRIGHT_BLUE, CLR_RED, CLR_ORANGE, CLR_CYAN, CLR_GREEN,
     CLR_MAGENTA, CLR_BRIGHT_MAGENTA, CLR_BRIGHT_GREEN,
     DEC_TO_UNICODE, ATR_INVERSE,
 } from './terminal.js';
@@ -1206,17 +1206,51 @@ export function reveal_terrain_show_map(which_subset, swallowed) {
     }
 }
 
-// C ref: display.c tmp_at — transient missile/beam glyphs (DISP_FLASH first).
-// Nested alloc, DISP_BEAM/ALL/TETHER/ALWAYS/CHANGE/FREEMEM deferred.
+// C ref: display.c tmp_at — transient missile/beam glyphs.
+// Nested alloc polish, DISP_TETHER BACKTRACK, DISP_ALWAYS edge cases deferred.
 const TMP_AT_MAX_GLYPHS = COLNO * 2;
 const _tgfirst = { saved: [], sidx: 0, style: 0, glyph: null, prev: null };
 let _tglyph = null;
 
 /**
+ * C ref: display.c zapdir_to_glyph — beam glyph for tmp_at DISP_BEAM.
+ * Returns {ch,color,dec} (JS show path); C packs GLYPH_ZAP_OFF + dir|type.
+ * Dir: | (0,±1), - (±1,0), \ (dx==dy), / (dx&&dy).
+ * DECgraphics: S_vbeam/S_hbeam → meta-x / meta-q (dat/symbols).
+ */
+export function zapdir_to_glyph(dx0, dy0, beam_type) {
+    let bt = beam_type | 0;
+    if (bt < 0 || bt >= 8) bt = 0;
+    const dx = dx0 | 0;
+    const dy = dy0 | 0;
+    // C: dx = (dx == dy) ? 2 : (dx && dy) ? 3 : dx ? 1 : 0
+    const dir = (dx === dy) ? 2 : (dx && dy) ? 3 : dx ? 1 : 0;
+    const useColor = game.iflags?.use_color !== false;
+    // C display.c zapcolors[NUM_ZAP] / display.h zap_color_*
+    const zapcolors = [
+        HI_ZAP, CLR_ORANGE, CLR_WHITE, HI_ZAP,
+        CLR_BLACK, CLR_WHITE, CLR_GREEN, CLR_YELLOW,
+    ];
+    const color = useColor ? (zapcolors[bt] ?? HI_ZAP) : NO_COLOR;
+    if (use_decgraphics()) {
+        // S_vbeam \xb3→x, S_hbeam \xc4→q; slants stay ASCII
+        const dec = [
+            { ch: 'x', dec: true },
+            { ch: 'q', dec: true },
+            { ch: '\\', dec: false },
+            { ch: '/', dec: false },
+        ][dir];
+        return { ch: dec.ch, color, dec: dec.dec };
+    }
+    const ascii = ['|', '-', '\\', '/'][dir];
+    return { ch: ascii, color, dec: false };
+}
+
+/**
  * C ref: display.c tmp_at(x, y)
- * Open: tmp_at(DISP_FLASH, glyphObj) — glyphObj is {ch,color,dec} from obj_glyph.
- * Step: tmp_at(map_x, map_y) — paint flash, erase previous.
- * Close: tmp_at(DISP_END, 0).
+ * Open: tmp_at(DISP_FLASH|DISP_BEAM|…, glyphObj) — glyphObj is {ch,color,dec}.
+ * Step: tmp_at(map_x, map_y) — paint; BEAM accumulates, FLASH replaces.
+ * Close: tmp_at(DISP_END, 0); DISP_CHANGE updates glyph mid-beam.
  */
 export function tmp_at(x, y) {
     switch (x) {
