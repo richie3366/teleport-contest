@@ -32,7 +32,7 @@ import {
 import { In_tutorial } from './dungeon.js';
 import { Is_waterlevel, Is_airlevel } from './const.js';
 import { keepdogs, losedogs, mon_catchup_elapsed_time } from './dog.js';
-import { initrack, save_track, rest_track } from './track.js';
+import { save_track, rest_track } from './track.js';
 import { m_at, mnexto, hide_monst } from './mon.js';
 import { enexto } from './teleport.js';
 import { monster_nearby, losehp, maybe_half_phys } from './hack.js';
@@ -405,9 +405,11 @@ export async function goto_level(newlevel, at_stairs, falling, portal) {
     if (!exists) {
         await mklev();
         if (!game.level_info[new_ledger]) game.level_info[new_ledger] = { flags: 0 };
-        // C: LFILE_EXISTS is set on savelev leave, not on first mklev
-        // Ring already cleared by save_track on leave (new level has no rest).
-        initrack();
+        // C: LFILE_EXISTS is set on savelev leave, not on first mklev.
+        // Track ring: leave-path save_track already cleared; getbones
+        // (inside mklev) rest_track's dead-hero utrack — do NOT initrack
+        // here (C goto_level has no initrack after mklev; wiping would
+        // drop bones gettrack for hostiles — D-0578).
         // C: familiar = bones_include_name(plname) after first-time mklev
         familiar = bones_include_name(game.plname || '');
     } else {

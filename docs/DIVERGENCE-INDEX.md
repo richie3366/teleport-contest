@@ -558,7 +558,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 | D-0575 | fixed | confused scroll level_tele + random_teleport_level | seed5006 8473→10953 Scr 154→174; next can_make_bones @10953 |
 | D-0576 | fixed | zapyourself WAN_DEATH + getdir confdir + bones debug≡wizard | seed5006 seg0 10953→11026 FULL Scr 174→182; next seg1 gemcolors @11026 |
 | D-0577 | fixed | familiar_level_msg + cemetery bonesinfo | seed5006 seg1 2777→2782 Scr 182→192; suite #640 31/44 Scr 6473 |
-| D-0578 | open | m_move track-skip cnt (kitten) | seed5006 @2782 C one rn2(16); JS (32,4) rn2(28)+rn2(24); C 28+24 @2800 |
+| D-0578 | fixed | bones utrack + gettrack | save/rest track in bones; no initrack wipe after getbones; seed5006 RNG FULL |
 | D-0569 | fixed | Fire lit epilogue + monster do_light_sources | seed0373 Scr 101→110; next Wizard Monnam @101 |
 | D-0568 | fixed | doname the_unique_obj + print_dungeon bot restore | seed0373 Scr 100→101; next Fire vision @100 |
 | D-0567 | fixed | Sokoban premap_detect + solidify + flip spines + wall CLR_BLUE | seed0373 Scr 88→100; next @99 Fire / Amulet phrasing |

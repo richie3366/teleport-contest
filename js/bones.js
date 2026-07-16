@@ -10,6 +10,7 @@ import { mons } from './monsters.js';
 import { GameMap } from './game.js';
 import { OBJ_FLOOR, OBJ_MINVENT, OBJ_BURIED } from './const.js';
 import { peace_minded, set_malign } from './makemon.js';
+import { save_track, rest_track } from './track.js';
 
 const BONES_VFS_PREFIX = 'bones/';
 
@@ -175,6 +176,10 @@ export function write_bonesfile(lev) {
         dnstair: lvl?.dnstair ? { ...lvl.dnstair } : null,
         // C: savecemetery / level.bonesinfo — who[] for bones_include_name
         bonesinfo: serCemetery(lvl?.bonesinfo),
+        // C ref: save.c savelev → save_track; restore.c getlev → rest_track.
+        // Dead hero's utrack (often on/near the grave) must persist so
+        // hostile can_track monsters gettrack() after getbones.
+        track: save_track(),
     };
 
     return vfsWriteFile(vfsPath(filename), JSON.stringify(payload));
@@ -400,6 +405,8 @@ export function try_load_bones(lev) {
     // C: restcemetery → level.bonesinfo (bones_include_name / familiar)
     map.bonesinfo = deserCemetery(payload.bonesinfo);
     rebuildObjectsAt(fobj);
+    // C ref: restore.c getlev → rest_track (bones NHFILE includes utrack)
+    rest_track(payload.track);
 
     if (!game.u) game.u = {};
     if (!game.u.uroleplay) game.u.uroleplay = {};

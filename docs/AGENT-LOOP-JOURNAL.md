@@ -19,6 +19,16 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-17 00:06 — #643 D-0578 bones utrack / gettrack
+- Objective: seed5006 seg1 @2782 `m_move` rn2(16) vs rn2(28).
+- C locus: save.c save_track; restore.c rest_track; track.c gettrack;
+  monmove.c m_move gg from gettrack.
+- Change: bones persist/restore utrack; drop post-mklev initrack wipe.
+  C dest (30,5) via grave gettrack — not (32,4) hero-aim.
+- Verification: seed5006 RNG **FULL** Scr **217**/249; green+strict
+  PASS; cohort **31**/31 PASS.
+- Next: seed5006 Scr residual; or seed0116 Scr 114/127.
+
 ## 2026-07-16 23:52 — #642 D-0578 kitten first-dest / track shape
 - Objective: seed5006 seg1 @2782 `m_move` rn2(16) vs rn2(28).
 - C locus: monmove.c m_move:1963; mon.c mfndpos.

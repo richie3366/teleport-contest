@@ -7,28 +7,20 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **D-0578 open:** seed5006 seg1 @2782 hostile PM_KITTEN `m_move`
-  track-skip. Prefix through 2781 matches. Bones kitten @(31,4)
-  mtrack=(32,5)(32,6)(57,7); first move both `rn2(28)=13` skip (32,5).
-  **JS @(32,4):** `cnt=7` → `rn2(28)` then `rn2(24)` (j=0,1).
-  **C @2782:** single `rn2(16)` then fleeck (only one track match /
-  `cnt-j=4`). C @2800–2801 is `rn2(28)+rn2(24)` — JS’s (32,4) shape
-  one turn later → C’s 2782 cell ≠ JS (32,4), or C cnt=4 there.
-  Falsified: traps/objs/Elbereth on those ROOMs; gettrack (null);
-  shortsighted; loot gg (ghost blocks pile); dest=(32,5) cnt=5→rn2(20).
-  **Next:** prove C first-move dest (gg/poss/appr) — with mtrack[0]=(32,5)
-  and gg=mux, JS nearer walk forces (32,4).
+- **D-0578 fixed:** bones omitted `utrack`; `goto_level` wiped it after
+  `getbones`. Hostile kitten `gettrack` → grave → dest (30,5) → `rn2(16)`.
+  seed5006 RNG FULL; Scr 217/249 residual.
   ```bash
   node frozen/ps_test_runner.mjs sessions/seed5006-tourist-stress-disaster.session.json
   ```
-- **Alt:** seed0116 Scr 114/127 (RNG full). Prefer 5006.
+- **Next gameplay:** seed5006 Scr 217/249; or seed0116 Scr 114/127.
 - **Leaderboard gap:** local **31/44** vs judge **22** after D-0480;
   D-0483 reverted serialize.
 - **Don’t:** re-apply D-0480 serialize coerce; invent frame-align;
   raw RNG-index / coord / ux0 hacks; leave `context.travel` set across
   walk/run after `_` travel; batch doset toggle plines (D-0499);
   steal hero cursor for leftover getobj text in `flush_screen`;
-  reopen D-0474…D-0577; stub-cancel `^V?` as if menu; treat empty wish
+  reopen D-0474…D-0578; stub-cancel `^V?` as if menu; treat empty wish
   ESC as cancel; skip amulet_wish once-per-input; skip Wizard appear
   Norep / hot temperature; template `\.` in map strings; burn maze
   `rn2(2)` in `set_mimic_sym` on Sokoban; fill inside `load_special`
@@ -49,13 +41,14 @@ Objective/score live in `CURRENT.md`.
   `MAGICENLIGHTENMENT` on ^X; skip `setworn` `oc_oprop`; stub
   cursed/confused teleport scroll `level_tele`; stub death-ray
   `zapyourself`; check only `flags.wizard` (not `flags.debug`) in
-  `can_make_bones`; omit cemetery / `familiar_level_msg`.
+  `can_make_bones`; omit cemetery / `familiar_level_msg`; omit bones
+  `utrack` or `initrack` after `getbones`.
 
 ## Don’t re-check (≤15)
 
 - No raw RNG-index / coordinate / ux0 / forced-gettrack in production.
 - Rule #2: no `fs`/`path`/`url` in scored `js/` (D-0477).
-- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0577 done.
+- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0578 done.
 - Runner `Screen N/M` = total matches, not prefix length.
 - getbones `rn2(3)` gap was unbound level change — D-0515/18.
 - D-0519…D-0577 makemaz/endgame/air_pos/^X/setworn/level_tele/death/
@@ -67,8 +60,7 @@ Objective/score live in `CURRENT.md`.
   seg1 start; seg0 is FULL.
 - seg1 @2780 `rn2(5)` is kitten **post-move** `distfleeck` recalc
   (dochug after `m_move`), not a second monster.
-- D-0578: empty-ROOM neighbors have no traps/objs; ghost@GRAVE(31,5)
-  already excluded; gettrack null; bones shortsighted=false.
+- D-0578: C gg via bones `gettrack` to grave, not mfndpos cnt at (32,4).
 
 ## Landmarks (≤15)
 
@@ -83,5 +75,5 @@ Objective/score live in `CURRENT.md`.
 - Confused/cursed teleport scroll → `level_tele` + `random_teleport_level`.
 - Self-zap death ray → `done(DIED)`; playmode:debug ≡ wizard for bones.
 - Debug `set_playmode` → `plname="wizard"`; cemetery who uses that.
-- seed5006 bones kitten: mov=24, mtame=0; ghost sleep mov=0; pony
-  follower mov=0 — only kitten double-moves this turn.
+- Bones `utrack` via `save_track`/`rest_track` (D-0578); no post-getbones
+  `initrack`.

@@ -4,28 +4,28 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
-## D-0578 — m_move track-skip cnt (seed5006 seg1 kitten)
+## D-0578 — bones utrack → hostile gettrack (seed5006 seg1 kitten)
 
-- **Status:** open (diagnosed; no faithful fix this iteration)
+- **Status:** fixed
 - **Symptom:** seed5006 seg1 @2782 C `rn2(16)` `m_move:1963` vs JS
   `rn2(28)` — after D-0577 familiar prefix.
-- **Evidence (#642):** bones kitten @(31,4) mtrack=(32,5)(32,6)(57,7);
-  2779 both `rn2(28)=13` skip (32,5). JS then @(32,4) `cnt=7` emits
-  `rn2(28)` **and** `rn2(24)` (j=0,1 on (31,4)/(32,5)). C @2782 emits
-  **one** `rn2(16)` then fleeck. C @2800–2801 is `rn2(28)+rn2(24)` —
-  JS’s (32,4) track shape one turn later. Neighbors are empty ROOM
-  (ghost@GRAVE(31,5) excluded); no traps/objs/Elbereth; gettrack null;
-  bones `shortsighted=false`; loot gg blocked by sleeping ghost.
-- **Hypothesis (next):** C first-move dest ≠ JS (32,4) despite same
-  track skip (gg/poss/appr), so 2782 is another cell with `cnt-j=4`
-  and a single mtrack neighbor; or C at (32,4) excludes (32,5)+2.
-  Falsified: other-mon; missing fleeck; empty-ROOM trap/obj scare;
-  gettrack; shortsighted; dest=(32,5) cnt=5→rn2(20).
-- **C locus:** `monmove.c` `m_move` ~1963; `mon.c` `mfndpos`.
+- **Cause:** C `savelev`/`getlev` persist hero `utrack` in bones
+  (`save_track`/`rest_track`). Dead hero’s footprints near the grave
+  let `can_track` kitten `gettrack` set `gg` to an adjacent track
+  (grave (31,5)) → first dest (30,5) → second-move single `rn2(16)`.
+  JS bones omitted track; `goto_level` also `initrack()` after
+  `mklev`/`getbones`, wiping any restore. Kitten then aimed at live
+  hero (51,14) → dest (32,4) → `rn2(28)+rn2(24)`.
+- **C locus:** `save.c` `savelev`→`save_track`; `restore.c` `getlev`
+  →`rest_track`; `track.c` `gettrack`; `monmove.c` `m_move` track goal.
+- **Change:** `write_bonesfile` stores `save_track()` snap; `getbones`
+  `rest_track`; remove post-`mklev` `initrack` in `goto_level`.
+- **Verification:** seed5006 RNG **FULL** 13923/13923 Scr **192→217**/249;
+  green+strict PASS; cohort **31**/31 PASS (incl. seed0373/0398).
 - **Named omission:** hostile `m_move` still lacks `chi` /
   `m_avoid_kicked_loc` / MDISP skip / shortsighted; `mfndpos` pool/
-  lava/onscary/squeeze/`mm_aggression` (map section).
-- **Next:** prove C first-move dest; avoid raw-index/coord hacks.
+  lava/onscary/squeeze; seed5006 Scr residual 217/249.
+- **Next:** seed5006 screen residual; or seed0116 Scr 114/127.
 
 ## D-0577 — familiar_level_msg + cemetery bonesinfo (seed5006 seg1)
 
