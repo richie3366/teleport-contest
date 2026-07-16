@@ -20,6 +20,16 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-16 18:25 — #588 D-0529 Bar-loca + traptype_rnd
+- Objective: seed0373 @4571 C nhlib shuffle vs JS u_on_rndspot.
+- C locus: `dat/Bar-loca.lua`; `mklev.c` `traptype_rnd`
+  (`level_difficulty`).
+- Change: `load_bar_loca` + dispatch; `traptype_rnd` uses
+  `level_difficulty()` (was `dlevel`).
+- Verification: rng-diff **4571→5082**; runner RNG **5133**/35386;
+  green+strict; cohort 28/28 PASS; seed0116 RNG full.
+- Next: m_initweap @5082; or seed5006 dosounds @8468.
+
 ## 2026-07-16 18:20 — #587 D-0528 tower1 + vampshift
 - Objective: seed0373 @4159 — was mislabeled Bar-loca; C loads tower1.
 - C locus: `dat/tower1.lua`; `makemon.c` cham/newcham; `mon.c`
@@ -159,13 +169,3 @@ Use this shape:
 - Green+strict PASS. No port code this iteration.
 - Next: shared `print_dungeon` (`^V?` / seed0373 / seed0116 @6373)
   or seed5006 `dosounds`.
-
-## 2026-07-16 16:51 — #574 D-0517 wizard Force + pleased
-- Objective: seed0116 @6246 C wipe rn2(70) vs JS gethungry rn2(20).
-- C locus: `pray.c` dopray Force; `eat.c` gethungry uinvulnerable;
-  `pray.c` pleased.
-- Change: Force yn → p_type 3 + uinvulnerable; pleased You_feel/rn1/rnz(350).
-- Verification: seed0116 **6246→6373** Scr **101→107**/127;
-  green+strict; cohort **30/30**. seed5006 still @8468.
-- Next: seed0116 @6373 getbones / `print_dungeon` `^V?` /
-  seed0373 / seed5006 dosounds.

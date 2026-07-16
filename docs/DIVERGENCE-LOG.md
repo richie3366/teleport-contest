@@ -4,6 +4,28 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
+## D-0529 — Bar-loca load_special + traptype_rnd level_difficulty
+
+- **Status:** fixed (partial — Bar-goal/fila/filb; next m_initweap)
+- **Symptom:** seed0373 @4571 C nhlib `shuffle` `rn2(3)` vs JS
+  `u_on_rndspot` `rn2(79)` after matched tower1/getbones.
+- **Cause:** `makemaz`/`load_special` had no `Bar-loca` loader. After
+  porting the lua script, random traps stalled because `traptype_rnd`
+  used `u.uz.dlevel` instead of C `level_difficulty()` (POLY_TRAP
+  wrongly NO_TRAP on quest locate).
+- **C locus:** `dat/Bar-loca.lua`; `sp_lev.c` `load_special`;
+  `mklev.c` `traptype_rnd`.
+- **Change:** `js/mklev.js` `load_bar_loca` + dispatch;
+  `traptype_rnd` → `level_difficulty()` (+ WEB `MKTRAP_NOSPIDERONWEB`).
+- **Verification:** seed0373 rng-diff **4571→5082**; runner RNG
+  **4596→5133**/35386 Scr still 21/124; green+strict PASS; cohort
+  **28**/28 PASS; seed0116 RNG still full Scr 110/127.
+- **Named omission:** humidity-aware `get_location` for water-likers;
+  `set_malign` after peaceful override; `single_level_branch` Knox in
+  LEVEL_TELEP; FIRE_TRAP `Inhell` true path; Bar-goal/fila/filb.
+- **Next:** @5082 C `m_initweap` `rn2(2)` vs JS `rn2(75)` (likely
+  S_TROLL/class-T kit); or seed5006 `dosounds` @8468.
+
 ## D-0528 — tower1 load_special + vampshift / noteleport covetous
 
 - **Status:** fixed (partial — Bar-loca next; tower2/3 omitted)

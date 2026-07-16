@@ -44,6 +44,7 @@ import {
     Is_rogue_level,
     DUST, MARK as ENGRAVE_MARK, M_AP_OBJECT, ENGRAVE,
     MM_ASLEEP, IS_TREE, G_GENOD,
+    MKTRAP_NOSPIDERONWEB,
 } from './const.js';
 import {
     RANDOM_CLASS, WEAPON_CLASS, ARMOR_CLASS, RING_CLASS,
@@ -577,8 +578,8 @@ const MKMAP_HEIGHT = ROWNO - 1; // 20
 /**
  * C ref: mkmaze.c makemaz — build protofile (rndlevs → rnd), load_special,
  * else maze fallback. Ported loaders: minefill, tut-1, bigrm-2, Bar-strt,
- * soko1-1, tower1.
- * Named omissions: other bigrm-N / soko*-* / quest protos (Bar-loca/goal/
+ * Bar-loca, soko1-1, tower1.
+ * Named omissions: other bigrm-N / soko*-* / quest protos (Bar-goal/
  * fila/filb); tower2/3; create_maze
  * fallback; check_ransacked side effects beyond ransacked flag; dmonsfree.
  */
@@ -650,6 +651,10 @@ function load_special_proto(protofile) {
     }
     if (protofile === 'Bar-strt') {
         load_bar_strt();
+        return true;
+    }
+    if (protofile === 'Bar-loca') {
+        load_bar_loca();
         return true;
     }
     if (protofile === 'tower1') {
@@ -963,6 +968,176 @@ function load_bar_strt() {
         mx + 62, my + 2, mx + 62, my + 2,
         0, 0, 0, 0, LR_BRANCH, null,
     );
+    fixup_special();
+}
+
+/**
+ * C ref: dat/Bar-loca.lua via load_special — locate level (ogre fort).
+ * Named omissions: humidity-aware get_location for water-likers;
+ * set_malign after peaceful override (matches Bar-strt partial);
+ * Bar-goal/fila/filb.
+ */
+function load_bar_loca() {
+    const g = game;
+    nhlib_shuffle_align();
+    splev_initlev({
+        init_style: LVLINIT_SOLIDFILL,
+        filling: STONE,
+        lit: BOOL_RANDOM,
+        icedpools: false,
+    });
+    if (!g.level.flags) g.level.flags = {};
+    g.level.flags.is_maze_lev = true;
+    g.level.flags.hardfloor = true;
+
+    const BAR_LOCA_MAP = `
+..........PPP.........................................                      
+...........PP..........................................        .......      
+..........PP...........-----..........------------------     ..........     
+...........PP..........+...|..........|....S...........|..  ............    
+..........PPP..........|...|..........|-----...........|...  .............  
+...........PPP.........-----..........+....+...........|...  .............  
+..........PPPPPPPPP...................+....+...........S.................   
+........PPPPPPPPPPPPP.........-----...|-----...........|................    
+......PPPPPPPPPPPPPP..P.......+...|...|....S...........|          ...       
+.....PPPPPPP......P..PPPP.....|...|...------------------..         ...      
+....PPPPPPP.........PPPPPP....-----........................      ........   
+...PPPPPPP..........PPPPPPP..................................   ..........  
+....PPPPPPP........PPPPPPP....................................  ..........  
+.....PPPPP........PPPPPPP.........-----........................   ........  
+......PPP..PPPPPPPPPPPP...........+...|.........................    .....   
+..........PPPPPPPPPPP.............|...|.........................     ....   
+..........PPPPPPPPP...............-----.........................       .    
+..............PPP.................................................          
+...............PP....................................................       
+................PPP...................................................      
+`.replace(/^\n/, '');
+    splev_apply_centered_map(BAR_LOCA_MAP);
+    const mx = g.splev_xstart ?? 1;
+    const my = g.splev_ystart ?? 0;
+
+    // des.region lit/unlit (map-relative; RNG-free)
+    const barLit = (x1, y1, x2, y2, lit) => {
+        for (let y = y1; y <= y2; y++) {
+            for (let x = x1; x <= x2; x++) {
+                const loc = g.level.at(mx + x, my + y);
+                if (loc) loc.lit = lit;
+            }
+        }
+    };
+    barLit(0, 0, 75, 19, true);
+    barLit(24, 3, 26, 4, false);
+    barLit(31, 8, 33, 9, false);
+    barLit(35, 14, 37, 15, false);
+    barLit(39, 3, 54, 8, true);
+    barLit(56, 0, 75, 8, false);
+    barLit(64, 9, 75, 16, false);
+
+    // des.door
+    const barDoor = (rx, ry, mask) => {
+        const loc = g.level.at(mx + rx, my + ry);
+        if (!loc) return;
+        if (!IS_DOOR(loc.typ) && loc.typ !== SDOOR) loc.typ = DOOR;
+        loc.doormask = mask;
+        loc.flags = mask;
+    };
+    barDoor(23, 3, D_ISOPEN);
+    barDoor(30, 8, D_ISOPEN);
+    barDoor(34, 14, D_ISOPEN);
+    barDoor(38, 5, D_LOCKED);
+    barDoor(38, 6, D_LOCKED);
+    barDoor(43, 3, D_CLOSED);
+    barDoor(43, 5, D_CLOSED);
+    barDoor(43, 6, D_CLOSED);
+    barDoor(43, 8, D_CLOSED);
+    barDoor(55, 6, D_LOCKED);
+
+    // des.stair
+    mkstairs(mx + 5, my + 2, 1, null);
+    mkstairs(mx + 70, my + 13, 0, null);
+
+    // des.object({ x, y }) — create_object RANDOM_CLASS; default clears erosion
+    for (const [rx, ry] of [
+        [42, 3], [42, 3], [42, 3],
+        [41, 3], [41, 3], [41, 3], [41, 3],
+        [41, 8], [41, 8],
+        [42, 8], [42, 8], [42, 8],
+        [71, 13], [71, 13], [71, 13],
+    ]) {
+        const otmp = mkobj_at(RANDOM_CLASS, mx + rx, my + ry, true);
+        if (!otmp) continue;
+        otmp.oeroded = 0;
+        otmp.oeroded2 = 0;
+        otmp.oerodeproof = 0;
+    }
+
+    // des.trap spiked pit (fixed) + four random
+    for (const [rx, ry] of [[10, 13], [21, 7], [67, 8], [68, 9]]) {
+        const ttmp = maketrap(mx + rx, my + ry, SPIKED_PIT);
+        mktrap_seen_victim(ttmp, {});
+    }
+    for (let i = 0; i < 4; i++) splev_create_trap();
+
+    // des.monster — id/class + optional coord; peaceful=0 override
+    const placeMon = (spec) => {
+        let pm = null;
+        let female = 0;
+        if (spec.id) {
+            const r = find_montype_gender(spec.id);
+            female = r.female;
+            if (r.mndx >= 0 && r.mndx !== NON_PM) pm = mons(r.mndx);
+        }
+        induced_align(80);
+        if (spec.cls) {
+            const mlet = monclass_letter_to_mlet(spec.cls);
+            pm = mlet ? mkclass(mlet, G_NOGEN) : null;
+        }
+        let x, y;
+        if (spec.rx != null) {
+            x = mx + spec.rx;
+            y = my + spec.ry;
+        } else {
+            const pos = get_location_random(null);
+            x = pos.x;
+            y = pos.y;
+        }
+        if (m_at(x, y)) {
+            const cc = { x: 0, y: 0 };
+            if (enexto(cc, x, y, pm)) {
+                x = cc.x;
+                y = cc.y;
+            }
+        }
+        const mtmp = makemon(pm, x, y, 0);
+        if (!mtmp) return;
+        if (spec.id) mtmp.female = female;
+        // C: peaceful > BOOL_RANDOM → override (0 here)
+        if (spec.peaceful != null && spec.peaceful > BOOL_RANDOM)
+            mtmp.mpeaceful = spec.peaceful;
+    };
+
+    for (const [rx, ry] of [
+        [12, 9], [18, 11], [45, 5], [45, 6], [47, 5], [46, 5],
+        [56, 3], [56, 4], [56, 5], [56, 6],
+        [57, 3], [57, 4], [57, 5], [57, 6],
+    ]) {
+        placeMon({ id: 'ogre', rx, ry, peaceful: 0 });
+    }
+    for (let i = 0; i < 3; i++) placeMon({ id: 'ogre', peaceful: 0 });
+    placeMon({ cls: 'O', peaceful: 0 });
+    placeMon({ cls: 'T', peaceful: 0 });
+    for (const [rx, ry] of [
+        [46, 6], [47, 6], [56, 7], [57, 7], [70, 13],
+    ]) {
+        placeMon({ id: 'rock troll', rx, ry, peaceful: 0 });
+    }
+    for (let i = 0; i < 2; i++) placeMon({ id: 'rock troll', peaceful: 0 });
+    placeMon({ cls: 'T', peaceful: 0 });
+
+    // C load_special: wallification → flip_level_rnd → fixup_special
+    if (!g.level.flags.corrmaze)
+        wallification(1, 0, COLNO - 1, ROWNO - 1);
+    flip_level_rnd(3, false);
     fixup_special();
 }
 
@@ -5265,26 +5440,33 @@ function wallification(x1, y1, x2, y2) {
 // Fill ordinary room
 // ============================================================
 
-function traptype_rnd() {
-    const lvl = game.u?.uz?.dlevel ?? 1;
+function traptype_rnd(mktrapflags = 0) {
+    // C ref: mklev.c traptype_rnd — uses level_difficulty(), not dunlev
+    const lvl = level_difficulty();
     let kind = rnd(TRAPNUM - 1);
     switch (kind) {
-    case TRAPPED_DOOR: case TRAPPED_CHEST: case MAGIC_PORTAL: case VIBRATING_SQUARE:
+    case TRAPPED_DOOR: case TRAPPED_CHEST:
+        kind = NO_TRAP; break;
+    case MAGIC_PORTAL: case VIBRATING_SQUARE:
         kind = NO_TRAP; break;
     case ROLLING_BOULDER_TRAP: case SLP_GAS_TRAP:
         if (lvl < 2) kind = NO_TRAP; break;
     case LEVEL_TELEP:
+        // single_level_branch (Knox) deferred — ordinary/quest branches false
         if (lvl < 5 || game.level?.flags?.noteleport) kind = NO_TRAP; break;
     case SPIKED_PIT:
         if (lvl < 5) kind = NO_TRAP; break;
     case LANDMINE:
         if (lvl < 6) kind = NO_TRAP; break;
     case WEB:
-        if (lvl < 7) kind = NO_TRAP; break;
+        if (lvl < 7 && !(mktrapflags & MKTRAP_NOSPIDERONWEB))
+            kind = NO_TRAP;
+        break;
     case STATUE_TRAP: case POLY_TRAP:
         if (lvl < 8) kind = NO_TRAP; break;
     case FIRE_TRAP:
-        kind = NO_TRAP; break; // not hellish
+        // C: if (!Inhell) — quest/main never hell here
+        kind = NO_TRAP; break;
     case TELEP_TRAP:
         if (game.level?.flags?.noteleport) kind = NO_TRAP; break;
     case HOLE:
