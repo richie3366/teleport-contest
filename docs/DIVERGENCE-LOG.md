@@ -4,6 +4,28 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
+## D-0552 — splev create_monster pm_to_humidity / HOT lava
+
+- **Status:** fixed (partial — Is_waterlevel always-accept)
+- **Symptom:** seed0373 @30263 C `next_ident` (makemon m_id) vs JS
+  extra `get_location` `rn2(79)` after matched induced_align + one
+  get_location pair (post D-0551).
+- **Cause:** C `create_monster` uses `pm_to_humidity(pm)` so flyers /
+  `likes_fire` accept lava (`HOT`); LAVAPOOL is not `SPACE_POS`. JS
+  `splev_create_monster` always used DRY → rejected lava cells and
+  retried get_location (fire elemental / balrog / dragons).
+- **C locus:** `sp_lev.c` `pm_to_humidity` / `is_ok_location` /
+  `create_monster` humidity + `NO_LOC_WARN` fallback.
+- **Change:** `js/mklev.js` `pm_to_humidity` + humidity-aware
+  `is_ok_location` / `get_location_random`; `splev_create_monster`
+  matches C; `js/monsters.js` `likes_lava`/`likes_fire` /
+  `is_swimmer`/`amphibious`.
+- **Verification:** seed0373 rng-diff **30263→30308**; runner RNG
+  **30336**/35386 Scr 23/124; green+strict PASS; cohort **28**/28 PASS.
+- **Named omission:** `Is_waterlevel` short-circuit in `is_ok_location`.
+- **Next:** @30308 C `m_initinv` S_GIANT gem `rn2(m_lev/2)` vs JS
+  trailing `rn2(50)`; or seed5006 `dosounds` @8468.
+
 ## D-0551 — newmonhp adult dragon In_endgame HP
 
 - **Status:** fixed (partial — golem/rider/`mlevel>49`/`is_home_elemental`)
@@ -20,8 +42,8 @@ to preserve, record it here.
   **30272**/35386 Scr 23/124; green+strict PASS; cohort **30**/30 PASS.
 - **Named omission:** golem `golemhp`; rider `d(10,8)`; `mlevel>49`
   fixed HP; `is_home_elemental` `*=3`.
-- **Next:** @30263 C `next_ident` vs JS `get_location`; or seed5006
-  `dosounds` @8468.
+- **Next:** (superseded by D-0552) @30263 C `next_ident` vs JS
+  `get_location`.
 
 ## D-0550 — fire.lua load_special + endgame level_difficulty
 

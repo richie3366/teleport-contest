@@ -7,11 +7,11 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **D-0551 done:** adult-dragon `newmonhp` — `In_endgame` → `8*m_lev`
-  (no RNG); else `4*m_lev+d(m_lev,4)`. seed0373 rng-diff **30209→30263**;
-  runner RNG **30272**/35386 Scr 23.
-- **seed0373 next:** @30263 C `next_ident` vs JS `get_location` (fire
-  mon placement / invent gap after matched induced_align).
+- **D-0552 done:** `splev_create_monster` uses `pm_to_humidity` +
+  humidity-aware `is_ok_location` (HOT accepts lava; LAVAPOOL not
+  SPACE_POS). seed0373 **30263→30308**; runner RNG **30336**/35386.
+- **seed0373 next:** @30308 C `m_initinv` S_GIANT gem loop
+  `rn2(m_lev/2)` vs JS trailing `rn2(50)` (fire giant invent gap).
 - **seed0116 residual:** screen/cursor miss (110/127) after full RNG.
 - **D-0515 residual:** seed5006 still @8468 `dosounds` (RNG 8508).
 - **#610 formal score:** **30/44**, Scr **5901**/11405, RNG
@@ -28,7 +28,7 @@ Objective/score live in `CURRENT.md`.
   raw RNG-index / coord / ux0 hacks; leave `context.travel` set across
   walk/run after `_` travel; batch doset toggle plines (D-0499);
   steal hero cursor for leftover getobj text in `flush_screen`;
-  reopen D-0474…D-0551; stub-cancel `^V?` as if menu (breaks 0373);
+  reopen D-0474…D-0552; stub-cancel `^V?` as if menu (breaks 0373);
   template `\.` in map strings (use `\\` for throne); burn maze
   `rn2(2)` in `set_mimic_sym` on Sokoban; fill inside `load_special`
   loaders (makelevel owns fill); accept TELE on occupied mon cell;
@@ -54,14 +54,15 @@ Objective/score live in `CURRENT.md`.
   on boulder cells; skip soko4 hardfloor / SCR_EARTH / branch levregion;
   skip endgame Amulet grant on `^V?` force_dest (D-0549);
   omit endgame `level_difficulty` / fire.lua (D-0550);
-  burn `d(m_lev,8)` for adult dragons in endgame (D-0551).
+  burn `d(m_lev,8)` for adult dragons in endgame (D-0551);
+  always DRY-place fire-plane flyers/lava-likers (D-0552).
 
 ## Don’t re-check (≤15)
 
 - No raw RNG-index / coordinate / ux0 / forced-gettrack in production.
 - Rule #2: no `fs`/`path`/`url` in scored `js/` (D-0477).
 - Altar raw `{` (D-0293); don’t π-convert in scoring grid.
-- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0551
+- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0552
   done paths — see DIVERGENCE-INDEX.
 - Runner `Screen N/M` = total matches, not prefix length.
 - Hub `/sessions/` ≠ template bytes; still visual-PASS.
@@ -76,7 +77,7 @@ Objective/score live in `CURRENT.md`.
 - getbones `rn2(3)` gap with JS dog_move arity was unbound level change
   (`>` / `^V` / missing `print_dungeon` `?`) — fixed D-0515/18
   (D-0068/D-0149).
-- D-0519…D-0551 makemaz / tower / Bar / soko / endgame fire — see index.
+- D-0519…D-0552 makemaz / tower / Bar / soko / endgame fire — see index.
 
 ## Landmarks (≤15)
 
@@ -95,4 +96,4 @@ Objective/score live in `CURRENT.md`.
 - Water moccasin is `hides_under` (M1_CONCEAL) — postmov hide roll.
 - Rogue start leather is `+1` → AC 7 unless eroded (ARM_BONUS).
 - wizgenesis flags=5 (no AUTOCOMPLETE) — do not add to EXT_CMD_AC.
-- seed0373 tour: fire plane @30263 after adult-dragon HP (D-0551).
+- seed0373 tour: fire plane @30308 S_GIANT invent after humidity (D-0552).

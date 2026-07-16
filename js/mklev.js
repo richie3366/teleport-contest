@@ -24,7 +24,7 @@ import {
     LEPREHALL, COCKNEST, ANTHOLE,
     DIR_N, DIR_S, DIR_E, DIR_W, DIR_180,
     IS_WALL, IS_STWALL, IS_DOOR, IS_ROOM, IS_OBSTRUCTED, IS_FURNITURE, IS_POOL,
-    SPACE_POS, isok, W_NONDIGGABLE, W_NONPASSWALL, FILL_NORMAL,
+    IS_LAVA, SPACE_POS, isok, W_NONDIGGABLE, W_NONPASSWALL, FILL_NORMAL,
     ICE, MOAT, POOL, WATER, LAVAPOOL, LAVAWALL, DBWALL,
     AIR, CLOUD, THRONE, TREE, DRAWBRIDGE_UP, LADDER, LA_DOWN, LA_UP,
     MAX_TYPE, INVALID_TYPE, MATCH_WALL,
@@ -48,6 +48,7 @@ import {
     MKTRAP_NOSPIDERONWEB,
     MKTRAP_NOVICTIM,
     Is_firelevel,
+    DRY, WET, HOT, SOLID, ANY_LOC, NO_LOC_WARN, SPACELOC,
 } from './const.js';
 import {
     RANDOM_CLASS, WEAPON_CLASS, ARMOR_CLASS, RING_CLASS,
@@ -73,6 +74,8 @@ import {
     PM_ARCHEOLOGIST, PM_WIZARD, PM_GIANT_SPIDER, PM_MONK, PM_LICHEN,
     is_male, is_female, mons, G_NOGEN,
     MALE, FEMALE, NEUTRAL,
+    is_flyer, is_floater, is_swimmer, amphibious,
+    passes_walls, noncorporeal, likes_fire,
 } from './monsters.js';
 import { name_to_monplus, name_to_mon } from './mondata.js';
 import { christen_monst } from './do_name.js';
@@ -3570,22 +3573,54 @@ function good_stair_loc(x, y) {
     return typ === ROOM || typ === CORR || typ === ICE;
 }
 
-/** C ref: sp_lev.c is_ok_location humidity DRY|SPACELOC — SPACE_POS and
- *  no boulder (unless SOLID). */
-function is_ok_location_dry(x, y) {
-    if (!isok(x, y)) return false;
-    const typ = game.level.at(x, y)?.typ;
-    if (!SPACE_POS(typ)) return false;
-    // C: bould && !(humidity & SOLID) → reject
-    if (sobj_at(BOULDER, x, y)) return false;
-    return true;
+/**
+ * C ref: sp_lev.c pm_to_humidity — DRY plus WET/HOT/SOLID by mon traits.
+ * Named omission: Is_waterlevel short-circuit in is_ok_location.
+ */
+function pm_to_humidity(pm) {
+    let loc = DRY;
+    if (!pm) return loc;
+    if (pm.mlet === 'S_EEL' || amphibious(pm) || is_swimmer(pm))
+        loc = WET;
+    if (is_flyer(pm) || is_floater(pm))
+        loc |= (HOT | WET);
+    if (passes_walls(pm) || noncorporeal(pm))
+        loc |= SOLID;
+    if (likes_fire(pm))
+        loc |= HOT;
+    return loc;
 }
 
-function get_location_random(ok_fn) {
+/**
+ * C ref: sp_lev.c is_ok_location — humidity DRY|SPACELOC / WET / HOT / SOLID.
+ * LAVAPOOL is not SPACE_POS (typ 20 < DOOR 23), so HOT is required for lava.
+ */
+function is_ok_location(x, y, humidity) {
+    if (!isok(x, y)) return false;
+    const typ = game.level.at(x, y)?.typ ?? STONE;
+    if (humidity & ANY_LOC) return true;
+    if ((humidity & SOLID) && IS_OBSTRUCTED(typ)) return true;
+    if ((humidity & (DRY | SPACELOC)) && SPACE_POS(typ)) {
+        const bould = sobj_at(BOULDER, x, y);
+        if (!bould || (humidity & SOLID)) return true;
+    }
+    if ((humidity & WET) && (typ === POOL || typ === MOAT || typ === WATER))
+        return true;
+    if ((humidity & HOT) && IS_LAVA(typ)) return true;
+    return false;
+}
+
+/** C ref: sp_lev.c is_ok_location humidity DRY — SPACE_POS, no boulder. */
+function is_ok_location_dry(x, y) {
+    return is_ok_location(x, y, DRY);
+}
+
+function get_location_random(ok_fn, humidity = DRY) {
     const { mx, my, sx, sy } = splev_map_origin();
     let x = 0, y = 0;
     let cpt = 0;
-    const ok = ok_fn || ((xx, yy) => is_ok_location_dry(xx, yy));
+    const flags = humidity | 0;
+    const ok = ok_fn || ((xx, yy) => is_ok_location(xx, yy, flags));
     do {
         x = mx + rn2(sx);
         y = my + rn2(sy);
@@ -3599,6 +3634,7 @@ function get_location_random(ok_fn) {
                 if (ok(x, y)) return { x, y };
             }
         }
+        if (flags & NO_LOC_WARN) return { x: -1, y: -1 };
         return { x: X_MAZE_MAX, y: Y_MAZE_MAX };
     }
     return { x, y };
@@ -3658,7 +3694,18 @@ function splev_create_monster(id_or_class, peaceful) {
         const mlet = monclass_letter_to_mlet(id_or_class);
         pm = mlet ? mkclass(mlet, G_NOGEN) : null;
     }
-    let pos = get_location_random(null);
+    // C: pm_to_humidity then get_location_coord(loc|NO_LOC_WARN); on fail |= DRY
+    let pos;
+    if (pm) {
+        let loc = pm_to_humidity(pm);
+        pos = get_location_random(null, loc | NO_LOC_WARN);
+        if (pos.x < 0) {
+            loc |= DRY;
+            pos = get_location_random(null, loc);
+        }
+    } else {
+        pos = get_location_random(null, DRY);
+    }
     pos = splev_resolve_occupied(pos.x, pos.y, pm);
     const mtmp = makemon(pm, pos.x, pos.y, 0);
     if (mtmp && typeof id_or_class === 'string' && id_or_class.length > 1) {

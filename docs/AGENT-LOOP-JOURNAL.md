@@ -11,13 +11,24 @@ move older ones into `docs/archive/`.
 
 Use this shape:
 
-```text## YYYY-MM-DD HH:MM — <objective>
+```text
+## YYYY-MM-DD HH:MM — <objective>
 - Objective: …
 - C locus: …
 - Change or falsified theory: …
 - Verification: …
 - Next: …
 ```
+
+## 2026-07-16 20:29 — #612 D-0552 splev pm_to_humidity
+- Objective: peel seed0373 @30263 C `next_ident` vs JS `get_location`.
+- C locus: `sp_lev.c` `pm_to_humidity` / `is_ok_location` /
+  `create_monster` humidity.
+- Change: `js/mklev.js` humidity-aware placement; `js/monsters.js`
+  `likes_lava`/`likes_fire`/`is_swimmer`/`amphibious`.
+- Verification: rng-diff **30263→30308**; runner RNG **30336**/35386;
+  green+strict PASS; cohort **28**/28 PASS.
+- Next: @30308 C `m_initinv` S_GIANT gem `rn2(m_lev/2)`; or dosounds.
 
 ## 2026-07-16 20:22 — #611 D-0551 newmonhp adult dragon endgame
 - Objective: peel seed0373 @30209 C female `rn2(2)` vs JS `d(22,8)`.
