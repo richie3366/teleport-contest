@@ -72,9 +72,9 @@ judge at 08:55Z dropped to **22** after D-0480 (seed0013-rogue 59→58).
 but near-misses remain → upstream #5.
 
 **Gameplay next:** **D-0578** — seed5006 seg1 @2782 hostile PM_KITTEN
-`m_move` track-skip: JS `rn2(28)` (`cnt=7,j=0` at (32,4)) vs C
-`rn2(16)`. First move matched; 2780 is post-move `distfleeck` recalc.
-Falsify C dest / `mfndpos` cnt (see NOTES). Alt: seed0116 Scr 114/127.
+`m_move` track-skip: C one `rn2(16)` vs JS @(32,4) `rn2(28)+rn2(24)`.
+C’s `rn2(28)+rn2(24)` appears @2800 (next turn). Prove C first-move
+dest (see NOTES). Alt: seed0116 Scr 114/127.
 
 ```bash
 node frozen/ps_test_runner.mjs sessions/seed5006-tourist-stress-disaster.session.json

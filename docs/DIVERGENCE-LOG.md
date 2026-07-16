@@ -9,21 +9,23 @@ to preserve, record it here.
 - **Status:** open (diagnosed; no faithful fix this iteration)
 - **Symptom:** seed5006 seg1 @2782 C `rn2(16)` `m_move:1963` vs JS
   `rn2(28)` — after D-0577 familiar prefix.
-- **Evidence:** same hostile PM_KITTEN (mtame=0, mov 24→12→0). Sequence
-  2778 distfleeck → 2779 rn2(28) track → 2780 post-move distfleeck
-  recalc → 2781 distfleeck pass2 → 2782 diverge. JS first move
-  (31,4)→(32,4) with cnt=7; at (32,4) still cnt=7,j=0. Bones map open
-  ROOM; ghost@GRAVE(31,5) already excluded. Empty-ROOM mfndpos filters
-  rarely shrink cnt 7→4.
-- **Hypothesis (next):** C dest after first move differs (goal/
-  `gettrack`/selection continues) so second-move cell has cnt=4; or
-  C `mfndpos` excludes 3 neighbors JS keeps. Falsified: “other mon”
-  / missing pass1 distfleeck (2780 is same kitten recalc).
+- **Evidence (#642):** bones kitten @(31,4) mtrack=(32,5)(32,6)(57,7);
+  2779 both `rn2(28)=13` skip (32,5). JS then @(32,4) `cnt=7` emits
+  `rn2(28)` **and** `rn2(24)` (j=0,1 on (31,4)/(32,5)). C @2782 emits
+  **one** `rn2(16)` then fleeck. C @2800–2801 is `rn2(28)+rn2(24)` —
+  JS’s (32,4) track shape one turn later. Neighbors are empty ROOM
+  (ghost@GRAVE(31,5) excluded); no traps/objs/Elbereth; gettrack null;
+  bones `shortsighted=false`; loot gg blocked by sleeping ghost.
+- **Hypothesis (next):** C first-move dest ≠ JS (32,4) despite same
+  track skip (gg/poss/appr), so 2782 is another cell with `cnt-j=4`
+  and a single mtrack neighbor; or C at (32,4) excludes (32,5)+2.
+  Falsified: other-mon; missing fleeck; empty-ROOM trap/obj scare;
+  gettrack; shortsighted; dest=(32,5) cnt=5→rn2(20).
 - **C locus:** `monmove.c` `m_move` ~1963; `mon.c` `mfndpos`.
 - **Named omission:** hostile `m_move` still lacks `chi` /
   `m_avoid_kicked_loc` / MDISP skip / shortsighted; `mfndpos` pool/
   lava/onscary/squeeze/`mm_aggression` (map section).
-- **Next:** prove C dest or cnt; avoid raw-index/coord hacks.
+- **Next:** prove C first-move dest; avoid raw-index/coord hacks.
 
 ## D-0577 — familiar_level_msg + cemetery bonesinfo (seed5006 seg1)
 

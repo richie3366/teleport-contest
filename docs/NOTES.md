@@ -7,18 +7,21 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **D-0578 open (diag):** seed5006 seg1 @2782 is hostile **PM_KITTEN**
-  `m_move` track-skip `rn2(4*(cnt-j))`. Prefix through 2781 matches
-  (incl. post-move `distfleeck` recalc at 2780). JS at (32,4) has
-  `cnt=7,j=0` → `rn2(28)`; C wants `rn2(16)` → `cnt-j=4`.
-  First move (31,4)→(32,4) both `cnt=7`/`rn2(28)=13`. Bones map is
-  open ROOM there; mfndpos omissions rarely exclude empty ROOM.
-  **Next falsifier:** prove C dest after first move (goal/`gettrack`/
-  selection skips) or C `mfndpos` cnt at that cell — not another mon.
+- **D-0578 open:** seed5006 seg1 @2782 hostile PM_KITTEN `m_move`
+  track-skip. Prefix through 2781 matches. Bones kitten @(31,4)
+  mtrack=(32,5)(32,6)(57,7); first move both `rn2(28)=13` skip (32,5).
+  **JS @(32,4):** `cnt=7` → `rn2(28)` then `rn2(24)` (j=0,1).
+  **C @2782:** single `rn2(16)` then fleeck (only one track match /
+  `cnt-j=4`). C @2800–2801 is `rn2(28)+rn2(24)` — JS’s (32,4) shape
+  one turn later → C’s 2782 cell ≠ JS (32,4), or C cnt=4 there.
+  Falsified: traps/objs/Elbereth on those ROOMs; gettrack (null);
+  shortsighted; loot gg (ghost blocks pile); dest=(32,5) cnt=5→rn2(20).
+  **Next:** prove C first-move dest (gg/poss/appr) — with mtrack[0]=(32,5)
+  and gg=mux, JS nearer walk forces (32,4).
   ```bash
   node frozen/ps_test_runner.mjs sessions/seed5006-tourist-stress-disaster.session.json
   ```
-- **Alt:** seed0116 residual Scr 114/127 (RNG full). Prefer 5006.
+- **Alt:** seed0116 Scr 114/127 (RNG full). Prefer 5006.
 - **Leaderboard gap:** local **31/44** vs judge **22** after D-0480;
   D-0483 reverted serialize.
 - **Don’t:** re-apply D-0480 serialize coerce; invent frame-align;
@@ -64,6 +67,8 @@ Objective/score live in `CURRENT.md`.
   seg1 start; seg0 is FULL.
 - seg1 @2780 `rn2(5)` is kitten **post-move** `distfleeck` recalc
   (dochug after `m_move`), not a second monster.
+- D-0578: empty-ROOM neighbors have no traps/objs; ghost@GRAVE(31,5)
+  already excluded; gettrack null; bones shortsighted=false.
 
 ## Landmarks (≤15)
 
