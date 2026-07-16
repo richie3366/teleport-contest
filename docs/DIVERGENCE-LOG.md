@@ -4,16 +4,36 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
-## D-0455 — seed0002 screen@54 drink getobj compactify
+## D-0456 — seed0002 screen@221 pickup_prinv slightload lifting
 
 - **Status:** open
+- **Symptom:** seed0002 first cell-miss @221 — C
+  `You have a little trouble lifting x - a chain mail.--More--`
+  vs JS bare `x - a chain mail.--More--`. RNG full; Scr 325/595.
+- **Cause:** TBD — JS `pickup_prinv` always `prinv(null,…)`; C
+  `pickup_prinv` prefixes `slightloadpfx`+`lifting` when
+  `near_capacity()` crosses into SLT_ENCUMBER.
+- **C locus:** `pickup.c` `pickup_prinv` / `slightloadpfx`.
+- **Falsifier / next:** port encumbrance-prefix arms; recheck Scr.
+
+## D-0455 — seed0002 screen@54 drink getobj compactify
+
+- **Status:** fixed
 - **Symptom:** seed0002 first cell-miss @ screen 54 — C
   `What do you want to drink? [d-gnq or ?*]` vs JS `[defgnq or ?*]`.
   RNG full 27158/27158 after D-0454; Scr 323/595 (non-prefix count).
-- **Cause:** TBD — C `invent.c` `compactify` when suggested>5 (drop
-  path D-0332); drink getobj may omit same call.
-- **C locus:** `invent.c` `compactify` / drink `getobj`.
-- **Falsifier / next:** wire compactify into drink getobj; recheck Scr.
+- **Cause:** `getobj_drink`/`drinkable_lets` joined potion invlets
+  without C `getobj` `if (suggested > 5) compactify(bp)` (drop path
+  already had it via D-0332).
+- **C locus:** `invent.c` `compactify` / `getobj`; drink via
+  `potion.c` `dodrink` → `getobj("drink",…)`.
+- **Change:** `js/potion.js` — prompt uses `compactify_invlets` when
+  raw length > 5; `?` menu still gets non-compacted `lets[]` (C).
+- **Deferred:** other getobj callers still omitting prompt compactify
+  (eat/dip local compact_lets; throw/zap/read/wear/…); shared getobj.
+- **Verification:** seed0002 first miss **@54→@221**; Scr **323→325**;
+  RNG still full 27158; green+strict; cohort **24/24** (+green = 26).
+- **Next:** screen@221 `pickup_prinv` slightload lifting (D-0456).
 
 ## D-0454 — seed0002 @27050 do_improvisation vs JS rn2(19)
 
