@@ -4,6 +4,27 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
+## D-0543 — soko1-2 load_special
+
+- **Status:** fixed (partial — other `soko*-*`; solidify/premap/exclusion)
+- **Symptom:** seed0373 @22651 C nhlib `shuffle` `rn2(3)` vs JS
+  `rn2(79)` after matched `makemaz` `rnd(2)=2` / `getbones`.
+- **Cause:** `rnd(2)=2` selects `soko1-2`; JS `load_special_proto`
+  only had `soko1-1`, so load failed and later placement burned
+  `get_location` while C ran nhlib shuffle from `soko1-2.lua`.
+- **C locus:** `dat/soko1-2.lua`; `sp_lev.c` `load_special`;
+  `mkmaze.c` `makemaz` protofile `rnd(rndlevs)`.
+- **Change:** `js/mklev.js` `load_soko1_2` (map, stairs, boulders,
+  traps, mimics, objects, doors, zoo region, percent(25) reward,
+  wallify + `flip_level_rnd`) + dispatch.
+- **Verification:** seed0373 rng-diff **22651→24531**; runner RNG
+  **24545**/35386 Scr 22/124; green+strict PASS; cohort **28**/28
+  PASS (+green = 30); seed0116 RNG still full Scr 110/127.
+- **Named omission:** other `soko*-*`; solidify / premap /
+  exclusion_zones; COURT/BEEHIVE/… fill_zoo arms.
+- **Next:** @24531 C `makemon` `rn2(5)` vs JS `rn2(50)`; or
+  seed5006 `dosounds` @8468.
+
 ## D-0542 — m_initinv S_QUANTMECH SchroedingersBox
 
 - **Status:** fixed (partial — S_MUMMY / S_DEMON; box open/disclose)

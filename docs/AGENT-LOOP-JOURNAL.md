@@ -20,6 +20,17 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-16 19:31 — #603 D-0543 soko1-2 load_special
+- Objective: peel seed0373 @22651 C nhlib `shuffle` `rn2(3)` vs JS
+  `rn2(79)` after matched `makemaz` `rnd(2)=2`.
+- C locus: `dat/soko1-2.lua`; `sp_lev.c` `load_special`; `mkmaze.c`
+  `makemaz`.
+- Change: `js/mklev.js` `load_soko1_2` + dispatch (map, traps,
+  mimics, zoo, percent(25) reward, flip).
+- Verification: rng-diff **22651→24531**; runner RNG **24545**/35386
+  Scr 22/124; green+strict; cohort 28/28.
+- Next: makemon rn2(5) @24531; or dosounds @8468.
+
 ## 2026-07-16 19:26 — #602 D-0542 m_initinv S_QUANTMECH
 - Objective: peel seed0373 @21730 C `m_initinv` `rn2(20)` vs JS
   trailing `rn2(50)`.
@@ -158,13 +169,3 @@ Use this shape:
   green+strict; cohort 30/30 PASS; seed0116 RNG full.
 - Next: @5497 C nhlib shuffle `rn2(2)` vs JS `rn2(5)`; or seed5006
   `dosounds` @8468.
-
-## 2026-07-16 18:25 — #588 D-0529 Bar-loca + traptype_rnd
-- Objective: seed0373 @4571 C nhlib shuffle vs JS u_on_rndspot.
-- C locus: `dat/Bar-loca.lua`; `mklev.c` `traptype_rnd`
-  (`level_difficulty`).
-- Change: `load_bar_loca` + dispatch; `traptype_rnd` uses
-  `level_difficulty()` (was `dlevel`).
-- Verification: rng-diff **4571→5082**; runner RNG **5133**/35386;
-  green+strict; cohort 28/28 PASS; seed0116 RNG full.
-- Next: m_initweap @5082; or seed5006 dosounds @8468.

@@ -690,6 +690,10 @@ function load_special_proto(protofile) {
         load_soko1_1();
         return true;
     }
+    if (protofile === 'soko1-2') {
+        load_soko1_2();
+        return true;
+    }
     return false;
 }
 
@@ -1626,6 +1630,170 @@ function load_soko1_1() {
 
     // C ref: sp_lev.c load_special — wallify, flip, fixup_special only.
     // fill_special_room runs once later in makelevel (mklev.c:1416), not here.
+    if (!g.level.flags.corrmaze)
+        wallification(1, 0, COLNO - 1, ROWNO - 1);
+    flip_level_rnd(3, false);
+    fixup_special();
+}
+
+/**
+ * C ref: dat/soko1-2.lua via load_special.
+ * Named omissions: solidify_map / premap_detect / ensure_way_out;
+ * populate exclusion_zones from des.exclusion; other soko*-*;
+ * COURT/BEEHIVE/… fill_zoo arms beyond ZOO. Room fill deferred to makelevel.
+ */
+function load_soko1_2() {
+    const g = game;
+    nhlib_shuffle_align();
+    splev_initlev({
+        init_style: LVLINIT_SOLIDFILL,
+        filling: STONE,
+        lit: BOOL_RANDOM,
+        icedpools: false,
+    });
+    if (!g.level.flags) g.level.flags = {};
+    g.level.flags.is_maze_lev = true;
+    g.level.flags.noteleport = true;
+    g.level.flags.sokoban = true;
+    g.level.flags.sokoban_rules = true;
+    g.Sokoban = true;
+
+    const SOKO1_2_MAP = `
+  ------------------------
+  |......................|
+  |..-------------------.|
+----.|    -----        |.|
+|..|.--  --...|        |.|
+|.....|--|....|        |.|
+|.....|..|....|        |.|
+--....|......--        |.|
+ |.......|...|   ------|.|
+ |....|..|...| --|.....|.|
+ |....|--|...| |.+.....|.|
+ |.......|..-- |-|.....|.|
+ ----....|.--  |.+.....+.|
+    ---.--.|   |-|.....|--
+     |.....|   |.+.....|  
+     |..|..|   --|.....|  
+     -------     -------  
+`.replace(/^\n/, '');
+    const { xstart, ystart } = splev_apply_centered_map(SOKO1_2_MAP);
+
+    const placeAbs = {
+        pts: new Set([
+            `${xstart + 16},${ystart + 10}`,
+            `${xstart + 16},${ystart + 12}`,
+            `${xstart + 16},${ystart + 14}`,
+        ]),
+        lx: xstart + 16, ly: ystart + 10,
+        hx: xstart + 16, hy: ystart + 14,
+    };
+
+    mkstairs(xstart + 6, ystart + 15, 0, null); // des.stair("down", 06, 15)
+
+    // des.region(selection.area(00,00,25,16),"lit")
+    for (let y = ystart; y <= ystart + 16 && y < ROWNO; y++) {
+        for (let x = xstart; x <= xstart + 25 && x < COLNO; x++) {
+            const loc = g.level.at(x, y);
+            if (loc) loc.lit = true;
+        }
+    }
+
+    for (let y = ystart; y <= ystart + 16 && y < ROWNO; y++) {
+        for (let x = Math.max(1, xstart); x <= xstart + 25 && x < COLNO; x++) {
+            const loc = g.level.at(x, y);
+            if (!loc) continue;
+            if (IS_STWALL(loc.typ) || IS_TREE(loc.typ) || loc.typ === IRONBARS) {
+                loc.wall_info = (loc.wall_info || 0) | W_NONDIGGABLE | W_NONPASSWALL;
+            }
+        }
+    }
+
+    const boulderCoords = [
+        [4, 4], [2, 6], [3, 6], [4, 7], [5, 7], [2, 8], [5, 8],
+        [3, 9], [4, 9], [3, 10], [5, 10], [6, 12],
+        [7, 14],
+        [11, 5], [12, 6], [10, 7], [11, 7], [10, 8], [12, 9], [11, 10],
+    ];
+    for (const [mx, my] of boulderCoords) {
+        mksobj_at(BOULDER, xstart + mx, ystart + my, true, true);
+    }
+
+    const trapSpecs = [
+        [ROLLING_BOULDER_TRAP, 5, 1],
+        [HOLE, 6, 1], [HOLE, 7, 1], [HOLE, 8, 1], [HOLE, 9, 1],
+        [HOLE, 10, 1], [HOLE, 11, 1], [HOLE, 12, 1], [HOLE, 13, 1],
+        [HOLE, 14, 1], [HOLE, 15, 1], [HOLE, 16, 1], [HOLE, 17, 1],
+        [HOLE, 18, 1], [HOLE, 19, 1], [HOLE, 20, 1], [HOLE, 21, 1],
+        [HOLE, 22, 1], [HOLE, 23, 1],
+    ];
+    for (const [ttyp, mx, my] of trapSpecs) {
+        const ttmp = maketrap(xstart + mx, ystart + my, ttyp);
+        mktrap_seen_victim(ttmp, {});
+    }
+
+    create_mimic_as_boulder();
+    create_mimic_as_boulder();
+
+    for (let i = 0; i < 4; i++) splev_create_object(FOOD_CLASS);
+    splev_create_object(RING_CLASS);
+    splev_create_object(WAND_CLASS);
+
+    const sokoDoor = (mx, my, mask) => {
+        const loc = g.level.at(xstart + mx, ystart + my);
+        if (!loc) return;
+        if (!IS_DOOR(loc.typ) && loc.typ !== SDOOR) loc.typ = DOOR;
+        loc.doormask = mask;
+        loc.flags = mask;
+    };
+    sokoDoor(23, 12, D_LOCKED);
+    sokoDoor(17, 10, D_CLOSED);
+    sokoDoor(17, 12, D_CLOSED);
+    sokoDoor(17, 14, D_CLOSED);
+
+    // des.region zoo filled irregular — region={18,09, 22,15}
+    {
+        let dx1 = 18, dy1 = 9, dx2 = 22, dy2 = 15;
+        dx1 += xstart; dy1 += ystart;
+        dx2 += xstart; dy2 += ystart;
+        const rlit = litstate_rnd(1);
+        if ((g.level.nroom | 0) < MAXNROFROOMS) {
+            const bounds = {
+                min_rx: dx1, max_rx: dx1, min_ry: dy1, max_ry: dy1,
+            };
+            const rmno = g.level.nroom + ROOMOFFSET;
+            if (g.smeq) g.smeq[g.level.nroom] = g.level.nroom;
+            flood_fill_rm(dx1, dy1, rmno, rlit, true, bounds);
+            add_room(bounds.min_rx, bounds.min_ry, bounds.max_rx, bounds.max_ry,
+                false, ZOO, true);
+            const troom = g.level.rooms[g.level.nroom - 1];
+            if (troom) {
+                troom.rlit = rlit ? 1 : 0;
+                troom.irregular = true;
+                troom.needjoining = true;
+                troom.needfill = FILL_NORMAL;
+                add_doors_to_room(troom);
+            }
+        }
+    }
+
+    // C: percent(25) bag else amulet (soko1-2; soko1-1 uses percent(75))
+    const pt = selection_rndcoord(placeAbs, false);
+    if (pt) {
+        if (percent(25)) {
+            const otmp = mksobj_at(BAG_OF_HOLDING, pt.x, pt.y, true, true);
+            if (otmp) uncurse(otmp);
+        } else {
+            const otmp = mksobj_at(AMULET_OF_REFLECTION, pt.x, pt.y, true, true);
+            if (otmp) uncurse(otmp);
+        }
+        make_engr_at(pt.x, pt.y, 'Elbereth', null, 0, BURN);
+        {
+            const otmp = mksobj_at(SCR_SCARE_MONSTER, pt.x, pt.y, true, true);
+            if (otmp) curse(otmp);
+        }
+    }
+
     if (!g.level.flags.corrmaze)
         wallification(1, 0, COLNO - 1, ROWNO - 1);
     flip_level_rnd(3, false);
