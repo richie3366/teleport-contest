@@ -20,6 +20,19 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-16 03:50 — #483 exerchk next_attrib_check (D-0449)
+- Objective: seed0002 @25615 C `rn2(50)` @ `exerchk` vs JS wipe_engr
+  `rn2(61)` (PRIMARY).
+- C locus: `attrib.c` `exerchk`/`exercise`; `allmain.c` newgame
+  `next_attrib_check = 600`.
+- Change: JS `exerchk` only ran `exerper`; ported attribute-test loop
+  (`rn2(AVAL)`, halve AEXE, `rn1(200,800)`), init check=600, Upolyd
+  exercise gate. Deferred: STR/CON `encumber_msg` after exercise;
+  Fixed_abil/Dunce.
+- Verification: seed0002 prefix **25615→25767**; RNG matched
+  **25725→25921**; Scr **320**/595; green+strict; cohort **24/24**.
+- Next: seed0002 @25767 C `exercise` then `dobuzz` vs JS `rn2(5)`
+  (D-0450).
 ## 2026-07-16 03:45 — #482 dopay → money2mon/next_ident (D-0448)
 - Objective: seed0002 @19167 C `rnd(2)` @ `next_ident` (PRIMARY).
 - C locus: `shk.c` `dopay`/`pay`/`money2mon`/`menu_pick_pay_items`/
@@ -169,14 +182,3 @@ Use this shape:
 - Verification: seed0002 prefix **10634→11150**; Scr still **233**/595;
   RNG matched **11598**/27158; green+strict; cohort **26/26**.
 - Next: seed0002 @11150 `ohitmon` `rnd(20)`.
-## 2026-07-16 02:16 — #468 u_maybe_impaired (D-0437)
-- Objective: seed0002 @10550 C `rn2(5)` @ `distfleeck` vs JS `rn2(12)` @
-  `m_move` (PRIMARY — was monmove path split after confusion).
-- C locus: `hack.c` `u_maybe_impaired` / `impaired_movement`; `cmd.c`
-  `confdir`.
-- Change: JS `domove` skipped Confusion `!rn2(5)`; ported helpers and
-  call before `m_at` (C `domove_core` order). DIAG showed JS already in
-  hostile `m_move` track while C still on first `distfleeck`.
-- Verification: seed0002 prefix **10550→10634**; Scr still **233**/595;
-  RNG matched **10667**/27158; green+strict; cohort **26/26**.
-- Next: seed0002 @10634 `peffect_booze` `d(3,8)`.

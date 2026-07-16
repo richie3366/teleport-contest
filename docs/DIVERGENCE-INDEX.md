@@ -435,7 +435,8 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 | D-0446 | fixed | seer_turn rn1(31,15) once-per-hero | seed0002 prefix 18354→18457; Scr 311; @18457 honorific next |
 | D-0447 | fixed | pickup shop append_honorific rn2(4) | seed0002 prefix 18457→19167; Scr 311→313; @19167 next_ident next |
 | D-0448 | fixed | dopay money2mon/splitobj next_ident | seed0002 prefix 19167→25615; Scr 313→320; @25615 exerchk next |
-| D-0449 | open | exerchk rn2(50) vs JS wipe_engr rn2(61) | seed0002 @25615 after dopay |
+| D-0449 | fixed | exerchk next_attrib_check + rn2(50) loop | seed0002 prefix 25615→25767; Scr 320; @25767 exercise/dobuzz next |
+| D-0450 | open | exercise then dobuzz vs JS rn2(5) | seed0002 @25767 after exerchk |
 
 
 

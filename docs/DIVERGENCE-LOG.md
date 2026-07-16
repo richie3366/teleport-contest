@@ -4,20 +4,41 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
-## D-0449 — seed0002 @25615 `exerchk` rn2(50) vs JS wipe_engr rn2(61)
+## D-0450 — seed0002 @25767 exercise then dobuzz vs JS rn2(5)
 
 - **Status:** open
+- **Symptom:** seed0002 first RNG miss @25767 — C `rn2(19)=3` @
+  `exercise(attrib.c:509)` then `dobuzz` `rn2(7)` vs JS `rn2(5)=4`.
+  Prefix 25767; Scr 320/595. Matched through `exerchk` + wipe_engr
+  (D-0449).
+- **Hypothesis:** after EOT wipe_engr, C enters a zap/`dobuzz` path
+  that also `exercise`s; JS takes a different action (fleeck-shaped
+  `rn2(5)`). Reconstruct caller of exercise immediately before dobuzz.
+- **C locus:** `attrib.c` `exercise`; `zap.c` `dobuzz` (+ caller).
+- **Next:** identify C exercise→dobuzz call chain; do not treat as
+  monmove without zap proof.
+
+## D-0449 — seed0002 @25615 `exerchk` rn2(50) vs JS wipe_engr rn2(61)
+
+- **Status:** fixed
 - **Symptom:** seed0002 first RNG miss @25615 — C `rn2(50)=14` @
   `exerchk(attrib.c:655)` vs JS `rn2(61)=52` (wipe_engr DEX check).
   Prefix 25615; Scr 320/595. Matched through shop `dopay`/`next_ident`
   (D-0448).
-- **Hypothesis:** C runs `exerchk` exercise rolls where JS still takes
-  the moveloop wipe_engr path (or skips an `exerchk` gate). Reconstruct
-  after matched `exercise` `rn2(19)`.
-- **C locus:** `attrib.c` `exerchk`; callers via EOT `exerchk()` in
-  `moveloop_core`.
-- **Next:** compare JS `exerchk`/`exercise` vs C; do not treat as
-  wipe_engr alone without exercise-state proof.
+- **Cause:** JS `exerchk` only called `exerper()` and omitted the
+  `moves >= next_attrib_check && !multi` attribute-test loop
+  (`rn2(AVAL)` / halve AEXE / `rn1(200,800)` reschedule). Also
+  `next_attrib_check` was never initialized to 600 at newgame.
+- **C locus:** `attrib.c` `exerchk`/`exercise`; `allmain.c` newgame
+  `next_attrib_check = 600`.
+- **Change:** ported `exerchk` resolve loop + `You must have been…`
+  text; init `next_attrib_check=600`; `exercise` Upolyd gate.
+  Deferred: `encumber_msg` after STR/CON exercise; Fixed_abil/Dunce
+  via adjattrib; adjattrib in_moveloop encumber.
+- **Verification:** seed0002 prefix **25615→25767**; RNG matched
+  **25725→25921**; Scr 320; green+strict; cohort **24/24** PASS.
+- **Next:** seed0002 @25767 C `exercise`/`dobuzz` vs JS `rn2(5)`
+  (D-0450).
 
 ## D-0448 — seed0002 @19167 `dopay` → `money2mon`/`next_ident`
 
