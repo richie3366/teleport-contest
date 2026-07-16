@@ -83,6 +83,7 @@ import { name_to_monplus, name_to_mon } from './mondata.js';
 import { christen_monst } from './do_name.js';
 import { make_engr_at, make_grave, wipe_engr_at, random_engraving } from './engrave.js';
 import { find_level } from './dungeon.js';
+import { premap_detect } from './detect.js';
 
 const GOLD_PIECE = objectNames.indexOf('GOLD_PIECE');
 const ROCK = objectNames.indexOf('ROCK');
@@ -606,6 +607,8 @@ function reset_xystart_size() {
     game.splev_ystart = 0;
     game.splev_xsize = COLNO - 1;
     game.splev_ysize = ROWNO;
+    // C create_des_coder: memset SpLev_Map
+    game.SpLev_Map = new Set();
 }
 
 /**
@@ -752,14 +755,47 @@ function splev_apply_centered_map(mapstr) {
     game.splev_ystart = ystart;
     game.splev_xsize = mf.wid;
     game.splev_ysize = mf.hei;
+    if (!game.SpLev_Map) game.SpLev_Map = new Set();
     for (let yy = ystart; yy < Math.min(ROWNO, ystart + mf.hei); yy++) {
         for (let xx = xstart; xx < Math.min(COLNO, xstart + mf.wid); xx++) {
             const mptyp = mapfrag_get(mf, xx - xstart, yy - ystart);
             if (mptyp === INVALID_TYPE || mptyp >= MAX_TYPE) continue;
             sel_set_ter(xx, yy, mptyp, false);
+            // C lspo_map: SpLev_Map[x][y] = 1 for each map cell written
+            game.SpLev_Map.add(`${xx},${yy}`);
         }
     }
     return { xstart, ystart, mf };
+}
+
+/**
+ * C ref: sp_lev.c solidify_map — mark STWALL outside SpLev_Map as
+ * nondiggable/nonpasswall so premap_detect can skip them.
+ */
+function solidify_map() {
+    const spMap = game.SpLev_Map;
+    for (let x = 0; x < COLNO; x++) {
+        for (let y = 0; y < ROWNO; y++) {
+            const loc = game.level?.at(x, y);
+            if (!loc || !IS_STWALL(loc.typ)) continue;
+            if (spMap && spMap.has(`${x},${y}`)) continue;
+            loc.wall_info = (loc.wall_info || 0) | (W_NONDIGGABLE | W_NONPASSWALL);
+            loc.flags = (loc.flags | 0) | (W_NONDIGGABLE | W_NONPASSWALL);
+        }
+    }
+}
+
+/**
+ * C ref: sp_lev.c load_special epilogue for premapped Sokoban levels —
+ * wallify → flip → solidify → fixup → premap_detect.
+ */
+function soko_load_epilogue(allowFlips = 3) {
+    if (!game.level.flags.corrmaze)
+        wallification(1, 0, COLNO - 1, ROWNO - 1);
+    flip_level_rnd(allowFlips, false);
+    solidify_map();
+    fixup_special();
+    premap_detect();
 }
 
 /**
@@ -1502,7 +1538,7 @@ function load_tower1() {
 
 /**
  * C ref: dat/soko1-1.lua via load_special.
- * Named omissions: solidify_map / premap_detect / ensure_way_out;
+ * Named omissions: ensure_way_out;
  * populate exclusion_zones from des.exclusion; link_doors_rooms full scan;
  * COURT/BEEHIVE/… fill_zoo arms beyond ZOO. Room fill is deferred to
  * makelevel (not here).
@@ -1665,17 +1701,14 @@ function load_soko1_1() {
         }
     }
 
-    // C ref: sp_lev.c load_special — wallify, flip, fixup_special only.
+    // C ref: sp_lev.c load_special — wallify, flip, solidify, fixup, premap
     // fill_special_room runs once later in makelevel (mklev.c:1416), not here.
-    if (!g.level.flags.corrmaze)
-        wallification(1, 0, COLNO - 1, ROWNO - 1);
-    flip_level_rnd(3, false);
-    fixup_special();
+    soko_load_epilogue();
 }
 
 /**
  * C ref: dat/soko1-2.lua via load_special.
- * Named omissions: solidify_map / premap_detect / ensure_way_out;
+ * Named omissions: ensure_way_out;
  * populate exclusion_zones from des.exclusion; other soko*-*;
  * COURT/BEEHIVE/… fill_zoo arms beyond ZOO. Room fill deferred to makelevel.
  */
@@ -1831,15 +1864,12 @@ function load_soko1_2() {
         }
     }
 
-    if (!g.level.flags.corrmaze)
-        wallification(1, 0, COLNO - 1, ROWNO - 1);
-    flip_level_rnd(3, false);
-    fixup_special();
+    soko_load_epilogue();
 }
 
 /**
  * C ref: dat/soko3-1.lua via load_special.
- * Named omissions: solidify_map / premap_detect / ensure_way_out;
+ * Named omissions: ensure_way_out;
  * populate exclusion_zones from des.exclusion; soko2-2 / soko4-1.
  */
 function load_soko3_1() {
@@ -1931,16 +1961,13 @@ function load_soko3_1() {
     splev_create_object(RING_CLASS);
     splev_create_object(WAND_CLASS);
 
-    // C ref: sp_lev.c load_special — wallify, flip, fixup_special
-    if (!g.level.flags.corrmaze)
-        wallification(1, 0, COLNO - 1, ROWNO - 1);
-    flip_level_rnd(3, false);
-    fixup_special();
+    // C ref: sp_lev.c load_special — wallify, flip, solidify, fixup, premap
+    soko_load_epilogue();
 }
 
 /**
  * C ref: dat/soko3-2.lua via load_special.
- * Named omissions: solidify_map / premap_detect / ensure_way_out;
+ * Named omissions: ensure_way_out;
  * populate exclusion_zones from des.exclusion; soko2-2 / soko4-1.
  */
 function load_soko3_2() {
@@ -2034,16 +2061,13 @@ function load_soko3_2() {
     splev_create_object(RING_CLASS);
     splev_create_object(WAND_CLASS);
 
-    // C ref: sp_lev.c load_special — wallify, flip, fixup_special
-    if (!g.level.flags.corrmaze)
-        wallification(1, 0, COLNO - 1, ROWNO - 1);
-    flip_level_rnd(3, false);
-    fixup_special();
+    // C ref: sp_lev.c load_special — wallify, flip, solidify, fixup, premap
+    soko_load_epilogue();
 }
 
 /**
  * C ref: dat/soko4-2.lua via load_special — Sokoban entry (bottom).
- * Named omissions: solidify_map / premap_detect / ensure_way_out;
+ * Named omissions: ensure_way_out;
  * populate exclusion_zones from des.exclusion; soko2-2 / soko4-1;
  * levregion coords after flip (same Bar-strt pattern).
  */
@@ -2128,7 +2152,7 @@ function load_soko4_2() {
     splev_create_object(RING_CLASS);
     splev_create_object(WAND_CLASS);
 
-    // C ref: sp_lev.c load_special — wallify, flip, then levregion branch
+    // C ref: sp_lev.c load_special — wallify, flip, levregion, solidify, fixup, premap
     if (!g.level.flags.corrmaze)
         wallification(1, 0, COLNO - 1, ROWNO - 1);
     flip_level_rnd(3, false);
@@ -2137,7 +2161,9 @@ function load_soko4_2() {
         xstart + 3, ystart + 1, xstart + 3, ystart + 1,
         0, 0, 0, 0, LR_BRANCH, null,
     );
+    solidify_map();
     fixup_special();
+    premap_detect();
 }
 
 /**
@@ -2676,7 +2702,7 @@ export function fumaroles() {
 
 /**
  * C ref: dat/soko2-1.lua via load_special.
- * Named omissions: solidify_map / premap_detect / ensure_way_out;
+ * Named omissions: ensure_way_out;
  * populate exclusion_zones from des.exclusion; soko2-2 / soko4-1.
  */
 function load_soko2_1() {
@@ -2768,11 +2794,8 @@ function load_soko2_1() {
     splev_create_object(RING_CLASS);
     splev_create_object(WAND_CLASS);
 
-    // C ref: sp_lev.c load_special — wallify, flip, fixup_special
-    if (!g.level.flags.corrmaze)
-        wallification(1, 0, COLNO - 1, ROWNO - 1);
-    flip_level_rnd(3, false);
-    fixup_special();
+    // C ref: sp_lev.c load_special — wallify, flip, solidify, fixup, premap
+    soko_load_epilogue();
 }
 
 /** C ref: sp_lev.c add_doors_to_room — scan bbox±1 for doors. */
@@ -2864,8 +2887,7 @@ function flip_level_rnd(flp, extras) {
  * C ref: sp_lev.c flip_level — transpose terrain / traps / objs / mons /
  * rooms / doors / stairs / engravings in the extends bbox.
  * Named omissions: lregions deferred beyond inarea/delarea flip; drawbridge
- * flip helpers, vault-guard extras, worm segs, exclusion zones, ball/chain,
- * SpLev_Map.
+ * flip helpers, vault-guard extras, worm segs, exclusion zones, ball/chain.
  */
 function flip_level(flp, _extras) {
     if ((flp & 3) === 0) return;
@@ -2878,6 +2900,21 @@ function flip_level(flp, _extras) {
     const FlipY = (y) => (maxy - y) + miny;
     const inFlipArea = (x, y) =>
         x >= minx && x <= maxx && y >= miny && y <= maxy;
+
+    // C: flip SpLev_Map bits with the terrain (needed for solidify_map)
+    if (game.SpLev_Map && game.SpLev_Map.size) {
+        const next = new Set();
+        for (const key of game.SpLev_Map) {
+            const [xs, ys] = key.split(',');
+            let x = Number(xs), y = Number(ys);
+            if (inFlipArea(x, y)) {
+                if (flp & 1) y = FlipY(y);
+                if (flp & 2) x = FlipX(x);
+            }
+            next.add(`${x},${y}`);
+        }
+        game.SpLev_Map = next;
+    }
 
     // stairs
     for (let stway = game.stairs; stway; stway = stway.next) {
@@ -3046,6 +3083,11 @@ function flip_level(flp, _extras) {
             }
         }
     }
+
+    // C flip_level: fix_wall_spines after cell swap so corners/T-junctions
+    // match the new orientation (TLCORNER moved to the right must become
+    // TRCORNER). flip_visuals only when extras (wizfliplevel) — deferred.
+    fix_wall_spines(1, 0, COLNO - 1, ROWNO - 1);
 }
 
 /**

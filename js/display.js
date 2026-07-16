@@ -21,6 +21,7 @@ import {
     HI_GOLD, HI_METAL, HI_ZAP,
     WEB, VIBRATING_SQUARE, TRAPNUM,
     In_mines,
+    In_sokoban,
     In_quest,
     In_endgame,
     Is_knox_level,
@@ -459,7 +460,7 @@ function trap_glyph(trap) {
 /**
  * C ref: display.c map_trap(trap, show) — remember + optionally paint.
  */
-function map_trap(trap, show) {
+export function map_trap(trap, show) {
     if (!trap) return;
     const x = trap.tx | 0;
     const y = trap.ty | 0;
@@ -929,10 +930,14 @@ function wall_glyph(loc) {
     const g = tab[idx] || tab[S_STONE];
     if (idx === S_STONE) return g;
     // C ref: display.h cmap_walls_to_glyph + display.c wallcolors[] /
-    // reset_glyphmap wall_color(mines_walls). Intended branch colors
-    // (commented beside wallcolors init): mines CLR_BROWN; main CLR_GRAY
-    // (tty_map_color → NO_COLOR). Gehennom/knox/sokoban deferred.
-    const color = In_mines(game.u?.uz) ? CLR_BROWN : CLR_GRAY;
+    // reset_glyphmap wall_color(...). Default wallcolors[] are all
+    // CLR_GRAY (tty → NO_COLOR). Intended branch colors (commented
+    // beside wallcolors init): mines CLR_BROWN; gehennom CLR_RED;
+    // knox CLR_GRAY; sokoban CLR_BRIGHT_BLUE. Recorder emits SGR 34
+    // (CLR_BLUE) for Sokoban walls — match that observable.
+    let color = CLR_GRAY;
+    if (In_mines(game.u?.uz)) color = CLR_BROWN;
+    else if (In_sokoban(game.u?.uz)) color = CLR_BLUE;
     return { ch: g.ch, color, dec: g.dec };
 }
 

@@ -4,6 +4,31 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
+## D-0567 — Sokoban premap_detect + solidify + flip fix_wall_spines + wall color
+
+- **Status:** fixed (partial — Fire-plane residual @99; gehennom/knox wallcolors;
+  wizfliplevel `flip_visuals`)
+- **Symptom:** seed0373 Scr **88**/124; @78 Dlvl:6 (Sokoban) JS blank walls vs
+  C full premapped DEC map (walls/traps/boulders).
+- **Cause:** (1) `des.level_flags(...,"premapped")` → C `premap_detect` omitted.
+  (2) `solidify_map` + `SpLev_Map` omitted so skip_premap could not gate
+  outside stone. (3) `flip_level` omitted post-swap `fix_wall_spines` so
+  corners/T-junctions stayed mirrored after horizontal flip. (4) Sokoban
+  `wallcolors` deferred — recorder SGR 34 (`CLR_BLUE`). (5) traps live on
+  `level.traps[]`, not `ftrap` list.
+- **C locus:** `detect.c` `premap_detect`/`skip_premap_detect`; `sp_lev.c`
+  `solidify_map`/`flip_level`→`fix_wall_spines`; `display.h`
+  `cmap_walls_to_glyph` Sokoban; `display.c` `wall_color(sokoban_walls)`.
+- **Change:** `js/detect.js` `premap_detect`; `js/mklev.js` SpLev_Map +
+  `solidify_map` + `soko_load_epilogue` + flip `fix_wall_spines`;
+  `js/display.js` Sokoban `wall_glyph` CLR_BLUE + export `map_trap`.
+- **Verification:** seed0373 Scr **88→100**/124 RNG full; @78–98 match;
+  green+strict PASS; cohort **30**/30 PASS; seed0116 still 113/127.
+- **Named omission:** @99 endgame amulet phrasing / Fire vision; gehennom/
+  knox wallcolors; `flip_visuals` extras path.
+- **Next:** seed0373 @99 Fire/`an` vs `the` Amulet; or seed5006 `dosounds`
+  @8468.
+
 ## D-0566 — bigrm light_region + IRONBARS + makemon hide/minvis + HI_LORD
 
 - **Status:** fixed (partial — other bigrm-N light_region; HI_OBJ/HI_METAL
