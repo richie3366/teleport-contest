@@ -4,6 +4,32 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
+## D-0528 — tower1 load_special + vampshift / noteleport covetous
+
+- **Status:** fixed (partial — Bar-loca next; tower2/3 omitted)
+- **Symptom:** seed0373 @4159 C nhlib `shuffle` `rn2(3)` vs JS
+  `u_on_rndspot` `rn2(79)`. Prior NOTES misread as Bar-loca; session
+  menu `G` is **tower1** (Dlvl:37).
+- **Cause:** `makemaz`/`load_special` had no `tower1` loader. Also missing
+  vampshifter `newcham`/`pickvampshape` and `noteleport_level` covetous
+  bypass (Vlad invent `rnd_defensive_item`).
+- **C locus:** `dat/tower1.lua`; `sp_lev.c` `load_special`/`lspo_map`
+  half-left; `makemon.c` cham/`newcham`; `mon.c` `pickvampshape`/
+  `mgender_from_permonst`; `teleport.c` `noteleport_level`.
+- **Change:** `js/mklev.js` `load_tower1` + dispatch; `js/makemon.js`
+  vampshift/`newcham`/`pickvampshape` + Vlad candelabrum; `js/monsters.js`
+  `M2_SHAPESHIFTER` helpers; `noteleport_level` covetous in makemon +
+  teleport.
+- **Verification:** seed0373 rng-diff **4159→4571**; runner RNG
+  **4209→4596**/35386 Scr still 21/124; green+strict PASS; cohort
+  **28**/28 PASS; seed0116 RNG still full Scr 110/127.
+- **Named omission:** tower2/3; Bar-loca/goal/fila/filb; non-vamp
+  `select_newcham_form`; hell-court noteleport; SpLev_Map fidelity
+  beyond solidify set; `mon_has_special` Vlad gate (makemon skips
+  newcham for Vlad).
+- **Next:** @4571 C Bar-loca nhlib shuffle vs JS `u_on_rndspot`; or
+  seed5006 `dosounds` @8468.
+
 ## D-0527 — onquest firsttime qt_pager nhl_init shuffle
 
 - **Status:** fixed (partial — Bar-loca loader next)

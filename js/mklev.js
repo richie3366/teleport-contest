@@ -26,7 +26,7 @@ import {
     IS_WALL, IS_STWALL, IS_DOOR, IS_ROOM, IS_OBSTRUCTED, IS_FURNITURE, IS_POOL,
     SPACE_POS, isok, W_NONDIGGABLE, W_NONPASSWALL, FILL_NORMAL,
     ICE, MOAT, POOL, WATER, LAVAPOOL, LAVAWALL, DBWALL,
-    AIR, CLOUD, THRONE, TREE, DRAWBRIDGE_UP,
+    AIR, CLOUD, THRONE, TREE, DRAWBRIDGE_UP, LADDER, LA_DOWN, LA_UP,
     MAX_TYPE, INVALID_TYPE, MATCH_WALL,
     A_LAWFUL, Align2amask, STRAT_WAITFORU, NON_PM,
     LR_DOWNSTAIR, LR_UPSTAIR, LR_PORTAL, LR_BRANCH,
@@ -43,7 +43,7 @@ import {
     ZOMBIFY_MON, TIMER_OBJECT,
     Is_rogue_level,
     DUST, MARK as ENGRAVE_MARK, M_AP_OBJECT, ENGRAVE,
-    MM_ASLEEP, IS_TREE,
+    MM_ASLEEP, IS_TREE, G_GENOD,
 } from './const.js';
 import {
     RANDOM_CLASS, WEAPON_CLASS, ARMOR_CLASS, RING_CLASS,
@@ -60,7 +60,7 @@ import {
     set_corpsenm, obj_stop_timers, start_timer, obj_extract_self,
     add_to_container, objects_at,
 } from './mkobj.js';
-import { makemon, mkclass, MM_NOGRP, set_mimic_sym, mpickobj } from './makemon.js';
+import { makemon, mkclass, MM_NOGRP, set_mimic_sym, mpickobj, newcham } from './makemon.js';
 import { m_at } from './mon.js';
 import { enexto, rloc } from './teleport.js';
 import {
@@ -70,6 +70,7 @@ import {
     MALE, FEMALE, NEUTRAL,
 } from './monsters.js';
 import { name_to_monplus, name_to_mon } from './mondata.js';
+import { christen_monst } from './do_name.js';
 import { make_engr_at, make_grave, wipe_engr_at, random_engraving } from './engrave.js';
 
 const GOLD_PIECE = objectNames.indexOf('GOLD_PIECE');
@@ -576,9 +577,9 @@ const MKMAP_HEIGHT = ROWNO - 1; // 20
 /**
  * C ref: mkmaze.c makemaz — build protofile (rndlevs → rnd), load_special,
  * else maze fallback. Ported loaders: minefill, tut-1, bigrm-2, Bar-strt,
- * soko1-1.
+ * soko1-1, tower1.
  * Named omissions: other bigrm-N / soko*-* / quest protos (Bar-loca/goal/
- * fila/filb); create_maze
+ * fila/filb); tower2/3; create_maze
  * fallback; check_ransacked side effects beyond ransacked flag; dmonsfree.
  */
 async function makemaz(s) {
@@ -649,6 +650,10 @@ function load_special_proto(protofile) {
     }
     if (protofile === 'Bar-strt') {
         load_bar_strt();
+        return true;
+    }
+    if (protofile === 'tower1') {
+        load_tower1();
         return true;
     }
     if (protofile === 'soko1-1') {
@@ -958,6 +963,218 @@ function load_bar_strt() {
         mx + 62, my + 2, mx + 62, my + 2,
         0, 0, 0, 0, LR_BRANCH, null,
     );
+    fixup_special();
+}
+
+/**
+ * C ref: sp_lev.c lspo_map — half-left / center / half-right xstart.
+ * Forces odd xstart/ystart like C after the maze-max formula.
+ */
+function splev_map_aligned_start(wid, hei, halign) {
+    let xstart;
+    if (halign === 'half-left')
+        xstart = 2 + Math.floor((X_MAZE_MAX - 2 - wid) / 4);
+    else if (halign === 'half-right')
+        xstart = 2 + Math.floor((X_MAZE_MAX - 2 - wid) * 3 / 4);
+    else
+        xstart = 2 + Math.floor((X_MAZE_MAX - 2 - wid) / 2);
+    let ystart = 2 + Math.floor((Y_MAZE_MAX - 2 - hei) / 2);
+    if (!(xstart % 2)) xstart++;
+    if (!(ystart % 2)) ystart++;
+    if (ystart < 0 || ystart + hei > ROWNO) {
+        ystart += (ystart > 0) ? -2 : 2;
+        if (hei === ROWNO) ystart = 0;
+        if (ystart < 0 || ystart + hei > ROWNO) ystart = 0;
+    }
+    return { xstart, ystart };
+}
+
+/**
+ * C ref: dat/tower1.lua via load_special — Vlad's Tower upper stage.
+ * Named omissions: tower2/3; SpLev_Map fidelity beyond solidify set;
+ * map_cleanup lava/pool sweep; mon_has_special Vlad gate (makemon skips
+ * newcham for Vlad); full nh.is_genocided beyond mvitals G_GENOD.
+ */
+function load_tower1() {
+    const g = game;
+    nhlib_shuffle_align();
+    splev_initlev({
+        init_style: LVLINIT_SOLIDFILL,
+        filling: STONE,
+        lit: BOOL_RANDOM,
+        icedpools: false,
+    });
+    if (!g.level.flags) g.level.flags = {};
+    g.level.flags.is_maze_lev = true;
+    g.level.flags.noteleport = true;
+    g.level.flags.hardfloor = true;
+
+    const TOWER1_MAP = `
+  --- --- ---  
+  |.| |.| |.|  
+---S---S---S---
+|.......+.+...|
+---+-----.-----
+  |...\\.|.+.|  
+---+-----.-----
+|.......+.+...|
+---S---S---S---
+  |.| |.| |.|  
+  --- --- ---  
+`.replace(/^\n/, '');
+    const mf = mapfrag_fromstr(TOWER1_MAP);
+    const { xstart, ystart } = splev_map_aligned_start(mf.wid, mf.hei, 'half-left');
+    g.splev_xstart = xstart;
+    g.splev_ystart = ystart;
+    g.splev_xsize = mf.wid;
+    g.splev_ysize = mf.hei;
+    const spLevMap = new Set();
+    for (let yy = ystart; yy < Math.min(ROWNO, ystart + mf.hei); yy++) {
+        for (let xx = xstart; xx < Math.min(COLNO, xstart + mf.wid); xx++) {
+            const mptyp = mapfrag_get(mf, xx - xstart, yy - ystart);
+            if (mptyp === INVALID_TYPE || mptyp >= MAX_TYPE) continue;
+            sel_set_ter(xx, yy, mptyp, false);
+            spLevMap.add(`${xx},${yy}`);
+        }
+    }
+    const mx = xstart;
+    const my = ystart;
+
+    // local niches = { {03,01}, ... }; shuffle(niches);
+    const niches = [
+        [3, 1], [3, 9], [7, 1], [7, 9], [11, 1], [11, 9],
+    ];
+    nhlib_shuffle(niches);
+
+    // des.ladder("down", 11,05)
+    {
+        const lx = mx + 11;
+        const ly = my + 5;
+        const loc = g.level.at(lx, ly);
+        if (loc) {
+            loc.typ = LADDER;
+            loc.ladder = LA_DOWN;
+        }
+        stairway_add(lx, ly, false, true, {
+            dnum: g.u?.uz?.dnum ?? 0,
+            dlevel: (g.u?.uz?.dlevel ?? 1) + 1,
+        });
+        if (g.level) g.level.dnstair = { x: lx, y: ly };
+        spLevMap.add(`${lx},${ly}`);
+    }
+
+    // des.monster("Vlad the Impaler", 06, 05)
+    {
+        find_montype_gender('Vlad the Impaler');
+        induced_align(80);
+        const pmIdx = name_to_mon('Vlad the Impaler');
+        if (pmIdx >= 0 && pmIdx !== NON_PM)
+            makemon(mons(pmIdx), mx + 6, my + 5, 0);
+    }
+
+    // des.monster("V", niches[1..3])
+    for (let i = 0; i < 3; i++) {
+        const [rx, ry] = niches[i];
+        induced_align(80);
+        const pm = mkclass('S_VAMPIRE', G_NOGEN);
+        if (pm) makemon(pm, mx + rx, my + ry, 0);
+    }
+
+    // vampire ladies with names + waiting
+    {
+        const vampPm = name_to_mon('vampire');
+        const Vgenod = vampPm >= 0
+            && (((g.mvitals?.[vampPm]?.mvflags ?? 0) & G_GENOD) !== 0);
+        const Vnames = Vgenod ? [null, null, null] : ['Madame', 'Marquise', 'Countess'];
+        for (let i = 0; i < 3; i++) {
+            const [rx, ry] = niches[i + 3];
+            const { mndx, female } = find_montype_gender('vampire lady');
+            induced_align(80);
+            if (mndx < 0 || mndx === NON_PM) continue;
+            const mtmp = makemon(mons(mndx), mx + rx, my + ry, 0);
+            if (!mtmp) continue;
+            mtmp.female = female;
+            if (Vnames[i]) christen_monst(mtmp, Vnames[i]);
+            // C: waiting → STRAT_WAITFORU; vampshifted → newcham back to cham
+            mtmp.mstrategy = (mtmp.mstrategy || 0) | STRAT_WAITFORU;
+            if (mtmp.cham != null && mtmp.cham !== NON_PM
+                && mtmp.data?.mlet !== 'S_VAMPIRE') {
+                newcham(mtmp, mons(mtmp.cham), 0);
+            }
+        }
+    }
+
+    // doors
+    const twDoor = (rx, ry, mask) => {
+        const loc = g.level.at(mx + rx, my + ry);
+        if (!loc) return;
+        if (!IS_DOOR(loc.typ) && loc.typ !== SDOOR) loc.typ = DOOR;
+        loc.doormask = mask;
+        loc.flags = mask;
+    };
+    twDoor(8, 3, D_CLOSED);
+    twDoor(10, 3, D_CLOSED);
+    twDoor(3, 4, D_CLOSED);
+    twDoor(10, 5, D_LOCKED);
+    twDoor(8, 7, D_LOCKED);
+    twDoor(10, 7, D_LOCKED);
+    twDoor(3, 6, D_CLOSED);
+
+    // treasures — chest at 07,05 then niche chests
+    mksobj_at(CHEST, mx + 7, my + 5, true, true);
+    for (const idx of [5, 0, 1, 2]) {
+        const [rx, ry] = niches[idx];
+        mksobj_at(CHEST, mx + rx, my + ry, true, true);
+    }
+    // niches[4] wax candles; niches[5] tallow candles
+    for (const [nidx, otyp, quanLo] of [
+        [3, WAX_CANDLE, 4],
+        [4, TALLOW_CANDLE, 4],
+    ]) {
+        const [rx, ry] = niches[nidx];
+        const chest = mksobj_at(CHEST, mx + rx, my + ry, true, true);
+        if (!chest) continue;
+        // C: SP_OBJ_CONTAINER contents → delete_contents after mkbox_cnts
+        chest.cobj = null;
+        const quan = quanLo + rn2(5); // math.random(4,8)
+        const sx = g.splev_xsize | 0;
+        const sy = g.splev_ysize | 0;
+        const cx = mx + rn2(sx);
+        const cy = my + rn2(sy);
+        const candle = mksobj_at(otyp, cx, cy, true, true);
+        if (candle) {
+            candle.quan = quan;
+            candle.owt = weight(candle);
+            candle.oeroded = 0;
+            candle.oeroded2 = 0;
+            candle.oerodeproof = 0;
+            obj_extract_self(candle);
+            add_to_container(chest, candle);
+            chest.owt = weight(chest);
+        }
+    }
+
+    // des.non_diggable(selection.area(00,00,14,10))
+    for (let y = my; y <= my + 10 && y < ROWNO; y++) {
+        for (let x = mx; x <= mx + 14 && x < COLNO; x++) {
+            const loc = g.level.at(x, y);
+            if (loc) loc.flags = (loc.flags | 0) | W_NONDIGGABLE;
+        }
+    }
+
+    // C load_special: wallification → flip → solidify → fixup_special
+    if (!g.level.flags.corrmaze)
+        wallification(1, 0, COLNO - 1, ROWNO - 1);
+    flip_level_rnd(3, false);
+    // solidify_map — STWALL outside SpLev_Map get nondig/nonpass
+    for (let x = 0; x < COLNO; x++) {
+        for (let y = 0; y < ROWNO; y++) {
+            const loc = g.level.at(x, y);
+            if (!loc || !IS_STWALL(loc.typ)) continue;
+            if (spLevMap.has(`${x},${y}`)) continue;
+            loc.flags = (loc.flags | 0) | (W_NONDIGGABLE | W_NONPASSWALL);
+        }
+    }
     fixup_special();
 }
 
@@ -2290,6 +2507,9 @@ function splev_create_boulder() {
 function monclass_letter_to_mlet(ch) {
     if (ch === 'G') return 'S_GNOME';
     if (ch === 'h') return 'S_HUMANOID';
+    if (ch === 'V') return 'S_VAMPIRE';
+    if (ch === 'O') return 'S_OGRE';
+    if (ch === 'T') return 'S_TROLL';
     return null;
 }
 

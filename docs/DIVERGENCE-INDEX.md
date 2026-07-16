@@ -513,6 +513,8 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 | D-0525 | fixed | Bar-strt selection_do_randline path carve | seed0373 3289→3303; next induced_align @3303 |
 | D-0526 | fixed | Bar-strt Pelias→branch + guardian weap + eel sleep | seed0373 3303→4157 RNG 4185; next shuffle @4157 |
 | D-0527 | fixed | onquest firsttime qt_pager nhl_init shuffle | seed0373 4157→4159 RNG 4209; next Bar-loca @4159 |
+| D-0528 | fixed | tower1 load_special + vampshift/newcham | seed0373 4159→4571 RNG 4596; next Bar-loca @4571 |
+
 | D-0523 | fixed | m_calcdistress → were_change / new_were | seed0116 12461→12521 (RNG 12554/12562); Scr 110; next fleeck/dog_move |
 
 

@@ -45,12 +45,16 @@ import {
     is_floater,
     is_mercenary,
     is_ndemon,
+    is_shapeshifter,
+    is_vampire,
+    is_vampshifter,
+    vampshifted,
 } from './monsters.js';
 import {
     NO_MINVENT, MM_NOGRP, MM_ASLEEP, MM_NONAME, MM_ESHK, MM_EGD, MM_EMIN,
     GP_CHECKSCARY, GP_AVOID_MONPOS, Is_rogue_level, In_mines, In_sokoban,
-    OBJ_MINVENT, COLNO, ROWNO, A_NONE, GEHENNOM, G_GONE,
-    M_AP_OBJECT, M_AP_FURNITURE, IS_DOOR, IS_WALL,
+    OBJ_MINVENT, COLNO, ROWNO, A_NONE, GEHENNOM, G_GONE, G_GENOD,
+    M_AP_OBJECT, M_AP_FURNITURE, IS_DOOR, IS_WALL, IS_POOL, IS_LAVA,
     SDOOR, SCORR, ZOO, VAULT, DELPHI, TEMPLE, SHOPBASE, FODDERSHOP,
     ROOMOFFSET,
     AM_NONE, AM_LAWFUL, AM_NEUTRAL, AM_CHAOTIC, ALIGNWEIGHT,
@@ -514,6 +518,125 @@ function newmonhp(mon, ptr) {
     }
 }
 
+/** C ref: mon.c pm_to_cham — shapeshifter species index else NON_PM */
+function pm_to_cham(mndx) {
+    if (mndx < LOW_PM || mndx >= NUMMONS) return NON_PM;
+    return is_shapeshifter(mons(mndx)) ? mndx : NON_PM;
+}
+
+/** C ref: mon.c is_pool_or_lava — terrain under mon for vamp wolf gate */
+function is_pool_or_lava_at(x, y) {
+    const typ = game.level?.at(x, y)?.typ ?? 0;
+    return IS_POOL(typ) || IS_LAVA(typ);
+}
+
+/**
+ * C ref: mon.c pickvampshape — Vlad/leader/vampire alternate forms.
+ * Named omissions: mon_has_special Vlad stay-form (makemon skips newcham
+ * for Vlad); already covered geno / already-alt rn2(4) return-to-cham.
+ */
+function pickvampshape(mon) {
+    let mndx = mon.cham | 0;
+    let wolfchance = 10;
+    const uppercase_only = Is_rogue_level(game.u?.uz);
+    const PM_VLAD = pm('VLAD_THE_IMPALER');
+    const PM_VLED = pm('VAMPIRE_LEADER');
+    const PM_VAMP = pm('VAMPIRE');
+    const PM_WOLF = pm('WOLF');
+    const PM_FOG = pm('FOG_CLOUD');
+    const PM_VBAT = pm('VAMPIRE_BAT');
+
+    if (mndx === PM_VLAD) wolfchance = 3;
+    if (mndx === PM_VLAD || mndx === PM_VLED) {
+        if (!rn2(wolfchance) && !uppercase_only
+            && !is_pool_or_lava_at(mon.mx, mon.my)) {
+            mndx = PM_WOLF;
+        } else {
+            mndx = (!rn2(4) && !uppercase_only) ? PM_FOG : PM_VBAT;
+        }
+    } else if (mndx === PM_VAMP) {
+        mndx = (!rn2(4) && !uppercase_only) ? PM_FOG : PM_VBAT;
+    }
+
+    if (((game.mvitals?.[mndx]?.mvflags ?? 0) & G_GENOD) !== 0
+        || ((mon.data?.mndx | 0) !== (mon.cham | 0) && !rn2(4))) {
+        return mon.cham;
+    }
+    return mndx;
+}
+
+/**
+ * C ref: mon.c select_newcham_form — vampshifter arm only.
+ * Named omissions: sandestin/doppel/chameleon/dragon-armor/random arms.
+ */
+function select_newcham_form(mon) {
+    const cham = mon.cham | 0;
+    if (cham === pm('VLAD_THE_IMPALER')
+        || cham === pm('VAMPIRE_LEADER')
+        || cham === pm('VAMPIRE')) {
+        return pickvampshape(mon);
+    }
+    return NON_PM;
+}
+
+/**
+ * C ref: mon.c mgender_from_permonst — sex from new form.
+ */
+function mgender_from_permonst(mtmp, mdat) {
+    if (is_male(mdat)) mtmp.female = 0;
+    else if (is_female(mdat)) mtmp.female = 1;
+    else if (!is_neuter(mdat)) {
+        if (!rn2(10) && !(is_vampire(mdat) || is_vampshifter(mtmp)))
+            mtmp.female = mtmp.female ? 0 : 1;
+    }
+}
+
+/**
+ * C ref: mon.c newcham — vampshifter subset for makemon / waiting revert.
+ * Named omissions: message/polyspot/worm/mimic/leash/light/inventory arms;
+ * non-vamp select_newcham_form; Protection_from_shape_changers cancel path.
+ * @returns {boolean} true if form changed
+ */
+export function newcham(mtmp, mdat, _ncflags = 0) {
+    if (!mtmp) return false;
+    const olddata = mtmp.data;
+    if (mtmp.cham === NON_PM || mtmp.cham == null) {
+        // cancelled→uncancel shapeshifter path deferred
+        return false;
+    }
+    let target = mdat;
+    if (!target) {
+        let tryct = 20;
+        do {
+            const mndx = select_newcham_form(mtmp);
+            if (mndx !== NON_PM && mndx >= LOW_PM
+                && ((game.mvitals?.[mndx]?.mvflags ?? 0) & G_GENOD) === 0) {
+                target = mons(mndx);
+                break;
+            }
+        } while (--tryct > 0);
+        if (!target) return false;
+    } else {
+        const mndx = target.mndx ?? NON_PM;
+        if (((game.mvitals?.[mndx]?.mvflags ?? 0) & G_GENOD) !== 0)
+            return false;
+    }
+    if (target === olddata) return false;
+
+    mgender_from_permonst(mtmp, target);
+    const hpn = mtmp.mhp | 0;
+    const hpd = mtmp.mhpmax | 0;
+    newmonhp(mtmp, target);
+    mtmp.mhp = Math.trunc((hpn * mtmp.mhp) / hpd);
+    if (mtmp.mhp < 0 || mtmp.mhp > mtmp.mhpmax) mtmp.mhp = mtmp.mhpmax;
+    if (!mtmp.mhp) mtmp.mhp = 1;
+    mtmp.data = target;
+    mtmp.mnum = target.mndx;
+    return true;
+}
+
+export { vampshifted, is_vampshifter };
+
 // C ref: mondata.h race_peaceful / race_hostile
 function race_peaceful(ptr) {
     const mask = game.urace?.lovemask ?? 0;
@@ -921,14 +1044,17 @@ function attacktype(ptr, aatyp) {
 // C ref: teleport.c noteleport_level — ordinary flags; hell court deferred
 function noteleport_level(mon) {
     // In_hell demon-court m_blocks_teleporting deferred (ordinary mklev rare)
-    if (game.level?.flags?.noteleport /* && !is_covetous */) return true;
+    // C: noteleport && !is_covetous(mon->data) — covetous bypass tower flags
+    const M3_COVETOUS = 0x001f;
+    const covetous = !!((mon?.data?.mflags3 ?? 0) & M3_COVETOUS);
+    if (game.level?.flags?.noteleport && !covetous) return true;
     if ((game.level?.flags?.stasis_until ?? -1) >= (game.moves ?? 0)) return true;
     return false;
 }
 
 /**
  * C ref: muse.c rnd_defensive_item
- * Named omissions: hell-court noteleport_level; is_covetous bypass.
+ * Named omissions: hell-court noteleport_level body.
  */
 function rnd_defensive_item(mtmp) {
     const pm_ = mtmp.data;
@@ -1402,6 +1528,25 @@ export function makemon(mdat, x, y, mmflags = 0) {
             mtmp.msleeping = 1;
     }
 
+    // C ref: makemon.c — cham / Vlad candelabrum / newcham before invent.
+    // Named omissions: Wizard/Croesus/nemesis/pestilence mitem arms;
+    // Protection_from_shape_changers; chameleon non-vamp newcham.
+    let allow_minvent_local = allow_minvent;
+    let mitem = -1; // STRANGE_OBJECT
+    const PM_VLAD = pm('VLAD_THE_IMPALER');
+    if (ptr.mndx === PM_VLAD) mitem = otyp('CANDELABRUM_OF_INVOCATION');
+    mtmp.cham = NON_PM;
+    {
+        const mcham = pm_to_cham(ptr.mndx);
+        if (mcham !== NON_PM) {
+            mtmp.cham = mcham;
+            // Vlad stays in normal shape to carry the Candelabrum
+            if (ptr.mndx !== PM_VLAD && newcham(mtmp, null, 0))
+                allow_minvent_local = false;
+        }
+    }
+    if (mitem >= 0 && allow_minvent_local) mongets(mtmp, mitem);
+
     // C: in_mklev ndemon/wumpus/long worm/giant eel sleep — before invent
     if (game.in_mklev) {
         if ((is_ndemon(ptr) || ptr.mndx === pm('WUMPUS')
@@ -1413,11 +1558,10 @@ export function makemon(mdat, x, y, mmflags = 0) {
     }
 
     // C: allow_minvent → is_armed? m_initweap; m_initinv; domestic saddle
-    if (allow_minvent) {
+    if (allow_minvent_local) {
         if (is_armed(ptr)) m_initweap(mtmp);
         m_initinv(mtmp);
         if (!rn2(100) && is_domestic(ptr)) {
-            // C: put_saddle_on_mon(NULL) — mksobj(SADDLE) when eligible
             put_saddle_on_mon(null, mtmp);
         }
     }
@@ -1425,7 +1569,6 @@ export function makemon(mdat, x, y, mmflags = 0) {
     // C: !in_mklev → newsym so the mon shows up (even with MM_NOMSG)
     if (!game.in_mklev) {
         newsym(mtmp.mx, mtmp.my);
-        // MM_NOMSG appear-pline arm deferred (callers emit their own msgs)
     }
 
     return mtmp;

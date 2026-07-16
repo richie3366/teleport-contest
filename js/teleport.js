@@ -256,9 +256,12 @@ export function rloc_to(mtmp, x, y) {
 
 /**
  * C ref: teleport.c noteleport_level — ordinary flags; hell court deferred.
+ * Covetous monsters bypass level.flags.noteleport (Vlad on tower1).
  */
-function noteleport_level(_mon) {
-    if (game.level?.flags?.noteleport) return true;
+function noteleport_level(mon) {
+    const M3_COVETOUS = 0x001f;
+    const covetous = !!((mon?.data?.mflags3 ?? 0) & M3_COVETOUS);
+    if (game.level?.flags?.noteleport && !covetous) return true;
     if ((game.level?.flags?.stasis_until ?? -1) >= (game.moves ?? 0)) return true;
     return false;
 }
