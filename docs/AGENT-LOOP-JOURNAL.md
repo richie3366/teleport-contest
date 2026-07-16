@@ -20,6 +20,15 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-16 20:39 — #615 formal score refresh
+- Objective: mandatory 5-iter full `sessions` score (iteration % 5 == 0).
+- C locus: n/a (score cadence; no port peel this iter).
+- Change: documented suite aggregates in CURRENT.md Score.
+- Verification: green+strict PASS; full sessions **30/44** Scr
+  **5901**/11405 RNG **348962**/792838 (44.01%) `31+0.15/turn`
+  (R² 0.77). Δ vs #610: Scr 0, RNG +559 (D-0551…D-0554), PASS same.
+- Next: seed0373 @30743 get_location vs next_ident; or dosounds @8468.
+
 ## 2026-07-16 20:36 — #614 D-0554 newmonhp golemhp
 - Objective: seed0373 @30344 C silent stone-golem HP vs JS d(21,8)
 - C locus: makemon.c newmonhp is_golem arm; golemhp()
@@ -158,13 +167,3 @@ Use this shape:
 - Verification: rng-diff **19071→21730**; runner RNG **21757**/35386
   Scr 22/124; green+strict; cohort 28/28.
 - Next: m_initinv S_QUANTMECH @21730; or dosounds @8468.
-## 2026-07-16 19:20 — #600 score + D-0540 soldier polearm rn1
-- Objective: mandatory 5-iter score refresh; peel seed0373 @16261
-  C `m_initweap` `rn2(12)` vs JS `rn2(2)`.
-- C locus: `makemon.c` `m_initweap` PM_SOLDIER/PM_WATCHMAN.
-- Change: full `sessions` → CURRENT Score; port soldier/watchman
-  `rn1(PARTISAN..BEC_DE_CORBIN)` + `P_POLEARMS` filter.
-- Verification: **30/44** Scr **5900**/11405 RNG **337400**/792838
-  (42.56%) `31+0.15/turn` (R² 0.74); rng-diff **16261→19071**;
-  runner RNG **19086**; green+strict; cohort 28/28.
-- Next: m_initweap is_elf @19071; or dosounds @8468.

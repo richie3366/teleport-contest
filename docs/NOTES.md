@@ -13,8 +13,8 @@ Objective/score live in `CURRENT.md`.
   (JS finished makemon; C still placing — humidity/retry?).
 - **seed0116 residual:** screen/cursor miss (110/127) after full RNG.
 - **D-0515 residual:** seed5006 still @8468 `dosounds` (RNG 8508).
-- **#610 formal score:** **30/44**, Scr **5901**/11405, RNG
-  **348403**/792838 (43.94%), `31+0.14/turn` (R² 0.77).
+- **#615 formal score:** **30/44**, Scr **5901**/11405, RNG
+  **348962**/792838 (44.01%), `31+0.15/turn` (R² 0.77). Δ#610 +559 RNG.
 - **Leaderboard gap:** local **30/44** vs judge **22** after D-0480;
   D-0483 reverted serialize. Watch cron for seed0013 restore.
 - **Gameplay next:**
@@ -89,7 +89,7 @@ Objective/score live in `CURRENT.md`.
   seed0398 **PASS** after D-0514.
 - LB gap: 14 cells / 4 sessions; report upstream if next cron unchanged.
 - Gameover `add_menu_heading` ATR_NONE; `iflags.at_night` from `really_done`.
-- #610 score: **30/44**, Scr 5901, RNG 348403 (43.94%), `31+0.14/turn`.
+- #615 score: **30/44**, Scr 5901, RNG 348962 (44.01%), `31+0.15/turn`.
 - Capital `H` = multi-step run; `set_move_cmd` must clear travel.
 - D-0486: `rogue_vision` on `Is_rogue_level` only.
 - D-0487: default `flags.autounlock=AUTOUNLOCK_APPLY_KEY`.
