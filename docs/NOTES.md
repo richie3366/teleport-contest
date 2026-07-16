@@ -7,10 +7,10 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **seed0007 / D-0505 (next):** after D-0504 erosion words, Scr **296**/302;
-  first miss @293 — invent `homemade tin of lichen` (C) vs
-  `tin of lichen` (JS). `tin_details` tintxts when `cknown && spe < 0`.
-  RNG full. Falsifier:
+- **seed0007 / D-0506 (next):** after D-0505 homemade tin, Scr **297**/302;
+  first miss @297 Final Attributes — C has `You fell asleep
+  uncontrollably.` / `poison resistant` / `stealthy`; JS omits those
+  Status lines (cascades More). RNG full. Falsifier:
   ```bash
   node frozen/ps_test_runner.mjs sessions/seed0007-rogue-snake-swamp.session.json
   ```
@@ -26,7 +26,7 @@ Objective/score live in `CURRENT.md`.
 - No raw RNG-index / coordinate / ux0 / forced-gettrack in production.
 - Rule #2: no `fs`/`path`/`url` in scored `js/` (D-0477).
 - Altar raw `{` (D-0293); don’t π-convert in scoring grid.
-- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0504
+- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0505
   done paths — see DIVERGENCE-INDEX.
 - Runner `Screen N/M` = total matches, not prefix length.
 - Hub `/sessions/` ≠ template bytes; still visual-PASS.
@@ -38,7 +38,7 @@ Objective/score live in `CURRENT.md`.
 - seed0007 @3219 locked-door autounlock/`picklock` (D-0487).
 - seed0007 @6414 `mO`→`doset` pickup_types (D-0488).
 - seed0007 @7066 `#loot` locked chest `pick_lock` (D-0489).
-- D-0490…D-0503 RNG/botl/loot/AC/tin-known done; D-0504 erosion words.
+- D-0490…D-0504 RNG/botl/loot/AC/tin/erosion done; D-0505 homemade.
 
 ## Landmarks (≤15)
 
@@ -53,7 +53,7 @@ Objective/score live in `CURRENT.md`.
 - D-0486: `rogue_vision` on `Is_rogue_level` only.
 - D-0487: default `flags.autounlock=AUTOUNLOCK_APPLY_KEY`.
 - D-0502: `find_ac` ARM_BONUS; Scr 126→291.
-- D-0503: TIN `known` gate + egg/tin `otyp_uses_known`; Scr 291→294.
-- D-0504: `add_erosion_words` degrees + proofs; Scr 294→296; @293 homemade.
+- D-0503…D-0505: tin known → erosion → homemade; Scr 291→297.
 - Water moccasin is `hides_under` (M1_CONCEAL) — postmov hide roll.
 - Rogue start leather is `+1` → AC 7 unless eroded (ARM_BONUS).
+- @297: Sleep from amulet of restful sleep; Poison_res/Stealth props.

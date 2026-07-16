@@ -4,6 +4,27 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
+## D-0505 — tin_details tintxts / homemade (seed0007 @293)
+
+- **Status:** fixed
+- **Symptom:** after D-0504, first cell miss @293 (Scr **296**/302) —
+  death invent `an uncursed homemade tin of lichen` (C) vs
+  `an uncursed tin of lichen` (JS). RNG full.
+- **Cause:** JS `tin_details` only emitted `tin of <mon>`; omitted C
+  tintxts adjective when `cknown && spe < 0` (homemade/rotten before
+  "tin"; others as `of <txt> `). Death disclose sets `cknown` via
+  `set_cknown_lknown`.
+- **C locus:** `eat.c` `tin_details` / `tin_variety(displ)` / `tintxts[]`;
+  `invent.c` `set_cknown_lknown` TIN.
+- **Change:** `js/objnam.js` — tintxts table + display `tin_variety`
+  + full `tin_details`; vegetarian via `mons`/`vegetarian`.
+- **Verification:** seed0007 Scr **296→297**/302; @293 homemade;
+  first miss @297 Final Attributes (Sleep/Poison_res/Stealth);
+  RNG full; green+strict PASS; cohort **26/26** PASS.
+- **Named omission:** non-display `tin_variety`/`set_tin_variety` RNG
+  arms; `use_tinning_kit`; eat-path tin open.
+- **Next:** seed0007 @297 enlightenment Status attributes.
+
 ## D-0504 — add_erosion_words oeroded degrees (seed0007 @161)
 
 - **Status:** fixed

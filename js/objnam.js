@@ -20,13 +20,74 @@ import {
     objectNameStrs,
     objectDescrs,
 } from './objects.js';
-import { monsterNames } from './monsters.js';
-import { PM_SAMURAI, PM_CLERIC } from './generated/monsters_data.js';
+import { monsterNames, mons, vegetarian, is_rider } from './monsters.js';
+import {
+    PM_SAMURAI, PM_CLERIC, PM_LICHEN, PM_ACID_BLOB,
+} from './generated/monsters_data.js';
 import {
     W_ARMOR, W_AMUL, W_RINGL, W_RINGR, W_QUIVER, W_WEP, W_SWAPWEP,
     Has_contents, Is_container, Is_box, P_BOW, P_CROSSBOW, P_SHURIKEN,
     OBJ_FLOOR, OBJ_INVENT, OBJ_MINVENT,
+    ROTTEN_TIN, HOMEMADE_TIN, SPINACH_TIN, ismnum,
 } from './const.js';
+
+const PM_LIZARD = monsterNames.indexOf('PM_LIZARD');
+
+/**
+ * C ref: eat.c tintxts[] — variety adjectives (TTSZ-1 fodder entries + "").
+ * Only txt is needed for display naming.
+ */
+const tintxts = [
+    { txt: 'rotten' },
+    { txt: 'homemade' },
+    { txt: 'soup made from' },
+    { txt: 'french fried' },
+    { txt: 'pickled' },
+    { txt: 'boiled' },
+    { txt: 'smoked' },
+    { txt: 'dried' },
+    { txt: 'deep fried' },
+    { txt: 'szechuan' },
+    { txt: 'broiled' },
+    { txt: 'stir fried' },
+    { txt: 'sauteed' },
+    { txt: 'candied' },
+    { txt: 'pureed' },
+    { txt: '' },
+];
+
+/** C ref: eat.c nonrotting_corpse — local copy (objnam↔eat cycle). */
+function nonrotting_corpse_tin(mnum) {
+    if (mnum === PM_LIZARD || mnum === PM_LICHEN || mnum === PM_ACID_BLOB) {
+        return true;
+    }
+    return is_rider(mons(mnum));
+}
+
+/**
+ * C ref: eat.c tin_variety(obj, TRUE) — display path only (no rn2 side
+ * effects). Named omission: non-display tin_variety RNG when spe>=0.
+ */
+function tin_variety_display(obj) {
+    let r;
+    const mnum = obj.corpsenm;
+    const spe = obj.spe | 0;
+    if (spe === 1) {
+        r = SPINACH_TIN;
+    } else if (obj.cursed) {
+        r = ROTTEN_TIN;
+    } else if (spe < 0) {
+        r = -spe;
+        --r;
+    } else {
+        // C: rn2(TTSZ-1) when displ; unused below when spe>=0 (no tintxt).
+        r = HOMEMADE_TIN;
+    }
+    if (r === ROTTEN_TIN && ismnum(mnum) && nonrotting_corpse_tin(mnum)) {
+        r = HOMEMADE_TIN;
+    }
+    return r;
+}
 
 function Role_if(pm) {
     return game.urole?.mnum === pm;
@@ -244,22 +305,35 @@ function mon_name(mndx) {
 }
 
 /**
- * C ref: eat.c tin_details() — spinach / "of X meat" / vegetarian bare name.
+ * C ref: eat.c tin_details() — spinach / empty / tintxts + meat/veg.
  * Caller must already have decided known (C: xname_flags FOOD TIN && known).
+ * Assumes result replaces the bare word "tin" (C mutates buf that holds it).
  */
 function tin_details(obj) {
-    // spinach: corpsenm unset and spe == 1 (set_tin_variety)
-    if ((obj.corpsenm == null || obj.corpsenm < 0) && (obj.spe | 0) === 1)
-        return 'tin of spinach';
-    if (obj.corpsenm == null || obj.corpsenm < 0)
-        return 'empty tin';
-    const mname = mon_name(obj.corpsenm);
-    // C: vegetarian monsters omit " meat"; newt is not vegetarian
-    const vegetarian = /^(lichen|fungus|mold|jelly|pudding|blob|jelly)$/i
-        .test(mname) || mname.includes('fungus') || mname.includes('mold');
-    // Named omission: full tin_variety / tintxts / cknown rotten prefix.
-    if (vegetarian) return `tin of ${mname}`;
-    return `tin of ${mname} meat`;
+    const r = tin_variety_display(obj);
+    if (r === SPINACH_TIN) return 'tin of spinach';
+    const mnum = obj.corpsenm;
+    if (mnum == null || mnum < 0) return 'empty tin';
+
+    // C: (cknown || iflags.override_ID) && spe < 0 → tintxt adjective
+    const showVariety = !!(obj.cknown || game.iflags?.override_ID)
+        && (obj.spe | 0) < 0;
+    let buf = 'tin';
+    if (showVariety) {
+        const txt = tintxts[r]?.txt ?? '';
+        if (r === ROTTEN_TIN || r === HOMEMADE_TIN) {
+            // put before the word tin: "homemade tin of "
+            buf = `${txt} ${buf} of `;
+        } else {
+            buf = `${buf} of ${txt} `;
+        }
+    } else {
+        buf = `${buf} of `;
+    }
+    const mname = mon_name(mnum);
+    // C: vegetarian(&mons[mnum]) omits " meat"
+    if (vegetarian(mons(mnum))) return buf + mname;
+    return `${buf}${mname} meat`;
 }
 
 function pretty_base(obj) {

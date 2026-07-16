@@ -46,7 +46,7 @@ seed0012, seed0004, seed0002, **seed0006**.
 | Session | RNG | Screen | Note |
 |--------|----:|-------:|------|
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
-| seed0007 | **16373**/16373 | **291**/302 | D-0502 AC; @150 tin name next |
+| seed0007 | **16373**/16373 | **297**/302 | D-0505 homemade; @297 Final Attr next |
 | seed0361/0373 | early | 0 | quest bones / `makemaz` |
 
 ## Green gate
@@ -69,18 +69,17 @@ Both must remain full RNG + screen PASS with exact scored-output lengths.
 59→58). **D-0483** reverts that serialize coerce. Next cron; if seed0013
 restored but four near-misses remain → upstream #5.
 
-**Gameplay next:** seed0007 — **screen peel @293** (D-0505 next). RNG full
-**16373**/16373; Scr **296**/302 after D-0504 `add_erosion_words` (was
-294; @161 `very burnt` leather fixed). @293 invent:
-`an uncursed homemade tin of lichen` (C) vs bare
-`an uncursed tin of lichen` (JS) — `tin_details` tintxts when
-`cknown && spe < 0`.
+**Gameplay next:** seed0007 — **screen peel @297** (D-0506 next). RNG full
+**16373**/16373; Scr **297**/302 after D-0505 `tin_details` tintxts
+(was 296; @293 `homemade tin of lichen` fixed). @297 Final Attributes:
+C has `You fell asleep uncontrollably.` / `poison resistant` /
+`stealthy`; JS omits those Status lines (cascades later Mores).
 
 ```bash
 node frozen/ps_test_runner.mjs sessions/seed0007-rogue-snake-swamp.session.json
 ```
 
-**Prefer over:** parked D-0006, seed2200 RC; re-opening D-0474…D-0504.
+**Prefer over:** parked D-0006, seed2200 RC; re-opening D-0474…D-0505.
 
 **Cohort after shared change:** green gate + seed1500 + seed1800 + seed0060 +
 seed0102 + seed0700 + seed1150 + seed0017 + seed0077 + seed0106 + seed0501 +
