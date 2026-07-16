@@ -7,11 +7,12 @@ Objective/score live in `CURRENT.md`.
 
 ## Active
 
-- **D-0575 done:** cursed/confused `seffect_teleportation` → `level_tele`;
-  Confusion/`*`/involuntary → `random_teleport_level`. seed5006 prefix
-  **8473→10953**; Scr **154→174**/249.
-- **Gameplay next:** seed5006 @10953 C `can_make_bones` `rn2(1)` vs JS
-  `rn2(4)` (level change / bones gate); or seed0116 residual 114/127.
+- **D-0576 done:** `zapyourself` WAN_DEATH + getdir `confdir`;
+  `can_make_bones` wizard ≡ `flags.debug||flags.wizard`. seed5006
+  seg0 **10953→11026 FULL**; Scr **174→182**/249; positional
+  **10974→13812**/13923.
+- **Gameplay next:** seed5006 **seg1** (seed5007) @11026
+  `randomize_gem_colors`; or seed0116 residual 114/127.
   Prefer over parked seed2200 RC.
   ```bash
   node scripts/rng-diff.mjs sessions/seed5006-tourist-stress-disaster.session.json
@@ -23,7 +24,7 @@ Objective/score live in `CURRENT.md`.
   raw RNG-index / coord / ux0 hacks; leave `context.travel` set across
   walk/run after `_` travel; batch doset toggle plines (D-0499);
   steal hero cursor for leftover getobj text in `flush_screen`;
-  reopen D-0474…D-0575; stub-cancel `^V?` as if menu; treat empty wish
+  reopen D-0474…D-0576; stub-cancel `^V?` as if menu; treat empty wish
   ESC as cancel; skip amulet_wish once-per-input; skip Wizard appear
   Norep / hot temperature; template `\.` in map strings; burn maze
   `rn2(2)` in `set_mimic_sym` on Sokoban; fill inside `load_special`
@@ -42,18 +43,22 @@ Objective/score live in `CURRENT.md`.
   `clear_committed_status` on fullscreen; skip CORPSE article in
   doname; `sel_set_ter(false)` force-unlit; omit wizard
   `MAGICENLIGHTENMENT` on ^X; skip `setworn` `oc_oprop`; stub
-  cursed/confused teleport scroll `level_tele`.
+  cursed/confused teleport scroll `level_tele`; stub death-ray
+  `zapyourself`; check only `flags.wizard` (not `flags.debug`) in
+  `can_make_bones`.
 
 ## Don’t re-check (≤15)
 
 - No raw RNG-index / coordinate / ux0 / forced-gettrack in production.
 - Rule #2: no `fs`/`path`/`url` in scored `js/` (D-0477).
-- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0575 done.
+- Don’t re-apply D-0480 space coerce (D-0483); D-0471…D-0576 done.
 - Runner `Screen N/M` = total matches, not prefix length.
 - getbones `rn2(3)` gap was unbound level change — D-0515/18.
-- D-0519…D-0575 makemaz/endgame/air_pos/^X/setworn/level_tele — index.
+- D-0519…D-0576 makemaz/endgame/air_pos/^X/setworn/level_tele/death —
+  index.
 - seed5006 @8468 was regen HP / missing Regeneration, not dosounds.
 - seed5006 @8473 was stubbed confused scroll `level_tele`, not rnl alone.
+- seed5006 @10953 was stubbed WAN_DEATH + bones `flags.debug`, not depth.
 
 ## Landmarks (≤15)
 
@@ -67,3 +72,4 @@ Objective/score live in `CURRENT.md`.
 - Air plane: `weight_cap` = `MAX_CARR_CAP` (Is_airlevel).
 - Worn rings: `setworn` → `uprops[oc_oprop].extrinsic` (D-0574).
 - Confused/cursed teleport scroll → `level_tele` + `random_teleport_level`.
+- Self-zap death ray → `done(DIED)`; playmode:debug ≡ wizard for bones.

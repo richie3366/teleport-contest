@@ -556,6 +556,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 | D-0573 | fixed | wizard ^X MAGIC attrs + Air weight_cap MAX | seed0373 Scr 123→124 **PASS**; next seed5006 dosounds @8468 |
 | D-0574 | fixed | setworn oc_oprop extrinsic (RIN_REGENERATION) | seed5006 8468→8473 Scr 121→154; next level_tele rnl @8473 |
 | D-0575 | fixed | confused scroll level_tele + random_teleport_level | seed5006 8473→10953 Scr 154→174; next can_make_bones @10953 |
+| D-0576 | fixed | zapyourself WAN_DEATH + getdir confdir + bones debug≡wizard | seed5006 seg0 10953→11026 FULL Scr 174→182; next seg1 gemcolors @11026 |
 | D-0569 | fixed | Fire lit epilogue + monster do_light_sources | seed0373 Scr 101→110; next Wizard Monnam @101 |
 | D-0568 | fixed | doname the_unique_obj + print_dungeon bot restore | seed0373 Scr 100→101; next Fire vision @100 |
 | D-0567 | fixed | Sokoban premap_detect + solidify + flip spines + wall CLR_BLUE | seed0373 Scr 88→100; next @99 Fire / Amulet phrasing |

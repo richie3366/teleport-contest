@@ -20,6 +20,16 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-16 23:25 — #639 death-ray self-zap / bones debug (D-0576)
+- Objective: seed5006 can_make_bones rn2(1) @10953.
+- C locus: zap.c zapyourself WAN_DEATH; cmd.c getdir→confdir;
+  bones.c can_make_bones !wizard.
+- Change: port death-ray self-zap → done(DIED); getdir_zap confdir;
+  can_make_bones treats flags.debug as wizard (playmode:debug).
+- Verification: seed5006 seg0 10953→11026 FULL Scr 174→182;
+  positional 13812/13923; green+strict PASS; cohort 29/29 PASS.
+- Next: seed5006 seg1 randomize_gem_colors @11026; or seed0116 residual.
+
 ## 2026-07-16 23:15 — #638 confused level_tele (D-0575)
 - Objective: seed5006 level_tele rnl(5) @8473.
 - C locus: read.c seffect_teleportation; teleport.c level_tele /
@@ -147,21 +157,3 @@ Use this shape:
 - Verification: seed0373 Scr **78→85**/124 RNG full; green+strict
   PASS; cohort **30**/30 PASS.
 - Next: seed0373 @73 Dlvl:12 blank walls; or seed5006 dosounds @8468.
-
-## 2026-07-16 21:50 — #625 formal score refresh
-- Objective: mandatory #625 full `sessions` score (÷5 cadence).
-- C locus: n/a (score-only; no port patch).
-- Change: refreshed `CURRENT.md` Score from `__RESULTS_JSON__`.
-- Verification: green+strict PASS; full suite **30/44**, Scr
-  **6355**/11405, RNG **353648**/792838 (44.61%), `31+0.14/turn`
-  (R² 0.77). Δ vs #620: Scr +454, RNG +2962 (D-0560…D-0564).
-- Next: seed0373 Bar-strt outdoor `~` glyphs; or seed5006 dosounds @8468.
-
-## 2026-07-16 21:48 — #624 D-0564 describe_level Home
-- Objective: seed0373 @screen 43 botl `Home 1` vs `Dlvl:16`.
-- C locus: botl.c describe_level; dungeon.c endgamelevelname.
-- Change: js/display.js describe_level (Knox/quest/endgame/Dlvl) +
-  endgamelevelname; _statusLine2 uses describe_level(1).
-- Verification: seed0373 Scr **65→78**/124 RNG full; green+strict
-  PASS; cohort **28**/28 PASS.
-- Next: Bar-strt outdoor `~` glyphs; or seed5006 dosounds @8468.

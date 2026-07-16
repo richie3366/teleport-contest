@@ -272,8 +272,10 @@ export function can_make_bones() {
     }
 
     const dep = depth(uz);
+    // C: wizard global — JS playmode:debug sets flags.debug (not .wizard)
+    const wizard = !!(flags.wizard || flags.debug);
     if (dep <= 0
-        || (!rn2(1 + (dep >> 2)) && !flags.wizard)) {
+        || (!rn2(1 + (dep >> 2)) && !wizard)) {
         return false;
     }
     if (flags.discover || flags.explore) return false;

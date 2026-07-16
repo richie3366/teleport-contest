@@ -4,6 +4,31 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
+## D-0576 — zapyourself WAN_DEATH + getdir confdir + bones wizard≡debug
+
+- **Status:** fixed (partial — other zapyourself otyps; wizard Die?/Save
+  bones yn polish; Lifesaved)
+- **Symptom:** seed5006 @10953 C `can_make_bones` `rn2(1)` vs JS
+  `rn2(4)` — after wish wand of death + self-zap `.`.
+- **Cause:** (1) `zapyourself` stubbed WAN_DEATH/SPE_FINGER_OF_DEATH so
+  JS never `done(DIED)`; coincidental later `rn2(4)`. (2) `getdir_zap`
+  omitted C `confdir(FALSE)` after horizontal/self dir (Confusion
+  `u_maybe_impaired` `rn2(5)`). (3) After death-ray port, `can_make_bones`
+  treated `!flags.wizard` only; `playmode:debug` sets `flags.debug`, so
+  JS returned false after `rn2(1)=0` while C wizard continues to bones.
+- **C locus:** `zap.c` `zapyourself` WAN_DEATH; `cmd.c` `getdir`→
+  `confdir`; `bones.c` `can_make_bones` `!wizard`.
+- **Change:** port death-ray self-zap → killer + plines + `done(DIED)`;
+  `getdir_zap` calls `confdir(false)` when `!dz`; bones wizard check
+  `flags.debug || flags.wizard`.
+- **Verification:** seed5006 prefix **10953→11026** (seg0 FULL);
+  positional **10974→13812**/13923 Scr **174→182**/249; green+strict
+  PASS; cohort 29/29 PASS (incl. seed0373/0398).
+- **Named omission:** other `zapyourself` otyps; wizard `Die?` /
+  `Save bones?` query polish; Lifesaved; seg1 seed5007 startup.
+- **Next:** seed5006 seg1 `randomize_gem_colors` @11026; or seed0116
+  residual.
+
 ## D-0575 — confused/cursed scroll → level_tele + random_teleport_level
 
 - **Status:** fixed (partial — heaven/escape outside endgame; Nowhere
