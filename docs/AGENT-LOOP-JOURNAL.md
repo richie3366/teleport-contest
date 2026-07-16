@@ -20,6 +20,16 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-16 13:20 — D-0485 dofire ready More + getdir MV_ANY
+- Objective: seed0007 @2832 hero Y drift (D-0485).
+- C locus: `cmd.c` getdir/`movecmd(MV_ANY)`; `dothrow.c` dofire; topline More.
+- Change: `mark_topline_seen` after fire quiver ready; `dir_from_key` accepts
+  capital run + Ctrl-rush like MV_ANY. Was: More ate `=/\r`, getdir saw `H`
+  as invalid, help swallowed `Y`; bare `y` walked NW.
+- Verification: rng-diff **2832→3219**; green+strict PASS; cohort 10 PASS.
+  Scr still 20/302.
+- Next: D-0487 @3219 `picklock` rn2(100).
+
 ## 2026-07-16 13:15 — #540 public score (mandatory ÷5)
 - Objective: full `sessions` score cadence (#540).
 - C locus: n/a (score-only; no port patch).
@@ -133,28 +143,3 @@ Use this shape:
 - Verification: seed0006 Scr **95→106**/123 @77→@102; green+strict;
   25 PASS cohort held.
 - Next: seed0006 @102 `.` vs `&` water-demon display (or seed0007).
-
-## 2026-07-16 08:15 — #515 score + D-0478 hilite_pet
-- Objective: #515 %5 full score; seed0006 @71 hilite_pet primary.
-- C locus: `wintty.c` `tty_print_glyph` MG_PET; `options.c` opt_hilite_pet.
-- Change: `mon_map_attr` + `newsym` attr; enable sets `wc2_petattr`.
-- Verification: seed0006 Scr **89→95**/123 @71→@77; green+strict;
-  pet cohort PASS; suite **27/44** Scr **4986**/11405 RNG **289819**.
-- Next: seed0006 @77 `I` vs `#` (or seed0007).
-
-## 2026-07-16 08:10 — docs: Rule #2 hard-ban in loop entrypoints
-- Objective: document Contest Rule #2 where loop agents always read it.
-- C locus: n/a (process); contest README Rule #2; D-0477.
-- Change: CONSTITUTION §1.5 + §3/§7; GROK-PLAYBOOK callout + Bad table;
-  CURRENT header; Cursor rules; agent-port-loop.prompt.md.
-- Verification: check-hot-docs; D-0477 already green.
-- Next: seed0006 @71 hilite_pet (or seed0007).
-
-## 2026-07-16 08:05 — D-0477 Rule #2 pager dat embed
-- Objective: Contest Rule #2 — no filesystem; pager used Node fs.
-- C locus: `pager.c` display_file/checkfile; README Rule #2.
-- Change: `extract-dat-text.py` → `dat_text.js`; `pager.readDat`
-  in-process only (drop fs/path/url).
-- Verification: green+strict; seed0030/0002/0012 PASS; js/ clean
-  of Node builtins.
-- Next: seed0006 @71 hilite_pet (or seed0007).

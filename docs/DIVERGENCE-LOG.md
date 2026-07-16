@@ -21,34 +21,40 @@ to preserve, record it here.
   0006/0002/0012/0004/0030/0009 PASS.
 - **Next:** D-0485 gettrack/`!couldsee` on ordinary levels.
 
-## D-0485 — dog_move rn2(1) vs skipped j==0 (seed0007 @2832)
+## D-0487 — picklock rn2(100) vs distfleeck (seed0007 @3219)
 
-- **Status:** open (hero Y drift mid-`H` run; gettrack/`!couldsee` falsified)
+- **Status:** open
+- **Symptom:** after D-0485, first RNG miss @3219 — C `rn2(100) @ picklock`
+  vs JS `rn2(5) @ distfleeck` (runner matched ~3241).
+- **Context:** seed0007 Scr still **20**/302; capital `H` run now reaches
+  deeper into the swamp path.
+- **C locus:** `lock.c` `picklock` / occupation; symptom may be earlier
+  door/force/`#` path leaving JS off the lock occupation.
+- **Next:** C vs JS at first `a`/`#`/`force`/`lock` after the H/Y run —
+  no coord hacks.
+- **Named omission:** see lock/apply map row.
+
+## D-0485 — dofire ready More + getdir MV_ANY (seed0007 @2832)
+
+- **Status:** fixed
 - **Symptom:** seed0007 first RNG miss @2832 — C `rn2(1)=0 @ dog_move`
-  (candidate `j==0 && !rn2(++chcnt)`) vs JS `rn2(5) @ distfleeck`.
-- **Context:** RNG in step 48 key `H` (capital run; multi-step via
-  `continue_run` inside one key); next `Y`. Pet `(38,17)` both sides;
-  lit roomno 6; `utrap=0`; Blind false. Upstairs spawn C+JS `(38,18)`.
-- **C recorder @ peel:** `sight=1` (`couldsee` true), gg=hero,
-  `mux=hero`, `appr=1` `whappr=1` `cnt=8` `nidist=5`, hero **`(36,18)`**,
-  poss[0]=`(37,16)` → j=0 → `rn2(1)`. Track would be `(37,18)` but
-  unused (`in_masters_sight`).
-- **JS @ rng 2832:** hero **`(36,17)`**, gg=hero, `nidist=4`, first
-  cand j=-2; only j<0 selections → no cand RNG → next mon `distfleeck`.
-- **Force proofs (historical):** skip `(37,17)`→2838; force-gettrack→2846
-  (coincidence — C does not take gettrack).
-- **Falsified:** `!couldsee`→gettrack; `Is_rogue_level`/`rogue_vision`
-  (dlvl1); production mux/ux0/coord gates; spawn upstairs mismatch.
-- **Working theory:** JS `lookaround` / `continue_run` / pet-swap
-  during `H` drifts hero to y=17 while C stays y=18; dog_move j-arith
-  is a symptom of wrong hero pos.
-- **C locus:** `hack.c` `lookaround`/`domove`/`continue` run; `cmd.c`
-  do_run; symptom in `dogmove.c` ~1255.
-- **Next:** per-step mid-`H` dump of `ux,uy,dx,dy` vs C; fix lookaround
-  or swap path from C — no coord/gettrack production hacks.
-- **Named omission:** `mfndpos` pool/lava/WATERWALL/onscary/garlic/
-  squeeze/`mm_aggression` arms still partial; lookaround Blind/trap/
-  pool/NODIAG/mention_walls deferred in `cmd.js`.
+  vs JS `rn2(5) @ distfleeck`. Hero Y drifted: C stayed y=18 on `H` run;
+  JS first real move was bare `y` → (37,17).
+- **Cause:** (1) After `doquiver_core("fire")` ready pline, `getdir_cmdassist`
+  `flush_topl_more` More-ate session keys `=/\r`, so getdir saw capital `H`.
+  (2) JS getdir only accepted lowercase dirchars — `H` → invalid →
+  `help_dir` swallowed `Y`/`h`/space; next rhack key `y` walked NW.
+  C `movecmd(dirsym, MV_ANY)` accepts walk/run/rush; with no spurious More,
+  `=/\r` cancel getdir and `H` is the capital run.
+- **Change:** `js/dothrow.js` — `mark_topline_seen` after successful fire
+  quiver (D-0484 pattern); `dir_from_key` for capitals + Ctrl-rush in
+  `getdir` / `getdir_cmdassist`.
+- **Verification:** rng-diff prefix **2832→3219**; green+strict PASS;
+  cohort seed1500/1800/0101/0013/0006/0002/0004/0012/0030/0009 PASS.
+  Scr still 20/302.
+- **Next:** @3219 C `rn2(100) @ picklock` (D-0487).
+- **Named omission:** autoquiver/polearm/bullwhip/find_launcher; full
+  `movecmd` bind table beyond hjklyubn/HJKLYUBN/C(dir).
 
 ## D-0484 — dofire empty quiver continue + getobj letter ownership
 

@@ -471,8 +471,9 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 | D-0482 | fixed | disclose invent + enl + vanq ask | seed0006 **PASS** 123/123; Scr 5014; 28/44 |
 | D-0483 | fixed | revert D-0480 serialize space/tty_map_color | judge 23→22 correlated; keep strcmpi |
 | D-0484 | fixed | dofire empty-quiver continue + letter More | seed0007 RNG 2824→2832; dog_move next |
-| D-0485 | open | mid-H run hero Y drift (C 36,18 vs JS 36,17); !couldsee falsified | seed0007 @2832; lookaround next |
+| D-0485 | fixed | dofire ready More + getdir MV_ANY capitals | seed0007 RNG 2832→3219; picklock next |
 | D-0486 | fixed | vision_recalc rogue_vision for Is_rogue_level | C vision.c; not seed0007 (dlvl1) |
+| D-0487 | open | picklock rn2(100) vs distfleeck | seed0007 @3219 after D-0485 |
 
 
 

@@ -69,12 +69,10 @@ Both must remain full RNG + screen PASS with exact scored-output lengths.
 59→58). **D-0483** reverts that serialize coerce. Next cron; if seed0013
 restored but four near-misses remain → upstream #5.
 
-**Gameplay next:** seed0007 rogue snake swamp — RNG prefix **2832**/16373;
-Scr **20**/302. **D-0485** (open): C capture falsified `!couldsee`/
-gettrack (`sight=1`, gg=hero; spawn both `(38,18)`). Peel is **hero Y
-drift mid-`H` run**: C `(36,18)` → first cand j=0 `rn2(1)`; JS
-`(36,17)` → only j<0 (no cand RNG). Next: `lookaround` /
-`continue_run` / pet-swap during capital `H` — no coord hacks.
+**Gameplay next:** seed0007 rogue snake swamp — **D-0485** fixed (RNG
+**2832→3219**): post-quiver `mark_topline_seen` + getdir `movecmd(MV_ANY)`
+capitals so `H` is the run, not a mis-eaten getdir. **D-0487** (open):
+@3219 C `rn2(100) @ picklock` vs JS `distfleeck`. Scr still **20**/302.
 
 ```bash
 node scripts/rng-diff.mjs sessions/seed0007-rogue-snake-swamp.session.json
@@ -83,7 +81,7 @@ node frozen/ps_test_runner.mjs sessions/seed0007-rogue-snake-swamp.session.json
 
 **Alternates:** quest early-0 (seed0361/0373); seed0108 wishlist.
 
-**Prefer over:** parked D-0006, seed2200 RC; re-opening D-0474…D-0484.
+**Prefer over:** parked D-0006, seed2200 RC; re-opening D-0474…D-0486.
 
 **Cohort after shared change:** green gate + seed1500 + seed1800 + seed0060 +
 seed0102 + seed0700 + seed1150 + seed0017 + seed0077 + seed0106 + seed0501 +
