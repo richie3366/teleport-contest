@@ -70,10 +70,10 @@ Both must remain full RNG + screen PASS with exact scored-output lengths.
 restored but four near-misses remain → upstream #5.
 
 **Gameplay next:** seed0007 rogue snake swamp — RNG prefix **2832**/16373;
-Scr **20**/302. **D-0485** (open): C `rn2(1) @ dog_move` vs JS next
-`distfleeck`. JS pet (38,17)→goal (36,17) appr=1 whappr=1; picks closer
-`(37,17)` via `j<0` only. C needs `j==0` ⇒ likely silent skip/omit of
-`(37,17)` so `(37,16)` then same-dist `(37,18)` hits `rn2(1)`.
+Scr **20**/302. **D-0485** (open): C `rn2(1) @ dog_move` vs JS
+`distfleeck`. Force-skip of cand `(37,17)` extends prefix **→2838** —
+C omits that cell; JS selects it via `j<0`. Gate still unknown
+(mfndpos omit vs silent dog_move continue). No coord hacks.
 
 ```bash
 node scripts/rng-diff.mjs sessions/seed0007-rogue-snake-swamp.session.json

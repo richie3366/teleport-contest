@@ -6,25 +6,32 @@ to preserve, record it here.
 
 ## D-0485 — dog_move rn2(1) vs skipped j==0 (seed0007 @2832)
 
-- **Status:** open (diagnosed; no code yet)
+- **Status:** open (diagnosed; force-skip confirmed; C gate unknown)
 - **Symptom:** seed0007 first RNG miss @2832 — C `rn2(1)=0 @ dog_move`
   (candidate `j==0 && !rn2(++chcnt)`) vs JS `rn2(5) @ distfleeck`.
-- **JS state (DIAG, removed):** after matched `dog_goal` `rn2(4)=0`, pet
-  `(38,17)`, goal `(36,17)`, `appr=1`, `whappr=1`, `mconf=0`,
-  `couldsee`, `kickedloc` clear, `cnt=8` all `typ=ROOM`. Cands in
-  mfndpos order: `(37,16)` j=−2 → `(37,17)` j=−1 → rest j>0 with
-  whappr (no `rn2(3)`/`rn2(12)`). Exit without selection RNG.
-- **Falsified:** pool/lava mfndpos gate as the (37,17) skip (terrain
-  ROOM); JS `mconf`/kickedloc; “whappr alone suppresses all selection
-  RNG” (C still needs a `j==0` cand).
-- **Working theory:** C omits or silently continues past `(37,17)` so
-  after `(37,16)` sets `nidist=2`, `(37,18)` has `j==0` → `rn2(1)`.
-  Candidates: silent ALLOW_M balk, mfndpos omission, other no-RNG
-  continue. JS `fmon` has no mon at `(37,17)` at this instant.
+- **Context:** mismatch sits in the `Y` (run up-left) step after
+  downstairs/`H`; not a mid-`dog_move`-only geometry puzzle.
+- **JS state (DIAG, removed):** after matched `dog_goal` `rn2(4)=0`,
+  kitten `(38,17)`, hero/goal `(36,17)`, `appr=1`, `whappr=1`,
+  `couldsee`, `kickedloc` clear, `cnt=8` all `typ=ROOM` (DEC `~` =
+  S_room). Cands: `(37,16)` j<0 → `(37,17)` j<0 → rest whappr-blocked.
+  No mon/obj/trap at `(37,17)`; `mux/muy` = hero.
+- **Force-skip proof:** temporary silent `continue` on `(37,17)` at
+  this call extends RNG prefix **2832→2838** (next miss `obj_resists`).
+  So C truly omits that cell (mfndpos or no-RNG continue).
+- **Falsified:** JS pool typ (ROOM); JS mconf/kickedloc; couldsee
+  false; “hero still on `(37,17)` at dog_goal” (would make `udist==1`
+  and skip `rn2(4)`, but C emits `rn2(4)`); ALLOW_M balk with a JS
+  mon (fmon empty there).
+- **Working theory:** C silent-omits `(37,17)` so after `(37,16)`
+  `nidist=2`, `(37,18)` hits `j==0`/`rn2(1)`. Still unknown which
+  gate (mfndpos pool/onscary/garlic/aggression omit vs dog_move
+  continue). Do not ship coordinate skips.
 - **C locus:** `dogmove.c` `dog_move` ~1254–1257; `mon.c` `mfndpos`.
-- **Next:** prove why C skips `(37,17)`; then port that gate.
+- **Next:** prove the C omit gate (compare C terrain/mon at that cell
+  if a capture exists; else port missing `mfndpos` arms and re-check).
 - **Named omission:** `mfndpos` still lacks C pool/lava/`IS_WATERWALL`/
-  onscary/garlic/squeeze arms (not the @2832 smoking gun here).
+  onscary/garlic/squeeze/`mm_aggression` omit arms.
 
 ## D-0484 — dofire empty quiver continue + getobj letter ownership
 
