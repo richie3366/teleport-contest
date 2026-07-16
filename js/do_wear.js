@@ -195,7 +195,24 @@ function count_worn_stuff(accessorizing) {
 }
 
 /**
- * C ref: worn.c setworn — slot pointer + owornmask; prop/oc_oprop deferred.
+ * C ref: worn.c setworn — confer/clear objects[].oc_oprop extrinsic bit.
+ * Named omissions: w_blocks, artifact intrinsics, monstunseesu_prop,
+ * SWAPWEP/QUIVER skip (not in this setworn path), skin/nudist/tux.
+ */
+function confer_oc_oprop(obj, mask, on) {
+    if (!obj) return;
+    // C: prop #0 unused; items with no conferred property use 0
+    const p = (game.objects?.[obj.otyp]?.oc_oprop | 0);
+    if (!p) return;
+    const u = game.u || (game.u = {});
+    if (!u.uprops) u.uprops = {};
+    if (!u.uprops[p]) u.uprops[p] = { intrinsic: 0, extrinsic: 0, blocked: 0 };
+    if (on) u.uprops[p].extrinsic = (u.uprops[p].extrinsic | 0) | mask;
+    else u.uprops[p].extrinsic = (u.uprops[p].extrinsic | 0) & ~mask;
+}
+
+/**
+ * C ref: worn.c setworn — slot pointer + owornmask + oc_oprop extrinsic.
  * @param {object|null} obj
  * @param {number} mask
  */
@@ -204,7 +221,10 @@ export function setworn(obj, mask) {
     const clearOne = (slot, bit) => {
         if (!(mask & bit)) return;
         const old = u[slot];
-        if (old) old.owornmask = (old.owornmask || 0) & ~bit;
+        if (old) {
+            confer_oc_oprop(old, bit, false);
+            old.owornmask = (old.owornmask || 0) & ~bit;
+        }
         u[slot] = null;
     };
 
@@ -230,51 +250,64 @@ export function setworn(obj, mask) {
     }
 
     // Place into the matching armor/accessory slot for this mask.
+    let slotBit = 0;
     if (mask & W_ARM) {
         clearOne('uarm', W_ARM);
+        slotBit = W_ARM;
         obj.owornmask = (obj.owornmask || 0) | W_ARM;
         u.uarm = obj;
     } else if (mask & W_ARMC) {
         clearOne('uarmc', W_ARMC);
+        slotBit = W_ARMC;
         obj.owornmask = (obj.owornmask || 0) | W_ARMC;
         u.uarmc = obj;
     } else if (mask & W_ARMH) {
         clearOne('uarmh', W_ARMH);
+        slotBit = W_ARMH;
         obj.owornmask = (obj.owornmask || 0) | W_ARMH;
         u.uarmh = obj;
     } else if (mask & W_ARMS) {
         clearOne('uarms', W_ARMS);
+        slotBit = W_ARMS;
         obj.owornmask = (obj.owornmask || 0) | W_ARMS;
         u.uarms = obj;
     } else if (mask & W_ARMG) {
         clearOne('uarmg', W_ARMG);
+        slotBit = W_ARMG;
         obj.owornmask = (obj.owornmask || 0) | W_ARMG;
         u.uarmg = obj;
     } else if (mask & W_ARMF) {
         clearOne('uarmf', W_ARMF);
+        slotBit = W_ARMF;
         obj.owornmask = (obj.owornmask || 0) | W_ARMF;
         u.uarmf = obj;
     } else if (mask & W_ARMU) {
         clearOne('uarmu', W_ARMU);
+        slotBit = W_ARMU;
         obj.owornmask = (obj.owornmask || 0) | W_ARMU;
         u.uarmu = obj;
     } else if (mask & W_AMUL) {
         clearOne('uamul', W_AMUL);
+        slotBit = W_AMUL;
         obj.owornmask = (obj.owornmask || 0) | W_AMUL;
         u.uamul = obj;
     } else if (mask & W_RINGL) {
         clearOne('uleft', W_RINGL);
+        slotBit = W_RINGL;
         obj.owornmask = (obj.owornmask || 0) | W_RINGL;
         u.uleft = obj;
     } else if (mask & W_RINGR) {
         clearOne('uright', W_RINGR);
+        slotBit = W_RINGR;
         obj.owornmask = (obj.owornmask || 0) | W_RINGR;
         u.uright = obj;
     } else if (mask & W_TOOL) {
         clearOne('ublindf', W_TOOL);
+        slotBit = W_TOOL;
         obj.owornmask = (obj.owornmask || 0) | W_TOOL;
         u.ublindf = obj;
     }
+    if (slotBit) confer_oc_oprop(obj, slotBit, true);
     find_ac();
 }
 
@@ -505,21 +538,25 @@ async function armor_or_accessory_off(obj) {
     if (obj === u.uleft || obj === u.uright) {
         await off_msg(obj);
         if (obj === u.uleft) {
+            confer_oc_oprop(obj, W_RINGL, false);
             obj.owornmask = (obj.owornmask || 0) & ~W_RING;
             u.uleft = null;
         } else {
+            confer_oc_oprop(obj, W_RINGR, false);
             obj.owornmask = (obj.owornmask || 0) & ~W_RING;
             u.uright = null;
         }
         return 1;
     }
     if (obj === u.uamul) {
+        confer_oc_oprop(obj, W_AMUL, false);
         obj.owornmask = (obj.owornmask || 0) & ~W_AMUL;
         u.uamul = null;
         await off_msg(obj);
         return 1;
     }
     if (obj === u.ublindf) {
+        confer_oc_oprop(obj, W_TOOL, false);
         obj.owornmask = (obj.owornmask || 0) & ~W_TOOL;
         u.ublindf = null;
         await off_msg(obj);
@@ -917,7 +954,7 @@ async function accessory_or_armor_on(obj) {
     // Accessory
     if (ring) {
         setworn(obj, mask);
-        // Ring_on body (learnring / attribs) deferred
+        // Ring_on learnring / attrib deltas deferred; oc_oprop via setworn
         await on_msg(obj);
     } else if (amulet) {
         await Amulet_on(obj);

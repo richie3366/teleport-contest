@@ -50,8 +50,8 @@ seed0012, seed0004, seed0002, seed0006, seed0007, seed0398.
 | seed2200 | 3018/3018 | **229**/230 | sole miss parked @158 RC |
 | seed0361/0367 | early | 0 | quest / `makemaz` (menu) |
 
-Focused since #635: **seed0373 PASS** (D-0573; Scr 124/124) — suite
-aggregates refresh at #640.
+Focused since #635: **seed0373 PASS** (D-0573); **seed5006** Scr
+121→154 / RNG prefix 8468→8473 (D-0574). Suite aggregates refresh at #640.
 
 ## Green gate
 
@@ -73,17 +73,16 @@ dropped to **22** after D-0480 (seed0013-rogue 59→58). **D-0483** reverts
 that serialize coerce. Next cron; if seed0013 restored but near-misses
 remain → upstream #5.
 
-**Gameplay next:** after D-0573 (wizard ^X `MAGICENLIGHTENMENT` + Air
-`weight_cap` MAX), seed0373 focused **PASS** (Scr 124/124). Next
-seed5006 `dosounds` @8468, or seed0116 residual (114/127). Prefer over
-parked seed2200 RC.
+**Gameplay next:** after D-0574 (`setworn` `oc_oprop` → Regeneration),
+seed5006 prefix **8468→8473**; next `level_tele` `rnl(5)` @8473, or
+seed0116 residual (114/127). Prefer over parked seed2200 RC.
 
 ```bash
 node scripts/rng-diff.mjs sessions/seed5006-tourist-stress-disaster.session.json
 node frozen/ps_test_runner.mjs sessions/seed0116-wizard-wear-shop.session.json
 ```
 
-**Prefer over:** parked D-0006, seed2200 RC; re-opening D-0474…D-0573.
+**Prefer over:** parked D-0006, seed2200 RC; re-opening D-0474…D-0574.
 
 **Cohort after shared change:** green gate + seed1500 + seed1800 + seed0060 +
 seed0102 + seed0700 + seed1150 + seed0017 + seed0077 + seed0106 + seed0501 +

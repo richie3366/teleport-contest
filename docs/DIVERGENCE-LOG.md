@@ -4,6 +4,30 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
+## D-0574 — setworn oc_oprop extrinsic (ring of regeneration)
+
+- **Status:** fixed (partial — Ring_on learnring/attribs; w_blocks;
+  artifact intrinsics; prop mirrors on `u.H*`/`u.E*`)
+- **Symptom:** seed5006 @8468 C `rn2(400)` dosounds fountain vs JS
+  `rn2(100)` regen_hp — after wearing wished clay ring of regeneration.
+- **Cause:** `setworn` never conferred `objects[].oc_oprop` into
+  `u.uprops[].extrinsic`, so `U_CAN_REGEN()` was false; failed regen
+  roll @8433 left HP 9/10 and next EOT burned regen `rn2(100)` while
+  C (with Regeneration) had healed to full and reached fountain
+  `rn2(400)`. Not a dosounds bug.
+- **C locus:** `worn.c` `setworn` oc_oprop extrinsic; `youprop.h`
+  `Regeneration`; `allmain.c` `U_CAN_REGEN` / `regen_hp`.
+- **Change:** extract `oc_oprop` into `objects_data.js`; `setworn` /
+  accessory takeoff confer/clear extrinsic; `u_can_regen` reads
+  `uprops[REGENERATION]`.
+- **Verification:** seed5006 prefix **8468→8473** positional
+  **8508→8576** Scr **121→154**/249; green+strict PASS; cohort PASS
+  held (seed0373/0398 PASS; seed0116 114/127 unchanged).
+- **Named omission:** `w_blocks`; artifact intrinsics;
+  `monstunseesu_prop`; Ring_on learnring / gain-str attribs; mirror
+  `u.ERegeneration` field; property consumers still on `u.H*` only.
+- **Next:** seed5006 `level_tele` `rnl(5)` @8473; or seed0116 residual.
+
 ## D-0573 — wizard ^X MAGICENLIGHTENMENT + Air weight_cap MAX
 
 - **Status:** fixed (partial — full attributes catalogue / from_what equipment)

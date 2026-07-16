@@ -100,10 +100,10 @@ int main(void) {
     printf("{\"maxoclasses\":%d,\"count\":%d,\"rows\":[\n", MAXOCLASSES, n);
     for (int i = 0; i < n; i++) {
         struct objclass *o = &objects[i];
-        printf("%s{\"i\":%d,\"class\":%d,\"name_known\":%d,\"magic\":%d,\"unique\":%d,\"tough\":%d,\"big\":%d,\"dir\":%d,\"material\":%d,\"subtyp\":%d,\"color\":%d,\"prob\":%d,\"weight\":%d,\"cost\":%d,\"oc1\":%d,\"oc2\":%d,\"delay\":%d,\"wsdam\":%d,\"wldam\":%d}",
+        printf("%s{\"i\":%d,\"class\":%d,\"name_known\":%d,\"magic\":%d,\"unique\":%d,\"tough\":%d,\"big\":%d,\"dir\":%d,\"material\":%d,\"subtyp\":%d,\"oprop\":%d,\"color\":%d,\"prob\":%d,\"weight\":%d,\"cost\":%d,\"oc1\":%d,\"oc2\":%d,\"delay\":%d,\"wsdam\":%d,\"wldam\":%d}",
             i?",\n":"", i, (int)o->oc_class, (int)o->oc_name_known, (int)o->oc_magic,
             (int)o->oc_unique, (int)o->oc_tough, (int)o->oc_big, (int)o->oc_dir, (int)o->oc_material,
-            (int)o->oc_subtyp, (int)o->oc_color, (int)o->oc_prob, (int)o->oc_weight,
+            (int)o->oc_subtyp, (int)o->oc_oprop, (int)o->oc_color, (int)o->oc_prob, (int)o->oc_weight,
             (int)o->oc_cost,
             (int)o->oc_oc1, (int)o->oc_oc2, (int)o->oc_delay,
             (int)o->oc_wsdam, (int)o->oc_wldam);
@@ -255,9 +255,9 @@ int main(void) {
     lines.append("export const objectDescrs = " + json.dumps(descrs) + ";")
     rows = [
         [r["class"], r["name_known"], r["magic"], r["unique"], r["tough"],
-         r["big"], r["dir"], r["material"], r["subtyp"], r["color"], r["prob"],
-         r["weight"], r["cost"], r["oc1"], r["oc2"], r["delay"], r["wsdam"],
-         r["wldam"]]
+         r["big"], r["dir"], r["material"], r["subtyp"], r["oprop"], r["color"],
+         r["prob"], r["weight"], r["cost"], r["oc1"], r["oc2"], r["delay"],
+         r["wsdam"], r["wldam"]]
         for r in rows_raw
     ]
     lines.append("export function createObjectsArray() {")
@@ -276,20 +276,22 @@ int main(void) {
     oc_dir: r[6],
     oc_material: r[7],
     oc_skill: r[8], /* also oc_subtyp / oc_armcat */
-    oc_color: r[9],
-    oc_prob: r[10],
-    oc_weight: r[11],
+    /* C: oc_oprop — conferred property (prop.h); 0 unused */
+    oc_oprop: r[9],
+    oc_color: r[10],
+    oc_prob: r[11],
+    oc_weight: r[12],
     /* C: oc_cost — base shop price / candle age units */
-    oc_cost: r[12],
+    oc_cost: r[13],
     /* C: oc_oc1 — a_ac (armor) / oc_hitbon (weapons) */
-    a_ac: r[13],
+    a_ac: r[14],
     /* C: oc_oc2 — oc_level (spellbooks) / a_can (armor) */
-    oc_level: r[14],
+    oc_level: r[15],
     /* C: oc_delay — armor don/doff occupation turns */
-    oc_delay: r[15],
+    oc_delay: r[16],
     /* C: oc_wsdam / oc_wldam — weapon small/large damage dice */
-    oc_wsdam: r[16],
-    oc_wldam: r[17],
+    oc_wsdam: r[17],
+    oc_wldam: r[18],
     oc_name_idx: i,
     oc_descr_idx: i,
     oc_sell_minseen: PRICE_MIN_INIT,

@@ -554,6 +554,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 | D-0570 | fixed | mon_pmname + M2_PNAME article in x_monnam | seed0373 Scr 110→111; next Air map @110 |
 | D-0571 | fixed | movebubbles air_pos S_cloud glyph + AIR/CLOUD terrain_glyph | seed0373 Scr 111→122; next enlightenment @118 |
 | D-0573 | fixed | wizard ^X MAGIC attrs + Air weight_cap MAX | seed0373 Scr 123→124 **PASS**; next seed5006 dosounds @8468 |
+| D-0574 | fixed | setworn oc_oprop extrinsic (RIN_REGENERATION) | seed5006 8468→8473 Scr 121→154; next level_tele rnl @8473 |
 | D-0569 | fixed | Fire lit epilogue + monster do_light_sources | seed0373 Scr 101→110; next Wizard Monnam @101 |
 | D-0568 | fixed | doname the_unique_obj + print_dungeon bot restore | seed0373 Scr 100→101; next Fire vision @100 |
 | D-0567 | fixed | Sokoban premap_detect + solidify + flip spines + wall CLR_BLUE | seed0373 Scr 88→100; next @99 Fire / Amulet phrasing |

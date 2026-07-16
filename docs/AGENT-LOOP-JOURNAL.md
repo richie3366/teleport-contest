@@ -20,6 +20,17 @@ Use this shape:
     20|- Next: …
 ```
 
+## 2026-07-16 23:10 — #637 setworn oc_oprop (D-0574)
+- Objective: seed5006 dosounds @8468 (C rn2(400) vs JS rn2(100)).
+- C locus: worn.c setworn oc_oprop; youprop.h Regeneration; allmain
+  U_CAN_REGEN/regen_hp.
+- Change: extract oc_oprop; setworn/takeoff extrinsic; u_can_regen
+  reads uprops[REGENERATION]. Symptom was missing Regeneration after
+  wishing clay ring, not dosounds.
+- Verification: seed5006 8468→8473 Scr 121→154; green+strict PASS;
+  cohort PASS held.
+- Next: seed5006 level_tele rnl(5) @8473; or seed0116 residual.
+
 ## 2026-07-16 23:03 — #636 wizard ^X Attributes (D-0573)
 - Objective: seed0373 @119 Attributes / wizard MAGICENLIGHTENMENT.
 - C locus: insight.c doattributes/attributes_enlightenment/status;
