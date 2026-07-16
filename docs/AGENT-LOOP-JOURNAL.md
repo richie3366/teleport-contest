@@ -20,6 +20,17 @@ Use this shape:
 - Next: …
 ```
 
+## 2026-07-16 18:55 — #595 score + D-0535 offensive FALLTHROUGH
+- Objective: mandatory full `sessions` score; peel seed0373 @11957
+  mksobj_init rn2(5) vs rn2(4).
+- C locus: `muse.c` `rnd_offensive_item` case 0; `do_wear.c` `hard_helmet`.
+- Change: SCR_EARTH only if hard helm/amorph/walls/noncorp/unsolid;
+  else FALLTHROUGH → WAN_STRIKING; animal/expl/mindless early return.
+- Verification: #595 **30/44**, Scr **5900**/11405, RNG
+  **330332**/792838 (41.66%), `31+0.15/turn`; seed0373
+  **11957→11988** (RNG **12023**); green+strict; cohort 28/28.
+- Next: `collect_coords` @11988; or seed5006 dosounds @8468.
+
 ## 2026-07-16 16:52 — D-0534 mktrap WEB giant spider
 - Objective: seed0373 @9875 C `next_ident`/`newmonhp` vs JS `rnd(4)`.
 - C locus: `mklev.c` `mktrap` WEB→`makemon(PM_GIANT_SPIDER)`;
@@ -163,14 +174,3 @@ Use this shape:
   green+strict; cohort 28/28 PASS.
 - Next: @12521 fleeck `rn2(5)` vs dog_move `rn2(3)`; C transform @12522.
 
-## 2026-07-16 17:35 — #580 score + D-0522 TELE m_at reject
-- Objective: mandatory full `sessions` score; peel seed0116 @12330
-  `put_lregion_here` accept vs C reject.
-- C locus: `mkmaze.c` `put_lregion_here` TELE `m_at` gate;
-  `is_exclusion_zone`.
-- Change: reject TELE placement on occupied mon when `!oneshot`;
-  wire `is_exclusion_zone` (zones still unpopulated).
-- Verification: #580 **30/44**, Scr **5898**/11405, RNG
-  **321672**/792838 (40.57%), `29+0.15/turn`; seed0116
-  **12330→12461** (RNG **12509**); green+strict; cohort 10/10.
-- Next: `were_change` @12461; or Bar-strt / dosounds.

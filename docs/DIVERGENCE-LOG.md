@@ -4,6 +4,26 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
+## D-0535 — rnd_offensive_item case-0 FALLTHROUGH to WAN_STRIKING
+
+- **Status:** fixed (partial — full muse offensive/misc tables still thin)
+- **Symptom:** seed0373 @11957 C `mksobj_init` wand `rn2(5)` vs JS
+  scroll `rn2(4)` after matched `rnd_offensive_item` `rn2(13)=0`.
+- **Cause:** JS always returned `SCR_EARTH` on case 0; C returns
+  `SCR_EARTH` only if `hard_helmet` / amorphous / `passes_walls` /
+  noncorporeal / unsolid, else FALLTHROUGH → `WAN_STRIKING`.
+- **C locus:** `muse.c` `rnd_offensive_item` case 0; `do_wear.c`
+  `hard_helmet`; `worn.c` `which_armor`.
+- **Change:** port case-0 gate + FALLTHROUGH; local `which_armor` /
+  `hard_helmet`; restore animal/expl/mindless early return.
+- **Verification:** seed0373 rng-diff **11957→11988**; runner RNG
+  **12021→12023**/35386 Scr 22/124; green+strict PASS; cohort
+  **28**/28 PASS; full suite **30**/44.
+- **Named omission:** `is_helmet` armcat via `oc_skill===2` only;
+  full muse use_* tables.
+- **Next:** @11988 C `collect_coords` `rn2(8)` vs JS `rn2(2)`; or
+  seed5006 `dosounds` @8468.
+
 ## D-0534 — mktrap WEB giant spider before victim gate
 
 - **Status:** fixed (partial — full unified `mktrap()` still fragmented)

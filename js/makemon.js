@@ -49,6 +49,10 @@ import {
     is_vampire,
     is_vampshifter,
     vampshifted,
+    amorphous,
+    unsolid,
+    passes_walls,
+    noncorporeal,
 } from './monsters.js';
 import {
     NO_MINVENT, MM_NOGRP, MM_ASLEEP, MM_NONAME, MM_ESHK, MM_EGD, MM_EMIN,
@@ -58,10 +62,10 @@ import {
     SDOOR, SCORR, ZOO, VAULT, DELPHI, TEMPLE, SHOPBASE, FODDERSHOP,
     ROOMOFFSET,
     AM_NONE, AM_LAWFUL, AM_NEUTRAL, AM_CHAOTIC, ALIGNWEIGHT,
-    In_quest,
+    In_quest, W_ARMH,
 } from './const.js';
 import { enexto_core, enexto_gpflags, goodpos } from './teleport.js';
-import { mksobj, mkobj, mkobj_at, weight, objects_at, curse } from './mkobj.js';
+import { mksobj, mkobj, mkobj_at, weight, objects_at, curse, is_crackable } from './mkobj.js';
 
 /** Local t_at — avoid makemon↔trap import cycle; matches trap.js t_at. */
 function t_at_local(x, y) {
@@ -716,18 +720,50 @@ function m_initthrow(mtmp, otyp_, oquan) {
     mpickobj(mtmp, otmp);
 }
 
+// C ref: worn.c which_armor — avoid makemon↔trap cycle
+function which_armor_local(mtmp, mask) {
+    if (!mtmp) return null;
+    for (let otmp = mtmp.minvent; otmp; otmp = otmp.nobj) {
+        if ((otmp.owornmask || 0) & mask) return otmp;
+    }
+    return null;
+}
+
+// C ref: do_wear.c hard_helmet — metallic or glass helmet
+function hard_helmet_local(obj) {
+    if (!obj) return false;
+    const oc = objects[obj.otyp] ?? game.objects?.[obj.otyp];
+    if (!oc || (obj.oclass ?? oc.oc_class) !== ARMOR_CLASS) return false;
+    // ARM_HELM = 2 (objclass.h oc_armcat / oc_skill for helms)
+    if ((oc.oc_skill ?? oc.oc_armcat ?? -1) !== 2) return false;
+    const mat = oc.oc_material ?? 0;
+    const IRON = 11, MITHRIL = 15;
+    if (mat >= IRON && mat <= MITHRIL) return true;
+    return is_crackable(obj);
+}
+
 // C ref: muse.c rnd_offensive_item — ordinary non-animal path only
 function rnd_offensive_item(mtmp) {
     const pm_ = mtmp.data;
     const difficulty = mon_difficulty(pm_.mndx);
-    // animal / expl / mindless / ghost / kop → 0 (no RNG); early armed mlets skip
-    if (pm_.mlet === 'S_GHOST' || pm_.mlet === 'S_KOP') return 0;
+    const AT_EXPL = 13;
+    // animal / expl / mindless / ghost / kop → 0 (no RNG)
+    if (is_animal(pm_) || attacktype(pm_, AT_EXPL) || mindless(pm_)
+        || pm_.mlet === 'S_GHOST' || pm_.mlet === 'S_KOP') {
+        return 0;
+    }
     if (difficulty > 7 && !rn2(35)) return otyp('WAN_DEATH');
     switch (rn2(9 - (difficulty < 4 ? 1 : 0) + 4 * (difficulty > 6 ? 1 : 0))) {
-    case 0:
-        // hard_helmet / amorphous omitted → C FALLTHROUGH to case 1 when soft helm;
-        // for mklev commons without helmet, C returns SCR_EARTH. Match that.
-        return otyp('SCR_EARTH');
+    case 0: {
+        // C: SCR_EARTH only if hard helm / amorphous / walls / noncorporeal / unsolid;
+        // else FALLTHROUGH → WAN_STRIKING (D-0535)
+        const helmet = which_armor_local(mtmp, W_ARMH);
+        if (hard_helmet_local(helmet) || amorphous(pm_)
+            || passes_walls(pm_) || noncorporeal(pm_) || unsolid(pm_)) {
+            return otyp('SCR_EARTH');
+        }
+    }
+    // FALLTHROUGH
     case 1: return otyp('WAN_STRIKING');
     case 2: return otyp('POT_ACID');
     case 3: return otyp('POT_CONFUSION');
