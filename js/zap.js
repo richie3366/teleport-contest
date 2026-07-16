@@ -627,7 +627,8 @@ export async function zapyourself(obj, ordinary) {
             break;
         }
         learn_it = true;
-        const him = game.u?.female ? 'her' : 'him';
+        // C: uhim() → genders[flags.female ? 1 : 0].him (not u.female)
+        const him = game.flags?.female ? 'her' : 'him';
         if (!game.killer) game.killer = { name: '', format: 0 };
         game.killer.name = `shot ${him}self with a death ray`;
         game.killer.format = NO_KILLER_PREFIX;

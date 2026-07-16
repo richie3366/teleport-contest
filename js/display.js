@@ -2261,6 +2261,28 @@ function _paintToplineOnly() {
     }
 }
 
+/**
+ * C mid-goto_level: gbuf still holds prior map while level is detached;
+ * refresh message + status only (do not clearScreen blank the map).
+ */
+function _paintToplineAndStatus() {
+    _paintToplineOnly();
+    const display = game?.nhDisplay;
+    if (!display?.grid || !display.setCell || _statusSuppressed) return;
+    const cols = display.cols || 80;
+    const s1 = _lastStatus1 || '';
+    const s2 = _lastStatus2 || '';
+    const strip = (s) => s.replace(/\x1b\[[0-9;]*[A-Za-z]/g, (m) =>
+        m.match(/\x1b\[\d+C/) ? ' '.repeat(parseInt(m.slice(2), 10) || 0) : '');
+    const line1 = strip(s1);
+    for (let c = 0; c < cols; c++) display.setCell(c, 22, ' ', NO_COLOR, 0);
+    for (let c = 0; c < cols; c++) display.setCell(c, 23, ' ', NO_COLOR, 0);
+    for (let c = 0; c < Math.min(line1.length, cols); c++)
+        display.setCell(c, 22, line1[c], NO_COLOR, 0);
+    for (let c = 0; c < Math.min(s2.length, cols); c++)
+        display.setCell(c, 23, s2[c], NO_COLOR, 0);
+}
+
 // ── flush_screen ──
 // C ref: display.c flush_screen — mode -1 toggles postpone; while postponed,
 // map/botl flushes are no-ops (message paints still allowed for more()).
@@ -2283,6 +2305,11 @@ export async function flush_screen(mode) {
     else if (flags.time_botl) {
         // timebot deferred — clear flag so it does not stick
         flags.time_botl = false;
+    }
+    // Mid goto_level / getbones: keep stale map cells like C gbuf.
+    if (!game.level || game._stale_map_flush) {
+        _paintToplineAndStatus();
+        return;
     }
     _buildScreenOutput();
 }

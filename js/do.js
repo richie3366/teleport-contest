@@ -377,6 +377,9 @@ export async function goto_level(newlevel, at_stairs, falling, portal) {
     if (!u.utolev) u.utolev = { dnum: 0, dlevel: 0 };
     assign_level(u.utolev, newlevel);
     u.utotype = 0;
+    // C: depth change → status refresh on next flush (getbones yn sees new Dlvl)
+    if (!game.flags) game.flags = {};
+    game.flags.botl = true;
 
     // C: dunlev_reached for non-builds_up
     const dun = game.dungeons?.[u.uz.dnum | 0];

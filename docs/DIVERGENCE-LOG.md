@@ -4,6 +4,30 @@ Evidence-backed history of important C↔JS divergences. Active speculation stay
 small in `NOTES.md`; once a cause is proved or a dead end is expensive enough
 to preserve, record it here.
 
+## D-0581 — wizard Die?/bones yn + hidden_gold (seed5006 Scr)
+
+- **Status:** fixed (partial — death urexp 134 vs 144 @187; Get bones?
+  stale map glyph content)
+- **Symptom:** seed5006 Scr **230**/249 after D-0580; first miss @185 —
+  C `Die? [yn] (n)` / `Save bones?` vs JS already on death RIP summary.
+- **Cause:** `done` omitted wizard·discover `Die?` + `savelife`;
+  `really_done` omitted `Save bones?`; `getbones` omitted Get/Unlink;
+  `savebones` omitted Replace; score omitted `hidden_gold`; death-ray
+  killer used `u.female` instead of `flags.female` (`uhim`).
+- **C locus:** `end.c` `done`/`savelife`/`really_done`; `bones.c`
+  `getbones`/`savebones`; `vault.c` `hidden_gold`; `zap.c` WAN_DEATH;
+  `you.h` `uhim`.
+- **Change:** port Die?/savelife/Save bones?/Get/Unlink/Replace yn;
+  `hidden_gold`/`contained_gold` in score; zap `flags.female`; stale-map
+  flush + botl on `uz` assign during getbones yn.
+- **Verification:** seed5006 Scr **230→246**/249 RNG FULL; green+strict
+  PASS; cohort **29**/29 PASS; seed0116 Scr **115**/127 held.
+- **Named omission:** Lifesaved amulet; ParanoidDie/Bones getlin;
+  savelife Sick/endmultishot/uswallow; Get bones? stale map content
+  (DEC water vs prior-level glyphs); pre-death urexp 30 vs ~40.
+- **Next:** seed5006 @187 points 134 vs 144; or map glyphs @198; or
+  seed0116 Scr 115/127.
+
 ## D-0580 — doread confused mispronounce before seffects (seed5006 Scr)
 
 - **Status:** fixed (partial — Die?/Save-bones yn @185; other seffect_*)

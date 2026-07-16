@@ -222,3 +222,12 @@
 - Verification: rng-diff **9875→11957**; RNG **12021**/35386;
   green+strict PASS; cohort **28**/28 PASS.
 - Next: @11957 `mksobj_init` `rn2(5)` vs `rn2(4)`; or seed5006.
+
+## 2026-07-16 22:44 — D-0570 mon_pmname / M2_PNAME article
+- Objective: seed0373 @101 Wizard appear capitalization (CURRENT primary).
+- C locus: do_name.c mon_pmname/pmname/x_monnam name_at_start; mondata.h
+  type_is_pname; wizard.c resurrect Norep(Monnam).
+- Change: js/do_name.js mon_pmname from pmnames + M2_PNAME article skip.
+- Verification: seed0373 Scr 110→111 RNG full; @101 match; green+strict;
+  cohort 30/30 PASS.
+- Next: @110 Air gravity map clouds; or seed5006 dosounds @8468.

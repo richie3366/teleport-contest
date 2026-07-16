@@ -599,10 +599,17 @@ export const aligns = [
 ];
 
 export const genders = [
-    // C: adj / pronouns / filecode / allow — ROLE_MALE/FEMALE
-    { name: 'male', adj: 'male', filecode: 'Mal', allow: 0x1000, value: 0 },
-    { name: 'female', adj: 'female', filecode: 'Fem', allow: 0x2000, value: 1 },
+    // C role.c: adj / he / him / his / filecode / allow
+    { name: 'male', adj: 'male', he: 'he', him: 'him', his: 'his',
+        filecode: 'Mal', allow: 0x1000, value: 0 },
+    { name: 'female', adj: 'female', he: 'she', him: 'her', his: 'her',
+        filecode: 'Fem', allow: 0x2000, value: 1 },
 ];
+
+/** C ref: you.h uhim() — genders[flags.female].him */
+export function uhim() {
+    return genders[game.flags?.female ? 1 : 0]?.him || 'him';
+}
 
 export function findRole(name) {
     if (!name) return null;

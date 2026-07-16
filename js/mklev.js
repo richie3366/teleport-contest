@@ -475,7 +475,7 @@ function in_rooms(x, y, rtype) { return []; }
 // ============================================================
 
 // C ref: bones.c getbones() — chance roll then VFS open/restore (D-0274).
-function getbones() {
+async function getbones() {
     const flags = game.flags || {};
     // C: discover global; JS playmode explore/discover both set flags.explore
     if (flags.explore || flags.discover) return false;
@@ -502,7 +502,7 @@ export async function mklev() {
     // C: init_mapseen before getbones
     const { init_mapseen } = await import('./dungeon.js');
     init_mapseen(g.u?.uz);
-    if (getbones()) return;
+    if (await getbones()) return;
     g.in_mklev = true;
     await makelevel();
     recount_level_features();
